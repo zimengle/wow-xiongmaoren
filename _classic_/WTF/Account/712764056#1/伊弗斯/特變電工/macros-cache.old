@@ -1,0 +1,110 @@
+VER 3 0100000001000019 "AOe" "INV_MISC_QUESTIONMARK"
+#showtooltip 复仇
+/cast [nostance:2] 防御姿态
+/cast [combat,stance:2] 血性狂暴
+/cast [stance:2] 顺劈斩
+/cast [stance:2,equipped:盾牌] 盾牌格挡
+/startattack
+END
+VER 3 010000000100001B "VuhDoDCShieldData" "Ability_Repair"
+P[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]1WM[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
+END
+VER 3 010000000100001C "减伤" "134400"
+/施放 挫志战旗
+/施放 集结呐喊
+END
+VER 3 0100000001000003 "取消保护宏" "135964"
+/startattack
+/cancelaura 保护之手
+END
+VER 3 0100000001000001 "取消耐力" "135833"
+/cancelaura 命令怒吼
+/cancelaura 坚韧祷言
+/cancelaura 真言术：韧
+END
+VER 3 0100000001000002 "吐口水" "132100"
+/耳光
+END
+VER 3 010000000100000D "嗜血" "136012"
+/startattack
+/cast 嗜血
+END
+VER 3 0100000001000004 "坐騎" "132231"
+/cast 塞纳里奥作战角鹰兽
+/cast 阿曼尼战熊
+END
+VER 3 010000000100001A "复仇单体" "INV_MISC_QUESTIONMARK"
+#showtooltip 英勇打击
+/cast [nostance:2]防御姿态
+/cast 复仇
+/cast !英勇打击
+END
+VER 3 010000000100001E "巨人打击" "134400"
+/施放 巨人打击
+/施放 狂暴之怒
+END
+VER 3 010000000100001D "打断" "134400"
+#showtooltip
+/use [@focus,exists,nohelp,nodead][@mouseover,exists,nodead,nohelp][] 拳击
+END
+VER 3 0100000001000007 "挫敗" "132269"
+/startattack
+/cast 挫敗
+END
+VER 3 0100000001000008 "换武器" "132281"
+/equip 16 双刃屠斧
+/equipslot 17 双刃屠斧
+/cast 狂暴姿态
+END
+VER 3 010000000100000E "援護" "132365"
+/cast  防御姿态
+/cast 援护
+END
+VER 3 0100000001000015 "斬殺" "INV_MISC_QUESTIONMARK"
+#showtooltip 斩杀
+/cast 斩杀
+/cast !英勇打击
+/startattack
+END
+VER 3 0100000001000018 "爆发" "135567"
+/施放 天神下凡
+/施放 狂暴之怒
+/施放 鲁莽
+/施放 血性狂怒(种族特长)
+/施放 碎裂投掷
+END
+VER 3 0100000001000017 "爆發" "INV_MISC_QUESTIONMARK"
+/施放 死亡之愿
+/施放 血性狂怒(种族特长)
+/use 阿德里亚娜的隐秘护手
+END
+VER 3 010000000100000B "盾墙" "132361"
+#showtooltip 盾墙
+/equipslot 16 双刃屠斧
+/equipslot 17 北风卫士
+/cast 防御姿态
+/cast 盾墙
+END
+VER 3 0100000001000006 "致死" "134400"
+#showtooltip 拳击
+/cast [target=focus] 拳击
+/cast 拳击
+END
+VER 3 0100000001000010 "英勇打击" "134400"
+#showtooltip 英勇打击
+/cast !英勇打击
+/cast 乘胜追击
+/cancelaura 保护之手
+/startattack
+END
+VER 3 0100000001000016 "英勇打擊" "INV_MISC_QUESTIONMARK"
+#showtooltip 拳击
+/cast [nostance:3] 狂暴姿态
+/cast 拳击
+END
+VER 3 0100000001000014 "順劈斬" "INV_MISC_QUESTIONMARK"
+#showtooltip 顺劈斩
+/cast 顺劈斩
+/cast 乘胜追击
+/startattack
+END

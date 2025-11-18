@@ -1,0 +1,4 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file='TalentsClassic.lua'/>
+	<Script file='RaidCore_old.lua'/>
+</Ui>

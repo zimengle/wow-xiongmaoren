@@ -1,0 +1,12 @@
+
+TrokkoAutoCombatLoggerDB = {
+["enabledRaids"] = {
+["Blackwing Lair"] = true,
+["Naxxramas"] = true,
+["Onyxia's Lair"] = true,
+["Temple of Ahn'Qiraj"] = true,
+["Ruins of Ahn'Qiraj"] = true,
+["Molten Core"] = true,
+["Zul'Gurub"] = true,
+},
+}

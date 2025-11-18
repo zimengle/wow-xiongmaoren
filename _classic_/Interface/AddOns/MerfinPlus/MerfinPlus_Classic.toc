@@ -1,0 +1,15 @@
+## Interface: 11503
+## Title: MerfinPlus
+## Notes: Inserts Merfin media into LibSharedMedia's storage.
+## Version: 2.02
+## IconTexture: Interface\AddOns\MerfinPlus\Media\icons\merfinui_logo_2
+## SavedVariables: MerfinPlusSaved
+## OptionalDeps: LibStub, LibSharedMedia-3.0
+## X-Wago-ID: bGoMEq60
+
+libs\libs.xml
+MerfinPlus.lua
+Options.lua
+Media\Media.xml
+WeakAuras_API\WeakAuras_API.xml
+Localizations\localizations.xml

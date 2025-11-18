@@ -1,0 +1,15 @@
+VER 3 0000000001000003 "10人" "INV_MISC_QUESTIONMARK"
+/5 10人NAXX 1 3 5 速推G团 来双休坦 补贴500
+END
+VER 3 0000000001000001 "坐骑" "INV_MISC_QUESTIONMARK"
+#showtooltip 迅捷绿色狮鹫
+/use 迅捷绿色狮鹫
+/use 迅捷棕马
+END
+VER 3 0000000001000004 "嫁祸" "INV_MISC_QUESTIONMARK"
+#showtooltips 嫁祸诀窍
+/cast [help] [target=focus, help] [target=targettarget, help] 嫁祸诀窍
+END
+VER 3 0000000001000002 "爆发宏" "INV_MISC_QUESTIONMARK"
+/use [mod:ctrl]
+END

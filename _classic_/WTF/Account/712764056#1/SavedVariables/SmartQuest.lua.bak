@@ -1,0 +1,46 @@
+
+SmartQuestOptions = {
+	["DataCode"] = "1",
+	["Setting"] = {
+		["特變電工"] = {
+			["Monitor"] = true,
+			["PartySound"] = false,
+			["SelfMonitor"] = false,
+			["MySound"] = true,
+			["MySoundItem"] = true,
+			["PartySoundDone"] = false,
+			["MySoundDone"] = true,
+			["MySoundObjective"] = true,
+			["PartySoundItem"] = false,
+			["PartySoundObjective"] = false,
+			["MySoundFailed"] = true,
+			["ChatFrameId"] = 1,
+			["PartySoundFailed"] = false,
+			["TextColor"] = {
+				["R"] = 1,
+				["G"] = 0.78,
+				["B"] = 1,
+			},
+		},
+		["邁克爾假死"] = {
+			["Monitor"] = true,
+			["PartySound"] = false,
+			["SelfMonitor"] = false,
+			["ChatFrameId"] = 1,
+			["TextColor"] = {
+				["B"] = 1,
+				["G"] = 0.78,
+				["R"] = 1,
+			},
+			["PartySoundFailed"] = false,
+			["MySoundDone"] = true,
+			["MySoundObjective"] = true,
+			["PartySoundItem"] = false,
+			["PartySoundObjective"] = false,
+			["MySoundFailed"] = true,
+			["PartySoundDone"] = false,
+			["MySoundItem"] = true,
+			["MySound"] = true,
+		},
+	},
+}

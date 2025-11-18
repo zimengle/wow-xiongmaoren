@@ -1,0 +1,18 @@
+
+TalentEmuSV = {
+	["_GlobalRef"] = {
+	},
+	["set"] = {
+		["supreme"] = false,
+		["minimapPos"] = 185,
+	},
+	["var"] = {
+		["Player-5844-00D36686"] = "!T129N0115zyDu3!E120+^+Ein:8N:9+Qz4:8N:9+hX3:8N:9+a:8N:9+kcn:8N:9+Oa3:8N:9+7T1:1E:7N:9+Zm3:6bG:10ihWT1:1N:9+Sa3:8N:9+bj:8N:9+Ov2:6VG:10q1hS:1N:9+Lz4:8N:9+0F5:8N:9+^+9F1:8N:9+ul:8N:9+^+U71:8N:9+^!N12",
+		["Player-5845-010036E7"] = "!T121N0118qZX6:::5!E120+^+^+Qz4:8N:9+hX3:8N:9+^+tT:8N:9+yX1:8N:9+Na1:6C9:10CXBE1:1N:9+VF:8N:9+VX3:8N:9+oT:8N:9+Iw2:8N:9+Lz4:8N:9+yE5:8N:9+^+9F1:8N:9+yk1:8N:9+^+^+^!N12",
+		["savedTalent"] = {
+		},
+	},
+	["_version"] = 220811,
+	["_GlobalAssign"] = {
+	},
+}

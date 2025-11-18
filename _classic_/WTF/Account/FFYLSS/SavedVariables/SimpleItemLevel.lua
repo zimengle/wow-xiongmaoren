@@ -1,0 +1,6 @@
+SimpleItemLevelDB = {
+["equipment"] = true,
+["inspect"] = true,
+["characteravg"] = false,
+["tooltip"] = false,
+}

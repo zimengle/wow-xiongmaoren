@@ -1,0 +1,14 @@
+VER 3 0100000001000001 "VuhDoDCShieldData" "Ability_Repair"
+P[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]1IH[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
+END
+VER 3 0100000001000002 "VuhDoDCShieldNames" "Ability_Repair"
+N[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]新特能[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
+END
+VER 3 0100000001000003 "坐骑" "INV_MISC_QUESTIONMARK"
+#showtooltip 金色狮鹫
+/use 青铜幼龙
+/use 迅捷白马
+END
+VER 3 0100000001000004 "监狱" "INV_MISC_QUESTIONMARK"
+/5 {圆形}H 监狱{圆形} {圆形}战争囚徒印记{圆形} 已需求 出了一人100G 来T DPS 治疗 
+END

@@ -1,0 +1,26 @@
+
+DataStore_Characters_Info = {
+	{
+		["zone"] = "达拉然",
+		["maxXP"] = 1691700,
+		["guildRankIndex"] = 6,
+		["money"] = 88584,
+		["bindLocation"] = "达拉然",
+		["XP"] = 0,
+		["subZone"] = "克拉苏斯平台",
+		["lastUpdate"] = 1719675110,
+		["name"] = "特变电工",
+		["BaseInfo"] = 2624080,
+		["lastLogoutTimestamp"] = 1719675110,
+		["XPInfo"] = 1773876019200,
+	}, -- [1]
+}
+DataStore_Characters_GuildRanks = {
+	{
+		[6] = "小星星",
+	}, -- [1]
+}
+DataStore_Characters_Options = {
+	["RequestPlayTime"] = true,
+	["HideRealPlayTime"] = false,
+}

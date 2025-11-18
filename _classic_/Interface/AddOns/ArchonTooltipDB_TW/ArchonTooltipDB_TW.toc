@@ -1,0 +1,31 @@
+## Interface: 50500
+## Title: Archon Tooltip DB - Taiwan Classic
+## Author: Archon
+## Dependencies: ArchonTooltip
+## DefaultState: enabled
+## LoadOnDemand: 1
+## X-Database-Key: TW
+## X-Database-Name: Taiwan Classic
+## X-Game-Version-ID: warcraft-classic
+## X-Updated-At: 2025-09-11T14:07:20.000Z
+## IconTexture: Interface/AddOns/ArchonTooltip/Media/logo-32-circle.tga
+## Category: Archon
+
+../ArchonTooltip/DB/db_1040_TW_5052_subscribers.lua
+../ArchonTooltip/DB/db_1040_TW_5053_subscribers.lua
+../ArchonTooltip/DB/db_1040_TW_5200_subscribers.lua
+../ArchonTooltip/DB/db_1040_TW_5201_subscribers.lua
+../ArchonTooltip/DB/db_1040_TW_5206_subscribers.lua
+../ArchonTooltip/DB/db_1040_TW_5203_subscribers.lua
+../ArchonTooltip/DB/db_1040_TW_5205_subscribers.lua
+../ArchonTooltip/DB/db_1040_TW_5204_subscribers.lua
+../ArchonTooltip/DB/db_1040_TW_5202_subscribers.lua
+../ArchonTooltip/DB/db_1040_TW_5052_weekly.lua
+../ArchonTooltip/DB/db_1040_TW_5053_weekly.lua
+../ArchonTooltip/DB/db_1040_TW_5206_weekly.lua
+../ArchonTooltip/DB/db_1040_TW_5200_weekly.lua
+../ArchonTooltip/DB/db_1040_TW_5201_weekly.lua
+../ArchonTooltip/DB/db_1040_TW_5203_weekly.lua
+../ArchonTooltip/DB/db_1040_TW_5205_weekly.lua
+../ArchonTooltip/DB/db_1040_TW_5204_weekly.lua
+../ArchonTooltip/DB/db_1040_TW_5202_weekly.lua

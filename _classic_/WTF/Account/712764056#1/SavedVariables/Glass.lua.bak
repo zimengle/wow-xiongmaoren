@@ -1,0 +1,16 @@
+
+GlassDB = {
+	["profileKeys"] = {
+		["特變電工 - 伊弗斯"] = "Default",
+	},
+	["global"] = {
+		["version"] = "1.8.0",
+	},
+	["profiles"] = {
+		["Default"] = {
+			["editBoxAnchor"] = {
+				["xOfs"] = 8,
+			},
+		},
+	},
+}

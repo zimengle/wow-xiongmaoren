@@ -1,0 +1,22 @@
+MerInspectDB = {
+["ShowOwnFrameWhenInspecting"] = false,
+["Debug"] = false,
+["ShowCharacterItemStats"] = true,
+["ShowInspectAngularBorder"] = false,
+["ShowCharacterItemSheet"] = true,
+["ShowItemStats"] = true,
+["ShowInspectItemSheet"] = true,
+["version"] = 1,
+["position"] = {
+"TOP",
+"UIParent",
+"TOP",
+-325.2386779785156,
+-123.0474090576172,
+1,
+},
+["DefaultPosition"] = false,
+["ShowItemSlotString"] = false,
+["ShowInspectColoredLabel"] = true,
+["ShowItemBorder"] = true,
+}

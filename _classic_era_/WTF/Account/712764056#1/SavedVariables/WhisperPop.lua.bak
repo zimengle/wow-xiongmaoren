@@ -1,0 +1,44 @@
+
+WhisperPopDB = {
+["listHeight"] = 320,
+["positions"] = {
+["WhisperPopFrame"] = {
+"CENTER",
+"UIParent",
+"CENTER",
+0,
+-20,
+},
+["WhisperPopNotifyButton"] = {
+"BOTTOMLEFT",
+"UIParent",
+"BOTTOMLEFT",
+378,
+185,
+},
+},
+["sound"] = 1,
+["listWidth"] = 200,
+["save"] = 1,
+["timeFormat"] = 2,
+["ignoreTags"] = 1,
+["buttonScale"] = 100,
+["history"] = {
+{
+["received"] = 1,
+["class"] = "BN",
+["name"] = "Oneonone#3565",
+["messages"] = {
+"0[03/30 22:08:11]巴菲特",
+"0[03/30 22:08:11]牛逼",
+"1[03/30 22:08:34]牛逼",
+},
+},
+},
+["time"] = 1,
+["version"] = 4.12,
+["foreignOnly"] = 1,
+["applyFilters"] = 1,
+["notifyButton"] = 1,
+["listScale"] = 100,
+}

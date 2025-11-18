@@ -1,0 +1,10 @@
+
+_weizpvp_globaldb = {
+	["profileKeys"] = {
+		["豬圈一 - 伊弗斯"] = "豬圈一 - 伊弗斯",
+	},
+}
+_weizpvp_global_info = {
+	["Database_Version"] = 3,
+	["Addon_Version"] = "v1.9.6.2b",
+}

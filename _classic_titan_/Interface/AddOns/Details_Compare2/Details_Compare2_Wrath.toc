@@ -1,0 +1,7 @@
+## Interface: 30800
+## Title: Details!: Compare 2.0 |cffd4af37谷|r|cffdbb850风|r|cffe2c069修|r|cffe9c882复|r|cfff0d09b版|r
+## Notes: Replace the Compare tab in the player breakdown window.
+## RequiredDeps: Details
+## IconTexture: Interface\AddOns\Details\images\minimap
+
+Details_Compare2.lua

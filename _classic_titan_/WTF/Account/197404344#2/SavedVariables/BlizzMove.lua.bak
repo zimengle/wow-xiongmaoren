@@ -1,0 +1,265 @@
+
+BlizzMoveDB = {
+["saveScaleStrategy"] = "permanent",
+["scales"] = {
+["CharacterFrame"] = 1.100000047683716,
+["TradeSkillFrame"] = 1.000000023841858,
+["ReadyCheckFrame"] = 1.000000023841858,
+["AuctionFrame"] = 1.100000047683716,
+["MailFrame"] = 1.000000023841858,
+["PlayerTalentFrame"] = 1.300000047683716,
+["DressUpFrame"] = 1.099999880790711,
+},
+["mutedCompatWarnings"] = {
+},
+["points"] = {
+["GuildInfoFrameScrollFrame"] = {
+},
+["PVPTeam3"] = {
+},
+["PetPaperDollFrame"] = {
+},
+["AddonList"] = {
+},
+["GameMenuFrame"] = {
+},
+["ItemTextFrame"] = {
+},
+["PetPaperDollFrameCompanionFrame"] = {
+},
+["PaperDollFrame"] = {
+},
+["WorldMapTitleButton"] = {
+},
+["LFGListFrame.ApplicationViewer.UnempoweredCover"] = {
+},
+["PetitionFrame"] = {
+},
+["CommunitiesFrame.NotificationSettingsDialog"] = {
+},
+["OpenMailFrameInset"] = {
+},
+["QuestMapFrame.DetailsFrame.ScrollFrame"] = {
+},
+["QuestFrame"] = {
+},
+["TradeFrame"] = {
+},
+["PetStableFrame"] = {
+},
+["ReputationFrame"] = {
+},
+["CommunitiesGuildLogFrame"] = {
+},
+["BattlefieldFrame"] = {
+},
+["SettingsPanel"] = {
+["startPoints"] = {
+{
+["anchorPoint"] = "CENTER",
+["relativeFrame"] = "UIParent",
+["offY"] = 0,
+["offX"] = 3.0517578125e-05,
+["relativePoint"] = "CENTER",
+},
+},
+["dragged"] = true,
+["dragPoints"] = {
+{
+["anchorPoint"] = "CENTER",
+["relativeFrame"] = "UIParent",
+["offY"] = 0,
+["offX"] = 3.0517578125e-05,
+["relativePoint"] = "CENTER",
+},
+},
+},
+["MailFrameInset"] = {
+},
+["FriendsFrameFriendsScrollFrame"] = {
+},
+["FriendsFrame"] = {
+},
+["GossipFrame"] = {
+},
+["CommunitiesFrame.GuildMemberDetailFrame"] = {
+},
+["DressUpFrame"] = {
+},
+["WorldMapFrame"] = {
+["startPoints"] = {
+{
+["anchorPoint"] = "CENTER",
+["relativeFrame"] = "UIParent",
+["offY"] = 14.90644937267371,
+["offX"] = 11.43254897345832,
+["relativePoint"] = "CENTER",
+},
+},
+["dragged"] = true,
+["dragPoints"] = {
+{
+["anchorPoint"] = "CENTER",
+["relativeFrame"] = "UIParent",
+["offY"] = 8.811192046081487,
+["offX"] = -3.043735396262491,
+["relativePoint"] = "CENTER",
+},
+},
+},
+["RaidInfoFrame"] = {
+},
+["PVPFrame"] = {
+},
+["PVEFrame"] = {
+},
+["QuestMapFrame"] = {
+},
+["QuestLogFrame"] = {
+},
+["SkillFrame"] = {
+},
+["ReadyCheckFrame"] = {
+},
+["CommunitiesSettingsDialog"] = {
+},
+["SendMailFrame"] = {
+},
+["InspectPaperDollFrame"] = {
+},
+["GuildEventLogFrame"] = {
+},
+["ClubFinderGuildFinderFrame.RequestToJoinFrame"] = {
+},
+["MailFrame"] = {
+},
+["InspectPVPFrame"] = {
+},
+["MacroFrame"] = {
+},
+["ChatConfigFrame"] = {
+},
+["AchievementFrameCategoriesContainer"] = {
+},
+["AchievementFrame"] = {
+},
+["InspectPVPFrameArena"] = {
+},
+["CharacterFrame"] = {
+},
+["GuildInfoFrame"] = {
+},
+["GlyphFrame"] = {
+},
+["TabardFrame"] = {
+},
+["PlayerTalentFrame"] = {
+["startPoints"] = {
+{
+["anchorPoint"] = "LEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = 49.37139835567359,
+["offX"] = 0,
+["relativePoint"] = "LEFT",
+},
+},
+["dragged"] = true,
+["dragPoints"] = {
+{
+["anchorPoint"] = "CENTER",
+["relativeFrame"] = "UIParent",
+["offY"] = -0.1522997789797955,
+["offX"] = -0.8572485696677177,
+["relativePoint"] = "CENTER",
+},
+},
+},
+["LootFrame"] = {
+},
+["PVPBannerFrame"] = {
+},
+["InspectPVPFrameHonor"] = {
+},
+["SpellBookFrame"] = {
+},
+["GuildFrame"] = {
+},
+["InspectTalentFrame"] = {
+},
+["TutorialFrame"] = {
+},
+["InspectPVPTeam3"] = {
+},
+["FriendsFrameBattlenetFrame.BroadcastFrame"] = {
+},
+["PVPTeam1"] = {
+},
+["PVPParentFrame"] = {
+},
+["PVPTeam2"] = {
+},
+["InspectFrame"] = {
+},
+["AchievementFrameAchievementsContainer"] = {
+},
+["TokenFrameContainer"] = {
+},
+["ReputationDetailFrame"] = {
+},
+["CommunitiesFrame"] = {
+},
+["BankFrame"] = {
+},
+["InspectPVPTeam2"] = {
+},
+["CommunitiesFrame.RecruitmentDialog"] = {
+},
+["ModelPreviewFrame"] = {
+},
+["QuestMapFrame.DetailsFrame.RewardsFrame"] = {
+},
+["GuildRegistrarFrame"] = {
+},
+["OpenMailFrame"] = {
+},
+["TokenFrame"] = {
+},
+["AchievementFrameHeader"] = {
+},
+["InspectPVPTeam1"] = {
+},
+["ArenaRegistrarFrame"] = {
+},
+["MerchantFrame"] = {
+},
+["PVPFrameArena"] = {
+},
+["OpenMailSender"] = {
+},
+["HelpFrame"] = {
+},
+["WorldStateScoreFrame"] = {
+},
+["TaxiFrame"] = {
+},
+["CommunitiesGuildNewsFiltersFrame"] = {
+},
+["GuildControlUI"] = {
+},
+["PVPFrameHonor"] = {
+},
+["GuildControlPopupFrame"] = {
+},
+["TimeManagerFrame"] = {
+},
+["QuestLogDetailFrame"] = {
+},
+["CommunitiesGuildTextEditFrame"] = {
+},
+["TokenFramePopup"] = {
+},
+["ChannelFrame"] = {
+},
+},
+["savePosStrategy"] = "permanent",
+}

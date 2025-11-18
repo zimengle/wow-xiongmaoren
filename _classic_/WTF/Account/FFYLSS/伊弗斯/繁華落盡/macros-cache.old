@@ -1,0 +1,99 @@
+VER 3 0000000001000012 " " "INV_Misc_QuestionMark"
+#showtooltip 血性狂暴
+/castsequence reset=5 血性狂暴,戰鬥怒吼
+END
+VER 3 000000000100000E " " "INV_MISC_QUESTIONMARK"
+#showtooltip 血性狂暴
+/castsequence reset=4 血性狂暴,戰鬥怒吼
+/startattact
+END
+VER 3 000000000100000F " 嗜血" "136012"
+#showtooltip 嗜血(等級 4)
+/cast 嗜血(等級 4)
+/startattack
+END
+VER 3 000000000100000D " 懲戒" "132350"
+#showtooltip 懲戒痛擊(等級 5)
+/cast 戰鬥姿態
+/cast 懲戒痛擊(等級 5)
+END
+VER 3 0000000001000002 " 打斷" "132938"
+#show [stance:1]盾擊;[stance:2]盾擊; [stance:3]拳擊
+/startattack
+/cast [stance:3] 拳擊
+/equipslot [nostance:3]16 風暴戰斧
+/equipslot [nostance:3]17 無法撼動之物
+/cast 盾擊
+END
+VER 3 0000000001000001 " 撕裂" "132302"
+#showtooltip 撕裂
+/cast 撕裂
+/startattack
+END
+VER 3 0000000001000013 "VuhDoDCShieldData" "132281"
+#showtootip 狂暴姿態
+/equipslot 16 削骨之鋒
+/cast 狂暴姿態
+END
+VER 3 0000000001000006 "戰鬥" "132349"
+#showtootip 戰鬥姿態
+/equip 光潔虛無斧
+/cast 戰鬥姿態
+END
+VER 3 0000000001000009 "攔截" "132307"
+#showtooltip 攔截(等級 3)
+/cast 狂暴姿態
+/cast 攔截(等級 3)
+END
+VER 3 0000000001000010 "狂撕" "132275"
+#showtooltip 撕裂(等級 7)
+/cast 撕裂(等級 7)
+/cast 狂暴姿態
+END
+VER 3 0000000001000008 "狂暴" "132275"
+#showtootip 狂暴姿態
+/equipslot 16 光潔虛無斧
+/cast 狂暴姿態
+END
+VER 3 0000000001000003 "盾猛" "135806"
+#showtooltip 盾牌猛擊(等級 5)
+/cast 盾牌猛擊(等級 5)
+/startattack
+END
+VER 3 0000000001000004 "破甲" "132363"
+#showtooltip 破甲攻擊(等級 6)
+/cast 破甲攻擊(等級 6)
+/startattack
+END
+VER 3 0000000001000005 "致死" "132355"
+#showtooltip 致死打擊(等級 4)
+/cast 致死打擊(等級 4)
+/startattack
+END
+VER 3 0000000001000011 "防破甲" "132363"
+#showtooltip 破甲攻擊(等級 5)
+/cast 防禦姿態
+/cast 破甲攻擊(等級 5)
+END
+VER 3 000000000100000A "防禦" "INV_Misc_QuestionMark"
+#showtooltip 盾牆
+/startattack
+/equip 風暴戰斧
+/equip 無法撼動之物
+/cast 防禦姿態
+/cast 盾牆
+END
+VER 3 000000000100000B "防禦" "132341"
+#showtootip 防禦姿態
+/equip 葛洛姆特的斧頭
+/equip 悍勇白金盾牌
+/cast 防禦姿態
+END
+VER 3 000000000100000C "防禦" "INV_Misc_QuestionMark"
+#showtooltip 盾牆
+/startattack
+/equip 痛擊之刃
+/equip 獵鷹之堅定圓盾
+/cast 防禦姿態
+/cast 盾牆
+END

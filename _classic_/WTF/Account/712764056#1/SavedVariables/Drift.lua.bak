@@ -1,0 +1,15 @@
+
+DriftPoints = {
+}
+DriftScales = {
+}
+DriftOptions = {
+	["objectivesDisabled"] = true,
+	["miscellaneousDisabled"] = true,
+	["bagsDisabled"] = true,
+	["frameDragIsLocked"] = false,
+	["buttonsDisabled"] = true,
+	["frameScaleIsLocked"] = false,
+	["windowsDisabled"] = false,
+	["minimapDisabled"] = true,
+}

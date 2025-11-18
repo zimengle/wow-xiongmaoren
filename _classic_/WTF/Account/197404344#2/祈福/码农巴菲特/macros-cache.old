@@ -1,0 +1,43 @@
+VER 3 010000000100000B "1" "INV_MISC_QUESTIONMARK"
+/cast [nomod] 天灾打击
+/cast [mod:alt] 灵界打击
+END
+VER 3 0100000001000007 "11" "132269"
+/5 {圆形}H 乌颠{圆形} {圆形} 陨星磨石 已需求 {圆形} 出了1人100G 来治疗 4=1
+END
+VER 3 010000000100000C "A" "INV_MISC_QUESTIONMARK"
+#showtooltip
+/cast [target=focus] 绞袭
+/cast 绞袭
+END
+VER 3 0100000001000009 "aa" "INV_MISC_QUESTIONMARK"
+#showtooltip
+/cast [nopet,nomounted] 亡者复生
+/cast [nomod,pet] 天灾契约
+END
+VER 3 0100000001000005 "VuhDoDCShieldData" "Ability_Repair"
+P[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]1ET[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
+END
+VER 3 0100000001000006 "VuhDoDCShieldNames" "Ability_Repair"
+N[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]码农巴[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
+END
+VER 3 0100000001000003 "坐骑" "INV_MISC_QUESTIONMARK"
+/use 迅捷紫色狮鹫
+/use 阿彻鲁斯死亡战马
+END
+VER 3 010000000100000A "沉默" "INV_MISC_QUESTIONMARK"
+/cast [nomod] 心灵冰冻
+/cast [mod:alt] 绞袭
+END
+VER 3 0100000001000004 "艾卓喊人" "INV_MISC_QUESTIONMARK"
+/5 {圆形}H 艾卓{圆形} {圆形} 蛛丝精华 已需求 {圆形} 出了1人100G 来dps和治疗
+END
+VER 3 0100000001000008 "邪DK" "INV_MISC_QUESTIONMARK"
+#showtooltip 冰冷触摸
+/console Sound_EnableSFX 0
+/castsequence reset=6/target/combat 冰冷触摸,暗影打击,鲜血打击,鲜血打击,天灾打击,天灾打击,鲜血打击,鲜血打击,天灾打击
+/cast !符文打击
+/petattack
+/console Sound_EnableSFX 1
+/script UIErrorsFrame:Clear()
+END

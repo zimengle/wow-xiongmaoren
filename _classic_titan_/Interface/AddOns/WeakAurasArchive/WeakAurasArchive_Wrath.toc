@@ -1,0 +1,7 @@
+## Interface: 30800
+## Title: WeakAuras Archive |cffd4af37谷|r|cffdbb850风|r|cffe2c069修|r|cffe9c882复|r|cfff0d09b版|r
+## Author: The WeakAuras Team
+## Version: 5.12.9a
+## LoadOnDemand: 1
+## SavedVariables: WeakAurasArchive
+## Dependencies: WeakAuras

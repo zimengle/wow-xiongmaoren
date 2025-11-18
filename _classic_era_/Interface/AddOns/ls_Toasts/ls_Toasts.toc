@@ -1,0 +1,13 @@
+## Interface: 20501
+## Author: lightspark
+## Version: 20501.01-R
+## Title: |r|cFF00FF00[通用]|r ls_Toasts |r|cFF0099FF[拾取美化]|r
+## Notes: 物品拾取通知美化，一个修改版。|n设置命令：|cFF00FF00/LST|r。|n简介：|cffee5885露露緹婭@Bilibili|r
+## SavedVariables: LS_TOASTS_GLOBAL_CONFIG
+
+embeds\_embeds.xml
+locales\_locales.xml
+core\_core.xml
+skins\_skins.xml
+systems\_systems.xml
+init.lua

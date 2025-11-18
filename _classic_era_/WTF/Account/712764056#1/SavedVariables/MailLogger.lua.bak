@@ -1,0 +1,45 @@
+
+MailLoggerDB = {
+["IgnoreItems"] = {
+["魔法肉桂面包"] = true,
+["特效治疗石"] = true,
+["魔法晶水"] = true,
+},
+["Config"] = {
+["MinimapIconAngle"] = 345,
+["EnableWhisper"] = false,
+["LogTrades"] = true,
+["LogEverything"] = false,
+["LogDays"] = 90,
+["EnableML"] = true,
+["OnlyThisCharacter"] = false,
+["ShowMinimapIcon"] = true,
+["SendToGroup"] = false,
+["SelectName"] = "三角碑碑帅",
+["PreventTrade"] = false,
+["EnableCalendar"] = true,
+["SendToPublic"] = false,
+["OutputFramePos"] = {
+"RIGHT",
+true,
+"RIGHT",
+-20,
+0,
+},
+["SetWindowPos"] = {
+"CENTER",
+nil,
+"CENTER",
+-210,
+0,
+},
+["AltList"] = {
+["三角碑碑帅"] = true,
+["特变电工-芬古斯的狂暴"] = true,
+["沃倫巴菲特"] = true,
+},
+["Mode"] = "ALL",
+},
+["TradeLog"] = {
+},
+}

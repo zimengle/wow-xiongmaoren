@@ -1,0 +1,39 @@
+
+PawnOptions = {
+["LastVersion"] = 2.1109,
+["LastPlayerFullName"] = "京东的董事长-祈福",
+["AutoSelectScales"] = true,
+["AutoSelectScalesEnabledOnce"] = true,
+["ItemLevels"] = {
+[6] = {
+["ID"] = 77509,
+["Level"] = 1,
+["Link"] = "|cffffffff|Hitem:77509::::::::1::1450::::::::|h[徒弟的束带]|h|r",
+},
+[7] = {
+["ID"] = 72020,
+["Level"] = 1,
+["Link"] = "|cffffffff|Hitem:72020::::::::1::1450::::::::|h[徒弟的绑腿]|h|r",
+},
+[16] = {
+["ID"] = 73209,
+["Level"] = 1,
+["Link"] = "|cffffffff|Hitem:73209::::::::1::1450::::::::|h[徒弟的木杖]|h|r",
+},
+[9] = {
+["ID"] = 73215,
+["Level"] = 2,
+["Link"] = "|cffffffff|Hitem:73215::::::::1::1450::::::::|h[新兵护腕]|h|r",
+},
+[5] = {
+["ID"] = 72019,
+["Level"] = 1,
+["Link"] = "|cffffffff|Hitem:72019::::::::1::1450::::::::|h[徒弟的外套]|h|r",
+},
+},
+}
+PawnMrRobotScaleProviderOptions = nil
+PawnClassicScaleProviderOptions = {
+["LastClass"] = "MONK",
+["LastAdded"] = 3,
+}

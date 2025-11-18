@@ -1,0 +1,27 @@
+## Interface: 11307
+## Title: What's Training? |cff99ddff谷|r|cff88ccee风|r|cff77bbdd修|r|cff66aacc复|r|cff5599bb版|r
+## Version: 5.0.4b
+## Author: Sveng
+## Notes: Shows you what spells are available at your class trainer
+## Notes-zhCN: 显示你职业训练师可用的法术 |cff99ddff谷|r|cff88ccee风|r|cff77bbdd@|r|cff66aaccD|r|cff5599bbo|r|cff4488aau|r|cff00aaffY|r|cff0099ffi|r|cff0088ffn|r
+## SavedVariablesPerCharacter: WT_LearnedPetAbilities, WT_NeedsToOpenBeastTraining
+## OptionalDeps: ClassTrainerPlus
+## X-Curse-Project-ID: 324944
+## X-WoWI-ID: 25031
+
+Utils.lua
+Cache.lua
+
+Classes\Classic\Druid.lua
+Classes\Classic\Hunter.lua
+Classes\Classic\Mage.lua
+Classes\Classic\Paladin.lua
+Classes\Classic\Priest.lua
+Classes\Classic\Rogue.lua
+Classes\Classic\Shaman.lua
+Classes\Classic\Warlock.lua
+Classes\Classic\Warrior.lua
+
+Localization.lua
+WhatsTrainingUI.lua
+WhatsTraining.lua

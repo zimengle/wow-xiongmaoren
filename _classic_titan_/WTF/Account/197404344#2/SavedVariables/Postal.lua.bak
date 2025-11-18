@@ -1,0 +1,17 @@
+
+Postal3DB = {
+["global"] = {
+["BlackBook"] = {
+["alts"] = {
+"京东刘强东|时光IV|Alliance|1|PALADIN",
+},
+},
+},
+["profileKeys"] = {
+["京东刘强东 - 时光IV"] = "京东刘强东 - 时光IV",
+},
+["profiles"] = {
+["京东刘强东 - 时光IV"] = {
+},
+},
+}

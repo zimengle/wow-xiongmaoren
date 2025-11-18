@@ -1,0 +1,285 @@
+
+TomTomDB = {
+["profileKeys"] = {
+["碼農巴菲特 - 伊弗斯"] = "Default",
+["康樂股長 - 伊弗斯"] = "Default",
+["畜生犬隊長 - 伊弗斯"] = "Default",
+["邁克爾假死 - 伊弗斯"] = "Default",
+["特斯拉大股東 - 伊弗斯"] = "Default",
+["家駒 - 伊弗斯"] = "Default",
+["巴非特 - 伊弗斯"] = "Default",
+["特變電工 - 伊弗斯"] = "Default",
+["頂級投資家 - 伊弗斯"] = "Default",
+["暖男你馬四了 - 伊弗斯"] = "Default",
+["裸辭 - 伊弗斯"] = "Default",
+},
+["profiles"] = {
+["Default"] = {
+["poi"] = {
+["setClosest"] = true,
+},
+["arrow"] = {
+["position"] = {
+"BOTTOM",
+nil,
+"BOTTOM",
+22.67329406738281,
+246.7955780029297,
+},
+},
+["block"] = {
+["enable"] = false,
+["position"] = {
+"TOPRIGHT",
+nil,
+"TOPRIGHT",
+-32.50681304931641,
+-196.4823760986328,
+},
+},
+},
+},
+}
+TomTomWaypoints = nil
+TomTomWaypointsM = {
+["profileKeys"] = {
+["碼農巴菲特 - 伊弗斯"] = "碼農巴菲特 - 伊弗斯",
+["康樂股長 - 伊弗斯"] = "康樂股長 - 伊弗斯",
+["畜生犬隊長 - 伊弗斯"] = "畜生犬隊長 - 伊弗斯",
+["邁克爾假死 - 伊弗斯"] = "邁克爾假死 - 伊弗斯",
+["特斯拉大股東 - 伊弗斯"] = "特斯拉大股東 - 伊弗斯",
+["家駒 - 伊弗斯"] = "家駒 - 伊弗斯",
+["巴非特 - 伊弗斯"] = "巴非特 - 伊弗斯",
+["特變電工 - 伊弗斯"] = "特變電工 - 伊弗斯",
+["頂級投資家 - 伊弗斯"] = "頂級投資家 - 伊弗斯",
+["暖男你馬四了 - 伊弗斯"] = "暖男你馬四了 - 伊弗斯",
+["裸辭 - 伊弗斯"] = "裸辭 - 伊弗斯",
+},
+["profiles"] = {
+["碼農巴菲特 - 伊弗斯"] = {
+},
+["康樂股長 - 伊弗斯"] = {
+[422] = {
+["422:428215079.12966:344449927.89302:TomTom 路径点"] = {
+422,
+0.4282150791296555,
+0.3444499278930185,
+["arrivaldistance"] = 15,
+["crazy"] = true,
+["persistent"] = true,
+["desc"] = "TomTom 路径点",
+["silent"] = true,
+["cleardistance"] = 10,
+["title"] = "TomTom 路径点",
+["from"] = "TomTom/wm",
+["callbacks"] = {
+["distance"] = {
+[10] = nil --[[ skipped inline function ]],
+[15] = nil --[[ skipped inline function ]],
+},
+["world"] = {
+["onclick"] = nil --[[ skipped inline function ]],
+["tooltip_update"] = nil --[[ skipped inline function ]],
+["tooltip_show"] = nil --[[ skipped inline function ]],
+},
+["minimap"] = {
+["onclick"] = nil --[[ skipped inline function ]],
+["tooltip_update"] = nil --[[ skipped inline function ]],
+["tooltip_show"] = nil --[[ skipped inline function ]],
+},
+},
+["minimap"] = true,
+["world"] = true,
+},
+["422:409402707.85613:350435718.33914:TomTom 路径点"] = {
+422,
+0.409402707856126,
+0.350435718339136,
+["arrivaldistance"] = 15,
+["crazy"] = true,
+["persistent"] = true,
+["desc"] = "TomTom 路径点",
+["silent"] = true,
+["cleardistance"] = 10,
+["title"] = "TomTom 路径点",
+["from"] = "TomTom/wm",
+["callbacks"] = {
+["distance"] = {
+[10] = nil --[[ skipped inline function ]],
+[15] = nil --[[ skipped inline function ]],
+},
+["world"] = {
+["onclick"] = nil --[[ skipped inline function ]],
+["tooltip_update"] = nil --[[ skipped inline function ]],
+["tooltip_show"] = nil --[[ skipped inline function ]],
+},
+["minimap"] = {
+["onclick"] = nil --[[ skipped inline function ]],
+["tooltip_update"] = nil --[[ skipped inline function ]],
+["tooltip_show"] = nil --[[ skipped inline function ]],
+},
+},
+["minimap"] = true,
+["world"] = true,
+},
+},
+[388] = {
+["388:399713011.59966:637050199.70954:TomTom 路径点"] = {
+388,
+0.3997130115996609,
+0.6370501997095377,
+["arrivaldistance"] = 15,
+["crazy"] = true,
+["persistent"] = true,
+["desc"] = "TomTom 路径点",
+["silent"] = true,
+["cleardistance"] = 10,
+["title"] = "TomTom 路径点",
+["from"] = "TomTom/wm",
+["callbacks"] = {
+["distance"] = {
+[10] = nil --[[ skipped inline function ]],
+[15] = nil --[[ skipped inline function ]],
+},
+["world"] = {
+["onclick"] = nil --[[ skipped inline function ]],
+["tooltip_update"] = nil --[[ skipped inline function ]],
+["tooltip_show"] = nil --[[ skipped inline function ]],
+},
+["minimap"] = {
+["onclick"] = nil --[[ skipped inline function ]],
+["tooltip_update"] = nil --[[ skipped inline function ]],
+["tooltip_show"] = nil --[[ skipped inline function ]],
+},
+},
+["minimap"] = true,
+["world"] = true,
+},
+},
+[118] = {
+["118:769682151.58924:211246943.76528:Meeting Stone"] = {
+118,
+0.7696821515892421,
+0.2112469437652812,
+["arrivaldistance"] = 15,
+["crazy"] = true,
+["persistent"] = true,
+["desc"] = "Meeting Stone",
+["silent"] = true,
+["cleardistance"] = 10,
+["title"] = "Meeting Stone",
+["from"] = "Questie",
+["callbacks"] = {
+["distance"] = {
+[10] = nil --[[ skipped inline function ]],
+[15] = nil --[[ skipped inline function ]],
+},
+["world"] = {
+["onclick"] = nil --[[ skipped inline function ]],
+["tooltip_update"] = nil --[[ skipped inline function ]],
+["tooltip_show"] = nil --[[ skipped inline function ]],
+},
+["minimap"] = {
+["onclick"] = nil --[[ skipped inline function ]],
+["tooltip_update"] = nil --[[ skipped inline function ]],
+["tooltip_show"] = nil --[[ skipped inline function ]],
+},
+},
+["minimap"] = true,
+["world"] = true,
+},
+},
+},
+["畜生犬隊長 - 伊弗斯"] = {
+},
+["邁克爾假死 - 伊弗斯"] = {
+[422] = {
+["422:406199352.93315:348564862.17509:TomTom 路径点"] = {
+422,
+0.4061993529331477,
+0.3485648621750937,
+["arrivaldistance"] = 15,
+["crazy"] = true,
+["persistent"] = true,
+["desc"] = "TomTom 路径点",
+["silent"] = true,
+["cleardistance"] = 10,
+["title"] = "TomTom 路径点",
+["from"] = "TomTom/wm",
+["callbacks"] = {
+["distance"] = {
+},
+["world"] = {
+},
+["minimap"] = {
+},
+},
+["minimap"] = true,
+["world"] = true,
+},
+},
+},
+["特斯拉大股東 - 伊弗斯"] = {
+[118] = {
+["118:544498777.50611:907090464.54768:Meeting Stone"] = {
+118,
+0.5444987775061125,
+0.9070904645476773,
+["arrivaldistance"] = 15,
+["crazy"] = true,
+["persistent"] = true,
+["desc"] = "Meeting Stone",
+["silent"] = true,
+["cleardistance"] = 10,
+["title"] = "Meeting Stone",
+["from"] = "Questie",
+["callbacks"] = {
+["distance"] = {
+},
+["minimap"] = {
+},
+["world"] = {
+},
+},
+["minimap"] = true,
+["world"] = true,
+},
+},
+},
+["家駒 - 伊弗斯"] = {
+[390] = {
+["390:599070838.85968:199801957.07347:TomTom 路径点"] = {
+390,
+0.5990708388596778,
+0.1998019570734745,
+["arrivaldistance"] = 15,
+["crazy"] = true,
+["persistent"] = true,
+["minimap"] = true,
+["cleardistance"] = 10,
+["title"] = "TomTom 路径点",
+["from"] = "TomTom/wm",
+["callbacks"] = {
+["distance"] = {
+},
+["minimap"] = {
+},
+["world"] = {
+},
+},
+["world"] = true,
+},
+},
+},
+["巴非特 - 伊弗斯"] = {
+},
+["特變電工 - 伊弗斯"] = {
+},
+["頂級投資家 - 伊弗斯"] = {
+},
+["暖男你馬四了 - 伊弗斯"] = {
+},
+["裸辭 - 伊弗斯"] = {
+},
+},
+}

@@ -1,0 +1,12 @@
+
+KUIDataDB = {
+	["Version"] = "0.03",
+}
+AddonPanelProfilesDB = {
+}
+AddonPanelServerDB = {
+	["伊弗斯"] = {
+		["邁克爾假死"] = true,
+		["特變電工"] = true,
+	},
+}

@@ -1,0 +1,104 @@
+VER 3 0100000001000022 "1" "134072"
+/castsequence 蝰蛇守护,龙鹰守护
+END
+VER 3 010000000100002D "d" "134400"
+#showtooltip
+/cast  眼镜蛇射击
+/stopcasting
+END
+VER 3 010000000100001F "target" "135769"
+/target 乌
+/script SetRaidTarget("target",8)
+END
+VER 3 010000000100002C "VuhDoDCShieldData" "Ability_Repair"
+P[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]1HM[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
+END
+VER 3 0100000001000025 "乱射" "134400"
+/castsequence [@Cursor,nochanneling:乱射] 乱射
+END
+VER 3 010000000100002F "传光" "134400"
+/stopcasting
+/target 乱芳芳
+/click ExtraActionButton1
+END
+VER 3 0100000001000024 "保护之手" "135964"
+#showtooltip 保护之手
+/cancelaura 保护之手
+END
+VER 3 010000000100002A "凝神" "134400"
+#showtooltip 宁神射击
+#show 宁神射击
+/stop casting
+/cast [target=mouseover,exists] 宁神射击
+/cast 宁神射击
+END
+VER 3 0100000001000029 "动力炸弹" "135878"
+/target 动力炸弹
+END
+VER 3 010000000100001C "坐騎" "132150"
+/cast 塞纳里奥作战角鹰兽
+/cast 阿曼尼战熊
+END
+VER 3 010000000100001E "守护" "INV_MISC_QUESTIONMARK"
+/castsequence 雄鹰守护,猎豹守护
+END
+VER 3 0100000001000021 "爆发" "INV_MISC_QUESTIONMARK"
+/cast 狂暴(种族特长)
+/cast 急速射击
+/use 菲斯克的怀表
+/cast 野性呼唤
+END
+VER 3 0100000001000023 "爆发2" "134400"
+#showtooltip 急速射击
+/cast 急速射击
+/cast 野性呼唤
+/施放 血性狂怒
+/use 神圣安卡哈猎血护手
+/施放 准备就绪
+/use 无解之谜
+END
+VER 3 0100000001000028 "爆炸陷阱" "134400"
+#showtooltip 爆炸陷阱
+/cast 陷阱发射器
+/cast [@cursor] 爆炸陷阱
+END
+VER 3 010000000100000E "爆發" "136048"
+#showtooltip 急速射击
+/施放 血性狂怒
+/施放 急速射击
+/use 鹰眼大师之爪
+/use 玉质盗匪俑
+/施放 夺命黑鸦
+/施放 群兽奔腾
+END
+VER 3 010000000100001B "稳固" "INV_MISC_QUESTIONMARK"
+/castsequence reset=3 穩固射擊, 自動射擊
+/castrandom [target=pettarget,exists] 擊殺命令, 攻擊
+END
+VER 3 010000000100001D "自动攻击" "INV_MISC_QUESTIONMARK"
+/castsequence reset=6 猛禽一击
+/castrandom 猫鼬撕咬
+/施放 猛禽一击
+/petattack
+END
+VER 3 0100000001000026 "荷槍實彈" "134400"
+/castsequence reset=2,target 爆炸射击, 爆炸射击(等级 3)
+END
+VER 3 010000000100002E "误导" "134400"
+/cast [target=mouseover,help][target=target,help,exists][target=player] 误导
+END
+VER 3 0100000001000020 "误导宠物" "INV_MISC_QUESTIONMARK"
+#showtooltips 误导
+/cast [target=focus,help][help][target=targettarget,help][target=pet]误导
+END
+VER 3 010000000100002B "误导目标" "134400"
+#showtooltip 误导
+/target 戀上沉默
+/cast 误导
+/targetlasttarget
+END
+VER 3 0100000001000027 "點掉耐力" "135833"
+/cancelaura 命令怒吼
+/cancelaura 坚韧祷言
+/cancelaura 真言术：韧
+END

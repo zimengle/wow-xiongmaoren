@@ -1,0 +1,14 @@
+
+DataStore_Crafts_Characters = {
+	{
+		["Professions"] = {
+		},
+		["Indices"] = {
+		},
+		["Ranks"] = {
+		},
+	}, -- [1]
+}
+DataStore_Crafts_ArcheologyItems = nil
+DataStore_Crafts_RecipeCategories = {
+}

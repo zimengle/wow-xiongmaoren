@@ -1,0 +1,191 @@
+
+CliqueDB = nil
+CliqueDB3 = {
+["char"] = {
+["加拿大打桩机 - 铁血"] = {
+["fastooc"] = false,
+["blizzframes"] = {
+["statusBarFix"] = false,
+},
+["downclick"] = false,
+},
+["萌萌的露小露 - 阿拉希盆地"] = {
+["spec1_profileKey"] = "露露戒律",
+["specswap"] = true,
+["downclick"] = false,
+["fastooc"] = false,
+["alerthidden"] = true,
+["spec2_profileKey"] = "露露神牧",
+["blacklist"] = {
+["ElvUF_TargetTarget"] = true,
+["FocusFrameToT"] = true,
+["ElvUF_TargetTargetTarget"] = true,
+["ElvUF_PetTarget"] = true,
+["ElvUF_Target"] = true,
+["ElvUF_FocusTarget"] = true,
+["FocusFrame"] = true,
+["ElvUF_Focus"] = true,
+["ElvUF_Player"] = true,
+["ElvUF_Pet"] = true,
+},
+},
+["露露緹婭 - DECOM - 벽옥맥 광산 (SoM)"] = {
+["downclick"] = false,
+["fastooc"] = false,
+},
+["萌萌的露小露 - DECOM - 벽옥맥 광산 (SoM)"] = {
+["fastooc"] = false,
+["downclick"] = false,
+},
+},
+["profileKeys"] = {
+
+
+["加拿大打桩机 - 铁血"] = "加拿大打桩机 - 铁血",
+
+
+["奶德德一号 - 阿拉希盆地"] = "奶德德一号 - 阿拉希盆地",
+
+
+["萌萌的露露糖old1733222566632 - DECOM - 벽옥맥 광산 (SoM)"] = "露露緹婭old1733300072435 - DECOM - 벽옥맥 광산 (SoM)",
+
+
+["愛雅法拉old1733222566632 - 阿拉希盆地"] = "露露戒律",
+
+
+["萌萌的露小露 - 铁血"] = "加拿大打桩机 - 铁血",["超小露露糖 - 铁血"] = "加拿大打桩机 - 铁血",["萌萌的露小露 - 铁血"] = "加拿大打桩机 - 铁血",["露露缇娅丶 - 铁血"] = "加拿大打桩机 - 铁血",
+
+
+["气了 - 生命烈焰"] = "露露緹婭old1733300072435 - DECOM - 벽옥맥 광산 (SoM)",
+
+
+["氣了 - 生命烈焰"] = "露露緹婭old1733300072435 - DECOM - 벽옥맥 광산 (SoM)",
+
+
+["露露緹婭old1733300072435 - DECOM - 벽옥맥 광산 (SoM)"] = "露露緹婭old1733300072435 - DECOM - 벽옥맥 광산 (SoM)",
+
+
+["萌萌的露小露old1743358569313old1733222566632 - DECOM - 벽옥맥 광산 (SoM)"] = "露露緹婭old1733300072435 - DECOM - 벽옥맥 광산 (SoM)",
+
+
+["萌萌的露小露old1743358569313old1733222566632 - 阿拉希盆地"] = "露露戒律",
+
+
+["猛的猎 - 孤狼"] = "露露緹婭old1733300072435 - DECOM - 벽옥맥 광산 (SoM)",
+
+
+},
+["profiles"] = {
+["加拿大打桩机 - 铁血"] = {
+["bindings"] = {
+{
+["sets"] = {
+["default"] = true,
+},
+["type"] = "target",
+["key"] = "BUTTON1",
+["unit"] = "mouseover",
+},
+{
+["type"] = "menu",
+["key"] = "ALT-BUTTON2",
+["sets"] = {
+["default"] = true,
+},
+},
+{
+["spell"] = "恢复",
+["key"] = "BUTTON2",
+["spellSubName"] = "等级 9",
+["sets"] = {
+["default"] = true,
+},
+["icon"] = 135953,
+["type"] = "spell",
+},
+},
+},
+["露露戒律"] = {
+["bindings"] = {
+{
+["type"] = "target",
+["sets"] = {
+["default"] = true,
+},
+["key"] = "BUTTON1",
+["unit"] = "mouseover",
+},
+{
+["spell"] = "真言术：盾",
+["key"] = "BUTTON2",
+["spellSubName"] = "等级 14",
+["sets"] = {
+["default"] = true,
+},
+["icon"] = 135940,
+["type"] = "spell",
+},
+},
+},
+["露露緹婭 - DECOM - 벽옥맥 광산 (SoM)"] = {
+["bindings"] = {
+{
+["type"] = "target",
+["sets"] = {
+["default"] = true,
+},
+["key"] = "BUTTON1",
+["unit"] = "mouseover",
+},
+{
+["sets"] = {
+["default"] = true,
+},
+["key"] = "BUTTON2",
+["type"] = "menu",
+},
+},
+},
+["露露神牧"] = {
+["bindings"] = {
+{
+["type"] = "target",
+["sets"] = {
+["default"] = true,
+},
+["key"] = "BUTTON1",
+["unit"] = "mouseover",
+},
+{
+["type"] = "spell",
+["key"] = "BUTTON2",
+["spell"] = "恢复",
+["sets"] = {
+["default"] = true,
+},
+["icon"] = 135953,
+["spellSubName"] = "等级 14",
+},
+},
+},
+["奶德德一号 - 阿拉希盆地"] = {
+["bindings"] = {
+{
+["sets"] = {
+["default"] = true,
+},
+["type"] = "target",
+["key"] = "BUTTON1",
+["unit"] = "mouseover",
+},
+{
+["type"] = "menu",
+["key"] = "BUTTON2",
+["sets"] = {
+["default"] = true,
+},
+},
+},
+},
+},
+}

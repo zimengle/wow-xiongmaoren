@@ -1,0 +1,34 @@
+VER 3 0100000001000006 "/target 突击机器人" "134400"
+/target 突击机器人
+END
+VER 3 0100000001000003 "target" "INV_MISC_QUESTIONMARK"
+/target 雷铸技师
+/script SetRaidTarget("target",8)
+END
+VER 3 0100000001000008 "取消耐力" "136153"
+#showtooltip 极效冰霜防护药水
+/use [combat] 极效冰霜防护药水
+/cancelaura 命令怒吼
+/cancelaura 真言术：韧
+/cancelaura 坚韧祷言
+END
+VER 3 0100000001000001 "坐骑" "INV_MISC_QUESTIONMARK"
+/use 迅捷紫色驭风者
+/use 恐惧战马
+END
+VER 3 0100000001000002 "寵物攻擊" "INV_MISC_QUESTIONMARK"
+/petattack
+END
+VER 3 0100000001000007 "恐惧" "136183"
+#showtooltip
+/cast [target=focus,modifier:alt] 恐惧
+END
+VER 3 0100000001000004 "成就" "134400"
+END
+VER 3 0100000001000005 "爆发" "136222"
+/use 神圣黑巫手套
+/use 动荡能量雕像
+/use 水晶之心碎片
+/施放 血性狂怒(种族特长)
+/施放 恶魔变形
+END

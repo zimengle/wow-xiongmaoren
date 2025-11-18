@@ -1,0 +1,405 @@
+
+DBMPvP_AllSavedVars = {
+	["萌萌的露小露-孤狼"] = {
+		["z529"] = {
+			[0] = {
+				["Enabled"] = true,
+			},
+		},
+		["PvPGeneral"] = {
+			[0] = {
+				["TimerFlag"] = true,
+				["TimerFlagCVoice"] = 0,
+				["TimerCapCVoice"] = 0,
+				["AutoSpirit"] = false,
+				["TimerCap"] = true,
+				["TimerWinCVoice"] = 0,
+				["TimerWinTColor"] = 0,
+				["ShowRelativeGameTime"] = true,
+				["TimerStartCVoice"] = 0,
+				["Enabled"] = true,
+				["TimerStartTColor"] = 0,
+				["TimerWin"] = true,
+				["TimerCapTColor"] = 0,
+				["TimerFlagTColor"] = 0,
+				["HideBossEmoteFrame"] = false,
+				["TimerStart"] = true,
+			},
+		},
+		["z489"] = {
+			[0] = {
+				["Enabled"] = true,
+			},
+		},
+		["m1440"] = {
+			[0] = {
+				["Enabled"] = false,
+				["EstimatedStartTimerTColor"] = 6,
+				["HealthFrame"] = true,
+				["EstimatedStartTimer"] = true,
+				["EstimatedStartTimerCVoice"] = 0,
+			},
+		},
+		["z30"] = {
+			[0] = {
+				["Enabled"] = true,
+				["TimerBossTColor"] = 0,
+				["TimerBoss"] = true,
+				["AutoTurnIn"] = true,
+				["TimerBossCVoice"] = 0,
+			},
+		},
+	},
+	["露露緹婭-维希度斯"] = {
+		["z529"] = {
+			{
+				["Enabled"] = true,
+			}, -- [1]
+			{
+				["Enabled"] = true,
+			}, -- [2]
+		},
+		["z566"] = {
+			{
+				["Enabled"] = true,
+			}, -- [1]
+			{
+				["Enabled"] = true,
+			}, -- [2]
+		},
+		["talent1"] = "PRIEST1",
+		["PvPGeneral"] = {
+			{
+				["TimerFlagCVoice"] = 0,
+				["TimerStartTColor"] = 0,
+				["ShowBasesToWin"] = false,
+				["TimerFlagTColor"] = 0,
+				["HideBossEmoteFrame"] = false,
+				["Enabled"] = true,
+				["TimerWinTColor"] = 0,
+				["TimerCapCVoice"] = 0,
+				["TimerCap"] = true,
+				["TimerStartCVoice"] = 0,
+				["TimerWinCVoice"] = 0,
+				["TimerFlag"] = true,
+				["ShowRelativeGameTime"] = true,
+				["TimerCapTColor"] = 0,
+				["TimerWin"] = true,
+				["AutoSpirit"] = false,
+				["TimerStart"] = true,
+			}, -- [1]
+			{
+				["TimerFlagCVoice"] = 0,
+				["TimerStartTColor"] = 0,
+				["ShowBasesToWin"] = true,
+				["TimerFlagTColor"] = 0,
+				["HideBossEmoteFrame"] = false,
+				["TimerWinCVoice"] = 0,
+				["TimerWinTColor"] = 0,
+				["TimerCapCVoice"] = 0,
+				["TimerFlag"] = true,
+				["TimerStartCVoice"] = 0,
+				["Enabled"] = true,
+				["ShowRelativeGameTime"] = true,
+				["TimerWin"] = true,
+				["TimerCapTColor"] = 0,
+				["TimerCap"] = true,
+				["AutoSpirit"] = false,
+				["TimerStart"] = true,
+			}, -- [2]
+		},
+		["talent2"] = "PRIEST2",
+		["z489"] = {
+			{
+				["Enabled"] = true,
+			}, -- [1]
+			{
+				["Enabled"] = true,
+			}, -- [2]
+		},
+		["z30"] = {
+			{
+				["Enabled"] = true,
+				["TimerBossTColor"] = 0,
+				["TimerBoss"] = true,
+				["AutoTurnIn"] = true,
+				["TimerBossCVoice"] = 0,
+			}, -- [1]
+			{
+				["Enabled"] = true,
+				["TimerBossTColor"] = 0,
+				["TimerBoss"] = true,
+				["AutoTurnIn"] = true,
+				["TimerBossCVoice"] = 0,
+			}, -- [2]
+		},
+	},
+	["萌萌的露小露-阿拉希盆地"] = {
+		["z529"] = {
+			{
+				["Enabled"] = true,
+			}, -- [1]
+		},
+		["z566"] = {
+			{
+				["Enabled"] = true,
+			}, -- [1]
+		},
+		["talent1"] = "PRIEST1",
+		["PvPGeneral"] = {
+			{
+				["TimerFlag"] = true,
+				["TimerFlagCVoice"] = 0,
+				["TimerCapCVoice"] = 0,
+				["AutoSpirit"] = false,
+				["TimerCap"] = true,
+				["TimerWinCVoice"] = 0,
+				["TimerWinTColor"] = 0,
+				["ShowRelativeGameTime"] = true,
+				["TimerStartCVoice"] = 0,
+				["TimerWin"] = true,
+				["TimerStartTColor"] = 0,
+				["Enabled"] = true,
+				["TimerCapTColor"] = 0,
+				["TimerFlagTColor"] = 0,
+				["HideBossEmoteFrame"] = false,
+				["TimerStart"] = true,
+			}, -- [1]
+		},
+		["z489"] = {
+			{
+				["Enabled"] = true,
+			}, -- [1]
+		},
+		["z628"] = {
+			{
+				["Enabled"] = true,
+			}, -- [1]
+		},
+		["z30"] = {
+			{
+				["Enabled"] = true,
+				["TimerBossTColor"] = 0,
+				["TimerBoss"] = true,
+				["AutoTurnIn"] = true,
+				["TimerBossCVoice"] = 0,
+			}, -- [1]
+		},
+	},
+	["沃倫巴菲特-生命烈焰"] = {
+		["z529"] = {
+			{
+				["Enabled"] = true,
+			}, -- [1]
+		},
+		["talent1"] = "WARRIOR1",
+		["m1434"] = {
+			{
+				["Enabled"] = true,
+				["ResTimerPartyClassColors"] = true,
+				["ResTimerParty"] = false,
+				["Timer436097active"] = true,
+				["ResTimerSelf"] = true,
+				["ResTimerSelfCVoice"] = 0,
+				["Timer436097nextTColor"] = 0,
+				["ResTimerPartyTColor"] = 0,
+				["Timer436097nextCVoice"] = 0,
+				["ResTimerPartyCVoice"] = 0,
+				["Timer436097activeTColor"] = 0,
+				["ResTimerSelfTColor"] = 0,
+				["Timer436097next"] = true,
+				["Timer436097activeCVoice"] = 0,
+			}, -- [1]
+		},
+		["PvPGeneral"] = {
+			{
+				["TimerFlagCVoice"] = 0,
+				["TimerStartTColor"] = 0,
+				["ShowBasesToWin"] = true,
+				["TimerFlagTColor"] = 0,
+				["HideBossEmoteFrame"] = false,
+				["TimerWinCVoice"] = 0,
+				["TimerWinTColor"] = 0,
+				["TimerCapCVoice"] = 0,
+				["TimerFlag"] = true,
+				["TimerStartCVoice"] = 0,
+				["Enabled"] = true,
+				["TimerCap"] = true,
+				["TimerWin"] = true,
+				["TimerCapTColor"] = 0,
+				["ShowRelativeGameTime"] = true,
+				["AutoSpirit"] = false,
+				["TimerStart"] = true,
+			}, -- [1]
+		},
+		["z489"] = {
+			{
+				["Enabled"] = true,
+			}, -- [1]
+		},
+		["m1440"] = {
+			{
+				["Enabled"] = true,
+				["EstimatedStartTimerTColor"] = 6,
+				["HealthFrame"] = true,
+				["EstimatedStartTimer"] = true,
+				["EstimatedStartTimerCVoice"] = 0,
+			}, -- [1]
+		},
+		["z30"] = {
+			{
+				["Enabled"] = true,
+				["TimerBossTColor"] = 0,
+				["TimerBoss"] = true,
+				["AutoTurnIn"] = true,
+				["TimerBossCVoice"] = 0,
+			}, -- [1]
+		},
+	},
+	["萌萌的露小露-维希度斯"] = {
+		["z529"] = {
+			{
+				["Enabled"] = true,
+			}, -- [1]
+		},
+		["z566"] = {
+			{
+				["Enabled"] = true,
+			}, -- [1]
+		},
+		["talent1"] = "DEATHKNIGHT1",
+		["PvPGeneral"] = {
+			{
+				["TimerWinCVoice"] = 0,
+				["TimerFlagCVoice"] = 0,
+				["TimerCapCVoice"] = 0,
+				["TimerWinTColor"] = 0,
+				["HideBossEmoteFrame"] = true,
+				["TimerFlag"] = true,
+				["TimerStartTColor"] = 0,
+				["ShowRelativeGameTime"] = true,
+				["TimerStartCVoice"] = 0,
+				["Enabled"] = true,
+				["TimerCap"] = true,
+				["TimerWin"] = true,
+				["TimerCapTColor"] = 0,
+				["TimerFlagTColor"] = 0,
+				["AutoSpirit"] = false,
+				["TimerStart"] = true,
+			}, -- [1]
+		},
+		["z489"] = {
+			{
+				["Enabled"] = true,
+			}, -- [1]
+		},
+		["z30"] = {
+			{
+				["Enabled"] = true,
+				["TimerBossTColor"] = 0,
+				["TimerBoss"] = true,
+				["AutoTurnIn"] = true,
+				["TimerBossCVoice"] = 0,
+			}, -- [1]
+		},
+	},
+	["露露缇娅-维克尼拉斯"] = {
+		["z529"] = {
+			[2] = {
+				["Enabled"] = true,
+			},
+		},
+		["z566"] = {
+			[2] = {
+				["Enabled"] = true,
+			},
+		},
+		["PvPGeneral"] = {
+			[2] = {
+				["TimerFlagCVoice"] = 0,
+				["ShowRelativeGameTime"] = true,
+				["ShowBasesToWin"] = false,
+				["TimerFlagTColor"] = 0,
+				["HideBossEmoteFrame"] = false,
+				["Enabled"] = true,
+				["TimerWinTColor"] = 0,
+				["TimerCapCVoice"] = 0,
+				["TimerFlag"] = true,
+				["TimerStartCVoice"] = 0,
+				["TimerStartTColor"] = 0,
+				["TimerCap"] = true,
+				["TimerWinCVoice"] = 0,
+				["TimerCapTColor"] = 0,
+				["TimerWin"] = true,
+				["AutoSpirit"] = false,
+				["TimerStart"] = true,
+			},
+		},
+		["talent2"] = "PRIEST2",
+		["z489"] = {
+			[2] = {
+				["Enabled"] = true,
+			},
+		},
+		["z30"] = {
+			[2] = {
+				["Enabled"] = true,
+				["TimerBossTColor"] = 0,
+				["TimerBoss"] = true,
+				["AutoTurnIn"] = true,
+				["TimerBossCVoice"] = 0,
+			},
+		},
+	},
+	["三角碑碑帅-十字軍聖擊"] = {
+		["z529"] = {
+			{
+				["Enabled"] = true,
+			}, -- [1]
+		},
+		["talent1"] = "DRUID1",
+		["PvPGeneral"] = {
+			{
+				["TimerFlag"] = true,
+				["TimerFlagCVoice"] = 0,
+				["TimerCapCVoice"] = 0,
+				["TimerCap"] = true,
+				["HideBossEmoteFrame"] = false,
+				["TimerWinCVoice"] = 0,
+				["TimerWinTColor"] = 0,
+				["ShowRelativeGameTime"] = true,
+				["TimerStartCVoice"] = 0,
+				["Enabled"] = true,
+				["TimerStartTColor"] = 0,
+				["TimerWin"] = true,
+				["TimerCapTColor"] = 0,
+				["TimerFlagTColor"] = 0,
+				["AutoSpirit"] = false,
+				["TimerStart"] = true,
+			}, -- [1]
+		},
+		["z489"] = {
+			{
+				["Enabled"] = true,
+			}, -- [1]
+		},
+		["m1440"] = {
+			{
+				["Enabled"] = true,
+				["EstimatedStartTimerTColor"] = 6,
+				["HealthFrame"] = true,
+				["EstimatedStartTimer"] = true,
+				["EstimatedStartTimerCVoice"] = 0,
+			}, -- [1]
+		},
+		["z30"] = {
+			{
+				["Enabled"] = true,
+				["TimerBossTColor"] = 0,
+				["TimerBoss"] = true,
+				["AutoTurnIn"] = true,
+				["TimerBossCVoice"] = 0,
+			}, -- [1]
+		},
+	},
+}

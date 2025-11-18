@@ -1,0 +1,42 @@
+
+OmniCDDB = {
+["profileKeys"] = {
+["裸辭 - 伊弗斯"] = "Default",
+["康樂股長 - 伊弗斯"] = "Default",
+["家駒 - 伊弗斯"] = "Default",
+["邁克爾假死 - 伊弗斯"] = "Default",
+["路易斯桑拿 - 伊弗斯"] = "Default",
+["特變電工 - 伊弗斯"] = "Default",
+["巴非特 - 伊弗斯"] = "Default",
+["特斯拉大股東 - 伊弗斯"] = "Default",
+},
+["cooldowns"] = {
+},
+["namespaces"] = {
+},
+["version"] = 4,
+["global"] = {
+["disableElvMsg"] = true,
+},
+["profiles"] = {
+["Default"] = {
+["Party"] = {
+["party"] = {
+["manualPos"] = {
+["interruptBar"] = {
+["y"] = 385.0163048053873,
+["x"] = 126.6283463228338,
+},
+["raidCDBar"] = {
+["y"] = 310.7049630358561,
+["x"] = 125.9172443164116,
+},
+},
+},
+["visibility"] = {
+["party"] = false,
+},
+},
+},
+},
+}

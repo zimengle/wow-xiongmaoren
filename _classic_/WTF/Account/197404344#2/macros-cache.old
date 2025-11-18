@@ -1,0 +1,48 @@
+VER 3 0000000000000001 "Decursive" "INV_MISC_QUESTIONMARK"
+/script DecursiveRootTable.Dcr:Println('没有相关技能')
+END
+VER 3 0000000000000007 "Decursive" "INV_MISC_QUESTIONMARK"
+/script DecursiveRootTable.Dcr:Println('没有相关技能')
+END
+VER 3 0000000000000006 "RXPTargeting" "Ability_eyeoftheowl"
+//RestedXP 指南 狮心-北美刘嘉玲 汉化版 - current step has no configured targets
+END
+VER 3 000000000000000B "TSMMacro" "INV_Misc_Flower_01"
+END
+VER 3 000000000000000D "刀扇" "132324"
+#showtooltips 刀扇
+/equipslot 16 泰坦神铁法术之刃
+/equipslot 17 恶魔之击
+/startattack
+/cast 刀扇
+END
+VER 3 0000000000000002 "大脚世界频道" "132874"
+/join 大脚世界频道
+END
+VER 3 0000000000000005 "寒冰" "135846"
+/petattack
+/cast 寒冰箭 
+END
+VER 3 000000000000000C "开团" "132269"
+/click [@party1,noexists]PlayerFrame RightButton
+/click [@party1,noexists]DropDownList1Button20
+/run ConvertToRaid() 
+/stopmacro [group]
+/邀请 开团
+END
+VER 3 000000000000000E "毁伤" "INV_MISC_QUESTIONMARK"
+#showtooltips 毁伤
+/startattack
+/equipslot 16  死亡之网
+/equipslot 17 邪恶复仇
+/cast 毁伤
+END
+VER 3 0000000000000003 "自动攻击" "135325"
+/startattack
+/petattack
+/equipslot 16  死亡之网
+/equipslot 17 邪恶复仇
+END
+VER 3 0000000000000004 "谢谢" "135805"
+/thanks
+END

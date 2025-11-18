@@ -1,0 +1,24 @@
+
+OmniCDDB = {
+["profileKeys"] = {
+["特变电工 - 祈福"] = "Default",
+["沈南鹏 - 祈福"] = "Default",
+["特工仓库 - 祈福"] = "Default",
+["查尔斯三世 - 祈福"] = "Default",
+["码农巴菲特 - 祈福"] = "Default",
+["京东的董事长 - 祈福"] = "Default",
+["新特能源 - 祈福"] = "Default",
+},
+["cooldowns"] = {
+},
+["namespaces"] = {
+},
+["global"] = {
+["disableElvMsg"] = true,
+},
+["version"] = 4,
+["profiles"] = {
+["Default"] = {
+},
+},
+}

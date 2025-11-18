@@ -1,0 +1,84 @@
+VER 3 0000000001000001 "1" "INV_MISC_QUESTIONMARK"
+/4 代刷法师 梅花舞剑 梅花舞剑 梅花舞剑  是超级大骗子  大家注意  托管偷你G骗你钱删你微信，浪费你时间。
+END
+VER 3 0000000001000005 "Buff'o'mat" "INV_MISC_QUESTIONMARK"
+#showtooltip
+/bom update
+END
+VER 3 0000000001000007 "my" "134938"
+/MYSLOT
+END
+VER 3 0000000001000006 "target" "132090"
+/target 不服從
+/script SetRaidTarget("target",8)
+END
+VER 3 0000000001000002 "压制" "132223"
+#showtooltip 壓制(等級 4)
+/cast 戰鬥姿態
+/cast 壓制(等級 4)
+END
+VER 3 0000000001000008 "嗜血" "136012"
+/startattack
+/cast 嗜血
+END
+VER 3 0000000001000003 "嗜血" "136012"
+#showtooltip 嗜血
+/cast 嗜血
+/startattack
+END
+VER 3 0000000001000009 "坐騎" "132231"
+/cast 雪色狮鹫
+/cast 阿曼尼战熊
+END
+VER 3 000000000100000A "挫敗" "132269"
+/startattack
+/cast 挫敗
+END
+VER 3 000000000100000B "换武器" "132281"
+/cast [stance:2/3] 狂暴姿態
+/equipslot 16 item:33762:3225
+/equipslot 17 item:33762:2673
+END
+VER 3 0000000001000004 "撕裂" "132302"
+#showtooltip 撕裂
+/cast 撕裂
+/startattack
+END
+VER 3 000000000100000C "斬殺" "INV_Misc_QuestionMark"
+#showtooltip 斩杀
+/cast 斩杀
+/cast !英勇打擊
+/startattack
+END
+VER 3 000000000100000D "爆發" "INV_Misc_QuestionMark"
+#showtooltip 死亡之願
+/cast 死亡之願
+/use 嗜血胸針
+END
+VER 3 000000000100000E "王子" "132148"
+/equipslot 16 扭曲分割者
+/equipslot 17 無盡之刃
+/targetenemyplayer
+/castsequence reset=alt/5 破甲攻擊(等級 6),破甲攻擊(等級 6),破甲攻擊(等級 6)
+END
+VER 3 0000000001000010 "盾反宏" "132361"
+/cast [stance:1/3] 防禦姿態
+/equip 殘暴者
+/equip 卡茲洛加堅固之心
+/cast 法術反射
+END
+VER 3 000000000100000F "盾反宏" "132361"
+/cast [stance:1/3] 防禦姿態
+/equip 潮汐之錘
+/equip 奧多爾遺產防衛者
+/cast 法術反射
+END
+VER 3 0000000001000011 "致死" "132355"
+/startattack
+/cast 致死打擊
+END
+VER 3 0000000001000012 "英勇打擊" "INV_Misc_QuestionMark"
+#showtooltip 英勇打擊
+/cast !英勇打擊
+/startattack
+END

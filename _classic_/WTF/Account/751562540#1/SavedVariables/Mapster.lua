@@ -1,0 +1,15 @@
+MapsterDB = {
+	["namespaces"] = {
+		["FogClear"] = {
+		},
+		["Coords"] = {
+		},
+	},
+	["profileKeys"] = {
+		["豬圈一 - 伊弗斯"] = "Default",
+	},
+	["profiles"] = {
+		["Default"] = {
+		},
+	},
+}

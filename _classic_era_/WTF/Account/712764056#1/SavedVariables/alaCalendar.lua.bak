@@ -1,0 +1,143 @@
+
+alaCalendarSV = {
+["daily"] = {
+},
+["_GlobalRef"] = {
+["cal"] = {
+["SlashCmdList"] = 4.6768052394589e+49,
+["OK"] = 4.6768052394589e+49,
+["Mixin"] = 1.169201309864725e+50,
+["GameTimeFrame_UpdateTooltip"] = 2.33840261972945e+49,
+["hooksecurefunc"] = 2.33840261972945e+49,
+["UnitLevel"] = 1.169258399772431e+50,
+["alaCalendarSV"] = 9.3536104789178e+49,
+["UIParent"] = 9.3536104789178e+49,
+["DAILY"] = 4.6768052394589e+49,
+["GameTimeFrame"] = 4.6768052394589e+49,
+["DONE"] = 4.6768052394589e+49,
+["RESETS_IN"] = 4.6768052394589e+49,
+["UISpecialFrames"] = 7.015207859188328e+49,
+["YES"] = 4.6768052394589e+49,
+["LibStub"] = 7.015207859188328e+49,
+["StaticPopupDialogs"] = 4.6768052394589e+49,
+},
+},
+["set"] = {
+["minimapPos"] = 215,
+["char_list"] = {
+"Player-5453-0476F4B3",
+"Player-5453-0476F498",
+"Player-5453-040319F3",
+"Player-5453-03FE5A8D",
+},
+["inst_hash"] = {
+["Zul'Gurub"] = true,
+["DarkMoon: Elwynn"] = true,
+["Warsong Gulch"] = true,
+["Ruins of Ahn'Qiraj"] = true,
+["Fishing Extravaganza"] = true,
+["Temple of Ahn'Qiraj"] = true,
+["Blackwing Lair"] = true,
+["Arathi Basin"] = true,
+["Onyxia's Lair"] = true,
+["DarkMoon: Mulgore"] = true,
+["Naxxramas"] = true,
+["Molten Core"] = true,
+["Alterac Valley"] = true,
+},
+["collapsed"] = {
+},
+["raid_list"] = {
+"Naxxramas",
+"Temple of Ahn'Qiraj",
+"Ruins of Ahn'Qiraj",
+"Blackwing Lair",
+"Zul'Gurub",
+"Molten Core",
+"Onyxia's Lair",
+},
+},
+["var"] = {
+["Player-5453-0476F498"] = {
+["Zul'Gurub"] = {
+},
+["PLAYER_LEVEL"] = 10,
+["Temple of Ahn'Qiraj"] = {
+},
+["Blackwing Lair"] = {
+},
+["Onyxia's Lair"] = {
+},
+["realm_name"] = "铁血",
+["realm_id"] = 5453,
+["Naxxramas"] = {
+},
+["Molten Core"] = {
+},
+["Ruins of Ahn'Qiraj"] = {
+},
+},
+["Player-5453-03FE5A8D"] = {
+["Zul'Gurub"] = {
+},
+["PLAYER_LEVEL"] = 60,
+["Temple of Ahn'Qiraj"] = {
+},
+["Blackwing Lair"] = {
+},
+["Ruins of Ahn'Qiraj"] = {
+},
+["realm_name"] = "铁血",
+["Naxxramas"] = {
+},
+["realm_id"] = 5453,
+["Molten Core"] = {
+},
+["Onyxia's Lair"] = {
+},
+},
+["Player-5453-0476F4B3"] = {
+["Zul'Gurub"] = {
+},
+["PLAYER_LEVEL"] = 10,
+["Temple of Ahn'Qiraj"] = {
+},
+["Blackwing Lair"] = {
+},
+["Ruins of Ahn'Qiraj"] = {
+},
+["Onyxia's Lair"] = {
+},
+["Naxxramas"] = {
+},
+["realm_id"] = 5453,
+["Molten Core"] = {
+},
+["realm_name"] = "铁血",
+},
+["Player-5453-040319F3"] = {
+["Zul'Gurub"] = {
+},
+["PLAYER_LEVEL"] = 1,
+["Temple of Ahn'Qiraj"] = {
+},
+["Blackwing Lair"] = {
+},
+["Ruins of Ahn'Qiraj"] = {
+},
+["realm_name"] = "铁血",
+["Naxxramas"] = {
+},
+["realm_id"] = 5453,
+["Molten Core"] = {
+},
+["Onyxia's Lair"] = {
+},
+},
+},
+["_version"] = 220308.01,
+["_GlobalAssign"] = {
+["cal"] = {
+},
+},
+}

@@ -1,0 +1,169 @@
+
+RXPData = {
+	["gameVersion"] = 30400,
+	["defaultProfile"] = false,
+	["release"] = "v4.6.14",
+	["cacheVersion"] = 24,
+	["trainGenericSpells"] = true,
+}
+RXPDB = {
+	["profileKeys"] = {
+		["特变电工 - 祈福"] = "global",
+		["沈南鹏 - 祈福"] = "global",
+		["查尔斯三世 - 祈福"] = "global",
+		["码农巴菲特 - 祈福"] = "global",
+		["特工仓库 - 祈福"] = "global",
+		["新特能源 - 祈福"] = "global",
+	},
+	["profiles"] = {
+		["global"] = {
+		},
+	},
+}
+RXPSettings = {
+	["profileKeys"] = {
+		["查尔斯三世 - 祈福"] = "查尔斯三世 - 祈福",
+		["沈南鹏 - 祈福"] = "沈南鹏 - 祈福",
+		["新特能源 - 祈福"] = "新特能源 - 祈福",
+	},
+	["profiles"] = {
+		["查尔斯三世 - 祈福"] = {
+			["hardcore"] = false,
+			["xprate"] = 1,
+			["frameHeight"] = 124.9999847412109,
+			["migrated"] = true,
+		},
+		["沈南鹏 - 祈福"] = {
+			["xprate"] = 1.5,
+			["frameHeight"] = 160.5555267333984,
+			["hardcore"] = false,
+			["framePositions"] = {
+				["arrowFrame"] = {
+					{
+						"BOTTOM", -- [1]
+						nil, -- [2]
+						"BOTTOM", -- [3]
+						17, -- [4]
+						271, -- [5]
+					}, -- [1]
+				},
+				["RXPFrame"] = {
+					{
+						"LEFT", -- [1]
+						nil, -- [2]
+						"LEFT", -- [3]
+						2, -- [4]
+						37, -- [5]
+					}, -- [1]
+				},
+				["activeItemFrame"] = {
+					{
+						"CENTER", -- [1]
+						nil, -- [2]
+						"CENTER", -- [3]
+						134.4443511962891, -- [4]
+						-14.44440650939941, -- [5]
+					}, -- [1]
+				},
+				["activeTargetFrame"] = {
+					{
+						"CENTER", -- [1]
+						"UIParent", -- [2]
+						"CENTER", -- [3]
+						0, -- [4]
+						0, -- [5]
+					}, -- [1]
+				},
+			},
+			["frameSizes"] = {
+				["arrowFrame"] = {
+					31.99997520446777, -- [1]
+					31.9999942779541, -- [2]
+				},
+				["RXPFrame"] = {
+					283, -- [1]
+					160.9999694824219, -- [2]
+				},
+				["activeItemFrame"] = {
+					50.55557250976563, -- [1]
+					40.00000762939453, -- [2]
+				},
+				["activeTargetFrame"] = {
+					61.92594146728516, -- [1]
+					68.00000762939453, -- [2]
+				},
+			},
+			["migrated"] = true,
+		},
+		["新特能源 - 祈福"] = {
+			["hideGuideWindow"] = true,
+			["hardcore"] = false,
+			["framePositions"] = {
+				["arrowFrame"] = {
+					{
+						"BOTTOMRIGHT", -- [1]
+						nil, -- [2]
+						"BOTTOMRIGHT", -- [3]
+						-522.0000610351562, -- [4]
+						29.0000057220459, -- [5]
+					}, -- [1]
+				},
+				["RXPFrame"] = {
+					{
+						"LEFT", -- [1]
+						"UIParent", -- [2]
+						"LEFT", -- [3]
+						0, -- [4]
+						35.00000381469727, -- [5]
+					}, -- [1]
+				},
+				["activeItemFrame"] = {
+					{
+						"CENTER", -- [1]
+						"UIParent", -- [2]
+						"CENTER", -- [3]
+						0, -- [4]
+						0, -- [5]
+					}, -- [1]
+				},
+				["activeTargetFrame"] = {
+					{
+						"CENTER", -- [1]
+						"UIParent", -- [2]
+						"CENTER", -- [3]
+						0, -- [4]
+						0, -- [5]
+					}, -- [1]
+				},
+			},
+			["anchorOrientation"] = "bottom",
+			["migrated"] = true,
+			["lockFrames"] = false,
+			["guideFontSize"] = 11,
+			["frameSizes"] = {
+				["arrowFrame"] = {
+					31.99997520446777, -- [1]
+					32, -- [2]
+				},
+				["RXPFrame"] = {
+					235, -- [1]
+					28.00006675720215, -- [2]
+				},
+				["activeItemFrame"] = {
+					50.55564117431641, -- [1]
+					40.00000762939453, -- [2]
+				},
+				["activeTargetFrame"] = {
+					61.92594146728516, -- [1]
+					68.00000762939453, -- [2]
+				},
+			},
+			["hideInRaid"] = true,
+			["windowScale"] = 1.35,
+			["minimap"] = {
+				["minimapPos"] = 176.641607703098,
+			},
+			["frameHeight"] = 27.99995994567871,
+		},
+	},
+}

@@ -1,0 +1,99 @@
+
+PallyPowerDB = {
+	["profileKeys"] = {
+		["特变电工 - 祈福"] = "Other",
+		["沈南鹏 - 祈福"] = "Default",
+		["日百 - 祈福"] = "Other",
+		["查尔斯三世 - 祈福"] = "Other",
+		["码农巴菲特 - 祈福"] = "Other",
+		["特工仓库 - 祈福"] = "Default",
+		["新特能源 - 祈福"] = "Other",
+	},
+	["profiles"] = {
+		["Other"] = {
+			["cBuffGood"] = {
+				["b"] = 0.2,
+				["t"] = 0.6,
+				["g"] = 0.2,
+				["r"] = 0.2,
+			},
+			["cBuffNeedAll"] = {
+				["b"] = 0.5,
+				["t"] = 0.7,
+				["g"] = 0.5,
+				["r"] = 0.5,
+			},
+			["cBuffNeedSome"] = {
+				["t"] = 0.7,
+				["g"] = 0.5,
+				["r"] = 0.5,
+			},
+			["enable"] = true,
+			["WrathTransition"] = true,
+			["cBuffNeedSpecial"] = {
+				["b"] = 0.5,
+				["t"] = 0.7,
+				["g"] = 0.5,
+				["r"] = 0.5,
+			},
+		},
+		["Default"] = {
+			["cBuffNeedSpecial"] = {
+				["r"] = 0.5,
+				["t"] = 0.7,
+				["g"] = 0.5,
+				["b"] = 0.5,
+			},
+			["WrathTransition"] = true,
+			["enable"] = true,
+			["cBuffNeedSome"] = {
+				["t"] = 0.7,
+				["g"] = 0.5,
+				["r"] = 0.5,
+			},
+			["cBuffGood"] = {
+				["r"] = 0.2,
+				["t"] = 0.6,
+				["g"] = 0.2,
+				["b"] = 0.2,
+			},
+			["cBuffNeedAll"] = {
+				["r"] = 0.5,
+				["t"] = 0.7,
+				["g"] = 0.5,
+				["b"] = 0.5,
+			},
+		},
+	},
+}
+PallyPower_Assignments = {
+}
+PallyPower_NormalAssignments = {
+}
+PallyPower_AuraAssignments = {
+	["沈南鹏"] = 0,
+	["风儿吹向你"] = 6,
+}
+PallyPower_SavedPresets = {
+	["PallyPower_NormalAssignments"] = {
+		[0] = {
+		},
+	},
+	["PallyPower_AuraAssignments"] = {
+		[0] = {
+		},
+	},
+	["PallyPower_Assignments"] = {
+		[0] = {
+		},
+	},
+}
+PallyPower_ChanNames = {
+	"寻求组队", -- [1]
+	"综合", -- [2]
+	"交易", -- [3]
+	"本地防务", -- [4]
+	[0] = "None",
+}
+LCD_Data = nil
+LCD_GUIDAccess = nil

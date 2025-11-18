@@ -1,0 +1,35 @@
+
+DataStore_GuildIDs = {
+	["Set"] = {
+		["Default.祈福.群星之怒"] = 1,
+	},
+	["Count"] = 1,
+	["List"] = {
+		"Default.祈福.群星之怒", -- [1]
+	},
+}
+DataStore_GuildFactions = {
+	"Alliance", -- [1]
+}
+DataStore_CharacterIDs = {
+	["Set"] = {
+		["Default.祈福.特变电工"] = 1,
+	},
+	["Count"] = 1,
+	["List"] = {
+		"Default.祈福.特变电工", -- [1]
+	},
+}
+DataStore_CharacterGUIDs = {
+	"Player-4778-04DBFC9E", -- [1]
+}
+DataStore_CharacterGuilds = {
+	1, -- [1]
+}
+DataStore_AltGroups = {
+}
+DataStore_ConnectedRealms = {
+}
+DataStore_RealmNames = {
+	["祈福"] = "祈福",
+}

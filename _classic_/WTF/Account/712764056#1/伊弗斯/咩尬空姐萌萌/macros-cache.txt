@@ -1,0 +1,6 @@
+VER 3 0000000001000001 "VuhDoDCShieldData" "Ability_Repair"
+R1MR1HR1IH1LR1HR2LR2HR[x]2RM2LR3WM[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]2RM[x][x][x][x][x][x][x][x][x]0__[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
+END
+VER 3 0000000001000002 "VuhDoDCShieldNames" "Ability_Repair"
+N嘎了嗲Dde卡莉米滴滴航邁克爾麥噹噹香港早[x]卡莉莉血腥卡咩尬空[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]咩尬空[x][x][x][x][x][x][x][x][x]塔科爾[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
+END

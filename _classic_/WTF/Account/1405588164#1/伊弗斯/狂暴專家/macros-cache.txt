@@ -1,0 +1,108 @@
+VER 3 0000000001000017 "OH-FURY" "132324"
+#showtooltip
+/click [button:1] OH-FURY LeftButton t; OH-FURY
+END
+VER 3 0000000001000008 "冲锋拦截" "134400"
+#showtooltip [nocombat]冲锋;[combat]拦截
+/cast [harm,nocombat,nostance:1] 战斗姿态;[harm,combat,nostance:3] 狂暴姿态;
+/cast [harm,nocombat,stance:1]冲锋;[harm,combat,stance:3] 拦截;
+/startattack
+/case 乘胜追击
+END
+VER 3 0000000001000015 "卡英勇" "311430"
+#showtooltip
+/click [button:1] 卡英勇 LeftButton t; 卡英勇
+END
+VER 3 000000000100000E "嗜血" "134400"
+#showtooltip 嗜血
+/cast 狂暴姿态
+/cast 嗜血
+/startattack
+/cast 乘胜追击
+END
+VER 3 0000000001000003 "复仇" "134400"
+#showtooltip 复仇
+/startattack
+/cast 复仇
+/cast 乘胜追击
+END
+VER 3 000000000100000C "怒气" "134400"
+#showtooltip [mod:alt]狂暴之怒;血性狂暴
+/cast [mod:alt]狂暴之怒;血性狂暴
+END
+VER 3 0000000001000014 "打断" "132269"
+#showtooltip  [stance:2] 盾击;[stance:3] 拳击
+/cast [stance:3,target=focus,exists] 拳击; [stance:3] 拳击; [stance:2,target=focus,exists] 盾击; [stance:2]盾击
+/startattack
+/case 乘胜追击
+END
+VER 3 0000000001000011 "拳击" "134400"
+#showtooltip 拳击
+/cast [target=focus,exists] 拳击;拳击
+/startattack
+/cast 乘胜追击    
+            
+            
+END
+VER 3 0000000001000010 "斩杀" "134400"
+#showtooltip 斩杀
+/cast 斩杀
+/startattack
+/cast 乘胜追击
+END
+VER 3 0000000001000013 "断筋" "134400"
+#showtooltip 断筋
+/cast 断筋
+/startattack
+/cast 乘胜追击
+END
+VER 3 0000000001000012 "旋风斩" "134400"
+#showtooltip 旋风斩
+/cast 狂暴姿态
+/cast 旋风斩
+/startattack
+/cast 乘胜追击
+END
+VER 3 000000000100000D "横扫攻击" "132306"
+#showtooltip 横扫攻击
+/cast 横扫攻击
+/startattack
+/cast 乘胜追击
+END
+VER 3 0000000001000004 "盾牌格挡" "134400"
+#showtooltip 盾牌格挡
+/cast 盾牌格挡
+/startattack
+/case 乘胜追击
+END
+VER 3 0000000001000001 "盾牌猛击" "134951"
+#showtooltip 盾牌猛击
+/cast 盾牌猛击
+/startattack
+/case 乘胜追击
+END
+VER 3 0000000001000002 "英勇打击" "134400"
+#showtooltip 英勇打击
+/cast !英勇打击
+/startattack
+/case 乘胜追击
+END
+VER 3 0000000001000018 "重击" "132340"
+#showtooltip 猛击
+/cast 狂暴姿态
+/cast 猛击
+/startattack
+/cast 乘胜追击    
+END
+VER 3 0000000001000019 "鐵皮" "INV_Misc_QuestionMark"
+#showtooltip
+/petpassive
+/petfollow
+/施放 鐵皮手雷
+END
+VER 3 0000000001000007 "顺劈斩" "134400"
+#showtooltip 顺劈斩
+/cast !顺劈斩
+/startattack
+/case 乘胜追击
+END

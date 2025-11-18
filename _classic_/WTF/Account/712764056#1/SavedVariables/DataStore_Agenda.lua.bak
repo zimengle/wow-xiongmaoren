@@ -1,0 +1,44 @@
+
+DataStore_Agenda_Characters = {
+{
+["lastUpdate"] = 1760154252,
+},
+{
+["lastUpdate"] = 1760281602,
+},
+{
+["lastUpdate"] = 1760153990,
+},
+{
+["lastUpdate"] = 1760413347,
+},
+{
+["lastUpdate"] = 1759895462,
+},
+}
+DataStore_Agenda_SavedInstances = {
+{
+["魔古山宝库 25人（英雄）|365865197"] = "414953|1760154252|0|1",
+["永春台 25人（英雄）|365876448"] = "414953|1760154252|0|1",
+["恐惧之心 25人（英雄）|365873230"] = "414953|1760154252|0|1",
+},
+{
+["恐惧之心 25人（英雄）|366018923"] = "287604|1760281602|0|1",
+["永春台 25人（英雄）|366023340"] = "287604|1760281602|0|1",
+},
+{
+["永春台 25人（英雄）|365915476"] = "415214|1760153990|0|1",
+["恐惧之心 25人（英雄）|365911304"] = "415214|1760153990|0|1",
+},
+}
+DataStore_Agenda_BossKills = {
+}
+DataStore_Agenda_LFGDungeons = nil
+DataStore_Agenda_ItemCooldowns = {
+}
+DataStore_Agenda_Contacts = nil
+DataStore_Agenda_Options = {
+["WeeklyResetHour"] = 6,
+["WeeklyResetDay"] = 4,
+["NextWeeklyReset"] = "2025-10-16",
+}

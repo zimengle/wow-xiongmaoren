@@ -1,0 +1,539 @@
+VER 3 00000000000000AA " 污染的元素" "132099"
+/target 污染的元素
+/script SetRaidTarget("target",8)
+END
+VER 3 00000000000000AF "10人成就" "135833"
+/fa 4628 01/11/2023
+/fa 4631 01/11/2023
+/fa 4629 01/11/2023
+/fa 4630 01/11/2023
+END
+VER 3 000000000000006F "12" "132112"
+/4 {十字}{十字}{十字} H 奴隸監獄 {十字}{十字}{十字} 徵 坦 補 術~
+END
+VER 3 0000000000000070 "12" "132112"
+/4 {十字}{十字}{十字} PT 破碎ae {十字}{十字}{十字} 徵 補 DD(法術)~
+END
+VER 3 000000000000002B "12" "132112"
+/4 {十字}{十字}{十字} H 18波  {十字}{十字}{十字} 徵 補 DD 原始虛空和沙漏拍金
+END
+VER 3 00000000000000A9 "1成就" "135984"
+/fa 4633 01/11/2023
+/fa 4635 01/11/2023
+/fa 4634 01/11/2023
+/fa 4632 01/11/2023
+END
+VER 3 000000000000009A "1装逼成就" "132099"
+/fa 457 25/09/2022
+/fa 459 25/09/2022
+/fa 4576 13/10/2023
+END
+VER 3 000000000000008D "22" "132090"
+/1 2v2 戰德衝分隊 招一個補D 280韌+
+/2 2v2 戰德衝分隊 招一個補D 280韌+
+END
+VER 3 0000000000000090 "33" "132089"
+/1  {十字}{十字}{十字} 3V3 戰術德衝分隊伍招募一補D 要求300+韌 意者詳聊
+/2  {十字}{十字}{十字} 3V3 戰術德衝分隊伍招募一補D 要求300+韌 意者詳聊
+END
+VER 3 000000000000008B "55" "132089"
+/1  5v5 2346認真隊找補牧 補騎 電薩/獵人 韌性要求280+ 意者詳聊
+/2 5v5 2346認真隊找補牧 補騎 電薩/獵人 韌性要求280+ 意者詳聊
+END
+VER 3 0000000000000072 "dd" "132112"
+/console cameraDistanceMaxZoomFactor 4
+/console ffxDeath 0
+/script C_CVar.SetCVar("nameplateMaxDistance",41)
+/script SetCVar("cameraDistanceMax", 25)
+END
+VER 3 0000000000000075 "dd" "132112"
+/console cameraDistanceMaxZoomFactor 4
+/console ffxDeath 0
+/script C_CVar.SetCVar("nameplateMaxDistance",41)
+END
+VER 3 0000000000000073 "dd" "132112"
+/console cameraDistanceMaxZoomFactor 4
+/console ffxDeath 0
+/script  C_CVar.SetCVar("nameplateMaxDistance",41)
+END
+VER 3 0000000000000074 "dd" "132112"
+/console cameraDistanceMaxZoomFactor 4
+/console ffxDeath 0
+END
+VER 3 000000000000002D "Decursive" "INV_MISC_QUESTIONMARK"
+/stopcasting
+/cast [@mouseover,nomod,exists] 净化腐蚀;  [@mouseover,exists,mod:ctrl] 旋风; [@mouseover,exists,mod:shift] 净化腐蚀
+END
+VER 3 000000000000002E "eat" "INV_Misc_QuestionMark"
+#showtooltip
+/cast 餵養寵物
+/use 烤鵪鶉
+END
+VER 3 000000000000002F "RE假" "INV_Misc_QuestionMark"
+#showtooltip
+/castsequence 黑色魔紋之靴,多重射擊
+/cast 多重射擊
+END
+VER 3 00000000000000AD "RXPTargeting" "Ability_eyeoftheowl"
+/targetexact 卡德拉克
+/targetlasttarget [dead]
+END
+VER 3 0000000000000030 "SS" "132101"
+/吐口水
+/耳光
+END
+VER 3 00000000000000A0 "t" "INV_MISC_QUESTIONMARK"
+/target 莎爾萊
+END
+VER 3 000000000000009E "target" "132090"
+/target 日怒弓箭手
+/script SetRaidTarget("target",8)
+END
+VER 3 000000000000006E "target" "132092"
+/target 幽暗的工人
+/script SetRaidTarget("target",8)
+END
+VER 3 0000000000000098 "target" "132090"
+/target 薩
+/script SetRaidTarget("target",8)
+END
+VER 3 000000000000003D "VuhDoDCShieldNames" "Ability_Repair"
+N[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]邁克爾[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
+END
+VER 3 000000000000003C "VuhDoDCShieldNames" "Ability_Repair"
+N[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]特變電[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
+END
+VER 3 000000000000006B "VuhDoDCShieldNames" "Ability_Repair"
+N京城老[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]康樂股龍鷹[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
+END
+VER 3 0000000000000038 "VuhDoDCShieldNames" "Ability_Repair"
+N[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]特變電[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
+END
+VER 3 000000000000003A "VuhDoDCShieldNames" "Ability_Repair"
+N[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]巴非特[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
+END
+VER 3 0000000000000041 "VuhDoDCShieldNames" "Ability_Repair"
+N[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]康樂股[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
+END
+VER 3 0000000000000042 "VuhDoDCShieldNames" "Ability_Repair"
+N生于圣親愛的轩黎晨牙交喜Sup跳只莎蕾西青青子影子傳大脚丶书丷包依然法[x]Sgg萬古如磊磊打王十花夏至桃園牛隨便套汤小箐散装白建设银重锤先[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]特變電[x][x][x][x]卵石碾砂石盗[x][x][x]水元素水元素水元素[x]野猪[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
+END
+VER 3 000000000000003E "VuhDoDCShieldNames" "Ability_Repair"
+N[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]特變電[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
+END
+VER 3 0000000000000039 "VuhDoDCShieldNames" "Ability_Repair"
+N[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]康樂股[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
+END
+VER 3 000000000000003B "VuhDoDCShieldNames" "Ability_Repair"
+N[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]特變電[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
+END
+VER 3 000000000000003F "VuhDoDCShieldNames" "132281"
+N快刀[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]Dde[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]鬆餅給
+END
+VER 3 0000000000000040 "VuhDoDCShieldNames" "Ability_Repair"
+N[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]家駒[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
+END
+VER 3 0000000000000045 "假死" "INV_Misc_QuestionMark"
+#showtooltip
+/petpassive
+/petfollow
+/stopcasting
+/cleartarget
+/castsequence reset=10 假死,獻祭陷阱
+END
+VER 3 0000000000000043 "假死" "INV_Misc_QuestionMark"
+#showtooltip
+/PetPassiveMode
+/petpassive
+/castsequence reset=10 假死,冰凍陷阱
+END
+VER 3 0000000000000044 "假死" "INV_Misc_QuestionMark"
+#showtooltip
+/petpassive
+/petfollow
+/stopcasting
+/cleartarget
+/castsequence reset=10 假死,冰凍陷阱
+END
+VER 3 0000000000000046 "假死" "INV_Misc_QuestionMark"
+#showtooltip
+/petpassive
+/stopcasting
+/cleartarget
+/castsequence reset=10 假死,冰凍陷阱
+END
+VER 3 0000000000000047 "假死爆" "INV_Misc_QuestionMark"
+#showtooltip
+/petpassive
+/petfollow
+/stopcasting
+/cleartarget
+/castsequence reset=10 假死,爆炸陷阱
+END
+VER 3 0000000000000048 "傑德" "132089"
+/tar 傑德
+END
+VER 3 00000000000000AB "傳核" "132108"
+#show 受污染的核心
+/use 受污染的核心
+/大喊 我把污染之核傳給:%T了!
+/script SendChatMessage("我把污染之核傳給你了，%T","whisper",GetDefaultLanguage("target"),UnitName("target"))
+/script SetRaidTarget("target",2);
+END
+VER 3 0000000000000049 "冰霜" "INV_Misc_QuestionMark"
+#showtooltip
+/petpassive
+/stopcasting
+/cleartarget
+/castsequence reset=10 假死,冰霜陷阱
+END
+VER 3 000000000000004A "凝神" "135824"
+/y 已射 進入20秒CD
+/施放 寧神射擊
+END
+VER 3 000000000000004B "切" "INV_Misc_QuestionMark"
+#showtooltip
+/equipslot 18 倫魯迪洛爾，上古守護者的長弓
+/equipslot 18 強化弓
+END
+VER 3 000000000000006D "切换宏" "132301"
+/castsequence 雄鷹守護,獵豹守護
+END
+VER 3 0000000000000094 "加血" "INV_MISC_QUESTIONMARK"
+#showtooltip 治療藥水注射器
+/use 極強效治療石
+/use 治療藥水注射器
+END
+VER 3 0000000000000097 "吐口水" "132100"
+/吐口水
+END
+VER 3 0000000000000076 "吐口水" "132100"
+/耳光
+END
+VER 3 000000000000004C "吼吼吼" "132117"
+/cast 瞄準射擊
+/cast !自動射擊
+/cast 自動射擊
+END
+VER 3 000000000000004D "呼" "132319"
+/施放 魔法甜麵包
+/施放 魔法晶水
+END
+VER 3 000000000000007D "啤酒節" "132091"
+/y 啤酒節來了！!
+END
+VER 3 0000000000000083 "喊人" "132089"
+/4 {十字}{十字}{十字} H 18波  {十字}{十字}{十字} 徵 -1 任意DD
+END
+VER 3 0000000000000087 "喊人" "132089"
+/4 {十字}{十字}{十字} H 每日波塔  {十字}{十字}{十字} 徵 -1 DD(法術)
+END
+VER 3 0000000000000092 "喊人" "132089"
+/1   節日王-1坦 2DD
+END
+VER 3 000000000000007A "喊人" "132089"
+/4 {十字}{十字}{十字} H 堡壘 {十字}{十字}{十字} 徵 任意DD 4=1 ~
+END
+VER 3 0000000000000091 "喊人" "132089"
+/1 {十字}{十字}{十字} H亞克徵補 DD     a
+END
+VER 3 0000000000000082 "喊人" "132089"
+/4 戰術德 or 戰二補 33找會玩戰業的術士or補聖補牧
+END
+VER 3 000000000000007E "喊人" "132089"
+/1   戰坦/ 戰D雙BIS 找22點后毒蛇風暴團
+END
+VER 3 0000000000000089 "喊人" "132089"
+/1 5V5固定隊伍 徵電薩OR術士 牧師 周二周三 22-24點  300+韌 意者詳聊
+/2 5V5固定隊伍 徵電薩OR術士 牧師 周二周三 22-24點  300+韌 意者詳聊
+END
+VER 3 0000000000000077 "喊人" "132089"
+/4 {十字}{十字}{十字} H 18波  {十字}{十字}{十字} 徵 1補 原始虛空和沙漏拍G 4=1
+END
+VER 3 0000000000000080 "喊人" "132089"
+/1  {十字}{十字}{十字} H 每日監獄{十字}{十字}{十字} 徵 DD(法術獵盜元薩)  4=1 虛空一人20G包
+END
+VER 3 0000000000000093 "喊人" "132089"
+/script C=CastSpellByName;
+/script if(GetActionCooldown(63)==0) then C("压制");end /script if(UnitHealth("target")<20) then C("斩杀");end /施放 致死打击 /script if(IsActionInRange(63)==1)then C("旋风斩");end /script if(UnitMana("Player")>39) then C("英勇打击");end
+END
+VER 3 0000000000000086 "喊人" "132089"
+/4 {十字}{十字}{十字} 頂級PVP戰士找競技場 55 33隊伍
+/bg {十字}{十字}{十字} 頂級PVP戰士找競技場 55 33隊伍
+END
+VER 3 000000000000004E "圖騰" "132136"
+/petattack
+/petattack [target=根基圖騰][target=圖騰]
+/petattack [target=清毒圖騰][target=圖騰]
+/petattack [target=風怒圖騰][target=圖騰]
+/petattack [target=地縛圖騰][target=圖騰]
+/petattack [target=灼熱圖騰][target=圖騰]
+/petattack [target=法力之泉圖騰][target=圖騰]
+END
+VER 3 00000000000000AC "坐騎" "132231"
+/cast 迅捷紅色雙足飛龍
+/cast 阿曼尼戰熊
+END
+VER 3 000000000000007C "坐騎" "132231"
+/cast 迅捷紅色雙足飛龍
+/cast 大型棕色科多獸
+END
+VER 3 00000000000000A4 "坐騎" "132231"
+/cast 迅捷紅色雙足飛龍
+/cast 黑色戰鬥迅猛龍之哨
+END
+VER 3 0000000000000034 "坐騎宏" "132265"
+/cast 塞納里奧戰爭角鷹獸
+/cast 霜狼嗥叫者號角
+END
+VER 3 0000000000000069 "大獵" "132185"
+/施放 黃色其拉共鳴水晶
+/施放 霜狼嗥叫者的號角
+END
+VER 3 00000000000000AE "开团" "132096"
+/click [@party1,noexists]PlayerFrame RightButton
+/click [@party1,noexists]DropDownList1Button20
+/run ConvertToRaid()
+/stopmacro [group]
+/邀请 开团
+END
+VER 3 000000000000004F "快逃" "132103"
+/petpassive [target=pettarget,exists] 
+END
+VER 3 0000000000000050 "愛情厄北" "135934"
+浪漫厄北{心} 眼睛和平 門神全清 三王冰凍 門口航空+拿BUFF=30G 只拿BUFF=10G
+END
+VER 3 0000000000000061 "手雷" "135935"
+#showtooltip
+/petpassive
+/petfollow
+/施放 瑟銀手榴彈
+END
+VER 3 00000000000000A1 "换武器" "132281"
+/cast [stance:2/3] 狂暴姿態
+/equipslot 16 龍擊
+/equipslot 17 太陽之王權杖
+END
+VER 3 00000000000000A7 "换武器" "132281"
+/cast [stance:2/3] 狂暴姿態
+/equipslot 16 item:28439:3225
+/equipslot 17 item:28439:2673
+END
+VER 3 0000000000000088 "援護" "132365"
+/cast [stance:1/3] 防禦姿態
+/cast 阻擾
+END
+VER 3 000000000000008A "援護" "132365"
+/target 毛茸茸的玩意
+/cast [stance:1/3] 防禦姿態
+/cast 阻擾
+END
+VER 3 0000000000000051 "測試" "132141"
+/施放 假死
+/施放 冰凍陷阱
+END
+VER 3 00000000000000A8 "火女三層" "132107"
+/use 薩弗隆牢獄
+/console ffxglow 0
+END
+VER 3 000000000000009D "火女焦點" "135805"
+/focus 大術士艾黎瑟絲
+END
+VER 3 0000000000000052 "烙賽魔化" "INV_Misc_QuestionMark"
+#showtooltip
+/施放 魔暴龍眼
+/施放 狂暴
+/施放 急速射擊
+END
+VER 3 0000000000000053 "無寵" "INV_Misc_QuestionMark"
+#showtooltip
+/cleartarget [dead]
+/startattack
+/cast !自動射擊
+END
+VER 3 0000000000000054 "獻技" "INV_Misc_QuestionMark"
+#showtooltip
+/petpassive
+/stopcasting
+/cleartarget
+/castsequence reset=10 假死,獻祭陷阱
+END
+VER 3 000000000000008C "王子" "132148"
+/equipslot 16 無盡之刃
+/equipslot 17 相位壁壘
+/targetenemyplayer
+/castsequence reset=alt/5 破甲攻擊(等級 6),破甲攻擊(等級 6),破甲攻擊(等級 6)
+END
+VER 3 000000000000009C "王子" "132148"
+/equipslot 16 無盡之刃
+/equipslot 17 扭曲分割者
+/targetenemyplayer
+/castsequence reset=alt/5 破甲攻擊(等級 6),破甲攻擊(等級 6),破甲攻擊(等級 6)
+END
+VER 3 00000000000000A5 "盾反宏" "132361"
+/cast [stance:1/3] 防禦姿態
+/equip 殘暴者
+/equip 卡茲洛加堅固之心
+END
+VER 3 000000000000009B "盾反宏" "132361"
+/equip 葛洛姆特的斧頭
+/equip 奧多爾遺產防衛者
+/cast 法術反射
+END
+VER 3 0000000000000078 "盾反宏" "132361"
+/cast [stance:1/3] 防禦姿態
+/equip 葛洛姆特的斧頭
+/equip 寇達拉的藍色盾牌
+/cast 法術反射
+END
+VER 3 000000000000007B "盾反宏" "132361"
+/cast [stance:1/3] 防禦姿態
+/equip 奧多爾遺產防衛者
+/equip 葛洛姆特的斧頭
+/cast 法術反射
+END
+VER 3 0000000000000084 "盾反宏" "132361"
+/equip 葛洛姆特的斧頭
+/equip 寇達拉的藍色盾牌
+/cast 法術反射
+END
+VER 3 000000000000007F "盾反宏" "132361"
+/cast [stance:1/3] 防禦姿態
+/equip 奧多爾遺產防衛者
+/equip 君王防衛者
+/cast 法術反射
+END
+VER 3 0000000000000079 "盾反宏" "132361"
+/equip 葛洛姆特的斧頭
+/equip 虛空之翼保衛者之盾
+/cast 法術反射
+END
+VER 3 00000000000000A2 "盾反宏" "132361"
+/cast [stance:1/3] 防禦姿態
+/equip 潮汐之錘
+/equip 奧多爾遺產防衛者
+END
+VER 3 0000000000000055 "硬砍" "INV_Misc_QuestionMark"
+#showtooltip
+/cast [mod:shift]寧神射擊
+/cast 猛禽一擊
+/cast 摔絆
+END
+VER 3 0000000000000056 "終極魔化" "INV_Misc_QuestionMark"
+#showtooltip
+/施放 惡魔符文
+/施放 魔暴龍眼
+/施放 狂暴
+/施放 急速射擊
+END
+VER 3 0000000000000057 "腹蛇" "INV_Misc_QuestionMark"
+#showtooltip
+/castsequence reset=2 腹蛇釘刺,擾亂射擊
+END
+VER 3 0000000000000058 "自动" "INV_Misc_QuestionMark"
+#showtooltip
+/cleartarget [dead]
+/startattack
+/cast !自動射擊
+/petattack
+END
+VER 3 0000000000000059 "舔" "132090"
+/提問
+END
+VER 3 000000000000005A "萬能" "INV_Misc_QuestionMark"
+#showtooltip
+/castsequence [@pet,dead] 復活寵物;[nopet]reset=2 召喚寵物,復活寵物;reset=2 治療寵物, 解散寵物
+END
+VER 3 000000000000008F "血沸" "132143"
+#showtooltip 靈魂箭雨 
+/cast 靈魂箭雨 
+/cast 靈魂枷鎖 
+/cast 靈魂之矛
+END
+VER 3 0000000000000095 "血魔" "132140"
+wa
+END
+VER 3 00000000000000A3 "血魔" "132140"
+/cleartarget
+/targetenemy
+/cast 靈魂箭雨
+/cast 靈魂枷鎖
+/cast 靈魂之矛
+END
+VER 3 0000000000000085 "货币兑换宏" "136222"
+/run local a,b="勇气"; for i=1,74 do b=GetMerchantItemInfo(i) if b==a then BuyMerchantItem(i,1) else end end
+/click StaticPopup1Button1
+END
+VER 3 000000000000005C "通告" "132111"
+/RA 樓梯眼睛要殺 刷太快沒和平
+/RA 蟲子重置時間 20:13
+/RA 上組門神重置時間 20:46
+/RA 下組門神重置時間 20:55
+END
+VER 3 000000000000005B "通告" "132111"
+/RA 上組門神重置時間 20:38
+/RA 下組門神重置時間 20:39
+END
+VER 3 000000000000005D "野性" "132104"
+/castsequence 野性守護,獵豹守護
+END
+VER 3 000000000000005E "野猪冲撞" "INV_Misc_QuestionMark"
+#showtooltip
+/castsequence reset=target 獵人印記,毒蛇釘刺,瞄準射擊,瞄準射擊,瞄準射擊,毒蛇釘刺,瞄準射擊,瞄準射擊,瞄準射擊
+/寵物攻擊
+/petautocaston 低吼
+/script if GetRaidTargetIndex("target")==nil then SetRaidTargetIcon("target",4) end
+END
+VER 3 000000000000005F "野猪待命" "INV_Misc_QuestionMark"
+#showtooltip
+/castsequence reset=target 獵人印記,毒蛇釘刺,瞄準射擊,瞄準射擊,瞄準射擊,毒蛇釘刺,瞄準射擊,瞄準射擊,瞄準射擊
+/寵物攻擊
+/petautocastoff 低吼
+/script if GetRaidTargetIndex("target")==nil then SetRaidTargetIcon("target",4) end
+END
+VER 3 000000000000006C "鐵皮" "INV_Misc_QuestionMark"
+#showtooltip
+/petpassive
+/petfollow
+/施放 鐵皮手雷
+END
+VER 3 0000000000000062 "開抓" "132187"
+#showtooltip
+/stopattack
+/targetenemy
+/ SetCVar("targetNearestDistance", 41)
+END
+VER 3 0000000000000064 "雄鹰" "136076"
+/cast [mod:shift]獵豹守護
+/cast [mod:alt]自然守護
+/cast 雄鷹守護
+END
+VER 3 0000000000000063 "雄鹰" "136076"
+/cast [mod:shift]獵豹守護
+/cast [mod:alt]野性守護
+/cast 雄鷹守護
+END
+VER 3 0000000000000081 "雙手武器" "132090"
+/equipslot 16 詛咒之錘
+END
+VER 3 000000000000009F "雙手武器" "132090"
+/cast 狂暴姿態
+/equip 深雷
+END
+VER 3 000000000000008E "雙手武器" "132121"
+/target 泰
+END
+VER 3 0000000000000096 "雙手武器" "132127"
+/equipslot 16 龍擊
+/equipslot 17 太陽之王權杖
+END
+VER 3 00000000000000A6 "雙手武器" "132090"
+/cast 狂暴姿態
+/equip 風暴信使
+END
+VER 3 0000000000000099 "風怒圖騰" "136039"
+/target 風怒圖騰
+END
+VER 3 0000000000000068 "鷹眼" "132099"
+/施放 !鷹眼術
+END

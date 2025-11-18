@@ -1,0 +1,65 @@
+
+WSEDB = {
+["profileKeys"] = {
+["萌萌的露露糖 - 伊弗斯"] = "Default",
+["沈南鹏 - 祈福"] = "Default",
+["露露缇娅丶 - 霜语"] = "Default",
+["兔寶寶煞筆 - 祈福"] = "Default",
+["萌萌的露露糖 - 霜语"] = "Default",
+["特变电工 - 祈福"] = "Default",
+["露露缇娅灬 - 霜语"] = "Default",
+["码农巴菲特 - 祈福"] = "Default",
+["魔翼烂壁 - 祈福"] = "Default",
+["露露緹婭丶 - 霜语"] = "Default",
+["张坤 - 祈福"] = "Default",
+["京东的董事长 - 祈福"] = "Default",
+["查尔斯三世 - 祈福"] = "Default",
+["飒飒风月 - 祈福"] = "Default",
+["码农张菲特 - 哈霍兰"] = "Default",
+["Vscode - 加丁"] = "Default",
+["露露缇娅丶old1762081797510 - 霜语"] = "Default",
+["特工仓库 - 祈福"] = "Default",
+["萌萌的露小露 - 伊弗斯"] = "Default",
+["新特能源 - 祈福"] = "Default",
+["露露緹婭 - 伊弗斯"] = "Default",
+["露露緹婭 - 札里克"] = "Default",
+["日百 - 祈福"] = "Default",
+["愛雅法拉 - 札里克"] = "Default",
+},
+["profiles"] = {
+["Default"] = {
+["savedCharacters"] = {
+{
+["data"] = "{\"talents\":\"000000\",\"glyphs\":{\"minor\":[],\"major\":[]},\"class\":\"monk\",\"unit\":\"player\",\"gear\":{\"items\":[{\"id\":92389,\"gems\":[]},{\"id\":92392,\"gems\":[]},{\"id\":92396,\"gems\":[]},{\"id\":92377,\"gems\":[]},{\"id\":92375,\"gems\":[]},{\"id\":92407,\"gems\":[]},{\"id\":92387,\"gems\":[]},{\"id\":92404,\"gems\":[]},{\"id\":92391,\"gems\":[]},{\"id\":92379,\"gems\":[]},{\"id\":92380,\"gems\":[]},{\"id\":92381,\"gems\":[]},{\"id\":92401,\"gems\":[]},{\"id\":92400,\"gems\":[]},{\"id\":92405,\"gems\":[]},{\"id\":92405,\"gems\":[]}],\"version\":\"v3.1.3\"},\"race\":\"Pandaren (A)\",\"name\":\"京东的董事长\",\"spec\":\"windwalker\",\"professions\":[],\"level\":85,\"version\":\"v3.1.3\",\"realm\":\"祈福\"}",
+["timestamp"] = 1763301835,
+["name"] = "京东的董事长-祈福",
+["dateString"] = "2025-11-16 22:03:55",
+},
+{
+["data"] = "{\"talents\":\"110330\",\"glyphs\":{\"minor\":[{\"spellID\":58228}],\"major\":[{\"spellID\":14771},{\"spellID\":55684}]},\"class\":\"priest\",\"unit\":\"player\",\"gear\":{\"items\":[{\"id\":55198,\"gems\":[]},{\"id\":66902,\"gems\":[]},{\"id\":66910,\"gems\":[]},{\"id\":55850,\"gems\":[]},{\"id\":57860,\"gems\":[]},{\"id\":65839,\"gems\":[]},{\"id\":55255,\"gems\":[]},{\"id\":66892,\"gems\":[]},{\"id\":55849,\"gems\":[]},{\"id\":66937,\"gems\":[]},{\"id\":66890,\"gems\":[]},{\"id\":65864,\"gems\":[]},{\"id\":40685,\"gems\":[]},{\"id\":55256,\"gems\":[]},{\"id\":56116,\"gems\":[]},{\"id\":65802,\"gems\":[]}],\"version\":\"v3.1.3\"},\"race\":\"Human\",\"name\":\"新特能源\",\"spec\":\"shadow\",\"professions\":[{\"name\":\"Jewelcrafting\",\"level\":401}],\"level\":85,\"version\":\"v3.1.3\",\"realm\":\"祈福\"}",
+["timestamp"] = 1763300817,
+["name"] = "新特能源-祈福",
+["dateString"] = "2025-11-16 21:46:57",
+},
+{
+["data"] = "{\"talents\":\"231110\",\"glyphs\":{\"minor\":[],\"major\":[]},\"class\":\"deathknight\",\"unit\":\"player\",\"gear\":{\"items\":[{\"id\":57277,\"gems\":[]},{\"id\":55833,\"gems\":[]},{\"id\":66891,\"gems\":[]},{\"id\":55206,\"gems\":[]},{\"id\":66884,\"gems\":[]},{\"id\":55268,\"gems\":[]},{\"id\":57284,\"gems\":[]},{\"id\":57268,\"gems\":[]},{\"id\":55260,\"gems\":[]},{\"id\":65861,\"gems\":[]},{\"id\":66900,\"gems\":[]},{\"id\":55265,\"gems\":[]},{\"id\":37390,\"gems\":[]},{\"id\":55251,\"gems\":[]},{\"id\":55811,\"gems\":[],\"enchant\":3370}],\"version\":\"v3.1.3\"},\"race\":\"Human\",\"name\":\"码农巴菲特\",\"spec\":\"frost\",\"professions\":[{\"name\":\"Jewelcrafting\",\"level\":410}],\"level\":85,\"version\":\"v3.1.3\",\"realm\":\"祈福\"}",
+["timestamp"] = 1763222198,
+["name"] = "码农巴菲特-祈福",
+["dateString"] = "2025-11-15 23:56:38",
+},
+{
+["data"] = "{\"talents\":\"121210\",\"glyphs\":{\"minor\":[{\"spellID\":58033},{\"spellID\":58039},{\"spellID\":63256}],\"major\":[{\"spellID\":146631},{\"spellID\":146629},{\"spellID\":56819}]},\"class\":\"rogue\",\"unit\":\"player\",\"gear\":{\"items\":[{\"id\":66936,\"gems\":[]},{\"id\":55262,\"gems\":[]},{\"id\":66905,\"gems\":[]},{\"id\":66898,\"gems\":[]},{\"id\":57863,\"gems\":[]},{\"id\":65798,\"gems\":[]},{\"id\":57282,\"gems\":[]},{\"id\":65801,\"gems\":[]},{\"id\":57327,\"gems\":[]},{\"id\":55653,\"gems\":[],\"random_suffix\":-40},{\"id\":55776,\"gems\":[]},{\"id\":57331,\"gems\":[]},{\"id\":55795,\"gems\":[]},{\"id\":57325,\"gems\":[]},{\"id\":56127,\"gems\":[]},{\"id\":55796,\"gems\":[]}],\"version\":\"v3.1.3\"},\"race\":\"Human\",\"name\":\"特变电工\",\"spec\":\"subtlety\",\"professions\":[{\"name\":\"Jewelcrafting\",\"level\":395}],\"level\":85,\"version\":\"v3.1.3\",\"realm\":\"祈福\"}",
+["timestamp"] = 1762533068,
+["name"] = "特变电工-祈福",
+["dateString"] = "2025-11-08 00:31:08",
+},
+{
+["data"] = "{\"talents\":\"331131\",\"glyphs\":{\"minor\":[],\"major\":[{\"spellID\":55456},{\"spellID\":55440},{\"spellID\":55453}]},\"class\":\"shaman\",\"unit\":\"player\",\"gear\":{\"items\":[{\"id\":89962,\"reforging\":162,\"upgrade_step\":0,\"gems\":[76885,76668]},{\"id\":86976,\"reforging\":145,\"upgrade_step\":2,\"gems\":[]},{\"enchant\":4806,\"id\":85349,\"reforging\":145,\"upgrade_step\":0,\"gems\":[76620]},{\"enchant\":4423,\"id\":87018,\"reforging\":145,\"upgrade_step\":0,\"gems\":[]},{\"enchant\":4419,\"id\":86951,\"reforging\":167,\"upgrade_step\":2,\"gems\":[76620,76668]},{\"enchant\":4411,\"id\":86842,\"reforging\":167,\"upgrade_step\":0,\"gems\":[]},{\"id\":87130,\"gems\":[],\"upgrade_step\":2,\"enchant\":4430},{\"id\":86755,\"reforging\":145,\"upgrade_step\":0,\"gems\":[76668,76620,76668]},{\"enchant\":4825,\"id\":86690,\"reforging\":167,\"upgrade_step\":0,\"gems\":[76620]},{\"enchant\":4426,\"id\":90907,\"reforging\":167,\"upgrade_step\":0,\"gems\":[]},{\"id\":86982,\"reforging\":167,\"upgrade_step\":0,\"gems\":[]},{\"id\":86814,\"reforging\":138,\"upgrade_step\":0,\"gems\":[]},{\"id\":87163,\"gems\":[],\"upgrade_step\":2},{\"id\":79330,\"gems\":[],\"upgrade_step\":0},{\"enchant\":4442,\"id\":87170,\"reforging\":141,\"upgrade_step\":2,\"gems\":[89882]}],\"version\":\"v3.1.1\"},\"race\":\"Troll\",\"name\":\"露露緹婭丶\",\"spec\":\"restoration\",\"professions\":[{\"name\":\"Engineering\",\"level\":1}],\"level\":90,\"version\":\"v3.1.1\",\"realm\":\"伊弗斯\"}",
+["timestamp"] = 1758774602,
+["name"] = "露露缇娅丶-霜语",
+["dateString"] = "2025-09-25 12:30:02",
+},
+},
+},
+},
+}

@@ -1,0 +1,63 @@
+VER 3 010000000100000D "1装逼成就" "132099"
+/fa 457 25/09/2022
+/fa 459 25/09/2022
+/fa 4576 2/10/2023
+END
+VER 3 010000000100000B "follow" "134400"
+/follow 不知名骑士
+END
+VER 3 0100000001000003 "VuhDoDCShieldData" "Ability_Repair"
+P1PT1LR1DR1HR[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]1SH[x]0__[x]0__[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
+END
+VER 3 010000000100000F "VuhDoDCShieldData" "Ability_Repair"
+P[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]1SR[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
+END
+VER 3 010000000100000E "VuhDoDCShieldNames" "Ability_Repair"
+N[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]巴非特[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
+END
+VER 3 0100000001000008 "取消耐力" "136075"
+#showtooltips
+/cancelaura 命令怒吼
+/cancelaura 坚韧祷言
+END
+VER 3 0100000001000001 "坐骑" "134400"
+/施放 迅捷红色驭风者
+/施放 迅捷棕狼
+END
+VER 3 0100000001000009 "奶萨爆发" "134400"
+/use 融雪手甲
+/use 复苏饰物
+END
+VER 3 0100000001000010 "救命" "134400"
+/cast 自然迅捷
+/cast 治疗波
+END
+VER 3 0100000001000007 "活动假人" "134400"
+/cast [@player] 活动假人
+END
+VER 3 0100000001000006 "焦點打斷" "134400"
+#showtooltips 风剪
+/cast [target=focus,exists]  风剪;风剪
+END
+VER 3 0100000001000004 "爆发" "134400"
+/施放 血性狂怒
+/use 征服者的世界击碎者手甲
+/use 天谴之石
+END
+VER 3 0100000001000005 "爆发2" "136040"
+/施放 野性狼魂
+/施放 血性狂怒
+/use 萨尔的凯旋裹手
+/use 天谴之石
+END
+VER 3 010000000100000A "绿龙宏" "134400"
+/target 踏梦者瓦莉瑟瑞娅
+/cast 治疗波
+END
+VER 3 010000000100000C "绿龙宏2" "134400"
+/target 踏梦者瓦莉瑟瑞娅
+/cast 激流
+END
+VER 3 0100000001000002 "自動攻擊" "132147"
+/startattack 
+END

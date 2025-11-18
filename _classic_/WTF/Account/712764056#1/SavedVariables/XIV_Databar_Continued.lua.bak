@@ -1,0 +1,29 @@
+
+TEST_CONFIG = nil
+XIVBarDB = {
+	["char"] = {
+		["特變電工 - 伊弗斯"] = {
+			["portItem"] = {
+				["portId"] = 140192,
+			},
+		},
+	},
+	["profiles"] = {
+		["Default"] = {
+		},
+	},
+	["profileKeys"] = {
+		["特變電工 - 伊弗斯"] = "Default",
+	},
+	["factionrealm"] = {
+		["Horde - 伊弗斯"] = {
+			["特變電工"] = {
+				["dailyMoney"] = 767383,
+				["sessionMoney"] = 767383,
+				["class"] = "WARRIOR",
+				["currentMoney"] = 938728951,
+				["lastLoginDate"] = 20231012,
+			},
+		},
+	},
+}

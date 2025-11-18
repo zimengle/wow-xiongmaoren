@@ -1,0 +1,721 @@
+
+BlizzMoveDB = {
+["saveScaleStrategy"] = "permanent",
+["scales"] = {
+["CharacterFrame"] = 1.100000047683716,
+["ReadyCheckFrame"] = 1.000000023841858,
+},
+["mutedCompatWarnings"] = {
+},
+["points"] = {
+["GuildInfoFrameScrollFrame"] = {
+},
+["PetPaperDollFrame"] = {
+},
+["AddonList"] = {
+},
+["WhoListScrollFrame"] = {
+},
+["ItemTextFrame"] = {
+},
+["GuildInviteFrame"] = {
+},
+["PaperDollFrame"] = {
+},
+["WorldMapTitleButton"] = {
+},
+["LFGListFrame.ApplicationViewer.UnempoweredCover"] = {
+},
+["PetitionFrame"] = {
+},
+["CommunitiesFrame.NotificationSettingsDialog"] = {
+},
+["OpenMailFrameInset"] = {
+},
+["QuestMapFrame.DetailsFrame.ScrollFrame"] = {
+},
+["ItemSocketingFrame"] = {
+["startPoints"] = {
+{
+["anchorPoint"] = "TOPLEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = -116.0001220703125,
+["offX"] = 16,
+["relativePoint"] = "TOPLEFT",
+},
+},
+["dragged"] = true,
+["dragPoints"] = {
+{
+["anchorPoint"] = "LEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = -18.07426452636719,
+["offX"] = 390.5185852050781,
+["relativePoint"] = "LEFT",
+},
+},
+},
+["QuestFrame"] = {
+},
+["TradeFrame"] = {
+["startPoints"] = {
+{
+["anchorPoint"] = "TOPLEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = -115.9999389648438,
+["relativePoint"] = "TOPLEFT",
+["offX"] = 16,
+},
+},
+["dragged"] = true,
+["dragPoints"] = {
+{
+["anchorPoint"] = "TOPLEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = -116,
+["offX"] = 16,
+["relativePoint"] = "TOPLEFT",
+},
+},
+},
+["PetStableFrame"] = {
+},
+["ReputationFrame"] = {
+},
+["CommunitiesGuildLogFrame"] = {
+},
+["ReforgingFrame"] = {
+},
+["SettingsPanel"] = {
+["startPoints"] = {
+{
+["anchorPoint"] = "CENTER",
+["relativeFrame"] = "UIParent",
+["offY"] = 0,
+["offX"] = 3.0517578125e-05,
+["relativePoint"] = "CENTER",
+},
+},
+["dragged"] = true,
+["dragPoints"] = {
+{
+["anchorPoint"] = "CENTER",
+["relativeFrame"] = "UIParent",
+["offY"] = 37.33346557617188,
+["offX"] = -3.8101806640625,
+["relativePoint"] = "CENTER",
+},
+},
+},
+["WardrobeFrame"] = {
+},
+["GuildRegistrarFrame"] = {
+},
+["FriendsFrameFriendsScrollFrame"] = {
+},
+["FriendsFrame"] = {
+["startPoints"] = {
+{
+["anchorPoint"] = "TOPLEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = -116.0001220703125,
+["offX"] = 16,
+["relativePoint"] = "TOPLEFT",
+},
+},
+["dragged"] = true,
+["dragPoints"] = {
+{
+["anchorPoint"] = "LEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = 194.0739135742188,
+["relativePoint"] = "LEFT",
+["offX"] = 75.85116577148438,
+},
+},
+},
+["GossipFrame"] = {
+},
+["SendMailFrame"] = {
+},
+["CommunitiesFrame.GuildMemberDetailFrame"] = {
+},
+["CommunitiesGuildTextEditFrame"] = {
+},
+["AchievementFrameCategoriesContainer"] = {
+},
+["DressUpFrame"] = {
+},
+["WorldMapFrame"] = {
+["startPoints"] = {
+{
+["anchorPoint"] = "TOP",
+["relativeFrame"] = "UIParent",
+["offY"] = -59.46728515625,
+["offX"] = 64.10675048828125,
+["relativePoint"] = "TOP",
+},
+},
+["dragged"] = true,
+["dragPoints"] = {
+{
+["anchorPoint"] = "CENTER",
+["relativeFrame"] = "UIParent",
+["offY"] = -5.193859528855683,
+["offX"] = -21.38075761328219,
+["relativePoint"] = "CENTER",
+},
+},
+},
+["RaidInfoFrame"] = {
+},
+["PVPFrame"] = {
+},
+["TimeManagerFrame"] = {
+},
+["InspectPVPFrame"] = {
+},
+["WarGamesFrame"] = {
+},
+["PVEFrame"] = {
+["startPoints"] = {
+{
+["anchorPoint"] = "TOPLEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = -116.0001220703125,
+["offX"] = 16,
+["relativePoint"] = "TOPLEFT",
+},
+},
+["dragged"] = true,
+["dragPoints"] = {
+{
+["anchorPoint"] = "CENTER",
+["relativeFrame"] = "UIParent",
+["offY"] = 29.11053466796875,
+["relativePoint"] = "CENTER",
+["offX"] = -311.0925598144531,
+},
+},
+},
+["InspectPaperDollFrame"] = {
+},
+["MailFrameInset"] = {
+},
+["ReforgingFrame.invisButton"] = {
+},
+["QuestMapFrame"] = {
+},
+["FriendsFrameBattlenetFrame.BroadcastFrame"] = {
+},
+["QuestLogFrame"] = {
+["startPoints"] = {
+{
+["anchorPoint"] = "TOPLEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = -116.0001220703125,
+["offX"] = 16,
+["relativePoint"] = "TOPLEFT",
+},
+},
+["dragged"] = true,
+["dragPoints"] = {
+{
+["anchorPoint"] = "CENTER",
+["relativeFrame"] = "UIParent",
+["offY"] = 124.2958679199219,
+["relativePoint"] = "CENTER",
+["offX"] = -234.7965393066406,
+},
+},
+},
+["TradeSkillFrame"] = {
+["startPoints"] = {
+{
+["anchorPoint"] = "TOP",
+["relativeFrame"] = "UIParent",
+["offY"] = -103.9999389648438,
+["offX"] = -10.73806762695313,
+["relativePoint"] = "TOP",
+},
+},
+["dragged"] = true,
+["dragPoints"] = {
+{
+["anchorPoint"] = "TOP",
+["relativeFrame"] = "UIParent",
+["offY"] = -103.2379760742188,
+["offX"] = -10.73806762695313,
+["relativePoint"] = "TOP",
+},
+},
+},
+["DestinyFrame"] = {
+},
+["ClassTrainerFrame"] = {
+},
+["CommunitiesSettingsDialog"] = {
+},
+["ReadyCheckFrame"] = {
+["startPoints"] = {
+{
+["anchorPoint"] = "CENTER",
+["relativeFrame"] = "UIParent",
+["offY"] = -9.999954223632812,
+["relativePoint"] = "CENTER",
+["offX"] = 0,
+},
+},
+["dragged"] = true,
+["dragPoints"] = {
+{
+["anchorPoint"] = "CENTER",
+["relativeFrame"] = "UIParent",
+["offY"] = -8.22198486328125,
+["relativePoint"] = "CENTER",
+["offX"] = 17.777587890625,
+},
+},
+},
+["ItemUpgradeFrame"] = {
+["startPoints"] = {
+{
+["anchorPoint"] = "TOPLEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = -116.0001220703125,
+["offX"] = 16,
+["relativePoint"] = "TOPLEFT",
+},
+},
+["dragged"] = true,
+["dragPoints"] = {
+{
+["anchorPoint"] = "LEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = 126.8515014648438,
+["offX"] = 128.5925445556641,
+["relativePoint"] = "LEFT",
+},
+},
+},
+["HelpFrame"] = {
+},
+["EncounterJournal.encounter.info.overviewScroll"] = {
+},
+["MailFrame"] = {
+["startPoints"] = {
+{
+["anchorPoint"] = "TOPLEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = -115.9999389648438,
+["offX"] = 16,
+["relativePoint"] = "TOPLEFT",
+},
+},
+["dragged"] = true,
+["dragPoints"] = {
+{
+["anchorPoint"] = "CENTER",
+["relativeFrame"] = "UIParent",
+["offY"] = 108.7401428222656,
+["relativePoint"] = "CENTER",
+["offX"] = -370.8518676757813,
+},
+},
+},
+["EncounterJournal.encounter.instance.LoreScrollingFont.ScrollBox"] = {
+},
+["MacroFrame"] = {
+["startPoints"] = {
+{
+["anchorPoint"] = "TOP",
+["relativeFrame"] = "UIParent",
+["offY"] = -116.0001220703125,
+["offX"] = -109.177734375,
+["relativePoint"] = "TOP",
+},
+},
+["dragged"] = true,
+["dragPoints"] = {
+{
+["anchorPoint"] = "CENTER",
+["relativeFrame"] = "UIParent",
+["offY"] = 141.6991271972656,
+["relativePoint"] = "CENTER",
+["offX"] = -228.8813018798828,
+},
+},
+},
+["ChatConfigFrame"] = {
+["startPoints"] = {
+{
+["anchorPoint"] = "CENTER",
+["relativeFrame"] = "UIParent",
+["offY"] = 1.52587890625e-05,
+["offX"] = -0.0001220703125,
+["relativePoint"] = "CENTER",
+},
+},
+["dragged"] = true,
+["dragPoints"] = {
+{
+["anchorPoint"] = "CENTER",
+["relativeFrame"] = "UIParent",
+["offY"] = 0.5926055908203125,
+["relativePoint"] = "CENTER",
+["offX"] = 1.184906005859375,
+},
+},
+},
+["CollectionsJournal"] = {
+["startPoints"] = {
+{
+["anchorPoint"] = "TOPLEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = -116.0001220703125,
+["relativePoint"] = "TOPLEFT",
+["offX"] = 16,
+},
+},
+["dragged"] = true,
+["dragPoints"] = {
+{
+["anchorPoint"] = "TOPLEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = -116.0001220703125,
+["relativePoint"] = "TOPLEFT",
+["offX"] = 16,
+},
+},
+},
+["AuctionHouseFrame"] = {
+["startPoints"] = {
+{
+["anchorPoint"] = "TOPLEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = -115.9999389648438,
+["offX"] = 35.99999618530273,
+["relativePoint"] = "TOPLEFT",
+},
+},
+["dragged"] = true,
+["dragPoints"] = {
+{
+["anchorPoint"] = "LEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = 135.4654083251953,
+["relativePoint"] = "LEFT",
+["offX"] = 46.07413864135742,
+},
+},
+},
+["EncounterJournal.encounter.info.model"] = {
+},
+["AchievementFrame"] = {
+["startPoints"] = {
+{
+["anchorPoint"] = "TOPLEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = -116.0001220703125,
+["offX"] = 96.00000762939453,
+["relativePoint"] = "TOPLEFT",
+},
+},
+["dragged"] = true,
+["dragPoints"] = {
+{
+["anchorPoint"] = "CENTER",
+["relativeFrame"] = "UIParent",
+["offY"] = 13.25897216796875,
+["offX"] = 338.96240234375,
+["relativePoint"] = "CENTER",
+},
+},
+},
+["MerchantFrame"] = {
+["startPoints"] = {
+{
+["anchorPoint"] = "TOPLEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = -116.0001220703125,
+["offX"] = 16,
+["relativePoint"] = "TOPLEFT",
+},
+},
+["dragged"] = true,
+["dragPoints"] = {
+{
+["anchorPoint"] = "LEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = 98.74075317382812,
+["relativePoint"] = "LEFT",
+["offX"] = 84.14759826660156,
+},
+},
+},
+["EncounterJournal.encounter.info.detailsScroll"] = {
+},
+["TabardFrame"] = {
+},
+["ClubFinderGuildFinderFrame.RequestToJoinFrame"] = {
+},
+["PlayerTalentFrame"] = {
+["startPoints"] = {
+{
+["anchorPoint"] = "LEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = 93.57151575297758,
+["offX"] = 20.79999923706055,
+["relativePoint"] = "LEFT",
+},
+},
+["dragged"] = true,
+["dragPoints"] = {
+{
+["anchorPoint"] = "CENTER",
+["relativeFrame"] = "UIParent",
+["offY"] = 102.12130609214,
+["relativePoint"] = "CENTER",
+["offX"] = -162.6463324595061,
+},
+},
+},
+["PVPBannerFrame"] = {
+},
+["GuildBankFrame"] = {
+},
+["GuildFrame"] = {
+},
+["TutorialFrame"] = {
+},
+["InspectTalentFrame"] = {
+},
+["SpellBookFrame"] = {
+["startPoints"] = {
+{
+["anchorPoint"] = "TOPLEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = -115.9999389648438,
+["offX"] = 16,
+["relativePoint"] = "TOPLEFT",
+},
+},
+["dragged"] = true,
+["dragPoints"] = {
+{
+["anchorPoint"] = "TOPLEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = -116.0001220703125,
+["relativePoint"] = "TOPLEFT",
+["offX"] = 16,
+},
+},
+},
+["ArenaRegistrarFrame"] = {
+},
+["GuildControlPopupFrame"] = {
+},
+["InspectGuildFrame"] = {
+},
+["TokenFrame"] = {
+},
+["GlyphFrameScrollFrame"] = {
+},
+["PVPHonorFrame"] = {
+},
+["PVPConquestFrame"] = {
+},
+["InspectFrame"] = {
+["startPoints"] = {
+{
+["anchorPoint"] = "TOPLEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = -116.0001220703125,
+["offX"] = 16,
+["relativePoint"] = "TOPLEFT",
+},
+},
+["dragged"] = true,
+["dragPoints"] = {
+{
+["anchorPoint"] = "LEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = 11.55555725097656,
+["relativePoint"] = "LEFT",
+["offX"] = 181.9254760742188,
+},
+},
+},
+["ReputationDetailFrame"] = {
+},
+["CommunitiesFrame"] = {
+["startPoints"] = {
+{
+["anchorPoint"] = "TOPLEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = -116.0001220703125,
+["relativePoint"] = "TOPLEFT",
+["offX"] = 16,
+},
+},
+["dragged"] = true,
+["dragPoints"] = {
+{
+["anchorPoint"] = "LEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = 117.2222595214844,
+["relativePoint"] = "LEFT",
+["offX"] = 286.2222290039063,
+},
+},
+},
+["BankFrame"] = {
+},
+["AchievementFrameAchievementsContainer"] = {
+},
+["CommunitiesFrame.RecruitmentDialog"] = {
+},
+["ModelPreviewFrame"] = {
+},
+["QuestMapFrame.DetailsFrame.RewardsFrame"] = {
+},
+["TokenFrameContainer"] = {
+},
+["OpenMailFrame"] = {
+},
+["CharacterFrame"] = {
+["startPoints"] = {
+{
+["anchorPoint"] = "TOPLEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = -127.5999872294342,
+["offX"] = 17.60000038146973,
+["relativePoint"] = "TOPLEFT",
+},
+},
+["dragged"] = true,
+["dragPoints"] = {
+{
+["anchorPoint"] = "CENTER",
+["relativeFrame"] = "UIParent",
+["offY"] = 145.8656405072998,
+["relativePoint"] = "CENTER",
+["offX"] = -195.9082162798622,
+},
+},
+},
+["AchievementFrameHeader"] = {
+},
+["QuestLogDetailFrame"] = {
+},
+["GameMenuFrame"] = {
+["startPoints"] = {
+{
+["anchorPoint"] = "CENTER",
+["relativeFrame"] = "UIParent",
+["offY"] = 4.57763671875e-05,
+["offX"] = 3.0517578125e-05,
+["relativePoint"] = "CENTER",
+},
+},
+["dragged"] = true,
+["dragPoints"] = {
+{
+["anchorPoint"] = "CENTER",
+["relativeFrame"] = "UIParent",
+["offY"] = 2.370162963867188,
+["relativePoint"] = "CENTER",
+["offX"] = 0.59234619140625,
+},
+},
+},
+["CollectionsJournal.TitleContainer"] = {
+},
+["GlyphFrame"] = {
+},
+["OpenMailSender"] = {
+},
+["SkillFrame"] = {
+},
+["CommunitiesGuildNewsFiltersFrame"] = {
+},
+["GuildEventLogFrame"] = {
+},
+["LootFrame"] = {
+},
+["GuildControlUI"] = {
+},
+["GuildInfoFrame"] = {
+},
+["TaxiFrame"] = {
+["startPoints"] = {
+{
+["anchorPoint"] = "TOPLEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = -115.9999389648438,
+["relativePoint"] = "TOPLEFT",
+["offX"] = 16,
+},
+},
+["dragged"] = true,
+["dragPoints"] = {
+{
+["anchorPoint"] = "TOPLEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = -115.9999389648438,
+["relativePoint"] = "TOPLEFT",
+["offX"] = 15.23810577392578,
+},
+},
+},
+["EncounterJournal.instanceSelect.ScrollBox"] = {
+},
+["WorldStateScoreFrame"] = {
+["startPoints"] = {
+{
+["anchorPoint"] = "CENTER",
+["relativeFrame"] = "UIParent",
+["offY"] = -3.0517578125e-05,
+["offX"] = 54.99984741210938,
+["relativePoint"] = "CENTER",
+},
+},
+["dragged"] = true,
+["dragPoints"] = {
+{
+["anchorPoint"] = "LEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = 165.3334350585938,
+["offX"] = 65.90744018554688,
+["relativePoint"] = "LEFT",
+},
+},
+},
+["EncounterJournal"] = {
+["startPoints"] = {
+{
+["anchorPoint"] = "TOPLEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = -115.9999389648438,
+["relativePoint"] = "TOPLEFT",
+["offX"] = 16,
+},
+},
+["dragged"] = true,
+["dragPoints"] = {
+{
+["anchorPoint"] = "TOPLEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = -115.9999389648438,
+["relativePoint"] = "TOPLEFT",
+["offX"] = 16,
+},
+},
+},
+["TokenFramePopup"] = {
+},
+["ChannelFrame"] = {
+},
+},
+["savePosStrategy"] = "permanent",
+}

@@ -1,0 +1,16 @@
+## Interface: 30800
+## Title: WeakAuras Model Paths |cffd4af37谷|r|cffdbb850风|r|cffe2c069修|r|cffe9c882复|r|cfff0d09b版|r
+## Author: The WeakAuras Team
+## Version: 5.12.9a
+## Notes: Model paths for WeakAuras
+## Notes-esES: Las rutas de archivos de modelos en 3D para WeakAuras
+## Notes-deDE: 3D-Model Pfade für WeakAuras
+## Notes-ruRU: Ссылки на файлы моделей WeakAuras
+## Notes-zhTW: WeakAuras的模組路徑
+## X-Category: Interface Enhancements
+## Globe-Main: WeakAuras
+## DefaultState: Enabled
+## LoadOnDemand: 1
+## Dependencies: WeakAuras, WeakAurasOptions
+
+ModelPathsWrath.lua

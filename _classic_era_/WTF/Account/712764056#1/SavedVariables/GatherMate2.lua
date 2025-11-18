@@ -1,0 +1,32 @@
+GatherMate2DB = {
+["profileKeys"] = {
+["加拿大打桩机 - 铁血"] = "Default",
+["伊芙莉特 - 铁血"] = "Default",
+["蒂琪爱尔 - 铁血"] = "Default",
+["小露露糖 - 铁血"] = "Default",
+["超小露露糖 - 铁血"] = "Default",
+["露露糖 - 铁血"] = "Default",
+["三角碑碑帅 - 十字軍聖擊"] = "Default",["下山村村霸 - 十字軍聖擊"] = "Default",["查理芒格 - 十字軍聖擊"] = "Default",["确实日白 - 十字軍聖擊"] = "Default",["凯瑟琳伍德 - 生命烈焰"] = "Default",["易方达张坤 - 生命烈焰"] = "Default",["景顺刘彦春 - 生命烈焰"] = "Default",["查理芒格 - 生命烈焰"] = "Default",["沃倫巴菲特 - 生命烈焰"] = "Default",["红杉沈南鹏 - 生命烈焰"] = "Default",["诺安蔡嵩松 - 生命烈焰"] = "Default",["高瓴张磊 - 生命烈焰"] = "Default",["特变电工 - 芬古斯的狂暴"] = "Default",
+["萌萌的露小露 - 铁血"] = "Default",
+["愛雅法拉 - 铁血"] = "Default",
+},
+["global"] = {
+["data_version"] = 5,
+},
+["profiles"] = {
+["Default"] = {
+},
+},
+}
+GatherMate2HerbDB = {
+}
+GatherMate2MineDB = {
+}
+GatherMate2FishDB = {
+}
+GatherMate2GasDB = {
+}
+GatherMate2TreasureDB = {
+}
+GatherMate2ArchaeologyDB = {
+}

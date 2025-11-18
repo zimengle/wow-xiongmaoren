@@ -1,0 +1,2 @@
+WT_ShowIgnoreNotice = nil
+WT_ShowLearnedNotice = nil

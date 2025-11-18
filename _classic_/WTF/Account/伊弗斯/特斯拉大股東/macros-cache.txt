@@ -1,0 +1,11 @@
+VER 3 0000000001000003 "target" "INV_MISC_QUESTIONMARK"
+/target 蛤
+/script SetRaidTarget("target",8)
+END
+VER 3 0000000001000001 "坐骑" "INV_MISC_QUESTIONMARK"
+/use 迅捷紫色驭风者
+/use 恐惧战马
+END
+VER 3 0000000001000002 "寵物攻擊" "INV_MISC_QUESTIONMARK"
+/petattack
+END

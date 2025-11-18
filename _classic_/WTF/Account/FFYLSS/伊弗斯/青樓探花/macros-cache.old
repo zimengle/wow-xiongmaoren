@@ -1,0 +1,94 @@
+VER 3 0000000001000009 " " "INV_Misc_QuestionMark"
+#showtooltips 致盲
+/stopattack
+/Cast [target=mouseover, harm, exists]致盲; 致盲
+END
+VER 3 0000000001000002 " " "INV_Misc_QuestionMark"
+#showtooltip 潛行
+/cast 潛行
+/cancelaura 潛行 
+END
+VER 3 0000000001000003 " " "INV_Misc_QuestionMark"
+#showtooltips 悶棍
+/stopattack
+/targetenemy
+/ SetCVar("targetNearestDistance", 41)
+/cast 悶棍
+END
+VER 3 000000000100000F " " "INV_Misc_QuestionMark"
+#showtooltip 悶棍
+/stopattack
+/targetenemy
+/script SetCVar("targetNearestDistance", 41)
+/cast 悶棍
+END
+VER 3 0000000001000005 " " "132282"
+#Showtooltip 伏擊
+/startattack
+/cast 伏擊
+END
+VER 3 0000000001000006 " " "INV_Misc_QuestionMark"
+#showtooltip 鑿擊
+/startattack
+/stopattack
+/cast 鑿擊
+END
+VER 3 0000000001000007 " " "INV_Misc_QuestionMark"
+#showtooltip 消失
+/stopattack
+/cast 消失
+END
+VER 3 0000000001000008 " " "INV_Misc_QuestionMark"
+#showtooltips 腳踢
+/Cast [target=mouseover, harm, exists]腳踢; 腳踢
+END
+VER 3 000000000100000C " " "132320"
+/showtooltip [stealth]悶棍;[nostealth]潛行
+/cast [stealth]悶棍;[nostealth]潛行
+END
+VER 3 000000000100000A " " "132273"
+/use 速效毒藥 VI
+/use [mod:alt] 18; [btn:1] 16;[btn:2] 17
+/click StaticPopup1Button1
+END
+VER 3 000000000100000D " " "INV_Misc_QuestionMark"
+#showtooltips 菊花茶
+/startattack
+/cast 背刺
+/use 菊花茶
+END
+VER 3 0000000001000001 " CX" "136165"
+#showtooltips 出血(等級 4)
+/startattack
+/cast 出血(等級 4)
+END
+VER 3 000000000100000B " 偷襲" "132092"
+#showtooltip 偷襲
+/cast 預謀
+/cast 偷襲
+END
+VER 3 0000000001000004 " 背刺" "INV_Misc_QuestionMark"
+#showtooltips 背刺(等級 8)
+/startattack
+/cast 背刺(等級 8)
+END
+VER 3 0000000001000012 "TG" "132292"
+#showtooltip 剔骨(等級 9)
+/cast 冷血
+/cast 剔骨(等級 9)
+END
+VER 3 0000000001000010 "爆发" "INV_Misc_QuestionMark"
+#showtooltip 血性狂暴
+/startattack
+/castsequence reset=120 血性狂暴(種族特長),劍刃亂舞,能量刺激
+END
+VER 3 000000000100000E "爆发" "INV_Misc_QuestionMark"
+#showtooltip 
+/startattack
+/castsequence reset=5 劍刃亂舞,能量刺激
+END
+VER 3 0000000001000011 "邪惡" "136048"
+#showtooltips 邪惡攻擊(等級 8)
+/startattack
+/cast 邪惡攻擊(等級 8)
+END

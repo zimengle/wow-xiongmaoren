@@ -1,0 +1,23 @@
+## Interface: 30404
+
+## Author: |cff00ff00ALA|r
+## Author-zhCN: |cff00ff00ALA|r
+## Author-zhTW: |cff00ff00ALA|r
+
+## Title: !|cff880303[163UI]|r ChatTransmit
+## Title-zhCN: !|cff880303[有爱]|r 聊天转发
+## Title-zhTW: !|cff880303[有爱]|r聊天轉發
+## Notes: ChatTransmit
+## X-Vendor: NetEase
+
+## SavedVariablesPerCharacter: 
+## SavedVariables: 
+
+## Dependencies: 
+## OptionalDependencies: 
+## LoadOnDemand: 0
+## DefaultState: enabled
+
+## Version: 304r.240710fix
+
+main.xml

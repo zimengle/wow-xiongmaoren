@@ -1,0 +1,691 @@
+VER 3 000000000000008F " " "INV_Misc_QuestionMark"
+#showtooltip 影悶
+/cast 暗影閃現
+/cast 悶棍(等級 3)
+/stopmacro
+END
+VER 3 0000000000000013 " " "INV_Misc_QuestionMark"
+#showtooltip 狂暴之怒
+/cast 狂暴之怒
+/cast 狂暴姿態
+END
+VER 3 0000000000000038 " " "132090"
+/P 薩滿大大 麻煩風怒插前面點 謝謝
+END
+VER 3 000000000000009B " " "INV_Misc_QuestionMark"
+#showtooltips 致盲
+/stopattack
+#showtooltips
+/Cast [target=focus,harm,exists,modifier:shift]致盲; [target=mouseover, harm, exists]致盲; 致盲
+/use 靈魂圖騰
+END
+VER 3 0000000000000028 " " "132090"
+/console ffxGlow 0
+END
+VER 3 0000000000000008 " " "136129"
+/run SetMount(15290)
+.morph 9783
+END
+VER 3 0000000000000090 " " "INV_Misc_QuestionMark"
+#showtooltip 暗影閃現
+/cast 暗影閃現
+/cast 悶棍(等級 3)
+/stopmacro
+END
+VER 3 0000000000000053 " " "132128"
+/Myslot
+END
+VER 3 0000000000000061 " " "132166"
+/DBM PULL 5
+END
+VER 3 0000000000000096 " " "INV_Misc_QuestionMark"
+#showtooltip 暗影閃現
+/cast 暗影閃現
+/cast 絞喉
+/stopmacro
+END
+VER 3 0000000000000064 " " "INV_Misc_QuestionMark"
+#showtooltip 繳械
+/cast [nostance:2] 防禦姿態
+/startattack
+/cast 繳械
+END
+VER 3 0000000000000097 " " "INV_Misc_QuestionMark"
+#showtooltip 消失
+/stopattack
+/cast 消失
+/cast 絞喉(等級 8)
+END
+VER 3 000000000000007B " " "INV_Misc_QuestionMark"
+#showtooltips 背刺
+/startattack
+/cast 背刺
+END
+VER 3 0000000000000095 " " "INV_Misc_QuestionMark"
+#showtooltips 腎擊
+/startattack
+/cast 腎擊
+END
+VER 3 0000000000000071 " " "INV_Misc_QuestionMark"
+#showtooltips 截肢(等級 4)
+/startattack
+/cast 截肢(等級 4)
+/use 13
+/use 14
+END
+VER 3 0000000000000070 " " "132199"
+#showtooltip 死亡之握
+/cast 死亡之握
+/startattack
+END
+VER 3 000000000000008C " " "INV_Misc_QuestionMark"
+#showtooltips 偷襲
+/cast 預謀
+/cast 偷襲
+/equipslot 16 
+/equipslot 17 
+ 
+ 
+END
+VER 3 000000000000006E " " "136121"
+#show 準備
+/cast [nostealth] 閃避
+/cast [nostealth] 疾跑
+/stopcasting
+/cast 疾跑
+/stopcasting
+/cast 準備
+END
+VER 3 000000000000006D " " "INV_Misc_QuestionMark"
+#showtooltips 剔骨
+/startattack
+/cast 剔骨
+END
+VER 3 000000000000006C " " "INV_Misc_QuestionMark"
+#showtooltip 鬼魅攻擊
+/startattack
+/cast 鬼魅攻擊
+/cast 閃避
+END
+VER 3 000000000000006B " " "INV_Misc_QuestionMark"
+#showtooltips 劍刃亂舞
+/startattack
+/cast 劍刃亂舞
+/USE 14
+END
+VER 3 000000000000006A " " "INV_Misc_QuestionMark"
+#showtooltips 切割
+/startattack
+/cast 切割
+END
+VER 3 0000000000000069 " " "INV_Misc_QuestionMark"
+#showtooltips 腎擊
+/startattack
+/cast 腎擊
+/use 靈魂圖騰
+END
+VER 3 0000000000000068 " " "INV_Misc_QuestionMark"
+#showtooltips 絞喉
+/cast 預謀
+/cast 絞喉
+END
+VER 3 0000000000000067 " " "132101"
+.enchant 1 155
+.enchant 2 155
+.morph 9784
+/run SetItem(16, 33762)
+/run SetItem(17, 33762)
+.mount 21974
+END
+VER 3 0000000000000066 " " "INV_Misc_QuestionMark"
+#showtooltips 邪惡攻擊
+/startattack
+/cast 邪惡攻擊
+/use 13
+/use 14
+END
+VER 3 0000000000000065 " " "INV_Misc_QuestionMark"
+#showtooltips 偷襲
+/cast 預謀
+/cast 偷襲
+/equipslot 16 
+/equipslot 17 
+ 
+END
+VER 3 000000000000007C " " "INV_Misc_QuestionMark"
+#showtooltip[stealth] 伏擊
+/cast 伏擊
+/equipslot 16 
+END
+VER 3 000000000000007D " " "INV_Misc_QuestionMark"
+#showtooltip 鑿擊
+/stopattack
+/cast [target=mouseover,harm,nodead][harm]鑿擊
+END
+VER 3 000000000000007E " " "INV_Misc_QuestionMark"
+#showtooltip 腳踢
+/cast [mod:shift,target=focus,harm,nodead]暗影閃現
+/cast [mod:shift,target=focus,harm,nodead][target=mouseover,harm,nodead][harm]腳踢
+/stopmacro
+END
+VER 3 000000000000008E " " "133979"
+/USE 極強效治療石
+/use 超強效治療藥水
+END
+VER 3 0000000000000080 " " "INV_Misc_QuestionMark"
+#showtooltips 破甲
+/stopattack
+/Cast 破甲
+END
+VER 3 0000000000000081 " " "INV_Misc_QuestionMark"
+#showtooltip[stealth] 毒襲(等級 1)
+/cast 毒襲(等級 1)
+/equipslot 17 
+END
+VER 3 0000000000000079 " " "INV_Misc_QuestionMark"
+#showtooltip 潛行
+/cast 潛行
+/cancelaura 潛行
+END
+VER 3 0000000000000089 " " "132331"
+#show 消失
+/cast [nostealth] 疾跑
+/stopcasting
+/cast 疾跑
+/stopcasting
+/castsequence reset=210 消失,準備
+END
+VER 3 0000000000000088 " " "INV_Misc_QuestionMark"
+#showtooltip
+/dismount
+/cancelaura寒冰屏障
+/cast[mod:alt,button:2]魔甲术;[mod:ctrl]法力护盾
+/castsequence[mod:alt]reset=1200冰甲术,魔甲术
+/stopmacro[mod]
+/castsequence reset=100 寒冰屏障,急速冷却
+END
+VER 3 000000000000008D " " "INV_Misc_QuestionMark"
+#showtooltip 鬼魅攻擊
+/startattack
+/cast 鬼魅攻擊
+END
+VER 3 0000000000000098 " PVE" "132132"
+/AE 1
+END
+VER 3 00000000000000A0 " PVP" "132137"
+/AE 1
+END
+VER 3 000000000000007A " 地震術" "136018"
+/CAST [@focus]地震術(等級 8)
+END
+VER 3 000000000000003C " 戰壓" "132223"
+#showtooltip 壓制(等級 4)
+/cast 戰鬥姿態
+/cast 壓制(等級 4)
+END
+VER 3 0000000000000058 " 打斷" "132938"
+#show [stance:1]盾擊;[stance:2]盾擊; [stance:3]拳擊
+/startattack
+/cast [stance:3] 拳擊
+/cast 盾擊
+END
+VER 3 000000000000009C " 援護" "132365"
+#showtooltip阻擾
+/cast [help] 阻擾; [target=targettarget, help] 阻擾
+/startattack [target=harm]
+ 
+ 
+END
+VER 3 000000000000006F " 焦點" "132192"
+/FOCUS
+END
+VER 3 0000000000000062 " 焦點" "132097"
+/fouce
+END
+VER 3 000000000000001F " 狂怒" "136009"
+#showtooltip 狂暴之怒
+/cast 狂暴姿態
+/cast 狂暴之怒
+END
+VER 3 0000000000000014 " 符文武器" "135372"
+#showtooltip
+/cast 強力符文武器
+/cast 死者復生
+END
+VER 3 0000000000000055 " 英嗜" "INV_Misc_QuestionMark"
+#showtooltip 嗜血
+/cast [nostance:3] 狂暴姿態
+/startattack
+/cast 嗜血
+/cast 血性狂暴
+/施放 英勇打擊
+END
+VER 3 0000000000000060 " 靈魂" "136148"
+/targetenemy
+/cast 靈魂箭雨
+/cast 靈魂枷鎖
+/cast 靈魂之矛
+END
+VER 3 0000000000000072 " 靈魂" "132145"
+/cleartarget
+/targetenemy
+/cast 靈魂箭雨 
+/cast 靈魂枷鎖 
+/cast 靈魂之矛
+END
+VER 3 000000000000007F " 風衝" "135833"
+#showtooltip 凜風衝擊(等級 4)
+/cast 凜風衝擊(等級 4)
+/startattack
+/petattack
+/cast !符文打擊
+END
+VER 3 0000000000000015 " 飾品" "INV_Misc_QuestionMark"
+#showtooltip 死亡之願
+/startattack
+/cast 死亡之願
+/use 嗜血胸針
+END
+VER 3 0000000000000054 " 騙子" "136177"
+ID《材料仓》1級戰士，ID 《我真的服了》80死亡騎士 賣貴族卡  然後直接騙人 拿G換卡套路 ，已舉報GM，大家注意骗子
+END
+VER 3 0000000000000091 "1目標" "INV_Misc_QuestionMark"
+#showtooltip 暗影閃現
+/target arena1
+/cast [target=arena1] 暗影閃現
+/cast [target=arena1] 預謀
+/cast [target=arena1] 偷襲
+END
+VER 3 0000000000000092 "2目標" "INV_Misc_QuestionMark"
+#showtooltip 暗影閃現
+/target arena2
+/cast [target=arena2] 暗影閃現
+/cast [target=arena2] 預謀
+/cast [target=arena2] 偷襲
+END
+VER 3 0000000000000073 "alaGearMan0" "132293"
+/run AGM_FUNC.takeoffAll()
+END
+VER 3 0000000000000056 "Decursive" "INV_MISC_QUESTIONMARK"
+/stopcasting
+/cast [@mouseover,nomod,exists] 亡靈意志;  [@mouseover,exists,mod:ctrl] 亡靈意志; [@mouseover,exists,mod:shift] 亡靈意志
+END
+VER 3 0000000000000007 "Decursive" "INV_MISC_QUESTIONMARK"
+/stopcasting
+/cast [@mouseover,nomod,exists] 淨化術;  [@mouseover,exists,mod:ctrl] 淨化術; [@mouseover,exists,mod:shift] 淨化術
+END
+VER 3 000000000000004F "T3" "135976"
+.item 1 22418
+.item 3 22419
+.item 5 22416
+.item 6 22422
+.item 7 22417    
+.item 8 22420
+.item 9 22423
+.item 10 22421
+.item 16 22691
+END
+VER 3 0000000000000082 "VuhDoDCShieldData" "132281"
+P[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]1RM[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
+END
+VER 3 0000000000000083 "VuhDoDCShieldNames" "132281"
+N[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]Aim[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
+END
+VER 3 0000000000000050 "人少校" "135977"
+.item 3 16432
+.item 1 16429
+.item 10 16406
+.item 7 16431
+.item 5 16430
+.item 8 16405
+.item 16 18876
+.race 1
+.hair 8
+.haircolor 7
+END
+VER 3 000000000000004E "人類" "135977"
+.item 3 16432
+.item 1 16429
+.item 10 16406
+.item 7 16431
+.item 5 16430
+.item 8 16405
+.item 16 18876
+END
+VER 3 0000000000000030 "嗜血" "INV_Misc_QuestionMark"
+#showtooltip 嗜血
+/cast [nostance:3] 狂暴姿態
+/startattack
+/castsequence reset=4 嗜血,旋風斬
+/cast 血性狂暴
+END
+VER 3 0000000000000059 "嗜血" "INV_Misc_QuestionMark"
+#showtooltip 嗜血
+/cast [nostance:3] 狂暴姿態
+/startattack
+/cast 嗜血
+/cast 血性狂暴
+END
+VER 3 0000000000000016 "嗜血" "INV_Misc_QuestionMark"
+#showtooltip 嗜血
+/cast [nostance:3] 狂暴姿態
+/startattack
+/cast 嗜血
+/cast 血性狂暴
+/cancelaura 嗜血
+END
+VER 3 0000000000000009 "報錯指令" "132089"
+/console scriptErrors 0
+END
+VER 3 0000000000000017 "壓制" "INV_Misc_QuestionMark"
+#showtooltip 壓制
+/startattact
+/cast [nostance:1] 戰鬥姿態
+/cast 壓制
+END
+VER 3 000000000000005C "壓制" "INV_Misc_QuestionMark"
+#showtooltip 壓制
+/startattact
+/cast [nostance:1] 戰鬥姿態
+/cast 壓制
+/cast 血性狂暴
+END
+VER 3 0000000000000074 "奧山" "134231"
+/BG ~開場騎士開光環，大家衝到急救站開南北塔，隊伍後面的開石爐和冰翼殺女人，急救變色就開王，薩滿開嗜血
+END
+VER 3 000000000000005D "奧山" "132091"
+奧山聯盟是拼速度的，我們不直接打女人，直衝急救開墓地。法師、獵人回一隊干擾，贏了肯定比輸的榮譽多，切記切記。
+END
+VER 3 0000000000000052 "女" "132353"
+.race 1
+.hair 8
+.haircolor 7
+.face 1
+END
+VER 3 0000000000000084 "影悶" "INV_Misc_QuestionMark"
+#showtooltip 暗影閃現
+/cast [mod:shift,target=focus,harm,nodead]暗影閃現
+/cast [mod:shift,target=focus,harm,nodead]悶棍(等級 3)
+/stopmacro
+END
+VER 3 0000000000000093 "影悶" "INV_Misc_QuestionMark"
+#showtooltip 暗影閃現
+/cast [target=focus,harm,nodead]暗影閃現
+/cast [target=focus,harm,nodead]悶棍(等級 3)
+/stopmacro
+END
+VER 3 000000000000009E "影踢" "INV_Misc_QuestionMark"
+#showtooltip 暗影閃現
+/cast [target=focus,harm,nodead]暗影閃現
+/cast [target=focus,harm,nodead]腳踢
+/stopmacro
+END
+VER 3 0000000000000032 "戰鬥" "132349"
+#showtootip 戰鬥姿態
+/equip 
+/cast 戰鬥姿態
+END
+VER 3 000000000000002C "戰鬥" "132092"
+/P 戰鬥怒吼沒了 麻煩補下
+END
+VER 3 000000000000005E "排進" "132095"
+/click GossipTitleButton1
+/click BattlefieldFrameJoinButton
+/click StaticPopup1Button1
+/castsequence reset=5 亡靈意志(種族特長)
+END
+VER 3 0000000000000057 "排進" "132095"
+/click GossipTitleButton1
+/click BattlefieldFrameJoinButton
+/click StaticPopup1Button1
+/castsequence reset=5 血性狂暴(種族特長)
+END
+VER 3 000000000000005F "排隊" "132095"
+/target 庫爾丁·血爪
+/click GossipTitleButton1
+/click BattlefieldFrameJoinButton
+/click StaticPopup1Button1
+END
+VER 3 0000000000000063 "斬殺" "INV_Misc_QuestionMark"
+#showtooltip 英勇打擊
+/cast [nostance:3] 狂暴姿態
+/startattack
+/cast 斬殺
+/cast 英勇打擊
+END
+VER 3 000000000000005A "斬殺" "INV_Misc_QuestionMark"
+#showtooltip 斬殺
+/cast [nostance:3] 狂暴姿態
+/startattack
+/cast 斬殺
+/cast 英勇打擊
+END
+VER 3 0000000000000099 "斷" "237527"
+#showtooltip
+/cast [target=focus]心智冰封
+/cast 心智冰封
+END
+VER 3 0000000000000020 "斷筋" "INV_Misc_QuestionMark"
+#showtooltip 斷筋
+/startattack
+/cast 斷筋
+/cast 猛擊
+/cast 血性狂暴
+END
+VER 3 0000000000000034 "斷筋" "INV_Misc_QuestionMark"
+#showtooltip 斷筋
+/startattack
+/cast 斷筋
+/cast 血性狂暴
+END
+VER 3 0000000000000018 "旋風" "INV_Misc_QuestionMark"
+#showtooltip 旋風斬
+/cast [nostance:3] 狂暴姿態
+/startattack
+/cast 旋風斬
+/cast 血性狂暴
+END
+VER 3 000000000000000F "旋風" "INV_Misc_QuestionMark"
+#showtooltip 旋風斬
+/startattack
+/cast 旋風斬
+/cast 順劈斬
+/cast 血性狂暴
+END
+VER 3 000000000000009F "模型" "136211"
+.enchant 1 155
+.enchant 2 155
+.morph 2348
+/run SetItem(16, 33762)
+/run SetItem(17, 33762)
+.mount 21974
+END
+VER 3 0000000000000001 "死亡背景" "132143"
+/console ffxDeath 0
+END
+VER 3 0000000000000085 "毒藥" "INV_Misc_QuestionMark"
+#showtooltip
+/use [button:1]致殘毒藥 II;[button:2]致傷毒藥 V;[button:3]麻痹毒藥 III
+/use [button:1]16;[button:2]17;[button:3]17
+/click StaticPopup1Button1
+END
+VER 3 000000000000008B "毒藥" "INV_Misc_QuestionMark"
+#showtooltip
+/use [button:1]致傷毒藥 V;[button:2]致殘毒藥 II;[button:3]麻痹毒藥 III
+/use [button:1]16;[button:2]17;[button:3]17
+/click StaticPopup1Button1
+END
+VER 3 0000000000000051 "法師T3" "135988"
+.item 1 22498
+.item 3 22499
+.item 5 22496
+.item 6 22502
+.item 7 22497
+.item 8 22500
+.item 9 22503
+.item 10 225012
+.item 16 22807
+END
+VER 3 000000000000005B "海盜" "136129"
+/run SetMount(15290)
+.morph 2348
+/run SetItem(16, 19019)
+/run SetItem(17, 19019)
+/run SetEnchant(16, 128) 
+/run SetEnchant(17, 101)
+END
+VER 3 0000000000000094 "消偷" "INV_Misc_QuestionMark"
+#showtooltip 消失
+/stopattack
+/cast 消失
+/cast 偷襲
+END
+VER 3 0000000000000086 "消偷" "INV_Misc_QuestionMark"
+#showtooltip 消失
+/stopattack
+/use 部落勳章
+/cast 消失
+/cast 偷襲
+END
+VER 3 000000000000008A "準消" "INV_Misc_QuestionMark"
+#showtooltip 消失
+/stopattack
+/施放 準備
+/cast 消失
+/cast 偷襲
+END
+VER 3 0000000000000075 "焦點" "INV_Misc_QuestionMark"
+#showtooltip
+/target [@focus]
+/targetlasttarget
+/focus
+/targetlasttarget
+END
+VER 3 0000000000000076 "爐石" "132096"
+/use 爐石
+/use 部落勳章
+/cast 致盲
+END
+VER 3 0000000000000010 "狂暴" "132275"
+#showtootip 狂暴姿態
+/equipslot 16 
+/equipslot 17 風暴戰斧
+/cast 狂暴姿態
+END
+VER 3 000000000000004B "狂暴" "INV_Misc_QuestionMark"
+#showtooltip 血性狂暴(種族特長)
+/cast [nostance:3] 狂暴姿態
+/startattack
+/castsequence reset=150 血性狂暴(種族特長),死亡之願
+END
+VER 3 000000000000003D "確認" "132092"
+/run DoReadyCheck()
+END
+VER 3 000000000000001B "英勇" "INV_Misc_QuestionMark"
+#showtooltip 英勇打擊
+/cast [nostance:3] 狂暴姿態
+/startattack
+/cast 英勇打擊
+END
+VER 3 0000000000000003 "英勇" "132282"
+#showtooltip 英勇打擊
+/cast 英勇打擊
+/startattack
+END
+VER 3 000000000000001A "英勇" "INV_Misc_QuestionMark"
+#showtooltip 嗜血
+/cast [nostance:3] 狂暴姿態
+/startattack
+/castsequence reset=3 嗜血,旋風斬
+/cast 英勇打擊
+/cast 血性狂暴
+/cancelaura 嗜血
+END
+VER 3 000000000000001C "英消" "INV_Misc_QuestionMark"
+#showtooltip 英勇打擊
+/startattack
+/cast 英勇打擊
+/stopcasting
+END
+VER 3 000000000000009A "血41" "132093"
+/script C_CVar.SetCVar("nameplateMaxDistance",41)
+END
+VER 3 0000000000000077 "血41" "132093"
+/script SetCVar("nameplateMaxDistance", 41)
+END
+VER 3 0000000000000035 "衝攔" "132307"
+#show [stance:1]衝鋒; [stance:3]攔截
+/dismount [mounted]
+/startattack
+/cast [nocombat,stance:1] 衝鋒; [nocombat,nostance:1] 戰鬥姿態; [combat,nostance:3] 狂暴姿態; [combat,stance:3] 攔截
+END
+VER 3 0000000000000039 "變身" "136129"
+/run SetMount(15290)
+.morph 9786
+/run SetItem(16, 18828)
+/run SetItem(17, 18828)
+/run SetEnchant(16, 128)
+/run SetEnchant(17, 101) 
+END
+VER 3 0000000000000011 "變身" "136129"
+/run SetMount(15290)
+.morph 9786
+END
+VER 3 000000000000004C "變身" "136129"
+/run SetMount(15290)
+.morph 9786
+/run SetItem(16, 19019)
+/run SetItem(17, 1728)
+/run SetEnchant(16, 128)
+/run SetEnchant(17, 101) 
+END
+VER 3 0000000000000087 "遠程" "INV_Misc_QuestionMark"
+#showtooltip
+/startattack
+/施放 擲殺
+/cast 投擲
+END
+VER 3 000000000000004D "重置" "136129"
+.reset
+END
+VER 3 0000000000000012 "防禦" "132341"
+#showtootip 防禦姿態
+/equip 風暴戰斧
+/equip 
+/cast 防禦姿態
+END
+VER 3 0000000000000004 "防禦盾墻" "132341"
+#showtooltip 盾牆
+/startattack
+/equip 死亡召喚者
+/equip 無序符文盾
+/cast 防禦姿態
+/cast 盾牆
+END
+VER 3 000000000000001E "順劈" "INV_Misc_QuestionMark"
+#showtooltip 旋風斬
+/cast [nostance:3] 狂暴姿態
+/startattack
+/cast 旋風斬
+/cast 順劈斬
+END
+VER 3 000000000000009D "順劈" "132338"
+#showtooltip 順劈斬(等級 8)
+/cast 順劈斬(等級 8)
+/startattack
+END
+VER 3 000000000000002E "風怒" "132092"
+/P 麻煩風怒插近一點 沒有BUFF了 謝謝
+END
+VER 3 000000000000003E "風怒" "132093"
+/run ResetInstances()
+/P 副本已經重置
+END
+VER 3 0000000000000078 "骷髏" "132095"
+.enchant 1 155
+.enchant 2 155
+.morph 9784
+/run SetItem(16, 32837)
+/run SetItem(17, 32838)
+.mount 21974
+END

@@ -1,0 +1,28 @@
+
+ElvCharacterDB = {
+["ConvertKeybindings"] = true,
+["ChatEditHistory"] = {
+"/fstack",
+"/mrt",
+"/DBM",
+"/run PlaySoundFile(\"Interface\\\\AddOns\\\\SharedMedia_Rurutia\\\\Rurutia\\\\【露露】换坦嘲讽.ogg\", \"Master\")",
+"/run PlaySoundFile(567397, \"Master\")",
+"/EC",
+"/ec",
+"/EMOVE",
+"/RL",
+"/CELL OPT",
+"/MRT",
+"/WA",
+"/5 求加个工会",
+"/3 求加个工会",
+"/questie",
+"/i .",
+"/i 突然趋势",
+"/played",
+"/wa",
+"/s .",
+},
+["ChatHistoryLog"] = {
+},
+}

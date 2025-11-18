@@ -1,0 +1,212 @@
+
+RXPData = {
+["cacheVersion"] = 27,
+["defaultProfile"] = false,
+["gameVersion"] = 50500,
+["trainGenericSpells"] = true,
+["realmData"] = {
+["伊弗斯"] = {
+},
+},
+["release"] = "v4.7.14",
+}
+RXPDB = {
+["profileKeys"] = {
+["晴天前夜 - 札里克"] = "global",
+["康樂股長 - 伊弗斯"] = "global",
+["锈虎 - 伊弗斯"] = "global",
+["新聞播報 - 伊弗斯"] = "global",
+["张大猫 - 伊弗斯"] = "global",
+["人民班長 - 伊弗斯"] = "global",
+["机器马 - 伊弗斯"] = "global",
+["特斯拉大股東 - 伊弗斯"] = "global",
+["机器虎 - 伊弗斯"] = "global",
+["銹虎 - 伊弗斯"] = "global",
+["裸辭 - 伊弗斯"] = "global",
+["頂級投資家 - 伊弗斯"] = "global",
+["暖男你馬四了 - 伊弗斯"] = "global",
+["桃子咬咬 - 逐風者"] = "global",
+["畜生犬隊長 - 伊弗斯"] = "global",
+["路易斯桑拿 - 伊弗斯"] = "global",
+["碼農巴菲特 - 伊弗斯"] = "global",
+["巴非特 - 伊弗斯"] = "global",
+["特變電工 - 伊弗斯"] = "global",
+["滴滴一下 - 伊弗斯"] = "global",
+["查理三世 - 伊弗斯"] = "global",
+["家駒 - 伊弗斯"] = "global",
+["邁克爾假死 - 伊弗斯"] = "global",
+["Wasddasdas - 伊弗斯"] = "global",
+["露露緹婭 - 札里克"] = "global",
+["咩尬空姐萌萌 - 伊弗斯"] = "global",
+["伱微笑時好美 - 逐風者"] = "global",
+},
+["profiles"] = {
+["global"] = {
+},
+},
+}
+RXPSettings = {
+["profileKeys"] = {
+["晴天前夜 - 札里克"] = "晴天前夜 - 札里克",
+["康樂股長 - 伊弗斯"] = "晴天前夜 - 札里克",
+["锈虎 - 伊弗斯"] = "晴天前夜 - 札里克",
+["新聞播報 - 伊弗斯"] = "晴天前夜 - 札里克",
+["张大猫 - 伊弗斯"] = "晴天前夜 - 札里克",
+["人民班長 - 伊弗斯"] = "晴天前夜 - 札里克",
+["机器马 - 伊弗斯"] = "晴天前夜 - 札里克",
+["特斯拉大股東 - 伊弗斯"] = "晴天前夜 - 札里克",
+["机器虎 - 伊弗斯"] = "晴天前夜 - 札里克",
+["銹虎 - 伊弗斯"] = "晴天前夜 - 札里克",
+["裸辭 - 伊弗斯"] = "裸辭 - 伊弗斯",
+["頂級投資家 - 伊弗斯"] = "晴天前夜 - 札里克",
+["暖男你馬四了 - 伊弗斯"] = "晴天前夜 - 札里克",
+["桃子咬咬 - 逐風者"] = "晴天前夜 - 札里克",
+["畜生犬隊長 - 伊弗斯"] = "晴天前夜 - 札里克",
+["路易斯桑拿 - 伊弗斯"] = "晴天前夜 - 札里克",
+["碼農巴菲特 - 伊弗斯"] = "晴天前夜 - 札里克",
+["巴非特 - 伊弗斯"] = "晴天前夜 - 札里克",
+["特變電工 - 伊弗斯"] = "晴天前夜 - 札里克",
+["滴滴一下 - 伊弗斯"] = "晴天前夜 - 札里克",
+["查理三世 - 伊弗斯"] = "晴天前夜 - 札里克",
+["家駒 - 伊弗斯"] = "晴天前夜 - 札里克",
+["邁克爾假死 - 伊弗斯"] = "晴天前夜 - 札里克",
+["Wasddasdas - 伊弗斯"] = "晴天前夜 - 札里克",
+["露露緹婭 - 札里克"] = "晴天前夜 - 札里克",
+["咩尬空姐萌萌 - 伊弗斯"] = "晴天前夜 - 札里克",
+["伱微笑時好美 - 逐風者"] = "晴天前夜 - 札里克",
+},
+["profiles"] = {
+["晴天前夜 - 札里克"] = {
+["enableTracker"] = false,
+["guideFontSize"] = 17,
+["frameHeight"] = 32.57133865356445,
+["macroAnnounced"] = true,
+["hardcore"] = false,
+["framePositions"] = {
+["activeTargetFrame"] = {
+{
+"CENTER",
+nil,
+"CENTER",
+0,
+0,
+},
+},
+["RXPFrame"] = {
+{
+"TOPLEFT",
+nil,
+"TOPLEFT",
+0,
+0,
+},
+},
+["activeItemFrame"] = {
+{
+"CENTER",
+nil,
+"CENTER",
+0,
+0,
+},
+},
+["arrowFrame"] = {
+{
+"LEFT",
+nil,
+"LEFT",
+0,
+0,
+},
+},
+},
+["enableLevelUpAnnounceGroup"] = false,
+["xprate"] = 1.1,
+["checkVersions"] = false,
+["alwaysSendBranded"] = false,
+["arrowText"] = 17,
+["frameSizes"] = {
+["activeTargetFrame"] = {
+78.5185317993164,
+67.9999771118164,
+},
+["RXPFrame"] = {
+266.2380065917969,
+32.57140731811523,
+},
+["activeItemFrame"] = {
+50.47617340087891,
+40,
+},
+["arrowFrame"] = {
+32,
+32.00000762939453,
+},
+},
+["enableLevelUpAnnounceSolo"] = false,
+["enableFlyStepAnnouncements"] = false,
+},
+["裸辭 - 伊弗斯"] = {
+["hardcore"] = false,
+["framePositions"] = {
+["activeTargetFrame"] = {
+{
+"CENTER",
+nil,
+"CENTER",
+367.4593505859375,
+-30.15642547607422,
+},
+},
+["RXPFrame"] = {
+{
+"LEFT",
+nil,
+"LEFT",
+1.96444296836853,
+0.867887020111084,
+},
+},
+["activeItemFrame"] = {
+{
+"CENTER",
+"UIParent",
+"CENTER",
+0,
+0,
+},
+},
+["arrowFrame"] = {
+{
+"BOTTOM",
+nil,
+"BOTTOM",
+-6.383743762969971,
+220.4307708740234,
+},
+},
+},
+["xprate"] = 1.45,
+["frameSizes"] = {
+["activeTargetFrame"] = {
+53.22115325927734,
+40.00000381469727,
+},
+["RXPFrame"] = {
+251.2065887451172,
+45.18889236450195,
+},
+["activeItemFrame"] = {
+49.46672439575195,
+40.00000381469727,
+},
+["arrowFrame"] = {
+31.99990844726563,
+32,
+},
+},
+["frameHeight"] = 45.18889236450195,
+["macroAnnounced"] = true,
+},
+},
+}

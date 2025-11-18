@@ -1,0 +1,44 @@
+
+WhisperPopDB = {
+["ignoreTags"] = 1,
+["listHeight"] = 320,
+["positions"] = {
+["WhisperPopFrame"] = {
+"CENTER",
+"UIParent",
+"CENTER",
+0,
+-20,
+},
+["WhisperPopNotifyButton"] = {
+"BOTTOMLEFT",
+"UIParent",
+"BOTTOMLEFT",
+378,
+185,
+},
+},
+["showRealm"] = 1,
+["notifyButton"] = 1,
+["listWidth"] = 200,
+["timeFormat"] = 2,
+["time"] = 1,
+["buttonScale"] = 100,
+["history"] = {
+{
+["received"] = 1,
+["name"] = "未来看风景-无情",
+["class"] = "WARRIOR",
+["messages"] = {
+"0[T1762414641]需要背包吗",
+"1[T1762414651]需要 谢谢",
+},
+},
+},
+["listScale"] = 100,
+["applyFilters"] = 1,
+["foreignOnly"] = 1,
+["version"] = 4.12,
+["sound"] = 1,
+["save"] = 1,
+}

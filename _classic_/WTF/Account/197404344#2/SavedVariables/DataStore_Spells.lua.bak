@@ -1,0 +1,10 @@
+
+DataStore_Spells_Characters = {
+	{
+		["englishClass"] = "ROGUE",
+	}, -- [1]
+}
+DataStore_Spells_Tabs = {
+	["ROGUE"] = {
+	},
+}

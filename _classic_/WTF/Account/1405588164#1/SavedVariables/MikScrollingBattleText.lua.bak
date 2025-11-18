@@ -1,0 +1,13 @@
+
+MSBTProfiles_SavedVars = {
+	["profiles"] = {
+		["Default"] = {
+			["critFontSize"] = 38,
+			["critOutlineIndex"] = 3,
+			["normalFontName"] = "默认",
+			["normalFontSize"] = 26,
+			["creationVersion"] = "5.8.1",
+		},
+	},
+}
+MSBT_SavedMedia = nil

@@ -1,0 +1,17 @@
+## Interface: 30800
+## Title: Details!: Encounter Breakdown (plugin) |cffd4af37谷|r|cffdbb850风|r|cffe2c069修|r|cffe9c882复|r|cfff0d09b版|r
+## Notes: Show detailed information about a boss encounter. Also provide damage per phase, graphic charts, easy weakauras creation.
+## RequiredDeps: Details
+## OptionalDeps: Ace3
+## SavedVariablesPerCharacter: EncounterDetailsDB
+## IconTexture: Interface\AddOns\Details\images\minimap
+
+enUS.lua
+ptBR.lua
+
+Details_EncounterDetails.lua
+frames_chart.lua
+frames_emote.lua
+frames_phases.lua
+frames_summary.lua
+frames.lua

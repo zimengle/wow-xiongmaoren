@@ -1,0 +1,2 @@
+
+AutoBarDB = nil

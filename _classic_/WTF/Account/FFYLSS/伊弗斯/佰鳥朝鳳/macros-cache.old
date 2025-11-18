@@ -1,0 +1,114 @@
+VER 3 000000000100000F "冰打" "237520"
+#showtooltip 冰霜打擊(等級 6)
+/cast 冰霜打擊(等級 6)
+/startattack
+/petattack
+/cast !符文打擊
+END
+VER 3 0000000001000002 "冰觸" "237526"
+#showtooltip 冰結之觸(等級 5)
+/cast 冰結之觸(等級 5)
+/startattack
+/petattack
+/cast !符文打擊
+END
+VER 3 0000000001000009 "冰鏈" "135834"
+#showtooltip 冰鍊術
+/cast [@mouseover,exists,harm] [@target,exists,harm] 冰鍊術
+END
+VER 3 0000000001000008 "凋零" "136144"
+#showtooltip 死亡凋零(等級 4)
+/cast [@cursor] !死亡凋零(等級 4)
+END
+VER 3 0000000001000001 "吃寶" "136146"
+/cast [pet] 死亡契約
+/castsequence reset=60 死者復生,死亡契約
+END
+VER 3 0000000001000005 "死打" "237517"
+#showtooltip 死亡打擊(等級 5)
+/cast 死亡打擊(等級 5)
+/startattack
+/petattack
+/cast !符文打擊
+END
+VER 3 0000000001000010 "泯滅" "135771"
+#showtooltip 滅寂(等級 4)
+/cast 滅寂(等級 4)
+/startattack
+/petattack
+/cast !符文打擊
+END
+VER 3 0000000001000011 "爆發" "132388"
+#showtooltip
+/cast 血魄轉化
+/cast 無毀堅甲
+/use 13
+/use 14
+/use 英雄天譴宿命護手
+/cast 奧流之術(種族特長)
+END
+VER 3 000000000100000E "爆發" "132117"
+#showtooltip
+/cast 血魄轉化
+/cast 無毀堅甲
+/use 13
+/use 14
+/use 無情報復護手
+/use 速度藥水
+/cast 奧流之術(種族特長)
+END
+VER 3 0000000001000006 "狂亂" "132152"
+#showtooltip |cff4e96f7|Htalent:2085:0|h[食屍狂亂]|h|r
+/cast |cff4e96f7|Htalent:2085:0|h[食屍狂亂]|h|r
+/startattack
+/cast !符文打擊
+END
+VER 3 0000000001000004 "瘟打" "237519"
+#showtooltip 瘟疫打擊(等級 6)
+/cast 瘟疫打擊(等級 6)
+/startattack
+/petattack
+/cast !符文打擊
+END
+VER 3 000000000100000A "石像" "132182"
+#showtooltip 召喚石像鬼
+/use 費茲克的懷錶
+/cast 召喚石像鬼
+END
+VER 3 000000000100000B "紅臉" "135770"
+#showtooltip 血魄領域
+/cast 血魄轉化
+/cast 血魄領域
+/cancelaura 血魄轉化
+END
+VER 3 0000000001000013 "纏繞" "136145"
+#showtooltip 死亡纏繞(等級 5)
+/cast [nomodifier] 死亡纏繞(等級 5)
+/cast [modifier:ctrl,target=pet] 死亡纏繞(等級 5)
+/cast [modifier:altl,target=player] 死亡纏繞(等級 5)
+END
+VER 3 0000000001000003 "血打" "135675"
+#showtooltip 碎心打擊(等級 6)
+/cast 碎心打擊(等級 6)
+/startattack
+/cast !符文打擊
+END
+VER 3 0000000001000007 "血沸" "237513"
+#showtooltip 沸血術(等級 4)
+/cast 沸血術(等級 4)
+/startattack
+/cast !符文打擊
+END
+VER 3 0000000001000012 "起手" "237523"
+#showtooltip 冰結之觸(等級 5)
+/console Sound_EnableSFX0
+/castsequence reset=10 冰結之觸(等級 5),瘟疫打擊(等級 6)
+/console Sound_EnableSFX1
+/script UIErrorsFrame:Clear()
+END
+VER 3 000000000100000C "骨盾" "132728"
+#showtooltip 骸骨之盾
+/cast 血魄轉化
+/cast 骸骨之盾
+/cancelaura 血魄轉化
+END

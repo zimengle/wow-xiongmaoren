@@ -1,0 +1,29 @@
+
+ThreatPlatesDB = {
+	["char"] = {
+		["特變電工 - 伊弗斯"] = {
+			["welcome"] = true,
+		},
+	},
+	["profileKeys"] = {
+		["特變電工 - 伊弗斯"] = "Default",
+	},
+	["global"] = {
+		["version"] = "11.1.29",
+	},
+	["profiles"] = {
+		["Default"] = {
+			["CVarsBackup"] = {
+				["nameplateMinAlpha"] = "0.90135484",
+				["nameplateMaxAlpha"] = "1.0",
+				["nameplateOccludedAlphaMult"] = "1.0",
+			},
+			["settings"] = {
+				["frame"] = {
+					["height"] = 50.525,
+					["width"] = 126,
+				},
+			},
+		},
+	},
+}

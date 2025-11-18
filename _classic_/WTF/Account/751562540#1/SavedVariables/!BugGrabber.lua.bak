@@ -1,0 +1,112 @@
+
+BugGrabberDB = {
+	["lastSanitation"] = 3,
+	["session"] = 1,
+	["errors"] = {
+		{
+			["message"] = "Interface\\AddOns\\AutoBar\\Core.lua:214: attempt to concatenate a nil value",
+			["time"] = "2021/07/24 19:04:02",
+			["stack"] = "[string \"@Interface\\AddOns\\AutoBar\\libs\\AceAddon-2.0\\AceAddon-2.0-57245.lua\"]:612: in function `InitializeAddon'\n[string \"@Interface\\AddOns\\AutoBar\\libs\\AceAddon-2.0\\AceAddon-2.0-57245.lua\"]:484: in function <...ce\\AddOns\\AutoBar\\libs\\AceAddon-2.0\\AceAddon-2.0.lua:461>\n[string \"=[C]\"]: ?\n[string \"@Interface\\AddOns\\AutoBar\\libs\\AceEvent-2.0\\AceEvent-2.0-66043.lua\"]:298: in function `TriggerEvent'\n[string \"@Interface\\AddOns\\AutoBar\\libs\\AceEvent-2.0\\AceEvent-2.0-66043.lua\"]:910: in function <...ce\\AddOns\\AutoBar\\libs\\AceEvent-2.0\\AceEvent-2.0.lua:903>",
+			["session"] = 1,
+			["counter"] = 1,
+		}, -- [1]
+		{
+			["message"] = "Interface\\AddOns\\AutoBar\\AutoBarFuBar-2.04.01.51 beta.73939.lua:37: AceDB-2.0-56534: Cannot call `AcquireDBNamespace' before `RegisterDB' has been called.",
+			["time"] = "2021/07/24 19:04:02",
+			["stack"] = "[string \"@Interface\\AddOns\\AutoBar\\libs\\AceAddon-2.0\\AceAddon-2.0-57245.lua\"]:612: in function `InitializeAddon'\n[string \"@Interface\\AddOns\\AutoBar\\libs\\AceAddon-2.0\\AceAddon-2.0-57245.lua\"]:484: in function <...ce\\AddOns\\AutoBar\\libs\\AceAddon-2.0\\AceAddon-2.0.lua:461>\n[string \"=[C]\"]: ?\n[string \"@Interface\\AddOns\\AutoBar\\libs\\AceEvent-2.0\\AceEvent-2.0-66043.lua\"]:298: in function `TriggerEvent'\n[string \"@Interface\\AddOns\\AutoBar\\libs\\AceEvent-2.0\\AceEvent-2.0-66043.lua\"]:910: in function <...ce\\AddOns\\AutoBar\\libs\\AceEvent-2.0\\AceEvent-2.0.lua:903>",
+			["session"] = 1,
+			["counter"] = 1,
+		}, -- [2]
+		{
+			["message"] = "...rface\\AddOns\\AutoBarBCC\\libs\\AceOO-2.0\\AceOO-2.0-38641.lua:979: MMGHACKAceLibrary: Cannot register library \"AceOO-2.0\". It is already registered with LibStub.",
+			["time"] = "2021/07/24 19:04:02",
+			["locals"] = "(*temporary) = \"MMGHACKAceLibrary: Cannot register library \"AceOO-2.0\". It is already registered with LibStub.\"\n",
+			["stack"] = "[string \"=[C]\"]: in function `error'\n[string \"@Interface\\AddOns\\AutoBarBCC\\libs\\MMGHACKAceLibrary\\MMGHACKAceLibrary-91091.lua\"]:122: in function <...oBarBCC\\libs\\MMGHACKAceLibrary\\MMGHACKAceLibrary.lua:75>\n[string \"@Interface\\AddOns\\AutoBarBCC\\libs\\MMGHACKAceLibrary\\MMGHACKAceLibrary-91091.lua\"]:569: in function `Register'\n[string \"@Interface\\AddOns\\AutoBarBCC\\libs\\AceOO-2.0\\AceOO-2.0-38641.lua\"]:979: in main chunk",
+			["session"] = 1,
+			["counter"] = 1,
+		}, -- [3]
+		{
+			["message"] = "...AddOns\\AutoBarBCC\\libs\\AceEvent-2.0\\AceEvent-2.0-66043.lua:998: MMGHACKAceLibrary: Cannot register library \"AceEvent-2.0\". It is already registered with LibStub.",
+			["time"] = "2021/07/24 19:04:02",
+			["locals"] = "(*temporary) = \"MMGHACKAceLibrary: Cannot register library \"AceEvent-2.0\". It is already registered with LibStub.\"\n",
+			["stack"] = "[string \"=[C]\"]: in function `error'\n[string \"@Interface\\AddOns\\AutoBarBCC\\libs\\MMGHACKAceLibrary\\MMGHACKAceLibrary-91091.lua\"]:122: in function <...oBarBCC\\libs\\MMGHACKAceLibrary\\MMGHACKAceLibrary.lua:75>\n[string \"@Interface\\AddOns\\AutoBarBCC\\libs\\MMGHACKAceLibrary\\MMGHACKAceLibrary-91091.lua\"]:569: in function `Register'\n[string \"@Interface\\AddOns\\AutoBarBCC\\libs\\AceEvent-2.0\\AceEvent-2.0-66043.lua\"]:998: in main chunk",
+			["session"] = 1,
+			["counter"] = 1,
+		}, -- [4]
+		{
+			["message"] = "...AddOns\\AutoBarBCC\\libs\\AceAddon-2.0\\AceAddon-2.0-57245.lua:1445: MMGHACKAceLibrary: Cannot register library \"AceAddon-2.0\". It is already registered with LibStub.",
+			["time"] = "2021/07/24 19:04:02",
+			["locals"] = "(*temporary) = \"MMGHACKAceLibrary: Cannot register library \"AceAddon-2.0\". It is already registered with LibStub.\"\n",
+			["stack"] = "[string \"=[C]\"]: in function `error'\n[string \"@Interface\\AddOns\\AutoBarBCC\\libs\\MMGHACKAceLibrary\\MMGHACKAceLibrary-91091.lua\"]:122: in function <...oBarBCC\\libs\\MMGHACKAceLibrary\\MMGHACKAceLibrary.lua:75>\n[string \"@Interface\\AddOns\\AutoBarBCC\\libs\\MMGHACKAceLibrary\\MMGHACKAceLibrary-91091.lua\"]:569: in function `?'\n[string \"@Interface\\AddOns\\AutoBarBCC\\libs\\AceAddon-2.0\\AceAddon-2.0-57245.lua\"]:1445: in main chunk",
+			["session"] = 1,
+			["counter"] = 1,
+		}, -- [5]
+		{
+			["message"] = "...rface\\AddOns\\AutoBarBCC\\libs\\AceDB-2.0\\AceDB-2.0-56534.lua:2220: MMGHACKAceLibrary: Cannot register library \"AceDB-2.0\". It is already registered with LibStub.",
+			["time"] = "2021/07/24 19:04:02",
+			["locals"] = "(*temporary) = \"MMGHACKAceLibrary: Cannot register library \"AceDB-2.0\". It is already registered with LibStub.\"\n",
+			["stack"] = "[string \"=[C]\"]: in function `error'\n[string \"@Interface\\AddOns\\AutoBarBCC\\libs\\MMGHACKAceLibrary\\MMGHACKAceLibrary-91091.lua\"]:122: in function <...oBarBCC\\libs\\MMGHACKAceLibrary\\MMGHACKAceLibrary.lua:75>\n[string \"@Interface\\AddOns\\AutoBarBCC\\libs\\MMGHACKAceLibrary\\MMGHACKAceLibrary-91091.lua\"]:569: in function `?'\n[string \"@Interface\\AddOns\\AutoBarBCC\\libs\\AceDB-2.0\\AceDB-2.0-56534.lua\"]:2220: in main chunk",
+			["session"] = 1,
+			["counter"] = 1,
+		}, -- [6]
+		{
+			["message"] = "Attempt to register unknown event \"PLAYERREAGENTBANKSLOTS_CHANGED\"",
+			["time"] = "2021/07/24 19:04:07",
+			["stack"] = "[string \"=[C]\"]: ?\n[string \"=[C]\"]: in function `RegisterEvent'\n[string \"@Interface\\AddOns\\zz_itemsdb\\module_bank.lua\"]:182: in function `Enable'\n[string \"@Interface\\AddOns\\zz_itemsdb\\module_bank.lua\"]:197: in function `?'\n[string \"@Interface\\AddOns\\!!!EaseAddonController\\Libs\\CallbackHandler-1.0\\CallbackHandler-1.0-7.lua\"]:119: in function <...ler\\Libs\\CallbackHandler-1.0\\CallbackHandler-1.0.lua:119>\n[string \"=[C]\"]: ?\n[string \"@Interface\\AddOns\\!!!EaseAddonController\\Libs\\CallbackHandler-1.0\\CallbackHandler-1.0-7.lua\"]:29: in function <...ler\\Libs\\CallbackHandler-1.0\\CallbackHandler-1.0.lua:25>\n[string \"@Interface\\AddOns\\!!!EaseAddonController\\Libs\\CallbackHandler-1.0\\CallbackHandler-1.0-7.lua\"]:64: in function `Fire'\n[string \"@Interface\\AddOns\\zz_itemsdb\\core.lua\"]:19: in function `cfgReset'\n[string \"@Interface\\AddOns\\zz_itemsdb\\Libs\\zzAddOn\\zzAddOn-6.lua\"]:140: in function <Interface\\AddOns\\zz_itemsdb\\Libs\\zzAddOn\\zzAddOn.lua:131>\n[string \"@Interface\\AddOns\\zz_itemsdb\\Libs\\zzAddOn\\zzAddOn-6.lua\"]:154: in function <Interface\\AddOns\\zz_itemsdb\\Libs\\zzAddOn\\zzAddOn.lua:144>\n[string \"@Interface\\AddOns\\zz_itemsdb\\Libs\\zzAddOn\\zzAddOn-6.lua\"]:177: in function <Interface\\AddOns\\zz_itemsdb\\Libs\\zzAddOn\\zzAddOn.lua:172>",
+			["session"] = 1,
+			["counter"] = 1,
+		}, -- [7]
+		{
+			["message"] = "[string \"@Interface\\AddOns\\AutoBar\\libs\\AceEvent-2.0\\AceEvent-2.0-66043.lua\"]:265: Attempt to register unknown event \"MEETINGSTONE_CHANGED\"",
+			["time"] = "2021/07/24 19:04:11",
+			["stack"] = "[string \"@Interface\\AddOns\\AutoBar\\libs\\AceEvent-2.0\\AceEvent-2.0-66043.lua\"]:910: in function <...ce\\AddOns\\AutoBar\\libs\\AceEvent-2.0\\AceEvent-2.0.lua:903>",
+			["session"] = 1,
+			["counter"] = 1,
+		}, -- [8]
+		{
+			["message"] = "Interface\\AddOns\\AutoBar\\Core.lua:303: attempt to index field 'db' (a nil value)",
+			["time"] = "2021/07/24 19:04:11",
+			["stack"] = "[string \"@Interface\\AddOns\\AutoBar\\libs\\AceAddon-2.0\\AceAddon-2.0-57245.lua\"]:998: in function `ManualEnable'\n[string \"@Interface\\AddOns\\AutoBar\\libs\\AceAddon-2.0\\AceAddon-2.0-57245.lua\"]:926: in function <...ce\\AddOns\\AutoBar\\libs\\AceAddon-2.0\\AceAddon-2.0.lua:919>\n[string \"=[C]\"]: ?\n[string \"@Interface\\AddOns\\AutoBar\\libs\\AceEvent-2.0\\AceEvent-2.0-66043.lua\"]:260: in function `TriggerEvent'\n[string \"@Interface\\AddOns\\AutoBar\\libs\\AceEvent-2.0\\AceEvent-2.0-66043.lua\"]:910: in function <...ce\\AddOns\\AutoBar\\libs\\AceEvent-2.0\\AceEvent-2.0.lua:903>",
+			["session"] = 1,
+			["counter"] = 1,
+		}, -- [9]
+		{
+			["message"] = "Interface\\AddOns\\ItemRack\\ItemRack-3.68.nil.lua:1946: Usage: SaveBindings(1||2)",
+			["time"] = "2021/07/24 19:04:11",
+			["locals"] = "(*temporary) = 0\n",
+			["stack"] = "[string \"=[C]\"]: in function `SaveBindings'\n[string \"@Interface\\AddOns\\ItemRack\\ItemRack-3.68.nil.lua\"]:1946: in function `SetSetBindings'\n[string \"@Interface\\AddOns\\ItemRack\\ItemRack-3.68.nil.lua\"]:233: in function `?'\n[string \"@Interface\\AddOns\\ItemRack\\ItemRack-3.68.nil.lua\"]:198: in function `OnEvent'\n[string \"*:OnEvent\"]:1: in function <[string \"*:OnEvent\"]:1>",
+			["session"] = 1,
+			["counter"] = 1,
+		}, -- [10]
+		{
+			["message"] = "Binding AutoBarButtonBear_X is defined more than once in Interface\\AddOns\\AutoBar\\Bindings.xml",
+			["time"] = "2021/07/24 19:04:11",
+			["session"] = 1,
+			["counter"] = 3,
+		}, -- [11]
+		{
+			["message"] = "Binding AUTOBAR_CONFIG is defined more than once in Interface\\AddOns\\AutoBarBCC\\Bindings.xml",
+			["time"] = "2021/07/24 19:04:11",
+			["session"] = 1,
+			["counter"] = 1,
+		}, -- [12]
+		{
+			["message"] = "Binding AutoBarButtonHearth_X is defined more than once in Interface\\AddOns\\AutoBarBCC\\Bindings.xml",
+			["time"] = "2021/07/24 19:04:11",
+			["session"] = 1,
+			["counter"] = 1,
+		}, -- [13]
+		{
+			["message"] = "Binding AutoBarButtonMount_X is defined more than once in Interface\\AddOns\\AutoBarBCC\\Bindings.xml",
+			["time"] = "2021/07/24 19:04:11",
+			["session"] = 1,
+			["counter"] = 1,
+		}, -- [14]
+		{
+			["message"] = "Binding AutoBarButtonBandages_X is defined more than once in Interface\\AddOns\\AutoBarBCC\\Bindings.xml",
+			["time"] = "2021/07/24 19:04:11",
+			["session"] = 1,
+			["counter"] = 1,
+		}, -- [15]
+	},
+}

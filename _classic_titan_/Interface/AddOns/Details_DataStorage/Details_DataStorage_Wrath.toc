@@ -1,0 +1,10 @@
+## Interface: 30800
+## Title: Details!: Storage |cffd4af37谷|r|cffdbb850风|r|cffe2c069修|r|cffe9c882复|r|cfff0d09b版|r
+## Notes: Stores information for Details! Damage Meter
+## DefaultState: Enabled
+## LoadOnDemand: 1
+## Dependencies: Details
+## SavedVariables: DetailsDataStorage
+## IconTexture: Interface\AddOns\Details\images\minimap
+
+Details_DataStorage.lua

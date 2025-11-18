@@ -1,0 +1,8 @@
+VER 3 0100000000000001 "VuhDoDCShieldData" "Ability_Repair"
+P1OH1MR1DT1MR[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]1OT[x]0__[x]0__[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
+END
+VER 3 0100000000000002 "切换治疗" "627487"
+/run SaveEquipmentSet("坦克")
+/cast 天赋：织雾
+/run UseEquipmentSet("治疗")
+END

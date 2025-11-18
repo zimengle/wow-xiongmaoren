@@ -1,0 +1,55 @@
+VER 3 010000000100000D "1" "134400"
+/cast [target=mouseover,help][target=targettarget][target=player] 牺牲之手
+END
+VER 3 0100000001000006 "1" "134400"
+#showtooltip
+/cancelaura 神圣牺牲
+/cast 神圣牺牲
+END
+VER 3 0100000001000009 "aaa" "136047"
+/follow 若相依
+END
+VER 3 0100000001000001 "VuhDoDCShieldData" "Ability_Repair"
+P[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]1PM[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
+END
+VER 3 0100000001000007 "取消耐力" "135833"
+/cancelaura 坚韧祷言
+/cancelaura 命令怒吼
+/cast 通用热力工程炸药
+END
+VER 3 010000000100000B "圣光" "134400"
+/tar 家駒
+/cast 圣光术
+END
+VER 3 0100000001000004 "圣光震击" "134400"
+/施放 !
+/施放 圣光术
+END
+VER 3 0100000001000002 "坐骑" "134400"
+/施放 迅捷黄色驭风者
+/施放 召唤军马
+END
+VER 3 0100000001000003 "正义之怒" "134400"
+#showtooltip
+/cast 正义之怒
+/cancelaura  正义之怒
+END
+VER 3 010000000100000C "爆发" "134400"
+/use 海洋之力
+/use 鸟蛋防御者护符
+/施放 远古列王守卫
+/施放 复仇之怒
+END
+VER 3 0100000001000005 "爆发" "134400"
+/use 陨星水晶
+/use 阵亡领主的手甲
+/use 复苏饰物
+END
+VER 3 0100000001000008 "绿龙" "135953"
+/tar 踏梦者瓦莉瑟瑞娅
+/cast 圣光术
+END
+VER 3 010000000100000A "道标绿龙" "134400"
+/tar 踏梦者瓦莉瑟瑞娅
+/cast 圣光道标
+END

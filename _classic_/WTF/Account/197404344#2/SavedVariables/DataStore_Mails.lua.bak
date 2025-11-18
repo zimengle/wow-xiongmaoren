@@ -1,0 +1,11 @@
+
+DataStore_Mails_Characters = {
+	{
+		["Mails"] = {
+		},
+		["MailCache"] = {
+		},
+	}, -- [1]
+}
+DataStore_Mails_Options = {
+}

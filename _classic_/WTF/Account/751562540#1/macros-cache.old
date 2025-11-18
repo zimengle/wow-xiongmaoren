@@ -1,0 +1,61 @@
+VER 3 0000000000000008 "Decursive" "INV_MISC_QUESTIONMARK"
+/stopcasting
+/cast [@mouseover,nomod,exists] 解除詛咒;  [@mouseover,exists,mod:ctrl] 驅毒術; [@mouseover,exists,mod:shift] 解除詛咒
+END
+VER 3 0000000000000004 "target" "132177"
+/target 塞可長者
+END
+VER 3 0000000000000006 "割碎" "132135"
+#showtooltip
+/startattack
+/cast 割碎(獵豹形態)
+END
+VER 3 0000000000000005 "回春熊" "132091"
+/castsequence [stance:1] reset=60 巨熊形態,生命之花
+/stopcasting
+/cast [nostance] 巨熊形態
+END
+VER 3 000000000000000D "大红" "136124"
+/use 極效治療藥水
+/use 極強效治療石
+/use 角瓶虛空噴劑
+/use 超强效治療藥水
+END
+VER 3 000000000000000A "愈合" "136085"
+#showtooltip
+/stopcasting
+/cast [modifier:shift] 癒合(等級 8); 癒合
+END
+VER 3 0000000000000003 "治療之觸" "136041"
+#showtooltip
+/stopcasting
+/cast [modifier:shift] 治療之觸(等級 4); 治療之觸
+END
+VER 3 0000000000000002 "精靈之火" "136033"
+#showtooltip
+/cancelform [nostance:0/1/3]
+/cast [stance:1/3] 精靈之火(野性);[nostance] 精靈之火
+END
+VER 3 0000000000000007 "跑路" "132128"
+#showtooltip
+/cast 迅捷紫色雙足飛龍
+/cast [swimming]!水棲形態;[indoors]!獵豹形態;[flyable,nocombat]!迅捷飛行形態;!旅行形態
+END
+VER 3 0000000000000009 "迅愈" "136015"
+#showtooltip
+/stopcasting
+/cast [@hbtarget] 迅癒
+END
+VER 3 000000000000000B "迅捷觸" "136076"
+#showtooltip
+/stopcasting
+/cast 自然迅捷
+/cast [@hbtarget] 治療之觸
+END
+VER 3 0000000000000001 "遠視" "132150"
+/console cameraDistanceMaxZoomFactor 4
+/console ffxDeath 0
+END
+VER 3 000000000000000C "鑰匙包" "135828"
+/script ToggleBag(KEYRING_CONTAINER)
+END

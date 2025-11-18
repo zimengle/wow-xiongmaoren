@@ -1,0 +1,12 @@
+
+ACP_Data = {
+["sorter"] = "按名称分组",
+["NoRecurse"] = false,
+["NoChildren"] = true,
+["scale"] = 0.8347626792704069,
+["collapsed"] = {
+},
+["ProtectedAddons"] = {
+["ACP"] = true,
+},
+}

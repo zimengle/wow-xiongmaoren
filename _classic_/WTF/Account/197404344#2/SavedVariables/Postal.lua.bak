@@ -1,0 +1,95 @@
+
+Postal3DB = {
+["global"] = {
+["BlackBook"] = {
+["alts"] = {
+"Vscode|加丁|Alliance|3|ROGUE",
+"京东的董事长|祈福|Neutral|1|MONK",
+"张坤|祈福|Alliance|55|DEATHKNIGHT",
+"新特能源|祈福|Alliance|85|PRIEST",
+"查尔斯三世|祈福|Alliance|70|MAGE",
+"沈南鹏|祈福|Alliance|70|PALADIN",
+"特变电工|祈福|Alliance|83|ROGUE",
+"特工仓库|祈福|Alliance|1|PALADIN",
+"码农巴菲特|祈福|Alliance|85|DEATHKNIGHT",
+},
+},
+},
+["profileKeys"] = {
+["沈南鹏 - 祈福"] = "沈南鹏 - 祈福",
+["张坤 - 祈福"] = "张坤 - 祈福",
+["查尔斯三世 - 祈福"] = "查尔斯三世 - 祈福",
+["特工仓库 - 祈福"] = "特工仓库 - 祈福",
+["Vscode - 加丁"] = "Vscode - 加丁",
+["特变电工 - 祈福"] = "特变电工 - 祈福",
+["码农巴菲特 - 祈福"] = "码农巴菲特 - 祈福",
+["京东的董事长 - 祈福"] = "京东的董事长 - 祈福",
+["新特能源 - 祈福"] = "新特能源 - 祈福",
+},
+["profiles"] = {
+["沈南鹏 - 祈福"] = {
+["BlackBook"] = {
+["recent"] = {
+"特工仓库|祈福|Alliance",
+"查尔斯三世|祈福|Alliance",
+"连你接他|祈福|Alliance",
+"码农巴菲特|祈福|Alliance",
+},
+},
+},
+["张坤 - 祈福"] = {
+},
+["查尔斯三世 - 祈福"] = {
+["BlackBook"] = {
+["recent"] = {
+"新特能源|祈福|Alliance",
+"特工仓库|祈福|Alliance",
+},
+},
+},
+["特工仓库 - 祈福"] = {
+["BlackBook"] = {
+["recent"] = {
+"特变电工|祈福|Alliance",
+"新特能源|祈福|Alliance",
+},
+},
+},
+["Vscode - 加丁"] = {
+},
+["特变电工 - 祈福"] = {
+["BlackBook"] = {
+["recent"] = {
+"码农巴菲特|祈福|Alliance",
+"新特能源|祈福|Alliance",
+"特工仓库|祈福|Alliance",
+"骑风|祈福|Alliance",
+},
+},
+},
+["码农巴菲特 - 祈福"] = {
+["BlackBook"] = {
+["recent"] = {
+"新特能源|祈福|Alliance",
+"就是臭臭|祈福|Alliance",
+"特变电工|祈福|Alliance",
+"特工仓库|祈福|Alliance",
+"沈南鹏|祈福|Alliance",
+},
+},
+},
+["京东的董事长 - 祈福"] = {
+},
+["新特能源 - 祈福"] = {
+["BlackBook"] = {
+["recent"] = {
+"特变电工|祈福|Alliance",
+"沈南鹏|祈福|Alliance",
+"码农巴菲特|祈福|Alliance",
+"特工仓库|祈福|Alliance",
+"骑风|祈福|Alliance",
+},
+},
+},
+},
+}

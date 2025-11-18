@@ -1,0 +1,6 @@
+VER 3 0000000001000001 "target" "134400"
+/target 高
+END
+VER 3 0000000001000002 "攻击" "132279"
+/startattack
+END

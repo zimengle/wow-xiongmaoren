@@ -1,0 +1,77 @@
+## Interface: 38000
+## Title: |TInterface/Icons/Spell_Frost_Stun:16:16:0:0:512:512:64:448:64:448|t SpellActivationOverlay |cff99ddff谷|r|cff88ccee风|r|cff77bbdd修|r|cff66aacc复|r|cff5599bb版|r
+## Notes: Display overlays and glow buttons to improve your gameplay!
+## Author: Vinny/Ennvina
+## Version: 2.6.0
+## SavedVariables: SpellActivationOverlayDB
+## X-SAO-Build: wrath
+
+# SpellActivationOverlay.lua, SpellActivationOverlay.xml and all textures were created by Blizzard Entertainment, Inc.
+#
+# World of Warcraft®: Warlords of Draenor™
+# ©2014 Blizzard Entertainment, Inc. All rights reserved. Warlords of Draenor is a trademark, and World of Warcraft, Warcraft and Blizzard Entertainment are trademarks or registered trademarks of Blizzard Entertainment, Inc. in the U.S. and/or other countries.
+#
+
+#@no-lib-strip@
+libs\LibStub\LibStub.lua
+libs\LibButtonGlow-1.0\LibButtonGlow-1.0.lua
+#@end-no-lib-strip@
+
+components\project.lua
+
+components\aura.lua
+components\bucket.lua
+components\counter.lua
+components\display.lua
+components\effect.lua
+components\events.lua
+components\glow.lua
+components\hash.lua
+components\item.lua
+components\overlay.lua
+components\rune.lua
+components\shutdown.lua
+components\sound.lua
+components\spell.lua
+components\tr.lua
+components\trigger.lua
+components\util.lua
+components\variable.lua
+
+variables\actionusable.lua
+variables\aurastacks.lua
+variables\execute.lua
+variables\holypower.lua
+variables\itemset.lua
+variables\nativesao.lua
+variables\stance.lua
+variables\talent.lua
+
+textures\texname.lua
+
+classes\common.lua
+classes\deathknight.lua
+classes\druid.lua
+classes\hunter.lua
+classes\mage.lua
+classes\monk.lua
+classes\paladin.lua
+classes\priest.lua
+classes\rogue.lua
+classes\shaman.lua
+classes\warlock.lua
+classes\warrior.lua
+
+options\defaults.lua
+options\db.lua
+options\questions.lua
+options\variables.lua
+options\InterfaceOptionsPanels.lua
+options\InterfaceOptionsPanels.xml
+options\classoptions.lua
+options\glowoptions.lua
+options\overlayoptions.lua
+options\variants.lua
+
+SpellActivationOverlay.lua
+SpellActivationOverlay.xml

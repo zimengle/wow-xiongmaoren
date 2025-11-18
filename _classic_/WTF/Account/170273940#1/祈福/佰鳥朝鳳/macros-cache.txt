@@ -1,0 +1,13 @@
+VER 3 0000000001000001 "target" "134328"
+/target  银鬃狼
+/script SetRaidTarget("target",8)
+END
+VER 3 0000000001000002 "大脚世界频道" "132874"
+/join 大脚世界频道
+END
+VER 3 0000000001000003 "自动攻击" "135325"
+/startattack
+END
+VER 3 0000000001000004 "谢谢" "135805"
+/thanks
+END

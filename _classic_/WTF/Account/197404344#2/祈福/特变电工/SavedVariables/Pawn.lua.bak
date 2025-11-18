@@ -1,0 +1,101 @@
+
+PawnOptions = {
+["LastVersion"] = 2.1109,
+["LastPlayerFullName"] = "特变电工-祈福",
+["AutoSelectScales"] = true,
+["AutoSelectScalesEnabledOnce"] = true,
+["ItemLevels"] = {
+{
+["ID"] = 57291,
+["Level"] = 272,
+["Link"] = "|cff1eff00|Hitem:57291::::::::80::261::::::::|h[自然领主之盔]|h|r",
+},
+{
+["ID"] = 55262,
+["Level"] = 308,
+["Link"] = "|cff0070dd|Hitem:55262::::::::82::261::::::::|h[藤壶坠饰]|h|r",
+},
+{
+["ID"] = 57270,
+["Level"] = 288,
+["Link"] = "|cff0070dd|Hitem:57270::::::::82::261::::::::|h[狼王肩甲]|h|r",
+},
+nil,
+{
+["ID"] = 55642,
+["Level"] = 278,
+["Link"] = "|cff1eff00|Hitem:55642::::::-5:1004929329:80::261::::::::|h[灵猴之藓皮外衣]|h|r",
+},
+{
+["ID"] = 37194,
+["Level"] = 200,
+["Link"] = "|cffa335ee|Hitem:37194::39999:39910:::::80::1453::::::::|h[钩刺皮质腰带]|h|r",
+},
+{
+["ID"] = 57327,
+["Level"] = 272,
+["Link"] = "|cff1eff00|Hitem:57327::::::::83::261::::::::|h[救鹿者腿甲]|h|r",
+},
+{
+["ID"] = 55653,
+["Level"] = 289,
+["Link"] = "|cff1eff00|Hitem:55653::::::-40:1252327675:80::261::::::::|h[劫掠之阿博拉兹之靴]|h|r",
+},
+{
+["ID"] = 57372,
+["Level"] = 272,
+["Link"] = "|cff1eff00|Hitem:57372::::::::82::261::::::::|h[孤狼护腕]|h|r",
+},
+{
+["ID"] = 57282,
+["Level"] = 272,
+["Link"] = "|cff1eff00|Hitem:57282::::::::80::261::::::::|h[土灵制服者手甲]|h|r",
+},
+{
+["ID"] = 57331,
+["Level"] = 272,
+["AlsoFitsIn"] = 12,
+["Link"] = "|cff1eff00|Hitem:57331::::::::83::261::::::::|h[淬灭地狱火指环]|h|r",
+},
+{
+["ID"] = 40717,
+["Level"] = 213,
+["AlsoFitsIn"] = 11,
+["Link"] = "|cffa335ee|Hitem:40717::::::::80::1453::::::::|h[无敌之戒]|h|r",
+},
+{
+["ID"] = 57325,
+["Level"] = 272,
+["AlsoFitsIn"] = 14,
+["Link"] = "|cff1eff00|Hitem:57325::::::::82::261::::::::|h[脓血莓嗅盐]|h|r",
+},
+{
+["ID"] = 57325,
+["Level"] = 272,
+["AlsoFitsIn"] = 13,
+["Link"] = "|cff1eff00|Hitem:57325::::::::83::261::::::::|h[脓血莓嗅盐]|h|r",
+},
+{
+["ID"] = 66898,
+["Level"] = 316,
+["Link"] = "|cff0070dd|Hitem:66898::::::::83::261::::::::|h[伊特什的斗篷]|h|r",
+},
+{
+["ID"] = 55796,
+["Level"] = 316,
+["AlsoFitsIn"] = 17,
+["Link"] = "|cff0070dd|Hitem:55796::::::::81::261::::::::|h[苦痛感知之握]|h|r",
+},
+{
+["ID"] = 55796,
+["Level"] = 316,
+["AlsoFitsIn"] = 16,
+["Link"] = "|cff0070dd|Hitem:55796::::::::82::261::::::::|h[苦痛感知之握]|h|r",
+},
+},
+}
+PawnMrRobotScaleProviderOptions = nil
+PawnClassicScaleProviderOptions = {
+["LastClass"] = "ROGUE",
+["LastAdded"] = 3,
+}
