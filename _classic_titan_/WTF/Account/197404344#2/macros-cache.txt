@@ -1,15 +1,12 @@
 VER 3 0000000000000002 "Decursive" "INV_MISC_QUESTIONMARK"
-/script DecursiveRootTable.Dcr:Println('没有相关技能')
+/stopcasting
+/cast [@mouseover,nomod,exists] 纯净术;  [@mouseover,exists,mod:ctrl] 纯净术; [@mouseover,exists,mod:shift] 纯净术
 END
 VER 3 0000000000000003 "MJE: Random Mount" "132599"
 /cancelform [nocombat,noknown:15473]
 /run C_MountJournal.SummonByID(0)
 END
 VER 3 0000000000000004 "RXPTargeting" "Ability_eyeoftheowl"
-/targetexact 杜汉元帅
-/targetexact Koiter
-/targetexact Anara
-/targetexact Alithea
-/targetexact 灵魂医者
+/targetexact 克劳伯·维兹班
 /targetlasttarget [dead]
 END

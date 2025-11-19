@@ -9,14 +9,14 @@ MJEPersonalSettings = {
 ["compactMountList"] = true,
 ["enableCursorKeys"] = true,
 ["displayStatistics"] = {
-["TravelDistance"] = true,
 ["UsedCount"] = true,
-["LearnedDate"] = true,
+["TravelDistance"] = true,
+["TravelTime"] = true,
 ["Rarity"] = true,
 ["Family"] = true,
 ["CustomizationCount"] = true,
 ["Wowhead"] = true,
-["TravelTime"] = true,
+["LearnedDate"] = true,
 },
 ["slotPosition"] = "top",
 ["showMountspecialButton"] = true,
@@ -27,20 +27,39 @@ MJEPersonalSettings = {
 ["showResizeEdge"] = true,
 ["showPersonalCount"] = true,
 ["displayBackground"] = "original",
-["autoRotateModel"] = false,
-["colorizeNameByRarity"] = true,
 ["previewButton"] = true,
+["colorizeNameByRarity"] = true,
+["autoRotateModel"] = false,
 ["unlockDisplayCamera"] = true,
 ["displayAnimation"] = "stand",
 },
+["searchInFamilyName"] = true,
 ["hiddenMounts"] = {
 },
-["searchInFamilyName"] = true,
-["summonPreviousPetAgain"] = true,
+["searchInNotes"] = true,
 ["pets"] = {
 ["assignments"] = {
 },
 ["seenInfo"] = false,
+},
+["favorites"] = {
+["assignments"] = {
+},
+["profiles"] = {
+{
+["mounts"] = {
+},
+["name"] = "",
+["autoFavor"] = false,
+},
+},
+},
+["sort"] = {
+["unownedOnBottom"] = true,
+["descending"] = false,
+["by"] = "name",
+["favoritesOnTop"] = true,
+["unusableToBottom"] = false,
 },
 ["filter"] = {
 ["expansion"] = {
@@ -82,15 +101,6 @@ true,
 ["Instance"] = true,
 ["Drop"] = true,
 },
-["faction"] = {
-["horde"] = true,
-["alliance"] = true,
-["noFaction"] = true,
-},
-["color"] = {
-},
-["notCollected"] = true,
-["hidden"] = false,
 ["rarity"] = {
 true,
 true,
@@ -98,9 +108,12 @@ true,
 true,
 true,
 },
+["hiddenIngame"] = false,
+["hidden"] = false,
+["notCollected"] = true,
+["onlyUsable"] = false,
 ["onlyTradable"] = false,
 ["onlyFavorites"] = false,
-["onlyUsable"] = false,
 ["mountType"] = {
 ["repair"] = true,
 ["flying"] = true,
@@ -109,6 +122,11 @@ true,
 ["passenger"] = true,
 ["ground"] = true,
 ["rideAlong"] = true,
+},
+["faction"] = {
+["horde"] = true,
+["alliance"] = true,
+["noFaction"] = true,
 },
 ["family"] = {
 ["Drakes"] = {
@@ -205,29 +223,11 @@ true,
 },
 ["collected"] = true,
 ["onlyRecent"] = false,
-["hiddenIngame"] = false,
-},
-["sort"] = {
-["unownedOnBottom"] = true,
-["descending"] = false,
-["by"] = "name",
-["favoritesOnTop"] = true,
-["unusableToBottom"] = false,
-},
-["favorites"] = {
-["assignments"] = {
-},
-["profiles"] = {
-{
-["mounts"] = {
-},
-["name"] = "",
-["autoFavor"] = false,
-},
+["color"] = {
 },
 },
 ["personalHiddenMounts"] = false,
 ["personalUi"] = false,
-["searchInNotes"] = true,
+["summonPreviousPetAgain"] = true,
 ["searchInDescription"] = true,
 }

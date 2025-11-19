@@ -124,3 +124,5 @@ ElvUI_BuffHighlight: disabled
 kExtraBossFrames: disabled
 Blizzard_CombatText: enabled
 WeakAurasCompanion: enabled
+ArkInventory: enabled
+ArkInventoryRules_Example: enabled

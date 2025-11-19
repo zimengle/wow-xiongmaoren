@@ -170,3 +170,4 @@ MountsJournal: enabled
 BiaoGe-Rurutia: enabled
 RXPGuides: enabled
 ElvUI_RatioMinimapAuras: disabled
+ArkInventory: disabled

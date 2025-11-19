@@ -13,6 +13,7 @@ MailLoggerDB = {
 ["LogEverything"] = false,
 ["EnableML"] = true,
 ["AltList"] = {
+["美团王兴-时光IV"] = true,
 ["京东刘强东-时光IV"] = true,
 },
 ["SetWindowPos"] = {
@@ -35,5 +36,279 @@ true,
 ["OnlyThisCharacter"] = false,
 },
 ["TradeLog"] = {
+{
+["Date"] = "2025-11-19",
+["TargetName"] = "十七岁那年-时光IV",
+["ReceiveMoney"] = 0,
+["GiveItems"] = {
+},
+["GiveMoney"] = 0,
+["Location"] = "死亡矿井",
+["Time"] = "16:50:59",
+["PlayerName"] = "京东刘强东-时光IV",
+["ReceiveItems"] = {
+},
+},
+{
+["TargetName"] = "十七岁那年-时光IV",
+["Date"] = "2025-11-19",
+["Time"] = "16:50:59",
+["ReceiveMoney"] = 0,
+["GiveItems"] = {
+{
+["Number"] = 1,
+["ItemLink"] = "|cff1eff00|Hitem:10402::::::::20::::::::::|h[黑暗迪菲亚长靴]|h|r",
+["Name"] = "黑暗迪菲亚长靴",
+},
+},
+["GiveMoney"] = 0,
+["Location"] = "死亡矿井",
+["PlayerName"] = "京东刘强东-时光IV",
+["Result"] = "completed",
+["ReceiveItems"] = {
+},
+},
+{
+["PlayerName"] = "京东刘强东-时光IV",
+["Date"] = "2025-11-19",
+["Reason"] = 1,
+["GiveItems"] = {
+},
+["ReceiveMoney"] = 0,
+["Time"] = "17:04:45",
+["GiveMoney"] = 0,
+["Location"] = "铁炉堡",
+["TargetName"] = "客服支持-时光IV",
+["Result"] = "received",
+["ReceiveItems"] = {
+{
+["Number"] = 1,
+["ItemLink"] = "|cffffffff|Hitem:14046::::::::21::::::::::|h[符文布背包]|h|r",
+["Name"] = "符文布背包",
+},
+},
+},
+{
+["PlayerName"] = "京东刘强东-时光IV",
+["Date"] = "2025-11-19",
+["Reason"] = 1,
+["GiveItems"] = {
+},
+["ReceiveMoney"] = 0,
+["Time"] = "17:04:45",
+["GiveMoney"] = 0,
+["Location"] = "铁炉堡",
+["TargetName"] = "客服支持-时光IV",
+["Result"] = "received",
+["ReceiveItems"] = {
+{
+["Number"] = 1,
+["ItemLink"] = "|cffffffff|Hitem:14046::::::::21::::::::::|h[符文布背包]|h|r",
+["Name"] = "符文布背包",
+},
+},
+},
+{
+["PlayerName"] = "京东刘强东-时光IV",
+["Date"] = "2025-11-19",
+["Reason"] = 1,
+["GiveItems"] = {
+},
+["ReceiveMoney"] = 0,
+["Time"] = "17:04:45",
+["GiveMoney"] = 0,
+["Location"] = "铁炉堡",
+["TargetName"] = "客服支持-时光IV",
+["Result"] = "received",
+["ReceiveItems"] = {
+{
+["Number"] = 1,
+["ItemLink"] = "|cffffffff|Hitem:14046::::::::21::::::::::|h[符文布背包]|h|r",
+["Name"] = "符文布背包",
+},
+},
+},
+{
+["PlayerName"] = "京东刘强东-时光IV",
+["Date"] = "2025-11-19",
+["Reason"] = 1,
+["GiveItems"] = {
+},
+["ReceiveMoney"] = 0,
+["Time"] = "17:04:46",
+["GiveMoney"] = 0,
+["Location"] = "铁炉堡",
+["TargetName"] = "客服支持-时光IV",
+["Result"] = "received",
+["ReceiveItems"] = {
+{
+["Number"] = 1,
+["ItemLink"] = "|cffffffff|Hitem:14046::::::::21::::::::::|h[符文布背包]|h|r",
+["Name"] = "符文布背包",
+},
+},
+},
+{
+["Date"] = "2025-11-19",
+["TargetName"] = "魔力不足-时光IV",
+["ReceiveMoney"] = 0,
+["GiveItems"] = {
+},
+["GiveMoney"] = 0,
+["Location"] = "影牙城堡",
+["Time"] = "17:30:48",
+["PlayerName"] = "京东刘强东-时光IV",
+["ReceiveItems"] = {
+},
+},
+{
+["TargetName"] = "魔力不足-时光IV",
+["Date"] = "2025-11-19",
+["Time"] = "17:30:48",
+["ReceiveMoney"] = 0,
+["GiveItems"] = {
+},
+["GiveMoney"] = 0,
+["Location"] = "影牙城堡",
+["PlayerName"] = "京东刘强东-时光IV",
+["Result"] = "completed",
+["ReceiveItems"] = {
+{
+["Number"] = 20,
+["ItemLink"] = "|cffffffff|Hitem:2288::::::::22::::::::::|h[魔法淡水]|h|r",
+["Name"] = "魔法淡水",
+},
+},
+},
+{
+["Date"] = "2025-11-19",
+["TargetName"] = "Senren-时光IV",
+["ReceiveMoney"] = 0,
+["GiveItems"] = {
+},
+["GiveMoney"] = 0,
+["Location"] = "哀嚎洞穴",
+["Time"] = "18:16:53",
+["PlayerName"] = "京东刘强东-时光IV",
+["ReceiveItems"] = {
+},
+},
+{
+["TargetName"] = "Senren-时光IV",
+["Date"] = "2025-11-19",
+["Time"] = "18:16:53",
+["ReceiveMoney"] = 0,
+["GiveItems"] = {
+},
+["GiveMoney"] = 0,
+["Location"] = "哀嚎洞穴",
+["PlayerName"] = "京东刘强东-时光IV",
+["Result"] = "completed",
+["ReceiveItems"] = {
+{
+["Number"] = 20,
+["ItemLink"] = "|cffffffff|Hitem:2136::::::::23::::::::::|h[魔法纯净水]|h|r",
+["Name"] = "魔法纯净水",
+},
+},
+},
+{
+["Date"] = "2025-11-19",
+["PlayerName"] = "京东刘强东-时光IV",
+["ReceiveMoney"] = 0,
+["Time"] = "20:43:03",
+["GiveMoney"] = 0,
+["Location"] = "剃刀沼泽",
+["TargetName"] = "焰烬余歌-时光IV",
+["GiveItems"] = {
+},
+["ReceiveItems"] = {
+},
+},
+{
+["TargetName"] = "焰烬余歌-时光IV",
+["Date"] = "2025-11-19",
+["GiveItems"] = {
+},
+["ReceiveMoney"] = 0,
+["Time"] = "20:43:03",
+["GiveMoney"] = 0,
+["Location"] = "剃刀沼泽",
+["PlayerName"] = "京东刘强东-时光IV",
+["Result"] = "completed",
+["ReceiveItems"] = {
+{
+["Number"] = 19,
+["ItemLink"] = "|cffffffff|Hitem:2136::::::::28::::::::::|h[魔法纯净水]|h|r",
+["Name"] = "魔法纯净水",
+},
+{
+["Number"] = 1,
+["ItemLink"] = "|cffffffff|Hitem:2136::::::::28::::::::::|h[魔法纯净水]|h|r",
+["Name"] = "魔法纯净水",
+},
+},
+},
+{
+["PlayerName"] = "京东刘强东-时光IV",
+["Date"] = "2025-11-19",
+["Time"] = "20:58:21",
+["ReceiveMoney"] = 0,
+["GiveItems"] = {
+{
+["Number"] = 1,
+["ItemLink"] = "|cffffffff|Hitem:804::::::::28::::::::::|h[蓝色布袋]|h|r",
+["Name"] = "蓝色布袋",
+},
+{
+["Number"] = 1,
+["ItemLink"] = "|cffffffff|Hitem:5574::::::::28::::::::::|h[白色皮包]|h|r",
+["Name"] = "白色皮包",
+},
+},
+["GiveMoney"] = 0,
+["Location"] = "暴风城",
+["TargetName"] = "超爱吃火锅-时光IV",
+["Result"] = "sent",
+["ReceiveItems"] = {
+},
+},
+{
+["Date"] = "2025-11-19",
+["PlayerName"] = "京东刘强东-时光IV",
+["ReceiveMoney"] = 0,
+["Time"] = "22:18:21",
+["GiveMoney"] = 0,
+["Location"] = "血色修道院",
+["TargetName"] = "我硬抗三枪-时光IV",
+["GiveItems"] = {
+},
+["ReceiveItems"] = {
+},
+},
+{
+["TargetName"] = "我硬抗三枪-时光IV",
+["Date"] = "2025-11-19",
+["GiveItems"] = {
+},
+["ReceiveMoney"] = 0,
+["Time"] = "22:18:21",
+["GiveMoney"] = 0,
+["Location"] = "血色修道院",
+["PlayerName"] = "京东刘强东-时光IV",
+["Result"] = "completed",
+["ReceiveItems"] = {
+{
+["Number"] = 10,
+["ItemLink"] = "|cffffffff|Hitem:2136::::::::30::::::::::|h[魔法纯净水]|h|r",
+["Name"] = "魔法纯净水",
+},
+{
+["Number"] = 20,
+["ItemLink"] = "|cffffffff|Hitem:2136::::::::30::::::::::|h[魔法纯净水]|h|r",
+["Name"] = "魔法纯净水",
+},
+},
+},
 },
 }

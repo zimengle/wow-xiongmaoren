@@ -1,0 +1,1169 @@
+
+ARKINVDB = {
+["global"] = {
+["player"] = {
+["data"] = {
+["美团王兴 - 时光IV"] = {
+["info"] = {
+["guid"] = "Player-6383-00248778",
+["class"] = "WARRIOR",
+["player_id"] = "美团王兴 - 时光IV",
+["race"] = "Human",
+["level"] = 1,
+["realm"] = "时光IV",
+["isplayer"] = true,
+["gender"] = 2,
+["itemlevel"] = 0,
+["name"] = "美团王兴",
+["faction"] = "Alliance",
+["race_local"] = "人类",
+["class_local"] = "战士",
+["faction_local"] = "联盟",
+},
+["location"] = {
+{
+["slot_count"] = 20,
+["bag"] = {
+{
+["q"] = 0,
+["type"] = 1,
+["slot"] = {
+{
+["h"] = "|cffffffff|Hitem:6948::::::::1::::::::::|h[炉石]|h|r",
+["slot_id"] = 1,
+["sb"] = 3,
+["count"] = 1,
+["bag_id"] = 1,
+["loc_id"] = 1,
+},
+{
+["loc_id"] = 1,
+["count"] = 1,
+["sb"] = 0,
+["bag_id"] = 1,
+["slot_id"] = 2,
+},
+{
+["loc_id"] = 1,
+["count"] = 1,
+["sb"] = 0,
+["bag_id"] = 1,
+["slot_id"] = 3,
+},
+{
+["loc_id"] = 1,
+["count"] = 1,
+["sb"] = 0,
+["bag_id"] = 1,
+["slot_id"] = 4,
+},
+{
+["loc_id"] = 1,
+["count"] = 1,
+["sb"] = 0,
+["bag_id"] = 1,
+["slot_id"] = 5,
+},
+{
+["loc_id"] = 1,
+["count"] = 1,
+["sb"] = 0,
+["bag_id"] = 1,
+["slot_id"] = 6,
+},
+{
+["loc_id"] = 1,
+["count"] = 1,
+["sb"] = 0,
+["bag_id"] = 1,
+["slot_id"] = 7,
+},
+{
+["loc_id"] = 1,
+["count"] = 1,
+["sb"] = 0,
+["bag_id"] = 1,
+["slot_id"] = 8,
+},
+{
+["loc_id"] = 1,
+["count"] = 1,
+["sb"] = 0,
+["bag_id"] = 1,
+["slot_id"] = 9,
+},
+{
+["loc_id"] = 1,
+["count"] = 1,
+["sb"] = 0,
+["bag_id"] = 1,
+["slot_id"] = 10,
+},
+{
+["loc_id"] = 1,
+["count"] = 1,
+["sb"] = 0,
+["bag_id"] = 1,
+["slot_id"] = 11,
+},
+{
+["loc_id"] = 1,
+["count"] = 1,
+["sb"] = 0,
+["bag_id"] = 1,
+["slot_id"] = 12,
+},
+{
+["loc_id"] = 1,
+["count"] = 1,
+["sb"] = 0,
+["bag_id"] = 1,
+["slot_id"] = 13,
+},
+{
+["loc_id"] = 1,
+["count"] = 1,
+["sb"] = 0,
+["bag_id"] = 1,
+["slot_id"] = 14,
+},
+{
+["loc_id"] = 1,
+["count"] = 1,
+["sb"] = 0,
+["bag_id"] = 1,
+["slot_id"] = 15,
+},
+{
+["loc_id"] = 1,
+["count"] = 1,
+["sb"] = 0,
+["bag_id"] = 1,
+["slot_id"] = 16,
+},
+{
+["loc_id"] = 1,
+["count"] = 1,
+["sb"] = 0,
+["bag_id"] = 1,
+["slot_id"] = 17,
+},
+{
+["loc_id"] = 1,
+["count"] = 1,
+["sb"] = 0,
+["bag_id"] = 1,
+["slot_id"] = 18,
+},
+{
+["loc_id"] = 1,
+["count"] = 1,
+["sb"] = 0,
+["bag_id"] = 1,
+["slot_id"] = 19,
+},
+{
+["loc_id"] = 1,
+["count"] = 1,
+["sb"] = 0,
+["bag_id"] = 1,
+["slot_id"] = 20,
+},
+},
+["bag_id"] = 1,
+["loc_id"] = 1,
+["count"] = 20,
+["status"] = -3,
+["empty"] = 19,
+["texture"] = "Interface\\Icons\\INV_Misc_Bag_07_Green",
+},
+{
+["q"] = 0,
+["type"] = 1,
+["bag_id"] = 2,
+["loc_id"] = 1,
+["status"] = -4,
+["texture"] = "Interface\\PaperDoll\\UI-PaperDoll-Slot-Bag",
+},
+{
+["q"] = 0,
+["type"] = 1,
+["bag_id"] = 3,
+["loc_id"] = 1,
+["status"] = -4,
+["texture"] = "Interface\\PaperDoll\\UI-PaperDoll-Slot-Bag",
+},
+{
+["q"] = 0,
+["type"] = 1,
+["bag_id"] = 4,
+["loc_id"] = 1,
+["status"] = -4,
+["texture"] = "Interface\\PaperDoll\\UI-PaperDoll-Slot-Bag",
+},
+{
+["q"] = 0,
+["type"] = 1,
+["bag_id"] = 5,
+["loc_id"] = 1,
+["status"] = -4,
+["texture"] = "Interface\\PaperDoll\\UI-PaperDoll-Slot-Bag",
+},
+},
+},
+{
+["slot_count"] = 32,
+["bag"] = {
+{
+["type"] = 3,
+["count"] = 32,
+["slot"] = {
+{
+["loc_id"] = 2,
+["slot_id"] = 1,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 2,
+["slot_id"] = 2,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 2,
+["slot_id"] = 3,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 2,
+["slot_id"] = 4,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 2,
+["slot_id"] = 5,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 2,
+["slot_id"] = 6,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 2,
+["slot_id"] = 7,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 2,
+["slot_id"] = 8,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 2,
+["slot_id"] = 9,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 2,
+["slot_id"] = 10,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 2,
+["slot_id"] = 11,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 2,
+["slot_id"] = 12,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 2,
+["slot_id"] = 13,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 2,
+["slot_id"] = 14,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 2,
+["slot_id"] = 15,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 2,
+["slot_id"] = 16,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 2,
+["slot_id"] = 17,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 2,
+["slot_id"] = 18,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 2,
+["slot_id"] = 19,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 2,
+["slot_id"] = 20,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 2,
+["slot_id"] = 21,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 2,
+["slot_id"] = 22,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 2,
+["slot_id"] = 23,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 2,
+["slot_id"] = 24,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 2,
+["slot_id"] = 25,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 2,
+["slot_id"] = 26,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 2,
+["slot_id"] = 27,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 2,
+["slot_id"] = 28,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 2,
+["slot_id"] = 29,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 2,
+["slot_id"] = 30,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 2,
+["slot_id"] = 31,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 2,
+["slot_id"] = 32,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+},
+["status"] = -3,
+["empty"] = 32,
+["bag_id"] = 1,
+["loc_id"] = 2,
+},
+},
+},
+[10] = {
+["bag"] = {
+{
+["bag_id"] = 1,
+["loc_id"] = 10,
+},
+},
+},
+[6] = {
+["slot_count"] = 18,
+["bag"] = {
+{
+["type"] = 14,
+["count"] = 18,
+["slot"] = {
+{
+["loc_id"] = 6,
+["slot_id"] = 1,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 6,
+["slot_id"] = 2,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 6,
+["slot_id"] = 3,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 6,
+["slot_id"] = 4,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 6,
+["slot_id"] = 5,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 6,
+["slot_id"] = 6,
+["sb"] = 0,
+["age"] = 29392828,
+["count"] = 1,
+["bag_id"] = 1,
+["h"] = "|cffffffff|Hitem:38::::::::1::::::::::|h[新兵衬衣]|h|r",
+},
+{
+["loc_id"] = 6,
+["slot_id"] = 7,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 6,
+["slot_id"] = 8,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 6,
+["slot_id"] = 9,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 6,
+["slot_id"] = 10,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 6,
+["slot_id"] = 11,
+["sb"] = 0,
+["age"] = 29392828,
+["count"] = 1,
+["bag_id"] = 1,
+["h"] = "|cff9d9d9d|Hitem:39::::::::1::::::::::|h[新兵短裤]|h|r",
+},
+{
+["loc_id"] = 6,
+["slot_id"] = 12,
+["sb"] = 0,
+["age"] = 29392828,
+["count"] = 1,
+["bag_id"] = 1,
+["h"] = "|cffffffff|Hitem:40::::::::1::::::::::|h[新兵之靴]|h|r",
+},
+{
+["loc_id"] = 6,
+["slot_id"] = 13,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 6,
+["slot_id"] = 14,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 6,
+["slot_id"] = 15,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 6,
+["slot_id"] = 16,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+{
+["loc_id"] = 6,
+["slot_id"] = 17,
+["sb"] = 0,
+["age"] = 29392828,
+["count"] = 1,
+["bag_id"] = 1,
+["h"] = "|cffffffff|Hitem:49778::::::::1::::::::::|h[破损的巨剑]|h|r",
+},
+{
+["loc_id"] = 6,
+["slot_id"] = 18,
+["sb"] = 0,
+["bag_id"] = 1,
+["count"] = 1,
+},
+},
+["status"] = -3,
+["empty"] = 14,
+["bag_id"] = 1,
+["loc_id"] = 6,
+},
+},
+},
+[16] = {
+["bag"] = {
+{
+["type"] = 29,
+["status"] = -3,
+["bag_id"] = 1,
+["loc_id"] = 16,
+},
+},
+},
+},
+},
+["!ACCOUNT - 100"] = {
+["info"] = {
+["class"] = "ACCOUNT",
+["faction_local"] = "",
+["name"] = "我的账户",
+["faction"] = "",
+["class_local"] = "Account",
+["level"] = 1,
+["player_id"] = "!ACCOUNT - 100",
+["realm"] = "",
+},
+},
+},
+["version"] = 31029,
+},
+["cache"] = {
+["reputation"] = {
+{
+["i"] = false,
+["r"] = false,
+["d"] = "",
+["w"] = true,
+["n"] = "经典旧世",
+},
+{
+["i"] = false,
+["r"] = false,
+["d"] = "",
+["w"] = false,
+["n"] = "联盟",
+},
+{
+["i"] = false,
+["r"] = false,
+["d"] = "将德莱尼人带到艾泽拉斯世界来的纳鲁飞船，目前搁浅在秘蓝岛上。对于这个高贵的种族来说，埃索达是他们的主城。",
+["w"] = false,
+["n"] = "埃索达",
+},
+{
+["i"] = false,
+["r"] = false,
+["d"] = "这座人类势力的最后堡垒目前由流浪归来的国王瓦里安·乌瑞恩统治着。",
+["w"] = false,
+["n"] = "暴风城",
+},
+{
+["i"] = false,
+["r"] = false,
+["d"] = "诺莫瑞根以前的居民，现在流亡到了铁炉堡并居住在此，联盟方的重要成员。",
+["w"] = false,
+["n"] = "诺莫瑞根流亡者",
+},
+{
+["i"] = false,
+["r"] = false,
+["d"] = "坐落在泰达希尔岛上的联盟城市，暗夜精灵的首都，由月女祭司泰兰德·语风统治。",
+["w"] = false,
+["n"] = "达纳苏斯",
+},
+{
+["i"] = false,
+["r"] = false,
+["d"] = "这座联盟的大都市是丹莫罗矮人们的骄傲，也是麦格尼国王的家。",
+["w"] = false,
+["n"] = "铁炉堡",
+},
+{
+["d"] = "",
+["n"] = "隐藏",
+},
+},
+["default"] = {
+["1000:item:6948:1"] = "1!403",
+},
+["rule"] = {
+["1:1:1:3:1000:item:6948:1"] = false,
+},
+["version"] = 31029,
+},
+["option"] = {
+["sort"] = {
+["method"] = {
+["data"] = {
+[9998] = {
+["order"] = {
+nil,
+nil,
+nil,
+nil,
+nil,
+nil,
+nil,
+nil,
+{
+["key"] = "itemstatlevel",
+},
+{
+["key"] = "itemuselevel",
+},
+{
+["key"] = "itemage",
+},
+{
+["key"] = "expansion",
+},
+{
+["key"] = "id",
+},
+{
+["key"] = "itemtype",
+},
+{
+["key"] = "slottype",
+},
+{
+["key"] = "vendorprice",
+},
+{
+["key"] = "catname",
+},
+},
+},
+[9995] = {
+["order"] = {
+nil,
+nil,
+{
+["key"] = "itemstatlevel",
+},
+{
+["key"] = "itemuselevel",
+},
+{
+["key"] = "itemage",
+},
+{
+["key"] = "category",
+},
+{
+["key"] = "quality",
+},
+{
+["key"] = "expansion",
+},
+{
+["key"] = "id",
+},
+{
+["key"] = "rank",
+},
+{
+["key"] = "itemtype",
+},
+{
+["key"] = "count",
+},
+{
+["key"] = "slottype",
+},
+{
+["key"] = "location",
+},
+{
+["key"] = "vendorprice",
+},
+{
+["key"] = "name",
+},
+{
+["key"] = "catname",
+},
+},
+},
+[9999] = {
+["order"] = {
+nil,
+nil,
+{
+["key"] = "itemstatlevel",
+},
+{
+["key"] = "itemuselevel",
+},
+{
+["key"] = "itemage",
+},
+{
+["key"] = "category",
+},
+{
+["key"] = "quality",
+},
+{
+["key"] = "expansion",
+},
+{
+["key"] = "id",
+},
+{
+["key"] = "rank",
+},
+{
+["key"] = "itemtype",
+},
+{
+["key"] = "count",
+},
+{
+["key"] = "slottype",
+},
+{
+["key"] = "location",
+},
+{
+["key"] = "vendorprice",
+},
+{
+["key"] = "name",
+},
+{
+["key"] = "catname",
+},
+},
+},
+[9996] = {
+["order"] = {
+nil,
+nil,
+nil,
+nil,
+{
+["key"] = "itemstatlevel",
+},
+{
+["key"] = "itemuselevel",
+},
+{
+["key"] = "itemage",
+},
+{
+["key"] = "category",
+},
+{
+["key"] = "quality",
+},
+{
+["key"] = "expansion",
+},
+{
+["key"] = "id",
+},
+{
+["key"] = "rank",
+},
+{
+["key"] = "itemtype",
+},
+{
+["key"] = "slottype",
+},
+{
+["key"] = "location",
+},
+{
+["key"] = "name",
+},
+{
+["key"] = "catname",
+},
+},
+},
+[9993] = {
+["order"] = {
+nil,
+nil,
+{
+["key"] = "itemstatlevel",
+},
+{
+["key"] = "itemuselevel",
+},
+{
+["key"] = "itemage",
+},
+{
+["key"] = "category",
+},
+{
+["key"] = "quality",
+},
+{
+["key"] = "expansion",
+},
+{
+["key"] = "id",
+},
+{
+["key"] = "rank",
+},
+{
+["key"] = "itemtype",
+},
+{
+["key"] = "count",
+},
+{
+["key"] = "slottype",
+},
+{
+["key"] = "location",
+},
+{
+["key"] = "vendorprice",
+},
+{
+["key"] = "name",
+},
+{
+["key"] = "catname",
+},
+},
+},
+[9997] = {
+["order"] = {
+nil,
+nil,
+nil,
+nil,
+nil,
+{
+["key"] = "itemstatlevel",
+},
+{
+["key"] = "itemuselevel",
+},
+{
+["key"] = "itemage",
+},
+{
+["key"] = "category",
+},
+{
+["key"] = "quality",
+},
+{
+["key"] = "expansion",
+},
+{
+["key"] = "id",
+},
+{
+["key"] = "itemtype",
+},
+{
+["key"] = "slottype",
+},
+{
+["key"] = "location",
+},
+{
+["key"] = "vendorprice",
+},
+{
+["key"] = "catname",
+},
+},
+},
+[9994] = {
+["order"] = {
+nil,
+nil,
+nil,
+nil,
+nil,
+{
+["key"] = "itemstatlevel",
+},
+{
+["key"] = "itemuselevel",
+},
+{
+["key"] = "itemage",
+},
+{
+["key"] = "category",
+},
+{
+["key"] = "quality",
+},
+{
+["key"] = "expansion",
+},
+{
+["key"] = "id",
+},
+{
+["key"] = "itemtype",
+},
+{
+["key"] = "slottype",
+},
+{
+["key"] = "location",
+},
+{
+["key"] = "vendorprice",
+},
+{
+["key"] = "catname",
+},
+},
+},
+},
+},
+},
+["category"] = {
+nil,
+{
+},
+{
+},
+},
+["restack"] = {
+["blizzard"] = false,
+},
+["design"] = {
+["data"] = {
+[9999] = {
+},
+[9998] = {
+},
+[9997] = {
+["bar"] = {
+["data"] = {
+{
+["sort"] = {
+},
+["name"] = {
+["text"] = "",
+["custom"] = 1,
+["colour"] = {
+["r"] = 1,
+["g"] = 1,
+["b"] = 1,
+},
+},
+["background"] = {
+["custom"] = 1,
+["colour"] = {
+["a"] = 0.4,
+["r"] = 0,
+["g"] = 0,
+["b"] = 0.4,
+},
+},
+["border"] = {
+["custom"] = 1,
+["colour"] = {
+["r"] = 0.3,
+["g"] = 0.3,
+["b"] = 0.3,
+},
+},
+["width"] = {
+["min"] = 0,
+},
+},
+},
+},
+},
+},
+},
+["updatetimer"] = {
+["EVENT_ARKINV_VAULT_UPDATE_BUCKET"] = {
+},
+["EVENT_ARKINV_QUEST_UPDATE_BUCKET"] = {
+},
+["EVENT_ARKINV_BACKPACK_TOKEN_UPDATE_BUCKET"] = {
+},
+["EVENT_ARKINV_LDB_CURRENCY_UPDATE_BUCKET"] = {
+},
+["EVENT_ARKINV_TRANSMOG_LEAVE_BUCKET"] = {
+},
+["EVENT_ARKINV_VAULT_LEAVE_BUCKET"] = {
+},
+["EVENT_ARKINV_LDB_MOUNT_UPDATE_BUCKET"] = {
+},
+["EVENT_ARKINV_COLLECTION_CURRENCY_UPDATE_BUCKET"] = {
+},
+["EVENT_ARKINV_ITEM_UPDATE_BUCKET"] = {
+},
+["EVENT_ARKINV_BAG_UPDATE_BUCKET"] = {
+},
+["EVENT_ARKINV_BAG_RESCAN_BUCKET"] = {
+},
+["EVENT_ARKINV_MAIL_UPDATE_BUCKET"] = {
+},
+["EVENT_ARKINV_LOCATION_SCANNED_BUCKET"] = {
+},
+["EVENT_ARKINV_MERCHANT_LEAVE_BUCKET"] = {
+},
+["EVENT_ARKINV_LDB_REPUTATION_UPDATE_BUCKET"] = {
+},
+["EVENT_ARKINV_AUCTION_LEAVE_BUCKET"] = {
+},
+["EVENT_ARKINV_AUCTION_UPDATE_MASSIVE_BUCKET"] = {
+},
+["EVENT_ARKINV_UPDATE_COOLDOWN_BUCKET"] = {
+},
+["EVENT_ARKINV_COLLECTION_REPUTATION_UPDATE_BUCKET"] = {
+},
+["EVENT_ARKINV_BANK_LEAVE_BUCKET"] = {
+},
+["EVENT_ARKINV_VOID_UPDATE_BUCKET"] = {
+},
+},
+["tooltip"] = {
+["battlepet"] = {
+["enable"] = false,
+},
+},
+["profile"] = {
+["data"] = {
+[1000] = {
+["location"] = {
+[3] = {
+},
+},
+},
+[9999] = {
+["location"] = {
+[3] = {
+},
+},
+},
+},
+},
+["version"] = 31029,
+["transmog"] = {
+["enable"] = false,
+},
+},
+["version"] = 31029,
+},
+["profileKeys"] = {
+["美团王兴 - 时光IV"] = "Default",
+},
+}

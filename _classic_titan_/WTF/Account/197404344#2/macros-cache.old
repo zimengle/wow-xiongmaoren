@@ -1,3 +1,11 @@
 VER 3 0000000000000002 "Decursive" "INV_MISC_QUESTIONMARK"
 /script DecursiveRootTable.Dcr:Println('没有相关技能')
 END
+VER 3 0000000000000003 "MJE: Random Mount" "132599"
+/cancelform [nocombat,noknown:15473]
+/run C_MountJournal.SummonByID(0)
+END
+VER 3 0000000000000004 "RXPTargeting" "Ability_eyeoftheowl"
+/targetexact 克劳伯·维兹班
+/targetlasttarget [dead]
+END

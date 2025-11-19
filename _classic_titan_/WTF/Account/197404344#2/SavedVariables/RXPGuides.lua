@@ -2,13 +2,13 @@
 RXPData = {
 ["cacheVersion"] = 27,
 ["defaultProfile"] = false,
-["trainGenericSpells"] = true,
 ["release"] = "v4.8.25",
-["gameVersion"] = 38000,
+["trainGenericSpells"] = true,
 ["realmData"] = {
 ["时光IV"] = {
 },
 },
+["gameVersion"] = 38000,
 }
 RXPDB = {
 ["profileKeys"] = {
@@ -16,6 +16,7 @@ RXPDB = {
 ["蒂琪爱尔 - 铁血"] = "global",
 ["萌萌的露露糖 - 时光I"] = "global",
 ["愛雅法拉 - 铁血"] = "global",
+["美团王兴 - 时光IV"] = "global",
 ["露露缇娅丶 - 铁血"] = "global",
 ["哔站董事长 - 时光IV"] = "global",
 ["爱奇艺董事长 - 时光IV"] = "global",
@@ -25,11 +26,11 @@ RXPDB = {
 ["小马君 - 时光I"] = "global",
 ["美团董事长 - 时光IV"] = "global",
 ["银光骤雨 - 时光I"] = "global",
-["皎月梦夜 - 时光I"] = "global",
-["萌萌的露小露 - 铁血"] = "global",
-["京东董事长 - 时光IV"] = "global",
-["露露糖 - 铁血"] = "global",
 ["京东刘强东 - 时光IV"] = "global",
+["露露糖 - 铁血"] = "global",
+["京东董事长 - 时光IV"] = "global",
+["萌萌的露小露 - 铁血"] = "global",
+["皎月梦夜 - 时光I"] = "global",
 },
 ["profiles"] = {
 ["global"] = {
@@ -42,6 +43,7 @@ RXPSettings = {
 ["蒂琪爱尔 - 铁血"] = "露露缇娅丶 - 铁血",
 ["萌萌的露露糖 - 时光I"] = "露露缇娅 - 时光III",
 ["愛雅法拉 - 铁血"] = "露露缇娅丶 - 铁血",
+["美团王兴 - 时光IV"] = "美团王兴 - 时光IV",
 ["露露缇娅丶 - 铁血"] = "露露缇娅丶 - 铁血",
 ["哔站董事长 - 时光IV"] = "露露缇娅 - 时光III",
 ["爱奇艺董事长 - 时光IV"] = "露露缇娅 - 时光III",
@@ -51,11 +53,11 @@ RXPSettings = {
 ["小马君 - 时光I"] = "露露缇娅 - 时光III",
 ["美团董事长 - 时光IV"] = "露露缇娅 - 时光III",
 ["银光骤雨 - 时光I"] = "露露缇娅 - 时光III",
-["皎月梦夜 - 时光I"] = "露露缇娅 - 时光III",
-["萌萌的露小露 - 铁血"] = "露露缇娅丶 - 铁血",
-["京东董事长 - 时光IV"] = "露露缇娅 - 时光III",
-["露露糖 - 铁血"] = "露露缇娅丶 - 铁血",
 ["京东刘强东 - 时光IV"] = "京东刘强东 - 时光IV",
+["露露糖 - 铁血"] = "露露缇娅丶 - 铁血",
+["京东董事长 - 时光IV"] = "露露缇娅 - 时光III",
+["萌萌的露小露 - 铁血"] = "露露缇娅丶 - 铁血",
+["皎月梦夜 - 时光I"] = "露露缇娅 - 时光III",
 },
 ["profiles"] = {
 ["露露缇娅丶 - 铁血"] = {
@@ -65,11 +67,11 @@ RXPSettings = {
 ["macroAnnounced"] = true,
 ["hardcore"] = false,
 ["framePositions"] = {
-["activeTargetFrame"] = {
+["arrowFrame"] = {
 {
 "LEFT",
-[5] = 6.952399253845215,
-[4] = 264.5238037109375,
+[5] = -39.23849105834961,
+[4] = 277.1809997558594,
 [3] = "LEFT",
 },
 },
@@ -90,26 +92,26 @@ RXPSettings = {
 0,
 },
 },
-["arrowFrame"] = {
+["activeTargetFrame"] = {
 {
 "LEFT",
-[5] = -39.23849105834961,
-[4] = 277.1809997558594,
+[5] = 6.952399253845215,
+[4] = 264.5238037109375,
 [3] = "LEFT",
 },
 },
 },
 ["season"] = 0,
-["arrowText"] = 15,
+["hideCompletedSteps"] = false,
 ["frameHeight"] = 28.0000114440918,
 ["enableAddonIncompatibilityCheck"] = false,
 ["phase"] = 1,
-["disableArrow"] = false,
 ["enableTracker"] = false,
+["disableArrow"] = false,
 ["frameSizes"] = {
-["activeTargetFrame"] = {
-54.40001678466797,
-40,
+["arrowFrame"] = {
+38.39999771118164,
+38.40005111694336,
 },
 ["RXPFrame"] = {
 257.3334045410156,
@@ -119,54 +121,35 @@ RXPSettings = {
 51.23808288574219,
 40,
 },
-["arrowFrame"] = {
-38.39999771118164,
-38.40005111694336,
+["activeTargetFrame"] = {
+54.40001678466797,
+40,
 },
 },
 ["hideInRaid"] = true,
-["hideCompletedSteps"] = false,
+["arrowText"] = 15,
 },
-["京东刘强东 - 时光IV"] = {
-["hardcore"] = false,
+["美团王兴 - 时光IV"] = {
 ["xprate"] = 1.5,
-["frameSizes"] = {
-["activeTargetFrame"] = {
-116.0000152587891,
-68.00000762939453,
-},
-["RXPFrame"] = {
-302.047607421875,
-28.00002098083496,
-},
-["activeItemFrame"] = {
-51.33700561523438,
-39.99998474121094,
-},
-["arrowFrame"] = {
-31.99995613098145,
-31.99995613098145,
-},
-},
-["frameHeight"] = 24.44449424743652,
-["macroAnnounced"] = true,
+["frameHeight"] = 124.9999847412109,
+["hardcore"] = false,
 ["framePositions"] = {
-["activeTargetFrame"] = {
+["arrowFrame"] = {
 {
-"RIGHT",
-nil,
-"RIGHT",
--422.9204711914063,
--60.9525032043457,
+"CENTER",
+"UIParent",
+"CENTER",
+0,
+200,
 },
 },
 ["RXPFrame"] = {
 {
 "LEFT",
-nil,
+"UIParent",
 "LEFT",
-13.47323513031006,
--96.94722747802734,
+0,
+35.00000381469727,
 },
 },
 ["activeItemFrame"] = {
@@ -178,13 +161,94 @@ nil,
 0,
 },
 },
+["activeTargetFrame"] = {
+{
+"CENTER",
+"UIParent",
+"CENTER",
+0,
+0,
+},
+},
+},
+["frameSizes"] = {
 ["arrowFrame"] = {
+32.00011444091797,
+32.00011444091797,
+},
+["RXPFrame"] = {
+235,
+28.00002098083496,
+},
+["activeItemFrame"] = {
+51.33700561523438,
+39.99998474121094,
+},
+["activeTargetFrame"] = {
+54.22218322753906,
+17.99994468688965,
+},
+},
+},
+["京东刘强东 - 时光IV"] = {
+["hideGuideWindow"] = true,
+["hardcore"] = false,
+["xprate"] = 1.5,
+["frameSizes"] = {
+["arrowFrame"] = {
+32,
+31.99995613098145,
+},
+["RXPFrame"] = {
+301.3973693847656,
+143.4087829589844,
+},
+["activeItemFrame"] = {
+51.33717346191406,
+39.99998474121094,
+},
+["activeTargetFrame"] = {
+54.22235107421875,
+43.00001525878906,
+},
+},
+["frameHeight"] = 143.4087219238281,
+["macroAnnounced"] = true,
+["framePositions"] = {
+["arrowFrame"] = {
+{
+"LEFT",
+nil,
+"LEFT",
+5.310817241668701,
+-63.23390960693359,
+},
+},
+["RXPFrame"] = {
+{
+"LEFT",
+nil,
+"LEFT",
+13.00000095367432,
+-154.7043914794922,
+},
+},
+["activeItemFrame"] = {
 {
 "CENTER",
 nil,
 "CENTER",
--3.728050470352173,
--146.8682556152344,
+512.843505859375,
+-12.05266380310059,
+},
+},
+["activeTargetFrame"] = {
+{
+"RIGHT",
+nil,
+"RIGHT",
+-222.3223114013672,
+1.071753025054932,
 },
 },
 },
@@ -196,12 +260,13 @@ nil,
 ["macroAnnounced"] = true,
 ["hardcore"] = false,
 ["framePositions"] = {
-["arrowFrame"] = {
+["activeTargetFrame"] = {
 {
-"LEFT",
-[5] = 3,
-[4] = 338,
-[3] = "LEFT",
+"CENTER",
+"UIParent",
+"CENTER",
+0,
+0,
 },
 },
 ["RXPFrame"] = {
@@ -221,24 +286,23 @@ nil,
 0,
 },
 },
-["activeTargetFrame"] = {
+["arrowFrame"] = {
 {
-"CENTER",
-"UIParent",
-"CENTER",
-0,
-0,
+"LEFT",
+[5] = 3,
+[4] = 338,
+[3] = "LEFT",
 },
 },
 },
 ["enableLevelUpAnnounceSolo"] = false,
-["enableFPAutomation"] = false,
-["enableTracker"] = false,
+["xprate"] = 1.5,
+["frameHeight"] = 93.76241302490234,
 ["enableWorldMapButton"] = false,
 ["frameSizes"] = {
-["arrowFrame"] = {
-32.00000762939453,
-32.00000762939453,
+["activeTargetFrame"] = {
+54.40003204345703,
+68.00000762939453,
 },
 ["RXPFrame"] = {
 286,
@@ -248,13 +312,13 @@ nil,
 51.23808288574219,
 40,
 },
-["activeTargetFrame"] = {
-54.40003204345703,
-68.00000762939453,
+["arrowFrame"] = {
+32.00000762939453,
+32.00000762939453,
 },
 },
-["frameHeight"] = 93.76241302490234,
-["xprate"] = 1.5,
+["enableTracker"] = false,
+["enableFPAutomation"] = false,
 },
 },
 }
