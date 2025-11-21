@@ -3,2634 +3,6 @@ Blizzard_Console_SavedVars = {
 ["version"] = 3,
 ["messageHistory"] = {
 {
-"Skill 267 increased from 250 to 255",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 21h 53m 51s",
-0,
-},
-{
-"Level: 0d 0h 0m 0s",
-0,
-},
-{
-"Skill 172 increased from 247 to 248",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 21h 55m 19s",
-0,
-},
-{
-"Level: 0d 0h 1m 28s",
-0,
-},
-{
-"World transfer aborted (reason: 30)",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 22h 8m 32s",
-0,
-},
-{
-"Level: 0d 0h 14m 41s",
-0,
-},
-{
-"Skill 172 increased from 248 to 249",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 22h 11m 7s",
-0,
-},
-{
-"Level: 0d 0h 17m 16s",
-0,
-},
-{
-"Skill 172 increased from 249 to 250",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 22h 13m 27s",
-0,
-},
-{
-"Level: 0d 0h 19m 36s",
-0,
-},
-{
-"Skill 95 increased from 243 to 244",
-0,
-},
-{
-"Skill 172 increased from 250 to 251",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 22h 15m 40s",
-0,
-},
-{
-"Level: 0d 0h 21m 49s",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 22h 15m 41s",
-0,
-},
-{
-"Level: 0d 0h 21m 50s",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 22h 15m 44s",
-0,
-},
-{
-"Level: 0d 0h 21m 53s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 22h 18m 0s",
-0,
-},
-{
-"Level: 0d 0h 24m 9s",
-0,
-},
-{
-"Skill 754 increased from 255 to 260",
-0,
-},
-{
-"Skill 594 increased from 255 to 260",
-0,
-},
-{
-"Skill 183 increased from 255 to 260",
-0,
-},
-{
-"Skill 184 increased from 255 to 260",
-0,
-},
-{
-"Skill 267 increased from 255 to 260",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 22h 20m 14s",
-0,
-},
-{
-"Level: 0d 0h 0m 0s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 22h 21m 22s",
-0,
-},
-{
-"Level: 0d 0h 1m 8s",
-0,
-},
-{
-"Skill 172 increased from 251 to 252",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 22h 23m 32s",
-0,
-},
-{
-"Level: 0d 0h 3m 18s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 22h 24m 18s",
-0,
-},
-{
-"Level: 0d 0h 4m 4s",
-0,
-},
-{
-"Skill 172 increased from 252 to 253",
-0,
-},
-{
-"Skill 95 increased from 244 to 245",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 22h 26m 35s",
-0,
-},
-{
-"Level: 0d 0h 6m 21s",
-0,
-},
-{
-"Skill 172 increased from 253 to 254",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 22h 28m 40s",
-0,
-},
-{
-"Level: 0d 0h 8m 26s",
-0,
-},
-{
-"Skill 172 increased from 254 to 255",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 22h 30m 42s",
-0,
-},
-{
-"Level: 0d 0h 10m 28s",
-0,
-},
-{
-"Skill 95 increased from 245 to 246",
-0,
-},
-{
-"Skill 754 increased from 260 to 265",
-0,
-},
-{
-"Skill 594 increased from 260 to 265",
-0,
-},
-{
-"Skill 183 increased from 260 to 265",
-0,
-},
-{
-"Skill 184 increased from 260 to 265",
-0,
-},
-{
-"Skill 267 increased from 260 to 265",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 22h 32m 47s",
-0,
-},
-{
-"Level: 0d 0h 0m 0s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 22h 33m 24s",
-0,
-},
-{
-"Level: 0d 0h 0m 37s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 22h 38m 50s",
-0,
-},
-{
-"Level: 0d 0h 6m 3s",
-0,
-},
-{
-"Skill 172 increased from 255 to 256",
-0,
-},
-{
-"Skill 172 increased from 256 to 257",
-0,
-},
-{
-"Skill 95 increased from 246 to 247",
-0,
-},
-{
-"Skill 172 increased from 257 to 258",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 22h 42m 17s",
-0,
-},
-{
-"Level: 0d 0h 9m 30s",
-0,
-},
-{
-"Skill 172 increased from 258 to 259",
-0,
-},
-{
-"Skill 95 increased from 247 to 248",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 22h 44m 59s",
-0,
-},
-{
-"Level: 0d 0h 12m 12s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 22h 45m 34s",
-0,
-},
-{
-"Level: 0d 0h 12m 47s",
-0,
-},
-{
-"Skill 172 increased from 259 to 260",
-0,
-},
-{
-"Skill 95 increased from 248 to 249",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 22h 48m 15s",
-0,
-},
-{
-"Level: 0d 0h 15m 28s",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 22h 48m 20s",
-0,
-},
-{
-"Level: 0d 0h 15m 33s",
-0,
-},
-{
-"Skill 95 increased from 249 to 250",
-0,
-},
-{
-"Skill 172 increased from 260 to 261",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 22h 50m 39s",
-0,
-},
-{
-"Level: 0d 0h 17m 52s",
-0,
-},
-{
-"Skill 95 increased from 250 to 251",
-0,
-},
-{
-"Skill 172 increased from 261 to 262",
-0,
-},
-{
-"Skill 754 increased from 265 to 270",
-0,
-},
-{
-"Skill 594 increased from 265 to 270",
-0,
-},
-{
-"Skill 183 increased from 265 to 270",
-0,
-},
-{
-"Skill 184 increased from 265 to 270",
-0,
-},
-{
-"Skill 267 increased from 265 to 270",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 22h 53m 3s",
-0,
-},
-{
-"Level: 0d 0h 0m 0s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 22h 53m 23s",
-0,
-},
-{
-"Level: 0d 0h 0m 20s",
-0,
-},
-{
-"Skill 95 increased from 251 to 252",
-0,
-},
-{
-"Skill 172 increased from 262 to 263",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 22h 55m 40s",
-0,
-},
-{
-"Level: 0d 0h 2m 37s",
-0,
-},
-{
-"Skill 95 increased from 252 to 253",
-0,
-},
-{
-"Skill 172 increased from 263 to 264",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 22h 58m 5s",
-0,
-},
-{
-"Level: 0d 0h 5m 2s",
-0,
-},
-{
-"Skill 172 increased from 264 to 265",
-0,
-},
-{
-"Skill 95 increased from 253 to 254",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 23h 0m 34s",
-0,
-},
-{
-"Level: 0d 0h 7m 31s",
-0,
-},
-{
-"Skill 172 increased from 265 to 266",
-0,
-},
-{
-"Skill 95 increased from 254 to 255",
-0,
-},
-{
-"CGast - CGItemStatsSummary::ParseSpellRec is being called for spellID: 17821, effect aura: 13, which is wrong",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 23h 2m 10s",
-0,
-},
-{
-"Level: 0d 0h 9m 7s",
-0,
-},
-{
-"Skill 172 increased from 266 to 267",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 23h 5m 30s",
-0,
-},
-{
-"Level: 0d 0h 12m 27s",
-0,
-},
-{
-"Skill 95 increased from 255 to 256",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 23h 8m 29s",
-0,
-},
-{
-"Level: 0d 0h 15m 26s",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 23h 8m 31s",
-0,
-},
-{
-"Level: 0d 0h 15m 28s",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 23h 8m 36s",
-0,
-},
-{
-"Level: 0d 0h 15m 33s",
-0,
-},
-{
-"Skill 172 increased from 267 to 268",
-0,
-},
-{
-"Skill 754 increased from 270 to 275",
-0,
-},
-{
-"Skill 594 increased from 270 to 275",
-0,
-},
-{
-"Skill 183 increased from 270 to 275",
-0,
-},
-{
-"Skill 184 increased from 270 to 275",
-0,
-},
-{
-"Skill 267 increased from 270 to 275",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 23h 9m 52s",
-0,
-},
-{
-"Level: 0d 0h 0m 0s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 23h 11m 5s",
-0,
-},
-{
-"Level: 0d 0h 1m 13s",
-0,
-},
-{
-"Skill 95 increased from 256 to 257",
-0,
-},
-{
-"Skill 172 increased from 268 to 269",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 23h 13m 41s",
-0,
-},
-{
-"Level: 0d 0h 3m 49s",
-0,
-},
-{
-"World transfer aborted (reason: 30)",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 23h 22m 44s",
-0,
-},
-{
-"Level: 0d 0h 12m 52s",
-0,
-},
-{
-"Skill 172 increased from 269 to 270",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 23h 25m 20s",
-0,
-},
-{
-"Level: 0d 0h 15m 28s",
-0,
-},
-{
-"Skill 95 increased from 257 to 258",
-0,
-},
-{
-"Skill 172 increased from 270 to 271",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 23h 27m 41s",
-0,
-},
-{
-"Level: 0d 0h 17m 49s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 23h 29m 59s",
-0,
-},
-{
-"Level: 0d 0h 20m 7s",
-0,
-},
-{
-"Skill 172 increased from 271 to 272",
-0,
-},
-{
-"Skill 95 increased from 258 to 259",
-0,
-},
-{
-"Skill 754 increased from 275 to 280",
-0,
-},
-{
-"Skill 594 increased from 275 to 280",
-0,
-},
-{
-"Skill 183 increased from 275 to 280",
-0,
-},
-{
-"Skill 184 increased from 275 to 280",
-0,
-},
-{
-"Skill 267 increased from 275 to 280",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 23h 31m 55s",
-0,
-},
-{
-"Level: 0d 0h 0m 0s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 23h 32m 10s",
-0,
-},
-{
-"Level: 0d 0h 0m 15s",
-0,
-},
-{
-"Skill 95 increased from 259 to 260",
-0,
-},
-{
-"Skill 172 increased from 272 to 273",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 23h 33m 54s",
-0,
-},
-{
-"Level: 0d 0h 1m 59s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 23h 34m 25s",
-0,
-},
-{
-"Level: 0d 0h 2m 30s",
-0,
-},
-{
-"Skill 95 increased from 260 to 261",
-0,
-},
-{
-"Skill 172 increased from 273 to 274",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 23h 36m 55s",
-0,
-},
-{
-"Level: 0d 0h 5m 0s",
-0,
-},
-{
-"Skill 95 increased from 261 to 262",
-0,
-},
-{
-"Skill 172 increased from 274 to 275",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 23h 37m 55s",
-0,
-},
-{
-"Level: 0d 0h 6m 0s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 23h 39m 22s",
-0,
-},
-{
-"Level: 0d 0h 7m 27s",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 23h 39m 27s",
-0,
-},
-{
-"Level: 0d 0h 7m 32s",
-0,
-},
-{
-"Skill 172 increased from 275 to 276",
-0,
-},
-{
-"Skill 95 increased from 262 to 263",
-0,
-},
-{
-"Skill 95 increased from 263 to 264",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 23h 41m 31s",
-0,
-},
-{
-"Level: 0d 0h 9m 36s",
-0,
-},
-{
-"Skill 172 increased from 276 to 277",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 23h 43m 59s",
-0,
-},
-{
-"Level: 0d 0h 12m 4s",
-0,
-},
-{
-"Skill 172 increased from 277 to 278",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 23h 46m 20s",
-0,
-},
-{
-"Level: 0d 0h 14m 25s",
-0,
-},
-{
-"Skill 95 increased from 264 to 265",
-0,
-},
-{
-"Skill 754 increased from 280 to 285",
-0,
-},
-{
-"Skill 594 increased from 280 to 285",
-0,
-},
-{
-"Skill 183 increased from 280 to 285",
-0,
-},
-{
-"Skill 184 increased from 280 to 285",
-0,
-},
-{
-"Skill 267 increased from 280 to 285",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 23h 47m 33s",
-0,
-},
-{
-"Level: 0d 0h 0m 0s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 23h 48m 35s",
-0,
-},
-{
-"Level: 0d 0h 1m 2s",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 23h 48m 40s",
-0,
-},
-{
-"Level: 0d 0h 1m 7s",
-0,
-},
-{
-"Skill 95 increased from 265 to 266",
-0,
-},
-{
-"Skill 172 increased from 278 to 279",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 23h 51m 3s",
-0,
-},
-{
-"Level: 0d 0h 3m 30s",
-0,
-},
-{
-"CGast - CGItemStatsSummary::ParseSpellRec is being called for spellID: 17821, effect aura: 13, which is wrong",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 23h 52m 20s",
-0,
-},
-{
-"Level: 0d 0h 4m 47s",
-0,
-},
-{
-"Skill 95 increased from 266 to 267",
-0,
-},
-{
-"Skill 172 increased from 279 to 280",
-0,
-},
-{
-"Skill 95 increased from 267 to 268",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 23h 55m 54s",
-0,
-},
-{
-"Level: 0d 0h 8m 21s",
-0,
-},
-{
-"Skill 172 increased from 280 to 281",
-0,
-},
-{
-"Skill 95 increased from 268 to 269",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 23h 58m 24s",
-0,
-},
-{
-"Level: 0d 0h 10m 51s",
-0,
-},
-{
-"Skill 172 increased from 281 to 282",
-0,
-},
-{
-"Skill 95 increased from 269 to 270",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 1d 0h 0m 59s",
-0,
-},
-{
-"Level: 0d 0h 13m 26s",
-0,
-},
-{
-"Skill 172 increased from 282 to 283",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 1d 0h 3m 56s",
-0,
-},
-{
-"Level: 0d 0h 16m 23s",
-0,
-},
-{
-"Skill 95 increased from 270 to 271",
-0,
-},
-{
-"Skill 754 increased from 285 to 290",
-0,
-},
-{
-"Skill 594 increased from 285 to 290",
-0,
-},
-{
-"Skill 183 increased from 285 to 290",
-0,
-},
-{
-"Skill 184 increased from 285 to 290",
-0,
-},
-{
-"Skill 267 increased from 285 to 290",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 1d 0h 6m 29s",
-0,
-},
-{
-"Level: 0d 0h 0m 0s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 1d 0h 6m 47s",
-0,
-},
-{
-"Level: 0d 0h 0m 18s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 1d 0h 15m 22s",
-0,
-},
-{
-"Level: 0d 0h 8m 53s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 1d 0h 15m 51s",
-0,
-},
-{
-"Level: 0d 0h 9m 22s",
-0,
-},
-{
-"Skill 95 increased from 271 to 272",
-0,
-},
-{
-"Skill 172 increased from 283 to 284",
-0,
-},
-{
-"Skill 95 increased from 272 to 273",
-0,
-},
-{
-"Skill 95 increased from 273 to 274",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 1d 0h 32m 23s",
-0,
-},
-{
-"Level: 0d 0h 25m 54s",
-0,
-},
-{
-"Skill 172 increased from 284 to 285",
-0,
-},
-{
-"Skill 95 increased from 274 to 275",
-0,
-},
-{
-"Skill 172 increased from 285 to 286",
-0,
-},
-{
-"Skill 754 increased from 290 to 295",
-0,
-},
-{
-"Skill 594 increased from 290 to 295",
-0,
-},
-{
-"Skill 183 increased from 290 to 295",
-0,
-},
-{
-"Skill 184 increased from 290 to 295",
-0,
-},
-{
-"Skill 267 increased from 290 to 295",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 1d 0h 40m 12s",
-0,
-},
-{
-"Level: 0d 0h 0m 0s",
-0,
-},
-{
-"Skill 95 increased from 275 to 276",
-0,
-},
-{
-"Skill 95 increased from 276 to 277",
-0,
-},
-{
-"Skill 172 increased from 286 to 287",
-0,
-},
-{
-"Skill 172 increased from 287 to 288",
-0,
-},
-{
-"Skill 95 increased from 277 to 278",
-0,
-},
-{
-"Skill 172 increased from 288 to 289",
-0,
-},
-{
-"Skill 95 increased from 278 to 279",
-0,
-},
-{
-"Skill 172 increased from 289 to 290",
-0,
-},
-{
-"Skill 172 increased from 290 to 291",
-0,
-},
-{
-"Skill 95 increased from 279 to 280",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 1d 0h 56m 22s",
-0,
-},
-{
-"Level: 0d 0h 16m 10s",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 1d 1h 2m 51s",
-0,
-},
-{
-"Level: 0d 0h 22m 39s",
-0,
-},
-{
-"Skill 95 increased from 280 to 281",
-0,
-},
-{
-"Skill 172 increased from 291 to 292",
-0,
-},
-{
-"Skill 95 increased from 281 to 282",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 1d 1h 11m 35s",
-0,
-},
-{
-"Level: 0d 0h 31m 23s",
-0,
-},
-{
-"Skill 754 increased from 295 to 300",
-0,
-},
-{
-"Skill 594 increased from 295 to 300",
-0,
-},
-{
-"Skill 183 increased from 295 to 300",
-0,
-},
-{
-"Skill 184 increased from 295 to 300",
-0,
-},
-{
-"Skill 267 increased from 295 to 300",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 1d 1h 11m 45s",
-0,
-},
-{
-"Level: 0d 0h 0m 0s",
-0,
-},
-{
-"Skill 172 increased from 292 to 293",
-0,
-},
-{
-"Skill 95 increased from 282 to 283",
-0,
-},
-{
-"Skill 172 increased from 293 to 294",
-0,
-},
-{
-"Skill 172 increased from 294 to 295",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 1d 1h 44m 10s",
-0,
-},
-{
-"Level: 0d 0h 32m 25s",
-0,
-},
-{
-"Skill 95 increased from 283 to 284",
-0,
-},
-{
-"Skill 172 increased from 295 to 296",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 1d 1h 51m 45s",
-0,
-},
-{
-"Level: 0d 0h 40m 0s",
-0,
-},
-{
-"Skill 172 increased from 296 to 297",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 1d 1h 55m 1s",
-0,
-},
-{
-"Level: 0d 0h 43m 16s",
-0,
-},
-{
-"Skill 172 increased from 297 to 298",
-0,
-},
-{
-"Skill 754 increased from 300 to 305",
-0,
-},
-{
-"Skill 594 increased from 300 to 305",
-0,
-},
-{
-"Skill 183 increased from 300 to 305",
-0,
-},
-{
-"Skill 184 increased from 300 to 305",
-0,
-},
-{
-"Skill 267 increased from 300 to 305",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 1d 2h 1m 53s",
-0,
-},
-{
-"Level: 0d 0h 0m 0s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 1d 2h 4m 28s",
-0,
-},
-{
-"Level: 0d 0h 2m 35s",
-0,
-},
-{
-"Skill 95 increased from 284 to 285",
-0,
-},
-{
-"Skill 172 increased from 298 to 299",
-0,
-},
-{
-"Skill 95 increased from 285 to 286",
-0,
-},
-{
-"Skill 95 increased from 286 to 287",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 1d 2h 10m 15s",
-0,
-},
-{
-"Level: 0d 0h 8m 22s",
-0,
-},
-{
-"Skill 172 increased from 299 to 300",
-0,
-},
-{
-"Skill 172 increased from 300 to 301",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 1d 2h 24m 8s",
-0,
-},
-{
-"Level: 0d 0h 22m 15s",
-0,
-},
-{
-"Skill 95 increased from 287 to 288",
-0,
-},
-{
-"Skill 95 increased from 288 to 289",
-0,
-},
-{
-"Skill 172 increased from 301 to 302",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 1d 2h 29m 41s",
-0,
-},
-{
-"Level: 0d 0h 27m 48s",
-0,
-},
-{
-"Skill 95 increased from 289 to 290",
-0,
-},
-{
-"Skill 172 increased from 302 to 303",
-0,
-},
-{
-"Skill 754 increased from 305 to 310",
-0,
-},
-{
-"Skill 594 increased from 305 to 310",
-0,
-},
-{
-"Skill 183 increased from 305 to 310",
-0,
-},
-{
-"Skill 184 increased from 305 to 310",
-0,
-},
-{
-"Skill 267 increased from 305 to 310",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 1d 2h 37m 5s",
-0,
-},
-{
-"Level: 0d 0h 0m 0s",
-0,
-},
-{
-"Skill 95 increased from 290 to 291",
-0,
-},
-{
-"Skill 162 increased from 34 to 35",
-0,
-},
-{
-"Skill 172 increased from 303 to 304",
-0,
-},
-{
-"Skill 95 increased from 291 to 292",
-0,
-},
-{
-"Skill 162 increased from 35 to 36",
-0,
-},
-{
-"Skill 172 increased from 304 to 305",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 1d 2h 41m 15s",
-0,
-},
-{
-"Level: 0d 0h 4m 10s",
-0,
-},
-{
-"Skill 160 increased from 84 to 85",
-0,
-},
-{
-"Skill 160 increased from 85 to 86",
-0,
-},
-{
-"Skill 160 increased from 86 to 87",
-0,
-},
-{
-"Skill 160 increased from 87 to 88",
-0,
-},
-{
-"Skill 160 increased from 88 to 89",
-0,
-},
-{
-"Skill 160 increased from 89 to 90",
-0,
-},
-{
-"Skill 160 increased from 90 to 91",
-0,
-},
-{
-"Skill 160 increased from 91 to 92",
-0,
-},
-{
-"Skill 95 increased from 292 to 293",
-0,
-},
-{
-"Skill 160 increased from 92 to 93",
-0,
-},
-{
-"Skill 160 increased from 93 to 94",
-0,
-},
-{
-"Skill 160 increased from 94 to 95",
-0,
-},
-{
-"Skill 160 increased from 95 to 96",
-0,
-},
-{
-"Skill 160 increased from 96 to 97",
-0,
-},
-{
-"Skill 160 increased from 97 to 98",
-0,
-},
-{
-"Skill 160 increased from 98 to 99",
-0,
-},
-{
-"Skill 160 increased from 99 to 100",
-0,
-},
-{
-"Skill 160 increased from 100 to 101",
-0,
-},
-{
-"Skill 160 increased from 101 to 102",
-0,
-},
-{
-"Skill 160 increased from 102 to 103",
-0,
-},
-{
 "Skill 160 increased from 103 to 104",
 0,
 },
@@ -5536,6 +2908,1102 @@ Blizzard_Console_SavedVars = {
 },
 {
 "Level: 0d 0h 0m 9s",
+0,
+},
+{
+"-------------------------------------------------- Previous Session --------------------------------------------------",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 1d 9h 1m 3s",
+0,
+},
+{
+"Level: 0d 0h 3m 13s",
+0,
+},
+{
+"World transfer pending...",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 1d 9h 4m 25s",
+0,
+},
+{
+"Level: 0d 0h 6m 35s",
+0,
+},
+{
+"World transfer pending...",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 1d 9h 5m 21s",
+0,
+},
+{
+"Level: 0d 0h 7m 31s",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Weather changed to 2, intensity 0.500000\n",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Weather changed to 2, intensity 0.500000\n",
+0,
+},
+{
+"World transfer pending...",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 1d 9h 22m 41s",
+0,
+},
+{
+"Level: 0d 0h 24m 51s",
+0,
+},
+{
+"Skill 95 increased from 326 to 327",
+0,
+},
+{
+"Skill 160 increased from 335 to 336",
+0,
+},
+{
+"Skill 95 increased from 327 to 328",
+0,
+},
+{
+"Skill 95 increased from 328 to 329",
+0,
+},
+{
+"Skill 160 increased from 336 to 337",
+0,
+},
+{
+"Skill 95 increased from 329 to 330",
+0,
+},
+{
+"Skill 95 increased from 330 to 331",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 1d 9h 52m 36s",
+0,
+},
+{
+"Level: 0d 0h 54m 46s",
+0,
+},
+{
+"Skill 95 increased from 331 to 332",
+0,
+},
+{
+"Skill 754 increased from 340 to 345",
+0,
+},
+{
+"Skill 594 increased from 340 to 345",
+0,
+},
+{
+"Skill 183 increased from 340 to 345",
+0,
+},
+{
+"Skill 184 increased from 340 to 345",
+0,
+},
+{
+"Skill 267 increased from 340 to 345",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 1d 10h 2m 6s",
+0,
+},
+{
+"Level: 0d 0h 0m 0s",
+0,
+},
+{
+"Skill 160 increased from 337 to 338",
+0,
+},
+{
+"Skill 95 increased from 332 to 333",
+0,
+},
+{
+"Skill 95 increased from 333 to 334",
+0,
+},
+{
+"Skill 160 increased from 338 to 339",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 1d 10h 9m 13s",
+0,
+},
+{
+"Level: 0d 0h 7m 7s",
+0,
+},
+{
+"Skill 95 increased from 334 to 335",
+0,
+},
+{
+"Skill 160 increased from 339 to 340",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Skill 95 increased from 335 to 336",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 1d 10h 39m 55s",
+0,
+},
+{
+"Level: 0d 0h 37m 49s",
+0,
+},
+{
+"Skill 95 increased from 336 to 337",
+0,
+},
+{
+"Skill 160 increased from 340 to 341",
+0,
+},
+{
+"Skill 95 increased from 337 to 338",
+0,
+},
+{
+"Skill 95 increased from 338 to 339",
+0,
+},
+{
+"Skill 754 increased from 345 to 350",
+0,
+},
+{
+"Skill 594 increased from 345 to 350",
+0,
+},
+{
+"Skill 183 increased from 345 to 350",
+0,
+},
+{
+"Skill 184 increased from 345 to 350",
+0,
+},
+{
+"Skill 267 increased from 345 to 350",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 1d 10h 56m 4s",
+0,
+},
+{
+"Level: 0d 0h 0m 0s",
+0,
+},
+{
+"Skill 160 increased from 341 to 342",
+0,
+},
+{
+"Skill 95 increased from 339 to 340",
+0,
+},
+{
+"Skill 160 increased from 342 to 343",
+0,
+},
+{
+"World transfer pending...",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 1d 11h 16m 33s",
+0,
+},
+{
+"Level: 0d 0h 20m 29s",
+0,
+},
+{
+"Skill 160 increased from 343 to 344",
+0,
+},
+{
+"Skill 95 increased from 340 to 341",
+0,
+},
+{
+"Skill 160 increased from 344 to 345",
+0,
+},
+{
+"World transfer pending...",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 1d 11h 28m 56s",
+0,
+},
+{
+"Level: 0d 0h 32m 52s",
+0,
+},
+{
+"World transfer pending...",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 1d 11h 31m 16s",
+0,
+},
+{
+"Level: 0d 0h 35m 12s",
+0,
+},
+{
+"Skill 160 increased from 345 to 346",
+0,
+},
+{
+"Skill 160 increased from 346 to 347",
+0,
+},
+{
+"Skill 160 increased from 347 to 348",
+0,
+},
+{
+"World transfer pending...",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 1d 11h 45m 8s",
+0,
+},
+{
+"Level: 0d 0h 49m 4s",
+0,
+},
+{
+"World transfer pending...",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 1d 11h 45m 11s",
+0,
+},
+{
+"Level: 0d 0h 49m 7s",
+0,
+},
+{
+"World transfer pending...",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 1d 11h 46m 58s",
+0,
+},
+{
+"Level: 0d 0h 50m 54s",
+0,
+},
+{
+"World transfer pending...",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 1d 11h 49m 57s",
+0,
+},
+{
+"Level: 0d 0h 53m 53s",
+0,
+},
+{
+"Skill 160 increased from 348 to 349",
+0,
+},
+{
+"Skill 95 increased from 341 to 342",
+0,
+},
+{
+"World transfer pending...",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 1d 12h 7m 30s",
+0,
+},
+{
+"Level: 0d 1h 11m 26s",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 1d 12h 10m 22s",
+0,
+},
+{
+"Level: 0d 1h 14m 18s",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Skill 95 increased from 342 to 343",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 1d 12h 26m 54s",
+0,
+},
+{
+"Level: 0d 1h 30m 50s",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 1d 12h 31m 38s",
+0,
+},
+{
+"Level: 0d 1h 35m 34s",
+0,
+},
+{
+"Skill 754 increased from 350 to 355",
+0,
+},
+{
+"Skill 594 increased from 350 to 355",
+0,
+},
+{
+"Skill 183 increased from 350 to 355",
+0,
+},
+{
+"Skill 184 increased from 350 to 355",
+0,
+},
+{
+"Skill 267 increased from 350 to 355",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 1d 12h 33m 34s",
+0,
+},
+{
+"Level: 0d 0h 0m 0s",
+0,
+},
+{
+"Skill 95 increased from 343 to 344",
+0,
+},
+{
+"Skill 160 increased from 349 to 350",
+0,
+},
+{
+"Skill 95 increased from 344 to 345",
+0,
+},
+{
+"Skill 160 increased from 350 to 351",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 1d 12h 45m 4s",
+0,
+},
+{
+"Level: 0d 0h 11m 30s",
+0,
+},
+{
+"Skill 95 increased from 345 to 346",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 1d 13h 0m 58s",
+0,
+},
+{
+"Level: 0d 0h 27m 24s",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Trainer service 43459 unavailable",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 1d 13h 12m 24s",
+0,
+},
+{
+"Level: 0d 0h 38m 50s",
+0,
+},
+{
+"Skill 95 increased from 346 to 347",
+0,
+},
+{
+"Skill 160 increased from 351 to 352",
+0,
+},
+{
+"Skill 95 increased from 347 to 348",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 1d 13h 31m 26s",
+0,
+},
+{
+"Level: 0d 0h 57m 52s",
+0,
+},
+{
+"World transfer pending...",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 1d 16h 14m 30s",
+0,
+},
+{
+"Level: 0d 3h 40m 56s",
+0,
+},
+{
+"Skill 160 increased from 352 to 353",
+0,
+},
+{
+"World transfer pending...",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 1d 16h 27m 52s",
+0,
+},
+{
+"Level: 0d 3h 54m 18s",
+0,
+},
+{
+"World transfer pending...",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 1d 16h 27m 55s",
+0,
+},
+{
+"Level: 0d 3h 54m 21s",
+0,
+},
+{
+"Skill 160 increased from 353 to 354",
+0,
+},
+{
+"World transfer pending...",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 1d 16h 29m 46s",
+0,
+},
+{
+"Level: 0d 3h 56m 12s",
+0,
+},
+{
+"World transfer pending...",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 1d 16h 33m 50s",
+0,
+},
+{
+"Level: 0d 4h 0m 16s",
+0,
+},
+{
+"Skill 95 increased from 348 to 349",
+0,
+},
+{
+"World transfer pending...",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 1d 16h 37m 33s",
+0,
+},
+{
+"Level: 0d 4h 3m 59s",
+0,
+},
+{
+"Skill 95 increased from 349 to 350",
+0,
+},
+{
+"Skill 95 increased from 350 to 351",
+0,
+},
+{
+"Skill 754 increased from 355 to 360",
+0,
+},
+{
+"Skill 594 increased from 355 to 360",
+0,
+},
+{
+"Skill 183 increased from 355 to 360",
+0,
+},
+{
+"Skill 184 increased from 355 to 360",
+0,
+},
+{
+"Skill 267 increased from 355 to 360",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 1d 16h 56m 41s",
+0,
+},
+{
+"Level: 0d 0h 0m 0s",
+0,
+},
+{
+"Skill 160 increased from 354 to 355",
+0,
+},
+{
+"Skill 95 increased from 351 to 352",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 1d 17h 15m 34s",
+0,
+},
+{
+"Level: 0d 0h 18m 53s",
+0,
+},
+{
+"Skill 160 increased from 355 to 356",
+0,
+},
+{
+"Skill 95 increased from 352 to 353",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 1d 17h 28m 30s",
+0,
+},
+{
+"Level: 0d 0h 31m 49s",
+0,
+},
+{
+"Skill 160 increased from 356 to 357",
+0,
+},
+{
+"Skill 95 increased from 353 to 354",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 1d 17h 43m 18s",
+0,
+},
+{
+"Level: 0d 0h 46m 37s",
+0,
+},
+{
+"Skill 160 increased from 357 to 358",
+0,
+},
+{
+"Skill 95 increased from 354 to 355",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 1d 18h 3m 53s",
+0,
+},
+{
+"Level: 0d 1h 7m 12s",
+0,
+},
+{
+"Trainer service 43499 unavailable",
+0,
+},
+{
+"-------------------------------------------------- Previous Session --------------------------------------------------",
 0,
 },
 },
