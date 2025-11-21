@@ -1,24 +1,24 @@
 
 GTFOData = {
-["Sounds"] = {
-true,
-true,
-true,
-true,
-},
+["TestMode"] = false,
 ["Active"] = true,
 ["SoundChannel"] = "SFX",
-["IgnoreSpellList"] = {
-},
+["TrivialDamagePercent"] = 2,
 ["SoundOverrides"] = {
 "",
 "",
 "",
 "",
 },
-["TestMode"] = false,
+["Sounds"] = {
+true,
+true,
+true,
+true,
+},
 ["DataCode"] = "4",
-["TrivialDamagePercent"] = 2,
+["IgnoreSpellList"] = {
+},
 ["Volume"] = 3,
 ["IgnoreOptions"] = {
 ["Fatigue"] = false,

@@ -2,8 +2,6 @@
 ACP_Data = {
 ["sorter"] = "默认",
 ["NoRecurse"] = true,
-["NoChildren"] = true,
-["scale"] = 0.8553552723528793,
 ["AddonSet"] = {
 {
 "SpellActivationOverlay",
@@ -314,6 +312,8 @@ ACP_Data = {
 [10] = {
 },
 },
+["scale"] = 0.8553552723528793,
+["NoChildren"] = true,
 ["collapsed"] = {
 },
 ["ProtectedAddons"] = {
