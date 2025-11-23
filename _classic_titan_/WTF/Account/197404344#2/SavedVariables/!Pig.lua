@@ -2,291 +2,10 @@
 PIGA = {
 ["Other"] = {
 ["ErrorsHide"] = true,
+["PigLoad"] = true,
 ["AFK"] = {
 ["Open"] = false,
 ["QuickBut"] = true,
-},
-["PigLoad"] = true,
-},
-["AutoSellBuy"] = {
-["Sell_Tishi"] = true,
-["Sell_List"] = {
-},
-["Sell_Lsit_Filtra"] = {
-},
-["Diuqi_Tishi"] = false,
-["Sell_But"] = true,
-["Sell_Open"] = true,
-["Open_Tishi"] = false,
-["Fen_Tishi"] = false,
-["Fen_QkBut"] = false,
-["Fen_List"] = {
-},
-["Diuqi_List"] = {
-},
-["Xuan_QkBut"] = false,
-["Open"] = true,
-["Xuan_Tishi"] = false,
-["Xuan_List"] = {
-},
-["AddBut"] = true,
-["Buy_Open"] = true,
-["Buy_But"] = true,
-["Buy_Tishi"] = true,
-["Open_QkBut"] = false,
-["Open_List"] = {
-},
-},
-["UnitFrame"] = {
-["PartyMemberFrame"] = {
-["HPFF"] = true,
-["Plus"] = true,
-["ToToT"] = true,
-["Buff"] = true,
-},
-["PlayerFrame"] = {
-["HPFF"] = true,
-},
-["TargetFrame"] = {
-["Yisu"] = true,
-["Plus"] = true,
-["BigDebuff"] = false,
-["ToToToT"] = true,
-["Chouhen"] = true,
-},
-},
-["Error"] = {
-["ErrorTishi"] = false,
-["ErrorDB"] = {
-{
-["time"] = 1763619271,
-["logrizhi"] = "(*temporary) = Frame {\n values = <table> {\n }\n xOffset = 6.025879\n yOffset = -317.614105\n bly = -16\n finishFormatters = <table> {\n }\n toShow = true\n subRegionEvents = <table> {\n }\n trx = 150\n startFormatters = <table> {\n }\n anchorPoint = \"CENTER\"\n blx = -150\n cloneId = \"\"\n border = Frame {\n }\n yOffsetAnim = 0\n regionType = \"group\"\n xOffsetAnim = 0\n relativePoint = \"CENTER\"\n relativeTo = WeakAurasFrame {\n }\n try = 16\n id = \"圣骑士 职业分组（by 露露緹婭@Bilibili）1118更\"\n alpha = 1\n xOffsetRelative = 0\n yOffsetRelative = 0\n}\n(*temporary) = 0\n",
-["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< oldSetFrameLevel() >",
-["stack"] = "[C]: ?\n[Interface/AddOns/WeakAuras/RegionTypes/Group.lua]:47: in function 'SetFrameLevel'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4310: in function 'ApplyFrameLevel'\n[Interface/AddOns/WeakAuras/RegionTypes/RegionPrototype.lua]:817: in function 'modifyFinish'\n[Interface/AddOns/WeakAuras/RegionTypes/Group.lua]:187: in function 'modify'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:3280: in function 'SetRegion'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:3345: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:3325>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:3355: in function 'EnsureRegion'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:1791: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:1649>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:1858: in function 'ScanForLoads'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:1928: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:1926>\n",
-["counter"] = 2,
-},
-{
-["time"] = 1763619271,
-["logrizhi"] = "(*temporary) = Frame {\n point = \"CENTER\"\n totalOffsetY = 0\n regionData = <table> {\n }\n relativeFrame = Frame {\n }\n totalOffsetX = 129\n offsetX = 129\n relativePoint = \"CENTER\"\n offsetY = 0\n}\n",
-["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:Hide() >",
-["stack"] = "[C]: in function 'Hide'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:103: in function 'resetFunc'\n[Interface/AddOns/Blizzard_SharedXMLBase/Pools.lua]:184: in function 'CallReset'\n[Interface/AddOns/Blizzard_SharedXMLBase/Pools.lua]:88: in function 'Release'\n[Interface/AddOns/Blizzard_SharedXMLBase/Pools.lua]:209: in function <Interface/AddOns/Blizzard_SharedXMLBase/Pools.lua:207>\n[tail call]: ?\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1179: in function 'ReloadControlledChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1592: in function 'modify'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:3280: in function 'SetRegion'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:3345: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:3325>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:3355: in function 'EnsureRegion'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:1791: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:1649>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:1858: in function 'ScanForLoads'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:1928: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:1926>\n",
-["counter"] = 4,
-},
-{
-["time"] = 1763656378,
-["logrizhi"] = "(*temporary) = 16114\n(*temporary) = \"target\"\n",
-["msg"] = "[ADDON_ACTION_BLOCKED] 插件< *** ForceTaint_Strong *** >尝试调用保护功能< UNKNOWN() >",
-["stack"] = "[C]: ?\n[C]: in function 'IsItemInRange'\n[return function()]:7: in function <[string \"return function()\"]:1>\n[C]: in function 'xpcall'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4858: in function 'RunCustomTextFunc'\n[Interface/AddOns/WeakAuras/RegionTypes/Text.lua]:257: in function '?'\n[Interface/AddOns/WeakAuras/SubscribableObject.lua]:94: in function 'Notify'\n[Interface/AddOns/WeakAuras/RegionTypes/RegionPrototype.lua]:621: in function '?'\n[Interface/AddOns/WeakAuras/SubscribableObject.lua]:94: in function 'Notify'\n[Interface/AddOns/WeakAuras/RegionTypes/RegionPrototype.lua]:826: in function <...ace/AddOns/WeakAuras/RegionTypes/RegionPrototype.lua:824>\n",
-["counter"] = 642,
-},
-{
-["time"] = 1763647844,
-["logrizhi"] = "(*temporary) = Frame {\n yOffset = 0\n anchorPoint = \"LEFT\"\n remaining = Infinite\n rotation = 0\n PixelSnapDisabled = true\n cloneId = \"\"\n regionType = \"texture\"\n relativePoint = \"LEFT\"\n texture = Texture {\n }\n color_b = 1\n scaley = 1\n alpha = 0.700000\n color_r = 1\n effectiveRotation = 0\n duration = 0\n expirationTime = Infinite\n color_g = 1\n progressType = \"timed\"\n inverse = false\n paused = true\n subRegions = <table> {\n }\n height = 20.000008\n startFormatters = <table> {\n }\n states = <table> {\n }\n state = <table> {\n }\n subRegionEvents = <table> {\n }\n mirror = false\n yOffsetAnim = 0\n color_a = 0\n values = <table> {\n }\n xOffset = 0\n relativeTo = Frame {\n }\n finishFormatters = <table> {\n }\n id = \"掉落查询\"\n toShow = true\n width = 20\n scalex = 1\n xOffsetRelative = 0\n yOffsetRelative = 0\n xOffsetAnim = 0\n}\n(*temporary) = 77\n",
-["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:SetFrameLevel() >",
-["stack"] = "[C]: in function 'SetFrameLevel'\n[Interface/AddOns/WeakAuras/SubRegionTypes/Background.lua]:17: in function 'SetFrameLevel'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4295: in function 'ApplyFrameLevel'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1407: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1516: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/Animations.lua]:170: in function <Interface/AddOns/WeakAuras/Animations.lua:162>\n",
-["counter"] = 3,
-},
-{
-["time"] = 1763648560,
-["logrizhi"] = "(*temporary) = true\n(*temporary) = nil\n",
-["msg"] = "[ADDON_ACTION_FORBIDDEN] 插件< WeakAuras >尝试调用保护功能< UNKNOWN() >",
-["stack"] = "[C]: ?\n[C]: in function 'EventStoreUISetShown'\n[Interface/AddOns/Blizzard_StoreUI/Classic/Blizzard_StoreUIInbound.lua]:10: in function 'StoreFrame_SetShown'\n[Interface/AddOns/Blizzard_UIParent/Classic/UIParent.lua]:26: in function 'ToggleStoreUI'\n[return function() local chatFrame = SELECTED_DOCK_FRAME]:9: in function <[string \"return function() local chatFrame = SELECTE...\"]:8>\n",
-["counter"] = 1,
-},
-{
-["time"] = 1763706529,
-["logrizhi"] = "(*temporary) = Frame {\n iconSource = -1\n subRegionEvents = <table> {\n }\n yOffset = 0\n anchorPoint = \"CENTER\"\n icon = Texture {\n }\n keepAspectRatio = true\n toShow = true\n progressType = \"timed\"\n relativeTo = Frame {\n }\n PixelSnapDisabled = true\n cloneId = \"\"\n regionType = \"icon\"\n relativePoint = \"CENTER\"\n maxProgress = 1.500000\n states = <table> {\n }\n zoom = 0.300000\n state = <table> {\n }\n color_b = 1\n color_r = 1\n displayIcon = \"\"\n values = <table> {\n }\n duration = 1.500000\n expirationTime = 260.125000\n cooldownEdge = false\n cooldownSwipe = true\n color_g = 1\n finishFormatters = <table> {\n }\n color_a = 1\n subRegions = <table> {\n }\n height = 40\n startFormatters = <table> {\n }\n inverseDirection = true\n currentCoord = <table> {\n }\n frameId = \"驱邪术（惩戒，可点击施法）\"\n texXOffset = 0\n xOffsetAnim = 0\n yOffsetAnim = 0\n xOffset = 0\n scaley = 1\n scalex = 1\n alpha = 1\n minProgress = 0\n id = \"驱邪术（惩戒，可点击施法）\"\n width = 40\n progressSource = <table> {\n }\n xOffsetRelative = 0\n yOffsetRelative = 0\n cooldown = WeakAurasCooldown驱邪术（惩戒，可点击施法） {\n }\n texYOffset = 0\n}\n(*temporary) = 40\n",
-["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:SetWidth() >",
-["stack"] = "[C]: in function 'SetWidth'\n[Interface/AddOns/WeakAuras/RegionTypes/Icon.lua]:325: in function 'UpdateSize'\n[Interface/AddOns/WeakAuras/RegionTypes/Icon.lua]:525: in function 'SetRegionWidth'\n[return function(newPositions, activeRegions)]:45: in function <[string \"return function(newPositions, activeRegions...\"]:1>\n[C]: in function 'xpcall'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:985: in function 'growFunc'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1500: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4689: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4649>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4814: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:889: in function 'ScanEventsInternal'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:826: in function 'ScanEvents'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:2999: in function 'CheckSpellCooldown'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:3011: in function 'CheckSpellCooldows'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:3148: in function 'CheckCooldownReady'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:2444: in function <Interface/AddOns/WeakAuras/GenericTrigger.lua:2402>\n",
-["counter"] = 23712,
-},
-{
-["time"] = 1763706529,
-["logrizhi"] = "(*temporary) = Frame {\n iconSource = -1\n subRegionEvents = <table> {\n }\n yOffset = 0\n anchorPoint = \"CENTER\"\n icon = Texture {\n }\n keepAspectRatio = true\n toShow = true\n progressType = \"timed\"\n relativeTo = Frame {\n }\n PixelSnapDisabled = true\n cloneId = \"\"\n regionType = \"icon\"\n relativePoint = \"CENTER\"\n maxProgress = 1.500000\n states = <table> {\n }\n zoom = 0.300000\n state = <table> {\n }\n color_b = 1\n color_r = 1\n displayIcon = \"\"\n values = <table> {\n }\n duration = 1.500000\n expirationTime = 260.125000\n cooldownEdge = false\n cooldownSwipe = true\n color_g = 1\n finishFormatters = <table> {\n }\n color_a = 1\n subRegions = <table> {\n }\n height = 40\n startFormatters = <table> {\n }\n inverseDirection = true\n currentCoord = <table> {\n }\n frameId = \"驱邪术（惩戒，可点击施法）\"\n texXOffset = 0\n xOffsetAnim = 0\n yOffsetAnim = 0\n xOffset = 0\n scaley = 1\n scalex = 1\n alpha = 1\n minProgress = 0\n id = \"驱邪术（惩戒，可点击施法）\"\n width = 40\n progressSource = <table> {\n }\n xOffsetRelative = 0\n yOffsetRelative = 0\n cooldown = WeakAurasCooldown驱邪术（惩戒，可点击施法） {\n }\n texYOffset = 0\n}\n(*temporary) = 40\n",
-["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:SetHeight() >",
-["stack"] = "[C]: in function 'SetHeight'\n[Interface/AddOns/WeakAuras/RegionTypes/Icon.lua]:326: in function 'UpdateSize'\n[Interface/AddOns/WeakAuras/RegionTypes/Icon.lua]:525: in function 'SetRegionWidth'\n[return function(newPositions, activeRegions)]:45: in function <[string \"return function(newPositions, activeRegions...\"]:1>\n[C]: in function 'xpcall'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:985: in function 'growFunc'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1500: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4689: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4649>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4814: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:889: in function 'ScanEventsInternal'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:826: in function 'ScanEvents'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:2999: in function 'CheckSpellCooldown'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:3011: in function 'CheckSpellCooldows'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:3148: in function 'CheckCooldownReady'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:2444: in function <Interface/AddOns/WeakAuras/GenericTrigger.lua:2402>\n",
-["counter"] = 23666,
-},
-{
-["time"] = 1763687661,
-["logrizhi"] = "(*temporary) = RXPItemFrame {\n BottomLeftCorner = Texture {\n }\n parent = <table> {\n }\n buttonList = <table> {\n }\n TopLeftCorner = Texture {\n }\n RightEdge = Texture {\n }\n PixelSnapDisabled = true\n backdropInfo = <table> {\n }\n Center = Texture {\n }\n TopEdge = Texture {\n }\n title = RXPItemFrame_title {\n }\n BottomEdge = Texture {\n }\n BottomRightCorner = Texture {\n }\n TopRightCorner = Texture {\n }\n LeftEdge = Texture {\n }\n}\n",
-["msg"] = "[ADDON_ACTION_BLOCKED] 插件< RXPGuides >尝试调用保护功能< RXPItemFrame:StartMoving() >",
-["stack"] = "[C]: in function 'StartMoving'\n[Interface/AddOns/RXPGuides/ActiveItemFrame.lua]:256: in function <Interface/AddOns/RXPGuides/ActiveItemFrame.lua:254>\n",
-["counter"] = 1,
-},
-{
-["time"] = 1763706325,
-["logrizhi"] = "(*temporary) = 16114\n(*temporary) = \"target\"\n",
-["msg"] = "[ADDON_ACTION_BLOCKED] 插件< *** ForceTaint_Strong *** >尝试调用保护功能< UNKNOWN() >",
-["stack"] = "[C]: ?\n[C]: in function 'IsItemInRange'\n[return function()]:7: in function <[string \"return function()\"]:1>\n[C]: in function 'xpcall'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4858: in function 'RunCustomTextFunc'\n[Interface/AddOns/WeakAuras/RegionTypes/Text.lua]:257: in function '?'\n[Interface/AddOns/WeakAuras/SubscribableObject.lua]:94: in function 'Notify'\n[Interface/AddOns/WeakAuras/RegionTypes/RegionPrototype.lua]:621: in function '?'\n[Interface/AddOns/WeakAuras/SubscribableObject.lua]:94: in function 'Notify'\n[Interface/AddOns/WeakAuras/RegionTypes/RegionPrototype.lua]:826: in function <...ace/AddOns/WeakAuras/RegionTypes/RegionPrototype.lua:824>\n",
-["counter"] = 400,
-},
-{
-["time"] = 1763699646,
-["logrizhi"] = "(*temporary) = true\n(*temporary) = nil\n",
-["msg"] = "[ADDON_ACTION_FORBIDDEN] 插件< WeakAuras >尝试调用保护功能< UNKNOWN() >",
-["stack"] = "[C]: ?\n[C]: in function 'EventStoreUISetShown'\n[Interface/AddOns/Blizzard_StoreUI/Classic/Blizzard_StoreUIInbound.lua]:10: in function 'StoreFrame_SetShown'\n[Interface/AddOns/Blizzard_UIParent/Classic/UIParent.lua]:26: in function 'ToggleStoreUI'\n[return function() local chatFrame = SELECTED_DOCK_FRAME]:11: in function <[string \"return function() local chatFrame = SELECTE...\"]:8>\n",
-["counter"] = 2,
-},
-{
-["time"] = 1763739246,
-["logrizhi"] = "(*temporary) = Frame {\n iconSource = -1\n subRegionEvents = <table> {\n }\n yOffset = 0\n anchorPoint = \"CENTER\"\n icon = Texture {\n }\n keepAspectRatio = true\n toShow = true\n progressType = \"timed\"\n relativeTo = Frame {\n }\n PixelSnapDisabled = true\n cloneId = \"\"\n regionType = \"icon\"\n relativePoint = \"CENTER\"\n maxProgress = 0\n states = <table> {\n }\n zoom = 0.300000\n state = <table> {\n }\n color_b = 1\n color_r = 1\n displayIcon = \"\"\n values = <table> {\n }\n duration = 0\n expirationTime = 0\n cooldownEdge = false\n cooldownSwipe = true\n color_g = 1\n finishFormatters = <table> {\n }\n color_a = 1\n subRegions = <table> {\n }\n height = 40\n startFormatters = <table> {\n }\n inverseDirection = true\n currentCoord = <table> {\n }\n modRate = 1\n frameId = \"驱邪术（惩戒，可点击施法）\"\n texXOffset = 0\n xOffsetAnim = 0\n yOffsetAnim = 0\n xOffset = 0\n scaley = 1\n scalex = 1\n alpha = 1\n minProgress = 0\n id = \"驱邪术（惩戒，可点击施法）\"\n width = 40\n progressSource = <table> {\n }\n xOffsetRelative = 0\n yOffsetRelative = 0\n cooldown = WeakAurasCooldown驱邪术（惩戒，可点击施法） {\n }\n texYOffset = 0\n}\n(*temporary) = 40\n",
-["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:SetWidth() >",
-["stack"] = "[C]: in function 'SetWidth'\n[Interface/AddOns/WeakAuras/RegionTypes/Icon.lua]:325: in function 'UpdateSize'\n[Interface/AddOns/WeakAuras/RegionTypes/Icon.lua]:525: in function 'SetRegionWidth'\n[return function(newPositions, activeRegions)]:45: in function <[string \"return function(newPositions, activeRegions...\"]:1>\n[C]: in function 'xpcall'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:985: in function 'growFunc'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1500: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1116: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4689: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4649>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4814: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:889: in function 'ScanEventsInternal'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:826: in function 'ScanEvents'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:2220: in function <Interface/AddOns/WeakAuras/GenericTrigger.lua:2190>\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:2230: in function 'func'\n[Interface/AddOns/WeakAuras/Libs/AceTimer-3.0/AceTimer-3.0.lua]:57: in function <.../AddOns/WeakAuras/Libs/AceTimer-3.0/AceTimer-3.0.lua:50>\n",
-["counter"] = 19376,
-},
-{
-["time"] = 1763739246,
-["logrizhi"] = "(*temporary) = Frame {\n iconSource = -1\n subRegionEvents = <table> {\n }\n yOffset = 0\n anchorPoint = \"CENTER\"\n icon = Texture {\n }\n keepAspectRatio = true\n toShow = true\n progressType = \"timed\"\n relativeTo = Frame {\n }\n PixelSnapDisabled = true\n cloneId = \"\"\n regionType = \"icon\"\n relativePoint = \"CENTER\"\n maxProgress = 0\n states = <table> {\n }\n zoom = 0.300000\n state = <table> {\n }\n color_b = 1\n color_r = 1\n displayIcon = \"\"\n values = <table> {\n }\n duration = 0\n expirationTime = 0\n cooldownEdge = false\n cooldownSwipe = true\n color_g = 1\n finishFormatters = <table> {\n }\n color_a = 1\n subRegions = <table> {\n }\n height = 40\n startFormatters = <table> {\n }\n inverseDirection = true\n currentCoord = <table> {\n }\n modRate = 1\n frameId = \"驱邪术（惩戒，可点击施法）\"\n texXOffset = 0\n xOffsetAnim = 0\n yOffsetAnim = 0\n xOffset = 0\n scaley = 1\n scalex = 1\n alpha = 1\n minProgress = 0\n id = \"驱邪术（惩戒，可点击施法）\"\n width = 40\n progressSource = <table> {\n }\n xOffsetRelative = 0\n yOffsetRelative = 0\n cooldown = WeakAurasCooldown驱邪术（惩戒，可点击施法） {\n }\n texYOffset = 0\n}\n(*temporary) = 40\n",
-["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:SetHeight() >",
-["stack"] = "[C]: in function 'SetHeight'\n[Interface/AddOns/WeakAuras/RegionTypes/Icon.lua]:326: in function 'UpdateSize'\n[Interface/AddOns/WeakAuras/RegionTypes/Icon.lua]:525: in function 'SetRegionWidth'\n[return function(newPositions, activeRegions)]:45: in function <[string \"return function(newPositions, activeRegions...\"]:1>\n[C]: in function 'xpcall'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:985: in function 'growFunc'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1500: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1116: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4689: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4649>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4814: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:889: in function 'ScanEventsInternal'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:826: in function 'ScanEvents'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:2220: in function <Interface/AddOns/WeakAuras/GenericTrigger.lua:2190>\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:2230: in function 'func'\n[Interface/AddOns/WeakAuras/Libs/AceTimer-3.0/AceTimer-3.0.lua]:57: in function <.../AddOns/WeakAuras/Libs/AceTimer-3.0/AceTimer-3.0.lua:50>\n",
-["counter"] = 19352,
-},
-{
-["time"] = 1763738604,
-["logrizhi"] = "(*temporary) = 16114\n(*temporary) = \"target\"\n",
-["msg"] = "[ADDON_ACTION_BLOCKED] 插件< *** ForceTaint_Strong *** >尝试调用保护功能< UNKNOWN() >",
-["stack"] = "[C]: ?\n[C]: in function 'IsItemInRange'\n[return function()]:7: in function <[string \"return function()\"]:1>\n[C]: in function 'xpcall'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4858: in function 'RunCustomTextFunc'\n[Interface/AddOns/WeakAuras/RegionTypes/Text.lua]:257: in function '?'\n[Interface/AddOns/WeakAuras/SubscribableObject.lua]:94: in function 'Notify'\n[Interface/AddOns/WeakAuras/RegionTypes/RegionPrototype.lua]:621: in function '?'\n[Interface/AddOns/WeakAuras/SubscribableObject.lua]:94: in function 'Notify'\n[Interface/AddOns/WeakAuras/RegionTypes/RegionPrototype.lua]:826: in function <...ace/AddOns/WeakAuras/RegionTypes/RegionPrototype.lua:824>\n",
-["counter"] = 446,
-},
-{
-["time"] = 1763735547,
-["logrizhi"] = "(*temporary) = Frame {\n animOffsetX = 0\n totalOffsetY = 0\n regionData = <table> {\n }\n totalOffsetX = 280\n animOffsetY = 0\n}\n",
-["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:ClearAllPoints() >",
-["stack"] = "[C]: in function 'ClearAllPoints'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:54: in function 'SetAnchorPoint'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1355: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1516: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/Animations.lua]:170: in function <Interface/AddOns/WeakAuras/Animations.lua:162>\n",
-["counter"] = 11,
-},
-{
-["time"] = 1763735547,
-["logrizhi"] = "(*temporary) = Frame {\n point = \"LEFT\"\n animOffsetX = 0\n totalOffsetY = 0\n regionData = <table> {\n }\n relativeFrame = Frame {\n }\n totalOffsetX = 300\n offsetX = 300\n relativePoint = \"LEFT\"\n animOffsetY = 0\n offsetY = 0\n}\n(*temporary) = \"LEFT\"\n(*temporary) = Frame {\n controlledChildren = <table> {\n }\n subRegionEvents = <table> {\n }\n yOffset = 264\n anchorPoint = \"LEFT\"\n updatedChildren = <table> {\n }\n controlPoints = <table> {\n }\n suspended = 0\n growStates = <table> {\n }\n regionType = \"dynamicgroup\"\n relativePoint = \"BOTTOMLEFT\"\n sortedChildren = <table> {\n }\n alpha = 1\n sortStates = <table> {\n }\n currentHeight = 20\n currentWidth = 319.999969\n needToSort = false\n background = Frame {\n }\n needToReload = false\n needToPosition = false\n subRegions = <table> {\n }\n startFormatters = <table> {\n }\n values = <table> {\n }\n sortOn = <table> {\n }\n needToResize = false\n xOffsetAnim = 0\n yOffsetAnim = 0\n anchorPerUnit = false\n xOffset = 6\n relativeTo = UIParent {\n }\n id = \"【露露】简易聊天条（WLK）\"\n selfPoint = \"TOPLEFT\"\n finishFormatters = <table> {\n }\n toShow = true\n cloneId = \"\"\n xOffsetRelative = 0\n yOffsetRelative = 0\n}\n(*temporary) = \"LEFT\"\n(*temporary) = 300\n(*temporary) = 0\n",
-["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:SetPoint() >",
-["stack"] = "[C]: in function 'SetPoint'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:60: in function 'SetAnchorPoint'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1355: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1516: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/Animations.lua]:170: in function <Interface/AddOns/WeakAuras/Animations.lua:162>\n",
-["counter"] = 11,
-},
-{
-["time"] = 1763735547,
-["logrizhi"] = "(*temporary) = Frame {\n point = \"LEFT\"\n animOffsetX = 0\n totalOffsetY = 0\n regionData = <table> {\n }\n relativeFrame = Frame {\n }\n totalOffsetX = 300\n offsetX = 300\n relativePoint = \"LEFT\"\n animOffsetY = 0\n offsetY = 0\n}\n(*temporary) = true\n",
-["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:SetShown() >",
-["stack"] = "[C]: in function 'SetShown'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1369: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1516: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/Animations.lua]:170: in function <Interface/AddOns/WeakAuras/Animations.lua:162>\n",
-["counter"] = 8,
-},
-{
-["time"] = 1763735547,
-["logrizhi"] = "(*temporary) = Frame {\n point = \"LEFT\"\n animOffsetX = 0\n totalOffsetY = 0\n regionData = <table> {\n }\n relativeFrame = Frame {\n }\n totalOffsetX = 300\n offsetX = 300\n relativePoint = \"LEFT\"\n animOffsetY = 0\n offsetY = 0\n}\n(*temporary) = Frame {\n controlledChildren = <table> {\n }\n subRegionEvents = <table> {\n }\n yOffset = 264\n anchorPoint = \"LEFT\"\n updatedChildren = <table> {\n }\n controlPoints = <table> {\n }\n suspended = 0\n growStates = <table> {\n }\n regionType = \"dynamicgroup\"\n relativePoint = \"BOTTOMLEFT\"\n sortedChildren = <table> {\n }\n alpha = 1\n sortStates = <table> {\n }\n currentHeight = 20\n currentWidth = 319.999969\n needToSort = false\n background = Frame {\n }\n needToReload = false\n needToPosition = false\n subRegions = <table> {\n }\n startFormatters = <table> {\n }\n values = <table> {\n }\n sortOn = <table> {\n }\n needToResize = false\n xOffsetAnim = 0\n yOffsetAnim = 0\n anchorPerUnit = false\n xOffset = 6\n relativeTo = UIParent {\n }\n id = \"【露露】简易聊天条（WLK）\"\n selfPoint = \"TOPLEFT\"\n finishFormatters = <table> {\n }\n toShow = true\n cloneId = \"\"\n xOffsetRelative = 0\n yOffsetRelative = 0\n}\n",
-["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< UNKNOWN() >",
-["stack"] = "[C]: ?\n[C]: in function 'SetParent'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1396: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1516: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/Animations.lua]:170: in function <Interface/AddOns/WeakAuras/Animations.lua:162>\n",
-["counter"] = 8,
-},
-{
-["time"] = 1763735547,
-["logrizhi"] = "(*temporary) = Frame {\n point = \"LEFT\"\n animOffsetX = 0\n totalOffsetY = 0\n regionData = <table> {\n }\n relativeFrame = Frame {\n }\n totalOffsetX = 300\n offsetX = 300\n relativePoint = \"LEFT\"\n animOffsetY = 0\n offsetY = 0\n}\n(*temporary) = 1\n",
-["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:SetScale() >",
-["stack"] = "[C]: in function 'SetScale'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1397: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1516: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/Animations.lua]:170: in function <Interface/AddOns/WeakAuras/Animations.lua:162>\n",
-["counter"] = 8,
-},
-{
-["time"] = 1763735547,
-["logrizhi"] = "(*temporary) = Frame {\n yOffset = 0\n anchorPoint = \"LEFT\"\n remaining = Infinite\n rotation = 0\n PixelSnapDisabled = true\n cloneId = \"\"\n regionType = \"texture\"\n relativePoint = \"LEFT\"\n texture = Texture {\n }\n color_b = 1\n scaley = 1\n alpha = 0.700000\n color_r = 1\n effectiveRotation = 0\n duration = 0\n expirationTime = Infinite\n color_g = 1\n progressType = \"timed\"\n inverse = false\n paused = true\n subRegions = <table> {\n }\n height = 20.000008\n startFormatters = <table> {\n }\n states = <table> {\n }\n state = <table> {\n }\n subRegionEvents = <table> {\n }\n mirror = false\n yOffsetAnim = 0\n color_a = 0\n values = <table> {\n }\n xOffset = 0\n relativeTo = Frame {\n }\n finishFormatters = <table> {\n }\n id = \"掉落查询\"\n toShow = true\n width = 20\n scalex = 1\n xOffsetRelative = 0\n yOffsetRelative = 0\n xOffsetAnim = 0\n}\n(*temporary) = \"MEDIUM\"\n",
-["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:SetFrameStrata() >",
-["stack"] = "[C]: in function 'SetFrameStrata'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1403: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1516: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/Animations.lua]:170: in function <Interface/AddOns/WeakAuras/Animations.lua:162>\n",
-["counter"] = 8,
-},
-{
-["time"] = 1763714840,
-["logrizhi"] = "(*temporary) = Frame {\n yOffset = 0\n anchorPoint = \"LEFT\"\n remaining = Infinite\n rotation = 0\n PixelSnapDisabled = true\n cloneId = \"\"\n regionType = \"texture\"\n relativePoint = \"LEFT\"\n texture = Texture {\n }\n color_b = 1\n scaley = 1\n alpha = 0.700000\n color_r = 1\n effectiveRotation = 0\n duration = 0\n expirationTime = Infinite\n color_g = 1\n progressType = \"timed\"\n inverse = false\n paused = true\n subRegions = <table> {\n }\n height = 20.000008\n startFormatters = <table> {\n }\n states = <table> {\n }\n state = <table> {\n }\n subRegionEvents = <table> {\n }\n mirror = false\n yOffsetAnim = 0\n color_a = 0\n values = <table> {\n }\n xOffset = 0\n relativeTo = Frame {\n }\n finishFormatters = <table> {\n }\n id = \"掉落查询\"\n toShow = true\n width = 20\n scalex = 1\n xOffsetRelative = 0\n yOffsetRelative = 0\n xOffsetAnim = 0\n}\n(*temporary) = 77\n",
-["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:SetFrameLevel() >",
-["stack"] = "[C]: in function 'SetFrameLevel'\n[Interface/AddOns/WeakAuras/SubRegionTypes/Background.lua]:17: in function 'SetFrameLevel'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4295: in function 'ApplyFrameLevel'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1407: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1516: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/Animations.lua]:170: in function <Interface/AddOns/WeakAuras/Animations.lua:162>\n",
-["counter"] = 2,
-},
-{
-["time"] = 1763735547,
-["logrizhi"] = "(*temporary) = Frame {\n iconSource = -1\n xOffset = 0\n yOffset = 0\n anchorPoint = \"RIGHT\"\n keepAspectRatio = false\n toShow = true\n progressType = \"timed\"\n relativeTo = Frame {\n }\n PixelSnapDisabled = true\n cloneId = \"\"\n regionType = \"icon\"\n relativePoint = \"RIGHT\"\n maxProgress = 0\n scalex = 1\n states = <table> {\n }\n zoom = 0.300000\n state = <table> {\n }\n color_b = 1\n color_r = 1\n values = <table> {\n }\n duration = 0\n expirationTime = 0\n cooldownEdge = true\n cooldownSwipe = true\n color_g = 1\n progressSource = <table> {\n }\n alpha = 0\n color_a = 1\n subRegions = <table> {\n }\n height = 28\n startFormatters = <table> {\n }\n inverseDirection = true\n currentCoord = <table> {\n }\n frameId = \"【露露】使用饰品2\"\n texXOffset = 0\n xOffsetAnim = 0\n yOffsetAnim = 0\n subRegionEvents = <table> {\n }\n icon = Texture {\n }\n scaley = 1\n minProgress = 0\n finishFormatters = <table> {\n }\n id = \"【露露】使用饰品2\"\n width = 30\n xOffsetRelative = 0\n yOffsetRelative = 0\n cooldown = WeakAurasCooldown【露露】使用饰品2 {\n }\n texYOffset = 0\n}\n(*temporary) = 17\n",
-["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< SetFrameLevel() >",
-["stack"] = "[C]: ?\n[Interface/AddOns/WeakAuras/RegionTypes/Icon.lua]:285: in function 'SetFrameLevel'\n[Interface/AddOns/WeakAuras/SubRegionTypes/Background.lua]:17: in function 'SetFrameLevel'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4295: in function 'ApplyFrameLevel'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1407: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1516: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4689: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4649>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4793: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:1091: in function 'ScanWithFakeEvent'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:1414: in function 'LoadDisplays'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:2033: in function 'LoadDisplays'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:1815: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:1649>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:1858: in function 'ScanForLoads'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:1936: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:1932>\n",
-["counter"] = 6,
-},
-{
-["time"] = 1763715725,
-["logrizhi"] = "(*temporary) = Frame {\n controlledChildren = <table> {\n }\n subRegionEvents = <table> {\n }\n yOffset = 58.400000\n anchorPoint = \"RIGHT\"\n updatedChildren = <table> {\n }\n controlPoints = <table> {\n }\n suspended = 0\n growStates = <table> {\n }\n regionType = \"dynamicgroup\"\n relativePoint = \"TOPRIGHT\"\n sortedChildren = <table> {\n }\n alpha = 1\n sortStates = <table> {\n }\n currentHeight = 28\n currentWidth = 63.999939\n needToSort = false\n background = Frame {\n }\n needToReload = false\n needToPosition = false\n subRegions = <table> {\n }\n startFormatters = <table> {\n }\n values = <table> {\n }\n sortOn = <table> {\n }\n needToResize = false\n xOffsetAnim = 0\n yOffsetAnim = 0\n anchorPerUnit = false\n xOffset = 0\n relativeTo = ElvUF_Player {\n }\n id = \"【露露】饰品+爆发药（可点击按钮）锚点\"\n selfPoint = \"TOPLEFT\"\n finishFormatters = <table> {\n }\n toShow = true\n cloneId = \"\"\n xOffsetRelative = 0\n yOffsetRelative = 0\n}\n",
-["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:Show() >",
-["stack"] = "[C]: in function 'Show'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1558: in function 'Resize'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1528: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4689: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4649>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4793: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:1091: in function 'ScanWithFakeEvent'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:1414: in function 'LoadDisplays'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:2033: in function 'LoadDisplays'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:1815: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:1649>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:1858: in function 'ScanForLoads'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:1936: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:1932>\n",
-["counter"] = 1,
-},
-{
-["time"] = 1763735416,
-["logrizhi"] = "(*temporary) = RXPItemFrame {\n BottomLeftCorner = Texture {\n }\n parent = <table> {\n }\n buttonList = <table> {\n }\n TopLeftCorner = Texture {\n }\n RightEdge = Texture {\n }\n PixelSnapDisabled = true\n backdropInfo = <table> {\n }\n Center = Texture {\n }\n TopEdge = Texture {\n }\n title = RXPItemFrame_title {\n }\n BottomEdge = Texture {\n }\n BottomRightCorner = Texture {\n }\n TopRightCorner = Texture {\n }\n LeftEdge = Texture {\n }\n}\n",
-["msg"] = "[ADDON_ACTION_BLOCKED] 插件< RXPGuides >尝试调用保护功能< RXPItemFrame:StartMoving() >",
-["stack"] = "[C]: in function 'StartMoving'\n[Interface/AddOns/RXPGuides/ActiveItemFrame.lua]:256: in function <Interface/AddOns/RXPGuides/ActiveItemFrame.lua:254>\n",
-["counter"] = 2,
-},
-{
-["time"] = 1763735416,
-["logrizhi"] = "(*temporary) = RXPItemFrame {\n BottomLeftCorner = Texture {\n }\n parent = <table> {\n }\n buttonList = <table> {\n }\n TopLeftCorner = Texture {\n }\n RightEdge = Texture {\n }\n PixelSnapDisabled = true\n backdropInfo = <table> {\n }\n Center = Texture {\n }\n TopEdge = Texture {\n }\n title = RXPItemFrame_title {\n }\n BottomEdge = Texture {\n }\n BottomRightCorner = Texture {\n }\n TopRightCorner = Texture {\n }\n LeftEdge = Texture {\n }\n}\n",
-["msg"] = "[ADDON_ACTION_BLOCKED] 插件< RXPGuides >尝试调用保护功能< RXPItemFrame:StopMovingOrSizing() >",
-["stack"] = "[C]: in function 'StopMovingOrSizing'\n[Interface/AddOns/RXPGuides/ActiveItemFrame.lua]:259: in function <Interface/AddOns/RXPGuides/ActiveItemFrame.lua:258>\n",
-["counter"] = 2,
-},
-},
-},
-["ActionBar"] = {
-["Cailiao"] = true,
-["ActionCD"] = true,
-["AutoFanye"] = false,
-["PetTishi"] = true,
-["Ranse"] = true,
-},
-["Interaction"] = {
-["AutoDialogue"] = false,
-["AutoJierenwu"] = false,
-["AutoRepair"] = false,
-["AutoDialogueIndex"] = 0,
-["AutoFuhuo"] = false,
-["AutoRepair_GUILD"] = false,
-["AutoDown"] = false,
-["xiayijuli"] = 31,
-["AutoJyaoqing"] = false,
-["RightPlus"] = true,
-["AutoJiaorenwu"] = false,
-},
-["Blizzard_UI"] = {
-["PlayerTalentFrame"] = {
-["Scale"] = 1.3,
-},
-},
-["Chatjilu"] = {
-["RAID"] = {
-["record"] = {
-},
-["Open"] = true,
-["Tips"] = true,
-},
-["GUILD"] = {
-["record"] = {
-},
-["Open"] = true,
-["Tips"] = true,
-},
-["PARTY"] = {
-["record"] = {
-},
-["Open"] = true,
-["Tips"] = true,
-},
-["INSTANCE_CHAT"] = {
-["record"] = {
-},
-["Open"] = true,
-["Tips"] = true,
-},
-["Days"] = 7,
-["WHISPER"] = {
-["AudioID"] = 1,
-["jichengBlack"] = true,
-["record"] = {
-},
-["Open"] = true,
-["AudioOpen"] = true,
-["Tips"] = true,
 },
 },
 ["QuickBut"] = {
@@ -300,20 +19,48 @@ PIGA = {
 ["Spell"] = true,
 ["Trinket"] = true,
 ["Open"] = true,
-["AddonList"] = true,
-["RuneShow"] = false,
-["TrinketScale"] = 1.6,
-["Rune"] = true,
-["Lushi"] = true,
-["TrinketFenli"] = false,
-["TrinketFenlilock"] = false,
 ["BGbroadcast"] = true,
+["RuneShow"] = false,
+["AddonList"] = true,
+["TrinketFenlilock"] = false,
+["Lushi"] = true,
+["Rune"] = true,
+["TrinketFenli"] = false,
+["TrinketScale"] = 1.6,
 },
 ["CVars"] = {
+["EaseUse"] = true,
 ["MaxZoom"] = true,
 ["Fast_Loot"] = false,
-["EaseUse"] = true,
 ["Shaman_Blue"] = true,
+},
+["FramePlus"] = {
+["Merchant"] = false,
+["BlizzardUI_Move"] = true,
+["BlizzardUI_Move_Save"] = true,
+["UIWidget"] = true,
+["Skill"] = false,
+["AddonList"] = true,
+["RollScale"] = 1,
+["Loot"] = false,
+["UIWidgetPointX"] = 0,
+["LootMasterErr"] = true,
+["Quest"] = true,
+["Character_ItemColor"] = true,
+["Character_ItemLevel"] = true,
+["UIWidgetPointY"] = -70,
+["Talent"] = true,
+["Macro"] = true,
+["Character_Durability"] = true,
+["AddonStatus"] = {
+},
+["Friends"] = true,
+["Roll"] = false,
+["Skill_QKbut"] = false,
+["BuffTime"] = true,
+["Character_Shuxing"] = false,
+["Tracking"] = true,
+["Character_ItemList"] = false,
 },
 ["Chat"] = {
 ["Jianyin"] = false,
@@ -342,7 +89,7 @@ PIGA = {
 ["Tiqu"] = {
 ["Audio"] = 1,
 ["Open"] = false,
-["AudioOpen"] = true,
+["KeywordFHeight"] = 140,
 ["BgColor"] = {
 0,
 0,
@@ -353,9 +100,9 @@ PIGA = {
 ["ChatWox"] = 0,
 ["shuchumode"] = 1,
 ["Keys"] = "",
-["jichengBlack"] = true,
 ["tiquOKFlash"] = true,
-["KeywordFHeight"] = 140,
+["jichengBlack"] = true,
+["AudioOpen"] = true,
 },
 ["RemTips"] = true,
 ["QuickChat"] = false,
@@ -363,20 +110,17 @@ PIGA = {
 ["jingjian"] = true,
 ["FastCopy"] = false,
 ["ShowZb"] = true,
-["ShowLinkSlots"] = true,
+["QuickChat_ButHide"] = {
+},
 ["QuickChat_pianyiX"] = 0,
-["ShowLinkLV"] = true,
-["FontSize"] = false,
-["WhoWhisper"] = true,
-["AltEX"] = true,
-["Guolv"] = true,
+["QuickChat_pianyiY"] = 0,
 ["Filter"] = {
 ["Blacks"] = "",
 ["Precise"] = false,
 ["Blacks_P"] = "",
 ["FilterChannel"] = {
-["YELL"] = true,
 ["SAY"] = false,
+["YELL"] = true,
 ["CHANNEL"] = true,
 ["WHISPER"] = false,
 },
@@ -386,41 +130,160 @@ PIGA = {
 ["IGNORE_DND"] = true,
 ["FilterRepeat"] = true,
 },
-["QuickChat_pianyiY"] = 0,
-["QuickChat_ButHide"] = {
+["WhoWhisper"] = true,
+["AltEX"] = true,
+["Guolv"] = true,
+["ShowLinkSlots"] = true,
+["FontSize"] = false,
+["ShowLinkLV"] = true,
+},
+["Interaction"] = {
+["AutoDialogue"] = false,
+["AutoJierenwu"] = false,
+["AutoRepair"] = false,
+["AutoDialogueIndex"] = 0,
+["xiayijuli"] = 31,
+["AutoRepair_GUILD"] = false,
+["AutoDown"] = false,
+["AutoFuhuo"] = false,
+["RightPlus"] = true,
+["AutoJyaoqing"] = false,
+["AutoJiaorenwu"] = false,
+},
+["Blizzard_UI"] = {
+["PlayerTalentFrame"] = {
+["Scale"] = 1.3,
 },
 },
-["Hardcore"] = {
-["CVars"] = {
-["NameMinV"] = 0,
-["NameMinSelect"] = 2,
-["NameMaxV"] = 16,
+["Chatjilu"] = {
+["RAID"] = {
+["record"] = {
+},
 ["Open"] = true,
-["NameMaxSelect"] = 4,
+["Tips"] = true,
 },
-["Deaths"] = {
-["Tgminlevel"] = 20,
+["GUILD"] = {
+["record"] = {
+},
 ["Open"] = true,
-["UIScale"] = 1,
-["Player"] = {
+["Tips"] = true,
 },
-["VoiceID"] = 3,
-["tipsmap"] = false,
-["level"] = {
+["WHISPER"] = {
+["AudioID"] = 1,
+["AudioOpen"] = true,
+["record"] = {
 },
-["savedays"] = 1,
-["List"] = {
+["jichengBlack"] = true,
+["Open"] = true,
+["Tips"] = true,
 },
-["BigTgminlevel"] = 50,
+["INSTANCE_CHAT"] = {
+["record"] = {
+},
+["Open"] = true,
+["Tips"] = true,
+},
+["Days"] = 7,
+["PARTY"] = {
+["record"] = {
+},
+["Open"] = true,
+["Tips"] = true,
+},
+},
+["AutoSellBuy"] = {
+["Sell_Tishi"] = true,
+["Sell_List"] = {
+},
+["Sell_Lsit_Filtra"] = {
+},
+["Diuqi_Tishi"] = false,
+["Sell_But"] = true,
+["Sell_Open"] = true,
+["Open_Tishi"] = false,
+["Fen_Tishi"] = false,
+["Fen_QkBut"] = false,
+["Fen_List"] = {
+},
+["Diuqi_List"] = {
+},
+["Xuan_QkBut"] = false,
+["Open"] = true,
+["Open_List"] = {
+},
+["Open_QkBut"] = false,
+["Buy_Tishi"] = true,
+["Buy_But"] = true,
+["Buy_Open"] = true,
+["AddBut"] = true,
+["Xuan_List"] = {
+},
+["Xuan_Tishi"] = false,
+},
+["UnitFrame"] = {
+["PartyMemberFrame"] = {
+["HPFF"] = true,
+["ToToT"] = true,
+["Plus"] = true,
+["Buff"] = true,
+},
+["TargetFrame"] = {
+["Yisu"] = true,
+["Plus"] = true,
+["BigDebuff"] = false,
+["ToToToT"] = true,
+["Chouhen"] = true,
+},
+["PlayerFrame"] = {
+["HPFF"] = true,
+},
+},
+["ActionBar"] = {
+["Cailiao"] = true,
+["ActionCD"] = true,
+["Ranse"] = true,
+["PetTishi"] = true,
+["AutoFanye"] = false,
+},
+["Pig_UI"] = {
+["PIG_QuickButUI"] = {
+"BOTTOMRIGHT",
+"BOTTOMRIGHT",
+-234.03,
+345.17,
+},
+["Pig_OptionsUI"] = {
+"CENTER",
+"CENTER",
+-166.1,
+-16,
+},
+["PIGmarkerR_UI"] = {
+"TOP",
+"TOP",
+0.85,
+-35.62,
+},
+["PIG_markerR"] = {
+"TOP",
+"TOP",
+-0.85,
+-35.62,
+},
+["QuickButUI"] = {
+"BOTTOM",
+"BOTTOM",
+304.59,
+100.26,
 },
 },
 ["MailPlus"] = {
-["lianxuMode"] = true,
+["BagOpen"] = false,
 ["ALTbatch"] = true,
+["OpenAllCD"] = 1,
+["lianxuMode"] = true,
 ["Coll"] = {
 },
-["BagOpen"] = false,
-["OpenAllCD"] = 1,
 ["Open"] = false,
 ["MoneyEdit"] = true,
 },
@@ -439,15 +302,12 @@ PIGA = {
 ["MinimapPointX"] = 0,
 ["WorldMapNPC"] = true,
 ["MinimapPos"] = -13.62698465698976,
-["MinimapAnchor"] = "TOPRIGHT",
-["MinimapPointXY"] = {
-0,
-0,
-},
+["WorldMapXY"] = false,
+["WorldMapWind"] = false,
 ["MiniButShouNa_hang"] = 10,
-["MinimapPointMode"] = 1,
-["WorldMapLV"] = true,
 ["MinimapBut"] = true,
+["WorldMapLV"] = true,
+["MinimapPointMode"] = 1,
 ["WorldMapBili"] = 0.8,
 ["MiniButShouNa_YN"] = 2,
 ["WorldMapMiwuColor"] = {
@@ -463,20 +323,23 @@ PIGA = {
 -1,
 0,
 },
-["WorldMapWind"] = false,
-["WorldMapXY"] = false,
+["MinimapPointXY"] = {
+0,
+0,
+},
+["MinimapAnchor"] = "TOPRIGHT",
 },
 ["TradePlus"] = {
-["Open"] = true,
 ["AddBut"] = true,
 ["zhiyeLV"] = true,
+["Open"] = true,
 },
 ["VerC"] = {
 ["!Pig"] = {
 ["p"] = {
-"抱抱蓝",
+"浅浅的爱",
 },
-["verno"] = 9.51,
+["verno"] = 9.53,
 },
 },
 ["Common"] = {
@@ -489,8 +352,1611 @@ PIGA = {
 ["SetFocusMouse"] = true,
 ["SetFocus"] = true,
 ["ClearFocus"] = true,
-["Offnewfont"] = true,
 ["AutoCombatLogTJ"] = 1,
+["Offnewfont"] = true,
+},
+["BagBank"] = {
+["BAGmeihangshu"] = 8,
+["JunkShow"] = true,
+["AHOpen"] = true,
+["jiaoyiOpen"] = true,
+["wupinRanse"] = true,
+["wupinLV"] = true,
+["BagKongyu"] = true,
+["BAGsuofangBili"] = 1,
+["NewItem"] = true,
+["BANKmeihangshu"] = 16,
+["SortBagsRightToLeft"] = false,
+["BAGmeihangshu_WLK"] = 10,
+["Zhenghe"] = true,
+["SortBag_Config"] = true,
+["JianjieMOD"] = false,
+["BANKmeihangshu_retail"] = 17,
+["BAGmeihangshu_retail"] = 10,
+["BANKsuofangBili"] = 1,
+},
+["Tooltip"] = {
+["IDinfo"] = false,
+["ItemLevel"] = false,
+["PointX"] = 0,
+["PointY"] = 0,
+["ItemSell"] = false,
+["ItemMaxCount"] = true,
+["PointOpen"] = false,
+["Point"] = 1,
+},
+["PigLayout"] = {
+["topInfoR"] = {
+["BGHide"] = false,
+["Lock"] = false,
+["Scale"] = 1,
+["Open"] = false,
+["HideBut"] = {
+},
+},
+["topInfoL"] = {
+["BGHide"] = false,
+["Lock"] = false,
+["Scale"] = 1,
+["Open"] = false,
+["HideBut"] = {
+},
+},
+["ActionBar"] = {
+["BarRight"] = false,
+["ScaleV"] = 0.8,
+["Scale"] = false,
+["HideShijiu"] = false,
+["LRInterval"] = 20,
+["Layout"] = 1,
+},
+["topMenu"] = {
+["BGHide"] = false,
+["Scale"] = 1,
+["TimerMode"] = 1,
+["daojishiTime"] = 10,
+["HideBut"] = {
+},
+["Countdown"] = false,
+["Lock"] = false,
+["Open"] = false,
+["CountdownAudio"] = 1,
+["CountdownEnd"] = false,
+["CountdownEndAudio"] = 1,
+},
+["ChatUI"] = {
+["editMove"] = false,
+["Fu"] = false,
+["MarginPoint"] = {
+35,
+35,
+0,
+0,
+},
+["FuPoint"] = {
+370,
+200,
+35,
+35,
+},
+["editPoint"] = {
+0,
+0,
+},
+["ZhuPoint"] = {
+370,
+200,
+35,
+35,
+},
+["Margin"] = false,
+["Zhu"] = false,
+},
+["TopBar"] = {
+["AnchorPoint"] = "TOP",
+["Height"] = 22,
+["Open"] = false,
+["Backdrop"] = 1,
+["Alpha"] = 1,
+},
+["MicroMenu"] = {
+["AnchorPoint"] = "TOP",
+["MoveTime"] = true,
+["Scale"] = 1,
+["AnchorPointY"] = 0,
+["Interval"] = 2,
+["AnchorPointX"] = 0,
+["Open"] = false,
+["HideBut"] = {
+},
+},
+},
+["Ver"] = {
+["!Pig"] = 9.53,
+["!Pig_RurutiaAudio"] = 0,
+},
+["StatsInfo"] = {
+["TradeTongGaoChannel"] = "WHISPER",
+["Qita_Num"] = false,
+["TradeTongGao"] = true,
+["PlayerSH"] = {
+},
+["lixianBank"] = true,
+["AHData"] = {
+["时光IV"] = {
+},
+["维希度斯"] = {
+},
+["时光I"] = {
+},
+["时光III"] = {
+},
+["曼多基尔"] = {
+},
+["霜语"] = {
+["暗月卡片：伟大"] = true,
+["霜纹布"] = true,
+},
+},
+["MinibutTisp"] = false,
+["SkillData"] = {
+["美团王兴-时光IV"] = {
+{
+0,
+{
+},
+},
+{
+0,
+{
+},
+},
+[0] = {
+},
+},
+["萌萌的露露糖-时光I"] = {
+{
+0,
+{
+},
+},
+{
+0,
+{
+},
+},
+[0] = {
+},
+},
+["京东刘强东-时光IV"] = {
+{
+0,
+{
+},
+},
+{
+0,
+{
+},
+},
+[0] = {
+},
+},
+},
+["Players"] = {
+["美团王兴-时光IV"] = {
+"Alliance",
+1,
+"raceicon-human-male",
+1,
+1,
+},
+["萌萌的露露糖-时光I"] = {
+"Horde",
+10,
+"raceicon-bloodelf-female",
+5,
+2,
+},
+["京东刘强东-时光IV"] = {
+"Alliance",
+1,
+"raceicon-human-male",
+2,
+76,
+},
+},
+["Open"] = true,
+["TradeClassLV"] = true,
+["Items"] = {
+["美团王兴-时光IV"] = {
+["GUILD"] = {
+},
+["MAIL"] = {
+},
+["C"] = "1-^+2-^+3-^+4-38::::::::1::::::::::+5-^+6-^+7-39::::::::1::::::::::+8-40::::::::1::::::::::+9-^+10-^+11-^+12-^+13-^+14-^+15-^+16-497B8::::::::1::::::::::+17-^+18-^+19-^",
+["BAG"] = {
+{
+"6948::::::::1::::::::::",
+1,
+6948,
+},
+},
+["R"] = {
+},
+["T"] = "0gg",
+["G"] = ":::::",
+["BANK"] = {
+},
+},
+["萌萌的露露糖-时光I"] = {
+["BAG"] = {
+{
+"6948::::::::2::::::::::",
+1,
+6948,
+},
+},
+["MAIL"] = {
+},
+["C"] = "1-^+2-^+3-^+4-53::::::::2::::::::::+5-20891::::::::2::::::::::+6-^+7-52::::::::2::::::::::+8-51::::::::2::::::::::+9-^+10-^+11-^+12-^+13-^+14-^+15-^+16-20978::::::::2::::::::::+17-^+18-^+19-^",
+["BANK"] = {
+},
+["R"] = {
+},
+["T"] = "0dd",
+["G"] = ":::::",
+["GUILD"] = {
+},
+},
+["京东刘强东-时光IV"] = {
+["BANK"] = {
+},
+["MAIL"] = {
+{
+"264272::::::::7B::::::::::",
+1,
+264272,
+},
+},
+["C"] = "1-39851::::::::7B::::::::::+2-35610::::::::7B::::::::::+3-43B87::::::::7B::::::::::+4-45::::::::7B::::::::::+5-41846::::::::7B::::::::::+6-42826::::::::7B::::::::::+7-41763::::::::7B::::::::::+8-4B361::::::::7B::::::::::+9-39860::::::::7B::::::::::+10-35651::::::::7B::::::::::+11-42812::::::::7B::::::::::+12-42864::::::::7B::::::::::+13-43829::::::::7B::::::::::+14-398B9::::::::7B::::::::::+15-1B626::::::::7B::::::::::+16-391B6::::::::7B::::::::::+17-^+18-^+19-43156::::::::7B::::::::::",
+["GUILD"] = {
+},
+["R"] = {
+},
+["T"] = "0Z5B0C1010S5232051213C130213B2313B1",
+["G"] = "54934:57958:5795B:5492B::",
+["BAG"] = {
+{
+"6948::::::::7B::::::::::",
+1,
+6948,
+},
+{
+"1703B::::::::7B::::::::::",
+5,
+17033,
+},
+{
+"1703B::::::::7B::::::::::",
+5,
+17033,
+},
+{
+"3562B::::::::7B::::::::::",
+1,
+35622,
+},
+{
+"4B013::::::::7B::::::::::",
+1,
+44013,
+},
+{
+"4B327::::::::7B::::::::::",
+1,
+44327,
+},
+{
+"3B470::::::::7B::::::::::",
+20,
+33470,
+},
+{
+"36909::::::::7B::::::::::",
+3,
+36909,
+},
+{
+"3B470::::::::7B::::::::::",
+15,
+33470,
+},
+{
+"37B05::::::::7B::::::::::",
+6,
+37705,
+},
+{
+"34125::::::::7B::::::::::",
+20,
+34125,
+},
+{
+"38259::::::::7B::::::::::",
+1,
+38259,
+},
+{
+"42B53::::::::7B::::::::::",
+4,
+42253,
+},
+{
+"42780::::::::7B::::::::::",
+5,
+42780,
+},
+{
+"4B750::::::::7B::::::::::",
+20,
+44750,
+},
+{
+"134C::::::::7B::::::::::",
+2,
+13444,
+},
+{
+"4B328::::::::7B::::::::::",
+1,
+44328,
+},
+{
+"3B470::::::::7B::::::::::",
+20,
+33470,
+},
+{
+"43153::::::::7B::::::::::",
+1,
+43153,
+},
+{
+"3B4B7::::::::7B::::::::::",
+5,
+33447,
+},
+{
+"21B7B::::::::7B::::::::::",
+95,
+21177,
+},
+{
+"3B4B8::::::::7B::::::::::",
+7,
+33448,
+},
+{
+"3B454::::::::7B::::::::::",
+2,
+33454,
+},
+{
+"3B4B8::::::::7B::::::::::",
+20,
+33448,
+},
+{
+"385B1::::::::7B::::::::::",
+9,
+38551,
+},
+{
+"36923::::::::7B::::::::::",
+2,
+36923,
+},
+{
+"3827::::::::7B::::::::::",
+4,
+3827,
+},
+{
+"4B750::::::::7B::::::::::",
+20,
+44750,
+},
+{
+"3B4B7::::::::7B::::::::::",
+19,
+33447,
+},
+{
+"40B76::::::::7B::::::::::",
+1,
+40076,
+},
+},
+},
+},
+["Token"] = {
+["美团王兴-时光IV"] = {
+["Money"] = 0,
+["Tokens"] = {
+},
+},
+["萌萌的露露糖-时光I"] = {
+["Money"] = 30,
+["Tokens"] = {
+},
+},
+["京东刘强东-时光IV"] = {
+["Tokens"] = {
+{
+133799,
+44,
+201,
+"|cnIQ1:|Hcurrency:201:0|h[风险硬币]|h|r",
+},
+{
+237048,
+15,
+3403,
+"|cnIQ4:|Hcurrency:3403:0|h[泰坦余烬]|h|r",
+},
+{
+237047,
+6423,
+3406,
+"|cnIQ3:|Hcurrency:3406:0|h[泰坦碎片]|h|r",
+},
+},
+["Money"] = 6887105,
+},
+},
+["TradeData"] = {
+["小绫子-曼多基尔"] = {
+},
+["露露缇娅-帕奇维克"] = {
+},
+["京东刘强东-时光IV"] = {
+{
+20411,
+20412,
+20413,
+20414,
+},
+{
+{
+{
+["MoneyP"] = 0,
+["MoneyT"] = 0,
+["All_Name"] = "十七岁那年-时光IV",
+["ItemP"] = {
+{
+"|cff1eff00|Hitem:10402::::::::20::::::::::|h[黑暗迪菲亚长靴]|h|r",
+1,
+},
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 7,
+["Race"] = "raceicon-draenei-female",
+["Name"] = "十七岁那年",
+["ItemT"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 18,
+["Time"] = 1763542252,
+["Map"] = "死亡矿井-",
+},
+{
+["MoneyP"] = 0,
+["MoneyT"] = 0,
+["All_Name"] = "魔力不足-时光IV",
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 8,
+["Race"] = "raceicon-human-female",
+["Name"] = "魔力不足",
+["ItemT"] = {
+{
+"|cffffffff|Hitem:2288::::::::22::::::::::|h[魔法淡水]|h|r",
+20,
+},
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 19,
+["Time"] = 1763544640,
+["Map"] = "影牙城堡-",
+},
+{
+["MoneyP"] = 0,
+["MoneyT"] = 0,
+["All_Name"] = "Senren-时光IV",
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 8,
+["Race"] = "raceicon-gnome-female",
+["Name"] = "Senren",
+["ItemT"] = {
+{
+"|cffffffff|Hitem:2136::::::::23::::::::::|h[魔法纯净水]|h|r",
+20,
+},
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 24,
+["Time"] = 1763547407,
+["Map"] = "哀嚎洞穴-激流溪谷",
+},
+{
+["MoneyP"] = 0,
+["MoneyT"] = 0,
+["All_Name"] = "焰烬余歌-时光IV",
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 8,
+["Race"] = "raceicon-human-female",
+["Name"] = "焰烬余歌",
+["ItemT"] = {
+{
+"|cffffffff|Hitem:2136::::::::28::::::::::|h[魔法纯净水]|h|r",
+19,
+},
+{
+"|cffffffff|Hitem:2136::::::::28::::::::::|h[魔法纯净水]|h|r",
+1,
+},
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 25,
+["Map"] = "剃刀沼泽-",
+["Time"] = 1763556186,
+},
+{
+["MoneyP"] = 0,
+["MoneyT"] = 0,
+["All_Name"] = "我硬抗三枪-时光IV",
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 8,
+["Race"] = "raceicon-draenei-female",
+["Name"] = "我硬抗三枪",
+["ItemT"] = {
+{
+"|cffffffff|Hitem:2136::::::::30::::::::::|h[魔法纯净水]|h|r",
+10,
+},
+{
+"|cffffffff|Hitem:2136::::::::30::::::::::|h[魔法纯净水]|h|r",
+20,
+},
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 33,
+["Map"] = "血色修道院-",
+["Time"] = 1763561897,
+},
+},
+{
+{
+["MoneyP"] = 0,
+["MoneyT"] = 0,
+["All_Name"] = "东海白龙-时光IV",
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 8,
+["Race"] = "raceicon-human-female",
+["Name"] = "东海白龙",
+["ItemT"] = {
+{
+"|cffffffff|Hitem:3772::::::::37::::::::::|h[魔法泉水]|h|r",
+12,
+},
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 31,
+["Map"] = "血色修道院-",
+["Time"] = 1763598687,
+},
+{
+["MoneyP"] = 0,
+["MoneyT"] = 0,
+["All_Name"] = "碧空枝歌-时光IV",
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 8,
+["Race"] = "raceicon-human-female",
+["Name"] = "碧空枝歌",
+["ItemT"] = {
+{
+"|cffffffff|Hitem:8077::::::::41::::::::::|h[魔法矿泉水]|h|r",
+20,
+},
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 45,
+["Time"] = 1763618947,
+["Map"] = "玛拉顿-邪恶洞穴",
+},
+{
+["MoneyP"] = 0,
+["MoneyT"] = 0,
+["All_Name"] = "晓桀-时光IV",
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 8,
+["Race"] = "raceicon-human-female",
+["Name"] = "晓桀",
+["ItemT"] = {
+{
+"|cffffffff|Hitem:8077::::::::50::::::::::|h[魔法矿泉水]|h|r",
+20,
+},
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 53,
+["Time"] = 1763635823,
+["Map"] = "黑石深渊-禁闭室",
+},
+{
+["MoneyP"] = 0,
+["MoneyT"] = 0,
+["All_Name"] = "包包脸的猫叔-时光IV",
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 8,
+["Race"] = "raceicon-human-female",
+["Name"] = "包包脸的猫叔",
+["ItemT"] = {
+{
+"|cffffffff|Hitem:8079::::::::60::::::::::|h[魔法晶水]|h|r",
+20,
+},
+{
+"|cffffffff|Hitem:8079::::::::60::::::::::|h[魔法晶水]|h|r",
+20,
+},
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 65,
+["Time"] = 1763650291,
+["Map"] = "地狱火城墙-",
+},
+},
+{
+{
+["MoneyP"] = 0,
+["MoneyT"] = 0,
+["All_Name"] = "牡丹花遐思-时光II",
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 8,
+["Race"] = "raceicon-human-female",
+["Name"] = "牡丹花遐思-时光II",
+["ItemT"] = {
+{
+"|cffffffff|Hitem:30703::::::::64::::::::::|h[魔法山泉水]|h|r",
+10,
+},
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 65,
+["Map"] = "法力陵墓-",
+["Time"] = 1763689629,
+},
+{
+["MoneyP"] = 0,
+["MoneyT"] = 0,
+["All_Name"] = "鬼地方-时光IV",
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 8,
+["Race"] = "raceicon-human-female",
+["Name"] = "鬼地方",
+["ItemT"] = {
+{
+"|cffffffff|Hitem:30703::::::::67::::::::::|h[魔法山泉水]|h|r",
+20,
+},
+{
+"|cffffffff|Hitem:30703::::::::67::::::::::|h[魔法山泉水]|h|r",
+20,
+},
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 68,
+["Map"] = "塞泰克大厅-",
+["Time"] = 1763702144,
+},
+},
+{
+{
+["MoneyP"] = 30000,
+["MoneyT"] = 0,
+["All_Name"] = "布谷子-时光IV",
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 9,
+["Race"] = "raceicon-human-female",
+["Name"] = "布谷子",
+["ItemT"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 61,
+["Time"] = 1763777538,
+["Map"] = "达拉然-英雄之家",
+},
+},
+},
+},
+["美团王兴-时光IV"] = {
+},
+["露露緹婭-维希度斯"] = {
+{
+19903,
+},
+{
+{
+{
+["Map"] = "纳克萨玛斯-骑士议会厅",
+["MoneyT"] = 0,
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 2,
+["Race"] = "raceicon-bloodelf-female",
+["Time"] = 1719652109,
+["ItemT"] = {
+{
+"|cffa335ee|Hitem:40625::::::::80:::::::::|h[失落征服者的胸甲]|h|r",
+1,
+},
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 80,
+["MoneyP"] = 10000000,
+["Name"] = "我意凌云",
+},
+{
+["Map"] = "纳克萨玛斯-骑士议会厅",
+["MoneyT"] = 0,
+["ItemP"] = {
+{
+"|cffa335ee|Hitem:40625::::::::80:::::::::|h[失落征服者的胸甲]|h|r",
+1,
+},
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 2,
+["Race"] = "raceicon-bloodelf-female",
+["Time"] = 1719652123,
+["ItemT"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 80,
+["MoneyP"] = 0,
+["Name"] = "爱雅法拉",
+},
+{
+["Map"] = "纳克萨玛斯-克尔苏加德的大厅",
+["MoneyT"] = 52750000,
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 2,
+["Race"] = "raceicon-bloodelf-female",
+["Time"] = 1719655094,
+["ItemT"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 80,
+["MoneyP"] = 0,
+["Name"] = "我意凌云",
+},
+{
+["Map"] = "纳克萨玛斯-克尔苏加德的大厅",
+["MoneyT"] = 0,
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 2,
+["Race"] = "raceicon-bloodelf-female",
+["Time"] = 1719655108,
+["ItemT"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 80,
+["MoneyP"] = 10550000,
+["Name"] = "圣丶牛牛",
+},
+{
+["Map"] = "纳克萨玛斯-克尔苏加德的大厅",
+["MoneyT"] = 0,
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 4,
+["Race"] = "raceicon-bloodelf-male",
+["Time"] = 1719655113,
+["ItemT"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 80,
+["MoneyP"] = 10550000,
+["Name"] = "钢心",
+},
+{
+["Map"] = "纳克萨玛斯-克尔苏加德的大厅",
+["MoneyT"] = 0,
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 4,
+["Race"] = "raceicon-undead-male",
+["Time"] = 1719655127,
+["ItemT"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 80,
+["MoneyP"] = 10550000,
+["Name"] = "Monocular",
+},
+{
+["Map"] = "纳克萨玛斯-克尔苏加德的大厅",
+["MoneyT"] = 0,
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 6,
+["Race"] = "raceicon-bloodelf-male",
+["Time"] = 1719655138,
+["ItemT"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 80,
+["MoneyP"] = 10550000,
+["Name"] = "蹲墙角背刺",
+},
+{
+["Map"] = "纳克萨玛斯-克尔苏加德的大厅",
+["MoneyT"] = 4000000,
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 2,
+["Race"] = "raceicon-bloodelf-female",
+["Time"] = 1719655214,
+["ItemT"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 80,
+["MoneyP"] = 0,
+["Name"] = "我意凌云",
+},
+},
+},
+},
+["萌萌的露小露-维希度斯"] = {
+},
+["萌萌的露露糖-维希度斯"] = {
+},
+["萌萌的露露糖-时光I"] = {
+},
+["萌萌的露小露-阿拉希盆地"] = {
+},
+},
+["TradeTongGaoPindao"] = "WHISPER",
+["InstancesCD"] = {
+["Records"] = {
+[1156] = true,
+[1100] = true,
+[1101] = true,
+[1106] = true,
+[1102] = true,
+[841] = true,
+[1110] = true,
+[1095] = true,
+},
+["京东刘强东-时光IV"] = {
+},
+["萌萌的露露糖-时光I"] = {
+},
+["Mode"] = 1,
+["美团王兴-时光IV"] = {
+},
+},
+["AddBut"] = true,
+["Times"] = {
+{
+214820000,
+1753446759,
+},
+{
+215000000,
+1753447959,
+},
+{
+215340000,
+1753449159,
+},
+{
+215650000,
+1753450356,
+},
+{
+215960000,
+1753451556,
+},
+{
+216290000,
+1753452756,
+},
+{
+216470000,
+1753453957,
+},
+{
+216840000,
+1753455157,
+},
+{
+217180000,
+1753456357,
+},
+{
+217830000,
+1753457557,
+},
+{
+218390000,
+1753458757,
+},
+{
+219220000,
+1753459935,
+},
+{
+219630000,
+1753461183,
+},
+{
+219950000,
+1753462383,
+},
+{
+220200000,
+1753463583,
+},
+{
+220000000,
+1753464744,
+},
+{
+219200000,
+1753465944,
+},
+{
+218270000,
+1753467144,
+},
+{
+218780000,
+1753527716,
+},
+{
+218970000,
+1753528452,
+},
+{
+219280000,
+1753529636,
+},
+{
+219670000,
+1753530837,
+},
+{
+220540000,
+1753532037,
+},
+{
+221370000,
+1753533237,
+},
+{
+222260000,
+1753534437,
+},
+{
+223080000,
+1753535618,
+},
+{
+224110000,
+1753536818,
+},
+{
+225130000,
+1753538018,
+},
+{
+228670000,
+1753542847,
+},
+{
+229200000,
+1753544036,
+},
+{
+229440000,
+1753545236,
+},
+{
+231330000,
+1753611376,
+},
+{
+231810000,
+1753612502,
+},
+{
+232380000,
+1753613688,
+},
+{
+232340000,
+1753614888,
+},
+{
+232440000,
+1753616088,
+},
+{
+232390000,
+1753617296,
+},
+{
+232590000,
+1753619021,
+},
+{
+233120000,
+1753619725,
+},
+{
+234390000,
+1753620925,
+},
+{
+281990000,
+1753693551,
+},
+{
+280880000,
+1753694182,
+},
+{
+264570000,
+1753714646,
+},
+{
+266770000,
+1753715817,
+},
+{
+269090000,
+1753717018,
+},
+{
+271580000,
+1753718218,
+},
+{
+274190000,
+1753719394,
+},
+{
+276880000,
+1753720595,
+},
+{
+279630000,
+1753721795,
+},
+{
+281850000,
+1753723003,
+},
+{
+283400000,
+1753724455,
+},
+{
+284590000,
+1753725405,
+},
+{
+286110000,
+1753726605,
+},
+{
+288100000,
+1753727805,
+},
+{
+289950000,
+1753729008,
+},
+{
+291750000,
+1753730209,
+},
+{
+292980000,
+1753731409,
+},
+{
+294320000,
+1753732659,
+},
+{
+272580000,
+1753985308,
+},
+{
+272820000,
+1753985595,
+},
+{
+273040000,
+1753986795,
+},
+{
+273380000,
+1753987995,
+},
+{
+273420000,
+1753989170,
+},
+{
+273470000,
+1753990426,
+},
+{
+270840000,
+1754022786,
+},
+{
+269370000,
+1754024612,
+},
+{
+268100000,
+1754025199,
+},
+{
+267050000,
+1754026399,
+},
+{
+266320000,
+1754027599,
+},
+{
+265930000,
+1754028859,
+},
+{
+265720000,
+1754030024,
+},
+{
+265630000,
+1754031204,
+},
+{
+265440000,
+1754032464,
+},
+{
+265400000,
+1754033665,
+},
+{
+265670000,
+1754034865,
+},
+{
+266580000,
+1754036065,
+},
+{
+267610000,
+1754037266,
+},
+{
+268400000,
+1754038465,
+},
+{
+269210000,
+1754039658,
+},
+{
+270200000,
+1754040858,
+},
+{
+271000000,
+1754042058,
+},
+{
+265630000,
+1754058059,
+},
+{
+267020000,
+1754058873,
+},
+{
+268420000,
+1754060074,
+},
+{
+269400000,
+1754061286,
+},
+{
+270330000,
+1754062495,
+},
+{
+271080000,
+1754063645,
+},
+{
+266110000,
+1754113522,
+},
+{
+266090000,
+1754114170,
+},
+{
+266690000,
+1754115365,
+},
+{
+280190000,
+1754325553,
+},
+{
+277390000,
+1754369884,
+},
+{
+277450000,
+1754370036,
+},
+{
+281150000,
+1754390765,
+},
+{
+397740000,
+1754984497,
+},
+{
+398160000,
+1754985233,
+},
+{
+504080000,
+1756873000,
+},
+{
+816380000,
+1759692298,
+},
+{
+815970000,
+1759693067,
+},
+{
+816140000,
+1759694267,
+},
+{
+853320000,
+1759833869,
+},
+{
+857830000,
+1759834801,
+},
+{
+862170000,
+1759836001,
+},
+{
+865110000,
+1759837201,
+},
+{
+1196010000,
+1761236761,
+},
+{
+1184050000,
+1761236929,
+},
+{
+1184720000,
+1761238552,
+},
+{
+1186320000,
+1761240147,
+},
+},
+},
+["CombatPlus"] = {
+["AttackBar"] = {
+["Showshuzhi"] = false,
+["Scale"] = 1,
+["Xpianyi"] = 0,
+["Open"] = false,
+["Ypianyi"] = 14,
+},
+["ammotips"] = true,
+["Submerged"] = true,
+["markerR"] = {
+["BGHide"] = true,
+["NoTarget"] = false,
+["Lock"] = true,
+["Scale"] = 0.8999999761581421,
+["AutoShow"] = false,
+["Open"] = true,
+["NoGroup"] = false,
+},
+["HPMPBar"] = {
+["CombatShow"] = true,
+["FontSize"] = 10,
+["MpShow"] = true,
+["Scale"] = 1,
+["Xpianyi"] = 0,
+["Ypianyi"] = -80,
+["BarW"] = 150,
+["Showshuzhi"] = true,
+["BarTex"] = 1,
+["BarH"] = 12,
+["Fuziyuan"] = true,
+["Open"] = false,
+["FuStyle"] = {
+},
+["HpShow"] = true,
+},
+["PetHappiness"] = true,
+["markerW"] = {
+["BGHide"] = false,
+["Lock"] = false,
+["Scale"] = 1,
+["Open"] = true,
+["AutoShow"] = true,
+},
 },
 ["AHPlus"] = {
 ["SaveDuration_V"] = 2,
@@ -578,15 +2044,15 @@ PIGA = {
 },
 43340,
 },
-["制裁之锤雕文"] = {
-"41095::::::::68::::::::::",
+["复仇雕文"] = {
+"43424::::::::68::::::::::",
 {
 {
-711,
-1763706647,
+2009,
+1763706690,
 },
 },
-41095,
+43424,
 },
 ["驱邪雕文"] = {
 "41B03::::::::68::::::::::",
@@ -598,15 +2064,15 @@ PIGA = {
 },
 41103,
 },
-["复仇雕文"] = {
-"43424::::::::68::::::::::",
+["制裁之锤雕文"] = {
+"41095::::::::68::::::::::",
 {
 {
-2009,
-1763706690,
+711,
+1763706647,
 },
 },
-43424,
+41095,
 },
 ["王者印记"] = {
 "21B7B::::::::68::::::::::",
@@ -1480,15 +2946,15 @@ PIGA = {
 },
 43587,
 },
-["圣光雕文"] = {
-"41B06:H80:I",
+["构造体的臂甲"] = {
+"45680:H80:I",
 {
 {
-21965,
-1752998126,
+389898,
+1749443892,
 },
 },
-41106,
+45680,
 },
 ["戒卫女猎手护腕"] = {
 "4073B:H80:I",
@@ -1510,15 +2976,15 @@ PIGA = {
 },
 50450,
 },
-["极效思维药剂"] = {
-"4B3B2:H80:I",
+["尖刺泰坦精钢战靴"] = {
+"41391:H80:I",
 {
 {
-19997,
-1749583741,
+1110316,
+1749443876,
 },
 },
-44332,
+41391,
 },
 ["龙火肩饰"] = {
 "1313B:H80:I",
@@ -1530,15 +2996,15 @@ PIGA = {
 },
 13133,
 },
-["力量之冷酷胫甲"] = {
-"3123B:F-17:72B010152:80:I",
+["精神之亡魂头盔"] = {
+"36391:F-15:50102B824:80:I",
 {
 {
-6259153,
-1749443966,
+134200,
+1749569256,
 },
 },
-31233,
+36391,
 },
 ["闪电根基长靴"] = {
 "45B63:H80:I",
@@ -1550,15 +3016,15 @@ PIGA = {
 },
 45563,
 },
-["泰坦神铁尖刺护腕"] = {
-"47573:H80:I",
+["野猪之魔像腿甲"] = {
+"36384:F-12:12B0935781:80:I",
 {
 {
-17719945,
-1749443897,
+126836,
+1749569256,
 },
 },
-47573,
+36384,
 },
 ["白骑士胸甲"] = {
 "47592:H80:I",
@@ -1580,19 +3046,15 @@ PIGA = {
 },
 30740,
 },
-["机械侏儒的电缆"] = {
-"45975:H80:I",
+["盐壳衬肩"] = {
+"13131:H80:I",
 {
 {
-899993,
-1749443891,
-},
-{
-346800,
-1749569260,
+1929692,
+1749444009,
 },
 },
-45975,
+13131,
 },
 ["卷轴：附魔披风 - 速度"] = {
 "4C56:H80:I",
@@ -1618,15 +3080,15 @@ PIGA = {
 },
 47637,
 },
-["法术强度之晶歌腰带"] = {
-"36043:F-25:82378B27:80:I",
+["轻型护甲片"] = {
+"2304:H80:I",
 {
 {
-120000,
-1749492372,
+491,
+1748274049,
 },
 },
-36043,
+2304,
 },
 ["孢子触须护肩"] = {
 "35616:H80:I",
@@ -1638,71 +3100,63 @@ PIGA = {
 },
 35616,
 },
-["闪电疾速药剂"] = {
-"4B3B1:H80:I",
+["重型精金戒指"] = {
+"24078:H80:I",
 {
 {
-25031,
-1749583730,
-},
-{
-18685,
-1751103501,
+40000,
+1748273460,
 },
 },
-44331,
+24078,
 },
-["法术强度之穆拉丁短裤"] = {
-"36128:F-26:1425604695:80:I",
+["铁簧之靴"] = {
+"40206:H80:I",
 {
 {
-100000,
-1749492372,
+18419512,
+1749443959,
 },
 },
-36128,
+40206,
 },
-["法术强度之秃鹫头饰"] = {
-"36039:F-26:2046B9025:80:I",
+["卷轴：附魔手套 - 精准"] = {
+"38951:H80:I",
 {
 {
-110000,
-1749492372,
+9853,
+1748274064,
 },
 },
-36039,
+38951,
 },
-["巨猿之海怪胸铠"] = {
-"36373:F-10:1B43472C5:80:I",
+["符文赤玉石"] = {
+"401B3:H80:I",
 {
 {
-120000,
-1749569256,
-},
-},
-36373,
-},
-["梦魇之泪"] = {
-"491B0:H80:I",
-{
-{
-381126,
-1748274255,
+790563,
+1749325499,
 },
 {
-399982,
-1748615919,
+797838,
+1749490559,
 },
 {
-485499,
-1749584012,
+1032323,
+1753441361,
 },
+},
+40113,
+},
+["地魂之靴"] = {
+"49896:H80:I",
 {
-389777,
-1753536542,
+{
+33618697,
+1749443967,
 },
 },
-49110,
+49896,
 },
 ["冰霜巨龙合剂"] = {
 "46376:H80:I",
@@ -1724,15 +3178,15 @@ PIGA = {
 },
 38949,
 },
-["图样：皇家月幕长袍"] = {
-"47636:H80:I",
+["先知之魔像胸甲"] = {
+"36381:F-67:730202B13:80:I",
 {
 {
-199994,
-1749491670,
+124796,
+1749569256,
 },
 },
-47636,
+36381,
 },
 ["死亡编织护腿"] = {
 "49891:H80:I",
@@ -1748,15 +3202,15 @@ PIGA = {
 },
 49891,
 },
-["迅箭长靴"] = {
-"434B3:H80:I",
+["市场区护肩"] = {
+"371B6:H80:I",
 {
 {
-1651688,
-1749443966,
+389999,
+1749444009,
 },
 },
-43443,
+37116,
 },
 ["龙眼石"] = {
 "42C5:H80:I",
@@ -1782,15 +3236,15 @@ PIGA = {
 },
 41611,
 },
-["法术强度之驯鹿兜帽"] = {
-"36103:F-26:1B56710478:80:I",
+["灵猴之冷石腿铠"] = {
+"36304:F-5:1859B1237:80:I",
 {
 {
-60000,
-1749492372,
+90000,
+1749443860,
 },
 },
-36103,
+36304,
 },
 ["卷轴：附魔盾牌 - 强效智力"] = {
 "4C5B:H80:I",
@@ -1846,6 +3300,16 @@ PIGA = {
 },
 36225,
 },
+["原力之柱"] = {
+"49B04:H80:I",
+{
+{
+52845278,
+1749443862,
+},
+},
+49904,
+},
 ["勇士之龙颅护手"] = {
 "36318:F-45:973B40728:80:I",
 {
@@ -1855,16 +3319,6 @@ PIGA = {
 },
 },
 36318,
-},
-["精灵链甲战靴"] = {
-"13125:H80:I",
-{
-{
-549998,
-1749443966,
-},
-},
-13125,
 },
 ["泰坦腰带"] = {
 "45C0:H80:I",
@@ -1916,45 +3370,15 @@ PIGA = {
 },
 49967,
 },
-["法术强度之暗血短裤"] = {
-"24787:F-21:1B59462965:80:I",
+["铁铆战盔"] = {
+"45107:H80:I",
 {
 {
-666666,
-1749492372,
+388699,
+1749443960,
 },
 },
-24787,
-},
-["恶毒肩甲"] = {
-"43130:H80:I",
-{
-{
-2989899,
-1749444009,
-},
-},
-43130,
-},
-["灰烬之天焰钻石"] = {
-"413C:H80:I",
-{
-{
-385005,
-1750062178,
-},
-},
-41333,
-},
-["劫掠之峡湾护肩"] = {
-"36193:F-40:101430B724:80:I",
-{
-{
-2000000,
-1749444008,
-},
-},
-36193,
+45107,
 },
 ["鳞片冰靴"] = {
 "4D5:H80:I",
@@ -1966,6 +3390,36 @@ PIGA = {
 },
 44445,
 },
+["法术强度之暗血短裤"] = {
+"24787:F-21:1B59462965:80:I",
+{
+{
+666666,
+1749492372,
+},
+},
+24787,
+},
+["劫掠之峡湾护肩"] = {
+"36193:F-40:101430B724:80:I",
+{
+{
+2000000,
+1749444008,
+},
+},
+36193,
+},
+["恶毒肩甲"] = {
+"43130:H80:I",
+{
+{
+2989899,
+1749444009,
+},
+},
+43130,
+},
 ["涌动法力护肩"] = {
 "31294:H80:I",
 {
@@ -1976,15 +3430,15 @@ PIGA = {
 },
 31294,
 },
-["法术强度之血伤臂甲"] = {
-"36346:F-26:2093023279:80:I",
+["劫掠之奥杜尔护肩"] = {
+"36273:F-40:783876171:80:I",
 {
 {
-80000,
-1749443860,
+108423,
+1749444009,
 },
 },
-36346,
+36273,
 },
 ["寒冬徽记"] = {
 "45874:H80:I",
@@ -1996,15 +3450,15 @@ PIGA = {
 },
 45874,
 },
-["淬火萨隆邪铁护肩"] = {
-"40675:H80:I",
+["卷轴：附魔盾牌 - 强效耐力"] = {
+"38B61:H80:I",
 {
 {
-1989989,
-1749444021,
+57255,
+1748274107,
 },
 },
-40675,
+38861,
 },
 ["牢固板甲束带"] = {
 "45C1:H80:I",
@@ -2016,6 +3470,16 @@ PIGA = {
 },
 45551,
 },
+["符文法力注射器"] = {
+"42545:H80:I",
+{
+{
+15492,
+1747998194,
+},
+},
+42545,
+},
 ["孔雀石镶饰戒指"] = {
 "20821:H80:I",
 {
@@ -2026,25 +3490,15 @@ PIGA = {
 },
 20821,
 },
-["卷轴：附魔武器 - 极效法术能量"] = {
-"4C67:H80:I",
+["淬火泰坦精钢头盔"] = {
+"41387:H80:I",
 {
 {
-4109963,
-1754032982,
+3485032,
+1749443901,
 },
 },
-44467,
-},
-["爆炒鲑鱼"] = {
-"34767:H80:I",
-{
-{
-13383,
-1748615955,
-},
-},
-34767,
+41387,
 },
 ["法术强度之血骑士头盔"] = {
 "2486B:F-24:12B7685935:80:I",
@@ -2104,25 +3558,15 @@ PIGA = {
 },
 50451,
 },
-["光铸腰带"] = {
-"16723:H80:I",
+["迅箭护肩"] = {
+"434B9:H80:I",
 {
 {
-54122,
-1749443860,
+1651688,
+1749444009,
 },
 },
-16723,
-},
-["法术强度之水鸦外套"] = {
-"36261:F-26:96B852705:80:I",
-{
-{
-220000,
-1749492372,
-},
-},
-36261,
+43449,
 },
 ["萨隆邪铁断剑护腕"] = {
 "47571:H80:I",
@@ -2144,15 +3588,25 @@ PIGA = {
 },
 45912,
 },
-["迅箭护肩"] = {
-"434B9:H80:I",
+["法术强度之水鸦外套"] = {
+"36261:F-26:96B852705:80:I",
 {
 {
-1651688,
-1749444009,
+220000,
+1749492372,
 },
 },
-43449,
+36261,
+},
+["光铸腰带"] = {
+"16723:H80:I",
+{
+{
+54122,
+1749443860,
+},
+},
+16723,
 },
 ["卷轴：附魔披风 - 急速"] = {
 "390B3:H80:I",
@@ -2168,45 +3622,45 @@ PIGA = {
 },
 39003,
 },
-["淬火泰坦精钢头盔"] = {
-"41387:H80:I",
+["爆炒鲑鱼"] = {
+"34767:H80:I",
 {
 {
-3485032,
-1749443901,
+13383,
+1748615955,
 },
 },
-41387,
+34767,
 },
-["符文法力注射器"] = {
-"42545:H80:I",
+["卷轴：附魔武器 - 极效法术能量"] = {
+"4C67:H80:I",
 {
 {
-15492,
-1747998194,
+4109963,
+1754032982,
 },
 },
-42545,
+44467,
 },
-["卷轴：附魔盾牌 - 强效耐力"] = {
-"38B61:H80:I",
+["淬火萨隆邪铁护肩"] = {
+"40675:H80:I",
 {
 {
-57255,
-1748274107,
+1989989,
+1749444021,
 },
 },
-38861,
+40675,
 },
-["劫掠之奥杜尔护肩"] = {
-"36273:F-40:783876171:80:I",
+["法术强度之血伤臂甲"] = {
+"36346:F-26:2093023279:80:I",
 {
 {
-108423,
-1749444009,
+80000,
+1749443860,
 },
 },
-36273,
+36346,
 },
 ["辉煌泰坦精钢战靴"] = {
 "41394:H80:I",
@@ -2218,15 +3672,15 @@ PIGA = {
 },
 41394,
 },
-["铁铆战盔"] = {
-"45107:H80:I",
+["灰烬之天焰钻石"] = {
+"413C:H80:I",
 {
 {
-388699,
-1749443960,
+385005,
+1750062178,
 },
 },
-45107,
+41333,
 },
 ["能量之血骑士肩甲"] = {
 "24868:F-20:298B4B195:80:I",
@@ -2248,15 +3702,15 @@ PIGA = {
 },
 36241,
 },
-["原力之柱"] = {
-"49B04:H80:I",
+["精灵链甲战靴"] = {
+"13125:H80:I",
 {
 {
-52845278,
-1749443862,
+549998,
+1749443966,
 },
 },
-49904,
+13125,
 },
 ["法术强度之星火外衣"] = {
 "2459B:F-2B:631504936:80:I",
@@ -2288,103 +3742,111 @@ PIGA = {
 },
 39235,
 },
-["灵猴之冷石腿铠"] = {
-"36304:F-5:1859B1237:80:I",
+["法术强度之驯鹿兜帽"] = {
+"36103:F-26:1B56710478:80:I",
 {
 {
-90000,
-1749443860,
+60000,
+1749492372,
 },
 },
-36304,
+36103,
 },
-["市场区护肩"] = {
-"371B6:H80:I",
+["迅箭长靴"] = {
+"434B3:H80:I",
 {
 {
-389999,
-1749444009,
+1651688,
+1749443966,
 },
 },
-37116,
+43443,
 },
-["先知之魔像胸甲"] = {
-"36381:F-67:730202B13:80:I",
+["图样：皇家月幕长袍"] = {
+"47636:H80:I",
 {
 {
-124796,
+199994,
+1749491670,
+},
+},
+47636,
+},
+["梦魇之泪"] = {
+"491B0:H80:I",
+{
+{
+381126,
+1748274255,
+},
+{
+399982,
+1748615919,
+},
+{
+485499,
+1749584012,
+},
+{
+389777,
+1753536542,
+},
+},
+49110,
+},
+["巨猿之海怪胸铠"] = {
+"36373:F-10:1B43472C5:80:I",
+{
+{
+120000,
 1749569256,
 },
 },
-36381,
+36373,
 },
-["地魂之靴"] = {
-"49896:H80:I",
+["法术强度之秃鹫头饰"] = {
+"36039:F-26:2046B9025:80:I",
 {
 {
-33618697,
-1749443967,
+110000,
+1749492372,
 },
 },
-49896,
+36039,
 },
-["符文赤玉石"] = {
-"401B3:H80:I",
+["法术强度之穆拉丁短裤"] = {
+"36128:F-26:1425604695:80:I",
 {
 {
-790563,
-1749325499,
-},
-{
-797838,
-1749490559,
-},
-{
-1032323,
-1753441361,
+100000,
+1749492372,
 },
 },
-40113,
+36128,
 },
-["卷轴：附魔手套 - 精准"] = {
-"38951:H80:I",
+["闪电疾速药剂"] = {
+"4B3B1:H80:I",
 {
 {
-9853,
-1748274064,
+25031,
+1749583730,
+},
+{
+18685,
+1751103501,
 },
 },
-38951,
+44331,
 },
-["铁簧之靴"] = {
-"40206:H80:I",
+["法术强度之晶歌腰带"] = {
+"36043:F-25:82378B27:80:I",
 {
 {
-18419512,
-1749443959,
+120000,
+1749492372,
 },
 },
-40206,
-},
-["重型精金戒指"] = {
-"24078:H80:I",
-{
-{
-40000,
-1748273460,
-},
-},
-24078,
-},
-["轻型护甲片"] = {
-"2304:H80:I",
-{
-{
-491,
-1748274049,
-},
-},
-2304,
+36043,
 },
 ["野熊之暗潮手套"] = {
 "24937:F-7:2061238302:80:I",
@@ -2406,45 +3868,49 @@ PIGA = {
 },
 50182,
 },
-["盐壳衬肩"] = {
-"13131:H80:I",
+["机械侏儒的电缆"] = {
+"45975:H80:I",
 {
 {
-1929692,
-1749444009,
+899993,
+1749443891,
+},
+{
+346800,
+1749569260,
 },
 },
-13131,
+45975,
 },
-["野猪之魔像腿甲"] = {
-"36384:F-12:12B0935781:80:I",
+["泰坦神铁尖刺护腕"] = {
+"47573:H80:I",
 {
 {
-126836,
-1749569256,
+17719945,
+1749443897,
 },
 },
-36384,
+47573,
 },
-["精神之亡魂头盔"] = {
-"36391:F-15:50102B824:80:I",
+["力量之冷酷胫甲"] = {
+"3123B:F-17:72B010152:80:I",
 {
 {
-134200,
-1749569256,
+6259153,
+1749443966,
 },
 },
-36391,
+31233,
 },
-["尖刺泰坦精钢战靴"] = {
-"41391:H80:I",
+["极效思维药剂"] = {
+"4B3B2:H80:I",
 {
 {
-1110316,
-1749443876,
+19997,
+1749583741,
 },
 },
-41391,
+44332,
 },
 ["霜鳞护肩"] = {
 "38424:H80:I",
@@ -2466,15 +3932,15 @@ PIGA = {
 },
 50020,
 },
-["构造体的臂甲"] = {
-"45680:H80:I",
+["圣光雕文"] = {
+"41B06:H80:I",
 {
 {
-389898,
-1749443892,
+21965,
+1752998126,
 },
 },
-45680,
+41106,
 },
 },
 ["曼多基尔"] = {
@@ -2532,1683 +3998,228 @@ PIGA = {
 1,
 },
 },
-["DaojiTime"] = 0,
 ["Open"] = true,
+["AHtooltip"] = true,
 ["ScanTimeCD"] = 4,
 ["yajingbiao"] = true,
-["oldaucG"] = false,
-["AHUIoff"] = true,
-["AHtooltip"] = true,
 ["QuicAuc"] = false,
+["AHUIoff"] = true,
+["DaojiTime"] = 0,
 ["exactMatch"] = false,
+["oldaucG"] = false,
 },
-["Tooltip"] = {
-["IDinfo"] = false,
-["ItemLevel"] = false,
-["PointX"] = 0,
-["PointY"] = 0,
-["ItemSell"] = false,
-["ItemMaxCount"] = true,
-["PointOpen"] = false,
-["Point"] = 1,
+["HardcoreDeaths"] = {
+["AudioID"] = 2,
+["Player"] = {
 },
-["PigLayout"] = {
-["topInfoR"] = {
-["BGHide"] = false,
-["Lock"] = false,
-["Scale"] = 1,
-["Open"] = false,
-["HideBut"] = {
+["List"] = {
 },
-},
-["topInfoL"] = {
-["BGHide"] = false,
-["Lock"] = false,
-["Scale"] = 1,
-["Open"] = false,
-["HideBut"] = {
-},
-},
-["MicroMenu"] = {
-["AnchorPoint"] = "TOP",
-["MoveTime"] = true,
-["Interval"] = 2,
-["AnchorPointY"] = 0,
-["Scale"] = 1,
-["Open"] = false,
-["AnchorPointX"] = 0,
-["HideBut"] = {
-},
-},
-["topMenu"] = {
-["BGHide"] = false,
-["Scale"] = 1,
-["TimerMode"] = 1,
-["daojishiTime"] = 10,
-["HideBut"] = {
-},
-["Countdown"] = false,
-["Lock"] = false,
-["Open"] = false,
-["CountdownEnd"] = false,
-["CountdownAudio"] = 1,
-["CountdownEndAudio"] = 1,
-},
-["ChatUI"] = {
-["editMove"] = false,
-["editPoint"] = {
-0,
-0,
-},
-["MarginPoint"] = {
-35,
-35,
-0,
-0,
-},
-["Margin"] = false,
-["Fu"] = false,
-["ZhuPoint"] = {
-370,
-200,
-35,
-35,
-},
-["FuPoint"] = {
-370,
-200,
-35,
-35,
-},
-["Zhu"] = false,
-},
-["TopBar"] = {
-["AnchorPoint"] = "TOP",
-["Height"] = 22,
-["Alpha"] = 1,
-["Open"] = false,
-["Backdrop"] = 1,
-},
-["ActionBar"] = {
-["BarRight"] = false,
-["ScaleV"] = 0.8,
-["Scale"] = false,
-["HideShijiu"] = false,
-["Layout"] = 1,
-["LRInterval"] = 20,
-},
-},
-["Ver"] = {
-["!Pig_RurutiaAudio"] = 0,
-["!Pig"] = 9.51,
-},
-["StatsInfo"] = {
-["TradeTongGaoChannel"] = "WHISPER",
-["Qita_Num"] = false,
-["TradeTongGao"] = true,
-["PlayerSH"] = {
-},
-["lixianBank"] = true,
-["AHData"] = {
-["时光IV"] = {
-},
-["维希度斯"] = {
-},
-["时光I"] = {
-},
-["时光III"] = {
-},
-["曼多基尔"] = {
-},
-["霜语"] = {
-["暗月卡片：伟大"] = true,
-["霜纹布"] = true,
-},
-},
-["MinibutTisp"] = false,
-["SkillData"] = {
-["美团王兴-时光IV"] = {
-{
-0,
-{
-},
-},
-{
-0,
-{
-},
-},
-[0] = {
-},
-},
-["萌萌的露露糖-时光I"] = {
-{
-0,
-{
-},
-},
-{
-0,
-{
-},
-},
-[0] = {
-},
-},
-["京东刘强东-时光IV"] = {
-{
-0,
-{
-},
-},
-{
-0,
-{
-},
-},
-[0] = {
-},
-},
-},
-["Players"] = {
-["美团王兴-时光IV"] = {
-"Alliance",
-1,
-"raceicon-human-male",
-1,
-1,
-},
-["萌萌的露露糖-时光I"] = {
-"Horde",
-10,
-"raceicon-bloodelf-female",
-5,
-2,
-},
-["京东刘强东-时光IV"] = {
-"Alliance",
-1,
-"raceicon-human-male",
-2,
-71,
-},
-},
+["maxlevel"] = 30,
+["minlevel"] = 1,
+["savedays"] = 1,
 ["Open"] = true,
-["TradeClassLV"] = true,
-["Items"] = {
-["美团王兴-时光IV"] = {
-["BANK"] = {
-},
-["MAIL"] = {
-},
-["C"] = "1-^+2-^+3-^+4-38::::::::1::::::::::+5-^+6-^+7-39::::::::1::::::::::+8-40::::::::1::::::::::+9-^+10-^+11-^+12-^+13-^+14-^+15-^+16-497B8::::::::1::::::::::+17-^+18-^+19-^",
-["GUILD"] = {
-},
-["R"] = {
-},
-["T"] = "0gg",
-["G"] = ":::::",
-["BAG"] = {
-{
-"6948::::::::1::::::::::",
-1,
-6948,
-},
-},
-},
-["萌萌的露露糖-时光I"] = {
-["GUILD"] = {
-},
-["MAIL"] = {
-},
-["C"] = "1-^+2-^+3-^+4-53::::::::2::::::::::+5-20891::::::::2::::::::::+6-^+7-52::::::::2::::::::::+8-51::::::::2::::::::::+9-^+10-^+11-^+12-^+13-^+14-^+15-^+16-20978::::::::2::::::::::+17-^+18-^+19-^",
-["BAG"] = {
-{
-"6948::::::::2::::::::::",
-1,
-6948,
-},
-},
-["R"] = {
-},
-["T"] = "0dd",
-["G"] = ":::::",
-["BANK"] = {
-},
-},
-["京东刘强东-时光IV"] = {
-["BANK"] = {
-},
-["MAIL"] = {
-{
-"264272::::::::71::::::::::",
-1,
-264272,
-},
-},
-["C"] = "1-35891::::::::72::::::::::+2-35936::::::::72::::::::::+3-35843::::::::72::::::::::+4-45::::::::72::::::::::+5-3582B::::::::72::::::::::+6-24958::::::-45:21790723B:72::::::::::+7-35835::::::::72::::::::::+8-35934::::::::72::::::::::+9-35910::::::::72::::::::::+10-35903::::::::72::::::::::+11-519B2::::::-86:51642382:72::::::::::+12-3592B::::::::72::::::::::+13-36871::::::::72::::::::::+14-38259::::::::72::::::::::+15-1B626::::::::72::::::::::+16-35812::::::::72::::::::::+17-^+18-^+19-^",
-["GUILD"] = {
-},
-["R"] = {
-},
-["T"] = "0Z150Y5232051213C130213B2313B1",
-["G"] = "54934:57958:5795B:5492B::",
-["BAG"] = {
-{
-"6948::::::::72::::::::::",
-1,
-6948,
-},
-{
-"4B750::::::::72::::::::::",
-20,
-44750,
-},
-{
-"43013::::::::72::::::::::",
-4,
-43013,
-},
-{
-"35920::::::::72::::::::::",
-1,
-35920,
-},
-{
-"3B129::::::::72::::::::::",
-1,
-33129,
-},
-{
-"3928::::::::72::::::::::",
-3,
-3928,
-},
-{
-"4B327::::::::72::::::::::",
-1,
-44327,
-},
-{
-"3B470::::::::72::::::::::",
-20,
-33470,
-},
-{
-"21929::::::::72::::::::::",
-1,
-21929,
-},
-{
-"43467::::::::72::::::::::",
-2,
-43467,
-},
-{
-"34125::::::::72::::::::::",
-20,
-34125,
-},
-{
-"234B0::::::::72::::::::::",
-1,
-23440,
-},
-{
-"37B05::::::::72::::::::::",
-7,
-37705,
-},
-{
-"134C::::::::72::::::::::",
-2,
-13444,
-},
-{
-"4B328::::::::72::::::::::",
-1,
-44328,
-},
-{
-"21B7B::::::::72::::::::::",
-52,
-21177,
-},
-{
-"36917::::::::72::::::::::",
-1,
-36917,
-},
-{
-"2B829::::::::72::::::::::",
-9,
-22829,
-},
-{
-"5760::::::::72::::::::::",
-1,
-5760,
-},
-{
-"134B6::::::::72::::::::::",
-1,
-13446,
-},
-{
-"2B832::::::::72::::::::::",
-2,
-22832,
-},
-{
-"4B750::::::::72::::::::::",
-18,
-44750,
-},
-{
-"3B4B8::::::::72::::::::::",
-8,
-33448,
-},
-{
-"36909::::::::72::::::::::",
-6,
-36909,
-},
-{
-"3827::::::::72::::::::::",
-4,
-3827,
-},
-{
-"4B750::::::::72::::::::::",
-20,
-44750,
-},
-{
-"3B4B7::::::::72::::::::::",
-10,
-33447,
-},
-{
-"3B470::::::::72::::::::::",
-11,
-33470,
-},
-{
-"3B618::::::::72::::::::::",
-1,
-33618,
-},
-{
-"3B084::::::::72::::::::::",
-10,
-33084,
-},
-{
-"34027::::::::72::::::::::",
-1,
-34027,
-},
-{
-"37093::::::::72::::::::::",
-2,
-37093,
-},
-{
-"36920::::::::72::::::::::",
-2,
-36920,
-},
-{
-"43463::::::::72::::::::::",
-2,
-43463,
-},
-{
-"40B76::::::::72::::::::::",
-1,
-40076,
-},
-},
-},
-},
-["Token"] = {
-["美团王兴-时光IV"] = {
-["Money"] = 0,
-["Tokens"] = {
-},
-},
-["萌萌的露露糖-时光I"] = {
-["Money"] = 30,
-["Tokens"] = {
-},
-},
-["京东刘强东-时光IV"] = {
-["Tokens"] = {
-{
-237048,
-4,
-3403,
-"|cnIQ4:|Hcurrency:3403:0|h[泰坦余烬]|h|r",
-},
-{
-237047,
-3812,
-3406,
-"|cnIQ3:|Hcurrency:3406:0|h[泰坦碎片]|h|r",
-},
-},
-["Money"] = 7347859,
-},
-},
-["TradeData"] = {
-["小绫子-曼多基尔"] = {
-},
-["露露缇娅-帕奇维克"] = {
-},
-["京东刘强东-时光IV"] = {
-{
-20411,
-20412,
-20413,
-},
-{
-{
-{
-["MoneyP"] = 0,
-["MoneyT"] = 0,
-["All_Name"] = "十七岁那年-时光IV",
-["ItemP"] = {
-{
-"|cff1eff00|Hitem:10402::::::::20::::::::::|h[黑暗迪菲亚长靴]|h|r",
-1,
-},
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Class"] = 7,
-["Race"] = "raceicon-draenei-female",
-["Name"] = "十七岁那年",
-["ItemT"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Level"] = 18,
-["Map"] = "死亡矿井-",
-["Time"] = 1763542252,
-},
-{
-["MoneyP"] = 0,
-["MoneyT"] = 0,
-["All_Name"] = "魔力不足-时光IV",
-["ItemP"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Class"] = 8,
-["Race"] = "raceicon-human-female",
-["Name"] = "魔力不足",
-["ItemT"] = {
-{
-"|cffffffff|Hitem:2288::::::::22::::::::::|h[魔法淡水]|h|r",
-20,
-},
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Level"] = 19,
-["Map"] = "影牙城堡-",
-["Time"] = 1763544640,
-},
-{
-["MoneyP"] = 0,
-["MoneyT"] = 0,
-["All_Name"] = "Senren-时光IV",
-["ItemP"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Class"] = 8,
-["Race"] = "raceicon-gnome-female",
-["Name"] = "Senren",
-["ItemT"] = {
-{
-"|cffffffff|Hitem:2136::::::::23::::::::::|h[魔法纯净水]|h|r",
-20,
-},
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Level"] = 24,
-["Map"] = "哀嚎洞穴-激流溪谷",
-["Time"] = 1763547407,
-},
-{
-["MoneyP"] = 0,
-["MoneyT"] = 0,
-["All_Name"] = "焰烬余歌-时光IV",
-["ItemP"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Class"] = 8,
-["Race"] = "raceicon-human-female",
-["Name"] = "焰烬余歌",
-["ItemT"] = {
-{
-"|cffffffff|Hitem:2136::::::::28::::::::::|h[魔法纯净水]|h|r",
-19,
-},
-{
-"|cffffffff|Hitem:2136::::::::28::::::::::|h[魔法纯净水]|h|r",
-1,
-},
-"无",
-"无",
-"无",
-"无",
-},
-["Level"] = 25,
-["Time"] = 1763556186,
-["Map"] = "剃刀沼泽-",
-},
-{
-["MoneyP"] = 0,
-["MoneyT"] = 0,
-["All_Name"] = "我硬抗三枪-时光IV",
-["ItemP"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Class"] = 8,
-["Race"] = "raceicon-draenei-female",
-["Name"] = "我硬抗三枪",
-["ItemT"] = {
-{
-"|cffffffff|Hitem:2136::::::::30::::::::::|h[魔法纯净水]|h|r",
-10,
-},
-{
-"|cffffffff|Hitem:2136::::::::30::::::::::|h[魔法纯净水]|h|r",
-20,
-},
-"无",
-"无",
-"无",
-"无",
-},
-["Level"] = 33,
-["Time"] = 1763561897,
-["Map"] = "血色修道院-",
-},
-},
-{
-{
-["MoneyP"] = 0,
-["MoneyT"] = 0,
-["All_Name"] = "东海白龙-时光IV",
-["ItemP"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Class"] = 8,
-["Race"] = "raceicon-human-female",
-["Name"] = "东海白龙",
-["ItemT"] = {
-{
-"|cffffffff|Hitem:3772::::::::37::::::::::|h[魔法泉水]|h|r",
-12,
-},
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Level"] = 31,
-["Time"] = 1763598687,
-["Map"] = "血色修道院-",
-},
-{
-["MoneyP"] = 0,
-["MoneyT"] = 0,
-["All_Name"] = "碧空枝歌-时光IV",
-["ItemP"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Class"] = 8,
-["Race"] = "raceicon-human-female",
-["Name"] = "碧空枝歌",
-["ItemT"] = {
-{
-"|cffffffff|Hitem:8077::::::::41::::::::::|h[魔法矿泉水]|h|r",
-20,
-},
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Level"] = 45,
-["Map"] = "玛拉顿-邪恶洞穴",
-["Time"] = 1763618947,
-},
-{
-["MoneyP"] = 0,
-["MoneyT"] = 0,
-["All_Name"] = "晓桀-时光IV",
-["ItemP"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Class"] = 8,
-["Race"] = "raceicon-human-female",
-["Name"] = "晓桀",
-["ItemT"] = {
-{
-"|cffffffff|Hitem:8077::::::::50::::::::::|h[魔法矿泉水]|h|r",
-20,
-},
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Level"] = 53,
-["Map"] = "黑石深渊-禁闭室",
-["Time"] = 1763635823,
-},
-{
-["MoneyP"] = 0,
-["MoneyT"] = 0,
-["All_Name"] = "包包脸的猫叔-时光IV",
-["ItemP"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Class"] = 8,
-["Race"] = "raceicon-human-female",
-["Name"] = "包包脸的猫叔",
-["ItemT"] = {
-{
-"|cffffffff|Hitem:8079::::::::60::::::::::|h[魔法晶水]|h|r",
-20,
-},
-{
-"|cffffffff|Hitem:8079::::::::60::::::::::|h[魔法晶水]|h|r",
-20,
-},
-"无",
-"无",
-"无",
-"无",
-},
-["Level"] = 65,
-["Map"] = "地狱火城墙-",
-["Time"] = 1763650291,
-},
-},
-{
-{
-["MoneyP"] = 0,
-["MoneyT"] = 0,
-["All_Name"] = "牡丹花遐思-时光II",
-["ItemP"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Class"] = 8,
-["Race"] = "raceicon-human-female",
-["Name"] = "牡丹花遐思-时光II",
-["ItemT"] = {
-{
-"|cffffffff|Hitem:30703::::::::64::::::::::|h[魔法山泉水]|h|r",
-10,
-},
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Level"] = 65,
-["Time"] = 1763689629,
-["Map"] = "法力陵墓-",
-},
-{
-["MoneyP"] = 0,
-["MoneyT"] = 0,
-["All_Name"] = "鬼地方-时光IV",
-["ItemP"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Class"] = 8,
-["Race"] = "raceicon-human-female",
-["Name"] = "鬼地方",
-["ItemT"] = {
-{
-"|cffffffff|Hitem:30703::::::::67::::::::::|h[魔法山泉水]|h|r",
-20,
-},
-{
-"|cffffffff|Hitem:30703::::::::67::::::::::|h[魔法山泉水]|h|r",
-20,
-},
-"无",
-"无",
-"无",
-"无",
-},
-["Level"] = 68,
-["Time"] = 1763702144,
-["Map"] = "塞泰克大厅-",
-},
-},
-},
-},
-["美团王兴-时光IV"] = {
-},
-["露露緹婭-维希度斯"] = {
-{
-19903,
-},
-{
-{
-{
-["Map"] = "纳克萨玛斯-骑士议会厅",
-["MoneyT"] = 0,
-["ItemP"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Class"] = 2,
-["Race"] = "raceicon-bloodelf-female",
-["Time"] = 1719652109,
-["ItemT"] = {
-{
-"|cffa335ee|Hitem:40625::::::::80:::::::::|h[失落征服者的胸甲]|h|r",
-1,
-},
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Level"] = 80,
-["Name"] = "我意凌云",
-["MoneyP"] = 10000000,
-},
-{
-["Map"] = "纳克萨玛斯-骑士议会厅",
-["MoneyT"] = 0,
-["ItemP"] = {
-{
-"|cffa335ee|Hitem:40625::::::::80:::::::::|h[失落征服者的胸甲]|h|r",
-1,
-},
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Class"] = 2,
-["Race"] = "raceicon-bloodelf-female",
-["Time"] = 1719652123,
-["ItemT"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Level"] = 80,
-["Name"] = "爱雅法拉",
-["MoneyP"] = 0,
-},
-{
-["Map"] = "纳克萨玛斯-克尔苏加德的大厅",
-["MoneyT"] = 52750000,
-["ItemP"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Class"] = 2,
-["Race"] = "raceicon-bloodelf-female",
-["Time"] = 1719655094,
-["ItemT"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Level"] = 80,
-["Name"] = "我意凌云",
-["MoneyP"] = 0,
-},
-{
-["Map"] = "纳克萨玛斯-克尔苏加德的大厅",
-["MoneyT"] = 0,
-["ItemP"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Class"] = 2,
-["Race"] = "raceicon-bloodelf-female",
-["Time"] = 1719655108,
-["ItemT"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Level"] = 80,
-["Name"] = "圣丶牛牛",
-["MoneyP"] = 10550000,
-},
-{
-["Map"] = "纳克萨玛斯-克尔苏加德的大厅",
-["MoneyT"] = 0,
-["ItemP"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Class"] = 4,
-["Race"] = "raceicon-bloodelf-male",
-["Time"] = 1719655113,
-["ItemT"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Level"] = 80,
-["Name"] = "钢心",
-["MoneyP"] = 10550000,
-},
-{
-["Map"] = "纳克萨玛斯-克尔苏加德的大厅",
-["MoneyT"] = 0,
-["ItemP"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Class"] = 4,
-["Race"] = "raceicon-undead-male",
-["Time"] = 1719655127,
-["ItemT"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Level"] = 80,
-["Name"] = "Monocular",
-["MoneyP"] = 10550000,
-},
-{
-["Map"] = "纳克萨玛斯-克尔苏加德的大厅",
-["MoneyT"] = 0,
-["ItemP"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Class"] = 6,
-["Race"] = "raceicon-bloodelf-male",
-["Time"] = 1719655138,
-["ItemT"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Level"] = 80,
-["Name"] = "蹲墙角背刺",
-["MoneyP"] = 10550000,
-},
-{
-["Map"] = "纳克萨玛斯-克尔苏加德的大厅",
-["MoneyT"] = 4000000,
-["ItemP"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Class"] = 2,
-["Race"] = "raceicon-bloodelf-female",
-["Time"] = 1719655214,
-["ItemT"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Level"] = 80,
-["Name"] = "我意凌云",
-["MoneyP"] = 0,
-},
-},
-},
-},
-["萌萌的露小露-维希度斯"] = {
-},
-["萌萌的露露糖-维希度斯"] = {
-},
-["萌萌的露小露-阿拉希盆地"] = {
-},
-["萌萌的露露糖-时光I"] = {
-},
-},
-["TradeTongGaoPindao"] = "WHISPER",
-["Times"] = {
-{
-214820000,
-1753446759,
-},
-{
-215000000,
-1753447959,
-},
-{
-215340000,
-1753449159,
-},
-{
-215650000,
-1753450356,
-},
-{
-215960000,
-1753451556,
-},
-{
-216290000,
-1753452756,
-},
-{
-216470000,
-1753453957,
-},
-{
-216840000,
-1753455157,
-},
-{
-217180000,
-1753456357,
-},
-{
-217830000,
-1753457557,
-},
-{
-218390000,
-1753458757,
-},
-{
-219220000,
-1753459935,
-},
-{
-219630000,
-1753461183,
-},
-{
-219950000,
-1753462383,
-},
-{
-220200000,
-1753463583,
-},
-{
-220000000,
-1753464744,
-},
-{
-219200000,
-1753465944,
-},
-{
-218270000,
-1753467144,
-},
-{
-218780000,
-1753527716,
-},
-{
-218970000,
-1753528452,
-},
-{
-219280000,
-1753529636,
-},
-{
-219670000,
-1753530837,
-},
-{
-220540000,
-1753532037,
-},
-{
-221370000,
-1753533237,
-},
-{
-222260000,
-1753534437,
-},
-{
-223080000,
-1753535618,
-},
-{
-224110000,
-1753536818,
-},
-{
-225130000,
-1753538018,
-},
-{
-228670000,
-1753542847,
-},
-{
-229200000,
-1753544036,
-},
-{
-229440000,
-1753545236,
-},
-{
-231330000,
-1753611376,
-},
-{
-231810000,
-1753612502,
-},
-{
-232380000,
-1753613688,
-},
-{
-232340000,
-1753614888,
-},
-{
-232440000,
-1753616088,
-},
-{
-232390000,
-1753617296,
-},
-{
-232590000,
-1753619021,
-},
-{
-233120000,
-1753619725,
-},
-{
-234390000,
-1753620925,
-},
-{
-281990000,
-1753693551,
-},
-{
-280880000,
-1753694182,
-},
-{
-264570000,
-1753714646,
-},
-{
-266770000,
-1753715817,
-},
-{
-269090000,
-1753717018,
-},
-{
-271580000,
-1753718218,
-},
-{
-274190000,
-1753719394,
-},
-{
-276880000,
-1753720595,
-},
-{
-279630000,
-1753721795,
-},
-{
-281850000,
-1753723003,
-},
-{
-283400000,
-1753724455,
-},
-{
-284590000,
-1753725405,
-},
-{
-286110000,
-1753726605,
-},
-{
-288100000,
-1753727805,
-},
-{
-289950000,
-1753729008,
-},
-{
-291750000,
-1753730209,
-},
-{
-292980000,
-1753731409,
-},
-{
-294320000,
-1753732659,
-},
-{
-272580000,
-1753985308,
-},
-{
-272820000,
-1753985595,
-},
-{
-273040000,
-1753986795,
-},
-{
-273380000,
-1753987995,
-},
-{
-273420000,
-1753989170,
-},
-{
-273470000,
-1753990426,
-},
-{
-270840000,
-1754022786,
-},
-{
-269370000,
-1754024612,
-},
-{
-268100000,
-1754025199,
-},
-{
-267050000,
-1754026399,
-},
-{
-266320000,
-1754027599,
-},
-{
-265930000,
-1754028859,
-},
-{
-265720000,
-1754030024,
-},
-{
-265630000,
-1754031204,
-},
-{
-265440000,
-1754032464,
-},
-{
-265400000,
-1754033665,
-},
-{
-265670000,
-1754034865,
-},
-{
-266580000,
-1754036065,
-},
-{
-267610000,
-1754037266,
-},
-{
-268400000,
-1754038465,
-},
-{
-269210000,
-1754039658,
-},
-{
-270200000,
-1754040858,
-},
-{
-271000000,
-1754042058,
-},
-{
-265630000,
-1754058059,
-},
-{
-267020000,
-1754058873,
-},
-{
-268420000,
-1754060074,
-},
-{
-269400000,
-1754061286,
-},
-{
-270330000,
-1754062495,
-},
-{
-271080000,
-1754063645,
-},
-{
-266110000,
-1754113522,
-},
-{
-266090000,
-1754114170,
-},
-{
-266690000,
-1754115365,
-},
-{
-280190000,
-1754325553,
-},
-{
-277390000,
-1754369884,
-},
-{
-277450000,
-1754370036,
-},
-{
-281150000,
-1754390765,
-},
-{
-397740000,
-1754984497,
-},
-{
-398160000,
-1754985233,
-},
-{
-504080000,
-1756873000,
-},
-{
-816380000,
-1759692298,
-},
-{
-815970000,
-1759693067,
-},
-{
-816140000,
-1759694267,
-},
-{
-853320000,
-1759833869,
-},
-{
-857830000,
-1759834801,
-},
-{
-862170000,
-1759836001,
-},
-{
-865110000,
-1759837201,
-},
-{
-1196010000,
-1761236761,
-},
-{
-1184050000,
-1761236929,
-},
-{
-1184720000,
-1761238552,
-},
-{
-1186320000,
-1761240147,
-},
-},
-["AddBut"] = true,
-["InstancesCD"] = {
-["Records"] = {
-[1156] = true,
-[1102] = true,
-[1101] = true,
-[841] = true,
-[1095] = true,
-[1106] = true,
-[1110] = true,
-[1100] = true,
-},
-["京东刘强东-时光IV"] = {
-},
-["萌萌的露露糖-时光I"] = {
-},
-["美团王兴-时光IV"] = {
-},
-["Mode"] = 1,
+["level"] = {
 },
 },
 ["ConfigString"] = {
 10,
 "57uZ5qKm55qE5aeR5aiY^6b6Z54mZ@5aW25aW95LiA6Zif6JCo5ruh^57u05YWL5rSb5bCU",
 },
-["BagBank"] = {
-["BAGmeihangshu"] = 8,
-["JunkShow"] = true,
-["AHOpen"] = true,
-["jiaoyiOpen"] = true,
-["wupinRanse"] = true,
-["wupinLV"] = true,
-["BagKongyu"] = true,
-["BAGsuofangBili"] = 1,
-["NewItem"] = true,
-["BANKmeihangshu"] = 16,
-["SortBagsRightToLeft"] = false,
-["BANKsuofangBili"] = 1,
-["Zhenghe"] = true,
-["SortBag_Config"] = true,
-["JianjieMOD"] = false,
-["BANKmeihangshu_retail"] = 17,
-["BAGmeihangshu_retail"] = 10,
-["BAGmeihangshu_WLK"] = 10,
+["Error"] = {
+["ErrorDB"] = {
+{
+["time"] = 1763788820,
+["logrizhi"] = "(*temporary) = Frame {\n iconSource = -1\n subRegionEvents = <table> {\n }\n yOffset = 0\n anchorPoint = \"CENTER\"\n icon = Texture {\n }\n keepAspectRatio = true\n toShow = true\n progressType = \"timed\"\n relativeTo = Frame {\n }\n PixelSnapDisabled = true\n cloneId = \"\"\n regionType = \"icon\"\n relativePoint = \"CENTER\"\n maxProgress = 1.353000\n states = <table> {\n }\n zoom = 0.300000\n state = <table> {\n }\n color_b = 1\n color_r = 1\n displayIcon = \"\"\n values = <table> {\n }\n duration = 1.353000\n expirationTime = 9207.105000\n cooldownEdge = false\n cooldownSwipe = true\n color_g = 1\n finishFormatters = <table> {\n }\n color_a = 1\n subRegions = <table> {\n }\n height = 40\n startFormatters = <table> {\n }\n inverseDirection = true\n currentCoord = <table> {\n }\n frameId = \"驱邪术（惩戒，可点击施法）\"\n texXOffset = 0\n xOffsetAnim = 0\n yOffsetAnim = 0\n xOffset = 0\n scaley = 1\n scalex = 1\n alpha = 1\n minProgress = 0\n id = \"驱邪术（惩戒，可点击施法）\"\n width = 40\n progressSource = <table> {\n }\n xOffsetRelative = 0\n yOffsetRelative = 0\n cooldown = WeakAurasCooldown驱邪术（惩戒，可点击施法） {\n }\n texYOffset = 0\n}\n(*temporary) = 40\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:SetHeight() >",
+["stack"] = "[C]: in function 'SetHeight'\n[Interface/AddOns/WeakAuras/RegionTypes/Icon.lua]:326: in function 'UpdateSize'\n[Interface/AddOns/WeakAuras/RegionTypes/Icon.lua]:525: in function 'SetRegionWidth'\n[return function(newPositions, activeRegions)]:45: in function <[string \"return function(newPositions, activeRegions...\"]:1>\n[C]: in function 'xpcall'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:985: in function 'growFunc'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1500: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4689: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4649>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4814: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:889: in function 'ScanEventsInternal'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:826: in function 'ScanEvents'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:2220: in function <Interface/AddOns/WeakAuras/GenericTrigger.lua:2190>\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:3146: in function 'CheckCooldownReady'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:2444: in function <Interface/AddOns/WeakAuras/GenericTrigger.lua:2402>\n",
+["counter"] = 4166,
 },
-["HardcoreDeaths"] = {
-["AudioID"] = 2,
+{
+["time"] = 1763784832,
+["logrizhi"] = "(*temporary) = 16114\n(*temporary) = \"target\"\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< *** ForceTaint_Strong *** >尝试调用保护功能< UNKNOWN() >",
+["stack"] = "[C]: ?\n[C]: in function 'IsItemInRange'\n[return function()]:7: in function <[string \"return function()\"]:1>\n[C]: in function 'xpcall'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4858: in function 'RunCustomTextFunc'\n[Interface/AddOns/WeakAuras/RegionTypes/Text.lua]:257: in function '?'\n[Interface/AddOns/WeakAuras/SubscribableObject.lua]:94: in function 'Notify'\n[Interface/AddOns/WeakAuras/RegionTypes/RegionPrototype.lua]:621: in function '?'\n[Interface/AddOns/WeakAuras/SubscribableObject.lua]:94: in function 'Notify'\n[Interface/AddOns/WeakAuras/RegionTypes/RegionPrototype.lua]:826: in function <...ace/AddOns/WeakAuras/RegionTypes/RegionPrototype.lua:824>\n",
+["counter"] = 4,
+},
+{
+["time"] = 1763786042,
+["logrizhi"] = "(*temporary) = Frame {\n totalOffsetY = 0\n regionData = <table> {\n }\n totalOffsetX = 35\n}\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:ClearAllPoints() >",
+["stack"] = "[C]: in function 'ClearAllPoints'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:54: in function 'SetAnchorPoint'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1355: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1516: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4689: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4649>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4814: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:1980: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:1972>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2464: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2457>\n",
+["counter"] = 4,
+},
+{
+["time"] = 1763786042,
+["logrizhi"] = "(*temporary) = Frame {\n point = \"BOTTOMLEFT\"\n totalOffsetY = 0\n regionData = <table> {\n }\n relativeFrame = Frame {\n }\n totalOffsetX = 35\n offsetX = 35\n relativePoint = \"BOTTOMLEFT\"\n offsetY = 0\n}\n(*temporary) = \"BOTTOMLEFT\"\n(*temporary) = Frame {\n controlledChildren = <table> {\n }\n subRegionEvents = <table> {\n }\n yOffset = 24\n anchorPoint = \"BOTTOMLEFT\"\n updatedChildren = <table> {\n }\n controlPoints = <table> {\n }\n suspended = 0\n growStates = <table> {\n }\n regionType = \"dynamicgroup\"\n relativePoint = \"CENTER\"\n sortedChildren = <table> {\n }\n alpha = 1\n sortStates = <table> {\n }\n currentHeight = 32\n currentWidth = 67.000061\n needToSort = false\n background = Frame {\n }\n needToReload = false\n needToPosition = false\n startFormatters = <table> {\n }\n values = <table> {\n }\n sortOn = <table> {\n }\n needToResize = false\n xOffsetAnim = 0\n yOffsetAnim = 0\n xOffset = -149\n relativeTo = Frame {\n }\n id = \"圣骑士 动态分组 左\"\n selfPoint = \"TOPLEFT\"\n finishFormatters = <table> {\n }\n toShow = true\n cloneId = \"\"\n xOffsetRelative = 0\n yOffsetRelative = 0\n}\n(*temporary) = \"BOTTOMLEFT\"\n(*temporary) = 35\n(*temporary) = 0\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:SetPoint() >",
+["stack"] = "[C]: in function 'SetPoint'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:60: in function 'SetAnchorPoint'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1355: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1516: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4689: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4649>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4814: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:1980: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:1972>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2464: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2457>\n",
+["counter"] = 4,
+},
+{
+["time"] = 1763786042,
+["logrizhi"] = "(*temporary) = Frame {\n point = \"BOTTOMLEFT\"\n totalOffsetY = 0\n regionData = <table> {\n }\n relativeFrame = Frame {\n }\n totalOffsetX = 35\n offsetX = 35\n relativePoint = \"BOTTOMLEFT\"\n offsetY = 0\n}\n(*temporary) = true\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:SetShown() >",
+["stack"] = "[C]: in function 'SetShown'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1369: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1516: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4689: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4649>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4814: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:1980: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:1972>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2464: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2457>\n",
+["counter"] = 3,
+},
+{
+["time"] = 1763786042,
+["logrizhi"] = "(*temporary) = Frame {\n point = \"BOTTOMLEFT\"\n totalOffsetY = 0\n regionData = <table> {\n }\n relativeFrame = Frame {\n }\n totalOffsetX = 35\n offsetX = 35\n relativePoint = \"BOTTOMLEFT\"\n offsetY = 0\n}\n(*temporary) = Frame {\n controlledChildren = <table> {\n }\n subRegionEvents = <table> {\n }\n yOffset = 24\n anchorPoint = \"BOTTOMLEFT\"\n updatedChildren = <table> {\n }\n controlPoints = <table> {\n }\n suspended = 0\n growStates = <table> {\n }\n regionType = \"dynamicgroup\"\n relativePoint = \"CENTER\"\n sortedChildren = <table> {\n }\n alpha = 1\n sortStates = <table> {\n }\n currentHeight = 32\n currentWidth = 67.000061\n needToSort = false\n background = Frame {\n }\n needToReload = false\n needToPosition = false\n startFormatters = <table> {\n }\n values = <table> {\n }\n sortOn = <table> {\n }\n needToResize = false\n xOffsetAnim = 0\n yOffsetAnim = 0\n xOffset = -149\n relativeTo = Frame {\n }\n id = \"圣骑士 动态分组 左\"\n selfPoint = \"TOPLEFT\"\n finishFormatters = <table> {\n }\n toShow = true\n cloneId = \"\"\n xOffsetRelative = 0\n yOffsetRelative = 0\n}\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< UNKNOWN() >",
+["stack"] = "[C]: ?\n[C]: in function 'SetParent'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1396: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1516: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4689: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4649>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4814: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:1980: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:1972>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2464: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2457>\n",
+["counter"] = 3,
+},
+{
+["time"] = 1763786042,
+["logrizhi"] = "(*temporary) = Frame {\n point = \"BOTTOMLEFT\"\n totalOffsetY = 0\n regionData = <table> {\n }\n relativeFrame = Frame {\n }\n totalOffsetX = 35\n offsetX = 35\n relativePoint = \"BOTTOMLEFT\"\n offsetY = 0\n}\n(*temporary) = 1\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:SetScale() >",
+["stack"] = "[C]: in function 'SetScale'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1397: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1516: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4689: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4649>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4814: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:1980: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:1972>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2464: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2457>\n",
+["counter"] = 3,
+},
+{
+["time"] = 1763786042,
+["logrizhi"] = "(*temporary) = Frame {\n iconSource = -1\n subRegionEvents = <table> {\n }\n yOffset = 0\n anchorPoint = \"BOTTOMLEFT\"\n icon = Texture {\n }\n keepAspectRatio = true\n soundHandle = 95446\n toShow = true\n xOffset = 0\n progressType = \"timed\"\n relativeTo = Frame {\n }\n PixelSnapDisabled = true\n cloneId = \"\"\n regionType = \"icon\"\n relativePoint = \"BOTTOMLEFT\"\n maxProgress = 0\n states = <table> {\n }\n zoom = 0.300000\n state = <table> {\n }\n color_b = 1\n color_r = 1\n displayIcon = \"\"\n values = <table> {\n }\n duration = 0\n expirationTime = 0\n cooldownEdge = false\n cooldownSwipe = true\n color_g = 1\n finishFormatters = <table> {\n }\n color_a = 1\n subRegions = <table> {\n }\n height = 32\n startFormatters = <table> {\n }\n inverseDirection = true\n currentCoord = <table> {\n }\n modRate = 1\n frameId = \"神圣恳求（可点击）\"\n texXOffset = 0\n xOffsetAnim = 0\n yOffsetAnim = 0\n soundOptions = <table> {\n }\n scaley = 1\n scalex = 1\n alpha = 1\n minProgress = 0\n id = \"神圣恳求（可点击）\"\n width = 32\n progressSource = <table> {\n }\n xOffsetRelative = 0\n yOffsetRelative = 0\n cooldown = WeakAurasCooldown神圣恳求（可点击） {\n }\n texYOffset = 0\n}\n(*temporary) = \"LOW\"\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:SetFrameStrata() >",
+["stack"] = "[C]: in function 'SetFrameStrata'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1403: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1516: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4689: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4649>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4814: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:1980: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:1972>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2464: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2457>\n",
+["counter"] = 3,
+},
+{
+["time"] = 1763786042,
+["logrizhi"] = "(*temporary) = Frame {\n iconSource = -1\n subRegionEvents = <table> {\n }\n yOffset = 0\n anchorPoint = \"BOTTOMLEFT\"\n icon = Texture {\n }\n keepAspectRatio = true\n soundHandle = 95446\n toShow = true\n xOffset = 0\n progressType = \"timed\"\n relativeTo = Frame {\n }\n PixelSnapDisabled = true\n cloneId = \"\"\n regionType = \"icon\"\n relativePoint = \"BOTTOMLEFT\"\n maxProgress = 0\n states = <table> {\n }\n zoom = 0.300000\n state = <table> {\n }\n color_b = 1\n color_r = 1\n displayIcon = \"\"\n values = <table> {\n }\n duration = 0\n expirationTime = 0\n cooldownEdge = false\n cooldownSwipe = true\n color_g = 1\n finishFormatters = <table> {\n }\n color_a = 1\n subRegions = <table> {\n }\n height = 32\n startFormatters = <table> {\n }\n inverseDirection = true\n currentCoord = <table> {\n }\n modRate = 1\n frameId = \"神圣恳求（可点击）\"\n texXOffset = 0\n xOffsetAnim = 0\n yOffsetAnim = 0\n soundOptions = <table> {\n }\n scaley = 1\n scalex = 1\n alpha = 1\n minProgress = 0\n id = \"神圣恳求（可点击）\"\n width = 32\n progressSource = <table> {\n }\n xOffsetRelative = 0\n yOffsetRelative = 0\n cooldown = WeakAurasCooldown神圣恳求（可点击） {\n }\n texYOffset = 0\n}\n(*temporary) = 85\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< SetFrameLevel() >",
+["stack"] = "[C]: ?\n[Interface/AddOns/WeakAuras/RegionTypes/Icon.lua]:285: in function 'SetFrameLevel'\n[Interface/AddOns/WeakAuras/SubRegionTypes/Background.lua]:17: in function 'SetFrameLevel'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4295: in function 'ApplyFrameLevel'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1407: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1516: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4689: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4649>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4814: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:1980: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:1972>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2464: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2457>\n",
+["counter"] = 3,
+},
+{
+["time"] = 1763785418,
+["logrizhi"] = "(*temporary) = Frame {\n controlledChildren = <table> {\n }\n subRegionEvents = <table> {\n }\n yOffset = 24\n anchorPoint = \"BOTTOMLEFT\"\n updatedChildren = <table> {\n }\n controlPoints = <table> {\n }\n suspended = 0\n growStates = <table> {\n }\n regionType = \"dynamicgroup\"\n relativePoint = \"CENTER\"\n sortedChildren = <table> {\n }\n alpha = 1\n sortStates = <table> {\n }\n currentHeight = 32\n currentWidth = 67.000061\n needToSort = false\n background = Frame {\n }\n needToReload = false\n needToPosition = false\n startFormatters = <table> {\n }\n values = <table> {\n }\n sortOn = <table> {\n }\n needToResize = false\n xOffsetAnim = 0\n yOffsetAnim = 0\n xOffset = -149\n relativeTo = Frame {\n }\n id = \"圣骑士 动态分组 左\"\n selfPoint = \"TOPLEFT\"\n finishFormatters = <table> {\n }\n toShow = true\n cloneId = \"\"\n xOffsetRelative = 0\n yOffsetRelative = 0\n}\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:Show() >",
+["stack"] = "[C]: in function 'Show'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1558: in function 'Resize'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1528: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4689: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4649>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4814: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:1980: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:1972>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2464: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2457>\n",
+["counter"] = 1,
+},
+{
+["time"] = 1763830962,
+["logrizhi"] = "(*temporary) = Frame {\n iconSource = -1\n subRegionEvents = <table> {\n }\n yOffset = 0\n anchorPoint = \"CENTER\"\n icon = Texture {\n }\n keepAspectRatio = true\n toShow = true\n progressType = \"timed\"\n relativeTo = Frame {\n }\n PixelSnapDisabled = true\n cloneId = \"\"\n regionType = \"icon\"\n relativePoint = \"CENTER\"\n maxProgress = 1.500000\n states = <table> {\n }\n zoom = 0.300000\n state = <table> {\n }\n color_b = 1\n color_r = 1\n displayIcon = \"\"\n values = <table> {\n }\n duration = 1.500000\n expirationTime = 1848.348000\n cooldownEdge = false\n cooldownSwipe = true\n color_g = 1\n finishFormatters = <table> {\n }\n color_a = 1\n subRegions = <table> {\n }\n height = 40\n startFormatters = <table> {\n }\n inverseDirection = true\n currentCoord = <table> {\n }\n frameId = \"驱邪术（惩戒，可点击施法）\"\n texXOffset = 0\n xOffsetAnim = 0\n yOffsetAnim = 0\n xOffset = 0\n scaley = 1\n scalex = 1\n alpha = 1\n minProgress = 0\n id = \"驱邪术（惩戒，可点击施法）\"\n width = 40\n progressSource = <table> {\n }\n xOffsetRelative = 0\n yOffsetRelative = 0\n cooldown = WeakAurasCooldown驱邪术（惩戒，可点击施法） {\n }\n texYOffset = 0\n}\n(*temporary) = 40\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:SetWidth() >",
+["stack"] = "[C]: in function 'SetWidth'\n[Interface/AddOns/WeakAuras/RegionTypes/Icon.lua]:325: in function 'UpdateSize'\n[Interface/AddOns/WeakAuras/RegionTypes/Icon.lua]:525: in function 'SetRegionWidth'\n[return function(newPositions, activeRegions)]:45: in function <[string \"return function(newPositions, activeRegions...\"]:1>\n[C]: in function 'xpcall'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:985: in function 'growFunc'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1500: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4689: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4649>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4814: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:889: in function 'ScanEventsInternal'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:826: in function 'ScanEvents'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:2999: in function 'CheckSpellCooldown'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:3011: in function 'CheckSpellCooldows'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:3148: in function 'CheckCooldownReady'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:2444: in function <Interface/AddOns/WeakAuras/GenericTrigger.lua:2402>\n",
+["counter"] = 20261,
+},
+{
+["time"] = 1763830962,
+["logrizhi"] = "(*temporary) = Frame {\n iconSource = -1\n subRegionEvents = <table> {\n }\n yOffset = 0\n anchorPoint = \"CENTER\"\n icon = Texture {\n }\n keepAspectRatio = true\n toShow = true\n progressType = \"timed\"\n relativeTo = Frame {\n }\n PixelSnapDisabled = true\n cloneId = \"\"\n regionType = \"icon\"\n relativePoint = \"CENTER\"\n maxProgress = 1.500000\n states = <table> {\n }\n zoom = 0.300000\n state = <table> {\n }\n color_b = 1\n color_r = 1\n displayIcon = \"\"\n values = <table> {\n }\n duration = 1.500000\n expirationTime = 1848.348000\n cooldownEdge = false\n cooldownSwipe = true\n color_g = 1\n finishFormatters = <table> {\n }\n color_a = 1\n subRegions = <table> {\n }\n height = 40\n startFormatters = <table> {\n }\n inverseDirection = true\n currentCoord = <table> {\n }\n frameId = \"驱邪术（惩戒，可点击施法）\"\n texXOffset = 0\n xOffsetAnim = 0\n yOffsetAnim = 0\n xOffset = 0\n scaley = 1\n scalex = 1\n alpha = 1\n minProgress = 0\n id = \"驱邪术（惩戒，可点击施法）\"\n width = 40\n progressSource = <table> {\n }\n xOffsetRelative = 0\n yOffsetRelative = 0\n cooldown = WeakAurasCooldown驱邪术（惩戒，可点击施法） {\n }\n texYOffset = 0\n}\n(*temporary) = 40\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:SetHeight() >",
+["stack"] = "[C]: in function 'SetHeight'\n[Interface/AddOns/WeakAuras/RegionTypes/Icon.lua]:326: in function 'UpdateSize'\n[Interface/AddOns/WeakAuras/RegionTypes/Icon.lua]:525: in function 'SetRegionWidth'\n[return function(newPositions, activeRegions)]:45: in function <[string \"return function(newPositions, activeRegions...\"]:1>\n[C]: in function 'xpcall'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:985: in function 'growFunc'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1500: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4689: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4649>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4814: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:889: in function 'ScanEventsInternal'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:826: in function 'ScanEvents'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:2999: in function 'CheckSpellCooldown'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:3011: in function 'CheckSpellCooldows'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:3148: in function 'CheckCooldownReady'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:2444: in function <Interface/AddOns/WeakAuras/GenericTrigger.lua:2402>\n",
+["counter"] = 20240,
+},
+{
+["time"] = 1763829574,
+["logrizhi"] = "(*temporary) = 16114\n(*temporary) = \"target\"\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< *** ForceTaint_Strong *** >尝试调用保护功能< UNKNOWN() >",
+["stack"] = "[C]: ?\n[C]: in function 'IsItemInRange'\n[return function()]:7: in function <[string \"return function()\"]:1>\n[C]: in function 'xpcall'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4858: in function 'RunCustomTextFunc'\n[Interface/AddOns/WeakAuras/RegionTypes/Text.lua]:257: in function '?'\n[Interface/AddOns/WeakAuras/SubscribableObject.lua]:94: in function 'Notify'\n[Interface/AddOns/WeakAuras/RegionTypes/RegionPrototype.lua]:621: in function '?'\n[Interface/AddOns/WeakAuras/SubscribableObject.lua]:94: in function 'Notify'\n[Interface/AddOns/WeakAuras/RegionTypes/RegionPrototype.lua]:826: in function <...ace/AddOns/WeakAuras/RegionTypes/RegionPrototype.lua:824>\n",
+["counter"] = 390,
+},
+{
+["time"] = 1763829540,
+["logrizhi"] = "(*temporary) = Frame {\n totalOffsetY = 0\n regionData = <table> {\n }\n totalOffsetX = 35\n}\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:ClearAllPoints() >",
+["stack"] = "[C]: in function 'ClearAllPoints'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:54: in function 'SetAnchorPoint'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1355: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1516: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4689: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4649>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4814: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:1980: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:1972>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2464: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2457>\n",
+["counter"] = 35,
+},
+{
+["time"] = 1763829540,
+["logrizhi"] = "(*temporary) = Frame {\n point = \"BOTTOMLEFT\"\n totalOffsetY = 0\n regionData = <table> {\n }\n relativeFrame = Frame {\n }\n totalOffsetX = 35\n offsetX = 35\n relativePoint = \"BOTTOMLEFT\"\n offsetY = 0\n}\n(*temporary) = \"BOTTOMLEFT\"\n(*temporary) = Frame {\n controlledChildren = <table> {\n }\n subRegionEvents = <table> {\n }\n yOffset = 24\n anchorPoint = \"BOTTOMLEFT\"\n updatedChildren = <table> {\n }\n controlPoints = <table> {\n }\n suspended = 0\n growStates = <table> {\n }\n regionType = \"dynamicgroup\"\n relativePoint = \"CENTER\"\n sortedChildren = <table> {\n }\n alpha = 1\n sortStates = <table> {\n }\n currentHeight = 32\n currentWidth = 67.000061\n needToSort = false\n background = Frame {\n }\n needToReload = false\n needToPosition = false\n startFormatters = <table> {\n }\n values = <table> {\n }\n sortOn = <table> {\n }\n needToResize = false\n xOffsetAnim = 0\n yOffsetAnim = 0\n xOffset = -149\n relativeTo = Frame {\n }\n id = \"圣骑士 动态分组 左\"\n selfPoint = \"TOPLEFT\"\n finishFormatters = <table> {\n }\n toShow = true\n cloneId = \"\"\n xOffsetRelative = 0\n yOffsetRelative = 0\n}\n(*temporary) = \"BOTTOMLEFT\"\n(*temporary) = 35\n(*temporary) = 0\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:SetPoint() >",
+["stack"] = "[C]: in function 'SetPoint'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:60: in function 'SetAnchorPoint'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1355: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1516: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4689: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4649>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4814: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:1980: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:1972>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2464: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2457>\n",
+["counter"] = 35,
+},
+{
+["time"] = 1763829540,
+["logrizhi"] = "(*temporary) = Frame {\n point = \"BOTTOMLEFT\"\n totalOffsetY = 0\n regionData = <table> {\n }\n relativeFrame = Frame {\n }\n totalOffsetX = 35\n offsetX = 35\n relativePoint = \"BOTTOMLEFT\"\n offsetY = 0\n}\n(*temporary) = true\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:SetShown() >",
+["stack"] = "[C]: in function 'SetShown'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1369: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1516: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4689: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4649>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4814: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:1980: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:1972>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2464: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2457>\n",
+["counter"] = 33,
+},
+{
+["time"] = 1763829540,
+["logrizhi"] = "(*temporary) = Frame {\n point = \"BOTTOMLEFT\"\n totalOffsetY = 0\n regionData = <table> {\n }\n relativeFrame = Frame {\n }\n totalOffsetX = 35\n offsetX = 35\n relativePoint = \"BOTTOMLEFT\"\n offsetY = 0\n}\n(*temporary) = Frame {\n controlledChildren = <table> {\n }\n subRegionEvents = <table> {\n }\n yOffset = 24\n anchorPoint = \"BOTTOMLEFT\"\n updatedChildren = <table> {\n }\n controlPoints = <table> {\n }\n suspended = 0\n growStates = <table> {\n }\n regionType = \"dynamicgroup\"\n relativePoint = \"CENTER\"\n sortedChildren = <table> {\n }\n alpha = 1\n sortStates = <table> {\n }\n currentHeight = 32\n currentWidth = 67.000061\n needToSort = false\n background = Frame {\n }\n needToReload = false\n needToPosition = false\n startFormatters = <table> {\n }\n values = <table> {\n }\n sortOn = <table> {\n }\n needToResize = false\n xOffsetAnim = 0\n yOffsetAnim = 0\n xOffset = -149\n relativeTo = Frame {\n }\n id = \"圣骑士 动态分组 左\"\n selfPoint = \"TOPLEFT\"\n finishFormatters = <table> {\n }\n toShow = true\n cloneId = \"\"\n xOffsetRelative = 0\n yOffsetRelative = 0\n}\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< UNKNOWN() >",
+["stack"] = "[C]: ?\n[C]: in function 'SetParent'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1396: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1516: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4689: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4649>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4814: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:1980: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:1972>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2464: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2457>\n",
+["counter"] = 32,
+},
+{
+["time"] = 1763829540,
+["logrizhi"] = "(*temporary) = Frame {\n point = \"BOTTOMLEFT\"\n totalOffsetY = 0\n regionData = <table> {\n }\n relativeFrame = Frame {\n }\n totalOffsetX = 35\n offsetX = 35\n relativePoint = \"BOTTOMLEFT\"\n offsetY = 0\n}\n(*temporary) = 1\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:SetScale() >",
+["stack"] = "[C]: in function 'SetScale'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1397: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1516: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4689: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4649>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4814: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:1980: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:1972>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2464: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2457>\n",
+["counter"] = 31,
+},
+{
+["time"] = 1763829540,
+["logrizhi"] = "(*temporary) = Frame {\n iconSource = -1\n subRegionEvents = <table> {\n }\n yOffset = 0\n anchorPoint = \"BOTTOMLEFT\"\n icon = Texture {\n }\n keepAspectRatio = true\n soundHandle = 13924\n toShow = true\n xOffset = 0\n progressType = \"timed\"\n relativeTo = Frame {\n }\n PixelSnapDisabled = true\n cloneId = \"\"\n regionType = \"icon\"\n relativePoint = \"BOTTOMLEFT\"\n maxProgress = 60\n states = <table> {\n }\n zoom = 0.300000\n state = <table> {\n }\n color_b = 1\n color_r = 1\n displayIcon = \"\"\n values = <table> {\n }\n duration = 60\n expirationTime = 3009.248000\n cooldownEdge = false\n cooldownSwipe = true\n color_g = 1\n finishFormatters = <table> {\n }\n color_a = 1\n subRegions = <table> {\n }\n height = 32\n startFormatters = <table> {\n }\n inverseDirection = true\n currentCoord = <table> {\n }\n modRate = 1\n frameId = \"神圣恳求（可点击）\"\n texXOffset = 0\n xOffsetAnim = 0\n yOffsetAnim = 0\n soundOptions = <table> {\n }\n scaley = 1\n scalex = 1\n alpha = 1\n minProgress = 0\n id = \"神圣恳求（可点击）\"\n width = 32\n progressSource = <table> {\n }\n xOffsetRelative = 0\n yOffsetRelative = 0\n cooldown = WeakAurasCooldown神圣恳求（可点击） {\n }\n texYOffset = 0\n}\n(*temporary) = \"LOW\"\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:SetFrameStrata() >",
+["stack"] = "[C]: in function 'SetFrameStrata'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1403: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1516: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4689: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4649>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4814: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:1980: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:1972>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2464: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2457>\n",
+["counter"] = 31,
+},
+{
+["time"] = 1763829540,
+["logrizhi"] = "(*temporary) = Frame {\n iconSource = -1\n subRegionEvents = <table> {\n }\n yOffset = 0\n anchorPoint = \"BOTTOMLEFT\"\n icon = Texture {\n }\n keepAspectRatio = true\n soundHandle = 13924\n toShow = true\n xOffset = 0\n progressType = \"timed\"\n relativeTo = Frame {\n }\n PixelSnapDisabled = true\n cloneId = \"\"\n regionType = \"icon\"\n relativePoint = \"BOTTOMLEFT\"\n maxProgress = 60\n states = <table> {\n }\n zoom = 0.300000\n state = <table> {\n }\n color_b = 1\n color_r = 1\n displayIcon = \"\"\n values = <table> {\n }\n duration = 60\n expirationTime = 3009.248000\n cooldownEdge = false\n cooldownSwipe = true\n color_g = 1\n finishFormatters = <table> {\n }\n color_a = 1\n subRegions = <table> {\n }\n height = 32\n startFormatters = <table> {\n }\n inverseDirection = true\n currentCoord = <table> {\n }\n modRate = 1\n frameId = \"神圣恳求（可点击）\"\n texXOffset = 0\n xOffsetAnim = 0\n yOffsetAnim = 0\n soundOptions = <table> {\n }\n scaley = 1\n scalex = 1\n alpha = 1\n minProgress = 0\n id = \"神圣恳求（可点击）\"\n width = 32\n progressSource = <table> {\n }\n xOffsetRelative = 0\n yOffsetRelative = 0\n cooldown = WeakAurasCooldown神圣恳求（可点击） {\n }\n texYOffset = 0\n}\n(*temporary) = 85\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< SetFrameLevel() >",
+["stack"] = "[C]: ?\n[Interface/AddOns/WeakAuras/RegionTypes/Icon.lua]:285: in function 'SetFrameLevel'\n[Interface/AddOns/WeakAuras/SubRegionTypes/Background.lua]:17: in function 'SetFrameLevel'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4295: in function 'ApplyFrameLevel'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1407: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1516: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4689: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4649>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4814: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:1980: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:1972>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2464: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2457>\n",
+["counter"] = 30,
+},
+{
+["time"] = 1763821605,
+["logrizhi"] = "(*temporary) = Frame {\n controlledChildren = <table> {\n }\n subRegionEvents = <table> {\n }\n yOffset = 24\n anchorPoint = \"BOTTOMLEFT\"\n updatedChildren = <table> {\n }\n controlPoints = <table> {\n }\n suspended = 0\n growStates = <table> {\n }\n regionType = \"dynamicgroup\"\n relativePoint = \"CENTER\"\n sortedChildren = <table> {\n }\n alpha = 1\n sortStates = <table> {\n }\n currentHeight = 32\n currentWidth = 67.000061\n needToSort = false\n background = Frame {\n }\n needToReload = false\n needToPosition = false\n startFormatters = <table> {\n }\n values = <table> {\n }\n sortOn = <table> {\n }\n needToResize = false\n xOffsetAnim = 0\n yOffsetAnim = 0\n xOffset = -149\n relativeTo = Frame {\n }\n id = \"圣骑士 动态分组 左\"\n selfPoint = \"TOPLEFT\"\n finishFormatters = <table> {\n }\n toShow = true\n cloneId = \"\"\n xOffsetRelative = 0\n yOffsetRelative = 0\n}\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:Show() >",
+["stack"] = "[C]: in function 'Show'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1558: in function 'Resize'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1528: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4689: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4649>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4814: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:1980: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:1972>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2464: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2457>\n",
+["counter"] = 18,
+},
+{
+["time"] = 1763809865,
+["logrizhi"] = "(*temporary) = RXPItemFrame {\n BottomLeftCorner = Texture {\n }\n parent = <table> {\n }\n buttonList = <table> {\n }\n TopLeftCorner = Texture {\n }\n RightEdge = Texture {\n }\n PixelSnapDisabled = true\n backdropInfo = <table> {\n }\n Center = Texture {\n }\n TopEdge = Texture {\n }\n title = RXPItemFrame_title {\n }\n BottomEdge = Texture {\n }\n BottomRightCorner = Texture {\n }\n TopRightCorner = Texture {\n }\n LeftEdge = Texture {\n }\n}\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< RXPGuides >尝试调用保护功能< RXPItemFrame:StartMoving() >",
+["stack"] = "[C]: in function 'StartMoving'\n[Interface/AddOns/RXPGuides/ActiveItemFrame.lua]:256: in function <Interface/AddOns/RXPGuides/ActiveItemFrame.lua:254>\n",
+["counter"] = 2,
+},
+{
+["time"] = 1763809865,
+["logrizhi"] = "(*temporary) = RXPItemFrame {\n BottomLeftCorner = Texture {\n }\n parent = <table> {\n }\n buttonList = <table> {\n }\n TopLeftCorner = Texture {\n }\n RightEdge = Texture {\n }\n PixelSnapDisabled = true\n backdropInfo = <table> {\n }\n Center = Texture {\n }\n TopEdge = Texture {\n }\n title = RXPItemFrame_title {\n }\n BottomEdge = Texture {\n }\n BottomRightCorner = Texture {\n }\n TopRightCorner = Texture {\n }\n LeftEdge = Texture {\n }\n}\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< RXPGuides >尝试调用保护功能< RXPItemFrame:StopMovingOrSizing() >",
+["stack"] = "[C]: in function 'StopMovingOrSizing'\n[Interface/AddOns/RXPGuides/ActiveItemFrame.lua]:259: in function <Interface/AddOns/RXPGuides/ActiveItemFrame.lua:258>\n",
+["counter"] = 2,
+},
+{
+["time"] = 1763815176,
+["logrizhi"] = "(*temporary) = Frame {\n yOffset = 0\n anchorPoint = \"LEFT\"\n remaining = Infinite\n rotation = 0\n PixelSnapDisabled = true\n cloneId = \"\"\n regionType = \"texture\"\n relativePoint = \"LEFT\"\n texture = Texture {\n }\n color_b = 1\n scaley = 1\n alpha = 0.700000\n color_r = 1\n effectiveRotation = 0\n duration = 0\n expirationTime = Infinite\n color_g = 1\n progressType = \"timed\"\n inverse = false\n paused = true\n subRegions = <table> {\n }\n height = 20\n startFormatters = <table> {\n }\n states = <table> {\n }\n state = <table> {\n }\n subRegionEvents = <table> {\n }\n mirror = false\n yOffsetAnim = 0\n color_a = 0\n values = <table> {\n }\n xOffset = 0\n relativeTo = Frame {\n }\n finishFormatters = <table> {\n }\n id = \"DBM距离监控开启\"\n toShow = true\n width = 20\n scalex = 1\n xOffsetRelative = 0\n yOffsetRelative = 0\n xOffsetAnim = 0\n}\n(*temporary) = 69\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:SetFrameLevel() >",
+["stack"] = "[C]: in function 'SetFrameLevel'\n[Interface/AddOns/WeakAuras/SubRegionTypes/Background.lua]:17: in function 'SetFrameLevel'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4295: in function 'ApplyFrameLevel'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1407: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1516: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/Animations.lua]:170: in function <Interface/AddOns/WeakAuras/Animations.lua:162>\n",
+["counter"] = 1,
+},
+},
+["ErrorTishi"] = false,
+},
+["Hardcore"] = {
+["CVars"] = {
+["NameMinV"] = 0,
+["NameMaxV"] = 16,
+["NameMaxSelect"] = 4,
+["Open"] = true,
+["NameMinSelect"] = 2,
+},
+["Deaths"] = {
+["Tgminlevel"] = 20,
+["Open"] = true,
+["BigTgminlevel"] = 50,
 ["Player"] = {
 },
-["savedays"] = 1,
-["maxlevel"] = 30,
-["minlevel"] = 1,
-["level"] = {
-},
-["Open"] = true,
+["VoiceID"] = 3,
+["UIScale"] = 1,
 ["List"] = {
 },
+["level"] = {
 },
-["CombatPlus"] = {
-["AttackBar"] = {
-["Showshuzhi"] = false,
-["Scale"] = 1,
-["Xpianyi"] = 0,
-["Open"] = false,
-["Ypianyi"] = 14,
-},
-["ammotips"] = true,
-["markerW"] = {
-["BGHide"] = false,
-["Lock"] = false,
-["Scale"] = 1,
-["Open"] = true,
-["AutoShow"] = true,
-},
-["markerR"] = {
-["BGHide"] = true,
-["Lock"] = true,
-["NoTarget"] = false,
-["Scale"] = 0.8999999761581421,
-["AutoShow"] = false,
-["Open"] = true,
-["NoGroup"] = false,
-},
-["PetHappiness"] = true,
-["HPMPBar"] = {
-["CombatShow"] = true,
-["FontSize"] = 10,
-["MpShow"] = true,
-["Scale"] = 1,
-["Xpianyi"] = 0,
-["Ypianyi"] = -80,
-["HpShow"] = true,
-["Showshuzhi"] = true,
-["FuStyle"] = {
-},
-["Open"] = false,
-["Fuziyuan"] = true,
-["BarH"] = 12,
-["BarTex"] = 1,
-["BarW"] = 150,
-},
-["Submerged"] = true,
-},
-["FramePlus"] = {
-["Merchant"] = false,
-["BlizzardUI_Move"] = true,
-["BlizzardUI_Move_Save"] = true,
-["UIWidget"] = true,
-["Skill"] = false,
-["Character_Durability"] = true,
-["Character_ItemList"] = false,
-["Loot"] = false,
-["UIWidgetPointY"] = -70,
-["Character_ItemLevel"] = true,
-["Quest"] = true,
-["Character_ItemColor"] = true,
-["RollScale"] = 1,
-["LootMasterErr"] = true,
-["Talent"] = true,
-["Macro"] = true,
-["UIWidgetPointX"] = 0,
-["AddonStatus"] = {
-},
-["Friends"] = true,
-["Roll"] = false,
-["Skill_QKbut"] = false,
-["BuffTime"] = true,
-["Character_Shuxing"] = false,
-["Tracking"] = true,
-["AddonList"] = true,
-},
-["Pig_UI"] = {
-["PIG_QuickButUI"] = {
-"BOTTOMRIGHT",
-"BOTTOMRIGHT",
--234.03,
-345.17,
-},
-["Pig_OptionsUI"] = {
-"CENTER",
-"CENTER",
--166.1,
--16,
-},
-["PIGmarkerR_UI"] = {
-"TOP",
-"TOP",
-0.85,
--35.62,
-},
-["PIG_markerR"] = {
-"TOP",
-"TOP",
--0.85,
--35.62,
-},
-["QuickButUI"] = {
-"BOTTOM",
-"BOTTOM",
-304.59,
-100.26,
+["savedays"] = 1,
+["tipsmap"] = false,
 },
 },
 }
