@@ -31,7 +31,7 @@ local MainMenuMicroButton_SetNormal = MainMenuMicroButton_SetNormal
 
 local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local StoreEnabled = C_StorePublic.IsEnabled
-local GetZonePVPInfo = (C_PvP and C_PvP.GetZonePVPInfo) or GetZonePVPInfo
+local GetZonePVPInfo = C_PvP.GetZonePVPInfo or GetZonePVPInfo
 
 local PlayerSpellsUtil = _G.PlayerSpellsUtil
 local WorldMapFrame = _G.WorldMapFrame
@@ -57,11 +57,11 @@ local menuList = {
 	{text = _G.GUILD, microOffset = 'GuildMicroButton', func = function() _G.ToggleGuildFrame() end },
 }
 
-if (E.Cata or E.Wrath) and E.mylevel >= _G.SHOW_PVP_LEVEL then
+if (E.Mists or E.Wrath) and E.mylevel >= _G.SHOW_PVP_LEVEL then
 	tinsert(menuList, {text = _G.PLAYER_V_PLAYER, microOffset = 'PVPMicroButton', func = function() _G.TogglePVPFrame() end, })
 end
 
-if E.Retail or E.Cata or E.Wrath then
+if E.Retail or E.Mists or E.Wrath then
 	tinsert(menuList, {text = _G.COLLECTIONS, microOffset = 'CollectionsMicroButton', func = function() _G.ToggleCollectionsJournal() end, icon = E.Media.Textures.GoldCoins }) -- Interface\ICONS\INV_Misc_Coin_01
 	tinsert(menuList, {text = _G.ACHIEVEMENT_BUTTON, microOffset = 'AchievementMicroButton', func = function() _G.ToggleAchievementFrame() end })
 	tinsert(menuList, {text = _G.LFG_TITLE, microOffset = E.Retail and 'LFDMicroButton' or 'LFGMicroButton', func = function() if E.Retail then _G.ToggleLFDParentFrame() else _G.PVEFrame_ToggleFrame() end end })
@@ -171,7 +171,7 @@ function M:HandleTrackingButton()
 
 		if _G.MiniMapTrackingIcon then
 			_G.MiniMapTrackingIcon:SetDrawLayer('ARTWORK')
-			_G.MiniMapTrackingIcon:SetTexCoord(unpack(E.TexCoords))
+			_G.MiniMapTrackingIcon:SetTexCoords()
 			_G.MiniMapTrackingIcon:SetInside()
 		end
 	end
@@ -431,7 +431,7 @@ function M:UpdateIcons()
 				gameTime:ClearAllPoints()
 				gameTime:Point(position, Minimap, xOffset, yOffset)
 				gameTime:SetParent(Minimap)
-				gameTime:SetFrameLevel(_G.MinimapBackdrop:GetFrameLevel() + 2)
+				gameTime:OffsetFrameLevel(2, _G.MinimapBackdrop)
 				M:SetIconParent(gameTime)
 				M:SetScale(gameTime, scale)
 			end
@@ -474,7 +474,7 @@ function M:UpdateIcons()
 
 			if _G.BattlegroundShine then _G.BattlegroundShine:Hide() end
 			if _G.MiniMapBattlefieldBorder then _G.MiniMapBattlefieldBorder:Hide() end
-			if _G.MiniMapBattlefieldIcon then _G.MiniMapBattlefieldIcon:SetTexCoord(unpack(E.TexCoords)) end
+			if _G.MiniMapBattlefieldIcon then _G.MiniMapBattlefieldIcon:SetTexCoords() end
 		end
 
 		if difficulty then

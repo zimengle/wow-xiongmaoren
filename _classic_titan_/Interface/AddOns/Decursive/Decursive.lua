@@ -1,7 +1,7 @@
 --[[
     This file is part of Decursive.
 
-    Decursive (v 2.7.27) add-on for World of Warcraft UI
+    Decursive (v 巴尼时光服修复版 v25112401) add-on for World of Warcraft UI
     Copyright (C) 2006-2025 John Wellesz (Decursive AT 2072productions.com) ( http://www.2072productions.com/to/decursive.php )
 
     Decursive is free software: you can redistribute it and/or modify
@@ -938,8 +938,6 @@ do
     end --}}}
 end
 
-
-
 function D:CheckUnitStealth(unit)
     if self:CheckUnitForBuffs(unit, DC.IS_STEALTH_BUFF) then
         --      self:Debug("Sealth found !");
@@ -949,8 +947,6 @@ function D:CheckUnitStealth(unit)
 end
 -- }}}
 
-
-
-T._LoadedFiles["Decursive.lua"] = "2.7.27";
+T._LoadedFiles["Decursive.lua"] = "巴尼时光服修复版 v25112401";
 
 -- Sin

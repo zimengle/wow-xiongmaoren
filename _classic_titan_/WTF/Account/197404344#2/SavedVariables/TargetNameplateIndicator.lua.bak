@@ -51,6 +51,7 @@ TargetNameplateIndicatorDB = {
 ["露露缇娅灬 - 时光I"] = "Default",
 ["克莉丝缇娜 - 曼多基尔"] = "Default",
 ["一颗露露糖 - 维希度斯"] = "Default",
+["小米军儿 - 时光IV"] = "Default",
 ["露露缇娅丶old1753612638398old1751360463223old1750920545993old1750181292492old1750051111960old1749920551342old1749458602838old1748599986654 - 霜语"] = "Default",
 ["露露缇娅丶 - 时光III"] = "Default",
 ["露露緹婭 - 札里克"] = "Default",

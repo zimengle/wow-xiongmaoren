@@ -12,13 +12,17 @@ function S:SkinPVPFrame()
 	S:HandleCloseButton(_G.PVPParentFrameCloseButton)
 	_G.PVPParentFrameCloseButton:Point('TOPRIGHT', -26, -5)
 
+	S:HandleFrame(_G.PVPHonor, true, nil, 0, 0, 5, 40)
+	_G.PVPFrameArenaLabel:PointXY(0, -10)
+
 	for i = 1, MAX_ARENA_TEAMS do
 		local pvpTeam = _G['PVPTeam'..i]
 
-		pvpTeam:StripTextures()
-		pvpTeam:CreateBackdrop()
-		pvpTeam.backdrop:Point('TOPLEFT', 9, -4)
-		pvpTeam.backdrop:Point('BOTTOMRIGHT', -24, 3)
+		S:HandleFrame(pvpTeam, true, nil, 9, -4, -24, 3)
+		--pvpTeam:StripTextures()
+		--pvpTeam:CreateBackdrop()
+		--pvpTeam.backdrop:Point('TOPLEFT', 9, -4)
+		--pvpTeam.backdrop:Point('BOTTOMRIGHT', -24, 3)
 
 		pvpTeam:HookScript('OnEnter', S.SetModifiedBackdrop)
 		pvpTeam:HookScript('OnLeave', S.SetOriginalBackdrop)

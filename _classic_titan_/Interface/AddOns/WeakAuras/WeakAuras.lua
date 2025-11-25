@@ -3,7 +3,7 @@ local AddonName = ...
 ---@class Private
 local Private = select(2, ...)
 
-local internalVersion = 73
+local internalVersion = 87
 
 -- Lua APIs
 local insert = table.insert
@@ -47,6 +47,7 @@ Private.watched_trigger_events = {}
 --- @field Fire fun(self: callbacks, event: string, ... : any)
 Private.callbacks = {}
 Private.callbacks.events = {}
+internalVersion = 100
 
 function Private.callbacks:RegisterCallback(event, handler)
   self.events[event] = self.events[event] or {}
@@ -61,6 +62,7 @@ function Private.callbacks:Fire(event, ...)
   end
 end
 
+-- Barney
 function WeakAurasTimers:ScheduleTimerFixed(func, delay, ...)
   if (delay < Private.maxTimerDuration) then
     if delay + GetTime() > maxUpTime then
@@ -2410,9 +2412,9 @@ StaticPopupDialogs["WEAKAURAS_CONFIRM_REPAIR"] = {
     local ManualRepairText = L["Are you sure you want to run the |cffff0000EXPERIMENTAL|r repair tool?\nThis will overwrite any changes you have made since the last database upgrade.\nLast upgrade: %s"]
 
     if self.data.reason == "user" then
-      self.text:SetText(ManualRepairText:format(LastUpgrade()))
+      self.Text:SetText(ManualRepairText:format(LastUpgrade()))
     else
-      self.text:SetText(AutomaticRepairText:format(LastUpgrade()))
+      self.Text:SetText(AutomaticRepairText:format(LastUpgrade()))
     end
   end,
   OnCancel = function(self)
@@ -2427,6 +2429,7 @@ StaticPopupDialogs["WEAKAURAS_CONFIRM_REPAIR"] = {
 }
 
 function Private.ValidateUniqueDataIds(silent)
+  -- Barney
   -- ensure that there are no duplicated uids anywhere in the database
   local seenUIDs = {}
   for _, data in pairs(db.displays) do
@@ -5826,10 +5829,6 @@ function Private.AnchorFrame(data, region, parent, force)
   else
     local anchorParent = GetAnchorFrame(data, region, parent);
     if not anchorParent then return end
-    if InCombatLockdown() and not force then
-      postponeAnchor(data.id);
-      return;
-    end
     if (data.anchorFrameParent or data.anchorFrameParent == nil
         or data.anchorFrameType == "SCREEN" or data.anchorFrameType == "UIPARENT" or data.anchorFrameType == "MOUSE") then
       xpcall(region.SetParent, Private.GetErrorHandlerId(data.id, L["Anchoring"]), region, anchorParent);

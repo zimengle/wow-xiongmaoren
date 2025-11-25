@@ -4,7 +4,7 @@ local Create = addonTable.Create
 local FontUrl=Create.FontUrl
 local PIGSetFont=Create.PIGSetFont
 -------------------
-function Create.PIGScrollFrame(fujik,Point,WH,BarW)
+function Create.PIGScrollFrame_old(fujik,Point,WH,BarW)
 	local BarW=BarW or 16
 	local Scroll = CreateFrame("ScrollFrame",nil,fujik); 
 	if Point then
@@ -15,6 +15,7 @@ function Create.PIGScrollFrame(fujik,Point,WH,BarW)
 		Scroll:SetSize(WH[1],WH[2] or WH[1])
 	end
 	Scroll.ScrollChildFrame = CreateFrame("Frame", nil, Scroll);
+	Scroll:SetScrollChild(Scroll.ScrollChildFrame)
 	Scroll.ScrollBar = CreateFrame("Slider", nil, Scroll)
 	Scroll.ScrollBar:SetPoint("TOPLEFT",Scroll,"TOPRIGHT",0,-BarW);
 	Scroll.ScrollBar:SetPoint("BOTTOMLEFT",Scroll,"BOTTOMRIGHT",0,BarW);
@@ -85,7 +86,15 @@ function Create.PIGScrollFrame(fujik,Point,WH,BarW)
 	Scroll.ScrollBar:SetScript("OnValueChanged", function(self, value)
 		UIPanelScrollBar_OnValueChanged(self, value)
 	end)
-	UIPanelScrollFrame_OnLoad(Scroll)
+	Scroll:SetScript("OnMouseWheel", function(self, delta)
+		ScrollFrameTemplate_OnMouseWheel(self, delta);
+	end)
+	-- Scroll:SetScript("OnScrollRangeChanged", function(self, xrange, yrange)
+	-- 	ScrollFrame_OnScrollRangeChanged(self, xrange, yrange)
+	-- end)
+	-- Scroll:SetScript("OnVerticalScroll", function(self, offset)
+	-- 	ScrollFrame_OnVerticalScroll(self, offset)
+	-- end)
 	function Scroll:UpdateThumbTexture(numItems, numToDisplay, buttonHeight)
 	    local scrollBar = self.ScrollBar or self.scrollBar
 	    if not scrollBar then return end
@@ -104,14 +113,15 @@ function Create.PIGScrollFrame(fujik,Point,WH,BarW)
 	    thumb:SetHeight(thumbHeight)
 	end
 	Scroll.ScrollBar.ThumbTexture:SetHeight(50)
-	Scroll:SetScript("OnScrollRangeChanged", function(self, xrange, yrange)
-		ScrollFrame_OnScrollRangeChanged(self, xrange, yrange)
-	end)
-	Scroll:SetScript("OnVerticalScroll", function(self, offset)
-		ScrollFrame_OnVerticalScroll(self, offset)
-	end)
-	Scroll:SetScript("OnMouseWheel", function(self, delta)
-		ScrollFrameTemplate_OnMouseWheel(self, delta);
-	end)
+	function Scroll:GetScrollFrameOffset(TotalNum, hangmaxnum, hangeH)
+	    FauxScrollFrame_Update(self, TotalNum, hangmaxnum, hangeH)
+	    self:UpdateThumbTexture(TotalNum, hangmaxnum, hangeH)
+	    local min, max = self.ScrollBar:GetMinMaxValues();
+	    local offset=self.ScrollBar:GetValue()
+		self.ScrollBar.ScrollUpButton:SetEnabled(offset ~= 0);
+		self.ScrollBar.ScrollDownButton:SetEnabled((offset - max) ~= 0);
+	    return FauxScrollFrame_GetOffset(self)
+	end
+	UIPanelScrollFrame_OnLoad(Scroll)
 	return Scroll
 end

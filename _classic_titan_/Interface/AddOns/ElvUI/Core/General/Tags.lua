@@ -7,9 +7,9 @@ local Translit = E.Libs.Translit
 local translitMark = '!'
 
 local _G = _G
+local abs, ipairs, pairs, floor, ceil = abs, ipairs, pairs, floor, ceil
 local next, type, gmatch, gsub, format = next, type, gmatch, gsub, format
-local ipairs, pairs, wipe, floor, ceil = ipairs, pairs, wipe, floor, ceil
-local strfind, strmatch, strlower, strsplit = strfind, strmatch, strlower, strsplit
+local strsub, strfind, strmatch, strlower, strsplit = strsub, strfind, strmatch, strlower, strsplit
 local utf8lower, utf8sub, utf8len = string.utf8lower, string.utf8sub, string.utf8len
 
 local GetCreatureDifficultyColor = GetCreatureDifficultyColor
@@ -34,20 +34,22 @@ local QuestDifficultyColors = QuestDifficultyColors
 local UnitBattlePetLevel = UnitBattlePetLevel
 local UnitClassification = UnitClassification
 local UnitDetailedThreatSituation = UnitDetailedThreatSituation
-local UnitThreatPercentageOfLead = UnitThreatPercentageOfLead
 local UnitExists = UnitExists
 local UnitFactionGroup = UnitFactionGroup
 local UnitGetIncomingHeals = UnitGetIncomingHeals
 local UnitGetTotalAbsorbs = UnitGetTotalAbsorbs
 local UnitGetTotalHealAbsorbs = UnitGetTotalHealAbsorbs
+local UnitGroupRolesAssigned = UnitGroupRolesAssigned
 local UnitGUID = UnitGUID
 local UnitHealthMax = UnitHealthMax
+local UnitInPartyIsAI = UnitInPartyIsAI
 local UnitIsAFK = UnitIsAFK
 local UnitIsBattlePetCompanion = UnitIsBattlePetCompanion
 local UnitIsDND = UnitIsDND
 local UnitIsFeignDeath = UnitIsFeignDeath
 local UnitIsPlayer = UnitIsPlayer
 local UnitIsPVP = UnitIsPVP
+local UnitHonorLevel = UnitHonorLevel
 local UnitIsPVPFreeForAll = UnitIsPVPFreeForAll
 local UnitIsUnit = UnitIsUnit
 local UnitIsWildBattlePet = UnitIsWildBattlePet
@@ -57,11 +59,11 @@ local UnitPowerType = UnitPowerType
 local UnitPVPName = UnitPVPName
 local UnitPVPRank = UnitPVPRank
 local UnitReaction = UnitReaction
-local UnitSex = UnitSex
 local UnitStagger = UnitStagger
-local UnitInPartyIsAI = UnitInPartyIsAI
+local UnitThreatPercentageOfLead = UnitThreatPercentageOfLead
 
 local GetUnitPowerBarTextureInfo = GetUnitPowerBarTextureInfo
+local GetPlayerAuraBySpellID = C_UnitAuras.GetPlayerAuraBySpellID
 local C_PetJournal_GetPetTeamAverageLevel = C_PetJournal and C_PetJournal.GetPetTeamAverageLevel
 local GetCVarBool = C_CVar.GetCVarBool
 
@@ -71,7 +73,8 @@ local POWERTYPE_MANA = Enum.PowerType.Mana
 local POWERTYPE_COMBOPOINTS = Enum.PowerType.ComboPoints
 local POWERTYPE_ALTERNATE = Enum.PowerType.Alternate
 
-local SPEC_MONK_BREWMASTER = SPEC_MONK_BREWMASTER
+local SPEC_PRIEST_SHADOW = SPEC_PRIEST_SHADOW or 3
+local SPEC_MONK_BREWMASTER = SPEC_MONK_BREWMASTER or 1
 local PVP = PVP
 
 -- GLOBALS: Hex, _TAGS, _COLORS -- added by oUF
@@ -79,7 +82,7 @@ local PVP = PVP
 -- GLOBALS: GetTitleNPC, Abbrev, GetClassPower, GetQuestData, UnitEffectiveLevel, NameHealthColor -- custom ones we made
 
 local RefreshNewTags -- will turn true at EOF
-function E:AddTag(tagName, eventsOrSeconds, func, block)
+function E:AddTag(tagName, eventsOrSeconds, func, block, spells)
 	if block then return end -- easy killer for tags
 
 	if type(eventsOrSeconds) == 'number' then
@@ -88,7 +91,20 @@ function E:AddTag(tagName, eventsOrSeconds, func, block)
 		Tags.Events[tagName] = (E.Classic and gsub(eventsOrSeconds, 'UNIT_HEALTH([^%s_]?)', 'UNIT_HEALTH_FREQUENT%1')) or gsub(eventsOrSeconds, 'UNIT_HEALTH_FREQUENT', 'UNIT_HEALTH')
 	end
 
+	-- we need to trigger the newindex on oUF side to set the env
+	if Tags.Methods[tagName] then
+		Tags.Methods[tagName] = nil
+	end
+
+	-- when we set these the env will be from oUF
 	Tags.Methods[tagName] = func
+
+	-- if it uses UNIT_AURA we block spells unless allowed
+	if spells then
+		for spellID, allow in next, spells do
+			Tags.Spells[spellID] = allow
+		end
+	end
 
 	if RefreshNewTags then
 		Tags:RefreshEvents(tagName)
@@ -98,9 +114,9 @@ end
 
 function E:CallTag(tag, ...)
 	local func = ElvUF.Tags.Methods[tag]
-	if func then
-		return func(...)
-	end
+	if not func then return end
+
+	return func(...)
 end
 
 function E:TagUpdateRate(second)
@@ -121,7 +137,7 @@ Tags.SharedEvents.QUEST_LOG_UPDATE = true
 ------------------------------------------------------------------------
 
 Tags.Env.UnitEffectiveLevel = function(unit)
-	if E.Retail or E.Cata or E.Wrath then
+	if E.Retail or E.Mists or E.Wrath then
 		return _G.UnitEffectiveLevel(unit)
 	else
 		return UnitLevel(unit)
@@ -129,39 +145,78 @@ Tags.Env.UnitEffectiveLevel = function(unit)
 end
 
 Tags.Env.Abbrev = function(name)
-	local letters, lastWord = '', strmatch(name, '.+%s(.+)$')
+	local letters, text = '', gsub(name, '%s<.+>$', '') -- clean titles
+	local lastWord = strmatch(text, '.+%s(.+)$')
 	if lastWord then
-		for word in gmatch(name, '.-%s') do
+		for word in gmatch(text, '.-%s') do
 			local firstLetter = utf8sub(gsub(word, '^[%s%p]*', ''), 1, 1)
 			if firstLetter ~= utf8lower(firstLetter) then
 				letters = format('%s%s. ', letters, firstLetter)
 			end
 		end
+
 		name = format('%s%s', letters, lastWord)
 	end
+
 	return name
 end
 
--- percentages at which the bar should change color
 local STAGGER_YELLOW_TRANSITION = STAGGER_YELLOW_TRANSITION or 0.3
 local STAGGER_RED_TRANSITION = STAGGER_RED_TRANSITION or 0.6
--- table indices of bar colors
 local STAGGER_GREEN_INDEX = STAGGER_GREEN_INDEX or 1
 local STAGGER_YELLOW_INDEX = STAGGER_YELLOW_INDEX or 2
 local STAGGER_RED_INDEX = STAGGER_RED_INDEX or 3
 
+local SPEC_MAGE_ARCANE = SPEC_MAGE_ARCANE or 1
+local SPEC_MAGE_FROST = SPEC_MAGE_FROST or 3
+local SPEC_SHAMAN_ENHANCEMENT = SPEC_SHAMAN_ENHANCEMENT or 2
+local SPEC_WARLOCK_DEMONOLOGY = SPEC_WARLOCK_DEMONOLOGY or 2
+local SPEC_WARLOCK_DESTRUCTION = SPEC_WARLOCK_DESTRUCTION or 3
+
+local POWERTYPE_SHADOW_ORBS = Enum.PowerType.ShadowOrbs or 28
+local POWERTYPE_ARCANE_CHARGES = Enum.PowerType.ArcaneCharges or 16
+local POWERTYPE_BURNING_EMBERS = Enum.PowerType.BurningEmbers or 14
+local POWERTYPE_DEMONIC_FURY = Enum.PowerType.DemonicFury or 15
+local POWERTYPE_SOUL_SHARDS = Enum.PowerType.SoulShards or 7
+
+-- these are not real class powers
+local POWERTYPE_ICICLES = -1
+local POWERTYPE_MAELSTROM = -2
+
+local SPELL_FROST_ICICLES = 205473
+local SPELL_ARCANE_CHARGE = 36032
+local SPELL_MAELSTROM = 344179
+
 local ClassPowers = {
-	MONK		= Enum.PowerType.Chi,
-	MAGE		= Enum.PowerType.ArcaneCharges,
-	PALADIN		= Enum.PowerType.HolyPower,
-	DEATHKNIGHT	= Enum.PowerType.Runes,
-	WARLOCK		= Enum.PowerType.SoulShards
+	MONK		= Enum.PowerType.Chi or 12,
+	PALADIN		= Enum.PowerType.HolyPower or 9,
+	DEATHKNIGHT	= Enum.PowerType.Runes or 5,
+	WARLOCK		= POWERTYPE_SOUL_SHARDS
 }
+
+local ClassPowerMax = {
+	[POWERTYPE_MAELSTROM] = 10,
+	[POWERTYPE_ICICLES] = 5,
+}
+
+local function CurrentApplications(spellID, filter) -- same as in oUF
+	local info = GetPlayerAuraBySpellID(spellID)
+	local checkFilter = info and (not filter or (filter == 'HELPFUL' and info.isHelpful) or (filter == 'HARMFUL' and info.isHarmful))
+	return checkFilter and info.applications or 0
+end
+
+local function ClassPowerSpecial(unit, spellID, powerType, color, filter)
+	local current, r, g, b = CurrentApplications(spellID, filter)
+	local maximum = ClassPowerMax[powerType] or UnitPowerMax(unit, powerType)
+
+	if color then r, g, b = color.r, color.g, color.b end
+	return current or 0, maximum or 0, r or 1, g or 1, b or 1
+end
 
 Tags.Env.GetClassPower = function(unit)
 	local isme = UnitIsUnit(unit, 'player')
 
-	local spec, unitClass, Min, Max, r, g, b
+	local spec, unitClass, barType, Min, Max
 	if isme then
 		spec = E.myspec
 		unitClass = E.myclass
@@ -173,8 +228,16 @@ Tags.Env.GetClassPower = function(unit)
 		end
 	end
 
-	-- try stagger
-	local monk = unitClass == 'MONK'
+	-- handle the fake powers (these use UNIT_AURA)
+	if E.Mists and unitClass == 'MAGE' and spec == SPEC_MAGE_ARCANE then
+		return ClassPowerSpecial(unit, SPELL_ARCANE_CHARGE, POWERTYPE_ARCANE_CHARGES, ElvUF.colors.ClassBars.MAGE.ARCANE_CHARGES, 'HARMFUL')
+	elseif E.Retail and unitClass == 'MAGE' and spec == SPEC_MAGE_FROST then
+		return ClassPowerSpecial(unit, SPELL_FROST_ICICLES, POWERTYPE_ICICLES, ElvUF.colors.ClassBars.MAGE.FROST_ICICLES, 'HELPFUL')
+	elseif E.Retail and unitClass == 'SHAMAN' and spec == SPEC_SHAMAN_ENHANCEMENT then
+		return ClassPowerSpecial(unit, SPELL_MAELSTROM, POWERTYPE_MAELSTROM, ElvUF.colors.ClassBars.SHAMAN.MAELSTROM, 'HELPFUL')
+	end
+
+	local monk = unitClass == 'MONK' -- checking brewmaster
 	if monk and spec == SPEC_MONK_BREWMASTER then
 		Min = UnitStagger(unit) or 0
 		Max = UnitHealthMax(unit)
@@ -182,11 +245,24 @@ Tags.Env.GetClassPower = function(unit)
 		local staggerRatio = Min / Max
 		local staggerIndex = (staggerRatio >= STAGGER_RED_TRANSITION and STAGGER_RED_INDEX) or (staggerRatio >= STAGGER_YELLOW_TRANSITION and STAGGER_YELLOW_INDEX) or STAGGER_GREEN_INDEX
 		local color = ElvUF.colors.power.STAGGER[staggerIndex]
-		r, g, b = color.r, color.g, color.b
+		local r, g, b = color.r, color.g, color.b
+
+		return Min or 0, Max or 0, r or 1, g or 1, b or 1
 	end
 
 	-- try special powers or combo points
-	local barType = not r and ClassPowers[unitClass]
+	local mistWarlock = E.Mists and unitClass == 'WARLOCK'
+	if mistWarlock then -- little gremlins
+		barType = (spec == SPEC_WARLOCK_DEMONOLOGY and POWERTYPE_DEMONIC_FURY) or (spec == SPEC_WARLOCK_DESTRUCTION and POWERTYPE_BURNING_EMBERS) or POWERTYPE_SOUL_SHARDS
+	elseif E.Mists and unitClass == 'PRIEST' then -- only shadow orbs
+		barType = spec == SPEC_PRIEST_SHADOW and POWERTYPE_SHADOW_ORBS
+	elseif unitClass == 'MAGE' then
+		barType = spec == SPEC_MAGE_ARCANE and POWERTYPE_ARCANE_CHARGES
+	else
+		barType = ClassPowers[unitClass]
+	end
+
+	local r, g, b
 	if barType then
 		local dk = unitClass == 'DEATHKNIGHT'
 		Min = (dk and 0) or UnitPower(unit, barType)
@@ -201,20 +277,17 @@ Tags.Env.GetClassPower = function(unit)
 			end
 		end
 
-		if Min > 0 then
-			local power = ElvUF.colors.ClassBars[unitClass]
-			local color = (monk and power[Min]) or (dk and ((E.Cata or E.Wrath) and ElvUF.colors.class.DEATHKNIGHT or power[spec ~= 5 and spec or 1])) or power
-			r, g, b = color.r, color.g, color.b
-		end
-	elseif not r then
+		local power = ElvUF.colors.ClassBars[unitClass]
+		local warlockColor = (barType == POWERTYPE_BURNING_EMBERS and power.BURNING_EMBERS[Min]) or (barType == POWERTYPE_DEMONIC_FURY and power.DEMONIC_FURY) or power.SOUL_SHARDS
+		local color = (mistWarlock and warlockColor) or (monk and power[Min]) or (dk and ((E.Mists or E.Wrath) and ElvUF.colors.class.DEATHKNIGHT or power[spec ~= 5 and spec or 1])) or power
+		r, g, b = color.r, color.g, color.b
+	else
 		Min = UnitPower(unit, POWERTYPE_COMBOPOINTS)
 		Max = UnitPowerMax(unit, POWERTYPE_COMBOPOINTS)
 
-		if Min > 0 then
-			local combo = ElvUF.colors.ComboPoints
-			local c1, c2, c3 = combo[1], combo[2], combo[3]
-			r, g, b = ElvUF:ColorGradient(Min, Max, c1.r, c1.g, c1.b, c2.r, c2.g, c2.b, c3.r, c3.g, c3.b)
-		end
+		local combo = ElvUF.colors.ComboPoints
+		local c1, c2, c3 = combo[1], combo[2], combo[3]
+		r, g, b = ElvUF:ColorGradient(Min, Max, c1.r, c1.g, c1.b, c2.r, c2.g, c2.b, c3.r, c3.g, c3.b)
 	end
 
 	-- try additional mana
@@ -233,6 +306,18 @@ end
 ------------------------------------------------------------------------
 --	Looping
 ------------------------------------------------------------------------
+
+local classSpecificAura = { MAGE = E.Retail or E.Mists, SHAMAN = E.Retail, MONK = true }
+local classSpecificEvents = (E.myclass == 'DEATHKNIGHT' and 'RUNE_POWER_UPDATE ') or (classSpecificAura[E.myclass] and 'UNIT_AURA ') or ''
+local classSpecificMonk = not E.Classic and E.myclass == 'MONK'
+local classSpecificSpells = { -- stagger IDs also in oUF stagger element
+	[124275] = classSpecificMonk or nil, -- [GREEN]  Light Stagger
+	[124274] = classSpecificMonk or nil, -- [YELLOW] Moderate Stagger
+	[124273] = classSpecificMonk or nil, -- [RED]    Heavy Stagger
+	[SPELL_ARCANE_CHARGE] = (E.Mists and E.myclass == 'MAGE') or nil,
+	[SPELL_FROST_ICICLES] = (E.Retail and E.myclass == 'MAGE') or nil,
+	[SPELL_MAELSTROM] = (E.Retail and E.myclass == 'SHAMAN') or nil
+}
 
 for textFormat in pairs(E.GetFormattedTextStyles) do
 	local tagFormat = strlower(gsub(textFormat, '_', '-'))
@@ -257,6 +342,17 @@ for textFormat in pairs(E.GetFormattedTextStyles) do
 		end
 	end)
 
+	E:AddTag(format('power:%s:healeronly', tagFormat), 'UNIT_DISPLAYPOWER UNIT_POWER_FREQUENT UNIT_MAXPOWER', function(unit)
+		local role = UnitGroupRolesAssigned(unit)
+		if role ~= 'HEALER' then return end
+
+		local powerType = UnitPowerType(unit)
+		local min = UnitPower(unit, powerType)
+		if min ~= 0 then
+			return E:GetFormattedText(textFormat, min, UnitPowerMax(unit, powerType))
+		end
+	end)
+
 	E:AddTag(format('additionalmana:%s', tagFormat), 'UNIT_POWER_FREQUENT UNIT_MAXPOWER UNIT_DISPLAYPOWER', function(unit)
 		local altIndex = _G.ALT_POWER_BAR_PAIR_DISPLAY_INFO[E.myclass]
 		local min = altIndex and altIndex[UnitPowerType(unit)] and UnitPower(unit, POWERTYPE_MANA)
@@ -272,12 +368,22 @@ for textFormat in pairs(E.GetFormattedTextStyles) do
 		end
 	end)
 
-	E:AddTag(format('classpower:%s', tagFormat), (E.myclass == 'MONK' and 'UNIT_AURA ' or E.myclass == 'DEATHKNIGHT' and 'RUNE_POWER_UPDATE ' or '') .. 'UNIT_POWER_FREQUENT UNIT_DISPLAYPOWER', function(unit)
+	E:AddTag(format('mana:%s:healeronly', tagFormat), 'UNIT_POWER_FREQUENT UNIT_MAXPOWER UNIT_DISPLAYPOWER', function(unit)
+		local role = UnitGroupRolesAssigned(unit)
+		if role ~= 'HEALER' then return end
+
+		local min = UnitPower(unit, POWERTYPE_MANA)
+		if min ~= 0 then
+			return E:GetFormattedText(textFormat, min, UnitPowerMax(unit, POWERTYPE_MANA))
+		end
+	end)
+
+	E:AddTag(format('classpower:%s', tagFormat), classSpecificEvents..'UNIT_POWER_FREQUENT UNIT_DISPLAYPOWER', function(unit)
 		local min, max = GetClassPower(unit)
 		if min ~= 0 then
 			return E:GetFormattedText(textFormat, min, max)
 		end
-	end, E.Classic)
+	end, E.Classic, classSpecificSpells)
 
 	E:AddTag(format('altpower:%s', tagFormat), 'UNIT_POWER_UPDATE UNIT_POWER_BAR_SHOW UNIT_POWER_BAR_HIDE', function(unit)
 		local cur = UnitPower(unit, POWERTYPE_ALTERNATE)
@@ -311,7 +417,25 @@ for textFormat in pairs(E.GetFormattedTextStyles) do
 			end
 		end)
 
+		E:AddTag(format('power:%s:shortvalue:healeronly', tagFormat), 'UNIT_DISPLAYPOWER UNIT_POWER_FREQUENT UNIT_MAXPOWER', function(unit)
+			local role = UnitGroupRolesAssigned(unit)
+			if role ~= 'HEALER' then return end
+
+			local powerType = UnitPowerType(unit)
+			local min = UnitPower(unit, powerType)
+			if min ~= 0 and tagFormat ~= 'deficit' then
+				return E:GetFormattedText(textFormat, min, UnitPowerMax(unit, powerType), nil, true)
+			end
+		end)
+
 		E:AddTag(format('mana:%s:shortvalue', tagFormat), 'UNIT_POWER_FREQUENT UNIT_MAXPOWER', function(unit)
+			return E:GetFormattedText(textFormat, UnitPower(unit, POWERTYPE_MANA), UnitPowerMax(unit, POWERTYPE_MANA), nil, true)
+		end)
+
+		E:AddTag(format('mana:%s:shortvalue:healeronly', tagFormat), 'UNIT_POWER_FREQUENT UNIT_MAXPOWER', function(unit)
+			local role = UnitGroupRolesAssigned(unit)
+			if role ~= 'HEALER' then return end
+
 			return E:GetFormattedText(textFormat, UnitPower(unit, POWERTYPE_MANA), UnitPowerMax(unit, POWERTYPE_MANA), nil, true)
 		end)
 
@@ -323,12 +447,12 @@ for textFormat in pairs(E.GetFormattedTextStyles) do
 			end
 		end, not E.Retail)
 
-		E:AddTag(format('classpower:%s:shortvalue', tagFormat), (E.myclass == 'MONK' and 'UNIT_AURA ' or E.myclass == 'DEATHKNIGHT' and 'RUNE_POWER_UPDATE ' or '') .. 'UNIT_POWER_FREQUENT UNIT_DISPLAYPOWER', function(unit)
+		E:AddTag(format('classpower:%s:shortvalue', tagFormat), classSpecificEvents..'UNIT_POWER_FREQUENT UNIT_DISPLAYPOWER', function(unit)
 			local min, max = GetClassPower(unit)
 			if min ~= 0 then
 				return E:GetFormattedText(textFormat, min, max, nil, true)
 			end
-		end, E.Classic)
+		end, E.Classic, classSpecificSpells)
 	end
 end
 
@@ -480,14 +604,14 @@ E:AddTag('absorbs', 'UNIT_ABSORB_AMOUNT_CHANGED', function(unit)
 	if absorb ~= 0 then
 		return E:ShortValue(absorb)
 	end
-end, not E.Retail)
+end, E.Classic)
 
 E:AddTag('healabsorbs', 'UNIT_HEAL_ABSORB_AMOUNT_CHANGED', function(unit)
 	local healAbsorb = UnitGetTotalHealAbsorbs(unit) or 0
 	if healAbsorb ~= 0 then
 		return E:ShortValue(healAbsorb)
 	end
-end, not E.Retail)
+end, E.Classic)
 
 E:AddTag('health:percent-with-absorbs', 'UNIT_HEALTH UNIT_MAXHEALTH UNIT_ABSORB_AMOUNT_CHANGED UNIT_CONNECTION PLAYER_FLAGS_CHANGED', function(unit)
 	local status = UnitIsDead(unit) and L["Dead"] or UnitIsGhost(unit) and L["Ghost"] or not UnitIsConnected(unit) and L["Offline"]
@@ -503,7 +627,7 @@ E:AddTag('health:percent-with-absorbs', 'UNIT_HEALTH UNIT_MAXHEALTH UNIT_ABSORB_
 
 	local healthTotalIncludingAbsorbs = UnitHealth(unit) + absorb
 	return E:GetFormattedText('PERCENT', healthTotalIncludingAbsorbs, UnitHealthMax(unit))
-end, not E.Retail)
+end, E.Classic)
 
 E:AddTag('health:percent-with-absorbs:nostatus', 'UNIT_HEALTH UNIT_MAXHEALTH UNIT_ABSORB_AMOUNT_CHANGED UNIT_CONNECTION PLAYER_FLAGS_CHANGED', function(unit)
 	local absorb = UnitGetTotalAbsorbs(unit) or 0
@@ -513,7 +637,35 @@ E:AddTag('health:percent-with-absorbs:nostatus', 'UNIT_HEALTH UNIT_MAXHEALTH UNI
 
 	local healthTotalIncludingAbsorbs = UnitHealth(unit) + absorb
 	return E:GetFormattedText('PERCENT', healthTotalIncludingAbsorbs, UnitHealthMax(unit))
-end, not E.Retail)
+end, E.Classic)
+
+do
+	local function FormatPercent(value, maximum, dec)
+		local perc = value / maximum * 100
+		return E:GetFormattedText('PERCENT', perc, 100, dec)
+	end
+
+	E:AddTag('health:deficit-percent-absorbs', 'UNIT_HEALTH UNIT_MAXHEALTH UNIT_ABSORB_AMOUNT_CHANGED UNIT_CONNECTION PLAYER_FLAGS_CHANGED', function(unit)
+		local status = not UnitIsFeignDeath(unit) and UnitIsDead(unit) and L["Dead"] or UnitIsGhost(unit) and L["Ghost"] or not UnitIsConnected(unit) and L["Offline"]
+
+		if status then
+			return status
+		end
+
+		local current = UnitHealth(unit)
+		local maximum = UnitHealthMax(unit)
+		local absorb = UnitGetTotalAbsorbs(unit) or 0
+		local effective = current + absorb
+
+		if maximum == 0 or effective == maximum then
+			return
+		end
+
+		local deficit = maximum - effective
+		local percentage = FormatPercent(abs(deficit), maximum, 1)
+		return (deficit < 0 and '+' or '-') .. percentage
+	end, E.Classic)
+end
 
 E:AddTag('health:deficit-percent:name', 'UNIT_HEALTH UNIT_MAXHEALTH UNIT_NAME_UPDATE', function(unit)
 	local currentHealth = UnitHealth(unit)
@@ -546,7 +698,27 @@ E:AddTag('power:max', 'UNIT_DISPLAYPOWER UNIT_MAXPOWER', function(unit)
 	return E:GetFormattedText('CURRENT', max, max)
 end)
 
+E:AddTag('power:max:healeronly', 'UNIT_DISPLAYPOWER UNIT_MAXPOWER', function(unit)
+	local role = UnitGroupRolesAssigned(unit)
+	if role ~= 'HEALER' then return end
+
+	local powerType = UnitPowerType(unit)
+	local max = UnitPowerMax(unit, powerType)
+
+	return E:GetFormattedText('CURRENT', max, max)
+end)
+
 E:AddTag('power:max:shortvalue', 'UNIT_DISPLAYPOWER UNIT_MAXPOWER', function(unit)
+	local pType = UnitPowerType(unit)
+	local max = UnitPowerMax(unit, pType)
+
+	return E:GetFormattedText('CURRENT', max, max, nil, true)
+end)
+
+E:AddTag('power:max:shortvalue:healeronly', 'UNIT_DISPLAYPOWER UNIT_MAXPOWER', function(unit)
+	local role = UnitGroupRolesAssigned(unit)
+	if role ~= 'HEALER' then return end
+
 	local pType = UnitPowerType(unit)
 	local max = UnitPowerMax(unit, pType)
 
@@ -559,9 +731,18 @@ E:AddTag('mana:max:shortvalue', 'UNIT_MAXPOWER', function(unit)
 	return E:GetFormattedText('CURRENT', max, max, nil, true)
 end)
 
+E:AddTag('mana:max:shortvalue:healeronly', 'UNIT_MAXPOWER', function(unit)
+	local role = UnitGroupRolesAssigned(unit)
+	if role ~= 'HEALER' then return end
+
+	local max = UnitPowerMax(unit, POWERTYPE_MANA)
+
+	return E:GetFormattedText('CURRENT', max, max, nil, true)
+end)
+
 E:AddTag('difficultycolor', 'UNIT_LEVEL PLAYER_LEVEL_UP', function(unit)
 	local color
-	if E.Retail and (UnitIsWildBattlePet(unit) or UnitIsBattlePetCompanion(unit)) then
+	if not E.Classic and (UnitIsWildBattlePet(unit) or UnitIsBattlePetCompanion(unit)) then
 		local level = UnitBattlePetLevel(unit)
 		local teamLevel = C_PetJournal_GetPetTeamAverageLevel()
 		if teamLevel < level or teamLevel > level then
@@ -584,8 +765,8 @@ end)
 
 E:AddTag('classcolor', 'UNIT_NAME_UPDATE UNIT_FACTION INSTANCE_ENCOUNTER_ENGAGE_UNIT', function(unit)
 	if UnitIsPlayer(unit) or (E.Retail and UnitInPartyIsAI(unit)) then
-		local _, unitClass = UnitClass(unit)
-		local cs = ElvUF.colors.class[unitClass]
+		local _, classToken = UnitClass(unit)
+		local cs = ElvUF.colors.class[classToken]
 		return (cs and Hex(cs.r, cs.g, cs.b)) or '|cFFcccccc'
 	else
 		local cr = ElvUF.colors.reaction[UnitReaction(unit, 'player')]
@@ -609,7 +790,7 @@ end)
 
 E:AddTag('smartlevel', 'UNIT_LEVEL PLAYER_LEVEL_UP', function(unit)
 	local level = UnitEffectiveLevel(unit)
-	if E.Retail and (UnitIsWildBattlePet(unit) or UnitIsBattlePetCompanion(unit)) then
+	if not E.Classic and (UnitIsWildBattlePet(unit) or UnitIsBattlePetCompanion(unit)) then
 		return UnitBattlePetLevel(unit)
 	elseif level == UnitEffectiveLevel('player') then
 		return nil
@@ -737,9 +918,8 @@ E:AddTag('incomingheals', 'UNIT_HEAL_PREDICTION', function(unit)
 	end
 end)
 
-E:AddTag('distance', 0.1, function(realUnit)
-	if UnitIsConnected(realUnit) and not UnitIsUnit(realUnit, 'player') then
-		local unit = E:GetGroupUnit(realUnit) or realUnit
+E:AddTag('distance', 0.1, function(unit)
+	if UnitIsConnected(unit) and not UnitIsUnit(unit, 'player') then
 		local distance = E:GetDistance('player', unit)
 		if distance then
 			return format('%.1f', distance)
@@ -757,9 +937,9 @@ E:AddTag('classificationcolor', 'UNIT_CLASSIFICATION_CHANGED', function(unit)
 end)
 
 E:AddTag('guild', 'UNIT_NAME_UPDATE PLAYER_GUILD_UPDATE', function(unit)
-	if UnitIsPlayer(unit) then
-		return GetGuildInfo(unit)
-	end
+	if not UnitIsPlayer(unit) then return end
+
+	return GetGuildInfo(unit)
 end)
 
 E:AddTag('group:raid', 'GROUP_ROSTER_UPDATE', function(unit)
@@ -785,11 +965,11 @@ E:AddTag('guild:brackets', 'PLAYER_GUILD_UPDATE', function(unit)
 end)
 
 E:AddTag('guild:translit', 'UNIT_NAME_UPDATE PLAYER_GUILD_UPDATE', function(unit)
-	if UnitIsPlayer(unit) then
-		local guildName = GetGuildInfo(unit)
-		if guildName then
-			return Translit:Transliterate(guildName, translitMark)
-		end
+	if not UnitIsPlayer(unit) then return end
+
+	local guildName = GetGuildInfo(unit)
+	if guildName then
+		return Translit:Transliterate(guildName, translitMark)
 	end
 end)
 
@@ -801,11 +981,11 @@ E:AddTag('guild:brackets:translit', 'PLAYER_GUILD_UPDATE', function(unit)
 end)
 
 E:AddTag('guild:rank', 'UNIT_NAME_UPDATE', function(unit)
-	if UnitIsPlayer(unit) then
-		local _, rank = GetGuildInfo(unit)
-		if rank then
-			return rank
-		end
+	if not UnitIsPlayer(unit) then return end
+
+	local _, rank = GetGuildInfo(unit)
+	if rank then
+		return rank
 	end
 end)
 
@@ -824,11 +1004,7 @@ E:AddTag('class', 'UNIT_NAME_UPDATE', function(unit)
 	if not (UnitIsPlayer(unit) or (E.Retail and UnitInPartyIsAI(unit))) then return end
 
 	local _, classToken = UnitClass(unit)
-	if UnitSex(unit) == 3 then
-		return _G.LOCALIZED_CLASS_NAMES_FEMALE[classToken]
-	else
-		return _G.LOCALIZED_CLASS_NAMES_MALE[classToken]
-	end
+	return E:LocalizedClassName(classToken, unit)
 end)
 
 E:AddTag('name:title', 'UNIT_NAME_UPDATE INSTANCE_ENCOUNTER_ENGAGE_UNIT', function(unit)
@@ -836,9 +1012,9 @@ E:AddTag('name:title', 'UNIT_NAME_UPDATE INSTANCE_ENCOUNTER_ENGAGE_UNIT', functi
 end)
 
 E:AddTag('title', 'UNIT_NAME_UPDATE INSTANCE_ENCOUNTER_ENGAGE_UNIT', function(unit)
-	if UnitIsPlayer(unit) then
-		return GetTitleName(GetCurrentTitle())
-	end
+	if not UnitIsPlayer(unit) then return end
+
+	return GetTitleName(GetCurrentTitle())
 end)
 
 E:AddTag('altpowercolor', 'UNIT_POWER_UPDATE UNIT_POWER_BAR_SHOW UNIT_POWER_BAR_HIDE', function(unit)
@@ -906,6 +1082,15 @@ E:AddTag('name:last', 'UNIT_NAME_UPDATE INSTANCE_ENCOUNTER_ENGAGE_UNIT', functio
 	return name
 end)
 
+E:AddTag('name:first', 'UNIT_NAME_UPDATE INSTANCE_ENCOUNTER_ENGAGE_UNIT', function(unit)
+	local name = UnitName(unit)
+	if name and strfind(name, '%s') then
+		name = strmatch(name, '^(%S+)')
+	end
+
+	return name
+end)
+
 E:AddTag('health:deficit-percent:nostatus', 'UNIT_HEALTH UNIT_MAXHEALTH', function(unit)
 	local min, max = UnitHealth(unit), UnitHealthMax(unit)
 	local deficit = (min / max) - 1
@@ -967,7 +1152,7 @@ do
 	-- the third arg here is added from the user as like [name:health{ff00ff:00ff00}] or [name:health{class:00ff00}]
 	E:AddTag('name:health', 'UNIT_NAME_UPDATE UNIT_FACTION UNIT_HEALTH UNIT_MAXHEALTH', function(unit, _, args)
 		local name = UnitName(unit)
-		if not name then return '' end
+		if not name then return end
 
 		local min, max, bco, fco = UnitHealth(unit), UnitHealthMax(unit), strsplit(':', args or '')
 		local to = ceil(utf8len(name) * (min / max))
@@ -1020,54 +1205,27 @@ do
 	end)
 end
 
-do
-	local GroupUnits = {}
-	local frame = CreateFrame('Frame')
-	frame:RegisterEvent('GROUP_ROSTER_UPDATE')
-	frame:SetScript('OnEvent', function()
-		wipe(GroupUnits)
+for _, var in ipairs({4,8,10,15,20,25,30,35,40}) do
+	E:AddTag(format('nearbyplayers:%s', var), 0.25, function(unit)
+		local inRange = 0
 
-		local groupType, groupSize
-		if IsInRaid() then
-			groupType = 'raid'
-			groupSize = GetNumGroupMembers()
-		elseif IsInGroup() then
-			groupType = 'party'
-			groupSize = GetNumGroupMembers()
-		else
-			groupType = 'solo'
-			groupSize = 1
-		end
-
-		for index = 1, groupSize do
-			local groupUnit = groupType..index
-			if not UnitIsUnit(groupUnit, 'player') then
-				GroupUnits[groupUnit] = true
-			end
-		end
-	end)
-
-	for _, var in ipairs({4,8,10,15,20,25,30,35,40}) do
-		E:AddTag(format('nearbyplayers:%s', var), 0.25, function(realUnit)
-			local inRange = 0
-
-			if UnitIsConnected(realUnit) then
-				local unit = E:GetGroupUnit(realUnit) or realUnit
-				for groupUnit in pairs(GroupUnits) do
-					if UnitIsConnected(groupUnit) and not UnitIsUnit(unit, groupUnit) then
-						local distance = E:GetDistance(unit, groupUnit)
+		if UnitIsConnected(unit) then
+			for _, units in next, E.GroupUnitsByRole do
+				for _, unitToken in next, units do
+					if UnitIsConnected(unitToken) and not UnitIsUnit(unit, unitToken) then
+						local distance = E:GetDistance(unit, unitToken)
 						if distance and distance <= var then
 							inRange = inRange + 1
 						end
 					end
 				end
 			end
+		end
 
-			if inRange > 0 then
-				return inRange
-			end
-		end)
-	end
+		if inRange > 0 then
+			return inRange
+		end
+	end)
 end
 
 do
@@ -1125,6 +1283,7 @@ do
 	local typeIcon = { elite = gold, worldboss = gold, rareelite = silver, rare = silver }
 	E:AddTag('classification:icon', 'UNIT_NAME_UPDATE', function(unit)
 		if UnitIsPlayer(unit) then return end
+
 		return typeIcon[UnitClassification(unit)]
 	end)
 
@@ -1173,13 +1332,13 @@ do
 			if line.type == 18 or (not E.Retail and UnitIsPlayer(text)) then -- 18 is QuestPlayer
 				notMyQuest = text ~= E.myname
 			elseif text and not notMyQuest then
-				if line.type == 17 or not E.Retail then
+				if line.type == 17 or (not E.Retail and not lastTitle) then
 					lastTitle = NP.QuestIcons.activeQuests[text]
 				end -- this line comes from one line up in the tooltip
 
 				local objectives = (line.type == 8 or not E.Retail) and lastTitle and lastTitle.objectives
 				if objectives then
-					local quest = objectives[text]
+					local quest = objectives[text] or (not E.Retail and objectives[strsub(text, 4)])
 					if quest then
 						if not which then
 							return text
@@ -1214,27 +1373,30 @@ do
 
 	E:AddTag('quest:text', 'QUEST_LOG_UPDATE', function(unit)
 		return GetQuestData(unit, nil, Hex)
-	end, not E.Retail)
+	end, E.Classic)
 
 	E:AddTag('quest:full', 'QUEST_LOG_UPDATE', function(unit)
 		return GetQuestData(unit, 'full', Hex)
-	end, not E.Retail)
+	end, E.Classic)
 
 	E:AddTag('quest:info', 'QUEST_LOG_UPDATE', function(unit)
 		return GetQuestData(unit, 'info', Hex)
-	end, not E.Retail)
+	end, E.Classic)
 
 	E:AddTag('quest:title', 'QUEST_LOG_UPDATE', function(unit)
 		return GetQuestData(unit, 'title', Hex)
-	end, not E.Retail)
+	end, E.Classic)
 
 	E:AddTag('quest:count', 'QUEST_LOG_UPDATE', function(unit)
 		return GetQuestData(unit, 'count', Hex)
-	end, not E.Retail)
+	end, E.Classic)
 end
 
 do
 	local highestVersion = E.version
+	local iconBlue = E:TextureString(E.Media.ChatLogos.ElvBlue,':13:25')
+	local iconRed = E:TextureString(E.Media.ChatLogos.ElvRed,':13:25')
+
 	E:AddTag('ElvUI-Users', 20, function(unit)
 		if E.UserList and next(E.UserList) then
 			local name, realm = UnitName(unit)
@@ -1246,7 +1408,7 @@ do
 						highestVersion = userVersion
 					end
 
-					return (userVersion < highestVersion) and '|cffFF3333E|r' or '|cff3366ffE|r'
+					return (userVersion < highestVersion) and iconRed or iconBlue
 				end
 			end
 		end
@@ -1274,8 +1436,8 @@ do
 	E:AddTag('class:icon', 'PLAYER_TARGET_CHANGED', function(unit)
 		if not (UnitIsPlayer(unit) or (E.Retail and UnitInPartyIsAI(unit))) then return end
 
-		local _, class = UnitClass(unit)
-		local icon = classIcons[class]
+		local _, classToken = UnitClass(unit)
+		local icon = classIcons[classToken]
 		if icon then
 			return format(classIcon, icon)
 		end
@@ -1371,36 +1533,42 @@ if E.Classic or E.Wrath then
 	end)
 end
 
-if not E.Retail then
-	E:AddTag('pvp:title', 'UNIT_NAME_UPDATE', function(unit)
-		if UnitIsPlayer(unit) then
-			local rank = UnitPVPRank(unit)
-			local title = GetPVPRankInfo(rank, unit)
+if E.Retail then
+	E:AddTag('pvp:honorlevel', 'UNIT_NAME_UPDATE', function(unit)
+		if not UnitIsPlayer(unit) then return end
 
-			return title
-		end
+	    return UnitHonorLevel(unit)
+	end)
+else
+	E:AddTag('pvp:title', 'UNIT_NAME_UPDATE', function(unit)
+		if not UnitIsPlayer(unit) then return end
+
+		local rank = UnitPVPRank(unit)
+		local title = GetPVPRankInfo(rank, unit)
+
+		return title
 	end)
 
 	E:AddTag('pvp:rank', 'UNIT_NAME_UPDATE', function(unit)
-		if UnitIsPlayer(unit) then
-			local rank = UnitPVPRank(unit)
-			local _, num = GetPVPRankInfo(rank, unit)
+		if not UnitIsPlayer(unit) then return end
 
-			if num > 0 then
-				return num
-			end
+		local rank = UnitPVPRank(unit)
+		local _, num = GetPVPRankInfo(rank, unit)
+
+		if num > 0 then
+			return num
 		end
 	end)
 
 	local rankIcon = [[|TInterface\PvPRankBadges\PvPRank%02d:12:12:0:0:12:12:0:12:0:12|t]]
 	E:AddTag('pvp:icon', 'UNIT_NAME_UPDATE', function(unit)
-		if UnitIsPlayer(unit) then
-			local rank = UnitPVPRank(unit)
-			local _, num = GetPVPRankInfo(rank, unit)
+		if not UnitIsPlayer(unit) then return end
 
-			if num > 0 then
-				return format(rankIcon, num)
-			end
+		local rank = UnitPVPRank(unit)
+		local _, num = GetPVPRankInfo(rank, unit)
+
+		if num > 0 then
+			return format(rankIcon, num)
 		end
 	end)
 end
@@ -1475,7 +1643,7 @@ E.TagInfo = {
 		['factioncolor'] = { category = 'Colors', description = "Colors names by Faction (Alliance, Horde, Neutral)" },
 		['reactioncolor'] = { category = 'Colors', description = "Colors names by NPC reaction (Bad/Neutral/Good)" },
 		['threatcolor'] = { category = 'Colors', description = "Changes the text color, depending on the unit's threat situation" },
-		['happiness:color'] = { hidden = E.Retail, category = 'Colors', description = "Changes the text color, depending on the pet happiness" },
+		['happiness:color'] = { hidden = not E.Classic, category = 'Colors', description = "Changes the text color, depending on the pet happiness" },
 	-- Guild
 		['guild:brackets:translit'] = { category = 'Guild', description = "Displays the guild name with < > and transliteration (e.g. <GUILD>)" },
 		['guild:brackets'] = { category = 'Guild', description = "Displays the guild name with < > brackets (e.g. <GUILD>)" },
@@ -1483,8 +1651,8 @@ E.TagInfo = {
 		['guild:translit'] = { category = 'Guild', description = "Displays the guild name with transliteration for cyrillic letters" },
 		['guild'] = { category = 'Guild', description = "Displays the guild name" },
 	-- Health
-		['absorbs'] = { hidden = not E.Retail, category = 'Health', description = 'Displays the amount of absorbs' },
-		['healabsorbs'] = { hidden = not E.Retail, category = 'Health', description = 'Displays the amount of heal absorbs' },
+		['absorbs'] = { hidden = E.Classic, category = 'Health', description = 'Displays the amount of absorbs' },
+		['healabsorbs'] = { hidden = E.Classic, category = 'Health', description = 'Displays the amount of heal absorbs' },
 		['curhp'] = { category = 'Health', description = "Displays the current HP without decimals" },
 		['deficit:name'] = { category = 'Health', description = "Displays the health as a deficit and the name at full health" },
 		['health:current:name-long'] = { category = 'Health', description = "Displays the current health as a shortvalue and then the name of the unit (limited to 20 letters) when at full health" },
@@ -1510,6 +1678,7 @@ E.TagInfo = {
 		['health:current'] = { category = 'Health', description = "Displays the current health of the unit" },
 		['health:deficit-nostatus:shortvalue'] = { category = 'Health', description = "Shortvalue of the health deficit, without status" },
 		['health:deficit-nostatus'] = { category = 'Health', description = "Displays the health of the unit as a deficit, without status" },
+		['health:deficit-percent-absorbs'] = { hidden = E.Classic, category = 'Health', description = "Displays the percentage deficit health including absorb values. If greater than max health that will be reflected." },
 		['health:deficit-percent:name-long'] = { category = 'Health', description = "Displays the health deficit as a percentage and the name of the unit (limited to 20 letters)" },
 		['health:deficit-percent:name-medium'] = { category = 'Health', description = "Displays the health deficit as a percentage and the name of the unit (limited to 15 letters)" },
 		['health:deficit-percent:name-short'] = { category = 'Health', description = "Displays the health deficit as a percentage and the name of the unit (limited to 10 letters)" },
@@ -1521,8 +1690,8 @@ E.TagInfo = {
 		['health:max:shortvalue'] = { category = 'Health', description = "Shortvalue of the unit's maximum health" },
 		['health:max'] = { category = 'Health', description = "Displays the maximum health of the unit" },
 		['health:percent-nostatus'] = { category = 'Health', description = "Displays the unit's current health as a percentage, without status" },
-		['health:percent-with-absorbs'] = { hidden = not E.Retail, category = 'Health', description = "Displays the unit's current health as a percentage with absorb values" },
-		['health:percent-with-absorbs:nostatus'] = { hidden = not E.Retail, category = 'Health', description = "Displays the unit's current health as a percentage with absorb values, without status" },
+		['health:percent-with-absorbs'] = { hidden = E.Classic, category = 'Health', description = "Displays the unit's current health as a percentage with absorb values" },
+		['health:percent-with-absorbs:nostatus'] = { hidden = E.Classic, category = 'Health', description = "Displays the unit's current health as a percentage with absorb values, without status" },
 		['health:percent'] = { category = 'Health', description = "Displays the current health of the unit as a percentage" },
 		['incomingheals:others'] = { category = 'Health', description = "Displays only incoming heals from other units" },
 		['incomingheals:personal'] = { category = 'Health', description = "Displays only personal incoming heals" },
@@ -1532,9 +1701,9 @@ E.TagInfo = {
 		['perhp'] = { category = 'Health', description = "Displays percentage HP without decimals or the % sign. You can display the percent sign by adjusting the tag to [perhp<%]." },
 	--Hunter
 		['diet'] = { hidden = E.Retail, category = 'Hunter', description = "Displays the diet of your pet (Fish, Meat, ...)" },
-		['happiness:discord'] = { hidden = E.Retail, category = 'Hunter', description = "Displays the pet happiness like a Discord emoji" },
-		['happiness:full'] = { hidden = E.Retail, category = 'Hunter', description = "Displays the pet happiness as a word (e.g. 'Happy')" },
-		['happiness:icon'] = { hidden = E.Retail, category = 'Hunter', description = "Displays the pet happiness like the default Blizzard icon" },
+		['happiness:discord'] = { hidden = not E.Classic, category = 'Hunter', description = "Displays the pet happiness like a Discord emoji" },
+		['happiness:full'] = { hidden = not E.Classic, category = 'Hunter', description = "Displays the pet happiness as a word (e.g. 'Happy')" },
+		['happiness:icon'] = { hidden = not E.Classic, category = 'Hunter', description = "Displays the pet happiness like the default Blizzard icon" },
 		['loyalty'] = { hidden = E.Retail, category = 'Hunter', description = "Displays the pet loyalty level" },
 	-- Level
 		['level'] = { category = 'Level', description = "Displays the level of the unit" },
@@ -1554,18 +1723,30 @@ E.TagInfo = {
 		['permana'] = { category = 'Mana', description = "Displays the unit's mana percentage without decimals" },
 		['curmana'] = { category = 'Mana', description = "Displays the unit's current mana" },
 		['mana:current-max-percent'] = { category = 'Mana', description = "Displays the current and max mana of the unit, separated by a dash (% when not full)" },
+		['mana:current-max-percent:healeronly'] = { category = 'Mana', description = "Displays the current and max mana of the unit, separated by a dash (% when not full) if their role is set to healer" },
 		['mana:current-max'] = { category = 'Mana', description = "Displays the unit's current and maximum mana, separated by a dash" },
+		['mana:current-max:healeronly'] = { category = 'Mana', description = "Displays the unit's current and maximum mana, separated by a dash if their role is set to healer" },
 		['mana:current-percent'] = { category = 'Mana', description = "Displays the current mana of the unit and % when not full" },
+		['mana:current-percent:healeronly'] = { category = 'Mana', description = "Displays the current mana of the unit and % when not full if their role is set to healer" },
 		['mana:current'] = { category = 'Mana', description = "Displays the unit's current mana" },
+		['mana:current:healeronly'] = { category = 'Mana', description = "Displays the unit's current mana if their role is set to healer" },
 		['mana:deficit'] = { category = 'Mana', description = "Displays the player's mana as a deficit" },
+		['mana:deficit:healeronly'] = { category = 'Mana', description = "Displays the player's mana as a deficit if their role is set to healer" },
 		['mana:percent'] = { category = 'Mana', description = "Displays the player's mana as a percentage" },
+		['mana:percent:healeronly'] = { category = 'Mana', description = "Displays the player's mana as a percentage if their role is set to healer" },
 		['maxmana'] = { category = 'Mana', description = "Displays the max amount of mana the unit can have" },
 		['mana:current-max-percent:shortvalue'] = { category = 'Mana', description = "" },
+		['mana:current-max-percent:shortvalue:healeronly'] = { category = 'Mana', description = "" },
 		['mana:current-max:shortvalue'] = { category = 'Mana', description = "" },
+		['mana:current-max:shortvalue:healeronly'] = { category = 'Mana', description = "" },
 		['mana:current-percent:shortvalue'] = { category = 'Mana', description = "" },
+		['mana:current-percent:shortvalue:healeronly'] = { category = 'Mana', description = "" },
 		['mana:current:shortvalue'] = { category = 'Mana', description = "" },
+		['mana:current:shortvalue:healeronly'] = { category = 'Mana', description = "" },
 		['mana:deficit:shortvalue'] = { category = 'Mana', description = "" },
+		['mana:deficit:shortvalue:healeronly'] = { category = 'Mana', description = "" },
 		['mana:max:shortvalue'] = { category = 'Mana', description = "" },
+		['mana:max:shortvalue:healeronly'] = { category = 'Mana', description = "" },
 	-- Miscellaneous
 		['race'] = { category = 'Miscellaneous', description = "Displays the race" },
 	-- Names
@@ -1574,6 +1755,7 @@ E.TagInfo = {
 		['name:abbrev:short'] = { category = 'Names', description = "Displays the name of the unit with abbreviation (limited to 10 letters)" },
 		['name:abbrev:veryshort'] = { category = 'Names', description = "Displays the name of the unit with abbreviation (limited to 5 letters)" },
 		['name:abbrev'] = { category = 'Names', description = "Displays the name of the unit with abbreviation (e.g. 'Shadowfury Witch Doctor' becomes 'S. W. Doctor')" },
+		['name:first'] = { category = 'Names', description = "Displays the first word of the unit's name" },
 		['name:last'] = { category = 'Names', description = "Displays the last word of the unit's name" },
 		['name:long:status'] = { category = 'Names', description = "Replace the name of the unit with 'DEAD' or 'OFFLINE' if applicable (limited to 20 letters)" },
 		['name:long:translit'] = { category = 'Names', description = "Displays the name of the unit with transliteration for cyrillic letters (limited to 20 letters)" },
@@ -1604,18 +1786,30 @@ E.TagInfo = {
 		['missingpp'] = { category = 'Power', description = "Displays the missing power of the unit in whole numbers when not at full power" },
 		['perpp'] = { category = 'Power', description = "Displays the unit's percentage power without decimals" },
 		['power:current-max-percent:shortvalue'] = { category = 'Power', description = "Shortvalue of the current power and max power, separated by a dash (% when not full power)" },
+		['power:current-max-percent:shortvalue:healeronly'] = { category = 'Power', description = "Shortvalue of the current power and max power, separated by a dash (% when not full power) if their role is set to healer" },
 		['power:current-max-percent'] = { category = 'Power', description = "Displays the current power and max power, separated by a dash (% when not full power)" },
+		['power:current-max-percent:healeronly'] = { category = 'Power', description = "Displays the current power and max power, separated by a dash (% when not full power) if their role is set to healer" },
 		['power:current-max:shortvalue'] = { category = 'Power', description = "Shortvalue of the current power and max power, separated by a dash" },
+		['power:current-max:shortvalue:healeronly'] = { category = 'Power', description = "Shortvalue of the current power and max power, separated by a dash if their role is set to healer" },
 		['power:current-max'] = { category = 'Power', description = "Displays the current power and max power, separated by a dash" },
+		['power:current-max:healeronly'] = { category = 'Power', description = "Displays the current power and max power, separated by a dash if their role is set to healer" },
 		['power:current-percent:shortvalue'] = { category = 'Power', description = "Shortvalue of the current power and power as a percentage, separated by a dash" },
+		['power:current-percent:shortvalue:healeronly'] = { category = 'Power', description = "Shortvalue of the current power and power as a percentage, separated by a dash if their role is set to healer" },
 		['power:current-percent'] = { category = 'Power', description = "Displays the current power and power as a percentage, separated by a dash" },
+		['power:current-percent:healeronly'] = { category = 'Power', description = "Displays the current power and power as a percentage, separated by a dash if their role is set to healer" },
 		['power:current:shortvalue'] = { category = 'Power', description = "Shortvalue of the unit's current amount of power (e.g. 4k instead of 4000)" },
+		['power:current:shortvalue:healeronly'] = { category = 'Power', description = "Shortvalue of the unit's current amount of power (e.g. 4k instead of 4000) if their role is set to healer" },
 		['power:current'] = { category = 'Power', description = "Displays the unit's current amount of power" },
+		['power:current:healeronly'] = { category = 'Power', description = "Displays the unit's current amount of power if their role is set to healer" },
 		['power:deficit:shortvalue'] = { category = 'Power', description = "Shortvalue of the power as a deficit (Total Power - Current Power = -Deficit)" },
+		['power:deficit:shortvalue:healeronly'] = { category = 'Power', description = "Shortvalue of the power as a deficit (Total Power - Current Power = -Deficit) if their role is set to healer" },
 		['power:deficit'] = { category = 'Power', description = "Displays the power as a deficit (Total Power - Current Power = -Deficit)" },
+		['power:deficit:healeronly'] = { category = 'Power', description = "Displays the power as a deficit (Total Power - Current Power = -Deficit) if their role is set to healer" },
 		['power:max:shortvalue'] = { category = 'Power', description = "Shortvalue of the unit's maximum power" },
+		['power:max:shortvalue:healeronly'] = { category = 'Power', description = "Shortvalue of the unit's maximum power if their role is set to healer" },
 		['power:max'] = { category = 'Power', description = "Displays the unit's maximum power" },
 		['power:percent'] = { category = 'Power', description = "Displays the unit's power as a percentage" },
+		['power:percent:healeronly'] = { category = 'Power', description = "Displays the unit's power as a percentage if their role is set to healer" },
 	-- PvP
 		['arena:number'] = { category = 'PvP', description = "Displays the arena number 1-5" },
 		['arenaspec'] = { category = 'PvP', description = "Displays the area spec of an unit" },
@@ -1623,6 +1817,7 @@ E.TagInfo = {
 		['faction'] = { category = 'PvP', description = "Displays 'Alliance' or 'Horde'" },
 		['pvp'] = { category = 'PvP', description = "Displays 'PvP' if the unit is pvp flagged" },
 		['pvptimer'] = { category = 'PvP', description = "Displays remaining time on pvp-flagged status" },
+		['pvp:honorlevel'] = { hidden = not E.Retail, category = 'PvP', description = "Displays honor level of the unit" },
 		['pvp:icon'] = { hidden = E.Retail, category = 'PvP', description = "Displays player pvp rank icon" },
 		['pvp:rank'] = { hidden = E.Retail, category = 'PvP', description = "Displays player pvp rank number" },
 		['pvp:title'] = { hidden = E.Retail, category = 'PvP', description = "Displays player pvp title" },

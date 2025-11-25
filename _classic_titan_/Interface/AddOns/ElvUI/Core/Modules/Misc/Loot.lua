@@ -25,7 +25,6 @@ local _G = _G
 local hooksecurefunc = hooksecurefunc
 local tinsert = tinsert
 local format = format
-local unpack = unpack
 local next = next
 local max = max
 
@@ -51,9 +50,8 @@ local UnitName = UnitName
 local StaticPopup_Hide = StaticPopup_Hide
 
 local GetCVarBool = C_CVar.GetCVarBool
-local GetItemReagentQualityByItemInfo = C_TradeSkillUI and C_TradeSkillUI.GetItemReagentQualityByItemInfo
+local GetItemReagentQualityByItemInfo = C_TradeSkillUI.GetItemReagentQualityByItemInfo
 
-local ITEM_QUALITY_COLORS = ITEM_QUALITY_COLORS
 local TEXTURE_ITEM_QUEST_BANG = TEXTURE_ITEM_QUEST_BANG
 local LOOT = LOOT
 
@@ -81,9 +79,9 @@ local function SlotEnter(slot)
 end
 
 local function SlotLeave(slot)
-	if slot.quality and (slot.quality > 1) then
-		local color = ITEM_QUALITY_COLORS[slot.quality]
-		slot.drop:SetVertexColor(color.r, color.g, color.b)
+	if slot.quality and slot.quality > 1 then
+		local r, g, b = E:GetItemQualityColor(slot.quality)
+		slot.drop:SetVertexColor(r, g, b)
 	else
 		slot.drop:Hide()
 	end
@@ -163,7 +161,7 @@ local function CreateSlot(id)
 	E.frames[iconFrame] = nil
 
 	local icon = iconFrame:CreateTexture(nil, 'ARTWORK')
-	icon:SetTexCoord(unpack(E.TexCoords))
+	icon:SetTexCoords()
 	icon:SetInside()
 	slot.icon = icon
 
@@ -193,7 +191,7 @@ local function CreateSlot(id)
 	local questTexture = iconFrame:CreateTexture(nil, 'OVERLAY')
 	questTexture:SetInside()
 	questTexture:SetTexture(TEXTURE_ITEM_QUEST_BANG)
-	questTexture:SetTexCoord(unpack(E.TexCoords))
+	questTexture:SetTexCoords()
 	slot.questTexture = questTexture
 
 	local profQuality = E.Retail and iconFrame:CreateTexture(nil, 'OVERLAY')
@@ -263,7 +261,7 @@ function M:LOOT_OPENED(_, autoloot)
 		for i = 1, numItems do
 			local slot = lootFrame.slots[i] or CreateSlot(i)
 			local textureID, item, count, _, quality, _, isQuestItem, questId, isActive = GetLootSlotInfo(i)
-			local color = ITEM_QUALITY_COLORS[quality or 0]
+			local r, g, b = E:GetItemQualityColor(quality or 0)
 			local itemLink = GetLootSlotLink(i)
 
 			if coinTextureIDs[textureID] then
@@ -274,11 +272,11 @@ function M:LOOT_OPENED(_, autoloot)
 			slot.count:SetText(count or '')
 
 			slot.drop:SetShown(quality and quality > 1)
-			slot.drop:SetVertexColor(color.r, color.g, color.b)
+			slot.drop:SetVertexColor(r, g, b)
 
 			slot.quality = quality
 			slot.name:SetText(item)
-			slot.name:SetTextColor(color.r, color.g, color.b)
+			slot.name:SetTextColor(r, g, b)
 			slot.icon:SetTexture(textureID)
 
 			max_width = max(max_width, slot.name:GetStringWidth())
@@ -317,10 +315,10 @@ function M:LOOT_OPENED(_, autoloot)
 		end
 	else
 		local slot = lootFrame.slots[1] or CreateSlot(1)
-		local color = ITEM_QUALITY_COLORS[0]
+		local r, g, b = E:GetItemQualityColor(0)
 
 		slot.name:SetText(L["No Loot"])
-		slot.name:SetTextColor(color.r, color.g, color.b)
+		slot.name:SetTextColor(r, g, b)
 		slot.icon:SetTexture(136511) -- Interface\PaperDoll\UI-PaperDoll-Slot-Bag
 
 		max_width = max(max_width, slot.name:GetStringWidth())
@@ -333,8 +331,8 @@ function M:LOOT_OPENED(_, autoloot)
 
 	AnchorSlots(lootFrame)
 
-	local color = ITEM_QUALITY_COLORS[max_quality]
-	lootFrame:SetBackdropBorderColor(color.r, color.g, color.b, .8)
+	local r, g, b = E:GetItemQualityColor(max_quality)
+	lootFrame:SetBackdropBorderColor(r, g, b, 0.8)
 	lootFrame:Width(max(max_width + 60, lootFrame.title:GetStringWidth() + 5))
 end
 

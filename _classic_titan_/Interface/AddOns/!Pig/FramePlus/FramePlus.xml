@@ -6,6 +6,7 @@
 	<Script file="Tracking.lua" />
 	<Script file="QuestFrame.lua" />
 	<Script file="SkillFrame.lua" />
+	<Script file="SpellFrame.lua" />
 	<Script file="MerchantFrame.lua" />
 	<Script file="FriendsFrame.lua" />
 	<Script file="MacroFrame.lua" />

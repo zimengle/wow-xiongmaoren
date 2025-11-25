@@ -1,7 +1,8 @@
-## Interface: 30800
-## Title: WeakAuras Archive |cffd4af37谷|r|cffdbb850风|r|cffe2c069修|r|cffe9c882复|r|cfff0d09b版|r
+## Title: |cFF00BFFF[Barney]|r WeakAuras Archive - Update for Titan Forged Classic
+## Title-zhCN: |cFF00BFFF[巴尼]|r WeakAuras Archive 时光服稳定版
 ## Author: The WeakAuras Team
-## Version: 5.12.9a
+## Version: 25112301
+## Interface: 30800
 ## LoadOnDemand: 1
 ## SavedVariables: WeakAurasArchive
 ## Dependencies: WeakAuras

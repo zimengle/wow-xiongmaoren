@@ -1,12 +1,10 @@
-## Interface: 30800
-## Title: WeakAuras Options |cffd4af37谷|r|cffdbb850风|r|cffe2c069修|r|cffe9c882复|r|cfff0d09b版|r
-## Author: The WeakAuras Team
-## Version: 5.12.9a
+## Title: |cFF00BFFF[Barney]|r WeakAuras Options - Update for Titan Forged Classic
+## Title-zhCN: |cFF00BFFF[巴尼]|r WeakAuras Options 时光服稳定版
 ## Notes: Options for WeakAuras
-## Notes-esES: Opciones para WeakAuras
-## Notes-deDE: Optionen für WeakAuras
-## Notes-ruRU: Опции WeakAuras
-## Notes-zhTW: WeakAuras的設定
+## Notes-zhCN: WeakAuras的设置
+## Author: The WeakAuras Team
+## Version: 25112301
+## Interface: 30800
 ## X-Category: Interface Enhancements
 ## Globe-Main: WeakAuras
 ## DefaultState: Enabled
@@ -15,6 +13,7 @@
 ## SavedVariables: WeakAurasOptionsSaved
 
 locales.xml
+Templates.xml
 
 ForAllIndentsAndPurposes.lua
 

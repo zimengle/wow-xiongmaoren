@@ -1,10 +1,10 @@
-## Interface: 30404
+## Interface: 30403, 30800
 ## Author: Aznamir, Dyaxler, Es, gallantron
-## Title: PallyPower |cFF00ff00谷风修复版|r
-## Version: v3.4.4 |cFF00ff00谷风修复版v2|r
+## Title: PallyPower Classic
+## Version: 3.4.5 谷风修复版
 ## Notes: Raid/Party Paladin buffs
 ## Notes-esES: Buffs de Paladín para Grupo/Banda
-## Notes-zhCN: PallyPower 圣骑士祝福管理插件。|n|cFF00ff00谷风修复|r，国服WLK3.4.4可用。|n材质美化：|cffee5885露露緹婭@Bilibili|r
+## Notes-zhCN: 圣骑士祝福管理
 ## DefaultState: enabled
 ## Dependencies:
 ## OptionalDeps: Ace3, LibSharedMedia-3.0, SharedMedia

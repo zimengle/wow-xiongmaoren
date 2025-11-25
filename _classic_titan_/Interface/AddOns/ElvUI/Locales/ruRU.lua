@@ -2,6 +2,19 @@
 local E = unpack(ElvUI)
 local L = E.Libs.ACL:NewLocale('ElvUI', 'ruRU')
 
+L["Date"] = "Дата"
+L["Plugins:"] = "Плагины:"
+L["Version:"] = "Версия:"
+L["Equipment Sets"] = "Equipment Sets"
+L["No Set Equipped"] = "No Set Equipped"
+L["Set:"] = true
+L["New Mail"] = "Новое письмо"
+L["No Mail"] = "Нет писем"
+L["Completed XP:"] = "Завершенный опыт:"
+L["Total Gold:"] = "Всего золота:"
+L["Total XP:"] = "Всего опыта:"
+L["Quests:"] = "Задания:"
+L["Time"] = "Время"
 L["Restrict Pings"] = true
 L["Player"] = "Игрок"
 L["Small"] = "Малый"
@@ -16,7 +29,6 @@ L["%s frame has a conflicting anchor point. Forcing the Buffs to be attached to 
 L["%s is attempting to share the Private Profile (%s) with you. Would you like to accept the request?"] = true
 L["%s is attempting to share the Global Profile with you. Would you like to accept the request?"] = true
 L["%s is attempting to share the Profile (%s) with you. Would you like to accept the request?"] = "%s хочет передать Вам профиль (%s). Желаете ли Вы принять его?"
-L["%s: %s tried to call the protected function '%s'."] = "%s: %s попытался вызвать защищенную функцию '%s'."
 L["(Ctrl & Shift Click) Toggle CPU Profiling"] = "(CTRL & Shift клик) Переключить профайлинг ЦПУ"
 L["(Hold Shift) Memory Usage"] = "(Зажать Shift) Использование памяти"
 L["(Shift Click) Collect Garbage"] = "(Shift + клик) Очистить мусор"
@@ -108,8 +120,7 @@ L["Dead"] = "Труп"
 L["Debuffs"] = "Дебаффы"
 L["Deficit:"] = "Убыток:"
 L["Delete gray items?"] = "Удалить серый предметы?"
-L["Deposit Reagents"] = "Сложить материалы"
-L["Deposit Warbound Items"] = true
+L["Auto Deposit"] = true
 L["Disable Warning"] = "Отключить предупреждение"
 L["Disable"] = "Выключить"
 L["Disabled"] = "Отключено"
@@ -177,7 +188,7 @@ L["Importance: |cFF33FF33Low|r"] = "Важность: |cFF33FF33Низкая|r"
 L["Importance: |cffD3CF00Medium|r"] = "Важность: |cffD3CF00Средняя|r"
 L["Importance: |cffFF3333High|r"] = "Важность: |cffFF3333Высокая|r"
 L["In Progress"] = "В процессе"
-L["Include Reagents"] = true
+L["Deposit Reagents"] = "Сложить материалы"
 L["INCOMPATIBLE_ADDON"] = "%s несовместимо с %s.\nВыберите какой аддон/модуль использовать."
 L["Installation Complete"] = "Установка завершена"
 L["Interrupted %s's |cff71d5ff|Hspell:%d:0|h[%s]|h|r!"] = "Прерван %s. Сбито |cff71d5ff|Hspell:%d:0|h[%s]|h|r!"
@@ -210,6 +221,7 @@ L["KEY_SPACE"] = "SpB"
 L["Layout Set"] = "Расположение установлено"
 L["Layout"] = "Расположение"
 L["Left Chat"] = "Левый чат"
+L["Right Click:"] = "ПКМ:"
 L["Left Click:"] = "ЛКМ:"
 L["Level %d"] = "Уровень %d"
 L["Level"] = "Уровень"
@@ -443,4 +455,6 @@ L["EHELP_COMMANDS"] = ([=[Ниже представлен список всех 
  */egrid|r ^64|r или ^128|r или ^256|r  -  Вкл/выкл экранную сетку.
  */edebug|r ^on|r или ^off|r  -  Отключить все аддоны, кроме ElvUI.
   ВАЖНО: */edebug|r ^off|r включит обратно все отключенные В ДАННОЙ СЕССИИ (без /rl) командой */edebug|r ^on|r аддоны.
+ */guildlist|r ^minPlayers|r  -  Dumps the sorted list of guilds from the finder.
+ */guildapply|r ^"message"|r  -  Applies to the top 5 new guilds with an optional message.
 ]=]):gsub('*', E.InfoColor):gsub('%^', E.InfoColor2)

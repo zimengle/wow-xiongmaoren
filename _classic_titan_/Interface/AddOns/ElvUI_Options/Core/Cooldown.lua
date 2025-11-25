@@ -13,23 +13,23 @@ local function private(db)
 	return (db == 'global' and P.cooldown) or P[db].cooldown
 end
 
-local function group(order, db, label)
-	local main = ACH:Group(label, nil, order, nil, function(info) local t = (profile(db))[info[#info]] local d = (private(db))[info[#info]] return t.r, t.g, t.b, t.a, d.r, d.g, d.b; end, function(info, r, g, b) local t = (profile(db))[info[#info]] t.r, t.g, t.b = r, g, b; E:UpdateCooldownSettings(db); end, nil, function() return db == 'WeakAuras' and not IsAddOnLoaded(db) end)
+local function Group(order, db, label)
+	local main = ACH:Group(label, nil, order, nil, function(info) local t = (profile(db))[info[#info]] local d = (private(db))[info[#info]] return t.r, t.g, t.b, t.a, d.r, d.g, d.b; end, function(info, r, g, b) local t = (profile(db))[info[#info]] t.r, t.g, t.b = r, g, b; E:UpdateCooldownSettings(db); end, function() return db == 'cdmanager' and not (E.private.skins.blizzard.enable and E.private.skins.blizzard.cooldownManager) end, function() return (db == 'WeakAuras' and not IsAddOnLoaded(db)) or (db == 'cdmanager' and not E.Retail) end)
 	E.Options.args.cooldown.args[db] = main
 
 	local mainArgs = main.args
 	mainArgs.showModRate = ACH:Toggle(L["Display Modified Rate"], nil, 1, nil, nil, nil, function(info) return (profile(db))[info[#info]] end, function(info, value) (profile(db))[info[#info]] = value; E:UpdateCooldownSettings(db); end)
 	mainArgs.reverse = ACH:Toggle(L["Reverse Toggle"], L["Reverse Toggle will enable Cooldown Text on this module when the global setting is disabled and disable them when the global setting is enabled."], 5, nil, nil, nil, function(info) return (profile(db))[info[#info]] end, function(info, value) (profile(db))[info[#info]] = value; E:UpdateCooldownSettings(db); end)
-	mainArgs.hideBlizzard = ACH:Toggle(L["Force Hide Blizzard Text"], L["This option will force hide Blizzard's cooldown text if it is enabled at [Interface > ActionBars > Show Numbers on Cooldown]."], 6, nil, nil, nil, function(info) return (profile(db))[info[#info]] end, function(info, value) (profile(db))[info[#info]] = value; E:UpdateCooldownSettings(db); end, nil, function() if db == 'global' then return E.db.cooldown.enable else return (E.db.cooldown.enable and not profile(db).reverse) or (not E.db.cooldown.enable and profile(db).reverse) end end)
+	mainArgs.hideBlizzard = ACH:Toggle(L["Force Hide Blizzard Text"], L["This option will force hide Blizzard's cooldown text if it is enabled at [Interface > ActionBars > Show Numbers on Cooldown]."], 6, nil, nil, nil, function(info) return (profile(db))[info[#info]] end, function(info, value) (profile(db))[info[#info]] = value; E:UpdateCooldownSettings(db); end)
 
-	local seconds = ACH:Group(L["Text Threshold"], nil, 10, nil, function(info) return (profile(db))[info[#info]] end, function(info, value) (profile(db))[info[#info]] = value; E:UpdateCooldownSettings(db); end, function() return not (profile(db)).checkSeconds end)
+	local seconds = ACH:Group(L["Text Threshold"], nil, 20, nil, function(info) return (profile(db))[info[#info]] end, function(info, value) (profile(db))[info[#info]] = value; E:UpdateCooldownSettings(db); end, function() return not (profile(db)).checkSeconds end)
 	seconds.inline = true
 	seconds.args.checkSeconds = ACH:Toggle(L["Enable"], L["This will override the global cooldown settings."], 1, nil, nil, nil, nil, nil, false)
 	seconds.args.mmssThreshold = ACH:Range(L["MM:SS Threshold"], L["Threshold (in seconds) before text is shown in the MM:SS format. Set to -1 to never change to this format."], 2, { min = -1, max = 10800, step = 1 })
 	seconds.args.hhmmThreshold = ACH:Range(L["HH:MM Threshold"], L["Threshold (in minutes) before text is shown in the HH:MM format. Set to -1 to never change to this format."], 3, { min = -1, max = 1440, step = 1 })
 	mainArgs.secondsGroup = seconds
 
-	local fonts = ACH:Group(L["Fonts"], nil, 11, nil, function(info) return (profile(db)).fonts[info[#info]] end, function(info, value) (profile(db)).fonts[info[#info]] = value; E:UpdateCooldownSettings(db); end, function() return not (profile(db)).fonts.enable end)
+	local fonts = ACH:Group(L["Fonts"], nil, 30, nil, function(info) return (profile(db)).fonts[info[#info]] end, function(info, value) (profile(db)).fonts[info[#info]] = value; E:UpdateCooldownSettings(db); end, function() return not (profile(db)).fonts.enable end)
 	fonts.inline = true
 	fonts.args.enable = ACH:Toggle(L["Enable"], L["This will override the global cooldown settings."], 1, nil, nil, nil, nil, nil, false)
 	fonts.args.font = ACH:SharedMediaFont(L["Font"], nil, 2)
@@ -37,7 +37,7 @@ local function group(order, db, label)
 	fonts.args.fontOutline = ACH:FontFlags(L["Font Outline"], nil, 4)
 	mainArgs.fontGroup = fonts
 
-	local colors = ACH:Group(L["Color Override"], nil, 12, nil, nil, nil, function() return not (profile(db)).override end)
+	local colors = ACH:Group(L["Color Override"], nil, 40, nil, nil, nil, function() return not (profile(db)).override end)
 	colors.inline = true
 	colors.args.override = ACH:Toggle(L["Enable"], L["This will override the global cooldown settings."], 1, nil, nil, nil, function(info) return (profile(db))[info[#info]] end, function(info, value) (profile(db))[info[#info]] = value; E:UpdateCooldownSettings(db); end, false)
 	colors.args.threshold = ACH:Range(L["Low Threshold"], L["Threshold before text turns red and is in decimal form. Set to -1 for it to never turn red"], 2, { min = -1, max = 20, step = 1 }, nil, function(info) return (profile(db))[info[#info]] end, function(info, value) (profile(db))[info[#info]] = value; E:UpdateCooldownSettings(db); end)
@@ -70,21 +70,16 @@ local function group(order, db, label)
 		mainArgs.colorGroup.args.override = nil
 		mainArgs.colorGroup.disabled = nil
 		mainArgs.colorGroup.name = L["Colors"]
-
 		mainArgs.roundTime = ACH:Toggle(L["Round Timers"], nil, 2, nil, nil, nil, function(info) return (profile(db))[info[#info]] end, function(info, value) (profile(db))[info[#info]] = value; E:UpdateCooldownSettings(db); end)
-
-		-- keep these two in this order
-		E.Options.args.cooldown.args.hideBlizzard = mainArgs.hideBlizzard
-		mainArgs.hideBlizzard = nil
 	elseif db == 'auras' then
 		mainArgs.reverse = nil
 		mainArgs.hideBlizzard = nil
 		mainArgs.showModRate = nil
 		mainArgs.fontGroup = nil
 	elseif db == 'actionbar' then
-		local auraGroup = ACH:Group(L["Target Aura"], nil, 5)
+		local auraGroup = ACH:Group(L["Target Aura"], nil, 10)
 		auraGroup.args.targetAura = ACH:Toggle(L["Enable"], L["Display Target's Aura Duration, when there is no CD displaying."], 1, nil, nil, nil, function(info) return E.db.cooldown[info[#info]] end, function(info, value) E.db.cooldown[info[#info]] = value; E:UpdateCooldownSettings(db); end)
-		auraGroup.args.targetAuraDuration = ACH:Range(L["Maximum Duration"], L["Don't display auras that are longer than this duration (in seconds). Set to zero to disable."], 2, { min = 0, max = 10800, step = 1 }, nil, function(info) return E.db.cooldown[info[#info]] end, function(info, value) E.db.cooldown[info[#info]] = value; if AB.Initialized then AB:SetAuraCooldownDuration(value) end end)
+		auraGroup.args.targetAuraDuration = ACH:Range(L["Maximum Duration"], L["Don't display auras that are longer than this duration (in seconds). Set to zero to disable."], 2, { min = 0, max = 10800, step = 1 }, nil, function(info) return E.db.cooldown[info[#info]] end, function(info, value) E.db.cooldown[info[#info]] = value; if AB.Initialized then AB:SetTargetAuraDuration(value) end end)
 
 		auraGroup.args.spacer = ACH:Spacer(5)
 		auraGroup.args.targetAuraColor = ACH:Color(L["Target Aura"], L["Color of the Targets Aura time."], 6, nil, 125)
@@ -101,13 +96,14 @@ E.Options.args.cooldown = ACH:Group(L["Cooldown Text"], nil, 2, 'tab', function(
 E.Options.args.cooldown.args.intro = ACH:Description(L["COOLDOWN_DESC"], 0)
 E.Options.args.cooldown.args.enable = ACH:Toggle(L["Enable"], L["Display cooldown text on anything with the cooldown spiral."], 1)
 
-group( 5, 'global',		L["Global"])
-group( 6, 'auras',		L["BUFFOPTIONS_LABEL"])
-group( 7, 'actionbar',	L["ActionBars"])
-group( 8, 'bags',		L["Bags"])
-group( 9, 'nameplates',	L["Nameplates"])
-group(10, 'unitframe',	L["UnitFrames"])
+Group( 5, 'global',		L["Global"])
+Group( 6, 'auras',		L["BUFFOPTIONS_LABEL"])
+Group( 7, 'actionbar',	L["ActionBars"])
+Group( 8, 'bags',		L["Bags"])
+Group( 9, 'nameplates',	L["Nameplates"])
+Group(10, 'unitframe',	L["UnitFrames"])
+Group(11, 'cdmanager',	L["Cooldown Manager"])
 
-if E:IsAddOnEnabled('WeakAuras') then
-	group(20, 'WeakAuras',	L["WeakAuras"])
+if E.OtherAddons.WeakAuras then
+	Group(20, 'WeakAuras',	L["WeakAuras"])
 end

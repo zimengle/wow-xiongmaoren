@@ -1,0 +1,15 @@
+## Interface: 11508
+## Version: 6.0.6 Rurutia fix
+## Title: MSBT [|cffffff80Options|r]
+## Author: Mikord
+## Notes: Load on demand options for Mik's Scrolling Battle Text.
+## Dependencies: MikScrollingBattleText
+## LoadOnDemand: 1
+## X-Child-Of: MikScrollingBattleText
+
+Localization\localization.xml
+
+MSBTOptionsControls.lua
+MSBTOptionsPopups.lua
+MSBTOptionsMain.lua
+MSBTOptionsTabs.lua

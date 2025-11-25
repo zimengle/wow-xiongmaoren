@@ -7,117 +7,117 @@ if not L then return end
 
 -- BlizzMove
 --[[Translation missing --]]
-L["Addon authors can enable support for their own custom frames by utilizing the BlizzMoveAPI functions"] = "插件作者可以利用 BlizzMoveAPI 函数启用对自定义框架的支持"
+L["Addon authors can enable support for their own custom frames by utilizing the BlizzMoveAPI functions"] = "Addon authors can enable support for their own custom frames by utilizing the BlizzMoveAPI functions"
 --[[Translation missing --]]
-L["All frames"] = "所有框架"
+L["All frames"] = "All frames"
 --[[Translation missing --]]
-L["ALT + %s to re-attach a child window."] = "ALT + %s 重新附加子窗口。"
+L["ALT + %s to re-attach a child window."] = "ALT + %s to re-attach a child window."
 --[[Translation missing --]]
-L["ALT + %s while dragging a detachable child window will detach it from the parent"] = "在拖动可分离的子窗口时，按 ALT + %s 会将其与父窗口分离"
+L["ALT + %s while dragging a detachable child window will detach it from the parent"] = "ALT + %s while dragging a detachable child window will detach it from the parent"
 --[[Translation missing --]]
-L["Are you sure you want to reset permanently stored positions? This will reload the UI."] = "是否确定要重置永久存储的位置? 将重新载入界面。"
+L["Are you sure you want to reset permanently stored positions? This will reload the UI."] = "Are you sure you want to reset permanently stored positions? This will reload the UI."
 --[[Translation missing --]]
-L["Are you sure you want to reset permanently stored scales? This will reload the UI."] = "是否确定要重置永久存储的缩放大小? 将重新载入界面。"
+L["Are you sure you want to reset permanently stored scales? This will reload the UI."] = "Are you sure you want to reset permanently stored scales? This will reload the UI."
 --[[Translation missing --]]
-L["BlizzMove: The frame you just moved (%s) is probably in a broken state, possibly because of other addons."] = "BlizzMove: 您刚刚移动的框架 (%s) 可能处于损坏状态，可能是由于其他插件造成的。"
+L["BlizzMove: The frame you just moved (%s) is probably in a broken state, possibly because of other addons."] = "BlizzMove: The frame you just moved (%s) is probably in a broken state, possibly because of other addons."
 --[[Translation missing --]]
-L["Clear"] = "清除"
+L["Clear"] = "Clear"
 --[[Translation missing --]]
-L["Clear the search filter."] = "清除搜索过滤器。"
+L["Clear the search filter."] = "Clear the search filter."
 --[[Translation missing --]]
-L["Click to copy PayPal link."] = "点击复制 PayPal 链接。"
+L["Click to copy PayPal link."] = "Click to copy PayPal link."
 --[[Translation missing --]]
-L["Copy the text from the popup window, and report it to the addon author."] = "复制弹出窗口的文本，并报告给插件作者。"
+L["Copy the text from the popup window, and report it to the addon author."] = "Copy the text from the popup window, and report it to the addon author."
 --[[Translation missing --]]
-L["Copy the text from this popup window, and report it to the addon author."] = "复制弹出窗口的文本，并报告给插件作者。"
+L["Copy the text from this popup window, and report it to the addon author."] = "Copy the text from this popup window, and report it to the addon author."
 --[[Translation missing --]]
-L["Could not find frame"] = "找不到框架"
+L["Could not find frame"] = "Could not find frame"
 --[[Translation missing --]]
-L["CTRL + %s to reset the scale of a window."] = "CTRL + %s 重置窗口缩放大小。"
+L["CTRL + %s to reset the scale of a window."] = "CTRL + %s to reset the scale of a window."
 --[[Translation missing --]]
-L["CTRL + SCROLL over a window to adjust the scale of the window."] = "按住 CTRL 键，在窗口上方滚动鼠标滚轮来调整窗口缩放大小。"
+L["CTRL + SCROLL over a window to adjust the scale of the window."] = "CTRL + SCROLL over a window to adjust the scale of the window."
 --[[Translation missing --]]
-L["CTRL-C to copy"] = "CTRL-C 复制"
+L["CTRL-C to copy"] = "CTRL-C to copy"
 --[[Translation missing --]]
-L["Default disabled frames"] = "默认停用的框架"
+L["Default disabled frames"] = "Default disabled frames"
 --[[Translation missing --]]
-L["DeModal is loaded, this addon is known to cause issues, consider replacing it with %s instead."] = "DeModal 已加载，已知此插件会导致问题，请考虑用 %s 代替。"
+L["DeModal is loaded, this addon is known to cause issues, consider replacing it with %s instead."] = "DeModal is loaded, this addon is known to cause issues, consider replacing it with %s instead."
 --[[Translation missing --]]
-L["Detached windows can be moved and resized independently from the parent."] = "分离的窗口可以独立移动和调整大小，不受父窗口影响。"
+L["Detached windows can be moved and resized independently from the parent."] = "Detached windows can be moved and resized independently from the parent."
 --[[Translation missing --]]
-L["Do not remember"] = "不要记住"
+L["Do not remember"] = "Do not remember"
 --[[Translation missing --]]
-L["Enable the Blizzmove_Debug plugin, to find more debugging information."] = "启用 Blizzmove_Debug 插件，以查找更多调试信息。"
+L["Enable the Blizzmove_Debug plugin, to find more debugging information."] = "Enable the Blizzmove_Debug plugin, to find more debugging information."
 --[[Translation missing --]]
-L["Failed to make frame movable:"] = "无法移动框架:"
+L["Failed to make frame movable:"] = "Failed to make frame movable:"
 --[[Translation missing --]]
-L["Filter"] = "过滤器"
+L["Filter"] = "Filter"
 --[[Translation missing --]]
-L["Found bad anchor connections, copy the popup window contents to analyze them."] = "发现错误的锚点连接，复制弹出窗口内容进行分析。"
+L["Found bad anchor connections, copy the popup window contents to analyze them."] = "Found bad anchor connections, copy the popup window contents to analyze them."
 --[[Translation missing --]]
-L["frame positions are remembered until you switch to another option, click the reset button, or disable BlizzMove"] = "框架位置会记住，直到您切换到另一个选项、点击重置按钮或禁用 BlizzMove"
+L["frame positions are remembered until you switch to another option, click the reset button, or disable BlizzMove"] = "frame positions are remembered until you switch to another option, click the reset button, or disable BlizzMove"
 --[[Translation missing --]]
-L["frame positions are reset when you close and reopen them"] = "当您关闭并重新打开框架时，框架位置会被重置"
+L["frame positions are reset when you close and reopen them"] = "frame positions are reset when you close and reopen them"
 --[[Translation missing --]]
-L["frame positions are saved until you reload your UI"] = "框架位置会保存，直到您重新载入界面"
+L["frame positions are saved until you reload your UI"] = "frame positions are saved until you reload your UI"
 --[[Translation missing --]]
-L["frame scales are remembered until you switch to another option, click the reset button, or disable BlizzMove"] = "框架缩放大小记住到切换到另一个选项，点击重置按钮，或禁用 BlizzMove"
+L["frame scales are remembered until you switch to another option, click the reset button, or disable BlizzMove"] = "frame scales are remembered until you switch to another option, click the reset button, or disable BlizzMove"
 --[[Translation missing --]]
-L["frame scales are saved until you reload your UI"] = "框架缩放大小保存到重新载入界面"
+L["frame scales are saved until you reload your UI"] = "frame scales are saved until you reload your UI"
 --[[Translation missing --]]
-L["Frame was marked as incompatible, but does exist"] = "框架被标记为不兼容，但确实存在"
+L["Frame was marked as incompatible, but does exist"] = "Frame was marked as incompatible, but does exist"
 --[[Translation missing --]]
-L["Global Config"] = "全局配置"
+L["Global Config"] = "Global Config"
 --[[Translation missing --]]
-L["How should frame positions be remembered?"] = "如何记住框架位置?"
+L["How should frame positions be remembered?"] = "How should frame positions be remembered?"
 --[[Translation missing --]]
-L["How should frame scales be remembered?"] = "如何记住框架缩放大小?"
+L["How should frame scales be remembered?"] = "How should frame scales be remembered?"
 --[[Translation missing --]]
-L["If enabled BlizzMove requires to hold SHIFT to move frames."] = "如果启用 BlizzMove，需要按住 SHIFT 才能移动框架。"
+L["If enabled BlizzMove requires to hold SHIFT to move frames."] = "If enabled BlizzMove requires to hold SHIFT to move frames."
 --[[Translation missing --]]
-L["If you like this addon and want to support its development, consider donating:"] = "如果您喜欢这个插件并希望支持其开发，请考虑捐赠:"
+L["If you like this addon and want to support its development, consider donating:"] = "If you like this addon and want to support its development, consider donating:"
 --[[Translation missing --]]
-L["In Session"] = "本次登录期间"
+L["In Session"] = "In Session"
 --[[Translation missing --]]
-L["In Session, until you reload"] = "本次登录期间，直到重新载入界面"
+L["In Session, until you reload"] = "In Session, until you reload"
 --[[Translation missing --]]
-L["Info"] = "信息"
+L["Info"] = "Info"
 --[[Translation missing --]]
-L["List of frames"] = "框架列表"
+L["List of frames"] = "List of frames"
 --[[Translation missing --]]
-L["Movable frames for %s"] = "%s 可移动的框架"
+L["Movable frames for %s"] = "Movable frames for %s"
 --[[Translation missing --]]
-L["MoveAny is loaded, some users reported this breaks moving frames. If you encounter this issue yourself, try disabling MoveAny."] = "MoveAny 已加载，一些用户报告这会导致移动框架出现问题。如果您遇到此问题，请尝试禁用 MoveAny。"
+L["MoveAny is loaded, some users reported this breaks moving frames. If you encounter this issue yourself, try disabling MoveAny."] = "MoveAny is loaded, some users reported this breaks moving frames. If you encounter this issue yourself, try disabling MoveAny."
 --[[Translation missing --]]
-L["Mute this warning"] = "静音此警告"
+L["Mute this warning"] = "Mute this warning"
 --[[Translation missing --]]
-L["Muted warning for %s"] = "静音 %s 的警告"
+L["Muted warning for %s"] = "Muted warning for %s"
 --[[Translation missing --]]
-L["No bad anchor connections found"] = "未发现不良的锚点连接"
+L["No bad anchor connections found"] = "No bad anchor connections found"
 --[[Translation missing --]]
-L["Remember Permanently"] = "永久记住"
+L["Remember Permanently"] = "Remember Permanently"
 --[[Translation missing --]]
-L["Require move modifier"] = "需要移动辅助键才能移动"
+L["Require move modifier"] = "Require move modifier"
 --[[Translation missing --]]
-L["Reset Permanent Positions"] = "重置永久位置"
+L["Reset Permanent Positions"] = "Reset Permanent Positions"
 --[[Translation missing --]]
-L["Reset Permanent Scales"] = "重置永久缩放大小"
+L["Reset Permanent Scales"] = "Reset Permanent Scales"
 --[[Translation missing --]]
-L["Reset permanently stored positions"] = "重置永久存储的位置"
+L["Reset permanently stored positions"] = "Reset permanently stored positions"
 --[[Translation missing --]]
-L["Reset permanently stored scales"] = "重置永久存储的缩放大小"
+L["Reset permanently stored scales"] = "Reset permanently stored scales"
 --[[Translation missing --]]
-L["Resetting a frame:"] = "重置框架:"
+L["Resetting a frame:"] = "Resetting a frame:"
 --[[Translation missing --]]
-L["Search by frame name, or '-' for disabled frames, or '+' for enabled frames."] = "搜索框架名称，或 '-' 搜索已停用的框架，或 '+' 搜索已启用的框架。"
+L["Search by frame name, or '-' for disabled frames, or '+' for enabled frames."] = "Search by frame name, or '-' for disabled frames, or '+' for enabled frames."
 --[[Translation missing --]]
-L["Search for plugins here"] = "在这里搜索插件"
+L["Search for plugins here"] = "Search for plugins here"
 --[[Translation missing --]]
-L["SHIFT + %s to reset the position."] = "SHIFT + %s 重置位置。"
+L["SHIFT + %s to reset the position."] = "SHIFT + %s to reset the position."
 --[[Translation missing --]]
-L["This addon makes the Blizzard windows movable."] = "此插件让暴雪窗口可移动。"
+L["This addon makes the Blizzard windows movable."] = "This addon makes the Blizzard windows movable."
 --[[Translation missing --]]
-L["To temporarily move a window just %s the window and drag it to where you want it for the current game session."] = "要暂时移动窗口，只需 %s 窗口并拖动到想要的位置，只对此次游戏登录期间有效。"
+L["To temporarily move a window just %s the window and drag it to where you want it for the current game session."] = "To temporarily move a window just %s the window and drag it to where you want it for the current game session."
 --[[Translation missing --]]
-L["Version:"] = "版本:"
+L["Version:"] = "Version:"
 

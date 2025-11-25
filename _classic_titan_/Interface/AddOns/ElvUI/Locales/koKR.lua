@@ -2,6 +2,19 @@
 local E = unpack(ElvUI)
 local L = E.Libs.ACL:NewLocale('ElvUI', 'koKR')
 
+L["Date"] = true
+L["Plugins:"] = true
+L["Version:"] = true
+L["Equipment Sets"] = true
+L["No Set Equipped"] = true
+L["Set:"] = true
+L["New Mail"] = true
+L["No Mail"] = true
+L["Completed XP:"] = true
+L["Total Gold:"] = true
+L["Total XP:"] = true
+L["Quests:"] = true
+L["Time"] = true
 L["Restrict Pings"] = true
 L["Player"] = "플레이어"
 L["Small"] = "작은"
@@ -16,7 +29,6 @@ L["%s frame has a conflicting anchor point. Forcing the Buffs to be attached to 
 L["%s is attempting to share the Private Profile (%s) with you. Would you like to accept the request?"] = true
 L["%s is attempting to share the Global Profile with you. Would you like to accept the request?"] = true
 L["%s is attempting to share the Profile (%s) with you. Would you like to accept the request?"] = "%s 유저가 ElvUI 설정을 (%s) 전송하려 합니다. 받으시겠습니까?"
-L["%s: %s tried to call the protected function '%s'."] = "%s: %s 기능이 사용할 수 없는 %s 함수를 사용하려 합니다."
 L["(Ctrl & Shift Click) Toggle CPU Profiling"] = "(CTRL & Shift 클릭) CPU 프로파일링 전환"
 L["(Hold Shift) Memory Usage"] = "Shift: 메모리 사용량"
 L["(Shift Click) Collect Garbage"] = "(Shift Click) 메모리를 정리/회수합니다."
@@ -108,8 +120,7 @@ L["Dead"] = "죽음"
 L["Debuffs"] = "약화 효과"
 L["Deficit:"] = "손해:"
 L["Delete gray items?"] = "잡템을 삭제하시겠습니까?"
-L["Deposit Reagents"] = _G.REAGENTBANK_DEPOSIT
-L["Deposit Warbound Items"] = true
+L["Auto Deposit"] = true
 L["Disable Warning"] = "비활성화 경고"
 L["Disable"] = "비활성화"
 L["Disabled"] = "장애가 있는"
@@ -128,7 +139,7 @@ L["ElvUI has a dual spec feature which allows you to load different profiles bas
 L["ElvUI Installation"] = "ElvUI 설치"
 L["ElvUI is five or more revisions out of date. You can download the newest version from tukui.org."] = "현재 사용하는 ElvUI가 5버전 이상 뒤처진 버전입니다. http://tukui.org 에서 새 버전을 다운로드 받으세요."
 L["ElvUI is out of date. You can download the newest version from tukui.org."] = "ElvUI가 오래된 버전입니다. http://tukui.org 에서 새 버전을 다운로드 받으세요."
-L["ElvUI Plugin Installation"] = "ElvUI 플러그인  설치"
+L["ElvUI Plugin Installation"] = "ElvUI 플러그인 설치"
 L["Status"] = "상태창"
 L["ElvUI Version:"] = "ElvUI 버전:"
 L["Error resetting UnitFrame."] = "유닛 프레임 초기화 오류"
@@ -177,7 +188,7 @@ L["Importance: |cFF33FF33Low|r"] = "중요도 : |cFF33FF33낮음|r"
 L["Importance: |cffD3CF00Medium|r"] = "중요도: |cffD3CF00보통|r"
 L["Importance: |cffFF3333High|r"] = "중요도: |cffFF3333높음|r"
 L["In Progress"] = "진행 중"
-L["Include Reagents"] = true
+L["Deposit Reagents"] = true
 L["INCOMPATIBLE_ADDON"] = "%s의 기능이 ElvUI의 %s 모듈과 충돌 됩니다. \n사용할 기능 또는 모듈을 선택하세요."
 L["Installation Complete"] = "설치 완료"
 L["Interrupted %s's |cff71d5ff|Hspell:%d:0|h[%s]|h|r!"] = "%s의 |cff71d5ff|Hspell:%d:0|h[%s]|h|r 차단함!"
@@ -210,6 +221,7 @@ L["KEY_SPACE"] = "Spc"
 L["Layout Set"] = "레이아웃 설정"
 L["Layout"] = "레이아웃"
 L["Left Chat"] = "왼쪽 패널"
+L["Right Click:"] = true
 L["Left Click:"] = "왼 클릭 :"
 L["Level %d"] = "레벨 %d"
 L["Level"] = "레벨"
@@ -294,7 +306,7 @@ L["Raid Menu"] = "공대 매뉴"
 L["Raid Pet Frames"] = "레이드 소환수 프레임"
 L["Rare Elite"] = "정예 희귀"
 L["Rare"] = "정예"
-L["Reagent Bank"] = _G.REAGENT_BANK
+L["Reagent Bank"] = true
 L["Remaining:"] = "다음 레벨까지: "
 L["Remove Bar %d Action Page"] = "Blizzard %d번 행동 단축바 숨기기"
 L["Reputation Bar"] = "평판 바"
@@ -445,4 +457,6 @@ L["EHELP_COMMANDS"] = ([=[*ElvUI의 주요 명령어 목록입니다.|r 명령�
  */egrid|r ^64|r or ^128|r or ^256|r  -  픽셀 격자를 변경합니다.
  */edebug|r ^on|r or ^off|r  -  ElvUI를 제외한 모든 애드온을 비활성화합니다.
  참고: */edebug|r ^off\r 명령어는 */edebug|r ^on|r 명령어를 통해 비활성화된 애드온을 다시 활성화합니다.
+ */guildlist|r ^minPlayers|r  -  Dumps the sorted list of guilds from the finder.
+ */guildapply|r ^"message"|r  -  Applies to the top 5 new guilds with an optional message.
 ]=]):gsub('*', E.InfoColor):gsub('%^', E.InfoColor2)

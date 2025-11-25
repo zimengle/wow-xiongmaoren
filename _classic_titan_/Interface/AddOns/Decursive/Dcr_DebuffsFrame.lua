@@ -1,7 +1,7 @@
 --[[
     This file is part of Decursive.
 
-    Decursive (v 2.7.27) add-on for World of Warcraft UI
+    Decursive (v 巴尼时光服修复版 v25112401) add-on for World of Warcraft UI
     Copyright (C) 2006-2025 John Wellesz (Decursive AT 2072productions.com) ( http://www.2072productions.com/to/decursive.php )
 
     Decursive is free software: you can redistribute it and/or modify
@@ -59,7 +59,6 @@ T._LoadedFiles["Dcr_DebuffsFrame.lua"] = false;
 
 local D   = T.Dcr;
 
-
 local L     = D.L;
 local LC    = D.LC;
 local DC    = T._C;
@@ -99,8 +98,6 @@ function MicroUnitF:new(...)
     return instance;
 end
 
-
-
 -- Init object factory defaults
 --MicroUnitF.ExistingPerID          = {};
 MicroUnitF.ExistingPerUNIT          = {};
@@ -110,7 +107,6 @@ MicroUnitF.UnitShown                = 0;
 MicroUnitF.UnitsDebuffedInRange     = 0;
 MicroUnitF.DraggingHandle           = false;
 D.ForLLDebuffedUnitsNum             = 0;
-
 
 -- using power 2 values just to OR them but only CHARMED_STATUS is ORed (it's a C style bitfield)
 local NORMAL                = DC.NORMAL;
@@ -126,8 +122,6 @@ local EMPTY_TABLE           = DC.EMPTY_TABLE;
 
 -- Those are the different colors used for the MUFs main texture
 local MF_colors = { };
-
-
 
 DC.MouseButtonsReadable = { -- {{{
     ["*%s1"]        =   L["HLP_LEFTCLICK"],   -- left mouse button
@@ -186,16 +180,13 @@ function MicroUnitF:GetFarthestVerticalMUF()
         end
 
     else
-
         if self.UnitShown > D.profile.DebuffsFramePerline then
             return floor( self.UnitShown / D.profile.DebuffsFramePerline ) * D.profile.DebuffsFramePerline
             + ((self.UnitShown % D.profile.DebuffsFramePerline ~= 0) and 1 or - D.profile.DebuffsFramePerline + 1);
         else
             return 1;
         end
-
     end
-
 end
 
 -- defines what is printed when the object is read as a string
@@ -218,16 +209,13 @@ function MicroUnitF:Create(Unit, ID) -- {{{
         return false;
     end
 
-
     -- create a new MUF object
     self.ExistingPerUNIT[Unit] = self:new(D.MFContainer, Unit, self.Number + 1, ID);
 
     self.Number = self.Number + 1;
 
-
     return self.ExistingPerUNIT[Unit];
 end -- }}}
-
 
 -- return the number MUFs we can use
 function MicroUnitF:MFUsableNumber () -- {{{
@@ -267,9 +255,7 @@ function MicroUnitF:ResetAllPositions () -- {{{
 
         self:Place();
         return true;
-
     end, 0.5);
-
 end -- }}}
 
 -- return the anchor of a given MUF depending on its creation ID
@@ -295,7 +281,6 @@ do
         return Anchor;
     end
 
-
     function MicroUnitF:GetHelperAnchor (atBottom)
 
         if atBottom then
@@ -311,9 +296,7 @@ do
 
             return "BOTTOMLEFT", self.Frame, Anchor[2], Anchor[3], "BOTTOMLEFT";
         end
-
     end
-
 end-- }}}
 
 
@@ -1871,6 +1854,6 @@ local MF_Textures = { -- unused
 
 -- }}}
 
-T._LoadedFiles["Dcr_DebuffsFrame.lua"] = "2.7.27";
+T._LoadedFiles["Dcr_DebuffsFrame.lua"] = "巴尼时光服修复版 v25112401";
 
 -- Heresy

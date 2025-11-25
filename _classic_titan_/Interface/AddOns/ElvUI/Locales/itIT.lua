@@ -2,6 +2,19 @@
 local E = unpack(ElvUI)
 local L = E.Libs.ACL:NewLocale('ElvUI', 'itIT')
 
+L["Date"] = true
+L["Plugins:"] = true
+L["Version:"] = true
+L["Equipment Sets"] = true
+L["No Set Equipped"] = true
+L["Set:"] = true
+L["New Mail"] = true
+L["No Mail"] = true
+L["Completed XP:"] = true
+L["Total Gold:"] = true
+L["Total XP:"] = true
+L["Quests:"] = true
+L["Time"] = true
 L["Restrict Pings"] = true
 L["Player"] = true
 L["Small"] = true
@@ -16,7 +29,6 @@ L["%s frame has a conflicting anchor point. Forcing the Buffs to be attached to 
 L["%s is attempting to share the Private Profile (%s) with you. Would you like to accept the request?"] = true
 L["%s is attempting to share the Global Profile with you. Would you like to accept the request?"] = true
 L["%s is attempting to share the Profile (%s) with you. Would you like to accept the request?"] = true
-L["%s: %s tried to call the protected function '%s'."] = true
 L["(Ctrl & Shift Click) Toggle CPU Profiling"] = true
 L["(Hold Shift) Memory Usage"] = true
 L["(Shift Click) Collect Garbage"] = true
@@ -108,8 +120,7 @@ L["Dead"] = true
 L["Debuffs"] = true
 L["Deficit:"] = true
 L["Delete gray items?"] = true
-L["Deposit Reagents"] = true
-L["Deposit Warbound Items"] = true
+L["Auto Deposit"] = true
 L["Disable Warning"] = true
 L["Disable"] = true
 L["Disabled"] = true
@@ -177,7 +188,7 @@ L["Importance: |cFF33FF33Low|r"] = true
 L["Importance: |cffD3CF00Medium|r"] = true
 L["Importance: |cffFF3333High|r"] = true
 L["In Progress"] = true
-L["Include Reagents"] = true
+L["Deposit Reagents"] = true
 L["INCOMPATIBLE_ADDON"] = "%s is not compatible with %s.\nPlease select the addon/module to use."
 L["Installation Complete"] = "Installazione Completata"
 L["Interrupted %s's |cff71d5ff|Hspell:%d:0|h[%s]|h|r!"] = true
@@ -210,6 +221,7 @@ L["KEY_SPACE"] = "SpB"
 L["Layout Set"] = true
 L["Layout"] = true
 L["Left Chat"] = true
+L["Right Click:"] = true
 L["Left Click:"] = true
 L["Level %d"] = true
 L["Level"] = "Livello"
@@ -442,6 +454,7 @@ L["EHELP_COMMANDS"] = ([=[Here is a list of all important *ElvUI|r commands:
  */estatus|r  -  Important informations for support questions.
  */egrid|r ^64|r or ^128|r or ^256|r  -  Toggle a pixel grid.
  */edebug|r ^on|r or ^off|r  -  Disable all AddOns except ElvUI.
-  NOTE: */edebug|r ^off|r will re-enable the addons disabled from
-  using */edebug|r ^on|r within that session.
+  NOTE: */edebug|r ^off|r will re-enable the addons disabled from using */edebug|r ^on|r within that session.
+ */guildlist|r ^minPlayers|r  -  Dumps the sorted list of guilds from the finder.
+ */guildapply|r ^"message"|r  -  Applies to the top 5 new guilds with an optional message.
 ]=]):gsub('*', E.InfoColor):gsub('%^', E.InfoColor2)

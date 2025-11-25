@@ -150,6 +150,12 @@ BlizzMoveAPI:RegisterFrames({
             ["DressUpFrame.OutfitDetailsPanel"] =
             {
                 MinVersion = 90105,
+                MaxVersion = 120000, -- renamed to CustomSetDetailsPanel
+                Detachable = true,
+            },
+            ["DressUpFrame.CustomSetDetailsPanel"] =
+            {
+                MinVersion = 120000, -- renamed from OutfitDetailsPanel
                 Detachable = true,
             },
         },
@@ -175,7 +181,7 @@ BlizzMoveAPI:RegisterFrames({
                         {
                             { Min = 0, Max = 11506 },
                             { Min = 20000, Max = 30000 },
-                            { Min = 40402 },
+                            { Min = 40000 },
                         },
                     },
                 },
@@ -811,8 +817,7 @@ BlizzMoveAPI:RegisterAddOnFrames({
                     VersionRanges =
                     {
                         { Min = 11506, Max = 20000 }, -- Backported in a broken state
-                        { Min = 30000, Max = 40000 },
-                        { Min = 40402, Max = 50000 },
+                        { Min = 20000, Max = 50000 },
                         { Min = 50500, Max = 60000 },
                         { Min = 100000 },
                     },
@@ -831,8 +836,7 @@ BlizzMoveAPI:RegisterAddOnFrames({
             VersionRanges =
             {
                 { Min = 11503, Max = 20000 },
-                { Min = 30000, Max = 40000 },
-                { Min = 40000 },
+                { Min = 20000 },
             },
         },
         ["CommunitiesFrame"] =
@@ -851,8 +855,7 @@ BlizzMoveAPI:RegisterAddOnFrames({
                     VersionRanges =
                     {
                         { Min = 11503, Max = 20000 },
-                        { Min = 30000, Max = 40000 },
-                        { Min = 40000 },
+                        { Min = 20000 },
                     },
                 },
                 ["CommunitiesFrame.NotificationSettingsDialog"] = {},
@@ -863,8 +866,7 @@ BlizzMoveAPI:RegisterAddOnFrames({
             VersionRanges =
             {
                 { Min = 11503, Max = 20000 },
-                { Min = 30000, Max = 40000 },
-                { Min = 40000 },
+                { Min = 20000 },
             },
         },
         ["CommunitiesGuildLogFrame"] =
@@ -872,8 +874,7 @@ BlizzMoveAPI:RegisterAddOnFrames({
             VersionRanges =
             {
                 { Min = 11503, Max = 20000 },
-                { Min = 30000, Max = 40000 },
-                { Min = 40000 },
+                { Min = 20000 },
             },
         },
         ["CommunitiesGuildNewsFiltersFrame"] =
@@ -881,8 +882,7 @@ BlizzMoveAPI:RegisterAddOnFrames({
             VersionRanges =
             {
                 { Min = 11503, Max = 20000 },
-                { Min = 30000, Max = 40000 },
-                { Min = 40000 },
+                { Min = 20000 },
             },
         },
         ["CommunitiesGuildTextEditFrame"] =
@@ -890,8 +890,7 @@ BlizzMoveAPI:RegisterAddOnFrames({
             VersionRanges =
             {
                 { Min = 11503, Max = 20000 },
-                { Min = 30000, Max = 40000 },
-                { Min = 40000 },
+                { Min = 20000 },
             },
         },
         ["CommunitiesSettingsDialog"] =
@@ -1160,6 +1159,11 @@ BlizzMoveAPI:RegisterAddOnFrames({
                         ["GlyphFrameScrollFrame"] =
                         {
                             IgnoreMouseWheel = true,
+                            VersionRanges =
+                            {
+                                { Min = 30000, Max = 30000 },
+                                { Min = 40000 },
+                            },
                         },
                     },
                 },
@@ -1200,8 +1204,7 @@ BlizzMoveAPI:RegisterAddOnFrames({
             VersionRanges =
             {
                 { Min = 11404, Max = 20000 },
-                { Min = 30000, Max = 40000 },
-                { Min = 40000 },
+                { Min = 20000 },
             },
         },
     },
@@ -1292,6 +1295,10 @@ BlizzMoveAPI:RegisterAddOnFrames({
         ["HousingDashboardFrame"] =
         {
             MinVersion = 110207,
+            SubFrames =
+            {
+                ["HousingDashboardFrame.HouseInfoContent.DashboardNoHousesFrame"] = {},
+            }
         },
     },
     ["Blizzard_HousingHouseFinder"] =
@@ -1308,6 +1315,13 @@ BlizzMoveAPI:RegisterAddOnFrames({
             MinVersion = 110207,
         },
         ["HousingHouseSettingsFrame"] =
+        {
+            MinVersion = 110207,
+        },
+    },
+    ["Blizzard_HousingModelPreview"] =
+    {
+        ["HousingModelPreviewFrame"] =
         {
             MinVersion = 110207,
         },
@@ -1445,6 +1459,7 @@ BlizzMoveAPI:RegisterAddOnFrames({
         ["MajorFactionRenownFrame"] =
         {
             MinVersion = 100000,
+            MaxVersion = 120000,
         },
     },
     ["Blizzard_MatchCelebrationPartyPoseUI"] =
@@ -1682,6 +1697,13 @@ BlizzMoveAPI:RegisterAddOnFrames({
         ["ClassTrainerFrame"] =
         {
             MinVersion = 0,
+        },
+    },
+    ["Blizzard_Transmog"] =
+    {
+        ["TransmogFrame"] =
+        {
+            MinVersion = 110207,
         },
     },
     ["Blizzard_UIWidgets"] =

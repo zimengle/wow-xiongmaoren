@@ -196,7 +196,7 @@ local function CreateLoadingText()
     return f
 end
 
--- 历遍所有来源的装备和兑换物，缓存装备的数据、鼠标提示工具文本
+-- 第一步：先历遍所有来源的装备和兑换物，缓存装备的数据、鼠标提示工具文本
 do
     local function InsertToAllItem(itemID)
         local _itemID = itemID
@@ -374,6 +374,10 @@ do
                 for itemID, v in pairs(BG.Loot[FB].ExchangeItems) do
                     InsertToAllItem(itemID)
                 end
+                -- 商店
+                for _, v in pairs(BG.Loot[FB].Shop) do
+                    InsertToAllItem(v.id)
+                end
             end)
             delay = delay + add
         end
@@ -388,7 +392,7 @@ do
     end
 end
 
--- 找出符合条件的装备
+-- 第二步：找出符合条件的装备
 do
     local function IsYesItem(itemID)
         local FB = BG.FB1
@@ -868,6 +872,22 @@ do
                 type = GetTypeID(type),
                 haved = CheckHaved(itemID)
             })
+        elseif type == "shop" then             -- 商人
+            local name = L["商人"] .. " " .. GetMoneyString(other)
+            local get = "|cff" .. "EE82EE" .. name
+
+            tinsert(db_old, {
+                itemID = itemID,
+                link = link,
+                level = level,
+                quality = quality,
+                texture = Texture,
+                get = get,
+                bindType = bindType,
+                setID = setID,
+                type = GetTypeID(type),
+                haved = CheckHaved(itemID)
+            })
         end
     end
     function CheckItemInfo()
@@ -998,6 +1018,12 @@ do
             if not BiaoGe.ItemLib.fitlerGet.pvp then
                 for itemID, v in pairs(BG.Loot[FB].PVP_currency) do
                     InsertItemInfo(itemID, "pvp_currency", hard, ii, v)
+                end
+            end
+            -- 商店
+            if not BiaoGe.ItemLib.fitlerGet.shop then
+                for _, v in pairs(BG.Loot[FB].Shop) do
+                    InsertItemInfo(v.id, "shop", hard, ii, v.m)
                 end
             end
         end

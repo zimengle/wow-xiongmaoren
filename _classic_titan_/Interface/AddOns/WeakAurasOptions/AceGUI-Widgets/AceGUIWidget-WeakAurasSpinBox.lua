@@ -289,7 +289,7 @@ local function Constructor()
 	rightbutton:SetDisabledTexture("Interface\\AddOns\\WeakAuras\\Media\\Textures\\spinboxrightp")
   rightbutton:SetScript("OnClick", SpinBox_OnValueUp)
 
-  local editbox = CreateFrame("EditBox", nil, frame, "InputBoxTemplate")
+  local editbox = CreateFrame("EditBox", nil, frame, "WAFIX_InputBoxTemplate")
   editbox:SetAutoFocus(false)
   editbox:SetFontObject(ChatFontNormal)
   editbox:SetHeight(19)

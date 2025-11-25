@@ -126,3 +126,4 @@ Blizzard_CombatText: enabled
 WeakAurasCompanion: enabled
 ArkInventory: enabled
 ArkInventoryRules_Example: enabled
+ElvUI_RatioMinimapAuras: disabled

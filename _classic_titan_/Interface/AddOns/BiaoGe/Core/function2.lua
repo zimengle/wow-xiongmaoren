@@ -2365,12 +2365,12 @@ function BG.SetEditBaseClass(edit)
     end)
 end
 
-function BG.PairFBItem(func, bossNum, all,FB)
-    local FB =FB or BG.FB1
-    local startB,endB
+function BG.PairFBItem(func, bossNum, all, FB)
+    local FB = FB or BG.FB1
+    local startB, endB
     if all then
-        startB, endB = 1, Maxb[FB]+2
-    elseif bossNum then 
+        startB, endB = 1, Maxb[FB] + 2
+    elseif bossNum then
         startB, endB = bossNum, bossNum
     else
         startB, endB = 1, Maxb[FB]
@@ -2505,10 +2505,44 @@ function BG.GetBossIndexByBossID(bossID, FB)
     end
 end
 
-function BG.SetCD(cd,time)
+function BG.SetCD(cd, time)
     if cd.cd then return true end
     cd.cd = true
     BG.After(time, function()
         cd.cd = nil
     end)
+end
+
+function BG.GetNextWeekTime() -- 距离下周四还有多少秒
+    local resetDay = 2
+    if BG.IsCN() then
+        resetDay = 4
+    end
+
+    local currentTimestamp = GetServerTime()
+    local currentWeekday = date("%w", currentTimestamp)
+    local daysToThursday = resetDay - currentWeekday
+    local nextThursdayTimestamp
+
+    local today = date("*t", currentTimestamp)
+    if daysToThursday == 0 and today.hour < 7 then
+        -- 如果时间小于当天凌晨7点
+        today.hour = 7
+        today.min = 0
+        today.sec = 0
+        nextThursdayTimestamp = time(today)
+    else
+        -- 如果已经是周四了，则日期+7
+        if daysToThursday <= 0 then
+            daysToThursday = daysToThursday + 7
+        end
+        nextThursdayTimestamp = currentTimestamp + daysToThursday * 86400
+
+        local nextThursdayDateTable = date("*t", nextThursdayTimestamp)
+        nextThursdayDateTable.hour = 7
+        nextThursdayDateTable.min = 0
+        nextThursdayDateTable.sec = 0
+        nextThursdayTimestamp = time(nextThursdayDateTable)
+    end
+    return nextThursdayTimestamp - currentTimestamp, nextThursdayTimestamp
 end

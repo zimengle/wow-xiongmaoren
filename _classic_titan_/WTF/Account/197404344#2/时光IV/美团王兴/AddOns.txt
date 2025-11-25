@@ -125,3 +125,4 @@ kExtraBossFrames: disabled
 Blizzard_CombatText: enabled
 WeakAurasCompanion: enabled
 ArkInventory: disabled
+ElvUI_RatioMinimapAuras: disabled

@@ -1,8 +1,9 @@
-## Title: |cff1784d1ElvUI|r |cfd9b9b9bLibraries|r
+## Title: |cFF00BFFF[Barney]|r |cff1784d1ElvUI Libraries|r
+## Title-zhCN: |cFF00BFFF[巴尼]|r |cff1784d1ElvUI Libraries|r
 ## Notes: Libraries that power ElvUI
 ## Author: Elv, Simpy
-## Version: v13.61
-## Interface: 30405
+## Version: 14.03
+## Interface: 30800
 ## OptionalDeps: LibHealComm-4.0
 ## X-oUF: ElvUF
 

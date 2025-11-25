@@ -190,7 +190,7 @@ local function Constructor()
   deleteButton:SetPushedTexture(delPushed)
   button.deleteHighlight = delHighlight
 
-  local renameEditBox = CreateFrame("EditBox", nil, button, "InputBoxTemplate")
+  local renameEditBox = CreateFrame("EditBox", nil, button, "WAFIX_InputBoxTemplate")
   renameEditBox:SetHeight(14)
   renameEditBox:SetPoint("TOPLEFT", title, "TOPLEFT")
   renameEditBox:SetPoint("BOTTOMRIGHT", title, "BOTTOMRIGHT")

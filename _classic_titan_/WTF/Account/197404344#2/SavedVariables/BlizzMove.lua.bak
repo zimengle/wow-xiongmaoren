@@ -37,8 +37,8 @@ BlizzMoveDB = {
 ["anchorPoint"] = "CENTER",
 ["relativeFrame"] = "UIParent",
 ["offY"] = 0.6026153564453125,
-["offX"] = 2.410400390625,
 ["relativePoint"] = "CENTER",
+["offX"] = 2.4102783203125,
 },
 },
 },
@@ -87,9 +87,9 @@ BlizzMoveDB = {
 {
 ["anchorPoint"] = "TOP",
 ["relativeFrame"] = "UIParent",
-["offY"] = -143.9290764686011,
-["offX"] = -321.6091158031741,
+["offY"] = -144.5315789230663,
 ["relativePoint"] = "TOP",
+["offX"] = -318.5959992827884,
 },
 },
 },
@@ -106,11 +106,11 @@ BlizzMoveDB = {
 ["dragged"] = true,
 ["dragPoints"] = {
 {
-["anchorPoint"] = "RIGHT",
+["anchorPoint"] = "CENTER",
 ["relativeFrame"] = "UIParent",
-["offY"] = 36.76103210449219,
-["offX"] = -110.697509765625,
-["relativePoint"] = "RIGHT",
+["offY"] = 49.41659545898438,
+["offX"] = -300.7165832519531,
+["relativePoint"] = "CENTER",
 },
 },
 },
@@ -187,9 +187,9 @@ BlizzMoveDB = {
 {
 ["anchorPoint"] = "LEFT",
 ["relativeFrame"] = "UIParent",
-["offY"] = 100.2828369140625,
-["offX"] = 373.3634948730469,
+["offY"] = 95.46182250976562,
 ["relativePoint"] = "LEFT",
+["offX"] = 378.7872314453125,
 },
 },
 },
@@ -225,6 +225,25 @@ BlizzMoveDB = {
 },
 },
 ["TradeSkillFrame"] = {
+["startPoints"] = {
+{
+["anchorPoint"] = "TOPLEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = -103.9998779296875,
+["offX"] = 0,
+["relativePoint"] = "TOPLEFT",
+},
+},
+["dragged"] = true,
+["dragPoints"] = {
+{
+["anchorPoint"] = "TOPLEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = -170.2899169921875,
+["relativePoint"] = "TOPLEFT",
+["offX"] = 348.3240356445313,
+},
+},
 },
 ["InspectPVPFrame"] = {
 },
@@ -243,8 +262,8 @@ BlizzMoveDB = {
 {
 ["anchorPoint"] = "TOPLEFT",
 ["relativeFrame"] = "UIParent",
-["offY"] = -104.6025390625,
-["offX"] = 3.615846157073975,
+["offY"] = -103.9998779296875,
+["offX"] = 4.821068286895752,
 ["relativePoint"] = "TOPLEFT",
 },
 },
@@ -268,11 +287,11 @@ BlizzMoveDB = {
 ["dragged"] = true,
 ["dragPoints"] = {
 {
-["anchorPoint"] = "TOPLEFT",
+["anchorPoint"] = "CENTER",
 ["relativeFrame"] = "UIParent",
-["offY"] = -170.4450926683203,
-["offX"] = 307.947302817156,
-["relativePoint"] = "TOPLEFT",
+["offY"] = 49.95111839984929,
+["offX"] = 186.4915635445723,
+["relativePoint"] = "CENTER",
 },
 },
 },
@@ -294,14 +313,33 @@ BlizzMoveDB = {
 ["anchorPoint"] = "TOPLEFT",
 ["relativeFrame"] = "UIParent",
 ["offY"] = -116,
-["offX"] = 16,
 ["relativePoint"] = "TOPLEFT",
+["offX"] = 16,
 },
 },
 },
 ["GuildControlPopupFrame"] = {
 },
 ["MacroFrame"] = {
+["startPoints"] = {
+{
+["anchorPoint"] = "TOPLEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = -116,
+["offX"] = 16,
+["relativePoint"] = "TOPLEFT",
+},
+},
+["dragged"] = true,
+["dragPoints"] = {
+{
+["anchorPoint"] = "CENTER",
+["relativeFrame"] = "UIParent",
+["offY"] = 122.9973754882813,
+["offX"] = -273.8426361083984,
+["relativePoint"] = "CENTER",
+},
+},
 },
 ["ChatConfigFrame"] = {
 ["startPoints"] = {
@@ -318,8 +356,8 @@ BlizzMoveDB = {
 {
 ["anchorPoint"] = "CENTER",
 ["relativeFrame"] = "UIParent",
-["offY"] = -0.602630615234375,
-["offX"] = 3.013214111328125,
+["offY"] = -0.0001373291015625,
+["offX"] = 7.231536865234375,
 ["relativePoint"] = "CENTER",
 },
 },
@@ -339,9 +377,9 @@ BlizzMoveDB = {
 {
 ["anchorPoint"] = "CENTER",
 ["relativeFrame"] = "UIParent",
-["offY"] = 92.63819885253906,
+["offY"] = 79.98277282714844,
+["offX"] = -34.45852661132813,
 ["relativePoint"] = "CENTER",
-["offX"] = -273.7053527832031,
 },
 },
 },
@@ -376,9 +414,9 @@ BlizzMoveDB = {
 {
 ["anchorPoint"] = "LEFT",
 ["relativeFrame"] = "UIParent",
-["offY"] = 117.361647847647,
+["offY"] = 116.7590966002172,
 ["relativePoint"] = "LEFT",
-["offX"] = 110.4458325882752,
+["offX"] = 111.0484830178302,
 },
 },
 },
@@ -399,9 +437,9 @@ BlizzMoveDB = {
 {
 ["anchorPoint"] = "TOPLEFT",
 ["relativeFrame"] = "UIParent",
-["offY"] = -103.9998779296875,
+["offY"] = -104.6025390625,
 ["relativePoint"] = "TOPLEFT",
-["offX"] = 0,
+["offX"] = 306.7420349121094,
 },
 },
 },
@@ -504,9 +542,9 @@ BlizzMoveDB = {
 {
 ["anchorPoint"] = "TOPLEFT",
 ["relativeFrame"] = "UIParent",
-["offY"] = -115.3973388671875,
-["offX"] = 14.79475498199463,
+["offY"] = -120.2183837890625,
 ["relativePoint"] = "TOPLEFT",
+["offX"] = 259.4651794433594,
 },
 },
 },

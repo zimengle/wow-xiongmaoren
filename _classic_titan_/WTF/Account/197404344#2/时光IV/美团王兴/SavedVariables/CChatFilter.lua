@@ -14,12 +14,12 @@ BFWC_Filter_SavedConfigs = {
 ["white_to_chatframe_color"] = {
 ["a"] = 1,
 ["r"] = 1,
-["hex"] = "ffffc0c0",
-["g"] = 0.753,
 ["b"] = 0.753,
+["g"] = 0.753,
+["hex"] = "ffffc0c0",
 },
-["white_to_chatframe"] = true,
-["dlg_width"] = 900,
+["auto_filter_by_level"] = false,
+["hide_enter_leave"] = true,
 ["dungeons"] = {
 },
 ["blacklist_enable"] = true,
@@ -27,10 +27,10 @@ BFWC_Filter_SavedConfigs = {
 ["Player-6383-00248778"] = {
 },
 },
-["remain_unchanged_msg"] = false,
+["dlg_width"] = 900,
 ["saved"] = true,
 ["bigfoot"] = true,
+["remain_unchanged_msg"] = false,
 ["filter_request_to_join"] = true,
-["auto_filter_by_level"] = false,
-["hide_enter_leave"] = true,
+["white_to_chatframe"] = true,
 }

@@ -106,8 +106,8 @@ do
     local mainFrameWidth2                      = 1685
     local Maxt, Maxb, Maxi, HopeMaxb, HopeMaxn = {}, {}, {}, {}, {}
     do
-        local function AddDB(FB, width, height, maxt, maxb, 
-            bossNumTbl, diffTbl, diffIDTbl, maxiTbl, zaxiangI)
+        local function AddDB(FB, width, height, maxt, maxb,
+                             bossNumTbl, diffTbl, diffIDTbl, maxiTbl, zaxiangI)
             BG.FBWidth[FB] = width
             BG.FBHeight[FB] = height
             Maxt[FB] = maxt
@@ -230,7 +230,7 @@ do
         end
         if BG.IsTitan then
             AddDB("MCtitan", mainFrameWidth, 870, 3, 12, { 0, 6, 11 }, nil, nil,
-                { 5, 5, 5, 6, 5, 6, 5, 5, 5, 6,  11, 20, })
+                { 5, 5, 5, 6, 5, 6, 5, 5, 5, 6, 11, 20, })
             AddDB("SSCtitan", mainFrameWidth, 870, 3, 12, { 0, 6, 11 }, nil, nil,
                 { 5, 5, 5, 5, 5, 6, 5, 5, 5, 6, 11, 20, })
             -- AddDB("Worldtitan", mainFrameWidth, 810, 3, 10, { 0, 4, 8 }, nil, nil,
@@ -333,7 +333,7 @@ do
         if BG.IsWLK_80 then
             BG.FB1 = "NAXX"
             BG.fullLevel = 80
-            BG.fullLevel2 = 70
+            BG.fullLevel2 = 68
             BG.theEndBossID = { 1114, 756, 645, 856, }
 
             AddDB("NAXX", 533, "P1", nil, nil, nil, { 1, 15 })
@@ -383,12 +383,12 @@ do
         end
         if BG.IsTitan then
             BG.FB1 = "MCtitan"
-            BG.fullLevel = 60
-            BG.fullLevel2 = 60
+            BG.fullLevel = 80
+            BG.fullLevel2 = 70
             BG.theEndBossID = { 672, 628, 733 } --MC 毒蛇 风暴
             AddDB("MCtitan", 409, "P1", 25)
             AddDB("SSCtitan", 548, "P2", 25, nil, nil, nil, L["毒蛇风暴"])
-            BG.FBIDtable[550] = "SSCtitan"                 -- 风暴要塞
+            BG.FBIDtable[550] = "SSCtitan" -- 风暴要塞
             BG.bossPositionStartEnd[550] = { 7, 10 }
             for i = 7, 10 do
                 BG.FBfromBossPosition["SSCtitan"][i] = { name = "TK", localName = GetRealZoneText(550) }
@@ -658,6 +658,7 @@ do
                 PVP_currency = {}, -- PVP货币
                 Profession = {},   -- 专业制造
                 Quest = {},        -- 任务
+                Shop = {},         -- 商店直接售卖
 
                 Sod_PVP = {},      -- 赛季服PVP活动
                 Sod_Currency = {},

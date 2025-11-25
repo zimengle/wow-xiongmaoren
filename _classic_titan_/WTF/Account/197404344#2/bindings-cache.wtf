@@ -20,3 +20,8 @@ bind C MULTIACTIONBAR1BUTTON3
 bind ` ACTIONBUTTON6
 bind BUTTON5 MULTIACTIONBAR1BUTTON11
 bind CTRL-C TOGGLECHARACTER0
+bind ALT-1 CLICK RXPItemFrameButton1:LeftButton
+bind ALT-2 CLICK RXPItemFrameButton2:LeftButton
+bind ALT-3 CLICK RXPItemFrameButton3:LeftButton
+bind ALT-4 CLICK RXPItemFrameButton4:LeftButton
+modifiedclick NONE SELFCAST

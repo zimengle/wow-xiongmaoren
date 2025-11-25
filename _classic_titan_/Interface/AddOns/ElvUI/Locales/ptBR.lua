@@ -2,8 +2,21 @@
 local E = unpack(ElvUI)
 local L = E.Libs.ACL:NewLocale('ElvUI', 'ptBR')
 
+L["Date"] = "Data"
+L["Plugins:"] = true
+L["Version:"] = "Versão"
+L["Equipment Sets"] = "Conjuntos de Equipamentos"
+L["No Set Equipped"] = "Nenhum Conjunto Equipado"
+L["Set:"] = "Conjunto:"
+L["New Mail"] = "Nova Carta"
+L["No Mail"] = "Nenhuma Carta"
+L["Completed XP:"] = "XP Completado"
+L["Total Gold:"] = "Ouro Total:"
+L["Total XP:"] = "XP Total"
+L["Quests:"] = "Objectivos:"
+L["Time"] = "Tempo"
 L["Restrict Pings"] = "Restringir Pings"
-L["Player"] = true
+L["Player"] = "Jogador"
 L["Small"] = "Pequeno"
 L["Medium"] = "Médio"
 L["Large"] = "Grande"
@@ -16,7 +29,6 @@ L["%s frame has a conflicting anchor point. Forcing the Buffs to be attached to 
 L["%s is attempting to share the Private Profile (%s) with you. Would you like to accept the request?"] = "%s está tentando compartilhar o Perfil Privado (%s) com você. Gostaria de aceitar o pedido?"
 L["%s is attempting to share the Global Profile with you. Would you like to accept the request?"] = "%s está tentando compartilhar o Perfil Global com você. Gostaria de aceitar o pedido?"
 L["%s is attempting to share the Profile (%s) with you. Would you like to accept the request?"] = "%s está tentando compartilhar o Perfil (%s) com você. Gostaria de aceitar o pedido?"
-L["%s: %s tried to call the protected function '%s'."] = "%s: %s tentou chamar a função protegida '%s'."
 L["(Ctrl & Shift Click) Toggle CPU Profiling"] = "(Ctrl & Shift Clique) Alternar Medição de Desempenho da CPU"
 L["(Hold Shift) Memory Usage"] = "(Segurar Shift) Memória em Uso"
 L["(Shift Click) Collect Garbage"] = "(Clique Shift) Coletar lixo"
@@ -48,7 +60,7 @@ L["Aura Bars"] = "Barras de Auras"
 L["Auras Set"] = "Auras Selecionadas"
 L["Auras"] = true
 L["Auto Scale"] = "Dimensionar automaticamente"
-L["AVD: "] = true
+L["AVD: "] = "ESQ: "
 L["Avoidance Breakdown"] = "Separação de Evasão"
 L["Azerite Bar"] = "Barra de Azerita"
 L["Bag Bar"] = "Barra das Bolsas"
@@ -108,8 +120,7 @@ L["Dead"] = "Morto"
 L["Debuffs"] = "Penalidades"
 L["Deficit:"] = "Défice:"
 L["Delete gray items?"] = "Deletar itens cinzentos?"
-L["Deposit Reagents"] = "Depositar Reagentes"
-L["Deposit Warbound Items"] = true
+L["Auto Deposit"] = "Auto-depositar"
 L["Disable Warning"] = "Desativar Aviso"
 L["Disable"] = "Desativar"
 L["Disabled"] = "Desabilitado"
@@ -170,14 +181,14 @@ L["I Swear"] = "Eu Juro"
 L["I"] = true
 L["Icons Only"] = "Apenas Ícones"
 L["If you accidentally removed a default chat tab you can always re-run the chat part of the ElvUI installer."] = "Se você removeu acidentalmente uma aba padrão do Bate-papo você sempre pode rodar a parte de Bate-papo do instalador do ElvUI."
-L["If you are experiencing issues with ElvUI try disabling all your addons except ElvUI first."] = "Se você estiver enfrentando problemas com o ElvUI  tente desabilitar todos os seus addons exceto o ElvUI."
+L["If you are experiencing issues with ElvUI try disabling all your addons except ElvUI first."] = "Se você estiver enfrentando problemas com o ElvUI tente desabilitar todos os seus addons exceto o ElvUI."
 L["If you have an icon or aurabar that you don't want to display simply hold down shift and right click the icon for it to disapear."] = "Se você tiver um Ícone ou Barra de Auras que você não quer mostrar, segure Shift e clique com o botão direito para ela desaparecer."
-L["IL"] = "IL"
+L["IL"] = true
 L["Importance: |cFF33FF33Low|r"] = "Importância: |cFF33FF33Baixa|r"
 L["Importance: |cffD3CF00Medium|r"] = "Importância: |cffD3CF00Média|r"
 L["Importance: |cffFF3333High|r"] = "Importância: |cffFF3333Alta|r"
 L["In Progress"] = "Em Progresso"
-L["Include Reagents"] = true
+L["Deposit Reagents"] = "Depositar Reagentes"
 L["INCOMPATIBLE_ADDON"] = "%s não é compatível com %s.\nPor favor selecione o addon/módulo que deseja usar."
 L["Installation Complete"] = "Instalação Completa"
 L["Interrupted %s's |cff71d5ff|Hspell:%d:0|h[%s]|h|r!"] = "Interrompeu a |cff71d5ff|Hspell:%d:0|h[%s]|h|r de %s!"
@@ -210,6 +221,7 @@ L["KEY_SPACE"] = "SpB"
 L["Layout Set"] = "Definições do Layout"
 L["Layout"] = "Layout"
 L["Left Chat"] = "Bate-papo esquerdo"
+L["Right Click:"] = "Clique Direito:"
 L["Left Click:"] = "Clique Esquerdo:"
 L["Level %d"] = "Nível %d"
 L["Level"] = "Nível"
@@ -242,7 +254,7 @@ L["Need help? Join our Discord: https://discord.tukui.org"] = "Precisa de ajuda?
 L["New Profile will create a fresh profile for this character."] = "Novo Perfil irá criar um perfil limpo para este personagem."
 L["New Profile"] = "Novo Perfil"
 L["No bindings set."] = "Sem atalhos definidos"
-L["No gray items to sell."] = true
+L["No gray items to sell."] = "Nenhum item cinza para vender."
 L["No Guild"] = "Sem Guilda"
 L["No Loot"] = "Sem Saque"
 L["None"] = "Nenhum"
@@ -367,7 +379,7 @@ L["To setup chat colors, chat channels and chat font size, right-click the chat 
 L["Toggle Bags"] = "Mostrar/Ocultar Bolsas"
 L["Toggle Chat Frame"] = "Mostrar/Ocultar Bate-papo"
 L["Toggle Configuration"] = "Mostrar/Ocultar Modo de Configuração"
-L["Toggle Mover Mode"] = true
+L["Toggle Mover Mode"] = "Mostrar/Ocultar Modo de Mover"
 L["Toggle Volume Stream"] = "Mostrar/Ocultar Volume do Canal"
 L["Tooltip"] = "Dica"
 L["TopCenterWidget"] = "Widget Central"
@@ -442,6 +454,7 @@ L["EHELP_COMMANDS"] = ([=[Aqui está a lista de todos os comandos importantes do
  */estatus|r  -  Informações importantes para questões com o suporte.
  */egrid|r ^64|r or ^128|r or ^256|r  -  Alternar o grid de pixels.
  */edebug|r ^on|r or ^off|r  -  Desabilitar todos os AddOns exceto ElvUI.
-  NOTA: */edebug|r ^off|r irá reabilitar os addons desabilitados por ter
-  usar */edebug|r ^on|r nesta sessão.
+  NOTA: */edebug|r ^off|r irá reabilitar os addons desabilitados por ter usar */edebug|r ^on|r nesta sessão.
+ */guildlist|r ^minPlayers|r  -  Dumps the sorted list of guilds from the finder.
+ */guildapply|r ^"message"|r  -  Applies to the top 5 new guilds with an optional message.
 ]=]):gsub('*', E.InfoColor):gsub('%^', E.InfoColor2)

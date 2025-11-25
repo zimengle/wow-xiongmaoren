@@ -1,7 +1,7 @@
-## Interface: 30403, 30404, 30405
+## Interface: 30403, 30800
 ## Title: OmniCC |cffff559a露露修复版|r
-## Version: 11.2.4 Rurutia fix
-## Notes: OmniCC 冷却管理插件，国服3.4.5可用。|n修复：|cffee5885露露緹婭@Bilibili|r
+## Version: 11.2.5 Rurutia fix
+## Notes: OmniCC 冷却管理插件，国服3.4.5可用版本。|n修复：|cffee5885露露緹婭@Bilibili|r
 ## Notes-esMX: Contador de tiempo de reutilización
 ## Notes-esES: Contador de tiempo de reutilización
 ## Notes-ptBR: Contagem de tempo de recarga

@@ -9,8 +9,8 @@ local strmatch = strmatch
 local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
 
-local ignoreWidgets = {
-	[283] = true -- Cosmic Energy
+local ignoreWidget = {
+	[283] = 3463 -- Cosmic Energy
 }
 
 function BL:UIWidgetTemplateStatusBar()
@@ -20,7 +20,7 @@ function BL:UIWidgetTemplateStatusBar()
 	if forbidden and bar then
 		if bar.tooltip then bar.tooltip = nil end -- EmbeddedItemTooltip is tainted just block the tooltip
 		return
-	elseif forbidden or ignoreWidgets[self.widgetSetID] or not bar then
+	elseif forbidden or (self.widgetID == ignoreWidget[self.widgetSetID]) or not bar then
 		return -- we don't want to handle these widgets
 	end
 
@@ -38,6 +38,8 @@ function BL:UIWidgetTemplateStatusBar()
 		if NP.Initialized and strmatch(self:GetDebugName(), 'NamePlate') then
 			self:SetIgnoreParentScale(true)
 			self:SetIgnoreParentAlpha(true)
+		else
+			self:SetScale(0.99) -- scaling for Simpy
 		end
 
 		if self.Label then -- title
@@ -51,6 +53,8 @@ function BL:UIWidgetTemplateStatusBar()
 end
 
 function BL:BelowMinimap_CaptureBar()
+	if not self.LeftLine or not self.LeftBar then return end
+
 	self.LeftLine:SetAlpha(0)
 	self.RightLine:SetAlpha(0)
 	self.BarBackground:SetAlpha(0)
@@ -76,7 +80,7 @@ function BL:BelowMinimap_CaptureBar()
 		self.backdrop:Point('TOPLEFT', self.LeftBar, -x, x)
 		self.backdrop:Point('BOTTOMRIGHT', self.RightBar, x, -x)
 	else
-		self.backdrop:SetFrameLevel(self:GetFrameLevel() - 1)
+		self.backdrop:OffsetFrameLevel(-1, self)
 	end
 end
 

@@ -21,6 +21,9 @@ local function MailFrameSkin()
 			button:StyleButton(nil, true)
 		end
 
+		--button:ClearAllPoints()
+		--button:SetPoint('TOPLEFT', _G.SendMailFrame, 'TOPLEFT', -29 + 44 * i, -310)
+
 		local name = GetSendMailItem(i)
 		if name then
 			local _, _, quality = GetItemInfo(name)

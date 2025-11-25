@@ -191,7 +191,7 @@ local function ConstructTexturePicker(frame)
     UpdateShownWidgets()
   end
 
-  local input = CreateFrame("EditBox", nil, group.frame, "SearchBoxTemplate");
+  local input = CreateFrame("EditBox", nil, group.frame, "WAFIX_SearchBoxTemplate");
   input:SetScript("OnTextChanged", function(self, ...)
     SearchBoxTemplate_OnTextChanged(self)
     local status = dropdown.status or dropdown.localstatus

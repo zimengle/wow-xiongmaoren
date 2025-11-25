@@ -34,8 +34,9 @@ function S:Blizzard_InspectUI()
 	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.inspect) then return end
 
 	local InspectFrame = _G.InspectFrame
-	S:HandleFrame(InspectFrame, true, nil, 11, -12, -32, 76)
+	S:HandleFrame(InspectFrame, true)
 	S:HandleCloseButton(_G.InspectFrameCloseButton, InspectFrame.backdrop)
+	_G.InspectFrameCloseButton:PointXY(3, 3)
 
 	for i = 1, #_G.INSPECTFRAME_SUBFRAMES do
 		S:HandleTab(_G['InspectFrameTab'..i])
@@ -43,7 +44,7 @@ function S:Blizzard_InspectUI()
 
 	-- Reposition Tabs
 	_G.InspectFrameTab1:ClearAllPoints()
-	_G.InspectFrameTab1:Point('TOPLEFT', _G.InspectFrame, 'BOTTOMLEFT', 1, 76)
+	_G.InspectFrameTab1:Point('TOPLEFT', _G.InspectFrame, 'BOTTOMLEFT', 1, 0)
 	_G.InspectFrameTab2:Point('TOPLEFT', _G.InspectFrameTab1, 'TOPRIGHT', -19, 0)
 	_G.InspectFrameTab3:Point('TOPLEFT', _G.InspectFrameTab2, 'TOPRIGHT', -19, 0)
 
@@ -69,8 +70,9 @@ function S:Blizzard_InspectUI()
 
 	hooksecurefunc('InspectPaperDollItemSlotButton_Update', Update_InspectPaperDollItemSlotButton)
 
+	S:HandleFrame(_G.InspectModelFrame, true, nil, -1, -1, 0, 0)
 	S:HandleRotateButton(_G.InspectModelFrameRotateLeftButton)
-	_G.InspectModelFrameRotateLeftButton:Point('TOPLEFT', 3, -3)
+	_G.InspectModelFrameRotateLeftButton:Point('TOPLEFT', 5, -7)
 	_G.InspectModelFrameRotateLeftButton:SetNormalTexture([[Interface\Buttons\UI-RefreshButton]])
 	_G.InspectModelFrameRotateLeftButton:GetNormalTexture():SetTexCoord(0, 1, 1, 1, 0, 0, 1, 0)
 	_G.InspectModelFrameRotateLeftButton:SetPushedTexture([[Interface\Buttons\UI-RefreshButton]])
@@ -84,8 +86,12 @@ function S:Blizzard_InspectUI()
 	_G.InspectModelFrameRotateRightButton:GetPushedTexture():SetTexCoord(0, 1, 0, 0, 1, 1, 1, 0)
 
 	-- Talents
-	S:HandleFrame(_G.InspectTalentFrame, true, nil, 11, -12, -32, 76)
-	S:HandleCloseButton(_G.InspectTalentFrameCloseButton, _G.InspectTalentFrame.backdrop)
+	--S:HandleFrame(_G.InspectTalentFrame, true, nil, 11, -12, -32, 76)
+	_G.InspectTalentFrame:StripTextures()
+	_G.InspectTalentFrame:PointXY(-11, 10)
+	_G.InspectTalentFrame:Point('BOTTOMRIGHT', 0, -79)
+	--S:HandleCloseButton(_G.InspectTalentFrameCloseButton, _G.InspectTalentFrame.backdrop)
+	_G.InspectTalentFrameCloseButton:ClearAllPoints()
 
 	-- HandleTab looks weird
 	for i = 1, 3 do
@@ -93,6 +99,9 @@ function S:Blizzard_InspectUI()
 		tab:StripTextures()
 		tab:Height(24)
 		S:HandleButton(tab)
+		if i == 1 then
+			tab:PointXY(24, -55)
+		end
 	end
 
 	_G.InspectTalentFramePointsBar:StripTextures()
@@ -100,8 +109,9 @@ function S:Blizzard_InspectUI()
 	_G.InspectTalentFrameSpentPointsText:Point('LEFT', _G.InspectTalentFramePointsBar, 'LEFT', 12, -1)
 	_G.InspectTalentFrameTalentPointsText:Point('RIGHT', _G.InspectTalentFramePointsBar, 'RIGHT', -12, -1)
 
+	_G.InspectTalentFrameScrollFrame:PointXY(-35, -80)
 	_G.InspectTalentFrameScrollFrame:StripTextures()
-	_G.InspectTalentFrameScrollFrame:CreateBackdrop()
+	--_G.InspectTalentFrameScrollFrame:CreateBackdrop()
 
 	S:HandleScrollBar(_G.InspectTalentFrameScrollFrameScrollBar)
 	_G.InspectTalentFrameScrollFrameScrollBar:Point('TOPLEFT', _G.InspectTalentFrameScrollFrame, 'TOPRIGHT', 10, -16)
@@ -125,16 +135,29 @@ function S:Blizzard_InspectUI()
 	end
 
 	-- Honor/Arena/PvP Tab
+	_G.InspectPVPFrameHonorLabel:PointXY(-1, 11)
+	S:HandleFrame(_G.InspectPVPHonor, true, nil, 0, 0, 3, 40)
+	_G.InspectPVPHonor:PointXY(5, -17)
+	_G.InspectPVPFrameArenaLabel:PointXY(0, 1)
+
+	--S:HandleFrame(_G.InspectPVPHonor, true, nil)
+
 	local InspectPVPFrame = _G.InspectPVPFrame
 	InspectPVPFrame:StripTextures(true)
 
 	for i = 1, MAX_ARENA_TEAMS do
 		local inspectpvpTeam = _G['InspectPVPTeam'..i]
+		local inspectpvpTeambanner = _G['InspectPVPTeam'..i..'StandardBanner']
+		local inspectpvpTeambar = _G['InspectPVPTeam'..i..'StandardBar']
+		--inspectpvpTeambanner:PointXY(-9, 10)
+		inspectpvpTeambar:PointXY(-21, 18.5)
+		inspectpvpTeam:PointXY(15, 12.5)
+		S:HandleFrame(inspectpvpTeam, true, nil, 14, -4, -22, 2)
 
-		inspectpvpTeam:StripTextures()
-		inspectpvpTeam:CreateBackdrop()
-		inspectpvpTeam.backdrop:Point('TOPLEFT', 9, -4)
-		inspectpvpTeam.backdrop:Point('BOTTOMRIGHT', -24, 3)
+		--inspectpvpTeam:StripTextures()
+		--inspectpvpTeam:CreateBackdrop()
+		--inspectpvpTeam.backdrop:Point('TOPLEFT', 9, -4)
+		--inspectpvpTeam.backdrop:Point('BOTTOMRIGHT', -34, 0)
 
 		inspectpvpTeam:HookScript('OnEnter', S.SetModifiedBackdrop)
 		inspectpvpTeam:HookScript('OnLeave', S.SetOriginalBackdrop)

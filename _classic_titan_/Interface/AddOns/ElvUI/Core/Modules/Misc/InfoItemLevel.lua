@@ -32,7 +32,7 @@ local InspectItems = {
 	'BackSlot',
 	'MainHandSlot', -- 16
 	'SecondaryHandSlot', -- 17
-	(E.Cata or E.Wrath) and 'RangedSlot' or nil -- 18
+	(E.Mists or E.Wrath) and 'RangedSlot' or nil -- 18
 }
 
 local numInspectItems = #InspectItems
@@ -40,7 +40,7 @@ local numInspectItems = #InspectItems
 function M:CreateInspectTexture(slot, x, y)
 	local texture = slot:CreateTexture()
 	texture:Point('BOTTOM', x, y)
-	texture:SetTexCoord(unpack(E.TexCoords))
+	texture:SetTexCoords()
 	texture:Size(14)
 
 	local backdrop = CreateFrame('Frame', nil, slot)
@@ -121,7 +121,7 @@ function M:ClearPageInfo(frame, which)
 end
 
 function M:CheckStatsItemLevel()
-	return E.Retail and not E:IsAddOnEnabled('DejaCharacterStats')
+	return E.Retail and not E.OtherAddons.DejaCharacterStats
 end
 
 function M:ToggleItemLevelInfo(setupCharacterPage, config)
@@ -181,7 +181,6 @@ function M:ToggleItemLevelInfo(setupCharacterPage, config)
 end
 
 function M:UpdatePageStrings(i, iLevelDB, slot, slotInfo, which) -- `which` is used by plugins
-slotInfo.iLvl = slotInfo.iLvl or 200
 	iLevelDB[i] = slotInfo.iLvl
 
 	if E.db.general.itemLevel.showEnchants then
@@ -265,7 +264,7 @@ function M:UpdateAverageString(frame, which, iLevelDB)
 		avgItemLevel = E:CalculateAverageItemLevel(iLevelDB, frame.unit)
 	end
 
-	if avgItemLevel and (not charPage or not E:IsAddOnEnabled('DejaCharacterStats')) then
+	if avgItemLevel and (not charPage or not E.OtherAddons.DejaCharacterStats) then
 		if charPage then
 			frame.ItemLevelText:SetText(avgItemLevel)
 
@@ -348,10 +347,10 @@ function M:CreateSlotStrings(frame, which)
 
 	if which == 'Inspect' then
 		frame.ItemLevelText = _G.InspectPaperDollItemsFrame:CreateFontString(nil, 'ARTWORK')
-		frame.ItemLevelText:Point('BOTTOMLEFT', (E.Cata or E.Wrath) and 20 or 6, (E.Cata or E.Wrath) and 84 or 6)
-	elseif E.Cata or E.Wrath then
+		frame.ItemLevelText:Point('BOTTOMLEFT', 6, 6)
+	elseif E.Mists or E.Cata or E.Wrath then
 		frame.ItemLevelText = _G.PaperDollItemsFrame:CreateFontString(nil, 'ARTWORK')
-		frame.ItemLevelText:Point('BOTTOMLEFT', _G.PaperDollItemsFrame, 20, 84)
+		frame.ItemLevelText:Point('BOTTOMLEFT', 6, 6)
 	else
 		frame.ItemLevelText = _G.CharacterStatsPane.ItemLevelFrame:CreateFontString(nil, 'ARTWORK')
 		frame.ItemLevelText:Point('CENTER', _G.CharacterStatsPane.ItemLevelFrame.Value, 'CENTER', 0, -1)
@@ -394,22 +393,20 @@ function M:UpdateSlotPoints(which, config)
 			slot.enchantText:FontTemplate(itemLevelFont, itemLevelFontSize, itemLevelFontOutline)
 			slot.enchantText:ClearAllPoints()
 
-			local itemLeft, itemRight = i == 16, (E.Retail and i == 17) or ((E.Cata or E.Wrath) and i == 18)
+			local itemLeft, itemRight = i == 16, (E.Retail and i == 17) or ((E.Mists or E.Wrath) and i == 18)
 			if itemLeft or itemRight then
-				slot.enchantText:Point(itemLeft and 'BOTTOMRIGHT' or 'BOTTOMLEFT', slot, itemLeft and - 40 or 40, 3)
-			elseif (E.Cata or E.Wrath) and i == 17 then -- cata secondary (not ranged)
+				slot.enchantText:Point(itemLeft and 'BOTTOMRIGHT' or 'BOTTOMLEFT', slot, itemLeft and -40 or 40, 3)
+			elseif (E.Mists or E.Wrath) and i == 17 then -- cata secondary (not ranged)
 				slot.enchantText:Point('TOP', slot, 'BOTTOM', 0, 3)
 			else
-				--slot.enchantText:Point(justify, slot, x + (justify == 'BOTTOMLEFT' and 5 or - 5), z + 5)
-				slot.enchantText:Point(justify, slot, x + (justify == 'BOTTOMLEFT' and 0 or - 0), z + 5)
+				slot.enchantText:Point(justify, slot, x + (justify == 'BOTTOMLEFT' and 5 or -5), z)
 			end
 
 			local weapon = i == 16 or i == 17 or i == 18
 			for u = 1, 10 do
 				local offset = (showItemLevel and 8 or 0) + ((u - (showItemLevel and 0 or 1)) * 16)
-				--local offset = -10 + ((u - 1) * 18)
-				local newX = (weapon and 0) or ((justify == 'BOTTOMLEFT' or itemRight) and x + offset) or x - offset
-				local newY = (weapon and offset + 40) or y
+				local newX = (weapon and 0) or ((justify == 'BOTTOMLEFT' or itemRight) and x+offset) or x-offset
+				local newY = (weapon and offset+40) or y
 
 				local texSlot = slot['textureSlot'..u]
 				if texSlot then

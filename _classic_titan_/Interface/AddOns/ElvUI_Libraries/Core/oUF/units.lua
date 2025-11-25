@@ -117,7 +117,7 @@ local function updateArenaPreparation(self, event)
 		end
 	elseif(event == 'PLAYER_ENTERING_WORLD' and not UnitExists(self.unit)) then
 		-- semi-recursive call for when the player zones into an arena
-		if oUF.isRetail then
+		if not (oUF.isClassic or oUF.Wrath) then
 			updateArenaPreparation(self, 'ARENA_PREP_OPPONENT_SPECIALIZATIONS')
 		end
 	elseif(event == 'ARENA_PREP_OPPONENT_SPECIALIZATIONS') then
@@ -188,7 +188,7 @@ function oUF:HandleUnit(object, unit)
 		object:RegisterEvent('UNIT_TARGETABLE_CHANGED', object.UpdateAllElements)
 	elseif(unit:match('arena%d?$')) then
 		object:RegisterEvent('ARENA_OPPONENT_UPDATE', object.UpdateAllElements, true)
-		if oUF.isRetail then
+		if not (oUF.isClassic or oUF.Wrath) then
 			object:RegisterEvent('ARENA_PREP_OPPONENT_SPECIALIZATIONS', updateArenaPreparation, true)
 		end
 
@@ -210,7 +210,7 @@ local function createOnUpdate(timer)
 			self.elapsed = (self.elapsed or 0) + elapsed
 			if(self.elapsed > timer) then
 				for _, object in next, objects do
-					if(object:IsVisible() and object.unit and unitExists(object.unit)) then
+					if object:IsVisible() and object.unit and unitExists(object.unit) then
 						object:UpdateAllElements('OnUpdate')
 					end
 				end
@@ -235,7 +235,7 @@ function oUF:HandleEventlessUnit(object)
 	-- Remove it, in case it's already registered with any timer
 	for _, objects in next, eventlessObjects do
 		for i, obj in next, objects do
-			if(obj == object) then
+			if obj == object then
 				table.remove(objects, i)
 				break
 			end

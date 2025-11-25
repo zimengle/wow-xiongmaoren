@@ -90,19 +90,6 @@ end)
 function CommonInfo.Commonfun.QuestsEnd()
 	PIGA["Common"]["QuestsEndAudio"]=Fun.IsAudioNumMaxV(PIGA["Common"]["QuestsEndAudio"],AudioData.QuestEnd)
 	if PIGA["Common"]["QuestsEnd"] then
-		if PIG_MaxTocversion(20000,true) and QuestLogFrame and not QuestLogFrame.allopen then
-			QuestLogFrame.allopen = PIGButton(QuestLogFrame,{"TOPLEFT",QuestLogFrame,"TOPLEFT",185,-38.6},{24,23},"+",nil,nil,nil,nil,0);
-			QuestLogFrame.allopen:SetScript("OnClick", function(self)
-				ExpandQuestHeader(0)
-			end)
-			QuestLogFrame.allopen.alloff = PIGButton(QuestLogFrame.allopen,{"LEFT",QuestLogFrame.allopen,"RIGHT",6,1.6},{24,23},"-",nil,nil,nil,nil,0);
-			QuestLogFrame.allopen.alloff:SetScript("OnClick", function(self)
-				CollapseQuestHeader(0) 
-			end)
-			if PIG_MaxTocversion() then
-				QuestLogFrame.allopen:SetPoint("TOPLEFT",QuestLogFrame,"TOPLEFT",200,-32);
-			end
-		end
 		QuestsEndFrameUI:RegisterEvent("PLAYER_ENTERING_WORLD")
 	else
 		QuestsEndFrameUI:UnregisterAllEvents()

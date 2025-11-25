@@ -13,17 +13,39 @@ local GetNumAddOns = C_AddOns.GetNumAddOns
 
 local UNKNOWN = UNKNOWN
 
+E.Status_Addons = {
+	ElvUI = true,
+	ElvUI_Options = true,
+	ElvUI_Libraries = true
+}
+
+E.Status_Bugsack = {
+	['!BugGrabber'] = true,
+	BugSack = true
+}
+
+local RemixMode = { 'Panda Remix', 'Legion Remix' }
+
 function E:AreOtherAddOnsEnabled()
-	local EP, addons, plugins = E.Libs.EP.plugins
+	local EP, addons, bugs, plugins = E.Libs.EP.plugins
+
+	local addon = E.Status_Addons
+	local bugsack = E.Status_Bugsack
 
 	for i = 1, GetNumAddOns() do
 		local name = GetAddOnInfo(i)
-		if name ~= 'ElvUI' and name ~= 'ElvUI_Options' and name ~= 'ElvUI_Libraries' and E:IsAddOnEnabled(name) then
-			if EP[name] then plugins = true else addons = true end
+		if not addon[name] and E:IsAddOnEnabled(name) then
+			if EP[name] then
+				plugins = true
+			elseif bugsack[name] then
+				bugs = true
+			else
+				addons = true
+			end
 		end
 	end
 
-	return addons, plugins
+	return addons, bugs, plugins
 end
 
 function E:GetDisplayMode()
@@ -181,7 +203,7 @@ function E:CreateStatusFrame()
 	return StatusFrame
 end
 
-local function pluginSort(a, b)
+local function PluginSort(a, b)
 	local A, B = a.title or a.name, b.title or b.name
 	if A and B then
 		return E:StripString(A) < E:StripString(B)
@@ -207,8 +229,8 @@ function E:UpdateStatusFrame()
 
 	StatusFrame.Section1.Content.Line1.Text:SetFormattedText('Version of ElvUI: |cff%s%s|r', (E.recievedOutOfDateMessage and 'ff3333') or (E.updateRequestTriggered and 'ff9933') or '33ff33', E.versionString)
 
-	local addons, plugins = E:AreOtherAddOnsEnabled()
-	StatusFrame.Section1.Content.Line2.Text:SetFormattedText('Other AddOns Enabled: |cff%s|r', (not addons and plugins and 'ff9933Plugins') or (addons and 'ff3333Yes') or '33ff33No')
+	local addons, bugs, plugins = E:AreOtherAddOnsEnabled()
+	StatusFrame.Section1.Content.Line2.Text:SetFormattedText('Other AddOns Enabled: |cff%s|r', (not addons and not plugins and bugs and '33ff33Debug') or (not addons and plugins and 'ff9933Plugins') or (addons and 'ff3333Yes') or '33ff33No')
 
 	if plugins then
 		wipe(pluginData)
@@ -219,7 +241,7 @@ function E:UpdateStatusFrame()
 		end
 
 		if next(pluginData) then
-			sort(pluginData, pluginSort)
+			sort(pluginData, PluginSort)
 
 			local count = #pluginData
 			local width = PluginSection:GetWidth()
@@ -253,7 +275,7 @@ function E:UpdateStatusFrame()
 		Section3.Content.Line6.Text:SetFormattedText('Specialization: |cff4beb2c%s|r', GetSpecName() or UNKNOWN)
 	end
 
-	Section3.Content[E.Retail and 'Line7' or 'Line6'].Text:SetFormattedText('Game Mode: |cff4beb2c%s|r', (E.TimerunningID == 1 and 'Remix') or (E.ClassicHC and 'Hardcore') or (E.ClassicSOD and 'Seasonal') or (not E.Retail and 'Classic') or 'Retail')
+	Section3.Content[E.Retail and 'Line7' or 'Line6'].Text:SetFormattedText('Game Mode: |cff4beb2c%s|r', RemixMode[E.TimerunningID] or (E.ClassicHC and 'Hardcore') or (E.ClassicSOD and 'Seasonal') or (not E.Retail and 'Classic') or 'Retail')
 
 	StatusFrame.TitleLogoFrame.LogoTop:SetVertexColor(unpack(E.media.rgbvaluecolor))
 end

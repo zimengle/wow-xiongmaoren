@@ -285,6 +285,7 @@ addonTable.Default = {
 		["Skill"] = true,
 		["Skill_QKbut"]=true,
 		["Quest"] = true,
+		["SpellOpen"]=true,
 		["Tracking"] = true,
 		["Character_Durability"] = true,
 		["Character_ItemLevel"]=true,

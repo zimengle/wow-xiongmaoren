@@ -1,4 +1,4 @@
-## Interface: 30402
+## Interface: 30405
 ## Title: Lib: RangeCheck-3.0
 ## Notes: A library to determine estimated range.
 ## Author: The WoWUIDev Community

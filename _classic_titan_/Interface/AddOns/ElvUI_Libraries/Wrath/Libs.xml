@@ -23,7 +23,9 @@
 	<Include file='..\Core\TaintLess\TaintLess.xml'/>
 	<Include file='..\Core\UTF8\lib.xml'/>
 
-	<Script file='..\Classic\LibClassicSpecs\LibClassicSpecs.lua'/>
+	<Script file='LibClassicSpecs\LibClassicSpecs.lua'/>
+	<Script file='LibQuestXP\LibQuestXPDB.lua'/>
+	<Script file='LibQuestXP\LibQuestXP.lua'/>
 
 	<Script file='..\Core\LibRangeCheck-3.0\LibRangeCheck-3.0.lua'/>
 	<Script file='..\Core\LibAceConfigHelper\LibAceConfigHelper.lua'/>

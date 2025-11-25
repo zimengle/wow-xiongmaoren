@@ -138,7 +138,12 @@ function S:BlizzardMiscFrames()
 		roleButton:DisableDrawLayer('OVERLAY')
 	end
 
-	-- Reskin popup buttons
+	-- reskin popup buttons
+	for i = 1, E.MAX_STATIC_POPUPS do
+		S:HandleStaticPopup(_G['StaticPopup'..i])
+	end
+
+	--[[-- Reskin popup buttons
 	for i = 1, 4 do
 		local StaticPopup = _G['StaticPopup'..i]
 		StaticPopup:HookScript('OnShow', function() -- UpdateRecapButton is created OnShow
@@ -195,7 +200,7 @@ function S:BlizzardMiscFrames()
 
 			S:HandleIconBorder(_G['StaticPopup'..i..'ItemFrame'].IconBorder)
 		end
-	end
+	end]]
 
 	--[[ skin return to graveyard button
 	do

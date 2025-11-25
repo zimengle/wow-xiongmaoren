@@ -46,6 +46,7 @@ RangeDisplayDB3 = {
 ["露露缇娅灬 - 时光I"] = "Default",
 ["克莉丝缇娜 - 曼多基尔"] = "Default",
 ["一颗露露糖 - 维希度斯"] = "Default",
+["小米军儿 - 时光IV"] = "Default",
 ["露露缇娅丶 - 时光III"] = "Default",
 ["露露緹婭 - 札里克"] = "Default",
 ["沐雪晽丶 - 帕奇维克"] = "Default",

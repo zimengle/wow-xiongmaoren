@@ -17,7 +17,7 @@ local InCombatLockdown = InCombatLockdown
 local UnregisterUnitWatch = UnregisterUnitWatch
 local RegisterUnitWatch = RegisterUnitWatch
 local RegisterStateDriver = RegisterStateDriver
-local LOCALIZED_CLASS_NAMES_MALE = LOCALIZED_CLASS_NAMES_MALE
+
 local CLASS_SORT_ORDER = CLASS_SORT_ORDER
 local NUM_CLASS_ORDER = #CLASS_SORT_ORDER
 local MAX_RAID_MEMBERS = MAX_RAID_MEMBERS
@@ -61,9 +61,12 @@ local classPowers = {
 	[3] = PowerType.Energy
 }
 
-if E.Cata then -- also handled in Elements/Power
+if E.Mists then -- also handled in Elements/Power
 	classPowers[4] = PowerType.RunicPower
 	classPowers[26] = PowerType.Balance
+	classPowers[14] = PowerType.BurningEmbers or 14
+	classPowers[15] = PowerType.DemonicFury or 15
+	classPowers[28] = PowerType.ShadowOrbs or 28
 elseif E.Wrath then -- also handled in Elements/Power
 	classPowers[4] = PowerType.RunicPower
 elseif E.Retail then
@@ -76,7 +79,7 @@ elseif E.Retail then
 	classPowers[10] = PowerType.Alternate or 10
 end
 
-local function envUnit(arg1)
+local function EnvUnit(arg1)
 	local frame = configEnv._FRAME -- yoink
 	if not frame then return arg1, true end
 
@@ -89,9 +92,9 @@ local function envUnit(arg1)
 	end
 end
 
-local function generateStatusFunc(tag)
+local function CreateStatusFunc(tag)
 	return function(arg1)
-		local unit, real = envUnit(arg1)
+		local unit, real = EnvUnit(arg1)
 		if real then
 			return _G[tag](unit)
 		end
@@ -105,7 +108,7 @@ local function generateStatusFunc(tag)
 	end
 end
 
-local function createConfigEnv()
+local function CreateConfigEnv()
 	if configEnv then return end
 
 	UF.ConfigEnv = {
@@ -114,7 +117,7 @@ local function createConfigEnv()
 		_COLORS = ElvUF.colors,
 		ColorGradient = ElvUF.ColorGradient,
 		UnitPower = function(arg1, displayType)
-			local unit, real = envUnit(arg1)
+			local unit, real = EnvUnit(arg1)
 			if real then
 				return UnitPower(unit, displayType)
 			end
@@ -123,7 +126,7 @@ local function createConfigEnv()
 			return random(1, (maxPower > 0 and maxPower) or 100)
 		end,
 		UnitPowerType = function(arg1)
-			local unit, real = envUnit(arg1)
+			local unit, real = EnvUnit(arg1)
 			if real then
 				return UnitPowerType(unit)
 			end
@@ -131,7 +134,7 @@ local function createConfigEnv()
 			return classPowers[random(0, #classPowers)]
 		end,
 		UnitHealth = function(arg1)
-			local unit, real = envUnit(arg1)
+			local unit, real = EnvUnit(arg1)
 			if real then
 				return UnitHealth(unit)
 			end
@@ -140,7 +143,7 @@ local function createConfigEnv()
 			return random(1, (maxHealth > 0 and maxHealth) or 100)
 		end,
 		UnitName = function(arg1)
-			local unit, real = envUnit(arg1)
+			local unit, real = EnvUnit(arg1)
 			if real then
 				return UnitName(unit)
 			end
@@ -154,18 +157,19 @@ local function createConfigEnv()
 			end
 		end,
 		UnitClass = function(arg1)
-			local unit, real = envUnit(arg1)
+			local unit, real = EnvUnit(arg1)
 			if real then
 				return UnitClass(unit)
 			end
 
 			local classToken = CLASS_SORT_ORDER[random(1, NUM_CLASS_ORDER)]
-			return LOCALIZED_CLASS_NAMES_MALE[classToken], classToken
+			local localized = E:LocalizedClassName(classToken, unit)
+			return localized, classToken
 		end
 	}
 
 	for _, name in next, { 'IsResting', 'UnitIsDead', 'UnitIsGhost', 'UnitIsDeadOrGhost', 'UnitIsConnected' } do
-		UF.ConfigEnv[name] = generateStatusFunc(name)
+		UF.ConfigEnv[name] = CreateStatusFunc(name)
 	end
 
 	configEnv = setmetatable(UF.ConfigEnv, {
@@ -191,7 +195,7 @@ end
 
 local function WhoIsAwesome(awesome)
 	if not configEnv then
-		createConfigEnv()
+		CreateConfigEnv()
 	end
 
 	if awesome then

@@ -3,6 +3,7 @@ local DT = E:GetModule('DataTexts')
 local TT = E:GetModule('Tooltip')
 local LDB = E.Libs.LDB
 local LSM = E.Libs.LSM
+
 -- GLOBALS: ElvDB
 
 local _G = _G
@@ -16,16 +17,15 @@ local GetCurrencyListInfo = GetCurrencyListInfo
 local CloseDropDownMenus = CloseDropDownMenus
 local CreateFrame = CreateFrame
 local GetNumSpecializations = GetNumSpecializations
-local GetSpecializationInfo = GetSpecializationInfo
 local InCombatLockdown = InCombatLockdown
 local IsInInstance = IsInInstance
 local MouseIsOver = MouseIsOver
 local RegisterStateDriver = RegisterStateDriver
 local UnregisterStateDriver = UnregisterStateDriver
 
+local GetSpecializationInfo = C_SpecializationInfo.GetSpecializationInfo or GetSpecializationInfo
 local C_ClassTalents_GetActiveConfigID = C_ClassTalents and C_ClassTalents.GetActiveConfigID
-local C_CurrencyInfo_ExpandCurrencyList = C_CurrencyInfo.ExpandCurrencyList
-local C_CurrencyInfo_GetCurrencyIDFromLink = C_CurrencyInfo.GetCurrencyIDFromLink
+local ExpandCurrencyList = C_CurrencyInfo.ExpandCurrencyList or ExpandCurrencyList
 local C_CurrencyInfo_GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
 local C_CurrencyInfo_GetCurrencyListInfo = C_CurrencyInfo.GetCurrencyListInfo
 local C_CurrencyInfo_GetCurrencyListLink = C_CurrencyInfo.GetCurrencyListLink
@@ -186,6 +186,120 @@ function DT:ReleasePanel(givenName)
 	end
 end
 
+function DT:BuildPanel_OnEnter(_, obj)
+	return function(dt)
+		if obj.tooltip then
+			obj.tooltip:ClearAllPoints()
+			obj.tooltip:SetOwner(DT:SetupTooltip(dt))
+			obj.tooltip:Show()
+		else
+			DT.tooltip:ClearLines()
+
+			if obj.OnEnter then
+				obj.OnEnter(dt)
+			elseif obj.OnTooltipShow then
+				obj.OnTooltipShow(DT.tooltip)
+			end
+
+			DT.tooltip:Show()
+		end
+	end
+end
+
+function DT:BuildPanel_OnLeave(_, obj)
+	return function(dt)
+		if obj.tooltip then
+			obj.tooltip:Hide()
+		elseif obj.OnLeave then
+			obj.OnLeave(dt)
+		end
+	end
+end
+
+function DT:BuildPanel_OnClick(_, obj)
+	return function(dt, button)
+		if obj.OnClick then
+			obj.OnClick(dt, button)
+		end
+	end
+end
+
+do
+	local panel, hex
+	function DT:BuildPanel_UpdateText(name)
+		return function(_, _, _, _, data)
+			local db = E.global.datatexts.settings['LDB_'..name]
+			local icon = db.icon and data.icon
+			local label = db.label and data.label
+			local value = db.text and data.text
+			local str = ''
+
+			if label then
+				str = (db.customLabel ~= '' and db.customLabel) or label
+			end
+
+			if value then
+				local color = (db.useValueColor and hex) or '|cFFFFFFFF'
+				str = str .. (label and ': ' or '') .. (color .. value .. '|r')
+			end
+
+			if panel then
+				if panel.icon then
+					local left, right, top, bottom
+					if data.iconCoords then
+						left, right, top, bottom = unpack(data.iconCoords)
+					else
+						left, right, top, bottom = E:GetTexCoords()
+					end
+
+					panel.icon:SetTexture(icon)
+					panel.icon:SetTexCoord(left, right, top, bottom)
+					panel.icon:SetShown(icon)
+				end
+
+				if panel.text then
+					panel.text:SetText(str)
+				end
+			end
+		end
+	end
+
+	function DT:BuildPanel_UpdateColor(name, obj)
+		return function(_, color)
+			hex = color
+
+			LDB.callbacks:Fire('LibDataBroker_AttributeChanged_'..name, name, nil, obj.text, obj)
+		end
+	end
+
+	function DT:BuildPanel_OnEvent(name, _, UpdateColor, UpdateText)
+		return function(dt, event)
+			if event == 'ELVUI_REMOVE' then
+				LDB.UnregisterCallback(dt, 'LibDataBroker_AttributeChanged_'..name)
+			else
+				panel = dt
+
+				LDB.RegisterCallback(dt, 'LibDataBroker_AttributeChanged_'..name, UpdateText)
+
+				UpdateColor(dt, hex)
+			end
+		end
+	end
+end
+
+function DT:BuildPanelFunctions(name, obj)
+	local onClick = DT:BuildPanel_OnClick(name, obj)
+	local onEnter = DT:BuildPanel_OnEnter(name, obj)
+	local onLeave = DT:BuildPanel_OnLeave(name, obj)
+
+	local updateColor = DT:BuildPanel_UpdateColor(name, obj)
+	local updateText = DT:BuildPanel_UpdateText(name, obj)
+
+	local onEvent = DT:BuildPanel_OnEvent(name, obj, updateColor, updateText)
+
+	return onEvent, onClick, onEnter, onLeave, updateColor, updateText
+end
+
 function DT:BuildPanelFrame(name, fromInit)
 	local db = DT:GetPanelSettings(name)
 
@@ -210,82 +324,6 @@ function DT:BuildPanelFrame(name, fromInit)
 	if not fromInit then
 		DT:UpdatePanelAttributes(name, db)
 	end
-end
-
-function DT:BuildPanelFunctions(name, obj)
-	local panel, hex
-
-	local function OnEnter(dt)
-		if obj.tooltip then
-			obj.tooltip:ClearAllPoints()
-			obj.tooltip:SetOwner(DT:SetupTooltip(self))
-			obj.tooltip:Show()
-		else
-			DT.tooltip:ClearLines()
-
-			if obj.OnEnter then
-				obj.OnEnter(dt)
-			elseif obj.OnTooltipShow then
-				obj.OnTooltipShow(DT.tooltip)
-			end
-
-			DT.tooltip:Show()
-		end
-	end
-
-	local function OnLeave(dt)
-		if obj.tooltip then
-			obj.tooltip:Hide()
-		elseif obj.OnLeave then
-			obj.OnLeave(dt)
-		end
-	end
-
-	local function OnClick(dt, button)
-		if obj.OnClick then
-			obj.OnClick(dt, button)
-		end
-	end
-
-	local function UpdateText(_, _, _, _, data)
-		local db = E.global.datatexts.settings['LDB_'..name]
-		local icon = db.icon and data.icon
-		local label = db.label and data.label
-		local value = db.text and data.text
-
-		local str = ''
-
-		if label then
-			str = (db.customLabel ~= '' and db.customLabel) or label
-		end
-
-		if value then
-			local color = (db.useValueColor and hex) or '|cFFFFFFFF'
-			str = str .. (label and ': ' or '') .. (color .. value .. '|r')
-		end
-
-		panel.text:SetText(str)
-		panel.icon:SetShown(icon)
-		panel.icon:SetTexture(icon)
-		panel.icon:SetTexCoord(unpack(data.iconCoords or E.TexCoords))
-	end
-
-	local function UpdateColor(_, Hex)
-		hex = Hex
-		LDB.callbacks:Fire('LibDataBroker_AttributeChanged_'..name, name, nil, obj.text, obj)
-	end
-
-	local function OnEvent(dt, event)
-		if event == 'ELVUI_REMOVE' then
-			LDB.UnregisterCallback(dt, 'LibDataBroker_AttributeChanged_'..name)
-		else
-			panel = dt
-			LDB.RegisterCallback(dt, 'LibDataBroker_AttributeChanged_'..name, UpdateText)
-			UpdateColor(dt, hex)
-		end
-	end
-
-	return OnEvent, OnClick, OnEnter, OnLeave, UpdateColor, UpdateText
 end
 
 function DT:SetupObjectLDB(name, obj)
@@ -531,7 +569,7 @@ function DT:UpdatePanelInfo(panelName, panel, ...)
 			local icon = dt:CreateTexture(nil, 'ARTWORK')
 			icon:Hide()
 			icon:Point('RIGHT', text, 'LEFT', -4, 0)
-			icon:SetTexCoord(unpack(E.TexCoords))
+			icon:SetTexCoords()
 			dt.icon = icon
 
 			DT.FontStrings[text] = true
@@ -581,7 +619,7 @@ function DT:UpdatePanelInfo(panelName, panel, ...)
 		dt.text:FontTemplate(font, fontSize, fontOutline)
 		dt.text:SetJustifyH(db.textJustify or 'CENTER')
 		dt.text:SetWordWrap(DT.db.wordWrap)
-		dt.text:SetText()
+		dt.text:SetText('')
 
 		dt.icon:Size(iconSize)
 		dt.icon:SetTexture(E.ClearTexture)
@@ -690,7 +728,7 @@ function DT:GetMenuListCategory(category)
 end
 
 do
-	local function menuSort(a, b)
+	local function MenuSort(a, b)
 		if a.order and b.order and not (a.order == b.order) then
 			return a.order < b.order
 		end
@@ -705,12 +743,12 @@ do
 			end
 		end
 
-		sort(list, menuSort)
+		sort(list, MenuSort)
 	end
 end
 
 do
-	local function hasName(tbl, name)
+	local function HasName(tbl, name)
 		for _, data in pairs(tbl) do
 			if data.text == name then
 				return true
@@ -728,7 +766,7 @@ do
 				tinsert(QuickList, { order = 0, text = info.category or MISCELLANEOUS, notCheckable = true, hasArrow = true, menuList = {} })
 			end
 
-			if not hasName(QuickList[category].menuList, info.localizedName or name) then
+			if not HasName(QuickList[category].menuList, info.localizedName or name) then
 				tinsert(QuickList[category].menuList, {
 					text = gsub(info.localizedName or name, '^LDB: ', ''),
 					checked = function() return E.EasyMenu.MenuGetItem(DT.SelectedDatatext, name) end,
@@ -794,8 +832,8 @@ function DT:PopulateData(currencyOnly)
 		local info = DT:CurrencyListInfo(i)
 
 		if info.isHeader then
-			if E.Retail and not info.isHeaderExpanded then
-				C_CurrencyInfo_ExpandCurrencyList(i, true)
+			if not (E.Classic or E.Wrath) and not info.isHeaderExpanded then
+				ExpandCurrencyList(i, E.Mists and 1 or true)
 				Collapsed[info.name] = true
 
 				listSize = GetCurrencyListSize()
@@ -806,8 +844,8 @@ function DT:PopulateData(currencyOnly)
 
 			headerIndex = i
 		elseif info.name then
-			local currencyLink = E.Retail and C_CurrencyInfo_GetCurrencyListLink(i)
-			local currencyID = currencyLink and C_CurrencyInfo_GetCurrencyIDFromLink(currencyLink)
+			local currencyLink = not E.Classic and C_CurrencyInfo_GetCurrencyListLink(i)
+			local currencyID = E:GetCurrencyIDFromLink(currencyLink)
 			if currencyID then
 				if DT.CurrencyList then
 					DT.CurrencyList[tostring(currencyID)] = info.name
@@ -823,26 +861,26 @@ function DT:PopulateData(currencyOnly)
 		i = i + 1
 	end
 
-	if E.Retail then
+	if not (E.Classic or E.Wrath) then
 		for k = 1, listSize do
 			local info = DT:CurrencyListInfo(k)
 			if not info.name then
 				break
 			elseif info.isHeader and info.isHeaderExpanded and Collapsed[info.name] then
-				C_CurrencyInfo_ExpandCurrencyList(k, false)
+				ExpandCurrencyList(k, E.Mists and 0 or false)
 			end
 		end
 
 		wipe(Collapsed)
-	end
 
-	if E.Retail and not currencyOnly then
-		for index = 1, GetNumSpecializations() do
-			local id, name, _, icon, _, statID = GetSpecializationInfo(index)
+		if not currencyOnly then
+			for index = 1, GetNumSpecializations() do
+				local id, name, _, icon, _, statID = GetSpecializationInfo(index)
 
-			if id then
-				DT.SPECIALIZATION_CACHE[index] = { id = id, name = name, icon = icon, statID = statID }
-				DT.SPECIALIZATION_CACHE[id] = { name = name, icon = icon }
+				if id then
+					DT.SPECIALIZATION_CACHE[index] = { id = id, name = name, icon = icon, statID = statID }
+					DT.SPECIALIZATION_CACHE[id] = { name = name, icon = icon }
+				end
 			end
 		end
 	end
@@ -860,7 +898,7 @@ end
 function DT:CurrencyListInfo(index)
 	local info = E.Retail and C_CurrencyInfo_GetCurrencyListInfo(index) or {}
 
-	if E.Cata or E.Wrath then
+	if E.Mists or E.Wrath then
 		info.name, info.isHeader, info.isHeaderExpanded, info.isUnused, info.isWatched, info.quantity, info.iconFileID, info.maxQuantity, info.weeklyMax, info.earnedThisWeek, info.isTradeable, info.itemID = GetCurrencyListInfo(index)
 	end
 
@@ -876,7 +914,7 @@ end
 function DT:BackpackCurrencyInfo(index)
 	local info = E.Retail and GetBackpackCurrencyInfo(index) or {}
 
-	if E.Cata or E.Wrath then
+	if E.Mists or E.Wrath then
 		info.name, info.quantity, info.iconFileID, info.currencyTypesID = GetBackpackCurrencyInfo(index)
 	end
 
@@ -908,7 +946,7 @@ function DT:BuildTables()
 end
 
 function DT:CloseMenus()
-	if E.Retail then
+	if E.Retail or E.Mists then
 		local manager = _G.Menu.GetManager()
 		if manager then
 			manager:CloseMenus()
@@ -952,7 +990,7 @@ function DT:Initialize()
 	_G.DataTextTooltipTextLeft1:FontTemplate(font, textSize, fontOutline)
 	_G.DataTextTooltipTextRight1:FontTemplate(font, textSize, fontOutline)
 
-	if E.Retail or E.Cata or E.Wrath then
+	if E.Retail or E.Mists or E.Wrath then
 		DT:RegisterCustomCurrencyDT() -- Register all the user created currency datatexts from the 'CustomCurrency' DT.
 
 		if E.Retail then

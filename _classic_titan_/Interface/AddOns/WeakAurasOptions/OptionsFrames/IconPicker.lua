@@ -103,7 +103,7 @@ local function ConstructIconPicker(frame)
     end
   end
 
-  local input = CreateFrame("EditBox", "WeakAurasFilterInput", group.frame, "SearchBoxTemplate")
+  local input = CreateFrame("EditBox", "WeakAurasFilterInput", group.frame, "WAFIX_SearchBoxTemplate")
   input:SetScript("OnTextChanged", function(self)
     SearchBoxTemplate_OnTextChanged(self)
     iconPickerFill(input:GetText(), false)

@@ -199,6 +199,7 @@ function S:CharacterFrame()
 
 	_G.PaperDollFrame:StripTextures()
 
+	S:HandleFrame(_G.CharacterModelFrame, true, nil, -4, 4, 4.5, -92)
 	S:HandleRotateButton(_G.CharacterModelFrameRotateLeftButton)
 	_G.CharacterModelFrameRotateLeftButton:Point('TOPLEFT', 3, -3)
 	S:HandleRotateButton(_G.CharacterModelFrameRotateRightButton)

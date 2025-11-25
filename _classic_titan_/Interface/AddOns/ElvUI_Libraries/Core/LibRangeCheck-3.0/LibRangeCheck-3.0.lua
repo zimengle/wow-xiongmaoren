@@ -1388,6 +1388,7 @@ function lib:activate()
       frame:RegisterEvent("CVAR_UPDATE")
     end
 
+    -- Barney
     if isRetail or isWrath then
       frame:RegisterEvent("PLAYER_TALENT_UPDATE")
     end

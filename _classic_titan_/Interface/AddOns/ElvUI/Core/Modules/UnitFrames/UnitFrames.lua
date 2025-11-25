@@ -2,6 +2,7 @@ local E, L, V, P, G = unpack(ElvUI)
 local UF = E:GetModule('UnitFrames')
 local NP = E:GetModule('NamePlates')
 local PA = E:GetModule('PrivateAuras')
+local TT = E:GetModule('Tooltip')
 local LSM = E.Libs.LSM
 local ElvUF = E.oUF
 
@@ -11,6 +12,7 @@ local wipe, type, unpack, assert, tostring = wipe, type, unpack, assert, tostrin
 local huge, strfind, gsub, format, strjoin, strmatch = math.huge, strfind, gsub, format, strjoin, strmatch
 local pcall, min, next, pairs, ipairs, tinsert, strsub = pcall, min, next, pairs, ipairs, tinsert, strsub
 
+local GameTooltip = GameTooltip
 local CreateFrame = CreateFrame
 local PlaySound = PlaySound
 local UIParent = UIParent
@@ -24,8 +26,6 @@ local GetInventoryItemLink = GetInventoryItemLink
 local UnregisterStateDriver = UnregisterStateDriver
 local RegisterStateDriver = RegisterStateDriver
 
-local UnitFrame_OnEnter = UnitFrame_OnEnter
-local UnitFrame_OnLeave = UnitFrame_OnLeave
 local CastingBarFrame_OnLoad = CastingBarFrame_OnLoad
 local CastingBarFrame_SetUnit = CastingBarFrame_SetUnit
 local PetCastingBarFrame_OnLoad = PetCastingBarFrame_OnLoad
@@ -38,6 +38,7 @@ local SELECT_AGGRO = SOUNDKIT.IG_CREATURE_AGGRO_SELECT
 local SELECT_NPC = SOUNDKIT.IG_CHARACTER_NPC_SELECT
 local SELECT_NEUTRAL = SOUNDKIT.IG_CREATURE_NEUTRAL_SELECT
 local SELECT_LOST = SOUNDKIT.INTERFACE_SOUND_LOST_TARGET_UNIT
+
 local POWERTYPE_ALTERNATE = Enum.PowerType.Alternate or 10
 
 -- GLOBALS: Arena_LoadUI
@@ -63,36 +64,51 @@ UF.badHeaderPoints = {
 }
 
 UF.headerFunctions = {}
-UF.classMaxResourceBar = { -- match to NP ClassPower MAX_POINTS
+UF.classMaxResourceBar = { -- also used by Nameplates
 	DEATHKNIGHT = 6,
+	SHAMAN = E.Retail and 10 or nil,
 	PALADIN = 5,
 	WARLOCK = 5,
 	EVOKER = 6,
 	MONK = 6,
 	MAGE = 4,
 	ROGUE = 7,
-	DRUID = 5
+	DRUID = 5,
+	PRIEST = 3
 }
+
+function UF:GetAuraSortTime(which, a, b)
+	return a.noTime and huge or a[which] or -huge, b.noTime and huge or b[which] or -huge
+end
+
+function UF:GetAuraSortValue(dir, A, B)
+	if dir == 'DESCENDING' then return A < B else return A > B end
+end
+
+function UF:GetAuraSortDirection(dir, a, b, A, B)
+	if A == B then
+		return UF:GetAuraSortValue(dir, a.auraInstanceID or 0, b.auraInstanceID or 0)
+	else -- we sort by Aura Instance ID if they match priority
+		return UF:GetAuraSortValue(dir, A, B)
+	end
+end
 
 UF.SortAuraFuncs = {
 	TIME_REMAINING = function(a, b, dir)
-		local A = a.noTime and huge or a.expiration or -huge
-		local B = b.noTime and huge or b.expiration or -huge
-		if dir == 'DESCENDING' then return A < B else return A > B end
+		return UF:GetAuraSortDirection(dir, a, b, UF:GetAuraSortTime('expiration', a, b))
 	end,
 	DURATION = function(a, b, dir)
-		local A = a.noTime and huge or a.duration or -huge
-		local B = b.noTime and huge or b.duration or -huge
-		if dir == 'DESCENDING' then return A < B else return A > B end
+		return UF:GetAuraSortDirection(dir, a, b, UF:GetAuraSortTime('duration', a, b))
 	end,
 	NAME = function(a, b, dir)
-		local A, B = a.name or '', b.name or ''
-		if dir == 'DESCENDING' then return A < B else return A > B end
+		return UF:GetAuraSortDirection(dir, a, b, a.name or '', b.name or '')
 	end,
 	PLAYER = function(a, b, dir)
-		local A, B = a.isPlayer or false, b.isPlayer or false
-		if dir == 'DESCENDING' then return A and not B else return not A and B end
+		return UF:GetAuraSortDirection(dir, a, b, a.isPlayer and 1 or 0, b.isPlayer and 1 or 0)
 	end,
+	INDEX = function(a, b, dir)
+		return UF:GetAuraSortValue(dir, a.auraInstanceID or 0, b.auraInstanceID or 0)
+	end
 }
 
 UF.headerGroupBy = {
@@ -300,10 +316,14 @@ function UF:CreateRaisedText(RaisedElement)
 	return text
 end
 
-function UF:CreateRaisedElement(frame, bar)
+function UF:CreateRaisedElement(frame)
 	local RaisedElement = CreateFrame('Frame', '$parent_RaisedElement', frame)
 	local RaisedLevel = frame:GetFrameLevel() + 100
+
+	RaisedElement:SetAllPoints()
 	RaisedElement:SetFrameLevel(RaisedLevel)
+
+	RaisedElement.TextureParent = CreateFrame('Frame', '$parent_TextureParent', RaisedElement)
 	RaisedElement.frameName = RaisedElement:GetName()
 	RaisedElement.__owner = frame
 
@@ -318,12 +338,6 @@ function UF:CreateRaisedElement(frame, bar)
 	RaisedElement.RaidRoleLevel = RaisedLevel + 35
 	RaisedElement.CastBarLevel = RaisedLevel + 40
 
-	if bar then
-		RaisedElement:SetAllPoints()
-	else
-		RaisedElement.TextureParent = CreateFrame('Frame', nil, RaisedElement)
-	end
-
 	return RaisedElement
 end
 
@@ -334,13 +348,29 @@ function UF:SetAlpha_MouseTags(mousetags, alpha)
 	end
 end
 
-function UF:UnitFrame_OnEnter(...)
-	UnitFrame_OnEnter(self, ...)
+function UF:UnitFrame_OnEnter()
+	if GameTooltip:IsForbidden() then
+		self.UpdateTooltip = nil
+	else
+		_G.GameTooltip_SetDefaultAnchor(GameTooltip, self)
+
+		self.UpdateTooltip = (self.unit and GameTooltip:SetUnit(self.unit) and UF.UnitFrame_OnEnter) or nil
+	end
+
 	UF:SetAlpha_MouseTags(self.__mousetags, 1)
 end
 
-function UF:UnitFrame_OnLeave(...)
-	UnitFrame_OnLeave(self, ...)
+function UF:UnitFrame_OnLeave()
+	self.UpdateTooltip = nil
+
+	if not GameTooltip:IsForbidden() then
+		if not E.private.tooltip.enable or TT.db.fadeOut then
+			GameTooltip:FadeOut()
+		else
+			GameTooltip:Hide()
+		end
+	end
+
 	UF:SetAlpha_MouseTags(self.__mousetags, 0)
 end
 
@@ -409,6 +439,8 @@ end
 function UF:GetAuraAnchorFrame(frame, attachTo)
 	if attachTo == 'FRAME' then
 		return frame
+	elseif attachTo == 'AURAS' and frame.Auras then
+		return frame.Auras
 	elseif attachTo == 'BUFFS' and frame.Buffs then
 		return frame.Buffs
 	elseif attachTo == 'DEBUFFS' and frame.Debuffs then
@@ -431,6 +463,7 @@ function UF:UpdateColors()
 	ElvUF.colors.tapped = E:SetColorTable(ElvUF.colors.tapped, db.tapped)
 	ElvUF.colors.disconnected = E:SetColorTable(ElvUF.colors.disconnected, db.disconnected)
 	ElvUF.colors.health = E:SetColorTable(ElvUF.colors.health, db.health)
+
 	ElvUF.colors.power.MANA = E:SetColorTable(ElvUF.colors.power.MANA, db.power.MANA)
 	ElvUF.colors.power.RAGE = E:SetColorTable(ElvUF.colors.power.RAGE, db.power.RAGE)
 	ElvUF.colors.power.FOCUS = E:SetColorTable(ElvUF.colors.power.FOCUS, db.power.FOCUS)
@@ -441,6 +474,10 @@ function UF:UpdateColors()
 	ElvUF.colors.power.LUNAR_POWER = E:SetColorTable(ElvUF.colors.power.LUNAR_POWER, db.power.LUNAR_POWER)
 	ElvUF.colors.power.INSANITY = E:SetColorTable(ElvUF.colors.power.INSANITY, db.power.INSANITY)
 	ElvUF.colors.power.MAELSTROM = E:SetColorTable(ElvUF.colors.power.MAELSTROM, db.power.MAELSTROM)
+
+	ElvUF.colors.power.SHADOW_ORBS = E:SetColorTable(ElvUF.colors.power.SHADOW_ORBS, db.classResources.PRIEST)
+	ElvUF.colors.power.HOLY_POWER = E:SetColorTable(ElvUF.colors.power.HOLY_POWER, db.classResources.PALADIN)
+
 	ElvUF.colors.power[POWERTYPE_ALTERNATE] = E:SetColorTable(ElvUF.colors.power[POWERTYPE_ALTERNATE], db.power.ALT_POWER)
 	ElvUF.colors.chargedComboPoint = E:SetColorTable(ElvUF.colors.chargedComboPoint, db.classResources.chargedComboPoint)
 
@@ -478,14 +515,29 @@ function UF:UpdateColors()
 	-- Evoker, Monk, Mage, Paladin and Warlock, Death Knight
 	if not ElvUF.colors.ClassBars then ElvUF.colors.ClassBars = {} end
 	ElvUF.colors.ClassBars.PALADIN = E:SetColorTable(ElvUF.colors.ClassBars.PALADIN, db.classResources.PALADIN)
-	ElvUF.colors.ClassBars.MAGE = E:SetColorTable(ElvUF.colors.ClassBars.MAGE, db.classResources.MAGE)
-	ElvUF.colors.ClassBars.WARLOCK = E:SetColorTable(ElvUF.colors.ClassBars.WARLOCK, db.classResources.WARLOCK)
+	ElvUF.colors.ClassBars.PRIEST = E:SetColorTable(ElvUF.colors.ClassBars.PRIEST, db.classResources.PRIEST)
 
 	if not ElvUF.colors.ClassBars.EVOKER then ElvUF.colors.ClassBars.EVOKER = {} end
 	if not ElvUF.colors.ClassBars.MONK then ElvUF.colors.ClassBars.MONK = {} end
 	for i = 1, 6 do
 		ElvUF.colors.ClassBars.EVOKER[i] = E:SetColorTable(ElvUF.colors.ClassBars.EVOKER[i], db.classResources.EVOKER[i])
 		ElvUF.colors.ClassBars.MONK[i] = E:SetColorTable(ElvUF.colors.ClassBars.MONK[i], db.classResources.MONK[i])
+	end
+
+	if not ElvUF.colors.ClassBars.SHAMAN then ElvUF.colors.ClassBars.SHAMAN = {} end
+	ElvUF.colors.ClassBars.SHAMAN.MAELSTROM = E:SetColorTable(ElvUF.colors.ClassBars.SHAMAN.MAELSTROM, db.classResources.SHAMAN.MAELSTROM)
+
+	if not ElvUF.colors.ClassBars.MAGE then ElvUF.colors.ClassBars.MAGE = {} end
+	ElvUF.colors.ClassBars.MAGE.FROST_ICICLES = E:SetColorTable(ElvUF.colors.ClassBars.MAGE.FROST_ICICLES, db.classResources.MAGE.FROST_ICICLES)
+	ElvUF.colors.ClassBars.MAGE.ARCANE_CHARGES = E:SetColorTable(ElvUF.colors.ClassBars.MAGE.ARCANE_CHARGES, db.classResources.MAGE.ARCANE_CHARGES)
+
+	if not ElvUF.colors.ClassBars.WARLOCK then ElvUF.colors.ClassBars.WARLOCK = {} end
+	ElvUF.colors.ClassBars.WARLOCK.SOUL_SHARDS = E:SetColorTable(ElvUF.colors.ClassBars.WARLOCK.SOUL_SHARDS, db.classResources.WARLOCK.SOUL_SHARDS)
+	ElvUF.colors.ClassBars.WARLOCK.DEMONIC_FURY = E:SetColorTable(ElvUF.colors.ClassBars.WARLOCK.DEMONIC_FURY, db.classResources.WARLOCK.DEMONIC_FURY)
+
+	if not ElvUF.colors.ClassBars.WARLOCK.BURNING_EMBERS then ElvUF.colors.ClassBars.WARLOCK.BURNING_EMBERS = {} end
+	for i = 1, 4 do
+		ElvUF.colors.ClassBars.WARLOCK.BURNING_EMBERS[i] = E:SetColorTable(ElvUF.colors.ClassBars.WARLOCK.BURNING_EMBERS[i], db.classResources.WARLOCK.BURNING_EMBERS[i])
 	end
 
 	if not ElvUF.colors.ClassBars.DEATHKNIGHT then ElvUF.colors.ClassBars.DEATHKNIGHT = {} end
@@ -1385,7 +1437,7 @@ do
 		elseif which == 'arena' then
 			UF:Configure_Trinket(frame)
 
-			if E.Retail then
+			if not E.Classic then
 				UF:Configure_PVPSpecIcon(frame)
 			end
 		elseif which == 'player' then
@@ -1457,9 +1509,6 @@ function UF:RegisterRaidDebuffIndicator()
 			local otherSpells = ((E.global.unitframe.aurafilters[other] and E.global.unitframe.aurafilters[other].spells) or E.global.unitframe.aurafilters.CCDebuffs.spells)
 			ORD:RegisterDebuffs(otherSpells)
 		end
-
-		local dispelColor = ORD:GetDispelColor()
-		E:CopyTable(dispelColor.none, E.media.bordercolor)
 	end
 end
 
@@ -1746,7 +1795,7 @@ do
 						HideFrame(_G.PlayerCastingBarFrame)
 						HideFrame(_G.PetCastingBarFrame)
 					end
-				elseif disable.castbar or (UF.db.units.player.enable and UF.db.units.player.castbar.enable) then
+				elseif disable.castbar then
 					CastingBarFrame_SetUnit(_G.CastingBarFrame)
 					CastingBarFrame_SetUnit(_G.PetCastingBarFrame)
 				else
@@ -2145,7 +2194,7 @@ function UF:Initialize()
 	UF:RegisterEvent('LEARNED_SPELL_IN_TAB', 'UpdateRangeSpells')
 	UF:RegisterEvent('CHARACTER_POINTS_CHANGED', 'UpdateRangeSpells')
 
-	if E.Retail or E.Cata or E.Wrath then
+	if E.Retail or E.Mists or E.Wrath then
 		UF:RegisterEvent('PLAYER_TALENT_UPDATE', 'UpdateRangeSpells')
 	elseif E.ClassicSOD and E.myclass == 'MAGE' then
 		UF:RegisterEvent('UNIT_INVENTORY_CHANGED')

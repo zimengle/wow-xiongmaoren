@@ -6,6 +6,19 @@ function FramePlusfun.Quest()
 	local PIGButton=Create.PIGButton
 	if not PIGA["FramePlus"]["Quest"] then return end
 	if NDui then return end
+	if PIG_MaxTocversion(20000,true) and QuestLogFrame and not QuestLogFrame.allopen then
+		QuestLogFrame.allopen = PIGButton(QuestLogFrame,{"TOPLEFT",QuestLogFrame,"TOPLEFT",185,-38.6},{24,23},"+",nil,nil,nil,nil,0);
+		QuestLogFrame.allopen:SetScript("OnClick", function(self)
+			ExpandQuestHeader(0)
+		end)
+		QuestLogFrame.allopen.alloff = PIGButton(QuestLogFrame.allopen,{"LEFT",QuestLogFrame.allopen,"RIGHT",6,1.6},{24,23},"-",nil,nil,nil,nil,0);
+		QuestLogFrame.allopen.alloff:SetScript("OnClick", function(self)
+			CollapseQuestHeader(0) 
+		end)
+		if PIG_MaxTocversion() then
+			QuestLogFrame.allopen:SetPoint("TOPLEFT",QuestLogFrame,"TOPLEFT",180,-40);
+		end
+	end
 	local maxWWW = 250
 	if PIG_MaxTocversion() then
 		local function gengxinLVQR()--显示任务等级

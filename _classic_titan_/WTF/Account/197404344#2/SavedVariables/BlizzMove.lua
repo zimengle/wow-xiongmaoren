@@ -37,8 +37,8 @@ BlizzMoveDB = {
 ["anchorPoint"] = "CENTER",
 ["relativeFrame"] = "UIParent",
 ["offY"] = 0.6026153564453125,
+["offX"] = 2.4102783203125,
 ["relativePoint"] = "CENTER",
-["offX"] = 2.410400390625,
 },
 },
 },
@@ -87,9 +87,9 @@ BlizzMoveDB = {
 {
 ["anchorPoint"] = "TOP",
 ["relativeFrame"] = "UIParent",
-["offY"] = -143.9290764686011,
+["offY"] = -144.5315789230663,
+["offX"] = -318.5959992827884,
 ["relativePoint"] = "TOP",
-["offX"] = -321.6091158031741,
 },
 },
 },
@@ -106,11 +106,11 @@ BlizzMoveDB = {
 ["dragged"] = true,
 ["dragPoints"] = {
 {
-["anchorPoint"] = "RIGHT",
+["anchorPoint"] = "CENTER",
 ["relativeFrame"] = "UIParent",
-["offY"] = 36.76103210449219,
-["relativePoint"] = "RIGHT",
-["offX"] = -110.697509765625,
+["offY"] = 49.41659545898438,
+["relativePoint"] = "CENTER",
+["offX"] = -300.7165832519531,
 },
 },
 },
@@ -136,8 +136,8 @@ BlizzMoveDB = {
 ["anchorPoint"] = "LEFT",
 ["relativeFrame"] = "UIParent",
 ["offY"] = 125.1830444335938,
-["offX"] = 321.5365295410156,
 ["relativePoint"] = "LEFT",
+["offX"] = 321.5365295410156,
 },
 },
 },
@@ -187,8 +187,8 @@ BlizzMoveDB = {
 {
 ["anchorPoint"] = "LEFT",
 ["relativeFrame"] = "UIParent",
-["offY"] = 100.2828369140625,
-["offX"] = 373.3634948730469,
+["offY"] = 95.46182250976562,
+["offX"] = 378.7872314453125,
 ["relativePoint"] = "LEFT",
 },
 },
@@ -243,9 +243,9 @@ BlizzMoveDB = {
 {
 ["anchorPoint"] = "TOPLEFT",
 ["relativeFrame"] = "UIParent",
-["offY"] = -104.6025390625,
+["offY"] = -103.9998779296875,
 ["relativePoint"] = "TOPLEFT",
-["offX"] = 3.615846157073975,
+["offX"] = 4.821068286895752,
 },
 },
 },
@@ -268,11 +268,11 @@ BlizzMoveDB = {
 ["dragged"] = true,
 ["dragPoints"] = {
 {
-["anchorPoint"] = "TOPLEFT",
+["anchorPoint"] = "CENTER",
 ["relativeFrame"] = "UIParent",
-["offY"] = -162.0081784229551,
-["offX"] = 402.5612361422718,
-["relativePoint"] = "TOPLEFT",
+["offY"] = 30.66669262786672,
+["offX"] = 411.2747288170067,
+["relativePoint"] = "CENTER",
 },
 },
 },
@@ -302,6 +302,25 @@ BlizzMoveDB = {
 ["LootFrame"] = {
 },
 ["MacroFrame"] = {
+["startPoints"] = {
+{
+["anchorPoint"] = "TOPLEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = -116,
+["relativePoint"] = "TOPLEFT",
+["offX"] = 16,
+},
+},
+["dragged"] = true,
+["dragPoints"] = {
+{
+["anchorPoint"] = "CENTER",
+["relativeFrame"] = "UIParent",
+["offY"] = 122.9973754882813,
+["relativePoint"] = "CENTER",
+["offX"] = -273.8426361083984,
+},
+},
 },
 ["ChatConfigFrame"] = {
 ["startPoints"] = {
@@ -318,9 +337,9 @@ BlizzMoveDB = {
 {
 ["anchorPoint"] = "CENTER",
 ["relativeFrame"] = "UIParent",
-["offY"] = -3.0517578125e-05,
-["offX"] = 3.013214111328125,
+["offY"] = -0.0001373291015625,
 ["relativePoint"] = "CENTER",
+["offX"] = 7.231536865234375,
 },
 },
 },
@@ -339,9 +358,9 @@ BlizzMoveDB = {
 {
 ["anchorPoint"] = "CENTER",
 ["relativeFrame"] = "UIParent",
-["offY"] = 92.63819885253906,
-["offX"] = -273.7053527832031,
+["offY"] = 79.98277282714844,
 ["relativePoint"] = "CENTER",
+["offX"] = -34.45852661132813,
 },
 },
 },
@@ -393,8 +412,8 @@ BlizzMoveDB = {
 {
 ["anchorPoint"] = "TOPLEFT",
 ["relativeFrame"] = "UIParent",
-["offY"] = -103.9998779296875,
-["offX"] = 0,
+["offY"] = -104.6025390625,
+["offX"] = 306.7420349121094,
 ["relativePoint"] = "TOPLEFT",
 },
 },
@@ -414,8 +433,8 @@ BlizzMoveDB = {
 {
 ["anchorPoint"] = "LEFT",
 ["relativeFrame"] = "UIParent",
-["offY"] = 117.361647847647,
-["offX"] = 111.0484730996177,
+["offY"] = 116.7590966002172,
+["offX"] = 111.0484830178302,
 ["relativePoint"] = "LEFT",
 },
 },
@@ -447,8 +466,8 @@ BlizzMoveDB = {
 {
 ["anchorPoint"] = "TOPLEFT",
 ["relativeFrame"] = "UIParent",
-["offY"] = -115.3973388671875,
-["offX"] = 14.79475498199463,
+["offY"] = -120.2183837890625,
+["offX"] = 259.4651794433594,
 ["relativePoint"] = "TOPLEFT",
 },
 },
@@ -552,6 +571,25 @@ BlizzMoveDB = {
 ["InspectPVPFrame"] = {
 },
 ["TradeSkillFrame"] = {
+["startPoints"] = {
+{
+["anchorPoint"] = "TOPLEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = -103.9998779296875,
+["relativePoint"] = "TOPLEFT",
+["offX"] = 0,
+},
+},
+["dragged"] = true,
+["dragPoints"] = {
+{
+["anchorPoint"] = "TOPLEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = -170.2899169921875,
+["offX"] = 348.3240356445313,
+["relativePoint"] = "TOPLEFT",
+},
+},
 },
 ["GuildEventLogFrame"] = {
 },

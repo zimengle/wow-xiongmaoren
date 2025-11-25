@@ -2,6 +2,19 @@
 local E = unpack(ElvUI)
 local L = E.Libs.ACL:NewLocale('ElvUI', 'trTR')
 
+L["Date"] = true
+L["Plugins:"] = true
+L["Version:"] = true
+L["Equipment Sets"] = true
+L["No Set Equipped"] = true
+L["Set:"] = true
+L["New Mail"] = true
+L["No Mail"] = true
+L["Completed XP:"] = true
+L["Total Gold:"] = true
+L["Total XP:"] = true
+L["Quests:"] = true
+L["Time"] = true
 L["Restrict Pings"] = true
 L["Player"] = "Oyuncu"
 L["Small"] = "Kucuk"
@@ -16,7 +29,6 @@ L["%s frame has a conflicting anchor point. Forcing the Buffs to be attached to 
 L["%s is attempting to share the Private Profile (%s) with you. Would you like to accept the request?"] = true
 L["%s is attempting to share the Global Profile with you. Would you like to accept the request?"] = true
 L["%s is attempting to share the Profile (%s) with you. Would you like to accept the request?"] = "%s Sizinle (%s) Profilini paylasmak istiyor. istegi kabul etmek ister misiniz?"
-L["%s: %s tried to call the protected function '%s'."] = "%s: %s korulmali bir islevi kullanmaya calisti."
 L["(Ctrl & Shift Click) Toggle CPU Profiling"] = "CPU Monitorunu Aktiflestirmek icin Ctrl & Shift Click'e Basin'"
 L["(Hold Shift) Memory Usage"] = "RAM Monitorunu Aktiflestirmek Icin Shift'e Basili Tutun.'"
 L["(Shift Click) Collect Garbage"] = "RAM'i Temizlemek Icin Shift Tiklama"
@@ -108,8 +120,7 @@ L["Dead"] = "Olu"
 L["Debuffs"] = "Zayiflaticilar"
 L["Deficit:"] = "Acik:"
 L["Delete gray items?"] = "Gri ogeler silinsin mi?"
-L["Deposit Reagents"] = "Sarf Malzemelerini Koy"
-L["Deposit Warbound Items"] = true
+L["Auto Deposit"] = true
 L["Disable Warning"] = "Uyariyi Devre Disi Birak"
 L["Disable"] = "Devre Disi Birak"
 L["Disabled"] = "Devre Disi Birakildi"
@@ -178,7 +189,7 @@ L["Importance: |cffD3CF00Medium|r"] = "onemli: |cFF33FF33Orta|r"
 L["Importance: |cffFF3333High|r"] = "onemli: |cFF33FF33Yuksek|r"
 L["In Combat"] = "Catismada"
 L["In Progress"] = "Devam Etmekte"
-L["Include Reagents"] = true
+L["Deposit Reagents"] = "Sarf Malzemelerini Koy"
 L["INCOMPATIBLE_ADDON"] = "%s, %s ile uyumlu degil.\nLutfen kullanilacak AddOn/modulu secin."
 L["Installation Complete"] = "Yukleme Tamamlandi"
 L["Interrupted %s's |cff71d5ff|Hspell:%d:0|h[%s]|h|r!"] = "%s's |cff71d5ff|Hspell:%d:0|h[%s]|h|r Engellendi!"
@@ -211,6 +222,7 @@ L["KEY_SPACE"] = "SpB"
 L["Layout Set"] = "Duzen Seti"
 L["Layout"] = "Duzen"
 L["Left Chat"] = "Sol Sohbet"
+L["Right Click:"] = "Sag Tik:"
 L["Left Click:"] = "Sol Tik:"
 L["Level %d"] = "Seviye %d"
 L["Level"] = "Seviye"
@@ -444,6 +456,7 @@ L["EHELP_COMMANDS"] = ([=[Tum onemli *ElvUI|r komutlarinin listesi:
  */estatus|r  -  Destek sorulari icin onemli bilgiler.
  */egrid|r ^64|r yada ^128|r yada ^256|r  -  Bir piksel izgarasini degistirin.
  */edebug|r ^on|r yada ^off|r  -  ElvUI disindaki tum Eklentileri devre disi birakin.
-  NOTE: */edebug|r ^off|r devre disi birakilan eklentileri yeniden etkinlestirecek
-  using */edebug|r ^on|r o oturumun icinde.
+  NOTE: */edebug|r ^off|r devre disi birakilan eklentileri yeniden etkinlestirecek using */edebug|r ^on|r o oturumun icinde.
+ */guildlist|r ^minPlayers|r  -  Dumps the sorted list of guilds from the finder.
+ */guildapply|r ^"message"|r  -  Applies to the top 5 new guilds with an optional message.
 ]=]):gsub('*', E.InfoColor):gsub('%^', E.InfoColor2)

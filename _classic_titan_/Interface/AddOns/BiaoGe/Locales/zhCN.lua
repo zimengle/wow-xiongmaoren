@@ -114,6 +114,9 @@ end
 
 local L = {}
 do
+    L["商人"]=true
+
+
     L["末日行者"] = true
     L["末日行者卡扎克"] = true
     L["炼金"]=true

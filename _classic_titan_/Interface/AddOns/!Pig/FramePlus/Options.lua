@@ -101,6 +101,17 @@ FrameExtF.Macro:SetScript("OnClick", function (self)
 end)
 ---
 if PIG_MaxTocversion() then
+	FrameExtF.Spell = PIGCheckbutton_R(FrameExtF,{"技能界面扩展","增加未学习/未使用技能提示"})
+	FrameExtF.Spell:SetScript("OnClick", function (self)
+		if self:GetChecked() then
+			PIGA["FramePlus"]["SpellOpen"]=true;
+			FramePlusfun.Spell()
+		else
+			PIGA["FramePlus"]["SpellOpen"]=false
+			PIG_OptionsUI.RLUI:Show()
+		end
+	end)
+	---
 	FrameExtF.Quest = PIGCheckbutton_R(FrameExtF,{"任务界面扩展",""})
 	if PIG_MaxTocversion(30000) then
 		FrameExtF.Quest.tooltip= "扩展任务界面为两列,左边任务列表，右边任务详情,显示任务等级";
@@ -149,6 +160,7 @@ FrameExtF:HookScript("OnShow", function(self)
 	self.Merchant:SetChecked(PIGA["FramePlus"]["Merchant"])
 	self.Friends:SetChecked(PIGA["FramePlus"]["Friends"])
 	self.Macro:SetChecked(PIGA["FramePlus"]["Macro"])
+	if self.Spell then self.Spell:SetChecked(PIGA["FramePlus"]["SpellOpen"]) end
 	if self.Quest then self.Quest:SetChecked(PIGA["FramePlus"]["Quest"]) end
 	if self.Skill then self.Skill:SetChecked(PIGA["FramePlus"]["Skill"]) end
 	if self.Talent then self.Talent:SetChecked(PIGA["FramePlus"]["Talent"]) end
@@ -313,6 +325,7 @@ addonTable.FramePlus = function()
 	FramePlusfun.Macro()
 	FramePlusfun.Quest()
 	FramePlusfun.Skill()
+	FramePlusfun.Spell()
 	FramePlusfun.Character_ADD()
 	FramePlusfun.Talent()
 	FramePlusfun.Character_Shuxing()

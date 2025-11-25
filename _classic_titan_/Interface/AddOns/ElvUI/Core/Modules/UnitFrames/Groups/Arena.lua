@@ -2,14 +2,14 @@ local E, L, V, P, G = unpack(ElvUI)
 local UF = E:GetModule('UnitFrames')
 local ElvUF = E.oUF
 
-local unpack = unpack
 local CreateFrame = CreateFrame
-local GetSpecializationInfoByID = GetSpecializationInfoByID
-local LOCALIZED_CLASS_NAMES_MALE = LOCALIZED_CLASS_NAMES_MALE
 
 local ArenaHeader = CreateFrame('Frame', 'ArenaHeader', E.UIParent)
 
-function UF:ToggleArenaPreparationInfo(frame, show, specName, specTexture, specClass)
+function UF:ToggleArenaPreparationInfo(frame, specID)
+	local specInfo = E.SpecInfoBySpecID[specID]
+
+	local show = specInfo and not not specInfo.classFile
 	frame.forceInRange = show -- used to force unitframe range
 
 	local visibility = not show
@@ -23,12 +23,12 @@ function UF:ToggleArenaPreparationInfo(frame, show, specName, specTexture, specC
 	frame.PvPClassificationIndicator:SetAtlas(nil)
 	frame.Trinket.cd:Clear()
 
-	if E.Retail then -- during `PostUpdateArenaPreparation` this means spec class and name exist
-		frame.ArenaPrepSpec:SetFormattedText(show and '%s - %s' or '', specName, LOCALIZED_CLASS_NAMES_MALE[specClass])
+	if not E.Classic then -- during `PostUpdateArenaPreparation` this means spec class and name exist
+		frame.ArenaPrepSpec:SetFormattedText(show and '%s - %s' or '', show and specInfo.name or '', show and specInfo.classMale or '')
 
 		if show and frame.db and frame.db.pvpSpecIcon and frame:IsElementEnabled('PVPSpecIcon') then
-			frame.PVPSpecIcon.Icon:SetTexture(specTexture or [[INTERFACE\ICONS\INV_MISC_QUESTIONMARK]])
-			frame.PVPSpecIcon.Icon:SetTexCoord(unpack(E.TexCoords))
+			frame.PVPSpecIcon.Icon:SetTexture(specInfo.icon or [[INTERFACE\ICONS\INV_MISC_QUESTIONMARK]])
+			frame.PVPSpecIcon.Icon:SetTexCoords()
 			frame.PVPSpecIcon:Show()
 		end
 	end
@@ -41,12 +41,7 @@ function UF:PostUpdateArenaFrame(event)
 end
 
 function UF:PostUpdateArenaPreparation(_, specID)
-	local _, specName, specTexture, specClass
-	if specID and specID > 0 then
-		_, specName, _, specTexture, _, specClass = GetSpecializationInfoByID(specID)
-	end
-
-	UF:ToggleArenaPreparationInfo(self and self.__owner, specClass and specName, specName, specTexture, specClass)
+	UF:ToggleArenaPreparationInfo(self and self.__owner, specID)
 end
 
 function UF:Construct_ArenaFrames(frame)
@@ -63,6 +58,7 @@ function UF:Construct_ArenaFrames(frame)
 		frame.Portrait3D = UF:Construct_Portrait(frame, 'model')
 		frame.Portrait2D = UF:Construct_Portrait(frame, 'texture')
 
+		frame.Auras = UF:Construct_Auras(frame)
 		frame.Buffs = UF:Construct_Buffs(frame)
 		frame.Debuffs = UF:Construct_Debuffs(frame)
 		frame.Castbar = UF:Construct_Castbar(frame)
@@ -75,7 +71,7 @@ function UF:Construct_ArenaFrames(frame)
 		frame.PvPClassificationIndicator = UF:Construct_PvPClassificationIndicator(frame) -- Cart / Flag / Orb / Assassin Bounty
 		frame.Fader = UF:Construct_Fader()
 
-		if E.Retail then
+		if not E.Classic then
 			frame.PVPSpecIcon = UF:Construct_PVPSpecIcon(frame)
 
 			frame.ArenaPrepSpec = frame.Health:CreateFontString(nil, 'OVERLAY')
@@ -117,7 +113,7 @@ function UF:Update_ArenaFrames(frame, db)
 		frame.USE_INFO_PANEL = not frame.USE_MINI_POWERBAR and not frame.USE_POWERBAR_OFFSET and db.infoPanel.enable
 		frame.INFO_PANEL_HEIGHT = frame.USE_INFO_PANEL and db.infoPanel.height or 0
 		frame.BOTTOM_OFFSET = UF:GetHealthBottomOffset(frame)
-		frame.PVPINFO_WIDTH = (E.Retail and frame.ORIENTATION ~= 'MIDDLE' and db.pvpSpecIcon and frame.UNIT_HEIGHT) or 0
+		frame.PVPINFO_WIDTH = (not E.Classic and frame.ORIENTATION ~= 'MIDDLE' and db.pvpSpecIcon and frame.UNIT_HEIGHT) or 0
 	end
 
 	frame:Size(frame.UNIT_WIDTH, frame.UNIT_HEIGHT)

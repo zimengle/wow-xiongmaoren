@@ -22,8 +22,7 @@ G.general = {
 		width = 1024,
 		height = 768
 	},
-	disableTutorialButtons = true,
-	commandBarSetting = 'ENABLED_RESIZEPARENT'
+	disableTutorialButtons = true
 }
 
 G.classtimer = {}
@@ -77,7 +76,7 @@ G.datatexts = {
 		Haste = { Label = '', NoLabel = false, decimalLength = 1 },
 		Hit = { Label = '', NoLabel = false, decimalLength = 1 },
 		Intellect = { Label = '', NoLabel = false},
-		['Item Level'] = { onlyEquipped = false, rarityColor = true },
+		['Item Level'] = { Label = '', NoLabel = false, onlyEquipped = false, rarityColor = true },
 		Leech = { Label = '', NoLabel = false, decimalLength = 1 },
 		Location = { showZone = true, showSubZone = true, showContinent = false, color = 'REACTION', customColor = {r = 1, g = 1, b = 1} },
 		Mastery = { Label = '', NoLabel = false, decimalLength = 1 },
@@ -198,7 +197,7 @@ G.unitframe = {
 			HUNTER = {
 				['19503'] = not E.Retail and 'Scatter Shot' or nil,
 				['2974'] = not E.Retail and 'Wing Clip' or nil,
-				['2973'] = (E.Cata or E.Wrath) and 'Raptor Strike' or nil,
+				['2973'] = E.Mists and 'Raptor Strike' or nil,
 				['75'] = 'Auto Shot'
 			},
 			MAGE = {

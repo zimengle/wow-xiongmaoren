@@ -21,9 +21,11 @@ function TM:UpdateButton(button, totem)
 		button.icon:SetTexture(icon)
 		button.cooldown:SetCooldown(startTime, duration)
 
-		if not E.Classic and totem:GetParent() ~= button.holder then
-			totem:ClearAllPoints()
-			totem:SetParent(button.holder)
+		if not E.Classic then
+			if totem:GetParent() ~= button.holder then
+				totem:SetParent(button.holder)
+			end
+
 			totem:SetAllPoints(button.holder)
 		end
 	end
@@ -37,6 +39,7 @@ function TM:Update()
 				button:SetShown(false)
 			end
 		end
+
 		for totem in _G.TotemFrame.totemPool:EnumerateActive() do
 			TM:UpdateButton(TM.bar[priority[totem.layoutIndex]], totem)
 		end
@@ -145,7 +148,7 @@ function TM:Initialize()
 		TM:RegisterEvent('ACTIVE_TALENT_GROUP_CHANGED', 'Update')
 	end
 
-	E:CreateMover(bar, 'TotemTrackerMover', L["Totem Tracker"], nil, nil, nil, nil, nil, 'general,totems')
+	E:CreateMover(bar, 'TotemTrackerMover', L["Totem Tracker"], nil, nil, nil, nil, nil, 'general,blizzardImprovements,totems')
 end
 
 E:RegisterModule(TM:GetName())

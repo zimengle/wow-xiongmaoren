@@ -485,7 +485,7 @@ QuickButUI.ButList[6]=function()
 			end
 		end
 	end
-	AdminF.List_C.Scroll = Create.PIGScrollFrame(AdminF.List_C,{2,-24,-16,2})
+	AdminF.List_C.Scroll = Create.PIGScrollFrame_old(AdminF.List_C,{2,-24,-16,2})
 	AdminF.List_C.Scroll:HookScript("OnVerticalScroll", function(self, offset)
 	    FauxScrollFrame_OnVerticalScroll(self, offset, hangLHH, AdminF.List_C.Updata_List)
 	end)
@@ -632,10 +632,7 @@ QuickButUI.ButList[6]=function()
 		    end
 	    end
 	   	local TotalNum = #NewData
-	    local ScrollUI = AdminF.List_C.Scroll
-	    FauxScrollFrame_Update(ScrollUI, TotalNum, ButNumC, hangLHH)
-	    ScrollUI:UpdateThumbTexture(TotalNum, ButNumC, hangLHH)
-	    local offset = FauxScrollFrame_GetOffset(ScrollUI)
+	    local offset = AdminF.List_C.Scroll:GetScrollFrameOffset(TotalNum, ButNumC, hangLHH)
 	    for i = 1, ButNumC do
 	        local dataIndex = i + offset
 	        if NewData[dataIndex] then

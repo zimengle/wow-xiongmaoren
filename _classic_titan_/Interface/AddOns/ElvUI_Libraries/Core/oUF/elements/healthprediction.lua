@@ -85,6 +85,14 @@ local oUF = ns.oUF
 
 local HealComm = LibStub('LibHealComm-4.0', true)
 
+local select = select
+local UnitGUID = UnitGUID
+local UnitHealth = UnitHealth
+local UnitHealthMax = UnitHealthMax
+local UnitGetIncomingHeals = UnitGetIncomingHeals
+local UnitGetTotalAbsorbs = UnitGetTotalAbsorbs
+local UnitGetTotalHealAbsorbs = UnitGetTotalHealAbsorbs
+
 local function UpdateSize(self, event, unit)
 	local element = self.HealthPrediction
 
@@ -124,8 +132,8 @@ local function Update(self, event, unit)
 	local myIncomingHeal = UnitGetIncomingHeals(unit, 'player') or 0
 	local allIncomingHeal = UnitGetIncomingHeals(unit) or 0
 	local overTimeHeals = not oUF.isRetail and HealComm and ((HealComm:GetHealAmount(GUID, HealComm.OVERTIME_AND_BOMB_HEALS) or 0) * (HealComm:GetHealModifier(GUID) or 1)) or 0
-	local absorb = oUF.isRetail and UnitGetTotalAbsorbs(unit) or 0
-	local healAbsorb = oUF.isRetail and UnitGetTotalHealAbsorbs(unit) or 0
+	local absorb = (oUF.isRetail or oUF.isMists) and UnitGetTotalAbsorbs(unit) or 0
+	local healAbsorb = (oUF.isRetail or oUF.isMists) and UnitGetTotalHealAbsorbs(unit) or 0
 	local health, maxHealth = UnitHealth(unit), UnitHealthMax(unit)
 	local otherIncomingHeal = 0
 	local hasOverHealAbsorb = false
@@ -325,18 +333,18 @@ local function Enable(self)
 		element.ForceUpdate = ForceUpdate
 		element.SetUseHealComm = SetUseHealComm
 
-		oUF:RegisterEvent(self, 'UNIT_HEALTH', Path)
-		oUF:RegisterEvent(self, 'UNIT_MAXHEALTH', Path)
-		oUF:RegisterEvent(self, 'UNIT_HEAL_PREDICTION', Path)
+		self:RegisterEvent('UNIT_HEALTH', Path)
+		self:RegisterEvent('UNIT_MAXHEALTH', Path)
+		self:RegisterEvent('UNIT_HEAL_PREDICTION', Path)
 
 		if oUF.isClassic then
-			oUF:RegisterEvent(self, 'UNIT_HEALTH_FREQUENT', Path)
+			self:RegisterEvent('UNIT_HEALTH_FREQUENT', Path)
 		end
 
-		if oUF.isRetail then
-			oUF:RegisterEvent(self, 'UNIT_ABSORB_AMOUNT_CHANGED', Path)
-			oUF:RegisterEvent(self, 'UNIT_HEAL_ABSORB_AMOUNT_CHANGED', Path)
-			oUF:RegisterEvent(self, 'UNIT_MAX_HEALTH_MODIFIERS_CHANGED', Path)
+		if oUF.isRetail or oUF.isMists then
+			self:RegisterEvent('UNIT_ABSORB_AMOUNT_CHANGED', Path)
+			self:RegisterEvent('UNIT_HEAL_ABSORB_AMOUNT_CHANGED', Path)
+			self:RegisterEvent('UNIT_MAX_HEALTH_MODIFIERS_CHANGED', Path)
 		else
 			element:SetUseHealComm(true)
 		end
@@ -414,18 +422,18 @@ local function Disable(self)
 			element.overHealAbsorb:Hide()
 		end
 
-		oUF:UnregisterEvent(self, 'UNIT_HEALTH', Path)
-		oUF:UnregisterEvent(self, 'UNIT_MAXHEALTH', Path)
-		oUF:UnregisterEvent(self, 'UNIT_HEAL_PREDICTION', Path)
+		self:UnregisterEvent('UNIT_HEALTH', Path)
+		self:UnregisterEvent('UNIT_MAXHEALTH', Path)
+		self:UnregisterEvent('UNIT_HEAL_PREDICTION', Path)
 
 		if oUF.isClassic then
-			oUF:UnregisterEvent(self, 'UNIT_HEALTH_FREQUENT', Path)
+			self:UnregisterEvent('UNIT_HEALTH_FREQUENT', Path)
 		end
 
-		if oUF.isRetail then
-			oUF:UnregisterEvent(self, 'UNIT_ABSORB_AMOUNT_CHANGED', Path)
-			oUF:UnregisterEvent(self, 'UNIT_HEAL_ABSORB_AMOUNT_CHANGED', Path)
-			oUF:UnregisterEvent(self, 'UNIT_MAX_HEALTH_MODIFIERS_CHANGED', Path)
+		if oUF.isRetail or oUF.isMists then
+			self:UnregisterEvent('UNIT_ABSORB_AMOUNT_CHANGED', Path)
+			self:UnregisterEvent('UNIT_HEAL_ABSORB_AMOUNT_CHANGED', Path)
+			self:UnregisterEvent('UNIT_MAX_HEALTH_MODIFIERS_CHANGED', Path)
 		else
 			element:SetUseHealComm(false)
 		end

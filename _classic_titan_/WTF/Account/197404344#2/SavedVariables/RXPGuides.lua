@@ -21,6 +21,7 @@ RXPDB = {
 ["哔站董事长 - 时光IV"] = "global",
 ["爱奇艺董事长 - 时光IV"] = "global",
 ["皎月梦夜 - 时光III"] = "global",
+["小米军儿 - 时光IV"] = "global",
 ["小露露糖 - 铁血"] = "global",
 ["露露缇娅 - 时光III"] = "global",
 ["小马君 - 时光I"] = "global",
@@ -48,6 +49,7 @@ RXPSettings = {
 ["哔站董事长 - 时光IV"] = "露露缇娅 - 时光III",
 ["爱奇艺董事长 - 时光IV"] = "露露缇娅 - 时光III",
 ["皎月梦夜 - 时光III"] = "露露缇娅 - 时光III",
+["小米军儿 - 时光IV"] = "小米军儿 - 时光IV",
 ["小露露糖 - 铁血"] = "露露缇娅丶 - 铁血",
 ["露露缇娅 - 时光III"] = "露露缇娅 - 时光III",
 ["小马君 - 时光I"] = "露露缇娅 - 时光III",
@@ -60,6 +62,192 @@ RXPSettings = {
 ["京东刘强东 - 时光IV"] = "京东刘强东 - 时光IV",
 },
 ["profiles"] = {
+["美团王兴 - 时光IV"] = {
+["xprate"] = 1.5,
+["frameHeight"] = 124.9999847412109,
+["hardcore"] = false,
+["frameSizes"] = {
+["activeTargetFrame"] = {
+54.22218322753906,
+17.99994468688965,
+},
+["RXPFrame"] = {
+235,
+28.00002098083496,
+},
+["activeItemFrame"] = {
+51.33700561523438,
+39.99998474121094,
+},
+["arrowFrame"] = {
+32.00011444091797,
+32.00011444091797,
+},
+},
+["framePositions"] = {
+["activeTargetFrame"] = {
+{
+"CENTER",
+"UIParent",
+"CENTER",
+0,
+0,
+},
+},
+["RXPFrame"] = {
+{
+"LEFT",
+"UIParent",
+"LEFT",
+0,
+35.00000381469727,
+},
+},
+["activeItemFrame"] = {
+{
+"CENTER",
+"UIParent",
+"CENTER",
+0,
+0,
+},
+},
+["arrowFrame"] = {
+{
+"CENTER",
+"UIParent",
+"CENTER",
+0,
+200,
+},
+},
+},
+},
+["小米军儿 - 时光IV"] = {
+["hardcore"] = false,
+["framePositions"] = {
+["activeTargetFrame"] = {
+{
+"CENTER",
+nil,
+"CENTER",
+382.0716857910156,
+-201.8830871582031,
+},
+},
+["RXPFrame"] = {
+{
+"LEFT",
+nil,
+"LEFT",
+12.65536403656006,
+-141.7373199462891,
+},
+},
+["activeItemFrame"] = {
+{
+"CENTER",
+nil,
+"CENTER",
+317.5887451171875,
+-56.04502487182617,
+},
+},
+["arrowFrame"] = {
+{
+"BOTTOM",
+nil,
+"BOTTOM",
+1.205440402030945,
+296.0905151367188,
+},
+},
+},
+["xprate"] = 1.5,
+["frameSizes"] = {
+["activeTargetFrame"] = {
+116.0001831054688,
+43.00005340576172,
+},
+["RXPFrame"] = {
+261.5160217285156,
+33.72906494140625,
+},
+["activeItemFrame"] = {
+51.33717346191406,
+39.99998474121094,
+},
+["arrowFrame"] = {
+32.00011444091797,
+31.9999942779541,
+},
+},
+["frameHeight"] = 33.72906494140625,
+["macroAnnounced"] = true,
+},
+["京东刘强东 - 时光IV"] = {
+["xprate"] = 1.5,
+["hideGuideWindow"] = true,
+["frameHeight"] = 24.98681449890137,
+["macroAnnounced"] = true,
+["hardcore"] = false,
+["frameSizes"] = {
+["activeTargetFrame"] = {
+54.22235107421875,
+42.99989700317383,
+},
+["RXPFrame"] = {
+380.9455871582031,
+27.99994087219238,
+},
+["activeItemFrame"] = {
+51.33710861206055,
+39.99998474121094,
+},
+["arrowFrame"] = {
+32.00011444091797,
+31.99995613098145,
+},
+},
+["framePositions"] = {
+["activeTargetFrame"] = {
+{
+"RIGHT",
+nil,
+"RIGHT",
+-338.5427856445313,
+132.4465637207031,
+},
+},
+["RXPFrame"] = {
+{
+"LEFT",
+nil,
+"LEFT",
+14.46302604675293,
+-81.93541717529297,
+},
+},
+["activeItemFrame"] = {
+{
+"LEFT",
+nil,
+"LEFT",
+44.83951950073242,
+-30.13181686401367,
+},
+},
+["arrowFrame"] = {
+{
+"CENTER",
+nil,
+"CENTER",
+-1.590874314308167,
+-201.8411865234375,
+},
+},
+},
+},
 ["露露缇娅丶 - 铁血"] = {
 ["arrowScale"] = 1.2,
 ["guideFontSize"] = 14,
@@ -128,130 +316,6 @@ RXPSettings = {
 },
 ["hideInRaid"] = true,
 ["hideCompletedSteps"] = false,
-},
-["美团王兴 - 时光IV"] = {
-["xprate"] = 1.5,
-["frameHeight"] = 124.9999847412109,
-["hardcore"] = false,
-["framePositions"] = {
-["activeTargetFrame"] = {
-{
-"CENTER",
-"UIParent",
-"CENTER",
-0,
-0,
-},
-},
-["RXPFrame"] = {
-{
-"LEFT",
-"UIParent",
-"LEFT",
-0,
-35.00000381469727,
-},
-},
-["activeItemFrame"] = {
-{
-"CENTER",
-"UIParent",
-"CENTER",
-0,
-0,
-},
-},
-["arrowFrame"] = {
-{
-"CENTER",
-"UIParent",
-"CENTER",
-0,
-200,
-},
-},
-},
-["frameSizes"] = {
-["activeTargetFrame"] = {
-54.22218322753906,
-17.99994468688965,
-},
-["RXPFrame"] = {
-235,
-28.00002098083496,
-},
-["activeItemFrame"] = {
-51.33700561523438,
-39.99998474121094,
-},
-["arrowFrame"] = {
-32.00011444091797,
-32.00011444091797,
-},
-},
-},
-["京东刘强东 - 时光IV"] = {
-["hideGuideWindow"] = false,
-["hardcore"] = false,
-["xprate"] = 1.5,
-["frameSizes"] = {
-["activeTargetFrame"] = {
-54.22250747680664,
-43.00005340576172,
-},
-["RXPFrame"] = {
-427.9513244628906,
-157.2693023681641,
-},
-["activeItemFrame"] = {
-51.33717346191406,
-39.99998474121094,
-},
-["arrowFrame"] = {
-32.00011444091797,
-31.99995613098145,
-},
-},
-["frameHeight"] = 157.2693023681641,
-["macroAnnounced"] = true,
-["framePositions"] = {
-["activeTargetFrame"] = {
-{
-"CENTER",
-nil,
-"CENTER",
-433.4414367675781,
--91.1316146850586,
-},
-},
-["RXPFrame"] = {
-{
-"LEFT",
-nil,
-"LEFT",
-3.013205289840698,
--281.2592163085938,
-},
-},
-["activeItemFrame"] = {
-{
-"CENTER",
-nil,
-"CENTER",
-250.6966857910156,
--161.5064849853516,
-},
-},
-["arrowFrame"] = {
-{
-"CENTER",
-nil,
-"CENTER",
--1.590874314308167,
--201.8411865234375,
-},
-},
-},
 },
 ["露露缇娅 - 时光III"] = {
 ["arrowText"] = 16,

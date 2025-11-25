@@ -10,16 +10,18 @@ local format = format
 local strmatch = strmatch
 local hooksecurefunc = hooksecurefunc
 
-local CreateFrame = CreateFrame
 local AcceptGroup = AcceptGroup
 local CanGuildBankRepair = CanGuildBankRepair
 local CanMerchantRepair = CanMerchantRepair
+local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
+local CreateFrame = CreateFrame
+local GetCurrentCombatTextEventInfo = GetCurrentCombatTextEventInfo
 local GetGuildBankWithdrawMoney = GetGuildBankWithdrawMoney
 local GetInstanceInfo = GetInstanceInfo
 local GetNumGroupMembers = GetNumGroupMembers
+local GetNumQuestChoices = GetNumQuestChoices
 local GetQuestItemInfo = GetQuestItemInfo
 local GetQuestItemLink = GetQuestItemLink
-local GetNumQuestChoices = GetNumQuestChoices
 local GetRaidRosterInfo = GetRaidRosterInfo
 local GetRepairAllCost = GetRepairAllCost
 local InCombatLockdown = InCombatLockdown
@@ -27,34 +29,34 @@ local IsActiveBattlefieldArena = IsActiveBattlefieldArena
 local IsArenaSkirmish = IsArenaSkirmish
 local IsGuildMember = IsGuildMember
 local IsInGroup = IsInGroup
+local IsInGuild = IsInGuild
 local IsInRaid = IsInRaid
 local IsPartyLFG = IsPartyLFG
 local IsShiftKeyDown = IsShiftKeyDown
+local PlaySound = PlaySound
 local RaidNotice_AddMessage = RaidNotice_AddMessage
 local RepairAllItems = RepairAllItems
-local SendChatMessage = SendChatMessage
 local StaticPopup_Hide = StaticPopup_Hide
 local StaticPopupSpecial_Hide = StaticPopupSpecial_Hide
 local UninviteUnit = UninviteUnit
 local UnitGUID = UnitGUID
 local UnitInRaid = UnitInRaid
+local UnitIsGroupLeader = UnitIsGroupLeader
 local UnitName = UnitName
-local IsInGuild = IsInGuild
-local PlaySound = PlaySound
+
+local SendChatMessage = C_ChatInfo.SendChatMessage or SendChatMessage
 local GetNumFactions = C_Reputation.GetNumFactions or GetNumFactions
 local GetFactionInfo = C_Reputation.GetFactionDataByIndex or GetFactionInfo
-local UnitIsGroupLeader = UnitIsGroupLeader
+local GetFactionDataByID = C_Reputation.GetFactionDataByID or GetFactionDataByID
 local ExpandAllFactionHeaders = C_Reputation.ExpandAllFactionHeaders or ExpandAllFactionHeaders
 local SetWatchedFactionIndex = C_Reputation.SetWatchedFactionByIndex or SetWatchedFactionIndex
-local GetCurrentCombatTextEventInfo = GetCurrentCombatTextEventInfo
-local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
-
+local LeaveParty = C_PartyInfo.LeaveParty or LeaveParty
+local IsPartyWalkIn = C_PartyInfo.IsPartyWalkIn
 local GetGameAccountInfoByGUID = C_BattleNet.GetGameAccountInfoByGUID
 local GetItemInfo = C_Item.GetItemInfo
 local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
-local LeaveParty = C_PartyInfo.LeaveParty or LeaveParty
-local IsPartyWalkIn = C_PartyInfo and C_PartyInfo.IsPartyWalkIn
 local IsFriend = C_FriendList.IsFriend
+local SetWatchedFactionByID = C_Reputation.SetWatchedFactionByID
 
 local LE_GAME_ERR_GUILD_NOT_ENOUGH_MONEY = LE_GAME_ERR_GUILD_NOT_ENOUGH_MONEY
 local LE_GAME_ERR_NOT_ENOUGH_MONEY = LE_GAME_ERR_NOT_ENOUGH_MONEY
@@ -73,9 +75,6 @@ end
 
 local BOOST_THANKSFORPLAYING_SMALLER = SOUNDKIT.UI_70_BOOST_THANKSFORPLAYING_SMALLER
 local INTERRUPT_MSG = L["Interrupted %s's |cff71d5ff|Hspell:%d:0|h[%s]|h|r!"]
-if not (E.Retail or E.Cata or E.Wrath) then
-	INTERRUPT_MSG = INTERRUPT_MSG:gsub('|cff71d5ff|Hspell:%%d:0|h(%[%%s])|h|r','%1')
-end
 
 function M:ErrorFrameToggle(event)
 	if not E.db.general.hideErrorFrame then return end
@@ -125,9 +124,9 @@ function M:COMBAT_LOG_EVENT_UNFILTERED()
 
 	local name, msg = destName or UNKNOWN
 	if E.locale == 'msMX' or E.locale == 'esES' or E.locale == 'ptBR' then -- name goes after
-		msg = (E.Retail or E.Cata or E.Wrath) and format(INTERRUPT_MSG, spellID, spellName, name) or format(INTERRUPT_MSG, spellName, name)
+		msg = format(INTERRUPT_MSG, spellID, spellName, name)
 	else
-		msg = (E.Retail or E.Cata or E.Wrath) and format(INTERRUPT_MSG, name, spellID, spellName) or format(INTERRUPT_MSG, name, spellName)
+		msg = format(INTERRUPT_MSG, name, spellID, spellName)
 	end
 
 	local channel = E.db.general.interruptAnnounce
@@ -146,21 +145,47 @@ function M:COMBAT_LOG_EVENT_UNFILTERED()
 	end
 end
 
-function M:COMBAT_TEXT_UPDATE(_, messagetype)
-	if messagetype ~= 'FACTION' or not E.db.general.autoTrackReputation then return end
+do
+	local twwBW = 2673	-- 11.1.0, both factions, account wide
+	local cataBW = 1133	-- 4.0.3, horde only, not account wide
+	local bilgewater = E.Retail and GetFactionDataByID(twwBW)
+	function M:COMBAT_TEXT_UPDATE(_, messagetype)
+		if messagetype ~= 'FACTION' or not E.db.general.autoTrackReputation then return end
 
-	local faction, rep = GetCurrentCombatTextEventInfo()
-	if (faction and faction ~= 'Guild') and (rep and rep > 0) then
-		local data = E:GetWatchedFactionInfo()
-		if not (data and data.name) or faction ~= data.name then
-			ExpandAllFactionHeaders()
+		local faction, rep = GetCurrentCombatTextEventInfo()
+		if (faction and faction ~= 'Guild') and (rep and rep > 0) then
+			local data = E:GetWatchedFactionInfo()
+			if not (data and data.name) or faction ~= data.name then
+				ExpandAllFactionHeaders()
 
-			for i = 1, GetNumFactions() do
-				local info = GetFactionInfo(i)
-				local name = (E.Retail and info and info.name) or (not E.Retail and info)
-				if name == faction then
-					SetWatchedFactionIndex(i)
-					break
+				local khazAlgar = E.MapInfo.continentMapID == 2274
+				for i = 1, GetNumFactions() do
+					if E.Retail then
+						local info = GetFactionInfo(i)
+						if info then
+							local name, factionID = info.name, info.factionID
+							if factionID == twwBW then
+								bilgewater = info -- reupdate this info
+							end
+
+							if name == faction and factionID and factionID ~= 0 then
+								if bilgewater and name == bilgewater.name then -- two have matching faction names
+									SetWatchedFactionByID(khazAlgar and twwBW or cataBW) -- prefer TWW when in Khaz Algar
+								else
+									SetWatchedFactionByID(factionID)
+								end
+
+								break
+							end
+						end
+					else
+						local name, _, _, _, _, _, _, _, _, _, _, _, _, factionID = GetFactionInfo(i)
+						if name == faction and factionID and factionID ~= 0 then
+							SetWatchedFactionIndex(i)
+
+							break
+						end
+					end
 				end
 			end
 		end
@@ -273,7 +298,15 @@ function M:AutoInvite(event, _, _, _, _, _, _, inviterGUID)
 		if not inviterGUID or inviterGUID == '' or IsInGroup() then return end
 
 		local queueButton = M:GetQueueStatusButton() -- don't auto accept during a queue
-		if queueButton and queueButton:IsShown() then return end
+		if queueButton then
+			if queueButton == _G.LFGMinimapFrame then -- era has it always showing
+				if queueButton.eye and queueButton.eye:GetScript('OnUpdate') then
+					return -- its animating so lets not accept
+				end
+			elseif queueButton:IsShown() then
+				return
+			end
+		end
 
 		if GetGameAccountInfoByGUID(inviterGUID) or IsFriend(inviterGUID) or IsGuildMember(inviterGUID) then
 			hideStatic = true

@@ -87,11 +87,12 @@ function S:GossipFrame()
 	local GossipFrame = _G.GossipFrame
 	S:HandlePortraitFrame(GossipFrame, true)
 	S:HandleScrollBar(_G.ItemTextScrollFrameScrollBar)
-	S:HandleCloseButton(_G.ItemTextCloseButton)
+	S:HandleCloseButton(_G.GossipFrame.CloseButton)
 
 	local GreetingPanel = _G.GossipFrame.GreetingPanel
 	S:HandleTrimScrollBar(GreetingPanel.ScrollBar)
 	S:HandleButton(GreetingPanel.GoodbyeButton, true)
+	S:HandleCloseButton(_G.ItemTextFrameCloseButton)
 
 	GreetingPanel:StripTextures()
 	GreetingPanel:CreateBackdrop('Transparent')

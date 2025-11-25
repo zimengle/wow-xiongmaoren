@@ -52,16 +52,21 @@ local toggles = {
 	worldmap = L["WORLD_MAP"]
 }
 
-if E.Cata or E.Wrath or E.Retail then
+if E.Mists or E.Retail then
 	toggles.achievement = L["ACHIEVEMENTS"]
 	toggles.alertframes = L["Alert Frames"]
 	toggles.archaeology = L["Archaeology Frame"]
 	toggles.barber = L["BARBERSHOP"]
+	toggles.bmah = L["BLACK_MARKET_AUCTION_HOUSE"]
 	toggles.calendar = L["Calendar Frame"]
 	toggles.collections = L["COLLECTIONS"]
 	toggles.encounterjournal = L["ENCOUNTER_JOURNAL"]
 	toggles.gbank = L["Guild Bank"]
+	toggles.itemUpgrade = L["Item Upgrade"]
 	toggles.pvp = L["PvP Frames"]
+	toggles.petbattleui = L["Pet Battle"]
+	toggles.transmogrify = L["TRANSMOGRIFY"]
+	toggles.guild = L["Guild"]
 end
 
 if not E.Retail then
@@ -73,12 +78,14 @@ if E.Retail then
 	toggles.alliedRaces = L["Allied Races"]
 	toggles.animaDiversion = L["Anima Diversion"]
 	toggles.artifact = L["ITEM_QUALITY6_DESC"]
+	toggles.remixArtifact = format('%s %s', L["Remix"], L["ITEM_QUALITY6_DESC"])
 	toggles.azerite = L["Azerite"]
 	toggles.azeriteEssence = L["Azerite Essence"]
 	toggles.azeriteRespec = L["AZERITE_RESPEC_TITLE"]
-	toggles.bmah = L["BLACK_MARKET_AUCTION_HOUSE"]
 	toggles.campsites = L["Campsite"]
+	toggles.catalogShop = L["BLIZZARD_STORE"]
 	toggles.chromieTime = L["Chromie Time Frame"]
+	toggles.cooldownManager = L["Cooldown Manager"]
 	toggles.contribution = L["Contribution"]
 	toggles.covenantPreview = L["Covenant Preview"]
 	toggles.covenantRenown = L["Covenant Renown"]
@@ -90,11 +97,9 @@ if E.Retail then
 	toggles.genericTrait = L["Generic Trait"]
 	toggles.gmChat = L["GM Chat"]
 	toggles.guide = L["Guide Frame"]
-	toggles.guild = L["Guild"]
 	toggles.islandQueue = L["ISLANDS_HEADER"]
 	toggles.islandsPartyPose = L["Island Party Pose"]
 	toggles.itemInteraction = L["Item Interaction"]
-	toggles.itemUpgrade = L["Item Upgrade"]
 	toggles.lfguild = L["LF Guild Frame"]
 	toggles.losscontrol = L["LOSS_OF_CONTROL"]
 	toggles.majorFactions = L["Major Factions"]
@@ -103,22 +108,16 @@ if E.Retail then
 	toggles.obliterum = L["OBLITERUM_FORGE_TITLE"]
 	toggles.orderhall = L["Orderhall"]
 	toggles.perks = L["Trading Post"]
-	toggles.petbattleui = L["Pet Battle"]
 	toggles.playerChoice = L["Player Choice Frame"]
 	toggles.runeforge = L["Runeforge"]
 	toggles.scrapping = L["SCRAP_BUTTON"]
 	toggles.soulbinds = L["Soulbinds"]
 	toggles.talkinghead = L["Talking Head"]
 	toggles.torghastLevelPicker = L["Torghast Level Picker"]
-	toggles.transmogrify = L["TRANSMOGRIFY"]
-	toggles.voidstorage = L["VOID_STORAGE"]
 	toggles.weeklyRewards = L["Weekly Rewards"]
-elseif E.Cata then
+elseif E.Mists then
 	toggles.arenaRegistrar = L["Arena Registrar"]
 	toggles.reforge = L["Reforge"]
-elseif E.Wrath then
-	toggles.arena = L["Arena"]
-	toggles.arenaRegistrar = L["Arena Registrar"]
 elseif E.Classic then
 	toggles.engraving = L["Engraving"]
 	toggles.battlefield = L["Battlefield"]

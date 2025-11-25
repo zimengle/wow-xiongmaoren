@@ -24,6 +24,7 @@ function UF:Construct_RaidDebuffs(frame)
 	debuff.time:SetTextColor(1, .9, 0)
 
 	debuff.ReverseTimer = E.ReverseTimer
+	debuff.PostUpdate = UF.RaidDebuffs_PostUpdate
 
 	return debuff
 end
@@ -39,7 +40,7 @@ function UF:Configure_RaidDebuffs(frame)
 		debuff.showDispellableDebuff = db.showDispellableDebuff
 		debuff.onlyMatchSpellID = db.onlyMatchSpellID
 		debuff.forceShow = frame.forceShowAuras
-		debuff.icon:SetTexCoord(unpack(E.TexCoords))
+		debuff.icon:SetTexCoords()
 		debuff:Point('BOTTOM', frame, 'BOTTOM', db.xOffset, db.yOffset + UF.SPACING)
 		debuff:Size(db.size)
 
@@ -57,5 +58,12 @@ function UF:Configure_RaidDebuffs(frame)
 		debuff.time:SetTextColor(durationColor.r, durationColor.g, durationColor.b, durationColor.a)
 	elseif frame:IsElementEnabled('RaidDebuffs') then
 		frame:DisableElement('RaidDebuffs')
+	end
+end
+
+function UF:RaidDebuffs_PostUpdate(name, _, _, debuffType)
+	if name and not debuffType then
+		local r, g, b = unpack(E.media.bordercolor)
+		self:SetBackdropBorderColor(r, g, b)
 	end
 end

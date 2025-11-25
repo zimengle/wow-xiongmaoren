@@ -1,7 +1,7 @@
 --[[
     This file is part of Decursive.
 
-    Decursive (v 2.7.27) add-on for World of Warcraft UI
+    Decursive (v 巴尼时光服修复版 v25112401) add-on for World of Warcraft UI
     Copyright (C) 2006-2025 John Wellesz (Decursive AT 2072productions.com) ( http://www.2072productions.com/to/decursive.php )
 
     Decursive is free software: you can redistribute it and/or modify
@@ -123,7 +123,7 @@ do
 
         if self.profile.ShowDebuffsFrame then
             -- Update the MUFs display in a short moment
-            self.MicroUnitF:Delayed_MFsDisplay_Update ();
+            self.MicroUnitF:Delayed_MFsDisplay_Update();
         elseif not self.profile.HideLiveList then
             D:ScheduleDelayedCall("Dcr_GetUnitArray", self.GetUnitArray, 1.5, self);
         end
@@ -1193,6 +1193,6 @@ do
     end
 end
 
-T._LoadedFiles["Dcr_Events.lua"] = "2.7.27";
+T._LoadedFiles["Dcr_Events.lua"] = "巴尼时光服修复版 v25112401";
 
 -- The Great Below

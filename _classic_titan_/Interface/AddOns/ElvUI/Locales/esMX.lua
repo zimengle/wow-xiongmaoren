@@ -2,6 +2,19 @@
 local E = unpack(ElvUI)
 local L = E.Libs.ACL:NewLocale('ElvUI', 'esMX')
 
+L["Date"] = true
+L["Plugins:"] = true
+L["Version:"] = true
+L["Equipment Sets"] = true
+L["No Set Equipped"] = true
+L["Set:"] = true
+L["New Mail"] = true
+L["No Mail"] = true
+L["Completed XP:"] = true
+L["Total Gold:"] = true
+L["Total XP:"] = true
+L["Quests:"] = true
+L["Time"] = true
 L["Restrict Pings"] = "Limitar Marcas"
 L["Player"] = true
 L["Small"] = "Pequeño"
@@ -16,7 +29,6 @@ L["%s frame has a conflicting anchor point. Forcing the Buffs to be attached to 
 L["%s is attempting to share the Private Profile (%s) with you. Would you like to accept the request?"] = "%s quiere compartir el Perfil Privado (%s) contigo. ¿Aceptas la petición?"
 L["%s is attempting to share the Global Profile with you. Would you like to accept the request?"] = "%s quiere compartir el Perfil Global contigo. ¿Aceptas la petición?"
 L["%s is attempting to share the Profile (%s) with you. Would you like to accept the request?"] = "%s quiere compartir el Perfil (%s) contigo. ¿Aceptas la petición?"
-L["%s: %s tried to call the protected function '%s'."] = "%s: %s intentó llamar a la función protegida '%s'."
 L["(Ctrl & Shift Click) Toggle CPU Profiling"] = "(Ctrl y Clic Shift) Mostrar/Ocultar perfilado de CPU"
 L["(Hold Shift) Memory Usage"] = "(Mantén Shift) Uso de Memoria"
 L["(Shift Click) Collect Garbage"] = "(Clic Shift) Recolectar basura"
@@ -108,8 +120,7 @@ L["Dead"] = "Muerto"
 L["Debuffs"] = "Perjuicios"
 L["Deficit:"] = "Déficit:"
 L["Delete gray items?"] = "¿Eliminar objetos grises?"
-L["Deposit Reagents"] = "Depositar Componentes"
-L["Deposit Warbound Items"] = true
+L["Auto Deposit"] = true
 L["Disable Warning"] = "Deshabilitar Advertencia"
 L["Disable"] = "Desactivar"
 L["Disabled"] = "Desactivado"
@@ -177,7 +188,7 @@ L["Importance: |cFF33FF33Low|r"] = "Importancia: |cFF33FF33Baja|r"
 L["Importance: |cffD3CF00Medium|r"] = "Importancia: |cffD3CF00Media|r"
 L["Importance: |cffFF3333High|r"] = "Importancia: |cffFF3333Alta|r"
 L["In Progress"] = "En Progreso"
-L["Include Reagents"] = true
+L["Deposit Reagents"] = "Depositar Componentes"
 L["INCOMPATIBLE_ADDON"] = "%s is not compatible with %s.\nPlease select the addon/module to use."
 L["Installation Complete"] = "Instalación Completa"
 L["Interrupted %s's |cff71d5ff|Hspell:%d:0|h[%s]|h|r!"] = "¡|cff71d5ff|Hspell:%d:0|h[%s]|h|r de %s Interrumpido!"
@@ -210,6 +221,7 @@ L["KEY_SPACE"] = "SpB"
 L["Layout Set"] = "Distribución Establecida"
 L["Layout"] = "Distribución"
 L["Left Chat"] = "Chat Izquierdo"
+L["Right Click:"] = "Clic Derecho"
 L["Left Click:"] = "Clic Izquierdo"
 L["Level %d"] = "Nivel %d"
 L["Level"] = "Nivel"
@@ -442,6 +454,7 @@ L["EHELP_COMMANDS"] = ([=[Aquí hay una lista de todos los comandos importantes 
  */estatus|r  -  Información importante para preguntas de soporte.
  */egrid|r ^64|r or ^128|r or ^256|r  -  Mostrar/Ocultar una cuadrícula de líneas.
  */edebug|r ^on|r or ^off|r  -  Deshabilitar todos los AddOns excepto ElvUI.
-  NOTA: */edebug|r ^off|r volverá a habilitar los complementos deshabilitado
-  mediante el uso de */edebug|r ^on|r dentro de esa sesión.
+  NOTA: */edebug|r ^off|r volverá a habilitar los complementos deshabilitado mediante el uso de */edebug|r ^on|r dentro de esa sesión.
+ */guildlist|r ^minPlayers|r  -  Dumps the sorted list of guilds from the finder.
+ */guildapply|r ^"message"|r  -  Applies to the top 5 new guilds with an optional message.
 ]=]):gsub('*', E.InfoColor):gsub('%^', E.InfoColor2)

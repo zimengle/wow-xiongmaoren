@@ -1,4 +1,4 @@
-## Interface: 30404
+## Interface: 30403, 30800
 
 ## Author: |cff00ff00ALA|r
 ## Author-zhCN: |cff00ff00ALA|r
@@ -18,6 +18,6 @@
 ## LoadOnDemand: 0
 ## DefaultState: enabled
 
-## Version: 304r.240710fix
+## Version: 305r.251119fix
 
 main.xml

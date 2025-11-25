@@ -2,15 +2,13 @@ local E, L, V, P, G = unpack(ElvUI)
 local D = E:GetModule('DebugTools')
 
 local _G = _G
-local format = format
 local hooksecurefunc = hooksecurefunc
 
-local CreateFrame = CreateFrame
 local InCombatLockdown = InCombatLockdown
+local CreateFrame = CreateFrame
 local UIParent = UIParent
 
 local StaticPopup_Hide = StaticPopup_Hide
-
 local GetCVarBool = C_CVar.GetCVarBool
 
 local BUTTON_WIDTH = 75
@@ -19,22 +17,29 @@ local BUTTON_SPACING = 2
 
 D.HideFrame = CreateFrame('Frame')
 
-local function UnHighlightText(text)
-	text:HighlightText(0, 0)
+function D:ClearHighlight()
+	self:HighlightText(0, 0)
 end
 
-local function FirstButton_OnClick(button)
-	button.frame.index = 1
-	button.frame:Update()
+function D:ScriptErrors_ClearHighlight()
+	D.ClearHighlight(self.ScrollFrame.Text)
 end
 
-local function LastButton_OnClick(button)
-	button.frame.index = #button.frame.order
-	button.frame:Update()
+function D:OnClick_FirstButton()
+	self.frame.index = 1
+	self.frame:Update()
 end
 
-local function ScriptErrors_UnHighlightText()
-	_G.ScriptErrorsFrame.ScrollFrame.Text:HighlightText(0, 0)
+function D:OnClick_LastButton()
+	local data = D:GetErrorData(self.frame)
+	if not data then return end
+
+	self.frame.index = #data
+	self.frame:Update()
+end
+
+function D:GetErrorData(frame)
+	return frame.errorData or frame.order
 end
 
 function D:ModifyErrorFrame()
@@ -43,10 +48,10 @@ function D:ModifyErrorFrame()
 	frame.ScrollFrame.Text.cursorHeight = 0
 	frame.ScrollFrame.Text:SetScript('OnEditFocusGained', nil)
 
-	hooksecurefunc(frame, 'Update', ScriptErrors_UnHighlightText)
+	hooksecurefunc(frame, 'Update', D.ScriptErrors_ClearHighlight)
 
 	-- Unhighlight text when focus is hit
-	frame.ScrollFrame.Text:HookScript('OnEscapePressed', UnHighlightText)
+	frame.ScrollFrame.Text:HookScript('OnEscapePressed', D.ClearHighlight)
 	frame:Size(500, 300)
 	frame.ScrollFrame:Size(frame:GetWidth() - 45, frame:GetHeight() - 71)
 
@@ -55,7 +60,7 @@ function D:ModifyErrorFrame()
 	firstButton:Point('BOTTOMLEFT', frame.Reload, 'BOTTOMRIGHT', BUTTON_SPACING, 0)
 	firstButton:SetText('First')
 	firstButton:Size(BUTTON_WIDTH, BUTTON_HEIGHT)
-	firstButton:SetScript('OnClick', FirstButton_OnClick)
+	firstButton:SetScript('OnClick', D.OnClick_FirstButton)
 	firstButton.frame = frame
 	frame.firstButton = firstButton
 
@@ -64,7 +69,7 @@ function D:ModifyErrorFrame()
 	lastButton:Point('BOTTOMRIGHT', frame.Close, 'BOTTOMLEFT', -BUTTON_SPACING, 0)
 	lastButton:Size(BUTTON_WIDTH, BUTTON_HEIGHT)
 	lastButton:SetText('Last')
-	lastButton:SetScript('OnClick', LastButton_OnClick)
+	lastButton:SetScript('OnClick', D.OnClick_LastButton)
 	lastButton.frame = frame
 	frame.lastButton = lastButton
 
@@ -76,7 +81,8 @@ function D:ScriptErrorsFrame_UpdateButtons()
 	local frame = _G.ScriptErrorsFrame
 	if not frame.firstButton then return end
 
-	if frame.index == 0 or #frame.order == 1 then
+	local data = D:GetErrorData(frame)
+	if frame.index == 0 or (data and #data == 1) then
 		frame.lastButton:Disable()
 		frame.firstButton:Disable()
 	else
@@ -85,25 +91,22 @@ function D:ScriptErrorsFrame_UpdateButtons()
 	end
 end
 
-function D:ScriptErrorsFrame_OnError(_, _, keepHidden)
-	if keepHidden or D.MessagePrinted or not InCombatLockdown() or not GetCVarBool('scriptErrors') then return end
+function D:ScriptErrorsFrame_OnError()
+	if D.MessagePrinted or not InCombatLockdown() or not GetCVarBool('scriptErrors') then return end
 
 	E:Print(L["|cFFE30000Lua error recieved. You can view the error message when you exit combat."])
+
 	D.MessagePrinted = true
 end
 
 function D:PLAYER_REGEN_ENABLED()
 	_G.ScriptErrorsFrame:SetParent(UIParent)
+
 	D.MessagePrinted = nil
 end
 
 function D:PLAYER_REGEN_DISABLED()
 	_G.ScriptErrorsFrame:SetParent(D.HideFrame)
-end
-
-function D:TaintError(event, addonName, addonFunc)
-	if not E.db.general.taintLog or not GetCVarBool('scriptErrors') then return end
-	_G.ScriptErrorsFrame:OnError(format(L["%s: %s tried to call the protected function '%s'."], event, addonName or '<name>', addonFunc or '<func>'), false, false)
 end
 
 function D:StaticPopup_Show(name)
@@ -119,13 +122,11 @@ function D:Initialize()
 	local frame = _G.ScriptErrorsFrame
 	D:SecureHookScript(frame, 'OnShow', D.ModifyErrorFrame)
 	D:SecureHook(frame, 'UpdateButtons', D.ScriptErrorsFrame_UpdateButtons)
-	--D:SecureHook(frame, 'OnError', D.ScriptErrorsFrame_OnError)
+	D:SecureHook(frame, 'DisplayMessageInternal', D.ScriptErrorsFrame_OnError)
 	D:SecureHook('StaticPopup_Show')
 
 	D:RegisterEvent('PLAYER_REGEN_DISABLED')
 	D:RegisterEvent('PLAYER_REGEN_ENABLED')
-	D:RegisterEvent('ADDON_ACTION_BLOCKED', 'TaintError')
-	D:RegisterEvent('ADDON_ACTION_FORBIDDEN', 'TaintError')
 end
 
 E:RegisterModule(D:GetName())

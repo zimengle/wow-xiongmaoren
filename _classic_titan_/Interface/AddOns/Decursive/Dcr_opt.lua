@@ -1,7 +1,7 @@
 --[[
     This file is part of Decursive.
 
-    Decursive (v 2.7.27) add-on for World of Warcraft UI
+    Decursive (v 巴尼时光服修复版 v25112401) add-on for World of Warcraft UI
     Copyright (C) 2006-2025 John Wellesz (Decursive AT 2072productions.com) ( http://www.2072productions.com/to/decursive.php )
 
     Decursive is free software: you can redistribute it and/or modify
@@ -160,7 +160,7 @@ function D:GetDefaultsSettings()
 
             -- the key to bind the macro to
             MacroBind = false,
-            NoStartMessages = false,
+            NoStartMessages = true,
 
             MouseButtons = {
                 "*%s1", -- left mouse button
@@ -234,7 +234,7 @@ function D:GetDefaultsSettings()
 
             -- Setting to hide the MUF handle (render it mouse-non-interactive)
             HideMUFsHandle = false,
-
+	    
             AutoHideMUFs = 1,
 
             -- The maximum number of MUFs to be displayed
@@ -277,7 +277,7 @@ function D:GetDefaultsSettings()
             CenterTextDisplay = '1_TLEFT',
 
             -- this is wether or not to show the live-list
-            HideLiveList = false,
+            HideLiveList = true,
 
             LiveListAlpha = 0.7,
 
@@ -347,8 +347,7 @@ function D:GetDefaultsSettings()
             -- allow to changes the default output window
             OutputWindow = "DEFAULT_CHAT_FRAME", -- ACEDB CRASHES if we set it directly
 
-
-            MiniMapIcon = {hide=true},
+            MiniMapIcon = {hide=false},
 
             -- Display a warning if no key is mapped.
             NoKeyWarn = false,
@@ -723,12 +722,12 @@ local function GetStaticOptions ()
                         image = DC.IconON,
                         order = 0,
                     },
-                    newVersion = {
+                    --[[newVersion = {
                         type = 'description',
                         name = "|cFFEE0022" .. (L["NEW_VERSION_ALERT"]):format(D.db.global.NewerVersionName or "none", date("%Y-%m-%d", D.db.global.NewerVersionDetected)) .. "|r",
                         hidden = function() return not D.db.global.NewerVersionName end,
                         order = 2,
-                    },
+                    },]]
                     ShowDebuffsFrame = {
                         type = "toggle",
                         name = L["OPT_SHOWMFS"],
@@ -1963,7 +1962,7 @@ local function GetStaticOptions ()
                                     "\n\n|cFFDDDD00 %s|r:\n   %s"..
                                     "\n\n|cFFDDDD00 %s|r:\n   %s\n\n   %s"
                                 ):format(
-                                    "2.7.27", "John Wellesz", ("2025-03-17T01:25:10Z"):sub(1,10),
+                                    "巴尼时光服修复版 v25112401", "John Wellesz", ("2025-03-17T01:25:10Z"):sub(1,10),
                                     L["ABOUT_NOTES"],
                                     L["ABOUT_LICENSE"],         GetAddOnMetadata("Decursive", "X-License") or 'All Rights Reserved',
                                     L["ABOUT_SHAREDLIBS"],      GetAddOnMetadata("Decursive", "X-Embeds")  or 'GetAddOnMetadata() failure',
@@ -3771,7 +3770,6 @@ function D:QuickAccess (CallingObject, button) -- {{{
 
 end -- }}}
 
-
-T._LoadedFiles["Dcr_opt.lua"] = "2.7.27";
+T._LoadedFiles["Dcr_opt.lua"] = "巴尼时光服修复版 v25112401";
 
 -- Closer

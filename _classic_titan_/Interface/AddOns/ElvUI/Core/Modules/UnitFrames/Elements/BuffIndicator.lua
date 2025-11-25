@@ -2,7 +2,6 @@ local E, L, V, P, G = unpack(ElvUI)
 local UF = E:GetModule('UnitFrames')
 local LSM = E.Libs.LSM
 
-local unpack = unpack
 local CreateFrame = CreateFrame
 
 function UF:Construct_AuraWatch(frame)
@@ -89,10 +88,13 @@ function UF:BuffIndicator_PostUpdateIcon(_, button)
 			button.cd.blizzText:Point(settings.cooldownAnchor or 'CENTER', settings.cooldownX or 1, settings.cooldownY or 1)
 
 			if onlyText then
+				button.cd:GetRegions():SetAlpha(1) -- Default CD timer is region #1
 				button.cd:SetHideCountdownNumbers(false)
 				button.cd.blizzText:SetTextColor(settings.color.r, settings.color.g, settings.color.b)
 			else
-				button.cd:SetHideCountdownNumbers(not settings.displayText)
+				local hideCooldownText = not settings.displayText
+				button.cd:GetRegions():SetAlpha(hideCooldownText and 0 or 1) -- Default CD timer is region #1
+				button.cd:SetHideCountdownNumbers(hideCooldownText)
 				button.cd.blizzText:SetTextColor(1, 1, 1)
 			end
 		elseif button.cd.timer then
@@ -113,7 +115,7 @@ function UF:BuffIndicator_PostUpdateIcon(_, button)
 			button.icon:SetVertexColor(settings.color.r, settings.color.g, settings.color.b, settings.color.a)
 		elseif textureIcon then
 			button.icon:SetVertexColor(1, 1, 1)
-			button.icon:SetTexCoord(unpack(E.TexCoords))
+			button.icon:SetTexCoords()
 		end
 
 		button.count:ClearAllPoints()

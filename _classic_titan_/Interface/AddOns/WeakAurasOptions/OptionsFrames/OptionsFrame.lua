@@ -152,29 +152,6 @@ function OptionsPrivate.CreateFrame()
 
     OptionsPrivate.Private.ClearFakeStates()
 
-    -- 隐藏准备安装面板和所有子按钮
-    if frame.pendingInstallButton then
-      frame.pendingInstallButton.frame:Hide()
-    end
-    if OptionsPrivate.pendingInstallButtons then
-      for _, button in pairs(OptionsPrivate.pendingInstallButtons) do
-        if button.frame then
-          button.frame:Hide()
-        end
-      end
-    end
-    
-    -- 隐藏准备更新面板和所有子按钮
-    if frame.pendingUpdateButton then
-      frame.pendingUpdateButton.frame:Hide()
-    end
-    if OptionsPrivate.pendingUpdateButtons then
-      for _, button in pairs(OptionsPrivate.pendingUpdateButtons) do
-        if button.frame then
-          button.frame:Hide()
-        end
-      end
-    end
 
     for id, data in pairs(OptionsPrivate.Private.regions) do
       if data.region then
@@ -427,7 +404,7 @@ function OptionsPrivate.CreateFrame()
   tipPopupLabel:SetJustifyH("LEFT")
   tipPopupLabel:SetJustifyV("TOP")
 
-  local urlWidget = CreateFrame("EditBox", nil, tipPopup, "InputBoxTemplate")
+  local urlWidget = CreateFrame("EditBox", nil, tipPopup, "WAFIX_InputBoxTemplate")
   urlWidget:SetFont(STANDARD_TEXT_FONT, 12, "")
   urlWidget:SetPoint("TOPLEFT", tipPopupLabel, "BOTTOMLEFT", 6, 0)
   urlWidget:SetPoint("TOPRIGHT", tipPopupLabel, "BOTTOMRIGHT", 0, 0)
@@ -545,7 +522,7 @@ function OptionsPrivate.CreateFrame()
   frame.moversizer, frame.mover = OptionsPrivate.MoverSizer(frame)
 
   -- filter line
-  local filterInput = CreateFrame("EditBox", "WeakAurasFilterInput", frame, "SearchBoxTemplate")
+  local filterInput = CreateFrame("EditBox", "WeakAurasFilterInput", frame, "WAFIX_SearchBoxTemplate")
   filterInput:SetScript("OnTextChanged", function(self)
     SearchBoxTemplate_OnTextChanged(self)
     OptionsPrivate.SortDisplayButtons(filterInput:GetText())

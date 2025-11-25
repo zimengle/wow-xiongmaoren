@@ -121,11 +121,11 @@ function BG.RoleOverviewUI()
                 ["gamma"] = 1,
                 ["heroe"] = 1,
                 ["week1"] = 1,
-                ["faction".."1119"] = 1,
-                ["faction".."1098"] = 1,
-                ["faction".."1106"] = 1,
-                ["faction".."1090"] = 1,
-                ["faction".."1091"] = 1,
+                ["faction" .. "1119"] = 1,
+                ["faction" .. "1098"] = 1,
+                ["faction" .. "1106"] = 1,
+                ["faction" .. "1090"] = 1,
+                ["faction" .. "1091"] = 1,
             }
         elseif BG.IsCTM then
             BiaoGe.FBCDchoice = {
@@ -415,8 +415,8 @@ function BG.RoleOverviewUI()
             }
         elseif BG.IsTitan then
             BG.FBCDall_table = {
-                { name = "SSCtitan", name2 = L["毒蛇神殿"],color = "00BFFF", fbId = 548, type = "fb" },
-                { name = "TKtitan", name2 = L["风暴要塞"],color = "00BFFF", fbId = 550, type = "fb" },
+                { name = "SSCtitan", name2 = L["毒蛇神殿"], color = "00BFFF", fbId = 548, type = "fb" },
+                { name = "TKtitan", name2 = L["风暴要塞"], color = "00BFFF", fbId = 550, type = "fb" },
                 { name = "MCtitan", name2 = L["熔火之心"], color = "00BFFF", fbId = 409, type = "fb" },
                 -- 日常
                 { name = "week1", name2 = L["周常"], color = "FF8C00", type = "quest" },
@@ -1531,6 +1531,10 @@ GameTooltip:SetCurrencyByID(697)
                                 t_paizi:SetTextColor(1, 0, 0)
                             end
                         end
+                        local weekTimestamp = pz[id].weekTimestamp
+                        if weekTimestamp and weekTimestamp > GetServerTime() then
+                            t_paizi:SetTextColor(1, 0, 0)
+                        end
                     end
                     if type(pz[id]) == "table" and pz[id].isItem and pz[id].quest then
                         t_paizi:SetText(L["完成"] .. " " .. AddTexture(vv.tex))
@@ -2201,39 +2205,8 @@ GameTooltip:SetCurrencyByID(697)
             }
         end
         local function SaveWeekQuest(questName, questID)
-            local resetDay = 2
-            if BG.IsCN() then
-                resetDay = 4
-            end
-
-            local currentTimestamp = GetServerTime()
-            local currentWeekday = date("%w", currentTimestamp)
-            local daysToThursday = resetDay - currentWeekday
-            local nextThursdayTimestamp
-
-            local today = date("*t", currentTimestamp)
-            -- 如果时间小于当天凌晨7点
-            if daysToThursday == 0 and today.hour < 7 then
-                today.hour = 7
-                today.min = 0
-                today.sec = 0
-                nextThursdayTimestamp = time(today)
-            else
-                -- 如果已经是周四了，则日期+7
-                if daysToThursday <= 0 then
-                    daysToThursday = daysToThursday + 7
-                end
-                nextThursdayTimestamp = currentTimestamp + daysToThursday * 86400
-
-                local nextThursdayDateTable = date("*t", nextThursdayTimestamp)
-                nextThursdayDateTable.hour = 7
-                nextThursdayDateTable.min = 0
-                nextThursdayDateTable.sec = 0
-                nextThursdayTimestamp = time(nextThursdayDateTable)
-            end
-            -- 计算时间差
-            local secondsToNextThursday = nextThursdayTimestamp - currentTimestamp -- 距离下周四还有多少秒
-            local timestamp = currentTimestamp + secondsToNextThursday             -- 到下周四的实际时间戳
+            local secondsToNextThursday = BG.GetNextWeekTime()         -- 距离下周四还有多少秒
+            local timestamp = currentTimestamp + secondsToNextThursday -- 到下周四的实际时间戳
 
             local colorplayer = SetClassCFF(player, "player")
             BiaoGe.QuestCD[realmID][player][questName] = {
@@ -2559,7 +2532,15 @@ GameTooltip:SetCurrencyByID(697)
                         if info then
                             local count = info.quantity
                             local tex = info.iconFileID
-                            tbl[v.id] = { count = count, tex = tex }
+                            local weekMax = info.maxWeeklyQuantity
+                            local weekTimestamp
+                            if weekMax and weekMax > 0 then
+                                local weekCount = info.quantityEarnedThisWeek
+                                if weekCount >= weekMax then
+                                    weekTimestamp = select(2, BG.GetNextWeekTime())
+                                end
+                            end
+                            tbl[v.id] = { count = count, tex = tex, weekTimestamp = weekTimestamp }
                         end
                     end
                 end

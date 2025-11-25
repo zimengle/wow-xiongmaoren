@@ -4,6 +4,9 @@ local AB = E:GetModule('ActionBars')
 local S = E:GetModule('Skins')
 local B = E:GetModule('Bags')
 local LSM = E.Libs.LSM
+local ElvUF = E.oUF
+local AuraInfo = ElvUF.AuraInfo
+local AuraFiltered = ElvUF.AuraFiltered
 
 local _G = _G
 local unpack, ipairs = unpack, ipairs
@@ -71,7 +74,6 @@ local AddTooltipPostCall = TooltipDataProcessor and TooltipDataProcessor.AddTool
 local GetDisplayedItem = TooltipUtil and TooltipUtil.GetDisplayedItem
 
 local GetItemQualityByID = C_Item.GetItemQualityByID
-local GetItemQualityColor = C_Item.GetItemQualityColor
 local GetItemCount = C_Item.GetItemCount
 local GetItemInfo = C_Item.GetItemInfo
 
@@ -147,33 +149,28 @@ function TT:GameTooltip_SetDefaultAnchor(tt, parent)
 		end
 	end
 
-	local RightChatPanel = _G.RightChatPanel
-	local TooltipMover = _G.TooltipMover
 	local _, anchor = tt:GetPoint()
+	local TooltipMover = _G.TooltipMover
+	local RightChatPanel = _G.RightChatPanel
 
 	if anchor == nil or anchor == B.BagFrame or anchor == RightChatPanel or anchor == TooltipMover or anchor == _G.GameTooltipDefaultContainer or anchor == UIParent or anchor == E.UIParent then
 		tt:ClearAllPoints()
 
-		if not E:HasMoverBeenMoved('TooltipMover') then
-			if B.BagFrame and B.BagFrame:IsShown() then
-				tt:Point('BOTTOMRIGHT', B.BagFrame, 'TOPRIGHT', 0, 18)
-			elseif RightChatPanel:GetAlpha() == 1 and RightChatPanel:IsShown() then
-				tt:Point('BOTTOMRIGHT', RightChatPanel, 'TOPRIGHT', 0, 18)
-			else
-				tt:Point('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', 0, 18)
-			end
-		else
-			local point = E:GetScreenQuadrant(TooltipMover)
-			if point == 'TOPLEFT' then
-				tt:Point('TOPLEFT', TooltipMover, 'BOTTOMLEFT', 1, -4)
-			elseif point == 'TOPRIGHT' then
-				tt:Point('TOPRIGHT', TooltipMover, 'BOTTOMRIGHT', -1, -4)
-			elseif point == 'BOTTOMLEFT' or point == 'LEFT' then
-				tt:Point('BOTTOMLEFT', TooltipMover, 'TOPLEFT', 1, 18)
-			else
-				tt:Point('BOTTOMRIGHT', TooltipMover, 'TOPRIGHT', -1, 18)
-			end
+		local anchorBags = TT.db.anchorToBags
+		local anchorFrame = anchorBags ~= 'DISABLED' and ((B.BagFrame and B.BagFrame:IsShown() and B.BagFrame) or (not E:HasMoverBeenMoved('TooltipMover') and RightChatPanel:GetAlpha() == 1 and RightChatPanel:IsShown() and RightChatPanel))
+		if anchorFrame then
+			tt:Point(E.InversePoints[anchorBags], anchorFrame, anchorBags, TT.db.xOffset, TT.db.yOffset)
+			return -- dont fallback to the mover
 		end
+
+		local point = E:GetScreenQuadrant(TooltipMover)
+		if point == 'LEFT' then
+			point = 'BOTTOMLEFT'
+		elseif point == 'RIGHT' or point == 'CENTER' then
+			point = 'BOTTOMRIGHT'
+		end
+
+		tt:Point(point, TooltipMover, E.InversePoints[point], TT.db.xOffset, TT.db.yOffset)
 	end
 end
 
@@ -300,14 +297,14 @@ function TT:SetUnitText(tt, unit, isPlayerUnit)
 
 		return nameColor
 	else
-		local isPetCompanion = E.Retail and UnitIsBattlePetCompanion(unit)
+		local isPetCompanion = not E.Classic and UnitIsBattlePetCompanion(unit)
 		local levelLine, classLine = TT:GetLevelLine(tt, 1)
 		if levelLine then
 			local pvpFlag, classificationString, diffColor, level = '', ''
 			local creatureClassification = UnitClassification(unit)
 			local creatureType = UnitCreatureType(unit)
 
-			if isPetCompanion or (E.Retail and UnitIsWildBattlePet(unit)) then
+			if isPetCompanion or (not E.Classic and UnitIsWildBattlePet(unit)) then
 				level = UnitBattlePetLevel(unit)
 
 				local petType = UnitBattlePetType(unit)
@@ -404,7 +401,7 @@ end
 
 local lastGUID
 function TT:AddInspectInfo(tt, unit, numTries, r, g, b)
-	if tt.ItemLevelShown or (not unit) or (numTries > 3) or not UnitIsPlayer(unit) or not CanInspect(unit) or ((E.Cata or E.Wrath) and not CheckInteractDistance(unit, 4)) then return end
+	if tt.ItemLevelShown or (not unit) or (numTries > 3) or not UnitIsPlayer(unit) or not CanInspect(unit) or ((E.Mists or E.Wrath) and not CheckInteractDistance(unit, 4)) then return end
 
 	local unitGUID = UnitGUID(unit)
 	if not unitGUID then return end
@@ -438,12 +435,14 @@ function TT:AddInspectInfo(tt, unit, numTries, r, g, b)
 end
 
 function TT:AddMountInfo(tt, unit)
-	local index = 1
-	local name, _, _, _, _, _, _, _, _, spellID = E:GetAuraData(unit, index, 'HELPFUL')
-	while name do
-		local mountID = E.MountIDs[spellID]
+	if ElvUF:ShouldSkipAuraUpdate(tt, 'ADD_MOUNT_INFO', unit) then return end
+
+	local unitAuraFiltered = AuraFiltered.HELPFUL[unit]
+	local auraInstanceID, aura = next(unitAuraFiltered)
+	while aura do
+		local mountID = E.MountIDs[aura.spellId]
 		if mountID then
-			tt:AddDoubleLine(format('%s:', _G.MOUNT), name, nil, nil, nil, 1, 1, 1)
+			tt:AddDoubleLine(format('%s:', _G.MOUNT), aura.name, nil, nil, nil, 1, 1, 1)
 
 			local sourceText = E.MountText[mountID]
 			local mountText = sourceText and IsControlKeyDown() and gsub(sourceText, blanchyFix, '|n')
@@ -460,10 +459,9 @@ function TT:AddMountInfo(tt, unit)
 			end
 
 			break
-		else
-			index = index + 1
-			name, _, _, _, _, _, _, _, _, spellID = E:GetAuraData(unit, index, 'HELPFUL')
 		end
+
+		auraInstanceID, aura = next(unitAuraFiltered, auraInstanceID)
 	end
 end
 
@@ -563,6 +561,7 @@ function TT:GameTooltip_OnTooltipSetUnit(data)
 
 	local isShiftKeyDown = IsShiftKeyDown()
 	local isControlKeyDown = IsControlKeyDown()
+	local isInCombat = InCombatLockdown()
 
 	local isPlayerUnit = UnitIsPlayer(unit)
 	local color = TT:SetUnitText(self, unit, isPlayerUnit)
@@ -575,19 +574,19 @@ function TT:GameTooltip_OnTooltipSetUnit(data)
 		TT:AddRoleInfo(self, unit)
 	end
 
-	if E.Retail then
-		if not InCombatLockdown() then
-			if not isShiftKeyDown and (isPlayerUnit and unit ~= 'player') and TT.db.showMount and E.Retail then
-				TT:AddMountInfo(self, unit)
-			end
-
-			if TT.db.mythicDataEnable then
-				TT:AddMythicInfo(self, unit)
-			end
+	if (E.Retail or E.Mists) and not isInCombat then
+		if not isShiftKeyDown and (isPlayerUnit and unit ~= 'player') and TT.db.showMount then
+			TT:AddMountInfo(self, unit)
 		end
 	end
 
-	if (E.Retail or E.Cata or E.Wrath) and isShiftKeyDown and isPlayerUnit and not InCombatLockdown() and TT.db.inspectDataEnable and not self.ItemLevelShown then
+	if E.Retail and not isInCombat then
+		if TT.db.mythicDataEnable then
+			TT:AddMythicInfo(self, unit)
+		end
+	end
+
+	if (E.Retail or E.Mists or E.Wrath) and not isInCombat and isShiftKeyDown and isPlayerUnit and TT.db.inspectDataEnable and not self.ItemLevelShown then
 		if color then
 			TT:AddInspectInfo(self, unit, 0, color.r, color.g, color.b)
 		else
@@ -595,7 +594,7 @@ function TT:GameTooltip_OnTooltipSetUnit(data)
 		end
 	end
 
-	if not isPlayerUnit and TT:IsModKeyDown() and not (E.Retail and C_PetBattles_IsInBattle()) then
+	if not isPlayerUnit and TT:IsModKeyDown() and not ((E.Retail or E.Mists) and C_PetBattles_IsInBattle()) then
 		local guid = (data and data.guid) or UnitGUID(unit) or ''
 		local id = tonumber(strmatch(guid, '%-(%d-)%-%x-$'), 10)
 		if id then -- NPC ID's
@@ -724,7 +723,7 @@ function TT:GameTooltip_OnTooltipSetItem(data)
 		if TT.db.itemQuality then
 			local quality = GetItemQualityByID(link)
 			if quality and quality > 1 then
-				local r, g, b = GetItemQualityColor(quality)
+				local r, g, b = E:GetItemQualityColor(quality)
 				if self.NineSlice then
 					self.NineSlice:SetBorderColor(r, g, b)
 				else
@@ -855,12 +854,7 @@ function TT:MODIFIER_STATE_CHANGED()
 	end
 end
 
-function TT:SetUnitAura(tt, unit, index, filter)
-	if not tt or tt:IsForbidden() then return end
-
-	local name, _, _, _, _, _, source, _, _, spellID = E:GetAuraData(unit, index, filter)
-	if not name then return end
-
+function TT:ShowAuraInfo(tt, source, spellID, aura)
 	local mountID, mountText = E.MountIDs[spellID]
 	if mountID then
 		local sourceText = E.MountText[mountID]
@@ -877,7 +871,10 @@ function TT:SetUnitAura(tt, unit, index, filter)
 			tt:AddLine(' ')
 		end
 
-		if source then
+		if aura and aura.unitClassFilename then
+			local color = E:ClassColor(aura.unitClassFilename) or PRIEST_COLOR
+			tt:AddDoubleLine(format(IDLine, _G.ID, spellID), format('|c%s%s|r', color.colorStr, aura.unitName or UNKNOWN))
+		elseif source then
 			local _, class = UnitClass(source)
 			local color = E:ClassColor(class) or PRIEST_COLOR
 			tt:AddDoubleLine(format(IDLine, _G.ID, spellID), format('|c%s%s|r', color.colorStr, UnitName(source) or UNKNOWN))
@@ -887,6 +884,25 @@ function TT:SetUnitAura(tt, unit, index, filter)
 	end
 
 	tt:Show()
+end
+
+function TT:SetUnitAuraByAuraInstanceID(tt, unit, auraInstanceID)
+	if not tt or tt:IsForbidden() then return end
+
+	local unitAuraInfo = AuraInfo[unit]
+	local aura = unitAuraInfo and unitAuraInfo[auraInstanceID]
+	if not aura then return end
+
+	TT:ShowAuraInfo(tt, aura.sourceUnit, aura.spellId, aura)
+end
+
+function TT:SetUnitAura(tt, unit, index, filter)
+	if not tt or tt:IsForbidden() then return end
+
+	local name, _, _, _, _, _, source, _, _, spellID = E:GetAuraData(unit, index, filter)
+	if not name then return end
+
+	TT:ShowAuraInfo(tt, source, spellID)
 end
 
 function TT:GameTooltip_OnTooltipSetSpell(data)
@@ -933,7 +949,7 @@ function TT:SetCurrencyToken(tt, index)
 	if tt:IsForbidden() or not TT:IsModKeyDown() then return end
 
 	local link = index and C_CurrencyInfo_GetCurrencyListLink(index)
-	local id = link and tonumber(strmatch(link, 'currency:(%d+)'))
+	local id = E:GetCurrencyIDFromLink(link)
 	if not id then return end
 
 	tt:AddLine(' ')
@@ -1070,7 +1086,7 @@ function TT:Initialize()
 	local GameTooltipAnchor = CreateFrame('Frame', 'GameTooltipAnchor', E.UIParent)
 	GameTooltipAnchor:Point('BOTTOMRIGHT', _G.RightChatToggleButton, 'BOTTOMRIGHT')
 	GameTooltipAnchor:Size(130, 20)
-	GameTooltipAnchor:SetFrameLevel(GameTooltipAnchor:GetFrameLevel() + 400)
+	GameTooltipAnchor:OffsetFrameLevel(400)
 	E:CreateMover(GameTooltipAnchor, 'TooltipMover', L["Tooltip"], nil, nil, nil, nil, nil, 'tooltip')
 
 	TT:RegisterEvent('MODIFIER_STATE_CHANGED')
@@ -1086,7 +1102,12 @@ function TT:Initialize()
 	TT:SecureHookScript(GameTooltip, 'OnTooltipCleared', 'GameTooltip_OnTooltipCleared')
 	TT:SecureHookScript(GameTooltip.StatusBar, 'OnValueChanged', 'GameTooltipStatusBar_OnValueChanged')
 
-	if AddTooltipPostCall and not (E.Cata or E.Wrath) then -- exists but doesn't work atm on Cata
+	if GameTooltip.SetUnitBuffByAuraInstanceID then -- not yet on Era or Mists
+		TT:SecureHook(GameTooltip, 'SetUnitBuffByAuraInstanceID', 'SetUnitAuraByAuraInstanceID')
+		TT:SecureHook(GameTooltip, 'SetUnitDebuffByAuraInstanceID', 'SetUnitAuraByAuraInstanceID')
+	end
+
+	if AddTooltipPostCall and not (E.Mists or E.Wrath) then -- exists but doesn't work atm on Cata
 		AddTooltipPostCall(TooltipDataType.Spell, TT.GameTooltip_OnTooltipSetSpell)
 		AddTooltipPostCall(TooltipDataType.Macro, TT.GameTooltip_OnTooltipSetSpell)
 		AddTooltipPostCall(TooltipDataType.Item, TT.GameTooltip_OnTooltipSetItem)
@@ -1104,6 +1125,10 @@ function TT:Initialize()
 		end
 	end
 
+	if not (E.Classic or E.Wrath) then
+		TT:SecureHook('BattlePetToolTip_Show', 'AddBattlePetID')
+	end
+
 	if E.Retail then
 		TT:RegisterEvent('WORLD_CURSOR_TOOLTIP_UPDATE', 'WorldCursorTooltipUpdate')
 		TT:SecureHook('EmbeddedItemTooltip_SetSpellWithTextureByID', 'EmbeddedItemTooltip_ID')
@@ -1111,7 +1136,6 @@ function TT:Initialize()
 		TT:SecureHook(GameTooltip, 'SetToyByItemID')
 		TT:SecureHook(GameTooltip, 'SetCurrencyToken')
 		TT:SecureHook(GameTooltip, 'SetBackpackToken')
-		TT:SecureHook('BattlePetToolTip_Show', 'AddBattlePetID')
 		TT:SecureHook('QuestMapLogTitleButton_OnEnter', 'AddQuestID')
 		TT:SecureHook('TaskPOI_OnEnter', 'AddQuestID')
 

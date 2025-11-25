@@ -37,6 +37,12 @@ elseif faction == "Alliance" then
     addon.defaultGroup = "RestedXP Alliance 1-20"
 end
 
+addon.heirlooms = {
+    [3] = true,--shoulder
+    [5] = true,--chest
+    [12] = true,--ring1
+    [13] = true,--ring2
+}
 
 addon.mapId = {
     ["Dire Maul"] = 234,

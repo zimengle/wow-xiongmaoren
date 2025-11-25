@@ -1,8 +1,8 @@
 ## Interface: 40402
-## Title: GTFO |cff99ddff谷|r|cff88ccee风|r|cff77bbdd修|r|cff66aacc复|r|cff5599bb版|r
-## Notes: GTFO, you're dying! |cff99ddff谷|r|cff88ccee风|r|cff77bbdd@|r|cff66aaccD|r|cff5599bbo|r|cff4488aau|r|cff00aaffY|r|cff0099ffi|r|cff0088ffn|r
+## Title: GTFO
+## Notes: GTFO, you're dying!
 ## Author: Zensunim of Dragonblight
-## Version: 5.17.1
+## Version: 5.19.4
 ## DefaultState: Enabled
 ## SavedVariables: GTFOData
 ## Category: Combat
