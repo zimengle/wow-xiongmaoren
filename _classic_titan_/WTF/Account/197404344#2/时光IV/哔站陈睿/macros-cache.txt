@@ -1,0 +1,4 @@
+VER 3 0100000000000001 "TT Cast" "INV_MISC_QUESTIONMARK"
+#showtooltips
+/castsequence reset=combat/15 石肤图腾(等级 1)
+END

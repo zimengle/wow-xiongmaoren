@@ -4,6 +4,8 @@ ElvCharacterDB = {
 ["ChatEditHistory"] = {
 "快不快",
 "。",
+"我擦",
+"/played",
 },
 ["ChatHistoryLog"] = {
 },

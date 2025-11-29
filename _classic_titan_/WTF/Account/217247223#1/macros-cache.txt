@@ -1,0 +1,266 @@
+VER 3 0000000000000002 "Decursive" "INV_MISC_QUESTIONMARK"
+/stopcasting
+/cast [@mouseover,nomod,exists] 恐惧;  [@mouseover,exists,mod:ctrl] 恐惧; [@mouseover,exists,mod:shift] 恐惧
+END
+VER 3 0000000000000003 "MJE: Random Mount" "132599"
+/cancelform [nocombat,noknown:15473]
+/run C_MountJournal.SummonByID(0)
+END
+VER 3 0000000000000004 "RXPTargeting" "Ability_eyeoftheowl"
+/targetexact 噬骨兽人
+/targetexact 噬骨唤魔者
+/targetexact 噬骨清道夫
+/targetexact 噬骨苦工
+/targetexact 噬骨袭击者
+/targetexact 噬骨突变者
+/targetexact 塔加尔·断背者
+/targetlasttarget [dead]
+END
+VER 3 0000000000000005 "吃喝" "134400"
+/施放 毁灭打击
+/施放 正义之锤
+/use 魔法水
+/use 魔法淡水
+/use 魔法纯净水
+/use 魔法泉水
+/use 魔法苏打水
+/use 魔法晶水
+/use 魔法松饼
+/use 魔法面包
+/use 魔法黑面包
+/use 魔法粗面包
+/use 魔法酵母
+/use 魔法甜面包
+END
+VER 3 0000000000000019 "火鸡" "136118"
+/target 野生火鸡
+END
+VER 3 0000000000000006 "练级A" "134400"
+#show
+/施放 横扫攻击
+/施放 猛禽一击
+/施放 闪电箭
+/施放 影袭
+/施放 寒冰箭
+/施放 愤怒
+/施放 圣光审判
+/施放 惩击
+/施放 暗影箭
+/施放 冰冷触摸
+END
+VER 3 0000000000000007 "练级B" "INV_Misc_QuestionMark"
+#showtooltip
+/施放 英勇打击
+/施放 毒蛇钉刺
+/施放 闪电链
+/施放 刺骨
+/施放 霜甲术
+/施放 荆棘术
+/施放 正义圣印
+/施放 暗言术：痛
+/施放 痛苦诅咒
+/施放 暗影打击
+END
+VER 3 0000000000000008 "练级C" "INV_Misc_QuestionMark"
+#showtooltip
+/施放 斩杀
+/施放 杀戮射击
+/施放 石化武器
+/施放 切割
+/施放 火球术
+/施放 月火术
+/施放 力量祝福
+/施放 真言术：盾
+/施放 献祭
+/施放 白骨之盾
+END
+VER 3 0000000000000009 "练级D" "INV_Misc_QuestionMark"
+#showtooltip
+/施放 战斗怒吼
+/施放 治疗宠物
+/施放 大地震击
+/施放 割裂
+/施放 火焰冲击
+/施放 重殴
+/施放 清算之手
+/施放 心灵震爆
+/施放 腐蚀术
+/施放 冰霜打击
+END
+VER 3 000000000000000A "练级E" "INV_Misc_QuestionMark"
+#showtooltip
+/施放 撕裂
+/施放 猫鼬撕咬
+/施放 治疗波
+/施放 还击
+/施放 灼烧
+/施放 激怒
+/施放 奉献
+/施放 恢复
+/施放 生命分流
+/施放 凋零缠绕
+END
+VER 3 000000000000000B "练级F" "INV_Misc_QuestionMark"
+#showtooltip
+/施放 乘胜追击
+/施放 多重射击
+/施放 闪电之盾
+/施放 出血
+/施放 爪击
+/施放 命令圣印
+/施放 治疗术
+/施放 吸取生命
+/施放 寒冰护体
+/cast [@player] 枯萎凋零
+END
+VER 3 000000000000000C "练级G" "INV_Misc_QuestionMark"
+#showtooltip
+/施放 雷霆一击
+/施放 瞄准射击
+/施放 火舌武器
+/施放 伏击
+/施放 精灵之火（野性）
+/施放 驱邪术
+/施放 精神鞭笞
+/施放 吸取灵魂
+/施放 炎爆术
+/施放 传染
+END
+VER 3 000000000000000D "练级H" "INV_Misc_QuestionMark"
+#showtooltip
+/施放 破甲攻击
+/施放 烈焰震击
+/施放 偷袭
+/施放 野蛮咆哮
+/施放 圣光术
+/施放 快速治疗
+/施放 暗影灼烧
+/施放 奥术冲击
+/施放 爆炸射击
+/施放 血液沸腾
+END
+VER 3 000000000000000E "练级I" "INV_Misc_QuestionMark"
+#showtooltip
+/施放 压制
+/施放 胁迫
+/施放 灼热图腾
+/施放 锁喉
+/施放 虫群
+/施放 圣光闪现
+/施放 噬灵疫病
+/施放 腐蚀之种
+/施放 奥术飞弹
+/施放 符文打击
+END
+VER 3 000000000000000F "练级J" "INV_Misc_QuestionMark"
+#showtooltip
+/施放 复仇
+/施放 奥术射击
+/施放 次级治疗波
+/施放 潜行
+/施放 回春术
+/施放 心灵之火
+/施放 生命虹吸
+/施放 智慧审判
+/施放 龙息术
+/施放 寒冬号角
+END
+VER 3 0000000000000010 "练级K" "INV_Misc_QuestionMark"
+#showtooltip
+/施放 盾牌格挡
+/施放 水之护盾
+/施放 凶猛撕咬
+/施放 神圣之火
+/施放 雄鹰守护
+/施放 愤怒之锤
+/施放 鬼影缠身
+/施放 冲击波
+/施放 毒伤
+/施放 凛风冲击
+END
+VER 3 0000000000000011 "练级L" "INV_Misc_QuestionMark"
+#showtooltip
+/施放 顺劈斩
+/施放 蝰蛇守护
+/施放 神圣之盾
+/施放 熔岩猛击
+/施放 裂伤（豹）
+/施放 灵魂之火
+/施放 奥术弹幕
+/施放 暗言术：灭
+/施放 血之饥渴
+/施放 灵界打击
+END
+VER 3 0000000000000012 "练级M" "INV_Misc_QuestionMark"
+#showtooltip
+/施放 旋风斩
+/施放 神圣风暴
+/施放 熔岩爆裂
+/施放 裂伤（熊）
+/施放 魔爆术
+/施放 稳固射击
+/施放 刀扇
+/施放 烧尽
+/施放 食尸鬼狂乱
+END
+VER 3 0000000000000013 "练级N" "INV_Misc_QuestionMark"
+#showtooltip
+/startattack
+/施放 冰枪术
+/施放 猛击
+/施放 天灾打击
+END
+VER 3 0000000000000014 "练级O" "INV_Misc_QuestionMark"
+#showtooltip
+/施放 战斗姿态
+/施放 !自动射击
+/施放 召唤虚空行者
+/施放 庇护祝福
+/施放 风怒武器
+/施放 铜墙铁壁
+END
+VER 3 0000000000000015 "练级P" "INV_Misc_QuestionMark"
+#showtooltip
+/施放 狂暴姿态
+/施放 造水术
+/施放 召唤小鬼
+/施放 割伤
+/施放 风暴打击
+/施放 杀戮命令
+/施放 精神灼烧
+/施放 正义盾击
+/施放 鲜血打击
+END
+VER 3 0000000000000016 "练级Q" "INV_Misc_QuestionMark"
+#showtooltip
+/施放 防御姿态
+/petattack
+/施放 横扫（豹）
+/施放 霜火之箭
+/施放 腐蚀圣印
+/施放 复仇圣印
+/施放 火焰新星
+/施放 心脏打击
+END
+VER 3 0000000000000017 "练级S" "INV_Misc_QuestionMark"
+#showtooltip
+/施放 致死打击
+/施放 嗜血
+/施放 盾牌猛击
+/施放 十字军打击
+/施放 复仇者之盾
+/施放 奇美拉射击
+/施放 黑箭
+/施放 风暴打击
+/施放 毁伤
+/施放 吸血鬼之触
+/施放 燃烧
+/施放 痛苦无常
+/施放 活动炸弹
+/施放 横扫（熊）
+/施放 湮没
+END
+VER 3 0000000000000018 "防止掉线" "132866"
+/use 强效魔法精华
+/use 次级魔法精华
+END

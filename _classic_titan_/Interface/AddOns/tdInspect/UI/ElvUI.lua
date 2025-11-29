@@ -144,7 +144,8 @@ do
 
     function ns.Addon:GetInspectGearFrame()
         local f = orig(self)
-        f:SetPoint('TOPLEFT', InspectPaperDollFrame, 'TOPRIGHT', -30, -12)
+        f:ClearAllPoints()
+        f:SetPoint('TOPLEFT', InspectPaperDollFrame, 'TOPRIGHT', 2, 0)
         ns.Addon.GetInspectGearFrame = orig
         return f
     end

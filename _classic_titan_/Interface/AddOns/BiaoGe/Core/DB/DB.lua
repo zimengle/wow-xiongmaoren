@@ -260,12 +260,16 @@ do
     do
         local function AddDB(FB, instanceID, phase, maxplayers, lootQuality,
                              phaseTable, bossPositionTbl, shortName)
+            local localName = GetRealZoneText(instanceID) or shortName or UNKNOWN
+            if instanceID== 548 then
+                localName = L["毒蛇神殿"]
+            end
             tinsert(BG.FBtable, FB)
             tinsert(BG.FBtable2,
                 {
                     FB = FB,
                     ID = instanceID,
-                    localName = GetRealZoneText(instanceID) or shortName or UNKNOWN,
+                    localName = localName,
                     phase = phase,
                     maxplayers = maxplayers,
                     shortName = shortName,
@@ -276,7 +280,7 @@ do
             BG.bossPositionStartEnd[instanceID] = bossPositionTbl or { 1, Maxb[FB] - 2 }
             BG.FBfromBossPosition[FB] = {}
             for i = 1, Maxb[FB] do
-                BG.FBfromBossPosition[FB][i] = { name = FB, localName = GetRealZoneText(instanceID) }
+                BG.FBfromBossPosition[FB][i] = { name = FB, localName = localName }
             end
             BG.instanceIDfromBossPosition[FB] = {}
             for i = 1, Maxb[FB] - 2 do
@@ -1256,7 +1260,7 @@ BG.Init(function()
 
     -- 删除旧表格数据
     do
-        if BG.IsMOP then
+        if BG.IsMOP or BG.IsTitan then
             for i, FB in ipairs({ "NAXX", "ULD", "TOC", "ICC", }) do
                 BiaoGe[FB] = nil
                 BiaoGe.History[FB] = nil

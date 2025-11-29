@@ -2,36 +2,45 @@
 RXPData = {
 ["cacheVersion"] = 27,
 ["defaultProfile"] = false,
-["trainGenericSpells"] = true,
-["release"] = "v4.8.25",
-["gameVersion"] = 38000,
 ["realmData"] = {
+["时光I"] = {
+},
+["时光III"] = {
+},
 ["时光IV"] = {
 },
 },
+["trainGenericSpells"] = true,
+["gameVersion"] = 38000,
+["release"] = "v4.8.25",
 }
 RXPDB = {
 ["profileKeys"] = {
 ["伊芙莉特 - 铁血"] = "global",
 ["蒂琪爱尔 - 铁血"] = "global",
-["萌萌的露露糖 - 时光I"] = "global",
-["愛雅法拉 - 铁血"] = "global",
-["美团王兴 - 时光IV"] = "global",
-["露露缇娅丶 - 铁血"] = "global",
+["萌萌的露小露 - 铁血"] = "global",
+["露露糖 - 铁血"] = "global",
+["哔站陈睿 - 时光IV"] = "global",
+["露露緹婭 - 时光III"] = "global",
+["露露缇娅old1764210356684 - 时光VI"] = "global",
 ["哔站董事长 - 时光IV"] = "global",
 ["爱奇艺董事长 - 时光IV"] = "global",
+["愛雅法拉 - 时光I"] = "global",
 ["皎月梦夜 - 时光III"] = "global",
+["皎月梦夜 - 时光I"] = "global",
 ["小米军儿 - 时光IV"] = "global",
 ["小露露糖 - 铁血"] = "global",
-["露露缇娅 - 时光III"] = "global",
+["确实日白 - 时光I"] = "global",
+["美团王兴 - 时光IV"] = "global",
+["露露缇娅old1764210356684丶 - 铁血"] = "global",
 ["小马君 - 时光I"] = "global",
 ["美团董事长 - 时光IV"] = "global",
 ["银光骤雨 - 时光I"] = "global",
-["皎月梦夜 - 时光I"] = "global",
-["萌萌的露小露 - 铁血"] = "global",
-["京东董事长 - 时光IV"] = "global",
-["露露糖 - 铁血"] = "global",
+["愛雅法拉 - 铁血"] = "global",
 ["京东刘强东 - 时光IV"] = "global",
+["京东董事长 - 时光IV"] = "global",
+["露露緹婭 - 时光VI"] = "global",
+["爱奇艺龚宇 - 时光IV"] = "global",
 },
 ["profiles"] = {
 ["global"] = {
@@ -40,220 +49,46 @@ RXPDB = {
 }
 RXPSettings = {
 ["profileKeys"] = {
-["伊芙莉特 - 铁血"] = "露露缇娅丶 - 铁血",
-["蒂琪爱尔 - 铁血"] = "露露缇娅丶 - 铁血",
-["萌萌的露露糖 - 时光I"] = "露露缇娅 - 时光III",
-["愛雅法拉 - 铁血"] = "露露缇娅丶 - 铁血",
-["美团王兴 - 时光IV"] = "美团王兴 - 时光IV",
-["露露缇娅丶 - 铁血"] = "露露缇娅丶 - 铁血",
+["伊芙莉特 - 铁血"] = "露露缇娅old1764210356684丶 - 铁血",
+["蒂琪爱尔 - 铁血"] = "露露缇娅old1764210356684丶 - 铁血",
+["萌萌的露小露 - 铁血"] = "露露缇娅old1764210356684丶 - 铁血",
+["露露糖 - 铁血"] = "露露缇娅old1764210356684丶 - 铁血",
+["哔站陈睿 - 时光IV"] = "露露缇娅 - 时光III",
+["露露緹婭 - 时光III"] = "露露缇娅old1764210356684 - 时光VI",
+["露露缇娅old1764210356684 - 时光VI"] = "露露缇娅old1764210356684 - 时光III",
 ["哔站董事长 - 时光IV"] = "露露缇娅 - 时光III",
 ["爱奇艺董事长 - 时光IV"] = "露露缇娅 - 时光III",
-["皎月梦夜 - 时光III"] = "露露缇娅 - 时光III",
-["小米军儿 - 时光IV"] = "小米军儿 - 时光IV",
-["小露露糖 - 铁血"] = "露露缇娅丶 - 铁血",
-["露露缇娅 - 时光III"] = "露露缇娅 - 时光III",
-["小马君 - 时光I"] = "露露缇娅 - 时光III",
+["愛雅法拉 - 时光I"] = "露露缇娅 - 时光III",
+["皎月梦夜 - 时光III"] = "露露缇娅old1764210356684 - 时光VI",
+["皎月梦夜 - 时光I"] = "露露缇娅old1764210356684 - 时光VI",
+["小米军儿 - 时光IV"] = "露露缇娅 - 时光III",
+["小露露糖 - 铁血"] = "露露缇娅old1764210356684丶 - 铁血",
+["确实日白 - 时光I"] = "露露缇娅 - 时光III",
+["美团王兴 - 时光IV"] = "露露缇娅 - 时光III",
+["露露缇娅old1764210356684丶 - 铁血"] = "露露缇娅old1764210356684丶 - 铁血",
+["小马君 - 时光I"] = "露露缇娅old1764210356684 - 时光VI",
 ["美团董事长 - 时光IV"] = "露露缇娅 - 时光III",
-["银光骤雨 - 时光I"] = "露露缇娅 - 时光III",
-["皎月梦夜 - 时光I"] = "露露缇娅 - 时光III",
-["萌萌的露小露 - 铁血"] = "露露缇娅丶 - 铁血",
+["银光骤雨 - 时光I"] = "露露缇娅old1764210356684 - 时光VI",
+["愛雅法拉 - 铁血"] = "露露缇娅old1764210356684丶 - 铁血",
+["京东刘强东 - 时光IV"] = "露露缇娅 - 时光III",
 ["京东董事长 - 时光IV"] = "露露缇娅 - 时光III",
-["露露糖 - 铁血"] = "露露缇娅丶 - 铁血",
-["京东刘强东 - 时光IV"] = "京东刘强东 - 时光IV",
+["露露緹婭 - 时光VI"] = "露露缇娅old1764210356684 - 时光III",
+["爱奇艺龚宇 - 时光IV"] = "露露缇娅 - 时光III",
 },
 ["profiles"] = {
-["美团王兴 - 时光IV"] = {
-["xprate"] = 1.5,
-["frameHeight"] = 124.9999847412109,
-["hardcore"] = false,
-["frameSizes"] = {
-["activeTargetFrame"] = {
-54.22218322753906,
-17.99994468688965,
-},
-["RXPFrame"] = {
-235,
-28.00002098083496,
-},
-["activeItemFrame"] = {
-51.33700561523438,
-39.99998474121094,
-},
-["arrowFrame"] = {
-32.00011444091797,
-32.00011444091797,
-},
-},
-["framePositions"] = {
-["activeTargetFrame"] = {
-{
-"CENTER",
-"UIParent",
-"CENTER",
-0,
-0,
-},
-},
-["RXPFrame"] = {
-{
-"LEFT",
-"UIParent",
-"LEFT",
-0,
-35.00000381469727,
-},
-},
-["activeItemFrame"] = {
-{
-"CENTER",
-"UIParent",
-"CENTER",
-0,
-0,
-},
-},
-["arrowFrame"] = {
-{
-"CENTER",
-"UIParent",
-"CENTER",
-0,
-200,
-},
-},
-},
-},
-["小米军儿 - 时光IV"] = {
-["hardcore"] = false,
-["framePositions"] = {
-["activeTargetFrame"] = {
-{
-"CENTER",
-nil,
-"CENTER",
-382.0716857910156,
--201.8830871582031,
-},
-},
-["RXPFrame"] = {
-{
-"LEFT",
-nil,
-"LEFT",
-12.65536403656006,
--141.7373199462891,
-},
-},
-["activeItemFrame"] = {
-{
-"CENTER",
-nil,
-"CENTER",
-317.5887451171875,
--56.04502487182617,
-},
-},
-["arrowFrame"] = {
-{
-"BOTTOM",
-nil,
-"BOTTOM",
-1.205440402030945,
-296.0905151367188,
-},
-},
-},
-["xprate"] = 1.5,
-["frameSizes"] = {
-["activeTargetFrame"] = {
-116.0001831054688,
-43.00005340576172,
-},
-["RXPFrame"] = {
-261.5160217285156,
-33.72906494140625,
-},
-["activeItemFrame"] = {
-51.33717346191406,
-39.99998474121094,
-},
-["arrowFrame"] = {
-32.00011444091797,
-31.9999942779541,
-},
-},
-["frameHeight"] = 33.72906494140625,
-["macroAnnounced"] = true,
-},
-["京东刘强东 - 时光IV"] = {
-["xprate"] = 1.5,
-["hideGuideWindow"] = true,
-["frameHeight"] = 24.98681449890137,
-["macroAnnounced"] = true,
-["hardcore"] = false,
-["frameSizes"] = {
-["activeTargetFrame"] = {
-54.22235107421875,
-42.99989700317383,
-},
-["RXPFrame"] = {
-380.9455871582031,
-27.99994087219238,
-},
-["activeItemFrame"] = {
-51.33710861206055,
-39.99998474121094,
-},
-["arrowFrame"] = {
-32.00011444091797,
-31.99995613098145,
-},
-},
-["framePositions"] = {
-["activeTargetFrame"] = {
-{
-"RIGHT",
-nil,
-"RIGHT",
--338.5427856445313,
-132.4465637207031,
-},
-},
-["RXPFrame"] = {
-{
-"LEFT",
-nil,
-"LEFT",
-14.46302604675293,
--81.93541717529297,
-},
-},
-["activeItemFrame"] = {
-{
-"LEFT",
-nil,
-"LEFT",
-44.83951950073242,
--30.13181686401367,
-},
-},
-["arrowFrame"] = {
-{
-"CENTER",
-nil,
-"CENTER",
--1.590874314308167,
--201.8411865234375,
-},
-},
-},
-},
 ["露露缇娅丶 - 铁血"] = {
 ["arrowScale"] = 1.2,
 ["guideFontSize"] = 14,
 ["enableBindAutomation"] = false,
 ["macroAnnounced"] = true,
+["phase"] = 1,
+["hideCompletedSteps"] = false,
+["season"] = 0,
+["disableArrow"] = false,
 ["hardcore"] = false,
+["enableAddonIncompatibilityCheck"] = false,
+["arrowText"] = 15,
+["frameHeight"] = 28.0000114440918,
 ["framePositions"] = {
 ["activeTargetFrame"] = {
 {
@@ -289,13 +124,6 @@ nil,
 },
 },
 },
-["season"] = 0,
-["arrowText"] = 15,
-["frameHeight"] = 28.0000114440918,
-["enableAddonIncompatibilityCheck"] = false,
-["phase"] = 1,
-["disableArrow"] = false,
-["enableTracker"] = false,
 ["frameSizes"] = {
 ["activeTargetFrame"] = {
 54.40001678466797,
@@ -315,74 +143,81 @@ nil,
 },
 },
 ["hideInRaid"] = true,
-["hideCompletedSteps"] = false,
+["enableTracker"] = false,
 },
 ["露露缇娅 - 时光III"] = {
-["arrowText"] = 16,
-["guideFontSize"] = 16,
-["enableBindAutomation"] = false,
-["macroAnnounced"] = true,
+["hideGuideWindow"] = false,
 ["hardcore"] = false,
 ["framePositions"] = {
-["arrowFrame"] = {
+["activeTargetFrame"] = {
 {
-"LEFT",
-[5] = 3,
-[4] = 338,
-[3] = "LEFT",
+"CENTER",
+nil,
+"CENTER",
+594.7786865234375,
+-148.9789123535156,
 },
 },
 ["RXPFrame"] = {
 {
 "LEFT",
-[5] = -61,
-[4] = 0,
-[3] = "LEFT",
+nil,
+"LEFT",
+13.6752290725708,
+-200.9140777587891,
 },
 },
 ["activeItemFrame"] = {
 {
 "CENTER",
-"UIParent",
+nil,
 "CENTER",
-0,
-0,
+407.522705078125,
+-182.564208984375,
 },
 },
-["activeTargetFrame"] = {
+["arrowFrame"] = {
 {
 "CENTER",
-"UIParent",
+nil,
 "CENTER",
-0,
-0,
+1.385846853256226,
+-172.7226409912109,
 },
 },
 },
-["enableLevelUpAnnounceSolo"] = false,
-["enableFPAutomation"] = false,
 ["enableTracker"] = false,
+["guideFontSize"] = 16,
+["enableBindAutomation"] = false,
+["previewTalents"] = false,
+["xprate"] = 1.5,
+["enableQuestRewardAutomation"] = false,
+["hideInRaid"] = true,
+["enableFPAutomation"] = false,
 ["enableWorldMapButton"] = false,
+["arrowText"] = 16,
+["frameHeight"] = 39.74380111694336,
+["macroAnnounced"] = true,
+["enableLevelUpAnnounceSolo"] = false,
+["disableArrow"] = false,
 ["frameSizes"] = {
-["arrowFrame"] = {
-32.00000762939453,
-32.00000762939453,
+["activeTargetFrame"] = {
+54.22256088256836,
+42.99994277954102,
 },
 ["RXPFrame"] = {
-286,
-94.00003814697266,
+400.08544921875,
+39.74380111694336,
 },
 ["activeItemFrame"] = {
-51.23808288574219,
-40,
+50.76925277709961,
+40.00003051757813,
 },
-["activeTargetFrame"] = {
-54.40003204345703,
-68.00000762939453,
+["arrowFrame"] = {
+31.9999885559082,
+31.9999885559082,
 },
 },
-["frameHeight"] = 93.76241302490234,
-["xprate"] = 1.5,
 },
 },
 }

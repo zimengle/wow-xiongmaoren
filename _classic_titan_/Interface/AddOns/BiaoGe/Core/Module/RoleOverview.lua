@@ -2201,7 +2201,10 @@ GameTooltip:SetCurrencyByID(697)
         -- 周常
         if BG.IsWLK then
             BG.weekQuests = {
-                week1 = { 24579, 24580, 24581, 24582, 24583, 24584, 24585, 24586, 24587, 24588, 24589, 24590, },
+                week1 = {
+                    24579, 24580, 24581, 24582, 24583, 24584, 24585, 24586, 24587, 24588, 24589, 24590,
+                    93975, -- 时光服
+                },
             }
         end
         local function SaveWeekQuest(questName, questID)

@@ -184,6 +184,23 @@ end
 
 function Addon:SetupUI()
     self.InspectFrame = ns.UI.InspectFrame:Bind(InspectFrame)
+    
+    if ns.BUILD >= 3 then
+        C_Timer.After(0.2, function()
+            local regions = {InspectFrame:GetRegions()}
+            for _, region in ipairs(regions) do
+                if region:IsObjectType('Texture') and region:GetDrawLayer() == 'BACKGROUND' then
+                    local point, relativeTo, relativePoint, xOfs, yOfs = region:GetPoint()
+                    if point and yOfs and yOfs <= 32 and yOfs >= -10 then
+                        local width, height = region:GetSize()
+                        if width and width > 100 then
+                            region:Hide()
+                        end
+                    end
+                end
+            end
+        end)
+    end
 end
 
 function Addon:ADDON_LOADED(_, addon)
@@ -255,8 +272,9 @@ end
 function Addon:GetInspectGearFrame()
     if not self.InspectGearFrame then
         self.InspectGearFrame = ns.UI.InspectGearFrame:Create(InspectPaperDollFrame, true)
-        self.InspectGearFrame:SetPoint('TOPLEFT', InspectPaperDollFrame, 'TOPRIGHT', -33, -12)
     end
+    self.InspectGearFrame:ClearAllPoints()
+    self.InspectGearFrame:SetPoint('TOPLEFT', InspectPaperDollFrame, 'TOPRIGHT', 0, 0)
     return self.InspectGearFrame
 end
 

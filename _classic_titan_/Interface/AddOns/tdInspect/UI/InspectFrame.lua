@@ -22,6 +22,7 @@ local PanelTemplates_EnableTab = PanelTemplates_EnableTab
 local PanelTemplates_DisableTab = PanelTemplates_DisableTab
 local PanelTemplates_SetNumTabs = PanelTemplates_SetNumTabs
 local PanelTemplates_SetTab = PanelTemplates_SetTab
+local PanelTemplates_UpdateTabs = PanelTemplates_UpdateTabs
 
 local GameTooltip = GameTooltip
 
@@ -71,6 +72,59 @@ function InspectFrame:Constructor()
     if ns.BUILD >= 3 then
         self.GlyphFrame = ns.UI.GlyphFrame:Bind(self:CreateTabFrame())
         glyphTab = self:AddTab(GLYPHS, self.GlyphFrame)
+        self.glyphTab = glyphTab
+        
+        hooksecurefunc('PanelTemplates_SetNumTabs', function(frame, numTabs)
+            if frame == self and numTabs > #INSPECTFRAME_SUBFRAMES then
+                C_Timer.After(0, function()
+                    local glyphTabButton = _G['InspectFrameTab' .. glyphTab]
+                    if glyphTabButton then
+                        local tabRight = glyphTabButton:GetRight()
+                        local tabBottom = glyphTabButton:GetBottom()
+                        local tabTop = glyphTabButton:GetTop()
+                        local frameRight = self:GetRight()
+                        local frameBottom = self:GetBottom()
+                        
+                        local function checkAndHide(region)
+                            if region:IsObjectType('Texture') and region:GetDrawLayer() == 'BACKGROUND' then
+                                local regionLeft = region:GetLeft()
+                                local regionRight = region:GetRight()
+                                local regionTop = region:GetTop()
+                                local regionBottom = region:GetBottom()
+                                
+                                if regionLeft and regionRight and tabRight and regionTop and regionBottom then
+                                    local regionHeight = regionTop - regionBottom
+                                    local tabHeight = tabTop and tabBottom and (tabTop - tabBottom) or 0
+                                    
+                                    if regionLeft >= tabRight - 5 and regionRight <= frameRight + 10 then
+                                        if math.abs(regionBottom - tabBottom) <= 5 and math.abs(regionTop - tabTop) <= 5 then
+                                            if regionHeight <= tabHeight + 10 and regionHeight >= tabHeight - 5 then
+                                                region:Hide()
+                                            end
+                                        end
+                                    end
+                                end
+                            end
+                        end
+                        
+                        local regions = {self:GetRegions()}
+                        for _, region in ipairs(regions) do
+                            checkAndHide(region)
+                        end
+                        
+                        local children = {self:GetChildren()}
+                        for _, child in ipairs(children) do
+                            if child ~= glyphTabButton and child:IsObjectType('Frame') then
+                                local childRegions = {child:GetRegions()}
+                                for _, region in ipairs(childRegions) do
+                                    checkAndHide(region)
+                                end
+                            end
+                        end
+                    end
+                end)
+            end
+        end)
     end
 
     self.tabDepends = {
@@ -105,6 +159,56 @@ function InspectFrame:OnShow()
     self:Update()
     self:UpdateTabs()
     self:UpdateTalentGroups()
+    
+    if ns.BUILD >= 3 and self.glyphTab then
+        C_Timer.After(0.1, function()
+            local glyphTabButton = _G['InspectFrameTab' .. self.glyphTab]
+            if glyphTabButton then
+                local tabRight = glyphTabButton:GetRight()
+                local tabBottom = glyphTabButton:GetBottom()
+                local tabTop = glyphTabButton:GetTop()
+                local frameRight = self:GetRight()
+                
+                local function checkAndHide(region)
+                    if region:IsObjectType('Texture') and region:GetDrawLayer() == 'BACKGROUND' then
+                        local regionLeft = region:GetLeft()
+                        local regionRight = region:GetRight()
+                        local regionTop = region:GetTop()
+                        local regionBottom = region:GetBottom()
+                        
+                        if regionLeft and regionRight and tabRight and regionTop and regionBottom then
+                            local regionHeight = regionTop - regionBottom
+                            local tabHeight = tabTop and tabBottom and (tabTop - tabBottom) or 0
+                            
+                            if regionLeft >= tabRight - 5 and regionRight <= frameRight + 10 then
+                                if math.abs(regionBottom - tabBottom) <= 5 and math.abs(regionTop - tabTop) <= 5 then
+                                    if regionHeight <= tabHeight + 10 and regionHeight >= tabHeight - 5 then
+                                        region:Hide()
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+                
+                local regions = {self:GetRegions()}
+                for _, region in ipairs(regions) do
+                    checkAndHide(region)
+                end
+                
+                local children = {self:GetChildren()}
+                for _, child in ipairs(children) do
+                    if child ~= glyphTabButton and child:IsObjectType('Frame') then
+                        local childRegions = {child:GetRegions()}
+                        for _, region in ipairs(childRegions) do
+                            checkAndHide(region)
+                        end
+                    end
+                end
+            end
+        end)
+    end
+    
     PlaySound(839) -- SOUNDKIT.IG_CHARACTER_INFO_OPEN
 end
 
@@ -215,6 +319,7 @@ function InspectFrame:AddTab(text, frame)
     tab:SetFrameLevel(InspectFrameTab1:GetFrameLevel())
     tab.text = text
     PanelTemplates_SetNumTabs(self, id)
+    PanelTemplates_UpdateTabs(self)
 
     self.tabFrames[id] = frame or self:CreateTabFrame()
 
@@ -224,7 +329,10 @@ end
 function InspectFrame:CreateTabFrame(bgs)
     ---@type Frame
     local frame = CreateFrame('Frame', nil, self)
-    frame:SetAllPoints(self)
+    frame:SetPoint('TOPLEFT', self, 'TOPLEFT', 0, 0)
+    frame:SetPoint('TOPRIGHT', self, 'TOPRIGHT', 0, 0)
+    frame:SetPoint('BOTTOMLEFT', self, 'BOTTOMLEFT', 0, 32)
+    frame:SetPoint('BOTTOMRIGHT', self, 'BOTTOMRIGHT', 0, 32)
     frame:Hide()
 
     local tl = frame:CreateTexture(nil, 'BACKGROUND')
@@ -238,14 +346,16 @@ function InspectFrame:CreateTabFrame(bgs)
     tr:SetTexture(bgs and bgs.topRight or [[Interface\PaperDollInfoFrame\UI-Character-General-TopRight]])
 
     local bl = frame:CreateTexture(nil, 'BACKGROUND')
-    bl:SetSize(256, 256)
-    bl:SetPoint('TOPLEFT', 2, -257)
+    bl:SetSize(256, 256 - 32)
+    bl:SetPoint('BOTTOMLEFT', 2, 32)
     bl:SetTexture(bgs and bgs.bottomLeft or [[Interface\PaperDollInfoFrame\UI-Character-General-BottomLeft]])
+    bl:SetTexCoord(0, 1, 32 / 256, 1)
 
     local br = frame:CreateTexture(nil, 'BACKGROUND')
-    br:SetSize(128, 256)
-    br:SetPoint('TOPLEFT', 258, -257)
+    br:SetSize(128, 256 - 32)
+    br:SetPoint('BOTTOMLEFT', 258, 32)
     br:SetTexture(bgs and bgs.bottomRight or [[Interface\PaperDollInfoFrame\UI-Character-General-BottomRight]])
+    br:SetTexCoord(0, 1, 32 / 256, 1)
 
     return frame
 end

@@ -9,8 +9,6 @@ WeakAuras = {}
 WeakAuras.L = {}
 Private.frames = {}
 
-local GetAddOnMetadata = C_AddOns and C_AddOns.GetAddOnMetadata or GetAddOnMetadata
-
 --- @alias uid string
 --- @alias auraId string
 
@@ -47,6 +45,10 @@ local GetAddOnMetadata = C_AddOns and C_AddOns.GetAddOnMetadata or GetAddOnMetad
 ---@field state state
 ---@field states state[]
 ---@field regionType string
+---@field FrameTick fun(self: WARegion)?
+---@field UpdateValue fun(self: WARegion)?
+---@field UpdateTime fun(self: WARegion)?
+---@field Update fun(self: WARegion)?
 
 --- @class Private
 --- @field ActivateAuraEnvironment fun(id: auraId?, cloneId: string?, state: state?, states: state[]?, config: boolean?)
@@ -172,8 +174,9 @@ local GetAddOnMetadata = C_AddOns and C_AddOns.GetAddOnMetadata or GetAddOnMetad
 --- @field subeventSuffix string?
 --- @field type triggerTypes
 --- @field unit string?
---- @field use_showOn boolean|nil
 --- @field use_alwaystrue boolean|nil
+--- @field use_ignoreoverride boolean|nil
+--- @field use_showOn boolean|nil
 
 ---@class prototypeDataArgs
 ---@field name string
@@ -193,11 +196,12 @@ local GetAddOnMetadata = C_AddOns and C_AddOns.GetAddOnMetadata or GetAddOnMetad
 ---@field timedrequired boolean?
 ---@field GetNameAndIcon (fun(trigger: triggerData): string?, string?)|nil
 ---@field iconFunc (fun(trigger: triggerData): string?)|nil
+---@field loadFunc (fun(trigger: triggerData): nil)|nil
 ---@field nameFunc (fun(trigger: triggerData): string?)|nil
----@field events (fun(tigger: triggerData): table)|nil
----@field internal_events (fun(tigger: triggerData): table)|nil
+---@field events (fun(trigger: triggerData): table)|nil
+---@field internal_events (fun(trigger: triggerData): table)|nil
 ---@field name string
----@field statesParamater "unit"|"one"|"all"|nil
+---@field statesParameter "unit"|"one"|"all"|nil
 ---@field progressType "timed"|"static"|"none"
 
 --- @class triggerUntriggerData
@@ -221,6 +225,7 @@ local GetAddOnMetadata = C_AddOns and C_AddOns.GetAddOnMetadata or GetAddOnMetad
 --- @class actionData
 --- @field do_glow boolean
 --- @field do_message boolean
+--- @field do_sound boolean
 --- @field message string
 --- @field message_type string
 
@@ -372,24 +377,23 @@ local GetAddOnMetadata = C_AddOns and C_AddOns.GetAddOnMetadata or GetAddOnMetad
 --- @class AceTimer-3.0
 --- @field Embed fun(self: AceTimer-3.0, t: table)
 
--- Barney
 WeakAuras.normalWidth = 1.3
 WeakAuras.halfWidth = WeakAuras.normalWidth / 2
 WeakAuras.doubleWidth = WeakAuras.normalWidth * 2
-local versionStringFromToc = GetAddOnMetadata("WeakAuras", "Version")
-local versionString = "6.0.0"
-local buildTime = "20251123015255"
+local versionStringFromToc = C_AddOns.GetAddOnMetadata("WeakAuras", "Version")
+local versionString = "5.20.7"
+local buildTime = "20251128202625"
 
-local flavorFromToc = GetAddOnMetadata("WeakAuras", "X-Flavor")
+local flavorFromToc = C_AddOns.GetAddOnMetadata("WeakAuras", "X-Flavor")
 local flavorFromTocToNumber = {
   Vanilla = 1,
   TBC = 2,
   Wrath = 3,
   Cata = 4,
+  Mists = 5,
   Mainline = 10
 }
 local flavor = flavorFromTocToNumber[flavorFromToc]
-
 
 if not versionString:find("beta", 1, true) then
   WeakAuras.buildType = "release"
@@ -406,7 +410,7 @@ WeakAuras.buildType = "pr"
 --@end-experimental@]=====]
 
 --[==[@debug@
-if versionStringFromToc == "6.0.0" then
+if versionStringFromToc == "5.20.7" then
   versionStringFromToc = "Dev"
   buildTime = "Dev"
   WeakAuras.buildType = "dev"
@@ -436,23 +440,37 @@ function WeakAuras.IsCataClassic()
 end
 
 ---@return boolean result
+function WeakAuras.IsMists()
+  return flavor == 5
+end
+
+---@return boolean result
 function WeakAuras.IsRetail()
   return flavor == 10
 end
 
 ---@return boolean result
-function WeakAuras.IsClassicEraOrWrath()
-  return WeakAuras.IsClassicEra() or WeakAuras.IsWrathClassic()
+function WeakAuras.IsClassicOrCata()
+  return WeakAuras.IsClassicEra() or WeakAuras.IsCataClassic()
 end
 
 ---@return boolean result
-function WeakAuras.IsWrathOrCataOrRetail()
-  return WeakAuras.IsRetail() or WeakAuras.IsWrathClassic() or WeakAuras.IsCataClassic()
+function WeakAuras.IsClassicOrCataOrMists()
+  return WeakAuras.IsClassicOrCata() or WeakAuras.IsMists()
 end
 
 ---@return boolean result
-function WeakAuras.IsWrathOrCata()
-  return WeakAuras.IsWrathClassic() or WeakAuras.IsCataClassic()
+function WeakAuras.IsCataOrMists()
+  return WeakAuras.IsCataClassic() or WeakAuras.IsMists()
+end
+
+function WeakAuras.IsCataOrMistsOrRetail()
+  return WeakAuras.IsCataClassic() or WeakAuras.IsMists() or WeakAuras.IsRetail()
+end
+
+---@return boolean result
+function WeakAuras.IsMistsOrRetail()
+  return WeakAuras.IsMists() or WeakAuras.IsRetail()
 end
 
 ---@return boolean result
@@ -461,8 +479,57 @@ function WeakAuras.IsCataOrRetail()
 end
 
 ---@return boolean result
-function WeakAuras.IsClassicEraOrWrathOrCata()
+function WeakAuras.IsClassicOrWrath()
+  return WeakAuras.IsClassicEra() or WeakAuras.IsWrathClassic()
+end
+
+---@return boolean result
+function WeakAuras.IsWrathOrCata()
+  return WeakAuras.IsWrathClassic() or WeakAuras.IsCataClassic()
+end
+
+---@return boolean result
+function WeakAuras.IsWrathOrCataOrMists()
+  return WeakAuras.IsWrathClassic() or WeakAuras.IsCataClassic() or WeakAuras.IsMists()
+end
+
+---@return boolean result
+function WeakAuras.IsWrathOrCataOrMistsOrRetail()
+  return WeakAuras.IsWrathClassic() or WeakAuras.IsCataClassic() or WeakAuras.IsMists() or WeakAuras.IsRetail()
+end
+
+---@return boolean result
+function WeakAuras.IsClassicOrWrathOrCata()
   return WeakAuras.IsClassicEra() or WeakAuras.IsWrathClassic() or WeakAuras.IsCataClassic()
+end
+
+---@return boolean result
+function WeakAuras.IsClassicOrWrathOrCataOrMists()
+  return WeakAuras.IsClassicEra() or WeakAuras.IsWrathClassic() or WeakAuras.IsCataClassic() or WeakAuras.IsMists()
+end
+
+---@return boolean result
+function WeakAuras.IsWrathOrMistsOrRetail()
+  return WeakAuras.IsWrathClassic() or WeakAuras.IsMists() or WeakAuras.IsRetail()
+end
+
+---@return boolean result
+function WeakAuras.IsWrathOrMists()
+  return WeakAuras.IsWrathClassic() or WeakAuras.IsMists()
+end
+
+---@return boolean result
+function WeakAuras.IsWrathOrRetail()
+  return WeakAuras.IsWrathClassic() or WeakAuras.IsRetail()
+end
+
+---@return boolean result
+function WeakAuras.IsTWW()
+  return WeakAuras.BuildInfo >= 110000
+end
+
+function WeakAuras.IsMidnight()
+  return WeakAuras.BuildInfo >= 120000
 end
 
 ---@param ... string
@@ -471,8 +538,8 @@ WeakAuras.prettyPrint = function(...)
 end
 
 -- Force enable WeakAurasCompanion and Archive because some addon managers interfere with it
-EnableAddOn("WeakAurasCompanion")
-EnableAddOn("WeakAurasArchive")
+C_AddOns.EnableAddOn("WeakAurasCompanion")
+C_AddOns.EnableAddOn("WeakAurasArchive")
 
 local libsAreOk = true
 do
@@ -482,11 +549,6 @@ do
   }
   local LibStubLibs = {
     "CallbackHandler-1.0",
-    "AceConfig-3.0",
-    "AceConsole-3.0",
-    "AceGUI-3.0",
-    "AceEvent-3.0",
-    "AceGUISharedMediaWidgets-1.0",
     "AceTimer-3.0",
     "AceSerializer-3.0",
     "AceComm-3.0",
@@ -498,7 +560,6 @@ do
     "LibDBIcon-1.0",
     "LibGetFrame-1.0",
     "LibSerialize",
-    "LibUIDropDownMenu-4.0"
   }
   if WeakAuras.IsRetail() then
     tinsert(LibStubLibs, "LibSpecialization")
@@ -507,7 +568,8 @@ do
       icon = "Interface\\AddOns\\WeakAuras\\Media\\Textures\\icon.blp",
       registerForAnyClick = true,
       notCheckable = true,
-      func = function(btn, arg1, arg2, checked, mouseButton)
+      func = function(button, menuInputData, menu)
+        local mouseButton = menuInputData.buttonName
         if mouseButton == "LeftButton" then
           if IsShiftKeyDown() then
             if not (WeakAuras.IsOptionsOpen()) then
@@ -522,15 +584,13 @@ do
           WeakAurasProfilingFrame:Toggle()
         end
       end,
-      funcOnEnter = function()
-        GameTooltip:SetOwner(AddonCompartmentFrame, "ANCHOR_TOPRIGHT")
-        GameTooltip:SetText(AddonName)
-        GameTooltip:AddLine(WeakAuras.L["|cffeda55fLeft-Click|r to toggle showing the main window."], 1, 1, 1, true)
-        GameTooltip:Show()
-        WeakAuras.GenerateTooltip(true)
+      funcOnEnter = function(button)
+        MenuUtil.ShowTooltip(button, function(tooltip)
+          WeakAuras.GenerateTooltip(true, tooltip)
+        end)
       end,
-      funcOnLeave = function()
-        GameTooltip:Hide()
+      funcOnLeave = function(button)
+        MenuUtil.HideTooltip(button)
       end,
     })
   end
@@ -556,10 +616,21 @@ function WeakAuras.IsLibsOK()
   return libsAreOk
 end
 
-if not WeakAuras.IsLibsOK() then
+if not libsAreOk then
   C_Timer.After(1, function()
     WeakAuras.prettyPrint("WeakAuras is missing necessary libraries. Please reinstall a proper package.")
   end)
+end
+
+if WeakAuras.IsWrathClassic() then
+  C_Timer.After(1, function()
+    WeakAuras.prettyPrint("This version of WeakAuras is provided as is. We are unable to test it ourselves on CN Servers.")
+  end)
+elseif WeakAuras.IsMidnight() then
+  C_Timer.After(1, function()
+    WeakAuras.prettyPrint("WeakAuras does not support Midnight due to Blizzard restricting addons. Read more at https://patreon.com/WeakAuras")
+  end)
+  libsAreOk = false
 end
 
 -- These function stubs are defined here to reduce the number of errors that occur if WeakAuras.lua fails to compile
@@ -612,3 +683,4 @@ function WeakAuras.CountWagoUpdates()
   -- XXX this is to work around the Companion app trying to use our stuff!
   return 0
 end
+

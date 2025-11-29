@@ -263,10 +263,11 @@ QuickButUI.ButList[1]=function()
 		GameTooltip:ClearLines();
 		GameTooltip:Hide() 
 	end)
-	QuickButUI.yidong.t = PIGFontString(QuickButUI.yidong,{"CENTER",QuickButUI.yidong,"CENTER",0,5},"拖",nil,9)
-	QuickButUI.yidong.t:SetTextColor(0.8, 0.8, 0.8, 0.8)
-	QuickButUI.yidong.t1 = PIGFontString(QuickButUI.yidong,{"CENTER",QuickButUI.yidong,"CENTER",0,-5},"动",nil,9)
-	QuickButUI.yidong.t1:SetTextColor(0.8, 0.8, 0.8, 0.8)
+	QuickButUI.yidong.move = QuickButUI.yidong:CreateTexture()
+	QuickButUI.yidong.move:SetAtlas("OptionsIcon-Brown")--NPE_RightClick
+	QuickButUI.yidong.move:SetSize(13,20);
+	QuickButUI.yidong.move:SetPoint("CENTER", 0, 0);
+	QuickButUI.yidong.move:SetDesaturated(true)
 	QuickButUI.nr=PIGFrame(QuickButUI,{"TOPLEFT",QuickButUI.yidong,"TOPRIGHT",1,0})
 	QuickButUI.nr:SetPoint("BOTTOMRIGHT", QuickButUI, "BOTTOMRIGHT", 0, 0);
 	QuickButUI.nr:PIGSetBackdrop()

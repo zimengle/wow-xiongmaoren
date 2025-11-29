@@ -10,6 +10,61 @@ local L = WeakAuras.L;
 
 local encounter_list = ""
 local zoneId_list = ""
+
+local journalID2EncoutnerID = {
+  [655] = 1397,
+  [708] = 1442,
+  [660] = 1422,
+  [688] = 1423,
+  [659] = 1426,
+  [673] = 1303,
+  [693] = 1465,
+  [668] = 1412,
+  [672] = 1418,
+  [679] = 1395,
+  [689] = 1390,
+  [682] = 1434,
+  [687] = 1436,
+  [726] = 1500,
+  [677] = 1407,
+  [745] = 1507,
+  [744] = 1504,
+  [713] = 1463,
+  [741] = 1498,
+  [737] = 1499,
+  [743] = 1501,
+  [683] = 1409,
+  [742] = 1505,
+  [729] = 1506,
+  [709] = 1431,
+  [827] = 1577,
+  [819] = 1575,
+  [816] = 1570,
+  [825] = 1565,
+  [821] = 1578,
+  [828] = 1573,
+  [818] = 1572,
+  [820] = 1574,
+  [824] = 1576,
+  [817] = 1559,
+  [829] = 1560,
+  [832] = 1579,
+  [852] = 1602,
+  [849] = 1598,
+  [866] = 1624,
+  [867] = 1604,
+  [868] = 1622,
+  [864] = 1600,
+  [856] = 1606,
+  [850] = 1603,
+  [846] = 1595,
+  [870] = 1594,
+  [851] = 1599,
+  [865] = 1601,
+  [853] = 1593,
+  [869] = 1623,
+} -- extracted from retail
+
 function Private.InitializeEncounterAndZoneLists()
 	local currTier = EJ_GetCurrentTier()
   if encounter_list ~= "" then
@@ -27,7 +82,7 @@ function Private.InitializeEncounterAndZoneLists()
 				EJ_SelectInstance(instance_id)
 				local instance_name, _, _, _, _, _, dungeonAreaMapID = EJ_GetInstanceInfo(instance_id)
 				local ej_index = 1
-				local boss, _, _, _, _, _, encounter_id = EJ_GetEncounterInfoByIndex(ej_index, instance_id)
+				local boss, _, journalID = EJ_GetEncounterInfoByIndex(ej_index, instance_id)
 
 				-- zone ids
 				if dungeonAreaMapID and dungeonAreaMapID ~= 0 then
@@ -42,15 +97,15 @@ function Private.InitializeEncounterAndZoneLists()
 				-- Encounter ids
 				if inRaid then
 					while boss do
-						if encounter_id then
+						if journalID and journalID2EncoutnerID[journalID] then
 							if instance_name then
 								encounter_list = ("%s|cffffd200%s|r\n"):format(encounter_list, instance_name)
 								instance_name = nil -- Only add it once per section
 							end
-							encounter_list = ("%s%s: %d\n"):format(encounter_list, boss, encounter_id)
+							encounter_list = ("%s%s: %d\n"):format(encounter_list, boss, journalID2EncoutnerID[journalID])
 						end
 						ej_index = ej_index + 1
-						boss, _, _, _, _, _, encounter_id = EJ_GetEncounterInfoByIndex(ej_index, instance_id)
+						boss, _, journalID = EJ_GetEncounterInfoByIndex(ej_index, instance_id)
 					end
 					encounter_list = encounter_list .. "\n"
 				end
@@ -78,7 +133,8 @@ end
 
 Private.glyph_types = {}
 Private.glyph_sorted = {}
-do
+
+local function FillGlyphData()
   local sorted = {}
   for i = 1, GetNumGlyphs() do
     local name, glyphType, isKnown, icon, glyphID = GetGlyphInfo(i)
@@ -96,6 +152,13 @@ do
     table.insert(Private.glyph_sorted, glyph.glyphID)
   end
 end
+
+local initGlyphFrame = CreateFrame("Frame")
+initGlyphFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
+initGlyphFrame:SetScript("OnEvent", function()
+  initGlyphFrame:UnregisterEvent("PLAYER_ENTERING_WORLD")
+  FillGlyphData()
+end)
 
 Private.talentInfo = {
   ["HUNTER"] = {
@@ -1196,6 +1259,116 @@ Private.talentInfo = {
       6,
       3,
       114157,
+    },
+  },
+  ["SHAMAN"] = {
+    {
+      136060,
+      1,
+      1,
+      30884,
+    },
+    {
+      538572,
+      1,
+      2,
+      108270,
+    },
+    {
+      538565,
+      1,
+      3,
+      108271,
+    },
+    {
+      135776,
+      2,
+      1,
+      63374,
+    },
+    {
+      136100,
+      2,
+      2,
+      51485,
+    },
+    {
+      538576,
+      2,
+      3,
+      108273,
+    },
+    {
+      538570,
+      3,
+      1,
+      108285,
+    },
+    {
+      538573,
+      3,
+      2,
+      108284,
+    },
+    {
+      538574,
+      3,
+      3,
+      108287,
+    },
+    {
+      136115,
+      4,
+      1,
+      16166,
+    },
+    {
+      237576,
+      4,
+      2,
+      16188,
+    },
+    {
+      538566,
+      4,
+      3,
+      108283,
+    },
+    {
+      135127,
+      5,
+      1,
+      147074,
+    },
+    {
+      538564,
+      5,
+      2,
+      108281,
+    },
+    {
+      538567,
+      5,
+      3,
+      108282,
+    },
+    {
+      650636,
+      6,
+      1,
+      117012,
+    },
+    {
+      651081,
+      6,
+      2,
+      117013,
+    },
+    {
+      651244,
+      6,
+      3,
+      117014,
     },
   },
 }

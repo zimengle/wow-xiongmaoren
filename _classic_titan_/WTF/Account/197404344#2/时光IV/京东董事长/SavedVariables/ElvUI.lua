@@ -2,7 +2,6 @@
 ElvCharacterDB = {
 ["ConvertKeybindings"] = true,
 ["ChatEditHistory"] = {
-"/p 哈哈哈哈哈哈哈哈",
 "/p 怎么有猪死了啊",
 "/p 我来加你血吧",
 "/p 祖格是吗",
@@ -22,6 +21,7 @@ ElvCharacterDB = {
 "/pig",
 "/LST",
 "/RL",
+"/cw 柠檬她爸 你个傻逼 偷袭你爸爸 找到你ip了 小心点 臭傻逼",
 },
 ["ChatHistoryLog"] = {
 },

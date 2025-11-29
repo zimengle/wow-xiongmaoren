@@ -72,12 +72,12 @@ AUCTIONATOR_CONFIG = {
 ["selling_post_shortcut"] = "SPACE",
 ["shift_stack_tooltips"] = true,
 ["columns_shopping"] = {
-["È°∂ÈÉ®?"] = true,
+["ÂèØË¥≠‰π∞"] = false,
 ["ÊàëÂçñÁöÑ?"] = true,
 ["‰ª∑Ê†º"] = false,
-["ÂêçÁß∞"] = false,
+["È°∂ÈÉ®?"] = true,
 ["ÊàëÁöÑÂîÆÂìÅÔºü"] = true,
-["ÂèØË¥≠‰π∞"] = false,
+["ÂêçÁß∞"] = false,
 },
 ["show_selling_bag"] = true,
 ["historical_prices"] = {
@@ -152,7 +152,7 @@ AUCTIONATOR_SHOPPING_LISTS = {
 AUCTIONATOR_PRICE_DATABASE = {
 ["__dbversion"] = 8,
 ["Â∏ïÂ•áÁª¥ÂÖã Horde"] = "Ä",
-["Êó∂ÂÖâIV Alliance"] = "§E43424§Aa°D21519AlÄAmŸAh°D2151ŸGversionE41106§Aa°D2153CAlÄAh°D2153\n∑Am\n∑E41099§Aa°D21502AlÄAh°D2150√5Am√5",
+["Êó∂ÂÖâIV Alliance"] = "¢GversionE41355§Aa°D2158AlÄAh°D2158\000•HAm\000•H",
 ["ÈÄêÈ¢®ËÄÖ Horde"] = "\n",
 ["ÈÄêÈ¢®ËÄÖ Alliance"] = "\n",
 ["Áª¥ÂÖãÂ∞ºÊãâÊñØ Horde"] = "êR25115Fa\nl\nm\ròxh\n¢g:10001:42Fa\nl\nm√Ph\níg:9850:36Fa\nl\nm¢÷h\nB2988Fa\nl\nmu0h\nB1988Fa\nl\nm@!h\níg:9781:22Fa\nl\nmú@h\n¢g:24591:84Fa\nl\nm√Ph\nb185852Fa\nl\nmxEh\nR11152Fa\nl\nml«h\nR31152Fa\nl\nm\000Kh\nR23773Fa\nl\nm∆h\níg:6602:27Fa\nl\nmÅdh\nR24597Fa\nl\nm√Ph\n¢g:14428:44Fa\nl\nmu0h\níg:9929:41Fa\nl\nmÚ†h\nR25300Fa\nl\nmEh\n2936Fa\nl\nm„`h\nR14047Fa\nl\nmÙJh\nB7445Fa\nl\nmÚdh\nR32948Fa\nl\nm!≠h\nR14341Fa\nl\nmñ«h\nR42408Fa\nl\nm`‹h\nB3745Fa\nl\nmKh\nB2745Fa\nl\nm≥h\nR24867Fa\nl\nmÑÄh\nR11023Fa\nl\nm…èh\nR24585Fa\nl\nm\nÑ\nh\nR20384Fa\nl\nmth\níg:1978:27Fa\nl\nmòkh\nR24915Fa\nl\nm_êh\nR24732Fa\nl\nmEh\nB7911Fa\nl\nmh\nR25847Fa\nl\nmìπh\nR10384Fa\nl\nmLK@h\n¢g:24613:93Fa\nl\nm√Ph\nR24676Fa\nl\nmÚÇh\nR12408Fa\nl\nm–êh\nB2911Fa\nl\nm˙h\nR13464Fa\nl\nmîﬁh\n¢g:24826:87Fa\nl\nmø h\nR38082Fa\nl\nm(ügph\nB4788Fa\nl\nm√Ph\nR43115Fa\nl\nmth\nR23115Fa\nl\nmΩth\n¢g:19290:66Fa\nl\nmG=ÿh\nR24298Fa\nl\nm\rª†h\nR43360Fa\nl\nmNh\nR30809Fa\nl\nmdªh\nR27656Fa\nl\nm&Fh\n¢g:15497:19Fa\nl\nmN h\nR14193Fa\nl\nmjòh\nR25011Fa\nl\nmÑÄh\nR14123Fa\nl\nm˚åh\nR12655Fa\nl\nmM h\nR31879Fa\nl\nm|h\nR32655Fa\nl\nmƒHh\nR15011Fa\nl\nm(Æh\n¢g:10332:35Fa\nl\nmj§Xh\n≤g:32655:105Fa\nl\nmƒHh\n≤g:23542:105Fa\nl\nmßÿ¿h\nR31235Fa\nl\nm≤=h\nR10305Fa\nl\nmBóh\n¢g:38318:20Fa\nl\nmóÃh\nR13948Fa\nl\nm_áh\níg:8123:49Fa\nl\nmph\n≤g:30726:120Fa\nl\nm()ã‡h\nR31870Fa\nl\nm/¯h\níg:7479:42Fa\nl\nmûËh\nR21870Fa\nl\nmB@h\nB7676Fa\nl\nmV∏h\nB9788Fa\nl\nm'h\n≤g:24760:105Fa\nl\nm\r@h\nB6045Fa\nl\nm\r‚∞h\n≤g:24673:114Fa\nl\nm√Oh\n≤g:32391:130Fa\nl\nm$w(h\n≤g:32393:130Fa\nl\nmcZh\níg:9788:18Fa\nl\nm'h\nR38867Fa\nl\nmø h\nR22375Fa\nl\nm‘¿h\nB4066Fa\nl\nm	h\nR32656Fa\nl\nm•Äh\nB4345Fa\nl\nm'Òh\nR14114Fa\nl\nmN h\níg:9810:25Fa\nl\nm1·h\nR31216Fa\nl\nm—ªh\nR21948Fa\nl\nm\r‚Æh\nB8345Fa\nl\nmî;h\nR27690Fa\nl\nmnéh\n¢g:15622:51Fa\nl\nmÑÄh\n¢g:14723:17Fa\nl\nm)hh\n¢g:14858:58Fa\nl\nm(1Ôh\nR27668Fa\nl\nmßh\nB7366Fa\nl\nmjòh\nR27661Fa\nl\nmî7h\nR15341Fa\nl\nmÅdh\nR15375Fa\nl\nmûËh\nB4366Fa\nl\nmÙ	h\nR31867Fa\nl\nm¨h\nR20870Fa\nl\nm¥!h\níg:4765:14Fa\nl\nmm`h\nR18298Fa\nl\nmì‡h\nR23152Fa\nl\nm0h\n¢g:10021:45Fa\nl\nmw¯h\níg:8259:50Fa\nl\nm8~h\nR12206Fa\nl\nm'h\nR32206Fa\nl\nm£Äh\nR16681Fa\nl\nmı-h\nR11177Fa\nl\nmõh\nR21177Fa\nl\nmMÈh\nB3611Fa\nl\nm„^h\nB4611Fa\nl\nmh\nR10360Fa\nl\nm\r@h\n¢g:13088:41Fa\nl\nmIËh\nR32227Fa\nl\nmlÙh\nR24656Fa\nl\nmÛ,h\nR13023Fa\nl\nmY8h\n¢g:24616:93Fa\nl\nm√Ph\n¢g:15305:18Fa\nl\nm˚åh\nR24614Fa\nl\nm√Ph\nR13928Fa\nl\nm'h\nR24401Fa\nl\nm.h\nR21952Fa\nl\nmÍ_h\nB1121Fa\nl\nm!úh\níg:2245:59Fa\nl\nmdzh\nR12363Fa\nl\nmy|h\nR38918Fa\nl\nmÑÄh\n≤g:24788:114Fa\nl\nmÍ_h\nR29536Fa\nl\nm\rAøh\nR23811Fa\nl\nm ˙h\nR24834Fa\nl\nm¸«h\nR15305Fa\nl\nm˚åh\nR14834Fa\nl\nm„`h\nR23625Fa\nl\nm-Ì–h\nR42961Fa\nl\nm+h\n¢g:10278:55Fa\nl\nmÑÄh\nR24633Fa\nl\nmdh\n≤g:24659:108Fa\nl\nm‘¿h\n≤g:31856:100Fa\nl\nm(1-\000h\nR15009Fa\nl\nmN h\nR24822Fa\nl\nmø h\níg:6575:20Fa\nl\nm*Ÿh\nR10102Fa\nl\nmòh\nR20879Fa\nl\nmÑ1h\nR33053Fa\nl\nmK˙h\nR24171Fa\nl\nm<Ih\níg:2825:42Fa\nl\nm-∆¿h\nR33048Fa\nl\nmt‘h\níg:6617:30Fa\nl\nmÚdh\nR21341Fa\nl\nm≥h\nR13053Fa\nl\nm/©h\n¢g:39509:20Fa\nl\nm{ph\nR23114Fa\nl\nmøhh\nR38927Fa\nl\nm9˚ºh\nR24787Fa\nl\nm›h\nR14530Fa\nl\nmƒäh\níg:2965:11Fa\nl\nm@h\nR22795Fa\nl\nmD	h\nR15614Fa\nl\nm\nÜ¯h\nR22836Fa\nl\nm4\000h\nR32836Fa\nl\nm<Ãh\n≤g:24683:117Fa\nl\nmq\000h\nR12836Fa\nl\nm‚òh\nR15743Fa\nl\nmRh\nR27655Fa\nl\nmoh\nB5488Fa\nl\nmu-h\nR11205Fa\nl\nm9ﬂ;h\nR24053Fa\nl\nm6Ìh\nR43339Fa\nl\nmMKh\n¢g:24622:96Fa\nl\nm√Ph\nR30032Fa\nl\nmI46h\nB2459Fa\nl\nm:óh\n¢g:10214:59Fa\nl\nmN h\nR21899Fa\nl\nm\r‚Øh\n¢g:10369:58Fa\nl\nmB@h\nR10388Fa\nl\nm„`h\níg:7434:37Fa\nl\nmÚ†h\nR10583Fa\nl\nm(…òh\nR10401Fa\nl\nml–h\nR25048Fa\nl\nm√Ph\nR14918Fa\nl\nm(1Ôh\nR31915Fa\nl\nm~@h\nR38911Fa\nl\nm°h\nR34537Fa\nl\nm‰Æh\nR21953Fa\nl\nmXh\nR35128Fa\nl\nmB?h\nR22787Fa\nl\nm§Ûh\nR11732Fa\nl\nmJ!h\n≤g:34367:159Fa\nl\nmLK\000h\níg:1933:15Fa\nl\nmd€h\nR38823Fa\nl\nm  h\n≤g:32400:130Fa\nl\nm Kh\nB6367Fa\nl\nmÙ h\n¢g:24830:90Fa\nl\nm√Ph\n¢g:11999:46Fa\nl\nmóËh\nB7288Fa\nl\nm'◊h\n¢g:10583:39Fa\nl\nm(…òh\n¢g:12054:24Fa\nl\nm√Nh\n¢g:15945:18Fa\nl\nmh\nR44128Fa\nl\nm(Oäph\nR10633Fa\nl\nmjœRh\nR35193Fa\nl\nmI>\000h\n≤g:29498:112Fa\nl\nm3èúh\n≤g:25024:120Fa\nl\nmÿ<h\nR12811Fa\nl\nmHh\nR24879Fa\nl\nm≠∞h\nB8259Fa\nl\nm8~h\níg:3308:15Fa\nl\nm(Th\n¢g:28491:94Fa\nl\nmIh\nB3388Fa\nl\nmÜ†h\níg:6552:19Fa\nl\nm3–h\nR13120Fa\nl\nm	h\nR23120Fa\nl\nm(\rÔ\000h\n¢g:15011:15Fa\nl\nm(Æh\nR43120Fa\nl\nmm`h\n¢g:31254:97Fa\nl\nmÔPh\nR15625Fa\nl\nm≠∞h\nB6359Fa\nl\nm¥h\nR14927Fa\nl\nm(1Ôh\n≤g:23518:114Fa\nl\nmCDh\nR34504Fa\nl\nmNh\n≤g:25290:105Fa\nl\nmÊ0h\nR24738Fa\nl\nmEh\nR13009Fa\nl\nmîùh\n¢g:10282:56Fa\nl\nm-∆¿h\n≤g:24089:115Fa\nl\nmÙh\nR14048Fa\nl\nh\nmWR24048Fa\nl\nm\"h\nR24305Fa\nl\nm9ˆh\nR23787Fa\nl\nm°¯h\nB3859Fa\nl\nm&˛h\n¢g:24593:84Fa\nl\nmIh\níg:6553:18Fa\nl\nmIÔh\nB7930Fa\nl\nmIh\níg:3036:15Fa\nl\nmu0h\nR23766Fa\nl\nm)íh\n≤g:32756:105Fa\nl\nmÇúh\nR31148Fa\nl\nmc0h\nR19440Fa\nl\nm\r‚∞h\nB7356Fa\nl\nm&ˆh\nR34374Fa\nl\nm∑˝h\nR31228Fa\nl\nm≠,h\nB3356Fa\nl\nmD¢h\nB9294Fa\nl\nma®h\nR21536Fa\nl\nm\r‚Æh\nR23516Fa\nl\nm1yh\nR12717Fa\nl\nm?÷∆h\nR17032Fa\nl\nm»h\nR23199Fa\nl\nm».h\n¢g:10240:55Fa\nl\nm4Oh\nR41536Fa\nl\nm&?h\nB2930Fa\nl\nm√Ph\nR15410Fa\nl\nm\\h\nB6657Fa\nl\nm¡h\nR24865Fa\nl\nm\nÇüh\n≤g:24865:102Fa\nl\nm\nÇüh\nR44554Fa\nl\nm	óh\nR25691Fa\nl\nm° h\nR13199Fa\nl\nm-üØh\n¢g:10102:59Fa\nl\nmòh\níg:3198:23Fa\nl\nmwdh\nR15374Fa\nl\nmúJh\nR10228Fa\nl\nmƒôh\nR14554Fa\nl\nm@Àh\nR19289Fa\nl\nmùÁh\nR25463Fa\nl\nm'h\nB2991Fa\nl\nmB@h\nR24199Fa\nl\nm#◊«h\nR17722Fa\nl\nmÊ+h\nR24683Fa\nl\nmq\000h\n≤g:31255:103Fa\nl\nm´2h\nR25067Fa\nl\nmh\níg:2577:10Fa\nl\nm√Ph\níg:4998:24Fa\nl\nm8h\n¢g:14554:62Fa\nl\nm@Àh\níg:7963:40Fa\nl\nmß‡h\nR14971Fa\nl\nm+‘èh\nB2672Fa\nl\nmáh\nB6672Fa\nl\nm(1òh\n¢g:24627:96Fa\nl\nm√Ph\nR18289Fa\nl\nm\r@h\nR43350Fa\nl\nm<£h\n¢g:15601:46Fa\nl\nm\nÜ¯h\n¢g:13129:39Fa\nl\nm-∆øh\níg:9890:38Fa\nl\nmu0h\nR43536Fa\nl\nm^h\nB3730Fa\nl\nm!.h\níg:7734:51Fa\nl\nmòñÄh\nR22902Fa\nl\nm\r‚ßh\n≤g:24671:114Fa\nl\nm√Ph\nR32902Fa\nl\nmÙh\nR31168Fa\nl\nm1x‚h\n¢g:28492:94Fa\nl\nmDÉh\nB2772Fa\nl\nmÑÌh\níg:5971:26Fa\nl\nmú@h\n≤g:30728:120Fa\nl\nmÌF0h\nR25122Fa\nl\nmÕh\nB9772Fa\nl\nmB@h\nR27437Fa\nl\nmDÁh\nB6557Fa\nl\nmN h\nR32199Fa\nl\nm0h\nR16202Fa\nl\nmN∂h\nR25071Fa\nl\nm4ˇh\nB3830Fa\nl\nm+qh\níg:9828:31Fa\nl\nmjòh\nR21902Fa\nl\nmÑh\nR31902Fa\nl\nm¨Eh\nB6530Fa\nl\nm‘\"h\nR42734Fa\nl\nmmh\nR38836Fa\nl\nmÍˆh\nB3872Fa\nl\nmOÄh\nB3283Fa\nl\nmP≤h\nR16713Fa\nl\nmc«h\nB9491Fa\nl\nm(1òh\n¢g:24604:87Fa\nl\nm√Ph\nB8183Fa\nl\nml>h\n≤g:31080:105Fa\nl\nmS€h\nR35202Fa\nl\nmLK?h\n¢g:15365:38Fa\nl\nm£h\nR14902Fa\nl\nmu0h\nR31290Fa\nl\nm4Oh\nR11734Fa\nl\nmthh\nR24902Fa\nl\nm8Äh\nB5972Fa\nl\nmÜ†h\nR18333Fa\nl\nm\rè‡h\nR29460Fa\nl\nmÀÓh\nB4421Fa\nl\nm\r®Jh\nR17036Fa\nl\nm˘∏h\n¢g:13106:31Fa\nl\nmLÿh\nB6591Fa\nl\nm/Èh\nR27681Fa\nl\nm‰|h\nB7972Fa\nl\nm‰`h\n¢g:10101:58Fa\nl\nmq\000h\nR24721Fa\nl\nmm|h\nR32401Fa\nl\nmJùêh\nR42401Fa\nl\nmd¢h\nR24168Fa\nl\nmñõh\n≤g:31333:100Fa\nl\nm!ëøh\nR37915Fa\nl\nm_éh\n¢g:24853:96Fa\nl\nmEh\nB2857Fa\nl\nmP¥h\níg:9768:21Fa\nl\nmP‹h\nR25726Fa\nl\nm0h\nR19259Fa\nl\nm“xh\n¢g:25062:93Fa\nl\nm√Ph\nR17202Fa\nl\nmt]h\níg:9857:34Fa\nl\nm*h\nR25032Fa\nl\nmõxh\nR17683Fa\nl\nm\rﬁ»h\nR15431Fa\nl\nmÑÄh\n≤g:30034:128Fa\nl\nmSÙ›h\n≤g:24769:108Fa\nl\nm_êh\nB2564Fa\nl\nm‘¿h\n¢g:14927:52Fa\nl\nm(1Ôh\nB4564Fa\nl\nm,$h\nB6056Fa\nl\nm√Ph\n¢g:25034:93Fa\nl\nmÀ¨h\nB9791Fa\nl\nm5Éh\n≤g:29514:105Fa\nl\nmê\"nh\nR23437Fa\nl\nm´‡h\nR12202Fa\nl\nm4h\nB9957Fa\nl\nmx¥h\nR32202Fa\nl\nm˛åh\nR24032Fa\nl\nmq\000h\nR16683Fa\nl\nmj§Xh\nR31293Fa\nl\nmÜûh\nR31873Fa\nl\nmÕƒh\n¢g:14255:42Fa\nl\nmûËh\nR24036Fa\nl\nmq\000h\nR43369Fa\nl\nm}˚h\nR16676Fa\nl\nmj§Xh\nR13942Fa\nl\nmZ›h\nR41530Fa\nl\nmÑªh\nB9060Fa\nl\nm\r<h\nR28491Fa\nl\nmIh\nB6583Fa\nl\nm*îh\nR24690Fa\nl\nmÌîh\n¢g:20828:28Fa\nl\nmu0h\nB7088Fa\nl\nmÜüh\níg:7609:35Fa\nl\nm	h\nR38902Fa\nl\nmÑbh\nR13036Fa\nl\nm#/h\n≤g:31198:103Fa\nl\nmP–h\nR15519Fa\nl\nmÈŸh\níg:3040:19Fa\nl\nm>h\nB9262Fa\nl\nmÙoh\nR24942Fa\nl\nm§Üh\nR38999Fa\nl\nm{h\nR31289Fa\nl\nm¶´h\nB5483Fa\nl\nm√Mh\nB7483Fa\nl\nmu0h\nB7191Fa\nl\nm:Oh\nR25867Fa\nl\nm~5h\nR38922Fa\nl\nmûIh\nR10713Fa\nl\nm¡6h\nR12431Fa\nl\nm(`h\n≤g:31240:103Fa\nl\nm’¢h\nR20882Fa\nl\nm$Íh\nR15369Fa\nl\nmûËh\nR18676Fa\nl\nm’¸h\níg:2984:18Fa\nl\nm_h\nR31277Fa\nl\nmk»h\nR21277Fa\nl\nmLK?h\nR22644Fa\nl\nmÙ˘h\nB4291Fa\nl\nm&îh\nR35557Fa\nl\nmæ¯h\nB2291Fa\nl\nm(0ﬁ‡h\nR22786Fa\nl\nmTTh\nR43107Fa\nl\nm‘√h\nB6260Fa\nl\nm√Ph\nB9260Fa\nl\nm\r®Ih\nR13047Fa\nl\nmüh\nR42907Fa\nl\nm'&h\nR10369Fa\nl\nmB@h\n≤g:24756:102Fa\nl\nm\r@h\n¢g:24817:84Fa\nl\nm|xh\n¢g:13052:52Fa\nl\nm	'¿h\nB5964Fa\nl\nmáh\nB6391Fa\nl\nm‘¿h\nR23786Fa\nl\nmßÑh\nB7945Fa\nl\nm|h\nR31907Fa\nl\nmL$)h\nR30042Fa\nl\nm8Hóh\nB3864Fa\nl\nm&Gh\n¢g:13064:42Fa\nl\nmOÄh\nB9845Fa\nl\nmÚdh\nR10167Fa\nl\nm4Oh\níg:6540:18Fa\nl\nmQh\nB8845Fa\nl\nmWh\nR22446Fa\nl\nmQ„h\nR10176Fa\nl\nm_êh\n≤g:24255:105Fa\nl\nm3>h\nR17922Fa\nl\nmph\nR10107Fa\nl\nmyhh\nR27676Fa\nl\nmÙh\nR16252Fa\nl\nm˝‡h\níg:1721:54Fa\nl\nmoh\nR39894Fa\nl\nmóêh\nR11176Fa\nl\nmDmh\nR20971Fa\nl\nmÜûh\nR43396Fa\nl\nm7äh\nB6057Fa\nl\nmoh\nB9383Fa\nl\nmúNh\nR15485Fa\nl\nm∫h\n¢g:15611:43Fa\nl\nmúJh\nR43379Fa\nl\nms+h\nB3383Fa\nl\nm'Ôh\nR13510Fa\nl\nm;h\n¢g:14295:55Fa\nl\nmB@h\nB7976Fa\nl\nm4th\níg:7471:42Fa\nl\nmûËh\n¢g:23199:65Fa\nl\nm».h\nR24853Fa\nl\nmEh\n¢g:31188:94Fa\nl\nm#çêh\níg:7752:33Fa\nl\nmÊ0h\nR22557Fa\nl\nm+Ú\000h\nR11167Fa\nl\nm\r‚Øh\nB8545Fa\nl\nm±ºh\n≤g:31308:115Fa\nl\nmz\rh\nB6545Fa\nl\nm@h\nR38277Fa\nl\nm±(h\nR23446Fa\nl\nm@th\nR13446Fa\nl\nmCh\nR25685Fa\nl\nm\rá≠h\nR14725Fa\nl\nmN h\nR10329Fa\nl\nmN h\n¢g:24736:96Fa\nl\nmX¨h\n¢g:18676:61Fa\nl\nm’¸h\nR15747Fa\nl\nm\n\rìh\nR23441Fa\nl\nm≥Jh\nR15117Fa\nl\nmóhh\nR20955Fa\nl\nmJ8h\n¢g:21802:68Fa\nl\nmB@h\nB4566Fa\nl\nm@h\n¢g:24592:84Fa\nl\nm√Ph\níg:9801:25Fa\nl\nmóhh\nR43123Fa\nl\nmmh\nR13123Fa\nl\nm	h\n¢g:15519:23Fa\nl\nmÈŸh\nR15725Fa\nl\nm“ßh\nR25725Fa\nl\nm\r‚∞h\nB7969Fa\nl\nmÂ∞h\nR24296Fa\nl\nm»-h\nR38899Fa\nl\nm  h\nR14441Fa\nl\nmjœ¿h\nR14564Fa\nl\nmu0h\nR42747Fa\nl\nm•h\nR32747Fa\nl\nmÊ.h\nB3466Fa\nl\nm˘∏h\nB5466Fa\nl\nmŸ[h\nR42743Fa\nl\nm'◊h\nR24673Fa\nl\nm√Oh\nR35761Fa\nl\nm˝|h\nB3869Fa\nl\nm\r‚Æh\nR32586Fa\nl\nmËœh\nR18648Fa\nl\nmIÔh\n¢g:24847:96Fa\nl\nmEh\nR35564Fa\nl\nmòh\n≤g:24873:105Fa\nl\nmh\n≤g:24888:111Fa\nl\nm8Äh\nR24198Fa\nl\nm\r·Ëh\n¢g:29160:58Fa\nl\nmú@h\nR25007Fa\nl\nm[`h\nB4766Fa\nl\nmD\\h\n¢g:31142:88Fa\nl\nmú∏h\n¢g:24705:84Fa\nl\nm√Ph\nR14198Fa\nl\nmjòh\n≤g:25015:117Fa\nl\nmfòh\nR31178Fa\nl\nmf;h\nR43725Fa\nl\nmùh\nR23884Fa\nl\nh\nm>WR15992Fa\nl\nm{h\nR23772Fa\nl\nmÙih\n¢g:13036:57Fa\nl\nm#/h\nR11178Fa\nl\nmÇıh\n¢g:24960:96Fa\nl\nmB@h\n¢g:39895:25Fa\nl\nm·ÿh\n¢g:24609:90Fa\nl\nm√Ph\nR13452Fa\nl\nmGêh\n≤g:31258:103Fa\nl\nmèh\nR32508Fa\nl\nmW.h\nR18562Fa\nl\nm4ˇh\nR24028Fa\nl\nmó¨h\nR16767Fa\nl\nmÜ†h\nB5503Fa\nl\nm'\rh\níg:7542:46Fa\nl\nm\nÜ¯h\nR43427Fa\nl\nm”h\níg:7189:45Fa\nl\nmy≤h\nR23427Fa\nl\nm‡h\níg:6527:13Fa\nl\nm°h\nR18709Fa\nl\nmYh\nR14295Fa\nl\nmB@h\nB8225Fa\nl\nm5\000h\n¢g:13120:55Fa\nl\nm	h\n¢g:31137:88Fa\nl\nmö(h\nR17007Fa\nl\nm	˛òh\nR31893Fa\nl\nm»h\n≤g:24773:111Fa\nl\nmú?h\nR21893Fa\nl\nm	Îh\nR14192Fa\nl\nmÚdh\n¢g:25105:96Fa\nl\nmÊ0h\n¢g:31196:97Fa\nl\nm;Xh\nR23807Fa\nl\nm‡h\n¢g:25090:93Fa\nl\nm<lh\nB2325Fa\nl\nm˘{h\n¢g:31192:94Fa\nl\nmÿüh\nB4603Fa\nl\nm‘~h\nB6325Fa\nl\nmú0h\nR24998Fa\nl\nmB@h\n≤g:32535:115Fa\nl\nmΩåh\nR18296Fa\nl\nm§¥h\nR19821Fa\nl\nmMáh\nR42738Fa\nl\nm§Ûh\nR31275Fa\nl\nmd€h\nR24767Fa\nl\nmÿÃh\n≤g:31322:100Fa\nl\nm\000ch\nR15312Fa\nl\nmÈòh\n¢g:25299:90Fa\nl\nmEh\nR12992Fa\nl\nmÀh\nB5425Fa\nl\nmyÁh\nR13003Fa\nl\nm		h\nR38884Fa\nl\nm  h\nB9425Fa\nl\nm(+Úh\nB1169Fa\nl\nmA˝h\nR29956Fa\nl\nm€Äh\nR19767Fa\nl\nm\r‚∞h\nR12232Fa\nl\nmÍ[h\níg:9774:27Fa\nl\nmB@h\nR24300Fa\nl\nmÊ0h\nR32745Fa\nl\nm\r‚∞h\n¢g:24634:99Fa\nl\nmø h\nR15758Fa\nl\nm2œ–h\n¢g:10176:54Fa\nl\nm_êh\n≤g:24672:114Fa\nl\nm∂Jh\nR35192Fa\nl\nm› h\nB8178Fa\nl\nmqFh\nR24807Fa\nl\nmø h\nR14807Fa\nl\nmÑÄh\n≤g:23758:106Fa\nl\nm~h\nR24758Fa\nl\nm\r@h\níg:7727:32Fa\nl\nm&Œh\nR24650Fa\nl\nmB@h\n¢g:12030:39Fa\nl\nmwGh\níg:4788:20Fa\nl\nm√Ph\níg:1980:43Fa\nl\nmj§Xh\nR23590Fa\nl\nm	ÍÂh\nR24821Fa\nl\nmø h\nR25901Fa\nl\nm	Eh\n≤g:24267:105Fa\nl\nmŒ@»h\níg:7945:46Fa\nl\nm|h\nR11202Fa\nl\nmæ†h\nR31202Fa\nl\nm‡Qh\nR21283Fa\nl\nm\"/Eh\nR31283Fa\nl\nm#Ãh\nR27687Fa\nl\nmÜ†h\nR25650Fa\nl\nmÈ¸h\n¢g:14243:43Fa\nl\nmûËh\nR14176Fa\nl\nm'h\n≤g:32661:115Fa\nl\nmÕh\n¢g:29159:56Fa\nl\nmÂ€h\nR15734Fa\nl\nm-ü∞h\nR10288Fa\nl\nmÅLh\níg:3211:19Fa\nl\nmÈòh\n2765Fa\nl\nmDh\níg:7461:36Fa\nl\nmqHh\nR24202Fa\nl\nm\rµƒh\nR11082Fa\nl\nmçh\nR15578Fa\nl\nmB@h\nR24637Fa\nl\nmÛ,h\níg:8251:54Fa\nl\nm˚–h\nR41535Fa\nl\nm∏h\n2935Fa\nl\nmW∑h\n≤g:32582:141Fa\nl\nm&*;h\nR42415Fa\nl\nmdâh\níg:1121:24Fa\nl\nm!úh\nR12799Fa\nl\nmÄh\nR32062Fa\nl\nm…‡h\nB4569Fa\nl\nmNh\nB6569Fa\nl\nm0=h\nR32535Fa\nl\nmΩåh\nR12535Fa\nl\nmtKh\níg:7755:38Fa\nl\nm≥˚h\níg:9827:30Fa\nl\nmÅdh\nR24711Fa\nl\nm‘¿h\nR23821Fa\nl\nm\n—h\n≤g:30831:112Fa\nl\nm&áÇh\nR31192Fa\nl\nmÿüh\níg:1604:45Fa\nl\nm’ÆRh\nR19933Fa\nl\nmLh\nR22565Fa\nl\nm,Äh\nR27666Fa\nl\nm]h\nR22901Fa\nl\nm\r‚®h\nR30036Fa\nl\nm)@ãh\nR39349Fa\nl\nm\"“h\níg:4067:39Fa\nl\nm	h\nR38933Fa\nl\nmÈÔh\nR20725Fa\nl\nmG¨h\n¢g:23197:65Fa\nl\nm,`h\níg:9772:27Fa\nl\nmB@h\nR18650Fa\nl\nmÜöh\n≤g:24641:102Fa\nl\nmoäh\n¢g:13897:10Fa\nl\nm„_h\n¢g:24728:93Fa\nl\nmEh\nR29514Fa\nl\nmê\"nh\nR21993Fa\nl\nm(th\nB3369Fa\nl\nmƒùh\nR21071Fa\nl\nm'¶h\nB6369Fa\nl\nmu(h\nR31901Fa\nl\nm4öh\nR21901Fa\nl\nm\r‚Æh\níg:9770:20Fa\nl\nm˚åh\níg:1929:18Fa\nl\nmú@h\nR22853Fa\nl\nmd»h\n≤g:31200:100Fa\nl\nm\n h\nR31884Fa\nl\nm·h\nR10202Fa\nl\nm≠∞h\nR38917Fa\nl\nm  h\nR18745Fa\nl\nm zh\níg:5963:34Fa\nl\nmB@h\n¢g:14725:17Fa\nl\nmN h\nR43122Fa\nl\nm,ıh\nR13122Fa\nl\nm4Mh\níg:9853:34Fa\nl\nmW0h\nR31155Fa\nl\nm]ph\nR28101Fa\nl\nmÙ“h\nB5469Fa\nl\nm≥h\níg:4771:15Fa\nl\nm(Íh\nR15377Fa\nl\nmûËh\n≤g:31294:112Fa\nl\nmâ–h\n¢g:39894:25Fa\nl\nmóêh\nR19269Fa\nl\nm\r¥Lh\n¢g:14968:55Fa\nl\nm/IDh\nR48122Fa\nl\nm(˘@™h\n≤g:24915:120Fa\nl\nm_êh\níg:8178:10Fa\nl\nmqFh\n≤g:34370:159Fa\nl\nmâ{Jh\nR37101Fa\nl\nmgh\n≤g:24767:108Fa\nl\nmÿÃh\nR16223Fa\nl\nm6ÓÄh\n¢g:15527:27Fa\nl\nmB@h\nR13463Fa\nl\nm¥∑h\nR24613Fa\nl\nm√Ph\n¢g:24714:87Fa\nl\nmÀ¨h\nR19818Fa\nl\nmØ¿h\n≤g:25001:111Fa\nl\nm\r@h\n2785Fa\nl\nm¥éh\nR24590Fa\nl\nm√Ph\n¢g:10281:58Fa\nl\nm-∆¿h\nR27435Fa\nl\nmÑ≠h\nR31198Fa\nl\nmP–h\nR32403Fa\nl\nmAxh\nR37156Fa\nl\nmT¡h\nR25297Fa\nl\nmÜ†h\nB2880Fa\nl\nm ˆh\nR12828Fa\nl\nmNh\nR11128Fa\nl\nm'h\nB2838Fa\nl\nmDÜh\nB4838Fa\nl\nmq$h\nB2987Fa\nl\nm?h\nB5173Fa\nl\nm√Ph\níg:6583:21Fa\nl\nm*îh\nB3173Fa\nl\nmKh\n¢g:20408:60Fa\nl\nmØ∆h\nR37503Fa\nl\nmèGh\nR27503Fa\nl\nm$vh\nB4364Fa\nl\nm\"Fh\nB8287Fa\nl\nm≠Øh\níg:7546:46Fa\nl\nm\nÜ¯h\nR18649Fa\nl\nm-∆øh\nR14297Fa\nl\nm(1Ôh\nR24297Fa\nl\nmG◊h\nR22526Fa\nl\nmLh\nR24783Fa\nl\nmÔh\nR14783Fa\nl\nmB@h\nR11204Fa\nl\nmu.h\nR15993Fa\nl\nm'9h\nR31204Fa\nl\nmÓúh\nR15417Fa\nl\nmì‡h\n¢g:11980:64Fa\nl\nmïóh\nR24591Fa\nl\nm√Ph\nB3355Fa\nl\nm‰ïh\nB4355Fa\nl\nm\r@h\n¢g:38278:35Fa\nl\nmØ¿h\n¢g:24942:90Fa\nl\nm§Üh\nR16110Fa\nl\nmòh\nB2408Fa\nl\nm\r‚∞h\nB8387Fa\nl\nm√Ph\n≤g:24664:111Fa\nl\nm√Ph\nR18651Fa\nl\nmB?h\n¢g:13044:57Fa\nl\nm\n-dh\n≤g:29500:112Fa\nl\nm-ﬁh\nB7408Fa\nl\nmÚdh\n¢g:15944:12Fa\nl\nm°h\níg:6538:19Fa\nl\nmú@h\níg:9780:20Fa\nl\nm˚åh\nR19441Fa\nl\nm§èh\nR21099Fa\nl\nmøÎh\nR20828Fa\nl\nmu0h\nB9264Fa\nl\nm35h\nB8264Fa\nl\nmk–h\nB3164Fa\nl\nmÇh\nR23101Fa\nl\nmòWh\nR13101Fa\nl\nmpˇh\nR38882Fa\nl\nm√h\nB6887Fa\nl\nmfh\nB7941Fa\nl\nmËh\nB9941Fa\nl\nmyhh\nR19265Fa\nl\nmºOh\n¢g:10210:60Fa\nl\nm\nÆ`h\nR22558Fa\nl\nm$»h\nR16645Fa\nl\nm\"íh\n¢g:44217:45Fa\nl\nm\n9.h\nB7364Fa\nl\nm›–h\nB8364Fa\nl\nmÑ^h\nR20871Fa\nl\nm§]h\n¢g:13008:52Fa\nl\nmÅh\nR24274Fa\nl\nm—>h\nB9155Fa\nl\nm\r‚∞h\nB4341Fa\nl\nm√h\nB3480Fa\nl\nmm∫h\nR16828Fa\nl\nmíh\nR24204Fa\nl\nm\r÷¯h\nR15526Fa\nl\nm'dh\nR19274Fa\nl\nmO€h\nR11084Fa\nl\nmƒh\nB3682Fa\nl\nmÍSh\níg:9773:27Fa\nl\nm2»h\nR11101Fa\nl\nmÍ`h\nR13110Fa\nl\nmòkh\nR43124Fa\nl\nmèh\nR23110Fa\nl\nmòXh\nR43388Fa\nl\nmçÅh\nB7909Fa\nl\nm+*h\nR20424Fa\nl\nmc/h\nR10558Fa\nl\nmNh\nR10424Fa\nl\nmph\n¢g:14552:55Fa\nl\nmxÛh\nB9787Fa\nl\nmú@h\nB7755Fa\nl\nm≥˚h\nR22919Fa\nl\nmúÍh\nR10101Fa\nl\nmq\000h\n¢g:13131:29Fa\nl\nm-õXh\nR10634Fa\nl\nmLÿh\nR42416Fa\nl\nmÙïh\nR32388Fa\nl\nm8ùh\nR25649Fa\nl\nm¥h\n¢g:10518:45Fa\nl\nm	ºmh\nR18359Fa\nl\nm&&6h\nR31564Fa\nl\nmWh\níg:8224:36Fa\nl\nmóh\n≤g:21864:100Fa\nl\nm7ÿ‡h\nB3680Fa\nl\nmh\nR24851Fa\nl\nm÷th\nR24982Fa\nl\nmú@h\nR14828Fa\nl\nmÑÄh\nR24828Fa\nl\nmø h\nR24854Fa\nl\nm©Xh\nB6373Fa\nl\nmNlh\nB5774Fa\nl\nmÍ^h\nB1482Fa\nl\nm‰›hh\nB9774Fa\nl\nmB@h\nB7482Fa\nl\nmúJh\nR15265Fa\nl\nm‘¿h\nB5482Fa\nl\nm-∆¿h\n¢g:10634:46Fa\nl\nmLÿh\nB6541Fa\nl\nm˙Nh\nR34380Fa\nl\nm∑õh\nR43380Fa\nl\nm¸±h\nR12645Fa\nl\nm€‘h\nR28053Fa\nl\nm∆h\nR15331Fa\nl\nm&‹h\nR25086Fa\nl\nmøòh\nR14526Fa\nl\nh\nmøüB9780Fa\nl\nm˚åh\níg:6537:15Fa\nl\nm˚åh\nR20747Fa\nl\nm\r®Jh\nB6582Fa\nl\nmú@h\nB4582Fa\nl\nm(;h\n¢g:14654:44Fa\nl\nm≠∞h\nR40919Fa\nl\nmh\nB2555Fa\nl\nm Ïh\níg:9881:41Fa\nl\nmúJh\nR22851Fa\nl\nmÑéh\nR32851Fa\nl\nmÔh\nB5973Fa\nl\nm\r‚¨h\nR20862Fa\nl\nmh\níg:6610:32Fa\nl\nmÚdh\nR18657Fa\nl\nm(…u`h\nB5069Fa\nl\nmNh\nB7069Fa\nl\nm:óh\nR24753Fa\nl\nmq\000h\n¢g:16723:58Fa\nl\nmÍ_h\nR10189Fa\nl\nmyÃh\nB8170Fa\nl\nmîh\nR32193Fa\nl\nmﬂüh\n¢g:10233:57Fa\nl\nm„`h\nB7078Fa\nl\nm˝h\nB2455Fa\nl\nh\nm\r®JR31242Fa\nl\nmBh\nR10156Fa\nl\nmÜ†h\nB3873Fa\nl\nm4˛h\nR30156Fa\nl\nm>Sh\nR21862Fa\nl\nmIÓh\nR27854Fa\nl\nmh\nR13159Fa\nl\nmGh\níg:1718:43Fa\nl\nm-x2h\nB8169Fa\nl\nm‘h\nB6474Fa\nl\nm\r@h\n¢g:30422:53Fa\nl\nmó∫h\níg:6528:17Fa\nl\nm'h\nB7070Fa\nl\nm≤Ëh\nR31193Fa\nl\nm	«Ëh\nR19228Fa\nl\nmR¿h\nR25142Fa\nl\nmÄÂh\níg:9791:29Fa\nl\nm5Éh\n≤g:32397:130Fa\nl\nmBRh\nR31156Fa\nl\nm\rﬁch\nR32204Fa\nl\nm3Èh\nR10648Fa\nl\nm˘∏h\n¢g:13108:34Fa\nl\nmLK?h\n¢g:10056:43Fa\nl\nmÇ_h\nR38871Fa\nl\nmáåh\nB6370Fa\nl\nmvBh\nR24744Fa\nl\nmdh\nB7087Fa\nl\nmÜüh\n¢g:24937:87Fa\nl\nm,Ωh\n¢g:15532:26Fa\nl\nmB@h\n¢g:15499:18Fa\nl\nm¬‚h\n¢g:24839:93Fa\nl\nmEh\nR10300Fa\nl\nmÜüh\n¢g:10400:18Fa\nl\nmdph\nR31331Fa\nl\nm˝·h\níg:5112:15Fa\nl\nmN h\nR31295Fa\nl\nmGîh\nR11590Fa\nl\nmaßh\n¢g:24743:99Fa\nl\nm≠Lh\nR32540Fa\nl\nm86†h\nR22540Fa\nl\nm‰∆h\nR21546Fa\nl\nmA\nh\nR14919Fa\nl\nmh˚\000h\nB9187Fa\nl\nm,h\nB6270Fa\nl\nmÜüh\nB2955Fa\nl\nm(ƒ“h\nR42744Fa\nl\nm¥Ûh\nR15152Fa\nl\nmûËh\nR23099Fa\nl\nmòXh\nB7438Fa\nl\nm4∆h\nR19288Fa\nl\nm<‘Íh\nR24657Fa\nl\nm~ìh\n¢g:25063:96Fa\nl\nmÍ`h\níg:9806:27Fa\nl\nmÅdh\nB7974Fa\nl\nmÙTh\nR24955Fa\nl\nmûÙh\nB5974Fa\nl\nmNh\nR44955Fa\nl\nm7qh\nB6308Fa\nl\nmdÜh\nB3855Fa\nl\nm	<|h\nB7966Fa\nl\nmàh\níg:9779:18Fa\nl\nm˚åh\n¢g:31250:88Fa\nl\nm˘¯h\nR24899Fa\nl\nmÿh\n≤g:31562:115Fa\nl\nm-„/h\n¢g:16697:57Fa\nl\nm~fh\nB9172Fa\nl\nmD“h\nB4720Fa\nl\nm0¥h\níg:4720:33Fa\nl\nm0¥h\nB8172Fa\nl\nmàËh\níg:2962:10Fa\nl\nm\"√h\nB3172Fa\nl\nmXh\nR12360Fa\nl\nmÆh\nB6538Fa\nl\nmú@h\nR39339Fa\nl\nmHCh\nR43546Fa\nl\nmCıh\n≤g:31199:103Fa\nl\nmRh\nR12810Fa\nl\nm”h\n¢g:17922:10Fa\nl\nmph\níg:2800:26Fa\nl\nmÍﬂh\nB3820Fa\nl\nmT√h\níg:7558:25Fa\nl\nmu0h\nB6272Fa\nl\nmmh\nR23591Fa\nl\nm	Í„h\níg:6600:27Fa\nl\nm&ﬁh\n≤g:34372:159Fa\nl\nmj©h\n≤g:24874:105Fa\nl\nm_êh\nR15976Fa\nl\nmÁ§h\n≤g:31287:109Fa\nl\nm° h\n¢g:12406:50Fa\nl\nm–êh\nR32067Fa\nl\nm£h\nR15416Fa\nl\nmM‹h\níg:9957:50Fa\nl\nmx¥h\nR20858Fa\nl\nmu/h\nR18744Fa\nl\nmJŒh\níg:9786:16Fa\nl\nmaÑh\nB6372Fa\nl\nmú=h\nB4738Fa\nl\nmπ(h\nR20007Fa\nl\nmRh\níg:4726:36Fa\nl\nm:òh\nR35189Fa\nl\nmIe\rh\nR25189Fa\nl\nmNh\nR31180Fa\nl\nm¿´h\n¢g:15309:15Fa\nl\nm'h\n¢g:15331:23Fa\nl\nm&‹h\nR21858Fa\nl\nm$Æ†h\nR31858Fa\nl\nm(ºh\nB4339Fa\nl\nmÙÆh\nR38328Fa\nl\nm\r@h\nR31670Fa\nl\nmúh\n¢g:13110:36Fa\nl\nmòkh\n¢g:15976:36Fa\nl\nmÁ§h\nR13758Fa\nl\nmD”h\nR23758Fa\nl\nm~h\nB6328Fa\nl\nmÍ^h\n¢g:24932:84Fa\nl\nmôh\n≤g:24093:114Fa\nl\nmœ4h\n≤g:31158:109Fa\nl\nm\r´h\nR20748Fa\nl\nmî\\h\n¢g:24702:84Fa\nl\nmø h\nB6554Fa\nl\nm˚åh\nR10055Fa\nl\nmÜùh\n¢g:16681:57Fa\nl\nmı-h\nR20855Fa\nl\nmú?h\n¢g:24947:90Fa\nl\nmA‹h\nR16247Fa\nl\nm»¬h\nR32670Fa\nl\nmÃûh\nR24584Fa\nl\nm^h\n¢g:24813:81Fa\nl\nm\nÖh\nB9428Fa\nl\nm(1òh\nR15492Fa\nl\nm'h\nB6428Fa\nl\nm›–h\nR27498Fa\nl\nm§`h\nR24987Fa\nl\nmÂDh\n¢g:14902:41Fa\nl\nmu0h\n¢g:25161:96Fa\nl\nm˜†h\n¢g:15661:54Fa\nl\nm8Äh\nR44217Fa\nl\nm\n9.h\nR22825Fa\nl\nmXh\nR24217Fa\nl\nm∏êh\nR32208Fa\nl\nmhÑh\nR12208Fa\nl\nmaÿh\n¢g:24610:90Fa\nl\nm√Ph\nR28596Fa\nl\nm	Îh\nR24272Fa\nl\nm™h\n¢g:15525:28Fa\nl\nm√Ph\nR38278Fa\nl\nmØ¿h\nR24035Fa\nl\nmˆh\nR31868Fa\nl\nmK§h\níg:7462:37Fa\nl\nm]¿h\nB2244Fa\nl\nmÔSh\nR24835Fa\nl\nmEh\nR14835Fa\nl\nmh”Ôh\nR43825Fa\nl\nm	Oh\nR33825Fa\nl\nm$h\nR33208Fa\nl\nm^Ëh\nR13492Fa\nl\nmzh\n¢g:18709:50Fa\nl\nmYh\n≤g:30032:128Fa\nl\nmI46h\nR25035Fa\nl\nmÜ†h\n≤g:31282:106Fa\nl\nmoh\n≤g:24654:108Fa\nl\nm˚œh\nR24195Fa\nl\nm´◊h\nR38868Fa\nl\nm†Áh\nR12027Fa\nl\nml¢h\n¢g:10201:48Fa\nl\nmÑÄh\nR19943Fa\nl\nmÅh\n¢g:13022:55Fa\nl\nm».h\nR42461Fa\nl\nm4…h\nR10315Fa\nl\nmNh\nB4044Fa\nl\nmB@h\nB6039Fa\nl\nmÜõh\n¢g:13054:40Fa\nl\nm¥®h\n¢g:24837:90Fa\nl\nm\r∫th\nR31328Fa\nl\nma9h\n≤g:31321:100Fa\nl\nma«h\níg:5964:35Fa\nl\nmáh\nB4039Fa\nl\nm	h\nB3039Fa\nl\nml>h\nB2039Fa\nl\nmK˝ h\nR11737Fa\nl\nmtgh\nR20758Fa\nl\nm	‚£h\nR34539Fa\nl\nm%¬h\nR21278Fa\nl\nmTœÏh\nB6044Fa\nl\nmzh\nR29727Fa\nl\nmzáh\nR35759Fa\nl\nm»h\nR25307Fa\nl\nm˜†h\nR16039Fa\nl\nmöèh\nÇg:940:47Fa\nl\nmá1^h\nR24658Fa\nl\nm‘|h\níg:9886:39Fa\nl\nmN h\nR43539Fa\nl\nmu+h\nR19264Fa\nl\nmr∑h\n¢g:16671:57Fa\nl\nmXÇh\n¢g:16736:58Fa\nl\nm≥Hh\n¢g:24854:99Fa\nl\nm©Xh\nR25905Fa\nl\nm,h\nR25039Fa\nl\nmyXh\nR24307Fa\nl\nmƒñh\nR31254Fa\nl\nmÔPh\nR25195Fa\nl\nm}Äh\nR35195Fa\nl\nm(LZèh\nR28100Fa\nl\nmÕh\n≤g:23503:105Fa\nl\nmOÄh\nR24670Fa\nl\nmø h\n≤g:32571:141Fa\nl\nmiÀ¸h\nR32584Fa\nl\nmÃCh\n¢g:10572:39Fa\nl\nmØ#h\nR10560Fa\nl\nm}h\nR13759Fa\nl\nm0mh\nR33461Fa\nl\nmù–h\n¢g:24730:93Fa\nl\nmÍ`h\nR13461Fa\nl\nm.ﬂh\nR19711Fa\nl\nmu0h\nR15532Fa\nl\nmB@h\n¢g:24596:84Fa\nl\nmc8h\nR29498Fa\nl\nm3èúh\n¢g:28493:94Fa\nl\nm·h\níg:7517:50Fa\nl\nmB@h\nR31340Fa\nl\nmB>h\nR24868Fa\nl\nm©Xh\nR23623Fa\nl\nm\r‚∞h\nR31890Fa\nl\nm∞=,h\nR13066Fa\nl\nm-õXh\nR10601Fa\nl\nm\n h\níg:2987:18Fa\nl\nm?h\nR21941Fa\nl\nm>Äh\n≤g:24650:105Fa\nl\nmB@h\nR31320Fa\nl\nmHzØh\nR21340Fa\nl\nm\r÷+h\n¢g:24599:87Fa\nl\nm√Ph\nR16766Fa\nl\nmÑ>h\nR23868Fa\nl\nm|h\nR24623Fa\nl\nmEh\n¢g:24713:87Fa\nl\nm‹)h\nR19704Fa\nl\nm¥`h\nR13888Fa\nl\nmbmh\nR24941Fa\nl\nmû,h\nR43667Fa\nl\nm0h\n¢g:14440:46Fa\nl\nmVh\nR43541Fa\nl\nm'Òh\n¢g:14167:19Fa\nl\nm˙Nh\nR38855Fa\nl\nm  h\nR15611Fa\nl\nmúJh\nR16006Fa\nl\nmIDh\nR43340Fa\nl\nmNwh\nR31299Fa\nl\nm[Àh\n2944Fa\nl\nmÑ~h\nR18704Fa\nl\nmÑÅh\nR19278Fa\nl\nmÜúh\nR24888Fa\nl\nm8Äh\nR24667Fa\nl\nm√Ph\nB2928Fa\nl\nm√Ph\n¢g:25060:87Fa\nl\nm£õh\nR31905Fa\nl\nm∆h\nR31158Fa\nl\nm\r´h\nR24611Fa\nl\nm√Ph\níg:9776:20Fa\nl\nmóhh\n¢g:14967:56Fa\nl\nm+±√h\nR15414Fa\nl\nm Ùh\nR10222Fa\nl\nmq\000h\nR38943Fa\nl\nm*πÄh\n¢g:17007:51Fa\nl\nm	˛òh\nR41541Fa\nl\nmGzh\nR42963Fa\nl\nm\"h\nR41532Fa\nl\nmgh\nR44158Fa\nl\nm°h\nR38833Fa\nl\nmÍˆh\nR35318Fa\nl\nmÊxh\nR23055Fa\nl\nmsüh\nR13081Fa\nl\nm—∂h\níg:3307:15Fa\nl\nmPh\nR33081Fa\nl\nm\r‚Jh\n¢g:30420:29Fa\nl\nmNh\n¢g:14109:16Fa\nl\nmN h\nR12163Fa\nl\nm&´h\n≤g:24682:117Fa\nl\nm√Ph\nR24601Fa\nl\nm√Ph\nR23503Fa\nl\nmOÄh\n¢g:14971:57Fa\nl\nm+‘èh\n¢g:14241:41Fa\nl\nm◊üh\nR20753Fa\nl\nmú‘h\n¢g:14122:18Fa\nl\nm(¸h\n¢g:25284:87Fa\nl\nm∑Gh\nR24055Fa\nl\nm|h\níg:9792:25Fa\nl\nmóhh\níg:9425:44Fa\nl\nm(+Úh\nR44156Fa\nl\nmÍ_h\nR38878Fa\nl\nmø–h\n≤g:25265:114Fa\nl\nmz0h\nB8839Fa\nl\nmÑh\nR17414Fa\nl\nmÅAh\n¢g:18700:58Fa\nl\nmÑÄh\nR11163Fa\nl\nmoh\nB9828Fa\nl\nmjòh\nR27667Fa\nl\nmc˛h\nR11144Fa\nl\nms?h\n¢g:24845:93Fa\nl\nmEh\nR12054Fa\nl\nm√Nh\nR33866Fa\nl\nmaŸh\nR11081Fa\nl\nmøh\nR29550Fa\nl\nm¬áh\nR24704Fa\nl\nm–êh\n¢g:15491:15Fa\nl\nm∫h\nR38888Fa\nl\nm  h\nR22521Fa\nl\nm'h\nR21881Fa\nl\nm4Xh\nR13943Fa\nl\nmòh\nR24163Fa\nl\nm\nh\nR14163Fa\nl\nmÅdh\nR31856Fa\nl\nm(1-\000h\nR14175Fa\nl\nmh˚\000h\nR38318Fa\nl\nmóÃh\n¢g:24590:84Fa\nl\nm√Ph\nR32753Fa\nl\nm\r€[h\nR24727Fa\nl\nmEh\nR15503Fa\nl\nmB@h\nR16737Fa\nl\nmã£h\nR12055Fa\nl\nmB@h\n¢g:14918:47Fa\nl\nm(1Ôh\nR15415Fa\nl\nmRÉh\nR10498Fa\nl\nmÆDh\nR25868Fa\nl\nmO~h\nR13521Fa\nl\nm;[Oh\nR20881Fa\nl\nm√Ph\nR31272Fa\nl\nm£h\nR34538Fa\nl\nmDµh\n¢g:24633:99Fa\nl\nmdh\nR15601Fa\nl\nm\nÜ¯h\níg:3653:15Fa\nl\nmN h\nR31173Fa\nl\nmÜ0h\nR23596Fa\nl\nmìøh\nR19234Fa\nl\nm¶]h\nB7992Fa\nl\nm\r‚∞h\nR17056Fa\nl\nm…h\n≤g:24646:105Fa\nl\nmthh\nR15420Fa\nl\nm\r®Jh\n≤g:24868:102Fa\nl\nm©Xh\n≤g:32392:130Fa\nl\nmePh\nB6663Fa\nl\nm\rﬁ»h\nB3731Fa\nl\nm'¢h\nR13033Fa\nl\nmPh\nR32210Fa\nl\nmı|h\nR15351Fa\nl\nm'h\nB6892Fa\nl\nmÜüh\níg:9846:35Fa\nl\nm[`h\nB8831Fa\nl\nm4Úh\n¢g:13015:61Fa\nl\nmÊﬁh\nB7922Fa\nl\nmì‡h\nR24883Fa\nl\nmÿÔh\n¢g:14222:37Fa\nl\nm^$h\n≤g:24883:108Fa\nl\nmÿÔh\nR24682Fa\nl\nm√Ph\nR24093Fa\nl\nmœ4h\nR25044Fa\nl\nmõ≥h\nR34105Fa\nl\nm÷uh\nR12694Fa\nl\nmph\nB2163Fa\nl\nm”Wh\nB7931Fa\nl\nmÜ†h\n¢g:44215:35Fa\nl\nm∫∆h\nB4063Fa\nl\nmu0h\n¢g:31134:85Fa\nl\nmÂh\nR37603Fa\nl\nmÉπh\nB2931Fa\nl\nm√Ph\nR24612Fa\nl\nm√Ph\nR21358Fa\nl\nmp˝h\nR33093Fa\nl\nh\nmgB8836Fa\nl\nmîh\nR43354Fa\nl\nm≠Wh\n¢g:12027:63Fa\nl\nml¢h\n≤g:23517:114Fa\nl\nm	E‘h\n¢g:38277:36Fa\nl\nm±(h\nR42966Fa\nl\nm¥∆h\nB3037Fa\nl\nmú@h\nR29533Fa\nl\nmgÊh\nR13025Fa\nl\nmïåh\nB4363Fa\nl\nm∫h\nB6037Fa\nl\nmèh\nR38844Fa\nl\nmÍˆh\nB2836Fa\nl\nmth\nR23626Fa\nl\nm-Ph\n¢g:20964:42Fa\nl\nmu0h\nR40922Fa\nl\nmtWh\nR18631Fa\nl\nm8©h\nR22682Fa\nl\nmŒ¥h\nR13044Fa\nl\nm\n-dh\níg:9796:27Fa\nl\nmÚdh\nR12682Fa\nl\nmph\n¢g:16684:59Fa\nl\nmLÿh\níg:6411:41Fa\nl\nmB@h\n≤g:24777:111Fa\nl\nmø h\nR14806Fa\nl\nmJæh\nB6331Fa\nl\nm\n9/h\nB6537Fa\nl\nm˚åh\nB2990Fa\nl\nmB@h\nR22562Fa\nl\nm–Zh\nR27694Fa\nl\nmª°h\n¢g:14830:42Fa\nl\nm„`h\nR25188Fa\nl\nmY¥h\nR11288Fa\nl\nm\r‚∞h\nR43105Fa\nl\nmlh\níg:9900:40Fa\nl\nm∏Th\n≤g:31225:103Fa\nl\nm]ph\nB1263Fa\nl\nm6h\n≤g:24768:108Fa\nl\nmu0h\nR11208Fa\nl\nm±Ph\nR17033Fa\nl\nm'h\nB9431Fa\nl\nmLK?h\nR24716Fa\nl\nmÀ¨h\nR43357Fa\nl\nmª…h\nB5637Fa\nl\nm:òh\nR23105Fa\nl\nmòXh\n¢g:11981:20Fa\nl\nmR|h\n¢g:14803:55Fa\nl\nmÑÄh\nR10314Fa\nl\nm_èh\n¢g:15575:36Fa\nl\nmB@h\nR15626Fa\nl\nmyhh\nR35210Fa\nl\nm,æh\níg:9855:35Fa\nl\nm£h\nR27686Fa\nl\nmâ-0h\nR43549Fa\nl\nmh\n¢g:15520:26Fa\nl\nmu0h\nR14723Fa\nl\nm)hh\nB9792Fa\nl\nmóhh\níg:8176:41Fa\nl\nmËlh\nR17716Fa\nl\nmT ãh\nR43351Fa\nl\nmÀh\nB6622Fa\nl\nm\rmÄh\nR28291Fa\nl\nmﬂHh\nB4337Fa\nl\nm5h\nR13890Fa\nl\nmG)h\nR45631Fa\nl\nm\rıh\nB9890Fa\nl\nmu0h\nR13288Fa\nl\nm-∆øh\nR15694Fa\nl\nmyÃh\nR35562Fa\nl\nm6Æh\nR43368Fa\nl\nm\"‡h\nB2692Fa\nl\nm√Ph\nR14549Fa\nl\nm†Íh\nR22574Fa\nl\nm?eh\nR32574Fa\nl\nmM©h\nB7436Fa\nl\nmÆÕh\n2814Fa\nl\nm=h\n≤g:21861:114Fa\nl\nmIh\nR17725Fa\nl\nm˚h\n¢g:15120:26Fa\nl\nmÅdh\nR25105Fa\nl\nmÊ0h\nR22890Fa\nl\nm\r®Jh\nR21765Fa\nl\nm‰Éh\nR15969Fa\nl\nm°h\nB7990Fa\nl\nm\r‚∞h\níg:6378:17Fa\nl\nm)°h\nR14922Fa\nl\nmòñÄh\nR24368Fa\nl\nm|õh\n¢g:14117:16Fa\nl\nmN h\nR21844Fa\nl\nm\rÓh\nR24709Fa\nl\nmEh\n¢g:10633:51Fa\nl\nmjœRh\nB3282Fa\nl\nm)h\nB6040Fa\nl\nmcöh\n≤g:23824:112Fa\nl\nm;[Kh\n¢g:15138:60Fa\nl\nmB?h\nB9386Fa\nl\nmo\rh\nB8386Fa\nl\nm\r‚∞h\nR24246Fa\nl\nm$µh\nR43119Fa\nl\nmÎh\níg:9491:32Fa\nl\nm(1òh\nR23119Fa\nl\nms;h\nR24169Fa\nl\nm\r<h\nB5140Fa\nl\nm√Ph\nB2140Fa\nl\nmNh\n¢g:10390:63Fa\nl\nmÑÄh\nR32209Fa\nl\nm/Qh\nR32229Fa\nl\nm3Íh\n¢g:10371:58Fa\nl\nm4Oh\nR12229Fa\nl\nmNh\nR22844Fa\nl\nm\r‚∞h\n¢g:10388:63Fa\nl\nm„`h\n¢g:31228:91Fa\nl\nm≠,h\nB4382Fa\nl\nmüh\nR18600Fa\nl\nmp¸h\nB7963Fa\nl\nmß‡h\nB5963Fa\nl\nmB@h\nR10056Fa\nl\nmÇ_h\n¢g:24929:84Fa\nl\nm√Ph\nB3040Fa\nl\nm>h\nR31209Fa\nl\nm¬hh\níg:7532:47Fa\nl\nmyhh\nR12978Fa\nl\nm∂¶h\nB7082Fa\nl\nmƒih\nB6586Fa\nl\nmóhh\n≤g:24776:111Fa\nl\nm_êh\nB9863Fa\nl\nmÚdh\n¢g:24620:93Fa\nl\nm√Ph\nR10562Fa\nl\nm¥|h\nR25033Fa\nl\nm¡\000h\nR13893Fa\nl\nma®h\níg:4397:40Fa\nl\nm˙`h\nR24653Fa\nl\nm√Ph\nR24209Fa\nl\nm\räÃh\nB5486Fa\nl\nmu-h\nB3486Fa\nl\nmW‡h\nR12240Fa\nl\nmøh\nR15259Fa\nl\nm‡8h\nB4231Fa\nl\nm:ïh\níg:8183:27Fa\nl\nml>h\n≤g:24879:108Fa\nl\nm≠∞h\níg:9860:34Fa\nl\nmÚdh\nR15742Fa\nl\nmOÄh\nR31562Fa\nl\nm-„/h\n¢g:15084:53Fa\nl\nm|h\nB8486Fa\nl\nm».h\nR24033Fa\nl\nm,Bh\nR15169Fa\nl\nmûËh\n¢g:15058:59Fa\nl\nmïh\nR25653Fa\nl\nmÊ›h\n¢g:31138:88Fa\nl\nmÜ†h\nR14477Fa\nl\nm≈yh\nR20868Fa\nl\nm‘.h\nR24477Fa\nl\nmî\rh\nR25844Fa\nl\nm^˙h\nR42397Fa\nl\nmch\nR32397Fa\nl\nmBRh\nB9786Fa\nl\nmaÑh\n¢g:24711:87Fa\nl\nm‘¿h\níg:6268:13Fa\nl\nmIÔh\n≤g:34380:159Fa\nl\nm∑õh\n¢g:24709:87Fa\nl\nmEh\níg:9427:42Fa\nl\nmLK?h\nR38883Fa\nl\nm  h\nR43371Fa\nl\nmªoh\n¢g:24601:87Fa\nl\nm√Ph\nR24600Fa\nl\nm√Ph\níg:8186:26Fa\nl\nm:´h\níg:9856:36Fa\nl\nm£h\nR25090Fa\nl\nm<lh\n¢g:14441:50Fa\nl\nmjœ¿h\nR21843Fa\nl\nm~Öh\nB6563Fa\nl\nmN h\níg:8287:57Fa\nl\nm≠Øh\nR22307Fa\nl\nm ‰h\n¢g:12011:41Fa\nl\nmù–h\nR10371Fa\nl\nm4Oh\níg:9509:30Fa\nl\nm‰∂Xh\nR43420Fa\nl\nmƒ¡h\nR13035Fa\nl\nmÜ4h\nR14090Fa\nl\nmNh\n¢g:15630:49Fa\nl\nm˛xh\nR42399Fa\nl\nmh\nR24610Fa\nl\nm√Ph\n≤g:25029:120Fa\nl\nm–êh\n¢g:15694:54Fa\nl\nmyÃh\n¢g:13040:56Fa\nl\nm–çh\nR25119Fa\nl\nmÉÄh\nR11371Fa\nl\nmph\níg:9870:36Fa\nl\nm√Ph\nR14229Fa\nl\nm£h\n≤g:31216:109Fa\nl\nm—ªh\n¢g:24834:90Fa\nl\nm¸«h\nR32420Fa\nl\nm	sÈh\nR24844Fa\nl\nmEh\n¢g:14969:59Fa\nl\nm(÷Lh\nR10035Fa\nl\nmÄ?h\nR43397Fa\nl\nmRÆh\nR43399Fa\nl\nmLçh\nB9886Fa\nl\nmN h\nB9763Fa\nl\nm@h\níg:7930:46Fa\nl\nmIh\n≤g:31303:115Fa\nl\nm4Ph\nR14119Fa\nl\nmB@h\n¢g:20818:22Fa\nl\nmN h\nR25229Fa\nl\nmzh\níg:5214:32Fa\nl\nm√Ph\n¢g:10506:46Fa\nl\nm6`h\nR29539Fa\nl\nmk3h\nB6349Fa\nl\nm6´h\nB4349Fa\nl\nm\r‚∞h\nR19702Fa\nl\nm8Æh\n¢g:24924:81Fa\nl\nmy§h\nR27660Fa\nl\nm-h\nR10386Fa\nl\nmÑÄh\nR14227Fa\nl\nmJáh\nB7349Fa\nl\nm\nÇ<h\nB7444Fa\nl\nm£h\nR32392Fa\nl\nmePh\nR22572Fa\nl\nmN h\nR24037Fa\nl\nm\nÉh\n≤g:32508:100Fa\nl\nmW.h\níg:9783:20Fa\nl\nm@h\nB2449Fa\nl\nmT8h\nR31875Fa\nl\nm√Äh\nR24925Fa\nl\nm	Îh\nR14925Fa\nl\nmÑÄh\nB2744Fa\nl\nm≥h\níg:1203:54Fa\nl\nm h\nR12203Fa\nl\nmh\nR19819Fa\nl\nm\r®Hh\nR23572Fa\nl\nm©\"h\nR15412Fa\nl\nmPh\nR22308Fa\nl\nm\r‚ßh\n≤g:25005:111Fa\nl\nm^|h\nB3174Fa\nl\nm	h\nB6149Fa\nl\nh\nm\r‚∞R23100Fa\nl\nmáh\nR16023Fa\nl\nmÜüh\nR21887Fa\nl\nmd¢h\n¢g:14176:26Fa\nl\nm'h\nB2701Fa\nl\nmh\nR23203Fa\nl\nm\rh\nR24897Fa\nl\nmÜ†h\nR20075Fa\nl\nmmh\nR19258Fa\nl\nmL€h\nB3858Fa\nl\nm<h\nR43364Fa\nl\nmCh\nR24652Fa\nl\nmkVh\nR24873Fa\nl\nmh\nR12693Fa\nl\nm\r‚∞h\nR13308Fa\nl\nmp˛h\n≤g:31201:103Fa\nl\nmÙ\000h\nR16000Fa\nl\nmDúh\nR19275Fa\nl\nm\000Hh\níg:6548:16Fa\nl\nmN h\n¢g:14924:57Fa\nl\nm(1,ˇh\nR30307Fa\nl\nm\"–h\n≤g:24657:108Fa\nl\nm~ìh\nR10307Fa\nl\nmö$h\n¢g:31238:94Fa\nl\nm⁄Th\nR13897Fa\nl\nm„_h\n≤g:24758:105Fa\nl\nm\r@h\nR32428Fa\nl\nmÓ´h\n2873Fa\nl\nm‰Ôìh\nR25652Fa\nl\nm˛Îh\níg:9795:26Fa\nl\nmÄÓh\n¢g:10389:64Fa\nl\nm‘¿h\n¢g:24588:81Fa\nl\nm\nÇüh\nR21284Fa\nl\nmOÄh\nR34378Fa\nl\nm(óh‡h\n≤g:24663:111Fa\nl\nm_,h\n≤g:24266:105Fa\nl\nmó˙@h\nR31203Fa\nl\nm‹h\nB7076Fa\nl\nm'h\nR11203Fa\nl\nm*ªh\nB1076Fa\nl\nmÊxh\n¢g:21790:56Fa\nl\nmaÛh\nR18356Fa\nl\nm\r®Jh\nB6522Fa\nl\nmœh\nR22832Fa\nl\nh\nm2783Fa\nl\nm8h\n≤g:24863:102Fa\nl\nmß∏h\n¢g:39507:20Fa\nl\nmõˇh\nR20878Fa\nl\nm^h\n¢g:15626:47Fa\nl\nmyhh\n¢g:13070:58Fa\nl\nmËh\nR43378Fa\nl\nm≠h\níg:4721:35Fa\nl\nm	h\nR13929Fa\nl\nmD~h\nB6049Fa\nl\nm´åh\nR31837Fa\nl\nmÍYh\n¢g:25045:84Fa\nl\nmN\rh\nB9422Fa\nl\nm.´h\nR34859Fa\nl\nm˚Ùh\níg:9844:38Fa\nl\nm√Ph\nR31318Fa\nl\nm'/h\nR35207Fa\nl\nmVpËh\n¢g:14920:51Fa\nl\nm(T©@h\nR27693Fa\nl\nm¶Zh\níg:6541:16Fa\nl\nm˙Nh\níg:2865:21Fa\nl\nm√Ph\nR24641Fa\nl\nmoäh\n¢g:20960:37Fa\nl\nmOLh\nR38873Fa\nl\nmè¨h\nR10318Fa\nl\nm√Ph\níg:7543:47Fa\nl\nm\nÜ¯h\níg:9775:19Fa\nl\nm˚åh\nR24832Fa\nl\nmEh\nR24207Fa\nl\nmÕh\nR34207Fa\nl\nm‘™h\nR16702Fa\nl\nmAVh\nR21929Fa\nl\nmoh\níg:9941:49Fa\nl\nmyhh\n≤g:31209:109Fa\nl\nm¬hh\nR14639Fa\nl\nmøh\nB8176Fa\nl\nmËlh\nR24639Fa\nl\nmòh\n¢g:15431:59Fa\nl\nmÑÄh\nR18258Fa\nl\nmåh\níg:1318:23Fa\nl\nmüÒh\nR16723Fa\nl\nmÍ_h\n¢g:13056:56Fa\nl\nmãvh\nR40924Fa\nl\nm%‡h\n¢g:12528:52Fa\nl\nmßÃh\nR30483Fa\nl\nmmh\níg:6569:25Fa\nl\nm0=h\nR31143Fa\nl\nmj∑h\n¢g:10385:62Fa\nl\nmÑÄh\nR25284Fa\nl\nm∑Gh\n¢g:14966:61Fa\nl\nm(ıˇh\n¢g:45631:54Fa\nl\nm\rıh\nR38838Fa\nl\nm∑Th\nR24615Fa\nl\nm√Ph\nR31322Fa\nl\nm\000ch\níg:2990:21Fa\nl\nmB@h\níg:9422:43Fa\nl\nm.´h\nR38866Fa\nl\nm‘¿h\nR24951Fa\nl\nmÍ`h\nR20859Fa\nl\nmu0h\níg:7447:36Fa\nl\nm£h\nR25056Fa\nl\nmGEh\nR15056Fa\nl\nmC€|h\nR31199Fa\nl\nmRh\n≤g:24897:114Fa\nl\nmÜ†h\nR24621Fa\nl\nm\nÇüh\nB3737Fa\nl\nmB@h\nR14428Fa\nl\nmu0h\nR41105Fa\nl\nmˇ-h\nR13496Fa\nl\nm0h\nR23440Fa\nl\nmÕh\nR25055Fa\nl\nmÿÃh\nB9036Fa\nl\nmàËh\nR32850Fa\nl\nmTh\nR22850Fa\nl\nm˘’h\nR13947Fa\nl\nmàµh\nR31859Fa\nl\nmòoph\nB3036Fa\nl\nmu0h\n¢g:15269:24Fa\nl\nm≠∞h\n¢g:20955:33Fa\nl\nmJ8h\nR24934Fa\nl\nm`¸h\nR32398Fa\nl\nm7«h\nR42398Fa\nl\nm⁄h\n≤g:24656:108Fa\nl\nmÛ,h\nR12702Fa\nl\nm„_h\nR14258Fa\nl\nm\nÜ¯h\nR14440Fa\nl\nmVh\nR29958Fa\nl\nmT`h\nR31333Fa\nl\nm!ëøh\níg:2579:14Fa\nl\nm√Ph\n¢g:25061:90Fa\nl\nm√Ph\nR43850Fa\nl\nm\000h\nR14109Fa\nl\nmN h\níg:1169:46Fa\nl\nmA˝h\nR34440Fa\nl\nm*Ûh\níg:9782:23Fa\nl\nm0‘h\n≤g:31220:109Fa\nl\nm€h\níg:9826:34Fa\nl\nmjòh\nB2749Fa\nl\nm\"'h\n≤g:31339:100Fa\nl\nm\r\\7h\nR19682Fa\nl\nm	n©h\nR32413Fa\nl\nm\"°h\nR29506Fa\nl\nm&%†h\nR16717Fa\nl\nmköh\níg:6587:24Fa\nl\nmN h\nR14966Fa\nl\nm(ıˇh\nR21154Fa\nl\nm9˚¿h\nR24838Fa\nl\nmÈ¸h\nR43335Fa\nl\nmæûh\nR24056Fa\nl\nm!±h\nR14046Fa\nl\nh\nm)R37118Fa\nl\nmÉh\nR38682Fa\nl\nmÑÌh\níg:3415:24Fa\nl\nm/—h\n¢g:10578:38Fa\nl\nmõh\nR23765Fa\nl\nm4úh\nR43428Fa\nl\nmh\nR24603Fa\nl\nm√Ph\n≤g:24913:120Fa\nl\nmÊ0h\nR14496Fa\nl\nmûJh\nB9849Fa\nl\nm*h\n¢g:10276:56Fa\nl\nm-∆¿h\nR14511Fa\nl\nmBˆh\nB3358Fa\nl\nm“h\nB6358Fa\nl\nm/th\nR13046Fa\nl\nmlPh\nR28118Fa\nl\nm–êh\nR27682Fa\nl\nm¥7h\nR17682Fa\nl\nm\r‚∞h\nR39000Fa\nl\nmÑ8h\níg:3195:18Fa\nl\nmZ/h\nR31398Fa\nl\nm&fh\n≤g:24891:111Fa\nl\nmø h\nR30044Fa\nl\nmJãHh\nR10210Fa\nl\nm\nÆ`h\nÇg:812:54Fa\nl\nmÒ¯h\nR32228Fa\nl\nm‘øh\nR31335Fa\nl\nmˇåh\nR10392Fa\nl\nm\r@h\n¢g:14835:48Fa\nl\nmh”Ôh\nR13511Fa\nl\nm≠∞h\nR35315Fa\nl\nmq\000h\nR16046Fa\nl\nmøh\nR16083Fa\nl\nmØﬂh\n¢g:24852:96Fa\nl\nm©Xh\nR38934Fa\nl\nmv∂h\n≤g:24987:105Fa\nl\nmÂDh\nR10572Fa\nl\nmØ#h\níg:5207:20Fa\nl\nmú@h\nR12228Fa\nl\nmú>h\nR18652Fa\nl\nmÍ\\h\nR23448Fa\nl\nmMh\nR29549Fa\nl\nmí¸h\n≤g:29491:112Fa\nl\nm%/Bh\nR43413Fa\nl\nmTZh\nR38947Fa\nl\nm  h\nR13495Fa\nl\nm´*h\nR31572Fa\nl\nm	G h\nR25046Fa\nl\nm√Ph\nB7558Fa\nl\nmu0h\n¢g:14114:16Fa\nl\nmN h\nR39340Fa\nl\nm0oh\nR38924Fa\nl\nmoc9h\nR25849Fa\nl\nm\nh\nB3667Fa\nl\nm\\h\nR25102Fa\nl\nmÀ¨h\nR31188Fa\nl\nm#çêh\nB2996Fa\nl\nm4!h\nR11188Fa\nl\nmbh\nR29532Fa\nl\nm° h\nR23594Fa\nl\nmìøh\nB7912Fa\nl\nmNh\nR19183Fa\nl\nmFh\nB9826Fa\nl\nmjòh\nB9253Fa\nl\nm\r®Jh\nR23782Fa\nl\nmÀËh\nR33782Fa\nl\nmˆh\nR24823Fa\nl\nm\r@h\nR38850Fa\nl\nm  h\nB3826Fa\nl\nmh\nR22849Fa\nl\nm)h\nR32849Fa\nl\nm\n+h\n≤g:24688:120Fa\nl\nmhûh\nR28102Fa\nl\nm€h\nR12404Fa\nl\nmÄh\nR15363Fa\nl\nmûËh\nB9861Fa\nl\nm£h\nR20553Fa\nl\nm-ü∞h\nR24666Fa\nl\nm≠∞h\n¢g:14365:15Fa\nl\nm(üh\níg:2099:58Fa\nl\nm∂bh\nB2553Fa\nl\nm`%h\nR21842Fa\nl\nmMXh\níg:4738:42Fa\nl\nmπ(h\nB6612Fa\nl\nmÅdh\nB3860Fa\nl\nm**h\nB7553Fa\nl\nm° h\nR27651Fa\nl\nm$>h\nR15737Fa\nl\nm\r‚Æh\níg:6432:41Fa\nl\nmu0h\nR24050Fa\nl\nmDxh\nB5467Fa\nl\nm'h\níg:4729:39Fa\nl\nmÑÄh\nR11404Fa\nl\nm0h\nR14512Fa\nl\nm)÷h\níg:9845:35Fa\nl\nmÚdh\nR34363Fa\nl\nmèn∫h\nR24616Fa\nl\nm√Ph\nR23506Fa\nl\nmLÿh\nR27532Fa\nl\nm/£h\n¢g:25162:99Fa\nl\nm‡h\n≤g:25043:120Fa\nl\nm3Ih\nR10097Fa\nl\nmòh\nB4461Fa\nl\nmh\n¢g:25030:81Fa\nl\nmùMh\n≤g:21870:105Fa\nl\nmB@h\nR25088Fa\nl\nmø h\nR15088Fa\nl\nmÜüh\n≤g:32395:130Fa\nl\nmoh\nB7053Fa\nl\nmú@h\n¢g:21767:52Fa\nl\nm·Úh\nR15125Fa\nl\nmÅdh\nR25846Fa\nl\nmﬂh\nB6053Fa\nl\nmFPh\nR42737Fa\nl\nmhh\n≤g:25686:112Fa\nl\nm5!h\n¢g:10035:35Fa\nl\nmÄ?h\nR22553Fa\nl\nm;jÌh\nR38944Fa\nl\nm h\nR15520Fa\nl\nmu0h\n≤g:31304:115Fa\nl\nm·@h\nR25651Fa\nl\nmíCh\n¢g:15304:16Fa\nl\nm˚åh\nB3314Fa\nl\nmO†h\nR23737Fa\nl\nm0”h\nR16050Fa\nl\nmI‚h\nR33823Fa\nl\nmHGh\nB4353Fa\nl\nm\rmh\n¢g:24934:87Fa\nl\nm`¸h\nR25719Fa\nl\nmÙh\nR24924Fa\nl\nmy§h\nR32205Fa\nl\nm∏ˆh\n¢g:15614:45Fa\nl\nm\nÜ¯h\nR12205Fa\nl\nmƒh\nR43356Fa\nl\nm{h\nR43553Fa\nl\nmÑ¡h\n¢g:15981:47Fa\nl\nmÜ†h\nB6361Fa\nl\nm:ôh\nB7361Fa\nl\nmS\000h\n¢g:14091:11Fa\nl\nm˚åh\n¢g:18698:56Fa\nl\nm<∫ﬁh\nB3426Fa\nl\nm„_h\nB9426Fa\nl\nmLK?h\nR20263Fa\nl\nmHçh\níg:9378:38Fa\nl\nmòkh\nB9360Fa\nl\nmDTh\nR25022Fa\nl\nmkàh\n¢g:31168:82Fa\nl\nm1x‚h\n≤g:24687:120Fa\nl\nm-h\níg:6616:32Fa\nl\nmjòh\nR23621Fa\nl\nm8Nh\nR31308Fa\nl\nmz\rh\nR37159Fa\nl\nmÖ4h\nB7461Fa\nl\nmqHh\nB4361Fa\nl\nm§h\n¢g:15222:19Fa\nl\nm1∆h\nR32833Fa\nl\nmMºh\nR22833Fa\nl\nm2h\nR12833Fa\nl\nm¬Íh\nB6326Fa\nl\nm√Lh\nB8292Fa\nl\nmìYh\nB8153Fa\nl\nmÙ:h\nB7460Fa\nl\nmqHh\nB4292Fa\nl\nm'h\nR14125Fa\nl\nmñéh\nB2292Fa\nl\nmj§Xh\nR10512Fa\nl\nm∆h\nB9298Fa\nl\nm`‡h\nR14205Fa\nl\nmÚdh\nR24205Fa\nl\nm\r∫ÿh\nR10301Fa\nl\nmˇÀh\nB3867Fa\nl\nm\r‚Øh\níg:2246:58Fa\nl\nm·˚h\nR25802Fa\nl\nmÙïh\níg:7407:35Fa\nl\nm£h\nR38897Fa\nl\nmíh\nR14097Fa\nl\nm˙Mh\nR24097Fa\nl\nmÈ&h\nR14262Fa\nl\nmﬂ\rh\nB8186Fa\nl\nm:´h\nB7560Fa\nl\nmø h\nR24869Fa\nl\nmIh\nR15531Fa\nl\nmB@h\nR19279Fa\nl\nm4h\nR14654Fa\nl\nm≠∞h\nR24654Fa\nl\nm˚œh\n¢g:13048:31Fa\nl\nm›–h\nR13512Fa\nl\nmì”h\nB5967Fa\nl\nmú@h\nR38935Fa\nl\nmÃOh\nR10506Fa\nl\nm6`h\n≤g:32580:141Fa\nl\nm-õbh\nR23636Fa\nl\nmvèêh\nB3198Fa\nl\nmwdh\nB3712Fa\nl\nm\r\nh\nR24594Fa\nl\nm˛xh\nR19272Fa\nl\nm(ƒh\níg:2991:21Fa\nl\nmB@h\nB7086Fa\nl\nm\r‚∞h\nÇg:727:10Fa\nl\nml>h\n¢g:24608:90Fa\nl\nm√Ph\nR21947Fa\nl\nm\r‚Øh\nR43385Fa\nl\nm_âh\nB6050Fa\nl\nm(,Äh\nR32217Fa\nl\nmÛhh\n¢g:15018:20Fa\nl\nm˚åh\n≤g:31219:109Fa\nl\nmªIh\nR31878Fa\nl\nm	íÎh\níg:6367:30Fa\nl\nmÙ h\n2833Fa\nl\nmøh\nR42973Fa\nl\nm$…h\n¢g:24829:87Fa\nl\nmø h\nB5112Fa\nl\nmN h\nR12217Fa\nl\nmO=h\nB8112Fa\nl\nm[ïh\nB3192Fa\nl\nm'h\nB9061Fa\nl\nm_h\n2943Fa\nl\nm=	\000h\n≤g:25125:114Fa\nl\nm[`h\nR12698Fa\nl\nmèÁh\n¢g:25287:96Fa\nl\nmx«h\nR22790Fa\nl\nmîvh\n≤g:31329:100Fa\nl\nm#Mph\nR23118Fa\nl\nmklh\nR32219Fa\nl\nm∑ph\nR45776Fa\nl\nm$∑h\n¢g:10383:61Fa\nl\nmπåh\nR12219Fa\nl\nmîh\nB8496Fa\nl\nmÓ˚h\nR21869Fa\nl\nmB@h\nB3914Fa\nl\nm*èh\níg:6581:21Fa\nl\nmóhh\n¢g:25033:90Fa\nl\nm¡\000h\n≤g:31286:109Fa\nl\nm∂øh\nR21790Fa\nl\nmaÛh\nR10391Fa\nl\nmÑÄh\nR31219Fa\nl\nmªIh\nR21219Fa\nl\nmMEh\nB3396Fa\nl\nm˛Ih\nB9853Fa\nl\nmW0h\n¢g:24619:93Fa\nl\nm√Ph\nB9396Fa\nl\nm(…u`h\níg:2807:23Fa\nl\nm-üØh\nB3853Fa\nl\nm\rØh\nB7392Fa\nl\nmsHh\n¢g:14841:44Fa\nl\nm„`h\nR41531Fa\nl\nmäh\nB4392Fa\nl\nmè8h\nR19271Fa\nl\nm3Èh\n≤g:23506:103Fa\nl\nmLÿh\nB8150Fa\nl\nm'h\nR18654Fa\nl\nm0hh\n¢g:21765:48Fa\nl\nm‰Éh\n¢g:15088:60Fa\nl\nmÜüh\n≤g:32568:141Fa\nl\nmIÎh\nR18594Fa\nl\nmnh\nR14560Fa\nl\nmB@h\n¢g:20696:63Fa\nl\nm¸h\n¢g:31180:97Fa\nl\nm¿´h\n¢g:14174:19Fa\nl\nm˚åh\n≤g:24880:108Fa\nl\nm≠∞h\nR10389Fa\nl\nm‘¿h\n¢g:24600:87Fa\nl\nm√Ph\n¢g:13014:53Fa\nl\nm¿h\nR50166Fa\nl\nm«‡h\nR23793Fa\nl\nmWh\níg:1076:25Fa\nl\nmÊxh\n¢g:12052:21Fa\nl\nmN h\nB3653Fa\nl\nmN h\níg:9777:19Fa\nl\nm˚åh\nR24842Fa\nl\nmÙ$h\nR15577Fa\nl\nm˛∞h\nR32897Fa\nl\nmÑPh\n¢g:31148:91Fa\nl\nmc0h\nB9844Fa\nl\nm√Ph\nR20520Fa\nl\nmNh\nR22448Fa\nl\nmj@h\n¢g:14859:57Fa\nl\nmjœ¿h\nR24271Fa\nl\nmÁ‚h\nR21943Fa\nl\nmøh\nR43355Fa\nl\nmu/h\nR12207Fa\nl\nmÑ≠h\nR32207Fa\nl\nmÉ(h\nR22793Fa\nl\nmt™h\nR14445Fa\nl\nmjœ¿h\n≤g:23514:114Fa\nl\nm	\000Øh\nR10050Fa\nl\nmâh\nR10385Fa\nl\nmÑÄh\n≤g:24916:120Fa\nl\nm5ƒh\níg:9885:40Fa\nl\nm£h\nR21279Fa\nl\nm\nKÜh\n¢g:13146:58Fa\nl\nmiÉh\nR22389Fa\nl\nmB@h\nB7067Fa\nl\nmx¥h\nR18512Fa\nl\nm‚,h\n¢g:24935:87Fa\nl\nmíòh\nB4067Fa\nl\nm	h\nR28363Fa\nl\nmB@h\nR35219Fa\nl\nmï˛oh\nR24299Fa\nl\nm·ˇh\nB2453Fa\nl\nm4üh\níg:9852:38Fa\nl\nmH£h\nB9796Fa\nl\nmÚdh\nR23445Fa\nl\nm8§h\nR25887Fa\nl\nm\r@h\nR13445Fa\nl\nmØ•h\nR43391Fa\nl\nm√Mh\nR40897Fa\nl\nm%2h\n≤g:30838:114Fa\nl\nmsåh\nR13457Fa\nl\nm&¨h\nR15050Fa\nl\nm∫Ãh\nR25050Fa\nl\nm˚œh\nÇg:867:42Fa\nl\nmøœh\nR22279Fa\nl\nmY€Rh\níg:7481:42Fa\nl\nmûËh\nR20404Fa\nl\nmAüh\n¢g:14193:31Fa\nl\nmjòh\níg:3039:23Fa\nl\nml>h\nR11166Fa\nl\nmáh\nR24219Fa\nl\nmEh\nR20973Fa\nl\nm8h\nR44219Fa\nl\nmlœh\nR25299Fa\nl\nmEh\n¢g:15370:44Fa\nl\nmúJh\nR44147Fa\nl\nmøh\nR22445Fa\nl\nmTmh\nB7753Fa\nl\nmc”h\nR22577Fa\nl\nmVh\nR32577Fa\nl\nm'2h\nB9944Fa\nl\nmô h\nR32391Fa\nl\nm$w(h\nR24686Fa\nl\nmh\níg:1716:40Fa\nl\nm†ºh\nR45775Fa\nl\nmr	h\n¢g:31181:91Fa\nl\nm9qh\nR33872Fa\nl\nm ∫h\n¢g:14828:42Fa\nl\nmÑÄh\nR22739Fa\nl\nm(0∑–h\nB2243Fa\nl\nmT≈ch\níg:4369:21Fa\nl\nm~h\nB1315Fa\nl\nm° h\nB3315Fa\nl\nmÑÄh\nR24593Fa\nl\nmIh\nR27422Fa\nl\nmth\n¢g:14974:55Fa\nl\nm˜Hh\nR14255Fa\nl\nmûËh\nR24255Fa\nl\nm3>h\n¢g:10097:57Fa\nl\nmòh\nR19817Fa\nl\nm\r®Ih\n¢g:14097:14Fa\nl\nm˙Mh\nR15012Fa\nl\nm)™h\nR25012Fa\nl\nmB@h\nR18239Fa\nl\nm-ü∞h\n¢g:24955:93Fa\nl\nmûÙh\nB5833Fa\nl\nm¥⁄h\níg:8190:55Fa\nl\nm\rîsh\nR23593Fa\nl\nm	Í„h\nR22829Fa\nl\nm%˜h\n≤g:31211:109Fa\nl\nmk”h\nR14343Fa\nl\nm$qh\nR38937Fa\nl\nmÄ$h\n¢g:24938:87Fa\nl\nmEh\n¢g:20407:60Fa\nl\nm√Jh\nR11207Fa\nl\nm	NŒh\nB9799Fa\nl\nm.‡h\nR25172Fa\nl\nm\náh\nB5215Fa\nl\nmËTh\n¢g:13045:35Fa\nl\nm4\\h\n¢g:24704:84Fa\nl\nm–êh\nR38919Fa\nl\nmªh\n¢g:24630:99Fa\nl\nmÛ,h\nB6533Fa\nl\nm6∞h\nR13479Fa\nl\nm‚h\nR12958Fa\nl\nmì¡h\nR12692Fa\nl\nmÙ h\n≤g:34374:159Fa\nl\nm∑˝h\nR18256Fa\nl\nm¬Œh\nR20515Fa\nl\nmB@h\nR10332Fa\nl\nmj§Xh\níg:7429:40Fa\nl\nmÚdh\n≤g:24982:105Fa\nl\nmú@h\nR15527Fa\nl\nmB@h\nR30034Fa\nl\nmSÙ›h\nB5633Fa\nl\nmBìh\nR24276Fa\nl\nm\rõóh\nB2633Fa\nl\nm\r‚∞h\n¢g:24735:96Fa\nl\nmEh\nR39338Fa\nl\nm-h\nR10276Fa\nl\nm-∆¿h\nR10559Fa\nl\nmDúh\nR15741Fa\nl\nmCﬂ\000h\nR24029Fa\nl\nmIåh\nB8123Fa\nl\nmph\n¢g:24833:90Fa\nl\nm\r?h\n≤g:24896:114Fa\nl\nmph\nB8400Fa\nl\nm≠∞h\n¢g:13046:50Fa\nl\nmlPh\nB4400Fa\nl\nmõÚh\nB6512Fa\nl\nm˚åh\nR42470Fa\nl\nm‰Fh\nB6543Fa\nl\nm@h\nR32470Fa\nl\nmzh\nR24245Fa\nl\nmxh\n≤g:25071:120Fa\nl\nm4ˇh\n≤g:29506:105Fa\nl\nm&%†h\níg:6267:12Fa\nl\nm˚åh\nR25029Fa\nl\nm–êh\nR14552Fa\nl\nmxÛh\nB8223Fa\nl\nmLhh\nR24705Fa\nl\nm√Ph\nR15409Fa\nl\nmk≤h\n¢g:24614:93Fa\nl\nm√Ph\nB1705Fa\nl\nmRœh\n≤g:31202:100Fa\nl\nm‡Qh\n≤g:32577:141Fa\nl\nm'2h\nB8500Fa\nl\nm)2⁄h\n¢g:14781:44Fa\nl\nmì‡h\n≤g:31292:112Fa\nl\nm0gh\nB5500Fa\nl\nmN h\nR24602Fa\nl\nm√Ph\nR10373Fa\nl\nm„`h\nB7443Fa\nl\nm¢÷h\nR27858Fa\nl\nm.Ph\nR21872Fa\nl\nm-∆øh\n¢g:25089:90Fa\nl\nmÍ`h\n≤g:34378:159Fa\nl\nm(óh‡h\n≤g:31305:115Fa\nl\nmAÿh\nR27692Fa\nl\nmîh\nR22527Fa\nl\nmÄh\n≤g:34376:159Fa\nl\nmjËh\nB2605Fa\nl\nm&§h\n¢g:10024:46Fa\nl\nmÀÉh\n¢g:19682:65Fa\nl\nm	n©h\nR37602Fa\nl\nm“(h\nR25034Fa\nl\nmÀ¨h\nR23784Fa\nl\nm_Ùh\nR31218Fa\nl\nm-x†h\nR41527Fa\nl\nm$Rh\n¢g:13051:44Fa\nl\nm\n4Äh\nR19281Fa\nl\nmr∑h\nB9030Fa\nl\nm9ëh\nR29528Fa\nl\nm\r§0h\n≤g:29496:112Fa\nl\nm+±Ñh\níg:9960:47Fa\nl\nmN h\nB5643Fa\nl\nmÜ†h\nR22373Fa\nl\nm'Bh\n¢g:15970:15Fa\nl\nm°h\nB4412Fa\nl\nmÜ†h\nR14801Fa\nl\nm–êh\níg:1935:24Fa\nl\nm‰›hh\níg:3855:37Fa\nl\nm	<|h\nR43332Fa\nl\nmMœh\nB4232Fa\nl\nmÑªh\n¢g:25103:90Fa\nl\nmEh\nR43515Fa\nl\nm° h\n¢g:25032:87Fa\nl\nmõxh\nR11174Fa\nl\nm5h\nB3199Fa\nl\nmú@h\nR24724Fa\nl\nmπ¯h\nR14423Fa\nl\nmB@h\nR14858Fa\nl\nm(1Ôh\nR31174Fa\nl\nm%h\nR13034Fa\nl\nmáÄh\níg:3413:25Fa\nl\nmK˝ h\nR31183Fa\nl\nm!>†h\n¢g:10574:40Fa\nl\nm‰∂Xh\n¢g:12977:20Fa\nl\nm)h\nR14467Fa\nl\nm\r‚Øh\n¢g:24822:87Fa\nl\nmø h\níg:8289:60Fa\nl\nmIh\nR38936Fa\nl\nmÑÄh\nB4299Fa\nl\nmdph\nR43548Fa\nl\nm&©h\nR25290Fa\nl\nmÊ0h\nR10602Fa\nl\nmÜ†h\nR30817Fa\nl\nm˘∏h\nR23635Fa\nl\nmHh\níg:7367:33Fa\nl\nmÚdh\nR31332Fa\nl\nm?Ôìh\n≤g:30725:120Fa\nl\nm( \000h\nR48124Fa\nl\nm(®h\nR32423Fa\nl\nmE‹h\nR14635Fa\nl\nm-ü∞h\nR24635Fa\nl\nm√Ph\nR13022Fa\nl\nm».h\nR13518Fa\nl\nmÒSh\nR23518Fa\nl\nmCDh\nR18338Fa\nl\nm`Rh\nR19768Fa\nl\nmVh\níg:4066:35Fa\nl\nm	h\n¢g:25049:96Fa\nl\nm∂lh\n≤g:24670:114Fa\nl\nmø h\nB2099Fa\nl\nm∂bh\nR29548Fa\nl\nmò$h\n≤g:25195:114Fa\nl\nm}Äh\nR18332Fa\nl\nm!¸h\n¢g:24617:93Fa\nl\nm√Ph\nR13940Fa\nl\nmÜôh\n¢g:14297:57Fa\nl\nm(1Ôh\níg:5770:30Fa\nl\nmÚ\rh\nR12994Fa\nl\nm-h\n¢g:25172:87Fa\nl\nm\náh\níg:4063:43Fa\nl\nmu0h\nR30183Fa\nl\nm\rFih\nR16218Fa\nl\nm0.h\nR11185Fa\nl\nmT\"h\n¢g:15259:25Fa\nl\nm‡8h\nR43422Fa\nl\nm}h\nR44146Fa\nl\nm$Rh\n¢g:10273:64Fa\nl\nmB@h\nR31165Fa\nl\nm-x†h\nR38940Fa\nl\nmqÆh\nR10281Fa\nl\nm-∆¿h\nR43125Fa\nl\nmlòh\nR13422Fa\nl\nmWh\nR42465Fa\nl\nm:.h\nR20872Fa\nl\nmdh\n¢g:15486:12Fa\nl\nm°h\n¢g:16039:57Fa\nl\nmöèh\níg:4661:26Fa\nl\nm'h\nR42750Fa\nl\nm'h\n¢g:44219:45Fa\nl\nmlœh\nR24165Fa\nl\nm\r‚Øh\níg:8292:58Fa\nl\nmìYh\n≤g:31858:100Fa\nl\nm(ºh\n≤g:25122:105Fa\nl\nmÕh\nR34411Fa\nl\nmvh\nR18343Fa\nl\nm„`h\nR43338Fa\nl\nmK¬h\n≤g:29204:110Fa\nl\nm∑óh\níg:7444:37Fa\nl\nm£h\nB2697Fa\nl\nmh\n¢g:10391:60Fa\nl\nmÑÄh\nR31172Fa\nl\nm8u h\nR31125Fa\nl\nmE8h\níg:8193:46Fa\nl\nmö©h\n¢g:13122:55Fa\nl\nm4Mh\n≤g:24885:108Fa\nl\nmø h\nB1933Fa\nl\nmd€h\nR45768Fa\nl\nm\"¡h\nR13486Fa\nl\nmá˝h\nR20864Fa\nl\nmh\nR30422Fa\nl\nmó∫h\níg:4766:13Fa\nl\nmD\\h\nR25146Fa\nl\nmì‡h\nR31185Fa\nl\nm\nh\nR43395Fa\nl\nm8}h\nR31281Fa\nl\nmM¯h\nR42411Fa\nl\nmtch\nR32411Fa\nl\nmΩh\nR13088Fa\nl\nmIËh\nR19698Fa\nl\nm4sh\nR24291Fa\nl\nmch\nR19261Fa\nl\nm h\níg:6543:15Fa\nl\nm@h\níg:2140:11Fa\nl\nmNh\nB8497Fa\nl\nm 6ìh\nR21957Fa\nl\nmú=h\nR42904Fa\nl\nmÙ‘h\nR18046Fa\nl\nm8|h\nR23810Fa\nl\nmÒXh\nR32197Fa\nl\nmh\nR41542Fa\nl\nmƒ⁄h\nR14494Fa\nl\nmzûh\nR42400Fa\nl\nm%h\nR32400Fa\nl\nm Kh\nR28280Fa\nl\nmLO(h\nR12233Fa\nl\nmø h\nB9870Fa\nl\nm√Ph\nB3870Fa\nl\nm„_h\nR16652Fa\nl\nm¯h\n¢g:24848:96Fa\nl\nmEh\nR13001Fa\nl\nm	h\nR15010Fa\nl\nm˚åh\nR25010Fa\nl\nm8Äh\nR34366Fa\nl\nmD	xh\nB8951Fa\nl\nmk4h\n≤g:24784:114Fa\nl\nmB@h\nB4597Fa\nl\nm√Oh\nR24916Fa\nl\nm5ƒh\nR14916Fa\nl\nmh˚\000h\nÇg:647:57Fa\nl\nmÃ_h\nB1951Fa\nl\nmú@h\nR13494Fa\nl\nm-ü∞h\nR25062Fa\nl\nm√Ph\n≤g:32664:115Fa\nl\nmì|h\nB1604Fa\nl\nm’ÆRh\nB2604Fa\nl\nm√Ph\nR31224Fa\nl\nmeSh\n¢g:25146:93Fa\nl\nmì‡h\nR11224Fa\nl\nmL$0h\nR10606Fa\nl\nm\rú@h\nR24689Fa\nl\nm\náOh\n≤g:24253:112Fa\nl\nm⁄?h\níg:2988:19Fa\nl\nmu0h\níg:9763:14Fa\nl\nm@h\nR24863Fa\nl\nmß∏h\nB8217Fa\nl\nm\r‚∞h\nR23151Fa\nl\nm	Îh\nR24197Fa\nl\nm›th\nR22826Fa\nl\nmö7h\nR24062Fa\nl\nmÊh\nB6217Fa\nl\nm”çh\nR38831Fa\nl\nm†àh\nR13108Fa\nl\nmLK?h\nR23108Fa\nl\nm`h\nR24769Fa\nl\nm_êh\nB6716Fa\nl\nm–èh\nR25001Fa\nl\nm\r@h\nR42749Fa\nl\nmÑÛh\nR17010Fa\nl\nm3áh\níg:8223:37Fa\nl\nmLhh\nR17413Fa\nl\nm]wh\nB8397Fa\nl\nm4Mh\nB9798Fa\nl\nm'h\nR29529Fa\nl\nmLêh\nR44154Fa\nl\nmÔ÷h\nB6602Fa\nl\nmÅdh\nR23826Fa\nl\nmvˇh\nR18283Fa\nl\nm,@h\nR43400Fa\nl\nm_èh\nR40914Fa\nl\nmVh\nR17030Fa\nl\nm˘∏h\nB5770Fa\nl\nmÚ\rh\nR14803Fa\nl\nmÑÄh\n¢g:25086:81Fa\nl\nmøòh\nR10321Fa\nl\nmøh\nB4404Fa\nl\nm°h\nR10001Fa\nl\nm√Ph\nB3404Fa\nl\nm'h\nR32395Fa\nl\nmoh\n¢g:10164:58Fa\nl\nmÑÄh\nR31916Fa\nl\nm3ñh\nR15225Fa\nl\nmu0h\nB7451Fa\nl\nm0h\nR33803Fa\nl\nm€h\nR23762Fa\nl\nm\n h\n¢g:14555:63Fa\nl\nmT∂∏h\n¢g:24737:96Fa\nl\nmÖ4h\nB2770Fa\nl\nmîÎh\nR31914Fa\nl\nm7Ä˚h\nR42453Fa\nl\nm8>h\n≤g:25038:105Fa\nl\nm‘¿h\n¢g:10027:46Fa\nl\nm√Ph\níg:3058:25Fa\nl\nmRlh\nR24819Fa\nl\nm–êh\nR25060Fa\nl\nm£õh\n¢g:31145:91Fa\nl\nmE‰h\nR20749Fa\nl\nm[8h\nB2304Fa\nl\nm\r‚∞h\nR24936Fa\nl\nmh\nB5997Fa\nl\nm'h\nB2997Fa\nl\nmh\nR40916Fa\nl\nm√Gh\níg:9431:43Fa\nl\nmLK?h\nR24762Fa\nl\nmÿÃh\nR19290Fa\nl\nmG=ÿh\nB5117Fa\nl\nmD6h\nB4570Fa\nl\nm.‡h\níg:9430:45Fa\nl\nm„`h\nB6570Fa\nl\nm˚åh\nR13116Fa\nl\nm\n h\nR23116Fa\nl\nmóèh\nR21954Fa\nl\nmì›h\nR43116Fa\nl\nms;h\nB4416Fa\nl\nm\ràrh\nR31940Fa\nl\nm–h\nR21940Fa\nl\nm\rmÄh\nR34060Fa\nl\nm5éÔh\nR24164Fa\nl\nm\rﬁ∆h\nR16724Fa\nl\nmÁˇh\n≤g:24098:114Fa\nl\nm\rs´h\níg:9465:45Fa\nl\nm[Xh\nR42458Fa\nl\nmÑ\\h\nB6617Fa\nl\nmÚdh\nR13074Fa\nl\nm<h\nR23542Fa\nl\nmßÿ¿h\nR14164Fa\nl\nm h\n¢g:14175:23Fa\nl\nmh˚\000h\nR14256Fa\nl\nmRh\nR42467Fa\nl\nmÑ~h\nR10233Fa\nl\nm„`h\n¢g:14375:25Fa\nl\nm'h\nB9296Fa\nl\nm_¥h\nR13031Fa\nl\nmåh\nR24957Fa\nl\nmm‡h\nR44157Fa\nl\nm»ƒh\nR33458Fa\nl\nmD%h\nR13458Fa\nl\nmt¢h\nR38225Fa\nl\nm≤ãh\nR32218Fa\nl\nmßh\nR31280Fa\nl\nm‘¿h\nR22831Fa\nl\nm=›h\nR24599Fa\nl\nm√Ph\n¢g:24827:87Fa\nl\nm–êh\n¢g:14916:53Fa\nl\nmh˚\000h\nR25049Fa\nl\nm∂lh\nR16244Fa\nl\nm<·h\nR22447Fa\nl\nm≠ph\n¢g:11287:15Fa\nl\nmÜ†h\nR31157Fa\nl\nm	'¿h\níg:7443:37Fa\nl\nm¢÷h\nR27677Fa\nl\nmƒh\níg:3314:15Fa\nl\nmO†h\n¢g:12989:22Fa\nl\nmW/h\nR14798Fa\nl\nmh”Ôh\nR31151Fa\nl\nmÛ\000h\nR21151Fa\nl\nmBh\n≤g:29495:112Fa\nl\nm1]Œh\nR12030Fa\nl\nmwGh\nR10019Fa\nl\nmu™h\nÇg:944:61Fa\nl\nmÑ~h\nR10280Fa\nl\nm):Th\n¢g:11288:23Fa\nl\nm\r‚∞h\nR24059Fa\nl\nm˚–h\níg:9420:37Fa\nl\nmòkh\nR15945Fa\nl\nmh\nR23447Fa\nl\nm+4h\nR13447Fa\nl\nm\r‚∞h\nR24885Fa\nl\nmø h\nB4402Fa\nl\nm'h\nB8151Fa\nl\nmV∂h\nR38840Fa\nl\nm° h\nR24218Fa\nl\nm	;Fh\n≤g:31218:109Fa\nl\nm-x†h\nR27698Fa\nl\nm¶[h\nR30831Fa\nl\nm&áÇh\nB6432Fa\nl\nmu0h\n≤g:31306:115Fa\nl\nma h\nR13049Fa\nl\nmÊh\n≤g:31293:112Fa\nl\nmÜûh\n≤g:32662:115Fa\nl\nmÊﬂh\nB2251Fa\nl\nma◊h\n≤g:29499:112Fa\nl\nm.îh\nR31885Fa\nl\nm0h\nR21885Fa\nl\nmëh\níg:2857:18Fa\nl\nmP¥h\nB8251Fa\nl\nm˚–h\nR39502Fa\nl\nm∂îh\n¢g:15268:16Fa\nl\nml>h\nB6048Fa\nl\nm'Òh\níg:8264:52Fa\nl\nmk–h\nR31291Fa\nl\nm∫âh\nR35218Fa\nl\nm(ÓÔh\níg:1482:24Fa\nl\nm‰›hh\nB6532Fa\nl\nm˘∏h\n≤g:21869:105Fa\nl\nmB@h\nR11291Fa\nl\nmLãh\nR32660Fa\nl\nm	\000∞h\nR10157Fa\nl\nm˚–h\nB7532Fa\nl\nmyhh\nR43386Fa\nl\nmÜTh\nR19268Fa\nl\nm]\nh\nR13127Fa\nl\nm-õXh\n¢g:14163:26Fa\nl\nmÅdh\n≤g:32663:115Fa\nl\nm!êh\n¢g:10003:43Fa\nl\nmå¿h\nB6548Fa\nl\nmN h\nR31147Fa\nl\nmÑ¨h\nR22012Fa\nl\nm©h\nR12012Fa\nl\nmc≈h\nR32571Fa\nl\nmiÀ¸h\n2812Fa\nl\nmÒ¯h\nR19931Fa\nl\nmT`h\n¢g:24962:96Fa\nl\nmÜ†h\nR22528Fa\nl\nm§åh\níg:7483:40Fa\nl\nmu0h\n≤g:24665:111Fa\nl\nm_êh\nR24775Fa\nl\nmÍ`h\nR31894Fa\nl\nmÌh\nR39774Fa\nl\nmiãh\nR19774Fa\nl\nm∂h\nR21894Fa\nl\nm\r‚¨h\nR22147Fa\nl\nm˘∏h\nB2732Fa\nl\nm∑h\nB1015Fa\nl\nm4¡h\nR23137Fa\nl\nm	Îh\nR23571Fa\nl\nmÈEh\nR32677Fa\nl\nm\rº6h\nR24840Fa\nl\nmEh\nB2699Fa\nl\nmh\n¢g:13199:41Fa\nl\nm-üØh\n≤g:31340:100Fa\nl\nmB>h\nR31197Fa\nl\nmS.h\níg:6428:43Fa\nl\nm›–h\nB6348Fa\nl\nm'h\nR19233Fa\nl\nmdáh\nR42910Fa\nl\nm\"h\nR11826Fa\nl\nmLK?h\nB3832Fa\nl\nmÇ∂h\n¢g:20674:62Fa\nl\nm∞h\nR20750Fa\nl\nmVÍh\níg:9944:53Fa\nl\nmô h\n≤g:24783:114Fa\nl\nmÔh\nR31909Fa\nl\nm\rÁh\nR32620Fa\nl\nmbmh\nR24606Fa\nl\nm√Ph\nB8399Fa\nl\nm øh\nB2319Fa\nl\nm}h\nB4399Fa\nl\nm¬‘h\n¢g:24814:84Fa\nl\nmààh\nR22846Fa\nl\nmEàh\níg:3282:12Fa\nl\nm)h\n¢g:15312:20Fa\nl\nmÈòh\n¢g:16713:58Fa\nl\nmc«h\nR31137Fa\nl\nmö(h\nR13017Fa\nl\nm\n/lh\nR13945Fa\nl\nmøh\n≤g:30723:120Fa\nl\nm(b2h\n¢g:24951:93Fa\nl\nmÍ`h\nB4419Fa\nl\nmÑ\nh\nR24677Fa\nl\nmÛ,h\n¢g:18744:58Fa\nl\nmJŒh\nB8499Fa\nl\nm(}x@h\n¢g:21933:22Fa\nl\nm√Ph\nB4499Fa\nl\nm\r‚∞h\nR23197Fa\nl\nm,`h\n¢g:14799:58Fa\nl\nmh”Ôh\nR15620Fa\nl\nmB@h\nB2751Fa\nl\nmh\n¢g:14184:30Fa\nl\nmÚdh\níg:7446:36Fa\nl\nm£h\nB5751Fa\nl\nm'h\nR13311Fa\nl\nm8Äh\nR11135Fa\nl\nm4Éh\nB3678Fa\nl\nmh\nB2678Fa\nl\nm>áh\nB1678Fa\nl\nm-üØh\nR27501Fa\nl\nm$0h\nR39151Fa\nl\nmÙh\nR23576Fa\nl\nm|8h\nR13072Fa\nl\nm·ˇh\n¢g:15224:25Fa\nl\nm>øh\n≤g:25054:111Fa\nl\nm0h\nR15781Fa\nl\nmºPh\n≤g:24869:102Fa\nl\nmIh\nB3821Fa\nl\nmÎh\nR15592Fa\nl\nmu0h\n¢g:24587:81Fa\nl\nmø h\n≤g:31226:100Fa\nl\nm~@h\nR10240Fa\nl\nm4Oh\nR43372Fa\nl\nm}æh\níg:2039:29Fa\nl\nmK˝ h\nR10518Fa\nl\nm	ºmh\nR23815Fa\nl\nm\r‚Øh\n¢g:31193:97Fa\nl\nm	«Ëh\nÇg:935:20Fa\nl\nmW∑h\nB9878Fa\nl\nm}§h\nR24659Fa\nl\nm‘¿h\nR10592Fa\nl\nmóéh\n¢g:24624:96Fa\nl\nm√Ph\nR22839Fa\nl\nm	h\n¢g:24595:84Fa\nl\nm˝jh\nR23805Fa\nl\nmB>h\níg:9907:44Fa\nl\nmÜ†h\nR20827Fa\nl\nmN h\níg:5003:31Fa\nl\nmgËh\nR31134Fa\nl\nmÂh\n≤g:25012:114Fa\nl\nmB@h\n≤g:24898:114Fa\nl\nmÍ`h\n¢g:14801:52Fa\nl\nm–êh\nR15372Fa\nl\nmûËh\nR11134Fa\nl\nmÙJh\nR24214Fa\nl\nm	h\nR24273Fa\nl\nm¿h\nR32576Fa\nl\nm°h\n¢g:10386:62Fa\nl\nmÑÄh\nR24604Fa\nl\nm√Ph\nR30038Fa\nl\nm(¸˜h\nR25015Fa\nl\nmfòh\níg:3315:17Fa\nl\nmÑÄh\n¢g:13029:43Fa\nl\nmìﬂh\nR10325Fa\nl\nmph\nB1721Fa\nl\nmoh\nB4721Fa\nl\nm	h\n¢g:31186:97Fa\nl\nm+àh\nR30839Fa\nl\nm6Ñüh\n¢g:13074:46Fa\nl\nm<h\nB9302Fa\nl\nm\r?h\nR24852Fa\nl\nm©Xh\níg:7410:31Fa\nl\nm	h\n≤g:24749:102Fa\nl\nmìfh\nR24632Fa\nl\nm√Ph\nB3302Fa\nl\nm)‹h\nR45805Fa\nl\nmH§h\nR34249Fa\nl\nm<·Ôh\nR24249Fa\nl\nm#Th\nB4233Fa\nl\nm:@h\nR17026Fa\nl\nm˘∏h\nR15579Fa\nl\nmÁh\nR42964Fa\nl\nm$√h\nR34361Fa\nl\nm™Ê\000h\nR15058Fa\nl\nmïh\nR14841Fa\nl\nm„`h\níg:2977:16Fa\nl\nm@h\nR15370Fa\nl\nmúJh\nR43361Fa\nl\nm'h\nB8154Fa\nl\nmÊ0h\nR31127Fa\nl\nmngh\nB4715Fa\nl\nm0h\n¢g:24950:93Fa\nl\nmÀ¨h\nR14781Fa\nl\nmì‡h\nR27860Fa\nl\nm$Lh\nR21767Fa\nl\nm·Úh\nR27696Fa\nl\nmÅÒh\n≤g:32420:130Fa\nl\nm	sÈh\n≤g:34361:159Fa\nl\nm™Ê\000h\níg:7366:32Fa\nl\nmjòh\nR14555Fa\nl\nmT∂∏h\nB9254Fa\nl\nm–èh\nR39501Fa\nl\nm˘∏h\nR31214Fa\nl\nmºPh\nR10311Fa\nl\nm\r=h\nR23781Fa\nl\nmÂh\n¢g:10189:55Fa\nl\nmyÃh\nR24027Fa\nl\nm¨h\n≤g:31335:100Fa\nl\nmˇåh\n¢g:24731:93Fa\nl\nmEh\nR12361Fa\nl\nm:ïh\nR27691Fa\nl\nm¶Zh\nR10273Fa\nl\nmB@h\n≤g:24876:105Fa\nl\nm\r@h\nR10214Fa\nl\nmN h\nB3202Fa\nl\nmN h\nB4354Fa\nl\nm‰∂Xh\níg:1486:24Fa\nl\nm(÷Jh\nR23517Fa\nl\nm	E‘h\nR48720Fa\nl\nmÒh\níg:6536:19Fa\nl\nmN h\nR29957Fa\nl\nmÓ¸h\nR25094Fa\nl\nm‹~h\nR23638Fa\nl\nmì√h\nR22830Fa\nl\nmJ8h\nR12164Fa\nl\nm$h\nR31863Fa\nl\nmlh\nR21863Fa\nl\nm/ûh\nR20696Fa\nl\nm¸h\nR16827Fa\nl\nm\rôh\nR11370Fa\nl\nmdth\nR27695Fa\nl\nmB<h\nR14094Fa\nl\nm˚ãh\nR31399Fa\nl\nm)t5h\n¢g:13033:34Fa\nl\nmPh\nR12990Fa\nl\nmIh\níg:7053:35Fa\nl\nmú@h\n¢g:10026:46Fa\nl\nmˇ‹h\nR11164Fa\nl\nm„_h\n¢g:14972:56Fa\nl\nm<Kh\nB7517Fa\nl\nmB@h\nR20010Fa\nl\nmòñÇh\nR10063Fa\nl\nmÜ†h\nR14830Fa\nl\nm„`h\nR12052Fa\nl\nmN h\nR24830Fa\nl\nm√Ph\nR10646Fa\nl\nmà˘h\nR10164Fa\nl\nmÑÄh\n¢g:15303:14Fa\nl\nm˙Nh\nR35501Fa\nl\nm	8h\nR24812Fa\nl\nmÀÑh\n¢g:13043:49Fa\nl\nmj§Xh\níg:1988:38Fa\nl\nm@!h\n¢g:12427:59Fa\nl\nmü·h\nR35720Fa\nl\nm\r‚∞h\nR25720Fa\nl\nmÇíh\n¢g:14192:31Fa\nl\nmÚdh\nR13052Fa\nl\nm	'¿h\nR17058Fa\nl\nmh\nR17038Fa\nl\nm˘∏h\nR43334Fa\nl\nmJÊh\n¢g:14549:45Fa\nl\nm†Íh\n2809Fa\nl\nm-Gh\nR14501Fa\nl\nmL$0h\nR23628Fa\nl\nmLK@h\nR23827Fa\nl\nmôOh\nR43827Fa\nl\nm&Eh\n¢g:10055:47Fa\nl\nmÜùh\n≤g:31272:103Fa\nl\nm£h\nB4278Fa\nl\nmîjh\nR21860Fa\nl\nm ¥ﬁh\nB2278Fa\nl\nmj§Xh\nR31285Fa\nl\nm,Bh\n≤g:33122:120Fa\nl\nm[â˚h\n≤g:24639:102Fa\nl\nmòh\n¢g:12978:20Fa\nl\nm∂¶h\níg:6594:28Fa\nl\nm√Ph\nR19273Fa\nl\nm~h\níg:6570:22Fa\nl\nm˚åh\nR31908Fa\nl\nm£Èh\nR31556Fa\nl\nm\r@h\nR22827Fa\nl\nm˘h\nR10403Fa\nl\nmÛph\níg:2243:62Fa\nl\nmT≈ch\nB4378Fa\nl\nm\r‚∞h\n¢g:25171:84Fa\nl\nmÊ/h\nB9378Fa\nl\nmòkh\nB6378Fa\nl\nm)°h\nR32214Fa\nl\nm`h\nR39334Fa\nl\nm%Lh\nR32225Fa\nl\nm:Mh\n¢g:10387:61Fa\nl\nmÑÄh\nR42908Fa\nl\nmNÑh\nR28493Fa\nl\nm·h\nR38914Fa\nl\nmz?h\nR20863Fa\nl\nmu√h\nR15120Fa\nl\nmÅdh\n≤g:21862:114Fa\nl\nmIÓh\níg:6365:10Fa\nl\nm\r·%h\níg:7494:41Fa\nl\nm‚sh\n¢g:15503:22Fa\nl\nmB@h\nR32720Fa\nl\nm°h\nR12720Fa\nl\nm<›òh\níg:4566:13Fa\nl\nm@h\nR18334Fa\nl\nmllh\n¢g:15248:20Fa\nl\nmu0h\nR15162Fa\nl\nm\nÜ¯h\n¢g:10157:64Fa\nl\nm˚–h\nR11026Fa\nl\nm,h\nR31501Fa\nl\nm≠Øh\níg:4328:36Fa\nl\nmÜûh\nR10285Fa\nl\nmd^h\nB2881Fa\nl\nmOJh\nR24827Fa\nl\nm–êh\nR20964Fa\nl\nmu0h\nR20860Fa\nl\nmu.h\nR28103Fa\nl\nmD¿h\nR38908Fa\nl\nm†Kh\nR12683Fa\nl\nm\r‚Øh\nR13063Fa\nl\nm\r‚∞h\nR24788Fa\nl\nmÍ_h\nB1981Fa\nl\nmJeh\nR27499Fa\nl\nmh\n≤g:32394:130Fa\nl\nmŒZh\nB2840Fa\nl\nm∆h\níg:5751:25Fa\nl\nm'h\n≤g:32540:105Fa\nl\nm86†h\nR21991Fa\nl\nm§h\nR13926Fa\nl\nm–éh\nR16646Fa\nl\nm#Zh\nR25005Fa\nl\nm^|h\n≤g:31197:103Fa\nl\nmS.h\nR20854Fa\nl\nm8uh\nR18731Fa\nl\nmÜüh\nR25052Fa\nl\nm_êh\nR32213Fa\nl\nmùh\nB4306Fa\nl\nm4h\nR32394Fa\nl\nmŒZh\nR13462Fa\nl\nm-ßh\nR19257Fa\nl\nmjˆ«h\nR33462Fa\nl\nmˆh\n≤g:24652:105Fa\nl\nmkVh\níg:5069:12Fa\nl\nmNh\nR19287Fa\nl\nmnMÿh\nR20674Fa\nl\nm∞h\nR25008Fa\nl\nmÑÄh\nB2742Fa\nl\nmæh\nR14471Fa\nl\nm√Ph\nR15163Fa\nl\nmûËh\n2729Fa\nl\nmd	h\nB6347Fa\nl\nm'Òh\n2929Fa\nl\nmÑ#h\nR10026Fa\nl\nmˇ‹h\nR31872Fa\nl\nm·◊h\n¢g:15016:16Fa\nl\nm˚åh\nR34837Fa\nl\nm(7˝h\níg:3292:13Fa\nl\nmB@h\nB9206Fa\nl\nm,h\nR16710Fa\nl\nmh\nR42897Fa\nl\nm*h\nB6274Fa\nl\nmoh\n≤g:32584:141Fa\nl\nmÃCh\nB7453Fa\nl\nm\r'h\nB2912Fa\nl\nmdph\níg:2955:40Fa\nl\nm(ƒ“h\nB1206Fa\nl\nm÷’h\n¢g:13091:57Fa\nl\nm√◊h\nR13075Fa\nl\nm¢–h\n¢g:24945:90Fa\nl\nmÎrh\nB2842Fa\nl\nmõÇh\nR24713Fa\nl\nm‹)h\nR16735Fa\nl\nm-Ï@h\nR21897Fa\nl\nm	ÍŸh\níg:9954:51Fa\nl\nmyÃh\nR29160Fa\nl\nmú@h\nB9834Fa\nl\nmÚdh\nR25699Fa\nl\nm§hh\nR27678Fa\nl\nmÄh\nB8167Fa\nl\nm'h\nR14510Fa\nl\nm-‚h\nR44144Fa\nl\nm\"_h\nR19705Fa\nl\nmÑrh\nR24963Fa\nl\nmÀ¨h\nR24306Fa\nl\nmóXh\nR39507Fa\nl\nmõˇh\nB5528Fa\nl\nm¸Xh\n≤g:31334:100Fa\nl\nmÃüh\nR24054Fa\nl\nm‹h\nR19283Fa\nl\nm h\nB4481Fa\nl\nmDh\nR10561Fa\nl\nmhh\nR22834Fa\nl\nmyh\nB3734Fa\nl\nmoh\n¢g:16702:58Fa\nl\nmAVh\nR13008Fa\nl\nmÅh\n¢g:10403:22Fa\nl\nmÛph\nB3340Fa\nl\nmÑÌh\nB4340Fa\nl\nmch\níg:6622:63Fa\nl\nm\rmÄh\nB2734Fa\nl\nm\r®Jh\nB7995Fa\nl\nm~;h\nR32230Fa\nl\nmÊ+h\nR13491Fa\nl\nmmh\nR24776Fa\nl\nm_êh\nB7734Fa\nl\nmòñÄh\níg:9849:36Fa\nl\nm*h\nR29731Fa\nl\nm\r@h\nR37163Fa\nl\nmƒ0h\nR13144Fa\nl\nm≈Dh\nR10413Fa\nl\nmUÉh\nB7481Fa\nl\nmûËh\nR24052Fa\nl\nm\"h\n2789Fa\nl\nm'h\nR31866Fa\nl\nme,h\nR23436Fa\nl\nm√Ph\nR23144Fa\nl\nm0h\n¢g:14919:52Fa\nl\nmh˚\000h\níg:8113:51Fa\nl\nmÑh\nB2458Fa\nl\nmh\nR18710Fa\nl\nm-∆Rh\n¢g:25048:93Fa\nl\nm√Ph\nB4234Fa\nl\nmhh\n¢g:13031:28Fa\nl\nmåh\níg:3305:16Fa\nl\nm\"gh\nR24731Fa\nl\nmEh\nB3819Fa\nl\nmmh\nR25843Fa\nl\nmvyh\nR42462Fa\nl\nmîØh\nR13755Fa\nl\nm\r‚∞h\n¢g:24832:90Fa\nl\nmEh\n¢g:10384:65Fa\nl\nmLK@h\n¢g:14564:19Fa\nl\nmu0h\nR13056Fa\nl\nmãvh\nR12364Fa\nl\nm~êh\nR43674Fa\nl\nmágh\nB5642Fa\nl\nmÓHh\nR15222Fa\nl\nm1∆h\n¢g:24843:93Fa\nl\nmEh\nB8218Fa\nl\nmÊÆh\nR43118Fa\nl\nmÕêh\nR15407Fa\nl\nmØh\níg:7412:32Fa\nl\nmÚdh\nB6581Fa\nl\nmóhh\nR23816Fa\nl\nm\r‚Äh\nR34330Fa\nl\nm8~h\nR10120Fa\nl\nmyÃh\nB8956Fa\nl\nmÅ™h\n¢g:10063:51Fa\nl\nmÜ†h\nR43344Fa\nl\nm√Mh\nR18697Fa\nl\nm§‘h\n¢g:13066:51Fa\nl\nm-õXh\n≤g:21863:100Fa\nl\nm/ûh\nB3681Fa\nl\nm¯‡h\nB5134Fa\nl\nmƒâh\n¢g:13117:42Fa\nl\nm-õXh\nR24926Fa\nl\nm›^h\n¢g:10222:59Fa\nl\nmq\000h\nR10574Fa\nl\nm‰∂Xh\n¢g:31185:85Fa\nl\nm\nh\nR48118Fa\nl\nm∑˝h\nR21900Fa\nl\nm0h\nR25287Fa\nl\nmx«h\nR14497Fa\nl\nm<·h\nR24669Fa\nl\nm·Äh\n¢g:15492:15Fa\nl\nm'h\nR42903Fa\nl\nmOh\n¢g:13101:59Fa\nl\nmpˇh\nB4342Fa\nl\nm˘∏h\nR35186Fa\nl\nm(1h\n¢g:31139:88Fa\nl\nm∏êh\nR24833Fa\nl\nm\r?h\níg:7473:42Fa\nl\nmûËh\n¢g:16735:57Fa\nl\nm-Ï@h\nR33457Fa\nl\nmÙàh\nB5956Fa\nl\nm\r‚∞h\n¢g:13127:32Fa\nl\nm-õXh\nB9954Fa\nl\nmyÃh\nR34068Fa\nl\nmNh\n2769Fa\nl\nm2îh\n2869Fa\nl\nmŸúh\nR33824Fa\nl\nmJ—h\níg:2292:25Fa\nl\nmj§Xh\nR31213Fa\nl\nm±àh\nR25041Fa\nl\nmÜ†h\nR22451Fa\nl\nm(h\nR21213Fa\nl\nm}òh\níg:1678:37Fa\nl\nm-üØh\nR23824Fa\nl\nm;[Kh\nR32582Fa\nl\nm&*;h\nR20008Fa\nl\nm©~h\nB4304Fa\nl\nmaih\nR38830Fa\nl\nmÍˆh\nR15016Fa\nl\nm˚åh\nB5640Fa\nl\nm=h\nR20477Fa\nl\nmƒÊh\n¢g:14125:21Fa\nl\nmñéh\nB7447Fa\nl\nm£h\níg:7484:41Fa\nl\nmh\nR11307Fa\nl\nmhxh\nR19280Fa\nl\nm\r@h\n¢g:13081:38Fa\nl\nm—∂h\nR23519Fa\nl\nmB@h\nR43367Fa\nl\nmõqh\nR21859Fa\nl\nmÛ5h\nB7434Fa\nl\nmÚ†h\nR30306Fa\nl\nm	¿h\nR24589Fa\nl\nm√Ph\nR10306Fa\nl\nm\r®Jh\nR25063Fa\nl\nmÍ`h\nR42735Fa\nl\nmNh\níg:7482:42Fa\nl\nmúJh\nR17055Fa\nl\nm–êh\nB3182Fa\nl\nm*sh\nR31195Fa\nl\nmı+h\nB8949Fa\nl\nm‘øh\nB6528Fa\nl\nm'h\n¢g:16982:59Fa\nl\nm –ïh\n¢g:16827:66Fa\nl\nm\rôh\nR22824Fa\nl\nm>yh\n≤g:24675:114Fa\nl\nm√Ph\nR10100Fa\nl\nm√Ph\nR24843Fa\nl\nmEh\nR11980Fa\nl\nmïóh\nB2447Fa\nl\nm¥Ch\n¢g:15117:24Fa\nl\nmóhh\nB1081Fa\nl\nm'h\nR13287Fa\nl\nmÑh\nB2728Fa\nl\nm\"\\h\nR32674Fa\nl\nm(¸ìPh\n¢g:19287:66Fa\nl\nmnMÿh\nR31330Fa\nl\nm\nÆ`h\nR42900Fa\nl\nm!3h\nR14174Fa\nl\nm˚åh\nR13454Fa\nl\nm4€h\nR34367Fa\nl\nmLK\000h\nB7081Fa\nl\nm&´h\nR20816Fa\nl\nmàÈh\nR25087Fa\nl\nmÅæh\níg:1926:15Fa\nl\nmú@h\nB1926Fa\nl\nmú@h\nR25700Fa\nl\nm§vh\nR14859Fa\nl\nmjœ¿h\nR34370Fa\nl\nmâ{Jh\nR32068Fa\nl\nm)\000h\nR32399Fa\nl\nmxh\nR24039Fa\nl\nm”˜h\níg:1168:59Fa\nl\nmy'†h\n¢g:24603:87Fa\nl\nm√Ph\nB6454Fa\nl\nmB@h\nR43373Fa\nl\nm\"‹h\nR20451Fa\nl\nm° h\n¢g:11983:26Fa\nl\nmW‰h\n¢g:10107:54Fa\nl\nmyhh\n¢g:24695:81Fa\nl\nmZ¸h\n¢g:24631:99Fa\nl\nmñdh\níg:2632:14Fa\nl\nm,$h\nR37140Fa\nl\nm'…h\n¢g:14123:17Fa\nl\nm˚åh\nR25416Fa\nl\nm∫h\nB5212Fa\nl\nm|h\nR24946Fa\nl\nm\r@h\nR27658Fa\nl\nm<h\nR10278Fa\nl\nmÑÄh\nR22450Fa\nl\nmúhh\níg:7553:48Fa\nl\nm° h\nR27674Fa\nl\nm‰+h\nR24898Fa\nl\nmÍ`h\nB3818Fa\nl\nmõh\nR20856Fa\nl\nmmh\nR21547Fa\nl\nmzh\nR22541Fa\nl\nm#™€h\nB9770Fa\nl\nm˚åh\nR12006Fa\nl\nmÍ`h\nÇg:2901:4Fa\nl\nm\n`@h\nR24626Fa\nl\nm√Ph\nR22823Fa\nl\nm‘Õh\n¢g:24842:93Fa\nl\nmÙ$h\nR30046Fa\nl\nm0ıÿh\n¢g:10177:56Fa\nl\nm‘¿h\n¢g:24628:96Fa\nl\nm√Ph\nR13129Fa\nl\nm-∆øh\nR10507Fa\nl\nm?h\n¢g:14374:24Fa\nl\nmTDh\n¢g:18298:56Fa\nl\nmì‡h\nR24777Fa\nl\nmø h\nR24760Fa\nl\nm\r@h\nB3831Fa\nl\nm3Ûh\n≤g:25303:102Fa\nl\nmzh\nB4338Fa\nl\nmdh\níg:1990:36Fa\nl\nmXHh\n¢g:15056:57Fa\nl\nmC€|h\n¢g:31152:94Fa\nl\nm\000Kh\nR20576Fa\nl\nm-∆øh\nB7114Fa\nl\nmÜ†h\nR13946Fa\nl\nm\r=h\n≤g:31212:109Fa\nl\nm±ºh\n≤g:25007:114Fa\nl\nm[`h\n≤g:31328:100Fa\nl\nma9h\n≤g:31288:109Fa\nl\nmDh\n¢g:14783:46Fa\nl\nmB@h\nR18665Fa\nl\nm©Ü”h\nB3395Fa\nl\nmËlh\nR15210Fa\nl\nm'h\nB8395Fa\nl\nm•h\nB2318Fa\nl\nm‘-h\nR42970Fa\nl\nmT¢h\nB9252Fa\nl\nmú÷h\nB1318Fa\nl\nmüÒh\n≤g:24686:120Fa\nl\nmh\nB7089Fa\nl\nm\r@h\nB4661Fa\nl\nm'h\n¢g:15637:51Fa\nl\nmh\n¢g:31231:91Fa\nl\nm	ìh\nR22642Fa\nl\nm\r‚∞h\nR10177Fa\nl\nm‘¿h\nR23507Fa\nl\nmLÿh\n≤g:31223:103Fa\nl\nm‘¿h\nR35760Fa\nl\nmë#h\n≤g:24254:112Fa\nl\nmÁ˝h\nR15760Fa\nl\nm¥ßh\n¢g:10206:48Fa\nl\nmÑÄh\nR43366Fa\nl\nmM≠h\nR45760Fa\nl\nm‘h\nB7993Fa\nl\nm\r‚Øh\nR32568Fa\nl\nmIÎh\nR10027Fa\nl\nm√Ph\nR43398Fa\nl\nmÜúh\nR30810Fa\nl\nm‘jh\n≤g:31940:115Fa\nl\nm–h\nB9300Fa\nl\nmîoh\n≤g:32403:130Fa\nl\nmAxh\nB9920Fa\nl\nmûËh\nR27665Fa\nl\nmÙïh\n¢g:10136:60Fa\nl\nmyÃh\níg:6795:32Fa\nl\nmyïh\nB9960Fa\nl\nmN h\n¢g:31173:94Fa\nl\nmÜ0h\nR18653Fa\nl\nmÃ®h\nR14344Fa\nl\nmLh\nR27669Fa\nl\nm<ªh\nB4390Fa\nl\nm¥Oh\nB4297Fa\nl\nmú@h\nR11039Fa\nl\nmeêh\níg:9822:29Fa\nl\nmu0h\nR14924Fa\nl\nm(1,ˇh\n≤g:24097:114Fa\nl\nmÈ&h\nB8129Fa\nl\nmú?h\nR42956Fa\nl\nmNh\n¢g:15591:43Fa\nl\nm-∆¿h\n¢g:16710:57Fa\nl\nmh\nR17029Fa\nl\nm˘∏h\nR44213Fa\nl\nm·ÿh\n¢g:25046:87Fa\nl\nm√Ph\nR31250Fa\nl\nm˘¯h\nR22854Fa\nl\nm_çh\nR24213Fa\nl\nm‘,h\nR11027Fa\nl\nm,h\n¢g:31153:94Fa\nl\nmŒGh\n¢g:24963:96Fa\nl\nmÀ¨h\nR13054Fa\nl\nm¥®h\nR31887Fa\nl\nmèÆh\n¢g:14423:40Fa\nl\nmB@h\nR43370Fa\nl\nmIÔh\n¢g:29203:60Fa\nl\nmIh\nR23785Fa\nl\nm›–h\nR25043Fa\nl\nm3Ih\nR32410Fa\nl\nmƒ∞h\n¢g:14262:45Fa\nl\nmﬂ\rh\nR24737Fa\nl\nmÖ4h\nR20866Fa\nl\nmuh\nB6338Fa\nl\nm'ÿh\níg:8225:36Fa\nl\nm5\000h\nB3928Fa\nl\nm‰.h\nR31305Fa\nl\nmAÿh\nR31888Fa\nl\nm+UÚh\n¢g:15375:43Fa\nl\nmûËh\nR23819Fa\nl\nmÈ˚h\n¢g:13034:41Fa\nl\nmáÄh\n¢g:24844:93Fa\nl\nmEh\nR43551Fa\nl\nmDœh\n¢g:13003:56Fa\nl\nm		h\nR13760Fa\nl\nm.ﬂh\n¢g:14857:54Fa\nl\nmòñÄh\nR32409Fa\nl\nm\nS\\h\nR18700Fa\nl\nmÑÄh\nB1978Fa\nl\nmòkh\nR13499Fa\nl\nm\ns»h\n¢g:15487:16Fa\nl\nm'h\n¢g:15369:42Fa\nl\nmûËh\nR31338Fa\nl\nm§Ûh\n¢g:25653:70Fa\nl\nmÊ›h\n≤g:31214:109Fa\nl\nmºPh\nB7786Fa\nl\nm¿Ëh\n¢g:14160:19Fa\nl\nm˙Nh\n¢g:31151:94Fa\nl\nmÛ\000h\n¢g:11304:19Fa\nl\nmeêh\nR29157Fa\nl\nmÒ*h\nR19712Fa\nl\nm≠mh\nB1529Fa\nl\nm¢dh\nR10195Fa\nl\nm®¿h\n¢g:24840:93Fa\nl\nmEh\nR25038Fa\nl\nm‘¿h\n2811Fa\nl\nmdoh\níg:7608:21Fa\nl\nmoh\n¢g:25300:93Fa\nl\nmEh\nÇg:789:22Fa\nl\nm'h\níg:9848:36Fa\nl\nm:òh\níg:6418:37Fa\nl\nmB@h\nR27697Fa\nl\nm¶[h\nB6342Fa\nl\nmIch\n¢g:15169:44Fa\nl\nmûËh\n≤g:24648:105Fa\nl\nm_êh\nB2934Fa\nl\nm≈h\nB1980Fa\nl\nmj§Xh\nR10978Fa\nl\nmäh\nR10062Fa\nl\nmyÃh\níg:4794:25Fa\nl\nm-=h\nR14499Fa\nl\nh\nmA‰R17034Fa\nl\nm∂óh\n¢g:25044:81Fa\nl\nmõ≥h\nB9795Fa\nl\nmÄÓh\nB6055Fa\nl\nmÑxh\nR11175Fa\nl\nmÜêh\nB6795Fa\nl\nmyïh\n¢g:15125:29Fa\nl\nmÅdh\n¢g:14437:54Fa\nl\nm(˘&†h\nR33185Fa\nl\nm h\nB9860Fa\nl\nmÚdh\nR38900Fa\nl\nmOyh\níg:2877:33Fa\nl\nmV‘h\nR13015Fa\nl\nmÊﬁh\n≤g:31165:103Fa\nl\nm-x†h\nR24645Fa\nl\nm3Zh\nR13051Fa\nl\nm\n4Äh\nR23098Fa\nl\nmcúh\nR17011Fa\nl\nmÄƒh\nB8393Fa\nl\nmNh\nR23135Fa\nl\nm	Îh\nR15491Fa\nl\nm∫h\nR31149Fa\nl\nmÛmh\nB7429Fa\nl\nmÚdh\nB3576Fa\nl\nmah\nB9429Fa\nl\nmJ≈h\nR16825Fa\nl\nmj§Xh\níg:2974:16Fa\nl\nm@h\nR24937Fa\nl\nm,Ωh\nR43392Fa\nl\nméãh\n≤g:31210:109Fa\nl\nmìh\nR15499Fa\nl\nm¬‚h\nR24250Fa\nl\nm_h\n¢g:39897:25Fa\nl\nm\r@h\n¢g:14917:48Fa\nl\nm(1,ˇh\nR13002Fa\nl\nmp˝h\n¢g:15270:46Fa\nl\nm»+h\n≤g:24902:117Fa\nl\nm8Äh\n¢g:25087:84Fa\nl\nmÅæh\n¢g:24807:81Fa\nl\nmø h\nR38923Fa\nl\nm[å~h\nB4394Fa\nl\nm\r‚∞h\n¢g:25314:93Fa\nl\nmÀ¨h\níg:6512:13Fa\nl\nm˚åh\nR24675Fa\nl\nm√Ph\nR42898Fa\nl\nm.yh\nB4695Fa\nl\nmPˇh\nB8490Fa\nl\nmT`h\níg:5756:37Fa\nl\nmn4h\n≤g:31323:100Fa\nl\nm\riòh\nR31237Fa\nl\nm©h\nR22926Fa\nl\nmÒÈh\n¢g:24597:87Fa\nl\nm√Ph\níg:6563:20Fa\nl\nmN h\nR22838Fa\nl\nmQ<h\nR16206Fa\nl\nm’#h\nR29500Fa\nl\nm-ﬁh\nB2740Fa\nl\nm≥h\nB6418Fa\nl\nmB@h\nR45628Fa\nl\nmÍˆh\nR21884Fa\nl\nma`h\nR16697Fa\nl\nm~fh\nB6536Fa\nl\nmN h\nR17037Fa\nl\nm˘∏h\nR13029Fa\nl\nmìﬂh\nR30308Fa\nl\nm^∏h\nR27515Fa\nl\nmd¨h\nR24837Fa\nl\nm\r∫th\nB3357Fa\nl\nm¥¶h\nR24710Fa\nl\nmEh\níg:3480:22Fa\nl\nmm∫h\nR31898Fa\nl\nmú\"h\nR21898Fa\nl\nm.h\nR24829Fa\nl\nmø h\nR10604Fa\nl\nm\r‚Øh\níg:9396:39Fa\nl\nm(…u`h\nR29364Fa\nl\nmT`h\n¢g:24635:99Fa\nl\nm√Ph\nR15306Fa\nl\nmIÔh\níg:9798:29Fa\nl\nm'h\níg:3302:15Fa\nl\nm)‹h\n¢g:24851:96Fa\nl\nm÷th\nR23439Fa\nl\nm¬Üh\nR35211Fa\nl\nm‡õ¸h\nB3825Fa\nl\nm\"`h\nB2825Fa\nl\nm-∆¿h\n¢g:24594:84Fa\nl\nm˛xh\nB3478Fa\nl\nmDÒh\nR39354Fa\nl\nm˘∏h\n≤g:34366:159Fa\nl\nmD	xh\nR22532Fa\nl\nm≤h\n2940Fa\nl\nmá1^h\nR13513Fa\nl\nm» h\nR43377Fa\nl\nm*Ïh\nR31679Fa\nl\nm\r‚∞h\níg:3205:17Fa\nl\nmÂ∞h\n¢g:13059:52Fa\nl\nm¥®h\nR15211Fa\nl\nmu0h\nR10630Fa\nl\nmLK?h\nR25744Fa\nl\nm>h\nR14129Fa\nl\nmÓh\nR32672Fa\nl\nmÙ?h\nR40909Fa\nl\nmDÉh\nR15248Fa\nl\nmu0h\n≤g:31859:100Fa\nl\nmòoph\nR24575Fa\nl\nm√Ph\n¢g:24835:90Fa\nl\nmEh\n¢g:14198:31Fa\nl\nmjòh\n≤g:31298:115Fa\nl\nm\nh\nR38327Fa\nl\nmø h\n¢g:10623:48Fa\nl\nmø–h\nR24196Fa\nl\nm&\\h\nR25092Fa\nl\nmªÄh\nR24211Fa\nl\nm&i¸h\nR14857Fa\nl\nmòñÄh\nR43103Fa\nl\nmCh\nR23103Fa\nl\nmL)h\nB1725Fa\nl\nm+øh\nB2725Fa\nl\nm\"'h\níg:2244:56Fa\nl\nmÔSh\nB3415Fa\nl\nm/—h\nB8365Fa\nl\nmÙh\nR12809Fa\nl\nm\r‚∞h\nR22573Fa\nl\nm¥‡h\nR24047Fa\nl\nmÍ`h\nB4500Fa\nl\nm\"mh\nB4470Fa\nl\nmnˇh\nR10106Fa\nl\nmy\"h\nR20876Fa\nl\nmN∂h\níg:9998:41Fa\nl\nm√Ph\nB6329Fa\nl\nmh\nB1203Fa\nl\nm h\n≤g:25065:102Fa\nl\nmpŒh\nR24057Fa\nl\nmTﬂh\nR31913Fa\nl\nm}h\nR22578Fa\nl\nm#h\n¢g:31150:91Fa\nl\nm∞h\nR21892Fa\nl\nm	Í·h\nB5465Fa\nl\nmd§h\nR15772Fa\nl\nmuµh\n¢g:24919:81Fa\nl\nm–êh\nR13488Fa\nl\nm‰ h\nR29499Fa\nl\nm.îh\nB3857Fa\nl\nm\"h\n¢g:24812:81Fa\nl\nmÀÑh\nR29902Fa\nl\nmT`h\nR24671Fa\nl\nm√Ph\nR19707Fa\nl\nmu0h\nR17035Fa\nl\nm˘∏h\nB4625Fa\nl\nm‘˘h\nR14969Fa\nl\nm(÷Lh\níg:1951:19Fa\nl\nmú@h\nR31912Fa\nl\nm¡üh\n¢g:23203:65Fa\nl\nm\rh\nR40903Fa\nl\nm¥¬h\n¢g:16717:59Fa\nl\nmköh\n¢g:25115:84Fa\nl\nm\ròxh\nR31876Fa\nl\nmzh\nR21876Fa\nl\nm£1h\níg:6612:28Fa\nl\nmÅdh\nR24672Fa\nl\nm∂Jh\nR16254Fa\nl\nmw@h\níg:7408:33Fa\nl\nmÚdh\nB6303Fa\nl\nm§Ah\nR14861Fa\nl\nm-∆¿h\nR11223Fa\nl\nmÍ`h\n¢g:24605:90Fa\nl\nm√Ph\nR13939Fa\nl\nmÍ_h\nB4765Fa\nl\nmm`h\n¢g:13025:37Fa\nl\nmïåh\nR31223Fa\nl\nm‘¿h\nR27671Fa\nl\nm$h\nR33092Fa\nl\nh\nm\r	R24200Fa\nl\nm\r‚∞h\nB9303Fa\nl\nmÀh\n¢g:20477:62Fa\nl\nmƒÊh\nR38932Fa\nl\nmÉ®h\n¢g:10567:38Fa\nl\nm˛Ëh\nR24098Fa\nl\nm\rs´h\nÇg:5956:1Fa\nl\nm\r‚∞h\nB9855Fa\nl\nm£h\níg:6565:22Fa\nl\nmóhh\n¢g:14861:52Fa\nl\nm-∆¿h\nR30837Fa\nl\nm)\\/h\n≤g:25057:120Fa\nl\nmµh\nR32211Fa\nl\nm∫Óh\n¢g:13013:56Fa\nl\nmgh\nR31903Fa\nl\nmHâh\nB6565Fa\nl\nmóhh\nR28270Fa\nl\nmLK@h\níg:9426:41Fa\nl\nmLK?h\nR24192Fa\nl\nmùÄh\nB3683Fa\nl\nm¸Xh\nR13064Fa\nl\nmOÄh\níg:5425:20Fa\nl\nmyÁh\nR23141Fa\nl\nm	Îh\nR42410Fa\nl\nmƒ˛h\nR24929Fa\nl\nm√Ph\nR31672Fa\nl\nmZh\nR32223Fa\nl\nm—h\nB7362Fa\nl\nm√Ph\nR15575Fa\nl\nmB@h\nR17061Fa\nl\nmp˝h\nR22202Fa\nl\nmj|h\nR24813Fa\nl\nm\nÖh\nB9781Fa\nl\nmú@h\níg:4695:18Fa\nl\nmPˇh\n≤g:31399:115Fa\nl\nm)t5h\nR10505Fa\nl\nm(üh\nR31196Fa\nl\nm;Xh\nB2807Fa\nl\nm-üØh\nR22912Fa\nl\nmïuh\nR43671Fa\nl\nmZ1h\nR24643Fa\nl\nm‘¿h\n¢g:14131:19Fa\nl\nmÈòh\nR42912Fa\nl\nm'h\nR24030Fa\nl\nmh\nR10221Fa\nl\nmyÃh\nR31211Fa\nl\nmk”h\n≤g:31215:109Fa\nl\nmúh\nR24994Fa\nl\nm8Äh\nR11184Fa\nl\nmÖh\níg:3853:36Fa\nl\nm\rØh\n¢g:15282:60Fa\nl\nm8Äh\nB9768Fa\nl\nmP‹h\n¢g:15579:35Fa\nl\nmÁh\nB9779Fa\nl\nm˚åh\nR21845Fa\nl\nh\nmáßR10383Fa\nl\nmπåh\nR27657Fa\nl\nmƒÃh\nR16861Fa\nl\nm!ﬂ‡h\n¢g:15351:30Fa\nl\nm'h\nR29491Fa\nl\nm%/Bh\n≤g:25041:114Fa\nl\nmÜ†h\níg:6040:37Fa\nl\nmcöh\níg:3037:34Fa\nl\nmú@h\nR32200Fa\nl\nmÅ h\n≤g:25022:120Fa\nl\nmkàh\n¢g:24732:93Fa\nl\nmEh\nR17203Fa\nl\nm3‡‹h\níg:2078:18Fa\nl\nm0ph\nR12043Fa\nl\nmy]h\níg:3291:13Fa\nl\nmÑÄh\níg:6219:10Fa\nl\nm(w5ì˛h\nR18647Fa\nl\nm\r@h\nB6219Fa\nl\nm(w5ì˛h\n¢g:17061:58Fa\nl\nmp˝h\nB9782Fa\nl\nm0‘h\nR42473Fa\nl\nmDWh\nR15224Fa\nl\nm>øh\n≤g:30038:128Fa\nl\nm(¸˜h\nR13443Fa\nl\nh\nm¢g:24584:81Fa\nl\nm^h\n≤g:31285:109Fa\nl\nm,Bh\nR23768Fa\nl\nm4\"h\n¢g:20263:65Fa\nl\nmHçh\n¢g:16828:66Fa\nl\nmíh\nR42906Fa\nl\nm`h\nR22903Fa\nl\nml–h\nR10939Fa\nl\nm$∂h\nR34664Fa\nl\nmÔÙh\nR50045Fa\nl\nmoSh\n≤g:31195:103Fa\nl\nmı+h\nR10223Fa\nl\nmyÃh\níg:9867:33Fa\nl\nm	h\nR24664Fa\nl\nm√Ph\n¢g:31140:88Fa\nl\nm˚Ïh\níg:7448:36Fa\nl\nm£h\nR15752Fa\nl\nmWÚh\n¢g:10195:55Fa\nl\nm®¿h\nR23147Fa\nl\nm0h\nR16203Fa\nl\nmöh\nR13043Fa\nl\nmj§Xh\níg:3427:40Fa\nl\nm„_h\nR15212Fa\nl\nml>h\nR10206Fa\nl\nmÑÄh\nB2579Fa\nl\nm√Ph\nR17021Fa\nl\nm˘∏h\nR22459Fa\nl\nmÑªh\nB1990Fa\nl\nmXHh\n≤g:24249:112Fa\nl\nm#Th\nB7727Fa\nl\nm&Œh\nR23131Fa\nl\nm	Îh\nR14425Fa\nl\nm`æh\nR23514Fa\nl\nm	\000Øh\níg:3075:55Fa\nl\nmW0h\n¢g:31187:97Fa\nl\nm‡⁄h\nR22788Fa\nl\nm¢h\nB9802Fa\nl\nmÅdh\n¢g:15372:43Fa\nl\nmûËh\níg:2587:20Fa\nl\nmvÚh\nR22913Fa\nl\nmEªh\nR22575Fa\nl\nmõh\n≤g:25067:108Fa\nl\nmh\nB9806Fa\nl\nmÅdh\nR31578Fa\nl\nm-ü∞h\nR20861Fa\nl\nmu/h\n≤g:31203:103Fa\nl\nm‹h\nB6568Fa\nl\nmB@h\nB6365Fa\nl\nm\r·%h\nR22457Fa\nl\nm]7h\n¢g:31125:85Fa\nl\nmE8h\n¢g:24710:87Fa\nl\nmEh\nR13045Fa\nl\nm4\\h\nB9451Fa\nl\nmd	h\nR10200Fa\nl\nmyÃh\nB4235Fa\nl\nmøh\nB3679Fa\nl\nmh\nR41103Fa\nl\nm⁄h\n≤g:24753:102Fa\nl\nmq\000h\nR16647Fa\nl\nm#Zh\nB8165Fa\nl\nmLèh\nR15057Fa\nl\nmC»h\níg:7922:43Fa\nl\nmì‡h\n¢g:18665:71Fa\nl\nm©Ü”h\nR23629Fa\nl\nmC#~h\n¢g:15057:55Fa\nl\nmC»h\n≤g:24775:111Fa\nl\nmÍ`h\nR12184Fa\nl\nm®h\nR42455Fa\nl\nmph\nR32664Fa\nl\nmì|h\nR24270Fa\nl\nm\r‚Øh\nR27439Fa\nl\nm&∫h\n¢g:24629:99Fa\nl\nm√Ph\nR22845Fa\nl\nmubh\níg:7460:34Fa\nl\nmqHh\n¢g:18343:59Fa\nl\nm„`h\nR33460Fa\nl\nm$Hh\n¢g:32772:97Fa\nl\nm0≠h\n¢g:12006:22Fa\nl\nmÍ`h\n≤g:30042:128Fa\nl\nm8Hóh\nR31200Fa\nl\nm\n h\nB4265Fa\nl\nm\r‚∞h\nR12434Fa\nl\nm\r‚∞h\n¢g:15592:43Fa\nl\nmu0h\n¢g:16676:59Fa\nl\nmj§Xh\nB4562Fa\nl\nml>h\nR31671Fa\nl\nm¥¸h\nB7542Fa\nl\nm\nÜ¯h\n¢g:12535:54Fa\nl\nmtKh\nR24718Fa\nl\nm√Ph\nB9848Fa\nl\nm:òh\n¢g:16737:59Fa\nl\nmã£h\nR38857Fa\nl\nm  h\nB8402Fa\nl\nm„]h\nB4729Fa\nl\nmÑÄh\nR31886Fa\nl\nmy¿h\n≤g:24250:112Fa\nl\nm_h\nR24629Fa\nl\nm√Ph\n¢g:24625:96Fa\nl\nmkh\nB9088Fa\nl\nmu)h\nR15634Fa\nl\nm\000§h\nR31222Fa\nl\nmIh\nR18736Fa\nl\nmB@h\nB2730Fa\nl\nm\"àh\n≤g:31290:109Fa\nl\nm4Oh\nR27664Fa\nl\nm$Jh\nR15084Fa\nl\nm|h\nR39341Fa\nl\nm$–h\nB7368Fa\nl\nmÚdh\nB6368Fa\nl\nmÜh\nR13490Fa\nl\nmpÄh\nR22861Fa\nl\nmmh\nR13059Fa\nl\nm¥®h\n≤g:32390:130Fa\nl\nm$n,h\n¢g:24611:90Fa\nl\nm√Ph\nR25016Fa\nl\nm}h\nR20752Fa\nl\nm˝∂h\nR24114Fa\nl\nm	#ÿh\n≤g:24661:111Fa\nl\nm√Ph\nB2738Fa\nl\nmh\n≤g:31155:109Fa\nl\nm]ph\n¢g:10402:18Fa\nl\nmÛph\n¢g:31178:94Fa\nl\nmf;h\níg:9861:35Fa\nl\nm£h\nR14184Fa\nl\nmÚdh\nB7479Fa\nl\nmûËh\nR23425Fa\nl\nm#◊h\nR20818Fa\nl\nmN h\nR29204Fa\nl\nm∑óh\n¢g:14834:43Fa\nl\nm„`h\n¢g:43515:22Fa\nl\nm° h\nR14634Fa\nl\nm˚h\nR32222Fa\nl\nmìﬁh\n¢g:15010:11Fa\nl\nm˚åh\nR24634Fa\nl\nmø h\n≤g:25008:114Fa\nl\nmÑÄh\nR25061Fa\nl\nm√Ph\nR11018Fa\nl\nmÙåh\nR37201Fa\nl\nm˘∏h\n¢g:14313:54Fa\nl\nmyhh\nR21861Fa\nl\nmIh\nR31861Fa\nl\nmâ(h\nR41099Fa\nl\nmÒh\nR19713Fa\nl\nmu0h\n¢g:25189:96Fa\nl\nmNh\nB8501Fa\nl\nm)2⁄h\nR15486Fa\nl\nm°h\nR33874Fa\nl\nmTeh\nB3308Fa\nl\nm(Th\nR21752Fa\nl\nm∆h\nB9293Fa\nl\nmo`h\nR19703Fa\nl\nmYh\nB9420Fa\nl\nmòkh\n¢g:16861:66Fa\nl\nm!ﬂ‡h\nB9465Fa\nl\nm[Xh\nR24216Fa\nl\nm\rﬁ»h\nR24913Fa\nl\nmÊ0h\nB2407Fa\nl\nmú>h\nR13466Fa\nl\nmáh\nR20746Fa\nl\nmVÍh\nB4407Fa\nl\nmòh\nR22374Fa\nl\nm¥h\nR24921Fa\nl\nmø h\nB4409Fa\nl\nm\rGh\nR14374Fa\nl\nmTDh\nR31190Fa\nl\nm\r?h\n≤g:24667:111Fa\nl\nm√Ph\nR14920Fa\nl\nm(T©@h\n≤g:31336:100Fa\nl\nm5éÌh\nR24920Fa\nl\nmä»h\nR11206Fa\nl\nm\rîêh\nR14921Fa\nl\nm(1Ôh\n¢g:10329:37Fa\nl\nmN h\nR29903Fa\nl\nm)2⁄h\nR43416Fa\nl\nmoßh\nR31321Fa\nl\nma«h\nB8295Fa\nl\nmÜ†h\n¢g:12992:23Fa\nl\nmÀh\nR24617Fa\nl\nm√Ph\nR23803Fa\nl\nmﬂh\nR13467Fa\nl\nm¿h\nB6047Fa\nl\nm\r‚∞h\nR24625Fa\nl\nmkh\nR27659Fa\nl\nm¥Jh\n¢g:25119:96Fa\nl\nmÉÄh\nR29292Fa\nl\nm'^h\nB6470Fa\nl\nmÙkh\nB3427Fa\nl\nm„_h\nR43389Fa\nl\nm8.h\nR23595Fa\nl\nmì¿h\n≤g:32656:105Fa\nl\nm•Äh\nR24290Fa\nl\nm˛h\nR24478Fa\nl\nm©h\nR31334Fa\nl\nmÃüh\nR10514Fa\nl\nm\r®Ih\n¢g:14119:17Fa\nl\nmB@h\nR14222Fa\nl\nm^$h\nR24222Fa\nl\nm◊h\nR25894Fa\nl\nm≥Âh\nR43535Fa\nl\nm‘¿h\nR10021Fa\nl\nmw¯h\n¢g:14129:20Fa\nl\nmÓh\nB3195Fa\nl\nmZ/h\nR29426Fa\nl\nm!h\nB6268Fa\nl\nmIÔh\nR12691Fa\nl\nm\r‚∞h\n≤g:32660:115Fa\nl\nm	\000∞h\nR38903Fa\nl\nm5g‡h\n≤g:24114:102Fa\nl\nm	#ÿh\nR34362Fa\nl\nmêYeh\nB2406Fa\nl\nm'¶h\nR32194Fa\nl\nmnÉh\nR24203Fa\nl\nm	#◊h\níg:3192:12Fa\nl\nm'h\nB2246Fa\nl\nm·˚h\nR22794Fa\nl\nmú@h\nR29540Fa\nl\nm^ˇh\nR20869Fa\nl\nm$*h\n¢g:31174:82Fa\nl\nm%h\n¢g:12012:45Fa\nl\nmc≈h\nR24730Fa\nl\nmÍ`h\nR14505Fa\nl\nm	Îh\n¢g:21755:44Fa\nl\nmsıh\nR24268Fa\nl\nmÙch\n¢g:24607:90Fa\nl\nm√Ph\n¢g:13009:51Fa\nl\nmîùh\nR13481Fa\nl\nmL$0h\nR24608Fa\nl\nm√Ph\nR11098Fa\nl\nmªøh\nR16982Fa\nl\nm –ïh\nB2587Fa\nl\nmvÚh\nR43418Fa\nl\nm‚Ch\nR41092Fa\nl\nmKºh\níg:6586:23Fa\nl\nmóhh\nR25045Fa\nl\nmN\rh\nR31329Fa\nl\nm#Mph\nR13091Fa\nl\nm√◊h\nR19270Fa\nl\nm⁄Kh\nR24301Fa\nl\nm]wh\n¢g:24946:90Fa\nl\nm\r@h\nR14096Fa\nl\nm)Ãh\nR29159Fa\nl\nmÂ€h\nB2078Fa\nl\nm0ph\n≤g:31289:109Fa\nl\nm¶´h\nR16671Fa\nl\nmXÇh\nR24810Fa\nl\nm\rªãh\nB5634Fa\nl\nm¶h\nR31892Fa\nl\nm€h\nR24950Fa\nl\nmÀ¨h\n¢g:24739:96Fa\nl\nmEh\nB4294Fa\nl\nm∆“h\n≤g:31277:106Fa\nl\nmk»h\nR10184Fa\nl\nmyhh\nR27425Fa\nl\nm¥vh\nR10644Fa\nl\nm0h\nR38893Fa\nl\nm  h\nR22828Fa\nl\nmó_h\nR37160Fa\nl\nmph\nB9249Fa\nl\nmB=h\nR19814Fa\nl\nm·—h\nR32402Fa\nl\nmJùêh\nR24960Fa\nl\nmB@h\nR15304Fa\nl\nm˚åh\nR42402Fa\nl\nmî~h\n¢g:10630:51Fa\nl\nmLK?h\nB4346Fa\nl\nmî˚h\nR24665Fa\nl\nm_êh\n≤g:25094:105Fa\nl\nm‹~h\níg:8345:45Fa\nl\nmî;h\nR13138Fa\nl\nmLÿh\n≤g:31213:109Fa\nl\nm±àh\nB6291Fa\nl\nm‰]h\nR19816Fa\nl\nm¿h\nB7084Fa\nl\nm„_h\nR43393Fa\nl\nmøh\nR25707Fa\nl\nmŸh\nR11983Fa\nl\nmW‰h\nR24587Fa\nl\nmø h\nR14160Fa\nl\nm˙Nh\níg:8295:56Fa\nl\nmÜ†h\nB7609Fa\nl\nm	h\nR35707Fa\nl\nmÜ†h\nB2800Fa\nl\nmÍﬂh\n≤g:31564:115Fa\nl\nmWh\nR11610Fa\nl\nm„\\h\níg:9424:41Fa\nl\nm_h\nR38921Fa\nl\nm!dùh\nB5971Fa\nl\nmú@h\n¢g:14205:32Fa\nl\nmÚdh\nR17020Fa\nl\nmOh\n≤g:31299:115Fa\nl\nm[Àh\n¢g:10275:60Fa\nl\nm-∆¿h\nR24304Fa\nl\nm	h\nB3387Fa\nl\nmW¸h\nR24702Fa\nl\nmø h\n¢g:31194:97Fa\nl\nm4∫h\nB5487Fa\nl\nm-∆¿h\nR11165Fa\nl\nm>¿h\nÇg:942:52Fa\nl\nm 2¨h\nR18335Fa\nl\nmh\nR16204Fa\nl\nmTâh\nB8487Fa\nl\nmπ:h\n¢g:24721:90Fa\nl\nmm|h\nR24768Fa\nl\nmu0h\nR29203Fa\nl\nmIh\nR45622Fa\nl\nm≈h\nR33122Fa\nl\nm[â˚h\n≤g:31332:100Fa\nl\nm?Ôìh\nB4408Fa\nl\nm¢Lh\nR10138Fa\nl\nmdh\n≤g:25016:117Fa\nl\nm}h\nB9881Fa\nl\nmúJh\n¢g:13017:40Fa\nl\nm\n/lh\nB7412Fa\nl\nmÚdh\nR24743Fa\nl\nm≠Lh\nR24479Fa\nl\nm'h\nB1204Fa\nl\nmA‹h\nR43672Fa\nl\nm£th\n¢g:14860:56Fa\nl\nm(1Ôh\n¢g:14090:11Fa\nl\nmNh\nR19706Fa\nl\nmîÅh\nB7414Fa\nl\nmÚdh\níg:4570:15Fa\nl\nm.‡h\nR34490Fa\nl\nmÁ˛h\nR23095Fa\nl\nmcôh\nB6587Fa\nl\nmN h\nR10302Fa\nl\nm≠´h\nR29488Fa\nl\nm¥‡h\nR22456Fa\nl\nm÷êh\nR41098Fa\nl\nm¬h\nR31138Fa\nl\nmÜ†h\nR24880Fa\nl\nm≠∞h\nR23528Fa\nl\nmm_h\nR14091Fa\nl\nm˚åh\nR24058Fa\nl\nmbDh\nB8288Fa\nl\nmq\000h\nB6712Fa\nl\nm§◊h\nR13941Fa\nl\nm‘ºh\nB8925Fa\nl\nmsÊh\níg:2277:35Fa\nl\nmÑÄh\nR11138Fa\nl\nm‘Æh\nR12427Fa\nl\nmü·h\nB4359Fa\nl\nm∫h\n¢g:17050:52Fa\nl\nm(+Úh\nR14186Fa\nl\nmB@h\nB2698Fa\nl\nmh\nÇg:7005:4Fa\nl\nm∑Sh\níg:3426:30Fa\nl\nm„_h\nR14663Fa\nl\nm{h\nR31889Fa\nl\nm,µh\n¢g:15012:16Fa\nl\nm)™h\nR12162Fa\nl\nm\r‚∞h\n≤g:32389:130Fa\nl\nm!jKh\nB6377Fa\nl\nmáh\nR14468Fa\nl\nmà%h\nB4377Fa\nl\nmDÉh\nR22728Fa\nl\nmZ	h\nR12728Fa\nl\nm©Üph\nR31294Fa\nl\nmâ–h\n¢g:24623:96Fa\nl\nmEh\nR25893Fa\nl\nmÁUh\nR10218Fa\nl\nm„`h\n≤g:24689:120Fa\nl\nm\náOh\n¢g:24921:81Fa\nl\nmø h\nR10275Fa\nl\nm-∆¿h\nR20817Fa\nl\nmßÿ¿h\níg:4715:27Fa\nl\nm0h\n¢g:18736:62Fa\nl\nmB@h\nB4369Fa\nl\nm~h\nB5772Fa\nl\nmv[h\n¢g:25286:93Fa\nl\nm•>h\n¢g:13063:34Fa\nl\nm\r‚∞h\nR10024Fa\nl\nmÀÉh\nR13048Fa\nl\nm›–h\nR14917Fa\nl\nm(1,ˇh\nR10201Fa\nl\nmÑÄh\n2858Fa\nl\nmD˘h\nR31186Fa\nl\nm+àh\nB9871Fa\nl\nmV∏h\nB2877Fa\nl\nmV‘h\nR23736Fa\nl\nmÑ∫h\nB2321Fa\nl\nm√h\nB8488Fa\nl\nm».h\níg:9428:35Fa\nl\nm(1òh\nR35191Fa\nl\nmà≠h\nB2245Fa\nl\nmdzh\nB9877Fa\nl\nm:òh\nR37145Fa\nl\nm\"^h\n¢g:25229:90Fa\nl\nmzh\n≤g:32398:130Fa\nl\nm7«h\n≤g:31275:106Fa\nl\nmd€h\nR16248Fa\nl\nm'sh\n¢g:14269:47Fa\nl\nmph\n¢g:10280:59Fa\nl\nm):Th\nB4624Fa\nl\nm\r@h\nR18262Fa\nl\nm¿îh\nR18294Fa\nl\nmu/h\nR22891Fa\nl\nm\rP4h\n¢g:16714:57Fa\nl\nmÊ0h\nR15746Fa\nl\nmÜüh\n¢g:10228:60Fa\nl\nmƒôh\nB7752Fa\nl\nmÊ0h\n≤g:24895:114Fa\nl\nmB@h\nR11304Fa\nl\nmeêh\nR13933Fa\nl\nmÑh\nR31304Fa\nl\nm·@h\nR25286Fa\nl\nm•>h\nR22563Fa\nl\nmÃ®h\n¢g:10200:53Fa\nl\nmyÃh\n¢g:13047:58Fa\nl\nmüh\nB2977Fa\nl\nm@h\nR32468Fa\nl\nmÙ˘h\níg:9765:15Fa\nl\nm@h\nR32196Fa\nl\nm[^h\nR25907Fa\nl\nm\rxh\nR24687Fa\nl\nm-h\n¢g:24926:84Fa\nl\nm›^h\nR30728Fa\nl\nmÌF0h\nB2598Fa\nl\nmú÷h\nR42736Fa\nl\nm¥¡h\nB7085Fa\nl\nmæûh\nB4571Fa\nl\nm/™h\n≤g:32574:141Fa\nl\nmM©h\nR10728Fa\nl\nmÜ†h\n¢g:15009:11Fa\nl\nmN h\nR19709Fa\nl\nmÄËh\níg:7436:35Fa\nl\nmÆÕh\nB1288Fa\nl\nmh\n¢g:14164:21Fa\nl\nm h\n¢g:14914:46Fa\nl\nm(1Ôh\nB3829Fa\nl\nm˚lh\nR10141Fa\nl\nm„`h\n≤g:31330:100Fa\nl\nm\nÆ`h\nR28595Fa\nl\nmòXh\nR27688Fa\nl\nmpÛh\nR32201Fa\nl\nm\000ıh\nR24253Fa\nl\nm⁄?h\nR31297Fa\nl\nmFÙh\nR33052Fa\nl\nmÑ⁄h\nB2452Fa\nl\nmÙ¡h\nR31181Fa\nl\nm9qh\nR12808Fa\nl\nm§åh\nR28279Fa\nl\nmzºh\nR24839Fa\nl\nmEh\nR18401Fa\nl\nm\rmh\níg:9807:27Fa\nl\nm*h\nB9998Fa\nl\nm√Ph\n≤g:24658:108Fa\nl\nm‘|h\n¢g:13023:63Fa\nl\nmY8h\nR14483Fa\nl\nm\r‚Øh\níg:9383:40Fa\nl\nmúNh\n≤g:31338:100Fa\nl\nm§Ûh\nR14375Fa\nl\nm'h\nR24051Fa\nl\nmÜ:h\nR31162Fa\nl\nm/õh\nR15365Fa\nl\nm£h\n¢g:12408:51Fa\nl\nm–êh\nR22148Fa\nl\nm˘∏h\nR24891Fa\nl\nmø h\nB9424Fa\nl\nm_h\nR14804Fa\nl\nmœ<h\nR13949Fa\nl\nmp˘h\nR25104Fa\nl\nmÀ¨h\nR15138Fa\nl\nmB?h\nB4424Fa\nl\nm\r®Ih\nR24688Fa\nl\nmhûh\nR31201Fa\nl\nmÙ\000h\n¢g:24838:93Fa\nl\nmÈ¸h\n2728Fa\nl\nmh\n¢g:25059:84Fa\nl\nm«∏h\nR23113Fa\nl\nmøhh\nR13113Fa\nl\nm_êh\nR18045Fa\nl\nm(`h\nR12227Fa\nl\nmì‡h\nR24736Fa\nl\nmX¨h\níg:9916:44Fa\nl\nmûËh\nR19726Fa\nl\nmÊ,h\nR31226Fa\nl\nm~@h\nR25298Fa\nl\nmEh\nB2771Fa\nl\nmlh\nB1477Fa\nl\nm4h\nB9777Fa\nl\nm˚åh\nR19820Fa\nl\nmﬁWh\nB5771Fa\nl\nm8h\nB4771Fa\nl\nm(Íh\n¢g:31136:88Fa\nl\nm^qh\níg:3202:24Fa\nl\nmN h\nR41094Fa\nl\nmƒ«h\nR11754Fa\nl\nm¢h\n≤g:25685:106Fa\nl\nm\rá≠h\n¢g:34249:70Fa\nl\nm<·Ôh\nR16113Fa\nl\nm.h\n¢g:25092:99Fa\nl\nmªÄh\nR10361Fa\nl\nm\r@h\nR15282Fa\nl\nm8Äh\n¢g:15161:43Fa\nl\nmûËh\nR31911Fa\nl\nm4Gh\nR40902Fa\nl\nm\"^h\níg:4564:13Fa\nl\nm,$h\nR24201Fa\nl\nmòh\nB4293Fa\nl\nmùlh\nB2324Fa\nl\nm√Ph\n≤g:34837:143Fa\nl\nm(7˝h\nR24947Fa\nl\nmA‹h\nR27736Fa\nl\nm	¯ºh\n¢g:15620:47Fa\nl\nmB@h\nB6471Fa\nl\nmÜh\nB7471Fa\nl\nmûËh\nR13468Fa\nl\nmIh\nB2799Fa\nl\nmT	h\nR19715Fa\nl\nmî	h\nR14630Fa\nl\nmÜ†h\níg:7729:33Fa\nl\nmI¡h\nR43365Fa\nl\nm_,h\nR23077Fa\nl\nm%‚h\nR13077Fa\nl\nmÚÓh\nB4471Fa\nl\nmÃ_h\nB5471Fa\nl\nm&rh\nR24962Fa\nl\nmÜ†h\n¢g:10287:26Fa\nl\nm&Òh\nB8224Fa\nl\nmóh\nB9224Fa\nl\nm‰.h\nR15018Fa\nl\nm˚åh\n≤g:24637:102Fa\nl\nmÛ,h\n¢g:31172:82Fa\nl\nm8u h\n¢g:21764:47Fa\nl\nm_Nh\n¢g:14161:18Fa\nl\nm˚åh\nB4352Fa\nl\nmu0h\nB5784Fa\nl\nm'h\nR22548Fa\nl\nmIh\nR24631Fa\nl\nmñdh\nR25024Fa\nl\nmÿ<h\nR35566Fa\nl\nmò	h\nR21949Fa\nl\nmLh\n¢g:14425:44Fa\nl\nm`æh\nR23121Fa\nl\nmòXh\n≤g:25052:105Fa\nl\nm_êh\nR16736Fa\nl\nm≥Hh\níg:21154:1Fa\nl\nm9˚¿h\nR24595Fa\nl\nm˝jh\n≤g:24676:114Fa\nl\nmÚÇh\nR24728Fa\nl\nmEh\nR10308Fa\nl\nmh\nR32464Fa\nl\nm~h\nR24661Fa\nl\nm√Ph\nR23109Fa\nl\nmòXh\nR24646Fa\nl\nmthh\nR12365Fa\nl\nmdh\nR19263Fa\nl\nmzh\nR10192Fa\nl\nmyÃh\nB8171Fa\nl\nmNh\n¢g:12987:22Fa\nl\nm©zh\nR23140Fa\nl\nm	Î	h\níg:9824:32Fa\nl\nmÚdh\n¢g:24957:93Fa\nl\nmm‡h\n≤g:24643:102Fa\nl\nm‘¿h\nR24061Fa\nl\nmPSh\nR12713Fa\nl\nmnÎh\n¢g:14113:15Fa\nl\nm'h\nR31673Fa\nl\nmÑ¢h\nB8401Fa\nl\nmN h\nB7543Fa\nl\nm\nÜ¯h\nR42974Fa\nl\nmyh\nR19260Fa\nl\nmo<h\nB4401Fa\nl\nm√Õh\n≤g:25039:108Fa\nl\nmyXh\nB6401Fa\nl\nmÍ`h\nR31298Fa\nl\nm\nh\nR29730Fa\nl\nm\n%®h\n¢g:15286:35Fa\nl\nml>h\nR32772Fa\nl\nm0≠h\nR31877Fa\nl\nm-ü∞h\nR21877Fa\nl\nmT\\h\nR24814Fa\nl\nmààh\nR35217Fa\nl\nm≥˘h\nR11825Fa\nl\nm¢h\nR25077Fa\nl\nm›òh\n¢g:24621:96Fa\nl\nm\nÇüh\nR32658Fa\nl\nmF:Ñh\n≤g:34363:159Fa\nl\nmèn∫h\n¢g:15210:16Fa\nl\nm'h\nR15661Fa\nl\nm8Äh\n¢g:18289:56Fa\nl\nm\r@h\nR43342Fa\nl\nmTÕh\nR22841Fa\nl\nmiwh\nR12231Fa\nl\nmú<h\nR15630Fa\nl\nm˛xh\nR32231Fa\nl\nmL\"h\nR41104Fa\nl\nmt∆h\nR19267Fa\nl\nm7h\nR25047Fa\nl\nm√Ph\nR24275Fa\nl\nm\r•Zh\nB6552Fa\nl\nm3–h\nR35201Fa\nl\nm(b7lh\n¢g:13144:53Fa\nl\nm≈Dh\nB6362Fa\nl\nm‘;h\n¢g:18296:56Fa\nl\nm§¥h\nR24619Fa\nl\nm√Ph\n¢g:24602:87Fa\nl\nm√Ph\nR19236Fa\nl\nm\n,(h\nB4371Fa\nl\nm‘h\nB3371Fa\nl\nmI˘h\nB6371Fa\nl\nm\"-h\nB3685Fa\nl\nm‘	h\n¢g:25047:90Fa\nl\nm√Ph\n≤g:32586:141Fa\nl\nmËœh\nR13444Fa\nl\nh\nm§ØR32212Fa\nl\nmïìh\nR28494Fa\nl\nm¡èh\n¢g:21768:55Fa\nl\nmÜüh\n¢g:19288:66Fa\nl\nm<‘Íh\nR14342Fa\nl\nh\nm√N¢g:24823:87Fa\nl\nm\r@h\nB7371Fa\nl\nm8h\nB7080Fa\nl\nmUäh\n¢g:24740:96Fa\nl\nmÀ¨h\nÇg:869:41Fa\nl\nmŸúh\nR31175Fa\nl\nm° h\nB1484Fa\nl\nm–Ùh\nR31282Fa\nl\nmoh\nB5504Fa\nl\nm\r®Jh\nR32195Fa\nl\nm1h\n¢g:24575:81Fa\nl\nm√Ph\níg:9920:44Fa\nl\nmûËh\nB7484Fa\nl\nmh\nR11139Fa\nl\nm¥!h\níg:7527:50Fa\nl\nm±Mh\nR14974Fa\nl\nm˜Hh\níg:2564:50Fa\nl\nm‘¿h\nR20407Fa\nl\nm√Jh\nB5484Fa\nl\nm_èh\nR31139Fa\nl\nm∏êh\nB5071Fa\nl\nm#àh\nR31212Fa\nl\nm±ºh\nB7077Fa\nl\nmäh\nR31179Fa\nl\nmKBh\n¢g:31242:88Fa\nl\nmBh\níg:18231:1Fa\nl\nm2h\nR15309Fa\nl\nm'h\n¢g:15163:43Fa\nl\nmûËh\nR32751Fa\nl\nm/∂h\nB2450Fa\nl\nm$Äh\n¢g:24828:87Fa\nl\nmø h\nR31287Fa\nl\nm° h\nR24847Fa\nl\nmEh\n≤g:32658:115Fa\nl\nmF:Ñh\nB7071Fa\nl\nmÈ´h\nR10998Fa\nl\nm_h\nR10282Fa\nl\nm-∆¿h\n¢g:25243:90Fa\nl\nmÕÔh\nR30282Fa\nl\nm5x´h\n¢g:14922:53Fa\nl\nmòñÄh\n¢g:20406:60Fa\nl\nmîh\nR11287Fa\nl\nmÜ†h\n≤g:30839:115Fa\nl\nm6Ñüh\nR29728Fa\nl\nmùüh\nB8384Fa\nl\nm-õXh\n¢g:10192:53Fa\nl\nmyÃh\níg:9405:33Fa\nl\nm8Ah\nR16214Fa\nl\nmL∂h\nB4384Fa\nl\nm>·h\nB6585Fa\nl\nm√Ph\nR38887Fa\nl\nm  h\nR23424Fa\nl\nmêh\nR10309Fa\nl\nm\r‚∞h\nR23117Fa\nl\nmTh\nR13117Fa\nl\nm-õXh\nR20406Fa\nl\nmîh\nR22904Fa\nl\nmÃßh\nB7546Fa\nl\nm\nÜ¯h\nR24651Fa\nl\nm\r@h\nR22797Fa\nl\nmm\\h\nR24784Fa\nl\nmB@h\nR24771Fa\nl\nm\r@h\n¢g:19289:66Fa\nl\nmùÁh\níg:2291:49Fa\nl\nm(0ﬁ‡h\nR15996Fa\nl\nm-∆øh\nR43117Fa\nl\nm4~h\nR29483Fa\nl\nmc©h\nR25058Fa\nl\nmM&h\nB4380Fa\nl\nm¡ih\nR31342Fa\nl\nm6IDh\nB3211Fa\nl\nmÈòh\nB9154Fa\nl\nm∏h\nR13754Fa\nl\nm§`h\n¢g:31236:91Fa\nl\nmáh\nR10287Fa\nl\nm&Òh\nR16242Fa\nl\nm<·h\nB9885Fa\nl\nm£h\nR12011Fa\nl\nmù–h\nR24212Fa\nl\nm#lh\nB9822Fa\nl\nmu0h\nR13931Fa\nl\nm4¢h\nR10316Fa\nl\nmÜ†h\nR14860Fa\nl\nm(1Ôh\nR16249Fa\nl\nmN≤h\n2730Fa\nl\nm âh\n¢g:15341:30Fa\nl\nmÅdh\níg:5212:17Fa\nl\nm|h\nR13309Fa\nl\nm\r@h\nB7446Fa\nl\nm£h\nB5785Fa\nl\nmvh\nR15408Fa\nl\nm\r‚∞h\n¢g:31143:91Fa\nl\nmj∑h\nR17709Fa\nl\nm—Âh\nR43381Fa\nl\nmKh\n≤g:34859:115Fa\nl\nm˚Ùh\nB4414Fa\nl\nm\r‚Æh\n¢g:10333:36Fa\nl\nm;`h\nB1168Fa\nl\nmy'†h\n≤g:30040:128Fa\nl\nmhË?h\n¢g:13085:51Fa\nl\nmLÿh\nR20452Fa\nl\nm\r®Jh\nB2320Fa\nl\nm$∂h\nB8350Fa\nl\nmƒØh\nR40901Fa\nl\nmth\nB6054Fa\nl\nmY≥h\nB2984Fa\nl\nm_h\nB8168Fa\nl\nm\r‚∞h\níg:9823:31Fa\nl\nmjòh\nR12800Fa\nl\nmw$h\n≤g:31162:109Fa\nl\nm/õh\níg:2912:32Fa\nl\nmdph\n¢g:10373:61Fa\nl\nm„`h\nR14269Fa\nl\nmph\nR11407Fa\nl\nm'ÿh\nR10085Fa\nl\nmyhh\nR14161Fa\nl\nm˚åh\nR12406Fa\nl\nm–êh\nR44143Fa\nl\nm¬Ïh\nR10394Fa\nl\nm÷h\nR42406Fa\nl\nm#äh\nR20974Fa\nl\nmûËh\níg:5079:40Fa\nl\nm≠∞h\nB3610Fa\nl\nmõ€h\nR43316Fa\nl\nm$Vh\nR25089Fa\nl\nmÍ`h\nB6068Fa\nl\nm&´h\nR19231Fa\nl\nm´5h\n≤g:25011:114Fa\nl\nmÑÄh\nB6610Fa\nl\nmÚdh\nB2750Fa\nl\nm‡h\nB4397Fa\nl\nm˙`h\nR40896Fa\nl\nm5ùh\nB2965Fa\nl\nm@h\nR18949Fa\nl\nm0h\nR18232Fa\nl\nm\nÿh\nR38949Fa\nl\nmóh\nR16253Fa\nl\nm4Mh\n¢g:14806:57Fa\nl\nmJæh\nB7068Fa\nl\nmƒ]h\nB9850Fa\nl\nm¢÷h\nR23529Fa\nl\nmúnh\n¢g:15152:41Fa\nl\nmûËh\nR22153Fa\nl\nm@,h\n≤g:24680:117Fa\nl\nm±Ûh\nR27663Fa\nl\nm4wh\nR15745Fa\nl\nm‚¬h\n≤g:25010:114Fa\nl\nm8Äh\nB9765Fa\nl\nm@h\nR34220Fa\nl\nmLØh\n¢g:24941:87Fa\nl\nmû,h\nR16685Fa\nl\nm° h\nR24220Fa\nl\nm Ãh\nB7079Fa\nl\nmD8h\nR24876Fa\nl\nm\r@h\nB5079Fa\nl\nm≠∞h\n2810Fa\nl\nm}h\n¢g:15363:42Fa\nl\nmûËh\nR38930Fa\nl\nm  h\nB2079Fa\nl\nmÈòh\nR24089Fa\nl\nmÙh\nR24817Fa\nl\nm|xh\n¢g:25058:81Fa\nl\nmM&h\nR17062Fa\nl\nm8lh\nR43359Fa\nl\nmuh\níg:5071:14Fa\nl\nm#àh\nB2865Fa\nl\nm√Ph\nR43104Fa\nl\nm±h\n¢g:15969:10Fa\nl\nm°h\nR23104Fa\nl\nm]æh\nR20514Fa\nl\nm\r‚Øh\nR15242Fa\nl\nmMºh\n¢g:18338:59Fa\nl\nm`Rh\n¢g:31179:91Fa\nl\nmKBh\níg:1981:44Fa\nl\nmJeh\nR23799Fa\nl\nmnÁh\nR15161Fa\nl\nmûËh\nR32224Fa\nl\nm#\nh\nR13135Fa\nl\nm]uh\nB8210Fa\nl\nmûËh\n≤g:25055:114Fa\nl\nmÿÃh\nR35316Fa\nl\nmIh\nR13889Fa\nl\nmãΩh\nR27685Fa\nl\nmÜ†h\níg:5215:41Fa\nl\nmËTh\nR31150Fa\nl\nm∞h\nR21933Fa\nl\nm√Ph\nR24624Fa\nl\nm√Ph\nB7742Fa\nl\nm\r?h\nR21896Fa\nl\nm	Í‹h\nR20754Fa\nl\nm√Oh\nR43826Fa\nl\nmph\nR11362Fa\nl\nm\r‚∞h\níg:4039:35Fa\nl\nm	h\nR12989Fa\nl\nmW/h\nR32541Fa\nl\nmK«=h\nB4096Fa\nl\nmtáh\nB9810Fa\nl\nm1·h\nB2924Fa\nl\nm\r®Ih\nR38861Fa\nl\nm√Êh\nR10720Fa\nl\nm!ëøh\n≤g:24677:117Fa\nl\nmÛ,h\nR10940Fa\nl\nmT\"h\n¢g:31235:91Fa\nl\nm≤=h\nR31891Fa\nl\nm5hh\nR18253Fa\nl\nm˝h\nR12820Fa\nl\nm#Zh\nR14799Fa\nl\nmh”Ôh\nB8924Fa\nl\nm√Ph\nB8485Fa\nl\nm¿¬h\nR11736Fa\nl\nmPh\níg:6405:36Fa\nl\nmW0h\nB5485Fa\nl\nmh\nB3385Fa\nl\nh\nm‰`R24685Fa\nl\nmÍ`h\níg:2911:23Fa\nl\nm˙h\nR31080Fa\nl\nmS€h\nR10938Fa\nl\nmÙ7h\n¢g:21278:55Fa\nl\nmTœÏh\nR13757Fa\nl\nmd–h\nR23575Fa\nl\nmOh\nR24831Fa\nl\nm–êh\nR22452Fa\nl\nmó,h\nR42955Fa\nl\nm%·h\nR31133Fa\nl\nm©|h\nR24714Fa\nl\nmÀ¨h\nB9846Fa\nl\nm[`h\nB8846Fa\nl\nm$‰h\nB7910Fa\nl\nmS\000h\nR25037Fa\nl\nm\n`@h\nB5003Fa\nl\nmgËh\nR38837Fa\nl\nmãëh\nR31236Fa\nl\nmáh\n¢g:10202:48Fa\nl\nm≠∞h\nB3874Fa\nl\nm\r‚∞h\nR19232Fa\nl\nmj\000h\nB2824Fa\nl\nm:ch\nR15564Fa\nl\nmÇ3h\n¢g:31183:85Fa\nl\nm!>†h\nB9385Fa\nl\nm§h\nR38931Fa\nl\nm†@h\nB8385Fa\nl\nmú>h\n¢g:24222:57Fa\nl\nm◊h\nB9824Fa\nl\nmÚdh\n¢g:24612:90Fa\nl\nm√Ph\níg:9835:33Fa\nl\nmSh\nB6475Fa\nl\nm\r@h\nB9835Fa\nl\nmSh\nR12226Fa\nl\nmu/h\nR34376Fa\nl\nmjËh\nR11733Fa\nl\nm4h\nR33459Fa\nl\nm#]h\n¢g:18710:50Fa\nl\nm-∆Rh\nB1475Fa\nl\nm#Ôh\n¢g:18697:55Fa\nl\nm§‘h\n¢g:12994:23Fa\nl\nm-h\nB2835Fa\nl\nm¥\rh\nR43414Fa\nl\nmNh\nR13478Fa\nl\nm8˛h\nÇg:811:57Fa\nl\nmdoh\nR19282Fa\nl\nm h\níg:4838:26Fa\nl\nmq$h\n¢g:43667:65Fa\nl\nm0h\nR23426Fa\nl\nmıÛh\níg:7438:36Fa\nl\nm4∆h\nR14627Fa\nl\nm-∆øh\nR24627Fa\nl\nm√Ph\nR24935Fa\nl\nmíòh\nR14117Fa\nl\nmN h\nR13459Fa\nl\nm=∑h\níg:1315:51Fa\nl\nm° h\nR23592Fa\nl\nm	Í‡h\nR31225Fa\nl\nm]ph\nR28282Fa\nl\nm	Íœh\n¢g:18745:57Fa\nl\nm zh\nR25243Fa\nl\nmÕÔh\nR39509Fa\nl\nm{ph\n¢g:10223:58Fa\nl\nmyÃh\nB9775Fa\nl\nm˚åh\nR15755Fa\nl\nm\r‚Øh\níg:7355:31Fa\nl\nmÃ_h\n2647Fa\nl\nmÃ_h\nR14972Fa\nl\nm<Kh\nR24739Fa\nl\nmEh\nR44215Fa\nl\nm∫∆h\nR39342Fa\nl\nm'h\nB3735Fa\nl\nm8|h\nB2735Fa\nl\nm∫h\nR38466Fa\nl\nm@h\nB2775Fa\nl\nmiLh\nB5775Fa\nl\nm∆h\níg:9789:19Fa\nl\nmú@h\nR12432Fa\nl\nm¥h\nR12037Fa\nl\nmh\nR40923Fa\nl\nm‘ùh\nR15981Fa\nl\nmÜ†h\nR24252Fa\nl\nm(pdh\nR27699Fa\nl\nm/xh\nB9301Fa\nl\nmLh\nR35758Fa\nl\nm´1h\nR31142Fa\nl\nmú∏h\nR30723Fa\nl\nm(b2h\n≤g:30036:128Fa\nl\nm)@ãh\nB7355Fa\nl\nmÃ_h\níg:9889:40Fa\nl\nm¢÷h\nR30725Fa\nl\nm( \000h\nB5578Fa\nl\nm&ˆh\n≤g:30044:128Fa\nl\nmJãHh\nR10145Fa\nl\nmyÃh\nB6275Fa\nl\nm_çh\n≤g:34362:159Fa\nl\nmêYeh\n¢g:13072:60Fa\nl\nm·ˇh\nB9305Fa\nl\nml®h\nB5635Fa\nl\nmDGh\nR21764Fa\nl\nm_Nh\nR27500Fa\nl\nm\"›h\nR10605Fa\nl\nm\rmÄh\n≤g:24662:111Fa\nl\nmÌ∏h\nR29363Fa\nl\nm6`h\nR13106Fa\nl\nmLÿh\n¢g:23835:68Fa\nl\nm;±@h\nR21942Fa\nl\nm\r?h\nB3291Fa\nl\nmÑÄh\nR14967Fa\nl\nm+±√h\nR43106Fa\nl\nmMâh\n≤g:23516:113Fa\nl\nm1yh\n¢g:15526:24Fa\nl\nm'dh\n¢g:24589:84Fa\nl\nm√Ph\nR10567Fa\nl\nm˛Ëh\nR22837Fa\nl\nm(üc\000h\nR23802Fa\nl\nmã≈h\nR43673Fa\nl\nmT3h\nB8113Fa\nl\nmÑh\nR23107Fa\nl\nm\"∆h\n≤g:31398:100Fa\nl\nm&fh\n¢g:24810:81Fa\nl\nm\rªãh\nR14241Fa\nl\nm◊üh\níg:8288:59Fa\nl\nmq\000h\nR20963Fa\nl\nmVh\nB5789Fa\nl\nm-ü∞h\n¢g:13049:29Fa\nl\nmÊh\nB6575Fa\nl\nm*Ÿh\nR20475Fa\nl\nm]¿h\nR43543Fa\nl\nmóçh\níg:6554:17Fa\nl\nm˚åh\n≤g:31556:115Fa\nl\nm\r@h\nR29112Fa\nl\nmuh\nR23111Fa\nl\nmJ7h\nR11083Fa\nl\nm<h\nB6889Fa\nl\nmƒvh\nB6344Fa\nl\nm'h\nR10513Fa\nl\nmh\nB9823Fa\nl\nmjòh\nB2889Fa\nl\nmh\nB3575Fa\nl\nm§h\nR32215Fa\nl\nm•Ûh\nR34106Fa\nl\nmÑh\nR31918Fa\nl\nmL\"h\nB8932Fa\nl\nmàh\n≤g:24690:120Fa\nl\nmÌîh\nB9889Fa\nl\nm¢÷h\nR16111Fa\nl\nmdKh\nR19699Fa\nl\nm¥¶h\nR17031Fa\nl\nmìh\nB3823Fa\nl\nm`h\nR32737Fa\nl\nmìsh\nR11137Fa\nl\nmöh\nR19235Fa\nl\nm	î¥h\nR10620Fa\nl\nm£h\nB7473Fa\nl\nmûËh\nB9916Fa\nl\nmûËh\n¢g:10106:56Fa\nl\nmy\"h\nR10578Fa\nl\nmõh\nB3075Fa\nl\nmW0h\nR43432Fa\nl\nm8h\nR18587Fa\nl\nmW|h\nB5075Fa\nl\nmÜ—h\nR25065Fa\nl\nmpŒh\nR15994Fa\nl\nmÑùh\nB2075Fa\nl\nm@h\n¢g:15162:45Fa\nl\nm\nÜ¯h\nR37143Fa\nl\nmh\nB3205Fa\nl\nmÂ∞h\nR19276Fa\nl\nmLK@h\nR31900Fa\nl\nmœ'h\n¢g:24598:87Fa\nl\nmöLh\nB7075Fa\nl\nmdSh\n¢g:10167:55Fa\nl\nm4Oh\níg:9787:19Fa\nl\nmú@h\nR32756Fa\nl\nmÇúh\n≤g:31281:106Fa\nl\nmM¯h\nR24065Fa\nl\nm‚h\nR27684Fa\nl\nm+Ìh\nR21945Fa\nl\nm8Áh\nR24786Fa\nl\nm•<h\níg:4569:14Fa\nl\nmNh\nR12359Fa\nl\nh\nmˆíg:2163:53Fa\nl\nm”Wh\nR24166Fa\nl\nmt|h\nR48112Fa\nl\nm(®h\nR22848Fa\nl\nmaŸh\n¢g:30542:65Fa\nl\nmºÄh\nR10323Fa\nl\nmøh\nR23764Fa\nl\nm‹:h\nR30323Fa\nl\nm:mh\nB6375Fa\nl\nmÜ†h\nR31323Fa\nl\nm\riòh\nR31882Fa\nl\nm<E´h\nB4375Fa\nl\nm‘\nh\nR22146Fa\nl\nmÊSh\nR43424Fa\nl\nm49h\n≤g:31942:115Fa\nl\nmì‡h\nR13085Fa\nl\nmLÿh\nR38865Fa\nl\nm\n›Jh\nB3413Fa\nl\nmK˝ h\n¢g:13135:59Fa\nl\nm]uh\nR10627Fa\nl\nm‘¿h\nB9375Fa\nl\nm(…òh\níg:2079:17Fa\nl\nmÈòh\nB4413Fa\nl\nm(¶¿h\nR29547Fa\nl\nm(\000h\nB7989Fa\nl\nmösh\nR38885Fa\nl\nm˝‡h\n¢g:12990:23Fa\nl\nmIh\nR16684Fa\nl\nmLÿh\n¢g:10019:45Fa\nl\nmu™h\nR14509Fa\nl\nmL$.h\n2159Fa\nl\nm;[Oh\nR10548Fa\nl\nm\r‚∞h\n¢g:15634:52Fa\nl\nm\000§h\nR44145Fa\nl\nmËh\nB5183Fa\nl\nmú@h\nB8226Fa\nl\nmj§Xh\nB7448Fa\nl\nm£h\n≤g:32401:130Fa\nl\nmJùêh\nR42468Fa\nl\nmàh\nR27689Fa\nl\nm\n√h\nR31306Fa\nl\nma h\níg:4562:10Fa\nl\nml>h\n≤g:31342:100Fa\nl\nm6IDh\nR43343Fa\nl\nmM∫h\n≤g:31857:100Fa\nl\nmënh\nR22376Fa\nl\nm¬àh\nB3868Fa\nl\nm&¨h\nR34372Fa\nl\nmj©h\n¢g:25188:93Fa\nl\nmY¥h\nB4789Fa\nl\nm√Lh\n¢g:14096:16Fa\nl\nm)Ãh\nR13756Fa\nl\nmd—h\nR19701Fa\nl\nm&´h\nR11999Fa\nl\nmóËh\n≤g:23507:106Fa\nl\nmLÿh\n¢g:24738:96Fa\nl\nmEh\níg:2100:48Fa\nl\nm'~h\nR32663Fa\nl\nm!êh\n¢g:10221:58Fa\nl\nmyÃh\nR31942Fa\nl\nmì‡h\nR32249Fa\nl\nmöh\nR16112Fa\nl\nmR¡h\nB9789Fa\nl\nmú@h\nB3305Fa\nl\nm\"gh\nB4305Fa\nl\nmAh\níg:9799:26Fa\nl\nm.‡h\nR42972Fa\nl\nm§«h\n¢g:20827:26Fa\nl\nmN h\nR22792Fa\nl\nmîéh\n¢g:13077:57Fa\nl\nmÚÓh\n¢g:29157:36Fa\nl\nmÒ*h\nB4794Fa\nl\nm-=h\n≤g:24998:111Fa\nl\nmB@h\nR18231Fa\nl\nm2h\nR38896Fa\nl\nm  h\nR18698Fa\nl\nm<∫ﬁh\n2867Fa\nl\nmøœh\n¢g:12004:58Fa\nl\nmxh\nR43376Fa\nl\nm˚hh\nB4623Fa\nl\nm*\\h\nR25265Fa\nl\nmz0h\n¢g:10184:52Fa\nl\nmyhh\nR14224Fa\nl\nm£h\nR16215Fa\nl\nm√Ph\nR24215Fa\nl\nmä«h\nR24756Fa\nl\nm\r@h\nB5489Fa\nl\nm\r@h\n≤g:32402:130Fa\nl\nmJùêh\nR16840Fa\nl\nm»gh\nR13456Fa\nl\nmËlh\nR32226Fa\nl\nm¬˜h\nB8489Fa\nl\nm¿Øh\nR15268Fa\nl\nml>h\nR24684Fa\nl\nmø h\nR28290Fa\nl\nmdh\n¢g:14445:54Fa\nl\nmjœ¿h\nR30155Fa\nl\nm˙h\nB4405Fa\nl\nm\r‚∞h\nR19708Fa\nl\nmîh\nB6405Fa\nl\nmW0h\nB9405Fa\nl\nm8Ah\níg:4571:17Fa\nl\nm/™h\nR34861Fa\nl\nmd8h\nR18701Fa\nl\nmj§Xh\nR43390Fa\nl\nmL‰h\nR31910Fa\nl\nm<˙Yh\nR12004Fa\nl\nmxh\nB1210Fa\nl\nmAúh\níg:7445:38Fa\nl\nmÚdh\nR32839Fa\nl\nm	#ÿh\nR24894Fa\nl\nm|¡h\n¢g:13089:49Fa\nl\nmj§Xh\nB2589Fa\nl\nmDh\n≤g:24684:117Fa\nl\nmø h\n≤g:25037:102Fa\nl\nm\n`@h\nR31153Fa\nl\nmŒGh\nR17050Fa\nl\nm(+Úh\n¢g:25077:96Fa\nl\nm›òh\nB4589Fa\nl\nm\r‚Øh\nR24316Fa\nl\nm	Í˚h\nR15944Fa\nl\nm°h\nR22529Fa\nl\nm\r®Gh\nR22914Fa\nl\nmí3h\nB9867Fa\nl\nm	h\nR31917Fa\nl\nm·7h\níg:8210:44Fa\nl\nmûËh\nR31896Fa\nl\nmÔÎh\nR14437Fa\nl\nm(˘&†h\nR13089Fa\nl\nmj§Xh\nR31145Fa\nl\nmE‰h\nR24060Fa\nl\nmu$h\nR40913Fa\nl\nm'àh\nR25161Fa\nl\nm˜†h\nR30458Fa\nl\nm\r®Jh\nR28492Fa\nl\nmDÉh\n¢g:13004:58Fa\nl\nmIh\nR12689Fa\nl\nm≠Øh\nB6330Fa\nl\nm8{h\nR32390Fa\nl\nm$n,h\nR22390Fa\nl\nm˜úh\nR22576Fa\nl\nm∆h\nR17708Fa\nl\nmN∂h\nB5470Fa\nl\nmMTh\nR20408Fa\nl\nmØ∆h\nR32749Fa\nl\nm6Üh\nB1710Fa\nl\nmÙ˘h\n≤g:31164:103Fa\nl\nm•h\nB2289Fa\nl\nm‘õh\n≤g:34622:100Fa\nl\nmÜFˇh\nB4289Fa\nl\nm√h\nB7289Fa\nl\nm-∆øh\nB6289Fa\nl\nmdmh\nR10603Fa\nl\nm\r‚∞h\nB8289Fa\nl\nmIh\nÇg:873:40Fa\nl\nm‰Ôìh\n¢g:14560:19Fa\nl\nmB@h\nR19813Fa\nl\nm·ÿh\n¢g:24819:84Fa\nl\nm–êh\nR15997Fa\nl\nmih\n¢g:24606:90Fa\nl\nm√Ph\nR23624Fa\nl\nm[çÄh\nR27438Fa\nl\nm!ñh\n≤g:24899:114Fa\nl\nmÿh\n¢g:24585:81Fa\nl\nm\nÑ\nh\nR23630Fa\nl\nm h\nR31895Fa\nl\nm©Xh\nR21895Fa\nl\nm	Îh\nR28421Fa\nl\nmMàh\nR41108Fa\nl\nmƒÏh\nR29534Fa\nl\nmÌ(h\nB4350Fa\nl\nm_êh\n¢g:15577:36Fa\nl\nm˛∞h\nR43554Fa\nl\nmÇh\nR12803Fa\nl\nm¥Dh\nR16714Fa\nl\nmÊ0h\níg:9429:44Fa\nl\nmJ≈h\n¢g:15242:30Fa\nl\nmMºh\nR10333Fa\nl\nm;`h\n¢g:31133:85Fa\nl\nm©|h\nR24773Fa\nl\nmú?h\nB4389Fa\nl\nm4Wh\nR22647Fa\nl\nmƒ1h\nR23153Fa\nl\nm	Îh\nR15269Fa\nl\nm≠∞h\nB8389Fa\nl\nm\r‚Æh\nÇg:809:50Fa\nl\nm-Gh\nR24588Fa\nl\nm\nÇüh\n¢g:15578:41Fa\nl\nmB@h\n¢g:15377:42Fa\nl\nmûËh\n≤g:24771:108Fa\nl\nm\r@h\níg:6557:16Fa\nl\nmN h\nB6211Fa\nl\nmu0h\n≤g:31319:100Fa\nl\nmSÏ`h\nR24067Fa\nl\nm'h\n≤g:24252:112Fa\nl\nm(pdh\nR24680Fa\nl\nm±Ûh\nB9179Fa\nl\nm¯h\nB8343Fa\nl\nm&Gh\nR14309Fa\nl\nm±äh\nB7410Fa\nl\nm	h\nR14507Fa\nl\nm\r‚Øh\nR42911Fa\nl\nm&Eh\nR19714Fa\nl\nmàÍh\nB5788Fa\nl\nm\r‚¶h\nR25708Fa\nl\nmpVh\n¢g:15306:16Fa\nl\nmIÔh\nR23154Fa\nl\nm4Ph\nR21342Fa\nl\nm4}{h\nR32739Fa\nl\nm\r‚Æh\n¢g:24724:90Fa\nl\nmπ¯h\nR44148Fa\nl\nmò◊h\nR24620Fa\nl\nm√Ph\n≤g:24763:105Fa\nl\nmB@h\nR32852Fa\nl\nm\n h\nR24826Fa\nl\nmø h\nB7450Fa\nl\nm\r‚Øh\nR30305Fa\nl\nm\rmÄh\nR17012Fa\nl\nmpÏh\n¢g:10413:19Fa\nl\nmUÉh\nR21548Fa\nl\nm-’fh\nB2748Fa\nl\nm*Wh\nB6616Fa\nl\nmjòh\nR30838Fa\nl\nmsåh\níg:9894:41Fa\nl\nmÎh\n≤g:25068:111Fa\nl\nmÖÿh\níg:8129:49Fa\nl\nmú?h\n≤g:23763:112Fa\nl\nmáŒh\nR27502Fa\nl\nm\r‚∞h\nR21864Fa\nl\nm7ÿ‡h\nR42962Fa\nl\nmv\nh\n¢g:31149:91Fa\nl\nmÛmh\nR31336Fa\nl\nm5éÌh\n¢g:10141:63Fa\nl\nm„`h\nR31865Fa\nl\nmr¥h\nR45804Fa\nl\nm$¥h\nR38877Fa\nl\nm'¨@h\n≤g:24685:120Fa\nl\nmÍ`h\nR34113Fa\nl\nm\r‚∞h\n≤g:31578:115Fa\nl\nm-ü∞h\nR14113Fa\nl\nm'h\nR24193Fa\nl\nm£*h\nR28362Fa\nl\nm	h\nB2776Fa\nl\nmªh\nR23094Fa\nl\nmîph\nR24596Fa\nl\nmc8h\nR16245Fa\nl\nm©»h\nR38834Fa\nl\nm° h\nR29904Fa\nl\nm)2⁄h\n¢g:14186:29Fa\nl\nmB@h\nB8498Fa\nl\nm(˘@™h\nR15487Fa\nl\nm'h\n¢g:10085:52Fa\nl\nmyhh\nB8923Fa\nl\nm√Ph\n≤g:21859:106Fa\nl\nmÛ5h\nB5498Fa\nl\nm≈h\níg:3199:22Fa\nl\nmú@h\n¢g:10720:42Fa\nl\nm!ëøh\nR25054Fa\nl\nm0h\n¢g:31131:85Fa\nl\nmØ|h\nR31164Fa\nl\nm•h\nÇg:810:54Fa\nl\nm}h\nR10317Fa\nl\nm\r?h\nR24648Fa\nl\nm_êh\nR24630Fa\nl\nmÛ,h\nR38939Fa\nl\nm¸πh\nB4417Fa\nl\nm–êh\nR31231Fa\nl\nm	ìh\nB3777Fa\nl\nm√Ph\nR15751Fa\nl\nm-ü∞h\nR20865Fa\nl\nmu/h\nR14365Fa\nl\nm(üh\n≤g:31204:100Fa\nl\nmÓúh\n≤g:32399:130Fa\nl\nmxh\nR23883Fa\nl\nh\nmOÄR22522Fa\nl\nm$Jh\nR25848Fa\nl\nm–êh\nR24607Fa\nl\nm√Ph\nR25236Fa\nl\nmB@h\nR11226Fa\nl\nm1\" h\n≤g:31156:109Fa\nl\nm\rﬁch\níg:9386:36Fa\nl\nmo\rh\nR32389Fa\nl\nm!jKh\nR12695Fa\nl\nm\rªüh\nB4998Fa\nl\nm8h\n2942Fa\nl\nm 2¨h\nR11981Fa\nl\nmR|h\nR41095Fa\nl\nmdÛh\nR24303Fa\nl\nm\r^Ch\n¢g:15211:22Fa\nl\nmu0h\nR25895Fa\nl\nmiPh\nR41533Fa\nl\nmØh\nR10310Fa\nl\nm$∏h\nR23438Fa\nl\nm˘˛h\nR18945Fa\nl\nmTh\nR16243Fa\nl\nmê?h\nR38945Fa\nl\nmh\nR28104Fa\nl\nmã(h\nR31343Fa\nl\nm|h\nR42741Fa\nl\nmh\nR24605Fa\nl\nm√Ph\nR13520Fa\nl\nm:ph\níg:9385:36Fa\nl\nm§h\nB3577Fa\nl\nm#Yh\nB2577Fa\nl\nm√Ph\n≤g:31343:100Fa\nl\nm|h\nB4577Fa\nl\nm*-h\nR24848Fa\nl\nmEh\nR10003Fa\nl\nmå¿h\nR21841Fa\nl\nm§ÿh\n¢g:10062:51Fa\nl\nmyÃh\nR31220Fa\nl\nm€h\nR23148Fa\nl\nm	Îh\nR15286Fa\nl\nml>h\nR27516Fa\nl\nm¨h\n¢g:15374:44Fa\nl\nmúJh\nB7367Fa\nl\nmÚdh\nR21840Fa\nl\nm‹h\n¢g:25088:87Fa\nl\nmø h\nR18588Fa\nl\nm4ªh\n¢g:14266:47Fa\nl\nmB@h\nR24895Fa\nl\nmB@h\níg:9863:37Fa\nl\nmÚdh\nR11186Fa\nl\nmàh\nB9852Fa\nl\nmH£h\n≤g:31230:100Fa\nl\nmñŒh\nR15525Fa\nl\nm√Ph\nR29739Fa\nl\nmHTh\nR31292Fa\nl\nm0gh\n≤g:25056:117Fa\nl\nmGEh\nR12644Fa\nl\nmEph\nB6267Fa\nl\nm˚åh\n¢g:14258:45Fa\nl\nm\nÜ¯h\nB2277Fa\nl\nmÑÄh\n¢g:24821:84Fa\nl\nmø h\nR23637Fa\nl\nmÍZh\n¢g:44213:35Fa\nl\nm·ÿh\n¢g:24718:90Fa\nl\nm√Ph\níg:6585:20Fa\nl\nm√Ph\nB1935Fa\nl\nm‰›hh\nR31238Fa\nl\nm⁄Th\nR24663Fa\nl\nm_,h\nB4357Fa\nl\nmt1h\nR22220Fa\nl\nmÚÒh\nR32220Fa\nl\nmã:h\nB8398Fa\nl\nm„_h\nR13423Fa\nl\nm7xh\nR31899Fa\nl\nm<òh\n¢g:12043:47Fa\nl\nmy]h\nB4398Fa\nl\nm\r‚∞h\nR24919Fa\nl\nm–êh\n≤g:24651:105Fa\nl\nm\r@h\nR38906Fa\nl\nm  h\nR44165Fa\nl\nm«h\nR24618Fa\nl\nm√Ph\nÇg:943:48Fa\nl\nm=	\000h\nR18254Fa\nl\nm+\\h\nR14243Fa\nl\nmûËh\nR30726Fa\nl\nm()ã‡h\n¢g:15225:33Fa\nl\nmu0h\nR24243Fa\nl\nmøfh\nB2962Fa\nl\nm\"√h\níg:7753:32Fa\nl\nmc”h\nR24592Fa\nl\nm√Ph\níg:1204:41Fa\nl\nmA‹h\nR16221Fa\nl\nmåûh\nR31857Fa\nl\nmënh\nR29535Fa\nl\nm3jh\nR15622Fa\nl\nmÑÄh\nR25906Fa\nl\nm>¯h\nR14122Fa\nl\nm(¸h\nR24267Fa\nl\nmŒ@»h\nR29158Fa\nl\nmIãh\nR24763Fa\nl\nmB@h\nR14313Fa\nl\nmyhh\nB7971Fa\nl\nm@h\nB9929Fa\nl\nmÚ†h\n≤g:24669:114Fa\nl\nm·Äh\nR24662Fa\nl\nmÌ∏h\nB6346Fa\nl\nmÜüh\nR10286Fa\nl\nm%h\nB4609Fa\nl\nm\r@h\nB3609Fa\nl\nm'¢h\n¢g:24846:96Fa\nl\nmEh\nB1929Fa\nl\nmú@h\n2818Fa\nl\nm?`h\nR20004Fa\nl\nm\r‚∞h\níg:7931:46Fa\nl\nmÜ†h\nR16651Fa\nl\nm#Zh\nB5631Fa\nl\nm\"_h\nR31303Fa\nl\nm4Ph\nR13465Fa\nl\nm!h\níg:6562:21Fa\nl\nmóhh\nR41540Fa\nl\nm¥Dh\nR25303Fa\nl\nmzh\n≤g:31318:100Fa\nl\nm'/h\n¢g:25160:93Fa\nl\nmÀ¨h\n¢g:24716:87Fa\nl\nmÀ¨h\nR34622Fa\nl\nmÜFˇh\nR24622Fa\nl\nm√Ph\nR39895Fa\nl\nm·ÿh\nR14266Fa\nl\nmB@h\nR24266Fa\nl\nmó˙@h\nR17028Fa\nl\nm˘∏h\nB8173Fa\nl\nm&Hh\nR32661Fa\nl\nmÕh\nR23763Fa\nl\nmáŒh\nR15303Fa\nl\nm˙Nh\n≤g:30837:112Fa\nl\nm)\\/h\nB8838Fa\nl\nmÙıh\nR15497Fa\nl\nmN h\níg:4577:13Fa\nl\nm*-h\nR43331Fa\nl\nm0Fh\nR12190Fa\nl\nm\r‚Øh\n≤g:31291:112Fa\nl\nm∫âh\nB5507Fa\nl\nm\r‚∞h\nB9783Fa\nl\nm@h\nR28452Fa\nl\nm&®h\nR41537Fa\nl\nm'h\nB9900Fa\nl\nm∏Th\nR25314Fa\nl\nmÀ¨h\nR35216Fa\nl\nmÜZáh\nR24302Fa\nl\nméKh\n¢g:10627:47Fa\nl\nm‘¿h\nR29734Fa\nl\nmÇìh\nB9427Fa\nl\nmLK?h\nR23804Fa\nl\nmsh\nB4387Fa\nl\nm:»h\n¢g:13035:49Fa\nl\nmÜ4h\n≤g:31297:112Fa\nl\nmFÙh\n¢g:24626:96Fa\nl\nm√Ph\nR38895Fa\nl\nmÑÄh\n¢g:24618:93Fa\nl\nm√Ph\nR31906Fa\nl\nm\r<h\nB2901Fa\nl\nm\n`@h\nR38925Fa\nl\nm<ÿ,h\nR30324Fa\nl\nm;h\nÇg:936:38Fa\nl\nm„`h\nB8028Fa\nl\nm\000Yh\nB9295Fa\nl\nmÛ∏h\nB2841Fa\nl\nm#4h\nR23097Fa\nl\nmoRh\nR24031Fa\nl\nm¢—h\n≤g:31280:106Fa\nl\nm‘¿h\nB7409Fa\nl\nm*h\nB2409Fa\nl\nmÜ†h\nB7407Fa\nl\nm£h\nR17057Fa\nl\nmgh\nR43417Fa\nl\nm¥|h\nR31286Fa\nl\nm∂øh\nR25160Fa\nl\nmÀ¨h\nR14167Fa\nl\nm˙Nh\nR24167Fa\nl\nmch\nR32662Fa\nl\nmÊﬂh\nR37147Fa\nl\nm‹h\nR23622Fa\nl\nm\r‚∞h\nR10390Fa\nl\nmÑÄh\nR42466Fa\nl\nmt>h\nR12804Fa\nl\nm#$h\nR29425Fa\nl\nm‘íh\nR24210Fa\nl\nm\räÃh\n¢g:10120:53Fa\nl\nmyÃh\nR21882Fa\nl\nmRΩh\nR16084Fa\nl\nmã$h\n¢g:25298:87Fa\nl\nmEh\nR10402Fa\nl\nmÛph\nR31883Fa\nl\nmIÔh\nR29485Fa\nl\nmoﬂh\nB9430Fa\nl\nm„`h\nR21768Fa\nl\nmÜüh\nR18641Fa\nl\nmÙyh\nB1973Fa\nl\nmdjh\nR22866Fa\nl\nm√Ph\nR13455Fa\nl\nmeéh\nR24749Fa\nl\nmìfh\nR24938Fa\nl\nmEh\nR13442Fa\nl\nmeh\nR13013Fa\nl\nmgh\nB4709Fa\nl\nmN h\n¢g:31190:97Fa\nl\nm\r?h\nR38880Fa\nl\nm  h\nR22542Fa\nl\nm.`h\nR14131Fa\nl\nmÈòh\nR25059Fa\nl\nm«∏h\nR19710Fa\nl\nmoh\nR29495Fa\nl\nm1]Œh\níg:2824:53Fa\nl\nm:ch\nR13004Fa\nl\nmIh\nB8193Fa\nl\nmö©h\níg:7409:33Fa\nl\nm*h\nB6562Fa\nl\nmóhh\nR22840Fa\nl\nm%h\nR24874Fa\nl\nm_êh\nB9894Fa\nl\nmÎh\nR29953Fa\nl\nmÛSh\nR42746Fa\nl\nmT⁄h\n¢g:25050:99Fa\nl\nm˚œh\n¢g:16840:66Fa\nl\nm»gh\nR25053Fa\nl\nm_êh\níg:9393:38Fa\nl\nmjœøh\nR19284Fa\nl\nmØmh\nB5756Fa\nl\nmn4h\nR32221Fa\nl\nm\nƒh\nR25057Fa\nl\nmµh\n≤g:31224:103Fa\nl\nmeSh\níg:6591:27Fa\nl\nm/Èh\n¢g:24831:90Fa\nl\nm–êh\nR25896Fa\nl\nm	ø¥h\n≤g:31295:112Fa\nl\nmGîh\nR16255Fa\nl\nmÑh\nB6411Fa\nl\nmB@h\nR15591Fa\nl\nm-∆¿h\nR23774Fa\nl\nm\r®Hh\nR13131Fa\nl\nm-õXh\n¢g:29158:40Fa\nl\nmIãh\nR31339Fa\nl\nm\r\\7h\nR24254Fa\nl\nmÁ˝h\nR31140Fa\nl\nm˚Ïh\n¢g:25142:81Fa\nl\nmÄÂh\nR41106Fa\nl\nmøøh\nR32216Fa\nl\nm–yh\nB6662Fa\nl\nmÄh\nB3470Fa\nl\nm’h\nB6540Fa\nl\nmQh\nR31874Fa\nl\nm\r‚Lh\nR22449Fa\nl\nm]8h\n≤g:31237:103Fa\nl\nm©h\n¢g:15212:27Fa\nl\nml>h\nR24945Fa\nl\nmÎrh\nR13310Fa\nl\nm¬Èh\nR31258Fa\nl\nmèh\n¢g:10156:60Fa\nl\nmÜ†h\nR32381Fa\nl\nmú7h\nB9509Fa\nl\nm‰∂Xh\nR32580Fa\nl\nm-õbh\n≤g:24894:114Fa\nl\nm|¡h\nB9907Fa\nl\nmÜ†h\n¢g:15531:30Fa\nl\nmB@h\nB5116Fa\nl\nm\r®Jh\nB8495Fa\nl\nmd*h\nR24896Fa\nl\nmph\n¢g:15485:14Fa\nl\nm∫h\nR38910Fa\nl\nmWﬁh\nB9793Fa\nl\nmÚdh\n¢g:24936:87Fa\nl\nmh\n¢g:24632:99Fa\nl\nm√Ph\nB4426Fa\nl\nm\r®Jh\nR25068Fa\nl\nmÖÿh\nR31255Fa\nl\nm´2h\nR21802Fa\nl\nmB@h\nR12977Fa\nl\nm)h\nR15846Fa\nl\nmÇh\nR23079Fa\nl\nm#>h\nR16040Fa\nl\nmÃ\\h\nB4362Fa\nl\nm'h\nR15270Fa\nl\nm»+h\nR13136Fa\nl\nm-õXh\nR22842Fa\nl\nm= h\nB7090Fa\nl\nmÜüh\nB8827Fa\nl\nm?°h\nB9827Fa\nl\nmÅdh\nR23096Fa\nl\nm\r‚∞h\nR16220Fa\nl\nm\r‚∞h\níg:8350:15Fa\nl\nmƒØh\níg:2278:31Fa\nl\nmj§Xh\níg:1484:22Fa\nl\nm–Ùh\nR12223Fa\nl\nm≥h\nB9807Fa\nl\nm*h\níg:6568:24Fa\nl\nmB@h\nR16072Fa\nl\nm{eh\nB8146Fa\nl\nm+uh\nR29901Fa\nl\nm)2⁄h\níg:9802:26Fa\nl\nmÅdh\nR21886Fa\nl\nmZ‡h\n¢g:14094:11Fa\nl\nm˚ãh\nB6600Fa\nl\nm&ﬁh\n¢g:14663:48Fa\nl\nm{h\nR38913Fa\nl\nma0h\n≤g:25053:108Fa\nl\nm_êh\nR12528Fa\nl\nmßÃh\nR31131Fa\nl\nmØ|h\nR16251Fa\nl\nm.›h\nB3827Fa\nl\nh\nm‘R10312Fa\nl\nm\r‚Øh\nB9776Fa\nl\nmóhh\nR11040Fa\nl\nm§åh\n¢g:10145:59Fa\nl\nmyÃh\nB7527Fa\nl\nm±Mh\nB6527Fa\nl\nm°h\nR24628Fa\nl\nm√Ph\nB3866Fa\nl\nmÜ†h\níg:6545:18Fa\nl\nm@h\nR12697Fa\nl\nmKØh\nR32198Fa\nl\nmÆh\nR25686Fa\nl\nm5!h\níg:7414:34Fa\nl\nmÚdh\nR31677Fa\nl\nmÍ_h\n¢g:16825:66Fa\nl\nmj§Xh\nR24932Fa\nl\nmôh\nB7462Fa\nl\nm]¿h\nR20698Fa\nl\nm(˙Ï(h\nR38938Fa\nl\nmEúh\n¢g:18701:59Fa\nl\nmj§Xh\nB6046Fa\nl\nmL$0h\nB2700Fa\nl\nmh\nR41096Fa\nl\nmh\nR10326Fa\nl\nmøh\nR33867Fa\nl\nm%‡h\níg:7941:42Fa\nl\nmËh\n≤g:21860:109Fa\nl\nm ¥ﬁh\nÇg:833:56Fa\nl\nmøh\nB7192Fa\nl\nm(+œ`h\nR43423Fa\nl\nm$√h\nR31210Fa\nl\nmìh\nB5565Fa\nl\nm\r\rh\nR24206Fa\nl\nmRh\nR42471Fa\nl\nm¥¡h\nB8494Fa\nl\nm(Î  h\nB7494Fa\nl\nm‚sh\nB3713Fa\nl\nm√Ph\níg:8112:49Fa\nl\nm[ïh\n≤g:31283:106Fa\nl\nm#Ãh\n¢g:14229:36Fa\nl\nm£h\n¢g:28494:94Fa\nl\nm¡èh\nR30040Fa\nl\nmhË?h\n¢g:20698:63Fa\nl\nm(˙Ï(h\nR24846Fa\nl\nmEh\nR22789Fa\nl\nmÑh\n≤g:25236:111Fa\nl\nmB@h\nB7729Fa\nl\nmI¡h\nR25103Fa\nl\nmEh\nR14155Fa\nl\nh\nm5¬R12555Fa\nl\nmj§Xh\níg:7349:27Fa\nl\nm\nÇ<h\n¢g:13116:61Fa\nl\nm\n h\níg:7786:30Fa\nl\nm¿Ëh\nR32203Fa\nl\nmøh\nR11225Fa\nl\nm$¯h\nR25845Fa\nl\nmÍ_h\níg:22279:1Fa\nl\nmY€Rh\nR27662Fa\nl\nmd/h\nR11382Fa\nl\nm±˙h\n¢g:10100:57Fa\nl\nm√Ph\n¢g:13002:59Fa\nl\nmp˝h\n¢g:25104:93Fa\nl\nmÀ¨h\n≤g:25307:114Fa\nl\nm˜†h\nR29740Fa\nl\nmÄƒh\n≤g:24645:105Fa\nl\nm3Zh\n¢g:24920:81Fa\nl\nmä»h\nR13014Fa\nl\nm¿h\nB8394Fa\nl\nmƒh\nR13040Fa\nl\nm–çh\nR22835Fa\nl\nm∂h\n¢g:24825:87Fa\nl\nmø h\nB8190Fa\nl\nm\rîsh\nB4425Fa\nl\nmu-h\n¢g:14309:56Fa\nl\nm±äh\nR10623Fa\nl\nmø–h\n¢g:14798:59Fa\nl\nmh”Ôh\nR10393Fa\nl\nm–h\nR29496Fa\nl\nm+±Ñh\nB9773Fa\nl\nm2»h\nB9393Fa\nl\nmjœøh\níg:5183:20Fa\nl\nmú@h\nR19700Fa\nl\nm4Qh\nR23112Fa\nl\nma£h\n≤g:24666:111Fa\nl\nm≠∞h\nR43544Fa\nl\nm∞Úh\n¢g:31147:91Fa\nl\nmÑ¨h\nR10607Fa\nl\nm_èh\nb185848Fa\nl\nm]úh\n¢g:12555:55Fa\nl\nmj§Xh\nB3393Fa\nl\nm)h\nR20960Fa\nl\nmOLh\nB5214Fa\nl\nm√Ph\níg:1263:60Fa\nl\nm6h\nR21992Fa\nl\nm≤çh\nB6052Fa\nl\nmƒ®h\nR22785Fa\nl\nmZh\nR13489Fa\nl\nmK˝ h\nB2100Fa\nl\nm'~h\nR38890Fa\nl\nm˝!h\nR20513Fa\nl\nm•ñh\nR31904Fa\nl\nmlÕh\nB3058Fa\nl\nmRlh\n¢g:25297:84Fa\nl\nmÜ†h\nB3292Fa\nl\nmB@h\nB9144Fa\nl\nm\r‚∞h\nR23449Fa\nl\nmdh\níg:4789:18Fa\nl\nm√Lh\nR32063Fa\nl\nm…°h\n¢g:13136:21Fa\nl\nm-õXh\n¢g:10288:31Fa\nl\nmÅLh\níg:2075:12Fa\nl\nm@h\n¢g:14970:58Fa\nl\nm(·£\000h\n¢g:13123:62Fa\nl\nm	h\níg:7356:30Fa\nl\nm&ˆh\n¢g:13053:60Fa\nl\nm/©h\nR19277Fa\nl\nmM˝;h\nR42905Fa\nl\nm√Mh\nR31288Fa\nl\nmDh\n≤g:30046:128Fa\nl\nm0ıÿh\n¢g:16685:58Fa\nl\nm° h\nR30420Fa\nl\nmNh\nR31079Fa\nl\nmŒ¿h\n2774Fa\nl\nm#%h\nR31869Fa\nl\nm√Ph\n≤g:23762:112Fa\nl\nm\n h\nR25162Fa\nl\nm‡h\n≤g:25691:113Fa\nl\nm° h\nB8152Fa\nl\nmíh\nR20970Fa\nl\nmõYh\nR23783Fa\nl\nm4)h\n¢g:16724:59Fa\nl\nmÁˇh\nB2974Fa\nl\nm@h\n¢g:24925:81Fa\nl\nm	Îh\n¢g:14807:53Fa\nl\nmÑÄh\n2727Fa\nl\nml>h\nB6390Fa\nl\nm\r?h\nR24449Fa\nl\nm&ﬁh\nB8390Fa\nl\nmç`h\níg:9871:37Fa\nl\nmV∏h\n¢g:11307:47Fa\nl\nmhxh\nR32393Fa\nl\nmcZh\nR22393Fa\nl\nmu0h\nR10387Fa\nl\nmÑÄh\n¢g:14921:49Fa\nl\nm(1Ôh\nB3372Fa\nl\nm√h\nR41100Fa\nl\nmDŒh\nR24695Fa\nl\nmZ¸h\nR24735Fa\nl\nmEh\nR10320Fa\nl\nm_èh\níg:4709:25Fa\nl\nmN h\nR24825Fa\nl\nmø h\nB7608Fa\nl\nmoh\nR12607Fa\nl\nmÂÀh\nB4328Fa\nl\nmÜûh\níg:1973:59Fa\nl\nmdjh\nB7005Fa\nl\nm∑Sh\níg:5967:18Fa\nl\nmú@h\níg:9793:25Fa\nl\nmÚdh\nR15727Fa\nl\nm„]h\nB3307Fa\nl\nmPh\n≤g:31320:100Fa\nl\nmHzØh\nR24740Fa\nl\nmÀ¨h\nR19230Fa\nl\nmLh\níg:9878:41Fa\nl\nm}§h\nR16224Fa\nl\nmåüh\nR20755Fa\nl\nmÍ_h\nB1718Fa\nl\nm-x2h\nR38909Fa\nl\nm˜¬h\n≤g:24787:114Fa\nl\nm›h\nR19227Fa\nl\nmLj˘h\nR31240Fa\nl\nm’¢h\níg:4044:40Fa\nl\nmB@h\nR31136Fa\nl\nm^qh\n¢g:14224:39Fa\nl\nm£h\nR12987Fa\nl\nm©zh\nR31215Fa\nl\nmúh\nR39469Fa\nl\nm:ñh\nR38863Fa\nl\nmá6h\n¢g:15625:47Fa\nl\nm≠∞h\n¢g:13001:61Fa\nl\nm	h\níg:9834:32Fa\nl\nmÚdh\n¢g:24744:99Fa\nl\nmdh\n¢g:10138:59Fa\nl\nmdh\nR20975Fa\nl\nmÜúh\n≤g:31572:115Fa\nl\nm	G h\nR13070Fa\nl\nmËh\níg:6331:36Fa\nl\nm\n9/h\n¢g:13075:63Fa\nl\nm¢–h\nR21944Fa\nl\nm\r‚Øh\nR41547Fa\nl\nmM∑h\nB7189Fa\nl\nmy≤h\nR15740Fa\nl\nm-h\nB5207Fa\nl\nmú@h\nB2592Fa\nl\nmÑÌh\nR21755Fa\nl\nmsıh\nR22539Fa\nl\nm˜üh\n¢g:25102:87Fa\nl\nmÀ¨h\n≤g:31331:100Fa\nl\nm˝·h\n¢g:12055:52Fa\nl\nmB@h\nR31941Fa\nl\nm5\000h\nB6661Fa\nl\nmÖÄh\n¢g:15265:58Fa\nl\nm‘¿h\n¢g:14925:57Fa\nl\nmÑÄh\nR10136Fa\nl\nmyÃh\nR10586Fa\nl\nm ¡h\n≤g:24867:102Fa\nl\nmÑÄh\n¢g:24615:93Fa\nl\nm√Ph\nR14968Fa\nl\nm/IDh\n¢g:13113:63Fa\nl\nm_êh\níg:7368:34Fa\nl\nmÚdh\nR14914Fa\nl\nm(1Ôh\níg:3283:13Fa\nl\nmP≤h\nR25030Fa\nl\nmùMh\níg:8226:31Fa\nl\nmj§Xh\nR23835Fa\nl\nm;±@h\nR18656Fa\nl\nmøh\nR24845Fa\nl\nmEh\nB5082Fa\nl\nmLh\n¢g:17055:50Fa\nl\nm–êh\n≤g:24994:108Fa\nl\nm8Äh\nR43108Fa\nl\nmÇoh\n≤g:31222:100Fa\nl\nmIh\nB2632Fa\nl\nm,$h\nB5107Fa\nl\nmƒáh\n¢g:10218:62Fa\nl\nm„`h\n≤g:24786:114Fa\nl\nm•<h\nR14970Fa\nl\nm(·£\000h\n¢g:25035:96Fa\nl\nmÜ†h\nR32755Fa\nl\nmZ-Ôh\n¢g:16683:57Fa\nl\nmj§Xh\nR31319Fa\nl\nmSÏ`h\nR24066Fa\nl\nm‘\\h\n≤g:32541:105Fa\nl\nmK«=h\nR24598Fa\nl\nmöLh\nR34832Fa\nl\nmÏh\nR23573Fa\nl\nm‹h\n≤g:31157:109Fa\nl\nm	'¿h\n≤g:24653:108Fa\nl\nm√Ph\nR13146Fa\nl\nmiÉh\nR15637Fa\nl\nmh\nR25897Fa\nl\nm\nFxh\nB2675Fa\nl\nm\r‚∞h\nR35190Fa\nl\nm=•h\nR31187Fa\nl\nm‡⁄h\nR13506Fa\nl\nm¨≥h\n¢g:31127:85Fa\nl\nmngh\nB9857Fa\nl\nm*h\nR29723Fa\nl\nm	âhh\n¢g:15050:58Fa\nl\nm∫Ãh\nR31194Fa\nl\nm4∫h\nR38905Fa\nl\nmN_h\nR37164Fa\nl\nm“Àh\n¢g:13138:42Fa\nl\nmLÿh\nR24609Fa\nl\nm√Ph\nB1486Fa\nl\nm(÷Jh\níg:5107:14Fa\nl\nmƒáh\nR31230Fa\nl\nmñŒh\nB4236Fa\nl\nm\r‚∞h\nR15970Fa\nl\nm°h\n¢g:31175:94Fa\nl\nm° h\nB1716Fa\nl\nm†ºh\n≤g:23519:115Fa\nl\nmB@h\níg:9877:38Fa\nl\nm:òh\nB6594Fa\nl\nm√Ph\nB4726Fa\nl\nm:òh\nB9304Fa\nl\nmì\000h\nR18042Fa\nl\nm»‡h\nR27700Fa\nl\nmè\rh\n¢g:10401:18Fa\nl\nml–h\nR30542Fa\nl\nmºÄh\nR39350Fa\nl\nm¡Uh\n¢g:14804:58Fa\nl\nmœ<h\níg:9375:38Fa\nl\nm(…òh\níg:6582:22Fa\nl\nmú@h\níg:4362:10Fa\nl\nm'h\nR10400Fa\nl\nmdph\nR39897Fa\nl\nm\r@h\nR12239Fa\nl\nm_åh\nB9856Fa\nl\nm£h\nB9801Fa\nl\nmóhh\nR27429Fa\nl\nmƒ˘h\nR24194Fa\nl\nmNàh\nB7561Fa\nl\nmzËh\n≤g:24762:105Fa\nl\nmÿÃh\nR25171Fa\nl\nmÊ/h\n¢g:24727:93Fa\nl\nmEh\nR42960Fa\nl\nmu/h\nR25125Fa\nl\nm[`h\nR22791Fa\nl\nmh\nB6553Fa\nl\nmIÔh\n",
@@ -474,22 +474,20 @@ AUCTIONATOR_POSTING_HISTORY = {
 },
 }
 AUCTIONATOR_VENDOR_PRICE_CACHE = {
-["236"] = 2795,
+["236"] = 2655,
 ["2445"] = 3261,
 ["35697"] = 225000,
-["42372"] = 300000,
+["42372"] = 255000,
 ["2475"] = 15568,
 ["2678"] = 2,
 ["29702"] = 64000,
 ["851"] = 1821,
 ["21918"] = 57000,
 ["44575"] = 114,
-["30759"] = 92248,
 ["23604"] = 64000,
-["44655"] = 164155,
+["44655"] = 154498,
 ["44196"] = 140636,
-["14341"] = 4500,
-["5439"] = 90,
+["14341"] = 5000,
 ["34872"] = 135000,
 ["35755"] = 225000,
 ["847"] = 1662,
@@ -497,7 +495,6 @@ AUCTIONATOR_VENDOR_PRICE_CACHE = {
 ["850"] = 839,
 ["24293"] = 48000,
 ["2143"] = 3550,
-["28466"] = 18000,
 ["25475"] = 400000,
 ["35948"] = 3200,
 ["10918"] = 50,
@@ -509,19 +506,16 @@ AUCTIONATOR_VENDOR_PRICE_CACHE = {
 ["50335"] = 950000,
 ["2376"] = 426,
 ["17185"] = 247,
-["25473"] = 1000000,
-["1645"] = 380,
-["29719"] = 54000,
-["25472"] = 500000,
-["2139"] = 54,
+["1645"] = 360,
+["2139"] = 57,
 ["54343"] = 320000,
 ["35950"] = 2880,
 ["30843"] = 64000,
 ["34672"] = 394150,
 ["44198"] = 528214,
-["185687"] = 90000,
-["2723"] = 45,
-["28061"] = 14.25,
+["2723"] = 50,
+["44835"] = 2,
+["28061"] = 15,
 ["8766"] = 720,
 ["44573"] = 1425,
 ["44200"] = 141182,
@@ -529,17 +523,16 @@ AUCTIONATOR_VENDOR_PRICE_CACHE = {
 ["44652"] = 152732,
 ["2525"] = 25166,
 ["44135"] = 800000,
-["18256"] = 3600,
+["18256"] = 4000,
 ["44481"] = 3600,
-["25527"] = 1000000,
 ["3889"] = 7131,
 ["2145"] = 2384,
-["2613"] = 547,
+["2613"] = 578,
 ["50338"] = 950000,
 ["2403"] = 210,
-["44214"] = 418805,
+["44214"] = 523506,
 ["33452"] = 1700,
-["17031"] = 950,
+["17031"] = 850,
 ["4544"] = 180,
 ["206392"] = 8000,
 ["39973"] = 400000,
@@ -547,7 +540,7 @@ AUCTIONATOR_VENDOR_PRICE_CACHE = {
 ["3422"] = 1600,
 ["21917"] = 57000,
 ["42428"] = 1530,
-["2374"] = 173,
+["2374"] = 164,
 ["29693"] = 64000,
 ["30823"] = 255000,
 ["25476"] = 400000,
@@ -557,20 +550,19 @@ AUCTIONATOR_VENDOR_PRICE_CACHE = {
 ["44632"] = 400000,
 ["44140"] = 1500000,
 ["35500"] = 135000,
-["4400"] = 1700,
-["44249"] = 890052,
+["4400"] = 1800,
+["44249"] = 796362,
 ["2400"] = 415,
-["2512"] = 0.045,
-["42375"] = 350000,
-["2325"] = 900,
+["2512"] = 0.05,
+["42375"] = 297500,
+["2325"] = 800,
 ["50373"] = 1500000,
 ["20987"] = 24,
-["38647"] = 33786,
 ["51559"] = 11250000,
 ["34841"] = 16000,
 ["33443"] = 1530,
 ["29691"] = 64000,
-["43234"] = 3150,
+["43234"] = 3500,
 ["25861"] = 14,
 ["20758"] = 475,
 ["4601"] = 360,
@@ -578,35 +570,30 @@ AUCTIONATOR_VENDOR_PRICE_CACHE = {
 ["38456"] = 464388,
 ["35752"] = 225000,
 ["2435"] = 24915,
-["17035"] = 380,
+["17035"] = 400,
 ["2144"] = 2375,
 ["853"] = 2168,
-["27860"] = 1152,
-["42376"] = 425000,
-["44182"] = 392127,
+["27860"] = 1216,
+["42376"] = 361250,
+["44182"] = 461326,
 ["30744"] = 114000,
-["2605"] = 90,
-["39501"] = 1125,
+["2605"] = 80,
+["39501"] = 1250,
 ["42184"] = 40000,
 ["3033"] = 1.425,
-["28470"] = 18000,
 ["44641"] = 158015,
-["2615"] = 4583,
+["2615"] = 4837,
 ["15807"] = 265,
-["15905"] = 1917,
 ["2142"] = 2359,
-["42187"] = 40000,
-["42373"] = 325000,
-["44614"] = 6650,
+["42187"] = 50000,
+["42373"] = 276250,
+["44614"] = 5950,
 ["34670"] = 391221,
 ["51560"] = 11250000,
 ["44152"] = 1200000,
-["15811"] = 24420,
-["20978"] = 46,
-["2505"] = 54,
 ["1202"] = 1747,
 ["45690"] = 11250000,
-["17037"] = 1330,
+["17037"] = 1190,
 ["25532"] = 800000,
 ["3030"] = 1.35,
 ["45672"] = 250000,
@@ -614,649 +601,560 @@ AUCTIONATOR_VENDOR_PRICE_CACHE = {
 ["44134"] = 800000,
 ["40020"] = 96931,
 ["20924"] = 59,
-["38426"] = 27000,
+["38426"] = 30000,
 ["27855"] = 1008,
-["3026"] = 3431,
 ["35505"] = 135000,
 ["1196"] = 1993,
-["20983"] = 37,
 ["20752"] = 2850,
-["30752"] = 151557,
-["2479"] = 103,
-["22053"] = 900,
-["44615"] = 1900,
+["2479"] = 108,
+["22053"] = 1000,
+["44615"] = 1700,
 ["29703"] = 64000,
 ["44623"] = 80000,
-["21031"] = 760,
-["2320"] = 9,
+["2320"] = 8,
 ["29704"] = 64000,
-["4289"] = 45,
-["37201"] = 475,
-["28284"] = 270,
+["4289"] = 40,
+["37201"] = 425,
 ["44202"] = 284512,
-["40411"] = 9000,
+["40411"] = 10000,
 ["21895"] = 38000,
 ["44625"] = 400000,
-["30781"] = 95953,
-["2321"] = 90,
-["42183"] = 47500,
-["44171"] = 265310,
+["2321"] = 80,
+["42183"] = 42500,
+["44171"] = 312130,
 ["3420"] = 4000,
-["844"] = 721,
+["844"] = 685,
 ["34667"] = 376375,
-["41726"] = 32000,
+["41726"] = 40000,
 ["45664"] = 250000,
 ["50337"] = 950000,
 ["54438"] = 80000,
-["8928"] = 720,
+["8928"] = 800,
 ["23145"] = 40000,
 ["25721"] = 40000,
 ["23602"] = 48000,
-["2488"] = 509,
+["2488"] = 536,
 ["44203"] = 238000,
 ["3927"] = 360,
 ["35708"] = 108000,
+["46784"] = 5,
 ["44679"] = 80000,
 ["34679"] = 209477,
 ["6947"] = 25,
-["17038"] = 1900,
-["25528"] = 1000000,
-["29196"] = 900000,
+["17038"] = 1700,
+["44302"] = 158973,
 ["45667"] = 250000,
-["845"] = 1447,
+["845"] = 1375,
 ["50370"] = 1500000,
-["44258"] = 166292,
-["8927"] = 630,
+["44258"] = 148787,
+["8927"] = 700,
 ["50368"] = 1500000,
 ["3588"] = 12929,
 ["40036"] = 135,
 ["11285"] = 4.75,
-["35696"] = 225000,
-["25873"] = 68,
-["28468"] = 18000,
-["40533"] = 42500,
-["20986"] = 51,
-["21835"] = 1350,
-["28459"] = 18000,
-["18567"] = 150000,
+["38462"] = 375897,
+["25873"] = 71,
+["40533"] = 45000,
+["20986"] = 48,
+["21835"] = 1500,
+["18567"] = 135000,
 ["44601"] = 2400,
-["20815"] = 800,
+["20815"] = 720,
 ["42185"] = 50000,
 ["20753"] = 3800,
 ["6369"] = 2090,
 ["35947"] = 3200,
-["41725"] = 38000,
-["28467"] = 18000,
-["1849"] = 1388,
-["22148"] = 1425,
-["29008"] = 68,
-["48956"] = 11250000,
+["41725"] = 34000,
+["20915"] = 57,
+["1849"] = 1319,
+["22148"] = 1275,
+["29008"] = 71,
+["43601"] = 200063,
 ["34665"] = 413114,
 ["20925"] = 59,
 ["2101"] = 4,
 ["29124"] = 1658176,
 ["29127"] = 249634,
 ["2469"] = 5702,
-["44605"] = 4750,
-["10921"] = 250,
-["15904"] = 19537,
-["44303"] = 464216,
-["2146"] = 4328,
-["2025"] = 4774,
-["17020"] = 950,
-["38650"] = 34150,
-["3423"] = 16000,
+["44605"] = 4250,
+["38458"] = 179386,
+["44303"] = 415351,
+["17020"] = 850,
 ["23603"] = 48000,
-["44644"] = 101485,
-["28465"] = 18000,
 ["51557"] = 11250000,
-["2207"] = 2152,
-["2490"] = 513,
-["44173"] = 630028,
-["41721"] = 38000,
-["28458"] = 18000,
-["44181"] = 216134,
-["29007"] = 27,
-["44243"] = 333485,
-["38706"] = 3200,
-["35477"] = 135647,
-["22905"] = 45000,
-["28464"] = 18000,
+["44173"] = 741209,
+["41721"] = 34000,
+["44181"] = 254275,
+["29007"] = 28,
+["44613"] = 128000,
 ["35768"] = 450000,
 ["41720"] = 32000,
-["44305"] = 561194,
-["41752"] = 172165,
-["38645"] = 44812,
+["44305"] = 502121,
 ["44935"] = 76500000,
-["16170"] = 95,
-["42188"] = 42500,
-["15808"] = 3277,
-["30784"] = 47976,
-["25529"] = 1000000,
-["30775"] = 103165,
-["1707"] = 180,
-["39684"] = 7650,
-["38648"] = 22778,
+["42188"] = 50000,
 ["42429"] = 2880,
-["1194"] = 99,
+["1194"] = 104,
 ["8925"] = 500,
-["44194"] = 297513,
-["43232"] = 4050,
-["44248"] = 261832,
-["43601"] = 200063,
-["29123"] = 632090,
-["8932"] = 720,
+["285"] = 3377,
 ["848"] = 1667,
-["17026"] = 950,
-["2880"] = 85,
-["38462"] = 375897,
-["30757"] = 93831,
+["2880"] = 90,
 ["45671"] = 250000,
-["30765"] = 120278,
 ["2472"] = 30791,
 ["44133"] = 800000,
-["854"] = 2721,
-["48955"] = 11250000,
-["23999"] = 9000,
 ["50336"] = 950000,
-["44621"] = 60000,
-["159"] = 4.4,
+["159"] = 4.8,
 ["30842"] = 48000,
-["34498"] = 40000,
-["44302"] = 177676,
-["38649"] = 22860,
-["285"] = 3377,
 ["4497"] = 19000,
-["1708"] = 190,
-["238"] = 2112,
+["1708"] = 180,
+["28056"] = 15,
 ["3892"] = 19746,
 ["45688"] = 11250000,
 ["40021"] = 97276,
-["44574"] = 1900,
 ["2892"] = 100,
-["20918"] = 72,
-["2398"] = 412,
 ["45691"] = 11250000,
 ["35691"] = 950,
-["38460"] = 471192,
 ["44622"] = 300000,
 ["44136"] = 800000,
-["29151"] = 1434820,
-["44141"] = 1275000,
-["44180"] = 344582,
 ["6256"] = 23,
-["17028"] = 665,
-["28056"] = 14.25,
+["17028"] = 595,
 ["34666"] = 414579,
 ["44188"] = 204868,
-["2399"] = 207,
-["44195"] = 312934,
 ["44610"] = 68000,
-["4399"] = 170,
-["25876"] = 720,
-["44240"] = 370903,
-["21909"] = 48000,
-["4536"] = 4.8,
-["32883"] = 21.25,
-["20852"] = 81,
-["44132"] = 600000,
-["2516"] = 0.045,
-["29214"] = 144000,
-["34678"] = 209477,
-["44678"] = 40000,
-["44183"] = 306458,
-["44512"] = 47500,
-["29156"] = 1810357,
-["54436"] = 400000,
-["16168"] = 380,
-["44482"] = 2400,
-["8952"] = 720,
-["35769"] = 450000,
-["44167"] = 168841,
-["29166"] = 499517,
-["2604"] = 45,
-["20990"] = 49,
-["2901"] = 69,
-["20988"] = 24,
-["44571"] = 142,
-["24008"] = 810,
-["2507"] = 1577,
-["29213"] = 108000,
-["38646"] = 22616,
-["30750"] = 170435,
-["239"] = 1413,
-["17187"] = 1103,
-["2515"] = 0.225,
-["38461"] = 630540,
-["44138"] = 1425000,
-["43154"] = 8000,
-["28461"] = 18000,
-["44197"] = 248395,
-["27856"] = 1008,
-["15810"] = 9130,
+["4536"] = 4.4,
 ["35949"] = 1700,
-["6368"] = 380,
+["44678"] = 40000,
+["44183"] = 360539,
+["54436"] = 400000,
+["44482"] = 2400,
+["8952"] = 760,
+["35769"] = 450000,
+["44167"] = 198636,
+["2604"] = 40,
+["20990"] = 49,
+["44612"] = 68000,
+["239"] = 1342,
+["17187"] = 1103,
+["2524"] = 18232,
+["44138"] = 1275000,
+["43154"] = 10000,
+["44197"] = 248395,
+["27688"] = 19000,
 ["27857"] = 1008,
 ["6217"] = 124,
-["15907"] = 7413,
-["45668"] = 250000,
 ["20853"] = 102,
 ["28060"] = 7.6,
-["33451"] = 1530,
-["44137"] = 1200000,
-["4499"] = 100000,
-["2504"] = 26,
+["33451"] = 1700,
 ["20849"] = 80,
-["20923"] = 28,
-["44612"] = 68000,
-["928"] = 8874,
-["44247"] = 303748,
 ["20922"] = 28,
-["10922"] = 720,
+["10922"] = 800,
 ["34680"] = 209477,
-["44239"] = 369474,
-["44295"] = 489903,
 ["4542"] = 90,
-["2379"] = 72,
-["21908"] = 48000,
+["17184"] = 34,
 ["44938"] = 150000,
-["237"] = 2806,
-["35952"] = 2880,
-["44131"] = 600000,
-["29189"] = 900000,
-["924"] = 9876,
-["4602"] = 380,
-["48957"] = 11250000,
+["2379"] = 72,
+["35754"] = 225000,
+["44149"] = 1275000,
+["46888"] = 2000,
 ["17062"] = 2090,
+["4602"] = 360,
+["48957"] = 11250000,
+["44131"] = 600000,
 ["3424"] = 400000,
-["2028"] = 4558,
-["6950"] = 150,
-["4341"] = 450,
-["44642"] = 134813,
+["44934"] = 76500000,
+["1707"] = 180,
+["4341"] = 400,
+["44642"] = 150674,
 ["2440"] = 12689,
 ["35698"] = 225000,
 ["6530"] = 100,
-["5565"] = 4750,
+["2026"] = 5972,
 ["42436"] = 81000,
-["29722"] = 108000,
-["44626"] = 2000000,
-["2535"] = 58479,
-["4537"] = 23.8,
-["29451"] = 1440,
+["2028"] = 4812,
+["44204"] = 286659,
+["44194"] = 297513,
+["4537"] = 22.4,
+["15808"] = 3277,
 ["45057"] = 2000000,
-["17034"] = 190,
-["287"] = 2320,
+["44248"] = 327290,
+["44080"] = 8000000,
 ["38454"] = 614679,
 ["44130"] = 600000,
 ["3893"] = 24771,
 ["21916"] = 57000,
 ["2209"] = 6404,
-["17021"] = 665,
-["44176"] = 224189,
-["35754"] = 225000,
+["8932"] = 720,
+["29129"] = 143675,
+["2375"] = 165,
 ["41754"] = 110970,
-["4538"] = 95,
-["25875"] = 180,
-["2467"] = 8487,
-["2492"] = 271,
-["2491"] = 460,
-["3770"] = 95,
-["2614"] = 1046,
-["17033"] = 1900,
-["30777"] = 56292,
-["4470"] = 34,
-["29153"] = 1926867,
-["2158"] = 1859,
-["20824"] = 25000,
-["44139"] = 1200000,
-["2134"] = 78,
+["20912"] = 80,
+["5565"] = 4250,
+["43156"] = 10000,
+["2492"] = 285,
+["2491"] = 484,
+["44201"] = 371285,
+["2614"] = 1104,
+["17033"] = 1700,
+["2515"] = 0.225,
+["4470"] = 38,
+["38461"] = 630540,
+["44243"] = 298381,
+["20824"] = 22500,
+["17026"] = 850,
+["2134"] = 82,
 ["41746"] = 126343,
 ["29009"] = 190,
-["45669"] = 250000,
+["44512"] = 42500,
 ["2431"] = 9194,
-["44201"] = 371285,
-["718"] = 1533,
-["5656"] = 9000,
+["4498"] = 2375,
+["2535"] = 58479,
+["6368"] = 380,
 ["2471"] = 15337,
-["3421"] = 160,
-["17030"] = 1900,
-["35813"] = 8000,
+["4540"] = 4.4,
+["3587"] = 12883,
 ["34674"] = 297780,
-["4342"] = 2250,
-["44204"] = 286659,
-["2489"] = 326,
-["43230"] = 3600,
-["925"] = 7017,
-["4599"] = 380,
-["8985"] = 225,
-["42368"] = 500000,
+["45689"] = 11250000,
+["4342"] = 2000,
+["44295"] = 612379,
+["38460"] = 471192,
+["44240"] = 463629,
+["43230"] = 4000,
+["925"] = 7407,
+["2383"] = 55,
+["8985"] = 250,
+["42368"] = 425000,
 ["3591"] = 1887,
-["25826"] = 103302,
-["2616"] = 2394,
-["2470"] = 30557,
-["3592"] = 1894,
+["2480"] = 72,
+["2399"] = 207,
+["43236"] = 500,
+["44180"] = 405390,
 ["35502"] = 135000,
 ["4541"] = 22.4,
-["2373"] = 259,
+["2373"] = 246,
+["4399"] = 180,
 ["2434"] = 4649,
-["43236"] = 500,
+["25876"] = 760,
 ["34780"] = 900,
-["43156"] = 10000,
-["21919"] = 57000,
-["2612"] = 147,
-["40585"] = 76500000,
-["42374"] = 375000,
-["44205"] = 671411,
-["2156"] = 2770,
+["44187"] = 680340,
+["21909"] = 48000,
+["35952"] = 2880,
 ["20921"] = 44,
+["2474"] = 15510,
+["43600"] = 200063,
+["10921"] = 250,
+["44854"] = 5,
 ["__dbversion"] = 1,
-["21033"] = 760,
+["42365"] = 382500,
 ["2401"] = 314,
-["43157"] = 8500,
-["4600"] = 306,
-["3890"] = 9181,
-["28463"] = 18000,
-["2617"] = 9893,
-["2437"] = 25102,
-["22250"] = 900,
-["44234"] = 160000000,
+["21908"] = 48000,
+["21919"] = 57000,
+["20917"] = 34,
+["2616"] = 2527,
+["43157"] = 10000,
+["2467"] = 8487,
+["11362"] = 900,
+["3857"] = 450,
 ["25531"] = 800000,
 ["51558"] = 11250000,
-["44654"] = 163529,
-["5655"] = 9000,
-["15903"] = 7306,
-["2506"] = 256,
+["44654"] = 182768,
+["35951"] = 3200,
+["2468"] = 5680,
+["6949"] = 50,
 ["44502"] = 4000000,
-["44256"] = 145999,
+["44256"] = 130631,
 ["28053"] = 7.6,
 ["42778"] = 3040,
-["1198"] = 2409,
+["34498"] = 40000,
 ["25474"] = 400000,
 ["34671"] = 392685,
 ["35695"] = 225000,
-["2132"] = 97,
-["30751"] = 133543,
-["33454"] = 1530,
-["42365"] = 450000,
-["28399"] = 1008,
-["31949"] = 21.25,
-["45666"] = 250000,
-["4340"] = 315,
-["40042"] = 1350,
-["24177"] = 96000,
-["33150"] = 90000,
-["29169"] = 158357,
-["21927"] = 1350,
-["16583"] = 9500,
-["849"] = 1261,
+["2132"] = 102,
 ["2463"] = 12326,
-["44174"] = 790347,
-["8343"] = 1800,
-["3466"] = 1700,
-["41584"] = 12.75,
-["44257"] = 331094,
+["33454"] = 1530,
+["17021"] = 595,
+["3890"] = 9181,
+["35696"] = 225000,
+["42363"] = 446250,
+["20988"] = 24,
+["44139"] = 1500000,
+["24177"] = 96000,
+["21927"] = 1500,
+["29123"] = 632090,
+["20919"] = 69,
+["16583"] = 8500,
+["21177"] = 127.5,
+["44174"] = 929820,
+["2024"] = 5471,
+["44195"] = 312934,
+["44216"] = 210913,
+["41584"] = 15,
+["44257"] = 296242,
 ["25533"] = 800000,
 ["2527"] = 27888,
-["40018"] = 96221,
+["41752"] = 172165,
 ["3371"] = 4,
-["33444"] = 1530,
+["4539"] = 180,
 ["35953"] = 2880,
-["40586"] = 76500000,
-["44242"] = 190199,
-["2371"] = 189,
-["2893"] = 150,
-["11362"] = 900,
-["42430"] = 1530,
+["33444"] = 1530,
 ["2464"] = 6185,
+["2371"] = 180,
+["20852"] = 81,
+["3421"] = 160,
+["42430"] = 1530,
+["28399"] = 1064,
 ["17188"] = 2325,
-["44199"] = 757312,
+["46809"] = 100,
 ["7371"] = 1800,
+["20923"] = 28,
 ["21911"] = 48000,
-["1850"] = 1393,
-["3771"] = 190,
-["2029"] = 3978,
-["2495"] = 480,
-["2493"] = 666,
-["24007"] = 360,
-["852"] = 1565,
+["44234"] = 160000000,
+["6950"] = 150,
+["34678"] = 209477,
+["2489"] = 343,
+["42374"] = 318750,
+["2493"] = 701,
+["44855"] = 5,
+["10290"] = 2000,
 ["2159"] = 3733,
-["6261"] = 900,
-["2494"] = 382,
-["23142"] = 54000,
-["23619"] = 54000,
+["287"] = 2320,
+["852"] = 1652,
+["2495"] = 505,
+["2129"] = 73,
+["2398"] = 412,
 ["44690"] = 16000000,
-["50369"] = 1425000,
-["923"] = 7870,
-["843"] = 1077,
+["846"] = 1379,
+["6261"] = 800,
+["4538"] = 90,
+["843"] = 1023,
 ["48954"] = 11250000,
-["42378"] = 400000,
-["41586"] = 12.75,
-["44640"] = 167283,
-["40019"] = 96575,
-["29014"] = 720,
-["27854"] = 1008,
-["4496"] = 450,
-["49177"] = 10000000,
-["44193"] = 592849,
-["41718"] = 34000,
-["23601"] = 48000,
-["42377"] = 450000,
-["20989"] = 24,
-["30817"] = 4.4,
-["2384"] = 36,
-["42431"] = 2880,
-["38698"] = 1700,
-["922"] = 10835,
-["117"] = 4.8,
-["2070"] = 4.4,
-["29013"] = 720,
-["20851"] = 81,
-["29689"] = 64000,
-["1843"] = 726,
-["22531"] = 54000,
-["39502"] = 4500,
-["2596"] = 108,
-["5042"] = 45,
-["44159"] = 1275000,
-["2131"] = 51,
-["35954"] = 1080,
-["21030"] = 380,
-["25872"] = 27,
-["33449"] = 1530,
-["6260"] = 45,
-["42439"] = 15300,
-["16169"] = 190,
-["2141"] = 4702,
-["1179"] = 22.4,
-["10648"] = 112,
-["2432"] = 6922,
-["1853"] = 1606,
-["3025"] = 16631,
-["15909"] = 19896,
-["2381"] = 72,
-["41562"] = 19000,
-["4291"] = 450,
-["2380"] = 36,
-["45674"] = 250000,
-["34218"] = 144000,
-["42370"] = 275000,
-["927"] = 6259,
-["35767"] = 450000,
-["44244"] = 716502,
-["2370"] = 378,
-["5048"] = 45,
-["17032"] = 1900,
-["29128"] = 22728,
-["2130"] = 51,
-["30844"] = 80000,
-["20844"] = 270,
-["2402"] = 209,
-["44510"] = 40000,
-["2160"] = 3747,
-["4539"] = 190,
-["17029"] = 950,
-["44080"] = 8000000,
-["422"] = 90,
+["25875"] = 190,
+["41586"] = 15,
 ["15809"] = 13222,
-["16166"] = 4.8,
-["4498"] = 2250,
+["27854"] = 1064,
+["2158"] = 1859,
+["29014"] = 760,
+["4496"] = 500,
+["17032"] = 1700,
+["849"] = 1261,
+["2156"] = 2770,
+["44644"] = 119394,
+["42377"] = 382500,
+["17036"] = 800,
+["49177"] = 10000000,
+["2384"] = 36,
+["922"] = 10835,
+["2207"] = 2152,
+["2402"] = 209,
+["44296"] = 536712,
+["42378"] = 340000,
+["2070"] = 4.4,
+["29013"] = 760,
+["42439"] = 15300,
+["29689"] = 64000,
+["1843"] = 690,
+["2617"] = 10442,
+["2025"] = 4774,
+["35954"] = 1080,
+["42431"] = 2880,
+["44159"] = 1200000,
+["20851"] = 81,
+["117"] = 4.8,
+["29128"] = 22728,
+["3466"] = 1800,
+["33449"] = 1530,
+["45666"] = 250000,
+["414"] = 20,
+["40585"] = 76500000,
+["42361"] = 403750,
+["1179"] = 22.4,
+["10648"] = 125,
+["2432"] = 6922,
+["3025"] = 16631,
+["2381"] = 72,
+["44510"] = 40000,
+["44179"] = 378693,
+["2380"] = 36,
+["4291"] = 400,
+["45674"] = 250000,
+["1853"] = 1606,
+["1852"] = 1600,
+["42370"] = 233750,
+["6260"] = 40,
+["35767"] = 450000,
+["44244"] = 895627,
+["2370"] = 359,
+["39502"] = 5000,
+["44297"] = 358398,
+["44193"] = 592849,
+["2130"] = 54,
+["30844"] = 80000,
+["20844"] = 300,
+["238"] = 2006,
+["41562"] = 17000,
+["2160"] = 3747,
+["44570"] = 48,
+["44621"] = 60000,
+["45669"] = 250000,
+["927"] = 6259,
+["6532"] = 250,
+["44640"] = 186963,
+["923"] = 7870,
 ["42777"] = 2090,
-["6532"] = 225,
+["50369"] = 1500000,
 ["2532"] = 49978,
 ["11291"] = 4500,
-["1852"] = 1600,
-["2129"] = 73,
+["22250"] = 900,
+["44190"] = 206379,
 ["2208"] = 3286,
 ["926"] = 8806,
-["44190"] = 206379,
-["29129"] = 143675,
-["10290"] = 2250,
+["2029"] = 3978,
+["3771"] = 190,
+["2324"] = 20,
 ["44599"] = 2400,
-["44296"] = 429370,
-["7005"] = 74,
-["2024"] = 5471,
-["2618"] = 23976,
-["45673"] = 250000,
-["25470"] = 500000,
-["42371"] = 250000,
+["2141"] = 4702,
+["7005"] = 66,
+["17029"] = 850,
+["48955"] = 11250000,
+["20989"] = 24,
+["854"] = 2872,
+["42371"] = 212500,
 ["8984"] = 200,
-["2287"] = 23.8,
-["18776"] = 90000,
+["23601"] = 48000,
+["44199"] = 757312,
 ["1845"] = 833,
-["41722"] = 40000,
+["20857"] = 4.8,
 ["20850"] = 80,
-["414"] = 22.4,
+["41718"] = 40000,
 ["20910"] = 60,
-["44570"] = 48,
-["35951"] = 2880,
-["44297"] = 286718,
-["2474"] = 15510,
-["846"] = 1452,
-["44216"] = 168730,
+["40042"] = 1350,
+["44571"] = 142,
+["31779"] = 8000,
+["27856"] = 1008,
+["17030"] = 1700,
+["2901"] = 73,
 ["2438"] = 18896,
 ["45670"] = 250000,
-["44179"] = 321889,
-["2519"] = 0.225,
-["6949"] = 50,
-["3857"] = 500,
-["1844"] = 728,
+["2596"] = 120,
+["2519"] = 0.24,
+["2618"] = 25308,
+["42369"] = 297500,
+["1844"] = 692,
 ["44189"] = 164490,
-["39354"] = 14,
-["43600"] = 200063,
+["39354"] = 15,
+["2146"] = 4328,
+["2131"] = 54,
 ["38452"] = 390472,
-["45689"] = 11250000,
-["30749"] = 130986,
-["6097"] = 1,
-["44086"] = 80000000,
-["6529"] = 45,
-["44187"] = 680340,
-["2375"] = 174,
-["44245"] = 431534,
-["4540"] = 4.8,
-["44170"] = 219300,
+["44626"] = 2000000,
+["40019"] = 96575,
+["4599"] = 380,
+["2494"] = 402,
+["6529"] = 50,
+["2612"] = 155,
+["39684"] = 8100,
+["43232"] = 4500,
+["3423"] = 16000,
+["44170"] = 258000,
 ["2473"] = 23178,
 ["286"] = 3068,
 ["21910"] = 48000,
-["44150"] = 1200000,
-["22147"] = 4750,
+["422"] = 90,
+["22147"] = 4250,
 ["29010"] = 760,
-["42360"] = 550000,
-["2324"] = 24,
-["17036"] = 760,
-["18777"] = 90000,
-["50367"] = 1425000,
-["28469"] = 18000,
-["42369"] = 350000,
-["54437"] = 80000,
+["42360"] = 467500,
+["41722"] = 40000,
+["44574"] = 1900,
+["718"] = 1533,
+["50367"] = 1350000,
+["17034"] = 200,
+["1850"] = 1323,
+["29451"] = 1520,
 ["35753"] = 225000,
-["2480"] = 68,
-["8953"] = 760,
+["4340"] = 280,
+["8953"] = 720,
 ["22307"] = 5700,
-["8950"] = 760,
-["44934"] = 76500000,
-["1197"] = 2400,
-["22547"] = 54000,
-["30771"] = 61780,
-["44166"] = 560691,
-["31779"] = 8000,
-["2524"] = 18232,
-["29215"] = 144000,
-["16167"] = 23.8,
-["10647"] = 1700,
-["28979"] = 14,
-["2026"] = 5657,
-["27688"] = 18000,
-["42363"] = 525000,
-["18778"] = 90000,
-["2383"] = 55,
-["44306"] = 491867,
-["28462"] = 18000,
-["30754"] = 123675,
-["5956"] = 15,
+["8950"] = 720,
+["40018"] = 96221,
+["1197"] = 2534,
+["45668"] = 250000,
+["44239"] = 461842,
+["44205"] = 671411,
+["3592"] = 1894,
+["44242"] = 170178,
+["40586"] = 76500000,
+["1198"] = 2409,
+["10647"] = 1800,
+["2893"] = 150,
+["8343"] = 1600,
+["2470"] = 30557,
+["44132"] = 600000,
+["237"] = 2666,
+["3770"] = 95,
+["20914"] = 37,
+["54437"] = 80000,
+["2595"] = 2000,
+["5956"] = 16,
 ["2027"] = 3434,
-["3027"] = 5714,
-["2414"] = 9000,
-["30758"] = 93039,
-["21177"] = 142.5,
-["44250"] = 714557,
-["17184"] = 34,
-["25471"] = 500000,
+["44247"] = 379685,
+["2437"] = 25102,
+["44137"] = 1200000,
+["44245"] = 539417,
+["44250"] = 639340,
+["48956"] = 11250000,
+["44086"] = 80000000,
 ["20985"] = 36,
-["38651"] = 45783,
-["3587"] = 12883,
+["20916"] = 34,
+["44176"] = 263752,
 ["33445"] = 1980,
 ["44606"] = 2000000,
-["25825"] = 314821,
+["2287"] = 23.8,
 ["34675"] = 340058,
 ["20920"] = 28,
 ["10920"] = 150,
 ["40035"] = 45,
-["2468"] = 5680,
+["2490"] = 540,
 ["44129"] = 600000,
-["15906"] = 1924,
-["24180"] = 108000,
+["20911"] = 35,
+["44166"] = 659636,
 ["24316"] = 32000,
-["28460"] = 18000,
+["20918"] = 68,
 ["25477"] = 800000,
 ["2385"] = 36,
-["44283"] = 227986,
+["44283"] = 284983,
 ["1846"] = 837,
 ["3594"] = 4947,
 ["35221"] = 9000,
-["38458"] = 179386,
-["42361"] = 475000,
-["35476"] = 201162,
-["2030"] = 4990,
-["2372"] = 344,
+["44853"] = 5,
+["928"] = 9367,
+["43155"] = 8500,
+["45673"] = 250000,
+["2030"] = 5268,
+["2372"] = 327,
 ["3372"] = 40,
-["44613"] = 128000,
+["44241"] = 565149,
 ["34677"] = 209477,
 ["3419"] = 400,
-["32882"] = 21.25,
+["44141"] = 1500000,
 ["23149"] = 40000,
-["43155"] = 9500,
+["924"] = 10424,
 ["3593"] = 4930,
-["2593"] = 135,
+["2593"] = 150,
 ["43955"] = 20000000,
-["2595"] = 1800,
-["2594"] = 1350,
+["4499"] = 100000,
+["2594"] = 1500,
 ["42438"] = 162000,
-["44241"] = 631637,
+["44306"] = 440092,
 ["35699"] = 225000,
 ["8926"] = 500,
-["25870"] = 72000,
+["30817"] = 5,
 ["2429"] = 9125,
 }
 AUCTIONATOR_RECENT_SEARCHES = {
-"Âú£ÂÖâÈõïÊñá",
-"Â§ç‰ªá",
-"Â•âÁåÆ",
-"Ê∏ÖÁÆóÈõïÊñá",
+"\"Êä•Â§çËÖïÁî≤\"",
 "\"Ëê®ÈöÜÈÇ™ÈìÅÈî≠\"",
 "ÈôÑÈ≠îÊ≠¶Âô® - ÊûÅÊïàÊ≥ïÊúØËÉΩÈáè",
 "Ë∂ÖÂº∫Ê≥ïÊúØËÉΩÈáè",
 "\"Á¨¶ÊñáËµ§ÁéâÁü≥\"",
 "Âú£ÂÖâÈÅìÊ†áÈõïÊñá",
+"Âú£ÂÖâÈõïÊñá",
 "ÂÖâÊòéÂú£Âç∞ÈõïÊñá",
 "\"Ê¨°Á∫ßÊäóÊÄßÂêàÂâÇ\"",
 "\"ÂÜ∞ÈúúÂ∑®ÈæôÂêàÂâÇ\"",
@@ -1278,6 +1176,8 @@ AUCTIONATOR_RECENT_SEARCHES = {
 "Ê¢¶È≠á‰πãÊ≥™",
 "ÈïáÂ¢ì‰∫∫Êä§ËÖï",
 "ÈæôÁúºÁü≥",
+"ÂØíÂÜ∞‰πãÁû≥",
+"\"Á¨¶ÊñáÊ≥ïÂäõÊ≥®Â∞ÑÂô®\"",
 }
 AUCTIONATOR_SELLING_GROUPS = {
 ["CustomGroups"] = {

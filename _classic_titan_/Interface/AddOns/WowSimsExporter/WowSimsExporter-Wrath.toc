@@ -1,0 +1,31 @@
+## Title: WowSimsExporter |cff99ddff谷|r|cff88ccee风|r|cff77bbdd修|r|cff66aacc复|r|cff5599bb版|r
+## Version: 3.1.6
+## Author: generalwrex(Natop of Old Blanchy), namreeb, coolmodi(FelixPflaum), riotdog
+## Interface: 38000
+## Notes: This is an exporter written to quickly export your character to https://wowsims.github.io/wotlk/ for simulations.
+## Notes-zhCN: 这是一个用于快速将您的角色导出到 https://wowsims.github.io/wotlk/ 进行模拟的导出器。
+## SavedVariables: WSEDB
+## OptionalDeps: Ace3
+
+Libs\LibStub\LibStub.lua
+Libs\LibParse\LibParse.lua
+Libs\CallbackHandler-1.0\CallbackHandler-1.0.xml
+Libs\AceAddon-3.0\AceAddon-3.0.xml
+Libs\AceEvent-3.0\AceEvent-3.0.xml
+Libs\AceDB-3.0\AceDB-3.0.xml 
+Libs\AceDBOptions-3.0\AceDBOptions-3.0.xml
+Libs\AceConsole-3.0\AceConsole-3.0.xml
+Libs\AceGUI-3.0\AceGUI-3.0.xml
+Libs\AceConfig-3.0\AceConfig-3.0.xml
+
+extras.lua
+Locales/zhCN.lua
+Shared.lua
+Conditional_Wrath.lua
+ExportStructures/ItemSpec.lua
+ExportStructures/EquipmentSpec.lua
+ExportStructures/Misc.lua
+ExportStructures/Character.lua
+UI.lua
+WowSimsExporter.lua
+CharacterFrameButton.lua

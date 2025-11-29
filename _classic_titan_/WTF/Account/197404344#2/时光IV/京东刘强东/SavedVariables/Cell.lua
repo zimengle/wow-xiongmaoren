@@ -2,24 +2,24 @@
 CellCharacterDB = {
 ["layoutAutoSwitch"] = {
 {
-["raid_outdoor"] = "default",
+["battleground40"] = "default",
 ["party"] = "default",
 ["solo"] = "default",
-["raid25"] = "default",
-["raid10"] = "default",
-["arena"] = "default",
 ["battleground15"] = "default",
-["battleground40"] = "default",
+["raid25"] = "default",
+["arena"] = "default",
+["raid10"] = "default",
+["raid_outdoor"] = "default",
 },
 {
-["raid_outdoor"] = "default",
+["battleground40"] = "default",
 ["party"] = "default",
 ["solo"] = "default",
-["raid25"] = "default",
-["raid10"] = "default",
-["arena"] = "default",
 ["battleground15"] = "default",
-["battleground40"] = "default",
+["raid25"] = "default",
+["arena"] = "default",
+["raid10"] = "default",
+["raid_outdoor"] = "default",
 },
 },
 ["revise"] = "r269-release",
@@ -61,19 +61,9 @@ CellCharacterDB = {
 },
 ["common"] = {
 {
-"type5",
-"spell",
-53563,
-},
-{
 "type1",
 "spell",
 635,
-},
-{
-"type3",
-"spell",
-20473,
 },
 {
 "type2",
@@ -86,14 +76,14 @@ CellCharacterDB = {
 7328,
 },
 {
-"type-T",
+"type-X",
 "spell",
 633,
 },
 {
-"type-Q",
+"type5",
 "spell",
-1022,
+53563,
 },
 {
 "type4",
@@ -101,18 +91,27 @@ CellCharacterDB = {
 53601,
 },
 {
-"type-C",
+"type3",
 "spell",
-1044,
+20473,
+},
+{
+"type-Q",
+"spell",
+1022,
+},
+{
+"type-E",
+"spell",
+6940,
 },
 {
 "ctrl-type1",
 "target",
 },
 {
-"type-X",
-"spell",
-633,
+"ctrl-type2",
+"togglemenu",
 },
 },
 ["class"] = "PALADIN",

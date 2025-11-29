@@ -728,7 +728,7 @@ end
 
 local function PopupData_OnShow(self)
 	local editBox = self.editBox
-	if editBox:IsShown() and editBox:GetText() ~= "" then
+	if editBox and editBox:IsShown() and editBox:GetText() ~= "" then
 		EditBox_Highlight(editBox)
 	end
 end
@@ -743,7 +743,7 @@ local function PopupData_OnAccept(self, arg1, func)
 	end
 
 	local editBox = self.editBox
-	if not editBox:IsShown() then
+	if not editBox or not editBox:IsShown() then
 		return func(arg1)
 	end
 

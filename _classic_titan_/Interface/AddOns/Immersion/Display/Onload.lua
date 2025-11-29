@@ -126,12 +126,12 @@ function frame:ADDON_LOADED(name)
 
 		-- Register options table
 		LibStub('AceConfigRegistry-3.0'):RegisterOptionsTable(_, L.options)
-		L.config = LibStub('AceConfigDialog-3.0'):AddToBlizOptions(_)
+		L.config = LibStub('AceConfigDialog-3.0'):AddToBlizOptions(_, "Immersion |cff99ddff谷|r|cff88ccee风|r|cff77bbdd修|r|cff66aacc复|r|cff5599bb版|r")
 
 		-- Slash handler
 		_G['SLASH_' .. _:upper() .. '1'] = '/' .. _:lower()
 		SlashCmdList[_:upper()] = function() LibStub('AceConfigDialog-3.0'):Open(_) end
-
+		
 		-- Add some sexiness to the config frame.
 		local logo = CreateFrame('Frame', nil, L.config)
 		logo:SetFrameLevel(4)

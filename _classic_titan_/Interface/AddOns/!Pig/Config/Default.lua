@@ -234,7 +234,7 @@ addonTable.Default = {
 	},
 	["QuickBut"]={
 		["Open"] = true,
-		["bili"]=1,
+		["bili"]=0.9,
 		["Lock"]=false,
 		["BGbroadcast"]=true,
 		["Lushi"]=true,

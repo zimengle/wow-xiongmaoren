@@ -163,7 +163,9 @@ local function ConstructTexturePicker(frame)
     if filter then
       filter = filter:lower()
     end
-    for texturePath, textureName in pairs(group.textures[uniquevalue]) do
+    local category = group.textures[uniquevalue]
+    local cat = type(category) == "function" and category() or category
+    for texturePath, textureName in pairs(cat) do
       if filter == nil or filter == "" or textureName:lower():find(filter, 1, true) then
         tinsert(group.selectedGroupSorted, {texturePath, textureName})
       end
@@ -191,7 +193,7 @@ local function ConstructTexturePicker(frame)
     UpdateShownWidgets()
   end
 
-  local input = CreateFrame("EditBox", nil, group.frame, "WAFIX_SearchBoxTemplate");
+  local input = CreateFrame("EditBox", nil, group.frame, "SearchBoxTemplate");
   input:SetScript("OnTextChanged", function(self, ...)
     SearchBoxTemplate_OnTextChanged(self)
     local status = dropdown.status or dropdown.localstatus
@@ -219,7 +221,8 @@ local function ConstructTexturePicker(frame)
     wipe(dropdown.list);
     for categoryName, category in pairs(self.textures) do
       local match = false;
-      for texturePath, textureName in pairs(category) do
+      local cat = type(category) == "function" and category() or category
+      for texturePath, textureName in pairs(cat) do
         if(self.selectedTextures[texturePath]) then
           match = true;
           break;
@@ -306,7 +309,8 @@ local function ConstructTexturePicker(frame)
     local picked = false;
     for categoryName, category in pairs(self.textures) do
       if not(picked) then
-        for texturePath, textureName in pairs(category) do
+        local cat = type(category) == "function" and category() or category
+        for texturePath, textureName in pairs(cat) do
           if(self.selectedTextures[texturePath]) then
             dropdown:SetGroup(categoryName);
             picked = true;
@@ -358,7 +362,7 @@ local function ConstructTexturePicker(frame)
   return group
 end
 
-function OptionsPrivate.TexturePicker(frame)
-  texturePicker = texturePicker or ConstructTexturePicker(frame)
+function OptionsPrivate.TexturePicker(frame, noConstruct)
+  texturePicker = texturePicker or (not noConstruct and ConstructTexturePicker(frame))
   return texturePicker
 end

@@ -1,0 +1,9 @@
+VER 3 0100000000000002 "11" "134400"
+/script LeaveParty()
+END
+VER 3 0100000000000001 "12" "134400"
+/click LFDRoleCheckPopupAcceptButton  
+/click LFCDungeonReadyDlalogEnterDungeonButton  
+/click StaticPopup1button1  
+/click LFGDungeonReadyDialogEnterDungeonButton
+END

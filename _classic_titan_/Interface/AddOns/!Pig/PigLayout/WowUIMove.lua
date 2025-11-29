@@ -97,9 +97,17 @@ local function MovingFun(MovingUI,Frame)
 		--位置
 	 	Frame:RegisterForDrag("LeftButton")
 	    Frame:HookScript("OnDragStart",function()
+	    	if MovingUI==SpellBookFrame and InCombatLockdown() then 
+				PIG_OptionsUI:ErrorMsg("战斗中无法移动")
+				return
+			end
 	        MovingUI:StartMoving();
 	    end)
 	    Frame:HookScript("OnDragStop",function()
+	    	if MovingUI==SpellBookFrame and InCombatLockdown() then 
+				PIG_OptionsUI:ErrorMsg("战斗中无法移动")
+				return
+			end
 	        MovingUI:StopMovingOrSizing()
 	        if PIGA["FramePlus"]["BlizzardUI_Move_Save"] then
 	        	SetUIConfigData(MovingUIName)

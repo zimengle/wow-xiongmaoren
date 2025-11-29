@@ -6,9 +6,6 @@ VER 3 0000000000000003 "MJE: Random Mount" "132599"
 /run C_MountJournal.SummonByID(0)
 END
 VER 3 0000000000000004 "RXPTargeting" "Ability_eyeoftheowl"
-/targetexact 守卫队长索雷克
-/targetexact 贝尔塔德·米科索夫
-/targetexact 凯勒中将
-/targetexact 伊鲁伦·图布雷勋爵
+/targetexact 跳跃者
 /targetlasttarget [dead]
 END

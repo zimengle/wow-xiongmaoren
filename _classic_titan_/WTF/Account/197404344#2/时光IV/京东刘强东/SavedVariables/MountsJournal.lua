@@ -1,0 +1,9 @@
+
+MountsJournalChar = {
+["profileBySpecializationPVP"] = {
+},
+["macrosConfig"] = {
+},
+["holidayProfiles"] = {
+},
+}

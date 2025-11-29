@@ -126,6 +126,7 @@ local titleanis = {
 
 L.options = {
 	type = 'group',
+	name = "Immersion |cff99ddff谷|r|cff88ccee风|r|cff77bbdd修|r|cff66aacc复|r|cff5599bb版|r",
 	args = {		
 		general = {
 			type = 'group',

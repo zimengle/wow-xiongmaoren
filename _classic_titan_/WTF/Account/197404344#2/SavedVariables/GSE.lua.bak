@@ -1,0 +1,146 @@
+
+GSEOptions = {
+["HideLoginMessage"] = false,
+["STANDARDFUNCS"] = "|cff55ddcc",
+["showGSEUsers"] = false,
+["msClickRate"] = 250,
+["COMMENT"] = "|cff55cc55",
+["filterList"] = {
+["Class"] = true,
+["All"] = true,
+["Global"] = true,
+["Spec"] = true,
+},
+["EQUALS"] = "|cffccddee",
+["NUMBER"] = "|cffffaa00",
+["sendDebugOutputToChatWindow"] = false,
+["debug"] = false,
+["CONCAT"] = "|cffcc7777",
+["CommandColour"] = "|cFF00FF00",
+["UNKNOWN"] = "|cffff6666",
+["showCurrentSpells"] = true,
+["KEYWORD"] = "|cff88bbdd",
+["editorHeight"] = 500.0000915527344,
+["ActiveSequenceVersions"] = {
+},
+["sendDebugOutputToDebugOutput"] = false,
+["saveAllMacrosLocal"] = true,
+["Multiclick"] = true,
+["DisabledSequences"] = {
+},
+["STRING"] = "|cff888888",
+["DebugPrintModConditionsOnKeyPress"] = false,
+["DefaultImportAction"] = "MERGE",
+["editorWidth"] = 700.0001831054688,
+["TitleColour"] = "|cFFFF0000",
+["PromptSample"] = true,
+["initialised"] = true,
+["showGSEoocqueue"] = true,
+["DebugModules"] = {
+["Translator"] = false,
+["Startup"] = false,
+["API"] = false,
+["Viewer"] = false,
+["Transmission"] = false,
+["Editor"] = false,
+["GUI"] = false,
+["Storage"] = false,
+["Versions"] = false,
+},
+["INDENT"] = "|cffccaa88",
+["MacroResetModifiers"] = {
+["Alt"] = false,
+["LeftControl"] = false,
+["LeftButton"] = false,
+["LeftAlt"] = false,
+["RightButton"] = false,
+["RightAlt"] = false,
+["Button4"] = false,
+["Button5"] = false,
+["MiddleButton"] = false,
+["RightControl"] = false,
+["Control"] = false,
+["Shift"] = false,
+["LeftShift"] = false,
+["AnyMod"] = false,
+["RightShift"] = false,
+},
+["overflowPersonalMacros"] = false,
+["EmphasisColour"] = "|cFFFFFF00",
+["UseVerboseExportFormat"] = false,
+["WOWSHORTCUTS"] = "|cffddaaff",
+["RealtimeParse"] = false,
+["deleteOrphansOnLogout"] = false,
+["OOCQueueDelay"] = 7,
+["shownew"] = false,
+["AuthorColour"] = "|cFF00D1FF",
+["autoCreateMacroStubsClass"] = true,
+["showMiniMap"] = {
+["hide"] = true,
+},
+["resetOOC"] = true,
+["DefaultDisabledMacroIcon"] = "Interface\\Icons\\INV_MISC_BOOK_08",
+["autoCreateMacroStubsGlobal"] = false,
+["NormalColour"] = "|cFFFFFFFF",
+["CreateGlobalButtons"] = false,
+["UseWLMExportFormat"] = true,
+["setDefaultIconQuestionMark"] = true,
+["Updates"] = {
+["3225"] = true,
+["3218"] = true,
+["3200"] = true,
+["3225-d"] = true,
+},
+["frameLocations"] = {
+["sequenceeditor"] = {
+["left"] = 461.9660034179688,
+["top"] = 874.6156005859375,
+},
+["menu"] = {
+["left"] = 1580.31640625,
+["top"] = 865.5342102050781,
+},
+},
+}
+GSESequences = {
+{
+},
+{
+},
+{
+},
+{
+},
+{
+},
+{
+["test"] = "b4vmErLxofJxtrxzZrNxojJxu51unf2yY92CErLxofJxu51ubngDP9MBZ5fvE5umErLxt1wyJj3BEnLtLvgz(bwtHnMCV5hyivMCL51uuLhCL51ubngDP9MBErNx05fDErNxtXuyZrxvWrwy0vgzEnLmWitnXeJm5eZn0Gdm241uxvwyRfuDYf2CErLx051unvgDHruy0fMxu51uivgBWXwAUTMxtHgD0b3C68YlKL2CJ9MCK5YzN9YzZvwDULgDLrMxtrvySvMB0nNxu5fDEnvq1rhAVjNxtvoSpEESZwUHBwoH)cK5xAB5fMysw51uhnvrwvMCZL2BU5LtZiJm241unfMB1fgBj5gDLjNDL5gDP9MBEjKxt5uyTvMxtrxzZrNxtvKBM9MCJv2qV1gCHrxyILgBPrxEEjKxtnfCLnwse5Lt241uu90qE50m4admW41uevMzHvhB05LtX4fDErNx05Lx",
+},
+{
+},
+{
+},
+{
+},
+{
+},
+{
+},
+{
+},
+{
+},
+[0] = {
+},
+}
+GSESpellCache = {
+["enUS"] = {
+},
+["zhCN"] = {
+["暗影打击"] = 49921,
+},
+}
+GSEVariables = {
+}
+GSEMacros = {
+}

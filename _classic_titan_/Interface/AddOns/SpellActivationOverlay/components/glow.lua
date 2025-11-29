@@ -600,9 +600,11 @@ binder:SetScript("OnEvent", function()
 
     local LAB = LibStub("LibActionButton-1.0", true);
     local LAB_ElvUI = LibStub("LibActionButton-1.0-ElvUI", true);
+    local LAB_NDui = LibStub("LibActionButton-1.0-NDui", true);
     local LAB_GE = LibStub("LibActionButton-1.0-GE", true);
     local LBG, LBGversion = LibStub("LibButtonGlow-1.0", true);
     local LCG = LibStub("LibCustomGlow-1.0", true);
+    local LCG_NDui = LibStub("LibCustomGlow-1.0-NDui", true);
 
     local buttonUpdateFunc = function(libGlow, event, self)
         if (self._state_type ~= "action") then
@@ -641,6 +643,13 @@ binder:SetScript("OnEvent", function()
 
     local LAB_GEButtonUpdateFunc = function(event, self)
         buttonUpdateFunc(LAB_GE, event, self);
+    end
+
+    local LAB_NDuiButtonUpdateFunc = function(event, self)
+        local glowLib = LCG_NDui or LCG;
+        if glowLib then
+            buttonUpdateFunc(glowLib, event, self);
+        end
     end
 
     -- Support for LibActionButton used by e.g., Bartender
@@ -690,6 +699,14 @@ binder:SetScript("OnEvent", function()
             elseif (LBG) then
                 warnOutdatedLBG();
             end
+        end
+    end
+
+    if (LAB_NDui) then
+        if (LCG_NDui) then
+            LAB_NDui:RegisterCallback("OnButtonUpdate", LAB_NDuiButtonUpdateFunc);
+        elseif (LCG) then
+            LAB_NDui:RegisterCallback("OnButtonUpdate", LCGButtonUpdateFunc);
         end
     end
 

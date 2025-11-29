@@ -1,8 +1,9 @@
-## Interface: 110107
+## Interface: 11507, 38000, 50500, 110205
 ## IconTexture: Interface\AddOns\Immersion\Textures\Logo
-## Title: Immersion
+## Title: Immersion |cff99ddff谷|r|cff88ccee风|r|cff77bbdd修|r|cff66aacc复|r|cff5599bb版|r
 ## Notes: Immersive replacement for quest & gossip
-## Version: 1.4.44
+## Notes-zhCN: 沉浸式任务与对话界面替换插件
+## Version: 1.4.48
 
 ## Author: Sebastian Lindfors
 ## X-Website: https://github.com/seblindfors/Immersion

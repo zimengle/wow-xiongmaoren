@@ -1,22 +1,27 @@
-## Title: |cFF00BFFF[Barney]|r WeakAuras Options - Update for Titan Forged Classic
-## Title-zhCN: |cFF00BFFF[巴尼]|r WeakAuras Options 时光服稳定版
-## Notes: Options for WeakAuras
-## Notes-zhCN: WeakAuras的设置
+## Interface: 30405, 38000
+## Title: WeakAuras Options
 ## Author: The WeakAuras Team
-## Version: 25112301
-## Interface: 30800
+## Version: 5.20.7
+## Notes: Options for WeakAuras
+## Notes-esES: Opciones para WeakAuras
+## Notes-esMX: Opciones para WeakAuras
+## Notes-deDE: Optionen für WeakAuras
+## Notes-ruRU: Опции WeakAuras
+## Notes-zhTW: WeakAuras的設定
 ## X-Category: Interface Enhancements
 ## Globe-Main: WeakAuras
 ## DefaultState: Enabled
 ## LoadOnDemand: 1
 ## Dependencies: WeakAuras
 ## SavedVariables: WeakAurasOptionsSaved
+## AllowLoadGameType: wrath, titan
 
+embeds.xml
 locales.xml
-Templates.xml
 
 ForAllIndentsAndPurposes.lua
 
+RegionOptions\Empty.lua
 RegionOptions\AuraBar.lua
 RegionOptions\Texture.lua
 RegionOptions\Icon.lua
@@ -34,6 +39,10 @@ SubRegionOptions\Border.lua
 SubRegionOptions\Glow.lua
 SubRegionOptions\Tick.lua
 SubRegionOptions\Model.lua
+SubRegionOptions\StopMotion.lua
+SubRegionOptions\Texture.lua
+SubRegionOptions\CircularProgressTexture.lua
+SubRegionOptions\LinearProgressTexture.lua
 
 Cache.lua
 
@@ -52,6 +61,8 @@ GenericTrigger.lua
 WeakAurasOptions.lua
 ConditionOptions.lua
 AuthorOptions.lua
+
+Changelog.lua
 
 OptionsFrames\OptionsFrame.lua
 
@@ -96,5 +107,8 @@ AceGUI-Widgets\AceGuiWidget-WeakAurasProgressBar.lua
 AceGUI-Widgets\AceGUIWidget-WeakAurasSpinBox.lua
 AceGUI-Widgets\AceGUIWidget-WeakAurasMiniTalent_Wrath.lua
 AceGUI-Widgets\AceGUIWidget-WeakAurasScrollArea.lua
+AceGUI-Widgets\AceGUIWidget-WeakAurasInput.lua
 AceGUI-Widgets\AceGUIWidget-WeakAurasInputFocus.lua
+AceGUI-Widgets\AceGUIWidget-WeakAurasInputWithIndentation.lua
 AceGUI-Widgets\AceGuiWidget-WeakAurasMediaSound.lua
+AceGUI-Widgets\WeakAurasStatusbarAtlasWidget.lua

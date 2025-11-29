@@ -15,10 +15,10 @@ local tonumber, pairs = tonumber, pairs
 local PlaySound = PlaySound
 local CreateFrame, UIParent = CreateFrame, UIParent
 
-local progressLeftOffset = WeakAuras.IsClassicEraOrWrathOrCata() and -2 or -3
-local progressExtraWidth = WeakAuras.IsClassicEraOrWrathOrCata() and -2 or 0
-local progressTopOffset = WeakAuras.IsClassicEraOrWrathOrCata() and -3 or -2
-local progressBottomOffset = WeakAuras.IsClassicEraOrWrathOrCata() and 3 or 2
+local progressLeftOffset = WeakAuras.IsClassicOrWrathOrCata() and -2 or -3
+local progressExtraWidth = WeakAuras.IsClassicOrWrathOrCata() and -2 or 0
+local progressTopOffset = WeakAuras.IsClassicOrWrathOrCata() and -3 or -2
+local progressBottomOffset = WeakAuras.IsClassicOrWrathOrCata() and 3 or 2
 
 --[[-----------------------------------------------------------------------------
 Support functions
@@ -289,7 +289,7 @@ local function Constructor()
 	rightbutton:SetDisabledTexture("Interface\\AddOns\\WeakAuras\\Media\\Textures\\spinboxrightp")
   rightbutton:SetScript("OnClick", SpinBox_OnValueUp)
 
-  local editbox = CreateFrame("EditBox", nil, frame, "WAFIX_InputBoxTemplate")
+  local editbox = CreateFrame("EditBox", nil, frame, "InputBoxTemplate")
   editbox:SetAutoFocus(false)
   editbox:SetFontObject(ChatFontNormal)
   editbox:SetHeight(19)

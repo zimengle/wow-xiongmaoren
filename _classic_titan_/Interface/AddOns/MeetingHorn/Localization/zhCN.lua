@@ -4,7 +4,7 @@ if not L then
     return
 end
 
-L.ADDON_NAME = '集结号'
+L.ADDON_NAME = '泰坦时光集结号'
 
 L['Leader'] = '队长'
 L['Comment'] = '说明'

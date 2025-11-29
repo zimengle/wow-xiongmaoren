@@ -105,16 +105,15 @@ function Browser:Constructor()
     --@end-bcc@]==]
 
     -- @lkc@
-    self:SetupQuickButton('HICC')
-    self:SetupQuickButton('RS')
-    self:SetupQuickButton('ICC')
-    self:SetupQuickButton('TOC')
-    self:SetupQuickButton('ULD')
-    self:SetupQuickButton('红玉')
-    self:SetupQuickButton('宝库')
+    self:SetupQuickButton('MC')
+    self:SetupQuickButton('熔火')
     self:SetupQuickButton('日常')
     self:SetupQuickButton('周常')
-    self:SetupQuickButton('奥杜尔')
+    self:SetupQuickButton('随机')
+    self:SetupQuickButton('任务')
+    self:SetupQuickButton('升级')
+    self:SetupQuickButton('排本')
+    self:SetupQuickButton('PVP')
     -- @end-lkc@
 
     local  button = CreateFrame("Button", "Frame", self, "UIPanelButtonTemplate");
@@ -130,6 +129,7 @@ function Browser:Constructor()
         self:AddToQueue(search)
         ns.LogStatistics:InsertLog({ time(), 10, 2 })
     end);
+    self.SaveSearc= button
 
     self.QuickSearchText = self:CreateFontString(nil, "ARTWORK", "GameFontHighlightLeft")
     self.QuickSearchText:SetPoint("LEFT", self.Input, "RIGHT", 0, 5)

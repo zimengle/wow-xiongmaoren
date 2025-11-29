@@ -392,9 +392,6 @@ local function Uptate_FrameX()
 						PlayerTalentFrameScrollFrame:Show()
 					end)
 				end
-				GlyphFrame:ClearAllPoints();
-				GlyphFrame:SetPoint("TOPLEFT",PlayerTalentFrame3ScrollFrame,"TOPRIGHT",0,0);
-				GlyphFrame:SetPoint("BOTTOMRIGHT",PlayerTalentFrame,"BOTTOMRIGHT",-33,0);
 				GlyphFrameBackground:Hide()
 				GlyphFrameTitleText:Hide()
 				for i=1,6 do
@@ -420,15 +417,18 @@ local function Uptate_FrameX()
 			if PlayerTalentFrame.pet then
 				GlyphFrame:ClearAllPoints();
 			else
-				local talentGroup = PlayerTalentFrame and PlayerTalentFrame.talentGroup;
-				for Gindex=1,NUM_GLYPH_SLOTS do
-					_G["GlyphFrameGlyph"..Gindex].name:SetText(NONE)
-					local enabled, glyphType, glyphTooltipIndex, glyphSpell, iconFilename, glyphID = GetGlyphSocketInfo(Gindex, talentGroup);
-					if glyphID then
-						local link = C_GlyphInfo.GetGlyphLink(Gindex, glyphID)
-						if link and link~="" then
-							_G["GlyphFrameGlyph"..Gindex].name:SetText(link)
-						end
+				GlyphFrame:ClearAllPoints();
+				GlyphFrame:SetPoint("TOPLEFT",PlayerTalentFrame3ScrollFrame,"TOPRIGHT",0,0);
+				GlyphFrame:SetPoint("BOTTOMRIGHT",PlayerTalentFrame,"BOTTOMRIGHT",-33,0);
+			end
+			local talentGroup = PlayerTalentFrame and PlayerTalentFrame.talentGroup;
+			for Gindex=1,NUM_GLYPH_SLOTS do
+				_G["GlyphFrameGlyph"..Gindex].name:SetText(NONE)
+				local enabled, glyphType, glyphTooltipIndex, glyphSpell, iconFilename, glyphID = GetGlyphSocketInfo(Gindex, talentGroup);
+				if glyphID then
+					local link = C_GlyphInfo.GetGlyphLink(Gindex, glyphID)
+					if link and link~="" then
+						_G["GlyphFrameGlyph"..Gindex].name:SetText(link)
 					end
 				end
 			end
@@ -437,7 +437,9 @@ local function Uptate_FrameX()
 	local old_TalentFrame_Update=TalentFrame_Update
 	TalentFrame_Update=function(self)
 		if self==PlayerTalentFrame then
-			if PIG_MaxTocversion(20000,true) then PlayerTalentFrame_ShowGlyphFrame();end
+			if PIG_MaxTocversion(20000,true) then 
+				PlayerTalentFrame_ShowGlyphFrame();
+			end
 			PanelTemplates_SetTab(self, 1);--pig
 		end
 		old_TalentFrame_Update(self)

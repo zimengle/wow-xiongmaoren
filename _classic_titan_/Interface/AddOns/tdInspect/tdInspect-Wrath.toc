@@ -1,11 +1,11 @@
-## Interface: 30405
+## Interface: 38000
 ## Title: |cff00fffftdInspect|r - Remote Inspect
-## Title-zhCN: |cff00fffftdInspect|r - 远程观察/角色检视
+## Title-zhCN: |cff00fffftdInspect|r |cff99ddff谷|r|cff88ccee风|r|cff77bbdd修|r|cff66aacc复|r|cff5599bb版|r
 ## Notes: Remote inspect player's gear, talents, glyphs.
 ## Notes-zhCN: 远程观察玩家装备、天赋、雕文。
 ## IconTexture: 132092
 ## Author: Dencer
-## Version: 2.6.0
+## Version: 2.6.1
 ## OptionalDeps: tdSync, ElvUI
 ## SavedVariables: TDDB_INSPECT2
 
@@ -56,3 +56,4 @@ UI\InspectGearFrame.lua
 UI\CharacterGearFrame.lua
 UI\Option.lua
 UI\ElvUI.lua
+UI\NDui.lua

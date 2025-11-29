@@ -1,0 +1,32 @@
+
+MEETINGHORN_DB = {
+["profileKeys"] = {
+["愛雅法拉 - 时光I"] = "愛雅法拉 - 时光I",
+["元英老祖 - 时光IV"] = "愛雅法拉 - 时光I",
+["露露緹婭 - 时光III"] = "露露缇娅old1764210356222 - 时光VI",
+["化神老祖 - 时光IV"] = "愛雅法拉 - 时光I",
+["露露缇娅 - 时光VI"] = "愛雅法拉 - 时光I",
+["阿里董事长 - 时光IV"] = "愛雅法拉 - 时光I",
+["露露緹婭 - 时光VI"] = "愛雅法拉 - 时光I",
+["飞升老祖 - 时光IV"] = "愛雅法拉 - 时光I",
+},
+["realm"] = {
+["时光I"] = {
+["starRegiment"] = {
+["version"] = "20251012_1760315400099",
+["addnVersion"] = "3.80.00 |cff99ddff谷|r|cff88ccee风|r|cff77bbdd修|r|cff66aacc复|r|cff5599bb版|r",
+},
+},
+},
+["global"] = {
+["PracticalToolVersion"] = 1,
+["EncounterVersion"] = 1,
+},
+["profiles"] = {
+["愛雅法拉 - 时光I"] = {
+["options"] = {
+["databroker"] = false,
+},
+},
+},
+}

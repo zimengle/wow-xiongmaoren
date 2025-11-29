@@ -1,0 +1,21 @@
+﻿## Interface: 38000
+## Author: Lag
+## Version: v3.0.0
+## Dependencies: AtlasLootMY
+## LoadOnDemand: 1
+## Title: AtlasLoot掉落插件喵影版 |cFF0099FF[PvP]|r
+## Title-zhCN: AtlasLoot喵影版 |cFF0099FF[PvP]|r
+## Title-zhTW: 副本戰利品查詢經典版 |cFF0099FF[PvP]|r
+## Notes: AtlasLoot loot tables from PvP
+## Notes-zhCN: AtlasLoot  PvP掉落列表
+## Notes-zhTW: PvP 物品資料庫。
+## X-Category: Map
+## X-AtlasLootMY-LootModule: 1
+
+
+Locales\Locales.xml
+
+private.lua
+data.lua
+data-tbc.lua
+data-wrath.lua

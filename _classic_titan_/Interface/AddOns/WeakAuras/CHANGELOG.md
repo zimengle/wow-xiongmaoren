@@ -1,49 +1,51 @@
-# [5.12.9](https://github.com/WeakAuras/WeakAuras2/tree/5.12.9) (2024-04-29)
+# [5.20.7](https://github.com/WeakAuras/WeakAuras2/tree/5.20.7) (2025-11-27)
 
-[Full Changelog](https://github.com/WeakAuras/WeakAuras2/compare/5.12.8...5.12.9)
+[Full Changelog](https://github.com/WeakAuras/WeakAuras2/compare/5.20.6...5.20.7)
 
 ## Highlights
 
- - Added "Parent Frame" as option to "Glow Frame Type"
-- Cataclysm bug fixes 
+- Basic support for Wrath Titan (thanks WoW CN community)
+- Support for new Masque version
+- Various bug fixes
 
 ## Commits
 
-Boneshock (1):
+Copilot (1):
 
-- add Location trigger (#4917)
+- Fix allstates:Get to return false instead of nil
 
-InfusOnWoW (8):
+InfusOnWoW (6):
 
-- Update Atlas File List from wago.tools
-- Fix tracking specific charges being affeced by paused evoker spells
-- Weapon Enchant Trigger: Fix trigger stack check and missing condition
-- Add missing order increment
-- Fix AddFakeInformation for TSU auras to not overwrite progressType
-- Shape shift Trigger: Add note for incompatibility with SoD's Gladiator rune
-- Remove dead code
-- Update Atlas File List from wago.tools
+- Masque Support: Support new masque version
+- Profiling: Add an inherit font
+- BT Multi Target mode: add warnings on it, and if it's missing a filter
+- Update Discord List
+- Fix regression in Abbreviate numbers on retail
+- Update Discord List
 
-Lynn (1):
+NoM0Re (6):
 
-- Added "Parent Frame" as option to "Glow Frame Type" (#5025)
+- Titan: Replace encounter data with phase 1 raids & bosses
+- Titan: remove neutral faction group
+- Titan: fix repair dialog text assignment
+- Glyph Load: Only show in Mists of Pandaria
+- Remove atlas file from Wrath Titan Reforge
+- Add Wrath Titan Reforged support
 
 Stanzilla (4):
 
 - Update WeakAurasModelPaths from wago.tools
 - Update WeakAurasModelPaths from wago.tools
 - Update WeakAurasModelPaths from wago.tools
-- Mark model paths script as executeable
+- Update WeakAurasModelPaths from wago.tools
 
-emptyrivers (1):
+dependabot[bot] (2):
 
-- only use whisper comms if target is on the actually same server (#5019)
+- Bump actions/checkout from 5 to 6
+- Bump actions/upload-artifact from 4 to 5
 
-mrbuds (5):
+mrbuds (2):
 
-- Cataclysm: add class & spec load option
-- FontString:SetJustifyV error with "CENTER" on cataclysm beta
-- Types (#5013)
-- Cataclysm: remove "Resilience" from "Character Stats" trigger
-- Classic: fix talent not checked on changing talent group
+- Remove atlas files
+- Model's Icon set to sword guy on classic, fixes #6075
 

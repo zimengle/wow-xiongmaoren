@@ -56,7 +56,7 @@ function FramePlusfun.Spell()
 			if fui:IsShown() then
 				fui:Hide()
 			else
-				fui:UpdateShowList()
+				fui:Show()
 			end
 		end)
 		return fui
@@ -171,7 +171,7 @@ function FramePlusfun.Spell()
 	---====
 	local butmaxnum,butname=70,"PIG_SpellBookNoList"
 	for i=1,butmaxnum do
-		local spellbut = CreateFrame("CheckButton", "PIG_SpellBookNoList"..i, weituochuF, "SpellButtonTemplate");
+		local spellbut = CreateFrame("CheckButton", "PIG_SpellBookNoList"..i, weituochuF);--, "SpellButtonTemplate"
 		weituochuF.butlist[i]=spellbut
 		if i==1 then
 			spellbut:SetPoint("TOPLEFT",weituochuF,"TOPLEFT",14,-30);
@@ -182,9 +182,10 @@ function FramePlusfun.Spell()
 				spellbut:SetPoint("LEFT",weituochuF.butlist[i-1],"RIGHT",16,0);
 			end
 		end
-		local butname = spellbut:GetName();
-		spellbut.iconTexture = spellbut.iconTexture or _G[butname.."IconTexture"];
-		spellbut.iconTexture:Show();
+		spellbut:SetSize(37,37);
+		spellbut.iconTexture = spellbut:CreateTexture();
+		spellbut.iconTexture:SetAllPoints(spellbut)
+;
 		function spellbut:UpdateButton()
 			if self.TextBackground then self.TextBackground:ClearAllPoints();end
 			if self.TextBackground2 then self.TextBackground2:ClearAllPoints();end
@@ -200,10 +201,18 @@ function FramePlusfun.Spell()
 			GameTooltip:SetSpellBookItem(self.slot, SpellBookFrame.bookType)
 			GameTooltip:Show();
 		end)
-		spellbut:SetScript("OnDragStart",function(self)
+		spellbut:SetScript("OnLeave", function ()
+			GameTooltip:ClearLines();
+			GameTooltip:Hide() 
+		end);
+		spellbut:SetScript("OnMouseDown",function(self)
+			if InCombatLockdown() then
+				PIG_OptionsUI:ErrorMsg(ERR_NOT_IN_COMBAT)
+				return
+			end
 			local slotType = GetSpellBookItemInfo(self.slot, SpellBookFrame.bookType);
 			local slot = self.slot
-			if (not slot or slot > MAX_SPELLS or not _G[self:GetName().."IconTexture"]:IsShown() or (slotType == "FUTURESPELL")) then
+			if (not slot or slot > MAX_SPELLS or not self.iconTexture:IsShown() or (slotType == "FUTURESPELL")) then
 				return;
 			end
 			self:SetChecked(false);
@@ -317,6 +326,7 @@ function FramePlusfun.Spell()
 		end);
 	end
 	weixuexiF.allhuafei=0
+	weixuexiF.NewData={}
 	function weixuexiF:UpdateShowList()
 		weituochuF:Hide();
 		for i=1,hangmaxnum do
@@ -329,20 +339,35 @@ function FramePlusfun.Spell()
 		if PIG_MaxTocversion(40000) and TotalNum>0 then
 			weixuexiF.error:SetText("")
 			weixuexiF.allhuafei=0
+			wipe(weixuexiF.NewData)
 			for i=1,TotalNum do
-				if level>=SpellData[i][3] and SpellData[i][6] then
-					weixuexiF.allhuafei=weixuexiF.allhuafei+SpellData[i][6]
+				local addokxsdd
+				local name, subtext, icon, castTime, minRange, maxRange, spellID = GetSpellInfo(SpellData[i][4])
+	    		if name then
+	    			local subtext = C_Spell.GetSpellSubtext(spellID)
+	    			if subtext then
+		    			if name.."("..subtext..")"==SpellData[i][4] then
+		    				addokxsdd=true
+		    			end
+		    		end
+	    		end
+	    		if not addokxsdd then
+	    			table.insert(weixuexiF.NewData,SpellData[i])
+					if level>=SpellData[i][3] and SpellData[i][6] then
+						weixuexiF.allhuafei=weixuexiF.allhuafei+SpellData[i][6]
+					end
 				end
 			end
 			weixuexiF.biaotiT1:SetText("(可学总"..COSTS_LABEL..GetMoneyString(weixuexiF.allhuafei)..")")
 		else
 			weixuexiF.error:SetText("没有未学技能")
 		end
+		local TotalNum = #weixuexiF.NewData
 	    local offset = ScrollFF:GetScrollFrameOffset(TotalNum, hangmaxnum, hangeH)
 	   	for i = 1, hangmaxnum do
 	        local dataIndex = i + offset
-	        if SpellData[dataIndex] then
-				weixuexiF.butlist[i]:UpdateButton(SpellData[dataIndex],level)
+	        if weixuexiF.NewData[dataIndex] then
+				weixuexiF.butlist[i]:UpdateButton(weixuexiF.NewData[dataIndex],level)
 			end
 		end
 		weixuexiF:Show()

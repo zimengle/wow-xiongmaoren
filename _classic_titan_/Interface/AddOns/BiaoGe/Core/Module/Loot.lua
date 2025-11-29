@@ -867,22 +867,25 @@ BG.Init2(function()
                     BG.SendSystemMessage(format(L["|cffff0000%s的橙片任务已完成，不能分配给它！|r"], SetClassCFF(cpPlayer)))
                     return
                 else
-                    local lootCount = 0
-                    for li = 1, GetNumLootItems() do
-                        if LootSlotHasItem(li) then
-                            local itemLink = GetLootSlotLink(li)
-                            if itemLink then
-                                local itemID = GetItemID(itemLink)
-                                if itemID == cpItemID then
-                                    lootCount = lootCount + 1
+                    local info = GetInfo()
+                    if info.maxCount then
+                        local lootCount = 0
+                        for li = 1, GetNumLootItems() do
+                            if LootSlotHasItem(li) then
+                                local itemLink = GetLootSlotLink(li)
+                                if itemLink then
+                                    local itemID = GetItemID(itemLink)
+                                    if itemID == cpItemID then
+                                        local lootQuantity = select(3, GetLootSlotInfo(li)) or 1
+                                        lootCount = lootCount + lootQuantity
+                                    end
                                 end
                             end
                         end
-                    end
-                    local info = GetInfo()
-                    if lootCount + count > info.maxCount then
-                        BG.SendSystemMessage(format(L["|cffff0000%s的橙片可能已达上限，不能分配给它！|r"], SetClassCFF(cpPlayer)))
-                        return
+                        if lootCount + count > info.maxCount then
+                            BG.SendSystemMessage(format(L["|cffff0000%s的橙片可能已达上限，不能分配给它！|r"], SetClassCFF(cpPlayer)))
+                            return
+                        end
                     end
                 end
             end
@@ -1162,7 +1165,7 @@ BG.Init2(function()
                 { itemID = 45038, quest = 13622, maxCount = 30, diff = { 3, 5, 175, 193 } }, -- 10人橙锤
             },
             DS = {
-                { itemID = 77952, quest = 30107, maxCount = 1000 },
+                { itemID = 77952, quest = 30116 },
             },
         }
     end
