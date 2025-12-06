@@ -14,8 +14,8 @@ TomTomDB = {
 "CENTER",
 nil,
 "CENTER",
-6.838016986846924,
--194.3971099853516,
+-11.6229419708252,
+-228.5850372314453,
 },
 },
 ["block"] = {
@@ -43,31 +43,6 @@ TomTomWaypointsM = {
 ["美团王兴 - 时光IV"] = {
 },
 ["小米军儿 - 时光IV"] = {
-[116] = {
-["116:167696169.01606:862810042.68336:TomTom 路径点"] = {
-116,
-0.1676961690160648,
-0.8628100426833587,
-["arrivaldistance"] = 15,
-["crazy"] = true,
-["persistent"] = true,
-["desc"] = "TomTom 路径点",
-["silent"] = true,
-["cleardistance"] = 10,
-["title"] = "TomTom 路径点",
-["from"] = "TomTom/wm",
-["callbacks"] = {
-["distance"] = {
-},
-["minimap"] = {
-},
-["world"] = {
-},
-},
-["minimap"] = true,
-["world"] = true,
-},
-},
 },
 ["京东刘强东 - 时光IV"] = {
 },

@@ -2,193 +2,10 @@
 PIGA = {
 ["Other"] = {
 ["ErrorsHide"] = true,
+["PigLoad"] = true,
 ["AFK"] = {
 ["Open"] = false,
 ["QuickBut"] = true,
-},
-["PigLoad"] = true,
-},
-["AutoSellBuy"] = {
-["Sell_Tishi"] = true,
-["Sell_List"] = {
-},
-["Sell_Lsit_Filtra"] = {
-},
-["Diuqi_Tishi"] = false,
-["Sell_But"] = true,
-["Sell_Open"] = true,
-["Open_Tishi"] = false,
-["Fen_Tishi"] = false,
-["Fen_QkBut"] = false,
-["Fen_List"] = {
-},
-["Diuqi_List"] = {
-},
-["Xuan_QkBut"] = false,
-["Open"] = true,
-["Xuan_Tishi"] = false,
-["Xuan_List"] = {
-},
-["AddBut"] = true,
-["Buy_Open"] = true,
-["Buy_But"] = true,
-["Buy_Tishi"] = true,
-["Open_QkBut"] = false,
-["Open_List"] = {
-},
-},
-["UnitFrame"] = {
-["PartyMemberFrame"] = {
-["HPFF"] = true,
-["Plus"] = true,
-["ToToT"] = true,
-["Buff"] = true,
-},
-["PlayerFrame"] = {
-["HPFF"] = true,
-},
-["TargetFrame"] = {
-["Yisu"] = true,
-["Plus"] = true,
-["BigDebuff"] = false,
-["ToToToT"] = true,
-["Chouhen"] = true,
-},
-},
-["Error"] = {
-["ErrorTishi"] = false,
-["ErrorDB"] = {
-{
-["time"] = 1764433827,
-["logrizhi"] = "(*temporary) = Frame {\n totalOffsetY = 0\n regionData = <table> {\n }\n totalOffsetX = 35\n}\n",
-["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:ClearAllPoints() >",
-["stack"] = "[C]: in function 'ClearAllPoints'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:54: in function 'SetAnchorPoint'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1355: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1516: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4932: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4892>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:5059: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2013: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2005>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2507: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2500>\n",
-["counter"] = 15,
-},
-{
-["time"] = 1764433827,
-["logrizhi"] = "(*temporary) = Frame {\n point = \"BOTTOMLEFT\"\n totalOffsetY = 0\n regionData = <table> {\n }\n relativeFrame = Frame {\n }\n totalOffsetX = 35\n offsetX = 35\n relativePoint = \"BOTTOMLEFT\"\n offsetY = 0\n}\n(*temporary) = \"BOTTOMLEFT\"\n(*temporary) = Frame {\n controlledChildren = <table> {\n }\n subRegionEvents = <table> {\n }\n yOffset = 24\n anchorPoint = \"BOTTOMLEFT\"\n selfPoint = \"TOPLEFT\"\n controlPoints = <table> {\n }\n suspended = 0\n cloneId = \"\"\n regionType = \"dynamicgroup\"\n relativePoint = \"CENTER\"\n sortedChildren = <table> {\n }\n alpha = 1\n background = Frame {\n }\n needToReload = false\n needToPosition = false\n currentHeight = 31.999969\n currentWidth = 102\n startFormatters = <table> {\n }\n needToSort = false\n sortStates = <table> {\n }\n sortOn = <table> {\n }\n needToResize = false\n xOffsetAnim = 0\n yOffsetAnim = 0\n values = <table> {\n }\n xOffset = -149\n updatedChildren = <table> {\n }\n relativeTo = Frame {\n }\n id = \"圣骑士 动态分组 左\"\n finishFormatters = <table> {\n }\n toShow = true\n growStates = <table> {\n }\n xOffsetRelative = 0\n yOffsetRelative = 0\n}\n(*temporary) = \"BOTTOMLEFT\"\n(*temporary) = 35\n(*temporary) = 0\n",
-["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:SetPoint() >",
-["stack"] = "[C]: in function 'SetPoint'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:60: in function 'SetAnchorPoint'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1355: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1516: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4932: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4892>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:5059: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2013: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2005>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2507: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2500>\n",
-["counter"] = 15,
-},
-{
-["time"] = 1764433827,
-["logrizhi"] = "(*temporary) = Frame {\n point = \"BOTTOMLEFT\"\n totalOffsetY = 0\n regionData = <table> {\n }\n relativeFrame = Frame {\n }\n totalOffsetX = 35\n offsetX = 35\n relativePoint = \"BOTTOMLEFT\"\n offsetY = 0\n}\n(*temporary) = true\n",
-["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:SetShown() >",
-["stack"] = "[C]: in function 'SetShown'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1369: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1516: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4932: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4892>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:5059: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2013: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2005>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2507: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2500>\n",
-["counter"] = 15,
-},
-{
-["time"] = 1764433827,
-["logrizhi"] = "(*temporary) = Frame {\n point = \"BOTTOMLEFT\"\n totalOffsetY = 0\n regionData = <table> {\n }\n relativeFrame = Frame {\n }\n totalOffsetX = 35\n offsetX = 35\n relativePoint = \"BOTTOMLEFT\"\n offsetY = 0\n}\n(*temporary) = Frame {\n controlledChildren = <table> {\n }\n subRegionEvents = <table> {\n }\n yOffset = 24\n anchorPoint = \"BOTTOMLEFT\"\n selfPoint = \"TOPLEFT\"\n controlPoints = <table> {\n }\n suspended = 0\n cloneId = \"\"\n regionType = \"dynamicgroup\"\n relativePoint = \"CENTER\"\n sortedChildren = <table> {\n }\n alpha = 1\n background = Frame {\n }\n needToReload = false\n needToPosition = false\n currentHeight = 31.999969\n currentWidth = 102\n startFormatters = <table> {\n }\n needToSort = false\n sortStates = <table> {\n }\n sortOn = <table> {\n }\n needToResize = false\n xOffsetAnim = 0\n yOffsetAnim = 0\n values = <table> {\n }\n xOffset = -149\n updatedChildren = <table> {\n }\n relativeTo = Frame {\n }\n id = \"圣骑士 动态分组 左\"\n finishFormatters = <table> {\n }\n toShow = true\n growStates = <table> {\n }\n xOffsetRelative = 0\n yOffsetRelative = 0\n}\n",
-["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< UNKNOWN() >",
-["stack"] = "[C]: ?\n[C]: in function 'SetParent'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1396: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1516: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4932: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4892>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:5059: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2013: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2005>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2507: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2500>\n",
-["counter"] = 14,
-},
-{
-["time"] = 1764433827,
-["logrizhi"] = "(*temporary) = Frame {\n point = \"BOTTOMLEFT\"\n totalOffsetY = 0\n regionData = <table> {\n }\n relativeFrame = Frame {\n }\n totalOffsetX = 35\n offsetX = 35\n relativePoint = \"BOTTOMLEFT\"\n offsetY = 0\n}\n(*temporary) = 1\n",
-["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:SetScale() >",
-["stack"] = "[C]: in function 'SetScale'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1397: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1516: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4932: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4892>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:5059: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2013: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2005>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2507: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2500>\n",
-["counter"] = 14,
-},
-{
-["time"] = 1764433827,
-["logrizhi"] = "(*temporary) = Frame {\n iconSource = -1\n xOffset = 0\n yOffset = 0\n anchorPoint = \"BOTTOMLEFT\"\n keepAspectRatio = true\n soundHandle = 71036\n toShow = true\n icon = Texture {\n }\n relativeTo = Frame {\n }\n PixelSnapDisabled = true\n cloneId = \"\"\n regionType = \"icon\"\n progressType = \"timed\"\n relativePoint = \"BOTTOMLEFT\"\n maxProgress = 15\n states = <table> {\n }\n state = <table> {\n }\n zoom = 0.300000\n color_b = 1\n color_r = 1\n displayIcon = \"\"\n scalex = 1\n values = <table> {\n }\n duration = 15\n expirationTime = 29335.018000\n cooldownEdge = true\n yOffsetRelative = 0\n cooldownSwipe = true\n color_g = 1\n progressSource = <table> {\n }\n finishFormatters = <table> {\n }\n color_a = 1\n subRegions = <table> {\n }\n height = 32\n startFormatters = <table> {\n }\n inverseDirection = false\n currentCoord = <table> {\n }\n modRate = 1\n frameId = \"神圣恳求（可点击）\"\n texXOffset = 0\n scaley = 1\n xOffsetAnim = 0\n yOffsetAnim = 0\n soundOptions = <table> {\n }\n subRegionEvents = <table> {\n }\n minProgress = 0\n id = \"神圣恳求（可点击）\"\n width = 32\n xOffsetRelative = 0\n alpha = 1\n cooldown = WeakAurasCooldown神圣恳求（可点击） {\n }\n texYOffset = 0\n}\n(*temporary) = \"LOW\"\n",
-["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:SetFrameStrata() >",
-["stack"] = "[C]: in function 'SetFrameStrata'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1403: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1516: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4932: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4892>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:5059: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2013: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2005>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2507: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2500>\n",
-["counter"] = 14,
-},
-{
-["time"] = 1764433827,
-["logrizhi"] = "(*temporary) = Frame {\n iconSource = -1\n xOffset = 0\n yOffset = 0\n anchorPoint = \"BOTTOMLEFT\"\n keepAspectRatio = true\n soundHandle = 71036\n toShow = true\n icon = Texture {\n }\n relativeTo = Frame {\n }\n PixelSnapDisabled = true\n cloneId = \"\"\n regionType = \"icon\"\n progressType = \"timed\"\n relativePoint = \"BOTTOMLEFT\"\n maxProgress = 15\n states = <table> {\n }\n state = <table> {\n }\n zoom = 0.300000\n color_b = 1\n color_r = 1\n displayIcon = \"\"\n scalex = 1\n values = <table> {\n }\n duration = 15\n expirationTime = 29335.018000\n cooldownEdge = true\n yOffsetRelative = 0\n cooldownSwipe = true\n color_g = 1\n progressSource = <table> {\n }\n finishFormatters = <table> {\n }\n color_a = 1\n subRegions = <table> {\n }\n height = 32\n startFormatters = <table> {\n }\n inverseDirection = false\n currentCoord = <table> {\n }\n modRate = 1\n frameId = \"神圣恳求（可点击）\"\n texXOffset = 0\n scaley = 1\n xOffsetAnim = 0\n yOffsetAnim = 0\n soundOptions = <table> {\n }\n subRegionEvents = <table> {\n }\n minProgress = 0\n id = \"神圣恳求（可点击）\"\n width = 32\n xOffsetRelative = 0\n alpha = 1\n cooldown = WeakAurasCooldown神圣恳求（可点击） {\n }\n texYOffset = 0\n}\n(*temporary) = 85\n",
-["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< SetFrameLevel() >",
-["stack"] = "[C]: ?\n[Interface/AddOns/WeakAuras/RegionTypes/Icon.lua]:292: in function 'SetFrameLevel'\n[Interface/AddOns/WeakAuras/SubRegionTypes/Background.lua]:17: in function 'SetFrameLevel'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4448: in function 'ApplyFrameLevel'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1407: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1516: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4932: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4892>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:5059: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2013: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2005>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2507: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2500>\n",
-["counter"] = 14,
-},
-{
-["time"] = 1764433827,
-["logrizhi"] = "(*temporary) = Frame {\n controlledChildren = <table> {\n }\n subRegionEvents = <table> {\n }\n yOffset = 24\n anchorPoint = \"BOTTOMLEFT\"\n selfPoint = \"TOPLEFT\"\n controlPoints = <table> {\n }\n suspended = 0\n cloneId = \"\"\n regionType = \"dynamicgroup\"\n relativePoint = \"CENTER\"\n sortedChildren = <table> {\n }\n alpha = 1\n background = Frame {\n }\n needToReload = false\n needToPosition = false\n currentHeight = 31.999969\n currentWidth = 102\n startFormatters = <table> {\n }\n needToSort = false\n sortStates = <table> {\n }\n sortOn = <table> {\n }\n needToResize = false\n xOffsetAnim = 0\n yOffsetAnim = 0\n values = <table> {\n }\n xOffset = -149\n updatedChildren = <table> {\n }\n relativeTo = Frame {\n }\n id = \"圣骑士 动态分组 左\"\n finishFormatters = <table> {\n }\n toShow = true\n growStates = <table> {\n }\n xOffsetRelative = 0\n yOffsetRelative = 0\n}\n",
-["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:Show() >",
-["stack"] = "[C]: in function 'Show'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1567: in function 'Resize'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1528: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4932: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4892>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:5059: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2013: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2005>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2507: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2500>\n",
-["counter"] = 6,
-},
-{
-["time"] = 1764435251,
-["logrizhi"] = "(*temporary) = Frame {\n iconSource = -1\n xOffset = 0\n yOffset = 0\n anchorPoint = \"CENTER\"\n keepAspectRatio = true\n toShow = true\n icon = Texture {\n }\n relativeTo = Frame {\n }\n PixelSnapDisabled = true\n cloneId = \"\"\n regionType = \"icon\"\n progressType = \"timed\"\n relativePoint = \"CENTER\"\n maxProgress = 0\n states = <table> {\n }\n state = <table> {\n }\n zoom = 0.300000\n color_b = 1\n color_r = 1\n displayIcon = \"\"\n scalex = 1\n values = <table> {\n }\n duration = 0\n expirationTime = 0\n cooldownEdge = false\n yOffsetRelative = 0\n cooldownSwipe = true\n color_g = 1\n progressSource = <table> {\n }\n finishFormatters = <table> {\n }\n color_a = 1\n subRegions = <table> {\n }\n height = 40\n startFormatters = <table> {\n }\n inverseDirection = true\n currentCoord = <table> {\n }\n modRate = 1\n frameId = \"神圣震击（神圣）\"\n texXOffset = 0\n scaley = 1\n xOffsetAnim = 0\n yOffsetAnim = 0\n subRegionEvents = <table> {\n }\n minProgress = 0\n id = \"神圣震击（神圣）\"\n width = 40\n xOffsetRelative = 0\n alpha = 1\n cooldown = WeakAurasCooldown神圣震击（神圣） {\n }\n texYOffset = 0\n}\n(*temporary) = 40\n",
-["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:SetWidth() >",
-["stack"] = "[C]: in function 'SetWidth'\n[Interface/AddOns/WeakAuras/RegionTypes/Icon.lua]:332: in function 'UpdateSize'\n[Interface/AddOns/WeakAuras/RegionTypes/Icon.lua]:536: in function 'SetRegionWidth'\n[return function(newPositions, activeRegions)]:45: in function <[string \"return function(newPositions, activeRegions...\"]:1>\n[C]: in function 'xpcall'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:985: in function 'growFunc'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1500: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1116: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4933: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4893>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:5060: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:1000: in function 'ScanEventsInternal'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:897: in function 'ScanEvents'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:867: in function 'ScanEventsByID'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:2754: in function 'SendEventsForSpell'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:2706: in function 'CheckSpellCooldown'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:3326: in function 'CheckSpellCooldown'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:2336: in function 'func'\n[Interface/AddOns/WeakAuras/Libs/AceTimer-3.0/AceTimer-3.0.lua]:57: in function <.../AddOns/WeakAuras/Libs/AceTimer-3.0/AceTimer-3.0.lua:50>\n",
-["counter"] = 561,
-},
-{
-["time"] = 1764435251,
-["logrizhi"] = "(*temporary) = Frame {\n iconSource = -1\n xOffset = 0\n yOffset = 0\n anchorPoint = \"CENTER\"\n keepAspectRatio = true\n toShow = true\n icon = Texture {\n }\n relativeTo = Frame {\n }\n PixelSnapDisabled = true\n cloneId = \"\"\n regionType = \"icon\"\n progressType = \"timed\"\n relativePoint = \"CENTER\"\n maxProgress = 0\n states = <table> {\n }\n state = <table> {\n }\n zoom = 0.300000\n color_b = 1\n color_r = 1\n displayIcon = \"\"\n scalex = 1\n values = <table> {\n }\n duration = 0\n expirationTime = 0\n cooldownEdge = false\n yOffsetRelative = 0\n cooldownSwipe = true\n color_g = 1\n progressSource = <table> {\n }\n finishFormatters = <table> {\n }\n color_a = 1\n subRegions = <table> {\n }\n height = 40\n startFormatters = <table> {\n }\n inverseDirection = true\n currentCoord = <table> {\n }\n modRate = 1\n frameId = \"神圣震击（神圣）\"\n texXOffset = 0\n scaley = 1\n xOffsetAnim = 0\n yOffsetAnim = 0\n subRegionEvents = <table> {\n }\n minProgress = 0\n id = \"神圣震击（神圣）\"\n width = 40\n xOffsetRelative = 0\n alpha = 1\n cooldown = WeakAurasCooldown神圣震击（神圣） {\n }\n texYOffset = 0\n}\n(*temporary) = 40\n",
-["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:SetHeight() >",
-["stack"] = "[C]: in function 'SetHeight'\n[Interface/AddOns/WeakAuras/RegionTypes/Icon.lua]:333: in function 'UpdateSize'\n[Interface/AddOns/WeakAuras/RegionTypes/Icon.lua]:536: in function 'SetRegionWidth'\n[return function(newPositions, activeRegions)]:45: in function <[string \"return function(newPositions, activeRegions...\"]:1>\n[C]: in function 'xpcall'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:985: in function 'growFunc'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1500: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1116: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4933: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4893>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:5060: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:1000: in function 'ScanEventsInternal'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:897: in function 'ScanEvents'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:867: in function 'ScanEventsByID'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:2754: in function 'SendEventsForSpell'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:2706: in function 'CheckSpellCooldown'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:3326: in function 'CheckSpellCooldown'\n[Interface/AddOns/WeakAuras/GenericTrigger.lua]:2336: in function 'func'\n[Interface/AddOns/WeakAuras/Libs/AceTimer-3.0/AceTimer-3.0.lua]:57: in function <.../AddOns/WeakAuras/Libs/AceTimer-3.0/AceTimer-3.0.lua:50>\n",
-["counter"] = 560,
-},
-},
-},
-["ActionBar"] = {
-["Cailiao"] = true,
-["ActionCD"] = true,
-["AutoFanye"] = false,
-["PetTishi"] = true,
-["Ranse"] = true,
-},
-["Interaction"] = {
-["AutoDialogue"] = false,
-["AutoJierenwu"] = false,
-["AutoRepair"] = false,
-["AutoDialogueIndex"] = 0,
-["AutoFuhuo"] = false,
-["AutoRepair_GUILD"] = false,
-["AutoDown"] = false,
-["xiayijuli"] = 31,
-["AutoJyaoqing"] = false,
-["RightPlus"] = true,
-["AutoJiaorenwu"] = false,
-},
-["Blizzard_UI"] = {
-["PlayerTalentFrame"] = {
-["Scale"] = 1.3,
-},
-},
-["Chatjilu"] = {
-["RAID"] = {
-["record"] = {
-},
-["Open"] = true,
-["Tips"] = true,
-},
-["GUILD"] = {
-["record"] = {
-},
-["Open"] = true,
-["Tips"] = true,
-},
-["PARTY"] = {
-["record"] = {
-},
-["Open"] = true,
-["Tips"] = true,
-},
-["INSTANCE_CHAT"] = {
-["record"] = {
-},
-["Open"] = true,
-["Tips"] = true,
-},
-["Days"] = 7,
-["WHISPER"] = {
-["AudioID"] = 1,
-["Open"] = true,
-["record"] = {
-},
-["AudioOpen"] = true,
-["jichengBlack"] = true,
-["Tips"] = true,
 },
 },
 ["QuickBut"] = {
@@ -202,20 +19,93 @@ PIGA = {
 ["Spell"] = true,
 ["Trinket"] = true,
 ["Open"] = true,
-["TrinketScale"] = 1.6,
-["RuneShow"] = false,
 ["BGbroadcast"] = true,
-["Rune"] = true,
+["RuneShow"] = false,
+["AddonList"] = true,
+["TrinketFenlilock"] = false,
 ["Lushi"] = true,
 ["TrinketFenli"] = false,
-["TrinketFenlilock"] = false,
-["AddonList"] = true,
+["Rune"] = true,
+["TrinketScale"] = 1.6,
 },
 ["CVars"] = {
-["Fast_Loot"] = false,
 ["EaseUse"] = true,
 ["MaxZoom"] = true,
+["Fast_Loot"] = false,
 ["Shaman_Blue"] = true,
+},
+["FramePlus"] = {
+["Character_ItemList"] = false,
+["Character_ItemLevel"] = true,
+["BlizzardUI_Move"] = true,
+["AddonList"] = true,
+["UIWidget"] = true,
+["Skill"] = false,
+["Merchant"] = false,
+["RollScale"] = 1,
+["Loot"] = true,
+["UIWidgetPointX"] = 0,
+["Quest"] = true,
+["Character_Durability"] = true,
+["Character_ItemColor"] = true,
+["Spell"] = {
+["MAGE"] = {
+{
+nil,
+135846,
+4,
+"寒冰箭(等级 1)",
+"向目标射出一支寒冰箭，对其造成18至20点冰霜伤害，并使其移动速度降低40%，持续5秒。",
+95,
+},
+{
+nil,
+132793,
+4,
+"造水术(等级 1)",
+"用魔法合成2瓶魔法水以供法师和她的盟友饮用。\r\n\r\n这些物品会在持有者登出游戏超过15分钟之后消失。",
+95,
+},
+{
+nil,
+135807,
+6,
+"火焰冲击(等级 1)",
+"施放火焰冲击敌人，对其造成24到32点火焰伤害。",
+95,
+},
+{
+nil,
+133952,
+6,
+"造食术(等级 1)",
+"用魔法合成2块魔法松饼以供法师和她的盟友食用。\r\n\r\n这些物品会在持有者登出游戏超过15分钟之后消失。",
+95,
+},
+{
+nil,
+135812,
+6,
+"火球术(等级 2)",
+"发射一枚火球攻击目标，对其造成31到45点火焰伤害，并在6秒内造成额外的3点火焰伤害。",
+95,
+},
+},
+},
+["UIWidgetPointY"] = -70,
+["Talent"] = true,
+["Macro"] = true,
+["BlizzardUI_Move_Save"] = true,
+["AddonStatus"] = {
+},
+["Friends"] = true,
+["Roll"] = false,
+["Skill_QKbut"] = false,
+["BuffTime"] = true,
+["Character_Shuxing"] = false,
+["SpellOpen"] = false,
+["Tracking"] = true,
+["LootMasterErr"] = true,
 },
 ["Chat"] = {
 ["Jianyin"] = false,
@@ -244,20 +134,20 @@ PIGA = {
 ["Tiqu"] = {
 ["Audio"] = 1,
 ["Open"] = false,
-["AudioOpen"] = true,
+["CombatHide"] = false,
 ["BgColor"] = {
 0,
 0,
 0,
 0.4,
 },
-["CombatHide"] = false,
+["KeywordFHeight"] = 140,
 ["ChatWox"] = 0,
 ["shuchumode"] = 1,
 ["Keys"] = "",
-["jichengBlack"] = true,
 ["tiquOKFlash"] = true,
-["KeywordFHeight"] = 140,
+["jichengBlack"] = true,
+["AudioOpen"] = true,
 },
 ["RemTips"] = true,
 ["QuickChat"] = false,
@@ -265,22 +155,17 @@ PIGA = {
 ["jingjian"] = true,
 ["FastCopy"] = false,
 ["ShowZb"] = true,
-["ShowLinkLV"] = true,
-["QuickChat_pianyiX"] = 0,
-["FontSize"] = false,
-["ShowLinkSlots"] = true,
-["WhoWhisper"] = true,
-["AltEX"] = true,
-["Guolv"] = true,
 ["QuickChat_ButHide"] = {
 },
+["QuickChat_pianyiX"] = 0,
+["QuickChat_pianyiY"] = 0,
 ["Filter"] = {
 ["Blacks"] = "",
 ["Precise"] = false,
 ["Blacks_P"] = "",
 ["FilterChannel"] = {
-["YELL"] = true,
 ["SAY"] = false,
+["YELL"] = true,
 ["CHANNEL"] = true,
 ["WHISPER"] = false,
 },
@@ -290,7 +175,3663 @@ PIGA = {
 ["IGNORE_DND"] = true,
 ["FilterRepeat"] = true,
 },
-["QuickChat_pianyiY"] = 0,
+["WhoWhisper"] = true,
+["AltEX"] = true,
+["Guolv"] = true,
+["ShowLinkSlots"] = true,
+["FontSize"] = false,
+["ShowLinkLV"] = true,
+},
+["Interaction"] = {
+["AutoDialogue"] = false,
+["AutoJierenwu"] = false,
+["AutoRepair"] = false,
+["AutoDialogueIndex"] = 0,
+["xiayijuli"] = 31,
+["AutoRepair_GUILD"] = false,
+["AutoDown"] = false,
+["AutoFuhuo"] = false,
+["RightPlus"] = true,
+["AutoJyaoqing"] = false,
+["AutoJiaorenwu"] = false,
+},
+["Blizzard_UI"] = {
+["PlayerTalentFrame"] = {
+["Scale"] = 1.3,
+},
+},
+["Chatjilu"] = {
+["RAID"] = {
+["record"] = {
+},
+["Open"] = true,
+["Tips"] = true,
+},
+["GUILD"] = {
+["record"] = {
+},
+["Open"] = true,
+["Tips"] = true,
+},
+["WHISPER"] = {
+["AudioID"] = 1,
+["AudioOpen"] = true,
+["record"] = {
+},
+["jichengBlack"] = true,
+["Open"] = true,
+["Tips"] = true,
+},
+["INSTANCE_CHAT"] = {
+["record"] = {
+},
+["Open"] = true,
+["Tips"] = true,
+},
+["Days"] = 7,
+["PARTY"] = {
+["record"] = {
+},
+["Open"] = true,
+["Tips"] = true,
+},
+},
+["AutoSellBuy"] = {
+["Sell_Tishi"] = true,
+["Sell_List"] = {
+},
+["Sell_Lsit_Filtra"] = {
+},
+["Diuqi_Tishi"] = false,
+["Sell_But"] = true,
+["Sell_Open"] = true,
+["Open_Tishi"] = false,
+["Fen_Tishi"] = false,
+["Fen_QkBut"] = false,
+["Fen_List"] = {
+},
+["Diuqi_List"] = {
+},
+["Xuan_QkBut"] = false,
+["Open"] = true,
+["Open_List"] = {
+},
+["Open_QkBut"] = false,
+["Buy_Tishi"] = true,
+["Buy_But"] = true,
+["Buy_Open"] = true,
+["AddBut"] = true,
+["Xuan_List"] = {
+},
+["Xuan_Tishi"] = false,
+},
+["UnitFrame"] = {
+["PartyMemberFrame"] = {
+["HPFF"] = true,
+["ToToT"] = true,
+["Plus"] = true,
+["Buff"] = true,
+},
+["TargetFrame"] = {
+["Yisu"] = true,
+["Plus"] = true,
+["BigDebuff"] = false,
+["ToToToT"] = true,
+["Chouhen"] = true,
+},
+["PlayerFrame"] = {
+["HPFF"] = true,
+},
+},
+["ActionBar"] = {
+["Cailiao"] = true,
+["ActionCD"] = true,
+["Ranse"] = true,
+["PetTishi"] = true,
+["AutoFanye"] = false,
+},
+["Pig_UI"] = {
+["PIG_QuickButUI"] = {
+"RIGHT",
+"RIGHT",
+-73.62,
+-297.12,
+},
+["PIG_CombinedBag"] = {
+"CENTER",
+"CENTER",
+205.3,
+-82.48,
+},
+["Pig_OptionsUI"] = {
+"CENTER",
+"CENTER",
+-166.1,
+-16,
+},
+["PIGmarkerR_UI"] = {
+"TOP",
+"TOP",
+0.85,
+-35.62,
+},
+["PIG_markerR"] = {
+"TOP",
+"TOP",
+-0.85,
+-35.62,
+},
+["QuickButUI"] = {
+"BOTTOM",
+"BOTTOM",
+304.59,
+100.26,
+},
+},
+["MailPlus"] = {
+["BagOpen"] = false,
+["ALTbatch"] = true,
+["OpenAllCD"] = 1,
+["lianxuMode"] = true,
+["Coll"] = {
+},
+["Open"] = false,
+["MoneyEdit"] = true,
+},
+["Map"] = {
+["WorldMapFuben"] = true,
+["WorldMapMiwu"] = true,
+["MinimapHide"] = false,
+["MinimapBpaichu"] = {
+},
+["MinimapMove"] = false,
+["MinimapPoint_NDui"] = {
+-1,
+0,
+},
+["WorldMapSkill"] = true,
+["MinimapPointX"] = 0,
+["WorldMapNPC"] = true,
+["MinimapPos"] = -13.62698465698976,
+["WorldMapXY"] = false,
+["WorldMapWind"] = false,
+["MiniButShouNa_hang"] = 10,
+["MinimapBut"] = true,
+["WorldMapLV"] = true,
+["MinimapPointMode"] = 1,
+["WorldMapBili"] = 0.8,
+["MiniButShouNa_YN"] = 2,
+["WorldMapMiwuColor"] = {
+1,
+1,
+1,
+1,
+},
+["WorldMapPlus"] = false,
+["MinimapPointY"] = 0,
+["MinimapXY"] = false,
+["MinimapPoint_ElvUI"] = {
+-1,
+0,
+},
+["MinimapPointXY"] = {
+0,
+0,
+},
+["MinimapAnchor"] = "TOPRIGHT",
+},
+["TradePlus"] = {
+["AddBut"] = true,
+["zhiyeLV"] = true,
+["Open"] = true,
+},
+["VerC"] = {
+["!Pig"] = {
+["p"] = {
+"灬大影蒂灬",
+},
+["verno"] = 9.68,
+},
+},
+["Common"] = {
+["QuestsEndAudio"] = 1,
+["AutoCombatLog"] = false,
+["ClearFocus_null"] = false,
+["SetFocusKEY"] = "shift",
+["QuestsEnd"] = true,
+["addonProfilerEnabled"] = true,
+["SetFocusMouse"] = true,
+["SetFocus"] = true,
+["ClearFocus"] = true,
+["AutoCombatLogTJ"] = 1,
+["Offnewfont"] = true,
+},
+["BagBank"] = {
+["BAGmeihangshu"] = 8,
+["JunkShow"] = true,
+["AHOpen"] = true,
+["jiaoyiOpen"] = true,
+["wupinRanse"] = true,
+["wupinLV"] = true,
+["BagKongyu"] = true,
+["BAGsuofangBili"] = 1,
+["NewItem"] = true,
+["BANKmeihangshu"] = 16,
+["SortBagsRightToLeft"] = false,
+["BAGmeihangshu_WLK"] = 10,
+["Zhenghe"] = true,
+["SortBag_Config"] = true,
+["JianjieMOD"] = false,
+["BANKmeihangshu_retail"] = 17,
+["BAGmeihangshu_retail"] = 10,
+["BANKsuofangBili"] = 1,
+},
+["Tooltip"] = {
+["IDinfo"] = false,
+["ItemLevel"] = true,
+["PointX"] = 0,
+["PointY"] = 0,
+["ItemSell"] = false,
+["ItemMaxCount"] = true,
+["PointOpen"] = false,
+["Point"] = 1,
+},
+["PigLayout"] = {
+["topInfoR"] = {
+["BGHide"] = false,
+["Lock"] = false,
+["Scale"] = 1,
+["Open"] = false,
+["HideBut"] = {
+},
+},
+["topInfoL"] = {
+["BGHide"] = false,
+["Lock"] = false,
+["Scale"] = 1,
+["Open"] = false,
+["HideBut"] = {
+},
+},
+["ActionBar"] = {
+["BarRight"] = false,
+["ScaleV"] = 0.8,
+["Scale"] = false,
+["HideShijiu"] = false,
+["LRInterval"] = 20,
+["Layout"] = 1,
+},
+["topMenu"] = {
+["BGHide"] = false,
+["Scale"] = 1,
+["TimerMode"] = 1,
+["daojishiTime"] = 10,
+["HideBut"] = {
+},
+["Countdown"] = false,
+["Lock"] = false,
+["Open"] = false,
+["CountdownAudio"] = 1,
+["CountdownEnd"] = false,
+["CountdownEndAudio"] = 1,
+},
+["ChatUI"] = {
+["editMove"] = false,
+["Fu"] = false,
+["MarginPoint"] = {
+35,
+35,
+0,
+0,
+},
+["FuPoint"] = {
+370,
+200,
+35,
+35,
+},
+["editPoint"] = {
+0,
+0,
+},
+["ZhuPoint"] = {
+370,
+200,
+35,
+35,
+},
+["Margin"] = false,
+["Zhu"] = false,
+},
+["TopBar"] = {
+["AnchorPoint"] = "TOP",
+["Height"] = 22,
+["Open"] = false,
+["Backdrop"] = 1,
+["Alpha"] = 1,
+},
+["MicroMenu"] = {
+["AnchorPoint"] = "TOP",
+["MoveTime"] = true,
+["Scale"] = 1,
+["AnchorPointY"] = 0,
+["Interval"] = 2,
+["AnchorPointX"] = 0,
+["Open"] = false,
+["HideBut"] = {
+},
+},
+},
+["Ver"] = {
+["!Pig"] = 9.68,
+["!Pig_RurutiaAudio"] = 0,
+},
+["StatsInfo"] = {
+["TradeTongGaoChannel"] = "WHISPER",
+["Qita_Num"] = false,
+["TradeTongGao"] = true,
+["PlayerSH"] = {
+},
+["lixianBank"] = true,
+["AHData"] = {
+["时光IV"] = {
+},
+["维希度斯"] = {
+},
+["时光I"] = {
+},
+["时光III"] = {
+},
+["曼多基尔"] = {
+},
+["霜语"] = {
+["暗月卡片：伟大"] = true,
+["霜纹布"] = true,
+},
+},
+["MinibutTisp"] = false,
+["SkillData"] = {
+["美团王兴-时光IV"] = {
+{
+0,
+{
+},
+},
+{
+0,
+{
+},
+},
+[0] = {
+},
+},
+["小米军儿-时光IV"] = {
+{
+0,
+{
+},
+},
+{
+0,
+{
+},
+},
+[0] = {
+},
+},
+["愛雅法拉-时光I"] = {
+{
+0,
+{
+},
+},
+{
+0,
+{
+},
+},
+[0] = {
+},
+},
+["露露缇娅-时光III"] = {
+{
+5,
+{
+56005,
+56002,
+56001,
+56003,
+},
+425,
+450,
+},
+{
+0,
+{
+},
+},
+[0] = {
+},
+},
+["哔站陈睿-时光IV"] = {
+{
+0,
+{
+},
+},
+{
+0,
+{
+},
+},
+[0] = {
+},
+},
+["京东刘强东-时光IV"] = {
+{
+0,
+{
+},
+},
+{
+0,
+{
+},
+},
+[0] = {
+},
+},
+},
+["Players"] = {
+["美团王兴-时光IV"] = {
+"Alliance",
+1,
+"raceicon-human-male",
+1,
+1,
+},
+["小米军儿-时光IV"] = {
+"Alliance",
+1,
+"raceicon-human-male",
+6,
+80,
+},
+["愛雅法拉-时光I"] = {
+"Horde",
+10,
+"raceicon-bloodelf-female",
+8,
+2,
+},
+["露露缇娅-时光III"] = {
+"Horde",
+10,
+"raceicon-bloodelf-female",
+5,
+80,
+},
+["哔站陈睿-时光IV"] = {
+"Alliance",
+11,
+"raceicon-draenei-male",
+7,
+71,
+},
+["京东刘强东-时光IV"] = {
+"Alliance",
+1,
+"raceicon-human-male",
+2,
+80,
+},
+},
+["Open"] = true,
+["TradeClassLV"] = true,
+["Items"] = {
+["美团王兴-时光IV"] = {
+["BANK"] = {
+},
+["MAIL"] = {
+},
+["C"] = "1-^+2-^+3-^+4-38::::::::1::::::::::+5-^+6-^+7-39::::::::1::::::::::+8-40::::::::1::::::::::+9-^+10-^+11-^+12-^+13-^+14-^+15-^+16-497B8::::::::1::::::::::+17-^+18-^+19-^",
+["GUILD"] = {
+},
+["R"] = {
+},
+["T"] = "0gg",
+["G"] = ":::::",
+["BAG"] = {
+{
+"6948::::::::1::::::::::",
+1,
+6948,
+},
+},
+},
+["小米军儿-时光IV"] = {
+["BANK"] = {
+},
+["MAIL"] = {
+},
+["C"] = "1-37237::41398:40B14:::::80::::::::::+2-40678::::::::80::::::::::+3-37627::40B14::::::80::::::::::+4-^+5-37219:3252:::::::80::::::::::+6-25B141::::::::80::::::::::+7-37675:3823:23095:40B14:::::80::::::::::+8-25763B:1597:::::::80::::::::::+9-4135B:1593:::::::80::::::::::+10-37363:684:::::::80::::::::::+11-43251::231B8::::::80::::::::::+12-37151::::::::80::::::::::+13-40684::::::::80::::::::::+14-37390::::::::80::::::::::+15-37647:3825:::::::80::::::::::+16-4B250:3B68:::::::80::::::::::+17-40703:3B68:::::::80::::::::::+18-42619::::::::80::::::::::+19-43157::::::::80::::::::::",
+["GUILD"] = {
+},
+["R"] = {
+},
+["T"] = "0b320B4350D20Q230B303050B321520C150B1313B051",
+["G"] = "58629:58680:6020B:58686:59309:63D",
+["BAG"] = {
+{
+"37247::::::::80::::::::::",
+1,
+37247,
+},
+{
+"3B4B8::::::::80::::::::::",
+19,
+33448,
+},
+{
+"37B05::::::::80::::::::::",
+7,
+37705,
+},
+{
+"34125::::::::80::::::::::",
+20,
+34125,
+},
+{
+"36912::::::::80::::::::::",
+2,
+36912,
+},
+{
+"43B06::::::::80::::::::::",
+1,
+43306,
+},
+{
+"405B1::::::::80::::::::::",
+1,
+40551,
+},
+{
+"43089::::::::80::::::::::",
+4,
+43089,
+},
+{
+"6948::::::::80::::::::::",
+1,
+6948,
+},
+{
+"39328::::::::80::::::::::",
+17,
+39328,
+},
+{
+"3B4B7::::::::80::::::::::",
+16,
+33447,
+},
+{
+"4068B::40B14::::::80::::::::::",
+1,
+40688,
+},
+{
+"38697::::::::80::::::::::",
+1,
+38697,
+},
+{
+"39208::::::::80::::::::::",
+1,
+39208,
+},
+{
+"39327::::::::80::::::::::",
+5,
+39327,
+},
+{
+"43095::::::::80::::::::::",
+1,
+43095,
+},
+{
+"40B70::::::::80::::::::::",
+2,
+40070,
+},
+{
+"3B470::::::::80::::::::::",
+4,
+33470,
+},
+{
+"43523::::::::80::::::::::",
+20,
+43523,
+},
+{
+"43523::::::::80::::::::::",
+20,
+43523,
+},
+{
+"43156::::::::80::::::::::",
+1,
+43156,
+},
+{
+"2B829::::::::80::::::::::",
+9,
+22829,
+},
+{
+"36926::::::::80::::::::::",
+1,
+36926,
+},
+{
+"4637B::::::::80::::::::::",
+18,
+46377,
+},
+{
+"41426::::::::80::::::::::",
+1,
+41426,
+},
+{
+"40587::::::::80::::::::::",
+1,
+40587,
+},
+{
+"3B4B5::::::::80::::::::::",
+3,
+33445,
+},
+{
+"35947::::::::80::::::::::",
+2,
+35947,
+},
+{
+"396C::::::::80::::::::::",
+2,
+39666,
+},
+{
+"40B72::::::::80::::::::::",
+1,
+40072,
+},
+{
+"3B454::::::::80::::::::::",
+1,
+33454,
+},
+{
+"385B7::::::::80::::::::::",
+2,
+38557,
+},
+{
+"376B8::::::::80::::::::::",
+1,
+37668,
+},
+{
+"42780::::::::80::::::::::",
+55,
+42780,
+},
+{
+"19B210::::::::80::::::::::",
+1,
+199210,
+},
+{
+"37260::::::::80::::::::::",
+1,
+37260,
+},
+{
+"4B3B2::::::::80::::::::::",
+2,
+44332,
+},
+{
+"415B7::::::::80::::::::::",
+1,
+41557,
+},
+{
+"43510::::::::80::::::::::",
+1,
+43510,
+},
+{
+"43102::::::::80::::::::::",
+20,
+43102,
+},
+{
+"37572::::::::80::::::::::",
+1,
+37572,
+},
+{
+"341B9::::::::80::::::::::",
+1,
+34119,
+},
+{
+"37B35::::::::80::::::::::",
+1,
+37735,
+},
+{
+"43523::::::::80::::::::::",
+20,
+43523,
+},
+{
+"4B306::::::::80::::::::::",
+1,
+44306,
+},
+{
+"43523::::::::80::::::::::",
+20,
+43523,
+},
+{
+"37139::::::::80::::::::::",
+1,
+37139,
+},
+{
+"43135::::::::80::::::::::",
+1,
+43135,
+},
+{
+"4C07::::::::80::::::::::",
+1,
+44407,
+},
+{
+"260492::::::::80::::::::::",
+1,
+260492,
+},
+{
+"3B4B7::::::::80::::::::::",
+20,
+33447,
+},
+{
+"3B4B7::::::::80::::::::::",
+20,
+33447,
+},
+{
+"264272::::::::80::::::::::",
+1,
+264272,
+},
+{
+"24B02::::::::80::::::::::",
+1,
+24402,
+},
+{
+"43493::::::::80::::::::::",
+1,
+43493,
+},
+{
+"38619::::::::80::::::::::",
+1,
+38619,
+},
+},
+},
+["愛雅法拉-时光I"] = {
+["GUILD"] = {
+},
+["MAIL"] = {
+},
+["C"] = "1-^+2-^+3-^+4-6096::::::::2::::::::::+5-20893::::::::2::::::::::+6-^+7-20894::::::::2::::::::::+8-20895::::::::2::::::::::+9-^+10-^+11-265036::::::::2::::::::::+12-^+13-^+14-^+15-^+16-20978::::::::2::::::::::+17-^+18-^+19-^",
+["BAG"] = {
+{
+"20845::::::::2::::::::::",
+1,
+20845,
+},
+{
+"20482::::::::2::::::::::",
+1,
+20482,
+},
+{
+"8952::::::::2::::::::::",
+20,
+8952,
+},
+{
+"876B::::::::2::::::::::",
+20,
+8766,
+},
+{
+"3B85::::::::2::::::::::",
+10,
+3385,
+},
+{
+"858::::::::2::::::::::",
+10,
+858,
+},
+{
+"245B::::::::2::::::::::",
+10,
+2455,
+},
+{
+"1B8::::::::2::::::::::",
+10,
+118,
+},
+{
+"6948::::::::2::::::::::",
+1,
+6948,
+},
+},
+["R"] = {
+},
+["T"] = "0hh",
+["G"] = ":::::",
+["BANK"] = {
+},
+},
+["露露缇娅-时光III"] = {
+["BAG"] = {
+{
+"34054::::::::80::::::::::",
+20,
+34054,
+},
+{
+"34054::::::::80::::::::::",
+20,
+34054,
+},
+{
+"34054::::::::80::::::::::",
+20,
+34054,
+},
+{
+"34054::::::::80::::::::::",
+20,
+34054,
+},
+{
+"17056::::::::80::::::::::",
+13,
+17056,
+},
+{
+"42780::::::::80::::::::::",
+16,
+42780,
+},
+{
+"3B470::::::::80::::::::::",
+4,
+33470,
+},
+{
+"38426::::::::80::::::::::",
+8,
+38426,
+},
+{
+"38426::::::::80::::::::::",
+20,
+38426,
+},
+{
+"4151B::::::::80::::::::::",
+2,
+41511,
+},
+{
+"4159B::::::::80::::::::::",
+1,
+41599,
+},
+{
+"4159B::::::::80::::::::::",
+1,
+41599,
+},
+{
+"4159B::::::::80::::::::::",
+1,
+41599,
+},
+{
+"4159B::::::::80::::::::::",
+1,
+41599,
+},
+{
+"4159B::::::::80::::::::::",
+1,
+41599,
+},
+{
+"4159B::::::::80::::::::::",
+1,
+41599,
+},
+{
+"4159B::::::::80::::::::::",
+1,
+41599,
+},
+{
+"4159B::::::::80::::::::::",
+1,
+41599,
+},
+{
+"4159B::::::::80::::::::::",
+1,
+41599,
+},
+{
+"415B7::::::::80::::::::::",
+1,
+41557,
+},
+{
+"35490::::::::80::::::::::",
+5,
+35490,
+},
+{
+"3814B::::::::80::::::::::",
+1,
+38144,
+},
+{
+"36739::::::::80::::::::::",
+1,
+36739,
+},
+{
+"37B0B::::::::80::::::::::",
+9,
+37700,
+},
+{
+"37B04::::::::80::::::::::",
+2,
+37704,
+},
+{
+"37B02::::::::80::::::::::",
+8,
+37702,
+},
+{
+"37B05::::::::80::::::::::",
+4,
+37705,
+},
+{
+"37B05::::::::80::::::::::",
+10,
+37705,
+},
+{
+"3405B::::::::80::::::::::",
+4,
+34055,
+},
+{
+"41427::::::::80::::::::::",
+5,
+41427,
+},
+{
+"3472B::::::::80::::::::::",
+20,
+34722,
+},
+{
+"4B840::::::::80::::::::::",
+5,
+44840,
+},
+{
+"4B840::::::::80::::::::::",
+20,
+44840,
+},
+{
+"3B4B5::::::::80::::::::::",
+15,
+33445,
+},
+{
+"46797::::::::80::::::::::",
+4,
+46797,
+},
+{
+"39691::::::::80::::::::::",
+20,
+39691,
+},
+{
+"4B839::::::::80::::::::::",
+20,
+44839,
+},
+{
+"4B839::::::::80::::::::::",
+20,
+44839,
+},
+{
+"3B4B9::::::::80::::::::::",
+10,
+33449,
+},
+{
+"3B4B9::::::::80::::::::::",
+20,
+33449,
+},
+{
+"4B837::::::::80::::::::::",
+16,
+44837,
+},
+{
+"4B837::::::::80::::::::::",
+20,
+44837,
+},
+{
+"4B750::::::::80::::::::::",
+10,
+44750,
+},
+{
+"4B750::::::::80::::::::::",
+20,
+44750,
+},
+{
+"4B836::::::::80::::::::::",
+15,
+44836,
+},
+{
+"4B836::::::::80::::::::::",
+20,
+44836,
+},
+{
+"4B836::::::::80::::::::::",
+20,
+44836,
+},
+{
+"46378::::::::80::::::::::",
+5,
+46378,
+},
+{
+"46379::::::::80::::::::::",
+3,
+46379,
+},
+{
+"4637B::::::::80::::::::::",
+4,
+46377,
+},
+{
+"46376::::::::80::::::::::",
+4,
+46376,
+},
+{
+"40B97::::::::80::::::::::",
+2,
+40097,
+},
+{
+"40B70::::::::80::::::::::",
+1,
+40070,
+},
+{
+"40B73::::::::80::::::::::",
+2,
+40073,
+},
+{
+"4B3B0::::::::80::::::::::",
+1,
+44330,
+},
+{
+"40B76::::::::80::::::::::",
+2,
+40076,
+},
+{
+"4021B::::::::80::::::::::",
+3,
+40211,
+},
+{
+"3B4B8::::::::80::::::::::",
+20,
+33448,
+},
+{
+"3B4B8::::::::80::::::::::",
+20,
+33448,
+},
+{
+"3B4B8::::::::80::::::::::",
+20,
+33448,
+},
+{
+"3B4B7::::::::80::::::::::",
+18,
+33447,
+},
+{
+"35797::::::::80::::::::::",
+1,
+35797,
+},
+{
+"37873::::::::80::::::::::",
+1,
+37873,
+},
+{
+"37B34::::::::80::::::::::",
+1,
+37734,
+},
+{
+"37134::::::::80::::::::::",
+1,
+37134,
+},
+{
+"37B30::::::::80::::::::::",
+1,
+37730,
+},
+{
+"37681::::::::80::::::::::",
+1,
+37681,
+},
+{
+"37265::::::::80::::::::::",
+1,
+37265,
+},
+{
+"6256::::::::80::::::::::",
+1,
+6256,
+},
+{
+"6948::::::::80::::::::::",
+1,
+6948,
+},
+},
+["MAIL"] = {
+},
+["C"] = "1-42843::::::::80::::::::::+2-43285::::::::80::::::::::+3-37691::::::::80::::::::::+4-^+5-372C::::::::80::::::::::+6-37680::::::::80::::::::::+7-3762B:3872:::::::80::::::::::+8-37218::::::::80::::::::::+9-378B4:2326:::::::80::::::::::+10-37172:3246:::::::80::::::::::+11-43408::::::::80::::::::::+12-37195::::::::80::::::::::+13-37835::::::::80::::::::::+14-376B0::::::::80::::::::::+15-37B9B:3728:::::::80::::::::::+16-37360:385B:::::::80::::::::::+17-^+18-37619::::::::80::::::::::+19-^",
+["BANK"] = {
+},
+["R"] = {
+},
+["T"] = "050320313030B5123B1323231251205301030t",
+["G"] = "5B679:580B9:582B8:63235:57987:5B672",
+["GUILD"] = {
+},
+},
+["哔站陈睿-时光IV"] = {
+["GUILD"] = {
+},
+["MAIL"] = {
+},
+["C"] = "1-37209::::::::72::::::::::+2-382B7::::::::72::::::::::+3-35B78::::::::72::::::::::+4-23B45::::::::72::::::::::+5-37415::::::::72::::::::::+6-35605::::::::72::::::::::+7-35B7B::::::::72::::::::::+8-37207::::::::72::::::::::+9-35978::::::-36:4B5B79304:72::::::::::+10-37436::::::::72::::::::::+11-35B97::::::::72::::::::::+12-24045::::::::72::::::::::+13-429B2::::::::72::::::::::+14-38213::::::::72::::::::::+15-37206::::::::72::::::::::+16-36B85::::::-4B:16381378B7:72::::::::::+17-37019::::::::72::::::::::+18-24B13::::::::72::::::::::+19-^",
+["BAG"] = {
+{
+"6948::::::::72::::::::::",
+1,
+6948,
+},
+{
+"35954::::::::72::::::::::",
+8,
+35954,
+},
+{
+"5175::::::::72::::::::::",
+1,
+5175,
+},
+{
+"2B850::::::::72::::::::::",
+2,
+22850,
+},
+{
+"3B4B7::::::::72::::::::::",
+20,
+33447,
+},
+{
+"43513::::::::72::::::::::",
+5,
+43513,
+},
+{
+"3B470::::::::72::::::::::",
+4,
+33470,
+},
+{
+"264272::::::::72::::::::::",
+1,
+264272,
+},
+{
+"3B452::::::::72::::::::::",
+1,
+33452,
+},
+{
+"37091::::::::72::::::::::",
+1,
+37091,
+},
+{
+"5178::::::::72::::::::::",
+1,
+5178,
+},
+{
+"19B210::::::::72::::::::::",
+1,
+199210,
+},
+{
+"40B70::::::::72::::::::::",
+2,
+40070,
+},
+{
+"37B51::::::::72::::::::::",
+1,
+37751,
+},
+{
+"19B210::::::::72::::::::::",
+1,
+199210,
+},
+{
+"40B42::::::::72::::::::::",
+5,
+40042,
+},
+{
+"24B79::::::::72::::::::::",
+1,
+24479,
+},
+{
+"3B4B8::::::::72::::::::::",
+20,
+33448,
+},
+{
+"3B405::::::::72::::::::::",
+1,
+33405,
+},
+{
+"4B3B1::::::::72::::::::::",
+2,
+44331,
+},
+{
+"40B76::::::::72::::::::::",
+4,
+40076,
+},
+{
+"3518B::::::::72::::::::::",
+2,
+35188,
+},
+{
+"4B327::::::::72::::::::::",
+4,
+44327,
+},
+{
+"3B4B3::::::::72::::::::::",
+1,
+33443,
+},
+{
+"5176::::::::72::::::::::",
+1,
+5176,
+},
+{
+"2B829::::::::72::::::::::",
+2,
+22829,
+},
+{
+"43851::::::::72::::::::::",
+10,
+43851,
+},
+{
+"37093::::::::72::::::::::",
+1,
+37093,
+},
+{
+"19B210::::::::72::::::::::",
+1,
+199210,
+},
+{
+"346B9::::::::72::::::::::",
+1,
+34669,
+},
+{
+"3B547::::::::72::::::::::",
+2,
+33547,
+},
+{
+"3B4C::::::::72::::::::::",
+1,
+33444,
+},
+{
+"3B454::::::::72::::::::::",
+3,
+33454,
+},
+{
+"37380::::::::72::::::::::",
+1,
+37380,
+},
+{
+"3B546::::::::72::::::::::",
+9,
+33546,
+},
+{
+"51979::::::-8B:83230748:72::::::::::",
+1,
+51979,
+},
+{
+"19B210::::::::72::::::::::",
+1,
+199210,
+},
+{
+"4301B::::::::72::::::::::",
+1,
+43011,
+},
+{
+"370B4::::::::72::::::::::",
+1,
+37004,
+},
+{
+"29B17::::::::72::::::::::",
+1,
+29917,
+},
+{
+"43852::::::::72::::::::::",
+1,
+43852,
+},
+{
+"372B4::::::::72::::::::::",
+1,
+37224,
+},
+{
+"517B::::::::72::::::::::",
+1,
+5177,
+},
+{
+"36202::::::-4B:17878B7656:72::::::::::",
+1,
+36202,
+},
+{
+"36810::::::::72::::::::::",
+2,
+36810,
+},
+{
+"40B68::::::::72::::::::::",
+1,
+40068,
+},
+{
+"36809::::::::72::::::::::",
+2,
+36809,
+},
+{
+"4B329::::::::72::::::::::",
+1,
+44329,
+},
+{
+"3B4B9::::::::72::::::::::",
+15,
+33449,
+},
+{
+"36912::::::::72::::::::::",
+1,
+36912,
+},
+{
+"37097::::::::72::::::::::",
+1,
+37097,
+},
+{
+"3B568::::::::72::::::::::",
+2,
+33568,
+},
+{
+"4B750::::::::72::::::::::",
+14,
+44750,
+},
+{
+"134B6::::::::72::::::::::",
+6,
+13446,
+},
+},
+["R"] = {
+},
+["T"] = "5B0D1523213B513023010510B5050B1B0t",
+["G"] = "5B4B9:58059:58057:5B453:58058:",
+["BANK"] = {
+},
+},
+["京东刘强东-时光IV"] = {
+["BAG"] = {
+{
+"6948::::::::80::::::::::",
+1,
+6948,
+},
+{
+"1703B::::::::80::::::::::",
+5,
+17033,
+},
+{
+"1703B::::::::80::::::::::",
+5,
+17033,
+},
+{
+"21B7B::::::::80::::::::::",
+100,
+21177,
+},
+{
+"415B7::::::::80::::::::::",
+1,
+41557,
+},
+{
+"20B239::::::::80::::::::::",
+1,
+200239,
+},
+{
+"4021B::::::::80::::::::::",
+5,
+40211,
+},
+{
+"43493::::::::80::::::::::",
+1,
+43493,
+},
+{
+"37B05::::::::80::::::::::",
+6,
+37705,
+},
+{
+"37B34::::::::80::::::::::",
+1,
+37734,
+},
+{
+"39520::::::::80::::::::::",
+17,
+39520,
+},
+{
+"20B239::::::::80::::::::::",
+1,
+200239,
+},
+{
+"34125::::::::80::::::::::",
+20,
+34125,
+},
+{
+"37093::::::::80::::::::::",
+10,
+37093,
+},
+{
+"43102::::::::80::::::::::",
+2,
+43102,
+},
+{
+"42780::::::::80::::::::::",
+26,
+42780,
+},
+{
+"3B4B8::::::::80::::::::::",
+17,
+33448,
+},
+{
+"3B470::::::::80::::::::::",
+19,
+33470,
+},
+{
+"30817::::::::80::::::::::",
+20,
+30817,
+},
+{
+"3B4B7::::::::80::::::::::",
+2,
+33447,
+},
+{
+"43463::::::::80::::::::::",
+5,
+43463,
+},
+{
+"21B7B::::::::80::::::::::",
+29,
+21177,
+},
+{
+"37B01::::::::80::::::::::",
+4,
+37701,
+},
+{
+"36C7::::::-15:1845428257:80::::::::::",
+1,
+36667,
+},
+{
+"43214::::::::80::::::::::",
+1,
+43214,
+},
+{
+"37B02::::::::80::::::::::",
+2,
+37702,
+},
+{
+"3B470::::::::80::::::::::",
+9,
+33470,
+},
+{
+"43089::::::::80::::::::::",
+26,
+43089,
+},
+{
+"37616::::::::80::::::::::",
+1,
+37616,
+},
+{
+"37389::::::::80::::::::::",
+1,
+37389,
+},
+{
+"385B1::::::::80::::::::::",
+9,
+38551,
+},
+{
+"43507::::::::80::::::::::",
+1,
+43507,
+},
+{
+"46376::::::::80::::::::::",
+6,
+46376,
+},
+{
+"20B239::::::::80::::::::::",
+1,
+200239,
+},
+{
+"37407::::::::80::::::::::",
+1,
+37407,
+},
+{
+"3B4B8::::::::80::::::::::",
+20,
+33448,
+},
+{
+"43467::::::::80::::::::::",
+20,
+43467,
+},
+{
+"4B750::::::::80::::::::::",
+15,
+44750,
+},
+{
+"46379::::::::80::::::::::",
+1,
+46379,
+},
+{
+"3B470::::::::80::::::::::",
+19,
+33470,
+},
+{
+"3B4B5::::::::80::::::::::",
+1,
+33445,
+},
+{
+"46723::::::::80::::::::::",
+1,
+46723,
+},
+{
+"46378::::::::80::::::::::",
+8,
+46378,
+},
+{
+"40B76::::::::80::::::::::",
+3,
+40076,
+},
+{
+"40109::::::::80::::::::::",
+6,
+40109,
+},
+{
+"45912::::::::80::::::::::",
+1,
+45912,
+},
+},
+["MAIL"] = {
+{
+"36924::::::::80::::::::::",
+1,
+36924,
+},
+{
+"37091::::::::80::::::::::",
+3,
+37091,
+},
+{
+"43463::::::::80::::::::::",
+3,
+43463,
+},
+{
+"4B3B2::::::::80::::::::::",
+1,
+44332,
+},
+{
+"396C::::::::80::::::::::",
+1,
+39666,
+},
+{
+"4B328::::::::80::::::::::",
+4,
+44328,
+},
+{
+"40109::::::::80::::::::::",
+2,
+40109,
+},
+{
+"40B72::::::::80::::::::::",
+2,
+40072,
+},
+{
+"3B470::::::::80::::::::::",
+20,
+33470,
+},
+{
+"2187B::::::::80::::::::::",
+5,
+21877,
+},
+{
+"3B470::::::::80::::::::::",
+19,
+33470,
+},
+{
+"3B470::::::::80::::::::::",
+20,
+33470,
+},
+{
+"3B470::::::::80::::::::::",
+20,
+33470,
+},
+{
+"3B470::::::::80::::::::::",
+17,
+33470,
+},
+{
+"3B470::::::::80::::::::::",
+19,
+33470,
+},
+{
+"37B01::::::::80::::::::::",
+8,
+37701,
+},
+{
+"37B0B::::::::80::::::::::",
+10,
+37700,
+},
+{
+"37B0B::::::::80::::::::::",
+5,
+37700,
+},
+{
+"12803::::::::80::::::::::",
+1,
+12803,
+},
+{
+"43102::::::::80::::::::::",
+13,
+43102,
+},
+},
+["C"] = "1-4B296:3820:41401:42702:::::80::::::::::+2-40681::::::::80::::::::::+3-37875:3810:40B12::::::80::::::::::+4-45::::::::80::::::::::+5-4B180:3252:::::::80::::::::::+6-37643::40B12::::::80::::::::::+7-37362:3718:40B12:40B12:::::80::::::::::+8-4B202:324B:40B12::::::80::::::::::+9-37B8B:369:::::::80::::::::::+10-37623:3246:::::::80::::::::::+11-37694::::::::80::::::::::+12-4B283::::::::80::::::::::+13-40685::::::::80::::::::::+14-371C::::::::80::::::::::+15-37291:3825:::::::80::::::::::+16-37169:3830:::::::80::::::::::+17-4070B:1B28:::::::80::::::::::+18-40705::::::::80::::::::::+19-4315B::::::::80::::::::::",
+["BANK"] = {
+},
+["R"] = {
+},
+["T"] = "5035015202B01305310B5152B15032010420q&0Z5B0C1030S52320512B3C130213B2313B1",
+["G"] = "63218:5795B:57979:54940:57937:54937&54934:57958:5795B:5492B::",
+["GUILD"] = {
+},
+},
+},
+["Token"] = {
+["美团王兴-时光IV"] = {
+["Money"] = 0,
+["Tokens"] = {
+},
+},
+["小米军儿-时光IV"] = {
+["Money"] = 20642854,
+["Tokens"] = {
+{
+133799,
+44,
+201,
+"|cnIQ1:|Hcurrency:201:0|h[风险硬币]|h|r",
+},
+{
+237048,
+15,
+3403,
+"|cnIQ4:|Hcurrency:3403:0|h[泰坦余烬]|h|r",
+},
+{
+237047,
+9729,
+3406,
+"|cnIQ3:|Hcurrency:3406:0|h[泰坦碎片]|h|r",
+},
+},
+},
+["愛雅法拉-时光I"] = {
+["Tokens"] = {
+},
+["Money"] = 22,
+},
+["露露缇娅-时光III"] = {
+["Tokens"] = {
+{
+137000,
+101,
+1901,
+"|cnIQ1:|Hcurrency:1901:0|h[荣誉点数]|h|r",
+},
+{
+133799,
+44,
+201,
+"|cnIQ1:|Hcurrency:201:0|h[风险硬币]|h|r",
+},
+{
+237048,
+37,
+3403,
+"|cnIQ4:|Hcurrency:3403:0|h[泰坦余烬]|h|r",
+},
+{
+237047,
+14,
+3406,
+"|cnIQ3:|Hcurrency:3406:0|h[泰坦碎片]|h|r",
+},
+},
+["Money"] = 137415746,
+},
+["哔站陈睿-时光IV"] = {
+["Tokens"] = {
+{
+237048,
+8,
+3403,
+"|cnIQ4:|Hcurrency:3403:0|h[泰坦余烬]|h|r",
+},
+{
+237047,
+3456,
+3406,
+"|cnIQ3:|Hcurrency:3406:0|h[泰坦碎片]|h|r",
+},
+},
+["Money"] = 3039814,
+},
+["京东刘强东-时光IV"] = {
+["Money"] = 1071507,
+["Tokens"] = {
+{
+133799,
+44,
+201,
+"|cnIQ1:|Hcurrency:201:0|h[风险硬币]|h|r",
+},
+{
+237048,
+33,
+3403,
+"|cnIQ4:|Hcurrency:3403:0|h[泰坦余烬]|h|r",
+},
+{
+237047,
+11893,
+3406,
+"|cnIQ3:|Hcurrency:3406:0|h[泰坦碎片]|h|r",
+},
+},
+},
+},
+["TradeData"] = {
+["小绫子-曼多基尔"] = {
+},
+["露露缇娅-帕奇维克"] = {
+},
+["愛雅法拉-时光I"] = {
+},
+["京东刘强东-时光IV"] = {
+{
+20419,
+20421,
+20422,
+20426,
+},
+{
+{
+{
+["MoneyP"] = 0,
+["MoneyT"] = 0,
+["All_Name"] = "飞升老祖-时光IV",
+["ItemP"] = {
+{
+"|cffffffff|Hitem:44834::::::::80::::::::::|h[野生火鸡]|h|r",
+20,
+},
+{
+"|cffffffff|Hitem:44834::::::::80::::::::::|h[野生火鸡]|h|r",
+20,
+},
+{
+"|cffffffff|Hitem:44834::::::::80::::::::::|h[野生火鸡]|h|r",
+20,
+},
+{
+"|cffffffff|Hitem:44834::::::::80::::::::::|h[野生火鸡]|h|r",
+20,
+},
+"无",
+"无",
+},
+["Class"] = 9,
+["Race"] = "raceicon-human-female",
+["Name"] = "飞升老祖",
+["ItemT"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 79,
+["Map"] = "风暴峭壁-K3",
+["Time"] = 1764259332,
+},
+},
+{
+{
+["MoneyP"] = 0,
+["MoneyT"] = 0,
+["All_Name"] = "坏小伙-时光VI",
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 8,
+["Race"] = "raceicon-gnome-female",
+["Name"] = "坏小伙-时光VI",
+["ItemT"] = {
+{
+"|cffffffff|Hitem:43523::::::::80::::::::::|h[魔法酪饼]|h|r",
+15,
+},
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 80,
+["Map"] = "紫罗兰监狱-",
+["Time"] = 1764434377,
+},
+},
+{
+{
+["MoneyP"] = 0,
+["MoneyT"] = 0,
+["All_Name"] = "巨爱吃火锅-时光IV",
+["ItemP"] = {
+{
+"|cffa335ee|Hitem:37409::::::::80::::::::::|h[金边皮护手]|h|r",
+1,
+},
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 6,
+["Race"] = "raceicon-dwarf-male",
+["Name"] = "巨爱吃火锅",
+["ItemT"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 80,
+["Time"] = 1764518092,
+["Map"] = "乌特加德之巅-伊米隆之座",
+},
+},
+{
+{
+["MoneyP"] = 0,
+["MoneyT"] = 0,
+["All_Name"] = "布丁火-时光IV",
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 8,
+["Race"] = "raceicon-human-female",
+["Name"] = "布丁火",
+["ItemT"] = {
+{
+"|cffffffff|Hitem:43523::::::::80::::::::::|h[魔法酪饼]|h|r",
+20,
+},
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 80,
+["Time"] = 1764820370,
+["Map"] = "魔枢-图书馆",
+},
+{
+["MoneyP"] = 0,
+["MoneyT"] = 18680000,
+["All_Name"] = "艾莉欧穹-时光IV",
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 5,
+["Race"] = "raceicon-human-female",
+["Name"] = "艾莉欧穹",
+["ItemT"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 80,
+["Map"] = "紫罗兰监狱-",
+["Time"] = 1764839433,
+},
+{
+["MoneyP"] = 0,
+["MoneyT"] = 3000000,
+["All_Name"] = "丷困兽丷-时光IV",
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 6,
+["Race"] = "raceicon-human-female",
+["Name"] = "丷困兽丷",
+["ItemT"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 80,
+["Map"] = "紫罗兰监狱-",
+["Time"] = 1764839600,
+},
+},
+},
+},
+["美团王兴-时光IV"] = {
+},
+["小米军儿-时光IV"] = {
+{
+20419,
+20421,
+20427,
+20428,
+},
+{
+{
+{
+["MoneyP"] = 0,
+["MoneyT"] = 0,
+["All_Name"] = "飞升老祖-时光IV",
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 9,
+["Race"] = "raceicon-human-female",
+["Name"] = "飞升老祖",
+["ItemT"] = {
+{
+"|cffffffff|Hitem:44834::::::::78::::::::::|h[野生火鸡]|h|r",
+20,
+},
+{
+"|cffffffff|Hitem:44834::::::::78::::::::::|h[野生火鸡]|h|r",
+20,
+},
+{
+"|cffffffff|Hitem:44834::::::::78::::::::::|h[野生火鸡]|h|r",
+20,
+},
+{
+"|cffffffff|Hitem:44834::::::::78::::::::::|h[野生火鸡]|h|r",
+20,
+},
+"无",
+"无",
+},
+["Level"] = 79,
+["Map"] = "净化斯坦索姆-",
+["Time"] = 1764259966,
+},
+},
+{
+{
+["MoneyP"] = 0,
+["MoneyT"] = 0,
+["All_Name"] = "小吖射-时光IV",
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 3,
+["Race"] = "raceicon-nightelf-female",
+["Name"] = "小吖射",
+["ItemT"] = {
+{
+"|cff0070dd|Hitem:37390::::::::80::::::::::|h[陨星磨石]|h|r",
+1,
+},
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 80,
+["Time"] = 1764387505,
+["Map"] = "艾尔文森林-闪金镇",
+},
+},
+{
+{
+["MoneyP"] = 0,
+["MoneyT"] = 0,
+["All_Name"] = "明天怎么办-时光IV",
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 3,
+["Race"] = "raceicon-dwarf-female",
+["Name"] = "明天怎么办",
+["ItemT"] = {
+{
+"|cff0070dd|Hitem:37219::::::::80::::::::::|h[看守者的胸甲]|h|r",
+1,
+},
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 80,
+["Time"] = 1764904757,
+["Map"] = "艾卓-尼鲁布-哈多诺克斯之巢",
+},
+},
+{
+{
+["MoneyP"] = 7000000,
+["MoneyT"] = 0,
+["All_Name"] = "汉堡的黑骑-时光IV",
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 6,
+["Race"] = "raceicon-dwarf-male",
+["Name"] = "汉堡的黑骑",
+["ItemT"] = {
+{
+"|cffa335ee|Hitem:260492::::::::80::::::::::|h[熔火胜利者的护腿]|h|r",
+1,
+},
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 80,
+["Map"] = "熔火之心-拉格纳罗斯之巢",
+["Time"] = 1765030311,
+},
+{
+["MoneyP"] = 9000000,
+["MoneyT"] = 0,
+["All_Name"] = "汉堡的黑骑-时光IV",
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 6,
+["Race"] = "raceicon-dwarf-male",
+["Name"] = "汉堡的黑骑",
+["ItemT"] = {
+{
+"|cffa335ee|Hitem:255141::::::::80::::::::::|h[冲击束带]|h|r",
+1,
+},
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 80,
+["Map"] = "熔火之心-拉格纳罗斯之巢",
+["Time"] = 1765031167,
+},
+{
+["MoneyP"] = 0,
+["MoneyT"] = 10360000,
+["All_Name"] = "乄窝心脚-时光IV",
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 6,
+["Race"] = "raceicon-human-female",
+["Name"] = "乄窝心脚",
+["ItemT"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 80,
+["Map"] = "熔火之心-拉格纳罗斯之巢",
+["Time"] = 1765031709,
+},
+},
+},
+},
+["露露緹婭-维希度斯"] = {
+{
+19903,
+},
+{
+{
+{
+["Map"] = "纳克萨玛斯-骑士议会厅",
+["MoneyT"] = 0,
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 2,
+["Race"] = "raceicon-bloodelf-female",
+["Time"] = 1719652109,
+["ItemT"] = {
+{
+"|cffa335ee|Hitem:40625::::::::80:::::::::|h[失落征服者的胸甲]|h|r",
+1,
+},
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 80,
+["MoneyP"] = 10000000,
+["Name"] = "我意凌云",
+},
+{
+["Map"] = "纳克萨玛斯-骑士议会厅",
+["MoneyT"] = 0,
+["ItemP"] = {
+{
+"|cffa335ee|Hitem:40625::::::::80:::::::::|h[失落征服者的胸甲]|h|r",
+1,
+},
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 2,
+["Race"] = "raceicon-bloodelf-female",
+["Time"] = 1719652123,
+["ItemT"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 80,
+["MoneyP"] = 0,
+["Name"] = "爱雅法拉",
+},
+{
+["Map"] = "纳克萨玛斯-克尔苏加德的大厅",
+["MoneyT"] = 52750000,
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 2,
+["Race"] = "raceicon-bloodelf-female",
+["Time"] = 1719655094,
+["ItemT"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 80,
+["MoneyP"] = 0,
+["Name"] = "我意凌云",
+},
+{
+["Map"] = "纳克萨玛斯-克尔苏加德的大厅",
+["MoneyT"] = 0,
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 2,
+["Race"] = "raceicon-bloodelf-female",
+["Time"] = 1719655108,
+["ItemT"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 80,
+["MoneyP"] = 10550000,
+["Name"] = "圣丶牛牛",
+},
+{
+["Map"] = "纳克萨玛斯-克尔苏加德的大厅",
+["MoneyT"] = 0,
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 4,
+["Race"] = "raceicon-bloodelf-male",
+["Time"] = 1719655113,
+["ItemT"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 80,
+["MoneyP"] = 10550000,
+["Name"] = "钢心",
+},
+{
+["Map"] = "纳克萨玛斯-克尔苏加德的大厅",
+["MoneyT"] = 0,
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 4,
+["Race"] = "raceicon-undead-male",
+["Time"] = 1719655127,
+["ItemT"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 80,
+["MoneyP"] = 10550000,
+["Name"] = "Monocular",
+},
+{
+["Map"] = "纳克萨玛斯-克尔苏加德的大厅",
+["MoneyT"] = 0,
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 6,
+["Race"] = "raceicon-bloodelf-male",
+["Time"] = 1719655138,
+["ItemT"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 80,
+["MoneyP"] = 10550000,
+["Name"] = "蹲墙角背刺",
+},
+{
+["Map"] = "纳克萨玛斯-克尔苏加德的大厅",
+["MoneyT"] = 4000000,
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 2,
+["Race"] = "raceicon-bloodelf-female",
+["Time"] = 1719655214,
+["ItemT"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 80,
+["MoneyP"] = 0,
+["Name"] = "我意凌云",
+},
+},
+},
+},
+["萌萌的露小露-维希度斯"] = {
+},
+["露露缇娅-时光III"] = {
+},
+["萌萌的露露糖-维希度斯"] = {
+},
+["哔站陈睿-时光IV"] = {
+{
+20423,
+20424,
+20425,
+20426,
+20427,
+},
+{
+{
+{
+["MoneyP"] = 50000,
+["MoneyT"] = 0,
+["All_Name"] = "熊猫雪宝-时光IV",
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 9,
+["Race"] = "raceicon-human-female",
+["Name"] = "熊猫雪宝",
+["ItemT"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 20,
+["Time"] = 1764597240,
+["Map"] = "达拉然-达拉然",
+},
+},
+{
+{
+["MoneyP"] = 0,
+["MoneyT"] = 0,
+["All_Name"] = "丶爺-时光IV",
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 8,
+["Race"] = "raceicon-human-female",
+["Name"] = "丶爺",
+["ItemT"] = {
+{
+"|cffffffff|Hitem:3772::::::::29::::::::::|h[魔法泉水]|h|r",
+20,
+},
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 33,
+["Map"] = "血色修道院-遗忘回廊",
+["Time"] = 1764648621,
+},
+{
+["MoneyP"] = 0,
+["MoneyT"] = 0,
+["All_Name"] = "面對疾風吧-时光IV",
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 8,
+["Race"] = "raceicon-human-female",
+["Name"] = "面對疾風吧",
+["ItemT"] = {
+{
+"|cffffffff|Hitem:8078::::::::49::::::::::|h[魔法苏打水]|h|r",
+20,
+},
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 55,
+["Map"] = "黑石深渊-禁闭室",
+["Time"] = 1764688537,
+},
+},
+{
+{
+["MoneyP"] = 0,
+["MoneyT"] = 0,
+["All_Name"] = "Maleficent-时光IV",
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 8,
+["Race"] = "raceicon-human-female",
+["Name"] = "Maleficent",
+["ItemT"] = {
+{
+"|cffffffff|Hitem:8079::::::::59::::::::::|h[魔法晶水]|h|r",
+20,
+},
+{
+"|cffffffff|Hitem:8079::::::::59::::::::::|h[魔法晶水]|h|r",
+10,
+},
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 67,
+["Map"] = "地狱火城墙-",
+["Time"] = 1764746782,
+},
+{
+["MoneyP"] = 0,
+["MoneyT"] = 0,
+["All_Name"] = "碎碎念丶-时光IV",
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 8,
+["Race"] = "raceicon-human-female",
+["Name"] = "碎碎念丶",
+["ItemT"] = {
+{
+"|cffffffff|Hitem:8079::::::::61::::::::::|h[魔法晶水]|h|r",
+20,
+},
+{
+"|cffffffff|Hitem:8079::::::::61::::::::::|h[魔法晶水]|h|r",
+20,
+},
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 64,
+["Map"] = "地狱火城墙-",
+["Time"] = 1764751523,
+},
+{
+["MoneyP"] = 0,
+["MoneyT"] = 0,
+["All_Name"] = "一如梦令一-时光IV",
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 8,
+["Race"] = "raceicon-human-female",
+["Name"] = "一如梦令一",
+["ItemT"] = {
+{
+"|cffffffff|Hitem:8079::::::::65::::::::::|h[魔法晶水]|h|r",
+9,
+},
+{
+"|cffffffff|Hitem:8079::::::::65::::::::::|h[魔法晶水]|h|r",
+8,
+},
+{
+"|cffffffff|Hitem:8079::::::::65::::::::::|h[魔法晶水]|h|r",
+20,
+},
+"无",
+"无",
+"无",
+},
+["Level"] = 62,
+["Map"] = "地狱火城墙-",
+["Time"] = 1764764239,
+},
+},
+{
+{
+["MoneyP"] = 0,
+["MoneyT"] = 0,
+["All_Name"] = "撮把子哥哥-时光IV",
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 8,
+["Race"] = "raceicon-human-female",
+["Name"] = "撮把子哥哥",
+["ItemT"] = {
+{
+"|cffffffff|Hitem:30703::::::::68::::::::::|h[魔法山泉水]|h|r",
+15,
+},
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 68,
+["Time"] = 1764844313,
+["Map"] = "塞泰克大厅-",
+},
+},
+{
+{
+["MoneyP"] = 0,
+["MoneyT"] = 0,
+["All_Name"] = "幻世-时光IV",
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 8,
+["Race"] = "raceicon-gnome-female",
+["Name"] = "幻世",
+["ItemT"] = {
+{
+"|cffffffff|Hitem:22018::::::::69::::::::::|h[魔法冰川水]|h|r",
+20,
+},
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 71,
+["Time"] = 1764931116,
+["Map"] = "乌特加德城堡-劫掠者之厅",
+},
+{
+["MoneyP"] = 0,
+["MoneyT"] = 0,
+["All_Name"] = "口袋豆腐-时光IV",
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 8,
+["Race"] = "raceicon-human-female",
+["Name"] = "口袋豆腐",
+["ItemT"] = {
+{
+"|cffffffff|Hitem:30703::::::::69::::::::::|h[魔法山泉水]|h|r",
+17,
+},
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 69,
+["Time"] = 1764940771,
+["Map"] = "乌特加德城堡-仇恨熔炉",
+},
+{
+["MoneyP"] = 0,
+["MoneyT"] = 0,
+["All_Name"] = "移动小奶瓶-时光IV",
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 8,
+["Race"] = "raceicon-human-female",
+["Name"] = "移动小奶瓶",
+["ItemT"] = {
+{
+"|cffffffff|Hitem:43518::::::::70::::::::::|h[魔法馅饼]|h|r",
+20,
+},
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 77,
+["Time"] = 1764942256,
+["Map"] = "魔枢-",
+},
+{
+["MoneyP"] = 0,
+["MoneyT"] = 0,
+["All_Name"] = "桐椤-时光II",
+["ItemP"] = {
+"无",
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Class"] = 3,
+["Race"] = "raceicon-nightelf-male",
+["Name"] = "桐椤-时光II",
+["ItemT"] = {
+{
+"|cffffffff|Hitem:34062::::::::70::::::::::|h[魔法点心]|h|r",
+20,
+},
+"无",
+"无",
+"无",
+"无",
+"无",
+},
+["Level"] = 69,
+["Time"] = 1764943909,
+["Map"] = "乌特加德城堡-尼德瓦阶梯",
+},
+},
+},
+},
+["萌萌的露小露-阿拉希盆地"] = {
+},
+},
+["TradeTongGaoPindao"] = "WHISPER",
+["InstancesCD"] = {
+["Records"] = {
+[1156] = true,
+[1100] = true,
+[1101] = true,
+[1106] = true,
+[1095] = true,
+[841] = true,
+[1110] = true,
+[1102] = true,
+},
+["小米军儿-时光IV"] = {
+["阿尔卡冯的宝库"] = {
+[244] = {
+1765407600,
+4,
+1,
+{
+{
+"岩石看守者阿尔卡冯",
+true,
+},
+{
+"风暴看守者埃玛尔隆",
+false,
+},
+{
+"火焰看守者科拉隆",
+false,
+},
+{
+"寒冰看守者图拉旺",
+false,
+},
+},
+},
+},
+["熔火之心"] = {
+[244] = {
+1765407600,
+9,
+10,
+{
+{
+"鲁西弗隆",
+true,
+},
+{
+"玛格曼达",
+true,
+},
+{
+"基赫纳斯",
+true,
+},
+{
+"加尔",
+true,
+},
+{
+"沙斯拉尔",
+true,
+},
+{
+"迦顿男爵",
+true,
+},
+{
+"萨弗隆先驱者",
+true,
+},
+{
+"焚化者古雷曼格",
+true,
+},
+{
+"管理者埃克索图斯",
+true,
+},
+},
+},
+},
+},
+["美团王兴-时光IV"] = {
+},
+["愛雅法拉-时光I"] = {
+},
+["露露缇娅-时光III"] = {
+},
+["Mode"] = 1,
+["哔站陈睿-时光IV"] = {
+},
+["京东刘强东-时光IV"] = {
+["阿尔卡冯的宝库"] = {
+[244] = {
+1765407598,
+4,
+1,
+{
+{
+"岩石看守者阿尔卡冯",
+true,
+},
+{
+"风暴看守者埃玛尔隆",
+false,
+},
+{
+"火焰看守者科拉隆",
+false,
+},
+{
+"寒冰看守者图拉旺",
+false,
+},
+},
+},
+},
+["熔火之心"] = {
+[244] = {
+1765407598,
+9,
+10,
+{
+{
+"鲁西弗隆",
+true,
+},
+{
+"玛格曼达",
+true,
+},
+{
+"基赫纳斯",
+true,
+},
+{
+"加尔",
+true,
+},
+{
+"沙斯拉尔",
+true,
+},
+{
+"迦顿男爵",
+true,
+},
+{
+"萨弗隆先驱者",
+true,
+},
+{
+"焚化者古雷曼格",
+true,
+},
+{
+"管理者埃克索图斯",
+true,
+},
+},
+},
+},
+},
+},
+["AddBut"] = true,
+["Times"] = {
+{
+214820000,
+1753446759,
+},
+{
+215000000,
+1753447959,
+},
+{
+215340000,
+1753449159,
+},
+{
+215650000,
+1753450356,
+},
+{
+215960000,
+1753451556,
+},
+{
+216290000,
+1753452756,
+},
+{
+216470000,
+1753453957,
+},
+{
+216840000,
+1753455157,
+},
+{
+217180000,
+1753456357,
+},
+{
+217830000,
+1753457557,
+},
+{
+218390000,
+1753458757,
+},
+{
+219220000,
+1753459935,
+},
+{
+219630000,
+1753461183,
+},
+{
+219950000,
+1753462383,
+},
+{
+220200000,
+1753463583,
+},
+{
+220000000,
+1753464744,
+},
+{
+219200000,
+1753465944,
+},
+{
+218270000,
+1753467144,
+},
+{
+218780000,
+1753527716,
+},
+{
+218970000,
+1753528452,
+},
+{
+219280000,
+1753529636,
+},
+{
+219670000,
+1753530837,
+},
+{
+220540000,
+1753532037,
+},
+{
+221370000,
+1753533237,
+},
+{
+222260000,
+1753534437,
+},
+{
+223080000,
+1753535618,
+},
+{
+224110000,
+1753536818,
+},
+{
+225130000,
+1753538018,
+},
+{
+228670000,
+1753542847,
+},
+{
+229200000,
+1753544036,
+},
+{
+229440000,
+1753545236,
+},
+{
+231330000,
+1753611376,
+},
+{
+231810000,
+1753612502,
+},
+{
+232380000,
+1753613688,
+},
+{
+232340000,
+1753614888,
+},
+{
+232440000,
+1753616088,
+},
+{
+232390000,
+1753617296,
+},
+{
+232590000,
+1753619021,
+},
+{
+233120000,
+1753619725,
+},
+{
+234390000,
+1753620925,
+},
+{
+281990000,
+1753693551,
+},
+{
+280880000,
+1753694182,
+},
+{
+264570000,
+1753714646,
+},
+{
+266770000,
+1753715817,
+},
+{
+269090000,
+1753717018,
+},
+{
+271580000,
+1753718218,
+},
+{
+274190000,
+1753719394,
+},
+{
+276880000,
+1753720595,
+},
+{
+279630000,
+1753721795,
+},
+{
+281850000,
+1753723003,
+},
+{
+283400000,
+1753724455,
+},
+{
+284590000,
+1753725405,
+},
+{
+286110000,
+1753726605,
+},
+{
+288100000,
+1753727805,
+},
+{
+289950000,
+1753729008,
+},
+{
+291750000,
+1753730209,
+},
+{
+292980000,
+1753731409,
+},
+{
+294320000,
+1753732659,
+},
+{
+272580000,
+1753985308,
+},
+{
+272820000,
+1753985595,
+},
+{
+273040000,
+1753986795,
+},
+{
+273380000,
+1753987995,
+},
+{
+273420000,
+1753989170,
+},
+{
+273470000,
+1753990426,
+},
+{
+270840000,
+1754022786,
+},
+{
+269370000,
+1754024612,
+},
+{
+268100000,
+1754025199,
+},
+{
+267050000,
+1754026399,
+},
+{
+266320000,
+1754027599,
+},
+{
+265930000,
+1754028859,
+},
+{
+265720000,
+1754030024,
+},
+{
+265630000,
+1754031204,
+},
+{
+265440000,
+1754032464,
+},
+{
+265400000,
+1754033665,
+},
+{
+265670000,
+1754034865,
+},
+{
+266580000,
+1754036065,
+},
+{
+267610000,
+1754037266,
+},
+{
+268400000,
+1754038465,
+},
+{
+269210000,
+1754039658,
+},
+{
+270200000,
+1754040858,
+},
+{
+271000000,
+1754042058,
+},
+{
+265630000,
+1754058059,
+},
+{
+267020000,
+1754058873,
+},
+{
+268420000,
+1754060074,
+},
+{
+269400000,
+1754061286,
+},
+{
+270330000,
+1754062495,
+},
+{
+271080000,
+1754063645,
+},
+{
+266110000,
+1754113522,
+},
+{
+266090000,
+1754114170,
+},
+{
+266690000,
+1754115365,
+},
+{
+280190000,
+1754325553,
+},
+{
+277390000,
+1754369884,
+},
+{
+277450000,
+1754370036,
+},
+{
+281150000,
+1754390765,
+},
+{
+397740000,
+1754984497,
+},
+{
+398160000,
+1754985233,
+},
+{
+504080000,
+1756873000,
+},
+{
+816380000,
+1759692298,
+},
+{
+815970000,
+1759693067,
+},
+{
+816140000,
+1759694267,
+},
+{
+853320000,
+1759833869,
+},
+{
+857830000,
+1759834801,
+},
+{
+862170000,
+1759836001,
+},
+{
+865110000,
+1759837201,
+},
+{
+1196010000,
+1761236761,
+},
+{
+1184050000,
+1761236929,
+},
+{
+1184720000,
+1761238552,
+},
+{
+1186320000,
+1761240147,
+},
+},
+},
+["CombatPlus"] = {
+["AttackBar"] = {
+["Showshuzhi"] = false,
+["Scale"] = 1,
+["Xpianyi"] = 0,
+["Open"] = false,
+["Ypianyi"] = 14,
+},
+["ammotips"] = true,
+["Submerged"] = true,
+["markerR"] = {
+["BGHide"] = true,
+["NoTarget"] = false,
+["Lock"] = true,
+["Scale"] = 0.8999999761581421,
+["AutoShow"] = false,
+["Open"] = true,
+["NoGroup"] = false,
+},
+["HPMPBar"] = {
+["CombatShow"] = true,
+["FontSize"] = 10,
+["MpShow"] = true,
+["Scale"] = 1,
+["Xpianyi"] = 0,
+["Ypianyi"] = -80,
+["BarW"] = 150,
+["Showshuzhi"] = true,
+["BarTex"] = 1,
+["BarH"] = 12,
+["Fuziyuan"] = true,
+["Open"] = false,
+["FuStyle"] = {
+},
+["HpShow"] = true,
+},
+["PetHappiness"] = true,
+["markerW"] = {
+["BGHide"] = false,
+["Lock"] = false,
+["Scale"] = 1,
+["Open"] = true,
+["AutoShow"] = true,
+},
 },
 ["AHPlus"] = {
 ["SaveDuration_V"] = 2,
@@ -298,15 +3839,15 @@ PIGA = {
 ["autoya"] = true,
 ["CacheData"] = {
 ["时光IV"] = {
-["黑暗死亡雕文"] = {
-"45804::::::::80::::::::::",
+["刚硬德拉诺金钻"] = {
+"231B6::::::::80::::::::::",
 {
 {
-29985,
-1764387811,
+4900,
+1765020862,
 },
 },
-45804,
+23116,
 },
 ["泰坦精钢碎骨锤"] = {
 "41383::::::::76::::::::::",
@@ -318,25 +3859,25 @@ PIGA = {
 },
 41383,
 },
-["闪电疾速药剂"] = {
-"4B3B1::::::::76::::::::::",
+["纯净魔精合剂"] = {
+"46378::::::::68::::::::::",
 {
 {
-6399,
-1764249447,
+15625,
+1764821635,
 },
 },
-44331,
+46378,
 },
-["冰霜巨龙合剂"] = {
-"46376::::::::76::::::::::",
+["血色暗影之戒"] = {
+"43251::::::::76::::::::::",
 {
 {
-58263,
-1764249445,
+1609938,
+1764249487,
 },
 },
-46376,
+43251,
 },
 ["霜纹布"] = {
 "3B470::::::::76::::::::::",
@@ -344,6 +3885,10 @@ PIGA = {
 {
 3000,
 1764249570,
+},
+{
+3899.95,
+1764504040,
 },
 },
 33470,
@@ -357,6 +3902,460 @@ PIGA = {
 },
 },
 43672,
+},
+["血水披风"] = {
+"37647::::::::76::::::::::",
+{
+{
+2900179,
+1764249427,
+},
+{
+3150175,
+1764341628,
+},
+{
+3389900,
+1764853619,
+},
+},
+37647,
+},
+["月布包"] = {
+"1415B::::::::80::::::::::",
+{
+{
+101997,
+1764511228,
+},
+{
+102286,
+1764515852,
+},
+},
+14155,
+},
+["图书馆员的裁纸刀"] = {
+"37856::::::::80::::::::::",
+{
+{
+365086,
+1764324420,
+},
+{
+540000,
+1764435360,
+},
+{
+498800,
+1764516001,
+},
+{
+330000,
+1764520131,
+},
+{
+260000,
+1764816313,
+},
+},
+37856,
+},
+["魔化之泪"] = {
+"42702::::::::80::::::::::",
+{
+{
+1549900,
+1764816668,
+},
+},
+42702,
+},
+["魔化皮"] = {
+"12810::::::::80::::::::::",
+{
+{
+4440,
+1764816660,
+},
+},
+12810,
+},
+["圆润德拉诺金钻"] = {
+"28290::::::::80::::::::::",
+{
+{
+3649,
+1765020860,
+},
+},
+28290,
+},
+["石血合剂"] = {
+"46379::::::::68::::::::::",
+{
+{
+30025,
+1764821638,
+},
+},
+46379,
+},
+["闪光魔线"] = {
+"41601::::::::80::::::::::",
+{
+{
+69799,
+1764818421,
+},
+},
+41601,
+},
+["次级星界精华"] = {
+"109B8::::::::70::::::::::",
+{
+{
+1006,
+1764950937,
+},
+},
+10998,
+},
+["冰霜震击雕文"] = {
+"41547::::::::29::::::::::",
+{
+{
+800,
+1764647523,
+},
+},
+41547,
+},
+["纯水之球"] = {
+"7079::::::::61::::::::::",
+{
+{
+1200,
+1764751154,
+},
+},
+7079,
+},
+["闪耀秋色石"] = {
+"40B12::::::::80::::::::::",
+{
+{
+130800,
+1764817129,
+},
+},
+40012,
+},
+["卷轴：附魔护腕 - 突袭"] = {
+"38938::::::::80::::::::::",
+{
+{
+111000,
+1765022105,
+},
+},
+38938,
+},
+["卷轴：附魔护腕 - 强效突袭"] = {
+"4B815::::::::80::::::::::",
+{
+{
+889800,
+1765022096,
+},
+},
+44815,
+},
+["卷轴：附魔披风 - 速度"] = {
+"4C56::::::::80::::::::::",
+{
+{
+119900,
+1765022065,
+},
+},
+44456,
+},
+["卷轴：附魔靴子 - 强效突袭"] = {
+"4C69::::::::80::::::::::",
+{
+{
+645296,
+1765020996,
+},
+},
+44469,
+},
+["新生雕文"] = {
+"43B85::::::::38::::::::::",
+{
+{
+59500,
+1764664894,
+},
+},
+43385,
+},
+["公式：附魔披风 - 超级冰霜抗性"] = {
+"373B2::::::::80::::::::::",
+{
+{
+29999,
+1765022058,
+},
+},
+37332,
+},
+["火舌武器雕文"] = {
+"41532::::::::38::::::::::",
+{
+{
+16653,
+1764664909,
+},
+{
+20000,
+1764950808,
+},
+},
+41532,
+},
+["水之护盾雕文"] = {
+"43B86::::::::61::::::::::",
+{
+{
+43129,
+1764751156,
+},
+},
+43386,
+},
+["公式：附魔披风 - 超级自然抗性"] = {
+"373C::::::::80::::::::::",
+{
+{
+29899,
+1765022058,
+},
+},
+37333,
+},
+["卷轴：附魔披风 - 抗性"] = {
+"38B26::::::::80::::::::::",
+{
+{
+19999,
+1765022057,
+},
+},
+38826,
+},
+["公式：附魔披风 - 超级奥术抗性"] = {
+"373B0::::::::80::::::::::",
+{
+{
+29899,
+1765022058,
+},
+},
+37330,
+},
+["红色小包"] = {
+"805::::::::76::::::::::",
+{
+{
+274,
+1764249590,
+},
+},
+805,
+},
+["闪电之盾雕文"] = {
+"41537::::::::29::::::::::",
+{
+{
+1299,
+1764647525,
+},
+},
+41537,
+},
+["公式：附魔披风 - 抵抗次级暗影"] = {
+"1B098::::::::80::::::::::",
+{
+{
+25000,
+1765022057,
+},
+},
+11098,
+},
+["黑暗死亡雕文"] = {
+"45804::::::::80::::::::::",
+{
+{
+29985,
+1764387811,
+},
+},
+45804,
+},
+["卷轴：附魔手套 - 特效力量"] = {
+"3893B::::::::80::::::::::",
+{
+{
+189500,
+1765022033,
+},
+},
+38933,
+},
+["霜纹包"] = {
+"4159B::::::::80::::::::::",
+{
+{
+502900,
+1764504026,
+},
+},
+41599,
+},
+["朴素血玉石"] = {
+"39C6::::::::80::::::::::",
+{
+{
+364994,
+1765021023,
+},
+},
+39996,
+},
+["次级强韧合剂"] = {
+"40B79::::::::68::::::::::",
+{
+{
+3999,
+1764821633,
+},
+},
+40079,
+},
+["卷轴：附魔手套 - 强效突袭"] = {
+"38964::::::::80::::::::::",
+{
+{
+240200,
+1765020994,
+},
+{
+190000,
+1765022093,
+},
+},
+38964,
+},
+["星界传送雕文"] = {
+"43B81::::::::70::::::::::",
+{
+{
+29688,
+1764950844,
+},
+},
+43381,
+},
+["治疗之泉图腾雕文"] = {
+"4153B::::::::29::::::::::",
+{
+{
+1000,
+1764647524,
+},
+{
+687,
+1764751135,
+},
+},
+41533,
+},
+["天蓝魔线"] = {
+"41604::::::::80::::::::::",
+{
+{
+849998,
+1764818314,
+},
+},
+41604,
+},
+["闪电箭雕文"] = {
+"41536::::::::29::::::::::",
+{
+{
+1298,
+1764647525,
+},
+{
+1498,
+1764950794,
+},
+},
+41536,
+},
+["卷轴：附魔披风 - 防御"] = {
+"38B06::::::::80::::::::::",
+{
+{
+20000,
+1765022057,
+},
+},
+38806,
+},
+["冰霜巨龙合剂"] = {
+"46376::::::::76::::::::::",
+{
+{
+58263,
+1764249445,
+},
+},
+46376,
+},
+["狂野魔法药水"] = {
+"40212::::::::76::::::::::",
+{
+{
+37572,
+1764249443,
+},
+},
+40212,
+},
+["大地之盾雕文"] = {
+"457B5::::::::61::::::::::",
+{
+{
+22000,
+1764751121,
+},
+},
+45775,
+},
+["绿色小包"] = {
+"5B72::::::::76::::::::::",
+{
+{
+276,
+1764249590,
+},
+},
+5572,
 },
 ["报复腕甲"] = {
 "4135B::::::::76::::::::::",
@@ -376,73 +4375,65 @@ PIGA = {
 },
 41355,
 },
-["血色暗影之戒"] = {
-"43251::::::::76::::::::::",
+["闪电疾速药剂"] = {
+"4B3B1::::::::76::::::::::",
 {
 {
-1609938,
-1764249487,
+6399,
+1764249447,
 },
 },
-43251,
+44331,
 },
-["图书馆员的裁纸刀"] = {
-"37856::::::::80::::::::::",
+["火焰新星雕文"] = {
+"41530::::::::38::::::::::",
 {
 {
-365086,
-1764324420,
-},
-{
-540000,
-1764435360,
+14900,
+1764664883,
 },
 },
-37856,
+41530,
 },
-["狂野魔法药水"] = {
-"40212::::::::76::::::::::",
+["水上行走药剂"] = {
+"8B27::::::::70::::::::::",
 {
 {
-37572,
-1764249443,
+2794.666666666667,
+1764950825,
 },
 },
-40212,
+8827,
 },
-["血水披风"] = {
-"37647::::::::76::::::::::",
+["水上行走雕文"] = {
+"43B8B::::::::70::::::::::",
 {
 {
-2900179,
-1764249427,
-},
-{
-3150175,
-1764341628,
+43300,
+1764950839,
 },
 },
-37647,
+43388,
 },
-["绿色小包"] = {
-"5B72::::::::76::::::::::",
+["碧蓝魔线"] = {
+"41603::::::::80::::::::::",
 {
 {
-276,
-1764249590,
+77700,
+1764818437,
 },
 },
-5572,
+41603,
 },
-["红色小包"] = {
-"805::::::::76::::::::::",
+["闪电链雕文"] = {
+"41518::::::::70::::::::::",
 {
 {
-274,
-1764249590,
+21000,
+1764950780,
 },
 },
-805,
+41518,
 },
 },
 ["时光I"] = {
@@ -1306,15 +5297,15 @@ PIGA = {
 },
 43587,
 },
-["圣光雕文"] = {
-"41B06:H80:I",
+["构造体的臂甲"] = {
+"45680:H80:I",
 {
 {
-21965,
-1752998126,
+389898,
+1749443892,
 },
 },
-41106,
+45680,
 },
 ["戒卫女猎手护腕"] = {
 "4073B:H80:I",
@@ -1336,15 +5327,15 @@ PIGA = {
 },
 50450,
 },
-["极效思维药剂"] = {
-"4B3B2:H80:I",
+["尖刺泰坦精钢战靴"] = {
+"41391:H80:I",
 {
 {
-19997,
-1749583741,
+1110316,
+1749443876,
 },
 },
-44332,
+41391,
 },
 ["龙火肩饰"] = {
 "1313B:H80:I",
@@ -1356,15 +5347,15 @@ PIGA = {
 },
 13133,
 },
-["力量之冷酷胫甲"] = {
-"3123B:F-17:72B010152:80:I",
+["精神之亡魂头盔"] = {
+"36391:F-15:50102B824:80:I",
 {
 {
-6259153,
-1749443966,
+134200,
+1749569256,
 },
 },
-31233,
+36391,
 },
 ["闪电根基长靴"] = {
 "45B63:H80:I",
@@ -1376,15 +5367,15 @@ PIGA = {
 },
 45563,
 },
-["泰坦神铁尖刺护腕"] = {
-"47573:H80:I",
+["野猪之魔像腿甲"] = {
+"36384:F-12:12B0935781:80:I",
 {
 {
-17719945,
-1749443897,
+126836,
+1749569256,
 },
 },
-47573,
+36384,
 },
 ["白骑士胸甲"] = {
 "47592:H80:I",
@@ -1406,19 +5397,15 @@ PIGA = {
 },
 30740,
 },
-["机械侏儒的电缆"] = {
-"45975:H80:I",
+["盐壳衬肩"] = {
+"13131:H80:I",
 {
 {
-899993,
-1749443891,
-},
-{
-346800,
-1749569260,
+1929692,
+1749444009,
 },
 },
-45975,
+13131,
 },
 ["卷轴：附魔披风 - 速度"] = {
 "4C56:H80:I",
@@ -1444,15 +5431,15 @@ PIGA = {
 },
 47637,
 },
-["法术强度之晶歌腰带"] = {
-"36043:F-25:82378B27:80:I",
+["轻型护甲片"] = {
+"2304:H80:I",
 {
 {
-120000,
-1749492372,
+491,
+1748274049,
 },
 },
-36043,
+2304,
 },
 ["孢子触须护肩"] = {
 "35616:H80:I",
@@ -1464,71 +5451,63 @@ PIGA = {
 },
 35616,
 },
-["闪电疾速药剂"] = {
-"4B3B1:H80:I",
+["重型精金戒指"] = {
+"24078:H80:I",
 {
 {
-25031,
-1749583730,
-},
-{
-18685,
-1751103501,
+40000,
+1748273460,
 },
 },
-44331,
+24078,
 },
-["法术强度之穆拉丁短裤"] = {
-"36128:F-26:1425604695:80:I",
+["铁簧之靴"] = {
+"40206:H80:I",
 {
 {
-100000,
-1749492372,
+18419512,
+1749443959,
 },
 },
-36128,
+40206,
 },
-["法术强度之秃鹫头饰"] = {
-"36039:F-26:2046B9025:80:I",
+["卷轴：附魔手套 - 精准"] = {
+"38951:H80:I",
 {
 {
-110000,
-1749492372,
+9853,
+1748274064,
 },
 },
-36039,
+38951,
 },
-["巨猿之海怪胸铠"] = {
-"36373:F-10:1B43472C5:80:I",
+["符文赤玉石"] = {
+"401B3:H80:I",
 {
 {
-120000,
-1749569256,
-},
-},
-36373,
-},
-["梦魇之泪"] = {
-"491B0:H80:I",
-{
-{
-381126,
-1748274255,
+790563,
+1749325499,
 },
 {
-399982,
-1748615919,
+797838,
+1749490559,
 },
 {
-485499,
-1749584012,
+1032323,
+1753441361,
 },
+},
+40113,
+},
+["地魂之靴"] = {
+"49896:H80:I",
 {
-389777,
-1753536542,
+{
+33618697,
+1749443967,
 },
 },
-49110,
+49896,
 },
 ["冰霜巨龙合剂"] = {
 "46376:H80:I",
@@ -1550,15 +5529,15 @@ PIGA = {
 },
 38949,
 },
-["图样：皇家月幕长袍"] = {
-"47636:H80:I",
+["先知之魔像胸甲"] = {
+"36381:F-67:730202B13:80:I",
 {
 {
-199994,
-1749491670,
+124796,
+1749569256,
 },
 },
-47636,
+36381,
 },
 ["死亡编织护腿"] = {
 "49891:H80:I",
@@ -1574,15 +5553,15 @@ PIGA = {
 },
 49891,
 },
-["迅箭长靴"] = {
-"434B3:H80:I",
+["市场区护肩"] = {
+"371B6:H80:I",
 {
 {
-1651688,
-1749443966,
+389999,
+1749444009,
 },
 },
-43443,
+37116,
 },
 ["龙眼石"] = {
 "42C5:H80:I",
@@ -1608,15 +5587,15 @@ PIGA = {
 },
 41611,
 },
-["法术强度之驯鹿兜帽"] = {
-"36103:F-26:1B56710478:80:I",
+["灵猴之冷石腿铠"] = {
+"36304:F-5:1859B1237:80:I",
 {
 {
-60000,
-1749492372,
+90000,
+1749443860,
 },
 },
-36103,
+36304,
 },
 ["卷轴：附魔盾牌 - 强效智力"] = {
 "4C5B:H80:I",
@@ -1672,15 +5651,15 @@ PIGA = {
 },
 36225,
 },
-["勇士之龙颅护手"] = {
-"36318:F-45:973B40728:80:I",
+["泰坦腰带"] = {
+"45C0:H80:I",
 {
 {
-70000,
-1749569256,
+6009996,
+1749443901,
 },
 },
-36318,
+45550,
 },
 ["精灵链甲战靴"] = {
 "13125:H80:I",
@@ -1692,15 +5671,15 @@ PIGA = {
 },
 13125,
 },
-["泰坦腰带"] = {
-"45C0:H80:I",
+["原力之柱"] = {
+"49B04:H80:I",
 {
 {
-6009996,
-1749443901,
+52845278,
+1749443862,
 },
 },
-45550,
+49904,
 },
 ["生命熔炉胸铠"] = {
 "45167:H80:I",
@@ -1742,36 +5721,6 @@ PIGA = {
 },
 49967,
 },
-["法术强度之暗血短裤"] = {
-"24787:F-21:1B59462965:80:I",
-{
-{
-666666,
-1749492372,
-},
-},
-24787,
-},
-["恶毒肩甲"] = {
-"43130:H80:I",
-{
-{
-2989899,
-1749444009,
-},
-},
-43130,
-},
-["灰烬之天焰钻石"] = {
-"413C:H80:I",
-{
-{
-385005,
-1750062178,
-},
-},
-41333,
-},
 ["劫掠之峡湾护肩"] = {
 "36193:F-40:101430B724:80:I",
 {
@@ -1792,6 +5741,36 @@ PIGA = {
 },
 44445,
 },
+["灰烬之天焰钻石"] = {
+"413C:H80:I",
+{
+{
+385005,
+1750062178,
+},
+},
+41333,
+},
+["铁铆战盔"] = {
+"45107:H80:I",
+{
+{
+388699,
+1749443960,
+},
+},
+45107,
+},
+["恶毒肩甲"] = {
+"43130:H80:I",
+{
+{
+2989899,
+1749444009,
+},
+},
+43130,
+},
 ["涌动法力护肩"] = {
 "31294:H80:I",
 {
@@ -1801,16 +5780,6 @@ PIGA = {
 },
 },
 31294,
-},
-["法术强度之血伤臂甲"] = {
-"36346:F-26:2093023279:80:I",
-{
-{
-80000,
-1749443860,
-},
-},
-36346,
 },
 ["寒冬徽记"] = {
 "45874:H80:I",
@@ -1822,15 +5791,25 @@ PIGA = {
 },
 45874,
 },
-["淬火萨隆邪铁护肩"] = {
-"40675:H80:I",
+["劫掠之奥杜尔护肩"] = {
+"36273:F-40:783876171:80:I",
 {
 {
-1989989,
-1749444021,
+108423,
+1749444009,
 },
 },
-40675,
+36273,
+},
+["卷轴：附魔盾牌 - 强效耐力"] = {
+"38B61:H80:I",
+{
+{
+57255,
+1748274107,
+},
+},
+38861,
 },
 ["牢固板甲束带"] = {
 "45C1:H80:I",
@@ -1842,15 +5821,15 @@ PIGA = {
 },
 45551,
 },
-["孔雀石镶饰戒指"] = {
-"20821:H80:I",
+["符文法力注射器"] = {
+"42545:H80:I",
 {
 {
-3000,
-1748273454,
+15492,
+1747998194,
 },
 },
-20821,
+42545,
 },
 ["卷轴：附魔武器 - 极效法术能量"] = {
 "4C67:H80:I",
@@ -1862,15 +5841,15 @@ PIGA = {
 },
 44467,
 },
-["爆炒鲑鱼"] = {
-"34767:H80:I",
+["淬火泰坦精钢头盔"] = {
+"41387:H80:I",
 {
 {
-13383,
-1748615955,
+3485032,
+1749443901,
 },
 },
-34767,
+41387,
 },
 ["法术强度之血骑士头盔"] = {
 "2486B:F-24:12B7685935:80:I",
@@ -1930,15 +5909,25 @@ PIGA = {
 },
 50451,
 },
-["光铸腰带"] = {
-"16723:H80:I",
+["迅箭护肩"] = {
+"434B9:H80:I",
 {
 {
-54122,
-1749443860,
+1651688,
+1749444009,
 },
 },
-16723,
+43449,
+},
+["萨隆邪铁断剑护腕"] = {
+"47571:H80:I",
+{
+{
+17719980,
+1749443954,
+},
+},
+47571,
 },
 ["雕文精通之书"] = {
 "45912:H80:I",
@@ -1960,25 +5949,15 @@ PIGA = {
 },
 36261,
 },
-["萨隆邪铁断剑护腕"] = {
-"47571:H80:I",
+["光铸腰带"] = {
+"16723:H80:I",
 {
 {
-17719980,
-1749443954,
+54122,
+1749443860,
 },
 },
-47571,
-},
-["迅箭护肩"] = {
-"434B9:H80:I",
-{
-{
-1651688,
-1749444009,
-},
-},
-43449,
+16723,
 },
 ["卷轴：附魔披风 - 急速"] = {
 "390B3:H80:I",
@@ -1994,45 +5973,45 @@ PIGA = {
 },
 39003,
 },
-["淬火泰坦精钢头盔"] = {
-"41387:H80:I",
+["爆炒鲑鱼"] = {
+"34767:H80:I",
 {
 {
-3485032,
-1749443901,
+13383,
+1748615955,
 },
 },
-41387,
+34767,
 },
-["符文法力注射器"] = {
-"42545:H80:I",
+["孔雀石镶饰戒指"] = {
+"20821:H80:I",
 {
 {
-15492,
-1747998194,
+3000,
+1748273454,
 },
 },
-42545,
+20821,
 },
-["卷轴：附魔盾牌 - 强效耐力"] = {
-"38B61:H80:I",
+["淬火萨隆邪铁护肩"] = {
+"40675:H80:I",
 {
 {
-57255,
-1748274107,
+1989989,
+1749444021,
 },
 },
-38861,
+40675,
 },
-["劫掠之奥杜尔护肩"] = {
-"36273:F-40:783876171:80:I",
+["法术强度之血伤臂甲"] = {
+"36346:F-26:2093023279:80:I",
 {
 {
-108423,
-1749444009,
+80000,
+1749443860,
 },
 },
-36273,
+36346,
 },
 ["辉煌泰坦精钢战靴"] = {
 "41394:H80:I",
@@ -2044,15 +6023,15 @@ PIGA = {
 },
 41394,
 },
-["铁铆战盔"] = {
-"45107:H80:I",
+["法术强度之暗血短裤"] = {
+"24787:F-21:1B59462965:80:I",
 {
 {
-388699,
-1749443960,
+666666,
+1749492372,
 },
 },
-45107,
+24787,
 },
 ["能量之血骑士肩甲"] = {
 "24868:F-20:298B4B195:80:I",
@@ -2074,15 +6053,15 @@ PIGA = {
 },
 36241,
 },
-["原力之柱"] = {
-"49B04:H80:I",
+["勇士之龙颅护手"] = {
+"36318:F-45:973B40728:80:I",
 {
 {
-52845278,
-1749443862,
+70000,
+1749569256,
 },
 },
-49904,
+36318,
 },
 ["法术强度之星火外衣"] = {
 "2459B:F-2B:631504936:80:I",
@@ -2114,103 +6093,111 @@ PIGA = {
 },
 39235,
 },
-["灵猴之冷石腿铠"] = {
-"36304:F-5:1859B1237:80:I",
+["法术强度之驯鹿兜帽"] = {
+"36103:F-26:1B56710478:80:I",
 {
 {
-90000,
-1749443860,
+60000,
+1749492372,
 },
 },
-36304,
+36103,
 },
-["市场区护肩"] = {
-"371B6:H80:I",
+["迅箭长靴"] = {
+"434B3:H80:I",
 {
 {
-389999,
-1749444009,
+1651688,
+1749443966,
 },
 },
-37116,
+43443,
 },
-["先知之魔像胸甲"] = {
-"36381:F-67:730202B13:80:I",
+["图样：皇家月幕长袍"] = {
+"47636:H80:I",
 {
 {
-124796,
+199994,
+1749491670,
+},
+},
+47636,
+},
+["梦魇之泪"] = {
+"491B0:H80:I",
+{
+{
+381126,
+1748274255,
+},
+{
+399982,
+1748615919,
+},
+{
+485499,
+1749584012,
+},
+{
+389777,
+1753536542,
+},
+},
+49110,
+},
+["巨猿之海怪胸铠"] = {
+"36373:F-10:1B43472C5:80:I",
+{
+{
+120000,
 1749569256,
 },
 },
-36381,
+36373,
 },
-["地魂之靴"] = {
-"49896:H80:I",
+["法术强度之秃鹫头饰"] = {
+"36039:F-26:2046B9025:80:I",
 {
 {
-33618697,
-1749443967,
+110000,
+1749492372,
 },
 },
-49896,
+36039,
 },
-["符文赤玉石"] = {
-"401B3:H80:I",
+["法术强度之穆拉丁短裤"] = {
+"36128:F-26:1425604695:80:I",
 {
 {
-790563,
-1749325499,
-},
-{
-797838,
-1749490559,
-},
-{
-1032323,
-1753441361,
+100000,
+1749492372,
 },
 },
-40113,
+36128,
 },
-["卷轴：附魔手套 - 精准"] = {
-"38951:H80:I",
+["闪电疾速药剂"] = {
+"4B3B1:H80:I",
 {
 {
-9853,
-1748274064,
+25031,
+1749583730,
+},
+{
+18685,
+1751103501,
 },
 },
-38951,
+44331,
 },
-["铁簧之靴"] = {
-"40206:H80:I",
+["法术强度之晶歌腰带"] = {
+"36043:F-25:82378B27:80:I",
 {
 {
-18419512,
-1749443959,
+120000,
+1749492372,
 },
 },
-40206,
-},
-["重型精金戒指"] = {
-"24078:H80:I",
-{
-{
-40000,
-1748273460,
-},
-},
-24078,
-},
-["轻型护甲片"] = {
-"2304:H80:I",
-{
-{
-491,
-1748274049,
-},
-},
-2304,
+36043,
 },
 ["野熊之暗潮手套"] = {
 "24937:F-7:2061238302:80:I",
@@ -2232,45 +6219,49 @@ PIGA = {
 },
 50182,
 },
-["盐壳衬肩"] = {
-"13131:H80:I",
+["机械侏儒的电缆"] = {
+"45975:H80:I",
 {
 {
-1929692,
-1749444009,
+899993,
+1749443891,
+},
+{
+346800,
+1749569260,
 },
 },
-13131,
+45975,
 },
-["野猪之魔像腿甲"] = {
-"36384:F-12:12B0935781:80:I",
+["泰坦神铁尖刺护腕"] = {
+"47573:H80:I",
 {
 {
-126836,
-1749569256,
+17719945,
+1749443897,
 },
 },
-36384,
+47573,
 },
-["精神之亡魂头盔"] = {
-"36391:F-15:50102B824:80:I",
+["力量之冷酷胫甲"] = {
+"3123B:F-17:72B010152:80:I",
 {
 {
-134200,
-1749569256,
+6259153,
+1749443966,
 },
 },
-36391,
+31233,
 },
-["尖刺泰坦精钢战靴"] = {
-"41391:H80:I",
+["极效思维药剂"] = {
+"4B3B2:H80:I",
 {
 {
-1110316,
-1749443876,
+19997,
+1749583741,
 },
 },
-41391,
+44332,
 },
 ["霜鳞护肩"] = {
 "38424:H80:I",
@@ -2292,15 +6283,15 @@ PIGA = {
 },
 50020,
 },
-["构造体的臂甲"] = {
-"45680:H80:I",
+["圣光雕文"] = {
+"41B06:H80:I",
 {
 {
-389898,
-1749443892,
+21965,
+1752998126,
 },
 },
-45680,
+41106,
 },
 },
 ["曼多基尔"] = {
@@ -2358,2747 +6349,207 @@ PIGA = {
 1,
 },
 },
+["Open"] = true,
 ["AHtooltip"] = true,
-["DaojiTime"] = 0,
 ["ScanTimeCD"] = 4,
 ["yajingbiao"] = true,
-["exactMatch"] = false,
-["AHUIoff"] = true,
-["Open"] = true,
-["oldaucG"] = false,
 ["QuicAuc"] = false,
-},
-["MailPlus"] = {
-["lianxuMode"] = true,
-["ALTbatch"] = true,
-["Coll"] = {
-},
-["BagOpen"] = false,
-["OpenAllCD"] = 1,
-["Open"] = false,
-["MoneyEdit"] = true,
-},
-["Map"] = {
-["WorldMapFuben"] = true,
-["WorldMapMiwu"] = true,
-["MinimapHide"] = false,
-["MinimapBpaichu"] = {
-},
-["MinimapMove"] = false,
-["MinimapPoint_NDui"] = {
--1,
-0,
-},
-["WorldMapSkill"] = true,
-["MinimapPointX"] = 0,
-["WorldMapNPC"] = true,
-["MinimapPos"] = -13.62698465698976,
-["MinimapAnchor"] = "TOPRIGHT",
-["MinimapPointXY"] = {
-0,
-0,
-},
-["MiniButShouNa_hang"] = 10,
-["MinimapPointMode"] = 1,
-["WorldMapLV"] = true,
-["MinimapBut"] = true,
-["WorldMapBili"] = 0.8,
-["MiniButShouNa_YN"] = 2,
-["WorldMapMiwuColor"] = {
-1,
-1,
-1,
-1,
-},
-["WorldMapPlus"] = false,
-["MinimapPointY"] = 0,
-["MinimapXY"] = false,
-["MinimapPoint_ElvUI"] = {
--1,
-0,
-},
-["WorldMapWind"] = false,
-["WorldMapXY"] = false,
-},
-["TradePlus"] = {
-["zhiyeLV"] = true,
-["Open"] = true,
-["AddBut"] = true,
-},
-["VerC"] = {
-["!Pig"] = {
-["verno"] = 9.57,
-["p"] = {
-"我来偷钱了",
-},
-},
-},
-["Common"] = {
-["QuestsEndAudio"] = 1,
-["AutoCombatLog"] = false,
-["ClearFocus_null"] = false,
-["SetFocusKEY"] = "shift",
-["QuestsEnd"] = true,
-["addonProfilerEnabled"] = true,
-["SetFocusMouse"] = true,
-["SetFocus"] = true,
-["ClearFocus"] = true,
-["Offnewfont"] = true,
-["AutoCombatLogTJ"] = 1,
-},
-["BagBank"] = {
-["BAGmeihangshu"] = 8,
-["JunkShow"] = true,
-["AHOpen"] = true,
-["jiaoyiOpen"] = true,
-["wupinRanse"] = true,
-["wupinLV"] = true,
-["BagKongyu"] = true,
-["BAGsuofangBili"] = 1,
-["NewItem"] = true,
-["BANKmeihangshu"] = 16,
-["SortBagsRightToLeft"] = false,
-["BANKsuofangBili"] = 1,
-["Zhenghe"] = true,
-["SortBag_Config"] = true,
-["JianjieMOD"] = false,
-["BANKmeihangshu_retail"] = 17,
-["BAGmeihangshu_retail"] = 10,
-["BAGmeihangshu_WLK"] = 10,
-},
-["Tooltip"] = {
-["IDinfo"] = false,
-["ItemLevel"] = true,
-["PointX"] = 0,
-["PointY"] = 0,
-["ItemSell"] = false,
-["ItemMaxCount"] = true,
-["PointOpen"] = false,
-["Point"] = 1,
-},
-["PigLayout"] = {
-["topInfoR"] = {
-["BGHide"] = false,
-["Lock"] = false,
-["Scale"] = 1,
-["Open"] = false,
-["HideBut"] = {
-},
-},
-["topInfoL"] = {
-["BGHide"] = false,
-["Lock"] = false,
-["Scale"] = 1,
-["Open"] = false,
-["HideBut"] = {
-},
-},
-["MicroMenu"] = {
-["AnchorPoint"] = "TOP",
-["MoveTime"] = true,
-["Interval"] = 2,
-["AnchorPointY"] = 0,
-["Scale"] = 1,
-["Open"] = false,
-["AnchorPointX"] = 0,
-["HideBut"] = {
-},
-},
-["topMenu"] = {
-["BGHide"] = false,
-["Scale"] = 1,
-["TimerMode"] = 1,
-["daojishiTime"] = 10,
-["HideBut"] = {
-},
-["Countdown"] = false,
-["Lock"] = false,
-["Open"] = false,
-["CountdownEnd"] = false,
-["CountdownAudio"] = 1,
-["CountdownEndAudio"] = 1,
-},
-["ChatUI"] = {
-["editMove"] = false,
-["editPoint"] = {
-0,
-0,
-},
-["MarginPoint"] = {
-35,
-35,
-0,
-0,
-},
-["Margin"] = false,
-["Fu"] = false,
-["ZhuPoint"] = {
-370,
-200,
-35,
-35,
-},
-["FuPoint"] = {
-370,
-200,
-35,
-35,
-},
-["Zhu"] = false,
-},
-["TopBar"] = {
-["AnchorPoint"] = "TOP",
-["Height"] = 22,
-["Backdrop"] = 1,
-["Alpha"] = 1,
-["Open"] = false,
-},
-["ActionBar"] = {
-["BarRight"] = false,
-["ScaleV"] = 0.8,
-["Scale"] = false,
-["HideShijiu"] = false,
-["Layout"] = 1,
-["LRInterval"] = 20,
-},
-},
-["Ver"] = {
-["!Pig_RurutiaAudio"] = 0,
-["!Pig"] = 9.57,
-},
-["StatsInfo"] = {
-["TradeTongGaoChannel"] = "WHISPER",
-["Qita_Num"] = false,
-["TradeTongGao"] = true,
-["PlayerSH"] = {
-},
-["lixianBank"] = true,
-["AHData"] = {
-["时光IV"] = {
-},
-["维希度斯"] = {
-},
-["时光I"] = {
-},
-["时光III"] = {
-},
-["曼多基尔"] = {
-},
-["霜语"] = {
-["暗月卡片：伟大"] = true,
-["霜纹布"] = true,
-},
-},
-["MinibutTisp"] = false,
-["SkillData"] = {
-["美团王兴-时光IV"] = {
-{
-0,
-{
-},
-},
-{
-0,
-{
-},
-},
-[0] = {
-},
-},
-["小米军儿-时光IV"] = {
-{
-0,
-{
-},
-},
-{
-0,
-{
-},
-},
-[0] = {
-},
-},
-["愛雅法拉-时光I"] = {
-{
-0,
-{
-},
-},
-{
-0,
-{
-},
-},
-[0] = {
-},
-},
-["露露缇娅-时光III"] = {
-{
-5,
-{
-56005,
-56002,
-56001,
-56003,
-},
-425,
-450,
-},
-{
-0,
-{
-},
-},
-[0] = {
-},
-},
-["哔站陈睿-时光IV"] = {
-{
-0,
-{
-},
-},
-{
-0,
-{
-},
-},
-[0] = {
-},
-},
-["京东刘强东-时光IV"] = {
-{
-0,
-{
-},
-},
-{
-0,
-{
-},
-},
-[0] = {
-},
-},
-},
-["Players"] = {
-["美团王兴-时光IV"] = {
-"Alliance",
-1,
-"raceicon-human-male",
-1,
-1,
-},
-["小米军儿-时光IV"] = {
-"Alliance",
-1,
-"raceicon-human-male",
-6,
-80,
-},
-["愛雅法拉-时光I"] = {
-"Horde",
-10,
-"raceicon-bloodelf-female",
-8,
-2,
-},
-["露露缇娅-时光III"] = {
-"Horde",
-10,
-"raceicon-bloodelf-female",
-5,
-80,
-},
-["哔站陈睿-时光IV"] = {
-"Alliance",
-11,
-"raceicon-draenei-male",
-7,
-6,
-},
-["京东刘强东-时光IV"] = {
-"Alliance",
-1,
-"raceicon-human-male",
-2,
-80,
-},
-},
-["Open"] = true,
-["TradeClassLV"] = true,
-["Items"] = {
-["美团王兴-时光IV"] = {
-["GUILD"] = {
-},
-["MAIL"] = {
-},
-["C"] = "1-^+2-^+3-^+4-38::::::::1::::::::::+5-^+6-^+7-39::::::::1::::::::::+8-40::::::::1::::::::::+9-^+10-^+11-^+12-^+13-^+14-^+15-^+16-497B8::::::::1::::::::::+17-^+18-^+19-^",
-["BAG"] = {
-{
-"6948::::::::1::::::::::",
-1,
-6948,
-},
-},
-["R"] = {
-},
-["T"] = "0gg",
-["G"] = ":::::",
-["BANK"] = {
-},
-},
-["小米军儿-时光IV"] = {
-["BANK"] = {
-},
-["MAIL"] = {
-{
-"3B4B7::::::::80::::::::::",
-20,
-33447,
-},
-{
-"3B4B7::::::::80::::::::::",
-20,
-33447,
-},
-{
-"264272::::::::80::::::::::",
-1,
-264272,
-},
-},
-["C"] = "1-4C12::::::::80::::::::::+2-35610::::::::80::::::::::+3-4B373::::::::80::::::::::+4-^+5-4C07::::::::80::::::::::+6-4068B::::::::80::::::::::+7-39096::::::::80::::::::::+8-35614::::::::80::::::::::+9-4135B::::::::80::::::::::+10-37363::::::::80::::::::::+11-43B06::::::::80::::::::::+12-43926::::::::80::::::::::+13-40684::::::::80::::::::::+14-37390::::::::80::::::::::+15-37647::::::::80::::::::::+16-4B250:3B68:::::::80::::::::::+17-40703:3B68:::::::80::::::::::+18-42619::::::::80::::::::::+19-4315B::::::::80::::::::::",
-["GUILD"] = {
-},
-["R"] = {
-},
-["T"] = "0b320B4350D20Q230B303050B321520C150B1313B051",
-["G"] = "58629:58680:6020B:58686:59309:63D",
-["BAG"] = {
-{
-"37247::::::::80::::::::::",
-1,
-37247,
-},
-{
-"3B4B8::::::::80::::::::::",
-16,
-33448,
-},
-{
-"4341B::::::::80::::::::::",
-1,
-43411,
-},
-{
-"34125::::::::80::::::::::",
-20,
-34125,
-},
-{
-"36912::::::::80::::::::::",
-2,
-36912,
-},
-{
-"43154::::::::80::::::::::",
-1,
-43154,
-},
-{
-"43852::::::::80::::::::::",
-1,
-43852,
-},
-{
-"43089::::::::80::::::::::",
-4,
-43089,
-},
-{
-"6948::::::::80::::::::::",
-1,
-6948,
-},
-{
-"39328::::::::80::::::::::",
-17,
-39328,
-},
-{
-"3B4B7::::::::80::::::::::",
-15,
-33447,
-},
-{
-"36064::::::-37:729350252:80::::::::::",
-1,
-36064,
-},
-{
-"38697::::::::80::::::::::",
-1,
-38697,
-},
-{
-"39208::::::::80::::::::::",
-1,
-39208,
-},
-{
-"39327::::::::80::::::::::",
-5,
-39327,
-},
-{
-"43095::::::::80::::::::::",
-1,
-43095,
-},
-{
-"40B70::::::::80::::::::::",
-2,
-40070,
-},
-{
-"12803::::::::80::::::::::",
-1,
-12803,
-},
-{
-"43156::::::::80::::::::::",
-1,
-43156,
-},
-{
-"3B470::::::::80::::::::::",
-11,
-33470,
-},
-{
-"43157::::::::80::::::::::",
-1,
-43157,
-},
-{
-"2B829::::::::80::::::::::",
-8,
-22829,
-},
-{
-"36926::::::::80::::::::::",
-1,
-36926,
-},
-{
-"3B454::::::::80::::::::::",
-2,
-33454,
-},
-{
-"41426::::::::80::::::::::",
-1,
-41426,
-},
-{
-"39568::::::::80::::::::::",
-2,
-39568,
-},
-{
-"3B4B5::::::::80::::::::::",
-1,
-33445,
-},
-{
-"39567::::::::80::::::::::",
-3,
-39567,
-},
-{
-"396C::::::::80::::::::::",
-2,
-39666,
-},
-{
-"40B72::::::::80::::::::::",
-1,
-40072,
-},
-{
-"40715::::::::80::::::::::",
-1,
-40715,
-},
-{
-"385B7::::::::80::::::::::",
-2,
-38557,
-},
-{
-"37093::::::::80::::::::::",
-1,
-37093,
-},
-{
-"42780::::::::80::::::::::",
-12,
-42780,
-},
-{
-"19B210::::::::80::::::::::",
-1,
-199210,
-},
-{
-"36427::::::-28:1B41309494:80::::::::::",
-1,
-36427,
-},
-{
-"43509::::::::80::::::::::",
-1,
-43509,
-},
-{
-"4B3B2::::::::80::::::::::",
-2,
-44332,
-},
-{
-"415B7::::::::80::::::::::",
-1,
-41557,
-},
-{
-"43510::::::::80::::::::::",
-1,
-43510,
-},
-{
-"43102::::::::80::::::::::",
-6,
-43102,
-},
-{
-"37572::::::::80::::::::::",
-1,
-37572,
-},
-{
-"341B9::::::::80::::::::::",
-1,
-34119,
-},
-{
-"4B839::::::::80::::::::::",
-15,
-44839,
-},
-{
-"4B835::::::::80::::::::::",
-2,
-44835,
-},
-{
-"43013::::::::80::::::::::",
-1,
-43013,
-},
-{
-"35947::::::::80::::::::::",
-2,
-35947,
-},
-{
-"43508::::::::80::::::::::",
-1,
-43508,
-},
-{
-"37B02::::::::80::::::::::",
-2,
-37702,
-},
-{
-"43135::::::::80::::::::::",
-1,
-43135,
-},
-{
-"43507::::::::80::::::::::",
-1,
-43507,
-},
-{
-"24B02::::::::80::::::::::",
-1,
-24402,
-},
-{
-"37B01::::::::80::::::::::",
-8,
-37701,
-},
-{
-"38619::::::::80::::::::::",
-1,
-38619,
-},
-},
-},
-["愛雅法拉-时光I"] = {
-["BAG"] = {
-{
-"20845::::::::2::::::::::",
-1,
-20845,
-},
-{
-"20482::::::::2::::::::::",
-1,
-20482,
-},
-{
-"8952::::::::2::::::::::",
-20,
-8952,
-},
-{
-"876B::::::::2::::::::::",
-20,
-8766,
-},
-{
-"3B85::::::::2::::::::::",
-10,
-3385,
-},
-{
-"858::::::::2::::::::::",
-10,
-858,
-},
-{
-"245B::::::::2::::::::::",
-10,
-2455,
-},
-{
-"1B8::::::::2::::::::::",
-10,
-118,
-},
-{
-"6948::::::::2::::::::::",
-1,
-6948,
-},
-},
-["MAIL"] = {
-},
-["C"] = "1-^+2-^+3-^+4-6096::::::::2::::::::::+5-20893::::::::2::::::::::+6-^+7-20894::::::::2::::::::::+8-20895::::::::2::::::::::+9-^+10-^+11-265036::::::::2::::::::::+12-^+13-^+14-^+15-^+16-20978::::::::2::::::::::+17-^+18-^+19-^",
-["BANK"] = {
-},
-["R"] = {
-},
-["T"] = "0hh",
-["G"] = ":::::",
-["GUILD"] = {
-},
-},
-["露露缇娅-时光III"] = {
-["BANK"] = {
-},
-["MAIL"] = {
-},
-["C"] = "1-42843::::::::80::::::::::+2-43285::::::::80::::::::::+3-37691::::::::80::::::::::+4-^+5-372C::::::::80::::::::::+6-37680::::::::80::::::::::+7-3762B:3872:::::::80::::::::::+8-37218::::::::80::::::::::+9-378B4:2326:::::::80::::::::::+10-37172:3246:::::::80::::::::::+11-43408::::::::80::::::::::+12-37195::::::::80::::::::::+13-37835::::::::80::::::::::+14-376B0::::::::80::::::::::+15-37B9B:3728:::::::80::::::::::+16-37360:385B:::::::80::::::::::+17-^+18-37619::::::::80::::::::::+19-^",
-["GUILD"] = {
-},
-["R"] = {
-},
-["T"] = "050320313030B5123B1323231251205301030t",
-["G"] = "5B679:580B9:582B8:63235:57987:5B672",
-["BAG"] = {
-{
-"34054::::::::80::::::::::",
-20,
-34054,
-},
-{
-"34054::::::::80::::::::::",
-20,
-34054,
-},
-{
-"34054::::::::80::::::::::",
-20,
-34054,
-},
-{
-"34054::::::::80::::::::::",
-20,
-34054,
-},
-{
-"17056::::::::80::::::::::",
-13,
-17056,
-},
-{
-"42780::::::::80::::::::::",
-16,
-42780,
-},
-{
-"3B470::::::::80::::::::::",
-4,
-33470,
-},
-{
-"38426::::::::80::::::::::",
-8,
-38426,
-},
-{
-"38426::::::::80::::::::::",
-20,
-38426,
-},
-{
-"4151B::::::::80::::::::::",
-2,
-41511,
-},
-{
-"4159B::::::::80::::::::::",
-1,
-41599,
-},
-{
-"4159B::::::::80::::::::::",
-1,
-41599,
-},
-{
-"4159B::::::::80::::::::::",
-1,
-41599,
-},
-{
-"4159B::::::::80::::::::::",
-1,
-41599,
-},
-{
-"4159B::::::::80::::::::::",
-1,
-41599,
-},
-{
-"4159B::::::::80::::::::::",
-1,
-41599,
-},
-{
-"4159B::::::::80::::::::::",
-1,
-41599,
-},
-{
-"4159B::::::::80::::::::::",
-1,
-41599,
-},
-{
-"4159B::::::::80::::::::::",
-1,
-41599,
-},
-{
-"415B7::::::::80::::::::::",
-1,
-41557,
-},
-{
-"35490::::::::80::::::::::",
-5,
-35490,
-},
-{
-"3814B::::::::80::::::::::",
-1,
-38144,
-},
-{
-"36739::::::::80::::::::::",
-1,
-36739,
-},
-{
-"37B0B::::::::80::::::::::",
-9,
-37700,
-},
-{
-"37B04::::::::80::::::::::",
-2,
-37704,
-},
-{
-"37B02::::::::80::::::::::",
-8,
-37702,
-},
-{
-"37B05::::::::80::::::::::",
-4,
-37705,
-},
-{
-"37B05::::::::80::::::::::",
-10,
-37705,
-},
-{
-"3405B::::::::80::::::::::",
-4,
-34055,
-},
-{
-"41427::::::::80::::::::::",
-5,
-41427,
-},
-{
-"3472B::::::::80::::::::::",
-20,
-34722,
-},
-{
-"4B840::::::::80::::::::::",
-5,
-44840,
-},
-{
-"4B840::::::::80::::::::::",
-20,
-44840,
-},
-{
-"3B4B5::::::::80::::::::::",
-15,
-33445,
-},
-{
-"46797::::::::80::::::::::",
-4,
-46797,
-},
-{
-"39691::::::::80::::::::::",
-20,
-39691,
-},
-{
-"4B839::::::::80::::::::::",
-20,
-44839,
-},
-{
-"4B839::::::::80::::::::::",
-20,
-44839,
-},
-{
-"3B4B9::::::::80::::::::::",
-10,
-33449,
-},
-{
-"3B4B9::::::::80::::::::::",
-20,
-33449,
-},
-{
-"4B837::::::::80::::::::::",
-16,
-44837,
-},
-{
-"4B837::::::::80::::::::::",
-20,
-44837,
-},
-{
-"4B750::::::::80::::::::::",
-10,
-44750,
-},
-{
-"4B750::::::::80::::::::::",
-20,
-44750,
-},
-{
-"4B836::::::::80::::::::::",
-15,
-44836,
-},
-{
-"4B836::::::::80::::::::::",
-20,
-44836,
-},
-{
-"4B836::::::::80::::::::::",
-20,
-44836,
-},
-{
-"46378::::::::80::::::::::",
-5,
-46378,
-},
-{
-"46379::::::::80::::::::::",
-3,
-46379,
-},
-{
-"4637B::::::::80::::::::::",
-4,
-46377,
-},
-{
-"46376::::::::80::::::::::",
-4,
-46376,
-},
-{
-"40B97::::::::80::::::::::",
-2,
-40097,
-},
-{
-"40B70::::::::80::::::::::",
-1,
-40070,
-},
-{
-"40B73::::::::80::::::::::",
-2,
-40073,
-},
-{
-"4B3B0::::::::80::::::::::",
-1,
-44330,
-},
-{
-"40B76::::::::80::::::::::",
-2,
-40076,
-},
-{
-"4021B::::::::80::::::::::",
-3,
-40211,
-},
-{
-"3B4B8::::::::80::::::::::",
-20,
-33448,
-},
-{
-"3B4B8::::::::80::::::::::",
-20,
-33448,
-},
-{
-"3B4B8::::::::80::::::::::",
-20,
-33448,
-},
-{
-"3B4B7::::::::80::::::::::",
-18,
-33447,
-},
-{
-"35797::::::::80::::::::::",
-1,
-35797,
-},
-{
-"37873::::::::80::::::::::",
-1,
-37873,
-},
-{
-"37B34::::::::80::::::::::",
-1,
-37734,
-},
-{
-"37134::::::::80::::::::::",
-1,
-37134,
-},
-{
-"37B30::::::::80::::::::::",
-1,
-37730,
-},
-{
-"37681::::::::80::::::::::",
-1,
-37681,
-},
-{
-"37265::::::::80::::::::::",
-1,
-37265,
-},
-{
-"6256::::::::80::::::::::",
-1,
-6256,
-},
-{
-"6948::::::::80::::::::::",
-1,
-6948,
-},
-},
-},
-["哔站陈睿-时光IV"] = {
-["BANK"] = {
-},
-["MAIL"] = {
-},
-["C"] = "1-^+2-^+3-^+4-23B45::::::::6::::::::::+5-1364::::::::6::::::::::+6-24129::::::::6::::::::::+7-24B24::::::::6::::::::::+8-23B48::::::::6::::::::::+9-1370::::::::6::::::::::+10-^+11-^+12-^+13-^+14-^+15-1376::::::::6::::::::::+16-36::::::::6::::::::::+17-2362::::::::6::::::::::+18-^+19-^",
-["GUILD"] = {
-},
-["R"] = {
-},
-["T"] = "0bb",
-["G"] = ":::::",
-["BAG"] = {
-{
-"6948::::::::7::::::::::",
-1,
-6948,
-},
-{
-"159::::::::7::::::::::",
-4,
-159,
-},
-{
-"5175::::::::7::::::::::",
-1,
-5175,
-},
-{
-"2413B::::::::7::::::::::",
-1,
-24133,
-},
-{
-"1B8::::::::7::::::::::",
-3,
-118,
-},
-{
-"1370::::::::7::::::::::",
-1,
-1370,
-},
-{
-"2454::::::::7::::::::::",
-3,
-2454,
-},
-{
-"4540::::::::7::::::::::",
-6,
-4540,
-},
-{
-"2651::::::::7::::::::::",
-1,
-2651,
-},
-{
-"1368::::::::7::::::::::",
-1,
-1368,
-},
-{
-"23B29::::::::7::::::::::",
-5,
-23329,
-},
-{
-"23B90::::::::7::::::::::",
-1,
-23390,
-},
-},
-},
-["京东刘强东-时光IV"] = {
-["BAG"] = {
-{
-"6948::::::::80::::::::::",
-1,
-6948,
-},
-{
-"1703B::::::::80::::::::::",
-5,
-17033,
-},
-{
-"1703B::::::::80::::::::::",
-5,
-17033,
-},
-{
-"43470::::::::80::::::::::",
-1,
-43470,
-},
-{
-"415B7::::::::80::::::::::",
-1,
-41557,
-},
-{
-"37856::::::::80::::::::::",
-1,
-37856,
-},
-{
-"4021B::::::::80::::::::::",
-5,
-40211,
-},
-{
-"4B839::::::::80::::::::::",
-20,
-44839,
-},
-{
-"37B05::::::::80::::::::::",
-6,
-37705,
-},
-{
-"43154::::::::80::::::::::",
-1,
-43154,
-},
-{
-"39520::::::::80::::::::::",
-17,
-39520,
-},
-{
-"4315B::::::::80::::::::::",
-1,
-43155,
-},
-{
-"43156::::::::80::::::::::",
-1,
-43156,
-},
-{
-"34125::::::::80::::::::::",
-20,
-34125,
-},
-{
-"37093::::::::80::::::::::",
-10,
-37093,
-},
-{
-"42780::::::::80::::::::::",
-26,
-42780,
-},
-{
-"3B4B8::::::::80::::::::::",
-19,
-33448,
-},
-{
-"3B470::::::::80::::::::::",
-19,
-33470,
-},
-{
-"30817::::::::80::::::::::",
-20,
-30817,
-},
-{
-"3B4B7::::::::80::::::::::",
-1,
-33447,
-},
-{
-"43463::::::::80::::::::::",
-5,
-43463,
-},
-{
-"20B239::::::::80::::::::::",
-1,
-200239,
-},
-{
-"4B838::::::::80::::::::::",
-20,
-44838,
-},
-{
-"21B7B::::::::80::::::::::",
-33,
-21177,
-},
-{
-"4B836::::::::80::::::::::",
-15,
-44836,
-},
-{
-"4B836::::::::80::::::::::",
-20,
-44836,
-},
-{
-"43214::::::::80::::::::::",
-1,
-43214,
-},
-{
-"4B837::::::::80::::::::::",
-15,
-44837,
-},
-{
-"37856::::::::80::::::::::",
-1,
-37856,
-},
-{
-"43089::::::::80::::::::::",
-26,
-43089,
-},
-{
-"4B838::::::::80::::::::::",
-20,
-44838,
-},
-{
-"4B836::::::::80::::::::::",
-5,
-44836,
-},
-{
-"4B837::::::::80::::::::::",
-20,
-44837,
-},
-{
-"385B1::::::::80::::::::::",
-9,
-38551,
-},
-{
-"4B836::::::::80::::::::::",
-20,
-44836,
-},
-{
-"46376::::::::80::::::::::",
-2,
-46376,
-},
-{
-"37B34::::::::80::::::::::",
-1,
-37734,
-},
-{
-"4B838::::::::80::::::::::",
-11,
-44838,
-},
-{
-"4B840::::::::80::::::::::",
-15,
-44840,
-},
-{
-"4B835::::::::80::::::::::",
-9,
-44835,
-},
-{
-"4B839::::::::80::::::::::",
-20,
-44839,
-},
-{
-"4B839::::::::80::::::::::",
-20,
-44839,
-},
-{
-"4B839::::::::80::::::::::",
-20,
-44839,
-},
-{
-"4B840::::::::80::::::::::",
-20,
-44840,
-},
-{
-"4B839::::::::80::::::::::",
-5,
-44839,
-},
-{
-"4B839::::::::80::::::::::",
-20,
-44839,
-},
-{
-"43508::::::::80::::::::::",
-1,
-43508,
-},
-{
-"3B4B8::::::::80::::::::::",
-20,
-33448,
-},
-{
-"43102::::::::80::::::::::",
-10,
-43102,
-},
-{
-"43467::::::::80::::::::::",
-20,
-43467,
-},
-{
-"4B750::::::::80::::::::::",
-15,
-44750,
-},
-{
-"46379::::::::80::::::::::",
-1,
-46379,
-},
-{
-"3B454::::::::80::::::::::",
-1,
-33454,
-},
-{
-"20B239::::::::80::::::::::",
-1,
-200239,
-},
-{
-"43523::::::::80::::::::::",
-11,
-43523,
-},
-{
-"3B4B5::::::::80::::::::::",
-1,
-33445,
-},
-{
-"4B853::::::::80::::::::::",
-18,
-44853,
-},
-{
-"36457::::::-4B:1937B02970:80::::::::::",
-1,
-36457,
-},
-{
-"46378::::::::80::::::::::",
-4,
-46378,
-},
-{
-"40B76::::::::80::::::::::",
-3,
-40076,
-},
-{
-"40109::::::::80::::::::::",
-6,
-40109,
-},
-{
-"20B239::::::::80::::::::::",
-1,
-200239,
-},
-{
-"20B239::::::::80::::::::::",
-1,
-200239,
-},
-{
-"4B838::::::::80::::::::::",
-20,
-44838,
-},
-},
-["MAIL"] = {
-},
-["C"] = "1-4B296:3820:::::::80::::::::::+2-37141::::::::80::::::::::+3-37875::::::::80::::::::::+4-45::::::::80::::::::::+5-37236::::::::80::::::::::+6-37643::::::::80::::::::::+7-37362::40B12:40B12:::::80::::::::::+8-4B202::::::::80::::::::::+9-37B8B::::::::80::::::::::+10-37623::::::::80::::::::::+11-37694::::::::80::::::::::+12-4B283::::::::80::::::::::+13-40685::::::::80::::::::::+14-371C::::::::80::::::::::+15-37291::::::::80::::::::::+16-37169::::::::80::::::::::+17-37134::::::::80::::::::::+18-40705::::::::80::::::::::+19-43157::::::::80::::::::::",
-["BANK"] = {
-},
-["R"] = {
-},
-["T"] = "5035015202B01305310B5152B15032010420q&0Z5B0C1030S5232051213C130213B2313B1",
-["G"] = "63218:5795B:57979:54940:57937:54937&54934:57958:5795B:5492B::",
-["GUILD"] = {
-},
-},
-},
-["Token"] = {
-["美团王兴-时光IV"] = {
-["Money"] = 0,
-["Tokens"] = {
-},
-},
-["小米军儿-时光IV"] = {
-["Money"] = 11698720,
-["Tokens"] = {
-{
-133799,
-44,
-201,
-"|cnIQ1:|Hcurrency:201:0|h[风险硬币]|h|r",
-},
-{
-237048,
-1,
-3403,
-"|cnIQ4:|Hcurrency:3403:0|h[泰坦余烬]|h|r",
-},
-{
-237047,
-7255,
-3406,
-"|cnIQ3:|Hcurrency:3406:0|h[泰坦碎片]|h|r",
-},
-},
-},
-["愛雅法拉-时光I"] = {
-["Tokens"] = {
-},
-["Money"] = 22,
-},
-["露露缇娅-时光III"] = {
-["Tokens"] = {
-{
-137000,
-101,
-1901,
-"|cnIQ1:|Hcurrency:1901:0|h[荣誉点数]|h|r",
-},
-{
-133799,
-44,
-201,
-"|cnIQ1:|Hcurrency:201:0|h[风险硬币]|h|r",
-},
-{
-237048,
-37,
-3403,
-"|cnIQ4:|Hcurrency:3403:0|h[泰坦余烬]|h|r",
-},
-{
-237047,
-14,
-3406,
-"|cnIQ3:|Hcurrency:3406:0|h[泰坦碎片]|h|r",
-},
-},
-["Money"] = 137415746,
-},
-["哔站陈睿-时光IV"] = {
-["Tokens"] = {
-},
-["Money"] = 619,
-},
-["京东刘强东-时光IV"] = {
-["Money"] = 563865,
-["Tokens"] = {
-{
-133799,
-44,
-201,
-"|cnIQ1:|Hcurrency:201:0|h[风险硬币]|h|r",
-},
-{
-237048,
-11,
-3403,
-"|cnIQ4:|Hcurrency:3403:0|h[泰坦余烬]|h|r",
-},
-{
-237047,
-11118,
-3406,
-"|cnIQ3:|Hcurrency:3406:0|h[泰坦碎片]|h|r",
-},
-},
-},
-},
-["TradeData"] = {
-["小绫子-曼多基尔"] = {
-},
-["露露缇娅-帕奇维克"] = {
-},
-["愛雅法拉-时光I"] = {
-},
-["萌萌的露小露-阿拉希盆地"] = {
-},
-["美团王兴-时光IV"] = {
-},
-["小米军儿-时光IV"] = {
-{
-20419,
-20421,
-},
-{
-{
-{
-["MoneyP"] = 0,
-["MoneyT"] = 0,
-["All_Name"] = "飞升老祖-时光IV",
-["ItemP"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Class"] = 9,
-["Race"] = "raceicon-human-female",
-["Name"] = "飞升老祖",
-["ItemT"] = {
-{
-"|cffffffff|Hitem:44834::::::::78::::::::::|h[野生火鸡]|h|r",
-20,
-},
-{
-"|cffffffff|Hitem:44834::::::::78::::::::::|h[野生火鸡]|h|r",
-20,
-},
-{
-"|cffffffff|Hitem:44834::::::::78::::::::::|h[野生火鸡]|h|r",
-20,
-},
-{
-"|cffffffff|Hitem:44834::::::::78::::::::::|h[野生火鸡]|h|r",
-20,
-},
-"无",
-"无",
-},
-["Level"] = 79,
-["Time"] = 1764259966,
-["Map"] = "净化斯坦索姆-",
-},
-},
-{
-{
-["MoneyP"] = 0,
-["MoneyT"] = 0,
-["All_Name"] = "小吖射-时光IV",
-["ItemP"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Class"] = 3,
-["Race"] = "raceicon-nightelf-female",
-["Name"] = "小吖射",
-["ItemT"] = {
-{
-"|cff0070dd|Hitem:37390::::::::80::::::::::|h[陨星磨石]|h|r",
-1,
-},
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Level"] = 80,
-["Map"] = "艾尔文森林-闪金镇",
-["Time"] = 1764387505,
-},
-},
-},
-},
-["露露緹婭-维希度斯"] = {
-{
-19903,
-},
-{
-{
-{
-["Map"] = "纳克萨玛斯-骑士议会厅",
-["MoneyT"] = 0,
-["ItemP"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Class"] = 2,
-["Race"] = "raceicon-bloodelf-female",
-["Time"] = 1719652109,
-["ItemT"] = {
-{
-"|cffa335ee|Hitem:40625::::::::80:::::::::|h[失落征服者的胸甲]|h|r",
-1,
-},
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Level"] = 80,
-["Name"] = "我意凌云",
-["MoneyP"] = 10000000,
-},
-{
-["Map"] = "纳克萨玛斯-骑士议会厅",
-["MoneyT"] = 0,
-["ItemP"] = {
-{
-"|cffa335ee|Hitem:40625::::::::80:::::::::|h[失落征服者的胸甲]|h|r",
-1,
-},
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Class"] = 2,
-["Race"] = "raceicon-bloodelf-female",
-["Time"] = 1719652123,
-["ItemT"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Level"] = 80,
-["Name"] = "爱雅法拉",
-["MoneyP"] = 0,
-},
-{
-["Map"] = "纳克萨玛斯-克尔苏加德的大厅",
-["MoneyT"] = 52750000,
-["ItemP"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Class"] = 2,
-["Race"] = "raceicon-bloodelf-female",
-["Time"] = 1719655094,
-["ItemT"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Level"] = 80,
-["Name"] = "我意凌云",
-["MoneyP"] = 0,
-},
-{
-["Map"] = "纳克萨玛斯-克尔苏加德的大厅",
-["MoneyT"] = 0,
-["ItemP"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Class"] = 2,
-["Race"] = "raceicon-bloodelf-female",
-["Time"] = 1719655108,
-["ItemT"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Level"] = 80,
-["Name"] = "圣丶牛牛",
-["MoneyP"] = 10550000,
-},
-{
-["Map"] = "纳克萨玛斯-克尔苏加德的大厅",
-["MoneyT"] = 0,
-["ItemP"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Class"] = 4,
-["Race"] = "raceicon-bloodelf-male",
-["Time"] = 1719655113,
-["ItemT"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Level"] = 80,
-["Name"] = "钢心",
-["MoneyP"] = 10550000,
-},
-{
-["Map"] = "纳克萨玛斯-克尔苏加德的大厅",
-["MoneyT"] = 0,
-["ItemP"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Class"] = 4,
-["Race"] = "raceicon-undead-male",
-["Time"] = 1719655127,
-["ItemT"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Level"] = 80,
-["Name"] = "Monocular",
-["MoneyP"] = 10550000,
-},
-{
-["Map"] = "纳克萨玛斯-克尔苏加德的大厅",
-["MoneyT"] = 0,
-["ItemP"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Class"] = 6,
-["Race"] = "raceicon-bloodelf-male",
-["Time"] = 1719655138,
-["ItemT"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Level"] = 80,
-["Name"] = "蹲墙角背刺",
-["MoneyP"] = 10550000,
-},
-{
-["Map"] = "纳克萨玛斯-克尔苏加德的大厅",
-["MoneyT"] = 4000000,
-["ItemP"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Class"] = 2,
-["Race"] = "raceicon-bloodelf-female",
-["Time"] = 1719655214,
-["ItemT"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Level"] = 80,
-["Name"] = "我意凌云",
-["MoneyP"] = 0,
-},
-},
-},
-},
-["萌萌的露小露-维希度斯"] = {
-},
-["露露缇娅-时光III"] = {
-},
-["萌萌的露露糖-维希度斯"] = {
-},
-["哔站陈睿-时光IV"] = {
-},
-["京东刘强东-时光IV"] = {
-{
-20419,
-20421,
-},
-{
-{
-{
-["MoneyP"] = 0,
-["MoneyT"] = 0,
-["All_Name"] = "飞升老祖-时光IV",
-["ItemP"] = {
-{
-"|cffffffff|Hitem:44834::::::::80::::::::::|h[野生火鸡]|h|r",
-20,
-},
-{
-"|cffffffff|Hitem:44834::::::::80::::::::::|h[野生火鸡]|h|r",
-20,
-},
-{
-"|cffffffff|Hitem:44834::::::::80::::::::::|h[野生火鸡]|h|r",
-20,
-},
-{
-"|cffffffff|Hitem:44834::::::::80::::::::::|h[野生火鸡]|h|r",
-20,
-},
-"无",
-"无",
-},
-["Class"] = 9,
-["Race"] = "raceicon-human-female",
-["Name"] = "飞升老祖",
-["ItemT"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Level"] = 79,
-["Time"] = 1764259332,
-["Map"] = "风暴峭壁-K3",
-},
-},
-{
-{
-["MoneyP"] = 0,
-["MoneyT"] = 0,
-["All_Name"] = "坏小伙-时光VI",
-["ItemP"] = {
-"无",
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Class"] = 8,
-["Race"] = "raceicon-gnome-female",
-["Name"] = "坏小伙-时光VI",
-["ItemT"] = {
-{
-"|cffffffff|Hitem:43523::::::::80::::::::::|h[魔法酪饼]|h|r",
-15,
-},
-"无",
-"无",
-"无",
-"无",
-"无",
-},
-["Level"] = 80,
-["Time"] = 1764434377,
-["Map"] = "紫罗兰监狱-",
-},
-},
-},
-},
-},
-["TradeTongGaoPindao"] = "WHISPER",
-["Times"] = {
-{
-214820000,
-1753446759,
-},
-{
-215000000,
-1753447959,
-},
-{
-215340000,
-1753449159,
-},
-{
-215650000,
-1753450356,
-},
-{
-215960000,
-1753451556,
-},
-{
-216290000,
-1753452756,
-},
-{
-216470000,
-1753453957,
-},
-{
-216840000,
-1753455157,
-},
-{
-217180000,
-1753456357,
-},
-{
-217830000,
-1753457557,
-},
-{
-218390000,
-1753458757,
-},
-{
-219220000,
-1753459935,
-},
-{
-219630000,
-1753461183,
-},
-{
-219950000,
-1753462383,
-},
-{
-220200000,
-1753463583,
-},
-{
-220000000,
-1753464744,
-},
-{
-219200000,
-1753465944,
-},
-{
-218270000,
-1753467144,
-},
-{
-218780000,
-1753527716,
-},
-{
-218970000,
-1753528452,
-},
-{
-219280000,
-1753529636,
-},
-{
-219670000,
-1753530837,
-},
-{
-220540000,
-1753532037,
-},
-{
-221370000,
-1753533237,
-},
-{
-222260000,
-1753534437,
-},
-{
-223080000,
-1753535618,
-},
-{
-224110000,
-1753536818,
-},
-{
-225130000,
-1753538018,
-},
-{
-228670000,
-1753542847,
-},
-{
-229200000,
-1753544036,
-},
-{
-229440000,
-1753545236,
-},
-{
-231330000,
-1753611376,
-},
-{
-231810000,
-1753612502,
-},
-{
-232380000,
-1753613688,
-},
-{
-232340000,
-1753614888,
-},
-{
-232440000,
-1753616088,
-},
-{
-232390000,
-1753617296,
-},
-{
-232590000,
-1753619021,
-},
-{
-233120000,
-1753619725,
-},
-{
-234390000,
-1753620925,
-},
-{
-281990000,
-1753693551,
-},
-{
-280880000,
-1753694182,
-},
-{
-264570000,
-1753714646,
-},
-{
-266770000,
-1753715817,
-},
-{
-269090000,
-1753717018,
-},
-{
-271580000,
-1753718218,
-},
-{
-274190000,
-1753719394,
-},
-{
-276880000,
-1753720595,
-},
-{
-279630000,
-1753721795,
-},
-{
-281850000,
-1753723003,
-},
-{
-283400000,
-1753724455,
-},
-{
-284590000,
-1753725405,
-},
-{
-286110000,
-1753726605,
-},
-{
-288100000,
-1753727805,
-},
-{
-289950000,
-1753729008,
-},
-{
-291750000,
-1753730209,
-},
-{
-292980000,
-1753731409,
-},
-{
-294320000,
-1753732659,
-},
-{
-272580000,
-1753985308,
-},
-{
-272820000,
-1753985595,
-},
-{
-273040000,
-1753986795,
-},
-{
-273380000,
-1753987995,
-},
-{
-273420000,
-1753989170,
-},
-{
-273470000,
-1753990426,
-},
-{
-270840000,
-1754022786,
-},
-{
-269370000,
-1754024612,
-},
-{
-268100000,
-1754025199,
-},
-{
-267050000,
-1754026399,
-},
-{
-266320000,
-1754027599,
-},
-{
-265930000,
-1754028859,
-},
-{
-265720000,
-1754030024,
-},
-{
-265630000,
-1754031204,
-},
-{
-265440000,
-1754032464,
-},
-{
-265400000,
-1754033665,
-},
-{
-265670000,
-1754034865,
-},
-{
-266580000,
-1754036065,
-},
-{
-267610000,
-1754037266,
-},
-{
-268400000,
-1754038465,
-},
-{
-269210000,
-1754039658,
-},
-{
-270200000,
-1754040858,
-},
-{
-271000000,
-1754042058,
-},
-{
-265630000,
-1754058059,
-},
-{
-267020000,
-1754058873,
-},
-{
-268420000,
-1754060074,
-},
-{
-269400000,
-1754061286,
-},
-{
-270330000,
-1754062495,
-},
-{
-271080000,
-1754063645,
-},
-{
-266110000,
-1754113522,
-},
-{
-266090000,
-1754114170,
-},
-{
-266690000,
-1754115365,
-},
-{
-280190000,
-1754325553,
-},
-{
-277390000,
-1754369884,
-},
-{
-277450000,
-1754370036,
-},
-{
-281150000,
-1754390765,
-},
-{
-397740000,
-1754984497,
-},
-{
-398160000,
-1754985233,
-},
-{
-504080000,
-1756873000,
-},
-{
-816380000,
-1759692298,
-},
-{
-815970000,
-1759693067,
-},
-{
-816140000,
-1759694267,
-},
-{
-853320000,
-1759833869,
-},
-{
-857830000,
-1759834801,
-},
-{
-862170000,
-1759836001,
-},
-{
-865110000,
-1759837201,
-},
-{
-1196010000,
-1761236761,
-},
-{
-1184050000,
-1761236929,
-},
-{
-1184720000,
-1761238552,
-},
-{
-1186320000,
-1761240147,
-},
-},
-["AddBut"] = true,
-["InstancesCD"] = {
-["Records"] = {
-[1156] = true,
-[1102] = true,
-[1101] = true,
-[841] = true,
-[1095] = true,
-[1106] = true,
-[1110] = true,
-[1100] = true,
-},
-["小米军儿-时光IV"] = {
-["古达克"] = {
-[2] = {
-1764457196,
-5,
-4,
-{
-{
-"斯拉德兰",
-true,
-},
-{
-"达卡莱巨像",
-true,
-},
-{
-"莫拉比",
-true,
-},
-{
-"迦尔达拉",
-true,
-},
-{
-"凶残的伊克",
-false,
-},
-},
-},
-},
-["乌特加德城堡"] = {
-[2] = {
-1764457196,
-3,
-2,
-{
-{
-"凯雷塞斯王子",
-true,
-},
-{
-"斯卡瓦尔德和达尔隆",
-false,
-},
-{
-"掠夺者因格瓦尔",
-true,
-},
-},
-},
-},
-},
-["京东刘强东-时光IV"] = {
-},
-["愛雅法拉-时光I"] = {
-},
-["露露缇娅-时光III"] = {
-},
-["Mode"] = 1,
-["哔站陈睿-时光IV"] = {
-},
-["美团王兴-时光IV"] = {
-},
-},
-},
-["ConfigString"] = {
-10,
-"57uZ5qKm55qE5aeR5aiY^6b6Z54mZ@5aW25aW95LiA6Zif6JCo5ruh^57u05YWL5rSb5bCU",
-},
-["Hardcore"] = {
-["CVars"] = {
-["NameMinV"] = 0,
-["NameMaxSelect"] = 4,
-["NameMinSelect"] = 2,
-["Open"] = true,
-["NameMaxV"] = 16,
-},
-["Deaths"] = {
-["Tgminlevel"] = 20,
-["Open"] = true,
-["UIScale"] = 1,
-["Player"] = {
-},
-["VoiceID"] = 3,
-["tipsmap"] = false,
-["level"] = {
-},
-["savedays"] = 1,
-["List"] = {
-},
-["BigTgminlevel"] = 50,
-},
+["AHUIoff"] = true,
+["DaojiTime"] = 0,
+["exactMatch"] = false,
+["oldaucG"] = false,
 },
 ["HardcoreDeaths"] = {
 ["AudioID"] = 2,
 ["Player"] = {
 },
-["savedays"] = 1,
 ["maxlevel"] = 30,
+["List"] = {
+},
 ["minlevel"] = 1,
 ["level"] = {
 },
 ["Open"] = true,
+["savedays"] = 1,
+},
+["ConfigString"] = {
+10,
+"57uZ5qKm55qE5aeR5aiY^6b6Z54mZ@5aW25aW95LiA6Zif6JCo5ruh^57u05YWL5rSb5bCU",
+},
+["Error"] = {
+["ErrorDB"] = {
+{
+["time"] = 1764997262,
+["logrizhi"] = "(*temporary) = Frame {\n totalOffsetY = -74\n regionData = <table> {\n }\n totalOffsetX = 70\n}\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:ClearAllPoints() >",
+["stack"] = "[C]: in function 'ClearAllPoints'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:54: in function 'SetAnchorPoint'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1355: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1513: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4933: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4893>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:5060: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2013: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2005>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2507: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2500>\n",
+["counter"] = 652,
+},
+{
+["time"] = 1764997262,
+["logrizhi"] = "(*temporary) = Frame {\n point = \"TOP\"\n totalOffsetY = -74\n regionData = <table> {\n }\n relativeFrame = Frame {\n }\n totalOffsetX = 70\n offsetX = 70\n relativePoint = \"TOP\"\n offsetY = -74\n}\n(*temporary) = \"TOP\"\n(*temporary) = Frame {\n controlledChildren = <table> {\n }\n subRegionEvents = <table> {\n }\n yOffset = 0\n anchorPoint = \"TOP\"\n selfPoint = \"TOPLEFT\"\n controlPoints = <table> {\n }\n suspended = 0\n cloneId = \"\"\n regionType = \"dynamicgroup\"\n relativePoint = \"CENTER\"\n sortedChildren = <table> {\n }\n alpha = 1\n background = Frame {\n }\n currentHeight = 106.000031\n needToReload = false\n needToPosition = false\n currentWidth = 353.999756\n subRegions = <table> {\n }\n startFormatters = <table> {\n }\n needToSort = false\n sortStates = <table> {\n }\n growOn = <table> {\n }\n sortOn = <table> {\n }\n needToResize = false\n xOffsetAnim = 0\n yOffsetAnim = 0\n values = <table> {\n }\n xOffset = -0.000061\n updatedChildren = <table> {\n }\n relativeTo = Frame {\n }\n id = \"Core - Shaman\"\n finishFormatters = <table> {\n }\n toShow = true\n growStates = <table> {\n }\n xOffsetRelative = 0\n yOffsetRelative = 0\n}\n(*temporary) = \"TOP\"\n(*temporary) = 70\n(*temporary) = -74\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:SetPoint() >",
+["stack"] = "[C]: in function 'SetPoint'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:60: in function 'SetAnchorPoint'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1355: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1513: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4933: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4893>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:5060: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2013: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2005>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2507: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2500>\n",
+["counter"] = 651,
+},
+{
+["time"] = 1764997262,
+["logrizhi"] = "(*temporary) = Frame {\n point = \"TOP\"\n totalOffsetY = -74\n regionData = <table> {\n }\n relativeFrame = Frame {\n }\n totalOffsetX = 70\n offsetX = 70\n relativePoint = \"TOP\"\n offsetY = -74\n}\n(*temporary) = true\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:SetShown() >",
+["stack"] = "[C]: in function 'SetShown'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1369: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1513: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4933: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4893>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:5060: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2013: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2005>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2507: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2500>\n",
+["counter"] = 651,
+},
+{
+["time"] = 1764997262,
+["logrizhi"] = "(*temporary) = Frame {\n point = \"TOP\"\n totalOffsetY = -74\n regionData = <table> {\n }\n relativeFrame = Frame {\n }\n totalOffsetX = 70\n offsetX = 70\n relativePoint = \"TOP\"\n offsetY = -74\n}\n(*temporary) = Frame {\n controlledChildren = <table> {\n }\n subRegionEvents = <table> {\n }\n yOffset = 0\n anchorPoint = \"TOP\"\n selfPoint = \"TOPLEFT\"\n controlPoints = <table> {\n }\n suspended = 0\n cloneId = \"\"\n regionType = \"dynamicgroup\"\n relativePoint = \"CENTER\"\n sortedChildren = <table> {\n }\n alpha = 1\n background = Frame {\n }\n currentHeight = 106.000031\n needToReload = false\n needToPosition = false\n currentWidth = 353.999756\n subRegions = <table> {\n }\n startFormatters = <table> {\n }\n needToSort = false\n sortStates = <table> {\n }\n growOn = <table> {\n }\n sortOn = <table> {\n }\n needToResize = false\n xOffsetAnim = 0\n yOffsetAnim = 0\n values = <table> {\n }\n xOffset = -0.000061\n updatedChildren = <table> {\n }\n relativeTo = Frame {\n }\n id = \"Core - Shaman\"\n finishFormatters = <table> {\n }\n toShow = true\n growStates = <table> {\n }\n xOffsetRelative = 0\n yOffsetRelative = 0\n}\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< UNKNOWN() >",
+["stack"] = "[C]: ?\n[C]: in function 'SetParent'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1396: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1513: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4933: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4893>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:5060: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2013: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2005>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2507: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2500>\n",
+["counter"] = 651,
+},
+{
+["time"] = 1764997262,
+["logrizhi"] = "(*temporary) = Frame {\n point = \"TOP\"\n totalOffsetY = -74\n regionData = <table> {\n }\n relativeFrame = Frame {\n }\n totalOffsetX = 70\n offsetX = 70\n relativePoint = \"TOP\"\n offsetY = -74\n}\n(*temporary) = 1\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:SetScale() >",
+["stack"] = "[C]: in function 'SetScale'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1397: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1513: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4933: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4893>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:5060: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2013: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2005>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2507: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2500>\n",
+["counter"] = 651,
+},
+{
+["time"] = 1764997262,
+["logrizhi"] = "(*temporary) = Frame {\n iconSource = -1\n xOffset = 0\n yOffset = 0\n anchorPoint = \"TOP\"\n keepAspectRatio = true\n toShow = true\n progressType = \"timed\"\n minProgress = 0\n PixelSnapDisabled = true\n cloneId = \"\"\n state = <table> {\n }\n regionType = \"icon\"\n states = <table> {\n }\n relativePoint = \"TOP\"\n maxProgress = 600.002000\n icon = Texture {\n }\n zoom = 0.300000\n color_b = 1\n color_r = 1\n displayIcon = \"\"\n scalex = 1\n values = <table> {\n }\n duration = 600.002000\n expirationTime = 489.135000\n cooldownEdge = false\n yOffsetRelative = 0\n cooldownSwipe = true\n color_g = 1\n progressSource = <table> {\n }\n finishFormatters = <table> {\n }\n color_a = 1\n subRegions = <table> {\n }\n height = 32\n startFormatters = <table> {\n }\n inverseDirection = false\n currentCoord = <table> {\n }\n modRate = 1\n frameId = \"水之护盾/闪电之盾（元素，点击施法）\"\n texXOffset = 0\n scaley = 1\n xOffsetAnim = 0\n yOffsetAnim = 0\n subRegionEvents = <table> {\n }\n relativeTo = Frame {\n }\n id = \"水之护盾/闪电之盾（元素，点击施法）\"\n width = 32\n xOffsetRelative = 0\n alpha = 1\n cooldown = WeakAurasCooldown水之护盾/闪电之盾（元素，点击施法） {\n }\n texYOffset = 0\n}\n(*temporary) = \"MEDIUM\"\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:SetFrameStrata() >",
+["stack"] = "[C]: in function 'SetFrameStrata'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1403: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1513: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4933: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4893>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:5060: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2013: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2005>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2507: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2500>\n",
+["counter"] = 651,
+},
+{
+["time"] = 1764997262,
+["logrizhi"] = "(*temporary) = Frame {\n iconSource = -1\n xOffset = 0\n yOffset = 0\n anchorPoint = \"TOP\"\n keepAspectRatio = true\n toShow = true\n progressType = \"timed\"\n minProgress = 0\n PixelSnapDisabled = true\n cloneId = \"\"\n state = <table> {\n }\n regionType = \"icon\"\n states = <table> {\n }\n relativePoint = \"TOP\"\n maxProgress = 600.002000\n icon = Texture {\n }\n zoom = 0.300000\n color_b = 1\n color_r = 1\n displayIcon = \"\"\n scalex = 1\n values = <table> {\n }\n duration = 600.002000\n expirationTime = 489.135000\n cooldownEdge = false\n yOffsetRelative = 0\n cooldownSwipe = true\n color_g = 1\n progressSource = <table> {\n }\n finishFormatters = <table> {\n }\n color_a = 1\n subRegions = <table> {\n }\n height = 32\n startFormatters = <table> {\n }\n inverseDirection = false\n currentCoord = <table> {\n }\n modRate = 1\n frameId = \"水之护盾/闪电之盾（元素，点击施法）\"\n texXOffset = 0\n scaley = 1\n xOffsetAnim = 0\n yOffsetAnim = 0\n subRegionEvents = <table> {\n }\n relativeTo = Frame {\n }\n id = \"水之护盾/闪电之盾（元素，点击施法）\"\n width = 32\n xOffsetRelative = 0\n alpha = 1\n cooldown = WeakAurasCooldown水之护盾/闪电之盾（元素，点击施法） {\n }\n texYOffset = 0\n}\n(*temporary) = 221\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< SetFrameLevel() >",
+["stack"] = "[C]: ?\n[Interface/AddOns/WeakAuras/RegionTypes/Icon.lua]:292: in function 'SetFrameLevel'\n[Interface/AddOns/WeakAuras/SubRegionTypes/Background.lua]:17: in function 'SetFrameLevel'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4449: in function 'ApplyFrameLevel'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1407: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1513: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4933: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4893>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:5060: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2013: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2005>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2507: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2500>\n",
+["counter"] = 651,
+},
+{
+["time"] = 1764997262,
+["logrizhi"] = "(*temporary) = Frame {\n controlledChildren = <table> {\n }\n subRegionEvents = <table> {\n }\n yOffset = 0\n anchorPoint = \"TOP\"\n selfPoint = \"TOPLEFT\"\n controlPoints = <table> {\n }\n suspended = 0\n cloneId = \"\"\n regionType = \"dynamicgroup\"\n relativePoint = \"CENTER\"\n sortedChildren = <table> {\n }\n alpha = 1\n background = Frame {\n }\n currentHeight = 106.000031\n needToReload = false\n needToPosition = false\n currentWidth = 353.999756\n subRegions = <table> {\n }\n startFormatters = <table> {\n }\n needToSort = false\n sortStates = <table> {\n }\n growOn = <table> {\n }\n sortOn = <table> {\n }\n needToResize = false\n xOffsetAnim = 0\n yOffsetAnim = 0\n values = <table> {\n }\n xOffset = -0.000061\n updatedChildren = <table> {\n }\n relativeTo = Frame {\n }\n id = \"Core - Shaman\"\n finishFormatters = <table> {\n }\n toShow = true\n growStates = <table> {\n }\n xOffsetRelative = 0\n yOffsetRelative = 0\n}\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:Show() >",
+["stack"] = "[C]: in function 'Show'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1567: in function 'Resize'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1528: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4933: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4893>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:5060: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2013: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2005>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2507: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2500>\n",
+["counter"] = 651,
+},
+{
+["time"] = 1764990790,
+["logrizhi"] = "(*temporary) = RXPItemFrame {\n BottomLeftCorner = Texture {\n }\n parent = <table> {\n }\n buttonList = <table> {\n }\n TopLeftCorner = Texture {\n }\n RightEdge = Texture {\n }\n PixelSnapDisabled = true\n backdropInfo = <table> {\n }\n Center = Texture {\n }\n TopEdge = Texture {\n }\n title = RXPItemFrame_title {\n }\n BottomEdge = Texture {\n }\n BottomRightCorner = Texture {\n }\n TopRightCorner = Texture {\n }\n LeftEdge = Texture {\n }\n}\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< RXPGuides >尝试调用保护功能< RXPItemFrame:StopMovingOrSizing() >",
+["stack"] = "[C]: in function 'StopMovingOrSizing'\n[Interface/AddOns/RXPGuides/ActiveItemFrame.lua]:259: in function <Interface/AddOns/RXPGuides/ActiveItemFrame.lua:258>\n",
+["counter"] = 2,
+},
+{
+["time"] = 1764990790,
+["logrizhi"] = "(*temporary) = RXPItemFrame {\n BottomLeftCorner = Texture {\n }\n parent = <table> {\n }\n buttonList = <table> {\n }\n TopLeftCorner = Texture {\n }\n RightEdge = Texture {\n }\n PixelSnapDisabled = true\n backdropInfo = <table> {\n }\n Center = Texture {\n }\n TopEdge = Texture {\n }\n title = RXPItemFrame_title {\n }\n BottomEdge = Texture {\n }\n BottomRightCorner = Texture {\n }\n TopRightCorner = Texture {\n }\n LeftEdge = Texture {\n }\n}\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< RXPGuides >尝试调用保护功能< RXPItemFrame:StartMoving() >",
+["stack"] = "[C]: in function 'StartMoving'\n[Interface/AddOns/RXPGuides/ActiveItemFrame.lua]:256: in function <Interface/AddOns/RXPGuides/ActiveItemFrame.lua:254>\n",
+["counter"] = 1,
+},
+{
+["time"] = 1765031075,
+["logrizhi"] = "(*temporary) = Frame {\n iconSource = 0\n xOffset = 0\n yOffset = 0\n anchorPoint = \"TOP\"\n remaining = Infinite\n keepAspectRatio = false\n toShow = true\n inverse = false\n texXOffset = 0\n cooldownEdge = false\n PixelSnapDisabled = true\n cloneId = \"\"\n regionType = \"icon\"\n progressType = \"timed\"\n relativePoint = \"CENTER\"\n states = <table> {\n }\n zoom = 0\n state = <table> {\n }\n color_b = 0\n alpha = 0\n color_r = 0\n displayIcon = 134520\n values = <table> {\n }\n duration = 0\n expirationTime = Infinite\n yOffsetRelative = 0\n cooldownSwipe = true\n color_g = 0\n progressSource = <table> {\n }\n finishFormatters = <table> {\n }\n color_a = 0\n paused = true\n subRegions = <table> {\n }\n height = 124.000031\n startFormatters = <table> {\n }\n inverseDirection = false\n currentCoord = <table> {\n }\n frameId = \"general_options_-_death_knight\"\n scaley = 1\n scalex = 1\n xOffsetAnim = 0\n yOffsetAnim = 0\n subRegionEvents = <table> {\n }\n relativeTo = Frame {\n }\n icon = Texture {\n }\n id = \"General Options - Death Knight\"\n width = 354\n xOffsetRelative = 0\n cooldown = WeakAurasCooldowngeneral_options_-_death_knight {\n }\n texYOffset = 0\n}\n(*temporary) = 354\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:SetWidth() >",
+["stack"] = "[C]: in function 'SetWidth'\n[Interface/AddOns/WeakAuras/RegionTypes/Icon.lua]:332: in function 'UpdateSize'\n[Interface/AddOns/WeakAuras/RegionTypes/Icon.lua]:536: in function 'SetRegionWidth'\n[return function() local local_env = aura_env]:80: in function <[string \"return function() local local_env = aura_en...\"]:79>\n[return function() local local_env = aura_env]:101: in function <[string \"return function() local local_env = aura_en...\"]:84>\n[return function() local local_env = aura_env]:477: in function 'GrowCore'\n[return function(newPositions, activeRegions)]:5: in function <[string \"return function(newPositions, activeRegions...\"]:1>\n[C]: in function 'xpcall'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:985: in function 'growFunc'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1500: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4933: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4893>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:5060: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2013: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2005>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2507: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2500>\n",
+["counter"] = 11472,
+},
+{
+["time"] = 1765031075,
+["logrizhi"] = "(*temporary) = Frame {\n iconSource = 0\n xOffset = 0\n yOffset = 0\n anchorPoint = \"TOP\"\n remaining = Infinite\n keepAspectRatio = false\n toShow = true\n inverse = false\n texXOffset = 0\n cooldownEdge = false\n PixelSnapDisabled = true\n cloneId = \"\"\n regionType = \"icon\"\n progressType = \"timed\"\n relativePoint = \"CENTER\"\n states = <table> {\n }\n zoom = 0\n state = <table> {\n }\n color_b = 0\n alpha = 0\n color_r = 0\n displayIcon = 134520\n values = <table> {\n }\n duration = 0\n expirationTime = Infinite\n yOffsetRelative = 0\n cooldownSwipe = true\n color_g = 0\n progressSource = <table> {\n }\n finishFormatters = <table> {\n }\n color_a = 0\n paused = true\n subRegions = <table> {\n }\n height = 124.000031\n startFormatters = <table> {\n }\n inverseDirection = false\n currentCoord = <table> {\n }\n frameId = \"general_options_-_death_knight\"\n scaley = 1\n scalex = 1\n xOffsetAnim = 0\n yOffsetAnim = 0\n subRegionEvents = <table> {\n }\n relativeTo = Frame {\n }\n icon = Texture {\n }\n id = \"General Options - Death Knight\"\n width = 354\n xOffsetRelative = 0\n cooldown = WeakAurasCooldowngeneral_options_-_death_knight {\n }\n texYOffset = 0\n}\n(*temporary) = 124.000031\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:SetHeight() >",
+["stack"] = "[C]: in function 'SetHeight'\n[Interface/AddOns/WeakAuras/RegionTypes/Icon.lua]:333: in function 'UpdateSize'\n[Interface/AddOns/WeakAuras/RegionTypes/Icon.lua]:536: in function 'SetRegionWidth'\n[return function() local local_env = aura_env]:80: in function <[string \"return function() local local_env = aura_en...\"]:79>\n[return function() local local_env = aura_env]:101: in function <[string \"return function() local local_env = aura_en...\"]:84>\n[return function() local local_env = aura_env]:477: in function 'GrowCore'\n[return function(newPositions, activeRegions)]:5: in function <[string \"return function(newPositions, activeRegions...\"]:1>\n[C]: in function 'xpcall'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:985: in function 'growFunc'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1500: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4933: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4893>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:5060: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2013: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2005>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2507: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2500>\n",
+["counter"] = 11464,
+},
+{
+["time"] = 1765030954,
+["logrizhi"] = "(*temporary) = Frame {\n totalOffsetY = 0\n regionData = <table> {\n }\n totalOffsetX = 43\n}\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:ClearAllPoints() >",
+["stack"] = "[C]: in function 'ClearAllPoints'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:54: in function 'SetAnchorPoint'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1355: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1516: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4933: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4893>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:5060: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2013: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2005>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2507: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2500>\n",
+["counter"] = 14,
+},
+{
+["time"] = 1765030954,
+["logrizhi"] = "(*temporary) = Frame {\n point = \"BOTTOMLEFT\"\n totalOffsetY = 0\n regionData = <table> {\n }\n relativeFrame = Frame {\n }\n totalOffsetX = 43\n offsetX = 43\n relativePoint = \"BOTTOMLEFT\"\n offsetY = 0\n}\n(*temporary) = \"BOTTOMLEFT\"\n(*temporary) = Frame {\n controlledChildren = <table> {\n }\n subRegionEvents = <table> {\n }\n yOffset = 3\n anchorPoint = \"BOTTOMLEFT\"\n selfPoint = \"TOPLEFT\"\n controlPoints = <table> {\n }\n suspended = 0\n cloneId = \"\"\n regionType = \"dynamicgroup\"\n relativePoint = \"TOPLEFT\"\n sortedChildren = <table> {\n }\n alpha = 1\n background = Frame {\n }\n currentHeight = 39.999939\n needToReload = false\n needToPosition = false\n currentWidth = 83.000244\n subRegions = <table> {\n }\n startFormatters = <table> {\n }\n needToSort = false\n sortStates = <table> {\n }\n sortOn = <table> {\n }\n needToResize = false\n xOffsetAnim = 0\n yOffsetAnim = 0\n values = <table> {\n }\n xOffset = -0.000055\n updatedChildren = <table> {\n }\n relativeTo = Frame {\n }\n id = \"动态法术 - 死亡骑士\"\n finishFormatters = <table> {\n }\n toShow = true\n growStates = <table> {\n }\n xOffsetRelative = 0\n yOffsetRelative = 0\n}\n(*temporary) = \"BOTTOMLEFT\"\n(*temporary) = 43\n(*temporary) = 0\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:SetPoint() >",
+["stack"] = "[C]: in function 'SetPoint'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:60: in function 'SetAnchorPoint'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1355: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1516: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4933: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4893>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:5060: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2013: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2005>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2507: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2500>\n",
+["counter"] = 14,
+},
+{
+["time"] = 1765030954,
+["logrizhi"] = "(*temporary) = Frame {\n point = \"BOTTOMLEFT\"\n totalOffsetY = 0\n regionData = <table> {\n }\n relativeFrame = Frame {\n }\n totalOffsetX = 43\n offsetX = 43\n relativePoint = \"BOTTOMLEFT\"\n offsetY = 0\n}\n(*temporary) = true\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:SetShown() >",
+["stack"] = "[C]: in function 'SetShown'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1369: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1516: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4933: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4893>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:5060: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2013: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2005>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2507: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2500>\n",
+["counter"] = 14,
+},
+{
+["time"] = 1765030954,
+["logrizhi"] = "(*temporary) = Frame {\n point = \"BOTTOMLEFT\"\n totalOffsetY = 0\n regionData = <table> {\n }\n relativeFrame = Frame {\n }\n totalOffsetX = 43\n offsetX = 43\n relativePoint = \"BOTTOMLEFT\"\n offsetY = 0\n}\n(*temporary) = Frame {\n controlledChildren = <table> {\n }\n subRegionEvents = <table> {\n }\n yOffset = 3\n anchorPoint = \"BOTTOMLEFT\"\n selfPoint = \"TOPLEFT\"\n controlPoints = <table> {\n }\n suspended = 0\n cloneId = \"\"\n regionType = \"dynamicgroup\"\n relativePoint = \"TOPLEFT\"\n sortedChildren = <table> {\n }\n alpha = 1\n background = Frame {\n }\n currentHeight = 39.999939\n needToReload = false\n needToPosition = false\n currentWidth = 83.000244\n subRegions = <table> {\n }\n startFormatters = <table> {\n }\n needToSort = false\n sortStates = <table> {\n }\n sortOn = <table> {\n }\n needToResize = false\n xOffsetAnim = 0\n yOffsetAnim = 0\n values = <table> {\n }\n xOffset = -0.000055\n updatedChildren = <table> {\n }\n relativeTo = Frame {\n }\n id = \"动态法术 - 死亡骑士\"\n finishFormatters = <table> {\n }\n toShow = true\n growStates = <table> {\n }\n xOffsetRelative = 0\n yOffsetRelative = 0\n}\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< UNKNOWN() >",
+["stack"] = "[C]: ?\n[C]: in function 'SetParent'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1396: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1516: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4933: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4893>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:5060: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2013: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2005>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2507: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2500>\n",
+["counter"] = 14,
+},
+{
+["time"] = 1765030954,
+["logrizhi"] = "(*temporary) = Frame {\n point = \"BOTTOMLEFT\"\n totalOffsetY = 0\n regionData = <table> {\n }\n relativeFrame = Frame {\n }\n totalOffsetX = 43\n offsetX = 43\n relativePoint = \"BOTTOMLEFT\"\n offsetY = 0\n}\n(*temporary) = 1\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:SetScale() >",
+["stack"] = "[C]: in function 'SetScale'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1397: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1516: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4933: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4893>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:5060: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2013: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2005>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2507: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2500>\n",
+["counter"] = 16,
+},
+{
+["time"] = 1765030954,
+["logrizhi"] = "(*temporary) = Frame {\n texXOffset = 0\n subRegionEvents = <table> {\n }\n yOffset = 0\n anchorPoint = \"BOTTOMLEFT\"\n icon = Texture {\n }\n keepAspectRatio = true\n scalex = 1\n state = <table> {\n }\n iconSource = -1\n xOffset = 0\n states = <table> {\n }\n currentCoord = <table> {\n }\n relativeTo = Frame {\n }\n regionType = \"icon\"\n relativePoint = \"BOTTOMLEFT\"\n maxProgress = 300\n toShow = true\n outer = Frame {\n }\n color_b = 1\n scaley = 1\n alpha = 1\n color_r = 1\n displayIcon = \"\"\n progressType = \"timed\"\n PixelSnapDisabled = true\n duration = 300\n expirationTime = 9884.427000\n cloneId = \"\"\n cooldownSwipe = true\n color_g = 1\n zoom = 0\n subRegions = <table> {\n }\n height = 40\n startFormatters = <table> {\n }\n values = <table> {\n }\n cooldownEdge = false\n yOffsetRelative = 0\n modRate = 1\n frameId = \"白骨之盾（可点击施法）露露语音\"\n xOffsetAnim = 0\n yOffsetAnim = 0\n progressSource = <table> {\n }\n finishFormatters = <table> {\n }\n minProgress = 0\n color_a = 1\n id = \"白骨之盾（可点击施法）露露语音\"\n width = 40\n inverseDirection = false\n xOffsetRelative = 0\n cooldown = WeakAurasCooldown白骨之盾（可点击施法）露露语音 {\n }\n texYOffset = 0\n}\n(*temporary) = \"MEDIUM\"\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:SetFrameStrata() >",
+["stack"] = "[C]: in function 'SetFrameStrata'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1403: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1516: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4933: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4893>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:5060: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2013: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2005>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2507: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2500>\n",
+["counter"] = 14,
+},
+{
+["time"] = 1765030954,
+["logrizhi"] = "(*temporary) = Frame {\n texXOffset = 0\n subRegionEvents = <table> {\n }\n yOffset = 0\n anchorPoint = \"BOTTOMLEFT\"\n icon = Texture {\n }\n keepAspectRatio = true\n scalex = 1\n state = <table> {\n }\n iconSource = -1\n xOffset = 0\n states = <table> {\n }\n currentCoord = <table> {\n }\n relativeTo = Frame {\n }\n regionType = \"icon\"\n relativePoint = \"BOTTOMLEFT\"\n maxProgress = 300\n toShow = true\n outer = Frame {\n }\n color_b = 1\n scaley = 1\n alpha = 1\n color_r = 1\n displayIcon = \"\"\n progressType = \"timed\"\n PixelSnapDisabled = true\n duration = 300\n expirationTime = 9884.427000\n cloneId = \"\"\n cooldownSwipe = true\n color_g = 1\n zoom = 0\n subRegions = <table> {\n }\n height = 40\n startFormatters = <table> {\n }\n values = <table> {\n }\n cooldownEdge = false\n yOffsetRelative = 0\n modRate = 1\n frameId = \"白骨之盾（可点击施法）露露语音\"\n xOffsetAnim = 0\n yOffsetAnim = 0\n progressSource = <table> {\n }\n finishFormatters = <table> {\n }\n minProgress = 0\n color_a = 1\n id = \"白骨之盾（可点击施法）露露语音\"\n width = 40\n inverseDirection = false\n xOffsetRelative = 0\n cooldown = WeakAurasCooldown白骨之盾（可点击施法）露露语音 {\n }\n texYOffset = 0\n}\n(*temporary) = 33\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< SetFrameLevel() >",
+["stack"] = "[C]: ?\n[Interface/AddOns/WeakAuras/RegionTypes/Icon.lua]:292: in function 'SetFrameLevel'\n[Interface/AddOns/WeakAuras/SubRegionTypes/Background.lua]:17: in function 'SetFrameLevel'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4449: in function 'ApplyFrameLevel'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1407: in function 'DoPositionChildrenPerFrame'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1516: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4933: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4893>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:5060: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2013: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2005>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2507: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2500>\n",
+["counter"] = 13,
+},
+{
+["time"] = 1765030954,
+["logrizhi"] = "(*temporary) = Frame {\n controlledChildren = <table> {\n }\n subRegionEvents = <table> {\n }\n yOffset = 3\n anchorPoint = \"BOTTOMLEFT\"\n selfPoint = \"TOPLEFT\"\n controlPoints = <table> {\n }\n suspended = 0\n cloneId = \"\"\n regionType = \"dynamicgroup\"\n relativePoint = \"TOPLEFT\"\n sortedChildren = <table> {\n }\n alpha = 1\n background = Frame {\n }\n currentHeight = 39.999939\n needToReload = false\n needToPosition = false\n currentWidth = 83.000244\n subRegions = <table> {\n }\n startFormatters = <table> {\n }\n needToSort = false\n sortStates = <table> {\n }\n sortOn = <table> {\n }\n needToResize = false\n xOffsetAnim = 0\n yOffsetAnim = 0\n values = <table> {\n }\n xOffset = -0.000055\n updatedChildren = <table> {\n }\n relativeTo = Frame {\n }\n id = \"动态法术 - 死亡骑士\"\n finishFormatters = <table> {\n }\n toShow = true\n growStates = <table> {\n }\n xOffsetRelative = 0\n yOffsetRelative = 0\n}\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< WeakAuras >尝试调用保护功能< Frame:Show() >",
+["stack"] = "[C]: in function 'Show'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1567: in function 'Resize'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1528: in function 'DoPositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1332: in function 'PositionChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1313: in function 'SortUpdatedChildren'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1113: in function 'RunDelayedActions'\n[Interface/AddOns/WeakAuras/RegionTypes/DynamicGroup.lua]:1104: in function 'Resume'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:4933: in function <Interface/AddOns/WeakAuras/WeakAuras.lua:4893>\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:5060: in function 'UpdatedTriggerState'\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2013: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2005>\n[Interface/AddOns/WeakAuras/BuffTrigger2.lua]:2507: in function <Interface/AddOns/WeakAuras/BuffTrigger2.lua:2500>\n",
+["counter"] = 13,
+},
+{
+["time"] = 1765029688,
+["logrizhi"] = "(*temporary) = 16114\n(*temporary) = \"target\"\n",
+["msg"] = "[ADDON_ACTION_BLOCKED] 插件< *** ForceTaint_Strong *** >尝试调用保护功能< UNKNOWN() >",
+["stack"] = "[C]: ?\n[C]: in function 'IsItemInRange'\n[return function()]:7: in function <[string \"return function()\"]:1>\n[C]: in function 'xpcall'\n[Interface/AddOns/WeakAuras/WeakAuras.lua]:5103: in function 'RunCustomTextFunc'\n[Interface/AddOns/WeakAuras/RegionTypes/Text.lua]:306: in function '?'\n[Interface/AddOns/WeakAuras/SubscribableObject.lua]:94: in function 'Notify'\n[Interface/AddOns/WeakAuras/RegionTypes/RegionPrototype.lua]:676: in function '?'\n[Interface/AddOns/WeakAuras/SubscribableObject.lua]:94: in function 'Notify'\n[Interface/AddOns/WeakAuras/RegionTypes/RegionPrototype.lua]:912: in function <...ace/AddOns/WeakAuras/RegionTypes/RegionPrototype.lua:910>\n",
+["counter"] = 36,
+},
+},
+["ErrorTishi"] = false,
+},
+["Hardcore"] = {
+["CVars"] = {
+["NameMinV"] = 0,
+["NameMaxV"] = 16,
+["NameMaxSelect"] = 4,
+["Open"] = true,
+["NameMinSelect"] = 2,
+},
+["Deaths"] = {
+["Tgminlevel"] = 20,
+["Open"] = true,
+["Player"] = {
+},
+["BigTgminlevel"] = 50,
+["VoiceID"] = 3,
+["tipsmap"] = false,
 ["List"] = {
 },
+["savedays"] = 1,
+["level"] = {
 },
-["CombatPlus"] = {
-["AttackBar"] = {
-["Showshuzhi"] = false,
-["Scale"] = 1,
-["Xpianyi"] = 0,
-["Open"] = false,
-["Ypianyi"] = 14,
-},
-["ammotips"] = true,
-["markerW"] = {
-["BGHide"] = false,
-["Lock"] = false,
-["Scale"] = 1,
-["Open"] = true,
-["AutoShow"] = true,
-},
-["markerR"] = {
-["BGHide"] = true,
-["Lock"] = true,
-["NoTarget"] = false,
-["Scale"] = 0.8999999761581421,
-["AutoShow"] = false,
-["Open"] = true,
-["NoGroup"] = false,
-},
-["PetHappiness"] = true,
-["HPMPBar"] = {
-["CombatShow"] = true,
-["FontSize"] = 10,
-["MpShow"] = true,
-["Scale"] = 1,
-["Xpianyi"] = 0,
-["Ypianyi"] = -80,
-["HpShow"] = true,
-["Showshuzhi"] = true,
-["FuStyle"] = {
-},
-["Open"] = false,
-["Fuziyuan"] = true,
-["BarH"] = 12,
-["BarTex"] = 1,
-["BarW"] = 150,
-},
-["Submerged"] = true,
-},
-["FramePlus"] = {
-["LootMasterErr"] = true,
-["Character_ItemLevel"] = true,
-["BlizzardUI_Move"] = true,
-["BlizzardUI_Move_Save"] = true,
-["Character_Durability"] = true,
-["Skill"] = false,
-["UIWidget"] = true,
-["RollScale"] = 1,
-["Loot"] = true,
-["UIWidgetPointY"] = -70,
-["Quest"] = true,
-["Character_ItemList"] = false,
-["Character_ItemColor"] = true,
-["Spell"] = {
-["MAGE"] = {
-{
-nil,
-135846,
-4,
-"寒冰箭(等级 1)",
-"向目标射出一支寒冰箭，对其造成18至20点冰霜伤害，并使其移动速度降低40%，持续5秒。",
-95,
-},
-{
-nil,
-132793,
-4,
-"造水术(等级 1)",
-"用魔法合成2瓶魔法水以供法师和她的盟友饮用。\r\n\r\n这些物品会在持有者登出游戏超过15分钟之后消失。",
-95,
-},
-{
-nil,
-135807,
-6,
-"火焰冲击(等级 1)",
-"施放火焰冲击敌人，对其造成24到32点火焰伤害。",
-95,
-},
-{
-nil,
-133952,
-6,
-"造食术(等级 1)",
-"用魔法合成2块魔法松饼以供法师和她的盟友食用。\r\n\r\n这些物品会在持有者登出游戏超过15分钟之后消失。",
-95,
-},
-{
-nil,
-135812,
-6,
-"火球术(等级 2)",
-"发射一枚火球攻击目标，对其造成31到45点火焰伤害，并在6秒内造成额外的3点火焰伤害。",
-95,
-},
-},
-},
-["AddonList"] = true,
-["Talent"] = true,
-["Macro"] = true,
-["UIWidgetPointX"] = 0,
-["AddonStatus"] = {
-},
-["Friends"] = true,
-["Roll"] = false,
-["Skill_QKbut"] = false,
-["BuffTime"] = true,
-["Character_Shuxing"] = false,
-["SpellOpen"] = false,
-["Tracking"] = true,
-["Merchant"] = false,
-},
-["Pig_UI"] = {
-["PIG_QuickButUI"] = {
-"RIGHT",
-"RIGHT",
--73.62,
--297.12,
-},
-["Pig_OptionsUI"] = {
-"CENTER",
-"CENTER",
--166.1,
--16,
-},
-["PIGmarkerR_UI"] = {
-"TOP",
-"TOP",
-0.85,
--35.62,
-},
-["PIG_markerR"] = {
-"TOP",
-"TOP",
--0.85,
--35.62,
-},
-["QuickButUI"] = {
-"BOTTOM",
-"BOTTOM",
-304.59,
-100.26,
+["UIScale"] = 1,
 },
 },
 }

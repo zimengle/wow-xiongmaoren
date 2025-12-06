@@ -140,7 +140,7 @@ MountJournalEnhanced: enabled
 !ChatTransmit: enabled
 Blizzard_CombatText: enabled
 TotemTimers: enabled
-NewBeeBox: disabled
+NewBeeBox: enabled
 NDui: enabled
 NDui_Plus: enabled
 LibStub: enabled

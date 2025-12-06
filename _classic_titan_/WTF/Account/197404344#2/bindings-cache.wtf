@@ -28,4 +28,5 @@ bind ALT-2 CLICK RXPItemFrameButton2:LeftButton
 bind ALT-3 CLICK RXPItemFrameButton3:LeftButton
 bind ALT-4 CLICK RXPItemFrameButton4:LeftButton
 bind ; QUESTIE_TOGGLE_JOURNEY
+bind CTRL-BUTTON4 MULTIACTIONBAR1BUTTON10
 modifiedclick NONE SELFCAST

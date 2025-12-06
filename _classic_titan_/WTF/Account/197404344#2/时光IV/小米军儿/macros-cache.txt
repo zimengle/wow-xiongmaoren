@@ -4,6 +4,15 @@ VER 3 0100000000000004 "1" "134400"
 /cast [nopet]亡者复生
 /castsequence [@cursor,nochanneling]reset=10/target/combat 冰冷触摸,暗影打击,鲜血打击, 枯萎凋零, 食尸鬼狂乱,冰冷触摸, 血液沸腾, 冰冷触摸, 鲜血打击, 暗影打击,枯萎凋零, 寒冬号角, 冰冷触摸, 暗影打击, 血液沸腾
 END
+VER 3 0100000000000006 "aoe" "134400"
+#showtooltip
+/startattack
+/cast [nopet]亡者复生
+/swapactionbar 1 2
+/castsequence [actionbar:2]凋零缠绕;[@cursor,nochanneling]reset=7/target/combat 冰冷触摸,暗影打击,传染,!枯萎凋零,食尸鬼狂乱,冰冷触摸,鲜血打击,暗影打击,冰冷触摸,传染,寒冬号角,!枯萎凋零,冰冷触摸,暗影打击,鲜血打击
+/cancelaura 活力分流
+/cast [pet] !爪击
+END
 VER 3 0100000000000003 "凋零" "134400"
 #showtooltip 枯萎凋零
 /cast [@player] 枯萎凋零; [mod:alt,@cursor] 枯萎凋零

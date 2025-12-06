@@ -1,4 +1,11 @@
+VER 3 0100000000000003 "1" "134400"
+#showtooltips
+/castsequence reset=combat/15 石肤图腾, 法力之泉图腾
+END
+VER 3 0100000000000002 "a" "133514"
+/startattack
+END
 VER 3 0100000000000001 "TT Cast" "INV_MISC_QUESTIONMARK"
 #showtooltips
-/castsequence reset=combat/15 石肤图腾(等级 1)
+/castsequence reset=combat/15 天怒图腾(等级 3), 石肤图腾(等级 8), 法力之泉图腾(等级 5), 空气之怒图腾()
 END

@@ -11,8 +11,8 @@ RXPData = {
 },
 },
 ["trainGenericSpells"] = true,
-["gameVersion"] = 38000,
 ["release"] = "v4.8.25",
+["gameVersion"] = 38000,
 }
 RXPDB = {
 ["profileKeys"] = {
@@ -27,7 +27,7 @@ RXPDB = {
 ["爱奇艺董事长 - 时光IV"] = "global",
 ["愛雅法拉 - 时光I"] = "global",
 ["皎月梦夜 - 时光III"] = "global",
-["皎月梦夜 - 时光I"] = "global",
+["爱奇艺龚宇 - 时光IV"] = "global",
 ["小米军儿 - 时光IV"] = "global",
 ["小露露糖 - 铁血"] = "global",
 ["确实日白 - 时光I"] = "global",
@@ -40,7 +40,7 @@ RXPDB = {
 ["京东刘强东 - 时光IV"] = "global",
 ["京东董事长 - 时光IV"] = "global",
 ["露露緹婭 - 时光VI"] = "global",
-["爱奇艺龚宇 - 时光IV"] = "global",
+["皎月梦夜 - 时光I"] = "global",
 },
 ["profiles"] = {
 ["global"] = {
@@ -60,7 +60,7 @@ RXPSettings = {
 ["爱奇艺董事长 - 时光IV"] = "露露缇娅 - 时光III",
 ["愛雅法拉 - 时光I"] = "露露缇娅 - 时光III",
 ["皎月梦夜 - 时光III"] = "露露缇娅old1764210356684 - 时光VI",
-["皎月梦夜 - 时光I"] = "露露缇娅old1764210356684 - 时光VI",
+["爱奇艺龚宇 - 时光IV"] = "露露缇娅 - 时光III",
 ["小米军儿 - 时光IV"] = "露露缇娅 - 时光III",
 ["小露露糖 - 铁血"] = "露露缇娅old1764210356684丶 - 铁血",
 ["确实日白 - 时光I"] = "露露缇娅 - 时光III",
@@ -73,7 +73,7 @@ RXPSettings = {
 ["京东刘强东 - 时光IV"] = "露露缇娅 - 时光III",
 ["京东董事长 - 时光IV"] = "露露缇娅 - 时光III",
 ["露露緹婭 - 时光VI"] = "露露缇娅old1764210356684 - 时光III",
-["爱奇艺龚宇 - 时光IV"] = "露露缇娅 - 时光III",
+["皎月梦夜 - 时光I"] = "露露缇娅old1764210356684 - 时光VI",
 },
 ["profiles"] = {
 ["露露缇娅丶 - 铁血"] = {
@@ -84,17 +84,16 @@ RXPSettings = {
 ["phase"] = 1,
 ["hideCompletedSteps"] = false,
 ["season"] = 0,
-["disableArrow"] = false,
+["enableTracker"] = false,
 ["hardcore"] = false,
 ["enableAddonIncompatibilityCheck"] = false,
 ["arrowText"] = 15,
-["frameHeight"] = 28.0000114440918,
 ["framePositions"] = {
-["activeTargetFrame"] = {
+["arrowFrame"] = {
 {
 "LEFT",
-[5] = 6.952399253845215,
-[4] = 264.5238037109375,
+[5] = -39.23849105834961,
+[4] = 277.1809997558594,
 [3] = "LEFT",
 },
 },
@@ -115,19 +114,20 @@ RXPSettings = {
 0,
 },
 },
-["arrowFrame"] = {
+["activeTargetFrame"] = {
 {
 "LEFT",
-[5] = -39.23849105834961,
-[4] = 277.1809997558594,
+[5] = 6.952399253845215,
+[4] = 264.5238037109375,
 [3] = "LEFT",
 },
 },
 },
+["frameHeight"] = 28.0000114440918,
 ["frameSizes"] = {
-["activeTargetFrame"] = {
-54.40001678466797,
-40,
+["arrowFrame"] = {
+38.39999771118164,
+38.40005111694336,
 },
 ["RXPFrame"] = {
 257.3334045410156,
@@ -137,55 +137,16 @@ RXPSettings = {
 51.23808288574219,
 40,
 },
-["arrowFrame"] = {
-38.39999771118164,
-38.40005111694336,
+["activeTargetFrame"] = {
+54.40001678466797,
+40,
 },
 },
 ["hideInRaid"] = true,
-["enableTracker"] = false,
+["disableArrow"] = false,
 },
 ["露露缇娅 - 时光III"] = {
-["hideGuideWindow"] = false,
 ["hardcore"] = false,
-["framePositions"] = {
-["activeTargetFrame"] = {
-{
-"CENTER",
-nil,
-"CENTER",
-594.7786865234375,
--148.9789123535156,
-},
-},
-["RXPFrame"] = {
-{
-"LEFT",
-nil,
-"LEFT",
-13.6752290725708,
--200.9140777587891,
-},
-},
-["activeItemFrame"] = {
-{
-"CENTER",
-nil,
-"CENTER",
-407.522705078125,
--182.564208984375,
-},
-},
-["arrowFrame"] = {
-{
-"CENTER",
-nil,
-"CENTER",
-1.385846853256226,
--172.7226409912109,
-},
-},
-},
 ["enableTracker"] = false,
 ["guideFontSize"] = 16,
 ["enableBindAutomation"] = false,
@@ -199,11 +160,50 @@ nil,
 ["frameHeight"] = 39.74380111694336,
 ["macroAnnounced"] = true,
 ["enableLevelUpAnnounceSolo"] = false,
+["hideGuideWindow"] = false,
 ["disableArrow"] = false,
-["frameSizes"] = {
+["framePositions"] = {
+["arrowFrame"] = {
+{
+"CENTER",
+nil,
+"CENTER",
+-12.6749849319458,
+-291.9747009277344,
+},
+},
+["RXPFrame"] = {
+{
+"LEFT",
+nil,
+"LEFT",
+0,
+-280.2305908203125,
+},
+},
+["activeItemFrame"] = {
+{
+"CENTER",
+nil,
+"CENTER",
+412.7872619628906,
+-184.3676452636719,
+},
+},
 ["activeTargetFrame"] = {
-54.22256088256836,
-42.99994277954102,
+{
+"RIGHT",
+nil,
+"RIGHT",
+-591.1002807617188,
+-153.0814971923828,
+},
+},
+},
+["frameSizes"] = {
+["arrowFrame"] = {
+31.9999885559082,
+31.9999885559082,
 },
 ["RXPFrame"] = {
 400.08544921875,
@@ -213,9 +213,9 @@ nil,
 50.76925277709961,
 40.00003051757813,
 },
-["arrowFrame"] = {
-31.9999885559082,
-31.9999885559082,
+["activeTargetFrame"] = {
+54.22237396240234,
+42.99994277954102,
 },
 },
 },

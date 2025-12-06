@@ -1,7 +1,21 @@
+VER 3 0100000000000004 "1" "134400"
+/startattack
+/cast 符文打击
+/cast [nopet]亡者复生
+/castsequence [@cursor,nochanneling]reset=10/target/combat 冰冷触摸,暗影打击,鲜血打击, 枯萎凋零, 食尸鬼狂乱,冰冷触摸, 血液沸腾, 冰冷触摸, 鲜血打击, 暗影打击,枯萎凋零, 寒冬号角, 冰冷触摸, 暗影打击, 血液沸腾
+END
+VER 3 0100000000000003 "凋零" "134400"
+#showtooltip 枯萎凋零
+/cast [@player] 枯萎凋零; [mod:alt,@cursor] 枯萎凋零
+END
 VER 3 0100000000000002 "坐骑" "134400"
 /施放 泰坦重铸无敌
 /施放 阿彻鲁斯死亡战马
 END
 VER 3 0100000000000001 "自动攻击" "132223"
 /startattack
+END
+VER 3 0100000000000005 "释放" "134400"
+/施放 白骨之盾
+/施放 寒冬号角
 END

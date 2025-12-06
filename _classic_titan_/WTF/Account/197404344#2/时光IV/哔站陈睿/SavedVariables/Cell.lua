@@ -5,8 +5,8 @@ CellCharacterDB = {
 ["raid_outdoor"] = "default",
 ["party"] = "default",
 ["solo"] = "default",
-["raid25"] = "default",
 ["raid10"] = "default",
+["raid25"] = "default",
 ["arena"] = "default",
 ["battleground15"] = "default",
 ["battleground40"] = "default",
@@ -15,8 +15,8 @@ CellCharacterDB = {
 ["raid_outdoor"] = "default",
 ["party"] = "default",
 ["solo"] = "default",
-["raid25"] = "default",
 ["raid10"] = "default",
+["raid25"] = "default",
 ["arena"] = "default",
 ["battleground15"] = "default",
 ["battleground40"] = "default",
@@ -62,16 +62,41 @@ CellCharacterDB = {
 ["common"] = {
 {
 "type1",
-"target",
+"spell",
+331,
 },
 {
 "type2",
-"togglemenu",
+"spell",
+8004,
 },
 {
 "type-shiftR",
 "spell",
 2008,
+},
+{
+"ctrl-type1",
+"target",
+},
+{
+"ctrl-type2",
+"togglemenu",
+},
+{
+"type5",
+"spell",
+974,
+},
+{
+"type3",
+"spell",
+61295,
+},
+{
+"type4",
+"spell",
+1064,
 },
 },
 ["class"] = "SHAMAN",

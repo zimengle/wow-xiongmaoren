@@ -8,51 +8,18 @@ bind Z MULTIACTIONBAR1BUTTON1
 bind NUMLOCK NONE
 bind BUTTON4 MULTIACTIONBAR1BUTTON12
 bind R ACTIONBUTTON9
-bind SHIFT-R NONE
 bind 6 ELVUIBAR8BUTTON2
 bind 7 ELVUIBAR8BUTTON2
 bind 8 ELVUIBAR8BUTTON2
 bind 9 ELVUIBAR8BUTTON2
-bind CTRL-F1 CLICK wowshaoMacro25:LeftButton
-bind CTRL-F2 CLICK wowshaoMacro26:LeftButton
-bind CTRL-F3 CLICK wowshaoMacro27:LeftButton
-bind CTRL-F4 CLICK wowshaoMacro28:LeftButton
-bind CTRL-F5 CLICK wowshaoMacro29:LeftButton
-bind CTRL-F6 CLICK wowshaoMacro30:LeftButton
-bind CTRL-F7 CLICK wowshaoMacro31:LeftButton
-bind CTRL-F9 CLICK wowshaoMacro32:LeftButton
-bind CTRL-F10 CLICK wowshaoMacro33:LeftButton
-bind CTRL-6 CLICK wowshaoMacro51:LeftButton
-bind CTRL-7 CLICK wowshaoMacro52:LeftButton
-bind CTRL-8 CLICK wowshaoMacro53:LeftButton
-bind CTRL-9 CLICK wowshaoMacro54:LeftButton
-bind CTRL-0 CLICK wowshaoMacro55:LeftButton
-bind SHIFT-1 NONE
-bind SHIFT-2 NONE
-bind SHIFT-3 NONE
-bind SHIFT-4 NONE
-bind SHIFT-5 NONE
-bind SHIFT-6 NONE
-bind SHIFT-UP NONE
-bind SHIFT-MOUSEWHEELUP NONE
-bind SHIFT-DOWN NONE
-bind SHIFT-MOUSEWHEELDOWN NONE
-bind SHIFT-F1 CLICK wowshaoMacro36:LeftButton
-bind SHIFT-F2 CLICK wowshaoMacro37:LeftButton
-bind SHIFT-F3 CLICK wowshaoMacro38:LeftButton
-bind SHIFT-F4 CLICK wowshaoMacro39:LeftButton
-bind SHIFT-F5 CLICK wowshaoMacro40:LeftButton
 bind G MULTIACTIONBAR1BUTTON6
 bind F MULTIACTIONBAR1BUTTON5
 bind V MULTIACTIONBAR1BUTTON4
 bind T MULTIACTIONBAR1BUTTON7
 bind C MULTIACTIONBAR1BUTTON3
-bind CTRL-S NONE
-bind CTRL-Y CLICK wowshaoMacro56:LeftButton
 bind CTRL-Q SHAPESHIFTBUTTON1
 bind CTRL-W SHAPESHIFTBUTTON2
 bind CTRL-E SHAPESHIFTBUTTON3
-bind CTRL-P CLICK wowshaoMacro60:LeftButton
 bind ` ACTIONBUTTON6
 bind BUTTON5 MULTIACTIONBAR1BUTTON11
 bind CTRL-C TOGGLECHARACTER0
@@ -61,84 +28,4 @@ bind ALT-2 CLICK RXPItemFrameButton2:LeftButton
 bind ALT-3 CLICK RXPItemFrameButton3:LeftButton
 bind ALT-4 CLICK RXPItemFrameButton4:LeftButton
 bind ; QUESTIE_TOGGLE_JOURNEY
-bind ALT-CTRL-H INTERACTTARGET
-bind ALT-CTRL-F CLICK wowshaoMacroRL:LeftButton
-bind ALT-CTRL-G CLICK wowshaoMacroUNLOAD:LeftButton
-bind CTRL-NUMPAD1 CLICK wowshaoMacro1:LeftButton
-bind CTRL-NUMPAD2 CLICK wowshaoMacro2:LeftButton
-bind CTRL-NUMPAD3 CLICK wowshaoMacro3:LeftButton
-bind CTRL-NUMPAD4 CLICK wowshaoMacro4:LeftButton
-bind CTRL-NUMPAD5 CLICK wowshaoMacro5:LeftButton
-bind CTRL-NUMPAD6 CLICK wowshaoMacro6:LeftButton
-bind CTRL-NUMPAD7 CLICK wowshaoMacro7:LeftButton
-bind CTRL-NUMPAD8 CLICK wowshaoMacro8:LeftButton
-bind CTRL-NUMPAD9 CLICK wowshaoMacro9:LeftButton
-bind CTRL-NUMPAD0 CLICK wowshaoMacro10:LeftButton
-bind CTRL-NUMPADPLUS CLICK wowshaoMacro11:LeftButton
-bind CTRL-NUMPADMINUS CLICK wowshaoMacro12:LeftButton
-bind ALT-NUMPAD1 CLICK wowshaoMacro13:LeftButton
-bind ALT-NUMPAD2 CLICK wowshaoMacro14:LeftButton
-bind ALT-NUMPAD3 CLICK wowshaoMacro15:LeftButton
-bind ALT-NUMPAD4 CLICK wowshaoMacro16:LeftButton
-bind ALT-NUMPAD5 CLICK wowshaoMacro17:LeftButton
-bind ALT-NUMPAD6 CLICK wowshaoMacro18:LeftButton
-bind ALT-NUMPAD7 CLICK wowshaoMacro19:LeftButton
-bind ALT-NUMPAD8 CLICK wowshaoMacro20:LeftButton
-bind ALT-NUMPAD9 CLICK wowshaoMacro21:LeftButton
-bind ALT-NUMPAD0 CLICK wowshaoMacro22:LeftButton
-bind ALT-NUMPADPLUS CLICK wowshaoMacro23:LeftButton
-bind ALT-NUMPADMINUS CLICK wowshaoMacro24:LeftButton
-bind CTRL-F11 CLICK wowshaoMacro34:LeftButton
-bind CTRL-F12 CLICK wowshaoMacro35:LeftButton
-bind SHIFT-F6 CLICK wowshaoMacro41:LeftButton
-bind SHIFT-F7 CLICK wowshaoMacro42:LeftButton
-bind SHIFT-F10 CLICK wowshaoMacro43:LeftButton
-bind SHIFT-F11 CLICK wowshaoMacro44:LeftButton
-bind SHIFT-F12 CLICK wowshaoMacro45:LeftButton
-bind ALT-6 CLICK wowshaoMacro46:LeftButton
-bind ALT-7 CLICK wowshaoMacro47:LeftButton
-bind ALT-8 CLICK wowshaoMacro48:LeftButton
-bind ALT-9 CLICK wowshaoMacro49:LeftButton
-bind ALT-0 CLICK wowshaoMacro50:LeftButton
-bind CTRL-U CLICK wowshaoMacro57:LeftButton
-bind CTRL-I CLICK wowshaoMacro58:LeftButton
-bind CTRL-O CLICK wowshaoMacro59:LeftButton
-bind CTRL-H CLICK wowshaoMacro61:LeftButton
-bind CTRL-J CLICK wowshaoMacro62:LeftButton
-bind CTRL-K CLICK wowshaoMacro63:LeftButton
-bind CTRL-L CLICK wowshaoMacro64:LeftButton
-bind CTRL-SHIFT-G CLICK wowshaoMacro65:LeftButton
-bind ALT-CTRL-NUMPAD1 CLICK wowshaoMacro66:LeftButton
-bind ALT-CTRL-NUMPAD2 CLICK wowshaoMacro67:LeftButton
-bind ALT-CTRL-NUMPAD3 CLICK wowshaoMacro68:LeftButton
-bind ALT-CTRL-NUMPAD4 CLICK wowshaoMacro69:LeftButton
-bind ALT-CTRL-NUMPAD5 CLICK wowshaoMacro70:LeftButton
-bind ALT-CTRL-NUMPAD6 CLICK wowshaoMacro71:LeftButton
-bind ALT-CTRL-NUMPAD7 CLICK wowshaoMacro72:LeftButton
-bind ALT-CTRL-NUMPAD8 CLICK wowshaoMacro73:LeftButton
-bind ALT-CTRL-NUMPAD9 CLICK wowshaoMacro74:LeftButton
-bind ALT-CTRL-NUMPAD0 CLICK wowshaoMacro75:LeftButton
-bind ALT-CTRL-NUMPADPLUS CLICK wowshaoMacro76:LeftButton
-bind ALT-CTRL-NUMPADMINUS CLICK wowshaoMacro77:LeftButton
-bind ALT-CTRL-6 CLICK wowshaoMacro78:LeftButton
-bind ALT-CTRL-7 CLICK wowshaoMacro79:LeftButton
-bind ALT-CTRL-8 CLICK wowshaoMacro80:LeftButton
-bind ALT-CTRL-0 CLICK wowshaoMacro81:LeftButton
-bind CTRL-SHIFT-6 CLICK wowshaoMacro82:LeftButton
-bind CTRL-SHIFT-7 CLICK wowshaoMacro83:LeftButton
-bind CTRL-SHIFT-8 CLICK wowshaoMacro84:LeftButton
-bind CTRL-SHIFT-9 CLICK wowshaoMacro85:LeftButton
-bind ALT-CTRL-F2 CLICK wowshaoMacro86:LeftButton
-bind ALT-CTRL-F3 CLICK wowshaoMacro87:LeftButton
-bind ALT-CTRL-F5 CLICK wowshaoMacro88:LeftButton
-bind ALT-CTRL-F6 CLICK wowshaoMacro89:LeftButton
-bind ALT-CTRL-F7 CLICK wowshaoMacro90:LeftButton
-bind ALT-CTRL-F8 CLICK wowshaoMacro91:LeftButton
-bind ALT-CTRL-F9 CLICK wowshaoMacro92:LeftButton
-bind ALT-CTRL-F10 CLICK wowshaoMacro93:LeftButton
-bind ALT-CTRL-F11 CLICK wowshaoMacro94:LeftButton
-bind ALT-CTRL-F12 CLICK wowshaoMacro95:LeftButton
-bind ALT-CTRL-SHIFT-6 CLICK wowshaoMacro96:LeftButton
-bind ALT-CTRL-SHIFT-7 CLICK wowshaoMacro97:LeftButton
-bind ALT-CTRL-SHIFT-0 CLICK wowshaoMacro98:LeftButton
 modifiedclick NONE SELFCAST

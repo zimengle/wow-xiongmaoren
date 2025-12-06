@@ -1,7 +1,7 @@
-## Interface: 11508
+## Interface: 11506
 ## Author: Aznamir, Dyaxler, Es, gallantron
-## Title: PallyPower Classic
-## Version: 3.4.5 谷风修复版
+## Title: PallyPower |cff99ddff谷|r|cff88ccee风|r|cff77bbdd修|r|cff66aacc复|r|cff5599bb版|r
+## Version: v1.5.15 谷风呀
 ## Notes: Raid/Party Paladin buffs
 ## Notes-esES: Buffs de Paladín para Grupo/Banda
 ## Notes-zhCN: 圣骑士祝福管理
@@ -31,4 +31,4 @@ locale\zhTW.lua
 PallyPower.lua
 PallyPowerValues.lua
 PallyPowerOptions.lua
-PallyPower_Wrath.xml
+PallyPower_Vanilla.xml

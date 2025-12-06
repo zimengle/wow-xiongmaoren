@@ -98,7 +98,7 @@ MSBTOptions: enabled
 Myslot: enabled
 OmniCC: enabled
 OmniCC_Config: enabled
-Plater: disabled
+Plater: enabled
 Postal: enabled
 ProjectAzilroka: enabled
 Questie: enabled
@@ -140,7 +140,7 @@ MountJournalEnhanced: enabled
 !ChatTransmit: enabled
 Blizzard_CombatText: enabled
 TotemTimers: enabled
-NewBeeBox: disabled
+NewBeeBox: enabled
 NDui: enabled
 NDui_Plus: enabled
 LibStub: enabled

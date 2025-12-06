@@ -5,7 +5,9 @@
 		<Size>
 			<AbsDimension x = "100" y = "34"/>
 		</Size>
-		<NormalTexture/>
+		<KeyValues>
+			<KeyValue key="backdropInfo" value="BACKDROP_TOOLTIP_8_8_1111" type="global" />
+		</KeyValues>
 		<Layers>
 			<Layer level = "OVERLAY">
 				<Texture name = "$parentIcon" file = "Interface/Icons/Spell_Holy_SealOfFury">
@@ -73,17 +75,9 @@
 		<Size>
 			<AbsDimension x = "100" y = "34"/>
 		</Size>
-		<Backdrop bgFile = "Interface\Tooltips\UI-Tooltip-Background" edgeFile = "Interface\Tooltips\UI-Tooltip-Border" tile = "true">
-			<EdgeSize>
-				<AbsValue value = "8"/>
-			</EdgeSize>
-			<TileSize>
-				<AbsValue value = "8"/>
-			</TileSize>
-			<BackgroundInsets>
-				<AbsInset left = "2" right = "2" top = "3" bottom = "2"/>
-			</BackgroundInsets>
-		</Backdrop>
+		<KeyValues>
+			<KeyValue key="backdropInfo" value="BACKDROP_TOOLTIP_8_8_1111" type="global" />
+		</KeyValues>
 		<Layers>
 			<Layer level = "OVERLAY">
 				<Texture name = "$parentIcon" file = "Interface/Icons/Spell_Holy_DevotionAura">
@@ -141,17 +135,9 @@
 		<Size>
 			<AbsDimension x = "100" y = "34"/>
 		</Size>
-		<Backdrop bgFile = "Interface\Tooltips\UI-Tooltip-Background" edgeFile = "Interface\Tooltips\UI-Tooltip-Border" tile = "true">
-			<EdgeSize>
-				<AbsValue value = "8"/>
-			</EdgeSize>
-			<TileSize>
-				<AbsValue value = "8"/>
-			</TileSize>
-			<BackgroundInsets>
-				<AbsInset left = "2" right = "2" top = "3" bottom = "2"/>
-			</BackgroundInsets>
-		</Backdrop>
+		<KeyValues>
+			<KeyValue key="backdropInfo" value="BACKDROP_TOOLTIP_8_8_1111" type="global" />
+		</KeyValues>
 		<Layers>
 			<Layer level = "OVERLAY">
 				<Texture name = "$parentIcon" file = "Interface\AddOns\PallyPower\Icons\SummonChampion">
@@ -218,17 +204,9 @@
 		<Size>
 			<AbsDimension x = "100" y = "34"/>
 		</Size>
-		<Backdrop bgFile = "Interface\Tooltips\UI-Tooltip-Background" edgeFile = "Interface\Tooltips\UI-Tooltip-Border" tile = "true">
-			<EdgeSize>
-				<AbsValue value = "8"/>
-			</EdgeSize>
-			<TileSize>
-				<AbsValue value = "8"/>
-			</TileSize>
-			<BackgroundInsets>
-				<AbsInset left = "2" right = "2" top = "2" bottom = "2"/>
-			</BackgroundInsets>
-		</Backdrop>
+		<KeyValues>
+			<KeyValue key="backdropInfo" value="BACKDROP_TOOLTIP_8_8_1111" type="global" />
+		</KeyValues>
 		<Layers>
 			<Layer level = "OVERLAY">
 				<FontString name = "$parentTime" inherits = "GameFontHighlightSmall" text = "30:00" justifyH = "RIGHT">
@@ -317,17 +295,9 @@
 		<Size>
 			<AbsDimension x = "100" y = "34"/>
 		</Size>
-		<Backdrop bgFile = "Interface\Tooltips\UI-Tooltip-Background" edgeFile = "Interface\Tooltips\UI-Tooltip-Border" tile = "true">
-			<EdgeSize>
-				<AbsValue value = "8"/>
-			</EdgeSize>
-			<TileSize>
-				<AbsValue value = "8"/>
-			</TileSize>
-			<BackgroundInsets>
-				<AbsInset left = "2" right = "2" top = "2" bottom = "2"/>
-			</BackgroundInsets>
-		</Backdrop>
+		<KeyValues>
+			<KeyValue key="backdropInfo" value="BACKDROP_TOOLTIP_8_8_1111" type="global" />
+		</KeyValues>
 		<Layers>
 			<Layer level = "OVERLAY">
 				<FontString name = "$parentRng" inherits = "GameFontHighlightSmall" text = "R" justifyH = "RIGHT">
@@ -1502,17 +1472,9 @@
 				</Offset>
 			</Anchor>
 		</Anchors>
-		<Backdrop bgFile = "Interface\CharacterFrame\UI-Party-Background" edgeFile = "Interface\Tooltips\UI-Tooltip-Border" tile = "true">
-			<EdgeSize>
-				<AbsValue value = "16"/>
-			</EdgeSize>
-			<TileSize>
-				<AbsValue value = "16"/>
-			</TileSize>
-			<BackgroundInsets>
-				<AbsInset left = "5" right = "5" top = "5" bottom = "5"/>
-			</BackgroundInsets>
-		</Backdrop>
+		<KeyValues>
+			<KeyValue key="backdropInfo" value="BACKDROP_TOOLTIP_8_8_1111" type="global" />
+		</KeyValues>
 		<Frames>
 			<Button name = "$parentTitle">
 				<Size>
@@ -1830,12 +1792,40 @@
 					</OnLeave>
 				</Scripts>
 			</Button>
-			<Button name = "$parentPreset" inherits = "GameMenuButtonTemplate" text = "PALLYPOWER_PRESET" hidden = "false">
+			<Button name = "$parentOptions" inherits = "GameMenuButtonTemplate" text = "PALLYPOWER_OPTIONS" hidden = "false">
 				<Size>
 					<AbsDimension x = "100" y = "20"/>
 				</Size>
 				<Anchors>
 					<Anchor point = "BOTTOMRIGHT" relativeTo = "$parentAutoAssign" relativePoint = "BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x = "-7" y = "0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						PallyPower:OpenConfigWindow();
+					</OnClick>
+					<OnEnter>
+						if PallyPower.opt.ShowTooltips then
+							GameTooltip:SetOwner(self, "ANCHOR_BOTTOM");
+							GameTooltip:SetText(PALLYPOWER_OPTIONS_DESC);
+							GameTooltip:Show(self, motion);
+							CursorUpdate(self, motion);
+						end
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide(self, motion);
+					</OnLeave>
+				</Scripts>
+			</Button>			
+			<Button name = "$parentPreset" inherits = "GameMenuButtonTemplate" text = "PALLYPOWER_PRESET" hidden = "false">
+				<Size>
+					<AbsDimension x = "100" y = "20"/>
+				</Size>
+				<Anchors>
+					<Anchor point = "BOTTOMRIGHT" relativeTo = "$parentOptions" relativePoint = "BOTTOMLEFT">
 						<Offset>
 							<AbsDimension x = "-7" y = "0"/>
 						</Offset>
@@ -1895,35 +1885,7 @@
 					</OnLeave>
 				</Scripts>
 			</Button>
-			<Button name = "$parentOptions" inherits = "GameMenuButtonTemplate" text = "PALLYPOWER_OPTIONS" hidden = "false">
-				<Size>
-					<AbsDimension x = "100" y = "20"/>
-				</Size>
-				<Anchors>
-					<Anchor point = "BOTTOMRIGHT" relativeTo = "$parentReport" relativePoint = "BOTTOMLEFT">
-						<Offset>
-							<AbsDimension x = "-7" y = "0"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<Scripts>
-					<OnClick>
-						PallyPower:OpenConfigWindow();
-					</OnClick>
-					<OnEnter>
-						if PallyPower.opt.ShowTooltips then
-							GameTooltip:SetOwner(self, "ANCHOR_BOTTOM");
-							GameTooltip:SetText(PALLYPOWER_OPTIONS_DESC);
-							GameTooltip:Show(self, motion);
-							CursorUpdate(self, motion);
-						end
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide(self, motion);
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<CheckButton name = "$parentFreeAssign" inherits = "OptionsCheckButtonTemplate">
+			<CheckButton name = "$parentFreeAssign" inherits = "OptionsBaseCheckButtonTemplate">
 				<Anchors>
 					<Anchor point = "BOTTOMLEFT">
 						<Offset>
