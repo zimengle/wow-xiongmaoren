@@ -1,5 +1,6 @@
 
 BFWC_Filter_SavedConfigs = {
+["white_to_chatframe_num"] = "1",
 ["dlg_height"] = 500,
 ["enable"] = true,
 ["minimap"] = {
@@ -8,9 +9,13 @@ BFWC_Filter_SavedConfigs = {
 },
 ["interval"] = 40,
 ["whitelist"] = {
+"蓝龙",
+"卡扎克",
 },
 ["blocklist_enable"] = true,
-["bigfoot_chatframe_name"] = "1",
+["bigfoot_chatframe_name"] = "5",
+["hide_enter_leave"] = false,
+["filter_request_to_join"] = true,
 ["white_to_chatframe_color"] = {
 ["a"] = 1,
 ["r"] = 1,
@@ -18,8 +23,6 @@ BFWC_Filter_SavedConfigs = {
 ["g"] = 0.753,
 ["hex"] = "ffffc0c0",
 },
-["filter_request_to_join"] = true,
-["hide_enter_leave"] = false,
 ["dungeons"] = {
 },
 ["blacklist_enable"] = false,
@@ -77,7 +80,7 @@ BFWC_Filter_SavedConfigs = {
 },
 ["dlg_width"] = 700,
 ["saved"] = true,
-["bigfoot"] = false,
+["bigfoot"] = true,
 ["remain_unchanged_msg"] = true,
 ["auto_filter_by_level"] = false,
 ["white_to_chatframe"] = true,

@@ -375,33 +375,23 @@ end
 local function FormatXY(offsetX,offsetY)
 	return floor(offsetX*100+0.5)*0.01,floor(offsetY*100+0.5)*0.01
 end
-local function PIG_SetPoint(k,Blizzard)
+local function PIG_SetPoint(k)
 	if not _G[k] then return end
-	if Blizzard then
-		local uixy=PIGA["Blizzard_UI"][k]["Point"]
-		if uixy and uixy[1] and uixy[2] and uixy[3] and uixy[4] and not uixy[5] then
-			uixy[3],uixy[4]=FormatXY(uixy[3],uixy[4])
-			PIG_SetPoint_1(k,Blizzard,uixy)
-		else
-			PIGA["Blizzard_UI"][k]["Point"]=nil
-		end
+	local World= UILayout[k] and UILayout[k][5]
+	PIG_SetPoint_1(k,nil,UILayout[k],World)
+	local uixy=PIGA["Pig_UI"][k]
+	if uixy and uixy[1] and uixy[2] and uixy[3] and uixy[4] and not uixy[5] then
+		uixy[3],uixy[4]=FormatXY(uixy[3],uixy[4])
+		PIG_SetPoint_1(k,nil,uixy,World)
 	else
-		local World= UILayout[k] and UILayout[k][5]
-		PIG_SetPoint_1(k,nil,UILayout[k],World)
-		local uixy=PIGA["Pig_UI"][k]
-		if uixy and uixy[1] and uixy[2] and uixy[3] and uixy[4] and not uixy[5] then
-			uixy[3],uixy[4]=FormatXY(uixy[3],uixy[4])
-			PIG_SetPoint_1(k,nil,uixy,World)
-		else
-			PIGA["Pig_UI"][k]=nil
-		end
-		local uixy=PIGA_Per["Pig_UI"][k]
-		if uixy and uixy[1] and uixy[2] and uixy[3] and uixy[4] and not uixy[5] then
-			uixy[3],uixy[4]=FormatXY(uixy[3],uixy[4])
-			PIG_SetPoint_1(k,nil,uixy,World)
-		else
-			PIGA_Per["Pig_UI"][k]=nil
-		end
+		PIGA["Pig_UI"][k]=nil
+	end
+	local uixy=PIGA_Per["Pig_UI"][k]
+	if uixy and uixy[1] and uixy[2] and uixy[3] and uixy[4] and not uixy[5] then
+		uixy[3],uixy[4]=FormatXY(uixy[3],uixy[4])
+		PIG_SetPoint_1(k,nil,uixy,World)
+	else
+		PIGA_Per["Pig_UI"][k]=nil
 	end
 end
 Create.PIG_SetPoint=PIG_SetPoint

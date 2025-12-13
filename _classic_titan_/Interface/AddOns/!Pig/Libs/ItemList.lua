@@ -397,7 +397,22 @@ local function add_ItemList(fujik,miaodian,ZBLsit_C,TalentUI)
 	ZBLsit.classes:SetTexture("Interface/TargetingFrame/UI-Classes-Circles");
 	if NDui then
 		ZBLsit:PIGSetBackdrop(0.5);
-		ZBLsit.LeftJG,ZBLsit.TopJG=4,3 
+		ZBLsit.LeftJG,ZBLsit.TopJG=4,3
+		ZBLsit:HookScript("OnShow", function(self)
+			if PIG_MaxTocversion(50000) and fujik==PaperDollFrame then
+				-- if C_Engraving and C_Engraving.IsEngravingEnabled() then
+				-- 	hooksecurefunc("ToggleEngravingFrame", function()
+				-- 		FramePlusfun.UpdatePoint(PaperDollFrame)
+				-- 	end)
+				-- end
+				self:ClearAllPoints();
+				if NDui and NDuiStatPanel and NDuiStatPanel:IsShown() then
+					self:SetPoint("TOPLEFT", NDuiStatPanel, "TOPRIGHT",2,1)
+				else
+					self:SetPoint("TOPLEFT", fujik, "TOPRIGHT",-34,-15)
+				end
+			end
+		end)
 	else
 		ZBLsit:PIGSetBackdrop(0.8);
 		ZBLsit.LeftJG,ZBLsit.TopJG=6,6

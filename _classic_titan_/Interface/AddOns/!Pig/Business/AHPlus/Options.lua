@@ -38,10 +38,10 @@ function BusinessInfo.AHPlusOptions()
 	local Scaninfo = {1,10,1}
 	BusinessInfo.AHPlusData.ScanCD=PIGA["AHPlus"]["ScanTimeCD"]
 	fuFrame.AHPlus.ScanSlider = PIGSlider(fuFrame.AHPlus,{"LEFT",fuFrame.AHPlus.ScanSliderT,"RIGHT",10,0},Scaninfo)
-	fuFrame.AHPlus.ScanSlider.Slider:HookScript("OnValueChanged", function(self, arg1)
+	function fuFrame.AHPlus.ScanSlider:PIGOnValueChange(arg1)
 		PIGA["AHPlus"]["ScanTimeCD"]=arg1
 		BusinessInfo.AHPlusData.ScanCD=arg1
-	end)
+	end
 	fuFrame.AHPlus.AHtooltip =PIGCheckbutton(fuFrame.AHPlus,{"TOPLEFT",fuFrame.AHPlus,"BOTTOMLEFT",0,-20},{"鼠标提示拍卖价钱","在物品的鼠标提示上显示拍卖缓存价钱"})
 	fuFrame.AHPlus.AHtooltip:SetScript("OnClick", function (self)
 		if self:GetChecked() then

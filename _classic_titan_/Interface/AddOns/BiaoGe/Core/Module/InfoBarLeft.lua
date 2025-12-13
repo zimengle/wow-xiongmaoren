@@ -139,20 +139,20 @@ BG.Init(function()
             f:SetSize(frameWidth, (#f.buttons + 1) * barHeight + 40)
         end
 
-        local f = CreateFrame("Frame", nil, BG.MainFrame)
-        f:SetSize(1, 20)
-        f:SetPoint("BOTTOMLEFT", 10, 2)
-        f.text = f:CreateFontString()
-        f.text:SetFont(STANDARD_TEXT_FONT, 13, "OUTLINE")
-        f.text:SetPoint("LEFT")
-        f.text:SetTextColor(1, 1, 1)
-        f:SetScript("OnEnter", CreateHistoryFrame)
-        f:SetScript("OnLeave", function(self)
+        local bt = CreateFrame("Frame", nil, BG.MainFrame)
+        bt:SetSize(1, 20)
+        bt:SetPoint("BOTTOMLEFT", 10, 2)
+        bt.text = bt:CreateFontString()
+        bt.text:SetFont(STANDARD_TEXT_FONT, 13, "OUTLINE")
+        bt.text:SetPoint("LEFT")
+        bt.text:SetTextColor(1, 1, 1)
+        BG.OnEnterDelay(bt, CreateHistoryFrame)
+        BG.OnLeaveDelay(bt, function(self)
             if self.frame then
                 self.frame:Hide()
             end
         end)
-        BG.ButtonToken = f
+        BG.ButtonToken = bt
 
         local function SavePrice(currentPrice)
             if not next(BiaoGe.marketPrice) or
@@ -172,12 +172,12 @@ BG.Init(function()
             local currentPrice = C_WowTokenPublic.GetCurrentMarketPrice()
             if currentPrice then
                 SavePrice(currentPrice)
-                f.currentPrice = currentPrice
-                f.text:SetText(AddTexture(1120721) .. GetMoneyString(currentPrice, true))
-                f:SetWidth(f.text:GetWidth() + 10)
+                bt.currentPrice = currentPrice
+                bt.text:SetText(AddTexture(1120721) .. GetMoneyString(currentPrice, true))
+                bt:SetWidth(bt.text:GetWidth() + 10)
             else
-                f.text:SetText("")
-                f:SetWidth(1)
+                bt.text:SetText("")
+                bt:SetWidth(1)
             end
         end
         BG.RegisterEvent("TOKEN_MARKET_PRICE_UPDATED", OnTokenMarketPriceUpdated)
@@ -246,21 +246,21 @@ BG.Init(function()
             GameTooltip:Hide()
         end
 
-        local f = CreateFrame("Button", nil, BG.MainFrame)
-        f:SetSize(1, 20)
-        f:SetPoint("LEFT", BG.ButtonToken, "RIGHT", 0, 0)
-        f:SetNormalFontObject(BG.FontWhite13)
-        f:SetText(AddTexture(135994) .. L["待刷新"])
-        f:GetFontString():SetPoint("LEFT")
-        f:SetWidth(f:GetFontString():GetWidth() + 10)
-        f.channel = World
-        f:SetScript("OnEnter", OnEnter)
-        f:SetScript("OnLeave", OnLeave)
-        f:SetScript("OnClick", function(self)
+        local bt = CreateFrame("Button", nil, BG.MainFrame)
+        bt:SetSize(1, 20)
+        bt:SetPoint("LEFT", BG.ButtonToken, "RIGHT", 0, 0)
+        bt:SetNormalFontObject(BG.FontWhite13)
+        bt:SetText(AddTexture(135994) .. L["待刷新"])
+        bt:GetFontString():SetPoint("LEFT")
+        bt:SetWidth(bt:GetFontString():GetWidth() + 10)
+        bt.channel = World
+        BG.OnEnterDelay(bt, OnEnter)
+        BG.OnLeaveDelay(bt, OnLeave)
+        bt:SetScript("OnClick", function(self)
             BG.GetChannelMemberCount(self.channel)
             BG.PlaySound(1)
         end)
-        BG.ButtonOnLineCount = f
+        BG.ButtonOnLineCount = bt
 
         function BG.GetChannelMemberCount(channelName)
             local yes
@@ -287,15 +287,15 @@ BG.Init(function()
                     BG.After(1, function()
                         local _, _, _, _, count = GetChannelDisplayInfo(bt.channelID)
                         if count then
-                            f.count = count
+                            bt.count = count
                             local m, s = GetGameTime()
                             s = format("%02d", s)
-                            f.time = m .. ":" .. s
-                            f:SetText(AddTexture(135994) .. count .. L["人"])
-                            f:GetFontString():SetPoint("LEFT")
-                            f:SetWidth(f:GetFontString():GetWidth() + 10)
-                            if f.isOnEnter then
-                                OnEnter(f)
+                            bt.time = m .. ":" .. s
+                            bt:SetText(AddTexture(135994) .. count .. L["人"])
+                            bt:GetFontString():SetPoint("LEFT")
+                            bt:SetWidth(bt:GetFontString():GetWidth() + 10)
+                            if bt.isOnEnter then
+                                OnEnter(bt)
                             end
                         end
                         for k, bt in ipairs(ChannelFrame.ChannelList.buttons) do

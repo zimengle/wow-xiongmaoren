@@ -1,0 +1,12 @@
+
+ElvCharacterDB = {
+["ConvertKeybindings"] = true,
+["ChatEditHistory"] = {
+"/wa",
+"/cw 北风承欢 霍格杀马",
+"/cw 杰诺斯四二六 杀霍格吗",
+"/played",
+},
+["ChatHistoryLog"] = {
+},
+}

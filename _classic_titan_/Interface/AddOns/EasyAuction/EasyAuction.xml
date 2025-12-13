@@ -1,0 +1,91 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Frame name="EasyAuctionPriceFrame" inherits="BackdropTemplate" hidden="true" parent="UIParent" movable="true" frameStrata="DIALOG" enableMouse="true">
+        <Size x="350" y="400"/>
+        <Anchors>
+            <Anchor point="CENTER"/>
+        </Anchors>
+        <Frames>
+            <Button name="$parentClose" inherits="UIPanelCloseButton">
+                <Anchors>
+                    <Anchor point="TOPRIGHT" x="-5" y="-5"/>
+                </Anchors>
+            </Button>
+        </Frames>
+        <Layers>
+            <Layer level="OVERLAY">
+                <FontString name="$parentItemName" inherits="GameFontHighlightLarge">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="12" y="-12"/>
+                    </Anchors>
+                </FontString>
+                <FontString name="$parentMinPrice" inherits="GameFontNormalSmall" text="历史最低价：" enableMouse="true">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="15" y="-52"/>
+                    </Anchors>
+                </FontString>
+                <FontString name="$parentVendorPrice" inherits="GameFontNormalSmall" text="卖店价：">
+                    <Anchors>
+                        <Anchor point="BOTTOMLEFT" relativeTo="$parentMinPrice" relativePoint="TOPLEFT" x="0" y="2"/>
+                    </Anchors>
+                </FontString>
+                <FontString name="$parentHeader" inherits="GameFontNormalSmall" text="序  堆叠数           单价                             卖方">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="15" y="-72"/>
+                    </Anchors>
+                </FontString>
+                <FontString name="$parentTime" inherits="GameFontDisableSmall">
+                    <Anchors>
+                        <Anchor point="BOTTOMLEFT" x="15" y="10"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Scripts>
+            <OnLoad>
+                self:SetMovable(true)
+                self:EnableMouse(true)
+                self:RegisterForDrag("LeftButton")
+                self:SetScript("OnDragStart", self.StartMoving)
+                self:SetScript("OnDragStop", self.StopMovingOrSizing)
+            </OnLoad>
+        </Scripts>
+    </Frame>
+    <Frame name="EasyAuctionDBFrame" inherits="BackdropTemplate" hidden="true" parent="UIParent" movable="true" frameStrata="DIALOG" enableMouse="true">
+        <Size x="650" y="400"/>
+        <Anchors>
+            <Anchor point="CENTER"/>
+        </Anchors>
+        <Frames>
+            <Button name="$parentClose" inherits="UIPanelCloseButton">
+                <Anchors>
+                    <Anchor point="TOPRIGHT" x="-5" y="-5"/>
+                </Anchors>
+            </Button>
+        </Frames>
+        <Layers>
+            <Layer level="OVERLAY">
+                <FontString name="$parentTitle" inherits="GameFontNormalLarge"
+                    text="|TInterface/Icons/INV_Misc_Coin_01:18:18:0:0|t |cff00ff80EasyAuction|r |cffffff00拍卖行历史价格|r">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="12" y="-12"/>
+                    </Anchors>
+                </FontString>
+                <FontString name="$parentHeader" inherits="GameFontNormalSmall"
+                    text="序     物品名                                          历史最低价                  最低单价                     采集时间">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="15" y="-40"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Scripts>
+            <OnLoad>
+                self:SetMovable(true)
+                self:EnableMouse(true)
+                self:RegisterForDrag("LeftButton")
+                self:SetScript("OnDragStart", self.StartMoving)
+                self:SetScript("OnDragStop", self.StopMovingOrSizing)
+            </OnLoad>
+        </Scripts>
+    </Frame>
+</Ui>

@@ -248,7 +248,7 @@ local function useDivineInsight()
         },
         {
             spec = "holy",
-            buff = 123267,
+            buff = 123267;
             texture = "serendipity",
 --            button = prayerOfMending,
         },

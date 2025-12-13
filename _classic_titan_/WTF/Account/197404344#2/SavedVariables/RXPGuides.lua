@@ -16,6 +16,7 @@ RXPData = {
 }
 RXPDB = {
 ["profileKeys"] = {
+["退休码农 - 时光IV"] = "global",
 ["伊芙莉特 - 铁血"] = "global",
 ["蒂琪爱尔 - 铁血"] = "global",
 ["萌萌的露小露 - 铁血"] = "global",
@@ -49,6 +50,7 @@ RXPDB = {
 }
 RXPSettings = {
 ["profileKeys"] = {
+["退休码农 - 时光IV"] = "退休码农 - 时光IV",
 ["伊芙莉特 - 铁血"] = "露露缇娅old1764210356684丶 - 铁血",
 ["蒂琪爱尔 - 铁血"] = "露露缇娅old1764210356684丶 - 铁血",
 ["萌萌的露小露 - 铁血"] = "露露缇娅old1764210356684丶 - 铁血",
@@ -145,31 +147,16 @@ RXPSettings = {
 ["hideInRaid"] = true,
 ["disableArrow"] = false,
 },
-["露露缇娅 - 时光III"] = {
+["退休码农 - 时光IV"] = {
 ["hardcore"] = false,
-["enableTracker"] = false,
-["guideFontSize"] = 16,
-["enableBindAutomation"] = false,
-["previewTalents"] = false,
-["xprate"] = 1.5,
-["enableQuestRewardAutomation"] = false,
-["hideInRaid"] = true,
-["enableFPAutomation"] = false,
-["enableWorldMapButton"] = false,
-["arrowText"] = 16,
-["frameHeight"] = 39.74380111694336,
-["macroAnnounced"] = true,
-["enableLevelUpAnnounceSolo"] = false,
-["hideGuideWindow"] = false,
-["disableArrow"] = false,
 ["framePositions"] = {
 ["arrowFrame"] = {
 {
 "CENTER",
 nil,
 "CENTER",
--12.6749849319458,
--291.9747009277344,
+-5.427840709686279,
+-235.2383575439453,
 },
 },
 ["RXPFrame"] = {
@@ -177,8 +164,76 @@ nil,
 "LEFT",
 nil,
 "LEFT",
+3.418807029724121,
+-218.0771179199219,
+},
+},
+["activeItemFrame"] = {
+{
+"CENTER",
+"UIParent",
+"CENTER",
 0,
--280.2305908203125,
+0,
+},
+},
+["activeTargetFrame"] = {
+{
+"CENTER",
+nil,
+"CENTER",
+596.0001220703125,
+-132.3163146972656,
+},
+},
+},
+["xprate"] = 1.5,
+["frameSizes"] = {
+["arrowFrame"] = {
+31.9999885559082,
+31.9999885559082,
+},
+["RXPFrame"] = {
+348,
+110.9999847412109,
+},
+["activeItemFrame"] = {
+50.76925277709961,
+39.9999885559082,
+},
+["activeTargetFrame"] = {
+54.22256088256836,
+17.99993705749512,
+},
+},
+["frameHeight"] = 110.6409149169922,
+["macroAnnounced"] = true,
+},
+["露露缇娅 - 时光III"] = {
+["enableWorldMapButton"] = false,
+["enableBindAutomation"] = false,
+["enableTracker"] = false,
+["guideFontSize"] = 16,
+["disableArrow"] = false,
+["macroAnnounced"] = true,
+["hardcore"] = false,
+["framePositions"] = {
+["arrowFrame"] = {
+{
+"LEFT",
+nil,
+"LEFT",
+39.01761245727539,
+-75.90685272216797,
+},
+},
+["RXPFrame"] = {
+{
+"BOTTOMLEFT",
+nil,
+"BOTTOMLEFT",
+0,
+268.7867126464844,
 },
 },
 ["activeItemFrame"] = {
@@ -186,8 +241,8 @@ nil,
 "CENTER",
 nil,
 "CENTER",
-412.7872619628906,
--184.3676452636719,
+404.5824279785156,
+-188.4699554443359,
 },
 },
 ["activeTargetFrame"] = {
@@ -195,19 +250,20 @@ nil,
 "RIGHT",
 nil,
 "RIGHT",
--591.1002807617188,
--153.0814971923828,
+-586.9977416992188,
+-153.7652587890625,
 },
 },
 },
+["previewTalents"] = false,
 ["frameSizes"] = {
 ["arrowFrame"] = {
-31.9999885559082,
+31.99999809265137,
 31.9999885559082,
 },
 ["RXPFrame"] = {
-400.08544921875,
-39.74380111694336,
+404.8717041015625,
+27.99999046325684,
 },
 ["activeItemFrame"] = {
 50.76925277709961,
@@ -218,6 +274,14 @@ nil,
 42.99994277954102,
 },
 },
+["xprate"] = 1.5,
+["enableLevelUpAnnounceSolo"] = false,
+["frameHeight"] = 209.3161926269531,
+["arrowText"] = 16,
+["enableFPAutomation"] = false,
+["enableQuestRewardAutomation"] = false,
+["hideInRaid"] = true,
+["hideGuideWindow"] = true,
 },
 },
 }

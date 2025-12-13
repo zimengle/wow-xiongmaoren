@@ -85,6 +85,9 @@ function SpellActivationOverlayOptionsPanel_Init(self)
             -- Optimized build, must check compatibility
             local addonBuild = SAO.GetFullProjectName(xSaoBuild);
             local expectedBuild = SAO.GetFullProjectName(SAO.GetExpectedBuildID());
+            if SAO.IsTitan() and xSaoBuild == "wrath" then
+                addonBuild = expectedBuild; 
+            end
             if addonBuild ~= expectedBuild then
                 titleText = WrapTextInColorCode(titleText, "ffff0000");
                 addonBuild = WrapTextInColorCode(addonBuild, "ffff0000");
@@ -101,19 +104,7 @@ function SpellActivationOverlayOptionsPanel_Init(self)
                     optimizedForText = SAO:optimizedFor(WrapTextInColorCode(BNET_FRIEND_TOOLTIP_WOW_CLASSIC, "ffff0000"));
                 end
             else
-                local locale = GetLocale();
-                local isTitanReforged = (locale == "zhCN" and xSaoBuild == "wrath");
-                
-                if isTitanReforged then
-                    optimizedForText = SAO:optimizedForClassicExpansion("泰坦重铸时光服");
-                else
-                    optimizedForText = SAO:optimizedFor(string.format(BNET_FRIEND_ZONE_WOW_CLASSIC, addonBuild));
-                end
-            end
-
-            local subProjectName = SAO.GetSubProjectName(xSaoBuild);
-            if subProjectName then
-                optimizedForText = optimizedForText .. " (" .. subProjectName .. ")";
+                optimizedForText = SAO:optimizedFor(string.format(BNET_FRIEND_ZONE_WOW_CLASSIC, addonBuild));
             end
 
             buildInfoLabel:SetText(titleText.."\n"..optimizedForText);
@@ -174,11 +165,8 @@ function SpellActivationOverlayOptionsPanel_Init(self)
         classInfoLabel:SetText("");
     end
 
-    -- Set "Spell Alerts" label text
     local spellAlertLabel = SpellActivationOverlayOptionsPanelSpellAlertLabel;
-    if spellAlertLabel then
-        spellAlertLabel:SetText(SAO:spellAlerts());
-    end
+    spellAlertLabel:SetText(SAO:spellAlerts());
 
     local opacitySlider = SpellActivationOverlayOptionsPanelSpellAlertOpacitySlider;
     opacitySlider.Text:SetText(SPELL_ALERT_OPACITY);
@@ -525,10 +513,8 @@ function SpellActivationOverlayOptionsPanel_OnShow(self)
         return;
     end
 
-    for _, classDef in ipairs({ SAO.CurrentClass, SAO.SharedClass }) do -- Iteration may fail if CurrentClass is nil and SharedClass is not, but this shouldn't happen
-        if classDef and type(classDef.LoadOptions) == 'function' then
-            classDef.LoadOptions(SAO);
-        end
+    if SAO.CurrentClass and type(SAO.CurrentClass.LoadOptions) == 'function' then
+        SAO.CurrentClass.LoadOptions(SAO);
     end
 
     SAO:AddEffectOptions();

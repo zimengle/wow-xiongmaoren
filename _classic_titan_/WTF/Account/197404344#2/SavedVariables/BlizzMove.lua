@@ -154,13 +154,13 @@ BlizzMoveDB = {
 },
 ["PVPFrameHonor"] = {
 },
-["CommunitiesGuildNewsFiltersFrame"] = {
+["GuildControlPopupFrame"] = {
 },
 ["GlyphFrame"] = {
 },
 ["TabardFrame"] = {
 },
-["GuildControlPopupFrame"] = {
+["LootFrame"] = {
 },
 ["PlayerTalentFrame"] = {
 ["startPoints"] = {
@@ -187,26 +187,7 @@ BlizzMoveDB = {
 },
 ["WorldStateScoreFrame"] = {
 },
-["SpellBookFrame"] = {
-["startPoints"] = {
-{
-["anchorPoint"] = "TOPLEFT",
-["relativeFrame"] = "UIParent",
-["offY"] = -104.0001220703125,
-["relativePoint"] = "TOPLEFT",
-["offX"] = 0,
-},
-},
-["dragged"] = true,
-["dragPoints"] = {
-{
-["anchorPoint"] = "TOPLEFT",
-["relativeFrame"] = "UIParent",
-["offY"] = -104.0001220703125,
-["relativePoint"] = "TOPLEFT",
-["offX"] = 0,
-},
-},
+["InspectPVPFrameHonor"] = {
 },
 ["HelpFrame"] = {
 },
@@ -283,11 +264,30 @@ BlizzMoveDB = {
 },
 },
 },
-["InspectPVPFrameHonor"] = {
-},
 ["GuildFrame"] = {
 },
-["LootFrame"] = {
+["SpellBookFrame"] = {
+["startPoints"] = {
+{
+["anchorPoint"] = "TOPLEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = -104.0001220703125,
+["relativePoint"] = "TOPLEFT",
+["offX"] = 0,
+},
+},
+["dragged"] = true,
+["dragPoints"] = {
+{
+["anchorPoint"] = "TOPLEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = -104.0001220703125,
+["relativePoint"] = "TOPLEFT",
+["offX"] = 0,
+},
+},
+},
+["CommunitiesGuildNewsFiltersFrame"] = {
 },
 ["GuildControlUI"] = {
 },

@@ -1,8 +1,8 @@
---	02.07.2025
+--	10.11.2025
 
 local GlobalAddonName, MRT = ...
 
-MRT.V = 5190
+MRT.V = 5230
 MRT.T = "R"
 
 MRT.Slash = {}			--> функции вызова из коммандной строки
@@ -39,7 +39,13 @@ do
 	local expansion,majorPatch,minorPatch = (version or "5.0.0"):match("^(%d+)%.(%d+)%.(%d+)")
 	MRT.clientVersion = (expansion or 0) * 10000 + (majorPatch or 0) * 100 + (minorPatch or 0)
 end
-if MRT.clientVersion < 20000 then
+if MRT.clientUIinterface == 38000 then
+	MRT.isClassic = true
+	MRT.isBC = true
+	MRT.isLK = true
+	MRT.isTitan = true
+	MRT.T = "Titan |cff99ddff谷|r|cff88ccee风|r|cff77bbdd修|r|cff66aacc复|r|cff5599bb版|r"
+elseif MRT.clientVersion < 20000 then
 	MRT.isClassic = true
 	MRT.T = "Classic"	
 elseif MRT.clientVersion < 30000 then
@@ -50,7 +56,7 @@ elseif MRT.clientVersion < 40000 then
 	MRT.isClassic = true
 	MRT.isBC = true
 	MRT.isLK = true
-	MRT.T = "WotLK |cff99ddff谷|r|cff88ccee风|r|cff77bbdd修|r|cff66aacc复|r|cff5599bb版|r"
+	MRT.T = "WotLK"
 elseif MRT.clientVersion < 50000 then
 	MRT.isClassic = true
 	MRT.isBC = true
@@ -72,8 +78,8 @@ elseif MRT.clientVersion < 70000 then
 	MRT.isMoP = true
 	MRT.isWoD = true
 	MRT.T = "Draenor"
-elseif MRT.clientVersion >= 110000 then
-	MRT.is11 = true
+elseif MRT.clientVersion >= 120000 then
+	MRT.isMN = true
 end
 -------------> smart DB <-------------
 MRT.SDB = {}
@@ -91,9 +97,10 @@ end
 MRT.GDB = {}
 -------------> upvalues <-------------
 local pcall, unpack, pairs, coroutine, assert, next, type = pcall, unpack, pairs, coroutine, assert, next, type
-local GetTime, IsEncounterInProgress, CombatLogGetCurrentEventInfo = GetTime, IsEncounterInProgress, CombatLogGetCurrentEventInfo
+local GetTime, CombatLogGetCurrentEventInfo = GetTime, CombatLogGetCurrentEventInfo
 local SendAddonMessage, strsplit, tremove, Ambiguate = C_ChatInfo.SendAddonMessage, strsplit, tremove, Ambiguate
 local C_Timer_NewTicker, debugprofilestop, InCombatLockdown = C_Timer.NewTicker, debugprofilestop, InCombatLockdown
+local IsEncounterInProgress = C_InstanceEncounter and C_InstanceEncounter.IsEncounterInProgress or IsEncounterInProgress
 
 if MRT.T == "D" then
 	MRT.isDev = true
@@ -103,8 +110,8 @@ if MRT.T == "D" then
 	end
 end
 
-MRT.NULL = {}
 MRT.NULLfunc = function() end
+MRT.NULL = {}
 ---------------> Modules <---------------
 MRT.mod = {}
 
@@ -138,8 +145,8 @@ do
 		local self = {}
 		for k,v in pairs(MRT.mod) do self[k] = v end
 		
-		if not disableOptions then
-			self.options = MRT.Options:Add(moduleName,localizatedName)
+		if not disableOptions or disableOptions == 2 then
+			self.options = MRT.Options:Add(moduleName,localizatedName,disableOptions == 2 and true or false)
 
 			self.options:Hide()
 			self.options.moduleName = moduleName
@@ -294,6 +301,8 @@ function MRT.mod:RegisterEvents(...)
 			else
 				pcall(self.main.RegisterEvent,self.main,event)
 			end
+		elseif MRT.isMN then
+			--skip
 		elseif self.CLEUNotInList then
 			if not self.CLEU then self.CLEU = CreateFrame("Frame") end
 			self.CLEU:SetScript("OnEvent",self.main.COMBAT_LOG_EVENT_UNFILTERED)
@@ -754,22 +763,35 @@ end
 
 -------------> Callbacks <-------------
 
+local CallbackRecent
+local function CallbackErrorHandler(err)
+	print ("Callback Error", err)
+	print("Source:",CallbackRecent.root)
+end
+
 local callbacks = {}
-function MRT.F:RegisterCallback(eventName, func)
+function MRT.F:RegisterCallback(eventName, func, key)
 	if not callbacks[eventName] then
 		callbacks[eventName] = {}
 	end
-	tinsert(callbacks[eventName], func)
+	local callbackData = {
+		f = func,
+		root = debugstack(2),
+		k = key,
+	}
+	tinsert(callbacks[eventName], callbackData)
 
 	MRT.F:FireCallback("CallbackRegistered", eventName, func)
 end
-function MRT.F:UnregisterCallback(eventName, func)
+function MRT.F:UnregisterCallback(eventName, func, key)
 	if not callbacks[eventName] then
 		return
 	end
 	local count = 0
 	for i=#callbacks[eventName],1,-1 do
-		if callbacks[eventName][i] == func then
+		if key and callbacks[eventName][i].k == key then
+			tremove(callbacks[eventName], i)
+		elseif not key and callbacks[eventName][i].f == func then
 			tremove(callbacks[eventName], i)
 		else
 			count = count + 1
@@ -779,16 +801,13 @@ function MRT.F:UnregisterCallback(eventName, func)
 	MRT.F:FireCallback("CallbackUnregistered", eventName, func, count)
 end
 
-local function CallbackErrorHandler(err)
-	print ("Callback Error", err)
-end
-
 function MRT.F:FireCallback(eventName, ...)
 	if not callbacks[eventName] then
 		return
 	end
-	for _,func in pairs(callbacks[eventName]) do
-		xpcall(func, CallbackErrorHandler, eventName, ...)
+	for _,callbackData in pairs(callbacks[eventName]) do
+		CallbackRecent = callbackData
+		xpcall(callbackData.f, CallbackErrorHandler, eventName, ...)
 	end
 end
 

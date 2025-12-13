@@ -358,10 +358,10 @@ QuickButUI.ButList[3]=function()
 	SetfujiF.Scale_t = PIGFontString(SetfujiF,{"TOPLEFT",SetfujiF.PailieT,"BOTTOMLEFT",0,-20},"缩放:")
 	local xiayiinfo = {0.8,1.8,0.01,{["Right"]="%"}}
 	SetfujiF.Scale = PIGSlider(SetfujiF,{"LEFT",SetfujiF.Scale_t,"RIGHT",10,0},xiayiinfo)
-	SetfujiF.Scale.Slider:HookScript("OnValueChanged", function(self, arg1)
+	function SetfujiF.Scale:PIGOnValueChange(arg1)
 		PIGA["QuickBut"]["TrinketScale"]=arg1;
 		if fujiF.UpdataFenliScale then fujiF.UpdataFenliScale() end
-	end)
+	end
 	SetfujiF.lock = PIGCheckbutton(SetfujiF,{"TOPLEFT",SetfujiF.Scale_t,"BOTTOMLEFT",0,-20},{LOCK_FRAME,LOCK_FOCUS_FRAME})
 	SetfujiF.lock:SetScript("OnClick", function (self)
 		if self:GetChecked() then

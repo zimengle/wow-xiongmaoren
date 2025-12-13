@@ -219,7 +219,7 @@ function InstanceBuilder:pvp(key, minLevel, members)
 end
 
 function InstanceBuilder:quest(key, minLevel)
-    return self:base(names(key), 'Quest', minLevel, 40)
+    return self:base(names(key), 'Quest', minLevel, 25)
 end
 
 function InstanceBuilder:boss(key, minLevel)

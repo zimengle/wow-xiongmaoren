@@ -194,3 +194,7 @@ ArkInventorySearch: enabled
 FakeAchievement: enabled
 Pawn: enabled
 TomTom: enabled
+EasyAuction: enabled
+AtlasQuest: enabled
+SpellAutoMaxRank: enabled
+AutoCombatLogger: enabled

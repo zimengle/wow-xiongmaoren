@@ -30,22 +30,6 @@ function SAO:OnlyFor(item)
     return string.format(RACE_CLASS_ONLY, item);
 end
 
--- From {class}
-function SAO:FromClass(classFile)
-    local classColor = select(4, GetClassColor(classFile));
-
-    local className = classFile; -- Default name in case lookup fails
-    for i = 1, GetNumClasses() do
-        local _className, _classFile = GetClassInfo(i);
-        if classFile == _classFile then
-            className = _className;
-            break;
-        end
-    end
-
-    return string.format("%s %s", FROM, WrapTextInColorCode(className, classColor));
-end
-
 --[[
     Explicit translations
 ]]
@@ -240,21 +224,6 @@ function SAO:optimizedFor(addonBuild)
         ["zhTW"] = "為 %s 優化",
     };
     return string.format(tr(optimizedForTranslations), addonBuild);
-end
-
-function SAO:optimizedForClassicExpansion(expansionName)
-    local locale = GetLocale();
-    if locale == "zhCN" then
-        return string.format("为《魔兽世界》经典怀旧服：%s 优化", expansionName);
-    elseif locale == "zhTW" then
-        return string.format("為《魔獸世界》經典懷舊服：%s 優化", expansionName);
-    else
-        if BNET_FRIEND_ZONE_WOW_CLASSIC then
-            return SAO:optimizedFor(string.format(BNET_FRIEND_ZONE_WOW_CLASSIC, expansionName));
-        else
-            return SAO:optimizedFor(string.format("World of Warcraft Classic: %s", expansionName));
-        end
-    end
 end
 
 -- Get the "Universal Build" localized text
@@ -463,33 +432,16 @@ function SAO:askToDisableGameAlerts()
     return tr(askToDisableGameAlertsTranslations);
 end
 
--- Translate "Spell Alerts"
-function SAO:spellAlerts()
-    local spellAlertsTranslations = {
-        ["en"] = "Spell Alerts",
-        ["de"] = "Zauberwarnungen",
-        ["fr"] = "Alertes de sort",
-        ["es"] = "Alertas de hechizo",
-        ["ru"] = "Оповещения о заклинаниях",
-        ["it"] = "Avvisi sugli incantesimi",
-        ["pt"] = "Alertas de feitiço",
-        ["ko"] = "주문 경고",
-        ["zh"] = "法术警报",
-        ["zhTW"] = "法術警報",
-    };
-    return tr(spellAlertsTranslations);
-end
-
 -- Translate "Spell Alert Scale"
 function SAO:spellAlertScale()
     local spellAlertScaleTranslations = {
         ["en"] = "Spell Alert Scale",
-        ["de"] = "Zauberwarnung-Skalierung",
-        ["fr"] = "Échelle des alertes de sort",
-        ["es"] = "Escala de alertas de hechizo",
-        ["ru"] = "Масштаб оповещений о заклинаниях",
-        ["it"] = "Scala degli avvisi sugli incantesimi",
-        ["pt"] = "Escala de alertas de feitiço",
+        ["de"] = "Zauberwarnung Größe",
+        ["fr"] = "Échelle d'alerte de sort",
+        ["es"] = "Escala de alerta de hechizo",
+        ["ru"] = "Масштаб оповещения о заклинании",
+        ["it"] = "Scala avviso incantesimo",
+        ["pt"] = "Escala de alerta de feitiço",
         ["ko"] = "주문 경고 크기",
         ["zh"] = "法术警报缩放",
         ["zhTW"] = "法術警報縮放",
@@ -501,12 +453,12 @@ end
 function SAO:spellAlertOffset()
     local spellAlertOffsetTranslations = {
         ["en"] = "Spell Alert Offset",
-        ["de"] = "Zauberwarnung-Versatz",
-        ["fr"] = "Décalage des alertes de sort",
-        ["es"] = "Desplazamiento de alertas de hechizo",
-        ["ru"] = "Смещение оповещений о заклинаниях",
-        ["it"] = "Offset degli avvisi sugli incantesimi",
-        ["pt"] = "Deslocamento de alertas de feitiço",
+        ["de"] = "Zauberwarnung Versatz",
+        ["fr"] = "Décalage d'alerte de sort",
+        ["es"] = "Desplazamiento de alerta de hechizo",
+        ["ru"] = "Смещение оповещения о заклинании",
+        ["it"] = "Offset avviso incantesimo",
+        ["pt"] = "Deslocamento de alerta de feitiço",
         ["ko"] = "주문 경고 오프셋",
         ["zh"] = "法术警报偏移",
         ["zhTW"] = "法術警報偏移",
@@ -518,15 +470,15 @@ end
 function SAO:spellAlertProgressiveTimer()
     local spellAlertProgressiveTimerTranslations = {
         ["en"] = "Spell Alert Progressive Timer",
-        ["de"] = "Zauberwarnung-Fortschritts-Timer",
-        ["fr"] = "Minuteur progressif des alertes de sort",
-        ["es"] = "Temporizador progresivo de alertas de hechizo",
-        ["ru"] = "Прогрессивный таймер оповещений о заклинаниях",
-        ["it"] = "Timer progressivo degli avvisi sugli incantesimi",
-        ["pt"] = "Temporizador progressivo de alertas de feitiço",
+        ["de"] = "Zauberwarnung Fortschrittstimer",
+        ["fr"] = "Minuteur progressif d'alerte de sort",
+        ["es"] = "Temporizador progresivo de alerta de hechizo",
+        ["ru"] = "Прогрессивный таймер оповещения о заклинании",
+        ["it"] = "Timer progressivo avviso incantesimo",
+        ["pt"] = "Temporizador progressivo de alerta de feitiço",
         ["ko"] = "주문 경고 진행 타이머",
-        ["zh"] = "法术警报计时器",
-        ["zhTW"] = "法術警報計時器",
+        ["zh"] = "法术警报渐进计时器",
+        ["zhTW"] = "法術警報漸進計時器",
     };
     return tr(spellAlertProgressiveTimerTranslations);
 end
@@ -535,12 +487,12 @@ end
 function SAO:spellAlertSoundEffect()
     local spellAlertSoundEffectTranslations = {
         ["en"] = "Spell Alert Sound Effect",
-        ["de"] = "Zauberwarnung-Soundeffekt",
-        ["fr"] = "Effet sonore des alertes de sort",
-        ["es"] = "Efecto de sonido de alertas de hechizo",
-        ["ru"] = "Звуковой эффект оповещений о заклинаниях",
-        ["it"] = "Effetto sonoro degli avvisi sugli incantesimi",
-        ["pt"] = "Efeito sonoro de alertas de feitiço",
+        ["de"] = "Zauberwarnung Soundeffekt",
+        ["fr"] = "Effet sonore d'alerte de sort",
+        ["es"] = "Efecto de sonido de alerta de hechizo",
+        ["ru"] = "Звуковой эффект оповещения о заклинании",
+        ["it"] = "Effetto sonoro avviso incantesimo",
+        ["pt"] = "Efeito sonoro de alerta de feitiço",
         ["ko"] = "주문 경고 사운드 효과",
         ["zh"] = "法术警报音效",
         ["zhTW"] = "法術警報音效",
@@ -559,8 +511,8 @@ function SAO:toggleTest()
         ["it"] = "Attiva/disattiva test",
         ["pt"] = "Alternar teste",
         ["ko"] = "테스트 토글",
-        ["zh"] = "测试开关",
-        ["zhTW"] = "測試開關",
+        ["zh"] = "切换测试",
+        ["zhTW"] = "切換測試",
     };
     return tr(toggleTestTranslations);
 end
@@ -580,4 +532,38 @@ function SAO:glowingButtons()
         ["zhTW"] = "發光按鈕",
     };
     return tr(glowingButtonsTranslations);
+end
+
+-- Translate "Spell Alerts"
+function SAO:spellAlerts()
+    local spellAlertsTranslations = {
+        ["en"] = "Spell Alerts",
+        ["de"] = "Zauberwarnungen",
+        ["fr"] = "Alertes de sort",
+        ["es"] = "Alertas de hechizo",
+        ["ru"] = "Оповещения о заклинаниях",
+        ["it"] = "Avvisi incantesimo",
+        ["pt"] = "Alertas de feitiço",
+        ["ko"] = "주문 경고",
+        ["zh"] = "法术警报",
+        ["zhTW"] = "法術警報",
+    };
+    return tr(spellAlertsTranslations);
+end
+
+-- Translate "Titan Reforged Timewalking" (泰坦重铸时光服)
+function SAO:titanReforgedTimewalking()
+    local titanReforgedTimewalkingTranslations = {
+        ["en"] = "Titan Reforged Timewalking",
+        ["de"] = "Titan Reforged Zeitwandern",
+        ["fr"] = "Titan Reforged Marcheurs du temps",
+        ["es"] = "Titan Reforged Caminantes del tiempo",
+        ["ru"] = "Титан Перекованный Путешествие во времени",
+        ["it"] = "Titan Reforged Viaggiatori del tempo",
+        ["pt"] = "Titan Reforged Caminhantes do tempo",
+        ["ko"] = "타이탄 재단성 시간여행",
+        ["zh"] = "泰坦重铸时光服",
+        ["zhTW"] = "泰坦重鑄時光服",
+    };
+    return tr(titanReforgedTimewalkingTranslations);
 end

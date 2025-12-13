@@ -838,11 +838,7 @@ function LFG:ENCOUNTER_END(_, bossId, bossName, difficultyId, groupSize, success
         RequestRaidInfo()
 
         local raidName = GetInstanceInfo()
-        local leaderName, leaderGUID = ns.GetGroupLeader()
         local looterName, looterGUID = ns.GetGroupLooter()
-        local lootMethod = GetLootMethod()
-        local startTime = self.bossCache[bossId]
-        local timeDiff = startTime and time() - startTime or -1
 
         if looterGUID == leaderGUID then
             looterName = nil

@@ -1,36 +1,6 @@
 local AddonName, SAO = ...
 local Module = "db"
 
-local applyDefaultClassData = function(classData, defaultClassData)
-    for optionType, optionData in pairs(defaultClassData) do
-        if (not classData[optionType]) then
-            classData[optionType] = CopyTable(optionData);
-        else
-            for auraID, auraData in pairs(optionData) do
-                if (not classData[optionType][auraID]) then
-                    classData[optionType][auraID] = CopyTable(auraData);
-                else
-                    for hashID, hashData in pairs(auraData) do
-                        if (type(classData[optionType][auraID][hashID]) == 'nil') then
-                            if (type(hashData) == 'table') then
-                                classData[optionType][auraID][hashID] = CopyTable(hashData);
-                            else
-                                classData[optionType][auraID][hashID] = hashData;
-                            end
-                        elseif (type(classData[optionType][auraID][hashID]) == "table" and type(hashData) == 'table') then
-                            for id, value in pairs(hashData) do
-                                if (type(classData[optionType][auraID][hashID][id]) == 'nil') then
-                                    classData[optionType][auraID][hashID][id] = value;
-                                end
-                            end
-                        end
-                    end
-                end
-            end
-        end
-    end
-end
-
 -- Migrate from pre-091 to 091 or higher
 local function migrateTo091(db)
 
@@ -198,14 +168,35 @@ function SAO.LoadDB(self)
             if (not db.classes[classFile]) then
                 db.classes[classFile] = CopyTable(classData);
             else
-                applyDefaultClassData(db.classes[classFile], classData);
+                for optionType, optionData in pairs(classData) do
+                    if (not db.classes[classFile][optionType]) then
+                        db.classes[classFile][optionType] = CopyTable(optionData);
+                    else
+                        for auraID, auraData in pairs(optionData) do
+                            if (not db.classes[classFile][optionType][auraID]) then
+                                db.classes[classFile][optionType][auraID] = CopyTable(auraData);
+                            else
+                                for hashID, hashData in pairs(auraData) do
+                                    if (type(db.classes[classFile][optionType][auraID][hashID]) == 'nil') then
+                                        if (type(hashData) == 'table') then
+                                            db.classes[classFile][optionType][auraID][hashID] = CopyTable(hashData);
+                                        else
+                                            db.classes[classFile][optionType][auraID][hashID] = hashData;
+                                        end
+                                    elseif (type(db.classes[classFile][optionType][auraID][hashID]) == "table" and type(hashData) == 'table') then
+                                        for id, value in pairs(hashData) do
+                                            if (type(db.classes[classFile][optionType][auraID][hashID][id]) == 'nil') then
+                                                db.classes[classFile][optionType][auraID][hashID][id] = value;
+                                            end
+                                        end
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
             end
         end
-    end
-
-    -- Apply shared class data to each known class so far
-    for classFile, classData in pairs(db.classes) do
-        applyDefaultClassData(classData, SAO.defaults.shared);
     end
 
     if not db.questions then
@@ -240,10 +231,8 @@ function SAO.LoadDB(self)
 
     -- At the very end, register the class
     -- This must be done after db init because registering may need options from db
-    for _, classDef in ipairs({ SAO.CurrentClass, SAO.SharedClass }) do -- Iteration may fail if CurrentClass is nil and SharedClass is not, but this shouldn't happen
-        if classDef then
-            classDef.Register(SAO);
-        end
+    if (self.CurrentClass) then
+        self.CurrentClass.Register(SAO);
     end
 end
 

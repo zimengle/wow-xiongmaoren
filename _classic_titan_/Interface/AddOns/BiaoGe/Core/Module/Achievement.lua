@@ -843,7 +843,6 @@ BG.Init(function()
 
     local function GetRaidAchievement()
         wipe(raidAchievement_Total)
-
         if IsInRaid(1) then
             if not BG.AchievementUpdateFrame then
                 BG.AchievementUpdateFrame = CreateFrame("Frame")
@@ -935,7 +934,6 @@ BG.Init(function()
             tbl["stats" .. ID] = GetComparisonStatistic(ID)
         end
         if tbl["stats" .. 334] ~= "--" then
-            -- pt(tbl["stats" .. 334])
             raidAchievement_AllPlayer[name] = tbl
         end
     end)

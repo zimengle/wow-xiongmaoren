@@ -49,25 +49,50 @@ local function ClassQuest(classID)
 end
 ns.ClassQuest = ClassQuest
 
-function BG.Init(func)
-    local f = CreateFrame("Frame")
-    f:RegisterEvent("ADDON_LOADED")
-    f:SetScript("OnEvent", function(self, event, addonName)
-        if addonName ~= AddonName then return end
-        self:UnregisterEvent("ADDON_LOADED")
-        self:Hide()
+local addonLoadedFuncs = {}
+local f = CreateFrame("Frame")
+f:RegisterEvent("ADDON_LOADED")
+f:SetScript("OnEvent", function(self, event, addonName)
+    if addonName ~= AddonName then return end
+    self:UnregisterEvent("ADDON_LOADED")
+    for _, func in ipairs(addonLoadedFuncs) do
         func(self, event)
-    end)
+    end
+end)
+function BG.Init(func)
+    tinsert(addonLoadedFuncs, func)
 end
 
+local enterWorldFuncs = {}
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:SetScript("OnEvent", function(self, event, ...)
+    self:UnregisterEvent("PLAYER_ENTERING_WORLD")
+    for _, func in ipairs(enterWorldFuncs) do
+        func(self, event, ...)
+    end
+end)
 function BG.Init2(func)
-    local f = CreateFrame("Frame")
-    f:RegisterEvent("PLAYER_ENTERING_WORLD")
-    f:SetScript("OnEvent", function(self, event)
-        self:UnregisterEvent("PLAYER_ENTERING_WORLD")
-        self:Hide()
-        func(self, event)
-    end)
+    tinsert(enterWorldFuncs, func)
+end
+
+local events = {}
+local f = CreateFrame("Frame")
+f:SetScript("OnEvent", function(_, event, ...)
+    for _, func in ipairs(events[event]) do
+        if event == "COMBAT_LOG_EVENT_UNFILTERED" then
+            func(f, event, CombatLogGetCurrentEventInfo())
+        else
+            func(f, event, ...)
+        end
+    end
+end)
+function BG.RegisterEvent(event, func)
+    if not events[event] then
+        events[event] = {}
+        f:RegisterEvent(event)
+    end
+    tinsert(events[event], func)
 end
 
 -- 版本号

@@ -6,6 +6,7 @@ ElvCharacterDB = {
 "。",
 "我擦",
 "/played",
+"/reload",
 },
 ["ChatHistoryLog"] = {
 },

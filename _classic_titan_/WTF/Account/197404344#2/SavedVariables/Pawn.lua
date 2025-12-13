@@ -151,6 +151,9 @@ PawnCommon = {
 ["\"Classic\":PRIEST1"] = {
 ["IconTexturePath"] = 135987,
 ["PerCharacterOptions"] = {
+["退休码农-时光IV"] = {
+["Visible"] = true,
+},
 },
 ["Color"] = "ffffff",
 ["LocalizedName"] = "牧师: 戒律",
@@ -213,6 +216,9 @@ PawnCommon = {
 ["\"Classic\":PRIEST3"] = {
 ["IconTexturePath"] = 136207,
 ["PerCharacterOptions"] = {
+["退休码农-时光IV"] = {
+["Visible"] = true,
+},
 },
 ["Color"] = "ffffff",
 ["LocalizedName"] = "牧师: 暗影",
@@ -481,6 +487,9 @@ PawnCommon = {
 ["\"Classic\":PRIEST2"] = {
 ["IconTexturePath"] = 237542,
 ["PerCharacterOptions"] = {
+["退休码农-时光IV"] = {
+["Visible"] = true,
+},
 },
 ["Color"] = "ffffff",
 ["LocalizedName"] = "牧师: 神圣",

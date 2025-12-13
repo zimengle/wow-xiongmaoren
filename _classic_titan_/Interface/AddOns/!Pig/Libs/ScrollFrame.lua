@@ -9,7 +9,7 @@ function Create.PIGScrollFrame_old(fujik,Point,WH,BarW)
 	local Scroll = CreateFrame("ScrollFrame",nil,fujik); 
 	if Point then
 		Scroll:SetPoint("TOPLEFT",fujik,"TOPLEFT",Point[1],Point[2]);
-		Scroll:SetPoint("BOTTOMRIGHT",fujik,"BOTTOMRIGHT",Point[3],Point[4]);
+		Scroll:SetPoint("BOTTOMRIGHT",fujik,"BOTTOMRIGHT",Point[3]-BarW,Point[4]);
 	end
 	if WH then
 		Scroll:SetSize(WH[1],WH[2] or WH[1])
@@ -84,16 +84,16 @@ function Create.PIGScrollFrame_old(fujik,Point,WH,BarW)
 	middleTexture:SetPoint("TOPLEFT", beginTexture, "BOTTOMLEFT");
 	middleTexture:SetPoint("BOTTOMRIGHT", endTexture, "TOPRIGHT");
 	Scroll.ScrollBar:SetScript("OnValueChanged", function(self, value)
-		UIPanelScrollBar_OnValueChanged(self, value)
+		self:GetParent():SetVerticalScroll(value);
 	end)
 	Scroll:SetScript("OnMouseWheel", function(self, delta)
 		ScrollFrameTemplate_OnMouseWheel(self, delta);
 	end)
+	Scroll:SetScript("OnVerticalScroll", function(self, offset)
+		self:UpdateShowList()
+	end)
 	-- Scroll:SetScript("OnScrollRangeChanged", function(self, xrange, yrange)
 	-- 	ScrollFrame_OnScrollRangeChanged(self, xrange, yrange)
-	-- end)
-	-- Scroll:SetScript("OnVerticalScroll", function(self, offset)
-	-- 	ScrollFrame_OnVerticalScroll(self, offset)
 	-- end)
 	function Scroll:UpdateThumbTexture(numItems, numToDisplay, buttonHeight)
 	    local scrollBar = self.ScrollBar or self.scrollBar
@@ -120,7 +120,8 @@ function Create.PIGScrollFrame_old(fujik,Point,WH,BarW)
 	    local offset=self.ScrollBar:GetValue()
 		self.ScrollBar.ScrollUpButton:SetEnabled(offset ~= 0);
 		self.ScrollBar.ScrollDownButton:SetEnabled((offset - max) ~= 0);
-	    return FauxScrollFrame_GetOffset(self)
+		self.offset = math.floor((offset / hangeH) + 0.5);
+	    return self.offset or 0;
 	end
 	UIPanelScrollFrame_OnLoad(Scroll)
 	return Scroll

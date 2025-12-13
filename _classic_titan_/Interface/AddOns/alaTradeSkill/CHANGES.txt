@@ -1,10 +1,10 @@
-lightweight tag 80b94f5b3fcbee0c5d2c0dad166434a8e96346e5 251125
+lightweight tag 8c080dca42999621f753cf7e6b7e9c076f913bc2 251205
 Author:	alexqu0822 <alexqu0822@163.com>
-Date:	Tue Nov 25 18:10:29 2025 +0800
+Date:	Sat Dec 6 20:47:23 2025 +0800
 
-commit 80b94f5b3fcbee0c5d2c0dad166434a8e96346e5
+commit 8c080dca42999621f753cf7e6b7e9c076f913bc2
 Author: alexqu0822 <alexqu0822@163.com>
-Date:   Tue Nov 25 18:10:29 2025 +0800
+Date:   Sat Dec 6 20:47:23 2025 +0800
 
-    20251125 update
+    20251205
 

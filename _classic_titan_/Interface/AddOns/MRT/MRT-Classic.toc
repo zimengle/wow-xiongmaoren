@@ -1,9 +1,9 @@
-## Interface: 40402, 11507, 50500
+## Interface: 11508, 38000, 40402, 50501, 50502
 ## Title: Method Raid Tools |cff99ddff谷|r|cff88ccee风|r|cff77bbdd修|r|cff66aacc复|r|cff5599bb版|r
 ## Author: ykiigor
 ## Notes: Method Raid Tools
 ## SavedVariables: VMRT
-## Version: 5190
+## Version: 5230
 core.lua
 Functions.lua
 embeds.xml
@@ -38,6 +38,7 @@ Timers.lua
 RaidAttendance.lua
 Encounter.lua
 LootHistory.lua
+Coins.lua
 WhoPulled.lua
 Pets.lua
 AutoLogging.lua

@@ -325,12 +325,7 @@ local config_options = {
                     order = 12,
                     width = 'full',
                     get = function()
-                        local v
-                        if C_CVar and C_CVar.GetCVarInfo then
-                            v = select(1, C_CVar.GetCVarInfo('chatClassColorOverride'))
-                        else
-                            v = GetCVar('chatClassColorOverride')
-                        end
+                        local v,_ = GetCVarInfo('chatClassColorOverride')
                         if v == '0' then
                             return true
                         end

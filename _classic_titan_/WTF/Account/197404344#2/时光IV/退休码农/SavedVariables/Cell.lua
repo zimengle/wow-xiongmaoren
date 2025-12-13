@@ -1,0 +1,96 @@
+
+CellCharacterDB = {
+["layoutAutoSwitch"] = {
+{
+["raid_outdoor"] = "default",
+["party"] = "default",
+["solo"] = "default",
+["raid25"] = "default",
+["raid10"] = "default",
+["arena"] = "default",
+["battleground15"] = "default",
+["battleground40"] = "default",
+},
+{
+["raid_outdoor"] = "default",
+["party"] = "default",
+["solo"] = "default",
+["raid25"] = "default",
+["raid10"] = "default",
+["arena"] = "default",
+["battleground15"] = "default",
+["battleground40"] = "default",
+},
+},
+["revise"] = "r272-release",
+["clickCastings"] = {
+{
+{
+"type1",
+"target",
+},
+{
+"type2",
+"togglemenu",
+},
+{
+"type-shiftR",
+"spell",
+2006,
+},
+},
+{
+{
+"type1",
+"target",
+},
+{
+"type2",
+"togglemenu",
+},
+{
+"type-shiftR",
+"spell",
+2006,
+},
+},
+["alwaysTargeting"] = {
+"disabled",
+"disabled",
+["common"] = "disabled",
+},
+["common"] = {
+{
+"type1",
+"spell",
+2061,
+},
+{
+"type2",
+"spell",
+17,
+},
+{
+"type-shiftR",
+"spell",
+2006,
+},
+{
+"ctrl-type1",
+"target",
+},
+{
+"ctrl-type2",
+"togglemenu",
+},
+{
+"type3",
+"spell",
+139,
+},
+},
+["class"] = "PRIEST",
+["useCommon"] = true,
+["smartResurrection"] = "disabled",
+},
+}

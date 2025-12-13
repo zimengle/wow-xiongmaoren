@@ -158,23 +158,20 @@ function QuickChatfun.QuickBut_Keyword()
 	fuFrame.Keyword.Tex:SetSize(Width+2,Height-4);
 	fuFrame.Keyword.Tex:SetPoint("CENTER", -7.5, 0);
 	fuFrame.Keyword.Tex:SetDrawLayer("BORDER", -1)
-	fuFrame.Keyword.TexNO = fuFrame.Keyword:CreateTexture();
-	fuFrame.Keyword.TexNO:SetTexture("interface/common/voicechat-muted.blp");
-	fuFrame.Keyword.TexNO:SetSize(Width-9,Height-9);
-	fuFrame.Keyword.TexNO:SetAlpha(0.7);
-	fuFrame.Keyword.TexNO:SetPoint("CENTER", 0, 0);
-	if PIGA["Chat"]["Filter"]["Open"] then
-		fuFrame.Keyword.TexNO:Hide()
-	else
-		fuFrame.Keyword.TexNO:Show()
-	end
+	fuFrame.Keyword.X = fuFrame.Keyword:CreateTexture();
+	fuFrame.Keyword.X:SetTexture("interface/common/voicechat-muted.blp");
+	fuFrame.Keyword.X:SetSize(Width-9,Height-9);
+	fuFrame.Keyword.X:SetAlpha(0.7);
+	fuFrame.Keyword.X:SetPoint("CENTER", 0, 0);
 	fuFrame.Keyword:SetScript("OnMouseDown",  function(self)
 		self.Tex:SetPoint("CENTER", -6, -1.5);
 	end)
 	fuFrame.Keyword:SetScript("OnMouseUp",  function(self)
 		self.Tex:SetPoint("CENTER", -7.5, 0);
 	end)
-	PIGEnter(fuFrame.Keyword,"|cff00FFff"..KEY_BUTTON1.."-|r|cffFFFF00"..CHAT..L["CHAT_KEYWORD_NAME1"]..L["CHAT_FILTERS"].."|r\n|cff00FFff"..KEY_BUTTON2.."-|r|cffFFFF00"..ENABLE.."/"..CLOSE..CHAT..L["CHAT_FILTERS"].."|r")
+	PIGEnter(fuFrame.Keyword,"|cff00FFff"..KEY_BUTTON1.."-|r|cffFFFF00"..SETTINGS..L["CHAT_KEYWORD_NAME1"]..L["CHAT_FILTERS"]..
+		"|r\n|cff00FFff"..KEY_BUTTON2.."-|r|cffFFFF00"..ENABLE.."/"..CLOSE..L["CHAT_KEYWORD_NAME1"]..
+		"|r\n|cff00FFffShift+"..KEY_BUTTON2.."-|r|cffFFFF00"..ENABLE.."/"..CLOSE..L["CHAT_FILTERS"].."|r")
 	fuFrame.Keyword:HookScript("OnEnter", function (self)	
 		fuFrame:PIGEnterAlpha()
 	end);
@@ -255,11 +252,11 @@ function QuickChatfun.QuickBut_Keyword()
 	ChatF99.ScrollToBottomButton:SetHighlightTexture(TiquCanshu["ToBotBut"][4]);
 	if PIG_MaxTocversion() then
 		ChatF99.ScrollToBottomButton:SetSize(24,24);
-		ChatF99.ScrollToBottomButton.hilight = ChatF99.ScrollToBottomButton:CreateTexture(nil,"OVERLAY");
-		ChatF99.ScrollToBottomButton.hilight:SetTexture("interface/chatframe/ui-chaticon-blinkhilight.blp");
-		ChatF99.ScrollToBottomButton.hilight:SetSize(24,24);
-		ChatF99.ScrollToBottomButton.hilight:SetPoint("CENTER", 0, 0);
-		ChatF99.ScrollToBottomButton.hilight:Hide();
+		ChatF99.ScrollToBottomButton.Flash = ChatF99.ScrollToBottomButton:CreateTexture(nil,"OVERLAY");
+		ChatF99.ScrollToBottomButton.Flash:SetTexture("interface/chatframe/ui-chaticon-blinkhilight.blp");
+		ChatF99.ScrollToBottomButton.Flash:SetSize(24,24);
+		ChatF99.ScrollToBottomButton.Flash:SetPoint("CENTER", 0, 0);
+		ChatF99.ScrollToBottomButton.Flash:Hide();
 	else
 		ChatF99.ScrollToBottomButton:SetSize(17,15);
 		ChatF99.ScrollBar:ClearAllPoints();
@@ -274,7 +271,7 @@ function QuickChatfun.QuickBut_Keyword()
 		ggff:ScrollToBottom();
 		if PIG_MaxTocversion() then
 			self:Hide();
-			self.hilight:Hide();
+			self.Flash:Hide();
 		else
 			FCF_FadeOutScrollbar(ggff)
 		end
@@ -288,7 +285,7 @@ function QuickChatfun.QuickBut_Keyword()
 		if delta == 1 then
 			if PIG_MaxTocversion() then
 				self.ScrollToBottomButton:Show();
-				self.ScrollToBottomButton.hilight:Show();
+				self.ScrollToBottomButton.Flash:Show();
 			else
 				self.ScrollToBottomButton:SetNormalTexture(TiquCanshu["ToBotBut"][4])
 			end
@@ -298,7 +295,7 @@ function QuickChatfun.QuickBut_Keyword()
 			if self:GetScrollOffset()==0 then
 				if PIG_MaxTocversion() then
 					self.ScrollToBottomButton:Hide();
-					self.ScrollToBottomButton.hilight:Hide();
+					self.ScrollToBottomButton.Flash:Hide();
 				else
 					FCF_FadeOutScrollbar(self)
 					self.ScrollToBottomButton:SetNormalTexture(TiquCanshu["ToBotBut"][1])
@@ -306,8 +303,42 @@ function QuickChatfun.QuickBut_Keyword()
 			end
 		end
 	end)
-	ChatF99:SetScript("OnUpdate", function(self, elapsed)
-		ChatFrame_OnUpdate(self, elapsed)
+	ChatF99:SetScript("OnUpdate", function(self, elapsedSec)
+		local flash = self.ScrollToBottomButton.Flash;
+		if ( not flash ) then return;end
+		if PIG_MaxTocversion() then
+			if ( self:AtBottom() ) then
+				if ( flash:IsShown() ) then
+					flash:Hide();
+				end
+				return;
+			end
+			local flashTimer = self.flashTimer + elapsedSec;
+			if ( flashTimer < CHAT_BUTTON_FLASH_TIME ) then
+				self.flashTimer = flashTimer;
+				return;
+			end
+			while ( flashTimer >= CHAT_BUTTON_FLASH_TIME ) do
+				flashTimer = flashTimer - CHAT_BUTTON_FLASH_TIME;
+			end
+			self.flashTimer = flashTimer;
+
+			if ( flash:IsShown() ) then
+				flash:Hide();
+			else
+				flash:Show();
+			end
+		else
+			local shouldFlash = not self:AtBottom();
+			if shouldFlash ~= UIFrameIsFlashing(flash) then
+				if shouldFlash then
+					UIFrameFlash(flash, .1, .1, -1, false, CHAT_BUTTON_FLASH_TIME, CHAT_BUTTON_FLASH_TIME);
+					FCF_FadeInScrollbar(self);
+				else
+					UIFrameFlashStop(flash);
+				end
+			end
+		end
 	end)
 	function KeywordF.Tiqu_SetFun()
 		TiquF:UnregisterEvent("CHAT_MSG_CHANNEL");
@@ -315,6 +346,7 @@ function QuickChatfun.QuickBut_Keyword()
 		TiquF:UnregisterEvent("PLAYER_REGEN_ENABLED");
 		ChatF99:Hide()
 		if PIGA["Chat"]["Tiqu"]["Open"] then
+			fuFrame.Keyword.X:Hide()
 			TiquF:RegisterEvent("CHAT_MSG_CHANNEL");
 			if TiquCanshu["shuchumode"]==2 then
 				if PIGA["Chat"]["Tiqu"]["CombatHide"] then
@@ -325,6 +357,8 @@ function QuickChatfun.QuickBut_Keyword()
 					ChatF99:Show() 
 				end
 			end
+		else
+			fuFrame.Keyword.X:Show()
 		end
 	end
 	KeywordF.Tiqu_SetFun()
@@ -587,10 +621,10 @@ function QuickChatfun.QuickBut_Keyword()
 	--高度
 	TiquF.OutputModeF.GaoduHSlider =PIGSlider(TiquF.OutputModeF,{"TOPLEFT",TiquF.OutputModeF.Color.t,"BOTTOMLEFT",14,-20},{100,500,1})
 	TiquF.OutputModeF.GaoduHSlider.T = PIGFontString(TiquF.OutputModeF.GaoduHSlider,{"RIGHT",TiquF.OutputModeF.GaoduHSlider,"LEFT",-4,0},"高度：");
-	TiquF.OutputModeF.GaoduHSlider.Slider:HookScript("OnValueChanged", function(self, arg1)
+	function TiquF.OutputModeF.GaoduHSlider:PIGOnValueChange(arg1)
 		ChatF99:SetHeight(arg1)
 		PIGA["Chat"]["Tiqu"]["KeywordFHeight"]=arg1
-	end)
+	end
 
 	TiquF.OutputModeF:HookScript("OnShow", function(self)
 		self.shuvhudaoBOX:PIGDownMenu_SetText(chuangkoulist[TiquCanshu["ChatWox"]])	
@@ -792,7 +826,6 @@ function QuickChatfun.QuickBut_Keyword()
 		ChatFrame_RemoveMessageEventFilter("CHAT_MSG_SAY",FilterBlack)
 		ChatFrame_RemoveMessageEventFilter("CHAT_MSG_WHISPER",FilterBlack)
 		if PIGA["Chat"]["Filter"]["Open"] then
-			fuFrame.Keyword.TexNO:Hide()
 			local inInstance=IsInInstance()
 			if PIGA["Chat"]["Filter"]["FBneiNO"] and inInstance then
 				if setck then PIG_OptionsUI:ErrorMsg("|cffFF0000"..CLOSE.."|r"..INFO..L["CHAT_KEYWORD_NAME1"]..L["CHAT_FILTERS"]) end
@@ -812,7 +845,6 @@ function QuickChatfun.QuickBut_Keyword()
 			end
 			if setck then PIG_OptionsUI:ErrorMsg("|cff00FF00"..ENABLE.."|r"..INFO..L["CHAT_KEYWORD_NAME1"]..L["CHAT_FILTERS"]) end
 		else
-			fuFrame.Keyword.TexNO:Show()
 			if setck then PIG_OptionsUI:ErrorMsg("|cffFF0000"..CLOSE.."|r"..INFO..L["CHAT_KEYWORD_NAME1"]..L["CHAT_FILTERS"]) end
 		end
 	end
@@ -834,7 +866,6 @@ function QuickChatfun.QuickBut_Keyword()
 		BlackF.F.SetF.Filter_YELL:Disable();
 		BlackF.F.SetF.Filter_SAY:Disable();
 		BlackF.F.SetF.Filter_WHISPER:Disable();
-		fuFrame.Keyword.TexNO:Show()
 		if PIGA["Chat"]["Filter"]["Open"] then
 			BlackF.F.SetF.Filter_CHANNEL:Enable();
 			BlackF.F.SetF.Filter_YELL:Enable();
@@ -846,7 +877,6 @@ function QuickChatfun.QuickBut_Keyword()
 				BlackF.F.SetF.IGNORE_DND:Enable();
 				BlackF.F.SetF.FBneiNO:Enable();
 			end
-			fuFrame.Keyword.TexNO:Hide()
 		end
 	end
 	BlackF.F.SetF.Open = PIGCheckbutton(BlackF.F.SetF,{"TOPLEFT",BlackF.F.SetF,"TOPLEFT",20,-20},{"|cff00FF00"..ENABLE.."|r"..L["CHAT_FILTERS"],ENABLE..L["CHAT_FILTERS"]})
@@ -1262,15 +1292,22 @@ function QuickChatfun.QuickBut_Keyword()
 				KeywordF:Show()
 			end
 		else
-			if PIGA["Chat"]["Filter"]["Open"] then
-				PIGA["Chat"]["Filter"]["Open"]=false
-				--PIGA["Chat"]["Tiqu"]["Open"]=false
+			if IsShiftKeyDown() then
+				if PIGA["Chat"]["Filter"]["Open"] then
+					PIGA["Chat"]["Filter"]["Open"]=false
+				else
+					PIGA["Chat"]["Filter"]["Open"]=true
+				end
+				KeywordF.Filter_SetFun()
 			else
-				PIGA["Chat"]["Filter"]["Open"]=true
-				--PIGA["Chat"]["Tiqu"]["Open"]=true
+				if PIGA["Chat"]["Tiqu"]["Open"] then
+					PIGA["Chat"]["Tiqu"]["Open"]=false
+				else
+					PIGA["Chat"]["Tiqu"]["Open"]=true
+				end
+				KeywordF.Tiqu_SetFun()
+				KeywordF.Options_SetFun()
 			end
-			--KeywordF.Tiqu_SetFun()
-			KeywordF.Filter_SetFun()
 			if KeywordF:IsShown() then
 				KeywordF:Hide()
 				KeywordF:Show()

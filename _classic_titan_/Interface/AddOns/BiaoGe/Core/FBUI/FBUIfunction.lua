@@ -11,6 +11,7 @@ local Size = ns.Size
 local RGB = ns.RGB
 local GetClassRGB = ns.GetClassRGB
 local SetClassCFF = ns.SetClassCFF
+local Maxt = ns.Maxt
 local Maxb = ns.Maxb
 local BossNum = ns.BossNum
 local AddTexture = ns.AddTexture
@@ -318,7 +319,7 @@ function BG.FBTitleUI(FB, t)
     version:SetPoint("TOPLEFT", preWidget, "TOPLEFT", 70, 0)
     version:SetFont(STANDARD_TEXT_FONT, fontsize, "OUTLINE")
     version:SetTextColor(RGB(BG.y2))
-    version:SetText(L["装备"])
+    version:SetText(BG.fakuanIsFirst[FB] and t == Maxt[FB] and L["事由"] or L["装备"])
     preWidget = version
     p.preWidget0 = version
 
@@ -326,7 +327,7 @@ function BG.FBTitleUI(FB, t)
     version:SetPoint("TOPLEFT", preWidget, "TOPLEFT", BG.zhuangbeiWidth + 5, 0)
     version:SetFont(STANDARD_TEXT_FONT, fontsize, "OUTLINE")
     version:SetTextColor(RGB(BG.y2))
-    version:SetText(L["买家"])
+    version:SetText(BG.fakuanIsFirst[FB] and t == Maxt[FB] and L["罚款人"] or L["买家"])
     preWidget = version
 
     local version = parent:CreateFontString()
@@ -471,7 +472,8 @@ function BG.FBZhuangBeiUI(FB, t, b, bb, i, ii, scrollFrame)
     p["preWidget" .. i] = bt
     framedown = p["preWidget" .. ii]
     --创建关注按钮
-    BG.Frame[FB]["boss" .. BossNum(FB, b, t)]["guanzhu" .. i] = BG.CreateGuanZhuButton(bt, "biaoge")
+    bt.guanzhu = BG.CreateGuanZhuButton(bt, "biaoge")
+    BG.Frame[FB]["boss" .. BossNum(FB, b, t)]["guanzhu" .. i] = bt.guanzhu
 
     if bt.bossnum == Maxb[FB] + 1 then
         BG.After(0, function()
@@ -524,8 +526,7 @@ function BG.FBZhuangBeiUI(FB, t, b, bb, i, ii, scrollFrame)
                     BG.StartAuction(link, self, nil, nil, button == "RightButton")
                 else -- 关注装备
                     if button ~= "RightButton" then
-                        BiaoGe[FB]["boss" .. BossNum(FB, b, t)]["guanzhu" .. i] = true
-                        BG.Frame[FB]["boss" .. BossNum(FB, b, t)]["guanzhu" .. i]:Show()
+                        BG.SetGuanZhu(bt, 1)
                     end
                 end
             end

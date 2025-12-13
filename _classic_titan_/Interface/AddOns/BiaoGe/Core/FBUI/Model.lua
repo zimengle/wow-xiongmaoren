@@ -317,7 +317,7 @@ function BG.CreateBossModel()
     end
     if BG.IsTitan then
         local model = CreateBossModel("MCtitan", 10, 10, 100, 11502, 0.8)
-        model:SetPosition(-200, 0, -190) -- Z,X,Y
+        model:SetPosition(-200, 0, -195) -- Z,X,Y
         -- model:SetFacing(-0.3)         -- 左右
         model:SetPitch(-0.5)             -- 上下
         model:SetRoll(0)              -- 倾斜

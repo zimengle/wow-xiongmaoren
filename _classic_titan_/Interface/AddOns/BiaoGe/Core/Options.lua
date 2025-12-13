@@ -23,6 +23,7 @@ local realmID                           = GetRealmID()
 local pt                                = print
 
 local O                                 = {}
+ns.O                                    = O
 
 local IsAddOnLoaded                     = IsAddOnLoaded or C_AddOns.IsAddOnLoaded
 ns.InterfaceOptions_AddCategory         = _G.InterfaceOptions_AddCategory or function(frame, addOn, position)
@@ -56,7 +57,7 @@ BG.Init(function()
         main.name = "|cff00BFFFBiaoGe|r"
         ns.InterfaceOptions_AddCategory(main)
         local t = main:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
-        t:SetText("|cff" .. "00BFFF" .. L["< BiaoGe > 金 团 表 格"] .. "|r")
+        t:SetText("|cff" .. "00BFFF" .. L["<BiaoGe> 金团表格"] .. "|r")
         t:SetPoint("TOPLEFT", main, 15, 0)
         local top = t
         local t = main:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall2")
@@ -1344,7 +1345,47 @@ BG.Init(function()
             end
         end
         -- 清空表格时根据副本难度设置分钱人数
-        if not BG.IsVanilla and not BG.IsTitan then
+        if BG.IsTitan then
+            h = h + 30
+            do
+                local edit
+
+                local name = "QingKongPeople"
+                BG.options[name .. "reset"] = 1
+                BiaoGe.options[name] = BiaoGe.options[name] or BG.options[name .. "reset"]
+                local ontext = {
+                    L["清空表格时自定义分钱人数"],
+                    L["表格会按照你设定的人数修改分钱人数。"],
+                    -- " ",
+                    -- L[""],
+                }
+                local f = O.CreateCheckButton(name, AddTexture("QUEST") .. L["清空表格时自定义分钱人数"] .. "*", biaoge, 15, height - h, ontext)
+                BG.options["button" .. name] = f
+                f:HookScript("OnClick", function()
+                    if f:GetChecked() then
+                        edit:Show()
+                    else
+                        edit:Hide()
+                    end
+                end)
+
+                local name2 = "MaxPlayers_Titan"
+                BiaoGe.options[name2] = BiaoGe.options[name2] or 25
+                edit = CreateFrame("EditBox", nil, f, "BiaoGe_InputBoxTemplate")
+                edit:SetSize(50, 20)
+                edit:SetPoint("LEFT", f.Text, "RIGHT", 15, 0)
+                edit:SetAutoFocus(false)
+                edit:SetMaxBytes(8)
+                if BiaoGe.options[name] ~= 1 then edit:Hide() end
+                BG.SetEditBaseClass(edit)
+                edit:SetScript("OnTextChanged", function(self)
+                    BiaoGe.options[name2] = tonumber(self:GetText()) or 25
+                end)
+                edit:SetScript("OnShow", function(self)
+                    self:SetText(BiaoGe.options[name2] or 25)
+                end)
+            end
+        elseif not BG.onlyOneHard then
             h = h + 30
             -- 清空表格时根据副本难度设置分钱人数
             do
@@ -2190,7 +2231,7 @@ BG.Init(function()
             end)
 
             edit = CreateFrame("EditBox", nil, f, "BiaoGe_InputBoxTemplate")
-            edit:SetSize(80, 20)
+            edit:SetSize(50, 20)
             edit:SetPoint("LEFT", f.Text, "RIGHT", 15, 0)
             edit:SetAutoFocus(false)
             edit:SetMaxBytes(8)
@@ -2273,11 +2314,10 @@ BG.Init(function()
                         else
                             BiaoGe.FBCDchoice[name] = nil
                         end
-
                         BG.PlaySound(1)
                     end)
                     bt:SetScript("OnEnter", function(self)
-                        local text = "|cff" .. color .. maxplayers .. GetRealZoneText(fbId) .. RR
+                        local text = "|cff" .. color .. maxplayers .. (name2 or GetRealZoneText(fbId)) .. RR
                         if type ~= "fb" then
                             text = self.Text:GetText()
                         end
@@ -2457,7 +2497,7 @@ BG.Init(function()
                 lastFrame = CreateTitle(L["声望"] .. "*", "FFFF00")
                 CreateFBCDbutton(x[startNum] + 1, x[startNum + 1])
             elseif BG.IsTitan then
-                local z = { 3,   6, 10, #BG.factionTbl } -- 6是日常，10是专业
+                local z = { 6, 4, 10, #BG.factionTbl } -- 4是日常，10是专业
                 local x = {}
                 for i, v in ipairs(z) do
                     x[i] = (x[i - 1] or 0) + v
@@ -2839,6 +2879,16 @@ BG.Init(function()
         local line_height = 4
         local h = 0
 
+        local function Update_OnShow(f, name)
+            f:SetScript("OnShow", function(self)
+                if BiaoGe.options[name] == 1 then
+                    f:SetChecked(true)
+                else
+                    f:SetChecked(false)
+                end
+            end)
+        end
+
         -- 原生功能
         do
             local text = others:CreateFontString(nil, "ARTWORK", "GameFontNormal")
@@ -3047,7 +3097,8 @@ BG.Init(function()
         end
 
         -- AtlasLoot
-        if BG.canShowAtlasLoot then
+        BG.Init2(function()
+            if not BG.canShowAtlasLoot then return end
             local text = others:CreateFontString(nil, "ARTWORK", "GameFontNormal")
             text:SetPoint("TOPLEFT", width, height - h)
             text:SetText(BG.STC_g1("AtlasLoot"))
@@ -3055,12 +3106,13 @@ BG.Init(function()
 
             O.CreateLine(others, height - h + line_height)
 
+            local tbl = {}
             -- 更好的选择
-            do
-                local name = "AtlasLoot_betterChoose"
-                BG.options[name .. "reset"] = 1
-                BiaoGe.options[name] = BiaoGe.options[name] or BG.options[name .. "reset"]
-                local ontext = {
+            tinsert(tbl, {
+                name = "AtlasLoot_betterChoose",
+                name2 = L["更好的选择"] .. "*",
+                reset = 0,
+                ontext = {
                     L["更好的选择"],
                     L["当你点击一个菜单选项时，"],
                     L["该插件的原本设定：下一级菜单中总是默认显示第一项。"],
@@ -3071,29 +3123,123 @@ BG.Init(function()
                     L["点击地下城和团队副本时，会自动显示25人奥杜尔；"],
                     L["点击专业制造时，会自动显示附魔；"],
                     L["点击专业制造-铭文时，会自动显示你对应的铭文；"],
-                }
-                local f = O.CreateCheckButton(name, L["更好的选择"] .. "*", others, 15, height - h, ontext)
-                BG.options["button" .. name] = f
-            end
-            h = h + 30
-
-            -- 一键显示
-            do
-                local name = "AtlasLoot_fastChoose"
-                BG.options[name .. "reset"] = 0
-                BiaoGe.options[name] = BiaoGe.options[name] or BG.options[name .. "reset"]
-                local ontext = {
-                    L["一键显示"],
+                },
+            })
+            -- 快捷按钮
+            tinsert(tbl, {
+                name = "AtlasLoot_fastChoose",
+                name2 = L["快捷按钮"] .. "*",
+                reset = 0,
+                ontext = {
+                    L["快捷按钮"],
                     L["在AtlasLoot主界面的右边，增加多个快捷按钮，点击后直接显示相应页面。"],
                     " ",
                     L["比如珠宝按钮，点击后直接显示珠宝页面。"],
-                }
-                local f = O.CreateCheckButton(name, L["一键显示"] .. "*", others, 15, height - h, ontext)
-                BG.options["button" .. name] = f
-            end
+                },
+                onClick = BG.AtlasLootUpdateFastButton
+            })
 
-            h = h + 45
-        end
+            for i, v in ipairs(tbl) do
+                if not v.notdefault then
+                    BG.options[v.name .. "reset"] = v.reset
+                    BiaoGe.options[v.name] = BiaoGe.options[v.name] or BG.options[v.name .. "reset"]
+                end
+                BG.options["button" .. v.name] = O.CreateCheckButton(v.name, v.name2, others, 15, height - h, v.ontext)
+                Update_OnShow(BG.options["button" .. v.name], v.name)
+                if v.onClick then
+                    BG.options["button" .. v.name]:HookScript("OnClick", v.onClick)
+                end
+                h = h + 30
+            end
+            height = height - 15
+
+            -- 插件设置
+            local mainFrame = BG.AtlasLootMainFrame
+            if mainFrame and mainFrame.titleFrame then
+                local frameWidth = 300
+                local frameHeight = 100
+                local bt = CreateFrame("Button", nil, mainFrame.titleFrame)
+                do
+                    bt:SetSize(18, 18)
+                    bt:SetPoint("LEFT", 2, 0)
+                    local icon = "Interface\\AddOns\\BiaoGe\\Media\\icon\\icon"
+                    local tex = bt:CreateTexture()
+                    tex:SetAllPoints()
+                    tex:SetTexture(icon)
+                    bt:SetHighlightTexture(icon)
+                    bt:SetScript("OnClick", function(self)
+                        self.frame:SetShown(not self.frame:IsVisible())
+                    end)
+                    bt:SetScript("OnLeave", GameTooltip_Hide)
+
+                    bt.frame = CreateFrame("Frame", nil, bt, "BackdropTemplate")
+                    bt.frame:SetBackdrop({
+                        bgFile = "Interface/ChatFrame/ChatFrameBackground",
+                        edgeFile = "Interface/ChatFrame/ChatFrameBackground",
+                        edgeSize = 1,
+                    })
+                    bt.frame:SetBackdropColor(0, 0, 0, 0.9)
+                    bt.frame:SetBackdropBorderColor(.3, .3, .3, 1)
+                    bt.frame:SetSize(frameWidth, frameHeight)
+                    bt.frame:EnableMouse(true)
+                    bt.frame:SetPoint("TOP", bt, "BOTTOM", 0, -2)
+                    bt.frame:Hide()
+                    bt.frame:SetScript("OnHide", function(self)
+                        self:Hide()
+                    end)
+                    bt.frame.CloseButton = CreateFrame("Button", nil, bt.frame, "UIPanelCloseButton")
+                    bt.frame.CloseButton:SetPoint("TOPRIGHT", bt.frame, "TOPRIGHT", 2, 2)
+
+                    mainFrame:HookScript("OnHide", function()
+                        bt.frame:Hide()
+                    end)
+
+                    local verText = mainFrame.titleFrame.newVersion
+                    if verText then
+                        verText:SetPoint("LEFT", mainFrame.titleFrame, "LEFT", 30, 0)
+                    end
+                end
+
+                local height = -10
+                local h = 0
+                local h_jiange = 28
+                local text = bt.frame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+                text:SetPoint("TOPLEFT", 20, height - h)
+                text:SetText(BG.STC_g1(L["其他功能|cff808080（由BiaoGe插件提供）|r"]))
+                height = height - height_jiange
+
+                local l = bt.frame:CreateLine()
+                l:SetColorTexture(RGB("808080", 1))
+                l:SetStartPoint("TOPLEFT", 15, height - h + line_height)
+                l:SetEndPoint("TOPLEFT", frameWidth - 30, height - h + line_height)
+                l:SetThickness(1.5)
+                local buttons = {}
+                for i, v in ipairs(tbl) do
+                    if v.notdefault then
+                        v.ontext[1] = v.ontext[1] .. L["（重载界面后生效）"]
+                    end
+                    local f = O.CreateCheckButton(v.name, v.name2, bt.frame, 15, height - h, v.ontext)
+                    Update_OnShow(f, v.name)
+                    if v.onClick then
+                        f:HookScript("OnClick", v.onClick)
+                    end
+                    if i == 6 then
+                        f:ClearAllPoints()
+                        f:SetPoint("LEFT", buttons[1], "RIGHT", 190, 0)
+                        f.Text:SetWidth(140)
+                    elseif i > 6 then
+                        f:ClearAllPoints()
+                        f:SetPoint("TOPLEFT", buttons[i - 1], "TOPLEFT", 0, -h_jiange)
+                        f.Text:SetWidth(140)
+                    else
+                        f.Text:SetWidth(180)
+                    end
+                    f.Text:SetWordWrap(false)
+                    tinsert(buttons, f)
+                    h = h + h_jiange
+                end
+            end
+        end)
 
         -- 集结号
         BG.Init2(function()
@@ -3103,16 +3249,6 @@ BG.Init(function()
             height = height - height_jiange
 
             O.CreateLine(others, height - h + line_height)
-
-            local function Update_OnShow(f, name)
-                f:SetScript("OnShow", function(self)
-                    if BiaoGe.options[name] == 1 then
-                        f:SetChecked(true)
-                    else
-                        f:SetChecked(false)
-                    end
-                end)
-            end
 
             local tbl = {}
 
@@ -3331,32 +3467,30 @@ BG.Init(function()
             l:SetThickness(1.5)
 
             -- 集结号设置
-            do
-                local buttons = {}
-                for i, v in ipairs(tbl) do
-                    if v.notdefault then
-                        v.ontext[1] = v.ontext[1] .. L["（重载界面后生效）"]
-                    end
-                    local f = O.CreateCheckButton(v.name, v.name2, others, 15, height - h, v.ontext)
-                    Update_OnShow(f, v.name)
-                    if v.onClick then
-                        f:HookScript("OnClick", v.onClick)
-                    end
-                    if i == 6 then
-                        f:ClearAllPoints()
-                        f:SetPoint("LEFT", buttons[1], "RIGHT", 190, 0)
-                        f.Text:SetWidth(140)
-                    elseif i > 6 then
-                        f:ClearAllPoints()
-                        f:SetPoint("TOPLEFT", buttons[i - 1], "TOPLEFT", 0, -h_jiange)
-                        f.Text:SetWidth(140)
-                    else
-                        f.Text:SetWidth(180)
-                    end
-                    f.Text:SetWordWrap(false)
-                    tinsert(buttons, f)
-                    h = h + h_jiange
+            local buttons = {}
+            for i, v in ipairs(tbl) do
+                if v.notdefault then
+                    v.ontext[1] = v.ontext[1] .. L["（重载界面后生效）"]
                 end
+                local f = O.CreateCheckButton(v.name, v.name2, others, 15, height - h, v.ontext)
+                Update_OnShow(f, v.name)
+                if v.onClick then
+                    f:HookScript("OnClick", v.onClick)
+                end
+                if i == 6 then
+                    f:ClearAllPoints()
+                    f:SetPoint("LEFT", buttons[1], "RIGHT", 190, 0)
+                    f.Text:SetWidth(140)
+                elseif i > 6 then
+                    f:ClearAllPoints()
+                    f:SetPoint("TOPLEFT", buttons[i - 1], "TOPLEFT", 0, -h_jiange)
+                    f.Text:SetWidth(140)
+                else
+                    f.Text:SetWidth(180)
+                end
+                f.Text:SetWordWrap(false)
+                tinsert(buttons, f)
+                h = h + h_jiange
             end
         end)
     end

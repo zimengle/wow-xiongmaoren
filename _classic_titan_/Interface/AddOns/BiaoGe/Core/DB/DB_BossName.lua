@@ -353,19 +353,19 @@ end
 
 -- Titan
 do
-    -- local c = "339900"
-    -- local boss = {
-    --     { name = L["艾\n索\n雷\n葛\n斯"], color = "0099FF" },
-    --     { name = L["卡\n扎\n克"], color = "0099FF" },
-    --     { name = L["末日行者"], color = "cc9999" },
-    --     { name = L["末日行者卡扎克"], color = "cc9999" },
-    --     { name = L["莱\n索\n恩"], color = c },
-    --     { name = L["艾\n莫\n莉\n丝"], color = c },
-    --     { name = L["泰\n拉\n尔"], color = c },
-    --     { name = L["伊\n森\n德\n雷"], color = c },
-    -- }
-    -- Addother(boss)
-    -- AddDB("Worldtitan", boss)
+    local c = "339900"
+    local boss = {
+        { name = L["艾\n索\n雷\n葛\n斯"], color = "0099FF" },
+        { name = L["卡\n扎\n克"], color = "0099FF" },
+        { name = L["末日行者"], color = "cc9999" },
+        { name = L["末日领主卡扎克"], color = "cc9999" },
+        { name = L["莱\n索\n恩"], color = c },
+        { name = L["艾\n莫\n莉\n丝"], color = c },
+        { name = L["泰\n拉\n尔"], color = c },
+        { name = L["伊\n森\n德\n雷"], color = c },
+    }
+    Addother(boss)
+    AddDB("Worldtitan", boss)
 
     local boss = {
         { name = L["鲁\n西\n弗\n隆"], color = "90EE90" },
@@ -508,80 +508,3 @@ do
     Addother(boss)
     AddDB("NP", boss)
 end
-
-
---[[ local f = CreateFrame("Frame")
-f:RegisterEvent("PLAYER_LOGIN")
-f:SetScript("OnEvent", function(self, event)
-    local FB = "Temple"
-    local boss = 8
-
-    local function RGB_16(r, g, b)
-        local r = string.format("%X", tonumber(r) * 255)
-        if r and strlen(r) == 1 then
-            r = "0" .. r
-        end
-        local g = string.format("%X", tonumber(g) * 255)
-        if g and strlen(g) == 1 then
-            g = "0" .. g
-        end
-        local b = string.format("%X", tonumber(b) * 255)
-        if b and strlen(b) == 1 then
-            b = "0" .. b
-        end
-        local c = r .. g .. b
-        return c
-    end
-    local edit = CreateFrame("EditBox", nil, ColorPickerFrame, "BiaoGe_InputBoxTemplate")
-    do
-        edit:SetSize(80, 20)
-        edit:SetPoint("BOTTOM", 62, 40)
-        edit:SetAutoFocus(false)
-    end
-
-    local function ShowColorPicker(r, g, b, a, changedCallback)
-        ColorPickerFrame.hasOpacity = (a ~= nil)
-        ColorPickerFrame.opacity = a
-        ColorPickerFrame.previousValues = { r, g, b, a }
-        ColorPickerFrame.func = changedCallback
-        ColorPickerFrame.opacityFunc = changedCallback
-        ColorPickerFrame.cancelFunc = changedCallback
-        ColorPickerFrame:SetColorRGB(r, g, b)
-        ColorPickerFrame:Hide()
-        ColorPickerFrame:Show()
-        ColorPickerFrame:ClearAllPoints()
-        ColorPickerFrame:SetPoint("RIGHT", BG.MainFrame, "RIGHT", 0, 0)
-        edit:SetText(RGB_16(r, g, b))
-        edit:HighlightText()
-        BG.After(0.1, function()
-            edit:SetFocus()
-        end)
-    end
-    local r, g, b, a = 1, 1, 1, 1
-    local function myColorCallback(restore)
-        local newR, newG, newB, newA;
-        if restore then
-            newR, newG, newB, newA = unpack(restore);
-        else
-            newA, newR, newG, newB = OpacitySliderFrame:GetValue(), ColorPickerFrame:GetColorRGB();
-        end
-        r, g, b, a = newR, newG, newB, newA;
-        BG.Frame[FB]["boss" .. boss]["name"]:SetTextColor(r, g, b, a)
-        edit:SetText(RGB_16(r, g, b))
-        edit:HighlightText()
-        print(r, g, b)
-    end
-
-    BG.MainFrame:HookScript("OnShow", function(self)
-        ShowColorPicker(r, g, b, a, myColorCallback)
-    end)
-end) ]]
-
---[[
-local str="长者议会"
-local newstr=""
-for i=1,string.utf8len(str) do
-    newstr=newstr..(i==1 and "" or "\n")..string.utf8sub(str, i, i)
-end
-pt(newstr)
- ]]

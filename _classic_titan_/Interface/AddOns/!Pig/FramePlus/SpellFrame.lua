@@ -2,13 +2,14 @@ local _, addonTable = ...;
 local FramePlusfun=addonTable.FramePlusfun
 function FramePlusfun.Spell()
 	if not PIGA["FramePlus"]["SpellOpen"] then return end
-	--if NDui then return end
-	if PIG_MaxTocversion(60000,true) then return end
+	if PIG_MaxTocversion(40000,true) then return end
 	----
+	local match = _G.string.match
 	local Data=addonTable.Data
 	local Create=addonTable.Create
 	local PIGFrame=Create.PIGFrame
-	local PIGButton=Create.PIGButton
+	local PIGEnter=Create.PIGEnter
+	local PIGDiyBut=Create.PIGDiyBut
 	local PIGFontString=Create.PIGFontString
 	local GetSpecialization = GetSpecialization or C_SpecializationInfo and C_SpecializationInfo.GetSpecialization
 	local GetSpecializationInfo = GetSpecializationInfo or C_SpecializationInfo and C_SpecializationInfo.GetSpecializationInfo
@@ -16,6 +17,9 @@ function FramePlusfun.Spell()
 	if ShowAllSpellRanksCheckbox then
 		ShowAllSpellRanksCheckbox:SetPoint("TOPLEFT",SpellBookFrame,"TOPLEFT",72,-32);
 	end
+	local className, classFilename, classId = UnitClass("player")
+	PIGA["FramePlus"]["SpellData"][classFilename]=PIGA["FramePlus"]["SpellData"][classFilename] or {}
+
 	local iconxx={237553,294475}
 	local function add_butF(id,gnname,tooltip,errtooltip)
 		local but = CreateFrame("CheckButton",nil, SpellBookFrame, "SpellBookSkillLineTabTemplate");
@@ -45,9 +49,21 @@ function FramePlusfun.Spell()
 		fui:PIGSetBackdrop()
 		fui:Hide()
 		fui:PIGClose()
-		fui.biaotiT = PIGFontString(fui,{"TOPLEFT",fui,"TOPLEFT",6,-6},tooltip)
-		fui.biaotiT1 = PIGFontString(fui,{"LEFT",fui.biaotiT,"RIGHT",2,0})
-		fui.biaotiT1:SetTextColor(0, 1, 0, 1)
+		if id==1 then
+			fui.biaotiT = PIGFontString(fui,{"TOPLEFT",fui,"TOPLEFT",26,-6},tooltip)
+			fui.biaotiT1 = PIGFontString(fui,{"LEFT",fui.biaotiT,"RIGHT",2,0})
+			fui.CZ = PIGDiyBut(fui,{"TOPLEFT", fui, "TOPLEFT", 6,-6},{18,nil,nil,nil,"common-icon-undo"})
+			PIGEnter(fui.CZ,"如果显示异常，请点此重置未学技能数据")
+			fui.CZ:SetScript("OnClick", function (self)
+				wipe(PIGA["FramePlus"]["SpellData"][classFilename])
+				PIG_OptionsUI:ErrorMsg("已重置未学技能数据")
+				fui:UpdateShowList()
+				fui:RegisterEvent("TRAINER_UPDATE");
+				fui:RegisterEvent("UPDATE_MOUSEOVER_UNIT")
+			end);
+		else
+			fui.biaotiT = PIGFontString(fui,{"TOPLEFT",fui,"TOPLEFT",6,-6},tooltip)
+		end
 		fui.error = PIGFontString(fui,{"CENTER",fui,"CENTER",0,0})
 		fui.butlist={}
 		fui:SetScript("OnHide", function() but:SetChecked(false) if fui.hideui then fui.hideui() end end)
@@ -61,12 +77,28 @@ function FramePlusfun.Spell()
 		end)
 		return fui
 	end
-	local weituochuF=add_butF(0,"未使用","以下技能尚未拖动到动作条内")
-	local weixuexiF=add_butF(1,"未学习","以下技能尚未学习")
-	---
-	PIGA["FramePlus"]["Spell"]=PIGA["FramePlus"]["Spell"] or {}
-	local className, classFilename, classId = UnitClass("player")
-	PIGA["FramePlus"]["Spell"][classFilename]=PIGA["FramePlus"]["Spell"][classFilename] or {}
+	local weituochuF=add_butF(0,"未使用","尚未拖动到动作条技能")
+	local weixuexiF=add_butF(1,"未学习","尚未学习技能")
+	local NoSpellList={
+		818,--基础营火
+		3273,--急救
+		2550,--烹饪
+		6603,--攻击
+		2508,--寻找矿物
+		2383,--寻找草药
+		2656,--熔炼
+		13262,--"分解"
+	}
+	local function IsNoSpellList(spid)
+		for i=1,#NoSpellList do
+			if spid==NoSpellList[i] then
+				return true
+			end
+		end
+		return false
+	end
+	-- "战斗宠物""公会福利""初级" "中级" "高级" "专家级" "大师级" "宗师级"
+
 	local function IsActionInfoX(spid)
 		for actionID = 1, 120 do
 			local actionType, id, subType = GetActionInfo(actionID)
@@ -91,7 +123,7 @@ function FramePlusfun.Spell()
 		local yixueSpellList = {}
 		if PIG_MaxTocversion(40000) then
 			if ly=="no" then
-				yixueSpellList=PIGA["FramePlus"]["Spell"][classFilename]
+				yixueSpellList=PIGA["FramePlus"]["SpellData"][classFilename] or {}
 			else
 				local oldVar = GetCVar("ShowAllSpellRanks")
 				if oldVar=="1" then
@@ -109,15 +141,8 @@ function FramePlusfun.Spell()
 						local spellName, spellSubName, spellID = GetSpellBookItemName(slot, BOOKTYPE_SPELL)
 						if spellID and IsPlayerSpell(spellID) then
 							local isPassive = IsPassiveSpell(slot, BOOKTYPE_SPELL)
-							if not isPassive then
-							   	--if spellName~="分解" and spellName~="基础营火" and spellName~="寻找矿物" and spellName~="寻找草药" and spellName~="熔炼" then	
-									--if spellSubName~="战斗宠物" and spellSubName~="公会福利" and spellSubName~="初级" and spellSubName~="中级" and spellSubName~="高级" and spellSubName~="专家级" and spellSubName~="大师级" and spellSubName~="宗师级" then
-										--print(spellID,spellName,spellSubName)
-										if not IsActionInfoX(spellID) then
-											table.insert(yixueSpellList,slot)
-										end
-									--end
-								--end
+							if not isPassive and not IsNoSpellList(spellID) and not IsActionInfoX(spellID) then
+								table.insert(yixueSpellList,slot)
 							end
 						end
 					end
@@ -137,20 +162,13 @@ function FramePlusfun.Spell()
 								local levelLearned = C_Spell.GetSpellLevelLearned(spellID)
 								local levelLearned = levelLearned or 1
 								local spellName, spellSubName = GetSpellBookItemName(slot, BOOKTYPE_SPELL)
-								local spmamex = spellSubName and spellSubName~="" and spellName.."("..spellSubName..")" or spellName
-								table.insert(yixueSpellList,{spellID,texture,levelLearned,spmamex})
+								table.insert(yixueSpellList,{spellID,texture,levelLearned})
 							end
 						else
 							if IsPlayerSpell(spellID) and spellType=="SPELL" then
 								local isPassive = IsPassiveSpell(slot, BOOKTYPE_SPELL)
-								if not isPassive then
-									--local spellName, spellSubName = GetSpellBookItemName(slot, BOOKTYPE_SPELL)
-									--if spellSubName~="战斗宠物" and spellSubName~="公会福利" then
-										--print(spellName,spellSubName)
-										if not IsActionInfoX(spellID) then
-											table.insert(yixueSpellList,slot)
-										end
-									--end
+								if not isPassive and not IsNoSpellList(spellID) and not IsActionInfoX(spellID) then
+									table.insert(yixueSpellList,slot)
 								end
 							end
 						end
@@ -185,16 +203,6 @@ function FramePlusfun.Spell()
 		spellbut:SetSize(37,37);
 		spellbut.iconTexture = spellbut:CreateTexture();
 		spellbut.iconTexture:SetAllPoints(spellbut)
-;
-		function spellbut:UpdateButton()
-			if self.TextBackground then self.TextBackground:ClearAllPoints();end
-			if self.TextBackground2 then self.TextBackground2:ClearAllPoints();end
-			local texture = GetSpellTexture(self.slot, SpellBookFrame.bookType);
-			if texture then
-				spellbut.iconTexture:SetTexture(texture);
-				self:Show();
-			end
-		end
 		spellbut:SetScript("OnEvent",nil)
 		spellbut:SetScript("OnEnter",function(self)
 			GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
@@ -218,6 +226,15 @@ function FramePlusfun.Spell()
 			self:SetChecked(false);
 			PickupSpellBookItem(slot, SpellBookFrame.bookType);
 		end)
+		function spellbut:UpdateButton()
+			if self.TextBackground then self.TextBackground:ClearAllPoints();end
+			if self.TextBackground2 then self.TextBackground2:ClearAllPoints();end
+			local texture = GetSpellTexture(self.slot, SpellBookFrame.bookType);
+			if texture then
+				spellbut.iconTexture:SetTexture(texture);
+				self:Show();
+			end
+		end
 	end
 	function weituochuF:UpdateShowList()
 		weixuexiF:Hide();
@@ -247,10 +264,7 @@ function FramePlusfun.Spell()
 	if PIG_MaxTocversion(50000) then
 		hangmaxnum=19
 	end
-	local ScrollFF=Create.PIGScrollFrame_old(weixuexiF,{4,-26,-18,4})
-	ScrollFF:HookScript("OnVerticalScroll", function(self, offset)
-	    FauxScrollFrame_OnVerticalScroll(self, offset, hangeH, weixuexiF.UpdateShowList)
-	end)
+	weixuexiF.ScrollFF=Create.PIGScrollFrame_old(weixuexiF,{4,-26,-2,4})
 	for i=1,hangmaxnum do
 		local spellbut = PIGFrame(weixuexiF,nil,{scrlwww,hangeH})
 		weixuexiF.butlist[i]=spellbut
@@ -267,20 +281,48 @@ function FramePlusfun.Spell()
 		spellbut.name = PIGFontString(spellbut,{"LEFT",spellbut.icon,"RIGHT",1,0},"")
 		spellbut.levelLearned = PIGFontString(spellbut,{"RIGHT",spellbut.icon,"LEFT",-1,0},"")
 		spellbut.levelLearned:SetWidth(30);
-		spellbut.levelLearned:SetJustifyH("RIGHT")	
-		function spellbut:UpdateButton(Data,leveldq)
+		spellbut.levelLearned:SetJustifyH("RIGHT")
+		spellbut:SetScript("OnEnter",function(self)
+			if not self.spellID then return end
+			GameTooltip:SetOwner(self, "ANCHOR_LEFT");
+			if type(self.spellID)=="number" then
+				GameTooltip:SetHyperlink("spell:"..self.spellID)
+			else
+				GameTooltip:AddLine("|cffFFFFFF"..self.spellID.."|r")
+				GameTooltip:AddLine(self.tisptxt1, nil, nil, nil, true)
+			end
+			GameTooltip:Show();
+		end)
+		spellbut:SetScript("OnLeave", function ()
+			GameTooltip:ClearLines();
+			GameTooltip:Hide() 
+		end);
+		function spellbut:UpdateButton(Data,leveldq,nonext)
 			spellbut.spellID=Data[1]
-			spellbut.tisptxt=Data[4]
 			spellbut.tisptxt1=Data[5]
 			spellbut.icon:SetTexture(Data[2]);
 			spellbut.levelLearned:SetText("lv"..Data[3])
 			if PIG_MaxTocversion(40000) then
-				spellbut.name:SetText(Data[4].." |cff808080"..GetMoneyString(Data[6] or 0).."|r")
+				if Data[4] and Data[4]~="" then
+					spellbut.name:SetText(Data[1].." ("..Data[4]..") |cff808080"..GetMoneyString(Data[6] or 0).."|r")
+				else
+					spellbut.name:SetText(Data[1].." |cff808080"..GetMoneyString(Data[6] or 0).."|r")
+				end
 			else
-				spellbut.name:SetText(Data[4])
+				local Namespekk=GetSpellInfo(Data[1])
+				local Subtext=GetSpellSubtext(Data[1])
+				if Subtext and Subtext~="" then
+					spellbut.name:SetText(Namespekk.."("..Subtext..")")
+				else
+					spellbut.name:SetText(Namespekk)
+				end
 			end
 			if leveldq>=Data[3] then
-				spellbut.ok:SetText("可学习")
+				if nonext then
+					spellbut.ok:SetText("|cffFF0000缺前置|r")
+				else
+					spellbut.ok:SetText("可学习")
+				end
 				spellbut.ok:SetTextColor(0, 1, 0, 1)
 				spellbut.levelLearned:SetTextColor(0, 1, 0, 1)
 				spellbut.name:SetTextColor(0, 1, 0, 1)
@@ -309,25 +351,68 @@ function FramePlusfun.Spell()
 			end
 			self:Show();	
 		end
-		spellbut:SetScript("OnEnter",function(self)
-			if not self.spellID and not self.tisptxt then return end
-			GameTooltip:SetOwner(self, "ANCHOR_LEFT");
-			if self.tisptxt then
-				GameTooltip:AddLine("|cffFFFFFF"..self.tisptxt.."|r")
-				GameTooltip:AddLine(self.tisptxt1, nil, nil, nil, true)
-			else
-				GameTooltip:SetHyperlink("spell:"..self.spellID)
-			end
-			GameTooltip:Show();
-		end)
-		spellbut:SetScript("OnLeave", function ()
-			GameTooltip:ClearLines();
-			GameTooltip:Hide() 
-		end);
 	end
 	weixuexiF.allhuafei=0
 	weixuexiF.NewData={}
-	function weixuexiF:UpdateShowList()
+	local function GetIsPlayerSpellData()
+		local NewData={}
+		local oldVar = GetCVar("ShowAllSpellRanks")
+		if oldVar=="0" then
+			ShowAllSpellRanksCheckbox:Click()
+			weixuexiF.hideui=true
+		end
+		local numTabs = GetNumSpellTabs()
+		for i=1,numTabs do
+			local name, texture, tabOffset, numEntries = GetSpellTabInfo(i)
+			for slot=tabOffset + 1, tabOffset + numEntries do
+				local spellName, spellSubName, spellID = GetSpellBookItemName(slot, BOOKTYPE_SPELL)
+				if spellID and IsPlayerSpell(spellID) then
+					if spellID==921 then
+						spellSubName=string.format(LEVEL_GAINED,"1")
+					end
+					if NewData[spellName] then
+						table.insert(NewData[spellName], spellSubName)
+					else
+						NewData[spellName]={spellSubName}
+					end
+				end
+			end
+		end
+		if weixuexiF.hideui then ShowAllSpellRanksCheckbox:Click() weixuexiF.hideui=nil end
+		return NewData
+	end
+	local function IsPlayerSpellOK(spname,levelLsit)
+		for i=1,#levelLsit do
+			if spname==levelLsit[i] then
+				return true
+			end
+		end
+		return false
+	end
+	local function IsNextLv(level,newData,PlayerSpellData)
+		if level>=newData[3] then
+			if newData[4] and newData[4]:match("^等级%s*(%d+)$") then--有等级
+				if newData[7] and #newData[7]>0 then
+					if not PlayerSpellData[newData[1]] then
+						local levelnum = tonumber(newData[4]:match("%d+"))
+						if levelnum>1 then
+							return true
+						end
+					end
+				end
+			end
+		end
+		return false
+	end
+	local function addspellData_1(level,newData)
+		table.insert(weixuexiF.NewData,newData)
+		if level>=newData[3] and newData[6] then
+			weixuexiF.allhuafei=weixuexiF.allhuafei+newData[6]
+		end
+	end
+	function weixuexiF.ScrollFF:UpdateShowList()
+		weixuexiF.allhuafei=0
+		weixuexiF.biaotiT1:SetText("")
 		weituochuF:Hide();
 		for i=1,hangmaxnum do
 			weixuexiF.butlist[i]:Hide();
@@ -336,92 +421,124 @@ function FramePlusfun.Spell()
 		if #SpellData==0 then weixuexiF.error:SetText("请先拜访你的"..MINIMAP_TRACKING_TRAINER_CLASS) weixuexiF:Show() return end
 		local level = UnitLevel("player")
 		local TotalNum = #SpellData
-		if PIG_MaxTocversion(40000) and TotalNum>0 then
-			weixuexiF.error:SetText("")
-			weixuexiF.allhuafei=0
-			wipe(weixuexiF.NewData)
-			for i=1,TotalNum do
-				local addokxsdd
-				local name, subtext, icon, castTime, minRange, maxRange, spellID = GetSpellInfo(SpellData[i][4])
-	    		if name then
-	    			local subtext = C_Spell.GetSpellSubtext(spellID)
-	    			if subtext then
-		    			if name.."("..subtext..")"==SpellData[i][4] then
-		    				addokxsdd=true
-		    			end
-		    		end
-	    		end
-	    		if not addokxsdd then
-	    			table.insert(weixuexiF.NewData,SpellData[i])
-					if level>=SpellData[i][3] and SpellData[i][6] then
-						weixuexiF.allhuafei=weixuexiF.allhuafei+SpellData[i][6]
+		local PlayerSpellData=GetIsPlayerSpellData()
+		if TotalNum>0 then
+			if PIG_MaxTocversion(40000) then
+				weixuexiF.error:SetText("")
+				wipe(weixuexiF.NewData)
+				for i=1,TotalNum do
+					if PlayerSpellData[SpellData[i][1]] then--存在已学
+						if SpellData[i][4] and SpellData[i][4]:match("^等级%s*(%d+)$") then--有等级
+						    if not IsPlayerSpellOK(SpellData[i][4],PlayerSpellData[SpellData[i][1]]) then
+						    	addspellData_1(level,SpellData[i])
+							end
+						else--没有等级直接判断
+							if not PlayerSpellData[SpellData[i][1]] then
+								addspellData_1(level,SpellData[i])
+						    end
+						end
+					else
+						addspellData_1(level,SpellData[i])
 					end
 				end
+				weixuexiF.biaotiT1:SetText("(可学花费"..GetMoneyString(weixuexiF.allhuafei).."/"..GetMoneyString(GetMoney())..")")
+				if weixuexiF.allhuafei<GetMoney() then
+					weixuexiF.biaotiT1:SetTextColor(0, 1, 0, 1)
+				else
+					weixuexiF.biaotiT1:SetTextColor(1, 0, 0, 1)
+				end
+			else
+				weixuexiF.NewData=SpellData
 			end
-			weixuexiF.biaotiT1:SetText("(可学总"..COSTS_LABEL..GetMoneyString(weixuexiF.allhuafei)..")")
 		else
 			weixuexiF.error:SetText("没有未学技能")
 		end
 		local TotalNum = #weixuexiF.NewData
-	    local offset = ScrollFF:GetScrollFrameOffset(TotalNum, hangmaxnum, hangeH)
+	    local offset = self:GetScrollFrameOffset(TotalNum, hangmaxnum, hangeH)
 	   	for i = 1, hangmaxnum do
 	        local dataIndex = i + offset
 	        if weixuexiF.NewData[dataIndex] then
-				weixuexiF.butlist[i]:UpdateButton(weixuexiF.NewData[dataIndex],level)
+				weixuexiF.butlist[i]:UpdateButton(weixuexiF.NewData[dataIndex],level,IsNextLv(level,weixuexiF.NewData[dataIndex],PlayerSpellData))
 			end
 		end
 		weixuexiF:Show()
 	end
+	weixuexiF.UpdateShowList=weixuexiF.ScrollFF.UpdateShowList
 	weixuexiF:HookScript("OnShow", function(self)
-		self:UpdateShowList()
+		self.ScrollFF:UpdateShowList()
 	end)
 	if PIG_MaxTocversion(40000) then
-		if #PIGA["FramePlus"]["Spell"][classFilename]>10 then return end
+		local function GetxuexiList()
+			if not ClassTrainerFrame:IsShown() then return end
+			local old_available = GetTrainerServiceTypeFilter("available")
+			local old_unavailable = GetTrainerServiceTypeFilter("unavailable")
+			local old_used = GetTrainerServiceTypeFilter("used")
+			SetTrainerServiceTypeFilter("available",true)
+			SetTrainerServiceTypeFilter("unavailable",true)
+			SetTrainerServiceTypeFilter("used",true)
+			local numTrainerServices = GetNumTrainerServices();
+			if numTrainerServices<#PIGA["FramePlus"]["SpellData"][classFilename] then return end
+			wipe(PIGA["FramePlus"]["SpellData"][classFilename])
+			for index=1,numTrainerServices do
+				local serviceName, serviceSubText, serviceType, isExpanded = GetTrainerServiceInfo(index);
+				if ( serviceType ~= "header" ) then
+					--local link = GetTrainerServiceItemLink(index)
+					local texture = GetTrainerServiceIcon(index)
+					local texture = texture or 134400
+					local levelLearned = GetTrainerServiceLevelReq(index);
+					local levelLearned = levelLearned or 1
+					local serviceCost, talentCost, professionCost = GetTrainerServiceCost(index)
+					local serviceDescription = GetTrainerServiceDescription(index)
+					local adddataX={
+						serviceName,
+						texture,
+						levelLearned,
+						serviceSubText,
+						serviceDescription,
+						serviceCost,
+						{},
+					}
+					local numRequirements = GetTrainerServiceNumAbilityReq(index);
+					for ix=1,numRequirements do
+						local ability, hasReq = GetTrainerServiceAbilityReq(index, ix);
+						table.insert(adddataX[7],ability)
+					end
+					--print(serviceName, serviceSubText)
+					table.insert(PIGA["FramePlus"]["SpellData"][classFilename],adddataX)
+				end
+			end
+			SetTrainerServiceTypeFilter("available",old_available)
+			SetTrainerServiceTypeFilter("unavailable",old_unavailable)
+			SetTrainerServiceTypeFilter("used",old_used)
+			if #PIGA["FramePlus"]["SpellData"][classFilename]>20 then
+				weixuexiF:UnregisterEvent("TRAINER_UPDATE");
+				weixuexiF:UnregisterEvent("UPDATE_MOUSEOVER_UNIT")
+			end
+		end
 		weixuexiF:RegisterEvent("PLAYER_ENTERING_WORLD");
 		weixuexiF:SetScript("OnEvent", function(self, event)
 			if event == "PLAYER_ENTERING_WORLD" then
-				self:RegisterEvent("TRAINER_UPDATE");
+				if #PIGA["FramePlus"]["SpellData"][classFilename]>20 then return end
 				self:RegisterEvent("UPDATE_MOUSEOVER_UNIT")
 		    elseif event == "UPDATE_MOUSEOVER_UNIT" then
 		    	if UnitExists('mouseover') then
 					local tooltipText = GameTooltipTextLeft2:GetText()
 					if tooltipText and string.find(tooltipText:lower(), className..TUTORIAL_TITLE14) then
-					    self.kaishiOK=true
-					    local pname =UnitName("mouseover")
-					    self.kaishipname=pname
+						self:RegisterEvent("TRAINER_UPDATE");
+					    self.kaishipname=UnitName("mouseover")
 					    if self.kaiTicker then self.kaiTicker:Cancel() end
-					    self.kaiTicker=C_Timer.NewTimer(10,function()
-					    	self.kaishiOK=nil
+					    self.kaiTicker=C_Timer.NewTimer(60,function()
+					    	self:UnregisterEvent("TRAINER_UPDATE");
 						end)
 					end
 				end
-			elseif event == "TRAINER_UPDATE" and self.kaishiOK then
-				local pname =UnitName("npc")
-				if self.kaishipname~=pname then return end
-				C_Timer.After(0.2,function()
-					if GetTrainerServiceTypeFilter("available")==false then return end
-					if GetTrainerServiceTypeFilter("unavailable")==false then return end
-					wipe(PIGA["FramePlus"]["Spell"][classFilename])
-					local numTrainerServices = GetNumTrainerServices();
-					for index=1,numTrainerServices do
-						local serviceName, serviceSubText, serviceType, isExpanded = GetTrainerServiceInfo(index);
-						if ( serviceType ~= "header" ) then
-							--local link = GetTrainerServiceItemLink(index)
-							local texture = GetTrainerServiceIcon(index)
-							local texture = texture or 134400
-							local reqLevel = GetTrainerServiceLevelReq(index);
-							local levelLearned = levelLearned or 1
-							local spmamex = serviceSubText and serviceSubText~="" and serviceName.."("..serviceSubText..")" or serviceName
-							local serviceCost, talentCost, professionCost = GetTrainerServiceCost(index)
-							local serviceDescription = GetTrainerServiceDescription(index)
-							table.insert(PIGA["FramePlus"]["Spell"][classFilename],{nil,texture,reqLevel,spmamex,serviceDescription,serviceCost})
-						end
-					end
-					if #PIGA["FramePlus"]["Spell"][classFilename]>10 then
-						self:UnregisterEvent("TRAINER_UPDATE");
-						self:UnregisterEvent("UPDATE_MOUSEOVER_UNIT")
-					end
-				end)
+			elseif event == "TRAINER_UPDATE" and self.kaishipname==UnitName("npc") then
+				if self.kaishiOK then self.kaishiOK:Cancel() end
+			    self.kaishiOK=C_Timer.NewTimer(0.6,function()
+			    	GetxuexiList()
+			    	C_Timer.After(0.2,GetxuexiList)
+			    	C_Timer.After(0.4,GetxuexiList)
+			    end)
 		    end
 		end)
 	end

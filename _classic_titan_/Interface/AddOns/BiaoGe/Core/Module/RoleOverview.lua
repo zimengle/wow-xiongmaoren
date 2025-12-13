@@ -118,9 +118,13 @@ function BG.RoleOverviewUI()
         elseif BG.IsTitan then
             BiaoGe.FBCDchoice = {
                 ["MCtitan"] = 1,
+                ["VOAtitan"] = 1,
+                ["Lanlongtitan"] = 1,
+                ["Kazaketitan"] = 1,
                 ["gamma"] = 1,
                 ["heroe"] = 1,
                 ["week1"] = 1,
+                ["faction" .. "749"] = 1,
                 ["faction" .. "1119"] = 1,
                 ["faction" .. "1098"] = 1,
                 ["faction" .. "1106"] = 1,
@@ -229,7 +233,7 @@ function BG.RoleOverviewUI()
             BG.Once("ro", 250602, function()
                 BiaoGe.MONEYchoice[22726] = 1
             end)
-        elseif BG.IsWLK then
+        elseif BG.IsWLK_80 then
             BG.Once("FBCDchoice", 250717, function()
                 BiaoGe.FBCDchoice["25RS"] = 1
                 BiaoGe.FBCDchoice["10RS"] = 1
@@ -265,6 +269,13 @@ function BG.RoleOverviewUI()
             end)
             BG.Once("ro", 250602, function()
                 BiaoGe.MONEYchoice[50274] = 1
+            end)
+        elseif BG.IsTitan then
+            BG.Once("FBCDchoice", 251204, function()
+                BiaoGe.FBCDchoice["VOAtitan"] = 1
+                BiaoGe.FBCDchoice["Lanlongtitan"] = 1
+                BiaoGe.FBCDchoice["Kazaketitan"] = 1
+                BiaoGe.FBCDchoice["faction" .. "749"] = 1
             end)
         elseif BG.IsCTM then
         elseif BG.IsMOP then
@@ -415,13 +426,14 @@ function BG.RoleOverviewUI()
             }
         elseif BG.IsTitan then
             BG.FBCDall_table = {
-                { name = "SSCtitan", name2 = L["毒蛇神殿"], color = "00BFFF", fbId = 548, type = "fb" },
-                { name = "TKtitan", name2 = L["风暴要塞"], color = "00BFFF", fbId = 550, type = "fb" },
-                { name = "MCtitan", name2 = L["熔火之心"], color = "00BFFF", fbId = 409, type = "fb" },
+                { name = "SSCtitan", name2 = L["毒蛇"], color = "00BFFF", fbId = 548, type = "fb" },
+                { name = "TKtitan", name2 = L["风暴"], color = "00BFFF", fbId = 550, type = "fb" },
+                { name = "MCtitan", name2 = L["熔火"], color = "00BFFF", fbId = 409, type = "fb" },
+                { name = "VOAtitan", name2 = L["宝库"], color = "00BFFF", fbId = 624, type = "fb" },
+                { name = "Lanlongtitan", name2 = L["蓝龙"], color = "00BFFF", fbId = 116, type = "fb" },
+                { name = "Kazaketitan", name2 = L["卡扎克"], color = "00BFFF", fbId = 117, type = "fb" },
                 -- 日常
                 { name = "week1", name2 = L["周常"], color = "FF8C00", type = "quest" },
-                { name = "gamma", name2 = L["泰坦"], color = "FF8C00", type = "quest" },
-                { name = "heroe", name2 = L["英雄"], color = "FF8C00", type = "quest" },
                 { name = "zhubao", name2 = L["珠宝"], color = "FF8C00", type = "quest" },
                 { name = "cooking", name2 = L["烹饪"], color = "FF8C00", type = "quest" },
                 { name = "fish", name2 = L["钓鱼"], color = "FF8C00", type = "quest" },
@@ -439,6 +451,7 @@ function BG.RoleOverviewUI()
             }
             -- 声望
             BG.factionTbl = {
+                749,  -- 海达希亚水元素
                 1119, -- 霍迪尔
                 1098, -- 黑锋骑士团
                 1106, -- 银色北伐军
@@ -449,7 +462,18 @@ function BG.RoleOverviewUI()
                 1073, -- 卡鲁亚克
             }
             for _, id in ipairs(BG.factionTbl) do
-                tinsert(BG.FBCDall_table, { name = "faction" .. id, name2 = GetFactionInfoByID(id), id = id, color = "FFFF00", type = "faction" })
+                local name3
+                if id == 749 then
+                    name3 = L["海达希亚"]
+                end
+                tinsert(BG.FBCDall_table, {
+                    name = "faction" .. id,
+                    name2 = GetFactionInfoByID(id),
+                    name3 = name3,
+                    id = id,
+                    color = "FFFF00",
+                    type = "faction"
+                })
             end
 
             BG.MONEYall_table = {
@@ -655,7 +679,6 @@ GameTooltip:SetCurrencyByID(697)
         end
         for i, v in ipairs(BG.MONEYall_table) do
             if not v.type and type(v.id) == "number" then
-                -- pt(v.id)
                 local info = C_CurrencyInfo.GetCurrencyInfo(v.id)
                 if info then
                     BG.MONEYall_table[i].name = info.name
@@ -974,7 +997,7 @@ GameTooltip:SetCurrencyByID(697)
                 else
                     t:SetPoint("TOPLEFT", right, "TOPRIGHT", width_jiange, 0)
                 end
-                t:SetText("|cff" .. v.color .. (v.name2 or v.name):gsub("sod", "") .. RR)
+                t:SetText("|cff" .. v.color .. (v.name3 or v.name2 or v.name):gsub("sod", "") .. RR)
 
                 if i == 1 then
                     FBCDchoice_table[i].width = 15
@@ -1306,7 +1329,6 @@ GameTooltip:SetCurrencyByID(697)
             local count
             local v = pz[id]
             if type(v) == "table" then -- 牌子/物品
-                -- pt(id, v.isNotKnow)
                 if v.isNotKnow then
                     count = L["未知"]
                 elseif id == "xp" then
@@ -1669,14 +1691,18 @@ GameTooltip:SetCurrencyByID(697)
     -- 获取副本CD
     do
         local colorplayer = SetClassCFF(player, "player")
+        local lastWorldBossText
 
         function BG.UpdateFBCD()
             local time = GetServerTime()
             local cd = {}
+            local worldBossText = ""
 
-            if UnitLevel("player") >= BG.fullLevel2 then
+            if UnitLevel("player") >= BG.fullLevel_RoleOverview then
                 for i = 1, GetNumSavedInstances() do
-                    local name, lockoutId, resettime, difficultyId, locked, extended, instanceIDMostSig, isRaid, maxPlayers, difficultyName, numEncounters, encounterProgress, extendDisabled, instanceId =
+                    local name, lockoutId, resettime, difficultyId, locked,
+                    extended, instanceIDMostSig, isRaid, maxPlayers, difficultyName,
+                    numEncounters, encounterProgress, extendDisabled, instanceId =
                         GetSavedInstanceInfo(i)
                     if locked then
                         local a = {
@@ -1690,6 +1716,24 @@ GameTooltip:SetCurrencyByID(697)
                         tinsert(cd, a)
                     end
                 end
+                if BG.IsTitan then
+                    for i = 1, GetNumSavedWorldBosses() do
+                        local name, bossID, resettime = GetSavedWorldBossInfo(i)
+                        if bossID then
+                            local a = {
+                                player = player,
+                                colorplayer = colorplayer,
+                                fbId = bossID,
+                                num = 0,
+                                resettime = resettime,
+                                endtime = resettime + time,
+                                isWorldBoss = true,
+                            }
+                            tinsert(cd, a)
+                            worldBossText = worldBossText .. bossID
+                        end
+                    end
+                end
                 if #cd ~= 0 then
                     BiaoGe[FBCD][realmID][player] = cd
                 else
@@ -1700,8 +1744,17 @@ GameTooltip:SetCurrencyByID(697)
                         }
                     }
                 end
-            elseif UnitLevel("player") < BG.fullLevel2 then
+            elseif UnitLevel("player") < BG.fullLevel_RoleOverview then
                 BiaoGe[FBCD][realmID][player] = nil
+            end
+
+            if BG.IsTitan then
+                -- 1，没CD，刚打完BOSS变成有CD
+                -- 2，原本就有CD
+                if worldBossText ~= lastWorldBossText and IsInRaid(1) then
+                    BG.SendMyWorldBossCD()
+                end
+                lastWorldBossText = worldBossText
             end
 
             -- 检查其他角色cd是否到期
@@ -1760,7 +1813,8 @@ GameTooltip:SetCurrencyByID(697)
             if event == "PLAYER_ENTERING_WORLD" then
                 self:UnregisterEvent("PLAYER_ENTERING_WORLD")
             end
-            if event == "PLAYER_ENTERING_WORLD" or (event == "ENCOUNTER_END" and success == 1)
+            if event == "PLAYER_ENTERING_WORLD"
+                or (event == "ENCOUNTER_END" and success == 1)
                 or (event == "CHAT_MSG_SYSTEM" and msg == INSTANCE_SAVED) then
                 if not self.cd then
                     self.cd = true
@@ -1784,9 +1838,9 @@ GameTooltip:SetCurrencyByID(697)
                 BG.After(1, function()
                     BG.UpdateFBCD()
                     BG.GetLockoutID()
-                    if not BG.IsVanilla and BG.FBCD_5M_Frame and BG.FBCD_5M_Frame:IsVisible() then
-                        -- BG.UpdateFBCD_5M()
-                    end
+                    -- if not BG.IsVanilla and BG.FBCD_5M_Frame and BG.FBCD_5M_Frame:IsVisible() then
+                    -- BG.UpdateFBCD_5M()
+                    -- end
                 end)
             end
         end)
@@ -2120,6 +2174,18 @@ GameTooltip:SetCurrencyByID(697)
         C_Timer.NewTicker(5, function()
             GetBossIsKill()
         end)
+    elseif BG.IsTitan then
+        local function GetBossIsKill()
+            if InCombatLockdown() then return end
+            local level = UnitLevel("player")
+            local instanceID = select(8, GetInstanceInfo())
+            if level >= BG.fullLevel and instanceID == 0 or instanceID == 1 then
+                RequestRaidInfo()
+            end
+        end
+        C_Timer.NewTicker(5, function()
+            GetBossIsKill()
+        end)
     end
 
     -- 日常任务
@@ -2138,10 +2204,17 @@ GameTooltip:SetCurrencyByID(697)
             BG.dayQuests = {
                 huiguweek = { 79090, 79098 }, -- 灰谷
             }
-        elseif BG.IsWLK then
+        elseif BG.IsWLK_80 then
             BG.dayQuests = {
                 gamma = { 83717, 83713, 78752 },
                 heroe = { 87379, 83714, 84552, 78753 },
+                zhubao = { 12959, 12962, 12961, 12958, 12963, 12960 },
+                cooking = { 13114, 13116, 13113, 13115, 13112,
+                    13102, 13100, 13107, 13101, 13103 },
+                fish = { 13836, 13833, 13834, 13832, 13830 },
+            }
+        elseif BG.IsTitan then
+            BG.dayQuests = {
                 zhubao = { 12959, 12962, 12961, 12958, 12963, 12960 },
                 cooking = { 13114, 13116, 13113, 13115, 13112,
                     13102, 13100, 13107, 13101, 13103 },
@@ -2208,6 +2281,7 @@ GameTooltip:SetCurrencyByID(697)
             }
         end
         local function SaveWeekQuest(questName, questID)
+            local currentTimestamp = GetServerTime()
             local secondsToNextThursday = BG.GetNextWeekTime()         -- 距离下周四还有多少秒
             local timestamp = currentTimestamp + secondsToNextThursday -- 到下周四的实际时间戳
 
@@ -2697,7 +2771,17 @@ GameTooltip:SetCurrencyByID(697)
                                     color = "FF0000"
                                 end
                             end
-                            newMsg = format(L["|cff%s（%s）|r"], color, count)
+                            local weekText = ""
+                            local weekMax = info.maxWeeklyQuantity
+                            if weekMax and weekMax > 0 then
+                                local weekCount = info.quantityEarnedThisWeek
+                                weekText = format(L["（本周%s/%s）"], weekCount, weekMax)
+                                if weekCount >= weekMax and color ~= "FF0000" then
+                                    BG.PlaySound("currencyfull")
+                                    color = "FF0000"
+                                end
+                            end
+                            newMsg = format(L["|cff%s（%s）%s|r"], color, count, weekText)
                         end
                         return false, msg .. newMsg, player, l, cs, t, flag, channelId, ...
                     end

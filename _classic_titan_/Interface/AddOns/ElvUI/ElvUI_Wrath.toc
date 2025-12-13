@@ -1,16 +1,13 @@
-## Title: |cFF00BFFF[Barney]|r |cff1784d1ElvUI Classic - Update for Titan Forged Classic|r
-## Title-zhCN: |cFF00BFFF[巴尼]|r |cff1784d1ElvUI Classic 时光服修复版|r
+## Title: |cff1784d1ElvUI|r |cfd9b9b9bWrath|r
 ## Notes: User Interface Replacement
-## Author: Elv, Simpy, Barney
-## Version: v14.03 巴尼时光服修复版 25112202
-## Interface: 30800
+## Author: Elv, Simpy
+## Version: v14.04
 ## SavedVariables: ElvDB, ElvPrivateDB
 ## SavedVariablesPerCharacter: ElvCharacterDB
 ## OptionalDeps: SharedMedia, Tukui, Masque, BigWigs
 ## RequiredDeps: ElvUI_Libraries
+## Interface: 38000
 ## X-Tukui-ProjectID: -2
 ## X-Tukui-ProjectFolders: ElvUI, ElvUI_Libraries, ElvUI_Options
 
-Core\Load.xml
-
-Wrath\Load.xml
+Game\Wrath\!load.xml

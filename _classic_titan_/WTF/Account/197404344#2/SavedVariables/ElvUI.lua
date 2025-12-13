@@ -40,34 +40,35 @@ ElvDB = {
 ["萌萌的露小露 - 阿拉希盆地"] = "露露-右布局25人",
 ["故里灬 - 阿拉希盆地"] = "露露-右布局25人",
 ["京东刘强东 - 时光IV"] = "Default",
-["奶德德一号 - 阿拉希盆地"] = "露露-右布局25人",
 ["美团董事长 - 时光IV"] = "露露-右布局25人",
+["奶德德一号 - 阿拉希盆地"] = "露露-右布局25人",
+["露露緹婭灬 - 时光III"] = "露露-右布局25人",
 ["灬山梨灬 - 逐風者"] = "露露-右布局25人",
 ["露露媞娅 - 逐風者"] = "露露-右布局25人",
-["露露緹婭 - 时光IV"] = "露露-右布局25人",
 ["哔站陈睿 - 时光IV"] = "Default",
-["露露緹婭 - 魚人"] = "露露-右布局25人",
 ["美团王兴 - 时光IV"] = "Default",
-["露露緹婭灬 - 时光III"] = "露露-右布局25人",
+["露露緹婭 - 魚人"] = "露露-右布局25人",
+["露露緹婭 - 时光IV"] = "露露-右布局25人",
+["萌萌的露露糖 - 时光I"] = "露露-右布局25人",
 ["灬雪梨灬 - 逐風者"] = "露露-右布局25人",
 ["萌萌奶糖 - 维克尼拉斯"] = "露露-右布局25人",
 ["露露缇娅灬 - 霜语"] = "露露-右布局25人",
-["萌萌的露露糖 - 时光I"] = "露露-右布局25人",
-["哔站董事长 - 时光IV"] = "露露-右布局25人",
 ["露露缇娅丶old1753612638084old1751360463013old1744301844298 - 霜语"] = "露露-右布局25人",
+["哔站董事长 - 时光IV"] = "露露-右布局25人",
 ["财高八抖 - 时光II"] = "露露-右布局25人",
 ["银光骤雨 - 时光I"] = "露露-右布局25人",
+["愛雅法拉 - 札里克"] = "露露-右布局25人",
 ["露露缇娅 - 维克尼拉斯"] = "露露-右布局25人",
 ["露露緹婭 - 时光II"] = "露露-右布局25人",
 ["萌萌奶糖 - 曼多基尔"] = "露露-右布局25人",
 ["萌萌的露小露 - 时光I"] = "露露-右布局25人",
-["愛雅法拉 - 札里克"] = "露露-右布局25人",
+["退休码农 - 时光IV"] = "Default",
 ["沙丨梨 - 逐風者"] = "露露-右布局25人",
 ["露露緹婭丶 - 时光III"] = "露露-右布局25人",
 ["蒂琪爱尔 - 曼多基尔"] = "露露-右布局25人",
 ["露露緹婭丶 - 时光I"] = "露露-右布局25人",
-["露露緹婭丶 - 时光IV"] = "露露-右布局25人",
 ["一颗露露糖 - 维希度斯"] = "露露-右布局25人",
+["露露緹婭丶 - 时光IV"] = "露露-右布局25人",
 ["露露缇娅灬 - 时光IV"] = "露露-右布局25人",
 ["露露緹婭 - 时光I"] = "露露-右布局25人",
 ["露露缇娅 - 曼多基尔"] = "露露-右布局25人",
@@ -76,10 +77,10 @@ ElvDB = {
 ["露露緹婭 - 维希度斯"] = "露露-右布局25人",
 ["故里丶 - 阿拉希盆地"] = "露露-右布局25人",
 ["甜甜奶糖 - 维希度斯"] = "露露-右布局25人",
-["萌萌奶糖丶 - 霜语"] = "露露-右布局25人",
 ["萌萌的露小露 - Classic PTR Realm 2"] = "露露-右布局25人",
-["皎月梦夜 - 时光I"] = "露露-右布局25人",
 ["露露缇娅灬 - 时光I"] = "露露-右布局25人",
+["皎月梦夜 - 时光I"] = "露露-右布局25人",
+["萌萌奶糖丶 - 霜语"] = "露露-右布局25人",
 ["露露缇娅 - 抗压一号"] = "露露-右布局25人",
 ["露露緹婭 - 时光III"] = "露露-右布局25人",
 ["露露缇娅丶 - 时光I"] = "露露-右布局25人",
@@ -144,6 +145,7 @@ ElvDB = {
 ["京东刘强东"] = "PALADIN",
 ["美团王兴"] = "WARRIOR",
 ["小米军儿"] = "DEATHKNIGHT",
+["退休码农"] = "PRIEST",
 ["京东董事长"] = "PALADIN",
 ["哔站陈睿"] = "SHAMAN",
 },
@@ -320,9 +322,9 @@ ElvDB = {
 ["objectiveFrameAutoHideInKeystone"] = true,
 ["itemLevel"] = {
 ["showGems"] = false,
+["showEnchants"] = false,
 ["itemLevelFont"] = "默认",
 ["itemLevelFontSize"] = 11,
-["showEnchants"] = false,
 },
 ["backdropcolor"] = {
 ["a"] = 1,
@@ -595,27 +597,11 @@ ElvDB = {
 ["debuffHighlighting"] = "GLOW",
 ["fontOutline"] = "OUTLINE",
 ["colors"] = {
+["castClassColor"] = true,
 ["health"] = {
 ["r"] = 0.46666666666667,
 ["g"] = 0.46666666666667,
 ["b"] = 0.46666666666667,
-},
-["reaction"] = {
-["BAD"] = {
-["b"] = 0.25098039215686,
-["g"] = 0.25098039215686,
-["r"] = 0.78039215686275,
-},
-["NEUTRAL"] = {
-["r"] = 0.85098039215686,
-["g"] = 0.76470588235294,
-["b"] = 0.36078431372549,
-},
-["GOOD"] = {
-["b"] = 0.30196078431373,
-["g"] = 0.69019607843137,
-["r"] = 0.28627450980392,
-},
 },
 ["power"] = {
 ["MANA"] = {
@@ -643,16 +629,16 @@ ElvDB = {
 ["b"] = 0.60392156862745,
 },
 ["debuffHighlight"] = {
-["Poison"] = {
+["Curse"] = {
 ["a"] = 1,
 },
-["Disease"] = {
+["Poison"] = {
 ["a"] = 1,
 },
 ["Magic"] = {
 ["a"] = 1,
 },
-["Curse"] = {
+["Disease"] = {
 ["a"] = 1,
 },
 },
@@ -681,7 +667,23 @@ ElvDB = {
 ["g"] = 0.11372549019608,
 ["b"] = 0.11372549019608,
 },
-["castClassColor"] = true,
+["reaction"] = {
+["BAD"] = {
+["b"] = 0.25098039215686,
+["g"] = 0.25098039215686,
+["r"] = 0.78039215686275,
+},
+["NEUTRAL"] = {
+["r"] = 0.85098039215686,
+["g"] = 0.76470588235294,
+["b"] = 0.36078431372549,
+},
+["GOOD"] = {
+["b"] = 0.30196078431373,
+["g"] = 0.69019607843137,
+["r"] = 0.28627450980392,
+},
+},
 ["borderColor"] = {
 ["a"] = 1,
 },
@@ -1275,13 +1277,14 @@ ElvDB = {
 ["text_format"] = "",
 ["position"] = "BOTTOMLEFT",
 },
+["health"] = {
+["yOffset"] = -3,
+["text_format"] = "",
+["position"] = "BOTTOMRIGHT",
+},
 ["fader"] = {
 ["enable"] = false,
 ["range"] = false,
-},
-["name"] = {
-["text_format"] = "",
-["position"] = "TOPLEFT",
 },
 ["pvpTrinket"] = {
 ["anchorPoint"] = "RIGHT",
@@ -1303,10 +1306,9 @@ ElvDB = {
 ["growthY"] = "DOWN",
 ["perrow"] = 8,
 },
-["health"] = {
-["yOffset"] = -3,
+["name"] = {
 ["text_format"] = "",
-["position"] = "BOTTOMRIGHT",
+["position"] = "TOPLEFT",
 },
 ["raidicon"] = {
 ["yOffset"] = 15,
@@ -1525,8 +1527,12 @@ ElvDB = {
 ["g"] = 0.5,
 ["r"] = 0.5,
 },
+["colorNoInterrupt"] = {
+["r"] = 0.78,
+["g"] = 0.25,
+["b"] = 0.25,
+},
 ["useCustomBackdrop"] = false,
-["transparent"] = false,
 ["enable"] = false,
 ["color"] = {
 ["b"] = 0.31,
@@ -1534,11 +1540,7 @@ ElvDB = {
 ["r"] = 0.31,
 },
 ["useClassColor"] = false,
-["colorNoInterrupt"] = {
-["r"] = 0.78,
-["g"] = 0.25,
-["b"] = 0.25,
-},
+["transparent"] = false,
 },
 ["tickWidth"] = 1,
 ["strataAndLevel"] = {
@@ -1777,18 +1779,19 @@ ElvDB = {
 ["text_format"] = "",
 ["position"] = "BOTTOMLEFT",
 },
-["name"] = {
+["health"] = {
+["yOffset"] = -3,
 ["text_format"] = "",
-["position"] = "TOPLEFT",
+["position"] = "BOTTOMRIGHT",
 },
 ["width"] = 145,
 ["infoPanel"] = {
 ["height"] = 16,
 },
 ["orientation"] = "LEFT",
-["fader"] = {
-["enable"] = false,
-["range"] = false,
+["name"] = {
+["text_format"] = "",
+["position"] = "TOPLEFT",
 },
 ["spacing"] = 42,
 ["height"] = 31,
@@ -1803,10 +1806,9 @@ ElvDB = {
 ["growthY"] = "DOWN",
 ["perrow"] = 8,
 },
-["health"] = {
-["yOffset"] = -3,
-["text_format"] = "",
-["position"] = "BOTTOMRIGHT",
+["fader"] = {
+["enable"] = false,
+["range"] = false,
 },
 ["raidicon"] = {
 ["yOffset"] = 15,
@@ -2158,12 +2160,12 @@ ElvDB = {
 ["buttonSpacing"] = 1,
 ["countFontOutline"] = "OUTLINE",
 ["macroTextPosition"] = "BOTTOM",
-["showGrid"] = false,
+["macrotext"] = true,
 ["countTextYOffset"] = 0,
 ["macroTextYOffset"] = 2,
-["hotkeyTextYOffset"] = -1,
+["showGrid"] = false,
 ["buttonsPerRow"] = 1,
-["macrotext"] = true,
+["hotkeyTextYOffset"] = -1,
 ["hotkeyFontSize"] = 14,
 },
 ["extraActionButton"] = {
@@ -2190,12 +2192,12 @@ ElvDB = {
 ["buttonSpacing"] = 1,
 ["countFontOutline"] = "OUTLINE",
 ["macroTextPosition"] = "BOTTOM",
-["showGrid"] = false,
+["macrotext"] = true,
 ["countTextYOffset"] = 0,
 ["macroTextYOffset"] = 2,
-["hotkeyTextYOffset"] = -1,
+["showGrid"] = false,
 ["buttonsPerRow"] = 4,
-["macrotext"] = true,
+["hotkeyTextYOffset"] = -1,
 ["hotkeyFontSize"] = 14,
 },
 ["fontOutline"] = "OUTLINE",
@@ -2203,15 +2205,15 @@ ElvDB = {
 ["countFontSize"] = 13,
 ["countFont"] = "Rurutia",
 ["macroFontOutline"] = "OUTLINE",
-["macrotext"] = true,
+["showGrid"] = false,
 ["macroTextYOffset"] = 2,
 ["macroFontSize"] = 14,
 ["countFontOutline"] = "OUTLINE",
 ["macroTextPosition"] = "BOTTOM",
-["showGrid"] = false,
+["hotkeyTextYOffset"] = -1,
 ["countTextYOffset"] = 0,
 ["hotkeyFontOutline"] = "OUTLINE",
-["hotkeyTextYOffset"] = -1,
+["macrotext"] = true,
 ["hotkeyFontSize"] = 14,
 ["backdropSpacing"] = 4,
 ["buttonSpacing"] = 1,
@@ -2220,20 +2222,20 @@ ElvDB = {
 ["bar1"] = {
 ["countFontSize"] = 13,
 ["countFont"] = "Rurutia",
+["hotkeyTextYOffset"] = -1,
+["buttonSize"] = 35,
+["macroFont"] = "默认",
 ["paging"] = {
 ["WARLOCK"] = "[form:1] 1;",
 ["DRUID"] = "[bonusbar:1,nostealth] 7; [bonusbar:1,stealth] 7; [bonusbar:2] 10; [bonusbar:3] 9; [bonusbar:4] 10;",
 },
-["buttonSize"] = 35,
-["macroFont"] = "默认",
-["macrotext"] = true,
 ["buttonSpacing"] = 1,
 ["countFontOutline"] = "OUTLINE",
 ["macroTextPosition"] = "BOTTOM",
 ["macroTextYOffset"] = 2,
 ["countTextYOffset"] = 0,
 ["hotkeyFontOutline"] = "OUTLINE",
-["hotkeyTextYOffset"] = -1,
+["macrotext"] = true,
 ["hotkeyFontSize"] = 14,
 ["macroFontOutline"] = "OUTLINE",
 ["macroFontSize"] = 14,
@@ -2250,17 +2252,17 @@ ElvDB = {
 ["countFontSize"] = 14,
 ["point"] = "TOPLEFT",
 ["buttonSize"] = 25,
+["buttonSpacing"] = 1,
 ["backdrop"] = false,
-["macroFontSize"] = 14,
 ["countFontOutline"] = "OUTLINE",
-["hotkeyFontSize"] = 14,
 ["macroTextYOffset"] = 2,
+["buttonsPerRow"] = 10,
 ["countTextYOffset"] = 1,
 ["hotkeyFontOutline"] = "OUTLINE",
 ["hotkeyTextYOffset"] = -1,
-["buttonsPerRow"] = 10,
+["hotkeyFontSize"] = 14,
 ["backdropSpacing"] = 1,
-["buttonSpacing"] = 1,
+["macroFontSize"] = 14,
 },
 ["fontSize"] = 14,
 ["bar10"] = {
@@ -2274,12 +2276,12 @@ ElvDB = {
 ["buttonsPerRow"] = 4,
 ["countFontOutline"] = "OUTLINE",
 ["macroTextPosition"] = "BOTTOM",
-["showGrid"] = false,
+["macrotext"] = true,
 ["countTextYOffset"] = 0,
 ["macroTextYOffset"] = 2,
-["hotkeyTextYOffset"] = -1,
+["showGrid"] = false,
 ["hotkeyFontSize"] = 14,
-["macrotext"] = true,
+["hotkeyTextYOffset"] = -1,
 ["buttonSpacing"] = 1,
 },
 ["totemBar"] = {
@@ -2311,12 +2313,12 @@ ElvDB = {
 ["buttonsPerRow"] = 2,
 ["countFontOutline"] = "OUTLINE",
 ["macroTextPosition"] = "BOTTOM",
-["showGrid"] = false,
+["macrotext"] = true,
 ["countTextYOffset"] = 0,
 ["macroTextYOffset"] = 2,
-["hotkeyTextYOffset"] = -1,
+["showGrid"] = false,
 ["hotkeyFontSize"] = 14,
-["macrotext"] = true,
+["hotkeyTextYOffset"] = -1,
 ["buttonSpacing"] = 1,
 },
 ["bar2"] = {
@@ -2425,12 +2427,12 @@ ElvDB = {
 ["backdrop"] = false,
 ["countFontOutline"] = "OUTLINE",
 ["macroTextPosition"] = "BOTTOM",
-["macrotext"] = true,
+["showGrid"] = false,
 ["countTextYOffset"] = 0,
 ["hotkeyFontSize"] = 14,
-["hotkeyTextYOffset"] = -1,
+["macrotext"] = true,
 ["macroTextYOffset"] = 2,
-["showGrid"] = false,
+["hotkeyTextYOffset"] = -1,
 ["buttonSpacing"] = 1,
 },
 },
@@ -2479,19 +2481,19 @@ ElvDB = {
 ["enable"] = true,
 ["font"] = "默认",
 },
-["enable"] = false,
-["hhmmColor"] = {
-["b"] = 1,
-["g"] = 1,
-["r"] = 1,
-},
-["hhmmThreshold"] = 0,
-["mmssThreshold"] = 3,
 ["mmssColor"] = {
 ["r"] = 1,
 ["g"] = 1,
 ["b"] = 1,
 },
+["hhmmColor"] = {
+["b"] = 1,
+["g"] = 1,
+["r"] = 1,
+},
+["enable"] = false,
+["mmssThreshold"] = 3,
+["hhmmThreshold"] = 0,
 ["checkSeconds"] = true,
 },
 ["mui"] = {
@@ -2891,7 +2893,7 @@ ElvDB = {
 ["r"] = 0.050980392156863,
 },
 ["objectiveFrameHeight"] = 500,
-["talkingHeadFrameScale"] = 1,
+["vehicleSeatIndicatorSize"] = 72,
 ["lootRoll"] = {
 ["nameFontSize"] = 18,
 ["nameFont"] = "默认",
@@ -2904,12 +2906,12 @@ ElvDB = {
 },
 ["itemLevel"] = {
 ["showGems"] = false,
+["showEnchants"] = false,
 ["itemLevelFontSize"] = 11,
 ["itemLevelFont"] = "默认",
-["showEnchants"] = false,
 },
 ["loginmessage"] = false,
-["vehicleSeatIndicatorSize"] = 72,
+["objectiveFrameAutoHideInKeystone"] = true,
 ["smoothingAmount"] = 0.25,
 ["backdropcolor"] = {
 ["a"] = 1,
@@ -2917,7 +2919,7 @@ ElvDB = {
 ["g"] = 0.062745098039216,
 ["b"] = 0.062745098039216,
 },
-["objectiveFrameAutoHideInKeystone"] = true,
+["talkingHeadFrameScale"] = 1,
 ["bordercolor"] = {
 ["a"] = 1,
 ["r"] = 0.094117647058824,
@@ -3459,7 +3461,11 @@ ElvDB = {
 ["fontSize"] = 13,
 ["colors"] = {
 ["colorhealthbyvalue"] = false,
-["castClassColor"] = true,
+["health"] = {
+["r"] = 0.46666666666667,
+["g"] = 0.46666666666667,
+["b"] = 0.46666666666667,
+},
 ["power"] = {
 ["MANA"] = {
 ["b"] = 1,
@@ -3486,16 +3492,16 @@ ElvDB = {
 ["r"] = 1,
 },
 ["debuffHighlight"] = {
-["Disease"] = {
+["Curse"] = {
 ["a"] = 1,
 },
-["Poison"] = {
+["Disease"] = {
 ["a"] = 1,
 },
 ["Magic"] = {
 ["a"] = 1,
 },
-["Curse"] = {
+["Poison"] = {
 ["a"] = 1,
 },
 },
@@ -3517,23 +3523,7 @@ ElvDB = {
 ["g"] = 0.11372549019608,
 ["r"] = 0.11372549019608,
 },
-["reaction"] = {
-["BAD"] = {
-["b"] = 0.25098039215686,
-["g"] = 0.25098039215686,
-["r"] = 0.78039215686275,
-},
-["NEUTRAL"] = {
-["b"] = 0.36078431372549,
-["g"] = 0.76470588235294,
-["r"] = 0.85098039215686,
-},
-["GOOD"] = {
-["r"] = 0.28627450980392,
-["g"] = 0.69019607843137,
-["b"] = 0.30196078431373,
-},
-},
+["castClassColor"] = true,
 ["borderColor"] = {
 ["a"] = 1,
 },
@@ -3559,10 +3549,22 @@ ElvDB = {
 ["a"] = 1,
 },
 },
-["health"] = {
-["r"] = 0.46666666666667,
-["g"] = 0.46666666666667,
-["b"] = 0.46666666666667,
+["reaction"] = {
+["BAD"] = {
+["b"] = 0.25098039215686,
+["g"] = 0.25098039215686,
+["r"] = 0.78039215686275,
+},
+["NEUTRAL"] = {
+["b"] = 0.36078431372549,
+["g"] = 0.76470588235294,
+["r"] = 0.85098039215686,
+},
+["GOOD"] = {
+["r"] = 0.28627450980392,
+["g"] = 0.69019607843137,
+["b"] = 0.30196078431373,
+},
 },
 ["healPrediction"] = {
 ["personal"] = {
@@ -4129,13 +4131,14 @@ ElvDB = {
 ["text_format"] = "",
 ["position"] = "BOTTOMLEFT",
 },
+["health"] = {
+["yOffset"] = -3,
+["text_format"] = "",
+["position"] = "BOTTOMRIGHT",
+},
 ["name"] = {
 ["text_format"] = "",
 ["position"] = "TOPLEFT",
-},
-["fader"] = {
-["range"] = false,
-["enable"] = false,
 },
 ["pvpSpecIcon"] = true,
 ["height"] = 31,
@@ -4150,10 +4153,9 @@ ElvDB = {
 ["growthY"] = "DOWN",
 ["yOffset"] = 1,
 },
-["health"] = {
-["yOffset"] = -3,
-["text_format"] = "",
-["position"] = "BOTTOMRIGHT",
+["fader"] = {
+["range"] = false,
+["enable"] = false,
 },
 ["raidicon"] = {
 ["yOffset"] = 15,
@@ -4336,8 +4338,12 @@ ElvDB = {
 ["g"] = 0.5,
 ["r"] = 0.5,
 },
+["colorNoInterrupt"] = {
+["b"] = 0.25,
+["g"] = 0.25,
+["r"] = 0.78,
+},
 ["useCustomBackdrop"] = false,
-["transparent"] = false,
 ["enable"] = false,
 ["color"] = {
 ["r"] = 0.31,
@@ -4345,11 +4351,7 @@ ElvDB = {
 ["b"] = 0.31,
 },
 ["useClassColor"] = false,
-["colorNoInterrupt"] = {
-["b"] = 0.25,
-["g"] = 0.25,
-["r"] = 0.78,
-},
+["transparent"] = false,
 },
 ["tickWidth"] = 1,
 ["strataAndLevel"] = {
@@ -4607,17 +4609,17 @@ ElvDB = {
 ["enable"] = false,
 },
 ["width"] = 220,
-["health"] = {
-["xOffset"] = 4,
-["text_format"] = "",
-["position"] = "LEFT",
-},
 ["name"] = {
 ["text_format"] = "",
 },
 ["fader"] = {
 ["range"] = false,
 ["enable"] = false,
+},
+["health"] = {
+["xOffset"] = 4,
+["text_format"] = "",
+["position"] = "LEFT",
 },
 ["power"] = {
 ["height"] = 7,
@@ -4729,18 +4731,19 @@ ElvDB = {
 ["text_format"] = "",
 ["position"] = "BOTTOMLEFT",
 },
-["name"] = {
+["health"] = {
+["yOffset"] = -3,
 ["text_format"] = "",
-["position"] = "TOPLEFT",
+["position"] = "BOTTOMRIGHT",
 },
 ["width"] = 145,
 ["infoPanel"] = {
 ["height"] = 16,
 },
 ["orientation"] = "LEFT",
-["fader"] = {
-["range"] = false,
-["enable"] = false,
+["name"] = {
+["text_format"] = "",
+["position"] = "TOPLEFT",
 },
 ["spacing"] = 42,
 ["height"] = 31,
@@ -4755,10 +4758,9 @@ ElvDB = {
 ["growthY"] = "DOWN",
 ["anchorPoint"] = "BOTTOMLEFT",
 },
-["health"] = {
-["yOffset"] = -3,
-["text_format"] = "",
-["position"] = "BOTTOMRIGHT",
+["fader"] = {
+["range"] = false,
+["enable"] = false,
 },
 ["raidicon"] = {
 ["yOffset"] = 15,
@@ -5021,12 +5023,12 @@ ElvDB = {
 ["hotkeyFontSize"] = 14,
 ["countFontOutline"] = "OUTLINE",
 ["macroTextPosition"] = "BOTTOM",
-["macrotext"] = true,
+["hotkeyTextYOffset"] = -1,
 ["countTextYOffset"] = 1,
 ["macroTextYOffset"] = 2,
-["showGrid"] = false,
+["macrotext"] = true,
 ["buttonsPerRow"] = 1,
-["hotkeyTextYOffset"] = -1,
+["showGrid"] = false,
 ["macroFontSize"] = 14,
 },
 ["bar6"] = {
@@ -5087,12 +5089,12 @@ ElvDB = {
 ["hotkeyFontSize"] = 14,
 ["countFontOutline"] = "OUTLINE",
 ["macroTextPosition"] = "BOTTOM",
-["macrotext"] = true,
+["hotkeyTextYOffset"] = -1,
 ["countTextYOffset"] = 1,
 ["macroTextYOffset"] = 2,
-["showGrid"] = false,
+["macrotext"] = true,
 ["buttonsPerRow"] = 4,
-["hotkeyTextYOffset"] = -1,
+["showGrid"] = false,
 ["macroFontSize"] = 14,
 },
 ["totemBar"] = {
@@ -5111,15 +5113,15 @@ ElvDB = {
 ["bar9"] = {
 ["countFontSize"] = 14,
 ["countFontOutline"] = "OUTLINE",
-["hotkeyTextYOffset"] = -1,
+["showGrid"] = false,
 ["hotkeyFontSize"] = 14,
 ["macroFontSize"] = 14,
 ["macroFontOutline"] = "OUTLINE",
 ["macroTextPosition"] = "BOTTOM",
-["showGrid"] = false,
+["macrotext"] = true,
 ["countTextYOffset"] = 1,
 ["hotkeyFontOutline"] = "OUTLINE",
-["macrotext"] = true,
+["hotkeyTextYOffset"] = -1,
 ["macroTextYOffset"] = 2,
 ["backdropSpacing"] = 4,
 ["buttonSpacing"] = 1,
@@ -5162,13 +5164,13 @@ ElvDB = {
 ["macroTextYOffset"] = 2,
 ["countTextYOffset"] = 1,
 ["hotkeyFontOutline"] = "OUTLINE",
+["macrotext"] = true,
+["hotkeyFontSize"] = 14,
+["hotkeyTextYOffset"] = -1,
 ["paging"] = {
 ["WARLOCK"] = "[form:1] 1;",
 ["DRUID"] = "[bonusbar:1,nostealth] 7; [bonusbar:1,stealth] 7; [bonusbar:2] 10; [bonusbar:3] 9; [bonusbar:4] 10;",
 },
-["hotkeyFontSize"] = 14,
-["macrotext"] = true,
-["hotkeyTextYOffset"] = -1,
 },
 ["bar2"] = {
 ["countFontSize"] = 14,
@@ -5248,17 +5250,17 @@ ElvDB = {
 ["countFontSize"] = 14,
 ["point"] = "TOPLEFT",
 ["buttonSize"] = 25,
+["backdrop"] = false,
 ["buttonSpacing"] = 1,
-["macroFontSize"] = 14,
 ["countFontOutline"] = "OUTLINE",
-["hotkeyFontSize"] = 14,
 ["macroTextYOffset"] = 2,
+["buttonsPerRow"] = 10,
 ["countTextYOffset"] = 1,
 ["hotkeyFontOutline"] = "OUTLINE",
 ["hotkeyTextYOffset"] = -1,
-["buttonsPerRow"] = 10,
+["hotkeyFontSize"] = 14,
 ["backdropSpacing"] = 1,
-["backdrop"] = false,
+["macroFontSize"] = 14,
 },
 ["bar4"] = {
 ["countFontSize"] = 14,
@@ -5329,19 +5331,19 @@ ElvDB = {
 ["enable"] = true,
 ["font"] = "默认",
 },
-["mmssColor"] = {
-["r"] = 1,
-["g"] = 1,
-["b"] = 1,
-},
+["hhmmThreshold"] = 0,
 ["hhmmColor"] = {
 ["b"] = 1,
 ["g"] = 1,
 ["r"] = 1,
 },
-["enable"] = false,
+["mmssColor"] = {
+["r"] = 1,
+["g"] = 1,
+["b"] = 1,
+},
 ["mmssThreshold"] = 3,
-["hhmmThreshold"] = 0,
+["enable"] = false,
 ["checkSeconds"] = true,
 },
 ["tooltip"] = {
@@ -5427,9 +5429,9 @@ ElvDB = {
 },
 ["valuecolor"] = {
 ["a"] = 1,
-["r"] = 0.77,
-["g"] = 0.12,
-["b"] = 0.23,
+["r"] = 0.99,
+["g"] = 0.99,
+["b"] = 0.99,
 },
 ["loginmessage"] = false,
 ["objectiveFrameHeight"] = 500,
@@ -5585,7 +5587,7 @@ ElvDB = {
 ["mmssThreshold"] = 10800,
 },
 },
-["dbConverted"] = 14.03,
+["dbConverted"] = 14.04,
 ["movers"] = {
 ["ElvUF_FocusCastbarMover"] = "TOP,ElvUIParent,TOP,16,-142",
 ["DTPanel集合石Mover"] = "TOP,ElvUIParent,TOP,0,-27",
@@ -5870,10 +5872,8 @@ ElvDB = {
 ["enable"] = false,
 },
 },
-["mail"] = {
+["microBar"] = {
 ["enable"] = false,
-["forceHide"] = true,
-["defaultPage"] = "FAVORITE",
 },
 ["announcement"] = {
 ["enable"] = false,
@@ -5911,8 +5911,12 @@ ElvDB = {
 },
 },
 },
-["microBar"] = {
+["nameplates"] = {
+["enhancedAuras"] = {
 ["enable"] = false,
+},
+["gradient"] = false,
+["castbarShield"] = false,
 },
 ["notification"] = {
 ["textFont"] = {
@@ -6008,12 +6012,10 @@ ElvDB = {
 },
 ["style"] = false,
 },
-["nameplates"] = {
-["enhancedAuras"] = {
+["mail"] = {
 ["enable"] = false,
-},
-["gradient"] = false,
-["castbarShield"] = false,
+["forceHide"] = true,
+["defaultPage"] = "FAVORITE",
 },
 ["gradient"] = {
 ["enable"] = false,
@@ -6421,47 +6423,25 @@ ElvDB = {
 ["size"] = 13,
 },
 },
-["pettarget"] = {
-["debuffs"] = {
-["attachTo"] = "BUFFS",
-["priority"] = "Blacklist,Personal,Boss,RaidDebuffs,CCDebuffs,Dispellable,Whitelist",
-},
+["pet"] = {
+["castbar"] = {
+["format"] = "CURRENTMAX",
+["customTimeFont"] = {
 ["enable"] = true,
-["power"] = {
-["enable"] = false,
-["height"] = 4,
+["fontSize"] = 15,
 },
-["customTexts"] = {
-["姓名"] = {
-["attachTextTo"] = "Health",
+["customTextFont"] = {
 ["enable"] = true,
-["text_format"] = "[namecolor][name:medium]",
-["yOffset"] = 0,
-["font"] = "默认",
-["justifyH"] = "CENTER",
-["fontOutline"] = "OUTLINE",
-["xOffset"] = 0,
-["size"] = 13,
-},
-},
-["healPrediction"] = {
-["enable"] = false,
-},
-["width"] = 99,
-["infoPanel"] = {
-["height"] = 14,
-},
-["fader"] = {
-["enable"] = false,
-["range"] = false,
+["fontSize"] = 15,
 },
 ["height"] = 25,
-["buffs"] = {
-["priority"] = "Blacklist,Personal,PlayerBuffs,Dispellable",
+["width"] = 220,
 },
-["name"] = {
-["text_format"] = "",
+["power"] = {
+["height"] = 4,
 },
+["width"] = 120,
+["height"] = 25,
 },
 ["focus"] = {
 ["orientation"] = "RIGHT",
@@ -6572,35 +6552,133 @@ ElvDB = {
 ["text_format"] = "",
 },
 },
-["targettarget"] = {
+["boss"] = {
 ["debuffs"] = {
-["enable"] = false,
+["xOffset"] = -1,
+["yOffset"] = 0,
+["sizeOverride"] = 27,
+["spacing"] = 0,
+["priority"] = "",
+["countFont"] = "默认",
+["perrow"] = 4,
 },
-["power"] = {
-["enable"] = false,
-["height"] = 4,
+["pvpTrinket"] = {
+["anchorPoint"] = "RIGHT",
+["position"] = "RIGHT",
+["enable"] = true,
+["yOffset"] = 0,
+["xOffset"] = 1,
+["size"] = 30,
+},
+["pvpclassificationindicator"] = {
+["position"] = "CENTER",
+["xOffset"] = 0,
+["yOffset"] = 0,
+["enable"] = true,
+["size"] = 36,
 },
 ["customTexts"] = {
-["姓名"] = {
-["attachTextTo"] = "Health",
+["能量"] = {
+["attachTextTo"] = "Power",
 ["enable"] = true,
-["text_format"] = "[namecolor][name:veryshort]",
+["text_format"] = "[namecolor][power:current][powercolor]",
 ["yOffset"] = 0,
 ["font"] = "默认",
-["justifyH"] = "CENTER",
+["justifyH"] = "RIGHT",
 ["fontOutline"] = "OUTLINE",
-["xOffset"] = 0,
-["size"] = 14,
+["xOffset"] = -2,
+["size"] = 15,
+},
+["血量"] = {
+["attachTextTo"] = "Health",
+["enable"] = true,
+["text_format"] = "[health:current-nostatus] || [health:percent]",
+["yOffset"] = 0,
+["font"] = "EUI",
+["justifyH"] = "LEFT",
+["fontOutline"] = "OUTLINE",
+["xOffset"] = 2,
+["size"] = 15,
+},
+["名称"] = {
+["attachTextTo"] = "Health",
+["enable"] = true,
+["text_format"] = "[namecolor][name:medium]",
+["yOffset"] = 22,
+["font"] = "默认",
+["justifyH"] = "LEFT",
+["fontOutline"] = "OUTLINE",
+["xOffset"] = -1,
+["size"] = 15,
+},
+["百分比"] = {
+["attachTextTo"] = "Frame",
+["enable"] = false,
+["text_format"] = "[health:percent] ",
+["yOffset"] = 0,
+["font"] = "EUI",
+["justifyH"] = "RIGHT",
+["fontOutline"] = "OUTLINE",
+["xOffset"] = 58,
+["size"] = 16,
 },
 },
-["width"] = 100,
-["height"] = 20,
+["healPrediction"] = {
+["enable"] = true,
+},
 ["name"] = {
+["position"] = "TOPLEFT",
 ["text_format"] = "",
 },
+["height"] = 31,
+["buffs"] = {
+["yOffset"] = 1,
+["growthY"] = "DOWN",
+["countFontSize"] = 11,
+["sizeOverride"] = 0,
+["spacing"] = 0,
+["priority"] = "Blacklist,TurtleBuffs,PlayerBuffs,Dispellable",
+["countYOffset"] = -2,
+["anchorPoint"] = "BOTTOMLEFT",
+["perrow"] = 8,
+},
 ["raidicon"] = {
-["yOffset"] = 7,
-["size"] = 13,
+["yOffset"] = 15,
+},
+["pvpSpecIcon"] = true,
+["growthDirection"] = "UP",
+["spacing"] = 40,
+["buffIndicator"] = {
+["size"] = 12,
+},
+["middleClickFocus"] = true,
+["power"] = {
+["xOffset"] = 0,
+["text_format"] = "",
+["position"] = "BOTTOMLEFT",
+["height"] = 5,
+},
+["width"] = 170,
+["fader"] = {
+["enable"] = false,
+["range"] = false,
+},
+["health"] = {
+["position"] = "BOTTOMRIGHT",
+["text_format"] = "",
+["yOffset"] = -3,
+},
+["castbar"] = {
+["format"] = "CURRENTMAX",
+["customTextFont"] = {
+["enable"] = true,
+["fontSize"] = 13,
+["font"] = "默认",
+},
+["displayTarget"] = true,
+["height"] = 23,
+["xOffsetText"] = 0,
+["width"] = 170,
 },
 },
 ["player"] = {
@@ -6682,9 +6760,9 @@ ElvDB = {
 ["enable"] = false,
 ["width"] = 280,
 ["textColor"] = {
-["b"] = 0.23,
-["g"] = 0.12,
-["r"] = 0.77,
+["b"] = 0.99,
+["g"] = 0.99,
+["r"] = 0.99,
 },
 },
 ["aurabar"] = {
@@ -6970,25 +7048,36 @@ ElvDB = {
 },
 },
 },
-["pet"] = {
-["castbar"] = {
-["format"] = "CURRENTMAX",
-["customTimeFont"] = {
-["enable"] = true,
-["fontSize"] = 15,
-},
-["customTextFont"] = {
-["enable"] = true,
-["fontSize"] = 15,
-},
-["height"] = 25,
-["width"] = 220,
+["targettarget"] = {
+["debuffs"] = {
+["enable"] = false,
 },
 ["power"] = {
+["enable"] = false,
 ["height"] = 4,
 },
-["width"] = 120,
-["height"] = 25,
+["customTexts"] = {
+["姓名"] = {
+["attachTextTo"] = "Health",
+["enable"] = true,
+["text_format"] = "[namecolor][name:veryshort]",
+["yOffset"] = 0,
+["font"] = "默认",
+["justifyH"] = "CENTER",
+["fontOutline"] = "OUTLINE",
+["xOffset"] = 0,
+["size"] = 14,
+},
+},
+["width"] = 100,
+["height"] = 20,
+["name"] = {
+["text_format"] = "",
+},
+["raidicon"] = {
+["yOffset"] = 7,
+["size"] = 13,
+},
 },
 ["target"] = {
 ["debuffs"] = {
@@ -7224,133 +7313,46 @@ ElvDB = {
 ["size"] = 12,
 },
 },
-["boss"] = {
+["pettarget"] = {
 ["debuffs"] = {
-["xOffset"] = -1,
-["yOffset"] = 0,
-["sizeOverride"] = 27,
-["spacing"] = 0,
-["priority"] = "",
-["countFont"] = "默认",
-["perrow"] = 4,
+["attachTo"] = "BUFFS",
+["priority"] = "Blacklist,Personal,Boss,RaidDebuffs,CCDebuffs,Dispellable,Whitelist",
 },
-["pvpTrinket"] = {
-["anchorPoint"] = "RIGHT",
-["position"] = "RIGHT",
 ["enable"] = true,
-["yOffset"] = 0,
-["xOffset"] = 1,
-["size"] = 30,
-},
-["pvpclassificationindicator"] = {
-["position"] = "CENTER",
-["xOffset"] = 0,
-["yOffset"] = 0,
-["enable"] = true,
-["size"] = 36,
+["power"] = {
+["enable"] = false,
+["height"] = 4,
 },
 ["customTexts"] = {
-["能量"] = {
-["attachTextTo"] = "Power",
-["enable"] = true,
-["text_format"] = "[namecolor][power:current][powercolor]",
-["yOffset"] = 0,
-["font"] = "默认",
-["justifyH"] = "RIGHT",
-["fontOutline"] = "OUTLINE",
-["xOffset"] = -2,
-["size"] = 15,
-},
-["血量"] = {
-["attachTextTo"] = "Health",
-["enable"] = true,
-["text_format"] = "[health:current-nostatus] || [health:percent]",
-["yOffset"] = 0,
-["font"] = "EUI",
-["justifyH"] = "LEFT",
-["fontOutline"] = "OUTLINE",
-["xOffset"] = 2,
-["size"] = 15,
-},
-["名称"] = {
+["姓名"] = {
 ["attachTextTo"] = "Health",
 ["enable"] = true,
 ["text_format"] = "[namecolor][name:medium]",
-["yOffset"] = 22,
-["font"] = "默认",
-["justifyH"] = "LEFT",
-["fontOutline"] = "OUTLINE",
-["xOffset"] = -1,
-["size"] = 15,
-},
-["百分比"] = {
-["attachTextTo"] = "Frame",
-["enable"] = false,
-["text_format"] = "[health:percent] ",
 ["yOffset"] = 0,
-["font"] = "EUI",
-["justifyH"] = "RIGHT",
+["font"] = "默认",
+["justifyH"] = "CENTER",
 ["fontOutline"] = "OUTLINE",
-["xOffset"] = 58,
-["size"] = 16,
+["xOffset"] = 0,
+["size"] = 13,
 },
 },
 ["healPrediction"] = {
-["enable"] = true,
+["enable"] = false,
 },
-["name"] = {
-["position"] = "TOPLEFT",
-["text_format"] = "",
+["width"] = 99,
+["infoPanel"] = {
+["height"] = 14,
 },
-["height"] = 31,
-["buffs"] = {
-["yOffset"] = 1,
-["growthY"] = "DOWN",
-["countFontSize"] = 11,
-["sizeOverride"] = 0,
-["spacing"] = 0,
-["priority"] = "Blacklist,TurtleBuffs,PlayerBuffs,Dispellable",
-["countYOffset"] = -2,
-["anchorPoint"] = "BOTTOMLEFT",
-["perrow"] = 8,
-},
-["raidicon"] = {
-["yOffset"] = 15,
-},
-["pvpSpecIcon"] = true,
-["growthDirection"] = "UP",
-["spacing"] = 40,
-["buffIndicator"] = {
-["size"] = 12,
-},
-["middleClickFocus"] = true,
-["power"] = {
-["xOffset"] = 0,
-["text_format"] = "",
-["position"] = "BOTTOMLEFT",
-["height"] = 5,
-},
-["width"] = 170,
 ["fader"] = {
 ["enable"] = false,
 ["range"] = false,
 },
-["health"] = {
-["position"] = "BOTTOMRIGHT",
+["height"] = 25,
+["buffs"] = {
+["priority"] = "Blacklist,Personal,PlayerBuffs,Dispellable",
+},
+["name"] = {
 ["text_format"] = "",
-["yOffset"] = -3,
-},
-["castbar"] = {
-["format"] = "CURRENTMAX",
-["customTextFont"] = {
-["enable"] = true,
-["fontSize"] = 13,
-["font"] = "默认",
-},
-["displayTarget"] = true,
-["height"] = 23,
-["xOffsetText"] = 0,
-["width"] = 170,
 },
 },
 ["party"] = {
@@ -8102,9 +8104,9 @@ ElvDB = {
 },
 ["itemLevel"] = {
 ["showGems"] = false,
+["itemLevelFont"] = "默认",
 ["showEnchants"] = false,
 ["itemLevelFontSize"] = 11,
-["itemLevelFont"] = "默认",
 },
 ["bonusObjectivePosition"] = "AUTO",
 ["durabilityScale"] = 0.5,
@@ -8449,12 +8451,10 @@ ElvDB = {
 ["cooldownFlash"] = {
 ["enable"] = false,
 },
-["nameplates"] = {
-["enhancedAuras"] = {
+["mail"] = {
 ["enable"] = false,
-},
-["gradient"] = false,
-["castbarShield"] = false,
+["forceHide"] = true,
+["defaultPage"] = "FAVORITE",
 },
 ["announcement"] = {
 ["enable"] = false,
@@ -8492,10 +8492,8 @@ ElvDB = {
 },
 },
 },
-["mail"] = {
+["microBar"] = {
 ["enable"] = false,
-["forceHide"] = true,
-["defaultPage"] = "FAVORITE",
 },
 ["unitframes"] = {
 ["swing"] = {
@@ -8583,8 +8581,12 @@ ElvDB = {
 ["raidBuffs"] = {
 ["enable"] = false,
 },
-["microBar"] = {
+["nameplates"] = {
+["enhancedAuras"] = {
 ["enable"] = false,
+},
+["gradient"] = false,
+["castbarShield"] = false,
 },
 ["gradient"] = {
 ["enable"] = false,
@@ -8637,7 +8639,11 @@ ElvDB = {
 ["statusbar"] = "Solid",
 ["colors"] = {
 ["colorhealthbyvalue"] = false,
-["castClassColor"] = true,
+["health"] = {
+["b"] = 0.46666666666667,
+["g"] = 0.46666666666667,
+["r"] = 0.46666666666667,
+},
 ["power"] = {
 ["MANA"] = {
 ["b"] = 1,
@@ -8664,16 +8670,16 @@ ElvDB = {
 ["r"] = 1,
 },
 ["debuffHighlight"] = {
-["Disease"] = {
+["Curse"] = {
 ["a"] = 1,
 },
-["Poison"] = {
+["Disease"] = {
 ["a"] = 1,
 },
 ["Magic"] = {
 ["a"] = 1,
 },
-["Curse"] = {
+["Poison"] = {
 ["a"] = 1,
 },
 },
@@ -8695,23 +8701,7 @@ ElvDB = {
 ["g"] = 0.11372549019608,
 ["r"] = 0.11372549019608,
 },
-["reaction"] = {
-["BAD"] = {
-["b"] = 0.25098039215686,
-["g"] = 0.25098039215686,
-["r"] = 0.78039215686275,
-},
-["NEUTRAL"] = {
-["b"] = 0.36078431372549,
-["g"] = 0.76470588235294,
-["r"] = 0.85098039215686,
-},
-["GOOD"] = {
-["b"] = 0.30196078431373,
-["g"] = 0.69019607843137,
-["r"] = 0.28627450980392,
-},
-},
+["castClassColor"] = true,
 ["borderColor"] = {
 ["a"] = 1,
 },
@@ -8737,10 +8727,22 @@ ElvDB = {
 ["a"] = 1,
 },
 },
-["health"] = {
-["b"] = 0.46666666666667,
-["g"] = 0.46666666666667,
-["r"] = 0.46666666666667,
+["reaction"] = {
+["BAD"] = {
+["b"] = 0.25098039215686,
+["g"] = 0.25098039215686,
+["r"] = 0.78039215686275,
+},
+["NEUTRAL"] = {
+["b"] = 0.36078431372549,
+["g"] = 0.76470588235294,
+["r"] = 0.85098039215686,
+},
+["GOOD"] = {
+["b"] = 0.30196078431373,
+["g"] = 0.69019607843137,
+["r"] = 0.28627450980392,
+},
 },
 ["healPrediction"] = {
 ["personal"] = {
@@ -8857,13 +8859,14 @@ ElvDB = {
 ["text_format"] = "",
 ["position"] = "BOTTOMLEFT",
 },
+["health"] = {
+["position"] = "BOTTOMRIGHT",
+["text_format"] = "",
+["yOffset"] = -3,
+},
 ["name"] = {
 ["text_format"] = "",
 ["position"] = "TOPLEFT",
-},
-["fader"] = {
-["range"] = false,
-["enable"] = false,
 },
 ["pvpSpecIcon"] = true,
 ["height"] = 31,
@@ -8878,10 +8881,9 @@ ElvDB = {
 ["growthY"] = "DOWN",
 ["yOffset"] = 1,
 },
-["health"] = {
-["position"] = "BOTTOMRIGHT",
-["text_format"] = "",
-["yOffset"] = -3,
+["fader"] = {
+["range"] = false,
+["enable"] = false,
 },
 ["raidicon"] = {
 ["yOffset"] = 15,
@@ -9808,17 +9810,17 @@ ElvDB = {
 ["enable"] = false,
 },
 ["width"] = 220,
-["health"] = {
-["xOffset"] = 4,
-["text_format"] = "",
-["position"] = "LEFT",
-},
 ["name"] = {
 ["text_format"] = "",
 },
 ["fader"] = {
 ["range"] = false,
 ["enable"] = false,
+},
+["health"] = {
+["xOffset"] = 4,
+["text_format"] = "",
+["position"] = "LEFT",
 },
 ["power"] = {
 ["height"] = 7,
@@ -9930,18 +9932,19 @@ ElvDB = {
 ["text_format"] = "",
 ["position"] = "BOTTOMLEFT",
 },
-["name"] = {
+["health"] = {
+["position"] = "BOTTOMRIGHT",
 ["text_format"] = "",
-["position"] = "TOPLEFT",
+["yOffset"] = -3,
 },
 ["width"] = 145,
 ["infoPanel"] = {
 ["height"] = 16,
 },
 ["orientation"] = "LEFT",
-["fader"] = {
-["range"] = false,
-["enable"] = false,
+["name"] = {
+["text_format"] = "",
+["position"] = "TOPLEFT",
 },
 ["spacing"] = 42,
 ["height"] = 31,
@@ -9956,10 +9959,9 @@ ElvDB = {
 ["growthY"] = "DOWN",
 ["anchorPoint"] = "BOTTOMLEFT",
 },
-["health"] = {
-["position"] = "BOTTOMRIGHT",
-["text_format"] = "",
-["yOffset"] = -3,
+["fader"] = {
+["range"] = false,
+["enable"] = false,
 },
 ["raidicon"] = {
 ["yOffset"] = 15,
@@ -10199,12 +10201,12 @@ ElvDB = {
 ["hotkeyFontSize"] = 14,
 ["countFontOutline"] = "OUTLINE",
 ["macroTextPosition"] = "BOTTOM",
-["macrotext"] = true,
+["hotkeyTextYOffset"] = -1,
 ["countTextYOffset"] = 0,
 ["macroTextYOffset"] = 2,
-["showGrid"] = false,
+["macrotext"] = true,
 ["buttonsPerRow"] = 1,
-["hotkeyTextYOffset"] = -1,
+["showGrid"] = false,
 ["macroFontSize"] = 14,
 },
 ["extraActionButton"] = {
@@ -10230,12 +10232,12 @@ ElvDB = {
 ["macroTextYOffset"] = 2,
 ["countFontOutline"] = "OUTLINE",
 ["macroTextPosition"] = "BOTTOM",
-["macrotext"] = true,
+["hotkeyTextYOffset"] = -1,
 ["countTextYOffset"] = 0,
 ["hotkeyFontSize"] = 14,
-["showGrid"] = false,
+["macrotext"] = true,
 ["buttonsPerRow"] = 4,
-["hotkeyTextYOffset"] = -1,
+["showGrid"] = false,
 ["macroFontSize"] = 14,
 },
 ["fontOutline"] = "OUTLINE",
@@ -10243,15 +10245,15 @@ ElvDB = {
 ["countFontSize"] = 13,
 ["countFont"] = "Rurutia",
 ["macroFontSize"] = 14,
-["hotkeyTextYOffset"] = -1,
+["macrotext"] = true,
 ["macroTextYOffset"] = 2,
 ["buttonSpacing"] = 1,
 ["macroFontOutline"] = "OUTLINE",
 ["macroTextPosition"] = "BOTTOM",
-["macrotext"] = true,
+["showGrid"] = false,
 ["countTextYOffset"] = 0,
 ["hotkeyFontOutline"] = "OUTLINE",
-["showGrid"] = false,
+["hotkeyTextYOffset"] = -1,
 ["hotkeyFontSize"] = 14,
 ["backdropSpacing"] = 4,
 ["countFontOutline"] = "OUTLINE",
@@ -10263,19 +10265,19 @@ ElvDB = {
 ["macroFontOutline"] = "OUTLINE",
 ["buttonSize"] = 35,
 ["macroFont"] = "默认",
-["hotkeyTextYOffset"] = -1,
+["macrotext"] = true,
 ["macroFontSize"] = 14,
 ["countFontOutline"] = "OUTLINE",
 ["macroTextPosition"] = "BOTTOM",
 ["hotkeyFontSize"] = 14,
 ["countTextYOffset"] = 0,
 ["hotkeyFontOutline"] = "OUTLINE",
+["hotkeyTextYOffset"] = -1,
+["macroTextYOffset"] = 2,
 ["paging"] = {
 ["WARLOCK"] = "[form:1] 1;",
 ["DRUID"] = "[bonusbar:1,nostealth] 7; [bonusbar:1,stealth] 7; [bonusbar:2] 10; [bonusbar:3] 9; [bonusbar:4] 10;",
 },
-["macroTextYOffset"] = 2,
-["macrotext"] = true,
 ["buttonSpacing"] = 1,
 },
 ["font"] = "默认",
@@ -10290,17 +10292,17 @@ ElvDB = {
 ["countFontSize"] = 14,
 ["point"] = "TOPLEFT",
 ["buttonSize"] = 25,
+["backdrop"] = false,
 ["buttonSpacing"] = 1,
-["macroFontSize"] = 14,
 ["countFontOutline"] = "OUTLINE",
-["buttonsPerRow"] = 10,
 ["hotkeyFontSize"] = 14,
+["macroTextYOffset"] = 2,
 ["countTextYOffset"] = 1,
 ["hotkeyFontOutline"] = "OUTLINE",
 ["hotkeyTextYOffset"] = -1,
-["macroTextYOffset"] = 2,
+["buttonsPerRow"] = 10,
 ["backdropSpacing"] = 1,
-["backdrop"] = false,
+["macroFontSize"] = 14,
 },
 ["fontSize"] = 14,
 ["bar10"] = {
@@ -10315,12 +10317,12 @@ ElvDB = {
 ["macroTextYOffset"] = 2,
 ["countFontOutline"] = "OUTLINE",
 ["macroTextPosition"] = "BOTTOM",
-["macrotext"] = true,
+["hotkeyTextYOffset"] = -1,
 ["countTextYOffset"] = 0,
 ["hotkeyFontSize"] = 14,
-["showGrid"] = false,
+["macrotext"] = true,
 ["buttonsPerRow"] = 4,
-["hotkeyTextYOffset"] = -1,
+["showGrid"] = false,
 ["macroFontSize"] = 14,
 },
 ["totemBar"] = {
@@ -10352,12 +10354,12 @@ ElvDB = {
 ["macroTextYOffset"] = 2,
 ["countFontOutline"] = "OUTLINE",
 ["macroTextPosition"] = "BOTTOM",
-["macrotext"] = true,
+["hotkeyTextYOffset"] = -1,
 ["countTextYOffset"] = 0,
 ["hotkeyFontSize"] = 14,
-["showGrid"] = false,
+["macrotext"] = true,
 ["buttonsPerRow"] = 2,
-["hotkeyTextYOffset"] = -1,
+["showGrid"] = false,
 ["macroFontSize"] = 14,
 },
 ["bar2"] = {
@@ -10466,12 +10468,12 @@ ElvDB = {
 ["backdrop"] = false,
 ["countFontOutline"] = "OUTLINE",
 ["macroTextPosition"] = "BOTTOM",
-["macrotext"] = true,
+["hotkeyTextYOffset"] = -1,
 ["countTextYOffset"] = 0,
 ["hotkeyFontSize"] = 14,
-["showGrid"] = false,
+["macrotext"] = true,
 ["macroTextYOffset"] = 2,
-["hotkeyTextYOffset"] = -1,
+["showGrid"] = false,
 ["macroFontSize"] = 14,
 },
 },
@@ -10523,19 +10525,19 @@ ElvDB = {
 ["enable"] = true,
 ["font"] = "默认",
 },
-["mmssColor"] = {
-["b"] = 1,
-["g"] = 1,
-["r"] = 1,
-},
+["hhmmThreshold"] = 0,
 ["hhmmColor"] = {
 ["b"] = 1,
 ["g"] = 1,
 ["r"] = 1,
 },
-["enable"] = false,
+["mmssColor"] = {
+["b"] = 1,
+["g"] = 1,
+["r"] = 1,
+},
 ["mmssThreshold"] = 3,
-["hhmmThreshold"] = 0,
+["enable"] = false,
 ["checkSeconds"] = true,
 },
 ["tooltip"] = {
@@ -10686,9 +10688,9 @@ ElvDB = {
 },
 ["itemLevel"] = {
 ["showGems"] = false,
+["itemLevelFont"] = "默认",
 ["showEnchants"] = false,
 ["itemLevelFontSize"] = 11,
-["itemLevelFont"] = "默认",
 },
 ["altPowerBar"] = {
 ["statusBar"] = "ElvUI Blank",
@@ -11038,12 +11040,10 @@ ElvDB = {
 ["cooldownFlash"] = {
 ["enable"] = false,
 },
-["nameplates"] = {
-["enhancedAuras"] = {
+["mail"] = {
 ["enable"] = false,
-},
-["gradient"] = false,
-["castbarShield"] = false,
+["forceHide"] = true,
+["defaultPage"] = "FAVORITE",
 },
 ["announcement"] = {
 ["enable"] = false,
@@ -11081,10 +11081,8 @@ ElvDB = {
 },
 },
 },
-["mail"] = {
+["microBar"] = {
 ["enable"] = false,
-["forceHide"] = true,
-["defaultPage"] = "FAVORITE",
 },
 ["unitframes"] = {
 ["swing"] = {
@@ -11172,8 +11170,12 @@ ElvDB = {
 ["raidBuffs"] = {
 ["enable"] = false,
 },
-["microBar"] = {
+["nameplates"] = {
+["enhancedAuras"] = {
 ["enable"] = false,
+},
+["gradient"] = false,
+["castbarShield"] = false,
 },
 ["gradient"] = {
 ["enable"] = false,
@@ -11230,7 +11232,11 @@ ElvDB = {
 ["b"] = 0.50196078431373,
 },
 },
-["castClassColor"] = true,
+["health"] = {
+["b"] = 0.46666666666667,
+["g"] = 0.46666666666667,
+["r"] = 0.46666666666667,
+},
 ["power"] = {
 ["MANA"] = {
 ["b"] = 1,
@@ -11257,16 +11263,16 @@ ElvDB = {
 ["r"] = 1,
 },
 ["debuffHighlight"] = {
-["Disease"] = {
+["Curse"] = {
 ["a"] = 1,
 },
-["Poison"] = {
+["Disease"] = {
 ["a"] = 1,
 },
 ["Magic"] = {
 ["a"] = 1,
 },
-["Curse"] = {
+["Poison"] = {
 ["a"] = 1,
 },
 },
@@ -11279,23 +11285,7 @@ ElvDB = {
 ["g"] = 0.11372549019608,
 ["r"] = 0.11372549019608,
 },
-["reaction"] = {
-["BAD"] = {
-["b"] = 0.25098039215686,
-["g"] = 0.25098039215686,
-["r"] = 0.78039215686275,
-},
-["NEUTRAL"] = {
-["b"] = 0.36078431372549,
-["g"] = 0.76470588235294,
-["r"] = 0.85098039215686,
-},
-["GOOD"] = {
-["b"] = 0.30196078431373,
-["g"] = 0.69019607843137,
-["r"] = 0.28627450980392,
-},
-},
+["castClassColor"] = true,
 ["borderColor"] = {
 ["a"] = 1,
 },
@@ -11321,10 +11311,22 @@ ElvDB = {
 ["a"] = 1,
 },
 },
-["health"] = {
-["b"] = 0.46666666666667,
-["g"] = 0.46666666666667,
-["r"] = 0.46666666666667,
+["reaction"] = {
+["BAD"] = {
+["b"] = 0.25098039215686,
+["g"] = 0.25098039215686,
+["r"] = 0.78039215686275,
+},
+["NEUTRAL"] = {
+["b"] = 0.36078431372549,
+["g"] = 0.76470588235294,
+["r"] = 0.85098039215686,
+},
+["GOOD"] = {
+["b"] = 0.30196078431373,
+["g"] = 0.69019607843137,
+["r"] = 0.28627450980392,
+},
 },
 ["frameGlow"] = {
 ["targetGlow"] = {
@@ -11446,13 +11448,14 @@ ElvDB = {
 ["text_format"] = "",
 ["position"] = "BOTTOMLEFT",
 },
+["health"] = {
+["yOffset"] = -3,
+["text_format"] = "",
+["position"] = "BOTTOMRIGHT",
+},
 ["name"] = {
 ["text_format"] = "",
 ["position"] = "TOPLEFT",
-},
-["fader"] = {
-["range"] = false,
-["enable"] = false,
 },
 ["pvpSpecIcon"] = true,
 ["height"] = 31,
@@ -11467,10 +11470,9 @@ ElvDB = {
 ["growthY"] = "DOWN",
 ["yOffset"] = 1,
 },
-["health"] = {
-["yOffset"] = -3,
-["text_format"] = "",
-["position"] = "BOTTOMRIGHT",
+["fader"] = {
+["range"] = false,
+["enable"] = false,
 },
 ["raidicon"] = {
 ["yOffset"] = 15,
@@ -12397,17 +12399,17 @@ ElvDB = {
 ["enable"] = false,
 },
 ["width"] = 220,
-["health"] = {
-["xOffset"] = 4,
-["text_format"] = "",
-["position"] = "LEFT",
-},
 ["name"] = {
 ["text_format"] = "",
 },
 ["fader"] = {
 ["range"] = false,
 ["enable"] = false,
+},
+["health"] = {
+["xOffset"] = 4,
+["text_format"] = "",
+["position"] = "LEFT",
 },
 ["power"] = {
 ["height"] = 7,
@@ -12525,14 +12527,13 @@ ElvDB = {
 ["infoPanel"] = {
 ["height"] = 16,
 },
+["fader"] = {
+["range"] = false,
+["enable"] = false,
+},
 ["name"] = {
 ["text_format"] = "",
 ["position"] = "TOPLEFT",
-},
-["health"] = {
-["yOffset"] = -3,
-["text_format"] = "",
-["position"] = "BOTTOMRIGHT",
 },
 ["orientation"] = "LEFT",
 ["height"] = 31,
@@ -12547,9 +12548,10 @@ ElvDB = {
 ["growthY"] = "DOWN",
 ["anchorPoint"] = "BOTTOMLEFT",
 },
-["fader"] = {
-["range"] = false,
-["enable"] = false,
+["health"] = {
+["yOffset"] = -3,
+["text_format"] = "",
+["position"] = "BOTTOMRIGHT",
 },
 ["raidicon"] = {
 ["yOffset"] = 15,
@@ -12791,12 +12793,12 @@ ElvDB = {
 ["macroFontSize"] = 14,
 ["countFontOutline"] = "OUTLINE",
 ["macroTextPosition"] = "BOTTOM",
-["macrotext"] = true,
+["hotkeyTextYOffset"] = -1,
 ["countTextYOffset"] = 0,
 ["hotkeyFontSize"] = 14,
-["showGrid"] = false,
+["macrotext"] = true,
 ["buttonsPerRow"] = 1,
-["hotkeyTextYOffset"] = -1,
+["showGrid"] = false,
 ["macroTextYOffset"] = 2,
 },
 ["extraActionButton"] = {
@@ -12823,12 +12825,12 @@ ElvDB = {
 ["macroFontSize"] = 14,
 ["countFontOutline"] = "OUTLINE",
 ["macroTextPosition"] = "BOTTOM",
-["macrotext"] = true,
+["hotkeyTextYOffset"] = -1,
 ["countTextYOffset"] = 0,
 ["hotkeyFontSize"] = 14,
-["showGrid"] = false,
+["macrotext"] = true,
 ["buttonsPerRow"] = 4,
-["hotkeyTextYOffset"] = -1,
+["showGrid"] = false,
 ["macroTextYOffset"] = 2,
 },
 ["fontOutline"] = "OUTLINE",
@@ -12836,15 +12838,15 @@ ElvDB = {
 ["countFontSize"] = 13,
 ["countFont"] = "Rurutia",
 ["macroFontSize"] = 14,
-["hotkeyTextYOffset"] = -1,
+["macrotext"] = true,
 ["hotkeyFontSize"] = 14,
 ["buttonSpacing"] = 1,
 ["macroFontOutline"] = "OUTLINE",
 ["macroTextPosition"] = "BOTTOM",
-["macrotext"] = true,
+["showGrid"] = false,
 ["countTextYOffset"] = 0,
 ["hotkeyFontOutline"] = "OUTLINE",
-["showGrid"] = false,
+["hotkeyTextYOffset"] = -1,
 ["macroTextYOffset"] = 2,
 ["backdropSpacing"] = 4,
 ["countFontOutline"] = "OUTLINE",
@@ -12863,13 +12865,13 @@ ElvDB = {
 ["macroTextYOffset"] = 2,
 ["countTextYOffset"] = 0,
 ["hotkeyFontOutline"] = "OUTLINE",
+["macrotext"] = true,
+["hotkeyFontSize"] = 14,
+["hotkeyTextYOffset"] = -1,
 ["paging"] = {
 ["WARLOCK"] = "[form:1] 1;",
 ["DRUID"] = "[bonusbar:1,nostealth] 7; [bonusbar:1,stealth] 7; [bonusbar:2] 10; [bonusbar:3] 9; [bonusbar:4] 10;",
 },
-["hotkeyFontSize"] = 14,
-["macrotext"] = true,
-["hotkeyTextYOffset"] = -1,
 },
 ["font"] = "默认",
 ["countTextYOffset"] = 1,
@@ -12883,17 +12885,17 @@ ElvDB = {
 ["countFontSize"] = 14,
 ["point"] = "TOPLEFT",
 ["buttonSize"] = 25,
+["backdrop"] = false,
 ["buttonSpacing"] = 1,
-["macroFontSize"] = 14,
 ["countFontOutline"] = "OUTLINE",
-["buttonsPerRow"] = 10,
 ["hotkeyFontSize"] = 14,
+["macroTextYOffset"] = 2,
 ["countTextYOffset"] = 1,
 ["hotkeyFontOutline"] = "OUTLINE",
 ["hotkeyTextYOffset"] = -1,
-["macroTextYOffset"] = 2,
+["buttonsPerRow"] = 10,
 ["backdropSpacing"] = 1,
-["backdrop"] = false,
+["macroFontSize"] = 14,
 },
 ["fontSize"] = 14,
 ["bar10"] = {
@@ -12907,12 +12909,12 @@ ElvDB = {
 ["macroFontSize"] = 14,
 ["countFontOutline"] = "OUTLINE",
 ["macroTextPosition"] = "BOTTOM",
-["macrotext"] = true,
+["hotkeyTextYOffset"] = -1,
 ["countTextYOffset"] = 0,
 ["hotkeyFontSize"] = 14,
-["showGrid"] = false,
+["macrotext"] = true,
 ["buttonsPerRow"] = 4,
-["hotkeyTextYOffset"] = -1,
+["showGrid"] = false,
 ["macroTextYOffset"] = 2,
 },
 ["totemBar"] = {
@@ -12944,12 +12946,12 @@ ElvDB = {
 ["macroFontSize"] = 14,
 ["countFontOutline"] = "OUTLINE",
 ["macroTextPosition"] = "BOTTOM",
-["macrotext"] = true,
+["hotkeyTextYOffset"] = -1,
 ["countTextYOffset"] = 0,
 ["hotkeyFontSize"] = 14,
-["showGrid"] = false,
+["macrotext"] = true,
 ["buttonsPerRow"] = 2,
-["hotkeyTextYOffset"] = -1,
+["showGrid"] = false,
 ["macroTextYOffset"] = 2,
 },
 ["bar2"] = {
@@ -13058,12 +13060,12 @@ ElvDB = {
 ["backdrop"] = false,
 ["countFontOutline"] = "OUTLINE",
 ["macroTextPosition"] = "BOTTOM",
-["macrotext"] = true,
+["hotkeyTextYOffset"] = -1,
 ["countTextYOffset"] = 0,
 ["hotkeyFontSize"] = 14,
-["showGrid"] = false,
+["macrotext"] = true,
 ["macroTextYOffset"] = 2,
-["hotkeyTextYOffset"] = -1,
+["showGrid"] = false,
 ["macroFontSize"] = 14,
 },
 },
@@ -13115,19 +13117,19 @@ ElvDB = {
 ["enable"] = true,
 ["font"] = "默认",
 },
-["mmssColor"] = {
-["b"] = 1,
-["g"] = 1,
-["r"] = 1,
-},
+["hhmmThreshold"] = 0,
 ["hhmmColor"] = {
 ["b"] = 1,
 ["g"] = 1,
 ["r"] = 1,
 },
-["enable"] = false,
+["mmssColor"] = {
+["b"] = 1,
+["g"] = 1,
+["r"] = 1,
+},
 ["mmssThreshold"] = 3,
-["hhmmThreshold"] = 0,
+["enable"] = false,
 ["checkSeconds"] = true,
 },
 ["tooltip"] = {
@@ -13292,9 +13294,9 @@ ElvDB = {
 ["bonusObjectivePosition"] = "AUTO",
 ["itemLevel"] = {
 ["showGems"] = false,
+["itemLevelFont"] = "默认",
 ["showEnchants"] = false,
 ["itemLevelFontSize"] = 11,
-["itemLevelFont"] = "默认",
 },
 ["torghastBuffsPosition"] = "AUTO",
 ["afkChat"] = false,
@@ -13818,7 +13820,11 @@ ElvDB = {
 ["statusbar"] = "Solid",
 ["colors"] = {
 ["colorhealthbyvalue"] = false,
-["castClassColor"] = true,
+["health"] = {
+["r"] = 0.46666666666667,
+["g"] = 0.46666666666667,
+["b"] = 0.46666666666667,
+},
 ["power"] = {
 ["MANA"] = {
 ["b"] = 1,
@@ -13845,16 +13851,16 @@ ElvDB = {
 ["r"] = 1,
 },
 ["debuffHighlight"] = {
-["Disease"] = {
+["Curse"] = {
 ["a"] = 1,
 },
-["Poison"] = {
+["Disease"] = {
 ["a"] = 1,
 },
 ["Magic"] = {
 ["a"] = 1,
 },
-["Curse"] = {
+["Poison"] = {
 ["a"] = 1,
 },
 },
@@ -13876,23 +13882,7 @@ ElvDB = {
 ["g"] = 0.11372549019608,
 ["b"] = 0.11372549019608,
 },
-["reaction"] = {
-["BAD"] = {
-["b"] = 0.25098039215686,
-["g"] = 0.25098039215686,
-["r"] = 0.78039215686275,
-},
-["NEUTRAL"] = {
-["r"] = 0.85098039215686,
-["g"] = 0.76470588235294,
-["b"] = 0.36078431372549,
-},
-["GOOD"] = {
-["b"] = 0.30196078431373,
-["g"] = 0.69019607843137,
-["r"] = 0.28627450980392,
-},
-},
+["castClassColor"] = true,
 ["borderColor"] = {
 ["a"] = 1,
 },
@@ -13918,10 +13908,22 @@ ElvDB = {
 ["a"] = 1,
 },
 },
-["health"] = {
-["r"] = 0.46666666666667,
-["g"] = 0.46666666666667,
-["b"] = 0.46666666666667,
+["reaction"] = {
+["BAD"] = {
+["b"] = 0.25098039215686,
+["g"] = 0.25098039215686,
+["r"] = 0.78039215686275,
+},
+["NEUTRAL"] = {
+["r"] = 0.85098039215686,
+["g"] = 0.76470588235294,
+["b"] = 0.36078431372549,
+},
+["GOOD"] = {
+["b"] = 0.30196078431373,
+["g"] = 0.69019607843137,
+["r"] = 0.28627450980392,
+},
 },
 ["healPrediction"] = {
 ["personal"] = {
@@ -14511,13 +14513,14 @@ ElvDB = {
 ["text_format"] = "",
 ["position"] = "BOTTOMLEFT",
 },
+["health"] = {
+["position"] = "BOTTOMRIGHT",
+["text_format"] = "",
+["yOffset"] = -3,
+},
 ["name"] = {
 ["text_format"] = "",
 ["position"] = "TOPLEFT",
-},
-["fader"] = {
-["range"] = false,
-["enable"] = false,
 },
 ["pvpSpecIcon"] = true,
 ["height"] = 31,
@@ -14532,10 +14535,9 @@ ElvDB = {
 ["growthY"] = "DOWN",
 ["yOffset"] = 1,
 },
-["health"] = {
-["position"] = "BOTTOMRIGHT",
-["text_format"] = "",
-["yOffset"] = -3,
+["fader"] = {
+["range"] = false,
+["enable"] = false,
 },
 ["raidicon"] = {
 ["yOffset"] = 15,
@@ -14640,8 +14642,12 @@ ElvDB = {
 ["g"] = 0.5,
 ["b"] = 0.5,
 },
+["colorNoInterrupt"] = {
+["r"] = 0.78,
+["g"] = 0.25,
+["b"] = 0.25,
+},
 ["useCustomBackdrop"] = false,
-["transparent"] = false,
 ["enable"] = false,
 ["color"] = {
 ["r"] = 0.31,
@@ -14649,11 +14655,7 @@ ElvDB = {
 ["b"] = 0.31,
 },
 ["useClassColor"] = false,
-["colorNoInterrupt"] = {
-["r"] = 0.78,
-["g"] = 0.25,
-["b"] = 0.25,
-},
+["transparent"] = false,
 },
 ["tickWidth"] = 1,
 ["strataAndLevel"] = {
@@ -14989,17 +14991,17 @@ ElvDB = {
 ["enable"] = false,
 },
 ["width"] = 220,
-["health"] = {
-["xOffset"] = 4,
-["text_format"] = "",
-["position"] = "LEFT",
-},
 ["name"] = {
 ["text_format"] = "",
 },
 ["fader"] = {
 ["range"] = false,
 ["enable"] = false,
+},
+["health"] = {
+["xOffset"] = 4,
+["text_format"] = "",
+["position"] = "LEFT",
 },
 ["power"] = {
 ["height"] = 7,
@@ -15111,18 +15113,19 @@ ElvDB = {
 ["text_format"] = "",
 ["position"] = "BOTTOMLEFT",
 },
-["name"] = {
+["health"] = {
+["position"] = "BOTTOMRIGHT",
 ["text_format"] = "",
-["position"] = "TOPLEFT",
+["yOffset"] = -3,
 },
 ["width"] = 145,
 ["infoPanel"] = {
 ["height"] = 16,
 },
 ["orientation"] = "LEFT",
-["fader"] = {
-["range"] = false,
-["enable"] = false,
+["name"] = {
+["text_format"] = "",
+["position"] = "TOPLEFT",
 },
 ["spacing"] = 42,
 ["height"] = 31,
@@ -15137,10 +15140,9 @@ ElvDB = {
 ["growthY"] = "DOWN",
 ["anchorPoint"] = "BOTTOMLEFT",
 },
-["health"] = {
-["position"] = "BOTTOMRIGHT",
-["text_format"] = "",
-["yOffset"] = -3,
+["fader"] = {
+["range"] = false,
+["enable"] = false,
 },
 ["raidicon"] = {
 ["yOffset"] = 15,
@@ -15380,12 +15382,12 @@ ElvDB = {
 ["hotkeyFontSize"] = 14,
 ["countFontOutline"] = "OUTLINE",
 ["macroTextPosition"] = "BOTTOM",
-["macrotext"] = true,
+["hotkeyTextYOffset"] = -1,
 ["countTextYOffset"] = 0,
 ["macroTextYOffset"] = 2,
-["showGrid"] = false,
+["macrotext"] = true,
 ["buttonsPerRow"] = 1,
-["hotkeyTextYOffset"] = -1,
+["showGrid"] = false,
 ["macroFontSize"] = 14,
 },
 ["extraActionButton"] = {
@@ -15412,12 +15414,12 @@ ElvDB = {
 ["macroTextYOffset"] = 2,
 ["countFontOutline"] = "OUTLINE",
 ["macroTextPosition"] = "BOTTOM",
-["macrotext"] = true,
+["hotkeyTextYOffset"] = -1,
 ["countTextYOffset"] = 0,
 ["hotkeyFontSize"] = 14,
-["showGrid"] = false,
+["macrotext"] = true,
 ["buttonsPerRow"] = 4,
-["hotkeyTextYOffset"] = -1,
+["showGrid"] = false,
 ["macroFontSize"] = 14,
 },
 ["fontOutline"] = "OUTLINE",
@@ -15425,15 +15427,15 @@ ElvDB = {
 ["countFontSize"] = 13,
 ["countFont"] = "Rurutia",
 ["macroFontOutline"] = "OUTLINE",
-["hotkeyTextYOffset"] = -1,
+["macrotext"] = true,
 ["macroTextYOffset"] = 2,
 ["macroFontSize"] = 14,
 ["countFontOutline"] = "OUTLINE",
 ["macroTextPosition"] = "BOTTOM",
-["macrotext"] = true,
+["showGrid"] = false,
 ["countTextYOffset"] = 0,
 ["hotkeyFontOutline"] = "OUTLINE",
-["showGrid"] = false,
+["hotkeyTextYOffset"] = -1,
 ["hotkeyFontSize"] = 14,
 ["backdropSpacing"] = 4,
 ["buttonSpacing"] = 1,
@@ -15452,13 +15454,13 @@ ElvDB = {
 ["hotkeyFontSize"] = 14,
 ["countTextYOffset"] = 0,
 ["hotkeyFontOutline"] = "OUTLINE",
+["hotkeyTextYOffset"] = -1,
+["macroTextYOffset"] = 2,
+["macrotext"] = true,
 ["paging"] = {
 ["WARLOCK"] = "[form:1] 1;",
 ["DRUID"] = "[bonusbar:1,nostealth] 7; [bonusbar:1,stealth] 7; [bonusbar:2] 10; [bonusbar:3] 9; [bonusbar:4] 10;",
 },
-["macroTextYOffset"] = 2,
-["hotkeyTextYOffset"] = -1,
-["macrotext"] = true,
 },
 ["font"] = "默认",
 ["countTextYOffset"] = 1,
@@ -15472,17 +15474,17 @@ ElvDB = {
 ["countFontSize"] = 14,
 ["point"] = "TOPLEFT",
 ["buttonSize"] = 25,
+["backdrop"] = false,
 ["buttonSpacing"] = 1,
-["macroFontSize"] = 14,
 ["countFontOutline"] = "OUTLINE",
-["buttonsPerRow"] = 10,
 ["hotkeyFontSize"] = 14,
+["macroTextYOffset"] = 2,
 ["countTextYOffset"] = 1,
 ["hotkeyFontOutline"] = "OUTLINE",
 ["hotkeyTextYOffset"] = -1,
-["macroTextYOffset"] = 2,
+["buttonsPerRow"] = 10,
 ["backdropSpacing"] = 1,
-["backdrop"] = false,
+["macroFontSize"] = 14,
 },
 ["fontSize"] = 14,
 ["bar10"] = {
@@ -15496,12 +15498,12 @@ ElvDB = {
 ["macroTextYOffset"] = 2,
 ["countFontOutline"] = "OUTLINE",
 ["macroTextPosition"] = "BOTTOM",
-["macrotext"] = true,
+["hotkeyTextYOffset"] = -1,
 ["countTextYOffset"] = 0,
 ["hotkeyFontSize"] = 14,
-["showGrid"] = false,
+["macrotext"] = true,
 ["buttonsPerRow"] = 4,
-["hotkeyTextYOffset"] = -1,
+["showGrid"] = false,
 ["macroFontSize"] = 14,
 },
 ["totemBar"] = {
@@ -15533,12 +15535,12 @@ ElvDB = {
 ["macroTextYOffset"] = 2,
 ["countFontOutline"] = "OUTLINE",
 ["macroTextPosition"] = "BOTTOM",
-["macrotext"] = true,
+["hotkeyTextYOffset"] = -1,
 ["countTextYOffset"] = 0,
 ["hotkeyFontSize"] = 14,
-["showGrid"] = false,
+["macrotext"] = true,
 ["buttonsPerRow"] = 2,
-["hotkeyTextYOffset"] = -1,
+["showGrid"] = false,
 ["macroFontSize"] = 14,
 },
 ["bar2"] = {
@@ -15647,12 +15649,12 @@ ElvDB = {
 ["backdrop"] = false,
 ["countFontOutline"] = "OUTLINE",
 ["macroTextPosition"] = "BOTTOM",
-["macrotext"] = true,
+["hotkeyTextYOffset"] = -1,
 ["countTextYOffset"] = 0,
 ["hotkeyFontSize"] = 14,
-["showGrid"] = false,
+["macrotext"] = true,
 ["macroTextYOffset"] = 2,
-["hotkeyTextYOffset"] = -1,
+["showGrid"] = false,
 ["macroFontSize"] = 14,
 },
 },
@@ -15704,19 +15706,19 @@ ElvDB = {
 ["enable"] = true,
 ["font"] = "默认",
 },
-["mmssColor"] = {
-["r"] = 1,
-["g"] = 1,
-["b"] = 1,
-},
+["hhmmThreshold"] = 0,
 ["hhmmColor"] = {
 ["r"] = 1,
 ["g"] = 1,
 ["b"] = 1,
 },
-["enable"] = false,
+["mmssColor"] = {
+["r"] = 1,
+["g"] = 1,
+["b"] = 1,
+},
 ["mmssThreshold"] = 3,
-["hhmmThreshold"] = 0,
+["enable"] = false,
 ["checkSeconds"] = true,
 },
 ["tooltip"] = {
@@ -15859,11 +15861,12 @@ ElvDB = {
 ["露露緹婭"] = 230788704,
 },
 ["时光IV"] = {
-["京东刘强东"] = 1071507,
-["美团王兴"] = 0,
-["小米军儿"] = 20642854,
+["京东刘强东"] = 772418,
+["美团王兴"] = 610000,
+["小米军儿"] = 1566472,
+["退休码农"] = 93253,
 ["京东董事长"] = 0,
-["哔站陈睿"] = 3039814,
+["哔站陈睿"] = 56241741,
 },
 ["帕奇维克"] = {
 ["露露缇娅"] = 69802,
@@ -15931,6 +15934,7 @@ ElvDB = {
 ["京东刘强东"] = "Alliance",
 ["美团王兴"] = "Alliance",
 ["小米军儿"] = "Alliance",
+["退休码农"] = "Alliance",
 ["京东董事长"] = "Horde",
 ["哔站陈睿"] = "Alliance",
 },
@@ -16477,8 +16481,8 @@ nil,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
 },
-[70107] = {
-["enable"] = false,
+[60923] = {
+["enable"] = true,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
 },
@@ -16835,9 +16839,6 @@ nil,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
 },
-[55807] = {
-["enable"] = false,
-},
 [70410] = {
 ["enable"] = true,
 ["priority"] = 0,
@@ -16863,12 +16864,12 @@ nil,
 ["priority"] = 1,
 ["stackThreshold"] = 0,
 },
-[69789] = {
-["enable"] = true,
-["priority"] = 0,
+[65686] = {
+["enable"] = false,
+["priority"] = 1,
 ["stackThreshold"] = 0,
 },
-[65748] = {
+[66770] = {
 ["enable"] = true,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
@@ -16906,8 +16907,8 @@ nil,
 ["priority"] = 99,
 ["stackThreshold"] = 8,
 },
-[71127] = {
-["enable"] = true,
+[70107] = {
+["enable"] = false,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
 },
@@ -16916,7 +16917,12 @@ nil,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
 },
-[54772] = {
+[63494] = {
+["enable"] = true,
+["priority"] = 0,
+["stackThreshold"] = 0,
+},
+[28785] = {
 ["enable"] = true,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
@@ -16931,9 +16937,9 @@ nil,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
 },
-[65686] = {
-["enable"] = false,
-["priority"] = 1,
+[66197] = {
+["enable"] = true,
+["priority"] = 0,
 ["stackThreshold"] = 0,
 },
 [63568] = {
@@ -17090,14 +17096,12 @@ nil,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
 },
+[55807] = {
+["enable"] = false,
+},
 [71278] = {
 ["enable"] = true,
 ["priority"] = 50,
-["stackThreshold"] = 0,
-},
-[60923] = {
-["enable"] = true,
-["priority"] = 0,
 ["stackThreshold"] = 0,
 },
 [70877] = {
@@ -17108,11 +17112,6 @@ nil,
 [70352] = {
 ["enable"] = false,
 ["priority"] = 0,
-["stackThreshold"] = 0,
-},
-[71941] = {
-["enable"] = true,
-["priority"] = 99,
 ["stackThreshold"] = 0,
 },
 [74384] = {
@@ -17126,6 +17125,11 @@ nil,
 ["stackThreshold"] = 0,
 },
 [66320] = {
+["enable"] = true,
+["priority"] = 0,
+["stackThreshold"] = 0,
+},
+[54772] = {
 ["enable"] = true,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
@@ -17150,8 +17154,8 @@ nil,
 ["priority"] = 99,
 ["stackThreshold"] = 0,
 },
-[66770] = {
-["enable"] = true,
+[55593] = {
+["enable"] = false,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
 },
@@ -17160,8 +17164,8 @@ nil,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
 },
-[55593] = {
-["enable"] = false,
+[71943] = {
+["enable"] = true,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
 },
@@ -17170,9 +17174,9 @@ nil,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
 },
-[74567] = {
+[70911] = {
 ["enable"] = true,
-["priority"] = 0,
+["priority"] = 60,
 ["stackThreshold"] = 0,
 },
 [74505] = {
@@ -17185,19 +17189,14 @@ nil,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
 },
-[60899] = {
+[69409] = {
 ["enable"] = true,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
 },
-[72451] = {
+[69789] = {
 ["enable"] = true,
-["priority"] = 99,
-["stackThreshold"] = 0,
-},
-[70911] = {
-["enable"] = true,
-["priority"] = 60,
+["priority"] = 0,
 ["stackThreshold"] = 0,
 },
 [60072] = {
@@ -17210,12 +17209,17 @@ nil,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
 },
-[71943] = {
+[70879] = {
 ["enable"] = true,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
 },
-[63494] = {
+[60899] = {
+["enable"] = true,
+["priority"] = 0,
+["stackThreshold"] = 0,
+},
+[65748] = {
 ["enable"] = true,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
@@ -17225,19 +17229,19 @@ nil,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
 },
-[69409] = {
+[71127] = {
 ["enable"] = true,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
 },
-[28785] = {
+[74567] = {
 ["enable"] = true,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
 },
-[66197] = {
+[72451] = {
 ["enable"] = true,
-["priority"] = 0,
+["priority"] = 99,
 ["stackThreshold"] = 0,
 },
 [55665] = {
@@ -17253,9 +17257,9 @@ nil,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
 },
-[70879] = {
+[71941] = {
 ["enable"] = true,
-["priority"] = 0,
+["priority"] = 99,
 ["stackThreshold"] = 0,
 },
 },
@@ -17562,7 +17566,7 @@ nil,
 },
 },
 ["ALL"] = {
-[145629] = {
+[31821] = {
 },
 [98007] = {
 },
@@ -17574,9 +17578,9 @@ nil,
 },
 [97463] = {
 },
-[15286] = {
+[145629] = {
 },
-[31821] = {
+[15286] = {
 },
 },
 ["ROGUE"] = {
@@ -18219,6 +18223,12 @@ nil,
 },
 },
 ["DRUID"] = {
+[774] = {
+["point"] = "TOPRIGHT",
+["displayText"] = true,
+["style"] = "texturedIcon",
+["decimalThreshold"] = -1,
+},
 [48438] = {
 ["displayText"] = true,
 ["color"] = {
@@ -18229,35 +18239,25 @@ nil,
 ["style"] = "texturedIcon",
 ["decimalThreshold"] = -1,
 },
-[1126] = {
-["enabled"] = false,
-["style"] = "texturedIcon",
-},
 [467] = {
 ["enabled"] = false,
 ["style"] = "texturedIcon",
 },
-[774] = {
-["point"] = "TOPRIGHT",
-["displayText"] = true,
-["style"] = "texturedIcon",
-["decimalThreshold"] = -1,
-},
-[29166] = {
+[1126] = {
 ["enabled"] = false,
 ["style"] = "texturedIcon",
-},
-[33763] = {
-["point"] = "TOPRIGHT",
-["displayText"] = true,
-["xOffset"] = -37,
-["style"] = "texturedIcon",
-["decimalThreshold"] = -1,
 },
 [8936] = {
 ["point"] = "TOPRIGHT",
 ["displayText"] = true,
 ["xOffset"] = -18,
+["style"] = "texturedIcon",
+["decimalThreshold"] = -1,
+},
+[33763] = {
+["point"] = "TOPRIGHT",
+["displayText"] = true,
+["xOffset"] = -37,
 ["style"] = "texturedIcon",
 ["decimalThreshold"] = -1,
 },
@@ -18277,6 +18277,10 @@ nil,
 },
 ["cooldownY"] = 1,
 ["displayText"] = true,
+},
+[29166] = {
+["enabled"] = false,
+["style"] = "texturedIcon",
 },
 },
 ["MONK"] = {
@@ -18314,53 +18318,7 @@ nil,
 ["enabled"] = false,
 ["style"] = "texturedIcon",
 },
-[61299] = {
-["enabled"] = true,
-["anyUnit"] = false,
-["point"] = "TOPRIGHT",
-["color"] = {
-["r"] = 1,
-["g"] = 1,
-["b"] = 1,
-},
-["countY"] = 1,
-["textThreshold"] = 3,
-["yOffset"] = 0,
-["countAnchor"] = "BOTTOMRIGHT",
-["sizeOffset"] = 0,
-["style"] = "texturedIcon",
-["xOffset"] = 0,
-["countX"] = 1,
-["displayText"] = false,
-["id"] = 61299,
-["onlyShowMissing"] = false,
-},
 [5677] = {
-["enabled"] = false,
-["style"] = "texturedIcon",
-},
-[61300] = {
-["enabled"] = true,
-["anyUnit"] = false,
-["point"] = "TOPRIGHT",
-["color"] = {
-["r"] = 1,
-["g"] = 1,
-["b"] = 1,
-},
-["countY"] = 1,
-["textThreshold"] = -1,
-["yOffset"] = 0,
-["countAnchor"] = "BOTTOMRIGHT",
-["sizeOffset"] = 0,
-["style"] = "texturedIcon",
-["xOffset"] = 0,
-["countX"] = 1,
-["displayText"] = false,
-["id"] = 61300,
-["onlyShowMissing"] = false,
-},
-[8072] = {
 ["enabled"] = false,
 ["style"] = "texturedIcon",
 },
@@ -18368,12 +18326,9 @@ nil,
 ["enabled"] = false,
 ["style"] = "texturedIcon",
 },
-[974] = {
-["point"] = "TOPLEFT",
-["anyUnit"] = false,
-["countY"] = -3,
+[8072] = {
+["enabled"] = false,
 ["style"] = "texturedIcon",
-["countX"] = 4,
 },
 [16177] = {
 ["point"] = "TOP",
@@ -18392,30 +18347,16 @@ nil,
 ["decimalThreshold"] = -1,
 ["haveAnimation"] = false,
 },
+[974] = {
+["point"] = "TOPLEFT",
+["anyUnit"] = false,
+["countY"] = -3,
+["style"] = "texturedIcon",
+["countX"] = 4,
+},
 [10596] = {
 ["enabled"] = false,
 ["style"] = "texturedIcon",
-},
-[61301] = {
-["enabled"] = true,
-["anyUnit"] = false,
-["point"] = "TOPRIGHT",
-["color"] = {
-["r"] = 1,
-["g"] = 1,
-["b"] = 1,
-},
-["countY"] = 1,
-["textThreshold"] = 3,
-["yOffset"] = 0,
-["countAnchor"] = "BOTTOMRIGHT",
-["sizeOffset"] = 0,
-["style"] = "texturedIcon",
-["xOffset"] = 0,
-["countX"] = 1,
-["displayText"] = false,
-["id"] = 61301,
-["onlyShowMissing"] = false,
 },
 [8182] = {
 ["enabled"] = false,
@@ -18526,22 +18467,16 @@ true,
 [29] = {
 [4] = true,
 },
-[8] = {
-[4] = true,
-},
 [9] = {
 [4] = true,
 },
 [18] = {
 [4] = true,
 },
-[6] = {
-[4] = true,
-},
 [38] = {
 [4] = true,
 },
-[3] = {
+[4] = {
 nil,
 nil,
 nil,
@@ -18553,8 +18488,11 @@ true,
 [44] = {
 [4] = true,
 },
-[7] = {
-[4] = true,
+[6] = {
+nil,
+nil,
+nil,
+true,
 },
 },
 },
@@ -18708,6 +18646,7 @@ ElvPrivateDB = {
 ["诗怀雅 - 曼多基尔"] = "诗怀雅 - 曼多基尔",
 ["爱雅法拉 - 维克尼拉斯"] = "露露缇娅灬 - 霜语",
 ["愛雅法拉 - 霜语"] = "露露緹婭 - 维希度斯",
+["京东刘强东 - 时光IV"] = "京东刘强东 - 时光IV",
 ["萌萌的露小露 - 霜语"] = "露露緹婭 - 维希度斯",
 ["爱雅法拉 - 维希度斯"] = "露露缇娅灬 - 霜语",
 ["露露缇娅 - 时光I"] = "露露緹婭 - 维希度斯",
@@ -18720,84 +18659,84 @@ ElvPrivateDB = {
 ["小马君 - 时光I"] = "露露緹婭 - 维希度斯",
 ["萌萌奶糖 - 维希度斯"] = "露露缇娅灬 - 霜语",
 ["露露緹婭灬 - 时光I"] = "露露緹婭 - 维希度斯",
-["京东刘强东 - 时光IV"] = "京东刘强东 - 时光IV",
 ["萌萌奶糖丶 - 霜语"] = "露露緹婭 - 维希度斯",
-["京东董事长 - 时光IV"] = "露露緹婭 - 维希度斯",
 ["萌萌的露露糖old1763085844926 - 逐風者"] = "蒂琪爱尔 - 维希度斯",
+["京东董事长 - 时光IV"] = "露露緹婭 - 维希度斯",
+["露露缇娅丶old1753612638085old1751360463014old1744301844298 - 霜语"] = "露露緹婭 - 维希度斯",
 ["萌喵露 - 萨尔"] = "露露缇娅 - 萨尔",
 ["蒂琪爱尔 - 维希度斯"] = "露露缇娅灬 - 霜语",
-["露露缇娅丶old1753612638085old1751360463014old1744301844298 - 霜语"] = "露露緹婭 - 维希度斯",
 ["愛雅法拉 - 燃烧之刃"] = "露露缇娅 - 萨尔",
 ["露露緹婭丶 - 时光II"] = "露露緹婭 - 维希度斯",
-["拉普兰德 - 曼多基尔"] = "露露緹婭 - 维希度斯",
 ["甜甜奶露 - 萨尔"] = "露露缇娅 - 萨尔",
-["露露緹婭 - 燃烧之刃"] = "露露缇娅 - 萨尔",
-["露露缇娅灬 - 时光III"] = "露露緹婭 - 维希度斯",
+["拉普兰德 - 曼多基尔"] = "露露緹婭 - 维希度斯",
+["萌萌奶糖 - 燃烧之刃"] = "露露缇娅 - 萨尔",
 ["墨清弦 - 曼多基尔"] = "露露緹婭 - 维希度斯",
-["露露缇娅灬 - 时光II"] = "露露緹婭 - 维希度斯",
+["露露缇娅灬 - 时光III"] = "露露緹婭 - 维希度斯",
 ["露露缇娅丶 - 时光II"] = "露露緹婭 - 维希度斯",
-["甜甜奶糖 - 曼多基尔"] = "露露緹婭 - 维希度斯",
+["露露缇娅灬 - 时光II"] = "露露緹婭 - 维希度斯",
 ["露露緹婭灬 - 时光II"] = "露露緹婭 - 维希度斯",
+["甜甜奶糖 - 曼多基尔"] = "露露緹婭 - 维希度斯",
+["奶德德一号 - 阿拉希盆地"] = "蒂琪爱尔 - 维希度斯",
 ["萌萌的露小露 - 时光IV"] = "露露緹婭 - 维希度斯",
 ["露露缇娅 - 萨尔"] = "露露缇娅 - 萨尔",
 ["爱奇艺董事长 - 时光IV"] = "露露緹婭 - 维希度斯",
 ["俯瞰风景 - 曼多基尔"] = "露露緹婭 - 维希度斯",
 ["皎月梦夜 - 时光III"] = "露露緹婭 - 维希度斯",
 ["萌萌的露露糖old1763085844926 - 燃烧之刃"] = "露露缇娅 - 萨尔",
-["萌萌奶糖 - 燃烧之刃"] = "露露缇娅 - 萨尔",
 ["灬山梨灬 - 逐風者"] = "蒂琪爱尔 - 维希度斯",
 ["愛雅法拉 - 阿拉希盆地"] = "蒂琪爱尔 - 维希度斯",
+["露露媞娅 - 逐風者"] = "蒂琪爱尔 - 维希度斯",
 ["俯瞰风景 - 维克尼拉斯"] = "露露缇娅灬 - 霜语",
 ["萌萌的露露糖old1763085844926 - 维希度斯"] = "露露緹婭 - 维希度斯",
 ["丶故里 - 阿拉希盆地"] = "蒂琪爱尔 - 维希度斯",
 ["美团董事长 - 时光IV"] = "露露緹婭 - 维希度斯",
 ["故里灬 - 阿拉希盆地"] = "蒂琪爱尔 - 维希度斯",
-["露露媞娅 - 逐風者"] = "蒂琪爱尔 - 维希度斯",
+["哔站陈睿 - 时光IV"] = "哔站陈睿 - 时光IV",
 ["甜甜奶糖 - 萨尔"] = "露露缇娅 - 萨尔",
 ["爱雅法拉 - 萨尔"] = "露露缇娅 - 萨尔",
-["哔站陈睿 - 时光IV"] = "哔站陈睿 - 时光IV",
+["萌萌的露小露 - 维希度斯"] = "露露緹婭 - 维希度斯",
 ["魔雪露露糖 - 萨尔"] = "露露缇娅 - 萨尔",
 ["甜甜奶糖 - 罗宁"] = "露露缇娅 - 萨尔",
-["奶德德一号 - 阿拉希盆地"] = "蒂琪爱尔 - 维希度斯",
-["萌萌的露小露 - 维希度斯"] = "露露緹婭 - 维希度斯",
+["俯瞰風景 - 萨尔"] = "露露缇娅 - 萨尔",
+["萌萌的露小露 - Classic PTR Realm 2"] = "蒂琪爱尔 - 维希度斯",
 ["绫雅音 - 萨尔"] = "露露缇娅 - 萨尔",
 ["萌萌的露露糖 - 时光I"] = "露露緹婭 - 维希度斯",
-["萌萌的露小露 - Classic PTR Realm 2"] = "蒂琪爱尔 - 维希度斯",
+["财高八抖 - 时光III"] = "露露緹婭 - 维希度斯",
 ["萌萌奶糖 - 萨尔"] = "露露缇娅 - 萨尔",
 ["露露緹婭 - 魚人"] = "蒂琪爱尔 - 维希度斯",
 ["美团王兴 - 时光IV"] = "美团王兴 - 时光IV",
-["财高八抖 - 时光III"] = "露露緹婭 - 维希度斯",
-["灬雪梨灬 - 逐風者"] = "蒂琪爱尔 - 维希度斯",
 ["露露緹婭 - 时光IV"] = "露露緹婭 - 维希度斯",
-["萌萌奶糖 - 维克尼拉斯"] = "露露緹婭 - 维希度斯",
+["灬雪梨灬 - 逐風者"] = "蒂琪爱尔 - 维希度斯",
 ["露露缇娅灬 - 霜语"] = "露露緹婭 - 维希度斯",
-["哔站董事长 - 时光IV"] = "露露緹婭 - 维希度斯",
+["萌萌奶糖 - 维克尼拉斯"] = "露露緹婭 - 维希度斯",
 ["萌萌的露露糖 - 曼多基尔"] = "露露缇娅灬 - 霜语",
+["哔站董事长 - 时光IV"] = "露露緹婭 - 维希度斯",
 ["露露缇娅丶 - 时光I"] = "露露緹婭 - 维希度斯",
 ["银光骤雨 - 时光I"] = "露露緹婭 - 维希度斯",
+["Snowmoon - 萨尔"] = "露露缇娅 - 萨尔",
 ["露露缇娅 - 维克尼拉斯"] = "露露緹婭 - 维希度斯",
 ["露露緹婭 - 时光II"] = "露露緹婭 - 维希度斯",
 ["萌萌奶糖 - 曼多基尔"] = "露露緹婭 - 维希度斯",
 ["萌萌的露小露 - 时光I"] = "露露緹婭 - 维希度斯",
 ["樂正綾 - 萨尔"] = "露露缇娅 - 萨尔",
-["Snowmoon - 萨尔"] = "露露缇娅 - 萨尔",
+["露露緹婭灬 - 时光IV"] = "露露緹婭 - 维希度斯",
 ["露露緹婭丶 - 时光III"] = "露露緹婭 - 维希度斯",
 ["蒂琪爱尔 - 曼多基尔"] = "露露緹婭 - 维希度斯",
 ["露露緹婭丶 - 时光I"] = "露露緹婭 - 维希度斯",
 ["露露缇娅 - 时光IV"] = "露露緹婭 - 维希度斯",
-["小绫子 - 曼多基尔"] = "蒂琪爱尔 - 维希度斯",
+["露露緹婭 - 维希度斯"] = "露露緹婭 - 维希度斯",
 ["露露缇娅灬 - 时光IV"] = "露露緹婭 - 维希度斯",
 ["露露緹婭 - 时光I"] = "露露緹婭 - 维希度斯",
 ["愛雅法拉 - 札里克"] = "蒂琪爱尔 - 维希度斯",
-["露露緹婭灬 - 时光IV"] = "露露緹婭 - 维希度斯",
+["退休码农 - 时光IV"] = "退休码农 - 时光IV",
 ["沙丨梨 - 逐風者"] = "蒂琪爱尔 - 维希度斯",
 ["露露緹婭丶 - 时光IV"] = "露露緹婭 - 维希度斯",
 ["萌萌的露小露 - Classic PTR Realm 1"] = "蒂琪爱尔 - 维希度斯",
 ["綾波麗 - 萨尔"] = "露露缇娅 - 萨尔",
-["露露緹婭 - 维希度斯"] = "露露緹婭 - 维希度斯",
 ["露露缇娅 - 曼多基尔"] = "露露緹婭 - 维希度斯",
-["皎月梦夜 - 时光I"] = "露露緹婭 - 维希度斯",
 ["故里丶 - 阿拉希盆地"] = "蒂琪爱尔 - 维希度斯",
+["皎月梦夜 - 时光I"] = "露露緹婭 - 维希度斯",
+["小绫子 - 曼多基尔"] = "蒂琪爱尔 - 维希度斯",
 ["露露缇娅 - 抗压一号"] = "蒂琪爱尔 - 维希度斯",
 ["露露緹婭 - 时光III"] = "露露緹婭 - 维希度斯",
 ["抹茶奶咖 - 燃烧之刃"] = "露露缇娅 - 萨尔",
@@ -18812,7 +18751,7 @@ ElvPrivateDB = {
 ["小绫子 - 维克尼拉斯"] = "蒂琪爱尔 - 维希度斯",
 ["萌萌的露露糖old1763085844926 - 霜语"] = "露露緹婭 - 维希度斯",
 ["萌萌的露小露 - 阿拉希盆地"] = "蒂琪爱尔 - 维希度斯",
-["俯瞰風景 - 萨尔"] = "露露缇娅 - 萨尔",
+["露露緹婭 - 燃烧之刃"] = "露露缇娅 - 萨尔",
 ["伊芙莉特 - 曼多基尔"] = "蒂琪爱尔 - 维希度斯",
 ["露露缇娅丶 - 时光IV"] = "露露緹婭 - 维希度斯",
 ["财高八抖 - 时光II"] = "露露緹婭 - 维希度斯",
@@ -18879,10 +18818,10 @@ ElvPrivateDB = {
 },
 },
 ["美团王兴 - 时光IV"] = {
+["install_complete"] = 13.87,
 ["bags"] = {
 ["enable"] = false,
 },
-["install_complete"] = 13.87,
 },
 ["爱雅法拉 - 帕奇维克"] = {
 ["general"] = {
@@ -19138,6 +19077,9 @@ ElvPrivateDB = {
 ["enable"] = true,
 },
 },
+["退休码农 - 时光IV"] = {
+["install_complete"] = 14.04,
+},
 ["哔站陈睿 - 时光IV"] = {
 ["install_complete"] = 14.03,
 },
@@ -19169,12 +19111,12 @@ ElvPrivateDB = {
 ["enable"] = true,
 },
 },
-["俯瞰风景 - 曼多基尔"] = {
+["咲恋 - 曼多基尔"] = {
 ["general"] = {
 ["normTex"] = "ElvUI Blank",
 ["glossTex"] = "ElvUI Blank",
 },
-["install_complete"] = "1.19",
+["install_complete"] = 1.24,
 },
 ["露露缇娅 - 萨尔"] = {
 ["nameplate"] = {
@@ -19401,12 +19343,12 @@ ElvPrivateDB = {
 ["萌萌的露小露 - 维希度斯"] = {
 ["install_complete"] = 12.91,
 },
-["咲恋 - 曼多基尔"] = {
+["俯瞰风景 - 曼多基尔"] = {
 ["general"] = {
 ["normTex"] = "ElvUI Blank",
 ["glossTex"] = "ElvUI Blank",
 },
-["install_complete"] = 1.24,
+["install_complete"] = "1.19",
 },
 ["墨清弦 - 曼多基尔"] = {
 ["general"] = {

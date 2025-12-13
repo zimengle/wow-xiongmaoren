@@ -600,11 +600,10 @@ binder:SetScript("OnEvent", function()
 
     local LAB = LibStub("LibActionButton-1.0", true);
     local LAB_ElvUI = LibStub("LibActionButton-1.0-ElvUI", true);
-    local LAB_NDui = LibStub("LibActionButton-1.0-NDui", true);
     local LAB_GE = LibStub("LibActionButton-1.0-GE", true);
+    local LAB_NDui = LibStub("LibActionButton-1.0-NDui", true);
     local LBG, LBGversion = LibStub("LibButtonGlow-1.0", true);
     local LCG = LibStub("LibCustomGlow-1.0", true);
-    local LCG_NDui = LibStub("LibCustomGlow-1.0-NDui", true);
 
     local buttonUpdateFunc = function(libGlow, event, self)
         if (self._state_type ~= "action") then
@@ -645,17 +644,9 @@ binder:SetScript("OnEvent", function()
         buttonUpdateFunc(LAB_GE, event, self);
     end
 
-    local LAB_NDuiButtonUpdateFunc = function(event, self)
-        local glowLib = LCG_NDui or LCG;
-        if glowLib then
-            buttonUpdateFunc(glowLib, event, self);
-        end
-    end
-
-    -- Support for LibActionButton used by e.g., Bartender
-    if (LAB and LBG and LBGversion >= 8) then -- Prioritize LibButtonGlow, if available
+    if (LAB and LBG and LBGversion >= 8) then
         LAB:RegisterCallback("OnButtonUpdate", LBGButtonUpdateFunc);
-    elseif (LAB and LCG) then -- Otherwise fall back to LibCustomGlow
+    elseif (LAB and LCG) then
         LAB:RegisterCallback("OnButtonUpdate", LCGButtonUpdateFunc);
     elseif (LAB and LBG) then
         warnOutdatedLBG();
@@ -702,17 +693,18 @@ binder:SetScript("OnEvent", function()
         end
     end
 
-    if (LAB_NDui) then
-        if (LCG_NDui) then
-            LAB_NDui:RegisterCallback("OnButtonUpdate", LAB_NDuiButtonUpdateFunc);
-        elseif (LCG) then
-            LAB_NDui:RegisterCallback("OnButtonUpdate", LCGButtonUpdateFunc);
-        end
-    end
-
     -- Support for AzeriteUI5's LibActionButton
     if (LAB_GE) then
         LAB_GE:RegisterCallback("OnButtonUpdate", LAB_GEButtonUpdateFunc)
+    end
+
+    -- Support for NDui's LibActionButton
+    if (LAB_NDui) then
+        if (LBG and LBGversion >= 8) then
+            LAB_NDui:RegisterCallback("OnButtonUpdate", LBGButtonUpdateFunc);
+        elseif (LCG) then
+            LAB_NDui:RegisterCallback("OnButtonUpdate", LCGButtonUpdateFunc);
+        end
     end
 
     binder:UnregisterEvent("PLAYER_LOGIN");

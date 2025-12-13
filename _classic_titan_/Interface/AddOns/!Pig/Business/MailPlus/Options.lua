@@ -44,10 +44,10 @@ function BusinessInfo.MailPlusOptions()
 	end);
 	fuFrame.MailPlus.ScanSliderT = PIGFontString(fuFrame.MailPlus,{"LEFT",fuFrame.MailPlus.Text,"RIGHT",40,0},"批量取件间隔/s")
 	fuFrame.MailPlus.ScanSlider = PIGSlider(fuFrame.MailPlus,{"LEFT",fuFrame.MailPlus.ScanSliderT,"RIGHT",0,0},{0.15,1,0.01})
-	fuFrame.MailPlus.ScanSlider.Slider:HookScript("OnValueChanged", function(self, arg1)
+	function fuFrame.MailPlus.ScanSlider:PIGOnValueChange(arg1)
 		PIG_OPEN_ALL_MAIL_MIN_DELAY=arg1
 		PIGA["MailPlus"]["OpenAllCD"]=arg1
-	end)
+	end
 	fuFrame.BagOpen = PIGCheckbutton(fuFrame,{"TOPLEFT",fuFrame.MailPlus,"BOTTOMLEFT",0,-20},{"发件时保持背包开启"})
 	fuFrame.BagOpen:SetScript("OnClick", function (self)
 		if self:GetChecked() then

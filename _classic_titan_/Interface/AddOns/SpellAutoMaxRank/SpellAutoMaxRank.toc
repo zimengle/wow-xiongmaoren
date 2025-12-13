@@ -1,0 +1,8 @@
+## Interface: 38000
+## Title: SpellAutoMaxRank |cffff99cc爱|r|cffddaaee萝|r|cffbbccff莉|r|cff99eeff修|r|cff77ffff复|r
+
+## Notes: Automatically updates action bar spells to max rank.
+## Notes-zhCN: 自动将动作条上的法术更新至最高等级。|n适配泰坦时光服|n爱萝莉的格雷福斯#5462
+## Version: 1.0
+
+core.lua

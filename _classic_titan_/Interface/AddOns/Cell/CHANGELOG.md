@@ -1,3 +1,5 @@
-[View Full Changelog](https://github.com/enderneko/Cell/compare/r268-release...c287e980b23695859b9b067efd2b8639c345a0be)
+[View Full Changelog](https://github.com/enderneko/Cell/compare/r271-release...04e54adc8f74b1e46ff6f5a5c78eaeec88f30972)
 
-- Fix Monk-related issues
+- Update debuffs for Throne of Thunder (#436, thanks @EkklesN)
+- Add Eternal Flame for "Healers"
+- Fix boss list for Throne of Thunder

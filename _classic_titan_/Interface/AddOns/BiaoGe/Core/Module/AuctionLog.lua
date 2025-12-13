@@ -80,7 +80,7 @@ BG.Init(function()
             GameTooltip:ClearLines()
             GameTooltip:AddLine(self:GetText(), 1, 1, 1, true)
             GameTooltip:AddLine(L["自动拍卖装备（拍卖WA）的记录。"], 1, 0.82, 0, true)
-            GameTooltip:AddLine(format(L["自动拍卖合计收入：|cff%s%s|r"], color, sum), 1, 0.82, 0, true)
+            GameTooltip:AddLine(format(L["自动拍卖合计收入：|cff%s%s|r"], color, BG.FormatNumber(sum)), 1, 0.82, 0, true)
             GameTooltip:Show()
         end)
         bt:SetScript("OnLeave", GameTooltip_Hide)
@@ -1088,9 +1088,18 @@ BG.Init(function()
                 )
             elseif v.type == 2 then
                 -- 流拍
-                menu[2].text = L["设为已拍"]
+                menu[2].text = L["设为成功拍卖"]
                 menu[2].arg1 = menu[2].text
-
+                tinsert(menu, 2,
+                    {
+                        text = L["重新拍卖"],
+                        disabled = not BG.IsML,
+                        notCheckable = true,
+                        func = function()
+                            BG.StartAuction(link, f, true, true)
+                        end
+                    }
+                )
                 tinsert(menu, 3,
                     {
                         isTitle = true,
@@ -1219,7 +1228,7 @@ BG.Init(function()
                                     if count < 5 then
                                         local bt = BG.auctionLogFrame.buttons[_i]
                                         bt.ischoose = true
-                                        tinsert(BG.auctionLogFrame.choosed, {id=bt.itemID,link=bt.link})
+                                        tinsert(BG.auctionLogFrame.choosed, { id = bt.itemID, link = bt.link })
                                         bt.tex:SetColorTexture(1, 1, 0, .5)
                                         count = count + 1
                                     end
@@ -1256,6 +1265,8 @@ BG.Init(function()
                         if IsShiftKeyDown() then
                             BG.PlaySound(1)
                             BG.InsertLink(link)
+                        elseif v.type == 2 and IsAltKeyDown() then
+                            BG.StartAuction(link, f, true, nil)
                         end
                     end
                 end
@@ -1526,7 +1537,7 @@ BG.Init(function()
             end
         end
 
-        BG.auctionLogFrame.sumText:SetText(L["合计收入："] .. sum)
+        BG.auctionLogFrame.sumText:SetText(L["合计收入："] .. BG.FormatNumber(sum))
 
         if BiaoGe.options.auctionLogChoose == 4 then
             if not notSetUp then
@@ -1590,6 +1601,9 @@ BG.Init(function()
             zhuangbei, maijia, jine = msg:match("{rt6}拍卖成功{rt6} (.-) (.-) (.+)")
             if not (zhuangbei and maijia and jine) then
                 zhuangbei, maijia, jine = msg:match("{rt6}拍賣成功{rt6} (.-) (.-) (.+)")
+            end
+            if not (zhuangbei and maijia and jine) then
+                zhuangbei, maijia, jine = msg:match("{rt6}Auction Successful{rt6} (.-) (.-) (.+)")
             end
             if (zhuangbei and maijia and jine) then
                 local itemID = GetItemID(zhuangbei)
@@ -1658,6 +1672,9 @@ BG.Init(function()
             end
 
             zhuangbei = msg:match("{rt7}流拍{rt7} (.+)")
+            if not zhuangbei then
+                zhuangbei = msg:match("^{rt7}Auction Failed{rt7} (.+)$")
+            end
             if zhuangbei then
                 local itemID = GetItemID(zhuangbei)
                 DeleteAuctioning(itemID)
@@ -1685,6 +1702,9 @@ BG.Init(function()
             if not zhuangbei then
                 zhuangbei = msg:match("^{rt7}拍賣取消{rt7} (.+)$")
             end
+            if not zhuangbei then
+                zhuangbei = msg:match("^{rt7}Auction Cancelled{rt7} (.+)$")
+            end
             if zhuangbei then
                 DeleteAuctioning(GetItemID(zhuangbei))
                 BG.UpdateAuctioning()
@@ -1696,7 +1716,7 @@ BG.Init(function()
     do
         ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID_LEADER", function(self, event, msg, ...)
             if BiaoGe.options.autoAuctionLogLink ~= 1 then return end
-            if not (msg:match("{rt6}拍卖成功{rt6}") or msg:match("{rt6}拍賣成功{rt6}")) then return end
+            if not (msg:match("{rt6}拍卖成功{rt6}") or msg:match("{rt6}拍賣成功{rt6}") or msg:match("{rt6}Auction Successful{rt6}")) then return end
             local itemID = GetItemID(msg)
             if not itemID then return end
             BG.chatAuctionLog = BG.chatAuctionLog or {}

@@ -1,10 +1,9 @@
-## Title: |cFF00BFFF[Barney]|r |cff1784d1ElvUI Options|r
-## Title-zhCN: |cFF00BFFF[巴尼]|r |cff1784d1ElvUI Options|r
+## Title: |cff1784d1ElvUI|r |cfd9b9b9bOptions|r
 ## Notes: Powers the configuration window.|n|cffff3333Does not store any profile data.|r
 ## Author: Elv, Simpy
-## Version: v14.03
-## Interface: 30800
+## Version: v14.04
+## Interface: 38000
 ## RequiredDeps: ElvUI
 ## LoadOnDemand: 1
 
-Core\Load.xml
+Shared\!load.xml

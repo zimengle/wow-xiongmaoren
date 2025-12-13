@@ -41,6 +41,11 @@ function SAO.IsSoD()
     return WOW_PROJECT_ID == WOW_PROJECT_CLASSIC and C_Engraving and C_Engraving.IsEngravingEnabled()
 end
 
+function SAO.IsTitan()
+    local buildInfo = select(4, GetBuildInfo());
+    return WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC and buildInfo == 38000;
+end
+
 function SAO.IsProject(projectFlags)
     if type(projectFlags) ~= 'number' then
         SAO:Debug(Module, "Checking project against invalid flags "..tostring(projectFlags));
@@ -68,33 +73,20 @@ function SAO.GetFlavorName()
     if SAO.IsSoD() then
         return "SoD"; -- Special case for SoD, which does not have a dedicated WOW_PROJECT_ID
     end
+    if SAO.IsTitan() then
+        return "Titan"; -- Special case for Titan, which shares WOW_PROJECT_ID with Wrath
+    end
     return flavorNames[WOW_PROJECT_ID] or "Unknown";
 end
 
--- buildID is an internal code, such as universal, vanilla, tbc, mop-ptr, ...
--- The main part is supposed to be the same as the suffix of package names
--- The secondary part (after dash) is optional
-local function splitBuildID(buildID)
-    if type(buildID) ~= "string" then
-        return nil, nil;
-    end
-
-    -- If buildID is "mop-ptr", return "mop", "ptr"
-    local dashIndex = string.find(buildID, "-");
-    if dashIndex then
-        local a = string.sub(buildID, 1, dashIndex - 1);
-        local b = string.sub(buildID, dashIndex + 1);
-        return a, b;
-    else
-        return buildID, nil;
-    end
-end
-
+-- buildID is an internal code, such as universal, vanilla, tbc, ...
+-- This is supposed to be the same as the suffix of package names
 local projectNameForBuildID = {
     universal = "*",
     vanilla   = EXPANSION_NAME0 or "Classic",
     tbc       = EXPANSION_NAME1 or "The Burning Crusade",
     wrath     = EXPANSION_NAME2 or "Wrath of the Lich King",
+    titan     = "Titan",
     cata      = EXPANSION_NAME3 or "Cataclysm",
     mop       = EXPANSION_NAME4 or "Mists of Pandaria",
     -- wod       = EXPANSION_NAME5 or "Warlords of Draenor",
@@ -105,16 +97,10 @@ local projectNameForBuildID = {
 };
 
 function SAO.GetFullProjectName(buildID)
-    return projectNameForBuildID[select(1, splitBuildID(buildID))] or "Unknown";
-end
-
-local subProjectNameForBuildID = {
-    ptr  = "PTR",
-    beta = "Beta",
-};
-
-function SAO.GetSubProjectName(buildID)
-    return subProjectNameForBuildID[select(2, splitBuildID(buildID))]; -- Returns nil if not found
+    if buildID == "titan" then
+        return SAO:titanReforgedTimewalking();
+    end
+    return projectNameForBuildID[buildID] or "Unknown";
 end
 
 local expectedBuildID = {
@@ -126,5 +112,8 @@ local expectedBuildID = {
 };
 
 function SAO.GetExpectedBuildID()
+    if SAO.IsTitan() then
+        return "titan";
+    end
     return expectedBuildID[WOW_PROJECT_ID] or "";
 end

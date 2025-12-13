@@ -33,14 +33,15 @@ BG.Init2(function()
         addonName = "AtlasLootMY"
     end
     if not addonName then return end
+
+    local mainFrame = _G["AtlasLoot_GUI-Frame"]
+    if not mainFrame then return end
+    BG.AtlasLootMainFrame=mainFrame
+
     local AtlasLoot = AtlasLoot or AtlasLootMY
     local ClickSelectButton
 
-    local mainFrame = _G["AtlasLoot_GUI-Frame"]
-
     local verNum
-    local info = {}
-
     if BG.IsWLK_80 then
         verNum = 3
     elseif BG.IsTitan then
@@ -53,12 +54,12 @@ BG.Init2(function()
         end
     end
 
+    local verText = {
+        [3] = "Wrath",
+        [4] = "Cata",
+        [5] = "MoP",
+    }
     local function GetVerText()
-        local verText = {
-            [3] = "Wrath",
-            [4] = "Cata",
-            [5] = "MoP",
-        }
         return verText[AtlasLoot.db.GUI.selectedGameVersion] or ""
     end
 
@@ -82,7 +83,7 @@ BG.Init2(function()
             ["Alchemy"] = 1,  -- 炼金
             ["Cooking"] = 13, -- 烹饪
             -- 专业制造
-            [addonName.."_Crafting"] = function()
+            [addonName .. "_Crafting"] = function()
                 mainFrame.subCatSelect:SetSelected("Enchanting" .. GetVerText())
             end,
             -- 地下城和团队副本
@@ -130,21 +131,21 @@ BG.Init2(function()
             ["Alchemy"] = 1, -- 炼金
             ["Cooking"] = 1, -- 烹饪
             -- 专业制造
-            [addonName.."_Crafting"] = function()
+            [addonName .. "_Crafting"] = function()
                 mainFrame.subCatSelect:SetSelected("Enchanting" .. GetVerText())
             end,
             -- 地下城和团队副本
-            [addonName.."_DungeonsAndRaids"] = function()
+            [addonName .. "_DungeonsAndRaids"] = function()
                 mainFrame.subCatSelect:SetSelected("DragonSoul")
                 ClickSelectButton(6, 1, "notRefresh")
             end,
             -- PVP
-            [addonName.."_PvP"] = function()
+            [addonName .. "_PvP"] = function()
                 mainFrame.subCatSelect:SetSelected("ArenaS11PvP")
                 ClickSelectButton(14, 1, "notRefresh")
             end,
             -- 藏品
-            [addonName.."_Collections"] = function()
+            [addonName .. "_Collections"] = function()
                 mainFrame.subCatSelect:SetSelected("TierSets")
                 mainFrame.boss:SetSelected(14)
                 ClickSelectButton(5, 1)
@@ -160,21 +161,21 @@ BG.Init2(function()
             ["Inscription"] = 4,     -- 铭文
             ["Alchemy"] = 1,         -- 炼金
             ["Cooking"] = 1,         -- 烹饪
-            [addonName.."_Crafting"] = function()
+            [addonName .. "_Crafting"] = function()
                 -- 专业制造
                 mainFrame.subCatSelect:SetSelected("Enchanting" .. GetVerText())
             end,
-            [addonName.."_DungeonsAndRaids"] = function()
+            [addonName .. "_DungeonsAndRaids"] = function()
                 -- 地下城和团队副本
                 mainFrame.subCatSelect:SetSelected("TerraceofEndlessSpring")
                 ClickSelectButton(6, 1, "notRefresh")
             end,
-            [addonName.."_PvP"] = function()
+            [addonName .. "_PvP"] = function()
                 -- PVP
                 mainFrame.subCatSelect:SetSelected("ArenaS12PvP")
                 ClickSelectButton(18, 1, "notRefresh")
             end,
-            [addonName.."_Collections"] = function()
+            [addonName .. "_Collections"] = function()
                 -- 藏品
                 mainFrame.subCatSelect:SetSelected("TierSets")
                 mainFrame.boss:SetSelected(15)
@@ -236,24 +237,24 @@ BG.Init2(function()
                             elseif self.id == "CookingWrath" then
                                 -- 烹饪
                                 mainFrame.boss:SetSelected(13)
-                            elseif self.id == addonName.."_DungeonsAndRaids" then
+                            elseif self.id == addonName .. "_DungeonsAndRaids" then
                                 -- 地下城和团队副本
                                 mainFrame.subCatSelect:SetSelected("IcecrownCitadel")
                                 ClickSelectButton(10, 1, "notRefresh")
                                 AtlasLoot.GUI.ItemFrame:Refresh(true)
-                            elseif self.id == addonName.."_Crafting" then
+                            elseif self.id == addonName .. "_Crafting" then
                                 -- 专业制造
                                 mainFrame.subCatSelect:SetSelected("EnchantingWrath")
                                 AtlasLoot.GUI.ItemFrame:Refresh(true)
-                            elseif self.id == addonName.."_Factions" then
+                            elseif self.id == addonName .. "_Factions" then
                                 -- 声望
                                 mainFrame.subCatSelect:SetSelected("TheSonsofHodir")
                                 AtlasLoot.GUI.ItemFrame:Refresh(true)
-                            elseif self.id == addonName.."_PvP" then
+                            elseif self.id == addonName .. "_PvP" then
                                 -- PVP
                                 -- mainFrame.subCatSelect:SetSelected("ArenaS6PvP")
                                 -- AtlasLoot.GUI.ItemFrame:Refresh(true)
-                            elseif self.id == addonName.."_Collections" then
+                            elseif self.id == addonName .. "_Collections" then
                                 -- 藏品
                                 ClickSelectButton(11, nil, "notRefresh")
                                 ClickSelectButton(9, 1)
@@ -305,41 +306,53 @@ BG.Init2(function()
         end)
     end
 
+    function BG.AtlasLootUpdateFastButton()
+        if BiaoGe.options.AtlasLoot_fastChoose == 1 then
+            for _, bt in pairs(buttons) do
+                bt:Show()
+            end
+        else
+            for _, bt in pairs(buttons) do
+                bt:Hide()
+            end
+        end
+    end
+
     local info = infoTbl[verNum]
     if BG.IsWLK_80 then
         CreateButton(L["冰冠"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_DungeonsAndRaids")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_DungeonsAndRaids")
             mainFrame.subCatSelect:SetSelected("IcecrownCitadel")
             ClickSelectButton(10, 1, "notRefresh")
         end)
         CreateButton(L["T10套"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_DungeonsAndRaids")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_DungeonsAndRaids")
             mainFrame.subCatSelect:SetSelected("IcecrownCitadel")
             ClickSelectButton(14, 3, "notRefresh")
             ClickSelectButton(15, 1, "notRefresh")
         end)
         CreateButton(L["牌子"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Collections")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Collections")
             mainFrame.subCatSelect:SetSelected("EmblemofFrost")
             mainFrame.boss:SetSelected(8)
         end)
         CreateButton(L["天谴石"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Collections")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Collections")
             mainFrame.subCatSelect:SetSelected("DefilersScourgestone")
             mainFrame.boss:SetSelected(8)
         end)
 
         CreateButton(AddTexture("Interface/Icons/trade_engraving") .. L["附魔"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Crafting")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Crafting")
             mainFrame.subCatSelect:SetSelected("EnchantingWrath")
         end, -20)
         CreateButton(AddTexture("Interface/Icons/inv_misc_gem_01") .. L["珠宝"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Crafting")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Crafting")
             mainFrame.subCatSelect:SetSelected("JewelcraftingWrath")
             mainFrame.boss:SetSelected(5)
         end)
         CreateButton(AddTexture("Interface/Icons/inv_inscription_tradeskill01") .. L["铭文"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Crafting")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Crafting")
             mainFrame.subCatSelect:SetSelected("InscriptionWrath")
             local id
             if classFilename == "DRUID" then
@@ -351,227 +364,234 @@ BG.Init2(function()
         end)
 
         CreateButton(AddTexture("Interface/Icons/trade_blacksmithing") .. L["锻造"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Crafting")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Crafting")
             mainFrame.subCatSelect:SetSelected("BlacksmithingWrath")
             mainFrame.boss:SetSelected(14)
         end, -20)
         CreateButton(AddTexture("Interface/Icons/trade_engineering") .. L["工程"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Crafting")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Crafting")
             mainFrame.subCatSelect:SetSelected("EngineeringWrath")
             mainFrame.boss:SetSelected(11)
         end)
         CreateButton(AddTexture("Interface/Icons/trade_tailoring") .. L["裁缝"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Crafting")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Crafting")
             mainFrame.subCatSelect:SetSelected("TailoringWrath")
             mainFrame.boss:SetSelected(11)
         end)
         CreateButton(AddTexture("Interface/Icons/trade_leatherworking") .. L["制皮"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Crafting")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Crafting")
             mainFrame.subCatSelect:SetSelected("LeatherworkingWrath")
             mainFrame.boss:SetSelected(10)
         end)
     elseif BG.IsTitan then
-        CreateButton(AddTexture(237048) .. L["牌子"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Collections")
+        if addonName == "AtlasLootMY" then
+            CreateButton("MC", function()
+                mainFrame.moduleSelect:SetSelected(addonName .. "_DungeonsAndRaids")
+                mainFrame.subCatSelect:SetSelected("MoltenCore80")
+            end)
+            CreateButton(L["世界"], function()
+                mainFrame.moduleSelect:SetSelected(addonName .. "_DungeonsAndRaids")
+                mainFrame.subCatSelect:SetSelected("WorldBosses81")
+            end)
+            CreateButton(L["T1套"], function()
+                mainFrame.moduleSelect:SetSelected(addonName .. "_DungeonsAndRaids")
+                mainFrame.subCatSelect:SetSelected("MoltenCore80")
+                ClickSelectButton(12, 3, "notRefresh")
+            end)
+        end
+        CreateButton(L["牌子"], function()
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Collections")
             mainFrame.subCatSelect:SetSelected("EmblemofHeroism")
             -- mainFrame.boss:SetSelected(8)
         end)
         CreateButton(AddTexture("Interface/Icons/trade_engraving") .. L["附魔"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Crafting")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Crafting")
             mainFrame.subCatSelect:SetSelected("Enchanting" .. GetVerText())
         end, -20)
         CreateButton(AddTexture("Interface/Icons/inv_misc_gem_01") .. L["珠宝"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Crafting")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Crafting")
             mainFrame.subCatSelect:SetSelected("Jewelcrafting" .. GetVerText())
             mainFrame.boss:SetSelected(info["Jewelcrafting"])
         end)
         CreateButton(AddTexture("Interface/Icons/trade_blacksmithing") .. L["锻造"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Crafting")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Crafting")
             mainFrame.subCatSelect:SetSelected("Blacksmithing" .. GetVerText())
             mainFrame.boss:SetSelected(info["Blacksmithing"])
         end)
         CreateButton(AddTexture("Interface/Icons/trade_tailoring") .. L["裁缝"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Crafting")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Crafting")
             mainFrame.subCatSelect:SetSelected("Tailoring" .. GetVerText())
             mainFrame.boss:SetSelected(info["Tailoring"])
         end)
         CreateButton(AddTexture("Interface/Icons/trade_leatherworking") .. L["制皮"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Crafting")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Crafting")
             mainFrame.subCatSelect:SetSelected("Leatherworking" .. GetVerText())
             mainFrame.boss:SetSelected(info["Leatherworking"])
         end)
         CreateButton(AddTexture("Interface/Icons/trade_engineering") .. L["工程"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Crafting")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Crafting")
             mainFrame.subCatSelect:SetSelected("Engineering" .. GetVerText())
             mainFrame.boss:SetSelected(info["Engineering"])
         end)
         CreateButton(AddTexture("Interface/Icons/inv_inscription_tradeskill01") .. L["铭文"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Crafting")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Crafting")
             mainFrame.subCatSelect:SetSelected("Inscription" .. GetVerText())
             info["Inscription"]()
         end)
         CreateButton(AddTexture("Interface/Icons/trade_alchemy") .. L["炼金"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Crafting")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Crafting")
             mainFrame.subCatSelect:SetSelected("Alchemy" .. GetVerText())
             mainFrame.boss:SetSelected(info["Alchemy"])
         end)
     elseif BG.IsCTM then
         CreateButton(L["巨龙"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_DungeonsAndRaids")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_DungeonsAndRaids")
             mainFrame.subCatSelect:SetSelected("DragonSoul")
             ClickSelectButton(6, 1, "notRefresh")
         end)
         CreateButton(L["T13套"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Collections")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Collections")
             mainFrame.subCatSelect:SetSelected("TierSets")
             mainFrame.boss:SetSelected(14)
             ClickSelectButton(5, 1)
         end)
         CreateButton(L["正义"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Collections")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Collections")
             mainFrame.subCatSelect:SetSelected("ValorPoints" .. GetVerText())
             mainFrame.boss:SetSelected(4)
         end, -20)
         CreateButton(L["裂隙石"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Collections")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Collections")
             mainFrame.subCatSelect:SetSelected("ObsidianFragments")
             mainFrame.boss:SetSelected(10)
         end)
         CreateButton(L["荣誉"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_PvP")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_PvP")
             mainFrame.subCatSelect:SetSelected("ArenaS11PvP")
             ClickSelectButton(14, 1, "notRefresh")
             mainFrame.boss:SetSelected(14)
         end)
 
         CreateButton(AddTexture("Interface/Icons/trade_engraving") .. L["附魔"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Crafting")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Crafting")
             mainFrame.subCatSelect:SetSelected("Enchanting" .. GetVerText())
         end, -20)
         CreateButton(AddTexture("Interface/Icons/inv_misc_gem_01") .. L["珠宝"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Crafting")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Crafting")
             mainFrame.subCatSelect:SetSelected("Jewelcrafting" .. GetVerText())
             mainFrame.boss:SetSelected(info["Jewelcrafting"])
         end)
         CreateButton(AddTexture("Interface/Icons/trade_blacksmithing") .. L["锻造"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Crafting")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Crafting")
             mainFrame.subCatSelect:SetSelected("Blacksmithing" .. GetVerText())
             mainFrame.boss:SetSelected(info["Blacksmithing"])
         end)
         CreateButton(AddTexture("Interface/Icons/trade_tailoring") .. L["裁缝"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Crafting")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Crafting")
             mainFrame.subCatSelect:SetSelected("Tailoring" .. GetVerText())
             mainFrame.boss:SetSelected(info["Tailoring"])
         end)
         CreateButton(AddTexture("Interface/Icons/trade_leatherworking") .. L["制皮"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Crafting")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Crafting")
             mainFrame.subCatSelect:SetSelected("Leatherworking" .. GetVerText())
             mainFrame.boss:SetSelected(info["Leatherworking"])
         end)
         CreateButton(AddTexture("Interface/Icons/trade_engineering") .. L["工程"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Crafting")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Crafting")
             mainFrame.subCatSelect:SetSelected("Engineering" .. GetVerText())
             mainFrame.boss:SetSelected(info["Engineering"])
         end)
         CreateButton(AddTexture("Interface/Icons/inv_inscription_tradeskill01") .. L["铭文"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Crafting")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Crafting")
             mainFrame.subCatSelect:SetSelected("Inscription" .. GetVerText())
             info["Inscription"]()
         end)
         CreateButton(AddTexture("Interface/Icons/trade_alchemy") .. L["炼金"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Crafting")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Crafting")
             mainFrame.subCatSelect:SetSelected("Alchemy" .. GetVerText())
             mainFrame.boss:SetSelected(info["Alchemy"])
         end)
     elseif BG.IsMOP_TW then
         CreateButton(L["魔古山"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_DungeonsAndRaids")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_DungeonsAndRaids")
             mainFrame.subCatSelect:SetSelected("MoguShanVaults")
             ClickSelectButton(6, 1, "notRefresh")
         end)
         CreateButton(L["恐惧"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_DungeonsAndRaids")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_DungeonsAndRaids")
             mainFrame.subCatSelect:SetSelected("HeartofFear")
             ClickSelectButton(6, 1, "notRefresh")
         end)
         CreateButton(L["永春台"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_DungeonsAndRaids")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_DungeonsAndRaids")
             mainFrame.subCatSelect:SetSelected("TerraceofEndlessSpring")
             ClickSelectButton(6, 1, "notRefresh")
         end)
         CreateButton(L["T14套"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Collections")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Collections")
             mainFrame.subCatSelect:SetSelected("TierSets")
             mainFrame.boss:SetSelected(15)
             ClickSelectButton(5, 1)
         end)
         CreateButton(L["勇气"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Collections")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Collections")
             mainFrame.subCatSelect:SetSelected("ValorPoints" .. GetVerText())
             mainFrame.boss:SetSelected(8)
         end, -20)
         CreateButton(L["正义"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Collections")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Collections")
             mainFrame.subCatSelect:SetSelected("JusticePoints" .. GetVerText())
             mainFrame.boss:SetSelected(8)
         end)
         CreateButton(L["天神"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Collections")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Collections")
             mainFrame.subCatSelect:SetSelected("CelestialVendor" .. GetVerText())
             ClickSelectButton(21, 1, "notRefresh")
             mainFrame.boss:SetSelected(6)
         end)
 
         CreateButton(AddTexture("Interface/Icons/trade_engraving") .. L["附魔"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Crafting")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Crafting")
             mainFrame.subCatSelect:SetSelected("Enchanting" .. GetVerText())
         end, -20)
         CreateButton(AddTexture("Interface/Icons/inv_misc_gem_01") .. L["珠宝"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Crafting")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Crafting")
             mainFrame.subCatSelect:SetSelected("Jewelcrafting" .. GetVerText())
             mainFrame.boss:SetSelected(info["Jewelcrafting"])
         end)
         CreateButton(AddTexture("Interface/Icons/trade_blacksmithing") .. L["锻造"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Crafting")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Crafting")
             mainFrame.subCatSelect:SetSelected("Blacksmithing" .. GetVerText())
             mainFrame.boss:SetSelected(info["Blacksmithing"])
         end)
         CreateButton(AddTexture("Interface/Icons/trade_tailoring") .. L["裁缝"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Crafting")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Crafting")
             mainFrame.subCatSelect:SetSelected("Tailoring" .. GetVerText())
             mainFrame.boss:SetSelected(info["Tailoring"])
         end)
         CreateButton(AddTexture("Interface/Icons/trade_leatherworking") .. L["制皮"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Crafting")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Crafting")
             mainFrame.subCatSelect:SetSelected("Leatherworking" .. GetVerText())
             mainFrame.boss:SetSelected(info["Leatherworking"])
         end)
         CreateButton(AddTexture("Interface/Icons/trade_engineering") .. L["工程"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Crafting")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Crafting")
             mainFrame.subCatSelect:SetSelected("Engineering" .. GetVerText())
             mainFrame.boss:SetSelected(info["Engineering"])
         end)
         CreateButton(AddTexture("Interface/Icons/inv_inscription_tradeskill01") .. L["铭文"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Crafting")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Crafting")
             mainFrame.subCatSelect:SetSelected("Inscription" .. GetVerText())
             mainFrame.boss:SetSelected(info["Inscription"])
         end)
         CreateButton(AddTexture("Interface/Icons/trade_alchemy") .. L["炼金"], function()
-            mainFrame.moduleSelect:SetSelected(addonName.."_Crafting")
+            mainFrame.moduleSelect:SetSelected(addonName .. "_Crafting")
             mainFrame.subCatSelect:SetSelected("Alchemy" .. GetVerText())
             mainFrame.boss:SetSelected(info["Alchemy"])
         end)
     end
 
     mainFrame:HookScript("OnShow", function(self)
-        if BiaoGe.options.AtlasLoot_fastChoose == 1 then
-            for _, bt in pairs(buttons) do
-                bt:Show()
-            end
-        else
-            for _, bt in pairs(buttons) do
-                bt:Hide()
-            end
-        end
+        BG.AtlasLootUpdateFastButton()
     end)
 end)

@@ -1,8 +1,6 @@
 
 PawnOptions = {
 ["LastVersion"] = 2.0811,
-["LastPlayerFullName"] = "小米军儿-时光IV",
-["AutoSelectScales"] = false,
 ["ItemLevels"] = {
 {
 ["ID"] = 37237,
@@ -31,9 +29,9 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:255141::::::::80::::::::::|h[冲击束带]|h|r",
 },
 {
-["ID"] = 37675,
-["Level"] = 200,
-["Link"] = "|cff0070dd|Hitem:37675::::::::80::::::::::|h[钢片腿铠]|h|r",
+["ID"] = 257630,
+["Level"] = 213,
+["Link"] = "|cffa335ee|Hitem:257630::::::::80::::::::::|h[北境腿甲]|h|r",
 },
 {
 ["ID"] = 257633,
@@ -41,14 +39,14 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:257633::::::::80::::::::::|h[北境长靴]|h|r",
 },
 {
-["ID"] = 37668,
-["Level"] = 200,
-["Link"] = "|cffa335ee|Hitem:37668::::::::80::::::::::|h[岩石熔炉臂环]|h|r",
+["ID"] = 257627,
+["Level"] = 213,
+["Link"] = "|cffa335ee|Hitem:257627::::::::80::::::::::|h[北境臂铠]|h|r",
 },
 {
-["ID"] = 37363,
-["Level"] = 200,
-["Link"] = "|cffa335ee|Hitem:37363::::::::80::::::::::|h[龙威护手]|h|r",
+["ID"] = 255146,
+["Level"] = 213,
+["Link"] = "|cffa335ee|Hitem:255146::::::::80::::::::::|h[烈焰守卫护手]|h|r",
 },
 {
 ["ID"] = 37151,
@@ -91,6 +89,8 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:40703::::::::80::::::::::|h[草薙]|h|r",
 },
 },
+["AutoSelectScales"] = false,
+["LastPlayerFullName"] = "小米军儿-时光IV",
 }
 PawnMrRobotScaleProviderOptions = nil
 PawnClassicScaleProviderOptions = {

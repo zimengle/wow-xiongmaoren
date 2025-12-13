@@ -1105,12 +1105,24 @@ BG.Init2(function()
     end
 
     -- 星团长聊天标记
-    if BG.IsWLK and ver >= 200 then
+    if (BG.IsWLK_80 and ver >= 200) or (BG.IsTitan and ver >= 300) then
+        local tex
+        if BG.IsTitan then
+            tex = "Interface/AddOns/MeetingHorn/Media/mini_certification_icon_"
+        else
+            tex = "Interface/AddOns/MeetingHorn/Media/certification_icon_"
+        end
         local function StarTexture(currentLevel)
-            return "Interface/AddOns/MeetingHorn/Media/certification_icon_" .. currentLevel
+            return tex .. currentLevel
         end
         local function GetCoords(type)
-            if ver >= 228 then
+            if BG.IsTitan then
+                if type == "chat" then
+                    return ":14:18:0:0:100:100:35:95:0:90"
+                else
+                    return ":17:38:0:0:100:100:0:100:0:100"
+                end
+            elseif ver >= 228 then
                 if type == "chat" then
                     return ":15:18:0:0:100:100:65:95:0:50"
                 else
@@ -1153,6 +1165,7 @@ BG.Init2(function()
             local currentLevel = MeetingHorn.db.realm.starRegiment.regimentData[name]
             if not currentLevel then return end
             currentLevel = currentLevel.level
+            -- local currentLevel = 1 -- test
             local nameNum
             local ii = 1
             while _G["GameTooltipTextLeft" .. ii] do
@@ -1271,12 +1284,6 @@ BG.Init2(function()
             end
         end
         hooksecurefunc(MeetingHorn.MainPanel.Browser.ActivityList, "update", Set)
-
-        -- BG.RegisterEvent("CHAT_MSG_CHANNEL", function(_, _, msg, playerName, languageName, channelName)
-        --     if channelName:find(addonName) then
-        --         pt(date("%H%M%S",time()),SetClassCFF(playerName), msg)
-        --     end
-        -- end)
     end
 
     -- 禁用语音开团快人一步

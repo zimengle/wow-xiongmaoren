@@ -27,8 +27,7 @@ function BG.SendMsgToRaid(tbl, t)
             BG.After(t, function()
                 for ii = i, i + step - 1 do
                     if not texts[ii] then break end
-                    -- pt(texts[ii])
-                    SendChatMessage(texts[ii], "RAID")
+                    SendChatMessage(texts[ii], BiaoGe.NotifyChannel)
                 end
             end)
             t = t + BG.tongBaoSendCD
@@ -431,47 +430,60 @@ end
 local function OnClick(self)
     local FB = BG.FB1
     BG.FrameHide(0)
-    if not IsInRaid(1) then
-        SendSystemMessage(L["不在团队，无法通报"])
+    local channel = BiaoGe.NotifyChannel
+    if channel == "RAID" and not IsInRaid(1) then
+        BG.SendSystemMessage(L["不在团队，无法通报。"])
         BG.PlaySound(1)
+        return
+    end
+    if channel == "GUILD" and not IsInGuild() then
+        BG.SendSystemMessage(L["没有公会，无法通报。"])
+        BG.PlaySound(1)
+        return
+    end
+    if (channel == "SAY" or channel == "YELL") and not IsInInstance() then
+        BG.SendSystemMessage(L["该频道需在副本内才能通报。"])
+        BG.PlaySound(1)
+        return
+    end
+
+    self:SetEnabled(false)
+    C_Timer.After(2, function()
+        self:SetEnabled(true)
+    end)
+
+    if IsAltKeyDown() then
+        local text = L["———通报总览———"]
+        SendChatMessage(text, channel)
+        -- 总览和工资
+        local _, tbl = ZongLan(true)
+        BG.SendMsgToRaid(tbl, BG.tongBaoSendCD)
+    elseif IsShiftKeyDown() then
+        local text = L["———通报罚款———"]
+        SendChatMessage(text, channel)
+        -- 罚款
+        local _, tbl = FaKuan(true)
+        BG.SendMsgToRaid(tbl, BG.tongBaoSendCD)
+    elseif IsControlKeyDown() then
+        local text = L["———通报支出———"]
+        SendChatMessage(text, channel)
+        -- 支出
+        local _, tbl = ZhiChu(true)
+        BG.SendMsgToRaid(tbl, BG.tongBaoSendCD)
     else
-        self:SetEnabled(false)
-        C_Timer.After(2, function()
-            self:SetEnabled(true)
+        if HasQianKuan() then
+            BG.PlaySound("qiankuan")
+        end
+
+        local text = L["———通报账单———"]
+        SendChatMessage(text, channel)
+
+        local text = format(L["表格：%s"], BG.FB1)
+        BG.After(BG.tongBaoSendCD, function()
+            SendChatMessage(text, channel)
         end)
 
-        if IsAltKeyDown() then
-            local text = L["———通报总览———"]
-            SendChatMessage(text, "RAID")
-            -- 总览和工资
-            local _, tbl = ZongLan(true)
-            BG.SendMsgToRaid(tbl, BG.tongBaoSendCD)
-        elseif IsShiftKeyDown() then
-            local text = L["———通报罚款———"]
-            SendChatMessage(text, "RAID")
-            -- 罚款
-            local _, tbl = FaKuan(true)
-            BG.SendMsgToRaid(tbl, BG.tongBaoSendCD)
-        elseif IsControlKeyDown() then
-            local text = L["———通报支出———"]
-            SendChatMessage(text, "RAID")
-            -- 支出
-            local _, tbl = ZhiChu(true)
-            BG.SendMsgToRaid(tbl, BG.tongBaoSendCD)
-        else
-            if HasQianKuan() then
-                BG.PlaySound("qiankuan")
-            end
-
-            local text = L["———通报账单———"]
-            SendChatMessage(text, "RAID")
-
-            local text = format(L["表格：%s"], BG.FB1)
-            BG.After(BG.tongBaoSendCD, function()
-                SendChatMessage(text, "RAID")
-            end)
-
-            local FB = BG.FB1
+        if channel == "RAID" then
             BG.After(2, function()
                 for ii in ipairs(BiaoGe[FB].tradeTbl) do
                     local text = "DuiZhang-"
@@ -502,18 +514,17 @@ local function OnClick(self)
                     end
                 end
             end)
-
-            local _, tbl = CreateListTable(true)
-            local t = BG.SendMsgToRaid(tbl, BG.tongBaoSendCD + BG.tongBaoSendCD)
-
-            BG.After(t, function()
-                local text = L["—感谢使用BiaoGe插件—"]
-                SendChatMessage(text, "RAID")
-            end)
         end
 
-        BG.PlaySound(2)
+        local _, tbl = CreateListTable(true)
+        local t = BG.SendMsgToRaid(tbl, BG.tongBaoSendCD + BG.tongBaoSendCD)
+
+        BG.After(t, function()
+            local text = L["—感谢使用BiaoGe插件—"]
+            SendChatMessage(text, channel)
+        end)
     end
+    BG.PlaySound(2)
 end
 
 
@@ -524,11 +535,8 @@ function BG.ZhangDanUI(lastbt)
     if lastbt then
         bt:SetPoint("LEFT", lastbt, "RIGHT", bt.jiange, 0)
     else
-        if BG.hasWCL then
-            bt:SetPoint("BOTTOMRIGHT", BG.MainFrame, "BOTTOMRIGHT", -360, 38)
-        else
-            bt:SetPoint("BOTTOMRIGHT", BG.MainFrame, "BOTTOMRIGHT", -300, 38)
-        end
+        local x = BG.hasWCL and -360 or -300
+        bt:SetPoint("BOTTOMRIGHT", BG.MainFrame, "BOTTOMRIGHT", x, 38)
     end
     bt:SetText(L["账单"])
     BG.ButtonZhangDan = bt

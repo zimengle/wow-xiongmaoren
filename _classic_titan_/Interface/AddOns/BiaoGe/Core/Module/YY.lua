@@ -2329,7 +2329,7 @@ BG.Init(function()
                         end
                         C_ChatInfo.SendAddonMessage(YY, resendtext, "WHISPER", sender)
                         CDing[sender] = true
-                        BG.After(2, function() -- 间隔x秒发一次
+                        BG.After(5, function()
                             CDing[sender] = nil
                         end)
                     end)

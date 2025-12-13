@@ -11,6 +11,14 @@ local Fun = {}
 addonTable.Fun=Fun
 local version, internalVersion, date, _, versionType, buildType = GetBuildInfo()
 ----
+local function PIGGetColorKey()
+	if PIG_MaxTocversion(60000) then
+		return "cff%w%w%w%w%w%w"
+	else
+		return "cnIQ%d:"
+	end
+end
+Fun.PIGGetColorKey=PIGGetColorKey
 local IsAddOnLoaded = IsAddOnLoaded or C_AddOns and C_AddOns.IsAddOnLoaded
 function Fun.IsAddOnLoaded(AddOnName,funx)
 	if IsAddOnLoaded(AddOnName) then
@@ -128,6 +136,20 @@ function PIGGetContainerItemInfo(bag, slot)
 	end
 end
 --发送消息
+function PIGChatFrameAddChannel(ChatFrame,channel)--订购一个聊天框以显示先前加入的聊天频道
+	if PIG_MaxTocversion() then
+		ChatFrame_AddChannel(ChatFrame, channel)
+	else
+		ChatFrame:AddChannel(channel)
+	end
+end
+function PIGChatFrameRemoveChannel(ChatFrame,channel)
+	if PIG_MaxTocversion() then
+		ChatFrame_RemoveChannel(ChatFrame,channel);
+	else
+		ChatFrame:RemoveChannel(channel)
+	end
+end
 function PIGSendChatRaidParty(txt,GroupLeader,extinfo)
 	local Newtxt="[!Pig] "..txt
 	if extinfo=="nopig" then
@@ -168,6 +190,7 @@ function PIGSendAddonRaidParty(biaotou,txt)
 		PIGSendAddonMessage(biaotou,txt,"PARTY")
 	end
 end
+
 ---------
 local function PIGCopyfun(old,new)
 	for k,v in pairs(old) do
@@ -512,7 +535,7 @@ Fun.biaoqingData=biaoqingData
 --删除聊天link信息
 function Fun.del_link(newText)
 	local newText = newText or ""
-	local newText=newText:gsub("|cff%w%w%w%w%w%w|Hitem:.-|h%[","");
+	local newText=newText:gsub("|"..PIGGetColorKey().."|Hitem:.-|h%[","");
 	local newText=newText:gsub("|cff%w%w%w%w%w%w|Henchant:.-|h%[","");
 	local newText=newText:gsub("|cff%w%w%w%w%w%w|Htrade:.-|h%[","");
 	local newText=newText:gsub("|cff%w%w%w%w%w%w|Hmount:.-|h%[","");--
@@ -540,7 +563,7 @@ end
 function Fun.gsub_NOlink(newText)--替换Link之外信息
 	local newText = newText or ""
 	local paichuinfo = {}
-	find_NOlink(paichuinfo,newText,"(|cff%w%w%w%w%w%w|Hitem:.-|h%[.-%]|h|r)")
+	find_NOlink(paichuinfo,newText,"(|"..PIGGetColorKey().."|Hitem:.-|h%[.-%]|h|r)")
 	find_NOlink(paichuinfo,newText,"(|cff%w%w%w%w%w%w|Henchant:.-|h%[.-%]|h|r)");
 	find_NOlink(paichuinfo,newText,"(|cff%w%w%w%w%w%w|Htrade:.-|h%[.-%]|h|r)");
 	find_NOlink(paichuinfo,newText,"(|cff%w%w%w%w%w%w|Hmount:.-|h%[.-%]|h|r)");

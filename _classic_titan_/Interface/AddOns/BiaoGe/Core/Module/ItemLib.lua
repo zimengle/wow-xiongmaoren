@@ -79,7 +79,7 @@ do
             { name = L["牌子/货币"], name2 = "currency", },
             { name = L["声望"], name2 = "faction", },
             { name = L["专业"], name2 = "profession", },
-            { name = L["PVP"], name2 = "pvp", },
+            -- { name = L["PVP"], name2 = "pvp", },
             { name = L["世界掉落"], name2 = "world", },
         }
     elseif BG.IsCTM then
@@ -594,9 +594,10 @@ do
                 otherText = " + " .. AddTexture(Texture) .. link .. otherItemID1CountText
             end
 
-            local name = C_CurrencyInfo.GetCurrencyInfo(currencyID).name
-            local tex = C_CurrencyInfo.GetCurrencyInfo(currencyID).iconFileID
-            local quantity = C_CurrencyInfo.GetCurrencyInfo(currencyID).quantity
+            local info = C_CurrencyInfo.GetCurrencyInfo(currencyID)
+            local name = info.name
+            local tex = info.iconFileID
+            local quantity = info.quantity
             local color = "00FF00"
             if count then
                 if quantity < count then
@@ -737,8 +738,16 @@ do
                 haved = CheckHaved(itemID)
             })
         elseif type == "worldboss" then -- 世界BOSS
+            -- 兑换物
+            local exText = ""
+            local exItemID, exItemLink = GetkExchangeItemInfo(itemID)
+            if exItemLink then
+                local tex = select(5, GetItemInfoInstant(exItemID))
+                exText = " " .. AddTexture(tex) .. exItemLink
+            end
+
             local name = L["世界BOSS"] .. " " .. L[other]
-            local get = "|cff" .. "FF6347" .. name .. AddPrice(itemID)
+            local get = "|cff" .. "FF6347" .. name .. exText .. AddPrice(itemID)
 
             tinsert(db_old, {
                 itemID = itemID,
@@ -858,7 +867,7 @@ do
             else
                 count = ""
             end
-            local get = "|cffEE82EE"..(AddTexture(tex) .. name .. " " .. "|cff" .. color .. count .. RR) .. AddPrice(itemID) .. otherText .. phaseText
+            local get = "|cffEE82EE" .. (AddTexture(tex) .. name .. " " .. "|cff" .. color .. count .. RR) .. AddPrice(itemID) .. otherText .. phaseText
 
             tinsert(db_old, {
                 itemID = itemID,
@@ -872,7 +881,7 @@ do
                 type = GetTypeID(type),
                 haved = CheckHaved(itemID)
             })
-        elseif type == "shop" then             -- 商人
+        elseif type == "shop" then -- 商人
             local name = L["商人"] .. " " .. GetMoneyString(other)
             local get = "|cff" .. "EE82EE" .. name
 
@@ -899,7 +908,7 @@ do
             -- 团本
             for _, hard in ipairs(BG.difficultyTable[FB]) do
                 local trueRaidDifficulty = true
-                if BG.IsVanilla then
+                if BG.onlyOneHard then
                     if BiaoGe.ItemLib.fitlerGet.raid then
                         trueRaidDifficulty = false
                     end
@@ -1224,6 +1233,7 @@ local function SetItemLib()
                                                             BiaoGe.Hope[RealmID][player][FB]["nandu" .. nandu]["boss" .. boss]["zhuangbei" .. i] = exItemLink
                                                             mainFrame.buttons[ii].item.hope:Show()
                                                             BG.UpdateItemLib_LeftHope_All()
+                                                            BG.SetBiaoGeGuanZhu(exItemID)
                                                             return
                                                         end
                                                     end
@@ -1245,6 +1255,7 @@ local function SetItemLib()
                                             BiaoGe.Hope[RealmID][player][FB]["nandu" .. n]["boss" .. b]["zhuangbei" .. i] = vv.link
                                             mainFrame.buttons[ii].item.hope:Show()
                                             BG.UpdateItemLib_RightHope_All()
+                                            BG.SetBiaoGeGuanZhu(itemID)
                                             return
                                         end
                                     end
@@ -1258,6 +1269,7 @@ local function SetItemLib()
                                     BiaoGe.Hope[RealmID][player][FB]["nandu" .. nandu]["boss" .. boss]["zhuangbei" .. i] = vv.link
                                     mainFrame.buttons[ii].item.hope:Show()
                                     BG.UpdateItemLib_RightHope_All()
+                                    BG.SetBiaoGeGuanZhu(itemID)
                                     return
                                 end
                             end

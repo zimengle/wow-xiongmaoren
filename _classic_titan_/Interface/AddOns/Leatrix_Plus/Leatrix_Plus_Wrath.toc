@@ -1,4 +1,4 @@
-## Interface: 30404
+## Interface: 38000
 
 ## Title: Leatrix Plus |cff99ddff谷|r|cff88ccee风|r|cff77bbdd修|r|cff66aacc复|r|cff5599bb版|r|cff4488aa-|r|cff00aaffW|r|cff0099ffL|r|cff0088ffK|r
 ## Title-zhCN: Leatrix Plus |cff99ddff谷|r|cff88ccee风|r|cff77bbdd修|r|cff66aacc复|r|cff5599bb版|r|cff4488aa-|r|cff00aaffW|r|cff0099ffL|r|cff0088ffK|r
@@ -8,7 +8,7 @@
 ## Notes-zhCN: 哆啦A梦的百宝袋。
 ## Notes-zhTW: 哆啦A夢的百寶袋。
 
-## Version: 3.4.4c
+## Version: 3.80.01
 ## Author: Leatrix
 ## SavedVariables: LeaPlusDB
 

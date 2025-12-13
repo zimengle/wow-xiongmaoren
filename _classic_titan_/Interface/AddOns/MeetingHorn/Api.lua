@@ -41,9 +41,15 @@ ns.PROJECT_DATA = { --
 ns.SEARCH_ALIAS = { --
     ['5h'] = {'h', 'yx', '英雄', params = {comment = true}, ['英雄'] = {comment = true, name = true}},
     ['周常'] = {'周常', '周长', params = {comment = true}, ['周长'] = {comment = true, name = true}},
+    ['日常'] = {'日常', '日长', params = {comment = true}, ['日长'] = {comment = true, name = true}},
     ['RS'] = {'RS', 'H RS','H红玉', '红玉', params = {comment = true}, ['红玉'] = {comment = true, name = true}},
     ['红玉'] = {'红玉', 'H RS', 'H红玉', params = {comment = true}, ['RS'] = {comment = true, name = true}},
     ['ICC'] = {'ICC', 'HICC', 'H ICC', params = {comment = true}, ['H ICC'] = {comment = true, name = true}},
+    ['MC'] = {'MC', '熔火', params = {comment = true}, ['熔火'] = {comment = true, name = true}},
+    ['宝库'] = {'宝库', '双色球', params = {comment = true}, ['双色球'] = {comment = true, name = true}},
+    ['排随机'] = {'排随机', '排随', params = {comment = true}, ['排随'] = {comment = true, name = true}},
+    ['PVP'] = {'战场', '竞技场', 'JJC', '野外', params = {comment = true}, ['野外'] = {comment = true, name = true}},
+    ['黑石战场'] = {'黑石战场', '黑石', params = {comment = true}, ['黑石'] = {comment = true, name = true}},
 }
 
 local keyCombinations = {

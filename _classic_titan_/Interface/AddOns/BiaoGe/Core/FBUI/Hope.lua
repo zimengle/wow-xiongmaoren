@@ -614,7 +614,7 @@ function BG.HopeUI(FB)
         end)
     end
 
-    ------------------分享心愿------------------
+    ------------------通报心愿------------------
     do
         local f
         local xinyuan
@@ -1192,3 +1192,4 @@ function BG.HopeDaoChuUI()
         end)
     end
 end
+

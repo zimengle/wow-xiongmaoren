@@ -5,7 +5,7 @@ local pt = print
 
 BG.Init(function()
     local aura = aura_env or {}
-    aura.ver = "v3.1"
+    aura.ver = "v3.2"
 
     function aura.GetVerNum(str)
         return tonumber(string.match(str, "v(%d+%.%d+)")) or 0
@@ -43,13 +43,16 @@ BG.Init(function()
     local After = C_Timer.After
     local _auctionID_ = "auctionID"
 
-    if (GetLocale() == "zhTW") then
+    local Locale = GetLocale()
+    -- Locale = "enUS"
+    if (Locale == "zhTW") then
         L["Alt+点击才能生效"] = "Alt+點擊才能生效"
         L["只有团长或物品分配者有权限取消拍卖"] = "只有團長或物品分配者有權限取消拍賣"
         L["根据你的出价动态改变增减幅度"] = "根據你的出價動態改變增減幅度"
         L["长按可以快速调整价格"] = "長按可以快速調整價格"
         L["在输入框使用滚轮也可快速调整价格"] = "在輸入框使用滾輪也可快速調整價格"
         L[">> 你 <<"] = ">> 你 <<"
+        L["你"] = "你"
         L["別人(匿名)"] = "別人(匿名)"
         L["需高于当前价格"] = "需高於當前價格"
         L["需高于或等于起拍价"] = "需高於或等於起拍價"
@@ -64,12 +67,12 @@ BG.Init(function()
         L["匿名模式"] = "匿名模式"
         L["拍卖结束"] = "拍賣結束"
         L["|cffFF0000流拍：|r"] = "|cffFF0000流拍：|r"
-        L["{rt7}流拍{rt7} %s"] = "{rt7}流拍{rt7} %s"
         L["|cff00FF00成交价：|r"] = "|cff00FF00成交價：|r"
         L["|cff00FF00买家：|r"] = "|cff00FF00買家：|r"
         L["{rt6}拍卖成功{rt6} %s %s %s"] = "{rt6}拍賣成功{rt6} %s %s %s"
-        L["拍卖取消"] = "拍賣取消"
         L["{rt7}拍卖取消{rt7} %s"] = "{rt7}拍賣取消{rt7} %s"
+        L["{rt7}流拍{rt7} %s"] = "{rt7}流拍{rt7} %s"
+        L["拍卖取消"] = "拍賣取消"
         L["滚轮：快速调整价格"] = "滾輪：快速調整價格"
         L["长按：快速调整价格"] = "長按：快速調整價格"
         L["点击：复制当前价格并增加"] = "點擊：複製當前價格並增加"
@@ -106,6 +109,74 @@ BG.Init(function()
         L["团长："] = "團長"
         L["|cffff0000该装备在拍卖结束后一直没收到团长发出的团队通知，所以你显示的拍卖结果可能不正确，请告知团长。"] = "|cffff0000該裝備在拍賣結束後一直沒收到團長發出的團隊通知，所以你顯示的拍賣結果可能不正確，請告知團長。"
         L["|cffff0000团长离线，该装备的拍卖结果可能不正确。"] = "|cffff0000團長離線，該裝備的拍賣結果可能不正確。"
+        L["心理价格需高于或等于起拍价"] = "心理價格需高於或等於起拍價"
+        L["心理价格需高于当前价格"] = "心理價格需高於當前價格"
+    elseif (Locale == "enUS") then
+        L["Alt+点击才能生效"] = "Alt+Click to activate"
+        L["只有团长或物品分配者有权限取消拍卖"] = "Only the group leader or loot master has permission to cancel the auction"
+        L["根据你的出价动态改变增减幅度"] = "The increase/decrease step dynamically changes based on your bid"
+        L["长按可以快速调整价格"] = "Long press to adjust price quickly"
+        L["在输入框使用滚轮也可快速调整价格"] = "Scroll the mouse wheel in the input box to adjust price quickly"
+        L[">> 你 <<"] = ">> You <<"
+        L["你"] = "You"
+        L["別人(匿名)"] = "Others(Anonymous)"
+        L["需高于当前价格"] = "Must be higher than the current price"
+        L["需高于或等于起拍价"] = "Must be higher than or equal to the starting bid"
+        L["取消拍卖"] = "Cancel"
+        L["装绑"] = "BoE"
+        L["|cffFFD100当前价格：|r"] = "|cffFFD100Price: |r"
+        L["|cffFFD100起拍价：|r"] = "|cffFFD100Start Bid: |r"
+        L["|cffFFD100出价最高者：|r"] = "|cffFFD100Top Bidder: |r"
+        L["|cffFFD100< 匿名模式 >|r"] = "|cffFFD100< Anonymous Mode >|r"
+        L["出价"] = "Bid"
+        L["正常模式"] = "Normal Mode"
+        L["匿名模式"] = "Anonymous Mode"
+        L["拍卖结束"] = "Auction Ended"
+        L["|cffFF0000流拍：|r"] = "|cffFF0000Failed: |r"
+        L["|cff00FF00成交价：|r"] = "|cff00FF00Price: |r"
+        L["|cff00FF00买家：|r"] = "|cff00FF00Buyer: |r"
+        L["{rt6}拍卖成功{rt6} %s %s %s"] = "{rt6}Auction Successful{rt6} %s %s %s"
+        L["{rt7}拍卖取消{rt7} %s"] = "{rt7}Auction Cancelled{rt7} %s"
+        L["{rt7}流拍{rt7} %s"] = "{rt7}Auction Failed{rt7} %s"
+        L["拍卖取消"] = "Cancelled"
+        L["滚轮：快速调整价格"] = "Wheel: Adjust price quickly"
+        L["长按：快速调整价格"] = "Long Press: Adjust price quickly"
+        L["点击：复制当前价格并增加"] = "Click: Copy current price and increase"
+        L["折叠"] = "Collapse"
+        L["展开"] = "Expand"
+        L["拍卖成功"] = "Successful"
+        L["流拍"] = "Failed"
+        L["设置心理价格"] = "Set Max Bid"
+        L["开启自动出价"] = "Auto-Bid On"
+        L["取消自动出价"] = "Auto-Bid Off"
+        L["自动出价"] = "Auto-Bid"
+        L[">>正在自动出价<<"] = ">>Bidding<<"
+        L["心理价格锁定中"] = "Maximum Bid Locked"
+        L["取消自动出价后才能修改。"] = "You must disable Auto-Bid to modify this."
+        L["如果别人出价比你高时，自动帮你出价，每次加价为最低幅度，出价不会高于你设定的心理价格。"] = "If someone bids higher than you, it will automatically bid on your behalf with the minimum increment, and will not exceed your set Maximum Bid."
+        L["心理价格"] = "Maximum Bid"
+        L["最小加价幅度为%s"] = "Minimum bid increment is %s"
+        L["（%s）"] = "(%s)"
+        L["没有人出价"] = "No bids placed"
+        L["出价记录"] = "Bid History"
+        L["记录"] = "History"
+        L["、"] = ". "
+        L["匿名"] = "Anonymous"
+        L["出价设为："] = "Bid set to: "
+        L["心理价格："] = "Maximum Bid: "
+        L["万"] = "0k"
+        L["点击：单个展开"] = "Click: Expand Single Item"
+        L["ALT+点击：全部展开"] = "ALT+Click: Expand All"
+        L["点击：单个折叠"] = "Click: Collapse Single Item"
+        L["ALT+点击：全部折叠"] = "ALT+Click: Collapse All"
+        L["你已是%s的出价最高者，|cffff0000没必要自己顶自己|r。真的要继续出价到 %s ？"] = "You are already the highest bidder for %s. |cffff0000No need to outbid yourself|r. Are you sure you want to bid up to %s?"
+        L["备注："] = "Notes: "
+        L["{rt1}拍卖开始{rt1} %s 起拍价：%s"] = "{rt1}Auction Started{rt1} %s Starting Bid: %s"
+        L["团长："] = "Group Leader: "
+        L["|cffff0000该装备在拍卖结束后一直没收到团长发出的团队通知，所以你显示的拍卖结果可能不正确，请告知团长。"] = "|cffff0000No raid notification from the group leader was received for this item after the auction ended. The displayed auction result may be incorrect. Please notify the group leader.|r"
+        L["|cffff0000团长离线，该装备的拍卖结果可能不正确。"] = "|cffff0000The group leader is offline. The auction result for this item may be incorrect.|r"
+        L["心理价格需高于或等于起拍价"] = "Maximum Bid must be higher than or equal to the Starting Bid"
+        L["心理价格需高于当前价格"] = "Maximum Bid must be higher than the Current Price"
     end
 
     function aura.GN(unit)
@@ -174,8 +245,8 @@ BG.Init(function()
 
     -- 常量
     do
-        aura.sound1 = SOUNDKIT.GS_TITLE_OPTION_OK -- 按键音效
-        aura.sound2 = 569593                      -- 升级音效
+        aura.sound1 = SOUNDKIT.GS_TITLE_OPTION_OK
+        aura.sound2 = 569593
         aura.GREEN1 = "00FF00"
         aura.RED1 = "FF0000"
 
@@ -265,7 +336,8 @@ BG.Init(function()
     end
 
     function aura.FormatNumber(num)
-        if not tonumber(num) then return num end
+        if not tonumber(num) or Locale == "enUS" then return num end
+        if Locale == "enUS" then return num end
         num = tostring(num)
         local len = strlen(num)
         if len < 5 then return num end
@@ -340,7 +412,7 @@ BG.Init(function()
             if not f.IsEnd and aura.IsML() then
                 f.cancel:Show()
                 f.autoTextButton:ClearAllPoints()
-                f.autoTextButton:SetPoint("TOP", 45, -2)
+                f.autoTextButton:SetPoint("TOP", f, "TOPLEFT", f.autoTextButton.offset, -2)
             else
                 f.cancel:Hide()
                 f.autoTextButton:ClearAllPoints()
@@ -746,7 +818,6 @@ BG.Init(function()
                                 After(2, function()
                                     aura.soundCD = nil
                                 end)
-                                -- BG.PlaySound("auctionError")
                             end
                         end
                     end
@@ -1573,15 +1644,27 @@ BG.Init(function()
             bt:SetScript("OnLeave", aura.OnLeave)
             AuctionFrame.hide = bt
 
+            -- 记录
+            local bt = CreateFrame("Button", nil, AuctionFrame)
+            bt:SetNormalFontObject(_G.BGA.FontGreen15)
+            bt:SetHighlightFontObject(_G.BGA.FontWhite15)
+            bt:SetDisabledFontObject(_G.BGA.FontDis15)
+            bt:SetPoint("TOPLEFT", aura.edgeSize + 1, -2)
+            bt:SetText(L["记录"])
+            bt:SetSize(bt:GetFontString():GetWidth(), 18)
+            bt.owner = AuctionFrame
+            AuctionFrame.logTextButton = bt
+            bt:SetScript("OnEnter", aura.LogTextButton_OnEnter)
+            bt:SetScript("OnLeave", aura.LogTextButton_OnLeave)
+
             -- 取消拍卖
             local bt = CreateFrame("Button", nil, AuctionFrame)
             bt:SetNormalFontObject(_G.BGA.FontGreen15)
             bt:SetHighlightFontObject(_G.BGA.FontWhite15)
             bt:SetDisabledFontObject(_G.BGA.FontDis15)
-            bt:SetPoint("TOPLEFT", aura.edgeSize + 60, -2)
+            bt:SetPoint("TOP", AuctionFrame, "TOPLEFT", aura.WIDTH / 10 * 3.3, -2)
             bt:SetText(L["取消拍卖"])
             bt:SetSize(bt:GetFontString():GetWidth(), 18)
-            bt:RegisterForClicks("AnyUp")
             bt.owner = AuctionFrame
             bt:SetScript("OnClick", aura.Cancel_OnClick)
             bt:SetScript("OnEnter", aura.Cancel_OnEnter)
@@ -1600,28 +1683,15 @@ BG.Init(function()
             bt:SetDisabledFontObject(_G.BGA.FontDis15)
             bt:SetText(L["自动出价"])
             bt:SetSize(bt:GetFontString():GetWidth(), 18)
-            bt:RegisterForClicks("AnyUp")
+            bt.offset = aura.WIDTH / 10 * 6.4
             bt.owner = AuctionFrame
             AuctionFrame.autoTextButton = bt
             bt:SetScript("OnClick", aura.AutoText_OnClick)
             if aura.IsML() then
-                bt:SetPoint("TOP", 45, -2)
+                bt:SetPoint("TOP", AuctionFrame, "TOPLEFT", bt.offset, -2)
             else
                 bt:SetPoint("TOP", 0, -2)
             end
-
-            -- 记录
-            local bt = CreateFrame("Button", nil, AuctionFrame)
-            bt:SetNormalFontObject(_G.BGA.FontGreen15)
-            bt:SetHighlightFontObject(_G.BGA.FontWhite15)
-            bt:SetDisabledFontObject(_G.BGA.FontDis15)
-            bt:SetPoint("TOPLEFT", aura.edgeSize + 1, -2)
-            bt:SetText(L["记录"])
-            bt:SetSize(bt:GetFontString():GetWidth(), 18)
-            bt.owner = AuctionFrame
-            AuctionFrame.logTextButton = bt
-            bt:SetScript("OnEnter", aura.LogTextButton_OnEnter)
-            bt:SetScript("OnLeave", aura.LogTextButton_OnLeave)
         end
         -- 装备显示
         do
@@ -2074,11 +2144,18 @@ BG.Init(function()
             if not (zhuangbei and maijia and jine) then
                 zhuangbei, maijia, jine = msg:match("{rt6}拍賣成功{rt6} (.-) (.-) (.+)")
             end
+            if not (zhuangbei and maijia and jine) then
+                zhuangbei, maijia, jine = msg:match("{rt6}Auction Successful{rt6} (.-) (.-) (.+)")
+            end
             if (zhuangbei and maijia and jine) then
                 aura.SaveEndMsg(zhuangbei)
                 return
             end
+
             zhuangbei = msg:match("{rt7}流拍{rt7} (.+)")
+            if not zhuangbei then
+                zhuangbei = msg:match("^{rt7}Auction Failed{rt7} (.+)$")
+            end
             if zhuangbei then
                 aura.SaveEndMsg(zhuangbei)
                 return
@@ -2086,10 +2163,3 @@ BG.Init(function()
         end
     end)
 end)
-
---[[
-/run C_ChatInfo.SendAddonMessage("BiaoGeAuction","StartAuction,"..GetTime()..",".."50011"..",".."5000"..",".."60","RAID")
-
-BiaoGeVIP.auction["ICC"].money[4367]=100
-BiaoGeVIP.auction["ICC"].money["4367".."tips"]="极品啊，法系BIS"
-]]

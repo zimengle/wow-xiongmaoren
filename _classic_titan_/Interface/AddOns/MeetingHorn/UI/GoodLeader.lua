@@ -5,12 +5,8 @@ local L = ns.L
 local GoodLeader = ns.Addon:NewClass('UI.GoodLeaderFrame', 'Frame.GoodLeaderTemplate')
 
 local miniCertificationTextures = {
-    [1] = [[|TInterface\AddOns\MeetingHorn\Media\mini_certification_icon_1:17:40:0:0:1:1:0:1:0:1|t]],
-    [2] = [[|TInterface\AddOns\MeetingHorn\Media\mini_certification_icon_2:17:40:0:0:1:1:0:1:0:1|t]],
-    [3] = [[|TInterface\AddOns\MeetingHorn\Media\mini_certification_icon_3:17:40:0:0:1:1:0:1:0:1|t]],
-    [4] = [[|TInterface\AddOns\MeetingHorn\Media\mini_certification_icon_4:17:40:0:0:1:1:0:1:0:1|t]],
-    [5] = [[|TInterface\AddOns\MeetingHorn\Media\mini_certification_icon_5:17:40:0:0:1:1:0:1:0:1|t]],
-    [6] = [[|TInterface\AddOns\MeetingHorn\Media\mini_certification_icon_6:17:40:0:0:1:1:0:1:0:1|t]],
+    [1001] = [[|TInterface\AddOns\MeetingHorn\Media\certification\1001\certification_icon:16:64:0:0:256:64:0:225:0:56|t]],
+    [1002] = [[|TInterface\AddOns\MeetingHorn\Media\certification\1002\certification_icon:16:64:0:0:256:64:0:225:0:56|t]],
 }
 
 local medalTextures = {
@@ -194,11 +190,11 @@ function GoodLeader:UpdateLeader()
         self.First.Header.ApplyLeaderBtn:Show()
         self.First.Header.Name:SetFormattedText(L['团长ID：%s'], playerName)
     else
-        self.ProgressBarFrame:Show()
-        self.ViewExperienceBtn:Show()
+        self.ProgressBarFrame:Hide()
+        self.ViewExperienceBtn:Hide()
         self.First.Header.Disconnect:Hide()
         self.First.Header.ApplyLeaderBtn:Hide()
-        local level = regimentData.level
+        local level = regimentData.bgID
         self.First.Header.Name:SetFormattedText(L['团长ID：%s '] .. miniCertificationTextures[level], playerName)
 
         local info = regimentData.medalMap
