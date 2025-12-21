@@ -16,7 +16,7 @@ L.OTabWorld					= "世界首領"
 L.OTabScenarios				= "事件"
 L.OTabPlugins				= "其他"
 L.OTabOptions				= "核心選項"
---L.OTabTools							= "Tools"--Such as break timer button, durability checks, latency checks, keystone checks (in future)
+L.OTabTools					= "工具"--Such as break timer button, durability checks, latency checks, keystone checks (in future)
 L.OTabAbout					= "關於"
 
 --Main Tab, Tools checks
@@ -282,6 +282,8 @@ L.RoleSpecAlert				= "當你加入團隊時拾取專精不符合你目前專精�
 L.CheckGear					= "開怪時顯示裝備警告訊息 (當你裝備的裝備等級低於包包裡40等以上或主手武器沒有裝備時顯示警告訊息)"
 L.WorldBossAlert			= "當你的公會成員或是朋友可能在你的伺服器上開戰世界首領時顯示警告訊息(如果發送者是被戰復的會不準確)"
 L.WorldBuffAlert			= "當你的伺服器的世界增益啟動時顯示警告訊息以及計時器"
+L.RaidDiffChangedAlert		= "當團隊難度改變時顯示警告訊息"
+L.DungeonDiffChangedAlert	= "當地城難度改變時顯示警告訊息"
 
 L.Area_BugAlerts			= "錯誤回報警報選項"
 L.BadTimerAlert				= "當DBM檢測到計時器錯誤且至少有1秒不正確時顯示聊天訊息"
@@ -583,6 +585,7 @@ L.TabFooter							= "本面板中的所有選項僅在您是非地下城/隨機�
 
 -- Panel: Privacy
 L.Tab_Privacy 				= "自動回覆 & 隱私"
+L.Tab_PrivacyMidnight		= "插件通訊保密"
 L.Area_WhisperMessages		= "密語訊息選項"
 L.AutoRespond 				= "啟用戰鬥中自動密語回覆"
 L.WhisperStats 				= "在密語回應中加入戰勝/滅團狀態"

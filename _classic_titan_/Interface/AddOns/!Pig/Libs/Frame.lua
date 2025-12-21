@@ -55,7 +55,7 @@ end
 Create.bgFile = "interface/chatframe/chatframebackground.blp"
 --Create.edgeFile = "Interface/Buttons/WHITE8X8"
 Create.edgeFile = "Interface/AddOns/"..addonName.."/Libs/Pig_Border.blp"
-Create.Backdropinfo={bgFile = Create.bgFile,edgeFile = Create.edgeFile, edgeSize = 6,}
+Create.Backdropinfo={bgFile = Create.bgFile, tile = true, tileSize = 0,edgeFile = Create.edgeFile, edgeSize = 6,}
 Create.BackdropColor={0.08, 0.08, 0.08, 0.5}
 Create.BackdropBorderColor={0, 0, 0, 1}
 local function _SetPoint(ui,Point)
@@ -352,6 +352,7 @@ local UILayout = {}
 addonTable.Data.UILayout=UILayout
 function Create.PIG_ResPoint(UIname)
 	PIGA["Pig_UI"][UIname]=nil
+	PIGA_Per["Pig_UI"][UIname]=nil
 	if _G[UIname] then
 		local point, relativePoint, offsetX, offsetY, World=unpack(UILayout[UIname])
 		_G[UIname]:ClearAllPoints();

@@ -14,3 +14,7 @@ VER 3 0100000000000003 "火鸡" "135805"
 /target 野生火鸡
 /script SetRaidTarget("target",8)
 END
+VER 3 0100000000000005 "牺牲" "134400"
+/cast 神圣牺牲
+/cancelaura 神圣牺牲
+END

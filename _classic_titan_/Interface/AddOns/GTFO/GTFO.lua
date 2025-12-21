@@ -28,12 +28,12 @@ GTFO = {
 		BrannMode = 0;
 		IgnoreTimeAmount = .2;
 	};
-	Version = "5.19.4"; -- Version number (text format)
+	Version = "5.19.5"; -- Version number (text format)
 	VersionNumber = 0; -- Numeric version number for checking out-of-date clients (placeholder until client is detected)
-	RetailVersionNumber = 51904; -- Numeric version number for checking out-of-date clients (retail)
+	RetailVersionNumber = 51905; -- Numeric version number for checking out-of-date clients (retail)
 	ClassicVersionNumber = 51900; -- Numeric version number for checking out-of-date clients (Vanilla classic)
 	BurningCrusadeVersionNumber = 51900; -- Numeric version number for checking out-of-date clients (TBC classic)
-	WrathVersionNumber = 51904; -- Numeric version number for checking out-of-date clients (Wrath classic)
+	WrathVersionNumber = 51905; -- Numeric version number for checking out-of-date clients (Wrath classic)
 	CataclysmVersionNumber = 51900; -- Numeric version number for checking out-of-date clients (Cata classic)
 	MistsVersionNumber = 51900; -- Numeric version number for checking out-of-date clients (MoP classic)
 	DataLogging = nil; -- Indicate whether or not the addon needs to run the datalogging function (for hooking)
@@ -1492,9 +1492,17 @@ function GTFO_RenderOptions()
 
 				local IgnoreAlertButton = CreateFrame("CheckButton", "GTFO_IgnoreAlertButton_"..key, IgnoreOptionsPanel, "ChatConfigCheckButtonTemplate");
 				IgnoreAlertButton:SetPoint("TOPLEFT", 10, yCount)
-				getglobal(IgnoreAlertButton:GetName().."Text"):SetText(GTFO.IgnoreSpellCategory[key].desc);
+				local descText = GTFO.IgnoreSpellCategory[key].desc;
+				if (GTFO.IgnoreSpellCategory[key].descKey and GTFOLocal[GTFO.IgnoreSpellCategory[key].descKey]) then
+					descText = GTFOLocal[GTFO.IgnoreSpellCategory[key].descKey];
+				end
+				getglobal(IgnoreAlertButton:GetName().."Text"):SetText(descText);
 				if (GTFO.IgnoreSpellCategory[key].tooltip) then
-					_G["GTFO_IgnoreAlertButton_"..key].tooltip = GTFO.IgnoreSpellCategory[key].tooltip;
+					local tooltipText = GTFO.IgnoreSpellCategory[key].tooltip;
+					if (GTFO.IgnoreSpellCategory[key].tooltipKey and GTFOLocal[GTFO.IgnoreSpellCategory[key].tooltipKey]) then
+						tooltipText = GTFOLocal[GTFO.IgnoreSpellCategory[key].tooltipKey];
+					end
+					_G["GTFO_IgnoreAlertButton_"..key].tooltip = tooltipText;
 				end
 				IgnoreAlertButton.optionKey = "Ignore"..key;
 				IgnoreAlertButton:SetScript("OnClick", GTFO.ToggleCheckboxOption);
@@ -1687,9 +1695,17 @@ function GTFO_RenderOptions()
 
 				local IgnoreAlertButton = CreateFrame("CheckButton", "GTFO_IgnoreAlertButton_"..key, IgnoreOptionsPanel, "ChatConfigCheckButtonTemplate");
 				IgnoreAlertButton:SetPoint("TOPLEFT", 10, yCount)
-				getglobal(IgnoreAlertButton:GetName().."Text"):SetText(GTFO.IgnoreSpellCategory[key].desc);
+				local descText = GTFO.IgnoreSpellCategory[key].desc;
+				if (GTFO.IgnoreSpellCategory[key].descKey and GTFOLocal[GTFO.IgnoreSpellCategory[key].descKey]) then
+					descText = GTFOLocal[GTFO.IgnoreSpellCategory[key].descKey];
+				end
+				getglobal(IgnoreAlertButton:GetName().."Text"):SetText(descText);
 				if (GTFO.IgnoreSpellCategory[key].tooltip) then
-					_G["GTFO_IgnoreAlertButton_"..key].tooltip = GTFO.IgnoreSpellCategory[key].tooltip;
+					local tooltipText = GTFO.IgnoreSpellCategory[key].tooltip;
+					if (GTFO.IgnoreSpellCategory[key].tooltipKey and GTFOLocal[GTFO.IgnoreSpellCategory[key].tooltipKey]) then
+						tooltipText = GTFOLocal[GTFO.IgnoreSpellCategory[key].tooltipKey];
+					end
+					_G["GTFO_IgnoreAlertButton_"..key].tooltip = tooltipText;
 				end
 				IgnoreAlertButton.optionKey = "Ignore"..key;
 				IgnoreAlertButton:SetScript("OnClick", GTFO.ToggleCheckboxOption);

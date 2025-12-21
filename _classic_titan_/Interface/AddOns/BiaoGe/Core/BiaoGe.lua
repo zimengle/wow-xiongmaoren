@@ -205,7 +205,7 @@ BG.Init(function()
 
         -- VIP
         BG.Init2(function()
-            if not (BGV and BGV.raidVersion) then
+            if not ns.enUS and not (BGV and BGV.raidVersion) then
                 BG.VIPVerText = CreateFrame("Frame", nil, BG.MainFrame)
                 BG.VIPVerText:SetPoint("LEFT", BG.VerText, "RIGHT", 5, 0)
                 local t = BG.VIPVerText:CreateFontString()
@@ -326,6 +326,7 @@ BG.Init(function()
         BiaoGe.options.lastVer = BG.ver
     end
     tinsert(UISpecialFrames, "BG.MainFrame")
+    
     ----------二级Frame----------
     do
         -- 当前表格
@@ -1386,7 +1387,6 @@ BG.Init(function()
             GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT", 0, 0)
             GameTooltip:ClearLines()
             GameTooltip:AddLine(L["< YY评价 >"], 1, 1, 1, true)
-            GameTooltip:AddLine(L["|cff808080（右键：开启/关闭该模块）|r"], 1, 0.82, 0, true)
             GameTooltip:AddLine(L["你可以给YY频道做评价，帮助别人辨别该团好与坏"], 1, 0.82, 0, true)
             GameTooltip:AddLine(" ")
             GameTooltip:AddLine(L["你可以查询YY频道的大众评价"], 1, 0.82, 0, true)
@@ -1395,52 +1395,6 @@ BG.Init(function()
             GameTooltip:AddLine(" ")
             GameTooltip:AddLine(L["替换集结号的评价框，击杀当前版本团本尾王后弹出"], 1, 0.82, 0, true)
             GameTooltip:Show()
-        end, nil, true)
-        local dropDown = LibBG:Create_UIDropDownMenu(nil, bt)
-        LibBG:UIDropDownMenu_SetAnchor(dropDown, 0, 0, "BOTTOM", bt, "TOP")
-        bt:SetScript("OnMouseDown", function(self, enter)
-            if enter == "RightButton" then
-                GameTooltip:Hide()
-                if BG.DropDownListIsVisible(self) then
-                    _G.L_DropDownList1:Hide()
-                else
-                    local YY = "BiaoGeYY"
-                    local channelTypeMenu = {
-                        {
-                            isTitle = true,
-                            text = L["模块开关"],
-                            notCheckable = true,
-                        },
-                        {
-                            text = L["开启"],
-                            notCheckable = true,
-                            func = function()
-                                BiaoGe.YYdb.share = 1
-                                BG.YYShowHide(BiaoGe.YYdb.share)
-                                JoinPermanentChannel(YY, nil, 1)
-                            end,
-                        },
-                        {
-                            text = L["关闭"],
-                            notCheckable = true,
-                            func = function()
-                                BiaoGe.YYdb.share = 0
-                                BG.YYShowHide(BiaoGe.YYdb.share)
-                                LeaveChannelByName(YY)
-                            end,
-                        },
-                        {
-                            text = CANCEL,
-                            notCheckable = true,
-                            func = function(self)
-                                LibBG:CloseDropDownMenus()
-                            end,
-                        }
-                    }
-                    LibBG:EasyMenu(channelTypeMenu, dropDown, bt, 0, 0, "MENU", 3)
-                    BG.PlaySound(1)
-                end
-            end
         end, nil, true)
 
         if BG.AchievementMainFrame then
@@ -1713,6 +1667,7 @@ BG.Init(function()
         local lastraidjoinname
         local lastpartyjoinname
         local function MsgClassColor(self, event, msg, player, l, cs, t, flag, channelId, ...)
+            if BiaoGe.options.ERR_CHAT_THROTTLED == 1 and msg == ERR_CHAT_THROTTLED then return true end
             if BiaoGe.options["joinorleavePlayercolor"] ~= 1 then return end
             if msg:match("%s$") then return end
 

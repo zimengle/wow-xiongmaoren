@@ -19,8 +19,7 @@ if PIG_MaxTocversion(20000,true) then
 	UIdataWHXY.ScrollPY=-90
 	UIdataWHXY.allwww = 920
 end
-TALENT_TOOLTIP_LEARNTALENTGROUP = TALENT_TOOLTIP_LEARNTALENTGROUP or "学习你的模拟结果。";
-TALENT_TOOLTIP_RESETTALENTGROUP = TALENT_TOOLTIP_RESETTALENTGROUP or "重置你的模拟结果。";
+local GetGlyphLink=GetGlyphLink or C_GlyphInfo and C_GlyphInfo.GetGlyphLink
 ----
 local function ADD_BGtex(self,texname)
 	if PIG_OptionsUI.IsOpen_ElvUI() and PlayerTalentFrame.backdrop or PIG_OptionsUI.IsOpen_NDui() then return end
@@ -391,9 +390,6 @@ local function Uptate_FrameX()
 						PlayerTalentFrameScrollFrame:Show()
 					end)
 				end
-				GlyphFrame:ClearAllPoints();
-				GlyphFrame:SetPoint("TOPLEFT",PlayerTalentFrame3ScrollFrame,"TOPRIGHT",0,0);
-				GlyphFrame:SetPoint("BOTTOMRIGHT",PlayerTalentFrame,"BOTTOMRIGHT",-33,0);
 				GlyphFrameBackground:Hide()
 				GlyphFrameTitleText:Hide()
 				for i=1,6 do
@@ -416,12 +412,22 @@ local function Uptate_FrameX()
 				GlyphFrameGlyph3:SetPoint("TOPLEFT",GlyphFrameGlyph2,"BOTTOMLEFT",0,-8);
 				GlyphFrameGlyph5:SetPoint("TOPLEFT",GlyphFrameGlyph3,"BOTTOMLEFT",0,-8);
 			end
-			for i=1,NUM_GLYPH_SLOTS do
-				local link = GetGlyphLink(i, PlayerTalentFrame.talentGroup)
-				if link=="" then
-					_G["GlyphFrameGlyph"..i].name:SetText("空")
-				else
-					_G["GlyphFrameGlyph"..i].name:SetText(link)
+			if PlayerTalentFrame.pet then
+				GlyphFrame:ClearAllPoints();
+			else
+				GlyphFrame:ClearAllPoints();
+				GlyphFrame:SetPoint("TOPLEFT",PlayerTalentFrame3ScrollFrame,"TOPRIGHT",0,0);
+				GlyphFrame:SetPoint("BOTTOMRIGHT",PlayerTalentFrame,"BOTTOMRIGHT",-33,0);
+			end
+			local talentGroup = PlayerTalentFrame and PlayerTalentFrame.talentGroup;
+			for Gindex=1,NUM_GLYPH_SLOTS do
+				_G["GlyphFrameGlyph"..Gindex].name:SetText(NONE)
+				local enabled, glyphType, glyphTooltipIndex, glyphSpell, iconFilename, glyphID = GetGlyphSocketInfo(Gindex, talentGroup);
+				if glyphID then
+					local link = C_GlyphInfo.GetGlyphLink(Gindex, glyphID)
+					if link and link~="" then
+						_G["GlyphFrameGlyph"..Gindex].name:SetText(link)
+					end
 				end
 			end
 		end)
@@ -429,8 +435,10 @@ local function Uptate_FrameX()
 	local old_TalentFrame_Update=TalentFrame_Update
 	TalentFrame_Update=function(self)
 		if self==PlayerTalentFrame then
-			if PIG_MaxTocversion(20000,true) then PlayerTalentFrame_ShowGlyphFrame();end
-			PanelTemplates_SetTab(self, 1);--pig
+			if PIG_MaxTocversion(20000,true) then 
+				PlayerTalentFrame_ShowGlyphFrame();
+			end
+			PanelTemplates_SetTab(self, 1);--默认切换到Tab1
 		end
 		old_TalentFrame_Update(self)
 		if self==PlayerTalentFrame then
@@ -448,12 +456,16 @@ local function Uptate_FrameX()
 			PlayerTalentFrameLearnButton:SetWidth(120)
 			PlayerTalentFrameLearnButton:ClearAllPoints();
 			PlayerTalentFrameLearnButton:SetPoint("TOPRIGHT",PlayerTalentFrame,"TOPRIGHT",-90,-40);
+			PlayerTalentFrameLearnButton:SetScript("OnEnter", nil);
+			PlayerTalentFrameLearnButton:SetScript("OnLeave", nil);
 			PlayerTalentFrameResetButton:SetText("重置模拟");
 			PlayerTalentFrameResetButton:ClearAllPoints();
 			PlayerTalentFrameResetButton:SetPoint("TOPRIGHT",PlayerTalentFrame,"TOPRIGHT",-220,-40);
+			PlayerTalentFrameResetButton:SetScript("OnEnter", nil);
+			PlayerTalentFrameResetButton:SetScript("OnLeave", nil);
 			PlayerTalentFrameCloseButton:SetPoint("CENTER",PlayerTalentFrame,"TOPRIGHT",-44,-25);
 			PlayerTalentFrameStatusFrame:SetPoint("TOPLEFT",PlayerTalentFrame,"TOPLEFT",73,-40);
-			PlayerTalentFrameActivateButton:SetPoint("TOP",PlayerTalentFrame,"TOP",-273,-40);
+			PlayerTalentFrameActivateButton:SetPoint("TOP",PlayerTalentFrame,"TOP",-200,-40);
 			if PIG_OptionsUI.IsOpen_ElvUI() and PlayerTalentFrame.backdrop then
 				PlayerTalentFrame.backdrop:SetPoint("TOPLEFT",PlayerTalentFrame,"TOPLEFT",0,0);
 				PlayerTalentFrame.backdrop:SetPoint("BOTTOMRIGHT",PlayerTalentFrame,"BOTTOMRIGHT",0,0);
@@ -492,6 +504,23 @@ local function Uptate_FrameX()
 	PlayerTalentFrameBottomRight:Hide()
 	PlayerTalentFrame.shengyu = PIGFontString(PlayerTalentFrame,{"TOP",PlayerTalentFrame,"TOP",-10,-44},"剩余天赋点数","OUTLINE")
 	PlayerTalentFrame.shengyuV = PIGFontString(PlayerTalentFrame,{"LEFT",PlayerTalentFrame.shengyu,"RIGHT",1,0},"0","OUTLINE", 15)
+	for i=1, MAX_NUM_TALENTS do
+		local buttontab1 = _G["PlayerTalentFrameTalent"..i];
+		local function PIG_PlayerTalentFrameTalent_OnEnter(self)
+			local talentInfoQuery = {};
+			talentInfoQuery.specializationIndex = PanelTemplates_GetSelectedTab(PlayerTalentFrame);
+			talentInfoQuery.talentIndex = self:GetID();
+			talentInfoQuery.isInspect = PlayerTalentFrame.inspect;
+			talentInfoQuery.isPet = PlayerTalentFrame.pet;
+			talentInfoQuery.groupIndex = PlayerTalentFrame.talentGroup;
+			local talentInfo = C_SpecializationInfo.GetTalentInfo(talentInfoQuery);
+			if talentInfo then
+				GameTooltip:SetTalent(talentInfo.talentID, PlayerTalentFrame.inspect, PlayerTalentFrame.pet, PlayerTalentFrame.talentGroup, GetCVarBool(UIdataWHXY.previewT));
+			end
+			self.UpdateTooltip = PIG_PlayerTalentFrameTalent_OnEnter;
+		end
+		buttontab1:HookScript("OnEnter", PIG_PlayerTalentFrameTalent_OnEnter);
+	end
 	for tfID=2,3 do
 		local TalentFrame = CreateFrame("Frame", "PlayerTalentFrame"..tfID, PlayerTalentFrame)
 		TalentFrame:SetSize(UIdataWHXY.gundongWW,UIdataWHXY.gundongHH-UIdataWHXY.ScrollPY);
@@ -542,16 +571,15 @@ local function Uptate_FrameX()
 			TalentBut:RegisterEvent("PREVIEW_PET_TALENT_POINTS_CHANGED");
 			TalentBut:RegisterEvent("PLAYER_TALENT_UPDATE");
 			TalentBut:RegisterEvent("PET_TALENT_UPDATE");
-			local function PlayerTalentFrameTalent_OnEvent_pig(self, event, ...)
+			TalentBut:SetScript("OnEvent", function (self, event, ...)
 				if ( GameTooltip:IsOwned(self) ) then
-					if PIG_MaxTocversion(30000,true) and PIG_MaxTocversion(40000) then
-						GameTooltip:SetTalent(tfID, self:GetID(),PlayerTalentFrame.inspect, PlayerTalentFrame.pet, PlayerTalentFrame.talentGroup, GetCVarBool(UIdataWHXY.previewT));
-					else
+					-- if PIG_MaxTocversion(30000,true) and PIG_MaxTocversion(40000) then
+					-- 	GameTooltip:SetTalent(tfID, self:GetID(),PlayerTalentFrame.inspect, PlayerTalentFrame.pet, PlayerTalentFrame.talentGroup, GetCVarBool(UIdataWHXY.previewT));
+					-- else
 						GameTooltip:SetTalent(TalentBut.talentID,PlayerTalentFrame.inspect, PlayerTalentFrame.pet, PlayerTalentFrame.talentGroup, GetCVarBool(UIdataWHXY.previewT));
-					end
+					--end
 				end
-			end
-			TalentBut:SetScript("OnEvent", PlayerTalentFrameTalent_OnEvent_pig);
+			end);
 			---
 			TalentBut:SetScript("OnClick", function(self, button)
 				PlayerTalentFrame.selectedTab=tfID
@@ -579,11 +607,11 @@ local function Uptate_FrameX()
 			end);
 			local function PlayerTalentFrameTalent_OnEnter_pig(self)
 				GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
-				if PIG_MaxTocversion(30000,true) and PIG_MaxTocversion(40000) then
-					GameTooltip:SetTalent(tfID, self:GetID(),PlayerTalentFrame.inspect, PlayerTalentFrame.pet, PlayerTalentFrame.talentGroup, GetCVarBool(UIdataWHXY.previewT));
-				else
+				-- if PIG_MaxTocversion(30000,true) and PIG_MaxTocversion(40000) then
+				-- 	GameTooltip:SetTalent(tfID, self:GetID(),PlayerTalentFrame.inspect, PlayerTalentFrame.pet, PlayerTalentFrame.talentGroup, GetCVarBool(UIdataWHXY.previewT));
+				-- else
 					GameTooltip:SetTalent(TalentBut.talentID,PlayerTalentFrame.inspect, PlayerTalentFrame.pet, PlayerTalentFrame.talentGroup, GetCVarBool(UIdataWHXY.previewT));
-				end
+				--end
 				self.UpdateTooltip = PlayerTalentFrameTalent_OnEnter_pig;
 			end
 			TalentBut:SetScript("OnEnter", PlayerTalentFrameTalent_OnEnter_pig);

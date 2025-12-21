@@ -62,7 +62,7 @@ RSConstants.EVENTS = {
 	[RSConstants.NPCS_ADDED_IN_5_1_0] = true;
 	[RSConstants.NPCS_ADDED_IN_5_1_1] = true;
 	[RSConstants.NPCS_ADDED_IN_5_2_0] = true;
-	[RSConstants.NPCS_ADDED_IN_5_2_1] = false;
+	[RSConstants.NPCS_ADDED_IN_5_2_1] = true;
 	[RSConstants.NPCS_ADDED_IN_5_3_0] = true;
 	[RSConstants.NPCS_ADDED_IN_5_4_0] = false;
 }

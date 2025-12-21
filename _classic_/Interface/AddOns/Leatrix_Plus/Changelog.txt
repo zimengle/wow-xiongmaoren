@@ -1,4 +1,13 @@
-﻿5.1.08 - 5th November 2025
+﻿5.1.14 - 14th December 2025
+- Updated for Mists of Pandaria game patch 5.5.3.
+
+5.1.12 - 26th November 2025
+- Updated slider controls and scroll bars used throughout the addon.
+
+5.1.10 - 15th November 2025
+- For 'Party from friends' ('Automation'), fixed an issue which caused a Lua error after automatically accepting a party invite.
+
+5.1.08 - 5th November 2025
 - PTR (5.5.3): Updated for Mists of Pandaria game patch 5.5.3.
 
 5.1.07 - 26th October 2025

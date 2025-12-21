@@ -580,7 +580,7 @@ function BG.SetBorderAlpha(self)
 end
 
 function BG.FormatNumber(num, type)
-    if not tonumber(num) then return num end
+    if not tonumber(num) or ns.enUS then return num end
     type = type or 1
     num = tostring(num)
     local len = strlen(num)

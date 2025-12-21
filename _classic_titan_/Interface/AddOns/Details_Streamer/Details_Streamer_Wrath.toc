@@ -1,5 +1,5 @@
-## Interface: 30800
-## Title: Details!: Streamer (plugin) |cffd4af37谷|r|cffdbb850风|r|cffe2c069修|r|cffe9c882复|r|cfff0d09b版|r
+## Interface: 30405, 38000
+## Title: Details!: Streamer (plugin)
 ## Notes: Show which spells you are casting, viewers can see what are you doing and follow your steps.
 ## RequiredDeps: Details
 ## SavedVariables: Details_StreamerDB

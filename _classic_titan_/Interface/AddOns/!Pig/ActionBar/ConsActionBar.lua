@@ -153,6 +153,7 @@ function ActionBarfun.ConsumableActionBar()
 	}
 	local Actionbar=ActionBarfun.ADD_ActionBar(barName..index,CFdata,anniugeshu,anniujiange,fuFrame,fuFrameBut,RTabFrame,CABarF,CABarTabBut)
 	Actionbar.Items={}
+	Actionbar.butindex=0
 	Actionbar:RegisterEvent("PLAYER_ENTERING_WORLD");
 	Actionbar:HookScript("OnEvent", function(self,event,...)
 		if event=="PLAYER_ENTERING_WORLD" then
@@ -177,13 +178,11 @@ function ActionBarfun.ConsumableActionBar()
 				local itemID, itemLink, icon, _,quality,_,lootable = PIGGetContainerItemInfo(bag, slot)
 				if itemID and itemID~=6948 then
 					local usable, noMana = IsUsableItem(itemID)
-					--print(itemLink,usable, noMana)
-					if usable or lootable then--isQuestItem
+					if usable or lootable then
 						local _, itemType, itemSubType, itemEquipLoc, icon, classID, subClassID=C_Item.GetItemInfoInstant(itemID)
-						--print(itemLink,itemType, itemSubType, itemEquipLoc, icon, classID, subClassID)
 						if classID==0 and PIGA["CABar"]["Cons"] or classID==12 and PIGA["CABar"]["Quest"] then
-							--print(itemLink,itemType, itemSubType,  classID, subClassID)
-							table.insert(Actionbar.Items,{"item",itemLink,itemID})
+							Actionbar.Items[itemID]={"item",itemLink,itemID}
+							--table.insert(Actionbar.Items,{"item",itemLink,itemID})
 						end
 					end
 				end
@@ -197,7 +196,14 @@ function ActionBarfun.ConsumableActionBar()
 		end
 		GetItemsData()
 		for butid, button in pairs(Actionbar.butlist) do
-			ActionFun.loadingButInfo_Mode(button,Actionbar.Items[butid])
+			button:Hide()
+		end
+		Actionbar.butindex=0
+		for itemID,itemd in pairs(Actionbar.Items) do
+			Actionbar.butindex=Actionbar.butindex+1
+			if Actionbar.butlist[Actionbar.butindex] then
+				ActionFun.loadingButInfo_Mode(Actionbar.butlist[Actionbar.butindex],itemd)
+			end
 		end
 	end
 end

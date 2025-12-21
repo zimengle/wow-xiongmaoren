@@ -6,6 +6,13 @@ X: 0
 Y: 0
 W: 365
 H: 239
+Frame: WorldMapFrame
+FrameLevel: 1
+Anchor: CENTER
+X: -125
+Y: 59
+W: 610
+H: 438
 Frame: RARESCANNER_BUTTON
 FrameLevel: 200
 Anchor: LEFT
@@ -13,10 +20,3 @@ X: 315
 Y: -82
 W: 200
 H: 50
-Frame: WorldMapFrame
-FrameLevel: 1
-Anchor: CENTER
-X: -125
-Y: 59
-W: 1024
-H: 712

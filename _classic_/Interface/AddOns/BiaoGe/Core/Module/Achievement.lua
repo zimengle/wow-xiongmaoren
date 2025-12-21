@@ -1,4 +1,4 @@
-if not (BG.IsWLK or BG.IsMOP) then return end
+if not (BG.IsWLK_80 or BG.IsMOP) then return end
 if BG.IsBlackListPlayer then return end
 
 local AddonName, ns = ...
@@ -202,6 +202,22 @@ BG.Init(function()
                 6720,
                 6719,
                 6932, -- 成就龙
+                6823,
+                6674,
+                7056,
+                6687,
+                6686,
+                6455,
+                6937,
+                6936,
+                6553,
+                6683,
+                6518,
+                6922,
+                6717,
+                6824,
+                6933,
+                6825,
             },
             ["N_MSV"] = {
                 6689, -- 永春台
@@ -209,6 +225,40 @@ BG.Init(function()
                 6718,
                 6844, -- 魔古山
                 6458,
+            },
+            ["H_TOT"] = {
+                8068,
+                8067,
+                8066,
+                8065,
+                8064,
+                8063,
+                8062,
+                8061,
+                8060,
+                8059,
+                8058,
+                8057,
+                8056,
+                8124, -- 成就龙
+                8094,
+                8038,
+                8073,
+                8077,
+                8082,
+                8097,
+                8098,
+                8037,
+                8081,
+                8087,
+                8086,
+                8090,
+            },
+            ["N_TOT"] = {
+                8072,
+                8071,
+                8070,
+                8069,
             },
         }
         db_stats = {
@@ -247,7 +297,7 @@ BG.Init(function()
 /dump GetStatistic(334)
  ]]
     local function FormatNumber(num)
-        if not tonumber(num) then return num end
+        if not tonumber(num) or ns.enUS then return num end
         num = tostring(num)
         local len = strlen(num)
         if len <= 3 then
@@ -793,7 +843,6 @@ BG.Init(function()
 
     local function GetRaidAchievement()
         wipe(raidAchievement_Total)
-
         if IsInRaid(1) then
             if not BG.AchievementUpdateFrame then
                 BG.AchievementUpdateFrame = CreateFrame("Frame")
@@ -885,7 +934,6 @@ BG.Init(function()
             tbl["stats" .. ID] = GetComparisonStatistic(ID)
         end
         if tbl["stats" .. 334] ~= "--" then
-            -- pt(tbl["stats" .. 334])
             raidAchievement_AllPlayer[name] = tbl
         end
     end)

@@ -79,6 +79,7 @@ function PIGGetIconForRole(role)
 		return GetIconForRole(role)
 	end
 end
+--技能信息====================
 function PIGGetSpellInfo(SpellID)
 	if C_Spell and C_Spell.GetSpellInfo then
 		local spellInfo = C_Spell.GetSpellInfo(SpellID)
@@ -123,7 +124,7 @@ function PIGGetSpellCooldown(SpellID)
 		return start, duration, enabled, modRate
 	end
 end
---获取背包信息
+--获取背包信息===============
 function PIGGetContainerItemInfo(bag, slot)
 	if C_Container and C_Container.GetContainerItemInfo then
 		local ItemInfo = C_Container.GetContainerItemInfo(bag, slot)
@@ -135,6 +136,7 @@ function PIGGetContainerItemInfo(bag, slot)
 		return itemID, itemLink, icon, stackCount, quality, noValue, lootable, locked, isBound
 	end
 end
+
 --发送消息
 function PIGChatFrameAddChannel(ChatFrame,channel)--订购一个聊天框以显示先前加入的聊天频道
 	if PIG_MaxTocversion() then

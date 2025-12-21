@@ -45,8 +45,9 @@ function Fun.GetEquipmTXT(kaishi,jieshu)
     end
     return msg;
 end
+local PIGGetColorKey=Fun.PIGGetColorKey
 local function HY_ItemLinkJJ(ItemJJ)
-    local yes=ItemJJ:match("|cff%w%w%w%w%w%w|Hitem:")
+    local yes=ItemJJ:match("|"..PIGGetColorKey().."|Hitem:")
     if yes then
         return ItemJJ
     else
@@ -213,6 +214,7 @@ function Fun.HY_RuneTXT(msg)
     end
     return Data
 end
+
 --获取鼠标提示物品信息
 local MATCH_ITEM_LEVEL = ITEM_LEVEL:gsub('%%d', '(%%d+)')
 local MATCH_ITEM_LEVEL_ALT = ITEM_LEVEL_ALT:gsub('%%d(%s?)%(%%d%)', '%%d+%1%%((%%d+)%%)')
@@ -292,7 +294,7 @@ function Fun._GetItemLevel(unit,SlotID,SlotBut,itemLink)
     PIG_TooltipUI:ClearLines();
     local Iteminfo
     if unit=="lx" or unit=="yc" then
-        Iteminfo = PIG_TooltipUI:SetHyperlink(SlotBut.itemLink)
+        Iteminfo = PIG_TooltipUI:SetHyperlink(itemLink or SlotBut.itemLink)
     else
         Iteminfo = PIG_TooltipUI:SetInventoryItem(unit, SlotID)
     end
@@ -443,12 +445,29 @@ local GEM_EMPTY_SOCKET= {
     ["EMPTY_SOCKET_PUNCHCARD_YELLOW"] = 2958631, -- 铭文卡-黄色
     ["EMPTY_SOCKET_DOMINATION"] = 4095404, -- 支配插槽 (Domination)
     ["EMPTY_SOCKET_GREEN"] = 136256,  -- 蓝色槽常被用作绿色（旧版兼容）
+    ["EMPTY_SOCKET_FIBER"] = 136256,
 }
 function Fun._Get_GEM_EMPTY_SOCKET(key)
     if GEM_EMPTY_SOCKET[key] then
         return GEM_EMPTY_SOCKET[key]
     end
     return 55655
+end
+
+local QualityBorder={
+    [1]="loottoast-itemborder-white",
+    [2]="loottoast-itemborder-green",
+    [3]="loottoast-itemborder-blue",
+    [4]="loottoast-itemborder-purple",
+    [5]="loottoast-itemborder-orange",
+    [6]="loottoast-itemborder-gold",
+    [7]="loottoast-itemborder-heirloom",
+}
+function Fun.GetItemQualityBorder(id)
+    if QualityBorder[id] then
+        return QualityBorder[id]
+    end
+    return QualityBorder[1]
 end
 -- SetCVar("alwaysShowRuneIcons","1")
 -- print(GetCVar("alwaysShowRuneIcons"))

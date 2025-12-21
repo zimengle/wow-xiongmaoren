@@ -1,6 +1,7 @@
 
 local Details = _G.Details
 local detailsFramework = _G.DetailsFramework
+local Loc = _G.LibStub("AceLocale-3.0"):GetLocale("Details")
 local _
 local addonName, Details222 = ...
 local CreateFrame = CreateFrame
@@ -10,7 +11,7 @@ local load = loadstring
 function Details:InitializeRunCodeWindow()
     local detailsRunCodePanel = detailsFramework:CreateSimplePanel(UIParent, 700, 480, "Details! Run Code Automation", "DetailsRunCodePanel")
     detailsRunCodePanel.Frame = detailsRunCodePanel
-    detailsRunCodePanel.__name = "Auto Run Code"
+    detailsRunCodePanel.__name = Loc ["STRING_AUTO_RUN_CODE"] or "Auto Run Code"
     detailsRunCodePanel.real_name = "DETAILS_RUNCODEWINDOW"
     --DetailsRunCodePanel.__icon = [[Interface\AddOns\Details\images\lua_logo]]
     detailsRunCodePanel.__icon = [[Interface\AddOns\Details\images\run_code]]

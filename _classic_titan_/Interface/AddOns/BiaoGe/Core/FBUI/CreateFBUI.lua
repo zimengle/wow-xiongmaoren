@@ -80,8 +80,8 @@ function BG.CreateFBUI(FB, type)
                 BG[type .. "JinEUI"](FB, t, b, bb, i, ii)
                 BG[type .. "DiSeUI"](FB, t, b, bb, i, ii)
             end
-            BG[type .. "BossNameUI"](FB, t, b, bb, nil, ii)
-            BG[type .. "JiShaUI"](FB, t, b, bb, nil, ii)
+            BG["BossNameUI"](FB, t, b, bb, nil, ii, GetFrameName(type))
+            BG["JiShaUI"](FB, t, b, bb, nil, ii, GetFrameName(type))
         end
     end
 
@@ -114,7 +114,8 @@ function BG.CreateFBUI(FB, type)
                         BG.DuiZhangDiSeUI(FB, t, b, bb, i, ii)
                     end
                 end
-                BG.DuiZhangBossNameUI(FB, t, b, bb, nil, ii)
+                BG.BossNameUI(FB, t, b, bb, nil, ii, "DuiZhangFrame")
+                -- BG.DuiZhangBossNameUI(FB, t, b, bb, nil, ii)
             end
         end
     end
@@ -130,7 +131,7 @@ function BG.CreateFBUI(FB, type)
             BG[type .. "JinEUI"](FB, t, b, nil, i, ii)
             BG[type .. "DiSeUI"](FB, t, b, nil, i, ii)
         end
-        BG[type .. "BossNameUI"](FB, t, b, nil, nil, nil, GetFrameName(type))
+        BG["BossNameUI"](FB, t, b, nil, nil, nil, GetFrameName(type))
     end
 
     BG[type .. "ZhiChuZongLanGongZiUI"](FB)

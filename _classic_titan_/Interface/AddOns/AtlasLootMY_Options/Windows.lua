@@ -38,7 +38,7 @@ local orderNum = 0
 orderNum = orderNum + 1
 Options.config.args.windows.args.main = {
 	type = "group",
-	name = AL["AtlasLoot"],
+	name = AL["AtlasLoot - Titan"],
 	childGroups = "tab",
 	order = orderNum,
 	args = {
@@ -46,7 +46,7 @@ Options.config.args.windows.args.main = {
 			order = 1,
 			type = 'execute',
 			name = AL["Reset frame position"],
-			desc = format(AL["Reset position of the |cff33ff99\"%s\"|r window."], AL["AtlasLoot"]),
+			desc = format(AL["Reset position of the |cff33ff99\"%s\"|r window."], AL["AtlasLoot - Titan"]),
 			confirm = true,
 			func = AtlasLoot.GUI.ResetFrames,
 		},

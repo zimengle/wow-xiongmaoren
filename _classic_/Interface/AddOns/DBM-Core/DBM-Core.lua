@@ -76,17 +76,17 @@ end
 ---@class DBM
 local DBM = private:GetPrototype("DBM")
 _G.DBM = DBM
-DBM.Revision = parseCurseDate("20251101204125")
+DBM.Revision = parseCurseDate("20251204102536")
 DBM.TaintedByTests = false -- Tests may mess with some internal state, you probably don't want to rely on DBM for an important boss fight after running it in test mode
 
-local fakeBWVersion, fakeBWHash = 398, "3d79f92"--398.5
+local fakeBWVersion, fakeBWHash = 401, "34b582e"--401.4
 local PForceDisable
 -- The string that is shown as version
-DBM.DisplayVersion = "12.0.3"--Core version
+DBM.DisplayVersion = "12.0.8"--Core version
 DBM.classicSubVersion = 0
 DBM.dungeonSubVersion = 0
-DBM.ReleaseRevision = releaseDate(2025, 11, 1) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
-PForceDisable = 19--When this is incremented, trigger force disable regardless of major patch
+DBM.ReleaseRevision = releaseDate(2025, 12, 3) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
+PForceDisable = 20--When this is incremented, trigger force disable regardless of major patch
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
 -- support for github downloads, which doesn't support curse keyword expansion
@@ -216,6 +216,9 @@ DBM.DefaultOptions = {
 	HealthWarningLow = private.isHardcoreServer and true or false,
 	EnteringCombatAlert = false,
 	LeavingCombatAlert = false,
+	RaidDifficultyChangedAlert = true,
+	RaidDifficultyChangedAlertRaidOnly = true,
+	DungeonDifficultyChangedAlert = false,
 	AutoReplySound = true,
 	HideObjectivesFrame = true,
 	HideGarrisonToasts = true,
@@ -1317,6 +1320,13 @@ do
 		UNIT_AURA						= true,
 		UNIT_AURA_UNFILTERED			= true,
 		COMBAT_LOG_EVENT_UNFILTERED		= true,
+		CHAT_MSG_MONSTER_YELL			= true,
+		CHAT_MSG_MONSTER_SAY			= true,
+		CHAT_MSG_MONSTER_EMOTE			= true,
+		CHAT_MSG_RAID_BOSS_EMOTE		= true,
+		CHAT_MSG_RAID_BOSS_WHISPER		= true,
+		RAID_BOSS_EMOTE					= true,
+		RAID_BOSS_WHISPER				= true,
 	}
 
 	-- UNIT_* events are special: they can take 'parameters' like this: "UNIT_HEALTH boss1 boss2" which only trigger the event for the given unit ids
@@ -1758,9 +1768,12 @@ do
 			end
 			--Force show timeline or else we can't start timers because it won't fire events
 			if self:IsPostMidnight() then
-				C_CVar.SetCVar("encounterTimelineEnabled", "1")
 				if self.Options.HideBlizzardTimeline then
-					EncounterTimeline.TimelineView:SetScript("OnShow", function(self) self:Hide() end)
+					C_CVar.SetCVar("encounterTimelineEnabled", "0")
+					EncounterTimeline.View:Hide()
+				end
+				if self.Options.HideBossEmoteFrame2 then
+					C_CVar.SetCVar("encounterWarningsEnabled", "0")
 				end
 			else
 				--Only mess with sound channels if NOT midnight, since it's not like we need the sound channels anymore
@@ -1994,7 +2007,8 @@ do
 				self:RegisterEvents(
 					"ENCOUNTER_TIMELINE_EVENT_ADDED",
 					"ENCOUNTER_TIMELINE_EVENT_REMOVED",
-					"ENCOUNTER_TIMELINE_EVENT_STATE_CHANGED"
+					"ENCOUNTER_TIMELINE_EVENT_STATE_CHANGED",
+					"ENCOUNTER_WARNING"
 				)
 			end
 			if not private.isClassic then -- Retail, WoTLKC, and BCC
@@ -2007,8 +2021,9 @@ do
 			end
 			if private.isRetail then
 				self:RegisterEvents(
---					"UNIT_HEALTH mouseover target focus player",--Base is Frequent on retail, and _FREQUENT deleted
 					"CHALLENGE_MODE_RESET",
+					"PLAYER_DIFFICULTY_CHANGED",
+					"GROUP_JOINED",
 					"PLAYER_SPECIALIZATION_CHANGED",
 					"SCENARIO_COMPLETED",
 					"GOSSIP_SHOW",
@@ -3549,6 +3564,52 @@ function DBM:PLAYER_LEVEL_CHANGED()
 	end
 end
 
+do
+	local difficutlyToText = {
+		[1] = PLAYER_DIFFICULTY1,--Normal (Dungeon)
+		[2] = PLAYER_DIFFICULTY2,--Heroic (Dungeon)
+		[14] = PLAYER_DIFFICULTY1,--Normal (Raid)
+		[15] = PLAYER_DIFFICULTY2,--Heroic (Raid)
+		[16] = PLAYER_DIFFICULTY6,--Mythic (Raid)
+		[23] = PLAYER_DIFFICULTY6,--Mythic (Dungeon)
+	}
+	local lastRaidDifficulty = GetRaidDifficultyID() or -1
+	local lastDungeonDifficulty = GetDungeonDifficultyID() or -1
+	function DBM:PLAYER_DIFFICULTY_CHANGED(force)
+		if not IsInGroup() then return end
+		--Filter queued or solo content sitations showing difficulty change alerts
+		if IsPartyLFG() or difficulties.difficultyIndex == 205 or difficulties:InstanceType(LastInstanceMapID) == 4 then return end--Follower dungeon and delves
+		--Also supress alerts if in any LFG queue state
+		if GetLFGMode(1) or GetLFGMode(2) or GetLFGMode(3) or GetLFGMode(4) or GetLFGMode(5) then return end
+		local currentRaidDifficulty = GetRaidDifficultyID()
+		local currentDungeonDifficulty = GetDungeonDifficultyID()
+		if (currentRaidDifficulty ~= lastRaidDifficulty) or force then
+			lastRaidDifficulty = currentRaidDifficulty
+			if not self.Options.RaidDifficultyChangedAlertRaidOnly or IsInRaid() then
+				if self.Options.RaidDifficultyChangedAlert and self:AntiSpam(5, "raiddiffchanged", currentRaidDifficulty) then
+					if difficutlyToText[currentRaidDifficulty] then
+						self:AddWarning(L.RAID_DIFFICULTY_CHANGED:format(difficutlyToText[currentRaidDifficulty]), nil, nil, true, true, 3.5)
+					end
+				end
+			end
+		end
+		if not IsInRaid() then--If we're in raid we definitely don't care about dungeons
+			if (currentDungeonDifficulty ~= lastDungeonDifficulty) or force then
+				lastDungeonDifficulty = currentDungeonDifficulty
+				if self.Options.DungeonDifficultyChangedAlert and self:AntiSpam(5, "dungeondiffchanged", currentDungeonDifficulty) then
+					if difficutlyToText[currentDungeonDifficulty] then
+						self:AddWarning(L.DUNGEON_DIFFICULTY_CHANGED:format(difficutlyToText[currentDungeonDifficulty]), nil, nil, true, true, 3.5)
+					end
+				end
+			end
+		end
+	end
+
+	function DBM:GROUP_JOINED()
+		self:PLAYER_DIFFICULTY_CHANGED(true)
+	end
+end
+
 function DBM:LoadAllModDefaultOption(modId)
 	-- modId is string like "DBM-Highmaul"
 	if not modId or not self.ModLists[modId] then return end
@@ -4324,15 +4385,6 @@ do
 		end
 	end
 
-	--Zones that change without loading screen
-	local specialZoneIDs = {
-		[2454] = true,--Zaralek Caverns
-		[2574] = true,--Dragon Isles
-		[2444] = true,--Dragon Isles
---		[2601] = true,--Khaz Algar (Underground)
---		[2774] = true,--Khaz Algar (Underground)
---		[2552] = true,--Khaz Algar (Surface)
-	}
 	local sodLevelUpRaids = {[48] = true, [90] = true, [109] = true}
 
 	-- Load based on MapIDs
@@ -4502,10 +4554,10 @@ function DBM:LoadMod(mod, force, enableTestSupport)
 		if LastInstanceType ~= "pvp" and #inCombat == 0 and IsInGroup() then--do timer recovery only mod load
 			if not timerRequestInProgress then
 				timerRequestInProgress = true
-				--if self:IsPostMidnight() then--TODO, see if needed, blizzard timeline might already resend added events
+				if self:IsPostMidnight() then--TODO, see if needed, blizzard timeline might already resend added events
 				--	--Request timeline timers from API
-				--	self:RecoverBlizzardTimers()
-				--end
+					self:RecoverBlizzardTimers()
+				end
 				-- Request timer to 3 person to prevent failure.
 				self:Unschedule(self.RequestTimers)
 				if not self:MidRestrictionsActive() then
@@ -4730,7 +4782,11 @@ do
 		DBM:Debug(name .. " was elected icon setter for " .. optionName, 2)
 	end
 
-	syncHandlers["K"] = function(_, _, cId)
+	syncHandlers["K"] = function(_, _, cId, difficulty)
+		if not difficulty then return end
+		difficulty = tonumber(difficulty)
+		--Ignore kill events sent from wrong difficulty (such as a player doing same raid at same time in another difficulty)
+		if difficulty ~= difficulties.difficultyIndex then return end
 		if select(2, IsInInstance()) == "pvp" or select(2, IsInInstance()) == "none" then return end
 		cId = tonumber(cId or "")
 		if cId then DBM:OnMobKill(cId, true) end
@@ -4807,10 +4863,15 @@ do
 				dummyMod.timer:Start(timer, L.TIMER_PULL)
 			end
 			if not self.Options.DontShowPTText and timer then
-				local target = unitId and DBM:GetUnitFullName(unitId.."target")
-				if target and not raid[target] then
-					dummyMod.text:Show(L.ANNOUNCE_PULL_TARGET:format(target, timer, sender))
-					dummyMod.text:Schedule(timer, L.ANNOUNCE_PULL_NOW_TARGET:format(target))
+				if not self:IsPostMidnight() then
+					local target = unitId and DBM:GetUnitFullName(unitId.."target")
+					if target and not raid[target] then
+						dummyMod.text:Show(L.ANNOUNCE_PULL_TARGET:format(target, timer, sender))
+						dummyMod.text:Schedule(timer, L.ANNOUNCE_PULL_NOW_TARGET:format(target))
+					else
+						dummyMod.text:Show(L.ANNOUNCE_PULL:format(timer, sender))
+						dummyMod.text:Schedule(timer, L.ANNOUNCE_PULL_NOW)
+					end
 				else
 					dummyMod.text:Show(L.ANNOUNCE_PULL:format(timer, sender))
 					dummyMod.text:Schedule(timer, L.ANNOUNCE_PULL_NOW)
@@ -5686,7 +5747,7 @@ do
 			local v = inCombat[i]
 			if not v.combatInfo then return end
 			if v.noEEDetection then return end
-			if v.respawnTime and success == 0 then--No special hacks needed for bad wrath ENCOUNTER_END. Only mods that define respawnTime have a timer, since variable per boss.
+			if not self:IsPostMidnight() and v.respawnTime and success == 0 then--No special hacks needed for bad wrath ENCOUNTER_END. Only mods that define respawnTime have a timer, since variable per boss.
 				local timerEnabled = self.Options.ShowRespawn and not self.Options.DontShowEventTimers
 				name = string.split(",", name)
 				if timerEnabled then
@@ -6662,7 +6723,7 @@ function DBM:OnMobKill(cId, synced)
 		if v.combatInfo.noBossDeathKill then return end
 		if v.combatInfo.killMobs and v.combatInfo.killMobs[cId] then
 			if not synced then
-				sendSync(DBMSyncProtocol, "K", cId, "ALERT")
+				sendSync(DBMSyncProtocol, "K", cId .. "\t" .. difficulties.difficultyIndex, "ALERT")
 			end
 			v.combatInfo.killMobs[cId] = false
 			if v.numBoss and (v.vb.bossLeft or 0) > 0 then
@@ -6681,7 +6742,7 @@ function DBM:OnMobKill(cId, synced)
 			end
 		elseif cId == v.combatInfo.mob and not v.combatInfo.killMobs and not v.combatInfo.multiMobPullDetection then
 			if not synced then
-				sendSync(DBMSyncProtocol, "K", cId, "ALERT")
+				sendSync(DBMSyncProtocol, "K", cId .. "\t" .. difficulties.difficultyIndex, "ALERT")
 			end
 			self:EndCombat(v, nil, nil, "Main CID Down")
 		end
@@ -7682,17 +7743,29 @@ end
 --  Misc. Functions  --
 -----------------------
 ---@param self DBMModOrDBM
-function DBM:AddMsg(text, prefix, useSound, allowHiddenChatFrame, isDebug)
+---@param text string
+---@param prefix string|boolean?
+---@param useSound boolean?
+---@param allowHiddenChatFrame boolean?
+---@param isDebug boolean? Used to play debug sounds on timer refresh warnings
+---@param customColor number? Custom color index from WarningColors table
+function DBM:AddMsg(text, prefix, useSound, allowHiddenChatFrame, isDebug, customColor)
 	---@diagnostic disable-next-line: undefined-field
 	local tag = prefix or (self.localization and self.localization.general.name) or L.DBM
 	local frame = DBM.Options.ChatFrame and _G[tostring(DBM.Options.ChatFrame)] or DEFAULT_CHAT_FRAME
 	if not frame or not frame:IsShown() and not allowHiddenChatFrame then
 		frame = DEFAULT_CHAT_FRAME
 	end
-	if prefix ~= false then
-		frame:AddMessage(("|cffff7d0a<|r|cffffd200%s|r|cffff7d0a>|r %s"):format(tostring(tag), tostring(text)), 0.41, 0.8, 0.94)
+	local red, green, blue
+	if customColor then
+		red, green, blue = DBM.Options.WarningColors[customColor].r, DBM.Options.WarningColors[customColor].g, DBM.Options.WarningColors[customColor].b
 	else
-		frame:AddMessage(text, 0.41, 0.8, 0.94)
+		red, green, blue = 0.41, 0.8, 0.94
+	end
+	if prefix ~= false then
+		frame:AddMessage(("|cffff7d0a<|r|cffffd200%s|r|cffff7d0a>|r %s"):format(tostring(tag), tostring(text)), red, green, blue)
+	else
+		frame:AddMessage(text, red, green, blue)
 	end
 	if DBM.Options.DebugSound and isDebug then
 		DBM:PlaySoundFile(567458)--"Ding"
@@ -8319,7 +8392,7 @@ do
 	---@param cIdOrGUID number|string
 	---@param onlyHighest boolean?
 	function DBM:GetBossHP(cIdOrGUID, onlyHighest)
-		if self:MidRestrictionsActive() then
+		if self:IsPostMidnight() then
 			bossHealth[cIdOrGUID] = UnitHealthPercent("boss1", nil, true)
 		else
 			local uId = bossHealthuIdCache[cIdOrGUID] or "target"
@@ -8403,7 +8476,7 @@ do
 	end
 
 	function DBM:GetBossHPByUnitID(uId)
-		if self:MidRestrictionsActive() then
+		if self:IsPostMidnight() then
 			local hp = UnitHealthPercent(uId, nil, true)
 			bossHealth[uId] = hp
 			return hp, uId, DBM_COMMON_L.UNKNOWN
@@ -8429,7 +8502,7 @@ do
 	end
 
 	function bossModPrototype:GetHighestBossHealth()
-		if self:MidRestrictionsActive() then
+		if self:IsPostMidnight() then
 			return bossHealth[self.combatInfo.mob or -1]
 		end
 		local hp
@@ -8449,7 +8522,7 @@ do
 	end
 
 	function bossModPrototype:GetLowestBossHealth()
-		if self:MidRestrictionsActive() then
+		if self:IsPostMidnight() then
 			return bossHealth[self.combatInfo.mob or -1]
 		end
 		local hp
@@ -9430,7 +9503,7 @@ function bossModPrototype:ReceiveSync(event, sender, revision, ...)
 	end
 end
 
----@param revision number|string Either a number in the format "202101010000" (year, month, day, hour, minute) or string "20251101204125" to be auto set by packager
+---@param revision number|string Either a number in the format "202101010000" (year, month, day, hour, minute) or string "20251204102536" to be auto set by packager
 function bossModPrototype:SetRevision(revision)
 	revision = parseCurseDate(revision or "")
 	if not revision or type(revision) == "string" then

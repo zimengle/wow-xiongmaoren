@@ -2051,7 +2051,12 @@ local SimplePanel_frame_backdrop_border_color = {0, 0, 0, 1}
 ---@field thumb texture
 function detailsFramework:CreateScaleBar(frame, config, bNoRightClick) --~scale
 	---@type df_scalebar
-	local scaleBar, text = detailsFramework:CreateSlider(frame, 120, 14, 0.6, 1.6, 0.1, config.scale, true, "ScaleBar", nil, "Scale:", detailsFramework:GetTemplate("slider", "OPTIONS_SLIDER_TEMPLATE"), detailsFramework:GetTemplate("font", "ORANGE_FONT_TEMPLATE"))
+	local scaleText = "Scale:"
+	local DetailsLoc = LibStub("AceLocale-3.0", true) and LibStub("AceLocale-3.0"):GetLocale("Details", true)
+	if (DetailsLoc and DetailsLoc ["STRING_SCALE"]) then
+		scaleText = DetailsLoc ["STRING_SCALE"]
+	end
+	local scaleBar, text = detailsFramework:CreateSlider(frame, 120, 14, 0.6, 1.6, 0.1, config.scale, true, "ScaleBar", nil, scaleText, detailsFramework:GetTemplate("slider", "OPTIONS_SLIDER_TEMPLATE"), detailsFramework:GetTemplate("font", "ORANGE_FONT_TEMPLATE"))
 	scaleBar.thumb:SetWidth(24)
 	scaleBar:SetValueStep(0.05)
 	scaleBar:SetObeyStepOnDrag(true)
@@ -5010,9 +5015,20 @@ end
 ]]
 
 function detailsFramework:BuildStatusbarAuthorInfo(f, addonBy, authorsNameString)
-	local authorName = detailsFramework:CreateLabel(f, "" .. (addonBy or "An addon by ") .. "|cFFFFFFFF" .. (authorsNameString or "Terciob") .. "|r")
+	local DetailsLoc = LibStub("AceLocale-3.0", true) and LibStub("AceLocale-3.0"):GetLocale("Details", true)
+	local addonByText = "An addon by "
+	local discordText = "Discord: "
+	if (DetailsLoc) then
+		if (DetailsLoc ["STRING_ADDON_BY"]) then
+			addonByText = DetailsLoc ["STRING_ADDON_BY"]
+		end
+		if (DetailsLoc ["STRING_DISCORD"]) then
+			discordText = DetailsLoc ["STRING_DISCORD"]
+		end
+	end
+	local authorName = detailsFramework:CreateLabel(f, "" .. (addonBy or addonByText) .. "|cFFFFFFFF" .. (authorsNameString or "Terciob") .. "|r")
 	authorName.textcolor = "silver"
-	local discordLabel = detailsFramework:CreateLabel(f, "Discord: ")
+	local discordLabel = detailsFramework:CreateLabel(f, discordText)
 	discordLabel.textcolor = "silver"
 
 	local options_dropdown_template = detailsFramework:GetTemplate("dropdown", "OPTIONS_DROPDOWN_TEMPLATE")

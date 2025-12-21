@@ -1436,7 +1436,7 @@
 						tooltip:AddLine(Loc ["STRING_MINIMAP_TOOLTIP12"])
 					end
 					tooltip:AddLine(Loc ["STRING_MINIMAP_TOOLTIP2"])
-					tooltip:AddLine("|cFFCFCFCFctrl + left click|r: show/hide windows")
+					tooltip:AddLine(Loc ["STRING_MINIMAP_TOOLTIP3"])
 				end,
 			})
 
@@ -1531,7 +1531,7 @@
 function Details:InitializeAPIWindow()
 	local DetailsAPI2Frame = gump:CreateSimplePanel(UIParent, 700, 480, "Details! API", "DetailsAPI2Frame")
 	DetailsAPI2Frame.Frame = DetailsAPI2Frame
-	DetailsAPI2Frame.__name = "API"
+	DetailsAPI2Frame.__name = Loc ["STRING_API"] or "API"
 	DetailsAPI2Frame.real_name = "DETAILS_APIWINDOW"
 	DetailsAPI2Frame.__icon = [[Interface\AddOns\Details\images\icons]]
 	DetailsAPI2Frame.__iconcoords = {449/512, 480/512, 62/512, 83/512}

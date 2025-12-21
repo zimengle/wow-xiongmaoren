@@ -18,23 +18,32 @@ local function MouseXY()
 end
 function Mapfun.WorldMap_XY()
 	if not PIGA["Map"]["WorldMapXY"] then return end
-	local mapxydata = {["Parent"]=WorldMapScrollChild,["WWW"]=300,["FontSize"]=11,["Point"]={"BOTTOM","BOTTOM",0,-4}}
+	local mapxydata = {}
 	if PIG_MaxTocversion(30000) then
 		mapxydata.Parent=WorldMapFrame
 		mapxydata.WWW=400
 		mapxydata.FontSize=13
-		mapxydata.Point={"BOTTOM","BOTTOM",0,4.4}
+		mapxydata.Point={"BOTTOM","BOTTOM",0,6}
 	elseif PIG_MaxTocversion(40000) then
 		mapxydata.Parent=WorldMapFrame
 		mapxydata.WWW=400
-		mapxydata.FontSize=12
-		mapxydata.Point={"BOTTOM","BOTTOM",26,4.4}
+		mapxydata.FontSize=14
+		mapxydata.Point={"BOTTOM","BOTTOM",22,6}
+	elseif PIG_MaxTocversion(60000) then
+		mapxydata.Parent=WorldMapFrame
+		mapxydata.WWW=400
+		mapxydata.FontSize=14
+		mapxydata.Point={"BOTTOM","BOTTOM",0,6}
+	else
+		mapxydata.Parent=WorldMapScrollChild
+		mapxydata.WWW=400
+		mapxydata.FontSize=20
+		mapxydata.Point={"TOP","TOP",-10,-1}
 	end
 	local zuobiaoXYFFF = CreateFrame("Frame", nil, mapxydata.Parent);
-	zuobiaoXYFFF:SetSize(mapxydata.WWW,24);
+	zuobiaoXYFFF:SetSize(mapxydata.WWW,22);
 	zuobiaoXYFFF:SetPoint(mapxydata.Point[1], mapxydata.Parent,mapxydata.Point[2],mapxydata.Point[3],mapxydata.Point[4]);
 	zuobiaoXYFFF:SetFrameLevel(3000)
-	zuobiaoXYFFF:SetIgnoreParentScale(true)
 	zuobiaoXYFFF.zuobiaoX = PIGFontString(zuobiaoXYFFF,{"LEFT", zuobiaoXYFFF, "LEFT", 0, 0},"玩家 X:","OUTLINE",mapxydata.FontSize)
 	zuobiaoXYFFF.zuobiaoX:SetTextColor(0, 1, 0, 1);
 	zuobiaoXYFFF.zuobiaoXV = PIGFontString(zuobiaoXYFFF,{"LEFT", zuobiaoXYFFF.zuobiaoX, "RIGHT", 0, 0},"","OUTLINE",mapxydata.FontSize+1)
@@ -77,7 +86,6 @@ if PIG_MaxTocversion() then
 		if not PIGA["Map"]["WorldMapWind"] then return end
 		if PIG_MaxTocversion() then
 			---SetCVar("miniWorldMap", 0)
-			UIPanelWindows["WorldMapFrame"] = nil
 			WorldMapFrame:SetIgnoreParentScale(false)
 			WorldMapFrame.ScrollContainer.GetCursorPosition = function(f)
 			    local x,y = MapCanvasScrollControllerMixin.GetCursorPosition(f);
@@ -87,12 +95,6 @@ if PIG_MaxTocversion() then
 			hooksecurefunc(WorldMapFrame.BlackoutFrame, "Show", function()
 				WorldMapFrame.BlackoutFrame:Hide()
 			end)
-			local PIG_SetPoint=Create.PIG_SetPoint
-			hooksecurefunc(WorldMapFrame, "OnFrameSizeChanged", function(self)
-				if PIGA["Blizzard_UI"]["WorldMapFrame"] and PIGA["Blizzard_UI"]["WorldMapFrame"]["Point"] then
-					PIG_SetPoint("WorldMapFrame",true)
-				end
-			end)
 		end
 	end
 	---
@@ -101,6 +103,7 @@ if PIG_MaxTocversion() then
 		local floor = math.floor
 		local format = string.format
 		local zoneData=addonTable.Mapfun.zoneData
+		local playerLevel = UnitLevel("player")
 		local AreaLabel_OnUpdate = function(self)
 			self:SetScale(0.6)
 			self:ClearLabel(MAP_AREA_LABEL_TYPE.AREA_NAME)
@@ -113,13 +116,21 @@ if PIG_MaxTocversion() then
 					local positionMapInfo = C_Map.GetMapInfoAtPosition(mapID, normalizedCursorX, normalizedCursorY)	
 					if (positionMapInfo and (positionMapInfo.mapID ~= mapID)) then
 						name = positionMapInfo.name
-						local playerMinLevel, playerMaxLevel, playerminFish, playerFaction
-						--local playerMinLevel, playerMaxLevel, petMinLevel, petMaxLevel = C_Map.GetMapLevels(positionMapInfo.mapID)
-						if (zoneData[positionMapInfo.mapID]) then
+						if not name or name=="" or name==" " then return end
+						local playerMinLevel, playerMaxLevel, playerminFish, playerFaction, petMinLevel, petMaxLevel
+						if PIG_MaxTocversion(40000) and zoneData[positionMapInfo.mapID] then
 							playerMinLevel = zoneData[positionMapInfo.mapID].min
 							playerMaxLevel = zoneData[positionMapInfo.mapID].max
 							playerminFish = zoneData[positionMapInfo.mapID].minFish
 							playerFaction = zoneData[positionMapInfo.mapID].faction
+						else
+							if C_Map and C_Map.GetMapLevels then
+								local _playerMinLevel, _playerMaxLevel, _petMinLevel, _petMaxLevel = C_Map.GetMapLevels(positionMapInfo.mapID)
+								playerMinLevel = _playerMinLevel or 1
+								playerMaxLevel = _playerMaxLevel or 1
+								petMinLevel = _petMinLevel or 1
+								petMaxLevel = _petMaxLevel or 1
+							end
 						end
 						if (playerFaction) then 
 							local englishFaction, localizedFaction = UnitFactionGroup("player")
@@ -134,8 +145,7 @@ if PIG_MaxTocversion() then
 								description = "|cffFF0000" .. description .. "|r"
 							end 
 						end
-						if (name and playerMinLevel and playerMaxLevel and (playerMinLevel > 0) and (playerMaxLevel > 0)) then
-							local playerLevel = UnitLevel("player")
+						if PIGA["Map"]["WorldMapLV"] and playerMinLevel and playerMaxLevel and playerMinLevel>0 and playerMaxLevel>0 then
 							local colorbb="|cffFFFF00"
 							if (playerLevel < playerMinLevel) then
 								colorbb="|cffFF0000"
@@ -144,13 +154,14 @@ if PIG_MaxTocversion() then
 							elseif (playerLevel > playerMaxLevel) then
 								colorbb="|cff00FF00"
 							end
-							if PIGA["Map"]["WorldMapLV"] then
-								name = name..colorbb.." ("..playerMinLevel.."-"..playerMaxLevel..")|r"
+							name = name..colorbb.." ("..playerMinLevel.."-"..playerMaxLevel..")|r"
+						end
+						if PIGA["Map"]["WorldMapSkill"] then
+							if playerminFish then
+								name = name.."\n渔点|cff00FFFF("..playerminFish..")|r"
 							end
-							if PIGA["Map"]["WorldMapSkill"] then
-								if playerminFish then
-									name = name.."\n渔点|cff00FFFF("..playerminFish..")|r"
-								end
+							if petMinLevel and petMaxLevel and petMinLevel>0 and petMaxLevel>0 then
+								name = name.."\n宠物|cff00FFFF("..petMinLevel.."-"..petMaxLevel..")|r"
 							end
 						end
 					else

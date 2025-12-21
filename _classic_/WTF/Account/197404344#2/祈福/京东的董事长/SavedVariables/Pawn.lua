@@ -1,6 +1,6 @@
 
 PawnOptions = {
-["LastVersion"] = 2.1109,
+["LastVersion"] = 2.1201,
 ["LastPlayerFullName"] = "京东的董事长-祈福",
 ["AutoSelectScales"] = true,
 ["AutoSelectScalesEnabledOnce"] = true,

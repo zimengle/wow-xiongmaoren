@@ -4,6 +4,8 @@ AtlasLoot.AtlasLootDBDefaults = {
 		-- tooltip
 		showTooltipInfoGlobal = false,
 		showIDsInTT = false,
+		showItemLvlOnIcon =false,
+		standaloneMinimapIcon=true,
 		showItemLvlInTT = true,
 		showCompanionLearnedInfo = true,
 		showLvlRange = true,

@@ -120,10 +120,3 @@
 		</Scripts>
 	</EditBox>
 </Ui>
-
-<!-- 
-common-search-border-left
-common-search-border-right
-common-search-border-middle
-<Texture parentKey="Left" atlas="common-gray-button-entrybox-left" useAtlasSize="false">
- -->

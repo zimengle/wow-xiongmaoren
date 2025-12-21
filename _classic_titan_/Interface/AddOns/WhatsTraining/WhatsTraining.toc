@@ -1,6 +1,6 @@
 ## Interface: 38000
 ## Title: What's Training? |cff99ddff谷|r|cff88ccee风|r|cff77bbdd修|r|cff66aacc复|r|cff5599bb版|r
-## Version: 3.80.02
+## Version: 3.80.03
 ## Author: Sveng
 ## Notes: Shows you what spells are available at your class trainer
 ## Notes-zhCN: 显示你在职业训练师处可学习的法术

@@ -96,12 +96,124 @@ function Button:CreateFormatTable(tab)
 	for i = 1,#STANDART_TABLE do tab[#tab+1] = STANDART_TABLE[i] end
 	return tab
 end
-
+ function GetItemNameFromLink(itemLink)
+    if not itemLink then
+        return nil
+    end
+    
+    -- itemlink格式: |cff9d9d9d|Hitem:6948::::::::60:::::::|h[炉石]|h|r
+    -- 我们要提取 [] 中的内容
+    
+    -- 简单正则匹配
+    local itemName = string.match(itemLink, "%|h%[(.-)%]%|h")
+    
+    -- 如果上面的匹配失败，尝试其他可能的格式
+    if not itemName then
+        -- 尝试其他可能的格式
+        itemName = string.match(itemLink, ".*%[(.*)%].*")
+    end
+    
+    return itemName
+end
+function CreateCopyStringFrame()
+    -- 创建主框架
+    local frame = CreateFrame("Frame", "CopyStringFrame", UIParent, "BackdropTemplate")
+    frame:SetSize(400, 150)
+    frame:SetPoint("CENTER",0,150)
+    frame:SetBackdrop({
+        bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
+        edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
+        tile = true, tileSize = 32, edgeSize = 32,
+        insets = { left = 11, right = 12, top = 12, bottom = 11 }
+    })
+    frame:SetBackdropColor(0, 0, 0, 0.95)
+    frame:SetFrameStrata("DIALOG")
+    frame:Hide()
+    
+    -- 可拖动
+    frame:EnableMouse(true)
+    frame:SetMovable(true)
+    frame:RegisterForDrag("LeftButton")
+    frame:SetScript("OnDragStart", frame.StartMoving)
+    frame:SetScript("OnDragStop", frame.StopMovingOrSizing)
+    
+    -- 标题
+    local title = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    title:SetPoint("TOP", 0, -15)
+    title:SetText("请手动复制名称手动拷贝到拍卖行-自动填入会导致拍卖行出错")
+    
+    -- 编辑框
+    local editBox = CreateFrame("EditBox", nil, frame, "InputBoxTemplate")
+    editBox:SetSize(360, 30)
+    editBox:SetPoint("CENTER", 0, 10)
+    editBox:SetAutoFocus(false)
+    editBox:SetTextInsets(5, 5, 0, 0)
+	editBox:SetScript("onTextChanged",function() 
+		if #editBox:GetText() ==0 then
+			frame:Hide()
+		end
+	end)
+    
+    -- 编辑框文字
+    editBox:SetFontObject("GameFontHighlight")
+	  -- 编辑框
+    -- 复制按钮
+    local copyButton = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
+    copyButton:SetSize(80, 25)
+    copyButton:SetPoint("BOTTOMRIGHT", -100, 20)
+    copyButton:SetText("复制")
+    
+    copyButton:SetScript("OnClick", function()
+        editBox:SetFocus()
+        editBox:HighlightText()
+        -- 显示复制成功提示
+        UIErrorsFrame:AddMessage("字符串已选中，按Ctrl+C或Ctrl+X复制", 1.0, 1.0, 1.0)
+    end)
+    
+    -- 关闭按钮
+    local closeButton = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
+    closeButton:SetSize(80, 25)
+    closeButton:SetPoint("BOTTOMRIGHT", -10, 20)
+    closeButton:SetText("关闭")
+    
+    closeButton:SetScript("OnClick", function()
+        frame:Hide()
+    end)
+    
+    -- 将框架和编辑框存储到全局变量以便访问
+    frame.editBox = editBox
+    
+    return frame
+end
+local CopyStringDialog
+-- 显示字符串复制对话框
+function ShowCopyStringDialog(textToCopy)
+    -- 创建或获取框架
+    if not CopyStringDialog then
+        CopyStringDialog = CreateCopyStringFrame()
+    end
+    
+    -- 设置要复制的文本
+    CopyStringDialog.editBox:SetText(textToCopy or "")
+    
+    -- 显示框架
+    CopyStringDialog:Show()
+    
+    -- 自动选中所有文本以便复制
+    CopyStringDialog.editBox:SetFocus()
+    CopyStringDialog.editBox:HighlightText()
+end
 function Button:AddChatLink(link)
-	if ChatFrameEditBox and ChatFrameEditBox:IsVisible() then
-		ChatFrameEditBox:Insert(link)
-	else
-		ChatEdit_InsertLink(link)
+	if ChatFrame1EditBox and ChatFrame1EditBox:IsVisible() then
+		ChatFrame1EditBox:Insert(link)
+	else 
+		if AuctionFrame and AuctionFrame:IsVisible() then
+			ShowCopyStringDialog(GetItemNameFromLink(link))
+		else
+			ChatEdit_InsertLink(link)
+		end
+		
+		--ChatEdit_InsertLink(link)
 	end
 end
 
@@ -315,6 +427,18 @@ function Button:Create()
 	button.name.Ori_SetText = button.name.SetText
 	button.name.SetText = Button_ForceSetText
 
+	button.ilvl = button:CreateFontString(buttonName.."_name", "ARTWORK", "GameFontNormal")
+	button.ilvl:SetPoint("TOPLEFT", button.icon, 0, 0)
+	button.ilvl:SetJustifyH("LEFT")
+	local font,size=button.ilvl:GetFont()
+	button.ilvl:SetFont(font,10,"OUTLINE,THICK")
+	button.ilvl:SetSpacing(0)
+	button.ilvl:SetText("")
+	button.ilvl:SetWidth(230)
+	button.ilvl:SetHeight(10)
+	button.ilvl.Ori_SetText = button.ilvl.SetText
+	button.ilvl.SetText = Button_ForceSetText
+
 	-- ExtraText <FontString>
 	button.extra = button:CreateFontString(buttonName.."_extra", "ARTWORK", "GameFontNormalSmall")
 	button.extra:SetPoint("TOPLEFT", button.name, "BOTTOMLEFT", 0, -1)
@@ -475,7 +599,14 @@ function Button:CreateSecOnly(frame)
 	button.secButton.qualityBorder:SetTexture("Interface\\Common\\WhiteIconFrame")
 	button.secButton.qualityBorder:Hide()
 	]]--
-
+	button.secButton.ilvl = button.secButton:CreateFontString(buttonName.."_name", "ARTWORK", "GameFontNormal")
+	button.secButton.ilvl:SetPoint("TOPLEFT", button.secButton.icon, 0, 0)
+	button.secButton.ilvl:SetJustifyH("LEFT")
+	local font,size=button.secButton.ilvl:GetFont()
+	button.secButton.ilvl:SetFont(font,10,"OUTLINE,THICK")
+	button.secButton.ilvl:SetText("")
+	button.secButton.ilvl:SetWidth(230)
+	button.secButton.ilvl:SetHeight(10)
 	-- secButtonMini <texture>
 	button.secButton.mini = button.secButton:CreateTexture(buttonName.."_secButtonMini", "ARTWORK")
 	button.secButton.mini:SetDrawLayer(button.secButton.icon:GetDrawLayer(), 1)

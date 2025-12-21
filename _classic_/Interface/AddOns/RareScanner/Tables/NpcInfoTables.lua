@@ -1000,8 +1000,8 @@ private.NPC_INFO = {
 	[70003] = { zoneID = 504, artID = { 521 }, x = 5959, y = 3613, overlay = { "5940-3640","6340-4900" }, displayID = 47900, event = 5 }; --Molthor <The Gatekeeper>
 	[70530] = { zoneID = 504, artID = { 521 }, x = 3960, y = 8120, overlay = { "3940-8140" }, displayID = 48097, event = 5 }; --Ra'sha <Tender of Sacrifices>
 	[70001] = { zoneID = 505, artID = { 522 }, x = 4459, y = 4100, overlay = { "3480-2720","3520-2560","3800-2680","4220-3220","4260-3380","4280-2900","4440-3660","4460-4100" }, displayID = 47810, event = 2 }; --Backbreaker Uru
-	[69161] = { zoneID = 507, artID = { 524 }, x = 5002, y = 5832, overlay = { "4990-5400","5002-5832" }, displayID = 47257, questReset = true, questID = { 32519 }, event = 4 }; --null
-	[70096] = { zoneID = 507, artID = { 524 }, x = 7860, y = 8060, overlay = { "7640-8340","7740-8240","7760-8020","7800-8380","7820-8140" }, displayID = 47868, event = 4 }; --War-God Dokah <Ward of Beasts>
+	[69161] = { zoneID = 507, artID = { 524 }, x = 5002, y = 5832, overlay = { "4990-5400","5002-5832" }, displayID = 47257, questReset = true, questID = { 32519 }, event = 5 }; --null
+	[70096] = { zoneID = 507, artID = { 524 }, x = 7860, y = 8060, overlay = { "7640-8340","7740-8240","7760-8020","7800-8380","7820-8140" }, displayID = 47868, event = 5 }; --War-God Dokah <Ward of Beasts>
 	[70440] = { zoneID = 508, artID = { 525 }, x = 5951, y = 7952, overlay = { "5951-7952" }, displayID = 48053, event = 2 }; --Monara <The Last Queen>
 	[70276] = { zoneID = 509, artID = { 526 }, x = 2770, y = 1990, overlay = { "6053-1990" }, displayID = 47975, event = 2 }; --No'ku Stormsayer <Lord of Tempest>
 	[70430] = { zoneID = 510, artID = { 527 }, x = 6053, y = 6053, overlay = { "6053-6053" }, displayID = 34264, event = 2 }; --Rocky Horror

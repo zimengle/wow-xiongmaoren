@@ -220,6 +220,7 @@ local function ActionBar_Layout()
 	if PIG_OptionsUI.IsOpen_ElvUI("actionbar","enable") then return end
 	if PIG_OptionsUI.IsOpen_NDui("Actionbar","Enable") then return end
 	if not PIGA["PigLayout"]["ActionBar"]["BarRight"] then return end
+	--主力动作条
 	local function Update_MultiBar()
 		if InCombatLockdown() then
 			VerticalMultiBarsContainer:RegisterEvent("PLAYER_REGEN_ENABLED");
@@ -298,14 +299,19 @@ local function ActionBar_Layout()
 			MultiCastActionBarFrame:SetMovable(true)
 		end
 		BarUI:ClearAllPoints();
+		MainMenuBarVehicleLeaveButton:ClearAllPoints();--取消飞行
 		if PIGA["PigLayout"]["ActionBar"]["Layout"]==1 and barOpen[5] then
 			BarUI:SetPoint("BOTTOMLEFT", MultiBarLeftButton1,"TOPLEFT", Xoffset, 6)
+			MainMenuBarVehicleLeaveButton:SetPoint("BOTTOMLEFT", MultiBarLeftButton1,"TOPLEFT", -36, 6)
 		elseif PIGA["PigLayout"]["ActionBar"]["Layout"]==2 or PIGA["PigLayout"]["ActionBar"]["Layout"]==5 and barOpen[3] then
 			BarUI:SetPoint("BOTTOMLEFT", MultiBarBottomRightButton1,"TOPLEFT", Xoffset, 6)
+			MainMenuBarVehicleLeaveButton:SetPoint("BOTTOMLEFT", MultiBarBottomRightButton1,"TOPLEFT", -36, 6)
 		elseif PIGA["PigLayout"]["ActionBar"]["Layout"]==3 and barOpen[5] then
 			BarUI:SetPoint("BOTTOMLEFT", MultiBarLeftButton1,"TOPLEFT", Xoffset, 6)
+			MainMenuBarVehicleLeaveButton:SetPoint("BOTTOMLEFT", MultiBarLeftButton1,"TOPLEFT", -36, 6)
 		elseif PIGA["PigLayout"]["ActionBar"]["Layout"]==4 and barOpen[4] and barOpen[5] then
 			BarUI:SetPoint("BOTTOMLEFT", MultiBarRightButton1,"TOPLEFT", Xoffset, 6)
+			MainMenuBarVehicleLeaveButton:SetPoint("BOTTOMLEFT", MultiBarRightButton1,"TOPLEFT", -36, 6)
 		end
 		if BarUI==MultiCastActionBarFrame then
 			MultiCastActionBarFrame:SetUserPlaced(true)

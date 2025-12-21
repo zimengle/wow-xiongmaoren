@@ -614,11 +614,11 @@ function BG.HopeUI(FB)
         end)
     end
 
-    ------------------分享心愿------------------
+    ------------------通报心愿------------------
     do
         local f
         local xinyuan
-        if BG.IsVanilla then
+        if BG.onlyOneHard then
             xinyuan = {
                 { name1 = L["通报心愿"], name2 = "" },
             }
@@ -1192,3 +1192,4 @@ function BG.HopeDaoChuUI()
         end)
     end
 end
+

@@ -1,5 +1,5 @@
-## Interface: 30800
-## Title: Details!: Raid Check (plugin) |cffd4af37谷|r|cffdbb850风|r|cffe2c069修|r|cffe9c882复|r|cfff0d09b版|r
+## Interface: 30405, 38000
+## Title: Details!: Raid Check (plugin)
 ## Notes: Show talents and item level for all members in your group, also shows food and flask state.
 ## RequiredDeps: Details
 ## IconTexture: Interface\AddOns\Details\images\minimap

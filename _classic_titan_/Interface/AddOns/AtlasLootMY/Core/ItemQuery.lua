@@ -79,7 +79,6 @@ function Proto:Wipe()
 	self.frame:SetScript("OnUpdate", nil)
 end
 
--- ( { item1, item2, item3 }, function() print("yay all items found") end )
 function Proto:AddItemInfoList(list, onFinishFunc)
 	if not list then return end
 	-- copy list

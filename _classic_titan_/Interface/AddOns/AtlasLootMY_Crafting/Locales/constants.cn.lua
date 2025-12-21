@@ -56,3 +56,4 @@ AL["Cards"] = "卡牌"
 AL["Ink"] = "墨水"
 AL["Feast"] = "宴席"
 AL["SoD Exclusives"] = "Sod 专属"
+

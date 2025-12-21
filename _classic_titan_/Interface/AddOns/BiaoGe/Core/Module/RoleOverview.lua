@@ -634,6 +634,7 @@ function BG.RoleOverviewUI()
             -- 声望
             BG.factionTbl = {
                 1359, -- 黑王子
+                1435, -- 影踪突袭营
                 1341, -- 至尊天神
                 1269, -- 金莲教
                 1270, -- 影踪派
@@ -644,9 +645,11 @@ function BG.RoleOverviewUI()
                 1345, -- 游学者
             }
             if BG.IsAlliance then
-                tinsert(BG.factionTbl, 2, 1376) -- 神盾守备军
+                tinsert(BG.factionTbl, 3, 1376) -- 神盾守备军
+                tinsert(BG.factionTbl, 3, 1387) -- 肯瑞托远征军
             elseif BG.IsHorde then
-                tinsert(BG.factionTbl, 2, 1375) -- 统御先锋军
+                tinsert(BG.factionTbl, 3, 1375) -- 统御先锋军
+                tinsert(BG.factionTbl, 3, 1388) -- 夺日者先锋军
             end
             for _, id in ipairs(BG.factionTbl) do
                 tinsert(BG.FBCDall_table, { name = "faction" .. id, name2 = GetFactionInfoByID(id), id = id, color = "FFFF00", type = "faction" })
@@ -661,6 +664,7 @@ GameTooltip:SetCurrencyByID(697)
                 { color = "BA55D3", id = 396, width = 70 }, -- 勇气点数
                 { color = "00BFFF", id = 395, width = 70 }, -- 正义点数
                 { color = "00FFFF", id = 3350, width = 80 }, -- 至尊石碎片
+                { color = "FFD700", id = 752, width = 80 }, -- 魔古命运符文
                 { color = "FFD700", id = 697, width = 80 }, -- 长者的好运符
                 { color = "C0C0C0", id = 738, width = 80 }, -- 次级好运护符
                 { color = "FFFFFF", id = 515, width = 70 }, -- 暗月
@@ -1330,7 +1334,7 @@ GameTooltip:SetCurrencyByID(697)
             local v = pz[id]
             if type(v) == "table" then -- 牌子/物品
                 if v.isNotKnow then
-                    count = L["未知"]
+                    count = UNKNOWN
                 elseif id == "xp" then
                     count = v.perNow .. "%" -- 经验
                 else
@@ -1536,7 +1540,7 @@ GameTooltip:SetCurrencyByID(697)
                         width = MONEYchoice_table[ii].width
                         t_paizi:SetPoint("TOPRIGHT", right, "TOPRIGHT", width, 0)
                     end
-                    if countString:match("^%d+") == "0" or countString:find(L["未知"]) then
+                    if countString:match("^%d+") == "0" or countString:find(UNKNOWN) then
                         t_paizi:SetTextColor(0.5, 0.5, 0.5)
                     end
                     if vv.type == "currency" and tonumber(count) then

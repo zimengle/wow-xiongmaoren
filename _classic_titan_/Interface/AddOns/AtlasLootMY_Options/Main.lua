@@ -15,10 +15,17 @@ local function UpdateItemFrame()
 end
 
 -- AtlasLoot
+local function toggleMMB()
+	if AtlasLoot.db.standaloneMinimapIcon then
+		AtlasLoot:uncollectMMB()
+	else
+		AtlasLoot:recollectMMB()
+	end
+end
 Options.orderNumber = Options.orderNumber + 1
 Options.config.args.atlasloot = {
 	type = "group",
-	name = AL["AtlasLoot"],
+	name = AL["LootSettings"],
 	order = Options.orderNumber,
 	get = function(info) return AtlasLoot.db[info[#info]] end,
     set = function(info, value) AtlasLoot.db[info[#info]] = value end,
@@ -36,6 +43,22 @@ Options.config.args.atlasloot = {
 			name = AL["Show level range if available."],
 			get = function(info) return AtlasLoot.db.showLvlRange end,
 			set = function(info, value) AtlasLoot.db.showLvlRange = value AtlasLoot.GUI.OnLevelRangeRefresh() end,
+		},
+		standaloneMinimapIcon={
+			order =5.1,
+			type="toggle",
+			width = "full",
+			name = AL["Forbidden Minimap be stored"],
+			get = function(info) return AtlasLoot.db.standaloneMinimapIcon end,
+			set = function(info, value) AtlasLoot.db.standaloneMinimapIcon = value toggleMMB() end,
+		},
+		showItemLvlOnIcon={
+			order =5.2,
+			type="toggle",
+			width = "full",
+			name = AL["Show itemLevel On item icon."],
+			get = function(info) return AtlasLoot.db.showItemLvlOnIcon end,
+			set = function(info, value) AtlasLoot.db.showItemLvlOnIcon = value UpdateItemFrame()end,
 		},
 		enableBossLevel = {
 			order = 5.5,

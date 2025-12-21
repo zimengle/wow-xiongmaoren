@@ -226,6 +226,10 @@ function InstanceBuilder:boss(key, minLevel)
     return self:base(names(key), 'Boss', minLevel, 40)
 end
 
+function InstanceBuilder:challenge(key, minLevel, members)
+    return self:base(names(key, '挑战'), 'Challenge', minLevel, members or 5)
+end
+
 function InstanceBuilder:new(obj)
     self._mt = self._mt or {__index = self}
     return setmetatable(obj, self._mt)

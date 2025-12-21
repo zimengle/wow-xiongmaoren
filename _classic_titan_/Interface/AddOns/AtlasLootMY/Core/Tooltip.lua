@@ -127,7 +127,6 @@ local function OnTooltipSetItem_Hook(self)
     end
 
     item = TooltipCache[item]
-
     if item then
 		if AtlasLoot.db.showCompanionLearnedInfo and AtlasLoot.Data.Companion.IsCompanion(item) then
 			self:AddDoubleLine(AtlasLoot.Data.Companion.GetTypeName(item), AtlasLoot.Data.Companion.GetCollectedString(item))

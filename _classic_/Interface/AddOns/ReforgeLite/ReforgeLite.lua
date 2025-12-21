@@ -388,9 +388,7 @@ function addonTable.GetItemStatsFromTooltip(itemInfo)
     if region.GetText then
       local text = region:GetText()
       if text and text ~= "" then
-        local cleanText = text:gsub("%b()", ""):gsub("%b ()", "")
-        cleanText = cleanText:match("^(.-)%s*$")
-
+        local cleanText = strtrim((text:gsub("%b()", "")))
         for _, statInfo in ipairs(ITEM_STATS) do
           if not stats[statInfo.name] then
             local value
@@ -918,15 +916,15 @@ end
 ---@return nil
 function ReforgeLite:CreateItemTable ()
   self.playerSpecTexture = self:CreateTexture (nil, "ARTWORK")
-  self.playerSpecTexture:SetPoint ("TOPLEFT", 10, -28)
-  self.playerSpecTexture:SetSize(18, 18)
+  self.playerSpecTexture:SetPoint ("TOPLEFT", 10, -26)
+  self.playerSpecTexture:SetSize(16, 16)
   self.playerSpecTexture:SetTexCoord(0.0825, 0.0825, 0.0825, 0.9175, 0.9175, 0.0825, 0.9175, 0.9175)
 
   self.playerTalents = {}
   for tier = 1, MAX_NUM_TALENT_TIERS do
     self.playerTalents[tier] = self:CreateTexture(nil, "ARTWORK")
-    self.playerTalents[tier]:SetPoint("TOPLEFT", self.playerTalents[tier-1] or self.playerSpecTexture, "TOPRIGHT", 4, 0)
-    self.playerTalents[tier]:SetSize(18, 18)
+    self.playerTalents[tier]:SetPoint("TOPLEFT", self.playerTalents[tier-1] or self.playerSpecTexture, "TOPRIGHT", 2, 0)
+    self.playerTalents[tier]:SetSize(16, 16)
     self.playerTalents[tier]:SetTexCoord(self.playerSpecTexture:GetTexCoord())
     self.playerTalents[tier]:SetScript("OnLeave", GameTooltip_Hide)
   end
@@ -934,7 +932,7 @@ function ReforgeLite:CreateItemTable ()
   self:UpdatePlayerSpecInfo()
 
   self.itemTable = GUI:CreateTable (ITEM_SLOT_COUNT + 1, ITEM_STAT_COUNT, ITEM_SIZE, ITEM_SIZE + 4, {0.5, 0.5, 0.5, 1}, self)
-  self.itemTable:SetPoint ("TOPLEFT", self.playerSpecTexture, "BOTTOMLEFT", 0, -6)
+  self.itemTable:SetPoint ("TOPLEFT", self.playerSpecTexture, "BOTTOMLEFT", 0, -4)
   self.itemTable:SetPoint ("BOTTOM", 0, 10)
   self.itemTable:SetWidth (400)
   for i = 1, ITEM_STAT_COUNT do
@@ -942,11 +940,14 @@ function ReforgeLite:CreateItemTable ()
     self.itemTable:EnableColumnAutoWidth(i)
   end
 
-  self.itemLevel = self:CreateFontString (nil, "OVERLAY", "GameFontNormal")
+  self.itemLevel = self:CreateFontString (nil, "OVERLAY", "GameFontWhite")
   self.itemLevel:SetPoint ("BOTTOMRIGHT", self.itemTable, "TOPRIGHT", 0, 8)
-  self.itemLevel:SetTextColor(addonTable.COLORS.gold:GetRGB())
   self:RegisterEvent("PLAYER_AVG_ITEM_LEVEL_UPDATE")
   self:PLAYER_AVG_ITEM_LEVEL_UPDATE()
+
+  self.itemLevelLabel = self:CreateFontString (nil, "OVERLAY", "GameFontNormal")
+  self.itemLevelLabel:SetPoint ("BOTTOMRIGHT", self.itemLevel, "BOTTOMLEFT", -2, 0)
+  self.itemLevelLabel:SetFormattedText(STAT_FORMAT, STAT_AVERAGE_ITEM_LEVEL)
 
   self.itemLockHelpButton = GUI:CreateHelpButton(self, L["The Item Table shows your currently equipped gear and their stats.\n\nEach row represents one equipped item. Only stats present on your gear are shown as columns.\n\nAfter computing, items being reforged show:\n• Red numbers: Stat being reduced\n• Green numbers: Stat being added\n\nClick an item icon to lock/unlock it. Locked items (shown with a lock icon) are ignored during optimization."], { scale = 0.5 })
 
@@ -1046,7 +1047,15 @@ function ReforgeLite:AddCapPoint (i, loading)
       self:RefreshMethodStats ()
     end,
     menuItemHidden = function(info)
-      return info.category and info.category ~= self.statCaps[i].stat.selectedValue
+      if info.category and info.category ~= self.statCaps[i].stat.selectedValue then
+        return true
+      end
+      if info.classID and info.classID ~= addonTable.playerClass then
+        return true
+      end
+      if info.specID and info.specID ~= self.specID then
+        return true
+      end
     end
   })
   local value = GUI:CreateEditBox (self.statCaps, 40, 30, 0, function (val)
@@ -2359,7 +2368,8 @@ function ReforgeLite:PLAYER_ENTERING_WORLD()
 end
 
 function ReforgeLite:PLAYER_AVG_ITEM_LEVEL_UPDATE()
-  self.itemLevel:SetFormattedText(CHARACTER_LINK_ITEM_LEVEL_TOOLTIP, select(2,GetAverageItemLevel()))
+  local _, ilvl = GetAverageItemLevel()
+  self.itemLevel:SetFormattedText("%d", ilvl)
 end
 
 function ReforgeLite:ADDON_LOADED (addon)

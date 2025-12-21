@@ -31,10 +31,10 @@ local locales = {
     ["(%d+)金"] = { "(%d+)金", "(%d+)gold" },
     ["平均每人收入:"] = { "平均每人收入:", "Per Member credit:" },
     --金团表格
-    ["通报金团账单"] = { "—通报账单—", "—通报金团账单—", "—通報賬單—", "—通報金團帳單—", "—Announce Raid Ledger—" },
-    ["感谢使用金团表格"] = { "感谢使用BiaoGe插件", "感谢使用金团表格", "感謝使用BiaoGe插件", "感謝使用金團表格", "Thank you for using the Raid Table" },
-    ["打包交易"] = { "打包交易", "打包交易", },
-    ["表格：(.+)"] = { "表格：(.+)", },
+    ["通报金团账单"] = { "—通报账单—", "—通报金团账单—", "—通報賬單—", "—通報金團帳單—", "—Announce Raid Ledger—","- Bulletin Bills -" },
+    ["感谢使用金团表格"] = { "感谢使用BiaoGe插件", "感谢使用金团表格", "感謝使用BiaoGe插件", "感謝使用金團表格", "-Thanks for using BiaoGe plugin-" },
+    ["打包交易"] = { "打包交易", "打包交易", "PackingDeal" },
+    ["表格：(.+)"] = { "表格：(.+)", "Table: (.+)" },
     --大脚金团助手
     ["事件：.-|c.-|Hitem.-|h|r"] = { "事件：.-|c.-|Hitem.-|h|r", },
     ["^收入为："] = { "^收入为：", "^收入為：", },
@@ -79,7 +79,7 @@ local function Send(num, sumMoney, FB)
         end
     end
     local link = "|cffFFFF00|Hgarrmission:" .. "BiaoGeDuiZhang:" .. num ..
-        "|h[" .. L["点击：对账"] .. "] " .. L["（"] .. "|cff00ff00" .. L["装备总收入"] .. sumMoney .. RR .. FBtext .. L["）"] .. "|h|r"
+        "|h[" .. L["点击：对账"] .. "] " .. L["（"] .. "|cff00ff00" .. L["装备总收入"] .. sumMoney .. "|r" .. FBtext .. L["）"] .. "|h|r"
     SendSystemMessage(link)
     BG.After(0.1, function()
         local link = "|cffFFFF00|Hgarrmission:" .. format("BiaoGeDuiZhangCopy:%s:%s", num, FB) ..

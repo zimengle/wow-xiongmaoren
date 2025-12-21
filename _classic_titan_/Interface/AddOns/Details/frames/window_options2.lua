@@ -52,7 +52,7 @@ function Details222.OptionsPanel.InitializeOptionsWindow(instance)
     optionsFrame:SetColor(unpack(Details.frame_background_color))
 
 	optionsFrame.Frame = optionsFrame
-	optionsFrame.__name = "Options"
+	optionsFrame.__name = Loc ["STRING_OPTIONS"] or "Options"
 	optionsFrame.real_name = "DETAILS_OPTIONS"
 	optionsFrame.__icon = [[Interface\Scenarios\ScenarioIcon-Interact]]
     _G.DetailsPluginContainerWindow.EmbedPlugin(optionsFrame, optionsFrame, true)
@@ -203,7 +203,7 @@ function Details222.OptionsPanel.InitializeOptionsWindow(instance)
     editingGroupCheckBox:SetAsCheckBox()
     editingGroupCheckBox.tooltip = Loc ["STRING_MINITUTORIAL_OPTIONS_PANEL2"]
 
-    local editingGroupLabel = detailsFramework:NewLabel(optionsFrame, nil, "$parentEditingGroupLabel", "editingGroupLabel", "Editing Group:", "GameFontNormal", 12) --localize-me
+    local editingGroupLabel = detailsFramework:NewLabel(optionsFrame, nil, "$parentEditingGroupLabel", "editingGroupLabel", Loc ["STRING_OPTIONS_EDITING_GROUP"], "GameFontNormal", 12)
     editingGroupLabel:SetPoint("bottomleft", instancesFontString, "topleft", 0, 5)
     editingGroupCheckBox:SetPoint("left", editingGroupLabel, "right", 2, 0)
     formatFooterText(editingGroupLabel)
@@ -328,12 +328,12 @@ function Details222.OptionsPanel.InitializeOptionsWindow(instance)
         [11] = Loc ["STRING_OPTIONSMENU_DATAFEED"],
 
         [14] = Loc ["STRING_OPTIONSMENU_RAIDTOOLS"],
-        [15] = "Broadcaster Tools",
+        [15] = Loc ["STRING_OPTIONSMENU_BROADCASTER"],
         [16] = Loc ["STRING_OPTIONSMENU_SPELLS"],
         [17] = Loc ["STRING_OPTIONSMENU_DATACHART"],
-        [18] = "Mythic Dungeon",
-        [19] = "Search Results",
-        [20] = "Combat Log",
+        [18] = Loc ["STRING_OPTIONSMENU_MYTHICDUNGEON"],
+        [19] = Loc ["STRING_OPTIONSMENU_SEARCHRESULTS"],
+        [20] = Loc ["STRING_OPTIONSMENU_COMBATLOG"],
     }
 
     local optionsSectionsOrder = {

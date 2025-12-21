@@ -20,7 +20,8 @@ local CommandList = {
 		AtlasLoot.GUI:Toggle()
 	end,
 	["options"] = function()
-		AtlasLoot.Loader:LoadModule("AtlasLootMY_Options", showOptions)
+		showOptions()
+		--AtlasLoot.Loader:LoadModule("AtlasLootMY_Options", showOptions)
 	end,
 	["slash"] = function()
 		SlashCommands:PrintSlash()

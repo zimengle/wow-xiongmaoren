@@ -3,27 +3,32 @@ Postal3DB = {
 ["global"] = {
 ["BlackBook"] = {
 ["alts"] = {
+"三角碑崽儿|时光IV|Alliance|68|WARRIOR",
 "京东刘强东|时光IV|Alliance|80|PALADIN",
 "京东董事长|时光IV|Horde|1|PALADIN",
+"卧伦巴菲特|时光IV|Alliance|1|WARLOCK",
 "哔站陈睿|时光IV|Alliance|80|SHAMAN",
 "小米军儿|时光IV|Alliance|80|DEATHKNIGHT",
 "美团王兴|时光IV|Alliance|1|WARRIOR",
-"退休码农|时光IV|Alliance|14|PRIEST",
+"退休码农|时光IV|Alliance|80|PRIEST",
 },
 },
 },
 ["profileKeys"] = {
 ["哔站陈睿 - 时光IV"] = "哔站陈睿 - 时光IV",
-["小米军儿 - 时光IV"] = "小米军儿 - 时光IV",
-["京东刘强东 - 时光IV"] = "京东刘强东 - 时光IV",
-["京东董事长 - 时光IV"] = "京东董事长 - 时光IV",
 ["退休码农 - 时光IV"] = "退休码农 - 时光IV",
+["京东刘强东 - 时光IV"] = "京东刘强东 - 时光IV",
+["小米军儿 - 时光IV"] = "小米军儿 - 时光IV",
+["卧伦巴菲特 - 时光IV"] = "卧伦巴菲特 - 时光IV",
+["京东董事长 - 时光IV"] = "京东董事长 - 时光IV",
 ["美团王兴 - 时光IV"] = "美团王兴 - 时光IV",
+["三角碑崽儿 - 时光IV"] = "三角碑崽儿 - 时光IV",
 },
 ["profiles"] = {
 ["哔站陈睿 - 时光IV"] = {
 ["BlackBook"] = {
 ["recent"] = {
+"三角碑崽儿|时光IV|Alliance",
 "退休码农|时光IV|Alliance",
 "美团王兴|时光IV|Alliance",
 "小米军儿|时光IV|Alliance",
@@ -31,18 +36,18 @@ Postal3DB = {
 },
 },
 },
-["小米军儿 - 时光IV"] = {
+["退休码农 - 时光IV"] = {
 ["BlackBook"] = {
 ["recent"] = {
-"哔站陈睿|时光IV|Alliance",
-"美团王兴|时光IV|Alliance",
 "京东刘强东|时光IV|Alliance",
+"美团王兴|时光IV|Alliance",
 },
 },
 },
 ["京东刘强东 - 时光IV"] = {
 ["BlackBook"] = {
 ["recent"] = {
+"三角碑崽儿|时光IV|Alliance",
 "小米军儿|时光IV|Alliance",
 "美团王兴|时光IV|Alliance",
 "Raffine|时光IV|Alliance",
@@ -55,11 +60,32 @@ Postal3DB = {
 },
 },
 },
+["小米军儿 - 时光IV"] = {
+["BlackBook"] = {
+["recent"] = {
+"哔站陈睿|时光IV|Alliance",
+"美团王兴|时光IV|Alliance",
+"京东刘强东|时光IV|Alliance",
+},
+},
+},
+["卧伦巴菲特 - 时光IV"] = {
+},
 ["京东董事长 - 时光IV"] = {
 },
-["退休码农 - 时光IV"] = {
-},
 ["美团王兴 - 时光IV"] = {
+["BlackBook"] = {
+["recent"] = {
+"三角碑崽儿|时光IV|Alliance",
+},
+},
+},
+["三角碑崽儿 - 时光IV"] = {
+["BlackBook"] = {
+["recent"] = {
+"美团王兴|时光IV|Alliance",
+},
+},
 },
 },
 }

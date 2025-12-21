@@ -1,15 +1,40 @@
 
 WhisperPopDB = {
-["save"] = 1,
+["notifyButton"] = 1,
 ["listHeight"] = 320,
-["sound"] = 1,
+["positions"] = {
+["WhisperPopFrame"] = {
+"CENTER",
+"UIParent",
+"CENTER",
+0,
+-20,
+},
+["WhisperPopNotifyButton"] = {
+"BOTTOMLEFT",
+"UIParent",
+"BOTTOMLEFT",
+516,
+311,
+},
+},
 ["showRealm"] = 1,
-["version"] = 4.12,
-["listWidth"] = 200,
+["time"] = 1,
+["save"] = 1,
 ["timeFormat"] = 2,
-["listScale"] = 100,
+["ignoreTags"] = 1,
 ["buttonScale"] = 100,
 ["history"] = {
+{
+["received"] = 1,
+["name"] = "超爱吃火锅#5724",
+["class"] = "BN",
+["messages"] = {
+"0[T1766023462]我擦 kook",
+"0[T1766023467]习惯养成",
+},
+["new"] = 1,
+},
 {
 ["received"] = 1,
 ["class"] = "MAGE",
@@ -68,25 +93,10 @@ WhisperPopDB = {
 ["name"] = "哈灬圣光闪耀-祈福",
 },
 },
-["ignoreTags"] = 1,
+["version"] = 4.12,
 ["applyFilters"] = 1,
 ["foreignOnly"] = 1,
-["time"] = 1,
-["positions"] = {
-["WhisperPopFrame"] = {
-"CENTER",
-"UIParent",
-"CENTER",
-0,
--20,
-},
-["WhisperPopNotifyButton"] = {
-"BOTTOMLEFT",
-"UIParent",
-"BOTTOMLEFT",
-516,
-311,
-},
-},
-["notifyButton"] = 1,
+["listScale"] = 100,
+["sound"] = 1,
+["listWidth"] = 200,
 }

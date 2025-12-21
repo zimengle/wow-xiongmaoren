@@ -2,5 +2,6 @@
     <Script file="ClearCache.lua"/>
     <Script file="AppData1.lua"/>
     <Script file="AppData2.lua"/>
+    <Script file="AppData3.lua"/>
     <Script file="SetRegimentVersion.lua"/>
 </Ui>

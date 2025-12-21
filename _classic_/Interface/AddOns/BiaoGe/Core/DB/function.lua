@@ -49,61 +49,95 @@ local function ClassQuest(classID)
 end
 ns.ClassQuest = ClassQuest
 
-function BG.Init(func)
-    local f = CreateFrame("Frame")
-    f:RegisterEvent("ADDON_LOADED")
-    f:SetScript("OnEvent", function(self, event, addonName)
-        if addonName ~= AddonName then return end
-        self:UnregisterEvent("ADDON_LOADED")
-        self:Hide()
+local addonLoadedFuncs = {}
+local f = CreateFrame("Frame")
+f:RegisterEvent("ADDON_LOADED")
+f:SetScript("OnEvent", function(self, event, addonName)
+    if addonName ~= AddonName then return end
+    self:UnregisterEvent("ADDON_LOADED")
+    for _, func in ipairs(addonLoadedFuncs) do
         func(self, event)
-    end)
+    end
+end)
+function BG.Init(func)
+    tinsert(addonLoadedFuncs, func)
 end
 
+local enterWorldFuncs = {}
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:SetScript("OnEvent", function(self, event, ...)
+    self:UnregisterEvent("PLAYER_ENTERING_WORLD")
+    for _, func in ipairs(enterWorldFuncs) do
+        func(self, event, ...)
+    end
+end)
 function BG.Init2(func)
-    local f = CreateFrame("Frame")
-    f:RegisterEvent("PLAYER_ENTERING_WORLD")
-    f:SetScript("OnEvent", function(self, event)
-        self:UnregisterEvent("PLAYER_ENTERING_WORLD")
-        self:Hide()
-        func(self, event)
-    end)
+    tinsert(enterWorldFuncs, func)
+end
+
+local events = {}
+local f = CreateFrame("Frame")
+f:SetScript("OnEvent", function(_, event, ...)
+    for _, func in ipairs(events[event]) do
+        if event == "COMBAT_LOG_EVENT_UNFILTERED" then
+            func(f, event, CombatLogGetCurrentEventInfo())
+        else
+            func(f, event, ...)
+        end
+    end
+end)
+function BG.RegisterEvent(event, func)
+    if not events[event] then
+        events[event] = {}
+        f:RegisterEvent(event)
+    end
+    tinsert(events[event], func)
 end
 
 -- 版本号
+if GetCurrentRegion() ~= 5 then
+    BG.IsTW=true
+end
+
 local ver = select(4, GetBuildInfo())
 if ver < 20000 then
     BG.IsVanilla = true
+    BG.onlyOneHard=true
     if (C_Engraving and C_Engraving.IsEngravingEnabled()) then
         BG.IsVanilla_Sod = true
-    end
-
-    if not (C_Engraving and C_Engraving.IsEngravingEnabled()) then
+    else
         BG.IsVanilla_60 = true
     end
 end
 
-if ver >= 30000 and ver < 38000 then
+if ver >= 30000 and ver < 40000 then
     BG.IsWLK = true
+    BG.verOver3 = true
+    if ver >= 38000 then
+        BG.IsTitan = true
+        BG.onlyOneHard=true
+    else
+        BG.IsWLK_80 = true
+    end
 end
 
 if ver >= 40000 and ver < 50000 then
     BG.IsCTM = true
+    BG.verOver4 = true
 end
 
 if ver >= 50000 and ver < 60000 then
     BG.IsMOP = true
-    if GetCurrentRegion() ~= 5 then
+    BG.verOver5 = true
+    if BG.IsTW then
         BG.IsMOP_TW = true
     else
         BG.IsMOP_CN = true
-        BG.IsCTM = true
     end
-    -- BG.IsMOP_TW = nil
-    -- BG.IsCTM = true
-
+    -- BG.IsTW = true
     -- BG.IsMOP_TW = true
-    -- BG.IsCTM = nil
+    -- BG.IsMOP_CN = nil
 end
 
 if ver >= 110000 then
@@ -111,6 +145,7 @@ if ver >= 110000 then
 end
 
 BG.IsNewUI = true
+
 
 function BG.IsWLKFB(FB)
     local FB = FB or BG.FB1

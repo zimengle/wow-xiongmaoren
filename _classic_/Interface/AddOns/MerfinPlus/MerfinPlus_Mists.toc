@@ -1,7 +1,7 @@
 ## Interface: 50500
 ## Title: MerfinPlus
 ## Notes: Inserts Merfin media into LibSharedMedia's storage.
-## Version: 2.02
+## Version: 2.03
 ## IconTexture: Interface\AddOns\MerfinPlus\Media\icons\merfinui_logo_2
 ## SavedVariables: MerfinPlusSaved
 ## OptionalDeps: LibStub, LibSharedMedia-3.0

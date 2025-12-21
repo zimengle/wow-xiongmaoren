@@ -23,7 +23,9 @@ RXPDB = {
 ["露露糖 - 铁血"] = "global",
 ["哔站陈睿 - 时光IV"] = "global",
 ["露露緹婭 - 时光III"] = "global",
+["卧伦巴菲特 - 时光IV"] = "global",
 ["露露缇娅old1764210356684 - 时光VI"] = "global",
+["皎月梦夜 - 时光I"] = "global",
 ["哔站董事长 - 时光IV"] = "global",
 ["爱奇艺董事长 - 时光IV"] = "global",
 ["愛雅法拉 - 时光I"] = "global",
@@ -32,16 +34,16 @@ RXPDB = {
 ["小米军儿 - 时光IV"] = "global",
 ["小露露糖 - 铁血"] = "global",
 ["确实日白 - 时光I"] = "global",
-["美团王兴 - 时光IV"] = "global",
+["愛雅法拉 - 铁血"] = "global",
 ["露露缇娅old1764210356684丶 - 铁血"] = "global",
 ["小马君 - 时光I"] = "global",
 ["美团董事长 - 时光IV"] = "global",
 ["银光骤雨 - 时光I"] = "global",
-["愛雅法拉 - 铁血"] = "global",
 ["京东刘强东 - 时光IV"] = "global",
+["美团王兴 - 时光IV"] = "global",
 ["京东董事长 - 时光IV"] = "global",
 ["露露緹婭 - 时光VI"] = "global",
-["皎月梦夜 - 时光I"] = "global",
+["三角碑崽儿 - 时光IV"] = "global",
 },
 ["profiles"] = {
 ["global"] = {
@@ -57,7 +59,9 @@ RXPSettings = {
 ["露露糖 - 铁血"] = "露露缇娅old1764210356684丶 - 铁血",
 ["哔站陈睿 - 时光IV"] = "露露缇娅 - 时光III",
 ["露露緹婭 - 时光III"] = "露露缇娅old1764210356684 - 时光VI",
+["卧伦巴菲特 - 时光IV"] = "卧伦巴菲特 - 时光IV",
 ["露露缇娅old1764210356684 - 时光VI"] = "露露缇娅old1764210356684 - 时光III",
+["皎月梦夜 - 时光I"] = "露露缇娅old1764210356684 - 时光VI",
 ["哔站董事长 - 时光IV"] = "露露缇娅 - 时光III",
 ["爱奇艺董事长 - 时光IV"] = "露露缇娅 - 时光III",
 ["愛雅法拉 - 时光I"] = "露露缇娅 - 时光III",
@@ -66,18 +70,203 @@ RXPSettings = {
 ["小米军儿 - 时光IV"] = "露露缇娅 - 时光III",
 ["小露露糖 - 铁血"] = "露露缇娅old1764210356684丶 - 铁血",
 ["确实日白 - 时光I"] = "露露缇娅 - 时光III",
-["美团王兴 - 时光IV"] = "露露缇娅 - 时光III",
+["愛雅法拉 - 铁血"] = "露露缇娅old1764210356684丶 - 铁血",
 ["露露缇娅old1764210356684丶 - 铁血"] = "露露缇娅old1764210356684丶 - 铁血",
 ["小马君 - 时光I"] = "露露缇娅old1764210356684 - 时光VI",
 ["美团董事长 - 时光IV"] = "露露缇娅 - 时光III",
 ["银光骤雨 - 时光I"] = "露露缇娅old1764210356684 - 时光VI",
-["愛雅法拉 - 铁血"] = "露露缇娅old1764210356684丶 - 铁血",
 ["京东刘强东 - 时光IV"] = "露露缇娅 - 时光III",
+["美团王兴 - 时光IV"] = "露露缇娅 - 时光III",
 ["京东董事长 - 时光IV"] = "露露缇娅 - 时光III",
 ["露露緹婭 - 时光VI"] = "露露缇娅old1764210356684 - 时光III",
-["皎月梦夜 - 时光I"] = "露露缇娅old1764210356684 - 时光VI",
+["三角碑崽儿 - 时光IV"] = "三角碑崽儿 - 时光IV",
 },
 ["profiles"] = {
+["退休码农 - 时光IV"] = {
+["xprate"] = 1.5,
+["frameHeight"] = 28.00001335144043,
+["macroAnnounced"] = true,
+["hardcore"] = false,
+["framePositions"] = {
+["arrowFrame"] = {
+{
+"CENTER",
+nil,
+"CENTER",
+-0.6240620017051697,
+-129.2559356689453,
+},
+},
+["RXPFrame"] = {
+{
+"LEFT",
+nil,
+"LEFT",
+5.47003698348999,
+-63.15415954589844,
+},
+},
+["activeItemFrame"] = {
+{
+"CENTER",
+nil,
+"CENTER",
+243.1788482666016,
+-189.1794891357422,
+},
+},
+["activeTargetFrame"] = {
+{
+"CENTER",
+nil,
+"CENTER",
+297.1543884277344,
+-257.3161926269531,
+},
+},
+},
+["frameSizes"] = {
+["arrowFrame"] = {
+31.9999885559082,
+31.9999885559082,
+},
+["RXPFrame"] = {
+345.0000915527344,
+28.00001335144043,
+},
+["activeItemFrame"] = {
+50.76925277709961,
+40.00003051757813,
+},
+["activeTargetFrame"] = {
+88.99980926513672,
+67.99995422363281,
+},
+},
+},
+["卧伦巴菲特 - 时光IV"] = {
+["xprate"] = 1.5,
+["frameHeight"] = 124.9999084472656,
+["hardcore"] = false,
+["framePositions"] = {
+["arrowFrame"] = {
+{
+"CENTER",
+"UIParent",
+"CENTER",
+0,
+200,
+},
+},
+["RXPFrame"] = {
+{
+"LEFT",
+"UIParent",
+"LEFT",
+0,
+35.00000381469727,
+},
+},
+["activeItemFrame"] = {
+{
+"CENTER",
+"UIParent",
+"CENTER",
+0,
+0,
+},
+},
+["activeTargetFrame"] = {
+{
+"CENTER",
+"UIParent",
+"CENTER",
+0,
+0,
+},
+},
+},
+["frameSizes"] = {
+["arrowFrame"] = {
+31.9999885559082,
+31.9999885559082,
+},
+["RXPFrame"] = {
+235,
+28.00010108947754,
+},
+["activeItemFrame"] = {
+50.76925277709961,
+39.9999885559082,
+},
+["activeTargetFrame"] = {
+54.22219467163086,
+17.99993705749512,
+},
+},
+},
+["三角碑崽儿 - 时光IV"] = {
+["xprate"] = 1.5,
+["frameHeight"] = 231.4871368408203,
+["macroAnnounced"] = true,
+["hardcore"] = false,
+["frameSizes"] = {
+["activeTargetFrame"] = {
+54.22256088256836,
+42.99994277954102,
+},
+["RXPFrame"] = {
+407.2222290039063,
+231.4871368408203,
+},
+["activeItemFrame"] = {
+50.76925277709961,
+40.00003051757813,
+},
+["arrowFrame"] = {
+31.9999885559082,
+31.9999885559082,
+},
+},
+["framePositions"] = {
+["activeTargetFrame"] = {
+{
+"CENTER",
+nil,
+"CENTER",
+460.3673706054688,
+-148.6837768554688,
+},
+},
+["RXPFrame"] = {
+{
+"LEFT",
+nil,
+"LEFT",
+17.0940113067627,
+-213.0681915283203,
+},
+},
+["activeItemFrame"] = {
+{
+"CENTER",
+nil,
+"CENTER",
+337.7777404785156,
+-124.4448318481445,
+},
+},
+["arrowFrame"] = {
+{
+"CENTER",
+nil,
+"CENTER",
+-1.68436598777771,
+-164.9660034179688,
+},
+},
+},
+},
 ["露露缇娅丶 - 铁血"] = {
 ["arrowScale"] = 1.2,
 ["guideFontSize"] = 14,
@@ -147,76 +336,40 @@ RXPSettings = {
 ["hideInRaid"] = true,
 ["disableArrow"] = false,
 },
-["退休码农 - 时光IV"] = {
+["露露缇娅 - 时光III"] = {
+["hideGuideWindow"] = true,
 ["hardcore"] = false,
-["framePositions"] = {
-["arrowFrame"] = {
-{
-"CENTER",
-nil,
-"CENTER",
--5.427840709686279,
--235.2383575439453,
-},
-},
-["RXPFrame"] = {
-{
-"LEFT",
-nil,
-"LEFT",
-3.418807029724121,
--218.0771179199219,
-},
-},
-["activeItemFrame"] = {
-{
-"CENTER",
-"UIParent",
-"CENTER",
-0,
-0,
-},
-},
-["activeTargetFrame"] = {
-{
-"CENTER",
-nil,
-"CENTER",
-596.0001220703125,
--132.3163146972656,
-},
-},
-},
+["enableTracker"] = false,
+["guideFontSize"] = 16,
+["enableBindAutomation"] = false,
+["previewTalents"] = false,
 ["xprate"] = 1.5,
 ["frameSizes"] = {
 ["arrowFrame"] = {
-31.9999885559082,
+31.99999809265137,
 31.9999885559082,
 },
 ["RXPFrame"] = {
-348,
-110.9999847412109,
+404.8717041015625,
+27.99999046325684,
 },
 ["activeItemFrame"] = {
 50.76925277709961,
-39.9999885559082,
+40.00003051757813,
 },
 ["activeTargetFrame"] = {
-54.22256088256836,
+54.22237396240234,
 17.99993705749512,
 },
 },
-["frameHeight"] = 110.6409149169922,
-["macroAnnounced"] = true,
-},
-["露露缇娅 - 时光III"] = {
+["hideInRaid"] = true,
+["enableFPAutomation"] = false,
 ["enableWorldMapButton"] = false,
-["enableBindAutomation"] = false,
-["enableTracker"] = false,
-["guideFontSize"] = 16,
-["disableArrow"] = false,
+["arrowText"] = 16,
+["frameHeight"] = 209.3161926269531,
 ["macroAnnounced"] = true,
-["hardcore"] = false,
+["enableLevelUpAnnounceSolo"] = false,
+["disableArrow"] = false,
 ["framePositions"] = {
 ["arrowFrame"] = {
 {
@@ -255,33 +408,7 @@ nil,
 },
 },
 },
-["previewTalents"] = false,
-["frameSizes"] = {
-["arrowFrame"] = {
-31.99999809265137,
-31.9999885559082,
-},
-["RXPFrame"] = {
-404.8717041015625,
-27.99999046325684,
-},
-["activeItemFrame"] = {
-50.76925277709961,
-40.00003051757813,
-},
-["activeTargetFrame"] = {
-54.22237396240234,
-42.99994277954102,
-},
-},
-["xprate"] = 1.5,
-["enableLevelUpAnnounceSolo"] = false,
-["frameHeight"] = 209.3161926269531,
-["arrowText"] = 16,
-["enableFPAutomation"] = false,
 ["enableQuestRewardAutomation"] = false,
-["hideInRaid"] = true,
-["hideGuideWindow"] = true,
 },
 },
 }

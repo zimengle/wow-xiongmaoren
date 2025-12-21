@@ -1,3 +1,11 @@
+# 5.2.0 (Dec 15, 2025)
+- Game interface version update
+- Update content phase
+- Updates to holiday bosses
+- Celestial Dungeon fixes
+- Added missing T14 pattern data
+- Small fixes
+
 # 5.0.4 (September 4, 2025)
 - Added Transmog tracker feature from AtlasLoot v8+ (Shadowlands version?)
 - Added new Celestial dungeon drops (HoF)
@@ -41,27 +49,36 @@
 - Noblegarden items added
 - Several small fixes to old world loot
 - Change order of expansions to put newest one on top first
-(2025-09-04)
+(2025-12-15)
 
-[Full Changelog](https://github.com/snowflame0/AtlasLootClassic_MoP/compare/v5.0.3...v5.0.4)
+[Full Changelog](https://github.com/snowflame0/AtlasLootClassic_MoP/compare/v5.0.4...v5.2.0)
 
 ## Commits
 
-Adal (1):
+Adal (8):
 
-- Phase correction
+- Fixed phases
+- Fix #177
+- Headless Horseman update
+- Headless Horseman update
+- Fix for #171
+- Coren update
+- Prices for next events
+- Fix position
 
-Snowflame (11):
+Firsthunter (4):
 
-- Update release notes and update panel
-- Added new (HoF) Celestial dungeon drops
-- no change
-- Fix global variable issue
-- Fix global variable issue
-- Update sources for T14 pieces, fix some duplication issues
-- Add tier tokens to celestial diff in dungeons and raids
-- Fixed celestial loot source raid, lots of misplaced items
-- Whitespace clean
-- Transmog nil check
-- Port Transmog feature from retail AL
+- update HH drops
+- HH loot updated
+- updated coren drop source
+- Updated coren drops to 489
+
+Snowflame (6):
+
+- Notes and update notification changes prep for new version
+- Added T14 patterns to source data
+- Fixed wowhead link handling
+- P1/P2 celestial dungeon loot fixes, update tooltip
+- Content phase update
+- Interface version updated
 

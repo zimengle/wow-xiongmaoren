@@ -77,31 +77,71 @@ LoaderFrame:RegisterEvent("ADDON_LOADED")
 local accumulatedTime=0
 local checkInterval=0.5
 
+	
+
 LoaderFrame:SetScript("OnUpdate", function(self, elapsed)
     accumulatedTime = accumulatedTime + elapsed
-    
-    -- 控制检查频率，避免每帧都执行
-		if accumulatedTime >= 5 then
-			LoaderFrame:SetScript("OnUpdate", nil)
-		end
 
-        -- 检查全局变量是否存在且为table类型
-		local M=LibStub("AceAddon-3.0"):GetAddon("MBB",true);
-        if M and type(M) == "table" then
-            -- 删除OnUpdate事件处理器
-			LoaderFrame:SetScript("OnUpdate", nil)
-			--pcall(M.addignored,M,"LibDBIcon10_AtlasLootMY")
-			local iconName="LibDBIcon10_AtlasLootMY"
-			if _G[iconName].opoint then
-				M:addignored("LibDBIcon10_AtlasLootMY")
-			else 
-				M:addignored("_AtlasLootMY")
-			end
-            
-           
-        end
-        
+    -- 控制检查频率，避免每帧都执行
+    if accumulatedTime >= 3 then
+        LoaderFrame:SetScript("OnUpdate", nil)
+    end
+
+    -- 检查全局变量是否存在且为table类型
+    
+    if AtlasLoot.db.standaloneMinimapIcon then
+        if AtlasLoot:uncollectMMB() then
+			 LoaderFrame:SetScript("OnUpdate", nil)
+		end
+    else
+
+    end
+
 end)
+function AtlasLoot:uncollectMMB()
+    if _G.U1CoreAPI and _G.U1CoreAPI.GetMMBFrame() then
+        _G.U1CoreAPI.GetMMBFrame():__UnCollectButton(_G["LibDBIcon10_AtlasLootMY"])
+        _G.U1CoreAPI.GetMMBFrame():__UpdateFunc();
+		return true
+    end
+    local M = LibStub("AceAddon-3.0"):GetAddon("MBB", true);
+    if M and type(M) == "table" then
+        -- 删除OnUpdate事件处理器
+        local iconName = "LibDBIcon10_AtlasLootMY"
+        if _G[iconName].opoint then
+            M:addignored("LibDBIcon10_AtlasLootMY")
+        else
+            M:addignored("_AtlasLootMY")
+        end
+        return true
+
+    end
+    return false
+end
+function AtlasLoot:recollectMMB()
+    if _G.U1CoreAPI and _G.U1CoreAPI.GetMMBFrame() then
+		-- /dump _G["LibDBIcon10_AtlasLootMY"]:SetParent(_G.U1CoreAPI.GetMMBFrame()._Packer)
+        _G.U1CoreAPI.GetMMBFrame():__CollectButton(_G["LibDBIcon10_AtlasLootMY"])
+		_G.U1CoreAPI.GetMMBFrame():__UpdateFunc();
+		return true
+    end
+    local M = LibStub("AceAddon-3.0"):GetAddon("MBB", true);
+    if M and type(M) == "table" then
+        -- 删除OnUpdate事件处理器
+
+        local iconName = "LibDBIcon10_AtlasLootMY"
+        if _G[iconName].opoint then
+            M:removeignored("LibDBIcon10_AtlasLootMY")
+        else
+            M:removeignored("_AtlasLootMY")
+        end
+        return ture
+
+    end
+    return false
+end
+
+
 local function LoaderEvents(frame, event, arg1)
 	if event == "ADDON_LOADED" then
 		if ModuleList[arg1] then

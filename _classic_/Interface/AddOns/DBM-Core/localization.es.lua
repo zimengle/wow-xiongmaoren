@@ -36,7 +36,7 @@ L.TEXT_ONLY_RANGE			= "El marco de distancia está limitado a texto únicamente 
 L.NO_RANGE					= "No se puede usar el radar de distancia en estancias. Se procederá a usar el marco de distancia por texto."
 L.NO_ARROW					= "No se puede usar la flecha en estancias."
 L.NO_HUD					= "No se puede usar el indicador en pantalla en estancias."
-L.NO_COMMS					= "La comunicación de addons no se puede usar durante encuentros o mazmorras M+ activas. Usa este comando nuevamente después de que termine el encuentro o la mazmorras."
+L.NO_COMMS					= "La comunicación de addons no se puede usar durante encuentros o mazmorras M+ activas. Usa este comando nuevamente después de que termine el encuentro o la mazmorra."
 
 L.DYNAMIC_DIFFICULTY_CLUMP	= L.DBM .. " ha desactivado el marco de distancia dinámico para este combate debido a la falta de información sobre las diferencias según el número de jugadores."
 L.DYNAMIC_ADD_COUNT			= L.DBM .. " ha desactivado los anuncios de esbirros para este combate debido a la falta de información sobre las diferencias según el número de jugadores."
@@ -85,7 +85,8 @@ L.LOWHEALTH_WARNING			= "Salud baja (%d por ciento de salud restante), reproduci
 L.ENTERING_COMBAT			= "Entrando en combate"
 L.LEAVING_COMBAT			= "Saliendo del combate"
 
-L.COMBAT_STARTED_AI_TIMER	= "Mi unidad central es un procesador de red neuronal: una máquina capaz de aprender. (Este encuentro usará la IA de temporizadores para generar temporizadores aproximados.)"
+L.RAID_DIFFICULTY_CHANGED		= "La dificultad de la banda se ha establecido en %s."
+L.DUNGEON_DIFFICULTY_CHANGED	= "La dificultad de la mazmorra se ha establecido en %s."
 
 L.PROFILE_NOT_FOUND				= "<" .. L.DBM .. "> Tu perfil actual está corrupto. " .. L.DBM .. " cargará el perfil 'Predeterminado'."
 L.PROFILE_CREATED				= "Se ha creado el perfil '%s'."
@@ -136,15 +137,15 @@ L.TIMER_FORMAT				= "%d |4minuto:minutos; y %.2f |4segundo:segundos;"
 
 L.MIN						= "min"
 L.MIN_FMT					= "%d min"
-L.SEC						= "s"
-L.SEC_FMT					= "%s s"
+L.SEC						= "seg"
+L.SEC_FMT					= "%s seg"
 
 L.GENERIC_WARNING_OTHERS	= "y otro"
 L.GENERIC_WARNING_OTHERS2	= "y otros %d"
 L.GENERIC_WARNING_BERSERK	= "Rabia en %s %s"
 L.GENERIC_TIMER_BERSERK		= "Rabia"
 L.OPTION_TIMER_BERSERK		= "Mostrar tiempo restante para $spell:26662"
-L.BAD						= "Daño"
+L.BAD						= "Dañino"
 
 L.OPTION_CATEGORY_TIMERS			= "Barras"
 --Sub cats for "announce" object

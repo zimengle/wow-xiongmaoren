@@ -1,6 +1,8 @@
 
 PawnOptions = {
 ["LastVersion"] = 2.0811,
+["LastPlayerFullName"] = "京东刘强东-时光IV",
+["AutoSelectScales"] = false,
 ["ItemLevels"] = {
 {
 ["ID"] = 44296,
@@ -88,8 +90,6 @@ nil,
 ["Link"] = "|cff0070dd|Hitem:37134::::::::80::::::::::|h[泰蕾丝塔的日记]|h|r",
 },
 },
-["AutoSelectScales"] = false,
-["LastPlayerFullName"] = "京东刘强东-时光IV",
 }
 PawnMrRobotScaleProviderOptions = nil
 PawnClassicScaleProviderOptions = {

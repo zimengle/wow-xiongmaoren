@@ -206,10 +206,12 @@ BG.Init(function()
                 local titleString = _G[header:GetName() .. "Text"]:GetText()
                 if titleString:match("/") then
                     -- if titleString:match("Loaded/Standby") or titleString:match("已载入") then
-                    local tbl = header.obj.childButtons
-                    for i, v in ipairs(tbl) do
-                        local bt = v.frame
-                        if WeakAuras.IsAuraLoaded(bt.id) and bt:GetPoint(1) then
+                    local tbl = { header:GetParent():GetChildren() }
+                    for i, bt in ipairs(tbl) do
+                        -- if bt.id and bt.id:find("BiaoGe") then
+                        --     pt(bt.id, WeakAuras.IsAuraLoaded(bt.id), bt:GetPoint(1))
+                        -- end
+                        if bt.id and WeakAuras.IsAuraLoaded(bt.id) then
                             local ver = bt.id:match("<BiaoGe>拍卖%s-v(%d+%.%d+)")
                             if ver then
                                 if IsShiftKeyDown() then

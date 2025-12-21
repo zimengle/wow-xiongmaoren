@@ -17,6 +17,10 @@ VER 3 0100000001000005 "影袭" "INV_MISC_QUESTIONMARK"
 /equipslot 17 邪恶复仇
 /cast 影袭
 END
+VER 3 0100000001000006 "是" "134400"
+/startattack 
+/施放 刀扇
+END
 VER 3 0100000001000002 "爆发宏" "INV_MISC_QUESTIONMARK"
 /use [mod:ctrl]
 END

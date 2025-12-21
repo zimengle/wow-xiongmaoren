@@ -20,10 +20,3 @@ X: 315
 Y: -82
 W: 200
 H: 50
-Frame: GIL
-FrameLevel: 1
-Anchor: TOP
-X: 277
-Y: -117
-W: 734
-H: 400

@@ -1,6 +1,6 @@
 # Auctionator
 
-## [301](https://github.com/TheMouseNest/Auctionator/tree/301) (2025-11-01)
-[Full Changelog](https://github.com/TheMouseNest/Auctionator/compare/300...301) 
+## [306](https://github.com/TheMouseNest/Auctionator/tree/306) (2025-12-18)
+[Full Changelog](https://github.com/TheMouseNest/Auctionator/compare/305...306) 
 
-- LegacyAH: Bags: Attempt to fix incomplete charges detection  
+- Tag as supporting 5.5.3  

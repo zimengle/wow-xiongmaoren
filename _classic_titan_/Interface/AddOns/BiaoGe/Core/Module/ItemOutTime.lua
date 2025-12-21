@@ -155,8 +155,9 @@ BG.Init(function()
                                 if m then
                                     time = time + m
                                 end
-
-                                tinsert(BG.itemGuoQiFrame.tbl, { time = time, link = link, itemID = itemID, b = b, i = i })
+                                if h or m then
+                                    tinsert(BG.itemGuoQiFrame.tbl, { time = time, link = link, itemID = itemID, b = b, i = i })
+                                end
                                 break
                             end
                         end

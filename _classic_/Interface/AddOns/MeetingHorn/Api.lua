@@ -36,7 +36,8 @@ ns.PROJECT_DATA = { --
     [2] = {maxLevel = 60, name = EXPANSION_NAME0, projects = {2}},
     [5] = {maxLevel = 70, name = EXPANSION_NAME1, projects = {5, 2}},
     [11] = {maxLevel = 80, name = EXPANSION_NAME2, projects = {11, 5, 2}},
-    [19] = {maxLevel = 85, name = EXPANSION_NAME3, projects = {19, 11, 5, 2}},
+    [15] = {maxLevel = 85, name = EXPANSION_NAME3, projects = {15, 11, 5, 2}},
+    [19] = {maxLevel = 90, name = EXPANSION_NAME4, projects = {19, 15, 11, 5, 2}},
 }
 
 ns.SEARCH_ALIAS = { --
@@ -429,27 +430,27 @@ local CLASS_ROLES = { --
 local function GetCurrentRoles()
     local class = UnitClassBase("player")
     local roles = CLASS_ROLES[class]
+
+    -- 如果没有定义该职业的职责，默认返回"DAMAGER"
     if not roles or #roles == 0 then
-        return "DAMAGER" -- 默认返回输出
+        return "DAMAGER"
     end
+
     if #roles == 1 then
-        return roles[1]  -- 如果职业只有一个职责（如猎人）
+        return roles[1]
     end
 
-    -- 查找点数最多的天赋页
-    local maxTalentTabIndex
-    local maxPoints = -1
-    for i = 1, GetNumTalentTabs() do
-        local _, _, pointsSpent = GetTalentTabInfo(i)
-        pointsSpent = tonumber(pointsSpent) or 0
-        if pointsSpent > maxPoints then
-            maxTalentTabIndex = i
-            maxPoints = pointsSpent
-        end
+    local specIndex = C_SpecializationInfo.GetSpecialization()
+    if not specIndex then
+        return "DAMAGER"  -- 如果没有选择专精（如未满级）
     end
 
-    -- 返回对应的职责
-    return roles[maxTalentTabIndex] or "DAMAGER"
+    local _, _, _, _, role = C_SpecializationInfo.GetSpecializationInfo(specIndex)
+    if role then
+        return role
+    end
+
+    return "DAMAGER"
 end
 
 function ns.PlayerIsRole(role)

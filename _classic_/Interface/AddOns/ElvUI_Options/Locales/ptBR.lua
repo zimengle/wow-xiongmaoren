@@ -222,6 +222,7 @@ L["Bind on Equip/Use Text"] = "Texto de Vincular quando Equipado/Usado"
 L["BINDING_HEADER_RAID_TARGET"] = "Marcadores de Alvo"
 L["BINDING_HEADER_VOICE_CHAT"] = "Voz"
 L["BLACK_MARKET_AUCTION_HOUSE"] = "Casa de Leilões do Mercado Negro"
+L["BLIZZARD_STORE"] = "Loja"
 L["Blacklist"] = "Lista de Bloqueamento"
 L["Blank Texture"] = "Textura Vazia"
 L["Blend Mode"] = "Modo de Mesclagem"
@@ -1980,7 +1981,7 @@ Atenção:
 -Deve reiniciar o jogo completamente depois de adicionar um ficheiro à pasta.
 -O ficheiro tem de ser em formato tga.
 
-Example: Interface\AddOns\ElvUI\Core\Media\Textures\Copy
+Example: Interface\AddOns\ElvUI\Game\Shared\Media\Textures\Copy
 
 Para a maioria dos usuários seria mais fácil simplesmente copiar o ficheiro tga na pasta do WoW e depois escrever o nome dele aqui.]=]
 
@@ -1996,7 +1997,7 @@ L["*CastByNPC:|r ^Auras cast by any NPC.|r"] = "*Lançado por NPC:|r ^Auras lan�
 L["*CastByPlayers:|r ^Auras cast by any player-controlled unit (so no NPCs).|r"] = "*Lançado por Jogador:|r ^Auras lançadas por qualquer unidade controlada por jogador (então nenhum NPC).|r"
 
 L["*Show Everything:|r ^Set 'Max Duration' to 0 & Leave Priority List Empty or (1) Personal | (2) NonPersonal"] = "*Mostrar Tudo:|r ^Configure 'Duração Máxima' para 0 e Deixe a Lista de Prioridades Vazia ou com (1) Pessoal | (2) Não Pessoal"
-L["*Block Blacklisted Auras, Show Everything Else:|r ^(1) Blacklist| (2) Personal | (3) NonPersonal"] = "*Bloquear Auras Bloqueadas, Mostrar Todas as Outras:|r ^(1) Lista de Bloqueamento| (2) Pessoal | (3) Não Pessoal"
+L["*Block Blacklisted Auras, Show Everything Else:|r ^(1) Blacklist | (2) Personal | (3) NonPersonal"] = "*Bloquear Auras Bloqueadas, Mostrar Todas as Outras:|r ^(1) Lista de Bloqueamento| (2) Pessoal | (3) Não Pessoal"
 L["*Block Auras Without Duration, Show Everything Else:|r ^(1) blockNoDuration | (2) Personal | (3) NonPersonal"] = "*Bloquear Auras sem Duração, Mostrar Todas as Outras:|r ^(1) [Bloquear] Sem Duração | (2) Pessoal | (3) Não Pessoal"
 L["*Block Auras Without Duration, Block Blacklisted Auras, Show Everything Else:|r ^(1) blockNoDuration | (2) Blacklist | (3) Personal | (4) NonPersonal"] = "*Bloquear Auras sem Duração, Bloquear Auras Bloqueadas, Mostrar Todas as Outraws:|r ^(1) [Bloquear] Sem Duração | (2) Lista de Bloqueamento | (3) Pessoal | (4) Não Pessoal"
 L["*Block Everything, Except Your Own Auras:|r ^(1) Personal"] = "*Bloquear Tudo, Exceto Suas Próprias Auras:|r ^(1) Pessoal"

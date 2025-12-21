@@ -142,10 +142,12 @@ function Dummy.OnClear(button)
 end
 
 function Dummy.Refresh(button)
+	button.ilvl:SetText("")
 	if button.type == "secButton" then
 
 	else
 		button.name:SetText(button.Name)
+		
 		local desc
 		if button.Extra and Token.IsToken(button.Extra) then
 			local tokenDesc = Token.GetTokenDescription(button.Extra)

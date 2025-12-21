@@ -1,4 +1,4 @@
--- Spanish localization file for esES and esMX.
+-- Spanish localization file for esMX.
 local L = ElvUI[1].Libs.ACL:NewLocale('ElvUI', 'esMX')
 
 L["ALT"] = true
@@ -223,6 +223,7 @@ L["Bind on Equip/Use Text"] = true
 L["BINDING_HEADER_RAID_TARGET"] = "Marcador de objetivo"
 L["BINDING_HEADER_VOICE_CHAT"] = "Chat de voz"
 L["BLACK_MARKET_AUCTION_HOUSE"] = "Casa de subastas del mercado negro"
+L["BLIZZARD_STORE"] = "Tienda"
 L["Blacklist"] = "Lista Negra"
 L["Blank Texture"] = "Textura en Blanco"
 L["Blend Mode"] = "Modo de Mezcla"
@@ -1979,7 +1980,7 @@ Nota:
 -Debes reiniciar el juego completamente después de agregar un archivo a la carpeta.
 -El archivo debe ser formato tga.
 
-Ejemplo: Interface\AddOns\ElvUI\Core\Media\Textures\Copy
+Ejemplo: Interface\AddOns\ElvUI\Game\Shared\Media\Textures\Copy
 
 O también puedes simplemente colocar un archivo tga en la carpeta de WoW, y escribir aquí el nombre del archivo.]=]
 
@@ -1995,7 +1996,7 @@ L["*CastByNPC:|r ^Auras cast by any NPC.|r"] = true
 L["*CastByPlayers:|r ^Auras cast by any player-controlled unit (so no NPCs).|r"] = true
 
 L["*Show Everything:|r ^Set 'Max Duration' to 0 & Leave Priority List Empty or (1) Personal | (2) NonPersonal"] = true
-L["*Block Blacklisted Auras, Show Everything Else:|r ^(1) Blacklist| (2) Personal | (3) NonPersonal"] = true
+L["*Block Blacklisted Auras, Show Everything Else:|r ^(1) Blacklist | (2) Personal | (3) NonPersonal"] = true
 L["*Block Auras Without Duration, Show Everything Else:|r ^(1) blockNoDuration | (2) Personal | (3) NonPersonal"] = true
 L["*Block Auras Without Duration, Block Blacklisted Auras, Show Everything Else:|r ^(1) blockNoDuration | (2) Blacklist | (3) Personal | (4) NonPersonal"] = true
 L["*Block Everything, Except Your Own Auras:|r ^(1) Personal"] = true

@@ -356,9 +356,11 @@ data["BlacksmithingWrath"] = {
 			name = AL["Enhancements"],
 			[NORMAL_DIFF] = {
 				{ 1, 55656 },	-- Eternal Belt Buckle
-				{ 3, 55641 },	-- Socket Gloves
+				{ 2, 55839 },
+				{ 4, 55641 },	-- Socket Gloves
 				{ 16, 62202 },	-- Titanium Plating
-				{ 18, 55628 },	-- Socket Bracer
+				{ 17, 56357},
+				{ 19, 55628 },	-- Socket Bracer
 			}
 		},
 		{ -- Sets
@@ -1715,6 +1717,7 @@ data["InscriptionWrath"] = {
 				{ 26, 57022 }, -- Glyph of Spiritual Attunement / 80
 				{ 27, 57032 }, -- Glyph of Righteous Defense / 75
 				{28, 405005},
+				{29,57029}
 			},
 			[MINOR_GLYPHS_DIFF] = {
 				{ 1, 58313 }, -- Glyph of Lay on Hands / 75
@@ -2043,7 +2046,7 @@ data["InscriptionWrath"] = {
 				{ 27, 67600 }, -- Glyph of Claw / 100
 				{ 28, 56961 }, -- Glyph of Maul / 90
 				{ 29, 56963 }, -- Glyph of Wrath / 85
-				{ 30, "INV_Box_01", nil, "点击右下角箭头进入下一页" },
+				{ 30, "INV_Box_01", nil, AL["next page>>"] },
 				{ 101, 56955 }, -- Glyph of Rejuvenation / 80
 				{102,413897}
 

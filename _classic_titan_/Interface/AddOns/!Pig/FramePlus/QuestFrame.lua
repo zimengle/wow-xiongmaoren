@@ -132,4 +132,41 @@ function FramePlusfun.Quest()
 			end
 		end
 	end
+	--最贵卖价
+	local rewardsFrame = QuestInfoFrame.rewardsFrame
+	local rewardButtons = rewardsFrame.RewardButtons;
+	QuestFrame:HookScript("OnEvent", function(self,event)
+		if event == "QUEST_COMPLETE" then
+			C_Timer.After(0.2,function()
+				if not self:IsShown() then return end
+				self.junkGGG={0,0}
+				for index,butui in pairs(rewardButtons) do
+					if butui.junkcoin then butui.junkcoin:Hide() end
+					local questItem = QuestInfo_GetRewardButton(rewardsFrame, index);
+					if questItem and questItem.objectType == "item" then
+						local ItemLink=GetQuestItemLink(questItem.type, index)
+						if ItemLink then
+							local sellPrice= select(11, C_Item.GetItemInfo(ItemLink))
+							if sellPrice and sellPrice>0 then
+								if sellPrice>self.junkGGG[2] then
+									self.junkGGG[2]=sellPrice
+									self.junkGGG[1]=index
+								end
+							end
+						end
+					end
+				end
+				if self.junkGGG[1]>0 then
+					local butui=rewardButtons[self.junkGGG[1]]
+					if not butui.junkcoin then
+						butui.junkcoin = butui:CreateTexture(nil, "OVERLAY");
+						butui.junkcoin:SetAtlas("bags-junkcoin")
+						butui.junkcoin:SetSize(20,18);
+						butui.junkcoin:SetPoint("BOTTOMRIGHT", butui,"BOTTOMRIGHT",0, 0);
+					end
+					butui.junkcoin:Show()
+				end
+			end)
+		end
+	end)
 end

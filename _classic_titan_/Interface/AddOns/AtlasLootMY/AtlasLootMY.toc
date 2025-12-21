@@ -1,16 +1,16 @@
 ## Interface: 38000
 ## Author: Lag
-## Version: v1.0.0
+## Version: v1.2.5
 ## SavedVariables: AtlasLootMYDB
-## Title: AtlasLoot喵影版 |cFF22B14C[Core]|r
+## Title: AtlasLootClass - Titan |cFF22B14C[Core]|r
 ## Notes: Shows the possible loot from the bosses
-## Title-zhCN: AtlasLoot喵影版 |cFF22B14C[主程序]|r
-## Title-zhTW: 副本戰利品查詢經典版 |cFF22B14C[主程式]|r
+## Title-zhCN: 喵影掉落插件 |cFF22B14C[主程序]|r
+## Title-zhTW: 副本戰利品查詢喵影版 |cFF22B14C[主程式]|r
 ## Notes-zhCN: 显示首领可能的掉落物品
 ## Notes-zhTW: 顯示首領與小怪可能掉落的物品，並可查詢各陣營與戰場的獎勵物品、套裝物品等資訊。
-## X-Credits: Daviesh, Lag, Arith, Cellelach, Asurn, Pernicus, Dynaletik and many others
+## X-Credits: Daviesh, Lag, Arith, Cellelach, Asurn, Pernicus, Dynaletik, 喵影三三 and many others
 ## X-Category: Map
-
+## X-Notes fork by AtlassLootClassic. original Author is Lag .update data and optimize by miaoying33
 lib\embeds.xml
 Init.lua
 Constants.lua

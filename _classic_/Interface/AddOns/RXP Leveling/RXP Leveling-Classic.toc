@@ -1,0 +1,8 @@
+## Interface: 40402
+## Title: RXP Leveling |cffff559a狮|r|cfff049b9心|r|cffde49d6-|r|cffc349eb北|r|cffb153f0美|r|cff9967f5刘|r|cff827bf7嘉|r|cff6a90f9玲|r|cff54a4fb·|r|cff3abdfc汉|r|cff27cefc化|r|cff14e0fd版|r
+## Notes: In-game quest stacking
+## Author: The Curator
+## Version: 1.0.0
+## Dependencies: RXPGuides
+Classic/Custom (1).lua
+Classic/Custom (2).lua

@@ -17,8 +17,8 @@ local GetItemID = ns.GetItemID
 
 local pt = print
 
-local dangqianTbl = { "当前表格", "當前表格" }
-local historyTbl = { "历史表格", "歷史表格" }
+local dangqianTbl = { "当前表格", "當前表格", "Current table" }
+local historyTbl = { "历史表格", "歷史表格", "Historical table" }
 
 function BG.ReceiveUI()
     ----------接收表格主界面----------

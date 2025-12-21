@@ -812,7 +812,7 @@ BG.Init(function()
             GameTooltip:ClearLines()
             GameTooltip:AddLine(L["BiaoGe沟通交流群"], 1, 1, 1, true)
             GameTooltip:AddLine(L["Q群："] .. "322785325", 1, 0.82, 0, true)
-            GameTooltip:AddLine(L["密码：金团表格"], 1, 0.82, 0, true)
+            GameTooltip:AddLine(L["密码："] .. "金团表格", 1, 0.82, 0, true)
             GameTooltip:AddLine(L["（点击复制Q群）"], 1, 0.82, 0, true)
             GameTooltip:Show()
 

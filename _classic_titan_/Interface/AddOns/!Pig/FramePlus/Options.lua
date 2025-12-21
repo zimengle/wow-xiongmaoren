@@ -52,11 +52,10 @@ FramePlusF.GemUIplus = PIGCheckbutton_R(FramePlusF,{"增强镶嵌宝石页面","
 FramePlusF.GemUIplus:SetScript("OnClick", function (self)
 	if self:GetChecked() then
 		PIGA["FramePlus"]["GemUIplus"]=true;
-		FramePlusfun.GemUIplus()
 	else
 		PIGA["FramePlus"]["GemUIplus"]=false
-		PIG_OptionsUI.RLUI:Show()
 	end
+	PIG_OptionsUI.RLUI:Show()
 end);
 if PIG_MaxTocversion(40000) then
 	FramePlusF.Spell = PIGCheckbutton_R(FramePlusF,{"未学习/未使用技能提示","技能页增加未学习/未使用技能提示"},true)
@@ -87,6 +86,7 @@ end
 FramePlusF:HookScript("OnShow", function(self)
 	self.BuffTime:SetChecked(PIGA["FramePlus"]["BuffTime"])
 	self.Skill_QKbut:SetChecked(PIGA["FramePlus"]["Skill_QKbut"])
+	self.GemUIplus:SetChecked(PIGA["FramePlus"]["GemUIplus"])
 	if self.Spell then self.Spell:SetChecked(PIGA["FramePlus"]["SpellOpen"]) end
 	if self.Tracking then self.Tracking:SetChecked(PIGA["FramePlus"]["Tracking"]) end
 end)
@@ -126,9 +126,9 @@ end)
 if PIG_MaxTocversion() then
 	FrameExtF.Quest = PIGCheckbutton_R(FrameExtF,{"任务界面扩展",""},true)
 	if PIG_MaxTocversion(30000) then
-		FrameExtF.Quest.tooltip= "扩展任务界面为两列,左边任务列表，右边任务详情,显示任务等级";
+		FrameExtF.Quest.tooltip= "扩展任务界面为两列,左边任务列表，右边任务详情,显示任务等级\n提示任务奖励最贵物品";
 	else
-		FrameExtF.Quest.tooltip= "任务列表显示任务等级";
+		FrameExtF.Quest.tooltip= "任务列表显示任务等级\n提示任务奖励最贵物品";
 	end
 	FrameExtF.Quest:SetScript("OnClick", function (self)
 		if self:GetChecked() then
@@ -532,6 +532,7 @@ addonTable.FramePlus = function()
 	FramePlusfun.BuffTime()
 	FramePlusfun.Skill_QKbut()
 	FramePlusfun.Tracking()
+	FramePlusfun.GemUIplus()
 	FramePlusfun.Loot()
 	FramePlusfun.LootMasterErr()
 	FramePlusfun.Roll()

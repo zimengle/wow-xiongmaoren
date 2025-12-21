@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 5.1.08 (5th November 2025)
+-- 	Leatrix Plus 5.1.14 (14th December 2025)
 ----------------------------------------------------------------------
 
 --	01:Functions 02:Locks   03:Restart 40:Player   45:Rest
@@ -19,7 +19,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "5.1.08"
+	LeaPlusLC["AddonVer"] = "5.1.14"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -1064,17 +1064,17 @@
 				if (LeaPlusLC["AcceptPartyFriends"] == "On" and LeaPlusLC:FriendCheck(arg1, guid)) then
 					if not LeaPlusLC:IsInLFGQueue() then
 						AcceptGroup()
-						for i=1, STATICPOPUP_NUMDIALOGS do
-							if _G["StaticPopup"..i].which == "PARTY_INVITE" then
-								_G["StaticPopup"..i].inviteAccepted = 1
+						StaticPopup_ForEachShownDialog(function(self)
+							if self.which == "PARTY_INVITE" then
+								self.inviteAccepted = 1
 								StaticPopup_Hide("PARTY_INVITE")
-								break
-							elseif _G["StaticPopup"..i].which == "PARTY_INVITE_XREALM" then
-								_G["StaticPopup"..i].inviteAccepted = 1
+								return
+							elseif self.which == "PARTY_INVITE_XREALM" then
+								self.inviteAccepted = 1
 								StaticPopup_Hide("PARTY_INVITE_XREALM")
-								break
+								return
 							end
-						end
+						end)
 						return
 					end
 				end
@@ -4865,7 +4865,7 @@
 			LeaPlusLC:MakeCB(SideMinimap, "HideMiniMapButton", "Hide the world map button", 16, -132, false, "If checked, the world map button will be hidden.")
 			LeaPlusLC:MakeCB(SideMinimap, "HideMiniTracking", "Hide the tracking button", 16, -152, true, "If checked, the tracking button will be hidden while the pointer is not over the minimap.")
 			LeaPlusLC:MakeCB(SideMinimap, "HideMiniAddonButtons", "Hide addon buttons", 16, -172, false, "If checked, addon buttons will be hidden while the pointer is not over the minimap.")
-			LeaPlusLC:MakeCB(SideMinimap, "CombineAddonButtons", "Combine addon buttons", 16, -192, true, "If checked, addon buttons will be combined into a single button frame which you can toggle by right-clicking the minimap.|n|nNote that enabling this option will lock out the 'Hide addon buttons' setting.")
+			LeaPlusLC:MakeCB(SideMinimap, "CombineAddonButtons", "MinimapButtonButton", 16, -192, true, "If checked, minimap buttons for addons will be collected and placed in a frame which you can toggle by right-clicking the minimap.|n|nThis setting will help you declutter the minimap without the need to install a separate addon just to do that.")
 			LeaPlusLC:MakeCB(SideMinimap, "SquareMinimap", "Square minimap", 16, -212, true, "If checked, the minimap shape will be square.")
 			LeaPlusLC:MakeCB(SideMinimap, "ShowWhoPinged", "Show who pinged", 16, -232, false, "If checked, when someone pings the minimap, their name will be shown.  This does not apply to your pings.")
 
@@ -12235,7 +12235,7 @@
 			end
 
 			-- Create scroll bar
-			scrollFrame = CreateFrame("ScrollFrame", nil, LeaPlusLC["Page9"], "ScrollFrameTemplate")
+			scrollFrame = CreateFrame("ScrollFrame", nil, LeaPlusLC["Page9"], "LeaPlusConfigurationPanelScrollFrameTemplate")
 			scrollFrame:SetPoint("TOPLEFT", 0, -32)
 			scrollFrame:SetPoint("BOTTOMRIGHT", -30, 50)
 			scrollFrame:SetPanExtent(1)
@@ -13845,7 +13845,7 @@
 	function LeaPlusLC:MakeSL(frame, field, caption, low, high, step, x, y, form)
 
 		-- Create slider control
-		local Slider = CreateFrame("Slider", "LeaPlusGlobalSlider" .. field, frame, "UISliderTemplate")
+		local Slider = CreateFrame("Slider", nil, frame, "LeaPlusConfigurationPanelSliderTemplate") -- Old is UISliderTemplate
 		LeaPlusCB[field] = Slider;
 		Slider:SetMinMaxValues(low, high)
 		Slider:SetValueStep(step)

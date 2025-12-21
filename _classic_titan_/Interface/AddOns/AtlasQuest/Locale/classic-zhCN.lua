@@ -95,8 +95,8 @@ local YELLOW = "|cffFFd200";   -- Ingame Yellow
 
 Inst1Story = "黑石深渊曾经是黑铁矮人的伟大都城，这个火山中的迷宫现在成为拉格纳罗斯火焰领主的王座所在地。拉格纳罗斯找到了使用石头和设计图来创造一支无敌石头人均对来帮助它征服黑石深渊。即使是需要打败奈法利安和他的龙子龙孙，拉格纳罗斯会不惜一切代价来达到最后的胜利。"
 Inst1Caption = "黑石深渊（BRD）"
-Inst1QAA = "16 个任务"
-Inst1QAH = "20 个任务"
+Inst1QAA = "19 个任务"
+Inst1QAH = "18 个任务"
 
 --Quest 1 Alliance
 Inst1Quest1 = "1. 黑铁的遗产"
@@ -288,6 +288,48 @@ Inst1Quest15_Prequest = "无"
 Inst1Quest15_Folgequest = "无"
 --
 Inst1Quest15name1 = "美酒节奖币"
+
+--Quest 16 Alliance
+Inst1Quest16 = "16. 被遗弃的希望"
+Inst1Quest16_Aim = "把这个坏消息传达给麦克斯韦尔元帅。"
+Inst1Quest16_Location = "温德索尔元帅(黑石深渊; "..YELLOW.."[4]"..WHITE..")"
+Inst1Quest16_Note = "奥妮克希亚进入资格任务线。麦克斯韦尔元帅在(燃烧平原 - 摩根的岗哨; "..YELLOW.."84.6, 68.8"..WHITE..")。此任务线中的下一个任务来自黑石深渊中随机掉落的物品。"
+Inst1Quest16_Prequest = "温德索尔元帅"
+Inst1Quest16_Folgequest = "无"
+--
+Inst1Quest16name1 = "监督官头盔"
+Inst1Quest16name2 = "盾甲铁靴"
+Inst1Quest16name3 = "风剪护腿"
+
+--Quest 17 Alliance
+Inst1Quest17 = "17. 弄皱的便笺"
+Inst1Quest17_Aim = "温德索尔元帅也许会对你手中的东西感兴趣。毕竟，希望还没有被完全扼杀。"
+Inst1Quest17_Location = "弄皱的便笺(随机掉落于黑石深渊)"
+Inst1Quest17_Note = "奥妮克希亚进入资格任务线。温德索尔元帅在 "..YELLOW.."[4]"..WHITE.."。在采石场附近的黑铁敌人似乎掉落的几率最高。"
+Inst1Quest17_Prequest = "被遗弃的希望"
+Inst1Quest17_Folgequest = "一丝希望"
+-- No Rewards for this quest
+
+--Quest 18 Alliance
+Inst1Quest18 = "18. 一丝希望"
+Inst1Quest18_Aim = "找回温德索尔元帅遗失的情报。"
+Inst1Quest18_Location = "温德索尔元帅(黑石深渊; "..YELLOW.."[4]"..WHITE..")"
+Inst1Quest18_Note = "奥妮克希亚进入资格任务线。遗失的情报从位于 "..YELLOW.."[14]"..WHITE.."的傀儡统帅阿格曼奇和位于 "..YELLOW.."[13]"..WHITE.."的安格弗将军那里掉落。"
+Inst1Quest18_Prequest = "弄皱的便笺"
+Inst1Quest18_Folgequest = "冲破牢笼！"
+-- No Rewards for this quest
+
+--Quest 19 Alliance
+Inst1Quest19 = "19. 冲破牢笼！"
+Inst1Quest19_Aim = "帮助温德索尔元帅拿回他的装备并救出他的朋友。当你成功之后就回去向麦克斯韦尔元帅复命。"
+Inst1Quest19_Location = "温德索尔元帅(黑石深渊; "..YELLOW.."[4]"..WHITE..")"
+Inst1Quest19_Note = "奥妮克希亚进入资格任务线。这是一个护送任务。确保所有人在开始前都处于相同的阶段。如果你在开始事件之前先清理了法律之环("..YELLOW.."[6]"..WHITE..")和通往入口的路径，这个任务会更容易。你可以在燃烧平原的摩根的岗哨找到麦克斯韦尔元帅("..YELLOW.."84.6, 68.8"..WHITE..")。"
+Inst1Quest19_Prequest = "一丝希望"
+Inst1Quest19_Folgequest = "集合在暴风城"
+--
+Inst1Quest19name1 = "元素屏障"
+Inst1Quest19name2 = "清算之刃"
+Inst1Quest19name3 = "作战之刃"
 
 
 --Quest 1 Horde  (same as Quest 1 Alliance)
@@ -982,7 +1024,7 @@ Inst3Quest14name2_HORDE = Inst3Quest14name2
 
 Inst4Story = "黑石深渊深处的巨大堡垒是由矮人建筑大师弗兰克罗恩·铸铁所设计的。这个堡垒是矮人力量的象征并被邪恶的黑铁矮人占据了数个世纪。然而，奈法利安——死亡之翼狡猾的儿子——对这个巨大的堡垒别有意图。他和他的黑龙军团占据了上层黑石塔并向占据着黑石深渊的黑铁矮人宣战。奈法利安知道矮人是由强大的火元素拉格纳罗斯所领导的，所以他立志要摧毁他的敌人并将黑石深渊全都占为己有。"
 Inst4Caption = "上层黑石塔（UBRS）"
-Inst4QAA = "11 个任务"
+Inst4QAA = "12 个任务"
 Inst4QAH = "13 个任务"
 
 --Quest 1 Alliance
@@ -1123,6 +1165,16 @@ Inst4Quest11_Prequest = "冷冻龙蛋"
 Inst4Quest11_Folgequest = "莱尼德·巴萨罗梅 -> 黎明先锋（"..YELLOW.."通灵学院"..WHITE.."）"
 Inst4Quest11PreQuest = "true"
 -- No Rewards for this quest
+
+--Quest 12 Alliance
+Inst4Quest12 = "12. 龙火护符"
+Inst4Quest12_Aim = "你必须从达基萨斯将军身上取回黑龙勇士之血，你可以在黑石塔的晋升大厅后面的房间里找到他。"
+Inst4Quest12_Location = "哈尔琳(冬泉谷; "..YELLOW.."54.4, 51.2"..WHITE..")"
+Inst4Quest12_Note = "这是奥妮克希亚进入资格任务的最后一个任务。关于如何开始这条任务线的更多信息，请查看黑石深渊的任务温德索尔元帅。你可以在 "..YELLOW.."[9]"..WHITE.."找到达基萨斯将军。"
+Inst4Quest12_Prequest = "潜藏者 -> 巨龙之眼"
+Inst4Quest12_Folgequest = "无"
+--
+Inst4Quest12name1 = "龙火护符"
 
 
 --Quest 1 Horde  (same as Quest 1 Alliance)
@@ -1900,7 +1952,7 @@ Inst10Quest3_HORDE_Folgequest = Inst10Quest1_Folgequest
 
 Inst11Story = "通灵学院位于凯尔达隆废弃的城堡中的地下室中。那里曾经是高贵的巴罗夫家族的，但是在第二次大战中凯尔达隆变成了一块废墟。法师克尔苏加德经常向他的诅咒神教信徒承诺可以用对于巫妖王的效忠来换取永恒的生命。巴罗克家族受到克尔苏加德的魅惑而将城堡和其地下室献给了亡灵天灾。那些信徒然后将巴罗夫家族的人杀死并把地下室变成了通灵学院。虽然克尔苏加德不再住在这个地下室中，但是狂热的信徒和讲师都还留在那里。强大的巫妖，莱斯·霜语以亡灵天灾的名义控制了这里——而凡人亡灵巫师黑暗院长加丁则是这个学校邪恶的校长。"
 Inst11Caption = "通灵学院（Scholo）"
-Inst11QAA = "11 个任务"
+Inst11QAA = "12个任务"
 Inst11QAH = "12 个任务"
 
 --Quest 1 Alliance
@@ -2040,6 +2092,15 @@ Inst11Quest11_Note = "你需要超维度幽灵显形器才能看到伯德雷。�
 Inst11Quest11_Prequest = "更多重要的材料"
 Inst11Quest11_Folgequest = "最后的准备（"..YELLOW.."上层黑石塔"..WHITE.."）"
 Inst11Quest11PreQuest = "true"
+-- No Rewards for this quest
+
+--Quest 12 Alliance
+Inst11Quest12 = "12. 审判和救赎(圣骑士)"
+Inst11Quest12_Aim = "在通灵学院尸骨储藏所地下室的中心使用预言水晶球。将你要审判的灵魂引领出来。将这些灵魂击败然后死亡骑士达克雷尔就将被召唤出来。将其击败然后获得堕落战马的灵魂。"
+Inst11Quest12_Location = "格雷森·沙东布瑞克公爵(风暴城 - 教堂广场; "..YELLOW.."37.6, 32.6"..WHITE..")"
+Inst11Quest12_Note = "圣骑士史诗坐骑任务线。这个任务线非常长，有很多步骤。WoWhead.com上有一个非常详细的指南，介绍了如何完成它。尸骨储藏所地下室位于 "..YELLOW.."[5]"..WHITE.."。"
+Inst11Quest12_Prequest = "格雷森·沙东布瑞克公爵 -> 预言水晶球"
+Inst11Quest12_Folgequest = "重回尸骨储藏所"
 -- No Rewards for this quest
 
 
@@ -5418,8 +5479,8 @@ Inst26Quest7name1_HORDE = Inst26Quest7name1
 
 Inst27Story = "熔火之心就在黑石深渊的底层。这是黑石山的中心，也是很久以前扭转矮人内战情势的地方，索瑞森大帝将元素火焰之王，拉格纳罗斯召唤到世界来。尽管火焰之王无法远离熔火之心，但人们相信他的元素爪牙控制着黑铁矮人，在遗迹之外组建军队。拉格纳罗斯休眠的燃烧之湖有一道裂缝连接火平面，让邪恶的元素可以通过。拉格纳罗斯的首要代理人是管理者埃克索图斯——因为这是唯一能唤醒火焰之王的狡猾元素。"
 Inst27Caption = "熔火之心（MC）"
-Inst27QAA = "6 个任务"
-Inst27QAH = "6 个任务"
+Inst27QAA = "7 个任务"
+Inst27QAH = "7 个任务"
 
 --Quest 1 Alliance
 Inst27Quest1 = "1. 熔火之心"
@@ -5495,6 +5556,15 @@ Inst27Quest6PreQuest = "true"
 --
 Inst27Quest6name1 = "特效活力药水"
 
+--Quest 7 Alliance   (same as BRD Quest 12)
+Inst27Quest7 = "7. 熔火之心的传送门"
+Inst27Quest7_Aim = Inst1Quest12_Aim
+Inst27Quest7_Location = Inst1Quest12_Location
+Inst27Quest7_Note = "这是熔火之心的进入资格任务。熔火碎片位于 "..YELLOW.."黑石深渊"..WHITE.." at "..YELLOW.."[23]"..WHITE.."，离熔火之心的入口非常近。完成这个任务后，你可以通过与洛索斯·天痕交谈或跳过他旁边的窗户来进入熔火之心。"
+Inst27Quest7_Prequest = Inst1Quest12_Prequest
+Inst27Quest7_Folgequest = Inst1Quest12_Folgequest
+-- No Rewards for this quest
+
 
 --Quest 1 Horde  (same as Quest 1 Alliance)
 Inst27Quest1_HORDE = Inst27Quest1
@@ -5569,6 +5639,14 @@ Inst27Quest6_HORDE_Folgequest = Inst27Quest6_Folgequest
 Inst27Quest6PreQuest_HORDE = Inst27Quest6PreQuest
 --
 Inst27Quest6name1_HORDE = Inst27Quest6name1
+
+--Quest 7 Horde  (same as Quest 7 Alliance)
+Inst27Quest7_HORDE = Inst27Quest7
+Inst27Quest7_HORDE_Aim = Inst27Quest7_Aim
+Inst27Quest7_HORDE_Location = Inst27Quest7_Location
+Inst27Quest7_HORDE_Note = Inst27Quest7_Note
+Inst27Quest7_HORDE_Prequest = Inst27Quest7_Prequest
+Inst27Quest7_HORDE_Folgequest = Inst27Quest7_Folgequest
 
 
 

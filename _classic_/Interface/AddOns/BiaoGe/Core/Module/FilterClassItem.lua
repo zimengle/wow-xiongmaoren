@@ -447,7 +447,7 @@ function BG.FilterClassItemUI()
         local bt = BG.CreateButton(f)
         bt:SetSize(130, 25)
         bt:SetPoint("BOTTOMRIGHT", -10, 15)
-        bt:SetText(L["关闭"])
+        bt:SetText(CLOSE)
         bt:SetScript("OnClick", function(self)
             self:GetParent():Hide()
         end)
@@ -478,7 +478,13 @@ function BG.FilterClassItemUI()
     end
     local Buttons2 = CreateFrame("Frame", nil, BG.MainFrame)
     do
-        Buttons2:SetPoint("BOTTOMLEFT", 410, 35)
+        local offset
+        if BG.onlyOneHard then
+            offset = 250
+        else
+            offset = 410
+        end
+        Buttons2:SetPoint("BOTTOMLEFT", offset, 35)
         Buttons2:SetSize(0, 30)
         Buttons2.type = 2
         BG.FilterClassItemMainFrame:SetParent(Buttons2)
@@ -486,6 +492,10 @@ function BG.FilterClassItemUI()
         BG.FilterClassItemMainFrame.Buttons2 = Buttons2
         BG.CreateFilterClassButtons(Buttons2)
         tinsert(BG.filterClassButtons, Buttons2)
+        function Buttons2:UpdatePoint()
+            self:ClearAllPoints()
+            self:SetPoint("BOTTOMLEFT", BG.MainFrame, "BOTTOMLEFT", offset, 35)
+        end
     end
 
     -- 新建方案的框体

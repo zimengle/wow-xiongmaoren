@@ -198,3 +198,5 @@ EasyAuction: enabled
 AtlasQuest: enabled
 SpellAutoMaxRank: enabled
 AutoCombatLogger: enabled
+LFGBulletinBoard: enabled
+ArchonTooltipDB_5236: enabled

@@ -1112,6 +1112,7 @@ table.insert(Private.LoginFnQueue, function()
     Private.Realms[6366] = { name = "Norushen", slug = "norushen", region = "EU", database = "EU" }
     Private.Realms[6367] = { name = "Hoptallus", slug = "hoptallus", region = "EU", database = "EU" }
     Private.Realms[6368] = { name = "OokOok", slug = "ook-ook", region = "EU", database = "EU" }
+    Private.Realms[6384] = { name = "时光V", slug = "时光V", region = "CN", database = "5237" }
     Private.Realms[5813] = { name = "WildGrowth", slug = "wild-growth", region = "US", database = "US_10222" }
     Private.Realms[5814] = { name = "LoneWolf", slug = "lone-wolf", region = "US", database = "US_10221" }
     Private.Realms[5815] = { name = "LivingFlame", slug = "living-flame", region = "US", database = "US_10220" }
@@ -1134,6 +1135,11 @@ table.insert(Private.LoginFnQueue, function()
     Private.Realms[5843] = { name = "孤狼", slug = "孤狼", region = "TW", database = "TW_10236" }
     Private.Realms[5844] = { name = "生命烈焰", slug = "生命烈焰", region = "TW", database = "TW_10235" }
     Private.Realms[5845] = { name = "十字軍聖擊", slug = "十字軍聖擊", region = "TW", database = "TW_10234" }
+    Private.Realms[6379] = { name = "时光I", slug = "时光I", region = "CN", database = "5233" }
+    Private.Realms[6380] = { name = "时光III", slug = "时光III", region = "CN", database = "5235" }
+    Private.Realms[6382] = { name = "时光II", slug = "时光II", region = "CN", database = "5234" }
+    Private.Realms[6383] = { name = "时光IV", slug = "时光IV", region = "CN", database = "5236" }
+    Private.Realms[6385] = { name = "时光VI", slug = "时光VI", region = "CN", database = "5238" }
     Private.Realms[0] = { name = "无情", slug = "无情", region = "CN", database = "5211" }
     Private.Realms[0] = { name = "铁血II", slug = "铁血II", region = "CN", database = "5222" }
     Private.Realms[0] = { name = "铁血", slug = "铁血", region = "CN", database = "5210" }

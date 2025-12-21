@@ -235,6 +235,9 @@ end
 
 ---@param activity MeetingHornActivity
 function LFG:AddActivity(activity)
+    if not activity or not activity:GetLeaderGUID() then
+        return
+    end
     -- tinsert(self.activities, random(1, #self.activities + 1), activity)
 
     local insertTo

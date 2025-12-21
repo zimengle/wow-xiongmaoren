@@ -42,6 +42,107 @@ BG.Init2(function()
     local ver = GetAddOnMetadata(addonName, "Version"):gsub("%-%d+", ""):gsub("%D", "")
     ver = tonumber(ver)
 
+    local AchievementIDs
+    if BG.IsWLK_80 then
+        AchievementIDs = {
+            "25ICC",
+            4816,
+            4815,
+            4637,
+            4608,
+            4603,
+            4635,
+            4634,
+            4633,
+            4632,
+            "10ICC",
+            4818,
+            4817,
+            4636,
+            4532,
+            4602,
+            4631,
+            4630,
+            4629,
+            4628,
+            -- "25TOC",
+            -- 3812,
+            -- 3916,
+            -- 3819,
+            -- 3818,
+            -- 3817,
+            -- "10TOC",
+            -- 3918,
+            -- 3917,
+            -- 3810,
+            -- 3809,
+            -- 3808,
+            -- "ULD(25)",
+            -- 2895,
+            -- 3037,
+            -- 3164,
+            -- 3163,
+            -- 3189, -- 烈火金刚
+            -- 3184, -- 珍贵的宝箱
+            -- 2944,
+            -- 3059,
+            -- "ULD(10)",
+            -- 2894,
+            -- 3036,
+            -- 3159,
+            -- 3158,
+            -- 3180,
+            -- 3182,
+            -- 2941,
+            -- 3058,
+        }
+    elseif BG.IsTitan then
+        AchievementIDs = {}
+    elseif BG.IsCTM then
+        AchievementIDs = {
+            L["英雄难度"],
+            6116,
+            6115,
+            6114,
+            6113,
+            6112,
+            6111,
+            6110,
+            6109,
+            L["普通难度"],
+            6177,
+            6107,
+            6106,
+        }
+    elseif BG.IsMOP then
+        AchievementIDs = {
+            L["英雄难度"],
+            6932,
+            6734,
+            6733,
+            6732,
+            6731,
+            6730,
+            6729,
+            6728,
+            6727,
+            6726,
+            6725,
+            6724,
+            6723,
+            6722,
+            6721,
+            6720,
+            6719,
+            L["普通难度"],
+            6689,
+            6845,
+            6718,
+            6844,
+            6458,
+        }
+    end
+
     -- 历史搜索记录
     do
         local edit = MeetingHorn.MainPanel.Browser.Input
@@ -293,6 +394,11 @@ BG.Init2(function()
             bt:SetEnabled(true)
             Browser.Sort = BG.MeetingHorn.BrowserSort_newFuc
         end
+        if BG.IsTitan then
+            bt:HookScript("OnClick", function()
+                MeetingHorn.MainPanel.Browser:Search()
+            end)
+        end
     end
 
     -- 密语模板
@@ -412,105 +518,6 @@ BG.Init2(function()
 
         -- 成就
         local AchievementTitle, AchievementTitleID, AchievementEdit, AchievementCheckButton
-        local AchievementIDs
-        if BG.IsWLK then
-            AchievementIDs = {
-                "25ICC",
-                4816,
-                4815,
-                4637,
-                4608,
-                4603,
-                4635,
-                4634,
-                4633,
-                4632,
-                "10ICC",
-                4818,
-                4817,
-                4636,
-                4532,
-                4602,
-                4631,
-                4630,
-                4629,
-                4628,
-                -- "25TOC",
-                -- 3812,
-                -- 3916,
-                -- 3819,
-                -- 3818,
-                -- 3817,
-                -- "10TOC",
-                -- 3918,
-                -- 3917,
-                -- 3810,
-                -- 3809,
-                -- 3808,
-                -- "ULD(25)",
-                -- 2895,
-                -- 3037,
-                -- 3164,
-                -- 3163,
-                -- 3189, -- 烈火金刚
-                -- 3184, -- 珍贵的宝箱
-                -- 2944,
-                -- 3059,
-                -- "ULD(10)",
-                -- 2894,
-                -- 3036,
-                -- 3159,
-                -- 3158,
-                -- 3180,
-                -- 3182,
-                -- 2941,
-                -- 3058,
-            }
-        elseif BG.IsCTM then
-            AchievementIDs = {
-                L["英雄难度"],
-                6116,
-                6115,
-                6114,
-                6113,
-                6112,
-                6111,
-                6110,
-                6109,
-                L["普通难度"],
-                6177,
-                6107,
-                6106,
-            }
-        elseif BG.IsMOP then
-            AchievementIDs = {
-                L["英雄难度"],
-                6932,
-                6734,
-                6733,
-                6732,
-                6731,
-                6730,
-                6729,
-                6728,
-                6727,
-                6726,
-                6725,
-                6724,
-                6723,
-                6722,
-                6721,
-                6720,
-                6719,
-                L["普通难度"],
-                6689,
-                6845,
-                6718,
-                6844,
-                6458,
-            }
-        end
-
         if AchievementIDs then
             local t = f:CreateFontString()
             t:SetPoint("TOPLEFT", 15, -30)
@@ -560,24 +567,26 @@ BG.Init2(function()
                 self:ClearFocus()
             end)
             edit:SetScript("OnEnter", function(self)
-                GameTooltip:SetOwner(self, "ANCHOR_RIGHT", 0, 0)
-                GameTooltip:ClearLines()
-                GameTooltip:AddLine(L["成就ID参考"], 1, 1, 1)
-                for i, ID in ipairs(AchievementIDs) do
-                    if tonumber(ID) then
-                        if select(4, GetAchievementInfo(ID)) then
-                            local r, g, b = 1, .82, 0
-                            GameTooltip:AddLine(ID .. ": " .. GetAchievementLink(ID), r, g, b)
+                if next(AchievementIDs) then
+                    GameTooltip:SetOwner(self, "ANCHOR_RIGHT", 0, 0)
+                    GameTooltip:ClearLines()
+                    GameTooltip:AddLine(L["成就ID参考"], 1, 1, 1)
+                    for i, ID in ipairs(AchievementIDs) do
+                        if tonumber(ID) then
+                            if select(4, GetAchievementInfo(ID)) then
+                                local r, g, b = 1, .82, 0
+                                GameTooltip:AddLine(ID .. ": " .. GetAchievementLink(ID), r, g, b)
+                            else
+                                local r, g, b = .5, .5, .5
+                                GameTooltip:AddLine(ID .. ": " .. GetAchievementLink(ID):gsub("|cff......", ""):gsub("|r", ""), r, g, b)
+                            end
                         else
-                            local r, g, b = .5, .5, .5
-                            GameTooltip:AddLine(ID .. ": " .. GetAchievementLink(ID):gsub("|cff......", ""):gsub("|r", ""), r, g, b)
+                            GameTooltip:AddLine(" ")
+                            GameTooltip:AddLine(ID, 1, 1, 1)
                         end
-                    else
-                        GameTooltip:AddLine(" ")
-                        GameTooltip:AddLine(ID, 1, 1, 1)
                     end
+                    GameTooltip:Show()
                 end
-                GameTooltip:Show()
             end)
             BG.GameTooltip_Hide(edit)
 
@@ -1101,12 +1110,24 @@ BG.Init2(function()
     end
 
     -- 星团长聊天标记
-    if BG.IsWLK and ver >= 200 then
+    if (BG.IsWLK_80 and ver >= 200) or (BG.IsTitan and ver >= 300) then
+        local tex
+        if BG.IsTitan then
+            tex = "Interface/AddOns/MeetingHorn/Media/mini_certification_icon_"
+        else
+            tex = "Interface/AddOns/MeetingHorn/Media/certification_icon_"
+        end
         local function StarTexture(currentLevel)
-            return "Interface/AddOns/MeetingHorn/Media/certification_icon_" .. currentLevel
+            return tex .. currentLevel
         end
         local function GetCoords(type)
-            if ver >= 228 then
+            if BG.IsTitan then
+                if type == "chat" then
+                    return ":14:18:0:0:100:100:35:95:0:90"
+                else
+                    return ":17:38:0:0:100:100:0:100:0:100"
+                end
+            elseif ver >= 228 then
                 if type == "chat" then
                     return ":15:18:0:0:100:100:65:95:0:50"
                 else
@@ -1149,6 +1170,7 @@ BG.Init2(function()
             local currentLevel = MeetingHorn.db.realm.starRegiment.regimentData[name]
             if not currentLevel then return end
             currentLevel = currentLevel.level
+            -- local currentLevel = 1 -- test
             local nameNum
             local ii = 1
             while _G["GameTooltipTextLeft" .. ii] do
@@ -1267,12 +1289,6 @@ BG.Init2(function()
             end
         end
         hooksecurefunc(MeetingHorn.MainPanel.Browser.ActivityList, "update", Set)
-
-        -- BG.RegisterEvent("CHAT_MSG_CHANNEL", function(_, _, msg, playerName, languageName, channelName)
-        --     if channelName:find(addonName) then
-        --         pt(date("%H%M%S",time()),SetClassCFF(playerName), msg)
-        --     end
-        -- end)
     end
 
     -- 禁用语音开团快人一步

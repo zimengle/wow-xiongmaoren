@@ -144,8 +144,6 @@ function BagBankfun.SetSortBagsRightToLeft(enabled)
 	end
 end
 local BAG_SetList = {
-	{"交易时打开背包","jiaoyiOpen",false},
-	{"拍卖时打开背包","AHOpen",false},
 	{"显示装备等级","wupinLV",true},
 	{"垃圾物品提示","JunkShow",true},
 	{"战利品放入左边包",GetInsertItemsLeftToRight,false},

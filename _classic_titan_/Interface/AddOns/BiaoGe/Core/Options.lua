@@ -289,6 +289,7 @@ BG.Init(function()
                 slider.Text:SetPoint("CENTER", 0, 25)
                 slider.Text:SetText(text)
                 slider.Text:SetTextColor(1, .8, 0)
+                slider.Text:SetSize(slider:GetWidth(), 40)
 
                 slider.edit = CreateFrame("EditBox", nil, slider, "BiaoGe_InputBoxTemplate")
                 slider.edit:SetSize(50, 20)
@@ -341,11 +342,13 @@ BG.Init(function()
             local function OnLeave(self)
                 GameTooltip:Hide()
             end
-            function O.CreateCheckButton(name, text, parent, x, y, ontext)
+            function O.CreateCheckButton(name, text, parent, x, y, ontext, long)
                 local bt = CreateFrame("CheckButton", nil, parent, "ChatConfigCheckButtonTemplate")
                 bt:SetSize(30, 30)
                 bt:SetPoint("TOPLEFT", parent, x, y)
                 bt.Text:SetText(text)
+                bt.Text:SetWordWrap(false)
+                bt.Text:SetWidth(min(bt.Text:GetStringWidth() + 20, long and 500 or 160))
                 bt:SetHitRectInsets(0, -bt.Text:GetWidth(), 0, 0)
                 bt.name = name
                 bt.ontext = ontext
@@ -847,7 +850,7 @@ BG.Init(function()
                 L["工资与补贴："],
                 L["增加复制工资与补贴的按钮。"],
             }
-            local f = O.CreateCheckButton(name, L["交易增强*"], biaoge, 15, height - h, ontext)
+            local f = O.CreateCheckButton(name, L["交易增强"] .. "*", biaoge, 15, height - h, ontext)
             BG.options["button" .. name] = f
             local name = "autoTrade"
             if BiaoGe.options[name] ~= 1 then
@@ -1485,7 +1488,7 @@ BG.Init(function()
                 L["语音提醒"],
                 L["在某些情况下，会有语音提醒，比如：装备快过期、拍卖啦、心愿达成、炼金转化已就绪等等。"],
             }
-            local f = O.CreateCheckButton(name, L["语音提醒*"], biaoge, 15, height - h, ontext)
+            local f = O.CreateCheckButton(name, L["语音提醒"] .. "*", biaoge, 15, height - h, ontext)
             BG.options["button" .. name] = f
             f:HookScript("OnClick", function()
                 local name = "Sound"
@@ -1611,6 +1614,7 @@ BG.Init(function()
             t:SetPoint("BOTTOM", bt, "TOP", 0, 8)
             t:SetTextColor(1, 1, 1)
             t:SetText(AddTexture("QUEST") .. L["我想成为语音包作者"])
+            t:SetWidth(150)
         end
         h = h + 40
 
@@ -1996,7 +2000,7 @@ BG.Init(function()
                 L["一键开拍"],
                 L["在团长拍卖面板里，增加多个价格按钮，点击后直接按该价格开始拍卖。"],
             }
-            local f = O.CreateCheckButton(name, L["一键开拍"] .. "*", autoAuction, 15, height - h, ontext)
+            local f = O.CreateCheckButton(name, L["一键开拍"] .. "*", autoAuction, 15, height - h, ontext, true)
             BG.options["button" .. name] = f
             f:HookScript("OnClick", function(self)
                 if self:GetChecked() then
@@ -2060,7 +2064,7 @@ BG.Init(function()
                 L["使用组合键打开拍卖面板"],
                 L["团长或物品分配者ALT+点击背包/表格/聊天框装备，来打开拍卖面板。"],
             }
-            local f = O.CreateCheckButton(name, L["使用组合键打开团长拍卖面板"] .. "*", autoAuction, 15, height - h, ontext)
+            local f = O.CreateCheckButton(name, L["使用组合键打开团长拍卖面板"] .. "*", autoAuction, 15, height - h, ontext, true)
             BG.options["button" .. name] = f
         end
         h = h + 30
@@ -2073,7 +2077,7 @@ BG.Init(function()
                 L["交易时自动摆放装备"],
                 L["交易时，如果你是物品分配者，会自动把对方所拍装备摆放到交易框。"],
             }
-            local f = O.CreateCheckButton(name, L["交易时自动摆放装备"] .. "*", autoAuction, 15, height - h, ontext)
+            local f = O.CreateCheckButton(name, L["交易时自动摆放装备"] .. "*", autoAuction, 15, height - h, ontext, true)
             BG.options["button" .. name] = f
         end
         h = h + 30
@@ -2086,7 +2090,7 @@ BG.Init(function()
                 L["交易时显示应收或应付金额"],
                 L["交易时，根据对方或你所拍装备显示应收或应付金额。"],
             }
-            local f = O.CreateCheckButton(name, L["交易时显示应收或应付金额"] .. "*", autoAuction, 15, height - h, ontext)
+            local f = O.CreateCheckButton(name, L["交易时显示应收或应付金额"] .. "*", autoAuction, 15, height - h, ontext, true)
             BG.options["button" .. name] = f
             f:HookScript("OnClick", function()
                 local name1 = "autoAuctionQianKuan"
@@ -2113,7 +2117,7 @@ BG.Init(function()
                 L["交易时自动记录欠款"],
                 L["交易时，会自动记录欠款。"],
             }
-            local f = O.CreateCheckButton(name, L["交易时自动记录欠款"] .. "*", autoAuction, 40, height - h, ontext)
+            local f = O.CreateCheckButton(name, L["交易时自动记录欠款"] .. "*", autoAuction, 40, height - h, ontext, true)
             BG.options["button" .. name] = f
             if BiaoGe.options["autoAuctionMoney"] ~= 1 then
                 f:Hide()
@@ -2129,7 +2133,7 @@ BG.Init(function()
                 L["复制应付金额"],
                 L["在交易界面增加一个复制应付金额的按钮。"],
             }
-            local f = O.CreateCheckButton(name, L["复制应付金额"] .. "*", autoAuction, 40, height - h, ontext)
+            local f = O.CreateCheckButton(name, L["复制应付金额"] .. "*", autoAuction, 40, height - h, ontext, true)
             BG.options["button" .. name] = f
             if BiaoGe.options["autoAuctionMoney"] ~= 1 then
                 f:Hide()
@@ -2145,7 +2149,7 @@ BG.Init(function()
                 L["交易时自动确认交易"],
                 L["当交易金额等于应收/应付金额时，自动点击交易按钮。但屏幕中间的二次确认框还是需要你手动确认。"],
             }
-            local f = O.CreateCheckButton(name, L["交易时自动确认交易"] .. "*", autoAuction, 40, height - h, ontext)
+            local f = O.CreateCheckButton(name, L["交易时自动确认交易"] .. "*", autoAuction, 40, height - h, ontext, true)
             BG.options["button" .. name] = f
             if BiaoGe.options["autoAuctionMoney"] ~= 1 then
                 f:Hide()
@@ -2161,7 +2165,7 @@ BG.Init(function()
                 L["拍卖成功的聊天消息后面增加[出价记录]"],
                 L["鼠标悬停在[出价记录]时会显示该装备的出价记录。"],
             }
-            local f = O.CreateCheckButton(name, L["拍卖成功的聊天消息后面增加[出价记录]"] .. "*", autoAuction, 15, height - h, ontext)
+            local f = O.CreateCheckButton(name, L["拍卖成功的聊天消息后面增加[出价记录]"] .. "*", autoAuction, 15, height - h, ontext, true)
             BG.options["button" .. name] = f
         end
         h = h + 30
@@ -2174,7 +2178,7 @@ BG.Init(function()
                 L["拍卖竞价窗口自动往上吸附"],
                 L["当靠前的窗口消失时，后面的窗口会自动往上吸附。"],
             }
-            local f = O.CreateCheckButton(name, L["拍卖竞价窗口自动往上吸附"] .. "*", autoAuction, 15, height - h, ontext)
+            local f = O.CreateCheckButton(name, L["拍卖竞价窗口自动往上吸附"] .. "*", autoAuction, 15, height - h, ontext, true)
             BG.options["button" .. name] = f
         end
         h = h + 30
@@ -2190,7 +2194,7 @@ BG.Init(function()
                 " ",
                 L["需要使用非匿名模式，而且你是团长时才会生效。"],
             }
-            local f = O.CreateCheckButton(name, L["竞拍欢呼语"] .. "*", autoAuction, 15, height - h, ontext)
+            local f = O.CreateCheckButton(name, L["竞拍欢呼语"] .. "*", autoAuction, 15, height - h, ontext, true)
             BG.options["button" .. name] = f
         end
         h = h + 30
@@ -2203,7 +2207,7 @@ BG.Init(function()
                 L["自动出价结束后语音提醒"],
                 L["自动出价结束后，语音提醒你，防止你错过装备。"],
             }
-            local f = O.CreateCheckButton(name, L["自动出价结束后语音提醒"] .. "*", autoAuction, 15, height - h, ontext)
+            local f = O.CreateCheckButton(name, L["自动出价结束后语音提醒"] .. "*", autoAuction, 15, height - h, ontext, true)
             BG.options["button" .. name] = f
         end
         h = h + 30
@@ -2220,7 +2224,7 @@ BG.Init(function()
                 " ",
                 format(L["现在可以修改这个延迟时间，并在一定范围内随机（%s秒-X秒）。X最低为%s秒，最高为%s秒。"], 1, 1, 5),
             }
-            local f = O.CreateCheckButton(name, AddTexture("QUEST") .. L["自动出价的延迟时间随机"] .. "*", autoAuction, 15, height - h, ontext)
+            local f = O.CreateCheckButton(name, AddTexture("QUEST") .. L["自动出价的延迟时间随机"] .. "*", autoAuction, 15, height - h, ontext, true)
             BG.options["button" .. name] = f
             f:HookScript("OnClick", function(self)
                 if self:GetChecked() then
@@ -2909,7 +2913,7 @@ BG.Init(function()
                     L["退队/入队玩家上色"],
                     L["在退队/入队的系统消息里，给该玩家名字加上职业色并设置为链接。"],
                 }
-                local f = O.CreateCheckButton(name, L["退队/入队玩家上色"] .. "*", others, 15, height - h, ontext)
+                local f = O.CreateCheckButton(name, L["退队/入队玩家上色"] .. "*", others, 15, height - h, ontext, true)
                 BG.options["button" .. name] = f
             end
             -- 一键指定灵魂烘炉
@@ -2935,7 +2939,7 @@ BG.Init(function()
                         " ",
                         L["打开随机本界面时，会自动选择上一次的随机本类型，而不是傻傻地在默认类型。"],
                     }
-                    local f = O.CreateCheckButton(name, format(L["一键指定%s"], text1) .. "*", others, 15, height - h, ontext)
+                    local f = O.CreateCheckButton(name, format(L["一键指定%s"], text1) .. "*", others, 15, height - h, ontext, true)
                     BG.options["button" .. name] = f
                 end
             end
@@ -2954,7 +2958,7 @@ BG.Init(function()
                     L["点击按钮后会把全部可交易的物品分配给自己（橙片、任务物品等不会自动分配）。"],
                 }
 
-                local f = O.CreateCheckButton(name, L["队长模式一键分配"] .. "*", others, 15, height - h, ontext)
+                local f = O.CreateCheckButton(name, L["队长模式一键分配"] .. "*", others, 15, height - h, ontext, true)
                 BG.options["button" .. name] = f
                 f:HookScript("OnClick", function(self)
                     if self:GetChecked() then
@@ -2976,7 +2980,7 @@ BG.Init(function()
                     " ",
                     L["按下ALT/SHIFT/CTRL时不会自动一键分配。"],
                 }
-                local f = O.CreateCheckButton(name, L["自动点击一键分配"] .. "*", others, 40, height - h, ontext)
+                local f = O.CreateCheckButton(name, L["自动点击一键分配"] .. "*", others, 40, height - h, ontext, true)
                 BG.options["button" .. name] = f
                 if BiaoGe.options["allLootToMe"] ~= 1 then
                     f:Hide()
@@ -3002,14 +3006,14 @@ BG.Init(function()
                         " ",
                         L["在查询名单列表界面中增加全部举报按钮。"],
                     }
-                    local f = O.CreateCheckButton(name, L["一键举报"] .. "*", others, 15, height - h, ontext)
+                    local f = O.CreateCheckButton(name, L["一键举报"] .. "*", others, 15, height - h, ontext, true)
                     BG.options["button" .. name] = f
                 else
                     local ontext = {
                         L["举报成功后自动隐藏感谢界面"],
                         L["正常情况下，当你举报成功后，会显示一个感谢你的举报的界面。现在该感谢界面不会再显示。"],
                     }
-                    local f = O.CreateCheckButton(name, L["举报成功后自动隐藏感谢界面"] .. "*", others, 15, height - h, ontext)
+                    local f = O.CreateCheckButton(name, L["举报成功后自动隐藏感谢界面"] .. "*", others, 15, height - h, ontext, true)
                     BG.options["button" .. name] = f
                 end
             end
@@ -3028,7 +3032,7 @@ BG.Init(function()
                     " ",
                     L["在查询名单列表中增加导出名单功能（可用于在官网进行批量举报）。"],
                 }
-                local f = O.CreateCheckButton(name, L["查询记录"] .. "*", others, 15, height - h, ontext)
+                local f = O.CreateCheckButton(name, L["查询记录"] .. "*", others, 15, height - h, ontext, true)
                 BG.options["button" .. name] = f
             end
             -- 贸易局
@@ -3049,7 +3053,7 @@ BG.Init(function()
                     L["在拍卖行Shift点击[遭劫货物]时，只会搜索其所需货物，而不是搜索[遭劫货物]（支持原生界面和Auctionator插件）。"],
                 }
 
-                local f = O.CreateCheckButton(name, L["贸易局的遭劫货物显示具体声望奖励"] .. "*", others, 15, height - h, ontext)
+                local f = O.CreateCheckButton(name, L["贸易局的遭劫货物显示具体声望奖励"] .. "*", others, 15, height - h, ontext, true)
                 BG.options["button" .. name] = f
             end
             -- 血月活动期间自动释放尸体和自动对话复活
@@ -3064,7 +3068,7 @@ BG.Init(function()
                 local ontext = {
                     L["荆棘谷血月活动期间自动释放尸体和对话自动复活"],
                 }
-                local f = O.CreateCheckButton(name, L["荆棘谷血月活动期间自动释放尸体和对话自动复活"] .. "*", others, 15, height - h, ontext)
+                local f = O.CreateCheckButton(name, L["荆棘谷血月活动期间自动释放尸体和对话自动复活"] .. "*", others, 15, height - h, ontext, true)
                 BG.options["button" .. name] = f
                 f:SetScript("OnShow", function(self)
                     if BiaoGe.options[name] == 1 then
@@ -3090,7 +3094,21 @@ BG.Init(function()
                     " ",
                     L["在部分物品的提示文本中，增加显示该牌子的数量。比如在熊猫人之怒的正义奖章里，提示正义点数现有数量。"],
                 }
-                local f = O.CreateCheckButton(name, L["牌子拾取增强"] .. "*", others, 15, height - h, ontext)
+                local f = O.CreateCheckButton(name, L["牌子拾取增强"] .. "*", others, 15, height - h, ontext, true)
+                BG.options["button" .. name] = f
+            end
+            -- 屏蔽发送受限的系统消息
+            do
+                h = h + 30
+
+                local name = "ERR_CHAT_THROTTLED"
+                BG.options[name .. "reset"] = 1
+                BiaoGe.options[name] = BiaoGe.options[name] or BG.options[name .. "reset"]
+                local ontext = {
+                    L["屏蔽发送受限的系统消息"],
+                    L["自动屏蔽该系统消息\"可发送的信息数量受限，请稍候再发送下一条信息。\"。"],
+                }
+                local f = O.CreateCheckButton(name, L["屏蔽发送受限的系统消息"] .. "*", others, 15, height - h, ontext, true)
                 BG.options["button" .. name] = f
             end
             h = h + 45
@@ -3436,7 +3454,7 @@ BG.Init(function()
                     BG.options[v.name .. "reset"] = v.reset
                     BiaoGe.options[v.name] = BiaoGe.options[v.name] or BG.options[v.name .. "reset"]
                 end
-                BG.options["button" .. v.name] = O.CreateCheckButton(v.name, v.name2, others, 15, height - h, v.ontext)
+                BG.options["button" .. v.name] = O.CreateCheckButton(v.name, v.name2, others, 15, height - h, v.ontext, true)
                 Update_OnShow(BG.options["button" .. v.name], v.name)
                 if v.onClick then
                     BG.options["button" .. v.name]:HookScript("OnClick", v.onClick)
@@ -3472,7 +3490,7 @@ BG.Init(function()
                 if v.notdefault then
                     v.ontext[1] = v.ontext[1] .. L["（重载界面后生效）"]
                 end
-                local f = O.CreateCheckButton(v.name, v.name2, others, 15, height - h, v.ontext)
+                local f = O.CreateCheckButton(v.name, v.name2, others, 15, height - h, v.ontext, true)
                 Update_OnShow(f, v.name)
                 if v.onClick then
                     f:HookScript("OnClick", v.onClick)

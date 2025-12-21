@@ -774,16 +774,17 @@ BG.Init(function()
                     else
                         f.topMoneyText:SetText(L["|cff00FF00买家：|r"] .. f.colorplayer)
                     end
-
                     if BG then
                         BG.sendMoneyLog = BG.sendMoneyLog or {}
                         BG.sendMoneyLog[f.itemID] = f.logs2
                     end
-
                     if aura.IsRaidLeader() then
                         After(.2, function()
                             SendChatMessage(format(L["{rt6}拍卖成功{rt6} %s %s %s"], f.link, f.player, f.money), "RAID")
                         end)
+                    end
+                    if BG and BG.AuctionWAEnd then
+                        BG.AuctionWAEnd(1, f.link, f.player, f.money)
                     end
                 else
                     result = L["流拍"]
@@ -791,9 +792,11 @@ BG.Init(function()
                     t:SetTextColor(1, 0, 0)
                     f.currentMoneyText:SetText(L["|cffFF0000流拍：|r"] .. f.money)
                     f.topMoneyText:SetText("")
-
                     if aura.IsRaidLeader() then
                         SendChatMessage(format(L["{rt7}流拍{rt7} %s"], f.link), "RAID")
+                    end
+                    if BG and BG.AuctionWAEnd then
+                        BG.AuctionWAEnd(2, f.link, f.player, f.money)
                     end
                 end
 
@@ -801,27 +804,27 @@ BG.Init(function()
                     aura.UpdateFrame(f)
                 end)
 
-                After(3, function()
-                    if not aura.endMsg[itemID] then
-                        if aura.raidLeader and UnitIsConnected(aura.raidLeader) then
-                            SendSystemMessage("|cff00BFFF<BiaoGe>|r " ..
-                                format(L["%s（%s）："], link, result) ..
-                                L["|cffff0000该装备在拍卖结束后一直没收到团长发出的团队通知，所以你显示的拍卖结果可能不正确，请告知团长。"])
-                        else
-                            SendSystemMessage("|cff00BFFF<BiaoGe>|r " ..
-                                format(L["%s（%s）："], link, result) ..
-                                L["|cffff0000团长离线，该装备的拍卖结果可能不正确。"])
-                        end
-                        if BG then
-                            if not aura.soundCD then
-                                aura.soundCD = true
-                                After(2, function()
-                                    aura.soundCD = nil
-                                end)
-                            end
-                        end
-                    end
-                end)
+                -- After(3, function()
+                --     if not aura.endMsg[itemID] then
+                --         if aura.raidLeader and UnitIsConnected(aura.raidLeader) then
+                --             SendSystemMessage("|cff00BFFF<BiaoGe>|r " ..
+                --                 format(L["%s（%s）："], link, result) ..
+                --                 L["|cffff0000该装备在拍卖结束后一直没收到团长发出的团队通知，所以你显示的拍卖结果可能不正确，请告知团长。"])
+                --         else
+                --             SendSystemMessage("|cff00BFFF<BiaoGe>|r " ..
+                --                 format(L["%s（%s）："], link, result) ..
+                --                 L["|cffff0000团长离线，该装备的拍卖结果可能不正确。"])
+                --         end
+                --         if BG then
+                --             if not aura.soundCD then
+                --                 aura.soundCD = true
+                --                 After(2, function()
+                --                     aura.soundCD = nil
+                --                 end)
+                --             end
+                --         end
+                --     end
+                -- end)
             end
         end)
     end
@@ -2079,6 +2082,9 @@ BG.Init(function()
 
                         if aura.IsRaidLeader() then
                             SendChatMessage(format(L["{rt7}拍卖取消{rt7} %s"], f.link), "RAID")
+                        end
+                        if BG and BG.AuctionWAEnd then
+                            BG.AuctionWAEnd(3, f.link, f.player, f.money)
                         end
 
                         After(aura.HIDEFRAME_TIME, function()

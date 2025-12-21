@@ -3,7 +3,7 @@ PIGA_Per = {
 ["PigAction"] = {
 ["ActionData"] = {
 },
-["ShowTJ"] = {
+["Scale"] = {
 1,
 1,
 1,
@@ -15,7 +15,7 @@ PIGA_Per = {
 12,
 12,
 },
-["Scale"] = {
+["ShowTJ"] = {
 1,
 1,
 1,

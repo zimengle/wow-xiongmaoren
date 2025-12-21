@@ -8,6 +8,7 @@ function MopItemFixes.Load()
     local itemKeys = QuestieDB.itemKeys
     local itemClasses = QuestieDB.itemClasses
 
+    ---@format disable
     return {
         [10641] = { -- Moonpetal Lily
             [itemKeys.objectDrops] = {207346},
@@ -1161,11 +1162,26 @@ function MopItemFixes.Load()
         [92425] = { -- Ancient Korune Tablet
             [itemKeys.npcDrops] = {67833},
         },
+        [92441] = { -- The Codex of Xerrath
+            [itemKeys.startQuest] = 32295,
+        },
         [92474] = { -- Extra-Waxy Alliance Ears
             [itemKeys.npcDrops] = {67296,67297,67304,67317,67441},
         },
         [92493] = { -- Bilgewater Blasting Cap
             [itemKeys.npcDrops] = {67929},
+        },
+        [92494] = { -- Hellfire Fragment
+            [itemKeys.objectDrops] = {216327},
+        },
+        [92495] = { -- Netherstorm Fragment
+            [itemKeys.objectDrops] = {216328},
+        },
+        [92496] = { -- Blade's Edge Fragment
+            [itemKeys.objectDrops] = {216326},
+        },
+        [92497] = { -- Shadowmoon Fragment
+            [itemKeys.objectDrops] = {216325},
         },
         [92499] = { -- Sturdy Needle
             [itemKeys.npcDrops] = {68026,68027},
@@ -1237,6 +1253,22 @@ function MopItemFixes.Load()
         },
         [93212] = { -- Spirit Essence of Varatus
             [itemKeys.npcDrops] = {68907},
+        },
+        [94197] = { -- The Zandalari Prophecy
+            [itemKeys.startQuest] = 32600,
+        },
+        [94198] = { -- Rumbles of Thunder
+            [itemKeys.startQuest] = 32601,
+        },
+        [94199] = { -- Gods and Monsters
+            [itemKeys.startQuest] = 32602,
+        },
+        [94221] = { -- Shan'ze Ritual Stone
+            [itemKeys.npcDrops] = {50358,69664,69996,69997,69998,69999,70000,70001,70002,70003,70530},
+            [itemKeys.objectDrops] = {218593},
+        },
+        [94605] = { -- Wild Pterrorwing Hatchling
+            [itemKeys.npcDrops] = {69428},
         },
         [95383] = { -- Pristine Banner of the Mantid Empire
             [itemKeys.startQuest] = 32686,

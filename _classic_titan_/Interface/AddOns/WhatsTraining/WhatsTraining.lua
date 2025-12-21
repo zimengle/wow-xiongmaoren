@@ -407,13 +407,14 @@ if wt.TomesByLevel and wt.TomeTaughtSpells then
     for level, tomesByLevel in pairs(wt.TomesByLevel) do
         for _, tome in ipairs(tomesByLevel) do
             local taughtSpellId = wt.TomeTaughtSpells[tome.itemId]
-            if not taughtSpellId then print("NO SPELL ID?", tome.itemId) end
-            wt:CacheSpell({
-                id = taughtSpellId,
-                cost = tome.cost,
-            }, level, function(_, spellInfo)
-                wt:CacheItem(tome, level, rebuildIfNotCached, spellInfo)
-            end)
+            if taughtSpellId then
+                wt:CacheSpell({
+                    id = taughtSpellId,
+                    cost = tome.cost,
+                }, level, function(_, spellInfo)
+                    wt:CacheItem(tome, level, rebuildIfNotCached, spellInfo)
+                end)
+            end
         end
     end
 end

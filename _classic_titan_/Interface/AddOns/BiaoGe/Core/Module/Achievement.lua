@@ -297,7 +297,7 @@ BG.Init(function()
 /dump GetStatistic(334)
  ]]
     local function FormatNumber(num)
-        if not tonumber(num) then return num end
+        if not tonumber(num) or ns.enUS then return num end
         num = tostring(num)
         local len = strlen(num)
         if len <= 3 then

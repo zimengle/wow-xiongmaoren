@@ -132,7 +132,7 @@ local IngameLocales = {
 	["Librams"] = GetItemSubClassInfo(4,7),
 	["Idols"] = GetItemSubClassInfo(4,8),
 	["Totems"] = GetItemSubClassInfo(4,9),
-
+	["Sigil"] = GetItemSubClassInfo(4,10),
 	-- ######################################################################
 	-- Stats
 	-- ######################################################################

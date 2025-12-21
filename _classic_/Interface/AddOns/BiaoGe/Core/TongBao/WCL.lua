@@ -22,7 +22,7 @@ print( "|cFF1EFF00".."啊~")
 print( "|cFF666666".."啊~")
 5046匕首岭
  ]]
---[[ 
+--[[
 function BG.Expand(v)
     local switch = {
         ["r"] = function()
@@ -258,34 +258,27 @@ function BG.WCLUI(lastbt)
     bt:SetScript("OnLeave", GameTooltip_Hide)
     bt:SetScript("OnClick", function(self)
         BG.FrameHide(0)
-        if not IsInRaid(1) then
-            SendSystemMessage(L["不在团队，无法通报"])
-            BG.PlaySound(1)
-        else
-            self:SetEnabled(false) 
-            C_Timer.After(2, function()
-                bt:SetEnabled(true)
-            end)
-            local tbl = CreateListTable()
-            if not next(tbl) then return end
-            yes = true
-            local t = 0
-            SendChatMessage(L["———通报wc1———"], "RAID")
-            t = t + BG.tongBaoSendCD
-            for i, v in ipairs(CreateListTable()) do
-                BG.After(t, function()
-                    SendChatMessage(format("%s. %s %s %s", i, v.name,
-                        v.info.FB, v.info.per), "RAID")
-                end)
-                t = t + BG.tongBaoSendCD
-            end
-            BG.After(t, function()
-                yes = false
-            end)
-            BG.PlaySound(2)
+        if BG.IsErrorSendChannel() then return end
+        self:SetEnabled(false)
+        C_Timer.After(2, function()
+            bt:SetEnabled(true)
+        end)
+        local tbl = CreateListTable()
+        if not next(tbl) then return end
+        yes = true
+        local t = 0
+        local tbl = {}
+        tinsert(tbl, { L["———通报wc1———"] })
+        t = t + BG.tongBaoSendCD
+        for i, v in ipairs(CreateListTable()) do
+            tinsert(tbl, { format("%s. %s %s %s", i, v.name,
+                v.info.FB, v.info.per) })
         end
+        BG.SendMsgToRaid(tbl, nil, function()
+            yes = false
+        end)
+        BG.PlaySound(2)
     end)
-
     return bt
 end
 

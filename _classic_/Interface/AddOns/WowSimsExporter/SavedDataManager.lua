@@ -10,10 +10,6 @@
 
 local addonName, Env = ...
 
--- 加载本地化
-local L = _G[addonName .. "_L"] or {}
-Env.L = Env.L or L
-
 local SavedDataManager = {}
 Env.SavedDataManager = SavedDataManager
 
@@ -63,15 +59,15 @@ function SavedDataManager:SaveCharacterData(characterData, characterName, isAuto
         end
     end
     
-        if existingIndex then
+    if existingIndex then
         -- Remove existing entry
         table.remove(self.db.profile.savedCharacters, existingIndex)
         if not isAutoSave then
-            self.addon:Print((L["Updated saved character data for %s"] or "Updated saved character data for %s"):format(characterName))
+            self.addon:Print(Env.L("Updated saved character data for %s"):format(characterName))
         end
     else
         if not isAutoSave then
-            self.addon:Print((L["Character data saved for %s"] or "Character data saved for %s"):format(characterName))
+            self.addon:Print(Env.L("Character data saved for %s"):format(characterName))
         end
     end
     
@@ -97,7 +93,7 @@ function SavedDataManager:DeleteSavedCharacter(index)
     local savedChars = self:GetSavedCharacters()
     if savedChars[index] then
         local deletedChar = table.remove(savedChars, index)
-        self.addon:Print((L["Deleted saved character: %s"] or "Deleted saved character: %s"):format(deletedChar.name))
+        self.addon:Print(Env.L("Deleted saved character: %s"):format(deletedChar.name))
         return true
     end
     return false
@@ -107,13 +103,13 @@ end
 function SavedDataManager:ListSavedCharacters()
     local savedChars = self:GetSavedCharacters()
     if #savedChars == 0 then
-        self.addon:Print(L["No saved characters found."] or "No saved characters found.")
+        self.addon:Print(Env.L("No saved characters found."))
         return
     end
     
-    self.addon:Print(L["Saved Characters:"] or "Saved Characters:")
+    self.addon:Print(Env.L("Saved Characters:"))
     for i, charData in ipairs(savedChars) do
-        self.addon:Print(("%d. %s (" .. (L["Saved:"] or "Saved:") .. " %s)"):format(i, charData.name, charData.dateString))
+        self.addon:Print(("%d. %s (saved: %s)"):format(i, charData.name, charData.dateString))
     end
 end
 
@@ -121,14 +117,14 @@ end
 function SavedDataManager:DeleteSavedCharacterCommand(input)
     local index = tonumber(input)
     if not index then
-        self.addon:Print(L["Usage: /wsedelete <number> - Use /wselist to see available characters"] or "Usage: /wsedelete <number> - Use /wselist to see available characters")
+        self.addon:Print(Env.L("Usage: /wsedelete <number> - Use /wselist to see available characters"))
         return
     end
     
     if self:DeleteSavedCharacter(index) then
         -- Success message already printed in DeleteSavedCharacter
     else
-        self.addon:Print((L["No saved character found at index %d"] or "No saved character found at index %d"):format(index))
+        self.addon:Print(Env.L("No saved character found at index %d"):format(index))
     end
 end
 
@@ -138,22 +134,22 @@ function SavedDataManager:ToggleAutoSave(input)
         local option = input:trim():lower()
         if option == "on" or option == "enable" or option == "true" then
             self.db.profile.autoSaveEnabled = true
-            self.addon:Print(L["Auto-save enabled. Character will be saved automatically on equipment, talent, level, and other changes."] or "Auto-save enabled. Character will be saved automatically on equipment, talent, level, and other changes.")
+            self.addon:Print(Env.L("Auto-save enabled. Character will be saved automatically on equipment, talent, level, and other changes."))
         elseif option == "off" or option == "disable" or option == "false" then
             self.db.profile.autoSaveEnabled = false
-            self.addon:Print(L["Auto-save disabled. Use /wse export to manually save character data."] or "Auto-save disabled. Use /wse export to manually save character data.")
+            self.addon:Print(Env.L("Auto-save disabled. Use /wse export to manually save character data."))
         elseif option == "messages" then
             self.db.profile.showAutoSaveMessages = not self.db.profile.showAutoSaveMessages
-            local status = self.db.profile.showAutoSaveMessages and (L["enabled"] or "enabled") or (L["disabled"] or "disabled")
-            self.addon:Print((L["Auto-save messages"] or "Auto-save messages") .. " " .. status .. ".")
+            local status = self.db.profile.showAutoSaveMessages and Env.L("enabled") or Env.L("disabled")
+            self.addon:Print(Env.L("Auto-save messages %s."):format(status))
         else
-            self.addon:Print(L["Usage: /wseautosave [on|off|messages]"] or "Usage: /wseautosave [on|off|messages]")
+            self.addon:Print(Env.L("Usage: /wseautosave [on|off|messages]"))
         end
     else
         -- Toggle auto-save
         self.db.profile.autoSaveEnabled = not self.db.profile.autoSaveEnabled
-        local status = self.db.profile.autoSaveEnabled and (L["enabled"] or "enabled") or (L["disabled"] or "disabled")
-        self.addon:Print((L["Auto-save"] or "Auto-save") .. " " .. status .. ".")
+        local status = self.db.profile.autoSaveEnabled and Env.L("enabled") or Env.L("disabled")
+        self.addon:Print(Env.L("Auto-save %s."):format(status))
     end
 end
 
@@ -200,7 +196,7 @@ function SavedDataManager:OnCharacterChanged(event)
     
     -- Optional: Print a subtle message for auto-saves
     if self:ShouldShowAutoSaveMessages() then
-        self.addon:Print((L["Character auto-saved due to %s"] or "Character auto-saved due to %s"):format(event))
+        self.addon:Print(Env.L("Character auto-saved due to %s"):format(event))
     end
 end
 

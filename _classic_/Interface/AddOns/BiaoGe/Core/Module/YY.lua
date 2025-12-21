@@ -1020,6 +1020,8 @@ BG.Init(function()
             text:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
             text:SetTextColor(RGB(BG.y2))
             text:SetText(L["历史查询："])
+            text:SetJustifyH("RIGHT")
+            text:SetWidth(100)
             text:SetTextColor(1, 1, 1)
             BG.YYMainFrame.DropDownBiaoTi = text
 
@@ -1757,6 +1759,7 @@ BG.Init(function()
                 f:SetFrameLevel(190)
                 f:EnableMouse(true)
                 f:SetMovable(true)
+                f:Hide()
                 BG.EndPJ.new = f
                 f:SetScript("OnMouseUp", function(self)
                     self:StopMovingOrSizing()
@@ -2256,13 +2259,13 @@ BG.Init(function()
     -- YY评价功能是否关闭
     do
         local t = BG.YYMainFrame:CreateFontString()
-        t:SetPoint("TOP", BG.MainFrame, "TOP", 0, -70)
+        t:SetPoint("TOP", BG.MainFrame, "TOP", 0, -50)
         t:SetFont(STANDARD_TEXT_FONT, 20, "OUTLINE")
-        t:SetTextColor(1, 1, 1)
-        t:SetText(L["该模块已关闭。右键底部标签页开启"])
+        t:SetTextColor(1, 0, 0)
+        t:SetText(L["该模块已被禁用"])
 
-        function BG.YYShowHide(show)
-            if show == 1 then
+        function BG.YYShowHide()
+            if BiaoGe.YYdb.share == 1 then
                 BG.YYMainFrame.new:Show()
                 BG.YYMainFrame.my:Show()
                 BG.YYMainFrame.search:Show()
@@ -2272,6 +2275,35 @@ BG.Init(function()
                 BG.YYMainFrame.my:Hide()
                 BG.YYMainFrame.search:Hide()
                 t:Show()
+            end
+            Y:UpdateCloseYYButton()
+        end
+
+        function Y:UpdateCloseYYButton()
+            local mainFrame = BG.YYMainFrame
+            if not Y.closeYYButton then
+                Y.closeYYButton = BG.CreateButton(mainFrame)
+                Y.closeYYButton:SetSize(150, 25)
+                Y.closeYYButton:SetPoint("RIGHT", mainFrame.backBiaoGeButton, "LEFT", -20, 0)
+
+            end
+            local show = BiaoGe.YYdb.share
+            if show==1 then
+                Y.closeYYButton:SetText(L["禁用该模块"])
+                Y.closeYYButton:SetScript("OnClick", function(self)
+                    BiaoGe.YYdb.share = 0
+                    BG.YYShowHide()
+                    LeaveChannelByName(YY)
+                    BG.PlaySound(1)
+                end)
+            else
+                Y.closeYYButton:SetText(L["开启该模块"])
+                Y.closeYYButton:SetScript("OnClick", function(self)
+                    BiaoGe.YYdb.share = 1
+                    JoinPermanentChannel(YY, nil, 1)
+                    BG.YYShowHide()
+                    BG.PlaySound(1)
+                end)
             end
         end
     end
@@ -2329,7 +2361,7 @@ BG.Init(function()
                         end
                         C_ChatInfo.SendAddonMessage(YY, resendtext, "WHISPER", sender)
                         CDing[sender] = true
-                        BG.After(2, function() -- 间隔x秒发一次
+                        BG.After(5, function()
                             CDing[sender] = nil
                         end)
                     end)
@@ -2360,18 +2392,17 @@ BG.Init(function()
         end
     end)
 
-
     BG.RegisterEvent("CHAT_MSG_CHANNEL_NOTICE", function(self, event, text, playerName, _, _, _, _, _, _, channelBaseName)
         if channelBaseName ~= YY then return end
         if text == "YOU_LEFT" then
             BiaoGe.YYdb.share = 0
-            BG.YYShowHide(BiaoGe.YYdb.share)
+            BG.YYShowHide()
             SendSystemMessage(BG.BG .. format(L["你已退出%s频道，YY评价模块自动关闭。"], YY))
         end
     end)
 
     BG.Init2(function()
-        BG.YYShowHide(BiaoGe.YYdb.share)
+        BG.YYShowHide()
 
         local i = 1
         while _G["ChatFrame" .. i] do

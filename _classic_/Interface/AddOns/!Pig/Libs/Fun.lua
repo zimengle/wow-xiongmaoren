@@ -9,7 +9,16 @@ local char=string.char
 local L =addonTable.locale
 local Fun = {}
 addonTable.Fun=Fun
+local version, internalVersion, date, _, versionType, buildType = GetBuildInfo()
 ----
+local function PIGGetColorKey()
+	if PIG_MaxTocversion(60000) then
+		return "cff%w%w%w%w%w%w"
+	else
+		return "cnIQ%d:"
+	end
+end
+Fun.PIGGetColorKey=PIGGetColorKey
 local IsAddOnLoaded = IsAddOnLoaded or C_AddOns and C_AddOns.IsAddOnLoaded
 function Fun.IsAddOnLoaded(AddOnName,funx)
 	if IsAddOnLoaded(AddOnName) then
@@ -53,7 +62,7 @@ function PIG_PlaySoundFile(url)
 	end
 end
 function Fun.IsAudioNumMaxV(cfv,AudioData)
-	if cfv>#AudioData then
+	if  not AudioData[cfv] or AudioData[cfv] and cfv>#AudioData then
 		return 1
 	else
 		return cfv
@@ -70,6 +79,7 @@ function PIGGetIconForRole(role)
 		return GetIconForRole(role)
 	end
 end
+--技能信息====================
 function PIGGetSpellInfo(SpellID)
 	if C_Spell and C_Spell.GetSpellInfo then
 		local spellInfo = C_Spell.GetSpellInfo(SpellID)
@@ -114,7 +124,7 @@ function PIGGetSpellCooldown(SpellID)
 		return start, duration, enabled, modRate
 	end
 end
---获取背包信息
+--获取背包信息===============
 function PIGGetContainerItemInfo(bag, slot)
 	if C_Container and C_Container.GetContainerItemInfo then
 		local ItemInfo = C_Container.GetContainerItemInfo(bag, slot)
@@ -126,7 +136,22 @@ function PIGGetContainerItemInfo(bag, slot)
 		return itemID, itemLink, icon, stackCount, quality, noValue, lootable, locked, isBound
 	end
 end
+
 --发送消息
+function PIGChatFrameAddChannel(ChatFrame,channel)--订购一个聊天框以显示先前加入的聊天频道
+	if PIG_MaxTocversion() then
+		ChatFrame_AddChannel(ChatFrame, channel)
+	else
+		ChatFrame:AddChannel(channel)
+	end
+end
+function PIGChatFrameRemoveChannel(ChatFrame,channel)
+	if PIG_MaxTocversion() then
+		ChatFrame_RemoveChannel(ChatFrame,channel);
+	else
+		ChatFrame:RemoveChannel(channel)
+	end
+end
 function PIGSendChatRaidParty(txt,GroupLeader,extinfo)
 	local Newtxt="[!Pig] "..txt
 	if extinfo=="nopig" then
@@ -167,6 +192,7 @@ function PIGSendAddonRaidParty(biaotou,txt)
 		PIGSendAddonMessage(biaotou,txt,"PARTY")
 	end
 end
+
 ---------
 local function PIGCopyfun(old,new)
 	for k,v in pairs(old) do
@@ -315,19 +341,19 @@ function Fun.Get_LootTypeData()
 	return lootListIDs,lootmethodName,lootmethodNameJ
 end
 function Fun.Get_LootTypeID(id)
-	if PIG_MaxTocversion(30000,true) and PIG_MaxTocversion(40000) then
-		return lootList[id]
-	else
+	-- if PIG_MaxTocversion(30000,true) and PIG_MaxTocversion(40000) then
+	-- 	return lootList[id]
+	-- else
 		return id
-	end
+	--end
 end
 function Fun.PIG_GetLootMethod()
 	local lootmethodID,masterLootPartyID, masterLooterRaidID= GetLootMethod();
-	if PIG_MaxTocversion(30000,true) and PIG_MaxTocversion(40000) then
-		return lootList_old[lootmethodID],masterLootPartyID, masterLooterRaidID
-	else
+	-- if type(lootmethodID)~="number" then
+	-- 	return lootList_old[lootmethodID],masterLootPartyID, masterLooterRaidID
+	-- else
 		return lootmethodID,masterLootPartyID, masterLooterRaidID
-	end
+	--end
 end
 local function Update_LootTxt(but)
 	if PIG_MaxTocversion() then
@@ -511,7 +537,7 @@ Fun.biaoqingData=biaoqingData
 --删除聊天link信息
 function Fun.del_link(newText)
 	local newText = newText or ""
-	local newText=newText:gsub("|cff%w%w%w%w%w%w|Hitem:.-|h%[","");
+	local newText=newText:gsub("|"..PIGGetColorKey().."|Hitem:.-|h%[","");
 	local newText=newText:gsub("|cff%w%w%w%w%w%w|Henchant:.-|h%[","");
 	local newText=newText:gsub("|cff%w%w%w%w%w%w|Htrade:.-|h%[","");
 	local newText=newText:gsub("|cff%w%w%w%w%w%w|Hmount:.-|h%[","");--
@@ -539,7 +565,7 @@ end
 function Fun.gsub_NOlink(newText)--替换Link之外信息
 	local newText = newText or ""
 	local paichuinfo = {}
-	find_NOlink(paichuinfo,newText,"(|cff%w%w%w%w%w%w|Hitem:.-|h%[.-%]|h|r)")
+	find_NOlink(paichuinfo,newText,"(|"..PIGGetColorKey().."|Hitem:.-|h%[.-%]|h|r)")
 	find_NOlink(paichuinfo,newText,"(|cff%w%w%w%w%w%w|Henchant:.-|h%[.-%]|h|r)");
 	find_NOlink(paichuinfo,newText,"(|cff%w%w%w%w%w%w|Htrade:.-|h%[.-%]|h|r)");
 	find_NOlink(paichuinfo,newText,"(|cff%w%w%w%w%w%w|Hmount:.-|h%[.-%]|h|r)");
@@ -1026,39 +1052,57 @@ function Fun.yasuo_NumberString(sss)
     if not sss or sss == "" then return "" end
     local txtmsg = ""
     local count = 1
-    local lastDigit = nil
+    local lastChar = nil
     for i = 1, #sss do
-        local str = sss:sub(i, i)
-        if str == lastDigit then
-            count = count + 1
-        else
-            if lastDigit then
-                if count > 1 then
-                    local compChar = pig_yasuo[count]
-                    if compChar then
-                        txtmsg = txtmsg .. lastDigit .. compChar
+        local char = sss:sub(i, i)
+        if lastChar and (not lastChar:match("%d")) then
+            txtmsg = txtmsg .. lastChar
+            lastChar = nil
+            count = 0
+        end
+        if char:match("%d") then
+            if char == lastChar then
+                count = count + 1
+            else
+                if lastChar and lastChar:match("%d") then
+                    if count > 1 then
+                        local comp = pig_yasuo[count]
+                        txtmsg = txtmsg .. lastChar .. (comp or tostring(count))
                     else
-                        txtmsg = txtmsg .. lastDigit .. tostring(count)
+                        txtmsg = txtmsg .. lastChar
                     end
-                else
-                    txtmsg = txtmsg .. lastDigit
+                elseif lastChar then
+                    txtmsg = txtmsg .. lastChar
                 end
+                count = 1
+                lastChar = char
             end
-            count = 1
-            lastDigit = str
-        end
-    end
-    if count > 1 then
-        local compChar = pig_yasuo[count]
-        if compChar then
-            txtmsg = txtmsg .. lastDigit .. compChar
         else
-            txtmsg = txtmsg .. lastDigit .. tostring(count)
+            if lastChar and lastChar:match("%d") then
+                if count > 1 then
+                    local comp = pig_yasuo[count]
+                    txtmsg = txtmsg .. lastChar .. (comp or tostring(count))
+                else
+                    txtmsg = txtmsg .. lastChar
+                end
+                lastChar = nil
+                count = 0
+            end
+            txtmsg = txtmsg .. char
         end
-    else
-        txtmsg = txtmsg .. lastDigit
     end
-
+    if lastChar then
+        if lastChar:match("%d") then
+            if count > 1 then
+                local comp = pig_yasuo[count]
+                txtmsg = txtmsg .. lastChar .. (comp or tostring(count))
+            else
+                txtmsg = txtmsg .. lastChar
+            end
+        else
+            txtmsg = txtmsg .. lastChar
+        end
+    end
     return txtmsg
 end
 function Fun.jieya_NumberString(sss)
@@ -1097,66 +1141,6 @@ function Fun.jieya_NumberString(sss)
 
     return txtdec
 end
--- function Fun.yasuo_NumberString(sss)
--- 	if not sss or sss=="" then return "" end
---     local txtmsg = ""
---     local count = 1
---     local lastDigit=nil
---     for i = 1, #sss do
---         local str = sss:sub(i, i)
---         if str == lastDigit then
---             count = count + 1
---         else
--- 			if lastDigit then
--- 				local str = sss:sub(i, i)
--- 	            if count > 1 then
--- 	                txtmsg = txtmsg .. tostring(lastDigit) .. pig_yasuo[count]
--- 	            else
--- 	                txtmsg = txtmsg .. tostring(lastDigit)
--- 	            end
--- 	        end
---             count = 1
---             lastDigit = str
---         end
---     end
---     if count > 1 then
---         txtmsg = txtmsg .. tostring(lastDigit) .. pig_yasuo[count]
---     elseif count == 1 then
---         txtmsg = txtmsg .. tostring(lastDigit)
---     end
---     return txtmsg
--- end
--- function Fun.jieya_NumberString(sss)
--- 	if not sss or sss=="" then return "" end
---     local txtdec = ""
---     local zifutxt = nil
---     local count = 0
---     for i = 1, #sss do
---         local char = sss:sub(i, i)
---         local char1 = sss:sub(i+1, i+1)
---         if char:match("%A") then
--- 			txtdec=txtdec..char
---             zifutxt = char
---         elseif char:match("%a") and char1:match("%a") then
---         	if zifutxt then
---         		print(char,char1)
---         		print(pig_jieya[char..char1])
---         		for ix=2,pig_jieya[char..char1] do
---         			txtdec=txtdec..zifutxt
---         		end
---             end
---             zifutxt = nil
---         elseif char:match("%a") then
---         	if zifutxt then
---         		for ix=2,pig_jieya[char] do
---         			txtdec=txtdec..zifutxt
---         		end
---             end
---             zifutxt = nil
---         end
---     end
---     return txtdec
--- end
 --压缩配置
 local pig_teshuzifu = {"&","@","#"}
 function Fun.quchu_teshufuhao(str)

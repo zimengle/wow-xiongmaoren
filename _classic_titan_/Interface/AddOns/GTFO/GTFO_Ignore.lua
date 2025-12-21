@@ -8,14 +8,18 @@ GTFO Ignore List
 GTFO.IgnoreSpellCategory["Fatigue"] = {
 	spellID = 3271, -- Not really the spell, but a good placeholder
 	desc = "Fatigue",
+	descKey = "Ignore_Fatigue",
 	tooltip = "Alert when entering a fatigue area",
+	tooltipKey = "Ignore_Fatigue_Tooltip",
 	override = true
 }
 
 GTFO.IgnoreSpellCategory["Lava"] = {
 	spellID = 16455, -- Not really the spell, but a good placeholder
 	desc = "Lava Pools & Campfires",
+	descKey = "Ignore_Lava",
 	tooltip = "Alert when damaged by lava pools and campfires",
+	tooltipKey = "Ignore_Lava_Tooltip",
 	override = true
 }
 
@@ -23,7 +27,8 @@ if (GTFO.CataclysmMode or GTFO.RetailMode) then
 	GTFO.IgnoreSpellCategory["HagaraWateryEntrenchment"] = {
 		-- mobID = 55689; -- Hagara the Stormbinder
 		spellID = 110317,
-		desc = "Watery Entrenchment (Hagara - Cataclysm)"
+		desc = "Watery Entrenchment (Hagara - Cataclysm)",
+		descKey = "Ignore_HagaraWateryEntrenchment"
 	}
 end
 
@@ -32,7 +37,9 @@ if (GTFO.RetailMode) then
 		-- Garrosh Hellscream
 		spellID = 144762,
 		desc = "Desecrated Axe (Garrosh Phase 1 & 2)",
+		descKey = "Ignore_GarroshDesecrated",
 		tooltip = "Alert from the Desecrated Axe from Garrosh Hellscream (Phase 1 & 2 - MOP)",
+		tooltipKey = "Ignore_GarroshDesecrated_Tooltip",
 		override = true
 	}
 
@@ -40,6 +47,7 @@ if (GTFO.RetailMode) then
 		-- 8.3 Corruption
 		spellID = 315161,
 		desc = "Eye of Corruption (8.3 BFA)",
+		descKey = "Ignore_EyeOfCorruption2",
 		isDefault = true,
 	}
 
@@ -47,14 +55,18 @@ if (GTFO.RetailMode) then
 		-- 10.0 Sennarth
 		spellID = 372055,
 		desc = "Icy Ground (Sennarth - Dragonflight)",
-		tooltip = "Icy Ground (Sennarth - Dragonflight)"
+		descKey = "Ignore_IcyGround",
+		tooltip = "Icy Ground (Sennarth - Dragonflight)",
+		tooltipKey = "Ignore_IcyGround_Tooltip"
 	}
 	
 	GTFO.IgnoreSpellCategory["SmotheringShadows"] = {
 		-- 11.0 Smothering Shadows (darkness aura) from Darkflame Cleft
 		spellID = 422806,
 		desc = "Smothering Shadows (Darkflame Cleft TWW)",
-		tooltip = "Alert from the darkness aura during Darkflame Cleft (TWW)"
+		descKey = "Ignore_SmotheringShadows",
+		tooltip = "Alert from the darkness aura during Darkflame Cleft (TWW)",
+		tooltipKey = "Ignore_SmotheringShadows_Tooltip"
 	}
 end
 

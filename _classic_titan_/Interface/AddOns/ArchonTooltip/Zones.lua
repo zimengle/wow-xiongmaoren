@@ -19,22 +19,25 @@ Private.Zones[44] = {
     difficultyIconMap = nil,
 }
 
-Private.Zones[1040] = {
-    id = 1040,
-    name = "HoF / ToES",
+Private.Zones[1046] = {
+    id = 1046,
+    name = "Throne of Thunder",
     hasMultipleDifficulties = true,
     hasMultipleSizes = true,
     encounters = {
-        { id = 1507, },
-        { id = 1504, },
-        { id = 1463, },
-        { id = 1498, },
-        { id = 1499, },
-        { id = 1501, },
-        { id = 1409, },
-        { id = 1505, },
-        { id = 1506, },
-        { id = 1431, },
+        { id = 51577, },
+        { id = 51575, },
+        { id = 51570, },
+        { id = 51565, },
+        { id = 51578, },
+        { id = 51573, },
+        { id = 51572, },
+        { id = 51574, },
+        { id = 51576, },
+        { id = 51559, },
+        { id = 51560, },
+        { id = 51579, },
+        { id = 51580, },
     },
     difficultyIconMap = nil,
 }
@@ -71,6 +74,26 @@ Private.Zones[2018] = {
         { id = 3188, },
         { id = 3190, },
         { id = 3189, },
+    },
+    difficultyIconMap = nil,
+}
+
+Private.Zones[1049] = {
+    id = 1049,
+    name = "Molten Core",
+    hasMultipleDifficulties = false,
+    hasMultipleSizes = false,
+    encounters = {
+        { id = 200663, },
+        { id = 200664, },
+        { id = 200665, },
+        { id = 200666, },
+        { id = 200667, },
+        { id = 200668, },
+        { id = 200669, },
+        { id = 200670, },
+        { id = 200671, },
+        { id = 200672, },
     },
     difficultyIconMap = nil,
 }

@@ -47,6 +47,7 @@ L['MissionGuidance'] = '任务指引'
 L['Recruit members'] = '招募队员'
 -- 活动
 
+L.CATEGORY_CHALLENGE = '挑战模式:终极试炼'
 L.CATEGORY_QUEST = '任务'
 L.CATEGORY_RAID = '团队副本'
 L.CATEGORY_DUNGEON = '地下城'
@@ -141,6 +142,17 @@ L['Ysondre'] = '伊森德雷' -- 伊森德雷
 L['Taerar'] = '泰拉尔' -- 泰拉尔
 L['Emeriss'] = '艾莫莉丝' -- 艾莫莉丝
 L['Lethon'] = '莱索恩' -- 莱索恩
+
+-- 熊猫人之谜世界boss
+L['Sha of Anger'] = '怒之煞' -- 怒之煞
+L['Salyis\'s Warband'] = '萨莱斯的兵团' -- 萨莱斯的兵团
+L['Nalak'] = '暴风领主纳拉克' -- 暴风领主纳拉克
+L['Oondasta'] = '乌达斯塔' -- 乌达斯塔
+L['Chi-Ji'] = '朱鹤赤精' -- 朱鹤赤精
+L['Yu\'lon'] = '青龙玉珑' -- 青龙玉珑
+L['Niuzao'] = '玄牛砮皂' -- 玄牛砮皂
+L['Xuen'] = '白虎雪怒' -- 白虎雪怒
+L['Ordos'] = '野牛人火神斡耳朵斯' -- 野牛人火神斡耳朵斯
 
 L['Ahn\'Qiraj Temple'] = '安其拉神殿'
 

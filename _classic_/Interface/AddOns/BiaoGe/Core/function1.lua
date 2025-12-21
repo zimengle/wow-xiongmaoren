@@ -233,26 +233,6 @@ function BG.ClearFocus()
     end
 end
 
-------------------事件监控------------------
-local events = {}
-local f = CreateFrame("Frame")
-f:SetScript("OnEvent", function(_, event, ...)
-    for _, func in ipairs(events[event]) do
-        if event == "COMBAT_LOG_EVENT_UNFILTERED" then
-            func(f, event, CombatLogGetCurrentEventInfo())
-        else
-            func(f, event, ...)
-        end
-    end
-end)
-function BG.RegisterEvent(event, func)
-    if not events[event] then
-        events[event] = {}
-        f:RegisterEvent(event)
-    end
-    tinsert(events[event], func)
-end
-
 ------------------函数：隐藏窗口------------------   -- 0：隐藏焦点+全部框架，1：隐藏全部框架，2：隐藏除历史表格外的框架
 function BG.FrameHide(num)
     if num == 0 then
@@ -600,11 +580,11 @@ function BG.SetBorderAlpha(self)
 end
 
 function BG.FormatNumber(num, type)
-    if not tonumber(num) then return num end
+    if not tonumber(num) or ns.enUS then return num end
     type = type or 1
     num = tostring(num)
+    local len = strlen(num)
     if type == 1 then
-        local len = strlen(num)
         if len < 5 then return num end
         local k = num:sub(-4, -1)
         local w = num:sub(1, -5)
@@ -622,6 +602,14 @@ function BG.FormatNumber(num, type)
             end
             return w .. "." .. k .. L["万"]
         end
+    elseif type == 2 then
+        if len < 4 then return num end
+        local k = num:sub(-4, -4)
+        local w = num:sub(1, -5)
+        if w == "" then
+            w = 0
+        end
+        return w .. "." .. k .. L["万"]
     end
     -- local formatted = tostring(num)
     -- formatted = formatted:reverse():gsub("(%d%d%d)", "%1,"):reverse():gsub("^,","")
@@ -769,27 +757,48 @@ function BG.ClearCode(text)
     return text:gsub("|T.-|t", ""):gsub("|A.-|a", ""):gsub("|cff......", ""):gsub("|r", "")
 end
 
-local lastNum = 0
-function BG.canSend()
-    local n
-    local canSend = true
-    if IsInRaid(1) then
-        n = GetNumGroupMembers(1)
-        if lastNum >= n then
-            canSend = false
-        end
-    else
-        canSend = false
-        n = 0
-    end
-    lastNum = n
-    return canSend
-end
-
 function BG.ValueInTable(tbl, value)
     for k, v in pairs(tbl) do
         if v == value then
             return true
         end
     end
+end
+
+function BG.GetNpcID(guid)
+    if guid then
+        local npcType, _, _, _, _, npcID = strsplit("-", guid)
+        return tonumber(npcID) or 0, npcType
+    else
+        return "", ""
+    end
+end
+
+function BG.OnEnterDelay(self, func, delay, isHook)
+    delay = delay or .4
+    local script = isHook and self.HookScript or self.SetScript
+    script(self, "OnEnter", function(self)
+        self.isOnEnter = true
+        if func then
+            self.t = 0
+            self:SetScript("OnUpdate", function(self, t)
+                self.t = self.t + t
+                if self.t >= delay then
+                    self:SetScript("OnUpdate", nil)
+                    func(self)
+                end
+            end)
+        end
+    end)
+end
+
+function BG.OnLeaveDelay(self, func)
+    self:SetScript("OnLeave", function(self)
+        self.isOnEnter = false
+        self:SetScript("OnUpdate", nil)
+        GameTooltip:Hide()
+        if func then
+            func(self)
+        end
+    end)
 end

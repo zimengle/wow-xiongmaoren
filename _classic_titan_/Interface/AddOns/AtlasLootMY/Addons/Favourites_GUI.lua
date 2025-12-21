@@ -124,7 +124,7 @@ local function ShowFavOptions()
 end
 
 local function ShowOptionsOnClick()
-    AtlasLoot.Loader:LoadModule("AtlasLootMY_Options", ShowFavOptions)
+    AtlasLoot.Options:ShowAddon("favourite")
 end
 
 local function ChatLinkOnClick()
@@ -691,6 +691,7 @@ function GUI:Create()
     if not self.frame then
         local frameName = "AtlasLoot_GUI-FavouritesFrame"
         local frame = CreateFrame("Frame", frameName, nil, _G.BackdropTemplateMixin and "BackdropTemplate" or nil)
+
         frame:ClearAllPoints()
         frame:SetParent(UIParent)
         --frame:SetPoint(db.point[1], db.point[2], db.point[3], db.point[4], db.point[5])
@@ -708,7 +709,7 @@ function GUI:Create()
         frame:SetToplevel(true)
         frame:SetClampedToScreen(true)
         frame:SetBackdrop(ALPrivate.BOX_BACKDROP)
-        tinsert(UISpecialFrames, frameName)	-- allow ESC close
+		tinsert(UISpecialFrames, frameName)	-- allow ESC close
 
         frame.CloseButton = CreateFrame("Button", frameName.."-CloseButton", frame, "UIPanelCloseButton")
         frame.CloseButton:SetPoint("TOPRIGHT", frame, "TOPRIGHT", 3, 2)
@@ -716,7 +717,7 @@ function GUI:Create()
         frame.titleFrame = AtlasLoot.GUI.CreateTextWithBg(frame, 0, 0)
         frame.titleFrame:SetPoint("TOPLEFT", frame, 5, -5)
         frame.titleFrame:SetPoint("BOTTOMRIGHT", frame, "TOPRIGHT", -27, -23)
-        frame.titleFrame.text:SetText(AL["AtlasLoot"].." - "..AL["Favourites"])
+        frame.titleFrame.text:SetText(AL["AtlasLoot - Titan"].." - "..AL["Favourites"])
 
         frame.infoButton = CreateFrame("Button", nil, frame, "UIPanelInfoButton")
         frame.infoButton:SetPoint("RIGHT", frame.titleFrame, "RIGHT", -1, 0)

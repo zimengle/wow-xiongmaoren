@@ -86,36 +86,49 @@ if (GetLocale() == "zhCN") then
 	L.Version_Off = "关闭版本更新提醒";
 	L.Version_On = "开启版本更新提醒";
 	-- 4.66
-	L.Vibration_On = "控制器振动开启";
-	L.Vibration_Off = "控制器振动关闭";
-	L.UI_Vibration = "振动";
-	L.UI_VibrationDescription = "在播放警报时启用游戏手柄振动。";
+	L.Vibration_On = "控制器震动开启";
+	L.Vibration_Off = "控制器震动关闭";
+	L.UI_Vibration = "震动";
+	L.UI_VibrationDescription = "启用游戏手柄震动功能，当播放警报音效时震动。";
 	L.UI_CustomSounds = "自定义音效";
 	L.UI_CustomSoundsHeader = "覆盖现有音效警报";
 	L.UI_Reset = "重置";
-	L.UI_ResetCustomSounds = "重置此音效以使用默认音效。";
+	L.UI_ResetCustomSounds = "重置此音效为默认音效。";
 	-- 5.0
-	L.UI_CustomSounds_Set = "|cFFFFFFFF%s|r 警报的自定义音效已设置。";
+	L.UI_CustomSounds_Set = "已为 |cFFFFFFFF%s|r 警报设置自定义音效。";
 	L.UI_CustomSounds_Removed = "|cFFFFFFFF%s|r 警报的自定义音效已重置为默认。";
 	-- 5.3
-	L.Help_IgnoreSpell = "添加/移除法术到你的自定义忽略列表（高级）";
+	L.Help_IgnoreSpell = "添加/移除法术到自定义忽略列表（高级）";
 	L.UI_NotSupported_Classic = "此功能在魔兽世界经典版中不受支持。";
-	L.UI_IgnoreSpell_Help = "要添加/移除法术到你的自定义忽略列表，请输入：|cFFFFFFFF/GTFO Ignore 12345|r，其中 |cFF44FFFF12345|r 是你想要忽略的法术ID。";
+	L.UI_IgnoreSpell_Help = "要添加/移除法术到自定义忽略列表，请输入：|cFFFFFFFF/GTFO Ignore 12345|r，其中 |cFF44FFFF12345|r 是你想要忽略的法术ID。";
 	L.UI_IgnoreSpell_None = "你当前没有忽略任何法术。";
 	L.UI_IgnoreSpell_List = "你当前忽略以下法术：";
 	L.UI_IgnoreSpell_InvalidSpellId = "法术ID |cFF44FFFF%s|r 无效。";
 	L.UI_IgnoreSpell_Add = "你现在忽略法术 #%s：%s";
 	L.UI_IgnoreSpell_Remove = "你不再忽略法术 #%s：%s";
 	-- 5.16
-	L.BrannMode_On = "仅布莱恩·铜须警报开启";
-	L.BrannMode_OnWithDefault = "布莱恩·铜须和标准警报";
-	L.BrannMode_Off = "布莱恩·铜须警报关闭";
-	L.UI_BrannMode = "布莱恩·铜须警报";
-	L.UI_BrannModeDescription = "这会让布莱恩·铜须对你大喊。";
+	L.BrannMode_On = "仅铜须警报开启";
+	L.BrannMode_OnWithDefault = "铜须和标准警报";
+	L.BrannMode_Off = "铜须警报关闭";
+	L.UI_BrannMode = "铜须警报";
+	L.UI_BrannModeDescription = "启用布莱恩·铜须的喊话。";
 	L.UI_AprilFoolsDay = "愚人节玩笑";
 	L.UI_AprilFoolsDayDescription = "取消勾选此项以永久关闭有趣的愚人节玩笑。:(\n\n如果你改变主意，可以输入 |cFFFFFFFF/GTFO Brann|r 来重新启用。";
 	-- 5.17
 	L.UI_IgnoreTime = "警报延迟时间";
 	L.UI_IgnoreTimeDescription = "警报音效之间的最小延迟时间。如果音效过于频繁，可以增加此值。";
 	L.UI_IgnoreTime_Seconds = "秒";
+	-- Special Alerts
+	L.Ignore_Fatigue = "疲劳";
+	L.Ignore_Fatigue_Tooltip = "进入疲劳区域时警报";
+	L.Ignore_Lava = "熔岩池和篝火";
+	L.Ignore_Lava_Tooltip = "受到熔岩池和篝火伤害时警报";
+	L.Ignore_HagaraWateryEntrenchment = "水之壁垒（海加尔 - 大灾变）";
+	L.Ignore_GarroshDesecrated = "亵渎之斧（加尔鲁什阶段1和2）";
+	L.Ignore_GarroshDesecrated_Tooltip = "加尔鲁什·地狱咆哮的亵渎之斧警报（阶段1和2 - 熊猫人之谜）";
+	L.Ignore_EyeOfCorruption2 = "腐蚀之眼（8.3争霸艾泽拉斯）";
+	L.Ignore_IcyGround = "冰面（塞纳特 - 巨龙时代）";
+	L.Ignore_IcyGround_Tooltip = "冰面（塞纳特 - 巨龙时代）";
+	L.Ignore_SmotheringShadows = "窒息阴影（暗焰裂隙 地心之战）";
+	L.Ignore_SmotheringShadows_Tooltip = "暗焰裂隙（地心之战）中的黑暗光环警报";
 end

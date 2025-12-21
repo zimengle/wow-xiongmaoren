@@ -4,6 +4,7 @@
 	<Script file="RollFrame.lua" />
 	<Script file="BuffTime.lua" />
 	<Script file="Tracking.lua" />
+	<Script file="ItemSocketingFrame.lua" />
 	<Script file="QuestFrame.lua" />
 	<Script file="SkillFrame.lua" />
 	<Script file="ClassTrainerFrame.lua" />

@@ -19,6 +19,9 @@ PawnCommon = {
 ["美团王兴-时光IV"] = {
 ["Visible"] = true,
 },
+["三角碑崽儿-时光IV"] = {
+["Visible"] = true,
+},
 },
 ["Color"] = "c79c6e",
 ["LocalizedName"] = "战士: 狂怒",
@@ -47,6 +50,9 @@ PawnCommon = {
 ["\"Classic\":WARLOCK2"] = {
 ["IconTexturePath"] = 136172,
 ["PerCharacterOptions"] = {
+["卧伦巴菲特-时光IV"] = {
+["Visible"] = true,
+},
 },
 ["Color"] = "8787ed",
 ["LocalizedName"] = "术士: 恶魔学识",
@@ -171,6 +177,9 @@ PawnCommon = {
 ["美团王兴-时光IV"] = {
 ["Visible"] = true,
 },
+["三角碑崽儿-时光IV"] = {
+["Visible"] = true,
+},
 },
 ["Color"] = "c79c6e",
 ["LocalizedName"] = "战士: 防护",
@@ -185,6 +194,9 @@ PawnCommon = {
 ["\"Classic\":WARLOCK3"] = {
 ["IconTexturePath"] = 136186,
 ["PerCharacterOptions"] = {
+["卧伦巴菲特-时光IV"] = {
+["Visible"] = true,
+},
 },
 ["Color"] = "8787ed",
 ["LocalizedName"] = "术士: 毁灭",
@@ -200,6 +212,9 @@ PawnCommon = {
 ["IconTexturePath"] = 135920,
 ["PerCharacterOptions"] = {
 ["京东刘强东-时光IV"] = {
+["Visible"] = true,
+},
+["京东董事长-时光IV"] = {
 ["Visible"] = true,
 },
 },
@@ -298,6 +313,9 @@ PawnCommon = {
 ["京东刘强东-时光IV"] = {
 ["Visible"] = true,
 },
+["京东董事长-时光IV"] = {
+["Visible"] = true,
+},
 },
 ["Color"] = "f58cba",
 ["LocalizedName"] = "圣骑士: 防护",
@@ -375,6 +393,9 @@ PawnCommon = {
 ["美团王兴-时光IV"] = {
 ["Visible"] = true,
 },
+["三角碑崽儿-时光IV"] = {
+["Visible"] = true,
+},
 },
 ["Color"] = "c79c6e",
 ["LocalizedName"] = "战士: 武器",
@@ -389,6 +410,9 @@ PawnCommon = {
 ["\"Classic\":WARLOCK1"] = {
 ["IconTexturePath"] = 136145,
 ["PerCharacterOptions"] = {
+["卧伦巴菲特-时光IV"] = {
+["Visible"] = true,
+},
 },
 ["Color"] = "8787ed",
 ["LocalizedName"] = "术士: 痛苦",
@@ -457,6 +481,9 @@ PawnCommon = {
 ["IconTexturePath"] = 135873,
 ["PerCharacterOptions"] = {
 ["京东刘强东-时光IV"] = {
+["Visible"] = true,
+},
+["京东董事长-时光IV"] = {
 ["Visible"] = true,
 },
 },

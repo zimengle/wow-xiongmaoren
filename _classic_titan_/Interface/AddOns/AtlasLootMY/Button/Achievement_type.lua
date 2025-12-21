@@ -115,7 +115,8 @@ function AC.Refresh(button)
 
 	else
 		button.name:SetText(AC_COLOR..(name or ""))
-		button.extra:SetText("123")
+		button.ilvl:SetText("")
+		button.extra:SetText(rewardText)
 	end
 
 	if not completed then

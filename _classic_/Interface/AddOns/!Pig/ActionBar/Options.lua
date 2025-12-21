@@ -31,19 +31,21 @@ local function ActionBar_Ranse()
 		hooksecurefunc("ActionButton_UpdateRangeIndicator", function(self, checksRange, inRange)
 			if self.action == nil then return end
 			local isUsable, notEnoughMana = IsUsableAction(self.action)
+			local act_icon=self.icon or _G[self:GetName().."Icon"]
 			if ( checksRange and not inRange ) then
-				_G[self:GetName().."Icon"]:SetVertexColor(0.5, 0.1, 0.1)
+				act_icon:SetVertexColor(0.5, 0.1, 0.1)
 			elseif isUsable ~= true or notEnoughMana == true then
-				_G[self:GetName().."Icon"]:SetVertexColor(0.4, 0.4, 0.4)
+				act_icon:SetVertexColor(0.4, 0.4, 0.4)
 			else
-				_G[self:GetName().."Icon"]:SetVertexColor(1, 1, 1)
+				act_icon:SetVertexColor(1, 1, 1)
 			end
 		end)
 	else
 		hooksecurefunc("ActionButton_OnUpdate", function(self, elapsed)
 			if self.rangeTimer == TOOLTIP_UPDATE_TIME and self.action then
 				local range = false
-				if IsActionInRange(self.action) == false then 
+				local act_icon=self.icon or _G[self:GetName().."Icon"]
+				if IsActionInRange(self.action) == false and act_icon then 
 					_G[self:GetName().."Icon"]:SetVertexColor(0.5, 0.1, 0.1)
 					range = true
 				end;
@@ -191,13 +193,14 @@ local function ActionBar_PetTishi()
 		PETtips:SetScript("OnEvent",function(self,event)
 			local hasUI, isHunterPet = HasPetUI()
 			if hasUI then
+				local partyMemberCount = GetNumSubgroupMembers()
 				for x=4, 7 do
 					for xx=1,#chaofengjinengName do
 						local name, texture, isToken, isActive, autoCastAllowed, autoCastEnabled = GetPetActionInfo(x);
 						if name==chaofengjinengName[xx] then
 							local inInstance = IsInInstance();
 							if inInstance then
-								if autoCastEnabled or texture==136222 then
+								if partyMemberCount>0 and autoCastEnabled or texture==136222 then
 									self:Show()
 									self:SetPoint("BOTTOM", _G["PetActionButton"..x], "TOP", 0, 0);
 									PIGEnter(self,tishibiaoti,"|cffFFFF00副本内开启宠物嘲讽可能干扰坦克仇恨！|r")
@@ -321,6 +324,7 @@ addonTable.ActionBar = function()
 	if ActionBarfun.ActionBar_Cailiao then ActionBarfun.ActionBar_Cailiao() end
 	ActionBar_PetTishi()
 	ActionBar_AutoFanye()
+	if ActionBarfun.ConsumableActionBar then ActionBarfun.ConsumableActionBar() end
 	if ActionBarfun.xiufuShowAction then ActionBarfun.xiufuShowAction() end
 	if ActionBarfun.Pig_Action then ActionBarfun.Pig_Action() end
 end

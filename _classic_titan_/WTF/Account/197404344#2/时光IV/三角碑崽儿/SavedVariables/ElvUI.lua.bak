@@ -1,0 +1,28 @@
+
+ElvCharacterDB = {
+["ConvertKeybindings"] = true,
+["ChatEditHistory"] = {
+"/cw 白玉京天枢 城墙AA来dps和奶",
+"/cw 石原里美老师 城墙AA来dps和奶",
+"/cw 顺胖胖 城墙AA来dps和奶",
+"/cw 铁板术五 城墙AA来dps和奶",
+"/cw 本色出演 城墙AA来dps和奶",
+"/cw 暮朝朝丶 城墙AA来dps和奶",
+"/cw 竖锯狂魔 城墙AA来dps和奶",
+"/cw 好哥们梅西 城墙AA来dps和奶",
+"/cw 传真零叁 城墙AA来dps和奶",
+"/cw 灬幸运流沙灬 城墙AA来dps和奶",
+"/cw 爱苍生 城墙AA来dps和奶",
+"/cw 亦帅杀神 城墙AA来dps和奶",
+"/cw Ledzeppeiin 城墙AA来dps",
+"/cw Nathanan 城墙AA来dps",
+"/cw 喵苗淼妙 城墙AA来dps",
+"/cw 奥尔多治愈者 城墙AA来dps",
+"/cw 正义高达 城墙AA来dps",
+"/p 毕业了",
+"/p 88",
+"68了",
+},
+["ChatHistoryLog"] = {
+},
+}

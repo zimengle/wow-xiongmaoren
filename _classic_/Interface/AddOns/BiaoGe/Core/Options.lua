@@ -23,6 +23,7 @@ local realmID                           = GetRealmID()
 local pt                                = print
 
 local O                                 = {}
+ns.O                                    = O
 
 local IsAddOnLoaded                     = IsAddOnLoaded or C_AddOns.IsAddOnLoaded
 ns.InterfaceOptions_AddCategory         = _G.InterfaceOptions_AddCategory or function(frame, addOn, position)
@@ -56,7 +57,7 @@ BG.Init(function()
         main.name = "|cff00BFFFBiaoGe|r"
         ns.InterfaceOptions_AddCategory(main)
         local t = main:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
-        t:SetText("|cff" .. "00BFFF" .. L["< BiaoGe > 金 团 表 格"] .. "|r")
+        t:SetText("|cff" .. "00BFFF" .. L["<BiaoGe> 金团表格"] .. "|r")
         t:SetPoint("TOPLEFT", main, 15, 0)
         local top = t
         local t = main:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall2")
@@ -190,7 +191,7 @@ BG.Init(function()
         biaoge = BG.OptionsCreateTab("Options_biaoge", L["表格"])
         autoAuction = BG.OptionsCreateTab("Options_autoAuction", L["自动拍卖"])
         roleOverview = BG.OptionsCreateTab("Options_roleOverview", L["角色总览"])
-        if BG.IsWLK then
+        if BG.BossMainFram then
             boss = BG.OptionsCreateTab("Options_boss", L["团本攻略"])
         end
         others = BG.OptionsCreateTab("Options_others", L["其他功能"])
@@ -267,7 +268,7 @@ BG.Init(function()
                 value = max(minValue, value)
                 BiaoGe.options[name] = value
 
-                local template = BG.IsWLK and "TextToSpeechSliderTemplate" or "OptionsSliderTemplate"
+                local template = BG.IsWLK_80 and "TextToSpeechSliderTemplate" or "OptionsSliderTemplate"
                 local slider = CreateFrame("Slider", nil, parent, template)
                 slider:SetPoint("TOPLEFT", parent, x, y)
                 slider:SetWidth(width or 180)
@@ -288,6 +289,7 @@ BG.Init(function()
                 slider.Text:SetPoint("CENTER", 0, 25)
                 slider.Text:SetText(text)
                 slider.Text:SetTextColor(1, .8, 0)
+                slider.Text:SetSize(slider:GetWidth(), 40)
 
                 slider.edit = CreateFrame("EditBox", nil, slider, "BiaoGe_InputBoxTemplate")
                 slider.edit:SetSize(50, 20)
@@ -340,11 +342,13 @@ BG.Init(function()
             local function OnLeave(self)
                 GameTooltip:Hide()
             end
-            function O.CreateCheckButton(name, text, parent, x, y, ontext)
+            function O.CreateCheckButton(name, text, parent, x, y, ontext, long)
                 local bt = CreateFrame("CheckButton", nil, parent, "ChatConfigCheckButtonTemplate")
                 bt:SetSize(30, 30)
                 bt:SetPoint("TOPLEFT", parent, x, y)
                 bt.Text:SetText(text)
+                bt.Text:SetWordWrap(false)
+                bt.Text:SetWidth(min(bt.Text:GetStringWidth() + 20, long and 500 or 160))
                 bt:SetHitRectInsets(0, -bt.Text:GetWidth(), 0, 0)
                 bt.name = name
                 bt.ontext = ontext
@@ -846,7 +850,7 @@ BG.Init(function()
                 L["工资与补贴："],
                 L["增加复制工资与补贴的按钮。"],
             }
-            local f = O.CreateCheckButton(name, L["交易增强*"], biaoge, 15, height - h, ontext)
+            local f = O.CreateCheckButton(name, L["交易增强"] .. "*", biaoge, 15, height - h, ontext)
             BG.options["button" .. name] = f
             local name = "autoTrade"
             if BiaoGe.options[name] ~= 1 then
@@ -1344,7 +1348,47 @@ BG.Init(function()
             end
         end
         -- 清空表格时根据副本难度设置分钱人数
-        if not BG.IsVanilla then
+        if BG.IsTitan then
+            h = h + 30
+            do
+                local edit
+
+                local name = "QingKongPeople"
+                BG.options[name .. "reset"] = 1
+                BiaoGe.options[name] = BiaoGe.options[name] or BG.options[name .. "reset"]
+                local ontext = {
+                    L["清空表格时自定义分钱人数"],
+                    L["表格会按照你设定的人数修改分钱人数。"],
+                    -- " ",
+                    -- L[""],
+                }
+                local f = O.CreateCheckButton(name, AddTexture("QUEST") .. L["清空表格时自定义分钱人数"] .. "*", biaoge, 15, height - h, ontext)
+                BG.options["button" .. name] = f
+                f:HookScript("OnClick", function()
+                    if f:GetChecked() then
+                        edit:Show()
+                    else
+                        edit:Hide()
+                    end
+                end)
+
+                local name2 = "MaxPlayers_Titan"
+                BiaoGe.options[name2] = BiaoGe.options[name2] or 25
+                edit = CreateFrame("EditBox", nil, f, "BiaoGe_InputBoxTemplate")
+                edit:SetSize(50, 20)
+                edit:SetPoint("LEFT", f.Text, "RIGHT", 15, 0)
+                edit:SetAutoFocus(false)
+                edit:SetMaxBytes(8)
+                if BiaoGe.options[name] ~= 1 then edit:Hide() end
+                BG.SetEditBaseClass(edit)
+                edit:SetScript("OnTextChanged", function(self)
+                    BiaoGe.options[name2] = tonumber(self:GetText()) or 25
+                end)
+                edit:SetScript("OnShow", function(self)
+                    self:SetText(BiaoGe.options[name2] or 25)
+                end)
+            end
+        elseif not BG.onlyOneHard then
             h = h + 30
             -- 清空表格时根据副本难度设置分钱人数
             do
@@ -1444,7 +1488,7 @@ BG.Init(function()
                 L["语音提醒"],
                 L["在某些情况下，会有语音提醒，比如：装备快过期、拍卖啦、心愿达成、炼金转化已就绪等等。"],
             }
-            local f = O.CreateCheckButton(name, L["语音提醒*"], biaoge, 15, height - h, ontext)
+            local f = O.CreateCheckButton(name, L["语音提醒"] .. "*", biaoge, 15, height - h, ontext)
             BG.options["button" .. name] = f
             f:HookScript("OnClick", function()
                 local name = "Sound"
@@ -1570,6 +1614,7 @@ BG.Init(function()
             t:SetPoint("BOTTOM", bt, "TOP", 0, 8)
             t:SetTextColor(1, 1, 1)
             t:SetText(AddTexture("QUEST") .. L["我想成为语音包作者"])
+            t:SetWidth(150)
         end
         h = h + 40
 
@@ -1605,7 +1650,7 @@ BG.Init(function()
         h = h + 30
 
         -- 自动获取在线人数
-        if BG.IsVanilla_Sod or BG.IsMOP_TW then
+        if BG.IsTW then
             do
                 local name = "autoGetOnline"
                 BG.options[name .. "reset"] = 0
@@ -1955,7 +2000,7 @@ BG.Init(function()
                 L["一键开拍"],
                 L["在团长拍卖面板里，增加多个价格按钮，点击后直接按该价格开始拍卖。"],
             }
-            local f = O.CreateCheckButton(name, L["一键开拍"] .. "*", autoAuction, 15, height - h, ontext)
+            local f = O.CreateCheckButton(name, L["一键开拍"] .. "*", autoAuction, 15, height - h, ontext, true)
             BG.options["button" .. name] = f
             f:HookScript("OnClick", function(self)
                 if self:GetChecked() then
@@ -2019,7 +2064,7 @@ BG.Init(function()
                 L["使用组合键打开拍卖面板"],
                 L["团长或物品分配者ALT+点击背包/表格/聊天框装备，来打开拍卖面板。"],
             }
-            local f = O.CreateCheckButton(name, L["使用组合键打开团长拍卖面板"] .. "*", autoAuction, 15, height - h, ontext)
+            local f = O.CreateCheckButton(name, L["使用组合键打开团长拍卖面板"] .. "*", autoAuction, 15, height - h, ontext, true)
             BG.options["button" .. name] = f
         end
         h = h + 30
@@ -2032,7 +2077,7 @@ BG.Init(function()
                 L["交易时自动摆放装备"],
                 L["交易时，如果你是物品分配者，会自动把对方所拍装备摆放到交易框。"],
             }
-            local f = O.CreateCheckButton(name, L["交易时自动摆放装备"] .. "*", autoAuction, 15, height - h, ontext)
+            local f = O.CreateCheckButton(name, L["交易时自动摆放装备"] .. "*", autoAuction, 15, height - h, ontext, true)
             BG.options["button" .. name] = f
         end
         h = h + 30
@@ -2045,7 +2090,7 @@ BG.Init(function()
                 L["交易时显示应收或应付金额"],
                 L["交易时，根据对方或你所拍装备显示应收或应付金额。"],
             }
-            local f = O.CreateCheckButton(name, L["交易时显示应收或应付金额"] .. "*", autoAuction, 15, height - h, ontext)
+            local f = O.CreateCheckButton(name, L["交易时显示应收或应付金额"] .. "*", autoAuction, 15, height - h, ontext, true)
             BG.options["button" .. name] = f
             f:HookScript("OnClick", function()
                 local name1 = "autoAuctionQianKuan"
@@ -2072,7 +2117,7 @@ BG.Init(function()
                 L["交易时自动记录欠款"],
                 L["交易时，会自动记录欠款。"],
             }
-            local f = O.CreateCheckButton(name, L["交易时自动记录欠款"] .. "*", autoAuction, 40, height - h, ontext)
+            local f = O.CreateCheckButton(name, L["交易时自动记录欠款"] .. "*", autoAuction, 40, height - h, ontext, true)
             BG.options["button" .. name] = f
             if BiaoGe.options["autoAuctionMoney"] ~= 1 then
                 f:Hide()
@@ -2088,7 +2133,7 @@ BG.Init(function()
                 L["复制应付金额"],
                 L["在交易界面增加一个复制应付金额的按钮。"],
             }
-            local f = O.CreateCheckButton(name, L["复制应付金额"] .. "*", autoAuction, 40, height - h, ontext)
+            local f = O.CreateCheckButton(name, L["复制应付金额"] .. "*", autoAuction, 40, height - h, ontext, true)
             BG.options["button" .. name] = f
             if BiaoGe.options["autoAuctionMoney"] ~= 1 then
                 f:Hide()
@@ -2104,7 +2149,7 @@ BG.Init(function()
                 L["交易时自动确认交易"],
                 L["当交易金额等于应收/应付金额时，自动点击交易按钮。但屏幕中间的二次确认框还是需要你手动确认。"],
             }
-            local f = O.CreateCheckButton(name, L["交易时自动确认交易"] .. "*", autoAuction, 40, height - h, ontext)
+            local f = O.CreateCheckButton(name, L["交易时自动确认交易"] .. "*", autoAuction, 40, height - h, ontext, true)
             BG.options["button" .. name] = f
             if BiaoGe.options["autoAuctionMoney"] ~= 1 then
                 f:Hide()
@@ -2120,7 +2165,7 @@ BG.Init(function()
                 L["拍卖成功的聊天消息后面增加[出价记录]"],
                 L["鼠标悬停在[出价记录]时会显示该装备的出价记录。"],
             }
-            local f = O.CreateCheckButton(name, L["拍卖成功的聊天消息后面增加[出价记录]"] .. "*", autoAuction, 15, height - h, ontext)
+            local f = O.CreateCheckButton(name, L["拍卖成功的聊天消息后面增加[出价记录]"] .. "*", autoAuction, 15, height - h, ontext, true)
             BG.options["button" .. name] = f
         end
         h = h + 30
@@ -2133,7 +2178,7 @@ BG.Init(function()
                 L["拍卖竞价窗口自动往上吸附"],
                 L["当靠前的窗口消失时，后面的窗口会自动往上吸附。"],
             }
-            local f = O.CreateCheckButton(name, L["拍卖竞价窗口自动往上吸附"] .. "*", autoAuction, 15, height - h, ontext)
+            local f = O.CreateCheckButton(name, L["拍卖竞价窗口自动往上吸附"] .. "*", autoAuction, 15, height - h, ontext, true)
             BG.options["button" .. name] = f
         end
         h = h + 30
@@ -2149,7 +2194,7 @@ BG.Init(function()
                 " ",
                 L["需要使用非匿名模式，而且你是团长时才会生效。"],
             }
-            local f = O.CreateCheckButton(name, L["竞拍欢呼语"] .. "*", autoAuction, 15, height - h, ontext)
+            local f = O.CreateCheckButton(name, L["竞拍欢呼语"] .. "*", autoAuction, 15, height - h, ontext, true)
             BG.options["button" .. name] = f
         end
         h = h + 30
@@ -2162,7 +2207,7 @@ BG.Init(function()
                 L["自动出价结束后语音提醒"],
                 L["自动出价结束后，语音提醒你，防止你错过装备。"],
             }
-            local f = O.CreateCheckButton(name, L["自动出价结束后语音提醒"] .. "*", autoAuction, 15, height - h, ontext)
+            local f = O.CreateCheckButton(name, L["自动出价结束后语音提醒"] .. "*", autoAuction, 15, height - h, ontext, true)
             BG.options["button" .. name] = f
         end
         h = h + 30
@@ -2179,7 +2224,7 @@ BG.Init(function()
                 " ",
                 format(L["现在可以修改这个延迟时间，并在一定范围内随机（%s秒-X秒）。X最低为%s秒，最高为%s秒。"], 1, 1, 5),
             }
-            local f = O.CreateCheckButton(name, AddTexture("QUEST") .. L["自动出价的延迟时间随机"] .. "*", autoAuction, 15, height - h, ontext)
+            local f = O.CreateCheckButton(name, AddTexture("QUEST") .. L["自动出价的延迟时间随机"] .. "*", autoAuction, 15, height - h, ontext, true)
             BG.options["button" .. name] = f
             f:HookScript("OnClick", function(self)
                 if self:GetChecked() then
@@ -2190,7 +2235,7 @@ BG.Init(function()
             end)
 
             edit = CreateFrame("EditBox", nil, f, "BiaoGe_InputBoxTemplate")
-            edit:SetSize(80, 20)
+            edit:SetSize(50, 20)
             edit:SetPoint("LEFT", f.Text, "RIGHT", 15, 0)
             edit:SetAutoFocus(false)
             edit:SetMaxBytes(8)
@@ -2208,126 +2253,6 @@ BG.Init(function()
 
     -- 角色总览设置
     do
-        local function CreateFBCDbutton(n1, n2, width, height, width2, height_jiange)
-            local right
-            local first
-            for i = n1, n2 do
-                local name = BG.FBCDall_table[i].name
-                local name2 = BG.FBCDall_table[i].name2
-                local color = BG.FBCDall_table[i].color
-                local fbId = BG.FBCDall_table[i].fbId
-                local type = BG.FBCDall_table[i].type
-                local maxplayers = BG.FBCDall_table[i].num and (BG.FBCDall_table[i].num .. L["人"]) or ""
-
-                local bt = CreateFrame("CheckButton", nil, roleOverview, "ChatConfigCheckButtonTemplate")
-                bt:SetSize(25, 25)
-                bt:SetHitRectInsets(0, -width2 + 45, 0, 0)
-                if not right then
-                    bt:SetPoint("TOPLEFT", roleOverview, "TOPLEFT", width, height)
-                    first = bt
-                elseif roleOverview.scroll:GetRight() - right.Text:GetRight() > width2 then
-                    bt:SetPoint("TOPLEFT", right, "TOPLEFT", width2, 0)
-                else
-                    bt:SetPoint("TOPLEFT", first, "BOTTOMLEFT", 0, 0)
-                    first = bt
-                    height = height - height_jiange
-                end
-                right = bt
-                bt.Text:SetText("|cff" .. color .. (name2 or name):gsub("sod", "") .. RR)
-
-                bt.Text:SetWidth(width2 - 25)
-                bt.Text:SetWordWrap(false)
-
-                if not BiaoGe.FBCDchoice[name] or BiaoGe.FBCDchoice[name] == 0 then
-                    BiaoGe.FBCDchoice[name] = nil
-                    bt:SetChecked(false)
-                else
-                    BiaoGe.FBCDchoice[name] = 1
-                    bt:SetChecked(true)
-                end
-
-                bt:SetScript("OnClick", function(self)
-                    if self:GetChecked() then
-                        BiaoGe.FBCDchoice[name] = 1
-                    else
-                        BiaoGe.FBCDchoice[name] = nil
-                    end
-
-                    BG.PlaySound(1)
-                end)
-                -- 鼠标悬停提示
-                bt:SetScript("OnEnter", function(self)
-                    local text = "|cff" .. color .. maxplayers .. GetRealZoneText(fbId) .. RR
-                    if type ~= "fb" then
-                        text = self.Text:GetText()
-                    end
-                    GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT", 0, 0)
-                    GameTooltip:ClearLines()
-                    GameTooltip:SetText(text)
-                end)
-                bt:SetScript("OnLeave", function(self)
-                    GameTooltip:Hide()
-                end)
-            end
-            return height
-        end
-        local function CreateMONEYbutton(n1, n2, width, height, width2, height_jiange)
-            local right
-            local first
-            for i = n1, n2 do
-                local name = BG.MONEYall_table[i].name
-                local tex = BG.MONEYall_table[i].tex
-                local color = BG.MONEYall_table[i].color
-                local id = BG.MONEYall_table[i].id
-
-                local bt = CreateFrame("CheckButton", nil, roleOverview, "ChatConfigCheckButtonTemplate")
-                bt:SetSize(25, 25)
-                bt:SetHitRectInsets(0, -width2 + 40, 0, 0)
-                if not right then
-                    bt:SetPoint("TOPLEFT", roleOverview, "TOPLEFT", width, height)
-                    first = bt
-                elseif roleOverview.scroll:GetRight() - right.Text:GetRight() > width2 then
-                    bt:SetPoint("TOPLEFT", right, "TOPLEFT", width2, 0)
-                else
-                    bt:SetPoint("TOPLEFT", first, "BOTTOMLEFT", 0, 0)
-                    first = bt
-                    height = height - height_jiange
-                end
-                right = bt
-                bt.Text:SetText(AddTexture(tex))
-
-                if not BiaoGe.MONEYchoice[id] or BiaoGe.MONEYchoice[id] == 0 then
-                    BiaoGe.MONEYchoice[id] = nil
-                    bt:SetChecked(false)
-                else
-                    BiaoGe.MONEYchoice[id] = 1
-                    bt:SetChecked(true)
-                end
-
-                bt:SetScript("OnClick", function(self)
-                    if self:GetChecked() then
-                        BiaoGe.MONEYchoice[id] = 1
-                    else
-                        BiaoGe.MONEYchoice[id] = nil
-                    end
-                    -- BG.MoneyBannerUpdate()
-
-                    BG.PlaySound(1)
-                end)
-                -- 鼠标悬停提示
-                bt:SetScript("OnEnter", function(self)
-                    local text = "|cff" .. color .. name .. RR
-                    GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT", 0, 0)
-                    GameTooltip:ClearLines()
-                    GameTooltip:SetText(text)
-                end)
-                bt:SetScript("OnLeave", function(self)
-                    GameTooltip:Hide()
-                end)
-            end
-            return height
-        end
-
         -- 删除角色
         do
             local bt = CreateFrame("Button", nil, roleOverview)
@@ -2345,278 +2270,305 @@ BG.Init(function()
         end
 
         -- 创建多选按钮
-        local width = 15
-        local height = -10
-        local height_jiange = 22
-        local line_height = 4
+        local lastFrame
+        local frameWidth = roleOverview.scroll:GetWidth() - 20
+        local frameHeight = 25
+
         do
-            if BG.IsVanilla_Sod then
-                --团本CD
-                local text = roleOverview:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-                text:SetPoint("TOPLEFT", width, height)
-                text:SetText(BG.STC_b1(L["团本*"]))
-                height = height - height_jiange
-                O.CreateLine(roleOverview, height + line_height)
-                height = CreateFBCDbutton(1, #BG.FBCDall_table - 4, width, height, 100, height_jiange)
-
-                -- 任务
-                height = height - height_jiange - height_jiange
-                local text = roleOverview:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-                text:SetPoint("TOPLEFT", width, height)
-                text:SetText("|cffFF8C00" .. (QUESTS_LABEL .. "*") .. RR)
-                height = height - height_jiange
-                O.CreateLine(roleOverview, height + line_height)
-                height = CreateFBCDbutton(#BG.FBCDall_table - 3, #BG.FBCDall_table - 3, width, height, 100, height_jiange)
-
-                -- 专业
-                height = height - height_jiange - height_jiange
-                local text = roleOverview:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-                text:SetPoint("TOPLEFT", width, height)
-                text:SetText("|cffADFF2F" .. (TRADE_SKILLS .. "*") .. RR)
-                height = height - height_jiange
-                O.CreateLine(roleOverview, height + line_height)
-                height = CreateFBCDbutton(#BG.FBCDall_table - 2, #BG.FBCDall_table, width, height, 100, height_jiange)
-
-                -- 货币
-                height = height - height_jiange - height_jiange
-                local text = roleOverview:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-                text:SetPoint("TOPLEFT", width, height)
-                text:SetText(BG.STC_w1(L["货币*"]))
-                height = height - height_jiange
-                local l = O.CreateLine(roleOverview, height + line_height)
-
-                height = CreateMONEYbutton(1, #BG.MONEYall_table, width, height, 65, height_jiange)
-                height = height - height_jiange * 3
-            elseif BG.IsVanilla_60 then
-                --团本CD
-                local text = roleOverview:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-                text:SetPoint("TOPLEFT", width, height)
-                text:SetText(BG.STC_b1(L["团本*"]))
-                height = height - height_jiange
-                O.CreateLine(roleOverview, height + line_height)
-                height = CreateFBCDbutton(1, 7, width, height, 100, height_jiange)
-
-                -- 专业
-                height = height - height_jiange - height_jiange
-                local text = roleOverview:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-                text:SetPoint("TOPLEFT", width, height)
-                text:SetText("|cffADFF2F" .. (TRADE_SKILLS .. "*") .. RR)
-                height = height - height_jiange
-                O.CreateLine(roleOverview, height + line_height)
-                height = CreateFBCDbutton(#BG.FBCDall_table - 2 - #BG.factionTbl, #BG.FBCDall_table - #BG.factionTbl, width, height, 100, height_jiange)
-
-                -- 声望
-                height = height - height_jiange - height_jiange
-                local text = roleOverview:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-                text:SetPoint("TOPLEFT", width, height)
-                text:SetText("|cffFFFF00" .. (L["声望"] .. "*") .. RR)
-                height = height - height_jiange
-                O.CreateLine(roleOverview, height + line_height)
-                height = CreateFBCDbutton(#BG.FBCDall_table - #BG.factionTbl + 1, #BG.FBCDall_table, width, height, 100, height_jiange)
-
-                -- 货币
-                height = height - height_jiange - height_jiange
-                local text = roleOverview:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-                text:SetPoint("TOPLEFT", width, height)
-                text:SetText(BG.STC_w1(L["货币*"]))
-                height = height - height_jiange
-                local l = O.CreateLine(roleOverview, height + line_height)
-
-                height = CreateMONEYbutton(1, #BG.MONEYall_table, width, height, 65, height_jiange)
-                height = height - height_jiange * 3
-            elseif BG.IsWLK then
-                --团本CD
-                local text = roleOverview:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-                text:SetPoint("TOPLEFT", width, height)
-                text:SetText(BG.STC_b1(EXPANSION_NAME2 .. "*"))
-                height = height - height_jiange
-                O.CreateLine(roleOverview, height + line_height)
-                height = CreateFBCDbutton(1, 18, width, height, 100, height_jiange)
-
-                height = height - height_jiange - height_jiange
-                local text = roleOverview:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-                text:SetPoint("TOPLEFT", width, height)
-                text:SetText(BG.STC_r3(EXPANSION_NAME1 .. "*"))
-                height = height - height_jiange
-                O.CreateLine(roleOverview, height + line_height)
-                height = CreateFBCDbutton(19, 29, width, height, 100, height_jiange)
-
-                height = height - height_jiange - height_jiange
-                local text = roleOverview:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-                text:SetPoint("TOPLEFT", width, height)
-                text:SetText(BG.STC_g2(LFG_LIST_LEGACY .. "*"))
-                height = height - height_jiange
-                O.CreateLine(roleOverview, height + line_height)
-                height = CreateFBCDbutton(30, 34, width, height, 100, height_jiange)
-
-                -- 任务
-                height = height - height_jiange - height_jiange
-                local text = roleOverview:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-                text:SetPoint("TOPLEFT", width, height)
-                text:SetText("|cffFF8C00" .. (QUESTS_LABEL .. "*") .. RR)
-                height = height - height_jiange
-                O.CreateLine(roleOverview, height + line_height)
-                height = CreateFBCDbutton(35, 40, width, height, 100, height_jiange)
-
-                -- 专业
-                height = height - height_jiange - height_jiange
-                local text = roleOverview:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-                text:SetPoint("TOPLEFT", width, height)
-                text:SetText("|cffADFF2F" .. (TRADE_SKILLS .. "*") .. RR)
-                height = height - height_jiange
-                O.CreateLine(roleOverview, height + line_height)
-                height = CreateFBCDbutton(41, #BG.FBCDall_table - #BG.factionTbl, width, height, 100, height_jiange)
-
-                -- 声望
-                height = height - height_jiange - height_jiange
-                local text = roleOverview:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-                text:SetPoint("TOPLEFT", width, height)
-                text:SetText("|cffFFFF00" .. (L["声望"] .. "*") .. RR)
-                height = height - height_jiange
-                O.CreateLine(roleOverview, height + line_height)
-                height = CreateFBCDbutton(#BG.FBCDall_table - #BG.factionTbl + 1, #BG.FBCDall_table, width, height, 100, height_jiange)
-
-                -- 货币
-                height = height - height_jiange - height_jiange
-                local text = roleOverview:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-                text:SetPoint("TOPLEFT", width, height)
-                text:SetText(BG.STC_w1(L["货币*"]))
-                height = height - height_jiange
-                local l = O.CreateLine(roleOverview, height + line_height)
-
-                height = CreateMONEYbutton(1, #BG.MONEYall_table, width, height, 65, height_jiange)
-                height = height - height_jiange * 3
-            elseif BG.IsCTM then
-                local questNum = 3 -- 日常任务的数量
-                local raidNum = #BG.FBCDall_table - #BG.factionTbl - questNum
-                --团本CD
-                local text = roleOverview:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-                text:SetPoint("TOPLEFT", width, height)
-                text:SetText("|cffFF4500" .. EXPANSION_NAME3 .. "*")
-                height = height - height_jiange
-                O.CreateLine(roleOverview, height + line_height)
-                height = CreateFBCDbutton(1, raidNum - 34, width, height, 100, height_jiange)
-
-                height = height - height_jiange - height_jiange
-                local text = roleOverview:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-                text:SetPoint("TOPLEFT", width, height)
-                text:SetText(BG.STC_b1(EXPANSION_NAME2 .. "*"))
-                height = height - height_jiange
-                O.CreateLine(roleOverview, height + line_height)
-                height = CreateFBCDbutton(raidNum - 33, raidNum - 16, width, height, 100, height_jiange)
-
-                height = height - height_jiange - height_jiange
-                local text = roleOverview:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-                text:SetPoint("TOPLEFT", width, height)
-                text:SetText(BG.STC_r3(EXPANSION_NAME1 .. "*"))
-                height = height - height_jiange
-                O.CreateLine(roleOverview, height + line_height)
-                height = CreateFBCDbutton(raidNum - 15, raidNum - 5, width, height, 100, height_jiange)
-
-                height = height - height_jiange - height_jiange
-                local text = roleOverview:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-                text:SetPoint("TOPLEFT", width, height)
-                text:SetText(BG.STC_g2(LFG_LIST_LEGACY .. "*"))
-                height = height - height_jiange
-                O.CreateLine(roleOverview, height + line_height)
-                height = CreateFBCDbutton(raidNum - 4, raidNum, width, height, 100, height_jiange)
-
-                -- 任务
-                height = height - height_jiange - height_jiange
-                local text = roleOverview:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-                text:SetPoint("TOPLEFT", width, height)
-                text:SetText("|cffFF8C00" .. (QUESTS_LABEL .. "*") .. RR)
-                height = height - height_jiange
-                O.CreateLine(roleOverview, height + line_height)
-                height = CreateFBCDbutton(raidNum + 1, raidNum + questNum, width, height, 100, height_jiange)
-
-                -- 声望
-                height = height - height_jiange - height_jiange
-                local text = roleOverview:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-                text:SetPoint("TOPLEFT", width, height)
-                text:SetText("|cffFFFF00" .. (L["声望"] .. "*") .. RR)
-                height = height - height_jiange
-                O.CreateLine(roleOverview, height + line_height)
-                height = CreateFBCDbutton(raidNum + questNum + 1, #BG.FBCDall_table, width, height, 100, height_jiange)
-
-                -- 货币
-                height = height - height_jiange - height_jiange
-                local text = roleOverview:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-                text:SetPoint("TOPLEFT", width, height)
-                text:SetText(BG.STC_w1(L["货币*"]))
-                height = height - height_jiange
-                local l = O.CreateLine(roleOverview, height + line_height)
-
-                height = CreateMONEYbutton(1, #BG.MONEYall_table, width, height, 65, height_jiange)
-                height = height - height_jiange * 3
-            elseif BG.IsMOP then
-                local raidNum = #BG.FBCDall_table - #BG.factionTbl
-                --团本CD
-                local text = roleOverview:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-                text:SetPoint("TOPLEFT", width, height)
-                text:SetText("|cff00FF00" .. EXPANSION_NAME4 .. "*")
-                height = height - height_jiange
-                O.CreateLine(roleOverview, height + line_height)
-                height = CreateFBCDbutton(1, raidNum - 41, width, height, 100, height_jiange)
-
-                height = height - height_jiange - height_jiange
-                local text = roleOverview:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-                text:SetPoint("TOPLEFT", width, height)
-                text:SetText("|cffFF4500" .. EXPANSION_NAME3 .. "*")
-                height = height - height_jiange
-                O.CreateLine(roleOverview, height + line_height)
-                height = CreateFBCDbutton(raidNum - 40, raidNum - 34, width, height, 100, height_jiange)
-
-                height = height - height_jiange - height_jiange
-                local text = roleOverview:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-                text:SetPoint("TOPLEFT", width, height)
-                text:SetText(BG.STC_b1(EXPANSION_NAME2 .. "*"))
-                height = height - height_jiange
-                O.CreateLine(roleOverview, height + line_height)
-                height = CreateFBCDbutton(raidNum - 33, raidNum - 16, width, height, 100, height_jiange)
-
-                height = height - height_jiange - height_jiange
-                local text = roleOverview:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-                text:SetPoint("TOPLEFT", width, height)
-                text:SetText(BG.STC_r3(EXPANSION_NAME1 .. "*"))
-                height = height - height_jiange
-                O.CreateLine(roleOverview, height + line_height)
-                height = CreateFBCDbutton(raidNum - 15, raidNum - 5, width, height, 100, height_jiange)
-
-                height = height - height_jiange - height_jiange
-                local text = roleOverview:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-                text:SetPoint("TOPLEFT", width, height)
-                text:SetText(BG.STC_g2(LFG_LIST_LEGACY .. "*"))
-                height = height - height_jiange
-                O.CreateLine(roleOverview, height + line_height)
-                height = CreateFBCDbutton(raidNum - 4, raidNum, width, height, 100, height_jiange)
-
-                -- 声望
-                height = height - height_jiange - height_jiange
-                local text = roleOverview:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-                text:SetPoint("TOPLEFT", width, height)
-                text:SetText("|cffFFFF00" .. (L["声望"] .. "*") .. RR)
-                height = height - height_jiange
-                O.CreateLine(roleOverview, height + line_height)
-                height = CreateFBCDbutton(raidNum + 1, #BG.FBCDall_table, width, height, 100, height_jiange)
-
-                -- 货币
-                height = height - height_jiange - height_jiange
-                local text = roleOverview:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-                text:SetPoint("TOPLEFT", width, height)
-                text:SetText(BG.STC_w1(L["货币*"]))
-                height = height - height_jiange
-                local l = O.CreateLine(roleOverview, height + line_height)
-
-                height = CreateMONEYbutton(1, #BG.MONEYall_table, width, height, 65, height_jiange)
-                height = height - height_jiange * 3
+            local function CreateFBCDbutton(n1, n2, hide)
+                local right
+                local first
+                local buttonWidth = 100
+                local buttonHeight = 25
+                local row = 1
+                for i = n1, n2 do
+                    local name = BG.FBCDall_table[i].name
+                    local name2 = BG.FBCDall_table[i].name2
+                    local color = BG.FBCDall_table[i].color
+                    local fbId = BG.FBCDall_table[i].fbId
+                    local type = BG.FBCDall_table[i].type
+                    local maxplayers = BG.FBCDall_table[i].num and (BG.FBCDall_table[i].num .. L["人"]) or ""
+                    local bt = CreateFrame("CheckButton", nil, lastFrame.child2, "ChatConfigCheckButtonTemplate")
+                    bt:SetSize(buttonHeight, buttonHeight)
+                    bt:SetHitRectInsets(0, -buttonWidth + 45, 0, 0)
+                    if not right then
+                        bt:SetPoint("TOPLEFT", 0, -5)
+                        first = bt
+                    elseif roleOverview.scroll:GetRight() - right.Text:GetRight() > buttonWidth then
+                        bt:SetPoint("TOPLEFT", right, "TOPLEFT", buttonWidth, 0)
+                    else
+                        bt:SetPoint("TOPLEFT", first, "BOTTOMLEFT", 0, 0)
+                        first = bt
+                        row = row + 1
+                    end
+                    right = bt
+                    bt.Text:SetText("|cff" .. color .. (name2 or name):gsub("sod", "") .. RR)
+                    bt.Text:SetWidth(buttonWidth - buttonHeight)
+                    bt.Text:SetWordWrap(false)
+                    if not BiaoGe.FBCDchoice[name] or BiaoGe.FBCDchoice[name] == 0 then
+                        BiaoGe.FBCDchoice[name] = nil
+                        bt:SetChecked(false)
+                    else
+                        BiaoGe.FBCDchoice[name] = 1
+                        bt:SetChecked(true)
+                    end
+                    bt:SetScript("OnClick", function(self)
+                        if self:GetChecked() then
+                            BiaoGe.FBCDchoice[name] = 1
+                        else
+                            BiaoGe.FBCDchoice[name] = nil
+                        end
+                        BG.PlaySound(1)
+                    end)
+                    bt:SetScript("OnEnter", function(self)
+                        local text = "|cff" .. color .. maxplayers .. (name2 or GetRealZoneText(fbId)) .. RR
+                        if type ~= "fb" then
+                            text = self.Text:GetText()
+                        end
+                        GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT", 0, 0)
+                        GameTooltip:ClearLines()
+                        GameTooltip:SetText(text)
+                    end)
+                    bt:SetScript("OnLeave", GameTooltip_Hide)
+                end
+                lastFrame.height = buttonHeight * row + 5
+                lastFrame.child:SetHeight(lastFrame.height)
+                if hide then
+                    lastFrame:GetScript("OnMouseDown")(lastFrame)
+                end
             end
+            local function CreateMONEYbutton(n1, n2, hide)
+                local right
+                local first
+                local buttonWidth = 65
+                local buttonHeight = 25
+                local row = 1
+                for i = n1, n2 do
+                    local name = BG.MONEYall_table[i].name
+                    local tex = BG.MONEYall_table[i].tex
+                    local color = BG.MONEYall_table[i].color
+                    local id = BG.MONEYall_table[i].id
+                    local bt = CreateFrame("CheckButton", nil, lastFrame.child2, "ChatConfigCheckButtonTemplate")
+                    bt:SetSize(buttonHeight, buttonHeight)
+                    bt:SetHitRectInsets(0, -buttonWidth + 40, 0, 0)
+                    if not right then
+                        bt:SetPoint("TOPLEFT", 0, -5)
+                        first = bt
+                    elseif roleOverview.scroll:GetRight() - right.Text:GetRight() > buttonWidth then
+                        bt:SetPoint("TOPLEFT", right, "TOPLEFT", buttonWidth, 0)
+                    else
+                        bt:SetPoint("TOPLEFT", first, "BOTTOMLEFT", 0, 0)
+                        first = bt
+                        row = row + 1
+                    end
+                    right = bt
+                    bt.Text:SetText(AddTexture(tex))
+                    if not BiaoGe.MONEYchoice[id] or BiaoGe.MONEYchoice[id] == 0 then
+                        BiaoGe.MONEYchoice[id] = nil
+                        bt:SetChecked(false)
+                    else
+                        BiaoGe.MONEYchoice[id] = 1
+                        bt:SetChecked(true)
+                    end
+                    bt:SetScript("OnClick", function(self)
+                        if self:GetChecked() then
+                            BiaoGe.MONEYchoice[id] = 1
+                        else
+                            BiaoGe.MONEYchoice[id] = nil
+                        end
+                        BG.PlaySound(1)
+                    end)
+                    bt:SetScript("OnEnter", function(self)
+                        local text = "|cff" .. color .. name .. RR
+                        GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT", 0, 0)
+                        GameTooltip:ClearLines()
+                        GameTooltip:SetText(text)
+                    end)
+                    bt:SetScript("OnLeave", GameTooltip_Hide)
+                end
+                lastFrame.height = buttonHeight * row + 5
+                lastFrame.child:SetHeight(lastFrame.height)
+                if hide then
+                    lastFrame:GetScript("OnMouseDown")(lastFrame)
+                end
+            end
+            local function CreateTitle(name, color)
+                local frame = CreateFrame("Frame", nil, roleOverview, "BackdropTemplate")
+                frame:SetBackdrop({
+                    bgFile = "Interface/ChatFrame/ChatFrameBackground",
+                })
+                frame:SetBackdropColor(0, 0, 0, 0)
+                if lastFrame then
+                    frame:SetPoint("TOPLEFT", lastFrame.child, "BOTTOMLEFT", 0, 0)
+                else
+                    frame:SetPoint("TOPLEFT", 15, -5)
+                end
+                frame:SetSize(frameWidth, frameHeight)
+                frame.tex = frame:CreateTexture()
+                frame.tex:SetPoint("BOTTOMLEFT", 0, 0)
+                frame.tex:SetSize(18, 18)
+                frame.tex:SetTexture(130821)
+                frame.text = frame:CreateFontString()
+                frame.text:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+                frame.text:SetPoint("LEFT", frame.tex, "RIGHT", 2, 0)
+                frame.text:SetText(name)
+                frame.open = true
+                if type(color) == "table" then
+                    frame.text:SetTextColor(unpack(color))
+                else
+                    frame.text:SetTextColor(RGB(color))
+                end
+                local l = frame:CreateLine()
+                l:SetColorTexture(.5, .5, .5)
+                l:SetStartPoint("BOTTOMLEFT", 0, 0)
+                l:SetEndPoint("BOTTOMLEFT", frameWidth, 0)
+                l:SetThickness(1.5)
+                local child = CreateFrame("Frame", nil, frame)
+                child:SetPoint("TOPLEFT", frame, "BOTTOMLEFT", 0, 0)
+                child:SetSize(frameWidth, 20)
+                frame.child = child
+                local child2 = CreateFrame("Frame", nil, child)
+                child2:SetAllPoints()
+                frame.child2 = child2
+                frame:SetScript("OnMouseDown", function(self)
+                    if self.open then
+                        self.child2:Hide()
+                        self.child:SetHeight(1)
+                        self.tex:SetTexture(130838)
+                        self.open = nil
+                    else
+                        self.child2:Show()
+                        self.child:SetHeight(self.height)
+                        self.tex:SetTexture(130821)
+                        self.open = true
+                    end
+                    BG.PlaySound(1)
+                end)
+                frame:SetScript("OnEnter", function(self)
+                    self:SetBackdropColor(1, 1, 0, .1)
+                end)
+                frame:SetScript("OnLeave", function(self)
+                    self:SetBackdropColor(0, 0, 0, 0)
+                end)
+                return frame
+            end
+            if BG.IsVanilla_Sod then
+                local z = { 10, 3 } -- 3是专业
+                local x = {}
+                for i, v in ipairs(z) do
+                    x[i] = (x[i - 1] or 0) + v
+                end
+                local startNum = 1
+                lastFrame = CreateTitle(L["团本"] .. "*", "00BFFF")
+                CreateFBCDbutton(1, x[startNum])
+                lastFrame = CreateTitle(TRADE_SKILLS .. "*", "ADFF2F")
+                CreateFBCDbutton(x[startNum] + 1, x[startNum + 1])
+            elseif BG.IsVanilla_60 then
+                local z = { 7, 3, #BG.factionTbl } -- 3是专业
+                local x = {}
+                for i, v in ipairs(z) do
+                    x[i] = (x[i - 1] or 0) + v
+                end
+                local startNum = 1
+                lastFrame = CreateTitle(L["团本"] .. "*", "00BFFF")
+                CreateFBCDbutton(1, x[startNum])
+                lastFrame = CreateTitle(TRADE_SKILLS .. "*", "ADFF2F")
+                CreateFBCDbutton(x[startNum] + 1, x[startNum + 1])
+                startNum = startNum + 1
+                lastFrame = CreateTitle(L["声望"] .. "*", "FFFF00")
+                CreateFBCDbutton(x[startNum] + 1, x[startNum + 1])
+            elseif BG.IsWLK_80 then
+                local z = { 18, 11, 5, 6, 10, #BG.factionTbl } -- 6是日常，10是专业
+                local x = {}
+                for i, v in ipairs(z) do
+                    x[i] = (x[i - 1] or 0) + v
+                end
+                local startNum = 1
+                lastFrame = CreateTitle(EXPANSION_NAME2 .. "*", "00BFFF")
+                CreateFBCDbutton(1, x[startNum])
+                lastFrame = CreateTitle(EXPANSION_NAME1 .. "*", "FF69B4")
+                CreateFBCDbutton(x[startNum] + 1, x[startNum + 1], true)
+                startNum = startNum + 1
+                lastFrame = CreateTitle(LFG_LIST_LEGACY .. "*", "40c040")
+                CreateFBCDbutton(x[startNum] + 1, x[startNum + 1], true)
+                startNum = startNum + 1
+                lastFrame = CreateTitle(QUESTS_LABEL .. "*", "FF8C00")
+                CreateFBCDbutton(x[startNum] + 1, x[startNum + 1])
+                startNum = startNum + 1
+                lastFrame = CreateTitle(TRADE_SKILLS .. "*", "ADFF2F")
+                CreateFBCDbutton(x[startNum] + 1, x[startNum + 1])
+                startNum = startNum + 1
+                lastFrame = CreateTitle(L["声望"] .. "*", "FFFF00")
+                CreateFBCDbutton(x[startNum] + 1, x[startNum + 1])
+            elseif BG.IsTitan then
+                local z = { 6, 4, 10, #BG.factionTbl } -- 4是日常，10是专业
+                local x = {}
+                for i, v in ipairs(z) do
+                    x[i] = (x[i - 1] or 0) + v
+                end
+                local startNum = 1
+                lastFrame = CreateTitle(L["团本"] .. "*", "00BFFF")
+                CreateFBCDbutton(1, x[startNum])
+                lastFrame = CreateTitle(QUESTS_LABEL .. "*", "FF8C00")
+                CreateFBCDbutton(x[startNum] + 1, x[startNum + 1])
+                startNum = startNum + 1
+                lastFrame = CreateTitle(TRADE_SKILLS .. "*", "ADFF2F")
+                CreateFBCDbutton(x[startNum] + 1, x[startNum + 1])
+                startNum = startNum + 1
+                lastFrame = CreateTitle(L["声望"] .. "*", "FFFF00")
+                CreateFBCDbutton(x[startNum] + 1, x[startNum + 1])
+            elseif BG.IsCTM then
+                local z = { 7, 18, 11, 5, 3, #BG.factionTbl } -- 3是日常
+                local x = {}
+                for i, v in ipairs(z) do
+                    x[i] = (x[i - 1] or 0) + v
+                end
+                local startNum = 1
+                lastFrame = CreateTitle(EXPANSION_NAME3 .. "*", "FF4500")
+                CreateFBCDbutton(1, x[startNum])
+                lastFrame = CreateTitle(EXPANSION_NAME2 .. "*", "00BFFF")
+                CreateFBCDbutton(x[startNum] + 1, x[startNum + 1], true)
+                startNum = startNum + 1
+                lastFrame = CreateTitle(EXPANSION_NAME1 .. "*", "FF69B4")
+                CreateFBCDbutton(x[startNum] + 1, x[startNum + 1], true)
+                startNum = startNum + 1
+                lastFrame = CreateTitle(LFG_LIST_LEGACY .. "*", "40c040")
+                CreateFBCDbutton(x[startNum] + 1, x[startNum + 1], true)
+                startNum = startNum + 1
+                lastFrame = CreateTitle(QUESTS_LABEL .. "*", "FF8C00")
+                CreateFBCDbutton(x[startNum] + 1, x[startNum + 1])
+                startNum = startNum + 1
+                lastFrame = CreateTitle(L["声望"] .. "*", "FFFF00")
+                CreateFBCDbutton(x[startNum] + 1, x[startNum + 1])
+            elseif BG.IsMOP then
+                local z = { 8, 7, 18, 11, 5, #BG.factionTbl }
+                local x = {}
+                for i, v in ipairs(z) do
+                    x[i] = (x[i - 1] or 0) + v
+                end
+                local startNum = 1
+                lastFrame = CreateTitle(EXPANSION_NAME4 .. "*", "00FF00")
+                CreateFBCDbutton(1, x[startNum])
+                lastFrame = CreateTitle(EXPANSION_NAME3 .. "*", "FF4500")
+                CreateFBCDbutton(x[startNum] + 1, x[startNum + 1], true)
+                startNum = startNum + 1
+                lastFrame = CreateTitle(EXPANSION_NAME2 .. "*", "00BFFF")
+                CreateFBCDbutton(x[startNum] + 1, x[startNum + 1], true)
+                startNum = startNum + 1
+                lastFrame = CreateTitle(EXPANSION_NAME1 .. "*", "FF69B4")
+                CreateFBCDbutton(x[startNum] + 1, x[startNum + 1], true)
+                startNum = startNum + 1
+                lastFrame = CreateTitle(LFG_LIST_LEGACY .. "*", "40c040")
+                CreateFBCDbutton(x[startNum] + 1, x[startNum + 1], true)
+                startNum = startNum + 1
+                lastFrame = CreateTitle(L["声望"] .. "*", "FFFF00")
+                CreateFBCDbutton(x[startNum] + 1, x[startNum + 1])
+            end
+            lastFrame = CreateTitle(L["货币"] .. "*", "FFFFFF")
+            CreateMONEYbutton(1, #BG.MONEYall_table)
         end
-        height = height + 10
-        local _height = height
         -- 排序
-        BG.Init2(function()
-            local height = _height
+        do
             local name = "roleOverviewSort1"
             BG.options[name .. "reset"] = "iLevel-class-player"
             BiaoGe.options[name] = BiaoGe.options[name] or BG.options[name .. "reset"]
@@ -2638,15 +2590,19 @@ BG.Init(function()
                 { key = "vip", text = L["自定义排序"] .. AddTexture("VIP") },
             }
 
-            local t = roleOverview:CreateFontString()
+            local frame = CreateFrame("Frame", nil, roleOverview, "BackdropTemplate")
+            frame:SetPoint("TOPLEFT", lastFrame.child, "BOTTOMLEFT", 0, -15)
+            frame:SetSize(frameWidth, frameHeight)
+            lastFrame = frame
+            local t = frame:CreateFontString()
             t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
-            t:SetPoint("TOPLEFT", 15, height)
+            t:SetPoint("LEFT")
             t:SetTextColor(1, 1, 1)
             t:SetText(L["角色总览的排序方式："])
             BG.options["Text" .. name] = t
 
             -- 选项
-            do
+            BG.Init2(function()
                 local function SetText(key)
                     for i, v in ipairs(tbl) do
                         if v.key == key then
@@ -2700,9 +2656,8 @@ BG.Init(function()
                         BGV.CreateRoleOverviewMainFrame(self)
                     end
                 end)
-            end
-        end)
-        height = height - 35
+            end)
+        end
 
         -- 默认显示
         do
@@ -2715,9 +2670,13 @@ BG.Init(function()
                 { key = "all", text = L["全部服务器角色"] },
             }
 
-            local t = roleOverview:CreateFontString()
+            local frame = CreateFrame("Frame", nil, roleOverview, "BackdropTemplate")
+            frame:SetPoint("TOPLEFT", lastFrame, "BOTTOMLEFT", 0, -10)
+            frame:SetSize(frameWidth, frameHeight)
+            lastFrame = frame
+            local t = frame:CreateFontString()
             t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
-            t:SetPoint("TOPLEFT", 15, height)
+            t:SetPoint("LEFT")
             t:SetTextColor(1, 1, 1)
             t:SetText(L["角色总览的默认显示："])
             BG.options["Text" .. name] = t
@@ -2755,7 +2714,6 @@ BG.Init(function()
                 end)
             end
         end
-        height = height - 35
 
         -- 布局
         do
@@ -2768,9 +2726,13 @@ BG.Init(function()
                 { key = "left_right", text = L["左右布局"] },
             }
 
-            local t = roleOverview:CreateFontString()
+            local frame = CreateFrame("Frame", nil, roleOverview, "BackdropTemplate")
+            frame:SetPoint("TOPLEFT", lastFrame, "BOTTOMLEFT", 0, -10)
+            frame:SetSize(frameWidth, frameHeight)
+            lastFrame = frame
+            local t = frame:CreateFontString()
             t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
-            t:SetPoint("TOPLEFT", 15, height)
+            t:SetPoint("LEFT")
             t:SetTextColor(1, 1, 1)
             t:SetText(L["角色总览的布局方式："])
             BG.options["Text" .. name] = t
@@ -2808,7 +2770,6 @@ BG.Init(function()
                 end)
             end
         end
-        height = height - 35
 
         -- 屏蔽等级
         do
@@ -2816,9 +2777,13 @@ BG.Init(function()
             BG.options[name .. "reset"] = 0
             BiaoGe.options[name] = BiaoGe.options[name] or BG.options[name .. "reset"]
 
-            local t = roleOverview:CreateFontString()
+            local frame = CreateFrame("Frame", nil, roleOverview, "BackdropTemplate")
+            frame:SetPoint("TOPLEFT", lastFrame, "BOTTOMLEFT", 0, -10)
+            frame:SetSize(frameWidth, frameHeight)
+            lastFrame = frame
+            local t = frame:CreateFontString()
             t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
-            t:SetPoint("TOPLEFT", 15, height)
+            t:SetPoint("LEFT")
             t:SetTextColor(1, 1, 1)
             t:SetText(L["不显示低于该等级的角色："])
 
@@ -2834,7 +2799,6 @@ BG.Init(function()
                 self:ClearFocus()
             end)
         end
-        height = height - 30
 
         -- 屏蔽装等
         do
@@ -2842,9 +2806,13 @@ BG.Init(function()
             BG.options[name .. "reset"] = 0
             BiaoGe.options[name] = BiaoGe.options[name] or BG.options[name .. "reset"]
 
-            local t = roleOverview:CreateFontString()
+            local frame = CreateFrame("Frame", nil, roleOverview, "BackdropTemplate")
+            frame:SetPoint("TOPLEFT", lastFrame, "BOTTOMLEFT", 0, -10)
+            frame:SetSize(frameWidth, frameHeight)
+            lastFrame = frame
+            local t = frame:CreateFontString()
             t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
-            t:SetPoint("TOPLEFT", 15, height)
+            t:SetPoint("LEFT")
             t:SetTextColor(1, 1, 1)
             t:SetText(L["不显示低于该装等的角色："])
 
@@ -2863,8 +2831,6 @@ BG.Init(function()
 
         -- 5人本完成总览
         if false then
-            height = height - 30
-
             local name = "FB5M"
             BG.options[name .. "reset"] = 0
             BiaoGe.options[name] = BiaoGe.options[name] or BG.options[name .. "reset"]
@@ -2888,7 +2854,7 @@ BG.Init(function()
 
     -- 团本攻略设置
     do
-        if BG.IsWLK then
+        if BG.BossMainFram then
             local height = 0
 
             -- 团本攻略字体大小
@@ -2917,6 +2883,16 @@ BG.Init(function()
         local line_height = 4
         local h = 0
 
+        local function Update_OnShow(f, name)
+            f:SetScript("OnShow", function(self)
+                if BiaoGe.options[name] == 1 then
+                    f:SetChecked(true)
+                else
+                    f:SetChecked(false)
+                end
+            end)
+        end
+
         -- 原生功能
         do
             local text = others:CreateFontString(nil, "ARTWORK", "GameFontNormal")
@@ -2937,7 +2913,7 @@ BG.Init(function()
                     L["退队/入队玩家上色"],
                     L["在退队/入队的系统消息里，给该玩家名字加上职业色并设置为链接。"],
                 }
-                local f = O.CreateCheckButton(name, L["退队/入队玩家上色"] .. "*", others, 15, height - h, ontext)
+                local f = O.CreateCheckButton(name, L["退队/入队玩家上色"] .. "*", others, 15, height - h, ontext, true)
                 BG.options["button" .. name] = f
             end
             -- 一键指定灵魂烘炉
@@ -2952,7 +2928,7 @@ BG.Init(function()
                         BiaoGe.options[name] = BG.options[name .. "reset"]
                     end
                     local text1
-                    if BG.IsWLK then
+                    if BG.IsWLK_80 then
                         text1 = L["节日副本和"] .. GetRealZoneText(fbID)
                     else
                         text1 = L["节日副本"]
@@ -2963,7 +2939,7 @@ BG.Init(function()
                         " ",
                         L["打开随机本界面时，会自动选择上一次的随机本类型，而不是傻傻地在默认类型。"],
                     }
-                    local f = O.CreateCheckButton(name, format(L["一键指定%s"], text1) .. "*", others, 15, height - h, ontext)
+                    local f = O.CreateCheckButton(name, format(L["一键指定%s"], text1) .. "*", others, 15, height - h, ontext, true)
                     BG.options["button" .. name] = f
                 end
             end
@@ -2982,7 +2958,7 @@ BG.Init(function()
                     L["点击按钮后会把全部可交易的物品分配给自己（橙片、任务物品等不会自动分配）。"],
                 }
 
-                local f = O.CreateCheckButton(name, L["队长模式一键分配"] .. "*", others, 15, height - h, ontext)
+                local f = O.CreateCheckButton(name, L["队长模式一键分配"] .. "*", others, 15, height - h, ontext, true)
                 BG.options["button" .. name] = f
                 f:HookScript("OnClick", function(self)
                     if self:GetChecked() then
@@ -3004,7 +2980,7 @@ BG.Init(function()
                     " ",
                     L["按下ALT/SHIFT/CTRL时不会自动一键分配。"],
                 }
-                local f = O.CreateCheckButton(name, L["自动点击一键分配"] .. "*", others, 40, height - h, ontext)
+                local f = O.CreateCheckButton(name, L["自动点击一键分配"] .. "*", others, 40, height - h, ontext, true)
                 BG.options["button" .. name] = f
                 if BiaoGe.options["allLootToMe"] ~= 1 then
                     f:Hide()
@@ -3030,14 +3006,14 @@ BG.Init(function()
                         " ",
                         L["在查询名单列表界面中增加全部举报按钮。"],
                     }
-                    local f = O.CreateCheckButton(name, L["一键举报"] .. "*", others, 15, height - h, ontext)
+                    local f = O.CreateCheckButton(name, L["一键举报"] .. "*", others, 15, height - h, ontext, true)
                     BG.options["button" .. name] = f
                 else
                     local ontext = {
                         L["举报成功后自动隐藏感谢界面"],
                         L["正常情况下，当你举报成功后，会显示一个感谢你的举报的界面。现在该感谢界面不会再显示。"],
                     }
-                    local f = O.CreateCheckButton(name, L["举报成功后自动隐藏感谢界面"] .. "*", others, 15, height - h, ontext)
+                    local f = O.CreateCheckButton(name, L["举报成功后自动隐藏感谢界面"] .. "*", others, 15, height - h, ontext, true)
                     BG.options["button" .. name] = f
                 end
             end
@@ -3056,7 +3032,7 @@ BG.Init(function()
                     " ",
                     L["在查询名单列表中增加导出名单功能（可用于在官网进行批量举报）。"],
                 }
-                local f = O.CreateCheckButton(name, L["查询记录"] .. "*", others, 15, height - h, ontext)
+                local f = O.CreateCheckButton(name, L["查询记录"] .. "*", others, 15, height - h, ontext, true)
                 BG.options["button" .. name] = f
             end
             -- 贸易局
@@ -3077,7 +3053,7 @@ BG.Init(function()
                     L["在拍卖行Shift点击[遭劫货物]时，只会搜索其所需货物，而不是搜索[遭劫货物]（支持原生界面和Auctionator插件）。"],
                 }
 
-                local f = O.CreateCheckButton(name, L["贸易局的遭劫货物显示具体声望奖励"] .. "*", others, 15, height - h, ontext)
+                local f = O.CreateCheckButton(name, L["贸易局的遭劫货物显示具体声望奖励"] .. "*", others, 15, height - h, ontext, true)
                 BG.options["button" .. name] = f
             end
             -- 血月活动期间自动释放尸体和自动对话复活
@@ -3092,7 +3068,7 @@ BG.Init(function()
                 local ontext = {
                     L["荆棘谷血月活动期间自动释放尸体和对话自动复活"],
                 }
-                local f = O.CreateCheckButton(name, L["荆棘谷血月活动期间自动释放尸体和对话自动复活"] .. "*", others, 15, height - h, ontext)
+                local f = O.CreateCheckButton(name, L["荆棘谷血月活动期间自动释放尸体和对话自动复活"] .. "*", others, 15, height - h, ontext, true)
                 BG.options["button" .. name] = f
                 f:SetScript("OnShow", function(self)
                     if BiaoGe.options[name] == 1 then
@@ -3118,14 +3094,29 @@ BG.Init(function()
                     " ",
                     L["在部分物品的提示文本中，增加显示该牌子的数量。比如在熊猫人之怒的正义奖章里，提示正义点数现有数量。"],
                 }
-                local f = O.CreateCheckButton(name, L["牌子拾取增强"] .. "*", others, 15, height - h, ontext)
+                local f = O.CreateCheckButton(name, L["牌子拾取增强"] .. "*", others, 15, height - h, ontext, true)
+                BG.options["button" .. name] = f
+            end
+            -- 屏蔽发送受限的系统消息
+            do
+                h = h + 30
+
+                local name = "ERR_CHAT_THROTTLED"
+                BG.options[name .. "reset"] = 1
+                BiaoGe.options[name] = BiaoGe.options[name] or BG.options[name .. "reset"]
+                local ontext = {
+                    L["屏蔽发送受限的系统消息"],
+                    L["自动屏蔽该系统消息\"可发送的信息数量受限，请稍候再发送下一条信息。\"。"],
+                }
+                local f = O.CreateCheckButton(name, L["屏蔽发送受限的系统消息"] .. "*", others, 15, height - h, ontext, true)
                 BG.options["button" .. name] = f
             end
             h = h + 45
         end
 
         -- AtlasLoot
-        if BG.canShowAtlasLoot then
+        BG.Init2(function()
+            if not BG.canShowAtlasLoot then return end
             local text = others:CreateFontString(nil, "ARTWORK", "GameFontNormal")
             text:SetPoint("TOPLEFT", width, height - h)
             text:SetText(BG.STC_g1("AtlasLoot"))
@@ -3133,12 +3124,13 @@ BG.Init(function()
 
             O.CreateLine(others, height - h + line_height)
 
+            local tbl = {}
             -- 更好的选择
-            do
-                local name = "AtlasLoot_betterChoose"
-                BG.options[name .. "reset"] = 1
-                BiaoGe.options[name] = BiaoGe.options[name] or BG.options[name .. "reset"]
-                local ontext = {
+            tinsert(tbl, {
+                name = "AtlasLoot_betterChoose",
+                name2 = L["更好的选择"] .. "*",
+                reset = 0,
+                ontext = {
                     L["更好的选择"],
                     L["当你点击一个菜单选项时，"],
                     L["该插件的原本设定：下一级菜单中总是默认显示第一项。"],
@@ -3149,29 +3141,123 @@ BG.Init(function()
                     L["点击地下城和团队副本时，会自动显示25人奥杜尔；"],
                     L["点击专业制造时，会自动显示附魔；"],
                     L["点击专业制造-铭文时，会自动显示你对应的铭文；"],
-                }
-                local f = O.CreateCheckButton(name, L["更好的选择"] .. "*", others, 15, height - h, ontext)
-                BG.options["button" .. name] = f
-            end
-            h = h + 30
-
-            -- 一键显示
-            do
-                local name = "AtlasLoot_fastChoose"
-                BG.options[name .. "reset"] = 0
-                BiaoGe.options[name] = BiaoGe.options[name] or BG.options[name .. "reset"]
-                local ontext = {
-                    L["一键显示"],
+                },
+            })
+            -- 快捷按钮
+            tinsert(tbl, {
+                name = "AtlasLoot_fastChoose",
+                name2 = L["快捷按钮"] .. "*",
+                reset = 0,
+                ontext = {
+                    L["快捷按钮"],
                     L["在AtlasLoot主界面的右边，增加多个快捷按钮，点击后直接显示相应页面。"],
                     " ",
                     L["比如珠宝按钮，点击后直接显示珠宝页面。"],
-                }
-                local f = O.CreateCheckButton(name, L["一键显示"] .. "*", others, 15, height - h, ontext)
-                BG.options["button" .. name] = f
-            end
+                },
+                onClick = BG.AtlasLootUpdateFastButton
+            })
 
-            h = h + 45
-        end
+            for i, v in ipairs(tbl) do
+                if not v.notdefault then
+                    BG.options[v.name .. "reset"] = v.reset
+                    BiaoGe.options[v.name] = BiaoGe.options[v.name] or BG.options[v.name .. "reset"]
+                end
+                BG.options["button" .. v.name] = O.CreateCheckButton(v.name, v.name2, others, 15, height - h, v.ontext)
+                Update_OnShow(BG.options["button" .. v.name], v.name)
+                if v.onClick then
+                    BG.options["button" .. v.name]:HookScript("OnClick", v.onClick)
+                end
+                h = h + 30
+            end
+            height = height - 15
+
+            -- 插件设置
+            local mainFrame = BG.AtlasLootMainFrame
+            if mainFrame and mainFrame.titleFrame then
+                local frameWidth = 300
+                local frameHeight = 100
+                local bt = CreateFrame("Button", nil, mainFrame.titleFrame)
+                do
+                    bt:SetSize(18, 18)
+                    bt:SetPoint("LEFT", 2, 0)
+                    local icon = "Interface\\AddOns\\BiaoGe\\Media\\icon\\icon"
+                    local tex = bt:CreateTexture()
+                    tex:SetAllPoints()
+                    tex:SetTexture(icon)
+                    bt:SetHighlightTexture(icon)
+                    bt:SetScript("OnClick", function(self)
+                        self.frame:SetShown(not self.frame:IsVisible())
+                    end)
+                    bt:SetScript("OnLeave", GameTooltip_Hide)
+
+                    bt.frame = CreateFrame("Frame", nil, bt, "BackdropTemplate")
+                    bt.frame:SetBackdrop({
+                        bgFile = "Interface/ChatFrame/ChatFrameBackground",
+                        edgeFile = "Interface/ChatFrame/ChatFrameBackground",
+                        edgeSize = 1,
+                    })
+                    bt.frame:SetBackdropColor(0, 0, 0, 0.9)
+                    bt.frame:SetBackdropBorderColor(.3, .3, .3, 1)
+                    bt.frame:SetSize(frameWidth, frameHeight)
+                    bt.frame:EnableMouse(true)
+                    bt.frame:SetPoint("TOP", bt, "BOTTOM", 0, -2)
+                    bt.frame:Hide()
+                    bt.frame:SetScript("OnHide", function(self)
+                        self:Hide()
+                    end)
+                    bt.frame.CloseButton = CreateFrame("Button", nil, bt.frame, "UIPanelCloseButton")
+                    bt.frame.CloseButton:SetPoint("TOPRIGHT", bt.frame, "TOPRIGHT", 2, 2)
+
+                    mainFrame:HookScript("OnHide", function()
+                        bt.frame:Hide()
+                    end)
+
+                    local verText = mainFrame.titleFrame.newVersion
+                    if verText then
+                        verText:SetPoint("LEFT", mainFrame.titleFrame, "LEFT", 30, 0)
+                    end
+                end
+
+                local height = -10
+                local h = 0
+                local h_jiange = 28
+                local text = bt.frame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+                text:SetPoint("TOPLEFT", 20, height - h)
+                text:SetText(BG.STC_g1(L["其他功能|cff808080（由BiaoGe插件提供）|r"]))
+                height = height - height_jiange
+
+                local l = bt.frame:CreateLine()
+                l:SetColorTexture(RGB("808080", 1))
+                l:SetStartPoint("TOPLEFT", 15, height - h + line_height)
+                l:SetEndPoint("TOPLEFT", frameWidth - 30, height - h + line_height)
+                l:SetThickness(1.5)
+                local buttons = {}
+                for i, v in ipairs(tbl) do
+                    if v.notdefault then
+                        v.ontext[1] = v.ontext[1] .. L["（重载界面后生效）"]
+                    end
+                    local f = O.CreateCheckButton(v.name, v.name2, bt.frame, 15, height - h, v.ontext)
+                    Update_OnShow(f, v.name)
+                    if v.onClick then
+                        f:HookScript("OnClick", v.onClick)
+                    end
+                    if i == 6 then
+                        f:ClearAllPoints()
+                        f:SetPoint("LEFT", buttons[1], "RIGHT", 190, 0)
+                        f.Text:SetWidth(140)
+                    elseif i > 6 then
+                        f:ClearAllPoints()
+                        f:SetPoint("TOPLEFT", buttons[i - 1], "TOPLEFT", 0, -h_jiange)
+                        f.Text:SetWidth(140)
+                    else
+                        f.Text:SetWidth(180)
+                    end
+                    f.Text:SetWordWrap(false)
+                    tinsert(buttons, f)
+                    h = h + h_jiange
+                end
+            end
+        end)
 
         -- 集结号
         BG.Init2(function()
@@ -3181,16 +3267,6 @@ BG.Init(function()
             height = height - height_jiange
 
             O.CreateLine(others, height - h + line_height)
-
-            local function Update_OnShow(f, name)
-                f:SetScript("OnShow", function(self)
-                    if BiaoGe.options[name] == 1 then
-                        f:SetChecked(true)
-                    else
-                        f:SetChecked(false)
-                    end
-                end)
-            end
 
             local tbl = {}
 
@@ -3378,7 +3454,7 @@ BG.Init(function()
                     BG.options[v.name .. "reset"] = v.reset
                     BiaoGe.options[v.name] = BiaoGe.options[v.name] or BG.options[v.name .. "reset"]
                 end
-                BG.options["button" .. v.name] = O.CreateCheckButton(v.name, v.name2, others, 15, height - h, v.ontext)
+                BG.options["button" .. v.name] = O.CreateCheckButton(v.name, v.name2, others, 15, height - h, v.ontext, true)
                 Update_OnShow(BG.options["button" .. v.name], v.name)
                 if v.onClick then
                     BG.options["button" .. v.name]:HookScript("OnClick", v.onClick)
@@ -3409,32 +3485,30 @@ BG.Init(function()
             l:SetThickness(1.5)
 
             -- 集结号设置
-            do
-                local buttons = {}
-                for i, v in ipairs(tbl) do
-                    if v.notdefault then
-                        v.ontext[1] = v.ontext[1] .. L["（重载界面后生效）"]
-                    end
-                    local f = O.CreateCheckButton(v.name, v.name2, others, 15, height - h, v.ontext)
-                    Update_OnShow(f, v.name)
-                    if v.onClick then
-                        f:HookScript("OnClick", v.onClick)
-                    end
-                    if i == 6 then
-                        f:ClearAllPoints()
-                        f:SetPoint("LEFT", buttons[1], "RIGHT", 190, 0)
-                        f.Text:SetWidth(140)
-                    elseif i > 6 then
-                        f:ClearAllPoints()
-                        f:SetPoint("TOPLEFT", buttons[i - 1], "TOPLEFT", 0, -h_jiange)
-                        f.Text:SetWidth(140)
-                    else
-                        f.Text:SetWidth(180)
-                    end
-                    f.Text:SetWordWrap(false)
-                    tinsert(buttons, f)
-                    h = h + h_jiange
+            local buttons = {}
+            for i, v in ipairs(tbl) do
+                if v.notdefault then
+                    v.ontext[1] = v.ontext[1] .. L["（重载界面后生效）"]
                 end
+                local f = O.CreateCheckButton(v.name, v.name2, others, 15, height - h, v.ontext, true)
+                Update_OnShow(f, v.name)
+                if v.onClick then
+                    f:HookScript("OnClick", v.onClick)
+                end
+                if i == 6 then
+                    f:ClearAllPoints()
+                    f:SetPoint("LEFT", buttons[1], "RIGHT", 190, 0)
+                    f.Text:SetWidth(140)
+                elseif i > 6 then
+                    f:ClearAllPoints()
+                    f:SetPoint("TOPLEFT", buttons[i - 1], "TOPLEFT", 0, -h_jiange)
+                    f.Text:SetWidth(140)
+                else
+                    f.Text:SetWidth(180)
+                end
+                f.Text:SetWordWrap(false)
+                tinsert(buttons, f)
+                h = h + h_jiange
             end
         end)
     end

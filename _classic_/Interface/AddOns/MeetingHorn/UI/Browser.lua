@@ -105,16 +105,11 @@ function Browser:Constructor()
     --@end-bcc@]==]
 
     -- @lkc@
-    self:SetupQuickButton('HICC')
-    self:SetupQuickButton('RS')
-    self:SetupQuickButton('ICC')
-    self:SetupQuickButton('TOC')
-    self:SetupQuickButton('ULD')
-    self:SetupQuickButton('红玉')
     self:SetupQuickButton('宝库')
+    self:SetupQuickButton('H宝库')
+    self:SetupQuickButton('挑战')
     self:SetupQuickButton('日常')
     self:SetupQuickButton('周常')
-    self:SetupQuickButton('奥杜尔')
     -- @end-lkc@
 
     local  button = CreateFrame("Button", "Frame", self, "UIPanelButtonTemplate");
@@ -392,7 +387,7 @@ function Browser:OnItemFormatting(button, item, isVoice)
         if item:GetCertificationLevel() then
             button.Icon:SetTexture([[Interface\AddOns\MeetingHorn\Media\certification_icon]])
             button.Icon:SetSize(384 / 6, 96 / 6)
-            button.Icon:SetTexCoord(0, 384 / 512, 0, 96 / 128)
+            button.Icon:SetTexCoord(0, 225 / 256, 0, 56 / 64)
             button.Icon:SetShown(true)
         else
             button.Icon:SetShown(false)

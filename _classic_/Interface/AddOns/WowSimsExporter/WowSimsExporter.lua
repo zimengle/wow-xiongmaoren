@@ -9,10 +9,6 @@
 
 local addonName, Env = ...
 
--- 加载本地化
-local L = _G[addonName .. "_L"] or {}
-Env.L = L
-
 local LibParse = LibStub("LibParse")
 
 local WowSimsExporter = LibStub("AceAddon-3.0"):NewAddon("WowSimsExporter", "AceConsole-3.0", "AceEvent-3.0", "AceHook-3.0", "AceComm-3.0")
@@ -28,8 +24,8 @@ local options = {
     args = {
         openExporterButton = {
             type = "execute",
-            name = L["Open Exporter Window"] or "Open Exporter Window",
-            desc = L["Opens the exporter window"] or "Opens the exporter window",
+            name = Env.L("Open Exporter Window"),
+            desc = Env.L("Opens the exporter window"),
             func = function() WowSimsExporter:OpenWindow() end
         },
     },
@@ -94,14 +90,14 @@ function WowSimsExporter:OnInitialize()
 
     Env.UI:CreateCharacterPanelButton(options.args.openExporterButton.func)
 
-    self:Print((L["Addon Name"] or addonName) .. " " .. Env.VERSION .. " " .. (L["Initialized"] or "Initialized") .. ". " .. (L["Commands"] or "Commands") .. ":\n" ..
-        "/wse - " .. (L["Open window"] or "Open window") .. "\n" ..
-        "/wse export - " .. (L["Export character (auto-saves)"] or "Export character (auto-saves)") .. "\n" ..
-        (L["Auto-save"] or "Auto-save") .. ": " .. (self.db.profile.autoSaveEnabled and (L["ENABLED"] or "ENABLED") or (L["DISABLED"] or "DISABLED")) .. "\n" ..
-        "\124cff008000" .. (L["Credits"] or "Credits") .. " go to " .. Env.AUTHORS.."\124r")
+    self:Print(addonName .. " " .. Env.VERSION .. " " .. Env.L("Initialized. Commands:") .. "\n" ..
+        Env.L("/wse - Open window") .. "\n" ..
+        Env.L("/wse export - Export character (auto-saves)") .. "\n" ..
+        Env.L("Auto-save:") .. " " .. (self.db.profile.autoSaveEnabled and Env.L("ENABLED") or Env.L("DISABLED")) .. "\n" ..
+        "\124cff008000" .. Env.L("Credits go to %s"):format(Env.AUTHORS) .. "\124r")
 
     if not Env.IS_CLIENT_SUPPORTED then
-        self:Print((L["WARNING"] or "WARNING") .. ": " .. (L["Sim does not support your game version!"] or "Sim does not support your game version!") .. " " .. (L["Supported versions are:"] or "Supported versions are:") .. "\n" ..
+        self:Print(Env.L("WARNING: Sim does not support your game version! Supported versions are:") .. "\n" ..
             table.concat(Env.supportedClientNames, "\n"))
     end
 end
@@ -152,7 +148,7 @@ end
 local function GenerateOutputBags()
     local equipmentSpecBags = Env.CreateEquipmentSpec()
     equipmentSpecBags:FillFromBagItems()
-    DEFAULT_CHAT_FRAME:AddMessage(("[|cffFFFF00WowSimsExporter|r] " .. (L["Exported %d items from bags."] or "Exported %d items from bags.")):format(#
+    DEFAULT_CHAT_FRAME:AddMessage(("[|cffFFFF00WowSimsExporter|r] " .. Env.L("Exported %d items from bags.")):format(#
         equipmentSpecBags.items))
     return LibParse:JSONEncode(equipmentSpecBags)
 end

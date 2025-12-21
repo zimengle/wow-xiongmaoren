@@ -286,6 +286,9 @@ L.RoleSpecAlert				= "공격대에 들어왔을 때 현재 전문화와 설정�
 L.CheckGear					= "풀링 타이머가 나오면 착용 장비 알림 메시지 표시 (착용 아이템 레벨이 소지한 아이템 레벨보다 40 이상 낮거나 주무기가 없을 경우)"
 L.WorldBossAlert			= "같은 서버의 길드원이나 친구가 필드 보스 전투를 시작하면 알림 메시지 표시 (전송자가 연합 서버에 있다면 부정확합니다)"
 L.WorldBuffAlert			= "내 서버에서 월드 버프가 시작되면 알림 메시지 표시 (디스커버리 시즌 제외)"
+L.RaidDiffChangedAlert		= "공격대 난이도가 바뀌면 알림 메시지 표시"
+L.DungeonDiffChangedAlert	= "던전 난이도가 바뀌면 알림 메시지 표시"
+L.RaidDiffChangedRaidOnly			= "공격대 그룹일 때만 공격대 난이도 변경 알림 표시 (주의: 공격대로 전환되기 전 파티 상태에선 난이도 알림이 되지 않습니다)"
 
 L.Area_BugAlerts			= "버그 제보 알림 설정"
 L.BadTimerAlert				= "DBM이 최소 1초 이상 맞지 않는 불량 타이머를 감지했을 때 대화창에 메시지 표시"
@@ -418,7 +421,9 @@ L.FillUpBars				= "채워나가기"
 L.ClickThrough				= "마우스 클릭 방지 (클릭 통과)"
 L.Bar_Decimal				= "남은시간 소수점 표시: %d초 이하"
 L.Bar_Alpha					= "투명도: %0.1f"
-L.Bar_EnlargeTime			= "다음 시간보다 적으면 바 확대: %d초"
+L.Bar_EnlargeTime			= "타이머 바 확대: %d초 이하"
+L.Bar_AppearTime				= "타이머 바 숨김: %d초 이상"--Used for when hidden bars show on the small bar anchor
+L.Bar_HideLongBars					= "위의 설정시간에 도달하지 않은 타이머 바 숨김"
 L.BarSpark					= "바 끝 강조"
 L.BarFlash					= "만료 전에 바 점멸"
 L.BarSort					= "남은 시간 기준으로 정렬"
@@ -587,6 +592,7 @@ L.TabFooter							= "이 패널의 모든 설정은 당신이 공격대/공찾 �
 
 -- Panel: Privacy
 L.Tab_Privacy 				= "자동 응답과 사생활 보호"
+L.Tab_PrivacyMidnight				= "애드온 통신과 사생활 보호"
 L.Area_WhisperMessages		= "귓속말 설정"
 L.AutoRespond 				= "전투중 자동 귓속말 답변"
 L.WhisperStats 				= "귓속말 답변에 처치/전멸 통계 포함"

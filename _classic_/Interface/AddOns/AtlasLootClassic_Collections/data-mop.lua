@@ -1450,22 +1450,22 @@ data["CompanionsMoP"] = {
             { 29, 86564 }, -- Grinder
             { 30, 94595 }, -- Spawn of G'nathus
             { 101, 103670 }, -- Lil' Bling
-            { 102, 101570 }, -- Moon Moon
             -- Phase 3
-            { 104, 97959 }, -- Living Fluid
-            { 105, 94125 }, -- Living Sandling
-            { 106, 94574 }, -- Pygmy Direhorn
-            { 107, 94152 }, -- Son of Animus
-            { 108, 97960 }, -- Viscous Horror
-            { 109, 94835 }, -- Ji-Kun Hatchling
-            { 110, 94124 }, -- Sunreaver Micro-Sentry
-            { 111, 97961 }, -- Filthling
-            { 112, 94573 }, -- Direhorn Runt
-            { 113, 95422 }, -- Zandalari Anklerender
-            { 114, 95423 }, -- Zandalari Footslasher
-            { 115, 94126 }, -- Zandalari Kneebiter
-            { 116, 95424 }, -- Zandalari Toenibbler
+            { 103, 97959 }, -- Living Fluid
+            { 104, 94125 }, -- Living Sandling
+            { 105, 94574 }, -- Pygmy Direhorn
+            { 106, 94152 }, -- Son of Animus
+            { 107, 97960 }, -- Viscous Horror
+            { 108, 94835 }, -- Ji-Kun Hatchling
+            { 109, 94124 }, -- Sunreaver Micro-Sentry
+            { 110, 97961 }, -- Filthling
+            { 111, 94573 }, -- Direhorn Runt
+            { 112, 95422 }, -- Zandalari Anklerender
+            { 113, 95423 }, -- Zandalari Footslasher
+            { 114, 94126 }, -- Zandalari Kneebiter
+            { 115, 95424 }, -- Zandalari Toenibbler
             -- Phase 5
+            { 117, 101570 }, -- Moon Moon
             { 118, 104158 }, -- Blackfuse Bombling
             { 119, 104162 }, -- Droplet of Y'Shaarj
             { 120, 104163 }, -- Gooey Sha-ling
@@ -1473,12 +1473,12 @@ data["CompanionsMoP"] = {
             { 122, 104156 }, -- Ashleaf Spriteling
             { 123, 104157 }, -- Azure Crane Chick
             { 124, 104202 }, -- Bonkers
-            { 124, 104160 }, -- Dandelion Frolicker
-            { 125, 104161 }, -- Death Adder Hatchling
-            { 126, 104291 }, -- Gu'chi Swarmling
-            { 127, 104169 }, -- Gulp Froglet
-            { 128, 104307 }, -- Jadefire Spirit
-            { 129, 104164 }, -- Jademist Dancer
+            { 125, 104160 }, -- Dandelion Frolicker
+            { 126, 104161 }, -- Death Adder Hatchling
+            { 127, 104291 }, -- Gu'chi Swarmling
+            { 128, 104169 }, -- Gulp Froglet
+            { 129, 104307 }, -- Jadefire Spirit
+            { 130, 104164 }, -- Jademist Dancer
             { 201, 104166 }, -- Ominous Flame
             { 202, 104159 }, -- Ruby Droplet
             { 203, 104167 }, -- Skunky Alemental
@@ -1494,7 +1494,7 @@ data["CompanionsMoP"] = {
             { 3,  88148 }, -- Jade Crane Chick
             { 4,  85447 }, -- Tiny Goldfish
             { 5,  95621 }, -- Warbot
-            -- Phase 2?
+            -- Phase 2
             { 7,  93025 }, -- Clock'em
             -- Phase 4
             { 9,  97821 }, -- Gahz'rooki
@@ -1540,16 +1540,15 @@ data["CompanionsMoP"] = {
             { 7,  94025 }, -- Red Panda
             -- Phase 3
             { 9, 94190 }, -- Spectral Porcupette
-            -- Phase 3?
-            { 11,  94208 }, -- Sunfur Panda
-            { 12,  94209 }, -- Snowy Panda
-            { 13, 94210 }, -- Mountain Panda
+            { 10,  94208 }, -- Sunfur Panda
+            { 11,  94209 }, -- Snowy Panda
+            { 12, 94210 }, -- Mountain Panda
             }
         },
         {
         name = ALIL["Fishing"],
         [NORMAL_DIFF] = {
-            -- Phase 3?
+            -- Phase 3
             { 1, 94932 }, -- Tiny Red Carp
             { 2, 94933 }, -- Tiny Blue Carp
             { 3, 94934 }, -- Tiny Green Carp
@@ -1565,7 +1564,7 @@ data["CompanionsMoP"] = {
             { 3,  82774 }, -- Jade Owl
             { 4,  82775 }, -- Sapphire Cub
             { 5,  87526 }, -- Mechanical Pandaren Dragonling
-            -- Phase 2?
+            -- Phase 2
             { 7,  90900 }, -- Imperial Moth
             { 8,  90902 }, -- Imperial Silkworm
             -- Phase 3? 5?
@@ -2014,14 +2013,14 @@ data["BrewfestMoP"] = {
         {
             name = C_Map_GetAreaInfo(1584) .. " - " .. AL["Coren Direbrew"],
             [NORMAL_DIFF] = {
-                { 1,  87576 }, -- Bitterest Balebrew Charm
-                { 2,  87575 }, -- Bubbliest Brightbrew Charm
-                { 3,  87574 }, -- Coren's Cold Chromium Coaster
-                { 4,  87572 }, -- Mithril Wristwatch
-                { 5,  87573 }, -- Thousand-Year Pickled Egg
-                { 6,  87571 }, -- Brawler's Statue
-                { 8,  107217 }, -- Direbrew's Bloodied Shanker
-                { 9,  107218 }, -- Tremendous Tankard O' Terror
+                { 1,  257873 }, -- Bitterest Balebrew Charm
+                { 2,  257877 }, -- Bubbliest Brightbrew Charm
+                { 3,  257880 }, -- Coren's Cold Chromium Coaster
+                { 4,  257884 }, -- Mithril Wristwatch
+                { 5,  257881 }, -- Thousand-Year Pickled Egg
+                { 6,  257885 }, -- Brawler's Statue
+                { 8,  257863 }, -- Direbrew's Bloodied Shanker
+                { 9,  257865 }, -- Tremendous Tankard O' Terror
                 {16, 33977}, -- Swift Brewfest Ram
                 {17, 37828}, -- Great Brewfest Kodo
                 {19, 37863}, -- Direbrew's Remote
@@ -2095,12 +2094,12 @@ data["HalloweenMoP"] = {
         { -- SMHeadlessHorseman
         name = C_Map_GetAreaInfo(796) .. " - " .. AL["Headless Horseman"],
         [NORMAL_DIFF] = {
-                { 1, 88168 }, -- Seal of Ghoulish Glee
-                { 2, 88169 }, -- The Horseman's Ring
-                { 3, 88166 }, -- Wicked Witch's Signet
-                { 4, 88167 }, -- Band of the Petrified Pumpkin
-                { 5, 87569 }, -- The Horseman's Horrific Hood
-                { 6, 87570 }, -- The Horseman's Sinister Slicer
+                { 1, 263010 }, -- Seal of Ghoulish Glee
+                { 2, 263011 }, -- The Horseman's Ring
+                { 3, 263012 }, -- Wicked Witch's Signet
+                { 4, 263013 }, -- Band of the Petrified Pumpkin
+                { 5, 263014 }, -- The Horseman's Horrific Hood
+                { 6, 263018 }, -- The Horseman's Sinister Slicer
                 { 8, 33292 }, -- Hallowed Helm
                 { 10, 34068 }, -- Weighted Jack-o'-Lantern
                 { 12, 33277 }, -- Tome of Thomas Thomson

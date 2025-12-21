@@ -86,7 +86,7 @@ Immersion: enabled
 InboxMailBag: enabled
 Leatrix_Maps: enabled
 Leatrix_Plus: enabled
-LFGBulletinBoard: disabled
+LFGBulletinBoard: enabled
 LibSharedMedia-3.0: enabled
 ls_Toasts: enabled
 MailLogger: enabled
@@ -146,3 +146,4 @@ ElvUI_SecondsToBuff: disabled
 ElvUI_BuffHighlight: disabled
 ElvUI_RatioMinimapAuras: disabled
 kExtraBossFrames: disabled
+ArchonTooltipDB_5236: enabled

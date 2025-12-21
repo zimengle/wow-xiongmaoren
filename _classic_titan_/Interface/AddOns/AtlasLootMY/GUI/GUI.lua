@@ -471,7 +471,6 @@ local function GameVersionSelect_UpdateVersionTexture()
 	if AtlasLoot:GameVersion_LT(db.selectedGameVersion) or not GAME_VERSION_TEXTURES[db.selectedGameVersion] then
 		db.selectedGameVersion = nil
 	end
-
 	GUI.frame.gameVersionLogo:SetTexture(GAME_VERSION_TEXTURES[db.selectedGameVersion])
 
 	if GUI.frame.gameVersionButton.selectionFrame then
@@ -1155,12 +1154,10 @@ function GUI:RefreshNextPrevButtons()
 		GUI.frame.contentFrame.prevPageButton:Hide()
 	end
 end
-
 function GUI:Create()
 	if GUI_CREATED then return end
 	GUI_CREATED = true
 	local frameName = "AtlasLoot_GUI-Frame"
-
 	local frame = CreateFrame("Frame", frameName, nil, _G.BackdropTemplateMixin and "BackdropTemplate" or nil)
 	frame:ClearAllPoints()
 	frame:SetParent(UIParent)
@@ -1168,7 +1165,7 @@ function GUI:Create()
 	frame:SetWidth(920)
 	frame:SetHeight(600)
 	frame:SetMovable(true)
-	frame:EnableMouse(true)
+	frame:EnableMouse(true)--[[  ]]
 	frame:RegisterForDrag("LeftButton", "RightButton")
 	frame:SetScript("OnMouseDown", FrameOnDragStart)
 	frame:SetScript("OnMouseUp", FrameOnDragStop)
@@ -1190,7 +1187,7 @@ function GUI:Create()
 	frame.titleFrame = AtlasLoot.GUI.CreateTextWithBg(frame, 0, 0)
 	frame.titleFrame:SetPoint("TOPLEFT", frame, 10, -7)
 	frame.titleFrame:SetPoint("BOTTOMRIGHT", frame, "TOPRIGHT", -30, -25)
-	frame.titleFrame.text:SetText(AL["AtlasLoot"])
+	frame.titleFrame.text:SetText(AL["AtlasLoot - Titan"]..AL["  By MiaoYing33"])
 
 
 
@@ -1212,7 +1209,7 @@ function GUI:Create()
 	frame.titleFrame.newVersion = frame.titleFrame:CreateFontString(nil, "ARTWORK")
 	frame.titleFrame.newVersion:SetPoint("LEFT", frame.titleFrame, "LEFT", 5, 1)
 	frame.titleFrame.newVersion:SetTextColor(0, 1, 0, 1)
-	frame.titleFrame.newVersion:SetFont(_G["SystemFont_Tiny"]:GetFont(), 10)
+	frame.titleFrame.newVersion:SetFont(_G["SystemFont_Tiny"]:GetFont(), 12)
 	frame.titleFrame.newVersion:SetJustifyH("LEFT")
 	frame.titleFrame.newVersion:SetJustifyV("MIDDLE")
 	frame.titleFrame.newVersion:SetText(AL["New version available!"])
@@ -1224,6 +1221,15 @@ function GUI:Create()
 	frame.gameVersionButton:SetHighlightTexture("Interface\\Buttons\\UI-Common-MouseHilight", "ADD")
 	frame.gameVersionButton:SetScript("OnClick", GameVersionSelect_OnClick)
 
+	frame.gameVersionButton.title = frame:CreateFontString(frameName.."-gameVersionButton-title", "ARTWORK", "GameFontNormalSmall")
+	frame.gameVersionButton.title:SetPoint("TOPLEFT", frame.gameVersionButton, "TOPLEFT", 1, 2.5)
+	frame.gameVersionButton.title:SetText(AL["Expansion"])
+	frame.gameVersionButton.title:SetWidth(64)
+	frame.gameVersionButton.title:SetHeight(14)
+	frame.gameVersionButton.title:SetJustifyH("CENTER")
+	frame.titleFrame.newVersion:SetJustifyV("MIDDLE")
+	local font=frame.gameVersionButton.title:GetFont()
+	frame.gameVersionButton.title:SetFont(font,14,"OUTLINE,THICK")
 	frame.gameVersionButton.Box = {}
 
 	local function CreateLineForGameVersion()
@@ -1253,7 +1259,9 @@ function GUI:Create()
 
 	frame.gameVersionLogo = frame:CreateTexture(frameName.."-gameVersionLogo", "ARTWORK")
 	frame.gameVersionLogo:SetTexture(538639)
-	frame.gameVersionLogo:SetAllPoints(frame.gameVersionButton)
+	-- frame.gameVersionLogo:SetAllPoints( frame.gameVersionButton)
+	frame.gameVersionLogo:SetPoint("TOPLEFT", frame.gameVersionButton,"TOPLEFT",0,-5)
+	frame.gameVersionLogo:SetPoint("BOTTOMRIGHT", frame.gameVersionButton,"BOTTOMRIGHT",0,-5)
 	frame.gameVersionButton.texture = frame.gameVersionLogo
 
 	frame.moduleSelect = GUI:CreateDropDown()

@@ -1,14 +1,15 @@
 ## Interface: 38000
-## X-Min-Interface: 110205
+## X-Min-Interface: 110207
 ## X-Min-Interface-Classic: 11508
 ## X-Min-Interface-BCC: 20504
-## X-Min-Interface-Wrath: 30403
+## X-Min-Interface-Wrath: 38000
 ## X-Min-Interface-Cata: 40402
 ## X-Min-Interface-Mists: 50501
 ## Title: GTFO |cff99ddff谷|r|cff88ccee风|r|cff77bbdd修|r|cff66aacc复|r|cff5599bb版|r
 ## Notes: GTFO, you're dying!
+## Notes-zhCN: GTFO，你正在受到伤害！
 ## Author: Zensunim of Dragonblight
-## Version: 5.19.4
+## Version: 5.19.5
 ## DefaultState: Enabled
 ## SavedVariables: GTFOData
 ## Category: Combat

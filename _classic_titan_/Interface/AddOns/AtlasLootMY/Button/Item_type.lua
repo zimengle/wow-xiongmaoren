@@ -218,10 +218,10 @@ function Item.OnEnter(button, owner)
 		tooltip:SetItemByID(button.ItemID)
 		--tooltip:SetHyperlink("item:"..button.ItemID)
 		-- small fix for auctionatorTT as it not hooks SetItemByID
-		if _G.Atr_ShowTipWithPricing then
-			local itemName, itemLink = GetItemInfo(button.ItemID)
-			_G.Atr_ShowTipWithPricing(tooltip, itemLink)
-		end
+		-- if _G.Atr_ShowTipWithPricing then
+		-- 	local itemName, itemLink = GetItemInfo(button.ItemID)
+		-- 	_G.Atr_ShowTipWithPricing(tooltip, itemLink)
+		-- end
 	end
 	if button.Droprate and AtlasLoot.db.showDropRate then
 		tooltip:AddDoubleLine(AL["Droprate:"], format(WHITE_TEXT, button.Droprate.."%"))
@@ -320,7 +320,7 @@ end
 function Item.Refresh(button)
 	if not button.ItemID then return end
 	local itemID = button.ItemID
-	local itemName, itemLink, itemQuality, itemLevel, itemMinLevel, itemType, itemSubType, itemStackCount, itemEquipLoc, itemTexture = GetItemInfo(button.ItemString or itemID)
+	local itemName, itemLink, itemQuality, itemLevel, itemMinLevel, itemType, itemSubType, itemStackCount, itemEquipLoc, itemTexture,_,classId = GetItemInfo(button.ItemString or itemID)
 	if not itemName then
 		Query:Add(button)
 		return false
@@ -341,6 +341,11 @@ function Item.Refresh(button)
 
 	if button.type == "secButton" then
 		button:SetNormalTexture(itemTexture or DUMMY_ITEM_ICON)
+		if AtlasLoot.db.showItemLvlOnIcon and (classId ==4 or classId ==2) and button.ilvl then
+			button.ilvl:SetText(itemLevel)
+		elseif button.ilvl then
+			button.ilvl:SetText("")
+		end
 
 		if Requirements.HasPvPRequirements(itemID) then
 			button.pvp:SetTexture(Requirements.GetPvPRankIconForItem(itemID))
@@ -355,7 +360,14 @@ function Item.Refresh(button)
 		-- ##################
 		-- name
 		-- ##################
+
 		button.name:SetText(ITEM_COLORS[itemQuality or 0]..itemName)
+		if AtlasLoot.db.showItemLvlOnIcon and (classId ==4 or classId ==2) then
+			button.ilvl:SetText(itemLevel)
+		else
+			button.ilvl:SetText("")
+		end
+		
 
 		-- ##################
 		-- description

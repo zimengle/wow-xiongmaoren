@@ -61,7 +61,6 @@ local function ShowTardeHighLightItem_OtherJine(self)
     end
 end
 
-
 ------------------标题------------------
 function BG.DuiZhangBiaoTiUI(FB, t, b, bb, i, ii)
     local fontsize = 15
@@ -416,29 +415,4 @@ function BG.DuiZhangDiSeUI(FB, t, b, bb, i, ii)
     textrue:SetColorTexture(1, 0, 0, touming3)
     textrue:Hide()
     BG.DuiZhangFrameDs[FB .. 3]["boss" .. b]["ds" .. i] = textrue
-end
-
-------------------BOSS名字------------------
-function BG.DuiZhangBossNameUI(FB, t, b, bb, i, ii)
-    local fontsize = 14
-    local b = BossNum(FB, b, t)
-    local version = BG["DuiZhangFrame" .. FB]:CreateFontString()
-    version:SetPoint("TOP", BG.DuiZhangFrame[FB]["boss" .. b].zhuangbei1, "TOPLEFT", -45, -2)
-    version:SetFont(STANDARD_TEXT_FONT, fontsize, "OUTLINE")
-    version:SetTextColor(RGB(BG.y2))
-    if b == Maxb[FB] then
-        version:SetText(BG.STC_r1(L["你\n漏\n记\n的\n装\n备"]))
-    elseif b == Maxb[FB] + 1 then
-        version:SetText(BG.STC_g1(L["总\n结"]))
-    else
-        version:SetText("|cff" .. BG.Boss[FB]["boss" .. b].color .. BG.Boss[FB]["boss" .. b].name .. RR)
-    end
-    BG.DuiZhangFrame[FB]["boss" .. b]["name"] = version
-    if BG.DuiZhangFrame[FB]["boss" .. b] == BG.DuiZhangFrame[FB]["boss" .. Maxb[FB] + 2] then
-        local version = BG["DuiZhangFrame" .. FB]:CreateFontString()
-        version:SetPoint("BOTTOM", BG.DuiZhangFrame[FB]["boss" .. Maxb[FB] + 2].zhuangbei5, "BOTTOMLEFT", -45, 7)
-        version:SetFont(STANDARD_TEXT_FONT, fontsize, "OUTLINE")
-        version:SetTextColor(RGB("00BFFF"))
-        version:SetText(L["工\n资"])
-    end
 end

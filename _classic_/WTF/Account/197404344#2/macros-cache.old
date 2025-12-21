@@ -1,11 +1,14 @@
-VER 3 0000000000000001 "Decursive" "INV_MISC_QUESTIONMARK"
-/script DecursiveRootTable.Dcr:Println('没有相关技能')
-END
 VER 3 0000000000000007 "Decursive" "INV_MISC_QUESTIONMARK"
-/script DecursiveRootTable.Dcr:Println('没有相关技能')
+/stopcasting
+/cast [@mouseover,nomod,exists] 驱散魔法;  [@mouseover,exists,mod:ctrl] 驱散魔法; [@mouseover,exists,mod:shift] 驱散魔法
+END
+VER 3 0000000000000001 "Decursive" "INV_MISC_QUESTIONMARK"
+/stopcasting
+/cast [@mouseover,nomod,exists] 驱散魔法;  [@mouseover,exists,mod:ctrl] 驱散魔法; [@mouseover,exists,mod:shift] 驱散魔法
 END
 VER 3 0000000000000006 "RXPTargeting" "Ability_eyeoftheowl"
-//RestedXP 指南 狮心-北美刘嘉玲 汉化版 - current step has no configured targets
+/targetexact Slingtail Fishripper
+/targetlasttarget [dead]
 END
 VER 3 000000000000000B "TSMMacro" "INV_Misc_Flower_01"
 END

@@ -1,28 +1,22 @@
-tag 999aca3ccbcdf79978fe4f11355ce33908f00c65 v2.3.2
+tag 770c2de87ae3db59947effd672e029cc33584ce7 v2.3.5
 Author:	skyler-code <skylerh15@github.com>
-Date:	Fri Oct 31 19:24:26 2025 -0500
+Date:	Tue Dec 9 09:54:19 2025 -0600
 
-commit 292b380660ba94703721cbeb333176f927ccb53f
+commit ac1229d8cd7b99f1a22598272af97e4affda4752
 Author: skyler-code <skylerh15@github.com>
-Date:   Fri Oct 31 19:12:57 2025 -0500
+Date:   Tue Dec 9 09:53:18 2025 -0600
 
-    fix for Brazilian clients
+    toc bump
 
-commit 5bf0953ebfe3b0148f906199b859f9c8ede4f02f
+commit 74a4299525265112f8324551f84310b9fe0f4536
 Author: skyler-code <skylerh15@github.com>
-Date:   Fri Oct 31 13:04:28 2025 -0500
+Date:   Sun Nov 23 00:13:26 2025 -0600
 
-    Leftover code was causing column expanding to break
+    tighten up the talent textures
 
-commit c8f394daf6e3409bb3963d04f5c8776adad81ff2
+commit 62c1af60a71d6070cb5e827388c3189de0f222d2
 Author: skyler-code <skylerh15@github.com>
-Date:   Fri Oct 31 01:27:25 2025 -0500
+Date:   Sat Nov 22 19:51:52 2025 -0600
 
-    cleanup
-
-commit 52bc6aa86a5916cfa5893b53f6501458c5bbf9ba
-Author: skyler-code <skylerh15@github.com>
-Date:   Thu Oct 30 13:23:35 2025 -0500
-
-    utilize FormatLargeNumber
+    small cleanup
 

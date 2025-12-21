@@ -1224,35 +1224,51 @@ function BG.FBJinEUI(FB, t, b, bb, i, ii)
 end
 
 ------------------BOSS名字------------------
-local function BossNameInsertN(FB, boss)
-    local str = BG.Boss[FB]["boss" .. boss].name
-    if not str:find("\n") then
-        local newstr = ""
-        for i = 1, string.utf8len(str) do
-            newstr = newstr .. (i == 1 and "" or "\n") .. string.utf8sub(str, i, i)
+function BG.SetBossNamePoint(FB, boss, f)
+    local text = f.text
+    if ns.enUS then
+        text:SetRotation(math.pi / 2)
+        local strWidth = text:GetWidth()   -- 原文本宽度（旋转后变为高度）
+        local strHeight = text:GetHeight() -- 原文本高度（旋转后变为宽度）
+        local frameWidth = strHeight + 2
+        local frameHeight = strWidth + 2
+        if f then
+            f:SetSize(frameWidth, frameHeight)
+            text:SetPoint("CENTER", f, "CENTER", -5 - 8 * BG.Boss[FB]["boss" .. boss].nCount, -10)
         end
-        BG.Boss[FB]["boss" .. boss].name = newstr
+    else
+        text:SetPoint("CENTER")
+        f:SetSize(text:GetStringWidth() - 5, text:GetStringHeight())
     end
 end
-function BG.FBBossNameUI(FB, t, b, bb, i, ii, frameName)
+
+function BG.BossNameUI(FB, t, b, bb, i, ii, frameName)
     local fontsize = 14
     local boss = BossNum(FB, b, t)
-    BossNameInsertN(FB, boss)
-    local f = CreateFrame("Frame", nil, BG["Frame" .. FB])
+    local f = CreateFrame("Frame", nil, BG[frameName .. FB])
     if frameName and BG[frameName .. FB]["scrollFrame" .. boss] then
         f:SetPoint("TOP", BG[frameName .. FB]["scrollFrame" .. boss].owner, "TOPLEFT", -40, -2)
     else
-        f:SetPoint("TOP", BG.Frame[FB]["boss" .. boss].zhuangbei1, "TOPLEFT", -45, -2)
+        f:SetPoint("TOP", BG[frameName][FB]["boss" .. boss].zhuangbei1, "TOPLEFT", -45, -2)
     end
     f:SetSize(15, 40)
     f.text = f:CreateFontString()
-    f.text:SetPoint("CENTER")
     f.text:SetFont(STANDARD_TEXT_FONT, fontsize, "OUTLINE")
     f.text:SetTextColor(RGB(BG.Boss[FB]["boss" .. boss].color))
-    f.text:SetText(BG.Boss[FB]["boss" .. boss].name)
-    f:SetSize(f.text:GetStringWidth() - 5, f.text:GetStringHeight())
-    BG.Frame[FB]["boss" .. boss].bossName = f
-    if FB == "ICC" and boss <= 13 then
+    if frameName == "DuiZhangFrame" then
+        if boss == Maxb[FB] then
+            f.text:SetText(BG.STC_r1(BG.FormatBossName(L["你漏记的装备"])))
+        elseif boss == Maxb[FB] + 1 then
+            f.text:SetText(BG.STC_g1(BG.FormatBossName(L["总结"])))
+        else
+            f.text:SetText(BG.Boss[FB]["boss" .. boss].name)
+        end
+    else
+        f.text:SetText(BG.Boss[FB]["boss" .. boss].name)
+    end
+    BG.SetBossNamePoint(FB, boss, f)
+    BG[frameName][FB]["boss" .. boss].bossName = f
+    if frameName == "Frame" and FB == "ICC" and boss <= 13 then
         f:SetScript("OnMouseUp", function(self)
             if IsShiftKeyDown() then
                 local b = boss
@@ -1287,34 +1303,41 @@ function BG.FBBossNameUI(FB, t, b, bb, i, ii, frameName)
         end)
     end
 
-    if BG.Frame[FB]["boss" .. boss] == BG.Frame[FB]["boss" .. Maxb[FB] + 2] then
-        local text = BG["Frame" .. FB]:CreateFontString()
-        text:SetPoint("BOTTOM", BG.Frame[FB]["boss" .. Maxb[FB] + 2].zhuangbei5, "BOTTOMLEFT", -45, 7)
-        text:SetFont(STANDARD_TEXT_FONT, fontsize, "OUTLINE")
-        text:SetTextColor(RGB("00BFFF"))
-        text:SetText(L["工\n资"])
+    if not ns.enUS and BG[frameName][FB]["boss" .. boss] == BG[frameName][FB]["boss" .. Maxb[FB] + 2] then
+        local f = CreateFrame("Frame", nil, BG[frameName .. FB])
+        f:SetPoint("BOTTOM", BG.Frame[FB]["boss" .. Maxb[FB] + 2].zhuangbei5, "BOTTOMLEFT", -45, 7)
+        f.text = f:CreateFontString()
+        f.text:SetFont(STANDARD_TEXT_FONT, fontsize, "OUTLINE")
+        f.text:SetTextColor(RGB("00BFFF"))
+        f.text:SetText(L["工\n资"])
+        BG.SetBossNamePoint(FB, boss, f)
     end
+
 end
 
 ------------------击杀用时------------------
-function BG.FBJiShaUI(FB, t, b, bb, i, ii)
-    if BossNum(FB, b, t) > Maxb[FB] - 2 then return end
-    local text = BG["Frame" .. FB]:CreateFontString()
+function BG.JiShaUI(FB, t, b, bb, i, ii, frameName)
+    local boss = BossNum(FB, b, t)
+    if boss > Maxb[FB] - 2 then return end
+    local text = BG[frameName .. FB]:CreateFontString()
     local num
-    for i = 1, BG.GetMaxi(FB, BossNum(FB, b, t)) do
-        if not BG.Frame[FB]["boss" .. BossNum(FB, b, t)]["zhuangbei" .. i + 1] then
+    for i = 1, BG.GetMaxi(FB, boss) do
+        if not BG[frameName][FB]["boss" .. boss]["zhuangbei" .. i + 1] then
             num = i
             break
         end
     end
-    text:SetPoint("TOPLEFT", BG.Frame[FB]["boss" .. BossNum(FB, b, t)]["zhuangbei" .. num], "BOTTOMLEFT", -0, -3)
+    text:SetPoint("TOPLEFT", BG[frameName][FB]["boss" .. boss]["zhuangbei" .. num], "BOTTOMLEFT", -0, -3)
     text:SetFont(STANDARD_TEXT_FONT, 10, "OUTLINE,THICK")
-    text:SetTextColor(RGB(BG.Boss[FB]["boss" .. BossNum(FB, b, t)].color))
-    text:SetAlpha(0)
-    BG.Frame[FB]["boss" .. BossNum(FB, b, t)]["time"] = text
-
-    if BiaoGe[FB]["boss" .. BossNum(FB, b, t)]["time"] then
-        text:SetText(L["击杀用时"] .. " " .. BiaoGe[FB]["boss" .. BossNum(FB, b, t)]["time"])
+    text:SetTextColor(RGB(BG.Boss[FB]["boss" .. boss].color))
+    BG[frameName][FB]["boss" .. boss]["time"] = text
+    if frameName == "Frame" then
+        text:SetAlpha(0)
+        if BiaoGe[FB]["boss" .. boss]["time"] then
+            text:SetText(L["击杀用时"] .. " " .. BiaoGe[FB]["boss" .. boss]["time"])
+        end
+    else
+        text:SetAlpha(0.8)
     end
 end
 

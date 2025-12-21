@@ -1,4 +1,10 @@
-﻿5.1.08 - 5th November 2025
+﻿5.1.14 - 14th December 2025
+- Updated for Mists of Pandaria game patch 5.5.3.
+
+5.1.12 - 26th November 2025
+- Updated slider controls used throughout the addon.
+
+5.1.08 - 5th November 2025
 - PTR (5.5.3): Updated for Mists of Pandaria game patch 5.5.3.
 
 5.1.07 - 27th October 2025

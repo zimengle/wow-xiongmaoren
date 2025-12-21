@@ -7,7 +7,7 @@ PIGA_Per = {
 12,
 12,
 },
-["ShowTJ"] = {
+["Scale"] = {
 1,
 1,
 1,
@@ -19,7 +19,7 @@ false,
 false,
 false,
 },
-["Scale"] = {
+["ShowTJ"] = {
 1,
 1,
 1,

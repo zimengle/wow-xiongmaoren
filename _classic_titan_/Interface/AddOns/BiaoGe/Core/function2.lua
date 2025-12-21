@@ -1146,7 +1146,7 @@ do
             -- 关闭
             local bt = CreateButton(true)
             bt:SetSize(f:GetWidth() - 15, 23)
-            bt:SetText(L["关闭"])
+            bt:SetText(CLOSE)
             bt:SetPoint("BOTTOM", 1, 6)
             bt:SetScript("OnClick", function(self)
                 BG.PlaySound(1)
@@ -1916,6 +1916,7 @@ function BG.BackBiaoGe(parent)
         end)
         BG.PlaySound(1)
     end)
+    parent.backBiaoGeButton=bt
 end
 
 ------------------跳转装备库相同部位------------------

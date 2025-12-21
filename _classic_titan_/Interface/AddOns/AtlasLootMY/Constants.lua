@@ -138,4 +138,4 @@ for classID = 1, #ALPrivate.CLASS_SORT do ALPrivate.CLASS_NAME_TO_ID[ALPrivate.C
 ALPrivate.LOC_CLASSES = {}
 FillLocalizedClassList(ALPrivate.LOC_CLASSES)
 
-ALPrivate.ADDON_MSG_PREFIX = "ATLASLOOT_MSG"
+ALPrivate.ADDON_MSG_PREFIX = "ATLASLOOTMY_MSG"

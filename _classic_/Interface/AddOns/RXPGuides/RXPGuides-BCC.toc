@@ -1,0 +1,42 @@
+## Interface: 20503
+## Title: RestedXP |cffff559a狮|r|cfff049b9心|r|cffde49d6-|r|cffc349eb北|r|cffb153f0美|r|cff9967f5刘|r|cff827bf7嘉|r|cff6a90f9玲|r|cff54a4fb·|r|cff3abdfc汉|r|cff27cefc化|r|cff14e0fd版|r
+## Notes: In-game leveling guides
+## Author: RestedXP
+## Version: v4.8.0
+## OptionalDeps: Questie, RXPGuides_Themes
+## SavedVariables: RXPData, RXPDB, RXPSettings
+## SavedVariablesPerCharacter: RXPCData, RXPCTrackingData, RXPCComms, RXPCSettings
+## X-Curse-Project-ID: 486246
+## X-Wago-ID: ZKbebq61
+
+libs\embeds.xml
+locale\locales.xml
+UI\includes.xml
+
+Locale.lua
+Themes.lua
+RXPGuides.lua
+GuideWindow.lua
+Help.lua
+SettingsPanel.lua
+
+DB/tbc.xml
+
+HSBatching.lua
+QuestLog.lua
+ActiveItemFrame.lua
+LevelingTracker.lua
+Timers.lua
+Communications.lua
+Targeting.lua
+Tips.lua
+InventoryManager.lua
+
+
+map.lua
+functions.lua
+GuideLoader.lua
+
+Guides/GuideList.xml
+
+

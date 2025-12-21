@@ -19,7 +19,6 @@ local UpdateUIPanelPositions = UpdateUIPanelPositions;
 local MouseIsOver = MouseIsOver;
 local xpcall = xpcall;
 local CallErrorHandler = CallErrorHandler;
-local Settings_OpenToCategory = Settings and Settings.OpenToCategory or InterfaceOptionsFrame_OpenToCategory;
 local strsplit = strsplit;
 local GetBuildInfo = GetBuildInfo;
 local tinsert = tinsert;
@@ -1074,11 +1073,40 @@ do
         -- can't really use a framepool, since we need the OnLoad to run with the correct parent
         local handle = CreateFrame('Frame', nil, parent, 'PanelDragBarTemplate');
         handle:SetParent(frame);
-        handle:SetAllPoints(frame);
+        handle:ClearAllPoints();
+        if BlizzMove.FrameData[frame] and BlizzMove.FrameData[frame].storage and BlizzMove.FrameData[frame].storage.frameName == "SpellBookFrame" then
+            handle:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, 0);
+            handle:SetPoint("TOPRIGHT", frame, "TOPRIGHT", 0, 0);
+            handle:SetHeight(240);
+        else
+            handle:SetAllPoints(frame);
+        end
         handle:SetFrameLevel(frame:GetFrameLevel() + 1);
         handle:SetPropagateMouseMotion(true);
         handle.onDragStartCallback = function() return false end;
-        handle:HookScript('OnMouseDown', OnMouseDown);
+        if BlizzMove.FrameData[frame] and BlizzMove.FrameData[frame].storage and BlizzMove.FrameData[frame].storage.frameName == "SpellBookFrame" then
+            handle:HookScript('OnMouseDown', function(self, button)
+                for _, mouseFrame in ipairs(GetMouseFoci()) do
+                    if mouseFrame and mouseFrame ~= frame and mouseFrame ~= self then
+                        local parent = mouseFrame:GetParent();
+                        local isChild = false;
+                        while parent do
+                            if parent == frame then
+                                isChild = true;
+                                break;
+                            end
+                            parent = parent:GetParent();
+                        end
+                        if isChild and (mouseFrame:IsMouseClickEnabled() or mouseFrame:HasScript("OnClick") or mouseFrame:GetObjectType() == "Button") then
+                            return;
+                        end
+                    end
+                end
+                OnMouseDown(self, button);
+            end);
+        else
+            handle:HookScript('OnMouseDown', OnMouseDown);
+        end
         handle:HookScript('OnMouseUp', OnMouseUp);
         handle:HookScript('OnDragStop', function(self) OnMouseUp(self, 'LeftButton'); end);
 
@@ -1580,7 +1608,7 @@ do
             return;
         end
 
-        Settings_OpenToCategory('BlizzMove');
+        self.Config:OpenConfig();
     end
 
     --- @type BlizzMoveDB

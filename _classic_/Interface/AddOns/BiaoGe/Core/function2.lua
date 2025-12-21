@@ -777,62 +777,82 @@ function BG.LootedText(bt)
 end
 
 ------------------创建：关注------------------
-function BG.CreateGuanZhuButton(bt, _type)
-    local FB = bt.FB
-    local bossnum = bt.bossnum
-    local t = bt.t
-    local b = bt.b
-    local i = bt.i
+do
+    function BG.CreateGuanZhuButton(bt, _type)
+        local FB = bt.FB
+        local bossnum = bt.bossnum
+        local t = bt.t
+        local b = bt.b
+        local i = bt.i
 
-    local f = CreateFrame("Frame", nil, bt, "BackdropTemplate")
-    f:SetBackdrop({
-        bgFile = "Interface/ChatFrame/ChatFrameBackground",
-        insets = { left = 0, right = 0, top = 3, bottom = 2 },
-        edgeFile = "Interface/ChatFrame/ChatFrameBackground",
-        edgeSize = 1,
-    })
-    f:SetBackdropColor(0, 0, 0, 0.5)
-    f:SetBackdropBorderColor(0, 0, 0, 0)
-    f:SetSize(20, 20)
-    f:SetPoint("RIGHT", bt, "RIGHT", 0, 0)
-    f:SetFrameLevel(112)
-    f:Hide()
-    f.text = f:CreateFontString()
-    f.text:SetPoint("CENTER")
-    f.text:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
-    f.text:SetTextColor(RGB(BG.b1))
-    f.text:SetText(L["关注"])
-    f:SetWidth(f.text:GetWrappedWidth())
-    if _type == "biaoge" then
-        if BiaoGe[FB]["boss" .. bossnum]["guanzhu" .. i] then
-            f:Show()
+        local f = CreateFrame("Frame", nil, bt, "BackdropTemplate")
+        f:SetBackdrop({
+            bgFile = "Interface/ChatFrame/ChatFrameBackground",
+            insets = { left = 0, right = 0, top = 3, bottom = 2 },
+            edgeFile = "Interface/ChatFrame/ChatFrameBackground",
+            edgeSize = 1,
+        })
+        f:SetBackdropColor(0, 0, 0, 0.5)
+        f:SetBackdropBorderColor(0, 0, 0, 0)
+        f:SetSize(20, 20)
+        f:SetPoint("RIGHT", bt, "RIGHT", 0, 0)
+        f:SetFrameLevel(112)
+        f:Hide()
+        f.text = f:CreateFontString()
+        f.text:SetPoint("CENTER")
+        f.text:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+        f.text:SetTextColor(RGB(BG.b1))
+        f.text:SetText(L["关注"])
+        f:SetWidth(f.text:GetWrappedWidth())
+        if _type == "biaoge" then
+            if BiaoGe[FB]["boss" .. bossnum]["guanzhu" .. i] then
+                f:Show()
+            end
+        end
+
+        f:SetScript("OnEnter", function(self)
+            GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT", 0, 0)
+            GameTooltip:ClearLines()
+            if _type == "biaoge" then
+                GameTooltip:AddLine(BG.STC_b1(L["关注中，团长拍卖此装备会提醒"]))
+                GameTooltip:AddLine(AddTexture("RIGHT") .. L["取消关注"], 1, 0.82, 0)
+            elseif _type == "history" then
+                GameTooltip:AddLine(BG.STC_b1(L["关注中"]))
+            end
+            GameTooltip:Show()
+        end)
+        BG.GameTooltip_Hide(f)
+
+        f:SetScript("OnMouseDown", function(self, enter)
+            if _type == "biaoge" and enter == "RightButton" then
+                BG.SetGuanZhu(bt, 0)
+            end
+        end)
+
+        return f
+    end
+
+    function BG.SetGuanZhu(bt, type)
+        local FB = bt.FB
+        local b = bt.bossnum
+        local i = bt.i
+        if type == 1 then
+            BiaoGe[FB]["boss" .. b]["guanzhu" .. i] = true
+            bt.guanzhu:Show()
+        else
+            BiaoGe[FB]["boss" .. b]["guanzhu" .. i] = nil
+            bt.guanzhu:Hide()
         end
     end
 
-    f:SetScript("OnEnter", function(self)
-        GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT", 0, 0)
-        GameTooltip:ClearLines()
-        if _type == "biaoge" then
-            GameTooltip:AddLine(BG.STC_b1(L["关注中，团长拍卖此装备会提醒"]))
-            GameTooltip:AddLine(AddTexture("RIGHT") .. L["取消关注"], 1, 0.82, 0)
-        elseif _type == "history" then
-            GameTooltip:AddLine(BG.STC_b1(L["关注中"]))
-        end
-        GameTooltip:Show()
-    end)
-    BG.GameTooltip_Hide(f)
-
-    f:SetScript("OnMouseDown", function(self, enter)
-        if _type == "biaoge" then
-            if enter == "RightButton" then
-                BG.FrameHide(0)
-                BiaoGe[FB]["boss" .. BossNum(FB, b, t)]["guanzhu" .. i] = nil
-                self:Hide()
+    function BG.SetBiaoGeGuanZhu(itemID)
+        BG.PairFBItem(function(item)
+            if GetItemID(item:GetText()) == itemID then
+                BG.SetGuanZhu(item, 1)
+                return true
             end
-        end
-    end)
-
-    return f
+        end)
+    end
 end
 
 ------------------创建：欠款------------------
@@ -1126,7 +1146,7 @@ do
             -- 关闭
             local bt = CreateButton(true)
             bt:SetSize(f:GetWidth() - 15, 23)
-            bt:SetText(L["关闭"])
+            bt:SetText(CLOSE)
             bt:SetPoint("BOTTOM", 1, 6)
             bt:SetScript("OnClick", function(self)
                 BG.PlaySound(1)
@@ -1786,35 +1806,35 @@ do
     BG.updateHighlightChatFrame = CreateFrame("Frame")
     BG.updateHighlightChatFrame.frames = {}
     function BG.HighlightChatFrame(link)
-        if BiaoGe.options["HighOnterItem"] ~= 1 then return end
-        if not IsInRaid(1) then return end
-        local itemID = GetItemID(link)
-        if not itemID then return end
-        BG.highlightChatFrameItemID = itemID
-        local i = 1
-        while _G["ChatFrame" .. i] do
-            local ChatFrame = _G["ChatFrame" .. i]
-            if ChatFrame and ChatFrame:IsVisible() then
-                for i, fontString in ipairs(ChatFrame.visibleLines) do
-                    local text = fontString:GetText()
-                    if text and text:find("item:" .. itemID .. ":") and fontString:IsVisible() and fontString:GetAlpha() ~= 0 then
-                        local f = CreateFrame("Frame", nil, nil, "BackdropTemplate")
-                        f:SetPoint("TOPLEFT", fontString, "TOPLEFT", 0, 0)
-                        f:SetPoint("BOTTOMRIGHT", fontString, "BOTTOMRIGHT", 0, 0)
-                        f:SetFrameLevel(ChatFrame:GetFrameLevel() + 2)
-                        tinsert(BG.updateHighlightChatFrame.frames, f)
-                        tinsert(BG.LastBagItemFrame, f)
+        -- if BiaoGe.options["HighOnterItem"] ~= 1 then return end
+        -- if not IsInRaid(1) then return end
+        -- local itemID = GetItemID(link)
+        -- if not itemID then return end
+        -- BG.highlightChatFrameItemID = itemID
+        -- local i = 1
+        -- while _G["ChatFrame" .. i] do
+        --     local ChatFrame = _G["ChatFrame" .. i]
+        --     if ChatFrame and ChatFrame:IsVisible() then
+        --         for i, fontString in ipairs(ChatFrame.visibleLines) do
+        --             local text = fontString:GetText()
+        --             if text and text:find("item:" .. itemID .. ":") and fontString:IsVisible() and fontString:GetAlpha() ~= 0 then
+        --                 local f = CreateFrame("Frame", nil, nil, "BackdropTemplate")
+        --                 f:SetPoint("TOPLEFT", fontString, "TOPLEFT", 0, 0)
+        --                 f:SetPoint("BOTTOMRIGHT", fontString, "BOTTOMRIGHT", 0, 0)
+        --                 f:SetFrameLevel(ChatFrame:GetFrameLevel() + 2)
+        --                 tinsert(BG.updateHighlightChatFrame.frames, f)
+        --                 tinsert(BG.LastBagItemFrame, f)
 
-                        local l = f:CreateLine()
-                        l:SetColorTexture(1, 0, 0)
-                        l:SetStartPoint("BOTTOMLEFT", 0, 0)
-                        l:SetEndPoint("BOTTOMRIGHT", 0, 0)
-                        l:SetThickness(1)
-                    end
-                end
-            end
-            i = i + 1
-        end
+        --                 local l = f:CreateLine()
+        --                 l:SetColorTexture(1, 0, 0)
+        --                 l:SetStartPoint("BOTTOMLEFT", 0, 0)
+        --                 l:SetEndPoint("BOTTOMRIGHT", 0, 0)
+        --                 l:SetThickness(1)
+        --             end
+        --         end
+        --     end
+        --     i = i + 1
+        -- end
     end
 
     function BG.Show_AllHighlight(link, btType)
@@ -1896,6 +1916,7 @@ function BG.BackBiaoGe(parent)
         end)
         BG.PlaySound(1)
     end)
+    parent.backBiaoGeButton=bt
 end
 
 ------------------跳转装备库相同部位------------------
@@ -2136,7 +2157,6 @@ function BG.FindDropdownItem(dropdown, text)
     local name = dropdown:GetName()
     for i = 1, UIDROPDOWNMENU_MAXBUTTONS do
         local dropdownItem = _G[name .. 'Button' .. i]
-        -- pt(dropdownItem:GetText())
         if dropdownItem:IsShown() and dropdownItem:GetText() == text then
             return i, dropdownItem
         end
@@ -2365,9 +2385,17 @@ function BG.SetEditBaseClass(edit)
     end)
 end
 
-function BG.PairFBItem(func, bossNum)
-    local FB = BG.FB1
-    for b = bossNum or 1, bossNum or Maxb[FB], 1 do
+function BG.PairFBItem(func, bossNum, all, FB)
+    local FB = FB or BG.FB1
+    local startB, endB
+    if all then
+        startB, endB = 1, Maxb[FB] + 2
+    elseif bossNum then
+        startB, endB = bossNum, bossNum
+    else
+        startB, endB = 1, Maxb[FB]
+    end
+    for b = startB, endB, 1 do
         for i = 1, BG.GetMaxi(FB, b) do
             local item = BG.Frame[FB]["boss" .. b]["zhuangbei" .. i]
             local buyer = BG.Frame[FB]["boss" .. b]["maijia" .. i]
@@ -2378,6 +2406,9 @@ function BG.PairFBItem(func, bossNum)
 end
 
 function BG.CreateExportFrame(title, text)
+    if BG.freeClearBiaoGeFrame then
+        BG.freeClearBiaoGeFrame:Hide()
+    end
     if BG.exportFrame then
         BG.exportFrame:SetShown(not BG.exportFrame:IsVisible())
     else
@@ -2453,7 +2484,8 @@ function BG.ChatEditSetText(text)
 end
 
 function BG.IsBigFB(FB)
-    return FB == "BOT" or FB == "FL" or FB == "DS" or FB == "MSV"
+    return BG.IsMOP or BG.IsCTM or BG.IsTitan
+    -- return FB == "BOT" or FB == "FL" or FB == "DS" or FB == "MSV" or FB == "TOT"
 end
 
 function BG.SetEditBg(edit)
@@ -2494,4 +2526,46 @@ function BG.GetBossIndexByBossID(bossID, FB)
             end
         end
     end
+end
+
+function BG.SetCD(cd, time)
+    if cd.cd then return true end
+    cd.cd = true
+    BG.After(time, function()
+        cd.cd = nil
+    end)
+end
+
+function BG.GetNextWeekTime() -- 距离下周四还有多少秒
+    local resetDay = 2
+    if BG.IsCN() then
+        resetDay = 4
+    end
+
+    local currentTimestamp = GetServerTime()
+    local currentWeekday = date("%w", currentTimestamp)
+    local daysToThursday = resetDay - currentWeekday
+    local nextThursdayTimestamp
+
+    local today = date("*t", currentTimestamp)
+    if daysToThursday == 0 and today.hour < 7 then
+        -- 如果时间小于当天凌晨7点
+        today.hour = 7
+        today.min = 0
+        today.sec = 0
+        nextThursdayTimestamp = time(today)
+    else
+        -- 如果已经是周四了，则日期+7
+        if daysToThursday <= 0 then
+            daysToThursday = daysToThursday + 7
+        end
+        nextThursdayTimestamp = currentTimestamp + daysToThursday * 86400
+
+        local nextThursdayDateTable = date("*t", nextThursdayTimestamp)
+        nextThursdayDateTable.hour = 7
+        nextThursdayDateTable.min = 0
+        nextThursdayDateTable.sec = 0
+        nextThursdayTimestamp = time(nextThursdayDateTable)
+    end
+    return nextThursdayTimestamp - currentTimestamp, nextThursdayTimestamp
 end

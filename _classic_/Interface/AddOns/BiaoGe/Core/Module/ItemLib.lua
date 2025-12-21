@@ -59,7 +59,7 @@ do
             { name = L["世界BOSS"], name2 = "worldboss", },
             { name = L["PVP"], name2 = "pvp", },
         }
-    elseif BG.IsWLK then
+    elseif BG.IsWLK_80 then
         getFiterTbl = {
             { name = L["团本：25人"], name2 = "raid25", },
             { name = L["团本：10人"], name2 = "raid10", },
@@ -70,6 +70,17 @@ do
             { name = L["声望"], name2 = "faction", },
             { name = L["专业"], name2 = "profession", },
             { name = L["PVP"], name2 = "pvp", },
+        }
+    elseif BG.IsTitan then
+        getFiterTbl = {
+            { name = L["团本"], name2 = "raid", },
+            { name = L["世界BOSS"], name2 = "worldboss", },
+            { name = L["5人本"], name2 = "fb5", },
+            { name = L["牌子/货币"], name2 = "currency", },
+            { name = L["声望"], name2 = "faction", },
+            { name = L["专业"], name2 = "profession", },
+            -- { name = L["PVP"], name2 = "pvp", },
+            { name = L["世界掉落"], name2 = "world", },
         }
     elseif BG.IsCTM then
         getFiterTbl = {
@@ -185,7 +196,7 @@ local function CreateLoadingText()
     return f
 end
 
--- 历遍所有来源的装备和兑换物，缓存装备的数据、鼠标提示工具文本
+-- 第一步：先历遍所有来源的装备和兑换物，缓存装备的数据、鼠标提示工具文本
 do
     local function InsertToAllItem(itemID)
         local _itemID = itemID
@@ -363,6 +374,10 @@ do
                 for itemID, v in pairs(BG.Loot[FB].ExchangeItems) do
                     InsertToAllItem(itemID)
                 end
+                -- 商店
+                for _, v in pairs(BG.Loot[FB].Shop) do
+                    InsertToAllItem(v.id)
+                end
             end)
             delay = delay + add
         end
@@ -377,13 +392,14 @@ do
     end
 end
 
--- 找出符合条件的装备
+-- 第二步：找出符合条件的装备
 do
     local function IsYesItem(itemID)
         local FB = BG.FB1
         if not (info[FB] and info[FB][itemID]) then return end
         local typeID = info[FB][itemID].typeID
-        if not (typeID == 2 or typeID == 4) then return false end
+        local EquipLoc = info[FB][itemID].EquipLoc
+        if not (typeID == 2 or typeID == 4 or EquipLoc == "INVTYPE_TRINKET") then return false end
 
         local EquipLoc = info[FB][itemID].EquipLoc
         local isSameEquipLoc
@@ -449,7 +465,7 @@ do
                 exText = " " .. AddTexture(tex) .. exItemLink
             end
 
-            if BG.IsVanilla then
+            if BG.onlyOneHard then
                 get = color .. BG.FBfromBossPosition[FB][ii].localName .. " " .. bossname .. exText .. AddPrice(itemID)
             else
                 get = color .. BG.FBfromBossPosition[FB][ii].localName .. " " .. hard .. " " .. bossname .. exText .. AddPrice(itemID)
@@ -578,9 +594,10 @@ do
                 otherText = " + " .. AddTexture(Texture) .. link .. otherItemID1CountText
             end
 
-            local name = C_CurrencyInfo.GetCurrencyInfo(currencyID).name
-            local tex = C_CurrencyInfo.GetCurrencyInfo(currencyID).iconFileID
-            local quantity = C_CurrencyInfo.GetCurrencyInfo(currencyID).quantity
+            local info = C_CurrencyInfo.GetCurrencyInfo(currencyID)
+            local name = info.name
+            local tex = info.iconFileID
+            local quantity = info.quantity
             local color = "00FF00"
             if count then
                 if quantity < count then
@@ -647,16 +664,17 @@ do
                 icon = AddTexture(136243, nil, ":100:100:8:92:8:92")
             elseif other == "附魔" then
                 icon = AddTexture(136244, nil, ":100:100:8:92:8:92")
-            elseif other == "珠宝加工" then
+            elseif other == "珠宝加工" or other == "珠宝" then
                 icon = AddTexture(134071, nil, ":100:100:8:92:8:92")
             elseif other == "铭文" then
                 icon = AddTexture(237171, nil, ":100:100:8:92:8:92")
             elseif other == "考古" then
                 icon = AddTexture(441139, nil, ":100:100:8:92:8:92")
+            elseif other == "炼金" then
+                icon = AddTexture(136240, nil, ":100:100:8:92:8:92")
             end
             local name = icon .. TRADE_SKILLS .. ": " .. L[other]
             local get = BG.STC_y2(name) .. AddPrice(itemID)
-
             tinsert(db_old, {
                 itemID = itemID,
                 link = link,
@@ -720,8 +738,16 @@ do
                 haved = CheckHaved(itemID)
             })
         elseif type == "worldboss" then -- 世界BOSS
+            -- 兑换物
+            local exText = ""
+            local exItemID, exItemLink = GetkExchangeItemInfo(itemID)
+            if exItemLink then
+                local tex = select(5, GetItemInfoInstant(exItemID))
+                exText = " " .. AddTexture(tex) .. exItemLink
+            end
+
             local name = L["世界BOSS"] .. " " .. L[other]
-            local get = "|cff" .. "FF6347" .. name .. AddPrice(itemID)
+            local get = "|cff" .. "FF6347" .. name .. exText .. AddPrice(itemID)
 
             tinsert(db_old, {
                 itemID = itemID,
@@ -841,7 +867,23 @@ do
             else
                 count = ""
             end
-            local get = "|cffEE82EE"..(AddTexture(tex) .. name .. " " .. "|cff" .. color .. count .. RR) .. AddPrice(itemID) .. otherText .. phaseText
+            local get = "|cffEE82EE" .. (AddTexture(tex) .. name .. " " .. "|cff" .. color .. count .. RR) .. AddPrice(itemID) .. otherText .. phaseText
+
+            tinsert(db_old, {
+                itemID = itemID,
+                link = link,
+                level = level,
+                quality = quality,
+                texture = Texture,
+                get = get,
+                bindType = bindType,
+                setID = setID,
+                type = GetTypeID(type),
+                haved = CheckHaved(itemID)
+            })
+        elseif type == "shop" then -- 商人
+            local name = L["商人"] .. " " .. GetMoneyString(other)
+            local get = "|cff" .. "EE82EE" .. name
 
             tinsert(db_old, {
                 itemID = itemID,
@@ -866,7 +908,7 @@ do
             -- 团本
             for _, hard in ipairs(BG.difficultyTable[FB]) do
                 local trueRaidDifficulty = true
-                if BG.IsVanilla then
+                if BG.onlyOneHard then
                     if BiaoGe.ItemLib.fitlerGet.raid then
                         trueRaidDifficulty = false
                     end
@@ -985,6 +1027,12 @@ do
             if not BiaoGe.ItemLib.fitlerGet.pvp then
                 for itemID, v in pairs(BG.Loot[FB].PVP_currency) do
                     InsertItemInfo(itemID, "pvp_currency", hard, ii, v)
+                end
+            end
+            -- 商店
+            if not BiaoGe.ItemLib.fitlerGet.shop then
+                for _, v in pairs(BG.Loot[FB].Shop) do
+                    InsertItemInfo(v.id, "shop", hard, ii, v.m)
                 end
             end
         end
@@ -1185,6 +1233,7 @@ local function SetItemLib()
                                                             BiaoGe.Hope[RealmID][player][FB]["nandu" .. nandu]["boss" .. boss]["zhuangbei" .. i] = exItemLink
                                                             mainFrame.buttons[ii].item.hope:Show()
                                                             BG.UpdateItemLib_LeftHope_All()
+                                                            BG.SetBiaoGeGuanZhu(exItemID)
                                                             return
                                                         end
                                                     end
@@ -1206,6 +1255,7 @@ local function SetItemLib()
                                             BiaoGe.Hope[RealmID][player][FB]["nandu" .. n]["boss" .. b]["zhuangbei" .. i] = vv.link
                                             mainFrame.buttons[ii].item.hope:Show()
                                             BG.UpdateItemLib_RightHope_All()
+                                            BG.SetBiaoGeGuanZhu(itemID)
                                             return
                                         end
                                     end
@@ -1219,6 +1269,7 @@ local function SetItemLib()
                                     BiaoGe.Hope[RealmID][player][FB]["nandu" .. nandu]["boss" .. boss]["zhuangbei" .. i] = vv.link
                                     mainFrame.buttons[ii].item.hope:Show()
                                     BG.UpdateItemLib_RightHope_All()
+                                    BG.SetBiaoGeGuanZhu(itemID)
                                     return
                                 end
                             end

@@ -17,8 +17,8 @@
 		end
 		local addonName, Details222 = ...
 		local version, build, date, tvs = GetBuildInfo()
-		Details.build_counter = 13857
-		Details.alpha_build_counter = 13857 --if this is higher than the regular counter, use it instead
+		Details.build_counter = 13911
+		Details.alpha_build_counter = 13911 --if this is higher than the regular counter, use it instead
 		Details.dont_open_news = true
 		Details.game_version = version
 		Details.userversion = version .. " " .. Details.build_counter
@@ -35,6 +35,10 @@
 
 		function Details:GetCoreVersion()
 			return Details.realversion
+		end
+
+		if not issecretvalue then
+			function issecretvalue() return false end
 		end
 
 		Details.BFACORE = 131 --core version on BFA launch
@@ -67,6 +71,10 @@
 		end
 
 		Details.DefaultTooltipIconSize = 20
+
+		function Details222.UpdateIsAllowed()
+			return tvs < 120000
+		end
 
 		--namespace for the player breakdown window
 		Details.PlayerBreakdown = {}
@@ -594,14 +602,14 @@ do
 			_detalhes.pvp_parser_frame = CreateFrame("Frame")
 
 			_detalhes.MacroList = {
-				{Name = "Click on Your Own Bar", Desc = "To open the player details window on your character, like if you click on your bar in the damage window. The number '1' is the window number where it'll click.", MacroText = "/script Details:OpenPlayerDetails(1)"},
-				{Name = "Open Encounter Breakdown", Desc = "Open the encounter breakdown plugin. Details! Encounter Breakdown (plugin) must be enabled.", MacroText = "/script Details:OpenPlugin ('Encounter Breakdown')"},
-				{Name = "Open Damage per Phase", Desc = "Open the encounter breakdown plugin in the phase tab. Details! Encounter Breakdown (plugin) must be enabled.", MacroText = "/script Details:OpenPlugin ('Encounter Breakdown'); local a=Details_EncounterDetails and Details_EncounterDetails.buttonSwitchPhases:Click()"},
-				{Name = "Reset Data", Desc = "Reset the overall and regular segments data. Use 'ResetSegmentOverallData' to reset only the overall.", MacroText = "/script Details:ResetSegmentData()"},
-				{Name = "Change What the Window Shows", Desc = "Make a window show different data. SetDisplay uses (segment, displayGroup, displayID), the menu from the sword icon is in order (damage = group 1, overheal is: displayGroup 2 displayID 3.", MacroText = "/script Details:GetWindow(1):SetDisplay( DETAILS_SEGMENTID_CURRENT, 4, 5 )"},
-				{Name = "Toggle Window Height to Max Size", Desc = "Make a window be 450 pixel height, pressing the macro again toggle back to the original size. The number '1' if the window number. Hold a click in any window to show their number.", MacroText = "/script Details:GetWindow(1):ToggleMaxSize()"},
+				{Name = Loc ["STRING_MACRO_CLICK_OWN_BAR"] or "Click on Your Own Bar", Desc = Loc ["STRING_MACRO_CLICK_OWN_BAR_DESC"] or "To open the player details window on your character, like if you click on your bar in the damage window. The number '1' is the window number where it'll click.", MacroText = "/script Details:OpenPlayerDetails(1)"},
+				{Name = Loc ["STRING_MACRO_OPEN_ENCOUNTER_BREAKDOWN"] or "Open Encounter Breakdown", Desc = Loc ["STRING_MACRO_OPEN_ENCOUNTER_BREAKDOWN_DESC"] or "Open the encounter breakdown plugin. Details! Encounter Breakdown (plugin) must be enabled.", MacroText = "/script Details:OpenPlugin ('Encounter Breakdown')"},
+				{Name = Loc ["STRING_MACRO_OPEN_DAMAGE_PER_PHASE"] or "Open Damage per Phase", Desc = Loc ["STRING_MACRO_OPEN_DAMAGE_PER_PHASE_DESC"] or "Open the encounter breakdown plugin in the phase tab. Details! Encounter Breakdown (plugin) must be enabled.", MacroText = "/script Details:OpenPlugin ('Encounter Breakdown'); local a=Details_EncounterDetails and Details_EncounterDetails.buttonSwitchPhases:Click()"},
+				{Name = Loc ["STRING_MACRO_RESET_DATA"] or "Reset Data", Desc = Loc ["STRING_MACRO_RESET_DATA_DESC"] or "Reset the overall and regular segments data. Use 'ResetSegmentOverallData' to reset only the overall.", MacroText = "/script Details:ResetSegmentData()"},
+				{Name = Loc ["STRING_MACRO_CHANGE_WINDOW_DISPLAY"] or "Change What the Window Shows", Desc = Loc ["STRING_MACRO_CHANGE_WINDOW_DISPLAY_DESC"] or "Make a window show different data. SetDisplay uses (segment, displayGroup, displayID), the menu from the sword icon is in order (damage = group 1, overheal is: displayGroup 2 displayID 3.", MacroText = "/script Details:GetWindow(1):SetDisplay( DETAILS_SEGMENTID_CURRENT, 4, 5 )"},
+				{Name = Loc ["STRING_MACRO_TOGGLE_WINDOW_HEIGHT"] or "Toggle Window Height to Max Size", Desc = Loc ["STRING_MACRO_TOGGLE_WINDOW_HEIGHT_DESC"] or "Make a window be 450 pixel height, pressing the macro again toggle back to the original size. The number '1' if the window number. Hold a click in any window to show their number.", MacroText = "/script Details:GetWindow(1):ToggleMaxSize()"},
 			--	/script Details:OpenPlugin ('Advanced Death Logs'); local a = Details_DeathGraphsModeEnduranceButton and Details_DeathGraphsModeEnduranceButton.MyObject:Click()
-				{Name = "Report What is Shown In the Window", Desc = "Report the current data shown in the window, the number 1 is the window number, replace it to report another window.", MacroText = "/script Details:FastReportWindow(1)"},
+				{Name = Loc ["STRING_MACRO_REPORT_WINDOW"] or "Report What is Shown In the Window", Desc = Loc ["STRING_MACRO_REPORT_WINDOW_DESC"] or "Report the current data shown in the window, the number 1 is the window number, replace it to report another window.", MacroText = "/script Details:FastReportWindow(1)"},
 			}
 
 		--current instances of the exp (need to maintain) - deprecated july 2024 - should do this automatically

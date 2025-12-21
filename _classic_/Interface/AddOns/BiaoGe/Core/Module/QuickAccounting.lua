@@ -451,6 +451,8 @@ BG.Init(function()
         t:SetPoint("RIGHT", BG.ChatAccountingFrame.qiankuanFrame, "LEFT", -10, 0)
         t:SetTextColor(RGB("FFD100"))
         t:SetText(L["欠款："])
+        t:SetJustifyH("RIGHT")
+        t:SetWidth(70)
     end
 
     -- 确定/取消

@@ -2,8 +2,6 @@
 ElvCharacterDB = {
 ["ConvertKeybindings"] = true,
 ["ChatEditHistory"] = {
-"/fstack",
-"/mrt",
 "/DBM",
 "/run PlaySoundFile(\"Interface\\\\AddOns\\\\SharedMedia_Rurutia\\\\Rurutia\\\\【露露】换坦嘲讽.ogg\", \"Master\")",
 "/run PlaySoundFile(567397, \"Master\")",
@@ -22,6 +20,8 @@ ElvCharacterDB = {
 "/played",
 "/wa",
 "/s .",
+"/g 什么时候开90",
+"/i 什么时候开90级",
 },
 ["ChatHistoryLog"] = {
 },

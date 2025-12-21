@@ -142,11 +142,13 @@ function Set.OnClear(button)
 end
 
 function Set.Refresh(button)
+	button.ilvl:SetText("")
 	if button.type == "secButton" then
 		button:SetNormalTexture(button.SetIcon)
 	else
 		button.icon:SetTexture(button.SetIcon)
 		button.name:SetText(button.SetName)
+		
 		if button.SetDescription then
 			button.extra:SetText(button.SetDescription)
 		end

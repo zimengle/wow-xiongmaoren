@@ -394,6 +394,11 @@ BG.Init2(function()
             bt:SetEnabled(true)
             Browser.Sort = BG.MeetingHorn.BrowserSort_newFuc
         end
+        if BG.IsTitan then
+            bt:HookScript("OnClick", function()
+                MeetingHorn.MainPanel.Browser:Search()
+            end)
+        end
     end
 
     -- 密语模板

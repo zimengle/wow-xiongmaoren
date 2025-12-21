@@ -1,15 +1,15 @@
 
 WclBoxCharacter = {
 ["hash"] = "d7560700",
-["class"] = "MAGE",
-["realmID"] = 6379,
-["version"] = "1.0.28",
+["class"] = "PALADIN",
+["realmID"] = 6383,
+["name"] = "京东董事长",
 ["faction"] = "Horde",
 ["race"] = "血精灵",
-["name"] = "京东董事长",
-["gold"] = 4,
-["realmName"] = "时光I",
+["version"] = "1.0.28",
+["loginTime"] = 1766248888,
+["realmName"] = "时光IV",
 ["level"] = 1,
-["loginTime"] = 1763734235,
-["playerGUID"] = "Player-6379-0025E4A6",
+["gold"] = 0,
+["playerGUID"] = "Player-6383-002452F1",
 }

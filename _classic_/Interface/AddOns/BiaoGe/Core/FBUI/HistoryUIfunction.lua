@@ -34,8 +34,8 @@ local function ShowTardeHighLightItem(self)
     local tradeInfo = BG.GetGeZiTardeInfo(FB, b, i, true)
     if tradeInfo then
         for _, v in ipairs(tradeInfo) do
-for b = 1, Maxb[FB] do
- for i = 1, BG.GetMaxi(FB, b) do
+            for b = 1, Maxb[FB] do
+                for i = 1, BG.GetMaxi(FB, b) do
                     local zb = BG.HistoryFrame[FB]["boss" .. b]["zhuangbei" .. i]
                     local jine = BG.HistoryFrame[FB]["boss" .. b]["jine" .. i]
                     if zb and FB == v.FB and b == v.b and i == v.i then
@@ -80,7 +80,7 @@ function BG.HistoryTitleUI(FB, t)
     p.preWidget0 = version
 
     local version = BG["HistoryFrame" .. FB]:CreateFontString()
-    version:SetPoint("TOPLEFT", preWidget, "TOPLEFT", BG.zhuangbeiWidth+5, 0);
+    version:SetPoint("TOPLEFT", preWidget, "TOPLEFT", BG.zhuangbeiWidth + 5, 0);
     version:SetFont(STANDARD_TEXT_FONT, fontsize, "OUTLINE")
     version:SetTextColor(RGB(BG.y2))
     version:SetText(L["买家"])
@@ -88,7 +88,7 @@ function BG.HistoryTitleUI(FB, t)
     preWidget = version
 
     local version = BG["HistoryFrame" .. FB]:CreateFontString()
-    version:SetPoint("TOPLEFT", preWidget, "TOPLEFT", BG.maijiaWidth+5, 0);
+    version:SetPoint("TOPLEFT", preWidget, "TOPLEFT", BG.maijiaWidth + 5, 0);
     version:SetFont(STANDARD_TEXT_FONT, fontsize, "OUTLINE")
     version:SetTextColor(RGB(BG.y2))
     version:SetText(L["金额"])
@@ -243,45 +243,6 @@ function BG.HistoryJinEUI(FB, t, b, bb, i, ii)
         GameTooltip:Hide()
         BG.Hide_AllHighlight()
     end)
-end
-
-------------------BOSS名字------------------
-function BG.HistoryBossNameUI(FB, t, b, bb, i, ii, frameName)
-    local fontsize = 14
-    local version = BG["HistoryFrame" .. FB]:CreateFontString()
-    if frameName and BG[frameName .. FB]["scrollFrame" .. BossNum(FB, b, t)] then
-        version:SetPoint("TOP", BG[frameName .. FB]["scrollFrame" .. BossNum(FB, b, t)].owner, "TOPLEFT", -40, -2)
-    else
-        version:SetPoint("TOP", BG.HistoryFrame[FB]["boss" .. BossNum(FB, b, t)].zhuangbei1, "TOPLEFT", -45, -2)
-    end
-    version:SetFont(STANDARD_TEXT_FONT, fontsize, "OUTLINE")
-    version:SetTextColor(RGB(BG.Boss[FB]["boss" .. BossNum(FB, b, t)].color))
-    version:SetText(BG.Boss[FB]["boss" .. BossNum(FB, b, t)].name)
-    BG.HistoryFrame[FB]["boss" .. BossNum(FB, b, t)]["name"] = version
-    if BG.HistoryFrame[FB]["boss" .. BossNum(FB, b, t)] == BG.HistoryFrame[FB]["boss" .. Maxb[FB] + 2] then
-        local version = BG["HistoryFrame" .. FB]:CreateFontString()
-        version:SetPoint("BOTTOM", BG.HistoryFrame[FB]["boss" .. Maxb[FB] + 2].zhuangbei5, "BOTTOMLEFT", -45, 7)
-        version:SetFont(STANDARD_TEXT_FONT, fontsize, "OUTLINE")
-        version:SetTextColor(RGB("00BFFF"))
-        version:SetText(L["工\n资"])
-    end
-end
-
-------------------击杀用时------------------
-function BG.HistoryJiShaUI(FB, t, b, bb, i, ii)
-    local text = BG["HistoryFrame" .. FB]:CreateFontString();
-    local num
-    for i = 1, BG.GetMaxi(FB, BossNum(FB, b, t)) do
-        if not BG.HistoryFrame[FB]["boss" .. BossNum(FB, b, t)]["zhuangbei" .. i + 1] then
-            num = i
-            break
-        end
-    end
-    text:SetPoint("TOPLEFT", BG.HistoryFrame[FB]["boss" .. BossNum(FB, b, t)]["zhuangbei" .. num], "BOTTOMLEFT", -0, -3)
-    text:SetFont(STANDARD_TEXT_FONT, 10, "OUTLINE,THICK")
-    text:SetTextColor(RGB(BG.Boss[FB]["boss" .. BossNum(FB, b, t)].color))
-    text:SetAlpha(0.8)
-    BG.HistoryFrame[FB]["boss" .. BossNum(FB, b, t)]["time"] = text
 end
 
 ------------------底色材质------------------

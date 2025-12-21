@@ -20,10 +20,10 @@ local AL = AtlasLoot.Locales
 local ALIL = AtlasLoot.IngameLocales
 
 local NORMAL_DIFF = data:AddDifficulty("NORMAL", nil, nil, nil, true)
+local P1_DIFF = data:AddDifficulty("P1", nil, nil, nil, true)
 local HEROIC_DIFF = data:AddDifficulty("HEROIC", nil, nil, nil, true)
 local ALPHA_DIFF = data:AddDifficulty(AL["Titan Rune Alpha"], "TRA", nil, nil, true)
 local BETA_DIFF = data:AddDifficulty(AL["Titan Rune Beta"], "TRB", nil, nil, true)
-
 local RAID10_DIFF = data:AddDifficulty("10RAID")
 local RAID10H_DIFF = data:AddDifficulty("10RAIDH")
 local RAID25_DIFF = data:AddDifficulty("25RAID")
@@ -42,7 +42,7 @@ local QUEST_EXTRA_ITTYPE = data:AddExtraItemTableType("Quest")
 local PRICE_EXTRA_ITTYPE = data:AddExtraItemTableType("Price")
 
 local DUNGEON_CONTENT = data:AddContentType(AL["Dungeons"], ATLASLOOT_DUNGEON_COLOR)
--- local RAID_P1_CONTENT = data:AddContentType("团本P1", ATLASLOOT_RAID20_COLOR)
+-- local RAID_P1_CONTENT = data:AddContentType("P1", ATLASLOOT_RAID20_COLOR)
 -- local RAID_P2_CONTENT = data:AddContentType("团本P2", ATLASLOOT_RAID20_COLOR)
 -- local RAID_P1_CONTENT = data:AddContentType("团本P3", ATLASLOOT_RAID20_COLOR)
 -- local RAID_P1_CONTENT = data:AddContentType("团本P4", ATLASLOOT_RAID20_COLOR)
@@ -419,24 +419,24 @@ local T1_SET = {
 	IgnoreAsSource = true,
 	[NORMAL_DIFF] = {
         {1,1994},
-{3,1995},
-{4,1996},
-{6,1991},
-{8,1993},
-{10,1999},
-{11,2000},
-{13,1998},
-{14,1997},
-{16,1992},
-{18,2004},
-{19,2005},
-{20,2006},
-{22,2007},
-{23,2008},
-{24,2009},
-{26,2001},
-{27,2003},
-{28,2002},
+        {3,1995},
+        {4,1996},
+        {6,1991},
+        {8,1993},
+        {10,1999},
+        {11,2000},
+        {13,1998},
+        {14,1997},
+        {16,1992},
+        {18,2004},
+        {19,2005},
+        {20,2006},
+        {22,2007},
+        {23,2008},
+        {24,2009},
+        {26,2001},
+        {27,2003},
+        {28,2002},
 	},
 }
 local T5_SET = {
@@ -4363,128 +4363,210 @@ data["HallsOfReflection"] = {
 -- ## RAIDS
 data["MoltenCore80"] = {
     MapID = 2717,
-    name = "P1 熔火之心",
+    name =AL["P1 Molten Core"],
     InstanceID = 409,
     AtlasModule = ATLAS_ERA_MODULE_NAME,
     AtlasMapID = "MoltenCore",
     AtlasMapFile = "CL_MoltenCore",
     AtlasMapFile_AL = "MoltenCore",
     ContentType = RAID_CONTENT,
-    ["items"] = {{
-        ["DisplayIDs"] = {{13031}, {12030}},
-        ["name"] = "鲁西弗隆",
-        ["AtlasMapBossID"] = 1,
-        ["Level"] = 999,
-        [NORMAL_DIFF] = {{1, 260496}, -- 熔火胜利者的手套
-        {2, 260499}, -- 熔火征服者的手套
-        {3, 260509}, -- 熔火保卫者的手套
-        {16, 255135}, {17, 255100}, {18, 255148}, {19, 259901}, {20, 255136}, {21, 255137}, {22, 255134}, {23, 255139},
-                         {24, 255150}, {25, 259900}, {26, 255138}, {30, 16665}},
-        ["npcID"] = 12118
+    items = {{
+        DisplayIDs = {{13031}, {12030}},
+        name = AL["Lucifron"],
+        AtlasMapBossID = 1,
+        Level = 999,
+        [NORMAL_DIFF] = {
+            {1, 260495}, -- 熔火胜利者的护腕
+            {2, 260504}, -- 熔火征服者的护腕
+            {3, 260511}, -- 熔火保卫者的护腕
+            
+            {16, 255135}, 
+            {17, 255100}, 
+            {18, 255148}, 
+            {19, 259901}, 
+            {20, 255136}, 
+            {21, 255137}, 
+            {22, 255134}, 
+            {23, 255139},
+            {24, 255150}, 
+            {25, 259900}, 
+            {26, 255138}, 
+            {30, 16665}},
+        npcID = 12118
     }, {
-        ["DisplayIDs"] = {{10193}},
-        ["name"] = "玛格曼达",
-        ["AtlasMapBossID"] = 2,
-        ["Level"] = 999,
-        [NORMAL_DIFF] = {{1, 260492}, -- 熔火胜利者的护腿
-        {2, 260501}, -- 熔火征服者的护腿
-        {3, 260508}, -- 熔火保卫者的护腿
-        {11, 255104}, {16, 255084}, {17, 255131}, {18, 255129}, {19, 255146}, {20, 255140}, {21, 255134}, {22, 255147},
-                         {23, 255130}, {24, 255127}, {25, 255126}, {26, 255145}, {27, 255086}, {28, 255089},
-                         {29, 259902}},
-        ["npcID"] = 11982
+        DisplayIDs = {{10193}},
+        name = AL["Magmadar"],
+        AtlasMapBossID = 2,
+        Level = 999,
+        [NORMAL_DIFF] = {
+            {1, 260495}, -- 熔火胜利者的护腕
+            {2, 260504}, -- 熔火征服者的护腕
+            {3, 260511}, -- 熔火保卫者的护腕
+            {5, 260494}, -- 熔火胜利者的腰带
+            {6, 260503}, -- 熔火征服者的腰带
+            {7, 260512}, -- 熔火保卫者的腰带
+
+            {11, 255104}, 
+            
+            {16, 255084}, 
+            {17, 255131}, 
+            {18, 255129}, 
+            {19, 255146}, 
+            {20, 255140}, 
+            {21, 255134}, 
+            {22, 255147},
+            {23, 255130}, 
+            {24, 255127}, 
+            {25, 255126}, 
+            {26, 255145}, 
+            {27, 255086}, 
+            {28, 255089},
+            {29, 259902}
+        },
+        npcID = 11982
     }, {
-        ["DisplayIDs"] = {{13030}, {12002}},
-        ["name"] = "基赫纳斯",
-        ["AtlasMapBossID"] = 3,
-        ["Level"] = 999,
-        [NORMAL_DIFF] = {{1, 260490}, -- 熔火胜利者的护胫
-        {2, 260498}, -- 熔火征服者的护胫
-        {3, 260506}, -- 熔火保卫者的护胫
+        DisplayIDs = {{13030}, {12002}},
+        name = AL["Gehennas"],
+        AtlasMapBossID = 3,
+        Level = 999,
+        [NORMAL_DIFF] = {
+            {1, 260494}, -- 熔火胜利者的腰带
+            {2, 260503}, -- 熔火征服者的腰带
+            {3, 260512}, -- 熔火保卫者的腰带
+
+
+           
+            {16, 255135}, {17, 255148}, {18, 259901}, {19, 255136}, {20, 255137}, {21, 255134}, {22, 255139}, {23, 255150},
+            {24, 259900}, {25, 255138}
+        },
+        npcID = 12259
+    }, {
+        DisplayIDs = {{12110}, {5781}},
+        name = AL["Garr"],
+        AtlasMapBossID = 4,
+        Level = 999,
+        [NORMAL_DIFF] = {
+
+            {1, 260490}, -- 熔火胜利者的护胫
+            {2, 260498}, -- 熔火征服者的护胫
+            {3, 260506}, -- 熔火保卫者的护胫
+
+            {16, 255131}, {17, 255129}, {18, 255146}, {19, 255140}, {20, 255134}, {21, 255147}, {22, 255130}, {23, 255127},
+            {24, 255126}, {25, 255145}, {26, 255085}, {27, 255087}, {28, 255097}, {29, 255132},
+            {30, 259902}
+        },
+        npcID = 12057
+    }, {
+        DisplayIDs = {{13032}},
+        name = AL["Shazzrah"],
+        AtlasMapBossID = 5,
+        Level = 999,
+        [NORMAL_DIFF] = {
+            {1, 260493}, -- 熔火胜利者的护肩
+            {2, 260502}, -- 熔火征服者的护肩
+            {3, 260505}, -- 熔火保卫者的护肩
+          
         {16, 255135}, {17, 255148}, {18, 259901}, {19, 255136}, {20, 255137}, {21, 255134}, {22, 255139}, {23, 255150},
                          {24, 259900}, {25, 255138}},
-        ["npcID"] = 12259
+        npcID = 12264
     }, {
-        ["DisplayIDs"] = {{12110}, {5781}},
-        ["name"] = "加尔",
-        ["AtlasMapBossID"] = 4,
-        ["Level"] = 999,
-        [NORMAL_DIFF] = {{1, 18564}, {3, 260491}, -- 熔火胜利者的战盔
-        {4, 260500}, -- 熔火征服者的战盔
-        {5, 260510}, -- 熔火保卫者的战盔
-        {16, 255131}, {17, 255129}, {18, 255146}, {19, 255140}, {20, 255134}, {21, 255147}, {22, 255130}, {23, 255127},
-                         {24, 255126}, {25, 255145}, {26, 255085}, {27, 255087}, {28, 255097}, {29, 255132},
-                         {30, 259902}},
-        ["npcID"] = 12057
-    }, {
-        ["DisplayIDs"] = {{13032}},
-        ["name"] = "沙斯拉尔",
-        ["AtlasMapBossID"] = 5,
-        ["Level"] = 999,
-        [NORMAL_DIFF] = {{1, 260495}, -- 熔火胜利者的护腕
-        {2, 260504}, -- 熔火征服者的护腕
-        {3, 260511}, -- 熔火保卫者的护腕
-        {16, 255135}, {17, 255148}, {18, 259901}, {19, 255136}, {20, 255137}, {21, 255134}, {22, 255139}, {23, 255150},
-                         {24, 259900}, {25, 255138}},
-        ["npcID"] = 12264
-    }, {
-        ["DisplayIDs"] = {{12129}},
-        ["name"] = "迦顿男爵",
-        ["AtlasMapBossID"] = 6,
-        ["Level"] = 999,
-        [NORMAL_DIFF] = {{1, 18563}, {2, 255103}, {4, 260494}, -- 熔火胜利者的腰带
-        {5, 260503}, -- 熔火征服者的腰带
-        {6, 260512}, -- 熔火保卫者的腰带
+        DisplayIDs = {{12129}},
+        name = AL["Baron Geddon"],
+        AtlasMapBossID = 6,
+        Level = 999,
+        [NORMAL_DIFF] = {
+            -- {1, 18563}, 
+            {1, 255103}, 
+          
+            {3, 260496}, -- 熔火胜利者的手套
+            {4, 260499}, -- 熔火征服者的手套
+            {5, 260509}, -- 熔火保卫者的手套
+
+       
         {16, 255131}, {17, 255129}, {18, 255146}, {19, 255140}, {20, 255134}, {21, 255147}, {22, 255130}, {23, 255127},
                          {24, 255101}, {25, 255126}, {26, 255145}, {27, 259902}},
-        ["npcID"] = 12056
+        npcID = 12056
     }, {
-        ["DisplayIDs"] = {{11986}},
-        ["name"] = "焚化者古雷曼格",
-        ["AtlasMapBossID"] = 7,
-        ["Level"] = 999,
-        [NORMAL_DIFF] = {{1, 260489}, -- 熔火胜利者的胸甲
-        {2, 260497}, -- 熔火征服者的胸甲
-        {3, 260507}, -- 熔火保卫者的胸甲
+        DisplayIDs = {{11986}},
+        name = AL["Golemagg the Incinerator"],
+        AtlasMapBossID = 7,
+        Level = 999,
+        [NORMAL_DIFF] = {
+            {1, 260492}, -- 熔火胜利者的护腿
+            {2, 260501}, -- 熔火征服者的护腿
+            {3, 260508}, -- 熔火保卫者的护腿
+            {5, 260491}, -- 熔火胜利者的战盔
+            {6, 260500}, -- 熔火征服者的战盔
+            {7, 260510}, -- 熔火保卫者的战盔
+
+            
+           
         {11, 17203}, {16, 255131}, {17, 255129}, {18, 255146}, {19, 255140}, {20, 255134}, {21, 255147}, {22, 255130},
                          {23, 255127}, {24, 255126}, {25, 255145}, {26, 255088}, {27, 255095}, {28, 259902},
                          {29, 255133}},
-        ["npcID"] = 11988
+        npcID = 11988
     }, {
-        ["DisplayIDs"] = {{13030}, {12030}},
-        ["name"] = "萨弗隆先驱者",
-        ["AtlasMapBossID"] = 8,
-        ["Level"] = 999,
-        [NORMAL_DIFF] = {{1, 260493}, -- 熔火胜利者的护肩
-        {2, 260502}, -- 熔火征服者的护肩
-        {3, 260505}, -- 熔火保卫者的护肩
+        DisplayIDs = {{13030}, {12030}},
+        name = AL["Sulfuron Harbinger"],
+        AtlasMapBossID = 8,
+        Level = 999,
+        [NORMAL_DIFF] = {
+            {1, 260491}, -- 熔火胜利者的战盔
+            {2, 260500}, -- 熔火征服者的战盔
+            {3, 260510}, -- 熔火保卫者的战盔
         {16, 255135}, {17, 255148}, {18, 259901}, {19, 255136}, {20, 255137}, {21, 255134}, {22, 255139}, {23, 255150},
                          {24, 259900}, {25, 255138}, {26, 255090}},
-        ["npcID"] = 12098
+        npcID = 12098
     }, {
-        ["DisplayIDs"] = {{12029}, {13029}, {12002}},
-        ["name"] = "管理者埃克索图斯",
-        ["AtlasMapBossID"] = 9,
+        DisplayIDs = {{12029}, {13029}, {12002}},
+        name = AL["Majordomo Executus"],
+        AtlasMapBossID = 9,
         ["ObjectID"] = 179703,
-        ["Level"] = 999,
-        [NORMAL_DIFF] = {{1, 259904}, {2, 255119}, {3, 259903}, {4, 255117}, {5, 255118}, {6, 255121}, {7, 255116},
-                         {8, 255144}, {9, 255115}, {10, 255114}, {16, 260780}, {18, 255109}},
-        ["npcID"] = 12018
+        Level = 999,
+        [NORMAL_DIFF] = {
+            {1, 260492}, -- 熔火胜利者的护腿
+            {2, 260501}, -- 熔火征服者的护腿
+            {3, 260508}, -- 熔火保卫者的护腿
+            {5, 260780}, 
+            {6, 255109},
+            
+            {16, 259904}, 
+            {17, 255119}, 
+            {18, 259903}, 
+            {19, 255117}, 
+            {20, 255118}, 
+            {21, 255121}, 
+            {22, 255116},
+                        
+            {23, 255144}, 
+            {24, 255115}, 
+            {25, 255114}, 
+        },
+        npcID = 12018
     }, {
-        ["DisplayIDs"] = {{11121}},
-        ["name"] = "拉格纳罗斯",
-        ["AtlasMapBossID"] = 10,
-        ["Level"] = 999,
-        [NORMAL_DIFF] = {{1, 257605}, {2, 19017}, {4, "INV_Box_01", nil, "我估计会掉所有T1部件", nil},
-                         {14, 255093}, {16, 255125}, {17, 255122}, {18, 259905}, {19, 259906}, {20, 255141},
+        DisplayIDs = {{11121}},
+        name = AL["Ragnaros"],
+        AtlasMapBossID = 10,
+        Level = 999,
+        [NORMAL_DIFF] = {
+            {1, 257605},
+             --{2, 19017}, 
+            {4, 260489}, -- 熔火胜利者的胸甲
+            {5, 260497}, -- 熔火征服者的胸甲
+            {6, 260507}, -- 熔火保卫者的胸甲
+            {14, 255093}, 
+            {16, 255125}, {17, 255122}, {18, 259905}, {19, 259906}, {20, 255141},
                          {21, 255083}, {22, 259907}, {23, 255123}, {24, 255098}, {25, 255124}, {26, 255096},
                          {27, 255091}},
-        ["npcID"] = 11502
+        npcID = 11502
     }, {
-        [NORMAL_DIFF] = {{1, 260703}, {2, 260712}, {4, 260722}, {6, 260734}, {7, 260774}},
-        ["name"] = "所有首领",
-        ["ExtraList"] = true
-    }, T1_SET, --          {
+        [NORMAL_DIFF] = {
+            {1, 260703}, {2, 260712}, {4, 260722}, {6, 260734}, {7, 260774}
+        },
+        name = AL["All bosses"],
+        ExtraList = true
+    }, T1_SET, 
+    --          {
     --             name="T1",
     --             [NORMAL_DIFF]={
     --                {1, 260491},--熔火胜利者的战盔
@@ -4512,18 +4594,18 @@ data["MoltenCore80"] = {
     -- {29, 260498},--熔火征服者的护胫
     -- {30, 260506},--熔火保卫者的护胫
     --             },
-    --             ["ExtraList"] = true
+    --             ExtraList = true
     --         },
     -- {
     --     [NORMAL_DIFF] = {{1, 255033}, {2, 255018}, {3, 255022}, {4, 255042}, {5, 255043}, {6, 255065},
     --                        {7, 255052}, {8, 255072}, {9, 16864}, {12, 17011}, {13, 17010}, {14, 11382}, {15, 17012},
     --                        {16, 255034}, {17, 255015}, {18, 255020}, {19, 257609}, {20, 255045}, {21, 255064},
     --                        {22, 255054}, {23, 255071}, {24, 257602}},
-    --     ["name"] = "小怪",
-    --     ["ExtraList"] = true
+    --     name = "小怪",
+    --     ExtraList = true
     -- },
     {
-        name = "火抗装",
+        name = AL["Fire Resistance Gears"],
         [NORMAL_DIFF] = {{1, 262915}, {2, 262916}, {3, 262919}, {4, 262920}, {5, 262921}, {6, 262922}, {7, 262924},
                          {8, 262925}, {9, 262926}, {10, 262927}, {11, 262931}, {12, 262932}, {13, 262933}, {14, 262934},
                          {15, 262935}, {16, 262937}, {17, 262939}, {18, 262940}, {19, 262941}, {20, 262942},
@@ -4535,56 +4617,58 @@ data["MoltenCore80"] = {
                          {121, 262986}, {122, 262987}, {123, 262988}, {124, 262993}, {125, 262995}, {126, 262996},
                          {127, 262997}, {128, 262998}, {129, 263000}, {130, 263001}, {201, 263002}, {202, 263003},
                          {203, 263004}, {204, 263008}},
-        ["ExtraList"] = true
+        ExtraList = true
     }, {
-        name = "声望戒指(猜测)",
+        name = AL["Faction Rings"],
         [NORMAL_DIFF] = {{1, 255105}, {2, 255106}, {3, 263276}, {4, 263277}},
-        ["ExtraList"] = true
-    }, {
-        name = "数据挖掘",
-        [NORMAL_DIFF] = {{1, 200060}, {2, 200068}, {3, 200235}, {4, 200240}, {5, 201699}, {6, 201993}, {7, 202195},
-                         {8, 204385}, {9, 204982}, {10, 206272}, {11, 206392}, {12, 206580}, {13, 206684}, {14, 206685},
-                         {15, 206686}, {16, 206687}, {17, 206691}, {18, 206692}, {19, 206693}, {20, 206694},
-                         {21, 206697}, {22, 206699}, {23, 206700}, {24, 206701}, {25, 206702}, {26, 206703},
-                         {27, 206704}, {28, 206705}, {29, 206706}, {30, 206717}, {101, 206726}, {102, 206730},
-                         {103, 206731}, {104, 206732}, {105, 206733}, {106, 206734}, {107, 206735}, {108, 206736},
-                         {109, 206737}, {110, 206738}, {111, 206739}, {112, 206740}, {113, 206741}, {114, 206742},
-                         {115, 206743}, {116, 206744}, {117, 206745}, {118, 206746}, {119, 206747}, {120, 206748},
-                         {121, 206750}, {122, 206751}, {123, 206752}, {124, 206753}, {125, 206754}, {126, 206755},
-                         {127, 206756}, {128, 206757}, {129, 206759}, {130, 206953}, {201, 207097}, {202, 208157},
-                         {203, 209515}, {204, 209558}, {205, 209585}, {206, 209587}, {207, 209588}, {208, 209589},
-                         {209, 209603}, {210, 209627}, {211, 209629}, {212, 209630}, {213, 209631}, {214, 209633},
-                         {215, 209635}, {216, 209636}, {217, 209639}, {218, 209641}, {219, 209642}, {220, 209644},
-                         {221, 209648}, {222, 209649}, {223, 209650}, {224, 209652}, {225, 209654}, {226, 209655},
-                         {227, 209660}, {228, 209661}, {229, 209662}, {230, 209663}, {301, 209664}, {302, 209665},
-                         {303, 209695}, {304, 209696}, {305, 209697}, {306, 209780}, {307, 209782}, {308, 209783},
-                         {309, 209784}, {310, 209785}, {311, 209786}, {312, 209787}, {313, 209789}, {314, 209790},
-                         {315, 209791}, {316, 209792}, {317, 209793}, {318, 209794}, {319, 209796}, {320, 209801},
-                         {321, 209803}, {322, 209804}, {323, 209807}, {324, 209808}, {325, 209809}, {326, 209810},
-                         {327, 209811}, {328, 209812}, {329, 209813}, {330, 209814}, {401, 209815}, {402, 209826},
-                         {403, 209827}, {404, 209829}, {405, 209876}, {406, 209877}, {407, 209945}, {408, 210047},
-                         {409, 210135}, {410, 211082}, {411, 211206}, {412, 211207}, {413, 211261}, {414, 211262},
-                         {415, 216696}, {416, 224002}, {417, 224375}, {418, 224376}, {419, 224377}, {420, 224378},
-                         {421, 224379}, {422, 224380}, {423, 224381}, {424, 224382}, {425, 224383}, {426, 226805},
-                         {427, 226812}, {428, 231312}, {429, 232614}, {430, 235464}, {501, 235561}, {502, 235562},
-                         {503, 238339}, {504, 238340}, {505, 238341}, {506, 238342}, {507, 238343}, {508, 242551},
-                         {509, 245584}, {510, 245612}, {511, 245613}, {512, 246901}, {513, 247893}, {514, 248263},
-                         {515, 248398}, {516, 248753}, {517, 248754}, {518, 248945}, {519, 248946}, {520, 248947},
-                         {521, 248948}, {522, 248949}, {523, 248950}, {524, 256035}, {525, 256052}, {526, 256054},
-                         {527, 256056}, {528, 256068}, {529, 256069}, {530, 256070}, {601, 256396}, {602, 258417},
-                         {603, 258420}, {604, 258424}, {605, 258883}, {606, 260831}, {607, 263199}, {608, 263200},
-                         {609, 263201}, {610, 263204}, {611, 263207}, {612, 263514}, {613, 264161}, {614, 264167},
-                         {615, 264198}, {616, 264272}, {617, 264358}, {618, 264359}, {619, 264986}, {620, 265028},
-                         {621, 265029}, {622, 265036}, {623, 265342}, {624, 265343}, {625, 265344}, {626, 265345},
-                         {627, 265346}, {628, 265347}, {629, 265348}, {630, 265349}, {701, 265350}, {702, 265351},
-                         {703, 265352}, {704, 265353}, {705, 265354}, {706, 265355}, {707, 265356}, {708, 265933},
-                         {709, 265937}, {710, 265939}, {711, 265940}, {712, 265942}, {713, 265944}},
-        ["ExtraList"] = true
-    }}
+        ExtraList = true
+    }, 
+    -- {
+    --     name = AL["Data Mining"],
+    --     [NORMAL_DIFF] = {{1, 200060}, {2, 200068}, {3, 200235}, {4, 200240}, {5, 201699}, {6, 201993}, {7, 202195},
+    --                      {8, 204385}, {9, 204982}, {10, 206272}, {11, 206392}, {12, 206580}, {13, 206684}, {14, 206685},
+    --                      {15, 206686}, {16, 206687}, {17, 206691}, {18, 206692}, {19, 206693}, {20, 206694},
+    --                      {21, 206697}, {22, 206699}, {23, 206700}, {24, 206701}, {25, 206702}, {26, 206703},
+    --                      {27, 206704}, {28, 206705}, {29, 206706}, {30, 206717}, {101, 206726}, {102, 206730},
+    --                      {103, 206731}, {104, 206732}, {105, 206733}, {106, 206734}, {107, 206735}, {108, 206736},
+    --                      {109, 206737}, {110, 206738}, {111, 206739}, {112, 206740}, {113, 206741}, {114, 206742},
+    --                      {115, 206743}, {116, 206744}, {117, 206745}, {118, 206746}, {119, 206747}, {120, 206748},
+    --                      {121, 206750}, {122, 206751}, {123, 206752}, {124, 206753}, {125, 206754}, {126, 206755},
+    --                      {127, 206756}, {128, 206757}, {129, 206759}, {130, 206953}, {201, 207097}, {202, 208157},
+    --                      {203, 209515}, {204, 209558}, {205, 209585}, {206, 209587}, {207, 209588}, {208, 209589},
+    --                      {209, 209603}, {210, 209627}, {211, 209629}, {212, 209630}, {213, 209631}, {214, 209633},
+    --                      {215, 209635}, {216, 209636}, {217, 209639}, {218, 209641}, {219, 209642}, {220, 209644},
+    --                      {221, 209648}, {222, 209649}, {223, 209650}, {224, 209652}, {225, 209654}, {226, 209655},
+    --                      {227, 209660}, {228, 209661}, {229, 209662}, {230, 209663}, {301, 209664}, {302, 209665},
+    --                      {303, 209695}, {304, 209696}, {305, 209697}, {306, 209780}, {307, 209782}, {308, 209783},
+    --                      {309, 209784}, {310, 209785}, {311, 209786}, {312, 209787}, {313, 209789}, {314, 209790},
+    --                      {315, 209791}, {316, 209792}, {317, 209793}, {318, 209794}, {319, 209796}, {320, 209801},
+    --                      {321, 209803}, {322, 209804}, {323, 209807}, {324, 209808}, {325, 209809}, {326, 209810},
+    --                      {327, 209811}, {328, 209812}, {329, 209813}, {330, 209814}, {401, 209815}, {402, 209826},
+    --                      {403, 209827}, {404, 209829}, {405, 209876}, {406, 209877}, {407, 209945}, {408, 210047},
+    --                      {409, 210135}, {410, 211082}, {411, 211206}, {412, 211207}, {413, 211261}, {414, 211262},
+    --                      {415, 216696}, {416, 224002}, {417, 224375}, {418, 224376}, {419, 224377}, {420, 224378},
+    --                      {421, 224379}, {422, 224380}, {423, 224381}, {424, 224382}, {425, 224383}, {426, 226805},
+    --                      {427, 226812}, {428, 231312}, {429, 232614}, {430, 235464}, {501, 235561}, {502, 235562},
+    --                      {503, 238339}, {504, 238340}, {505, 238341}, {506, 238342}, {507, 238343}, {508, 242551},
+    --                      {509, 245584}, {510, 245612}, {511, 245613}, {512, 246901}, {513, 247893}, {514, 248263},
+    --                      {515, 248398}, {516, 248753}, {517, 248754}, {518, 248945}, {519, 248946}, {520, 248947},
+    --                      {521, 248948}, {522, 248949}, {523, 248950}, {524, 256035}, {525, 256052}, {526, 256054},
+    --                      {527, 256056}, {528, 256068}, {529, 256069}, {530, 256070}, {601, 256396}, {602, 258417},
+    --                      {603, 258420}, {604, 258424}, {605, 258883}, {606, 260831}, {607, 263199}, {608, 263200},
+    --                      {609, 263201}, {610, 263204}, {611, 263207}, {612, 263514}, {613, 264161}, {614, 264167},
+    --                      {615, 264198}, {616, 264272}, {617, 264358}, {618, 264359}, {619, 264986}, {620, 265028},
+    --                      {621, 265029}, {622, 265036}, {623, 265342}, {624, 265343}, {625, 265344}, {626, 265345},
+    --                      {627, 265346}, {628, 265347}, {629, 265348}, {630, 265349}, {701, 265350}, {702, 265351},
+    --                      {703, 265352}, {704, 265353}, {705, 265354}, {706, 265355}, {707, 265356}, {708, 265933},
+    --                      {709, 265937}, {710, 265939}, {711, 265940}, {712, 265942}, {713, 265944}},
+    --     ExtraList = true
+    -- }
+}
 }
 
 data["WorldBosses81"] = {
-	name = "P1 世界boss(卡扎克+艾索雷葛斯)",
+    name = AL["P1 World bosses of Vanilla"],
 	AtlasMapFile = "Azuregos",
 	ContentType = RAID_CONTENT,
 	items = {
@@ -4609,6 +4693,12 @@ data["WorldBosses81"] = {
 				{ 10, 18542 }, -- Typhoon
 				{ 16, 260781 }, -- Mature Blue Dragon Sinew
 				{ 18, 11938 }, -- Sack of Gems
+                { 20, 260493},--熔火胜利者的护肩
+                { 21, 260502},--熔火征服者的护肩
+                { 22, 260505},--熔火保卫者的护肩
+                { 24, 260494},--熔火胜利者的腰带
+                { 25, 260503},--熔火征服者的腰带
+                { 26, 260512},--熔火保卫者的腰带
 				-- Hidden items
 				{ 0, 17962 }, -- Blue Sack of Gems
 				{ 0, 17963 }, -- Green Sack of Gems
@@ -4638,6 +4728,12 @@ data["WorldBosses81"] = {
 				{ 10, 17113 }, -- Amberseal Keeper
 				{ 16, 260831 }, -- The Eye of Shadow
 				{ 18, 11938 }, -- Sack of Gems
+                { 20, 260491},--熔火胜利者的战盔
+                { 21, 260500},--熔火征服者的战盔
+                { 22, 260510},--熔火保卫者的战盔
+                { 24, 260495},--熔火胜利者的护腕
+                { 25, 260504},--熔火征服者的护腕
+                { 26, 260511},--熔火保卫者的护腕
 				-- Hidden items
 				{ 0, 17962 }, -- Blue Sack of Gems
 				{ 0, 17963 }, -- Green Sack of Gems
@@ -4648,9 +4744,251 @@ data["WorldBosses81"] = {
 		},
     }
 }
+local ROLE_DD = AL["Damage Dealer"]
+data["VaultofArchavon"] = {
+	MapID = 4603,
+    name = AL["PhaseAll Vault of Archavon"],
+	InstanceID = 624,
+    ContentType = RAID_CONTENT,
+	AtlasModule = ATLAS_MODULE_NAME,
+	AtlasMapID = "VaultOfArchavon",
+	AtlasMapFile = {"VaultOfArchavon"},
+	-- LevelRange = {80, 80, 80},
+	items = {
+        { -- VaultofArchavonArchavon
+            name = AL["Archavon the Stone Watcher"],
+            npcID = 31125,
+            Level = 999,
+            --DisplayIDs = {{17386}},
+            AtlasMapBossID = 1,
+            [P1_DIFF] = {
+                { 1, "CLASS_WARLOCK",       nil, CLASS_NAME["WARLOCK"],     nil,                "VoA_A_WARLOCK_10" },
+                { 3, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Holy"],         "VoA_A_PRIEST_10_H" },
+                { 4, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Shadow"],       "VoA_A_PRIEST_10_D" },
+                { 6, "CLASS_ROGUE",         nil, CLASS_NAME["ROGUE"],       nil,                "VoA_A_ROGUE_10" },
+                { 8, "CLASS_HUNTER",        nil, CLASS_NAME["HUNTER"],      nil,                "VoA_A_HUNTER_10" },
+                { 10, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     AL["Protection"],   "VoA_A_WARRIOR_10_T" },
+                { 11, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     ROLE_DD,            "VoA_A_WARRIOR_10_D" },
+                { 13, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], AL["Blood"],        "VoA_A_DEATHKNIGHT_10_T" },
+                { 14, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], ROLE_DD,            "VoA_A_DEATHKNIGHT_10_D" },
+                { 16, "CLASS_MAGE",         nil, CLASS_NAME["MAGE"],        nil,                "VoA_A_MAGE_10" },
+                { 18, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Restoration"],  "VoA_A_DRUID_10_H" },
+                { 19, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Balance"],      "VoA_A_DRUID_10_DR" },
+                { 20, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Feral"],        "VoA_A_DRUID_10_D" },
+                { 22, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Restoration"],  "VoA_A_SHAMAN_10_H" },
+                { 23, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Elemental"],    "VoA_A_SHAMAN_10_DR" },
+                { 24, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Enhancement"],  "VoA_A_SHAMAN_10_D" },
+                { 26, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Protection"],   "VoA_A_PALADIN_10_T" },
+                { 27, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Holy"],         "VoA_A_PALADIN_10_H" },
+                { 28, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Retribution"],  "VoA_A_PALADIN_10_D" },
+            },
+            -- [RAID25_DIFF] = {
+            --     { 1, "CLASS_WARLOCK",       nil, CLASS_NAME["WARLOCK"],     nil,                "VoA_A_WARLOCK_25" },
+            --     { 3, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Holy"],         "VoA_A_PRIEST_25_H" },
+            --     { 4, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Shadow"],       "VoA_A_PRIEST_25_D" },
+            --     { 6, "CLASS_ROGUE",         nil, CLASS_NAME["ROGUE"],       nil,                "VoA_A_ROGUE_25" },
+            --     { 8, "CLASS_HUNTER",        nil, CLASS_NAME["HUNTER"],      nil,                "VoA_A_HUNTER_25" },
+            --     { 10, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     AL["Protection"],   "VoA_A_WARRIOR_25_T" },
+            --     { 11, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     ROLE_DD,            "VoA_A_WARRIOR_25_D" },
+            --     { 13, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], AL["Blood"],        "VoA_A_DEATHKNIGHT_25_T" },
+            --     { 14, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], ROLE_DD,            "VoA_A_DEATHKNIGHT_25_D" },
+            --     { 16, "CLASS_MAGE",         nil, CLASS_NAME["MAGE"],        nil,                "VoA_A_MAGE_25" },
+            --     { 18, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Restoration"],  "VoA_A_DRUID_25_H" },
+            --     { 19, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Balance"],      "VoA_A_DRUID_25_DR" },
+            --     { 20, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Feral"],        "VoA_A_DRUID_25_D" },
+            --     { 22, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Restoration"],  "VoA_A_SHAMAN_25_H" },
+            --     { 23, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Elemental"],    "VoA_A_SHAMAN_25_DR" },
+            --     { 24, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Enhancement"],  "VoA_A_SHAMAN_25_D" },
+            --     { 26, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Protection"],   "VoA_A_PALADIN_25_T" },
+            --     { 27, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Holy"],         "VoA_A_PALADIN_25_H" },
+            --     { 28, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Retribution"],  "VoA_A_PALADIN_25_D" },
+            -- }
+        },
+        -- { -- VaultofArchavonEmalon
+        --     name = AL["Emalon the Storm Watcher"],
+        --     npcID = 33993,
+        --     Level = 999,
+        --     --DisplayIDs = {{17386}},
+        --     AtlasMapBossID = 2,
+        --     [RAID10_DIFF] = {
+        --         { 1, "CLASS_WARLOCK",       nil, CLASS_NAME["WARLOCK"],     nil,                "VoA_E_WARLOCK_10" },
+        --         { 3, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Holy"],         "VoA_E_PRIEST_10_H" },
+        --         { 4, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Shadow"],       "VoA_E_PRIEST_10_D" },
+        --         { 6, "CLASS_ROGUE",         nil, CLASS_NAME["ROGUE"],       nil,                "VoA_E_ROGUE_10" },
+        --         { 8, "CLASS_HUNTER",        nil, CLASS_NAME["HUNTER"],      nil,                "VoA_E_HUNTER_10" },
+        --         { 10, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     AL["Protection"],   "VoA_E_WARRIOR_10_T" },
+        --         { 11, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     ROLE_DD,            "VoA_E_WARRIOR_10_D" },
+        --         { 13, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], AL["Blood"],        "VoA_E_DEATHKNIGHT_10_T" },
+        --         { 14, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], ROLE_DD,            "VoA_E_DEATHKNIGHT_10_D" },
+        --         { 16, "CLASS_MAGE",         nil, CLASS_NAME["MAGE"],        nil,                "VoA_E_MAGE_10" },
+        --         { 18, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Restoration"],  "VoA_E_DRUID_10_H" },
+        --         { 19, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Balance"],      "VoA_E_DRUID_10_DR" },
+        --         { 20, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Feral"],        "VoA_E_DRUID_10_D" },
+        --         { 22, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Restoration"],  "VoA_E_SHAMAN_10_H" },
+        --         { 23, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Elemental"],    "VoA_E_SHAMAN_10_DR" },
+        --         { 24, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Enhancement"],  "VoA_E_SHAMAN_10_D" },
+        --         { 26, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Protection"],   "VoA_E_PALADIN_10_T" },
+        --         { 27, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Holy"],         "VoA_E_PALADIN_10_H" },
+        --         { 28, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Retribution"],  "VoA_E_PALADIN_10_D" },
+        --     },
+        --     [RAID25_DIFF] = {
+        --         { 1, "CLASS_WARLOCK",       nil, CLASS_NAME["WARLOCK"],     nil,                "VoA_E_WARLOCK_25" },
+        --         { 3, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Holy"],         "VoA_E_PRIEST_25_H" },
+        --         { 4, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Shadow"],       "VoA_E_PRIEST_25_D" },
+        --         { 6, "CLASS_ROGUE",         nil, CLASS_NAME["ROGUE"],       nil,                "VoA_E_ROGUE_25" },
+        --         { 8, "CLASS_HUNTER",        nil, CLASS_NAME["HUNTER"],      nil,                "VoA_E_HUNTER_25" },
+        --         { 10, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     AL["Protection"],   "VoA_E_WARRIOR_25_T" },
+        --         { 11, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     ROLE_DD,            "VoA_E_WARRIOR_25_D" },
+        --         { 13, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], AL["Blood"],        "VoA_E_DEATHKNIGHT_25_T" },
+        --         { 14, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], ROLE_DD,            "VoA_E_DEATHKNIGHT_25_D" },
+        --         { 16, "CLASS_MAGE",         nil, CLASS_NAME["MAGE"],        nil,                "VoA_E_MAGE_25" },
+        --         { 18, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Restoration"],  "VoA_E_DRUID_25_H" },
+        --         { 19, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Balance"],      "VoA_E_DRUID_25_DR" },
+        --         { 20, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Feral"],        "VoA_E_DRUID_25_D" },
+        --         { 22, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Restoration"],  "VoA_E_SHAMAN_25_H" },
+        --         { 23, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Elemental"],    "VoA_E_SHAMAN_25_DR" },
+        --         { 24, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Enhancement"],  "VoA_E_SHAMAN_25_D" },
+        --         { 26, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Protection"],   "VoA_E_PALADIN_25_T" },
+        --         { 27, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Holy"],         "VoA_E_PALADIN_25_H" },
+        --         { 28, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Retribution"],  "VoA_E_PALADIN_25_D" },
+        --     }
+        -- },
+        -- { -- VaultofArchavonKoralon_Alliance
+        --     name = AL["Koralon the Flame Watcher"],
+        --     npcID = 35013,
+        --     Level = 999,
+        --     --DisplayIDs = {{17386}},
+        --     AtlasMapBossID = 3,
+        --     [RAID10_DIFF] = {
+        --         { 1, "CLASS_WARLOCK",       nil, CLASS_NAME["WARLOCK"],     nil,                AtlasLoot:GetRetByFaction("VoA_KH_WARLOCK_10", "VoA_KA_WARLOCK_10") },
+        --         { 3, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Holy"],         AtlasLoot:GetRetByFaction("VoA_KH_PRIEST_10_H", "VoA_KA_PRIEST_10_H") },
+        --         { 4, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Shadow"],       AtlasLoot:GetRetByFaction("VoA_KH_PRIEST_10_D", "VoA_KA_PRIEST_10_D") },
+        --         { 6, "CLASS_ROGUE",         nil, CLASS_NAME["ROGUE"],       nil,                AtlasLoot:GetRetByFaction("VoA_KH_ROGUE_10", "VoA_KA_ROGUE_10") },
+        --         { 8, "CLASS_HUNTER",        nil, CLASS_NAME["HUNTER"],      nil,                AtlasLoot:GetRetByFaction("VoA_KH_HUNTER_10", "VoA_KA_HUNTER_10") },
+        --         { 10, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     AL["Protection"],   AtlasLoot:GetRetByFaction("VoA_KH_WARRIOR_10_T", "VoA_KA_WARRIOR_10_T") },
+        --         { 11, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     ROLE_DD,            AtlasLoot:GetRetByFaction("VoA_KH_WARRIOR_10_D", "VoA_KA_WARRIOR_10_D") },
+        --         { 13, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], AL["Blood"],        AtlasLoot:GetRetByFaction("VoA_KH_DEATHKNIGHT_10_T", "VoA_KA_DEATHKNIGHT_10_T") },
+        --         { 14, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], ROLE_DD,            AtlasLoot:GetRetByFaction("VoA_KH_DEATHKNIGHT_10_D", "VoA_KA_DEATHKNIGHT_10_D") },
+        --         { 16, "CLASS_MAGE",         nil, CLASS_NAME["MAGE"],        nil,                AtlasLoot:GetRetByFaction("VoA_KH_MAGE_10", "VoA_KA_MAGE_10") },
+        --         { 18, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Restoration"],  AtlasLoot:GetRetByFaction("VoA_KH_DRUID_10_H", "VoA_KA_DRUID_10_H") },
+        --         { 19, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Balance"],      AtlasLoot:GetRetByFaction("VoA_KH_DRUID_10_DR", "VoA_KA_DRUID_10_DR") },
+        --         { 20, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Feral"],        AtlasLoot:GetRetByFaction("VoA_KH_DRUID_10_D", "VoA_KA_DRUID_10_D") },
+        --         { 22, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Restoration"],  AtlasLoot:GetRetByFaction("VoA_KH_SHAMAN_10_H", "VoA_KA_SHAMAN_10_H") },
+        --         { 23, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Elemental"],    AtlasLoot:GetRetByFaction("VoA_KH_SHAMAN_10_DR", "VoA_KA_SHAMAN_10_DR") },
+        --         { 24, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Enhancement"],  AtlasLoot:GetRetByFaction("VoA_KH_SHAMAN_10_D", "VoA_KA_SHAMAN_10_D") },
+        --         { 26, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Protection"],   AtlasLoot:GetRetByFaction("VoA_KH_PALADIN_10_T", "VoA_KA_PALADIN_10_T") },
+        --         { 27, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Holy"],         AtlasLoot:GetRetByFaction("VoA_KH_PALADIN_10_H", "VoA_KA_PALADIN_10_H") },
+        --         { 28, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Retribution"],  AtlasLoot:GetRetByFaction("VoA_KH_PALADIN_10_D", "VoA_KA_PALADIN_10_D") },
+        --         { 101, "SLOT_CLOTH",        nil, ALIL["Cloth"],         nil,  "VoA_K_CLOTH_10" },
+        --         { 102, "SLOT_LEATHER",      nil, ALIL["Leather"],       nil,  "VoA_K_LEATHER_10" },
+        --         { 103, "SLOT_MAIL",         nil, ALIL["Mail"],          nil,  "VoA_K_MAIL_10" },
+        --         { 104, "SLOT_PLATE",        nil, ALIL["Plate"],         nil,  "VoA_K_PLATE_10" },
+        --         { 106, "SLOT_BACK",         nil, ALIL["Back"],          nil,  "VoA_K_BACK_10" },
+        --         { 107, "SLOT_NECK",         nil, ALIL["Neck"],          nil,  "VoA_K_NECK_10" },
+        --         { 108, "SLOT_FINGER",       nil, ALIL["Finger"],        nil,  "VoA_K_FINGER_10" },
+        --         { 116, AtlasLoot:GetRetByFaction(44083, 43959 ) }, -- Reins of the Grand Black War Mammoth
+        --     },
+        --     [RAID25_DIFF] = {
+        --         { 1, "CLASS_WARLOCK",       nil, CLASS_NAME["WARLOCK"],     nil,                AtlasLoot:GetRetByFaction("VoA_KH_WARLOCK_25", "VoA_KA_WARLOCK_25") },
+        --         { 3, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Holy"],         AtlasLoot:GetRetByFaction("VoA_KH_PRIEST_25_H", "VoA_KA_PRIEST_25_H") },
+        --         { 4, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Shadow"],       AtlasLoot:GetRetByFaction("VoA_KH_PRIEST_25_D", "VoA_KA_PRIEST_25_D") },
+        --         { 6, "CLASS_ROGUE",         nil, CLASS_NAME["ROGUE"],       nil,                AtlasLoot:GetRetByFaction("VoA_KH_ROGUE_25", "VoA_KA_ROGUE_25") },
+        --         { 8, "CLASS_HUNTER",        nil, CLASS_NAME["HUNTER"],      nil,                AtlasLoot:GetRetByFaction("VoA_KH_HUNTER_25", "VoA_KA_HUNTER_25") },
+        --         { 10, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     AL["Protection"],   AtlasLoot:GetRetByFaction("VoA_KH_WARRIOR_25_T", "VoA_KA_WARRIOR_25_T") },
+        --         { 11, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     ROLE_DD,            AtlasLoot:GetRetByFaction("VoA_KH_WARRIOR_25_D", "VoA_KA_WARRIOR_25_D") },
+        --         { 13, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], AL["Blood"],        AtlasLoot:GetRetByFaction("VoA_KH_DEATHKNIGHT_25_T", "VoA_KA_DEATHKNIGHT_25_T") },
+        --         { 14, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], ROLE_DD,            AtlasLoot:GetRetByFaction("VoA_KH_DEATHKNIGHT_25_D", "VoA_KA_DEATHKNIGHT_25_D") },
+        --         { 16, "CLASS_MAGE",         nil, CLASS_NAME["MAGE"],        nil,                AtlasLoot:GetRetByFaction("VoA_KH_MAGE_25", "VoA_KA_MAGE_25") },
+        --         { 18, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Restoration"],  AtlasLoot:GetRetByFaction("VoA_KH_DRUID_25_H", "VoA_KA_DRUID_25_H") },
+        --         { 19, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Balance"],      AtlasLoot:GetRetByFaction("VoA_KH_DRUID_25_DR", "VoA_KA_DRUID_25_DR") },
+        --         { 20, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Feral"],        AtlasLoot:GetRetByFaction("VoA_KH_DRUID_25_D", "VoA_KA_DRUID_25_D") },
+        --         { 22, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Restoration"],  AtlasLoot:GetRetByFaction("VoA_KH_SHAMAN_25_H", "VoA_KA_SHAMAN_25_H") },
+        --         { 23, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Elemental"],    AtlasLoot:GetRetByFaction("VoA_KH_SHAMAN_25_DR", "VoA_KA_SHAMAN_25_DR") },
+        --         { 24, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Enhancement"],  AtlasLoot:GetRetByFaction("VoA_KH_SHAMAN_25_D", "VoA_KA_SHAMAN_25_D") },
+        --         { 26, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Protection"],   AtlasLoot:GetRetByFaction("VoA_KH_PALADIN_25_T", "VoA_KA_PALADIN_25_T") },
+        --         { 27, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Holy"],         AtlasLoot:GetRetByFaction("VoA_KH_PALADIN_25_H", "VoA_KA_PALADIN_25_H") },
+        --         { 28, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Retribution"],  AtlasLoot:GetRetByFaction("VoA_KH_PALADIN_25_D", "VoA_KA_PALADIN_25_D") },
+        --         { 101, "SLOT_CLOTH",        nil, ALIL["Cloth"],         nil,  "VoA_K_CLOTH_25" },
+        --         { 102, "SLOT_LEATHER",      nil, ALIL["Leather"],       nil,  "VoA_K_LEATHER_25" },
+        --         { 103, "SLOT_MAIL",         nil, ALIL["Mail"],          nil,  "VoA_K_MAIL_25" },
+        --         { 104, "SLOT_PLATE",        nil, ALIL["Plate"],         nil,  "VoA_K_PLATE_25" },
+        --         { 106, "SLOT_BACK",         nil, ALIL["Back"],          nil,  "VoA_K_BACK_25" },
+        --         { 107, "SLOT_NECK",         nil, ALIL["Neck"],          nil,  "VoA_K_NECK_25" },
+        --         { 108, "SLOT_FINGER",       nil, ALIL["Finger"],        nil,  "VoA_K_FINGER_25" },
+        --         { 116, AtlasLoot:GetRetByFaction(44083, 43959 ) }, -- Reins of the Grand Black War Mammoth
+        --     }
+        -- },
+        -- { -- VaultofArchavonEmalon
+        --     name = AL["Toravon the Ice Watcher"],
+        --     npcID = 38433,
+        --     Level = 999,
+        --     --DisplayIDs = {{17386}},
+        --     AtlasMapBossID = 4,
+        --     [RAID10_DIFF] = {
+        --         { 1, "CLASS_WARLOCK",       nil, CLASS_NAME["WARLOCK"],     nil,                "VoA_T_WARLOCK_10" },
+        --         { 3, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Holy"],         "VoA_T_PRIEST_10_H" },
+        --         { 4, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Shadow"],       "VoA_T_PRIEST_10_D" },
+        --         { 6, "CLASS_ROGUE",         nil, CLASS_NAME["ROGUE"],       nil,                "VoA_T_ROGUE_10" },
+        --         { 8, "CLASS_HUNTER",        nil, CLASS_NAME["HUNTER"],      nil,                "VoA_T_HUNTER_10" },
+        --         { 10, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     AL["Protection"],   "VoA_T_WARRIOR_10_T" },
+        --         { 11, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     ROLE_DD,            "VoA_T_WARRIOR_10_D" },
+        --         { 13, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], AL["Blood"],        "VoA_T_DEATHKNIGHT_10_T" },
+        --         { 14, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], ROLE_DD,            "VoA_T_DEATHKNIGHT_10_D" },
+        --         { 16, "CLASS_MAGE",         nil, CLASS_NAME["MAGE"],        nil,                "VoA_T_MAGE_10" },
+        --         { 18, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Restoration"],  "VoA_T_DRUID_10_H" },
+        --         { 19, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Balance"],      "VoA_T_DRUID_10_DR" },
+        --         { 20, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Feral"],        "VoA_T_DRUID_10_D" },
+        --         { 22, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Restoration"],  "VoA_T_SHAMAN_10_H" },
+        --         { 23, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Elemental"],    "VoA_T_SHAMAN_10_DR" },
+        --         { 24, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Enhancement"],  "VoA_T_SHAMAN_10_D" },
+        --         { 26, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Protection"],   "VoA_T_PALADIN_10_T" },
+        --         { 27, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Holy"],         "VoA_T_PALADIN_10_H" },
+        --         { 28, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Retribution"],  "VoA_T_PALADIN_10_D" },
+        --         { 101, "SLOT_CLOTH",        nil, ALIL["Cloth"],         nil,  "VoA_T_CLOTH_10" },
+        --         { 102, "SLOT_LEATHER",      nil, ALIL["Leather"],       nil,  "VoA_T_LEATHER_10" },
+        --         { 103, "SLOT_MAIL",         nil, ALIL["Mail"],          nil,  "VoA_T_MAIL_10" },
+        --         { 104, "SLOT_PLATE",        nil, ALIL["Plate"],         nil,  "VoA_T_PLATE_10" },
+        --         { 106, "SLOT_BACK",         nil, ALIL["Back"],          nil,  "VoA_T_BACK_10" },
+        --         { 107, "SLOT_NECK",         nil, ALIL["Neck"],          nil,  "VoA_T_NECK_10" },
+        --         { 108, "SLOT_FINGER",       nil, ALIL["Finger"],        nil,  "VoA_T_FINGER_10" },
+        --         { 116, AtlasLoot:GetRetByFaction(44083, 43959 ) }, -- Reins of the Grand Black War Mammoth
+        --     },
+        --     [RAID25_DIFF] = {
+        --         { 1, "CLASS_WARLOCK",       nil, CLASS_NAME["WARLOCK"],     nil,                "VoA_T_WARLOCK_25" },
+        --         { 3, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Holy"],         "VoA_T_PRIEST_25_H" },
+        --         { 4, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Shadow"],       "VoA_T_PRIEST_25_D" },
+        --         { 6, "CLASS_ROGUE",         nil, CLASS_NAME["ROGUE"],       nil,                "VoA_T_ROGUE_25" },
+        --         { 8, "CLASS_HUNTER",        nil, CLASS_NAME["HUNTER"],      nil,                "VoA_T_HUNTER_25" },
+        --         { 10, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     AL["Protection"],   "VoA_T_WARRIOR_25_T" },
+        --         { 11, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     ROLE_DD,            "VoA_T_WARRIOR_25_D" },
+        --         { 13, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], AL["Blood"],        "VoA_T_DEATHKNIGHT_25_T" },
+        --         { 14, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], ROLE_DD,            "VoA_T_DEATHKNIGHT_25_D" },
+        --         { 16, "CLASS_MAGE",         nil, CLASS_NAME["MAGE"],        nil,                "VoA_T_MAGE_25" },
+        --         { 18, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Restoration"],  "VoA_T_DRUID_25_H" },
+        --         { 19, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Balance"],      "VoA_T_DRUID_25_DR" },
+        --         { 20, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Feral"],        "VoA_T_DRUID_25_D" },
+        --         { 22, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Restoration"],  "VoA_T_SHAMAN_25_H" },
+        --         { 23, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Elemental"],    "VoA_T_SHAMAN_25_DR" },
+        --         { 24, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Enhancement"],  "VoA_T_SHAMAN_25_D" },
+        --         { 26, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Protection"],   "VoA_T_PALADIN_25_T" },
+        --         { 27, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Holy"],         "VoA_T_PALADIN_25_H" },
+        --         { 28, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Retribution"],  "VoA_T_PALADIN_25_D" },
+        --         { 101, "SLOT_CLOTH",        nil, ALIL["Cloth"],         nil,  "VoA_T_CLOTH_25" },
+        --         { 102, "SLOT_LEATHER",      nil, ALIL["Leather"],       nil,  "VoA_T_LEATHER_25" },
+        --         { 103, "SLOT_MAIL4",        nil, ALIL["Mail"],          nil,  "VoA_T_MAIL_25" },
+        --         { 104, "SLOT_PLATE",        nil, ALIL["Plate"],         nil,  "VoA_T_PLATE_25" },
+        --         { 106, "SLOT_BACK",         nil, ALIL["Back"],          nil,  "VoA_T_BACK_25" },
+        --         { 107, "SLOT_NECK",         nil, ALIL["Neck"],          nil,  "VoA_T_NECK_25" },
+        --         { 108, "SLOT_FINGER",       nil, ALIL["Finger"],        nil,  "VoA_T_FINGER_25" },
+        --         { 116, AtlasLoot:GetRetByFaction(44083, 43959 ) }, -- Reins of the Grand Black War Mammoth
+        --     }
+        -- },
+        -- KEYS
+    }
+}
 data["TempestKeep80"] = {
 
-    name="P2 风暴要塞",
+    name = AL["P2 Tempest Keep"],
 	MapID = 3845,
 	InstanceID = 550,
 	AtlasModule = ATLAS_TBC_MODULE_NAME,
@@ -4743,12 +5081,14 @@ data["TempestKeep80"] = {
                 { 10, 29993 }, -- Twinblade of the Phoenix
                 { 11, 29996 }, -- Rod of the Sun King
                 { 12, 29988 }, -- The Nexus Key
-                { 16, 30236 }, -- Chestguard of the Vanquished Champion
-                { 17, 30237 }, -- Chestguard of the Vanquished Defender
-                { 18, 30238 }, -- Chestguard of the Vanquished Hero
-                { 20, 32458 }, -- Ashes of Al'ar
-                { 22, 32405 }, -- Verdant Sphere
-                { 24, 29905 }, -- Kael's Vial Remnant
+                { 16, "INV_Box_01", nil, AL["I Guess"] },
+                {17,19018},
+                { 19, 30236 }, -- Chestguard of the Vanquished Champion
+                { 20, 30237 }, -- Chestguard of the Vanquished Defender
+                { 21, 30238 }, -- Chestguard of the Vanquished Hero
+                { 23, 32458 }, -- Ashes of Al'ar
+                { 25, 32405 }, -- Verdant Sphere
+                { 27, 29905 }, -- Kael's Vial Remnant
             }
         },
         { -- TKEyeLegendaries
@@ -4802,7 +5142,7 @@ data["TempestKeep80"] = {
 }
 
 data["SerpentshrineCavern80"] = {
-    name ="P2 毒蛇神殿",
+    name = AL["P2 Serpentshrine Cavern"],
 	MapID = 3607,
 	InstanceID = 548,
 	AtlasModule = ATLAS_TBC_MODULE_NAME,
@@ -4974,7 +5314,7 @@ data["SerpentshrineCavern80"] = {
     }
 }
 data["WorldBossesBC80"] = {
-	name = "P2 世界Boss(末日行者+卡扎克2)",
+    name = AL["P2 World bosses of TBC"],
 	ContentType = RAID_CONTENT,
 	items = {
         { -- DDoomwalker
@@ -5017,7 +5357,7 @@ data["WorldBossesBC80"] = {
 }
 data["NaxxramasWrath"] = {
 	MapID = 3456,
-    name = "P3 纳克萨玛斯",
+    name = AL["P3 Naxxramas"],
 	InstanceID = 533,
 	AtlasModule = ATLAS_MODULE_NAME,
 	AtlasMapID = "Naxxramas",
@@ -5574,7 +5914,7 @@ data["NaxxramasWrath"] = {
 }
 
 data["TheEyeOfEternity"] = {
-    name ="P3 永恒之眼",
+    name = AL["P3 The Eye of Eternity"],
 	MapID = 4500,
 	InstanceID = 616,
     ContentType = RAID_CONTENT,
@@ -5622,7 +5962,7 @@ data["TheEyeOfEternity"] = {
 data["ObsidianSanctum"] = {
 	MapID = 4493,
 	InstanceID = 615,
-    name ="P3 黑曜石圣殿",
+    name =AL["P3 Obsidian Sanctum"],
     ContentType = RAID_CONTENT,
 	AtlasModule = ATLAS_MODULE_NAME,
 	AtlasMapID = "ObsidianSanctum",
@@ -5681,7 +6021,7 @@ data["ObsidianSanctum"] = {
 data["Zul'Gurub80"] = {
 	MapID = 1977,
 	InstanceID = 309,
-   name ="P4 祖尔格拉布",
+    name =AL["P4 Zul'Gurub"],
 	AtlasModule = ATLAS_ERA_MODULE_NAME,
 	AtlasMapID = "Zul'Gurub", -- ??
 	AtlasMapFile = "CL_ZulGurub",
@@ -6057,254 +6397,13 @@ data["Zul'Gurub80"] = {
 		},
 	},
 }
-local ROLE_DD = AL["Damage Dealer"]
-data["VaultofArchavon"] = {
-	MapID = 4603,
-    name ="P4 阿尔卡冯的宝库",
-	InstanceID = 624,
-    ContentType = RAID_CONTENT,
-	AtlasModule = ATLAS_MODULE_NAME,
-	AtlasMapID = "VaultOfArchavon",
-	AtlasMapFile = {"VaultOfArchavon"},
-	-- LevelRange = {80, 80, 80},
-	items = {
-        { -- VaultofArchavonArchavon
-            name = AL["Archavon the Stone Watcher"],
-            npcID = 31125,
-            Level = 999,
-            --DisplayIDs = {{17386}},
-            AtlasMapBossID = 1,
-            [RAID10_DIFF] = {
-                { 1, "CLASS_WARLOCK",       nil, CLASS_NAME["WARLOCK"],     nil,                "VoA_A_WARLOCK_10" },
-                { 3, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Holy"],         "VoA_A_PRIEST_10_H" },
-                { 4, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Shadow"],       "VoA_A_PRIEST_10_D" },
-                { 6, "CLASS_ROGUE",         nil, CLASS_NAME["ROGUE"],       nil,                "VoA_A_ROGUE_10" },
-                { 8, "CLASS_HUNTER",        nil, CLASS_NAME["HUNTER"],      nil,                "VoA_A_HUNTER_10" },
-                { 10, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     AL["Protection"],   "VoA_A_WARRIOR_10_T" },
-                { 11, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     ROLE_DD,            "VoA_A_WARRIOR_10_D" },
-                { 13, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], AL["Blood"],        "VoA_A_DEATHKNIGHT_10_T" },
-                { 14, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], ROLE_DD,            "VoA_A_DEATHKNIGHT_10_D" },
-                { 16, "CLASS_MAGE",         nil, CLASS_NAME["MAGE"],        nil,                "VoA_A_MAGE_10" },
-                { 18, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Restoration"],  "VoA_A_DRUID_10_H" },
-                { 19, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Balance"],      "VoA_A_DRUID_10_DR" },
-                { 20, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Feral"],        "VoA_A_DRUID_10_D" },
-                { 22, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Restoration"],  "VoA_A_SHAMAN_10_H" },
-                { 23, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Elemental"],    "VoA_A_SHAMAN_10_DR" },
-                { 24, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Enhancement"],  "VoA_A_SHAMAN_10_D" },
-                { 26, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Protection"],   "VoA_A_PALADIN_10_T" },
-                { 27, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Holy"],         "VoA_A_PALADIN_10_H" },
-                { 28, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Retribution"],  "VoA_A_PALADIN_10_D" },
-            },
-            [RAID25_DIFF] = {
-                { 1, "CLASS_WARLOCK",       nil, CLASS_NAME["WARLOCK"],     nil,                "VoA_A_WARLOCK_25" },
-                { 3, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Holy"],         "VoA_A_PRIEST_25_H" },
-                { 4, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Shadow"],       "VoA_A_PRIEST_25_D" },
-                { 6, "CLASS_ROGUE",         nil, CLASS_NAME["ROGUE"],       nil,                "VoA_A_ROGUE_25" },
-                { 8, "CLASS_HUNTER",        nil, CLASS_NAME["HUNTER"],      nil,                "VoA_A_HUNTER_25" },
-                { 10, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     AL["Protection"],   "VoA_A_WARRIOR_25_T" },
-                { 11, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     ROLE_DD,            "VoA_A_WARRIOR_25_D" },
-                { 13, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], AL["Blood"],        "VoA_A_DEATHKNIGHT_25_T" },
-                { 14, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], ROLE_DD,            "VoA_A_DEATHKNIGHT_25_D" },
-                { 16, "CLASS_MAGE",         nil, CLASS_NAME["MAGE"],        nil,                "VoA_A_MAGE_25" },
-                { 18, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Restoration"],  "VoA_A_DRUID_25_H" },
-                { 19, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Balance"],      "VoA_A_DRUID_25_DR" },
-                { 20, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Feral"],        "VoA_A_DRUID_25_D" },
-                { 22, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Restoration"],  "VoA_A_SHAMAN_25_H" },
-                { 23, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Elemental"],    "VoA_A_SHAMAN_25_DR" },
-                { 24, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Enhancement"],  "VoA_A_SHAMAN_25_D" },
-                { 26, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Protection"],   "VoA_A_PALADIN_25_T" },
-                { 27, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Holy"],         "VoA_A_PALADIN_25_H" },
-                { 28, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Retribution"],  "VoA_A_PALADIN_25_D" },
-            }
-        },
-        { -- VaultofArchavonEmalon
-            name = AL["Emalon the Storm Watcher"],
-            npcID = 33993,
-            Level = 999,
-            --DisplayIDs = {{17386}},
-            AtlasMapBossID = 2,
-            [RAID10_DIFF] = {
-                { 1, "CLASS_WARLOCK",       nil, CLASS_NAME["WARLOCK"],     nil,                "VoA_E_WARLOCK_10" },
-                { 3, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Holy"],         "VoA_E_PRIEST_10_H" },
-                { 4, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Shadow"],       "VoA_E_PRIEST_10_D" },
-                { 6, "CLASS_ROGUE",         nil, CLASS_NAME["ROGUE"],       nil,                "VoA_E_ROGUE_10" },
-                { 8, "CLASS_HUNTER",        nil, CLASS_NAME["HUNTER"],      nil,                "VoA_E_HUNTER_10" },
-                { 10, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     AL["Protection"],   "VoA_E_WARRIOR_10_T" },
-                { 11, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     ROLE_DD,            "VoA_E_WARRIOR_10_D" },
-                { 13, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], AL["Blood"],        "VoA_E_DEATHKNIGHT_10_T" },
-                { 14, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], ROLE_DD,            "VoA_E_DEATHKNIGHT_10_D" },
-                { 16, "CLASS_MAGE",         nil, CLASS_NAME["MAGE"],        nil,                "VoA_E_MAGE_10" },
-                { 18, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Restoration"],  "VoA_E_DRUID_10_H" },
-                { 19, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Balance"],      "VoA_E_DRUID_10_DR" },
-                { 20, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Feral"],        "VoA_E_DRUID_10_D" },
-                { 22, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Restoration"],  "VoA_E_SHAMAN_10_H" },
-                { 23, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Elemental"],    "VoA_E_SHAMAN_10_DR" },
-                { 24, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Enhancement"],  "VoA_E_SHAMAN_10_D" },
-                { 26, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Protection"],   "VoA_E_PALADIN_10_T" },
-                { 27, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Holy"],         "VoA_E_PALADIN_10_H" },
-                { 28, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Retribution"],  "VoA_E_PALADIN_10_D" },
-            },
-            [RAID25_DIFF] = {
-                { 1, "CLASS_WARLOCK",       nil, CLASS_NAME["WARLOCK"],     nil,                "VoA_E_WARLOCK_25" },
-                { 3, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Holy"],         "VoA_E_PRIEST_25_H" },
-                { 4, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Shadow"],       "VoA_E_PRIEST_25_D" },
-                { 6, "CLASS_ROGUE",         nil, CLASS_NAME["ROGUE"],       nil,                "VoA_E_ROGUE_25" },
-                { 8, "CLASS_HUNTER",        nil, CLASS_NAME["HUNTER"],      nil,                "VoA_E_HUNTER_25" },
-                { 10, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     AL["Protection"],   "VoA_E_WARRIOR_25_T" },
-                { 11, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     ROLE_DD,            "VoA_E_WARRIOR_25_D" },
-                { 13, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], AL["Blood"],        "VoA_E_DEATHKNIGHT_25_T" },
-                { 14, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], ROLE_DD,            "VoA_E_DEATHKNIGHT_25_D" },
-                { 16, "CLASS_MAGE",         nil, CLASS_NAME["MAGE"],        nil,                "VoA_E_MAGE_25" },
-                { 18, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Restoration"],  "VoA_E_DRUID_25_H" },
-                { 19, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Balance"],      "VoA_E_DRUID_25_DR" },
-                { 20, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Feral"],        "VoA_E_DRUID_25_D" },
-                { 22, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Restoration"],  "VoA_E_SHAMAN_25_H" },
-                { 23, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Elemental"],    "VoA_E_SHAMAN_25_DR" },
-                { 24, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Enhancement"],  "VoA_E_SHAMAN_25_D" },
-                { 26, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Protection"],   "VoA_E_PALADIN_25_T" },
-                { 27, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Holy"],         "VoA_E_PALADIN_25_H" },
-                { 28, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Retribution"],  "VoA_E_PALADIN_25_D" },
-            }
-        },
-        { -- VaultofArchavonKoralon_Alliance
-            name = AL["Koralon the Flame Watcher"],
-            npcID = 35013,
-            Level = 999,
-            --DisplayIDs = {{17386}},
-            AtlasMapBossID = 3,
-            [RAID10_DIFF] = {
-                { 1, "CLASS_WARLOCK",       nil, CLASS_NAME["WARLOCK"],     nil,                AtlasLoot:GetRetByFaction("VoA_KH_WARLOCK_10", "VoA_KA_WARLOCK_10") },
-                { 3, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Holy"],         AtlasLoot:GetRetByFaction("VoA_KH_PRIEST_10_H", "VoA_KA_PRIEST_10_H") },
-                { 4, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Shadow"],       AtlasLoot:GetRetByFaction("VoA_KH_PRIEST_10_D", "VoA_KA_PRIEST_10_D") },
-                { 6, "CLASS_ROGUE",         nil, CLASS_NAME["ROGUE"],       nil,                AtlasLoot:GetRetByFaction("VoA_KH_ROGUE_10", "VoA_KA_ROGUE_10") },
-                { 8, "CLASS_HUNTER",        nil, CLASS_NAME["HUNTER"],      nil,                AtlasLoot:GetRetByFaction("VoA_KH_HUNTER_10", "VoA_KA_HUNTER_10") },
-                { 10, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     AL["Protection"],   AtlasLoot:GetRetByFaction("VoA_KH_WARRIOR_10_T", "VoA_KA_WARRIOR_10_T") },
-                { 11, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     ROLE_DD,            AtlasLoot:GetRetByFaction("VoA_KH_WARRIOR_10_D", "VoA_KA_WARRIOR_10_D") },
-                { 13, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], AL["Blood"],        AtlasLoot:GetRetByFaction("VoA_KH_DEATHKNIGHT_10_T", "VoA_KA_DEATHKNIGHT_10_T") },
-                { 14, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], ROLE_DD,            AtlasLoot:GetRetByFaction("VoA_KH_DEATHKNIGHT_10_D", "VoA_KA_DEATHKNIGHT_10_D") },
-                { 16, "CLASS_MAGE",         nil, CLASS_NAME["MAGE"],        nil,                AtlasLoot:GetRetByFaction("VoA_KH_MAGE_10", "VoA_KA_MAGE_10") },
-                { 18, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Restoration"],  AtlasLoot:GetRetByFaction("VoA_KH_DRUID_10_H", "VoA_KA_DRUID_10_H") },
-                { 19, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Balance"],      AtlasLoot:GetRetByFaction("VoA_KH_DRUID_10_DR", "VoA_KA_DRUID_10_DR") },
-                { 20, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Feral"],        AtlasLoot:GetRetByFaction("VoA_KH_DRUID_10_D", "VoA_KA_DRUID_10_D") },
-                { 22, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Restoration"],  AtlasLoot:GetRetByFaction("VoA_KH_SHAMAN_10_H", "VoA_KA_SHAMAN_10_H") },
-                { 23, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Elemental"],    AtlasLoot:GetRetByFaction("VoA_KH_SHAMAN_10_DR", "VoA_KA_SHAMAN_10_DR") },
-                { 24, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Enhancement"],  AtlasLoot:GetRetByFaction("VoA_KH_SHAMAN_10_D", "VoA_KA_SHAMAN_10_D") },
-                { 26, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Protection"],   AtlasLoot:GetRetByFaction("VoA_KH_PALADIN_10_T", "VoA_KA_PALADIN_10_T") },
-                { 27, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Holy"],         AtlasLoot:GetRetByFaction("VoA_KH_PALADIN_10_H", "VoA_KA_PALADIN_10_H") },
-                { 28, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Retribution"],  AtlasLoot:GetRetByFaction("VoA_KH_PALADIN_10_D", "VoA_KA_PALADIN_10_D") },
-                { 101, "SLOT_CLOTH",        nil, ALIL["Cloth"],         nil,  "VoA_K_CLOTH_10" },
-                { 102, "SLOT_LEATHER",      nil, ALIL["Leather"],       nil,  "VoA_K_LEATHER_10" },
-                { 103, "SLOT_MAIL",         nil, ALIL["Mail"],          nil,  "VoA_K_MAIL_10" },
-                { 104, "SLOT_PLATE",        nil, ALIL["Plate"],         nil,  "VoA_K_PLATE_10" },
-                { 106, "SLOT_BACK",         nil, ALIL["Back"],          nil,  "VoA_K_BACK_10" },
-                { 107, "SLOT_NECK",         nil, ALIL["Neck"],          nil,  "VoA_K_NECK_10" },
-                { 108, "SLOT_FINGER",       nil, ALIL["Finger"],        nil,  "VoA_K_FINGER_10" },
-                { 116, AtlasLoot:GetRetByFaction(44083, 43959 ) }, -- Reins of the Grand Black War Mammoth
-            },
-            [RAID25_DIFF] = {
-                { 1, "CLASS_WARLOCK",       nil, CLASS_NAME["WARLOCK"],     nil,                AtlasLoot:GetRetByFaction("VoA_KH_WARLOCK_25", "VoA_KA_WARLOCK_25") },
-                { 3, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Holy"],         AtlasLoot:GetRetByFaction("VoA_KH_PRIEST_25_H", "VoA_KA_PRIEST_25_H") },
-                { 4, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Shadow"],       AtlasLoot:GetRetByFaction("VoA_KH_PRIEST_25_D", "VoA_KA_PRIEST_25_D") },
-                { 6, "CLASS_ROGUE",         nil, CLASS_NAME["ROGUE"],       nil,                AtlasLoot:GetRetByFaction("VoA_KH_ROGUE_25", "VoA_KA_ROGUE_25") },
-                { 8, "CLASS_HUNTER",        nil, CLASS_NAME["HUNTER"],      nil,                AtlasLoot:GetRetByFaction("VoA_KH_HUNTER_25", "VoA_KA_HUNTER_25") },
-                { 10, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     AL["Protection"],   AtlasLoot:GetRetByFaction("VoA_KH_WARRIOR_25_T", "VoA_KA_WARRIOR_25_T") },
-                { 11, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     ROLE_DD,            AtlasLoot:GetRetByFaction("VoA_KH_WARRIOR_25_D", "VoA_KA_WARRIOR_25_D") },
-                { 13, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], AL["Blood"],        AtlasLoot:GetRetByFaction("VoA_KH_DEATHKNIGHT_25_T", "VoA_KA_DEATHKNIGHT_25_T") },
-                { 14, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], ROLE_DD,            AtlasLoot:GetRetByFaction("VoA_KH_DEATHKNIGHT_25_D", "VoA_KA_DEATHKNIGHT_25_D") },
-                { 16, "CLASS_MAGE",         nil, CLASS_NAME["MAGE"],        nil,                AtlasLoot:GetRetByFaction("VoA_KH_MAGE_25", "VoA_KA_MAGE_25") },
-                { 18, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Restoration"],  AtlasLoot:GetRetByFaction("VoA_KH_DRUID_25_H", "VoA_KA_DRUID_25_H") },
-                { 19, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Balance"],      AtlasLoot:GetRetByFaction("VoA_KH_DRUID_25_DR", "VoA_KA_DRUID_25_DR") },
-                { 20, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Feral"],        AtlasLoot:GetRetByFaction("VoA_KH_DRUID_25_D", "VoA_KA_DRUID_25_D") },
-                { 22, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Restoration"],  AtlasLoot:GetRetByFaction("VoA_KH_SHAMAN_25_H", "VoA_KA_SHAMAN_25_H") },
-                { 23, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Elemental"],    AtlasLoot:GetRetByFaction("VoA_KH_SHAMAN_25_DR", "VoA_KA_SHAMAN_25_DR") },
-                { 24, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Enhancement"],  AtlasLoot:GetRetByFaction("VoA_KH_SHAMAN_25_D", "VoA_KA_SHAMAN_25_D") },
-                { 26, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Protection"],   AtlasLoot:GetRetByFaction("VoA_KH_PALADIN_25_T", "VoA_KA_PALADIN_25_T") },
-                { 27, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Holy"],         AtlasLoot:GetRetByFaction("VoA_KH_PALADIN_25_H", "VoA_KA_PALADIN_25_H") },
-                { 28, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Retribution"],  AtlasLoot:GetRetByFaction("VoA_KH_PALADIN_25_D", "VoA_KA_PALADIN_25_D") },
-                { 101, "SLOT_CLOTH",        nil, ALIL["Cloth"],         nil,  "VoA_K_CLOTH_25" },
-                { 102, "SLOT_LEATHER",      nil, ALIL["Leather"],       nil,  "VoA_K_LEATHER_25" },
-                { 103, "SLOT_MAIL",         nil, ALIL["Mail"],          nil,  "VoA_K_MAIL_25" },
-                { 104, "SLOT_PLATE",        nil, ALIL["Plate"],         nil,  "VoA_K_PLATE_25" },
-                { 106, "SLOT_BACK",         nil, ALIL["Back"],          nil,  "VoA_K_BACK_25" },
-                { 107, "SLOT_NECK",         nil, ALIL["Neck"],          nil,  "VoA_K_NECK_25" },
-                { 108, "SLOT_FINGER",       nil, ALIL["Finger"],        nil,  "VoA_K_FINGER_25" },
-                { 116, AtlasLoot:GetRetByFaction(44083, 43959 ) }, -- Reins of the Grand Black War Mammoth
-            }
-        },
-        { -- VaultofArchavonEmalon
-            name = AL["Toravon the Ice Watcher"],
-            npcID = 38433,
-            Level = 999,
-            --DisplayIDs = {{17386}},
-            AtlasMapBossID = 4,
-            [RAID10_DIFF] = {
-                { 1, "CLASS_WARLOCK",       nil, CLASS_NAME["WARLOCK"],     nil,                "VoA_T_WARLOCK_10" },
-                { 3, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Holy"],         "VoA_T_PRIEST_10_H" },
-                { 4, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Shadow"],       "VoA_T_PRIEST_10_D" },
-                { 6, "CLASS_ROGUE",         nil, CLASS_NAME["ROGUE"],       nil,                "VoA_T_ROGUE_10" },
-                { 8, "CLASS_HUNTER",        nil, CLASS_NAME["HUNTER"],      nil,                "VoA_T_HUNTER_10" },
-                { 10, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     AL["Protection"],   "VoA_T_WARRIOR_10_T" },
-                { 11, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     ROLE_DD,            "VoA_T_WARRIOR_10_D" },
-                { 13, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], AL["Blood"],        "VoA_T_DEATHKNIGHT_10_T" },
-                { 14, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], ROLE_DD,            "VoA_T_DEATHKNIGHT_10_D" },
-                { 16, "CLASS_MAGE",         nil, CLASS_NAME["MAGE"],        nil,                "VoA_T_MAGE_10" },
-                { 18, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Restoration"],  "VoA_T_DRUID_10_H" },
-                { 19, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Balance"],      "VoA_T_DRUID_10_DR" },
-                { 20, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Feral"],        "VoA_T_DRUID_10_D" },
-                { 22, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Restoration"],  "VoA_T_SHAMAN_10_H" },
-                { 23, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Elemental"],    "VoA_T_SHAMAN_10_DR" },
-                { 24, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Enhancement"],  "VoA_T_SHAMAN_10_D" },
-                { 26, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Protection"],   "VoA_T_PALADIN_10_T" },
-                { 27, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Holy"],         "VoA_T_PALADIN_10_H" },
-                { 28, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Retribution"],  "VoA_T_PALADIN_10_D" },
-                { 101, "SLOT_CLOTH",        nil, ALIL["Cloth"],         nil,  "VoA_T_CLOTH_10" },
-                { 102, "SLOT_LEATHER",      nil, ALIL["Leather"],       nil,  "VoA_T_LEATHER_10" },
-                { 103, "SLOT_MAIL",         nil, ALIL["Mail"],          nil,  "VoA_T_MAIL_10" },
-                { 104, "SLOT_PLATE",        nil, ALIL["Plate"],         nil,  "VoA_T_PLATE_10" },
-                { 106, "SLOT_BACK",         nil, ALIL["Back"],          nil,  "VoA_T_BACK_10" },
-                { 107, "SLOT_NECK",         nil, ALIL["Neck"],          nil,  "VoA_T_NECK_10" },
-                { 108, "SLOT_FINGER",       nil, ALIL["Finger"],        nil,  "VoA_T_FINGER_10" },
-                { 116, AtlasLoot:GetRetByFaction(44083, 43959 ) }, -- Reins of the Grand Black War Mammoth
-            },
-            [RAID25_DIFF] = {
-                { 1, "CLASS_WARLOCK",       nil, CLASS_NAME["WARLOCK"],     nil,                "VoA_T_WARLOCK_25" },
-                { 3, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Holy"],         "VoA_T_PRIEST_25_H" },
-                { 4, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Shadow"],       "VoA_T_PRIEST_25_D" },
-                { 6, "CLASS_ROGUE",         nil, CLASS_NAME["ROGUE"],       nil,                "VoA_T_ROGUE_25" },
-                { 8, "CLASS_HUNTER",        nil, CLASS_NAME["HUNTER"],      nil,                "VoA_T_HUNTER_25" },
-                { 10, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     AL["Protection"],   "VoA_T_WARRIOR_25_T" },
-                { 11, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     ROLE_DD,            "VoA_T_WARRIOR_25_D" },
-                { 13, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], AL["Blood"],        "VoA_T_DEATHKNIGHT_25_T" },
-                { 14, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], ROLE_DD,            "VoA_T_DEATHKNIGHT_25_D" },
-                { 16, "CLASS_MAGE",         nil, CLASS_NAME["MAGE"],        nil,                "VoA_T_MAGE_25" },
-                { 18, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Restoration"],  "VoA_T_DRUID_25_H" },
-                { 19, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Balance"],      "VoA_T_DRUID_25_DR" },
-                { 20, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Feral"],        "VoA_T_DRUID_25_D" },
-                { 22, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Restoration"],  "VoA_T_SHAMAN_25_H" },
-                { 23, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Elemental"],    "VoA_T_SHAMAN_25_DR" },
-                { 24, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Enhancement"],  "VoA_T_SHAMAN_25_D" },
-                { 26, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Protection"],   "VoA_T_PALADIN_25_T" },
-                { 27, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Holy"],         "VoA_T_PALADIN_25_H" },
-                { 28, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Retribution"],  "VoA_T_PALADIN_25_D" },
-                { 101, "SLOT_CLOTH",        nil, ALIL["Cloth"],         nil,  "VoA_T_CLOTH_25" },
-                { 102, "SLOT_LEATHER",      nil, ALIL["Leather"],       nil,  "VoA_T_LEATHER_25" },
-                { 103, "SLOT_MAIL4",        nil, ALIL["Mail"],          nil,  "VoA_T_MAIL_25" },
-                { 104, "SLOT_PLATE",        nil, ALIL["Plate"],         nil,  "VoA_T_PLATE_25" },
-                { 106, "SLOT_BACK",         nil, ALIL["Back"],          nil,  "VoA_T_BACK_25" },
-                { 107, "SLOT_NECK",         nil, ALIL["Neck"],          nil,  "VoA_T_NECK_25" },
-                { 108, "SLOT_FINGER",       nil, ALIL["Finger"],        nil,  "VoA_T_FINGER_25" },
-                { 116, AtlasLoot:GetRetByFaction(44083, 43959 ) }, -- Reins of the Grand Black War Mammoth
-            }
-        },
-        KEYS
-    }
-}
+
 -- Trial of the Crusader / T9
 data["TrialoftheCrusader"] = {
 	EncounterJournalID = 757,
 	InstanceID = 649,
 	MapID = 4722,
-    name ="P4 十字军的试炼",
+    name = AL["P4 Trial of the Crusader"],
     AtlasModule = ATLAS_MODULE_NAME,
 	AtlasMapID = "TrialOfTheCrusader",
     AtlasMapFile = "TrialOfTheCrusader",
@@ -7288,7 +7387,7 @@ data["TrialoftheCrusader"] = {
 data["SunwellPlateau80"] = {
 	MapID = 4075,
 	InstanceID = 580,
-    name ="P5 太阳之井高地",
+    name = AL["P5 Sunwell Plateau"],
 	AtlasModule = ATLAS_TBC_MODULE_NAME,
 	AtlasMapID = "CL_SunwellPlateau",
 	AtlasMapFile = "CL_SunwellPlateau",
@@ -7534,7 +7633,7 @@ data["SunwellPlateau80"] = {
 data["ZulAman80"] = {
 	MapID = 3805,
 	InstanceID = 568,
-    name ="P5 祖阿曼",
+    name = AL["P5 Zul'Aman"],
 	AtlasModule = ATLAS_TBC_MODULE_NAME,
 	AtlasMapID = "ZulAman",
 	AtlasMapFile = "ZulAman",
@@ -7707,7 +7806,7 @@ data["ZulAman80"] = {
 }
 data["Ulduar"] = {
 	MapID = 4273,
-    name = "P6 奥杜尔",
+    name = AL["P6 Ulduar"],
     EncounterJournalID = 759,
 	InstanceID = 603,
     ContentType = RAID_CONTENT,
@@ -8528,7 +8627,7 @@ data["Ulduar"] = {
 data["MagtheridonsLair80"] = {
 	MapID = 3836,
 	InstanceID = 544,
-    name ="P7 玛瑟里顿的巢穴",
+    name = AL["P7 Magtheridon's Lair"],
 	AtlasModule = ATLAS_TBC_MODULE_NAME,
 	AtlasMapID = "CL_HCMagtheridonsLair",
 	AtlasMapFile = {"CL_HCMagtheridonsLair", "HellfireCitadelEnt"},
@@ -8568,7 +8667,7 @@ data["MagtheridonsLair80"] = {
 data["GruulsLair80"] = {
 	MapID = 3923,
 	InstanceID = 565,
-    name ="P7 格鲁尔的巢穴",
+    name = AL["P7 Gruul's Lair"],
 	AtlasModule = ATLAS_TBC_MODULE_NAME,
 	AtlasMapID = "CL_GruulsLair",
 	AtlasMapFile = "CL_GruulsLair",
@@ -8625,7 +8724,7 @@ local KARA_MAPDATA_END = {"CL_KarazhanEnd", "CL_KarazhanEnt"}
 data["Karazhan80"] = {
 	MapID = 3457,
 	InstanceID = 532,
-    name ="P7 卡拉赞",
+    name = AL["P7 Karazhan"],
 	AtlasModule = ATLAS_TBC_MODULE_NAME,
 	AtlasMapID = "CL_KarazhanStart",
 	AtlasMapFile = {"CL_KarazhanStart", "CL_KarazhanEnt"},
@@ -9015,7 +9114,7 @@ data["Karazhan80"] = {
 }
 data["BlackwingLair80"] = {
 	MapID = 2677,
-    name ="P8 黑翼之巢",
+    name = AL["P8 Blackwing Lair"],
 	InstanceID = 469,
 	AtlasModule = ATLAS_ERA_MODULE_NAME,
 	AtlasMapID = "BlackwingLair",
@@ -9281,7 +9380,7 @@ data["BlackwingLair80"] = {
 data["TheRuinsofAhnQiraj80"] = { -- AQ20
 	MapID = 3429,
 	InstanceID = 509,
-    name = "P8 安其拉废墟",
+    name = AL["P8 The Ruins of Ahn'Qiraj"],
 	AtlasModule = ATLAS_ERA_MODULE_NAME,
 	AtlasMapID = "TheRuinsofAhnQiraj",
 	AtlasMapFile = "CL_TheRuinsofAhnQiraj",
@@ -9504,7 +9603,7 @@ data["TheRuinsofAhnQiraj80"] = { -- AQ20
 data["WrathOnyxiasLair"] = {
 	EncounterJournalID = 760,
 	MapID = 2159,
-    name ="P8 奥妮克希亚的巢穴",
+    name = AL["P8 Onyxia's Lair"],
     InstanceID = 249,
     AtlasModule = ATLAS_ERA_MODULE_NAME,
 	AtlasMapID = "OnyxiasLair",
@@ -9580,7 +9679,7 @@ data["WrathOnyxiasLair"] = {
 data["TheTempleofAhnQiraj80"] = { -- AQ40
 	MapID = 3428,
 	InstanceID = 531,
-    name ="P9 安其拉神庙",
+    name = AL["P9 The Temple of Ahn'Qiraj"],
 	AtlasModule = ATLAS_ERA_MODULE_NAME,
 	AtlasMapID = "TheTempleofAhnQiraj",
 	AtlasMapFile = "CL_TheTempleofAhnQiraj",
@@ -9831,8 +9930,8 @@ data["TheTempleofAhnQiraj80"] = { -- AQ40
 	},
 }
 data["WorldBosses4ll"] = {
-	name = "P9 世界Boss(梦魇巨龙)",
 	AtlasMapFile = "Azuregos",
+    name = AL["P9 World bosses of Four Dragons"],
 	ContentType = RAID_CONTENT,
 	items = {
 		
@@ -9977,7 +10076,7 @@ data["WorldBosses4ll"] = {
 data["IcecrownCitadel"] = {
 	EncounterJournalID = 758,
 	MapID = 4812,
-    name ="P10 冰冠堡垒",
+    name = AL["P10 Icecrown Citadel"],
 	InstanceID = 631,
     AtlasModule = ATLAS_MODULE_NAME,
 	AtlasMapID = "IcecrownCitadelA",
@@ -10916,7 +11015,7 @@ data["IcecrownCitadel"] = {
 data["RubySanctum"] = {
 	EncounterJournalID = 761,
 	MapID = 4987,
-    name ="P10 红玉圣殿",
+    name = AL["P10 Ruby Sanctum"],
     InstanceID = 724,
     AtlasModule = ATLAS_MODULE_NAME,
 	AtlasMapID = "RubySanctum",
@@ -11004,7 +11103,8 @@ data["RubySanctum"] = {
 data["HyjalSummit80"] = {
 	MapID = 3606,
 	InstanceID = 534,
-    name ="终章 海加尔山",
+
+    name = AL["Finale Hyjal Summit"],
 	AtlasModule = ATLAS_TBC_MODULE_NAME,
 	AtlasMapID = "CoTHyjal",
 	AtlasMapFile = {"CoTHyjal", "CL_CoTHyjalEnt"},
@@ -11149,7 +11249,7 @@ data["HyjalSummit80"] = {
 data["BlackTemple80"] = {
 	MapID = 3959,
 	InstanceID = 564,
-    name = "终章 黑暗神庙",
+    name = AL["Finale BlackTemple"],
 	AtlasModule = ATLAS_TBC_MODULE_NAME,
 	AtlasMapID = "CL_BlackTempleStart",
 	AtlasMapFile = "CL_BlackTempleStart",

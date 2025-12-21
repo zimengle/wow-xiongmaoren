@@ -202,9 +202,8 @@ do
             end
 
             local timetypeOptions = {
-                --localize-me
-                {value = 1, label = "Activity Time", onclick = onSelectTimeType, icon = "Interface\\Icons\\Achievement_Quests_Completed_Daily_08", iconcolor = {1, .9, .9}, texcoord = {0.078125, 0.921875, 0.078125, 0.921875}},
-                {value = 2, label = "Effective Time", onclick = onSelectTimeType, icon = "Interface\\Icons\\Achievement_Quests_Completed_08"},
+                {value = 1, label = Loc ["STRING_OPTIONS_TIMETYPE_ACTIVITY"], onclick = onSelectTimeType, icon = "Interface\\Icons\\Achievement_Quests_Completed_Daily_08", iconcolor = {1, .9, .9}, texcoord = {0.078125, 0.921875, 0.078125, 0.921875}},
+                {value = 2, label = Loc ["STRING_OPTIONS_TIMETYPE_EFFECTIVE"], onclick = onSelectTimeType, icon = "Interface\\Icons\\Achievement_Quests_Completed_08"},
                 --{value = 3, label = "Real Time", onclick = onSelectTimeType, icon = "Interface\\Icons\\Ability_Evoker_TipTheScales"},
             }
             local buildTimeTypeMenu = function()
@@ -311,8 +310,8 @@ do
                 set = function(self, fixedparam, value)
                     Details.use_realtimedps = value
                 end,
-                name = "Show 'Real Time' DPS",
-                desc = "If Enabled and while in combat, show the damage done of the latest 5 seconds divided by 5.",
+                name = Loc ["STRING_OPTIONS_SHOW_REALTIME_DPS"],
+                desc = Loc ["STRING_OPTIONS_SHOW_REALTIME_DPS_DESC"],
                 boxfirst = true,
             },
 
@@ -322,8 +321,8 @@ do
                 set = function(self, fixedparam, value)
                     Details.realtimedps_order_bars = value
                 end,
-                name = "Order Bars By Real Time DPS",
-                desc = "If Enabled, players dealing more real time DPS are place above other players in the window.",
+                name = Loc ["STRING_OPTIONS_ORDER_BARS_REALTIME_DPS"],
+                desc = Loc ["STRING_OPTIONS_ORDER_BARS_REALTIME_DPS_DESC"],
                 boxfirst = true,
             },
 
@@ -333,13 +332,13 @@ do
                 set = function(self, fixedparam, value)
                     Details.realtimedps_always_arena = value
                 end,
-                name = "Always Use Real Time in Arenas",
-                desc = "If Enabled, real time DPS is always used in arenas, even if the option above is disabled.",
+                name = Loc ["STRING_OPTIONS_ALWAYS_REALTIME_ARENAS"],
+                desc = Loc ["STRING_OPTIONS_ALWAYS_REALTIME_ARENAS_DESC"],
                 boxfirst = true,
             },
 
             {type = "blank"},
-            {type = "label", get = function() return "Segments:" end, text_template = subSectionTitleTextTemplate},
+            {type = "label", get = function() return Loc ["STRING_OPTIONS_SEGMENTS_ANCHOR"] end, text_template = subSectionTitleTextTemplate},
 
             {--segments locked
                 type = "toggle",
@@ -411,8 +410,8 @@ do
                 min = 1,
                 max = 40,
                 step = 1,
-                name = "Segments Boss Wipe",
-                desc = "Amount of segments to keep for wipes on the same boss.",
+                name = Loc ["STRING_OPTIONS_SEGMENTS_BOSS_WIPE"],
+                desc = Loc ["STRING_OPTIONS_SEGMENTS_BOSS_WIPE_DESC"],
             },
             {--wipe segments keep the best segments and delete the worst ones
                 type = "toggle",
@@ -420,8 +419,8 @@ do
                 set = function(self, fixedparam, value)
                     Details.segments_boss_wipes_keep_best_performance = value
                 end,
-                name = "Keep Best Performance (boss wipes)",
-                desc = "Keep the segments with more progress in the boss health and delete the ones with less progress.",
+                name = Loc ["STRING_OPTIONS_KEEP_BEST_PERFORMANCE"],
+                desc = Loc ["STRING_OPTIONS_KEEP_BEST_PERFORMANCE_DESC"],
                 boxfirst = true,
             },
 
@@ -457,8 +456,8 @@ do
                     Details:SetOverallResetOptions(nil, nil, nil, value)
                     afterUpdate()
                 end,
-                name = "Clear On Start PVP", --localize-me
-                desc = "When enabled, overall data is automatically wiped when a new arena or battleground starts.", --localize-me
+                name = Loc ["STRING_OPTIONS_CLEAR_ON_START_PVP"],
+                desc = Loc ["STRING_OPTIONS_CLEAR_ON_START_PVP_DESC"],
                 boxfirst = true,
             },
             {--erase overall data on logout
@@ -479,14 +478,14 @@ do
                     Details.auto_swap_to_dynamic_overall = value
                     afterUpdate()
                 end,
-                name = "Use Dynamic Overall Damage",
-                desc = "When showing Damage Done Overall, swap to Dynamic Overall Damage on entering combat.",
+                name = Loc ["STRING_OPTIONS_USE_DYNAMIC_OVERALL"],
+                desc = Loc ["STRING_OPTIONS_USE_DYNAMIC_OVERALL_DESC"],
                 boxfirst = true,
             },
 
             {type = "blank"},
 
-            {type = "label", get = function() return "Window Control:" end, text_template = DF:GetTemplate("font", "ORANGE_FONT_TEMPLATE")}, --localize-me
+            {type = "label", get = function() return Loc ["STRING_OPTIONS_WINDOW_CONTROL_ANCHOR"] end, text_template = DF:GetTemplate("font", "ORANGE_FONT_TEMPLATE")},
             {--lock instance
                 type = "execute",
                 func = function(self)
@@ -554,7 +553,7 @@ do
 
             {type = "blank"},
 
-            {type = "label", get = function() return "Immersion" end, text_template = subSectionTitleTextTemplate}, --localize-me
+            {type = "label", get = function() return Loc ["STRING_OPTIONS_IMMERSION_ANCHOR"] end, text_template = subSectionTitleTextTemplate},
             {--show pets when solo
                 type = "toggle",
                 get = function() return Details.immersion_pets_on_solo_play end,
@@ -562,8 +561,8 @@ do
                     Details.immersion_pets_on_solo_play = value
                     afterUpdate()
                 end,
-                name = "Show pets when solo", --localize-me
-                desc = "Show pets when solo",
+                name = Loc ["STRING_OPTIONS_SHOW_PETS_WHEN_SOLO"],
+                desc = Loc ["STRING_OPTIONS_SHOW_PETS_WHEN_SOLO_DESC"],
                 boxfirst = true,
             },
 
@@ -604,8 +603,8 @@ do
                 end,
                 icontexture = [[Interface\GLUES\LOGIN\Glues-CheckBox-Check]],
                 --icontexcoords = {160/512, 179/512, 142/512, 162/512},
-                name = "Reset Nickname",
-                desc = "Reset Nickname",
+                name = Loc ["STRING_OPTIONS_RESET_NICKNAME"],
+                desc = Loc ["STRING_OPTIONS_RESET_NICKNAME_DESC"],
             },
             {--ignore nicknames
                 type = "toggle",
@@ -632,7 +631,7 @@ do
             },
 
             {type = "blank"},
-            {type = "label", get = function() return "Your Self" end, text_template = subSectionTitleTextTemplate},
+            {type = "label", get = function() return Loc ["STRING_OPTIONS_YOUR_SELF_ANCHOR"] end, text_template = subSectionTitleTextTemplate},
 
             {--player bar color toggle
                 type = "toggle",
@@ -641,8 +640,8 @@ do
                     Details.use_self_color = value
                     afterUpdate()
                 end,
-                name = "Use Different Color for You",
-                desc = "Use a different color on your own bar",
+                name = Loc ["STRING_OPTIONS_USE_DIFFERENT_COLOR_YOU"],
+                desc = Loc ["STRING_OPTIONS_USE_DIFFERENT_COLOR_YOU_DESC"],
                 boxfirst = true,
             },
 
@@ -658,13 +657,13 @@ do
                     Details.class_colors.SELF[3] = b
                     afterUpdate()
 				end,
-				name = "Your Bar Color",
-				desc = "Your Bar Color",
+				name = Loc ["STRING_OPTIONS_YOUR_BAR_COLOR"],
+				desc = Loc ["STRING_OPTIONS_YOUR_BAR_COLOR_DESC"],
                 boxfirst = true,
             },
 
             {type = "blank"},
-            {type = "label", get = function() return "Auto Erase:" end, text_template = subSectionTitleTextTemplate},
+            {type = "label", get = function() return Loc ["STRING_OPTIONS_AUTO_ERASE_ANCHOR"] end, text_template = subSectionTitleTextTemplate},
 
             {--auto erase settings | erase data
                 type = "select",
@@ -871,8 +870,8 @@ do
                 end,
                 icontexture = [[Interface\GLUES\LOGIN\Glues-CheckBox-Check]],
                 --icontexcoords = {160/512, 179/512, 142/512, 162/512},
-                name = "Reset Custom Skin",
-                desc = "Reset Custom Skin",
+                name = Loc ["STRING_OPTIONS_SKIN_RESET_CUSTOM"],
+                desc = Loc ["STRING_OPTIONS_SKIN_RESET_CUSTOM_DESC"],
             },
 
             {--save as skin
@@ -971,7 +970,7 @@ do
                             if (compressedData) then
                                 Details:ShowImportWindow(compressedData, nil, "Details! Export Skin")
                             else
-                                Details:Msg("failed to export skin.") --localize-me
+                                Details:Msg(Loc ["STRING_OPTIONS_SKIN_EXPORT_FAILED"])
                             end
                             Details222.OptionsPanel.SetCurrentInstanceAndRefresh(currentInstance)
                             afterUpdate()
@@ -1045,8 +1044,8 @@ do
                 min = -100,
                 max = 100,
                 step = 1,
-                name = "Width Offset", --localize-me
-                desc = "Fine tune the size of the window while embeded in the chat.", --localize-me
+                name = Loc ["STRING_OPTIONS_SKIN_WIDTH_OFFSET"],
+                desc = Loc ["STRING_OPTIONS_SKIN_WIDTH_OFFSET_DESC"],
             },
 
             {--chat tab height offset
@@ -1062,8 +1061,8 @@ do
                 min = -100,
                 max = 100,
                 step = 1,
-                name = "Height Offset", --localize-me
-                desc = "Fine tune the size of the window while embeded in the chat.", --localize-me
+                name = Loc ["STRING_OPTIONS_SKIN_HEIGHT_OFFSET"],
+                desc = Loc ["STRING_OPTIONS_SKIN_HEIGHT_OFFSET_DESC"],
             },
         }
 
@@ -1325,8 +1324,8 @@ do
                 end,
                 icontexture = [[Interface\Buttons\UI-GroupLoot-Pass-Down]],
                 --icontexcoords = {160/512, 179/512, 142/512, 162/512},
-                name = "Remove Custom Texture", --localize-me
-                desc = "Remove Custom Texture",
+                name = Loc ["STRING_OPTIONS_REMOVE_CUSTOM_TEXTURE"],
+                desc = Loc ["STRING_OPTIONS_REMOVE_CUSTOM_TEXTURE_DESC"],
             },
 
 			{--bar color
@@ -1357,7 +1356,7 @@ do
             },
 
             {type = "blank"},
-            {type = "label", get = function() return "Overlay:" end, text_template = subSectionTitleTextTemplate},
+            {type = "label", get = function() return Loc ["STRING_OPTIONS_OVERLAY_ANCHOR"] end, text_template = subSectionTitleTextTemplate},
             {--overlay texture
                 type = "select",
                 get = function() return currentInstance.row_info.overlay_texture end,
@@ -1365,7 +1364,7 @@ do
                     return buildTextureOverlayMenu()
                 end,
                 name = Loc ["STRING_TEXTURE"],
-                desc = "Texture which sits above the bar",
+                desc = Loc ["STRING_OPTIONS_OVERLAY_TEXTURE_DESC"],
             },
 
 			{--overlay color
@@ -1491,8 +1490,8 @@ do
                 max = 20,
                 usedecimals = true,
                 step = 0.5,
-                name = "Icon Size Offset", --localize-me
-                desc = "Icon Size Offset",
+                name = Loc ["STRING_OPTIONS_ICON_SIZE_OFFSET"],
+                desc = Loc ["STRING_OPTIONS_ICON_SIZE_OFFSET_DESC"],
                 thumbscale = 2.2,
             },
 
@@ -1505,8 +1504,8 @@ do
                     editInstanceSetting(currentInstance, "SetBarFactionIconSettings", value)
                     afterUpdate()
                 end,
-                name = "Show Faction Icon", --localize-me
-                desc = "When showing a player from the opposite faction, show the faction icon.",
+                name = Loc ["STRING_OPTIONS_SHOW_FACTION_ICON"],
+                desc = Loc ["STRING_OPTIONS_SHOW_FACTION_ICON_DESC"],
             },
 
             {--faction icon size offset
@@ -1520,8 +1519,8 @@ do
                 max = 20,
                 usedecimals = true,
                 step = 0.5,
-                name = "Faction Icon Size Offset", --localize-me
-                desc = "Faction Icon Size Offset",
+                name = Loc ["STRING_OPTIONS_FACTION_ICON_SIZE_OFFSET"],
+                desc = Loc ["STRING_OPTIONS_FACTION_ICON_SIZE_OFFSET_DESC"],
                 thumbscale = 2.2,
             },
 
@@ -1534,8 +1533,8 @@ do
                     editInstanceSetting(currentInstance, "SetBarArenaRoleIconSettings", value)
                     afterUpdate()
                 end,
-                name = "Show Arena Role Icon", --localize-me
-                desc = "When showing a player from arena, show the role icon.",
+                name = Loc ["STRING_OPTIONS_SHOW_ARENA_ROLE_ICON"],
+                desc = Loc ["STRING_OPTIONS_SHOW_ARENA_ROLE_ICON_DESC"],
             },
 
             {--role icon size offset
@@ -1549,8 +1548,8 @@ do
                 max = 20,
                 usedecimals = true,
                 step = 0.5,
-                name = "Arena Role Icon Size Offset", --localize-me
-                desc = "Arena Role Icon Size Offset",
+                name = Loc ["STRING_OPTIONS_ARENA_ROLE_ICON_SIZE_OFFSET"],
+                desc = Loc ["STRING_OPTIONS_ARENA_ROLE_ICON_SIZE_OFFSET_DESC"],
                 thumbscale = 2.2,
             },
 
@@ -1598,8 +1597,8 @@ do
                 min = -30,
                 max = 30,
                 step = 1,
-                name = "Unit Name Size Offset",
-                desc = "Unit Name Size Offset",
+                name = Loc ["STRING_OPTIONS_UNIT_NAME_SIZE_OFFSET"],
+                desc = Loc ["STRING_OPTIONS_UNIT_NAME_SIZE_OFFSET_DESC"],
             },
 
             {--lineText2 (left, usuali is the 'done' amount)
@@ -1687,7 +1686,7 @@ do
             },
 
             {type = "blank"},
-            {type = "label", get = function() return "Arena Team Color" end, text_template = subSectionTitleTextTemplate}, --localize-me
+            {type = "label", get = function() return Loc ["STRING_OPTIONS_ARENA_TEAM_COLOR_ANCHOR"] end, text_template = subSectionTitleTextTemplate},
 			{--team 1 color
                 type = "color",
                 get = function()
@@ -1701,7 +1700,7 @@ do
                     afterUpdate()
                 end,
                 name = Loc ["STRING_COLOR"],
-                desc = "Arena team color", --localize-me
+                desc = Loc ["STRING_OPTIONS_ARENA_TEAM_COLOR_DESC"],
             },
 			{--team 2 color
                 type = "color",
@@ -1716,7 +1715,7 @@ do
                     afterUpdate()
                 end,
                 name = Loc ["STRING_COLOR"],
-                desc = "Arena team color", --localize-me
+                desc = Loc ["STRING_OPTIONS_ARENA_TEAM_COLOR_DESC"],
             },
 
             {type = "blank"},
@@ -1813,8 +1812,8 @@ do
         
         local buildPercentMenu = function()
             local percentTable = {
-                {value = 1, label = "Relative to Total", onclick = onSelectPercent, icon = [[Interface\GROUPFRAME\UI-GROUP-MAINTANKICON]]},
-                {value = 2, label = "Relative to Top Player", onclick = onSelectPercent, icon = [[Interface\GROUPFRAME\UI-Group-LeaderIcon]]}
+                {value = 1, label = Loc ["STRING_OPTIONS_PERCENT_TYPE_RELATIVE_TOTAL"], onclick = onSelectPercent, icon = [[Interface\GROUPFRAME\UI-GROUP-MAINTANKICON]]},
+                {value = 2, label = Loc ["STRING_OPTIONS_PERCENT_TYPE_RELATIVE_TOP"], onclick = onSelectPercent, icon = [[Interface\GROUPFRAME\UI-Group-LeaderIcon]]}
             }
             return percentTable
         end
@@ -1830,7 +1829,7 @@ do
 			{value = "{", label = "{", onclick = onSelectBracket, icon = ""},
 			{value = "[", label = "[", onclick = onSelectBracket, icon = ""},
 			{value = "<", label = "<", onclick = onSelectBracket, icon = ""},
-			{value = "NONE", label = "no bracket", onclick = onSelectBracket, icon = [[Interface\Glues\LOGIN\Glues-CheckBox-Check]]},
+			{value = "NONE", label = Loc ["STRING_OPTIONS_NO_BRACKET"], onclick = onSelectBracket, icon = [[Interface\Glues\LOGIN\Glues-CheckBox-Check]]},
 		}
 		local buildBracketMenu = function()
 			return BracketTable
@@ -1851,7 +1850,7 @@ do
 			{value = "/", label = "/", onclick = onSelectSeparator, icon = ""},
 			{value = "\\", label = "\\", onclick = onSelectSeparator, icon = ""},
 			{value = "~", label = "~", onclick = onSelectSeparator, icon = ""},
-			{value = "NONE", label = "no separator", onclick = onSelectSeparator, icon = [[Interface\Glues\LOGIN\Glues-CheckBox-Check]]},
+			{value = "NONE", label = Loc ["STRING_OPTIONS_NO_SEPARATOR"], onclick = onSelectSeparator, icon = [[Interface\Glues\LOGIN\Glues-CheckBox-Check]]},
 		}
 		local buildSeparatorMenu = function()
 			return separatorTable
@@ -1898,8 +1897,8 @@ do
                 min = -10,
                 max = 10,
                 step = 1,
-                name = "Text Y Offset", -- Loc ["STRING_OPTIONS_TEXT_YOFFSET"]
-                desc = "Change the vertical offset for both left and right texts.", -- Loc ["STRING_OPTIONS_TEXT_YOFFSET_DESC"]
+                name = Loc ["STRING_OPTIONS_TEXT_YOFFSET"],
+                desc = Loc ["STRING_OPTIONS_TEXT_YOFFSET_DESC"],
             },
             {--text font 3
                 type = "select",
@@ -1952,8 +1951,8 @@ do
                     editInstanceSetting(currentInstance, "SetBarTextSettings", nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, value)
                     afterUpdate()
                 end,
-                name = "Outline", --localize-me
-                desc = "Text Outline",
+                name = Loc ["STRING_OPTIONS_TEXT_OUTLINE_SMALL"],
+                desc = Loc ["STRING_OPTIONS_TEXT_OUTLINE_SMALL_DESC"],
             },
 			{--outline small color 10
                 type = "color",
@@ -1965,8 +1964,8 @@ do
                     editInstanceSetting(currentInstance, "SetBarTextSettings", nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, {r, g, b, a})
                     afterUpdate()
                 end,
-                name = "Outline Color",
-                desc = "Outline Color",
+                name = Loc ["STRING_OPTIONS_TEXT_OUTLINE_COLOR"],
+                desc = Loc ["STRING_OPTIONS_TEXT_OUTLINE_COLOR_DESC"],
             },
             {--position number 11
                 type = "toggle",
@@ -1998,8 +1997,8 @@ do
                 min = -10,
                 max = 50,
                 step = 1,
-                name = "Offset", -- Loc ["STRING_OPTIONS_TEXT_LOFFSET"]
-                desc = "Change the horizontal offset.", -- Loc ["STRING_OPTIONS_TEXT_LOFFSET_DESC"]
+                name = Loc ["STRING_OPTIONS_TEXT_LOFFSET"],
+                desc = Loc ["STRING_OPTIONS_TEXT_LOFFSET_DESC"],
             },
 
             {type = "blank"}, --13
@@ -2062,8 +2061,8 @@ do
                     editInstanceSetting(currentInstance, "SetBarTextSettings", nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, value)
                     afterUpdate()
                 end,
-                name = "Outline", --localize-me
-                desc = "Text Outline",
+                name = Loc ["STRING_OPTIONS_TEXT_OUTLINE_SMALL"],
+                desc = Loc ["STRING_OPTIONS_TEXT_OUTLINE_SMALL_DESC"],
             },
 			{--outline small color 21
                 type = "color",
@@ -2075,8 +2074,8 @@ do
                     editInstanceSetting(currentInstance, "SetBarTextSettings", nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, {r, g, b, a})
                     afterUpdate()
                 end,
-                name = "Outline Color",
-                desc = "Outline Color",
+                name = Loc ["STRING_OPTIONS_TEXT_OUTLINE_COLOR"],
+                desc = Loc ["STRING_OPTIONS_TEXT_OUTLINE_COLOR_DESC"],
             },
 
             {type = "blank"}, --22
@@ -2257,10 +2256,10 @@ do
 
         local buildIconStyleMenu = function()
             local iconMenu = {
-                {value = "Interface\\AddOns\\Details\\images\\toolbar_icons", label = "Set 1", icon = "Interface\\AddOns\\Details\\images\\toolbar_icons", texcoord = {0, 0.125, 0, 1}, onclick = on_select_icon_set},
-                {value = "Interface\\AddOns\\Details\\images\\toolbar_icons_shadow", label = "Set 2", icon = "Interface\\AddOns\\Details\\images\\toolbar_icons_shadow", texcoord = {0, 0.125, 0, 1}, onclick = on_select_icon_set},
-                {value = "Interface\\AddOns\\Details\\images\\toolbar_icons_2", label = "Set 3", icon = "Interface\\AddOns\\Details\\images\\toolbar_icons_2", texcoord = {0, 0.125, 0, 1}, onclick = on_select_icon_set},
-                {value = "Interface\\AddOns\\Details\\images\\toolbar_icons_2_shadow", label = "Set 4", icon = "Interface\\AddOns\\Details\\images\\toolbar_icons_2_shadow", texcoord = {0, 0.125, 0, 1}, onclick = on_select_icon_set},
+                {value = "Interface\\AddOns\\Details\\images\\toolbar_icons", label = Loc ["STRING_OPTIONS_ICON_SET_1"], icon = "Interface\\AddOns\\Details\\images\\toolbar_icons", texcoord = {0, 0.125, 0, 1}, onclick = on_select_icon_set},
+                {value = "Interface\\AddOns\\Details\\images\\toolbar_icons_shadow", label = Loc ["STRING_OPTIONS_ICON_SET_2"], icon = "Interface\\AddOns\\Details\\images\\toolbar_icons_shadow", texcoord = {0, 0.125, 0, 1}, onclick = on_select_icon_set},
+                {value = "Interface\\AddOns\\Details\\images\\toolbar_icons_2", label = Loc ["STRING_OPTIONS_ICON_SET_3"], icon = "Interface\\AddOns\\Details\\images\\toolbar_icons_2", texcoord = {0, 0.125, 0, 1}, onclick = on_select_icon_set},
+                {value = "Interface\\AddOns\\Details\\images\\toolbar_icons_2_shadow", label = Loc ["STRING_OPTIONS_ICON_SET_4"], icon = "Interface\\AddOns\\Details\\images\\toolbar_icons_2_shadow", texcoord = {0, 0.125, 0, 1}, onclick = on_select_icon_set},
             }
             return iconMenu
         end
@@ -2270,7 +2269,7 @@ do
     local buildSection = function(sectionFrame)
         local sectionOptions = {
 
-            {type = "label", get = function() return "Title Bar" end, text_template = subSectionTitleTextTemplate},
+            {type = "label", get = function() return Loc ["STRING_OPTIONS_TITLEBAR_ANCHOR"] end, text_template = subSectionTitleTextTemplate},
 
             {--use custom titlebar
                 type = "toggle",
@@ -2280,8 +2279,8 @@ do
                     editInstanceSetting(currentInstance, "RefreshTitleBar")
                     afterUpdate()
                 end,
-                name = "Enable Custom Title Bar",
-                desc = "Use an alternative title bar instead of the title bar builtin in the Skin file.\n\n|cFFFFFF00Important|r: To disable the title bar from the Skin file, go to 'Window Body' and make the 'skin color' fully transparent.",
+                name = Loc ["STRING_OPTIONS_ENABLE_CUSTOM_TITLEBAR"],
+                desc = Loc ["STRING_OPTIONS_ENABLE_CUSTOM_TITLEBAR_DESC"],
             },
 
             {--custom title bar height
@@ -2295,8 +2294,8 @@ do
                 min = 0,
                 max = 32,
                 step = 1,
-                name = "Height",
-                desc = "Height",
+                name = Loc ["STRING_OPTIONS_TITLEBAR_HEIGHT"],
+                desc = Loc ["STRING_OPTIONS_TITLEBAR_HEIGHT_DESC"],
             },
 
             {--custom title bar texture
@@ -2320,8 +2319,8 @@ do
                     editInstanceSetting(currentInstance, "RefreshTitleBar")
                     afterUpdate()
                 end,
-                name = "Color",
-                desc = "Color",
+                name = Loc ["STRING_OPTIONS_TITLEBAR_COLOR"],
+                desc = Loc ["STRING_OPTIONS_TITLEBAR_COLOR_DESC"],
             },
 
 
@@ -2441,8 +2440,8 @@ do
                 values = function()
                     return buildIconStyleMenu()
                 end,
-                name = "Icon Set",
-                desc = "Icon Set",
+                name = Loc ["STRING_OPTIONS_ICON_SET"],
+                desc = Loc ["STRING_OPTIONS_ICON_SET_DESC"],
             },
 
             {--title bar icons size
@@ -2931,8 +2930,8 @@ do
                     Details:InstanceGroupCall(currentInstance, "UpdateClickThroughSettings", nil, value, value, value)
                     afterUpdate()
                 end,
-                name = "Click Through",
-                desc = "Click Through",
+                name = Loc ["STRING_OPTIONS_CLICK_THROUGH"],
+                desc = Loc ["STRING_OPTIONS_CLICK_THROUGH_DESC"],
                 boxfirst = true,
             },
             {--click only in combat
@@ -2942,8 +2941,8 @@ do
                     Details:InstanceGroupCall(currentInstance, "UpdateClickThroughSettings", value)
                     afterUpdate()
                 end,
-                name = "Click Through Only in Combat",
-                desc = "Click Through Only in Combat",
+                name = Loc ["STRING_OPTIONS_CLICK_THROUGH_INCOMBAT"],
+                desc = Loc ["STRING_OPTIONS_CLICK_THROUGH_INCOMBAT_DESC"],
                 boxfirst = true,
             },            
             {type = "blank"},
@@ -3063,7 +3062,7 @@ do
             },
 
             {type = "breakline"},
-            {type = "label", get = function() return "Window Area Border" end, text_template = subSectionTitleTextTemplate},
+            {type = "label", get = function() return Loc ["STRING_OPTIONS_WINDOW_AREA_BORDER_ANCHOR"] end, text_template = subSectionTitleTextTemplate},
 
             {--show full border ~border
                 type = "toggle",
@@ -3072,8 +3071,8 @@ do
                     editInstanceSetting(currentInstance, "UpdateFullBorder", value)
                     afterUpdate()
                 end,
-                name = "Show Border",
-                desc = "Show Border",
+                name = Loc ["STRING_OPTIONS_WINDOW_AREA_BORDER_SHOW"],
+                desc = Loc ["STRING_OPTIONS_WINDOW_AREA_BORDER_SHOW_DESC"],
             },
 
 			{--full border color
@@ -3085,8 +3084,8 @@ do
                     editInstanceSetting(currentInstance, "UpdateFullBorder", nil, {r, g, b, a})
                     afterUpdate()
                 end,
-                name = "Border Color",
-                desc = "Border Color",
+                name = Loc ["STRING_OPTIONS_WINDOW_AREA_BORDER_COLOR"],
+                desc = Loc ["STRING_OPTIONS_WINDOW_AREA_BORDER_COLOR_DESC"],
             },
 
             {--border size
@@ -3100,12 +3099,12 @@ do
                 max = 5,
                 step = 0.5,
                 usedecimals = true,
-                name = "Border Thickness",
-                desc = "Border Thickness",
+                name = Loc ["STRING_OPTIONS_WINDOW_AREA_BORDER_THICKNESS"],
+                desc = Loc ["STRING_OPTIONS_WINDOW_AREA_BORDER_THICKNESS_DESC"],
             },
 
             {type = "blank"},
-            {type = "label", get = function() return "Row's Area Border" end, text_template = subSectionTitleTextTemplate},
+            {type = "label", get = function() return Loc ["STRING_OPTIONS_ROWS_AREA_BORDER_ANCHOR"] end, text_template = subSectionTitleTextTemplate},
 
             {--show full border ~border
                 type = "toggle",
@@ -3114,8 +3113,8 @@ do
                     editInstanceSetting(currentInstance, "UpdateRowAreaBorder", value)
                     afterUpdate()
                 end,
-                name = "Show Border",
-                desc = "Show Border",
+                name = Loc ["STRING_OPTIONS_ROWS_AREA_BORDER_SHOW"],
+                desc = Loc ["STRING_OPTIONS_ROWS_AREA_BORDER_SHOW_DESC"],
             },
 
 			{--full border color
@@ -3127,8 +3126,8 @@ do
                     editInstanceSetting(currentInstance, "UpdateRowAreaBorder", nil, {r, g, b, a})
                     afterUpdate()
                 end,
-                name = "Border Color",
-                desc = "Border Color",
+                name = Loc ["STRING_OPTIONS_ROWS_AREA_BORDER_COLOR"],
+                desc = Loc ["STRING_OPTIONS_ROWS_AREA_BORDER_COLOR_DESC"],
             },
 
             {--border size
@@ -3142,8 +3141,8 @@ do
                 max = 5,
                 step = 0.5,
                 usedecimals = true,
-                name = "Border Thickness",
-                desc = "Border Thickness",
+                name = Loc ["STRING_OPTIONS_ROWS_AREA_BORDER_THICKNESS"],
+                desc = Loc ["STRING_OPTIONS_ROWS_AREA_BORDER_THICKNESS_DESC"],
             },
             
         }
@@ -3470,6 +3469,13 @@ do
         anchorFrame:SetPoint("topleft", sectionFrame, "topleft", startX - 10, startY)
         anchorFrame.plugin_widgets = {}
         anchorFrame:SetSize(1, 1)
+
+        local pluginDescLocalization = {
+            ["DETAILS_PLUGIN_ENCOUNTER_DETAILS"] = Loc ["STRING_OPTIONS_PLUGINS_ENCOUNTER_DETAILS_DESC"],
+            ["DETAILS_PLUGIN_STREAM_OVERLAY"] = Loc ["STRING_OPTIONS_PLUGINS_STREAM_OVERLAY_DESC"],
+            ["DETAILS_PLUGIN_COMPARETWO_WINDOW"] = Loc ["STRING_OPTIONS_PLUGINS_COMPARE2_DESC"],
+            ["DETAILS_PLUGIN_TINY_THREAT"] = Loc ["STRING_OPTIONS_PLUGINS_TINY_THREAT_DESC"],
+        }
         
         local on_enter = function(self)
         
@@ -3486,6 +3492,10 @@ do
             if (self.plugin) then
                 local desc = self.plugin:GetPluginDescription()
                 if (desc) then
+                    local pluginAbsName = self.pluginAbsName
+                    if (pluginAbsName and pluginDescLocalization[pluginAbsName]) then
+                        desc = pluginDescLocalization[pluginAbsName]
+                    end
                     GameCooltip:Preset(2)
                     GameCooltip:AddLine(desc)
                     GameCooltip:SetType ("tooltip")
@@ -3552,18 +3562,18 @@ do
         --then add a 'ghost' plugin so the player can download
     
         local allExistentToolbarPlugins = {
-            {"DETAILS_PLUGIN_CHART_VIEWER", "Details_ChartViewer", "Chart Viewer", "View combat data in handsome charts.", "https://www.curseforge.com/wow/addons/details-chart-viewer-plugin"},
-            {"DETAILS_PLUGIN_DEATH_GRAPHICS", "Details_DeathGraphs", "Advanced Death Logs", "Encounter endurance per player (who's dying more), deaths timeline by enemy spells and regular death logs.", "https://www.curseforge.com/wow/addons/details-advanced-death-logs-plug"},
+            {"DETAILS_PLUGIN_CHART_VIEWER", "Details_ChartViewer", "Chart Viewer", Loc ["STRING_OPTIONS_PLUGINS_CHART_VIEWER_DESC"], "https://www.curseforge.com/wow/addons/details-chart-viewer-plugin"},
+            {"DETAILS_PLUGIN_DEATH_GRAPHICS", "Details_DeathGraphs", "Advanced Death Logs", Loc ["STRING_OPTIONS_PLUGINS_DEATH_GRAPHICS_DESC"], "https://www.curseforge.com/wow/addons/details-advanced-death-logs-plug"},
             --{"Details_RaidPowerBars", "Raid Power Bars", "Alternate power bar in a details! window", "https://www.curseforge.com/wow/addons/details_raidpowerbars/"},
             --{"Details_TargetCaller", "Target Caller", "Show raid damage done to an entity since you targetted it.", "https://www.curseforge.com/wow/addons/details-target-caller-plugin"},
-            {"DETAILS_PLUGIN_TIME_LINE", "Details_TimeLine", "Time Line", "View raid cooldowns usage, debuff gain, boss casts in a fancy time line.", "https://www.curseforge.com/wow/addons/details_timeline"},
+            {"DETAILS_PLUGIN_TIME_LINE", "Details_TimeLine", "Time Line", Loc ["STRING_OPTIONS_PLUGINS_TIME_LINE_DESC"], "https://www.curseforge.com/wow/addons/details_timeline"},
         }
     
         local allExistentRaidPlugins = {
             --{"DETAILS_PLUGIN_CHART_VIEWER", "Details_ChartViewer", "Chart Viewer", "View combat data in handsome charts.", "https://www.curseforge.com/wow/addons/details-chart-viewer-plugin"},
             --{"DETAILS_PLUGIN_DEATH_GRAPHICS", "Details_DeathGraphs", "Advanced Death Logs", "Encounter endurance per player (who's dying more), deaths timeline by enemy spells and regular death logs.", "https://www.curseforge.com/wow/addons/details-advanced-death-logs-plug"},
-            {"DETAILS_PLUGIN_RAID_POWER_BARS", "Details_RaidPowerBars", "Raid Power Bars", "Alternate power bar in a details! window", "https://www.curseforge.com/wow/addons/details_raidpowerbars/"},
-            {"DETAILS_PLUGIN_TARGET_CALLER", "Details_TargetCaller", "Target Caller", "Show raid damage done to an entity since you targetted it.", "https://www.curseforge.com/wow/addons/details-target-caller-plugin"},
+            {"DETAILS_PLUGIN_RAID_POWER_BARS", "Details_RaidPowerBars", "Raid Power Bars", Loc ["STRING_OPTIONS_PLUGINS_RAID_POWER_BARS_DESC"], "https://www.curseforge.com/wow/addons/details_raidpowerbars/"},
+            {"DETAILS_PLUGIN_TARGET_CALLER", "Details_TargetCaller", "Target Caller", Loc ["STRING_OPTIONS_PLUGINS_TARGET_CALLER_DESC"], "https://www.curseforge.com/wow/addons/details-target-caller-plugin"},
             --{"DETAILS_PLUGIN_TIME_LINE", "Details_TimeLine", "Time Line", "View raid cooldowns usage, debuff gain, boss casts in a fancy time line.", "https://www.curseforge.com/wow/addons/details_timeline"},
         }
     
@@ -3580,18 +3590,19 @@ do
             bframe:SetScript("OnEnter", on_enter)
             bframe:SetScript("OnLeave", on_leave)
             bframe.plugin = pluginObject
+            bframe.pluginAbsName = absName
             bframe.id = i
             
             DF:NewImage(bframe, pluginObject.__icon, 18, 18, nil, nil, "toolbarPluginsIcon"..i, "$parentToolbarPluginsIcon"..i)
             bframe ["toolbarPluginsIcon"..i]:SetPoint("topleft", anchorFrame, "topleft", 10, y)
         
-            DF:NewLabel(bframe, _, "$parentToolbarPluginsLabel"..i, "toolbarPluginsLabel"..i, pluginObject.__name)
+            DF:NewLabel(bframe, _, "$parentToolbarPluginsLabel"..i, "toolbarPluginsLabel"..i, pluginObject.__name, "GameFontNormal", 12)
             bframe ["toolbarPluginsLabel"..i]:SetPoint("left", bframe ["toolbarPluginsIcon"..i], "right", 2, 0)
             
-            DF:NewLabel(bframe, _, "$parentToolbarPluginsLabel2"..i, "toolbarPluginsLabel2"..i, pluginObject.__author)
+            DF:NewLabel(bframe, _, "$parentToolbarPluginsLabel2"..i, "toolbarPluginsLabel2"..i, pluginObject.__author, "GameFontNormal", 12)
             bframe ["toolbarPluginsLabel2"..i]:SetPoint("topleft", anchorFrame, "topleft", 180, y-4)
             
-            DF:NewLabel(bframe, _, "$parentToolbarPluginsLabel3"..i, "toolbarPluginsLabel3"..i, pluginObject.__version)
+            DF:NewLabel(bframe, _, "$parentToolbarPluginsLabel3"..i, "toolbarPluginsLabel3"..i, pluginObject.__version, "GameFontNormal", 12)
             bframe ["toolbarPluginsLabel3"..i]:SetPoint("topleft", anchorFrame, "topleft", 290, y-4)
             
             local plugin_stable = Details:GetPluginSavedTable (absName)
@@ -3636,7 +3647,7 @@ do
                 local pluginObject = {
                     __icon = "",
                     __name = allExistentToolbarPlugins [o] [3],
-                    __author = "Not Installed",
+                    __author = Loc ["STRING_OPTIONS_PLUGINS_NOT_INSTALLED"],
                     __version = "",
                     OpenOptionsPanel = false,
                 }
@@ -3655,19 +3666,19 @@ do
                 DF:NewImage(bframe, pluginObject.__icon, 18, 18, nil, nil, "toolbarPluginsIcon"..i, "$parentToolbarPluginsIcon"..i)
                 bframe ["toolbarPluginsIcon"..i]:SetPoint("topleft", anchorFrame, "topleft", 10, y)
             
-                DF:NewLabel(bframe, _, "$parentToolbarPluginsLabel"..i, "toolbarPluginsLabel"..i, pluginObject.__name)
+                DF:NewLabel(bframe, _, "$parentToolbarPluginsLabel"..i, "toolbarPluginsLabel"..i, pluginObject.__name, "GameFontNormal", 12)
                 bframe ["toolbarPluginsLabel"..i]:SetPoint("left", bframe ["toolbarPluginsIcon"..i], "right", 2, 0)
                 bframe ["toolbarPluginsLabel"..i].color = notInstalledColor
                 
-                DF:NewLabel(bframe, _, "$parentToolbarPluginsLabel2"..i, "toolbarPluginsLabel2"..i, pluginObject.__author)
+                DF:NewLabel(bframe, _, "$parentToolbarPluginsLabel2"..i, "toolbarPluginsLabel2"..i, pluginObject.__author, "GameFontNormal", 12)
                 bframe ["toolbarPluginsLabel2"..i]:SetPoint("topleft", anchorFrame, "topleft", 180, y-4)
                 bframe ["toolbarPluginsLabel2"..i].color = notInstalledColor
                 
-                DF:NewLabel(bframe, _, "$parentToolbarPluginsLabel3"..i, "toolbarPluginsLabel3"..i, pluginObject.__version)
+                DF:NewLabel(bframe, _, "$parentToolbarPluginsLabel3"..i, "toolbarPluginsLabel3"..i, pluginObject.__version, "GameFontNormal", 12)
                 bframe ["toolbarPluginsLabel3"..i]:SetPoint("topleft", anchorFrame, "topleft", 290, y-4)
                 bframe ["toolbarPluginsLabel3"..i].color = notInstalledColor
     
-                local installButton = DF:CreateButton(bframe, function() Details:CopyPaste (allExistentToolbarPlugins [o] [5]) end, 120, 20, "Install")
+                local installButton = DF:CreateButton(bframe, function() Details:CopyPaste (allExistentToolbarPlugins [o] [5]) end, 120, 20, Loc ["STRING_OPTIONS_PLUGINS_INSTALL"])
                 installButton:SetTemplate(options_button_template)
                 installButton:SetPoint("topleft", anchorFrame, "topleft", 510, y-0)
                 
@@ -3715,18 +3726,19 @@ do
             bframe:SetScript("OnEnter", on_enter)
             bframe:SetScript("OnLeave", on_leave)
             bframe.plugin = pluginObject
+            bframe.pluginAbsName = absName
             bframe.id = i
             
             DF:NewImage(bframe, pluginObject.__icon, 18, 18, nil, nil, "raidPluginsIcon"..i, "$parentRaidPluginsIcon"..i)
             bframe ["raidPluginsIcon"..i]:SetPoint("topleft", anchorFrame, "topleft", 10, y)
         
-            DF:NewLabel(bframe, _, "$parentRaidPluginsLabel"..i, "raidPluginsLabel"..i, pluginObject.__name)
+            DF:NewLabel(bframe, _, "$parentRaidPluginsLabel"..i, "raidPluginsLabel"..i, pluginObject.__name, "GameFontNormal", 12)
             bframe ["raidPluginsLabel"..i]:SetPoint("left", bframe ["raidPluginsIcon"..i], "right", 2, 0)
             
-            DF:NewLabel(bframe, _, "$parentRaidPluginsLabel2"..i, "raidPluginsLabel2"..i, pluginObject.__author)
+            DF:NewLabel(bframe, _, "$parentRaidPluginsLabel2"..i, "raidPluginsLabel2"..i, pluginObject.__author, "GameFontNormal", 12)
             bframe ["raidPluginsLabel2"..i]:SetPoint("topleft", anchorFrame, "topleft", 180, y-4)
             
-            DF:NewLabel(bframe, _, "$parentRaidPluginsLabel3"..i, "raidPluginsLabel3"..i, pluginObject.__version)
+            DF:NewLabel(bframe, _, "$parentRaidPluginsLabel3"..i, "raidPluginsLabel3"..i, pluginObject.__version, "GameFontNormal", 12)
             bframe ["raidPluginsLabel3"..i]:SetPoint("topleft", anchorFrame, "topleft", 290, y-4)
             
             local plugin_stable = Details:GetPluginSavedTable (absName)
@@ -3774,7 +3786,7 @@ do
                 local pluginObject = {
                     __icon = "",
                     __name = allExistentRaidPlugins [o] [3],
-                    __author = "Not Installed",
+                    __author = Loc ["STRING_OPTIONS_PLUGINS_NOT_INSTALLED"],
                     __version = "",
                     OpenOptionsPanel = false,
                 }
@@ -3793,19 +3805,19 @@ do
                 DF:NewImage(bframe, pluginObject.__icon, 18, 18, nil, nil, "toolbarPluginsIcon"..i, "$parentToolbarPluginsIcon"..i)
                 bframe ["toolbarPluginsIcon"..i]:SetPoint("topleft", anchorFrame, "topleft", 10, y)
             
-                DF:NewLabel(bframe, _, "$parentToolbarPluginsLabel"..i, "toolbarPluginsLabel"..i, pluginObject.__name)
+                DF:NewLabel(bframe, _, "$parentToolbarPluginsLabel"..i, "toolbarPluginsLabel"..i, pluginObject.__name, "GameFontNormal", 12)
                 bframe ["toolbarPluginsLabel"..i]:SetPoint("left", bframe ["toolbarPluginsIcon"..i], "right", 2, 0)
                 bframe ["toolbarPluginsLabel"..i].color = notInstalledColor
                 
-                DF:NewLabel(bframe, _, "$parentToolbarPluginsLabel2"..i, "toolbarPluginsLabel2"..i, pluginObject.__author)
+                DF:NewLabel(bframe, _, "$parentToolbarPluginsLabel2"..i, "toolbarPluginsLabel2"..i, pluginObject.__author, "GameFontNormal", 12)
                 bframe ["toolbarPluginsLabel2"..i]:SetPoint("topleft", anchorFrame, "topleft", 180, y-4)
                 bframe ["toolbarPluginsLabel2"..i].color = notInstalledColor
                 
-                DF:NewLabel(bframe, _, "$parentToolbarPluginsLabel3"..i, "toolbarPluginsLabel3"..i, pluginObject.__version)
+                DF:NewLabel(bframe, _, "$parentToolbarPluginsLabel3"..i, "toolbarPluginsLabel3"..i, pluginObject.__version, "GameFontNormal", 12)
                 bframe ["toolbarPluginsLabel3"..i]:SetPoint("topleft", anchorFrame, "topleft", 290, y-4)
                 bframe ["toolbarPluginsLabel3"..i].color = notInstalledColor
     
-                local installButton = DF:CreateButton(bframe, function() Details:CopyPaste (allExistentRaidPlugins [o] [5]) end, 120, 20, "Install")
+                local installButton = DF:CreateButton(bframe, function() Details:CopyPaste (allExistentRaidPlugins [o] [5]) end, 120, 20, Loc ["STRING_OPTIONS_PLUGINS_INSTALL"])
                 installButton:SetTemplate(options_button_template)
                 installButton:SetPoint("topleft", anchorFrame, "topleft", 510, y-0)
                 
@@ -3853,18 +3865,19 @@ do
             bframe:SetScript("OnEnter", on_enter)
             bframe:SetScript("OnLeave", on_leave)
             bframe.plugin = pluginObject
+            bframe.pluginAbsName = absName
             bframe.id = i
             
             DF:NewImage(bframe, pluginObject.__icon, 18, 18, nil, nil, "soloPluginsIcon"..i, "$parentSoloPluginsIcon"..i)
             bframe ["soloPluginsIcon"..i]:SetPoint("topleft", anchorFrame, "topleft", 10, y)
         
-            DF:NewLabel(bframe, _, "$parentSoloPluginsLabel"..i, "soloPluginsLabel"..i, pluginObject.__name)
+            DF:NewLabel(bframe, _, "$parentSoloPluginsLabel"..i, "soloPluginsLabel"..i, pluginObject.__name, "GameFontNormal", 12)
             bframe ["soloPluginsLabel"..i]:SetPoint("left", bframe ["soloPluginsIcon"..i], "right", 2, 0)
             
-            DF:NewLabel(bframe, _, "$parentSoloPluginsLabel2"..i, "soloPluginsLabel2"..i, pluginObject.__author)
+            DF:NewLabel(bframe, _, "$parentSoloPluginsLabel2"..i, "soloPluginsLabel2"..i, pluginObject.__author, "GameFontNormal", 12)
             bframe ["soloPluginsLabel2"..i]:SetPoint("topleft", anchorFrame, "topleft", 180, y-4)
             
-            DF:NewLabel(bframe, _, "$parentSoloPluginsLabel3"..i, "soloPluginsLabel3"..i, pluginObject.__version)
+            DF:NewLabel(bframe, _, "$parentSoloPluginsLabel3"..i, "soloPluginsLabel3"..i, pluginObject.__version, "GameFontNormal", 12)
             bframe ["soloPluginsLabel3"..i]:SetPoint("topleft", anchorFrame, "topleft", 290, y-4)
             
             local plugin_stable = Details:GetPluginSavedTable (absName)
@@ -3992,7 +4005,7 @@ do
 
             {--profile name
                 type = "textentry",
-                get = function() return "profile name" end,
+                get = function() return Loc ["STRING_OPTIONS_PROFILE_NAME_PLACEHOLDER"] end,
                 func = function(self, _, text) end,
                 name = Loc ["STRING_OPTIONS_PROFILES_CREATE"],
                 --desc = Loc ["STRING_OPTIONS_NICKNAME"],
@@ -4046,11 +4059,11 @@ do
                     end
 
                     if (#Details:GetProfileList() == 1) then
-                        return Details:Msg("There's only one profile.")
+                        return Details:Msg(Loc ["STRING_OPTIONS_PROFILE_ONLY_ONE"])
                     end
 
                     if (profileName == Details:GetCurrentProfileName()) then
-                        return Details:Msg("Can't delete current profile.")
+                        return Details:Msg(Loc ["STRING_OPTIONS_PROFILE_CANT_DELETE_CURRENT"])
                     end
 
                     Details:EraseProfile(profileName)
@@ -4153,7 +4166,7 @@ do
                 type = "select",
                 get = function() return Details.always_use_profile_name end,
                 values = function() return buildProfileMenuForAlwaysUse() end,
-                name = "Select Profile",
+                name = Loc ["STRING_OPTIONS_PROFILE_SELECT_PROFILE"],
                 desc = Loc ["STRING_OPTIONS_PROFILE_GLOBAL"],
             },
 
@@ -4448,8 +4461,8 @@ do
                     color[4] = a
                     afterUpdate()
                 end,
-                name = "Bar Color",
-                desc = "Bar Color",
+                name = Loc ["STRING_OPTIONS_TOOLTIPS_BAR_COLOR"],
+                desc = Loc ["STRING_OPTIONS_TOOLTIPS_BAR_COLOR_DESC"],
             },
 
 			{--background color
@@ -4484,8 +4497,8 @@ do
                     color[4] = a
                     afterUpdate()
                 end,
-                name = "Divisor Color",
-                desc = "Divisor Color",
+                name = Loc ["STRING_OPTIONS_TOOLTIPS_DIVISOR_COLOR"],
+                desc = Loc ["STRING_OPTIONS_TOOLTIPS_DIVISOR_COLOR_DESC"],
             },
 
             {--rounded corner
@@ -4495,8 +4508,8 @@ do
                     Details.tooltip.rounded_corner = value
                     afterUpdate()
                 end,
-                name = "Show Rounded Border",
-                desc = "Show Rounded Border",
+                name = Loc ["STRING_OPTIONS_TOOLTIPS_ROUNDED_BORDER"],
+                desc = Loc ["STRING_OPTIONS_TOOLTIPS_ROUNDED_BORDER_DESC"],
             },
 
             {type = "blank"},
@@ -5117,7 +5130,7 @@ do
                     sectionFrame:UpdateWallpaperInfo()
                 end,
                 name = Loc ["STRING_ENABLED"],
-                desc = Loc ["STRING_OPTIONS_ILVL_TRACKER_DESC"],
+                desc = Loc ["STRING_OPTIONS_WP_ENABLE_DESC"],
             },
 
             {--select wallpaper
@@ -5152,8 +5165,8 @@ do
                 min = 0,
                 max = 3,
                 step = 1,
-                name = "Level",
-                desc = "Change where the wallpaper is placed.", --localize-me
+                name = Loc ["STRING_OPTIONS_WP_LEVEL"],
+                desc = Loc ["STRING_OPTIONS_WP_LEVEL_DESC"],
             },
 
             {--edit wallpaper
@@ -5209,7 +5222,7 @@ do
         local buildSwitchMenu = function()
             sectionFrame.lastSwitchList = {}
             local t = {
-                {value = 0, label = "do not switch", color = {.7, .7, .7, 1}, onclick = Current_Switch_Func, icon = [[Interface\Glues\LOGIN\Glues-CheckBox-Check]]}
+                {value = 0, label = Loc ["STRING_OPTIONS_DO_NOT_SWITCH"], color = {.7, .7, .7, 1}, onclick = Current_Switch_Func, icon = [[Interface\Glues\LOGIN\Glues-CheckBox-Check]]}
             }
             
             local attributes = Details.sub_atributos
@@ -5342,7 +5355,7 @@ do
 
         local sectionOptions = {
 
-            {type = "label", get = function() return "Switch by Role Out of Combat" end, text_template = subSectionTitleTextTemplate}, --localize-me
+            {type = "label", get = function() return Loc ["STRING_OPTIONS_AUTO_SWITCH_ROLE_OUT_OF_COMBAT"] end, text_template = subSectionTitleTextTemplate},
 
             {--DAMAGER role out of combat
                 type = "select",
@@ -5381,7 +5394,7 @@ do
             },
 
             {type = "blank"},
-            {type = "label", get = function() return "Switch by Role In Combat" end, text_template = subSectionTitleTextTemplate},
+            {type = "label", get = function() return Loc ["STRING_OPTIONS_AUTO_SWITCH_ROLE_IN_COMBAT"] end, text_template = subSectionTitleTextTemplate},
 
             {--DAMAGER role in combat
                 type = "select",
@@ -5607,6 +5620,7 @@ do
 			alphaSlider:SetHook("OnValueChanged", onAlphaChanged)
 			alphaSlider:SetFixedParameter(i)
             alphaSlider.thumb:SetWidth(32)
+			alphaSlider:SetTooltip(Loc ["STRING_RIGHTCLICK_TYPEVALUE"])
 
 			line.contextLabel = contextLabel
 			line.enabledCheckbox = enabledCheckbox
@@ -6027,7 +6041,7 @@ do --raid tools
             },
 
             {type = "breakline"},
-            {type = "label", get = function() return "Death Recap:" end, text_template = subSectionTitleTextTemplate}, --localize-me
+            {type = "label", get = function() return Loc ["STRING_OPTIONS_RT_DEATH_RECAP_ANCHOR"] end, text_template = subSectionTitleTextTemplate},
 
             {--enable death recap
                 type = "toggle",
@@ -6037,7 +6051,7 @@ do --raid tools
                     afterUpdate()
                 end,
                 name = Loc ["STRING_ENABLED"],
-                desc = "Modify the Blizzard's Death Recap screen.", --localize-me
+                desc = Loc ["STRING_OPTIONS_RT_DEATH_RECAP_ENABLE_DESC"],
             },
 
             {--relevance time
@@ -6050,8 +6064,8 @@ do --raid tools
                 min = 1,
                 max = 12,
                 step = 1,
-                name = "Relevance Time", --localize-me
-                desc = "Attempt to fill the Death Recap with high damage (discart low hits) in the relevant time before death.", --localize-me
+                name = Loc ["STRING_OPTIONS_RT_DEATH_RECAP_RELEVANCE_TIME"],
+                desc = Loc ["STRING_OPTIONS_RT_DEATH_RECAP_RELEVANCE_TIME_DESC"],
             },
 
             {--show life percent
@@ -6061,8 +6075,8 @@ do --raid tools
                     Details.death_recap.show_life_percent = value
                     afterUpdate()
                 end,
-                name = "Life Percent", --localize-me
-                desc = "Show the percent of life the player had when received the hit.", --localize-me
+                name = Loc ["STRING_OPTIONS_RT_DEATH_RECAP_LIFE_PERCENT"],
+                desc = Loc ["STRING_OPTIONS_RT_DEATH_RECAP_LIFE_PERCENT_DESC"],
             },
 
             {--show segment list
@@ -6072,8 +6086,8 @@ do --raid tools
                     Details.death_recap.show_segments = value
                     afterUpdate()
                 end,
-                name = "Segment List", --localize-me
-                desc = "Show a list of the latest segments in case you want to see recaps from previous fights.", --localize-me
+                name = Loc ["STRING_OPTIONS_RT_DEATH_RECAP_SEGMENT_LIST"],
+                desc = Loc ["STRING_OPTIONS_RT_DEATH_RECAP_SEGMENT_LIST_DESC"],
             },
             
             {type = "blank"},
@@ -6097,8 +6111,8 @@ do --raid tools
                     Details.on_death_menu = value
                     afterUpdate()
                 end,
-                name = "Show Death Menu", --localize-me
-                desc = "Show a panel below the Release / Death Recap panel with some shortcuts for Raid Leaders.", --localize-me
+                name = Loc ["STRING_OPTIONS_RT_DEATH_MENU"],
+                desc = Loc ["STRING_OPTIONS_RT_DEATH_MENU_DESC"],
             },
         }
 
@@ -6119,10 +6133,10 @@ do
 
         --streamer plugin - a.k.a. Action Tracker
 			--title anchor
-            DF:NewLabel(sectionFrame, _, "$parentStreamerPluginAnchor", "streamerPluginAnchor", "Action Tracker", "GameFontNormal")
+            DF:NewLabel(sectionFrame, _, "$parentStreamerPluginAnchor", "streamerPluginAnchor", Loc ["STRING_OPTIONS_BROADCASTER_ACTION_TRACKER"], "GameFontNormal")
             sectionFrame.streamerPluginAnchor:SetPoint("topleft", sectionFrame, "topleft", startX, startY - 20)
 
-			local streamerTitleDesc = DF:NewLabel(sectionFrame, _, "$parentStreamerTitleDescText", "StreamerTitleDescTextLabel", "Show the spells you are casting, allowing the viewer to follow your decision making and learn your rotation.", "GameFontNormal", 10, "white")
+			local streamerTitleDesc = DF:NewLabel(sectionFrame, _, "$parentStreamerTitleDescText", "StreamerTitleDescTextLabel", Loc ["STRING_OPTIONS_BROADCASTER_ACTION_TRACKER_DESC"], "GameFontNormal", 10, "white")
 			streamerTitleDesc:SetSize(270, 40)
 			streamerTitleDesc:SetJustifyV ("top")
 			streamerTitleDesc:SetPoint("topleft", sectionFrame.streamerPluginAnchor, "bottomleft", 0, -4)
@@ -6141,10 +6155,10 @@ do
                         StreamerPlugin.__enabled = tPluginSettings.enabled
 
                         if (not tPluginSettings.enabled) then
-                            sectionFrame.enableActionTrackerButtton:SetText("Enable")
+                            sectionFrame.enableActionTrackerButtton:SetText(Loc ["STRING_ENABLED"])
                             Details:SendEvent("PLUGIN_DISABLED", StreamerPlugin)
                         else
-                            sectionFrame.enableActionTrackerButtton:SetText("Disable") --enableButton is nil value
+                            sectionFrame.enableActionTrackerButtton:SetText(Loc ["STRING_DISABLED"]) --enableButton is nil value
 							Details:SendEvent("PLUGIN_ENABLED", StreamerPlugin)
                         end
                     end
@@ -6157,10 +6171,10 @@ do
                     end
 
                     --create the enable, disable and options button
-                    local enableActionTrackerButtton = DF:CreateButton(sectionFrame, enablePluginFunc, 100, 20, "Enable", false, false, "", false, false, false, DF:GetTemplate("dropdown", "OPTIONS_DROPDOWN_TEMPLATE"))
+                    local enableActionTrackerButtton = DF:CreateButton(sectionFrame, enablePluginFunc, 100, 20, Loc ["STRING_ENABLED"], false, false, "", false, false, false, DF:GetTemplate("dropdown", "OPTIONS_DROPDOWN_TEMPLATE"))
                     enableActionTrackerButtton:SetPoint("topleft", streamerTitleImage, "bottomleft", 0, -7)
 
-                    local actionTrackerOptionsButtton = DF:CreateButton(sectionFrame, openOptions, 100, 20, "Options", false, false, "", false, false, false, DF:GetTemplate("dropdown", "OPTIONS_DROPDOWN_TEMPLATE"))
+                    local actionTrackerOptionsButtton = DF:CreateButton(sectionFrame, openOptions, 100, 20, Loc ["STRING_OPTIONS"], false, false, "", false, false, false, DF:GetTemplate("dropdown", "OPTIONS_DROPDOWN_TEMPLATE"))
                     actionTrackerOptionsButtton:SetPoint("left", enableActionTrackerButtton, "right", 5, 0)
 
                     sectionFrame.enableActionTrackerButtton = enableActionTrackerButtton
@@ -6170,14 +6184,14 @@ do
 
 					--plugin already enabled
 					if (bIsPluginEnabled) then
-                        enableActionTrackerButtton:SetText("Disable")
+                        enableActionTrackerButtton:SetText(Loc ["STRING_DISABLED"])
 					else
-                        enableActionTrackerButtton:SetText("Enable")
+                        enableActionTrackerButtton:SetText(Loc ["STRING_ENABLED"])
 					end
 				end
 			else
 				--plugin is disabled at the addon control panel
-				local pluginDisabled = DF:NewLabel(sectionFrame, _, "$parentStreamerDisabledText", "StreamerDisabledTextLabel", "Enable 'Details!: Streamer' addon at the AddOns Control Panel.", "GameFontNormal", 10, "red")
+				local pluginDisabled = DF:NewLabel(sectionFrame, _, "$parentStreamerDisabledText", "StreamerDisabledTextLabel", Loc ["STRING_OPTIONS_BROADCASTER_PLUGIN_DISABLED"], "GameFontNormal", 10, "red")
 				pluginDisabled:SetSize(270, 40)
 				pluginDisabled:SetPoint("topleft", streamerTitleImage, "bottomleft", 0, -2)
 			end
@@ -6188,31 +6202,31 @@ do
     
                 if (pluginObject) then
                     if (pluginStable.enabled) then
-                        sectionFrame.enableActionTrackerButtton:SetText("Disable")
+                        sectionFrame.enableActionTrackerButtton:SetText(Loc ["STRING_DISABLED"])
                     else
-                        sectionFrame.enableActionTrackerButtton:SetText("Enable")
+                        sectionFrame.enableActionTrackerButtton:SetText(Loc ["STRING_ENABLED"])
                     end
                 end
 
                 if (Details.event_tracker.enabled) then
-                    sectionFrame.enableEventTrackerButtton:SetText("Disable")
+                    sectionFrame.enableEventTrackerButtton:SetText(Loc ["STRING_DISABLED"])
                 else
-                    sectionFrame.enableEventTrackerButtton:SetText("Enable")
+                    sectionFrame.enableEventTrackerButtton:SetText(Loc ["STRING_ENABLED"])
                 end
 
                 if (Details.realtime_dps_meter.enabled) then
-                    sectionFrame.enableArenaDPSTrackerButtton:SetText("Disable")
+                    sectionFrame.enableArenaDPSTrackerButtton:SetText(Loc ["STRING_DISABLED"])
                 else
-                    sectionFrame.enableArenaDPSTrackerButtton:SetText("Enable")
+                    sectionFrame.enableArenaDPSTrackerButtton:SetText(Loc ["STRING_ENABLED"])
                 end
             end)
 
 		
 		--event tracker
-            DF:NewLabel(sectionFrame, _, "$parentEventTrackerAnchor", "eventTrackerAnchor", "Event Tracker", "GameFontNormal")
+            DF:NewLabel(sectionFrame, _, "$parentEventTrackerAnchor", "eventTrackerAnchor", Loc ["STRING_OPTIONS_BROADCASTER_EVENT_TRACKER"], "GameFontNormal")
             sectionFrame.eventTrackerAnchor:SetPoint("topleft", sectionFrame, "topleft", startX, startY - 180)
 
-			local eventTrackerTitleDesc = DF:NewLabel(sectionFrame, _, "$parentEventTrackerTitleDescText", "EventTrackerTitleDescTextLabel", "Show what's happening near you so the viewer can follow what's going on. Show cooldowns, CC, spell interruption. Useful on any group content.", "GameFontNormal", 10, "white")
+			local eventTrackerTitleDesc = DF:NewLabel(sectionFrame, _, "$parentEventTrackerTitleDescText", "EventTrackerTitleDescTextLabel", Loc ["STRING_OPTIONS_BROADCASTER_EVENT_TRACKER_DESC"], "GameFontNormal", 10, "white")
 			eventTrackerTitleDesc:SetJustifyV ("top")
 			eventTrackerTitleDesc:SetSize(270, 40)
 			eventTrackerTitleDesc:SetPoint("topleft", sectionFrame.eventTrackerAnchor, "bottomleft", 0, -4)
@@ -6226,9 +6240,9 @@ do
                 afterUpdate()
 
                 if (Details.event_tracker.enabled) then
-                    sectionFrame.enableEventTrackerButtton:SetText("Disable")
+                    sectionFrame.enableEventTrackerButtton:SetText(Loc ["STRING_DISABLED"])
                 else
-                    sectionFrame.enableEventTrackerButtton:SetText("Enable")
+                    sectionFrame.enableEventTrackerButtton:SetText(Loc ["STRING_ENABLED"])
                 end
             end
 
@@ -6240,10 +6254,10 @@ do
             end
 
             --create the enable, disable and options button
-            local enableEventTrackerButtton = DF:CreateButton(sectionFrame, enableEventTracker, 100, 20, "Enable", false, false, "", false, false, false, DF:GetTemplate("dropdown", "OPTIONS_DROPDOWN_TEMPLATE"))
+            local enableEventTrackerButtton = DF:CreateButton(sectionFrame, enableEventTracker, 100, 20, Loc ["STRING_ENABLED"], false, false, "", false, false, false, DF:GetTemplate("dropdown", "OPTIONS_DROPDOWN_TEMPLATE"))
             enableEventTrackerButtton:SetPoint("topleft", eventTrackerTitleImage, "bottomleft", 0, -7)
 
-            local actionTrackerOptionsButtton = DF:CreateButton(sectionFrame, openEventTrackerOptions, 100, 20, "Options", false, false, "", false, false, false, DF:GetTemplate("dropdown", "OPTIONS_DROPDOWN_TEMPLATE"))
+            local actionTrackerOptionsButtton = DF:CreateButton(sectionFrame, openEventTrackerOptions, 100, 20, Loc ["STRING_OPTIONS"], false, false, "", false, false, false, DF:GetTemplate("dropdown", "OPTIONS_DROPDOWN_TEMPLATE"))
             actionTrackerOptionsButtton:SetPoint("left", enableEventTrackerButtton, "right", 5, 0)
 
             sectionFrame.enableEventTrackerButtton = enableEventTrackerButtton
@@ -6251,10 +6265,10 @@ do
 
 
 		--arena kamehameha bar
-            DF:NewLabel(sectionFrame, _, "$parentCurrentDPSAnchor", "currentDPSAnchor", "Arena DPS Bar", "GameFontNormal")
+            DF:NewLabel(sectionFrame, _, "$parentCurrentDPSAnchor", "currentDPSAnchor", Loc ["STRING_OPTIONS_BROADCASTER_ARENA_DPS_BAR"], "GameFontNormal")
             sectionFrame.currentDPSAnchor:SetPoint("topleft", sectionFrame, "topleft", startX, startY - 340)
 
-			local currentDPSTitleDesc = DF:NewLabel(sectionFrame, _, "$parentCurrentDPSTitleDescText", "CurrentDPSTitleDescTextLabel", "Show a bar which grows to the side of the team doing most damage in the last 5 seconds.", "GameFontNormal", 10, "white")
+			local currentDPSTitleDesc = DF:NewLabel(sectionFrame, _, "$parentCurrentDPSTitleDescText", "CurrentDPSTitleDescTextLabel", Loc ["STRING_OPTIONS_BROADCASTER_ARENA_DPS_BAR_DESC"], "GameFontNormal", 10, "white")
 			currentDPSTitleDesc:SetJustifyV ("top")
 			currentDPSTitleDesc:SetSize(270, 40)
 			currentDPSTitleDesc:SetPoint("topleft", sectionFrame.currentDPSAnchor, "bottomleft", 0, -4)
@@ -6268,9 +6282,9 @@ do
                 afterUpdate()
 
                 if (Details.realtime_dps_meter.enabled) then
-                    sectionFrame.enableArenaDPSTrackerButtton:SetText("Disable")
+                    sectionFrame.enableArenaDPSTrackerButtton:SetText(Loc ["STRING_DISABLED"])
                 else
-                    sectionFrame.enableArenaDPSTrackerButtton:SetText("Enable")
+                    sectionFrame.enableArenaDPSTrackerButtton:SetText(Loc ["STRING_ENABLED"])
                 end
             end
 
@@ -6282,10 +6296,10 @@ do
             end
 
             --create the enable, disable and options button
-            local enableArenaDPSTrackerButtton = DF:CreateButton(sectionFrame, enableArenaDPS, 100, 20, "Enable", false, false, "", false, false, false, DF:GetTemplate("dropdown", "OPTIONS_DROPDOWN_TEMPLATE"))
+            local enableArenaDPSTrackerButtton = DF:CreateButton(sectionFrame, enableArenaDPS, 100, 20, Loc ["STRING_ENABLED"], false, false, "", false, false, false, DF:GetTemplate("dropdown", "OPTIONS_DROPDOWN_TEMPLATE"))
             enableArenaDPSTrackerButtton:SetPoint("topleft", currentDPSTitleImage, "bottomleft", 0, -7)
 
-            local arenaDPSTrackerOptionsButtton = DF:CreateButton(sectionFrame, openArenaDPSOptions, 100, 20, "Options", false, false, "", false, false, false, DF:GetTemplate("dropdown", "OPTIONS_DROPDOWN_TEMPLATE"))
+            local arenaDPSTrackerOptionsButtton = DF:CreateButton(sectionFrame, openArenaDPSOptions, 100, 20, Loc ["STRING_OPTIONS"], false, false, "", false, false, false, DF:GetTemplate("dropdown", "OPTIONS_DROPDOWN_TEMPLATE"))
             arenaDPSTrackerOptionsButtton:SetPoint("left", enableArenaDPSTrackerButtton, "right", 5, 0)
 
             sectionFrame.enableArenaDPSTrackerButtton = enableArenaDPSTrackerButtton
@@ -6320,8 +6334,8 @@ do
                     Details.streamer_config.no_alerts = value
                     afterUpdate()
                 end,
-                name = "Suppress Alerts", --localize-me
-                desc = "Suppress Alerts",
+                name = Loc ["STRING_OPTIONS_BROADCASTER_SUPPRESS_ALERTS"],
+                desc = Loc ["STRING_OPTIONS_BROADCASTER_SUPPRESS_ALERTS_DESC"],
             },
 
             {--60hz updates
@@ -6332,8 +6346,8 @@ do
                     Details:RefreshUpdater()
                     afterUpdate()
                 end,
-                name = "60 Updates per Second", --localize-me
-                desc = "60 Updates per Second",
+                name = Loc ["STRING_OPTIONS_BROADCASTER_60_UPDATES"],
+                desc = Loc ["STRING_OPTIONS_BROADCASTER_60_UPDATES_DESC"],
             },
 
             {--quick player info
@@ -6343,8 +6357,8 @@ do
                     Details.streamer_config.quick_detection = value
                     afterUpdate()
                 end,
-                name = "Quick Player Info Detection", --localize-me
-                desc = "Quick Player Info Detection",
+                name = Loc ["STRING_OPTIONS_BROADCASTER_QUICK_DETECTION"],
+                desc = Loc ["STRING_OPTIONS_BROADCASTER_QUICK_DETECTION_DESC"],
             },
 
             {--disable M+ shenanigans
@@ -6354,8 +6368,8 @@ do
                     Details.streamer_config.disable_mythic_dungeon = value
                     afterUpdate()
                 end,
-                name = "Disable Mythic+ Stuff", --localize-me
-                desc = "Disable Mythic+ Stuff",
+                name = Loc ["STRING_OPTIONS_BROADCASTER_DISABLE_MYTHIC_STUFF"],
+                desc = Loc ["STRING_OPTIONS_BROADCASTER_DISABLE_MYTHIC_STUFF_DESC"],
             },
 
             {--disable M+ charts
@@ -6365,8 +6379,8 @@ do
                     Details.mythic_plus.show_damage_graphic = value
                     afterUpdate()
                 end,
-                name = "Disable Mythic+ Chart", --localize-me
-                desc = "Disable Mythic+ Chart",
+                name = Loc ["STRING_OPTIONS_BROADCASTER_DISABLE_MYTHIC_CHART"],
+                desc = Loc ["STRING_OPTIONS_BROADCASTER_DISABLE_MYTHIC_CHART_DESC"],
             },
 
             {--clear cache regurlary
@@ -6376,8 +6390,8 @@ do
                     Details.mythic_plus.show_damage_graphic = value
                     afterUpdate()
                 end,
-                name = "Clear Cache Regularly", --localize-me
-                desc = "Clear Cache Regularly",
+                name = Loc ["STRING_OPTIONS_BROADCASTER_CLEAR_CACHE"],
+                desc = Loc ["STRING_OPTIONS_BROADCASTER_CLEAR_CACHE_DESC"],
             },
 
             {--hide helptips
@@ -6387,8 +6401,8 @@ do
                     Details.streamer_config.no_helptips = value
                     afterUpdate()
                 end,
-                name = "Hide Yellow Helptips", --localize-me
-                desc = "Those yellow boxes with an arrow and a text showing a text with tips.",
+                name = Loc ["STRING_OPTIONS_BROADCASTER_HIDE_HELPTIPS"],
+                desc = Loc ["STRING_OPTIONS_BROADCASTER_HIDE_HELPTIPS_DESC"],
             },
 
 
@@ -7098,24 +7112,24 @@ do
             Details:SetDeathLogLimit(limitAmount)
         end
         local DeathLogLimitOptions = {
-            {value = 16, label = "16 Records", onclick = onSelectDeathLogLimit, icon = [[Interface\WorldStateFrame\ColumnIcon-GraveyardDefend0]]},
-            {value = 32, label = "32 Records", onclick = onSelectDeathLogLimit, icon = [[Interface\WorldStateFrame\ColumnIcon-GraveyardDefend0]]},
-            {value = 45, label = "45 Records", onclick = onSelectDeathLogLimit, icon = [[Interface\WorldStateFrame\ColumnIcon-GraveyardDefend0]]},
+            {value = 16, label = "16 " .. Loc["STRING_OPTIONS_COMBATLOG_DEATHLOG_RECORDS"], onclick = onSelectDeathLogLimit, icon = [[Interface\WorldStateFrame\ColumnIcon-GraveyardDefend0]]},
+            {value = 32, label = "32 " .. Loc["STRING_OPTIONS_COMBATLOG_DEATHLOG_RECORDS"], onclick = onSelectDeathLogLimit, icon = [[Interface\WorldStateFrame\ColumnIcon-GraveyardDefend0]]},
+            {value = 45, label = "45 " .. Loc["STRING_OPTIONS_COMBATLOG_DEATHLOG_RECORDS"], onclick = onSelectDeathLogLimit, icon = [[Interface\WorldStateFrame\ColumnIcon-GraveyardDefend0]]},
         }
         local buildDeathLogLimitMenu = function()
             return DeathLogLimitOptions
         end
 
         local sectionOptions = {
-            {type = "label", get = function() return "Death Log Options:" end, text_template = subSectionTitleTextTemplate},
+            {type = "label", get = function() return Loc["STRING_OPTIONS_COMBATLOG_DEATHLOG_OPTIONS"] end, text_template = subSectionTitleTextTemplate},
             {--reverse death logs
                 type = "toggle",
                 get = function() return Details.combat_log.inverse_deathlog_raid end,
                 set = function(self, fixedparam, value)
                     Details.combat_log.inverse_deathlog_raid = value
                 end,
-                name = "Invert Death Log (Raid)",
-                desc = "Invert Death Log (Raid)",
+                name = Loc["STRING_OPTIONS_COMBATLOG_INVERT_DEATHLOG_RAID"],
+                desc = Loc["STRING_OPTIONS_COMBATLOG_INVERT_DEATHLOG_RAID_DESC"],
             },
 
             {--reverse death logs
@@ -7124,8 +7138,8 @@ do
                 set = function(self, fixedparam, value)
                     Details.combat_log.inverse_deathlog_mplus = value
                 end,
-                name = "Invert Death Log (M+)",
-                desc = "Invert Death Log (M+)",
+                name = Loc["STRING_OPTIONS_COMBATLOG_INVERT_DEATHLOG_MPLUS"],
+                desc = Loc["STRING_OPTIONS_COMBATLOG_INVERT_DEATHLOG_MPLUS_DESC"],
             },
 
             {--reverse death logs
@@ -7134,8 +7148,8 @@ do
                 set = function(self, fixedparam, value)
                     Details.combat_log.inverse_deathlog_overalldata = value
                 end,
-                name = "Invert Death Log (Overall Data)",
-                desc = "Invert Death Log (Overall Data)",
+                name = Loc["STRING_OPTIONS_COMBATLOG_INVERT_DEATHLOG_OVERALL"],
+                desc = Loc["STRING_OPTIONS_COMBATLOG_INVERT_DEATHLOG_OVERALL_DESC"],
             },
 
             {--pvp frags
@@ -7175,7 +7189,7 @@ do
             },
 
             {type = "blank"},
-            {type = "label", get = function() return "Damage Options:" end, text_template = subSectionTitleTextTemplate},
+            {type = "label", get = function() return Loc["STRING_OPTIONS_COMBATLOG_DAMAGE_OPTIONS"] end, text_template = subSectionTitleTextTemplate},
             {--damage taken everything
                 type = "toggle",
                 get = function() return Details.damage_taken_everything end,
@@ -7196,13 +7210,13 @@ do
                     afterUpdate()
                     Details:ClearParserCache()
                 end,
-                name = "Merge Ring Gems 11.0.7",
-                desc = "Merge Ring Gems 11.0.7",
+                name = Loc["STRING_OPTIONS_COMBATLOG_MERGE_RING_GEMS"],
+                desc = Loc["STRING_OPTIONS_COMBATLOG_MERGE_RING_GEMS_DESC"],
                 boxfirst = true,
             },
 
             {type = "blank"},
-            {type = "label", get = function() return "Class Options:" end, text_template = subSectionTitleTextTemplate},
+            {type = "label", get = function() return Loc["STRING_OPTIONS_COMBATLOG_CLASS_OPTIONS"] end, text_template = subSectionTitleTextTemplate},
 
             {--hunter track pet frenzy
                 type = "toggle",
@@ -7212,8 +7226,8 @@ do
                     afterUpdate()
                     Details:ClearParserCache()
                 end,
-                name = DF:AddClassIconToText("Hunter Track Pet Frenzy", false, "HUNTER"),
-                desc = "Hunter Track Pet Frenzy",
+                name = DF:AddClassIconToText(Loc["STRING_OPTIONS_COMBATLOG_HUNTER_TRACK_PET_FRENZY"], false, "HUNTER"),
+                desc = Loc["STRING_OPTIONS_COMBATLOG_HUNTER_TRACK_PET_FRENZY_DESC"],
                 boxfirst = true,
             },
 
@@ -7226,8 +7240,8 @@ do
                     Details:ClearParserCache()
                     currentInstance:InstanceReset()
                 end,
-                name = DF:AddClassIconToText("Show Augmentation Extra Bar", false, "EVOKER"),
-                desc = "Calculate how much the Augmentation Evoker are buffing other players",
+                name = DF:AddClassIconToText(Loc["STRING_OPTIONS_COMBATLOG_SHOW_AUGMENTATION_BAR"], false, "EVOKER"),
+                desc = Loc["STRING_OPTIONS_COMBATLOG_SHOW_AUGMENTATION_BAR_DESC"],
                 boxfirst = true,
             },
 
@@ -7239,13 +7253,13 @@ do
                     afterUpdate()
                     Details:ClearParserCache()
                 end,
-                name = DF:AddClassIconToText("Use Real Time Dps for Aug. Evoker", false, "EVOKER"),
-                desc = "Use Real Time Dps for Augmentation Evoker",
+                name = DF:AddClassIconToText(Loc["STRING_OPTIONS_COMBATLOG_USE_REALTIME_DPS_EVOKER"], false, "EVOKER"),
+                desc = Loc["STRING_OPTIONS_COMBATLOG_USE_REALTIME_DPS_EVOKER_DESC"],
                 boxfirst = true,
             },
 
             {type = "breakline"},
-            {type = "label", get = function() return "Parser Options:" end, text_template = subSectionTitleTextTemplate},
+            {type = "label", get = function() return Loc["STRING_OPTIONS_COMBATLOG_PARSER_OPTIONS"] end, text_template = subSectionTitleTextTemplate},
 
             {--overheal shields
                 type = "toggle",
@@ -7256,8 +7270,8 @@ do
                     Details:ClearParserCache()
                     Details:UpdateParserGears()
                 end,
-                name = "Calculate Shield Wasted Amount",
-                desc = "This is the 'overheal' of shields, it is calculated when a shield get replaced or removed.",
+                name = Loc["STRING_OPTIONS_COMBATLOG_CALCULATE_SHIELD_WASTED"],
+                desc = Loc["STRING_OPTIONS_COMBATLOG_CALCULATE_SHIELD_WASTED_DESC"],
                 boxfirst = true,
             },
 
@@ -7270,8 +7284,8 @@ do
                     Details:ClearParserCache()
                     Details:UpdateParserGears()
                 end,
-                name = "Calculate Energy Wasted Amount",
-                desc = "Compute the energy wasted by players when they are at maximum energy.",
+                name = Loc["STRING_OPTIONS_COMBATLOG_CALCULATE_ENERGY_WASTED"],
+                desc = Loc["STRING_OPTIONS_COMBATLOG_CALCULATE_ENERGY_WASTED_DESC"],
                 boxfirst = true,
             },
 
@@ -7283,8 +7297,8 @@ do
                     afterUpdate()
                     Details:ClearParserCache()
                 end,
-                name = "Merge Critical Heals",
-                desc = "Merges spells like Atonement and Awakened Faeline with their critical damage component.",
+                name = Loc["STRING_OPTIONS_COMBATLOG_MERGE_CRITICAL_HEALS"],
+                desc = Loc["STRING_OPTIONS_COMBATLOG_MERGE_CRITICAL_HEALS_DESC"],
                 boxfirst = true,
             },
 
@@ -7297,8 +7311,8 @@ do
                     Details:ClearParserCache()
                     Details:UpdateParserGears()
                 end,
-                name = "Record Tank Avoidance",
-                desc = "Record tank avoidance, this information is used in the Avoidance tank for tanks.",
+                name = Loc["STRING_OPTIONS_COMBATLOG_RECORD_TANK_AVOIDANCE"],
+                desc = Loc["STRING_OPTIONS_COMBATLOG_RECORD_TANK_AVOIDANCE_DESC"],
                 boxfirst = true,
             },
 
@@ -7316,8 +7330,8 @@ do
                     Details:ClearParserCache()
                     Details:UpdateParserGears()
                 end,
-                name = "Record Energy Resources",
-                desc = "Energy resources are mana, rage, energy, runic power, and others.",
+                name = Loc["STRING_OPTIONS_COMBATLOG_RECORD_ENERGY_RESOURCES"],
+                desc = Loc["STRING_OPTIONS_COMBATLOG_RECORD_ENERGY_RESOURCES_DESC"],
                 boxfirst = true,
             },
             

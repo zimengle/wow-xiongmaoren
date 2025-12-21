@@ -1384,7 +1384,12 @@ function DF:NewSlider (parent, container, name, member, width, height, minValue,
 	SliderObject.slider_middle:SetPoint("bottomright", SliderObject.slider_right, "bottomleft", 0, 0)
 
 	if (not isSwitch) then
-		SliderObject.have_tooltip = "Right Click to Type the Value"
+		local DetailsLoc = _G.Details and _G.Details.Loc
+		if (DetailsLoc and DetailsLoc ["STRING_RIGHTCLICK_TYPEVALUE"]) then
+			SliderObject.have_tooltip = DetailsLoc ["STRING_RIGHTCLICK_TYPEVALUE"]
+		else
+			SliderObject.have_tooltip = "Right Click to Type the Value"
+		end
 	end
 
 	SliderObject.amt = SliderObject.slider:CreateFontString(nil, "overlay", "GameFontHighlightSmall")
@@ -1429,7 +1434,12 @@ function DF:NewSlider (parent, container, name, member, width, height, minValue,
 
 	setmetatable(SliderObject, DFSliderMetaFunctions)
 
-	SliderObject:SetTooltip("right click to type the value")
+	local DetailsLoc = _G.Details and _G.Details.Loc
+	if (DetailsLoc and DetailsLoc ["STRING_RIGHTCLICK_TYPEVALUE"]) then
+		SliderObject:SetTooltip(DetailsLoc ["STRING_RIGHTCLICK_TYPEVALUE"])
+	else
+		SliderObject:SetTooltip("right click to type the value")
+	end
 
 	if (with_label) then
 		local label = DF:CreateLabel(SliderObject.slider, with_label, nil, nil, nil, "label", nil, "overlay")

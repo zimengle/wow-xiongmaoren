@@ -714,7 +714,7 @@ do
                                 BG.HistoryFrame[FB]["boss" .. b]["time"]:SetText("")
                             end
                         end
-                        BG.History.Title:SetText(L["<历史表格> "])
+                        BG.History.Title:SetText(L["<历史表格>"].." ")
                         BG.TextLockoutID:SetText(L["团本锁定ID："] .. L["无"])
                         BG.TextLockoutID:SetTextColor(0.5, 0.5, 0.5)
                         return

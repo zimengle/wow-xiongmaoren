@@ -35,7 +35,9 @@ soundsFileNames.noloc = {
     'Info',
     'Long',
     'Spell Under You',
-    'Victory'
+    'Victory',
+    'Ankara',
+    'Goal',
 } 
 
 soundsFileNames.General = {

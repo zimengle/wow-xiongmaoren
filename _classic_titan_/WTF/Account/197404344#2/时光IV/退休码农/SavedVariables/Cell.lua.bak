@@ -2,24 +2,24 @@
 CellCharacterDB = {
 ["layoutAutoSwitch"] = {
 {
-["battleground40"] = "default",
+["raid_outdoor"] = "default",
 ["party"] = "default",
 ["solo"] = "default",
-["battleground15"] = "default",
+["raid25"] = "default",
 ["raid10"] = "default",
 ["arena"] = "default",
-["raid25"] = "default",
-["raid_outdoor"] = "default",
+["battleground15"] = "default",
+["battleground40"] = "default",
 },
 {
-["battleground40"] = "default",
+["raid_outdoor"] = "default",
 ["party"] = "default",
 ["solo"] = "default",
-["battleground15"] = "default",
+["raid25"] = "default",
 ["raid10"] = "default",
 ["arena"] = "default",
-["raid25"] = "default",
-["raid_outdoor"] = "default",
+["battleground15"] = "default",
+["battleground40"] = "default",
 },
 },
 ["revise"] = "r272-release",
@@ -62,16 +62,56 @@ CellCharacterDB = {
 ["common"] = {
 {
 "type1",
-"target",
+"spell",
+2061,
 },
 {
 "type2",
-"togglemenu",
+"spell",
+17,
 },
 {
 "type-shiftR",
 "spell",
 2006,
+},
+{
+"ctrl-type1",
+"target",
+},
+{
+"ctrl-type2",
+"togglemenu",
+},
+{
+"type3",
+"spell",
+139,
+},
+{
+"shift-type1",
+"spell",
+596,
+},
+{
+"type-E",
+"spell",
+33206,
+},
+{
+"type5",
+"spell",
+47540,
+},
+{
+"type-T",
+"macro",
+"灌注",
+},
+{
+"type4",
+"spell",
+33076,
 },
 },
 ["class"] = "PRIEST",

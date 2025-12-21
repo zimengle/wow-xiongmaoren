@@ -56,6 +56,8 @@
 <!--  Simplified Chinese LOCALIZATION -->
 <Script file="Locale/global-zhCN.lua" />
 <Script file="Locale/classic-zhCN.lua" />
+<Script file="Locale/tbc-zhCN.lua" />
+<Script file="Locale/wotlk-zhCN.lua" />
 
 <!--  Traditional Chinese LOCALIZATION -->
 <Script file="Locale/global-zhTW.lua" />

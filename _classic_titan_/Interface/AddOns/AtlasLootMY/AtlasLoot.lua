@@ -19,18 +19,77 @@ local AtlasLoot = _G.AtlasLootMY
 local AL = AtlasLoot.Locales
 
 local LibStub = _G.LibStub
+local IsAddOnLoaded = IsAddOnLoaded or C_AddOns.IsAddOnLoaded;
+local DisableAddOn = C_AddOns.DisableAddOn;
 
 -- lua
 
 -- WoW
 local SendAddonMessage = C_ChatInfo.SendAddonMessage
 local RegisterAddonMessagePrefix = C_ChatInfo.RegisterAddonMessagePrefix
-
+function CreateDisableDialog()
+    -- 创建主框架
+    local frame = CreateFrame("Frame", "AtlasLootMY_DisableDiaglog", UIParent, "BackdropTemplate")
+    frame:SetSize(500, 100)
+    frame:SetPoint("CENTER",0,150)
+    frame:SetBackdrop({
+        bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
+        edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
+        tile = true, tileSize = 32, edgeSize = 32,
+        insets = { left = 11, right = 12, top = 12, bottom = 11 }
+    })
+    frame:SetBackdropColor(0, 0, 0, 0.95)
+    frame:SetFrameStrata("DIALOG")
+    frame:Hide()
+    
+    -- 可拖动
+    frame:EnableMouse(true)
+    frame:SetMovable(true)
+    frame:RegisterForDrag("LeftButton")
+    frame:SetScript("OnDragStart", frame.StartMoving)
+    frame:SetScript("OnDragStop", frame.StopMovingOrSizing)
+    
+    -- 标题
+    local title = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    title:SetPoint("TOP", 0, -15)
+    title:SetText("发现旧版AtlasLootClassic 该版本不再维护且与喵影掉落插件有冲突 建议禁用")
+	
+   
+    
+    local copyButton = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
+    copyButton:SetSize(80, 25)
+    copyButton:SetPoint("BOTTOM", -50, 20)
+    copyButton:SetText("禁用")
+    
+    copyButton:SetScript("OnClick", function()
+       DisableAddOn('AtlasLootClassic')
+	   ReloadUI()
+    end)
+    
+    local closeButton = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
+    closeButton:SetSize(80, 25)
+    closeButton:SetPoint("BOTTOM", 50, 20)
+    closeButton:SetText("取消")
+    
+    closeButton:SetScript("OnClick", function()
+        frame:Hide()
+    end)
+    
+    return frame
+end
+local disabledDialog
+function ShowDisableDialog()
+    -- 创建或获取框架
+    if not disabledDialog then
+        disabledDialog = CreateDisableDialog()
+    end
+    disabledDialog:Show()
+end
 -- DisableAddOn
 
 local EventFrame = CreateFrame("FRAME")
 EventFrame:RegisterEvent("ADDON_LOADED")
-
+EventFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
 local function EventFrame_OnEvent(frame, event, arg1, ...)
 	if event == "ADDON_LOADED" and arg1 and AtlasLoot.Init[arg1] then
 		AtlasLoot:OnInitialize()
@@ -46,6 +105,11 @@ local function EventFrame_OnEvent(frame, event, arg1, ...)
 		end
 		if not next(AtlasLoot.Init) then
 			EventFrame:UnregisterEvent("ADDON_LOADED")
+		end
+	end
+	if event == 'PLAYER_ENTERING_WORLD' then
+		if IsAddOnLoaded("AtlasLootClassic") then
+			ShowDisableDialog()
 		end
 	end
 end
@@ -81,15 +145,17 @@ function AtlasLoot:OnInitialize()
 	self.dbRaw.RegisterCallback(self, "OnProfileReset", "OnProfileChanged")
 
 	self.dbGlobal.__addonrevision = self.IsDevVersion and 0 or self.__addonrevision
-
 	RegisterAddonMessagePrefix(ALPrivate.ADDON_MSG_PREFIX)
 
 	-- bindings
-	BINDING_HEADER_ATLASLOOT = AL["AtlasLoot"]
-	BINDING_NAME_ATLASLOOT_TOGGLE = AL["Toggle AtlasLoot"]
+	BINDING_HEADER_ATLASLOOTMY = AL["AtlasLoot - Titan"]
+	BINDING_NAME_ATLASLOOTMY_TOGGLE = AL["Toggle AtlasLoot"]
 
 	-- version
 	AtlasLoot.SendAddonVersion("GUILD")
+	
+	self.db.GUI.selectedGameVersion=3
+	self.db.selectedGameVersion=3
 end
 
 function AtlasLoot:AddInitFunc(func, module)
