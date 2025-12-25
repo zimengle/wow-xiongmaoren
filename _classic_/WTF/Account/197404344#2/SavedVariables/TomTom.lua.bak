@@ -8,8 +8,8 @@ TomTomDB = {
 ["Vscode - 加丁"] = "Default",
 ["特变电工 - 祈福"] = "Default",
 ["码农巴菲特 - 祈福"] = "Default",
-["新特能源 - 祈福"] = "Default",
 ["京东的董事长 - 祈福"] = "Default",
+["新特能源 - 祈福"] = "Default",
 },
 ["profiles"] = {
 ["Default"] = {
@@ -44,8 +44,8 @@ TomTomWaypointsM = {
 ["Vscode - 加丁"] = "Vscode - 加丁",
 ["特变电工 - 祈福"] = "特变电工 - 祈福",
 ["码农巴菲特 - 祈福"] = "码农巴菲特 - 祈福",
-["新特能源 - 祈福"] = "新特能源 - 祈福",
 ["京东的董事长 - 祈福"] = "京东的董事长 - 祈福",
+["新特能源 - 祈福"] = "新特能源 - 祈福",
 },
 ["profiles"] = {
 ["沈南鹏 - 祈福"] = {
@@ -65,9 +65,9 @@ TomTomWaypointsM = {
 ["callbacks"] = {
 ["distance"] = {
 },
-["world"] = {
-},
 ["minimap"] = {
+},
+["world"] = {
 },
 },
 ["minimap"] = true,
@@ -100,9 +100,9 @@ TomTomWaypointsM = {
 ["callbacks"] = {
 ["distance"] = {
 },
-["world"] = {
-},
 ["minimap"] = {
+},
+["world"] = {
 },
 },
 ["minimap"] = true,
@@ -112,9 +112,9 @@ TomTomWaypointsM = {
 },
 ["码农巴菲特 - 祈福"] = {
 },
-["新特能源 - 祈福"] = {
-},
 ["京东的董事长 - 祈福"] = {
+},
+["新特能源 - 祈福"] = {
 },
 },
 }

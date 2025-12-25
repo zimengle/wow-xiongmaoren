@@ -1,16 +1,17 @@
 VER 3 0000000000000005 "Decursive" "INV_MISC_QUESTIONMARK"
-/script DecursiveRootTable.Dcr:Println('没有相关技能')
-END
-VER 3 0000000000000002 "MJE: Random Mount" "132599"
-/cancelform [nocombat,noknown:15473]
-/run C_MountJournal.SummonByID(0)
+/stopcasting
+/cast [@mouseover,nomod,exists] 清洁术;  [@mouseover,exists,mod:ctrl] 清洁术; [@mouseover,exists,mod:shift] 清洁术
 END
 VER 3 0000000000000003 "MJE: Random Mount" "132599"
 /cancelform [nocombat,noknown:15473]
 /run C_MountJournal.SummonByID(0)
 END
+VER 3 0000000000000002 "MJE: Random Mount" "132599"
+/cancelform [nocombat,noknown:15473]
+/run C_MountJournal.SummonByID(0)
+END
 VER 3 0000000000000004 "RXPTargeting" "Ability_eyeoftheowl"
-/targetexact 魔导师亚隆尼斯
+/targetexact 格罗萨·硬须
 /targetlasttarget [dead]
 END
 VER 3 0000000000000006 "坐骑" "134400"

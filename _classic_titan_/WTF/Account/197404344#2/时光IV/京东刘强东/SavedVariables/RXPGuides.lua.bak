@@ -3737,11 +3737,13 @@ RXPCComms = {
 },
 ["闪光柚子"] = {
 ["isRxp"] = true,
+["level"] = 80,
+["version"] = 1,
 ["lastSeen"] = 3685.372,
 ["xpPercentage"] = 0,
-["level"] = 80,
-["timePlayed"] = 0,
 ["class"] = "DRUID",
+["xp"] = 0,
+["timePlayed"] = 0,
 },
 ["飞升老祖"] = {
 ["xpPercentage"] = 0,

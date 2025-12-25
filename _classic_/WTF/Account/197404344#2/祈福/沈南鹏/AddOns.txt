@@ -78,8 +78,8 @@ Details_Vanguard: enabled
 Doom_CooldownPulse: enabled
 ElvUI: enabled
 ElvUI_Libraries: enabled
-GatherMate2: disabled
-GatherMate2_Data: disabled
+GatherMate2: enabled
+GatherMate2_Data: enabled
 GTFO: enabled
 HandyNotes: enabled
 HandyNotes_NPCs (Classic): enabled
@@ -133,7 +133,7 @@ DBM-Cataclysm: enabled
 DBM-WorldEvents: enabled
 MerInspect: enabled
 ReforgeLite: enabled
-MinimalArchaeology: disabled
+MinimalArchaeology: enabled
 RXPGuides: enabled
 MerfinMedia: enabled
 NewBeeBox: enabled
@@ -214,3 +214,15 @@ LibUIDropDownMenu: enabled
 RareScanner: enabled
 TalentEmuX: disabled
 TotemTimers: enabled
+DBM-Test: enabled
+ArchonTooltip: enabled
+ArchonTooltipDB_TW: enabled
+ArkInventory: enabled
+ArkInventoryConfig: enabled
+ArkInventoryRules: enabled
+ArkInventorySearch: enabled
+ArkInventoryRules_Example: enabled
+FakeAchievement: enabled
+GlobalIgnoreList: enabled
+OmniCD: enabled
+RXP Leveling: enabled

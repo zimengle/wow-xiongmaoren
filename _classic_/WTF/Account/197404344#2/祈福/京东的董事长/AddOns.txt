@@ -40,7 +40,7 @@ ArkInventory: enabled
 ArkInventoryConfig: enabled
 ArkInventoryRules: enabled
 ArkInventorySearch: enabled
-ArkInventoryRules_Example: disabled
+ArkInventoryRules_Example: enabled
 AtlasLootClassic: enabled
 AtlasLootClassic_Options: enabled
 AtlasLootClassic_Collections: enabled
@@ -73,8 +73,8 @@ ElvUI_Libraries: enabled
 ElvUI: enabled
 ElvUI_Options: enabled
 FakeAchievement: enabled
-GatherMate2: disabled
-GatherMate2_Data: disabled
+GatherMate2: enabled
+GatherMate2_Data: enabled
 GlobalIgnoreList: enabled
 HandyNotes: enabled
 HandyNotes_DungeonLocations (Classic): enabled
@@ -91,7 +91,7 @@ MerfinPlus: enabled
 MerInspect: enabled
 MRT: enabled
 MikScrollingBattleText: enabled
-MinimalArchaeology: disabled
+MinimalArchaeology: enabled
 MSBTOptions: enabled
 Myslot: enabled
 OmniCC: enabled
@@ -140,3 +140,5 @@ ElvUI_SecondsToBuff: disabled
 ElvUI_BuffHighlight: disabled
 ElvUI_RatioMinimapAuras: disabled
 kExtraBossFrames: disabled
+RXPGuides: enabled
+RXP Leveling: enabled

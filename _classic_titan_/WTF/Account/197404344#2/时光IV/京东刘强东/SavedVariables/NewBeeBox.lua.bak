@@ -7,9 +7,9 @@ WclBoxCharacter = {
 ["faction"] = "Alliance",
 ["race"] = "人类",
 ["version"] = "1.0.28",
-["loginTime"] = 1766110487,
+["loginTime"] = 1766560725,
 ["realmName"] = "时光IV",
 ["level"] = 80,
-["gold"] = 39571643,
+["gold"] = 105400,
 ["playerGUID"] = "Player-6383-00247F67",
 }

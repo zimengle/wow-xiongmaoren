@@ -3695,6 +3695,14 @@ RXPCComms = {
 ["xp"] = 0,
 ["xpPercentage"] = 0,
 },
+["死神灬忽悠你"] = {
+["isRxp"] = true,
+["lastSeen"] = 3103.616,
+["xpPercentage"] = 0,
+["level"] = 80,
+["timePlayed"] = 0,
+["class"] = "SHAMAN",
+},
 ["一雪舞一"] = {
 ["level"] = 80,
 ["isRxp"] = true,
@@ -3705,6 +3713,14 @@ RXPCComms = {
 ["xp"] = 0,
 ["xpPercentage"] = 0,
 },
+["轩辕清"] = {
+["isRxp"] = true,
+["lastSeen"] = 3103.616,
+["xpPercentage"] = 0,
+["level"] = 80,
+["timePlayed"] = 0,
+["class"] = "PRIEST",
+},
 ["灵芷"] = {
 ["isRxp"] = true,
 ["level"] = 80,
@@ -3714,6 +3730,14 @@ RXPCComms = {
 ["class"] = "PRIEST",
 ["xp"] = 0,
 ["timePlayed"] = 0,
+},
+["六月丿萤窗"] = {
+["isRxp"] = true,
+["lastSeen"] = 3103.616,
+["xpPercentage"] = 0,
+["level"] = 80,
+["timePlayed"] = 0,
+["class"] = "DRUID",
 },
 ["花里胡哨"] = {
 ["level"] = 80,

@@ -11,6 +11,8 @@ BFWC_Filter_SavedConfigs = {
 },
 ["blocklist_enable"] = true,
 ["bigfoot_chatframe_name"] = "1",
+["hide_enter_leave"] = false,
+["filter_request_to_join"] = true,
 ["white_to_chatframe_color"] = {
 ["a"] = 1,
 ["r"] = 1,
@@ -18,8 +20,6 @@ BFWC_Filter_SavedConfigs = {
 ["g"] = 0.753,
 ["hex"] = "ffffc0c0",
 },
-["filter_request_to_join"] = true,
-["hide_enter_leave"] = false,
 ["dungeons"] = {
 },
 ["blacklist_enable"] = false,

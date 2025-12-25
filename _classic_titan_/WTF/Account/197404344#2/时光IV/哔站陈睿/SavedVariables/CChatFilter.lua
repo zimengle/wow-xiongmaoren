@@ -24,7 +24,8 @@ BFWC_Filter_SavedConfigs = {
 ["g"] = 0,
 ["b"] = 0.545098066329956,
 },
-["bigfoot"] = true,
+["dungeons"] = {
+},
 ["blacklist_enable"] = false,
 ["player"] = {
 ["Player-6379-0005EADC"] = {
@@ -80,8 +81,7 @@ BFWC_Filter_SavedConfigs = {
 },
 ["dlg_width"] = 700,
 ["saved"] = true,
-["dungeons"] = {
-},
+["bigfoot"] = true,
 ["hide_enter_leave"] = false,
 ["auto_filter_by_level"] = false,
 ["blocklist_enable"] = true,

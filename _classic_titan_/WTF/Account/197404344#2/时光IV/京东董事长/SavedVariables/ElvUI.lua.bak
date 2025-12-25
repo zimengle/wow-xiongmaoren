@@ -2,12 +2,6 @@
 ElvCharacterDB = {
 ["ConvertKeybindings"] = true,
 ["ChatEditHistory"] = {
-"/wa",
-"/PIG",
-"/M",
-"/lst",
-"/copy",
-"/pig",
 "/LST",
 "/RL",
 "/cw 柠檬她爸 你个傻逼 偷袭你爸爸 找到你ip了 小心点 臭傻逼",
@@ -22,6 +16,12 @@ ElvCharacterDB = {
 "/cw 没有办法丶 loser",
 "/cw 没有办法丶 狗 B",
 "/cw 没有办法丶 穷B",
+"/cw 来串豆干串起 伱玛那个栏B生了你这种沟B 穷B 还在练级 还有批脸这个世界上",
+"/cw 来串豆干串起 伱 玛 那个 栏 B 生 了 你这种沟B 穷 B 还在练级 还有批脸这个世界上",
+"/cw 不可以饿肚肚 伱 玛 那个 栏 B 生 了 你这种沟B 穷 B 还在练级 还有批脸这个世界上",
+"/cw 不可以饿肚肚-时光IV 明天上门弄你",
+"/cw 来串豆干串起-时光IV 明天上门弄你 穷 B",
+"/cw 不可以饿肚肚-时光IV 找到你IP的 穷 b",
 },
 ["ChatHistoryLog"] = {
 },

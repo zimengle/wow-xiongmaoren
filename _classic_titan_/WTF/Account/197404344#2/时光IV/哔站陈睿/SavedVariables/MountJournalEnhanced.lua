@@ -10,58 +10,36 @@ MJEPersonalSettings = {
 ["enableCursorKeys"] = true,
 ["slotPosition"] = "top",
 ["displayStatistics"] = {
-["UsedCount"] = true,
 ["TravelDistance"] = true,
-["TravelTime"] = true,
+["UsedCount"] = true,
+["LearnedDate"] = true,
 ["Rarity"] = true,
 ["Family"] = true,
 ["CustomizationCount"] = true,
 ["Wowhead"] = true,
-["LearnedDate"] = true,
+["TravelTime"] = true,
 },
 ["windowSize"] = {
 0,
 0,
 },
-["autoRotateModel"] = false,
+["previewButton"] = true,
 ["showResizeEdge"] = true,
 ["showPersonalCount"] = true,
 ["displayBackground"] = "original",
-["previewButton"] = true,
+["autoRotateModel"] = false,
 ["colorizeNameByRarity"] = true,
 ["compactMountList"] = true,
 ["unlockDisplayCamera"] = true,
 ["displayAnimation"] = "stand",
 },
-["searchInNotes"] = false,
-["hiddenMounts"] = {
-},
 ["summonPreviousPetAgain"] = false,
+["searchInFamilyName"] = false,
+["searchInNotes"] = false,
 ["pets"] = {
 ["assignments"] = {
 },
 ["seenInfo"] = false,
-},
-["favorites"] = {
-["assignments"] = {
-},
-["profiles"] = {
-{
-["mounts"] = {
-197,
-266,
-},
-["name"] = "",
-["autoFavor"] = false,
-},
-},
-},
-["sort"] = {
-["unownedOnBottom"] = true,
-["descending"] = false,
-["by"] = "name",
-["favoritesOnTop"] = true,
-["unusableToBottom"] = false,
 },
 ["filter"] = {
 ["expansion"] = {
@@ -110,7 +88,8 @@ true,
 true,
 true,
 },
-["hiddenIngame"] = false,
+["color"] = {
+},
 ["hidden"] = false,
 ["notCollected"] = true,
 ["onlyUsable"] = false,
@@ -211,6 +190,7 @@ true,
 },
 ["Carnivorans"] = {
 ["Bears"] = true,
+["Quilen"] = true,
 },
 ["Insects"] = {
 ["Silithids"] = true,
@@ -225,11 +205,32 @@ true,
 },
 ["collected"] = true,
 ["onlyRecent"] = false,
-["color"] = {
+["hiddenIngame"] = false,
+},
+["sort"] = {
+["unownedOnBottom"] = true,
+["descending"] = false,
+["by"] = "name",
+["favoritesOnTop"] = true,
+["unusableToBottom"] = false,
+},
+["favorites"] = {
+["assignments"] = {
+},
+["profiles"] = {
+{
+["mounts"] = {
+197,
+266,
+},
+["name"] = "",
+["autoFavor"] = false,
+},
 },
 },
 ["personalHiddenMounts"] = false,
 ["personalUi"] = false,
-["searchInFamilyName"] = false,
+["hiddenMounts"] = {
+},
 ["searchInDescription"] = true,
 }

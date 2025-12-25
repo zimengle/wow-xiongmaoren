@@ -1,6 +1,8 @@
 
 PawnOptions = {
 ["LastVersion"] = 2.0811,
+["LastPlayerFullName"] = "退休码农-时光IV",
+["AutoSelectScales"] = false,
 ["ItemLevels"] = {
 {
 ["ID"] = 37715,
@@ -29,9 +31,9 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:255140::::::::80::::::::::|h[燃魔腰带]|h|r",
 },
 {
-["ID"] = 37854,
-["Level"] = 200,
-["Link"] = "|cffa335ee|Hitem:37854::::::::80::::::::::|h[织纹护腿]|h|r",
+["ID"] = 255136,
+["Level"] = 213,
+["Link"] = "|cffa335ee|Hitem:255136::::::::80::::::::::|h[法力风暴护腿]|h|r",
 },
 {
 ["ID"] = 44202,
@@ -39,9 +41,9 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:44202::::::::80::::::::::|h[红龙怒火便鞋]|h|r",
 },
 {
-["ID"] = 37361,
-["Level"] = 200,
-["Link"] = "|cffa335ee|Hitem:37361::::::::80::::::::::|h[巨翼护腕]|h|r",
+["ID"] = 255034,
+["Level"] = 213,
+["Link"] = "|cffa335ee|Hitem:255034::::::::80::::::::::|h[预言臂甲]|h|r",
 },
 {
 ["ID"] = 257620,
@@ -88,13 +90,11 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:40699::::::::80::::::::::|h[黑暗医疗手册]|h|r",
 },
 {
-["ID"] = 37626,
-["Level"] = 200,
-["Link"] = "|cff0070dd|Hitem:37626::::::::80::::::::::|h[西莱图斯魔杖]|h|r",
+["ID"] = 259900,
+["Level"] = 213,
+["Link"] = "|cffa335ee|Hitem:259900::::::::80::::::::::|h[赤红震荡者]|h|r",
 },
 },
-["AutoSelectScales"] = false,
-["LastPlayerFullName"] = "退休码农-时光IV",
 }
 PawnMrRobotScaleProviderOptions = nil
 PawnClassicScaleProviderOptions = {

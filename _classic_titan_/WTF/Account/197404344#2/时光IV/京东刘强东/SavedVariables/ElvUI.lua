@@ -2,7 +2,6 @@
 ElvCharacterDB = {
 ["ConvertKeybindings"] = true,
 ["ChatEditHistory"] = {
-"/1 21人宝库双色球 来 盗贼 防战 元素萨 20=1",
 "/团队 ..",
 "/团队 法师 roll",
 "/团队 ===",
@@ -22,6 +21,7 @@ ElvCharacterDB = {
 "/团队  /biaoge 底部能看见哪些人没有装",
 "/团队 1",
 "/biaoge",
+"/cw 内敛不是烧 nq",
 },
 ["ChatHistoryLog"] = {
 },

@@ -16,6 +16,10 @@ AtlasQuest_Options = {
 ["ShownSide"] = "Left",
 ["AtlasAutoShow"] = 1,
 },
+["爱奇艺龚宇"] = {
+["ShownSide"] = "Left",
+["AtlasAutoShow"] = 1,
+},
 ["Version"] = "4.13.05",
 ["退休码农"] = {
 ["ShownSide"] = "Left",

@@ -113,14 +113,9 @@ true,
 ["hiddenIngame"] = false,
 ["hidden"] = false,
 ["notCollected"] = true,
-["faction"] = {
-["horde"] = true,
-["alliance"] = true,
-["noFaction"] = true,
-},
+["onlyUsable"] = false,
 ["onlyTradable"] = false,
 ["onlyFavorites"] = false,
-["onlyUsable"] = false,
 ["mountType"] = {
 ["repair"] = true,
 ["flying"] = true,
@@ -129,6 +124,11 @@ true,
 ["passenger"] = true,
 ["ground"] = true,
 ["rideAlong"] = true,
+},
+["faction"] = {
+["horde"] = true,
+["alliance"] = true,
+["noFaction"] = true,
 },
 ["family"] = {
 ["Drakes"] = {
@@ -211,6 +211,7 @@ true,
 },
 ["Carnivorans"] = {
 ["Bears"] = true,
+["Quilen"] = true,
 },
 ["Insects"] = {
 ["Silithids"] = true,

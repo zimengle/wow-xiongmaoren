@@ -1,6 +1,6 @@
 Version: 1
 Frame: ColorPickerFrame
-FrameLevel: 1
+FrameLevel: 22
 Anchor: CENTER
 X: 0
 Y: 0
@@ -10,7 +10,7 @@ Frame: CharacterFrame
 FrameLevel: 1
 Anchor: LEFT
 X: 0
-Y: 67
+Y: 28
 W: 384
 H: 512
 Frame: SpellBookFrame
@@ -34,3 +34,10 @@ X: 2
 Y: -44
 W: 610
 H: 438
+Frame: EasyAuctionPriceFrame
+FrameLevel: 1
+Anchor: CENTER
+X: 269
+Y: 10
+W: 350
+H: 400

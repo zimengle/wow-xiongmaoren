@@ -22,10 +22,10 @@ BFWC_Filter_SavedConfigs = {
 ["g"] = 0,
 ["hex"] = "ffff08b",
 },
-["bigfoot"] = true,
-["hide_enter_leave"] = false,
 ["dungeons"] = {
 },
+["hide_enter_leave"] = false,
+["bigfoot"] = true,
 ["blacklist_enable"] = false,
 ["player"] = {
 ["Player-6379-0005EADC"] = {

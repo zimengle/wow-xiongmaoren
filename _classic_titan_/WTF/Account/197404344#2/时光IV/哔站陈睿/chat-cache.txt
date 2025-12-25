@@ -7,6 +7,7 @@ CHANNELS
 2 0 2 1
 26 0 3 1
 22 0 4 1
+大脚世界频道 0 6 3
 END
 
 ZONECHANNELS 0
@@ -219,6 +220,7 @@ END
 
 CHANNELS
 寻求组队
+大脚世界频道
 END
 
 ZONECHANNELS 2
