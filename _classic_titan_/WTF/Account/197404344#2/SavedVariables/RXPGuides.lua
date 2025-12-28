@@ -11,8 +11,8 @@ RXPData = {
 },
 },
 ["trainGenericSpells"] = true,
-["gameVersion"] = 38000,
 ["release"] = "v4.8.25",
+["gameVersion"] = 38000,
 }
 RXPDB = {
 ["profileKeys"] = {
@@ -23,8 +23,8 @@ RXPDB = {
 ["露露糖 - 铁血"] = "global",
 ["哔站陈睿 - 时光IV"] = "global",
 ["露露緹婭 - 时光III"] = "global",
-["三角碑崽儿 - 时光IV"] = "global",
 ["卧伦巴菲特 - 时光IV"] = "global",
+["露露缇娅old1764210356684 - 时光VI"] = "global",
 ["皎月梦夜 - 时光I"] = "global",
 ["哔站董事长 - 时光IV"] = "global",
 ["爱奇艺董事长 - 时光IV"] = "global",
@@ -34,16 +34,16 @@ RXPDB = {
 ["小米军儿 - 时光IV"] = "global",
 ["小露露糖 - 铁血"] = "global",
 ["确实日白 - 时光I"] = "global",
-["美团王兴 - 时光IV"] = "global",
+["愛雅法拉 - 铁血"] = "global",
 ["露露缇娅old1764210356684丶 - 铁血"] = "global",
 ["小马君 - 时光I"] = "global",
 ["美团董事长 - 时光IV"] = "global",
 ["银光骤雨 - 时光I"] = "global",
 ["京东刘强东 - 时光IV"] = "global",
-["愛雅法拉 - 铁血"] = "global",
+["美团王兴 - 时光IV"] = "global",
 ["京东董事长 - 时光IV"] = "global",
 ["露露緹婭 - 时光VI"] = "global",
-["露露缇娅old1764210356684 - 时光VI"] = "global",
+["三角碑崽儿 - 时光IV"] = "global",
 },
 ["profiles"] = {
 ["global"] = {
@@ -59,8 +59,8 @@ RXPSettings = {
 ["露露糖 - 铁血"] = "露露缇娅old1764210356684丶 - 铁血",
 ["哔站陈睿 - 时光IV"] = "露露缇娅 - 时光III",
 ["露露緹婭 - 时光III"] = "露露缇娅old1764210356684 - 时光VI",
-["三角碑崽儿 - 时光IV"] = "三角碑崽儿 - 时光IV",
 ["卧伦巴菲特 - 时光IV"] = "卧伦巴菲特 - 时光IV",
+["露露缇娅old1764210356684 - 时光VI"] = "露露缇娅old1764210356684 - 时光III",
 ["皎月梦夜 - 时光I"] = "露露缇娅old1764210356684 - 时光VI",
 ["哔站董事长 - 时光IV"] = "露露缇娅 - 时光III",
 ["爱奇艺董事长 - 时光IV"] = "露露缇娅 - 时光III",
@@ -70,16 +70,16 @@ RXPSettings = {
 ["小米军儿 - 时光IV"] = "露露缇娅 - 时光III",
 ["小露露糖 - 铁血"] = "露露缇娅old1764210356684丶 - 铁血",
 ["确实日白 - 时光I"] = "露露缇娅 - 时光III",
-["美团王兴 - 时光IV"] = "露露缇娅 - 时光III",
+["愛雅法拉 - 铁血"] = "露露缇娅old1764210356684丶 - 铁血",
 ["露露缇娅old1764210356684丶 - 铁血"] = "露露缇娅old1764210356684丶 - 铁血",
 ["小马君 - 时光I"] = "露露缇娅old1764210356684 - 时光VI",
 ["美团董事长 - 时光IV"] = "露露缇娅 - 时光III",
 ["银光骤雨 - 时光I"] = "露露缇娅old1764210356684 - 时光VI",
 ["京东刘强东 - 时光IV"] = "露露缇娅 - 时光III",
-["愛雅法拉 - 铁血"] = "露露缇娅old1764210356684丶 - 铁血",
+["美团王兴 - 时光IV"] = "露露缇娅 - 时光III",
 ["京东董事长 - 时光IV"] = "露露缇娅 - 时光III",
 ["露露緹婭 - 时光VI"] = "露露缇娅old1764210356684 - 时光III",
-["露露缇娅old1764210356684 - 时光VI"] = "露露缇娅old1764210356684 - 时光III",
+["三角碑崽儿 - 时光IV"] = "三角碑崽儿 - 时光IV",
 },
 ["profiles"] = {
 ["退休码农 - 时光IV"] = {
@@ -88,13 +88,13 @@ RXPSettings = {
 ["macroAnnounced"] = true,
 ["hardcore"] = false,
 ["framePositions"] = {
-["activeTargetFrame"] = {
+["arrowFrame"] = {
 {
-"CENTER",
+"LEFT",
 nil,
-"CENTER",
-297.1543884277344,
--257.3161926269531,
+"LEFT",
+-0,
+-67.0334243774414,
 },
 },
 ["RXPFrame"] = {
@@ -115,20 +115,20 @@ nil,
 -189.1794891357422,
 },
 },
-["arrowFrame"] = {
+["activeTargetFrame"] = {
 {
-"LEFT",
+"CENTER",
 nil,
-"LEFT",
--0,
--67.0334243774414,
+"CENTER",
+297.1543884277344,
+-257.3161926269531,
 },
 },
 },
 ["frameSizes"] = {
-["activeTargetFrame"] = {
-88.99980926513672,
-67.99995422363281,
+["arrowFrame"] = {
+32,
+31.9999885559082,
 },
 ["RXPFrame"] = {
 345.0000915527344,
@@ -138,9 +138,9 @@ nil,
 50.76925277709961,
 40.00003051757813,
 },
-["arrowFrame"] = {
-32,
-31.9999885559082,
+["activeTargetFrame"] = {
+88.99980926513672,
+67.99995422363281,
 },
 },
 },
@@ -149,9 +149,9 @@ nil,
 ["frameHeight"] = 124.9999084472656,
 ["hardcore"] = false,
 ["frameSizes"] = {
-["activeTargetFrame"] = {
-54.22219467163086,
-17.99993705749512,
+["arrowFrame"] = {
+31.9999885559082,
+31.9999885559082,
 },
 ["RXPFrame"] = {
 235,
@@ -161,19 +161,19 @@ nil,
 50.76925277709961,
 39.9999885559082,
 },
-["arrowFrame"] = {
-31.9999885559082,
-31.9999885559082,
+["activeTargetFrame"] = {
+54.22219467163086,
+17.99993705749512,
 },
 },
 ["framePositions"] = {
-["activeTargetFrame"] = {
+["arrowFrame"] = {
 {
 "CENTER",
 "UIParent",
 "CENTER",
 -0,
--0,
+200,
 },
 },
 ["RXPFrame"] = {
@@ -194,13 +194,13 @@ nil,
 -0,
 },
 },
-["arrowFrame"] = {
+["activeTargetFrame"] = {
 {
 "CENTER",
 "UIParent",
 "CENTER",
 -0,
-200,
+-0,
 },
 },
 },
@@ -212,9 +212,9 @@ nil,
 ["macroAnnounced"] = true,
 ["hardcore"] = false,
 ["frameSizes"] = {
-["arrowFrame"] = {
-32,
-31.9999885559082,
+["activeTargetFrame"] = {
+116.0000152587891,
+42.99994277954102,
 },
 ["RXPFrame"] = {
 437.3077087402344,
@@ -224,19 +224,19 @@ nil,
 50.76923370361328,
 40.00003051757813,
 },
-["activeTargetFrame"] = {
-116.0000076293945,
-42.99994277954102,
+["arrowFrame"] = {
+32,
+31.9999885559082,
 },
 },
 ["framePositions"] = {
-["arrowFrame"] = {
+["activeTargetFrame"] = {
 {
-"BOTTOMLEFT",
+"LEFT",
 nil,
-"BOTTOMLEFT",
-127.2724838256836,
-327.7529296875,
+"LEFT",
+7.95726490020752,
+-22.87141036987305,
 },
 },
 ["RXPFrame"] = {
@@ -257,13 +257,13 @@ nil,
 -112.136962890625,
 },
 },
-["activeTargetFrame"] = {
+["arrowFrame"] = {
 {
-"LEFT",
+"BOTTOMLEFT",
 nil,
-"LEFT",
-7.95726490020752,
--22.87141036987305,
+"BOTTOMLEFT",
+127.2724838256836,
+327.7529296875,
 },
 },
 },
@@ -276,17 +276,16 @@ nil,
 ["phase"] = 1,
 ["hideCompletedSteps"] = false,
 ["season"] = -0,
-["disableArrow"] = false,
+["enableTracker"] = false,
 ["hardcore"] = false,
 ["enableAddonIncompatibilityCheck"] = false,
 ["arrowText"] = 15,
-["frameHeight"] = 28.0000114440918,
 ["framePositions"] = {
-["activeTargetFrame"] = {
+["arrowFrame"] = {
 {
 "LEFT",
-[5] = 6.952399253845215,
-[4] = 264.5238037109375,
+[5] = -39.23849105834961,
+[4] = 277.1809997558594,
 [3] = "LEFT",
 },
 },
@@ -307,19 +306,20 @@ nil,
 -0,
 },
 },
-["arrowFrame"] = {
+["activeTargetFrame"] = {
 {
 "LEFT",
-[5] = -39.23849105834961,
-[4] = 277.1809997558594,
+[5] = 6.952399253845215,
+[4] = 264.5238037109375,
 [3] = "LEFT",
 },
 },
 },
+["frameHeight"] = 28.0000114440918,
 ["frameSizes"] = {
-["activeTargetFrame"] = {
-54.40001678466797,
-40,
+["arrowFrame"] = {
+38.39999771118164,
+38.40005111694336,
 },
 ["RXPFrame"] = {
 257.3334045410156,
@@ -329,24 +329,25 @@ nil,
 51.23808288574219,
 40,
 },
-["arrowFrame"] = {
-38.39999771118164,
-38.40005111694336,
+["activeTargetFrame"] = {
+54.40001678466797,
+40,
 },
 },
 ["hideInRaid"] = true,
-["enableTracker"] = false,
+["disableArrow"] = false,
 },
 ["露露缇娅 - 时光III"] = {
+["hideGuideWindow"] = true,
 ["hardcore"] = false,
 ["framePositions"] = {
-["activeTargetFrame"] = {
+["arrowFrame"] = {
 {
-"RIGHT",
+"LEFT",
 nil,
-"RIGHT",
--586.9977416992188,
--153.7652587890625,
+"LEFT",
+39.01761245727539,
+-75.90685272216797,
 },
 },
 ["RXPFrame"] = {
@@ -367,13 +368,13 @@ nil,
 -188.4699554443359,
 },
 },
-["arrowFrame"] = {
+["activeTargetFrame"] = {
 {
-"LEFT",
+"RIGHT",
 nil,
-"LEFT",
-39.01761245727539,
--75.90685272216797,
+"RIGHT",
+-586.9977416992188,
+-153.7652587890625,
 },
 },
 },
@@ -390,12 +391,11 @@ nil,
 ["frameHeight"] = 209.3161926269531,
 ["macroAnnounced"] = true,
 ["enableLevelUpAnnounceSolo"] = false,
-["hideGuideWindow"] = true,
 ["disableArrow"] = false,
 ["frameSizes"] = {
-["activeTargetFrame"] = {
-54.22237396240234,
-17.99993705749512,
+["arrowFrame"] = {
+31.99999809265137,
+31.9999885559082,
 },
 ["RXPFrame"] = {
 404.8717041015625,
@@ -405,9 +405,9 @@ nil,
 50.76925277709961,
 40.00003051757813,
 },
-["arrowFrame"] = {
-31.99999809265137,
-31.9999885559082,
+["activeTargetFrame"] = {
+54.22237396240234,
+17.99993705749512,
 },
 },
 },

@@ -15,10 +15,10 @@ bind - MULTIACTIONBAR3BUTTON12
 bind CTRL-F1 NONE
 bind CTRL-F2 NONE
 bind CTRL-F3 NONE
-bind SHIFT-1 CLICK RXPItemFrameButton1:LeftButton
-bind SHIFT-2 CLICK RXPItemFrameButton2:LeftButton
-bind SHIFT-3 CLICK RXPItemFrameButton3:LeftButton
-bind SHIFT-4 CLICK RXPItemFrameButton4:LeftButton
+bind SHIFT-1 NONE
+bind SHIFT-2 NONE
+bind SHIFT-3 NONE
+bind SHIFT-4 NONE
 bind G MULTIACTIONBAR1BUTTON6
 bind F MULTIACTIONBAR1BUTTON5
 bind V MULTIACTIONBAR1BUTTON4
@@ -92,3 +92,7 @@ bind PADSYSTEM NONE
 bind SHIFT-PADSYSTEM NONE
 bind CTRL-PADSYSTEM NONE
 bind CTRL-SHIFT-PADSYSTEM OPENCHAT
+bind ALT-1 CLICK RXPItemFrameButton1:LeftButton
+bind ALT-2 CLICK RXPItemFrameButton2:LeftButton
+bind ALT-3 CLICK RXPItemFrameButton3:LeftButton
+bind ALT-4 CLICK RXPItemFrameButton4:LeftButton

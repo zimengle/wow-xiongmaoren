@@ -1,8 +1,6 @@
 
 PawnOptions = {
 ["LastVersion"] = 2.0811,
-["LastPlayerFullName"] = "退休码农-时光IV",
-["AutoSelectScales"] = false,
 ["ItemLevels"] = {
 {
 ["ID"] = 37715,
@@ -36,9 +34,9 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:255136::::::::80::::::::::|h[法力风暴护腿]|h|r",
 },
 {
-["ID"] = 44202,
-["Level"] = 200,
-["Link"] = "|cffa335ee|Hitem:44202::::::::80::::::::::|h[红龙怒火便鞋]|h|r",
+["ID"] = 257619,
+["Level"] = 213,
+["Link"] = "|cffa335ee|Hitem:257619::::::::80::::::::::|h[预言软鞋]|h|r",
 },
 {
 ["ID"] = 255034,
@@ -95,6 +93,8 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:259900::::::::80::::::::::|h[赤红震荡者]|h|r",
 },
 },
+["AutoSelectScales"] = false,
+["LastPlayerFullName"] = "退休码农-时光IV",
 }
 PawnMrRobotScaleProviderOptions = nil
 PawnClassicScaleProviderOptions = {

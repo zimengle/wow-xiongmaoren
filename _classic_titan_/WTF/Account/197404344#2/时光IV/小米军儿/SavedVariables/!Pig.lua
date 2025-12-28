@@ -1,11 +1,11 @@
 
 PIGA_Per = {
 ["PigAction"] = {
-["Lock"] = {
-false,
-false,
-false,
-false,
+["AnniuNum"] = {
+12,
+12,
+12,
+12,
 },
 ["Scale"] = {
 1,
@@ -13,7 +13,11 @@ false,
 1,
 1,
 },
-["ActionData"] = {
+["Lock"] = {
+false,
+false,
+false,
+false,
 },
 ["ShowTJ"] = {
 1,
@@ -33,11 +37,7 @@ false,
 false,
 false,
 },
-["AnniuNum"] = {
-12,
-12,
-12,
-12,
+["ActionData"] = {
 },
 },
 ["QuickBut"] = {

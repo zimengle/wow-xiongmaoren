@@ -2,11 +2,6 @@
 ElvCharacterDB = {
 ["ConvertKeybindings"] = true,
 ["ChatEditHistory"] = {
-"谁让你去龙骨的",
-"插件让你去灰熊丘陵",
-"你是个人才",
-"龙骨不做",
-"做任务声望很少",
 "80级之后刷声望才是王道",
 "你懂个鸡儿",
 "你自己不上kook",
@@ -22,6 +17,11 @@ ElvCharacterDB = {
 "/cw 中医老李-时光IV 能交易吗",
 "/cw 安苏娜穆-时光IV 我没roll到",
 "/cw 安苏娜穆-时光IV 而去不能交易",
+"/cw 依舊 暗牧",
+"/团队 进本拉",
+"/团队 舒服",
+"/cw 永不低头 1",
+"/cw 永不低头 戒律牧",
 },
 ["ChatHistoryLog"] = {
 },

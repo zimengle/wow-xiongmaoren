@@ -1,6 +1,6 @@
 
 PawnOptions = {
-["LastVersion"] = 2.1109,
+["LastVersion"] = 2.1201,
 ["LastPlayerFullName"] = "京东的董事长-祈福",
 ["AutoSelectScales"] = true,
 ["AutoSelectScalesEnabledOnce"] = true,
@@ -81,10 +81,9 @@ nil,
 ["Link"] = "|cff1eff00|Hitem:92377::::::::85::1450::::::::|h[水舞者狂暴斗篷]|h|r",
 },
 {
-["ID"] = 92405,
-["Level"] = 359,
-["AlsoFitsIn"] = 17,
-["Link"] = "|cff1eff00|Hitem:92405::::::::85::1450::::::::|h[水舞者长剑]|h|r",
+["ID"] = 90377,
+["Level"] = 372,
+["Link"] = "|cff1eff00|Hitem:90377::::::::85::268::::::::|h[断雾之杖]|h|r",
 },
 {
 ["ID"] = 92405,

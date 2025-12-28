@@ -2,13 +2,13 @@
 WclBoxCharacter = {
 ["class"] = "DEATHKNIGHT",
 ["realmID"] = 4778,
-["loginTime"] = 1763297730,
+["loginTime"] = 1766828850,
 ["faction"] = "Alliance",
 ["race"] = "人类",
 ["version"] = "1.0.28",
-["gold"] = 39842717,
+["gold"] = 49145819,
 ["realmName"] = "祈福",
-["level"] = 85,
+["level"] = 86,
 ["name"] = "码农巴菲特",
 ["playerGUID"] = "Player-4778-0505CE58",
 }

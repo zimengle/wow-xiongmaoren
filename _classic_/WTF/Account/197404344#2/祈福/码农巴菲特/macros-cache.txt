@@ -32,6 +32,10 @@ END
 VER 3 0100000001000004 "艾卓喊人" "INV_MISC_QUESTIONMARK"
 /5 {圆形}H 艾卓{圆形} {圆形} 蛛丝精华 已需求 {圆形} 出了1人100G 来dps和治疗
 END
+VER 3 010000000100000D "血液" "134400"
+/startattack
+/施放 血液沸腾
+END
 VER 3 0100000001000008 "邪DK" "INV_MISC_QUESTIONMARK"
 #showtooltip 冰冷触摸
 /console Sound_EnableSFX 0

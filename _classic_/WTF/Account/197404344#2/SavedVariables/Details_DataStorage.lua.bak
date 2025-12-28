@@ -2,16 +2,16 @@
 DetailsDataStorage = {
 ["normal"] = {
 },
-["mythic_plus"] = {
+["saved_encounters"] = {
 },
-["Data"] = {
+["mythic_plus"] = {
 },
 ["VERSION"] = 7,
 ["heroic"] = {
 },
 ["mythic"] = {
 },
-["saved_encounters"] = {
+["Data"] = {
 },
 ["totalkills"] = {
 ["25playerheroic"] = {
@@ -23,8 +23,8 @@ DetailsDataStorage = {
 ["dps_best"] = 0,
 ["dps_best_raid"] = 0,
 ["time_fasterkill_when"] = 0,
-["dps_best_when"] = 0,
 ["dps_best_raid_when"] = 0,
+["dps_best_when"] = 0,
 },
 },
 },

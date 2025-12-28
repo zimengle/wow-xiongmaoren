@@ -10,16 +10,16 @@ PawnCommon = {
 ["Debug"] = false,
 ["ColorTooltipBorder"] = true,
 ["ShowTooltipIcons"] = true,
-["ShowSpecIcons"] = true,
+["Digits"] = 1,
 ["ShowSocketingAdvisor"] = true,
 ["Scales"] = {
 ["\"Classic\":WARRIOR2"] = {
 ["IconTexturePath"] = 132347,
 ["PerCharacterOptions"] = {
-["美团王兴-时光IV"] = {
+["三角碑崽儿-时光IV"] = {
 ["Visible"] = true,
 },
-["三角碑崽儿-时光IV"] = {
+["美团王兴-时光IV"] = {
 ["Visible"] = true,
 },
 },
@@ -92,36 +92,39 @@ PawnCommon = {
 ["UnenchantedColor"] = "3095b0",
 ["SpecID"] = 2,
 },
-["\"Classic\":PRIEST2"] = {
-["IconTexturePath"] = 237542,
+["\"Classic\":DEATHKNIGHT1"] = {
+["IconTexturePath"] = 135770,
 ["PerCharacterOptions"] = {
-["退休码农-时光IV"] = {
+["小米军儿-时光IV"] = {
 ["Visible"] = true,
 },
 },
-["Color"] = "ffffff",
-["LocalizedName"] = "牧师: 神圣",
-["ClassID"] = 5,
+["Color"] = "ff4d6b",
+["LocalizedName"] = "死亡骑士: 鲜血 伤害输出",
+["ClassID"] = 6,
 ["DoNotShow1HUpgrades"] = false,
 ["Role"] = "NONE",
 ["DoNotShow2HUpgrades"] = false,
 ["Provider"] = "Classic",
-["UnenchantedColor"] = "bfbfbf",
-["SpecID"] = 2,
+["UnenchantedColor"] = "bf3950",
+["SpecID"] = 1,
 },
-["\"Classic\":ROGUE3"] = {
-["IconTexturePath"] = 132320,
+["\"Classic\":DEATHKNIGHT2"] = {
+["IconTexturePath"] = 135773,
 ["PerCharacterOptions"] = {
+["小米军儿-时光IV"] = {
+["Visible"] = true,
 },
-["Color"] = "fff569",
-["LocalizedName"] = "潜行者: 敏锐",
-["ClassID"] = 4,
+},
+["Color"] = "ff4d6b",
+["LocalizedName"] = "死亡骑士: 冰霜 坦克",
+["ClassID"] = 6,
 ["DoNotShow1HUpgrades"] = false,
 ["Role"] = "NONE",
 ["DoNotShow2HUpgrades"] = false,
 ["Provider"] = "Classic",
-["UnenchantedColor"] = "bfb74e",
-["SpecID"] = 3,
+["UnenchantedColor"] = "bf3950",
+["SpecID"] = 2,
 },
 ["\"Classic\":DRUID3"] = {
 ["IconTexturePath"] = 136041,
@@ -174,10 +177,10 @@ PawnCommon = {
 ["\"Classic\":WARRIOR3"] = {
 ["IconTexturePath"] = 134952,
 ["PerCharacterOptions"] = {
-["美团王兴-时光IV"] = {
+["三角碑崽儿-时光IV"] = {
 ["Visible"] = true,
 },
-["三角碑崽儿-时光IV"] = {
+["美团王兴-时光IV"] = {
 ["Visible"] = true,
 },
 },
@@ -208,25 +211,25 @@ PawnCommon = {
 ["UnenchantedColor"] = "6565b1",
 ["SpecID"] = 3,
 },
-["\"Classic\":PALADIN3"] = {
-["IconTexturePath"] = 135873,
+["\"Classic\":PALADIN1"] = {
+["IconTexturePath"] = 135920,
 ["PerCharacterOptions"] = {
-["京东刘强东-时光IV"] = {
+["京东董事长-时光IV"] = {
 ["Visible"] = true,
 },
-["京东董事长-时光IV"] = {
+["京东刘强东-时光IV"] = {
 ["Visible"] = true,
 },
 },
 ["Color"] = "f58cba",
-["LocalizedName"] = "圣骑士: 惩戒",
+["LocalizedName"] = "圣骑士: 神圣",
 ["ClassID"] = 2,
 ["DoNotShow1HUpgrades"] = false,
 ["Role"] = "NONE",
 ["DoNotShow2HUpgrades"] = false,
 ["Provider"] = "Classic",
 ["UnenchantedColor"] = "b7698b",
-["SpecID"] = 3,
+["SpecID"] = 1,
 },
 ["\"Classic\":PRIEST3"] = {
 ["IconTexturePath"] = 136207,
@@ -307,16 +310,25 @@ PawnCommon = {
 ["UnenchantedColor"] = "0054a6",
 ["SpecID"] = 1,
 },
-["\"Classic\":ROGUE"] = {
-["Color"] = "fff569",
-["ClassID"] = 4,
-["DoNotShow1HUpgrades"] = false,
-["DoNotShow2HUpgrades"] = false,
+["\"Classic\":PALADIN2"] = {
+["IconTexturePath"] = 135893,
 ["PerCharacterOptions"] = {
+["京东董事长-时光IV"] = {
+["Visible"] = true,
 },
+["京东刘强东-时光IV"] = {
+["Visible"] = true,
+},
+},
+["Color"] = "f58cba",
+["LocalizedName"] = "圣骑士: 防护",
+["ClassID"] = 2,
+["DoNotShow1HUpgrades"] = false,
+["Role"] = "NONE",
+["DoNotShow2HUpgrades"] = false,
 ["Provider"] = "Classic",
-["UnenchantedColor"] = "bfb74e",
-["LocalizedName"] = "潜行者: 副手",
+["UnenchantedColor"] = "b7698b",
+["SpecID"] = 2,
 },
 ["\"Classic\":SHAMAN3"] = {
 ["IconTexturePath"] = 136052,
@@ -335,18 +347,21 @@ PawnCommon = {
 ["UnenchantedColor"] = "0054a6",
 ["SpecID"] = 3,
 },
-["\"Classic\":ROGUE2"] = {
-["IconTexturePath"] = 132090,
+["\"Classic\":DRUID2"] = {
+["IconTexturePath"] = 132276,
 ["PerCharacterOptions"] = {
+["爱奇艺龚宇-时光IV"] = {
+["Visible"] = true,
 },
-["Color"] = "fff569",
-["LocalizedName"] = "潜行者: 战斗",
-["ClassID"] = 4,
+},
+["Color"] = "ff7d0a",
+["LocalizedName"] = "德鲁伊: 野性战斗",
+["ClassID"] = 11,
 ["DoNotShow1HUpgrades"] = false,
 ["Role"] = "NONE",
 ["DoNotShow2HUpgrades"] = false,
 ["Provider"] = "Classic",
-["UnenchantedColor"] = "bfb74e",
+["UnenchantedColor"] = "bf5d07",
 ["SpecID"] = 2,
 },
 ["\"Classic\":DEATHKNIGHT3"] = {
@@ -366,27 +381,28 @@ PawnCommon = {
 ["UnenchantedColor"] = "bf3950",
 ["SpecID"] = 3,
 },
-["\"Classic\":ROGUE1"] = {
-["IconTexturePath"] = 132292,
-["PerCharacterOptions"] = {
-},
-["Color"] = "fff569",
-["LocalizedName"] = "潜行者: 奇袭",
-["ClassID"] = 4,
+["\"Classic\":DRUID4"] = {
+["Color"] = "ff7d0a",
+["LocalizedName"] = "德鲁伊",
+["ClassID"] = 11,
 ["DoNotShow1HUpgrades"] = false,
-["Role"] = "NONE",
+["PerCharacterOptions"] = {
+["爱奇艺龚宇-时光IV"] = {
+["Visible"] = true,
+},
+},
 ["DoNotShow2HUpgrades"] = false,
 ["Provider"] = "Classic",
-["UnenchantedColor"] = "bfb74e",
-["SpecID"] = 1,
+["UnenchantedColor"] = "bf5d07",
+["SpecID"] = 4,
 },
 ["\"Classic\":WARRIOR1"] = {
 ["IconTexturePath"] = 132292,
 ["PerCharacterOptions"] = {
-["美团王兴-时光IV"] = {
+["三角碑崽儿-时光IV"] = {
 ["Visible"] = true,
 },
-["三角碑崽儿-时光IV"] = {
+["美团王兴-时光IV"] = {
 ["Visible"] = true,
 },
 },
@@ -417,57 +433,44 @@ PawnCommon = {
 ["UnenchantedColor"] = "6565b1",
 ["SpecID"] = 1,
 },
-["\"Classic\":DRUID4"] = {
-["Color"] = "ff7d0a",
-["LocalizedName"] = "德鲁伊",
-["ClassID"] = 11,
-["DoNotShow1HUpgrades"] = false,
+["\"Classic\":ROGUE1"] = {
+["IconTexturePath"] = 132292,
 ["PerCharacterOptions"] = {
-["爱奇艺龚宇-时光IV"] = {
-["Visible"] = true,
 },
-},
-["DoNotShow2HUpgrades"] = false,
-["Provider"] = "Classic",
-["SpecID"] = 4,
-["UnenchantedColor"] = "bf5d07",
-},
-["\"Classic\":DRUID2"] = {
-["IconTexturePath"] = 132276,
-["PerCharacterOptions"] = {
-["爱奇艺龚宇-时光IV"] = {
-["Visible"] = true,
-},
-},
-["Color"] = "ff7d0a",
-["LocalizedName"] = "德鲁伊: 野性战斗",
-["ClassID"] = 11,
+["Color"] = "fff569",
+["LocalizedName"] = "潜行者: 奇袭",
+["ClassID"] = 4,
 ["DoNotShow1HUpgrades"] = false,
 ["Role"] = "NONE",
 ["DoNotShow2HUpgrades"] = false,
 ["Provider"] = "Classic",
-["UnenchantedColor"] = "bf5d07",
-["SpecID"] = 2,
+["UnenchantedColor"] = "bfb74e",
+["SpecID"] = 1,
 },
-["\"Classic\":PALADIN2"] = {
-["IconTexturePath"] = 135893,
+["\"Classic\":ROGUE2"] = {
+["IconTexturePath"] = 132090,
 ["PerCharacterOptions"] = {
-["京东刘强东-时光IV"] = {
-["Visible"] = true,
 },
-["京东董事长-时光IV"] = {
-["Visible"] = true,
-},
-},
-["Color"] = "f58cba",
-["LocalizedName"] = "圣骑士: 防护",
-["ClassID"] = 2,
+["Color"] = "fff569",
+["LocalizedName"] = "潜行者: 战斗",
+["ClassID"] = 4,
 ["DoNotShow1HUpgrades"] = false,
 ["Role"] = "NONE",
 ["DoNotShow2HUpgrades"] = false,
 ["Provider"] = "Classic",
-["UnenchantedColor"] = "b7698b",
+["UnenchantedColor"] = "bfb74e",
 ["SpecID"] = 2,
+},
+["\"Classic\":ROGUE"] = {
+["Color"] = "fff569",
+["LocalizedName"] = "潜行者: 副手",
+["DoNotShow1HUpgrades"] = false,
+["DoNotShow2HUpgrades"] = false,
+["PerCharacterOptions"] = {
+},
+["Provider"] = "Classic",
+["UnenchantedColor"] = "bfb74e",
+["ClassID"] = 4,
 },
 ["\"Classic\":DRUID1"] = {
 ["IconTexturePath"] = 136096,
@@ -486,65 +489,62 @@ PawnCommon = {
 ["UnenchantedColor"] = "bf5d07",
 ["SpecID"] = 1,
 },
-["\"Classic\":PALADIN1"] = {
-["IconTexturePath"] = 135920,
+["\"Classic\":PALADIN3"] = {
+["IconTexturePath"] = 135873,
 ["PerCharacterOptions"] = {
-["京东刘强东-时光IV"] = {
+["京东董事长-时光IV"] = {
 ["Visible"] = true,
 },
-["京东董事长-时光IV"] = {
+["京东刘强东-时光IV"] = {
 ["Visible"] = true,
 },
 },
 ["Color"] = "f58cba",
-["LocalizedName"] = "圣骑士: 神圣",
+["LocalizedName"] = "圣骑士: 惩戒",
 ["ClassID"] = 2,
 ["DoNotShow1HUpgrades"] = false,
 ["Role"] = "NONE",
 ["DoNotShow2HUpgrades"] = false,
 ["Provider"] = "Classic",
 ["UnenchantedColor"] = "b7698b",
-["SpecID"] = 1,
+["SpecID"] = 3,
 },
-["\"Classic\":DEATHKNIGHT2"] = {
-["IconTexturePath"] = 135773,
+["\"Classic\":ROGUE3"] = {
+["IconTexturePath"] = 132320,
 ["PerCharacterOptions"] = {
-["小米军儿-时光IV"] = {
-["Visible"] = true,
 },
-},
-["Color"] = "ff4d6b",
-["LocalizedName"] = "死亡骑士: 冰霜 坦克",
-["ClassID"] = 6,
+["Color"] = "fff569",
+["LocalizedName"] = "潜行者: 敏锐",
+["ClassID"] = 4,
 ["DoNotShow1HUpgrades"] = false,
 ["Role"] = "NONE",
 ["DoNotShow2HUpgrades"] = false,
 ["Provider"] = "Classic",
-["UnenchantedColor"] = "bf3950",
+["UnenchantedColor"] = "bfb74e",
+["SpecID"] = 3,
+},
+["\"Classic\":PRIEST2"] = {
+["IconTexturePath"] = 237542,
+["PerCharacterOptions"] = {
+["退休码农-时光IV"] = {
+["Visible"] = true,
+},
+},
+["Color"] = "ffffff",
+["LocalizedName"] = "牧师: 神圣",
+["ClassID"] = 5,
+["DoNotShow1HUpgrades"] = false,
+["Role"] = "NONE",
+["DoNotShow2HUpgrades"] = false,
+["Provider"] = "Classic",
+["UnenchantedColor"] = "bfbfbf",
 ["SpecID"] = 2,
 },
-["\"Classic\":DEATHKNIGHT1"] = {
-["IconTexturePath"] = 135770,
-["PerCharacterOptions"] = {
-["小米军儿-时光IV"] = {
-["Visible"] = true,
 },
-},
-["Color"] = "ff4d6b",
-["LocalizedName"] = "死亡骑士: 鲜血 伤害输出",
-["ClassID"] = 6,
-["DoNotShow1HUpgrades"] = false,
-["Role"] = "NONE",
-["DoNotShow2HUpgrades"] = false,
-["Provider"] = "Classic",
-["UnenchantedColor"] = "bf3950",
-["SpecID"] = 1,
-},
-},
-["IgnoreGemsWhileLeveling"] = true,
+["LastVersion"] = 2.0811,
 ["ButtonPosition"] = 2,
 ["ShowLootUpgradeAdvisor"] = true,
 ["ShowQuestUpgradeAdvisor"] = true,
-["LastVersion"] = 2.0811,
-["Digits"] = 1,
+["IgnoreGemsWhileLeveling"] = true,
+["ShowSpecIcons"] = true,
 }

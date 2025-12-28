@@ -2,8 +2,6 @@
 ElvCharacterDB = {
 ["ConvertKeybindings"] = true,
 ["ChatEditHistory"] = {
-"/g 你远程观察我装备",
-"/g 昨天我180去5h 各种被鄙视 电梯血",
 "/g 今天直接抗大螺丝",
 "/g 那天我被2个重庆的部落杀了 就是因为重庆山茶花 我跑到部落过去决人 他说是我公会名犯罪",
 "/g 甘草的很",
@@ -22,6 +20,8 @@ ElvCharacterDB = {
 "/cw 晓晓丶萨 你退组",
 "/cw 晓晓丶萨 我们只杀风暴",
 "/cw 来漏 1",
+"/cw 三国圣 防战",
+"/biaoge",
 },
 ["ChatHistoryLog"] = {
 },

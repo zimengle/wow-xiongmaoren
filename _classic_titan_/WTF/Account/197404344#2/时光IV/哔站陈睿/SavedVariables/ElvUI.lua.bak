@@ -2,12 +2,6 @@
 ElvCharacterDB = {
 ["ConvertKeybindings"] = true,
 ["ChatEditHistory"] = {
-"/cw 疯狂的骑仕 火蛇 试服 治疗 空气",
-"/团队 智慧祝福刷一个",
-"/团队 黑",
-"我擦",
-"5h浪费时间",
-"还不如练小号",
 "熟悉新职业的乐趣",
 "/cw 抖音魔兽那虎 电萨",
 "/cw 皓南哥 元素",
@@ -22,6 +16,12 @@ ElvCharacterDB = {
 "/cw 东山三拼奶霸-时光IV 嗯",
 "/biaoge",
 "/cw 一一丁戒指飞 1",
+"/cw 小慕思 电萨",
+"/cw 小波雕杰特 电萨",
+"/cw 迷失人间 元素",
+"/cw 上帝的胸毛 元素",
+"/cw 龙门阵卖土豆 电萨",
+"/团队 分配改了",
 },
 ["ChatHistoryLog"] = {
 },

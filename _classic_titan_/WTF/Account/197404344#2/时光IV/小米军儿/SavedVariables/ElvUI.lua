@@ -2,7 +2,6 @@
 ElvCharacterDB = {
 ["ConvertKeybindings"] = true,
 ["ChatEditHistory"] = {
-"/cw 中甸三姑妈 下一个biaoge插件 全团就你一个没有 到时候拍不了装备哦",
 "/cw 中甸三姑妈-时光IV 插件中心搜索biaoge下一个",
 "/团队 谁冲锋开怪",
 "/团队 直接清",
@@ -22,6 +21,7 @@ ElvCharacterDB = {
 "/团队 dps补贴怎么算的",
 "/cw 一一丁一一丯 1",
 "/biaoge",
+"/团队 抱歉了 打不完了 先撤了",
 },
 ["ChatHistoryLog"] = {
 },

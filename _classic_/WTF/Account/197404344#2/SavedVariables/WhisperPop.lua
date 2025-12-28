@@ -1,26 +1,32 @@
 
 WhisperPopDB = {
-["listWidth"] = 200,
+["notifyButton"] = 1,
 ["listHeight"] = 320,
-["sound"] = 1,
+["positions"] = {
+["WhisperPopFrame"] = {
+"CENTER",
+"UIParent",
+"CENTER",
+0,
+-20,
+},
+["WhisperPopNotifyButton"] = {
+"BOTTOMLEFT",
+"UIParent",
+"BOTTOMLEFT",
+516,
+311,
+},
+},
 ["showRealm"] = 1,
-["listScale"] = 100,
+["time"] = 1,
 ["save"] = 1,
 ["timeFormat"] = 2,
-["version"] = 4.12,
+["ignoreTags"] = 1,
 ["buttonScale"] = 100,
 ["history"] = {
 {
-["class"] = "MAGE",
-["messages"] = {
-"1[T1766591825]来个桌子",
-},
-["name"] = "灬芊岛酱灬-祈福",
-},
-{
 ["received"] = 1,
-["class"] = "BN",
-["name"] = "超爱吃火锅#5724",
 ["messages"] = {
 "0[T1766023462]我擦 kook",
 "0[T1766023467]习惯养成",
@@ -40,7 +46,65 @@ WhisperPopDB = {
 "1[T1766473795]插件关了",
 "1[T1766473823]自己不上kook",
 "1[T1766473826]自己研究",
+"1[T1766668990]怎么说",
+"1[T1766740464]我擦",
+"1[T1766740466]怎么说",
+"1[T1766740476]几王乐",
+"0[T1766740479]300拿了个套装肩",
+"0[T1766740488]萨弗龙",
+"1[T1766740497]打过t了吗",
+"0[T1766740510]悬",
+"0[T1766809003]下午mcbu ",
+"1[T1766809051]周一",
+"1[T1766813019]我擦",
+"1[T1766813025]熊猫人",
+"1[T1766813027]搞起来",
+"0[T1766813033]MC呢",
+"1[T1766813042]周一搞啊",
+"1[T1766813042]我擦",
+"0[T1766813050]周末打 周一大不了",
 },
+["class"] = "BN",
+["name"] = "超爱吃火锅#5724",
+["new"] = 1,
+},
+{
+["received"] = 1,
+["name"] = "是大鱼呀-祈福",
+["class"] = "DEATHKNIGHT",
+["messages"] = {
+"1[T1766764151]奶",
+"0[T1766764159]已经在打啊咯",
+},
+["new"] = 1,
+},
+{
+["class"] = "WARLOCK",
+["messages"] = {
+"1[T1766758695]奶",
+},
+["name"] = "哇呀吼呀-祈福",
+},
+{
+["class"] = "WARLOCK",
+["messages"] = {
+"1[T1766739894]1",
+},
+["name"] = "言沫-祈福",
+},
+{
+["class"] = "MAGE",
+["messages"] = {
+"1[T1766739474]1",
+},
+["name"] = "紫丨墨-祈福",
+},
+{
+["class"] = "MAGE",
+["messages"] = {
+"1[T1766591825]来个桌子",
+},
+["name"] = "灬芊岛酱灬-祈福",
 },
 {
 ["received"] = 1,
@@ -100,25 +164,10 @@ WhisperPopDB = {
 ["name"] = "哈灬圣光闪耀-祈福",
 },
 },
-["time"] = 1,
+["version"] = 4.12,
 ["applyFilters"] = 1,
 ["foreignOnly"] = 1,
-["ignoreTags"] = 1,
-["notifyButton"] = 1,
-["positions"] = {
-["WhisperPopFrame"] = {
-"CENTER",
-"UIParent",
-"CENTER",
-0,
--20,
-},
-["WhisperPopNotifyButton"] = {
-"BOTTOMLEFT",
-"UIParent",
-"BOTTOMLEFT",
-516,
-311,
-},
-},
+["listScale"] = 100,
+["sound"] = 1,
+["listWidth"] = 200,
 }

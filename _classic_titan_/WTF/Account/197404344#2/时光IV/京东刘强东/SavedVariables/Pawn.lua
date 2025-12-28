@@ -1,13 +1,11 @@
 
 PawnOptions = {
 ["LastVersion"] = 2.0811,
-["LastPlayerFullName"] = "京东刘强东-时光IV",
-["AutoSelectScales"] = false,
 ["ItemLevels"] = {
 {
-["ID"] = 44296,
-["Level"] = 200,
-["Link"] = "|cffa335ee|Hitem:44296:3820:::::::80::::::::::|h[纯净思维头盔]|h|r",
+["ID"] = 255068,
+["Level"] = 213,
+["Link"] = "|cffa335ee|Hitem:255068::::::::80::::::::::|h[秩序之源头盔]|h|r",
 },
 {
 ["ID"] = 37141,
@@ -26,9 +24,9 @@ nil,
 ["Link"] = "|cff0070dd|Hitem:37236::::::::80::::::::::|h[昆虫外衣]|h|r",
 },
 {
-["ID"] = 37643,
-["Level"] = 200,
-["Link"] = "|cffa335ee|Hitem:37643::::::::80::::::::::|h[止血腰带]|h|r",
+["ID"] = 255072,
+["Level"] = 213,
+["Link"] = "|cffa335ee|Hitem:255072::::::::80::::::::::|h[秩序之源腰带]|h|r",
 },
 {
 ["ID"] = 37362,
@@ -90,6 +88,8 @@ nil,
 ["Link"] = "|cff0070dd|Hitem:37134::::::::80::::::::::|h[泰蕾丝塔的日记]|h|r",
 },
 },
+["AutoSelectScales"] = false,
+["LastPlayerFullName"] = "京东刘强东-时光IV",
 }
 PawnMrRobotScaleProviderOptions = nil
 PawnClassicScaleProviderOptions = {

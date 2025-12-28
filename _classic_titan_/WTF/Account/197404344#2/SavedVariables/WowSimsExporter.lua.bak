@@ -13,10 +13,10 @@ WSEDB = {
 ["小米军儿 - 时光IV"] = "Default",
 ["确实日白 - 时光I"] = "Default",
 ["美团董事长 - 时光IV"] = "Default",
-["美团王兴 - 时光IV"] = "Default",
+["三角碑崽儿 - 时光IV"] = "Default",
 ["爱奇艺董事长 - 时光IV"] = "Default",
 ["京东董事长 - 时光IV"] = "Default",
 ["露露緹婭 - 时光VI"] = "Default",
-["三角碑崽儿 - 时光IV"] = "Default",
+["美团王兴 - 时光IV"] = "Default",
 },
 }

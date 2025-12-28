@@ -1,7 +1,6 @@
 
 PawnOptions = {
 ["LastVersion"] = 2.0811,
-["LastPlayerFullName"] = "美团王兴-时光IV",
 ["ItemLevels"] = {
 [7] = {
 ["ID"] = 39,
@@ -15,6 +14,7 @@ PawnOptions = {
 },
 },
 ["AutoSelectScales"] = false,
+["LastPlayerFullName"] = "美团王兴-时光IV",
 }
 PawnMrRobotScaleProviderOptions = nil
 PawnClassicScaleProviderOptions = {

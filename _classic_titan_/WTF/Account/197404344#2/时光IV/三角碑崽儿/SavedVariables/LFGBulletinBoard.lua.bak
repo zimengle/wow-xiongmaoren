@@ -1,7 +1,7 @@
 
 GroupBulletinBoardDBChar = {
 ["FilterDungeonDEBUG"] = true,
-["FilterDungeonBAD"] = true,
 ["channel"] = {
 },
+["FilterDungeonBAD"] = true,
 }

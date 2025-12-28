@@ -137,11 +137,8 @@ LoseControlDB = {
 ["interruptMiniIconsAlpha"] = 0.8,
 ["size"] = 36,
 ["alpha"] = 1,
-["compactFrame"] = {
-["frameLevel"] = 0,
-["size"] = 36,
-},
 ["swipeAlpha"] = 0.8,
+["anchor"] = "Blizzard",
 ["categoriesEnabled"] = {
 ["interrupt"] = {
 ["friendly"] = true,
@@ -175,7 +172,10 @@ LoseControlDB = {
 },
 },
 },
-["anchor"] = "Blizzard",
+["compactFrame"] = {
+["frameLevel"] = 0,
+["size"] = 36,
+},
 ["interruptBackgroundVertexColor"] = {
 ["r"] = 1,
 ["g"] = 1,
@@ -2471,11 +2471,8 @@ LoseControlDB = {
 ["interruptMiniIconsAlpha"] = 0.8,
 ["size"] = 36,
 ["alpha"] = 1,
-["compactFrame"] = {
-["frameLevel"] = 0,
-["size"] = 36,
-},
 ["swipeAlpha"] = 0.8,
+["anchor"] = "Blizzard",
 ["categoriesEnabled"] = {
 ["interrupt"] = {
 ["friendly"] = true,
@@ -2509,7 +2506,10 @@ LoseControlDB = {
 },
 },
 },
-["anchor"] = "Blizzard",
+["compactFrame"] = {
+["frameLevel"] = 0,
+["size"] = 36,
+},
 ["interruptBackgroundVertexColor"] = {
 ["r"] = 1,
 ["g"] = 1,
@@ -3707,11 +3707,8 @@ LoseControlDB = {
 ["interruptMiniIconsAlpha"] = 0.8,
 ["size"] = 36,
 ["alpha"] = 1,
-["compactFrame"] = {
-["frameLevel"] = 0,
-["size"] = 36,
-},
 ["swipeAlpha"] = 0.8,
+["anchor"] = "Blizzard",
 ["categoriesEnabled"] = {
 ["interrupt"] = {
 ["friendly"] = true,
@@ -3745,7 +3742,10 @@ LoseControlDB = {
 },
 },
 },
-["anchor"] = "Blizzard",
+["compactFrame"] = {
+["frameLevel"] = 0,
+["size"] = 36,
+},
 ["interruptBackgroundVertexColor"] = {
 ["r"] = 1,
 ["g"] = 1,
@@ -4401,12 +4401,8 @@ LoseControlDB = {
 ["interruptMiniIconsAlpha"] = 0.8,
 ["size"] = 36,
 ["alpha"] = 1,
-["compactFrame"] = {
-["anchor"] = "Blizzard",
-["frameLevel"] = 0,
-["size"] = 36,
-},
 ["swipeAlpha"] = 0.8,
+["anchor"] = "None",
 ["categoriesEnabled"] = {
 ["interrupt"] = {
 ["friendly"] = true,
@@ -4440,7 +4436,11 @@ LoseControlDB = {
 },
 },
 },
-["anchor"] = "None",
+["compactFrame"] = {
+["anchor"] = "Blizzard",
+["frameLevel"] = 0,
+["size"] = 36,
+},
 ["interruptBackgroundVertexColor"] = {
 ["r"] = 1,
 ["g"] = 1,
@@ -4605,7 +4605,7 @@ LoseControlDB = {
 ["point"] = "LEFT",
 ["interruptBackgroundAlpha"] = 0.7,
 },
-["raid17"] = {
+["raid36"] = {
 ["enabled"] = false,
 ["useSpellInsteadSchoolMiniIcon"] = false,
 ["size"] = 20,
@@ -4713,11 +4713,8 @@ LoseControlDB = {
 ["interruptMiniIconsAlpha"] = 0.8,
 ["size"] = 36,
 ["alpha"] = 1,
-["compactFrame"] = {
-["frameLevel"] = 0,
-["size"] = 36,
-},
 ["swipeAlpha"] = 0.8,
+["anchor"] = "Blizzard",
 ["categoriesEnabled"] = {
 ["interrupt"] = {
 ["friendly"] = true,
@@ -4751,7 +4748,10 @@ LoseControlDB = {
 },
 },
 },
-["anchor"] = "Blizzard",
+["compactFrame"] = {
+["frameLevel"] = 0,
+["size"] = 36,
+},
 ["interruptBackgroundVertexColor"] = {
 ["r"] = 1,
 ["g"] = 1,
@@ -5069,57 +5069,6 @@ LoseControlDB = {
 ["interruptMiniIconsAlpha"] = 0.8,
 ["interruptBackgroundAlpha"] = 0.7,
 },
-["raid36"] = {
-["enabled"] = false,
-["useSpellInsteadSchoolMiniIcon"] = false,
-["size"] = 20,
-["alpha"] = 1,
-["frameLevel"] = 0,
-["y"] = 1,
-["x"] = 0,
-["anchor"] = "BlizzardRaidFrames",
-["categoriesEnabled"] = {
-["interrupt"] = {
-["friendly"] = true,
-},
-["debuff"] = {
-["friendly"] = {
-["Other"] = true,
-["CC"] = true,
-["Snare"] = true,
-["Disarm"] = true,
-["ImmuneSpell"] = true,
-["PvE"] = true,
-["Immune"] = true,
-["ImmunePhysical"] = true,
-["Silence"] = true,
-["Root"] = true,
-},
-},
-["buff"] = {
-["friendly"] = {
-["Other"] = false,
-["CC"] = true,
-["Snare"] = true,
-["Disarm"] = true,
-["ImmuneSpell"] = true,
-["PvE"] = true,
-["Immune"] = true,
-["ImmunePhysical"] = true,
-["Silence"] = true,
-["Root"] = true,
-},
-},
-},
-["swipeAlpha"] = 0.8,
-["interruptBackgroundVertexColor"] = {
-["r"] = 1,
-["g"] = 1,
-["b"] = 1,
-},
-["interruptMiniIconsAlpha"] = 0.8,
-["interruptBackgroundAlpha"] = 0.7,
-},
 ["nameplate32"] = {
 ["enabled"] = false,
 ["useSpellInsteadSchoolMiniIcon"] = false,
@@ -5196,6 +5145,57 @@ LoseControlDB = {
 ["b"] = 1,
 },
 ["point"] = "LEFT",
+["interruptBackgroundAlpha"] = 0.7,
+},
+["raid17"] = {
+["enabled"] = false,
+["useSpellInsteadSchoolMiniIcon"] = false,
+["size"] = 20,
+["alpha"] = 1,
+["frameLevel"] = 0,
+["y"] = 1,
+["x"] = 0,
+["anchor"] = "BlizzardRaidFrames",
+["categoriesEnabled"] = {
+["interrupt"] = {
+["friendly"] = true,
+},
+["debuff"] = {
+["friendly"] = {
+["Other"] = true,
+["CC"] = true,
+["Snare"] = true,
+["Disarm"] = true,
+["ImmuneSpell"] = true,
+["PvE"] = true,
+["Immune"] = true,
+["ImmunePhysical"] = true,
+["Silence"] = true,
+["Root"] = true,
+},
+},
+["buff"] = {
+["friendly"] = {
+["Other"] = false,
+["CC"] = true,
+["Snare"] = true,
+["Disarm"] = true,
+["ImmuneSpell"] = true,
+["PvE"] = true,
+["Immune"] = true,
+["ImmunePhysical"] = true,
+["Silence"] = true,
+["Root"] = true,
+},
+},
+},
+["swipeAlpha"] = 0.8,
+["interruptBackgroundVertexColor"] = {
+["r"] = 1,
+["g"] = 1,
+["b"] = 1,
+},
+["interruptMiniIconsAlpha"] = 0.8,
 ["interruptBackgroundAlpha"] = 0.7,
 },
 ["arena2"] = {

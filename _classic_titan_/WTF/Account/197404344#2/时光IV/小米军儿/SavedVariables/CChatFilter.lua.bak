@@ -13,14 +13,6 @@ BFWC_Filter_SavedConfigs = {
 "卡扎克",
 "世界",
 },
-["hide_enter_leave"] = false,
-["blocklist_enable"] = true,
-["bigfoot_chatframe_name"] = "4",
-["filter_request_to_join"] = true,
-["dlg_width"] = 700,
-["dungeons"] = {
-["永恒之眼(团)"] = false,
-},
 ["white_to_chatframe_color"] = {
 ["a"] = 1,
 ["r"] = 1,
@@ -28,6 +20,14 @@ BFWC_Filter_SavedConfigs = {
 ["g"] = 0.03921568766236305,
 ["hex"] = "ffffa0",
 },
+["blocklist_enable"] = true,
+["bigfoot_chatframe_name"] = "4",
+["filter_request_to_join"] = true,
+["hide_enter_leave"] = false,
+["dungeons"] = {
+["永恒之眼(团)"] = false,
+},
+["dlg_width"] = 700,
 ["bigfoot"] = true,
 ["blacklist_enable"] = false,
 ["player"] = {
