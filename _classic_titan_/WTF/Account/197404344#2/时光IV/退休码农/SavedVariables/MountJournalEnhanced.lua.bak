@@ -9,22 +9,22 @@ MJEPersonalSettings = {
 ["compactMountList"] = true,
 ["enableCursorKeys"] = true,
 ["displayStatistics"] = {
-["TravelTime"] = true,
-["TravelDistance"] = true,
 ["LearnedDate"] = true,
+["UsedCount"] = true,
+["TravelTime"] = true,
 ["Rarity"] = true,
 ["Family"] = true,
 ["CustomizationCount"] = true,
 ["Wowhead"] = true,
-["UsedCount"] = true,
+["TravelDistance"] = true,
 },
 ["slotPosition"] = "top",
 ["showMountspecialButton"] = true,
-["previewButton"] = true,
+["autoRotateModel"] = false,
 ["showResizeEdge"] = true,
 ["showPersonalCount"] = true,
 ["displayBackground"] = "original",
-["autoRotateModel"] = false,
+["previewButton"] = true,
 ["colorizeNameByRarity"] = true,
 ["windowSize"] = {
 0,
@@ -33,10 +33,9 @@ MJEPersonalSettings = {
 ["unlockDisplayCamera"] = true,
 ["displayAnimation"] = "stand",
 },
-["searchInNotes"] = false,
-["hiddenMounts"] = {
-},
 ["summonPreviousPetAgain"] = false,
+["searchInFamilyName"] = false,
+["searchInNotes"] = false,
 ["pets"] = {
 ["assignments"] = {
 },
@@ -50,6 +49,19 @@ MJEPersonalSettings = {
 ["favoritesOnTop"] = true,
 ["unusableToBottom"] = false,
 },
+["favorites"] = {
+["assignments"] = {
+},
+["profiles"] = {
+{
+["mounts"] = {
+},
+["name"] = "",
+["autoFavor"] = false,
+},
+},
+},
+["personalHiddenMounts"] = false,
 ["filter"] = {
 ["expansion"] = {
 true,
@@ -90,15 +102,19 @@ true,
 ["Promotion"] = true,
 ["Class"] = true,
 },
-["hiddenIngame"] = false,
 ["color"] = {
 },
+["hiddenIngame"] = false,
 ["notCollected"] = true,
 ["hidden"] = false,
-["faction"] = {
-["horde"] = true,
-["alliance"] = true,
-["noFaction"] = true,
+["mountType"] = {
+["repair"] = true,
+["flying"] = true,
+["underwater"] = true,
+["rideAlong"] = true,
+["passenger"] = true,
+["ground"] = true,
+["transform"] = true,
 },
 ["family"] = {
 ["Drakes"] = {
@@ -195,16 +211,12 @@ true,
 ["Bats"] = true,
 },
 ["onlyFavorites"] = false,
-["onlyUsable"] = false,
-["mountType"] = {
-["repair"] = true,
-["flying"] = true,
-["underwater"] = true,
-["rideAlong"] = true,
-["passenger"] = true,
-["ground"] = true,
-["transform"] = true,
+["faction"] = {
+["horde"] = true,
+["alliance"] = true,
+["noFaction"] = true,
 },
+["onlyUsable"] = false,
 ["onlyTradable"] = false,
 ["collected"] = true,
 ["onlyRecent"] = false,
@@ -216,19 +228,7 @@ true,
 true,
 },
 },
-["personalHiddenMounts"] = false,
-["favorites"] = {
-["assignments"] = {
+["hiddenMounts"] = {
 },
-["profiles"] = {
-{
-["mounts"] = {
-},
-["name"] = "",
-["autoFavor"] = false,
-},
-},
-},
-["searchInFamilyName"] = false,
 ["searchInDescription"] = true,
 }

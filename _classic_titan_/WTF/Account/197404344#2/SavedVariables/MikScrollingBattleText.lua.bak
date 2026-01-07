@@ -45,8 +45,8 @@ MSBTProfiles_SavedVars = {
 },
 ["MSBT_TRIGGER_EXECUTE"] = false,
 },
+["hotThrottleDuration"] = 2,
 ["abbreviateAbilities"] = true,
-["critFontName"] = "默认",
 ["critOutlineIndex"] = 2,
 ["animationSpeed"] = 120,
 ["enableBlizzardDamage"] = true,
@@ -413,7 +413,7 @@ MSBTProfiles_SavedVars = {
 },
 ["normalFontName"] = "默认",
 ["damageColoringDisabled"] = true,
-["hotThrottleDuration"] = 2,
+["critFontName"] = "默认",
 },
 },
 }

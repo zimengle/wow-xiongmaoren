@@ -2,11 +2,11 @@
 WclBoxCharacter = {
 ["class"] = "WARRIOR",
 ["realmID"] = 6383,
-["loginTime"] = 1766633425,
+["loginTime"] = 1767712055,
 ["faction"] = "Alliance",
 ["race"] = "人类",
 ["version"] = "1.0.28",
-["gold"] = 62771703,
+["gold"] = 165521005,
 ["realmName"] = "时光IV",
 ["level"] = 80,
 ["name"] = "三角碑崽儿",

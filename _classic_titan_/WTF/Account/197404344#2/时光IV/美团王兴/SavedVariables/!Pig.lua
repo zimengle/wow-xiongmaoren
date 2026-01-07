@@ -7,7 +7,7 @@ PIGA_Per = {
 12,
 12,
 },
-["ShowTJ"] = {
+["Scale"] = {
 1,
 1,
 1,
@@ -19,7 +19,7 @@ false,
 false,
 false,
 },
-["Scale"] = {
+["ShowTJ"] = {
 1,
 1,
 1,
@@ -147,10 +147,12 @@ false,
 },
 ["Take_Money"] = 10000000,
 },
+["Tardis"] = {
+},
+["Pig_UI"] = {
+},
 ["CombatPlus"] = {
 ["PetFoodList"] = {
 },
-},
-["Pig_UI"] = {
 },
 }

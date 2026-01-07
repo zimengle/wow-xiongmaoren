@@ -173,19 +173,13 @@ BlizzMoveDB = {
 },
 ["GuildInfoFrame"] = {
 },
-["GuildControlPopupFrame"] = {
+["LootFrame"] = {
 },
 ["GlyphFrame"] = {
 },
 ["TabardFrame"] = {
 },
-["LootFrame"] = {
-},
-["GuildFrame"] = {
-},
-["PVPBannerFrame"] = {
-},
-["InspectPVPFrameHonor"] = {
+["CommunitiesGuildNewsFiltersFrame"] = {
 },
 ["SpellBookFrame"] = {
 ["startPoints"] = {
@@ -207,6 +201,12 @@ BlizzMoveDB = {
 ["relativePoint"] = "TOPLEFT",
 },
 },
+},
+["PVPBannerFrame"] = {
+},
+["GuildFrame"] = {
+},
+["InspectPVPFrameHonor"] = {
 },
 ["TutorialFrame"] = {
 ["startPoints"] = {
@@ -306,7 +306,7 @@ BlizzMoveDB = {
 },
 },
 },
-["CommunitiesGuildNewsFiltersFrame"] = {
+["GuildControlPopupFrame"] = {
 },
 ["GuildControlUI"] = {
 },

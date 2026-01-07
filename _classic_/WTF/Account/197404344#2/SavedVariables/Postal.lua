@@ -1,21 +1,5 @@
 
 Postal3DB = {
-["global"] = {
-["BlackBook"] = {
-["alts"] = {
-"Vscode|加丁|Alliance|3|ROGUE",
-"京东的董事长|祈福|Alliance|85|MONK",
-"京东的董事长|祈福|Neutral|1|MONK",
-"张坤|祈福|Alliance|55|DEATHKNIGHT",
-"新特能源|祈福|Alliance|90|PRIEST",
-"查尔斯三世|祈福|Alliance|70|MAGE",
-"沈南鹏|祈福|Alliance|70|PALADIN",
-"特变电工|祈福|Alliance|85|ROGUE",
-"特工仓库|祈福|Alliance|1|PALADIN",
-"码农巴菲特|祈福|Alliance|87|DEATHKNIGHT",
-},
-},
-},
 ["profileKeys"] = {
 ["沈南鹏 - 祈福"] = "沈南鹏 - 祈福",
 ["张坤 - 祈福"] = "张坤 - 祈福",
@@ -24,8 +8,24 @@ Postal3DB = {
 ["Vscode - 加丁"] = "Vscode - 加丁",
 ["特变电工 - 祈福"] = "特变电工 - 祈福",
 ["码农巴菲特 - 祈福"] = "码农巴菲特 - 祈福",
-["京东的董事长 - 祈福"] = "京东的董事长 - 祈福",
 ["新特能源 - 祈福"] = "新特能源 - 祈福",
+["京东的董事长 - 祈福"] = "京东的董事长 - 祈福",
+},
+["global"] = {
+["BlackBook"] = {
+["alts"] = {
+"Vscode|加丁|Alliance|3|ROGUE",
+"京东的董事长|祈福|Alliance|89|MONK",
+"京东的董事长|祈福|Neutral|1|MONK",
+"张坤|祈福|Alliance|55|DEATHKNIGHT",
+"新特能源|祈福|Alliance|90|PRIEST",
+"查尔斯三世|祈福|Alliance|70|MAGE",
+"沈南鹏|祈福|Alliance|70|PALADIN",
+"特变电工|祈福|Alliance|87|ROGUE",
+"特工仓库|祈福|Alliance|1|PALADIN",
+"码农巴菲特|祈福|Alliance|87|DEATHKNIGHT",
+},
+},
 },
 ["profiles"] = {
 ["沈南鹏 - 祈福"] = {
@@ -61,9 +61,9 @@ Postal3DB = {
 ["特变电工 - 祈福"] = {
 ["BlackBook"] = {
 ["recent"] = {
+"特工仓库|祈福|Alliance",
 "码农巴菲特|祈福|Alliance",
 "新特能源|祈福|Alliance",
-"特工仓库|祈福|Alliance",
 "骑风|祈福|Alliance",
 },
 },
@@ -79,8 +79,6 @@ Postal3DB = {
 },
 },
 },
-["京东的董事长 - 祈福"] = {
-},
 ["新特能源 - 祈福"] = {
 ["BlackBook"] = {
 ["recent"] = {
@@ -92,6 +90,8 @@ Postal3DB = {
 "骑风|祈福|Alliance",
 },
 },
+},
+["京东的董事长 - 祈福"] = {
 },
 },
 }

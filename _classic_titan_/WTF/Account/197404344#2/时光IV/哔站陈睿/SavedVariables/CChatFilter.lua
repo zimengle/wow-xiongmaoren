@@ -11,15 +11,21 @@ BFWC_Filter_SavedConfigs = {
 ["whitelist"] = {
 "5h",
 },
+["use_class_color_for_text"] = true,
 ["blocklist_enable"] = true,
-["white_to_chatframe"] = true,
 ["bigfoot_chatframe_name"] = "4",
 ["auto_filter_by_level"] = false,
-["hide_enter_leave"] = false,
-["bigfoot"] = true,
-["remain_unchanged_msg"] = true,
+["white_to_chatframe_color"] = {
+["a"] = 1,
+["r"] = 1,
+["b"] = 0.545098066329956,
+["g"] = 0,
+["hex"] = "ffff08b",
+},
 ["dungeons"] = {
 },
+["hide_enter_leave"] = false,
+["bigfoot"] = true,
 ["blacklist_enable"] = false,
 ["player"] = {
 ["Player-6379-0005EADC"] = {
@@ -75,14 +81,8 @@ BFWC_Filter_SavedConfigs = {
 },
 ["dlg_width"] = 700,
 ["saved"] = true,
-["white_to_chatframe_color"] = {
-["a"] = 1,
-["r"] = 1,
-["b"] = 0.545098066329956,
-["g"] = 0,
-["hex"] = "ffff08b",
-},
+["remain_unchanged_msg"] = true,
 ["new_msg_flash"] = true,
 ["filter_request_to_join"] = true,
-["use_class_color_for_text"] = true,
+["white_to_chatframe"] = true,
 }

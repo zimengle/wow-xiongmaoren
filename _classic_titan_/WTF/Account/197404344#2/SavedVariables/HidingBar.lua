@@ -1,117 +1,117 @@
 
 HidingBarDB = {
-["tstmp"] = 1766852193,
+["tstmp"] = 1767718883,
 ["profiles"] = {
 {
 ["isDefault"] = true,
 ["config"] = {
 ["mbtnSettings"] = {
 ["LibDBIcon10_Accountant_Classic"] = {
-["tstmp"] = 1766852193,
+["tstmp"] = 1767718883,
 },
 ["LibDBIcon10_MeetingHorn"] = {
-["tstmp"] = 1766852193,
+["tstmp"] = 1767718883,
 },
 ["LibDBIcon10_BisTooltipIcon"] = {
-["tstmp"] = 1766852193,
+["tstmp"] = 1767718883,
 },
 ["LibDBIcon10_AutoCombatLogger"] = {
-["tstmp"] = 1766852193,
+["tstmp"] = 1767718883,
 },
 ["LibDBIcon10_BiaoGe"] = {
-["tstmp"] = 1766852193,
+["tstmp"] = 1767718883,
 },
 ["LibDBIcon10_BugSack"] = {
-["tstmp"] = 1766852193,
+["tstmp"] = 1767718883,
 },
 ["LibDBIcon10_Myslot"] = {
-["tstmp"] = 1766852193,
+["tstmp"] = 1767718883,
 },
 ["LibDBIcon10_Details"] = {
-["tstmp"] = 1766852193,
+["tstmp"] = 1767718883,
 },
 ["LibDBIcon10_MailLogger"] = {
-["tstmp"] = 1766852193,
+["tstmp"] = 1767718883,
 },
 ["LibDBIcon10_Atlas"] = {
-["tstmp"] = 1766852193,
+["tstmp"] = 1767718883,
 },
 ["LibDBIcon10_MethodRaidTools"] = {
-["tstmp"] = 1766852193,
+["tstmp"] = 1767718883,
 },
 ["LibDBIcon10_HidingBar1"] = {
 ["tstmp"] = 0,
 },
 ["LibDBIcon10_BagSync"] = {
-["tstmp"] = 1766852193,
+["tstmp"] = 1767718883,
 },
 ["LibDBIcon10_Questie"] = {
-["tstmp"] = 1766852193,
+["tstmp"] = 1767718883,
 },
 ["LibDBIcon10_Hekili"] = {
 ["tstmp"] = 1764432375,
 },
 ["LibDBIcon10_RurutiaSuite"] = {
-["tstmp"] = 1766852193,
+["tstmp"] = 1767718883,
 },
 ["PIG_MiniMapBut"] = {
-["tstmp"] = 1766852193,
+["tstmp"] = 1767718883,
 },
 ["LibDBIcon10_DBM"] = {
-["tstmp"] = 1766852193,
+["tstmp"] = 1767718883,
 },
 ["LibDBIcon10_CChatFilter"] = {
-["tstmp"] = 1766852193,
+["tstmp"] = 1767718883,
 },
 ["LibDBIcon10_Leatrix_Plus"] = {
-["tstmp"] = 1766852193,
+["tstmp"] = 1767718883,
 },
 ["LibDBIcon10_PallyPower"] = {
-["tstmp"] = 1766852193,
+["tstmp"] = 1767718883,
 },
 ["LibDBIcon10_AtlasLoot"] = {
 ["tstmp"] = 1763178441,
 },
 ["EasyAuctionMinimapButton"] = {
-["tstmp"] = 1766852193,
+["tstmp"] = 1767718883,
 },
 ["LibDBIcon10_Leatrix_Maps"] = {
-["tstmp"] = 1766852193,
+["tstmp"] = 1767718883,
 },
 ["LibDBIcon10_GSE Gnome Sequencer Enhanced"] = {
 ["tstmp"] = 1764432375,
 },
 ["LibDBIcon10_alaTradeSkill"] = {
-["tstmp"] = 1766852193,
+["tstmp"] = 1767718883,
 },
 ["LibDBIcon10_TalentEmu"] = {
-["tstmp"] = 1766852193,
+["tstmp"] = 1767718883,
 },
 ["LibDBIcon10_AtlasLootMY"] = {
-["tstmp"] = 1766852193,
+["tstmp"] = 1767718883,
 },
 ["LibDBIcon10_HandyNotes_NPCs"] = {
-["tstmp"] = 1766852193,
+["tstmp"] = 1767718883,
 },
 ["LibDBIcon10_DetailsStreamer"] = {
-["tstmp"] = 1766852193,
+["tstmp"] = 1767718883,
 },
 ["LibDBIcon10_WeakAuras"] = {
-["tstmp"] = 1766852193,
+["tstmp"] = 1767718883,
 },
 ["LibDBIcon10_Plater"] = {
-["tstmp"] = 1766852193,
+["tstmp"] = 1767718883,
 },
 ["LibDBIcon10_Decursive"] = {
-["tstmp"] = 1766852193,
+["tstmp"] = 1767718883,
 },
 ["LibDBIcon10_RXPGuides"] = {
-["tstmp"] = 1766852193,
+["tstmp"] = 1767718883,
 },
 },
 ["btnSettings"] = {
 ["HidingBar"] = {
-["tstmp"] = 1766852193,
+["tstmp"] = 1767718883,
 },
 },
 ["grabMinimap"] = true,

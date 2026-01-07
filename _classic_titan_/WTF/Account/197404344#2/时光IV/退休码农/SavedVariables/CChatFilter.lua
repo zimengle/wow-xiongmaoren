@@ -10,13 +10,11 @@ BFWC_Filter_SavedConfigs = {
 ["whitelist"] = {
 "监狱",
 },
-["use_class_color_for_text"] = true,
-["auto_filter_by_level"] = false,
 ["blocklist_enable"] = true,
+["auto_filter_by_level"] = false,
+["use_class_color_for_text"] = true,
 ["bigfoot_chatframe_name"] = "4",
-["hide_enter_leave"] = true,
 ["dlg_width"] = 900,
-["bigfoot"] = true,
 ["white_to_chatframe_color"] = {
 ["a"] = 1,
 ["r"] = 1,
@@ -24,6 +22,8 @@ BFWC_Filter_SavedConfigs = {
 ["g"] = 0.7843137979507446,
 ["hex"] = "ffffc8f",
 },
+["bigfoot"] = true,
+["hide_enter_leave"] = true,
 ["dungeons"] = {
 },
 ["blacklist_enable"] = true,

@@ -16,10 +16,10 @@ PawnCommon = {
 ["\"Classic\":WARRIOR2"] = {
 ["IconTexturePath"] = 132347,
 ["PerCharacterOptions"] = {
-["三角碑崽儿-时光IV"] = {
+["美团王兴-时光IV"] = {
 ["Visible"] = true,
 },
-["美团王兴-时光IV"] = {
+["三角碑崽儿-时光IV"] = {
 ["Visible"] = true,
 },
 },
@@ -50,6 +50,9 @@ PawnCommon = {
 ["\"Classic\":WARLOCK2"] = {
 ["IconTexturePath"] = 136172,
 ["PerCharacterOptions"] = {
+["于鹏-时光IV"] = {
+["Visible"] = true,
+},
 ["卧伦巴菲特-时光IV"] = {
 ["Visible"] = true,
 },
@@ -177,10 +180,10 @@ PawnCommon = {
 ["\"Classic\":WARRIOR3"] = {
 ["IconTexturePath"] = 134952,
 ["PerCharacterOptions"] = {
-["三角碑崽儿-时光IV"] = {
+["美团王兴-时光IV"] = {
 ["Visible"] = true,
 },
-["美团王兴-时光IV"] = {
+["三角碑崽儿-时光IV"] = {
 ["Visible"] = true,
 },
 },
@@ -197,6 +200,9 @@ PawnCommon = {
 ["\"Classic\":WARLOCK3"] = {
 ["IconTexturePath"] = 136186,
 ["PerCharacterOptions"] = {
+["于鹏-时光IV"] = {
+["Visible"] = true,
+},
 ["卧伦巴菲特-时光IV"] = {
 ["Visible"] = true,
 },
@@ -399,10 +405,10 @@ PawnCommon = {
 ["\"Classic\":WARRIOR1"] = {
 ["IconTexturePath"] = 132292,
 ["PerCharacterOptions"] = {
-["三角碑崽儿-时光IV"] = {
+["美团王兴-时光IV"] = {
 ["Visible"] = true,
 },
-["美团王兴-时光IV"] = {
+["三角碑崽儿-时光IV"] = {
 ["Visible"] = true,
 },
 },
@@ -419,6 +425,9 @@ PawnCommon = {
 ["\"Classic\":WARLOCK1"] = {
 ["IconTexturePath"] = 136145,
 ["PerCharacterOptions"] = {
+["于鹏-时光IV"] = {
+["Visible"] = true,
+},
 ["卧伦巴菲特-时光IV"] = {
 ["Visible"] = true,
 },

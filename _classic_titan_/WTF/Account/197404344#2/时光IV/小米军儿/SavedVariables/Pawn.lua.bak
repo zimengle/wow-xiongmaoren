@@ -1,13 +1,11 @@
 
 PawnOptions = {
 ["LastVersion"] = 2.0811,
-["LastPlayerFullName"] = "小米军儿-时光IV",
-["AutoSelectScales"] = false,
 ["ItemLevels"] = {
 {
-["ID"] = 37237,
-["Level"] = 200,
-["Link"] = "|cff0070dd|Hitem:37237::::::::80::::::::::|h[几丁甲壳巨盔]|h|r",
+["ID"] = 257631,
+["Level"] = 213,
+["Link"] = "|cffa335ee|Hitem:257631::::::::80::::::::::|h[北境战盔]|h|r",
 },
 {
 ["ID"] = 40678,
@@ -57,10 +55,10 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:255106::::::::80::::::::::|h[海洋之风]|h|r",
 },
 {
-["ID"] = 37151,
-["Level"] = 200,
+["ID"] = 255106,
+["Level"] = 213,
 ["AlsoFitsIn"] = 11,
-["Link"] = "|cff0070dd|Hitem:37151::::::::80::::::::::|h[冰霜荆棘指环]|h|r",
+["Link"] = "|cffa335ee|Hitem:255106::40034::::::80::::::::::|h[海洋之风]|h|r",
 },
 {
 ["ID"] = 40684,
@@ -91,6 +89,8 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:40703::::::::80::::::::::|h[草薙]|h|r",
 },
 },
+["AutoSelectScales"] = false,
+["LastPlayerFullName"] = "小米军儿-时光IV",
 }
 PawnMrRobotScaleProviderOptions = nil
 PawnClassicScaleProviderOptions = {

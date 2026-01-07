@@ -23,6 +23,7 @@ RurutiaSuiteDB = {
 ["哔站董事长 - 时光IV"] = "Default",
 ["爱奇艺龚宇 - 时光IV"] = "Default",
 ["愛雅法拉 - 时光I"] = "Default",
+["于鹏 - 时光IV"] = "Default",
 ["小米军儿 - 时光IV"] = "Default",
 ["确实日白 - 时光I"] = "Default",
 ["露露缇娅 - 时光III"] = "Default",

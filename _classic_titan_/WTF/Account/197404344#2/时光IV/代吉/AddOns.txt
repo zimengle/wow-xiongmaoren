@@ -132,3 +132,4 @@ MissingTradeSkillsList_TBC_Data: enabled
 WeakAurasCompanion: enabled
 Blizzard_CombatText: enabled
 ArchonTooltipDB_5236: enabled
+!Pig_Tardis: enabled

@@ -2,6 +2,7 @@
 CopyAnythingDB = {
 ["profileKeys"] = {
 ["退休码农 - 时光IV"] = "Default",
+["于鹏 - 时光IV"] = "Default",
 ["小米军儿 - 时光IV"] = "Default",
 ["京东刘强东 - 时光IV"] = "Default",
 ["三角碑崽儿 - 时光IV"] = "Default",

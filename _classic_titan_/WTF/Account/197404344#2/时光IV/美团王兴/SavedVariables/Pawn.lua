@@ -1,8 +1,6 @@
 
 PawnOptions = {
 ["LastVersion"] = 2.0811,
-["LastPlayerFullName"] = "美团王兴-时光IV",
-["AutoSelectScales"] = false,
 ["ItemLevels"] = {
 [7] = {
 ["ID"] = 39,
@@ -15,6 +13,8 @@ PawnOptions = {
 ["Link"] = "|cffffffff|Hitem:49778::::::::1::::::::::|h[破损的巨剑]|h|r",
 },
 },
+["AutoSelectScales"] = false,
+["LastPlayerFullName"] = "美团王兴-时光IV",
 }
 PawnMrRobotScaleProviderOptions = nil
 PawnClassicScaleProviderOptions = {

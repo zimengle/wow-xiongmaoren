@@ -44,13 +44,13 @@ DBMAzeroth_AllSavedVars = {
 ["AzuregosVanilla"] = {
 {
 ["Enabled"] = true,
-["SpecWarn21147spellSWNote"] = true,
-["SpecWarn21147spell"] = true,
 ["announce21099spell"] = true,
+["SpecWarn22067spell"] = true,
+["SpecWarn21147spellSWNote"] = true,
 ["SpecWarn22067spellSWSound"] = 1,
 ["SpecWarn22067spellSWNote"] = true,
 ["SpecWarn21147spellSWSound"] = 2,
-["SpecWarn22067spell"] = true,
+["SpecWarn21147spell"] = true,
 },
 },
 ["TaerarVanilla"] = {
@@ -133,13 +133,13 @@ DBMAzeroth_AllSavedVars = {
 ["AzuregosVanilla"] = {
 [3] = {
 ["Enabled"] = true,
-["announce21099spell"] = true,
-["SpecWarn22067spell"] = false,
 ["SpecWarn21147spellSWNote"] = true,
+["SpecWarn21147spell"] = true,
+["announce21099spell"] = true,
 ["SpecWarn22067spellSWSound"] = 1,
 ["SpecWarn22067spellSWNote"] = true,
 ["SpecWarn21147spellSWSound"] = 2,
-["SpecWarn21147spell"] = true,
+["SpecWarn22067spell"] = false,
 },
 },
 ["LethonVanilla"] = {
@@ -260,13 +260,13 @@ DBMAzeroth_AllSavedVars = {
 ["AzuregosVanilla"] = {
 {
 ["Enabled"] = true,
-["SpecWarn21147spell"] = true,
 ["SpecWarn22067spell"] = true,
+["SpecWarn21147spell"] = true,
 ["SpecWarn22067spellSWNote"] = true,
 ["SpecWarn22067spellSWSound"] = 1,
-["announce21099spell"] = true,
-["SpecWarn21147spellSWSound"] = 2,
 ["SpecWarn21147spellSWNote"] = true,
+["SpecWarn21147spellSWSound"] = 2,
+["announce21099spell"] = true,
 },
 },
 },
@@ -350,13 +350,13 @@ DBMAzeroth_AllSavedVars = {
 ["AzuregosVanilla"] = {
 {
 ["Enabled"] = true,
-["SpecWarn22067spell"] = true,
 ["SpecWarn21147spell"] = true,
+["SpecWarn22067spell"] = true,
 ["SpecWarn22067spellSWNote"] = true,
 ["SpecWarn22067spellSWSound"] = 1,
-["SpecWarn21147spellSWNote"] = true,
-["SpecWarn21147spellSWSound"] = 2,
 ["announce21099spell"] = true,
+["SpecWarn21147spellSWSound"] = 2,
+["SpecWarn21147spellSWNote"] = true,
 },
 },
 },

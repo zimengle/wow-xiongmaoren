@@ -147,3 +147,4 @@ ElvUI_BuffHighlight: disabled
 ElvUI_RatioMinimapAuras: disabled
 kExtraBossFrames: disabled
 Blizzard_CombatText: enabled
+!Pig_Tardis: enabled

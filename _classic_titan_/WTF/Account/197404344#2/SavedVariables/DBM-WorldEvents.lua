@@ -293,6 +293,83 @@ DBMWorldEvents_AllSavedVars = {
 },
 ["talent1"] = "PALADIN1",
 },
+["萌萌的露露糖-霜语"] = {
+["d288"] = {
+[3] = {
+["TrioActiveTimerTColor"] = 1,
+["TrioActiveTimer"] = true,
+["announce68821cast2"] = false,
+["SpecWarn68927gtfo"] = true,
+["Enabled"] = true,
+["TrioActiveTimerCVoice"] = 0,
+["SpecWarn68927gtfoSWSound"] = 1,
+["AGBoss"] = true,
+["SpecWarn68927gtfoSWNote"] = true,
+},
+},
+["d286"] = {
+[3] = {
+["announce37751spell"] = true,
+["specWarnAttack"] = true,
+["EmergeTimerTColor"] = 6,
+["specWarnAttackSWNote"] = true,
+["Emerged"] = true,
+["SubmergeTimerCVoice"] = 0,
+["specWarnAttackSWSound"] = 1,
+["Enabled"] = true,
+["EmergeTimerCVoice"] = 0,
+["SubmergeTimerTColor"] = 6,
+["EmergeTimer"] = true,
+["SubmergeTimer"] = true,
+},
+},
+["d287"] = {
+[3] = {
+["Timer47442targetTColor"] = 3,
+["Timer47310cast2TColor"] = 2,
+["Timer47340target"] = false,
+["announceother47442target"] = true,
+["specWarnBrew"] = true,
+["specWarnBrewStun"] = true,
+["specWarnBrewStunSWNote"] = true,
+["Timer47310cast2CVoice"] = 0,
+["Enabled"] = true,
+["Timer47442targetCVoice"] = 0,
+["Timer47442target"] = true,
+["specWarnBrewSWSound"] = 1,
+["specWarnBrewStunSWSound"] = 1,
+["specWarnBrewSWNote"] = true,
+["Yell47442"] = false,
+["Timer47340targetTColor"] = 3,
+["announce47310cast"] = false,
+["Timer47340targetCVoice"] = 0,
+["Timer47310cast2"] = false,
+},
+},
+["d285"] = {
+[3] = {
+["warnHorsemanHead"] = true,
+["announceother42380target"] = true,
+["warnHorsemanSoldiers"] = true,
+["Timer42514target2TColor"] = 3,
+["announceother42514target2"] = false,
+["WarnPhase"] = true,
+["Timer42380targetTColor"] = 3,
+["Enabled"] = true,
+["Timer42380target"] = false,
+["Timer42514target2"] = false,
+["Timer42380targetCVoice"] = 0,
+["Timer42514target2CVoice"] = 0,
+},
+},
+["EscortQuests"] = {
+[3] = {
+["Enabled"] = true,
+["Timers"] = true,
+},
+},
+["talent3"] = "HUNTER3",
+},
 ["爱雅法拉-维希度斯"] = {
 ["d288"] = {
 {
@@ -851,22 +928,22 @@ DBMWorldEvents_AllSavedVars = {
 ["talent1"] = "SHAMAN1",
 ["talent3"] = "SHAMAN3",
 },
-["萌萌的露露糖-霜语"] = {
+["于鹏-时光IV"] = {
 ["d288"] = {
-[3] = {
+[0] = {
 ["TrioActiveTimerTColor"] = 1,
 ["TrioActiveTimer"] = true,
 ["announce68821cast2"] = false,
 ["SpecWarn68927gtfo"] = true,
-["Enabled"] = true,
+["AutoGossipEncounter"] = true,
 ["TrioActiveTimerCVoice"] = 0,
 ["SpecWarn68927gtfoSWSound"] = 1,
-["AGBoss"] = true,
+["Enabled"] = true,
 ["SpecWarn68927gtfoSWNote"] = true,
 },
 },
 ["d286"] = {
-[3] = {
+[0] = {
 ["announce37751spell"] = true,
 ["specWarnAttack"] = true,
 ["EmergeTimerTColor"] = 6,
@@ -874,6 +951,7 @@ DBMWorldEvents_AllSavedVars = {
 ["Emerged"] = true,
 ["SubmergeTimerCVoice"] = 0,
 ["specWarnAttackSWSound"] = 1,
+["AutoGossipEncounter"] = true,
 ["Enabled"] = true,
 ["EmergeTimerCVoice"] = 0,
 ["SubmergeTimerTColor"] = 6,
@@ -882,37 +960,37 @@ DBMWorldEvents_AllSavedVars = {
 },
 },
 ["d287"] = {
-[3] = {
+[0] = {
 ["Timer47442targetTColor"] = 3,
 ["Timer47310cast2TColor"] = 2,
 ["Timer47340target"] = false,
-["announceother47442target"] = true,
 ["specWarnBrew"] = true,
-["specWarnBrewStun"] = true,
+["announce47442target"] = true,
 ["specWarnBrewStunSWNote"] = true,
 ["Timer47310cast2CVoice"] = 0,
-["Enabled"] = true,
+["specWarnBrewStunSWSound"] = 1,
 ["Timer47442targetCVoice"] = 0,
 ["Timer47442target"] = true,
 ["specWarnBrewSWSound"] = 1,
-["specWarnBrewStunSWSound"] = 1,
+["specWarnBrewStun"] = true,
 ["specWarnBrewSWNote"] = true,
-["Yell47442"] = false,
+["Enabled"] = true,
 ["Timer47340targetTColor"] = 3,
+["Yell47442"] = false,
 ["announce47310cast"] = false,
 ["Timer47340targetCVoice"] = 0,
 ["Timer47310cast2"] = false,
 },
 },
 ["d285"] = {
-[3] = {
+[0] = {
 ["warnHorsemanHead"] = true,
-["announceother42380target"] = true,
 ["warnHorsemanSoldiers"] = true,
 ["Timer42514target2TColor"] = 3,
-["announceother42514target2"] = false,
+["announce42514target2"] = false,
 ["WarnPhase"] = true,
 ["Timer42380targetTColor"] = 3,
+["announce42380target"] = true,
 ["Enabled"] = true,
 ["Timer42380target"] = false,
 ["Timer42514target2"] = false,
@@ -921,11 +999,10 @@ DBMWorldEvents_AllSavedVars = {
 },
 },
 ["EscortQuests"] = {
-[3] = {
+[0] = {
 ["Enabled"] = true,
 ["Timers"] = true,
 },
 },
-["talent3"] = "HUNTER3",
 },
 }

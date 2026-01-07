@@ -34,10 +34,3 @@ X: 2
 Y: -44
 W: 610
 H: 438
-Frame: EasyAuctionPriceFrame
-FrameLevel: 1
-Anchor: CENTER
-X: 269
-Y: 10
-W: 350
-H: 400

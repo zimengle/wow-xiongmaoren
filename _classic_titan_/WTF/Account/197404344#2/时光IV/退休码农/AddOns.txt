@@ -147,3 +147,4 @@ ElvUI_BuffHighlight: disabled
 ElvUI_RatioMinimapAuras: disabled
 kExtraBossFrames: disabled
 ArchonTooltipDB_5236: enabled
+!Pig_Tardis: enabled

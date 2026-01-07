@@ -200,3 +200,4 @@ SpellAutoMaxRank: enabled
 AutoCombatLogger: enabled
 LFGBulletinBoard: enabled
 ArchonTooltipDB_5236: enabled
+!Pig_Tardis: enabled

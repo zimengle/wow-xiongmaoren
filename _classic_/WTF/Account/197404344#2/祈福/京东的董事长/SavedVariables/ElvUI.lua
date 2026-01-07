@@ -3,7 +3,17 @@ ElvCharacterDB = {
 ["ConvertKeybindings"] = true,
 ["ChatEditHistory"] = {
 "/wa",
+"操作复杂的一批",
+"你不适合 也可以理解",
+"你多练习熊猫人 时光服就像切菜一样",
+"难得一批",
+"你现在不是在玩吗",
+"我擦",
+"碎片化的时间来体验",
+"你比如你现在打卡扎克就没有意义",
+"纯浪费时间",
 "/played",
+"/团队 任务差2个",
 },
 ["ChatHistoryLog"] = {
 },
