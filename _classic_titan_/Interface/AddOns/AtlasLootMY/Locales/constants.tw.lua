@@ -155,6 +155,8 @@ AL["Settings"] = "設定"
 AL["Sever"] = "塞沃爾"
 AL["Shield"] = "盾"
 AL["Shift + Left Click"] = "Shift+左鍵"
+AL["Click this Button"] = "点击此按钮"
+AL["Open changelog Frame"] = "打开更新日志窗口"
 AL["Shift + Right Click"] = "Shift+右鍵"
 AL["Show Achievements."] = "顯示成就"
 AL["Show additional items."] = "顯示更多物品。"
@@ -226,3 +228,23 @@ AL["P10 Icecrown Citadel"] ="P10 冰冠堡垒"
 AL["P10 Ruby Sanctum"] ="P10 红玉圣殿"
 AL["Finale Hyjal Summit"] ="终章 海加尔山"
 AL["Finale BlackTemple"] ="终章 黑暗神庙"
+AL['changelogText']=[[
+|cff00ff00=== v1.3.0 更新日志 ===|r
+
+|cffFFA500★ 新增功能：|r
+• 增加P2牌子装（包括冬拥湖）
+• 增加显示更新日志窗口（加了新功能用户不一定知道 所以提醒一下）
+• 增加锻造的锻造大师斧、锤、剑以及护甲大师胸甲，更新对应材料
+• 增加P2阶段制皮、锻造、裁缝的鞋子和腰带配方，更新所需材料
+
+|cffFFA500★ 修复问题：|r
+• 增加原版AtlasLoot缺失的各个专业配方（足足有40个之多，工作量巨大）
+
+|cff00ff00=== v1.2.5 更新日志 ===|r
+
+|cffFFA500★ 新增功能：|r
+• 增加所有二手装备 在收藏品-泰坦余烬供应商里
+• 冬拥湖装备也加入收藏品-泰坦余烬供应商里 增加对应价格
+• 优化装备名拷贝功能 CTRL+X 剪切之后 自动隐藏窗口
+• 删除PVP S套装
+]]

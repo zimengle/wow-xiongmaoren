@@ -1143,6 +1143,63 @@ BG.Init2(function()
             BG.ClickTabButton(BG.FBMainFrameTabNum)
             BG.ClickFBbutton(FB)
         end)
+
+        local isSend = {}
+        function BG.badManLootFrameUpdate()
+            if BG.badManLootFrame then
+                BG.badManLootFrame:Hide()
+            end
+            if IsMasterLooter() then
+                local list = {}
+                local quality = GetLootThreshold()
+                for li = 1, GetNumLootItems() do
+                    if LootSlotHasItem(li) then
+                        local lootIcon, lootName, lootQuantity, currencyID, lootQuality = GetLootSlotInfo(li)
+                        if lootQuality >= quality then
+                            for ci = 1, GetNumGroupMembers() do
+                                if not GetMasterLootCandidate(li, ci) then
+                                    local unit = "raid" .. ci
+                                    local name = GetUnitName(unit, true)
+                                    if name and not list[name] then
+                                        local colorName = SetClassCFF(name, unit)
+                                        list[name] = colorName
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+                if next(list) then
+                    local f = CreateFrame("Frame", nil, BG.saveLootButton)
+                    f:SetSize(1, 1)
+                    f:SetPoint("TOPLEFT", parent, "TOPRIGHT", 2, 0)
+                    local t = f:CreateFontString()
+                    t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+                    t:SetPoint("TOPLEFT")
+                    t:SetTextColor(1, 0, 0)
+                    t:SetText(L["以下玩家无法分配装备：\n(已有CD或没进战斗)"])
+                    t:SetJustifyH("LEFT")
+                    BG.badManLootFrame = f
+                    local count = 0
+                    local sendTbl = {}
+                    for name, colorName in pairs(list) do
+                        count = count + 1
+                        local t = f:CreateFontString()
+                        t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+                        t:SetPoint("TOPLEFT", 0, -count * 20 - 15)
+                        t:SetText(count .. L["、"] .. colorName)
+                        tinsert(sendTbl, { count .. L["、"] .. name })
+                    end
+                    local guid = UnitGUID("target")
+                    if not isSend[guid] then
+                        isSend[guid] = true
+                        tinsert(sendTbl, 1, { L["——通报CD异常玩家——"] })
+                        tinsert(sendTbl, 2, { L["无法分配装备(已有CD或没进战斗)："] })
+                        BG.SendMsgToRaid(sendTbl)
+                    end
+                end
+            end
+        end
     end
 
     -- 拾取框显示
@@ -1164,6 +1221,29 @@ BG.Init2(function()
                 end
             end
         end
+
+        local function OnMouseDown(self, button)
+            if IsAltKeyDown() and BG.IsML and LootSlotHasItem(self.slot) then
+                local link = GetLootSlotLink(self.slot)
+                if link then
+                    BG.StartAuction(link, self, nil, nil, button == "RightButton")
+                end
+            end
+        end
+        local lootName = (ElvLootFrame and "ElvLootSlot") or (XLootFrame and "XLootFrameButton") or "LootButton"
+        local function HookClick()
+            for i = 1, 20 do
+                local bt = _G[lootName .. i]
+                if bt and not bt.biaogeHook then
+                    bt.biaogeHook = true
+                    if not bt.slot then
+                        bt.slot = i
+                    end
+                    bt:HookScript("OnMouseDown", OnMouseDown)
+                end
+            end
+        end
+
         local function OnShow()
             BG.autoLootButton.isOnter = false
             BG.autoLootButton:Hide()
@@ -1188,10 +1268,14 @@ BG.Init2(function()
                     if npcID == _npcID then
                         BG.saveLootButton.bossIndex = index
                         BG.saveLootButton:Show()
+                        BG.badManLootFrameUpdate()
                         break
                     end
                 end
             end
+            BG.After(.2, function()
+                HookClick()
+            end)
         end
 
         hooksecurefunc("LootFrame_Show", OnShow)
@@ -1210,139 +1294,144 @@ BG.Init2(function()
         end)
     end
 
-    -- 橙片
-    BG.autoLoot = {}
-    if BG.IsVanilla_60 then
-        BG.autoLoot.info = {
-            NAXX = { { itemID = 22726, quest = 9250, maxCount = 40 } },
-        }
-    else
-        BG.autoLoot.info = {
-            ICC = {
-                { itemID = 50274, quest = 24548, maxCount = 50, diff = { 4, 6, 176, 194 } }, -- 25人橙斧
-                { itemID = 45038, quest = 13622, maxCount = 30, diff = { 3, 5, 175, 193 } }, -- 10人橙锤
-            },
-            DS = {
-                { itemID = 77952, quest = 30116 },
-            },
-        }
+    do
+
     end
 
-    function GetInfo()
-        if BG.DeBug then
-            return { itemID = testItem, quest = 13622, maxCount = 30, diff = { 3, 5, 175, 193 } }
+    -- 橙片
+    do
+        BG.autoLoot = {}
+        if BG.IsVanilla_60 then
+            BG.autoLoot.info = {
+                NAXX = { { itemID = 22726, quest = 9250, maxCount = 40 } },
+            }
+        else
+            BG.autoLoot.info = {
+                ICC = {
+                    { itemID = 50274, quest = 24548, maxCount = 50, diff = { 4, 6, 176, 194 } }, -- 25人橙斧
+                    { itemID = 45038, quest = 13622, maxCount = 30, diff = { 3, 5, 175, 193 } }, -- 10人橙锤
+                },
+                DS = {
+                    { itemID = 77952, quest = 30116 },
+                },
+            }
         end
-        local info = BG.FB2 and BG.autoLoot.info[BG.FB2]
-        if info then
-            local _info
-            local diff = GetRaidDifficultyID()
-            for i, v in ipairs(info) do
-                if v.diff then
-                    for _, _diff in ipairs(v.diff) do
-                        if diff == _diff then
-                            _info = v
-                            break
+
+        function GetInfo()
+            if BG.DeBug then
+                return { itemID = testItem, quest = 13622, maxCount = 30, diff = { 3, 5, 175, 193 } }
+            end
+            local info = BG.FB2 and BG.autoLoot.info[BG.FB2]
+            if info then
+                local _info
+                local diff = GetRaidDifficultyID()
+                for i, v in ipairs(info) do
+                    if v.diff then
+                        for _, _diff in ipairs(v.diff) do
+                            if diff == _diff then
+                                _info = v
+                                break
+                            end
                         end
+                    else
+                        _info = v
+                        break
                     end
-                else
-                    _info = v
-                    break
+                end
+                return _info
+            end
+        end
+
+        -- BOSS战结束后，发送自己的橙片数量到插件频道，以便物品分配者查看每个人的橙片数量
+        BG.RegisterEvent("ENCOUNTER_END", function(self, event, bossID, _, _, _, success)
+            if success == 1 then
+                local info = GetInfo()
+                if info and IsInRaid(1) then
+                    local count = GetItemCount(info.itemID, true)
+                    if info.quest and C_QuestLog.IsQuestFlaggedCompleted(info.quest) then
+                        count = "finish"
+                    end
+                    local msg = format("AutoLoot,%s,%s", info.itemID, count)
+                    C_ChatInfo.SendAddonMessage("BiaoGe", msg, "RAID")
                 end
             end
-            return _info
-        end
-    end
+        end)
 
-    -- BOSS战结束后，发送自己的橙片数量到插件频道，以便物品分配者查看每个人的橙片数量
-    BG.RegisterEvent("ENCOUNTER_END", function(self, event, bossID, _, _, _, success)
-        if success == 1 then
+        -- 获取刚刚时谁拾取了橙片，如果是自己拾取的，则发送消息到插件频道
+        local lootplayer
+        BG.RegisterEvent("CHAT_MSG_LOOT", function(self, event, msg)
             local info = GetInfo()
             if info and IsInRaid(1) then
-                local count = GetItemCount(info.itemID, true)
-                if info.quest and BG.questsCompleted[info.quest] then
-                    count = "finish"
-                end
-                local msg = format("AutoLoot,%s,%s", info.itemID, count)
-                C_ChatInfo.SendAddonMessage("BiaoGe", msg, "RAID")
-            end
-        end
-    end)
-
-    -- 获取刚刚时谁拾取了橙片，如果是自己拾取的，则发送消息到插件频道
-    local lootplayer
-    BG.RegisterEvent("CHAT_MSG_LOOT", function(self, event, msg)
-        local info = GetInfo()
-        if info and IsInRaid(1) then
-            local _lootplayer, link, count
-            link, count = strmatch(msg, string.gsub(string.gsub(LOOT_ITEM_SELF_MULTIPLE, "%%s", "(.+)"), "%%d", "(%%d+)"));
-            if (not link) then
-                link, count = strmatch(msg, string.gsub(string.gsub(LOOT_ITEM_PUSHED_SELF_MULTIPLE, "%%s", "(.+)"), "%%d", "(%%d+)"));
+                local _lootplayer, link, count
+                link, count = strmatch(msg, string.gsub(string.gsub(LOOT_ITEM_SELF_MULTIPLE, "%%s", "(.+)"), "%%d", "(%%d+)"));
                 if (not link) then
-                    link = msg:match(LOOT_ITEM_SELF:gsub("%%s", "(.+)"));
+                    link, count = strmatch(msg, string.gsub(string.gsub(LOOT_ITEM_PUSHED_SELF_MULTIPLE, "%%s", "(.+)"), "%%d", "(%%d+)"));
                     if (not link) then
-                        link = msg:match(LOOT_ITEM_PUSHED_SELF:gsub("%%s", "(.+)"));
-
+                        link = msg:match(LOOT_ITEM_SELF:gsub("%%s", "(.+)"));
                         if (not link) then
-                            _lootplayer, link, count = strmatch(msg, string.gsub(string.gsub(LOOT_ITEM_MULTIPLE, "%%s", "(.+)"), "%%d", "(%%d+)"));
+                            link = msg:match(LOOT_ITEM_PUSHED_SELF:gsub("%%s", "(.+)"));
+
                             if (not link) then
-                                _lootplayer, link, count = strmatch(msg, string.gsub(string.gsub(LOOT_ITEM_PUSHED_MULTIPLE, "%%s", "(.+)"), "%%d", "(%%d+)"));
+                                _lootplayer, link, count = strmatch(msg, string.gsub(string.gsub(LOOT_ITEM_MULTIPLE, "%%s", "(.+)"), "%%d", "(%%d+)"));
                                 if (not link) then
-                                    _lootplayer, link = msg:match("^" .. LOOT_ITEM:gsub("%%s", "(.+)"));
+                                    _lootplayer, link, count = strmatch(msg, string.gsub(string.gsub(LOOT_ITEM_PUSHED_MULTIPLE, "%%s", "(.+)"), "%%d", "(%%d+)"));
                                     if (not link) then
-                                        _lootplayer, link = msg:match("^" .. LOOT_ITEM_PUSHED:gsub("%%s", "(.+)"));
+                                        _lootplayer, link = msg:match("^" .. LOOT_ITEM:gsub("%%s", "(.+)"));
+                                        if (not link) then
+                                            _lootplayer, link = msg:match("^" .. LOOT_ITEM_PUSHED:gsub("%%s", "(.+)"));
+                                        end
                                     end
                                 end
                             end
                         end
                     end
                 end
-            end
-            if link then
-                local itemID = GetItemID(link)
-                if itemID == info.itemID then
-                    lootplayer = _lootplayer or BG.GN()
-                    if lootplayer == BG.GN() then
-                        BG.After(1, function()
-                            local count = GetItemCount(info.itemID, true)
-                            local msg = format("AutoLoot,%s,%s,print", info.itemID, count)
-                            C_ChatInfo.SendAddonMessage("BiaoGe", msg, "RAID")
-                        end)
+                if link then
+                    local itemID = GetItemID(link)
+                    if itemID == info.itemID then
+                        lootplayer = _lootplayer or BG.GN()
+                        if lootplayer == BG.GN() then
+                            BG.After(1, function()
+                                local count = GetItemCount(info.itemID, true)
+                                local msg = format("AutoLoot,%s,%s,print", info.itemID, count)
+                                C_ChatInfo.SendAddonMessage("BiaoGe", msg, "RAID")
+                            end)
+                        end
                     end
                 end
             end
-        end
-    end)
+        end)
 
-    BG.RegisterEvent("CHAT_MSG_ADDON", function(self, event, prefix, msg, distType, sender)
-        if not (prefix == "BiaoGe" and distType == "RAID") then return end
-        local arg1, itemID, count, canprint = strsplit(",", msg)
-        sender = BG.GSN(sender)
-        if arg1 == "AutoLoot" then
-            itemID = tonumber(itemID)
-            if tonumber(count) then
-                count = tonumber(count)
-            end
-            BG.autoLoot[sender] = BG.autoLoot[sender] or {}
-            BG.autoLoot[sender][itemID] = count
-            if sender == BG.autoLootButton.cpPlayer then
-                BG.autoLootButton.SPbutton:Update()
-            end
-            -- 如果是刚刚拾取橙片的玩家发过来的插件消息
-            if canprint == "print" and sender == lootplayer then
-                if itemID ~= 77952 then
-                    BG.SendSystemMessage(format(L["%s当前橙片数量：%s"], SetClassCFF(lootplayer), count))
+        BG.RegisterEvent("CHAT_MSG_ADDON", function(self, event, prefix, msg, distType, sender)
+            if not (prefix == "BiaoGe" and distType == "RAID") then return end
+            local arg1, itemID, count, canprint = strsplit(",", msg)
+            sender = BG.GSN(sender)
+            if arg1 == "AutoLoot" then
+                itemID = tonumber(itemID)
+                if tonumber(count) then
+                    count = tonumber(count)
+                end
+                BG.autoLoot[sender] = BG.autoLoot[sender] or {}
+                BG.autoLoot[sender][itemID] = count
+                if sender == BG.autoLootButton.cpPlayer then
+                    BG.autoLootButton.SPbutton:Update()
+                end
+                -- 如果是刚刚拾取橙片的玩家发过来的插件消息
+                if canprint == "print" and sender == lootplayer then
+                    if itemID ~= 77952 then
+                        BG.SendSystemMessage(format(L["%s当前橙片数量：%s"], SetClassCFF(lootplayer), count))
+                    end
                 end
             end
-        end
-    end)
-
-    BG.RegisterEvent("GROUP_ROSTER_UPDATE", function(self, event)
-        BG.After(.5, function()
-            if not IsInRaid(1) then
-                cpPlayer = nil
-                lootplayer = nil
-            end
         end)
-    end)
 
+        BG.RegisterEvent("GROUP_ROSTER_UPDATE", function(self, event)
+            BG.After(.5, function()
+                if not IsInRaid(1) then
+                    cpPlayer = nil
+                    lootplayer = nil
+                end
+            end)
+        end)
+    end
 end)

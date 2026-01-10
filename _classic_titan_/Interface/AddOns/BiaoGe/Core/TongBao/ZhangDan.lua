@@ -70,7 +70,6 @@ function BG.SendMsgToRaid(tbl, dalay, callback)
             if self.t >= BG.tongBaoSendCD then
                 self.t = 0
                 for _, msg in ipairs(db[index]) do
-                    -- pt(msg)
                     SendChatMessage(msg, channel)
                 end
                 index = index + 1

@@ -1,22 +1,19 @@
 VER 3 0000000000000005 "Decursive" "INV_MISC_QUESTIONMARK"
 /script DecursiveRootTable.Dcr:Println('没有相关技能')
 END
-VER 3 0000000000000002 "Decursive" "INV_MISC_QUESTIONMARK"
-/stopcasting
-/cast [@mouseover,nomod,exists] 恐惧;  [@mouseover,exists,mod:ctrl] 恐惧; [@mouseover,exists,mod:shift] 恐惧
+VER 3 0000000000000002 "MJE: Random Mount" "132599"
+/cancelform [nocombat,noknown:15473]
+/run C_MountJournal.SummonByID(0)
 END
 VER 3 0000000000000003 "MJE: Random Mount" "132599"
 /cancelform [nocombat,noknown:15473]
 /run C_MountJournal.SummonByID(0)
 END
 VER 3 0000000000000004 "RXPTargeting" "Ability_eyeoftheowl"
-/targetexact Grillok "Darkeye"
-/targetexact 座狼主宰卡鲁什
-/targetexact 血环苦工
-/targetexact 血环折磨者
-/targetexact 血环通灵师
-/targetexact 血环步兵
-/targetexact 血环黑暗萨满祭司
+/targetexact 复活的联盟士兵
+/targetexact 残忍的恶鬼
+/targetexact 冰寒食尸鬼
+/targetexact 笨重的憎恶
 /targetlasttarget [dead]
 END
 VER 3 0000000000000006 "坐骑" "134400"

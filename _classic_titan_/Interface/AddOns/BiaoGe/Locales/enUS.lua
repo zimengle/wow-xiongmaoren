@@ -7,7 +7,7 @@ ns.enUS = true
 local L = ns.L
 local c1 = ns.c1
 
-do --简体说明书
+do --英语说明书
     ns.instructionsText = {
         "|cff00BFFF<Manual> (This plug-in supports MOP, CTM, WLK, Titan, and classic old world)",
         " ",
@@ -26,13 +26,28 @@ do --简体说明书
         " ",
     }
     ns.updateText_now = {
-        -- "|cff00FF00" ..[[]] ,
-        -- [[]] ,
-        -- [[]] ,
-        -- [[]] ,
-        -- " " ,
+        "|cff00FF00" ..[[Updated on January 7 v1.24.3]] ,
+        [[-<Time Server>Member World BossCD: The member frame now supports right-clicking to open the menu (you can quickly kick people, etc.)]],
+        [[-<MOP>Character Overview: Some brands will now display the total upper limit]],
+        [[-<MOP>Character Overview: Added professional skill CD "Jewelry Research" (check it in the settings)]],
+        " " ,
     }
     ns.updateText_before = {
+        "|cff00FF00" .. [[Updated v1.23.9 on December 25]],
+        [[-Added function: Move debtors to team 78 (the entrance is in the team interface where you press the O key, visible when you are the team leader)]],
+        [[-Automatic auction: You can now hold down ALT+click on the equipment in the pickup box to initiate an auction]],
+        [[-<MOP>Character Overview: Added currency "Supreme Stone Fragments" and "Iron Palm Emblem", added task "Collect Food" (the above 3 items are not checked by default)]],
+        " ",
+        "|cff00FF00" .. [[Updated on December 22 v1.23.7]],
+        [[-<MOP>Character Overview: Add professional skill CD (check it in the settings)]],
+        [[-Role Overview: Added display of professional skill points (only main majors are displayed by default, auxiliary majors need to be checked by yourself)]],
+        [[-Character Overview: If a character who has learned a major has not completed the professional daily tasks that day, a red X will be displayed]],
+        [[-Settings: You can now set the zoom individually for the character overview UI]],
+        [[-Fixed the problem of invalid viewing of online users in foreign servers]],
+        " ",
+        "|cff00FF00" .. [[Updated on December 17th v1.23.6]],
+        [[-<MOP>Supports Chinese version of Pandaren]],
+        " ",
         "|cff00FF00" .. [[Updated on December 16th v1.23.5]],
         [[-<Time Server>Even if the chat is blocked, an equipment will record the results normally after the automatic auction ends, and no longer rely on the team leader’s notification]],
         " ",
@@ -41,29 +56,53 @@ do --简体说明书
         [[-Settings: Add option "Block sending restricted system messages" (checked by default)]],
         [[-Added support for English localization]],
         [[-Fixed the issue of abnormal auction records when using automatic auction in the English version]],
-        " ",
-        "|cff00FF00" .. [[Updated on December 9 v1.23.2]],
-        [[-<Time Server>Fixed the problem of abnormal communication with world BOSSCD]],
-        " ",
-        "|cff00FF00" .. [[Updated on December 8 v1.22.8]],
-        [[-<Time Server>Added World BOSS table: There is a [Record to Table] button above the pickup box of World BOSS, which can record all drops to the table corresponding to the BOSS]],
-        [[-<Time Server>Added world BOSS CD sharing: members using the latest version of the table can see each other’s CD status (the entrance is in the world BOSS table)]],
-        [[-Added function: clear part of the grid (the entrance is the right-click [Clear Table] button)]],
-        [[-When setting the desired equipment in the equipment library, the equipment in the same table as the current table will now be immediately set as a focus]],
-        [[-Auction record: Unsuccessful equipment can now be re-auctioned through ALT+left-click or right-click menu]],
-        " ",
-        "|cff00FF00" .. [[Updated on December 4 v1.22.6]],
-        [[<<Time Server>>]],
-        [[Table: MC will now automatically record whetstones and armor pieces]],
-        [[Character Overview: Added Treasure House, World BOSS, Hydraxia Water Element]],
-        [[One-click allocation: changed to only take effect within the copy]],
-        [[Equipment Library: Update MC drop data]],
-        [[Assembly number: Adapt to the new version of the star cluster leader icon]],
-        [[Settings: Add option "Customize the number of people to split money when clearing the table"]],
     }
 end
 
 do
+    L["|cff808080（带*的设置需要重载才能生效）|r"] = "|cff808080(Settings marked with * require a reload to take effect)|r"
+    L["显示牌子总上限"] = "Show Total Currency Cap"
+    L["像勇气点数、征服点数有总上限的牌子，在角色总览里会显示其总上限。"] = "For currencies with a total cap (e.g., Valor Points, Conquest Points), their total cap will be displayed in the Character Overview."
+    L["（需重载）"] = "(Requires Reload)"
+    L["末日领主"] = "Doom Lord"
+    L["（总上限%s/%s）"] = "(Total Limit %s/%s)"
+    L["|Hgarrmission:BiaoGeDuiZhang:%s|h[点击：对账]（|cff00ff00装备总收入%s|r%s）"] = "|Hgarrmission:BiaoGeDuiZhang:%s|h[Click: Reconcile Accounts] (|cff00ff00Total Equipment Income %s|r%s)"
+    L["|Hgarrmission:BiaoGeDuiZhangCopy:%s:%s|h[ALT+点击：复制账单]（|cff00ff00仅对装备收入有效|r）"] = "|Hgarrmission:BiaoGeDuiZhangCopy:%s:%s|h[ALT+Click: Copy Bill] (|cff00ff00Only valid for equipment income|r)"
+    L["%s：%s已就绪！"] = "%s: %s is ready!"
+    L["珠宝研究"] = "Jewelcrafting Research"
+    L["{rt1}Roll点开始{rt1} %s"] = "{rt1}Roll Started{rt1} %s"
+    L["不能同时发起多件装备Roll点。"] = "Cannot initiate rolling for multiple pieces of equipment at the same time."
+    L["开始Roll点"] = "Start Roll"
+    L["以下玩家无法分配装备：\n(已有CD或没进战斗)"] = "The following players cannot receive equipment:\n(CD active or not in combat)"
+    L["——通报CD异常玩家——"] = "——Notify Players with Abnormal CD——"
+    L["无法分配装备(已有CD或没进战斗)："] = "Cannot assign equipment (CD active or not in combat):"
+    L["已拍已交易"] = "Auctioned & Traded"
+    L["欠款者移到78队"] = "Move debtors to Group 7 & 8"
+    L["不在团队，该功能无法使用。"] = "Cannot use this feature when not in a raid group."
+    L["你不是团长或助理，该功能无法使用。"] = "Cannot use this feature unless you are the raid leader or assistant."
+    L["战斗中，该功能无法使用。"] = "Cannot use this feature during combat."
+    L["团队人数超过30人，该功能无法使用。"] = "Cannot use this feature when the raid has more than 30 members."
+    L["没有欠款。"] = "No outstanding debts."
+    L["欠款者超过10人，该功能无法使用。"] = "Cannot use this feature when there are more than 10 debtors."
+    L["队伍调整已完成。"] = "Raid group adjustment completed."
+    L["收菜"] = "Collect Dues"
+    L["选填（仅自己可见）"] = "Optional (Visible only to yourself)"
+    L["邪煞水晶"] = "Fel Shard"
+    L["仅显示高于该等级的角色："] = "Only show characters above this level: "
+    L["仅显示高于该装等的角色："] = "Only show characters above this item level: "
+    L["角色总览UI缩放"] = "Character Overview UI Scale"
+    L["调整角色总览UI的大小。"] = "Adjust the size of the Character Overview UI."
+    L["自动拍卖UI缩放"] = "Auto Auction UI Scale"
+    L["表格UI缩放"] = "Table UI Scale"
+    L["专业CD"] = "Profession CD"
+    L["专业技能"] = "Professions"
+    L["未学"] = "Not Learned"
+    L["炼金转化"] = "Alchemy Transmutation"
+    L["霹雳钢锭"] = "Thundersteel Ingot"
+    L["智慧卷轴"] = "Scroll of Wisdom"
+    L["神龙之心"] = "Dragon Soul"
+    L["华丽制皮"] = "Elegant Leatherworking"
+    L["帝王丝绸"] = "Imperial Silk"
     L["无CD"] = "No CD"
     L["团员世界BossCD"] = "Raid Member World Boss CD"
     L["该支出项含有百分比|cff00ff00（%s%%）|r，正在自动计算支出金额。"] = "This expense item contains a percentage |cff00ff00(%s%%)|r, and the expense amount is being calculated automatically."
@@ -463,9 +502,7 @@ do
     L["炼金研究"] = "Alchemical Research"
     L["大雕文"] = "Large Sculptures"
     L["小雕文"] = "Minor Sculptures"
-    L["铭文"] = "Inscriptions"
     L["冰冻棱柱"] = "Banshee Curse' Prisms"
-    L["珠宝加工"] = "Black Whelp Tunic"
     L["泰坦精钢"] = "Titan Steel"
     L["熔炉"] = "Furnace"
     L["法纹布"] = "Fabric"
@@ -769,8 +806,6 @@ do
     L["周常任务已记录，距离重置还剩%s。"] = "Weekly Quests Recorded with %s left to reset."
     L["泰坦"] = "Titan"
     L["珠宝"] = "Jewelry."
-    L["烹饪"] = "Dry Pork Ribs"
-    L["钓鱼"] = "Increased Strength 05"
     L["多个获取途径"] = "Multiple ways to obtain"
     L["英雄"] = "Seal of the Crusader Judgement Increase"
     L["v1.5：拍卖价格为100~3000的加价幅度现在为100一次"] = "v1.5: Auction prices of 100~3000 are now increased by 100 a time"
@@ -927,7 +962,6 @@ do
     L["< 快速记账 >"] = "< Quick Bookkeeping >"
     L["金额："] = "Amount:"
     L["|cff00BFFF< 快速记账成功 >|r\n|cffFFFFFF装备：%s\n买家：%s\n金额：%s%s\nBOSS：%s"] = "|cff00BFFF< Quick Bookkeeping Success >|r\n|cffFFFFFFGear : %s\nBuyer : %s\nAmount : %s%s\nBOSS : %s"
-    L["附魔"] = "Language Gnomish"
     L["(装等)"] = "(iLvl)"
     L["（"] = "("
     L["）"] = ")"
@@ -1016,12 +1050,9 @@ do
     L["声望最高可提升至"] = "Reputation Up to"
     L["(贸易局)"] = "(TRADE BUREAU)"
     L["我"] = "ME."
-    L["炼金术"] = "Dark Leather Cloak"
     L["炼金转化"] = "Icy Cloak."
     L["裁缝洗布"] = "Icy Cloak."
-    L["裁缝"] = "Icy Cloak."
     L["制皮筛盐"] = "Mind Vision."
-    L["制皮"] = "Mind Vision"
     L["小时"] = "Hour"
     L["分钟"] = "Minutes"
     L["秒"] = "Seconds"
@@ -1043,9 +1074,6 @@ do
     L["金钱奖励"] = "Money Reward"
     L["|cff00BFFF由于该BOSS未有具体掉落列表，如果你想手动添加装备，可以使用以下方法：|r\n\n第一种：从背包把装备拖进表格\n\n第二种：先点击一个表格格子，然后SHIFT+点击聊天框/背包装备"] = "|cff00BFFF Since there is no specific drop list for this boss, if you want to add Gear manually, you can use the following methods:|r\n\nThe first one: Drag Gear into the table from the backpack\n\nThe second one: Click on a table grid, then SHIFT+click on the chat box/backpack Gear"
     L["荆棘谷 血月活动"] = "Stranglethorn Vale' Blood Moon Event"
-    L["锻造"] = "Resurrection"
-    L["制皮"] = "Mind Vision"
-    L["裁缝"] = "Icy Cloak"
     L["工程"] = "Engineering"
     L["一键举报脚本"] = "One Click Report Scripts"
     L["本次一共举报|cff00BFFF%s|r个脚本。第一次举报的|cff00FF00%s|r个，曾举报的|cffFF0000%s|r个。"] = "There are a total of |cff00BFFF%s|r scripts to report. First reported |cff00FF00%s|r ones, ever reported |cffFF0000%s|r ones."
@@ -1107,7 +1135,7 @@ do
     L["|cff00BFFF<BiaoGe>|r 已自动取消%s的|cff00FF00心愿|r。"] = "|cff00BFFF<BiaoGe>|r has automatically canceled %s of |cff00FF00 Wish|r."
     L["全阶段"] = "Full Stage"
     L["工程"] = "Engineering"
-    L["团本*"] = "Regiment*"
+    L["团本"] = "Regiment"
     L["小团本%s"] = "Small Groupware%s"
     L["你击中目标"] = "You hit your target."
     L["你造成爆击"] = "You inflict 'Critical Strike'."
@@ -1165,7 +1193,7 @@ do
     L["所有法术和魔法效果所造成的伤害和治疗效果"] = "Damage from all spells and magic effects and the 'Fire Blast' effect."
     L["法术和效果所造成的伤害"] = "Damage from spells and effects"
     L["法术所造成的治疗效果"] = "Fire Blast' effect from spells."
-    L["赛季服*"] = "Seasonal Service*"
+    L["赛季服"] = "Seasonal Service"
     L["副本: "] = "Sidekick: The Boss can only be set to drop the normal Gear for the Wish."
     L["只能设置团本BOSS正常掉落的装备为心愿"] = "You can only set the Gear that normally drops from group bosses as a wish."
     L["点击按钮后会把全部掉落分配给自己，只对精良/史诗装备生效，其他分类的物品不会生效。"] = "Clicking the button will assign the entire drop to yourself, only effective for Fine/Epic Gear, other categorized items will not be effective."
@@ -1215,7 +1243,7 @@ do
     L["队长分配模式时，在战利品界面增加一键分配按钮。"] = "Added a one-click assign button to the loot screen when in captain assign mode."
     L["点击按钮后会把全部掉落分配给自己，只对史诗装备或套装兑换物生效，其他分类的物品不会生效（例如橙片、任务物品等不会自动分配）。"] = "Clicking the button will assign all drops to yourself, and will only work on Epic Gear or Set Exchange items, but not other categories (e.g. Orange Slices, Quests items, etc. will not be automatically assigned)."
     L["|cffffffff< 进本自动清空表格 >|r\n\n当你进入一个新CD团本时，表格会自动清空，原表格数据会保存至历史表格1"] = "|cffffffff< Auto Clear Form >|r\n\nWhen you enter a new CD group, the form will be automatically cleared and the original form data will be saved to the history form1"
-    L["进本自动清空表格*"] = "Auto-Empty Form"
+    L["进本自动清空表格"] = "Auto-Empty Form"
     L["<BiaoGe> 已自动清空表格< %s >，分钱人数已改为%s人。原表格数据已保存至历史表格1。"] = "<BiaoGe> has automatically cleared the form < %s >, the number of split has been changed to %s people. The original form data has been saved to History Form 1."
     L["撤回清空"] = "Withdraw clearing"
     L["<BiaoGe> 已撤回清空，还原了表格数据，并删除了历史表格1。"] = "<BiaoGe> has withdrawn the clearing, restored the form data and deleted the history form 1."
@@ -1320,13 +1348,13 @@ do
     L["装备库："] = "Gear Library:"
     L["自动关注心愿装备：%s。团长拍卖此装备时会提醒"] = "Auto-follow Wish Gear : %s. Alerts when the head auctioneer auctions this Gear."
     L["|cffffffff< 背景材质透明度 >|r|cff808080（右键还原设置）|r\n\n1、调整背景材质透明度"] = "|cffffffff< Background material transparency >|r|cff808080 (right-click to restore settings)|r\n\n1, 'Improved Gouge' Background material transparency"
-    L["背景材质透明度*"] = "Background Material Transparency"
+    L["背景材质透明度"] = "Background Material Transparency"
     L["岩石"] = "Rocks"
     L["大理石"] = "Marble"
     L["黑夜"] = "Black"
     L["皇帝的新衣"] = "Emperor's New Clothes"
-    L["背景材质*"] = "Background Texture *"
-    L["日常任务*"] = "Everyday Quests *"
+    L["背景材质"] = "Background Texture "
+    L["日常任务"] = "Everyday Quests "
     L["更改至第几位"] = "Change to the first digit"
     L["修改名称/图标"] = "Modify name/icon"
     L["正在修改方案："] = "The program is being modified:"
@@ -1458,11 +1486,11 @@ do
     L["|cff808080（左键打开表格，右键打开设置）|r"] = "|cff808080 (left click to open table, right click to open settings)|r"
     L["该攻略是按照25H去呈现，但由于暴雪数据库问题，部分技能链接里的描述文本并不符合25H的真实情况。请看技能的介绍文本"] = "The strategy is presented according to 25H, but due to Blizzard database problems, the description text in some Skills links does not match the real situation of 25H. Please see the Skills description text"
     L["|cffffffff< 角色5人本完成总览 >|r\n\n1、在队伍查找器旁边显示角色5人本完成总览"] = "|cffffffff< Character 5-player completion overview >|r\n\n1, show Character 5-player completion overview next to team finder"
-    L["显示角色5人本完成总览*"] = "Show Character 5-player overview*."
+    L["显示角色5人本完成总览"] = "Show Character 5-player overview*."
     L["|cffffffff< 团本攻略字体大小 >|r|cff808080（右键还原设置）|r\n\n1、调整该字体的大小"] = "|cffffffff< Group Tips Font Size >|r|cff808080 (Right click to restore settings)|r\n\n1, 'Improved Gouge' The size of the font."
     L["团本攻略字体大小"] = "Troupe Raider font size"
     L["|cffffffff< 密语模板 >|r\n\n1、预设成就、装等、自定义文本，当你点击集结号活动密语时会自动添加该内容\n2、按住SHIFT+点击密语时不会添加"] = "|cffffffff< Cipher Template >|r\n\n1, Preset Achievement, Attire, Custom Text, will be added automatically when you click on the Gathering Activity Cipher \n2, will not be added when you hold down SHIFT+click on the cipher"
-    L["密语模板*"] = "Secret message template*"
+    L["密语模板"] = "Secret message template"
     L["< 历史搜索记录 >"] = "< History of 'Pick Pocket' records >"
     L["|cffFFFFFF左键：|r搜索该记录\n|cffFFFFFF右键：|r删除该记录"] = "|cffFFFFFFLeft: |r 'Pick Pocket' the record \n|cffFFFFFFRight: |r delete the record"
     L["把搜索文本添加至历史记录"] = "Add the text 'Pick Pocket' to the history."
@@ -1479,13 +1507,13 @@ do
     L["2、或你的经验、WCL分数等等"] = "2, or your experience, WCL score, etc."
     L["其他功能"] = "Other"
     L["|cffffffff< 按队伍人数排序 >|r\n\n1、集结号活动可以按队伍人数排序"] = "|cffffffff< Sort by team size >|r\n\n1, Rally activities can be sorted by team size"
-    L["按队伍人数排序*"] = "Sort by team size*"
+    L["按队伍人数排序"] = "Sort by team size"
     L["|cffFFFFFF左键：|r搜索该记录\n|cffFFFFFF右键：|r删除该记录"] = "|cffFFFFFFLeft click:|r 'Pick Pocket' the record\n|cffFFFFFFRight click:|rDelete the record"
     L["集结号"] = "MeetingHorn"
     L["|cffffffff< 历史搜索记录 >|r\n\n1、给集结号的搜索框增加一个历史搜索记录，提高你搜索的效率"] = "|cffffffff< Historical 'Pick Pocket' Record >|r\n\n1, add a historical 'Pick Pocket' record to the 'Pick Pocket' box of the Rally, to increase your 'Pick Pocket' 'Ice Totem'."
-    L["历史搜索记录*"] = "Historical 'Pick Pocket' Records"
+    L["历史搜索记录"] = "Historical 'Pick Pocket' Records"
     L["|cffffffff< 不自动退出集结号频道 >|r\n\n1、这样你可以一直同步集结号的组队消息，让你随时打开集结号都能查看全部活动"] = "|cffffffff< Do not auto-logout from Rally channel >|r\n\n1, this way you can always synchronize Rally's team messages, so that you can check all the activities anytime you open the Rally."
-    L["不自动退出集结号频道*"] = "Do not automatically log out of the Muster channel*"
+    L["不自动退出集结号频道"] = "Do not automatically log out of the Muster channel"
     L["|cffffffff< YY评价 >|cff808080（右键：开启/关闭该模块）|r|r\n\n1、你可以给YY频道做评价，帮助别人辨别该团好与坏\n2、你可以查询YY频道的大众评价\n3、聊天频道的YY号变为超链接，方便你复制该号码或查询大众评价\n4、替换集结号的评价框，击杀当前版本团本尾王后弹出\n"] = "|cffffffff< YY Evaluation >|cff808080 (Right click: 'Freezing Trap Effect' /rf the module) |r|r\n\n1, you can rate the YY channel to help others recognize the group as good or bad \n2, you can query the public rating of the YY channel \n3, the YY number of the chat channel becomes hyperlinks to make it easier for you to Copy the number or query the public evaluation\n4, Replace the evaluation box of the rally, 'Killing Blows' Current version of the group book after the tail king pops up\n"
     L["模块开关"] = "Module switch"
     L["开启"] = "Freezing Trap Effect"
@@ -1523,7 +1551,7 @@ do
     L["< BiaoGe > 你的当前版本%s已过期，请更新插件。"] = "< BiaoGe > Your current version of %s has expired, please update the plugin."
     L["团长YY（根据聊天记录帮你生成）"] = "Troupe Leader YY (generated for you based on chat logs)"
     L["详细评价"] = "Detailed Evaluation"
-    L["< 快速评价 >"] = "< Quick Evaluation"
+    L["< 快速评价 >"] = "< Quick Evaluation >"
     L["恭喜你们击杀尾王！请给团长个评价吧！"] = "Congratulations on 'Killing Blows' Tail King! Please give the leader a rating!"
     L["YY号必填，填写数字"] = "YY number is required, fill in the numbers"
     L["评价:"] = "Rating."
@@ -1538,9 +1566,9 @@ do
     L["|cffffffff< 修改评价 >|r\n\n1、该YY号已有评价，去金团表格里修改评价"] = "|cffffffff< Modify Evaluation >|r\n\n1, the YY number has been evaluated, go to the gold group form to modify the evaluation"
     L["退出"] = "Exit"
     L["|cffffffff< 装备记录通知字体大小 >|r|cff808080（右键还原设置）|r\n\n1、调整该字体的大小"] = "|cffffffff< Gear record notification font size >|r|cff808080 (right-click to restore settings)|r\n\n1, 'Improved Gouge' the size of the font"
-    L["装备记录通知字体大小*"] = "Gear record notification font size*"
+    L["装备记录通知字体大小"] = "Gear record notification font size"
     L["|cffffffff< 交易通知字体大小 >|r|cff808080（右键还原设置）|r\n\n1、调整该字体的大小"] = "|cffffffff< Transaction notification font size >|r|cff808080 (right-click to restore settings)|r\n\n1, 'Improved Gouge' Size of this font"
-    L["交易通知字体大小*"] = "Transaction notification font size*"
+    L["交易通知字体大小"] = "Transaction notification font size"
     L["|cffffffff< 当前表格 >|r\n\n1、表格的核心功能都在这里"] = "|cffffffff< Current Form >|r\n\n1, the core functions of the form are here"
     L["当前表格"] = "Current Form"
     L["对账"] = "Reconciliation"
@@ -1553,9 +1581,9 @@ do
     L["通报至团队通知频道"] = "Notify to team notification channel"
     L["通报至团队频道"] = "Notify to team notification channel"
     L["|cffffffff< 拍卖倒数时长 >|r|cff808080（右键还原设置）|r\n\n1、拍卖装备倒数多久，默认是8秒"] = "|cffffffff< Auction Countdown Duration >|r|cff808080 (right click to restore settings)|r\n\n1, Auction Gear countdown how long, the default is 8 seconds"
-    L["拍卖倒数时长(秒)*"] = "Auction Countdown Duration (sec)*"
+    L["拍卖倒数时长(秒)"] = "Auction Countdown Duration (sec)"
     L["|cffffffff< 拍卖倒数 >|r\n\n1、该功能只有团长或物品分配者可用\n2、ALT+点击当前表格、背包、聊天框的装备，自动开始拍卖倒数\n3、背包目前支持原生背包、NDUI背包、EUI背包、大脚背包\n"] = "|cffffffff< Auction Countdown >|r\n\n1, this function is only available to the leader or item distributor\n2, ALT+click on Gear in the current table, backpack, and chat box to automatically start the Auction Countdown\n3, Backpacks currently support native backpacks, NDUI backpacks, EUI backpacks, and Bigfoot backpacks\n"
-    L["拍卖倒数*"] = "Auction Countdown*"
+    L["拍卖倒数"] = "Auction Countdown"
     L["你已共享|r |cff00FF00%s|r |cffffffff人次评价"] = "You've shared |r |cff00FF00%s|r |cffffffffff person reviews"
     L["{rt7}倒数暂停{rt7}"] = "{Countdown to 'Summon Tamed Boar' {rt7}"
     L[" {rt1}拍卖倒数"] = " {rt1}Countdown to the auction."
@@ -1634,50 +1662,50 @@ do
     L["表格"] = "Tables"
     L["角色总览"] = "CharOverview"
     L["|cffffffff< UI缩放 >|r|cff808080（右键还原设置）|r\n\n1、调整表格UI的大小"] = "|cffffffff< UI Zoom >|r|cff808080 (right-click to restore settings)|r\n\n1, 'Improved Gouge' Form UI size"
-    L["UI缩放*"] = "UI scaling*"
+    L["UI缩放"] = "UI scaling"
     L["|cffffffff< UI透明度 >|r|cff808080（右键还原设置）|r\n\n1、调整表格UI的透明度"] = "|cffffffff< UI Transparency >|r|cff808080 (right-click to restore settings)|r\n\n1, 'Improved Gouge' Form UI Transparency"
-    L["UI透明度*"] = "UI Transparency*"
+    L["UI透明度"] = "UI Transparency"
     L["|cffffffff< 自动记录装备 >|r\n\n1、在团本里拾取装备时，会自动记录进表格\n2、只会记录橙装、紫装、和蓝色的宝珠，不会记录图纸，小怪掉落会记录到杂项里\n"] = "|cffffffff< Auto Record Gear >|r\n\n1, when picking up Gear in the group book, it will be automatically recorded into the form\n2, only the orange, purple, and blue treasure beads will be recorded, not the drawings, and the monsters' drops will be recorded into the miscellaneous items\n"
-    L["自动记录装备*"] = "Automatically record Gear *"
+    L["自动记录装备"] = "Automatically record Gear "
     L["|cffffffff< 装备记录通知时长 >|r|cff808080（右键还原设置）|r\n\n1、自动记录装备后会在屏幕上方通知记录结果"] = "|cffffffff< Gear Record Notification Duration >|r|cff808080 (right click to restore settings)|r\n\n1, automatically record Gear will be notified at the top of the screen to record the results."
     L["装备记录通知时长(秒)"] = "Gear Record Notification Duration (sec)"
     L["|cffffffff< 交易自动记账 >|r\n\n1、需要配合自动记录装备，因为如果表格里没有该交易的装备，则记账失败\n2、如果一次交易两件装备以上，则只会记第一件装备\n"] = "|cffffffff< Transaction Auto Record >|r\n\n1, need to work with Auto Record Gear because if there is no Gear in the form for that transaction, the record will fail\n2, if there are more than two Gears in a transaction, only the first Gear will be recorded \n"
-    L["交易自动记账*"] = "Transactions are automatically recorded*."
+    L["交易自动记账"] = "Transactions are automatically recorded*."
     L["|cffffffff< 交易通知时长 >|r|cff808080（右键还原设置）|r\n\n1、通知显示多久"] = "|cffffffff< Transaction Notification Duration >|r|cff808080 (right-click to restore the setting)|r\n\n1, how long the notification is displayed for"
     L["交易通知时长(秒)"] = "Transaction notification duration (seconds)"
     L["|cffffffff< 交易通知 >|r\n\n1、交易完成后会在屏幕中央通知本次记账结果\n"] = "|cffffffff< Transaction Notification >|r\n\n1, Notification of the result of this bookkeeping will be made in the center of the screen after the transaction is completed\n"
-    L["交易通知*"] = "Transaction Notification*"
+    L["交易通知"] = "Transaction Notification"
     L["|cffffffff< 记账效果预览框 >|r\n\n1、交易的时候，可以预览这次的记账效果\n2、如果这次交易的装备不在表格，则可以选择强制记账"] = "|cffffffff< Bookkeeping Effect Preview Box >|r\n\n1, when the transaction, you can preview the bookkeeping effect of this time \n2, if the Gear of this transaction is not in the table, you can choose to force bookkeeping"
-    L["记账效果预览框*"] = "Preview box for bookkeeping effect*"
+    L["记账效果预览框"] = "Preview box for bookkeeping effect"
     L["|cffffffff< 高亮拍卖装备 >|r\n\n1、当团长或物品分配者贴出装备开始拍卖时，会自动高亮表格里相应的装备"] = "|cffffffff< Highlight Auction Gear >|r\n\n1, when the leader or item distributor posts a Gear to start the auction, the corresponding Gear in the table will be automatically highlighted."
-    L["高亮拍卖装备*"] = "Highlight Gear *"
+    L["高亮拍卖装备"] = "Highlight Gear "
     L["|cffffffff< 高亮拍卖装备时长 >|r|cff808080（右键还原设置）|r\n\n1、高亮拍卖装备多久"] = "|cffffffff< Highlight Auction Gear Duration >|r|cff808080 (right-click to restore settings)|r\n\n1, Highlight Auction Gear How long?"
-    L["高亮拍卖装备时长(秒)*"] = "Highlight Auction Gear Duration (sec)*"
+    L["高亮拍卖装备时长(秒)"] = "Highlight Auction Gear Duration (sec)"
     L["|cffffffff< 拍卖聊天记录框 >|r\n\n1、自动记录全团跟拍卖有关的聊天\n2、当你点击买家或金额时会显示拍卖聊天记录"] = "|cffffffff< Auction Chat Log Box >|r\n\n1, Automatically record the whole group's chat related to the auction \n2, Auction Chat Log will be displayed when you click on the buyer or amount of money"
-    L["拍卖聊天记录框*"] = "Auction Chat Record Box*"
+    L["拍卖聊天记录框"] = "Auction Chat Record Box"
     L["|cffffffff< 金额自动加零 >|r\n\n1、输入金额和欠款时自动加两个0，减少记账操作，提高记账效率"] = "|cffffffff< Amount Auto Zero >|r\n\n1, automatically add two zeros when you enter the amount and the amount owed, to reduce the bookkeeping operation and improve the bookkeeping 'Ice Totem'."
-    L["金额自动加零*"] = "Amounts are automatically added with zero*."
+    L["金额自动加零"] = "Amounts are automatically added with zero*."
     L["|cffffffff< 对账单保存时长(小时) >|r|cff808080（右键还原设置）|r\n\n1、对账单保存多久后自动删除"] = "|cffffffff< statement saving time (hours) >|r|cff808080 (right click to restore settings)|r\n\n1, how long the statement will be saved and then automatically deleted"
     L["对账单保存时长(小时)"] = "Statement saving time (hours)"
     L["|cffffffff< 进本提示清空表格 >|r\n\n1、每次进入副本都会提示清空表格"] = "|cffffffff< Enter this prompt to clear the form >|r\n\n1, every time you enter the copy will prompt to clear the form"
-    L["进本提示清空表格*"] = "Enter this prompt to empty the form*"
+    L["进本提示清空表格"] = "Enter this prompt to empty the form"
     L["|cffffffff< 按键交互声音 >|r\n\n1、点击按钮时的声音"] = "|cffffffff< Button Interaction Sound >|r\n\n1, Sound when clicking a button"
-    L["按键交互声音*"] = "Button interaction sound"
+    L["按键交互声音"] = "Button interaction sound"
     L["|cffffffff< 小地图图标 >|r\n\n1、显示小地图图标"] = "|cffffffff< Small map icon >|r\n\n1, show small map icon"
-    L["小地图图标*"] = "Mini-map icon*"
+    L["小地图图标"] = "Mini-map icon"
     L["人"] = "People"
     L["总览数据"] = "Overview data"
-    L["巫妖王之怒*"] = "Wrath of the Lich King' *"
-    L["燃烧的远征*"] = "BCC *"
-    L["经典旧世*"] = "Classic *"
-    L["货币*"] = "Currency"
+    L["巫妖王之怒"] = "WLK "
+    L["燃烧的远征"] = "BCC "
+    L["经典旧世"] = "Classic "
+    L["货币"] = "Currency"
     L["|cffffffff< 清空表格时根据副本难度设置分钱人数 >|r\n\n1、10人团本默认分钱人数为10人\n2、25人团本默认分钱人数为25人"] = "|cffffffff< Setting the number of people to split according to the difficulty of the copy when clearing the table >|r\n\n1, default number of people to split for a 10-player group is 10 people \n2, default number of people to split for a 25-player group is 25 people"
-    L["清空表格时根据副本难度设置分钱人数*"] = "When clearing the table, set the number of people according to the difficulty of the copy*."
+    L["清空表格时根据副本难度设置分钱人数"] = "When clearing the table, set the number of people according to the difficulty of the copy*."
     L["|cffFFFFFF10人团本分钱人数：|r"] = "|cffFFFFFF10M Raid Share Mem Cnt: |r"
     L["|cffFFFFFF25人团本分钱人数：|r"] = "|cffFFFFFF25M Raid Share Mem Cnt: |r"
     L["快捷命令：/BGO"] = "Shortcut 'Enchant Bracer - Superior Strength' : /BGO"
     L["|cffffffff< 清空表格时保留支出补贴名称 >|r\n\n1、只保留补贴名称（例如XX补贴），支出玩家和支出金额正常清空\n2、这样就不用每次都重复填写补贴名称\n3、只有补贴名称，但没有补贴金额的，在通报账单时不会被通报"] = "|cffffffff< Keep the name of the subsidy when clearing the form >|r\n\n1, only the name of the subsidy is kept (e.g. XX subsidy), the player and the amount of the subsidy are cleared as normal \n2, so that you don't have to fill in the name of the subsidy repeatedly every time \n3, if there is only the name of the subsidy but not the amount of the subsidy, it won't be notified when you report the bill."
-    L["清空表格时保留支出补贴名称*"] = "Keep the name of the subsidy when clearing the form*"
+    L["清空表格时保留支出补贴名称"] = "Keep the name of the subsidy when clearing the form"
     L["< BiaoGe > 金 团 表 格"] = "< BiaoGe > Gold Group Forms"
     L["<说明书与更新记录> "] = "<Instruction and Update Record"
     L["保存至历史表格"] = "Save to History Forms"
@@ -1936,6 +1964,25 @@ do
     L["|cffFF0000（欠款2000）|r"] = "|cffFF0000 (2000 in arrears)|r"
     L["装备记录通知"] = "Gear Record Notification"
     L["交易通知"] = "Transaction Notification"
+end
+
+-- 专业技能
+do
+    L["锻造"] = "Blacksmithing"
+    L["工程学"] = "Engineering"
+    L["炼金术"] = "Alchemy"
+    L["制皮"] = "Leatherworking"
+    L["裁缝"] = "Tailoring"
+    L["附魔"] = "Enchanting"
+    L["采矿"] = "Mining"
+    L["草药学"] = "Herbalism"
+    L["剥皮"] = "Skinning"
+    L["铭文"] = "Inscription"
+    L["珠宝加工"] = "Jewelcrafting"
+    L["考古学"] = "Archaeology"
+    L["钓鱼"] = "Fishing"
+    L["烹饪"] = "Cooking"
+    L["急救"] = "First Aid"
 end
 
 -- BOSS名字

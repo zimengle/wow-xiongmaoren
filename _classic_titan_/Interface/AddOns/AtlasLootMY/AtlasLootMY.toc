@@ -1,6 +1,6 @@
 ## Interface: 38000
 ## Author: Lag
-## Version: v1.2.5
+## Version: v1.3.0
 ## SavedVariables: AtlasLootMYDB
 ## Title: AtlasLootClass - Titan |cFF22B14C[Core]|r
 ## Notes: Shows the possible loot from the bosses
@@ -69,6 +69,7 @@ GUI\Template_Select.lua
 GUI\Template_DropDown.lua
 GUI\Template_TextWithBg.lua
 GUI\Template_Model.lua
+GUI\ChangelogFrame.lua
 GUI\ItemFrame.lua
 GUI\ModelFrame.lua
 GUI\SoundFrame.lua

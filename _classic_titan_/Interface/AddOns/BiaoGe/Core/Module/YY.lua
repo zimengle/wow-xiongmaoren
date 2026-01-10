@@ -21,9 +21,8 @@ local IsAddOnLoaded = IsAddOnLoaded or C_AddOns.IsAddOnLoaded
 
 local pt = print
 
-local YY = "BiaoGeYY"
 local Y = {}
-Y.lateTime = 0.5      -- 延迟发送评价的秒数
+Y.lateTime = .5 -- 延迟发送评价的秒数
 Y.maxHistory = 40     -- 最多保存多少个历史查询记录
 Y.maxSearchText = 300 -- 最多接受多少个评价详细
 Y.searchLastDay = 360 -- 接收最近多少天内的评价
@@ -818,9 +817,8 @@ BG.Init(function()
                 edit.Text:SetTextColor(RGB(BG.dis))
                 BG.OnUpdateTime(function(self, elapsed)
                     self.timeElapsed = self.timeElapsed + elapsed
-                    local time = format("%.1f", Y.lateTime + 0.7 - self.timeElapsed)
+                    local time = format("%.1f", Y.lateTime + (BG.IsTitan and 1 or 0.7) - self.timeElapsed)
                     bt:SetText(L["查询中 "] .. time)
-
                     if tonumber(time) <= 0 then
                         local sum = 0
                         for key, value in pairs(BG.YYMainFrame.searchText.sumpingjia) do
@@ -905,8 +903,7 @@ BG.Init(function()
                             end)
                         end
 
-
-                        BG.YYMainFrame.searchText = nil
+                        -- BG.YYMainFrame.searchText = nil
 
                         edit:SetEnabled(true)
                         edit:SetTextColor(RGB(BG.w1))
@@ -1814,6 +1811,7 @@ BG.Init(function()
                 t:SetText(L["恭喜你们击杀尾王！请给团长个评价吧！"])
                 t:SetPoint("TOP", BG.EndPJ.new, "TOP", 0, -30)
                 t:SetTextColor(1, 1, 1)
+                t:SetWidth(320)
 
                 local l = f:CreateLine()
                 l:SetColorTexture(RGB("808080", 1))
@@ -2102,7 +2100,7 @@ BG.Init(function()
 
                 local function CreateButton(f, text)
                     local r, g, b = f.r, f.g, f.b
-                    local r, g, b = 1,1,1
+                    local r, g, b = 1, 1, 1
                     local bt = CreateFrame("Button", nil, f, "BackdropTemplate")
                     bt:SetBackdrop({
                         bgFile = "Interface/ChatFrame/ChatFrameBackground",
@@ -2285,22 +2283,21 @@ BG.Init(function()
                 Y.closeYYButton = BG.CreateButton(mainFrame)
                 Y.closeYYButton:SetSize(150, 25)
                 Y.closeYYButton:SetPoint("RIGHT", mainFrame.backBiaoGeButton, "LEFT", -20, 0)
-
             end
             local show = BiaoGe.YYdb.share
-            if show==1 then
+            if show == 1 then
                 Y.closeYYButton:SetText(L["禁用该模块"])
                 Y.closeYYButton:SetScript("OnClick", function(self)
                     BiaoGe.YYdb.share = 0
                     BG.YYShowHide()
-                    LeaveChannelByName(YY)
+                    LeaveChannelByName(BG.BiaoGeYY)
                     BG.PlaySound(1)
                 end)
             else
                 Y.closeYYButton:SetText(L["开启该模块"])
                 Y.closeYYButton:SetScript("OnClick", function(self)
                     BiaoGe.YYdb.share = 1
-                    JoinPermanentChannel(YY, nil, 1)
+                    JoinPermanentChannel(BG.BiaoGeYY, nil, 1)
                     BG.YYShowHide()
                     BG.PlaySound(1)
                 end)
@@ -2319,6 +2316,7 @@ BG.Init(function()
 
 
     local CDing = {}
+    local VIP = "|T" .. "Interface\\AddOns\\BiaoGeVIP\\Media\\icon\\VIP:0:0:0:0:100:100:10:90:10:90" .. "|t"
     local f = CreateFrame("Frame")
     f:RegisterEvent("CHAT_MSG_ADDON")
     f:RegisterEvent("CHAT_MSG_CHANNEL")
@@ -2329,14 +2327,18 @@ BG.Init(function()
             local prefix, msg, distType, sender = ...
             local name, realmName = strsplit("-", sender)
             if not realmName then realmName = GetRealmName() end
-            if prefix ~= YY then return end
+            if prefix ~= BG.BiaoGeYY then return end
             if BG.blackListPlayer[realmName] and BG.blackListPlayer[realmName][name] then return end
             if #BG.YYMainFrame.searchText.all >= Y.maxSearchText then return end -- 最多收集300个评价详细
 
             local date, pingjia, edit = strsplit(",", msg, 3)
             edit = edit:gsub(",$", "")
+            if edit and edit ~= "" and BG.BiaoGeVIPVerNum and BG.BiaoGeVIPVerNum >= 10120 then
+                edit = edit .. "(" .. AddTexture("VIP") .. sender .. ")"
+            end
             pingjia = tonumber(pingjia)
             BG.YYMainFrame.searchText.sumpingjia[pingjia] = BG.YYMainFrame.searchText.sumpingjia[pingjia] + 1
+
             if BG.DeBug and BG.YYMainFrame.search.edit:GetText() == "34229022" and pingjia == 3 then
                 print(sender, date, edit)
             end
@@ -2344,7 +2346,7 @@ BG.Init(function()
         elseif event == "CHAT_MSG_CHANNEL" then
             local text, sender, languageName, channelName, playerName2, specialFlags, zoneChannelID, channelIndex, channelBaseName,
             languageID, lineID, guid, bnSenderID, isMobile, isSubtitle, hideSenderInLetterbox, supressRaidIcons = ...
-            if channelBaseName ~= YY then return end
+            if channelBaseName ~= BG.BiaoGeYY then return end
             sender = BG.GSN(sender)
             local yy, date = strmatch(text, "yy(%d+),(%d+)")
             if not yy or CDing[sender] then return end
@@ -2359,7 +2361,7 @@ BG.Init(function()
                             BG.YYMainFrame.shareCountFrame:SetWidth(BG.YYMainFrame.shareCountFrame.Text:GetStringWidth())
                             BG.YYMainFrame.shareCountFrame:SetHeight(BG.YYMainFrame.shareCountFrame.Text:GetStringHeight())
                         end
-                        C_ChatInfo.SendAddonMessage(YY, resendtext, "WHISPER", sender)
+                        C_ChatInfo.SendAddonMessage(BG.BiaoGeYY, resendtext, "WHISPER", sender)
                         CDing[sender] = true
                         BG.After(5, function()
                             CDing[sender] = nil
@@ -2376,28 +2378,28 @@ BG.Init(function()
     f:SetScript("OnEvent", function(self, event)
         local i = 1
         while _G["ChatFrame" .. i] do
-            ChatFrame_RemoveChannel(_G["ChatFrame" .. i], YY)
+            ChatFrame_RemoveChannel(_G["ChatFrame" .. i], BG.BiaoGeYY)
             ChatFrame_RemoveChannel(_G["ChatFrame" .. i], "MeetingHorn")
             i = i + 1
         end
 
-        local channelID, channelName = GetChannelName(YY)
+        local channelID, channelName = GetChannelName(BG.BiaoGeYY)
         if not channelName then
             BG.YYchannelID = nil
         else
             BG.YYchannelID = channelID
         end
         if BiaoGe.YYdb.share ~= 1 then
-            LeaveChannelByName(YY)
+            LeaveChannelByName(BG.BiaoGeYY)
         end
     end)
 
     BG.RegisterEvent("CHAT_MSG_CHANNEL_NOTICE", function(self, event, text, playerName, _, _, _, _, _, _, channelBaseName)
-        if channelBaseName ~= YY then return end
+        if channelBaseName ~= BG.BiaoGeYY then return end
         if text == "YOU_LEFT" then
             BiaoGe.YYdb.share = 0
             BG.YYShowHide()
-            SendSystemMessage(BG.BG .. format(L["你已退出%s频道，YY评价模块自动关闭。"], YY))
+            SendSystemMessage(BG.BG .. format(L["你已退出%s频道，YY评价模块自动关闭。"], BG.BiaoGeYY))
         end
     end)
 
@@ -2406,7 +2408,7 @@ BG.Init(function()
 
         local i = 1
         while _G["ChatFrame" .. i] do
-            ChatFrame_RemoveChannel(_G["ChatFrame" .. i], YY)
+            ChatFrame_RemoveChannel(_G["ChatFrame" .. i], BG.BiaoGeYY)
             i = i + 1
         end
 
@@ -2420,7 +2422,7 @@ BG.Init(function()
             for i, value in ipairs(frame.checkBoxTable) do
                 if value.channelName then
                     local checkBox = _G[checkBoxName .. i .. 'Check'] or _G[frame:GetName() .. "Checkbox" .. i .. "Check"]
-                    if value.channelName == YY then
+                    if value.channelName == BG.BiaoGeYY then
                         if BG.IsNewUI then
                             checkBox:Disable()
                             checkBox.Text:SetTextColor(.5, .5, .5)
@@ -2433,7 +2435,7 @@ BG.Init(function()
             end
         end)
         hooksecurefunc(ChannelFrame.ChannelList, 'AddChannelButtonInternal', function(f, button, _, name, _, channelId)
-            if name == YY then
+            if name == BG.BiaoGeYY then
                 button:Disable()
                 local text = ('%s %s %s'):format(button:GetChannelNumberText(), button:GetChannelName(),
                     button:GetMemberCountText())
@@ -2442,7 +2444,7 @@ BG.Init(function()
         end)
 
         -- 初始化频道
-        local channelID, channelName = GetChannelName(YY)
+        local channelID, channelName = GetChannelName(BG.BiaoGeYY)
         if not channelName then
             BG.YYchannelID = nil
         else
@@ -2453,7 +2455,7 @@ BG.Init(function()
             if not BG.YYchannelID and BiaoGe.YYdb.share == 1 then
                 local channels = { GetChannelList() }
                 if channels and #channels > 3 then
-                    JoinPermanentChannel(YY, nil, 1)
+                    JoinPermanentChannel(BG.BiaoGeYY, nil, 1)
                 end
                 BG.After(3, JoinYY)
             end

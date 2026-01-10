@@ -44,13 +44,22 @@ function ItemSpecMeta.__newindex(self, key, value)
     rawset(self, key, value)
 end
 
+local enchantMapping = {
+    [8636] = 2523,
+}
+
 ---Fill values from an item link.
 ---@param itemLink string See https://wowpedia.fandom.com/wiki/ItemLink
 function ItemSpecMeta:FillFromItemLink(itemLink)
     local _, itemId, enchantId, gemId1, gemId2, gemId3, gemId4, suffixId = strsplit(":", itemLink)
 
     self.id = tonumber(itemId)
-    self.enchant = tonumber(enchantId)
+    local enchantNum = tonumber(enchantId) or 0
+    if Env.IS_CLASSIC_WRATH and enchantNum ~= 0 and enchantMapping[enchantNum] then
+        enchantNum = enchantMapping[enchantNum]
+    end
+    self.enchant = enchantNum
+
     if self._structure.gems then
         self.gems = { tonumber(gemId1), tonumber(gemId2), tonumber(gemId3), tonumber(gemId4) }
     end

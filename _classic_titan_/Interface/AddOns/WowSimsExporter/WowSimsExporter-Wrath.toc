@@ -1,5 +1,5 @@
 ## Title: WowSimsExporter |cff99ddff谷|r|cff88ccee风|r|cff77bbdd修|r|cff66aacc复|r|cff5599bb版|r
-## Version: 3.1.6
+## Version: 3.1.7
 ## Author: generalwrex(Natop of Old Blanchy), namreeb, coolmodi(FelixPflaum), riotdog
 ## Interface: 38000
 ## Notes: This is an exporter written to quickly export your character to https://wowsims.github.io/wotlk/ for simulations.

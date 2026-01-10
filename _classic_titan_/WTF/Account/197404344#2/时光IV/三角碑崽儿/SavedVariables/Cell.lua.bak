@@ -22,7 +22,7 @@ CellCharacterDB = {
 ["raid_outdoor"] = "default",
 },
 },
-["revise"] = "r272-release",
+["revise"] = "r273-release",
 ["clickCastings"] = {
 {
 {

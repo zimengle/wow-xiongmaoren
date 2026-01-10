@@ -43,7 +43,6 @@ local PROF_CLASS_CONTENT = data:AddContentType(AL["Class Professions"], ATLASLOO
 
 local GEM_FORMAT1 = ALIL["Gems"].." - %s"
 local GEM_FORMAT2 = ALIL["Gems"].." - %s & %s"
-
 data["AlchemyWrath"] = {
 	name = ALIL["Alchemy"],
 	ContentType = PROF_CONTENT,
@@ -60,6 +59,7 @@ data["AlchemyWrath"] = {
 				{ 4, 53901 },	-- Flask of the Frost Wyrm
 				{ 5, 62213 },	-- Lesser Flask of Resistance
 				{ 6, 53899 },	-- Lesser Flask of Toughness
+				{ 16,67025}
 			},
 		},
 		{
@@ -86,6 +86,7 @@ data["AlchemyWrath"] = {
 				{ 25, 53780 },	-- Transmute: Eternal Shadow to Life
 				{ 26, 53783 },	-- Transmute: Eternal Water to Air
 				{ 27, 53784 },	-- Transmute: Eternal Water to Fire
+				{ 28, 54020 },
 			},
 		},
 		{
@@ -158,8 +159,109 @@ data["AlchemyWrath"] = {
 			[NORMAL_DIFF] = {
 				{ 1, 62409 },	-- Ethereal Oil
 				{ 2, 53812 },	-- Pygmy Oil
+				{ 4, 60893 }
 			},
-		}
+		},
+		-- {
+		-- 	name ="缺失",
+		-- 	[NORMAL_DIFF]={
+		-- 		{1, 7636},
+		-- 		{2, 12904},
+
+
+
+		-- 		{8, 12716},
+		-- 		{10, 8366},
+		-- 		{11, 30549},
+		-- 		{12, 2156},
+		-- 		{13, 16665},
+
+
+		-- 		{16, 55996},
+		-- 		{17, 16986},
+		-- 		{18, 26904},
+		-- 		{19, 16987},
+		-- 		{20, 26905},
+		-- 		{21, 61481},
+
+		-- 		{23, 16980},
+		-- 		{24, 2157},
+		-- 		{25, 61482},
+		-- 		{26, 12720},
+
+		-- 		{28, 30555},
+		-- 		{29, 65454},
+		-- 		{30, 3421},
+		-- 		{101, 22430},
+
+		-- 		{103, 57231},
+		-- 		{104, 12722},
+		-- 		{106, 30047},
+		-- 		{108, 64054},
+		-- 		{109, 55993},
+		-- 		{110, 22434},
+		-- 		{111, 55995},
+		-- 		{112, 55997},
+		-- 		{113, 55998},
+		-- 		{114, 55999},
+		-- 		{115, 11923},
+		-- 		{116, 55994},
+		-- 		{117, 12083},
+		-- 		{118, 30561},
+		-- 		{119, 56048},
+		-- 		{120, 56000},
+		-- 		{121, 22813},
+		-- 		{122, 6619},
+		-- 		{123, 66038},
+		-- 		{124, 7451},
+		-- 		{125, 70524},
+		-- 		{128, 31461},
+		-- 		{129, 9942},
+		-- 		{130, 66034},
+		-- 		{201, 10550},
+		-- 		{202, 37836},
+		-- 		{203, 17579},
+		-- 		{204, 11447},
+		-- 		{205, 12087},
+
+		-- 		{207, 2671},
+		-- 		{208, 13240},
+		-- 		{209, 19566},
+		-- 		{210, 21935},
+		-- 		{212, 12090},
+		-- 		{215, 30573},
+		-- 		{216, 62044},
+		-- 		{217, 62045},
+		-- 		{218, 62050},
+		-- 		{219, 62051},
+		-- 		{221, 2336},
+		-- 		{222, 10844},
+		-- 		{223, 62941},
+		-- 		{225, 28021},
+		-- 		{226, 62049},
+		-- 		{229, 12062},
+		-- 		{304, 67790},
+		-- 		{307, 16960},
+		-- 		{309, 8368},
+		-- 		{310, 12063},
+		-- 		{311, 16967},
+		-- 		{312, 66035},
+		-- 		{313, 66036},
+		-- 		{314, 16965},
+		-- 		{315, 66037},
+		-- 		{316, 12068},
+		-- 		{317, 6651},
+		-- 		{318, 12719},
+		-- 		{319, 12900},
+		-- 		{320, 63742},
+		-- 		{321, 63743},
+		-- 		{323, 41307},
+		-- 		{324, 30021},
+		-- 		{325, 22815},
+		-- 		{327, 8778},
+		-- 		{328, 63750},
+		-- 	}
+		-- }
 	},
 }
 
@@ -215,6 +317,13 @@ data["BlacksmithingWrath"] = {
 				{ 17, 55203 },	-- Forged Cobalt Claymore
 			}
 		},
+		{
+			name = AL["Weapons"]..' - '..ALIL["Thrown"],
+			[NORMAL_DIFF]={
+				{1, 55202},
+				{2, 55206}
+			}
+		},
 		{ -- Shield
 			name = AL["Weapons"].." - "..ALIL["Shield"],
 			[NORMAL_DIFF] = {
@@ -262,12 +371,13 @@ data["BlacksmithingWrath"] = {
 				{ 3, [ATLASLOOT_IT_ALLIANCE] = { 67093 }, [ATLASLOOT_IT_HORDE] = { 67132} },	-- Titanium Razorplate
 				{ 4, 61008 },	-- Icebane Chestguard
 				{ 5, 55311 },	-- Savage Saronite Hauberk
-				{ 6, 55058 },	-- Brilliant Saronite Breastplate
-				{ 7, 55186 },	-- Chestplate of Conquest
-				{ 8, 54553 },	-- Tempered Saronite Breastplate
-				{ 9, 54944 },	-- Spiked Cobalt Chestpiece
-				{ 10, 54981 },	-- Reinforced Cobalt Chestpiece
-				{ 11, 52570 },	-- Cobalt Chestpiece
+				{ 6, 56555 },
+				{ 7, 55058 },	-- Brilliant Saronite Breastplate
+				{ 8, 55186 },	-- Chestplate of Conquest
+				{ 9, 54553 },	-- Tempered Saronite Breastplate
+				{ 10, 54944 },	-- Spiked Cobalt Chestpiece
+				{ 11, 54981 },	-- Reinforced Cobalt Chestpiece
+				{ 12, 52570 },	-- Cobalt Chestpiece
 			},
 		},
 		{ -- Feet
@@ -289,6 +399,9 @@ data["BlacksmithingWrath"] = {
 				{ 14, 54552 },	-- Tempered Saronite Boots
 				{ 15, 54918 },	-- Spiked Cobalt Boots
 				{ 16, 52569 },	-- Cobalt Boots
+				{ 18,'INV_Box_01',nil,'P2','风暴要塞-毒蛇神殿'},
+				{ 19,36391 },
+				{ 20,36392}
 			},
 		},
 		{ -- Hand
@@ -335,6 +448,9 @@ data["BlacksmithingWrath"] = {
 				{ 8, 54551 },	-- Tempered Saronite Belt
 				{ 9, 54946 },	-- Spiked Cobalt Belt
 				{ 10, 52568 },	-- Cobalt Belt
+				{ 16,'INV_Box_01',nil,'P2','风暴要塞-毒蛇神殿'},
+				{ 17,36389 },
+				{ 18,36390}
 			},
 		},
 		{ -- Wrist
@@ -353,6 +469,102 @@ data["BlacksmithingWrath"] = {
 			},
 		},
 		{
+			name = ALIL["Armorsmith"],
+			[PLATE_DIFF] = {
+				{ 1, 55186 },	-- Chestplate of Conquest
+				{ 2, 55187 },	-- Legplates of Conquest
+				{ 3, 36129 },	-- Heavy Earthforged Breastplate
+				{ 4, 36122 },	-- Earthforged Leggings
+				
+					-- Breastplate of Kings
+				{ 16,'INV_Box_01',nil,'P2','风暴要塞-毒蛇神殿'},
+				{ 17, 34533 },
+				{ 19,'INV_Box_01',nil,'P5', '太阳之井高地'},
+				{ 20,34534 },
+				{ 22,'INV_Box_01',nil,'P9' ,'安其拉神庙'},
+				{ 23, 36257 },	-- Bulwark of the Ancient Kings
+				
+			},
+		},
+		{
+			name = ALIL["Weaponsmith"],
+			[NORMAL_DIFF] = {
+				{ 1, 55185 },	-- Saronite Mindcrusher
+				{ 2, 55184 },	-- Corroded Saronite Woundbringer
+				{ 3, 55183 },	-- Corroded Saronite Edge
+				{ 4, 36126 },	-- Light Skyforged Axe
+				{ 5, 36128 },	-- Light Emberforged Hammer
+				{ 6, 36125 },	-- Light Earthforged Blade
+			},
+		},
+		{
+			name = ALIL["Axesmith"],
+			[NORMAL_DIFF] = {
+				
+				
+				
+				
+				
+				{ 1,'INV_Box_01',nil,'P2 - 双手','风暴要塞&毒蛇神殿'},
+				{ 2, 34543 },	-- Lunar Crescent
+
+				{ 4,'INV_Box_01',nil,'P5 - 双手','太阳之井高地'},
+				{ 5, 34544 },	-- Lunar Crescent
+				{ 7,'INV_Box_01',nil,'P9 - 双手','安其拉神庙'},
+				{ 8, 36261 },	-- Bloodmoon
+
+				{ 16,'INV_Box_01',nil,'P2 - 单手','风暴要塞&毒蛇神殿'},
+				{ 17, 34541 },	-- The Planar Edge
+
+				{ 19,'INV_Box_01',nil,'P5 - 单手','太阳之井高地'},
+				{ 20, 34542 },	-- Black Planar Edge
+				{ 22,'INV_Box_01',nil,'P9 - 单手','安其拉神庙'},
+				{ 23, 36260 },	-- Wicked Edge of the Planes
+
+			},
+		},
+		{
+			name = ALIL["Hammersmith"],
+			[NORMAL_DIFF] = {
+				{ 1,'INV_Box_01',nil,'P2 - 双手','风暴要塞&毒蛇神殿'},
+				{ 2, 34547 },	-- Lunar Crescent
+
+				{ 4,'INV_Box_01',nil,'P5 - 双手','太阳之井高地'},
+				{ 5, 34548 },	-- Lunar Crescent
+				{ 7,'INV_Box_01',nil,'P9 - 双手','安其拉神庙'},
+				{ 8, 36263 },	-- Bloodmoon
+
+				{ 16,'INV_Box_01',nil,'P2 - 单手','风暴要塞&毒蛇神殿'},
+				{ 17, 34545 },	-- The Planar Edge
+
+				{ 19,'INV_Box_01',nil,'P5 - 单手','太阳之井高地'},
+				{ 20, 34546 },	-- Black Planar Edge
+				{ 22,'INV_Box_01',nil,'P9 - 单手','安其拉神庙'},
+				{ 23, 36262 },	-- Wicked Edge of the Planes
+			},
+		},
+		{
+			name = ALIL["Swordsmith"],
+			[NORMAL_DIFF] = {
+
+				{ 1,'INV_Box_01',nil,'P2 - 双手','风暴要塞&毒蛇神殿'},
+				{ 2, 34538 },	-- Lunar Crescent
+
+				{ 4,'INV_Box_01',nil,'P5 - 双手','太阳之井高地'},
+				{ 5, 34540 },	-- Lunar Crescent
+				{ 7,'INV_Box_01',nil,'P9 - 双手','安其拉神庙'},
+				{ 8, 36259 },	-- Bloodmoon
+
+				{ 16,'INV_Box_01',nil,'P2 - 单手','风暴要塞&毒蛇神殿'},
+				{ 17, 34535 },	-- The Planar Edge
+
+				{ 19,'INV_Box_01',nil,'P5 - 单手','太阳之井高地'},
+				{ 20, 34537 },	-- Black Planar Edge
+				{ 22,'INV_Box_01',nil,'P9 - 单手','安其拉神庙'},
+				{ 23, 36258 },	-- Wicked Edge of the Planes
+			},
+		},
+		{
 			name = AL["Enhancements"],
 			[NORMAL_DIFF] = {
 				{ 1, 55656 },	-- Eternal Belt Buckle
@@ -361,6 +573,15 @@ data["BlacksmithingWrath"] = {
 				{ 16, 62202 },	-- Titanium Plating
 				{ 17, 56357},
 				{ 19, 55628 },	-- Socket Bracer
+			}
+		},
+		{
+			name=AL["Misc"],
+			[NORMAL_DIFF]={
+				{1, 59405},
+				{2, 59406},
+
+				{4, 55732}
 			}
 		},
 		{ -- Sets
@@ -399,6 +620,7 @@ data["EnchantingWrath"] = {
 				{ 12, 44510 },	-- Enchant Weapon - Exceptional Spirit
 				{ 13, 44629 },	-- Enchant Weapon - Exceptional Spellpower
 				{ 14, 60621 },	-- Enchant Weapon - Greater Potency
+				{ 16, 62257}
 			}
 		},
 		{
@@ -472,6 +694,7 @@ data["EnchantingWrath"] = {
 				{ 7, 71692 },	-- Enchant Gloves - Angler
 				{ 8, 44506 },	-- Enchant Gloves - Gatherer
 				{ 9, 44592 },	-- Enchant Gloves - Exceptional Spellpower
+				{ 10,44612}
 			}
 		},
 		{
@@ -507,6 +730,7 @@ data["EnchantingWrath"] = {
 			name = AL["Misc"],
 			[NORMAL_DIFF] = {
 				{ 1, 69412 },	-- Abyssal Shatter
+				{ 2, 60619},
 			}
 		},
 	}
@@ -700,6 +924,10 @@ data["TailoringWrath"] = {
 				{ 8, 56019 },	-- Silky Iceshard Boots
 				{ 9, 55924 },	-- Duskweave Boots
 				{ 10, 55906 },	-- Frostwoven Boots
+
+				{ 16,'INV_Box_01',nil,'P2','风暴要塞-毒蛇神殿'},
+				{ 17,36317 },
+				{ 18,36318}
 			}
 		},
 		{
@@ -736,6 +964,9 @@ data["TailoringWrath"] = {
 				{ 5, 59582 },	-- Frostsavage Belt
 				{ 6, 55914 },	-- Duskweave Belt
 				{ 7, 55908 },	-- Frostwoven Belt
+				{ 16,'INV_Box_01',nil,'P2','风暴要塞-毒蛇神殿'},
+				{ 17,36315 },
+				{ 18,36316}
 			}
 		},
 		{
@@ -842,6 +1073,8 @@ data["LeatherworkingWrath"] = {
 				{ 9, 60629 },	-- Dark Nerubian Chestpiece
 				{ 10, 50950 },	-- Frostscale Chestguard
 				{ 11, 50956 },	-- Nerubian Chestguard
+				{ 16, "INV_Box_01", nil, "P8" },
+				{ 17, 19106}
 			},
 		},
 		{ -- Feet
@@ -861,6 +1094,9 @@ data["LeatherworkingWrath"] = {
 				{ 12, 60620 },	-- Bugsquashers
 				{ 13, 50948 },	-- Arctic Boots
 				{ 14, 50942 },	-- Iceborne Boots
+				{ 16,'INV_Box_01',nil,'P2','风暴要塞-毒蛇神殿'},
+				{ 17,36355 },
+				{ 18,36357}
 			},
 			[MAIL_DIFF] = {
 				{ 1, 70559 },	-- Earthsoul Boots
@@ -875,6 +1111,9 @@ data["LeatherworkingWrath"] = {
 				{ 10, 60630 },	-- Scaled Icewalkers
 				{ 11, 50954 },	-- Frostscale Boots
 				{ 12, 50960 },	-- Nerubian Boots
+				{ 16,'INV_Box_01',nil,'P2','风暴要塞-毒蛇神殿'},
+				{ 17,36358 },
+				{ 18,36359}
 			},
 		},
 		{ -- Hand
@@ -965,6 +1204,9 @@ data["LeatherworkingWrath"] = {
 				{ 6, 60723 },	-- Overcast Belt
 				{ 7, 50949 },	-- Arctic Belt
 				{ 8, 50943 },	-- Iceborne Belt
+				{ 16,'INV_Box_01',nil,'P2','风暴要塞-毒蛇神殿'},
+				{ 17,36349 },
+				{ 18,36351}
 			},
 			[MAIL_DIFF] = {
 				{ 1, 63194 },	-- Belt of Dragons
@@ -975,6 +1217,9 @@ data["LeatherworkingWrath"] = {
 				{ 6, 60658 },	-- Nightshock Girdle
 				{ 7, 50955 },	-- Frostscale Belt
 				{ 8, 50961 },	-- Nerubian Belt
+				{ 16,'INV_Box_01',nil,'P2','风暴要塞-毒蛇神殿'},
+				{ 17,36352 },
+				{ 18,36353}
 			},
 		},
 		{ -- Wrist
@@ -984,8 +1229,9 @@ data["LeatherworkingWrath"] = {
 				{ 2, [ATLASLOOT_IT_ALLIANCE] = { 67085 }, [ATLASLOOT_IT_HORDE] = { 67141 } },	-- Moonshadow Armguards
 				{ 3, 60704 },	-- Eviscerator's Bindings
 				{ 4, 60720 },	-- Overcast Bracers
-				{ 5, 51571 },	-- Arctic Wristguards
-				{ 6, 60607 },	-- Iceborne Wristguards
+				{ 5, 55243 },
+				{ 6, 51571 },	-- Arctic Wristguards
+				{ 7, 60607 },	-- Iceborne Wristguards
 			},
 			[MAIL_DIFF] = {
 				{ 1, [ATLASLOOT_IT_ALLIANCE] = { 67081 }, [ATLASLOOT_IT_HORDE] = { 67137 } },	-- Black Chitin Bracers
@@ -996,7 +1242,11 @@ data["LeatherworkingWrath"] = {
 				{ 6, 60652 },	-- Eaglebane Bracers
 				{ 7, 60599 },	-- Frostscale Bracers
 				{ 8, 60622 },	-- Nerubian Bracers
+
+				{ 16, 52733},
+				
 			},
+			
 		},
 		{
 			name = AL["Enhancements"],
@@ -1006,6 +1256,7 @@ data["LeatherworkingWrath"] = {
 				{ 3, 50967 },	-- Icescale Leg Armor
 				{ 5, 50964 },	-- Jormungar Leg Armor
 				{ 6, 50966 },	-- Nerubian Leg Armor
+				{ 7, 50962 },
 				{ 8, 50963 },	-- Heavy Borean Armor Kit
 
 				{ 10, 60584 },	-- Nerubian Leg Reinforcements
@@ -1309,6 +1560,7 @@ data["JewelcraftingWrath"] = {
 				{ 121, 53985 }, -- Veiled Monarch Topaz
 				{ 122, 53988 }, -- Wicked Monarch Topaz
 				{ 123, 53992 }, -- Wicked Monarch Topaz
+				{ 124, 53982},
 				-- green
 				{ 201, 53892 }, -- Accurate Huge Citrine
 				{ 202, 53874 },	-- Champion's Huge Citrine
@@ -1332,6 +1584,7 @@ data["JewelcraftingWrath"] = {
 				{ 220, 53889 }, -- Stark Huge Citrine
 				{ 221, 53883 },	-- Veiled Huge Citrine
 				{ 222, 53886 }, -- Wicked Huge Citrine
+				{ 223, 53890},
 				-- perfect
 				{ 301, "i41482" }, -- Perfect Accurate Huge Citrine
 				{ 302, "i41483" }, -- Perfect Champion's Huge Citrine
@@ -1419,6 +1672,8 @@ data["JewelcraftingWrath"] = {
 				{ 217, 53894 }, -- Timeless Dark Jade
 				{ 218, 53924 },	-- Turbid Dark Jade
 				{ 219, 53917 }, -- Vivid Dark Jade
+				{ 220, 53920 },
+				{ 221, 53923 },
 				-- perfect
 				{ 301, "i41463" }, -- Perfect Dazzling Dark Jade
 				{ 302, "i41464" }, -- Perfect Enduring Dark Jade
@@ -1807,6 +2062,7 @@ data["InscriptionWrath"] = {
 				{ 4, 58324 }, -- Glyph of Distract / 75
 				{ 5, 58327 }, -- Glyph of Safe Fall / 75
 				{ 6, 58326 }, -- Glyph of Pick Pocket / 75
+				{ 7, 1282130}
 			},
 		},
 		{
@@ -1962,6 +2218,7 @@ data["InscriptionWrath"] = {
 				{ 26, 56968 }, -- Glyph of Arcane Explosion / 100
 				{ 27, 56978 }, -- Glyph of Ice Armor / 90
 				{ 28, 56976 }, -- Glyph of Frost Nova / 80
+				{ 29, 56977}
 			},
 			[MINOR_GLYPHS_DIFF] = {
 				{ 1, 58306 }, -- Glyph of Frost Armor / 80
@@ -2012,6 +2269,7 @@ data["InscriptionWrath"] = {
 				{ 3, 58339 }, -- Glyph of Subjugate Demon / 75
 				{ 4, 58336 }, -- Glyph of Unending Breath / 75
 				{ 5, 58340 }, -- Glyph of Kilrogg / 75
+				{ 6, 58338}
 			},
 		},
 		{
@@ -2048,7 +2306,8 @@ data["InscriptionWrath"] = {
 				{ 29, 56963 }, -- Glyph of Wrath / 85
 				{ 30, "INV_Box_01", nil, AL["next page>>"] },
 				{ 101, 56955 }, -- Glyph of Rejuvenation / 80
-				{102,413897}
+				{ 102, 413897},
+				{ 103, 56946}
 
 			},
 			[MINOR_GLYPHS_DIFF] = {
@@ -2079,6 +2338,7 @@ data["InscriptionWrath"] = {
 				{ 13, 57703 },	-- Hunter's Ink
 				{ 14, 53462 },	-- Midnight Ink
 				{ 15, 52843 },	-- Moonglow Ink
+				{ 16, 52738},
 			}
 		},
 		{
@@ -2097,6 +2357,8 @@ data["InscriptionWrath"] = {
 				{ 3, 52739 },	-- Armor Vellum
 				{ 4, 59499 },	-- Armor Vellum II
 				{ 5, 59500 },	-- Armor Vellum III
+				{ 7, 61177},
+				{ 8, 61288},
 				{ 18, 52840 },	-- Weapon Vellum
 				{ 19, 59488 },	-- Weapon Vellum II
 				{ 20, 59501 },	-- Weapon Vellum III
@@ -2180,6 +2442,8 @@ data["CookingWrath"] = {
 				{ 2, 45558 },	-- Very Burnt Worg
 				{ 3, 45569 },	-- Baked Manta Ray
 				{ 4, 45552 },	-- Roasted Worg
+				
+				--{ 5, 44438 }
 			},
 		},
 		{
@@ -2189,6 +2453,7 @@ data["CookingWrath"] = {
 				{ 2, 45571 },	-- Spicy Blue Nettlefish
 				{ 3, 45565 },	-- Poached Nettlefish
 				{ 4, 45551 },	-- Worm Delight
+				-- { 5, 45547}
 			},
 		},
 		{

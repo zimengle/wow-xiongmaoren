@@ -8,8 +8,10 @@ local pt = print
 local LibBG = LibStub:GetLibrary("LibUIDropDownMenu-4.0") -- 调用库菜单UI
 ns.LibBG = LibBG
 
+BG.BiaoGeYY = BG.IsTitan and "BiaoGeYYY" or "BiaoGeYY"
+
 C_ChatInfo.RegisterAddonMessagePrefix("BiaoGe") -- 注册插件通信频道
-C_ChatInfo.RegisterAddonMessagePrefix("BiaoGeYY")
+C_ChatInfo.RegisterAddonMessagePrefix(BG.BiaoGeYY)
 C_ChatInfo.RegisterAddonMessagePrefix("BiaoGeVIP")
 C_ChatInfo.RegisterAddonMessagePrefix("BiaoGeWorldBoss")
 
@@ -248,7 +250,7 @@ do
             AddDB("DS", mainFrameWidth, 830, 3, 10, { 0, 5, 9 }, { "N", "H" }, nil,
                 { 6, 6, 6, 6, 6, 6, 6, 6, 13, 18, })
         end
-        if BG.IsMOP_TW then
+        if BG.IsMOP then
             AddDB("MSV", mainFrameWidth2, 960, 4, 18, { 0, 6, 12, 17 }, { "N", "H" }, nil,
                 { 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 27, 10, }, 14)
             AddDB("TOT", mainFrameWidth, 960, 3, 15, { 0, 6, 12, }, { "N", "H" }, nil,
@@ -325,7 +327,7 @@ do
         if BG.IsVanilla_60 then
             BG.FB1 = "MC"
             BG.fullLevel = 60
-            BG.fullLevel_RoleOverview = 60
+            BG.fullLevel_RoleOverview = 35
             BG.theEndBossID = { 672, 617, 793, 723, 717, 1114 } --MC BWL ZUG AQL TAQ NAXX
             AddDB("MC", 409, "P1-P2", 40, nil, nil, { 1, 10 })
             AddDB("BWL", 469, "P3", 40)
@@ -344,7 +346,7 @@ do
         if BG.IsWLK_80 then
             BG.FB1 = "NAXX"
             BG.fullLevel = 80
-            BG.fullLevel_RoleOverview = 68
+            BG.fullLevel_RoleOverview = 60
             BG.theEndBossID = { 1114, 756, 645, 856, }
 
             AddDB("NAXX", 533, "P1", nil, nil, nil, { 1, 15 })
@@ -395,7 +397,7 @@ do
         if BG.IsTitan then
             BG.FB1 = "MCtitan"
             BG.fullLevel = 80
-            BG.fullLevel_RoleOverview = 70
+            BG.fullLevel_RoleOverview = 60
             BG.theEndBossID = { 672, 628, 733 } --MC 毒蛇 风暴
             AddDB("MCtitan", 409, "P1", 25)
             AddDB("SSCtitan", 548, "P2", 25, nil, nil, nil, L["毒蛇风暴"])
@@ -417,7 +419,7 @@ do
         if BG.IsCTM then
             BG.FB1 = "DS"
             BG.fullLevel = 85
-            BG.fullLevel_RoleOverview = 80
+            BG.fullLevel_RoleOverview = 70
             BG.theEndBossID = { 1082, 1026, 1034, 1203, 1299, } -- BOT BWD TOF FL DS
             AddDB("BOT", 671, "P1", nil, nil, nil, { 1, 5 })    -- 暮光堡垒
             BG.FBIDtable[669] = "BOT"                           -- 黑翼血环
@@ -441,13 +443,13 @@ do
                 77952
             }
         end
-        if BG.IsMOP_TW then
+        if BG.IsMOP then
             BG.FB1 = "MSV"
             BG.fullLevel = 90
-            BG.fullLevel_RoleOverview = 85
+            BG.fullLevel_RoleOverview = 80
             BG.theEndBossID = { 1407, 1501, 1431, 1579 } -- 魔古山 大女皇 惧之煞 雷神
             BG.worldBossID = { 32098, 32099, 32518, 32519, 37464 } -- 炮舰 怒之煞 暴风领主纳拉克 乌达斯塔 鲁赫马尔
-            AddDB("MSV", 1008, "P1", nil, nil, nil, { 1, 6 }, L["魔古山宝库"]) -- 魔古山
+            AddDB("MSV", 1008, "P1", nil, nil, nil, { 1, 6 }) -- 魔古山
             -- 恐惧之心
             BG.FBIDtable[1009] = "MSV"
             BG.bossPositionStartEnd[1009] = { 7, 12 }
@@ -914,6 +916,8 @@ do
         end)
     end
 
+
+
     hooksecurefunc(LibBG, "ToggleDropDownMenu", function(_, _, _, dropDown)
         for i = 1, L_UIDROPDOWNMENU_MAXBUTTONS do
             local button = _G["L_DropDownList1Button" .. i]
@@ -1275,7 +1279,10 @@ BG.Init(function()
     -- 删除旧表格数据
     do
         if BG.IsMOP or BG.IsTitan then
-            for i, FB in ipairs({ "NAXX", "ULD", "TOC", "ICC", }) do
+            for i, FB in ipairs({
+                "NAXX", "ULD", "TOC", "ICC",
+                "BOT", "FL", "DS",
+            }) do
                 BiaoGe[FB] = nil
                 BiaoGe.History[FB] = nil
                 BiaoGe.HistoryList[FB] = nil

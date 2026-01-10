@@ -80,7 +80,7 @@ BG.Init(function()
             GameTooltip:ClearLines()
             GameTooltip:AddLine(self:GetText(), 1, 1, 1, true)
             GameTooltip:AddLine(L["自动拍卖装备（拍卖WA）的记录。"], 1, 0.82, 0, true)
-            GameTooltip:AddLine(format(L["自动拍卖合计收入：|cff%s%s|r"], color, BG.FormatNumber(sum)), 1, 0.82, 0, true)
+            GameTooltip:AddLine(format(L["自动拍卖合计收入：|cff%s%s|r"], color, BG.FormatNumber(sum,2)), 1, 0.82, 0, true)
             GameTooltip:Show()
         end)
         bt:SetScript("OnLeave", GameTooltip_Hide)
@@ -1342,7 +1342,7 @@ BG.Init(function()
             text.LiuPaiText = BG.STC_r1(L["<流拍>"])
             text.auctionText = BG.STC_y1(L["<正在拍卖>"])
             if v.type == 1 then
-                text:SetText(BG.FormatNumber(v.jine) .. "|c" .. select(4, GetClassColor(v.class)) .. " " .. v.maijia .. "" .. RR)
+                text:SetText(BG.FormatNumber(v.jine,2) .. "|c" .. select(4, GetClassColor(v.class)) .. " " .. v.maijia .. "" .. RR)
             elseif notAuctioned then
                 text:SetText(text.notAuctionedText)
             else
@@ -1538,7 +1538,7 @@ BG.Init(function()
             end
         end
 
-        BG.auctionLogFrame.sumText:SetText(L["合计收入："] .. BG.FormatNumber(sum))
+        BG.auctionLogFrame.sumText:SetText(L["合计收入："] .. BG.FormatNumber(sum,2))
 
         if BiaoGe.options.auctionLogChoose == 4 then
             if not notSetUp then
@@ -1916,11 +1916,26 @@ BG.Init(function()
             end
         end
         if notBound then
+            local first=true
+            for k, v in pairs(BiaoGe[FB].auctionLog) do
+                if v.type == 1 and v.trade and BG.IsSameItem(info.hyperlink, v.zhuangbei) then
+                    if first then
+                        first = nil
+                        GameTooltip:AddLine(" ")
+                    end
+                    local text = v.jine .. "(|c" .. select(4, GetClassColor(v.class)) .. v.maijia .. "|r)"
+                    GameTooltip:AddDoubleLine(L["已拍已交易"], text, 0, 1, 0)
+                    GameTooltip:Show()
+                end
+            end
             for k, v in pairs(BiaoGe[FB].auctionLog) do
                 if v.type == 1 and not v.trade and BG.IsSameItem(info.hyperlink, v.zhuangbei) then
+                    if first then
+                        first = nil
+                        GameTooltip:AddLine(" ")
+                    end
                     local text = v.jine .. "(|c" .. select(4, GetClassColor(v.class)) .. v.maijia .. "|r)"
-                    -- local text = "|c" .. select(4, GetClassColor(v.class)) .. v.maijia .. "|r(" .. v.jine .. ")"
-                    GameTooltip:AddDoubleLine(L["已拍未交易"], text)
+                    GameTooltip:AddDoubleLine(L["已拍未交易"], text, 1, 0, 0)
                     GameTooltip:Show()
                 end
             end

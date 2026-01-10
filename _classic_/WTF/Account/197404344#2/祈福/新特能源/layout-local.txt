@@ -20,6 +20,13 @@ X: 0
 Y: 0
 W: 365
 H: 240
+Frame: WorldMapFrame
+FrameLevel: 1
+Anchor: TOP
+X: -237
+Y: -117
+W: 610
+H: 438
 Frame: AtlasLoot_GUI-Frame
 FrameLevel: 1
 Anchor: CENTER
@@ -34,10 +41,3 @@ X: 315
 Y: -82
 W: 200
 H: 50
-Frame: WorldMapFrame
-FrameLevel: 1
-Anchor: TOP
-X: -237
-Y: -117
-W: 1024
-H: 712

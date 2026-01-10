@@ -529,7 +529,7 @@ nil,
 ["LastMultiCastSpell"] = 66842,
 ["CDTimersOnButtons"] = true,
 ["LastTotems"] = {
-58656,
+57721,
 58753,
 58757,
 3738,

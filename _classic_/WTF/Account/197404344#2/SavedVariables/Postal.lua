@@ -23,7 +23,7 @@ Postal3DB = {
 "沈南鹏|祈福|Alliance|70|PALADIN",
 "特变电工|祈福|Alliance|87|ROGUE",
 "特工仓库|祈福|Alliance|1|PALADIN",
-"码农巴菲特|祈福|Alliance|87|DEATHKNIGHT",
+"码农巴菲特|祈福|Alliance|88|DEATHKNIGHT",
 },
 },
 },

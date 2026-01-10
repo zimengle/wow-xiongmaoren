@@ -51,7 +51,7 @@
         </Scripts>
     </Frame>
     <Frame name="EasyAuctionDBFrame" inherits="BackdropTemplate" hidden="true" parent="UIParent" movable="true" frameStrata="DIALOG" enableMouse="true">
-        <Size x="650" y="400"/>
+        <Size x="800" y="400"/>
         <Anchors>
             <Anchor point="CENTER"/>
         </Anchors>
@@ -65,13 +65,13 @@
         <Layers>
             <Layer level="OVERLAY">
                 <FontString name="$parentTitle" inherits="GameFontNormalLarge"
-                    text="|TInterface/Icons/INV_Misc_Coin_01:18:18:0:0|t |cff00ff80EasyAuction|r |cffffff00拍卖行历史价格|r">
+                    text="|TInterface/Icons/INV_Misc_Coin_01:14:14:0:0|t |cff00ff80EasyAuction|r |cffffff00拍卖行价格库|r">
                     <Anchors>
                         <Anchor point="TOPLEFT" x="12" y="-12"/>
                     </Anchors>
                 </FontString>
                 <FontString name="$parentHeader" inherits="GameFontNormalSmall"
-                    text="序     物品名                                          历史最低价                  最低单价                     采集时间">
+                    text="序     物品名                                          在售数         历史最低价                  最低单价                     采集时间">
                     <Anchors>
                         <Anchor point="TOPLEFT" x="15" y="-40"/>
                     </Anchors>

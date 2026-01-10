@@ -290,11 +290,11 @@ MSBTProfiles_SavedVars = {
 ["OUTGOING_HOT"] = {
 ["scrollArea"] = "Custom2",
 },
-["NOTIFICATION_HOLY_POWER_CHANGE"] = {
-["disabled"] = true,
+["NOTIFICATION_POWER_GAIN"] = {
 ["scrollArea"] = "Notification",
 },
-["NOTIFICATION_POWER_GAIN"] = {
+["NOTIFICATION_HOLY_POWER_CHANGE"] = {
+["disabled"] = true,
 ["scrollArea"] = "Notification",
 },
 ["PET_OUTGOING_DEFLECT"] = {
@@ -341,8 +341,8 @@ MSBTProfiles_SavedVars = {
 ["stickyDirection"] = "Down",
 ["direction"] = "Up",
 ["offsetX"] = -477,
-["behavior"] = "MSBT_NORMAL",
 ["iconAlign"] = "Right",
+["behavior"] = "MSBT_NORMAL",
 ["offsetY"] = -382,
 ["animationStyle"] = "Static",
 ["scrollHeight"] = 85,

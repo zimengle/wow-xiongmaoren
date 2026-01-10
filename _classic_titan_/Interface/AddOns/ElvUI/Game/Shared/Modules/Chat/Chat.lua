@@ -2174,7 +2174,7 @@ function CH:MessageFormatter(frame, info, chatType, chatGroup, chatTarget, chann
 	elseif chatType == 'TEXT_EMOTE' then
 		body = ((not issecretvalue or not issecretvalue(arg2)) and arg2 ~= senderLink) and gsub(message, arg2, senderLink, 1) or message
 	else
-		body = format(_G['CHAT_'..chatType..'_GET'] .. '%s', pflag..senderLink, message)
+		body = format(_G['CHAT_'..chatType..'_GET']..message, pflag..senderLink)
 	end
 
 	-- Add Channel
@@ -3984,9 +3984,16 @@ function CH:Initialize()
 	CH:UpdateEditboxAnchors()
 	CH:HandleChatVoiceIcons()
 
-	CH:SecureHook('ChatEdit_ActivateChat')
-	CH:SecureHook('ChatEdit_DeactivateChat')
-	CH:SecureHook('ChatEdit_SetLastActiveWindow')
+	if _G.ChatFrameUtil and _G.ChatFrameUtil.ActivateChat then
+		CH:SecureHook(_G.ChatFrameUtil, 'ActivateChat', 'ChatEdit_ActivateChat')
+		CH:SecureHook(_G.ChatFrameUtil, 'DeactivateChat', 'ChatEdit_DeactivateChat')
+		CH:SecureHook(_G.ChatFrameUtil, 'SetLastActiveWindow', 'ChatEdit_SetLastActiveWindow')
+	else
+		CH:SecureHook('ChatEdit_ActivateChat')
+		CH:SecureHook('ChatEdit_DeactivateChat')
+		CH:SecureHook('ChatEdit_SetLastActiveWindow')
+	end
+
 	CH:SecureHook('FCFTab_UpdateColors')
 	CH:SecureHook('FCFDock_SelectWindow')
 	CH:SecureHook('FCFDock_ScrollToSelectedTab')

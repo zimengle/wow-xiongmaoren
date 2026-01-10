@@ -3,5 +3,7 @@
     <Script file="AppData1.lua"/>
     <Script file="AppData2.lua"/>
     <Script file="AppData3.lua"/>
+    <Script file="AppData4.lua"/>
+    <Script file="AppData5.lua"/>
     <Script file="SetRegimentVersion.lua"/>
 </Ui>

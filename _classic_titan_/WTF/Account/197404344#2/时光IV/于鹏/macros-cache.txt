@@ -1,0 +1,10 @@
+VER 3 0100000000000001 "爆发" "134400"
+#showtooltip 
+/use 10
+/use 13
+/use 14
+/use 速度药水
+/cast 血性狂怒
+/cast 狮心
+/cast 恶魔变形
+END

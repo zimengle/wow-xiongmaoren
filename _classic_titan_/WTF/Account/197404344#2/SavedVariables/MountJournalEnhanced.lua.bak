@@ -9,10 +9,10 @@ MJEGlobalSettings = {
 ["showMountspecialButton"] = false,
 ["enableCursorKeys"] = false,
 ["slotPosition"] = "top",
-["compactMountList"] = false,
 ["displayStatistics"] = {
 },
 ["colorizeNameByRarity"] = true,
+["compactMountList"] = false,
 ["showResizeEdge"] = false,
 ["showPersonalCount"] = false,
 ["autoRotateModel"] = false,

@@ -44,7 +44,7 @@ AL["AtlasLoot - MiaoYing"] ="喵影掉落插件"
 AL["LootSettings"] ="掉落设置"
 AL["Forbidden Minimap be stored"] ="避免小地图图标被大脚/有爱等插件包折叠收纳"
 AL["AtlasLoot - Titan"] = "喵影掉落插件"
-AL["  By MiaoYing33"] ="（B站或者抖音 关注“喵影三三” 获取最新更新）新增直升装备 在 收藏品->泰坦余烬供应商里 冬拥湖装备也并入进来了"
+AL["  By MiaoYing33"] ="（B站或者抖音 关注“喵影三三” 获取最新更新）"
 AL["AtlasLoot Modules"] = "副本掉落信息模块"
 AL["Balzaphon"] = "巴尔萨冯"
 AL["Bonus"] = "奖励"
@@ -163,6 +163,8 @@ AL["Sever"] = "塞沃尔"
 AL["Shield"] = "盾"
 AL["Shift + Left Click"] = "Shift + 左键"
 AL["Shift + Right Click"] = "Shift + 右键"
+AL["Click this Button"] = "点击此按钮"
+AL["Open changelog Frame"] = "打开更新日志窗口"
 AL["Show Achievements."] = "显示成就"
 AL["Show additional items."] = "显示额外的物品"
 AL["Show all items"] = "显示所有物品"
@@ -234,3 +236,27 @@ AL["Finale BlackTemple"] ="终章 黑暗神庙"
 AL["Misc"]="杂项"
 AL["Titan Ember"]="泰坦余烬"
 AL["I Guess"]="我的猜测"
+
+
+AL['changelogText']=[[
+|cff00ff00=== v1.3.0 更新日志 ===|r
+
+|cffFFA500★ 新增功能：|r
+• 增加P2牌子装（包括冬拥湖）
+• 增加显示更新日志窗口（加了新功能用户不一定知道 所以提醒一下）
+• 增加锻造的锻造大师斧、锤、剑以及护甲大师胸甲，更新对应材料
+• 增加P2阶段制皮、锻造、裁缝的鞋子和腰带配方，更新所需材料
+
+|cffFFA500★ 修复问题：|r
+• 修复T5界面 外面显示的套装效果说明跟装备上的效果说明不一致的问题
+• 增加原版AtlasLoot缺失的各个专业配方（足足有40个之多，工作量巨大）
+• 修复 配置-插件-来源 相关设置无效问题
+
+|cff00ff00=== v1.2.5 更新日志 ===|r
+
+|cffFFA500★ 新增功能：|r
+• 增加所有二手装备 在收藏品-泰坦余烬供应商里
+• 冬拥湖装备也加入收藏品-泰坦余烬供应商里 增加对应价格
+• 优化装备名拷贝功能 CTRL+X 剪切之后 自动隐藏窗口
+• 删除PVP S套装
+]]

@@ -1,4 +1,4 @@
-if not BG.IsMOP_TW then return end
+if not BG.IsMOP then return end
 
 local _, ns = ...
 

@@ -126,8 +126,8 @@ ThreatClassic2DB = {
 nil,
 nil,
 nil,
-1794.277099609375,
--1048.5478515625,
+1833.650390625,
+-990.427490234375,
 },
 },
 ["bar"] = {
@@ -151,7 +151,7 @@ nil,
 },
 ["frame"] = {
 ["headerShow"] = false,
-["color"] = {
+["headerColor"] = {
 nil,
 nil,
 nil,
@@ -164,14 +164,14 @@ nil,
 1485,
 -930,
 },
-["locked"] = true,
-["height"] = 135.23806762695,
-["headerColor"] = {
+["color"] = {
 nil,
 nil,
 nil,
 0,
 },
+["locked"] = true,
+["height"] = 135.23806762695,
 ["width"] = 160,
 },
 ["backdrop"] = {

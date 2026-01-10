@@ -1,7 +1,11 @@
 
 PIGA_Per = {
 ["PigAction"] = {
-["ActionData"] = {
+["Lock"] = {
+false,
+false,
+false,
+false,
 },
 ["Scale"] = {
 1,
@@ -9,11 +13,7 @@ PIGA_Per = {
 1,
 1,
 },
-["AnniuNum"] = {
-12,
-12,
-12,
-12,
+["ActionData"] = {
 },
 ["ShowTJ"] = {
 1,
@@ -33,11 +33,11 @@ false,
 false,
 false,
 },
-["Lock"] = {
-false,
-false,
-false,
-false,
+["AnniuNum"] = {
+12,
+12,
+12,
+12,
 },
 },
 ["AutoSellBuy"] = {

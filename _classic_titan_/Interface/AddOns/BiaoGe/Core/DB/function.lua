@@ -96,7 +96,21 @@ function BG.RegisterEvent(event, func)
 end
 
 -- 版本号
+if GetCurrentRegion() ~= 5 then
+    BG.IsTW=true
+end
+
 local ver = select(4, GetBuildInfo())
+if ver >= 30000  then
+    BG.verOver3 = true
+end
+if ver >= 40000 then
+    BG.verOver4 = true
+end
+if ver >= 50000 then
+    BG.verOver5 = true
+end
+
 if ver < 20000 then
     BG.IsVanilla = true
     BG.onlyOneHard=true
@@ -109,7 +123,6 @@ end
 
 if ver >= 30000 and ver < 40000 then
     BG.IsWLK = true
-    BG.verOver3 = true
     if ver >= 38000 then
         BG.IsTitan = true
         BG.onlyOneHard=true
@@ -120,23 +133,18 @@ end
 
 if ver >= 40000 and ver < 50000 then
     BG.IsCTM = true
-    BG.verOver4 = true
 end
 
 if ver >= 50000 and ver < 60000 then
     BG.IsMOP = true
-    BG.verOver5 = true
-    if GetCurrentRegion() ~= 5 then
+    if BG.IsTW then
         BG.IsMOP_TW = true
     else
         BG.IsMOP_CN = true
-        BG.IsCTM = true
     end
-    -- BG.IsMOP_TW = nil
-    -- BG.IsCTM = true
-
+    -- BG.IsTW = true
     -- BG.IsMOP_TW = true
-    -- BG.IsCTM = nil
+    -- BG.IsMOP_CN = nil
 end
 
 if ver >= 110000 then
@@ -144,6 +152,7 @@ if ver >= 110000 then
 end
 
 BG.IsNewUI = true
+
 
 function BG.IsWLKFB(FB)
     local FB = FB or BG.FB1
@@ -181,6 +190,7 @@ function BG.GN(unit)
 end
 
 BG.playerName = BG.GN()
+BG.realmID = GetRealmID()
 
 function BG.GFN(name)
     if not name then return end

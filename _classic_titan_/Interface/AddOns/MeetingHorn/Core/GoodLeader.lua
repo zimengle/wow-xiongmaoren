@@ -24,7 +24,7 @@ function GoodLeader:OnInitialize()
     self.userCache = {}
 
     self:ListenSocket('GOODLEADER')
-    self:ConnectServer(ns.NETEASE_SERVER_PREFIX .. UnitFactionGroup('player'))
+    self:ConnectServer(ns.NETEASE_SERVER_PREFIX .. UnitFactionGroup('player')..ns.NETEASE_SERVER_RANDOM)
     self:RegisterServer('SGL')
     self:RegisterServer('SGT')
 

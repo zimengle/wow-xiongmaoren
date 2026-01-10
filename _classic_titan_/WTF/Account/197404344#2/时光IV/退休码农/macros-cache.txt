@@ -7,6 +7,9 @@ VER 3 0100000000000003 "压制" "134400"
 /施放 痛苦压制
 /施放 绝望祷言
 END
+VER 3 0100000000000005 "固定人员灌注" "134400"
+/cast [target=元坨坨] 能量灌注
+END
 VER 3 0100000000000004 "暗影魔" "134400"
 #showtooltip 暗影魔 
 /stopcasting 
@@ -18,4 +21,8 @@ VER 3 0100000000000002 "灌注" "134400"
 /目标 mouseover
 /脚本 local A=GetSpellLink("能量灌注")s,d,_,t=GetSpellCooldown("能量灌注")t=s==0 and""..A.."→%t，你被强化了，快上！"or""..A.."还有"..ceil(s+d-GetTime()).."秒冷却"SendChatMessage(t,"whisper",nil,UnitName("target"))
 /施放 [@mouseover,help,exists]能量灌注
+END
+VER 3 0100000000000006 "驱散" "134400"
+#showtooltip
+/cast [@cursor] 群体驱散
 END

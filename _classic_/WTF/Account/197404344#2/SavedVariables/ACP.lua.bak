@@ -2,6 +2,7 @@
 ACP_Data = {
 ["sorter"] = "按名称分组",
 ["NoRecurse"] = false,
+["NoChildren"] = true,
 ["AddonSet"] = {
 {
 "SpellActivationOverlay",
@@ -315,7 +316,6 @@ ACP_Data = {
 "Rurutia",
 },
 },
-["NoChildren"] = true,
 ["collapsed"] = {
 },
 ["ProtectedAddons"] = {

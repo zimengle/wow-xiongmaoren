@@ -904,5 +904,128 @@ function ActionFun.Update_Macro(self,PigMacroDeleted,PigMacroCount,dataY)
 	end
 	return PigMacroDeleted,PigMacroCount
 end
+
+------
+local Showtiaojian = {ALWAYS..SHOW,LEAVING_COMBAT..HIDE,BATTLEFIELD_JOIN..HIDE,SPELL_FAILED_BAD_IMPLICIT_TARGETS..HIDE,};
+local pailieName={"横向","竖向","6×2","2×6","4×3","3×4"};---排列方式
+local paiNum = #pailieName
+local pailieweizhi={
+	{},
+	{},
+	{
+		{"LEFT","RIGHT","+",0,1},
+		{"LEFT","RIGHT","+",0,1},
+		{"LEFT","RIGHT","+",0,1},
+		{"LEFT","RIGHT","+",0,1},
+		{"LEFT","RIGHT","+",0,1},
+		{"TOPLEFT","BOTTOMLEFT",0,"-",6},
+		{"LEFT","RIGHT","+",0,1},
+		{"LEFT","RIGHT","+",0,1},
+		{"LEFT","RIGHT","+",0,1},
+		{"LEFT","RIGHT","+",0,1},
+		{"LEFT","RIGHT","+",0,1},
+	},
+	{
+		{"LEFT","RIGHT","+",0,1},
+		{"TOPLEFT","BOTTOMLEFT",0,"-",2},
+		{"LEFT","RIGHT","+",0,1},
+		{"TOPLEFT","BOTTOMLEFT",0,"-",2},
+		{"LEFT","RIGHT","+",0,1},
+		{"TOPLEFT","BOTTOMLEFT",0,"-",2},
+		{"LEFT","RIGHT","+",0,1},
+		{"TOPLEFT","BOTTOMLEFT",0,"-",2},
+		{"LEFT","RIGHT","+",0,1},
+		{"TOPLEFT","BOTTOMLEFT",0,"-",2},
+		{"LEFT","RIGHT","+",0,1},
+	},
+	{
+		{"LEFT","RIGHT","+",0,1},
+		{"LEFT","RIGHT","+",0,1},
+		{"LEFT","RIGHT","+",0,1},
+		{"TOPLEFT","BOTTOMLEFT",0,"-",4},
+		{"LEFT","RIGHT","+",0,1},
+		{"LEFT","RIGHT","+",0,1},
+		{"LEFT","RIGHT","+",0,1},
+		{"TOPLEFT","BOTTOMLEFT",0,"-",4},
+		{"LEFT","RIGHT","+",0,1},
+		{"LEFT","RIGHT","+",0,1},
+		{"LEFT","RIGHT","+",0,1},
+	},
+	{
+		{"LEFT","RIGHT","+",0,1},
+		{"LEFT","RIGHT","+",0,1},
+		{"TOPLEFT","BOTTOMLEFT",0,"-",3},
+		{"LEFT","RIGHT","+",0,1},
+		{"LEFT","RIGHT","+",0,1},
+		{"TOPLEFT","BOTTOMLEFT",0,"-",3},
+		{"LEFT","RIGHT","+",0,1},
+		{"LEFT","RIGHT","+",0,1},
+		{"TOPLEFT","BOTTOMLEFT",0,"-",3},
+		{"LEFT","RIGHT","+",0,1},
+		{"LEFT","RIGHT","+",0,1},
+	},
+};
+for i=1,20 do
+	table.insert(pailieweizhi[1],{"LEFT","RIGHT","+",0,1})
+end
+for i=1,20 do
+	table.insert(pailieweizhi[2],{"TOP","BOTTOM",0,"-",1})
+end
+local function PailieFun(barName,id,Newjiange,Pailie)
+	for x=1,paiNum do
+		if Pailie == x then
+			_G[barName.."_But"..id]:ClearAllPoints();
+			if pailieweizhi[x][id-1][3]=="+" then
+				_G[barName.."_But"..id]:SetPoint(pailieweizhi[x][id-1][1],_G[barName.."_But"..(id-pailieweizhi[x][id-1][5])],pailieweizhi[x][id-1][2],Newjiange,pailieweizhi[x][id-1][4])
+			elseif pailieweizhi[x][id-1][4]=="+" then
+				_G[barName.."_But"..id]:SetPoint(pailieweizhi[x][id-1][1],_G[barName.."_But"..(id-pailieweizhi[x][id-1][5])],pailieweizhi[x][id-1][2],pailieweizhi[x][id-1][3],Newjiange)
+			elseif pailieweizhi[x][id-1][3]=="-" then
+				_G[barName.."_But"..id]:SetPoint(pailieweizhi[x][id-1][1],_G[barName.."_But"..(id-pailieweizhi[x][id-1][5])],pailieweizhi[x][id-1][2],-Newjiange,pailieweizhi[x][id-1][4])
+			elseif pailieweizhi[x][id-1][4]=="-" then
+				_G[barName.."_But"..id]:SetPoint(pailieweizhi[x][id-1][1],_G[barName.."_But"..(id-pailieweizhi[x][id-1][5])],pailieweizhi[x][id-1][2],pailieweizhi[x][id-1][3],-Newjiange)
+			end
+		end
+	end
+end
+local function PailieFunButList(butLsit,id,Newjiange,Pailie)
+	for x=1,paiNum do
+		if Pailie == x then
+			butLsit[id]:ClearAllPoints();
+			if pailieweizhi[x][id-1][3]=="+" then
+				butLsit[id]:SetPoint(pailieweizhi[x][id-1][1],butLsit[id-pailieweizhi[x][id-1][5]],pailieweizhi[x][id-1][2],Newjiange,pailieweizhi[x][id-1][4])
+			elseif pailieweizhi[x][id-1][4]=="+" then
+				butLsit[id]:SetPoint(pailieweizhi[x][id-1][1],butLsit[id-pailieweizhi[x][id-1][5]],pailieweizhi[x][id-1][2],pailieweizhi[x][id-1][3],Newjiange)
+			elseif pailieweizhi[x][id-1][3]=="-" then
+				butLsit[id]:SetPoint(pailieweizhi[x][id-1][1],butLsit[id-pailieweizhi[x][id-1][5]],pailieweizhi[x][id-1][2],-Newjiange,pailieweizhi[x][id-1][4])
+			elseif pailieweizhi[x][id-1][4]=="-" then
+				butLsit[id]:SetPoint(pailieweizhi[x][id-1][1],butLsit[id-pailieweizhi[x][id-1][5]],pailieweizhi[x][id-1][2],pailieweizhi[x][id-1][3],-Newjiange)
+			end
+		end
+	end
+end
+local function ShowHideNumFun(self,CVarV,tuodong)
+	if tuodong then self:SetAnniuNumFun() return end
+	local CVarV = CVarV or GetCVar("alwaysShowActionBars")
+	if CVarV=="0" then
+		if not self.Type then
+			self:Hide()
+		end
+	elseif CVarV=="1" then
+		self:SetAnniuNumFun()
+	end
+end
+local function ShowHideEvent(self,canshuV)
+	if canshuV==1 then
+		RegisterStateDriver(self, "combatYN", "[] show; hide");--一直显示
+	elseif canshuV==2 then
+		RegisterStateDriver(self, "combatYN", "[combat] show; hide");--脱战后隐藏
+	elseif canshuV==3 then
+		RegisterStateDriver(self, "combatYN", "[nocombat] show; hide");--进战斗隐藏
+	elseif canshuV==4 then
+		RegisterStateDriver(self, "combatYN", "[exists] show; hide");--无目标隐藏
+	end
+end
+ActionFun.UIdata={Showtiaojian,pailieName,paiNum,PailieFun,ShowHideNumFun,ShowHideEvent,PailieFunButList}
+
 ---
 addonTable.Fun.ActionFun=ActionFun

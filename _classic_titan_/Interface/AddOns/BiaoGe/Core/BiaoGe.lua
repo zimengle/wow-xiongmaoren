@@ -295,9 +295,17 @@ BG.Init(function()
 
         -- 更新日记窗口
         -- BiaoGe.options.SearchHistory[ns.updateText_now[1]]=nil
+        local function FiterVer(ver)
+            for fullVer in pairs(BiaoGe.options.SearchHistory) do
+                if fullVer:find(ver) then
+                    return false
+                end
+            end
+            return true
+        end
         if next(ns.updateText_now) and not BiaoGe.options.SearchHistory[ns.updateText_now[1]] then
             BiaoGe.options.SearchHistory[ns.updateText_now[1]] = true
-            if BiaoGe.options.lastVer then
+            if BiaoGe.options.lastVer and FiterVer("1.24.2") then
                 local f = BG.CreateMainFrame()
                 f:SetSize(450, 1)
                 f:SetFrameStrata("HIGH")
@@ -326,7 +334,7 @@ BG.Init(function()
         BiaoGe.options.lastVer = BG.ver
     end
     tinsert(UISpecialFrames, "BG.MainFrame")
-    
+
     ----------二级Frame----------
     do
         -- 当前表格
@@ -765,7 +773,7 @@ BG.Init(function()
             BG.ButtonSheZhi = bt
 
             bt:SetScript("OnClick", function(self)
-                ns.InterfaceOptionsFrame_OpenToCategory("|cff00BFFFBiaoGe|r")
+                ns.InterfaceOptionsFrame_OpenToCategory(BG.optionsName)
                 BG.MainFrame:Hide()
                 BG.PlaySound(1)
             end)
@@ -1666,6 +1674,12 @@ BG.Init(function()
     do
         local lastraidjoinname
         local lastpartyjoinname
+        local function GetColorByName(name)
+            local class = select(2, UnitClass(name))
+            if class then
+                return select(4, GetClassColor(class))
+            end
+        end
         local function MsgClassColor(self, event, msg, player, l, cs, t, flag, channelId, ...)
             if BiaoGe.options.ERR_CHAT_THROTTLED == 1 and msg == ERR_CHAT_THROTTLED then return true end
             if BiaoGe.options["joinorleavePlayercolor"] ~= 1 then return end
@@ -1695,8 +1709,8 @@ BG.Init(function()
                     if not IsInRaid(1) then return end
                     if lastraidjoinname == raidjoinname then return end
                     local raidjoinnamelink = "|Hplayer:" .. raidjoinname .. "|h[" .. raidjoinname .. "]|h"
-                    local _, color = SetClassCFF(raidjoinname)
-                    local colorname = "|c" .. color .. raidjoinnamelink .. "|r"
+                    local color = GetColorByName(raidjoinname)
+                    local colorname = color and "|c" .. color .. raidjoinnamelink .. "|r" or raidjoinnamelink
                     SendSystemMessage(format(ERR_RAID_MEMBER_ADDED_S .. " ", colorname))
                     lastraidjoinname = raidjoinname
                 end)
@@ -1722,8 +1736,8 @@ BG.Init(function()
                     if not IsInGroup(1) then return end
                     if lastpartyjoinname == partyjoinname then return end
                     local partyjoinnamelink = "|Hplayer:" .. partyjoinname .. "|h[" .. partyjoinname .. "]|h"
-                    local _, color = SetClassCFF(partyjoinname)
-                    local colorname = "|c" .. color .. partyjoinnamelink .. "|r"
+                    local color = GetColorByName(partyjoinname)
+                    local colorname = color and "|c" .. color .. partyjoinnamelink .. "|r" or partyjoinnamelink
                     SendSystemMessage(format(ERR_JOINED_GROUP_S .. " ", colorname))
                     lastpartyjoinname = partyjoinname
                 end)
@@ -2019,7 +2033,32 @@ BG.Init(function()
             f:SetFrameLevel(f:GetParent():GetFrameLevel())
         end
     end)
+    -- 屏蔽你太快了
+    do
+        local oldFuc = UIErrorsFrame.AddMessage
 
+        local blockedErrorTexts = {
+            ERR_GENERIC_THROTTLE, -- "你太快了"
+        }
+
+        -- 自定义的过滤方法
+        function UIErrorsFrame:AddMessage(text, ...)
+            if not text then
+                return oldFuc(self, text, ...)
+            end
+
+            for _, blockedText in ipairs(blockedErrorTexts) do
+                if text == blockedText then
+                    return
+                end
+            end
+
+            return oldFuc(self, text, ...)
+        end
+    end
+    --[[
+/run UIErrorsFrame:AddMessage(ERR_GENERIC_THROTTLE)
+]]
     ----------初始显示----------
     do
         if BiaoGe.lastFrame and BG[BiaoGe.lastFrame .. "MainFrameTabNum"] and BG[BiaoGe.lastFrame .. "MainFrame"] then
@@ -2164,6 +2203,7 @@ do
                         role = role,
                         isML = isML,
                         combatRole = combatRole,
+                        unitIndex = i,
                     }
                     for k, v in pairs(BG.playerClass) do
                         a[k] = select(v.select, v.func("raid" .. i))
@@ -2251,7 +2291,7 @@ BG.Init2(function()
 
     -- 设置
     SlashCmdList["BIAOGEOPTIONS"] = function()
-        ns.InterfaceOptionsFrame_OpenToCategory("|cff00BFFFBiaoGe|r")
+        ns.InterfaceOptionsFrame_OpenToCategory(BG.optionsName)
         BG.MainFrame:Hide()
     end
     SLASH_BIAOGEOPTIONS1 = "/bgo"
@@ -2262,15 +2302,3 @@ BG.Init2(function()
     end
     SLASH_BiaoGeRoleOverview1 = "/bgr"
 end)
-
--- local tex = UIParent:CreateTexture()
--- tex:SetPoint("CENTER")
--- tex:SetSize(800,600)
--- -- tex:SetAtlas("bags-newitem")
--- tex:SetTexture("Interface\\AddOns\\BiaoGeAI\\Media\\icon\\ICC\\4.png")
--- print(GetTimePreciseSec())
---[[
-
-/run print(GetTimePreciseSec()) LoadAddOn("BiaoGe") print(GetTimePreciseSec())
-/run print(GetTimePreciseSec()) LoadAddOn("Scorpio") print(GetTimePreciseSec())
-]]

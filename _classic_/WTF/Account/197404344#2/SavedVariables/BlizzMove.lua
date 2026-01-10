@@ -295,11 +295,11 @@ BlizzMoveDB = {
 },
 ["EncounterJournal.encounter.info.model"] = {
 },
-["GlyphFrame"] = {
+["EncounterJournal.encounter.info.detailsScroll"] = {
 },
 ["CollectionsJournal.TitleContainer"] = {
 },
-["EncounterJournal.encounter.info.detailsScroll"] = {
+["GlyphFrame"] = {
 },
 ["TabardFrame"] = {
 },
@@ -326,26 +326,7 @@ BlizzMoveDB = {
 },
 ["QuestLogDetailFrame"] = {
 },
-["PlayerTalentFrame"] = {
-["startPoints"] = {
-{
-["anchorPoint"] = "CENTER",
-["relativeFrame"] = "UIParent",
-["offY"] = 56.0560256434419,
-["offX"] = 4.758006961670617,
-["relativePoint"] = "CENTER",
-},
-},
-["dragged"] = true,
-["dragPoints"] = {
-{
-["anchorPoint"] = "CENTER",
-["relativeFrame"] = "UIParent",
-["offY"] = 117.0081329353197,
-["relativePoint"] = "CENTER",
-["offX"] = -15.05148022676076,
-},
-},
+["PVPBannerFrame"] = {
 },
 ["GuildBankFrame"] = {
 },
@@ -359,11 +340,11 @@ BlizzMoveDB = {
 },
 ["ArenaRegistrarFrame"] = {
 },
-["TokenFrameContainer"] = {
+["InspectFrame"] = {
 },
 ["InspectGuildFrame"] = {
 },
-["InspectFrame"] = {
+["TokenFrameContainer"] = {
 },
 ["BankFrame"] = {
 },
@@ -395,7 +376,26 @@ BlizzMoveDB = {
 },
 ["AchievementFrameHeader"] = {
 },
-["PVPBannerFrame"] = {
+["PlayerTalentFrame"] = {
+["startPoints"] = {
+{
+["anchorPoint"] = "CENTER",
+["relativeFrame"] = "UIParent",
+["offY"] = 56.0560256434419,
+["offX"] = 4.758006961670617,
+["relativePoint"] = "CENTER",
+},
+},
+["dragged"] = true,
+["dragPoints"] = {
+{
+["anchorPoint"] = "CENTER",
+["relativeFrame"] = "UIParent",
+["offY"] = 117.0081329353197,
+["relativePoint"] = "CENTER",
+["offX"] = -15.05148022676076,
+},
+},
 },
 ["ClubFinderGuildFinderFrame.RequestToJoinFrame"] = {
 },

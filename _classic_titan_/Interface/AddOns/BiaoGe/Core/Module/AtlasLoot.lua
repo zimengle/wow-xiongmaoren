@@ -36,7 +36,7 @@ BG.Init2(function()
 
     local mainFrame = _G["AtlasLoot_GUI-Frame"]
     if not mainFrame then return end
-    BG.AtlasLootMainFrame=mainFrame
+    BG.AtlasLootMainFrame = mainFrame
 
     local AtlasLoot = AtlasLoot or AtlasLootMY
     local ClickSelectButton
@@ -46,12 +46,10 @@ BG.Init2(function()
         verNum = 3
     elseif BG.IsTitan then
         verNum = 3
+    elseif BG.IsCTM then
+        verNum = 4
     elseif BG.IsMOP then
-        if BG.IsMOP_TW then
-            verNum = 5
-        else
-            verNum = 4
-        end
+        verNum = 5
     end
 
     local verText = {
@@ -511,7 +509,7 @@ BG.Init2(function()
             mainFrame.subCatSelect:SetSelected("Alchemy" .. GetVerText())
             mainFrame.boss:SetSelected(info["Alchemy"])
         end)
-    elseif BG.IsMOP_TW then
+    elseif BG.IsMOP then
         CreateButton(L["魔古山"], function()
             mainFrame.moduleSelect:SetSelected(addonName .. "_DungeonsAndRaids")
             mainFrame.subCatSelect:SetSelected("MoguShanVaults")

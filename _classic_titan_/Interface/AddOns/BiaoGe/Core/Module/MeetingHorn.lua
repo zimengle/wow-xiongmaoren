@@ -959,7 +959,7 @@ BG.Init2(function()
 
         -- 输入框右键菜单
         local edit = ChatEdit_ChooseBoxForSend()
-        if edit and edit.GetObjectType and edit:GetObjectType() == "EditBox" then
+        if edit and edit.GetObjectType and edit:GetObjectType() == "EditBox" and edit:HasScript("OnMouseUp") then
             local dropDown = LibBG:Create_UIDropDownMenu(nil, edit)
             edit:HookScript("OnMouseUp", function(self, button)
                 if BiaoGe.options["MeetingHorn_whisper"] ~= 1 then return end

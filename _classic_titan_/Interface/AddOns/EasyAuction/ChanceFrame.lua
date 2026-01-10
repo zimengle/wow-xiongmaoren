@@ -23,7 +23,7 @@ function EasyAuction_ChanceOptionsFrame()
     f:SetSize(420, 400)
     f:SetPoint("CENTER")
     f:SetFrameStrata("FULLSCREEN_DIALOG")
-    f:SetFrameLevel(200)
+    f:SetFrameLevel(300)
     f:SetToplevel(true)
     f:SetMovable(true)
     f:EnableMouse(true)
@@ -152,7 +152,7 @@ function EasyAuction_ChanceFrame(page)
         f:SetFrameStrata("FULLSCREEN_DIALOG")
         f:SetMovable(true)
         f:EnableMouse(true)
-        f:SetToplevel(true)
+        f:SetFrameLevel(200)
         f:RegisterForDrag("LeftButton")
         f:SetScript("OnDragStart", f.StartMoving)
         f:SetScript("OnDragStop", f.StopMovingOrSizing)
@@ -272,9 +272,13 @@ function EasyAuction_ChanceFrame(page)
             row:SetScript("OnClick", function(self, button)
                 if not self.itemName then return end
                 if button == "LeftButton" then
-                    local priceList = EasyAuctionDB and EasyAuctionDB.PriceHistory and EasyAuctionDB.PriceHistory[self.itemName]
+                    local key = self.itemName
+                    if self.itemID then
+                        key = self.itemName .. ":" .. self.itemID
+                    end
+                    local priceList = EasyAuctionDB and EasyAuctionDB.PriceHistory and EasyAuctionDB.PriceHistory[key]
                     if priceList and type(priceList) == "table" and #priceList > 0 then
-                        ShowPriceFrame(self.itemName, priceList)
+                        ShowPriceFrame(key, priceList)
                     else
                         print("|cff00ff00[EasyAuction]|r 无历史价格数据："..(self.itemName or "?"))
                     end
@@ -350,6 +354,9 @@ function EasyAuction_ChanceFrame(page)
                         if iconPath then
                             icon = "|T"..iconPath..":18:18:0:0|t "
                         end
+                        row.itemID = itemID
+                    else
+                        row.itemID = nil
                     end
                 end
                 row.cols[1]:SetText(icon..(item.name or ""))
@@ -372,6 +379,7 @@ function EasyAuction_ChanceFrame(page)
                 row.itemLink = nil
                 row.minUnit = nil
                 row.itemName = nil
+                row.itemID = nil
             end
         end
         frame.prevBtn:SetEnabled(page > 1)
@@ -404,11 +412,11 @@ function EasyAuction_ChanceFrame(page)
         local MAX_SATURATION = opts.maxSaturation or 2.0
 
         local results = {}
-        local allNames = {}
-        for name in pairs(EasyAuctionDB.PriceHistory or {}) do
-            table.insert(allNames, name)
+        local allKeys = {}
+        for key in pairs(EasyAuctionDB.PriceHistory or {}) do
+            table.insert(allKeys, key)
         end
-        local total = #allNames
+        local total = #allKeys
         local i = 1
         local BATCH_SIZE = 10
 
@@ -429,9 +437,11 @@ function EasyAuction_ChanceFrame(page)
             local batch = 0
             local t0 = debugprofilestop()
             while i <= total and batch < BATCH_SIZE and (debugprofilestop() - t0) < 10 do
-                local name = allNames[i]
-                local data = EasyAuctionDB.PriceHistory[name]
+                local key = allKeys[i]
+                local data = EasyAuctionDB.PriceHistory[key]
                 if type(data) == "table" and #data > 0 then
+                    local name, itemID = key:match("^(.-):(%d+)$")
+                    itemID = tonumber(itemID)
                     local prices, totalCount = {}, 0
                     for _, v in ipairs(data) do
                         if v.unit and v.count then
@@ -478,8 +488,8 @@ function EasyAuction_ChanceFrame(page)
                             median = math.floor((units[#units/2] + units[#units/2+1])/2+0.5)
                         end
 
-                        local function GetYesterdayDailyPrice(name)
-                            local daily = EasyAuctionDB.DailyMinPrice and EasyAuctionDB.DailyMinPrice[name]
+                        local function GetYesterdayDailyPrice(key)
+                            local daily = EasyAuctionDB.DailyMinPrice and EasyAuctionDB.DailyMinPrice[key]
                             if not daily then return nil end
                             if type(daily) == "table" and #daily > 0 then
                                 local target = date("%Y-%m-%d", time()-86400)
@@ -490,12 +500,14 @@ function EasyAuction_ChanceFrame(page)
                                 end
                                 return nil
                             end
+                            if type(daily) == "number" then return daily end
                             local target = date("%Y-%m-%d", time()-86400)
                             if daily[target] then return daily[target] end
                             return nil
                         end
 
-                        local yest = GetYesterdayDailyPrice(name)
+                        local yest = GetYesterdayDailyPrice(key)
+                        if type(yest) ~= "number" then yest = nil end
 
                         local link = data[1].link
                         local sellPrice = 0

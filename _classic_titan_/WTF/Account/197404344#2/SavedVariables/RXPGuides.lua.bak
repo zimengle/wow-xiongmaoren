@@ -149,12 +149,15 @@ nil,
 },
 },
 ["于鹏 - 时光IV"] = {
-["hardcore"] = false,
 ["xprate"] = 1.5,
+["hideGuideWindow"] = true,
+["enableFPAutomation"] = false,
+["macroAnnounced"] = true,
+["hardcore"] = false,
 ["frameSizes"] = {
 ["activeTargetFrame"] = {
-115.9999389648438,
-68.00004577636719,
+88.99999237060547,
+42.99994277954102,
 },
 ["RXPFrame"] = {
 315.6836853027344,
@@ -162,24 +165,21 @@ nil,
 },
 ["activeItemFrame"] = {
 50.76925277709961,
-39.9999885559082,
+40.00003051757813,
 },
 ["arrowFrame"] = {
-31.9999885559082,
+32,
 31.9999885559082,
 },
 },
-["enableFPAutomation"] = false,
-["frameHeight"] = 28.00010108947754,
-["macroAnnounced"] = true,
 ["framePositions"] = {
 ["activeTargetFrame"] = {
 {
 "RIGHT",
 nil,
 "RIGHT",
--430.324462890625,
--262.5637512207031,
+-0,
+-278.1285400390625,
 },
 },
 ["RXPFrame"] = {
@@ -193,23 +193,24 @@ nil,
 },
 ["activeItemFrame"] = {
 {
-"CENTER",
+"RIGHT",
 nil,
-"CENTER",
-503.9317321777344,
-4.102550029754639,
+"RIGHT",
+-23.16149139404297,
+-341.162353515625,
 },
 },
 ["arrowFrame"] = {
 {
-"CENTER",
+"LEFT",
 nil,
-"CENTER",
-23.24705123901367,
--224.6149597167969,
+"LEFT",
+54.89747619628906,
+-198.5041961669922,
 },
 },
 },
+["frameHeight"] = 28.00010108947754,
 },
 ["卧伦巴菲特 - 时光IV"] = {
 ["xprate"] = 1.5,
@@ -273,11 +274,9 @@ nil,
 },
 },
 ["三角碑崽儿 - 时光IV"] = {
-["xprate"] = 1.5,
 ["hideGuideWindow"] = true,
-["frameHeight"] = 28.00001335144043,
-["macroAnnounced"] = true,
 ["hardcore"] = false,
+["xprate"] = 1.5,
 ["frameSizes"] = {
 ["arrowFrame"] = {
 32,
@@ -292,10 +291,12 @@ nil,
 40.00003051757813,
 },
 ["activeTargetFrame"] = {
-116.0000228881836,
+116.0000152587891,
 42.99994277954102,
 },
 },
+["frameHeight"] = 28.00001335144043,
+["macroAnnounced"] = true,
 ["framePositions"] = {
 ["arrowFrame"] = {
 {
@@ -405,13 +406,24 @@ nil,
 ["enableTracker"] = false,
 },
 ["露露缇娅 - 时光III"] = {
-["enableBindAutomation"] = false,
-["enableWorldMapButton"] = false,
-["enableTracker"] = false,
-["guideFontSize"] = 16,
-["disableArrow"] = false,
-["macroAnnounced"] = true,
-["hardcore"] = false,
+["frameSizes"] = {
+["activeTargetFrame"] = {
+54.22237396240234,
+17.99993705749512,
+},
+["RXPFrame"] = {
+404.8717041015625,
+27.99999046325684,
+},
+["activeItemFrame"] = {
+50.76925277709961,
+40.00003051757813,
+},
+["arrowFrame"] = {
+31.99999809265137,
+31.9999885559082,
+},
+},
 ["framePositions"] = {
 ["activeTargetFrame"] = {
 {
@@ -450,33 +462,22 @@ nil,
 },
 },
 },
+["enableTracker"] = false,
+["hideGuideWindow"] = true,
+["disableArrow"] = false,
+["macroAnnounced"] = true,
+["hardcore"] = false,
+["enableWorldMapButton"] = false,
 ["previewTalents"] = false,
-["frameSizes"] = {
-["activeTargetFrame"] = {
-54.22237396240234,
-42.99994277954102,
-},
-["RXPFrame"] = {
-404.8717041015625,
-27.99999046325684,
-},
-["activeItemFrame"] = {
-50.76925277709961,
-40.00003051757813,
-},
-["arrowFrame"] = {
-31.99999809265137,
-31.9999885559082,
-},
-},
-["xprate"] = 1.5,
 ["enableLevelUpAnnounceSolo"] = false,
+["xprate"] = 1.5,
 ["frameHeight"] = 209.3161926269531,
 ["arrowText"] = 16,
 ["enableFPAutomation"] = false,
+["enableBindAutomation"] = false,
 ["enableQuestRewardAutomation"] = false,
 ["hideInRaid"] = true,
-["hideGuideWindow"] = true,
+["guideFontSize"] = 16,
 },
 },
 }

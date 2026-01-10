@@ -46,7 +46,7 @@ false,
 },
 ["dispelBlacklist"] = {
 },
-["changelogsViewed"] = "r272-release",
+["changelogsViewed"] = "r273-release",
 ["tools"] = {
 ["battleResTimer"] = {
 true,
@@ -388,8 +388,8 @@ false,
 ["anchor"] = "TOPLEFT",
 ["position"] = {
 "TOPRIGHT",
--489.1,
--424.5,
+-540.8,
+-425,
 },
 ["sortByRole"] = false,
 ["orientation"] = "vertical",
@@ -1610,8 +1610,8 @@ false,
 8,
 2,
 },
-["lastVersionCheck"] = 1767695559,
-["revise"] = "r272-release",
+["lastVersionCheck"] = 1768047786,
+["revise"] = "r273-release",
 ["targetedSpellsList"] = {
 },
 ["nicknames"] = {

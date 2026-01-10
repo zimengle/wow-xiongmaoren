@@ -20,7 +20,7 @@ function BusinessInfo.AHPlusOptions()
 	local GnName= "拍卖助手"
 	local AHPlusF,AHPlustabbut =PIGOptionsList_R(BusinessInfo.RTabFrame,GnName,90)
 	AHPlusF:Show()
-	AHPlustabbut:Selected()
+	AHPlustabbut:Selected(true)
 
 	local AHPlus_tooltip="在拍卖行界面增加一个缓存单价按钮，时光徽章界面显示历史价格";
 	if PIG_MaxTocversion(40000) then
@@ -37,7 +37,7 @@ function BusinessInfo.AHPlusOptions()
 		end
 		AHPlusF:ShowChecked()
 	end);
-	AHPlusF.CZ = PIGButton(AHPlusF,{"TOPRIGHT",AHPlusF,"TOPRIGHT",-20,-20},{60,22},"重置");  
+	AHPlusF.CZ = PIGButton(AHPlusF,{"TOPRIGHT",AHPlusF,"TOPRIGHT",-20,-20},{60,22},RESET);  
 	AHPlusF.CZ:SetScript("OnClick", function ()
 		StaticPopup_Show ("AH_CZQIANGKONGINFO");
 	end);
@@ -81,7 +81,7 @@ function BusinessInfo.AHPlusOptions()
 			PIGA["AHPlus"]["AHtooltip"]=false;
 		end
 	end);
-	if PIG_MaxTocversion(40000) then
+	if PIG_MaxTocversion(60000) then
 		AHPlusF.QuicAuc =PIGCheckbutton_R(AHPlusF,{"鼠标右键快速拍卖","鼠标右键背包物品快速拍卖"},true)
 		AHPlusF.QuicAuc:SetScript("OnClick", function (self)
 			if self:GetChecked() then
@@ -105,8 +105,21 @@ function BusinessInfo.AHPlusOptions()
 		GameTooltip:HookScript("OnTooltipSetItem", function(self)
 			local _, itemlink = self:GetItem()
 			if itemlink then
-				local itemID = GetItemInfoInstant(itemlink) 
+				local itemID = GetItemInfoInstant(itemlink)
 				BusinessInfo.SetTooltipOfflineG(itemID,self)
+			end
+		end)
+		-- AtlasLootTooltip:HookScript("OnTooltipSetItem", function(self)
+		-- 	local _, itemlink = self:GetItem()
+		-- 	if itemlink then
+		-- 		local itemID = GetItemInfoInstant(itemlink)
+		-- 		BusinessInfo.SetTooltipOfflineG(itemID,self)
+		-- 	end
+		-- end)
+		hooksecurefunc("SetItemRef", function(link, text, button, chatFrame)
+			if link:find("^item:") then
+				local itemID = GetItemInfoInstant(link) 
+				BusinessInfo.SetTooltipOfflineG(itemID,ItemRefTooltip)
 			end
 		end)
 	else

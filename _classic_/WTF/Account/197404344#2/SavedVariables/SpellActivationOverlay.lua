@@ -3,28 +3,28 @@ SpellActivationOverlayDB = {
 ["classes"] = {
 ["DEATHKNIGHT"] = {
 ["alert"] = {
-[93426] = {
+[51124] = {
 [0] = true,
 },
 [81340] = {
 [0] = true,
 },
-[51124] = {
-[0] = true,
-},
-[96171] = {
+[92572] = {
 [0] = true,
 },
 [110724] = {
 [0] = true,
 },
-[81141] = {
-[0] = true,
-},
 [59052] = {
 [0] = true,
 },
-[92572] = {
+[81141] = {
+[0] = true,
+},
+[96171] = {
+[0] = true,
+},
+[93426] = {
 [0] = true,
 },
 },
@@ -43,9 +43,9 @@ SpellActivationOverlayDB = {
 },
 [51124] = {
 [49184] = true,
-[45477] = true,
 [49143] = true,
 [49020] = true,
+[45477] = true,
 },
 [59052] = {
 [49184] = true,
@@ -88,7 +88,7 @@ SpellActivationOverlayDB = {
 [46916] = {
 [0] = true,
 },
-[92572] = {
+[46924] = {
 [0] = true,
 },
 [52437] = {
@@ -103,7 +103,7 @@ SpellActivationOverlayDB = {
 [413399] = {
 [0] = true,
 },
-[46924] = {
+[92572] = {
 [0] = true,
 },
 },
@@ -145,12 +145,12 @@ SpellActivationOverlayDB = {
 [60503] = {
 [7384] = false,
 },
-[46916] = {
-[1464] = true,
-},
 [32216] = {
 [34428] = true,
 [103840] = true,
+},
+[46916] = {
+[1464] = true,
 },
 [7384] = {
 [7384] = "stance:1",
@@ -191,8 +191,8 @@ SpellActivationOverlayDB = {
 [16246] = {
 [0] = true,
 },
-[53390] = {
-[0] = false,
+[110724] = {
+[0] = true,
 },
 [92572] = {
 [0] = true,
@@ -201,8 +201,8 @@ SpellActivationOverlayDB = {
 [5] = true,
 [0] = true,
 },
-[110724] = {
-[0] = true,
+[60515] = {
+[0] = false,
 },
 [432041] = {
 [0] = false,
@@ -213,7 +213,7 @@ SpellActivationOverlayDB = {
 [10] = true,
 [5] = true,
 },
-[60515] = {
+[53390] = {
 [0] = false,
 },
 },
@@ -262,9 +262,9 @@ SpellActivationOverlayDB = {
 [403] = false,
 [408490] = false,
 [8004] = false,
-[1064] = false,
-[331] = false,
 [421] = false,
+[331] = false,
+[1064] = false,
 },
 },
 },
@@ -316,10 +316,10 @@ SpellActivationOverlayDB = {
 [96215] = {
 [0] = false,
 },
-[400670] = {
+[5276] = {
 [0] = true,
 },
-[5276] = {
+[400670] = {
 [0] = true,
 },
 [12536] = {
@@ -336,8 +336,8 @@ SpellActivationOverlayDB = {
 [400589] = {
 [5143] = true,
 },
-[79683] = {
-[5143] = true,
+[48107] = {
+[108853] = false,
 },
 [64343] = {
 [2136] = true,
@@ -349,8 +349,8 @@ SpellActivationOverlayDB = {
 [30455] = true,
 [44572] = true,
 },
-[48107] = {
-[108853] = false,
+[79683] = {
+[5143] = true,
 },
 [54741] = {
 [2120] = true,
@@ -363,10 +363,8 @@ SpellActivationOverlayDB = {
 [133] = true,
 [44614] = true,
 },
-[400730] = {
-[412532] = true,
-[133] = true,
-[401502] = true,
+[400625] = {
+[11366] = true,
 },
 [5276] = {
 [30455] = true,
@@ -386,8 +384,10 @@ SpellActivationOverlayDB = {
 [30455] = true,
 [44572] = true,
 },
-[400625] = {
-[11366] = true,
+[400730] = {
+[412532] = true,
+[133] = true,
+[401502] = true,
 },
 },
 },
@@ -471,8 +471,8 @@ true,
 },
 [413247] = {
 [596] = true,
-[2060] = true,
 [2054] = true,
+[2060] = true,
 [2050] = true,
 },
 [88625] = {
@@ -681,11 +681,11 @@ true,
 [3044] = true,
 [53209] = true,
 },
-[82926] = {
-[82928] = true,
-},
 [94007] = {
 [34026] = true,
+},
+[82926] = {
+[82928] = true,
 },
 [56453] = {
 [3044] = true,
@@ -792,8 +792,8 @@ true,
 [339] = false,
 [50464] = false,
 [20484] = false,
-[8936] = false,
 [5176] = false,
+[8936] = false,
 [5185] = true,
 [33786] = true,
 [2637] = false,
@@ -945,8 +945,8 @@ true,
 },
 ["alert"] = {
 ["offset"] = -60,
-["timer"] = 1,
 ["scale"] = 1.049999952316284,
+["timer"] = 1,
 ["opacity"] = 0.59,
 ["sound"] = 1,
 ["enabled"] = true,

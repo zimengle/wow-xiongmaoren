@@ -14,6 +14,7 @@ local RECIPE_PROF_DEFAULT = 0
 local RECIPE_PROF_TEXT = Profession.PROFESSION_TEXT
 
 local RECIPE, RECIPE_DATA = AtlasLoot:GetGameVersionDataTable()
+_G["ARECIPE"]=RECIPE
 RECIPE_DATA.CLASSIC = {
 	-- [itemID] = { profession, profRank, creationSpell }
 	[728] = {6,75,2543}, -- Recipe: Westfall Stew

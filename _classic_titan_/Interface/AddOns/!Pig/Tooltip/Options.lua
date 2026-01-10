@@ -20,7 +20,7 @@ local RTabFrame =Create.PIGOptionsList_RF(fuFrame)
 --
 local TooltipF,Tooltiptabbut =PIGOptionsList_R(RTabFrame,L["TOOLTIP_TABNAME1"],90)
 TooltipF:Show()
-Tooltiptabbut:Selected()
+Tooltiptabbut:Selected(true)
 ---
 TooltipF.ItemMaxCount = PIGCheckbutton_R(TooltipF,{"显示物品最大堆叠数","在鼠标提示上显示物品最大堆叠数"},true)
 TooltipF.ItemMaxCount:SetScript("OnClick", function (self)
@@ -104,7 +104,7 @@ function PointF.miaodian:PIGDownMenu_SetValue(value,arg1,arg2)
 	TooltipPlusfun.SetPointCF()
 	PIGCloseDropDownMenus()
 end
-PointF.CZBUT = PIGButton(PointF,{"LEFT",PointF.miaodian,"RIGHT",100,0},{80,24},"重置位置")
+PointF.CZBUT = PIGButton(PointF,{"LEFT",PointF.miaodian,"RIGHT",100,0},{80,24},RESET_POSITION)
 PointF.CZBUT:SetScript("OnClick", function ()
 	TooltipPlusfun.SetPointCF(true)
 	PointF.miaodian:PIGDownMenu_SetText(miaodianList[PIGA["Tooltip"]["Point"]])

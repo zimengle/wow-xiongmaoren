@@ -6,12 +6,9 @@ MerInspectDB = {
 ["ShowInspectAngularBorder"] = false,
 ["ShowInspectColoredLabel"] = true,
 ["ShowCharacterItemSheet"] = true,
-["ShowItemStats"] = true,
+["ShowItemSlotString"] = true,
 ["ShowInspectItemSheet"] = true,
 ["version"] = 1,
-["MoveFrame"] = false,
-["DefaultPosition"] = false,
-["ShowItemSlotString"] = true,
 ["position"] = {
 "TOPLEFT",
 "CharacterFrame",
@@ -20,5 +17,8 @@ MerInspectDB = {
 0,
 0,
 },
+["DefaultPosition"] = false,
+["ShowItemStats"] = true,
+["MoveFrame"] = false,
 ["ShowItemBorder"] = true,
 }

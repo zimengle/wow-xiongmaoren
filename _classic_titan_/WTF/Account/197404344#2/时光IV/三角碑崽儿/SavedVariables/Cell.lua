@@ -22,7 +22,7 @@ CellCharacterDB = {
 ["battleground40"] = "default",
 },
 },
-["revise"] = "r272-release",
+["revise"] = "r273-release",
 ["clickCastings"] = {
 {
 {

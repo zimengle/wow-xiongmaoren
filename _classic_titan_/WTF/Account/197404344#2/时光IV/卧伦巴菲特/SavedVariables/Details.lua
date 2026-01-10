@@ -31,9 +31,8 @@ _detalhes_database = {
 ["width"] = 120,
 ["ignored_cooldowns"] = {
 },
-["cooldowns"] = {
-},
 ["height"] = 18,
+["framme_locked"] = false,
 ["own_frame"] = {
 ["defensive-raid"] = false,
 ["ofensive"] = false,
@@ -41,7 +40,8 @@ _detalhes_database = {
 ["utility"] = false,
 ["defensive-personal"] = false,
 },
-["framme_locked"] = false,
+["cooldowns"] = {
+},
 ["show_conditions"] = {
 ["only_inside_instance"] = true,
 ["only_in_group"] = true,
@@ -59,11 +59,11 @@ _detalhes_database = {
 ["utility"] = false,
 },
 },
-["combat_counter"] = 8,
+["combat_counter"] = 12,
 ["player_stats"] = {
 },
 ["character_data"] = {
-["logons"] = 4,
+["logons"] = 6,
 },
 ["tabela_instancias"] = {
 },
@@ -119,13 +119,13 @@ _detalhes_database = {
 ["frame"] = {
 },
 },
-["coach"] = {
-["enabled"] = false,
-["welcome_panel_pos"] = {
+["SoloTablesSaved"] = {
+["Mode"] = 1,
 },
-["last_coach_name"] = false,
+["nick_tag_cache"] = {
+["nextreset"] = 1769088593,
+["last_version"] = 16,
 },
-["last_version"] = "3.80.0 13911",
 ["combat_log"] = {
 ["inverse_deathlog_overalldata"] = false,
 ["merge_gemstones_1007"] = false,
@@ -142,40 +142,108 @@ _detalhes_database = {
 },
 ["mythic_plus_log"] = {
 },
-["ignore_nicktag"] = false,
+["coach"] = {
+["enabled"] = false,
+["welcome_panel_pos"] = {
+},
+["last_coach_name"] = false,
+},
+["last_version"] = "3.80.0 13911",
 ["data_harvested_for_charts"] = {
 },
-["announce_firsthit"] = {
-["enabled"] = true,
-["channel"] = "SELF",
+["local_instances_config"] = {
+{
+["modo"] = 2,
+["sub_attribute"] = 1,
+["horizontalSnap"] = false,
+["verticalSnap"] = false,
+["isLocked"] = false,
+["is_open"] = true,
+["sub_atributo_last"] = {
+1,
+1,
+1,
+1,
+1,
+},
+["snap"] = {
+},
+["segment"] = 0,
+["mode"] = 2,
+["attribute"] = 1,
+["pos"] = {
+["normal"] = {
+["y"] = -591.6390228271484,
+["x"] = 681.691650390625,
+["w"] = 331.6353759765625,
+["h"] = 270.3965454101563,
+},
+["solo"] = {
+["y"] = 2,
+["x"] = 1,
+["w"] = 300,
+["h"] = 200,
+},
+},
+},
+{
+["modo"] = 2,
+["sub_attribute"] = 1,
+["horizontalSnap"] = false,
+["verticalSnap"] = false,
+["isLocked"] = false,
+["is_open"] = true,
+["sub_atributo_last"] = {
+1,
+1,
+1,
+1,
+1,
+},
+["snap"] = {
+},
+["segment"] = 0,
+["mode"] = 2,
+["attribute"] = 1,
+["pos"] = {
+["normal"] = {
+["y"] = -628.6716995239258,
+["x"] = -500.645751953125,
+["w"] = 330.0132446289063,
+["h"] = 189.4937744140625,
+},
+["solo"] = {
+["y"] = 2,
+["x"] = 1,
+["w"] = 300,
+["h"] = 200,
+},
+},
+},
 },
 ["force_font_outline"] = "",
-["nick_tag_cache"] = {
-["nextreset"] = 1766994144,
-["last_version"] = 16,
-},
 ["plugin_database"] = {
 ["DETAILS_PLUGIN_TINY_THREAT"] = {
 ["enabled"] = true,
 ["only_my_group"] = false,
 ["animate"] = false,
-["author"] = "Terciob",
-["hide_pull_bar"] = false,
 ["useclasscolors"] = false,
+["hide_pull_bar"] = false,
+["author"] = "Terciob",
 ["playercolor"] = {
 1,
 1,
 1,
 },
 ["usefocus"] = false,
-["updatespeed"] = 1,
+["disable_gouge"] = false,
 ["playSound"] = false,
 ["showamount"] = false,
 ["useplayercolor"] = false,
 ["absolute_mode"] = false,
 ["show_party_pets"] = false,
 ["playSoundFile"] = "Details Threat Warning Volume 3",
-["disable_gouge"] = false,
+["updatespeed"] = 1,
 },
 ["DETAILS_PLUGIN_ENCOUNTER_DETAILS"] = {
 ["enabled"] = true,
@@ -207,11 +275,11 @@ _detalhes_database = {
 1,
 0.5,
 },
-["arrow_anchor_y"] = 0,
 ["main_frame_size"] = {
 300,
 500.0000305175781,
 },
+["arrow_anchor_y"] = 0,
 ["minimap"] = {
 ["minimapPos"] = 176.8420385762061,
 ["radius"] = 160,
@@ -219,30 +287,19 @@ _detalhes_database = {
 },
 ["main_frame_locked"] = false,
 ["arrow_anchor_x"] = 0,
-["use_spark"] = true,
+["author"] = "Details! Team",
 ["row_texture"] = "Details Serenity",
 ["square_grow_direction"] = "right",
+["y"] = 1.52587890625e-05,
 ["row_color"] = {
 0.1,
 0.1,
 0.1,
 0.4,
 },
-["author"] = "Details! Team",
 ["square_amount"] = 5,
 ["enabled"] = false,
 ["arrow_size"] = 10,
-["y"] = 1.52587890625e-05,
-["row_spacement"] = 21,
-["main_frame_color"] = {
-0,
-0,
-0,
-0.2,
-},
-["main_frame_strata"] = "LOW",
-["arrow_texture"] = "Interface\\CHATFRAME\\ChatFrameExpandArrow",
-["font_size"] = 10,
 ["per_second"] = {
 ["enabled"] = false,
 ["point"] = "CENTER",
@@ -254,6 +311,17 @@ _detalhes_database = {
 ["update_speed"] = 0.05,
 ["size"] = 32,
 },
+["row_spacement"] = 21,
+["main_frame_color"] = {
+0,
+0,
+0,
+0.2,
+},
+["main_frame_strata"] = "LOW",
+["arrow_texture"] = "Interface\\CHATFRAME\\ChatFrameExpandArrow",
+["use_spark"] = true,
+["font_size"] = 10,
 ["x"] = -3.0517578125e-05,
 ["font_face"] = "Friz Quadrata TT",
 ["square_size"] = 32,
@@ -268,7 +336,7 @@ _detalhes_database = {
 ["scale"] = 1,
 },
 },
-["last_day"] = "24",
+["last_day"] = "10",
 ["combat_id"] = 0,
 ["savedStyles"] = {
 },
@@ -308,7 +376,7 @@ _detalhes_database = {
 },
 ["raid_roster"] = {
 },
-["tempo_start"] = 5203.234,
+["tempo_start"] = 10566.691,
 ["last_events_tables"] = {
 },
 ["alternate_power"] = {
@@ -404,83 +472,15 @@ _detalhes_database = {
 ["start_time"] = 0,
 ["TimeData"] = {
 },
-["combat_counter"] = 7,
+["combat_counter"] = 11,
 },
-["SoloTablesSaved"] = {
-["Mode"] = 1,
+["announce_firsthit"] = {
+["enabled"] = true,
+["channel"] = "SELF",
 },
 ["arena_data_headers"] = {
 },
-["local_instances_config"] = {
-{
-["modo"] = 2,
-["sub_attribute"] = 1,
-["horizontalSnap"] = false,
-["verticalSnap"] = false,
-["isLocked"] = false,
-["is_open"] = true,
-["sub_atributo_last"] = {
-1,
-1,
-1,
-1,
-1,
-},
-["snap"] = {
-},
-["segment"] = 0,
-["mode"] = 2,
-["attribute"] = 1,
-["pos"] = {
-["normal"] = {
-["y"] = -652.835823059082,
-["x"] = 648.872314453125,
-["w"] = 282.4046325683594,
-["h"] = 171.2513122558594,
-},
-["solo"] = {
-["y"] = 2,
-["x"] = 1,
-["w"] = 300,
-["h"] = 200,
-},
-},
-},
-{
-["modo"] = 2,
-["sub_attribute"] = 1,
-["horizontalSnap"] = false,
-["verticalSnap"] = false,
-["isLocked"] = false,
-["is_open"] = true,
-["sub_atributo_last"] = {
-1,
-1,
-1,
-1,
-1,
-},
-["snap"] = {
-},
-["segment"] = 0,
-["mode"] = 2,
-["attribute"] = 1,
-["pos"] = {
-["normal"] = {
-["y"] = -628.6716995239258,
-["x"] = -500.645751953125,
-["w"] = 330.0132446289063,
-["h"] = 189.4937744140625,
-},
-["solo"] = {
-["y"] = 2,
-["x"] = 1,
-["w"] = 300,
-["h"] = 200,
-},
-},
-},
-},
+["ignore_nicktag"] = false,
 ["announce_cooldowns"] = {
 ["ignored_cooldowns"] = {
 },

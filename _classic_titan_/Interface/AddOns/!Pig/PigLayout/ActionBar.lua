@@ -453,6 +453,7 @@ fujiF.setF:HookScript("OnShow", function(self)
 	self.Layout.LRInterval:PIGSetValue(PIGA["PigLayout"]["ActionBar"]["LRInterval"])
 	fujiF.setF.Update_Set()
 end)
+
 --=====
 local HHH=22
 local WWW=HHH*0.84
@@ -544,7 +545,7 @@ end);
 fujiF.setMicroF = PIGFrame(fujiF,{"TOPLEFT", fujiF, "TOPLEFT", 10, topoffset-20})
 fujiF.setMicroF:SetPoint("BOTTOMRIGHT", fujiF, "BOTTOMRIGHT", -10, 10);
 fujiF.setMicroF:PIGSetBackdrop(0)
-fujiF.setMicroF.cz = PIGButton(fujiF.setMicroF,{"TOPRIGHT",fujiF.setMicroF,"TOPRIGHT",-20,-20},{60,22},"重置");
+fujiF.setMicroF.cz = PIGButton(fujiF.setMicroF,{"TOPRIGHT",fujiF.setMicroF,"TOPRIGHT",-20,-20},{60,22},RESET);
 fujiF.setMicroF.cz:SetScript("OnClick", function (self)
 	PIGA["PigLayout"]["MicroMenu"]=addonTable.Default["PigLayout"]["MicroMenu"]
 	PIGA["PigLayout"]["MicroMenu"]["Open"]=true;
@@ -699,8 +700,8 @@ local function CZPoints(fujik,uix)
 end
 local function SetEnableDisable(bizbut)
 	local playerLevel = UnitLevel("player");
-	bizbut.minLevel=bizbut.minLevel or 10
-	if PIG_MaxTocversion(50000) and playerLevel < bizbut.minLevel or C_SpecializationInfo and C_SpecializationInfo.CanPlayerUseTalentSpecUI and not C_SpecializationInfo.CanPlayerUseTalentSpecUI() then
+	local minLevel=bizbut.minLevel or 10
+	if PIG_MaxTocversion(50000) and playerLevel < minLevel or C_SpecializationInfo and C_SpecializationInfo.CanPlayerUseTalentSpecUI and not C_SpecializationInfo.CanPlayerUseTalentSpecUI() then
 		bizbut:Disable();
 		if bizbut and bizbut.icon then
 			bizbut.icon:SetDesaturated(true)
@@ -726,6 +727,12 @@ local UpdateMicroButFun = {
 		local bizbut = _G[GameMenu["PIG_TalentMicroButton"]]
 		bizbut:Show()
 		SetEnableDisable(bizbut)
+	end,
+	["PIG_AchievementMicroButton"]=function(but)
+		if PIGA["PigLayout"]["MicroMenu"]["HideBut"]["PIG_AchievementMicroButton"] then
+			local bizbut = _G[GameMenu["PIG_AchievementMicroButton"]]
+			bizbut:Hide()
+		end
 	end,
 	["PIG_GuildMicroButton"]=function(but)
 		local bizbut = _G[GameMenu["PIG_GuildMicroButton"]]
@@ -1117,4 +1124,5 @@ function fujiF.add_MicroMenu()
 	fujiF.UpdateUIScaleXY()
 end
 fujiF.add_MicroMenu()
+-----
 end

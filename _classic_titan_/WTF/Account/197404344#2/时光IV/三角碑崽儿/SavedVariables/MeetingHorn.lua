@@ -5,6 +5,33 @@ MEETINGHORN_DB_CHARACTER_MEMBERS = {
 },
 [47355130] = {
 },
+[63411128] = {
+["煞骸儿-时光IV"] = "SHAMAN",
+["丷羡鸳丷-时光IV"] = "HUNTER",
+["leader"] = "悠悠丶我心-时光IV",
+["持久论-时光IV"] = "SHAMAN",
+["南柚-时光IV"] = "HUNTER",
+["暴暴龙丨-时光IV"] = "PALADIN",
+["维生术-时光IV"] = "WARLOCK",
+["角斗士伊瑞尔-时光IV"] = "SHAMAN",
+["尜咚咚-时光IV"] = "PRIEST",
+["悠悠丶我心-时光IV"] = "DRUID",
+["光明与黒暗-时光IV"] = "PRIEST",
+["票昌-时光IV"] = "DRUID",
+["玄昊鱼-时光IV"] = "PALADIN",
+["暗裔剑魔-时光IV"] = "WARRIOR",
+["鬼打墙-时光IV"] = "MAGE",
+["追魔-时光IV"] = "DEATHKNIGHT",
+["我可以吗-时光IV"] = "DEATHKNIGHT",
+["神人不吃饭-时光IV"] = "MAGE",
+["半阙圣光-时光IV"] = "PALADIN",
+["Lokaoy-时光IV"] = "MAGE",
+["丶小嫂子-时光IV"] = "PALADIN",
+["猪宝加工-时光IV"] = "DEATHKNIGHT",
+["乐堡-时光IV"] = "WARLOCK",
+["大予与小妤-时光IV"] = "DRUID",
+["雾隐玉衡-时光IV"] = "ROGUE",
+},
 [60118848] = {
 ["风兼雨-时光IV"] = "PRIEST",
 ["生蚝丶-时光IV"] = "DRUID",
@@ -92,7 +119,7 @@ MEETINGHORN_DB_CHARACTER_MEMBERS = {
 [47716490] = {
 ["leader"] = "三角碑崽儿-时光IV",
 },
-[48666836] = {
+[48027137] = {
 ["leader"] = "三角碑崽儿-时光IV",
 },
 [47708334] = {
@@ -119,7 +146,7 @@ MEETINGHORN_DB_CHARACTER_MEMBERS = {
 ["柳绾棠-时光IV"] = "DRUID",
 ["表情不服气啊-时光IV"] = "WARLOCK",
 },
-[48654251] = {
+[48666836] = {
 ["leader"] = "三角碑崽儿-时光IV",
 },
 [48636448] = {
@@ -152,7 +179,7 @@ MEETINGHORN_DB_CHARACTER_MEMBERS = {
 ["術世-时光IV"] = "WARLOCK",
 ["季佰伥-时光IV"] = "SHAMAN",
 },
-[48027137] = {
+[48654251] = {
 ["leader"] = "三角碑崽儿-时光IV",
 },
 [47894601] = {

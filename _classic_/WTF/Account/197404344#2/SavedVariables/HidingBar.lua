@@ -1,96 +1,96 @@
 
 HidingBarDB = {
-["tstmp"] = 1767586977,
+["tstmp"] = 1768031800,
 ["profiles"] = {
 {
 ["isDefault"] = true,
 ["config"] = {
 ["mbtnSettings"] = {
 ["LibDBIcon10_RareScannerMinimapIcon"] = {
-["tstmp"] = 1767586977,
+["tstmp"] = 1768031800,
 },
 ["LibDBIcon10_MeetingHorn"] = {
-["tstmp"] = 1767586977,
+["tstmp"] = 1768031800,
 },
 ["LibDBIcon10_BisTooltipIcon"] = {
-["tstmp"] = 1767586977,
+["tstmp"] = 1768031800,
 },
 ["PIG_MiniMapBut"] = {
-["tstmp"] = 1767586977,
+["tstmp"] = 1768031800,
 },
 ["LibDBIcon10_DBM"] = {
-["tstmp"] = 1767586977,
+["tstmp"] = 1768031800,
 },
 ["LibDBIcon10_Decursive"] = {
-["tstmp"] = 1767586977,
-},
-["LibDBIcon10_MinArch"] = {
-["tstmp"] = 1767586977,
-},
-["LibDBIcon10_BiaoGe"] = {
-["tstmp"] = 1767586977,
+["tstmp"] = 1768031800,
 },
 ["LibDBIcon10_Leatrix_Plus"] = {
-["tstmp"] = 1767586977,
+["tstmp"] = 1768031800,
+},
+["LibDBIcon10_BiaoGe"] = {
+["tstmp"] = 1768031800,
+},
+["LibDBIcon10_BugSack"] = {
+["tstmp"] = 1768031800,
 },
 ["LibDBIcon10_Myslot"] = {
-["tstmp"] = 1767586977,
+["tstmp"] = 1768031800,
 },
 ["LibDBIcon10_Questie"] = {
-["tstmp"] = 1767586977,
+["tstmp"] = 1768031800,
 },
 ["LibDBIcon10_Details"] = {
-["tstmp"] = 1767586977,
+["tstmp"] = 1768031800,
 },
 ["LibDBIcon10_HandyNotes_NPCs"] = {
-["tstmp"] = 1767586977,
+["tstmp"] = 1768031800,
 },
 ["LibDBIcon10_WeakAuras"] = {
-["tstmp"] = 1767586977,
+["tstmp"] = 1768031800,
 },
 ["LibDBIcon10_BagSync"] = {
-["tstmp"] = 1767586977,
+["tstmp"] = 1768031800,
 },
 ["LibDBIcon10_RXPGuides"] = {
-["tstmp"] = 1767586977,
+["tstmp"] = 1768031800,
 },
-["LibDBIcon10_AtlasLoot"] = {
-["tstmp"] = 1767586977,
+["LibDBIcon10_Leatrix_Maps"] = {
+["tstmp"] = 1768031800,
 },
 ["LibDBIcon10_MethodRaidTools"] = {
-["tstmp"] = 1767586977,
+["tstmp"] = 1768031800,
 },
 ["LibDBIcon10_Acamar"] = {
-["tstmp"] = 1767586977,
+["tstmp"] = 1768031800,
 },
 ["LibDBIcon10_MailLogger"] = {
-["tstmp"] = 1767586977,
+["tstmp"] = 1768031800,
 },
 ["LibDBIcon10_HidingBar1"] = {
 ["tstmp"] = 0,
 },
-["LibDBIcon10_Leatrix_Maps"] = {
-["tstmp"] = 1767586977,
+["LibDBIcon10_AtlasLoot"] = {
+["tstmp"] = 1768031800,
 },
 ["LibDBIcon10_DetailsStreamer"] = {
-["tstmp"] = 1767586977,
+["tstmp"] = 1768031800,
 },
 ["LibDBIcon10_alaTradeSkill"] = {
-["tstmp"] = 1767586977,
+["tstmp"] = 1768031800,
 },
 ["LibDBIcon10_Plater"] = {
-["tstmp"] = 1767586977,
+["tstmp"] = 1768031800,
 },
-["LibDBIcon10_BugSack"] = {
-["tstmp"] = 1767586977,
+["LibDBIcon10_MinArch"] = {
+["tstmp"] = 1768031800,
 },
 ["LibDBIcon10_TomTom-Paste"] = {
-["tstmp"] = 1767586977,
+["tstmp"] = 1768031800,
 },
 },
 ["btnSettings"] = {
 ["HidingBar"] = {
-["tstmp"] = 1767586977,
+["tstmp"] = 1768031800,
 },
 },
 ["grabMinimap"] = true,

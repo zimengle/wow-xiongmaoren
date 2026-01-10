@@ -62,14 +62,15 @@ function BusinessInfo.StatsInfoOptions()
 						PIG_OptionsUI:Hide()
 					else
 						PIG_OptionsUI:Show()
-						Create.Show_TabBut(StatsInfoF,StatsInfoFBut)
+						Create.Show_TabBut(fuFrame,fuFrameBut)
+						Create.Show_TabBut_R(BusinessInfo.RTabFrame,StatsInfoF,StatsInfotabbut)
 					end
 				end
 			end);
 		end
 	end
 	---
-	StatsInfoF.StatsInfo.CZ = PIGButton(StatsInfoF,{"LEFT",StatsInfoF.StatsInfo.QKBut,"RIGHT",260,0},{60,22},"重置");  
+	StatsInfoF.StatsInfo.CZ = PIGButton(StatsInfoF,{"LEFT",StatsInfoF.StatsInfo.QKBut,"RIGHT",260,0},{60,22},RESET);  
 	StatsInfoF.StatsInfo.CZ:SetScript("OnClick", function ()
 		StaticPopup_Show ("INFO_CZQIANGKONGINFO");
 	end);

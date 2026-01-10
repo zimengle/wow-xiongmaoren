@@ -172,6 +172,7 @@ data["Alchemy"] = {
 				{ 18, 11476 }, --Elixir of Shadow Power
 				{ 20, 2334 }, --Elixir of Minor Fortitude
 				{ 22, 8240 }, --Elixir of Giant Growth
+				{ 24, 63732 },
 			},
 		},
 		{
@@ -705,6 +706,7 @@ data["Enchanting"] = {
 				{ 9, 13637 }, --Enchant Boots - Lesser Agility / 180
 				{ 10, 7867 }, --Enchant Boots - Minor Agility / 150
 				{ 11, 7863 }, --Enchant Boots - Minor Stamina / 150
+				{ 12, 63746}
 			}
 		},
 		{
@@ -910,6 +912,8 @@ data["Engineering"] = {
 				{ 20, 3924 }, --Copper Tube / 10
 				{ 21, 3922 }, --Handful of Copper Bolts / 8
 				{ 22, 3918 }, --Rough Blasting Powder / 5
+				{ 24, 7430}
+				
 			}
 		},
 		{

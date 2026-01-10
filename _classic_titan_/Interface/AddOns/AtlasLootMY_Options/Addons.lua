@@ -339,7 +339,7 @@ local function CreateSourceOptions()
         name = AL["Sources"],
         order = count,
         get = function(info) return Sources.db[info[#info]] end,
-        set = function(info, value) Sources.db[info[#info]] = value Addons:UpdateStatus("Sources") end,
+        set = function(info, value) Sources.db[info[#info]] = value Addons:UpdateStatus("SourcesMY") end,
         args = {
             enabled = {
                 order = 1,
@@ -385,7 +385,7 @@ local function CreateSourceOptions()
                 inline = true,
                 order = -1,
                 get = function(info) return Sources.db["Sources"][tonumber(info[#info])] end,
-                set = function(info, value) Sources.db["Sources"][tonumber(info[#info])] = value Addons:UpdateStatus("Sources") end,
+                set = function(info, value) Sources.db["Sources"][tonumber(info[#info])] = value Addons:UpdateStatus("SourcesMY") end,
                 args = {},
             },
         }

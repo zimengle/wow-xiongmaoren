@@ -296,21 +296,6 @@ BG.Init(function()
 /dump GetComparisonStatistic(334)
 /dump GetStatistic(334)
  ]]
-    local function FormatNumber(num)
-        if not tonumber(num) or ns.enUS then return num end
-        num = tostring(num)
-        local len = strlen(num)
-        if len <= 3 then
-            return num
-        else
-            local k = num:sub(-4, -4)
-            local w = num:sub(1, -5)
-            if w == "" then
-                w = 0
-            end
-            return w .. "." .. k .. L["万"]
-        end
-    end
 
     -- 25人
     local f, child = BG.CreateScrollFrame(BG.AchievementMainFrame, 300, 250, nil, true)
@@ -421,7 +406,7 @@ BG.Init(function()
             GameTooltip:AddLine(" ")
             GameTooltip:AddLine(L["统计："])
             for i in ipairs(db_stats) do
-                local text = raidAchievement_AllPlayer[name]["stats" .. db_stats[i].ID]:gsub("(GoldIcon.-|t).+", "%1"):gsub("(%d+)", FormatNumber)
+                local text = raidAchievement_AllPlayer[name]["stats" .. db_stats[i].ID]:gsub("(GoldIcon.-|t).+", "%1"):gsub("(%d+)", BG.FormatNumber)
                 GameTooltip:AddDoubleLine(db_stats[i].name, text, 1, 1, 0, 1, 1, 1)
             end
             GameTooltip:Show()
@@ -607,7 +592,7 @@ BG.Init(function()
                         bt.otherText:SetText(text)
                         bt.otherText:Show()
                     else
-                        text = raidAchievement_AllPlayer[bt.name]["stats" .. ID]:gsub("(GoldIcon.-|t).+", "%1"):gsub("(%d+)", FormatNumber)
+                        text = raidAchievement_AllPlayer[bt.name]["stats" .. ID]:gsub("(GoldIcon.-|t).+", "%1"):gsub("(%d+)", BG.FormatNumber)
                         bt.otherText:SetText(text)
                         bt.otherText:SetTextColor(1, 1, 1)
                         bt.otherText:Show()

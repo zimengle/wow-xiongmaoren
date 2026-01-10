@@ -8,8 +8,23 @@ function Env.CreateGlyphEntry()
         minor = {},
     }
 
-    for t = 1, 6 do
-        local enabled, glyphType, glyphSpellID = GetGlyphSocketInfo(t)
+    if Env.IS_CLASSIC_WRATH then
+        pcall(function()
+            if not IsAddOnLoaded("Blizzard_TalentUI") then
+                LoadAddOn("Blizzard_TalentUI")
+            end
+        end)
+    end
+
+    local getInfo = GetGlyphSocketInfo
+    if type(getInfo) ~= "function" then
+        return glyphs
+    end
+
+    local numSlots = NUM_GLYPH_SLOTS or 6
+    for t = 1, numSlots do
+        local enabled, glyphType, glyphTooltipIndex, glyphSpellID = getInfo(t)
+        glyphSpellID = glyphSpellID or glyphTooltipIndex
         if enabled and glyphSpellID then
             local glyphtable = glyphType == 1 and glyphs.major or glyphs.minor
             table.insert(glyphtable, { spellID = glyphSpellID })

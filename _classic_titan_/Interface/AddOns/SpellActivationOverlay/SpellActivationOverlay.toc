@@ -3,7 +3,7 @@
 ## Notes: Display overlays and glow buttons to improve your gameplay!
 ## Notes-zhCN: 显示覆盖层和高亮按钮以改善您的游戏体验！
 ## Author: Vinny/Ennvina
-## Version: 2.6.2
+## Version: 2.6.5
 ## SavedVariables: SpellActivationOverlayDB
 ## X-SAO-Build: wrath
 

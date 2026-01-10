@@ -2,7 +2,7 @@ local E, L, V, P, G = unpack(ElvUI)
 local S = E:GetModule('Skins')
 
 local _G = _G
-local ipairs, unpack = ipairs, unpack
+local next, unpack = next, unpack
 local hooksecurefunc = hooksecurefunc
 
 local C_ItemSocketInfo_GetSocketItemInfo = C_ItemSocketInfo.GetSocketItemInfo
@@ -11,7 +11,7 @@ local function UpdateItemSocketing()
 	local SocketingContainer = _G.ItemSocketingFrame.SocketingContainer
 	if not SocketingContainer or not SocketingContainer.SocketFrames then return end
 
-	for i, socket in ipairs(SocketingContainer.SocketFrames) do
+	for i, socket in next, SocketingContainer.SocketFrames do
 		local gemColor = C_ItemSocketInfo_GetSocketItemInfo(i)
 		local color = E.GemTypeInfo[gemColor]
 		if color then
@@ -38,9 +38,8 @@ function S:Blizzard_ItemSocketingUI()
 	S:HandleTrimScrollBar(_G.ItemSocketingScrollFrame.ScrollBar)
 
 	local SocketingContainer = ItemSocketingFrame.SocketingContainer
-	for i = 1, _G.MAX_NUM_SOCKETS do
-		local button = SocketingContainer['Socket'..i]
-		if button then
+	if SocketingContainer and SocketingContainer.SocketFrames then
+		for _, button in next, SocketingContainer.SocketFrames do
 			button:StripTextures()
 			button:StyleButton()
 			button:SetTemplate(nil, true)
@@ -53,14 +52,14 @@ function S:Blizzard_ItemSocketingUI()
 				button.Background:Kill()
 			end
 		end
-	end
 
-	local ApplySocketsButton = SocketingContainer.ApplySocketsButton
-	if ApplySocketsButton then
-		ApplySocketsButton:ClearAllPoints()
-		ApplySocketsButton:Point('BOTTOMRIGHT', ItemSocketingFrame, 'BOTTOMRIGHT', -5, 5)
+		local ApplySocketsButton = SocketingContainer.ApplySocketsButton
+		if ApplySocketsButton then
+			ApplySocketsButton:ClearAllPoints()
+			ApplySocketsButton:Point('BOTTOMRIGHT', ItemSocketingFrame, 'BOTTOMRIGHT', -5, 5)
 
-		S:HandleButton(ApplySocketsButton)
+			S:HandleButton(ApplySocketsButton)
+		end
 	end
 
 	hooksecurefunc('ItemSocketingFrame_Update', UpdateItemSocketing)

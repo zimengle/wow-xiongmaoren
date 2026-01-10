@@ -11,7 +11,7 @@ function FramePlusfun.Quest()
 		QuestLogFrame.allopen:SetScript("OnClick", function(self)
 			ExpandQuestHeader(0)
 		end)
-		QuestLogFrame.allopen.alloff = PIGButton(QuestLogFrame.allopen,{"LEFT",QuestLogFrame.allopen,"RIGHT",6,1.6},{24,23},"-",nil,nil,nil,nil,0);
+		QuestLogFrame.allopen.alloff = PIGButton(QuestLogFrame.allopen,{"LEFT",QuestLogFrame.allopen,"RIGHT",6,0},{24,23},"-",nil,nil,nil,nil,0);
 		QuestLogFrame.allopen.alloff:SetScript("OnClick", function(self)
 			CollapseQuestHeader(0) 
 		end)

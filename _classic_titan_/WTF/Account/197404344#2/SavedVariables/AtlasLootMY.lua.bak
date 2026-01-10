@@ -20,7 +20,7 @@ AtlasLootMYDB = {
 ["爱奇艺龚宇 - 时光IV"] = "愛雅法拉 - 时光I",
 },
 ["global"] = {
-["__addonrevision"] = 1020005,
+["__addonrevision"] = 1030000,
 ["VendorPrice"] = {
 [40680] = "TitanEmber:6",
 [22448] = "TitanShard:24",
@@ -230,6 +230,7 @@ AtlasLootMYDB = {
 [40704] = "TitanEmber:12",
 [44713] = "TitanEmber:1",
 },
+["sawChanglogVersion"] = "v1.3.0",
 },
 ["profiles"] = {
 ["三角碑崽儿 - 时光IV"] = {
@@ -255,16 +256,18 @@ nil,
 ["selectedGameVersion"] = 3,
 ["GUI"] = {
 ["point"] = {
+"BOTTOM",
 nil,
-nil,
-"CENTER",
--8.978017285699025e-05,
-4.489008642849512e-05,
+"BOTTOM",
+181.8801727294922,
+176.2138824462891,
 },
 ["selected"] = {
 nil,
 "AhnKahet",
-[5] = 0,
+5,
+6,
+0,
 },
 },
 },

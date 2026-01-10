@@ -1,15 +1,17 @@
 VER 3 0000000000000007 "Decursive" "INV_MISC_QUESTIONMARK"
-/stopcasting
-/cast [@mouseover,nomod,exists] 驱散魔法;  [@mouseover,exists,mod:ctrl] 驱散魔法; [@mouseover,exists,mod:shift] 驱散魔法
-END
-VER 3 0000000000000001 "RXPTargeting" "Ability_eyeoftheowl"
-/targetexact Ogo the Elder
-/targetlasttarget [dead]
-END
-VER 3 0000000000000002 "RXPTargeting" "Ability_eyeoftheowl"
+/script DecursiveRootTable.Dcr:Println('没有相关技能')
 END
 VER 3 0000000000000006 "RXPTargeting" "Ability_eyeoftheowl"
 /targetexact Longying Ranger
+/targetlasttarget [dead]
+END
+VER 3 0000000000000001 "RXPTargeting" "Ability_eyeoftheowl"
+/targetexact Wascally Wirmen
+/targetexact Ordo Overseer
+/targetlasttarget [dead]
+END
+VER 3 0000000000000002 "RXPTargeting" "Ability_eyeoftheowl"
+/targetexact Totem of Kindness
 /targetlasttarget [dead]
 END
 VER 3 000000000000000B "TSMMacro" "INV_Misc_Flower_01"

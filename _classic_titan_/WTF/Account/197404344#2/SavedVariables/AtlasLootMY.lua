@@ -1,7 +1,8 @@
 
 AtlasLootMYDB = {
 ["global"] = {
-["__addonrevision"] = 1020005,
+["__addonrevision"] = 1030000,
+["sawChanglogVersion"] = "v1.3.0",
 ["VendorPrice"] = {
 [40680] = "TitanEmber:6",
 [22448] = "TitanShard:24",
@@ -255,16 +256,18 @@ nil,
 ["selectedGameVersion"] = 3,
 ["GUI"] = {
 ["point"] = {
+"BOTTOM",
 nil,
-nil,
-"CENTER",
--8.978017285699025e-05,
-4.489008642849512e-05,
+"BOTTOM",
+181.8801727294922,
+176.2138824462891,
 },
 ["selected"] = {
 nil,
 "AhnKahet",
-[5] = 0,
+5,
+6,
+0,
 },
 },
 },

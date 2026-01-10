@@ -7,5 +7,5 @@ VER 3 0100000000000002 "a" "133514"
 END
 VER 3 0100000000000001 "TT Cast" "INV_MISC_QUESTIONMARK"
 #showtooltips
-/castsequence reset=combat/15 火舌图腾(等级 8), 石肤图腾(等级 10), 治疗之泉图腾(等级 9), 空气之怒图腾()
+/castsequence reset=combat/15 天怒图腾(等级 3), 石肤图腾(等级 10), 治疗之泉图腾(等级 9), 空气之怒图腾()
 END

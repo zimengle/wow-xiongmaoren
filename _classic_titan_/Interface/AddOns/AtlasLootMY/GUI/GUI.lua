@@ -691,9 +691,17 @@ local function GUI_InfoOnEnter(self)
 	if AtlasLoot.db.enableWoWHeadIntegration then
 		tooltip:AddLine(format(TT_INFO_ENTRY, AL["Shift + Right Click"], AL["Shows a copyable link for WoWHead"]))
 	end
+	tooltip:AddLine(format(TT_INFO_ENTRY, AL["Click this Button"],AL["Open changelog Frame"]))
     tooltip:Show()
 end
-
+local function GUI_InfoOnClick(self)
+	if GUI.changelogFrame:IsVisible() then
+		GUI.changelogFrame:Hide()
+	else
+		GUI.changelogFrame:Show()
+	end
+	
+end
 local function GUI_InfoOnLeave(self)
     GetAlTooltip():Hide()
 end
@@ -1045,7 +1053,6 @@ end
 -- ################################
 function GUI.Init()
 	db = AtlasLoot.db.GUI
-
 	GUI:Create()
 
 	-- Get favourites addon if loaded
@@ -1191,12 +1198,11 @@ function GUI:Create()
 
 
 
-
 	frame.titleFrame.infoButton = CreateFrame("Button", nil, frame, "UIPanelInfoButton")
 	frame.titleFrame.infoButton:SetPoint("RIGHT", frame.titleFrame, "RIGHT", -1, 0)
 	frame.titleFrame.infoButton:SetScript("OnEnter", GUI_InfoOnEnter)
 	frame.titleFrame.infoButton:SetScript("OnLeave", GUI_InfoOnLeave)
-
+	frame.titleFrame.infoButton:SetScript("OnClick", GUI_InfoOnClick)
 	frame.titleFrame.version = frame.titleFrame:CreateFontString(nil, "ARTWORK")
 	frame.titleFrame.version:SetPoint("BOTTOMRIGHT", frame.titleFrame, "BOTTOMRIGHT", -20, 1)
 	frame.titleFrame.version:SetTextColor(1, 1, 1, 0.5)
@@ -1511,7 +1517,11 @@ function GUI:Create()
 	-- Set itemframe as start frame
 	frame.contentFrame.shownFrame = GUI.ItemFrame.frame
 	--self.SoundFrame:Create()
-
+	self.changelogFrame=self.ChangelogFrame.Create(self.frame)
+	if AtlasLoot.dbGlobal.sawChanglogVersion == AtlasLoot.__addonversion then
+		self.changelogFrame:Hide()
+	end
+	AtlasLoot.dbGlobal.sawChanglogVersion = AtlasLoot.__addonversion
 	GUI.RefreshVersionUpdate()
 end
 

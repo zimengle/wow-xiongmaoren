@@ -123,26 +123,17 @@ local function useMaelstromWeapon(self)
     local maelstromWeaponBuff = self.IsSoD() and 408505 or 53817;
     local maelstromWeaponTalent = self.IsSoD() and 408498 or 51530;
     local maelstromWeaponScale = self.IsSoD() and 0.8 or 1;
-
-    -- Check if Maelstrom Weapon effect should pulse at 5 stacks
-    -- This question only applies to 5 stacks, because the answer is obvious for other stacks
-    -- At 5 stacks, we want to pulse if the shaman is capped at 5 stacks, and not pulse if capped at 10
+    local maelstromWeaponBuff2H = self.IsWrath() and 1283511;
     local mustPulseMSW5 = function()
-        -- Count the number of items currently equipped from Enhancement's T4 set (Season of Discovery)
         local t4Items = { 240131, 240135, 240128, 240136, 240134, 240129, 240137, 240130 }
         local nbT4Items = self:GetNbItemsEquipped(t4Items);
 
         if nbT4Items < 6 then
-            -- If the shaman does not have the T4 6pc, s/he is capped at 5 stacks
-            -- In which case, the Maelstrom Weapon should pulse at 5 stacks
             return true;
         else
-            -- If the shaman has at least 6 pieces of Enhancement's T4, Maelstrom Weapon is capped at 10 stacks
-            -- In this case, Maelstrom Weapon should *not* pulse at 5 stacks
             return false;
         end
     end
-
 
     self:CreateEffect(
         "maelstrom_weapon",
@@ -184,6 +175,29 @@ local function useMaelstromWeapon(self)
             },
         }
     );
+
+    if maelstromWeaponBuff2H then
+        self:CreateEffect(
+            "maelstrom_weapon2h",
+            SAO.WRATH,
+            maelstromWeaponBuff2H,
+            "aura",
+            {
+                talent = maelstromWeaponTalent,
+                overlays = {
+                    { stacks = 1, texture = "maelstrom_weapon_1", position = "Top", scale = maelstromWeaponScale, pulse = false, option = false },
+                    { stacks = 2, texture = "maelstrom_weapon_2", position = "Top", scale = maelstromWeaponScale, pulse = false, option = false },
+                    { stacks = 3, texture = "maelstrom_weapon_3", position = "Top", scale = maelstromWeaponScale, pulse = false, option = false },
+                    { stacks = 4, texture = "maelstrom_weapon_4", position = "Top", scale = maelstromWeaponScale, pulse = false, option = { setupHash = hash0Stacks, testHash = hash4Stacks, subText = self:NbStacks(1,4) } },
+                    { stacks = 5, texture = "maelstrom_weapon"  , position = "Top", scale = maelstromWeaponScale, pulse = true , option = true },
+                },
+                buttons = {
+                    default = { stacks = 5 },
+                    [SAO.WRATH] = { lightningBolt, chainLightning, lesserHealingWave, healingWave, chainHeal, hex, lavaBurst },
+                },
+            }
+        );
+    end
 end
 
 local function useFulmination(self)

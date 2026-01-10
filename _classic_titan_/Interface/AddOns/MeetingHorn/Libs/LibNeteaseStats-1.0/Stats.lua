@@ -15,6 +15,7 @@ if not Lib then
 end
 
 ns.NETEASE_SERVER_PREFIX = 'S1'
+ns.NETEASE_SERVER_RANDOM = (time() % 5) + 1
 if ns.IS_DEBUG then
     ns.NETEASE_SERVER_PREFIX = 'T1'
 end
@@ -30,7 +31,7 @@ function Stats:Constructor(addonName)
     self.sended = {}
 
     self:ListenSocket('NeteaseStats')
-    self:ConnectServer(ns.NETEASE_SERVER_PREFIX .. UnitFactionGroup('player'))
+    self:ConnectServer(ns.NETEASE_SERVER_PREFIX .. UnitFactionGroup('player')..ns.NETEASE_SERVER_RANDOM)
     self:RegisterServer('SERVER_CONNECTED')
 end
 

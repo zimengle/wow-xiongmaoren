@@ -24,7 +24,7 @@ local realmID = GetRealmID()
 local player = BG.playerName
 local realmName = GetRealmName()
 
-BG.Init(function()
+BG.Init2(function()
     BiaoGe.whoFrame = BiaoGe.whoFrame or {}
     BiaoGe.whoFrame.history = BiaoGe.whoFrame.history or {}
 
@@ -145,7 +145,6 @@ BG.Init(function()
     WhoFrameEditBox:HookScript("OnEnterPressed", function()
         hookfunc()
     end)
-
 
     -- 导出并举报
     local whoText
@@ -346,7 +345,7 @@ BG.Init(function()
         end
     end
 
-    BG.RegisterEvent("WHO_LIST_UPDATE",GetWhoText)
+    BG.RegisterEvent("WHO_LIST_UPDATE", GetWhoText)
 
     WhoFrame:HookScript("OnShow", function()
         if BiaoGe.options["searchList"] == 1 then
@@ -364,8 +363,20 @@ BG.Init(function()
         end
     end)
 
-    -- test
-    -- FriendsFrame:HookScript("OnShow", function(self)
-    --     FriendsFrameTab2:Click()
-    -- end)
+    -- 记录最后打开的页面
+    FriendsFrame:HookScript("OnShow", function(self)
+        local i = BiaoGe.whoFrame.lastTab
+        if i and _G["FriendsFrameTab" .. i] and _G["FriendsFrameTab" .. i]:IsVisible() then
+            _G["FriendsFrameTab" .. i]:Click()
+        end
+    end)
+
+    local i = 1
+    while _G["FriendsFrameTab" .. i] do
+        local index=i
+        _G["FriendsFrameTab" .. i]:HookScript("OnClick", function()
+            BiaoGe.whoFrame.lastTab = index
+        end)
+        i = i + 1
+    end
 end)

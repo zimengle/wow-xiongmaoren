@@ -252,14 +252,12 @@ local function OnTooltipSetItem_Hook(self)
     end
 
     item = TooltipCache[item]
-
     local sourceData
     for i = #SOURCE_DATA, 1, -1 do
         if item and SOURCE_DATA[i].ItemData[item] then
             sourceData = SOURCE_DATA[i]
         end
     end
-
     if item then
         local newAdded
         -- sources from loot tables

@@ -365,7 +365,7 @@ function BG.CreateBossModel()
         model:SetRoll(0)               -- 倾斜
         -- CreateAllTestButton(model)
     end
-    if BG.IsMOP_TW then
+    if BG.IsMOP then
         local model = CreateBossModel("MSV", 6, 0, 0, 60400, .55)
         model:SetPosition(-0, 0, 0)     -- Z,X,Y
         model:SetFacing(0)              -- 左右

@@ -8,10 +8,12 @@ local PIGButton=Create.PIGButton
 local PIGCheckbutton=Create.PIGCheckbutton
 local PIGQuickBut=Create.PIGQuickBut
 local PIGLine=Create.PIGLine
+local PIGEnter=Create.PIGEnter
 local PIGSlider = Create.PIGSlider
 local PIGCheckbutton_R=Create.PIGCheckbutton_R
 local PIGOptionsList_R=Create.PIGOptionsList_R
 local PIGFontString=Create.PIGFontString
+local PIGDownMenu=Create.PIGDownMenu
 --------------
 local Fun=addonTable.Fun
 local ActionFun=Fun.ActionFun
@@ -70,6 +72,24 @@ QuickButF:HookScript("OnShow", function(self)
 	self.Open:SetChecked(PIGA["QuickBut"]["Open"])
 end)
 --
+QuickButF.CZBUT = PIGButton(QuickButF,{"TOPRIGHT",QuickButF,"TOPRIGHT",-20,-12},{60,22},RESET);  
+QuickButF.CZBUT:SetScript("OnClick", function ()
+	StaticPopup_Show ("CHONGZHI_QUICKBUT");
+end);
+StaticPopupDialogs["CHONGZHI_QUICKBUT"] = {
+	text = "此操作将|cffff0000重置|r"..L["ACTION_TABNAME2"].."配置。\n确定重置?",
+	button1 = YES,
+	button2 = NO,
+	OnAccept = function()
+		PIGA["QuickBut"] = addonTable.Default["QuickBut"];
+		PIGA_Per["QuickBut"] = addonTable.Default_Per["QuickBut"];
+		PIG_OptionsUI.RLUI:Show()
+	end,
+	timeout = 0,
+	whileDead = true,
+	hideOnEscape = true,
+}
+--
 QuickButF.SetF = PIGFrame(QuickButF)
 QuickButF.SetF:PIGSetBackdrop(0)
 QuickButF.SetF:SetHeight(60)
@@ -101,31 +121,37 @@ function QuickButF.SetF.suofang:PIGOnValueChange(arg1)
 	PIGA["QuickBut"]["bili"]=arg1;
 	QuickButUI:SetScale(arg1);
 end
---
-QuickButF.SetF.CZBUT = PIGButton(QuickButF.SetF,{"TOPRIGHT",QuickButF.SetF,"TOPRIGHT",-10,-18},{80,22},"重置配置");  
-QuickButF.SetF.CZBUT:SetScript("OnClick", function ()
-	StaticPopup_Show ("CHONGZHI_QUICKBUT");
-end);
-StaticPopupDialogs["CHONGZHI_QUICKBUT"] = {
-	text = "此操作将|cffff0000重置|r"..L["ACTION_TABNAME2"].."配置。\n确定重置?",
-	button1 = YES,
-	button2 = NO,
-	OnAccept = function()
-		PIGA["QuickBut"] = addonTable.Default["QuickBut"];
-		PIGA_Per["QuickBut"] = addonTable.Default_Per["QuickBut"];
-		PIG_OptionsUI.RLUI:Show()
-	end,
-	timeout = 0,
-	whileDead = true,
-	hideOnEscape = true,
-}
-QuickButF.SetF.CZBUT = PIGButton(QuickButF.SetF,{"RIGHT",QuickButF.SetF.CZBUT,"LEFT",-10,0},{80,22},"重置位置")
+local Showtiaojian,pailieName,paiNum,PailieFun,ShowHideNumFun,ShowHideEvent=unpack(Fun.ActionFun.UIdata)
+QuickButF.SetF.PailieT = PIGFontString(QuickButF.SetF,{"LEFT",QuickButF.SetF.suofang,"RIGHT",90,0},"排列")
+QuickButF.SetF.Pailie=PIGDownMenu(QuickButF.SetF,{"LEFT",QuickButF.SetF.PailieT,"RIGHT",2,0},{80,24})
+function QuickButF.SetF.Pailie:PIGDownMenu_Update_But()
+	local info = {}
+	info.func = self.PIGDownMenu_SetValue
+	for i=1,2,1 do
+	    info.text, info.arg1 = pailieName[i], i
+	    info.checked = i==PIGA["QuickBut"]["Pailie"]
+		self:PIGDownMenu_AddButton(info)
+	end 
+end
+function QuickButF.SetF.Pailie:PIGDownMenu_SetValue(value,arg1,arg2)
+	if InCombatLockdown()  then 
+		PIG_OptionsUI:ErrorMsg(ERR_NOT_IN_COMBAT)
+		return 
+	end
+	self:PIGDownMenu_SetText(value)
+	PIGA["QuickBut"]["Pailie"] = arg1;
+	QuickButUI:UpdateWidth()
+	PIGCloseDropDownMenus()
+end
+
+QuickButF.SetF.CZBUT = PIGButton(QuickButF.SetF,{"TOPRIGHT",QuickButF.SetF,"TOPRIGHT",-20,-20},{80,22},RESET_POSITION)
 QuickButF.SetF.CZBUT:SetScript("OnClick", function ()
 	Create.PIG_ResPoint(QuickButUIname)
 end)
 QuickButF.SetF:HookScript("OnShow", function(self)
 	self.Lock:SetChecked(PIGA["QuickBut"]["Lock"])
 	self.suofang:PIGSetValue(PIGA["QuickBut"]["bili"])
+	self.Pailie:PIGDownMenu_SetText(pailieName[PIGA["QuickBut"]["Pailie"]])
 end)
 --
 QuickButF.ModF = PIGFrame(QuickButF)
@@ -241,13 +267,29 @@ QuickButF.ModF:HookScript("OnShow", function(self)
 	end
 end)
 ---
+if PIG_MaxTocversion() then
+	QuickButUI.arrow_pulp=90
+else
+	QuickButUI.arrow_pulp=0
+end
+local function GetAngle_V(oldV,endV)
+	if endV then
+		if oldV>=360 then
+			return oldV-360
+		end
+		return oldV
+	else
+		if oldV+QuickButUI.arrow_pulp>=360 then
+			return oldV+QuickButUI.arrow_pulp-360
+		end
+		return oldV+QuickButUI.arrow_pulp
+	end
+end
 QuickButUI.ButList[1]=function()
 	if not PIGA["QuickBut"]["Open"] or QuickButUI.yidong then return end
 	Create.PIG_SetPoint(QuickButUIname)
 	QuickButUI:SetScale(PIGA["QuickBut"]["bili"]);
-	QuickButUI.yidong=PIGFrame(QuickButUI,{"TOPLEFT",QuickButUI,"TOPLEFT",0,0})
-	QuickButUI.yidong:SetPoint("BOTTOMLEFT", QuickButUI, "BOTTOMLEFT", 0, 0);
-	QuickButUI.yidong:SetWidth(13);
+	QuickButUI.yidong=PIGFrame(QuickButUI)
 	if PIGA["QuickBut"]["Lock"] then QuickButUI.yidong:Hide() end
 	QuickButUI.yidong:PIGSetBackdrop()
 	QuickButUI.yidong:PIGSetMovable(QuickButUI,nil,nil,true)
@@ -265,7 +307,7 @@ QuickButUI.ButList[1]=function()
 	QuickButUI.yidong:HookScript("OnEnter", function (self)
 		self:SetBackdropBorderColor(0,0.8,1, 0.9);
 		GameTooltip:ClearLines();
-		GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT",0,0);
+		GameTooltip:SetOwner(self, "ANCHOR_LEFT",0,0);
 		GameTooltip:AddLine(L["LIB_TIPS"])
 		GameTooltip:AddLine(KEY_BUTTON1.."拖拽-|cff00FFff"..TUTORIAL_TITLE2.."|r\n"..KEY_BUTTON2.."-|cff00FFff"..SETTINGS.."|r")	
 		GameTooltip:Show();
@@ -275,13 +317,15 @@ QuickButUI.ButList[1]=function()
 		GameTooltip:ClearLines();
 		GameTooltip:Hide() 
 	end)
+	QuickButUI.yidong:HookScript("OnDragStop",function()
+		QuickButUI:UpdateWidth()
+	end)
 	QuickButUI.yidong.move = QuickButUI.yidong:CreateTexture()
 	QuickButUI.yidong.move:SetAtlas("OptionsIcon-Brown")--NPE_RightClick
-	QuickButUI.yidong.move:SetSize(13,20);
+	QuickButUI.yidong.move:SetSize(13,13);
 	QuickButUI.yidong.move:SetPoint("CENTER", 0, 0);
 	QuickButUI.yidong.move:SetDesaturated(true)
-	QuickButUI.nr=PIGFrame(QuickButUI,{"TOPLEFT",QuickButUI.yidong,"TOPRIGHT",1,0})
-	QuickButUI.nr:SetPoint("BOTTOMRIGHT", QuickButUI, "BOTTOMRIGHT", 0, 0);
+	QuickButUI.nr=PIGFrame(QuickButUI)
 	QuickButUI.nr:PIGSetBackdrop()
 end
 --战场通告
@@ -351,20 +395,13 @@ QuickButUI.ButList[7]=function()
 
 		General.arrow = General:CreateTexture(nil,"ARTWORK");
 		General.arrow:SetDrawLayer("ARTWORK", 7)
-		General.arrow.chushijiaodu=0
-		General.arrow.jieshujiaodu=180
 		if PIG_MaxTocversion() then
 			General.arrow:SetAtlas("bag-arrow")
 			General.arrow:SetSize(11,16);
-			General.arrow:SetPoint("TOP",0,1);
-			General.arrow.chushijiaodu=270
-			General.arrow.jieshujiaodu=90
 		else
 			General.arrow:SetAtlas("UI-HUD-ActionBar-Flyout-Mouseover");
 			General.arrow:SetSize(16,8);
-			General.arrow:SetPoint("TOP",0,0);
 		end
-		SetClampedTextureRotation(General.arrow,General.arrow.chushijiaodu);
 
 		local function gengxinlushiCD()
 			if General.lushiitemID then
@@ -508,9 +545,52 @@ QuickButUI.ButList[7]=function()
 		General_List:SetScale(PIGA["QuickBut"]["bili"]);
 		General_List:SetFrameLevel(33)
 		General_List:SetScale(0.8)
+		hooksecurefunc(QuickButUI, "UpdateWidth", function(self)
+			General_List:ClearAllPoints();
+			General.arrow:ClearAllPoints();
+			General_List.Close:ClearAllPoints();
+			if PIGA["QuickBut"]["Pailie"]==1 then
+				local WowHeight=GetScreenHeight();
+				local offset = General:GetBottom() or 200
+				General_List:ClearAllPoints()
+				if offset>(WowHeight*0.5) then
+					General.arrow:SetPoint("BOTTOM",0,-1);
+					General_List.Angle_Play=GetAngle_V(180)
+					General_List.Angle_End=GetAngle_V(General_List.Angle_Play+180,true)	
+					SetClampedTextureRotation(General.arrow,General_List.Angle_Play);
+					General_List:SetPoint("TOP", General, "BOTTOM", 0, -4);
+					General_List.Close:SetPoint("TOP",General_List,"BOTTOM",0,0)
+				else
+					General.arrow:SetPoint("TOP",0,1);
+					General_List.Angle_Play=GetAngle_V(0)
+					General_List.Angle_End=GetAngle_V(General_List.Angle_Play+180,true)
+					SetClampedTextureRotation(General.arrow,General_List.Angle_Play,true);
+					General_List:SetPoint("BOTTOM", General, "TOP", 0, 4);
+					General_List.Close:SetPoint("BOTTOM",General_List,"TOP",0,0)
+				end
+			elseif PIGA["QuickBut"]["Pailie"]==2 then
+				local WowWidth=GetScreenWidth()
+				local offset1 = General:GetLeft() or 500
+				if offset1>(WowWidth*0.5) then
+					General.arrow:SetPoint("LEFT",-1,0);
+					General_List.Angle_Play=GetAngle_V(270)
+					General_List.Angle_End=GetAngle_V(General_List.Angle_Play+180,true)
+					SetClampedTextureRotation(General.arrow,General_List.Angle_Play);
+					General_List:SetPoint("RIGHT",General,"LEFT",-2,0);
+					General_List.Close:SetPoint("RIGHT",General_List,"LEFT",-2,0)
+				else
+					General.arrow:SetPoint("RIGHT",1,0);
+					General_List.Angle_Play=GetAngle_V(90)
+					General_List.Angle_End=GetAngle_V(General_List.Angle_Play+180,true)
+					SetClampedTextureRotation(General.arrow,General_List.Angle_Play);
+					General_List:SetPoint("LEFT",General,"RIGHT",2,0);
+					General_List.Close:SetPoint("LEFT",General_List,"RIGHT",2,0)
+				end
+			end
+        end)
 		General_List:HookScript("OnShow",function(self)
 			PlaySound(SOUNDKIT.U_CHAT_SCROLL_BUTTON);
-			SetClampedTextureRotation(General.arrow,General.arrow.jieshujiaodu);
+			SetClampedTextureRotation(General.arrow,self.Angle_End);
 			for i=1,#listall do
 				if listall[i][1]==PIGA_Per["QuickBut"]["LushiID"] then
 					General_List.ButList[i].Select:Show();
@@ -521,25 +601,17 @@ QuickButUI.ButList[7]=function()
 		end)
 		General_List:HookScript("OnHide",function(self)
 			PlaySound(SOUNDKIT.U_CHAT_SCROLL_BUTTON);
-			SetClampedTextureRotation(General.arrow,General.arrow.chushijiaodu);
+			SetClampedTextureRotation(General.arrow,self.Angle_Play);
 		end)
 		General_List.Close=PIGDiyBut(General_List,{"BOTTOM",General_List,"TOP",0,0},{26})
 		General_List.Close:HookScript("OnClick",function(self)
 			General_List:Hide();
 		end)
-		local WowHeight=GetScreenHeight();
 		General:HookScript("OnClick",function(self,button)
 			if button == "LeftButton" and IsShiftKeyDown() then
 				if General_List:IsShown() then
 					General_List:Hide();
 				else
-					local offset = QuickButUI:GetBottom();
-					General_List:ClearAllPoints()
-					if offset>(WowHeight*0.5) then
-						General_List:SetPoint("TOP", General, "BOTTOM", 0, -4);
-					else
-						General_List:SetPoint("BOTTOM", General, "TOP", 0, 4);
-					end
 					General_List:Show();
 				end
 			end
@@ -714,22 +786,15 @@ QuickButUI.ButList[8]=function()
 		end
 		Zhushou.arrow = Zhushou:CreateTexture(nil,"ARTWORK");
 		Zhushou.arrow:SetDrawLayer("ARTWORK", 7)
-		Zhushou.arrow.chushijiaodu=0
-		Zhushou.arrow.jieshujiaodu=180
 		if PIG_MaxTocversion() then
 			Zhushou.arrow:SetAtlas("bag-arrow")
 			Zhushou.arrow:SetSize(11,16);
-			Zhushou.arrow:SetPoint("TOP",0,1);
-			Zhushou.arrow.chushijiaodu=270
-			Zhushou.arrow.jieshujiaodu=90
 		else
 			Zhushou.arrow:SetAtlas("UI-HUD-ActionBar-Flyout-Mouseover");
-			Zhushou.arrow:SetSize(16,8);
-			Zhushou.arrow:SetPoint("TOP",0,0);
+			Zhushou.arrow:SetSize(16,8)
 		end
-		SetClampedTextureRotation(Zhushou.arrow,Zhushou.arrow.chushijiaodu);
 		---内容页----
-		local butW = ActionButton1:GetWidth()
+		local butW = QuickButUI.butWWW
 		local gaoNum,kuanNum = 10,2
 		local Zhushou_List = CreateFrame("Frame", nil, Zhushou,"BackdropTemplate,SecureHandlerShowHideTemplate");
 		Zhushou_List:SetBackdrop(Create.Backdropinfo)
@@ -741,20 +806,61 @@ QuickButUI.ButList[8]=function()
 		Zhushou_List:SetFrameLevel(33)
 		Zhushou_List:SetScale(0.8)
 		--
-		local WowHeight=GetScreenHeight();
-		local offset = Zhushou:GetBottom();
-		Zhushou_List:ClearAllPoints()
-		if offset>(WowHeight*0.5) then
-			Zhushou_List:SetPoint("TOP", Zhushou, "BOTTOM", 0, -4);
-		else
-			Zhushou_List:SetPoint("BOTTOM", Zhushou, "TOP", 0, 4);
-		end
+		hooksecurefunc(QuickButUI, "UpdateWidth", function(self)
+			Zhushou_List:ClearAllPoints();
+			Zhushou.arrow:ClearAllPoints();
+			Zhushou_List.Close:ClearAllPoints();
+			Zhushou_List.ClickClose:ClearAllPoints();
+			Zhushou_List.Reset:ClearAllPoints();
+			if PIGA["QuickBut"]["Pailie"]==1 then
+				Zhushou_List.ClickClose:SetPoint("RIGHT",Zhushou_List.Close,"LEFT",-10,0)
+				Zhushou_List.Reset:SetPoint("RIGHT",Zhushou_List.ClickClose,"LEFT",-4,0)
+				local WowHeight=GetScreenHeight();
+				local offset = Zhushou:GetBottom() or 200
+				Zhushou_List:ClearAllPoints()
+				if offset>(WowHeight*0.5) then
+					Zhushou.arrow:SetPoint("BOTTOM",0,-1);
+					Zhushou_List.Angle_Play=GetAngle_V(180)
+					Zhushou_List.Angle_End=GetAngle_V(Zhushou_List.Angle_Play+180,true)
+					SetClampedTextureRotation(Zhushou.arrow,Zhushou_List.Angle_Play);
+					Zhushou_List:SetPoint("TOP", Zhushou, "BOTTOM", 0, -4);
+					Zhushou_List.Close:SetPoint("TOPRIGHT",Zhushou_List,"BOTTOMRIGHT",0,0)
+				else
+					Zhushou.arrow:SetPoint("TOP",0,1);
+					Zhushou_List.Angle_Play=GetAngle_V(0)
+					Zhushou_List.Angle_End=GetAngle_V(Zhushou_List.Angle_Play+180,true)
+					SetClampedTextureRotation(Zhushou.arrow,Zhushou_List.Angle_Play);
+					Zhushou_List:SetPoint("BOTTOM", Zhushou, "TOP", 0, 4);
+					Zhushou_List.Close:SetPoint("BOTTOMRIGHT",Zhushou_List,"TOPRIGHT",0,0)
+				end
+			elseif PIGA["QuickBut"]["Pailie"]==2 then
+				Zhushou_List.ClickClose:SetPoint("TOP",Zhushou_List.Close,"BOTTOM",0,-10)
+				Zhushou_List.Reset:SetPoint("TOP",Zhushou_List.ClickClose,"BOTTOM",0,-6)
+				local WowWidth=GetScreenWidth()
+				local offset1 = Zhushou:GetLeft() or 500
+				if offset1>(WowWidth*0.5) then
+					Zhushou.arrow:SetPoint("LEFT",-1,0);
+					Zhushou_List.Angle_Play=GetAngle_V(270)
+					Zhushou_List.Angle_End=GetAngle_V(Zhushou_List.Angle_Play+180,true)
+					SetClampedTextureRotation(Zhushou.arrow,Zhushou_List.Angle_Play);
+					Zhushou_List:SetPoint("RIGHT",Zhushou,"LEFT",-2,0);
+					Zhushou_List.Close:SetPoint("RIGHT",Zhushou_List,"LEFT",-2,0)
+				else
+					Zhushou.arrow:SetPoint("RIGHT",1,0);
+					Zhushou_List.Angle_Play=GetAngle_V(90)
+					Zhushou_List.Angle_End=GetAngle_V(Zhushou_List.Angle_Play+180,true)
+					SetClampedTextureRotation(Zhushou.arrow,Zhushou_List.Angle_Play);
+					Zhushou_List:SetPoint("LEFT",Zhushou,"RIGHT",2,0);
+					Zhushou_List.Close:SetPoint("LEFT",Zhushou_List,"RIGHT",2,0)
+				end
+			end
+        end)
 		--
 		Zhushou_List:HookScript("OnShow",function(self)
-			SetClampedTextureRotation(Zhushou.arrow,Zhushou.arrow.jieshujiaodu);
+			SetClampedTextureRotation(Zhushou.arrow,self.Angle_End);
 		end)
 		Zhushou_List:HookScript("OnHide",function(self)
-			SetClampedTextureRotation(Zhushou.arrow,Zhushou.arrow.chushijiaodu);
+			SetClampedTextureRotation(Zhushou.arrow,self.Angle_Play);
 		end)
 		PIGUseKeyDown(Zhushou)
 		Zhushou:RegisterForClicks("AnyUp");
@@ -842,7 +948,7 @@ QuickButUI.ButList[8]=function()
 			end
 		]=])
 		Zhushou_List.Close:SetFrameRef("frame1", Zhushou_List);
-		Zhushou_List.ClickClose = PIGCheckbutton(Zhushou_List,{"RIGHT",Zhushou_List.Close,"LEFT",-butW*0.4,0},{"","按钮点击使用后关闭界面"});
+		Zhushou_List.ClickClose = PIGCheckbutton(Zhushou_List,nil,{"","按钮点击使用后关闭界面"});
 		Zhushou_List.ClickClose:SetScript("OnClick", function (self)
 			if self:GetChecked() then
 				PIGA["QuickBut"]["SpellClose"]=true;
@@ -853,7 +959,8 @@ QuickButUI.ButList[8]=function()
 		Zhushou_List.ClickClose:SetScript("OnShow", function (self)
 			self:SetChecked(PIGA["QuickBut"]["SpellClose"])
 		end)
-		Zhushou_List.Reset = PIGDiyBut(Zhushou_List,{"RIGHT",Zhushou_List.ClickClose,"LEFT",-4,0},{21,nil,21,nil,"common-icon-undo"})
+		Zhushou_List.Reset = PIGDiyBut(Zhushou_List,nil,{21,nil,21,nil,"common-icon-undo"})
+		PIGEnter(Zhushou_List.Reset,"重置|r"..CLASS..BINDING_HEADER_ACTIONBAR.."为默认")
 		Zhushou_List.Reset:SetScript("OnClick", function (self)
 			StaticPopup_Show ("ZHUSHOU_LISTRESET");
 		end)

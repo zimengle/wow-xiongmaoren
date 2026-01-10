@@ -86,7 +86,7 @@ function LFG:OnEnable()
     self:RegisterMessage('MEETINGHORN_HIDE')
 
     self:ListenSocket('MEETINGHORN')
-    self:ConnectServer(ns.NETEASE_SERVER_PREFIX .. UnitFactionGroup('player'))
+    self:ConnectServer(ns.NETEASE_SERVER_PREFIX .. UnitFactionGroup('player')..ns.NETEASE_SERVER_RANDOM)
     self:RegisterSocket('JOIN', 'OnSocketJoin')
     self:RegisterServer('SERVER_CONNECTED')
     self:RegisterServer('SNEWVERSION')

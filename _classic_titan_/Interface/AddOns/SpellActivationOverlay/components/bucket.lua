@@ -310,13 +310,12 @@ SAO.BucketManager = {
             SAO.RegisteredBucketsBySpellID[spellID] = bucket;
             SAO.RegisteredBucketsByName[name] = bucket;
 
-            -- Cannot guarantee we can track spell ID on Classic Era, but can always track spell name
-            if SAO.IsEra() and not SAO:IsFakeSpell(spellID) then
+            if not SAO:IsFakeSpell(spellID) then
                 local spellName = GetSpellInfo(spellID);
                 if spellName then
                     local conflictingBucket = SAO.RegisteredBucketsBySpellID[spellName];
-                    if conflictingBucket then
-                        SAO:Debug(Module, "Registering spells with different spell IDs ("..conflictingBucket.name.." uses spell ID "..conflictingBucket.spellID.." vs. "..bucket.name.." uses spell ID "..bucket.spellID..") but sharing the same spell name '"..spellName.."', this might cause issues");
+                    if conflictingBucket and conflictingBucket ~= bucket then
+                        SAO:Debug(Module, "Registering buckets with different spell IDs ("..conflictingBucket.name.." uses spell ID "..conflictingBucket.spellID.." vs. "..bucket.name.." uses spell ID "..bucket.spellID..") but sharing the same spell name '"..spellName.."', this might cause issues");
                     end
                     SAO.RegisteredBucketsBySpellID[spellName] = bucket; -- Share pointer
                 else
@@ -363,16 +362,19 @@ function SAO:GetBucketBySpellID(spellID)
 end
 
 function SAO:GetBucketBySpellIDOrSpellName(spellID, fallbackSpellName)
-    if not self.IsEra() or (type(spellID) == 'number' and spellID ~= 0) then
-        return self.RegisteredBucketsBySpellID[spellID], spellID;
-    else
-        -- Due to Classic Era limitation, bucket is registered by its spell name
-        local bucket = self.RegisteredBucketsBySpellID[fallbackSpellName];
-        if bucket then
-            spellID = bucket.spellID;
-        end
+    local bucket = self.RegisteredBucketsBySpellID[spellID];
+    if bucket then
         return bucket, spellID;
     end
+
+    if fallbackSpellName then
+        bucket = self.RegisteredBucketsBySpellID[fallbackSpellName];
+        if bucket then
+            return bucket, spellID;
+        end
+    end
+
+    return nil, spellID;
 end
 
 function SAO:ForEachBucket(bucketFunc)

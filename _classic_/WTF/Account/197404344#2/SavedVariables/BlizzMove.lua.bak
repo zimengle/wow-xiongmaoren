@@ -261,11 +261,13 @@ BlizzMoveDB = {
 },
 ["MerchantFrame"] = {
 },
-["EncounterJournal.encounter.info.detailsScroll"] = {
+["GlyphFrame"] = {
 },
 ["TabardFrame"] = {
 },
 ["ClubFinderGuildFinderFrame.RequestToJoinFrame"] = {
+},
+["PVPBannerFrame"] = {
 },
 ["PlayerTalentFrame"] = {
 ["startPoints"] = {
@@ -287,8 +289,6 @@ BlizzMoveDB = {
 ["relativePoint"] = "CENTER",
 },
 },
-},
-["PVPBannerFrame"] = {
 },
 ["GuildBankFrame"] = {
 },
@@ -314,7 +314,7 @@ BlizzMoveDB = {
 },
 ["PVPConquestFrame"] = {
 },
-["InspectFrame"] = {
+["TokenFrameContainer"] = {
 },
 ["ReputationDetailFrame"] = {
 },
@@ -330,7 +330,7 @@ BlizzMoveDB = {
 },
 ["QuestMapFrame.DetailsFrame.RewardsFrame"] = {
 },
-["TokenFrameContainer"] = {
+["InspectFrame"] = {
 },
 ["OpenMailFrame"] = {
 },
@@ -363,7 +363,7 @@ BlizzMoveDB = {
 },
 ["CollectionsJournal.TitleContainer"] = {
 },
-["GlyphFrame"] = {
+["EncounterJournal.encounter.info.detailsScroll"] = {
 },
 ["OpenMailSender"] = {
 },

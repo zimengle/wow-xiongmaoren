@@ -5515,9 +5515,9 @@ ElvDB = {
 },
 ["valuecolor"] = {
 ["a"] = 1,
-["r"] = 0.53,
-["g"] = 0.53,
-["b"] = 0.93,
+["r"] = 0.78,
+["g"] = 0.61,
+["b"] = 0.43,
 },
 ["loginmessage"] = false,
 ["objectiveFrameHeight"] = 500,
@@ -5673,7 +5673,7 @@ ElvDB = {
 ["mmssThreshold"] = 10800,
 },
 },
-["dbConverted"] = 14.04,
+["dbConverted"] = 14.05,
 ["movers"] = {
 ["ElvUF_FocusCastbarMover"] = "TOP,ElvUIParent,TOP,16,-142",
 ["DTPanel集合石Mover"] = "TOP,ElvUIParent,TOP,0,-27",
@@ -6523,9 +6523,9 @@ ElvDB = {
 ["enable"] = false,
 ["width"] = 280,
 ["textColor"] = {
-["b"] = 0.93,
-["g"] = 0.53,
-["r"] = 0.53,
+["b"] = 0.43,
+["g"] = 0.61,
+["r"] = 0.78,
 },
 },
 ["width"] = 220,
@@ -15907,16 +15907,16 @@ ElvDB = {
 ["露露緹婭"] = 230788704,
 },
 ["时光IV"] = {
-["京东刘强东"] = 6179633,
-["美团王兴"] = 3777547,
-["三角碑崽儿"] = 160395493,
-["于鹏"] = 2294868,
-["哔站陈睿"] = 9116626,
+["京东刘强东"] = 9076979,
+["美团王兴"] = 17684179,
+["三角碑崽儿"] = 190030095,
+["于鹏"] = 7830129,
+["哔站陈睿"] = 7924235,
 ["爱奇艺龚宇"] = 0,
 ["小米军儿"] = 6289475,
 ["卧伦巴菲特"] = 0,
 ["京东董事长"] = 0,
-["退休码农"] = 6168930,
+["退休码农"] = 3619634,
 },
 ["帕奇维克"] = {
 ["露露缇娅"] = 69802,
@@ -16954,9 +16954,6 @@ nil,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
 },
-[55807] = {
-["enable"] = false,
-},
 [70410] = {
 ["enable"] = true,
 ["priority"] = 0,
@@ -16982,12 +16979,12 @@ nil,
 ["priority"] = 1,
 ["stackThreshold"] = 0,
 },
-[71127] = {
+[28786] = {
 ["enable"] = true,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
 },
-[65748] = {
+[66770] = {
 ["enable"] = true,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
@@ -17035,12 +17032,7 @@ nil,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
 },
-[60899] = {
-["enable"] = true,
-["priority"] = 0,
-["stackThreshold"] = 0,
-},
-[72963] = {
+[54772] = {
 ["enable"] = true,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
@@ -17060,7 +17052,7 @@ nil,
 ["priority"] = 1,
 ["stackThreshold"] = 0,
 },
-[63568] = {
+[63042] = {
 ["enable"] = true,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
@@ -17153,13 +17145,13 @@ nil,
 ["priority"] = 0,
 ["stackThreshold"] = 5,
 },
-[63042] = {
+[72963] = {
 ["enable"] = true,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
 },
-[63050] = {
-["enable"] = false,
+[70879] = {
+["enable"] = true,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
 },
@@ -17178,12 +17170,17 @@ nil,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
 },
-[28796] = {
+[63050] = {
+["enable"] = false,
+["priority"] = 0,
+["stackThreshold"] = 0,
+},
+[63568] = {
 ["enable"] = true,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
 },
-[69410] = {
+[28796] = {
 ["enable"] = true,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
@@ -17203,11 +17200,16 @@ nil,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
 },
-[28832] = {
-["enable"] = false,
+[69410] = {
+["enable"] = true,
+["priority"] = 0,
+["stackThreshold"] = 0,
 },
 [27808] = {
 ["priority"] = 99,
+},
+[28832] = {
+["enable"] = false,
 },
 [69649] = {
 ["enable"] = true,
@@ -17219,13 +17221,16 @@ nil,
 ["priority"] = 50,
 ["stackThreshold"] = 0,
 },
-[70877] = {
-["enable"] = true,
-["priority"] = 0,
-["stackThreshold"] = 0,
+[55807] = {
+["enable"] = false,
 },
 [70352] = {
 ["enable"] = false,
+["priority"] = 0,
+["stackThreshold"] = 0,
+},
+[70877] = {
+["enable"] = true,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
 },
@@ -17240,11 +17245,6 @@ nil,
 ["stackThreshold"] = 0,
 },
 [66320] = {
-["enable"] = true,
-["priority"] = 0,
-["stackThreshold"] = 0,
-},
-[54772] = {
 ["enable"] = true,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
@@ -17269,9 +17269,9 @@ nil,
 ["priority"] = 99,
 ["stackThreshold"] = 0,
 },
-[55593] = {
-["enable"] = false,
-["priority"] = 0,
+[72451] = {
+["enable"] = true,
+["priority"] = 99,
 ["stackThreshold"] = 0,
 },
 [65102] = {
@@ -17279,8 +17279,8 @@ nil,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
 },
-[66197] = {
-["enable"] = true,
+[55593] = {
+["enable"] = false,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
 },
@@ -17289,7 +17289,7 @@ nil,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
 },
-[39647] = {
+[55318] = {
 ["enable"] = true,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
@@ -17304,19 +17304,24 @@ nil,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
 },
-[28969] = {
+[28785] = {
 ["enable"] = true,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
 },
-[55318] = {
+[69789] = {
 ["enable"] = true,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
 },
-[66770] = {
+[65748] = {
 ["enable"] = true,
 ["priority"] = 0,
+["stackThreshold"] = 0,
+},
+[70911] = {
+["enable"] = true,
+["priority"] = 60,
 ["stackThreshold"] = 0,
 },
 [60072] = {
@@ -17329,12 +17334,7 @@ nil,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
 },
-[70911] = {
-["enable"] = true,
-["priority"] = 60,
-["stackThreshold"] = 0,
-},
-[28786] = {
+[60899] = {
 ["enable"] = true,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
@@ -17344,20 +17344,7 @@ nil,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
 },
-[28785] = {
-["enable"] = true,
-["priority"] = 0,
-["stackThreshold"] = 0,
-},
-[72451] = {
-["enable"] = true,
-["priority"] = 99,
-["stackThreshold"] = 0,
-},
-[55665] = {
-["priority"] = 99,
-},
-[64233] = {
+[71127] = {
 ["enable"] = true,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
@@ -17367,12 +17354,25 @@ nil,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
 },
-[69789] = {
+[66197] = {
 ["enable"] = true,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
 },
-[70879] = {
+[55665] = {
+["priority"] = 99,
+},
+[28969] = {
+["enable"] = true,
+["priority"] = 0,
+["stackThreshold"] = 0,
+},
+[64233] = {
+["enable"] = true,
+["priority"] = 0,
+["stackThreshold"] = 0,
+},
+[39647] = {
 ["enable"] = true,
 ["priority"] = 0,
 ["stackThreshold"] = 0,
@@ -18580,6 +18580,9 @@ true,
 [18] = {
 [4] = true,
 },
+[22] = {
+[4] = true,
+},
 [38] = {
 [4] = true,
 },
@@ -18588,9 +18591,6 @@ nil,
 nil,
 nil,
 true,
-},
-[22] = {
-[4] = true,
 },
 [44] = {
 [4] = true,
@@ -18876,10 +18876,10 @@ ElvPrivateDB = {
 },
 },
 ["美团王兴 - 时光IV"] = {
-["install_complete"] = 13.87,
 ["bags"] = {
 ["enable"] = false,
 },
+["install_complete"] = 13.87,
 },
 ["爱雅法拉 - 帕奇维克"] = {
 ["general"] = {

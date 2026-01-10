@@ -49,7 +49,7 @@ function BusinessInfo.AutoSellBuyOptions()
 			PIG_OptionsUI.RLUI:Show();
 		end
 	end);
-	AutoSellBuyF.AutoSellBuy.CZ = Create.PIGButton(AutoSellBuyF.AutoSellBuy,{"LEFT",AutoSellBuyF.AutoSellBuy.QKBut,"RIGHT",260,0},{60,22},"重置");  
+	AutoSellBuyF.AutoSellBuy.CZ = Create.PIGButton(AutoSellBuyF.AutoSellBuy,{"LEFT",AutoSellBuyF.AutoSellBuy.QKBut,"RIGHT",260,0},{60,22},RESET);  
 	AutoSellBuyF.AutoSellBuy.CZ:SetScript("OnClick", function (self,button)
 		StaticPopup_Show ("AUTOSELLBUY_CZQIANGKONGINFO");
 	end);

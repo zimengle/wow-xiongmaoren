@@ -627,7 +627,7 @@ BG.Init(function()
                     BG.SetFBCD(nil, nil, true)
                 end
             elseif button == "RightButton" then
-                ns.InterfaceOptionsFrame_OpenToCategory("|cff00BFFFBiaoGe|r")
+                ns.InterfaceOptionsFrame_OpenToCategory(BG.optionsName )
                 BG.MainFrame:Hide()
             end
             BG.PlaySound(1)

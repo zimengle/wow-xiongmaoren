@@ -1,3 +1,27 @@
 
 MEETINGHORN_DB_CHARACTER_MEMBERS = {
+[62869150] = {
+["会飞的雪碧-时光IV"] = "SHAMAN",
+["leader"] = "Giannaa-时光IV",
+["筱猫猫-时光IV"] = "DRUID",
+["休斯顿火锅-时光IV"] = "DEATHKNIGHT",
+["剑丶圣-时光IV"] = "WARRIOR",
+["清谷纳兰-时光IV"] = "HUNTER",
+["讀书人-时光IV"] = "HUNTER",
+["布鲁氏杆菌-时光IV"] = "DEATHKNIGHT",
+["呆呆的小书包-时光IV"] = "SHAMAN",
+["亂槌凨嘚髪虱-时光IV"] = "MAGE",
+["念寒风-时光IV"] = "PALADIN",
+["兄弟们先摸-时光IV"] = "WARLOCK",
+["福宝児-时光IV"] = "MAGE",
+["Giannaa-时光IV"] = "PALADIN",
+["老年人手速慢-时光IV"] = "PRIEST",
+["小德法-时光IV"] = "DRUID",
+["你的胡须真卷-时光IV"] = "WARRIOR",
+["月夜寒流苏摆-时光IV"] = "DEATHKNIGHT",
+["哪个萨马斯-时光IV"] = "PRIEST",
+["暗影加鲁鲁-时光IV"] = "DRUID",
+["双子座丶莫名-时光IV"] = "SHAMAN",
+["娶之不进-时光IV"] = "PALADIN",
+},
 }

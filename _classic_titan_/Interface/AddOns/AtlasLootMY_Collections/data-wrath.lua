@@ -70,51 +70,51 @@ local _RED = "|cffcc6666%s|r"
 local PURPLE = "|cff9900ff%s|r"
 --local WHIT = "|cffffffff%s|r"
 
-data["DalaranVendor"] = {
-	name = format(AL["'%s' Vendor"], C_Map.GetAreaInfo(4395)),
-	ContentType = VENDOR_CONTENT,
-	TableType = NORMAL_ITTYPE,
-	gameVersion = AtlasLoot.WRATH_VERSION_NUM,
-	items = {
-		{
-			name = ALIL["Finger - /w Exalted Gold Discount"],
-			[NORMAL_DIFF] = {
-				{ 1, "f1090rep8" },
-				-- caster
-				{ 2, 40585}, 		  --Signet of the Kirin Tor
-				{ 3, 45691, 40585},   --Inscribed Signet of the Kirin Tor
-				{ 4, 48957, 45691},   --Etched Signet of the Kirin Tor
-				{ 5, 51557, 48954},   --Runed Signet of the Kirin Tor
-				-- healer
-				{ 10, 44934 }, 		  --Loop of the Kirin Tor
-				{ 11, 45689, 44934 }, --Inscribed Loop of the Kirin Tor
-				{ 12, 48955, 45689 }, --Etched Loop of the Kirin Tor
-				{ 13, 51558, 48955 }, --Runed Loop of the Kirin Tor
-				-- agi
-				{ 17, 40586 }, 		  --Band of the Kirin Tor
-				{ 18, 45688, 40586 }, --Inscribed Band of the Kirin Tor
-				{ 19, 48954, 45688 }, --Etched Band of the Kirin Tor
-				{ 20, 51560, 48957 }, --Runed Band of the Kirin Tor
-				-- str
-				{ 25, 44935 }, 		  --Ring of the Kirin Tor
-				{ 26, 45690, 44935 }, --Inscribed Ring of the Kirin Tor
-				{ 27, 48956, 45690 }, --Etched Ring of the Kirin Tor
-				{ 28, 51559, 48956 }, --Runed Ring of the Kirin Tor
-			},
-		},
-		{
-			name = ALIL["Gems"],
-			[NORMAL_DIFF] = {
-				{ 1, 36919 }, -- Cardinal Ruby
-				{ 2, 36922 }, -- King's Amber
-				{ 3, 36925 }, -- Majestic Zircon
-				{ 4, 36931 }, -- Ametrine
-				{ 5, 36928 }, -- Dreadstone
-				{ 6, 36934 }, -- Eye of Zul
-			},
-		},
-	}
-}
+-- data["DalaranVendor"] = {
+-- 	name = format(AL["'%s' Vendor"], C_Map.GetAreaInfo(4395)),
+-- 	ContentType = VENDOR_CONTENT,
+-- 	TableType = NORMAL_ITTYPE,
+-- 	gameVersion = AtlasLoot.WRATH_VERSION_NUM,
+-- 	items = {
+-- 		{
+-- 			name = ALIL["Finger - /w Exalted Gold Discount"],
+-- 			[NORMAL_DIFF] = {
+-- 				{ 1, "f1090rep8" },
+-- 				-- caster
+-- 				{ 2, 40585}, 		  --Signet of the Kirin Tor
+-- 				{ 3, 45691, 40585},   --Inscribed Signet of the Kirin Tor
+-- 				{ 4, 48957, 45691},   --Etched Signet of the Kirin Tor
+-- 				{ 5, 51557, 48954},   --Runed Signet of the Kirin Tor
+-- 				-- healer
+-- 				{ 10, 44934 }, 		  --Loop of the Kirin Tor
+-- 				{ 11, 45689, 44934 }, --Inscribed Loop of the Kirin Tor
+-- 				{ 12, 48955, 45689 }, --Etched Loop of the Kirin Tor
+-- 				{ 13, 51558, 48955 }, --Runed Loop of the Kirin Tor
+-- 				-- agi
+-- 				{ 17, 40586 }, 		  --Band of the Kirin Tor
+-- 				{ 18, 45688, 40586 }, --Inscribed Band of the Kirin Tor
+-- 				{ 19, 48954, 45688 }, --Etched Band of the Kirin Tor
+-- 				{ 20, 51560, 48957 }, --Runed Band of the Kirin Tor
+-- 				-- str
+-- 				{ 25, 44935 }, 		  --Ring of the Kirin Tor
+-- 				{ 26, 45690, 44935 }, --Inscribed Ring of the Kirin Tor
+-- 				{ 27, 48956, 45690 }, --Etched Ring of the Kirin Tor
+-- 				{ 28, 51559, 48956 }, --Runed Ring of the Kirin Tor
+-- 			},
+-- 		},
+-- 		{
+-- 			name = ALIL["Gems"],
+-- 			[NORMAL_DIFF] = {
+-- 				{ 1, 36919 }, -- Cardinal Ruby
+-- 				{ 2, 36922 }, -- King's Amber
+-- 				{ 3, 36925 }, -- Majestic Zircon
+-- 				{ 4, 36931 }, -- Ametrine
+-- 				{ 5, 36928 }, -- Dreadstone
+-- 				{ 6, 36934 }, -- Eye of Zul
+-- 			},
+-- 		},
+-- 	}
+-- }
 
 data["CookingVendorWrath"] = {
 	name = format(AL["'%s' Vendor"], ALIL["Cooking"]),
@@ -183,6 +183,33 @@ data["EmblemofHeroism"] = {
 				{ 20, 40688 }, -- Verdungo's Barbarian Cord
 				{ 21, 40689 }, -- Waistguard of Living Iron
 			},
+			[P2_DIFF] = {
+				{ 1, 40741 }, -- Cuffs of the Shadow Ascendant
+				{ 2, 40740 }, -- Wraps of the Astral Traveler
+				{ 16, 40751 }, -- Slippers of the Holy Light
+				{ 17, 40750 }, -- Xintor's Expeditionary Boots
+
+				{ 4, 40739 }, -- Bands of the Great Tree
+				{ 5, 40738 }, -- Wristwraps of the Cutthroat
+				{ 19, 40748 }, -- Boots of Captain Ellis
+				{ 20, 40749 }, -- Rainey's Chewed Boots
+
+				{ 7, 40736 }, -- Armguard of the Tower Archer
+				{ 8, 40737 }, -- Pigmented Clan Bindings
+				{ 22, 40746 }, -- Pack-Ice Striders
+				{ 23, 40747 }, -- Treads of Coastal Wandering
+
+				{ 10, 40734 }, -- Bracers of Dalaran's Parapets
+				{ 11, 40733 }, -- Wristbands of the Sentinel Huntress
+				{ 12, 40735 }, -- Zartson's Jungle Vambraces
+				{ 25, 40742 }, -- Bladed Steelboots
+				{ 26, 40743 }, -- Kyzoc's Ground Stompers
+				{ 27, 40745 }, -- Sabatons of Rapid Recovery
+				{ 29, 40724 }, -- Cloak of Kea Feathers
+				{ 30, 40723 }, -- Disguise of the Kumiho
+				{ 14, 40722 }, -- Platinum Mesh Cloak
+				{ 15, 40721 }, -- Hammerhead Sharkskin Cloak
+			},
 		},
 		{
 			name = ALIL["Weapon"],
@@ -214,6 +241,30 @@ data["EmblemofHeroism"] = {
 				{ 2, 40680 }, -- Encircling Burnished Gold Chains
 				{ 3, 40681 }, -- Lattice Choker of Light
 				{ 4, 40678 }, -- Pendant of the Outcast Hero
+			},
+		},
+		
+		{
+			name = ALIL["Finger"],
+			[P1_DIFF] ={
+				{ 1, "f1090rep8" },
+				-- caster
+				{ 2, 40585}, 		  --Signet of the Kirin Tor
+				-- healer
+				{ 3, 44934 }, 		  --Loop of the Kirin Tor
+				
+				-- agi
+				{ 4, 40586 }, 		  --Band of the Kirin Tor
+				
+				-- str
+				{ 5, 44935 }, 		  --Ring of the Kirin Tor
+			
+			},
+			[P2_DIFF] = {
+				{ 1, 40719 }, -- Band of Channeled Magic
+				{ 2, 40720 }, -- Renewal of Life
+				{ 3, 40717 }, -- Ring of Invincibility
+				{ 4, 40718 }, -- Signet of the Impregnable Fortress
 			},
 		},
 		{
@@ -336,6 +387,12 @@ data["EmblemofHeroism"] = {
 
 				-- { 22, 51573 }, -- Titan-Forged Shoulderpads of Domination
 				-- { 23, 51572 }, -- Titan-Forged Shoulderpads of Salvation
+			},
+			[P2_DIFF]={
+				{ 1, 46065 }, -- Titan-Forged Raiment of Dominance
+				{ 2, 46079 }, -- Titan-Forged Cord of Dominance
+				{ 4, 46066 }, -- Titan-Forged Raiment of Salvation
+				{ 5, 46080 }, -- Titan-Forged Cord of Salvation
 			}
 		},
 		{ -- LakeWintergrasp3 / 1386
@@ -366,6 +423,17 @@ data["EmblemofHeroism"] = {
 				-- { 26, 51574 }, -- Titan-Forged Leather Spaulders of Dominance
 				-- { 27, 51575 }, -- Titan-Forged Leather Spaulders of Salvation
 				-- { 28, 51576 }, -- Titan-Forged Leather Spaulders of Triumph
+			},
+			[P2_DIFF] = {
+				{ 1, 46064 }, -- Titan-Forged Leather Chestguard of Dominance
+				{ 2, 46076 }, -- Titan-Forged Belt of Dominance
+				
+				{ 4, 46063 }, -- Titan-Forged Leather Chestguard of Salvation
+				{ 5, 46077 }, -- Titan-Forged Belt of Salvation
+				
+				{ 7, 46062 }, -- Titan-Forged Leather Tunic of Triumph
+				{ 8, 46078 }, -- Titan-Forged Belt of Triumph
+
 			}
 		},
 		{ -- LakeWintergrasp4 / 1387
@@ -396,6 +464,14 @@ data["EmblemofHeroism"] = {
 				-- { 26, 51578 }, -- Titan-Forged Shoulders of Dominance
 				-- { 27, 51579 }, -- Titan-Forged Shoulders of Salvation
 				-- { 28, 51577 }, -- Titan-Forged Shoulders of Triumph
+			},
+			[P2_DIFF] = {
+				{ 1, 46061 }, -- Titan-Forged Mail Armor of Domination
+				{ 2, 46073 }, -- Titan-Forged Waistguard of Dominance
+				{ 4, 46060 }, -- Titan-Forged Ringmail of Salvation
+				{ 5, 46074 }, -- Titan-Forged Waistguard of Salvation
+				{ 7, 46059 }, -- Titan-Forged Chain Armor of Triumph
+				{ 8, 46075 }, -- Titan-Forged Waistguard of Triumph
 			}
 		},
 		{ -- LakeWintergrasp5 / 1388
@@ -419,6 +495,13 @@ data["EmblemofHeroism"] = {
 
 				-- { 23, 51581 }, -- Titan-Forged Shoulderplates of Salvation
 				-- { 24, 51580 }, -- Titan-Forged Plate Shoulderplates of Triumph
+			},
+			[P2_DIFF] = {
+				{ 1, 46057 }, -- Titan-Forged Chestguard of Salvation
+				{ 2, 46071 }, -- Titan-Forged Girdle of Salvation
+				{ 4, 46058 }, -- Titan-Forged Breastplate of Triumph
+				{ 5, 46072 }, -- Titan-Forged Girdle of Triumph
+
 			}
 		},
 		{ -- LakeWintergrasp5 / 1388
@@ -437,6 +520,17 @@ data["EmblemofHeroism"] = {
 
 				-- { 23, 51581 }, -- Titan-Forged Shoulderplates of Salvation
 				-- { 24, 51580 }, -- Titan-Forged Plate Shoulderplates of Triumph
+			},
+			[P2_DIFF] = {
+				{ 1, 46083 }, -- Titan-Forged Rune of Accuracy
+				{ 2, 46085 }, -- Titan-Forged Rune of Alacrity
+				{ 3, 46081 }, -- Titan-Forged Rune of Audacity
+				{ 4, 46084 }, -- Titan-Forged Rune of Cruelty
+				{ 5, 46082 }, -- Titan-Forged Rune of Determination
+
+				{ 16, 46086 }, -- Platinum Disks of Battle
+				{ 17, 46088 }, -- Platinum Disks of Swiftness
+				{ 18, 46087 }, -- Platinum Disks of Sorcery
 			}
 		},
 		{	-- Gems
@@ -486,44 +580,44 @@ data["EmblemofHeroism"] = {
 			
 		},
 		 {
-    name = AL["Level Boost - Accessories"],
-    ExtraList = true,
-    [P1_DIFF] = {{1, 209663}, {2, 209664}, {3, 209662}, {4, 209665}, {5, 210135}, {6, 209556}, {7, 209557}, {8, 209558},
-                 {9, 209695}, {10, 209697}, {11, 209696}, {12, 209780}}
-}, {
-    name = AL["Level Boost - Cloth"],
-    ExtraList = true,
-    [P1_DIFF] = {{1, 209606}, {2, 209600}, {3, 209599}, {4, 209603}, {5, 209602}, {6, 209656}, {7, 209637}, {8, 209532},
-                 {9, 209650}, {10, 209589}, {11, 209644}, {12, 209631}}
-}, {
-    name = AL["Level Boost - Leather"],
-    ExtraList = true,
-    [P1_DIFF] = {{1, 209627}, {2, 209607}, {3, 209658}, {4, 209657}, {5, 209639}, {6, 209638}, {7, 209530}, {8, 209529},
-                 {9, 209652}, {10, 209651}, {11, 209584}, {12, 209587}, {13, 209645}, {14, 209646}, {15, 209632},
-                 {16, 209633}}
-}, {
-    name = AL["Level Boost - Mail"],
-    ExtraList = true,
-    [P1_DIFF] = {{1, 209628}, {2, 209629}, {3, 209660}, {4, 209659}, {5, 209641}, {6, 209640}, {7, 209533}, {8, 209531},
-                 {9, 209653}, {10, 209654}, {11, 209585}, {12, 209583}, {13, 209648}, {14, 209647}, {15, 209634},
-                 {16, 209635}}
-}, {
-    name = AL["Level Boost - Plate"],
-    ExtraList = true,
-    [P1_DIFF] = {{1, 209518}, {2, 209630}, {3, 209519}, {4, 209661}, {5, 209642}, {6, 209517}, {7, 209515}, {8, 209528},
-                 {9, 209655}, {10, 209522}, {11, 209586}, {12, 209588}, {13, 209649}, {14, 209521}, {15, 209636},
-                 {16, 209516}}
-}, {
-    name = AL["Level Boost - Misc"],
-    ExtraList = true,
-    [P1_DIFF] = {{1, 209808}, {2, 209815}, {3, 209812}, {4, 209826}, {5, 209810}, {6, 209827}, {7, 209814}, {8, 209829},
-                 {9, 209809}, {10, 209811}, {11, 209807}, {12, 209813}, {13, 209787}, {14, 209786}}
-}, {
-    name = AL["Level Boost - Weapon"],
-    ExtraList = true,
-    [P1_DIFF] = {{1, 209789}, {2, 209794}, {3, 209790}, {4, 209785}, {5, 209782}, {6, 209784}, {7, 209792}, {8, 209791},
-                 {9, 209793}, {10, 209801}, {11, 209783}, {12, 209796}, {13, 209803}, {14, 209804}}
-}
+				name = AL["Level Boost - Accessories"],
+				ExtraList = true,
+				[P1_DIFF] = {{1, 209663}, {2, 209664}, {3, 209662}, {4, 209665}, {5, 210135}, {6, 209556}, {7, 209557}, {8, 209558},
+							{9, 209695}, {10, 209697}, {11, 209696}, {12, 209780}}
+			}, {
+				name = AL["Level Boost - Cloth"],
+				ExtraList = true,
+				[P1_DIFF] = {{1, 209606}, {2, 209600}, {3, 209599}, {4, 209603}, {5, 209602}, {6, 209656}, {7, 209637}, {8, 209532},
+							{9, 209650}, {10, 209589}, {11, 209644}, {12, 209631}}
+			}, {
+				name = AL["Level Boost - Leather"],
+				ExtraList = true,
+				[P1_DIFF] = {{1, 209627}, {2, 209607}, {3, 209658}, {4, 209657}, {5, 209639}, {6, 209638}, {7, 209530}, {8, 209529},
+							{9, 209652}, {10, 209651}, {11, 209584}, {12, 209587}, {13, 209645}, {14, 209646}, {15, 209632},
+							{16, 209633}}
+			}, {
+				name = AL["Level Boost - Mail"],
+				ExtraList = true,
+				[P1_DIFF] = {{1, 209628}, {2, 209629}, {3, 209660}, {4, 209659}, {5, 209641}, {6, 209640}, {7, 209533}, {8, 209531},
+							{9, 209653}, {10, 209654}, {11, 209585}, {12, 209583}, {13, 209648}, {14, 209647}, {15, 209634},
+							{16, 209635}}
+			}, {
+				name = AL["Level Boost - Plate"],
+				ExtraList = true,
+				[P1_DIFF] = {{1, 209518}, {2, 209630}, {3, 209519}, {4, 209661}, {5, 209642}, {6, 209517}, {7, 209515}, {8, 209528},
+							{9, 209655}, {10, 209522}, {11, 209586}, {12, 209588}, {13, 209649}, {14, 209521}, {15, 209636},
+							{16, 209516}}
+			}, {
+				name = AL["Level Boost - Misc"],
+				ExtraList = true,
+				[P1_DIFF] = {{1, 209808}, {2, 209815}, {3, 209812}, {4, 209826}, {5, 209810}, {6, 209827}, {7, 209814}, {8, 209829},
+							{9, 209809}, {10, 209811}, {11, 209807}, {12, 209813}, {13, 209787}, {14, 209786}}
+			}, {
+				name = AL["Level Boost - Weapon"],
+				ExtraList = true,
+				[P1_DIFF] = {{1, 209789}, {2, 209794}, {3, 209790}, {4, 209785}, {5, 209782}, {6, 209784}, {7, 209792}, {8, 209791},
+							{9, 209793}, {10, 209801}, {11, 209783}, {12, 209796}, {13, 209803}, {14, 209804}}
+			}
 
 		
 			

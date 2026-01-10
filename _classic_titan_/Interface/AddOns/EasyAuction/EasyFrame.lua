@@ -6,6 +6,21 @@ EasyAuctionDB.undercut = EasyAuctionDB.undercut or 1               -- 压价金�
 EasyAuctionDB.stackCount = EasyAuctionDB.stackCount or 20          -- 默认堆叠数
 EasyAuctionDB.auctionDuration = EasyAuctionDB.auctionDuration or 1 -- 默认12小时
 EasyAuctionDB.showSections = EasyAuctionDB.showSections or { items = true, price = true, myauct = true }
+EasyAuctionDB.buyRiskLimit = EasyAuctionDB.buyRiskLimit or 500     -- 购买风控价格500金
+EasyAuctionDB.uiScale = EasyAuctionDB.uiScale or 1.0
+EasyAuctionDB.locked = EasyAuctionDB.locked ~= true                -- 默认锁定
+EasyAuctionDB.customPos = EasyAuctionDB.customPos or nil
+EasyAuctionDB.autoFillLastAuction = EasyAuctionDB.autoFillLastAuction or false
+EasyAuction_SessionBuyStats = {}
+EasyAuction_NeedAutoFillFromRecent = false
+local LastAuctionSold = {
+    name = nil,
+    itemID = nil,
+    unitPrice = nil,
+}
+
+local LastBuyItemID, LastBuyName, LastBuyCount, LastBuyUnitPrice = nil, nil, nil, nil
+
 if EasyAuctionDB.SellPanel == nil then
     EasyAuctionDB.SellPanel = true
 end
@@ -14,7 +29,7 @@ local function GetCopper(g, s, c) return (g or 0) * 10000 + (s or 0) * 100 + (c 
 local function SplitCopper(c)
     return math.floor(c / 10000), math.floor((c % 10000) / 100), c % 100
 end
-
+local version = GetAddOnMetadata(addonName, "Version") or "?"
 
 local ITEM_QUALITY_COLORS = {
     [0] = { r = 0.62, g = 0.62, b = 0.62 },
@@ -62,7 +77,7 @@ end
 
 local function FixItemButtonIconSize(btn, size)
     size = size or 40
-    local icon = _G[btn:GetName().."IconTexture"]
+    local icon = _G[btn:GetName() .. "IconTexture"]
     if icon then
         icon:SetSize(size, size)
         icon:ClearAllPoints()
@@ -70,25 +85,58 @@ local function FixItemButtonIconSize(btn, size)
     end
 end
 
+local function ApplyEasyAuctionUIScale()
+    local scale = EasyAuctionDB.uiScale or 1.0
+    if AuctionBar and AuctionBar.AuctionFrame then
+        AuctionBar.AuctionFrame:SetScale(scale)
+    end
+    if EasyAuction_HelpFrame then
+        EasyAuction_HelpFrame:SetScale(scale)
+    end
+    if EasyAuctionConfigFrame then
+        EasyAuctionConfigFrame:SetScale(scale)
+    end
+    if EasyAuctionDBFrame then
+        EasyAuctionDBFrame:SetScale(scale)
+    end
+end
+
 local function CreateBaseFrame(name, parent, width, height)
-    local f = CreateFrame("Frame", name or nil, parent or UIParent, BackdropTemplateMixin and "BackdropTemplate")
+    local f = CreateFrame("Frame", name or nil, parent or UIParent, "BackdropTemplate")
     f:SetSize(width or 305, height or 350)
     f:SetClampedToScreen(true)
     f:SetFrameStrata("DIALOG")
     f:SetBackdrop({
-        bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
-        --edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
+        bgFile = "Interface\\ChatFrame\\ChatFrameBackground",
+        edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
         tile = true,
         tileSize = 32,
-        edgeSize = 32,
-        insets = { left = 1, right = 1, top = 1, bottom = 1 }
+        edgeSize = 18,
+        insets = { left = 6, right = 6, top = 6, bottom = 6 }
     })
-    f:SetBackdropColor(0, 0, 0, 0.95)
+    f:SetBackdropColor(0.10, 0.10, 0.13, 0.97)
+    f:SetBackdropBorderColor(0.7, 0.6, 1, 1)
     f:SetMovable(true)
     f:SetToplevel(true)
     f:RegisterForDrag("LeftButton")
-    f:SetScript("OnDragStart", f.StartMoving)
-    f:SetScript("OnDragStop", f.StopMovingOrSizing)
+    f:SetScript("OnDragStart", function(self)
+        if not EasyAuctionDB.locked then
+            self:StartMoving()
+        end
+    end)
+    f:SetScript("OnDragStop", function(self)
+        self:StopMovingOrSizing()
+        if not EasyAuctionDB.locked then
+            local point, relativeTo, relativePoint, x, y = self:GetPoint()
+            EasyAuctionDB.customPos = {
+                point = point,
+                relativeTo = relativeTo and relativeTo:GetName() or "UIParent",
+                relativePoint = relativePoint,
+                x = x,
+                y = y
+            }
+        end
+    end)
     return f
 end
 
@@ -96,7 +144,7 @@ local function CreateNumericBox(parent, width)
     local edit = CreateFrame("EditBox", nil, parent)
     edit:SetAutoFocus(false)
     edit:SetNumeric(true)
-    edit:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 10, "OUTLINE")
+    edit:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 12, "OUTLINE")
     edit:SetSize(width or 40, 20)
 
     edit.bg = edit:CreateTexture(nil, "BACKGROUND")
@@ -154,21 +202,21 @@ local function UpdateStackPrice(frame)
         return
     end
 
-    local unitGold   = frame.UnitGold:GetNumber()
-    local unitSilver = frame.UnitSilver:GetNumber()
-    local unitCopper = frame.UnitCopper:GetNumber()
-    local count      = frame.StackCount:GetNumber()
-    local unit       = (unitGold * 10000 + unitSilver * 100 + unitCopper)
-    local stackTotal = unit * count
-    local undercut = EasyAuctionDB.undercut or 1
-    local undercutMode = EasyAuctionDB.undercutMode or "total"
-    local enableUndercut = EasyAuctionDB.enableUndercut ~= false
+    local unitGold           = frame.UnitGold:GetNumber()
+    local unitSilver         = frame.UnitSilver:GetNumber()
+    local unitCopper         = frame.UnitCopper:GetNumber()
+    local count              = frame.StackCount:GetNumber()
+    local unit               = (unitGold * 10000 + unitSilver * 100 + unitCopper)
+    local stackTotal         = unit * count
+    local undercut           = EasyAuctionDB.undercut or 1
+    local undercutMode       = EasyAuctionDB.undercutMode or "total"
+    local enableUndercut     = EasyAuctionDB.enableUndercut ~= false
 
     local undercutStackTotal = stackTotal
     if enableUndercut then
         if undercutMode == "total" then
             undercutStackTotal = math.max(stackTotal - undercut, 1)
-        else 
+        else
             local newUnit = math.max(unit - undercut, 1)
             undercutStackTotal = newUnit * count
         end
@@ -181,7 +229,7 @@ local function UpdateStackPrice(frame)
 end
 
 function ScanBagAuctionableItems()
-    local items = {}
+    local itemsByID = {}
     for bag = 0, NUM_BAG_SLOTS do
         for slot = 1, C_Container.GetContainerNumSlots(bag) do
             local info = C_Container.GetContainerItemInfo(bag, slot)
@@ -195,20 +243,28 @@ function ScanBagAuctionableItems()
                     auctionable = not C_Item.IsBound(location)
                 end
                 if auctionable then
-                    table.insert(items, {
-                        bag = bag,
-                        slot = slot,
-                        itemID = info.itemID,
-                        icon = info.iconFileID,
-                        count = info.stackCount,
-                        quality = quality,
-                        classID = classID,
-                        itemName = itemName,
-                        itemLink = info.hyperlink,
-                    })
+                    if not itemsByID[info.itemID] then
+                        itemsByID[info.itemID] = {
+                            bag = bag,
+                            slot = slot,
+                            itemID = info.itemID,
+                            icon = info.iconFileID,
+                            count = info.stackCount,
+                            quality = quality,
+                            classID = classID,
+                            itemName = itemName,
+                            itemLink = info.hyperlink,
+                        }
+                    else
+                        itemsByID[info.itemID].count = itemsByID[info.itemID].count + info.stackCount
+                    end
                 end
             end
         end
+    end
+    local items = {}
+    for _, v in pairs(itemsByID) do
+        table.insert(items, v)
     end
     return items
 end
@@ -216,7 +272,7 @@ end
 local function ShowBorder(frame, color)
     local t = frame:CreateTexture(nil, "BACKGROUND")
     t:SetAllPoints()
-    t:SetColorTexture(unpack(color or { 0, 0, 0, 0.1 }))
+    t:SetColorTexture(unpack(color or { 0, 0, 0, 0.8 }))
 end
 
 local function SetupAutoBlurForEditBox(editBox, onSave)
@@ -258,20 +314,23 @@ end
 function CreateEasyAuctionConfigFrame(parent)
     if EasyAuctionConfigFrame then return end
     local width, height = 340, 320
-    local frame = CreateFrame("Frame", "EasyAuctionConfigFrame", UIParent, BackdropTemplateMixin and "BackdropTemplate")
+    local frame = CreateFrame("Frame", "EasyAuctionConfigFrame", UIParent, "BackdropTemplate")
     frame:SetSize(width, height)
-    frame:SetPoint("CENTER")
+    frame:SetPoint("TOPLEFT", AuctionHelper, "TOPRIGHT", 2, 0)
     frame:SetFrameStrata("DIALOG")
     frame:SetMovable(true)
     frame:EnableMouse(true)
     frame:SetToplevel(true)
     frame:SetBackdrop({
-        bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
-        --edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
-        tile = true, tileSize = 32, edgeSize = 32,
-        insets = { left = 8, right = 8, top = 8, bottom = 8 }
+        bgFile = "Interface\\ChatFrame\\ChatFrameBackground",
+        edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
+        tile = true,
+        tileSize = 32,
+        edgeSize = 18,
+        insets = { left = 6, right = 6, top = 6, bottom = 6 }
     })
-    frame:SetBackdropColor(0, 0, 0, 0.95)
+    frame:SetBackdropColor(0.10, 0.10, 0.13, 0.97)
+    frame:SetBackdropBorderColor(0.7, 0.6, 1, 1)
     frame:SetScript("OnMouseDown", function(self, btn)
         if btn == "LeftButton" then self:StartMoving() end
     end)
@@ -285,7 +344,7 @@ function CreateEasyAuctionConfigFrame(parent)
     closeBtn:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -6, -6)
 
     local categoryFrame = CreateFrame("Frame", nil, frame)
-    categoryFrame:SetSize(90, height-40)
+    categoryFrame:SetSize(90, height - 40)
     categoryFrame:SetPoint("TOPLEFT", 12, -36)
     local categories = {
         { key = "addon", text = "插件设置" },
@@ -309,8 +368,8 @@ function CreateEasyAuctionConfigFrame(parent)
 
     for i, info in ipairs(categories) do
         local btn = CreateFrame("Button", nil, categoryFrame)
-        btn:SetSize(categoryFrame:GetWidth()-2, 32)
-        btn:SetPoint("TOPLEFT", 0, -((i-1)*34))
+        btn:SetSize(categoryFrame:GetWidth() - 2, 32)
+        btn:SetPoint("TOPLEFT", 0, -((i - 1) * 34))
         btn.key = info.key
         btn.bg = btn:CreateTexture(nil, "BACKGROUND")
         btn.bg:SetAllPoints()
@@ -324,19 +383,19 @@ function CreateEasyAuctionConfigFrame(parent)
     frame.pages = {}
 
     local pageAuction = CreateFrame("Frame", nil, frame)
-    pageAuction:SetSize(width-80, height-54)
+    pageAuction:SetSize(width - 80, height - 54)
     pageAuction:SetPoint("TOPLEFT", categoryFrame, "TOPRIGHT", 2, 0)
     frame.pages["auction"] = pageAuction
 
     local labelWidth = 90
     local inputStartX = 90
-    local rowHeight = 38
+    local rowHeight = 28
     local startY = -18
 
     local function AddCfgLabel(text, row)
         local l = pageAuction:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-        l:SetFont(l:GetFont(), 10, "")
-        l:SetPoint("TOPRIGHT", pageAuction, "TOPLEFT", labelWidth-5, startY - (row-1)*rowHeight)
+        l:SetFont(l:GetFont(), 14, "")
+        l:SetPoint("TOPRIGHT", pageAuction, "TOPLEFT", labelWidth - 25, startY - (row - 1.5) * rowHeight)
         l:SetJustifyH("RIGHT")
         l:SetWidth(labelWidth)
         l:SetText(text)
@@ -345,12 +404,82 @@ function CreateEasyAuctionConfigFrame(parent)
 
     local function AddCfgEditBox(width, row, dx)
         local box = CreateNumericBox(pageAuction, width)
-        box:SetPoint("TOPLEFT", inputStartX + (dx or 0), startY - (row-1)*rowHeight+1)
-        box:SetJustifyH("CENTER")
+        box:SetPoint("TOPLEFT", inputStartX + (dx or 0) - 20, startY - (row - 1.5) * rowHeight + 1)
+        box:SetJustifyH("RIGHT")
         return box
     end
 
-    local labelDiscount = AddCfgLabel("起拍折扣（％）：", 1)
+    local cbScanAll, cbScanQuick
+    local labelScanMode = AddCfgLabel("扫描模式：", 8)
+    labelScanMode:SetScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:SetText("全局扫描模式", 1, 1, 1)
+        GameTooltip:AddLine("全量扫描：采集所有在售物品记录，精确但慢", 1, .82, 0, 1)
+        GameTooltip:AddLine("快速扫描：每种物品只采集前100条（约2页），更快更轻量", 1, .82, 0, 1)
+        GameTooltip:Show()
+    end)
+    labelScanMode:SetScript("OnLeave", GameTooltip_Hide)
+
+    cbScanAll = CreateFrame("CheckButton", nil, pageAuction, "ChatConfigCheckButtonTemplate")
+    cbScanAll:SetPoint("TOPLEFT", inputStartX - 20, startY - (7 - 0.5) * rowHeight + 4)
+    cbScanAll.Text:SetText("全量扫描")
+    cbScanAll.Text:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 14, "")
+    cbScanAll:SetHitRectInsets(0, -(cbScanAll.Text:GetStringWidth() + 8), 0, 0)
+    cbScanAll:SetChecked(not EasyAuctionDB.scanQuickMode)
+    cbScanAll:SetScript("OnClick", function(self)
+        cbScanAll:SetChecked(true)
+        cbScanQuick:SetChecked(false)
+        EasyAuctionDB.scanQuickMode = false
+        if UpdateScanBtnState then UpdateScanBtnState() end
+    end)
+
+    cbScanQuick = CreateFrame("CheckButton", nil, pageAuction, "ChatConfigCheckButtonTemplate")
+    cbScanQuick:SetPoint("TOPLEFT", cbScanAll, "BOTTOMLEFT", 0, -2)
+    cbScanQuick.Text:SetText("快速扫描（推荐）")
+    cbScanQuick.Text:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 14, "")
+    cbScanQuick:SetHitRectInsets(0, -(cbScanQuick.Text:GetStringWidth() + 8), 0, 0)
+    cbScanQuick:SetChecked(EasyAuctionDB.scanQuickMode)
+    cbScanQuick:SetScript("OnClick", function(self)
+        cbScanAll:SetChecked(false)
+        cbScanQuick:SetChecked(true)
+        EasyAuctionDB.scanQuickMode = true
+        if UpdateScanBtnState then UpdateScanBtnState() end
+    end)
+
+    local quickLimitEdit = CreateFrame("EditBox", nil, pageAuction, "InputBoxTemplate")
+    quickLimitEdit:SetSize(44, 22)
+    quickLimitEdit:SetPoint("TOPLEFT", cbScanQuick, "BOTTOMLEFT", 24, -2)
+    quickLimitEdit:SetAutoFocus(false)
+    quickLimitEdit:SetNumeric(true)
+    quickLimitEdit:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 14, "")
+    quickLimitEdit:SetText(EasyAuctionDB.scanQuickLimit or 100)
+
+    local quickLimitLabel = pageAuction:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+    quickLimitLabel:SetPoint("LEFT", quickLimitEdit, "RIGHT", 4, 0)
+    quickLimitLabel:SetText("采集数")
+
+    local function UpdateQuickLimitEditShown()
+        quickLimitEdit:SetShown(cbScanQuick:GetChecked())
+        quickLimitLabel:SetShown(cbScanQuick:GetChecked())
+    end
+    cbScanAll:HookScript("OnClick", UpdateQuickLimitEditShown)
+    cbScanQuick:HookScript("OnClick", UpdateQuickLimitEditShown)
+    UpdateQuickLimitEditShown()
+
+    quickLimitEdit:SetScript("OnTextChanged", function(self)
+        local v = tonumber(self:GetText()) or 100
+        if v < 10 then v = 10 elseif v > 500 then v = 500 end
+        EasyAuctionDB.scanQuickLimit = v
+    end)
+    quickLimitEdit:SetScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:SetText("快速扫描每种采集条数", 1, 1, 1)
+        GameTooltip:AddLine("每种物品最多采集多少条拍卖数据。\n默认100，建议50~500。", 1, .82, 0, 1)
+        GameTooltip:Show()
+    end)
+    quickLimitEdit:SetScript("OnLeave", GameTooltip_Hide)
+
+    local labelDiscount = AddCfgLabel("起拍折扣：", 1)
     labelDiscount:SetScript("OnEnter", function(self)
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
         GameTooltip:SetText("起拍折扣", 1, 1, 1)
@@ -366,7 +495,7 @@ function CreateEasyAuctionConfigFrame(parent)
         GameTooltip:AddLine("设置起拍价为一口价的百分比。\n如95即起拍价=一口价×0.95", 1, .82, 0, 1)
         GameTooltip:Show()
     end)
-    boxDiscount:SetScript("OnLeave", GameTooltip_Hide)    
+    boxDiscount:SetScript("OnLeave", GameTooltip_Hide)
     SetupAutoBlurForEditBox(boxDiscount, function(self)
         local v = tonumber(self:GetText()) or 95
         if v < 1 then v = 1 elseif v > 100 then v = 100 end
@@ -375,7 +504,7 @@ function CreateEasyAuctionConfigFrame(parent)
         UpdateStackPrice(AuctionBar.AuctionFrame)
     end)
 
-    local labelUndercut = AddCfgLabel("自动压价金额：", 2)
+    local labelUndercut = AddCfgLabel("压价金额：", 2)
     labelUndercut:SetScript("OnEnter", function(self)
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
         GameTooltip:SetText("自动压价", 1, 1, 1)
@@ -383,21 +512,21 @@ function CreateEasyAuctionConfigFrame(parent)
         GameTooltip:Show()
     end)
     labelUndercut:SetScript("OnLeave", GameTooltip_Hide)
-    local boxGold = AddCfgEditBox(32, 2)
+    local boxGold = AddCfgEditBox(40, 2)
     boxGold:SetNumber(math.floor((EasyAuctionDB.undercut or 1) / 10000))
     local iconGold = pageAuction:CreateTexture(nil, "ARTWORK")
     iconGold:SetTexture("Interface\\MoneyFrame\\UI-GoldIcon")
     iconGold:SetSize(12, 12)
     iconGold:SetPoint("LEFT", boxGold, "RIGHT", 1, 0)
 
-    local boxSilver = AddCfgEditBox(24, 2, 45)
-    boxSilver:SetNumber(math.floor(((EasyAuctionDB.undercut or 1)%10000)/100))
+    local boxSilver = AddCfgEditBox(35, 2, 52)
+    boxSilver:SetNumber(math.floor(((EasyAuctionDB.undercut or 1) % 10000) / 100))
     local iconSilver = pageAuction:CreateTexture(nil, "ARTWORK")
     iconSilver:SetTexture("Interface\\MoneyFrame\\UI-SilverIcon")
     iconSilver:SetSize(12, 12)
     iconSilver:SetPoint("LEFT", boxSilver, "RIGHT", 1, 0)
 
-    local boxCopper = AddCfgEditBox(24, 2, 80)
+    local boxCopper = AddCfgEditBox(35, 2, 100)
     boxCopper:SetNumber((EasyAuctionDB.undercut or 1) % 100)
     local iconCopper = pageAuction:CreateTexture(nil, "ARTWORK")
     iconCopper:SetTexture("Interface\\MoneyFrame\\UI-CopperIcon")
@@ -448,9 +577,9 @@ function CreateEasyAuctionConfigFrame(parent)
     end)
     labelDuration:SetScript("OnLeave", GameTooltip_Hide)
     local durationBox = CreateFrame("Frame", nil, pageAuction, "UIDropDownMenuTemplate")
-    durationBox:SetPoint("TOPLEFT", inputStartX, startY - (4-1)*rowHeight+4)
+    durationBox:SetPoint("TOPLEFT", inputStartX - 30, startY - (4 - 1.5) * rowHeight + 4)
     UIDropDownMenu_SetWidth(durationBox, 80)
-    local durations = { {text="12小时", value=1},{text="24小时", value=2},{text="48小时", value=3} }
+    local durations = { { text = "12小时", value = 1 }, { text = "24小时", value = 2 }, { text = "48小时", value = 3 } }
     UIDropDownMenu_Initialize(durationBox, function(self, level)
         for _, v in ipairs(durations) do
             local info = UIDropDownMenu_CreateInfo()
@@ -480,15 +609,15 @@ function CreateEasyAuctionConfigFrame(parent)
     labelUndercutMode:SetScript("OnLeave", GameTooltip_Hide)
 
     local cbUndercutTotal = CreateFrame("CheckButton", nil, pageAuction, "ChatConfigCheckButtonTemplate")
-    cbUndercutTotal:SetPoint("TOPLEFT", inputStartX, startY - (6-1)*rowHeight+4)
+    cbUndercutTotal:SetPoint("TOPLEFT", inputStartX - 20, startY - (6 - 1.5) * rowHeight + 4)
     cbUndercutTotal.Text:SetText("压总价")
-    cbUndercutTotal.Text:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 11, "")
+    cbUndercutTotal.Text:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 14, "")
     cbUndercutTotal:SetChecked(EasyAuctionDB.undercutMode ~= "unit")
     cbUndercutTotal:SetHitRectInsets(0, -(cbUndercutTotal.Text:GetStringWidth() + 8), 0, 0)
     local cbUndercutUnit = CreateFrame("CheckButton", nil, pageAuction, "ChatConfigCheckButtonTemplate")
     cbUndercutUnit:SetPoint("TOPLEFT", cbUndercutTotal, "BOTTOMLEFT", 0, -2)
     cbUndercutUnit.Text:SetText("压单价")
-    cbUndercutUnit.Text:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 11, "")
+    cbUndercutUnit.Text:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 14, "")
     cbUndercutUnit:SetChecked(EasyAuctionDB.undercutMode == "unit")
     cbUndercutUnit:SetHitRectInsets(0, -(cbUndercutUnit.Text:GetStringWidth() + 8), 0, 0)
     cbUndercutTotal:SetScript("OnClick", function(self)
@@ -525,7 +654,7 @@ function CreateEasyAuctionConfigFrame(parent)
     boxScanPerFrame:SetScript("OnLeave", GameTooltip_Hide)
 
     local pageAddon = CreateFrame("Frame", nil, frame)
-    pageAddon:SetSize(width-110, height-54)
+    pageAddon:SetSize(width - 110, height - 54)
     pageAddon:SetPoint("TOPLEFT", categoryFrame, "TOPRIGHT", 5, 0)
     frame.pages["addon"] = pageAddon
 
@@ -533,9 +662,9 @@ function CreateEasyAuctionConfigFrame(parent)
         local cb = CreateFrame("CheckButton", nil, pageAddon, "ChatConfigCheckButtonTemplate")
         cb:SetPoint("TOPLEFT", 10, y)
         cb.Text:SetText(label)
-        cb.Text:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 11, "")
+        cb.Text:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 14, "")
         cb.Text:SetJustifyH("LEFT")
-        cb.Text:SetWidth(120)
+        cb.Text:SetWidth(150)
         cb.tooltip = tooltip
         cb:SetChecked(EasyAuctionDB[key] ~= false)
         cb:SetScript("OnClick", function(self)
@@ -547,10 +676,204 @@ function CreateEasyAuctionConfigFrame(parent)
     end
 
     AddOptionCheck(-10, "鼠标提示", "ShowPrice", "物品鼠标提示总开关")
-    AddOptionCheck(-42, "价格显示", "enablePrice", "是否显示卖店及拍卖价格")
-    AddOptionCheck(-74, "分解显示", "enableDisenchant", "是否显示物品分解价值")
-    AddOptionCheck(-106, "总价/单价显示优先", "showUnitPrice", "开启后：\n鼠标提示优先显示总价，按Shift显示单价\n关闭则优先显示单价，按Shift显示总价")
-    AddOptionCheck(-138, "启用自动压价", "enableUndercut", "开启后，总价/起拍价会自动减去配置的压价金额")
+    AddOptionCheck(-36, "价格显示", "enablePrice", "是否显示卖店价及拍卖价格信息")
+    AddOptionCheck(-62, "卖店价显示", "enableVendor", "是否显示卖店价价格")
+    AddOptionCheck(-88, "分解显示", "enableDisenchant", "是否显示物品分解价值")
+    AddOptionCheck(-114, "总价/单价显示优先", "showUnitPrice", "开启后：\n鼠标提示优先显示总价，按Shift显示单价\n关闭则优先显示单价，按Shift显示总价")
+    AddOptionCheck(-140, "启用自动压价", "enableUndercut", "开启后，总价/起拍价会自动减去配置的压价金额")
+    AddOptionCheck(-166, "连续上架相同物品自动同价", "autoFillLastAuction", "开启后，连续上架相同物品时，会自动填充上一次拍卖的价格\n（开启后，自动压价不生效！）")
+    AddOptionCheck(-192, "在售列表左键复制", "enableAuctionListCopy", "开启后，可在在售列表中左键点击物品名称进行复制")
+    local buyRiskLabel = pageAddon:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    buyRiskLabel:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 14, "")
+    buyRiskLabel:SetPoint("TOPLEFT", -80, -220)
+    buyRiskLabel:SetJustifyH("RIGHT")
+    buyRiskLabel:SetWidth(150)
+    buyRiskLabel:SetText("购买风控：")
+
+    local buyRiskEdit = CreateNumericBox(pageAddon, 50)
+    buyRiskEdit:SetPoint("LEFT", buyRiskLabel, "RIGHT", 10, 0)
+    buyRiskEdit:SetJustifyH("CENTER")
+    buyRiskEdit:SetNumber(EasyAuctionDB.buyRiskLimit or 0)
+
+    local buyRiskGoldIcon = pageAddon:CreateTexture(nil, "ARTWORK")
+    buyRiskGoldIcon:SetTexture("Interface\\MoneyFrame\\UI-GoldIcon")
+    buyRiskGoldIcon:SetSize(12, 12)
+    buyRiskGoldIcon:SetPoint("LEFT", buyRiskEdit, "RIGHT", 2, 0)
+
+    buyRiskEdit:SetScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:SetText("单次购买风控", 1, 1, 1)
+        GameTooltip:AddLine("单次购买超过此金额（单位：金）时将弹窗提示。0为不限制。", 1, .82, 0, 1)
+        GameTooltip:Show()
+    end)
+    buyRiskEdit:SetScript("OnLeave", GameTooltip_Hide)
+
+    SetupAutoBlurForEditBox(buyRiskEdit, function(self)
+        local v = tonumber(self:GetText()) or EasyAuctionDB.buyRiskLimit or 500
+        if v < 0 then v = 0 end
+        EasyAuctionDB.buyRiskLimit = v
+        self:SetNumber(v)
+    end)
+
+    local scaleLabel = pageAddon:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    scaleLabel:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 14, "")
+    scaleLabel:SetPoint("TOPLEFT", -80, -250)
+    scaleLabel:SetJustifyH("RIGHT")
+    scaleLabel:SetWidth(150)
+    scaleLabel:SetText("界面缩放：")
+
+    local scaleMinus = CreateFrame("Button", nil, pageAddon, "UIPanelButtonTemplate")
+    scaleMinus:SetSize(22, 22)
+    scaleMinus:SetText("-")
+    scaleMinus:SetPoint("LEFT", scaleLabel, "RIGHT", 0, 0)
+    scaleMinus:SetScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:SetText("减少缩放(步长1%)", 1, 1, 1)
+        GameTooltip:AddLine("最小值：50%", 1, .82, 0, 1)
+        GameTooltip:Show()
+    end)
+    scaleMinus:SetScript("OnLeave", GameTooltip_Hide)
+
+    local scaleEdit = CreateNumericBox(pageAddon, 38)
+    scaleEdit:SetPoint("LEFT", scaleMinus, "RIGHT", 4, 0)
+    scaleEdit:SetJustifyH("CENTER")
+    scaleEdit:SetNumber(math.floor((EasyAuctionDB.uiScale or 1.0) * 100 + 0.5))
+
+    local scalePlus = CreateFrame("Button", nil, pageAddon, "UIPanelButtonTemplate")
+    scalePlus:SetSize(22, 22)
+    scalePlus:SetText("+")
+    scalePlus:SetPoint("LEFT", scaleEdit, "RIGHT", 4, 0)
+    scalePlus:SetScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:SetText("增加缩放(步长1%)", 1, 1, 1)
+        GameTooltip:AddLine("最大值：200%", 1, .82, 0, 1)
+        GameTooltip:Show()
+    end)
+    scalePlus:SetScript("OnLeave", GameTooltip_Hide)
+
+    local scalePercentLabel = pageAddon:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    scalePercentLabel:SetPoint("LEFT", scalePlus, "RIGHT", 2, 0)
+    scalePercentLabel:SetText("%")
+
+    local function UpdateScaleInput(val)
+        val = math.floor(val + 0.5)
+        if val < 50 then val = 50 elseif val > 200 then val = 200 end
+        if tonumber(scaleEdit:GetText()) ~= val then
+            scaleEdit:SetNumber(val)
+        end
+        EasyAuctionDB.uiScale = val / 100
+        ApplyEasyAuctionUIScale()
+    end
+
+    scaleMinus:SetScript("OnClick", function()
+        local val = tonumber(scaleEdit:GetText()) or 100
+        UpdateScaleInput(val - 1)
+    end)
+
+    scalePlus:SetScript("OnClick", function()
+        local val = tonumber(scaleEdit:GetText()) or 100
+        UpdateScaleInput(val + 1)
+    end)
+
+    SetupAutoBlurForEditBox(scaleEdit, function(self)
+        local v = tonumber(self:GetText()) or 100
+        UpdateScaleInput(v)
+    end)
+
+    scaleEdit:SetScript("OnTextChanged", function(self)
+        local v = tonumber(self:GetText()) or 100
+    end)
+
+    scaleEdit:SetScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:SetText("手动输入缩放百分比", 1, 1, 1)
+        GameTooltip:AddLine("支持50~200，单位为百分比。", 1, .82, 0, 1)
+        GameTooltip:Show()
+    end)
+    scaleEdit:SetScript("OnLeave", GameTooltip_Hide)
+
+    local resetBtn = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
+    resetBtn:SetSize(80, 24)
+    resetBtn:SetText("重置插件")
+    resetBtn:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 14, 14)
+
+    resetBtn:SetScript("OnClick", function()
+        StaticPopupDialogs["EASYAUCTION_RESET_DB"] = {
+            text = "确定要清空所有拍卖历史记录和设置吗？\n此操作不可恢复！",
+            button1 = "确定",
+            button2 = "取消",
+            OnAccept = function()
+                EasyAuctionDB = {
+                    bidDiscount      = 0.95,
+                    undercut         = 1,
+                    stackCount       = 20,
+                    auctionDuration  = 1,
+                    showSections     = { items = true, price = true, myauct = true },
+                    buyRiskLimit     = 500,
+                    scanPerFrame     = 500,
+                    scanQuickMode    = true,
+                    PriceHistory     = {},
+                    DailyMinPrice    = {},
+                    CurrentTodayMin  = {},
+                    LastScanMinPrice = {},
+                    FavoriteItems    = {},
+                    RecentSearch     = {},
+                    scanQuickLimit   = 100,
+                }
+                _G.EasyAuctionDB = EasyAuctionDB
+
+                if EasyAuctionDBFrame and EasyAuctionDBFrame:IsShown() then
+                    RefreshDBFrame()
+                end
+                if AuctionBar and AuctionBar.AuctionFrame then
+                    AuctionBar.AuctionFrame:RefreshBagItemFrame()
+                    AuctionBar.AuctionFrame:RefreshMyAuctionList()
+                end
+                if type(RefreshRecentSearchRows) == "function" then RefreshRecentSearchRows() end
+                if type(RefreshFavoriteRows) == "function" then RefreshFavoriteRows() end
+                if type(RefreshMinPriceLines) == "function" then RefreshMinPriceLines() end
+                if type(EasyAuction_UpdateInlineDistribution) == "function" then
+                    EasyAuction_UpdateInlineDistribution(
+                        nil, nil)
+                end
+                if type(UpdateTrendFrame) == "function" then UpdateTrendFrame(nil) end
+                print("|cff00ff00EasyAuction|r：所有设置与历史数据已重置。")
+            end,
+            timeout = 0,
+            whileDead = true,
+            hideOnEscape = true,
+            preferredIndex = 3,
+        }
+        StaticPopup_Show("EASYAUCTION_RESET_DB")
+    end)
+
+    local changelogBtn = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
+    changelogBtn:SetSize(80, 24)
+    changelogBtn:SetPoint("BOTTOM", resetBtn, "TOP", 0, 10)
+    changelogBtn:SetText("更新日志")
+    changelogBtn:SetScript("OnClick", function()
+        ShowUpdateNotesPopup()
+    end)
+
+    local relatedBtn = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
+    relatedBtn:SetSize(80, 24)
+    relatedBtn:SetPoint("BOTTOM", changelogBtn, "TOP", 0, 10)
+    relatedBtn:SetText("周边插件")
+    relatedBtn:SetScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:SetText("支持调用EasyAuction数据库的插件", 1, 1, 1, 1, true)
+        GameTooltip:Show()
+    end)
+    relatedBtn:SetScript("OnLeave", function()
+        GameTooltip:Hide()
+    end)
+    relatedBtn:SetScript("OnClick", function()
+        ShowRelatedAddonsPopup()
+    end)
+    local closeBtn = CreateFrame("Button", nil, frame, "UIPanelCloseButton")
+    closeBtn:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -8, -8)
+    closeBtn:SetSize(26, 26)
+    closeBtn:SetScript("OnClick", function() frame:Hide() end)
     ShowCat("auction")
 end
 
@@ -560,11 +883,40 @@ local function PickupAndPutToAuction(bag, slot)
         ClickAuctionSellItemButton()
         C_Timer.After(0.01, function()
             ClearCursor()
+            local f = AuctionBar and AuctionBar.AuctionFrame
+            local ItemButton = _G["EasyAuctionItemButton"]
+            if f and ItemButton and ItemButton.itemID then
+                local name, _, _, _, _, _, _, _, _, itemID = GetAuctionSellItemInfo()
+                if name and itemID then
+                    RefreshMinPriceLines(name, itemID)
+                end
+            end
         end)
     end)
 end
 
-local function CreateAuctionSide()
+function UpdateDepositMoney()
+    local HookAuctionFrame = AuctionBar.AuctionFrame
+    if not HookAuctionFrame then return end
+
+    local StackSize = HookAuctionFrame.StackCount:GetNumber()
+    local NumStacks = HookAuctionFrame.NumStacks:GetNumber()
+    local duration = selectedDuration or 1
+    local perDepositMoney = GetAuctionDeposit(1, 1, 1, StackSize, 1)
+    local TolDepositMoney
+    if duration == 3 then
+        TolDepositMoney = perDepositMoney * 4 * NumStacks
+    else
+        TolDepositMoney = perDepositMoney * duration * NumStacks
+    end
+    if HookAuctionFrame and HookAuctionFrame.totalDepositMoneyLabel then
+        HookAuctionFrame.totalDepositMoneyLabel:SetText(
+            format("总保管费：|cffffffff%s|r", GetMoneyString(TolDepositMoney or 0))
+        )
+    end
+end
+
+function CreateAuctionSide()
     EasyAuctionDB = EasyAuctionDB or {}
     EasyAuctionDB.showSections = EasyAuctionDB.showSections or { items = true, price = true, myauct = true }
     if type(EasyAuctionDB.bidDiscount) ~= "number" or EasyAuctionDB.bidDiscount <= 0 or EasyAuctionDB.bidDiscount > 1 then
@@ -585,44 +937,1232 @@ local function CreateAuctionSide()
     local midX = 320
     local midY = 200
 
-    local f = CreateBaseFrame("AuctionHelper", AuctionFrame, 320, 200)
+    local f = CreateBaseFrame("AuctionHelper", AuctionFrame, 320, 440)
     f:SetPoint("TOPLEFT", AuctionFrame, "TOPRIGHT", 0, -10)
+    local tab1 = CreateFrame("Button", f:GetName() .. "Tab1", f, nil)
+    tab1:SetSize(60, 24)
+    tab1:SetID(1)
+    tab1:SetPoint("TOPLEFT", f, "TOPLEFT", 0, 24)
+    tab1.icon = tab1:CreateTexture(nil, "ARTWORK")
+    tab1.icon:SetTexture("Interface\\Icons\\inv_misc_bag_10_green")
+    tab1.icon:SetSize(18, 18)
+    tab1.icon:SetPoint("LEFT", tab1, "LEFT", 4, 0)
+    tab1.text = tab1:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
+    tab1.text:SetPoint("LEFT", tab1.icon, "RIGHT", 2, 0)
+    tab1.text:SetText("闪购")
+    tab1.text:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 14, "")
 
-    local fastFrame = CreateFrame("Frame", nil, f)
+
+    local tab2 = CreateFrame("Button", f:GetName() .. "Tab2", f, nil)
+    tab2:SetSize(60, 24)
+    tab2:SetID(2)
+    tab2:SetPoint("LEFT", tab1, "RIGHT", 0, 0)
+    tab2.icon = tab2:CreateTexture(nil, "ARTWORK")
+    tab2.icon:SetTexture("Interface\\Icons\\INV_Misc_Coin_01")
+    tab2.icon:SetSize(18, 18)
+    tab2.icon:SetPoint("LEFT", tab2, "LEFT", 4, 0)
+    tab2.text = tab2:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
+    tab2.text:SetPoint("LEFT", tab2.icon, "RIGHT", 2, 0)
+    tab2.text:SetText("闪卖")
+    tab2.text:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 14, "")
+
+
+
+    local tab3 = CreateFrame("Button", f:GetName() .. "Tab3", f, nil)
+    tab3:SetSize(120, 24)
+    tab3:SetID(3)
+    tab3:SetText("|cff00ffffEasyAuction|r")
+    tab3:SetPoint("TOPRIGHT", f, "TOPRIGHT", 0, 24)
+    tab3:SetScript("OnClick", function()
+        if EasyAuction_HelpFrame and EasyAuction_HelpFrame:IsShown() then
+            EasyAuction_HelpFrame:Hide()
+            return
+        end
+        if not EasyAuction_HelpFrame then
+            local f = CreateFrame("Frame", "EasyAuction_HelpFrame", UIParent, "BackdropTemplate")
+            f:SetSize(500, 430)
+            f:SetPoint("CENTER")
+            f:SetFrameStrata("DIALOG")
+            f:SetMovable(true)
+            f:EnableMouse(true)
+            f:SetToplevel(true)
+            f:RegisterForDrag("LeftButton")
+            f:SetScript("OnDragStart", f.StartMoving)
+            f:SetScript("OnDragStop", f.StopMovingOrSizing)
+            f:SetBackdrop({
+                bgFile = "Interface\\ChatFrame\\ChatFrameBackground",
+                edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
+                tile = true,
+                tileSize = 32,
+                edgeSize = 18,
+                insets = { left = 6, right = 6, top = 6, bottom = 6 }
+            })
+            f:SetBackdropColor(0.10, 0.10, 0.13, 0.97)
+            f:SetBackdropBorderColor(0.7, 0.6, 1, 1)
+
+            local title = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+            title:SetPoint("TOP", 0, -22)
+            title:SetText("|TInterface/Icons/INV_Misc_Coin_01:12:12:0:0|t  EasyAuction V" .. version .. " 使用说明")
+            title:SetFont(title:GetFont(), 22, "OUTLINE")
+
+            local underline = f:CreateTexture(nil, "OVERLAY")
+            underline:SetColorTexture(0.7, 0.6, 1, 0.36)
+            underline:SetHeight(2)
+            underline:SetPoint("TOPLEFT", 20, -48)
+            underline:SetPoint("TOPRIGHT", -20, -48)
+
+            local contentBG = CreateFrame("Frame", nil, f, "BackdropTemplate")
+            contentBG:SetPoint("TOPLEFT", 24, -62)
+            contentBG:SetPoint("BOTTOMRIGHT", -24, 24)
+            contentBG:SetBackdrop({
+                bgFile = "Interface\\ChatFrame\\ChatFrameBackground",
+                edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+                tile = true,
+                tileSize = 16,
+                edgeSize = 12,
+                insets = { left = 3, right = 3, top = 3, bottom = 3 }
+            })
+            contentBG:SetBackdropColor(0.15, 0.14, 0.2, 0.93)
+            contentBG:SetBackdropBorderColor(0.4, 0.32, 0.7, 0.8)
+
+            local scroll = CreateFrame("ScrollFrame", nil, contentBG, "UIPanelScrollFrameTemplate")
+            scroll:SetPoint("TOPLEFT", 8, -8)
+            scroll:SetPoint("BOTTOMRIGHT", -28, 8)
+            local scrollChild = CreateFrame("EditBox", nil, scroll)
+            scrollChild:SetMultiLine(true)
+            scrollChild:SetFontObject("GameFontHighlight")
+            scrollChild:SetWidth(400)
+            scrollChild:SetAutoFocus(false)
+            scrollChild:SetScript("OnEscapePressed", function(self) self:ClearFocus() end)
+            scroll:SetScrollChild(scrollChild)
+
+            scrollChild:SetText(EASYAUCTION_HELP_TEXT)
+            f.scroll = scroll
+            f.text = scrollChild
+
+            local closeBtn = CreateFrame("Button", nil, f, "UIPanelCloseButton")
+            closeBtn:SetPoint("TOPRIGHT", f, "TOPRIGHT", -8, -8)
+            closeBtn:SetSize(26, 26)
+            closeBtn:SetScript("OnClick", function() f:Hide() end)
+
+            tinsert(UISpecialFrames, "EasyAuction_HelpFrame")
+        else
+            EasyAuction_HelpFrame.text:SetText(EASYAUCTION_HELP_TEXT)
+        end
+        EasyAuction_HelpFrame:Show()
+    end)
+    tab3:SetScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:SetText("点击查看 EasyAuction V" .. version .. " 使用说明", 1, 1, 1)
+        GameTooltip:AddLine("如遇问题请优先查阅帮助文档", 0.8, 0.8, 0.8)
+        GameTooltip:Show()
+    end)
+    tab3:SetScript("OnLeave", function()
+        GameTooltip:Hide()
+    end)
+
+    for _, tab in ipairs({ tab1, tab2, tab3 }) do
+        local bg = tab:CreateTexture(nil, "BACKGROUND")
+        bg:SetAllPoints()
+        bg:SetColorTexture(0.12, 0.10, 0.08, 0.92)
+        tab._bg = bg
+        local fs = tab:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
+        fs:SetPoint("CENTER")
+        fs:SetText(tab:GetText())
+        fs:SetTextColor(1, 0.82, 0)
+        tab:SetText("")
+        tab._fs = fs
+        tab:SetHighlightTexture("Interface\\FriendsFrame\\UI-FriendsFrame-HighlightBar")
+        tab:GetHighlightTexture():SetAlpha(0.18)
+        tab:GetHighlightTexture():SetAllPoints()
+    end
+
+    local tabFlashSellPage = CreateFrame("Frame", nil, f)
+    tabFlashSellPage:SetAllPoints(f)
+    tabFlashSellPage:SetPoint("TOPLEFT", 0, 0)
+    tabFlashSellPage:Show()
+    ns.tabFlashSellPage = tabFlashSellPage
+    local recentCommonPanel = CreateFrame("Frame", nil, tabFlashSellPage, "BackdropTemplate")
+    recentCommonPanel:SetPoint("BOTTOMLEFT", tabFlashSellPage, "BOTTOMLEFT", 0, 0)
+    recentCommonPanel:SetPoint("BOTTOMRIGHT", tabFlashSellPage, "BOTTOMRIGHT", 0, 0)
+    recentCommonPanel:SetHeight(240)
+    recentCommonPanel:SetBackdrop({
+        bgFile = "Interface\\ChatFrame\\ChatFrameBackground",
+        edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
+        tile = true,
+        tileSize = 32,
+        edgeSize = 18,
+        insets = { left = 6, right = 6, top = 6, bottom = 6 }
+    })
+    recentCommonPanel:SetBackdropColor(0.10, 0.10, 0.13, 0.97)
+    recentCommonPanel:SetBackdropBorderColor(0.7, 0.6, 1, 1)
+    local minPriceCurLabel, minPriceCurValue
+    local minPriceTodayLabel, minPriceTodayValue
+    local minPriceHistLabel, minPriceHistValue
+    local INFO_WIDTH = recentCommonPanel:GetWidth() or 300
+
+    minPriceCurLabel = tabFlashSellPage:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    minPriceCurLabel:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 13, "")
+    minPriceCurLabel:SetPoint("BOTTOMLEFT", recentCommonPanel, "TOPLEFT", 10, 90)
+    minPriceCurLabel:SetJustifyH("LEFT")
+    minPriceCurLabel:SetWidth(INFO_WIDTH - 100)
+
+    minPriceCurValue = tabFlashSellPage:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    minPriceCurValue:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 13, "")
+    minPriceCurValue:SetPoint("BOTTOMRIGHT", recentCommonPanel, "TOPRIGHT", -80, 90)
+    minPriceCurValue:SetJustifyH("RIGHT")
+    minPriceCurValue:SetWidth(100)
+
+    minPriceTodayLabel = tabFlashSellPage:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    minPriceTodayLabel:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 13, "")
+    minPriceTodayLabel:SetPoint("TOPLEFT", minPriceCurLabel, "BOTTOMLEFT", 0, -15)
+    minPriceTodayLabel:SetJustifyH("LEFT")
+    minPriceTodayLabel:SetWidth(INFO_WIDTH - 100)
+
+    minPriceTodayValue = tabFlashSellPage:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    minPriceTodayValue:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 13, "")
+    minPriceTodayValue:SetPoint("TOPRIGHT", minPriceCurValue, "BOTTOMRIGHT", 0, -15)
+    minPriceTodayValue:SetJustifyH("RIGHT")
+    minPriceTodayValue:SetWidth(100)
+
+    minPriceHistLabel = tabFlashSellPage:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    minPriceHistLabel:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 13, "")
+    minPriceHistLabel:SetPoint("TOPLEFT", minPriceTodayLabel, "BOTTOMLEFT", 0, -15)
+    minPriceHistLabel:SetJustifyH("LEFT")
+    minPriceHistLabel:SetWidth(INFO_WIDTH - 100)
+
+    minPriceHistValue = tabFlashSellPage:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    minPriceHistValue:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 13, "")
+    minPriceHistValue:SetPoint("TOPRIGHT", minPriceTodayValue, "BOTTOMRIGHT", 0, -15)
+    minPriceHistValue:SetJustifyH("RIGHT")
+    minPriceHistValue:SetWidth(100)
+
+    function RefreshMinPriceLines(name, itemID)
+        if not name or name == "" then
+            if minPriceCurLabel and minPriceCurValue and minPriceCurLabel.avgBuyLabel then
+                minPriceCurLabel.avgBuyLabel:SetText("本次购买：--")
+                minPriceCurLabel.avgBuyValue:SetText("")
+                minPriceCurLabel.avgBuyLabel:Show()
+                minPriceCurLabel.avgBuyValue:Show()
+            end
+            minPriceCurLabel:SetText("当前最低价：")
+            minPriceCurValue:SetText("|cffff8888无数据|r")
+            if minPriceTodayLabel then minPriceTodayLabel:SetText("今日最低价：") end
+            if minPriceTodayValue then minPriceTodayValue:SetText("|cffff8888无数据|r") end
+            if minPriceHistLabel then minPriceHistLabel:SetText("历史最低价：") end
+            if minPriceHistValue then minPriceHistValue:SetText("|cffff8888无数据|r") end
+            return
+        end
+
+        local key = nil
+        local actualItemID = itemID
+        if type(name) == "string" and name:find(":") then
+            key = name
+            local parsedName, parsedID = string.match(name, "^(.+):(%d+)$")
+            if parsedID then
+                actualItemID = tonumber(parsedID)
+            end
+        else
+            if not actualItemID then
+                local _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, id = GetItemInfo(name)
+                actualItemID = id
+            end
+            key = name .. ":" .. (actualItemID or "0")
+        end
+
+        local curPrice, todayMin, histMin
+        local curUnit
+
+        if EasyAuctionDB.LastScanMinPrice and EasyAuctionDB.LastScanMinPrice[key] then
+            curPrice = EasyAuctionDB.LastScanMinPrice[key]
+            curUnit = curPrice
+        else
+            local history = EasyAuctionDB.PriceHistory and EasyAuctionDB.PriceHistory[key]
+            if history and #history > 0 then
+                curPrice = nil
+                for _, v in ipairs(history) do
+                    if v.unit and (not curPrice or v.unit < curPrice) then
+                        curPrice = v.unit
+                    end
+                end
+                if history[1] and history[1].unit then
+                    curUnit = history[1].unit
+                end
+            end
+        end
+        todayMin = EasyAuctionDB.CurrentTodayMin and EasyAuctionDB.CurrentTodayMin[key]
+        histMin = nil
+        local history = EasyAuctionDB.PriceHistory and EasyAuctionDB.PriceHistory[key]
+        if history and history.minUnit then
+            histMin = history.minUnit
+        end
+        if (not curPrice or not histMin) and actualItemID then
+            for k, v in pairs(EasyAuctionDB.PriceHistory or {}) do
+                if k:match(":(%d+)$") == tostring(actualItemID) then
+                    if not curPrice and type(v) == "table" and #v > 0 then
+                        for _, vv in ipairs(v) do
+                            if vv.unit and (not curPrice or vv.unit < curPrice) then
+                                curPrice = vv.unit
+                            end
+                        end
+                        if v[1] and v[1].unit then
+                            curUnit = v[1].unit
+                        end
+                    end
+                    if not histMin and v.minUnit then
+                        histMin = v.minUnit
+                    end
+                    if not todayMin and EasyAuctionDB.CurrentTodayMin and EasyAuctionDB.CurrentTodayMin[k] then
+                        todayMin = EasyAuctionDB.CurrentTodayMin[k]
+                    end
+                end
+            end
+        end
+
+        if minPriceCurLabel and minPriceCurValue then
+            if not minPriceCurLabel.avgBuyLabel then
+                minPriceCurLabel.avgBuyLabel = minPriceCurLabel:GetParent():CreateFontString(nil, "OVERLAY",
+                    "GameFontHighlight")
+                minPriceCurLabel.avgBuyLabel:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 13, "")
+                minPriceCurLabel.avgBuyLabel:SetPoint("BOTTOMLEFT", minPriceCurLabel, "TOPLEFT", 0, 5)
+                minPriceCurLabel.avgBuyLabel:SetJustifyH("LEFT")
+                minPriceCurLabel.avgBuyLabel:SetWidth(INFO_WIDTH - 100)
+                minPriceCurLabel.avgBuyValue = minPriceCurLabel:GetParent():CreateFontString(nil, "OVERLAY",
+                    "GameFontHighlight")
+                minPriceCurLabel.avgBuyValue:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 13, "")
+                minPriceCurLabel.avgBuyValue:SetPoint("BOTTOMRIGHT", minPriceCurValue, "TOPRIGHT", 0, 5)
+                minPriceCurLabel.avgBuyValue:SetJustifyH("RIGHT")
+                minPriceCurLabel.avgBuyValue:SetWidth(100)
+            end
+            local stat = actualItemID and EasyAuction_SessionBuyStats[actualItemID]
+            local showText
+            if stat and stat.num and stat.num > 0 then
+                local avg = math.floor(stat.sum / stat.num + 0.5)
+                showText = string.format("本次购买：%d个，\n合计：%s\n平均：%s",
+                    stat.num,
+                    GetMoneyString(stat.sum, true),
+                    GetMoneyString(avg, true)
+                )
+            else
+                showText = "本次购买：--"
+            end
+            minPriceCurLabel.avgBuyLabel:SetText(showText)
+            minPriceCurLabel.avgBuyValue:SetText("")
+            minPriceCurLabel.avgBuyLabel:Show()
+            minPriceCurLabel.avgBuyValue:Show()
+        end
+
+        minPriceCurLabel:SetText("当前最低价：")
+        minPriceCurValue:SetText(curPrice and FormatGoldIcon(curPrice) or "|cffff8888无数据|r")
+
+        if todayMin and curUnit and todayMin > 0 then
+            local diff = curUnit - todayMin
+            local percent = diff / todayMin * 100
+            local percentColor = percent >= 0 and "|cffffcc00" or "|cff00ff00"
+            minPriceTodayLabel:SetText(string.format("今日最低价：%s%+.1f%%%s", percentColor, percent, "|r"))
+            minPriceTodayValue:SetText(FormatGoldIcon(todayMin))
+        else
+            minPriceTodayLabel:SetText("今日最低价：")
+            minPriceTodayValue:SetText("|cffff8888无数据|r")
+        end
+
+        if histMin and curUnit and histMin > 0 then
+            local diff = curUnit - histMin
+            local percent = diff / histMin * 100
+            local percentColor = percent >= 0 and "|cffff6600" or "|cff00ff00"
+            minPriceHistLabel:SetText(string.format("历史最低价：%s%+.1f%%%s", percentColor, percent, "|r"))
+            minPriceHistValue:SetText(FormatGoldIcon(histMin))
+        else
+            minPriceHistLabel:SetText("历史最低价：")
+            minPriceHistValue:SetText("|cffff8888无数据|r")
+        end
+    end
+
+    local rcTab1 = CreateFrame("Button", nil, recentCommonPanel)
+    rcTab1:SetSize(106, 24)
+    rcTab1:SetPoint("TOPLEFT", recentCommonPanel, 8, -2)
+    rcTab1.icon = rcTab1:CreateTexture(nil, "ARTWORK")
+    rcTab1.icon:SetTexture("Interface\\Common\\UI-Searchbox-Icon")
+    rcTab1.icon:SetSize(16, 16)
+    rcTab1.icon:SetPoint("LEFT", rcTab1, "LEFT", 6, 0)
+    rcTab1.text = rcTab1:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+    rcTab1.text:SetPoint("LEFT", rcTab1.icon, "RIGHT", 4, 0)
+    rcTab1.text:SetText("最近搜索")
+    rcTab1.text:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 13, "")
+    rcTab1:SetNormalFontObject(GameFontNormal)
+    rcTab1:SetHighlightTexture("Interface\\FriendsFrame\\UI-FriendsFrame-HighlightBar")
+    rcTab1.bgHighlight = rcTab1:CreateTexture(nil, "BACKGROUND")
+    rcTab1.bgHighlight:SetTexture("Interface\\FriendsFrame\\UI-FriendsFrame-HighlightBar")
+    rcTab1.bgHighlight:SetAllPoints()
+    rcTab1.bgHighlight:SetBlendMode("ADD")
+    rcTab1.bgHighlight:Hide()
+
+    local rcTab2 = CreateFrame("Button", nil, recentCommonPanel)
+    rcTab2:SetSize(106, 24)
+    rcTab2:SetPoint("LEFT", rcTab1, "RIGHT", 6, 0)
+    rcTab2.icon = rcTab2:CreateTexture(nil, "ARTWORK")
+    rcTab2.icon:SetTexture("Interface\\Icons\\inv_misc_gift_01")
+    rcTab2.icon:SetSize(16, 16)
+    rcTab2.icon:SetPoint("LEFT", rcTab2, "LEFT", 6, 0)
+
+    rcTab2.text = rcTab2:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+    rcTab2.text:SetPoint("LEFT", rcTab2.icon, "RIGHT", 4, 0)
+    rcTab2.text:SetText("常用物品")
+    rcTab2.text:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 13, "")
+    rcTab2:SetNormalFontObject(GameFontNormal)
+    rcTab2:SetHighlightTexture("Interface\\FriendsFrame\\UI-FriendsFrame-HighlightBar")
+
+    rcTab2.bgHighlight = rcTab2:CreateTexture(nil, "BACKGROUND")
+    rcTab2.bgHighlight:SetTexture("Interface\\FriendsFrame\\UI-FriendsFrame-HighlightBar")
+    rcTab2.bgHighlight:SetAllPoints()
+    rcTab2.bgHighlight:SetBlendMode("ADD")
+    rcTab2.bgHighlight:Hide()
+
+    local favoriteImportExportBtn = CreateFrame("Button", nil, recentCommonPanel, "UIPanelButtonTemplate")
+    favoriteImportExportBtn:SetSize(80, 22)
+    favoriteImportExportBtn:SetText("编辑清单")
+    favoriteImportExportBtn:SetPoint("LEFT", rcTab2, "RIGHT", 12, 0)
+    favoriteImportExportBtn:Hide()
+
+    local function ShowFavoriteImportExportFrame()
+        if EasyAuctionFavoriteImportExportFrame and EasyAuctionFavoriteImportExportFrame:IsShown() then
+            EasyAuctionFavoriteImportExportFrame:Hide()
+            return
+        end
+
+        if not EasyAuctionFavoriteImportExportFrame then
+            local f = CreateFrame("Frame", "EasyAuctionFavoriteImportExportFrame", UIParent, "BackdropTemplate")
+            f:SetSize(340, 390)
+            f:SetPoint("CENTER")
+            f:SetFrameStrata("FULLSCREEN_DIALOG")
+            f:SetMovable(true)
+            f:EnableMouse(true)
+            f:RegisterForDrag("LeftButton")
+            f:SetScript("OnDragStart", f.StartMoving)
+            f:SetScript("OnDragStop", f.StopMovingOrSizing)
+            f:SetBackdrop({
+                bgFile = "Interface\\ChatFrame\\ChatFrameBackground",
+                edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
+                tile = true,
+                tileSize = 32,
+                edgeSize = 18,
+                insets = { left = 6, right = 6, top = 6, bottom = 6 }
+            })
+            f:SetBackdropColor(0.10, 0.10, 0.13, 0.97)
+            f:SetBackdropBorderColor(0.7, 0.6, 1, 1)
+
+            local title = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+            title:SetPoint("TOP", 0, -22)
+            title:SetText("常用物品清单")
+            title:SetFont(title:GetFont(), 22, "OUTLINE")
+
+            local warnBar = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+            warnBar:SetPoint("TOP", 0, -42)
+            warnBar:SetSize(300, 22)
+            warnBar:SetJustifyH("CENTER")
+            warnBar:SetText("")
+            warnBar:Hide()
+            f.warnBar = warnBar
+
+            local contentBG = CreateFrame("Frame", nil, f, "BackdropTemplate")
+            contentBG:SetPoint("TOPLEFT", 24, -62)
+            contentBG:SetPoint("BOTTOMRIGHT", -24, 60)
+            contentBG:SetBackdrop({
+                bgFile = "Interface\\ChatFrame\\ChatFrameBackground",
+                edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+                tile = true,
+                tileSize = 16,
+                edgeSize = 12,
+                insets = { left = 3, right = 3, top = 3, bottom = 3 }
+            })
+            contentBG:SetBackdropColor(0.15, 0.14, 0.2, 0.93)
+            contentBG:SetBackdropBorderColor(0.4, 0.32, 0.7, 0.8)
+
+            local scrollFrame = CreateFrame("ScrollFrame", nil, contentBG, "UIPanelScrollFrameTemplate")
+            scrollFrame:SetPoint("TOPLEFT", 8, -8)
+            scrollFrame:SetPoint("BOTTOMRIGHT", -28, 8)
+
+            local editBox = CreateFrame("EditBox", nil, scrollFrame)
+            editBox:SetMultiLine(true)
+            editBox:SetFontObject("ChatFontNormal")
+            editBox:SetMaxLetters(8000)
+            editBox:SetWidth(220)
+            editBox:SetHeight(260)
+            editBox:SetAutoFocus(false)
+            scrollFrame:SetScrollChild(editBox)
+            f.editBox = editBox
+
+            local tip = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+            tip:SetPoint("TOPLEFT", contentBG, "BOTTOMLEFT", 2, 0)
+            tip:SetPoint("RIGHT", f, -18, 0)
+            tip:SetJustifyH("LEFT")
+            tip:SetSpacing(4)
+            tip:SetText(
+                "每行格式：物品ID,物品名\n" ..
+                "可全选复制到别的号，也可手动编辑。\n" ..
+                "|cff00ff00要清空全部常用物品，请清空内容后保存。|r"
+            )
+
+            local saveBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+            saveBtn:SetSize(60, 32)
+            saveBtn:SetText("保存")
+            saveBtn:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -18, 18)
+
+            local closeBtn = CreateFrame("Button", nil, f, "UIPanelCloseButton")
+            closeBtn:SetPoint("TOPRIGHT", f, "TOPRIGHT", -6, -6)
+            closeBtn:SetScript("OnClick", function()
+                f:Hide()
+            end)
+
+            f.origText = ""
+
+            saveBtn:SetScript("OnClick", function()
+                local text = editBox:GetText() or ""
+                text = text:gsub("，", ",")
+                local newTbl = {}
+                local lineCount = 0
+                local errorLine
+                for line in text:gmatch("[^\r\n]+") do
+                    local id, name = line:match("^%s*(%d+)%s*,%s*(.+)%s*$")
+                    if not id or not name then
+                        if line:find("，") then
+                            errorLine = line
+                            break
+                        end
+                    else
+                        newTbl[tonumber(id)] = { name = name, time = time() }
+                        lineCount = lineCount + 1
+                    end
+                end
+                if errorLine then
+                    f.warnBar:SetText("|cffff4040保存失败，第一个格式错误（或含中文逗号）的行：|r" .. errorLine)
+                    f.warnBar:Show()
+                    return
+                end
+                EasyAuctionDB.FavoriteItems = newTbl
+                f.origText = text
+                f.warnBar:Hide()
+                if lineCount == 0 then
+                    print("|cff00ff00常用物品清单已清空。|r")
+                else
+                    print("|cff00ff00常用物品清单已保存，共|r|cffffff00" .. lineCount .. "|r|cff00ff00项。|r")
+                end
+                if RefreshFavoriteRows then RefreshFavoriteRows() end
+                f:Hide()
+            end)
+            editBox:SetScript("OnEscapePressed", function(self)
+                self:ClearFocus()
+            end)
+            editBox:SetScript("OnEditFocusLost", function(self)
+                self:HighlightText(0, 0)
+                local orig = f.origText or ""
+                if self:GetText() ~= orig then
+                    f.warnBar:SetText("|cffffff00内容已更改，记得点击保存。|r")
+                    f.warnBar:Show()
+                end
+            end)
+
+
+
+            f:SetPropagateKeyboardInput(true)
+            f:EnableKeyboard(true)
+            f:SetScript("OnKeyDown", function(self, key)
+                if key == "ESCAPE" then
+                    if not editBox:HasFocus() then
+                        self:Hide()
+                    end
+                end
+            end)
+            f:SetScript("OnShow", function(self)
+                self:SetPropagateKeyboardInput(true)
+                self:EnableKeyboard(true)
+            end)
+            f:SetScript("OnHide", function(self)
+                self:EnableKeyboard(false)
+            end)
+
+            EasyAuctionFavoriteImportExportFrame = f
+        end
+
+        local function RefreshFavoriteListContent(editBox)
+            local tbl = EasyAuctionDB.FavoriteItems or {}
+            local arr = {}
+            for k, v in pairs(tbl) do
+                table.insert(arr, { id = k, name = v.name or "", time = v.time or 0 })
+            end
+            table.sort(arr, function(a, b) return (a.time or 0) > (b.time or 0) end)
+            local lines = {}
+            for _, v in ipairs(arr) do
+                table.insert(lines, string.format("%s,%s", tostring(v.id), v.name))
+            end
+            local text = table.concat(lines, "\n")
+            editBox:SetText(text)
+            editBox:HighlightText(0, -1)
+            local frame = EasyAuctionFavoriteImportExportFrame
+            if frame then
+                frame.origText = text
+                if frame.warnBar then
+                    frame.warnBar:SetText("")
+                    frame.warnBar:Hide()
+                end
+            end
+        end
+
+        EasyAuctionFavoriteImportExportFrame:Show()
+        RefreshFavoriteListContent(EasyAuctionFavoriteImportExportFrame.editBox)
+        EasyAuctionFavoriteImportExportFrame.editBox:SetFocus()
+    end
+
+    favoriteImportExportBtn:SetScript("OnClick", ShowFavoriteImportExportFrame)
+    favoriteImportExportBtn:SetScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:SetText("导入/导出常用物品清单", 1, 1, 1)
+        GameTooltip:AddLine("可用于多角色/多账号同步", 0.8, 0.8, 0.8)
+        GameTooltip:Show()
+    end)
+    favoriteImportExportBtn:SetScript("OnLeave", GameTooltip_Hide)
+
+    local rcScroll1 = CreateFrame("ScrollFrame", "EasyAuctionRecentSearchScroll", recentCommonPanel,
+        "UIPanelScrollFrameTemplate")
+    rcScroll1:SetPoint("TOPLEFT", 0, -24)
+    rcScroll1:SetPoint("BOTTOMRIGHT", -24, 0)
+    local rcScrollChild1 = CreateFrame("Frame", nil, rcScroll1)
+    rcScrollChild1:SetWidth(recentCommonPanel:GetWidth() - 24)
+    rcScroll1:SetScrollChild(rcScrollChild1)
+
+    local rcScroll2 = CreateFrame("ScrollFrame", "EasyAuctionFavoriteScroll", recentCommonPanel,
+        "UIPanelScrollFrameTemplate")
+    rcScroll2:SetPoint("TOPLEFT", 0, -24)
+    rcScroll2:SetPoint("BOTTOMRIGHT", -24, 0)
+    local rcScrollChild2 = CreateFrame("Frame", nil, rcScroll2)
+    rcScrollChild2:SetWidth(recentCommonPanel:GetWidth() - 24)
+    rcScroll2:SetScrollChild(rcScrollChild2)
+    rcScroll2:Hide()
+
+    local function ShowRCTab(idx)
+        if idx == 1 then
+            rcScroll1:Show()
+            rcScroll2:Hide()
+            rcTab1.text:SetText("|cffffff00最近搜索|r")
+            rcTab2.text:SetText("常用物品")
+            rcTab1.bgHighlight:Show()
+            rcTab2.bgHighlight:Hide()
+            favoriteImportExportBtn:Hide()
+        else
+            rcScroll1:Hide()
+            rcScroll2:Show()
+            rcTab1.text:SetText("最近搜索")
+            rcTab2.text:SetText("|cffffff00常用物品|r")
+            rcTab1.bgHighlight:Hide()
+            rcTab2.bgHighlight:Show()
+            favoriteImportExportBtn:Show()
+        end
+    end
+    rcTab1:SetScript("OnClick", function()
+        ShowRCTab(1); RefreshRecentSearchRows()
+    end)
+    rcTab2:SetScript("OnClick", function()
+        ShowRCTab(2); RefreshFavoriteRows()
+    end)
+
+    local function FormatTimeAgo(ts)
+        local d = time() - (ts or 0)
+        if d < 60 then
+            return string.format("|cff00ff00(%d秒前)|r", d)
+        elseif d < 3600 then
+            return string.format("|cff00ff00(%d分钟前)|r", math.floor(d / 60))
+        elseif d < 86400 then
+            return string.format("|cff00ff00(%d小时前)|r", math.floor(d / 3600))
+        else
+            return string.format("|cff00ff00(%d天前)|r", math.floor(d / 86400))
+        end
+    end
+
+    local RECENT_ROW_HEIGHT = 38
+    local ICON_SIZE = 32
+    local recentRows = {}
+    function RefreshRecentSearchRows()
+        if type(EasyAuctionDB.RecentSearch) ~= "table" then
+            EasyAuctionDB.RecentSearch = {}
+        end
+        for _, row in ipairs(recentRows) do row:Hide() end
+        local RECENT_MAX_SHOW = 10
+        local total = math.min(#EasyAuctionDB.RecentSearch, RECENT_MAX_SHOW)
+        for i = 1, total do
+            local info = EasyAuctionDB.RecentSearch[i]
+            local row = recentRows[i]
+            if not row then
+                row = CreateFrame("Button", nil, rcScrollChild1)
+                row:SetSize(rcScrollChild1:GetWidth(), RECENT_ROW_HEIGHT)
+                row.bg = row:CreateTexture(nil, "BACKGROUND")
+                row.bg:SetAllPoints()
+                row.bg:SetColorTexture(0.13, 0.13, 0.13, (i % 2 == 0) and 0.30 or 0.22)
+                row.highlight = row:CreateTexture(nil, "HIGHLIGHT")
+                row.highlight:SetAllPoints()
+                row.highlight:SetColorTexture(1, 1, 1, 0.09)
+                row.icon = row:CreateTexture(nil, "ARTWORK")
+                row.icon:SetSize(ICON_SIZE, ICON_SIZE)
+                row.icon:SetPoint("LEFT", 6, 0)
+                row.iconBorder = row:CreateTexture(nil, "OVERLAY")
+                row.iconBorder:SetPoint("CENTER", row.icon, "CENTER")
+                row.iconBorder:SetSize(ICON_SIZE + 4, ICON_SIZE + 4)
+                row.name = row:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+                row.name:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 13, "")
+                row.name:SetPoint("LEFT", row.icon, "RIGHT", 5, 0)
+                row.name:SetJustifyH("LEFT")
+                row.name:SetWidth(130)
+                row.price = row:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+                row.price:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 12, "")
+                row.price:SetPoint("LEFT", row.name, "RIGHT", -5, 8)
+                row.price:SetWidth(120)
+                row.price:SetJustifyH("RIGHT")
+                row.time = row:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+                row.time:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 12, "")
+                row.time:SetPoint("BOTTOMRIGHT", row, "BOTTOMRIGHT", -5, 5)
+                recentRows[i] = row
+            end
+
+
+            local name, _, quality, _, _, _, _, maxStack, _, icon = GetItemInfo(info.itemID)
+            local price = nil
+            local key = name and info.itemID and (name .. ":" .. info.itemID) or name
+            if key and EasyAuctionDB.PriceHistory and EasyAuctionDB.PriceHistory[key] then
+                local history = EasyAuctionDB.PriceHistory[key]
+                if #history > 0 and history[1].unit then
+                    price = history[1].unit
+                end
+            end
+
+            local color = ITEM_QUALITY_COLORS[quality or 1] or ITEM_QUALITY_COLORS[1]
+            row.icon:SetTexture(icon or "Interface\\Icons\\INV_Misc_QuestionMark")
+            row.name:SetText(name or info.name)
+            row.name:SetTextColor(color.r, color.g, color.b)
+            if price and price > 0 then
+                row.price:SetText(GetCoinTextureString(price))
+            else
+                row.price:SetText("|cff888888无在售|r")
+            end
+            row.time:SetText(FormatTimeAgo(info.time))
+            row.iconBorder:SetTexture("Interface\\AddOns\\EasyAuction\\border.blp")
+            row.iconBorder:SetVertexColor(color.r, color.g, color.b, 0.9)
+            row:SetPoint("TOPLEFT", rcScrollChild1, "TOPLEFT", 0, -((i - 1) * RECENT_ROW_HEIGHT))
+            row:Show()
+            row:SetScript("OnEnter", function(self)
+                GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+                GameTooltip:ClearLines()
+                GameTooltip:SetItemByID(info.itemID)
+                GameTooltip:AddLine("左键点击：复制名称", 1, 1, 1)
+                GameTooltip:AddLine("右键点击：|cff00ff00添加至常用|r", 0, 1, 0)
+                GameTooltip:Show()
+            end)
+            row:SetScript("OnLeave", GameTooltip_Hide)
+            row:SetScript("OnMouseUp", function(self, btn)
+                if btn == "RightButton" then
+                    AddFavoriteItem(info.itemID, name or info.name, info.price, info.time)
+                    RefreshFavoriteRows()
+                    print("|cff00ff00已添加到常用物品|r")
+                elseif btn == "LeftButton" then
+                    EasyAuction_ShowCopyBox("\"" .. (name or info.name) .. "\"")
+                end
+            end)
+        end
+        rcScrollChild1:SetHeight(total * RECENT_ROW_HEIGHT)
+
+        if total > 0 then
+            local f = AuctionBar and AuctionBar.AuctionFrame
+            local ItemButton = _G["EasyAuctionItemButton"]
+            if f and ItemButton then
+                if not ItemButton.itemID or ItemButton.isVirtual then
+                    local first = EasyAuctionDB.RecentSearch[1]
+                    if first and first.itemID and first.name then
+                        ItemButton.itemID = first.itemID
+                        ItemButton.isVirtual = true
+                        local icon = GetItemIcon(first.itemID)
+                        if icon then
+                            SetItemButtonTexture(ItemButton, icon)
+                            FixItemButtonIconSize(ItemButton, 40)
+                        end
+                        if f.ItemName then
+                            f.ItemName:SetText(first.name)
+                        end
+                        if RefreshMinPriceLines then RefreshMinPriceLines(first.name, first.itemID) end
+                    end
+                else
+                    local name, _, _, _, _, _, _, _, _, itemID = GetAuctionSellItemInfo()
+                    if name and itemID then
+                        RefreshMinPriceLines(name, itemID)
+                    end
+                end
+            end
+        end
+    end
+
+    rcScroll1:EnableMouseWheel(true)
+    rcScroll1:SetScript("OnMouseWheel", function(self, delta)
+        local bar = self.ScrollBar
+        if bar then
+            bar:SetValue(bar:GetValue() - delta * RECENT_ROW_HEIGHT * 2)
+        end
+    end)
+
+    local FAVORITE_ROW_HEIGHT = 38
+    local favoriteRows = {}
+    function RefreshFavoriteRows()
+        if type(EasyAuctionDB.FavoriteItems) ~= "table" then
+            EasyAuctionDB.FavoriteItems = {}
+        end
+        for _, row in ipairs(favoriteRows) do row:Hide() end
+        local items = {}
+        for itemID, info in pairs(EasyAuctionDB.FavoriteItems) do
+            table.insert(items, { itemID = itemID, info = info })
+        end
+        table.sort(items, function(a, b) return (a.info.time or 0) > (b.info.time or 0) end)
+        local total = #items
+        for i = 1, total do
+            local entry = items[i]
+            local info = entry.info
+            local itemID = entry.itemID
+            local row = favoriteRows[i]
+            if not row then
+                row = CreateFrame("Button", nil, rcScrollChild2)
+                row:SetSize(rcScrollChild2:GetWidth(), FAVORITE_ROW_HEIGHT)
+                row.bg = row:CreateTexture(nil, "BACKGROUND")
+                row.bg:SetAllPoints()
+                row.bg:SetColorTexture(0.13, 0.13, 0.13, (i % 2 == 0) and 0.30 or 0.22)
+                row.highlight = row:CreateTexture(nil, "HIGHLIGHT")
+                row.highlight:SetAllPoints()
+                row.highlight:SetColorTexture(1, 1, 1, 0.09)
+                row.icon = row:CreateTexture(nil, "ARTWORK")
+                row.icon:SetSize(ICON_SIZE, ICON_SIZE)
+                row.icon:SetPoint("LEFT", 6, 0)
+                row.iconBorder = row:CreateTexture(nil, "OVERLAY")
+                row.iconBorder:SetPoint("CENTER", row.icon, "CENTER")
+                row.iconBorder:SetSize(ICON_SIZE + 4, ICON_SIZE + 4)
+                row.name = row:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+                row.name:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 13, "")
+                row.name:SetPoint("LEFT", row.icon, "RIGHT", 5, 0)
+                row.name:SetJustifyH("LEFT")
+                row.name:SetWidth(130)
+                row.price = row:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+                row.price:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 12, "")
+                row.price:SetPoint("LEFT", row.name, "RIGHT", -5, 8)
+                row.price:SetWidth(120)
+                row.price:SetJustifyH("RIGHT")
+                row.time = row:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+                row.time:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 12, "")
+                row.time:SetPoint("BOTTOMRIGHT", row, "BOTTOMRIGHT", -5, 5)
+                favoriteRows[i] = row
+            end
+            local name, _, quality, _, _, _, _, maxStack, _, icon = GetItemInfo(itemID)
+            local price = nil
+            local key = name and itemID and (name .. ":" .. itemID) or name
+            if key and EasyAuctionDB.PriceHistory and EasyAuctionDB.PriceHistory[key] then
+                local history = EasyAuctionDB.PriceHistory[key]
+                if #history > 0 and history[1].unit then
+                    price = history[1].unit
+                end
+            end
+            local color = ITEM_QUALITY_COLORS[quality or 1] or ITEM_QUALITY_COLORS[1]
+            row.icon:SetTexture(icon or "Interface\\Icons\\INV_Misc_QuestionMark")
+            row.name:SetText(name or info.name)
+            row.name:SetTextColor(color.r, color.g, color.b)
+            row.price:SetText(GetCoinTextureString(price or 0))
+            row.time:SetText(FormatTimeAgo(info.time))
+            row.iconBorder:SetTexture("Interface\\AddOns\\EasyAuction\\border.blp")
+            row.iconBorder:SetVertexColor(color.r, color.g, color.b, 0.9)
+            row:SetPoint("TOPLEFT", rcScrollChild2, "TOPLEFT", 0, -((i - 1) * FAVORITE_ROW_HEIGHT))
+            row:Show()
+            row:SetScript("OnEnter", function(self)
+                GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+                GameTooltip:ClearLines()
+                GameTooltip:SetItemByID(itemID)
+                GameTooltip:AddLine("左键点击：复制名称", 1, 1, 1)
+                GameTooltip:AddLine("右键点击：|cffff5555移除|r", 1, 0.3, 0.3)
+                GameTooltip:Show()
+            end)
+            row:SetScript("OnLeave", GameTooltip_Hide)
+            row:SetScript("OnMouseUp", function(self, btn)
+                if btn == "RightButton" then
+                    EasyAuctionDB.FavoriteItems[itemID] = nil
+                    RefreshFavoriteRows()
+                    print("|cffff2020已从常用物品移除|r")
+                elseif btn == "LeftButton" then
+                    EasyAuction_ShowCopyBox("\"" .. (name or info.name) .. "\"")
+                end
+            end)
+        end
+        rcScrollChild2:SetHeight(total * FAVORITE_ROW_HEIGHT)
+    end
+
+    rcScroll2:EnableMouseWheel(true)
+    rcScroll2:SetScript("OnMouseWheel", function(self, delta)
+        local bar = self.ScrollBar
+        if bar then
+            bar:SetValue(bar:GetValue() - delta * RECENT_ROW_HEIGHT * 2)
+        end
+    end)
+
+    ShowRCTab(1)
+    RefreshRecentSearchRows()
+    RefreshFavoriteRows()
+
+    local tabOtherPage = CreateFrame("Frame", nil, f)
+    tabOtherPage:SetAllPoints(f)
+    tabOtherPage:SetPoint("TOPLEFT", 0, 0)
+    tabOtherPage:Hide()
+    local function ClearAuctionVirtualItem()
+        local f = AuctionBar and AuctionBar.AuctionFrame
+        local ItemButton = _G["EasyAuctionItemButton"]
+        if not f or not ItemButton then return end
+        if ItemButton.isVirtual then
+            ItemButton.itemID = nil
+            ItemButton.isVirtual = nil
+            SetItemButtonTexture(ItemButton, "")
+            SetItemButtonCount(ItemButton, 0)
+            SetItemButtonQuality(ItemButton, nil)
+            RefreshMinPriceLines()
+            if f.ItemName then f.ItemName:SetText("") end
+        end
+    end
+
+    local function SetTabSelected(idx)
+        for i, tab in ipairs({ tab1, tab2 }) do
+            if i == idx then
+                tab._bg:SetColorTexture(0.25, 0.25, 0.27, 1)
+                tab._fs:SetTextColor(1, 1, 1)
+                tabFlashSellPage:Hide()
+                tabOtherPage:Show()
+                if tab2 and i == 2 then
+                    ClearAuctionVirtualItem()
+                end
+            else
+                tab._bg:SetColorTexture(0.12, 0.10, 0.08, 0.92)
+                tab._fs:SetTextColor(1, 0.82, 0)
+                tabFlashSellPage:Show()
+                tabOtherPage:Hide()
+                if i == 1 then
+                    local ItemButton = _G["EasyAuctionItemButton"]
+                    if (not ItemButton) or (not ItemButton.itemID) then
+                        if type(EasyAuction_UpdateInlineDistribution) == "function" then
+                            EasyAuction_UpdateInlineDistribution(nil, nil)
+                            UpdateTrendFrame(nil)
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    tab1:SetScript("OnClick", function() SetTabSelected(1) end)
+    tab2:SetScript("OnClick", function() SetTabSelected(2) end)
+    SetTabSelected(1)
+
+    local fastFrame = CreateFrame("Frame", nil, tabOtherPage)
     fastFrame:SetSize(midX, midY)
     fastFrame:SetPoint("TOPLEFT", 0, 0)
-    ShowBorder(fastFrame, { 0, 0, 0, 0.4 })
-    local openCfgBtn = CreateFrame("Button", nil, fastFrame, "UIPanelButtonTemplate")
-    openCfgBtn:SetSize(60, 22)
+
+    local openCfgBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+    openCfgBtn:SetSize(70, 22)
     openCfgBtn:SetText("设  置")
-    openCfgBtn:SetPoint("TOPRIGHT", fastFrame, "TOPRIGHT", -8, -8)
+    openCfgBtn:SetPoint("TOPRIGHT", f, "TOPRIGHT", -4, -8)
+    local ofontString = openCfgBtn:GetFontString()
+    if ofontString then
+        ofontString:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 14, "")
+    end
     openCfgBtn:SetScript("OnClick", function()
         if EasyAuctionConfigFrame and EasyAuctionConfigFrame:IsShown() then
             EasyAuctionConfigFrame:Hide()
             return
         end
         if not EasyAuctionConfigFrame then
-            CreateEasyAuctionConfigFrame(f)
+            CreateEasyAuctionConfigFrame(tabOtherPage)
         end
         EasyAuctionConfigFrame:Show()
     end)
 
-    local title = fastFrame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    title:SetPoint("TOP", 0, -5)
-    title:SetText("|TInterface/Icons/INV_Misc_Coin_01:12:12:0:0|t |cff00ffffEasyAuction|r |cffffffff拍卖助手|r")
+    local lockBtn = CreateFrame("Button", nil, f)
+    lockBtn:SetSize(30, 30)
+    lockBtn:SetPoint("RIGHT", openCfgBtn, "LEFT", -4, 0)
+    lockBtn.icon = lockBtn:CreateTexture(nil, "ARTWORK")
+    lockBtn.icon:SetAllPoints()
+    lockBtn:EnableMouse(true)
+    lockBtn:SetScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        if EasyAuctionDB.locked then
+            GameTooltip:SetText("已锁定：固定在拍卖行右侧\n点击解锁后可拖动")
+        else
+            GameTooltip:SetText("已解锁：可自由拖动\n再次点击锁定并复位")
+        end
+        GameTooltip:Show()
+    end)
+    lockBtn:SetScript("OnLeave", GameTooltip_Hide)
+    lockBtn:SetScript("OnClick", function()
+        EasyAuctionDB.locked = not EasyAuctionDB.locked
+        UpdateLockState()
+    end)
 
-    local ItemButton = CreateFrame("Button", "EasyAuctionItemButton", fastFrame, "ItemButtonTemplate")
+
+    local historyBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+    historyBtn:SetSize(70, 22)
+    historyBtn:SetText("价格库")
+    local historyBtnfont = historyBtn:GetFontString()
+    if historyBtnfont then
+        historyBtnfont:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 14, "")
+    end
+    historyBtn:SetPoint("TOPRIGHT", openCfgBtn, "BOTTOMRIGHT", 0, -4)
+    historyBtn:SetScript("OnClick", function()
+        if EasyAuctionDBFrame and EasyAuctionDBFrame:IsShown() then
+            EasyAuctionDBFrame:Hide()
+            return
+        end
+        if EasyAuctionDBFrame then
+            EasyAuction_OpenDBFrame()
+        end
+    end)
+    historyBtn:SetScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:SetText("打开拍卖价格数据库", 1, 1, 1)
+        GameTooltip:Show()
+    end)
+    historyBtn:SetScript("OnLeave", function(self)
+        GameTooltip:Hide()
+    end)
+
+    local scanBtn = CreateFrame("Button", nil, tabFlashSellPage, "UIPanelButtonTemplate")
+    scanBtn:SetSize(70, 22)
+    scanBtnfont = scanBtn:GetFontString()
+    if scanBtnfont then
+        scanBtnfont:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 14, "")
+    end
+    scanBtn:SetPoint("TOPRIGHT", historyBtn, "BOTTOMRIGHT", 0, -4)
+    scanBtn:SetScript("OnClick", function()
+        StaticPopup_Show("EASYAUCTION_SCANALL_CONFIRM")
+        UpdateScanBtnState()
+        UpdateAuctionQueryStatusText()
+    end)
+    scanBtn:SetScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:SetText("扫描全服拍卖价格", 1, 1, 1)
+        GameTooltip:Show()
+    end)
+    scanBtn:SetScript("OnLeave", function(self)
+        GameTooltip:Hide()
+    end)
+
+    local function UpdateLockBtnVisual()
+        if EasyAuctionDB.locked then
+            lockBtn.icon:SetTexture("Interface\\BUTTONS\\LockButton-Locked-Up.blp")   
+        else
+            lockBtn.icon:SetTexture("Interface\\BUTTONS\\LockButton-Unlocked-Up.blp") 
+        end
+    end
+
+    local function SaveCustomPosition()
+        if not f then return end
+        local point, relativeTo, relativePoint, x, y = f:GetPoint()
+        EasyAuctionDB.customPos = {
+            point = point,
+            relativeTo = relativeTo and relativeTo:GetName() or "UIParent",
+            relativePoint =
+                relativePoint,
+            x = x,
+            y = y
+        }
+    end
+
+    local function RestoreCustomPosition()
+        if not f then return end
+        local pos = EasyAuctionDB.customPos
+        if pos and not EasyAuctionDB.locked then
+            f:ClearAllPoints()
+            f:SetPoint(pos.point or "TOPLEFT", pos.relativeTo or "UIParent", pos.relativePoint or "TOPLEFT", pos.x or 0,
+                pos.y or 0)
+        end
+    end
+
+    function UpdateLockState()
+        UpdateLockBtnVisual()
+        if EasyAuctionDB.locked then
+            f:SetMovable(false)
+            f:EnableMouse(false)
+            f:ClearAllPoints()
+            f:SetPoint("TOPLEFT", AuctionFrame, "TOPRIGHT", 0, -10)
+        else
+            f:SetMovable(true)
+            f:EnableMouse(true)
+            RestoreCustomPosition()
+        end
+    end
+
+    function UpdateScanBtnState()
+        if not scanBtn then return end
+        if IsScanningAll then
+            scanBtn:SetText("扫描中...")
+            scanBtn:SetEnabled(false)
+            return
+        end
+        local canQuery, canQueryAll = CanSendAuctionQuery()
+        if EasyAuctionDB.scanQuickMode then
+            scanBtn:SetText("快速扫描")
+        else
+            scanBtn:SetText("全量扫描")
+        end
+        scanBtn:SetEnabled(canQueryAll)
+    end
+
+    UpdateScanBtnState()
+    scanBtn:HookScript("OnEnter", function(self)
+        if not self:IsEnabled() then
+            GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+            GameTooltip:AddLine("全局扫描需返回角色大厅", 1, 0.82, 0)
+            GameTooltip:AddLine("当前不可用，请到主城或大厅再试。", 1, 1, 1)
+            GameTooltip:Show()
+        end
+    end)
+    scanBtn:HookScript("OnLeave", function(self)
+        GameTooltip:Hide()
+    end)
+
+    local scanBtnTicker
+    if scanBtnTicker then
+        scanBtnTicker:Cancel()
+    end
+    scanBtnTicker = C_Timer.NewTicker(0.5, function()
+        UpdateScanBtnState()
+        UpdateAuctionQueryStatusText()
+    end)
+
+    local inventoryBtn = CreateFrame("Button", nil, tabFlashSellPage, "UIPanelButtonTemplate")
+    inventoryBtn:SetSize(70, 22)
+    inventoryBtn:SetText("待售库存")
+    inventoryBtn:SetPoint("TOPRIGHT", scanBtn, "BOTTOMRIGHT", 0, -4)
+    local ifontString = inventoryBtn:GetFontString()
+    if ifontString then
+        ifontString:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 14, "")
+    end
+    inventoryBtn:SetScript("OnClick", function()
+        if itemsFrame then
+            local show = not itemsFrame:IsShown()
+            itemsFrame:SetShown(show)
+            EasyAuctionDB.showSections.items = show
+            if show and type(itemsFrame.RefreshBagItemFrame) == "function" then
+                itemsFrame:RefreshBagItemFrame()
+            end
+        end
+    end)
+    inventoryBtn:SetScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:SetText("查看待售库存", 1, 1, 1)
+        GameTooltip:AddLine("显示背包中可拍卖物品", 0.9, 0.9, 0.9)
+        GameTooltip:Show()
+    end)
+    inventoryBtn:SetScript("OnLeave", function(self)
+        GameTooltip:Hide()
+    end)
+
+    local minimalToggleBtn = CreateFrame("Button", nil, tabFlashSellPage, "UIPanelButtonTemplate")
+    minimalToggleBtn:SetSize(70, 22)
+    minimalToggleBtn:SetPoint("TOPRIGHT", inventoryBtn, "BOTTOMRIGHT", 0, -4)
+    local fontString = minimalToggleBtn:GetFontString()
+    if fontString then
+        fontString:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 14, "")
+    end
+
+    local function IsMinimalAddonMode()
+        for i = 1, GetNumAddOns() do
+            local name = GetAddOnInfo(i)
+            if name and name ~= "EasyAuction" and not name:find("^Blizzard_") then
+                if GetAddOnEnableState(UnitName("player"), name) > 0 then
+                    return false
+                end
+            end
+        end
+        return true
+    end
+
+    function RefreshMinimalToggleBtn()
+        if IsMinimalAddonMode() then
+            minimalToggleBtn:SetText("恢复配置")
+            minimalToggleBtn:SetEnabled(true)
+            minimalToggleBtn:SetAlpha(1.0)
+            minimalToggleBtn.tooltipText =
+                "恢复插件加载时的所有插件启用状态。\n\n" ..
+                "如遇拍卖行报错，可先用极简配置排查插件冲突。"
+        else
+            minimalToggleBtn:SetText("极简模式")
+            minimalToggleBtn:SetEnabled(true)
+            minimalToggleBtn:SetAlpha(1.0)
+            minimalToggleBtn.tooltipText =
+                "禁用除EasyAuction以外的所有插件。\n\n" ..
+                "用于排查拍卖行界面出错或卡顿（常因其他插件冲突导致）。\n\n" ..
+                "|cff00ff00使用极简模式后，可随时点击“恢复配置”恢复原有插件状态。|r\n\n" ..
+                "如恢复配置后仍有报错，可联系作者反馈。"
+        end
+    end
+
+    minimalToggleBtn:SetScript("OnClick", function()
+        if IsMinimalAddonMode() then
+            StaticPopupDialogs["EASYAUCTION_RESTORE_CONFIRM"] = {
+                text = "将恢复插件加载时的所有插件状态，确定继续？",
+                button1 = "确定",
+                button2 = "取消",
+                OnAccept = function()
+                    EasyAuction_RestoreAddon()
+                end,
+                timeout = 0,
+                whileDead = true,
+                hideOnEscape = true,
+                preferredIndex = 3,
+            }
+            StaticPopup_Show("EASYAUCTION_RESTORE_CONFIRM")
+        else
+            StaticPopupDialogs["EASYAUCTION_MINIMAL_CONFIRM"] = {
+                text = "将禁用除EasyAuction以外的所有插件，确定继续？",
+                button1 = "确定",
+                button2 = "取消",
+                OnAccept = function()
+                    EasyAuction_SetMinimalAddon()
+                end,
+                timeout = 0,
+                whileDead = true,
+                hideOnEscape = true,
+                preferredIndex = 3,
+            }
+            StaticPopup_Show("EASYAUCTION_MINIMAL_CONFIRM")
+        end
+    end)
+    minimalToggleBtn:SetScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:SetText(self.tooltipText or "")
+        GameTooltip:Show()
+    end)
+    minimalToggleBtn:SetScript("OnLeave", function(self)
+        GameTooltip:Hide()
+    end)
+
+    RefreshMinimalToggleBtn()
+
+    local auctionQueryStatusFS = f:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    auctionQueryStatusFS:SetPoint("RIGHT", f, "RIGHT", 52, 55)
+    auctionQueryStatusFS:SetWidth(180)
+    auctionQueryStatusFS:SetJustifyH("CENTER")
+    auctionQueryStatusFS:SetText("搜索状态：")
+
+    function UpdateAuctionQueryStatusText()
+        local canQuery, canQueryAll = CanSendAuctionQuery()
+        local g = canQueryAll and "|cff00ff00可用|r" or "|cffff2020不可用|r"
+        local s = canQuery and "|cff00ff00可用|r" or "|cffff2020不可用|r"
+        auctionQueryStatusFS:SetText(
+            "\n全局：" .. g .. "\n单体：" .. s
+        )
+    end
+
+    local ItemButton = CreateFrame("Button", "EasyAuctionItemButton", f, "ItemButtonTemplate")
     ItemButton:SetSize(40, 40)
-    ItemButton:SetPoint("TOPLEFT", 10, -24)
+    ItemButton:SetPoint("TOPLEFT", 10, -10)
     SetItemButtonTexture(ItemButton, "")
     SetItemButtonCount(ItemButton, 0)
     SetItemButtonQuality(ItemButton, nil)
-
-    local itemName = fastFrame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    itemName:SetPoint("LEFT", ItemButton, "RIGHT", 10, 0)
-    itemName:SetWidth(150)
-    itemName:SetJustifyH("LEFT")
-    f.ItemName = itemName
 
     ItemButton:SetScript("OnEnter", function(self)
         if self.itemID then
@@ -643,13 +2183,13 @@ local function CreateAuctionSide()
         if button == "LeftButton" and CursorHasItem() then
             ClickAuctionSellItemButton()
             ClearCursor()
-            FixItemButtonIconSize(self, 40) 
+            FixItemButtonIconSize(self, 40)
         elseif button == "RightButton" then
             self.itemID = nil
             SetItemButtonTexture(self, "")
             SetItemButtonCount(self, 0)
             SetItemButtonQuality(self, nil)
-            FixItemButtonIconSize(self, 40) 
+            FixItemButtonIconSize(self, 40)
             if f.ItemName then f.ItemName:SetText("") end
             f.UnitGold:SetNumber(0)
             f.UnitSilver:SetNumber(0)
@@ -661,35 +2201,81 @@ local function CreateAuctionSide()
             f.NumStacks:SetNumber(1)
             if EasyAuction_UpdateInlineDistribution then
                 EasyAuction_UpdateInlineDistribution(nil, nil)
+                UpdateTrendFrame(nil)
             end
+            RefreshMinPriceLines()
         end
     end)
+
+    local itemNameBtn = CreateFrame("Button", nil, f)
+    itemNameBtn:SetPoint("LEFT", ItemButton, "RIGHT", 10, 0)
+    itemNameBtn:SetWidth(150)
+    itemNameBtn:SetHeight(20)
+    itemNameBtn:SetHighlightTexture("Interface\\QuestFrame\\UI-QuestTitleHighlight")
+    f.ItemNameBtn = itemNameBtn
+
+    local itemName = itemNameBtn:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    itemName:SetPoint("LEFT")
+    itemName:SetJustifyH("LEFT")
+    itemName:SetAllPoints(itemNameBtn)
+    itemNameBtn:SetFontString(itemName)
+    itemName:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 16, "")
+    f.ItemName = itemName
+
+    itemNameBtn:SetScript("OnClick", function()
+        local name = itemName:GetText() or ""
+        if name ~= "" then
+            if not (name:sub(1, 1) == "\"" and name:sub(-1) == "\"") then
+                name = "\"" .. name .. "\""
+            end
+            EasyAuction_ShowCopyBox(name, itemNameBtn)
+        end
+    end)
+
+    itemNameBtn:SetScript("OnEnter", function(self)
+        if (itemName:GetText() or "") ~= "" then
+            GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+            GameTooltip:SetText("点击复制物品名称", 1, 1, 1)
+            GameTooltip:AddLine("弹窗可Ctrl+C复制", 0.9, 0.9, 0.9)
+            GameTooltip:Show()
+        end
+    end)
+    itemNameBtn:SetScript("OnLeave", function() GameTooltip:Hide() end)
+
+    f.SetItemNameForCopy = function(self, text)
+        itemName:SetText(text or "")
+        if text and text ~= "" then
+            itemNameBtn:Show()
+        else
+            itemNameBtn:Hide()
+        end
+    end
 
     local function AddMoneyEdit(parent, anchor, label, y, prefix)
         local labelFS = fastFrame:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
         labelFS:SetPoint("TOPLEFT", anchor, "BOTTOMLEFT", 0, y)
         labelFS:SetText(label)
-        labelFS:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 11, "")
+        labelFS:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 16, "")
 
-        local editGold = CreateNumericBox(fastFrame, 60)
+        local editGold = CreateNumericBox(fastFrame, 50)
         editGold:SetPoint("LEFT", labelFS, "RIGHT", 4, 0)
-        editGold:SetJustifyH("CENTER")
+        editGold:SetJustifyH("RIGHT")
         local iconGold = fastFrame:CreateTexture(nil, "ARTWORK")
         iconGold:SetTexture("Interface\\MoneyFrame\\UI-GoldIcon")
         iconGold:SetSize(12, 12)
         iconGold:SetPoint("LEFT", editGold, "RIGHT", 2, 0)
 
-        local editSilver = CreateNumericBox(fastFrame, 28)
-        editSilver:SetPoint("LEFT", iconGold, "RIGHT", 6, 0)
-        editSilver:SetJustifyH("CENTER")
+        local editSilver = CreateNumericBox(fastFrame, 35)
+        editSilver:SetPoint("LEFT", iconGold, "RIGHT", 2, 0)
+        editSilver:SetJustifyH("RIGHT")
         local iconSilver = fastFrame:CreateTexture(nil, "ARTWORK")
         iconSilver:SetTexture("Interface\\MoneyFrame\\UI-SilverIcon")
         iconSilver:SetSize(12, 12)
         iconSilver:SetPoint("LEFT", editSilver, "RIGHT", 2, 0)
 
-        local editCopper = CreateNumericBox(fastFrame, 28)
-        editCopper:SetPoint("LEFT", iconSilver, "RIGHT", 6, 0)
-        editCopper:SetJustifyH("CENTER")
+        local editCopper = CreateNumericBox(fastFrame, 35)
+        editCopper:SetPoint("LEFT", iconSilver, "RIGHT", 2, 0)
+        editCopper:SetJustifyH("RIGHT")
         local iconCopper = fastFrame:CreateTexture(nil, "ARTWORK")
         iconCopper:SetTexture("Interface\\MoneyFrame\\UI-CopperIcon")
         iconCopper:SetSize(12, 12)
@@ -703,24 +2289,25 @@ local function CreateAuctionSide()
     end
 
 
-    local unitLabel, unitGold, unitSilver, unitCopper = AddMoneyEdit(fastFrame, ItemButton, "一口价(单)：", -10, "Unit")
+    local unitLabel, unitGold, unitSilver, unitCopper = AddMoneyEdit(fastFrame, ItemButton, "一口(单)：", -5, "Unit")
 
-    local bidLabel, bidGold, bidSilver, bidCopper = AddMoneyEdit(fastFrame, unitLabel, "起拍价(总)：", -10, "Bid")
+    local bidLabel, bidGold, bidSilver, bidCopper = AddMoneyEdit(fastFrame, unitLabel, "起拍(总)：", -8, "Bid")
     f.BidGold:SetEnabled(false)
     f.BidSilver:SetEnabled(false)
     f.BidCopper:SetEnabled(false)
-    local stackLabel, stackGold, stackSilver, stackCopper = AddMoneyEdit(fastFrame, unitLabel, "一口价(总)：", -31, "Stack")
+    local stackLabel, stackGold, stackSilver, stackCopper = AddMoneyEdit(fastFrame, unitLabel, "一口(总)：", -31, "Stack")
 
     local stackCountLabel = fastFrame:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
-    stackCountLabel:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 11, "")
-    stackCountLabel:SetPoint("TOPLEFT", stackLabel, "BOTTOMLEFT", 0, -20)
+    stackCountLabel:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 16, "")
+    stackCountLabel:SetPoint("TOPLEFT", stackLabel, "BOTTOMLEFT", 0, -8)
     stackCountLabel:SetText("堆叠：")
-    f.StackCount = CreateNumericBox(fastFrame, 32)
+    f.StackCount = CreateNumericBox(fastFrame, 35)
     f.StackCount:SetPoint("LEFT", stackCountLabel, "RIGHT", 4, 0)
-    f.StackCount:SetJustifyH("CENTER")
+    f.StackCount:SetJustifyH("RIGHT")
 
     local MaxStackCountBtn = CreateFrame("Button", nil, fastFrame, "UIPanelButtonTemplate")
-    MaxStackCountBtn:SetSize(38, 20) 
+    MaxStackCountBtn.Text:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 14, "")
+    MaxStackCountBtn:SetSize(38, 20)
     MaxStackCountBtn:SetText("最大")
     MaxStackCountBtn:SetPoint("LEFT", f.StackCount, "RIGHT", 6, 0)
     MaxStackCountBtn:SetScript("OnEnter", function(self)
@@ -735,14 +2322,18 @@ local function CreateAuctionSide()
     end)
 
     local numStacksLabel = fastFrame:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
-    numStacksLabel:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 11, "")
-    numStacksLabel:SetPoint("TOPLEFT", stackCountLabel, "BOTTOMLEFT", 0, -14)
+    numStacksLabel:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 16, "")
+    numStacksLabel:SetPoint("TOPLEFT", stackCountLabel, "BOTTOMLEFT", 0, -8)
     numStacksLabel:SetText("组数：")
-    f.NumStacks = CreateNumericBox(fastFrame, 32)
+    f.NumStacks = CreateNumericBox(fastFrame, 35)
     f.NumStacks:SetPoint("LEFT", numStacksLabel, "RIGHT", 4, 0)
-    f.NumStacks:SetJustifyH("CENTER")
+    f.NumStacks:SetJustifyH("RIGHT")
+    f.NumStacks:SetScript("OnTextChanged", function(self)
+        UpdateDepositMoney()
+    end)
 
     local MaxNumStacksBtn = CreateFrame("Button", nil, fastFrame, "UIPanelButtonTemplate")
+    MaxNumStacksBtn.Text:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 14, "")
     MaxNumStacksBtn:SetSize(38, 20)
     MaxNumStacksBtn:SetText("最多")
     MaxNumStacksBtn:SetPoint("LEFT", f.NumStacks, "RIGHT", 6, 0)
@@ -757,9 +2348,15 @@ local function CreateAuctionSide()
         GameTooltip:Hide()
     end)
 
+    local label = fastFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    label:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 11, "")
+    label:SetPoint("TOPLEFT", numStacksLabel, "BOTTOMLEFT", 0, -5)
+    label:SetText("总保费：")
+    f.totalDepositMoneyLabel = label
+
     local startBtn = CreateFrame("Button", nil, fastFrame, "UIPanelButtonTemplate")
-    startBtn:SetPoint("LEFT", MaxNumStacksBtn, "RIGHT", 10, 0)
-    startBtn:SetSize(120, 28)
+    startBtn:SetPoint("LEFT", MaxNumStacksBtn, "RIGHT", 5, 0)
+    startBtn:SetSize(115, 28)
     startBtn:SetText("开始拍卖")
 
     local AuctionDurations = {
@@ -773,6 +2370,7 @@ local function CreateAuctionSide()
         EasyAuctionDB.auctionDuration = val
         for i, btn in ipairs(durationBtns) do
             btn:SetChecked(btn.value == val)
+            UpdateDepositMoney()
         end
     end
 
@@ -781,9 +2379,9 @@ local function CreateAuctionSide()
         local btn = CreateFrame("CheckButton", nil, fastFrame, "ChatConfigCheckButtonTemplate")
         btn:SetSize(22, 22)
         if i == 1 then
-            btn:SetPoint("LEFT", prev, "RIGHT", 12, 0)
+            btn:SetPoint("LEFT", prev, "RIGHT", 8, 2)
         else
-            btn:SetPoint("LEFT", durationBtns[i-1], "RIGHT", 14, 0) -- 固定Y轴
+            btn:SetPoint("LEFT", durationBtns[i - 1], "RIGHT", 14, 0)
         end
         btn.value = v.value
         btn.Text:SetText(v.text)
@@ -797,7 +2395,7 @@ local function CreateAuctionSide()
     end
     SetAuctionDuration(EasyAuctionDB.auctionDuration or 1)
 
-    
+
     f.UnitGold:SetScript("OnTextChanged", function() UpdateStackPrice(f) end)
     f.UnitSilver:SetScript("OnTextChanged", function() UpdateStackPrice(f) end)
     f.UnitCopper:SetScript("OnTextChanged", function() UpdateStackPrice(f) end)
@@ -819,6 +2417,7 @@ local function CreateAuctionSide()
             end
         end
         UpdateStackPrice(f)
+        UpdateDepositMoney()
         SetItemButtonCount(ItemButton, self:GetNumber() or 1)
     end)
 
@@ -884,6 +2483,9 @@ local function CreateAuctionSide()
                 button1 = "继续上架",
                 button2 = "取消",
                 OnAccept = function()
+                    LastAuctionSold.name = name
+                    LastAuctionSold.itemID = itemID
+                    LastAuctionSold.unitPrice = unitPrice
                     PostAuction(minBid, buyout, selectedDuration, stackSize, numStacks, false)
                     print("|cff00ff00已发布拍卖：|r" .. name)
                 end,
@@ -895,22 +2497,74 @@ local function CreateAuctionSide()
             StaticPopup_Show("EASYFRAME_LOW_PRICE")
             return
         end
+        local expireHours = 3
+        local expireSeconds = expireHours * 3600
 
+        local latestTime = 0
+        local key = (name and itemID) and (name .. ":" .. itemID) or nil
+        for _, v in ipairs(EasyAuctionDB.PriceHistory[key] or {}) do
+            if v.t and v.t > latestTime then
+                latestTime = v.t
+            end
+        end
+        local now = time()
+        if latestTime > 0 and now - latestTime > expireSeconds then
+            StaticPopupDialogs["EASYAUCTION_PRICE_EXPIRED"] = {
+                text = string.format(
+                    "|cffff2020该物品的价格数据已超过|r|cffffd200%d小时|r|cffff2020未更新！|r\n\n请|cffffd200【搜索】|r获取最新价格。",
+                    expireHours
+                ),
+                button1 = "继续上架",
+                button2 = "取消",
+                timeout = 0,
+                OnAccept = function()
+                    LastAuctionSold.name = name
+                    LastAuctionSold.itemID = itemID
+                    LastAuctionSold.unitPrice = unitPrice
+                    PostAuction(minBid, buyout, selectedDuration, stackSize, numStacks, false)
+                    print("|cff00ff00已发布拍卖：|r" .. name)
+                end,
+                whileDead = true,
+                hideOnEscape = true,
+                preferredIndex = 3,
+                OnShow = function(self)
+                    self:ClearAllPoints()
+                    if AuctionBar and AuctionBar.AuctionFrame then
+                        self:SetPoint("CENTER", AuctionBar.AuctionFrame, "CENTER", 0, -80)
+                    else
+                        self:SetPoint("CENTER", UIParent, "CENTER", 0, -100)
+                    end
+                end,
+            }
+            StaticPopup_Show("EASYAUCTION_PRICE_EXPIRED")
+            return
+        end
+        LastAuctionSold.name = name
+        LastAuctionSold.itemID = itemID
+        LastAuctionSold.unitPrice = unitPrice
         PostAuction(minBid, buyout, selectedDuration, stackSize, numStacks, false)
         print("|cff00ff00已发布拍卖：|r" .. name)
     end)
 
-    local itemsFrame = CreateFrame("Frame", nil, f)
-    itemsFrame:SetPoint("TOPLEFT", fastFrame, "TOPRIGHT", 1, 0)
-    itemsFrame:SetPoint("BOTTOMLEFT", 0, 0)
+    itemsFrame = CreateFrame("Frame", nil, f, "BackdropTemplate")
+    itemsFrame:SetPoint("TOPLEFT", f, "TOPRIGHT", 0, 0)
     itemsFrame:SetWidth(320)
-    itemsFrame:SetHeight(200) 
+    itemsFrame:SetHeight(206)
     itemsFrame:SetShown(EasyAuctionDB.showSections.items ~= false)
-    
+    itemsFrame:SetBackdrop({
+        bgFile = "Interface\\ChatFrame\\ChatFrameBackground",
+        edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
+        tile = true,
+        tileSize = 32,
+        edgeSize = 18,
+        insets = { left = 6, right = 6, top = 6, bottom = 6 }
+    })
+    itemsFrame:SetBackdropColor(0.10, 0.10, 0.13, 0.97)
+    itemsFrame:SetBackdropBorderColor(0.7, 0.6, 1, 1)
     local itemsTitle = itemsFrame:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
     itemsTitle:SetPoint("TOPLEFT", 10, -10)
-    itemsTitle:SetText("可售物品列表")
-    itemsTitle:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 11, "")
+    itemsTitle:SetText("待售库存")
+    itemsTitle:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 14, "")
 
     local itemsScroll = CreateFrame("ScrollFrame", nil, itemsFrame, "UIPanelScrollFrameTemplate")
     itemsScroll:SetPoint("TOPLEFT", itemsFrame, "TOPLEFT", 0, -30)
@@ -919,10 +2573,9 @@ local function CreateAuctionSide()
     local itemsScrollChild = CreateFrame("Frame", nil, itemsScroll)
     itemsScrollChild:SetWidth(itemsFrame:GetWidth() - 30)
     itemsScroll:SetScrollChild(itemsScrollChild)
-    ShowBorder(itemsFrame, { 0, 0, 0, 0.8 })
     local ICON_SIZE, ICON_PADDING, ICONS_PER_ROW = 32, 7, 6
-    local CATEGORY_LABEL_WIDTH = 35  
-    local CATEGORY_LABEL_PADDING = 4 
+    local CATEGORY_LABEL_WIDTH = 35
+    local CATEGORY_LABEL_PADDING = 4
     local itemButtons = {}
     local categoryHeaders = {}
 
@@ -946,9 +2599,9 @@ local function CreateAuctionSide()
                 end
                 local showName = cname == "消耗品" and "消耗" or cname
                 hdr:SetText("|cffffd200" .. showName .. "|r")
-                hdr:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 12, "")
+                hdr:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 13, "")
                 hdr:ClearAllPoints()
-                hdr:SetPoint("TOPLEFT", itemsScrollChild, "TOPLEFT", CATEGORY_LABEL_PADDING+2, -y-6)
+                hdr:SetPoint("TOPLEFT", itemsScrollChild, "TOPLEFT", CATEGORY_LABEL_PADDING + 2, -y - 6)
                 hdr:Show()
                 for i, item in ipairs(groupItems) do
                     local col = (i - 1) % ICONS_PER_ROW
@@ -978,13 +2631,23 @@ local function CreateAuctionSide()
                         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
                         GameTooltip:ClearLines()
                         GameTooltip:SetBagItem(self.bag, self.slot)
+                        GameTooltip:AddLine(" ")
+                        GameTooltip:AddDoubleLine("|cffffff00左键|r", "复制物品名称")
+                        GameTooltip:AddDoubleLine("|cffffff00右键|r", "放入拍卖栏（上架）")
                         GameTooltip:Show()
                     end)
                     btn:SetScript("OnLeave", GameTooltip_Hide)
+                    btn:SetScript("OnLeave", GameTooltip_Hide)
                     btn:RegisterForClicks("LeftButtonUp", "RightButtonUp")
                     btn:SetScript("OnClick", function(self, button)
-                        if ItemButton.itemID == self.itemID then return end
-                        PickupAndPutToAuction(self.bag, self.slot)
+                        if button == "LeftButton" and EasyAuctionDB.enableAuctionListCopy then
+                            local name = item.itemName or ""
+                            EasyAuction_ShowCopyBox("\"" .. name .. "\"")
+                        elseif button == "RightButton" then
+                            if ItemButton.itemID == self.itemID then return end
+                            PickupAndPutToAuction(self.bag, self.slot)
+                            RefreshMinPriceLines(item.itemName, item.itemID)
+                        end
                     end)
                     idx = idx + 1
                 end
@@ -995,86 +2658,295 @@ local function CreateAuctionSide()
     end
     f.RefreshBagItemFrame = RefreshBagItemIcons
 
-    local priceFrame = CreateFrame("Frame", "EasyFrame_PriceDistFrame", f, BackdropTemplateMixin and "BackdropTemplate")
+    local priceFrame = CreateFrame("Frame", "EasyFrame_PriceDistFrame", tabOtherPage, "BackdropTemplate")
     priceFrame:SetSize(320, 240)
     priceFrame:SetPoint("TOPLEFT", fastFrame, "BOTTOMLEFT", 0, -2)
     priceFrame:SetShown(EasyAuctionDB.showSections.price ~= false)
-    --priceFrame:SetBackdropColor(0, 0, 0, 0.82)
-    ShowBorder(priceFrame, { 0, 0, 0, 0.8 }) 
+    priceFrame:SetBackdrop({
+        bgFile = "Interface\\ChatFrame\\ChatFrameBackground",
+        edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
+        tile = true,
+        tileSize = 32,
+        edgeSize = 18,
+        insets = { left = 6, right = 6, top = 6, bottom = 6 }
+    })
+    priceFrame:SetBackdropColor(0.10, 0.10, 0.13, 0.97)
+    priceFrame:SetBackdropBorderColor(0.7, 0.6, 1, 1)
     if not priceFrame.scroll then
         local scroll = CreateFrame("ScrollFrame", nil, priceFrame, "UIPanelScrollFrameTemplate")
         scroll:SetPoint("TOPLEFT", priceFrame, "TOPLEFT", 0, -32)
-        scroll:SetPoint("BOTTOMRIGHT", priceFrame, "BOTTOMRIGHT", -23, 0) 
+        scroll:SetPoint("BOTTOMRIGHT", priceFrame, "BOTTOMRIGHT", -23, priceFrame:GetHeight() * 0.42)
         priceFrame.scroll = scroll
 
         local content = CreateFrame("Frame", nil, scroll)
-        content:SetWidth(priceFrame:GetWidth() - 36) 
+        content:SetWidth(priceFrame:GetWidth() - 36)
         scroll:SetScrollChild(content)
         priceFrame.content = content
     end
+
+    local trendFrame = CreateFrame("Frame", nil, priceFrame, BackdropTemplateMixin and "BackdropTemplate")
+    trendFrame:SetPoint("TOPLEFT", priceFrame, "TOPLEFT", 0, -priceFrame:GetHeight() * 0.58)
+    trendFrame:SetPoint("BOTTOMRIGHT", priceFrame, "BOTTOMRIGHT", 0, 0)
+    priceFrame.trend = trendFrame
+    if not trendFrame.scroll then
+        local scroll = CreateFrame("ScrollFrame", nil, trendFrame, "UIPanelScrollFrameTemplate")
+        scroll:SetPoint("TOPLEFT", trendFrame, "TOPLEFT", 0, -28)
+        scroll:SetPoint("BOTTOMRIGHT", trendFrame, "BOTTOMRIGHT", -23, 4)
+        trendFrame.scroll = scroll
+
+        local content = CreateFrame("Frame", nil, scroll)
+        content:SetWidth(trendFrame:GetWidth() - 36)
+        scroll:SetScrollChild(content)
+        trendFrame.content = content
+    end
+
+    local trendTitle = trendFrame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    trendTitle:SetPoint("TOPLEFT", trendFrame, "TOPLEFT", 10, -8)
+    trendTitle:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 14, "")
+    trendFrame.title = trendTitle
+
+    local function FormatDateText(d)
+        local today = date("%Y-%m-%d")
+        if d == today then
+            return "今日"
+        elseif d == "" then
+            return "--"
+        elseif d:find("^%d%d%d%d%-%d%d%-%d%d$") then
+            local m, day = d:sub(6, 7), d:sub(9, 10)
+            return string.format("%d月%d日", tonumber(m), tonumber(day))
+        else
+            return d
+        end
+    end
+
+    function UpdateTrendFrame(itemName)
+        local f = priceFrame.trend
+        local scroll = f.scroll
+        local content = f.content
+        if not content.rows then content.rows = {} end
+        for _, row in ipairs(content.rows) do for j = 1, 3 do if row[j] then row[j]:Hide() end end end
+        if not itemName or not EasyAuctionDB.DailyMinPrice then
+            if content.rows then
+                for _, row in ipairs(content.rows) do
+                    for j = 1, 3 do if row[j] then row[j]:Hide() end end
+                end
+            end
+            if not f.nodataFS then
+                f.nodataFS = content:CreateFontString(nil, "OVERLAY", "GameFontDisableLarge")
+                f.nodataFS:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 13, "")
+                f.nodataFS:SetPoint("TOPLEFT", content, "TOPLEFT", 24, 0)
+                f.nodataFS:SetWidth(260)
+                f.nodataFS:SetJustifyH("LEFT")
+            end
+            f.nodataFS:SetPoint("TOP", content, "TOP", 0, 0)
+            f.nodataFS:SetJustifyH("CENTER")
+            f.nodataFS:SetText("无数据")
+            f.nodataFS:Show()
+            return
+        else
+            if f.nodataFS then f.nodataFS:Hide() end
+        end
+        if not f.header then
+            f.header = {}
+            local headers = { "涨跌", "单价", "可购买", "日期" }
+            for i = 1, 4 do
+                local fs = f:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+                fs:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 12, "")
+                fs:SetText(headers[i])
+                if i == 1 then
+                    fs:SetPoint("TOPLEFT", f, "TOPLEFT", 10, -8)
+                    fs:SetWidth(40)
+                    fs:SetJustifyH("RIGHT")
+                elseif i == 2 then
+                    fs:SetPoint("LEFT", f.header[1], "RIGHT", 5, 0)
+                    fs:SetWidth(80)
+                    fs:SetJustifyH("RIGHT")
+                elseif i == 3 then
+                    fs:SetPoint("LEFT", f.header[2], "RIGHT", 35, 0)
+                    fs:SetWidth(48)
+                    fs:SetJustifyH("CENTER")
+                else
+                    fs:SetPoint("LEFT", f.header[3], "RIGHT", 35, 0)
+                    fs:SetWidth(120)
+                    fs:SetJustifyH("LEFT")
+                end
+                f.header[i] = fs
+            end
+        end
+        for i = 1, 4 do f.header[i]:Show() end
+        EasyAuctionDB = EasyAuctionDB or {}
+        EasyAuctionDB.DailyMinPrice = EasyAuctionDB.DailyMinPrice or {}
+        local dailyData = EasyAuctionDB.DailyMinPrice[itemName] or {}
+        local dayList = {}
+        for d, v in pairs(dailyData) do
+            if type(v) == "table" and v.unit then
+                table.insert(dayList, d)
+            elseif type(v) == "number" and v > 0 then
+                table.insert(dayList, d)
+            end
+        end
+        table.sort(dayList, function(a, b) return a > b end)
+        local today = date("%Y-%m-%d")
+        local sortedDays = {}
+        if dailyData[today] then table.insert(sortedDays, today) end
+        for _, d in ipairs(dayList) do
+            if #sortedDays >= 7 then break end
+            local exists = false
+            for _, d2 in ipairs(sortedDays) do if d2 == d then exists = true end end
+            if not exists then table.insert(sortedDays, d) end
+        end
+        while #sortedDays < 7 do table.insert(sortedDays, "") end
+        local rowHeight = 20
+        for i = 1, 7 do
+            local d = sortedDays[i]
+            local row = content.rows[i]
+            if not row then
+                row = {}
+                for j = 1, 4 do
+                    row[j] = content:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+                    row[j]:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 12, "")
+                end
+                row[1]:SetPoint("TOPLEFT", content, "TOPLEFT", 2, -(i - 1) * rowHeight)
+                row[1]:SetWidth(50)
+                row[1]:SetJustifyH("RIGHT")
+                row[2]:SetPoint("LEFT", row[1], "RIGHT", 2, 0)
+                row[2]:SetWidth(120)
+                row[2]:SetJustifyH("RIGHT")
+                row[3]:SetPoint("LEFT", row[2], "RIGHT", 2, 0)
+                row[3]:SetWidth(50)
+                row[3]:SetJustifyH("CENTER")
+                row[4]:SetPoint("LEFT", row[3], "RIGHT", 2, 0)
+                row[4]:SetWidth(80)
+                row[4]:SetJustifyH("CENTER")
+                content.rows[i] = row
+            end
+
+            local priceStr, countStr, dateStr, percentStr = "--", "--", "--", "--"
+            local curPrice = nil
+            if d and d ~= "" and dailyData[d] then
+                local v = dailyData[d]
+                local price, qty = 0, 0
+                if type(v) == "table" then
+                    price = v.unit or 0
+                    qty = v.count or 0
+                else
+                    price = v
+                    qty = 0
+                end
+                priceStr = price > 0 and GetMoneyString(price, true) or "--"
+                countStr = qty > 0 and tostring(qty) or "--"
+                dateStr = FormatDateText(d)
+                curPrice = price
+            end
+
+            local todayPrice
+            do
+                local v = dailyData[today]
+                if type(v) == "table" then
+                    todayPrice = v.unit or 0
+                else
+                    todayPrice = v or 0
+                end
+            end
+
+            if d == today then
+                percentStr = "|cffffff00-|r"
+            elseif curPrice and todayPrice and curPrice > 0 then
+                local diff = todayPrice - curPrice
+                local percent = diff / curPrice * 100
+                if math.abs(percent) < 0.05 then
+                    percentStr = "|cffffff00±0.0%|r"
+                elseif percent > 0 then
+                    percentStr = string.format("|cff00ff00+%.1f%%|r", percent)
+                else
+                    percentStr = string.format("|cffff5050%.1f%%|r", percent)
+                end
+            else
+                percentStr = "--"
+            end
+
+            row[1]:SetText(percentStr)
+            row[2]:SetText(priceStr)
+            row[3]:SetText(countStr)
+            row[4]:SetText(dateStr)
+            for j = 1, 4 do row[j]:Show() end
+        end
+        content:SetHeight(7 * rowHeight + 10)
+    end
+
     function EasyAuction_UpdateInlineDistribution(itemName, data)
+        --print("DEBUG[分布] itemName=", itemName)
         local f = priceFrame
         local content = priceFrame.content
-        local mainFrame = AuctionBar and AuctionBar.AuctionFrame
-        if not mainFrame then return end
-        if not f or not content then return end
         f:Show()
-
+        if content and not content:IsShown() then content:Show() end
         if not f.title then
             f.title = f:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
             f.title:SetPoint("TOPLEFT", f, "TOPLEFT", 10, -10)
+            f.title:Show()
         end
-
         if not f.summary then
             f.summary = f:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
             f.summary:SetPoint("TOPRIGHT", f, "TOPRIGHT", -10, -10)
             f.summary:SetJustifyH("RIGHT")
             f.summary:SetWidth(f:GetWidth() - 20)
+            f.summary:Show()
+        end
+        if not content.emptyTip then
+            content.emptyTip = content:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+            content.emptyTip:SetPoint("CENTER", content, "CENTER", 10, -30)
+            content.emptyTip:SetTextColor(1, 0.85, 0.2, 1)
+            content.emptyTip:SetJustifyH("CENTER")
+            content.emptyTip:SetWidth(content:GetWidth() - 20)
+            content.emptyTip:Show()
         end
 
-        if not itemName then
-            f.title:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 11, "")
-            f.title:SetText("|cffffffff价格分布|r")
-            if content.rows then for i = 1, #content.rows do content.rows[i]:Hide() end end
-            f.summary:Hide()
-            if not content.emptyTip then
-                content.emptyTip = content:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-                content.emptyTip:SetPoint("CENTER", content, "CENTER", 10, -30)
-                content.emptyTip:SetTextColor(1, 0.85, 0.2, 1)
-                content.emptyTip:SetJustifyH("CENTER")
-                content.emptyTip:SetWidth(content:GetWidth() - 20)
+        -- -- ================== 调试输出 ==================
+        -- print("DEBUG[分布]", "itemName=", tostring(itemName), "data type=", type(data), "data size=", data and #data or 0)
+        -- if data then
+        --     for i, v in ipairs(data) do
+        --         print("DEBUG[分布] data[",i,"]=", v and v.unit)
+        --     end
+        -- end
+        -- -- =============================================
+
+        local formattedData = {}
+        if not data or type(data) ~= "table" or #data == 0 then
+            local actualItemID = nil
+            if type(itemName) == "string" and itemName:find(":") then
+                local _, parsedID = string.match(itemName, "^(.+):(%d+)$")
+                if parsedID then
+                    actualItemID = tonumber(parsedID)
+                    --print("DEBUG[分布] fallback actualItemID=", actualItemID)
+                end
             end
-            content.emptyTip:Show()
-            content.emptyTip:SetText("|cffffee00请先将物品放入左侧拍卖栏|r")
-            content:SetHeight(80)
-            return
-        end
-        if not data or #data == 0 then
-            f.title:SetText("|cffffffff价格分布|r")
-            f.title:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 11, "")
-            if content.rows then for i = 1, #content.rows do content.rows[i]:Hide() end end
-            f.summary:Hide()
-            if not content.emptyTip then
-                content.emptyTip = content:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-                content.emptyTip:SetPoint("CENTER", content, "CENTER", 10, -30)
-                content.emptyTip:SetTextColor(1, 0.85, 0.2, 1)
-                content.emptyTip:SetJustifyH("CENTER")
-                content.emptyTip:SetWidth(content:GetWidth() - 20)
+            if actualItemID then
+                for k, v in pairs(EasyAuctionDB.PriceHistory or {}) do
+                    if k:match(":(%d+)$") == tostring(actualItemID) and type(v) == "table" and #v > 0 then
+                        data = v
+                        --print("DEBUG[分布] fallback matched key:", k, "size:", #v)
+                        break
+                    end
+                end
             end
-            content.emptyTip:Show()
-            content.emptyTip:SetText("|cffffee00请先搜索物品价格或进行全局扫描|r")
-            content:SetHeight(80)
-            return
         end
 
-        if content.emptyTip then content.emptyTip:Hide() end
-        f.title:SetText((itemName or "") .. " |cffffffff价格分布|r")
+        if type(data) == "table" and (#data > 0 or data[1]) then
+            formattedData = data
+        elseif type(data) == "table" then
+            for _, v in pairs(data) do
+                if type(v) == "table" and v.unit then
+                    table.insert(formattedData, v)
+                end
+            end
+        end
 
         local stats, maxCount = {}, 0
-        for _, v in ipairs(data) do
-            if v.unit then
-                stats[v.unit] = (stats[v.unit] or 0) + (v.count or 1)
-                if stats[v.unit] > maxCount then maxCount = stats[v.unit] end
+        for _, v in ipairs(formattedData) do
+            if type(v) == "table" and tonumber(v.unit) then
+                local unit = tonumber(v.unit)
+                stats[unit] = (stats[unit] or 0) + (v.count or 1)
+                if stats[unit] > maxCount then maxCount = stats[unit] end
             end
         end
         local statArr = {}
@@ -1082,15 +2954,35 @@ local function CreateAuctionSide()
             table.insert(statArr, { unit = unit, count = count })
         end
         table.sort(statArr, function(a, b) return a.unit < b.unit end)
-        content.rows = content.rows or {}
 
-        local AMOUNT_AREA_WIDTH = 80
-        local ROW_HEIGHT = 18
-        local LEFT_PADDING = 4
-        local RIGHT_PADDING = 4
-        local GAP1 = 3
-        local GAP2 = 3
-        local BAR_HEIGHT = 13
+        -- -- ========== 调试输出 ==========
+        -- print("DEBUG[分布] statArr size=", #statArr)
+        -- for i, v in ipairs(statArr) do print("DEBUG[分布] statArr[",i,"]=", v.unit, v.count) end
+        -- -- =================================
+
+        if not itemName or #statArr == 0 then
+            f.title:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 14, "")
+            f.title:SetText("|cffffffff价格分布|r")
+            if content.rows then for i = 1, #content.rows do content.rows[i]:Hide() end end
+            f.summary:Hide()
+            if not content.emptyTip then
+                content.emptyTip = content:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+                content.emptyTip:SetPoint("CENTER", content, "CENTER", 10, -30)
+                content.emptyTip:SetTextColor(1, 0.85, 0.2, 1)
+                content.emptyTip:SetJustifyH("CENTER")
+                content.emptyTip:SetWidth(content:GetWidth() - 20)
+            end
+            content.emptyTip:Show()
+            content.emptyTip:SetText("|cffffee00无价格数据，点击|r|cffffd200【搜索】|r|cffffee00更新数据。|r")
+            content:SetHeight(80)
+            return
+        else
+            if content.emptyTip then content.emptyTip:Hide() end
+        end
+
+        f.title:SetText("|cffffffff本次价格分布|r")
+        local AMOUNT_AREA_WIDTH, ROW_HEIGHT = 120, 18
+        local LEFT_PADDING, RIGHT_PADDING, GAP1, GAP2, BAR_HEIGHT = 4, 4, 6, 3, 13
 
         local rowFont, rowFontSize, rowFontFlags = GameFontHighlightSmall:GetFont()
         local maxCountWidth = 0
@@ -1108,6 +3000,7 @@ local function CreateAuctionSide()
         local barMaxWidth = totalWidth - LEFT_PADDING - RIGHT_PADDING - AMOUNT_AREA_WIDTH - GAP1 - maxCountWidth
         if barMaxWidth < 16 then barMaxWidth = 16 end
 
+        content.rows = content.rows or {}
         for idx, v in ipairs(statArr) do
             local row = content.rows[idx]
             if not row then
@@ -1115,13 +3008,13 @@ local function CreateAuctionSide()
                 row:SetSize(totalWidth, ROW_HEIGHT)
                 local font, size, flags = GameFontHighlightSmall:GetFont()
                 row.icon = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-                row.icon:SetFont(font, 10, flags) 
+                row.icon:SetFont(font, 12, flags)
                 row.icon:SetJustifyH("RIGHT")
                 row.icon:SetWidth(AMOUNT_AREA_WIDTH)
                 row.bar = row:CreateTexture(nil, "ARTWORK")
                 row.bar:SetHeight(BAR_HEIGHT)
-                row.count = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall") 
-                row.count:SetFont(font, 10, flags)
+                row.count = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+                row.count:SetFont(font, 12, flags)
                 row.count:SetJustifyH("LEFT")
                 content.rows[idx] = row
             end
@@ -1131,7 +3024,6 @@ local function CreateAuctionSide()
             row.icon:SetJustifyH("RIGHT")
             row.icon:SetPoint("LEFT", row, "LEFT", LEFT_PADDING, 0)
             row.icon:SetPoint("TOP", row, "TOP", 0, 0)
-
             local barLen = 1
             if maxCount > 0 then
                 barLen = math.floor(v.count / maxCount * barMaxWidth + 0.5)
@@ -1141,7 +3033,6 @@ local function CreateAuctionSide()
             row.bar:SetWidth(barLen)
             row.bar:SetColorTexture(0, 0.8, 0, 1)
             row.bar:Show()
-
             row.count:SetText("|cffffde00" .. v.count .. "|r")
             row.count:SetWidth(maxCountWidth)
             row.count:SetPoint("LEFT", row.bar, "RIGHT", GAP2, 0)
@@ -1151,10 +3042,14 @@ local function CreateAuctionSide()
             row.icon:SetScript("OnMouseUp", function()
                 local price = v.unit
                 local ug, us, uc = SplitCopper(price)
-                mainFrame.UnitGold:SetNumber(ug)
-                mainFrame.UnitSilver:SetNumber(us)
-                mainFrame.UnitCopper:SetNumber(uc)
-                UpdateStackPrice(mainFrame)
+                local mainFrame = AuctionBar and AuctionBar.AuctionFrame
+                if mainFrame then
+                    mainFrame.UnitGold:SetNumber(ug)
+                    mainFrame.UnitSilver:SetNumber(us)
+                    mainFrame.UnitCopper:SetNumber(uc)
+                    UpdateStackPrice(mainFrame)
+                    MyAH_AutoFillPrice()
+                end
             end)
             row.icon:SetScript("OnEnter", function(self)
                 local gold, silver, copper = SplitCopper(v.unit)
@@ -1181,7 +3076,6 @@ local function CreateAuctionSide()
 
         local totalHeight = #statArr * ROW_HEIGHT + 8
         content:SetHeight(math.max(totalHeight, priceFrame:GetHeight() - 60))
-
         local totalCount = 0
         for _, v in ipairs(statArr) do totalCount = totalCount + v.count end
         table.sort(statArr, function(a, b) return a.count > b.count end)
@@ -1191,48 +3085,60 @@ local function CreateAuctionSide()
             local percent = totalCount > 0 and v.count / totalCount * 100 or 0
             table.insert(top3, string.format("%s (%.1f%%)", FormatGoldIcon(v.unit, 10), percent))
         end
-        f.summary:SetText(string.format(
-            "|cffffee00统计数：%d|r",totalCount
-        ))
-        f.summary:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 10, "OUTLINE")
-        -- f.summary:SetText(string.format(
-        --     "|cffffee00统计数：%d|r  占比前三：%s",
-        --     totalCount, #top3>0 and table.concat(top3, "，") or "无"
-        -- ))
+        f.summary:SetText(string.format("|cffffee00统计数：%d|r", totalCount))
+        f.summary:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 12, "OUTLINE")
         f.summary:Show()
+        if priceFrame and priceFrame.trend then
+            UpdateTrendFrame(itemName)
+        end
     end
 
     if not f.MyAuctionListFrame then
-        local myAuctionFrame = CreateFrame("Frame", nil, f, BackdropTemplateMixin and "BackdropTemplate")
+        local myAuctionFrame = CreateFrame("Frame", nil, tabOtherPage, "BackdropTemplate")
         myAuctionFrame:SetSize(320, 240)
-        myAuctionFrame:SetPoint("TOPLEFT", priceFrame, "TOPRIGHT", 2, 0)
-        --myAuctionFrame:SetBackdropColor(0, 0, 0, 0.82)
-        ShowBorder(myAuctionFrame, { 0, 0, 0, 0.8 }) 
-        -- myAuctionFrame:SetBackdrop({bgFile="Interface\\DialogFrame\\UI-DialogBox-Background", edgeFile=nil, tile=true, tileSize=16})
+        myAuctionFrame:SetPoint("TOPLEFT", priceFrame, "TOPRIGHT", 0, 0)
         myAuctionFrame:EnableMouse(true)
+        myAuctionFrame:SetBackdrop({
+            bgFile = "Interface\\ChatFrame\\ChatFrameBackground",
+            edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
+            tile = true,
+            tileSize = 32,
+            edgeSize = 18,
+            insets = { left = 6, right = 6, top = 6, bottom = 6 }
+        })
+        myAuctionFrame:SetBackdropColor(0.10, 0.10, 0.13, 0.97)
+        myAuctionFrame:SetBackdropBorderColor(0.7, 0.6, 1, 1)
         myAuctionFrame:Show()
         f.MyAuctionListFrame = myAuctionFrame
         if f.MyAuctionListFrame then
             f.MyAuctionListFrame:SetShown(EasyAuctionDB.showSections.myauct ~= false)
         end
-
         local title = myAuctionFrame:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
         title:SetPoint("TOPLEFT", 10, -10)
-        title:SetText("已上架拍卖（右键取消）")
-        title:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 11, "")
+        title:SetText("在售列表")
+        title:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 14, "")
+        title:EnableMouse(true)
+        title:SetScript("OnEnter", function(self)
+            GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+            GameTooltip:SetText("在下方拍卖列表中，右键点击可取消该拍卖", 1, 1, 1)
+            GameTooltip:Show()
+        end)
+        title:SetScript("OnLeave", function(self)
+            GameTooltip:Hide()
+        end)
 
         local totalLabel = myAuctionFrame:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
         totalLabel:SetPoint("TOPRIGHT", myAuctionFrame, "TOPRIGHT", -22, -10)
-        totalLabel:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 11, "")
+        totalLabel:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 12, "")
         totalLabel:SetJustifyH("RIGHT")
         totalLabel:SetWidth(220)
         myAuctionFrame.totalLabel = totalLabel
 
         local statusLabel = myAuctionFrame:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
         statusLabel:SetPoint("TOPRIGHT", totalLabel, "BOTTOMRIGHT", 0, -3)
-        statusLabel:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 10, "")
+        statusLabel:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 12, "")
         statusLabel:SetJustifyH("RIGHT")
-        statusLabel:SetWidth(220)
+        statusLabel:SetWidth(300)
         myAuctionFrame.statusLabel = statusLabel
 
         local scroll = CreateFrame("ScrollFrame", nil, myAuctionFrame, "FauxScrollFrameTemplate")
@@ -1247,23 +3153,23 @@ local function CreateAuctionSide()
         for i = 1, maxRows do
             local row = CreateFrame("Button", nil, myAuctionFrame)
             row:SetSize(myAuctionFrame:GetWidth() - 20, 18)
-            row:SetPoint("TOPLEFT", 0, -40 - (i - 1) * 19)
+            row:SetPoint("TOPLEFT", 4, -40 - (i - 1) * 19)
             row.nameText = row:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-            row.nameText:SetFont(row.nameText:GetFont(), 10, "")
+            row.nameText:SetFont(row.nameText:GetFont(), 12, "")
             row.nameText:SetPoint("LEFT", 4, 0)
             row.nameText:SetWidth(130)
             row.nameText:SetJustifyH("LEFT")
             row.nameText:SetWordWrap(false)
             row.priceText = row:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-            row.priceText:SetFont(row.priceText:GetFont(), 10, "")
+            row.priceText:SetFont(row.priceText:GetFont(), 12, "")
             row.priceText:SetPoint("LEFT", row.nameText, "RIGHT", 8, 0)
             row.priceText:SetWidth(120)
             row.priceText:SetJustifyH("RIGHT")
             row.durationText = row:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-            row.durationText:SetFont(row.durationText:GetFont(), 10, "")
+            row.durationText:SetFont(row.durationText:GetFont(), 12, "")
             row.durationText:SetPoint("LEFT", row.priceText, "RIGHT", 8, 0)
             row.durationText:SetWidth(60)
-            row.durationText:SetJustifyH("LEFT")
+            row.durationText:SetJustifyH("CENTER")
             row.bg = row:CreateTexture(nil, "BACKGROUND")
             row.bg:SetAllPoints()
             row.bg:SetColorTexture(1, 1, 1, (i % 2 == 0) and 0.05 or 0.10)
@@ -1291,12 +3197,12 @@ local function CreateAuctionSide()
         end
     end
 
-    local sectionBtnSize, sectionBtnGap = 60, 6
-    local sectionBtnHeight = 20
-    local firstBtnTopOffset = -35 
+    local sectionBtnSize, sectionBtnGap = 70, 6
+    local sectionBtnHeight = 22
+    local firstBtnTopOffset = -35
     local sectionNames = {
-        { key = "items", label = "可售列表" },
-        { key = "myauct", label = "已上架" },
+        { key = "items", label = "待售库存" },
+        { key = "myauct", label = "在售列表" },
         { key = "price", label = "价格分布" },
     }
     local sectionBtns = {}
@@ -1319,15 +3225,16 @@ local function CreateAuctionSide()
         btn:SetText(data.label)
         local fontString = btn:GetFontString()
         if fontString then
-            fontString:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 12, "")
+            fontString:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 14, "")
         end
 
-        btn:SetPoint("TOPRIGHT", openCfgBtn, "BOTTOMRIGHT", 0, firstBtnTopOffset - (i-1)*(sectionBtnGap+sectionBtnHeight))
+        btn:SetPoint("TOPRIGHT", openCfgBtn, "BOTTOMRIGHT", 0, firstBtnTopOffset - (i - 1) *
+            (sectionBtnGap + sectionBtnHeight) + 5)
 
         if not btn.grayMask then
             btn.grayMask = btn:CreateTexture(nil, "OVERLAY")
             btn.grayMask:SetAllPoints(btn)
-            btn.grayMask:SetColorTexture(0.15, 0.15, 0.15, 0.7)  
+            btn.grayMask:SetColorTexture(0.15, 0.15, 0.15, 0.7)
             btn.grayMask:Hide()
         end
 
@@ -1350,62 +3257,13 @@ local function CreateAuctionSide()
                 itemsFrame:SetShown(val)
             elseif data.key == "price" then
                 priceFrame:SetShown(val)
-                print("priceFrame:SetShown(val)", val)
-                if val then
-                    local name = GetAuctionSellItemInfo and GetAuctionSellItemInfo()
-                    if name and EasyAuctionDB and EasyAuctionDB.PriceHistory and EasyAuctionDB.PriceHistory[name] then
-                        EasyAuction_UpdateInlineDistribution(name, EasyAuctionDB.PriceHistory[name])
-                    else
-                        EasyAuction_UpdateInlineDistribution(nil, nil)
-                    end
-                end
             elseif data.key == "myauct" then
                 if f.MyAuctionListFrame then f.MyAuctionListFrame:SetShown(val) end
             end
             UpdateBtnVisual()
         end)
-
         UpdateBtnVisual()
-        sectionBtns[i] = btn
     end
-
-    local priceDetailBtn = CreateFrame("Button", nil, fastFrame, "UIPanelButtonTemplate")
-    priceDetailBtn:SetSize(sectionBtnSize, sectionBtnHeight)
-    priceDetailBtn:SetText("价格详情")
-    local fontString = priceDetailBtn:GetFontString()
-    if fontString then
-        fontString:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", 12, "")
-    end
-    priceDetailBtn:SetPoint("TOPRIGHT", sectionBtns[3], "BOTTOMRIGHT", 0, -sectionBtnGap)
-
-    priceDetailBtn:SetScript("OnClick", function()
-        if EasyAuctionPriceFrame and EasyAuctionPriceFrame:IsShown() then
-            EasyAuctionPriceFrame:Hide()
-            return
-        end
-        local itemName = GetAuctionSellItemInfo()
-        if not itemName or itemName == "" then
-            print("|cffff3300请先将物品放入拍卖栏左侧！|r")
-            return
-        end
-        local data = EasyAuctionDB.PriceHistory and EasyAuctionDB.PriceHistory[itemName]
-        if not data or #data == 0 then
-            print("|cffff3300没有该物品的历史价格数据！|r")
-            return
-        end
-        if itemName and EasyAuctionDB and EasyAuctionDB.PriceHistory[itemName] then
-            ShowPriceFrame(itemName, EasyAuctionDB.PriceHistory[itemName])
-        end
-    end)
-
-    priceDetailBtn:SetScript("OnEnter", function(self)
-        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-        GameTooltip:SetText("点击显示当前上架物品的价格详情", 1, 1, 1)
-        GameTooltip:Show()
-    end)
-    priceDetailBtn:SetScript("OnLeave", function(self)
-        GameTooltip:Hide()
-    end)
 
     local function utf8sub(str, startChar, numChars)
         local startIndex = 1
@@ -1500,6 +3358,7 @@ local function CreateAuctionSide()
         local soldBuyout = 0
         for idx = 1, num do
             local _, _, count, _, _, _, _, _, _, buyoutPrice, _, _, _, _, _, saleStatus = GetAuctionItemInfo("owner", idx)
+
             if buyoutPrice and buyoutPrice > 0 then
                 if saleStatus == 1 then
                     soldBuyout = soldBuyout + buyoutPrice
@@ -1578,10 +3437,11 @@ local function CreateAuctionSide()
         end
 
         if myAuctionFrame.totalLabel then
-            myAuctionFrame.totalLabel:SetText("|cffffd100总额：|r"..GetCoinTextureString(sum))
+            myAuctionFrame.totalLabel:SetText("|cffffd100总额：|r" .. GetCoinTextureString(sum))
         end
         if myAuctionFrame.statusLabel then
-            myAuctionFrame.statusLabel:SetText("|cffff5050未售：|r"..GetCoinTextureString(totalBuyout) .. "   |cff00ff00已售：|r"..GetCoinTextureString(soldBuyout))
+            myAuctionFrame.statusLabel:SetText("|cffff5050未售：|r" ..
+                GetCoinTextureString(totalBuyout) .. "   |cff00ff00已售：|r" .. GetCoinTextureString(soldBuyout))
         end
     end
 
@@ -1594,9 +3454,8 @@ local function CreateAuctionSide()
         if quality then
             r, g, b = GetItemQualityColor(quality)
         end
-
-        -- 自动取得历史最低价或五倍商店价
-        local hist = EasyAuctionDB and EasyAuctionDB.PriceHistory and EasyAuctionDB.PriceHistory[name]
+        local key = name .. ":" .. (itemID or "0")
+        local hist = EasyAuctionDB and EasyAuctionDB.PriceHistory and EasyAuctionDB.PriceHistory[key]
         local histUnit = nil
         if hist and #hist > 0 then
             histUnit = hist[1].unit
@@ -1614,7 +3473,12 @@ local function CreateAuctionSide()
         f.NumStacks:SetNumber(1)
 
         local unitPrice
-        if histUnit then
+        if EasyAuctionDB.autoFillLastAuction
+            and LastAuctionSold.name == name
+            and LastAuctionSold.itemID == itemID
+            and LastAuctionSold.unitPrice then
+            unitPrice = LastAuctionSold.unitPrice
+        elseif histUnit then
             unitPrice = histUnit
         else
             unitPrice = math.max(vendorPrice * 5, 1)
@@ -1626,7 +3490,7 @@ local function CreateAuctionSide()
         f.UnitCopper:SetNumber(uc)
 
         if f.ItemName then
-            local colorStr = ("|cff%02x%02x%02x%s|r"):format(r*255, g*255, b*255, name)
+            local colorStr = ("|cff%02x%02x%02x%s|r"):format(r * 255, g * 255, b * 255, name)
             f.ItemName:SetText(colorStr)
         end
         if ItemButton and ItemButton.SetNormalTexture then
@@ -1639,35 +3503,41 @@ local function CreateAuctionSide()
             SetItemButtonCount(ItemButton, f.StackCount:GetNumber() or 1)
         end
         UpdateStackPrice(f)
+        UpdateDepositMoney()
+        MyAH_AutoFillPrice()
+        if EasyAuction_UpdateInlineDistribution then
+            local key = (name and itemID) and (name .. ":" .. itemID) or nil
+            if key and EasyAuctionDB and EasyAuctionDB.PriceHistory and EasyAuctionDB.PriceHistory[key] then
+                EasyAuction_UpdateInlineDistribution(key, EasyAuctionDB.PriceHistory[key])
+                UpdateTrendFrame(key)
+            elseif key then
+                EasyAuction_UpdateInlineDistribution(key, nil)
+                UpdateTrendFrame(key)
+            else
+                EasyAuction_UpdateInlineDistribution(nil, nil)
+                UpdateTrendFrame(nil)
+            end
+        end
     end
     ns.AutoFillPrice = AutoFillPrice
-    
+
     f:RegisterEvent("BAG_UPDATE")
     f:RegisterEvent("AUCTION_ITEM_LIST_UPDATE")
     f:RegisterEvent("NEW_AUCTION_UPDATE")
     f:RegisterEvent("AUCTION_HOUSE_SHOW")
     f:RegisterEvent("AUCTION_OWNED_LIST_UPDATE")
     f:SetScript("OnEvent", function(self, event)
-        if event == "BAG_UPDATE" or event == "AUCTION_ITEM_LIST_UPDATE" or event == "NEW_AUCTION_UPDATE" or event == "AUCTION_HOUSE_SHOW" or event == "AUCTION_OWNED_LIST_UPDATE" then
+        if event == "AUCTION_ITEM_LIST_UPDATE" or event == "NEW_AUCTION_UPDATE" or event == "AUCTION_HOUSE_SHOW" then
             self:RefreshBagItemFrame()
             self:RefreshMyAuctionList()
+            UpdateScanBtnState()
             AutoFillPrice()
             SetAuctionDuration(EasyAuctionDB.auctionDuration or 1)
-            local name = GetAuctionSellItemInfo and GetAuctionSellItemInfo()
-            local Distributionshow = EasyAuctionDB.showSections.price ~= false
-            if Distributionshow then
-                if name and EasyAuctionDB and EasyAuctionDB.PriceHistory and EasyAuctionDB.PriceHistory[name] then
-                    EasyAuction_UpdateInlineDistribution(name, EasyAuctionDB.PriceHistory[name])
-                    if EasyAuctionPriceFrame and EasyAuctionPriceFrame:IsShown() then
-                        ShowPriceFrame(name, EasyAuctionDB.PriceHistory[name])
-                    end
-                else
-                    if EasyAuctionPriceFrame and EasyAuctionPriceFrame:IsShown() then
-                        EasyAuctionPriceFrame:Hide()
-                    end
-                    EasyAuction_UpdateInlineDistribution(nil, nil)
-                end
-            end
+        elseif event == "BAG_UPDATE" then
+            self:RefreshBagItemFrame()
+        elseif event == "AUCTION_OWNED_LIST_UPDATE" then
+            self:RefreshBagItemFrame()
+            self:RefreshMyAuctionList()
         end
     end)
     if f.MyAuctionListFrame then
@@ -1677,21 +3547,23 @@ local function CreateAuctionSide()
     f:HookScript("OnShow", function()
         f:RefreshBagItemFrame()
         f:RefreshMyAuctionList()
+        ApplyEasyAuctionUIScale()
     end)
     AuctionBar.AuctionFrame = f
+    UpdateLockState()
+    ApplyEasyAuctionUIScale()
 end
 
 function EasyAuction_CreateSellPanelButton()
-    local HelpButton = _G["EasyAuctionScanAllHelpButton"]
-    local HistoryButton = _G["EasyAuctionHistoryButton"]
-    local btn = CreateFrame("Button", "EasyAuctionSellPanelButton", AuctionFrameBrowse, "UIPanelButtonTemplate")
-    btn:SetSize(60, 22)
-    if HistoryButton then
-        btn:SetPoint("LEFT", HelpButton, "RIGHT", 6, 0)
+    local btn = CreateFrame("Button", "EasyAuctionSellPanelButton", AuctionFrame, "UIPanelButtonTemplate")
+    btn:SetSize(120, 22)
+    local BuyoutCheckButton = _G["EasyAuctionBuyoutCheckButton"]
+    if BuyoutCheckButton then
+        btn:SetPoint("BOTTOMLEFT", BuyoutCheckButton, "TOPLEFT", -80, 4)
     else
-        btn:SetPoint("LEFT", HistoryButton, "RIGHT", 6, 0)
+        btn:SetPoint("TOPLEFT", AuctionFrame, "TOPLEFT", 0, -32)
     end
-    btn:SetText("闪卖")
+    btn:SetText("EasyAuction")
     btn:SetNormalFontObject(GameFontHighlightSmall)
     btn:SetHighlightFontObject(GameFontHighlightSmall)
 
@@ -1718,7 +3590,6 @@ function EasyAuction_CreateSellPanelButton()
                 EasyAuctionDB.SellPanel = true
             end
         end
-
     end)
     btn:SetScript("OnEnter", function(self)
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
@@ -1739,6 +3610,11 @@ eventFrame:RegisterEvent("AUCTION_HOUSE_SHOW")
 eventFrame:SetScript("OnEvent", function(_, event)
     if event == "AUCTION_HOUSE_SHOW" then
         CreateAuctionSide()
+        RefreshMinimalToggleBtn()
+        EasyAuction_SessionBuyStats = {}
+        RefreshMinPriceLines()
+        RefreshRecentSearchRows()
+        RefreshFavoriteRows()
         if AuctionBar.AuctionFrame then
             if EasyAuctionDB.SellPanel then
                 AuctionBar.AuctionFrame:Show()
@@ -1748,7 +3624,7 @@ eventFrame:SetScript("OnEvent", function(_, event)
         end
         if AuctionFrame and AuctionFrame.selectedTab == 3 then
             for i = 1, NUM_AUCTIONS_TO_DISPLAY do
-                local btn = _G["AuctionsButton"..i]
+                local btn = _G["AuctionsButton" .. i]
                 if btn and not btn.__EasyAuction_RightClickRegistered then
                     btn:RegisterForClicks("LeftButtonUp", "RightButtonUp")
                     btn:HookScript("OnClick", function(self, button)
@@ -1771,7 +3647,7 @@ eventFrame:SetScript("OnEvent", function(_, event)
                     end)
                     btn.__EasyAuction_RightClickRegistered = true
                 end
-            end 
+            end
         end
     end
 end)
@@ -1786,7 +3662,7 @@ end)
 local function EasyAuction_ClearSellPanelCache()
     if not (AuctionBar and AuctionBar.AuctionFrame) then return end
     local f = AuctionBar.AuctionFrame
-
+    EasyAuction_SessionBuyStats = {}
     if f.ItemName then f.ItemName:SetText("") end
     if f.UnitGold then f.UnitGold:SetNumber(0) end
     if f.UnitSilver then f.UnitSilver:SetNumber(0) end
@@ -1803,6 +3679,7 @@ local function EasyAuction_ClearSellPanelCache()
     local ItemButton = _G["EasyAuctionItemButton"]
     if ItemButton then
         ItemButton.itemID = nil
+        ItemButton.isVirtual = nil
         if ItemButton.SetNormalTexture then
             SetItemButtonTexture(ItemButton, "")
         end
@@ -1812,7 +3689,9 @@ local function EasyAuction_ClearSellPanelCache()
 
     if EasyAuction_UpdateInlineDistribution then
         EasyAuction_UpdateInlineDistribution(nil, nil)
+        UpdateTrendFrame(nil)
     end
+    RefreshMinPriceLines()
 end
 
 C_Timer.After(0.5, function()
@@ -1853,6 +3732,9 @@ multiSellFrame:SetScript("OnEvent", function(self, event, current, total)
         totalMultisell = 0
         doneMultisell = 0
         EasyAuction_ClearSellPanelCache()
+        if EasyAuctionCopyBox and EasyAuctionCopyBox:IsShown() then
+            EasyAuctionCopyBox:Hide()
+        end
     end
 end)
 
@@ -1867,9 +3749,145 @@ if not AuctionBar.__EasyAuctionSellItemButtonHooked then
                 if f.AutoFillPrice then f:AutoFillPrice() end
                 if f.RefreshBagItemFrame then f:RefreshBagItemFrame() end
                 if f.RefreshMyAuctionList then f:RefreshMyAuctionList() end
+                UpdateDepositMoney()
             end
             isInHook = false
         end)
+        local name, _, _, _, _, _, _, _, _, itemID = GetAuctionSellItemInfo()
+        if name and itemID then
+            RefreshMinPriceLines(name, itemID)
+        end
     end)
     AuctionBar.__EasyAuctionSellItemButtonHooked = true
+end
+
+hooksecurefunc("PlaceAuctionBid", function(type, index, price)
+    local name, _, count, _, _, _, _, _, _, buyout, _, _, _, owner, _, _, itemID = GetAuctionItemInfo(type, index)
+    if itemID and count and price then
+        LastBuyItemID = itemID
+        LastBuyName = name
+        LastBuyCount = count
+        LastBuyUnitPrice = math.floor(price / count + 0.5)
+    end
+end)
+
+local patterns = {
+    gsub(ERR_AUCTION_WON_S or "你赢得了对%s的竞标", "%%s", "(.+)"),
+    gsub(ERR_AUCTION_WON_S or "你赢得了拍卖物品：%s。", "%%s", "(.+)"),
+    "你赢得了对(.+)的竞标",
+    "你赢得了拍卖物品：(.+)",
+}
+
+local buyEventFrame = CreateFrame("Frame")
+buyEventFrame:RegisterEvent("CHAT_MSG_SYSTEM")
+buyEventFrame:SetScript("OnEvent", function(self, event, msg)
+    if not msg then return end
+    local wonName
+    for _, pat in ipairs(patterns) do
+        wonName = msg:match(pat)
+        if wonName then break end
+    end
+    if wonName and LastBuyItemID and LastBuyName then
+        local function stripColor(str)
+            if not str then return "" end
+            return str:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("%s+", "")
+        end
+        local s1, s2 = stripColor(LastBuyName), stripColor(wonName)
+        if s1 == s2 or s1:find(s2, 1, true) or s2:find(s1, 1, true) then
+            local stat = EasyAuction_SessionBuyStats[LastBuyItemID] or { sum = 0, num = 0 }
+            stat.sum = stat.sum + (LastBuyUnitPrice or 0) * (LastBuyCount or 1)
+            stat.num = stat.num + (LastBuyCount or 0)
+            EasyAuction_SessionBuyStats[LastBuyItemID] = stat
+            LastBuyItemID, LastBuyName, LastBuyCount, LastBuyUnitPrice = nil, nil, nil, nil
+        end
+    end
+end)
+
+local function EasyAuction_GetCopyBox()
+    if not EasyAuctionCopyOverlay then
+        EasyAuctionCopyOverlay = CreateFrame("Frame", "EasyAuctionCopyOverlay", UIParent)
+        EasyAuctionCopyOverlay:SetAllPoints(UIParent)
+        EasyAuctionCopyOverlay:SetFrameStrata("FULLSCREEN_DIALOG")
+        EasyAuctionCopyOverlay:EnableMouse(true)
+        EasyAuctionCopyOverlay:Hide()
+        EasyAuctionCopyOverlay:SetScript("OnMouseDown", function(self)
+            self:Hide()
+            if EasyAuctionCopyBox then
+                EasyAuctionCopyBox:Hide()
+            end
+        end)
+    end
+
+    if not EasyAuctionCopyBox then
+        EasyAuctionCopyBox = CreateFrame("EditBox", "EasyAuctionCopyBox", UIParent, "InputBoxTemplate")
+        EasyAuctionCopyBox:SetAutoFocus(true)
+        EasyAuctionCopyBox:SetFontObject("GameFontHighlightSmall")
+        EasyAuctionCopyBox:SetSize(160, 28)
+        EasyAuctionCopyBox:SetFrameStrata("FULLSCREEN_DIALOG")
+        EasyAuctionCopyBox:SetJustifyH("LEFT")
+        EasyAuctionCopyBox:SetScript("OnEscapePressed", function(self)
+            self:Hide()
+            if EasyAuctionCopyOverlay then
+                EasyAuctionCopyOverlay:Hide()
+            end
+        end)
+        EasyAuctionCopyBox:SetScript("OnEditFocusLost", function(self)
+            self:Hide()
+            if EasyAuctionCopyOverlay then
+                EasyAuctionCopyOverlay:Hide()
+            end
+        end)
+        EasyAuctionCopyBox:SetScript("OnShow", function(self)
+            self:HighlightText(0, -1)
+            self:SetFocus()
+        end)
+        EasyAuctionCopyBox:SetScript("OnHide", function(self)
+            if EasyAuctionCopyOverlay then
+                EasyAuctionCopyOverlay:Hide()
+            end
+        end)
+    end
+    return EasyAuctionCopyBox
+end
+
+function EasyAuction_ShowCopyBox(text, anchor, x, y)
+    local box = EasyAuction_GetCopyBox()
+    if EasyAuctionCopyOverlay then
+        EasyAuctionCopyOverlay:Show()
+        box:SetFrameLevel(EasyAuctionCopyOverlay:GetFrameLevel() + 1)
+    end
+    box:ClearAllPoints()
+    x = x or 0
+    y = y or 0
+    if anchor then
+        box:SetPoint("CENTER", anchor, "CENTER", x, y)
+    else
+        local mx, my = GetCursorPosition()
+        local scale = UIParent:GetEffectiveScale()
+        box:SetPoint("CENTER", UIParent, "BOTTOMLEFT", mx / scale, my / scale)
+    end
+    box:SetText(text or "")
+    box:Show()
+    box:SetFocus()
+    box:HighlightText(0, -1)
+end
+
+if not _G.EasyAuction_Favorite_GlobalFocusHooked then
+    _G.EasyAuction_Favorite_GlobalFocusHooked = true
+    WorldFrame:HookScript("OnMouseDown", function(_, btn)
+        local f = _G.EasyAuctionFavoriteImportExportFrame
+        if f and f:IsShown() and f.editBox and f.editBox:HasFocus() then
+            local x, y = GetCursorPosition()
+            local scale = f:GetEffectiveScale()
+            x = x / scale
+            y = y / scale
+            local left = f:GetLeft()
+            local right = f:GetRight()
+            local bottom = f:GetBottom()
+            local top = f:GetTop()
+            if not (x >= left and x <= right and y >= bottom and y <= top) then
+                f.editBox:ClearFocus()
+            end
+        end
+    end)
 end

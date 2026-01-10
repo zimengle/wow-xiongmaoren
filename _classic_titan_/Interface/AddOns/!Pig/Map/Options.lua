@@ -25,7 +25,7 @@ local RTabFrame =Create.PIGOptionsList_RF(fuFrame)
 --
 local GeneralF,Generaltabbut =PIGOptionsList_R(RTabFrame,GENERAL,70)
 GeneralF:Show()
-Generaltabbut:Selected()
+Generaltabbut:Selected(true)
 function GeneralF.PIGChecked()
 	GeneralF.Minimap_but:SetChecked(PIGA["Map"]["MinimapBut"])
 	GeneralF.Minimap_but_BS:SetEnabled(PIGA["Map"]["MinimapBut"])
@@ -101,7 +101,7 @@ function GeneralF.Minimap_but_Point:PIGDownMenu_SetValue(value,arg1,arg2)
 	addonTable.UpdateMiniButPoint()
 	PIGCloseDropDownMenus()
 end
-GeneralF.CZinfo = PIGButton(GeneralF,{"TOPLEFT",GeneralF.Minimap_but_Point,"BOTTOMLEFT",10,-6},{100,24},"重置位置")
+GeneralF.CZinfo = PIGButton(GeneralF,{"TOPLEFT",GeneralF.Minimap_but_Point,"BOTTOMLEFT",10,-6},{100,24},RESET_POSITION)
 GeneralF.CZinfo:SetScript("OnClick", function()
 	Mapfun.MiniMapBut:CZMinimapInfo()
 end);

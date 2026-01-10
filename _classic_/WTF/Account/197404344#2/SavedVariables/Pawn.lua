@@ -14,6 +14,11 @@ PawnCommon = {
 ["ShowTooltipIcons"] = true,
 ["LastVersion"] = 2.1201,
 ["ShowSocketingAdvisor"] = true,
+["ShowSpecIcons"] = true,
+["IgnoreGemsWhileLeveling"] = true,
+["ButtonPosition"] = 2,
+["ShowLootUpgradeAdvisor"] = true,
+["ShowQuestUpgradeAdvisor"] = true,
 ["Scales"] = {
 ["\"Classic\":WARRIOR2"] = {
 ["IconTexturePath"] = 132347,
@@ -32,10 +37,10 @@ PawnCommon = {
 ["\"Classic\":ROGUE3"] = {
 ["IconTexturePath"] = 132320,
 ["PerCharacterOptions"] = {
-["Vscode-加丁"] = {
+["特变电工-祈福"] = {
 ["Visible"] = true,
 },
-["特变电工-祈福"] = {
+["Vscode-加丁"] = {
 ["Visible"] = true,
 },
 },
@@ -545,10 +550,5 @@ PawnCommon = {
 ["SpecID"] = 2,
 },
 },
-["IgnoreGemsWhileLeveling"] = true,
-["ButtonPosition"] = 2,
-["ShowLootUpgradeAdvisor"] = true,
-["ShowQuestUpgradeAdvisor"] = true,
-["ShowSpecIcons"] = true,
 ["ShownGettingStarted"] = true,
 }

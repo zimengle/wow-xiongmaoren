@@ -242,7 +242,7 @@ if AtlasLoot:GameVersion_GE(AtlasLoot.BC_VERSION_NUM) then
         [29720] = "money:48000",
         [29721] = "money:96000",
         [30156] = "glowcap:1",
-        [30183] = "BoJ:15",
+        -- [30183] = "BoJ:15",
         [30443] = "money:72000",
         [30444] = "money:45000",
         [30623] = "money:80000",

@@ -30,8 +30,8 @@ ns.DE_Mats = {
     [22448] = "小块棱光碎片",
     [22449] = "大块棱光碎片",
     [22450] = "虚空水晶",
-    [34052] = "梦境裂片",
-    [34053] = "小块梦境裂片",
+    [34052] = "梦境碎片",
+    [34053] = "小块梦境碎片",
     [34054] = "无限之尘",
     [34055] = "强效宇宙精华",
     [34056] = "次级宇宙精华",
@@ -223,11 +223,14 @@ end
 local function GetMatPrice(itemID)
     local bestPrice = nil
     local name = ns.DE_Mats[itemID]
-    if name and EasyAuctionDB and EasyAuctionDB.PriceHistory and EasyAuctionDB.PriceHistory[name] then
-        local history = EasyAuctionDB.PriceHistory[name]
-        for _, info in ipairs(history) do
-            if info.unit and (not bestPrice or info.unit < bestPrice) then
-                bestPrice = info.unit
+    if name and EasyAuctionDB and EasyAuctionDB.PriceHistory then
+        local key = name .. ":" .. itemID
+        local history = EasyAuctionDB.PriceHistory[key]
+        if type(history) == "table" then
+            for _, info in ipairs(history) do
+                if info.unit and (not bestPrice or info.unit < bestPrice) then
+                    bestPrice = info.unit
+                end
             end
         end
     end
@@ -235,11 +238,14 @@ local function GetMatPrice(itemID)
         local exchangeID = ns.DE_Exchange[itemID]
         local exName = ns.DE_Mats[exchangeID]
         local exPrice = nil
-        if exName and EasyAuctionDB and EasyAuctionDB.PriceHistory and EasyAuctionDB.PriceHistory[exName] then
-            local history = EasyAuctionDB.PriceHistory[exName]
-            for _, info in ipairs(history) do
-                if info.unit and (not exPrice or info.unit < exPrice) then
-                    exPrice = info.unit
+        if exName and EasyAuctionDB and EasyAuctionDB.PriceHistory then
+            local exKey = exName .. ":" .. exchangeID
+            local history = EasyAuctionDB.PriceHistory[exKey]
+            if type(history) == "table" then
+                for _, info in ipairs(history) do
+                    if info.unit and (not exPrice or info.unit < exPrice) then
+                        exPrice = info.unit
+                    end
                 end
             end
         end

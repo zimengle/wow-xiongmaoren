@@ -4,7 +4,7 @@ Postal3DB = {
 ["BlackBook"] = {
 ["alts"] = {
 "三角碑崽儿|时光IV|Alliance|80|WARRIOR",
-"于鹏|时光IV|Alliance|63|WARLOCK",
+"于鹏|时光IV|Alliance|80|WARLOCK",
 "京东刘强东|时光IV|Alliance|80|PALADIN",
 "京东董事长|时光IV|Horde|1|PALADIN",
 "卧伦巴菲特|时光IV|Alliance|1|WARLOCK",
@@ -32,16 +32,18 @@ Postal3DB = {
 ["退休码农 - 时光IV"] = {
 ["BlackBook"] = {
 ["recent"] = {
+"三角碑崽儿|时光IV|Alliance",
 "哔站陈睿|时光IV|Alliance",
 "京东刘强东|时光IV|Alliance",
 "美团王兴|时光IV|Alliance",
-"三角碑崽儿|时光IV|Alliance",
 },
 },
 },
 ["于鹏 - 时光IV"] = {
 ["BlackBook"] = {
 ["recent"] = {
+"美团王兴|时光IV|Alliance",
+"依然勿忘|时光IV|Alliance",
 "美团王兴-时光IV|时光IV|Alliance",
 },
 },
@@ -60,12 +62,12 @@ Postal3DB = {
 ["京东刘强东 - 时光IV"] = {
 ["BlackBook"] = {
 ["recent"] = {
+"哔站陈睿|时光IV|Alliance",
 "退休码农|时光IV|Alliance",
 "小米军儿|时光IV|Alliance",
 "三角碑崽儿|时光IV|Alliance",
 "美团王兴|时光IV|Alliance",
 "Raffine|时光IV|Alliance",
-"哔站陈睿|时光IV|Alliance",
 "扛不住的小德|时光IV|Alliance",
 "超爱吃火锅|时光IV|Alliance",
 },
@@ -77,10 +79,10 @@ Postal3DB = {
 ["三角碑崽儿 - 时光IV"] = {
 ["BlackBook"] = {
 ["recent"] = {
+"京东刘强东|时光IV|Alliance",
 "于鹏|时光IV|Alliance",
 "退休码农|时光IV|Alliance",
 "哔站陈睿|时光IV|Alliance",
-"京东刘强东|时光IV|Alliance",
 "美团王兴|时光IV|Alliance",
 "咸鱼九号|时光IV|Alliance",
 },
@@ -100,8 +102,8 @@ Postal3DB = {
 ["哔站陈睿 - 时光IV"] = {
 ["BlackBook"] = {
 ["recent"] = {
-"小米军儿|时光IV|Alliance",
 "退休码农|时光IV|Alliance",
+"小米军儿|时光IV|Alliance",
 "三角碑崽儿|时光IV|Alliance",
 "美团王兴|时光IV|Alliance",
 "京东刘强东|时光IV|Alliance",

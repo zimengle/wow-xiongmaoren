@@ -249,7 +249,7 @@ local function FindPlayerAuraBy(condition)
 end
 
 -- Utility aura function, one of the many that Blizzard could've done better years ago...
-local function FindPlayerAuraByID(self, id)
+local function FindPlayerAuraByID(id)
     local index, filter = FindPlayerAuraBy(function(_id, _name) return _id == id end);
     if index then
         return PlayerAura(index, filter);
@@ -257,7 +257,7 @@ local function FindPlayerAuraByID(self, id)
 end
 
 -- Utility aura function, similar to AuraUtil.FindAuraByName
-local function FindPlayerAuraByName(self, name)
+local function FindPlayerAuraByName(name)
     local index, filter = FindPlayerAuraBy(function(_id, _name) return _name == name end);
     if index then
         return PlayerAura(index, filter);

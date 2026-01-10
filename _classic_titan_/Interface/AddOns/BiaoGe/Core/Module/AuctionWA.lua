@@ -336,26 +336,31 @@ BG.Init(function()
     end
 
     function aura.FormatNumber(num)
-        if not tonumber(num) or Locale == "enUS" then return num end
-        if Locale == "enUS" then return num end
-        num = tostring(num)
-        local len = strlen(num)
-        if len < 5 then return num end
-        local k = num:sub(-4, -1)
-        local w = num:sub(1, -5)
-        if tonumber(k) == 0 then
-            return w .. L["万"]
+        if not tonumber(num) then return num end
+        if Locale == "enUS" then
+            local formatted = tostring(num)
+            formatted = formatted:reverse():gsub("(%d%d%d)", "%1,"):reverse():gsub("^,", "")
+            return formatted
         else
-            for i = 1, 4 do
-                local len = strlen(k)
-                local last = k:sub(len, len)
-                if last == "0" then
-                    k = k:sub(1, len - 1)
-                else
-                    break
+            num = tostring(num)
+            local len = strlen(num)
+            if len < 5 then return num end
+            local k = num:sub(-4, -1)
+            local w = num:sub(1, -5)
+            if tonumber(k) == 0 then
+                return w .. L["万"]
+            else
+                for i = 1, 4 do
+                    local len = strlen(k)
+                    local last = k:sub(len, len)
+                    if last == "0" then
+                        k = k:sub(1, len - 1)
+                    else
+                        break
+                    end
                 end
+                return w .. "." .. k .. L["万"]
             end
-            return w .. "." .. k .. L["万"]
         end
     end
 
@@ -768,7 +773,7 @@ BG.Init(function()
                     result = aura.SetClassCFF(f.player) .. f.money
                     t:SetText(L["拍卖成功"])
                     t:SetTextColor(0, 1, 0)
-                    f.currentMoneyText:SetText(L["|cff00FF00成交价：|r"] .. f.money)
+                    f.currentMoneyText:SetText(L["|cff00FF00成交价：|r"] .. aura.FormatNumber(f.money))
                     if f.player == aura.GN() then
                         f.topMoneyText:SetText(L["|cff00FF00买家：|r"] .. "|cff" .. aura.GREEN1 .. L[">> 你 <<"])
                     else
@@ -790,7 +795,7 @@ BG.Init(function()
                     result = L["流拍"]
                     t:SetText(L["流拍"])
                     t:SetTextColor(1, 0, 0)
-                    f.currentMoneyText:SetText(L["|cffFF0000流拍：|r"] .. f.money)
+                    f.currentMoneyText:SetText(L["|cffFF0000流拍：|r"] .. aura.FormatNumber(f.money))
                     f.topMoneyText:SetText("")
                     if aura.IsRaidLeader() then
                         SendChatMessage(format(L["{rt7}流拍{rt7} %s"], f.link), "RAID")

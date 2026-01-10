@@ -113,7 +113,7 @@ BG.Init(function()
 
             local text
             local moneyTitle, money
-            if not (BG.IsVanilla_Sod or BG.IsMOP_TW) then
+            if not BG.IsTW then
                 moneyTitle = "¥"
                 money = 90
             else
@@ -194,16 +194,14 @@ BG.Init(function()
     end
 
     -- 在线玩家数
-    if BG.IsVanilla_Sod or BG.IsMOP_TW then
+    if BG.IsTW then
         BG.Init2(function()
             if not IsAddOnLoaded("Blizzard_Communities") then
                 UIParentLoadAddOn("Blizzard_Communities")
             end
         end)
 
-        -- local World = "BiaoGeYY"
         local World = LOOK_FOR_GROUP
-        -- local World = "大脚世界频道"
 
         local function GetFactionName()
             if UnitFactionGroup("player") == "Alliance" then
@@ -263,29 +261,25 @@ BG.Init(function()
         BG.ButtonOnLineCount = bt
 
         function BG.GetChannelMemberCount(channelName)
-            local yes
             local channels = { GetChannelList() }
             for i = 1, #channels, 3 do
                 if channels[i + 1] == channelName then
-                    yes = true
-                    break
+                    if ChannelFrame:IsShown() then
+                        HideUIPanel(ChannelFrame)
+                    end
+                    ChannelFrame.targetChannel = channelName
+                    ShowUIPanel(ChannelFrame)
+                    return
                 end
-            end
-            if yes then
-                if ChannelFrame:IsShown() then
-                    HideUIPanel(ChannelFrame)
-                end
-                ChannelFrame.targetChannel = channelName
-                ShowUIPanel(ChannelFrame)
             end
         end
 
-        hooksecurefunc(ChannelFrame.ChannelList, 'AddChannelButtonInternal', function(_, bt, _, name, _, channelID)
+        hooksecurefunc(ChannelFrame.ChannelList, 'AddChannelButtonInternal', function(_, channelbt, _, name, _, channelID)
             if name == ChannelFrame.targetChannel then
                 BG.After(0.3, function()
-                    ChannelFrame.ChannelList:SetSelectedChannel(bt)
+                    ChannelFrame.ChannelList:SetSelectedChannel(channelbt)
                     BG.After(1, function()
-                        local _, _, _, _, count = GetChannelDisplayInfo(bt.channelID)
+                        local _, _, _, _, count = GetChannelDisplayInfo(channelbt.channelID)
                         if count then
                             bt.count = count
                             local m, s = GetGameTime()
