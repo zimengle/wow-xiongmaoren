@@ -1,0 +1,46 @@
+AtlasDB = {
+["profileKeys"] = {
+["萌萌奶糖 - 野性痊癒"] = "Default",
+["伊芙莉特 - 铁血"] = "Default",
+["墨清弦灬 - 孤狼"] = "Default",
+["萌萌的露小露 - 铁血"] = "Default",
+["甜甜奶糖 - 孤狼"] = "Default",
+["萌萌的露露糖old1733222566571 - DECOM - 벽옥맥 광산 (SoM)"] = "Default",
+["露露緹婭old1733300072400 - 碧玉矿洞"] = "Default",
+["露露緹婭old1733300072400 - 无情"] = "Default",
+["超小露露糖old1745088464421 - 铁血"] = "Default",
+["萌萌的露小露old1743358569227old1733222566571 - 硬汉"] = "Default",
+["Tydalna - 铁血"] = "Default",
+["露露糖 - 铁血"] = "Default",
+["气了 - 生命烈焰"] = "Default",
+["猛的猎 - 孤狼"] = "Default",
+["露露缇娅 - 哈霍兰"] = "Default",
+["Minazukirei - DECOM - 벽옥맥 광산 (SoM)"] = "Default",
+["伊芙莉特old1733222566571丶 - 孤狼"] = "Default",
+["小綾子 - 孤狼"] = "Default",
+["小露露糖 - 铁血"] = "Default",
+["萌萌的露小露old1743358569227 - 硬汉"] = "Default",
+["超小露露糖 - 铁血"] = "Default",
+["萌萌的露小露old1743358569227old1733222566571 - DECOM - 벽옥맥 광산 (SoM)"] = "Default",
+["氣了 - 生命烈焰"] = "Default",
+["萌萌的露露糖 - 硬汉"] = "Default",
+["露露緹婭 - 无情"] = "Default",
+["加拿大打桩机 - 铁血"] = "Default",
+["愛雅法拉 - 铁血"] = "Default",
+["萌萌的露露糖old1733222566571 - 孤狼"] = "Default",
+["愛雅法拉old1733222566571 - 孤狼"] = "Default",
+["蒂琪爱尔 - 铁血"] = "Default",
+},
+["profiles"] = {
+["Default"] = {
+["options"] = {
+["dropdowns"] = {
+["zone"] = 3,
+},
+},
+["dropdowns"] = {
+["东部王国副本"] = 3,
+},
+},
+},
+}

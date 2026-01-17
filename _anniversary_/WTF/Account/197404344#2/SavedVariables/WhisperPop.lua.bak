@@ -1,0 +1,35 @@
+
+WhisperPopDB = {
+["notifyButton"] = 1,
+["listHeight"] = 320,
+["positions"] = {
+["WhisperPopFrame"] = {
+"CENTER",
+"UIParent",
+"CENTER",
+0,
+-20,
+},
+["WhisperPopNotifyButton"] = {
+"BOTTOM",
+"UIParent",
+"BOTTOM",
+-563,
+262,
+},
+},
+["showRealm"] = 1,
+["time"] = 1,
+["save"] = 1,
+["timeFormat"] = 2,
+["ignoreTags"] = 1,
+["buttonScale"] = 100,
+["history"] = {
+},
+["version"] = 4.12,
+["applyFilters"] = 1,
+["foreignOnly"] = 1,
+["listScale"] = 100,
+["sound"] = 1,
+["listWidth"] = 200,
+}

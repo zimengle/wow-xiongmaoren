@@ -15,9 +15,9 @@ W: 365
 H: 239
 Frame: CharacterFrame
 FrameLevel: 1
-Anchor: TOPLEFT
-X: 0
-Y: -104
+Anchor: TOP
+X: -238
+Y: -136
 W: 384
 H: 512
 Frame: SpellBookFrame

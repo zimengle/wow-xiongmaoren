@@ -1,11 +1,13 @@
 
 PawnOptions = {
 ["LastVersion"] = 2.0811,
+["LastPlayerFullName"] = "退休码农-时光IV",
+["AutoSelectScales"] = false,
 ["ItemLevels"] = {
 {
-["ID"] = 37715,
-["Level"] = 200,
-["Link"] = "|cff0070dd|Hitem:37715::::::::80::::::::::|h[恐怖巨魔兜帽]|h|r",
+["ID"] = 257621,
+["Level"] = 213,
+["Link"] = "|cffa335ee|Hitem:257621::::::::80::::::::::|h[预言风帽]|h|r",
 },
 {
 ["ID"] = 40681,
@@ -93,8 +95,6 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:259900::::::::80::::::::::|h[赤红震荡者]|h|r",
 },
 },
-["AutoSelectScales"] = false,
-["LastPlayerFullName"] = "退休码农-时光IV",
 }
 PawnMrRobotScaleProviderOptions = nil
 PawnClassicScaleProviderOptions = {

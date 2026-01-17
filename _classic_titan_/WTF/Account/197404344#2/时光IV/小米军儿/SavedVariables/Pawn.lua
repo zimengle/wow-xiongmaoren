@@ -1,8 +1,6 @@
 
 PawnOptions = {
 ["LastVersion"] = 2.0811,
-["LastPlayerFullName"] = "小米军儿-时光IV",
-["AutoSelectScales"] = false,
 ["ItemLevels"] = {
 {
 ["ID"] = 257631,
@@ -91,6 +89,8 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:40703::::::::80::::::::::|h[草薙]|h|r",
 },
 },
+["AutoSelectScales"] = false,
+["LastPlayerFullName"] = "小米军儿-时光IV",
 }
 PawnMrRobotScaleProviderOptions = nil
 PawnClassicScaleProviderOptions = {

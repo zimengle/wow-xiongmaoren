@@ -1,18 +1,20 @@
 VER 3 0000000000000005 "Decursive" "INV_MISC_QUESTIONMARK"
-/script DecursiveRootTable.Dcr:Println('没有相关技能')
+/stopcasting
+/cast [@mouseover,nomod,exists] 清洁术;  [@mouseover,exists,mod:ctrl] 清洁术; [@mouseover,exists,mod:shift] 清洁术
 END
 VER 3 0000000000000003 "MJE: Random Mount" "132599"
 /cancelform [nocombat,noknown:15473]
 /run C_MountJournal.SummonByID(0)
 END
-VER 3 0000000000000002 "MJE: Random Mount" "132599"
-/cancelform [nocombat,noknown:15473]
-/run C_MountJournal.SummonByID(0)
-END
 VER 3 0000000000000004 "RXPTargeting" "Ability_eyeoftheowl"
-/targetexact 复活的联盟士兵
-/targetexact 残忍的恶鬼
-/targetexact 冰寒食尸鬼
+/targetexact 暗影专家
+/targetexact 邪恶通灵师
+/targetexact 笨重的憎恶
+/targetlasttarget [dead]
+END
+VER 3 0000000000000002 "RXPTargeting" "Ability_eyeoftheowl"
+/targetexact 暗影专家
+/targetexact 邪恶通灵师
 /targetexact 笨重的憎恶
 /targetlasttarget [dead]
 END

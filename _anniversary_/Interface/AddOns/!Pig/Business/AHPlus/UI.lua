@@ -1,0 +1,259 @@
+local _, addonTable = ...;
+local L=addonTable.locale
+---
+local Fun=addonTable.Fun
+local Create=addonTable.Create
+local PIGFrame=Create.PIGFrame
+local PIGEnter=Create.PIGEnter
+local PIGFontString=Create.PIGFontString
+local PIGCheckbutton=Create.PIGCheckbutton
+local Data=addonTable.Data
+local BusinessInfo=addonTable.BusinessInfo
+local GetItemInfo=GetItemInfo or C_Item and C_Item.GetItemInfo
+local IsAddOnLoaded=IsAddOnLoaded or C_AddOns and C_AddOns.IsAddOnLoaded
+local baocunnum = 40
+--------------
+function BusinessInfo.GetCacheDataG(name)
+	local cfdata=PIGA["AHPlus"]["CacheData"]
+	if cfdata[PIG_OptionsUI.Realm] then
+		if name then
+			if cfdata[PIG_OptionsUI.Realm][name] and cfdata[PIG_OptionsUI.Realm][name][2] and cfdata[PIG_OptionsUI.Realm][name][3] then
+				return cfdata[PIG_OptionsUI.Realm][name][2]
+			end
+		else
+			return cfdata[PIG_OptionsUI.Realm]
+		end
+	else
+		if name then
+			if cfdata[name] and cfdata[name][2] and cfdata[name][3] then
+				return cfdata[name][2]
+			end
+		else
+			return cfdata
+		end
+	end
+end
+function BusinessInfo.Del_OldData()
+	local NewData=BusinessInfo.GetCacheDataG()
+	for k,v in pairs(NewData) do
+		if v[2] and v[3] then
+			local itemDataL = v[2]
+			local ItemsNum = #itemDataL;
+			if ItemsNum>baocunnum then
+				for ivb=(ItemsNum-baocunnum),1,-1 do
+					table.remove(itemDataL,ivb)
+				end
+			end
+		else
+			NewData[k]=nil
+		end
+	end
+end
+function BusinessInfo.ADD_Newdata(name,xianjiaV,itemLink,itemID)
+	local NewData=BusinessInfo.GetCacheDataG()
+	if NewData[name] and NewData[name][2] and NewData[name][3] then
+		table.insert(NewData[name][2],{xianjiaV,GetServerTime()})
+	else
+		local itemLinkJJ = Fun.GetItemLinkJJ(itemLink)
+		NewData[name]={itemLinkJJ,{{xianjiaV,GetServerTime()}},itemID}
+	end
+end
+local linkyijiazaiCCC=nil
+function BusinessInfo.SetTooltipOfflineG(ItemInfo,tooltip)
+	if PIGA["AHPlus"]["Open"] and PIGA["AHPlus"]["AHtooltip"] then
+		if not ItemInfo then return end
+		if tooltip == GameTooltip or tooltip == ItemRefTooltip then
+			local itemName,_,_,_,_,_,_,_,_,_,_,classID,_,bindType= GetItemInfo(ItemInfo)
+			if itemName and bindType~=1 and bindType~=4 then
+				if classID==9 and not linkyijiazaiCCC then
+					linkyijiazaiCCC=true
+					return
+				end
+				local NameData = BusinessInfo.GetCacheDataG(itemName)
+				if NameData then
+					local DataNum=#NameData
+					local jiluTime = NameData[DataNum][2] or 1660000000
+					local jiluTime = date("%m-%d %H:%M",jiluTime)
+					tooltip:AddDoubleLine(AUCTIONS..AUCTION_BROWSE_UNIT_PRICE_SORT.."("..jiluTime.."):",GetMoneyString(NameData[DataNum][1]),0,1,1,0,1,1)
+				else
+					tooltip:AddDoubleLine(AUCTIONS..AUCTION_BROWSE_UNIT_PRICE_SORT..":",UNKNOWN,0,1,1,0,1,1)
+				end
+				tooltip:Show()
+				linkyijiazaiCCC=nil
+			end
+		end
+	end
+end
+function BusinessInfo.ADD_qushi(fujiui,tishi,num)
+	local Nbaocunnum=num or baocunnum
+	local qushi=PIGFrame(fujiui)
+	qushi:SetPoint("TOPLEFT", fujiui, "TOPLEFT",0, -10);
+	qushi:SetPoint("BOTTOMRIGHT", fujiui, "BOTTOMRIGHT",0, 1);
+	local qushitishi
+	if tishi then
+		qushi.itemName = PIGFontString(qushi,{"TOPLEFT", qushi, "TOPLEFT",6, 18},nil,"OUTLINE")
+	end
+	local WidthX =7.9
+	qushi.qushiButList={}
+	for i=1,Nbaocunnum do
+		local zhuzhuangX=PIGFrame(qushi,{"BOTTOMLEFT", qushi, "BOTTOMLEFT",WidthX*(i-1), 0},{WidthX,10})
+		if i==1 then
+			zhuzhuangX:SetPoint("BOTTOMLEFT", qushi, "BOTTOMLEFT",1, 0);
+		else
+			zhuzhuangX:SetPoint("BOTTOMLEFT", qushi, "BOTTOMLEFT",(WidthX)*(i-1)+1, 0);
+		end
+		zhuzhuangX:PIGSetBackdrop(1,1,{0.2, 0.8, 0.8})
+		zhuzhuangX:Hide()
+		qushi.qushiButList[i]=zhuzhuangX
+	end
+	function qushi.UpdateList(Data,itemName)
+		local NewHeightX = qushi:GetHeight()
+		for i=1,Nbaocunnum do
+			qushi.qushiButList[i]:Hide()
+		end
+		if itemName then
+			qushi.itemName:SetText(itemName)
+		end
+		local PIG_qushidata_V = {["maxG"]=1,["maxG2"]=1,["endnum"]=1,["minVV"]=0.04}
+		if #Data>Nbaocunnum then PIG_qushidata_V.endnum=(#Data-(Nbaocunnum-1)) end
+		local sortnum = {}
+		for i=#Data,PIG_qushidata_V.endnum,-1 do
+			local jiageVV =Data[i]
+			table.insert(sortnum,jiageVV[1])
+			if jiageVV then
+				if jiageVV[1]>PIG_qushidata_V.maxG then
+					PIG_qushidata_V.maxG=jiageVV[1]
+				end
+				if jiageVV[1]<PIG_qushidata_V.maxG and jiageVV[1]>PIG_qushidata_V.maxG2 then
+					PIG_qushidata_V.maxG2=jiageVV[1]
+				end
+
+			end
+		end
+		table.sort(sortnum)
+		if #sortnum>1 then
+			PIG_qushidata_V.maxG=sortnum[#sortnum]
+		end
+		for i=(#sortnum-1),1,-1 do
+			if sortnum[i]<PIG_qushidata_V.maxG then
+				PIG_qushidata_V.maxG2=sortnum[i]
+				break
+			end
+		end
+		if (PIG_qushidata_V.maxG/PIG_qushidata_V.maxG2)>2 then
+			PIG_qushidata_V.maxG=PIG_qushidata_V.maxG2*2
+		end
+		local butidindex = 0
+		for i=1,#Data,PIG_qushidata_V.endnum do
+			if Data[i] then
+				local danqianV = Data[i][1]
+				butidindex=butidindex+1
+				qushi.qushiButList[butidindex]:Show()
+				if danqianV>PIG_qushidata_V.maxG then
+					danqianV=PIG_qushidata_V.maxG
+				end
+				local PIG_qushizuidabaifenbi = danqianV/PIG_qushidata_V.maxG
+				if PIG_qushizuidabaifenbi<PIG_qushidata_V.minVV then
+					qushi.qushiButList[butidindex]:SetHeight(PIG_qushidata_V.minVV*NewHeightX)
+				else
+					qushi.qushiButList[butidindex]:SetHeight(PIG_qushizuidabaifenbi*NewHeightX)	
+				end
+			end
+		end
+	end
+	return qushi
+end
+function BusinessInfo.ADD_qushiTips(fujiui,iconPoint,iconWH)
+	local iconWH = iconWH or 20
+	local qushiTips = CreateFrame("Frame", nil, fujiui);
+	if iconPoint then
+		qushiTips:SetSize(iconWH,iconWH);
+		qushiTips:SetPoint(unpack(iconPoint));
+		qushiTips.Tex = qushiTips:CreateTexture(nil, "BORDER");
+		qushiTips.Tex:SetTexture("interface/common/help-i.blp");
+		qushiTips.Tex:SetSize(iconWH+8,iconWH+8);
+		qushiTips.Tex:SetPoint("CENTER");
+	else
+		qushiTips:SetAllPoints(fujiui)
+	end
+	local tishitxt = "1、缓存价格以后才能显示涨跌百分比\n2、100%表示当前价格和最后次缓存价格一样\n3、80%表示当前价格是最后次缓存价格80%(即便宜了20%)\n4、120%表示当前价格是最后次缓存价格120%(即贵了20%)"
+	PIGEnter(qushiTips,"提示：",tishitxt)
+	return qushiTips
+end
+----
+local function zhixingdianjiFUn(framef)
+	framef:HookScript("PreClick",  function (self,button)
+		if button=="RightButton" and not IsShiftKeyDown() and not IsControlKeyDown() and not IsAltKeyDown() then
+			local itemID=PIGGetContainerItemInfo(self:GetParent():GetID(), self:GetID())
+			if itemID then
+				if IsAddOnLoaded("Blizzard_AuctionUI") then AuctionFrameTab_OnClick(AuctionFrameTab3) end
+			end
+		end
+	end);
+end
+function BusinessInfo.QuicAuc()
+	if PIG_MaxTocversion(40000) then
+		if PIGA["AHPlus"]["QuicAuc"] then
+			if NDui then
+				local NDui_BagName,slotnum = Data.NDui_BagName[1],Data.NDui_BagName[2]
+				for f=1,slotnum do
+					local framef = _G[NDui_BagName..f]
+					if framef then
+						zhixingdianjiFUn(framef)
+					end
+				end
+			else
+				local ElvUI_BagName = Data.ElvUI_BagName
+				for f=1,NUM_CONTAINER_FRAMES do
+					for ff=1,36 do
+						if ElvUI then
+							for ei=1,#ElvUI_BagName do
+								local bagff = _G[ElvUI_BagName[ei]..f.."Slot"..ff]
+								if bagff then
+									zhixingdianjiFUn(bagff)
+								end
+							end
+						else
+							if _G["ContainerFrame"..f.."Item"..ff] then
+								zhixingdianjiFUn(_G["ContainerFrame"..f.."Item"..ff])
+							end
+						end
+					end
+				end
+			end
+		end
+	end
+end
+function BusinessInfo.BagOpen()
+	local function AHPlus_BagOpen(open)
+		if PIGA["AHPlus"]["SimpleMode"] then return end
+		if PIGA["AHPlus"]["BagOpen"] then
+			if open then
+				OpenAllBags()
+			else
+				CloseAllBags();
+			end
+		end
+	end
+	AHPlus_BagOpen(true)
+	UIParent:HookScript("OnEvent", function(self,event)
+		if event=="AUCTION_HOUSE_SHOW" then
+			AHPlus_BagOpen(true)
+		elseif event=="AUCTION_HOUSE_CLOSED" then
+			AHPlus_BagOpen(false)
+		end
+	end)
+end
+------------
+function BusinessInfo.AHPlus_ADDUI()
+	if PIGA["AHPlus"]["Open"] then
+		BusinessInfo.QuicAuc()
+		Fun.IsAddOnLoaded("Blizzard_AuctionHouseUI",BusinessInfo.BagOpen)
+		Fun.IsAddOnLoaded("Blizzard_AuctionUI",BusinessInfo.BagOpen)
+		if PIG_MaxTocversion(90000) then--9.2.7暗影国度跨服务器包括宝石、草药、合剂、消耗品等。不过，武器和盔甲这类非商品类物品仍然只能在单个服务器内交易，并不会跨服共享
+			PIGA["AHPlus"]["CacheData"][PIG_OptionsUI.Realm]=PIGA["AHPlus"]["CacheData"][PIG_OptionsUI.Realm] or {}
+		end
+		Fun.IsAddOnLoaded("Blizzard_AuctionHouseUI",BusinessInfo.AHPlus_Mainline)
+		Fun.IsAddOnLoaded("Blizzard_AuctionUI",BusinessInfo.AHPlus_Vanilla)
+	end
+end

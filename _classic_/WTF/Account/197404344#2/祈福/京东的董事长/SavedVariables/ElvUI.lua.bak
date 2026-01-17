@@ -13,6 +13,7 @@ ElvCharacterDB = {
 "你比如你现在打卡扎克就没有意义",
 "纯浪费时间",
 "/played",
+"/团队 任务差2个",
 },
 ["ChatHistoryLog"] = {
 },

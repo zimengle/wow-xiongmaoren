@@ -1,6 +1,6 @@
 
 MJEPersonalSettings = {
-["trackUsageStats"] = true,
+["trackUsageStats"] = false,
 ["notes"] = {
 },
 ["personalFilter"] = false,
@@ -10,14 +10,14 @@ MJEPersonalSettings = {
 ["enableCursorKeys"] = true,
 ["slotPosition"] = "top",
 ["displayStatistics"] = {
-["LearnedDate"] = true,
-["UsedCount"] = true,
 ["TravelTime"] = true,
+["TravelDistance"] = true,
+["LearnedDate"] = true,
 ["Rarity"] = true,
 ["Family"] = true,
 ["CustomizationCount"] = true,
 ["Wowhead"] = true,
-["TravelDistance"] = true,
+["UsedCount"] = true,
 },
 ["windowSize"] = {
 0,
@@ -27,16 +27,16 @@ MJEPersonalSettings = {
 ["showResizeEdge"] = true,
 ["showPersonalCount"] = true,
 ["displayBackground"] = "original",
-["autoRotateModel"] = false,
-["colorizeNameByRarity"] = true,
 ["previewButton"] = true,
+["colorizeNameByRarity"] = true,
+["autoRotateModel"] = false,
 ["unlockDisplayCamera"] = true,
 ["displayAnimation"] = "stand",
 },
-["searchInFamilyName"] = true,
 ["hiddenMounts"] = {
 },
-["searchInNotes"] = true,
+["searchInFamilyName"] = false,
+["summonPreviousPetAgain"] = false,
 ["pets"] = {
 ["assignments"] = {
 },
@@ -50,21 +50,6 @@ MJEPersonalSettings = {
 ["favoritesOnTop"] = true,
 ["unusableToBottom"] = false,
 },
-["favorites"] = {
-["assignments"] = {
-},
-["profiles"] = {
-{
-["mounts"] = {
-197,
-266,
-},
-["name"] = "",
-["autoFavor"] = false,
-},
-},
-},
-["personalHiddenMounts"] = false,
 ["filter"] = {
 ["expansion"] = {
 true,
@@ -105,15 +90,19 @@ true,
 ["Trading Post"] = true,
 ["Promotion"] = true,
 },
+["hiddenIngame"] = false,
 ["color"] = {
 },
-["hiddenIngame"] = false,
 ["notCollected"] = true,
 ["hidden"] = false,
-["faction"] = {
-["horde"] = true,
-["alliance"] = true,
-["noFaction"] = true,
+["mountType"] = {
+["repair"] = true,
+["flying"] = true,
+["underwater"] = true,
+["rideAlong"] = true,
+["passenger"] = true,
+["ground"] = true,
+["transform"] = true,
 },
 ["family"] = {
 ["Drakes"] = {
@@ -196,6 +185,7 @@ true,
 },
 ["Carnivorans"] = {
 ["Bears"] = true,
+["Quilen"] = true,
 },
 ["Demons"] = {
 ["Demonic Steeds"] = true,
@@ -209,16 +199,12 @@ true,
 ["Bats"] = true,
 },
 ["onlyFavorites"] = false,
-["onlyUsable"] = false,
-["mountType"] = {
-["repair"] = true,
-["flying"] = true,
-["underwater"] = true,
-["rideAlong"] = true,
-["passenger"] = true,
-["ground"] = true,
-["transform"] = true,
+["faction"] = {
+["horde"] = true,
+["alliance"] = true,
+["noFaction"] = true,
 },
+["onlyUsable"] = false,
 ["onlyTradable"] = false,
 ["collected"] = true,
 ["onlyRecent"] = false,
@@ -230,6 +216,21 @@ true,
 true,
 },
 },
-["summonPreviousPetAgain"] = true,
+["personalHiddenMounts"] = false,
+["favorites"] = {
+["assignments"] = {
+},
+["profiles"] = {
+{
+["mounts"] = {
+197,
+266,
+},
+["name"] = "",
+["autoFavor"] = false,
+},
+},
+},
+["searchInNotes"] = false,
 ["searchInDescription"] = true,
 }

@@ -6,6 +6,137 @@ RXPCData = {
 },
 ["currentStep"] = 90,
 ["questObjectivesCache"] = {
+[0] = 40,
+[30885] = {
+{
+["type"] = "monster",
+["numRequired"] = 1,
+["text"] = "击败布姆布姆大师：0/1",
+["finished"] = false,
+["numFulfilled"] = 0,
+},
+["finished"] = false,
+},
+[30067] = {
+{
+["type"] = "monster",
+["numRequired"] = 1,
+["text"] = "已消灭疑之影：0/1",
+["finished"] = false,
+["numFulfilled"] = 0,
+},
+["finished"] = false,
+},
+[31517] = {
+{
+["type"] = "monster",
+["numRequired"] = 1,
+["text"] = "已消灭 ：0/1",
+["finished"] = false,
+["numFulfilled"] = 0,
+},
+["finished"] = false,
+},
+[30006] = {
+{
+["type"] = "monster",
+["numRequired"] = 15,
+["text"] = "杀死煞魔侵略者：0/15",
+["finished"] = false,
+["numFulfilled"] = 0,
+},
+["finished"] = false,
+},
+[30952] = {
+{
+["type"] = "monster",
+["numRequired"] = 12,
+["text"] = "击败瑟拉提克进攻者：0/12",
+["finished"] = false,
+["numFulfilled"] = 0,
+},
+["finished"] = false,
+},
+[30953] = {
+{
+["type"] = "monster",
+["numRequired"] = 8,
+["text"] = "治疗受伤的砮皂戒卫：0/8",
+["finished"] = false,
+["numFulfilled"] = 0,
+},
+["finished"] = false,
+},
+[30954] = {
+{
+["type"] = "item",
+["numRequired"] = 10,
+["finished"] = false,
+["text"] = "瑟拉提克武器：0/10",
+["numFulfilled"] = 0,
+},
+["finished"] = false,
+},
+[30955] = {
+{
+["type"] = "monster",
+["numRequired"] = 6,
+["text"] = "帮砮皂收集食物：0/6",
+["finished"] = false,
+["numFulfilled"] = 0,
+},
+["finished"] = false,
+},
+[30956] = {
+{
+["type"] = "monster",
+["numRequired"] = 25,
+["text"] = "击败瑟拉提克进攻者：0/25",
+["finished"] = false,
+["numFulfilled"] = 0,
+},
+["finished"] = false,
+},
+[30957] = {
+{
+["type"] = "monster",
+["numRequired"] = 4,
+["text"] = "已消灭瑟拉提克恐虫：0/4",
+["finished"] = false,
+["numFulfilled"] = 0,
+},
+["finished"] = false,
+},
+[30958] = {
+{
+["type"] = "object",
+["numRequired"] = 10,
+["text"] = "松动的砖块：0/10",
+["finished"] = false,
+["numFulfilled"] = 0,
+},
+["finished"] = false,
+},
+[30959] = {
+{
+["type"] = "monster",
+["numRequired"] = 3,
+["text"] = "炸毁瑟拉提克战车：0/3",
+["finished"] = false,
+["numFulfilled"] = 0,
+},
+["finished"] = false,
+},
+[30902] = {
+{
+["type"] = "monster",
+["numRequired"] = 1,
+["text"] = "击败风裘大师：0/1",
+["finished"] = false,
+["numFulfilled"] = 0,
+},
+["finished"] = false,
+},
 [30716] = {
 {
 ["type"] = "monster",
@@ -16,11 +147,31 @@ RXPCData = {
 },
 ["finished"] = false,
 },
+[30717] = {
+{
+["type"] = "item",
+["numRequired"] = 10,
+["text"] = "神鹤的恩赐：0/10",
+["finished"] = false,
+["numFulfilled"] = 0,
+},
+["finished"] = false,
+},
 [30718] = {
 {
 ["type"] = "monster",
 ["numRequired"] = 10,
 ["text"] = "与赤精弟子切磋：0/10",
+["finished"] = false,
+["numFulfilled"] = 0,
+},
+["finished"] = false,
+},
+[30725] = {
+{
+["type"] = "monster",
+["numRequired"] = 1,
+["text"] = "击败艾黎亚·鸦鬃：0/1",
 ["finished"] = false,
 ["numFulfilled"] = 0,
 },
@@ -46,11 +197,31 @@ RXPCData = {
 },
 ["finished"] = false,
 },
+[30729] = {
+{
+["type"] = "monster",
+["numRequired"] = 1,
+["text"] = "击败茱莉亚·贝茨：0/1",
+["finished"] = false,
+["numFulfilled"] = 0,
+},
+["finished"] = false,
+},
 [30730] = {
 {
 ["type"] = "monster",
 ["numRequired"] = 1,
 ["text"] = "击败敏捷的伊兹沙：0/1",
+["finished"] = false,
+["numFulfilled"] = 0,
+},
+["finished"] = false,
+},
+[30731] = {
+{
+["type"] = "monster",
+["numRequired"] = 1,
+["text"] = "击败郭楠·翎爪：0/1",
 ["finished"] = false,
 ["numFulfilled"] = 0,
 },
@@ -66,11 +237,51 @@ RXPCData = {
 },
 ["finished"] = false,
 },
+[30733] = {
+{
+["type"] = "monster",
+["numRequired"] = 1,
+["text"] = "击败图卡图克：0/1",
+["finished"] = false,
+["numFulfilled"] = 0,
+},
+["finished"] = false,
+},
 [30734] = {
 {
 ["type"] = "monster",
 ["numRequired"] = 1,
 ["text"] = "击败哈克·独轮：0/1",
+["finished"] = false,
+["numFulfilled"] = 0,
+},
+["finished"] = false,
+},
+[30735] = {
+{
+["type"] = "monster",
+["numRequired"] = 1,
+["text"] = "击败米德尔·日语者：0/1",
+["finished"] = false,
+["numFulfilled"] = 0,
+},
+["finished"] = false,
+},
+[30736] = {
+{
+["type"] = "monster",
+["numRequired"] = 1,
+["text"] = "击败燕·翎爪：0/1",
+["finished"] = false,
+["numFulfilled"] = 0,
+},
+["finished"] = false,
+},
+[30737] = {
+{
+["type"] = "monster",
+["numRequired"] = 1,
+["text"] = "击败肥龙：0/1",
 ["finished"] = false,
 ["numFulfilled"] = 0,
 },
@@ -86,48 +297,11 @@ RXPCData = {
 },
 ["finished"] = false,
 },
-[30881] = {
+[30739] = {
 {
 ["type"] = "monster",
 ["numRequired"] = 1,
-["text"] = "击败聪明的阿西约：0/1",
-["finished"] = false,
-["numFulfilled"] = 0,
-},
-{
-["type"] = "monster",
-["numRequired"] = 1,
-["text"] = "击败肯肯：0/1",
-["finished"] = false,
-["numFulfilled"] = 0,
-},
-["finished"] = false,
-},
-[30883] = {
-{
-["type"] = "monster",
-["numRequired"] = 1,
-["text"] = "击败摔跤手：0/1",
-["finished"] = false,
-["numFulfilled"] = 0,
-},
-["finished"] = false,
-},
-[30885] = {
-{
-["type"] = "monster",
-["numRequired"] = 1,
-["finished"] = false,
-["text"] = "击败布姆布姆大师：0/1",
-["numFulfilled"] = 0,
-},
-["finished"] = false,
-},
-[30006] = {
-{
-["type"] = "monster",
-["numRequired"] = 15,
-["text"] = "杀死煞魔侵略者：0/15",
+["text"] = "击败艾黎亚·鸦鬃：0/1",
 ["finished"] = false,
 ["numFulfilled"] = 0,
 },
@@ -157,11 +331,11 @@ RXPCData = {
 },
 ["finished"] = false,
 },
-[30959] = {
+[30883] = {
 {
 ["type"] = "monster",
-["numRequired"] = 3,
-["text"] = "炸毁瑟拉提克战车：0/3",
+["numRequired"] = 1,
+["text"] = "击败摔跤手：0/1",
 ["finished"] = false,
 ["numFulfilled"] = 0,
 },
@@ -171,157 +345,7 @@ RXPCData = {
 {
 ["type"] = "monster",
 ["numRequired"] = 1,
-["finished"] = false,
 ["text"] = "击败康·棘杖：0/1",
-["numFulfilled"] = 0,
-},
-["finished"] = false,
-},
-[30064] = {
-{
-["type"] = "item",
-["numRequired"] = 6,
-["text"] = "古旧的经书：0/6",
-["finished"] = false,
-["numFulfilled"] = 0,
-},
-["finished"] = false,
-},
-[30880] = {
-{
-["type"] = "monster",
-["numRequired"] = 1,
-["finished"] = false,
-["text"] = "击败街头霸王：0/1",
-["numFulfilled"] = 0,
-},
-["finished"] = false,
-},
-[30717] = {
-{
-["type"] = "item",
-["numRequired"] = 10,
-["text"] = "神鹤的恩赐：0/10",
-["finished"] = false,
-["numFulfilled"] = 0,
-},
-["finished"] = false,
-},
-[30879] = {
-{
-["type"] = "monster",
-["numRequired"] = 1,
-["text"] = "击败酒仙倩妮：0/1",
-["finished"] = false,
-["numFulfilled"] = 0,
-},
-["finished"] = false,
-},
-[30725] = {
-{
-["type"] = "monster",
-["numRequired"] = 1,
-["text"] = "击败艾黎亚·鸦鬃：0/1",
-["finished"] = false,
-["numFulfilled"] = 0,
-},
-["finished"] = false,
-},
-[30957] = {
-{
-["type"] = "monster",
-["numRequired"] = 4,
-["text"] = "已消灭瑟拉提克恐虫：0/4",
-["finished"] = false,
-["numFulfilled"] = 0,
-},
-["finished"] = false,
-},
-[30729] = {
-{
-["type"] = "monster",
-["numRequired"] = 1,
-["text"] = "击败茱莉亚·贝茨：0/1",
-["finished"] = false,
-["numFulfilled"] = 0,
-},
-["finished"] = false,
-},
-[30731] = {
-{
-["type"] = "monster",
-["numRequired"] = 1,
-["text"] = "击败郭楠·翎爪：0/1",
-["finished"] = false,
-["numFulfilled"] = 0,
-},
-["finished"] = false,
-},
-[30737] = {
-{
-["type"] = "monster",
-["numRequired"] = 1,
-["text"] = "击败肥龙：0/1",
-["finished"] = false,
-["numFulfilled"] = 0,
-},
-["finished"] = false,
-},
-[30736] = {
-{
-["type"] = "monster",
-["numRequired"] = 1,
-["text"] = "击败燕·翎爪：0/1",
-["finished"] = false,
-["numFulfilled"] = 0,
-},
-["finished"] = false,
-},
-[30733] = {
-{
-["type"] = "monster",
-["numRequired"] = 1,
-["text"] = "击败图卡图克：0/1",
-["finished"] = false,
-["numFulfilled"] = 0,
-},
-["finished"] = false,
-},
-[31517] = {
-{
-["type"] = "monster",
-["numRequired"] = 1,
-["finished"] = false,
-["text"] = "已消灭 ：0/1",
-["numFulfilled"] = 0,
-},
-["finished"] = false,
-},
-[30952] = {
-{
-["type"] = "monster",
-["numRequired"] = 12,
-["text"] = "击败瑟拉提克进攻者：0/12",
-["finished"] = false,
-["numFulfilled"] = 0,
-},
-["finished"] = false,
-},
-[30902] = {
-{
-["type"] = "monster",
-["numRequired"] = 1,
-["finished"] = false,
-["text"] = "击败风裘大师：0/1",
-["numFulfilled"] = 0,
-},
-["finished"] = false,
-},
-[30067] = {
-{
-["type"] = "monster",
-["numRequired"] = 1,
-["text"] = "已消灭疑之影：0/1",
 ["finished"] = false,
 ["numFulfilled"] = 0,
 },
@@ -337,11 +361,38 @@ RXPCData = {
 },
 ["finished"] = false,
 },
-[30068] = {
+[30879] = {
 {
 ["type"] = "monster",
-["numRequired"] = 6,
-["text"] = "扑灭虚空烈焰：0/6",
+["numRequired"] = 1,
+["text"] = "击败酒仙倩妮：0/1",
+["finished"] = false,
+["numFulfilled"] = 0,
+},
+["finished"] = false,
+},
+[30880] = {
+{
+["type"] = "monster",
+["numRequired"] = 1,
+["text"] = "击败街头霸王：0/1",
+["finished"] = false,
+["numFulfilled"] = 0,
+},
+["finished"] = false,
+},
+[30881] = {
+{
+["type"] = "monster",
+["numRequired"] = 1,
+["text"] = "击败聪明的阿西约：0/1",
+["finished"] = false,
+["numFulfilled"] = 0,
+},
+{
+["type"] = "monster",
+["numRequired"] = 1,
+["text"] = "击败肯肯：0/1",
 ["finished"] = false,
 ["numFulfilled"] = 0,
 },
@@ -357,72 +408,21 @@ RXPCData = {
 },
 ["finished"] = false,
 },
-[0] = 40,
-[30735] = {
-{
-["type"] = "monster",
-["numRequired"] = 1,
-["text"] = "击败米德尔·日语者：0/1",
-["finished"] = false,
-["numFulfilled"] = 0,
-},
-["finished"] = false,
-},
-[30954] = {
+[30064] = {
 {
 ["type"] = "item",
-["numRequired"] = 10,
-["finished"] = false,
-["text"] = "瑟拉提克武器：0/10",
-["numFulfilled"] = 0,
-},
-["finished"] = false,
-},
-[30956] = {
-{
-["type"] = "monster",
-["numRequired"] = 25,
-["text"] = "击败瑟拉提克进攻者：0/25",
+["numRequired"] = 6,
+["text"] = "古旧的经书：0/6",
 ["finished"] = false,
 ["numFulfilled"] = 0,
 },
 ["finished"] = false,
 },
-[30958] = {
-{
-["type"] = "object",
-["numRequired"] = 10,
-["text"] = "松动的砖块：0/10",
-["finished"] = false,
-["numFulfilled"] = 0,
-},
-["finished"] = false,
-},
-[30739] = {
-{
-["type"] = "monster",
-["numRequired"] = 1,
-["text"] = "击败艾黎亚·鸦鬃：0/1",
-["finished"] = false,
-["numFulfilled"] = 0,
-},
-["finished"] = false,
-},
-[30955] = {
+[30068] = {
 {
 ["type"] = "monster",
 ["numRequired"] = 6,
-["text"] = "帮砮皂收集食物：0/6",
-["finished"] = false,
-["numFulfilled"] = 0,
-},
-["finished"] = false,
-},
-[30953] = {
-{
-["type"] = "monster",
-["numRequired"] = 8,
-["text"] = "治疗受伤的砮皂戒卫：0/8",
+["text"] = "扑灭虚空烈焰：0/6",
 ["finished"] = false,
 ["numFulfilled"] = 0,
 },
@@ -479,12 +479,46 @@ RXPCData = {
 [40] = "加基森，塔纳利斯",
 },
 ["questNameCache"] = {
-[30885] = "第3回合：布姆布姆大师",
-[30954] = "敌人的刀也是刀",
-[31382] = "砮皂寺的防御",
+[30066] = "隐藏的力量",
+[30067] = "疑之影",
+[30068] = "虚无之火",
+[30006] = "黑暗缠身",
 [30952] = "无休止的围攻",
-[30882] = "第2回合：康·棘杖",
+[30953] = "虚弱的戒卫",
+[30954] = "敌人的刀也是刀",
+[30955] = "进贡",
+[30956] = "重重包围",
+[30957] = "蜂拥而至",
+[30958] = "战争的阴影",
+[30959] = "摧毁战车",
 [30902] = "第4回合：风裘大师",
+[30716] = "追赶希望",
+[30717] = "神鹤的恩赐",
+[30718] = "赤精的弟子们",
+[30725] = "艾黎亚·鸦鬃",
+[30726] = "谭命夺",
+[30728] = "肥龙",
+[30729] = "茱莉亚·贝茨",
+[30730] = "敏捷的伊兹沙",
+[30731] = "郭楠·翎爪",
+[30732] = "艾黎亚·鸦鬃：复仇",
+[30733] = "图卡图克",
+[30734] = "哈克·独轮",
+[30735] = "米德尔·日语者",
+[30736] = "燕·翎爪",
+[30737] = "肥龙：重赛",
+[30738] = "塞隆尼斯",
+[30739] = "艾黎亚·鸦鬃：救赎",
+[31517] = "与恶霸抗争",
+[30907] = "第4回合：以一敌三",
+[30882] = "第2回合：康·棘杖",
+[31382] = "砮皂寺的防御",
+[30879] = "第1回合：酒仙倩妮",
+[30880] = "第1回合：街头霸王",
+[30881] = "第2回合：聪明的阿西约和肯肯",
+[30063] = "面具背后",
+[30064] = "抢救经书",
+[30885] = "第3回合：布姆布姆大师",
 },
 ["guideMetaData"] = {
 ["RestedXP 熊猫人之谜 60-80 (联盟)||77-78 索拉查盆地"] = {
@@ -2085,9 +2119,9 @@ RXPCData = {
 [67] = true,
 [19] = true,
 [30] = true,
-[3] = true,
-[6] = true,
 [21] = true,
+[6] = true,
+[3] = true,
 [7] = true,
 },
 ["currentStepId"] = 964826699,
@@ -2515,10 +2549,10 @@ RXPCComms = {
 ["class"] = "PALADIN",
 ["xp"] = 16142,
 },
-["后街"] = {
-["timePlayed"] = 1095.842000000001,
+["三鹿毒釢"] = {
+["timePlayed"] = 881.3710000000137,
 ["class"] = "PALADIN",
-["xp"] = 147711,
+["xp"] = 1837,
 },
 ["笑谈风云"] = {
 ["timePlayed"] = 70.80099999999948,
@@ -2530,10 +2564,10 @@ RXPCComms = {
 ["class"] = "PRIEST",
 ["xp"] = 21988,
 },
-["三鹿毒釢"] = {
-["timePlayed"] = 881.3710000000137,
+["后街"] = {
+["timePlayed"] = 1095.842000000001,
 ["class"] = "PALADIN",
-["xp"] = 1837,
+["xp"] = 147711,
 },
 ["屁嘚"] = {
 ["timePlayed"] = 977.1509999999998,

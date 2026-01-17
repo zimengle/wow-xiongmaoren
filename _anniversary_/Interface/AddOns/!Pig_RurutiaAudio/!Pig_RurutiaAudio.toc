@@ -1,0 +1,13 @@
+﻿## Interface: 110207, 50503, 38000, 11508
+## Title: !Pig_RurutiaAudio
+## Title-zhCN: !Pig |cff00FF00[露露语音包]|r
+## Title-zhTW: !Pig |cff00FF00[露露語音包]|r
+## Notes: |cffFF8C00!Pig Rurutia Audio Extension Package|r|n|cff00FF00we already walked too far, down to we had forgotten why embarked|r
+## Notes-zhCN: |cffFF8C00!Pig的露露语音扩展包，安装后将替换默认的AI语音|r
+## Notes-zhTW: |cffFF8C00!Pig的露露語音擴展包，安裝後將替換默認的AI語音|r
+## IconTexture: Interface/AddOns/!Pig/Libs/logo32.blp
+## RequiredDeps: !Pig
+## Author: geligasi
+## Version: 1.07
+AudioList.lua
+Options.lua

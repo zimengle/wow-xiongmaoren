@@ -11,8 +11,8 @@ RXPData = {
 },
 ["defaultProfile"] = false,
 ["release"] = "v4.8.25",
-["cacheVersion"] = 27,
 ["trainGenericSpells"] = true,
+["cacheVersion"] = 27,
 }
 RXPDB = {
 ["profileKeys"] = {
@@ -28,13 +28,13 @@ RXPDB = {
 ["小露露糖 - 铁血"] = "global",
 ["露露缇娅old1764210356684丶 - 铁血"] = "global",
 ["小马君 - 时光I"] = "global",
-["愛雅法拉 - 铁血"] = "global",
+["飞升老祖 - 时光IV"] = "global",
 ["银光骤雨 - 时光I"] = "global",
 ["阿里董事长 - 时光IV"] = "global",
-["皎月梦夜 - 时光I"] = "global",
 ["化神老祖 - 时光IV"] = "global",
+["皎月梦夜 - 时光I"] = "global",
 ["露露緹婭 - 时光VI"] = "global",
-["飞升老祖 - 时光IV"] = "global",
+["愛雅法拉 - 铁血"] = "global",
 },
 ["profiles"] = {
 ["global"] = {
@@ -55,13 +55,13 @@ RXPSettings = {
 ["小露露糖 - 铁血"] = "露露缇娅old1764210356684丶 - 铁血",
 ["露露缇娅old1764210356684丶 - 铁血"] = "露露缇娅old1764210356684丶 - 铁血",
 ["小马君 - 时光I"] = "露露缇娅old1764210356684 - 时光VI",
-["愛雅法拉 - 铁血"] = "露露缇娅old1764210356684丶 - 铁血",
+["飞升老祖 - 时光IV"] = "露露缇娅 - 时光III",
 ["银光骤雨 - 时光I"] = "露露缇娅old1764210356684 - 时光VI",
 ["阿里董事长 - 时光IV"] = "露露缇娅 - 时光III",
-["皎月梦夜 - 时光I"] = "露露缇娅old1764210356684 - 时光VI",
 ["化神老祖 - 时光IV"] = "露露缇娅 - 时光III",
+["皎月梦夜 - 时光I"] = "露露缇娅old1764210356684 - 时光VI",
 ["露露緹婭 - 时光VI"] = "露露缇娅old1764210356684 - 时光III",
-["飞升老祖 - 时光IV"] = "露露缇娅 - 时光III",
+["愛雅法拉 - 铁血"] = "露露缇娅old1764210356684丶 - 铁血",
 },
 ["profiles"] = {
 ["露露缇娅丶 - 铁血"] = {
@@ -71,11 +71,11 @@ RXPSettings = {
 ["macroAnnounced"] = true,
 ["hardcore"] = false,
 ["framePositions"] = {
-["activeTargetFrame"] = {
+["arrowFrame"] = {
 {
 "LEFT",
-[5] = 6.952399253845215,
-[4] = 264.5238037109375,
+[5] = -39.23849105834961,
+[4] = 277.1809997558594,
 [3] = "LEFT",
 },
 },
@@ -96,26 +96,26 @@ RXPSettings = {
 0,
 },
 },
-["arrowFrame"] = {
+["activeTargetFrame"] = {
 {
 "LEFT",
-[5] = -39.23849105834961,
-[4] = 277.1809997558594,
+[5] = 6.952399253845215,
+[4] = 264.5238037109375,
 [3] = "LEFT",
 },
 },
 },
 ["season"] = 0,
-["enableBindAutomation"] = false,
+["hideCompletedSteps"] = false,
 ["frameHeight"] = 28.0000114440918,
 ["enableAddonIncompatibilityCheck"] = false,
 ["phase"] = 1,
-["arrowScale"] = 1.2,
 ["arrowText"] = 15,
+["arrowScale"] = 1.2,
 ["frameSizes"] = {
-["activeTargetFrame"] = {
-54.40001678466797,
-40,
+["arrowFrame"] = {
+38.39999771118164,
+38.40005111694336,
 },
 ["RXPFrame"] = {
 257.3334045410156,
@@ -125,13 +125,13 @@ RXPSettings = {
 51.23808288574219,
 40,
 },
-["arrowFrame"] = {
-38.39999771118164,
-38.40005111694336,
+["activeTargetFrame"] = {
+54.40001678466797,
+40,
 },
 },
 ["hideInRaid"] = true,
-["hideCompletedSteps"] = false,
+["enableBindAutomation"] = false,
 },
 ["露露缇娅 - 时光III"] = {
 ["hardcore"] = false,
@@ -141,9 +141,9 @@ RXPSettings = {
 ["enableBindAutomation"] = false,
 ["xprate"] = 1.5,
 ["frameSizes"] = {
-["arrowFrame"] = {
-32,
-32.00001525878906,
+["activeTargetFrame"] = {
+54.22221755981445,
+17.99995994567871,
 },
 ["RXPFrame"] = {
 290,
@@ -153,9 +153,9 @@ RXPSettings = {
 51.11119842529297,
 40.00004577636719,
 },
-["activeTargetFrame"] = {
-54.22221755981445,
-17.99995994567871,
+["arrowFrame"] = {
+32,
+32.00001525878906,
 },
 },
 ["hideInRaid"] = true,
@@ -166,7 +166,7 @@ RXPSettings = {
 ["macroAnnounced"] = true,
 ["enableLevelUpAnnounceSolo"] = false,
 ["framePositions"] = {
-["arrowFrame"] = {
+["activeTargetFrame"] = {
 {
 "LEFT",
 nil,
@@ -193,7 +193,7 @@ nil,
 0,
 },
 },
-["activeTargetFrame"] = {
+["arrowFrame"] = {
 {
 "LEFT",
 nil,

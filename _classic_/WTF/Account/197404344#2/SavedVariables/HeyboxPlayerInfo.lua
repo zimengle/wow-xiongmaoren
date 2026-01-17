@@ -1,6 +1,6 @@
 
 HEYBOX_SAVED_PLAYER_INFOS = {
-["新特能源-祈福"] = {
-["class"] = "PRIEST",
+["京东的董事长-祈福"] = {
+["class"] = "MONK",
 },
 }

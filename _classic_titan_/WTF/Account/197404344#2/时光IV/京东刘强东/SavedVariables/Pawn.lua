@@ -1,6 +1,8 @@
 
 PawnOptions = {
 ["LastVersion"] = 2.0811,
+["LastPlayerFullName"] = "京东刘强东-时光IV",
+["AutoSelectScales"] = false,
 ["ItemLevels"] = {
 {
 ["ID"] = 255068,
@@ -78,9 +80,9 @@ nil,
 ["Link"] = "|cff0070dd|Hitem:37291::::::::80::::::::::|h[上古龙魂斗篷]|h|r",
 },
 {
-["ID"] = 37169,
-["Level"] = 200,
-["Link"] = "|cffa335ee|Hitem:37169::::::::80::::::::::|h[单恋战锤]|h|r",
+["ID"] = 255095,
+["Level"] = 213,
+["Link"] = "|cffa335ee|Hitem:255095::::::::80::::::::::|h[碧空之歌]|h|r",
 },
 {
 ["ID"] = 37134,
@@ -88,8 +90,6 @@ nil,
 ["Link"] = "|cff0070dd|Hitem:37134::::::::80::::::::::|h[泰蕾丝塔的日记]|h|r",
 },
 },
-["AutoSelectScales"] = false,
-["LastPlayerFullName"] = "京东刘强东-时光IV",
 }
 PawnMrRobotScaleProviderOptions = nil
 PawnClassicScaleProviderOptions = {

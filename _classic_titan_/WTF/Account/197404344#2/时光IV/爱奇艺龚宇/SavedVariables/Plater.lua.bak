@@ -6,8 +6,8 @@ PlaterDBChr = {
 [8] = 40,
 [3] = 40,
 [11] = 40,
-[5] = 40,
 [9] = 40,
+[5] = 40,
 },
 ["buffsBanned"] = {
 },
@@ -17,6 +17,7 @@ PlaterDBChr = {
 ["Player-4710-035AE1A5"] = true,
 ["Player-4533-04B84924"] = true,
 ["Player-5740-0022C437"] = true,
+["Player-6383-002488ED"] = true,
 ["Player-4833-04AB1A2D"] = true,
 ["Player-4533-045A4B9F"] = true,
 ["Player-6379-00033BA4"] = true,
@@ -43,8 +44,8 @@ PlaterDBChr = {
 [8] = 30,
 [3] = 30,
 [11] = 30,
-[5] = 30,
 [9] = 30,
+[5] = 30,
 },
 ["debuffsBanned"] = {
 },

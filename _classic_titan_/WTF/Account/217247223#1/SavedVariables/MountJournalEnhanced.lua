@@ -9,10 +9,9 @@ MJEGlobalSettings = {
 ["showMountspecialButton"] = false,
 ["enableCursorKeys"] = false,
 ["slotPosition"] = "top",
+["previewButton"] = true,
 ["colorizeNameByRarity"] = true,
 ["compactMountList"] = false,
-["displayStatistics"] = {
-},
 ["showResizeEdge"] = false,
 ["showPersonalCount"] = false,
 ["autoRotateModel"] = false,
@@ -20,20 +19,36 @@ MJEGlobalSettings = {
 0,
 0,
 },
-["previewButton"] = true,
+["displayStatistics"] = {
+},
 ["unlockDisplayCamera"] = false,
 ["displayAnimation"] = "stand",
 },
+["searchInNotes"] = true,
 ["hiddenMounts"] = {
 },
-["searchInFamilyName"] = true,
 ["summonPreviousPetAgain"] = true,
 ["pets"] = {
 ["assignments"] = {
 },
 ["seenInfo"] = true,
 },
-["personalUi"] = false,
+["favorites"] = {
+["assignments"] = {
+},
+["profiles"] = {
+{
+["mounts"] = {
+197,
+266,
+363,
+},
+["name"] = "",
+["initialScan"] = true,
+["autoFavor"] = false,
+},
+},
+},
 ["sort"] = {
 ["unownedOnBottom"] = true,
 ["descending"] = false,
@@ -60,55 +75,33 @@ true,
 ["PVP"] = true,
 ["Garrison"] = true,
 ["Achievement"] = true,
-["Unavailable"] = true,
-["Promotion"] = true,
-["Trading Post"] = true,
+["Profession"] = true,
+["Reputation"] = true,
 ["World Event"] = {
 ["Remix: Pandaria"] = true,
-["Lunar Festival"] = true,
 ["Hallow's End"] = true,
+["Lunar Festival"] = true,
 ["Darkmoon Faire"] = true,
 ["Noblegarden"] = true,
 ["Feast of Winter Veil"] = true,
 ["Call of the Scarab"] = true,
-["Love is in the Air"] = true,
-["Secrets of Azeroth"] = true,
 ["Plunderstorm"] = true,
+["Secrets of Azeroth"] = true,
+["Love is in the Air"] = true,
 ["Anniversary"] = true,
 ["Timewalking"] = true,
 ["Brewfest"] = true,
 },
-["Reputation"] = true,
-["Profession"] = true,
+["Trading Post"] = true,
+["Promotion"] = true,
+["Unavailable"] = true,
 },
-["rarity"] = {
-true,
-true,
-true,
-true,
-true,
-},
+["hiddenIngame"] = false,
 ["color"] = {
 },
-["hidden"] = false,
 ["notCollected"] = true,
-["faction"] = {
-["horde"] = true,
-["alliance"] = true,
-["noFaction"] = true,
-},
-["onlyTradable"] = false,
-["onlyFavorites"] = false,
+["hidden"] = false,
 ["onlyUsable"] = false,
-["mountType"] = {
-["repair"] = true,
-["flying"] = true,
-["underwater"] = true,
-["rideAlong"] = true,
-["transform"] = true,
-["ground"] = true,
-["passenger"] = true,
-},
 ["family"] = {
 ["Drakes"] = {
 ["Undead Drakes"] = true,
@@ -148,9 +141,9 @@ true,
 ["Demonic Steeds"] = true,
 ["Flying Steeds"] = true,
 ["Chargers"] = true,
-["Steeds"] = true,
-["Horned Steeds"] = true,
 ["Undead Steeds"] = true,
+["Horned Steeds"] = true,
+["Steeds"] = true,
 },
 ["Dinosaurs"] = {
 ["Raptors"] = true,
@@ -177,22 +170,23 @@ true,
 ["Rhinos"] = true,
 },
 ["Elementals"] = {
-["Phoenixes"] = true,
-["Others"] = true,
-["Wind Drakes"] = true,
 ["Stone Drakes"] = true,
+["Wind Drakes"] = true,
+["Others"] = true,
+["Phoenixes"] = true,
 },
 ["Wolves"] = {
 ["Wolves"] = true,
 },
-["Insects"] = {
-["Silithids"] = true,
+["Carnivorans"] = {
+["Bears"] = true,
+["Quilen"] = true,
 },
 ["Demons"] = {
 ["Demonic Steeds"] = true,
 },
-["Carnivorans"] = {
-["Bears"] = true,
+["Insects"] = {
+["Silithids"] = true,
 },
 ["Cats"] = {
 ["Tigers"] = true,
@@ -202,37 +196,43 @@ true,
 },
 ["Bats"] = true,
 },
+["onlyFavorites"] = false,
+["mountType"] = {
+["repair"] = true,
+["flying"] = true,
+["underwater"] = true,
+["passenger"] = true,
+["transform"] = true,
+["ground"] = true,
+["rideAlong"] = true,
+},
+["faction"] = {
+["horde"] = true,
+["alliance"] = true,
+["noFaction"] = true,
+},
+["onlyTradable"] = false,
 ["collected"] = true,
 ["onlyRecent"] = false,
-["hiddenIngame"] = false,
+["rarity"] = {
+true,
+true,
+true,
+true,
+true,
+},
 },
 ["personalHiddenMounts"] = false,
-["favorites"] = {
-["assignments"] = {
-},
-["profiles"] = {
-{
-["mounts"] = {
-197,
-266,
-363,
-},
-["initialScan"] = true,
-["name"] = "",
-["autoFavor"] = false,
-},
-},
-},
-["searchInNotes"] = true,
+["personalUi"] = false,
+["searchInFamilyName"] = true,
 ["searchInDescription"] = true,
 }
 MJETrackingData = {
-[415] = {
-1,
-1753442940,
+[1765] = {
 5,
-10.43477076499409,
-1752909891,
+1750140773,
+26,
+12.92075127854283,
 },
 [199] = {
 0,
@@ -240,23 +240,25 @@ MJETrackingData = {
 [4] = 0,
 [5] = 1721016000,
 },
-[160] = {
-156,
-1730795513,
-735,
-17384.74636346403,
-},
-[393] = {
+[304] = {
 0,
 [3] = 0,
 [4] = 0,
-[5] = 1754034709,
+[5] = 1731124800,
 },
-[133] = {
-4,
-1730795529,
-6,
-519.3904716455755,
+[363] = {
+22,
+1754040769,
+511,
+9194.008278539104,
+1753454777,
+},
+[415] = {
+1,
+1753442940,
+5,
+10.43477076499409,
+1752909891,
 },
 [266] = {
 1993,
@@ -270,11 +272,11 @@ MJETrackingData = {
 5,
 12.43366901261136,
 },
-[98] = {
+[420] = {
 0,
 [3] = 0,
 [4] = 0,
-[5] = 1721282114,
+[5] = 1752909897,
 },
 [419] = {
 0,
@@ -282,11 +284,11 @@ MJETrackingData = {
 [4] = 0,
 [5] = 1752909896,
 },
-[420] = {
+[98] = {
 0,
 [3] = 0,
 [4] = 0,
-[5] = 1752909897,
+[5] = 1721282114,
 },
 [197] = {
 10271,
@@ -300,23 +302,22 @@ MJETrackingData = {
 13,
 146.2203852348459,
 },
-[363] = {
-22,
-1754040769,
-511,
-9194.008278539104,
-1753454777,
-},
-[304] = {
+[393] = {
 0,
 [3] = 0,
 [4] = 0,
-[5] = 1731124800,
+[5] = 1754034709,
 },
-[1765] = {
-5,
-1750140773,
-26,
-12.92075127854283,
+[160] = {
+156,
+1730795513,
+735,
+17384.74636346403,
+},
+[133] = {
+4,
+1730795529,
+6,
+519.3904716455755,
 },
 }

@@ -187,7 +187,7 @@ AtlasLootMY_Factions: disabled
 AtlasMY_BurningCrusade: disabled
 WeakAurasStopMotion: enabled
 ArkInventoryRules_Example: disabled
-ArkInventory: disabled
+ArkInventory: enabled
 ArkInventoryConfig: disabled
 ArkInventoryRules: disabled
 ArkInventorySearch: disabled

@@ -14,6 +14,7 @@ ElvCharacterDB = {
 "纯浪费时间",
 "/played",
 "/团队 任务差2个",
+"/cw 街头球王-祈福 123",
 },
 ["ChatHistoryLog"] = {
 },

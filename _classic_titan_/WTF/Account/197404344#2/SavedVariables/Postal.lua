@@ -32,9 +32,9 @@ Postal3DB = {
 ["退休码农 - 时光IV"] = {
 ["BlackBook"] = {
 ["recent"] = {
+"京东刘强东|时光IV|Alliance",
 "三角碑崽儿|时光IV|Alliance",
 "哔站陈睿|时光IV|Alliance",
-"京东刘强东|时光IV|Alliance",
 "美团王兴|时光IV|Alliance",
 },
 },
@@ -42,6 +42,8 @@ Postal3DB = {
 ["于鹏 - 时光IV"] = {
 ["BlackBook"] = {
 ["recent"] = {
+"退休码农|时光IV|Alliance",
+"小米军儿|时光IV|Alliance",
 "美团王兴|时光IV|Alliance",
 "依然勿忘|时光IV|Alliance",
 "美团王兴-时光IV|时光IV|Alliance",
@@ -51,6 +53,7 @@ Postal3DB = {
 ["小米军儿 - 时光IV"] = {
 ["BlackBook"] = {
 ["recent"] = {
+"于鹏|时光IV|Alliance",
 "三角碑崽儿|时光IV|Alliance",
 "退休码农|时光IV|Alliance",
 "哔站陈睿|时光IV|Alliance",
@@ -61,7 +64,11 @@ Postal3DB = {
 },
 ["京东刘强东 - 时光IV"] = {
 ["BlackBook"] = {
+["contacts"] = {
+"美团王兴",
+},
 ["recent"] = {
+"于鹏|时光IV|Alliance",
 "哔站陈睿|时光IV|Alliance",
 "退休码农|时光IV|Alliance",
 "小米军儿|时光IV|Alliance",
@@ -71,16 +78,13 @@ Postal3DB = {
 "扛不住的小德|时光IV|Alliance",
 "超爱吃火锅|时光IV|Alliance",
 },
-["contacts"] = {
-"美团王兴",
-},
 },
 },
 ["三角碑崽儿 - 时光IV"] = {
 ["BlackBook"] = {
 ["recent"] = {
-"京东刘强东|时光IV|Alliance",
 "于鹏|时光IV|Alliance",
+"京东刘强东|时光IV|Alliance",
 "退休码农|时光IV|Alliance",
 "哔站陈睿|时光IV|Alliance",
 "美团王兴|时光IV|Alliance",

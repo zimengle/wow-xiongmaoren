@@ -1,11 +1,11 @@
 
 PIGA_Per = {
 ["PigAction"] = {
-["AnniuNum"] = {
-12,
-12,
-12,
-12,
+["Lock"] = {
+false,
+false,
+false,
+false,
 },
 ["ShowTJ"] = {
 1,
@@ -13,11 +13,7 @@ PIGA_Per = {
 1,
 1,
 },
-["Lock"] = {
-false,
-false,
-false,
-false,
+["ActionData"] = {
 },
 ["Scale"] = {
 1,
@@ -37,8 +33,30 @@ false,
 false,
 false,
 },
-["ActionData"] = {
+["AnniuNum"] = {
+12,
+12,
+12,
+12,
 },
+},
+["AutoSellBuy"] = {
+["Take_List"] = {
+},
+["Save_List"] = {
+},
+["Save_Money"] = 10000000,
+["Buy_List"] = {
+},
+["Take_Money"] = 10000000,
+},
+["Tardis"] = {
+},
+["CombatPlus"] = {
+["PetFoodList"] = {
+},
+},
+["Pig_UI"] = {
 },
 ["QuickBut"] = {
 ["LushiID"] = 6948,
@@ -134,23 +152,9 @@ false,
 },
 ["EquipList"] = {
 },
+["TalentEquip"] = {
+},
 ["LockTrinket"] = 0,
 ["TrinketMode"] = 1,
-},
-["AutoSellBuy"] = {
-["Take_List"] = {
-},
-["Save_List"] = {
-},
-["Save_Money"] = 10000000,
-["Buy_List"] = {
-},
-["Take_Money"] = 10000000,
-},
-["CombatPlus"] = {
-["PetFoodList"] = {
-},
-},
-["Pig_UI"] = {
 },
 }

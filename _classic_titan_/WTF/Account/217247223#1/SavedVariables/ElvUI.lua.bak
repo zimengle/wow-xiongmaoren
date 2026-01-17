@@ -18,22 +18,22 @@ ElvDB = {
 ["profiles"] = {
 ["Default"] = {
 ["dbConverted"] = 14.03,
+["convertPages"] = true,
 ["actionbar"] = {
 ["microbar"] = {
 ["buttons"] = 11,
 },
-["bar5"] = {
-["enabled"] = false,
-["buttons"] = 12,
-["buttonsPerRow"] = 12,
-},
 ["bar6"] = {
 ["enabled"] = true,
-["buttons"] = 6,
 ["buttonsPerRow"] = 6,
+["buttons"] = 6,
+},
+["bar5"] = {
+["enabled"] = false,
+["buttonsPerRow"] = 12,
+["buttons"] = 12,
 },
 },
-["convertPages"] = true,
 ["chat"] = {
 ["panelSnapLeftID"] = 1,
 },
@@ -42,13 +42,6 @@ ElvDB = {
 ["gold"] = {
 ["时光IV"] = {
 ["飞升老祖"] = 7025150,
-},
-},
-["namespaces"] = {
-},
-["faction"] = {
-["时光IV"] = {
-["飞升老祖"] = "Alliance",
 },
 },
 ["global"] = {
@@ -66,6 +59,33 @@ ElvDB = {
 },
 },
 },
+["datatexts"] = {
+["settings"] = {
+["Currencies"] = {
+["tooltipData"] = {
+{
+nil,
+nil,
+nil,
+true,
+},
+[3] = {
+nil,
+nil,
+nil,
+true,
+},
+},
+},
+},
+},
+},
+["faction"] = {
+["时光IV"] = {
+["飞升老祖"] = "Alliance",
+},
+},
+["namespaces"] = {
 },
 }
 ElvPrivateDB = {

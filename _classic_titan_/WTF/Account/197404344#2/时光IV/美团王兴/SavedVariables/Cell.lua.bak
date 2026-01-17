@@ -6,9 +6,9 @@ CellCharacterDB = {
 ["party"] = "default",
 ["solo"] = "default",
 ["battleground15"] = "default",
-["raid25"] = "default",
-["arena"] = "default",
 ["raid10"] = "default",
+["arena"] = "default",
+["raid25"] = "default",
 ["raid_outdoor"] = "default",
 },
 {
@@ -16,13 +16,13 @@ CellCharacterDB = {
 ["party"] = "default",
 ["solo"] = "default",
 ["battleground15"] = "default",
-["raid25"] = "default",
-["arena"] = "default",
 ["raid10"] = "default",
+["arena"] = "default",
+["raid25"] = "default",
 ["raid_outdoor"] = "default",
 },
 },
-["revise"] = "r272-release",
+["revise"] = "r273-release",
 ["clickCastings"] = {
 {
 {

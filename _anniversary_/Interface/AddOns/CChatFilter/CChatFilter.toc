@@ -1,0 +1,18 @@
+## Interface: 20502
+## Title: CChatFilter |r|cFF0099FF[消息过滤]|r
+## Version: 2.12
+## Notes: CChatFilter
+## Notes-zhCN: 怀旧服消息过滤
+## SavedVariables: BFWC_Filter_SavedConfigs_G
+## SavedVariablesPerCharacter: BFWC_Filter_SavedConfigs
+## X-Thanks: guoyongshi@gmail.com
+
+embeds.xml
+msgtrim.lua
+global.lua
+utils.lua
+filter.lua
+config.lua
+minimap.lua
+
+main.lua

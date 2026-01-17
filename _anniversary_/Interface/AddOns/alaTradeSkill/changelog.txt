@@ -1,0 +1,68 @@
+2026-01-11
+EasyAuction module update
+
+2026-01-06
+EasyAuction module update
+
+2025-12-20
+GF_Auction support
+
+2025-12-05
+EasyAuction support
+
+2025-12-01
+fix an auctionhouse issue in wotlk-titan
+
+2025-11-25
+no longer search by shift-clik when auctionhouse opened.
+
+2025-11-01
+Delete a wrong skill id.
+
+2025-08-15
+Try to fix the issue that enchanting does work.
+
+2025-08-13
+Fix an issue occured in some language.
+
+2025-08-06
+Change the default phase to 4 in wotlk.
+
+2025-08-04
+Update MOP Data. (horrible huge work)
+Thanks to Hubbotu's ruRU translations.
+Todo:
+    varify the skill list.
+    cooking way.
+    quest info.
+    skills taught by world object or any other thing.
+
+2025-07-01
+Support MOP UI. (data to do)
+
+2025-06-01
+Update TOC. (nothing actually)
+
+2025-04-28
+Update lib.
+
+2025-04-22
+Option to toggle QueueFrame.
+QueueFrame is always on the top.
+
+2025-04-15
+Fix an issue that caused the remaining number of queued item not update.
+
+2025-04-10
+Update toc for classic era.
+
+2025-04-08
+Update libs.
+
+2025-04-02
+Fix errors of QueueFrame.
+Delete duplicated rank info.
+Update scroll lib.
+Try to fix leatherwork ui in Korean client.
+Correct some translations.
+Add changelog file

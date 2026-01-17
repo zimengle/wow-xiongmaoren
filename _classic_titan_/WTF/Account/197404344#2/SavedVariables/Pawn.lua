@@ -16,10 +16,10 @@ PawnCommon = {
 ["\"Classic\":WARRIOR2"] = {
 ["IconTexturePath"] = 132347,
 ["PerCharacterOptions"] = {
-["美团王兴-时光IV"] = {
+["三角碑崽儿-时光IV"] = {
 ["Visible"] = true,
 },
-["三角碑崽儿-时光IV"] = {
+["美团王兴-时光IV"] = {
 ["Visible"] = true,
 },
 },
@@ -180,10 +180,10 @@ PawnCommon = {
 ["\"Classic\":WARRIOR3"] = {
 ["IconTexturePath"] = 134952,
 ["PerCharacterOptions"] = {
-["美团王兴-时光IV"] = {
+["三角碑崽儿-时光IV"] = {
 ["Visible"] = true,
 },
-["三角碑崽儿-时光IV"] = {
+["美团王兴-时光IV"] = {
 ["Visible"] = true,
 },
 },
@@ -220,10 +220,10 @@ PawnCommon = {
 ["\"Classic\":PALADIN1"] = {
 ["IconTexturePath"] = 135920,
 ["PerCharacterOptions"] = {
-["京东董事长-时光IV"] = {
+["京东刘强东-时光IV"] = {
 ["Visible"] = true,
 },
-["京东刘强东-时光IV"] = {
+["京东董事长-时光IV"] = {
 ["Visible"] = true,
 },
 },
@@ -319,10 +319,10 @@ PawnCommon = {
 ["\"Classic\":PALADIN2"] = {
 ["IconTexturePath"] = 135893,
 ["PerCharacterOptions"] = {
-["京东董事长-时光IV"] = {
+["京东刘强东-时光IV"] = {
 ["Visible"] = true,
 },
-["京东刘强东-时光IV"] = {
+["京东董事长-时光IV"] = {
 ["Visible"] = true,
 },
 },
@@ -405,10 +405,10 @@ PawnCommon = {
 ["\"Classic\":WARRIOR1"] = {
 ["IconTexturePath"] = 132292,
 ["PerCharacterOptions"] = {
-["美团王兴-时光IV"] = {
+["三角碑崽儿-时光IV"] = {
 ["Visible"] = true,
 },
-["三角碑崽儿-时光IV"] = {
+["美团王兴-时光IV"] = {
 ["Visible"] = true,
 },
 },
@@ -501,10 +501,10 @@ PawnCommon = {
 ["\"Classic\":PALADIN3"] = {
 ["IconTexturePath"] = 135873,
 ["PerCharacterOptions"] = {
-["京东董事长-时光IV"] = {
+["京东刘强东-时光IV"] = {
 ["Visible"] = true,
 },
-["京东刘强东-时光IV"] = {
+["京东董事长-时光IV"] = {
 ["Visible"] = true,
 },
 },

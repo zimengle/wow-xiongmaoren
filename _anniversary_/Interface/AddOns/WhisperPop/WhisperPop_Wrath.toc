@@ -1,0 +1,26 @@
+## Interface: 30403, 30800
+## Title: WhisperPop |r|cFF0099FF[密语助手]|r
+## Author: Abin
+## Version: 1.0.5 Rurutia fix
+## Notes: 密语历史管理插件，保存历史收到密语，并支持弹窗提醒。|n点击聊天框的小喇叭，对已接收的密语进行管理。|n点击齿轮，可以进行更多设置。|n简介：|cffee5885露露緹婭@Bilibili|r
+## IconTexture: 133461
+## X-Category: Chat/Communication
+## SavedVariables: WhisperPopDB
+## 基于 v4.46修改
+
+Locales\enUS.lua
+Locales\zhCN.lua
+Locales\zhTW.lua
+
+Includes\LibAddonManager.lua
+Includes\InterfaceOptionPage-1.0.lua
+Includes\VirtualScrollList-1.0.lua
+
+Core.lua
+Frames\Templates.lua
+Frames\MainFrame.lua
+Frames\MessageFrame.lua
+Frames\NotifyButton.lua
+Frames\OptionFrame.lua
+
+Broker\Embeds.xml

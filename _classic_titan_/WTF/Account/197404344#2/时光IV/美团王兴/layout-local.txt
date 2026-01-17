@@ -8,8 +8,8 @@ W: 365
 H: 200
 Frame: CharacterFrame
 FrameLevel: 1
-Anchor: LEFT
-X: 0
+Anchor: CENTER
+X: -197
 Y: 67
 W: 384
 H: 512

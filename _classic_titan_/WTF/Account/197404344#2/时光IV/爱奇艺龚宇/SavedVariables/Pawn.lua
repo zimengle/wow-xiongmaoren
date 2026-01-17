@@ -18,8 +18,8 @@ PawnOptions = {
 ["Link"] = "|cff9d9d9d|Hitem:6124::::::::1::::::::::|h[初学者短裤]|h|r",
 },
 },
-["LastPlayerFullName"] = "爱奇艺龚宇-时光IV",
 ["AutoSelectScales"] = false,
+["LastPlayerFullName"] = "爱奇艺龚宇-时光IV",
 }
 PawnMrRobotScaleProviderOptions = nil
 PawnClassicScaleProviderOptions = {

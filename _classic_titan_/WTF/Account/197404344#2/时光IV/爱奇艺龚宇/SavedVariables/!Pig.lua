@@ -1,7 +1,11 @@
 
 PIGA_Per = {
 ["PigAction"] = {
-["ActionData"] = {
+["AnniuNum"] = {
+12,
+12,
+12,
+12,
 },
 ["Scale"] = {
 1,
@@ -9,11 +13,11 @@ PIGA_Per = {
 1,
 1,
 },
-["AnniuNum"] = {
-12,
-12,
-12,
-12,
+["Lock"] = {
+false,
+false,
+false,
+false,
 },
 ["ShowTJ"] = {
 1,
@@ -33,11 +37,7 @@ false,
 false,
 false,
 },
-["Lock"] = {
-false,
-false,
-false,
-false,
+["ActionData"] = {
 },
 },
 ["QuickBut"] = {
@@ -134,6 +134,8 @@ false,
 },
 ["EquipList"] = {
 },
+["TalentEquip"] = {
+},
 ["LockTrinket"] = 0,
 ["TrinketMode"] = 1,
 },
@@ -147,10 +149,12 @@ false,
 },
 ["Take_Money"] = 10000000,
 },
+["Tardis"] = {
+},
+["Pig_UI"] = {
+},
 ["CombatPlus"] = {
 ["PetFoodList"] = {
 },
-},
-["Pig_UI"] = {
 },
 }

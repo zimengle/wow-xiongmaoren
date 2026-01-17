@@ -1,6 +1,8 @@
 
 PawnOptions = {
 ["LastVersion"] = 2.0811,
+["LastPlayerFullName"] = "三角碑崽儿-时光IV",
+["AutoSelectScales"] = false,
 ["ItemLevels"] = {
 {
 ["ID"] = 255080,
@@ -64,10 +66,10 @@ PawnOptions = {
 ["Level"] = 213,
 ["Link"] = "|cffa335ee|Hitem:255077::::::::80::::::::::|h[力量手铠]|h|r",
 },
-[5] = {
-["ID"] = 37735,
-["Level"] = 200,
-["Link"] = "|cff0070dd|Hitem:37735::::::::80::::::::::|h[通灵塔烙印护胸]|h|r",
+[9] = {
+["ID"] = 257602,
+["Level"] = 213,
+["Link"] = "|cffa335ee|Hitem:257602::::::::80::::::::::|h[力量护腕]|h|r",
 },
 [11] = {
 ["ID"] = 255139,
@@ -86,14 +88,12 @@ PawnOptions = {
 ["AlsoFitsIn"] = 11,
 ["Link"] = "|cffa335ee|Hitem:263277::::::::80::::::::::|h[飞流止息]|h|r",
 },
-[9] = {
-["ID"] = 257602,
-["Level"] = 213,
-["Link"] = "|cffa335ee|Hitem:257602::::::::80::::::::::|h[力量护腕]|h|r",
+[5] = {
+["ID"] = 37735,
+["Level"] = 200,
+["Link"] = "|cff0070dd|Hitem:37735::::::::80::::::::::|h[通灵塔烙印护胸]|h|r",
 },
 },
-["AutoSelectScales"] = false,
-["LastPlayerFullName"] = "三角碑崽儿-时光IV",
 }
 PawnMrRobotScaleProviderOptions = nil
 PawnClassicScaleProviderOptions = {

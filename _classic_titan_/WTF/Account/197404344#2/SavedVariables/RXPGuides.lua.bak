@@ -274,9 +274,11 @@ nil,
 },
 },
 ["三角碑崽儿 - 时光IV"] = {
-["hideGuideWindow"] = true,
-["hardcore"] = false,
 ["xprate"] = 1.5,
+["hideGuideWindow"] = true,
+["frameHeight"] = 28.00001335144043,
+["macroAnnounced"] = true,
+["hardcore"] = false,
 ["frameSizes"] = {
 ["arrowFrame"] = {
 32,
@@ -291,12 +293,10 @@ nil,
 40.00003051757813,
 },
 ["activeTargetFrame"] = {
-116.0000152587891,
+116.0000228881836,
 42.99994277954102,
 },
 },
-["frameHeight"] = 28.00001335144043,
-["macroAnnounced"] = true,
 ["framePositions"] = {
 ["arrowFrame"] = {
 {
@@ -406,24 +406,22 @@ nil,
 ["enableTracker"] = false,
 },
 ["露露缇娅 - 时光III"] = {
-["frameSizes"] = {
-["activeTargetFrame"] = {
-54.22237396240234,
-17.99993705749512,
-},
-["RXPFrame"] = {
-404.8717041015625,
-27.99999046325684,
-},
-["activeItemFrame"] = {
-50.76925277709961,
-40.00003051757813,
-},
-["arrowFrame"] = {
-31.99999809265137,
-31.9999885559082,
-},
-},
+["hideGuideWindow"] = false,
+["hardcore"] = false,
+["enableTracker"] = false,
+["guideFontSize"] = 16,
+["enableBindAutomation"] = false,
+["previewTalents"] = false,
+["xprate"] = 1.5,
+["enableQuestRewardAutomation"] = false,
+["hideInRaid"] = true,
+["enableFPAutomation"] = false,
+["enableWorldMapButton"] = false,
+["arrowText"] = 16,
+["frameHeight"] = 209.3161926269531,
+["macroAnnounced"] = true,
+["enableLevelUpAnnounceSolo"] = false,
+["disableArrow"] = false,
 ["framePositions"] = {
 ["activeTargetFrame"] = {
 {
@@ -436,11 +434,11 @@ nil,
 },
 ["RXPFrame"] = {
 {
-"BOTTOMLEFT",
+"LEFT",
 nil,
-"BOTTOMLEFT",
--0,
-268.7867126464844,
+"LEFT",
+15.04272842407227,
+-98.75155639648438,
 },
 },
 ["activeItemFrame"] = {
@@ -454,30 +452,32 @@ nil,
 },
 ["arrowFrame"] = {
 {
-"LEFT",
+"CENTER",
 nil,
-"LEFT",
-39.01761245727539,
--75.90685272216797,
+"CENTER",
+-13.35821342468262,
+-152.4880065917969,
 },
 },
 },
-["enableTracker"] = false,
-["hideGuideWindow"] = true,
-["disableArrow"] = false,
-["macroAnnounced"] = true,
-["hardcore"] = false,
-["enableWorldMapButton"] = false,
-["previewTalents"] = false,
-["enableLevelUpAnnounceSolo"] = false,
-["xprate"] = 1.5,
-["frameHeight"] = 209.3161926269531,
-["arrowText"] = 16,
-["enableFPAutomation"] = false,
-["enableBindAutomation"] = false,
-["enableQuestRewardAutomation"] = false,
-["hideInRaid"] = true,
-["guideFontSize"] = 16,
+["frameSizes"] = {
+["activeTargetFrame"] = {
+54.22237396240234,
+17.99993705749512,
+},
+["RXPFrame"] = {
+404.8717041015625,
+28.00001335144043,
+},
+["activeItemFrame"] = {
+50.76925277709961,
+40.00003051757813,
+},
+["arrowFrame"] = {
+31.9999885559082,
+31.9999885559082,
+},
+},
 },
 },
 }

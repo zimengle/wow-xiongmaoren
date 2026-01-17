@@ -1,20 +1,7 @@
 
 WhisperPopDB = {
-["save"] = 1,
+["notifyButton"] = 1,
 ["listHeight"] = 320,
-["sound"] = 1,
-["showRealm"] = 1,
-["version"] = 4.12,
-["listWidth"] = 200,
-["timeFormat"] = 2,
-["listScale"] = 100,
-["buttonScale"] = 100,
-["history"] = {
-},
-["ignoreTags"] = 1,
-["applyFilters"] = 1,
-["foreignOnly"] = 1,
-["time"] = 1,
 ["positions"] = {
 ["WhisperPopFrame"] = {
 "CENTER",
@@ -31,5 +18,18 @@ WhisperPopDB = {
 185,
 },
 },
-["notifyButton"] = 1,
+["showRealm"] = 1,
+["time"] = 1,
+["save"] = 1,
+["timeFormat"] = 2,
+["ignoreTags"] = 1,
+["buttonScale"] = 100,
+["history"] = {
+},
+["version"] = 4.12,
+["applyFilters"] = 1,
+["foreignOnly"] = 1,
+["listScale"] = 100,
+["sound"] = 1,
+["listWidth"] = 200,
 }

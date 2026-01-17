@@ -1,34 +1,293 @@
 
 Blizzard_Console_SavedVars = {
 ["version"] = 3,
-["height"] = 300,
 ["messageHistory"] = {
 {
+"Terrain mip level changed to 0.",
+0,
+},
+{
+"Render scale changed to 1",
+0,
+},
+{
+"Resample quality changed to 3",
+0,
+},
+{
+"MSAA disabled",
+0,
+},
+{
+"MSAA for alpha-test enabled.",
+0,
+},
+{
+"VALAR mode changed to 2",
+0,
+},
+{
+"lodObjectSizeScale cannot be changed.",
+0,
+},
+{
+"dynamicLod enabled",
+0,
+},
+{
+"World preload object sort enabled.",
+0,
+},
+{
+"World load object sort enabled.",
+0,
+},
+{
+"World preload non critical enabled.",
+0,
+},
+{
+"World preload high res textures enabled.",
+0,
+},
+{
+"FFX: Color Blind Test Mode Disabled",
+0,
+},
+{
+"Error display disabled",
+0,
+},
+{
+"Error display shown",
+0,
+},
+{
+"Displaying errors through fatal errors",
+0,
+},
+{
+"Displaying errors through fatal errors",
+0,
+},
+{
+"Now filtering: all messages",
+0,
+},
+{
+"CVar 'Sound_AmbienceHighpassDSPCutoff' failed validation for its initial value.",
+0,
+},
+{
+"CVar 'Sound_AllyPlayerHighpassDSPCutoff' failed validation for its initial value.",
+0,
+},
+{
+"CVar 'Sound_EnemyPlayerHighpassDSPCutoff' failed validation for its initial value.",
+0,
+},
+{
+"CVar 'Sound_NPCHighpassDSPCutoff' failed validation for its initial value.",
+0,
+},
+{
+"ChromaEffects disabled",
+0,
+},
+{
+"NetClient::HandleConnect()\n",
+0,
+},
+{
+"Got new connection 2",
+0,
+},
+{
+"[WowEntitlements] [BNetAccount-0-00000BC426B8] [WowAccount-0-000004FE320E] Initialized with 6 entitlements.",
+0,
+},
+{
+"-------------------------------------------------- Previous Session --------------------------------------------------",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000000010",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000400",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000421",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000004010",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000425",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000004050",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000435",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000004070",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x000000043d",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x000000043f",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x00000040f0",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x00000041f0",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x00000041f1",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x00000041f3",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x00000041f3",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x000000043f",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Time set to 1/12/2026 (Mon) 21:20",
+0,
+},
+{
+"Gamespeed set from 0.017 to 0.017",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"World transfer pending...",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"-------------------------------------------------- Previous Session --------------------------------------------------",
+0,
+},
+{
+"-------------------------------------------------- Previous Session --------------------------------------------------",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000021",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000004000",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000084000",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000023",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000084080",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000084480",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x000008c480",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x000008c480",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000023",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Time set to 1/12/2026 (Mon) 21:28",
+0,
+},
+{
+"Gamespeed set from 0.017 to 0.017",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
 "Time played:",
 0,
 },
 {
-"Total: 2d 1h 12m 25s",
+"Total: 2d 11h 33m 12s",
 0,
 },
 {
-"Level: 0d 0h 27m 17s",
+"Level: 0d 9h 16m 35s",
 0,
 },
 {
-"Skill 95 increased from 389 to 390",
-0,
-},
-{
-"CGast - CGItemStatsSummary::ParseSpellRec is being called for spellID: 32703, effect aura: 161, which is wrong",
-0,
-},
-{
-"CGast - CGItemStatsSummary::ParseSpellRec is being called for spellID: 32703, effect aura: 161, which is wrong",
-0,
-},
-{
-"Skill 95 increased from 390 to 391",
+"World transfer aborted (reason: 30)",
 0,
 },
 {
@@ -41,70 +300,6 @@ Blizzard_Console_SavedVars = {
 },
 {
 "World transfer aborted (reason: 30)",
-0,
-},
-{
-"World transfer aborted (reason: 30)",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Skill 95 increased from 391 to 392",
-0,
-},
-{
-"Skill 136 increased from 40 to 41",
-0,
-},
-{
-"Skill 95 increased from 392 to 393",
-0,
-},
-{
-"Skill 593 increased from 395 to 400",
-0,
-},
-{
-"Skill 754 increased from 395 to 400",
-0,
-},
-{
-"Skill 183 increased from 395 to 400",
-0,
-},
-{
-"Skill 354 increased from 395 to 400",
-0,
-},
-{
-"Skill 355 increased from 395 to 400",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 2d 2h 16m 37s",
-0,
-},
-{
-"Level: 0d 0h 0m 0s",
-0,
-},
-{
-"CGast - CGItemStatsSummary::ParseSpellRec is being called for spellID: 32703, effect aura: 161, which is wrong",
-0,
-},
-{
-"CGast - CGItemStatsSummary::ParseSpellRec is being called for spellID: 32703, effect aura: 161, which is wrong",
 0,
 },
 {
@@ -128,167 +323,27 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Total: 2d 2h 18m 4s",
+"Total: 2d 11h 37m 19s",
 0,
 },
 {
-"Level: 0d 0h 1m 27s",
+"Level: 0d 9h 20m 42s",
 0,
 },
 {
-"CGast - CGItemStatsSummary::ParseSpellRec is being called for spellID: 32703, effect aura: 161, which is wrong",
+"World transfer aborted (reason: 30)",
 0,
 },
 {
-"CGast - CGItemStatsSummary::ParseSpellRec is being called for spellID: 32703, effect aura: 161, which is wrong",
+"Skill 173 increased from 1 to 2",
 0,
 },
 {
-"-------------------------------------------------- Previous Session --------------------------------------------------",
+"Skill 173 increased from 2 to 3",
 0,
 },
 {
-"-------------------------------------------------- Previous Session --------------------------------------------------",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000000010",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000021",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000004010",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000025",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000065",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x000000006d",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x000000006f",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000004090",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000004190",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000004191",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000004191",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x000000006f",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time set to 1/10/2026 (Sat) 0:20",
-0,
-},
-{
-"Gamespeed set from 0.017 to 0.017",
-0,
-},
-{
-"-------------------------------------------------- Previous Session --------------------------------------------------",
-0,
-},
-{
-"-------------------------------------------------- Previous Session --------------------------------------------------",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000021",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000004000",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000084000",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000023",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000084080",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000084480",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x000008c480",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x000008c480",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000023",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time set to 1/10/2026 (Sat) 0:27",
-0,
-},
-{
-"Gamespeed set from 0.017 to 0.017",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 2d 2h 20m 21s",
-0,
-},
-{
-"Level: 0d 0h 3m 44s",
+"Skill 173 increased from 3 to 4",
 0,
 },
 {
@@ -312,83 +367,11 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Total: 2d 2h 21m 43s",
+"Total: 2d 12h 7m 25s",
 0,
 },
 {
-"Level: 0d 0h 5m 6s",
-0,
-},
-{
-"-------------------------------------------------- Previous Session --------------------------------------------------",
-0,
-},
-{
-"-------------------------------------------------- Previous Session --------------------------------------------------",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000000010",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000021",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000004010",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000025",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000065",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x000000006d",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x000000006f",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000004090",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000004190",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000004191",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000004191",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x000000006f",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time set to 1/10/2026 (Sat) 0:32",
-0,
-},
-{
-"Gamespeed set from 0.017 to 0.017",
+"Level: 0d 9h 50m 48s",
 0,
 },
 {
@@ -444,7 +427,7 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Time set to 1/10/2026 (Sat) 0:33",
+"Time set to 1/12/2026 (Mon) 22:03",
 0,
 },
 {
@@ -460,11 +443,11 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Total: 2d 2h 25m 23s",
+"Total: 2d 12h 7m 31s",
 0,
 },
 {
-"Level: 0d 0h 8m 46s",
+"Level: 0d 9h 50m 54s",
 0,
 },
 {
@@ -484,7 +467,11 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Proficiency in item class 4 set to 0x0000000021",
+"Proficiency in item class 4 set to 0x0000000400",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000421",
 0,
 },
 {
@@ -492,99 +479,51 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Proficiency in item class 4 set to 0x0000000025",
+"Proficiency in item class 4 set to 0x0000000425",
 0,
 },
 {
-"Proficiency in item class 4 set to 0x0000000065",
+"Proficiency in item class 2 set to 0x0000004050",
 0,
 },
 {
-"Proficiency in item class 4 set to 0x000000006d",
+"Proficiency in item class 4 set to 0x0000000435",
 0,
 },
 {
-"Proficiency in item class 4 set to 0x000000006f",
+"Proficiency in item class 2 set to 0x0000004070",
 0,
 },
 {
-"Proficiency in item class 2 set to 0x0000004090",
+"Proficiency in item class 4 set to 0x000000043d",
 0,
 },
 {
-"Proficiency in item class 2 set to 0x0000004190",
+"Proficiency in item class 4 set to 0x000000043f",
 0,
 },
 {
-"Proficiency in item class 2 set to 0x0000004191",
+"Proficiency in item class 2 set to 0x00000040f0",
 0,
 },
 {
-"Proficiency in item class 2 set to 0x0000004191",
+"Proficiency in item class 2 set to 0x00000041f0",
 0,
 },
 {
-"Proficiency in item class 4 set to 0x000000006f",
+"Proficiency in item class 2 set to 0x00000041f1",
 0,
 },
 {
-"Weather changed to 1, intensity 0.000000\n",
+"Proficiency in item class 2 set to 0x00000041f3",
 0,
 },
 {
-"Time set to 1/10/2026 (Sat) 0:34",
+"Proficiency in item class 2 set to 0x00000041f3",
 0,
 },
 {
-"Gamespeed set from 0.017 to 0.017",
-0,
-},
-{
-"-------------------------------------------------- Previous Session --------------------------------------------------",
-0,
-},
-{
-"-------------------------------------------------- Previous Session --------------------------------------------------",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000021",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000004000",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000084000",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000023",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000084080",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000084480",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x000008c480",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x000008c480",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000023",
+"Proficiency in item class 4 set to 0x000000043f",
 0,
 },
 {
@@ -592,7 +531,7 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Time set to 1/10/2026 (Sat) 0:35",
+"Time set to 1/12/2026 (Mon) 22:03",
 0,
 },
 {
@@ -604,47 +543,63 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Time played:",
+"World transfer aborted (reason: 30)",
 0,
 },
 {
-"Total: 2d 2h 25m 48s",
+"Got new connection 3",
 0,
 },
 {
-"Level: 0d 0h 9m 11s",
+"Weather changed to 1, intensity 0.000000\n",
 0,
 },
 {
-"CGast - CGItemStatsSummary::ParseSpellRec is being called for spellID: 32703, effect aura: 161, which is wrong",
+"World transfer aborted (reason: 30)",
 0,
 },
 {
-"CGast - CGItemStatsSummary::ParseSpellRec is being called for spellID: 32703, effect aura: 161, which is wrong",
+"World transfer pending...",
 0,
 },
 {
-"Trainer service 47891 unavailable",
+"Got new connection 3",
 0,
 },
 {
-"Trainer service 60220 unavailable",
+"Value out of range (1.000000 - 4.000000)\n",
 0,
 },
 {
-"Trainer service 47820 unavailable",
+"Weather changed to 1, intensity 0.000000\n",
 0,
 },
 {
-"Trainer service 47815 unavailable",
+"World transfer pending...",
 0,
 },
 {
-"Trainer service 47864 unavailable",
+"Got new connection 3",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
 0,
 },
 {
 "-------------------------------------------------- Previous Session --------------------------------------------------",
+0,
+},
+{
+"Disconnecting for reason 14",
+0,
+},
+{
+"NetClient::HandleDisconnect()\n",
 0,
 },
 {
@@ -956,7 +911,7 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Time set to 1/10/2026 (Sat) 11:29",
+"Time set to 1/14/2026 (Wed) 17:26",
 0,
 },
 {
@@ -972,259 +927,11 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Total: 2d 2h 45m 25s",
+"Total: 2d 12h 7m 58s",
 0,
 },
 {
-"Level: 0d 0h 28m 48s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 2d 2h 53m 51s",
-0,
-},
-{
-"Level: 0d 0h 37m 14s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 2d 3h 6m 38s",
-0,
-},
-{
-"Level: 0d 0h 50m 1s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 2d 3h 6m 40s",
-0,
-},
-{
-"Level: 0d 0h 50m 3s",
-0,
-},
-{
-"Skill 136 increased from 41 to 42",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 2d 3h 9m 44s",
-0,
-},
-{
-"Level: 0d 0h 53m 7s",
-0,
-},
-{
-"Skill 136 increased from 42 to 43",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 2d 3h 25m 32s",
-0,
-},
-{
-"Level: 0d 1h 8m 55s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 2d 3h 25m 42s",
-0,
-},
-{
-"Level: 0d 1h 9m 5s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 2d 3h 28m 3s",
-0,
-},
-{
-"Level: 0d 1h 11m 26s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 2d 3h 28m 20s",
-0,
-},
-{
-"Level: 0d 1h 11m 43s",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
+"Level: 0d 9h 51m 21s",
 0,
 },
 {
@@ -1252,7 +959,11 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Proficiency in item class 4 set to 0x0000000021",
+"Proficiency in item class 4 set to 0x0000000080",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x00000000a1",
 0,
 },
 {
@@ -1260,39 +971,51 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Proficiency in item class 4 set to 0x0000000025",
+"Proficiency in item class 4 set to 0x00000000a5",
 0,
 },
 {
-"Proficiency in item class 4 set to 0x0000000065",
+"Proficiency in item class 4 set to 0x00000000b5",
 0,
 },
 {
-"Proficiency in item class 4 set to 0x000000006d",
+"Proficiency in item class 4 set to 0x00000000f5",
 0,
 },
 {
-"Proficiency in item class 4 set to 0x000000006f",
+"Proficiency in item class 2 set to 0x0000004030",
 0,
 },
 {
-"Proficiency in item class 2 set to 0x0000004090",
+"Proficiency in item class 4 set to 0x00000000fd",
 0,
 },
 {
-"Proficiency in item class 2 set to 0x0000004190",
+"Proficiency in item class 4 set to 0x00000000ff",
 0,
 },
 {
-"Proficiency in item class 2 set to 0x0000004191",
+"Proficiency in item class 2 set to 0x00000040b0",
 0,
 },
 {
-"Proficiency in item class 2 set to 0x0000004191",
+"Proficiency in item class 2 set to 0x00000041b0",
 0,
 },
 {
-"Proficiency in item class 4 set to 0x000000006f",
+"Proficiency in item class 2 set to 0x00000041b1",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x00000041b3",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x00000041b3",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x00000000ff",
 0,
 },
 {
@@ -1300,11 +1023,183 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Time set to 1/10/2026 (Sat) 12:16",
+"Time set to 1/14/2026 (Wed) 17:29",
 0,
 },
 {
 "Gamespeed set from 0.017 to 0.017",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"-------------------------------------------------- Previous Session --------------------------------------------------",
+0,
+},
+{
+"-------------------------------------------------- Previous Session --------------------------------------------------",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000000010",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000400",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000421",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000004010",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000425",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000004050",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000435",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000004070",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x000000043d",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x000000043f",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x00000040f0",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x00000041f0",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x00000041f1",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x00000041f3",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x00000041f3",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x000000043f",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Time set to 1/14/2026 (Wed) 17:30",
+0,
+},
+{
+"Gamespeed set from 0.017 to 0.017",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"-------------------------------------------------- Previous Session --------------------------------------------------",
+0,
+},
+{
+"-------------------------------------------------- Previous Session --------------------------------------------------",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000021",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000004000",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000084000",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000023",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000084080",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000084480",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x000008c480",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x000008c480",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000023",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Time set to 1/14/2026 (Wed) 17:30",
+0,
+},
+{
+"Gamespeed set from 0.017 to 0.017",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 2d 12h 10m 42s",
+0,
+},
+{
+"Level: 0d 9h 54m 5s",
 0,
 },
 {
@@ -1568,6 +1463,354 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
+"Disconnecting for reason 14",
+0,
+},
+{
+"NetClient::HandleDisconnect()\n",
+0,
+},
+{
+"Got new connection 2",
+0,
+},
+{
+"NetClient::HandleConnect()\n",
+0,
+},
+{
+"[WowEntitlements] [BNetAccount-0-00000BC426B8] [WowAccount-0-000004FE320E] Initialized with 6 entitlements.",
+0,
+},
+{
+"-------------------------------------------------- Previous Session --------------------------------------------------",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000100",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000121",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000004000",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000125",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000127",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000004400",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x000000c400",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x000000c400",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000127",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Time set to 1/14/2026 (Wed) 21:02",
+0,
+},
+{
+"Gamespeed set from 0.017 to 0.017",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"-------------------------------------------------- Previous Session --------------------------------------------------",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"-------------------------------------------------- Previous Session --------------------------------------------------",
+0,
+},
+{
+"Sorting particles normally.",
+0,
+},
+{
+"Multithreaded rendering enabled.",
+0,
+},
+{
+"Multithreaded BeginDraw enabled.",
+0,
+},
+{
+"Multithread shadows changed to 1.",
+0,
+},
+{
+"Multithreaded prepass enabled.",
+0,
+},
+{
+"Multithreaded opaque pass enabled.",
+0,
+},
+{
+"Multithreaded opaque pass enabled.",
+0,
+},
+{
+"Multithreaded alpha M2 pass enabled.",
+0,
+},
+{
+"Multithreaded opaque WMO pass enabled.",
+0,
+},
+{
+"Multithreaded terrain pass enabled.",
+0,
+},
+{
+"Multithreaded volumetric fog enabled.",
+0,
+},
+{
+"Multithreaded Refraction Pass enabled.",
+0,
+},
+{
+"Multithreaded miscellaneous passes enabled.",
+0,
+},
+{
+"Multithreaded decal passes disabled.",
+0,
+},
+{
+"Multithreaded outline passes enabled.",
+0,
+},
+{
+"Multithreaded lightshaft passes enabled.",
+0,
+},
+{
+"Multithreaded alpha pass enabled.",
+0,
+},
+{
+"Multithreaded daynight update enabled.",
+0,
+},
+{
+"Water detail changed to 3",
+0,
+},
+{
+"Ripple detail changed to 2",
+0,
+},
+{
+"Reflection mode changed to 3",
+0,
+},
+{
+"Reflection downscale changed to 0",
+0,
+},
+{
+"Sunshafts quality changed to 2",
+0,
+},
+{
+"Projected textures enabled.",
+0,
+},
+{
+"Shadow mode changed to 4 - 4 band dynamic shadows on units and terrain, 2048",
+0,
+},
+{
+"Shadow texture size changed to 2048.",
+0,
+},
+{
+"Soft shadows changed to 1.",
+0,
+},
+{
+"Shadow cascade blending changed to 1",
+0,
+},
+{
+"Number of shadow cascades changed to 4",
+0,
+},
+{
+"Shadow RT mode changed to 3 (High) - Full-resolution directional & local light shadows",
+0,
+},
+{
+"maxLightCount must be in range 0 to 32.",
+0,
+},
+{
+"CVar 'maxLightCount' failed validation for its initial value.",
+0,
+},
+{
+"Clustered shading enabled.",
+0,
+},
+{
+"Not forcing clustered shading.",
+0,
+},
+{
+"SSAO mode set to 4",
+0,
+},
+{
+"SSAO type set to 0",
+0,
+},
+{
+"SkyCloudLOD set to 0",
+0,
+},
+{
+"Texture filtering mode updated.",
+0,
+},
+{
+"Terrain mip level changed to 0.",
+0,
+},
+{
+"Render scale changed to 1",
+0,
+},
+{
+"Resample quality changed to 3",
+0,
+},
+{
+"MSAA disabled",
+0,
+},
+{
+"MSAA for alpha-test enabled.",
+0,
+},
+{
+"VALAR mode changed to 2",
+0,
+},
+{
+"lodObjectSizeScale cannot be changed.",
+0,
+},
+{
+"dynamicLod enabled",
+0,
+},
+{
+"World preload object sort enabled.",
+0,
+},
+{
+"World load object sort enabled.",
+0,
+},
+{
+"World preload non critical enabled.",
+0,
+},
+{
+"World preload high res textures enabled.",
+0,
+},
+{
+"FFX: Color Blind Test Mode Disabled",
+0,
+},
+{
+"Error display disabled",
+0,
+},
+{
+"Error display shown",
+0,
+},
+{
+"Displaying errors through fatal errors",
+0,
+},
+{
+"Displaying errors through fatal errors",
+0,
+},
+{
+"Now filtering: all messages",
+0,
+},
+{
+"CVar 'Sound_AmbienceHighpassDSPCutoff' failed validation for its initial value.",
+0,
+},
+{
+"CVar 'Sound_AllyPlayerHighpassDSPCutoff' failed validation for its initial value.",
+0,
+},
+{
+"CVar 'Sound_EnemyPlayerHighpassDSPCutoff' failed validation for its initial value.",
+0,
+},
+{
+"CVar 'Sound_NPCHighpassDSPCutoff' failed validation for its initial value.",
+0,
+},
+{
+"ChromaEffects disabled",
+0,
+},
+{
+"NetClient::HandleConnect()\n",
+0,
+},
+{
+"Got new connection 2",
+0,
+},
+{
+"[WowEntitlements] [BNetAccount-0-00000BC426B8] [WowAccount-0-000004FE320E] Initialized with 6 entitlements.",
+0,
+},
+{
 "-------------------------------------------------- Previous Session --------------------------------------------------",
 0,
 },
@@ -1616,7 +1859,7 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Time set to 1/10/2026 (Sat) 12:42",
+"Time set to 1/15/2026 (Thu) 18:09",
 0,
 },
 {
@@ -1632,11 +1875,11 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Total: 2d 3h 33m 4s",
+"Total: 2d 12h 12m 20s",
 0,
 },
 {
-"Level: 0d 1h 16m 27s",
+"Level: 0d 9h 55m 43s",
 0,
 },
 {
@@ -1645,6 +1888,254 @@ Blizzard_Console_SavedVars = {
 },
 {
 "Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"World transfer pending...",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 2d 12h 33m 31s",
+0,
+},
+{
+"Level: 0d 10h 16m 54s",
+0,
+},
+{
+"World transfer pending...",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 2d 12h 43m 38s",
+0,
+},
+{
+"Level: 0d 10h 27m 1s",
+0,
+},
+{
+"-------------------------------------------------- Previous Session --------------------------------------------------",
+0,
+},
+{
+"-------------------------------------------------- Previous Session --------------------------------------------------",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000000010",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000080",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x00000000a1",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000004010",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x00000000a5",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x00000000b5",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x00000000f5",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000004030",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x00000000fd",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x00000000ff",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x00000040b0",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x00000041b0",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x00000041b1",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x00000041b3",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x00000041b3",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x00000000ff",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Time set to 1/15/2026 (Thu) 18:42",
+0,
+},
+{
+"Gamespeed set from 0.017 to 0.017",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"-------------------------------------------------- Previous Session --------------------------------------------------",
+0,
+},
+{
+"-------------------------------------------------- Previous Session --------------------------------------------------",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000021",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000004000",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000084000",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000023",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000084080",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000084480",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x000008c480",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x000008c480",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000023",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Time set to 1/15/2026 (Thu) 18:43",
+0,
+},
+{
+"Gamespeed set from 0.017 to 0.017",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 2d 12h 45m 52s",
+0,
+},
+{
+"Level: 0d 10h 29m 15s",
 0,
 },
 {
@@ -1652,503 +2143,171 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 2d 3h 34m 36s",
-0,
-},
-{
-"Level: 0d 1h 17m 59s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 2d 3h 34m 47s",
-0,
-},
-{
-"Level: 0d 1h 18m 10s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 2d 3h 45m 8s",
-0,
-},
-{
-"Level: 0d 1h 28m 31s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 2d 3h 53m 45s",
-0,
-},
-{
-"Level: 0d 1h 37m 8s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 2d 4h 9m 42s",
-0,
-},
-{
-"Level: 0d 1h 53m 5s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 2d 4h 11m 22s",
-0,
-},
-{
-"Level: 0d 1h 54m 45s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 2d 4h 35m 45s",
-0,
-},
-{
-"Level: 0d 2h 19m 8s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 2d 4h 36m 11s",
-0,
-},
-{
-"Level: 0d 2h 19m 34s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 2d 4h 41m 13s",
-0,
-},
-{
-"Level: 0d 2h 24m 36s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 2d 4h 44m 5s",
-0,
-},
-{
-"Level: 0d 2h 27m 28s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 2d 4h 59m 28s",
-0,
-},
-{
-"Level: 0d 2h 42m 51s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 2d 5h 10m 54s",
-0,
-},
-{
-"Level: 0d 2h 54m 17s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 2d 5h 21m 28s",
-0,
-},
-{
-"Level: 0d 3h 4m 51s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 2d 5h 41m 15s",
-0,
-},
-{
-"Level: 0d 3h 24m 38s",
-0,
-},
-{
-"Skill 136 increased from 43 to 44",
-0,
-},
-{
-"Skill 136 increased from 44 to 45",
-0,
-},
-{
-"Skill 136 increased from 45 to 46",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 2d 5h 59m 47s",
-0,
-},
-{
-"Level: 0d 3h 43m 10s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 2d 6h 0m 54s",
-0,
-},
-{
-"Level: 0d 3h 44m 17s",
-0,
-},
-{
-"Skill 95 increased from 393 to 394",
-0,
-},
-{
-"Skill 95 increased from 394 to 395",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 2d 6h 19m 44s",
-0,
-},
-{
-"Level: 0d 4h 3m 7s",
+"-------------------------------------------------- Previous Session --------------------------------------------------",
 0,
 },
 {
 "-------------------------------------------------- Previous Session --------------------------------------------------",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000000010",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000021",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000004010",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000025",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000065",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x000000006d",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x000000006f",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000004090",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000004190",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000004191",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000004191",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x000000006f",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Time set to 1/15/2026 (Thu) 18:46",
+0,
+},
+{
+"Gamespeed set from 0.017 to 0.017",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"-------------------------------------------------- Previous Session --------------------------------------------------",
+0,
+},
+{
+"-------------------------------------------------- Previous Session --------------------------------------------------",
+0,
+},
+{
+"-------------------------------------------------- Previous Session --------------------------------------------------",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000021",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000004000",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000084000",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000023",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000084080",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000084480",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x000008c480",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x000008c480",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000023",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Time set to 1/15/2026 (Thu) 18:51",
+0,
+},
+{
+"Gamespeed set from 0.017 to 0.017",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 2d 12h 48m 30s",
+0,
+},
+{
+"Level: 0d 10h 31m 53s",
+0,
+},
+{
+"-------------------------------------------------- Previous Session --------------------------------------------------",
+0,
+},
+{
+"Disconnecting for reason 14",
+0,
+},
+{
+"NetClient::HandleDisconnect()\n",
 0,
 },
 {
@@ -2460,7 +2619,7 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Time set to 1/10/2026 (Sat) 19:27",
+"Time set to 1/15/2026 (Thu) 21:29",
 0,
 },
 {
@@ -2476,11 +2635,11 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Total: 3d 6h 1m 29s",
+"Total: 3d 8h 42m 30s",
 0,
 },
 {
-"Level: 0d 21h 48m 39s",
+"Level: 1d 0h 29m 40s",
 0,
 },
 {
@@ -2492,7 +2651,707 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"World transfer aborted (reason: 30)",
+"-------------------------------------------------- Previous Session --------------------------------------------------",
+0,
+},
+{
+"-------------------------------------------------- Previous Session --------------------------------------------------",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000021",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000004000",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000084000",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000023",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000084080",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000084480",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x000008c480",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x000008c480",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000023",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Time set to 1/15/2026 (Thu) 21:36",
+0,
+},
+{
+"Gamespeed set from 0.017 to 0.017",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 2d 12h 49m 55s",
+0,
+},
+{
+"Level: 0d 10h 33m 18s",
+0,
+},
+{
+"-------------------------------------------------- Previous Session --------------------------------------------------",
+0,
+},
+{
+"-------------------------------------------------- Previous Session --------------------------------------------------",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000000010",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000021",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000004010",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000084010",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000023",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000084410",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x000008c410",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x000008c410",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000023",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Time set to 1/15/2026 (Thu) 21:37",
+0,
+},
+{
+"Gamespeed set from 0.017 to 0.017",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 3d 8h 49m 35s",
+0,
+},
+{
+"Level: 1d 0h 36m 45s",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"World transfer pending...",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 3d 8h 55m 51s",
+0,
+},
+{
+"Level: 1d 0h 43m 1s",
+0,
+},
+{
+"World transfer pending...",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 3d 10h 16m 27s",
+0,
+},
+{
+"Level: 1d 2h 3m 37s",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"-------------------------------------------------- Previous Session --------------------------------------------------",
+0,
+},
+{
+"-------------------------------------------------- Previous Session --------------------------------------------------",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000021",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000004000",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000084000",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000023",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000084080",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000084480",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x000008c480",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x000008c480",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000023",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Time set to 1/15/2026 (Thu) 23:42",
+0,
+},
+{
+"Gamespeed set from 0.017 to 0.017",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 2d 12h 50m 23s",
+0,
+},
+{
+"Level: 0d 10h 33m 46s",
+0,
+},
+{
+"-------------------------------------------------- Previous Session --------------------------------------------------",
+0,
+},
+{
+"Disconnecting for reason 14",
+0,
+},
+{
+"NetClient::HandleDisconnect()\n",
+0,
+},
+{
+"-------------------------------------------------- Previous Session --------------------------------------------------",
+0,
+},
+{
+"Sorting particles normally.",
+0,
+},
+{
+"Multithreaded rendering enabled.",
+0,
+},
+{
+"Multithreaded BeginDraw enabled.",
+0,
+},
+{
+"Multithread shadows changed to 1.",
+0,
+},
+{
+"Multithreaded prepass enabled.",
+0,
+},
+{
+"Multithreaded opaque pass enabled.",
+0,
+},
+{
+"Multithreaded opaque pass enabled.",
+0,
+},
+{
+"Multithreaded alpha M2 pass enabled.",
+0,
+},
+{
+"Multithreaded opaque WMO pass enabled.",
+0,
+},
+{
+"Multithreaded terrain pass enabled.",
+0,
+},
+{
+"Multithreaded volumetric fog enabled.",
+0,
+},
+{
+"Multithreaded Refraction Pass enabled.",
+0,
+},
+{
+"Multithreaded miscellaneous passes enabled.",
+0,
+},
+{
+"Multithreaded decal passes disabled.",
+0,
+},
+{
+"Multithreaded outline passes enabled.",
+0,
+},
+{
+"Multithreaded lightshaft passes enabled.",
+0,
+},
+{
+"Multithreaded alpha pass enabled.",
+0,
+},
+{
+"Multithreaded daynight update enabled.",
+0,
+},
+{
+"Water detail changed to 3",
+0,
+},
+{
+"Ripple detail changed to 2",
+0,
+},
+{
+"Reflection mode changed to 3",
+0,
+},
+{
+"Reflection downscale changed to 0",
+0,
+},
+{
+"Sunshafts quality changed to 2",
+0,
+},
+{
+"Projected textures enabled.",
+0,
+},
+{
+"Shadow mode changed to 4 - 4 band dynamic shadows on units and terrain, 2048",
+0,
+},
+{
+"Shadow texture size changed to 2048.",
+0,
+},
+{
+"Soft shadows changed to 1.",
+0,
+},
+{
+"Shadow cascade blending changed to 1",
+0,
+},
+{
+"Number of shadow cascades changed to 4",
+0,
+},
+{
+"Shadow RT mode changed to 3 (High) - Full-resolution directional & local light shadows",
+0,
+},
+{
+"maxLightCount must be in range 0 to 32.",
+0,
+},
+{
+"CVar 'maxLightCount' failed validation for its initial value.",
+0,
+},
+{
+"Clustered shading enabled.",
+0,
+},
+{
+"Not forcing clustered shading.",
+0,
+},
+{
+"SSAO mode set to 4",
+0,
+},
+{
+"SSAO type set to 0",
+0,
+},
+{
+"SkyCloudLOD set to 0",
+0,
+},
+{
+"Texture filtering mode updated.",
+0,
+},
+{
+"Terrain mip level changed to 0.",
+0,
+},
+{
+"Render scale changed to 1",
+0,
+},
+{
+"Resample quality changed to 3",
+0,
+},
+{
+"MSAA disabled",
+0,
+},
+{
+"MSAA for alpha-test enabled.",
+0,
+},
+{
+"VALAR mode changed to 2",
+0,
+},
+{
+"lodObjectSizeScale cannot be changed.",
+0,
+},
+{
+"dynamicLod enabled",
+0,
+},
+{
+"World preload object sort enabled.",
+0,
+},
+{
+"World load object sort enabled.",
+0,
+},
+{
+"World preload non critical enabled.",
+0,
+},
+{
+"World preload high res textures enabled.",
+0,
+},
+{
+"FFX: Color Blind Test Mode Disabled",
+0,
+},
+{
+"Error display disabled",
+0,
+},
+{
+"Error display shown",
+0,
+},
+{
+"Displaying errors through fatal errors",
+0,
+},
+{
+"Displaying errors through fatal errors",
+0,
+},
+{
+"Now filtering: all messages",
+0,
+},
+{
+"CVar 'Sound_AmbienceHighpassDSPCutoff' failed validation for its initial value.",
+0,
+},
+{
+"CVar 'Sound_AllyPlayerHighpassDSPCutoff' failed validation for its initial value.",
+0,
+},
+{
+"CVar 'Sound_EnemyPlayerHighpassDSPCutoff' failed validation for its initial value.",
+0,
+},
+{
+"CVar 'Sound_NPCHighpassDSPCutoff' failed validation for its initial value.",
+0,
+},
+{
+"ChromaEffects disabled",
+0,
+},
+{
+"NetClient::HandleConnect()\n",
+0,
+},
+{
+"Got new connection 2",
+0,
+},
+{
+"[WowEntitlements] [BNetAccount-0-00000BC426B8] [WowAccount-0-000004FE320E] Initialized with 6 entitlements.",
+0,
+},
+{
+"-------------------------------------------------- Previous Session --------------------------------------------------",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000021",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000004000",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000084000",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000023",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000084400",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x000008c400",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x000008c400",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000023",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Time set to 1/16/2026 (Fri) 19:10",
+0,
+},
+{
+"Gamespeed set from 0.017 to 0.017",
+0,
+},
+{
+"-------------------------------------------------- Previous Session --------------------------------------------------",
+0,
+},
+{
+"-------------------------------------------------- Previous Session --------------------------------------------------",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000021",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000004000",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000084000",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000023",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000084080",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000084480",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x000008c480",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x000008c480",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000023",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Time set to 1/16/2026 (Fri) 21:17",
+0,
+},
+{
+"Gamespeed set from 0.017 to 0.017",
+0,
+},
+{
+"-------------------------------------------------- Previous Session --------------------------------------------------",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"Time played:",
+0,
+},
+{
+"Total: 2d 13h 1m 58s",
+0,
+},
+{
+"Level: 0d 10h 45m 21s",
 0,
 },
 {
@@ -2576,7 +3435,99 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Time set to 1/10/2026 (Sat) 19:36",
+"Time set to 1/16/2026 (Fri) 21:29",
+0,
+},
+{
+"Gamespeed set from 0.017 to 0.017",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"-------------------------------------------------- Previous Session --------------------------------------------------",
+0,
+},
+{
+"-------------------------------------------------- Previous Session --------------------------------------------------",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000000010",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000080",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x00000000a1",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000004010",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x00000000a5",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x00000000b5",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x00000000f5",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000004030",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x00000000fd",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x00000000ff",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x00000040b0",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x00000041b0",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x00000041b1",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x00000041b3",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x00000041b3",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x00000000ff",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Time set to 1/16/2026 (Fri) 21:31",
 0,
 },
 {
@@ -2640,7 +3591,7 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Time set to 1/10/2026 (Sat) 19:37",
+"Time set to 1/16/2026 (Fri) 21:38",
 0,
 },
 {
@@ -2656,11 +3607,115 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Total: 3d 6h 9m 40s",
+"Total: 3d 10h 54m 28s",
 0,
 },
 {
-"Level: 0d 21h 56m 50s",
+"Level: 1d 2h 41m 38s",
+0,
+},
+{
+"-------------------------------------------------- Previous Session --------------------------------------------------",
+0,
+},
+{
+"-------------------------------------------------- Previous Session --------------------------------------------------",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000000010",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000080",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x00000000a1",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000004010",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x00000000a5",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x00000000b5",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x00000000f5",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000004030",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x00000000fd",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x00000000ff",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x00000040b0",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x00000041b0",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x00000041b1",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x00000041b3",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x00000041b3",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x00000000ff",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"Time set to 1/16/2026 (Fri) 21:38",
+0,
+},
+{
+"Gamespeed set from 0.017 to 0.017",
+0,
+},
+{
+"Value out of range (1.000000 - 4.000000)\n",
+0,
+},
+{
+"Got new connection 3",
+0,
+},
+{
+"Weather changed to 1, intensity 0.000000\n",
+0,
+},
+{
+"World transfer aborted (reason: 30)",
 0,
 },
 {
@@ -2684,18 +3739,6 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Time played:",
-0,
-},
-{
-"Total: 3d 6h 30m 4s",
-0,
-},
-{
-"Level: 0d 22h 17m 14s",
-0,
-},
-{
 "World transfer pending...",
 0,
 },
@@ -2709,90 +3752,6 @@ Blizzard_Console_SavedVars = {
 },
 {
 "Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 3d 8h 36m 35s",
-0,
-},
-{
-"Level: 1d 0h 23m 45s",
-0,
-},
-{
-"-------------------------------------------------- Previous Session --------------------------------------------------",
-0,
-},
-{
-"-------------------------------------------------- Previous Session --------------------------------------------------",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000021",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000004000",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000084000",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000023",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000084400",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x000008c400",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x000008c400",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000023",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time set to 1/10/2026 (Sat) 22:04",
-0,
-},
-{
-"Gamespeed set from 0.017 to 0.017",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 10h 29m 41s",
-0,
-},
-{
-"Level: 0d 10h 29m 41s",
 0,
 },
 {
@@ -2848,7 +3807,7 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Time set to 1/10/2026 (Sat) 22:42",
+"Time set to 1/16/2026 (Fri) 23:38",
 0,
 },
 {
@@ -2864,727 +3823,11 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Total: 2d 6h 20m 0s",
+"Total: 2d 13h 15m 57s",
 0,
 },
 {
-"Level: 0d 4h 3m 23s",
-0,
-},
-{
-"-------------------------------------------------- Previous Session --------------------------------------------------",
-0,
-},
-{
-"-------------------------------------------------- Previous Session --------------------------------------------------",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000000010",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000021",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000004010",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000084010",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000023",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000084410",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x000008c410",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x000008c410",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000023",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time set to 1/10/2026 (Sat) 22:43",
-0,
-},
-{
-"Gamespeed set from 0.017 to 0.017",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 3d 8h 37m 8s",
-0,
-},
-{
-"Level: 1d 0h 24m 18s",
-0,
-},
-{
-"World transfer aborted (reason: 30)",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 3d 8h 38m 34s",
-0,
-},
-{
-"Level: 1d 0h 25m 44s",
-0,
-},
-{
-"World transfer aborted (reason: 30)",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 3d 8h 41m 58s",
-0,
-},
-{
-"Level: 1d 0h 29m 8s",
-0,
-},
-{
-"-------------------------------------------------- Previous Session --------------------------------------------------",
-0,
-},
-{
-"-------------------------------------------------- Previous Session --------------------------------------------------",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000000010",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000021",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000004010",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000025",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000006010",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000016010",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000016014",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000016054",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000035",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000075",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000016074",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x000000007d",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x000000007f",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x000001607c",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x00000160fc",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x00000161fc",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x00000161fd",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x00000165fd",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x00000165ff",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x000001e5ff",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x000005e5ff",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x000005e5ff",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x000000007f",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time set to 1/10/2026 (Sat) 22:48",
-0,
-},
-{
-"Gamespeed set from 0.017 to 0.017",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 3d 6h 23m 1s",
-0,
-},
-{
-"Level: 0d 23h 43m 56s",
-0,
-},
-{
-"World transfer aborted (reason: 30)",
-0,
-},
-{
-"-------------------------------------------------- Previous Session --------------------------------------------------",
-0,
-},
-{
-"-------------------------------------------------- Previous Session --------------------------------------------------",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000000010",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000021",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000004010",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000084010",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000023",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000084410",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x000008c410",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x000008c410",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000023",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time set to 1/10/2026 (Sat) 22:51",
-0,
-},
-{
-"Gamespeed set from 0.017 to 0.017",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 3d 8h 42m 11s",
-0,
-},
-{
-"Level: 1d 0h 29m 21s",
-0,
-},
-{
-"-------------------------------------------------- Previous Session --------------------------------------------------",
-0,
-},
-{
-"-------------------------------------------------- Previous Session --------------------------------------------------",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000000010",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000021",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000004010",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000025",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000006010",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000016010",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000016014",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000016054",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000035",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000075",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000016074",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x000000007d",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x000000007f",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x000001607c",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x00000160fc",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x00000161fc",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x00000161fd",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x00000165fd",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x00000165ff",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x000001e5ff",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x000005e5ff",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x000005e5ff",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x000000007f",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time set to 1/10/2026 (Sat) 22:51",
-0,
-},
-{
-"Gamespeed set from 0.017 to 0.017",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 3d 6h 25m 10s",
-0,
-},
-{
-"Level: 0d 23h 46m 5s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 3d 6h 25m 39s",
-0,
-},
-{
-"Level: 0d 23h 46m 34s",
-0,
-},
-{
-"-------------------------------------------------- Previous Session --------------------------------------------------",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"-------------------------------------------------- Previous Session --------------------------------------------------",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 3d 6h 27m 13s",
-0,
-},
-{
-"Level: 0d 23h 48m 8s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 3d 8h 6m 50s",
-0,
-},
-{
-"Level: 1d 1h 27m 45s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 3d 8h 7m 36s",
-0,
-},
-{
-"Level: 1d 1h 28m 31s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 3d 8h 34m 1s",
-0,
-},
-{
-"Level: 1d 1h 54m 56s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 3d 8h 34m 35s",
-0,
-},
-{
-"Level: 1d 1h 55m 30s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 3d 8h 34m 51s",
-0,
-},
-{
-"Level: 1d 1h 55m 46s",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 3d 8h 37m 1s",
-0,
-},
-{
-"Level: 1d 1h 57m 56s",
+"Level: 0d 10h 59m 20s",
 0,
 },
 {
@@ -3652,7 +3895,7 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Time set to 1/11/2026 (Sun) 1:06",
+"Time set to 1/16/2026 (Fri) 23:48",
 0,
 },
 {
@@ -3684,7 +3927,11 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Proficiency in item class 4 set to 0x0000000021",
+"Proficiency in item class 4 set to 0x0000000080",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x00000000a1",
 0,
 },
 {
@@ -3692,83 +3939,51 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Proficiency in item class 4 set to 0x0000000025",
+"Proficiency in item class 4 set to 0x00000000a5",
 0,
 },
 {
-"Proficiency in item class 2 set to 0x0000006010",
+"Proficiency in item class 4 set to 0x00000000b5",
 0,
 },
 {
-"Proficiency in item class 2 set to 0x0000016010",
+"Proficiency in item class 4 set to 0x00000000f5",
 0,
 },
 {
-"Proficiency in item class 2 set to 0x0000016014",
+"Proficiency in item class 2 set to 0x0000004030",
 0,
 },
 {
-"Proficiency in item class 2 set to 0x0000016054",
+"Proficiency in item class 4 set to 0x00000000fd",
 0,
 },
 {
-"Proficiency in item class 4 set to 0x0000000035",
+"Proficiency in item class 4 set to 0x00000000ff",
 0,
 },
 {
-"Proficiency in item class 4 set to 0x0000000075",
+"Proficiency in item class 2 set to 0x00000040b0",
 0,
 },
 {
-"Proficiency in item class 2 set to 0x0000016074",
+"Proficiency in item class 2 set to 0x00000041b0",
 0,
 },
 {
-"Proficiency in item class 4 set to 0x000000007d",
+"Proficiency in item class 2 set to 0x00000041b1",
 0,
 },
 {
-"Proficiency in item class 4 set to 0x000000007f",
+"Proficiency in item class 2 set to 0x00000041b3",
 0,
 },
 {
-"Proficiency in item class 2 set to 0x000001607c",
+"Proficiency in item class 2 set to 0x00000041b3",
 0,
 },
 {
-"Proficiency in item class 2 set to 0x00000160fc",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x00000161fc",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x00000161fd",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x00000165fd",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x00000165ff",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x000001e5ff",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x000005e5ff",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x000005e5ff",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x000000007f",
+"Proficiency in item class 4 set to 0x00000000ff",
 0,
 },
 {
@@ -3776,7 +3991,7 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Time set to 1/11/2026 (Sun) 1:09",
+"Time set to 1/16/2026 (Fri) 23:49",
 0,
 },
 {
@@ -3788,236 +4003,13 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Time played:",
-0,
-},
-{
-"Total: 3d 8h 39m 31s",
-0,
-},
-{
-"Level: 1d 2h 0m 26s",
-0,
-},
-{
 "-------------------------------------------------- Previous Session --------------------------------------------------",
 0,
 },
-{
-"-------------------------------------------------- Previous Session --------------------------------------------------",
-0,
 },
-{
-"Got new connection 3",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000000010",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000021",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000004010",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000025",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000065",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x000000006d",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x000000006f",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000004090",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000004190",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000004191",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000004191",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x000000006f",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time set to 1/11/2026 (Sun) 1:13",
-0,
-},
-{
-"Gamespeed set from 0.017 to 0.017",
-0,
-},
-{
-"-------------------------------------------------- Previous Session --------------------------------------------------",
-0,
-},
-{
-"-------------------------------------------------- Previous Session --------------------------------------------------",
-0,
-},
-{
-"Got new connection 3",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000000010",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000021",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000004010",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000025",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000006010",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000016010",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000016014",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000016054",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000035",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000075",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000016074",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x000000007d",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x000000007f",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x000001607c",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x00000160fc",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x00000161fc",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x00000161fd",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x00000165fd",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x00000165ff",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x000001e5ff",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x000005e5ff",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x000005e5ff",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x000000007f",
-0,
-},
-{
-"Weather changed to 1, intensity 0.000000\n",
-0,
-},
-{
-"Time set to 1/11/2026 (Sun) 1:16",
-0,
-},
-{
-"Gamespeed set from 0.017 to 0.017",
-0,
-},
-{
-"Value out of range (1.000000 - 4.000000)\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 3d 8h 43m 19s",
-0,
-},
-{
-"Level: 1d 2h 4m 14s",
-0,
-},
-{
-"-------------------------------------------------- Previous Session --------------------------------------------------",
-0,
-},
-{
-"Disconnecting for reason 14",
-0,
-},
-{
-"NetClient::HandleDisconnect()\n",
-0,
-},
-},
-["isShown"] = false,
+["height"] = 300,
 ["fontHeight"] = 14,
+["isShown"] = false,
 ["commandHistory"] = {
 },
 }
