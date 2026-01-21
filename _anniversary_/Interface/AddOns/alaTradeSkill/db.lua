@@ -1694,7 +1694,9 @@ MT.RegisterOnInit('db', function(LoggedIn)
 	for spec, pid in next, T_TradeSkill_Spec2Pid do
 		T_IsSpecLearned[spec] = IsSpellKnown(spec) and true or nil;
 	end
-	F:RegisterEvent("LEARNED_SPELL_IN_TAB");
-	F:RegisterEvent("SPELLS_CHANGED");
+	if F.RegisterEvent then
+		pcall(function() F:RegisterEvent("LEARNED_SPELL_IN_TAB"); end);
+		F:RegisterEvent("SPELLS_CHANGED");
+	end
 end);
 -->

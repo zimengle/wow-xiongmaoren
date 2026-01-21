@@ -2,13 +2,13 @@
 WclBoxCharacter = {
 ["class"] = "PRIEST",
 ["realmID"] = 6383,
-["version"] = "1.0.28",
-["gold"] = 3549060,
-["race"] = "人类",
-["name"] = "退休码农",
+["loginTime"] = 1768570711,
 ["faction"] = "Alliance",
+["race"] = "人类",
+["version"] = "1.0.28",
+["gold"] = 208999060,
 ["realmName"] = "时光IV",
 ["level"] = 80,
-["loginTime"] = 1768484253,
+["name"] = "退休码农",
 ["playerGUID"] = "Player-6383-0084FD99",
 }

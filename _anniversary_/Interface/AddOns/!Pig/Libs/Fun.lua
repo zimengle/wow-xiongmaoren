@@ -227,7 +227,7 @@ end
 
 --发送消息
 function PIGChatFrameAddChannel(ChatFrame,channel)--订购一个聊天框以显示先前加入的聊天频道
-	if PIG_MaxTocversion() then
+	if PIG_MaxTocversion() and not PIG_MaxTocversion("tbc") then
 		ChatFrame_AddChannel(ChatFrame, channel)
 	else
 		ChatFrame:AddChannel(channel)

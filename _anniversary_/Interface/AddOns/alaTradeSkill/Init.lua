@@ -629,10 +629,12 @@ MT.BuildEnv('Init');
 					local method = __onlogin[key];
 					MT.SafeCall(method, true);
 				end
-				for addon, callbacks in next, __onaddonloaded do
-					if IsAddOnLoaded(addon) then
-						for i = 1, #callbacks do
-							MT.SafeCall(callbacks[i], addon);
+				if IsAddOnLoaded then
+					for addon, callbacks in next, __onaddonloaded do
+						if IsAddOnLoaded(addon) then
+							for i = 1, #callbacks do
+								MT.SafeCall(callbacks[i], addon);
+							end
 						end
 					end
 				end

@@ -100,31 +100,6 @@ function BusinessInfo.AHPlusOptions()
 				PIG_OptionsUI.RLUI:Show()
 			end
 		end);
-		
-		GameTooltip:HookScript("OnTooltipSetItem", function(self)
-			local _, itemlink = self:GetItem()
-			if itemlink then
-				local itemID = GetItemInfoInstant(itemlink)
-				BusinessInfo.SetTooltipOfflineG(itemID,self)
-			end
-		end)
-		-- AtlasLootTooltip:HookScript("OnTooltipSetItem", function(self)
-		-- 	local _, itemlink = self:GetItem()
-		-- 	if itemlink then
-		-- 		local itemID = GetItemInfoInstant(itemlink)
-		-- 		BusinessInfo.SetTooltipOfflineG(itemID,self)
-		-- 	end
-		-- end)
-		hooksecurefunc("SetItemRef", function(link, text, button, chatFrame)
-			if link:find("^item:") then
-				local itemID = GetItemInfoInstant(link) 
-				BusinessInfo.SetTooltipOfflineG(itemID,ItemRefTooltip)
-			end
-		end)
-	else
-		TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, function(tooltip, data)
-			BusinessInfo.SetTooltipOfflineG(data.id,tooltip)
-		end)
 	end
 	--------
 	function AHPlusF:ShowChecked()

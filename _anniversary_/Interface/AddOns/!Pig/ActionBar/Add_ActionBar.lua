@@ -83,7 +83,7 @@ PIGActionBarActionEventsFrame.events={
     CVAR_UPDATE = function(button, cvarName, value, ...)
     	if button.ModeSet=="cons" then return end
         if cvarName == "ActionButtonUseKeyDown" then
-            PIGUseKeyDown(button)
+           
         elseif cvarName == "alwaysShowActionBars" then
             if InCombatLockdown() then
                 button.always_show = true
@@ -236,43 +236,35 @@ local function ADD_ActionBar(barName,CFdata,anniugeshu, anniujiange,tabF,tabBut,
 	end
 	-----
 	for id=1,anniugeshu do
-		--local piganniu = CreateFrame("CheckButton", "$parent_But"..id, Pig_bar, "ActionButtonTemplate",0)
-		local piganniu = CreateFrame("CheckButton", "$parent_But"..id, Pig_bar, "SecureActionButtonTemplate,ActionButtonTemplate,SecureHandlerDragTemplate,SecureHandlerMouseUpDownTemplate,SecureHandlerStateTemplate,SecureHandlerBaseTemplate")
+		local piganniu
+		if PIG_MaxTocversion("tbc") then
+			piganniu = CreateFrame("CheckButton", "$parent_But"..id, Pig_bar, "ActionBarButtonTemplate")
+		else
+			piganniu = CreateFrame("CheckButton", "$parent_But"..id, Pig_bar, "SecureActionButtonTemplate,ActionButtonTemplate,SecureHandlerDragTemplate,SecureHandlerMouseUpDownTemplate,SecureHandlerStateTemplate,SecureHandlerBaseTemplate")
+		end
 		piganniu:SetSize(ActionW, ActionW)
-		piganniu.NormalTexture:SetAlpha(0.4);
-		piganniu.cooldown:SetSwipeColor(0, 0, 0, 0.8);
 		if id==1 then
 			piganniu:SetPoint("LEFT",Pig_bar.yidong,"RIGHT",2,0)
 		else
 			PailieFun(barName,id,anniujiange,getDataFun("Pailie",NewIndex))
 		end
-		piganniu.BGtex = piganniu:CreateTexture(nil, "BACKGROUND", nil, -1);
-		piganniu.BGtex:SetTexture("Interface/Buttons/UI-Quickslot");
-		piganniu.BGtex:SetAlpha(0.4);
-		piganniu.BGtex:SetPoint("TOPLEFT", -15, 15);
-		piganniu.BGtex:SetPoint("BOTTOMRIGHT", 15, -15);
-	 	if NewIndex==1 then 
-	 		local ActionID = 500+id
-	 		piganniu.action=ActionID
-			piganniu:SetAttribute("action", ActionID)
-		else
-			local ActionID = 500+(NewIndex-1)*12+id
-			piganniu.action=ActionID
-			piganniu:SetAttribute("action", ActionID)
-		end
+		piganniu.cooldown:SetSwipeColor(0, 0, 0, 0.8);
+		piganniu.FloatingBG = piganniu:CreateTexture(nil, "BACKGROUND", nil, -1);
+		piganniu.FloatingBG:SetTexture(130840);
+		piganniu.FloatingBG:SetAlpha(0.4);
+		piganniu.FloatingBG:SetPoint("TOPLEFT", -15, 15);
+		piganniu.FloatingBG:SetPoint("BOTTOMRIGHT", 15, -15);
+		local ActionID = 500+(NewIndex-1)*12+id
+		piganniu:SetAttribute("action", ActionID)
 		piganniu.ID=id
-	 	-- piganniu:SetAttribute("checkfocuscast", true);--使用系统焦点施法按键
+		-- piganniu:SetAttribute("checkfocuscast", true);--使用系统焦点施法按键
 	 	-- piganniu:SetAttribute("checkselfcast", true);--可以使用自我施法按键
 	 	-- piganniu.flashing = 0;
 	 	-- piganniu.flashtime = 0;
 	 	PIGActionBarActionEventsFrame.frames[piganniu] = piganniu;
-		piganniu:SetScript("OnEvent", PIGActionButton_OnEvent);
-		---
-		PIGUseKeyDown(piganniu)
 		piganniu:HookScript("PostClick", function(self)
 			Update_PostClick(self)
 		end)
-		----
 		piganniu:SetScript("OnEnter", function (self)
 			GameTooltip:ClearLines();
 			GameTooltip_SetDefaultAnchor(GameTooltip, self)
@@ -283,10 +275,12 @@ local function ADD_ActionBar(barName,CFdata,anniugeshu, anniujiange,tabF,tabBut,
 			GameTooltip:Hide() 
 		end);
 		--------------------
+		piganniu:SetScript("OnEvent", PIGActionButton_OnEvent);
 		if ModeFun=="cons" then 
 			Pig_bar.butlist[id]=piganniu
 			piganniu.ModeSet=ModeFun
 		else
+			loadingButInfo(piganniu,"PigAction")
 			function piganniu:SetAnniuNumFun(max)
 				local max=max or getDataFun("AnniuNum",NewIndex)
 				local id=self.ID
@@ -297,8 +291,6 @@ local function ADD_ActionBar(barName,CFdata,anniugeshu, anniujiange,tabF,tabBut,
 				self:Show()
 			end
 			piganniu:SetAnniuNumFun()
-			loadingButInfo(piganniu,"PigAction")
-			---
 			piganniu:HookScript("OnMouseUp", function (self)
 				Cursor_Fun(self,"OnMouseUp","PigAction")
 				Update_Icon(self)
@@ -306,7 +298,6 @@ local function ADD_ActionBar(barName,CFdata,anniugeshu, anniujiange,tabF,tabBut,
 				Update_Count(self)
 				Update_bukeyong(self)
 			end);
-			----
 			piganniu:HookScript("OnDragStart", function (self)
 				if InCombatLockdown() then return end
 				local lockvalue = GetCVar("lockActionBars")
@@ -328,7 +319,6 @@ local function ADD_ActionBar(barName,CFdata,anniugeshu, anniujiange,tabF,tabBut,
 					end
 				end
 			end)
-			----
 			piganniu:SetAttribute("_onreceivedrag",[=[
 				local leibie, spellID = ...
 				if kind=="spell" then

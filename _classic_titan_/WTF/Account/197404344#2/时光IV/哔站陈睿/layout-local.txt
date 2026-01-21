@@ -6,6 +6,13 @@ X: -322
 Y: -176
 W: 30
 H: 30
+Frame: RXPTargetFrame
+FrameLevel: 1
+Anchor: RIGHT
+X: 0
+Y: -350
+W: 54
+H: 43
 Frame: PallyPowerFrame
 FrameLevel: 1
 Anchor: CENTER
@@ -23,8 +30,8 @@ H: 239
 Frame: CharacterFrame
 FrameLevel: 1
 Anchor: TOPLEFT
-X: 0
-Y: -104
+X: 6
+Y: -129
 W: 384
 H: 512
 Frame: SpellBookFrame
@@ -44,8 +51,8 @@ H: 1
 Frame: WorldMapFrame
 FrameLevel: 1
 Anchor: CENTER
-X: -128
-Y: 31
+X: -135
+Y: 17
 W: 610
 H: 438
 Frame: AtlasFrame

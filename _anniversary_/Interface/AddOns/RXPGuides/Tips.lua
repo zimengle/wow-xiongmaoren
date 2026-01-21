@@ -1,6 +1,6 @@
 local _, addon = ...
 
-if addon.gameVersion > 60000 then return end
+if addon.gameVersion > 40000 then return end
 
 local GetItemInfo = C_Item and C_Item.GetItemInfo or _G.GetItemInfo
 local GetSpellInfo = C_Spell and C_Spell.GetSpellInfo and addon.GetSpellInfo or _G.GetSpellInfo
@@ -10,16 +10,23 @@ local IsCurrentSpell = C_Spell and C_Spell.IsCurrentSpell or _G.IsCurrentSpell
 local IsSpellKnown = C_Spell and C_Spell.IsSpellKnown or _G.IsSpellKnown
 local IsPlayerSpell = C_Spell and C_Spell.IsPlayerSpell or _G.IsPlayerSpell
 local GetTime, GetMirrorTimerProgress = _G.GetTime, _G.GetMirrorTimerProgress
-local UnitHealth, UnitHealthMax, UnitIsDead = _G.UnitHealth, _G.UnitHealthMax, _G.UnitIsDead
-local GetInventoryItemID, IsPlayerSpell = GetInventoryItemID, IsPlayerSpell
-local HasAction, GetActionInfo, GetMacroSpell = HasAction, GetActionInfo, GetMacroSpell
+local UnitHealth, UnitHealthMax = UnitHealth, UnitHealthMax
+local GetInventoryItemID, IsPlayerSpell =
+                                                       GetInventoryItemID,
+                                                       IsPlayerSpell
+local HasAction, GetActionInfo, GetMacroSpell = HasAction,
+                                                              GetActionInfo,
+                                                              GetMacroSpell
 local IsOnBarOrSpecialBar = C_ActionBar.IsOnBarOrSpecialBar
-local GetContainerNumSlots = C_Container and C_Container.GetContainerNumSlots or _G.GetContainerNumSlots
-local GetContainerItemID = C_Container and C_Container.GetContainerItemID or _G.GetContainerItemID
+local GetContainerNumSlots = C_Container and C_Container.GetContainerNumSlots or
+                                 _G.GetContainerNumSlots
+local GetContainerItemID = C_Container and C_Container.GetContainerItemID or
+                               _G.GetContainerItemID
 local tinsert, fmt = tinsert, string.format
 local GetRealZoneText = GetRealZoneText
 local UIErrorsFrame = _G.UIErrorsFrame
-local STRING_ENVIRONMENTAL_DAMAGE_DROWNING = _G.STRING_ENVIRONMENTAL_DAMAGE_DROWNING
+local STRING_ENVIRONMENTAL_DAMAGE_DROWNING =
+    _G.STRING_ENVIRONMENTAL_DAMAGE_DROWNING
 
 local L = addon.locale.Get
 
@@ -75,7 +82,9 @@ function addon.tips:CreateTipsFrame()
 end
 
 function addon.tips:MIRROR_TIMER_START(_, timerName, value, maxValue, rate)
-    if timerName ~= "BREATH" or not addon.settings.profile.enableDrowningWarning then return end
+    if timerName ~= "BREATH" or not addon.settings.profile.enableDrowningWarning then
+        return
+    end
 
     -- Recovering breath
     if rate > 0 then
@@ -88,7 +97,9 @@ function addon.tips:MIRROR_TIMER_START(_, timerName, value, maxValue, rate)
 end
 
 function addon.tips:MIRROR_TIMER_STOP(_, timerName)
-    if timerName ~= "BREATH" or not addon.settings.profile.enableDrowningWarning then return end
+    if timerName ~= "BREATH" or not addon.settings.profile.enableDrowningWarning then
+        return
+    end
 
     session.breath = nil
 end
@@ -101,7 +112,8 @@ function addon.tips.CheckEvents()
     if session.breath then
         session.breath.value = GetMirrorTimerProgress("BREATH")
 
-        if session.breath.value == 0 or (session.breath.value / session.breath.maxValue) <
+        if session.breath.value == 0 or
+            (session.breath.value / session.breath.maxValue) <
             addon.settings.profile.drowningThreshold then
 
             if GetTime() - session.lastAlert > session.alertFrequency then
@@ -109,7 +121,8 @@ function addon.tips.CheckEvents()
                     addon.tips:EnableDangerWarning(2)
                 end
                 FlashClientIcon()
-                UIErrorsFrame:AddMessage(STRING_ENVIRONMENTAL_DAMAGE_DROWNING, 1.0, 0.1, 0.1, session.alertFrequency);
+                UIErrorsFrame:AddMessage(STRING_ENVIRONMENTAL_DAMAGE_DROWNING,
+                                         1.0, 0.1, 0.1, session.alertFrequency);
 
                 if addon.settings.profile.enableDrowningWarningSound then
                     PlaySound(_G.SOUNDKIT.RAID_WARNING, "Master")
@@ -126,28 +139,28 @@ end
 
 function addon.tips:CheckEmergencyActions()
     if not addon.settings.profile.enableEmergencyActions then return end
-    if UnitIsDead('player') then
-        for _, border in pairs(session.highlights) do if border:IsShown() then border:Hide() end end
-
-        return
-    end
-
     local maxHP = UnitHealthMax("player")
-    if maxHP > 0 and UnitHealth("player") / maxHP < addon.settings.profile.emergencyThreshold then
+    if maxHP > 0 and UnitHealth("player") / maxHP <
+        addon.settings.profile.emergencyThreshold then
 
         addon.tips:HighlightEmergencyItem()
         addon.tips:HighlightEmergencySpell()
 
-        if addon.settings.profile.enableEmergencyScreenFlash then addon.tips:EnableDangerWarning(1) end
+        if addon.settings.profile.enableEmergencyScreenFlash then
+            addon.tips:EnableDangerWarning(1)
+        end
         return
     end
 
-    for _, border in pairs(session.highlights) do if border:IsShown() then border:Hide() end end
+    for _, border in pairs(session.highlights) do
+        if border:IsShown() then border:Hide() end
+    end
 
 end
 
 function addon.tips:CatalogInventory()
-    if not addon.emergencyItems or not addon.settings.profile.enableEmergencyActions then return end
+    if not addon.emergencyItems or
+        not addon.settings.profile.enableEmergencyActions then return end
     local itemList = {}
 
     local itemName, itemTexture, id
@@ -155,8 +168,14 @@ function addon.tips:CatalogInventory()
     for i = 1, _G.INVSLOT_LAST_EQUIPPED do
         id = GetInventoryItemID("player", i)
         if id and addon.emergencyItems[id] then
-            itemName, _, _, _, _, _, _, _, _, itemTexture, _, _ = GetItemInfo(id)
-            tinsert(itemList, {name = itemName, texture = itemTexture, invSlot = i, id = id})
+            itemName, _, _, _, _, _, _, _, _, itemTexture, _, _ =
+                GetItemInfo(id)
+            tinsert(itemList, {
+                name = itemName,
+                texture = itemTexture,
+                invSlot = i,
+                id = id
+            })
         end
     end
 
@@ -166,7 +185,8 @@ function addon.tips:CatalogInventory()
         for slot = 1, bagSlots do
             id = GetContainerItemID(bag, slot)
             if id and addon.emergencyItems[id] then
-                itemName, _, _, _, _, _, _, _, _, itemTexture, _, _ = GetItemInfo(id)
+                itemName, _, _, _, _, _, _, _, _, itemTexture, _, _ =
+                    GetItemInfo(id)
 
                 tinsert(itemList, {
                     name = itemName,
@@ -184,7 +204,8 @@ function addon.tips:CatalogInventory()
 end
 
 function addon.tips:UpdateEmergencySpells()
-    if not addon.emergencySpells or not addon.settings.profile.enableEmergencyActions then return end
+    if not addon.emergencySpells or
+        not addon.settings.profile.enableEmergencyActions then return end
 
     local spellList = {}
 
@@ -194,7 +215,8 @@ function addon.tips:UpdateEmergencySpells()
         -- Only add spells on action bars
         if IsPlayerSpell(spellId) and IsOnBarOrSpecialBar(spellId) then
             name, _, icon = GetSpellInfo(spellId)
-            tinsert(spellList, {name = name, texture = icon, spell = true, id = spellId})
+            tinsert(spellList,
+                    {name = name, texture = icon, spell = true, id = spellId})
         end
     end
 
@@ -203,7 +225,12 @@ function addon.tips:UpdateEmergencySpells()
             -- Only add spells on action bars
             if IsPlayerSpell(spellId) and IsOnBarOrSpecialBar(spellId) then
                 name, _, icon = GetSpellInfo(spellId)
-                tinsert(spellList, {name = name, texture = icon, spell = true, id = spellId})
+                tinsert(spellList, {
+                    name = name,
+                    texture = icon,
+                    spell = true,
+                    id = spellId
+                })
             end
         end
     end
@@ -213,7 +240,12 @@ function addon.tips:UpdateEmergencySpells()
             -- Only add spells on action bars
             if IsPlayerSpell(spellId) and IsOnBarOrSpecialBar(spellId) then
                 name, _, icon = GetSpellInfo(spellId)
-                tinsert(spellList, {name = name, texture = icon, spell = true, id = spellId})
+                tinsert(spellList, {
+                    name = name,
+                    texture = icon,
+                    spell = true,
+                    id = spellId
+                })
             end
         end
     end
@@ -259,12 +291,15 @@ function addon.tips:HighlightEmergencyItem()
 
     for _, item in ipairs(session.emergencyItems) do
         bagBorder = item.bag and item.bagSlotFrameId and
-                        addon.tips:GetHighlight(fmt('ContainerFrame%sItem%s', item.bag + 1, item.bagSlotFrameId))
+                        addon.tips:GetHighlight(
+                            fmt('ContainerFrame%sItem%s', item.bag + 1,
+                                item.bagSlotFrameId))
 
         if bagBorder then
             if _G.IsBagOpen(item.bag) then
                 bagBorder:Show()
-                if addon.settings.profile.enableEmergencyIconAnimations and not bagBorder.animation:IsPlaying() then
+                if addon.settings.profile.enableEmergencyIconAnimations and
+                    not bagBorder.animation:IsPlaying() then
                     bagBorder.animation:Play()
                 end
             else
@@ -278,7 +313,8 @@ function addon.tips:HighlightEmergencyItem()
 
             if actionBarBorder then
                 actionBarBorder:Show()
-                if addon.settings.profile.enableEmergencyIconAnimations and not actionBarBorder.animation:IsPlaying() then
+                if addon.settings.profile.enableEmergencyIconAnimations and
+                    not actionBarBorder.animation:IsPlaying() then
                     actionBarBorder.animation:Play()
                 end
             end
@@ -299,7 +335,8 @@ function addon.tips:HighlightEmergencySpell()
 
             if actionBarBorder then
                 actionBarBorder:Show()
-                if addon.settings.profile.enableEmergencyIconAnimations and not actionBarBorder.animation:IsPlaying() then
+                if addon.settings.profile.enableEmergencyIconAnimations and
+                    not actionBarBorder.animation:IsPlaying() then
                     actionBarBorder.animation:Play()
                 end
             end
@@ -318,20 +355,22 @@ end
 function addon.tips:BAG_NEW_ITEMS_UPDATED() self:CatalogInventory() end
 
 -- Can be overriden by ElvUI, Bartender, Domino, etc
-local ActionBars = {'Action', 'MultiBarBottomLeft', 'MultiBarBottomRight', 'MultiBarRight', 'MultiBarLeft'}
+local ActionBars = {
+    'Action', 'MultiBarBottomLeft', 'MultiBarBottomRight', 'MultiBarRight',
+    'MultiBarLeft'
+}
 
 function addon.tips:CatalogActionBars()
     session.actionBarMap = {}
-
-    if not _G.ActionButton_GetPagedID or _G.ActionButton_CalculateAction then return end
 
     local button, slot, actionType, id, key
 
     for _, barName in pairs(ActionBars) do
         for i = 1, 12 do
             button = _G[barName .. 'Button' .. i]
-            slot = _G.ActionButton_GetPagedID(button) or _G.ActionButton_CalculateAction(button) or
-                       button:GetAttribute('action')
+            slot = (_G.ActionButton_GetPagedID and _G.ActionButton_GetPagedID(button)) or
+                       (_G.ActionButton_CalculateAction and _G.ActionButton_CalculateAction(button)) or
+                       (button and button.GetAttribute and button:GetAttribute('action'))
 
             if button and slot and HasAction(slot) then
                 actionType, id = GetActionInfo(slot)
@@ -349,7 +388,10 @@ function addon.tips:CatalogActionBars()
                 end
 
                 if id and key then
-                    session.actionBarMap[key] = {button = barName .. 'Button' .. i, slot = slot}
+                    session.actionBarMap[key] = {
+                        button = barName .. 'Button' .. i,
+                        slot = slot
+                    }
                 end
             end
         end
@@ -361,7 +403,8 @@ function addon.tips:ACTIONBAR_SLOT_CHANGED() self:CatalogActionBars() end
 function addon.tips:CreateDangerWarning()
     if self.dangerWarning then return end
 
-    local f = CreateFrame("Frame", "RXPDangerFrame", UIParent, BackdropTemplateMixin and "BackdropTemplate")
+    local f = CreateFrame("Frame", "RXPDangerFrame", UIParent,
+                          BackdropTemplateMixin and "BackdropTemplate")
     f:SetFrameStrata("FULLSCREEN_DIALOG")
 
     f:SetPoint('CENTER', UIParent, 'CENTER', 0, 1)
@@ -397,48 +440,43 @@ function addon.tips:EnableDangerWarning(loops)
 
     if loops > 0 then
         self.dangerWarning.doLoops = loops
-        if not self.dangerWarning.animation:IsPlaying() then self.dangerWarning.animation:Play() end
+        if not self.dangerWarning.animation:IsPlaying() then
+            self.dangerWarning.animation:Play()
+        end
         self.dangerWarning:Show()
     end
 end
 
 local function IsStepActive(self)
     local levelBuffer = 1000
-    local profile = addon.settings.profile
-    local active
-    if addon.gameVersion < 40000 then
-        active = profile.showDangerousMobsMap
-    else
-        active = profile.showRares and self.rare or profile.showTreasures and self.treasure
-    end
-    if (not active and self.mapTooltip) or (self.isUnitscan and not profile.showDangerousUnitscan) then
+    if (not addon.settings.profile.showDangerousMobsMap and self.mapTooltip) or
+        (self.isUnitscan and not addon.settings.profile.showDangerousUnitscan) then
         -- DevTools_Dump(self.elements[1].unitscan)
         -- DevTools_Dump(self.elements[1].targets)
         return false
-    elseif not profile.debug and self.levelBuffer then
+    elseif not addon.settings.profile.debug and self.levelBuffer then
         levelBuffer = self.levelBuffer or 0
     end
-    if not self.MaxLevel or self.MaxLevel >= UnitLevel("player") - levelBuffer then return true end
+    if not self.MaxLevel or self.MaxLevel >= UnitLevel("player") - levelBuffer then
+        return true
+    end
 end
 
 function addon.tips:LoadDangerousMobs(reloadData)
-    if not addon.dangerousMobs then return end
+    if not (addon.dangerousMobs) then return end
 
     local mapId = C_Map.GetBestMapForUnit("player") or 0
-    local zone = addon.mapIdToName and addon.mapIdToName[mapId] or GetRealZoneText()
+    local zone = addon.mapIdToName and addon.mapIdToName[mapId] or
+                     GetRealZoneText()
     local zoneList
-
     addon.UpdateMap()
 
-    if not zone or not addon.dangerousMobs[zone] then zone = mapId end
-
-    -- print(zone,addon.dangerousMobs[zone])
-    if not addon.dangerousMobs[zone] then
+    if not zone or not addon.dangerousMobs[zone] and
+        not addon.settings.profile.debug then
         addon.tips.dangerousMobs = nil
         addon.generatedSteps["dangerousMobs"] = nil
         return
     end
-
     local dangerousMobs = session.dangerousMobs[zone] or {}
     session.dangerousMobs[zone] = dangerousMobs
     zoneList = zoneList or {addon.dangerousMobs[zone]}
@@ -446,82 +484,58 @@ function addon.tips:LoadDangerousMobs(reloadData)
     -- dangerousMobs DB has nested objects, flatten and fake step data
     if not dangerousMobs.processed or reloadData == true then
         addon.currentGuideName = "Addon Tips"
-
         local steps = {}
-        local step, element, skip, prefix
-
         for _, zoneData in pairs(zoneList) do
             for name, list in pairs(zoneData) do
                 for _, mobData in ipairs(list) do
-                    if not mobData.applies or addon.applies(mobData.applies) then
-                        if type(name) == "number" then
-                            name = fmt("npc:%s:%d", mobData.Name or "", name)
-                        end
-                        -- added a semicolon separator in case the database entry has multiple coords
-                        for line in mobData.Location:gmatch("[^\r\n;]+") do
-                            line:gsub("^%s+", "")
-                            line:gsub("%s+$", "")
+                    -- added a semicolon separator in case the database entry has multiple coords
+                    for line in mobData.Location:gmatch("[^\r\n;]+") do
+                        line:gsub("^%s+", "")
+                        line:gsub("%s+$", "")
+                        local element = addon.ParseLine(line)
+                        local skip
+                        if element then
+                            local step = {}
+                            element.step = step
+                            -- element.drawCenterPoint = true--Adds an icon at the center of the lines
+                            step.isActive = IsStepActive
+                            step.levelBuffer =
+                                mobData.Classification == "Normal" and 1 or 3
+                            if element.wx or element.segments then
+                                -- step.linethickness = 2
+                                step.showTooltip = true -- Shows tooltip when hovering over a line
+                                step.icon =
+                                    "|TInterface/GossipFrame/BattleMasterGossipIcon:0|t" -- texture used for the icon
+                                step.mapTooltip = fmt("%s %s (%d)",
+                                                      _G.VOICEMACRO_1_Sc_0,
+                                                      name, mobData.MaxLevel) -- Tooltip title
 
-                            element = addon.ParseLine(line)
-                            skip = false
-
-                            if element then
-                                step = {}
-
-                                if element.tag == "rare" then step.rare = true end
-                                if element.tag == "treasure" then step.treasure = true end
-
-                                element.step = step
-                                -- element.drawCenterPoint = true--Adds an icon at the center of the lines
-                                step.isActive = IsStepActive
-                                step.levelBuffer = mobData.Classification == "Normal" and 1 or 3
-
-                                if element.wx or element.segments then
-                                    -- step.linethickness = 2
-                                    step.showTooltip = true -- Shows tooltip when hovering over a line
-                                    step.icon = mobData.Icon or "|TInterface/GossipFrame/BattleMasterGossipIcon:0|t" -- texture used for the icon
-                                    step.alternateIcon = mobData.AltIcon
-                                    prefix = ""
-
-                                    if addon.gameVersion < 20000 then
-                                        prefix = _G.VOICEMACRO_1_Sc_0
-                                        step.mapTooltip = fmt("%s %s (%d)", prefix, name, mobData.MaxLevel) -- Tooltip title
-                                    else
-                                        step.mapTooltip = name -- Tooltip title
-                                    end
-
-                                    -- Tooltip description:
-                                    if mobData.Movement then
-                                        element.mapTooltip =
-                                            fmt("%s - %s\n%s", mobData.Classification or "", mobData.Movement or "",
-                                                mobData.Notes or "")
-                                    else
-                                        element.mapTooltip =
-                                            fmt("%s\n%s", mobData.Classification or "", mobData.Notes or "")
-                                    end
-                                elseif element.targets or element.unitscan or element.mobs then
-                                    if addon.settings.profile.showDangerousUnitscan then
-                                        step.isUnitscan = true
-                                    else
-                                        skip = true
-                                    end
+                                -- Tooltip description:
+                                element.mapTooltip = fmt("%s - %s\n%s",
+                                                         mobData.Classification or
+                                                             "",
+                                                         mobData.Movement or "",
+                                                         mobData.Notes or "")
+                            elseif element.targets or element.unitscan or
+                                element.mobs then
+                                if not addon.settings.profile
+                                    .showDangerousUnitscan then
+                                    skip = true
+                                    -- DevTools_Dump(self.elements[1].mobs)
                                 end
-
-                                if not skip then
-                                    step.hideMinimap = true
-                                    step.elements = {element}
-                                    tinsert(steps, step)
-                                end
+                                step.isUnitscan = true
+                            end
+                            if not skip then
+                                step.elements = {element}
+                                tinsert(steps, step)
                             end
                         end
                     end
                 end
             end
         end
-
         addon.currentGuideName = nil
         dangerousMobs.steps = steps
-
         addon:ScheduleTask(addon.RegisterGeneratedSteps)
     end
 

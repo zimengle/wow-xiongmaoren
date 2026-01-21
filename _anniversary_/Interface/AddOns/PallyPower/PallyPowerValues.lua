@@ -341,14 +341,14 @@ PallyPower.Spells = PallyPower.isWrath and {
 
 PallyPower.GSpells = PallyPower.isWrath and {
 	[0] = "",
-	[1] = GetSpellInfo(25918),	-- Greater Blessing of Wisdom (R2:60) - 修复：使用2级法术
-	[2] = GetSpellInfo(25916),	-- Greater Blessing of Might (R2:60) - 修复：使用2级法术
+	[1] = GetSpellInfo(25894),	-- Greater Blessing of Wisdom (R1:54, R2:60)
+	[2] = GetSpellInfo(25782),	-- Greater Blessing of Might (R1:52, R2:60)
 	[3] = GetSpellInfo(25898),	-- Greater Blessing of Kings
 	[4] = GetSpellInfo(25899),	-- Greater Blessing of Sanctuary
 } or {
 	[0] = "",
-	[1] = GetSpellInfo(25918),	-- Greater Blessing of Wisdom (R2:60) - 修复：使用2级法术
-	[2] = GetSpellInfo(25916),	-- Greater Blessing of Might (R2:60) - 修复：使用2级法术
+	[1] = GetSpellInfo(25894),	-- Greater Blessing of Wisdom (R1:54, R2:60)
+	[2] = GetSpellInfo(25782),	-- Greater Blessing of Might (R1:52, R2:60)
 	[3] = GetSpellInfo(25898),	-- Greater Blessing of Kings
 	[4] = GetSpellInfo(25895),	-- Greater Blessing of Salvation
 	[5] = GetSpellInfo(25890),	-- Greater Blessing of Light
@@ -373,13 +373,13 @@ PallyPower.NormalBuffs = PallyPower.isWrath and {
 }
 
 PallyPower.GreaterBuffs = PallyPower.isWrath and {
-	[1] = {{67, 48938}, {61, 48937}, {50, 25918}, {44, 25894}}, -- 修复：移除TBC法术27143
-	[2] = {{69, 48934}, {63, 48933}, {50, 25916}, {42, 25782}}, -- 修复：移除TBC法术27141
+	[1] = {{67, 48938}, {61, 48937}, {55, 27143}, {50, 25918}, {44, 25894}},
+	[2] = {{69, 48934}, {63, 48933}, {60, 27141}, {50, 25916}, {42, 25782}},
 	[3] = {{50, 25898}},
 	[4] = {{50, 25899}},
 } or {
-	[1] = {{50, 25918}, {44, 25894}}, -- 修复：移除TBC法术27143
-	[2] = {{50, 25916}, {42, 25782}}, -- 修复：移除TBC法术27141
+	[1] = {{55, 27143}, {50, 25918}, {44, 25894}},
+	[2] = {{60, 27141}, {50, 25916}, {42, 25782}},
 	[3] = {{50, 25898}},
 	[4] = {{50, 25895}},
 	[5] = {{59, 27145}, {50, 25890}},

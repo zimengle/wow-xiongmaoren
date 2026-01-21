@@ -1,0 +1,15 @@
+﻿## Title: |cFF00BFFF[Barney]|r BuyEmAll - Update for Titan Forged Classic
+## Title-zhCN: BuyEmAll批量购买
+## Notes: Enhances shift-click interface at vendors.
+## Author: Shinisuryu
+## Interface: 30800
+## Version: 25112201
+## SavedVariablesPerCharacter: BEAConfirmToggle
+## LoadManagers: AddonLoader
+## X-LoadOn-Merchant: true
+## X-LoadOn-Slash: /buyemall
+
+Localization.zhCN.lua
+Localization.zhTW.lua
+BuyEmAll.lua
+BuyEmAll.xml

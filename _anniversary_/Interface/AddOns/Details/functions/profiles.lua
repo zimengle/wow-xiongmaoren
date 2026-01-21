@@ -1362,6 +1362,8 @@ local default_player_data = {
 		on_death_menu = false,
 	--damage meter sessions
 		damage_meter_sessions = {},
+	--misc data about a session
+		damage_meter_session_info = {},
 }
 
 Details.default_player_data = default_player_data
@@ -1580,6 +1582,7 @@ local default_global_data = {
 			{["atributo"] = 1, ["sub_atributo"] = 6}, --enemies
 			{["atributo"] = 4, ["sub_atributo"] = 5}, --deaths
 		}},
+		switch_post_apoc = false,
 		report_pos = {1, 1},
 
 	--tutorial

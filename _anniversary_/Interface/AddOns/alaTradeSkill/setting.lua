@@ -901,8 +901,12 @@ MT.RegisterOnInit('setting', function(LoggedIn)
 			MT.OnSettingChanged(key, val, true);
 		end
 	end
-	EnableAddOn("MissingTradeSkillsList_TBC_Data");
-	LoadAddOn("MissingTradeSkillsList_TBC_Data");
+	if _G.EnableAddOn then
+		EnableAddOn("MissingTradeSkillsList_TBC_Data");
+	end
+	if _G.LoadAddOn then
+		LoadAddOn("MissingTradeSkillsList_TBC_Data");
+	end
 end);
 MT.RegisterOnLogin('setting', function(LoggedIn)
 	local LibStub = _G.LibStub;

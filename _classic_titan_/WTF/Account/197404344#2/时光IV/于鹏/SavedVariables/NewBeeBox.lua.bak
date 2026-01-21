@@ -2,13 +2,13 @@
 WclBoxCharacter = {
 ["class"] = "WARLOCK",
 ["realmID"] = 6383,
-["name"] = "于鹏",
-["gold"] = 1804185,
-["race"] = "人类",
 ["version"] = "1.0.28",
-["loginTime"] = 1768569402,
+["gold"] = 5284554,
+["race"] = "人类",
+["name"] = "于鹏",
+["faction"] = "Alliance",
 ["realmName"] = "时光IV",
 ["level"] = 80,
-["faction"] = "Alliance",
+["loginTime"] = 1768741621,
 ["playerGUID"] = "Player-6383-0084FF50",
 }

@@ -9,6 +9,36 @@ PIGA = {
 ["QuickBut"] = true,
 },
 },
+["QuickBut"] = {
+["TrinketFenliPailie"] = 1,
+["bili"] = 1,
+["TrinketList"] = {
+},
+["TrinketScale"] = 1,
+["Equip"] = true,
+["SpellClose"] = true,
+["Spell"] = true,
+["Trinket"] = true,
+["Open"] = true,
+["BGbroadcast"] = true,
+["RuneShow"] = false,
+["AddonList"] = true,
+["TrinketFenlilock"] = false,
+["Lushi"] = true,
+["TrinketFenli"] = false,
+["Rune"] = true,
+["Lock"] = false,
+},
+["CVars"] = {
+["EaseUse"] = true,
+["MaxZoom"] = true,
+["Fast_Loot"] = false,
+["Shaman_Blue"] = true,
+},
+["ConfigString"] = {
+10,
+"57uZ5qKm55qE5aeR5aiY^6b6Z54mZ@5aW25aW95LiA6Zif6JCo5ruh^57u05YWL5rSb5bCU@VmVybWlu^6ZyH5Zyw6ICF@UmlvdGVycw==^6ZyH5Zyw6ICF",
+},
 ["AutoSellBuy"] = {
 ["Sell_Tishi"] = true,
 ["Sell_List"] = {
@@ -27,187 +57,35 @@ PIGA = {
 },
 ["Xuan_QkBut"] = false,
 ["Open"] = true,
-["Xuan_Tishi"] = false,
-["Xuan_List"] = {
-},
-["AddBut"] = true,
-["Buy_Open"] = true,
-["Buy_But"] = true,
-["Buy_Tishi"] = true,
-["Open_QkBut"] = false,
 ["Open_List"] = {
 },
+["Open_QkBut"] = false,
+["Buy_Tishi"] = true,
+["Buy_But"] = true,
+["Buy_Open"] = true,
+["AddBut"] = true,
+["Xuan_List"] = {
 },
-["UnitFrame"] = {
-["PartyMemberFrame"] = {
-["HPFF"] = true,
-["Plus"] = true,
-["ToToT"] = true,
-["Buff"] = true,
+["Xuan_Tishi"] = false,
 },
-["PlayerFrame"] = {
-["HPFF"] = true,
-},
-["TargetFrame"] = {
-["Yisu"] = true,
-["Plus"] = true,
-["BigDebuff"] = false,
-["ToToToT"] = true,
-["Chouhen"] = true,
-},
-},
-["CombatPlus"] = {
-["AttackBar"] = {
-["Showshuzhi"] = false,
-["Scale"] = 1,
-["Xpianyi"] = 0,
-["Open"] = false,
-["Ypianyi"] = 14,
-},
-["ammotips"] = false,
-["markerW"] = {
-["BGHide"] = false,
-["Lock"] = false,
-["Scale"] = 1,
-["Open"] = false,
-["AutoShow"] = true,
-},
-["markerR"] = {
-["BGHide"] = true,
-["NoTarget"] = false,
-["Lock"] = true,
-["Scale"] = 1,
-["AutoShow"] = false,
-["Open"] = true,
-["NoGroup"] = false,
-},
-["PetHappiness"] = true,
-["HPMPBar"] = {
-["CombatShow"] = true,
-["FontSize"] = 10,
-["MpShow"] = true,
-["Scale"] = 1,
-["Xpianyi"] = 0,
-["Fuziyuan"] = true,
-["BarW"] = 150,
-["Showshuzhi"] = true,
-["BarTex"] = 1,
-["BarH"] = 12,
-["Open"] = false,
-["Ypianyi"] = -80,
-["FuStyle"] = {
-},
-["HpShow"] = true,
-},
-["Submerged"] = true,
-},
-["QuickBut"] = {
-["TrinketFenliPailie"] = 1,
-["bili"] = 1,
-["TrinketList"] = {
-},
-["TrinketScale"] = 1,
-["Equip"] = true,
-["SpellClose"] = true,
-["Spell"] = true,
-["Trinket"] = true,
-["Open"] = true,
-["Lock"] = false,
-["RuneShow"] = false,
-["BGbroadcast"] = true,
-["TrinketFenli"] = false,
-["Lushi"] = true,
-["Rune"] = true,
-["TrinketFenlilock"] = false,
-["AddonList"] = true,
-},
-["Chat"] = {
-["Jianyin"] = false,
-["TABqiehuanList"] = {
-},
-["QuickChat_jianyin"] = false,
-["FontSize_value"] = 17,
-["QuickChat_style"] = 1,
-["LinkShow"] = true,
-["JoinPindao"] = false,
-["ShowLinkIcon"] = true,
-["ChatSetSave"] = {
-},
-["TABqiehuanOpen"] = true,
-["QuickChat_suofang"] = 1,
-["ClassColor"] = true,
-["MinMaxB"] = false,
-["chatZhanlian"] = {
-},
-["QuickChat_maodian"] = 1,
-["Channel_List"] = {
-},
-["Tiqu"] = {
-["Audio"] = 1,
-["AudioOpen"] = true,
-["Open"] = false,
-["BgColor"] = {
-0,
-0,
-0,
-0.4,
-},
-["CombatHide"] = false,
-["ChatWox"] = 0,
-["shuchumode"] = 1,
-["Keys"] = "",
-["KeywordFHeight"] = 140,
-["tiquOKFlash"] = true,
-["jichengBlack"] = true,
-},
-["RemTips"] = true,
-["QuickChat"] = false,
-["ShowLinkGem"] = true,
-["jingjian"] = true,
-["FastCopy"] = false,
-["ShowZb"] = true,
-["ShowLinkLV"] = true,
-["QuickChat_pianyiX"] = 0,
-["QuickChat_ButHide"] = {
-},
-["ShowLinkSlots"] = true,
-["WhoWhisper"] = true,
-["AltEX"] = true,
-["Guolv"] = false,
-["QuickChat_pianyiY"] = 0,
-["FontSize"] = false,
-["Filter"] = {
-["Blacks"] = "0.01，0.02，0.03，0.04，0.05，0.06，0.07，0.08，0.09，0.1，0.11，0.12，1-10，1-20，1-30，1-40，1-50，1-60，8-20，15-31，15-25，25-30，15-30，25-40，美女客服，美女接待，无需点卡，全天在线，单法，双法，不翻车，手动，光速车，R/次，R/一次，R/级，可跟可托，可自上可托，可跟打可托，极速团，一级#老板，代肝，金牌，TB支付，先打后，24小时，收G，出G，收米，出米，出大米，收大米，纯手工，急速升级，价格实惠，加V，帮做#血月，帮做#鲜血之月，急速#帮写，附魔#平价，附魔#真人，附魔#专业#披风，附魔#单手#双手，武#盾#胸，附魔#代工，附魔#拆卸，航空，全图，中转，全球中转",
-["Precise"] = false,
-["Heightmsg"] = false,
-["FilterChannel"] = {
-["SAY"] = false,
-["YELL"] = true,
-["CHANNEL"] = true,
-["WHISPER"] = false,
-},
-["Keywords"] = {
-},
-["Open"] = true,
-["BlackName"] = true,
-["Blacks_P"] = "",
-["FBneiNO"] = false,
-["IGNORE_DND"] = true,
-["DefaultKey"] = 0,
-["FilterRepeat"] = true,
-},
+["ActionBar"] = {
+["Cailiao"] = true,
+["ActionCD"] = true,
+["AutoFanye"] = false,
+["PetTishi"] = true,
+["Ranse"] = true,
 },
 ["Interaction"] = {
 ["AutoDialogue"] = true,
 ["AutoJierenwu"] = false,
 ["AutoRepair"] = true,
 ["AutoDialogueIndex"] = 0,
-["AutoFuhuo"] = false,
+["xiayijuli"] = 0,
 ["AutoRepair_GUILD"] = true,
 ["AutoDown"] = false,
-["xiayijuli"] = 0,
-["RightPlus"] = true,
+["AutoFuhuo"] = false,
 ["AutoJyaoqing"] = false,
+["RightPlus"] = true,
 ["AutoJiaorenwu"] = false,
 },
 ["Blizzard_UI"] = {
@@ -234,12 +112,9 @@ PIGA = {
 ["Open"] = true,
 ["Tips"] = true,
 },
-["WHISPER"] = {
-["AudioID"] = 1,
-["jichengBlack"] = true,
+["PARTY"] = {
 ["record"] = {
 },
-["AudioOpen"] = true,
 ["Open"] = true,
 ["Tips"] = true,
 },
@@ -250,83 +125,219 @@ PIGA = {
 ["Tips"] = true,
 },
 ["Days"] = 7,
-["PARTY"] = {
+["WHISPER"] = {
+["AudioID"] = 1,
+["AudioOpen"] = true,
 ["record"] = {
 },
 ["Open"] = true,
+["jichengBlack"] = true,
 ["Tips"] = true,
 },
 },
-["CVars"] = {
-["Fast_Loot"] = false,
-["EaseUse"] = true,
-["MaxZoom"] = true,
-["Shaman_Blue"] = true,
+["UnitFrame"] = {
+["PartyMemberFrame"] = {
+["HPFF"] = true,
+["ToToT"] = true,
+["Plus"] = true,
+["Buff"] = true,
 },
-["BagBank"] = {
-["BAGmeihangshu"] = 8,
-["JunkShow"] = true,
-["AHOpen"] = true,
-["jiaoyiOpen"] = true,
-["wupinRanse"] = true,
-["wupinLV"] = true,
-["BagKongyu"] = true,
-["BAGsuofangBili"] = 1,
-["NewItem"] = true,
-["BANKmeihangshu"] = 16,
-["SortBagsRightToLeft"] = false,
-["BAGmeihangshu_WLK"] = 10,
-["Zhenghe"] = true,
-["SortBag_Config"] = true,
-["JianjieMOD"] = false,
-["BAGmeihangshu_retail"] = 10,
-["BANKmeihangshu_retail"] = 17,
-["BANKsuofangBili"] = 1,
+["TargetFrame"] = {
+["Yisu"] = true,
+["Plus"] = true,
+["BigDebuff"] = false,
+["ToToToT"] = true,
+["Chouhen"] = true,
 },
-["ActionBar"] = {
-["Cailiao"] = true,
-["ActionCD"] = true,
-["Ranse"] = true,
-["PetTishi"] = true,
-["AutoFanye"] = false,
+["PlayerFrame"] = {
+["HPFF"] = true,
 },
-["FramePlus"] = {
-["Merchant"] = true,
-["Guild"] = true,
-["BlizzardUI_Move_Save"] = true,
-["UIWidget"] = true,
-["Skill"] = true,
-["AddonList"] = true,
-["Character_ItemList"] = false,
-["Loot"] = true,
-["UIWidgetPointX"] = 0,
-["UIWidgetPointY"] = -70,
-["Quest"] = true,
-["Character_ItemLevel"] = true,
-["Character_ItemColor"] = true,
-["LootMasterErr"] = true,
-["Character_Durability"] = true,
-["Talent"] = true,
-["Macro"] = true,
-["RollScale"] = 1,
-["AddonStatus"] = {
 },
-["Friends"] = true,
-["BlizzardUI_Move"] = true,
-["Skill_QKbut"] = true,
-["BuffTime"] = true,
-["Character_Shuxing"] = false,
-["Tracking"] = true,
-["Roll"] = true,
+["Error"] = {
+["ErrorDB"] = {
+{
+["time"] = 1746945667,
+["logrizhi"] = "",
+["msg"] = "Interface/AddOns/RXPGuides/Guides/GuideList-classic.xml:49 Error loading Interface/AddOns/RXPGuides/Guides/SoD/Custom.lua",
+["stack"] = "",
+["counter"] = 2,
+},
+{
+["time"] = 1746945711,
+["logrizhi"] = "",
+["msg"] = "Interface/AddOns/RXPGuides/Guides/GuideList-classic.xml:49 Error loading Interface/AddOns/RXPGuides/Guides/SoD/Custom.lua",
+["stack"] = "",
+["counter"] = 2,
+},
+{
+["time"] = 1746945754,
+["logrizhi"] = "",
+["msg"] = "Interface/AddOns/RXPGuides/Guides/GuideList-classic.xml:49 Error loading Interface/AddOns/RXPGuides/Guides/SoD/Custom.lua",
+["stack"] = "",
+["counter"] = 2,
+},
+{
+["time"] = 1746945780,
+["logrizhi"] = "",
+["msg"] = "Interface/AddOns/RXPGuides/Guides/GuideList-classic.xml:49 Error loading Interface/AddOns/RXPGuides/Guides/SoD/Custom.lua",
+["stack"] = "",
+["counter"] = 2,
+},
+{
+["time"] = 1746945815,
+["logrizhi"] = "",
+["msg"] = "Interface/AddOns/RXPGuides/Guides/GuideList-classic.xml:49 Error loading Interface/AddOns/RXPGuides/Guides/SoD/Custom.lua",
+["stack"] = "",
+["counter"] = 2,
+},
+{
+["time"] = 1746945938,
+["logrizhi"] = "",
+["msg"] = "Interface/AddOns/RXPGuides/Guides/GuideList-classic.xml:49 Error loading Interface/AddOns/RXPGuides/Guides/SoD/Custom.lua",
+["stack"] = "",
+["counter"] = 2,
+},
+{
+["time"] = 1746945986,
+["logrizhi"] = "",
+["msg"] = "Interface/AddOns/RXPGuides/Guides/GuideList-classic.xml:49 Error loading Interface/AddOns/RXPGuides/Guides/SoD/Custom.lua",
+["stack"] = "",
+["counter"] = 2,
+},
+{
+["time"] = 1761245095,
+["logrizhi"] = "(*temporary) = \"女牧师安妮塔\"\n(*temporary) = true\n",
+["msg"] = "[ADDON_ACTION_FORBIDDEN] 插件< RXPGuides >尝试调用保护功能< TargetUnit() >",
+["stack"] = "[C]: ?\n[Interface/AddOns/RXPGuides/Targeting.lua]:509: in function <Interface/AddOns/RXPGuides/Targeting.lua:486>\n[C]: ?\n[C]: ?\n",
+["counter"] = 221,
+},
+{
+["time"] = 1761245158,
+["logrizhi"] = "(*temporary) = \"女牧师安妮塔\"\n(*temporary) = true\n",
+["msg"] = "[ADDON_ACTION_FORBIDDEN] 插件< RXPGuides >尝试调用保护功能< TargetUnit() >",
+["stack"] = "[C]: ?\n[Interface/AddOns/RXPGuides/Targeting.lua]:509: in function <Interface/AddOns/RXPGuides/Targeting.lua:486>\n[C]: ?\n[C]: ?\n",
+["counter"] = 101,
+},
+{
+["time"] = 1762414911,
+["logrizhi"] = "(*temporary) = \"Morgaine the Sly\"\n(*temporary) = true\n",
+["msg"] = "[ADDON_ACTION_FORBIDDEN] 插件< RXPGuides >尝试调用保护功能< TargetUnit() >",
+["stack"] = "[C]: ?\n[Interface/AddOns/RXPGuides/Targeting.lua]:502: in function <Interface/AddOns/RXPGuides/Targeting.lua:486>\n[C]: ?\n[C]: ?\n",
+["counter"] = 1281,
+},
+},
+["ErrorTishi"] = false,
+},
+["Chat"] = {
+["Jianyin"] = false,
+["TABqiehuanList"] = {
+},
+["QuickChat_jianyin"] = false,
+["FontSize_value"] = 17,
+["QuickChat_style"] = 1,
+["LinkShow"] = true,
+["JoinPindao"] = false,
+["ShowLinkIcon"] = true,
+["ChatSetSave"] = {
+},
+["TABqiehuanOpen"] = true,
+["QuickChat_suofang"] = 1,
+["ClassColor"] = true,
+["MinMaxB"] = false,
+["chatZhanlian"] = {
+},
+["QuickChat_maodian"] = 1,
+["Channel_List"] = {
+},
+["Tiqu"] = {
+["Audio"] = 1,
+["AudioOpen"] = true,
+["jichengBlack"] = true,
+["BgColor"] = {
+0,
+0,
+0,
+0.4,
+},
+["CombatHide"] = false,
+["ChatWox"] = 0,
+["shuchumode"] = 1,
+["Keys"] = "",
+["tiquOKFlash"] = true,
+["KeywordFHeight"] = 140,
+["Open"] = false,
+},
+["RemTips"] = true,
+["QuickChat"] = false,
+["ShowLinkGem"] = true,
+["jingjian"] = true,
+["FastCopy"] = false,
+["ShowZb"] = true,
+["QuickChat_pianyiY"] = 0,
+["QuickChat_pianyiX"] = 0,
+["Filter"] = {
+["Blacks"] = "0.01，0.02，0.03，0.04，0.05，0.06，0.07，0.08，0.09，0.1，0.11，0.12，1-10，1-20，1-30，1-40，1-50，1-60，8-20，15-31，15-25，25-30，15-30，25-40，美女客服，美女接待，无需点卡，全天在线，单法，双法，不翻车，手动，光速车，R/次，R/一次，R/级，可跟可托，可自上可托，可跟打可托，极速团，一级#老板，代肝，金牌，TB支付，先打后，24小时，收G，出G，收米，出米，出大米，收大米，纯手工，急速升级，价格实惠，加V，帮做#血月，帮做#鲜血之月，急速#帮写，附魔#平价，附魔#真人，附魔#专业#披风，附魔#单手#双手，武#盾#胸，附魔#代工，附魔#拆卸，航空，全图，中转，全球中转",
+["Precise"] = false,
+["Heightmsg"] = false,
+["FilterChannel"] = {
+["YELL"] = true,
+["SAY"] = false,
+["CHANNEL"] = true,
+["WHISPER"] = false,
+},
+["Keywords"] = {
+},
+["Open"] = true,
+["BlackName"] = true,
+["FilterRepeat"] = true,
+["FBneiNO"] = false,
+["DefaultKey"] = 0,
+["IGNORE_DND"] = true,
+["Blacks_P"] = "",
+},
+["FontSize"] = false,
+["WhoWhisper"] = true,
+["AltEX"] = true,
+["Guolv"] = false,
+["ShowLinkSlots"] = true,
+["QuickChat_ButHide"] = {
+},
+["ShowLinkLV"] = true,
+},
+["Pig_UI"] = {
+["PIG_markerR"] = {
+"TOP",
+"TOP",
+2.29,
+-29.05,
+},
+["Pig_OptionsUI"] = {
+"RIGHT",
+"RIGHT",
+-254.48,
+5.33,
+},
+["PIG_QuickButUI"] = {
+"RIGHT",
+"RIGHT",
+-1.15,
+-106.27,
+},
+["QuickButUI"] = {
+"BOTTOM",
+"BOTTOM",
+310.47,
+107.82,
+},
 },
 ["MailPlus"] = {
-["lianxuMode"] = true,
-["ALTbatch"] = true,
-["OpenAllCD"] = 0.6,
 ["BagOpen"] = false,
+["ALTbatch"] = true,
 ["Coll"] = {
 "",
 },
+["lianxuMode"] = true,
+["OpenAllCD"] = 0.6,
 ["Open"] = false,
 ["MoneyEdit"] = true,
 },
@@ -345,12 +356,15 @@ PIGA = {
 ["MinimapPointX"] = 0,
 ["WorldMapNPC"] = true,
 ["MinimapPos"] = -13.62698465698976,
-["MiniButShouNa_hang"] = 10,
-["WorldMapXY"] = false,
+["MinimapAnchor"] = "TOPRIGHT",
+["MinimapPointXY"] = {
+0,
+0,
+},
 ["WorldMapWind"] = true,
-["MinimapBut"] = true,
-["WorldMapLV"] = true,
 ["MinimapPointMode"] = 1,
+["WorldMapLV"] = true,
+["MinimapBut"] = true,
 ["WorldMapBili"] = 0.8,
 ["MiniButShouNa_YN"] = 2,
 ["WorldMapMiwuColor"] = {
@@ -366,18 +380,21 @@ PIGA = {
 28,
 0,
 },
-["MinimapPointXY"] = {
-0,
-0,
-},
-["MinimapAnchor"] = "TOPRIGHT",
+["WorldMapXY"] = false,
+["MiniButShouNa_hang"] = 10,
 },
 ["TradePlus"] = {
+["AddBut"] = true,
 ["zhiyeLV"] = true,
 ["Open"] = true,
-["AddBut"] = true,
 },
 ["VerC"] = {
+["!Pig"] = {
+["p"] = {
+"龙虾插旗位面",
+},
+["verno"] = 9.43,
+},
 },
 ["Common"] = {
 ["QuestsEndAudio"] = 2,
@@ -386,31 +403,28 @@ PIGA = {
 ["SetFocusKEY"] = "shift",
 ["QuestsEnd"] = true,
 ["addonProfilerEnabled"] = true,
-["Offnewfont"] = true,
-["SetFocus"] = false,
 ["ClearFocus"] = false,
-["AutoCombatLogTJ"] = 1,
+["SetFocus"] = false,
+["Offnewfont"] = true,
 ["SetFocusMouse"] = true,
+["AutoCombatLogTJ"] = 1,
 },
 ["Hardcore"] = {
 ["CVars"] = {
 ["NameMinV"] = 0,
-["NameMaxV"] = 0,
-["NameMinSelect"] = 2,
-["Open"] = true,
 ["NameMaxSelect"] = 4,
+["NameMaxV"] = 0,
+["Open"] = true,
+["NameMinSelect"] = 2,
 },
 ["Deaths"] = {
 ["Tgminlevel"] = 20,
 ["Open"] = true,
-["UIScale"] = 1,
+["BigTgminlevel"] = 55,
 ["Player"] = {
 },
 ["VoiceID"] = 3,
-["tipsmap"] = false,
-["level"] = {
-},
-["savedays"] = 1,
+["UIScale"] = 1,
 ["List"] = {
 {
 1735206479,
@@ -445,60 +459,21 @@ PIGA = {
 "",
 },
 },
-["BigTgminlevel"] = 55,
+["level"] = {
+},
+["savedays"] = 1,
+["tipsmap"] = false,
 },
 },
-["Tardis"] = {
-["Chedui"] = {
-["ADD_Level"] = 0,
-["Open"] = true,
-["ADD_comment"] = "",
-},
-["Chat"] = {
-["Audio"] = 1,
-["quchong"] = true,
-["Keys"] = "",
-["ChatWox"] = 0,
-["Open"] = true,
-["tiquOpen"] = false,
-},
-["Open"] = true,
-["AddBut"] = true,
-["Plane"] = {
-["AutoInvite"] = true,
-["InfoList"] = {
-["孤狼"] = {
-},
-},
-["AutoInviteCD"] = 0,
-["Open"] = true,
-["DaojishiCD"] = 0,
-},
-["Yell"] = {
-["XZ_playerNumV"] = 10,
-["Open"] = true,
-["Yell_NR"] = "[Pig]....",
-["Yell_CHANNEL"] = {
-["SAY"] = true,
-},
-["jinzuCMD"] = "888",
-["XZ_playerNum"] = false,
-["mubiaoNum"] = {
-{
-},
-{
-},
-{
-},
-},
-["Yell_CD"] = 300,
-["ShowDesktopBut"] = false,
-["PlayersInfo"] = {
-},
-["jinzuCMD_inv"] = false,
-["AutoHuifu"] = false,
-["XZ_zhiye"] = false,
-},
+["Tooltip"] = {
+["IDinfo"] = false,
+["Point"] = 1,
+["PointX"] = 0,
+["PointY"] = 0,
+["ItemSell"] = false,
+["ItemMaxCount"] = true,
+["PointOpen"] = false,
+["ItemLevel"] = true,
 },
 ["PigLayout"] = {
 ["topInfoR"] = {
@@ -517,13 +492,15 @@ PIGA = {
 ["HideBut"] = {
 },
 },
-["ActionBar"] = {
-["BarRight"] = false,
-["ScaleV"] = 0.8,
-["Scale"] = false,
-["HideShijiu"] = false,
-["Layout"] = 1,
-["LRInterval"] = 20,
+["MicroMenu"] = {
+["AnchorPoint"] = "TOP",
+["Interval"] = 2,
+["AnchorPointY"] = 0,
+["Scale"] = 1,
+["Open"] = false,
+["AnchorPointX"] = 0,
+["HideBut"] = {
+},
 },
 ["topMenu"] = {
 ["BGHide"] = false,
@@ -535,18 +512,29 @@ PIGA = {
 ["Countdown"] = false,
 ["Lock"] = false,
 ["daojishiTime"] = 10,
-["CountdownAudio"] = 1,
 ["CountdownEnd"] = false,
+["CountdownAudio"] = 1,
 ["CountdownEndAudio"] = 1,
 },
 ["ChatUI"] = {
 ["editMove"] = false,
-["Fu"] = false,
+["editPoint"] = {
+0,
+0,
+},
 ["MarginPoint"] = {
 35,
 35,
 0,
 0,
+},
+["Margin"] = false,
+["Fu"] = false,
+["ZhuPoint"] = {
+370,
+200,
+35,
+35,
 },
 ["FuPoint"] = {
 370,
@@ -554,41 +542,28 @@ PIGA = {
 35,
 35,
 },
-["editPoint"] = {
-0,
-0,
-},
-["ZhuPoint"] = {
-370,
-200,
-35,
-35,
-},
-["Margin"] = false,
 ["Zhu"] = false,
 },
 ["TopBar"] = {
 ["AnchorPoint"] = "TOP",
 ["Height"] = 22,
+["Backdrop"] = 1,
 ["Alpha"] = 1,
 ["Open"] = false,
-["Backdrop"] = 1,
 },
-["MicroMenu"] = {
-["AnchorPoint"] = "TOP",
-["Scale"] = 1,
-["AnchorPointY"] = 0,
-["Interval"] = 2,
-["AnchorPointX"] = 0,
-["Open"] = false,
-["HideBut"] = {
-},
+["ActionBar"] = {
+["BarRight"] = false,
+["ScaleV"] = 0.8,
+["Scale"] = false,
+["HideShijiu"] = false,
+["LRInterval"] = 20,
+["Layout"] = 1,
 },
 },
 ["Ver"] = {
-["!Pig"] = 8.05,
-["!Pig_RurutiaAudio"] = 0,
+["!Pig"] = 9.43,
 ["!Pig_Tardis"] = 0,
+["!Pig_RurutiaAudio"] = 0,
 },
 ["StatsInfo"] = {
 ["TradeTongGaoChannel"] = "WHISPER",
@@ -608,9 +583,25 @@ PIGA = {
 },
 ["无情"] = {
 },
+["哈霍兰"] = {
+},
 },
 ["MinibutTisp"] = false,
 ["SkillData"] = {
+["李家沱-哈霍兰"] = {
+{
+0,
+{
+},
+},
+{
+0,
+{
+},
+},
+[0] = {
+},
+},
 ["京东哔哩美团-无情"] = {
 {
 0,
@@ -641,6 +632,13 @@ PIGA = {
 },
 },
 ["Players"] = {
+["李家沱-哈霍兰"] = {
+"Horde",
+2,
+"raceicon-orc-male",
+4,
+1,
+},
 ["京东哔哩美团-无情"] = {
 "Alliance",
 1,
@@ -659,18 +657,32 @@ PIGA = {
 ["Open"] = true,
 ["TradeClassLV"] = true,
 ["Items"] = {
-["京东哔哩美团-无情"] = {
+["李家沱-哈霍兰"] = {
 ["BANK"] = {
 },
 ["MAIL"] = {
 },
-["C"] = "1-^+2-^+3-^+4-38:H1:J+5-^+6-^+7-39:H1:J+8-40:H1:J+9-^+10-^+11-^+12-^+13-^+14-^+15-^+16-25:H1:J+17-2362:H1:J+18-^+19-^",
+["C"] = "1-^+2-^+3-^+4-2105:H1:J+5-^+6-^+7-120:H1:J+8-121:H1:J+9-^+10-^+11-^+12-^+13-^+14-^+15-^+16-2092:H1:J+17-^+18-31C:H1:J+19-^",
 ["GUILD"] = {
 },
 ["R"] = {
 },
-["T"] = "0z",
+["T"] = "0y",
 ["G"] = "",
+["BAG"] = {
+{
+"1B7:H1:J",
+4,
+117,
+},
+{
+"6948:H1:J",
+1,
+6948,
+},
+},
+},
+["京东哔哩美团-无情"] = {
 ["BAG"] = {
 {
 "1B7:H1:J",
@@ -698,13 +710,30 @@ PIGA = {
 4865,
 },
 },
+["MAIL"] = {
+},
+["C"] = "1-^+2-^+3-^+4-38:H1:J+5-^+6-^+7-39:H1:J+8-40:H1:J+9-^+10-^+11-^+12-^+13-^+14-^+15-^+16-25:H1:J+17-2362:H1:J+18-^+19-^",
+["BANK"] = {
+},
+["R"] = {
+},
+["T"] = "0z",
+["G"] = "",
+["GUILD"] = {
+},
 },
 ["露露缇娅丶-铁血"] = {
-["GUILD"] = {
+["BANK"] = {
 },
 ["MAIL"] = {
 },
 ["C"] = "1-^+2-^+3-^+4-53:H10:J+5-1380:H10:J+6-983:H10:J+7-2958:H10:J+8-80:H10:J+9-3B65:H10:J+10-2960:H10:J+11-^+12-^+13-^+14-^+15-1376:H10:J+16-4563:H10:J+17-^+18-1B287:H10:J+19-^",
+["GUILD"] = {
+},
+["R"] = {
+},
+["T"] = "0u",
+["G"] = "",
 ["BAG"] = {
 {
 "2835:H10:J",
@@ -897,15 +926,14 @@ PIGA = {
 6948,
 },
 },
-["R"] = {
-},
-["T"] = "0u",
-["G"] = "",
-["BANK"] = {
-},
 },
 },
 ["Token"] = {
+["李家沱-哈霍兰"] = {
+["Money"] = 0,
+["Tokens"] = {
+},
+},
 ["京东哔哩美团-无情"] = {
 ["Tokens"] = {
 },
@@ -918,6 +946,8 @@ PIGA = {
 },
 },
 ["TradeData"] = {
+["李家沱-哈霍兰"] = {
+},
 ["萌萌的露露糖-硬汉"] = {
 },
 ["沙梨儿灬-硬汉"] = {
@@ -934,28 +964,13 @@ PIGA = {
 },
 ["沙梨儿灬-铁血"] = {
 },
-["露露缇娅丶-铁血"] = {
-},
 ["京东哔哩美团-无情"] = {
+},
+["露露缇娅丶-铁血"] = {
 },
 },
 ["TradeTongGaoPindao"] = "WHISPER",
-["InstancesCD"] = {
-["Records"] = {
-[838] = true,
-[840] = true,
-[842] = true,
-[839] = true,
-[841] = true,
-[836] = true,
-[843] = true,
-},
-["Mode"] = 1,
-["京东哔哩美团-无情"] = {
-},
-["露露缇娅丶-铁血"] = {
-},
-},
+["AddBut"] = true,
 ["Times"] = {
 {
 29490000,
@@ -974,17 +989,24 @@ PIGA = {
 1762414590,
 },
 },
-["AddBut"] = true,
+["InstancesCD"] = {
+["Records"] = {
+[838] = true,
+[840] = true,
+[842] = true,
+[839] = true,
+[841] = true,
+[836] = true,
+[843] = true,
 },
-["Tooltip"] = {
-["IDinfo"] = false,
-["Point"] = 1,
-["PointX"] = 0,
-["PointY"] = 0,
-["ItemSell"] = false,
-["ItemMaxCount"] = true,
-["PointOpen"] = false,
-["ItemLevel"] = true,
+["李家沱-哈霍兰"] = {
+},
+["Mode"] = 1,
+["京东哔哩美团-无情"] = {
+},
+["露露缇娅丶-铁血"] = {
+},
+},
 },
 ["AHPlus"] = {
 ["SaveDuration_V"] = 2,
@@ -995,18 +1017,40 @@ PIGA = {
 },
 ["无情"] = {
 },
+["哈霍兰"] = {
+},
 },
 ["Coll"] = {
 },
+["Open"] = true,
 ["DaojiTime"] = 0,
-["AHtooltip"] = false,
 ["ScanTimeCD"] = 4,
 ["yajingbiao"] = true,
-["exactMatch"] = false,
-["AHUIoff"] = true,
-["Open"] = true,
-["oldaucG"] = false,
 ["QuicAuc"] = false,
+["AHUIoff"] = true,
+["AHtooltip"] = false,
+["exactMatch"] = false,
+["oldaucG"] = false,
+},
+["BagBank"] = {
+["BAGmeihangshu"] = 8,
+["JunkShow"] = true,
+["AHOpen"] = true,
+["jiaoyiOpen"] = true,
+["wupinRanse"] = true,
+["wupinLV"] = true,
+["BagKongyu"] = true,
+["BAGsuofangBili"] = 1,
+["NewItem"] = true,
+["BANKmeihangshu"] = 16,
+["SortBagsRightToLeft"] = false,
+["BANKsuofangBili"] = 1,
+["Zhenghe"] = true,
+["SortBag_Config"] = true,
+["JianjieMOD"] = false,
+["BAGmeihangshu_retail"] = 10,
+["BANKmeihangshu_retail"] = 17,
+["BAGmeihangshu_WLK"] = 10,
 },
 ["HardcoreDeaths"] = {
 ["AudioID"] = 3,
@@ -1020,7 +1064,12 @@ PIGA = {
 0,
 },
 },
+["savedays"] = 1,
 ["maxlevel"] = 40,
+["minlevel"] = 1,
+["level"] = {
+},
+["Open"] = true,
 ["List"] = {
 {
 1733481197,
@@ -1759,122 +1808,131 @@ PIGA = {
 "",
 },
 },
-["minlevel"] = 1,
-["level"] = {
 },
+["CombatPlus"] = {
+["AttackBar"] = {
+["Showshuzhi"] = false,
+["Scale"] = 1,
+["Xpianyi"] = 0,
+["Open"] = false,
+["Ypianyi"] = 14,
+},
+["ammotips"] = false,
+["Submerged"] = true,
+["markerR"] = {
+["BGHide"] = true,
+["Lock"] = true,
+["NoTarget"] = false,
+["Scale"] = 1,
+["AutoShow"] = false,
 ["Open"] = true,
-["savedays"] = 1,
+["NoGroup"] = false,
 },
-["ConfigString"] = {
-10,
-"57uZ5qKm55qE5aeR5aiY^6b6Z54mZ@5aW25aW95LiA6Zif6JCo5ruh^57u05YWL5rSb5bCU@VmVybWlu^6ZyH5Zyw6ICF@UmlvdGVycw==^6ZyH5Zyw6ICF",
+["HPMPBar"] = {
+["CombatShow"] = true,
+["FontSize"] = 10,
+["MpShow"] = true,
+["Scale"] = 1,
+["Xpianyi"] = 0,
+["Fuziyuan"] = true,
+["HpShow"] = true,
+["Showshuzhi"] = true,
+["FuStyle"] = {
 },
-["Pig_UI"] = {
-["PIG_QuickButUI"] = {
-"RIGHT",
-"RIGHT",
--1.15,
--106.27,
+["Ypianyi"] = -80,
+["Open"] = false,
+["BarH"] = 12,
+["BarTex"] = 1,
+["BarW"] = 150,
 },
-["Pig_OptionsUI"] = {
-"RIGHT",
-"RIGHT",
--254.48,
-5.33,
-},
-["PIG_markerR"] = {
-"TOP",
-"TOP",
-2.29,
--29.05,
-},
-["QuickButUI"] = {
-"BOTTOM",
-"BOTTOM",
-310.47,
-107.82,
+["PetHappiness"] = true,
+["markerW"] = {
+["BGHide"] = false,
+["Lock"] = false,
+["Scale"] = 1,
+["Open"] = false,
+["AutoShow"] = true,
 },
 },
-["Error"] = {
-["ErrorTishi"] = false,
-["ErrorDB"] = {
+["FramePlus"] = {
+["Merchant"] = true,
+["Guild"] = true,
+["BlizzardUI_Move_Save"] = true,
+["UIWidget"] = true,
+["Skill"] = true,
+["RollScale"] = 1,
+["Character_ItemList"] = false,
+["Loot"] = true,
+["UIWidgetPointX"] = 0,
+["Character_ItemLevel"] = true,
+["Quest"] = true,
+["Roll"] = true,
+["Character_ItemColor"] = true,
+["UIWidgetPointY"] = -70,
+["LootMasterErr"] = true,
+["Talent"] = true,
+["Macro"] = true,
+["Character_Durability"] = true,
+["AddonStatus"] = {
+},
+["Friends"] = true,
+["BlizzardUI_Move"] = true,
+["Skill_QKbut"] = true,
+["BuffTime"] = true,
+["Character_Shuxing"] = false,
+["Tracking"] = true,
+["AddonList"] = true,
+},
+["Tardis"] = {
+["Chedui"] = {
+["ADD_Level"] = 0,
+["Open"] = true,
+["ADD_comment"] = "",
+},
+["Yell"] = {
+["XZ_playerNumV"] = 10,
+["Yell_CHANNEL"] = {
+["SAY"] = true,
+},
+["Yell_NR"] = "[Pig]....",
+["Open"] = true,
+["AutoHuifu"] = false,
+["mubiaoNum"] = {
 {
-["time"] = 1746945610,
-["logrizhi"] = "",
-["msg"] = "Interface/AddOns/RXPGuides/Guides/GuideList-classic.xml:49 Error loading Interface/AddOns/RXPGuides/Guides/SoD/Custom.lua",
-["stack"] = "",
-["counter"] = 2,
-},
-{
-["time"] = 1746945667,
-["logrizhi"] = "",
-["msg"] = "Interface/AddOns/RXPGuides/Guides/GuideList-classic.xml:49 Error loading Interface/AddOns/RXPGuides/Guides/SoD/Custom.lua",
-["stack"] = "",
-["counter"] = 2,
-},
-{
-["time"] = 1746945711,
-["logrizhi"] = "",
-["msg"] = "Interface/AddOns/RXPGuides/Guides/GuideList-classic.xml:49 Error loading Interface/AddOns/RXPGuides/Guides/SoD/Custom.lua",
-["stack"] = "",
-["counter"] = 2,
-},
-{
-["time"] = 1746945754,
-["logrizhi"] = "",
-["msg"] = "Interface/AddOns/RXPGuides/Guides/GuideList-classic.xml:49 Error loading Interface/AddOns/RXPGuides/Guides/SoD/Custom.lua",
-["stack"] = "",
-["counter"] = 2,
-},
-{
-["time"] = 1746945780,
-["logrizhi"] = "",
-["msg"] = "Interface/AddOns/RXPGuides/Guides/GuideList-classic.xml:49 Error loading Interface/AddOns/RXPGuides/Guides/SoD/Custom.lua",
-["stack"] = "",
-["counter"] = 2,
-},
-{
-["time"] = 1746945815,
-["logrizhi"] = "",
-["msg"] = "Interface/AddOns/RXPGuides/Guides/GuideList-classic.xml:49 Error loading Interface/AddOns/RXPGuides/Guides/SoD/Custom.lua",
-["stack"] = "",
-["counter"] = 2,
 },
 {
-["time"] = 1746945938,
-["logrizhi"] = "",
-["msg"] = "Interface/AddOns/RXPGuides/Guides/GuideList-classic.xml:49 Error loading Interface/AddOns/RXPGuides/Guides/SoD/Custom.lua",
-["stack"] = "",
-["counter"] = 2,
 },
 {
-["time"] = 1746945986,
-["logrizhi"] = "",
-["msg"] = "Interface/AddOns/RXPGuides/Guides/GuideList-classic.xml:49 Error loading Interface/AddOns/RXPGuides/Guides/SoD/Custom.lua",
-["stack"] = "",
-["counter"] = 2,
 },
-{
-["time"] = 1761245095,
-["logrizhi"] = "(*temporary) = \"女牧师安妮塔\"\n(*temporary) = true\n",
-["msg"] = "[ADDON_ACTION_FORBIDDEN] 插件< RXPGuides >尝试调用保护功能< TargetUnit() >",
-["stack"] = "[C]: ?\n[Interface/AddOns/RXPGuides/Targeting.lua]:509: in function <Interface/AddOns/RXPGuides/Targeting.lua:486>\n[C]: ?\n[C]: ?\n",
-["counter"] = 221,
 },
-{
-["time"] = 1761245158,
-["logrizhi"] = "(*temporary) = \"女牧师安妮塔\"\n(*temporary) = true\n",
-["msg"] = "[ADDON_ACTION_FORBIDDEN] 插件< RXPGuides >尝试调用保护功能< TargetUnit() >",
-["stack"] = "[C]: ?\n[Interface/AddOns/RXPGuides/Targeting.lua]:509: in function <Interface/AddOns/RXPGuides/Targeting.lua:486>\n[C]: ?\n[C]: ?\n",
-["counter"] = 101,
+["jinzuCMD"] = "888",
+["Yell_CD"] = 300,
+["PlayersInfo"] = {
 },
-{
-["time"] = 1762414911,
-["logrizhi"] = "(*temporary) = \"Morgaine the Sly\"\n(*temporary) = true\n",
-["msg"] = "[ADDON_ACTION_FORBIDDEN] 插件< RXPGuides >尝试调用保护功能< TargetUnit() >",
-["stack"] = "[C]: ?\n[Interface/AddOns/RXPGuides/Targeting.lua]:502: in function <Interface/AddOns/RXPGuides/Targeting.lua:486>\n[C]: ?\n[C]: ?\n",
-["counter"] = 1281,
+["ShowDesktopBut"] = false,
+["jinzuCMD_inv"] = false,
+["XZ_playerNum"] = false,
+["XZ_zhiye"] = false,
 },
+["Plane"] = {
+["AutoInvite"] = true,
+["AutoInviteCD"] = 0,
+["Open"] = true,
+["InfoList"] = {
+["孤狼"] = {
+},
+},
+["DaojishiCD"] = 0,
+},
+["AddBut"] = true,
+["Open"] = true,
+["Chat"] = {
+["Audio"] = 1,
+["Keys"] = "",
+["quchong"] = true,
+["ChatWox"] = 0,
+["Open"] = true,
+["tiquOpen"] = false,
 },
 },
 }

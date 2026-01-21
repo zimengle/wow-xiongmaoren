@@ -12,7 +12,7 @@ if GetLocale() ~= "zhCN" then return end
 local _, addon = ...
 
 addon.L = {
-	["title"] = "WhisperPop",
+	["title"] = "WhisperPop |cff99ddff谷|r|cff88ccee风|r|cff77bbdd修|r|cff66aacc复|r|cff5599bb版|r",
 	["desc"] = "显示角色发送与接收到的密语聊天消息，并且将聊天记录跨角色保存。",
 	["no new messages"] = "没有未阅读消息",
 	["new messages from"] = "未阅读消息来自: ",

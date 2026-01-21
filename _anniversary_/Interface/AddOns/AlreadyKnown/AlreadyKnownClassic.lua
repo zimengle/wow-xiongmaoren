@@ -208,6 +208,7 @@ local _G = _G
 	-- Construct your search patterns based on the existing global strings:
 	local S_ITEM_MIN_LEVEL = "^" .. gsub(ITEM_MIN_LEVEL, "%%d", "(%%d+)")
 	local S_ITEM_CLASSES_ALLOWED = "^" .. gsub(ITEM_CLASSES_ALLOWED, "%%s", "(%%a+)")
+	-- Removed on Feb 23, 2023
 
 	local scantip = CreateFrame("GameTooltip", "AKScanningTooltip", nil, "GameTooltipTemplate")
 	scantip:SetOwner(UIParent, "ANCHOR_NONE")
@@ -311,7 +312,8 @@ local _G = _G
 
 		if C_PetJournal and itemLink:match("|H(.-):") == "battlepet" then -- Check if item is Caged Battlepet (dummy item 82800)
 			local _, battlepetId = strsplit(":", itemLink)
-			if C_PetJournal.GetNumCollectedInfo(battlepetId) > 0 then
+			battlepetId = tonumber(battlepetId)
+			if battlepetId and C_PetJournal.GetNumCollectedInfo(battlepetId) > 0 then
 				Debug("%d - BattlePet: %s %d", itemId, battlepetId, C_PetJournal.GetNumCollectedInfo(battlepetId))
 				knownTable[itemLink] = true -- Mark as known for later use
 				return true -- Battlepet is collected

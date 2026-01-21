@@ -1,7 +1,7 @@
 SpellActivationOverlay: enabled
 !Pig: enabled
 !Pig_RurutiaAudio: enabled
-BiaoGe: disabled
+BiaoGe: enabled
 BiaoGe-Rurutia: enabled
 DBM-Core: enabled
 DBM-StatusBarTimers: enabled
@@ -22,7 +22,7 @@ ls_Toasts: enabled
 aBlueShaman: enabled
 ACP: enabled
 AdvancedInterfaceOptions: enabled
-alaCalendar: disabled
+alaCalendar: enabled
 alaGearMan: enabled
 alaTradeSkill: enabled
 TalentEmuX: enabled
@@ -30,7 +30,7 @@ AlreadyKnown: enabled
 Atlas: disabled
 Atlas_ClassicWoW: enabled
 AtlasLootClassic_PvP: enabled
-AtlasLootClassic: disabled
+AtlasLootClassic: enabled
 AtlasLootClassic_Crafting: enabled
 AtlasLootClassic_DungeonsAndRaids: enabled
 AtlasLootClassic_Collections: enabled
@@ -63,7 +63,7 @@ GTFO: enabled
 HandyNotes: disabled
 HandyNotes_DungeonLocations (Classic): enabled
 HandyNotes_NPCs (Classic): enabled
-InboxMailBag: disabled
+InboxMailBag: enabled
 Leatrix_Maps: enabled
 Leatrix_Plus: enabled
 LibSharedMedia-3.0: enabled
@@ -72,7 +72,7 @@ MRT: enabled
 MikScrollingBattleText: enabled
 MSBTOptions: enabled
 Myslot: enabled
-NDui: disabled
+NDui: enabled
 NDui_Plus: enabled
 NovaWorldBuffs: enabled
 OmniCC: enabled
@@ -154,3 +154,11 @@ LibUIDropDownMenu: enabled
 RXPGuides_Themes: enabled
 163UI_Info: disabled
 Rurutia: enabled
+MissingTradeSkillsList_TBC_Data: enabled
+!Pig_Tardis: enabled
+!Pig_GDKP: enabled
+!LibGetFrame-1.0: enabled
+BoomTime: disabled
+BuyEmAll: enabled
+LoonBestInSlot: enabled
+SpeedyAutoLoot: enabled

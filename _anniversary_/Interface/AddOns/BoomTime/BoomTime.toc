@@ -1,0 +1,20 @@
+## Interface: 11505
+## Title: BoomTime
+## Title-zhCN: BoomTime爆本监控
+## Title-zhTW: BoomTime爆本监控
+## SavedVariablesPerCharacter: 
+## SavedVariables: boomTimeSv
+## Notes: BoomTime 邵拉达
+## Dependencies: 
+## OptionalDependencies: 
+## LoadOnDemand: 0
+## DefaultState: enabled
+## Author: |cff00ff00ALA|r @ |cffff0000163UI / 邵拉达|r
+## Author-zhCN: |cff00ff00ALA|r @ |cffff0000雪花君|r、玉素奴香@CN
+## Author-zhTW: |cff00ff00ALA|r @ |cffff0000雪花君|r、玉素奴香@CN
+## Version: 113r.191127
+## URL:https://ngabbs.com/read.php?pid=784369303&opt=128
+BoomTime.xml
+
+
+## X-Vendor: XueHua

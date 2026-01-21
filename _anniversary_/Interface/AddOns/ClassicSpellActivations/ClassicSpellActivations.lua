@@ -141,9 +141,11 @@ function f:PLAYER_LOGIN()
             end
         end
 
-        hooksecurefunc("ActionButton_UpdateOverlayGlow", function(self)
-            ns.UpdateOverlayGlow(self)
-        end)
+        if _G.ActionButton_UpdateOverlayGlow then
+            hooksecurefunc("ActionButton_UpdateOverlayGlow", function(self)
+                ns.UpdateOverlayGlow(self)
+            end)
+        end
 
         local LAB = LibStub and LibStub("LibActionButton-1.0", true) -- Bartener support
         if LAB then
@@ -163,7 +165,7 @@ function f:PLAYER_LOGIN()
             end)
         end
 
-        if IsAddOnLoaded("Dominos") then
+        if _G.IsAddOnLoaded and _G.IsAddOnLoaded("Dominos") then
             local dominosPrefix = "DominosActionButton"
             for i = 1, 72 do
                 local btnName = dominosPrefix..i

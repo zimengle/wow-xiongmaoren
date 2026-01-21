@@ -360,6 +360,10 @@ if Private.IsRetail then
 			unitToken = UnitTokenFromGUID(data.guid)
 		end
 
+		if unitToken and issecretvalue and issecretvalue(unitToken) then
+			return
+		end
+
 		if unitToken == nil or not UnitIsPlayer(unitToken) then
 			return
 		end

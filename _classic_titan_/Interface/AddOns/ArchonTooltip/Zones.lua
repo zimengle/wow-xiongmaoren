@@ -42,20 +42,22 @@ Private.Zones[1046] = {
     difficultyIconMap = nil,
 }
 
-Private.Zones[1045] = {
-    id = 1045,
-    name = "Dragon Soul",
+Private.Zones[1051] = {
+    id = 1051,
+    name = "HOF / ToES",
     hasMultipleDifficulties = true,
     hasMultipleSizes = true,
     encounters = {
-        { id = 51292, },
-        { id = 51294, },
-        { id = 51295, },
-        { id = 51296, },
-        { id = 51297, },
-        { id = 51298, },
-        { id = 51291, },
-        { id = 51299, },
+        { id = 51507, },
+        { id = 51504, },
+        { id = 51463, },
+        { id = 51498, },
+        { id = 51499, },
+        { id = 51501, },
+        { id = 51409, },
+        { id = 51505, },
+        { id = 51506, },
+        { id = 51431, },
     },
     difficultyIconMap = nil,
 }

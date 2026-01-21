@@ -6,8 +6,8 @@ PlaterDBChr = {
 [8] = 40,
 [3] = 40,
 [11] = 40,
-[9] = 40,
 [5] = 40,
+[9] = 40,
 },
 ["buffsBanned"] = {
 },
@@ -27,7 +27,7 @@ PlaterDBChr = {
 ["Player-4710-03CE407C"] = true,
 ["Player-4707-064BFF64"] = true,
 ["Player-4710-03FC37AC"] = true,
-["Player-6383-0048129C"] = true,
+["Player-4534-044911AC"] = true,
 ["Player-4942-05B86C77"] = true,
 ["Player-4531-0440373F"] = true,
 ["Player-4833-00F9FB85"] = true,
@@ -35,7 +35,7 @@ PlaterDBChr = {
 ["Player-5743-002B815D"] = true,
 ["Player-5743-00392478"] = true,
 ["Player-4533-04A90725"] = true,
-["Player-4534-044911AC"] = true,
+["Player-6383-0048129C"] = true,
 ["Player-4707-064BFBF9"] = true,
 },
 ["spellRangeCheckRangeEnemy"] = {
@@ -44,8 +44,8 @@ PlaterDBChr = {
 [8] = 30,
 [3] = 30,
 [11] = 30,
-[9] = 30,
 [5] = 30,
+[9] = 30,
 },
 ["debuffsBanned"] = {
 },

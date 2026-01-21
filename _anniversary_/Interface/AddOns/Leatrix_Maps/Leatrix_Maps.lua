@@ -1,6 +1,6 @@
 ﻿
 	----------------------------------------------------------------------
-	-- 	Leatrix Maps 2.5.000 (14th January 2026)
+	-- 	Leatrix Maps 2.5.001 (17th January 2026)
 	----------------------------------------------------------------------
 
 	-- 10:Func, 20:Comm, 30:Evnt, 40:Panl
@@ -12,7 +12,7 @@
 	local LeaMapsLC, LeaMapsCB, LeaDropList, LeaConfigList, LeaLockList = {}, {}, {}, {}, {}
 
 	-- Version
-	LeaMapsLC["AddonVer"] = "2.5.000"
+	LeaMapsLC["AddonVer"] = "2.5.001"
 
 	-- Get locale table
 	local void, Leatrix_Maps = ...
@@ -1782,6 +1782,17 @@
 				LeaMapsCB["movingOpacity"]:HookScript("OnValueChanged", SetMapOpacity)
 				SetMapOpacity()
 
+				-- Set map opacity when opacity is changed by the game
+				hooksecurefunc("WorldMapFrame_SetOpacity", function()
+					LeaMapsCB["stationaryOpacity"].f:SetFormattedText("%.0f%%", LeaMapsLC["stationaryOpacity"] * 100)
+					LeaMapsCB["movingOpacity"].f:SetFormattedText("%.0f%%", LeaMapsLC["movingOpacity"] * 100)
+					if IsPlayerMoving() then
+						WorldMapFrame:SetAlpha(LeaMapsLC["movingOpacity"])
+					else
+						WorldMapFrame:SetAlpha(LeaMapsLC["stationaryOpacity"])
+					end
+				end)
+
 				-- Back to Main Menu button click
 				alphaFrame.b:HookScript("OnClick", function()
 					alphaFrame:Hide()
@@ -3437,9 +3448,6 @@
 						temp[1]:SetScript("OnEnter", nil)
 					end
 				end
-
-				-- LeaPlusLC.NewPatch: Disable items that are currently not supported in Burning Crusade Anniversary
-				Lock("SetMapOpacity", "This option is not currently available in Burning Crusade Anniversary") -- Set map opacity
 
 				-- Disable items that conflict with ElvUI
 				if LeaMapsLC.ElvUI then

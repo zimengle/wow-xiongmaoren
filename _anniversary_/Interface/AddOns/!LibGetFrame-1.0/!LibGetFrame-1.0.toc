@@ -1,0 +1,14 @@
+## Interface: 11508, 20505, 30405, 38000 40402, 50502, 50503
+## Title: <LibGetFrame> |cff00BFFF苍穹之霜魔改版|r
+## Notes: 该库作用于WA和MRT，常用于团框高亮，上述插件自带。现由BiaoGe作者苍穹之霜魔改，优化原扫描逻辑，不再因内存泄漏导致游戏卡顿。只需要安装本插件即可，WA和MRT插件无需做任何修改。
+## Author: 苍穹之霜（原作者：Buds）
+## X-Category: Library
+## X-License: BSD
+## Version: 1.0.1
+## DefaultState: Enabled
+## LoadOnDemand: 0
+
+LibStub\LibStub.lua
+
+LibGetFrame-1.0.xml
+

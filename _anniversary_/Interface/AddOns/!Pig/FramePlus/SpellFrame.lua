@@ -10,7 +10,8 @@ local PIGEnter=Create.PIGEnter
 local PIGDiyBut=Create.PIGDiyBut
 local PIGFontString=Create.PIGFontString
 ---
-local iconxx={237553,294475}
+local iconxx={"newplayerchat-chaticon-newcomer",294475}
+iconxx[2] =PIG_MaxTocversion(30000) and PIG_MaxTocversion(20000,true) and "bags-greenarrow" or 294475
 local function add_butF(id,gnname,tooltip,classFilename)
 	local but = CreateFrame("CheckButton",nil, SpellBookFrame, "SpellBookSkillLineTabTemplate");
 	but:SetNormalTexture(iconxx[id+1]);

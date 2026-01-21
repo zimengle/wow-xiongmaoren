@@ -12,9 +12,6 @@ RurutiaSuiteDB = {
 },
 },
 },
-["global"] = {
-["lastSeenVersion"] = "2.4.2",
-},
 ["profileKeys"] = {
 ["退休码农 - 时光IV"] = "Default",
 ["京东刘强东 - 时光IV"] = "Default",
@@ -31,11 +28,14 @@ RurutiaSuiteDB = {
 ["确实日白 - 时光I"] = "Default",
 ["露露缇娅 - 时光III"] = "Default",
 ["美团董事长 - 时光IV"] = "Default",
-["三角碑崽儿 - 时光IV"] = "Default",
+["爱奇艺董事长 - 时光IV"] = "Default",
 ["美团王兴 - 时光IV"] = "Default",
 ["京东董事长 - 时光IV"] = "Default",
 ["露露緹婭 - 时光VI"] = "Default",
-["爱奇艺董事长 - 时光IV"] = "Default",
+["三角碑崽儿 - 时光IV"] = "Default",
+},
+["global"] = {
+["lastSeenVersion"] = "2.4.2",
 },
 ["profiles"] = {
 ["Default"] = {

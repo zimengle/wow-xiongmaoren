@@ -6,7 +6,6 @@ BagSyncDB = {
 {
 "21177;59",
 "33448;11",
-"43523;14",
 "46378;5",
 "44750;11",
 "33454;3",
@@ -21,8 +20,6 @@ BagSyncDB = {
 {
 "43102;15",
 "255106",
-"43523;20",
-"43523;20",
 "21177;100",
 "34736;8",
 "43013",
@@ -74,19 +71,19 @@ BagSyncDB = {
 ["class"] = "PALADIN",
 ["race"] = "Human",
 ["equipbags"] = {
-["bank"] = {
-"9587;1;bagslot=5",
-"14155;1;bagslot=6",
-"14155;1;bagslot=7",
-"14155;1;bagslot=8",
-"44296;1;bagslot=12",
-},
 ["bag"] = {
 "255068;1;bagslot=0",
 "14046;1;bagslot=1",
 "14155;1;bagslot=2",
 "14155;1;bagslot=3",
 "14155;1;bagslot=4",
+},
+["bank"] = {
+"9587;1;bagslot=5",
+"14155;1;bagslot=6",
+"14155;1;bagslot=7",
+"14155;1;bagslot=8",
+"44296;1;bagslot=12",
 },
 },
 ["guildrealm"] = "时光IV",
@@ -152,7 +149,7 @@ BagSyncDB = {
 },
 },
 ["realmKey"] = "时光IV",
-["money"] = 212401040,
+["money"] = 2697010,
 ["gender"] = 2,
 ["auction"] = {
 ["lastscan"] = 1765375821,
@@ -163,38 +160,6 @@ BagSyncDB = {
 ["rwsKey"] = "时光IV",
 ["faction"] = "Alliance",
 ["professions"] = {
-},
-["currency"] = {
-[3403] = {
-["icon"] = 237048,
-["count"] = 117,
-["header"] = "泰坦重铸",
-["name"] = "泰坦余烬",
-},
-[61] = {
-["icon"] = 134138,
-["count"] = 4,
-["header"] = "其它",
-["name"] = "达拉然珠宝匠硬币",
-},
-[3406] = {
-["icon"] = 237047,
-["count"] = 10112,
-["header"] = "泰坦重铸",
-["name"] = "泰坦碎片",
-},
-[1901] = {
-["icon"] = 136998,
-["count"] = 87,
-["header"] = "PvP",
-["name"] = "荣誉点数",
-},
-[201] = {
-["icon"] = 133799,
-["count"] = 44,
-["header"] = "PvP",
-["name"] = "风险硬币",
-},
 },
 ["equip"] = {
 "255068",
@@ -216,6 +181,38 @@ BagSyncDB = {
 "40700",
 "40705",
 "43155",
+},
+["currency"] = {
+[3403] = {
+["header"] = "泰坦重铸",
+["name"] = "泰坦余烬",
+["count"] = 122,
+["icon"] = 237048,
+},
+[61] = {
+["header"] = "其它",
+["name"] = "达拉然珠宝匠硬币",
+["count"] = 4,
+["icon"] = 134138,
+},
+[201] = {
+["header"] = "PvP",
+["name"] = "风险硬币",
+["count"] = 44,
+["icon"] = 133799,
+},
+[1901] = {
+["header"] = "PvP",
+["name"] = "荣誉点数",
+["count"] = 87,
+["icon"] = 136998,
+},
+[3406] = {
+["header"] = "泰坦重铸",
+["name"] = "泰坦碎片",
+["count"] = 10112,
+["icon"] = 237047,
+},
 },
 ["mailbox"] = {
 },
@@ -296,38 +293,38 @@ BagSyncDB = {
 },
 ["realmKey"] = "时光IV",
 ["guid"] = "Player-6383-00248778",
-["money"] = 14499449,
+["money"] = 13835223,
 ["class"] = "WARRIOR",
 ["gender"] = 2,
-["currency"] = {
-},
-["race"] = "Human",
-["auction"] = {
-["lastscan"] = 1767586864,
-["bag"] = {
-},
-["count"] = 0,
-},
-["equip"] = {
-"38",
-"39",
-"40",
-"49778",
-},
-["faction"] = "Alliance",
-["professions"] = {
-},
+["rwsKey"] = "时光IV",
 ["equipbags"] = {
-["bank"] = {
-},
 ["bag"] = {
 "14155;1;bagslot=1",
 "14155;1;bagslot=2",
 "14155;1;bagslot=3",
 "14155;1;bagslot=4",
 },
+["bank"] = {
 },
-["rwsKey"] = "时光IV",
+},
+["race"] = "Human",
+["professions"] = {
+},
+["faction"] = "Alliance",
+["equip"] = {
+"38",
+"39",
+"40",
+"49778",
+},
+["currency"] = {
+},
+["auction"] = {
+["lastscan"] = 1767586864,
+["bag"] = {
+},
+["count"] = 0,
+},
 ["mailbox"] = {
 "2589;20",
 "2589;18",
@@ -465,6 +462,7 @@ BagSyncDB = {
 "774;12",
 "33470;2",
 "260774",
+"37701;4",
 "40014",
 "40679",
 "1210;6",
@@ -473,7 +471,9 @@ BagSyncDB = {
 {
 "37784",
 "3864;4",
+"262940",
 "7910;5",
+"46377;12",
 "20816;20",
 },
 {
@@ -491,7 +491,7 @@ BagSyncDB = {
 "37646",
 "200239",
 "44328;4",
-"46379;2",
+"46379",
 "40097;6",
 "37217",
 "200239",
@@ -512,34 +512,34 @@ BagSyncDB = {
 ["class"] = "WARRIOR",
 ["currency"] = {
 [3403] = {
+["count"] = 52,
+["icon"] = 237048,
 ["name"] = "泰坦余烬",
 ["header"] = "泰坦重铸",
-["icon"] = 237048,
-["count"] = 37,
 },
 [61] = {
+["count"] = 1,
+["icon"] = 134138,
 ["name"] = "达拉然珠宝匠硬币",
 ["header"] = "其它",
-["icon"] = 134138,
-["count"] = 1,
-},
-[201] = {
-["name"] = "风险硬币",
-["header"] = "PvP",
-["icon"] = 133799,
-["count"] = 34,
-},
-[3406] = {
-["name"] = "泰坦碎片",
-["header"] = "泰坦重铸",
-["icon"] = 237047,
-["count"] = 8302,
 },
 [1901] = {
+["count"] = 123,
+["icon"] = 136998,
 ["name"] = "荣誉点数",
 ["header"] = "PvP",
-["icon"] = 136998,
-["count"] = 123,
+},
+[3406] = {
+["count"] = 8302,
+["icon"] = 237047,
+["name"] = "泰坦碎片",
+["header"] = "泰坦重铸",
+},
+[201] = {
+["count"] = 34,
+["icon"] = 133799,
+["name"] = "风险硬币",
+["header"] = "PvP",
 },
 },
 ["equip"] = {
@@ -557,7 +557,7 @@ BagSyncDB = {
 "263277",
 "44063",
 "37220",
-"262940",
+"259906",
 "37401",
 "42508",
 "41168",
@@ -642,19 +642,11 @@ BagSyncDB = {
 },
 ["count"] = 0,
 },
-["money"] = 30065,
+["money"] = 4021128,
 ["faction"] = "Alliance",
 ["professions"] = {
 },
-["race"] = "Human",
 ["equipbags"] = {
-["bag"] = {
-"255080;1;bagslot=0",
-"14155;1;bagslot=1",
-"14155;1;bagslot=2",
-"14155;1;bagslot=3",
-"14155;1;bagslot=4",
-},
 ["bank"] = {
 "14155;1;bagslot=5",
 "14155;1;bagslot=6",
@@ -662,7 +654,15 @@ BagSyncDB = {
 "14155;1;bagslot=8",
 "262981;1;bagslot=12",
 },
+["bag"] = {
+"255080;1;bagslot=0",
+"14155;1;bagslot=1",
+"14155;1;bagslot=2",
+"14155;1;bagslot=3",
+"14155;1;bagslot=4",
 },
+},
+["race"] = "Human",
 ["mailbox"] = {
 },
 },
@@ -670,8 +670,13 @@ BagSyncDB = {
 ["bag"] = {
 {
 "41262",
+"37619",
 "43090",
-"39691;20",
+"37595",
+"39691;19",
+"40682",
+"37232",
+"37172",
 "33447;4",
 "43089;35",
 "44048",
@@ -707,6 +712,15 @@ BagSyncDB = {
 "6265",
 "6265",
 "6265",
+"6265",
+"6265",
+"6265",
+"6265",
+"6265",
+"6265",
+"6265",
+"6265",
+"6265",
 },
 [0] = {
 "6948",
@@ -721,7 +735,7 @@ BagSyncDB = {
 "43102;2",
 "41426",
 "43463;2",
-"46376;18",
+"46376;16",
 "44750;18",
 "45785",
 "33448;20",
@@ -738,16 +752,16 @@ BagSyncDB = {
 ["class"] = "WARLOCK",
 ["race"] = "Human",
 ["equipbags"] = {
-["bank"] = {
-"14155;1;bagslot=5",
-"29927;1;bagslot=12",
-},
 ["bag"] = {
 "255024;1;bagslot=0",
 "14155;1;bagslot=1",
 "14155;1;bagslot=2",
 "14155;1;bagslot=3",
 "41597;1;bagslot=4",
+},
+["bank"] = {
+"14155;1;bagslot=5",
+"29927;1;bagslot=12",
 },
 },
 ["guildrealm"] = "时光IV",
@@ -760,13 +774,39 @@ BagSyncDB = {
 ["realmKey"] = "时光IV",
 ["rwsKey"] = "时光IV",
 ["gender"] = 2,
-["money"] = 1996803,
+["money"] = 5571754,
 ["faction"] = "Alliance",
 ["professions"] = {
 },
+["currency"] = {
+[201] = {
+["name"] = "风险硬币",
+["header"] = "PvP",
+["icon"] = 133799,
+["count"] = 34,
+},
+[3403] = {
+["name"] = "泰坦余烬",
+["header"] = "泰坦重铸",
+["icon"] = 237048,
+["count"] = 12,
+},
+[1901] = {
+["name"] = "荣誉点数",
+["header"] = "PvP",
+["icon"] = 136998,
+["count"] = 886,
+},
+[3406] = {
+["name"] = "泰坦碎片",
+["header"] = "泰坦重铸",
+["icon"] = 237047,
+["count"] = 9082,
+},
+},
 ["equip"] = {
 "255024",
-"37595",
+"255100",
 "44370",
 "2575",
 "42102",
@@ -774,42 +814,16 @@ BagSyncDB = {
 "255026",
 "36954",
 "37361",
-"37172",
-"37232",
+"255021",
+"255144",
 "43253",
-"40682",
 "37873",
+"255126",
 "41610",
 "255138",
 "40698",
-"37619",
+"259900",
 "43156",
-},
-["currency"] = {
-[201] = {
-["count"] = 34,
-["icon"] = 133799,
-["name"] = "风险硬币",
-["header"] = "PvP",
-},
-[3406] = {
-["count"] = 9079,
-["icon"] = 237047,
-["name"] = "泰坦碎片",
-["header"] = "泰坦重铸",
-},
-[1901] = {
-["count"] = 886,
-["icon"] = 136998,
-["name"] = "荣誉点数",
-["header"] = "PvP",
-},
-[3403] = {
-["count"] = 2,
-["icon"] = 237048,
-["name"] = "泰坦余烬",
-["header"] = "泰坦重铸",
-},
 },
 ["mailbox"] = {
 },
@@ -857,9 +871,9 @@ BagSyncDB = {
 "34761;20",
 "20815",
 "20824",
-"33445",
+"41610",
 "43089;2",
-"46376;3",
+"46376;2",
 "43156",
 "37093;5",
 "44750;20",
@@ -897,7 +911,7 @@ BagSyncDB = {
 "255105",
 "40685",
 "37111",
-"41610",
+"259903",
 "255138",
 "255098",
 "40709",
@@ -957,13 +971,28 @@ BagSyncDB = {
 },
 ["count"] = 0,
 },
-["money"] = 7924235,
+["money"] = 5298697,
 ["faction"] = "Alliance",
 ["professions"] = {
 },
+["equipbags"] = {
+["bag"] = {
+"255135;1;bagslot=0",
+"14155;1;bagslot=1",
+"14155;1;bagslot=2",
+"14155;1;bagslot=3",
+"14155;1;bagslot=4",
+},
+["bank"] = {
+"14155;1;bagslot=5",
+"14155;1;bagslot=6",
+"14155;1;bagslot=7",
+"37149;1;bagslot=12",
+},
+},
 ["currency"] = {
 [3403] = {
-["count"] = 67,
+["count"] = 83,
 ["icon"] = 237048,
 ["name"] = "泰坦余烬",
 ["header"] = "泰坦重铸",
@@ -993,21 +1022,6 @@ BagSyncDB = {
 ["header"] = "PvP",
 },
 },
-["equipbags"] = {
-["bank"] = {
-"14155;1;bagslot=5",
-"14155;1;bagslot=6",
-"14155;1;bagslot=7",
-"37149;1;bagslot=12",
-},
-["bag"] = {
-"255135;1;bagslot=0",
-"14155;1;bagslot=1",
-"14155;1;bagslot=2",
-"14155;1;bagslot=3",
-"14155;1;bagslot=4",
-},
-},
 ["mailbox"] = {
 },
 },
@@ -1021,30 +1035,30 @@ BagSyncDB = {
 ["guid"] = "Player-6383-002488ED",
 ["money"] = 0,
 ["class"] = "DRUID",
+["gender"] = 2,
+["race"] = "NightElf",
+["currency"] = {
+},
+["faction"] = "Alliance",
+["professions"] = {
+},
+["rwsKey"] = "时光IV",
 ["equip"] = {
 "6123",
 "6124",
 "3661",
 },
-["race"] = "NightElf",
-["professions"] = {
-},
-["faction"] = "Alliance",
 ["equipbags"] = {
-["bank"] = {
-},
 ["bag"] = {
 },
+["bank"] = {
 },
-["rwsKey"] = "时光IV",
-["currency"] = {
 },
-["gender"] = 2,
 },
 ["小米军儿"] = {
 ["bag"] = {
 {
-"37237",
+"36892",
 },
 {
 "36932;18",
@@ -1062,19 +1076,23 @@ BagSyncDB = {
 [0] = {
 "43089;2",
 "33470;9",
-"46377;8",
+"46377;7",
 "20815",
 "34125;20",
 "42780;3",
 "37705;2",
+"40211;4",
 "6948",
 "260722",
 "43013;3",
-"37363",
+"40211;10",
 "34736;3",
+"43523;20",
 "43251",
 "37701;3",
+"43523;20",
 "37702",
+"43523;20",
 },
 [-2] = {
 "34078",
@@ -1087,7 +1105,7 @@ BagSyncDB = {
 ["currency"] = {
 [3403] = {
 ["icon"] = 237048,
-["count"] = 87,
+["count"] = 102,
 ["header"] = "泰坦重铸",
 ["name"] = "泰坦余烬",
 },
@@ -1117,18 +1135,18 @@ BagSyncDB = {
 },
 },
 ["equipbags"] = {
-["bank"] = {
-"14155;1;bagslot=5",
-"14155;1;bagslot=6",
-"14155;1;bagslot=7",
-"37237;1;bagslot=12",
-},
 ["bag"] = {
 "257631;1;bagslot=0",
 "21841;1;bagslot=1",
 "21841;1;bagslot=2",
 "21841;1;bagslot=3",
 "21841;1;bagslot=4",
+},
+["bank"] = {
+"14155;1;bagslot=5",
+"14155;1;bagslot=6",
+"14155;1;bagslot=7",
+"37237;1;bagslot=12",
 },
 },
 ["guildrealm"] = "时光IV",
@@ -1225,10 +1243,11 @@ BagSyncDB = {
 },
 ["count"] = 0,
 },
-["money"] = 8408970,
+["money"] = 205491520,
 ["faction"] = "Alliance",
 ["professions"] = {
 },
+["race"] = "Human",
 ["equip"] = {
 "257631",
 "40678",
@@ -1249,7 +1268,6 @@ BagSyncDB = {
 "42619",
 "43157",
 },
-["race"] = "Human",
 ["mailbox"] = {
 },
 },
@@ -1263,6 +1281,14 @@ BagSyncDB = {
 ["guid"] = "Player-6383-0084FDF6",
 ["money"] = 0,
 ["class"] = "WARLOCK",
+["gender"] = 2,
+["race"] = "Human",
+["currency"] = {
+},
+["faction"] = "Alliance",
+["professions"] = {
+},
+["rwsKey"] = "时光IV",
 ["equip"] = {
 "6097",
 "57",
@@ -1270,20 +1296,12 @@ BagSyncDB = {
 "59",
 "35",
 },
-["race"] = "Human",
-["professions"] = {
-},
-["faction"] = "Alliance",
 ["equipbags"] = {
-["bank"] = {
-},
 ["bag"] = {
 },
+["bank"] = {
 },
-["rwsKey"] = "时光IV",
-["currency"] = {
 },
-["gender"] = 2,
 },
 ["京东董事长"] = {
 ["bag"] = {
@@ -1295,26 +1313,26 @@ BagSyncDB = {
 ["guid"] = "Player-6383-002452F1",
 ["money"] = 0,
 ["class"] = "PALADIN",
-["gender"] = 2,
-["race"] = "BloodElf",
-["currency"] = {
+["equipbags"] = {
+["bank"] = {
 },
-["faction"] = "Horde",
+["bag"] = {
+},
+},
+["race"] = "BloodElf",
 ["equip"] = {
 "24143",
 "24145",
 "24146",
 "23346",
 },
-["rwsKey"] = "时光IV",
-["equipbags"] = {
-["bag"] = {
-},
-["bank"] = {
-},
-},
+["faction"] = "Horde",
 ["professions"] = {
 },
+["rwsKey"] = "时光IV",
+["currency"] = {
+},
+["gender"] = 2,
 },
 ["退休码农"] = {
 ["bag"] = {
@@ -1438,14 +1456,30 @@ BagSyncDB = {
 },
 ["count"] = 0,
 },
-["money"] = 8999030,
+["money"] = 9295030,
 ["faction"] = "Alliance",
 ["professions"] = {
+},
+["equipbags"] = {
+["bag"] = {
+"257621;1;bagslot=0",
+"14155;1;bagslot=1",
+"14155;1;bagslot=2",
+"14155;1;bagslot=3",
+"14155;1;bagslot=4",
+},
+["bank"] = {
+"14155;1;bagslot=5",
+"14155;1;bagslot=6",
+"14155;1;bagslot=7",
+"14155;1;bagslot=8",
+"37715;1;bagslot=12",
+},
 },
 ["currency"] = {
 [3403] = {
 ["icon"] = 237048,
-["count"] = 82,
+["count"] = 87,
 ["header"] = "泰坦重铸",
 ["name"] = "泰坦余烬",
 },
@@ -1472,22 +1506,6 @@ BagSyncDB = {
 ["count"] = 34,
 ["header"] = "PvP",
 ["name"] = "风险硬币",
-},
-},
-["equipbags"] = {
-["bank"] = {
-"14155;1;bagslot=5",
-"14155;1;bagslot=6",
-"14155;1;bagslot=7",
-"14155;1;bagslot=8",
-"37715;1;bagslot=12",
-},
-["bag"] = {
-"257621;1;bagslot=0",
-"14155;1;bagslot=1",
-"14155;1;bagslot=2",
-"14155;1;bagslot=3",
-"14155;1;bagslot=4",
 },
 },
 ["mailbox"] = {
@@ -1521,145 +1539,145 @@ BagSyncDB = {
 ["showGuildInGoldTooltip"] = true,
 ["showBNETCRInfoWindow"] = false,
 ["showBLCurrentCharacterOnly"] = false,
-["enableRealmIDTags"] = true,
-["tracking"] = {
-["warband"] = false,
-["bag"] = true,
-["guild"] = true,
-["bank"] = true,
-["auction"] = true,
-["reagents"] = false,
-["void"] = false,
-["equip"] = true,
-["professions"] = true,
-["currency"] = true,
-["mailbox"] = true,
-},
-["unitDBVersion"] = {
-["auction"] = 1,
-},
+["showRaceIcons"] = true,
+["alwaysShowAdvSearch"] = false,
+["enableSourceExpansion"] = true,
 ["showTotal"] = true,
 ["showGuildCurrentCharacter"] = false,
-["extTT_FontMonochrome"] = false,
+["extTT_FontSize"] = 12,
 ["enableCR"] = true,
 ["sortCurrencyByExpansion"] = true,
 ["enableFactionIcons"] = false,
+["enableRealmAstrickName"] = false,
 ["enableRealmNames"] = true,
-["enableLoginVersionInfo"] = true,
 ["enableAccurateBattlePets"] = true,
-["extTT_FontOutline"] = "OUTLINE",
-["enableFaction"] = true,
+["enableCurrencyWindowTooltipData"] = true,
 ["enableRealmShortName"] = false,
 ["enableTooltipGreenCheck"] = true,
+["extTT_Font"] = "Friz Quadrata TT",
 ["addonversion"] = "19.79",
 ["minimap"] = {
 ["hide"] = false,
 },
 ["showCurrentCharacterOnly"] = false,
-["extTT_Font"] = "Friz Quadrata TT",
-["enableBNET"] = false,
-["enableShowUniqueItemsTotals"] = true,
-["tooltipModifer"] = "NONE",
+["enableFaction"] = true,
 ["enableTooltipSeparator"] = true,
+["enableItemTypes"] = true,
+["tooltipModifer"] = "NONE",
+["enableBNET"] = false,
 ["enableUnitClass"] = true,
-["enableCurrentRealmName"] = false,
+["enableShowUniqueItemsTotals"] = true,
 ["sortTooltipByTotals"] = false,
 ["itemTotalsByClassColor"] = true,
-["enableItemTypes"] = true,
+["enableCurrentRealmName"] = false,
 ["sortByCustomOrder"] = false,
 ["enable_GSC_Display"] = false,
 ["enableTooltips"] = true,
 ["showBankTabs"] = false,
-["enableCurrencyWindowTooltipData"] = true,
-["enableRealmAstrickName"] = false,
+["extTT_FontOutline"] = "OUTLINE",
+["enableLoginVersionInfo"] = true,
 ["showGuildTabs"] = false,
 ["colors"] = {
 ["warband"] = {
-["b"] = 0.2196078431372549,
-["g"] = 0.2352941176470588,
 ["r"] = 1,
+["g"] = 0.2352941176470588,
+["b"] = 0.2196078431372549,
 },
 ["total"] = {
-["b"] = 0.3764705882352941,
-["g"] = 0.6431372549019608,
 ["r"] = 0.9568627450980393,
+["g"] = 0.6431372549019608,
+["b"] = 0.3764705882352941,
 },
 ["debug"] = {
-["b"] = 0.1529411764705883,
-["g"] = 0.8470588235294118,
 ["r"] = 0.3019607843137255,
+["g"] = 0.8470588235294118,
+["b"] = 0.1529411764705883,
 },
 ["currentrealm"] = {
-["b"] = 0.09019607843137255,
-["g"] = 0.7333333333333333,
 ["r"] = 0.2980392156862745,
+["g"] = 0.7333333333333333,
+["b"] = 0.09019607843137255,
 },
 ["guild"] = {
-["b"] = 0.7529411764705882,
-["g"] = 0.7215686274509804,
 ["r"] = 0.396078431372549,
+["g"] = 0.7215686274509804,
+["b"] = 0.7529411764705882,
 },
 ["first"] = {
-["b"] = 0,
-["g"] = 1,
 ["r"] = 0.5019607843137255,
-},
-["bnet"] = {
-["b"] = 1,
-["g"] = 0.5333333333333333,
-["r"] = 0.207843137254902,
-},
-["second"] = {
-["b"] = 1,
 ["g"] = 1,
-["r"] = 1,
-},
-["warbandtabs"] = {
-["b"] = 0.8784313725490196,
-["g"] = 0.8588235294117647,
-["r"] = 0.03529411764705882,
-},
-["expansion"] = {
-["b"] = 1,
-["g"] = 0.6235294117647059,
-["r"] = 0.8117647058823529,
-},
-["itemid"] = {
-["b"] = 0.5254901960784314,
-["g"] = 0.8274509803921568,
-["r"] = 0.3215686274509804,
-},
-["guildtabs"] = {
-["b"] = 0.8784313725490196,
-["g"] = 0.8588235294117647,
-["r"] = 0.03529411764705882,
-},
-["banktabs"] = {
-["b"] = 0.8784313725490196,
-["g"] = 0.8588235294117647,
-["r"] = 0.03529411764705882,
-},
-["itemtypes"] = {
-["b"] = 0.4,
-["g"] = 0.8117647058823529,
-["r"] = 0.8,
+["b"] = 0,
 },
 ["bagslots"] = {
-["b"] = 0.4666666666666667,
-["g"] = 0.9333333333333333,
 ["r"] = 0.2666666666666667,
+["g"] = 0.9333333333333333,
+["b"] = 0.4666666666666667,
+},
+["second"] = {
+["r"] = 1,
+["g"] = 1,
+["b"] = 1,
+},
+["warbandtabs"] = {
+["r"] = 0.03529411764705882,
+["g"] = 0.8588235294117647,
+["b"] = 0.8784313725490196,
+},
+["expansion"] = {
+["r"] = 0.8117647058823529,
+["g"] = 0.6235294117647059,
+["b"] = 1,
+},
+["banktabs"] = {
+["r"] = 0.03529411764705882,
+["g"] = 0.8588235294117647,
+["b"] = 0.8784313725490196,
+},
+["guildtabs"] = {
+["r"] = 0.03529411764705882,
+["g"] = 0.8588235294117647,
+["b"] = 0.8784313725490196,
+},
+["itemid"] = {
+["r"] = 0.3215686274509804,
+["g"] = 0.8274509803921568,
+["b"] = 0.5254901960784314,
+},
+["itemtypes"] = {
+["r"] = 0.8,
+["g"] = 0.8117647058823529,
+["b"] = 0.4,
+},
+["bnet"] = {
+["r"] = 0.207843137254902,
+["g"] = 0.5333333333333333,
+["b"] = 1,
 },
 ["cr"] = {
-["b"] = 0.0392156862745098,
-["g"] = 0.4901960784313725,
 ["r"] = 1,
+["g"] = 0.4901960784313725,
+["b"] = 0.0392156862745098,
 },
 },
 ["enableWhitelist"] = false,
-["extTT_FontSize"] = 12,
-["enableSourceExpansion"] = true,
-["alwaysShowAdvSearch"] = false,
-["showRaceIcons"] = true,
+["extTT_FontMonochrome"] = false,
+["unitDBVersion"] = {
+["auction"] = 1,
+},
+["tracking"] = {
+["warband"] = false,
+["bag"] = true,
+["guild"] = true,
+["mailbox"] = true,
+["auction"] = true,
+["currency"] = true,
+["void"] = false,
+["equip"] = true,
+["professions"] = true,
+["reagents"] = false,
+["bank"] = true,
+},
+["enableRealmIDTags"] = true,
 },
 ["blacklist§"] = {
 },

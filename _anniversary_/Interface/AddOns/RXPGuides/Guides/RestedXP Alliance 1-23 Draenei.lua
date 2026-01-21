@@ -5,136 +5,136 @@ RXPGuides.RegisterGuide([[
 #tbc
 #wotlk
 << Alliance
-#name 1-12 Azuremyst Isle
+#name 1-12 秘蓝岛
 #version 1
-#group RestedXP Alliance 1-20
+#group RestedXP 联盟 1-20
 #defaultfor Draenei
-#next 11-20 Bloodmyst (Draenei)
+#next 11-20 秘血岛 (德莱尼)
 step
     .goto Azuremyst Isle,82.96,43.88 << tbc
     .goto Azuremyst Isle,84.19,43.03 << wotlk
 .target Megelon
->>Talk to |cRXP_FRIENDLY_Megelon|r
-    .accept 9279 >> Accept You Survived!
+>>对话: |cRXP_FRIENDLY_麦格伦|r
+    .accept 9279 >>接任务: |cRXP_LOOT_你活下来了！|r
 step << Shaman
 	#completewith next
 	    .goto Azuremyst Isle,80.0,47.1
-	.vendor >> Kill 2-3 mobs for vendor trash (worth 10c+), then vendor trash inside
+	.vendor >>杀死 2-3 个怪物，获取供应商垃圾（价值 10c+），然后获取里面的供应商垃圾
 step << Shaman
     .goto Azuremyst Isle,79.277,49.123
-	.trainer >> Train Rockbiter Weapon
+	.trainer >>训练石化武器
 step << Warrior
     #completewith next
         .goto Azuremyst Isle,80.0,47.1
-	.vendor >> Kill 2-3 mobs for vendor trash (worth 10c+), then vendor trash inside
+	.vendor >>杀死 2-3 个怪物，获取供应商垃圾（价值 10c+），然后获取里面的供应商垃圾
 step << Warrior
     .goto Azuremyst Isle,79.587,49.446
-  .trainer >> Train Battle Shout
+  .trainer >>列车战斗呐喊
 step << Priest/Mage
 	#completewith next
 	.goto Azuremyst Isle,79.3,50.9
-    .vendor >>Kill mobs until 48c worth of vendor trash. Vendor, then buy x10 water from Ryosh
+    .vendor >>杀死怪物，直到获得价值 48c 的供应商垃圾。供应商，然后从 Ryosh 购买 x10 水
     .collect 159,10 --Collect Refreshing Spring Water (x10)
 step
     .goto Azuremyst Isle,80.419,45.885
->>Talk to |cRXP_FRIENDLY_Proenitus|r
-    .turnin 9279 >> Turn in You Survived!
+>>对话: |cRXP_FRIENDLY_普罗尼图斯|r
+    .turnin 9279 >>交任务: |cRXP_FRIENDLY_你活下来了！|r
 .target Proenitus
-    .accept 9280 >> Accept Replenishing the Healing Crystals
+    .accept 9280 >>接任务: |cRXP_LOOT_补充治疗水晶|r
 step
     .goto Azuremyst Isle,79.1,46.5
-.target Botanist Taerix
->>Talk to |cRXP_FRIENDLY_Botanist Taerix|r
-    .accept 10302 >> Accept Volatile Mutations
+.target 植物学家泰瑞克斯
+>>对话: |cRXP_FRIENDLY_植物学家塔蕾克丝|r
+    .accept 10302 >>接任务: |cRXP_LOOT_暴躁的变异体|r
 step
 	#sticky
     #label mothblood
-    >> Kill and loot Vale Moths
+    >>杀死并掠夺谷蛾
     .complete 9280,1 --Collect Vial of Moth Blood (x8)
 step
     .goto Azuremyst Isle,78.4,44.3
-	>>Prioritize Volatile Mutations, we're turning it in then heading to the Root Lashers. You can do Moth Blood on the way back.
+	>>优先处理挥发性突变，我们将其交出，然后前往根鞭笞者。你可以在回来的路上处理蛾血。
     .complete 10302,1 --Kill Volatile Mutation (x8)
 step
     .goto Azuremyst Isle,79.1,46.4
->>Talk to |cRXP_FRIENDLY_Botanist Taerix|r
-    .turnin 10302 >> Turn in Volatile Mutations
-.target Botanist Taerix
-    .accept 9293 >> Accept What Must Be Done...
-.target Apprentice Vishael
->>Talk to |cRXP_FRIENDLY_Apprentice Vishael|r
-    .accept 9799 >> Accept Botanical Legwork
+>>对话: |cRXP_FRIENDLY_植物学家塔蕾克丝|r
+    .turnin 10302 >>交任务: |cRXP_FRIENDLY_暴躁的变异体|r
+.target 植物学家泰瑞克斯
+    .accept 9293 >>接任务: |cRXP_LOOT_必需的措施......|r
+.target 学徒 Vishael
+>>对话: |cRXP_FRIENDLY_学徒维莎尔|r
+    .accept 9799 >>接任务: |cRXP_LOOT_跑腿采花|r
 step
     .goto Azuremyst Isle,74.5,48.5
-	>>Kill lashers/loot the small flowers on the ground
+	>>杀死鞭笞者/抢劫地上的小花
     .complete 9799,1 --Collect Corrupted Flower (x3)
     .complete 9293,1 --Collect Lasher Sample (x10)
 step
     .goto Azuremyst Isle,79.1,46.5
-	.xp 4-420 >>Grind until you are 420xp away from level 4 (980/1400)
+	.xp 4-420 >>不断磨练，直到距离第 4 级还有 420xp（980/1400）
 step
     #requires mothblood
     .goto Azuremyst Isle,79.1,46.5
->>Talk to |cRXP_FRIENDLY_Botanist Taerix|r
-    .turnin 9293 >> Turn in What Must Be Done...
-.target Botanist Taerix
-    .accept 9294 >> Accept Healing the Lake
-.target Apprentice Vishael
->>Talk to |cRXP_FRIENDLY_Apprentice Vishael|r
-    .turnin 9799 >> Turn in Botanical Legwork
+>>对话: |cRXP_FRIENDLY_植物学家塔蕾克丝|r
+    .turnin 9293 >>交任务: |cRXP_FRIENDLY_必需的措施......|r
+.target 植物学家泰瑞克斯
+    .accept 9294 >>接任务: |cRXP_LOOT_净化湖水|r
+.target 学徒 Vishael
+>>对话: |cRXP_FRIENDLY_学徒维莎尔|r
+    .turnin 9799 >>交任务: |cRXP_FRIENDLY_跑腿采花|r
 step
     .goto Azuremyst Isle,80.4,45.8
->>Talk to |cRXP_FRIENDLY_Proenitus|r
-    .turnin 9280 >> Turn in Replenishing the Healing Crystals
+>>对话: |cRXP_FRIENDLY_普罗尼图斯|r
+    .turnin 9280 >>交任务: |cRXP_FRIENDLY_补充治疗水晶|r
 .target Proenitus
-    .accept 9409 >> Accept Urgent Delivery!
+    .accept 9409 >>接任务: |cRXP_LOOT_紧急物资！|r
 step
 	#completewith next
 	    .goto Azuremyst Isle,80.0,47.1
-	.vendor >> Vendor and Repair
+	.vendor >>供应商和维修
 step << Mage
 	#completewith next
 	    .goto Azuremyst Isle,79.582,48.762
 .target Valaatu
->>Talk to |cRXP_FRIENDLY_Valaatu|r
-	.turnin 9290 >> Turnin Mage Training
-	.trainer >> Train your spells
+>>对话: |cRXP_FRIENDLY_瓦拉图|r
+	.turnin 9290 >>交任务: |cRXP_FRIENDLY_法师训练|r
+	.trainer >>训练你的法术
 step << Paladin
 	#completewith next
 .target Aurelon
->>Talk to |cRXP_FRIENDLY_Aurelon|r
-	.turnin 9287 >> Turnin Paladin Training
+>>对话: |cRXP_FRIENDLY_奥雷伦|r
+	.turnin 9287 >>交任务: |cRXP_FRIENDLY_圣骑士训练|r
 	    .goto Azuremyst Isle,79.695,48.236
-	.trainer >> Train your spells
+	.trainer >>训练你的法术
 step
     .goto Azuremyst Isle,79.9,49.2
->>Talk to |cRXP_FRIENDLY_Zalduun|r
-    .turnin 9409 >> Turn in Urgent Delivery!
+>>对话: |cRXP_FRIENDLY_扎尔杜|r
+    .turnin 9409 >>交任务: |cRXP_FRIENDLY_紧急物资！|r
 .target Zalduun
-    .accept 9283 >> Accept Rescue the Survivors!
+    .accept 9283 >>接任务: |cRXP_LOOT_拯救幸存者！|r
 step << Shaman
     .goto Azuremyst Isle,79.277,49.123
 .target Firmanvaar
->>Talk to |cRXP_FRIENDLY_Firmanvaar|r
-    .accept 9449 >> Accept Call of Earth
-	.turnin 9421 >> Turn in Shaman Training
-	.trainer >> Train Earth Shock
+>>对话: |cRXP_FRIENDLY_费曼瓦尔|r
+    .accept 9449 >>接任务: |cRXP_LOOT_大地的召唤|r
+	.turnin 9421 >>交任务: |cRXP_FRIENDLY_萨满祭司训练|r
+	.trainer >>列车地震
 step << Shaman
     .goto Azuremyst Isle,71.315,39.097
->>Talk to |cRXP_FRIENDLY_Spirit of the Vale|r
-    .turnin 9449 >> Turn in Call of Earth
+>>对话: |cRXP_FRIENDLY_峡谷之灵|r
+    .turnin 9449 >>交任务: |cRXP_FRIENDLY_大地的召唤|r
 .target Spirit of the Vale
-    .accept 9450 >> Accept Call of Earth
+    .accept 9450 >>接任务: |cRXP_LOOT_大地的召唤|r
 step << Warrior
     .goto Azuremyst Isle,79.587,49.446
 .target Kore
->>Talk to |cRXP_FRIENDLY_Kore|r
-	.turnin 9289 >> Turnin Warrior Training
-	.trainer >> Train your spells
+>>对话: |cRXP_FRIENDLY_库勒|r
+	.turnin 9289 >>交任务: |cRXP_FRIENDLY_战士训练|r
+	.trainer >>训练你的法术
 step
     #sticky
     #label survivors
-	>>Use your Gift of the Naaru spell on one of the injured survivors outside the building. They are scattered all around the starting zone.
+	>>对建筑外受伤的幸存者之一使用纳鲁之赐法术。他们分散在起始区各处。
     .complete 9283,1 --Draenei Survivors Saved
 step << Shaman
     .goto Azuremyst Isle,70.1,36.6
@@ -142,496 +142,496 @@ step << Shaman
 step << Shaman
     .goto Azuremyst Isle,71.315,39.097
 .target Spirit of the Vale
->>Talk to |cRXP_FRIENDLY_Spirit of the Vale|r
-    .accept 9451 >> Accept Call of Earth
-    .turnin 9450 >> Turn in Call of Earth
+>>对话: |cRXP_FRIENDLY_峡谷之灵|r
+    .accept 9451 >>接任务: |cRXP_LOOT_大地的召唤|r
+    .turnin 9450 >>交任务: |cRXP_FRIENDLY_大地的召唤|r
 step << Shaman
     .goto Azuremyst Isle,79.277,49.123
 .target Firmanvaar
->>Talk to |cRXP_FRIENDLY_Firmanvaar|r
-    .turnin 9451 >> Turn in Call of Earth
+>>对话: |cRXP_FRIENDLY_费曼瓦尔|r
+    .turnin 9451 >>交任务: |cRXP_FRIENDLY_大地的召唤|r
 step << Hunter
 	.goto Azuremyst Isle,79.86,49.67
 .target Keilnei
->>Talk to |cRXP_FRIENDLY_Keilnei|r
-	.accept 9288 >> Accept Hunter Training
-	.turnin 9288 >> Turnin Hunter Training
-	.train 1978 >> Train Serpent Sting
+>>对话: |cRXP_FRIENDLY_基尔尼|r
+	.accept 9288 >>接任务: |cRXP_LOOT_猎人训练|r
+	.turnin 9288 >>交任务: |cRXP_FRIENDLY_猎人训练|r
+	.train 1978 >>火车毒蛇钉刺
 step << Priest
 	.goto Azuremyst Isle,79.3,50.9
-    .vendor >>Purchase more water from Ryosh
+    .vendor >>从 Ryosh 购买更多水
     .collect 159,10 --Collect Refreshing Spring Water (x15)
 step << Hunter
 	#completewith next
 	.goto Azuremyst Isle,79.3,50.9
-	.vendor >> Buy 6 stacks of arrows from Mura << Hunter
+	.vendor >>从 Mura 购买 6 组箭 << Hunter
 step
 	#label spareparts2
     .goto Azuremyst Isle,79.4,51.3
 .target Technician Zhanaa
->>Talk to |cRXP_FRIENDLY_Technician Zhanaa|r
-    .accept 9305 >> Accept Spare Parts
+>>对话: |cRXP_FRIENDLY_技师沙娜安|r
+    .accept 9305 >>接任务: |cRXP_LOOT_备用零件|r
 step
     .goto Azuremyst Isle,79.5,51.7
 .target Vindicator Aldar
->>Talk to |cRXP_FRIENDLY_Vindicator Aldar|r
-    .accept 9303 >> Accept Inoculation
+>>对话: |cRXP_FRIENDLY_守备官奥达尔|r
+    .accept 9303 >>接任务: |cRXP_LOOT_疫苗|r
 step
     .goto Azuremyst Isle,85.3,66.2
-	.use 22962 >>Use the Innoculating Crystal in your bags to innoculate the Nestlewood Owlkins.
-	>> Loot Emitters on the ground, they look like spinning pink crystals.
-    .complete 9303,1 --Nestlewood Owlkin inoculated (x6)
+	.use 22962 >>使用袋子中的接种晶体来为 Nestlewood 猫头鹰kins 接种。
+	>>地面上的战利品发射器，它们看起来像旋转的粉红色水晶。
+    .complete 9303,1 --Nestlewood 猫头鹰kin inoculated (x6)
     .complete 9305,1 --Collect Emitter Spare Part (x4)
 step
 	#sticky
 	#completewith next
-	.deathskip >> Aggro a bunch of owlkin and die on purpose. You can also stand ontop of a bonfire. Spirit rez at the Crash Site.
+	.deathskip >>激怒一群猫头鹰并故意死去。您也可以站在篝火上。在坠机地点恢复精神。
 step
     .goto Azuremyst Isle,79.4,51.3
 .target Technician Zhanaa
->>Talk to |cRXP_FRIENDLY_Technician Zhanaa|r
-    .turnin 9305 >> Turn in Spare Parts
+>>对话: |cRXP_FRIENDLY_技师沙娜安|r
+    .turnin 9305 >>交任务: |cRXP_FRIENDLY_备用零件|r
 step
     .goto Azuremyst Isle,79.5,51.5
->>Talk to |cRXP_FRIENDLY_Vindicator Aldar|r
-    .turnin 9303 >> Turn in Inoculation
+>>对话: |cRXP_FRIENDLY_守备官奥达尔|r
+    .turnin 9303 >>交任务: |cRXP_FRIENDLY_疫苗|r
 .target Vindicator Aldar
-    .accept 9309 >> Accept The Missing Scout
+    .accept 9309 >>接任务: |cRXP_LOOT_失踪的斥候|r
 step
 	#completewith next
 	.goto Azuremyst Isle,79.3,50.9
-	.vendor >> Vendor and Repair
+	.vendor >>供应商和维修
 step
     .goto Azuremyst Isle,77.3,58.7
-	>>Click on the big crystal inside  the lake
+	>>点击湖里的大水晶
     .complete 9294,1 --Collect Disperse the Neutralizing Agent (x1)
 step
     .goto Azuremyst Isle,71.998,60.856
->>Talk to |cRXP_FRIENDLY_Tolaan|r
-    .turnin 9309 >> Turn in The Missing Scout
+>>对话: |cRXP_FRIENDLY_图兰|r
+    .turnin 9309 >>交任务: |cRXP_FRIENDLY_失踪的斥候|r
 .target Tolaan
-    .accept 10303 >> Accept The Blood Elves
+    .accept 10303 >>接任务: |cRXP_LOOT_血精灵|r
 step
     .goto Azuremyst Isle,70.1,63.5
     .complete 10303,1 --Kill Blood Elf Scout (x10)
 step
     .goto Azuremyst Isle,72.0,61.0
->>Talk to |cRXP_FRIENDLY_Tolaan|r
-    .turnin 10303 >> Turn in The Blood Elves
+>>对话: |cRXP_FRIENDLY_图兰|r
+    .turnin 10303 >>交任务: |cRXP_FRIENDLY_血精灵|r
 .target Tolaan
-    .accept 9311 >> Accept Blood Elf Spy
+    .accept 9311 >>接任务: |cRXP_LOOT_血精灵间谍|r
 step
     .goto Azuremyst Isle,69.2,65.5
     .complete 9311,1 --Kill Surveyor Candress (x1)
-	.use 24414 >>Loot the plans from the Surveyor and right click it
-    .accept 9798 >> Accept Blood Elf Plans
+	.use 24414 >>从勘测员那里获取计划并右键点击它
+    .accept 9798 >>接任务: |cRXP_LOOT_血精灵计划书|r
 step
 	#sticky
 	#completewith next
-    .xp 6-1485 >>Grind elves until you are 1485xp away from level 6 (1315/2800). Let yourself get low hp on the last few mobs, we're death skipping after.
+    .xp 6-1485 >>磨练精​​灵，直到你距离 6 级还有 1485 xp（1315/2800）。让自己在最后几个怪物身上获得较低的生命值，然后我们就会跳过死亡。
 step
-	.deathskip >>Die and talk to the spirit healer to respawn at the graveyard
+	.deathskip >>死亡后与灵魂治疗师交谈，在墓地重生
     .goto Azuremyst Isle,79.2,46.4
-.target Botanist Taerix
->>Talk to |cRXP_FRIENDLY_Botanist Taerix|r
-    .turnin 9294 >> Turn in Healing the Lake
+.target 植物学家泰瑞克斯
+>>对话: |cRXP_FRIENDLY_植物学家塔蕾克丝|r
+    .turnin 9294 >>交任务: |cRXP_FRIENDLY_净化湖水|r
 step
     #label survivors2
     #requires survivors
     .goto Azuremyst Isle,80.1,49.0
 .target Zalduun
->>Talk to |cRXP_FRIENDLY_Zalduun|r
-    .turnin 9283 >> Turn in Rescue the Survivors!
+>>对话: |cRXP_FRIENDLY_扎尔杜|r
+    .turnin 9283 >>交任务: |cRXP_FRIENDLY_拯救幸存者！|r
 step
     .goto Azuremyst Isle,79.488,51.622
->>Talk to |cRXP_FRIENDLY_Vindicator Aldar|r
-    .turnin 9311 >> Turn in Blood Elf Spy
-    .turnin 9798 >> Turn in Blood Elf Plans
+>>对话: |cRXP_FRIENDLY_守备官奥达尔|r
+    .turnin 9311 >>交任务: |cRXP_FRIENDLY_血精灵间谍|r
+    .turnin 9798 >>交任务: |cRXP_FRIENDLY_血精灵计划书|r
 .target Vindicator Aldar
-    .accept 9312 >> Accept The Emitter
+    .accept 9312 >>接任务: |cRXP_LOOT_图像发射器|r
 step
     .goto Azuremyst Isle,79.422,51.234
->>Talk to |cRXP_FRIENDLY_Technician Zhanaa|r
-    .turnin 9312 >> Turn in The Emitter
+>>对话: |cRXP_FRIENDLY_技师沙娜安|r
+    .turnin 9312 >>交任务: |cRXP_FRIENDLY_图像发射器|r
 .target Technician Zhanaa
-    .accept 9313 >> Accept Travel to Azure Watch
+    .accept 9313 >>接任务: |cRXP_LOOT_前往碧蓝岗哨|r
 step
     #requires survivors2
     .goto Azuremyst Isle,64.6,54.2
 .target Aeun
->>Talk to |cRXP_FRIENDLY_Aeun|r
-    .accept 9314 >> Accept Word from Azure Watch
+>>对话: |cRXP_FRIENDLY_埃文|r
+    .accept 9314 >>接任务: |cRXP_LOOT_碧蓝岗哨的消息|r
 step
     .goto Azuremyst Isle,61.1,54.2
 .target Diktynna
->>Talk to |cRXP_FRIENDLY_Diktynna|r
-    .accept 9452 >> Accept Red Snapper - Very Tasty!
+>>对话: |cRXP_FRIENDLY_迪泰娜|r
+    .accept 9452 >>接任务: |cRXP_LOOT_美味的红钳鱼|r
 step
 	#completewith end
-	>>Keep an eye out for Draenei Younglings. This is a rare encounter. If you find one, use Gift of the Naaru (your racial) on them when they're in combat with a mob. Then, accept the quest
+	>>留意德莱尼幼崽。这是一次罕见的遭遇。如果你找到一个，当他们与怪物战斗时，对他们使用纳鲁之赐（你的种族）。然后，接受任务
 .target Draenei Youngling
->>Talk to |cRXP_FRIENDLY_Draenei Youngling|r
-	.accept 9612 >> Accept A Hearty Thanks!
+>>对话: |cRXP_FRIENDLY_年幼的德莱尼人|r
+	.accept 9612 >>接任务: |cRXP_LOOT_非常感谢！|r
 	.unitscan Draenei Youngling
 step
 	#sticky
 	#completewith next
-	.use 23654 >>Run north along the river using the fishing net on the fishing pools, once you reach the end of the river go look for Nightstalkers. Try to get at least 50% of this quest done, you will have another opportunity to finish it later.
+	.use 23654 >>沿河向北跑，使用渔网在钓鱼池上捕鱼，到达河的尽头后寻找夜行者。尽量完成至少 50% 的任务，以后你还有机会完成它。
 	.collect 23614,10
 step
     .goto Azuremyst Isle,53.9,34.4
-    .use 23678 >>Go up the west coast killing any Infected Nightstalker Runts en route until they drop a Faintly Glowing Crystal.
+    .use 23678 >>沿着西海岸前进，杀死途中所有被感染的夜行者侏儒，直到他们掉落微弱发光的水晶。
 	.collect 23678,1
-    .accept 9455 >> Accept Strange Findings
+    .accept 9455 >>接任务: |cRXP_LOOT_奇怪的发现|r
 step
 	#sticky
 	#completewith next
     .goto Azuremyst Isle,56.1,39.3
-	.deathskip >>Die on purpose and rez at Azure Watch
-    >>Make sure to die near the pond close to the mountain side
+	.deathskip >>故意死亡并复活至碧蓝岗哨
+    >>确保死在靠近山边的池塘附近
 step
     #completewith next
-    .goto Azuremyst Isle,49.0,51.6,150 >> Head to Azure Watch
+    .goto Azuremyst Isle,49.0,51.6,150 >>前往碧蓝岗哨
 step
     .goto Azuremyst Isle,48.4,51.6
-.target Anchorite Fateema
->>Talk to |cRXP_FRIENDLY_Anchorite Fateema|r
-    .accept 9463 >> Accept Medicinal Purpose
+.target 隐士法蒂玛
+>>对话: |cRXP_FRIENDLY_学者法蒂玛|r
+    .accept 9463 >>接任务: |cRXP_LOOT_医疗材料|r
 step << Shaman
     #sticky
     .goto Azuremyst Isle,49.6,53.1,0
-    >>Buy a Walking stick if you have 5s to spare
+    >>如果你有 5 先令的闲钱，就买一根手杖
     .collect 2495,1
 step
 	.isOnQuest 9612
->>Talk to |cRXP_FRIENDLY_Exarch Menelaous|r
-	.turnin 9612 >> Turn in A Hearty Thanks!
-    .turnin 9455 >> Turn in Strange Findings
+>>对话: |cRXP_FRIENDLY_大主教梅内莱厄斯|r
+	.turnin 9612 >>交任务: |cRXP_FRIENDLY_非常感谢！|r
+    .turnin 9455 >>交任务: |cRXP_FRIENDLY_奇怪的发现|r
 .target Exarch Menelaous
-    .accept 9456 >> Accept Nightstalker Clean Up, Isle 2...
+    .accept 9456 >>接任务: |cRXP_LOOT_清理夜行豹......|r
 step << Warrior/Paladin
     .goto Azuremyst Isle,49.0,51.1
-    .trainer >> Train mining and cast Find Minerals. You're mining for rough stones for later.
+    .trainer >>训练采矿并施展寻找矿物。您正在开采原石以备日后使用。
 step
     .goto Azuremyst Isle,47.2,50.6
->>Talk to |cRXP_FRIENDLY_Exarch Menelaous|r
-    .turnin 9455 >> Turn in Strange Findings
+>>对话: |cRXP_FRIENDLY_大主教梅内莱厄斯|r
+    .turnin 9455 >>交任务: |cRXP_FRIENDLY_奇怪的发现|r
 .target Exarch Menelaous
-    .accept 9456 >> Accept Nightstalker Clean Up, Isle 2...
+    .accept 9456 >>接任务: |cRXP_LOOT_清理夜行豹......|r
 step << Shaman
     .goto Azuremyst Isle,48.05,50.42
-    .trainer >> Train your spells
+    .trainer >>训练你的法术
 step
     .goto Azuremyst Isle,48.7,50.2
 .target Technician Dyvuun
->>Talk to |cRXP_FRIENDLY_Technician Dyvuun|r
-    .turnin 9313 >> Turn in Travel to Azure Watch
+>>对话: |cRXP_FRIENDLY_技师戴维恩|r
+    .turnin 9313 >>交任务: |cRXP_FRIENDLY_前往碧蓝岗哨|r
 step
     .goto Azuremyst Isle,48.4,49.3
 .target Caregiver Chellan
->>Talk to |cRXP_FRIENDLY_Caregiver Chellan|r
-    .turnin 9314 >> Turn in Word from Azure Watch
+>>对话: |cRXP_FRIENDLY_看护员谢尔兰|r
+    .turnin 9314 >>交任务: |cRXP_FRIENDLY_碧蓝岗哨的消息|r
 step
 	.goto Azuremyst Isle,48.4,49.3
-    .home >> Set your Hearthstone to Azure Watch
+    .home >>将你的炉石设置为碧蓝守望
 step << Paladin
     .goto Azuremyst Isle,48.4,49.5
-    .trainer >> Train your spells
+    .trainer >>训练你的法术
 step << Priest
     .goto Azuremyst Isle,48.603,49.285
-	 .trainer >> Train your spells
+	 .trainer >>训练你的法术
 .target Guvan
->>Talk to |cRXP_FRIENDLY_Guvan|r
-    .accept 9586 >> Accept Help Tavara
+>>对话: |cRXP_FRIENDLY_古安|r
+    .accept 9586 >>接任务: |cRXP_LOOT_帮助塔瓦拉|r
 step << Mage
     .goto Azuremyst Isle,49.9,50.0
-    .trainer >> Train your spells
+    .trainer >>训练你的法术
 step << Warrior
     .goto Azuremyst Isle,50.023,50.515
-    .trainer >> Train your spells
+    .trainer >>训练你的法术
 step << Hunter
     .goto Azuremyst Isle,49.780,51.938
-    .trainer >> Train your spells
+    .trainer >>训练你的法术
 step
 	#sticky
 	#completewith azuremyst1
-    >>Kill and loot Root Trappers/Moongraze Stags as you quest, grind even after completing the quest. Large exp grind step ahead.
+    >>完成任务后，杀死并掠夺“根部诱捕者”和“月食雄鹿”，完成任务后继续刷任务。大量经验刷任务领先一步。
     .complete 9463,1
-	.collect 23676,6 --Collect Moongraze Stag Tenderloin (x6)
+	.collect 23676,6 --Collect 月食雄鹿 Tenderloin (x6)
 step << Priest
     .goto Azuremyst Isle,56.1,48.9
     .complete 9586,1 --Heal Tavara
 step
     .goto Azuremyst Isle,47.0,70.1
-.target Admiral Odesyus
->>Talk to |cRXP_FRIENDLY_Admiral Odesyus|r
-    .accept 9506 >> Accept A Small Start
+.target 海军上将奥德修斯
+>>对话: |cRXP_FRIENDLY_海军上将奥德修斯|r
+    .accept 9506 >>接任务: |cRXP_LOOT_第三类接触|r
 step
     .goto Azuremyst Isle,46.687,70.629
 .target "Cookie" McWeaksauce
->>Talk to |cRXP_FRIENDLY_"Cookie" McWeaksauce|r
-    .accept 9512 >> Accept Cookie's Jumbo Gumbo
+>>对话: |cRXP_FRIENDLY_\"曲奇\"米维克索斯|r
+    .accept 9512 >>接任务: |cRXP_LOOT_曲奇的大餐|r
 step
     .goto Azuremyst Isle,46.4,71.2
-	.vendor >> Vendor and Repair
-    .trainer >> Train Blacksmithing and buy a Mining Pick from Calypso. This will allow you to make +2 damage sharpening stones for your weapon which are very strong. You should stop making these around level 20. << Warrior
-    .trainer >> Train Blacksmithing and buy a Mining Pick from Calypso. This will allow you to make +2 damage weightstones for your weapon which are very strong. You should stop making these around level 20. << Paladin
+	.vendor >>供应商和维修
+    .trainer >>训练锻造技能并从卡里普索那里购买采矿镐。这将允许你为你的武器制造 +2 伤害的磨刀石，这种磨刀石非常坚固。你应该在 20 级左右停止制造这些磨刀石。 << Warrior
+    .trainer >>训练锻造技能并从卡里普索那里购买采矿镐。这将允许你为你的武器制造 +2 伤害的配重石，这种配重石非常坚固。你应该在 20 级左右停止制造这些配重石。 << Paladin
 step
     .goto Azuremyst Isle,58.5,66.3
-	>>Grind en route
-	>>Loot the map located in one of the tents
+	>>途中磨砺
+	>>抢劫位于其中一个帐篷中的地图
     .complete 9506,2 --Collect Nautical Map (x1)
 step
     .goto Azuremyst Isle,59.5,67.6
-	>>Loot the compass located in one of the tents
+	>>抢劫位于其中一个帐篷里的指南针
     .complete 9506,1 --Collect Nautical Compass (x1)
 step
     .goto Azuremyst Isle,48.8,72.7
-	>>Kill crabs along the coast
+	>>沿海岸杀螃蟹
     .complete 9512,1 --Collect Skittering Crawler Meat (x6)
 step
     .goto Azuremyst Isle,46.7,70.5
 .target "Cookie" McWeaksauce
->>Talk to |cRXP_FRIENDLY_"Cookie" McWeaksauce|r
-    .turnin 9512 >> Turn in Cookie's Jumbo Gumbo
+>>对话: |cRXP_FRIENDLY_\"曲奇\"米维克索斯|r
+    .turnin 9512 >>交任务: |cRXP_FRIENDLY_曲奇的大餐|r
 step
     .goto Azuremyst Isle,47.0,70.3
->>Talk to |cRXP_FRIENDLY_Admiral Odesyus|r
-    .turnin 9506 >> Turn in A Small Start
-.target Admiral Odesyus
-    .accept 9530 >> Accept I've Got a Plant
-.target Priestess Kyleen Il'dinare
->>Talk to |cRXP_FRIENDLY_Priestess Kyleen Il'dinare|r
-    .accept 9513 >> Accept Reclaiming the Ruins
+>>对话: |cRXP_FRIENDLY_海军上将奥德修斯|r
+    .turnin 9506 >>交任务: |cRXP_FRIENDLY_第三类接触|r
+.target 海军上将奥德修斯
+    .accept 9530 >>接任务: |cRXP_LOOT_天才的方案！|r
+.target 女祭司凯琳·伊迪娜尔
+>>对话: |cRXP_FRIENDLY_女祭司基琳·伊尔蒂娜|r
+    .accept 9513 >>接任务: |cRXP_LOOT_夺回废墟|r
 step
     .goto Azuremyst Isle,47.2,70.1
 .target Archaeologist Adamant Ironheart
->>Talk to |cRXP_FRIENDLY_Archaeologist Adamant Ironheart|r
-    .accept 9523 >> Accept Precious and Fragile Things Need Special Handling
+>>对话: |cRXP_FRIENDLY_考古学家阿达曼特·铁心|r
+    .accept 9523 >>接任务: |cRXP_LOOT_贵重物品，小心轻放|r
 step
     #sticky
     .goto Azuremyst Isle,48.1,63.2
-	>>Find a hollowed out tree stump next to the area with peasants doing lumber work
+	>>在农民伐木的地方附近找到一个挖空的树桩
     .complete 9530,1 --Collect Hollowed Out Tree (x1)
 step
     .goto Azuremyst Isle,46.9,66.1
-	>>Grind while looking for piles of purple leaves on the outskirts of Odesyus' Landing
+	>>在奥德修斯登陆点的外围寻找一堆紫色的树叶
     .complete 9530,2 --Collect Pile of Leaves (x5)
 step
 	#label azuremyst1
     .goto Azuremyst Isle,47.1,70.1
-	>>Grind en route
->>Talk to |cRXP_FRIENDLY_Admiral Odesyus|r
-    .turnin 9530 >> Turn in I've Got a Plant
-.target Admiral Odesyus
-    .accept 9531 >> Accept Tree's Company
+	>>途中磨砺
+>>对话: |cRXP_FRIENDLY_海军上将奥德修斯|r
+    .turnin 9530 >>交任务: |cRXP_FRIENDLY_天才的方案！|r
+.target 海军上将奥德修斯
+    .accept 9531 >>接任务: |cRXP_LOOT_间谍之树|r
 step
     .goto Azuremyst Isle,39.4,73.9
-	>>Finish off Root Trappers/Stags.
-    .complete 9463,1 --Collect Root Trapper Vine (x8)
-	.complete 9454,1 --Collect Moongraze Stag Tenderloin (x6)
+	>>消灭 根部捕手s/Stags。
+    .complete 9463,1 --Collect 根部捕手 Vine (x8)
+	.complete 9454,1 --Collect 月食雄鹿 Tenderloin (x6)
 step
-	.xp 8-950 >> Grind until you are 950xp away from level 8 (3550/4500). Try to finish near Azure Watch if possible.
+	.xp 8-950 >>努力工作直到距离第 8 级还有 950 经验值 (3550/4500)。如果可能的话，尽量在碧蓝岗哨附近完成。
 step
     .goto Azuremyst Isle,49.780,51.938
-    >>Die and respawn at Azure Watch or run there if you're 300 yards or closer.
+    >>死亡后在 Azure Watch 重生，或者如果你距离 300 码或更近的话就跑到那里。
 step
 	.goto Azuremyst Isle,49.780,51.938
 .target Acteon
->>Talk to |cRXP_FRIENDLY_Acteon|r
-	.accept 9454 >> Accept The Great Moongraze Hunt
-    .turnin 9454 >> Turn in The Great Moongraze Hunt
-    .accept 10324 >> Accept The Great Moongraze Hunt
+>>对话: |cRXP_FRIENDLY_艾克提恩|r
+	.accept 9454 >>接任务: |cRXP_LOOT_狩猎月痕鹿|r
+    .turnin 9454 >>交任务: |cRXP_FRIENDLY_狩猎月痕鹿|r
+    .accept 10324 >>接任务: |cRXP_LOOT_狩猎月痕鹿|r
 step
     .goto Azuremyst Isle,48.390,51.770
-.target Anchorite Fateema
->>Talk to |cRXP_FRIENDLY_Anchorite Fateema|r
-    .turnin 9463 >> Turn in Medicinal Purpose
+.target 隐士法蒂玛
+>>对话: |cRXP_FRIENDLY_学者法蒂玛|r
+    .turnin 9463 >>交任务: |cRXP_FRIENDLY_医疗材料|r
 .target Daedal
->>Talk to |cRXP_FRIENDLY_Daedal|r
-    .accept 9473 >> Accept An Alternative Alternative
+>>对话: |cRXP_FRIENDLY_丹达尔|r
+    .accept 9473 >>接任务: |cRXP_LOOT_备选方案的备选方案|r
 step
     .goto Azuremyst Isle,48.9,51.1
 .target Dulvi
->>Talk to |cRXP_FRIENDLY_Dulvi|r
-    .accept 10428 >> Accept The Missing Fisherman
+>>对话: |cRXP_FRIENDLY_杜尔维|r
+    .accept 10428 >>接任务: |cRXP_LOOT_失踪的渔夫|r
 step
     .goto Azuremyst Isle,49.365,51.086
 .target Cryptographer Aurren
->>Talk to |cRXP_FRIENDLY_Cryptographer Aurren|r
-    .accept 9538 >> Accept Learning the Language
+>>对话: |cRXP_FRIENDLY_译码者奥鲁恩|r
+    .accept 9538 >>接任务: |cRXP_LOOT_学外语......|r
 step
 	.goto Azuremyst Isle,49.365,51.086
-	.use 23818 >>Click the Stillpine Furbolg Language Primer in your bags
+	.use 23818 >>点击背包中的 Stillpine Furbolg Language Primer
     .complete 9538,1 --Stillpine Furbolg Language Primer Read
 step
     .goto Azuremyst Isle,49.365,51.086
->>Talk to |cRXP_FRIENDLY_Totem of Akida|r
-    .turnin 9538 >> Turn in Learning the Language
+>>对话: |cRXP_FRIENDLY_阿基达图腾|r
+    .turnin 9538 >>交任务: |cRXP_FRIENDLY_学外语......|r
 .target Totem of Akida
-    .accept 9539 >> Accept Totem of Coo
+    .accept 9539 >>接任务: |cRXP_LOOT_库欧图腾|r
 step << Shaman
     .goto Azuremyst Isle,48.05,50.41
-    .trainer >> Train your spells
+    .trainer >>训练你的法术
 step << Hunter
     .goto Azuremyst Isle,49.780,51.938
-    .trainer >> Train your spells
+    .trainer >>训练你的法术
 step << Priest
     .goto Azuremyst Isle,48.6,49.4
 .target Guvan
->>Talk to |cRXP_FRIENDLY_Guvan|r
-    .turnin 9586 >> Turn in Help Tavara
-	 .trainer >> Train your spells
+>>对话: |cRXP_FRIENDLY_古安|r
+    .turnin 9586 >>交任务: |cRXP_FRIENDLY_帮助塔瓦拉|r
+	 .trainer >>训练你的法术
 step << Paladin
     .goto Azuremyst Isle,48.4,49.5
-    .trainer >> Train your spells
+    .trainer >>训练你的法术
 step << Mage
     .goto Azuremyst Isle,49.9,50.0
-    .trainer >> Train your spells
+    .trainer >>训练你的法术
 step << Warrior
     .goto Azuremyst Isle,50.023,50.515
-    .trainer >> Train your spells
+    .trainer >>训练你的法术
 step
 	#sticky
 	#completewith azuremyst2
-	>>Kill Nightstalkers/Moongraze Bucks as you quest
-    .complete 9456,1 --Kill Infected Nightstalker Runt (x8)
+	>>完成任务后杀死夜行者/月食雄鹿s
+    .complete 9456,1 --Kill 被感染的夜行者幼崽 (x8)
 	.complete 10324,1
 step
-	>> Grind en route
+	>>途中磨砺
 	.goto Azuremyst Isle,49.9,45.9,100,0
     .goto Azuremyst Isle,55.2,41.6
->>Talk to |cRXP_FRIENDLY_Totem of Coo|r
-    .turnin 9539 >> Turn in Totem of Coo
+>>对话: |cRXP_FRIENDLY_库欧图腾|r
+    .turnin 9539 >>交任务: |cRXP_FRIENDLY_库欧图腾|r
 .target Totem of Coo
-    .accept 9540 >> Accept Totem of Tikti
+    .accept 9540 >>接任务: |cRXP_LOOT_提克提图腾|r
 step
-	>>Jump off the cliff or wait for the spirit to give you slowfall
+	>>跳下悬崖或等待灵魂给你减速
     .goto Azuremyst Isle,53.0,34.0
-	>>Loot the small blue flowers next to tree trunks
+	>>掠夺树干旁边的蓝色小花
     .complete 9473,1 --Collect Azure Snapdragon Bulb (x5)
 step
     .goto Azuremyst Isle,64.4,39.8
->>Talk to |cRXP_FRIENDLY_Totem of Tikti|r
-    .turnin 9540 >> Turn in Totem of Tikti
+>>对话: |cRXP_FRIENDLY_提克提图腾|r
+    .turnin 9540 >>交任务: |cRXP_FRIENDLY_提克提图腾|r
 .target Totem of Tikti
-    .accept 9541 >> Accept Totem of Yor
+    .accept 9541 >>接任务: |cRXP_LOOT_尤尔图腾|r
     .timer 30,Swim Speed Buff RP
-    >>Once you turn in this quest, follow the furbolg spirit and wait until you get the swim speed buff before entering the water
+    >>完成这个任务后，跟随熊怪的灵魂，等到获得游泳速度增益后再进入水中
 step
     .waypoint Azuremyst Isle,61.0,54.2,-29,wptimer,UNIT_AURA
     .waypoint Azuremyst Isle,61.0,54.2,-1
     .waypoint Azuremyst Isle,63.39,40.37,-1
     .goto Azuremyst Isle,61.0,54.2,0
-    >>Follow the furbolg spirit and wait until you get the swim speed buff before entering the water
-    .use 23654>>Use the fish net on the fish pools along the river, if a murloc spawns from the pool, run away
+    >>遵循熊怪精神，等到获得游泳速度增益后再进入水中
+    .use 23654>>使用鱼网捕捞河边的鱼塘，如果鱼塘里出现了鱼人，就赶紧逃跑
     .complete 9452,1 --Collect Red Snapper (x10)
-	>>Avoid fighting mobs, you'll lose the swim speed if you do any hostile action
+	>>避免与怪物战斗，如果你采取任何敌对行动，你就会失去游泳速度
 step
     .goto Azuremyst Isle,61.0,54.2
->>Talk to |cRXP_FRIENDLY_Diktynna|r
-    .turnin 9452 >> Turn in Red Snapper - Very Tasty!
+>>对话: |cRXP_FRIENDLY_迪泰娜|r
+    .turnin 9452 >>交任务: |cRXP_FRIENDLY_美味的红钳鱼|r
 .target Diktynna
-    .accept 9453 >> Accept Find Acteon!
+    .accept 9453 >>接任务: |cRXP_LOOT_找到艾克提恩！|r
 step
     .goto Azuremyst Isle,63.2,68.0
-    >>Click on the totem underwater
->>Talk to |cRXP_FRIENDLY_Totem of Yor|r
-    .turnin 9541 >> Turn in Totem of Yor
+    >>点击水下的图腾
+>>对话: |cRXP_FRIENDLY_尤尔图腾|r
+    .turnin 9541 >>交任务: |cRXP_FRIENDLY_尤尔图腾|r
 .target Totem of Yor
-    .accept 9542 >> Accept Totem of Vark
+    .accept 9542 >>接任务: |cRXP_LOOT_瓦克图腾|r
     .timer 71,Totem of Vark ghostsaber RP
 step
-	>>Follow the furbolg spirit and wait until he transforms you into a ghostsaber
+	>>跟随熊怪的灵魂，等待他将你变成鬼剑士
     .waypoint Azuremyst Isle,28.1,62.5,-70,wptimer,UNIT_AURA
     .goto Azuremyst Isle,28.1,62.5,0
     .waypoint Azuremyst Isle,28.1,62.5,-1
     .waypoint Azuremyst Isle,60.68,69.21,-1
->>Talk to |cRXP_FRIENDLY_Totem of Vark|r
-    .turnin 9542 >> Turn in Totem of Vark
+>>对话: |cRXP_FRIENDLY_瓦克图腾|r
+    .turnin 9542 >>交任务: |cRXP_FRIENDLY_瓦克图腾|r
 .target Totem of Vark
-    .accept 9544 >> Accept The Prophecy of Akida
+    .accept 9544 >>接任务: |cRXP_LOOT_阿基达的预言|r
 step
 	#label azuremyst2
     .goto Azuremyst Isle,27.3,63.9
-	>>Click off your ghostsaber buff.
-	>>Kill furbolgs around this area, they drop the cage keys you need
+	>>点击关闭你的鬼剑增益。
+	>>杀死该区域周围的熊怪，它们会掉落你需要的笼子钥匙
     .complete 9544,1 --Stillpine Captive Freed (x8)
 step
     .goto Azuremyst Isle,28.6,70.0,100,0
 	.goto Azuremyst Isle,30.1,72.7
-	>>Finish off Nightstalkers/Moongraze Bucks
-	.complete 9456,1 --Kill Infected Nightstalker Runt (x8)
-    .complete 10324,1 --Collect Moongraze Buck Hide (x6)
+	>>消灭夜行者/月食雄鹿s
+	.complete 9456,1 --Kill 被感染的夜行者幼崽 (x8)
+    .complete 10324,1 --Collect 月食雄鹿 Hide (x6)
 step
 	#sticky
 	#completewith treesteptime
-	>>Grind en route
-    .collect 23759,1,9514 --Collect Rune Covered Tablet (x1)
-	.use 23759 >>Right click the item in your inventory once you loot it
-    .accept 9514>> Rune Covered Tablet
+	>>途中磨砺
+    .collect 23759,1,9514 --Collect 符文覆盖石碑 (x1)
+	.use 23759 >>抢夺物品后，右键单击库存中的物品
+    .accept 9514>>符文覆盖石碑
 step
     .goto Azuremyst Isle,31.4,79.3
-	>>Kill Nagas/Loot the light bulb looking things on the ground
-    .complete 9513,1 --Kill Wrathscale Myrmidon (x5)
-    .complete 9513,2 --Kill Wrathscale Naga (x5)
-    .complete 9513,3 --Kill Wrathscale Siren (x5)
+	>>杀死纳迦/抢劫地面上看起来像灯泡的东西
+    .complete 9513,1 --Kill 怒鳞侍从 (x5)
+    .complete 9513,2 --Kill 怒鳞纳迦 (x5)
+    .complete 9513,3 --Kill 怒鳞海妖 (x5)
     .complete 9523,1 --Collect Ancient Relic (x8)
 step
     #label treesteptime
     .goto Azuremyst Isle,18.4,84.1
-    .use 23792 >>Use the tree disguise at the naga flag
-	>>Once you use the disguise, you'll be unable to move. You have to wait about a minute to get credit for this quest.
+    .use 23792 >>在纳迦旗帜处使用树木伪装
+	>>一旦使用伪装，您将无法移动。您必须等待大约一分钟才能获得此任务的奖励。
     .complete 9531,1
     .cast 30298
     .timer 82,Traitor Uncovered
 step
     .goto Azuremyst Isle,16.5,94.4
->>Talk to |cRXP_FRIENDLY_Cowlen|r
-    .turnin 10428 >> Turn in The Missing Fisherman
+>>对话: |cRXP_FRIENDLY_库雷|r
+    .turnin 10428 >>交任务: |cRXP_FRIENDLY_失踪的渔夫|r
 .target Cowlen
-    .accept 9527 >> Accept All That Remains
+    .accept 9527 >>接任务: |cRXP_LOOT_遗体|r
 step
     .goto Azuremyst Isle,15.0,89.4
-	>>Kill Owlbeasts
+	>>杀死枭兽
     .complete 9527,1 --Collect Remains of Cowlen's Family (x1)
 step
     .goto Azuremyst Isle,16.5,94.3
 .target Cowlen
->>Talk to |cRXP_FRIENDLY_Cowlen|r
-    .turnin 9527 >> Turn in All That Remains
+>>对话: |cRXP_FRIENDLY_库雷|r
+    .turnin 9527 >>交任务: |cRXP_FRIENDLY_遗体|r
 step
 	#sticky
 	#completewith next
-    .deathskip >>Die and respawn at Azure Watch
+    .deathskip >>在碧蓝岗哨死亡并重生
 step
     .goto Azuremyst Isle,47.0,70.3
-.target Priestess Kyleen Il'dinare
->>Talk to |cRXP_FRIENDLY_Priestess Kyleen Il'dinare|r
-    .turnin 9513 >> Turn in Reclaiming the Ruins
+.target 女祭司凯琳·伊迪娜尔
+>>对话: |cRXP_FRIENDLY_女祭司基琳·伊尔蒂娜|r
+    .turnin 9513 >>交任务: |cRXP_FRIENDLY_夺回废墟|r
 .target Archaeologist Adamant Ironheart
->>Talk to |cRXP_FRIENDLY_Archaeologist Adamant Ironheart|r
-    .turnin 9523 >> Turn in Precious and Fragile Things Need Special Handling
->>Talk to |cRXP_FRIENDLY_Admiral Odesyus|r
-    .turnin 9531 >> Turn in Tree's Company
-.target Admiral Odesyus
-    .accept 9537 >> Accept Show Gnomercy
-    >>Don't turn in the Rune Covered tablet yet, otherwise a long RP sequence will start
+>>对话: |cRXP_FRIENDLY_考古学家阿达曼特·铁心|r
+    .turnin 9523 >>交任务: |cRXP_FRIENDLY_贵重物品，小心轻放|r
+>>对话: |cRXP_FRIENDLY_海军上将奥德修斯|r
+    .turnin 9531 >>交任务: |cRXP_FRIENDLY_间谍之树|r
+.target 海军上将奥德修斯
+    .accept 9537 >>接任务: |cRXP_LOOT_绳侏儒以法|r
+    >>暂时不要交出符文覆盖的石板，否则会开始一段漫长的 RP 序列
 step
     .goto Azuremyst Isle,47.0,70.3
-.target Priestess Kyleen Il'dinare
->>Talk to |cRXP_FRIENDLY_Priestess Kyleen Il'dinare|r
-    .turnin 9514 >> Turn in Rune Covered Tablet
+.target 女祭司凯琳·伊迪娜尔
+>>对话: |cRXP_FRIENDLY_女祭司基琳·伊尔蒂娜|r
+    .turnin 9514 >>交任务: |cRXP_FRIENDLY_写满符文的石板|r
 step << Hunter
 	#sticky
     .goto Azuremyst Isle,48.8,72.7
-	>>Kill crabs along the coast
+	>>沿海岸杀螃蟹
     .complete 9512,1 --Collect Skittering Crawler Meat (x6)
 step
     .goto Azuremyst Isle,50.2,70.6,40,0
     .goto Azuremyst Isle,45.7,73.2,40,0
     .goto Azuremyst Isle,50.2,70.6
-	>>Speak with Engineer "Spark" Overgrind patrolling the beach southeast, wait for his dialogue sequence and kill him
+	>>与在东南方的海滩巡逻的工程师“Spark” Overgrind 交谈，等待他的对话序列并杀死他
     .complete 9537,1 --Collect Traitor's Communication (x1)
     .skipgossip 17243
     .timer 18,Traitor's Communication RP
@@ -639,92 +639,92 @@ step
 step << Hunter
     .goto Azuremyst Isle,46.7,70.5
 .target "Cookie" McWeaksauce
->>Talk to |cRXP_FRIENDLY_"Cookie" McWeaksauce|r
-    .turnin 9512 >> Turn in Cookie's Jumbo Gumbo
+>>对话: |cRXP_FRIENDLY_\"曲奇\"米维克索斯|r
+    .turnin 9512 >>交任务: |cRXP_FRIENDLY_曲奇的大餐|r
 step
     .goto Azuremyst Isle,47.036,70.212
->>Talk to |cRXP_FRIENDLY_Admiral Odesyus|r
-    .turnin 9537 >> Turn in Show Gnomercy
-.target Admiral Odesyus
-    .accept 9602 >> Accept Deliver Them From Evil...
+>>对话: |cRXP_FRIENDLY_海军上将奥德修斯|r
+    .turnin 9537 >>交任务: |cRXP_FRIENDLY_绳侏儒以法|r
+.target 海军上将奥德修斯
+    .accept 9602 >>接任务: |cRXP_LOOT_邪恶的书信|r
 step
     .goto Azuremyst Isle,47.127,70.289
-.target Priestess Kyleen Il'dinare
->>Talk to |cRXP_FRIENDLY_Priestess Kyleen Il'dinare|r
-    .accept 9515 >> Warlord Sriss'tiz
+.target 女祭司凯琳·伊迪娜尔
+>>对话: |cRXP_FRIENDLY_女祭司基琳·伊尔蒂娜|r
+    .accept 9515 >>接任务: |cRXP_LOOT_督军斯雷提兹|r
     .maxlevel 9
 step << !Hunter
     #completewith next
-    .goto Azuremyst Isle,27.0,76.7,60 >> The path to Warlord Sriss'tiz starts here
+    .goto Azuremyst Isle,27.0,76.7,60 >>The path to 接任务: |cRXP_LOOT_督军斯雷提兹|r starts here
 step << !Hunter
-    >>Enter the naga cave and kill Warlord Sriss'tiz
+    >>Enter the naga cave and kill 接任务: |cRXP_LOOT_督军斯雷提兹|r
     .goto Azuremyst Isle,24.5,74.5
     .complete 9515,1
     .isOnQuest 9515
 step
     .goto Azuremyst Isle,49.9,51.9
-    .xp 9+3070 >> Grind until 3070+/6500xp
+    .xp 9+3070 >>升级直到 3070+/6500xp
 step
     #sticky
     #completewith next
-    .deathskip >> Death skip or run back to Azure Watch
+    .deathskip >>死亡跳跃或跑回碧蓝守望
 step
     .goto Azuremyst Isle,49.9,51.9
 .target Acteon
->>Talk to |cRXP_FRIENDLY_Acteon|r
-    .turnin 9453 >> Turn in Find Acteon!
-    .turnin 10324 >> Turn in The Great Moongraze Hunt
+>>对话: |cRXP_FRIENDLY_艾克提恩|r
+    .turnin 9453 >>交任务: |cRXP_FRIENDLY_找到艾克提恩！|r
+    .turnin 10324 >>交任务: |cRXP_FRIENDLY_狩猎月痕鹿|r
 step
     .goto Azuremyst Isle,49.5,51.2
->>Talk to |cRXP_FRIENDLY_Arugoo of the Stillpine|r
-    .turnin 9544 >> Turn in The Prophecy of Akida
+>>对话: |cRXP_FRIENDLY_止松部族的阿鲁古|r
+    .turnin 9544 >>交任务: |cRXP_FRIENDLY_阿基达的预言|r
 .target Arugoo of the Stillpine
-    .accept 9559 >> Accept Stillpine Hold
+    .accept 9559 >>接任务: |cRXP_LOOT_止松要塞|r
 step
     .goto Azuremyst Isle,48.5,51.5
 .target Daedal
->>Talk to |cRXP_FRIENDLY_Daedal|r
-    .turnin 9473 >> Turn in An Alternative Alternative
+>>对话: |cRXP_FRIENDLY_丹达尔|r
+    .turnin 9473 >>交任务: |cRXP_FRIENDLY_备选方案的备选方案|r
 step
     .goto Azuremyst Isle,47.2,50.7
->>Talk to |cRXP_FRIENDLY_Exarch Menelaous|r
-    .turnin 9456 >> Turn in Nightstalker Clean Up, Isle 2...
-    .turnin 9602 >> Turn in Deliver Them From Evil...
+>>对话: |cRXP_FRIENDLY_大主教梅内莱厄斯|r
+    .turnin 9456 >>交任务: |cRXP_FRIENDLY_清理夜行豹......|r
+    .turnin 9602 >>交任务: |cRXP_FRIENDLY_邪恶的书信|r
 .target Exarch Menelaous
-    .accept 9623 >> Accept Coming of Age << Hunter
+    .accept 9623 >>接任务: |cRXP_LOOT_成年|r << Hunter
 step
     .goto Azuremyst Isle,47.2,50.7
     .isOnQuest 9612
     .goto Azuremyst Isle,47.2,50.7
 .target Exarch Menelaous
->>Talk to |cRXP_FRIENDLY_Exarch Menelaous|r
-    .turnin 9612 >> Turn in A Hearty Thanks!
+>>对话: |cRXP_FRIENDLY_大主教梅内莱厄斯|r
+    .turnin 9612 >>交任务: |cRXP_FRIENDLY_非常感谢！|r
 step << Shaman
     .goto Azuremyst Isle,48.05,50.41
-    .trainer >> Train your level 10 spells
+    .trainer >>训练你的 10 级法术
 step << Hunter
     .goto Azuremyst Isle,49.780,51.938
-    .trainer >> Train your level 10 spells
+    .trainer >>训练你的 10 级法术
 step << Priest
     .goto Azuremyst Isle,48.6,49.4
-	 .trainer >> Train your level 10 spells
+	 .trainer >>训练你的 10 级法术
 step << Paladin
     .goto Azuremyst Isle,48.4,49.5
-    .trainer >> Train your level 10 spells
+    .trainer >>训练你的 10 级法术
 step << Mage
     .goto Azuremyst Isle,49.9,50.0
-    .trainer >> Train your level 10 spells
+    .trainer >>训练你的 10 级法术
 step << Warrior
     .goto Azuremyst Isle,50.023,50.515
-    .trainer >> Train your level 10 spells
+    .trainer >>训练你的 10 级法术
 .target Ruada
->>Talk to |cRXP_FRIENDLY_Ruada|r
-    .accept 9582 >> Accept Strength of One
+>>对话: |cRXP_FRIENDLY_鲁安达|r
+    .accept 9582 >>接任务: |cRXP_LOOT_一人之力|r
 step << Shaman
     .goto Azuremyst Isle,48.05,50.41
 .target Tuluun
->>Talk to |cRXP_FRIENDLY_Tuluun|r
-    .accept 9464 >> Accept Call of Fire
+>>对话: |cRXP_FRIENDLY_图伦|r
+    .accept 9464 >>接任务: |cRXP_LOOT_火焰的召唤|r
 step << Hunter
     .goto Azuremyst Isle,49.7,51.9
 .target Acteon
@@ -736,32 +736,32 @@ step << Hunter
 .target Jocaste
 .target Ayanna Everstride
 .target Thorgas Grimson
->>Talk to |cRXP_FRIENDLY_Thorgas Grimson|r
--->>Talk to |cRXP_FRIENDLY_Ayanna Everstride|r
--->>Talk to |cRXP_FRIENDLY_Jocaste|r
--->>Talk to |cRXP_FRIENDLY_Dorion|r
--->>Talk to |cRXP_FRIENDLY_Regnus Thundergranite|r
--->>Talk to |cRXP_FRIENDLY_Einris Brightspear|r
--->>Talk to |cRXP_FRIENDLY_Tristane Shadowstone|r
--->>Talk to |cRXP_FRIENDLY_Deremiis|r
--->>Talk to |cRXP_FRIENDLY_Acteon|r
-    .accept 9757 >> Accept Seek Huntress Kella Nightbow
+>>对话: |cRXP_FRIENDLY_索加斯·格瑞姆森|r
+-->>对话: |cRXP_FRIENDLY_阿亚娜·远途|r
+-->>对话: |cRXP_FRIENDLY_祖卡斯特|r
+-->>对话: |cRXP_FRIENDLY_多利安|r
+-->>对话: |cRXP_FRIENDLY_雷格努斯·雷石|r
+-->>对话: |cRXP_FRIENDLY_恩瑞斯·锐矛|r
+-->>对话: |cRXP_FRIENDLY_提斯坦·影石|r
+-->>对话: |cRXP_FRIENDLY_德雷米斯|r
+-->>对话: |cRXP_FRIENDLY_艾克提恩|r
+    .accept 9757 >>接任务: |cRXP_LOOT_寻找女猎手凯拉·夜弓|r
 step << Hunter
     .goto Azuremyst Isle,24.182,54.346
->>Talk to |cRXP_FRIENDLY_Huntress Kella Nightbow|r
-    .turnin 9757 >> Turn in Seek Huntress Kella Nightbow
+>>对话: |cRXP_FRIENDLY_女猎手凯拉·夜弓|r
+    .turnin 9757 >>交任务: |cRXP_FRIENDLY_寻找女猎手凯拉·夜弓|r
 .target Huntress Kella Nightbow
-    .accept 9591 >> Accept Taming the Beast
+    .accept 9591 >>接任务: |cRXP_LOOT_驯服野兽|r
 step << Hunter
     .goto Azuremyst Isle,20.7,65.1
-	.use 23896 >> Use the rod on a Barbed Crawler. They appear further down the coast, don't mistake them for Skittering Crawlers.
+	.use 23896 >>使用钓竿钓上带刺爬行者。它们出现在海岸的更远处，不要误以为它们是滑行爬行者。
     .complete 9591,1 --Tame a Barbed Crawler
     .unitscan Barbed Crawler
 step << Hunter
     #completewith next
-    .goto Azuremyst Isle,27.0,76.7,60 >> The path to Warlord Sriss'tiz starts here
+    .goto Azuremyst Isle,27.0,76.7,60 >>The path to 接任务: |cRXP_LOOT_督军斯雷提兹|r starts here
 step << Hunter
-    >>Enter the naga cave and kill Warlord Sriss'tiz
+    >>Enter the naga cave and kill 接任务: |cRXP_LOOT_督军斯雷提兹|r
 	.goto Azuremyst Isle,25.3,73.1,80,0
 	.goto Azuremyst Isle,25.9,71.2,60,0
 	.goto Azuremyst Isle,27.5,73.8,60,0
@@ -770,350 +770,350 @@ step << Hunter
     .isOnQuest 9515
 step << Hunter
     .goto Azuremyst Isle,24.182,54.346
->>Talk to |cRXP_FRIENDLY_Huntress Kella Nightbow|r
-    .turnin 9591 >> Turn in Taming the Beast
+>>对话: |cRXP_FRIENDLY_女猎手凯拉·夜弓|r
+    .turnin 9591 >>交任务: |cRXP_FRIENDLY_驯服野兽|r
 .target Huntress Kella Nightbow
-    .accept 9592 >> Accept Taming the Beast
+    .accept 9592 >>接任务: |cRXP_LOOT_驯服野兽|r
 step << Hunter
     .goto The Exodar,81.480,51.428
-    .turnin 9623 >> Turn in Coming of Age
-    .accept 9625 >> Accept Elekks Are Serious Business
+    .turnin 9623 >>交任务: |cRXP_FRIENDLY_成年|r
+    .accept 9625 >>接任务: |cRXP_LOOT_雷象可不是好玩的！|r
     --?
 step << Hunter
     .goto Azuremyst Isle,35.4,35.0,80,0
 	.goto Azuremyst Isle,39.0,31.2
-	.use 23897 >> Use the rod on a Greater Timberstrider
+	.use 23897 >>使用魔杖攻击大型林地踏浪者
     .complete 9592,1 --Tame a Greater Timberstrider
 step << Hunter
     .goto Azuremyst Isle,24.182,54.346
->>Talk to |cRXP_FRIENDLY_Huntress Kella Nightbow|r
-    .turnin 9592 >> Turn in Taming the Beast
+>>对话: |cRXP_FRIENDLY_女猎手凯拉·夜弓|r
+    .turnin 9592 >>交任务: |cRXP_FRIENDLY_驯服野兽|r
 .target Huntress Kella Nightbow
-    .accept 9593 >> Accept Taming the Beast
+    .accept 9593 >>接任务: |cRXP_LOOT_驯服野兽|r
 step << Hunter
     .goto Azuremyst Isle,35.0,33.9
-	.use 23898 >> Use the rod on a Nightstalker
+	.use 23898 >>使用魔杖对付夜行者
     .complete 9593,1 --Tame a Nightstalker
 step << Hunter
     .goto Azuremyst Isle,24.182,54.346
->>Talk to |cRXP_FRIENDLY_Huntress Kella Nightbow|r
-    .turnin 9593 >> Turn in Taming the Beast
+>>对话: |cRXP_FRIENDLY_女猎手凯拉·夜弓|r
+    .turnin 9593 >>交任务: |cRXP_FRIENDLY_驯服野兽|r
 .target Huntress Kella Nightbow
-    .accept 9675 >> Accept Beast Training
+    .accept 9675 >>接任务: |cRXP_LOOT_野兽训练|r
 step << Hunter
     #completewith next
-    .goto Azuremyst Isle,24.6,49.0,35 >>Enter The Exodar through the backdoor
+    .goto Azuremyst Isle,24.6,49.0,35 >>通过后门进入埃索达
 step << Hunter
 	.goto The Exodar,42.0,71.4,60,0
 	.goto The Exodar,44.6,72.0,60,0
     .goto The Exodar,44.1,86.6
 .target Ganaar
->>Talk to |cRXP_FRIENDLY_Ganaar|r
-    .turnin 9675 >> Turn in Beast Training
-	.trainer >> Train your pet spells << tbc
+>>对话: |cRXP_FRIENDLY_甘纳尔|r
+    .turnin 9675 >>交任务: |cRXP_FRIENDLY_野兽训练|r
+	.trainer >>训练你的宠物法术 << tbc
 step << Hunter
 	#completewith next
     .goto The Exodar,47.9,89.
-    >> Delete your old arrows. Be sure to equip the new ones you buy.
-	.vendor >> Buy 6 stacks of Sharp Arrow
+    >>删除旧箭。确保装备上你购买的新箭。
+	.vendor >>购买 6 叠利箭
 step << Hunter
 	#sticky
 	#completewith next
-    >>Speak with the weapon master upstairs
+    >>与楼上的武器大师交谈
 	.goto The Exodar,51.1,80.5,40,0
     .goto The Exodar,53.3,85.7
-    .train 202 >>Train 2h swords
+    .train 202 >>训练双手剑
 step << Hunter
 	#completewith murloc1
-	>>Jump down and head out of The Exodar
+	>>前往: |cRXP_PICK_秘蓝岛|r
 	.goto The Exodar,57.9,61.5,50,0
 	.goto The Exodar,53.0,35.0,80,0
 	.goto The Exodar,64.0,36.5,60,0
         .goto Azuremyst Isle,44.7,23.5
-	.zone Azuremyst Isle >>Jump down and head out of The Exodar
-	>> Alternatively you can do a logout skip on any brazier or by floating off of any ledge in the city
-	.link https://www.youtube.com/watch?v=WUWNGyQWJw8 >> Click here for reference
+	.zone Azuremyst Isle >>前往: |cRXP_PICK_秘蓝岛|r
+	>>或者，你也可以在任何火盆上或从城市中的任何壁架上漂浮而下进行退出跳跃
+	.link https://www.youtube.com/watch?v=WUWNGyQWJw8 >>点击此处查看参考
 step << Hunter wotlk
 	#sticky
 	#label pet1
-	.cast 1515 >> As you head the next quest hub, cast Tame Beast on a level 8+ cat on your way there
+	.cast 1515 >>当你前往下一个任务中心时，对途中的一只 8 级以上的猫施展驯服野兽
 step
     #label murloc1
     .goto Azuremyst Isle,44.7,23.5
 .target Gurf
->>Talk to |cRXP_FRIENDLY_Gurf|r
-    .accept 9562 >> Accept Murlocs... Why Here? Why Now?
+>>对话: |cRXP_FRIENDLY_古尔弗|r
+    .accept 9562 >>接任务: |cRXP_LOOT_鱼人......|r
 step
     .goto Azuremyst Isle,44.8,23.8
 .target Moordo
->>Talk to |cRXP_FRIENDLY_Moordo|r
-    .accept 9560 >> Accept Beasts of the Apocalypse!
+>>对话: |cRXP_FRIENDLY_莫多|r
+    .accept 9560 >>接任务: |cRXP_LOOT_末日的野兽！|r
 step
     .goto Azuremyst Isle,46.6,20.7
 .target High Chief Stillpine
->>Talk to |cRXP_FRIENDLY_High Chief Stillpine|r
-    .turnin 9559 >> Turn in Stillpine Hold
+>>对话: |cRXP_FRIENDLY_止松老酋长|r
+    .turnin 9559 >>交任务: |cRXP_FRIENDLY_止松要塞|r
 step << Shaman
     #sticky
 	#completewith next
-	>>Kill Ravagers
+	>>杀死掠夺者
     .complete 9560,1 --Collect Ravager Hide (x8)
 step << Shaman
     .goto Azuremyst Isle,59.6,18.0
->>Talk to |cRXP_FRIENDLY_Temper|r
-    .turnin 9464 >> Turn in Call of Fire
+>>对话: |cRXP_FRIENDLY_坦普|r
+    .turnin 9464 >>交任务: |cRXP_FRIENDLY_火焰的召唤|r
 .target Temper
-    .accept 9465 >> Accept Call of Fire
+    .accept 9465 >>接任务: |cRXP_LOOT_火焰的召唤|r
 step << Hunter tbc
 	#sticky
 	#label pet1
     .goto Azuremyst Isle,54.7,18.4
-	.cast 1515 >> Cast Tame Beast on a Ravager Specimen to tame it
+	.cast 1515 >>对掠夺者样本施展驯服野兽来驯服它
 step
     .goto Azuremyst Isle,54.7,18.4
-	>>Kill Ravagers. Loot them for their Hides
+	>>杀死掠夺者。掠夺他们的皮
     .complete 9560,1 --Collect Ravager Hide (x8)
 step << Warrior
     .goto Azuremyst Isle,54.1,9.8
-    >>Click on the Ravager cage
+    >>点击掠夺者笼子
     .complete 9582,1 --Kill Death Ravager (x1)
 step
 	#requires pet1 << Hunter
     .goto Azuremyst Isle,44.8,23.8
 .target Moordo
->>Talk to |cRXP_FRIENDLY_Moordo|r
-    .turnin 9560 >> Turn in Beasts of the Apocalypse!
+>>对话: |cRXP_FRIENDLY_莫多|r
+    .turnin 9560 >>交任务: |cRXP_FRIENDLY_末日的野兽！|r
 step
     .goto Azuremyst Isle,46.8,21.2
 .target Stillpine the Younger
->>Talk to |cRXP_FRIENDLY_Stillpine the Younger|r
-    .accept 9573 >> Accept Chieftain Oomooroo
+>>对话: |cRXP_FRIENDLY_止松酋长|r
+    .accept 9573 >>接任务: |cRXP_LOOT_欧莫鲁酋长|r
 step
     .goto Azuremyst Isle,46.6,20.6
 .target High Chief Stillpine
->>Talk to |cRXP_FRIENDLY_High Chief Stillpine|r
-    .accept 9565 >> Accept Search Stillpine Hold
+>>对话: |cRXP_FRIENDLY_止松老酋长|r
+    .accept 9565 >>接任务: |cRXP_LOOT_搜索止松要塞|r
 step
-    >>Start clearing toward the end of the cave. Stay on the upper levels.
+    >>开始清理洞穴尽头。留在上层。
 	.goto Azuremyst Isle,47.4,14.0
     .complete 9573,1 --Kill Chieftain Oomooroo (x1)
     .complete 9573,2 --Kill Crazed Wildkin (x9)
 step << Shaman
     .goto Azuremyst Isle,46.1,16.8
-    >>Keep killing owlbeasts
+    >>继续杀戮枭兽
     .complete 9465,1 --Collect Ritual Torch (x1)
 step
     .goto Azuremyst Isle,50.6,11.6
-    >> Drop down and head to the back of the cave.
-    .turnin 9565 >> Turn in Search Stillpine Hold
-    .accept 9566 >> Accept Blood Crystals
-    >>As you approach the red crystal, you'll likely find a two headed dog named "The Kurken" nearby. DO NOT KILL IT, this mob is part of the next quest
+    >>跳下去并前往洞穴后面。
+    .turnin 9565 >>交任务: |cRXP_FRIENDLY_搜索止松要塞|r
+    .accept 9566 >>接任务: |cRXP_LOOT_血水晶|r
+    >>当你接近红色水晶时，你很可能会发现附近有一只名叫“库肯”的双头狗。不要杀死它，这个怪物是下一个任务的一部分
 step
     .goto Azuremyst Isle,46.7,20.8
 .target High Chief Stillpine
->>Talk to |cRXP_FRIENDLY_High Chief Stillpine|r
-    .turnin 9566 >> Turn in Blood Crystals
+>>对话: |cRXP_FRIENDLY_止松老酋长|r
+    .turnin 9566 >>交任务: |cRXP_FRIENDLY_血水晶|r
 step
     .goto Azuremyst Isle,47.0,22.2
 .target Kurz the Revelator
->>Talk to |cRXP_FRIENDLY_Kurz the Revelator|r
-    .accept 9570 >> Accept The Kurken is Lurkin'
+>>对话: |cRXP_FRIENDLY_启示者库尔兹|r
+    .accept 9570 >>接任务: |cRXP_LOOT_可怕的库肯|r
 step
 	#completewith next
 	.goto Azuremyst Isle,46.9,22.0
-	.vendor >> Vendor, buy 6 slot bags if needed.
+	.vendor >>供应商，如果需要，请购买 6 格袋子。
 step
     .goto Azuremyst Isle,46.8,21.2
 .target Stillpine the Younger
->>Talk to |cRXP_FRIENDLY_Stillpine the Younger|r
-    .turnin 9573 >> Turn in Chieftain Oomooroo
+>>对话: |cRXP_FRIENDLY_止松酋长|r
+    .turnin 9573 >>交任务: |cRXP_FRIENDLY_欧莫鲁酋长|r
 step
     .goto Azuremyst Isle,49.9,12.8
-	>>Kill The Kurken
+	>>剛 ...
     .complete 9570,1 --Collect The Kurken's Hide (x1)
 step
     .goto Azuremyst Isle,47.0,22.2
->>Talk to |cRXP_FRIENDLY_Kurz the Revelator|r
-    .turnin 9570 >> Turn in The Kurken is Lurkin'
+>>对话: |cRXP_FRIENDLY_启示者库尔兹|r
+    .turnin 9570 >>交任务: |cRXP_FRIENDLY_可怕的库肯|r
 .target Kurz the Revelator
-    .accept 9571 >> Accept The Kurken's Hide
+    .accept 9571 >>接任务: |cRXP_LOOT_库肯的毛皮|r
 step << Shaman
     .goto Azuremyst Isle,46.7,20.8
 .target High Chief Stillpine
->>Talk to |cRXP_FRIENDLY_High Chief Stillpine|r
-    .accept 9622 >> Accept Warn Your People
+>>对话: |cRXP_FRIENDLY_止松老酋长|r
+    .accept 9622 >>接任务: |cRXP_LOOT_警告你的人民|r
 step
 	#label end
     .goto Azuremyst Isle,44.8,23.8
 .target Moordo
->>Talk to |cRXP_FRIENDLY_Moordo|r
-    .turnin 9571 >> Turn in The Kurken's Hide
+>>对话: |cRXP_FRIENDLY_莫多|r
+    .turnin 9571 >>交任务: |cRXP_FRIENDLY_库肯的毛皮|r
 step << Shaman
     .goto Azuremyst Isle,59.6,17.9
->>Talk to |cRXP_FRIENDLY_Temper|r
-    .turnin 9465 >> Turn in Call of Fire
+>>对话: |cRXP_FRIENDLY_坦普|r
+    .turnin 9465 >>交任务: |cRXP_FRIENDLY_火焰的召唤|r
 .target Temper
-    .accept 9467 >> Accept Call of Fire
+    .accept 9467 >>接任务: |cRXP_LOOT_火焰的召唤|r
 step << Shaman
-	.hs >> Hearth to Azure Watch
+	.hs >>炉石到碧蓝岛
 step << Shaman
     .goto Azuremyst Isle,47.112,50.604
 .target Exarch Menelaous
->>Talk to |cRXP_FRIENDLY_Exarch Menelaous|r
-    .turnin 9622 >> Turn in Warn Your People
+>>对话: |cRXP_FRIENDLY_大主教梅内莱厄斯|r
+    .turnin 9622 >>交任务: |cRXP_FRIENDLY_警告你的人民|r
 step << Shaman
     #sticky
 	#completewith next
-    >>Click on the Fireproof Satchel in your bags
+    >>点击背包中的防火背包
     .complete 9467,2 --Collect Ritual Torch (x1)
 step << Shaman
     .goto Azuremyst Isle,11.3,82.3
-    >>Click on the wicker man to summon Hauteur
+    >>点击柳条人召唤 Hauteur
     .complete 9467,1 --Collect Hauteur's Ashes (x1)
 step << Shaman
     .goto Azuremyst Isle,59.5,18.0
-    .use 24335>>Use the orb in your bag to teleport back to the Emberglade
->>Talk to |cRXP_FRIENDLY_Temper|r
-    .turnin 9467 >> Turn in Call of Fire
+    .use 24335>>使用包里的球体传送回 Emberglade
+>>对话: |cRXP_FRIENDLY_坦普|r
+    .turnin 9467 >>交任务: |cRXP_FRIENDLY_火焰的召唤|r
 .target Temper
-    .accept 9468 >> Accept Call of Fire
+    .accept 9468 >>接任务: |cRXP_LOOT_火焰的召唤|r
 step
 	#sticky
 	#label SGrain
     .goto Azuremyst Isle,34.1,18.0,0,0
-	>>Kill the murlocs in the area. Loot them for their Grain
+	>>杀死该区域的鱼人。掠夺他们的粮食
     .complete 9562,1 --Collect Stillpine Grain (x5)
 step
     .goto Azuremyst Isle,34.0,25.9,70,0
     .goto Azuremyst Isle,34.9,12.0,60,0
     .goto Azuremyst Isle,34.0,25.9
-    >>Kill and loot Murgurgula. He patrols the coast. Be careful as he does a LOT of damage
+    >>杀死并抢劫 Murgurgula。他巡逻海岸。小心他造成的伤害很大
 	.unitscan Murgurgula
-	.use 23850 >> Loot and click on Gurf's Dignity in your inventory
+	.use 23850 >>拾取物品栏中的 Gurf's Dignity 并点击
 	.collect 23850,1,9564 --Gurf's Dignity (1)
-    .accept 9564 >> Accept Gurf's Dignity
+    .accept 9564 >>接任务: |cRXP_LOOT_古尔弗的尊严|r
 step
 	#requires SGrain
     .goto Bloodmyst Isle,63.5,88.8
-	.zone Bloodmyst Isle >> Travel to Bloodmyst Isle
+	.zone Bloodmyst Isle >>前往: |cRXP_PICK_秘血岛|r
 ]])
 
 RXPGuides.RegisterGuide([[
 #tbc
 #wotlk
 << Alliance
-#name 11-20 Bloodmyst (Draenei)
+#name 11-20 秘血岛 (德莱尼)
 #version 1
-#group RestedXP Alliance 1-20
+#group RestedXP 联盟 1-20
 #defaultfor Draenei
-#next RestedXP Alliance 20-32\20-21 Darkshore (Draenei)
+#next RestedXP联盟20-32\\20-21黑海岸（德莱尼）
 step
     .goto Bloodmyst Isle,63.5,88.8
 .target Aonar
->>Talk to |cRXP_FRIENDLY_Aonar|r
-    .accept 9624 >> Accept A Favorite Treat
+>>对话: |cRXP_FRIENDLY_奥纳尔|r
+    .accept 9624 >>接任务: |cRXP_LOOT_美味的点心|r
 step
     #completewith next
     .goto Bloodmyst Isle,63.1,88.0
 .target Vorkhan the Elekk Herder
->>Talk to |cRXP_FRIENDLY_Vorkhan the Elekk Herder|r
-    .turnin 9625 >> Turn in Elekks Are Serious Business
+>>对话: |cRXP_FRIENDLY_雷象管理者沃克汉|r
+    .turnin 9625 >>交任务: |cRXP_FRIENDLY_雷象可不是好玩的！|r
 step
     .goto Bloodmyst Isle,63.1,88.0
 .target Vorkhan the Elekk Herder
->>Talk to |cRXP_FRIENDLY_Vorkhan the Elekk Herder|r
-    .accept 9634 >> Accept Alien Predators
+>>对话: |cRXP_FRIENDLY_雷象管理者沃克汉|r
+    .accept 9634 >>接任务: |cRXP_LOOT_大战异型掠夺者|r
 step
 	.goto Bloodmyst Isle,59.7,86.8
-    >>Do Alien Predators/A Favorite Treat while you grind
+    >>玩外星掠食者/升级时最喜欢的零食
     .xp 12-2000
 step
     #completewith next
-    .deathskip>>Die and respawn at Blood Watch
+    .deathskip>>在血色岗哨死亡并重生
 step
     .goto Bloodmyst Isle,55.7,59.7
 .target Caregiver Topher Loaal
->>Talk to |cRXP_FRIENDLY_Caregiver Topher Loaal|r
-    .accept 9603 >> Accept Beds, Bandages, and Beyond
+>>对话: |cRXP_FRIENDLY_托菲尔·罗阿|r
+    .accept 9603 >>接任务: |cRXP_LOOT_床铺，绷带，以及更多|r
 step
 	#completewith next
 	.goto Bloodmyst Isle,55.7,59.7
-    .home >> Set your Hearthstone to Blood Watch
+    .home >>将炉石设置为血色守望
 step
 	#completewith next
 	.goto Bloodmyst Isle,55.7,59.7
-	.vendor >> Buy 40 Ice Cold Milk << Mage/Priest
-	.vendor >> Buy 40 Longjaw Mud Snapper << Warrior
-	.vendor >> Buy level 5 food/drink << Paladin/Shaman
-    .vendor >> Buy water/food for you and your pet << Hunter
+	.vendor >>购买 40 杯冰牛奶 << Mage/Priest
+	.vendor >>购买 40 条长嘴泥鲷 << Warrior
+	.vendor >>购买 5 级食物/饮料 << Paladin/Shaman
+    .vendor >>为您和您的宠物购买水和食物 << Hunter
 step
     .goto Bloodmyst Isle,56.421,56.788
 .target Jessera of Mac'Aree
->>Talk to |cRXP_FRIENDLY_Jessera of Mac'Aree|r
-    .accept 9648 >> Accept Maatparm Mushroom Menagerie
+>>对话: |cRXP_FRIENDLY_玛特帕尔姆|r
+    .accept 9648 >>接任务: |cRXP_LOOT_玛特帕尔姆蘑菇展|r
 step
 	#completewith next
     .goto Bloodmyst Isle,57.6,54.0
-    .fp Blood Watch>> Get the Blood Watch flight path
+    .fp Blood Watch>>获取血卫飞行路线
 step
     .goto Bloodmyst Isle,57.6,54.0
 .target Laando
->>Talk to |cRXP_FRIENDLY_Laando|r
-    .turnin 9603 >> Turn in Beds, Bandages, and Beyond
-    >>Skip the follow up quest
+>>对话: |cRXP_FRIENDLY_兰度|r
+    .turnin 9603 >>交任务: |cRXP_FRIENDLY_床铺，绷带，以及更多|r
+    >>跳过后续任务
 step
     .goto Bloodmyst Isle,52.7,53.3
 .target Exarch Admetius
->>Talk to |cRXP_FRIENDLY_Exarch Admetius|r
-    .accept 9693 >> Accept What Argus Means to Me
+>>对话: |cRXP_FRIENDLY_主教埃德门图斯|r
+    .accept 9693 >>接任务: |cRXP_LOOT_阿古斯的意义|r
 .target Harbinger Mikolaas
->>Talk to |cRXP_FRIENDLY_Harbinger Mikolaas|r
-    .accept 9581 >> Accept Learning from the Crystals
+>>对话: |cRXP_FRIENDLY_先行官米库拉斯|r
+    .accept 9581 >>接任务: |cRXP_LOOT_研究水晶|r
 step
     .goto Bloodmyst Isle,55.421,55.232
->>Talk to |cRXP_FRIENDLY_Vindicator Boros|r
-    .turnin 9693 >> Turn in What Argus Means to Me
+>>对话: |cRXP_FRIENDLY_守备官波鲁斯|r
+    .turnin 9693 >>交任务: |cRXP_FRIENDLY_阿古斯的意义|r
 .target Vindicator Boros
-    .accept 9694 >> Accept Blood Watch
+    .accept 9694 >>接任务: |cRXP_LOOT_秘血岗哨|r
 step
 	#sticky
 	#completewith monument
-	>> Collect Irradiated Crystal Shards from any mobs on Bloodmyst Isle. Don't throw these away.
+	>>从秘血岛上的任意怪物身上收集辐射水晶碎片。不要把它们扔掉。
 	.collect 23984,10 -- Collect Irradiated Crystal Shard (x10)
 step
     .goto Bloodmyst Isle,48.4,47.9
-	>>Be careful as these mobs are difficult at this level
+	>>要小心，因为这些怪物在这个级别上很难对付
     .complete 9694,1 --Kill Sunhawk Spy (x10)
 step
     .goto Bloodmyst Isle,55.4,55.3
 .target Vindicator Boros
->>Talk to |cRXP_FRIENDLY_Vindicator Boros|r
-    .turnin 9694 >> Turn in Blood Watch
+>>对话: |cRXP_FRIENDLY_守备官波鲁斯|r
+    .turnin 9694 >>交任务: |cRXP_FRIENDLY_秘血岗哨|r
 step
     .goto Bloodmyst Isle,53.3,57.7
 .target Morae
->>Talk to |cRXP_FRIENDLY_Morae|r
-    .accept 9629 >> Accept Catch and Release
+>>对话: |cRXP_FRIENDLY_莫莱|r
+    .accept 9629 >>接任务: |cRXP_LOOT_研究鱼人|r
 step
 	#sticky
 	#completewith bloodmyst2
     .goto Bloodmyst Isle,51.1,81.4,0
-	>>Look for small red mushrooms while you quest through Bloodmyst
+	>>在秘血岛中寻找小红蘑菇
     .complete 9648,2 --Collect Blood Mushroom (x1)
 step
 	#sticky
 	#completewith next
     .goto Bloodmyst Isle,58.2,83.4
-	>>Loot a big red mushroom underwater, or kill one of the fishes and loot them for an Aquatic Stinkhorn en route
+	>>在水下拾取一个大红蘑菇，或者杀死一条鱼，在途中拾取水生臭角
 	.complete 9648,1 -- Loot an Aquatic Stinkhorn (x1)
 step
 	.goto Bloodmyst Isle,58.2,83.4
-	.use 23875 >>Use the pick in your bags to collect the small red crystal
+	.use 23875 >>使用包里的镐子收集小红水晶
     .complete 9581,1 --Collect Impact Site Crystal Sample (x1)
 step
 	#completewith grind3800
     .goto Bloodmyst Isle,59.3,89.1,0
-	>>Collect the small pears on the ground. They can be hard to spot, check around trees.
+	>>收集地上的小梨。它们可能很难被发现，请检查树木周围。
     .complete 9624,1 --Collect Sand Pear (x10)
 step
     .goto Bloodmyst Isle,59.3,89.1
@@ -1121,11 +1121,11 @@ step
 step
     .isQuestTurnedIn 9515
     .goto Bloodmyst Isle,59.3,89.1
-	.xp 12+3300 >> Grind until you're 3300 exp into level 12 (3300+10100)
+	.xp 12+3300 >>不断磨练，直到达到 3300 经验值，达到 12 级（3300+10100）
 step
 	#label grind3800
 	.goto Bloodmyst Isle,59.3,89.1
-	.xp 12+4140 >> Grind until you're 4140 exp into level 12 (4140+/10100)
+	.xp 12+4140 >>不断磨练，直到达到 4140 经验值，进入 12 级 (4140+/10100)
 step
     .goto Bloodmyst Isle,67.9,87.9,50,0
     .goto Bloodmyst Isle,66.9,84.5,50,0
@@ -1135,149 +1135,149 @@ step
     .goto Bloodmyst Isle,66.9,84.5,50,0
     .goto Bloodmyst Isle,60.1,86.1,50,0
     .goto Bloodmyst Isle,58.6,92.6
-	>>Collect the small pears on the ground. They can be hard to spot, check around trees.
+	>>收集地上的小梨。它们可能很难被发现，请检查树木周围。
     .complete 9624,1 --Collect Sand Pear (x10)
 step
     .goto Bloodmyst Isle,63.4,88.7
 .target Aonar
->>Talk to |cRXP_FRIENDLY_Aonar|r
-    .turnin 9624 >> Turn in A Favorite Treat
+>>对话: |cRXP_FRIENDLY_奥纳尔|r
+    .turnin 9624 >>交任务: |cRXP_FRIENDLY_美味的点心|r
 step
     .goto Bloodmyst Isle,63.1,87.9
 .target Vorkhan the Elekk Herder
->>Talk to |cRXP_FRIENDLY_Vorkhan the Elekk Herder|r
-    .turnin 9634 >> Turn in Alien Predators
+>>对话: |cRXP_FRIENDLY_雷象管理者沃克汉|r
+    .turnin 9634 >>交任务: |cRXP_FRIENDLY_大战异型掠夺者|r
 step
     .goto Bloodmyst Isle,63.1,87.6
 .target Kessel
->>Talk to |cRXP_FRIENDLY_Kessel|r
-    .accept 9663 >> Accept The Kessel Run
-	>>Be careful as this is a timed quest
+>>对话: |cRXP_FRIENDLY_凯希尔|r
+    .accept 9663 >>接任务: |cRXP_LOOT_凯希尔的信使|r
+	>>请小心，因为这是一个限时任务
 step
     .goto Azuremyst Isle,46.6,20.7
-	.accept 9622 >> Accept Warn Your People << !Shaman
+	.accept 9622 >>接任务: |cRXP_LOOT_警告你的人民|r << !Shaman
     .complete 9663,1 --High Chief Stillpine Warned
 	*IMPORTANT: Do not engage any mobs, attacking or casting spells will dismount you, if you get dazed by getting hit from behind you will also dismount
 step
     .goto Azuremyst Isle,44.7,23.5
 .target Gurf
->>Talk to |cRXP_FRIENDLY_Gurf|r
-    .turnin 9564 >> Turn in Gurf's Dignity
-    .turnin 9562 >> Turn in Murlocs... Why Here? Why Now?
+>>对话: |cRXP_FRIENDLY_古尔弗|r
+    .turnin 9564 >>交任务: |cRXP_FRIENDLY_古尔弗的尊严|r
+    .turnin 9562 >>交任务: |cRXP_FRIENDLY_鱼人......|r
 step << Warrior
 	#completewith kesselrun
     .goto Azuremyst Isle,50.0,50.6
->>Talk to |cRXP_FRIENDLY_Ruada|r
-    .turnin 9582 >> Turn in Strength of One
+>>对话: |cRXP_FRIENDLY_鲁安达|r
+    .turnin 9582 >>交任务: |cRXP_FRIENDLY_一人之力|r
 .target Ruada
-    .accept 10350 >> Accept Behomat
-	.trainer >> Train your level 12 spells
+    .accept 10350 >>接任务: |cRXP_LOOT_贝霍玛特|r
+	.trainer >>训练你的 12 级法术
 step << !Shaman
 	.isOnQuest 9612
     .goto Azuremyst Isle,47.1,50.5
-	.turnin 9612 >> Turn in A Hearty Thanks!
-    .turnin 9622 >> Turn in Warn Your People
+	.turnin 9612 >>交任务: |cRXP_FRIENDLY_非常感谢！|r
+    .turnin 9622 >>交任务: |cRXP_FRIENDLY_警告你的人民|r
     .complete 9663,2 --Exarch Menelaous Warned
 step << !Shaman
     .goto Azuremyst Isle,47.1,50.5
-    .turnin 9622 >> Turn in Warn Your People
+    .turnin 9622 >>交任务: |cRXP_FRIENDLY_警告你的人民|r
     .complete 9663,2 --Exarch Menelaous Warned
 step << Shaman
     .goto Azuremyst Isle,48.05,50.41
->>Talk to |cRXP_FRIENDLY_Tuluun|r
-    .turnin 9468 >> Turn in Call of Fire
+>>对话: |cRXP_FRIENDLY_图伦|r
+    .turnin 9468 >>交任务: |cRXP_FRIENDLY_火焰的召唤|r
 .target Tuluun
-    .accept 9461 >> Accept Call of Fire
+    .accept 9461 >>接任务: |cRXP_LOOT_火焰的召唤|r
 step << Shaman
 	#completewith next
 	.isOnQuest 9612
     .goto Azuremyst Isle,47.1,50.5
-	.turnin 9612 >> Turn in A Hearty Thanks!
+	.turnin 9612 >>交任务: |cRXP_FRIENDLY_非常感谢！|r
     .complete 9663,2 --Exarch Menelaous Warned
-	   .trainer >> Train your level 12 spells
+	   .trainer >>训练你的 12 级法术
 step << Shaman
     .goto Azuremyst Isle,47.1,50.5
     .complete 9663,2 --Exarch Menelaous Warned
 step << Hunter
 	#completewith next
     .goto Azuremyst Isle,49.780,51.938
-    .trainer >> Train your level 12 spells
+    .trainer >>训练你的 12 级法术
 step << Priest
 	#completewith next
     .goto Azuremyst Isle,48.6,49.4
-	 .trainer >> Train your level 12 spells
+	 .trainer >>训练你的 12 级法术
 step << Mage
 	#completewith next
     .goto Azuremyst Isle,49.9,50.0
-    .trainer >> Train your level 12 spells
+    .trainer >>训练你的 12 级法术
 step
 	#label kesselrun
     .goto Azuremyst Isle,46.9,70.3
-    .complete 9663,3 --Admiral Odesyus Warned
+    .complete 9663,3 --海军上将奥德修斯 Warned
 step
     .goto Azuremyst Isle,46.9,70.3
-.target Priestess Kyleen Il'dinare
->>Talk to |cRXP_FRIENDLY_Priestess Kyleen Il'dinare|r
-    .turnin 9515 >> Warlord Sriss'tiz
+.target 女祭司凯琳·伊迪娜尔
+>>对话: |cRXP_FRIENDLY_女祭司基琳·伊尔蒂娜|r
+    .turnin 9515 >>接任务: |cRXP_LOOT_督军斯雷提兹|r
     .isQuestComplete 9515
 step << Paladin
     #completewith next
-    .goto Azuremyst Isle,24.6,49.4,30 >>Enter The Exodar through the backdoor
+    .goto Azuremyst Isle,24.6,49.4,30 >>通过后门进入埃索达
 step << Paladin
 	.goto The Exodar,51.0,46.8,80,0
     .goto The Exodar,38.5,82.5
 .target Jol
->>Talk to |cRXP_FRIENDLY_Jol|r
-    .accept 9598 >>Accept Redemption
-    .turnin 9598 >>Turn in Redemption
-    .accept 9600 >>Accept Redemption
-	.trainer >> Train your level 12 spells
+>>对话: |cRXP_FRIENDLY_约尔|r
+    .accept 9598 >>接任务: |cRXP_LOOT_救赎|r
+    .turnin 9598 >>交任务: |cRXP_FRIENDLY_救赎|r
+    .accept 9600 >>接任务: |cRXP_LOOT_救赎|r
+	.trainer >>训练你的 12 级法术
 step << !Shaman
 	#completewith next
-	.hs >> Hearth to Blood Watch
+	.hs >>炉石到秘血岛
 step << Shaman
 	#completewith next
-	.hs >> Hearth to Blood Watch. If your hearth is still on cooldown, ride to The Exodar and fly to Blood Watch
+	.hs >>从炉边前往血腥岗哨。如果你的炉边技能还在冷却，骑车前往埃索达，然后飞往血腥岗哨
 step
     .goto Bloodmyst Isle,52.7,53.3
->>Talk to |cRXP_FRIENDLY_Harbinger Mikolaas|r
-    .turnin 9581 >> Turn in Learning from the Crystals
+>>对话: |cRXP_FRIENDLY_先行官米库拉斯|r
+    .turnin 9581 >>交任务: |cRXP_FRIENDLY_研究水晶|r
 .target Harbinger Mikolaas
-    .accept 9620 >> Accept The Missing Survey Team
+    .accept 9620 >>接任务: |cRXP_LOOT_失踪的测量小组|r
 step
     .goto Bloodmyst Isle,55.081,57.958
 .target Vindicator Aalesia
->>Talk to |cRXP_FRIENDLY_Vindicator Aalesia|r
-    .accept 9567 >> Accept Know Thine Enemy
+>>对话: |cRXP_FRIENDLY_守备官艾蕾希亚|r
+    .accept 9567 >>接任务: |cRXP_LOOT_知己知彼|r
 step << Warrior/Rogue
     .goto Bloodmyst Isle,55.2,58.2
-    .collect 25873,1 >> Purchase a Keen Throwing Knife from Meriaad
+    .collect 25873,1 >>从梅里雅德购买一把锋利的飞刀
 step
     .goto Bloodmyst Isle,63.1,87.7
->>Talk to |cRXP_FRIENDLY_Kessel|r
-    .turnin 9663 >> Turn in The Kessel Run
+>>对话: |cRXP_FRIENDLY_凯希尔|r
+    .turnin 9663 >>交任务: |cRXP_FRIENDLY_凯希尔的信使|r
 .target Kessel
-    .accept 9666 >> Accept Declaration of Power
+    .accept 9666 >>接任务: |cRXP_LOOT_展示力量|r
 step
     .goto Bloodmyst Isle,68.2,81.1
 .target Princess Stillpine
->>Talk to |cRXP_FRIENDLY_Princess Stillpine|r
-    .accept 9667 >> Accept Saving Princess Stillpine
+>>对话: |cRXP_FRIENDLY_止松公主|r
+    .accept 9667 >>接任务: |cRXP_LOOT_拯救止松公主|r
 step << Paladin
     .goto Bloodmyst Isle,65.0,77.5
-	.use 6866 >>Use the symbol of life on a dead furbolg shaman
+	.use 6866 >>对死去的熊怪萨满使用生命徽记
     .complete 9600,1 --Young Furbolg Shaman Resurrected (1)
 step
 	#sticky
 	#label Polyspore
-	>>Loot a small blue mushroom around the tree at naga ruins
+	>>在纳迦废墟的树周围拾取一朵蓝色的小蘑菇
     .complete 9648,3 --Collect Ruinous Polyspore (x1)
     .goto Bloodmyst Isle,66.5,69.9,0,0
 step
     .goto Bloodmyst Isle,66.9,70.2,50,0
     .goto Bloodmyst Isle,67.3,68.0,50,0
     .goto Bloodmyst Isle,68.9,68.0
-	.use 24084 >>Kill Lord Xiz. Use the Draenei Banner in your bags on his corpse
+	.use 24084 >>杀死西兹领主。用你包里的德莱尼旗帜攻击他的尸体
     .complete 9666,2 --Kill Lord Xiz (x1)
     .complete 9666,1 --Declaration of Power (1)
 step
@@ -1285,7 +1285,7 @@ step
 	#requires Polyspore
 	#completewith next
     .goto Bloodmyst Isle,64.2,76.8
-    >>Kill furbolgs until the high chief spawns. Kill High Chief Bristlelimb and loot him for his key.
+    >>杀死熊怪直到大酋长出现。杀死大酋长 Bristlelimb 并从他身上夺取钥匙。
 	.unitscan High Chief Bristlelimb
     .collect 24099,1 --Collect The High Chief's Key (x1)
 step
@@ -1294,156 +1294,156 @@ step
     .complete 9667,1 --Free Saving Princess Stillpine
 step
     .goto Bloodmyst Isle,63.0,87.6
->>Talk to |cRXP_FRIENDLY_Kessel|r
-    .turnin 9666 >> Turn in Declaration of Power
+>>对话: |cRXP_FRIENDLY_凯希尔|r
+    .turnin 9666 >>交任务: |cRXP_FRIENDLY_展示力量|r
 .target Kessel
-    .accept 9668 >> Accept Report to Exarch Admetius
+    .accept 9668 >>接任务: |cRXP_LOOT_向主教埃德门图斯报告|r
 step
     .goto Bloodmyst Isle,56.0,79.5
-	>>Loot a big red mushroom underwater, or kill one of the fishes and loot them
+	>>在水下拾取一个大红蘑菇，或者杀死一条鱼并拾取它们
     .complete 9648,1 --Collect Aquatic Stinkhorn (x1)
 step
 	#completewith next
     .goto Bloodmyst Isle,35.6,94.2,0
     .goto Bloodmyst Isle,51.3,93.9,0
-	.use 23995 >>Use the Blacksilt tagger in your bags to tag scouts. This will make them non-hostile towards you.
+	.use 23995 >>使用背包中的 Blacksilt 标记器标记侦察兵。这样他们就会对你失去敌意。
     .complete 9629,1 --Blacksilt Scouts Tagged (x6)
 step
     .goto Bloodmyst Isle,51.1,93.1,70,0
     .goto Bloodmyst Isle,43.0,94.4,70,0
     .goto Bloodmyst Isle,35.1,93.7
 	.line Bloodmyst Isle,51.1,93.1,43.0,94.4,35.1,93.7
-	.use 23870 >>Kill the named murloc, Cruelfin, that patrols the around the murloc camps. Loot him for the Pendant. Click it in your bags
+	.use 23870 >>杀死在鱼人营地周围巡逻的名为 Cruelfin 的鱼人。从他身上拾取吊坠。点击背包中的吊坠
 	.collect 23870,1,9576 --Red Crystal Pendant (1)
-    .accept 9576 >> Accept Cruelfin's Necklace
+    .accept 9576 >>接任务: |cRXP_LOOT_克鲁芬的项链|r
 	.unitscan Cruelfin
 step
     .goto Bloodmyst Isle,35.6,94.2,70,0
     .goto Bloodmyst Isle,51.3,93.9
-	.use 23995 >>Use the Blacksilt tagger in your bags to tag scouts. This will make them non-hostile towards you.
+	.use 23995 >>使用背包中的 Blacksilt 标记器标记侦察兵。这样他们就会对你失去敌意。
     .complete 9629,1 --Blacksilt Scouts Tagged (x6)
 step
 	#sticky
 	#label greenmushroom
-	>>Look for small green mushrooms close to the satyr area
+	>>寻找靠近萨蒂尔区域的绿色小蘑菇
     .complete 9648,4 --Collect Fel Cone Fungus (x1)
 step
 	#sticky
 	#label monument
     .goto Bloodmyst Isle,36.5,71.5
-	>>Click on the small sign at the monument
+	>>点击纪念碑上的小标志
     .complete 9567,1 --Collect Nazzivus Monument Glyph (x1)
 step
     .goto Bloodmyst Isle,38.2,81.7,60,0
 	.goto Bloodmyst Isle,36.5,71.5,60,0
 	.goto Bloodmyst Isle,38.2,81.7
-    .use 23900 >>Kill the named Felguard, Tzerak, that roams the area between the summoning sigil and the Monument Glyph (where he despawns before reappearing at the sigil). Loot him for his Armor Plate, then click it in your bags
+    .use 23900 >>杀死恶魔守卫 Tzerak，它在召唤符文和纪念碑符文之间的区域游荡（他会在那里消失，然后重新出现在符文处）。抢夺他的护甲板，然后点击它进入你的背包
 	.collect 23900,1,9594 --Tzerak's Armor Plate
-    .accept 9594 >> Accept Signs of the Legion
+    .accept 9594 >>接任务: |cRXP_LOOT_军团的徽记|r
 	.unitscan Tzerak
     *Each respawn/despawn cycle takes about 6-7 minutes total
     --TODO: ??? bugged on wotlk beta
 step
     .goto Bloodmyst Isle,37.0,78.7
-	>>Kill Satyrs and Felsworn in the area. You may have to kill Rogues to force the respawns of the satyr's you need.
+	>>杀死该区域的萨特和魔誓者。你可能需要杀死盗贼才能强制重生所需的萨特。
     .complete 9594,1 --Kill Nazzivus Satyr (x8)
     .complete 9594,2 --Kill Nazzivus Felsworn (x8)
 step << Shaman
 	#sticky
 	#completewith next
-	.hs Blood Watch >> If your hearth is up, hearth to Blood Watch
+	.hs Blood Watch >>如果你的炉火已经烧起来，就去血卫
 step
 	#requires greenmushroom
     .goto Bloodmyst Isle,53.3,57.6
->>Talk to |cRXP_FRIENDLY_Morae|r
-    .turnin 9576 >> Turn in Cruelfin's Necklace
-    .turnin 9629 >> Turn in Catch and Release
+>>对话: |cRXP_FRIENDLY_莫莱|r
+    .turnin 9576 >>交任务: |cRXP_FRIENDLY_克鲁芬的项链|r
+    .turnin 9629 >>交任务: |cRXP_FRIENDLY_研究鱼人|r
 .target Morae
-    .accept 9574 >> Accept Victims of Corruption
+    .accept 9574 >>接任务: |cRXP_LOOT_腐蚀的牺牲品|r
 step
     .goto Bloodmyst Isle,50.6,74.4
-	>>Kill treants around this area. Loot them for their bark. Grind en route between treants.
+	>>杀死该区域周围的树人。掠夺它们的树皮。在树人之间磨砺。
     .complete 9574,1 --Collect Crystallized Bark (x6)
 step
     .goto Bloodmyst Isle,53.3,57.8
 .target Morae
->>Talk to |cRXP_FRIENDLY_Morae|r
-    .turnin 9574 >> Turn in Victims of Corruption
+>>对话: |cRXP_FRIENDLY_莫莱|r
+    .turnin 9574 >>交任务: |cRXP_FRIENDLY_腐蚀的牺牲品|r
 step
 	#completewith next
 	.goto Bloodmyst Isle,53.3,56.7
-	.vendor >> Vendor and Repair << !Hunter
-	.vendor >> Buy a Medium Quiver and restock on arrows << Hunter
+	.vendor >>供应商和维修 << !Hunter
+	.vendor >>购买中型箭筒并补充箭 << Hunter
 step
     .goto Bloodmyst Isle,55.1,59.2
-    .accept 9646 >> Accept WANTED: Deathclaw
+    .accept 9646 >>接任务: |cRXP_LOOT_通缉：死爪|r
 step
     .goto Bloodmyst Isle,55.0,58.1
 .target Vindicator Aalesia
->>Talk to |cRXP_FRIENDLY_Vindicator Aalesia|r
-    .turnin 9594 >> Turn in Signs of the Legion
-    .turnin 9567 >> Turn in Know Thine Enemy
+>>对话: |cRXP_FRIENDLY_守备官艾蕾希亚|r
+    .turnin 9594 >>交任务: |cRXP_FRIENDLY_军团的徽记|r
+    .turnin 9567 >>交任务: |cRXP_FRIENDLY_知己知彼|r
 step
     .goto Bloodmyst Isle,55.2,56.0
 .target Stillpine Ambassador Frasaboo
->>Talk to |cRXP_FRIENDLY_Stillpine Ambassador Frasaboo|r
-    .turnin 9667 >> Turn in Saving Princess Stillpine
+>>对话: |cRXP_FRIENDLY_止松大使欧罗尔格|r
+    .turnin 9667 >>交任务: |cRXP_FRIENDLY_拯救止松公主|r
 step
     .goto Bloodmyst Isle,56.4,56.7
 .target Jessera of Mac'Aree
->>Talk to |cRXP_FRIENDLY_Jessera of Mac'Aree|r
-    .turnin 9648 >> Turn in Maatparm Mushroom Menagerie
+>>对话: |cRXP_FRIENDLY_玛特帕尔姆|r
+    .turnin 9648 >>交任务: |cRXP_FRIENDLY_玛特帕尔姆蘑菇展|r
 step
     .goto Bloodmyst Isle,55.4,55.3
 .target Vindicator Boros
->>Talk to |cRXP_FRIENDLY_Vindicator Boros|r
-    .accept 9641 >> Accept Irradiated Crystal Shards
-    .accept 9779 >> Accept Intercepting the Message
+>>对话: |cRXP_FRIENDLY_守备官波鲁斯|r
+    .accept 9641 >>接任务: |cRXP_LOOT_辐射水晶碎片|r
+    .accept 9779 >>接任务: |cRXP_LOOT_拦截情报|r
 step
 	.goto Bloodmyst Isle,55.4,55.4
 	.itemcount 23984,10
 .target Vindicator Boros
->>Talk to |cRXP_FRIENDLY_Vindicator Boros|r
-	.turnin 9641,3 >> Turn in Irradiated Crystal Shards << Warrior/Paladin/Hunter/Rogue/Shaman
-    .turnin 9641,2 >> Turn in Irradiated Crystal Shards << Mage/Priest/Warlock
-    .turnin 9641 >> Turn in Irradiated Crystal Shards << Druid
+>>对话: |cRXP_FRIENDLY_守备官波鲁斯|r
+	.turnin 9641,3 >>交任务: |cRXP_FRIENDLY_辐射水晶碎片|r << Warrior/Paladin/Hunter/Rogue/Shaman
+    .turnin 9641,2 >>交任务: |cRXP_FRIENDLY_辐射水晶碎片|r << Mage/Priest/Warlock
+    .turnin 9641 >>交任务: |cRXP_FRIENDLY_辐射水晶碎片|r << Druid
 step
     .itemcount 23984,10
     .goto Bloodmyst Isle,55.421,55.232
 .target Vindicator Boros
->>Talk to |cRXP_FRIENDLY_Vindicator Boros|r
-    .turnin 9642,3 >> Turn in More Irradiated Crystal Shards << Warrior/Paladin/Hunter/Rogue/Shaman
-    .turnin 9642,2 >> Turn in More Irradiated Crystal Shards << Warlock/Priest/Mage
-    .turnin 9642 >> Turn in More Irradiated Crystal Shards << Druid
+>>对话: |cRXP_FRIENDLY_守备官波鲁斯|r
+    .turnin 9642,3 >>交任务: |cRXP_FRIENDLY_更多辐射水晶碎片|r << Warrior/Paladin/Hunter/Rogue/Shaman
+    .turnin 9642,2 >>交任务: |cRXP_FRIENDLY_更多辐射水晶碎片|r << Warlock/Priest/Mage
+    .turnin 9642 >>交任务: |cRXP_FRIENDLY_更多辐射水晶碎片|r << Druid
 step
     .goto Bloodmyst Isle,61.1,48.6
->>Talk to |cRXP_FRIENDLY_Draenei Cartographer|r
-    .turnin 9620 >> Turn in The Missing Survey Team
+>>对话: |cRXP_FRIENDLY_德莱尼制图师|r
+    .turnin 9620 >>交任务: |cRXP_FRIENDLY_失踪的测量小组|r
 .target Draenei Cartographer
-    .accept 9628 >> Accept Salvaging the Data
+    .accept 9628 >>接任务: |cRXP_LOOT_夺回数据|r
 step
     .goto Bloodmyst Isle,62.7,47.6
-	>>Kill nagas until you get the survey data crystal
+	>>杀死纳迦直到你得到勘测数据水晶
     .complete 9628,1 --Collect Survey Data Crystal (x1)
 step
     .goto Bloodmyst Isle,52.7,53.3
->>Talk to |cRXP_FRIENDLY_Harbinger Mikolaas|r
-    .turnin 9628 >> Turn in Salvaging the Data
+>>对话: |cRXP_FRIENDLY_先行官米库拉斯|r
+    .turnin 9628 >>交任务: |cRXP_FRIENDLY_夺回数据|r
 .target Harbinger Mikolaas
-    .accept 9584 >> Accept The Second Sample
+    .accept 9584 >>接任务: |cRXP_LOOT_第二份样本|r
 .target Exarch Admetius
->>Talk to |cRXP_FRIENDLY_Exarch Admetius|r
-    .turnin 9668 >> Turn in Report to Exarch Admetius
+>>对话: |cRXP_FRIENDLY_主教埃德门图斯|r
+    .turnin 9668 >>交任务: |cRXP_FRIENDLY_向主教埃德门图斯报告|r
 step
     #sticky
 	#label Missive
 	#completewith mailbox
 	.goto Bloodmyst Isle,48.1,47.6
-	>>Kill elves around this area
+	>>杀死该区域周围的精灵
     .complete 9779,1 --Collect Sunhawk Missive (x1)
 step
     .goto Bloodmyst Isle,45.7,47.8
-	.use 23876 >>Use the pick in your bags to collect the small red crystal
+	.use 23876 >>使用包里的镐子收集小红水晶
     .complete 9584,1 --Collect Altered Crystal Sample (x1)
 step
 	.goto Bloodmyst Isle,48.1,47.6
@@ -1457,93 +1457,93 @@ step
 	.goto Bloodmyst Isle,55.3,55.3,100,0
 	.goto Bloodmyst Isle,52.681,53.175,80,0
 	.goto Bloodmyst Isle,55.0,59.3
-	>>Speak to Messenger Hermesius, he patrols around Blood Watch
+	>>与信使赫尔梅修斯交谈，他在血色守望周围巡逻
 	.unitscan Messenger Hermesius
 .target Messenger Hermesius
->>Talk to |cRXP_FRIENDLY_Messenger Hermesius|r
+>>对话: |cRXP_FRIENDLY_信使赫米修斯|r
 	.turnin 9671
 step
     #requires Missive
 	.goto Bloodmyst Isle,52.681,53.175
->>Talk to |cRXP_FRIENDLY_Harbinger Mikolaas|r
-    .turnin 9584 >> Turn in The Second Sample
+>>对话: |cRXP_FRIENDLY_先行官米库拉斯|r
+    .turnin 9584 >>交任务: |cRXP_FRIENDLY_第二份样本|r
 .target Harbinger Mikolaas
-    .accept 9585 >> Accept The Final Sample
+    .accept 9585 >>接任务: |cRXP_LOOT_最终的样本|r
 step
     .goto Bloodmyst Isle,55.3,55.3
->>Talk to |cRXP_FRIENDLY_Vindicator Boros|r
-    .turnin 9779 >> Turn in Intercepting the Message
+>>对话: |cRXP_FRIENDLY_守备官波鲁斯|r
+    .turnin 9779 >>交任务: |cRXP_FRIENDLY_拦截情报|r
 .target Vindicator Boros
-    .accept 9696 >> Accept Translations...
+    .accept 9696 >>接任务: |cRXP_LOOT_翻译......|r
 step << Paladin
 	.goto Bloodmyst Isle,55.6,55.3
-	.trainer >> Train class spells at Vindicator Aesom
+	.trainer >>在 Vindicator Aesom 训练职业法术
 step
     .goto Bloodmyst Isle,54.5,54.6
-    .turnin -9696 >> Turn in Translations...
+    .turnin -9696 >>交任务: |cRXP_FRIENDLY_翻译……|r
 .target Interrogator Elysia
->>Talk to |cRXP_FRIENDLY_Interrogator Elysia|r
-    .accept 9698 >> Accept Audience with the Prophet
+>>对话: |cRXP_FRIENDLY_审讯者埃莉西亚|r
+    .accept 9698 >>接任务: |cRXP_LOOT_会见先知|r
 step
     .xp 15
 step
 	#requires mailbox
-	.use 24132 >>Open your mailbox, retrieve the note and accept the quest
+	.use 24132 >>打开邮箱，取出纸条并接受任务
     .goto Bloodmyst Isle,55.1,59.1
 	.collect 24132,1,9672 --Collect A Letter from the Admiral
-    .accept 9672 >> Accept The Bloodcurse Legacy
+    .accept 9672 >>接任务: |cRXP_LOOT_血咒的遗产|r
 step
 	#sticky
 	#completewith next
-	.vendor >> Go inside and buy level 15 food from Topher << Warrior/Rogue/Shaman/Paladin
-	.vendor >> Purchase Ice Cold Milk or Melon Juice if needed as well << Priest/Shaman/Paladin
+	.vendor >>进去从托弗那里购买 15 级食物 << Warrior/Rogue/Shaman/Paladin
+	.vendor >>如果需要的话也可以购买冰牛奶或瓜汁 << Priest/Shaman/Paladin
 step
     .goto Bloodmyst Isle,55.0,57.8
 .target Vindicator Aalesia
->>Talk to |cRXP_FRIENDLY_Vindicator Aalesia|r
-    .accept 9569 >> Accept Containing the Threat
+>>对话: |cRXP_FRIENDLY_守备官艾蕾希亚|r
+    .accept 9569 >>接任务: |cRXP_LOOT_化解危机|r
 step
     .goto Bloodmyst Isle,55.8,57.0
 .target Tracker Lyceon
->>Talk to |cRXP_FRIENDLY_Tracker Lyceon|r
-    .accept 9580 >> Accept The Bear Necessities
-    .accept 9643 >> Accept Constrictor Vines
+>>对话: |cRXP_FRIENDLY_追踪者兰塞恩|r
+    .accept 9580 >>接任务: |cRXP_LOOT_猎熊|r
+    .accept 9643 >>接任务: |cRXP_LOOT_荆棘巨藤|r
 step
     .goto Bloodmyst Isle,56.3,56.8
 .target Jessera of Mac'Aree
->>Talk to |cRXP_FRIENDLY_Jessera of Mac'Aree|r
-    .accept 9649 >> Accept Ysera's Tears
+>>对话: |cRXP_FRIENDLY_玛特帕尔姆|r
+    .accept 9649 >>接任务: |cRXP_LOOT_伊瑟拉之泪|r
 step
     .goto Bloodmyst Isle,74.7,33.7
-	>> Grind en route
+	>>途中磨砺
 .target Prince Toreth
->>Talk to |cRXP_FRIENDLY_Prince Toreth|r
-    .accept 9687 >> Accept Restoring Sanctity
+>>对话: |cRXP_FRIENDLY_托雷斯王子|r
+    .accept 9687 >>接任务: |cRXP_LOOT_找回尊严|r
 step
 	#sticky
 	#label yserasTear
-	>>Collect the small green mushrooms around the island. Try to avoid the whelp mobs
+	>>收集岛屿周围的绿色小蘑菇。尽量避开幼龙怪物
     .complete 9649,1 --Collect Ysera's Tear (x2)
 step
     .goto Bloodmyst Isle,79.1,22.6
->>Talk to |cRXP_FRIENDLY_Captain Edward Hanes|r
-    .turnin 9672 >> Turn in The Bloodcurse Legacy
+>>对话: |cRXP_FRIENDLY_艾德华·汉斯船长|r
+    .turnin 9672 >>交任务: |cRXP_FRIENDLY_血咒的遗产|r
 .target Captain Edward Hanes
-    .accept 9674 >> Accept The Bloodcursed Naga
+    .accept 9674 >>接任务: |cRXP_LOOT_血咒纳迦|r
 step
     .goto Bloodmyst Isle,80.0,16.9
-	>> Talk to the Captain for another waterbreathing buff if you die
+	>>如果你死了，请与船长交谈以获得另一个水下呼吸增益
     .complete 9674,1 --Kill Bloodcursed Naga (x10)
 step
     .goto Bloodmyst Isle,79.1,22.6
 .target Captain Edward Hanes
->>Talk to |cRXP_FRIENDLY_Captain Edward Hanes|r
-    .turnin 9674 >> Turn in The Bloodcursed Naga
+>>对话: |cRXP_FRIENDLY_艾德华·汉斯船长|r
+    .turnin 9674 >>交任务: |cRXP_FRIENDLY_血咒纳迦|r
 step
     .goto Bloodmyst Isle,79.1,22.6
 .target Captain Edward Hanes
->>Talk to |cRXP_FRIENDLY_Captain Edward Hanes|r
-    .accept 9682 >> Accept The Hopeless Ones...
+>>对话: |cRXP_FRIENDLY_艾德华·汉斯船长|r
+    .accept 9682 >>接任务: |cRXP_LOOT_绝望者......|r
     .maxlevel 15
 step
     .goto Bloodmyst Isle,87.3,16.6
@@ -1552,30 +1552,30 @@ step
 step
     .goto Bloodmyst Isle,79.2,22.7
 .target Captain Edward Hanes
->>Talk to |cRXP_FRIENDLY_Captain Edward Hanes|r
-    .turnin 9682 >> Turn in The Hopeless Ones...
+>>对话: |cRXP_FRIENDLY_艾德华·汉斯船长|r
+    .turnin 9682 >>交任务: |cRXP_FRIENDLY_绝望者......|r
     .isOnQuest 9682
 step
     .isOnQuest 9682
-    .abandon 9682 >> Abandon The Hopeless Ones...
+    .abandon 9682 >>抛弃那些绝望的人……
 step
     .goto Bloodmyst Isle,79.2,22.7
 .target Captain Edward Hanes
->>Talk to |cRXP_FRIENDLY_Captain Edward Hanes|r
-    .accept 9683 >> Accept Ending the Bloodcurse
+>>对话: |cRXP_FRIENDLY_艾德华·汉斯船长|r
+    .accept 9683 >>接任务: |cRXP_LOOT_血咒的终结|r
     .isQuestTurnedIn 9682
 step
 	#requires yserasTear
     .goto Bloodmyst Isle,86.0,54.5
-    >>Swim to the island south, climb the mountain and click on the statue to summon Atoph
+    >>游到南边的岛屿，爬上山，点击雕像召唤阿托夫
     .complete 9683,1 --Kill Atoph the Bloodcursed (x1)
     *Atoph is level 19, proceed with caution
     .isOnQuest 9683
 step << Shaman/Paladin wotlk/Hunter
     .goto Bloodmyst Isle,79.2,22.7
 .target Captain Edward Hanes
->>Talk to |cRXP_FRIENDLY_Captain Edward Hanes|r
-    .turnin 9683 >> Turn in Ending the Bloodcurse
+>>对话: |cRXP_FRIENDLY_艾德华·汉斯船长|r
+    .turnin 9683 >>交任务: |cRXP_FRIENDLY_血咒的终结|r
     .isOnQuest 9683
     .xp 16-2190,1
 step << Shaman/Paladin wotlk/Hunter
@@ -1583,107 +1583,107 @@ step << Shaman/Paladin wotlk/Hunter
 step
 	#sticky
 	#completewith next
-	.deathskip >> Death skip to Blood Watch
+	.deathskip >>死亡跳至血色守望
 step
     .goto Bloodmyst Isle,56.4,56.7
 .target Jessera of Mac'Aree
->>Talk to |cRXP_FRIENDLY_Jessera of Mac'Aree|r
-    .turnin 9649 >> Turn in Ysera's Tears
+>>对话: |cRXP_FRIENDLY_玛特帕尔姆|r
+    .turnin 9649 >>交任务: |cRXP_FRIENDLY_伊瑟拉之泪|r
 step
     .goto Bloodmyst Isle,57.6,53.9
 .target Laando
->>Talk to |cRXP_FRIENDLY_Laando|r
-    .accept 9604 >> Accept On the Wings of a Hippogryph
+>>对话: |cRXP_FRIENDLY_兰度|r
+    .accept 9604 >>接任务: |cRXP_LOOT_乘坐角鹰兽|r
 step
     .goto Bloodmyst Isle,57.6,53.9
-    .fly The Exodar>> Fly to The Exodar
+    .fly The Exodar>>飞往埃索达
 step
 	.goto The Exodar,75.0,54.8,80,0
 	.goto The Exodar,64.4,42.4,80,0
     .goto The Exodar,57.008,50.065
->>Talk to |cRXP_FRIENDLY_Nurguni|r
-    .turnin 9604 >> Turn in On the Wings of a Hippogryph
+>>对话: |cRXP_FRIENDLY_努古尼|r
+    .turnin 9604 >>交任务: |cRXP_FRIENDLY_乘坐角鹰兽|r
 .target Nurguni
-    .accept 9605 >> Accept Hippogryph Master Stephanos
+    .accept 9605 >>接任务: |cRXP_LOOT_斯泰法努斯|r
 step << Warrior
 .target Behomat
->>Talk to |cRXP_FRIENDLY_Behomat|r
-    .turnin 10350 >> Turn in Behomat
+>>对话: |cRXP_FRIENDLY_贝霍玛特|r
+    .turnin 10350 >>交任务: |cRXP_FRIENDLY_贝霍玛特|r
     .goto The Exodar,55.579,82.269
-    >>Talk to the weapon master upstairs
-    .train 199 >>Train 2h Maces
+    >>和楼上的武器大师交谈
+    .train 199 >>训练 2h Maces
     .goto The Exodar,53.3,85.7
 step << Shaman
-    >>Talk to the weapon master upstairs
+    >>和楼上的武器大师交谈
     .goto The Exodar,53.3,85.7
-    .train 199 >>Train 2h Maces
+    .train 199 >>训练 2h Maces
 step << Paladin
-    >>Talk to the weapon master upstairs
+    >>和楼上的武器大师交谈
     .goto The Exodar,53.3,85.7
-    .train 202 >>Train 2h swords
+    .train 202 >>训练双手剑
 step << Shaman
     .goto The Exodar,32.7,54.5
->>Talk to |cRXP_FRIENDLY_Prophet Velen|r
-    .turnin 9461 >> Turn in Call of Fire
+>>对话: |cRXP_FRIENDLY_先知维伦|r
+    .turnin 9461 >>交任务: |cRXP_FRIENDLY_火焰的召唤|r
 .target Prophet Velen
-    .accept 9555 >> Accept Call of Fire
-    .turnin -9698 >> Turn in Audience with the Prophet
-    .accept 9699 >> Accept Truth or Fiction
+    .accept 9555 >>接任务: |cRXP_LOOT_火焰的召唤|r
+    .turnin -9698 >>交任务: |cRXP_FRIENDLY_会见先知|r
+    .accept 9699 >>接任务: |cRXP_LOOT_真相还是谎言|r
 step << Paladin
     .goto The Exodar,38.8,82.6
 .target Jol
->>Talk to |cRXP_FRIENDLY_Jol|r
-    .turnin 9600 >>Turn in Redemption
+>>对话: |cRXP_FRIENDLY_约尔|r
+    .turnin 9600 >>交任务: |cRXP_FRIENDLY_救赎|r
 step << !Shaman
     .goto The Exodar,32.858,54.484
-    .turnin -9698 >> Turn in Audience with the Prophet
+    .turnin -9698 >>交任务: |cRXP_FRIENDLY_会见先知|r
 .target Prophet Velen
->>Talk to |cRXP_FRIENDLY_Prophet Velen|r
-    .accept 9699 >> Accept Truth or Fiction
+>>对话: |cRXP_FRIENDLY_先知维伦|r
+    .accept 9699 >>接任务: |cRXP_LOOT_真相还是谎言|r
 step << Shaman
 	#completewith next
     .goto The Exodar,30.0,33.1
 .target Farseer Nobundo
->>Talk to |cRXP_FRIENDLY_Farseer Nobundo|r
-    .turnin 9555 >> Turn in Call of Fire
-	.trainer >> Train your level 16 spells
+>>对话: |cRXP_FRIENDLY_预言者努波顿|r
+    .turnin 9555 >>交任务: |cRXP_FRIENDLY_火焰的召唤|r
+	.trainer >>训练你的 16 级法术
 step
 	.goto The Exodar,52.3,34.7,80,0
     .goto The Exodar,68.336,63.490
-    >>Run back to the flight master
->>Talk to |cRXP_FRIENDLY_Stephanos|r
-    .turnin 9605 >> Turn in Hippogryph Master Stephanos
+    >>跑回飞行管理员那里
+>>对话: |cRXP_FRIENDLY_斯泰法努斯|r
+    .turnin 9605 >>交任务: |cRXP_FRIENDLY_斯泰法努斯|r
 .target Stephanos
-    .accept 9606 >> Accept Return to Topher Loaal
+    .accept 9606 >>接任务: |cRXP_LOOT_返回托菲尔·罗阿身边|r
 step
 	#completewith next
     .goto The Exodar,68.336,63.490
-    .fly Bloodmyst Isle>> Fly to Bloodmyst Isle
+    .fly Bloodmyst Isle>>飞往秘血岛
 step
     .goto Bloodmyst Isle,55.844,59.776
 .target Caregiver Topher Loaal
->>Talk to |cRXP_FRIENDLY_Caregiver Topher Loaal|r
-    .turnin 9606 >> Turn in Return to Topher Loaal
+>>对话: |cRXP_FRIENDLY_托菲尔·罗阿|r
+    .turnin 9606 >>交任务: |cRXP_FRIENDLY_返回托菲尔·罗阿身边|r
 step
     #label exit1
     .goto Bloodmyst Isle,55.5,55.4
-    .turnin -9699 >> Turn in Truth or Fiction
+    .turnin -9699 >>交任务: |cRXP_FRIENDLY_真相还是谎言|r
 .target Vindicator Boros
->>Talk to |cRXP_FRIENDLY_Vindicator Boros|r
-    .accept 9700 >> Accept I Shoot Magic Into the Darkness
+>>对话: |cRXP_FRIENDLY_守备官波鲁斯|r
+    .accept 9700 >>接任务: |cRXP_LOOT_黑暗中的魔法|r
 step
     .goto Bloodmyst Isle,56.2,54.3
 .target Prospector Nachlan
->>Talk to |cRXP_FRIENDLY_Prospector Nachlan|r
-    .accept 10063 >> Accept Explorers' League, Is That Something for Gnomes?
+>>对话: |cRXP_FRIENDLY_勘探者纳克兰|r
+    .accept 10063 >>接任务: |cRXP_LOOT_探险者协会要为侏儒服务吗？|r
 step
 	#sticky
     .goto Bloodmyst Isle,41.3,30.6
-	.use 23877 >>Use the pick in your bags to collect the small red crystal
+	.use 23877 >>使用包里的镐子收集小红水晶
     .complete 9585,1 --Collect Axxarien Crystal Sample (x1)
 step
     .goto Bloodmyst Isle,41.9,29.6
-    >> Collect Crystals around the camps and kill Satyrs
+    >>收集营地周围的水晶并杀死萨蒂尔
     .complete 9569,1 --Kill Zevrax (x1)
     .complete 9569,2 --Kill Axxarien Shadowstalker (x5)
     .complete 9569,3 --Kill Axxarien Hellcaller (x5)
@@ -1692,27 +1692,27 @@ step
 	#sticky
 	#label constrictors
 	#completewith gnome
-    >>Kill Mutated Constrictors. Loot them for their Vines
+    >>杀死变异蟒蛇。掠夺它们的藤蔓
     .complete 9643,1 --Collect Thorny Constrictor Vine (x6)
 step
 	#sticky
 	#completewith bloodmyst2
-	>>Kill Bears. Loot them for their Bear Flanks
-	.complete 9580,1 --Elder Brown Bear Flank (8)
+	>>杀死熊。掠夺它们的熊侧翼
+	.complete 9580,1 --Elder Brown 熊 Flank (8)
 step
     .goto Bloodmyst Isle,42.0,21.2
->>Talk to |cRXP_FRIENDLY_Clopper Wizbang|r
-    .turnin 10063 >> Turn in Explorers' League, Is That Something for Gnomes?
+>>对话: |cRXP_FRIENDLY_克劳伯·维兹班|r
+    .turnin 10063 >>交任务: |cRXP_FRIENDLY_探险者协会要为侏儒服务吗？|r
 .target Clopper Wizbang
-    .accept 9548 >> Accept Pilfered Equipment
-    .accept 9549 >> Accept Artifacts of the Blacksilt
+    .accept 9548 >>接任务: |cRXP_LOOT_被偷走的设备|r
+    .accept 9549 >>接任务: |cRXP_LOOT_黑沙神器|r
 step
     #sticky
     #completewith gnome
     .goto Bloodmyst Isle,42.142,21.174,0
-    .vendor >>Buy a Bronze Tube from Clopper Wizbang (limited supply), skip this step if he doesn't have it or if you already have one
-	>> Restock on arrows << Hunter
-	>> Restock on ice cold milk if needed << Hunter/Priest/Shaman/Paladin
+    .vendor >>从 Clopper Wizbang 购买青铜管（数量有限），如果他没有或者你已经有一个，请跳过此步骤
+	>>补给箭 << Hunter
+	>>如果需要的话补充冰牛奶 << Hunter/Priest/Shaman/Paladin
     .collect 4371,1,175,1,1
 step
     .goto Bloodmyst Isle,40.4,20.4,60,0
@@ -1722,39 +1722,39 @@ step
 	.goto Bloodmyst Isle,43.8,22.4,30,0
 	.goto Bloodmyst Isle,46.4,20.5,30,0
 	.goto Bloodmyst Isle,40.4,20.4
-    >>Loot the crate that can spawn in any of the murloc camps
+    >>抢夺可能出现在任意鱼人营地的箱子
     .complete 9548,1 --Collect Clopper's Equipment (x1)
 step
     .goto Bloodmyst Isle,39.5,20.7
-	>> Kill and loot murlocs. Idols drop from Seers and Oracles. Knives from the melee murlocs.
+	>>杀死并掠夺鱼人。偶像由先知和神谕者掉落。刀由近战鱼人掉落。
     .complete 9549,1 --Collect Crude Murloc Idol (x3)
     .complete 9549,2 --Collect Crude Murloc Knife (x6)
 step
     .goto Bloodmyst Isle,42.142,21.174
 .target Clopper Wizbang
->>Talk to |cRXP_FRIENDLY_Clopper Wizbang|r
-    .turnin 9548 >> Turn in Pilfered Equipment
-    .turnin 9549 >> Turn in Artifacts of the Blacksilt
+>>对话: |cRXP_FRIENDLY_克劳伯·维兹班|r
+    .turnin 9548 >>交任务: |cRXP_FRIENDLY_被偷走的设备|r
+    .turnin 9549 >>交任务: |cRXP_FRIENDLY_黑沙神器|r
 step
     .goto Bloodmyst Isle,42.142,21.174
-	.vendor >> Buy a Bronze Tube from Clopper Wizbang (limited supply), skip this step if he doesn't have it or if you already have one
+	.vendor >>从 Clopper Wizbang 购买青铜管（数量有限），如果他没有或者你已经有一个，请跳过此步骤
 	.collect 4371,1,175,1,1
 	.bronzetube
 step
     .goto Bloodmyst Isle,53.1,20.3
-    .use 23837 >>Click on the Weathered Treasure Map in your bags from the Artifacts of the Blacksilt quest
+    .use 23837 >>单击黑泥文物任务中背包里的风化藏宝图
 	.collect 23837,1,9550 --Collect Weathered Treasure Map (x1)
-    .accept 9550 >> Accept A Map to Where?
+    .accept 9550 >>接任务: |cRXP_LOOT_一张地图？|r
 step
 	#sticky
 	#label Sun Portal Site
     .goto Bloodmyst Isle,53.1,20.3
-	>>Get close to the spaceship like building
+	>>像建筑一样接近宇宙飞船
 	.complete 9700,1 --Sun Portal Site Confirmed (1)
 step
     #label gnome
     .goto Bloodmyst Isle,52.5,25.2
-	>>Kill the Void Anomalies in the area
+	>>消灭该区域内的虚空异常
     .complete 9700,2 --Kill Void Anomaly (x5)
 step
 	.goto Bloodmyst Isle,47.6,24.9,60,0
@@ -1766,171 +1766,171 @@ step
 	.goto Bloodmyst Isle,39.0,48.1,120,0
 	.goto Bloodmyst Isle,42.5,49.3,100,0
 	.goto Bloodmyst Isle,47.6,24.9
-    >>Finish killing Mutated Constrictors and looting them for their Vines
+    >>杀死变异蟒蛇并掠夺它们的藤蔓
 	.complete 9643,1 --Collect Thorny Constrictor Vine (x6)
 step
     .goto Bloodmyst Isle,54.0,30.9,60,0
     .goto Bloodmyst Isle,53.9,35.4,60,0
     .goto Bloodmyst Isle,57.0,34.3,60,0
     .goto Bloodmyst Isle,56.1,40.2
-	>>Loot the Dragon Bones on the ground in the tree camps
+	>>掠夺树营地地面上的龙骨
     .complete 9687,1 --Collect Dragon Bone (x8)
 step
     .goto Bloodmyst Isle,61.1,41.9
-    .turnin 9550 >> Turn in A Map to Where?
-    .accept 9557 >> Accept Deciphering the Book
+    .turnin 9550 >>交任务: |cRXP_FRIENDLY_一张地图？|r
+    .accept 9557 >>接任务: |cRXP_LOOT_破译书籍|r
 step
     #completewith next
     #requires constrictors
-    .hs >> Hearth or run back to town
+    .hs >>烧死或逃回城里
 step
    	#requires constrictors
 	.goto Bloodmyst Isle,54.7,54.1
 .target Anchorite Paetheus
->>Talk to |cRXP_FRIENDLY_Anchorite Paetheus|r
-    .turnin 9557 >> Turn in Deciphering the Book
+>>对话: |cRXP_FRIENDLY_学者菲索斯|r
+    .turnin 9557 >>交任务: |cRXP_FRIENDLY_破译书籍|r
 step
     .goto Bloodmyst Isle,52.6,53.3
->>Talk to |cRXP_FRIENDLY_Harbinger Mikolaas|r
-    .turnin 9585 >> Turn in The Final Sample
+>>对话: |cRXP_FRIENDLY_先行官米库拉斯|r
+    .turnin 9585 >>交任务: |cRXP_FRIENDLY_最终的样本|r
 .target Harbinger Mikolaas
-    .accept 10064 >> Accept Talk to the Hand
+    .accept 10064 >>接任务: |cRXP_LOOT_阿古斯之手|r
 step
     .goto Bloodmyst Isle,54.7,54.0
 .target Anchorite Paetheus
->>Talk to |cRXP_FRIENDLY_Anchorite Paetheus|r
-    .accept 9561 >> Accept Nolkai's Words
+>>对话: |cRXP_FRIENDLY_学者菲索斯|r
+    .accept 9561 >>接任务: |cRXP_LOOT_诺尔凯的日记|r
 step
 	#completewith next
     .goto Bloodmyst Isle,55.421,55.232
 .target Vindicator Boros
->>Talk to |cRXP_FRIENDLY_Vindicator Boros|r
-    .turnin 9700 >> Turn in I Shoot Magic Into the Darkness
+>>对话: |cRXP_FRIENDLY_守备官波鲁斯|r
+    .turnin 9700 >>交任务: |cRXP_FRIENDLY_黑暗中的魔法|r
 .target Vindicator Kuros
->>Talk to |cRXP_FRIENDLY_Vindicator Kuros|r
-    .accept 9703 >> Accept The Cryo-Core
-	.trainer >>Train class spells at Vindicator Aesom << Paladin
+>>对话: |cRXP_FRIENDLY_守备官库卢斯|r
+    .accept 9703 >>接任务: |cRXP_LOOT_冷却核心|r
+	.trainer >>在 Vindicator Aesom 训练职业法术 << Paladin
 step
     .itemcount 23984,10
     .goto Bloodmyst Isle,55.421,55.232
 .target Vindicator Boros
->>Talk to |cRXP_FRIENDLY_Vindicator Boros|r
-    .turnin 9642,3 >> Turn in More Irradiated Crystal Shards << Warrior/Paladin/Hunter/Rogue/Shaman
-    .turnin 9642,2 >> Turn in More Irradiated Crystal Shards << Warlock/Priest/Mage
-    .turnin 9642 >> Turn in More Irradiated Crystal Shards << Druid
+>>对话: |cRXP_FRIENDLY_守备官波鲁斯|r
+    .turnin 9642,3 >>交任务: |cRXP_FRIENDLY_更多辐射水晶碎片|r << Warrior/Paladin/Hunter/Rogue/Shaman
+    .turnin 9642,2 >>交任务: |cRXP_FRIENDLY_更多辐射水晶碎片|r << Warlock/Priest/Mage
+    .turnin 9642 >>交任务: |cRXP_FRIENDLY_更多辐射水晶碎片|r << Druid
 step
     .goto Bloodmyst Isle,55.9,56.9
->>Talk to |cRXP_FRIENDLY_Tracker Lyceon|r
-    .turnin 9643 >> Turn in Constrictor Vines
+>>对话: |cRXP_FRIENDLY_追踪者兰塞恩|r
+    .turnin 9643 >>交任务: |cRXP_FRIENDLY_荆棘巨藤|r
 .target Tracker Lyceon
-    .accept 9647 >> Accept Culling the Flutterers
+    .accept 9647 >>接任务: |cRXP_LOOT_消灭巨蛾|r
 step
 	.goto Bloodmyst Isle,55.9,56.9
 	.isQuestComplete 9580
 .target Tracker Lyceon
->>Talk to |cRXP_FRIENDLY_Tracker Lyceon|r
-	.turnin 9580 >> Turn in The Bear Neccessities
+>>对话: |cRXP_FRIENDLY_追踪者兰塞恩|r
+	.turnin 9580 >>交任务: |cRXP_FRIENDLY_猎熊|r
 step
     .goto Bloodmyst Isle,55.0,58.1
 .target Vindicator Aalesia
->>Talk to |cRXP_FRIENDLY_Vindicator Aalesia|r
-    .turnin 9569 >> Turn in Containing the Threat
+>>对话: |cRXP_FRIENDLY_守备官艾蕾希亚|r
+    .turnin 9569 >>交任务: |cRXP_FRIENDLY_化解危机|r
 step
     .goto Bloodmyst Isle,53.242,57.708
 .target Morae
->>Talk to |cRXP_FRIENDLY_Morae|r
-    .accept 9578 >> Accept Searching for Galaen
+>>对话: |cRXP_FRIENDLY_莫莱|r
+    .accept 9578 >>接任务: |cRXP_LOOT_搜寻加莱恩|r
 step
 	#sticky
 	#completewith bloodmyst2
-	>>Kill flutterers as you quest
+	>>在任务中杀死颤动者
     .complete 9647,1 --Kill Royal Blue Flutterer (x10)
 step
     .goto Bloodmyst Isle,37.5,61.3
-	>> Prioritize turning in the quest, don't grind elves yet.
->>Talk to |cRXP_FRIENDLY_Galaen's Corpse|r
-    .turnin 9578 >> Turn in Searching for Galaen
+	>>优先完成任务，不要先磨练精灵。
+>>对话: |cRXP_FRIENDLY_加莱恩的尸体|r
+    .turnin 9578 >>交任务: |cRXP_FRIENDLY_搜寻加莱恩|r
 .target Galaen's Corpse
-    .accept 9579 >> Accept Galaen's Fate
-    .accept 9706 >> Accept Galaen's Journal - The Fate of Vindicator Saruan
+    .accept 9579 >>接任务: |cRXP_LOOT_加莱恩的命运|r
+    .accept 9706 >>接任务: |cRXP_LOOT_加莱恩的日记 - 守备官撒鲁安的命运|r
 step
     .goto Bloodmyst Isle,37.8,58.9
-	>>Kill and loot blood elves around this area. You can LoS them around the pillars in the area to avoid damage
+	>>杀死并掠夺该区域周围的血精灵。你可以绕着该区域的柱子瞄准它们以避免受到伤害
     .complete 9579,1 --Collect Galaen's Amulet (x1)
     .complete 9703,1 --Collect Medical Supplies (x12)
 step
-	.xp 17+12800 >> Grind to 12800+/16400xp
+	.xp 17+12800 >>升级至 12800+/16400xp
 step
 	#requires constrictors
     .goto Bloodmyst Isle,53.3,57.7
 .target Morae
->>Talk to |cRXP_FRIENDLY_Morae|r
-    .turnin 9579 >> Turn in Galaen's Fate
+>>对话: |cRXP_FRIENDLY_莫莱|r
+    .turnin 9579 >>交任务: |cRXP_FRIENDLY_加莱恩的命运|r
 step
     .goto Bloodmyst Isle,53.3,57.2
 .target Achelus
->>Talk to |cRXP_FRIENDLY_Achelus|r
-    .accept 9669 >> Accept The Missing Expedition
+>>对话: |cRXP_FRIENDLY_阿彻鲁斯|r
+    .accept 9669 >>接任务: |cRXP_LOOT_覆灭的远征队|r
 step
     .goto Bloodmyst Isle,55.6,55.1
->>Talk to |cRXP_FRIENDLY_Vindicator Kuros|r
-    .turnin 9703 >> Turn in The Cryo-Core
-    .turnin 9706 >> Turn in Galaen's Journal - The Fate of Vindicator Saruan
+>>对话: |cRXP_FRIENDLY_守备官库卢斯|r
+    .turnin 9703 >>交任务: |cRXP_FRIENDLY_冷却核心|r
+    .turnin 9706 >>交任务: |cRXP_FRIENDLY_加莱恩的日记 - 守备官撒鲁安的命运|r
 .target Vindicator Kuros
-    .accept 9711 >> Accept Matis the Cruel
+    .accept 9711 >>接任务: |cRXP_LOOT_残忍的玛提斯|r
 .target Vindicator Aesom
->>Talk to |cRXP_FRIENDLY_Vindicator Aesom|r
-    .accept 9748 >> Accept Don't Drink the Water
-    .accept 9753 >> Accept What We Know...
+>>对话: |cRXP_FRIENDLY_守备官伊索姆|r
+    .accept 9748 >>接任务: |cRXP_LOOT_毒水|r
+    .accept 9753 >>接任务: |cRXP_LOOT_我们所知道的......|r
 step
     .goto Bloodmyst Isle,52.6,53.3
->>Talk to |cRXP_FRIENDLY_Exarch Admetius|r
-    .turnin 9753 >> Turn in What We Know...
+>>对话: |cRXP_FRIENDLY_主教埃德门图斯|r
+    .turnin 9753 >>交任务: |cRXP_FRIENDLY_我们所知道的......|r
 .target Exarch Admetius
-    .accept 9756 >> Acccept What We Don't Know...
+    .accept 9756 >>接任务: |cRXP_LOOT_我们不知道的......|r
 step
-    >>Open the cage and speak to the prisoner
+    >>打开笼子并与囚犯交谈
     .skipgossip
     .complete 9756,1
     .goto Bloodmyst Isle,54.36,54.30
->>Talk to |cRXP_FRIENDLY_Exarch Admetius|r
-    .turnin 9756 >> Turn in What We Don't Know...
+>>对话: |cRXP_FRIENDLY_主教埃德门图斯|r
+    .turnin 9756 >>交任务: |cRXP_FRIENDLY_我们不知道的......|r
     .goto Bloodmyst Isle,52.6,53.3
 .target Exarch Admetius
-    .accept 9760 >> Accept Vindicator's Rest
+    .accept 9760 >>接任务: |cRXP_LOOT_守备官营地|r
 step
 	#completewith AliveM
     .goto Bloodmyst Isle,43.9,43.7,0
     .goto Bloodmyst Isle,30.1,51.7,0
     .goto Bloodmyst Isle,22.4,54.3,0
 	.line Bloodmyst Isle,43.1,43.7,36.5,47.2,33.5,47.1,29.9,51.8,27.7,51.8,25.1,54.1,22.0,54.3
-    .use 24278 >>Look for Matis the Cruel, he patrols the main road next to Vindicator's Rest
+    .use 24278 >>寻找残忍者马蒂斯，他在卫道士休息处旁边的主干道上巡逻
     .complete 9711,1 --Capture Matis the Cruel
 	*Once you find him, use the flare in your bags to summon a Draenei NPC to assist you
 	*The flare gun only have 1 charge, if you fail this quest, you will have to abandon it
 	.unitscan Matis the Cruel
 step
     .goto Bloodmyst Isle,30.3,45.8
->>Talk to |cRXP_FRIENDLY_Scout Jorli|r
-    .turnin 10064 >> Turn in Talk to the Hand
+>>对话: |cRXP_FRIENDLY_斥候约莉|r
+    .turnin 10064 >>交任务: |cRXP_FRIENDLY_阿古斯之手|r
 .target Scout Jorli
-    .accept 10065 >> Accept Cutting a Path
+    .accept 10065 >>接任务: |cRXP_LOOT_披荆斩棘|r
 .target Scout Loryi
->>Talk to |cRXP_FRIENDLY_Scout Loryi|r
-    .accept 9741 >> Accept Critters of the Void
+>>对话: |cRXP_FRIENDLY_斥候洛伊|r
+    .accept 9741 >>接任务: |cRXP_LOOT_虚空幼体|r
 step
     .goto Bloodmyst Isle,30.8,46.8
 .target Defender Sorli
 .target Defender Adrielle
 .target Vindicator Corin
->>Talk to |cRXP_FRIENDLY_Vindicator Corin|r
--->>Talk to |cRXP_FRIENDLY_Defender Adrielle|r
--->>Talk to |cRXP_FRIENDLY_Defender Sorli|r
-    .accept 10066 >> Accept Oh, the Tangled Webs They Weave
+>>对话: |cRXP_FRIENDLY_守备官考尔琳|r
+-->>对话: |cRXP_FRIENDLY_防御者艾德利雷|r
+-->>对话: |cRXP_FRIENDLY_防御者索里|r
+    .accept 10066 >>接任务: |cRXP_LOOT_纠结之网|r
 --
 --
-    .accept 10067 >> Accept Fouled Water Spirits
-     .turnin 9760 >> Turn in Vindicator's Rest
+    .accept 10067 >>接任务: |cRXP_LOOT_污秽的水之魂|r
+     .turnin 9760 >>交任务: |cRXP_FRIENDLY_守备官营地|r
 step
     #sticky
 	#completewith next
@@ -1939,54 +1939,54 @@ step
     .complete 10065,1 --Kill Enraged Ravager (x10)
 step
     .goto Bloodmyst Isle,19.6,63.2
-	>>You have to kill the anomalies in the water to eventually spawn the Critters
+	>>你必须杀死水中的异常生物才能最终产生小动物
     .complete 9741,1 --Kill Void Critter (x12)
 step
-	>>Finish off the Tanglers and Ravagers
+	>>消灭缠结者和劫掠者
     .goto Bloodmyst Isle,30.3,57.2
     .complete 10066,1 --Kill Mutated Tangler (x8)
     .complete 10065,1 --Kill Enraged Ravager (x10)
 step
 	#label bloodmyst2
 .target Vindicator Corin
->>Talk to |cRXP_FRIENDLY_Vindicator Corin|r
-    .turnin 10066 >> Turn in Oh, the Tangled Webs They Weave
+>>对话: |cRXP_FRIENDLY_守备官考尔琳|r
+    .turnin 10066 >>交任务: |cRXP_FRIENDLY_纠结之网|r
     .goto Bloodmyst Isle,30.7,46.9
 .target Scout Jorli
->>Talk to |cRXP_FRIENDLY_Scout Jorli|r
-    .turnin 10065 >> Turn in Cutting a Path
+>>对话: |cRXP_FRIENDLY_斥候约莉|r
+    .turnin 10065 >>交任务: |cRXP_FRIENDLY_披荆斩棘|r
     .goto Bloodmyst Isle,30.3,46.0
 step
     .goto Bloodmyst Isle,33.4,43.8
-	>>Kill Bears and Flutterers. Loot the bears for their Flanks
-	>>Finish killing and looting Bears and Flutterers
+	>>杀死熊和飞虫。掠夺熊的侧翼
+	>>完成杀死并掠夺熊和飞龙
     .complete 9647,1 --Kill Royal Blue Flutterer (10)
-	.complete 9580,1 --Elder Brown Bear Flank (8)
+	.complete 9580,1 --Elder Brown 熊 Flank (8)
 step
     .goto Bloodmyst Isle,29.6,39.5
-	>>Kill the Fouled Water Spirits in the area
+	>>杀死该区域的污水精灵
     .complete 10067,1 --Kill Fouled Water Spirit (x6)
 step
     .goto Bloodmyst Isle,30.746,46.808
 .target Vindicator Corin
->>Talk to |cRXP_FRIENDLY_Vindicator Corin|r
-    .turnin 10067 >> Turn in Fouled Water Spirits
+>>对话: |cRXP_FRIENDLY_守备官考尔琳|r
+    .turnin 10067 >>交任务: |cRXP_FRIENDLY_污秽的水之魂|r
 step
     .goto Bloodmyst Isle,24.872,34.310
 .target Researcher Cornelius
->>Talk to |cRXP_FRIENDLY_Researcher Cornelius|r
-    .accept 9670 >> Accept They're Alive! Maybe...
+>>对话: |cRXP_FRIENDLY_研究员考内留斯|r
+    .accept 9670 >>接任务: |cRXP_LOOT_他们还活着！也许......|r
 step
 	#sticky
 	#label Researchers
-	>>Destroy the egg sacs around this area. Kill them from range if possible as to not aggro potential mobs inside
+	>>摧毁该区域周围的卵囊。尽可能从远处杀死它们，以免激怒里面的潜在怪物
     .goto Bloodmyst Isle,18.2,38.0,0,0
     .complete 9670,1 --Expedition Researcher Freed (5)
 step
     .goto Bloodmyst Isle,21.4,36.0,70,0
     .goto Bloodmyst Isle,17.2,28.4,40,0
     .goto Bloodmyst Isle,18.2,38.0
-	>>Kill the Myst Leechers and Spinners in the area, then kill Zarakh atop the mountain
+	>>杀死该区域的 Myst Leechers 和 Spinners，然后杀死山顶上的 Zarakh
     .complete 9669,1 --Kill Myst Leecher (x8)
     .complete 9669,2 --Kill Myst Spinner (x8)
     .complete 9669,3 --Kill Zarakh (x1)
@@ -1995,8 +1995,8 @@ step
 	#label AliveM
     .goto Bloodmyst Isle,24.9,34.4
 .target Researcher Cornelius
->>Talk to |cRXP_FRIENDLY_Researcher Cornelius|r
-    .turnin 9670 >> Turn in They're Alive! Maybe...
+>>对话: |cRXP_FRIENDLY_研究员考内留斯|r
+    .turnin 9670 >>交任务: |cRXP_FRIENDLY_他们还活着！也许......|r
 step
     .goto Bloodmyst Isle,43.9,43.7,70,0
     .goto Bloodmyst Isle,30.1,51.7,70,0
@@ -2006,7 +2006,7 @@ step
     .goto Bloodmyst Isle,22.4,54.3,70,0
     .goto Bloodmyst Isle,30.1,51.7
 	.line Bloodmyst Isle,43.1,43.7,36.5,47.2,33.5,47.1,29.9,51.8,27.7,51.8,25.1,54.1,22.0,54.3
-    .use 24278 >>Look for Matis the Cruel, he patrols the main road next to Vindicator's Rest
+    .use 24278 >>寻找残忍者马蒂斯，他在卫道士休息处旁边的主干道上巡逻
     .complete 9711,1 --Capture Matis the Cruel
 	*Once you find him, use the flare in your bags to summon a Draenei NPC to assist you
 	*The flare gun only have 1 charge, if you fail this quest, you will have to abandon it
@@ -2024,87 +2024,87 @@ step << Hunter/Shaman/Mage
     #requires limit1
     .isOnQuest 9746
     .goto Bloodmyst Isle,55.6,55.3
->>Talk to |cRXP_FRIENDLY_Vindicator Aesom|r
-    .turnin 9746 >> Turn in Limits of Physical Exhaustion
+>>对话: |cRXP_FRIENDLY_守备官伊索姆|r
+    .turnin 9746 >>交任务: |cRXP_FRIENDLY_精疲力尽|r
 .target Vindicator Aesom
-    .accept 9740 >> Accept The Sun Gate
+    .accept 9740 >>接任务: |cRXP_LOOT_太阳之门|r
 step << Hunter/Shaman/Mage
     #label sungate
     #completewith L20
     #requires limit2
     .isOnQuest 9740
     .goto Bloodmyst Isle,18.7,64.0
-    >>Click on the purple crystals around the lake and then on the big portal in the middle
+    >>点击湖泊周围的紫色水晶，然后点击中间的大门户
     .complete 9740,1
 step
     .goto Bloodmyst Isle,34.3,33.6
-	.use 24318 >>Use the Sampling Vial in your bags at the base of the waterfall
+	.use 24318 >>使用瀑布底部包中的取样瓶
     .complete 9748,1 --Collect Bloodmyst Water Sample (x1)
 step
     .goto Bloodmyst Isle,37.4,30.1
-	>>Kill the named bear. Loot him for his claw
+	>>杀死指定名称的熊。掠夺他的爪子
     .complete 9646,1 --Collect Deathclaw's Paw (x1)
 step
 	#completewith next
-    .hs >> Hearth to Blood Watch
+    .hs >>炉石到秘血岛
 step
     .goto Bloodmyst Isle,53.4,57.1
 .target Achelus
->>Talk to |cRXP_FRIENDLY_Achelus|r
-    .turnin 9669 >> Turn in The Missing Expedition
+>>对话: |cRXP_FRIENDLY_阿彻鲁斯|r
+    .turnin 9669 >>交任务: |cRXP_FRIENDLY_覆灭的远征队|r
 step
     .goto Bloodmyst Isle,52.7,53.3
 .target Harbinger Mikolaas
->>Talk to |cRXP_FRIENDLY_Harbinger Mikolaas|r
-    .turnin 9646 >> Turn in WANTED: Deathclaw
+>>对话: |cRXP_FRIENDLY_先行官米库拉斯|r
+    .turnin 9646 >>交任务: |cRXP_FRIENDLY_通缉：死爪|r
 step
     .goto Bloodmyst Isle,54.7,54.1
 .target Anchorite Paetheus
->>Talk to |cRXP_FRIENDLY_Anchorite Paetheus|r
-    .accept 9632 >> Accept Newfound Allies
+>>对话: |cRXP_FRIENDLY_学者菲索斯|r
+    .accept 9632 >>接任务: |cRXP_LOOT_新的盟友|r
 step
     .goto Bloodmyst Isle,55.6,55.3
->>Talk to |cRXP_FRIENDLY_Vindicator Aesom|r
-    .turnin 9741 >> Turn in Critters of the Void
-    .turnin 9748 >> Turn in Don't Drink the Water
+>>对话: |cRXP_FRIENDLY_守备官伊索姆|r
+    .turnin 9741 >>交任务: |cRXP_FRIENDLY_虚空幼体|r
+    .turnin 9748 >>交任务: |cRXP_FRIENDLY_毒水|r
 .target Vindicator Kuros
->>Talk to |cRXP_FRIENDLY_Vindicator Kuros|r
-    .turnin 9711 >> Turn in Matis the Cruel
+>>对话: |cRXP_FRIENDLY_守备官库卢斯|r
+    .turnin 9711 >>交任务: |cRXP_FRIENDLY_残忍的玛提斯|r
 .target Vindicator Aesom
-    .accept 9746 >> Accept Limits of Physical Exhaustion << Hunter/Shaman/Mage
+    .accept 9746 >>接任务: |cRXP_LOOT_精疲力尽|r << Hunter/Shaman/Mage
 	.isQuestComplete 9711
 step
     .goto Bloodmyst Isle,55.6,55.3
->>Talk to |cRXP_FRIENDLY_Vindicator Aesom|r
-    .turnin 9741 >> Turn in Critters of the Void
-    .turnin 9748 >> Turn in Don't Drink the Water
+>>对话: |cRXP_FRIENDLY_守备官伊索姆|r
+    .turnin 9741 >>交任务: |cRXP_FRIENDLY_虚空幼体|r
+    .turnin 9748 >>交任务: |cRXP_FRIENDLY_毒水|r
 .target Vindicator Aesom
-    .accept 9746 >> Accept Limits of Physical Exhaustion << Hunter/Shaman/Mage
+    .accept 9746 >>接任务: |cRXP_LOOT_精疲力尽|r << Hunter/Shaman/Mage
 step
 	.goto Bloodmyst Isle,55.6,55.3
-	.abandon 9711 >> Abandon Matis the Cruel
+	.abandon 9711 >>抛弃残忍的马蒂斯
 step
 	#requires sungate
 	.goto Bloodmyst Isle,55.6,55.3
 .target Vindicator Aesom
->>Talk to |cRXP_FRIENDLY_Vindicator Aesom|r
-	.turnin 9740 >> Turn in The Sun Gate
+>>对话: |cRXP_FRIENDLY_守备官伊索姆|r
+	.turnin 9740 >>交任务: |cRXP_FRIENDLY_太阳之门|r
 step
 	#label bearend
     .goto Bloodmyst Isle,55.9,56.9
 .target Tracker Lyceon
->>Talk to |cRXP_FRIENDLY_Tracker Lyceon|r
-    .turnin 9647 >> Turn in Culling the Flutterers
-    .turnin 9580 >> Turn in The Bear Necessities
+>>对话: |cRXP_FRIENDLY_追踪者兰塞恩|r
+    .turnin 9647 >>交任务: |cRXP_FRIENDLY_消灭巨蛾|r
+    .turnin 9580 >>交任务: |cRXP_FRIENDLY_猎熊|r
 step
     .goto Bloodmyst Isle,61.4,49.6
-    .turnin 9561 >> Turn in Nolkai's Words
+    .turnin 9561 >>交任务: |cRXP_FRIENDLY_诺尔凯的日记|r
 step
     .goto Bloodmyst Isle,74.6,33.6
->>Talk to |cRXP_FRIENDLY_Prince Toreth|r
-    .turnin 9687 >> Turn in Restoring Sanctity
+>>对话: |cRXP_FRIENDLY_托雷斯王子|r
+    .turnin 9687 >>交任务: |cRXP_FRIENDLY_找回尊严|r
 .target Prince Toreth
-    .accept 9688 >> Accept Into the Dream
+    .accept 9688 >>接任务: |cRXP_LOOT_进入梦境|r
 step
 	#sticky
 	#label Veridian
@@ -2114,74 +2114,74 @@ step
 step
     .goto Bloodmyst Isle,79.1,22.7
 .target Captain Edward Hanes
->>Talk to |cRXP_FRIENDLY_Captain Edward Hanes|r
-    .turnin 9683 >> Turn in Ending the Bloodcurse
+>>对话: |cRXP_FRIENDLY_艾德华·汉斯船长|r
+    .turnin 9683 >>交任务: |cRXP_FRIENDLY_血咒的终结|r
     .isOnQuest 9683
 step
     #requires Veridian
 	.goto Bloodmyst Isle,74.3,33.4
->>Talk to |cRXP_FRIENDLY_Prince Toreth|r
-    .turnin 9688 >> Turn in Into the Dream
+>>对话: |cRXP_FRIENDLY_托雷斯王子|r
+    .turnin 9688 >>交任务: |cRXP_FRIENDLY_进入梦境|r
 .target Prince Toreth
-    .accept 9689 >> Accept Razormaw
+    .accept 9689 >>接任务: |cRXP_LOOT_刺喉|r
 step
     .goto Bloodmyst Isle,73.0,21.0
-	>>Climb to the top of the mountain and click on the bonfire to summon Razormaw. It takes him a little bit to fly down.
+	>>爬到山顶，点击篝火召唤 Razormaw。他需要一点时间才能飞下来。
     .complete 9689,1 --Kill Razormaw (x1)
-	>>This is an elite quest, if you can't kill Razormaw, skip this step
+	>>这是一个精英任务，如果你不能杀死 Razormaw，请跳过此步骤
 step
     .goto Bloodmyst Isle,74.3,33.4
 .target Prince Toreth
->>Talk to |cRXP_FRIENDLY_Prince Toreth|r
-    .turnin 9689 >> Turn in Razormaw
+>>对话: |cRXP_FRIENDLY_托雷斯王子|r
+    .turnin 9689 >>交任务: |cRXP_FRIENDLY_刺喉|r
 	.isQuestComplete 9689
 step << Hunter/Shaman/Mage
     #label L20
     .xp 20
-    >>You'll need to hit level 20 before leaving Bloodmyst
+    >>你需要达到 20 级才能离开秘血岛
 step << !Shaman
     #completewith flighttoexodar2
-    .deathskip >> Death skip back to Blood Watch
+    .deathskip >>死亡跳回血色守望
 step
     .itemcount 23984,10
     .goto Bloodmyst Isle,55.421,55.232
-    >> Turn in your remaining Irradiated Crystal Shards before leaving Bloodmyst!
+    >>离开秘血岛之前，请上交剩余的辐照水晶碎片！
 .target Vindicator Boros
->>Talk to |cRXP_FRIENDLY_Vindicator Boros|r
-    .turnin 9642,3 >> Turn in More Irradiated Crystal Shards << Warrior/Paladin/Hunter/Rogue/Shaman
-    .turnin 9642,2 >> Turn in More Irradiated Crystal Shards << Warlock/Priest/Mage
-    .turnin 9642 >> Turn in More Irradiated Crystal Shards << Druid
+>>对话: |cRXP_FRIENDLY_守备官波鲁斯|r
+    .turnin 9642,3 >>交任务: |cRXP_FRIENDLY_更多辐射水晶碎片|r << Warrior/Paladin/Hunter/Rogue/Shaman
+    .turnin 9642,2 >>交任务: |cRXP_FRIENDLY_更多辐射水晶碎片|r << Warlock/Priest/Mage
+    .turnin 9642 >>交任务: |cRXP_FRIENDLY_更多辐射水晶碎片|r << Druid
 step << Paladin
 	#completewith next
 	#level20
 	.goto Bloodmyst Isle,55.6,55.3
-	>>Train at Vindicator Aesom
+	>>在 Vindicator Aesom 接受训练
 step
     #label flighttoexodar2
 	#completewith next
     .goto Bloodmyst Isle,57.7,53.9
-    .fly the Exodar>> Fly to the Exodar
+    .fly the Exodar>>飞往埃索达
 step << Shaman
     .goto The Exodar,32.4,24.0
 .target Farseer Javad
->>Talk to |cRXP_FRIENDLY_Farseer Javad|r
-    .accept 9502 >> Accept Call of Water
+>>对话: |cRXP_FRIENDLY_先知亚瓦德|r
+    .accept 9502 >>接任务: |cRXP_LOOT_水之召唤|r
 step << Shaman
     .goto The Exodar,31.3,30.7
->>Talk to |cRXP_FRIENDLY_Farseer Nobundo|r
-    .turnin 9502 >> Turn in Call of Water
+>>对话: |cRXP_FRIENDLY_预言者努波顿|r
+    .turnin 9502 >>交任务: |cRXP_FRIENDLY_水之召唤|r
 .target Farseer Nobundo
-    .accept 9501 >> Accept Call of Water
-	.trainer >> Train your level 20 skills
+    .accept 9501 >>接任务: |cRXP_LOOT_水之召唤|r
+	.trainer >>训练你的 20 级技能
 step << Shaman
     .goto The Exodar,68.336,63.490
-    .fly Blood Watch>> Fly to Blood Watch
+    .fly Blood Watch>>飞往血色岗哨
 step << Shaman
     .goto Bloodmyst Isle,32.300,16.132
->>Talk to |cRXP_FRIENDLY_Aqueous|r
-    .turnin 9501 >> Turn in Call of Water
+>>对话: |cRXP_FRIENDLY_阿奎欧斯|r
+    .turnin 9501 >>交任务: |cRXP_FRIENDLY_水之召唤|r
 .target Aqueous
-    .accept 9503 >> Accept Call of Water
+    .accept 9503 >>接任务: |cRXP_LOOT_水之召唤|r
 step << Shaman
     .goto Bloodmyst Isle,24.8,51.3
     .complete 9746,1 --Kill Sunhawk Pyromancer (x10)
@@ -2191,168 +2191,168 @@ step << Shaman
     .complete 9503,1 --Collect Foul Essence (x6)
 step << Shaman
     .goto Bloodmyst Isle,32.4,16.2
->>Talk to |cRXP_FRIENDLY_Aqueous|r
-    .turnin 9503 >> Turn in Call of Water
+>>对话: |cRXP_FRIENDLY_阿奎欧斯|r
+    .turnin 9503 >>交任务: |cRXP_FRIENDLY_水之召唤|r
 .target Aqueous
-    .accept 9504 >> Accept Call of Water
+    .accept 9504 >>接任务: |cRXP_LOOT_水之召唤|r
 step << Shaman
-    .goto Bloodmyst Isle,30.4,45.8,120 >>Die on purpose, respawn and run to Blood Watch
+    .goto Bloodmyst Isle,30.4,45.8,120 >>故意死亡，重生并跑向血色守望
 step << Shaman
     .goto Bloodmyst Isle,55.5,55.4
 .target Vindicator Aesom
->>Talk to |cRXP_FRIENDLY_Vindicator Aesom|r
-    .turnin 9746 >> Turn in Limits of Physical Exhaustion
+>>对话: |cRXP_FRIENDLY_守备官伊索姆|r
+    .turnin 9746 >>交任务: |cRXP_FRIENDLY_精疲力尽|r
 step << Shaman
     .goto Bloodmyst Isle,57.7,53.9
-    .fly The Exodar>> Fly to The Exodar
+    .fly The Exodar>>飞往埃索达
 step << Draenei !Paladin wotlk
 	.goto The Exodar,81.18,52.56
     .money <5.00
-    .skill riding,75 >>Head to Exodar, buy and train your mount
+    .skill riding,75 >>前往埃索达，购买并训练你的坐骑
 step << Hunter
 	.goto The Exodar,42.0,71.4,60,0
 	.goto The Exodar,54.5,85.6,60,0
 	.goto The Exodar,47.6,88.3
-	.trainer >> Train spells in The Exodar
-	.train 15147 >>Learn Growl Rank 3 from the pet trainer << tbc
+	.trainer >>在埃索达训练法术
+	.train 15147 >>从宠物训练师那里学习 3 级咆哮 << tbc
 step << Priest
-    >> Enter The Exodar and buy a Burning Wand from the vendor
+    >>进入埃索达并从供应商处购买燃烧魔杖
     .collect 5210,1
     .goto The Exodar,46.4,61.4
-    .trainer >> Train your class spells
+    .trainer >>训练你的职业法术
     .goto The Exodar,39.2,51.3
 step << Mage
 	.goto The Exodar,51.0,46.8,80,0
 	.goto The Exodar,47.2,62.3,20,0
 	    .goto The Exodar,46.0,62.7
-    .trainer >> Train spells and Portal: Exodar in The Exodar
+    .trainer >>在埃索达中训练法术和传送门：埃索达
 step << Mage
-    >>Buy 1 Rune of Teleportation
+    >>购买 1 个传送符文
     .collect 17031,1 --Rune of Teleportation (1)
     .goto The Exodar,44.8,63.2
 step << Warrior
 	.goto The Exodar,42,71.4,60,0
 	.goto The Exodar,54.5,85.6,60,0
 	.goto The Exodar,55.579,82.269
-	.trainer >> Train spells in The Exodar
+	.trainer >>在埃索达训练法术
 step
 	.goto The Exodar,33.8,73.7,10,0
     .goto Azuremyst Isle,24.182,54.346
-	>>Talk to the Night Elf just outside of The Exodar back entrance
->>Talk to |cRXP_FRIENDLY_Huntress Kella Nightbow|r
-    .turnin 9632 >> Turn in Newfound Allies
+	>>与埃索达后门外的暗夜精灵交谈
+>>对话: |cRXP_FRIENDLY_女猎手凯拉·夜弓|r
+    .turnin 9632 >>交任务: |cRXP_FRIENDLY_新的盟友|r
 .target Huntress Kella Nightbow
-    .accept 9633 >> Accept The Way to Auberdine
+    .accept 9633 >>接任务: |cRXP_LOOT_前往奥伯丁|r
 step
 	#sticky
 	#completewith next
-	.goto Azuremyst Isle,21.4,54.0,20 >> Go to the docks
+	.goto Azuremyst Isle,21.4,54.0,20 >>去码头
 step
-    .zone Darkshore >>Get onto the boat when it comes and travel to Darkshore.
-	>> Level first aid or make sharpening stones while you wait. << Warrior/Paladin
+    .zone Darkshore >>前往: |cRXP_PICK_黑海岸|r
+	>>在等待的时候，调整急救水平或者制作磨刀石。 << Warrior/Paladin
 ]])
 
 RXPGuides.RegisterGuide([[
 #tbc
 #wotlk
 << Alliance
-#name 20-21 Darkshore (Draenei)
+#name 20-21 黑海岸 (德莱尼)
 #version 1
-#group RestedXP Alliance 20-32
+#group RestedXP 联盟 20-32
 #defaultfor Draenei
-#next 21-23 Ashenvale (Draenei)
+#next 21-23 灰谷（德莱尼）
 step
     #xprate <1.2
     .goto Darkshore,36.096,44.931
 .target Gubber Blump
->>Talk to |cRXP_FRIENDLY_Gubber Blump|r
-    .accept 1138 >> Accept Fruit of the Sea
+>>对话: |cRXP_FRIENDLY_古博·布拉普|r
+    .accept 1138 >>接任务: |cRXP_LOOT_海中的水果|r
     .maxlevel 20
 step
 	.goto Darkshore,36.35,45.57
-	.fp Darkshore >> Get the Darkshore flight path
+	.fp Darkshore >>获取黑海岸飞行路线
 step
     .goto Darkshore,37.0,44.0
-    .home >> Set Hearthstone to Auberdine
+    .home >>将你的炉石设为奥伯丁
 step
     #xprate <1.2
     .goto Darkshore,37.3,44.3
-    .accept 4740 >> Accept WANTED: Murkdeep!
+    .accept 4740 >>接任务: |cRXP_LOOT_通缉：莫克迪普！|r
 step
     #xprate <1.2
     .goto Darkshore,37.4,43.7
 .target Barithras Moonshade
->>Talk to |cRXP_FRIENDLY_Barithras Moonshade|r
-    .accept 947 >> Accept Cave Mushrooms
+>>对话: |cRXP_FRIENDLY_巴瑞萨斯·月影|r
+    .accept 947 >>接任务: |cRXP_LOOT_洞中的蘑菇|r
     .maxlevel 20
 step
     .goto Darkshore,38.37,43.05
 .target Gershala Nightwhisper
->>Talk to |cRXP_FRIENDLY_Gershala Nightwhisper|r
-    .accept 1275 >> Accept Researching the Corruption
+>>对话: |cRXP_FRIENDLY_戈沙拉·夜语|r
+    .accept 1275 >>接任务: |cRXP_LOOT_研究堕落|r
 step
     #xprate <1.2
     .goto Darkshore,39.1,43.5
 .target Sentinel Elissa Starbreeze
->>Talk to |cRXP_FRIENDLY_Sentinel Elissa Starbreeze|r
-    .accept 965 >> Accept The Tower of Althalaxx
+>>对话: |cRXP_FRIENDLY_哨兵艾莉萨·星风|r
+    .accept 965 >>接任务: |cRXP_LOOT_奥萨拉克斯之塔|r
     .maxlevel 20
 step
 #xprate <1.2
     .goto Darkshore,38.1,41.2
 .target Gorbold Steelhand
->>Talk to |cRXP_FRIENDLY_Gorbold Steelhand|r
-    .accept 982 >> Accept Deep Ocean, Vast Sea
+>>对话: |cRXP_FRIENDLY_高尔博德·钢手|r
+    .accept 982 >>接任务: |cRXP_LOOT_深不可测的海洋|r
     .maxlevel 20
 step
     .goto Darkshore,37.4,40.2
-	.turnin -9633 >> Turn in The Way to Auberdine
+	.turnin -9633 >>交任务: |cRXP_FRIENDLY_[The Way to Auberdine]|r
 .target Thundris Windweaver
->>Talk to |cRXP_FRIENDLY_Thundris Windweaver|r
-    .accept 10752 >> Accept Onward to Ashenvale
+>>对话: |cRXP_FRIENDLY_桑迪斯·织风|r
+    .accept 10752 >>接任务: |cRXP_LOOT_前往灰谷|r
 step
 #xprate <1.2
     .goto Darkshore,38.2,28.8
-	>>Enter the sunken ship through the hole on the hull and loot the chest at the bottom floor
+	>>通过船体上的洞进入沉船，抢劫底层的箱子
     .complete 982,1 --Collect Silver Dawning's Lockbox (x1)
     .isOnQuest 982
 step
 #xprate <1.2
     .goto Darkshore,39.6,27.5
-	>>Enter the sunken ship through the hole on the hull and loot the chest at the bottom floor
+	>>通过船体上的洞进入沉船，抢劫底层的箱子
     .complete 982,2 --Collect Mist Veil's Lockbox (x1)
     .isOnQuest 982
 step
 #xprate <1.2
 	#sticky
-	>>Kill Reef Crawlers and Encrusted Tide Crawlers along the coast
+	>>杀死沿海的礁石爬行者和结壳潮汐爬行者
     .complete 1138,1 --Collect Fine Crab Chunks (x6)
     .isOnQuest 1138
 step
 #xprate <1.2
-	>>Start heading north while grinding crabs along the coast
+	>>开始向北走，沿着海岸磨螃蟹
     .goto Darkshore,56.7,13.5
 .target Gelkak Gyromast
->>Talk to |cRXP_FRIENDLY_Gelkak Gyromast|r
-    .accept 2098 >> Accept Gyromast's Retrieval
+>>对话: |cRXP_FRIENDLY_基尔卡克·旋杆|r
+    .accept 2098 >>接任务: |cRXP_LOOT_基尔卡克的钥匙|r
     .isOnQuest 1138
 step
 #xprate <1.2
 	#completewith q2098
     #label crawlers
-    >>Kill Raging Reef Crawlers. Be careful as they thrash (multiple hits at once every 10s or so)
+    >>杀死狂暴礁石爬行者。小心它们猛烈攻击（每隔 10 秒左右会多次攻击）
     .complete 2098,3 --Collect Bottom of Gelkak's Key (x1)
     .isOnQuest 2098
 step
 #xprate <1.2
     .goto Darkshore,59.5,12.6
-	>>Kill Giant Foreststriders
+	>>杀死巨型森林漫步者
     .complete 2098,1 --Collect Top of Gelkak's Key (x1)
     .isOnQuest 2098
 step
 #xprate <1.2
     .goto Darkshore,55.4,12.6
-	>>Kill murlocs next to the sunken ship. You can LoS (line of sight) the oracles around the front of the sunken ship
+	>>杀死沉船旁边的鱼人。你可以看到沉船前方的神谕
     .complete 2098,2 --Collect Middle of Gelkak's Key (x1)
     .isOnQuest 2098
 step
@@ -2361,55 +2361,55 @@ step
     #requires crawlers
     .goto Darkshore,56.7,13.5
 .target Gelkak Gyromast
->>Talk to |cRXP_FRIENDLY_Gelkak Gyromast|r
-    .turnin 2098 >> Turn in Gyromast's Retrieval
+>>对话: |cRXP_FRIENDLY_基尔卡克·旋杆|r
+    .turnin 2098 >>交任务: |cRXP_FRIENDLY_基尔卡克的钥匙|r
     .isOnQuest 2098
 step
 #xprate <1.2
     .goto Darkshore,56.7,13.5
     #requires crawlers
 .target Gelkak Gyromast
->>Talk to |cRXP_FRIENDLY_Gelkak Gyromast|r
-    .accept 2078 >> Accept Gyromast's Revenge
+>>对话: |cRXP_FRIENDLY_基尔卡克·旋杆|r
+    .accept 2078 >>接任务: |cRXP_LOOT_基尔卡克的报复|r
     .isQuestTurnedIn 2098
 step
 #xprate <1.2
     .goto Darkshore,55.8,18.2
-	>>Talk to the big robot and escort him back to the quest giver and then kill it once it turns hostile
+	>>与大机器人交谈并护送他回到任务给予者那里，然后在它变得有敌意时杀死它
     .complete 2078,1 --Gelkak's First Mate
     .isQuestTurnedIn 2098
 step
 #xprate <1.2
     .goto Darkshore,56.7,13.5
 .target Gelkak Gyromast
->>Talk to |cRXP_FRIENDLY_Gelkak Gyromast|r
-    .turnin 2078 >> Turn in Gyromast's Revenge
+>>对话: |cRXP_FRIENDLY_基尔卡克·旋杆|r
+    .turnin 2078 >>交任务: |cRXP_FRIENDLY_基尔卡克的报复|r
     .isQuestTurnedIn 2098
 step
 #xprate <1.2
 	#sticky
 	#completewith deletekey
-	.destroy 7442 >> Delete Gyromast's Key from your inventory (not your keyring). It's no longer needed
+	.destroy 7442 >>摧毁: |cRXP_ENEMY_基尔卡克的钥匙|r, 它在你的钥匙中. 不再需要它了
     .isQuestTurnedIn 2098
 step << !Druid !Shaman !Warlock
 #xprate <1.2
     .isQuestTurnedIn 2098
 	#sticky
 	#completewith deletekey
-	+Make sure to save your water breathing potions, you will need them later to deal with a couple of underwater sections from 30-40
+	+确保保存好你的水下呼吸药水，稍后你将需要它们来处理 30-40 的几个水下区域
 step
 #xprate <1.2
     .goto Darkshore,55.0,24.9
 .target Balthule Shadowstrike
->>Talk to |cRXP_FRIENDLY_Balthule Shadowstrike|r
-    .turnin 965 >> Turn in The Tower of Althalaxx
+>>对话: |cRXP_FRIENDLY_巴苏尔·影击|r
+    .turnin 965 >>交任务: |cRXP_FRIENDLY_奥萨拉克斯之塔|r
     .isOnQuest 965
 step
 #xprate <1.2
     .goto Darkshore,55.0,24.9
 .target Balthule Shadowstrike
->>Talk to |cRXP_FRIENDLY_Balthule Shadowstrike|r
-    .accept 966 >> Accept The Tower of Althalaxx
+>>对话: |cRXP_FRIENDLY_巴苏尔·影击|r
+    .accept 966 >>接任务: |cRXP_LOOT_奥萨拉克斯之塔|r
     .isQuestTurnedIn 965
 step
 #xprate <1.2
@@ -2420,149 +2420,148 @@ step
 step
 #xprate <1.2
     .goto Darkshore,55.0,24.9
->>Talk to |cRXP_FRIENDLY_Balthule Shadowstrike|r
-    .turnin 966 >> Turn in The Tower of Althalaxx
+>>对话: |cRXP_FRIENDLY_巴苏尔·影击|r
+    .turnin 966 >>交任务: |cRXP_FRIENDLY_奥萨拉克斯之塔|r
 .target Balthule Shadowstrike
-    .accept 967 >> Accept The Tower of Althalaxx
+    .accept 967 >>接任务: |cRXP_LOOT_奥萨拉克斯之塔|r
     .isQuestTurnedIn 965
 step
 #xprate <1.2
     .goto Darkshore,55.3,34.0
     .complete 947,1 --Collect Scaber Stalk (x5)
-	>>Take a right when entering the cave and check the top for a Death Cap. If there's none there, you have to go down below
+	>>进入洞穴后向右转，检查顶部是否有死亡帽。如果没有，你必须往下走
     .complete 947,2 --Collect Death Cap (x1)
     .isOnQuest 947
 step
 #xprate <1.2
 	.goto Darkshore,55.3,34.0
-    .xp 20-3900	>> Grind until you're level 19 and 16900+/20800xp
+    .xp 20-3900	>>努力学习直到你达到 19 级并获得 16900+/20800xp
 step
 #xprate <1.2
 	#sticky
 	#completewith next
-	.deathskip >> Death skip to Auberdine << Hunter
-    .hs >> Hearth to Auberdine << !Hunter
+	.deathskip >>死亡跳跃至奥伯丁 << Hunter
+    .hs >>哈思至奥伯丁 << !Hunter
 step
 #xprate <1.2
     .goto Darkshore,38.1,41.3
 .target Gorbold Steelhand
->>Talk to |cRXP_FRIENDLY_Gorbold Steelhand|r
-    .turnin 982 >> Turn in Deep Ocean, Vast Sea
+>>对话: |cRXP_FRIENDLY_高尔博德·钢手|r
+    .turnin 982 >>交任务: |cRXP_FRIENDLY_深不可测的海洋|r
     .isQuestComplete 982
 step
 #xprate <1.2
     .goto Darkshore,37.5,41.9
 .target Archaeologist Hollee
->>Talk to |cRXP_FRIENDLY_Archaeologist Hollee|r
-    .accept 729 >> Accept The Absent Minded Prospector
+>>对话: |cRXP_FRIENDLY_考古学家霍莉|r
+    .accept 729 >>接任务: |cRXP_LOOT_健忘的勘察员|r
 step
 #xprate <1.2
     .goto Darkshore,37.4,43.7
 .target Barithras Moonshade
->>Talk to |cRXP_FRIENDLY_Barithras Moonshade|r
-    .turnin 947 >> Turn in Cave Mushrooms
+>>对话: |cRXP_FRIENDLY_巴瑞萨斯·月影|r
+    .turnin 947 >>交任务: |cRXP_FRIENDLY_洞中的蘑菇|r
     .isQuestComplete 947
 step
 #xprate <1.2
     .goto Darkshore,37.4,43.7
 .target Barithras Moonshade
->>Talk to |cRXP_FRIENDLY_Barithras Moonshade|r
-    .accept 948 >> Accept Onu
+>>对话: |cRXP_FRIENDLY_巴瑞萨斯·月影|r
+    .accept 948 >>接任务: |cRXP_LOOT_安努|r
     .isQuestTurnedIn 947
 step
 #xprate <1.2
     .goto Darkshore,36.096,44.931
 .target Gubber Blump
->>Talk to |cRXP_FRIENDLY_Gubber Blump|r
-    .turnin 1138 >> Turn in Fruit of the Sea
+>>对话: |cRXP_FRIENDLY_古博·布拉普|r
+    .turnin 1138 >>交任务: |cRXP_FRIENDLY_海中的水果|r
     .isQuestComplete 1138
 step << Hunter
     #completewith Trainer
     .goto Darkshore,33.1,39.9,30,0
     .goto Darkshore,33.1,39.9,0
-    .zone Teldrassil>>Take the boat to Teldrassil
+    .zone Teldrassil>>前往: |cRXP_PICK_泰达希尔|r
     .zoneskip Darnassus
 step << Hunter
     #completewith Trainer
     .goto Teldrassil,58.399,94.016
-    .fp Rut'theran >> Get the Rut'theran Village flight path
+    .fp Rut'theran >>获取鲁瑟兰村飞行路线
 step << Hunter
     #label Trainer
 	.goto Teldrassil,29.2,56.7
-	.train 264 >> Train Bows
-    .train 227 >> Train Staves << tbc
+	.train 264 >>火车弓
+    .train 227 >>火车五线谱 << tbc
 step << Hunter
     .goto Darnassus,63.3,66.3
-    >>Buy the level 20 weapon upgrade in Darnassus
-    >> Skip this step if you have an Heirloom weapon << wotlk
+    >>在达纳苏斯购买 20 级武器升级
+    >>如果你有传家宝武器，请跳过此步骤 << wotlk
     .collect 3027,1
     .itemStat 18,QUALITY,<7 << wotlk
 step << Hunter
-    .hs >> Hearth back to Auberdine, fly back if your HS is still on cooldown
+    .hs >>返回奥伯丁，如果你的 HS 仍在冷却，请飞回来
     .zoneskip Darkshore
 step
 #xprate <1.2
     .goto Darkshore,43.5,76.2
->>Talk to |cRXP_FRIENDLY_Onu|r
-    .turnin 948 >> Turn in Onu
+>>对话: |cRXP_FRIENDLY_安努|r
+    .turnin 948 >>交任务: |cRXP_FRIENDLY_安努|r
 .target Onu
-    .accept 944 >> Accept The Master's Glaive
+    .accept 944 >>接任务: |cRXP_LOOT_主宰之剑|r
     .isQuestTurnedIn 947
 step
 #xprate <1.2
     .goto Darkshore,36.6,76.6
-	>>Run near the fire to start the event (recommended to kill the mobs around it first)
+	>>跑到火边来开始事件（建议先杀死周围的怪物）
     .complete 4740,1 --Kill Murkdeep (x1)
     .isOnQuest 4740
 step
     .isOnQuest 729
     .goto Darkshore,35.7,83.7
 .target Prospector Remtravel
->>Talk to |cRXP_FRIENDLY_Prospector Remtravel|r
-    .turnin 729 >> Turn in The Absent Minded Prospector
+>>对话: |cRXP_FRIENDLY_勘察员雷塔维|r
+    .turnin 729 >>交任务: |cRXP_FRIENDLY_健忘的勘察员|r
 step
 #xprate <1.7
     .goto Darkshore,35.7,83.7
-    >>Start the escort quest
+    >>开始护送任务
 .target Prospector Remtravel
->>Talk to |cRXP_FRIENDLY_Prospector Remtravel|r
-    .accept 731,1 >> Accept The Absent Minded Prospector
+>>对话: |cRXP_FRIENDLY_勘察员雷塔维|r
+    .accept 731,1 >>接任务: |cRXP_LOOT_健忘的勘察员|r
     .isQuestTurnedIn 729
 step
 #xprate <1.7
     .isOnQuest 729
-	>>Remtravel will not aggro the mobs that don't hit him, or that you aggro first. Be careful as he has low health/armor
-    .complete 731,1 --Escort Prospector Remtravel
+	>>Remtravel 不会激怒那些没有攻击他的怪物，或者你先激怒的怪物。小心他的生命值很低/护甲
+    .complete 731,1 --护送勘探者 Remtravel
 step
 #xprate <1.2
     .goto Darkshore,39.0,86.4
-	.use 5251 >> Use the Phial of Scrying anywhere in the area
-    .turnin 944 >> Turn in The Master's Glaive
-    .accept 949 >> Accept The Twilight Camp
+	.use 5251 >>在区域任意位置使用占卜瓶
+    .turnin 944 >>交任务: |cRXP_FRIENDLY_主宰之剑|r
+    .accept 949 >>接任务: |cRXP_LOOT_暮光之锤的营地|r
     .isQuestTurnedIn 948
 step
 #xprate <1.2
     .goto Darkshore,38.6,86.1
-    .turnin 949 >> Turn in The Twilight Camp
-    >>Skip the follow up
+    .turnin 949 >>交任务: |cRXP_FRIENDLY_暮光之锤的营地|r
+    >>跳过后续步骤
     .isQuestTurnedIn 948
 step
 #xprate <1.2
 	#sticky
 	#completewith darkshoreend
-	.destroy 5251>> You can now delete the "Phial of Scrying" from your inventory. As it's no longer needed
+	.destroy 5251>>现在您可以从库存中删除“占卜瓶”。因为不再需要它
 step
 #xprate <1.2
     .goto Darkshore,38.7,87.3
 .target Therylune
->>Talk to |cRXP_FRIENDLY_Therylune|r
-    .accept 945 >> Accept Therylune's Escape
-    >>If she's not here someone else is escorting her, grind til she respawns.
+>>对话: |cRXP_FRIENDLY_瑟瑞露尼|r
+    .accept 945 >>接任务: |cRXP_LOOT_护送瑟瑞露尼|r, 如果她不在这里，请等待其他人完成此任务。
     .maxlevel 21
 step
 #xprate <1.2
 	#label darkshoreend
-    .complete 945,1 --Escort Therylune
+    .complete 945,1 --护卫 Therylune
     .isOnQuest 945
 ]])
 
@@ -2570,34 +2569,34 @@ RXPGuides.RegisterGuide([[
 #tbc
 #wotlk
 << Alliance
-#name 21-23 Ashenvale (Draenei)
+#name 21-23 灰谷（德莱尼）
 #version 1
-#group RestedXP Alliance 20-32
+#group RestedXP 联盟 20-32
 #defaultfor Draenei
-#next RestedXP Alliance 20-32\23-24 Wetlands;RestedXP Alliance 20-32\24-27 Redridge/Duskwood
+#next RestedXP 联盟 20-32\\23-24 湿地;RestedXP 联盟 20-32\\24-27 赤脊山/暮色森林
 step
 #xprate <1.2
     .goto Ashenvale,26.2,38.6
 .target Delgren the Purifier
->>Talk to |cRXP_FRIENDLY_Delgren the Purifier|r
-    .turnin 967 >> Turn in The Tower of Althalaxx
+>>对话: |cRXP_FRIENDLY_净化者德尔格伦|r
+    .turnin 967 >>交任务: |cRXP_FRIENDLY_奥萨拉克斯之塔|r
     .isOnQuest 967
 step
 #xprate <1.2
     .goto Ashenvale,26.2,38.6
 .target Delgren the Purifier
->>Talk to |cRXP_FRIENDLY_Delgren the Purifier|r
-    .accept 970 >> Accept The Tower of Althalaxx
+>>对话: |cRXP_FRIENDLY_净化者德尔格伦|r
+    .accept 970 >>接任务: |cRXP_LOOT_奥萨拉克斯之塔|r
     .maxlevel 21
 step
-    >> This quest leads into a big chain, it's worth doing even if it seems tedious.
+    >>这个任务会引出一个大链条，尽管它看起来很乏味，但还是值得做的。
     .goto Ashenvale,26.4,38.6
 .target Orendil Broadleaf
->>Talk to |cRXP_FRIENDLY_Orendil Broadleaf|r
-    .accept 1010 >> Accept Bathran's Hair
+>>对话: |cRXP_FRIENDLY_奥雷迪尔·阔叶|r
+    .accept 1010 >>接任务: |cRXP_LOOT_巴斯兰的头发|r
 step
     .goto Ashenvale,31.3,23.2
-	>>Look for small bundles on the ground, they can be hidden partially-inside of the terrain
+	>>寻找地面上的小捆，它们可能部分隐藏在地形内
     .complete 1010,1 --Collect Bathran's Hair (x5)
 step
 #xprate <1.2
@@ -2606,82 +2605,82 @@ step
     .isOnQuest 970
 step
     .goto Ashenvale,26.4,38.6
->>Talk to |cRXP_FRIENDLY_Orendil Broadleaf|r
-    .turnin 1010 >> Turn in Bathran's Hair
+>>对话: |cRXP_FRIENDLY_奥雷迪尔·阔叶|r
+    .turnin 1010 >>交任务: |cRXP_FRIENDLY_巴斯兰的头发|r
 .target Orendil Broadleaf
-    .accept 1020 >> Accept Orendil's Cure
+    .accept 1020 >>接任务: |cRXP_LOOT_奥雷迪尔的药剂|r
 step
 #xprate <1.2
     .goto Ashenvale,26.2,38.6
 .target Delgren the Purifier
->>Talk to |cRXP_FRIENDLY_Delgren the Purifier|r
-    .turnin 970 >> Turn in The Tower of Althalaxx
+>>对话: |cRXP_FRIENDLY_净化者德尔格伦|r
+    .turnin 970 >>交任务: |cRXP_FRIENDLY_奥萨拉克斯之塔|r
     .isOnQuest 970
 step
 #xprate <1.2
     .goto Ashenvale,26.2,38.6
 .target Delgren the Purifier
->>Talk to |cRXP_FRIENDLY_Delgren the Purifier|r
-    .accept 973 >> Accept The Tower of Althalaxx
+>>对话: |cRXP_FRIENDLY_净化者德尔格伦|r
+    .accept 973 >>接任务: |cRXP_LOOT_奥萨拉克斯之塔|r
     .maxlevel 21
     .isQuestTurnedIn 970
 step
     .goto Ashenvale,34.7,48.8
 .target Shindrell Swiftfire
->>Talk to |cRXP_FRIENDLY_Shindrell Swiftfire|r
-    .accept 1008 >> Accept The Zoram Strand
+>>对话: |cRXP_FRIENDLY_辛德瑞尔·速火|r
+    .accept 1008 >>接任务: |cRXP_LOOT_佐拉姆海岸|r
 step
     .goto Ashenvale,36.618,49.581
 .target Raene Wolfrunner
->>Talk to |cRXP_FRIENDLY_Raene Wolfrunner|r
-    .accept 1054 >> Accept Culling the Threat
-    .turnin 10752 >> Turn in Onward to Ashenvale
+>>对话: |cRXP_FRIENDLY_莱恩·狼行者|r
+    .accept 1054 >>接任务: |cRXP_LOOT_解除威胁|r
+    .turnin 10752 >>交任务: |cRXP_FRIENDLY_前往灰谷|r
 step
     #xprate <1.7
     .goto Ashenvale,36.618,49.581
 .target Raene Wolfrunner
->>Talk to |cRXP_FRIENDLY_Raene Wolfrunner|r
-    .accept 991 >> Accept Raene's Cleansing
+>>对话: |cRXP_FRIENDLY_莱恩·狼行者|r
+    .accept 991 >>接任务: |cRXP_LOOT_莱恩的净化|r
 step
     .goto Ashenvale,37.0,49.2
-    .home >> Go Upstairs. Set your Hearthstone to Astranaar
+    .home >>上楼。将你的炉石设为阿斯特兰纳
 step
     .goto Ashenvale,37.3,51.8
 .target Pelturas Whitemoon
->>Talk to |cRXP_FRIENDLY_Pelturas Whitemoon|r
-    .turnin 1020 >> Turn in Orendil's Cure
+>>对话: |cRXP_FRIENDLY_皮尔图拉斯·怀特姆恩|r
+    .turnin 1020 >>交任务: |cRXP_FRIENDLY_奥雷迪尔的药剂|r
     .timer 26,Orendil's Cure RP
 step << Warrior tbc/Paladin
 	#sticky
 	.goto Ashenvale,35.8,52.0
-	>>Buy the level 21 weapon upgrade
+	>>购买 21 级武器升级
 	.collect 922,1
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<15.97
 step
 	.goto Ashenvale,37.3,51.8
 .target Pelturas Whitemoon
->>Talk to |cRXP_FRIENDLY_Pelturas Whitemoon|r
-    .accept 1033 >> Accept Elune's Tear
+>>对话: |cRXP_FRIENDLY_皮尔图拉斯·怀特姆恩|r
+    .accept 1033 >>接任务: |cRXP_LOOT_月神之泪|r
 step
     .goto Ashenvale,46.2,45.9
-    >>Look for small pearl shaped objects on the small island on the middle of the lake
+    >>在湖中央的小岛上寻找小珍珠状物体
     .complete 1033,1 --Collect Elune's Tear (x1)
 step
     .goto Ashenvale,37.8,34.7
-	>>He's a grey Furbolg that patrols a large section of the camp
+	>>他是一个灰色的熊怪，巡逻营地的大部分区域
 	.unitscan Dal Bloodclaw
     .complete 1054,1 --Collect Dal Bloodclaw's Skull (x1)
 step
     .goto Ashenvale,36.618,49.581
 .target Raene Wolfrunner
->>Talk to |cRXP_FRIENDLY_Raene Wolfrunner|r
-    .turnin 1054 >> Turn in Culling the Threat
+>>对话: |cRXP_FRIENDLY_莱恩·狼行者|r
+    .turnin 1054 >>交任务: |cRXP_FRIENDLY_解除威胁|r
 step
     .goto Ashenvale,37.3,51.8
->>Talk to |cRXP_FRIENDLY_Pelturas Whitemoon|r
-    .turnin 1033 >> Turn in Elune's Tear
+>>对话: |cRXP_FRIENDLY_皮尔图拉斯·怀特姆恩|r
+    .turnin 1033 >>交任务: |cRXP_FRIENDLY_月神之泪|r
 .target Pelturas Whitemoon
-    .accept 1034 >> Accept The Ruins of Stardust
+    .accept 1034 >>接任务: |cRXP_LOOT_星尘废墟|r
 step << Shaman
     .goto Ashenvale,33.6,67.4
     .complete 9504,1 --Collect Filled Bota Bag (x1)
@@ -2691,7 +2690,7 @@ step
 step
 #xprate <1.2
     .goto Ashenvale,25.3,60.8
-	>>Try to kill him before he summons his guardians (it's stunnable, but not interruptable)
+	>>尝试在他召唤守护者之前杀死他（可以击晕，但无法打断）
     .complete 973,1 --Collect Ilkrud Magthrull's Tome (x1)
     .isOnQuest 973
 step
@@ -2699,28 +2698,28 @@ step
 	.goto Ashenvale,28.1,55.1,80,0
     .goto Ashenvale,22.7,51.9
 .target Therysil
->>Talk to |cRXP_FRIENDLY_Therysil|r
-    .turnin 945 >> Turn in Therylune's Escape
+>>对话: |cRXP_FRIENDLY_瑟瑞希尔|r
+    .turnin 945 >>交任务: |cRXP_FRIENDLY_护送瑟瑞露尼|r
     .isQuestComplete 945
 step
 #xprate <1.2
     .goto Ashenvale,26.196,38.698
 .target Delgren the Purifier
->>Talk to |cRXP_FRIENDLY_Delgren the Purifier|r
-    .turnin 973 >> Turn in The Tower of Althalaxx
+>>对话: |cRXP_FRIENDLY_净化者德尔格伦|r
+    .turnin 973 >>交任务: |cRXP_FRIENDLY_奥萨拉克斯之塔|r
     .isOnQuest 973
 step
 #xprate <1.7
     .goto Ashenvale,20.3,42.4
->>Talk to |cRXP_FRIENDLY_Teronis' Corpse|r
-    .turnin 991 >> Turn in Raene's Cleansing
+>>对话: |cRXP_FRIENDLY_泰洛尼斯的尸体|r
+    .turnin 991 >>交任务: |cRXP_FRIENDLY_莱恩的净化|r
 .target Teronis' Corpse
-    .accept 1023 >> Accept Raene's Cleansing
+    .accept 1023 >>接任务: |cRXP_LOOT_莱恩的净化|r
 step
 #xprate <1.7
     #sticky
     #completewith GlowGem
-    +Be careful of the oracles here, as they have a high-damage instant Shock spell (110 damage) and can heal to full
+    +小心这里的神谕者，因为他们有一个高伤害的瞬间冲击法术（110 点伤害）并且可以治愈到满
 step
 #xprate <1.7
 	#label GlowGem
@@ -2729,28 +2728,28 @@ step
 step
     .goto Ashenvale,14.7,31.3
 .target Talen
->>Talk to |cRXP_FRIENDLY_Talen|r
-    .accept 1007 >> Accept The Ancient Statuette
+>>对话: |cRXP_FRIENDLY_塔尔伦|r
+    .accept 1007 >>接任务: |cRXP_LOOT_远古雕像|r
 step
     .goto Ashenvale,14.2,20.6
-    >>Look for a small statuette on the ground
-	>>Grind naga en route but don't go out of your way, we'll kill more later.
+    >>寻找地面上的小雕像
+	>>途中磨碎娜迦，但不要绕路，我们稍后会杀死更多。
     .collect 5490,20,1008,1,1
     .complete 1007,1 --Collect Ancient Statuette (x1)
 step
     .goto Ashenvale,14.790,31.294
-	>> Grind naga directly in your path
->>Talk to |cRXP_FRIENDLY_Talen|r
-    .turnin 1007 >> Turn in The Ancient Statuette
+	>>直接碾碎你路上的纳迦
+>>对话: |cRXP_FRIENDLY_塔尔伦|r
+    .turnin 1007 >>交任务: |cRXP_FRIENDLY_远古雕像|r
     .timer 25,The Ancient Statuette RP
 .target Talen
-    .accept 1009 >> Accept Ruuzel
+    .accept 1009 >>接任务: |cRXP_LOOT_卢泽尔|r
 step
 	.goto Ashenvale,13.5,19.7,60,0
     .goto Ashenvale,7.0,13.4
-    >>Head to the island north and kill Ruuzel
-	>> This fight can be hard, focus down one or two of her adds then reset if needed.
-    .complete 1009,1 --Collect Ring of Zoram (x1)
+    >>前往岛屿北部并杀死 Ruuzel
+	>>这场战斗可能很艰难，集中精力消灭她的一两个附加敌人，然后根据需要重新进行。
+    .complete 1009,1 --Collect 戒指 of Zoram (x1)
 step
     .goto 1414,43.97,35.31,20,0
     .goto 1414,43.80,35.18,20,0
@@ -2758,51 +2757,51 @@ step
 	.goto 1414,43.91,34.58,20,0
 	.goto 1414,44.02,34.58,20,0
 	.goto 1414,44.16,34.85
-    >>Enter the temple like building into the BFD caves and kill nagas/satyrs
+    >>进入类似寺庙的建筑，进入 BFD 洞穴并杀死纳迦/萨蒂尔
     .complete 1275,1
 step
     #sticky
     #label naga2
     .goto Ashenvale,13.8,29.1,0,0
-	>>Finish grinding nagas
+	>>完成升级纳迦
     .complete 1008,1 --Collect Wrathtail Head (x20)
 step
     .goto Ashenvale,14.790,31.294
 .target Talen
->>Talk to |cRXP_FRIENDLY_Talen|r
-    .turnin 1009 >> Turn in Ruuzel
+>>对话: |cRXP_FRIENDLY_塔尔伦|r
+    .turnin 1009 >>交任务: |cRXP_FRIENDLY_卢泽尔|r
 step
     #requires naga2
     #completewith next
-    .hs >> Hearth to Astranaar
+    .hs >>炉石到阿斯特兰纳
 step
     #requires naga2
     .goto Ashenvale,36.618,49.581
 .target Raene Wolfrunner
->>Talk to |cRXP_FRIENDLY_Raene Wolfrunner|r
-    .turnin 1023 >> Turn in Raene's Cleansing
+>>对话: |cRXP_FRIENDLY_莱恩·狼行者|r
+    .turnin 1023 >>交任务: |cRXP_FRIENDLY_莱恩的净化|r
 step
 	#completewith next
-	.destroy 5505>>Delete Teronis' Journal from your inventory. It's no longer needed
+	.destroy 5505>>从你的库存中删除 Teronis 的日记。它不再需要
 step
 #xprate <1.5
     .goto Ashenvale,36.618,49.581
 .target Raene Wolfrunner
->>Talk to |cRXP_FRIENDLY_Raene Wolfrunner|r
-    .accept 1025 >> Accept An Aggressive Defense
+>>对话: |cRXP_FRIENDLY_莱恩·狼行者|r
+    .accept 1025 >>接任务: |cRXP_LOOT_先发制人|r
 step
     .goto Ashenvale,37.3,51.8
 .target Pelturas Whitemoon
->>Talk to |cRXP_FRIENDLY_Pelturas Whitemoon|r
-    .turnin 1034 >> Turn in The Ruins of Stardust
+>>对话: |cRXP_FRIENDLY_皮尔图拉斯·怀特姆恩|r
+    .turnin 1034 >>交任务: |cRXP_FRIENDLY_星尘废墟|r
 step
     .goto Ashenvale,34.7,48.9
 .target Shindrell Swiftfire
->>Talk to |cRXP_FRIENDLY_Shindrell Swiftfire|r
-    .turnin 1008 >> Turn in The Zoram Strand
+>>对话: |cRXP_FRIENDLY_辛德瑞尔·速火|r
+    .turnin 1008 >>交任务: |cRXP_FRIENDLY_佐拉姆海岸|r
 step
 #xprate <1.5
-    >>Kill the mobs for An Aggressive Defense
+    >>杀死暴徒以进行积极防御
     .goto Ashenvale,49.9,60.8
     .goto Ashenvale,56.9,63.7
     .complete 1025,1 --Kill Foulweald Den Watcher (x1)
@@ -2813,132 +2812,132 @@ step
 #xprate <1.5
     .goto Ashenvale,49.796,67.211
 .target Sentinel Velene Starstrike
->>Talk to |cRXP_FRIENDLY_Sentinel Velene Starstrike|r
-    .accept 1016 >> Accept Elemental Bracers
+>>对话: |cRXP_FRIENDLY_哨兵维尔莉妮·星坠|r
+    .accept 1016 >>接任务: |cRXP_LOOT_元素护腕|r
 step
 #xprate <1.5
-    .use 5456 >>Kill all water elementals on the island/in the water for Intact Elemental Bracers. When you have 5, right click the Divining Scroll
+    .use 5456 >>杀死岛上所有水元素，获得完整的元素护腕。当你有 5 个时，右键单击占卜卷轴
     .goto Ashenvale,48.0,69.9
     .complete 1016,1 --Collect Divined Scroll (x1)
 step
 #xprate <1.5
     .goto Ashenvale,49.796,67.211
 .target Sentinel Velene Starstrike
->>Talk to |cRXP_FRIENDLY_Sentinel Velene Starstrike|r
-    .turnin 1016 >> Turn in Elemental Bracers
+>>对话: |cRXP_FRIENDLY_哨兵维尔莉妮·星坠|r
+    .turnin 1016 >>交任务: |cRXP_FRIENDLY_元素护腕|r
 step
 #xprate <1.5
     .goto Ashenvale,36.618,49.581
 .target Raene Wolfrunner
->>Talk to |cRXP_FRIENDLY_Raene Wolfrunner|r
-    .turnin 1025 >> Turn in An Aggressive Defense
+>>对话: |cRXP_FRIENDLY_莱恩·狼行者|r
+    .turnin 1025 >>交任务: |cRXP_FRIENDLY_先发制人|r
     .isQuestComplete 1025
 step
 	.goto Ashenvale,34.4,48.0
-    .fly Auberdine>> Fly to Auberdine
+    .fly Auberdine>>飞往 奥伯丁
 step
     .goto Darkshore,37.706,43.390
 .target Sentinel Glynda Nal'Shea
->>Talk to |cRXP_FRIENDLY_Sentinel Glynda Nal'Shea|r
-    .turnin 4740 >> Turn in WANTED: Murkdeep!
+>>对话: |cRXP_FRIENDLY_哨兵戈琳达·纳希恩|r
+    .turnin 4740 >>交任务: |cRXP_FRIENDLY_通缉：莫克迪普！|r
     .isQuestComplete 4740
 step
     .goto Darkshore,38.36,43.07
 .target Gershala Nightwhisper
->>Talk to |cRXP_FRIENDLY_Gershala Nightwhisper|r
-    .turnin 1275 >> Turn in Researching the Corruption
+>>对话: |cRXP_FRIENDLY_戈沙拉·夜语|r
+    .turnin 1275 >>交任务: |cRXP_FRIENDLY_研究堕落|r
 step
 #xprate <1.7
     .isOnQuest 731
     .goto Darkshore,37.5,41.9
->>Talk to |cRXP_FRIENDLY_Archaeologist Hollee|r
-    .turnin 731 >> Turn in The Absent Minded Prospector
+>>对话: |cRXP_FRIENDLY_考古学家霍莉|r
+    .turnin 731 >>交任务: |cRXP_FRIENDLY_健忘的勘察员|r
 .target Archaeologist Hollee
-	.accept 741 >> Accept The Absent Minded Prospector << !Hunter
+	.accept 741 >>接任务: |cRXP_LOOT_健忘的勘察员|r << !Hunter
 step << !Hunter
 #xprate <1.7
     .isOnQuest 741
     .goto Darkshore,33.1,39.9,30
-    .zone Teldrassil >>Take the boat to Teldrassil
+    .zone Teldrassil >>前往: |cRXP_PICK_泰达希尔|r
 step << !Hunter
 #xprate <1.7
     .isOnQuest 741
     #completewith next
     .goto Teldrassil,55.9,89.8
-    .zone Darnassus >> Take the purple portal to Darnassus
+    .zone Darnassus >>前往: |cRXP_PICK_达纳苏斯|r
 step << !Hunter
 #xprate <1.7
     .isOnQuest 741
 	.goto Teldrassil,23.703,64.511
->>Talk to |cRXP_FRIENDLY_Chief Archaeologist Greywhisker|r
-	.turnin 741 >> Turn in The Absent Minded Prospector
+>>对话: |cRXP_FRIENDLY_首席考古学家杜瑟·灰胡|r
+	.turnin 741 >>交任务: |cRXP_FRIENDLY_健忘的勘察员|r
 .target Chief Archaeologist Greywhisker
-	.accept 942 >> Accept The Absent Minded Prospector
+	.accept 942 >>接任务: |cRXP_LOOT_健忘的勘察员|r
 step << Warrior tbc/Mage
 #xprate <1.7
 	.goto Teldrassil,29.2,56.7
-    .train 227 >> Train Staves
+    .train 227 >>火车五线谱
     .isOnQuest 942
 step << !Hunter
 #xprate <1.7
-	.goto Darnassus,30.7,41.3,50 >> Take the purple portal back to Rut'theran
+	.goto Darnassus,30.7,41.3,50 >>前往: |cRXP_PICK_泰达希尔|r
     .zoneskip Darkshore
     .zoneskip Teldrassil
 step << !Hunter
 #xprate <1.7
     .goto Teldrassil,58.399,94.016
-    .fp Rut'theran >> Get the Rut'theran Village flight path
+    .fp Rut'theran >>获取鲁瑟兰村飞行路线
     .zoneskip Darkshore
 step << !Hunter
 #xprate <1.7
-    .fly Auberdine >>Fly back to Auberdine
+    .fly Auberdine >>飞回奥伯丁
     .zoneskip Darkshore
 step << !Paladin wotlk
-    >>Now it's a good time to buy your 60% mount, it costs about 4g
-    .zone Azuremyst Isle >>Take the Boat to Azuremyst Isle
+    >>现在是购买 60% 坐骑的好时机，价格约为 4g
+    .zone Azuremyst Isle >>前往: |cRXP_PICK_秘蓝岛|r
     .goto Darkshore,30.8,41.0
-    .skill riding,1 >> Train Riding skill and buy a mount in The Exodar
+    .skill riding,1 >>在埃索达训练骑术并购买坐骑
     .goto The Exodar,81.6,51.8
     .skill riding,1,1
 step
     .goto Darkshore,32.4,43.8
-    >>Go back to the Darkshore docks
-    .zone Stormwind City >> Take the boat to Stormwind << wotlk
-    .zone Wetlands >> Take the boat to Wetlands << tbc
+    >>回到黑海岸码头
+    .zone Stormwind City >>前往: |cRXP_PICK_暴风城|r << wotlk
+    .zone Wetlands >>前往: |cRXP_PICK_湿地|r << tbc
 step << Draenei tbc/NightElf tbc
 #xprate >1.499
     .goto Wetlands,9.5,59.7
-    .fp Menethil >> Get the Menethil Harbor flight path
+    .fp Menethil >>获取米奈希尔港飞行路线
 step << Draenei tbc/NightElf tbc
 #xprate >1.499
     #completewith next
     .goto Wetlands,63.9,78.6
-    .zone Loch Modan >> Logout on top of the mushrooms at the back of the cave. When you log back in, this will teleport you to Thelsamar.
-    >>Make sure to logout as close as possible to the back of the cave. This trick won't work if you log out next to the edge of the mushroom closer to the mouth of the cave.
-    .link https://www.youtube.com/watch?v=21CuGto26Mk >> CLICK HERE for a reference
+    .zone Loch Modan >>前往: |cRXP_PICK_洛克莫丹|r, 在洞穴后面的蘑菇上注销。当你重新登录时，这会将你传送到塞尔萨玛。
+    >>确保尽可能靠近洞穴后方退出。如果你在靠近洞穴入口的蘑菇边缘退出，这个技巧就不起作用了。
+    .link https://www.youtube.com/watch?v=21CuGto26Mk >>点击此处查看参考
     .zoneskip Elwynn Forest
     .zoneskip Stormwind City
 step << NightElf tbc/Draenei tbc
 #xprate >1.499
     .goto Loch Modan,33.938,50.954
-    .fp Thelsamar >> Get the Thelsamar flight path
+    .fp Thelsamar >>获取塞尔萨玛飞行路线
     .zoneskip Elwynn Forest
     .zoneskip Stormwind City
 step << NightElf tbc/Draenei tbc
 #xprate >1.499
     #completewith next
     .goto Loch Modan,21.30,68.60,40,0
-    .zone Dun Morogh>> Run to Dun Morogh
+    .zone Dun Morogh>>奔向丹莫罗
 step << NightElf tbc/Draenei tbc
 #xprate >1.499
-    >>Go inside the South-eastern Trogg cave. Perform a logout skip
+    >>进入东南部的 Trogg 洞穴。执行退出跳过
     .goto Dun Morogh,70.63,56.70,60,0
     .goto Dun Morogh,70.60,54.86
-    .link https://www.youtube.com/watch?v=yQBW3KyguCM >> CLICK HERE
-    .zone Ironforge >> Logout Skip or travel to Ironforge
+    .link https://www.youtube.com/watch?v=yQBW3KyguCM >>点击这里
+    .zone Ironforge >>前往: |cRXP_PICK_铁炉堡|r
 step << NightElf tbc/Draenei tbc
 #xprate >1.499
     .goto Ironforge,76.03,50.98,30,0
-    .zone Stormwind City >> Take the tram to Stormwind
+    .zone Stormwind City >>前往: |cRXP_PICK_暴风城|r
 ]])
 

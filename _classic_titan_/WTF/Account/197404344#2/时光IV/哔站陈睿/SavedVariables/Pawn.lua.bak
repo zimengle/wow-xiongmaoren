@@ -1,6 +1,8 @@
 
 PawnOptions = {
 ["LastVersion"] = 2.0811,
+["LastPlayerFullName"] = "哔站陈睿-时光IV",
+["AutoSelectScales"] = false,
 ["ItemLevels"] = {
 {
 ["ID"] = 255135,
@@ -35,9 +37,9 @@ PawnOptions = {
 ["Link"] = "|cff0070dd|Hitem:37111::::::::80::::::::::|h[护魂者]|h|r",
 },
 [15] = {
-["ID"] = 41610,
-["Level"] = 200,
-["Link"] = "|cffa335ee|Hitem:41610::::::::80::::::::::|h[死寒披风]|h|r",
+["ID"] = 259903,
+["Level"] = 213,
+["Link"] = "|cffa335ee|Hitem:259903::::::::80::::::::::|h[防火披风]|h|r",
 },
 [8] = {
 ["ID"] = 44202,
@@ -87,8 +89,6 @@ PawnOptions = {
 ["Link"] = "|cffa335ee|Hitem:255098::::::::80::::::::::|h[玛利斯达尔防御者]|h|r",
 },
 },
-["AutoSelectScales"] = false,
-["LastPlayerFullName"] = "哔站陈睿-时光IV",
 }
 PawnMrRobotScaleProviderOptions = nil
 PawnClassicScaleProviderOptions = {

@@ -501,13 +501,14 @@ QuickButUI.ButList[3]=function()
 		end
 	end)
 	--创建饰品切换按钮
+	local PIGUseKeyDown=addonTable.Fun.ActionFun.PIGUseKeyDown
 	local GnUI = "PIG_QkBut_AutoTrinket"
 	local AutoTrinket=PIGQuickBut(GnUI,TRINKET0SLOT_UNIQUE,Icon,nil,nil,"SecureActionButtonTemplate")--UseInventoryItem(13)
 	TrinketSelectF.LeftTrinket=AutoTrinket
 	local AutoTrinket1=PIGQuickBut(GnUI.."1",TRINKET1SLOT_UNIQUE,Icon,nil,nil,"SecureActionButtonTemplate")
 	TrinketSelectF.RightTrinket=AutoTrinket1
-	addonTable.Fun.ActionFun.PIGUseKeyDown(AutoTrinket)
-	addonTable.Fun.ActionFun.PIGUseKeyDown(AutoTrinket1)
+	PIGUseKeyDown(AutoTrinket)
+	PIGUseKeyDown(AutoTrinket1)
 	AutoTrinket:SetAttribute("type1", "macro");
 	AutoTrinket:SetAttribute("macrotext", [=[/use 13]=]);
 	AutoTrinket1:SetAttribute("type1", "macro");

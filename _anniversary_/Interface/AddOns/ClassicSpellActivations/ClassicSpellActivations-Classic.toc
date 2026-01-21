@@ -2,6 +2,7 @@
 ## Title: ClassicSpellActivations
 ## Notes: Shows you the shiny
 ## Author: d87
+## Version: 1.0.0 Rurutia Fix
 ## OptionalDeps: Bartender4, Dominos, Neuron
 
 ## X-WoWI-ID: 25000

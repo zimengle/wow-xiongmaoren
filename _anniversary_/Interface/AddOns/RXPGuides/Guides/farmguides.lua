@@ -1,15 +1,15 @@
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Nagrand
-#name Mining & Herbalism1
-#displayname Mining & Herbalism
+#name 采矿草药学1
+#displayname 采矿草药学
 step
     #sticky
     .waypoint Nagrand,50,50
-    .zone Nagrand >> Head to Nagrand
+    .zone Nagrand >>前往: |cRXP_PICK_纳格兰|r
 step
     #hidewindow
     +test
@@ -19,7 +19,7 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Nagrand
@@ -29,7 +29,7 @@ RXPGuides.RegisterGuide([[
 step
     #sticky
     .waypoint Nagrand,50,50
-    .zone Nagrand >> Head to Nagrand
+    .zone Nagrand >>前往: |cRXP_PICK_纳格兰|r
 step
     #hidewindow
     +test
@@ -39,17 +39,17 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Nagrand
 
-#name Herbalism1
+#name 草药学1
 #displayname Herbalism
 step
     #sticky
     .waypoint Nagrand,50,50
-    .zone Nagrand >> Head to Nagrand
+    .zone Nagrand >>前往: |cRXP_PICK_纳格兰|r
 step
     #hidewindow
     +test
@@ -59,16 +59,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Netherstorm
-#name Mining & Herbalism2
-#displayname Mining & Herbalism
+#name 采矿草药学2
+#displayname 采矿草药学
 step
     #sticky
     .waypoint Netherstorm,50,50
-    .zone Netherstorm >> Head to Netherstorm
+    .zone Netherstorm >>前往: |cRXP_PICK_虚空风暴|r
 step
     #hidewindow
     +test
@@ -78,7 +78,7 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Netherstorm
@@ -87,7 +87,7 @@ RXPGuides.RegisterGuide([[
 step
     #sticky
     .waypoint Netherstorm,50,50
-    .zone Netherstorm >> Head to Netherstorm
+    .zone Netherstorm >>前往: |cRXP_PICK_虚空风暴|r
 step
     #hidewindow
     +test
@@ -97,16 +97,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Netherstorm
-#name Herbalism2
+#name 草药学2
 #displayname Herbalism
 step
     #sticky
     .waypoint Netherstorm,50,50
-    .zone Netherstorm >> Head to Netherstorm
+    .zone Netherstorm >>前往: |cRXP_PICK_虚空风暴|r
 step
     #hidewindow
     +test
@@ -117,16 +117,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Terokkar Forest
-#name Mining & Herbalism3
-#displayname Mining & Herbalism
+#name 采矿草药学3
+#displayname 采矿草药学
 step
     #sticky
     .waypoint Terokkar Forest,50,50
-    .zone Terokkar Forest >> Head to Terokkar Forest
+    .zone Terokkar Forest >>前往: |cRXP_PICK_泰罗卡森林|r
 step
     #hidewindow
     +test
@@ -136,7 +136,7 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Terokkar Forest
@@ -145,7 +145,7 @@ RXPGuides.RegisterGuide([[
 step
     #sticky
     .waypoint Terokkar Forest,50,50
-    .zone Terokkar Forest >> Head to Terokkar Forest
+    .zone Terokkar Forest >>前往: |cRXP_PICK_泰罗卡森林|r
 step
     #hidewindow
     +test
@@ -155,16 +155,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Terokkar Forest
-#name Herbalism3
+#name 草药学3
 #displayname Herbalism
 step
     #sticky
     .waypoint Terokkar Forest,50,50
-    .zone Terokkar Forest >> Head to Terokkar Forest
+    .zone Terokkar Forest >>前往: |cRXP_PICK_泰罗卡森林|r
 step
     #hidewindow
     +test
@@ -174,16 +174,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Shadowmoon Valley
-#name Mining & Herbalism4
-#displayname Mining & Herbalism
+#name 采矿草药学4
+#displayname 采矿草药学
 step
     #sticky
     .waypoint Shadowmoon Valley,50,50
-    .zone Shadowmoon Valley >> Head to Shadowmoon Valley
+    .zone Shadowmoon Valley >>前往: |cRXP_PICK_影月谷|r
 step
     #hidewindow
     +test
@@ -193,7 +193,7 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Shadowmoon Valley
@@ -202,7 +202,7 @@ RXPGuides.RegisterGuide([[
 step
     #sticky
     .waypoint Shadowmoon Valley,50,50
-    .zone Shadowmoon Valley >> Head to Shadowmoon Valley
+    .zone Shadowmoon Valley >>前往: |cRXP_PICK_影月谷|r
 step
     #hidewindow
     +test
@@ -212,16 +212,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Shadowmoon Valley
-#name Herbalism4
+#name 草药学4
 #displayname Herbalism
 step
     #sticky
     .waypoint Shadowmoon Valley,50,50
-    .zone Shadowmoon Valley >> Head to Shadowmoon Valley
+    .zone Shadowmoon Valley >>前往: |cRXP_PICK_影月谷|r
 step
     #hidewindow
     +test
@@ -231,25 +231,25 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Zangarmarsh
-#name Mining & Herbalism5
-#displayname Mining & Herbalism
+#name 采矿草药学5
+#displayname 采矿草药学
 step
     #sticky
     .waypoint Zangarmarsh,50,50
-    .zone Zangarmarsh >> Head to Zangarmarsh
+    .zone Zangarmarsh >>前往: |cRXP_PICK_赞加沼泽|r
 step
-    +Required objective, do not remove this line
+    +必填目标，请勿删除此行
     .loop @20,Zangarmarsh,77.9,91.1,86.4,86.5,82.6,82.2,84.5,79.6,82.0,69.6,81.8,59.0,89.2,38.0,85.5,26.7,84.4,42.4,81.8,44.2,78.2,39.7,81.7,34.5,79.9,28.0,70.9,33.6,69.9,43.6,60.9,32.6,49.1,29.0,40.0,31.9,34.6,16.3,31.0,21.7,19.9,15.4,19.6,4.8,15.9,14.3,14.7,29.5,11.5,38.8,8.1,51.5,11.1,65.9,16.6,57.9,18.4,70.5,25.4,54.9,31.3,66.6,27.5,38.8,36.9,34.1,37.0,62.9,57.1,69.9,70.1,69.5,67.1,78.6,76.1,90.3,77.9,91.1
     .openmap Zangarmarsh
 ]])
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Zangarmarsh
@@ -258,43 +258,43 @@ RXPGuides.RegisterGuide([[
 step
     #sticky
     .waypoint Zangarmarsh,50,50
-    .zone Zangarmarsh >> Head to Zangarmarsh
+    .zone Zangarmarsh >>前往: |cRXP_PICK_赞加沼泽|r
 step
-    +Required objective, do not remove this line
+    +必填目标，请勿删除此行
     .loop @20,Zangarmarsh,84.6,88.7,85.5,79.1,83.1,70.5,87.4,46.9,80.3,36.4,87.1,35.2,84.2,28.7,75.5,29.3,71.5,34.5,56.2,33.5,56.0,43.7,46.3,37.9,34.5,16.5,33.2,21.6,18.8,14.7,19.0,2.7,14.2,20.7,14.3,31.9,7.6,51.9,11.2,62.0,17.3,68.3,27.5,66.2,30.7,59.7,40.4,66.9,48.9,66.8,67.1,76.4,68.9,86.7,76.8,91.8,84.6,88.7
     .openmap Zangarmarsh
 ]])
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Zangarmarsh
-#name Herbalism5
+#name 草药学5
 #displayname Herbalism
 step
     #sticky
     .waypoint Zangarmarsh,50,50
-    .zone Zangarmarsh >> Head to Zangarmarsh
+    .zone Zangarmarsh >>前往: |cRXP_PICK_赞加沼泽|r
 step
-    +Required objective, do not remove this line
+    +必填目标，请勿删除此行
     .loop @20,Zangarmarsh,77.9,91.1,85.0,85.2,82.6,82.2,84.5,79.6,82.0,69.6,81.8,59.0,89.4,37.6,85.7,28.8,84.4,42.4,81.8,44.2,78.2,39.7,81.7,34.5,80.3,29.8,71.6,35.6,69.9,43.6,61.0,33.9,49.0,30.6,40.0,31.9,34.8,17.7,31.0,21.7,19.9,15.4,19.6,2.4,15.9,14.3,14.7,29.5,11.5,38.8,9.1,51.7,11.1,65.9,16.6,57.9,18.4,70.5,25.4,54.9,31.3,66.6,27.5,36.6,36.9,34.1,37.5,62.3,57.1,69.9,70.1,69.5,67.1,78.6,76.1,90.3,77.9,91.1
     .openmap Zangarmarsh
 ]])
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Hellfire Peninsula
-#name Mining & Herbalism6
-#displayname Mining & Herbalism
+#name 采矿草药学6
+#displayname 采矿草药学
 step
     #sticky
     .waypoint Hellfire Peninsula,50,50
-    .zone Hellfire Peninsula >> Head to Hellfire Peninsula
+    .zone Hellfire Peninsula >>前往: |cRXP_PICK_地狱火半岛|r
 step
     #hidewindow
     +test
@@ -304,16 +304,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Hellfire Peninsula
-#name Herbalism6
+#name 草药学6
 #displayname Herbalism
 step
     #sticky
     .waypoint Hellfire Peninsula,50,50
-    .zone Hellfire Peninsula >> Head to Hellfire Peninsula
+    .zone Hellfire Peninsula >>前往: |cRXP_PICK_地狱火半岛|r
 step
     #hidewindow
     +test
@@ -323,7 +323,7 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Hellfire Peninsula
@@ -332,7 +332,7 @@ RXPGuides.RegisterGuide([[
 step
     #sticky
     .waypoint Hellfire Peninsula,50,50
-    .zone Hellfire Peninsula >> Head to Hellfire Peninsula
+    .zone Hellfire Peninsula >>前往: |cRXP_PICK_地狱火半岛|r
 step
     #hidewindow
     +test
@@ -342,16 +342,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
-#subgroup Blades Edge Mountains
-#name Mining & Herbalism7
-#displayname Mining & Herbalism
+#subgroup 刀锋山
+#name 采矿草药学7
+#displayname 采矿草药学
 step
     #sticky
     .waypoint Blade's Edge Mountains,50,50
-    .zone Blade's Edge Mountains >> Head to Blade's Edge Mountains
+    .zone Blade's Edge Mountains >>前往: |cRXP_PICK_刀锋山|r
 step
     #hidewindow
     +test
@@ -361,16 +361,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
-#subgroup Blades Edge Mountains
+#subgroup 刀锋山
 #name Mining7
 #displayname Mining
 step
     #sticky
     .waypoint Blade's Edge Mountains,50,50
-    .zone Blade's Edge Mountains >> Head to Blade's Edge Mountains
+    .zone Blade's Edge Mountains >>前往: |cRXP_PICK_刀锋山|r
 step
     #hidewindow
     +test
@@ -380,16 +380,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
-#subgroup Blades Edge Mountains
-#name Herbalism7
+#subgroup 刀锋山
+#name 草药学7
 #displayname Herbalism
 step
     #sticky
     .waypoint Blade's Edge Mountains,50,50
-    .zone Blade's Edge Mountains >> Head to Blade's Edge Mountains
+    .zone Blade's Edge Mountains >>前往: |cRXP_PICK_刀锋山|r
 step
     #hidewindow
     +test
@@ -399,11 +399,11 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Outland Farming
+#group +外域农业
 #loop
 #hidewindow
 #subgroup Netherstorm
-#name Fel Hide_1a
+#name 邪能隐藏_1a
 #displayname Fel Hide
 step
     #hidewindow
@@ -415,12 +415,12 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Outland Farming
+#group +外域农业
 #loop
 #hidewindow
 #subgroup Netherstorm
-#name Nether Dragonscale_2a
-#displayname Nether Dragonscale
+#name 虚空龙鳞_2a
+#displayname 虚空龙鳞
 step
     #hidewindow
     +test
@@ -431,11 +431,11 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Outland Farming
+#group +外域农业
 #loop
 #hidewindow
 #subgroup Netherstorm
-#name Fel Armament_3a
+#name 邪能武器_3a
 #displayname Fel Armament
 step
     #hidewindow
@@ -447,11 +447,11 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Outland Farming
+#group +外域农业
 #loop
 #hidewindow
-#subgroup Blades Edge Mountains
-#name Wind Scale_4a
+#subgroup 刀锋山
+#name 风级_4a
 #displayname Wind Scale
 step
     #hidewindow
@@ -463,12 +463,12 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Outland Farming
+#group +外域农业
 #loop
 #hidewindow
-#subgroup Blades Edge Mountains
-#name Nether Dragonscale_5a
-#displayname Nether Dragonscale
+#subgroup 刀锋山
+#name 虚空龙鳞_5a
+#displayname 虚空龙鳞
 step
     #hidewindow
     +test
@@ -479,12 +479,12 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Outland Farming
+#group +外域农业
 #loop
 #hidewindow
-#subgroup Blades Edge Mountains
-#name Crystal Infused Leather_6a
-#displayname Crystal Infused Leather
+#subgroup 刀锋山
+#name 水晶注入皮革_6a
+#displayname 水晶注入皮革
 step
     #hidewindow
     +test
@@ -495,12 +495,12 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Outland Farming
+#group +外域农业
 #loop
 #hidewindow
 #subgroup Nagrand
-#name Combined Primals_7a
-#displayname Combined Primals
+#name 组合 Primals_7a
+#displayname 组合原始
 step
     #hidewindow
     +test
@@ -511,11 +511,11 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Outland Farming
+#group +外域农业
 #loop
 #hidewindow
 #subgroup Nagrand
-#name Primal Water_8a
+#name 原始水_8a
 #displayname Primal Water
 step
 #hidewindow
@@ -529,16 +529,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Outland Farming
+#group +外域农业
 #loop
 #hidewindow
 #subgroup Nagrand
-#name Thick Clefthoof Leather_9a
-#displayname Thick Clefthoof Leather
+#name 厚裂蹄皮_9a
+#displayname 厚裂蹄皮
 step
     #sticky
     .waypoint Nagrand,50,50
-    .zone Nagrand >> Head to Nagrand
+    .zone Nagrand >>前往: |cRXP_PICK_纳格兰|r
 step
     #hidewindow
     +area1
@@ -549,12 +549,12 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Outland Farming
+#group +外域农业
 #loop
 #hidewindow
 #subgroup Nagrand
-#name Talbuk Venison_10a
-#displayname Talbuk Venison
+#name 塔布羊鹿肉_10a
+#displayname 塔布羊鹿肉
 step
     #hidewindow
     +test
@@ -565,12 +565,12 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Outland Farming
+#group +外域农业
 #loop
 #hidewindow
 #subgroup Nagrand
-#name Cobra Scales_11a
-#displayname Cobra Scales
+#name 眼镜蛇鳞片_11a
+#displayname 眼镜蛇鳞片
 step
     #hidewindow
     +test
@@ -581,12 +581,12 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Outland Farming
+#group +外域农业
 #loop
 #hidewindow
 #subgroup Nagrand
-#name Primal Shadow_12a
-#displayname Primal Shadow
+#name 原始暗影_12a
+#displayname 原始暗影
 step
     #hidewindow
     +test
@@ -597,12 +597,12 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Outland Farming
+#group +外域农业
 #loop
 #hidewindow
 #subgroup Nagrand
-#name Primal Earth_13a
-#displayname Primal Earth
+#name 原始地球_13a
+#displayname 原始地球
 
 step
     #hidewindow
@@ -614,12 +614,12 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Outland Farming
+#group +外域农业
 #loop
 #hidewindow
 #subgroup Terokkar Forest
-#name Mark of Kiljaeden_14a
-#displayname Mark of Kiljaeden
+#name 基尔加丹印记_14a
+#displayname 基尔加丹印记
 step
     #hidewindow
     +test
@@ -631,12 +631,12 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Outland Farming
+#group +外域农业
 #loop
 #hidewindow
 #subgroup Terokkar Forest
-#name Firewing Signet_15a
-#displayname Firewing Signet
+#name 火翼印记_15a
+#displayname 火翼印记
 step
     #hidewindow
     +test
@@ -647,12 +647,12 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Outland Farming
+#group +外域农业
 #loop
 #hidewindow
 #subgroup Terokkar Forest
-#name Warped Flesh_16a
-#displayname Warped Flesh
+#name 扭曲的肉体_16a
+#displayname 扭曲的肉体
 step
     #hidewindow
     +test
@@ -663,11 +663,11 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Outland Farming
+#group +外域农业
 #loop
 #hidewindow
 #subgroup Terokkar Forest
-#name Primal Water_17a
+#name 原始水_17a
 #displayname Primal Water
 step
     #hidewindow
@@ -679,12 +679,12 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Outland Farming
+#group +外域农业
 #loop
 #hidewindow
 #subgroup Terokkar Forest
-#name Netherweb Spider Silk_18a
-#displayname Netherweb Spider Silk
+#name 虚空网蜘蛛丝_18a
+#displayname 虚空网蜘蛛丝
 step
 #hidewindow
     .waypoint Terokkar Forest,17.3,80,-1520
@@ -700,11 +700,11 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Outland Farming
+#group +外域农业
 #loop
 #hidewindow
 #subgroup Shadowmoon Valley
-#name Fel Armament_19a
+#name 邪能武器_19a
 #displayname Fel Armament
 step
     #hidewindow
@@ -716,11 +716,11 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Outland Farming
+#group +外域农业
 #loop
 #hidewindow
 #subgroup Shadowmoon Valley
-#name Primal Fire_20a
+#name 原始之火_20a
 #displayname Primal Fire
 step
     #hidewindow
@@ -732,11 +732,11 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Outland Farming
+#group +外域农业
 #loop
 #hidewindow
 #subgroup Shadowmoon Valley
-#name Primal Water_21a
+#name 原始水_21a
 #displayname Primal Water
 step
     #hidewindow
@@ -748,11 +748,11 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Outland Farming
+#group +外域农业
 #loop
 #hidewindow
 #subgroup Shadowmoon Valley
-#name Primal Air_22a
+#name 原始空气_22a
 #displayname Primal Air
 step
     #hidewindow
@@ -765,11 +765,11 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Outland Farming
+#group +外域农业
 #loop
 #hidewindow
 #subgroup Shadowmoon Valley
-#name Arcane Tome_23a
+#name 秘法之书_23a
 #displayname Arcane Tome
 step
     #hidewindow
@@ -781,11 +781,11 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Outland Farming
+#group +外域农业
 #loop
 #hidewindow
 #subgroup Shadowmoon Valley
-#name Wind Scale_24a
+#name 风级_24a
 #displayname Wind Scale
 step
     #hidewindow
@@ -797,12 +797,12 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Outland Farming
+#group +外域农业
 #loop
 #hidewindow
 #subgroup Hellfire Peninsula
-#name Primal Shadow_25a
-#displayname Primal Shadow
+#name 原始暗影_25a
+#displayname 原始暗影
 step
     #hidewindow
     +test
@@ -813,11 +813,11 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Outland Farming
+#group +外域农业
 #loop
 #hidewindow
 #subgroup Hellfire Peninsula
-#name Primal Fire_26a
+#name 原始之火_26a
 #displayname Primal Fire
 step
     #hidewindow
@@ -829,12 +829,12 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Outland Farming
+#group +外域农业
 #loop
 #hidewindow
 #subgroup Netherstorm
-#name Primal Mana_27a
-#displayname Primal Mana
+#name 原始法力_27a
+#displayname 原始法力
 step
     #hidewindow
     +test
@@ -845,16 +845,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Azeroth Farming
+#group +艾泽拉斯农业
 #loop
 #hidewindow
 #subgroup Un'Goro Crater
-#name Herbalism8
+#name 草药学8
 #displayname Herbalism
 step
     #sticky
     .waypoint Un'Goro Crater,50,50
-    .zone Un'Goro Crater >> Head to Un'Goro Crater
+    .zone Un'Goro Crater >>前往: |cRXP_PICK_安戈洛环形山|r
 step
     #hidewindow
     +test
@@ -864,7 +864,7 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Azeroth Farming
+#group +艾泽拉斯农业
 #loop
 #hidewindow
 #subgroup Un'Goro Crater
@@ -873,7 +873,7 @@ RXPGuides.RegisterGuide([[
 step
     #sticky
     .waypoint Un'Goro Crater,50,50
-    .zone Un'Goro Crater >> Head to Un'Goro Crater
+    .zone Un'Goro Crater >>前往: |cRXP_PICK_安戈洛环形山|r
 step
     #hidewindow
     +test
@@ -883,16 +883,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Azeroth Farming
+#group +艾泽拉斯农业
 #loop
 #hidewindow
 #subgroup Un'Goro Crater
-#name Mining & Herbalism8
-#displayname Mining & Herbalism
+#name 采矿草药学8
+#displayname 采矿草药学
 step
     #sticky
     .waypoint Un'Goro Crater,50,50
-    .zone Un'Goro Crater >> Head to Un'Goro Crater
+    .zone Un'Goro Crater >>前往: |cRXP_PICK_安戈洛环形山|r
 step
     #hidewindow
     +test
@@ -902,7 +902,7 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Azeroth Farming
+#group +艾泽拉斯农业
 #loop
 #hidewindow
 #subgroup Winterspring
@@ -911,7 +911,7 @@ RXPGuides.RegisterGuide([[
 step
     #sticky
     .waypoint Winterspring,50,50
-    .zone Winterspring >> Head to Winterspring
+    .zone Winterspring >>前往: |cRXP_PICK_冬泉谷|r
 step
     #hidewindow
     +test
@@ -921,16 +921,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Azeroth Farming
+#group +艾泽拉斯农业
 #loop
 #hidewindow
 #subgroup Winterspring
-#name Herbalism9
+#name 草药学9
 #displayname Herbalism
 step
     #sticky
     .waypoint Winterspring,50,50
-    .zone Winterspring >> Head to Winterspring
+    .zone Winterspring >>前往: |cRXP_PICK_冬泉谷|r
 step
     #hidewindow
     +test
@@ -940,16 +940,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Azeroth Farming
+#group +艾泽拉斯农业
 #loop
 #hidewindow
 #subgroup Winterspring
-#name Mining & Herbalism9
-#displayname Mining & Herbalism
+#name 采矿草药学9
+#displayname 采矿草药学
 step
     #sticky
     .waypoint Winterspring,50,50
-    .zone Winterspring >> Head to Winterspring
+    .zone Winterspring >>前往: |cRXP_PICK_冬泉谷|r
 step
     #hidewindow
     +test
@@ -959,16 +959,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Northrend Farming
+#group +诺森德农业
 #loop
 #hidewindow
 #subgroup Borean Tundra
-#name Eternal Water (Frozen Elemental)_28a
-#displayname Eternal Water (Frozen Elemental)
+#name 永恒之水 (冰冻元素)_28a
+#displayname 永恒之水（冰冻元素）
 step
     #sticky
     .waypoint Borean Tundra,50,50
-    .zone Borean Tundra >> Head to Borean Tundra
+    .zone Borean Tundra >>前往: |cRXP_PICK_北风苔原|r
 step
     #hidewindow
     +test
@@ -978,16 +978,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Northrend Farming
+#group +诺森德农业
 #loop
 #hidewindow
 #subgroup Borean Tundra
-#name Eternal Water (Steam Rager)_29a
-#displayname Eternal Water (Steam Rager)
+#name 永恒之水 (蒸汽狂怒者)_29a
+#displayname 永恒之水（蒸汽狂怒者）
 step
     #sticky
     .waypoint Borean Tundra,50,50
-    .zone Borean Tundra >> Head to Borean Tundra
+    .zone Borean Tundra >>前往: |cRXP_PICK_北风苔原|r
 step
     #hidewindow
     +test
@@ -997,16 +997,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Northrend Farming
+#group +诺森德农业
 #loop
 #hidewindow
 #subgroup Borean Tundra
-#name Eternal Water (Boiling Spirit)_30a
-#displayname Eternal Water (Boiling Spirit)
+#name 永恒之水（沸腾之灵）_30a
+#displayname 永恒之水（沸腾之灵）
 step
     #sticky
     .waypoint Borean Tundra,50,50
-    .zone Borean Tundra >> Head to Borean Tundra
+    .zone Borean Tundra >>前往: |cRXP_PICK_北风苔原|r
 step
     #hidewindow
     +test
@@ -1016,16 +1016,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Northrend Farming
+#group +诺森德农业
 #loop
 #hidewindow
 #subgroup Borean Tundra
-#name Eternal Fire (Boiling Spirit)_31a
-#displayname Eternal Fire (Boiling Spirit)
+#name 永恒之火（沸腾之灵）_31a
+#displayname 永恒之火（沸腾之灵）
 step
     #sticky
     .waypoint Borean Tundra,50,50
-    .zone Borean Tundra >> Head to Borean Tundra
+    .zone Borean Tundra >>前往: |cRXP_PICK_北风苔原|r
 step
     #hidewindow
     +test
@@ -1035,16 +1035,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Northrend Farming
+#group +诺森德农业
 #loop
 #hidewindow
 #subgroup Borean Tundra
-#name Eternal Air (Enraged Tempest)_32a
-#displayname Eternal Air (Enraged Tempest)
+#name 永恒之气 (愤怒的风暴)_32a
+#displayname 永恒之气 (愤怒风暴)
 step
     #sticky
     .waypoint Borean Tundra,50,50
-    .zone Borean Tundra >> Head to Borean Tundra
+    .zone Borean Tundra >>前往: |cRXP_PICK_北风苔原|r
 step
     #hidewindow
     +test
@@ -1054,16 +1054,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Cooking & Skinning
+#group +烹饪剥皮
 #loop
 #hidewindow
 #subgroup Borean Tundra
-#name Rhino Meat & Borean Leather_33a
-#displayname Rhino Meat & Borean Leather
+#name 犀牛肉 北风皮革_33a
+#displayname 犀牛肉 北风皮革
 step
     #sticky
     .waypoint Borean Tundra,50,50
-    .zone Borean Tundra >> Head to Borean Tundra
+    .zone Borean Tundra >>前往: |cRXP_PICK_北风苔原|r
 step
     #hidewindow
     +area1
@@ -1077,16 +1077,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Cooking & Skinning
+#group +烹饪剥皮
 #loop
 #hidewindow
 #subgroup Sholazar Basin
-#name Chilled Meat & Sholazar Basin_34a
-#displayname Chilled Meat & Sholazar Basin
+#name 冰鲜肉 索拉查盆地_34a
+#displayname 冰鲜肉 索拉查盆
 step
     #sticky
     .waypoint Sholazar Basin,50,50
-    .zone Borean Tundra >> Head to Sholazar Basin
+    .zone Borean Tundra >>前往: |cRXP_PICK_北风苔原|r
 step
     #hidewindow
     +area1
@@ -1100,16 +1100,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Northrend Farming
+#group +诺森德农业
 #loop
 #hidewindow
 #subgroup Sholazar Basin
-#name Eternal Earth (Lifeblood Elemental)_35a
-#displayname Eternal Earth (Lifeblood Elemental)
+#name 永恒地球 (生命之血元素)_35a
+#displayname 永恒地球 (生命之血元素)
 step
     #sticky
     .waypoint Sholazar Basin,50,50
-    .zone Sholazar Basin >> Head to Sholazar Basin
+    .zone Sholazar Basin >>前往: |cRXP_PICK_北风苔原|r
 step
     #hidewindow
     +test
@@ -1119,16 +1119,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Northrend Farming
+#group +诺森德农业
 #loop
 #hidewindow
 #subgroup Sholazar Basin
-#name Eternal Earth (Sholazar Guardian)_36a
-#displayname Eternal Earth (Sholazar Guardian)
+#name 永恒之土 (索拉查守护者)_36a
+#displayname 永恒之土 (索拉查守护者)
 step
     #sticky
     .waypoint Sholazar Basin,50,50
-    .zone Sholazar Basin >> Head to Sholazar Basin
+    .zone Sholazar Basin >>前往: |cRXP_PICK_北风苔原|r
 step
     #hidewindow
     +test
@@ -1138,16 +1138,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Cooking & Skinning
+#group +烹饪剥皮
 #loop
 #hidewindow
 #subgroup Sholazar Basin
-#name Chunk o' Mammoth & Borean Leather_37a
-#displayname Chunk o' Mammoth & Borean Leather
+#name 大块猛犸北风皮革_37a
+#displayname 大块猛犸北风皮革
 step
     #sticky
     .waypoint Sholazar Basin,50,50
-    .zone Sholazar Basin >> Head to Sholazar Basin
+    .zone Sholazar Basin >>前往: |cRXP_PICK_北风苔原|r
 step
     #hidewindow
     +test
@@ -1157,16 +1157,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Northrend Farming
+#group +诺森德农业
 #loop
 #hidewindow
 #subgroup Sholazar Basin
-#name Eternal Water & Air (Storm Revenant & Aqueous Spirit)_38a
-#displayname Eternal Water & Air (Storm Revenant & Aqueous Spirit)
+#name 永恒之水空气 (风暴亡灵水精灵)_38a
+#displayname 永恒之水空气 (风暴亡魂水之精灵)
 step
     #sticky
     .waypoint Sholazar Basin,50,50
-    .zone Sholazar Basin >> Head to Sholazar Basin
+    .zone Sholazar Basin >>前往: |cRXP_PICK_北风苔原|r
 step
     #hidewindow
     +test
@@ -1176,16 +1176,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Northrend Farming
+#group +诺森德农业
 #loop
 #hidewindow
 #subgroup Dragonblight
-#name Eternal Water (Crystalline Ice Elemental)_39a
-#displayname Eternal Water (Crystalline Ice Elemental)
+#name 永恒之水 (冰晶元素)_39a
+#displayname 永恒之水（冰晶元素）
 step
     #sticky
     .waypoint Dragonblight,50,50
-    .zone Dragonblight >> Head to Dragonblight
+    .zone Dragonblight >>前往: |cRXP_PICK_龙骨荒野|r
 step
     #hidewindow
     +test
@@ -1195,16 +1195,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Northrend Farming
+#group +诺森德农业
 #loop
 #hidewindow
 #subgroup Dragonblight
-#name Eternal Shadow (Deathbringer Revenant)_40a
-#displayname Eternal Shadow (Deathbringer Revenant)
+#name 永恒阴影 (死亡使者亡魂)_40a
+#displayname 永恒暗影 (死亡使者亡魂)
 step
     #sticky
     .waypoint Dragonblight,50,50
-    .zone Dragonblight >> Head to Dragonblight
+    .zone Dragonblight >>前往: |cRXP_PICK_龙骨荒野|r
 step
     #hidewindow
     +test
@@ -1214,16 +1214,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Northrend Farming
+#group +诺森德农业
 #loop
 #hidewindow
 #subgroup Dragonblight
-#name Eternal Water (Ice Revenant)_41a
-#displayname Eternal Water (Ice Revenant)
+#name 永恒之水 (冰魂)_41a
+#displayname 永恒之水（冰魂）
 step
     #sticky
     .waypoint Dragonblight,50,50
-    .zone Dragonblight >> Head to Dragonblight
+    .zone Dragonblight >>前往: |cRXP_PICK_龙骨荒野|r
 step
     #hidewindow
     +test
@@ -1233,16 +1233,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Northrend Farming
+#group +诺森德农业
 #loop
 #hidewindow
 #subgroup Grizzly Hills
-#name Eternal Earth (Runic Battle Golem)_42a
-#displayname Eternal Earth (Runic Battle Golem)
+#name 永恒地球 (符文战斗魔像)_42a
+#displayname 永恒地球 (符文战斗魔像)
 step
     #sticky
     .waypoint Grizzly Hills,50,50
-    .zone Grizzly Hills >> Head to Grizzly Hills
+    .zone Grizzly Hills >>前往: |cRXP_PICK_灰熊丘陵|r
 step
     #hidewindow
     +test
@@ -1252,16 +1252,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Northrend Farming
+#group +诺森德农业
 #loop
 #hidewindow
 #subgroup Grizzly Hills
-#name Eternal Air (Lightning Sentry)_43a
-#displayname Eternal Air (Lightning Sentry)
+#name 永恒空气（闪电哨兵）_43a
+#displayname 永恒之气（闪电哨兵）
 step
     #sticky
     .waypoint Grizzly Hills,50,50
-    .zone Grizzly Hills >> Head to Grizzly Hills
+    .zone Grizzly Hills >>前往: |cRXP_PICK_灰熊丘陵|r
 step
     #hidewindow
     +test
@@ -1271,16 +1271,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Northrend Farming
+#group +诺森德农业
 #loop
 #hidewindow
 #subgroup Howling Fjord
-#name Eternal Earth (Iron Rune Sentinel)_44a
-#displayname Eternal Earth (Iron Rune Sentinel)
+#name 永恒之土 (铁符文哨兵)_44a
+#displayname 永恒地球 (铁符文哨兵)
 step
     #sticky
     .waypoint Howling Fjord,50,50
-    .zone Howling Fjord >> Head to Howling Fjord
+    .zone Howling Fjord >>前往: |cRXP_PICK_嚎风峡湾|r
 step
     #hidewindow
     +test
@@ -1290,16 +1290,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Northrend Farming
+#group +诺森德农业
 #loop
 #hidewindow
 #subgroup Howling Fjord
-#name Eternal Earth (Iron Rune Golem)_45a
-#displayname Eternal Earth (Iron Rune Golem)
+#name 永恒之土 (铁符文魔像)_45a
+#displayname 永恒地球 (铁符文魔像)
 step
     #sticky
     .waypoint Howling Fjord,50,50
-    .zone Howling Fjord >> Head to Howling Fjord
+    .zone Howling Fjord >>前往: |cRXP_PICK_嚎风峡湾|r
 step
     #hidewindow
     +test
@@ -1309,16 +1309,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Northrend Farming
+#group +诺森德农业
 #loop
 #hidewindow
 #subgroup Howling Fjord
-#name Eternal Water (Ice Elemental)_46a
-#displayname Eternal Water (Ice Elemental)
+#name 永恒之水 (冰元素)_46a
+#displayname 永恒之水（冰元素）
 step
     #sticky
     .waypoint Howling Fjord,50,50
-    .zone Howling Fjord >> Head to Howling Fjord
+    .zone Howling Fjord >>前往: |cRXP_PICK_嚎风峡湾|r
 step
     #hidewindow
     +test
@@ -1328,16 +1328,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Northrend Farming
+#group +诺森德农业
 #loop
 #hidewindow
 #subgroup Howling Fjord
-#name Eternal Water (Iceshard Elemental)_47a
-#displayname Eternal Water (Iceshard Elemental)
+#name 永恒之水 (冰碎片元素)_47a
+#displayname 永恒之水 (冰碎片元素)
 step
     #sticky
     .waypoint Howling Fjord,50,50
-    .zone Howling Fjord >> Head to Howling Fjord
+    .zone Howling Fjord >>前往: |cRXP_PICK_嚎风峡湾|r
 step
     #hidewindow
     +test
@@ -1347,16 +1347,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Northrend Farming
+#group +诺森德农业
 #loop
 #hidewindow
 #subgroup Howling Fjord
-#name Eternal Life (Thornvine Creeper)_48a
-#displayname Eternal Life (Thornvine Creeper)
+#name 永生 (荆棘藤蔓)_48a
+#displayname 永生 (荆棘藤蔓)
 step
     #sticky
     .waypoint Howling Fjord,50,50
-    .zone Howling Fjord >> Head to Howling Fjord
+    .zone Howling Fjord >>前往: |cRXP_PICK_嚎风峡湾|r
 step
     #hidewindow
     +test
@@ -1366,16 +1366,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Northrend Farming
+#group +诺森德农业
 #loop
 #hidewindow
 #subgroup Zul'Drak
-#name Eternal Water (Crazed Water Spirit)_49a
-#displayname Eternal Water (Crazed Water Spirit)
+#name 永恒之水 (疯狂的水灵)_49a
+#displayname 永恒之水 (疯狂的水灵)
 step
     #sticky
     .waypoint Zul'Drak,50,50
-    .zone Zul'Drak >> Head to Zul'Drak
+    .zone Zul'Drak >>前往: |cRXP_PICK_祖达克|r
 step
     #hidewindow
     +test
@@ -1385,16 +1385,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Cooking & Skinning
+#group +烹饪剥皮
 #loop
 #hidewindow
 #subgroup Zul'Drak
-#name Iceweb Spider Silk & Borean Leather_50a
-#displayname Iceweb Spider Silk & Borean Leather
+#name 冰网蜘蛛丝 北风皮革_50a
+#displayname 冰网蜘蛛丝 北风皮革
 step
     #sticky
     .waypoint Zul'Drak,50,50
-    .zone Zul'Drak >> Head to Zul'Drak
+    .zone Zul'Drak >>前往: |cRXP_PICK_祖达克|r
 step
     #hidewindow
     +test
@@ -1404,16 +1404,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Northrend Farming
+#group +诺森德农业
 #loop
 #hidewindow
 #subgroup Zul'Drak
-#name Eternal Water (Frozen Earth)_51a
-#displayname Eternal Water (Frozen Earth)
+#name 永恒之水（冰冻大地）_51a
+#displayname 永恒之水（冰冻之地）
 step
     #sticky
     .waypoint Zul'Drak,50,50
-    .zone Zul'Drak >> Head to Zul'Drak
+    .zone Zul'Drak >>前往: |cRXP_PICK_祖达克|r
 step
     #hidewindow
     +test
@@ -1423,16 +1423,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Northrend Farming
+#group +诺森德农业
 #loop
 #hidewindow
 #subgroup Zul'Drak
-#name Eternal Earth (Guardian of Zum'Rhuk)_52a
-#displayname Eternal Earth (Guardian of Zum'Rhuk)
+#name 永恒之土 (祖姆鲁克守护者)_52a
+#displayname 永恒之土 (祖姆鲁克守护者)
 step
     #sticky
     .waypoint Zul'Drak,50,50
-    .zone Zul'Drak >> Head to Zul'Drak
+    .zone Zul'Drak >>前往: |cRXP_PICK_祖达克|r
 step
     #hidewindow
     +test
@@ -1442,16 +1442,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Cooking & Skinning
+#group +烹饪剥皮
 #loop
 #hidewindow
 #subgroup The Storm Peaks
-#name Chunk o' Mammoth & Borean Leather_53a
-#displayname Chunk o' Mammoth & Borean Leather
+#name 大块猛犸北风皮革_53a
+#displayname 大块猛犸北风皮革
 step
     #sticky
     .waypoint The Storm Peaks,50,50
-    .zone The Storm Peaks >> Head to Storm Peaks
+    .zone The Storm Peaks >>前往: |cRXP_PICK_风暴峭壁|r
 step
     #hidewindow
     +test
@@ -1461,16 +1461,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Cooking & Skinning
+#group +烹饪剥皮
 #loop
 #hidewindow
 #subgroup The Storm Peaks
-#name Worm Meat & Borean Leather_54a
-#displayname Worm Meat & Borean Leather
+#name 虫肉 北风皮革_54a
+#displayname 虫肉 北风皮革
 step
     #sticky
     .waypoint The Storm Peaks,50,50
-    .zone The Storm Peaks >> Head to Storm Peaks
+    .zone The Storm Peaks >>前往: |cRXP_PICK_风暴峭壁|r
 step
     #hidewindow
     +test
@@ -1480,16 +1480,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Northrend Farming
+#group +诺森德农业
 #loop
 #hidewindow
 #subgroup The Storm Peaks
-#name Eternal Fire (Seething Revenant)_55a
-#displayname Eternal Fire (Seething Revenant)
+#name 永恒之火 (沸腾亡魂)_55a
+#displayname 永恒之火（沸腾亡魂）
 step
     #sticky
     .waypoint The Storm Peaks,50,50
-    .zone The Storm Peaks >> Head to Storm Peaks
+    .zone The Storm Peaks >>前往: |cRXP_PICK_风暴峭壁|r
 step
     #hidewindow
     +test
@@ -1499,16 +1499,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Northrend Farming
+#group +诺森德农业
 #loop
 #hidewindow
 #subgroup The Storm Peaks
-#name Eternal Earth (Brittle Revenant)_56a
-#displayname Eternal Earth (Brittle Revenant)
+#name 永恒地球 (脆弱的亡魂)_56a
+#displayname 永恒地球 (脆弱亡魂)
 step
     #sticky
     .waypoint The Storm Peaks,50,50
-    .zone The Storm Peaks >> Head to Storm Peaks
+    .zone The Storm Peaks >>前往: |cRXP_PICK_风暴峭壁|r
 step
     #hidewindow
     +test
@@ -1519,16 +1519,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Northrend Farming
+#group +诺森德农业
 #loop
 #hidewindow
 #subgroup The Storm Peaks
-#name Eternal Fire (Wailing Winds)_57a
-#displayname Eternal Fire (Wailing Winds)
+#name 永恒之火 (哀嚎之风)_57a
+#displayname 永恒之火（哀嚎之风）
 step
     #sticky
     .waypoint The Storm Peaks,50,50
-    .zone The Storm Peaks >> Head to Storm Peaks
+    .zone The Storm Peaks >>前往: |cRXP_PICK_风暴峭壁|r
 step
     #hidewindow
     +test
@@ -1538,16 +1538,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Northrend Farming
+#group +诺森德农业
 #loop
 #hidewindow
 #subgroup The Storm Peaks
-#name Eternal Air (Scion of Storm)_58a
-#displayname Eternal Air (Scion of Storm)
+#name 永恒之气 (风暴之裔)_58a
+#displayname 永恒之气（风暴之裔）
 step
     #sticky
     .waypoint The Storm Peaks,50,50
-    .zone The Storm Peaks >> Head to Storm Peaks
+    .zone The Storm Peaks >>前往: |cRXP_PICK_风暴峭壁|r
 step
     #hidewindow
     +test
@@ -1557,16 +1557,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Northrend Farming
+#group +诺森德农业
 #loop
 #hidewindow
 #subgroup The Storm Peaks
-#name Eternal Water (Icebound Revenant)_59a
-#displayname Eternal Water (Icebound Revenant)
+#name 永恒之水 (冰封亡魂)_59a
+#displayname 永恒之水（冰封亡魂）
 step
     #sticky
     .waypoint The Storm Peaks,50,50
-    .zone The Storm Peaks >> Head to Storm Peaks
+    .zone The Storm Peaks >>前往: |cRXP_PICK_风暴峭壁|r
 step
     #hidewindow
     +test
@@ -1576,16 +1576,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Northrend Farming
+#group +诺森德农业
 #loop
 #hidewindow
 #subgroup The Storm Peaks
-#name Eternal Water (Stormrider)_60a
-#displayname Eternal Water (Stormrider)
+#name 永恒之水（风暴骑士）_60a
+#displayname 永恒之水（风暴骑士）
 step
     #sticky
     .waypoint The Storm Peaks,50,50
-    .zone The Storm Peaks >> Head to Storm Peaks
+    .zone The Storm Peaks >>前往: |cRXP_PICK_风暴峭壁|r
 step
     #hidewindow
     +test
@@ -1595,16 +1595,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Northrend Farming
+#group +诺森德农业
 #loop
 #hidewindow
 #subgroup Icecrown
-#name Frostweave Cloth (Converted Hero)_61a
-#displayname Frostweave Cloth (Converted Hero)
+#name 霜纹布 (已转化英雄)_61a
+#displayname 霜纹布（转化英雄）
 step
     #sticky
     .waypoint Icecrown,50,50
-    .zone Icecrown >> Head to Icecrown
+    .zone Icecrown >>前往: |cRXP_PICK_冰冠冰川|r
 step
     #hidewindow
     +test
@@ -1614,16 +1614,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Northrend Farming
+#group +诺森德农业
 #loop
 #hidewindow
 #subgroup Wintergrasp
-#name Eternal Shadow (Wandering Shadow)_62a
-#displayname Eternal Shadow (Wandering Shadow)
+#name 永恒之影 (流浪之影)_62a
+#displayname 永恒之影 (流浪之影)
 step
     #sticky
     .waypoint Wintergrasp,50,50
-    .zone Wintergrasp >> Head to Wintergrasp
+    .zone Wintergrasp >>前往: |cRXP_PICK_冬拥湖|r
 step
     #hidewindow
     +test
@@ -1633,16 +1633,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Borean Tundra
-#name Herbalism10
+#name 草药学10
 #displayname Herbalism
 step
     #sticky
     .waypoint Borean Tundra,50,50
-    .zone Borean Tundra >> Head to Borean Tundra
+    .zone Borean Tundra >>前往: |cRXP_PICK_北风苔原|r
 step
     #hidewindow
     +test
@@ -1652,7 +1652,7 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Borean Tundra
@@ -1661,7 +1661,7 @@ RXPGuides.RegisterGuide([[
 step
     #sticky
     .waypoint Borean Tundra,50,50
-    .zone Borean Tundra >> Head to Borean Tundra
+    .zone Borean Tundra >>前往: |cRXP_PICK_北风苔原|r
 step
     #hidewindow
     +test
@@ -1671,16 +1671,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Borean Tundra
-#name Mining & Herbalism10
-#displayname Mining & Herbalism
+#name 采矿草药学10
+#displayname 采矿草药学
 step
     #sticky
     .waypoint Borean Tundra,50,50
-    .zone Borean Tundra >> Head to Borean Tundra
+    .zone Borean Tundra >>前往: |cRXP_PICK_北风苔原|r
 step
     #hidewindow
     +test
@@ -1690,16 +1690,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Sholazar Basin
-#name Herbalism11
+#name 草药学11
 #displayname Herbalism
 step
     #sticky
     .waypoint Sholazar Basin,50,50
-    .zone Sholazar Basin >> Head to Sholazar Basin
+    .zone Sholazar Basin >>前往: |cRXP_PICK_北风苔原|r
 step
     #hidewindow
     +test
@@ -1709,7 +1709,7 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Sholazar Basin
@@ -1718,7 +1718,7 @@ RXPGuides.RegisterGuide([[
 step
     #sticky
     .waypoint Sholazar Basin,50,50
-    .zone Sholazar Basin >> Head to Sholazar Basin
+    .zone Sholazar Basin >>前往: |cRXP_PICK_北风苔原|r
 step
     #hidewindow
     +test
@@ -1728,16 +1728,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Sholazar Basin
-#name Mining & Herbalism11
-#displayname Mining & Herbalism
+#name 采矿草药学11
+#displayname 采矿草药学
 step
     #sticky
     .waypoint Sholazar Basin,50,50
-    .zone Sholazar Basin >> Head to Sholazar Basin
+    .zone Sholazar Basin >>前往: |cRXP_PICK_北风苔原|r
 step
     #hidewindow
     +test
@@ -1747,16 +1747,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Dragonblight
-#name Herbalism12
+#name 草药学12
 #displayname Herbalism
 step
     #sticky
     .waypoint Dragonblight,50,50
-    .zone Dragonblight >> Head to Dragonblight
+    .zone Dragonblight >>前往: |cRXP_PICK_龙骨荒野|r
 step
     #hidewindow
     +test
@@ -1766,7 +1766,7 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Dragonblight
@@ -1775,7 +1775,7 @@ RXPGuides.RegisterGuide([[
 step
     #sticky
     .waypoint Dragonblight,50,50
-    .zone Dragonblight >> Head to Dragonblight
+    .zone Dragonblight >>前往: |cRXP_PICK_龙骨荒野|r
 step
     #hidewindow
     +test
@@ -1785,16 +1785,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Dragonblight
-#name Mining & Herbalism12
-#displayname Mining & Herbalism
+#name 采矿草药学12
+#displayname 采矿草药学
 step
     #sticky
     .waypoint Dragonblight,50,50
-    .zone Dragonblight >> Head to Dragonblight
+    .zone Dragonblight >>前往: |cRXP_PICK_龙骨荒野|r
 step
     #hidewindow
     +test
@@ -1804,16 +1804,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Howling Fjord
-#name Mining & Herbalism13
-#displayname Mining & Herbalism
+#name 采矿草药学13
+#displayname 采矿草药学
 step
     #sticky
     .waypoint Howling Fjord,50,50
-    .zone Howling Fjord >> Head to Howling Fjord
+    .zone Howling Fjord >>前往: |cRXP_PICK_嚎风峡湾|r
 step
     #hidewindow
     +test
@@ -1823,16 +1823,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Howling Fjord
-#name Herbalism13
+#name 草药学13
 #displayname Herbalism
 step
     #sticky
     .waypoint Howling Fjord,50,50
-    .zone Howling Fjord >> Head to Howling Fjord
+    .zone Howling Fjord >>前往: |cRXP_PICK_嚎风峡湾|r
 step
     #hidewindow
     +test
@@ -1842,7 +1842,7 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Howling Fjord
@@ -1851,7 +1851,7 @@ RXPGuides.RegisterGuide([[
 step
     #sticky
     .waypoint Howling Fjord,50,50
-    .zone Howling Fjord >> Head to Howling Fjord
+    .zone Howling Fjord >>前往: |cRXP_PICK_嚎风峡湾|r
 step
     #hidewindow
     +test
@@ -1861,16 +1861,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Grizzly Hills
-#name Herbalism14
+#name 草药学14
 #displayname Herbalism
 step
     #sticky
     .waypoint Grizzly Hills,50,50
-    .zone Grizzly Hills >> Head to Grizzly Hills
+    .zone Grizzly Hills >>前往: |cRXP_PICK_灰熊丘陵|r
 step
     #hidewindow
     +test
@@ -1880,7 +1880,7 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Grizzly Hills
@@ -1889,7 +1889,7 @@ RXPGuides.RegisterGuide([[
 step
     #sticky
     .waypoint Grizzly Hills,50,50
-    .zone Grizzly Hills >> Head to Grizzly Hills
+    .zone Grizzly Hills >>前往: |cRXP_PICK_灰熊丘陵|r
 step
     #hidewindow
     +test
@@ -1899,16 +1899,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Grizzly Hills
-#name Mining & Herbalism14
-#displayname Mining & Herbalism
+#name 采矿草药学14
+#displayname 采矿草药学
 step
     #sticky
     .waypoint Grizzly Hills,50,50
-    .zone Grizzly Hills >> Head to Grizzly Hills
+    .zone Grizzly Hills >>前往: |cRXP_PICK_灰熊丘陵|r
 step
     #hidewindow
     +test
@@ -1918,16 +1918,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Zul'Drak
-#name Herbalism15
+#name 草药学15
 #displayname Herbalism
 step
     #sticky
     .waypoint Zul'Drak,50,50
-    .zone Zul'Drak >> Head to Zul'Drak
+    .zone Zul'Drak >>前往: |cRXP_PICK_祖达克|r
 step
     #hidewindow
     +test
@@ -1937,7 +1937,7 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Zul'Drak
@@ -1946,7 +1946,7 @@ RXPGuides.RegisterGuide([[
 step
     #sticky
     .waypoint Zul'Drak,50,50
-    .zone Zul'Drak >> Head to Zul'Drak
+    .zone Zul'Drak >>前往: |cRXP_PICK_祖达克|r
 step
     #hidewindow
     +test
@@ -1956,16 +1956,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Zul'Drak
-#name Mining & Herbalism15
-#displayname Mining & Herbalism
+#name 采矿草药学15
+#displayname 采矿草药学
 step
     #sticky
     .waypoint Zul'Drak,50,50
-    .zone Zul'Drak >> Head to Zul'Drak
+    .zone Zul'Drak >>前往: |cRXP_PICK_祖达克|r
 step
     #hidewindow
     +test
@@ -1975,16 +1975,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup The Storm Peaks
-#name Herbalism16
+#name 草药学16
 #displayname Herbalism
 step
     #sticky
     .waypoint The Storm Peaks,50,50
-    .zone The Storm Peaks >> Head to The Storm Peaks
+    .zone The Storm Peaks >>前往: |cRXP_PICK_风暴峭壁|r
 step
     #hidewindow
     +test
@@ -1994,7 +1994,7 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup The Storm Peaks
@@ -2003,7 +2003,7 @@ RXPGuides.RegisterGuide([[
 step
     #sticky
     .waypoint The Storm Peaks,50,50
-    .zone The Storm Peaks >> Head to The Storm Peaks
+    .zone The Storm Peaks >>前往: |cRXP_PICK_风暴峭壁|r
 step
     #hidewindow
     +test
@@ -2013,16 +2013,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup The Storm Peaks
-#name Mining & Herbalism16
-#displayname Mining & Herbalism
+#name 采矿草药学16
+#displayname 采矿草药学
 step
     #sticky
     .waypoint The Storm Peaks,50,50
-    .zone The Storm Peaks >> Head to The Storm Peaks
+    .zone The Storm Peaks >>前往: |cRXP_PICK_风暴峭壁|r
 step
     #hidewindow
     +test
@@ -2032,7 +2032,7 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Wintergrasp
@@ -2041,7 +2041,7 @@ RXPGuides.RegisterGuide([[
 step
     #sticky
     .waypoint Wintergrasp,50,50
-    .zone Wintergrasp >> Head to Wintergrasp
+    .zone Wintergrasp >>前往: |cRXP_PICK_冬拥湖|r
 step
     #hidewindow
     +test
@@ -2051,16 +2051,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Wintergrasp
-#name Herbalism17
+#name 草药学17
 #displayname Herbalism
 step
     #sticky
     .waypoint Wintergrasp,50,50
-    .zone Wintergrasp >> Head to Wintergrasp
+    .zone Wintergrasp >>前往: |cRXP_PICK_冬拥湖|r
 step
     #hidewindow
     +test
@@ -2070,16 +2070,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Wintergrasp
-#name Mining & Herbalism17
-#displayname Mining & Herbalism
+#name 采矿草药学17
+#displayname 采矿草药学
 step
     #sticky
     .waypoint Wintergrasp,50,50
-    .zone Wintergrasp >> Head to Wintergrasp
+    .zone Wintergrasp >>前往: |cRXP_PICK_冬拥湖|r
 step
     #hidewindow
     +test
@@ -2089,16 +2089,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Northrend Farming
+#group +诺森德农业
 #loop
 #hidewindow
 #subgroup Wintergrasp
-#name Eternal Life_63a
-#displayname Eternal Life
+#name 永生_63a
+#displayname 永生
 step
     #sticky
     .waypoint Wintergrasp,50,50
-    .zone Wintergrasp >> Head to Wintergrasp
+    .zone Wintergrasp >>前往: |cRXP_PICK_冬拥湖|r
 step
     #hidewindow
     +test
@@ -2108,16 +2108,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Northrend Farming
+#group +诺森德农业
 #loop
 #hidewindow
 #subgroup Wintergrasp
-#name Eternal Fire_64a
-#displayname Eternal Fire
+#name 永恒之火_64a
+#displayname 永恒之火
 step
     #sticky
     .waypoint Wintergrasp,50,50
-    .zone Wintergrasp >> Head to Wintergrasp
+    .zone Wintergrasp >>前往: |cRXP_PICK_冬拥湖|r
 step
     #hidewindow
     +test
@@ -2127,16 +2127,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Northrend Farming
+#group +诺森德农业
 #loop
 #hidewindow
 #subgroup Wintergrasp
-#name Eternal Earth_65a
-#displayname Eternal Earth
+#name 永恒地球_65a
+#displayname 永恒地球
 step
     #sticky
     .waypoint Wintergrasp,50,50
-    .zone Wintergrasp >> Head to Wintergrasp
+    .zone Wintergrasp >>前往: |cRXP_PICK_冬拥湖|r
 step
     #hidewindow
     +test
@@ -2147,16 +2147,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Northrend Farming
+#group +诺森德农业
 #loop
 #hidewindow
 #subgroup Wintergrasp
-#name Eternal Air_66a
-#displayname Eternal Air
+#name 永恒之气_66a
+#displayname 永恒之气
 step
     #sticky
     .waypoint Wintergrasp,50,50
-    .zone Wintergrasp >> Head to Wintergrasp
+    .zone Wintergrasp >>前往: |cRXP_PICK_冬拥湖|r
 step
     #hidewindow
     +test
@@ -2166,16 +2166,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Northrend Farming
+#group +诺森德农业
 #loop
 #hidewindow
 #subgroup Wintergrasp
-#name Eternal Water_67a
-#displayname Eternal Water
+#name 永恒之水_67a
+#displayname 永恒之水
 step
     #sticky
     .waypoint Wintergrasp,50,50
-    .zone Wintergrasp >> Head to Wintergrasp
+    .zone Wintergrasp >>前往: |cRXP_PICK_冬拥湖|r
 step
     #hidewindow
     +test
@@ -2185,7 +2185,7 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Icecrown
@@ -2194,7 +2194,7 @@ RXPGuides.RegisterGuide([[
 step
     #sticky
     .waypoint Icecrown,50,50
-    .zone Icecrown >> Head to Icecrown
+    .zone Icecrown >>前往: |cRXP_PICK_冰冠冰川|r
 step
     #hidewindow
     +test
@@ -2204,16 +2204,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Icecrown
-#name Herbalism18
+#name 草药学18
 #displayname Herbalism
 step
     #sticky
     .waypoint Icecrown,50,50
-    .zone Icecrown >> Head to Icecrown
+    .zone Icecrown >>前往: |cRXP_PICK_冰冠冰川|r
 step
     #hidewindow
     +test
@@ -2223,16 +2223,16 @@ step
 
 RXPGuides.RegisterGuide([[
 #wotlk
-#group +Mining & Herbalism
+#group +采矿草药学
 #loop
 #hidewindow
 #subgroup Icecrown
-#name Mining & Herbalism18
-#displayname Mining & Herbalism
+#name 采矿草药学18
+#displayname 采矿草药学
 step
     #sticky
     .waypoint Icecrown,50,50
-    .zone Icecrown >> Head to Icecrown
+    .zone Icecrown >>前往: |cRXP_PICK_冰冠冰川|r
 step
     #hidewindow
     +test

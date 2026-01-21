@@ -1,7 +1,29 @@
 
 WhisperPopDB = {
-["ignoreTags"] = 1,
+["save"] = 1,
 ["listHeight"] = 320,
+["sound"] = 1,
+["showRealm"] = 1,
+["version"] = 4.12,
+["listWidth"] = 200,
+["timeFormat"] = 2,
+["listScale"] = 100,
+["buttonScale"] = 100,
+["history"] = {
+{
+["received"] = 1,
+["class"] = "WARRIOR",
+["name"] = "未来看风景-无情",
+["messages"] = {
+"0[T1762414641]需要背包吗",
+"1[T1762414651]需要 谢谢",
+},
+},
+},
+["ignoreTags"] = 1,
+["applyFilters"] = 1,
+["foreignOnly"] = 1,
+["time"] = 1,
 ["positions"] = {
 ["WhisperPopFrame"] = {
 "CENTER",
@@ -18,27 +40,5 @@ WhisperPopDB = {
 185,
 },
 },
-["showRealm"] = 1,
 ["notifyButton"] = 1,
-["listWidth"] = 200,
-["timeFormat"] = 2,
-["time"] = 1,
-["buttonScale"] = 100,
-["history"] = {
-{
-["received"] = 1,
-["name"] = "未来看风景-无情",
-["class"] = "WARRIOR",
-["messages"] = {
-"0[T1762414641]需要背包吗",
-"1[T1762414651]需要 谢谢",
-},
-},
-},
-["listScale"] = 100,
-["applyFilters"] = 1,
-["foreignOnly"] = 1,
-["version"] = 4.12,
-["sound"] = 1,
-["save"] = 1,
 }

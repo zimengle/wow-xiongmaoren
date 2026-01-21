@@ -21,7 +21,6 @@ local tremove = tremove
 local GetPlayerInfoByGUID = GetPlayerInfoByGUID
 local BNGetNumFriends = BNGetNumFriends
 local GMChatFrame_IsGM = GMChatFrame_IsGM
-local ChatFrame_GetMessageEventFilters = ChatFrame_GetMessageEventFilters
 local ChatFrame_SendTell = ChatFrame_SendTell
 local ChatFrame_SendBNetTell = ChatFrame_SendBNetTell
 local SendWho = C_FriendList.SendWho
@@ -437,7 +436,13 @@ function addon:CHAT_MSG_WHISPER(...)
 	else
 		-- Spam filters only applied on incoming non-GM whispers, other cases make no sense
 		if self.db.applyFilters then
-			local filtersList = ChatFrame_GetMessageEventFilters("CHAT_MSG_WHISPER")
+			local filtersList
+			if ChatFrame_GetMessageEventFilters then
+				filtersList = ChatFrame_GetMessageEventFilters("CHAT_MSG_WHISPER")
+			elseif chatFilters then
+				filtersList = chatFilters["CHAT_MSG_WHISPER"]
+			end
+
 			if filtersList then
 				local _, func
 				for _, func in ipairs(filtersList) do

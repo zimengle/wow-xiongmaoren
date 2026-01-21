@@ -1,4 +1,3 @@
-
 DialogueUI_DB = {
 ["HideUnitNames"] = false,
 ["TTSUseHotkey"] = true,

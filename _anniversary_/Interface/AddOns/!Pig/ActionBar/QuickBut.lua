@@ -381,18 +381,13 @@ QuickButUI.ButList[7]=function()
 		local Icon=134414
 		local Tooltip = KEY_BUTTON1.."-|cff00FFFF使用炉石|r\rShift+"..KEY_BUTTON1.."-|cff00FFFF选择炉石\r|r"..KEY_BUTTON2.."-|cff00FFFF专业技能|r"
 		local General=PIGQuickBut(nil,Tooltip,Icon,nil,nil,"SecureActionButtonTemplate")
-		PIGUseKeyDown(General)
-		General.Cooldown = CreateFrame("Frame", nil, General);
-		General.Cooldown:SetAllPoints()
-		General.Cooldown.N = CreateFrame("Cooldown", nil, General.Cooldown, "CooldownFrameTemplate")
-		General.Cooldown.N:SetAllPoints()
-
-		General.START = General:CreateTexture(nil, "OVERLAY");
-		General.START:SetTexture(130724);
-		General.START:SetBlendMode("ADD");
-		General.START:SetAllPoints(General)
-		General.START:Hide();
-
+		General.cooldown = CreateFrame("Cooldown", nil, General, "CooldownFrameTemplate")
+		General.cooldown:SetAllPoints()
+		General.start = General:CreateTexture(nil, "OVERLAY");
+		General.start:SetTexture(130724);
+		General.start:SetBlendMode("ADD");
+		General.start:SetAllPoints(General)
+		General.start:Hide();
 		General.arrow = General:CreateTexture(nil,"ARTWORK");
 		General.arrow:SetDrawLayer("ARTWORK", 7)
 		if PIG_MaxTocversion() then
@@ -402,15 +397,6 @@ QuickButUI.ButList[7]=function()
 			General.arrow:SetAtlas("UI-HUD-ActionBar-Flyout-Mouseover");
 			General.arrow:SetSize(16,8);
 		end
-
-		local function gengxinlushiCD()
-			if General.lushiitemID then
-				local start, duration= GetItemCooldown(General.lushiitemID)
-				if start and duration then
-		 			General.Cooldown.N:SetCooldown(start, duration);
-		 		end
-		 	end
-	 	end
 		--玩具
 		local ToyList = {
 			64488,--旅店老板的女儿
@@ -486,6 +472,14 @@ QuickButUI.ButList[7]=function()
 			end
 		end
 		jiazaiHasToy()
+		local function gengxinlushiCD()
+			if General.lushiitemID then
+				local start, duration= GetItemCooldown(General.lushiitemID)
+				if start and duration then
+		 			General.cooldown:SetCooldown(start, duration);
+		 		end
+		 	end
+	 	end
 		local function UpdateIconAttribute(itemID)
 			local itemID=itemID or PIGA_Per["QuickBut"]["LushiID"]
 			local _, SpellID = GetItemSpell(itemID)
@@ -514,11 +508,12 @@ QuickButUI.ButList[7]=function()
 		General.lushijisuqi=0
 		UpdateIconAttribute()
 		Skill_Button_Genxin()
+		PIGUseKeyDown(General)
 		General:RegisterEvent("PLAYER_ENTERING_WORLD")
 		General:RegisterUnitEvent("UNIT_SPELLCAST_START","player");
 		General:RegisterUnitEvent("UNIT_SPELLCAST_STOP","player");
 		General:RegisterEvent("SPELL_UPDATE_COOLDOWN")
-		General:SetScript("OnEvent", function(self,event,arg1,_,arg3)
+		General:HookScript("OnEvent", function(self,event,arg1,_,arg3)
 			if event=="PLAYER_ENTERING_WORLD" then
 				self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 				General.lushijisuqi=0
@@ -529,16 +524,16 @@ QuickButUI.ButList[7]=function()
 			else
 				if arg3==self.lushiSpellID then 
 					if event=="UNIT_SPELLCAST_START" then
-				 		self.START:Show();
+				 		self.start:Show();
 				 	end
 				 	if event=="UNIT_SPELLCAST_STOP" then
-				 		self.START:Hide();
+				 		self.start:Hide();
 					end
 				end
 			end
 		end)
 		--内容页
-		local butW = ActionButton1:GetWidth()
+		local butW = QuickButUI.butWWW+4
 		local gaoNum,kuanNum = 5,6
 		local General_List = PIGFrame(General, nil, {(butW+6)*kuanNum+6,(butW+6)*gaoNum+6},"PIG_QuickBut_General",true);
 		General_List:PIGSetBackdrop()
@@ -793,8 +788,13 @@ QuickButUI.ButList[8]=function()
 			Zhushou.arrow:SetAtlas("UI-HUD-ActionBar-Flyout-Mouseover");
 			Zhushou.arrow:SetSize(16,8)
 		end
+		Zhushou.start = Zhushou:CreateTexture(nil, "OVERLAY");
+		Zhushou.start:SetTexture(130724);
+		Zhushou.start:SetBlendMode("ADD");
+		Zhushou.start:SetAllPoints(Zhushou)
+		Zhushou.start:Hide();
 		---内容页----
-		local butW = QuickButUI.butWWW
+		local butW = QuickButUI.butWWW+4
 		local gaoNum,kuanNum = 10,2
 		local Zhushou_List = CreateFrame("Frame", nil, Zhushou,"BackdropTemplate,SecureHandlerShowHideTemplate");
 		Zhushou_List:SetBackdrop(Create.Backdropinfo)
@@ -903,28 +903,23 @@ QuickButUI.ButList[8]=function()
 				end
 			end
 		end)
-		Zhushou.START = Zhushou:CreateTexture(nil, "OVERLAY");
-		Zhushou.START:SetTexture(130724);
-		Zhushou.START:SetBlendMode("ADD");
-		Zhushou.START:SetAllPoints(Zhushou)
-		Zhushou.START:Hide();
 		Zhushou:RegisterEvent("PLAYER_ENTERING_WORLD");
 		Zhushou:RegisterEvent("ZONE_CHANGED_INDOORS");
 		Zhushou:RegisterEvent("ACTIONBAR_UPDATE_USABLE");
 		Zhushou:RegisterEvent("MOUNT_JOURNAL_USABILITY_CHANGED");
 		Zhushou:RegisterUnitEvent("UNIT_SPELLCAST_START","player");
 		Zhushou:RegisterUnitEvent("UNIT_SPELLCAST_STOP","player");
-		Zhushou:SetScript("OnEvent", function(self,event,arg1,_,arg3)
+		Zhushou:HookScript("OnEvent", function(self,event,arg1,_,arg3)
 			if event=="UNIT_SPELLCAST_START" or event=="UNIT_SPELLCAST_STOP" then
 				local mountID = C_MountJournal.GetMountFromSpell(arg3)
 				if mountID then 
 					-- local name, spellID= C_MountJournal.GetMountInfoByID(mountID)
 					-- if arg3==spellID then
 					if event=="UNIT_SPELLCAST_START" then
-				 		self.START:Show();
+				 		self.start:Show();
 				 	end
 				 	if event=="UNIT_SPELLCAST_STOP" then
-				 		self.START:Hide();
+				 		self.start:Hide();
 					end
 				end
 			elseif event=="PLAYER_ENTERING_WORLD" or event=="ACTIONBAR_UPDATE_USABLE" or event=="MOUNT_JOURNAL_USABILITY_CHANGED" then
@@ -948,7 +943,7 @@ QuickButUI.ButList[8]=function()
 			end
 		]=])
 		Zhushou_List.Close:SetFrameRef("frame1", Zhushou_List);
-		Zhushou_List.ClickClose = PIGCheckbutton(Zhushou_List,nil,{"","按钮点击使用后关闭界面"});
+		Zhushou_List.ClickClose = PIGCheckbutton(Zhushou_List,nil,{"","点击按钮后关闭界面"});
 		Zhushou_List.ClickClose:SetScript("OnClick", function (self)
 			if self:GetChecked() then
 				PIGA["QuickBut"]["SpellClose"]=true;
@@ -979,31 +974,19 @@ QuickButUI.ButList[8]=function()
 
 		Zhushou_List.ButList={}
 		for i=1,gaoNum*kuanNum do
-			local zhushoubut
-			if PIG_MaxTocversion(40000) then
-				zhushoubut = CreateFrame("CheckButton", nil, Zhushou_List, "SecureActionButtonTemplate,ActionButtonTemplate,SecureHandlerDragTemplate,SecureHandlerMouseUpDownTemplate")
-				zhushoubut.NormalTexture:SetAlpha(0.4);
-				zhushoubut.cooldown:SetSwipeColor(0, 0, 0, 0.8);
-			else
-				zhushoubut = CreateFrame("CheckButton", nil, Zhushou_List, "SecureActionButtonTemplate,SecureHandlerDragTemplate,SecureHandlerMouseUpDownTemplate")
-				zhushoubut.Height = zhushoubut:CreateTexture(nil, "HIGHLIGHT");
-				zhushoubut.Height:SetAtlas("UI-HUD-ActionBar-IconFrame-Mouseover")
-				zhushoubut.Height:SetBlendMode("ADD");
-				zhushoubut.Height:SetAllPoints(zhushoubut)
-				zhushoubut.NormalTexture = zhushoubut:CreateTexture()
-				zhushoubut.NormalTexture:SetAllPoints(zhushoubut)
-				zhushoubut.NormalTexture:SetAtlas("UI-HUD-ActionBar-IconFrame")
-				zhushoubut.icon = zhushoubut:CreateTexture()
-				zhushoubut.icon:SetAllPoints(zhushoubut)
-				zhushoubut.cooldownF = CreateFrame("Frame", nil, zhushoubut);
-				zhushoubut.cooldownF:SetAllPoints()
-				zhushoubut.cooldown = CreateFrame("Cooldown", nil, zhushoubut.cooldownF, "CooldownFrameTemplate")
-				zhushoubut.cooldown:SetAllPoints()
-				zhushoubut.Name = PIGFontString(zhushoubut,{"BOTTOM",zhushoubut,"BOTTOM",0,0})
-				zhushoubut.Count = PIGFontString(zhushoubut,{"BOTTOMRIGHT",zhushoubut,"BOTTOMRIGHT",0,0})
-			end
+			local zhushoubut = CreateFrame("CheckButton", nil, Zhushou_List, "SecureActionButtonTemplate,SecureHandlerDragTemplate,SecureHandlerMouseUpDownTemplate")
 			Zhushou_List.ButList[i]=zhushoubut
 			zhushoubut:SetSize(butW, butW)
+			zhushoubut:SetHighlightTexture("Interface/Buttons/ButtonHilight-Square")
+			zhushoubut:SetNormalAtlas("UI-HUD-ActionBar-IconFrame")
+			zhushoubut:SetCheckedTexture("Interface/Buttons/CheckButtonHilight")
+			zhushoubut:GetCheckedTexture():SetBlendMode("ADD")
+			zhushoubut.icon = zhushoubut:CreateTexture()
+			zhushoubut.icon:SetAllPoints(zhushoubut)
+			zhushoubut.cooldown = CreateFrame("Cooldown", nil, zhushoubut, "CooldownFrameTemplate")
+			zhushoubut.cooldown:SetAllPoints()
+			zhushoubut.Name = PIGFontString(zhushoubut,{"BOTTOM",zhushoubut,"BOTTOM",0,0})
+			zhushoubut.Count = PIGFontString(zhushoubut,{"BOTTOMRIGHT",zhushoubut,"BOTTOMRIGHT",-2,0})
 			if i==1 then
 				zhushoubut:SetPoint("BOTTOMLEFT",Zhushou_List,"BOTTOMLEFT",6,6);
 			else
@@ -1014,34 +997,9 @@ QuickButUI.ButList[8]=function()
 					zhushoubut:SetPoint("LEFT",Zhushou_List.ButList[i-1],"RIGHT",6,0);
 				end
 			end
-	 		local ActionID = ActionID+i
-	 		zhushoubut.action=ActionID
-			zhushoubut:SetAttribute("action", ActionID)
-			--
 			PIGUseKeyDown(zhushoubut)
-			loadingButInfo(zhushoubut,"QuickBut")
+			zhushoubut:SetAttribute("action", ActionID+i)
 			--
-			zhushoubut:HookScript("PostClick", function(self)
-				Update_PostClick(self)
-				if PIGA["QuickBut"]["SpellClose"] and not InCombatLockdown() then Zhushou_List:Hide() end
-			end);
-			zhushoubut:SetAttribute("_ondragstart",[=[
-				self:SetAttribute("type", nil)
-			]=])
-			zhushoubut:HookScript("OnShow", function (self)
-				Update_Icon(self)
-				Update_Cooldown(self)
-				Update_Count(self)
-				Update_bukeyong(self)
-			end)
-			--
-			zhushoubut:HookScript("OnMouseUp", function (self)
-				Cursor_Fun(self,"OnMouseUp","QuickBut")
-				Update_Icon(self)
-				Update_Cooldown(self)
-				Update_Count(self)
-			end);
-			----
 			zhushoubut:SetAttribute("_ondragstart",[=[
 				self:SetAttribute("type", nil)
 			]=])
@@ -1051,7 +1009,6 @@ QuickButUI.ButList[8]=function()
 				Update_Cooldown(self)
 				Update_Count(self)
 			end)
-			--
 			zhushoubut:SetAttribute("_onreceivedrag",[=[
 				local leibie, spellID = ...
 				if kind=="spell" then
@@ -1071,7 +1028,6 @@ QuickButUI.ButList[8]=function()
 				Update_Cooldown(self)
 				Update_Count(self)
 			end);
-			----
 			zhushoubut:SetScript("OnEnter", function (self)
 				GameTooltip:ClearLines();
 				GameTooltip_SetDefaultAnchor(GameTooltip, self)
@@ -1081,12 +1037,30 @@ QuickButUI.ButList[8]=function()
 				GameTooltip:ClearLines();
 				GameTooltip:Hide() 
 			end);
+			zhushoubut:HookScript("PostClick", function(self)
+				Update_PostClick(self)
+				if PIGA["QuickBut"]["SpellClose"] and not InCombatLockdown() then Zhushou_List:Hide() end
+			end);
+			zhushoubut:HookScript("OnShow", function (self)
+				self:GetCheckedTexture():Hide()
+				Update_Icon(self)
+				Update_Cooldown(self)
+				Update_Count(self)
+				Update_bukeyong(self)
+			end)
+			zhushoubut:HookScript("OnMouseUp", function (self)
+				Cursor_Fun(self,"OnMouseUp","QuickBut")
+				Update_Icon(self)
+				Update_Cooldown(self)
+				Update_Count(self)
+			end);
+			----
+			loadingButInfo(zhushoubut,"QuickBut")
 			--
 			zhushoubut:RegisterEvent("TRADE_SKILL_CLOSE")
 			if PIG_MaxTocversion() then
 				zhushoubut:RegisterEvent("CRAFT_CLOSE")
 			end
-			PIGUseKeyDown(zhushoubut)
 			zhushoubut:RegisterEvent("UPDATE_MACROS");
 			--zhushoubut:RegisterEvent("EXECUTE_CHAT_LINE");
 			zhushoubut:RegisterEvent("ACTIONBAR_UPDATE_COOLDOWN");
@@ -1095,36 +1069,35 @@ QuickButUI.ButList[8]=function()
 			zhushoubut:RegisterEvent("BAG_UPDATE");
 			zhushoubut:RegisterEvent("PLAYER_UPDATE_RESTING");
 			zhushoubut:HookScript("OnEvent", function(self,event,arg1,arg2,arg3)
-				if Zhushou_List:IsShown() then
-					if event=="PLAYER_REGEN_ENABLED" then
-						PigMacroDeleted_QK,PigMacroCount_QK=Update_Macro(self,PigMacroDeleted_QK,PigMacroCount_QK,"QuickBut")
-						self:UnregisterEvent("PLAYER_REGEN_ENABLED");
-					elseif event=="BAG_UPDATE" then
-						Update_Count(self)
-					elseif event=="ACTIONBAR_UPDATE_COOLDOWN" then
-						Update_Cooldown(self)
-						Update_bukeyong(self)
-					elseif event=="ACTIONBAR_UPDATE_STATE" or event=="TRADE_SKILL_CLOSE" or event=="CRAFT_CLOSE" or event=="UNIT_AURA" or event=="EXECUTE_CHAT_LINE" then
-						Update_State(self)
-						Update_Icon(self)
-					elseif event=="UPDATE_MACROS" or event=="PLAYER_REGEN_ENABLED" then
-						PigMacroEventCount_QK=PigMacroEventCount_QK+1;
-						if self.Type=="macro" then
-							if PigMacroEventCount_QK>5 then
-								local AccMacros, CharMacros = GetNumMacros();
-								if PigMacroCount_QK==0 then
-									PigMacroCount_QK = AccMacros + CharMacros;
-								elseif (PigMacroCount_QK > AccMacros + CharMacros) then
-									PigMacroDeleted_QK = true;
-								end
-								PigMacroDeleted_QK,PigMacroCount_QK=Update_Macro(self,PigMacroDeleted_QK,PigMacroCount_QK,"QuickBut")
+				if not Zhushou_List:IsShown() then return end
+				if event=="PLAYER_REGEN_ENABLED" then
+					PigMacroDeleted_QK,PigMacroCount_QK=Update_Macro(self,PigMacroDeleted_QK,PigMacroCount_QK,"QuickBut")
+					self:UnregisterEvent("PLAYER_REGEN_ENABLED");
+				elseif event=="BAG_UPDATE" then
+					Update_Count(self)
+				elseif event=="ACTIONBAR_UPDATE_COOLDOWN" then
+					Update_Cooldown(self)
+					Update_bukeyong(self)
+				elseif event=="ACTIONBAR_UPDATE_STATE" or event=="TRADE_SKILL_CLOSE" or event=="CRAFT_CLOSE" or event=="UNIT_AURA" or event=="EXECUTE_CHAT_LINE" then
+					Update_State(self)
+					Update_Icon(self)
+				elseif event=="UPDATE_MACROS" or event=="PLAYER_REGEN_ENABLED" then
+					PigMacroEventCount_QK=PigMacroEventCount_QK+1;
+					if self.Type=="macro" then
+						if PigMacroEventCount_QK>5 then
+							local AccMacros, CharMacros = GetNumMacros();
+							if PigMacroCount_QK==0 then
+								PigMacroCount_QK = AccMacros + CharMacros;
+							elseif (PigMacroCount_QK > AccMacros + CharMacros) then
+								PigMacroDeleted_QK = true;
 							end
+							PigMacroDeleted_QK,PigMacroCount_QK=Update_Macro(self,PigMacroDeleted_QK,PigMacroCount_QK,"QuickBut")
 						end
-						Update_Icon(self)
-						Update_Count(self)
-					elseif event=="PLAYER_UPDATE_RESTING" then
-						Update_bukeyong(self)
 					end
+					Update_Icon(self)
+					Update_Count(self)
+				elseif event=="PLAYER_UPDATE_RESTING" then
+					Update_bukeyong(self)
 				end
 			end)
 		end

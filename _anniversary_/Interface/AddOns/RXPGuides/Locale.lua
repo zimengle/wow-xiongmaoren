@@ -1,8 +1,7 @@
 local addonName, addon = ...
 
-local ssplit, strjoin, ipairs, unpack, next = strsplittable, strjoin, ipairs, unpack, next
-
-addon = LibStub("AceAddon-3.0"):NewAddon(addon, addonName, "AceEvent-3.0")
+local ssplit, strjoin, ipairs, unpack, next = strsplittable, strjoin, ipairs,
+                                              unpack, next
 
 addon.locale = {}
 
@@ -44,9 +43,8 @@ local function noop(text) return text end
 
 local locale = GetLocale()
 
--- TODO check if L returned language, remove explicit list
 -- Explicitly check supported languages, default to enUS
-if locale == 'zhCN' or locale == 'zhTW' or locale == 'frFR' or locale == 'koKR' or locale == 'esES' or locale == 'ruRU' then
+if locale == 'zhCN' or locale == 'zhTW' or locale == 'frFR' or locale == 'koKR' then
     addon.locale.Get = getForeign
 else
     addon.locale.Get = noop

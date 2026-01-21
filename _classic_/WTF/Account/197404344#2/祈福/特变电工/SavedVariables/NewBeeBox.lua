@@ -2,13 +2,13 @@
 WclBoxCharacter = {
 ["class"] = "ROGUE",
 ["realmID"] = 4778,
-["faction"] = "Alliance",
-["loginTime"] = 1767586977,
+["version"] = "1.0.28",
+["gold"] = 17729807,
 ["race"] = "人类",
 ["name"] = "特变电工",
-["gold"] = 17617607,
+["faction"] = "Alliance",
 ["realmName"] = "祈福",
 ["level"] = 87,
-["version"] = "1.0.28",
+["loginTime"] = 1768801810,
 ["playerGUID"] = "Player-4778-04DBFC9E",
 }

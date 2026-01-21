@@ -3,91 +3,90 @@ if faction == "Horde" then return end
 
 RXPGuides.RegisterGuide([[
 #classic
-#tbc
 << Human Mage
-#name 1-10 ADV Elwynn Forest Human Mage AoE
+#name 1-10 冒险 艾尔文森林 人类法师 范围
 #version 2
-#group RestedXP ADV AoE Alliance Mage
+#group RestedXP 冒险 AoE 联盟法师
 #defaultfor Human Mage
-#next 10-11 ADV Dun Morogh Human Mage AoE
+#next 10-11 冒险 丹莫罗人类 法师 AoE
 
 
 step << !Human Mage
     #season 2
     #completewith next
-    +In Season of Discovery, you should NOT start outside of your race's starter zone as a Mage, as you will be unable to get your first rune here (|T133816:0|t[Engrave Gloves - Ice Lance])
+    +在探索季节，你不应该以法师的身份在你的种族起始区之外开始游戏，因为你将无法在这里获得你的第一个符文 (|T133816:0|t[雕刻手套 - 冰枪])
 step
     #completewith next
-    +You have selected the Advanced guide. This is the fastest guide for the fastest class in the game (Alliance Mage). As such, there will be a lot of niche mechanics used as well as highly difficult AoE pulls. Stay persistent while you learn! Good Luck!
+    +您已选择高级指南。这是游戏中速度最快的职业（联盟法师）的最快指南。因此，将使用许多小众机制以及高难度的 AoE 拉动。在学习过程中坚持不懈！祝你好运！
 step
     #completewith next
     .goto Elwynn Forest,48.45,45.80,50,0
-    +|cRXP_WARN_Kill |cRXP_ENEMY_Young Wolves|r. Loot them until you have 10 copper worth of vendor items|r
+    +|cRXP_WARN_杀死 |cRXP_ENEMY_Young Wolves|r。掠夺他们，直到你拥有价值 10 铜的供应商物品|r
     .mob Young Wolf
 step
     .goto Elwynn Forest,48.171,42.943
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Willem|r
-    .accept 783 >> Accept A Threat Within
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_维里副队长|r
+    .accept 783 >>接任务: |cRXP_LOOT_身边的危机|r
     .target Deputy Willem
 step
     .goto Elwynn Forest,47.48,41.46
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Danil|r
-    .vendor >> Vendor Trash until you have 10+ copper
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_丹尼尔修士|r
+    .vendor >>供应商垃圾直到你有 10+ 铜
     .target Brother Danil
 step
     .goto Elwynn Forest,48.26,41.93,15,0
     .goto Elwynn Forest,48.923,41.606
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_McBride|r inside
-    .turnin 783 >> Turn in A Threat Within
-    .accept 7 >> Accept Kobold Camp Cleanup
-    .target Marshal McBride
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_治安官玛克布莱德|r, 他在里面
+    .turnin 783 >>交任务: |cRXP_FRIENDLY_身边的危机|r
+    .accept 7 >>接任务: |cRXP_LOOT_剿灭狗头人|r
+    .target 麦克布莱德元帅
 step
     #completewith next
     .goto Elwynn Forest,48.97,41.14,10,0
     .goto Elwynn Forest,49.26,40.67,10,0
     .goto Elwynn Forest,49.66,40.15,10,0
     .goto Elwynn Forest,49.44,39.89,5,0
-    >>Jump from the stairs to the rail
-    .goto Elwynn Forest,49.66,39.41,10 >>Travel toward |cRXP_FRIENDLY_Khelden|r upstairs
+    >>从楼梯跳到栏杆上
+    .goto Elwynn Forest,49.66,39.41,10 >>前往楼上的 |cRXP_FRIENDLY_Khelden|r
 step
     .goto Elwynn Forest,49.66,39.41
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Khelden|r
-    .train 1459 >> Train |T135932:0|t[Arcane Intellect]
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_凯尔登·布雷门|r
+    .train 1459 >>训练 |T135932:0|t[奥术智慧]
     .target Khelden Bremen
 step
     #completewith next
     .goto Elwynn Forest,49.66,40.15,10,0
     .goto Elwynn Forest,49.26,40.67,10,0
     .goto Elwynn Forest,48.97,41.14,10,0
-    .goto Elwynn Forest,48.171,42.943,10 >>Travel toward |cRXP_FRIENDLY_Willem|r
+    .goto Elwynn Forest,48.171,42.943,10 >>前往 |cRXP_FRIENDLY_Willem|r
 step
     .goto Elwynn Forest,48.171,42.943
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Willem|r
-    .accept 5261 >> Accept Eagan Peltskinner
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_维里副队长|r
+    .accept 5261 >>接任务: |cRXP_LOOT_伊根·派特斯金纳|r
     .target Deputy Willem
 step
     #completewith next
     .goto Elwynn Forest,46.10,42.57,70,0
     .goto Elwynn Forest,46.59,39.35
-    +|cRXP_WARN_Kill |cRXP_ENEMY_Young Wolves|r. Loot them until you have 50 copper worth of vendor items (including your armor)|r
+    +|cRXP_WARN_杀死 |cRXP_ENEMY_Young Wolves|r。掠夺他们直到你有价值 50 铜的供应商物品（包括你的盔甲）|r
     .mob Young Wolf
 step
     .goto Elwynn Forest,47.48,41.46
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Danil|r
-    >>|cRXP_BUY_Buy 10|r |T132794:0|t[Refreshing Spring Water] |cRXP_BUY_from him|r
-    .vendor >> Vendor Trash
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_丹尼尔修士|r
+    >>|cRXP_BUY_从他那里购买 10|r |T132794:0|t[清凉泉水] |cRXP_BUY_|r
+    .vendor >>供应商垃圾
     .collect 159,10,7,1 --Collect Refreshing Spring Water (x10)
     .target Brother Danil
 step
     .goto Elwynn Forest,48.94,40.16
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Eagan|r
-    .turnin 5261 >> Turn in Eagan Peltskinner
-    .accept 33 >> Accept Wolves Across The Border
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_伊根·派特斯金纳|r
+    .turnin 5261 >>交任务: |cRXP_FRIENDLY_伊根·派特斯金纳|r
+    .accept 33 >>接任务: |cRXP_LOOT_林中的群狼|r
     .target Eagan Peltskinner
 step
     #completewith next
-    >>Kill |cRXP_LOOT_Young Wolves|r and |cRXP_LOOT_Timber Wolves|r. Loot them for their |cRXP_LOOT_Tough Wolf Meat|r
-    >>Focus on the |cRXP_LOOT_Young Wolves|r
+    >>杀死 |cRXP_LOOT_Young Wolves|r 和 |cRXP_LOOT_Timber Wolves|r。掠夺他们的 |cRXP_LOOT_Tough Wolf Meat|r
+    >>关注|cRXP_LOOT_Young Wolves|r
     .complete 33,1 --Collect Tough Wolf Meat (x8)
 	.mob Young Wolf
     .mob Timber Wolf
@@ -100,8 +99,8 @@ step
 	.goto Elwynn Forest,49.82,36.23,35,0
 	.goto Elwynn Forest,49.18,37.16,35,0
 	.goto Elwynn Forest,47.01,35.68,35,0
-    >>Kill |cRXP_ENEMY_Kobold Vermin|r
-    >>|cRXP_WARN_Kill Level 1 |cRXP_ENEMY_Kobold Vermin|r if possible|r
+    >>杀死 |cRXP_ENEMY_Kobold Vermin|r
+    >>|cRXP_WARN_如果可能的话，杀死等级 1 |cRXP_ENEMY_Kobold Vermin|r|r
     .complete 7,1 --Kill Kobold Vermin (x10)
 	.mob Kobold Vermin
 step
@@ -114,30 +113,30 @@ step
 	.goto Elwynn Forest,46.03,40.91,35,0
 	.goto Elwynn Forest,48.04,39.55,35,0
 	.goto Elwynn Forest,49.32,37.91,35,0
-    >>Kill |cRXP_LOOT_Young Wolves|r and |cRXP_LOOT_Timber Wolves|r. Loot them for their |cRXP_LOOT_Tough Wolf Meat|r
-    >>Focus on the |cRXP_LOOT_Young Wolves|r
+    >>杀死 |cRXP_LOOT_Young Wolves|r 和 |cRXP_LOOT_Timber Wolves|r。掠夺他们的 |cRXP_LOOT_Tough Wolf Meat|r
+    >>关注|cRXP_LOOT_Young Wolves|r
     .complete 33,1 --Collect Tough Wolf Meat (x8)
 	.mob Young Wolf
     .mob Timber Wolf
 step
     .goto Elwynn Forest,48.94,40.16
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Eagan|r
-    .turnin 33,1 >> Turn in Wolves Across The Border
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_伊根·派特斯金纳|r
+    .turnin 33,1 >>交任务: |cRXP_FRIENDLY_林中的群狼|r
     .target Eagan Peltskinner
 step
     .goto Elwynn Forest,47.48,41.46
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Danil|r
-    |cRXP_BUY_Buy 10|r |T132794:0|t[Refreshing Spring Water] |cRXP_BUY_from him|r
-    .vendor >>Vendor Trash
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_丹尼尔修士|r
+    |cRXP_BUY_从他那里购买 10|r |T132794:0|t[清凉泉水] |cRXP_BUY_|r
+    .vendor >>供应商垃圾
     .collect 159,10,15,1 --Collect Refreshing Spring Water (x10)
     .target Brother Danil
 step
     .goto Elwynn Forest,48.923,41.606
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_McBride|r inside
-    .turnin 7 >> Turn in Kobold Camp Cleanup
-    .accept 15 >> Accept Investigate Echo Ridge
-    .accept 3104 >> Accept Glyphic Letter
-    .target Marshal McBride
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_治安官玛克布莱德|r, 他在里面
+    .turnin 7 >>交任务: |cRXP_FRIENDLY_剿灭狗头人|r
+    .accept 15 >>接任务: |cRXP_LOOT_回音山调查行动|r
+    .accept 3104 >>接任务: |cRXP_LOOT_雕文信件|r
+    .target 麦克布莱德元帅
 step
 #loop
 	.line Elwynn Forest,47.25,36.41,47.39,35.77,47.35,34.06,46.29,32.42,47.75,32.77,50.11,34.98,47.25,36.41
@@ -148,7 +147,7 @@ step
 	.goto Elwynn Forest,47.75,32.77,35,0
 	.goto Elwynn Forest,50.11,34.98,35,0
 	.goto Elwynn Forest,47.25,36.41,35,0
-    >>Kill |cRXP_ENEMY_Kobold Workers|r
+    >>杀死 |cRXP_ENEMY_Kobold 工人|r
     .complete 15,1 --Kill Kobold Worker (x10)
 	.mob Kobold Worker
 step
@@ -161,56 +160,56 @@ step
 	.goto Elwynn Forest,46.03,40.91,35,0
 	.goto Elwynn Forest,48.04,39.55,35,0
 	.goto Elwynn Forest,49.32,37.91,35,0
-    .xp 3+1110 >> Grind to 1110+/1400xp
+    .xp 3+1110 >>升级至 1110+/1400xp
 	.mob Young Wolf
 	.mob Kobold Vermin
     .mob Timber Wolf
  step
     .goto Elwynn Forest,47.48,41.46
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Danil|r
-    >>|cRXP_BUY_Buy 10|r |T132794:0|t[Refreshing Spring Water] |cRXP_BUY_from him|r
-    .vendor >>Vendor Trash
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_丹尼尔修士|r
+    >>|cRXP_BUY_从他那里购买 10|r |T132794:0|t[清凉泉水] |cRXP_BUY_|r
+    .vendor >>供应商垃圾
     .collect 159,10,15,1 --Collect Refreshing Spring Water (x10)
     .target Brother Danil
 step
     .goto Elwynn Forest,48.923,41.606
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_McBridge|r inside
-    .turnin 15 >> Turn in Investigate Echo Ridge
-    .accept 21 >> Accept Skirmish at Echo Ridge
-    .target Marshal McBride
+    .turnin 15 >>交任务: |cRXP_FRIENDLY_回音山调查行动|r
+    .accept 21 >>接任务: |cRXP_LOOT_回音山清剿行动|r
+    .target 麦克布莱德元帅
 step
     #completewith next
     .goto Elwynn Forest,48.97,41.14,10,0
     .goto Elwynn Forest,49.26,40.67,10,0
     .goto Elwynn Forest,49.66,40.15,10,0
     .goto Elwynn Forest,49.44,39.89,5,0
-    >>Jump from the stairs to the rail
-    .goto Elwynn Forest,49.66,39.41,10 >>Travel toward |cRXP_FRIENDLY_Khelden|r upstairs
+    >>从楼梯跳到栏杆上
+    .goto Elwynn Forest,49.66,39.41,10 >>前往楼上的 |cRXP_FRIENDLY_Khelden|r
 step
     #season 0
     .goto Elwynn Forest,49.66,39.41
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Khelden|r
-    .turnin 3104 >> Turn in Glyphic Letter
-    .train 116 >> Train |T135846:0|t[Frostbolt]
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_凯尔登·布雷门|r
+    .turnin 3104 >>交任务: |cRXP_FRIENDLY_雕文信件|r
+    .train 116 >>训练 |T135846:0|t[冰箭]
     .target Khelden Bremen
 step
     #season 2
     .goto Elwynn Forest,49.66,39.41
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Khelden|r
-    .accept 77620 >> Accept Spell Research << Human
-    .turnin 3104 >> Turn in Glyphic Letter
-    .train 116 >> Train |T135846:0|t[Frostbolt]
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_凯尔登·布雷门|r
+    .accept 77620 >>接受法术研究 << Human
+    .turnin 3104 >>交任务: |cRXP_FRIENDLY_雕文信件|r
+    .train 116 >>训练 |T135846:0|t[冰箭]
     .target Khelden Bremen
 step
     #completewith next
     .goto Elwynn Forest,49.66,40.15,10,0
     .goto Elwynn Forest,49.26,40.67,10,0
     .goto Elwynn Forest,48.97,41.14,10,0
-    .goto Elwynn Forest,48.171,42.943,10 >>Travel toward |cRXP_FRIENDLY_Willem|r
+    .goto Elwynn Forest,48.171,42.943,10 >>前往 |cRXP_FRIENDLY_Willem|r
 step
     .goto Elwynn Forest,48.171,42.943
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Willem|r
-    .accept 18 >> Accept Brotherhood of Thieves
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_维里副队长|r
+    .accept 18 >>接任务: |cRXP_LOOT_潜行者兄弟会|r
     .target Deputy Willem
 step
     #season 2
@@ -219,8 +218,8 @@ step
     #completewith RedBurlapBandana
     .goto Elwynn Forest,52.55,48.79,0
     .goto Elwynn Forest,55.43,45.87,0
-    >>Kill |cRXP_ENEMY_Defias Thugs|r. Loot them for the |T134939:0|t|cRXP_LOOT_[Spell Notes: CALE ENCI]|r
-    >>|cRXP_WARN_NOTE: You will be unable to train|r |T133816:0|t[Engrave Gloves - Ice Lance] |cRXP_WARN_here as you can only get a|r |T133736:0|t[Comprehension Primer] |cRXP_WARN_in your race's starting zone|r << !Human
+    >>杀死 |cRXP_ENEMY_Defias Thugs|r。掠夺他们以获得 |T134939:0|t|cRXP_LOOT_[法术注释：CALE ENCI]|r
+    >>|cRXP_WARN_注意：你将无法在此处训练|r |T133816:0|t[雕刻手套 - 冰枪] |cRXP_WARN_，因为你只能在你种族的起始区获得|r |T133736:0|t[理解入门] |cRXP_WARN_|r << !Human
     .collect 203751,1,77620,1 -- Spell Notes: CALE ENCI (1)
     .mob Defias Thug
     .train 401760,1
@@ -228,7 +227,7 @@ step << Human
     #season 2
     #requires CALEENCI
     #completewith RedBurlapBandana
-    .train 401760 >>|cRXP_WARN_Use the|r |T134939:0|t|cRXP_LOOT_[Spell Notes: CALE ENCI]|r |cRXP_WARN_to learn|r |T133816:0|t[Engrave Gloves - Ice Lance]
+    .train 401760 >>|cRXP_WARN_使用|r |T134939:0|t|cRXP_LOOT_[法术说明：CALE ENCI]|r |cRXP_WARN_学习|r |T133816:0|t[雕刻手套 - 冰枪]
     .use 203751
     .itemcount 203751,1 -- Spell Notes: CALE ENCI (1)
 step
@@ -251,7 +250,7 @@ step
 	.goto Elwynn Forest,54.76,45.96,35,0
 	.goto Elwynn Forest,53.81,44.79,35,0
 	.goto Elwynn Forest,51.14,49.29,35,0
-    >>Kill |cRXP_ENEMY_Defias Thugs|r. Loot them for |cRXP_LOOT_Red Burlap Bandanas|r
+    >>杀死 |cRXP_ENEMY_Defias Thugs|r。掠夺他们以获得 |cRXP_LOOT_Red Burlap Bandanas|r
     .complete 18,1 --Collect Red Burlap Bandana (x12)
 	.mob Defias Thug
 step
@@ -265,41 +264,41 @@ step
     .goto Elwynn Forest,55.09,49.00,50,0
     .goto Elwynn Forest,55.43,45.87,50,0
     .goto Elwynn Forest,53.86,47.05,50,0
-    >>Kill |cRXP_ENEMY_Defias Thugs|r. Loot them for the |T134939:0|t|cRXP_LOOT_[Spell Notes: CALE ENCI]|r
-    >>|cRXP_WARN_NOTE: You will be unable to train|r |T133816:0|t[Engrave Gloves - Ice Lance] |cRXP_WARN_here as you can only get a|r |T133736:0|t[Comprehension Primer] |cRXP_WARN_in your race's starting zone|r << !Human
+    >>杀死 |cRXP_ENEMY_Defias Thugs|r。掠夺他们以获得 |T134939:0|t|cRXP_LOOT_[法术注释：CALE ENCI]|r
+    >>|cRXP_WARN_注意：你将无法在此处训练|r |T133816:0|t[雕刻手套 - 冰枪] |cRXP_WARN_，因为你只能在你种族的起始区获得|r |T133736:0|t[理解入门] |cRXP_WARN_|r << !Human
     .collect 203751,1,77620,1 -- Spell Notes: CALE ENCI (1)
     .mob Defias Thug
     .train 401760,1
 step << Human
     #optional
     #season 2
-    .train 401760 >>|cRXP_WARN_Use the|r |T134939:0|t|cRXP_LOOT_[Spell Notes: CALE ENCI]|r |cRXP_WARN_to learn|r |T133816:0|t[Engrave Gloves - Ice Lance]
+    .train 401760 >>|cRXP_WARN_使用|r |T134939:0|t|cRXP_LOOT_[法术说明：CALE ENCI]|r |cRXP_WARN_学习|r |T133816:0|t[雕刻手套 - 冰枪]
     .use 203751
     .itemcount 203751,1 -- Spell Notes: CALE ENCI (1)
 step
     .goto Elwynn Forest,48.171,42.943
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Willem|r
-    .turnin 18,5 >> Turn in Brotherhood of Thieves
-    .accept 6 >> Accept Bounty on Garrick Padfoot
-    .accept 3903 >> Accept Milly Osworth
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_维里副队长|r
+    .turnin 18,5 >>交任务: |cRXP_FRIENDLY_盗贼兄弟会|r
+    .accept 6 >>接任务: |cRXP_LOOT_加瑞克·帕德弗特的赏金|r
+    .accept 3903 >>接任务: |cRXP_LOOT_米莉·奥斯沃斯|r
     .target Deputy Willem
 step
     #completewith Laborer
-    +Equip the |T135145:0|t[Militia Quarterstaff]
+    +装备 |T135145:0|t[民兵长棍]
     .use 1159
     .itemcount 1159,1
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<2.7
 step
     .goto Elwynn Forest,47.48,41.46
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Danil|r
-    >>|cRXP_BUY_Buy 10|r |T132794:0|t[Refreshing Spring Water] |cRXP_BUY_from him|r
-    .vendor >> Vendor Trash
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_丹尼尔修士|r
+    >>|cRXP_BUY_从他那里购买 10|r |T132794:0|t[清凉泉水] |cRXP_BUY_|r
+    .vendor >>供应商垃圾
     .collect 159,10,21,1 --Collect Refreshing Spring Water (x10)
     .target Brother Danil
 step
     #completewith next
-    .goto Elwynn Forest,47.76,31.62,40 >>Go inside the mine
+    .goto Elwynn Forest,47.76,31.62,40 >>进入矿井
 step
     #label Laborer
     .goto Elwynn Forest,47.99,30.66,40,0
@@ -307,15 +306,15 @@ step
     .goto Elwynn Forest,48.58,26.57,40,0
     .goto Elwynn Forest,49.95,25.74,40,0
     .goto Elwynn Forest,50.27,26.83
-    >>Kill |cRXP_ENEMY_Kobold Laborers|r
+    >>杀死 |cRXP_ENEMY_Kobold Laborers|r
     .complete 21,1 --Kill Kobold Laborer (x12)
 	.mob Kobold Laborer
 step
     .goto Elwynn Forest,50.70,39.35
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Milly|r
-    .turnin 3903 >> Turn in Milly Osworth
-    .accept 3904 >> Accept Milly's Harvest
-    .target Milly Osworth
+    .turnin 3903 >>交任务: |cRXP_FRIENDLY_米莉·奥斯沃斯|r
+    .accept 3904 >>接任务: |cRXP_LOOT_米莉的葡萄|r
+    .target 米莉·奥斯沃斯
 step
     #completewith Harvest
 #loop
@@ -328,7 +327,7 @@ step
 	.goto Elwynn Forest,54.52,49.58,35,0
 	.goto Elwynn Forest,54.43,48.10,35,0
 	.goto Elwynn Forest,53.68,47.29,35,0
-    .xp 5+1175 >> Grind to 1175+/2800xp
+    .xp 5+1175 >>升级至 1175+/2800xp
     .mob Defias Thug
 step
     #completewith next
@@ -342,12 +341,12 @@ step
 	.goto Elwynn Forest,54.52,49.58,35,0
 	.goto Elwynn Forest,54.43,48.10,35,0
 	.goto Elwynn Forest,53.68,47.29,35,0
-    >>Loot the |cRXP_PICK_Buckets of Grapes|r on the ground
-    >>|cRXP_WARN_This has a 5 second cast time|r
+    >>拾取地面上的 |cRXP_PICK_葡萄桶|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
     .complete 3904,1 --Collect Milly's Harvest (x8)
 step
     .goto Elwynn Forest,57.52,48.25
-    >>Kill |cRXP_ENEMY_Garrick Padfoot|r. Loot him for |cRXP_LOOT_Garrick's Head|r
+    >>杀死 |cRXP_ENEMY_Garrick Padfoot|r。掠夺他以获取 |cRXP_LOOT_Garrick's Head|r
     .complete 6,1 --Collect Garrick's Head (x1)
 	.mob Garrick Padfoot
 step
@@ -362,8 +361,8 @@ step
 	.goto Elwynn Forest,54.52,49.58,35,0
 	.goto Elwynn Forest,54.43,48.10,35,0
 	.goto Elwynn Forest,53.68,47.29,35,0
-    >>Loot the |cRXP_PICK_Buckets of Grapes|r on the ground
-    >>|cRXP_WARN_This has a 5 second cast time|r
+    >>拾取地面上的 |cRXP_PICK_葡萄桶|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
     .complete 3904,1 --Collect Milly's Harvest (x8)
 step
 #loop
@@ -376,25 +375,25 @@ step
 	.goto Elwynn Forest,54.52,49.58,35,0
 	.goto Elwynn Forest,54.43,48.10,35,0
 	.goto Elwynn Forest,53.68,47.29,35,0
-    .xp 5+1175 >> Grind to 1175+/2800xp
+    .xp 5+1175 >>升级至 1175+/2800xp
     .mob Defias Thug
 step
     .goto Elwynn Forest,50.70,39.35
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Milly|r
-    .turnin 3904 >>Turn in Milly's Harvest
-    .accept 3905 >>Accept Grape Manifest
-    .target Milly Osworth
+    .turnin 3904 >>交任务: |cRXP_FRIENDLY_米莉的葡萄|r
+    .accept 3905 >>接任务: |cRXP_LOOT_葡萄出货单|r
+    .target 米莉·奥斯沃斯
 step
     .goto Elwynn Forest,48.171,42.943
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Willem|r
-    .turnin 6,1 >> Turn in Bounty on Garrick Padfoot
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_维里副队长|r
+    .turnin 6,1 >>交任务: |cRXP_FRIENDLY_加瑞克·帕德弗特的赏金|r
     .target Deputy Willem
 step
     .goto Elwynn Forest,48.923,41.606
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_McBride|r inside
-    .turnin 21,3 >> Turn in Skirmish at Echo Ridge
-    .accept 54 >> Accept Report to Goldshire
-    .target Marshal McBride
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_治安官玛克布莱德|r, 他在里面
+    .turnin 21,3 >>交任务: |cRXP_FRIENDLY_回音山清剿行动|r
+    .accept 54 >>接任务: |cRXP_LOOT_去闪金镇报到|r
+    .target 麦克布莱德元帅
 step
     #completewith next
     .goto Elwynn Forest,49.18,41.84,10,0
@@ -404,12 +403,12 @@ step
     .goto Elwynn Forest,49.20,41.81,10,0
     .goto Elwynn Forest,49.57,41.46,10,0
     .goto Elwynn Forest,49.33,40.93,10,0
-    >>Go upstairs
-    .goto Elwynn Forest,49.471,41.586,10 >> Travel toward |cRXP_FRIENDLY_Neals|r
+    >>上楼去
+    .goto Elwynn Forest,49.471,41.586,10 >>前往 |cRXP_FRIENDLY_Neals|r
 step
     .goto Elwynn Forest,49.471,41.586
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Neals|r
-    .turnin 3905,1 >>Turn in Grape Manifest
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_尼尔斯修士|r
+    .turnin 3905,1 >>交任务: |cRXP_FRIENDLY_葡萄出货单|r
     .target Brother Neals
 step << Human
     #season 2
@@ -423,99 +422,99 @@ step << Human
     .goto 1429,49.595,40.673,6,0
     .goto 1429,49.324,40.492,6,0
     .goto 1429,49.436,39.881,10,0
-    .goto Elwynn Forest,49.661,39.402,12 >>Go downstairs, then travel toward |cRXP_FRIENDLY_Khelden Bremen|r
+    .goto Elwynn Forest,49.661,39.402,12 >>下楼，然后前往|cRXP_FRIENDLY_Khelden Bremen|r
     .isQuestComplete 77620
 step << Human
     #season 2
     .goto Elwynn Forest,49.661,39.402
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Khelden Bremen|r inside
-    .turnin 77620 >> Turn in Spell Research
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_凯尔登·布雷门|r, 他在里面
+    .turnin 77620 >>提交法术研究
     .target Khelden Bremen
     .isQuestComplete 77620
 step
     .goto Elwynn Forest,45.56,47.75
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Falkhaan|r
-    .accept 2158 >> Accept Rest and Relaxation
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_法尔坎·伊森斯泰德|r
+    .accept 2158 >>接任务: |cRXP_LOOT_休息和放松|r
     .target Falkhaan Isenstrider
 step
     .goto Elwynn Forest,42.105,65.927
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dughan|r
-    .turnin 54 >> Turn in Report to Goldshire
-    .accept 62 >> Accept The Fargodeep Mine
-    .target Marshal Dughan
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_治安官杜汉|r
+    .turnin 54 >>交任务: |cRXP_FRIENDLY_去闪金镇报到|r
+    .accept 62 >>接任务: |cRXP_LOOT_法戈第矿洞|r
+    .target 杜汉元帅
 step
     .goto Elwynn Forest,43.283,65.721
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_William|r through the wall as you enter the Inn
-    .accept 60 >> Accept Kobold Candles
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_威廉|r
+    .accept 60 >>接任务: |cRXP_LOOT_狗头人的蜡烛|r
     .target William Pestle
 step
     #completewith next
-    .home >> Set your Hearthstone to Goldshire
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Farley|r
+    .home >>将你的炉石设置为闪金郡
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_旅店老板法雷|r
 step
     .goto Elwynn Forest,43.771,65.803
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Farley|r
-    .turnin 2158,2 >> Turn in Rest and Relaxation
-    .vendor 295 >> Vendor Trash. |cRXP_BUY_Buy|r |T132815:0|t[Ice Cold Milk] |cRXP_BUY_down to 2 silver|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_旅店老板法雷|r
+    .turnin 2158,2 >>交任务: |cRXP_FRIENDLY_休息和放松|r
+    .vendor 295 >>供应商垃圾。|cRXP_BUY_Buy|r |T132815:0|t[冰镇牛奶] |cRXP_BUY_降至 2 银|r
     .target Innkeeper Farley
 step
     .goto Elwynn Forest,43.25,66.25
-    >>Jump onto the Chandelier downstairs
-    >>Talk to |cRXP_FRIENDLY_Zaldimar|r through the wall
-    .trainer >> Train your class spells (Fireball R2, Fire Blast)
+    >>跳到楼下的吊灯上
+    >>对话: |cRXP_FRIENDLY_扎尔迪玛·维夫希尔特|r
+    .trainer >>训练你的职业法术（火球 R2、火焰冲击）
 	.target Zaldimar Wefhellt
 step
     .goto Elwynn Forest,42.14,67.26
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Remy|r
-    .accept 47 >> Accept Gold Dust Exchange
-    .target Remy "Two Times"
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_雷米|r
+    .accept 47 >>接任务: |cRXP_LOOT_金砂交易|r
+    .target 雷米“两次”
 step
     #completewith BoarMeat1
-    >>Kill |cRXP_ENEMY_Stonetusk Boars|r. Loot them for |T133970:0|t|cRXP_LOOT_[Chunks of Boar Meat]|r
+    >>杀死 |cRXP_ENEMY_Stonetusk Boars|r。拾取它们以获得 |T133970:0|t|cRXP_LOOT_[大块野猪肉]|r
     .collect 769,4,86,1 --Collect Chunk of Boar Meat (x4)
     .mob Stonetusk Boar
 step
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Bernice|r and |cRXP_FRIENDLY_Ma|r
-    .accept 85 >> Accept Lost Necklace
-    .target +"Auntie" Bernice Stonefield
+    .accept 85 >>接任务: |cRXP_LOOT_丢失的项链|r
     .goto Elwynn Forest,34.486,84.253
-    .accept 88 >> Accept Princess Must Die!
+    .accept 88 >>接任务: |cRXP_LOOT_公主必须死！|r
 	.goto Elwynn Forest,34.660,84.482
-    .target +Ma Stonefield
+    .target “阿姨”伯妮丝·斯通菲尔德
+    .target 马斯通菲尔德
 step
     #completewith next
-    >>Kill |cRXP_ENEMY_Kobold Tunnelers|r. Loot them for |cRXP_LOOT_Gold Dust|r and |cRXP_LOOT_Kobold Candles|r
+    >>杀死 |cRXP_ENEMY_Kobold Tunnelers|r。掠夺他们以获得 |cRXP_LOOT_Gold Dust|r 和 |cRXP_LOOT_Kobold Candles|r
     .complete 47,1 --Collect Gold Dust (x10)
     .complete 60,1 --Collect Kobold Candle (x8)
     .mob Kobold Tunneler
 step
     .goto Elwynn Forest,43.132,85.722
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Billy|r
-    .turnin 85 >> Turn in Lost Necklace
-    .accept 86 >> Accept Pie for Billy
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_比利|r
+    .turnin 85 >>交任务: |cRXP_FRIENDLY_丢失的项链|r
+    .accept 86 >>接任务: |cRXP_LOOT_比利的馅饼|r
     .target Billy Maclure
 step
     #label BoarMeat1
     .goto Elwynn Forest,43.16,89.63
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Maybell|r inside
-    .accept 106 >> Accept Young Lovers
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_梅贝尔·马科伦|r, 他在里面
+    .accept 106 >>接任务: |cRXP_LOOT_年轻的恋人|r
     .target Maybell Maclure
 step
     .goto Elwynn Forest,42.36,89.37
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Joshua|r
-    >>|cRXP_BUY_Buy as much|r |T132815:0|t[Ice Cold Milk] |cRXP_BUY_as you can afford from him|r
-    .vendor 258 >>Vendor Trash
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_乔舒|r
+    >>|cRXP_BUY_从他那里购买尽可能多的|r |T132815:0|t[冰镇牛奶] |cRXP_BUY_你能负担得起的|r
+    .vendor 258 >>供应商垃圾
     .target Joshua Maclure
 step
     #completewith next
-    >>Kill |cRXP_ENEMY_Stonetusk Boars|r. Loot them for |T133970:0|t|cRXP_LOOT_[Chunks of Boar Meat]|r
+    >>杀死 |cRXP_ENEMY_Stonetusk Boars|r。拾取它们以获得 |T133970:0|t|cRXP_LOOT_[大块野猪肉]|r
     .collect 769,4,86,1 --Collect Chunk of Boar Meat (x4)
     .mob Stonetusk Boar
 step
     .goto Elwynn Forest,29.840,85.997
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Tommy|r
-    .turnin 106 >> Turn in Young Lovers
-    .accept 111 >> Accept Speak with Gramma
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_托米·乔·斯通菲尔德|r
+    .turnin 106 >>交任务: |cRXP_FRIENDLY_年轻的恋人|r
+    .accept 111 >>接任务: |cRXP_LOOT_托米的祖母|r
     .target Tommy Joe Stonefield
 step
 #loop
@@ -525,45 +524,45 @@ step
 	.goto Elwynn Forest,33.51,85.22,35,0
 	.goto Elwynn Forest,32.17,83.88,35,0
 	.goto Elwynn Forest,31.15,85.36,35,0
-    >>Kill |cRXP_ENEMY_Stonetusk Boars|r. Loot them for |T133970:0|t|cRXP_LOOT_[Chunks of Boar Meat]|r
+    >>杀死 |cRXP_ENEMY_Stonetusk Boars|r。拾取它们以获得 |T133970:0|t|cRXP_LOOT_[大块野猪肉]|r
     .collect 769,4,86,1 --Collect Chunk of Boar Meat (x4)
     .mob Stonetusk Boar
 step
     .goto Elwynn Forest,34.486,84.253
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Bernice|r and then |cRXP_FRIENDLY_Gramma|r inside
-    .turnin 86 >> Turn in Pie for Billy
-    .accept 84 >> Accept Back to Billy
-    .target +"Auntie" Bernice Stonefield
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: Bernice|r and then |cRXP_FRIENDLY_Gramma, 他在里面
+    .turnin 86 >>交任务: |cRXP_FRIENDLY_比利的馅饼|r
+    .accept 84 >>接任务: |cRXP_LOOT_比利的馅饼|r
     .goto Elwynn Forest,34.486,84.253
-    .turnin 111 >> Turn in Speak with Gramma
-    .accept 107 >> Accept Note to William
-    .target +Gramma Stonefield
+    .turnin 111 >>交任务: |cRXP_FRIENDLY_托米的祖母|r
+    .accept 107 >>接任务: |cRXP_LOOT_给威廉·匹斯特的信|r
     .goto Elwynn Forest,34.94,83.86
+    .target “阿姨”伯妮丝·斯通菲尔德
+    .target Gramma Stonefield
 step
     #completewith next
-    >>Kill |cRXP_ENEMY_Kobold Tunnelers|r. Loot them for |cRXP_LOOT_Gold Dust|r and |cRXP_LOOT_Kobold Candles|r
+    >>杀死 |cRXP_ENEMY_Kobold Tunnelers|r。掠夺他们以获得 |cRXP_LOOT_Gold Dust|r 和 |cRXP_LOOT_Kobold Candles|r
     .complete 47,1 --Collect Gold Dust (x10)
     .complete 60,1 --Collect Kobold Candle (x8)
     .mob Kobold Tunneler
 step
     .goto Elwynn Forest,43.132,85.722
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Billy|r
-    .turnin 84 >> Turn in Back to Billy
-    .accept 87 >> Accept Goldtooth
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_比利|r
+    .turnin 84 >>交任务: |cRXP_FRIENDLY_比利的馅饼|r
+    .accept 87 >>接任务: |cRXP_LOOT_金牙|r
     .target Billy Maclure
 step
     .goto Elwynn Forest,42.36,89.37
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Joshua|r
-    >>|cRXP_BUY_Buy as much|r |T132815:0|t[Ice Cold Milk] |cRXP_BUY_as you can afford from him|r
-    .vendor 258 >>Vendor Trash
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_乔舒|r
+    >>|cRXP_BUY_从他那里购买尽可能多的|r |T132815:0|t[冰镇牛奶] |cRXP_BUY_你能负担得起的|r
+    .vendor 258 >>供应商垃圾
     .target Joshua Maclure
     .itemcount 1179,<8
 step
     #completewith Mine
-    .goto Elwynn Forest,39.00,82.27,15 >>Enter the Fargodeep Mine
+    .goto Elwynn Forest,39.00,82.27,15 >>进入法戈迪普矿井
 step
     #completewith Goldtooth
-    >>Kill |cRXP_ENEMY_Kobold Tunnelers|r and |cRXP_ENEMY_Kobold Miners|r. Loot them for |cRXP_LOOT_Gold Dust|r and |cRXP_LOOT_Kobold Candles|r
+    >>杀死 |cRXP_ENEMY_Kobold Tunnelers|r 和 |cRXP_ENEMY_Kobold Miners|r。掠夺他们以获得 |cRXP_LOOT_Gold Dust|r 和 |cRXP_LOOT_Kobold Candles|r
     .complete 47,1 --Collect Gold Dust (x10)
     .complete 60,1 --Collect Kobold Candle (x8)
     .mob Kobold Tunneler
@@ -572,17 +571,17 @@ step
     #label Mine
     .goto Elwynn Forest,39.07,80.87,12,0
     .goto Elwynn Forest,39.71,79.92
-    >>Enter one of the larger open spaces in Fargodeep Mine
+    >>进入法戈迪普矿井的一处较大的开放空间
     .complete 62,1 --Scout Through the Fargodeep Mine
 step
     #completewith next
     .goto Elwynn Forest,39.95,78.81,12,0
     .goto Elwynn Forest,40.43,78.33,12,0
-    .goto Elwynn Forest,41.73,78.03,40 >>Travel toward |cRXP_ENEMY_Goldtooth|r
+    .goto Elwynn Forest,41.73,78.03,40 >>前往 |cRXP_ENEMY_Goldtooth|r
 step
     #label Goldtooth
     .goto Elwynn Forest,41.73,78.03
-    >>Kill |cRXP_ENEMY_Goldtooth|r. Loot him for |cRXP_LOOT_Bernice's Necklace|r
+    >>杀死 |cRXP_ENEMY_Goldtooth|r。掠夺他以获取 |cRXP_LOOT_Bernice 的项链|r
     .complete 87,1 --Collect Bernice's Necklace (x1)
     .mob Goldtooth
 step
@@ -594,12 +593,12 @@ step
 	.goto Elwynn Forest,36.76,83.19,35,0
 	.goto Elwynn Forest,38.02,81.70,35,0
 	.goto Elwynn Forest,39.14,82.87,35,0
-    >>Kill |cRXP_ENEMY_Kobold Tunnelers|r and |cRXP_ENEMY_Kobold Miners|r. Loot them for |cRXP_LOOT_Gold Dust|r and |cRXP_LOOT_Kobold Candles|r
+    >>杀死 |cRXP_ENEMY_Kobold Tunnelers|r 和 |cRXP_ENEMY_Kobold Miners|r。掠夺他们以获得 |cRXP_LOOT_Gold Dust|r 和 |cRXP_LOOT_Kobold Candles|r
     .complete 47,1 --Collect Gold Dust (x10)
     .complete 60,1 --Collect Kobold Candle (x8)
     .mob Kobold Tunneler
     .mob Kobold Miner
-step << skip
+step
     #completewith next
     .goto Elwynn Forest,41.29,79.85,-1
     .goto Elwynn Forest,41.75,78.49,-1
@@ -608,52 +607,49 @@ step << skip
     .goto Elwynn Forest,39.90,81.46,-1
     .goto Elwynn Forest,40.86,81.24,-1
     .goto Elwynn Forest,40.32,79.31,-1
-    .goto Elwynn Forest,39.30,60.48,30 >>|cRXP_WARN_Perform a Logout Skip inside the cave by jumping on top of a shredder, the floating logs, the crates, or the minecart light inside the cave, then log out and back in|r
-    >>|cRXP_WARN_Alternatively, run back to Goldshire|r
-    >>|cRXP_WARN_NOTE: Itemrack currently can cause problems after logout skipping where your ingame UI freezes. Make sure to disable the addon or make a /reload macro you can click when/if that happens|r
-    .link https://www.youtube.com/watch?v=SWBtPqm5M0Q >>|cRXP_WARN_CLICK HERE to learn how to logout skip|r
-step
-    #completewith next
-    .subzone 87 >> Return to Goldshire
+    .goto Elwynn Forest,39.30,60.48,30 >>|cRXP_WARN_在洞穴内执行登出跳过，方法是跳到锯木机、漂浮的木头、板条箱或洞穴内的矿车灯上，然后登出并重新进入|r
+    >>|cRXP_WARN_或者跑回金郡|r
+    >>|cRXP_WARN_注意：Itemrack 目前可能会在退出后导致游戏内 UI 冻结时出现问题。请确保禁用插件或制作一个 /reload 宏，当发生这种情况时您可以单击该宏|r
+    .link https://www.youtube.com/watch?v=SWBtPqm5M0Q >>|cRXP_WARN_点击此处了解如何退出 跳过|r
 step
     .goto Elwynn Forest,42.14,67.26
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Remy|r
-    .turnin 47 >> Turn in Gold Dust Exchange
-    .accept 40 >> Accept A Fishy Peril
-    .target Remy "Two Times"
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_雷米|r
+    .turnin 47 >>交任务: |cRXP_FRIENDLY_金砂交易|r
+    .accept 40 >>接任务: |cRXP_LOOT_鱼人的威胁|r
+    .target 雷米“两次”
 step
     .goto Elwynn Forest,42.105,65.927
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dughan|r
-    .turnin 40 >> Turn in A Fishy Peril
-    .accept 35 >> Accept Further Concerns
-    .turnin 62 >> Turn in The Fargodeep Mine
-    .accept 76 >> Accept The Jasperlode Mine
-    .target Marshal Dughan
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_治安官杜汉|r
+    .turnin 40 >>交任务: |cRXP_FRIENDLY_鱼人的威胁|r
+    .accept 35 >>接任务: |cRXP_LOOT_卫兵托马斯|r
+    .turnin 62 >>交任务: |cRXP_FRIENDLY_法戈第矿洞|r
+    .accept 76 >>接任务: |cRXP_LOOT_玉石矿洞|r
+    .target 杜汉元帅
 step
     .goto Elwynn Forest,43.283,65.721
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_William|r through the wall as you enter the Inn
-    .turnin 60 >> Turn in Kobold Candles
-    .accept 61 >> Accept Shipment to Stormwind
-    .turnin 107 >> Turn in Note to William
-    .accept 112 >> Accept Collecting Kelp
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_威廉|r
+    .turnin 60 >>交任务: |cRXP_FRIENDLY_狗头人的蜡烛|r
+    .accept 61 >>接任务: |cRXP_LOOT_送往暴风城的货物|r
+    .turnin 107 >>交任务: |cRXP_FRIENDLY_给威廉·匹斯特的信|r
+    .accept 112 >>接任务: |cRXP_LOOT_收集海藻|r
     .target William Pestle
 step
     .goto Elwynn Forest,43.771,65.803
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Farley|r
-    >>|cRXP_BUY_Buy 35|r |T132815:0|t[Ice Cold Milk] |cRXP_BUY_from him|r
-    .vendor >>Vendor Trash
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_旅店老板法雷|r
+    >>|cRXP_BUY_从他那里购买 35|r |T132815:0|t[冰镇牛奶] |cRXP_BUY_|r
+    .vendor >>供应商垃圾
     .collect 1179,35,432,1 --Ice Cold Milk (35)
     .target Innkeeper Farley
 step
     .goto Elwynn Forest,43.96,65.92
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Brog|r
-    .vendor >>|cRXP_BUY_Buy a|r |T133634:0|t[Small Brown Pouch] |cRXP_BUY_from him|r
+    .vendor >>|cRXP_BUY_从他那里购买 a|r |T133634:0|t[小棕色袋] |cRXP_BUY_|r
 	.target Brog Hamfist
     .money <0.05
 step
     #completewith next
     .goto Elwynn Forest,43.24,65.96,10,0
-    .goto Elwynn Forest,42.88,65.52,12 >> Exit the Inn
+    .goto Elwynn Forest,42.88,65.52,12 >>退出旅馆
 step
     .goto Elwynn Forest,50.45,62.69,50,0
     .goto Elwynn Forest,51.09,64.75,50,0
@@ -661,79 +657,79 @@ step
     .goto Elwynn Forest,54.10,62.74,50,0
     .goto Elwynn Forest,57.48,63.21,50,0
     .goto Elwynn Forest,56.37,66.50
-    >>Kill |cRXP_ENEMY_Murloc Steamrunners|r and |cRXP_ENEMY_Murlocs|r. Loot them for |cRXP_LOOT_Crystal Kelp Frond|r
-    >>|cRXP_WARN_Be careful as |cRXP_ENEMY_Murloc Steamrunners|r have|r |T132307:0|t[Increased Movespeed]
+    >>杀死 |cRXP_ENEMY_Murloc Steamrunners|r 和 |cRXP_ENEMY_Murlocs|r。掠夺他们以获得 |cRXP_LOOT_Crystal Kelp Frond|r
+    >>|cRXP_WARN_小心 |cRXP_ENEMY_Murloc Steamrunners|r 有|r |T132307:0|t[增加移动速度]
     .complete 112,1 --Collect Crystal Kelp Frond (x4)
 	.mob Murloc Streamrunner
 	.mob Murloc
 step
     #completewith next
-    .goto Elwynn Forest,61.66,53.96,12 >>Enter the Jasperlode Mine
+    .goto Elwynn Forest,61.66,53.96,12 >>进入 Jasperlode 矿井
 step
     .goto Elwynn Forest,61.19,51.47,12,0
     .goto Elwynn Forest,60.68,50.84,12,0
     .goto Elwynn Forest,60.40,50.16
-    >>Follow the middle path of the cave
-    >>|cRXP_WARN_Be careful as |cRXP_ENEMY_Kobold Geomancers|r cast|r |T135812:0|t[Fireball] |cRXP_WARN_(Ranged Cast: Deals about 30 damage)|r
+    >>沿着洞穴中间的路走
+    >>|cRXP_WARN_小心 |cRXP_ENEMY_Kobold Geomancers|r 施法|r |T135812:0|t[火球术] |cRXP_WARN_(远程施法：造成约 30 点伤害)|r
     .complete 76,1 --Scout through the Jasperlode Mine
 step
     #completewith next
     .goto Elwynn Forest,60.68,50.84,12,0
     .goto Elwynn Forest,61.19,51.47,12,0
-    .goto Elwynn Forest,61.81,53.89,15 >>Exit the Jasperlode Mine
+    .goto Elwynn Forest,61.81,53.89,15 >>离开贾斯珀洛德矿井
 step
     .goto Elwynn Forest,73.973,72.179
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Thomas|r
-    .turnin 35 >> Turn in Further Concerns
-    .accept 37 >> Accept Find the Lost Guards
-    .accept 52 >> Accept Protect the Frontier
-    .target Guard Thomas
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_托马斯|r
+    .turnin 35 >>交任务: |cRXP_FRIENDLY_卫兵托马斯|r
+    .accept 37 >>接任务: |cRXP_LOOT_失踪的卫兵|r
+    .accept 52 >>接任务: |cRXP_LOOT_保卫边境|r
+    .target 后卫托马斯
 step
     #completewith next
     .goto Elwynn Forest,74.89,67.20,45,0
     .goto Elwynn Forest,72.59,65.60,45,0
     .goto Elwynn Forest,71.61,60.82,50,0
-    >>Kill all |cRXP_ENEMY_Young Forest Bears|r you see and |cRXP_ENEMY_Prowlers|r
-    .complete 52,2 --Kill Young Forest Bear (x5)
-    .unitscan +Young Forest Bear
+    >>杀死所有你看到的|cRXP_ENEMY_年轻的森林熊s|r 和 |cRXP_ENEMY_Prowlers|r
+    .complete 52,2 --Kill 年轻的森林熊 (x5)
     .complete 52,1 --Kill Prowler (x8)
-	.mob +Prowler
+	.unitscan 年轻的森林熊
+	.mob Prowler
 step
     .goto Elwynn Forest,72.65,60.33
-	>>Click the |cRXP_PICK_half-eaten body|r on the ground
-    >>|cRXP_WARN_This has a 5 second cast time|r
-    .turnin 37 >> Turn in Find the Lost Guards
-    .accept 45 >> Accept Discover Rolf's Fate
+	>>点击地面上的 |cRXP_PICK_half-eaten body|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
+    .turnin 37 >>交任务: |cRXP_FRIENDLY_失踪的卫兵|r
+    .accept 45 >>接任务: |cRXP_LOOT_罗尔夫的下落|r
 step
-    #completewith Bears
+    #completewith 熊s
     .goto Elwynn Forest,78.78,60.94,70,0
-    >>Kill all |cRXP_ENEMY_Young Forest Bears|r you see and |cRXP_ENEMY_Prowlers|r
-    .complete 52,2 --Kill Young Forest Bear (x5)
-    .unitscan +Young Forest Bear
+    >>杀死所有你看到的|cRXP_ENEMY_年轻的森林熊s|r 和 |cRXP_ENEMY_Prowlers|r
+    .complete 52,2 --Kill 年轻的森林熊 (x5)
     .complete 52,1 --Kill Prowler (x8)
-	.mob +Prowler
+	.unitscan 年轻的森林熊
+	.mob Prowler
 step
     .goto Elwynn Forest,81.382,66.112
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Raelen|r
-    .accept 5545 >> Accept A Bundle of Trouble
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_管理员莱琳|r
+    .accept 5545 >>接任务: |cRXP_LOOT_木材危机|r
     .target Supervisor Raelen
 step
     #completewith next
-    >>Loot the |cRXP_PICK_Bundles Of Wood|r at the base of the trees
-    >>|cRXP_WARN_This has a 5 second cast time|r
+    >>拾取树根处的 |cRXP_PICK_Bundles Of Wood|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
     .complete 5545,1 --Collect Bundle of Wood (x8)
 step
-    .goto Elwynn Forest,79.79,55.51,45 >> Travel toward |cRXP_PICK_Rolf's Corpse|r
+    .goto Elwynn Forest,79.79,55.51,45 >>前往|cRXP_PICK_Rolf 的尸体|r
     .isOnQuest 45
 step
     .goto Elwynn Forest,79.79,55.51
-    >>Kill the |cRXP_ENEMY_Murloc Lurkers|r and |cRXP_ENEMY_Murloc Foragers|r guarding |cRXP_PICK_Rolf's Corpse|r
-    >>|cRXP_WARN_You may have to kill one then reset|r
-    >>Be careful as |cRXP_ENEMY_Murloc Lurkers|r cast |T132090:0|t[Backstab] |cRXP_WARN_(Melee Instant: Deals double damage from behind) and |cRXP_ENEMY_Murloc Foragers|r cast|r |T135915:0|t[Drink Minor Potion] |cRXP_WARN_(Self Cast: Heals for about 65 damage)|r
-	>>Click the |cRXP_PICK_Rolf's Corpse|r on the ground
-    >>|cRXP_WARN_This has a 5 second cast time|r
-    .turnin 45 >> Turn in Discover Rolf's Fate
-    .accept 71 >> Accept Report to Thomas
+    >>杀死守卫 |cRXP_PICK_Rolf 尸体|r 的 |cRXP_ENEMY_Murloc Lurkers|r 和 |cRXP_ENEMY_Murloc Foragers|r
+    >>|cRXP_WARN_你可能必须杀死一个然后重置|r
+    >>要小心 |cRXP_ENEMY_Murloc Lurkers|r 施放 |T132090:0|t[背刺] |cRXP_WARN_(近战瞬发：从背后造成双倍伤害) 和 |cRXP_ENEMY_Murloc Foragers|r 施放|r |T135915:0|t[饮用初级药水] |cRXP_WARN_(对自己施放：治疗约 65 点伤害)|r
+	>>点击地面上的 |cRXP_PICK_Rolf's Corpse|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
+    .turnin 45 >>交任务: |cRXP_FRIENDLY_罗尔夫的下落|r
+    .accept 71 >>接任务: |cRXP_LOOT_回复托马斯|r
 step
 #loop
 	.line Elwynn Forest,80.48,55.18,80.88,53.88,79.68,52.31,80.86,52.17,80.88,53.88,80.48,55.18,79.76,56.70,80.15,60.03,80.24,61.46,81.27,61.59,81.58,62.64,82.79,60.12,83.25,61.12,83.48,59.19,81.77,59.17,80.48,55.18
@@ -753,19 +749,19 @@ step
 	.goto Elwynn Forest,83.48,59.19,35,0
 	.goto Elwynn Forest,81.77,59.17,35,0
 	.goto Elwynn Forest,80.48,55.18,35,0
-    >>Loot the |cRXP_PICK_Bundles Of Wood|r at the base of the trees
-    >>|cRXP_WARN_This has a 5 second cast time|r
+    >>拾取树根处的 |cRXP_PICK_Bundles Of Wood|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
     .complete 5545,1 --Collect Bundle of Wood (x8)
 step
     .goto Elwynn Forest,81.382,66.112
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Raelen|r
-    .turnin 5545 >> Turn in A Bundle of Trouble
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_管理员莱琳|r
+    .turnin 5545 >>交任务: |cRXP_FRIENDLY_木材危机|r
     .target Supervisor Raelen
 step
-    #label Bears
+    #label 熊s
     .goto Elwynn Forest,79.457,68.789
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Sara|r
-    .accept 83 >> Accept Red Linen Goods
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_萨拉|r
+    .accept 83 >>接任务: |cRXP_LOOT_红色亚麻布|r
     .target Sara Timberlain
 step
     .goto Elwynn Forest,75.05,72.54,0
@@ -779,28 +775,28 @@ step
     .goto Elwynn Forest,76.66,76.68,45,0
     .goto Elwynn Forest,79.27,79.44,45,0
     .goto Elwynn Forest,81.57,76.85
-    >>Kill all |cRXP_ENEMY_Young Forest Bears|r you see and |cRXP_ENEMY_Prowlers|r
-    >>|cRXP_WARN_Deal 51%+ damage to |cRXP_ENEMY_Young Forest Bears|r and |cRXP_ENEMY_Prowlers|r, then pull them to the |cRXP_FRIENDLY_Stormwind Guard|r to kill them more efficiently|r
-    .complete 52,2 --Kill Young Forest Bear (x5)
+    >>杀死所有你看到的|cRXP_ENEMY_年轻的森林熊s|r 和 |cRXP_ENEMY_Prowlers|r
+    >>|cRXP_WARN_对 |cRXP_ENEMY_年轻的森林熊s|r 和 |cRXP_ENEMY_Prowlers|r 造成 51% 以上的伤害，然后将它们拉到 |cRXP_FRIENDLY_Stormwind Guard|r 处以更有效地杀死它们|r
+    .complete 52,2 --Kill 年轻的森林熊 (x5)
     .complete 52,1 --Kill Prowler (x8)
-    .unitscan Young Forest Bear
+    .unitscan 年轻的森林熊
     .mob Prowler
 step
     .goto Elwynn Forest,73.973,72.179
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Thomas|r
-    .turnin 52 >> Turn in Protect the Frontier
-    .turnin 71 >> Turn in Report to Thomas
-    .accept 39 >> Accept Deliver Thomas' Report
-    .accept 109 >> Accept Report to Gryan Stoutmantle
-    .target Guard Thomas
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_托马斯|r
+    .turnin 52 >>交任务: |cRXP_FRIENDLY_保卫边境|r
+    .turnin 71 >>交任务: |cRXP_FRIENDLY_回复托马斯|r
+    .accept 39 >>接任务: |cRXP_LOOT_托马斯的报告|r
+    .accept 109 >>接任务: |cRXP_LOOT_向格里安·斯托曼报到|r
+    .target 后卫托马斯
     .xp <9,1
 step
     .goto Elwynn Forest,73.973,72.179
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Thomas|r
-    .turnin 52 >> Turn in Protect the Frontier
-    .turnin 71 >> Turn in Report to Thomas
-    .accept 39 >> Accept Deliver Thomas' Report
-    .target Guard Thomas
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_托马斯|r
+    .turnin 52 >>交任务: |cRXP_FRIENDLY_保卫边境|r
+    .turnin 71 >>交任务: |cRXP_FRIENDLY_回复托马斯|r
+    .accept 39 >>接任务: |cRXP_LOOT_托马斯的报告|r
+    .target 后卫托马斯
 step
 #loop
 	.line Elwynn Forest,70.45,76.94,68.68,76.69,68.23,77.78,67.80,80.76,68.49,82.68,70.71,81.48,70.63,80.66,71.51,78.96,70.95,77.25,71.38,76.77,70.95,77.25,70.45,76.94
@@ -816,8 +812,8 @@ step
 	.goto Elwynn Forest,71.38,76.77,40,0
 	.goto Elwynn Forest,70.95,77.25,40,0
 	.goto Elwynn Forest,70.45,76.94,40,0
-    >>Kill |cRXP_ENEMY_Defias Bandits|r. Loot them for |cRXP_LOOT_Red Linen Bandanas|r and the |T134939:0|t[|cRXP_LOOT_Westfall Deed|r]
-    >>|cRXP_WARN_Use the |T134939:0|t[|cRXP_LOOT_Westfall Deed|r] to start the quest|r
+    >>杀死 |cRXP_ENEMY_Defias Bandits|r。掠夺他们以获得 |cRXP_LOOT_Red Linen Bandanas|r 和 |T134939:0|t[|cRXP_LOOT_Westfall Deed|r]
+    >>|cRXP_WARN_使用 |T134939:0|t[|cRXP_LOOT_Westfall Deed|r] 开始任务|r
     .complete 83,1 --Collect Red Linen Bandana (x6)
     .collect 1972,1,184,1 --Collect Westfall Deed (x1)
     .disablecheckbox
@@ -825,68 +821,68 @@ step
     .isOnQuest 83
 step
     #label Deed
-    >>|cRXP_WARN_Use the |T134939:0|t[|cRXP_LOOT_Westfall Deed|r] to start the quest|r
-    .accept 184 >> Accept Furlbrow's Deed
+    >>|cRXP_WARN_使用 |T134939:0|t[|cRXP_LOOT_Westfall Deed|r] 开始任务|r
+    .accept 184 >>接任务: |cRXP_LOOT_法布隆的地契|r
     .itemcount 1972,1
 step
     .goto Elwynn Forest,69.89,79.52
-    >>Kill |cRXP_ENEMY_Princess|r. Loot her for the |cRXP_LOOT_Brass Collar|r
-    >>|cRXP_WARN_Remember to kite her using the fence|r
+    >>杀死 |cRXP_ENEMY_Princess|r。掠夺她的 |cRXP_LOOT_Brass Collar|r
+    >>|cRXP_WARN_记得用栅栏放风筝|r
     .complete 88,1 --Collect Brass Collar (x1)
     .mob Princess
 step
     .goto Elwynn Forest,79.457,68.789
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Sara|r
-    .turnin 83 >> Turn in Red Linen Goods
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_萨拉|r
+    .turnin 83 >>交任务: |cRXP_FRIENDLY_红色亚麻布|r
     .target Sara Timberlain
     .isQuestComplete 83
 step << skip
     .goto Redridge Mountains,9.62,71.36
-    .zone Redridge Mountains >> Travel into Redridge Mountains
+    .zone Redridge Mountains >>前往: |cRXP_PICK_赤脊山|r
     .isOnQuest 88
 step << skip
     #completewith next
-    +|cRXP_WARN_Carefully follow the road to |cRXP_FRIENDLY_Ariena|r. Avoid |cRXP_ENEMY_Tarantulas|r and |cRXP_ENEMY_Black Dragon Whelps|r en route|r
-    .mob Black Dragon Whelp
-    .mob Tarantula
+    +|cRXP_WARN_小心地沿着通往 |cRXP_FRIENDLY_Ariena|r 的道路前行。避开途中的 |cRXP_ENEMY_狼蛛s|r 和 |cRXP_ENEMY_黑龙幼崽s|r|r
+    .mob 黑龙幼崽
+    .mob 狼蛛
 step << skip
     .goto Redridge Mountains,30.59,59.41
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ariena|r
-    .fp Redridge Mountains >> Get the Redridge Mountains flight path
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_艾蕾娜·斯托姆法瑟|r
+    .fp Redridge Mountains >>获取赤脊山飞行路线
     .target Ariena Stormfeather
 step
     #completewith next
-    .hs >> Hearth to Goldshire
+    .hs >>炉石到闪金镇
 step
     .goto Elwynn Forest,43.283,65.721
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_William|r
-    .turnin 112 >> Turn in Collecting Kelp
-    .accept 114 >> Accept The Escape
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_威廉|r
+    .turnin 112 >>交任务: |cRXP_FRIENDLY_收集海藻|r
+    .accept 114 >>接任务: |cRXP_LOOT_梅贝尔的隐形水|r
     .target William Pestle
 step
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dughan|r and |cRXP_FRIENDLY_Argus|r
-    .turnin 39 >> Turn in Deliver Thomas' Report
-    .turnin 76 >> Turn in The Jasperlode Mine
-    .accept 239 >> Accept Westbrook Garrison Needs Help!
-    .accept 109 >> Accept Report to Gryan Stoutmantle
-    .target +Marshal Dughan
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_治安官杜汉|r, Argus
+    .turnin 39 >>交任务: |cRXP_FRIENDLY_托马斯的报告|r
+    .turnin 76 >>交任务: |cRXP_FRIENDLY_玉石矿洞|r
+    .accept 239 >>接任务: |cRXP_LOOT_西泉要塞|r
+    .accept 109 >>接任务: |cRXP_LOOT_向格里安·斯托曼报到|r
     .goto Elwynn Forest,42.105,65.927
-    .accept 1097 >> Accept Elmore's Task
-    .target +Smith Argus
+    .accept 1097 >>接任务: |cRXP_LOOT_艾尔默的任务|r
     .goto Elwynn Forest,41.706,65.544
+    .target 杜汉元帅
+    .target Smith Argus
 step
     .goto Elwynn Forest,43.16,89.63
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Maybell|r inside
-    .turnin 114 >> Turn in The Escape
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_梅贝尔·马科伦|r, 他在里面
+    .turnin 114 >>交任务: |cRXP_FRIENDLY_梅贝尔的隐形水|r
     .target Maybell Maclure
 step
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ma|r and |cRXP_FRIENDLY_Bernice|r
-    .turnin 88,3 >> Turn in Princess Must Die!
-    .target +Ma Stonefield
+    .turnin 88,3 >>交任务: |cRXP_FRIENDLY_公主必须死！|r
     .goto Elwynn Forest,34.660,84.482
-    .turnin 87 >> Turn in Goldtooth
+    .turnin 87 >>交任务: |cRXP_FRIENDLY_金牙|r
     .goto Elwynn Forest,34.486,84.253
-    .target +"Auntie" Bernice Stonefield
+    .target 马斯通菲尔德
+    .target “阿姨”伯妮丝·斯通菲尔德
 step
 #loop
 	.line Elwynn Forest,31.15,85.36,33.08,86.64,33.51,85.22,32.17,83.88,31.15,85.36
@@ -895,7 +891,7 @@ step
 	.goto Elwynn Forest,33.51,85.22,35,0
 	.goto Elwynn Forest,32.17,83.88,35,0
 	.goto Elwynn Forest,31.15,85.36,35,0
-    .xp 9+4825 >> Grind to 4225+/6500xp
+    .xp 9+4825 >>升级至 4225+/6500xp
     .mob Stonetusk Boar
     .isOnQuest 184
 step
@@ -906,76 +902,76 @@ step
 	.goto Elwynn Forest,33.51,85.22,35,0
 	.goto Elwynn Forest,32.17,83.88,35,0
 	.goto Elwynn Forest,31.15,85.36,35,0
-    .xp 9+4825 >> Grind to 4825+/6500xp
+    .xp 9+4825 >>升级至 4825+/6500xp
     .mob Stonetusk Boar
     .itemcount 1972,<1
 step
     .goto Elwynn Forest,24.23,74.45
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Rainer|r
-    .turnin 239 >> Turn in Westbrook Garrison Needs Help!
-    .target Deputy Rainer
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_瑞尼尔副队长|r
+    .turnin 239 >>交任务: |cRXP_FRIENDLY_西泉要塞|r
+    .target 副总统雷纳
 step
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Farmer Furlbrow|r and |cRXP_FRIENDLY_Verna|r
-    .accept 64 >> Accept The Forgotten Heirloom
-    .turnin 184 >> Turn in Furlbrow's Deed
-    .target +Farmer Furlbrow
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_农夫法布隆|r, Verna
+    .accept 64 >>接任务: |cRXP_LOOT_遗失的怀表|r
+    .turnin 184 >>交任务: |cRXP_FRIENDLY_法布隆的地契|r
     .goto Westfall,59.95,19.35
-    .accept 36 >> Accept Westfall Stew
-    .accept 151 >> Accept Poor Old Blanchy
+    .accept 36 >>接任务: |cRXP_LOOT_杂味炖肉|r
+    .accept 151 >>接任务: |cRXP_LOOT_老马布兰契|r
     .goto Westfall,59.91,19.41
-    .target +Verna Furlbrow
+    .target 农夫法布罗
+    .target 维尔纳·法布罗
     .isOnQuest 184
 step
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Farmer Furlbrow|r and |cRXP_FRIENDLY_Verna|r
-    .accept 64 >> Accept The Forgotten Heirloom
-    .target +Farmer Furlbrow
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_农夫法布隆|r, Verna
+    .accept 64 >>接任务: |cRXP_LOOT_遗失的怀表|r
     .goto Westfall,59.95,19.35
-    .accept 36 >> Accept Westfall Stew
-    .accept 151 >> Accept Poor Old Blanchy
-    .target +Verna Furlbrow
+    .accept 36 >>接任务: |cRXP_LOOT_杂味炖肉|r
+    .accept 151 >>接任务: |cRXP_LOOT_老马布兰契|r
     .goto Westfall,59.91,19.41
+    .target 农夫法布罗
+    .target 维尔纳·法布罗
 step
     #completewith next
-    >>Open the |cRXP_PICK_Sacks of Oats|r on the ground. Loot them for |cRXP_LOOT_Handfuls of Oats|r
-    >>|cRXP_WARN_This has a 5 second cast time|r
+    >>打开地面上的 |cRXP_PICK_Sacks of Oats|r。拾取它们可获得 |cRXP_LOOT_Handfuls of Oats|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
     .complete 151,1 --Handful of Oats (8)
 step
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Farmer Saldean|r and then |cRXP_FRIENDLY_Salma|r inside
-    .accept 9 >>Accept The Killing Fields
-    .target +Farmer Saldean
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: Farmer Saldean|r and then |cRXP_FRIENDLY_Salma, 他在里面
+    .accept 9 >>接任务: |cRXP_LOOT_清理荒野|r
     .goto Westfall,56.04,31.23
-    .turnin 36 >> Turn in Westfall Stew
-    .accept 38 >> Accept Westfall Stew
-    .accept 22 >> Accept Goretusk Liver Pie
-    .target +Salma Saldean
+    .turnin 36 >>交任务: |cRXP_FRIENDLY_杂味炖肉|r
+    .accept 38 >>接任务: |cRXP_LOOT_杂味炖肉|r
+    .accept 22 >>接任务: |cRXP_LOOT_猪肝馅饼|r
     .goto Westfall,56.42,30.52
+    .target Farmer Saldean
+    .target Salma Saldean
 step
     #completewith next
-    >>|cRXP_WARN_Be VERY careful of |cRXP_ENEMY_Harvest Watchers|r and |cRXP_ENEMY_Harvest Golems|r en route|r
-    .goto Westfall,56.33,47.52,20 >>Travel toward |cRXP_FRIENDLY_Gryan|r
+    >>|cRXP_WARN_途中要格外小心 |cRXP_ENEMY_Harvest Watchers|r 和 |cRXP_ENEMY_Harvest Golems|r|r
+    .goto Westfall,56.33,47.52,20 >>前往 |cRXP_FRIENDLY_Gryan|r
 step
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gryan|r, |cRXP_FRIENDLY_Danuvin|r, and then |cRXP_FRIENDLY_Lewis|r inside
-    .turnin 109 >> Turn in Report to Gryan Stoutmantle
-    .accept 12 >> Accept The People's Militia
-    .target +Gryan Stoutmantle
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: Gryan|r, |cRXP_FRIENDLY_Danuvin|r, and then |cRXP_FRIENDLY_Lewis, 他在里面
+    .turnin 109 >>交任务: |cRXP_FRIENDLY_向格里安·斯托曼报到|r
+    .accept 12 >>接任务: |cRXP_LOOT_西部荒野人民军|r
     .goto Westfall,56.33,47.52
-    .accept 102 >> Accept Patrolling Westfall
-    .target +Captain Danuvin
+    .accept 102 >>接任务: |cRXP_LOOT_西部荒野的豺狼人|r
     .goto Westfall,56.42,47.62
-    .accept 6181 >> Accept A Swift Message
+    .accept 6181 >>接任务: |cRXP_LOOT_快递消息|r
     .goto Westfall,57.002,47.169
-    .target +Quartermaster Lewis
+	.target 格里安·斯托曼托
+	.target 丹努文船长
+    .target Quartermaster Lewis
 step
     .goto Westfall,56.56,52.64
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Thor|r
-    .turnin 6181 >> Turn in A Swift Message
-    .accept 6281 >> Accept Continue To Stormwind
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_索尔|r
+    .turnin 6181 >>交任务: |cRXP_FRIENDLY_快递消息|r
+    .accept 6281 >>接任务: |cRXP_LOOT_赶赴暴风城|r
     .target Thor
 step
     #completewith next
     .goto Westfall,56.56,52.64
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Thor|r
-    .fly Stormwind >> Fly to Stormwind
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_索尔|r
+    .fly Stormwind >>飞往暴风城
 	.target Thor
 step
     #completewith next
@@ -983,16 +979,16 @@ step
     .goto StormwindClassic,58.13,59.40,20,0
     .goto StormwindClassic,57.06,61.83,20,0
     .goto StormwindClassic,56.55,64.79,12,0
-    .goto StormwindClassic,56.20,64.60,12 >>Travel toward |cRXP_FRIENDLY_Morgan|r
+    .goto StormwindClassic,56.20,64.60,12 >>前往 |cRXP_FRIENDLY_Morgan|r
 step
     .goto StormwindClassic,56.20,64.60
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Morgan|r
-    .turnin 61,1 >> Turn in Shipment to Stormwind
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_摩根|r
+    .turnin 61,1 >>交任务: |cRXP_FRIENDLY_送往暴风城的货物|r
     .target Morgan Pestle
 step
     .goto StormwindClassic,52.62,65.69
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Allison|r
-    .home >> Set your Hearthstone to Stormwind City
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_阿莉森|r
+    .home >>将你的炉石设置为暴风城
     .target Innkeeper Allison
 step << skip
     #completewith next
@@ -1000,19 +996,19 @@ step << skip
     .goto Stormwind City,51.83,60.41,4,0
     .goto Stormwind City,51.59,60.15,6,0
     .goto Stormwind City,39.17,76.58,12,0
-    >>|cRXP_WARN_Jump up onto the torch, then drop down to get under Stormwind|r
-    >>|cRXP_WARN_With Shadows on "Fair" or "Low", get in the middle of Derek the Dinosaur's feet (the lighter part of the dirt) just before the blue void, then walk straight forward|r
-    .goto Stormwind City,38.61,79.39,10 >>Travel toward |cRXP_FRIENDLY_Jennea|r
+    >>|cRXP_WARN_跳到火炬上，然后跳下来，躲到暴风城下面|r
+    >>|cRXP_WARN_将阴影设置为“良好”或“低”，在蓝色虚空前，站在恐龙德里克脚的中间（泥土较浅的部分），然后径直向前走|r
+    .goto Stormwind City,38.61,79.39,10 >>前往 |cRXP_FRIENDLY_Jennea|r
 step << skip
     .goto Stormwind City,38.61,79.39
-    >>Talk to |cRXP_FRIENDLY_Jennea|r
-    .trainer >> Train your class spells (Frost Armor r2, Frost Nova, Polymorph, Conjure Water r1 & r2)
-    >>Total Cost: 15s
-    >>Remember you may want money for Healing Potions (3s each), Bronze Tube (8s each), and level 5 food (20c per 5)
+    >>对话: |cRXP_FRIENDLY_詹妮亚·坎农|r
+    .trainer >>训练你的职业法术（冰霜护甲 r2、冰霜新星、变形术、召唤水系 r1 r2）
+    >>总花费：15秒
+    >>请记住，你可能需要钱来购买治疗药水（每瓶 3​​ 先令）、青铜管（每瓶 8 先令）和 5 级食物（每 5 瓶 20 美分）
     .target Jennea Cannon
 step << skip
     #completewith next
-    .goto Stormwind City,36.30,82.90,6 >>Go through the green portal
+    .goto Stormwind City,36.30,82.90,6 >>通过绿色门户
 step << skip
     #completewith next
     .goto Stormwind City,42.07,79.44,30,0
@@ -1021,12 +1017,12 @@ step << skip
     .goto Stormwind City,46.20,67.09,30,0
     .goto Stormwind City,49.44,63.25,30,0
     .goto Stormwind City,52.20,61.49,30,0
-    .goto Stormwind City,55.46,65.26,10 >>Travel toward |cRXP_FRIENDLY_Keldric|r
+    .goto Stormwind City,55.46,65.26,10 >>前往 |cRXP_FRIENDLY_Keldric|r
 step
     .goto Stormwind City,55.46,65.26
-    >>Talk to |cRXP_FRIENDLY_Keldric|r through the wall
-    >>|cRXP_WARN_NOTE: To do this, bind "Interact with Target" under Gameplay -> Controls in the Options menu|r
-    .vendor 1257 >> |cRXP_BUY_Buy|r |T134830:0|t[Lesser Healing Potions] |cRXP_BUY_from him (if they're up)|r
+    >>对话: |cRXP_FRIENDLY_凯德雷克·布舍尔|r
+    >>|cRXP_WARN_注意：要执行此操作，请在“选项”菜单中的“游戏玩法”->“控制”下绑定“与目标互动”|r
+    .vendor 1257 >>|cRXP_BUY_从他那里购买|r |T134830:0|t[次级治疗药水] |cRXP_BUY_（如果价格上涨）|r
     .target Keldric Boucher
 step
     #completewith next
@@ -1036,12 +1032,12 @@ step
     .goto StormwindClassic,60.05,51.60,12,0
     .goto StormwindClassic,67.54,46.88,12,0
     .goto StormwindClassic,71.01,48.62,12,0
-    .goto StormwindClassic,74.31,47.22,12 >>Travel toward |cRXP_FRIENDLY_Osric|r
+    .goto StormwindClassic,74.31,47.22,12 >>前往 |cRXP_FRIENDLY_Osric|r
 step
     .goto StormwindClassic,74.31,47.22
-    >>Talk to |cRXP_FRIENDLY_Osric|r
-    .turnin 6281 >> Turn in Continue to Stormwind
-    .accept 6261 >> Accept Dungar Longdrink
+    >>对话: |cRXP_FRIENDLY_奥斯瑞克·斯图恩|r
+    .turnin 6281 >>交任务: |cRXP_FRIENDLY_赶赴暴风城|r
+    .accept 6261 >>接任务: |cRXP_LOOT_杜加尔·朗德瑞克|r
     .target Osric Strang
 step
     #completewith next
@@ -1050,50 +1046,50 @@ step
     .goto StormwindClassic,64.49,36.75,15,0
     .goto StormwindClassic,64.97,29.32,15,0
     .goto StormwindClassic,51.89,13.19,12,0
-    .goto StormwindClassic,51.76,12.08,12 >>Travel toward |cRXP_FRIENDLY_Grimand|r
+    .goto StormwindClassic,51.76,12.08,12 >>前往 |cRXP_FRIENDLY_Grimand|r
 step
     .goto StormwindClassic,51.76,12.08
-    >>Talk to |cRXP_FRIENDLY_Grimand|r
-    .turnin 1097 >> Turn in Elmore's Task
-    .accept 353 >> Accept Stormpike's Delivery
+    >>对话: |cRXP_FRIENDLY_格瑞曼德·艾尔默|r
+    .turnin 1097 >>交任务: |cRXP_FRIENDLY_艾尔默的任务|r
+    .accept 353 >>接任务: |cRXP_LOOT_雷矛的包裹|r
     .target Grimand Elmore
 step
     .goto Stormwind City,55.25,7.07
-    >>Talk to |cRXP_FRIENDLY_Billibub|r
-    .vendor 5519 >>|cRXP_BUY_Buy a|r |T133024:0|t[Bronze Tube] |cRXP_BUY_from him if its up|r
+    >>对话: |cRXP_FRIENDLY_比利巴布·旋轮|r
+    .vendor 5519 >>|cRXP_BUY_如果价格上涨，请从他那里购买 a|r |T133024:0|t[青铜管] |cRXP_BUY_|r
     .target Billibub Cogspinner
     .itemcount 4371,<1
     .money <0.08
 step
     #completewith next
-    .goto Stormwind City,63.89,8.25,20 >> Travel to the Deeprun Tram
+    .goto Stormwind City,63.89,8.25,20 >>前往 Deeprun 缆车
 step
     #completewith next
-    +|cRXP_WARN_Ride the Deeprun Tram whilst spam casting|r |T132794:0|t[Conjure Water r2]
+    +|cRXP_WARN_乘坐深泉电车并进行垃圾邮件发送|r |T132794:0|t[召唤水 r2]
 step
     #label Monty
     .goto Ironforge,76.41,51.22,30,0
-    >>Talk to |cRXP_FRIENDLY_Monty|r after taking the tram
-    .accept 6661 >> Accept Deeprun Rat Roundup
+    >>对话: |cRXP_FRIENDLY_蒙提|r
+    .accept 6661 >>接任务: |cRXP_LOOT_捕捉矿道老鼠|r
     .target Monty
 step
-    >>Use the |T133942:0|t[Rat Catcher's Flute] on the |cRXP_FRIENDLY_Deeprun Rats|r in the Deeprun Tram
+    >>使用 |T133942:0|t[捕鼠者长笛] 对深泉有轨电车上的 |cRXP_FRIENDLY_深泉老鼠|r 进行攻击
     .complete 6661,1 --Rats Captured (x5)
     .target Deeprun Rat
     .use 17117
 step
-    >>Talk to |cRXP_FRIENDLY_Monty|r
---  >>|cRXP_WARN_Wait out the RP|r
-    .turnin 6661 >> Turn in Deeprun Rat Roundup
+    >>对话: |cRXP_FRIENDLY_蒙提|r
+--  >>|cRXP_WARN_等待 RP|r
+    .turnin 6661 >>交任务: |cRXP_FRIENDLY_捕捉矿道老鼠|r
     .target Monty
     .zoneskip Stormwind City
 step
-    .zone Ironforge >> Enter Ironforge
+    .zone Ironforge >>前往: |cRXP_PICK_铁炉堡|r
     .isQuestAvailable 314
 step
     .goto Ironforge,67.83,42.47
     >>Talk to |cRXP_FRIENDLY_Cogspinner|r
-    .vendor 5175 >>|cRXP_BUY_Buy a|r |T133024:0|t[Bronze Tube] |cRXP_BUY_from him if its up|r
+    .vendor 5175 >>|cRXP_BUY_如果价格上涨，请从他那里购买 a|r |T133024:0|t[青铜管] |cRXP_BUY_|r
     .target Gearcutter Cogspinner
     .itemcount 4371,<1
     .isQuestAvailable 174
@@ -1102,11 +1098,11 @@ step
     .goto Ironforge,69.93,34.13,30,0
     .goto Ironforge,63.03,30.09,30,0
     .goto Ironforge,57.78,35.11,30,0
-    .goto Ironforge,55.49,47.74,10 >>Travel toward |cRXP_FRIENDLY_Gryth|r
+    .goto Ironforge,55.49,47.74,10 >>前往 |cRXP_FRIENDLY_Gryth|r
 step
     .goto Ironforge,55.50,47.74
-    >>Talk to |cRXP_FRIENDLY_Gryth|r
-    .fp Ironforge >> Get the Ironforge flight path
+    >>对话: |cRXP_FRIENDLY_格莱斯·瑟登|r
+    .fp Ironforge >>获取铁炉堡飞行路线
     .target Gryth Thurden
 step
     #completewith next
@@ -1115,149 +1111,144 @@ step
     .goto Ironforge,40.84,44.59,20,0
     .goto Ironforge,35.30,32.76,20,0
     .goto Ironforge,27.60,11.06,20,0
-    .goto Ironforge,27.17,8.58,10 >>Travel toward |cRXP_FRIENDLY_Dink|r
+    .goto Ironforge,27.17,8.58,10 >>前往 |cRXP_FRIENDLY_Dink|r
 step
     .goto Ironforge,27.17,8.58
-    >>Talk to |cRXP_FRIENDLY_Dink|r
-    .trainer >> Train your class spells (Frost Armor r2, Frost Nova, Polymorph, Conjure Water r1 & r2)
-    >>Total Cost: 15s
-    >>Remember you may want money for Healing Potions (3s each), Bronze Tube (8s each), and level 5 food (20c per 5)
+    >>对话: |cRXP_FRIENDLY_丁克|r
+    .trainer >>训练你的职业法术（冰霜护甲 r2、冰霜新星、变形术、召唤水系 r1 r2）
+    >>总花费：15秒
+    >>请记住，你可能需要钱来购买治疗药水（每瓶 3​​ 先令）、青铜管（每瓶 8 先令）和 5 级食物（每 5 瓶 20 美分）
     .target Dink
 step
     #completewith next
     .goto Ironforge,27.25,12.79,20,0
     .goto Ironforge,22.59,38.13,20,0
     .goto Ironforge,20.40,53.19,20,0
-    >>Go inside the building
-    .goto Ironforge,18.14,51.45,10 >>Travel toward |cRXP_FRIENDLY_Firebrew|r
+    >>进入大楼
+    .goto Ironforge,18.14,51.45,10 >>前往 |cRXP_FRIENDLY_Firebrew|r
 step
     #label IFHS
     .goto Ironforge,18.14,51.45
     >>Talk to |cRXP_FRIENDLY_Firebrew|r
-    .home >> Set your Hearthstone to Ironforge
+    .home >>将你的炉石设置为铁炉堡
     .target Innkeeper Firebrew
 step
     #completewith BankDeposit
     .goto Ironforge,33.05,63.11,20,0
-    .goto Ironforge,35.93,60.13,30 >>Enter the Ironforge Bank
+    .goto Ironforge,35.93,60.13,30 >>进入铁炉堡银行
 step
     .goto Ironforge,35.93,60.13
-    >>Talk to |cRXP_FRIENDLY_Bailey|r
-    .bankdeposit 4371,16115 >> Deposit the following items into the bank:
-    >>|T133024:0|t[Bronze Tube]
-    >>|T132763:0|t[Osric's Crate]
+    >>对话: |cRXP_FRIENDLY_拜雷|r
+    .bankdeposit 4371,16115 >>将以下物品存入银行：
+    >>|T133024:0|t[青铜管]
+    >>|T132763:0|t[奥斯瑞克的板条箱]
     .target Bailey Stonemantle
-step << skip
-    .goto Ironforge,36.35,57.88
-    .goto Dun Morogh,53.03,35.71,10 >>|cRXP_WARN_Jump on top of the sides of the vault. Logout skip to Dun Morogh|r
-    .isQuestAvailable 314
 step
-    .goto Ironforge,15.16,85.70,20,0
-    .goto Dun Morogh,59.84,49.56
-    .zone Dun Morogh >> Exit Ironforge
+    .goto Ironforge,36.35,57.88
+    .goto Dun Morogh,53.03,35.71,10 >>|cRXP_WARN_跳到金库的顶部。退出并跳到丹莫洛|r
+    .isQuestAvailable 314
 ]])
 
 RXPGuides.RegisterGuide([[
 #classic
-#tbc
 << Human Mage
-#name 10-11 ADV Dun Morogh Human Mage AoE
+#name 10-11 冒险 丹莫罗人类 法师 AoE
 #version 2
-#group RestedXP ADV AoE Alliance Mage
+#group RestedXP 冒险 AoE 联盟法师
 #defaultfor Human Mage
-#next 10-12 ADV Darkshore 1 Mage AoE
+#next 10-12 冒险 黑海岸 1 法师 AoE
 
 step
     #completewith Rudra
     #label Dirt
     .goto Dun Morogh,59.84,49.56,40,0
-    .goto Dun Morogh,61.36,47.07,40 >>Go up the dirt path
+    .goto Dun Morogh,61.36,47.07,40 >>沿着泥路向上走
     .isQuestAvailable 314
 step
     #completewith next
     #requires Dirt
-    +|cRXP_WARN_Kite |cRXP_ENEMY_Vagash|r down to|r |cRXP_FRIENDLY_Rudra|r
-    .link https://youtu.be/Zg4FNWw-P5k?t=3815 >>|cRXP_WARN_CLICK HERE If you're struggling|r
+    +|cRXP_WARN_风筝 |cRXP_ENEMY_Vagash|r 向下至|r |cRXP_FRIENDLY_Rudra|r
+    .link https://youtu.be/Zg4FNWw-P5k?t=3815 >>|cRXP_WARN_如果你遇到困难，请点击此处|r
     .mob Vagash
 step
     #label Rudra
     .goto Dun Morogh,63.08,49.85
-    >>Talk to |cRXP_FRIENDLY_Rudra|r
-    .accept 314 >> Accept Protecting the Herd
+    >>对话: |cRXP_FRIENDLY_鲁德拉·冻石|r
+    .accept 314 >>接任务: |cRXP_LOOT_保护牲畜|r
     .target Rudra Amberstill
 step
     .goto Dun Morogh,62.57,46.14,0
     .goto Dun Morogh,62.78,54.60,40,0
     .goto Dun Morogh,62.82,55.73
-    >>Kill |cRXP_ENEMY_Vagash|r. Loot him for the |cRXP_LOOT_Fang of Vagash|r
-    >>|cRXP_WARN_Kite |cRXP_ENEMY_Vagash|r down to the |cRXP_FRIENDLY_Dun Morogh Mountaineer|r south of the ranch. Make sure you do 51%+ damage to him|r
-    >>|cRXP_WARN_Remember to get The Tundrid Hills explore xp and pull the |cRXP_ENEMY_Snow Leopard|r to the |cRXP_FRIENDLY_Dun Morogh Mountaineer|r if convenient|r
+    >>杀死 |cRXP_ENEMY_Vagash|r。从他身上搜刮 |cRXP_LOOT_Fang of Vagash|r
+    >>|cRXP_WARN_将 |cRXP_ENEMY_Vagash|r 放风筝到牧场南边的 |cRXP_FRIENDLY_Dun Morogh Mountaineer|r。确保对他造成 51% 以上的伤害|r
+    >>|cRXP_WARN_如果方便的话，记得获取 Tundrid Hills 的探索经验并将 |cRXP_ENEMY_雪豹|r 拉到 |cRXP_FRIENDLY_Dun Morogh Mountaineer|r|r
     .complete 314,1 --Collect Fang of Vagash (1)
     .mob Vagash
 step
     .goto Dun Morogh,63.08,49.85
-    >>Talk to |cRXP_FRIENDLY_Rudra|r
-    .turnin 314,3 >> Turn in Protecting the Herd
+    >>对话: |cRXP_FRIENDLY_鲁德拉·冻石|r
+    .turnin 314,3 >>交任务: |cRXP_FRIENDLY_保护牲畜|r
     .target Rudra Amberstill
 step
     #completewith Ghilm
-    +|cRXP_WARN_Remember to save|r |T133970:0|t|cRXP_LOOT_[Chunks of Boar Meat]|r |cRXP_WARN_you get for leveling|r |T133971:0|t[Cooking] |cRXP_WARN_to 50 later|r
+    +|cRXP_WARN_记得保存|r |T133970:0|t|cRXP_LOOT_[大块野猪肉]|r |cRXP_WARN_你升级后得到的|r |T133971:0|t[烹饪] |cRXP_WARN_到 50 后|r
 step
     #completewith next
     .goto Dun Morogh,66.34,50.92,50,0
     .goto Dun Morogh,67.72,53.66,30,0
-    +|cRXP_WARN_Kite the |cRXP_ENEMY_Ice Claw Bear|r to the |cRXP_FRIENDLY_Ironforge Mountaineer|r (make sure to deal 51%+ damage to get credit)|r
-    >>|cRXP_WARN_Be careful as they cast|r |T135853:0|t[Ice Claw] |cRXP_WARN_(Melee Instant: Deals an additional 4 melee damage)|r
-    .mob Ice Claw Bear
+    +|cRXP_WARN_将 |cRXP_ENEMY_冰爪熊|r 放风筝到 |cRXP_FRIENDLY_Ironforge Mountaineer|r 处（确保造成 51% 以上的伤害才能获得奖励）|r
+    >>|cRXP_WARN_小心他们施放|r |T135853:0|t[冰爪] |cRXP_WARN_(近战瞬发：造成额外的 4 点近战伤害)|r
+    .mob 冰爪熊
 step
     #sticky
     #label Ghilm
     .goto Dun Morogh,68.40,54.45,0,0
-    >>Talk to |cRXP_FRIENDLY_Ghilm|r
-    .train 2550 >> Train |T133971:0|t[Cooking]
+    >>对话: |cRXP_FRIENDLY_厨师格瑞姆|r
+    .train 2550 >>训练 |T133971:0|t[烹饪]
     .target Cook Ghilm
 step
     .goto Dun Morogh,68.43,54.46,8,0
     .goto Dun Morogh,68.53,54.64
-    >>Talk to |cRXP_FRIENDLY_Kazan|r
-    >>|cRXP_BUY_Buy 15|r |T132815:0|t[Ice Cold Milk] |cRXP_BUY_from him|r
+    >>对话: |cRXP_FRIENDLY_卡杉·莫格什|r
+    >>|cRXP_BUY_从他那里购买 15|r |T132815:0|t[冰镇牛奶] |cRXP_BUY_|r
     .collect 1179,15,432,1 --Ice Cold Milk (15)
     .target Kazan Mogosh
     .money <0.0395
 step
     .goto Dun Morogh,68.43,54.46,8,0
     .goto Dun Morogh,68.53,54.64
-    >>Talk to |cRXP_FRIENDLY_Kazan|r
-    >>|cRXP_BUY_Buy 10|r |T132815:0|t[Ice Cold Milk] |cRXP_BUY_from him|r
+    >>对话: |cRXP_FRIENDLY_卡杉·莫格什|r
+    >>|cRXP_BUY_从他那里购买 10|r |T132815:0|t[冰镇牛奶] |cRXP_BUY_|r
     .collect 1179,10,432,1 --Ice Cold Milk (10)
     .target Kazan Mogosh
     .money <0.0260
 step
     .goto Dun Morogh,68.43,54.46,8,0
     .goto Dun Morogh,68.53,54.64
-    >>Talk to |cRXP_FRIENDLY_Kazan|r
-    >>|cRXP_BUY_Buy 5|r |T132815:0|t[Ice Cold Milk] |cRXP_BUY_from him|r
+    >>对话: |cRXP_FRIENDLY_卡杉·莫格什|r
+    >>|cRXP_BUY_从他那里购买 5|r |T132815:0|t[冰镇牛奶] |cRXP_BUY_|r
     .collect 1179,5,432,1 --Ice Cold Milk (5)
     .target Kazan Mogosh
     .money <0.0135
 step
     #requires Ghilm
     >>Talk to |cRXP_FRIENDLY_Mehr|r and |cRXP_FRIENDLY_Stonebrow|r
-    .accept 433 >> Accept The Public Servant
-    .target +Senator Mehr Stonehallow
+    .accept 433 >>接任务: |cRXP_LOOT_公众之仆|r
     .goto Dun Morogh,68.67,55.97
-    .accept 432 >> Accept Those Blasted Troggs!
+    .accept 432 >>接任务: |cRXP_LOOT_该死的石腭怪！|r
     .goto Dun Morogh,69.084,56.330
-    .target +Foreman Stonebrow
+    .target 参议员梅尔·斯通哈洛
+    .target 工头石眉
 step
     #completewith Bonesnappers
-    >>Kill |cRXP_ENEMY_Rockjaw Skullthumpers|r
-    >>|cRXP_WARN_Don't go out of your way to kill them|r
+    >>杀死 |cRXP_ENEMY_Rockjaw Skullthumpers|r
+    >>|cRXP_WARN_不要特意去杀他们|r
     .complete 432,1 --Kill Rockjaw Skullthumper (x6)
     .mob Rockjaw Skullthumper
 step
     #completewith next
-    .goto Dun Morogh,70.74,56.23,30 >>Enter the cave
+    .goto Dun Morogh,70.74,56.23,30 >>进入洞穴
 step
     #label Bonesnappers
     .goto Dun Morogh,70.98,54.31,40,0
@@ -1265,10 +1256,10 @@ step
     .goto Dun Morogh,71.94,50.48,40,0
     .goto Dun Morogh,72.55,51.50,40,0
     .goto Dun Morogh,72.62,52.56
-    >>Kill |cRXP_ENEMY_Rockjaw Bonesnappers|r inside the cave
-    >>|cRXP_WARN_Be careful as they cast|r |T132154:0|t[Knockdown] |cRXP_WARN_(Melee Instant: Stuns for 2 seconds)|r
-    .complete 433,1 --Kill Rockjaw Bonesnapper (x10)
-    .mob Rockjaw Bonesnapper
+    >>杀死洞穴内的 |cRXP_ENEMY_岩颚骨撕咬者s|r
+    >>|cRXP_WARN_小心他们施放|r |T132154:0|t[击倒] |cRXP_WARN_(近战瞬间：眩晕 2 秒)|r
+    .complete 433,1 --Kill 岩颚骨撕咬者 (x10)
+    .mob 岩颚骨撕咬者
 step
     .goto Dun Morogh,70.74,56.23,30,0
 #loop
@@ -1279,85 +1270,85 @@ step
 	.goto Dun Morogh,68.36,59.57,30,0
 	.goto Dun Morogh,69.16,57.51,30,0
 	.goto Dun Morogh,69.93,57.29,30,0
-    >>Kill |cRXP_ENEMY_Rockjaw Skullthumpers|r
+    >>杀死 |cRXP_ENEMY_Rockjaw Skullthumpers|r
     .complete 432,1 --Kill Rockjaw Skullthumper (x6)
     .mob Rockjaw Skullthumper
 step
     #sticky
     #label Frast
     .goto Dun Morogh,68.87,55.96,0,0
-    >>Talk to |cRXP_FRIENDLY_Frast|r
-    .vendor >> Vendor Trash
+    >>对话: |cRXP_FRIENDLY_弗拉斯特·多克南|r
+    .vendor >>供应商垃圾
     .target Frast Dokner
     .isQuestAvailable 419
 step
     >>Talk to |cRXP_FRIENDLY_Stonebrow|r and |cRXP_FRIENDLY_Mehr|r
-    .turnin 432 >> Turn in Those Blasted Troggs!
-    .target +Foreman Stonebrow
+    .turnin 432 >>交任务: |cRXP_FRIENDLY_该死的石腭怪！|r
     .goto Dun Morogh,69.084,56.330
-    .turnin 433 >> Turn in The Public Servant
+    .turnin 433 >>交任务: |cRXP_FRIENDLY_公众之仆|r
     .goto Dun Morogh,68.67,55.97
-    .target +Senator Mehr Stonehallow
+    .target 工头石眉
+    .target 参议员梅尔·斯通哈洛
 step
     #requires Frast
     .goto Dun Morogh,69.33,55.46
     >>Talk to |cRXP_FRIENDLY_Dank|r
-    .train 2575 >> Train |T136248:0|t[Mining]
+    .train 2575 >>列车 |T136248:0|t[采矿]
     .target Dank Drizzlecut
 step
     #label Shortcut1
     #completewith Pilot
     .goto Dun Morogh,70.35,55.28,5,0
-    .link https://youtu.be/G2IscpFZVeQ?t=4034 >>|cRXP_WARN_CLICK HERE if you're struggling|r
-    .goto Dun Morogh,70.52,54.75,12 >>Take the shortcut up behind |cRXP_FRIENDLY_Dank|r
+    .link https://youtu.be/G2IscpFZVeQ?t=4034 >>|cRXP_WARN_如果你遇到困难，请点击此处|r
+    .goto Dun Morogh,70.52,54.75,12 >>走 |cRXP_FRIENDLY_Dank|r 后面的捷径
 step
     #completewith Pilot
     #requires Shortcut1
     #label Shortcut2
     .goto Dun Morogh,70.97,50.70,50,0
     .goto Dun Morogh,72.90,49.79,50,0
-    .goto Dun Morogh,77.11,48.82,50 >>|cRXP_WARN_Kite the nearby |cRXP_ENEMY_Rockjaw Ambushers|r to the |cRXP_FRIENDLY_Ironforge Mountaineers|r that can patrol on the road (make sure to deal 51%+ damage to get credit)|r
+    .goto Dun Morogh,77.11,48.82,50 >>|cRXP_WARN_将附近的 |cRXP_ENEMY_Rockjaw Ambushers|r 放风筝到可以在路上巡逻的 |cRXP_FRIENDLY_Ironforge Mountaineers|r 上（确保造成 51% 以上的伤害才能获得奖励）|r
     .mob Rockjaw Ambusher
     .unitscan Ironforge Mountaineer
 step
     #requires Shortcut2
     #completewith next
     .goto Dun Morogh,81.23,42.66,50,0
-    .goto Dun Morogh,83.01,40.31,30 >>Kite a |cRXP_ENEMY_Scarred Crag Boar|r through the tunnel
-    >>|cRXP_WARN_Be careful as they cast|r |T132337:0|t[Charge] |cRXP_WARN_(Self Instant: Increases movespeed for 3 seconds, dealing 40-100 melee damage on hit. Only castable at range)|r
+    .goto Dun Morogh,83.01,40.31,30 >>放风筝 |cRXP_ENEMY_Scarred Crag Boar|r 通过隧道
+    >>|cRXP_WARN_施放时要小心|r |T132337:0|t[充电] |cRXP_WARN_（自身瞬发：增加移动速度 3 秒，击中时造成 40-100 点近战伤害。仅可远距离施放）|r
     .mob Scarred Crag Boar
 step
     #label Pilot
     .goto Dun Morogh,83.89,39.19
-    >>Talk to |cRXP_FRIENDLY_Hammerfoot|r
-    .accept 419 >> Accept The Lost Pilot
+    >>对话: |cRXP_FRIENDLY_驾驶员塞克·锤足|r
+    .accept 419 >>接任务: |cRXP_LOOT_失踪的驾驶员|r
     .target Pilot Hammerfoot
 step
     .goto Dun Morogh,81.37,37.02,30,0
     .goto Dun Morogh,79.67,36.17
-    >>Click the |cRXP_PICK_Dwarven Corpse|r on the ground
-    >>|cRXP_WARN_MAKE SURE You have a free inventory slot. |cRXP_ENEMY_Mangeclaw|r will not come down if you do not accept the next quest|r
-    >>|cRXP_WARN_REMEMBER You're kiting |cRXP_ENEMY_Mangeclaw|r back to |cRXP_FRIENDLY_Hammerfoot|r
-    .turnin 419 >> Turn in The Lost Pilot
-    .accept 417 >> Accept A Pilot's Revenge
+    >>点击地面上的 |cRXP_PICK_Dwarven Corpse|r
+    >>|cRXP_WARN_确保您有一个空闲的库存槽。|cRXP_ENEMY_Mangeclaw|如果您不接受下一个任务，r 将不会下来|r
+    >>|cRXP_WARN_记住你正在放风筝|cRXP_ENEMY_Mangeclaw|r回到|cRXP_FRIENDLY_Hammerfoot|r
+    .turnin 419 >>交任务: |cRXP_FRIENDLY_失踪的驾驶员|r
+    .accept 417 >>接任务: |cRXP_LOOT_驾驶员的复仇|r
 step
     .goto Dun Morogh,78.41,37.80,60,0
     .goto Dun Morogh,83.89,39.19
-    >>Kill |cRXP_ENEMY_Mangeclaw|r. Loot him for the |cRXP_LOOT_Mangy Claw|r
-    >>|cRXP_WARN_Kite him all the way over to |cRXP_FRIENDLY_Hammerfoot|r (make sure to deal 51%+ damage to get credit)|r
+    >>杀死 |cRXP_ENEMY_Mangeclaw|r。从他身上搜刮 |cRXP_LOOT_Mangy Claw|r
+    >>|cRXP_WARN_将他一路放风筝到 |cRXP_FRIENDLY_Hammerfoot|r （确保造成 51% 以上的伤害才能获得奖励）|r
     .complete 417,1 --Collect Mangy Claw (x1)
     .mob Mangeclaw
     .target Pilot Hammerfoot
 step
     .goto Dun Morogh,83.892,39.188
-    >>Talk to |cRXP_FRIENDLY_Hammerfoot|r
-    .turnin 417,1 >> Turn in A Pilot's Revenge
+    >>对话: |cRXP_FRIENDLY_驾驶员塞克·锤足|r
+    .turnin 417,1 >>交任务: |cRXP_FRIENDLY_驾驶员的复仇|r
     .target Pilot Hammerfoot
 step
     #label Tunnel1
     #completewith Barleybrew
     .goto Dun Morogh,83.01,40.31,30,0
-    .goto Dun Morogh,81.23,42.66,30 >>Run back through the tunnel
+    .goto Dun Morogh,81.23,42.66,30 >>穿过隧道跑回去
 step
     #requires Tunnel1
     #completewith Barleybrew
@@ -1365,115 +1356,111 @@ step
     .goto Dun Morogh,81.10,49.76,20,0
     .goto Dun Morogh,81.60,50.01,20,0
     .goto Dun Morogh,83.59,49.18,20,0
-    >>Kite a |cRXP_ENEMY_Scarred Crag Boar|r en route
-    .goto Dun Morogh,84.26,48.93,20 >>Do the Mountain Skip. Remember to drop down carefully
+    >>放风筝 |cRXP_ENEMY_Scarred Crag Boar|r 在途中
+    .goto Dun Morogh,84.26,48.93,20 >>跳山。记得小心地跳下去
     .mob Scarred Crag Boar
 step
     .goto Loch Modan,19.01,61.88
-    >>Kite a |cRXP_ENEMY_Scarred Crag Boar|r through the tunnel
-    >>|cRXP_WARN_Be careful as they cast|r |T132337:0|t[Charge] |cRXP_WARN_(Self Instant: Increases movespeed for 3 seconds, dealing 40-100 melee damage on hit. Only castable at range)|r
-    .zone Loch Modan >> Travel through the tunnel to Loch Modan
+    >>放风筝 |cRXP_ENEMY_Scarred Crag Boar|r 通过隧道
+    >>|cRXP_WARN_施放时要小心|r |T132337:0|t[充电] |cRXP_WARN_（自身瞬发：增加移动速度 3 秒，击中时造成 40-100 点近战伤害。仅可远距离施放）|r
+    .zone Loch Modan >>前往: |cRXP_PICK_洛克莫丹|r
     .mob Scarred Crag Boar
 step
     #completewith Rugelfuss
-    +|cRXP_WARN_Try to kite a nearby |cRXP_ENEMY_Elder Black Bear|r or |cRXP_ENEMY_Forest Lurker|r into the Bunker with you (remember to deal 51%+ damage to get credit)|r
-    >>|cRXP_WARN_Loot the |cRXP_ENEMY_Elder Black Bears|r for their|r |T134027:0|t[|cRXP_LOOT_Bear Meat|r]
-    >>|cRXP_WARN_Loot the |cRXP_ENEMY_Forest Lurkers|r for their|r |T134437:0|t[|cRXP_LOOT_Spider Ichor|r]
-    >>|cRXP_FRIENDLY_Cobbleflint|r|cRXP_WARN_, |cRXP_FRIENDLY_Gravelgaw|r, and |cRXP_FRIENDLY_Wallbang|r won't assist you|r
-    .collect 3173,3,418,1 --Collect Bear Meat (x3)
+    +|cRXP_WARN_尝试将附近的 |cRXP_ENEMY_黑熊长老|r 或 |cRXP_ENEMY_森林潜伏者|r 放风筝到地堡中（记得造成 51% 以上的伤害才能获得奖励）|r
+    >>|cRXP_WARN_抢劫 |cRXP_ENEMY_老黑熊|r 以获取他们的|r |T134027:0|t[|cRXP_LOOT_熊肉|r]
+    >>|cRXP_WARN_Loot |cRXP_ENEMY_森林潜伏者s|r 以获取他们的|r |T134437：0|吨[|cRXP_LOOT_Spider Ichor|r]
+    >>|cRXP_FRIENDLY_Cobbleflint|r|cRXP_WARN_、|cRXP_FRIENDLY_Gravelgaw|r 和 |cRXP_FRIENDLY_Wallbang|r 不会帮助你|r
+    .collect 3173,3,418,1 --Collect 熊 Meat (x3)
     .disablecheckbox
     .collect 3174,3,418,1 --Collect Spider Ichor (x3)
     .disablecheckbox
-    .mob Elder Black Bear
-    .mob Forest Lurker
+    .mob 黑熊长老
+    .mob 森林潜伏者
 step
     #label Cobbleflint
     .goto Loch Modan,22.071,73.127
-    >>Talk to |cRXP_FRIENDLY_Cobbleflint|r
-    .accept 224 >> Accept In Defense of the King's Lands
-    .target Mountaineer Cobbleflint
+    >>对话: |cRXP_FRIENDLY_巡山人库伯弗林特|r
+    .accept 224 >>接任务: |cRXP_LOOT_保卫国王的领土|r
+    .target 登山者科布尔弗林特
 step
     #optional
     #completewith next
     .goto Loch Modan,23.27,75.65,12,0
     .goto Loch Modan,23.62,75.42,12,0
-    .goto Loch Modan,23.12,73.93,12 >> Enter the Bunker. Go to the top floor
+    .goto Loch Modan,23.12,73.93,12 >>进入地堡。前往顶楼
 step
     #label Rugelfuss
     .goto Loch Modan,23.233,73.675
-    >>Talk to |cRXP_FRIENDLY_Rugelfuss|r
-    .accept 267 >> Accept The Trogg Threat
-    .target Captain Rugelfuss
-step << skip
+    >>对话: |cRXP_FRIENDLY_拉格弗斯上尉|r
+    .accept 267 >>接任务: |cRXP_LOOT_穴居人的威胁|r
+    .target 鲁格尔福斯上尉
+step
     #completewith next
     .goto Loch Modan,21.49,68.14,20,0
     .goto Loch Modan,20.86,64.46,20,0
-    .goto Loch Modan,19.50,62.56,30 >>Go back into the Tunnel
-step << skip
-    .goto Loch Modan,18.84,61.48
-    .link https://www.youtube.com/watch?v=AOAlX9B5aO0 >>|cRXP_WARN_CLICK HERE If you're struggling|r
-    .goto Loch Modan,32.19,46.95,30 >>|cRXP_WARN_Jumping Logout Skip from the Brazier inside the tunnel to Thelsamar|r
-    .isOnQuest 267
+    .goto Loch Modan,19.50,62.56,30 >>回到隧道
 step
-    #completewith next
-    .subzone 144 >> Travel to Thelsamar
+    .goto Loch Modan,18.84,61.48
+    .link https://www.youtube.com/watch?v=AOAlX9B5aO0 >>|cRXP_WARN_如果你遇到困难，请点击此处|r
+    .goto Loch Modan,32.19,46.95,30 >>|cRXP_WARN_从通往塞尔萨玛的隧道内的火盆中跳跃退出|r
+    .isOnQuest 267
 step
     .goto Loch Modan,32.93,49.51,40,0
     .goto Loch Modan,34.49,47.44,40,0
     .goto Loch Modan,37.05,46.11,40,0
     .goto Loch Modan,37.39,45.17,40,0
     .goto Loch Modan,37.12,42.79
-    >>Talk to |cRXP_FRIENDLY_Kadrell|r
-    >>|cRXP_FRIENDLY_Kadrell|r |cRXP_WARN_patrols along the main Thelsamar road|r
-    .accept 416 >> Accept Rat Catching
-    .accept 1339 >> Accept Mountaineer Stormpike's Task
+    >>对话: |cRXP_FRIENDLY_巡山人卡德雷尔|r
+    >>|cRXP_FRIENDLY_卡德雷尔|r |cRXP_WARN_巡逻塞尔萨玛主干道|r
+    .accept 416 >>接任务: |cRXP_LOOT_狗头人的耳朵|r
+    .accept 1339 >>接任务: |cRXP_LOOT_巡山人卡尔·雷矛的任务|r
     .target Mountaineer Kadrell
 step
     #completewith next
     .goto Loch Modan,33.94,50.96
-    >>Talk to |cRXP_FRIENDLY_Thorgrum|r
-    .fp Thelsamar >> Get the Thelsamar flight path
-    .fly Ironforge >> Fly to Ironforge
+    >>对话: |cRXP_FRIENDLY_索格拉姆·伯雷森|r
+    .fp Thelsamar >>获取塞尔萨玛飞行路线
+    .fly Ironforge >>飞往铁炉堡
     .target Thorgrum Borrelson
 step
-    .zone Ironforge >> Travel to Ironforge
+    .zone Ironforge >>前往: |cRXP_PICK_铁炉堡|r
     .isOnQuest 416
-step << skip
+step
     #completewith next
     .goto Ironforge,43.83,59.58,20,0
     .goto Ironforge,38.27,71.43,20,0
-    .goto Ironforge,33.70,76.24,10 >>|cRXP_WARN_Travel toward the Logout Skip spot|r
-step << skip
+    .goto Ironforge,33.70,76.24,10 >>|cRXP_WARN_前往退出跳过点|r
+step
     .goto Ironforge,33.70,76.24
-    .zone Dun Morogh >>|cRXP_WARN_Position your character until it looks like they're floating on the edge of the metal railing. Logout skip to Dun Morogh|r
+    .zone Dun Morogh >>|cRXP_WARN_前往: |cRXP_PICK_丹莫罗|r, 调整角色的位置，直到他们看起来像是漂浮在金属栏杆的边缘。退出跳转到丹莫罗|r
     .isOnQuest 416
 ]])
 
 RXPGuides.RegisterGuide([[
 #classic
-#tbc
 << Gnome Mage
-#name 1-10 ADV Dun Morogh Gnome Mage AoE
+#name 1-10 冒险 丹莫罗侏儒 法师 AoE
 #version 2
-#group RestedXP ADV AoE Alliance Mage
+#group RestedXP 冒险 AoE 联盟法师
 #defaultfor Gnome Mage
-#next 10-12 ADV Darkshore 1 Mage AoE
+#next 10-12 冒险 黑海岸 1 法师 AoE
 
 
 step << !Gnome Mage
     #season 2
     #completewith next
-    +In Season of Discovery, you should NOT start outside of your race's starter zone as a Mage, as you will be unable to get your first rune here (|T133816:0|t[Engrave Gloves - Ice Lance])
+    +在探索季节，你不应该以法师的身份在你的种族起始区之外开始游戏，因为你将无法在这里获得你的第一个符文 (|T133816:0|t[雕刻手套 - 冰枪])
 step
     #completewith next
-    +You have selected the Advanced guide. This is the fastest guide for the fastest class in the game (Alliance Mage). As such, there will be a lot of niche mechanics used as well as highly difficult AoE pulls. Stay persistent while you learn! Good Luck!
+    +您已选择高级指南。这是游戏中速度最快的职业（联盟法师）的最快指南。因此，将使用许多小众机制以及高难度的 AoE 拉动。在学习过程中坚持不懈！祝你好运！
 step
     #completewith Adlin
-	.destroy 6948 >> Delete the |T134414:0|t[Hearthstone] from your bags, as it's no longer needed
+	.destroy 6948 >>摧毁: |cRXP_ENEMY_炉石|r, 它在你的背包中. 不再需要它了
 step
     .goto Dun Morogh,29.927,71.201
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Sten Stoutarm|r
-    .accept 179 >> Accept Dwarven Outfitters
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_斯登·粗臂|r
+    .accept 179 >>接任务: |cRXP_LOOT_矮人的交易|r
     .target Sten Stoutarm
 step
     .goto 1426,29.529,73.286,0
@@ -1486,7 +1473,7 @@ step
     .goto 1426,27.562,74.331,60,0
     .goto 1426,27.793,73.123,60,0
     .goto 1426,28.557,72.487,60,0
-    >>Kill |cRXP_ENEMY_Ragged Young Wolves|r. Loot them for their |cRXP_LOOT_Tough Wolf Meat|r
+    >>杀死 |cRXP_ENEMY_Ragged Young Wolves|r。掠夺他们的 |cRXP_LOOT_Tough Wolf Meat|r
     .complete 179,1 --Collect Tough Wolf Meat (x8)
     .mob Ragged Young Wolf
 step
@@ -1494,44 +1481,44 @@ step
     #sticky
     #label Adlin
     .goto Dun Morogh,30.087,71.563
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Adlin Pridedrift|r
-    >>Vendor Trash
-    >>|cRXP_BUY_Buy 15|r |T132794:0|t[Refreshing Spring Water] |cRXP_BUY_from him|r
-    >>|cRXP_WARN_Grind extra |cRXP_ENEMY_Ragged Young Wolves|r if you don't have enough money|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_艾德林·怒流|r
+    >>供应商垃圾
+    >>|cRXP_BUY_从他那里购买 15|r |T132794:0|t[清凉泉水] |cRXP_BUY_|r
+    >>|cRXP_WARN_如果你没有足够的钱，可以额外升级|cRXP_ENEMY_Ragged Young Wolves|r|r
     .collect 159,15 --Collect Refreshing Spring Water (x15)
     .target Adlin Pridedrift
     .xp >6,1
 step
     #season 2
     .goto Dun Morogh,30.087,71.563
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Adlin Pridedrift|r
-    >>Vendor Trash
-    >>|cRXP_BUY_Buy 15|r |T132794:0|t[Refreshing Spring Water] |cRXP_BUY_from him|r
-    >>|cRXP_WARN_Grind extra |cRXP_ENEMY_Ragged Young Wolves|r if you don't have enough money|r
-    >>|cRXP_WARN_Make sure you save 10c for later|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_艾德林·怒流|r
+    >>供应商垃圾
+    >>|cRXP_BUY_从他那里购买 15|r |T132794:0|t[清凉泉水] |cRXP_BUY_|r
+    >>|cRXP_WARN_如果你没有足够的钱，可以额外升级|cRXP_ENEMY_Ragged Young Wolves|r|r
+    >>|cRXP_WARN_确保你节省了 10c 以备后用|r
     .collect 159,15 --Collect Refreshing Spring Water (x15)
     .target Adlin Pridedrift
     .xp >6,1
 step
     #xprate <1.1
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Sten Stoutarm|r and |cRXP_FRIENDLY_Balir Frosthammer|r
-    .turnin 179,3 >> Turn in Dwarven Outfitters
-    .accept 233 >> Accept Coldridge Valley Mail Delivery
-    .accept 3114 >> Accept Glyphic Memorandum
-    .target +Sten Stoutarm
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_斯登·粗臂|r, |cRXP_FRIENDLY_巴尔林·霜锤|r
+    .turnin 179,3 >>交任务: |cRXP_FRIENDLY_矮人的交易|r
+    .accept 233 >>接任务: |cRXP_LOOT_寒脊山谷的送信任务|r
+    .accept 3114 >>接任务: |cRXP_LOOT_雕文备忘录|r
     .goto Dun Morogh,29.927,71.201
-    .accept 170 >> Accept A New Threat
+    .accept 170 >>接任务: |cRXP_LOOT_新的威胁|r
     .goto Dun Morogh,29.71,71.25
-    .target +Balir Frosthammer
+    .target Sten Stoutarm
+    .target Balir Frosthammer
 step
     #xprate >1.09
     .goto Dun Morogh,29.927,71.201
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Sten Stoutarm|r
-    .turnin 179,3 >> Turn in Dwarven Outfitters
-    .accept 233 >> Accept Coldridge Valley Mail Delivery
-    .accept 3114 >> Accept Glyphic Memorandum
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_斯登·粗臂|r
+    .turnin 179,3 >>交任务: |cRXP_FRIENDLY_矮人的交易|r
+    .accept 233 >>接任务: |cRXP_LOOT_寒脊山谷的送信任务|r
+    .accept 3114 >>接任务: |cRXP_LOOT_雕文备忘录|r
     .target Sten Stoutarm
-step
+step 
     #season 2
     #xprate <1.1
     #completewith EnterAnvilmar
@@ -1544,22 +1531,22 @@ step
     .goto 1426,21.813,72.584,0
     .goto 1426,19.578,72.086,0
     .goto 1426,20.627,70.415,0
-    >>Kill |cRXP_ENEMY_Rockjaw Troggs|r and |cRXP_ENEMY_Burly Rockjaw Troggs|r
+    >>杀死 |cRXP_ENEMY_Rockjaw Troggs|r 和 |cRXP_ENEMY_Burly Rockjaw Troggs|r
     .complete 170,1 --Kill Rockjaw Trogg (x6)
-    .mob +Rockjaw Trogg
     .complete 170,2 --Kill Burly Rockjaw Trogg (x6)
-    .mob +Burly Rockjaw Trogg
+    .mob Rockjaw Trogg
+    .mob Burly Rockjaw Trogg
     .isOnQuest 170
 step
     #season 2
     .goto Dun Morogh,26.733,72.552
-    >>Open the |cRXP_PICK_Rockjaw Footlocker|r on the ground. Loot it for the |T134939:0|t|cRXP_LOOT_[Spell Notes: CALE ENCI]|r
-    >>|cRXP_WARN_NOTE: You will be unable to train|r |T133816:0|t[Engrave Gloves - Ice Lance] |cRXP_WARN_here as you can only get a|r |T133736:0|t[Comprehension Primer] |cRXP_WARN_in your race's starting zone|r << !Gnome
+    >>打开地面上的 |cRXP_PICK_Rockjaw 储物柜|r。拾取其中的 |T134939:0|t|cRXP_LOOT_[法术注释：CALE ENCI]|r
+    >>|cRXP_WARN_注意：你将无法在此处训练|r |T133816:0|t[雕刻手套 - 冰枪] |cRXP_WARN_，因为你只能在你种族的起始区获得|r |T133736:0|t[理解入门] |cRXP_WARN_|r << !Gnome
     .collect 203751,1,77667,1 -- Spell Notes: CALE ENCI (1)
     .train 401760,1
 step << Gnome
     #season 2
-    .train 401760 >>|cRXP_WARN_Use the|r |T134939:0|t|cRXP_LOOT_[Spell Notes: CALE ENCI]|r |cRXP_WARN_to learn|r |T133816:0|t[Engrave Gloves - Ice Lance]
+    .train 401760 >>|cRXP_WARN_使用|r |T134939:0|t|cRXP_LOOT_[法术说明：CALE ENCI]|r |cRXP_WARN_学习|r |T133816:0|t[雕刻手套 - 冰枪]
     .use 203751
     .itemcount 203751,1 -- Spell Notes: CALE ENCI (1)
 step
@@ -1568,34 +1555,34 @@ step
     #optional
     #completewith next
     .goto 1426,28.792,68.804,12,0
-    .goto 1426,28.642,68.375,12 >> Enter Anvilmar
+    .goto 1426,28.642,68.375,12 >>进入安威玛尔
 step
     #season 2
     .goto Dun Morogh,28.709,66.366
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Marryk Nurribit|r inside
-    .turnin 3114 >> Turn in Glyphic Memorandum << Gnome
-    .accept 77667 >> Accept Spell Research << Gnome
-    .turnin 77667 >> Turn in Spell Research << Gnome
-    .train 1459 >> Train |T135932:0|t[Arcane Intellect]
-    .target Marryk Nurribit
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_玛瑞克·斯托纳尔|r, 他在里面
+    .turnin 3114 >>交任务: |cRXP_FRIENDLY_雕文备忘录|r << Gnome
+    .accept 77667 >>接受法术研究 << Gnome
+    .turnin 77667 >>提交法术研究 << Gnome
+    .train 1459 >>训练 |T135932:0|t[奥术智慧]
+    .target 马里克·努里比特
 step << Gnome
     #season 2
     #label GlovesEquip
     #completewith Observations
-    .equip 10,711 >> |cRXP_WARN_Equip the|r |T132961:0|t[Tattered Cloth Gloves]
+    .equip 10,711 >>|cRXP_WARN_Equip the|r |T132961:0|t[破烂的布手套]
     .use 711
     .train 401760,1
 step << Gnome
     #season 2
     #requires GlovesEquip
     #completewith Observations
-    .engrave 10 >>|cRXP_WARN_Engrave your|r |T132961:0|t[Tattered Cloth Gloves] with|r |T133816:0|t[Engrave Gloves - Ice Lance]
+    .engrave 10 >>|cRXP_WARN_将你的|r |T132961:0|t[破烂布手套] 雕刻成|r |T133816:0|t[雕刻手套 - 冰枪]
     .train 401760,1
 step
     #season 2
     #optional
     #completewith Talin
-    .goto 1426,28.792,68.804,12 >> Exit Anvilmar
+    .goto 1426,28.792,68.804,12 >>离开安威玛尔
     .subzoneskip 77,1
 step
     #xprate <1.1
@@ -1609,19 +1596,19 @@ step
     .goto 1426,21.813,72.584,0
     .goto 1426,19.578,72.086,0
     .goto 1426,20.627,70.415,0
-    >>Kill |cRXP_ENEMY_Rockjaw Troggs|r and |cRXP_ENEMY_Burly Rockjaw Troggs|r
+    >>杀死 |cRXP_ENEMY_Rockjaw Troggs|r 和 |cRXP_ENEMY_Burly Rockjaw Troggs|r
     .complete 170,1 --Kill Rockjaw Trogg (x6)
-    .mob +Rockjaw Trogg
     .complete 170,2 --Kill Burly Rockjaw Trogg (x6)
-    .mob +Burly Rockjaw Trogg
+    .mob Rockjaw Trogg
+    .mob Burly Rockjaw Trogg 
     .isOnQuest 170
 step
     #label Talin
     .goto Dun Morogh,22.601,71.433
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Talin Keeneye|r
-    .turnin 233 >> Turn in Coldridge Valley Mail Delivery
-    .accept 183 >> Accept The Boar Hunter
-    .accept 234 >> Accept Coldridge Valley Mail Delivery
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_塔林·锐眼|r
+    .turnin 233 >>交任务: |cRXP_FRIENDLY_寒脊山谷的送信任务|r
+    .accept 183 >>接任务: |cRXP_LOOT_猎杀野猪|r
+    .accept 234 >>接任务: |cRXP_LOOT_寒脊山谷的送信任务|r
     .target Talin Keeneye
 step
     #loop
@@ -1640,28 +1627,28 @@ step
     .goto 1426,24.754,69.257,45,0
     .goto 1426,24.878,71.191,45,0
     .goto 1426,24.358,72.591,45,0
-    >>Kill |cRXP_ENEMY_Small Crag Boars|r
+    >>杀死 |cRXP_ENEMY_Small Crag Boars|r
     .complete 183,1 --Kill Small Crag Boar (x12)
     .mob Small Crag Boar
 step
     .goto Dun Morogh,22.601,71.433
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Talin Keeneye|r
-    .turnin 183 >> Turn in The Boar Hunter
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_塔林·锐眼|r
+    .turnin 183 >>交任务: |cRXP_FRIENDLY_猎杀野猪|r
     .target Talin Keeneye
 step
     #label Rockjaw
     .goto 1426,25.077,75.711
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Grelin Whitebeard|r
-    .turnin 234 >> Turn in Coldridge Valley Mail Delivery
-    .accept 182 >> Accept The Troll Cave
-    .target Grelin Whitebeard
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_格瑞林·白须|r
+    .turnin 234 >>交任务: |cRXP_FRIENDLY_寒脊山谷的送信任务|r
+    .accept 182 >>接任务: |cRXP_LOOT_巨魔洞穴|r
+    .target 格雷林·白胡子
 step
     #completewith next
-    >>Kill |cRXP_ENEMY_Frostmane Troll Whelps|r
+    >>杀死 |cRXP_ENEMY_Frostmane 巨魔幼龙|r
     .complete 182,1 --Kill Frostmane Troll Whelp (x14)
     .mob Frostmane Troll Whelp
 step
-    .goto Dun Morogh,26.73,79.72,30 >>Enter the cave
+    .goto Dun Morogh,26.73,79.72,30 >>进入洞穴
     .isOnQuest 182
 step
     .goto Dun Morogh,27.30,80.85,20,0
@@ -1676,8 +1663,8 @@ step
     .goto Dun Morogh,28.29,79.85,20,0
     .goto Dun Morogh,29.34,79.09,30,0
     .goto Dun Morogh,28.29,79.85
-    >>Kill |cRXP_ENEMY_Frostmane Troll Whelps|r inside the cave
-    >>|cRXP_WARN_Clear a path to just before the Frozen Lake room|r
+    >>杀死洞穴内的 |cRXP_ENEMY_Frostmane Troll Whelps|r
+    >>|cRXP_WARN_清理一条通往冰冻湖房间前的道路|r
     .complete 182,1,10 --Kill Frostmane Troll Whelp (x14)
     .mob Frostmane Troll Whelp
 step
@@ -1687,89 +1674,73 @@ step
     .goto Dun Morogh,27.12,78.68,40,0
     .goto Dun Morogh,25.95,80.39,40,0
     .goto Dun Morogh,25.78,78.31
-    >>Kill |cRXP_ENEMY_Frostmane Troll Whelps|r en route back to |cRXP_FRIENDLY_Grelin Whitebeard|r
+    >>在返回 |cRXP_FRIENDLY_格雷林·白胡子|r 的途中杀死 |cRXP_ENEMY_Frostmane Troll Whelps|r
     .complete 182,1--Kill Frostmane Troll Whelp (x14)
     .mob Frostmane Troll Whelp
-step << skip
-    #completewith next
-    +|cRXP_WARN_If you don't know how to logout skip, watch this video first|r
-    .link https://www.youtube.com/watch?v=SWBtPqm5M0Q >>|cRXP_WARN_CLICK HERE to learn how to logout skip|r
-step << skip
-    >>Talk to |cRXP_FRIENDLY_Grelin Whitebeard|r and |cRXP_FRIENDLY_Nori Pridedrift|r
-    >>|cRXP_WARN_Be Aware that "Scalding Mornbrew Delivery" has a 5-minute timer|r
-    >>|cRXP_WARN_Make sure you have 3 inventory slots for these turnins/accepts|r
-    .turnin 182,4 >> Turn in The Troll Cave
-    .accept 218 >> Accept The Stolen Journal
-    .goto Dun Morogh,25.076,75.713,-1
-    .target +Grelin Whitebeard
-    .accept 3364 >> Accept Scalding Mornbrew Delivery
-    .goto Dun Morogh,24.98,75.96,-1
-    .target +Nori Pridedrift
 step
-    >>Talk to |cRXP_FRIENDLY_Grelin Whitebeard|r
-    >>|cRXP_WARN_Make sure you have 3 inventory slots for these turnins/accepts|r
-    .turnin 182,4 >> Turn in The Troll Cave
-    .accept 218 >> Accept The Stolen Journal
-    .goto Dun Morogh,25.076,75.713
-    .target +Grelin Whitebeard
+    #completewith next
+    +|cRXP_WARN_如果你不知道如何退出，请先观看此视频|r
+    .link https://www.youtube.com/watch?v=SWBtPqm5M0Q >>|cRXP_WARN_点击此处了解如何退出 跳过|r
+step
+    >>对话: |cRXP_FRIENDLY_格瑞林·白须|r, |cRXP_FRIENDLY_诺里斯·激流|r
+    >>|cRXP_WARN_请注意，“Scalding Mornbrew Delivery”有 5 分钟的计时器|r
+    >>|cRXP_WARN_确保你有 3 个库存槽用于这些上交/接受|r
+    .turnin 182,4 >>交任务: |cRXP_FRIENDLY_巨魔洞穴|r
+    .accept 218 >>接任务: |cRXP_LOOT_被窃取的日记|r
+    .goto Dun Morogh,25.076,75.713,-1
+    .target +格雷林·白胡子
+    .accept 3364 >>接任务: |cRXP_LOOT_热酒快递|r
+    .goto Dun Morogh,24.98,75.96,-1
+    .target +诺里·普里德瑞夫特
 step
     .goto Dun Morogh,26.73,79.72,40,0
     .goto Dun Morogh,29.34,79.09,30,0
-    .goto Dun Morogh,29.67,79.68,10 >>|cRXP_WARN_Enter the Cave. Run through the path you cleared (without fighting if possible) toward the Frozen Lake inside|r
+    .goto Dun Morogh,29.67,79.68,10 >>|cRXP_WARN_进入洞穴。沿着清理出来的路径跑（尽量不要战斗）到达里面的冰冻湖|r
     .isOnQuest 218
 step
     .goto Dun Morogh,30.48,80.16
-    >>|cRXP_WARN_Kill the |cRXP_ENEMY_Frostmane Troll Whelp|r in front of you|r
-    >>Kill |cRXP_ENEMY_Grik'nir the Cold|r. Loot him for |cRXP_LOOT_Grelin Whitebeard's Journal|r
-    >>|cRXP_WARN_Be careful as he casts|r |T135849:0|t[Frost Shock] |cRXP_WARN_(Range Instant: Deals 10 Frost damage and slows movespeed by 50% for 8 seconds)|r
-    .complete 218,1 --Collect Grelin Whitebeard's Journal (x1)
+    >>|cRXP_WARN_杀死你面前的 |cRXP_ENEMY_Frostmane Troll Whelp|r|r
+    >>杀死 |cRXP_ENEMY_Grik'nir the Cold|r。搜刮他以获取 |cRXP_LOOT_格雷林·白胡子 的日记|r
+    >>|cRXP_WARN_当他施放时要小心|r |T135849:0|t[冰霜冲击] |cRXP_WARN_（范围瞬发：造成 10 点冰霜伤害并使移动速度降低 50% 持续 8 秒）|r
+    .complete 218,1 --Collect 格雷林·白胡子's Journal (x1)
     .mob Grik'nir the Cold
-step << skip
+step
     #completewith Rybrad
     #label LogoutSkip1
     .goto Dun Morogh,29.63,79.50
-    .goto Dun Morogh,29.76,69.66,30 >>|cRXP_WARN_Position your character until it looks like they're floating on the edge of the cliff above the Frozen Lake, then logout skip back to Anvilmar|r
+    .goto Dun Morogh,29.76,69.66,30 >>|cRXP_WARN_调整你的角色位置，直到他们看起来像是漂浮在冰冻湖上方的悬崖边缘，然后退出并跳回安威玛尔|r
     .isOnQuest 218
-step
-    >>Talk to |cRXP_FRIENDLY_Grelin Whitebeard|r and |cRXP_FRIENDLY_Nori Pridedrift|r
-    .turnin 218 >> Turn in The Stolen Journal
-    .accept 282 >> Accept Senir's Observations
-    .goto Dun Morogh,25.076,75.713,-1
-    .target +Grelin Whitebeard
-    .accept 3364 >> Accept Scalding Mornbrew Delivery
-    .goto Dun Morogh,24.98,75.96,-1
-    .target +Nori Pridedrift
 step
     #completewith Rybrad
     #requires LogoutSkip1
     #label LogoutSkip2
     .goto Dun Morogh,28.79,69.04,20,0
-    .goto Dun Morogh,28.63,68.43,10 >>Enter Anvilmar
-    .isOnQuest 218,3364
+    .goto Dun Morogh,28.63,68.43,10 >>进入安威玛尔
+    .isOnQuest 218
 step
     #label Rybrad
     .goto Dun Morogh,28.66,67.74
-    >>Talk to |cRXP_FRIENDLY_Rybrad Coldbank|r
-    .vendor >> Vendor Trash
+    >>对话: |cRXP_FRIENDLY_雷布莱德·寒椅|r
+    .vendor >>供应商垃圾
     .target Rybrad Coldbank
-    .isOnQuest 218,3364
+    .isOnQuest 218
 step
-    >>Talk to |cRXP_FRIENDLY_Durnan Furcutter|r and |cRXP_FRIENDLY_Marryk Nurribit|r
-    .turnin 3364 >> Turn in Scalding Mornbrew Delivery
-    .accept 3365 >> Accept Bring Back the Mug
+    >>对话: |cRXP_FRIENDLY_德南·弗卡特|r, |cRXP_FRIENDLY_玛瑞克·斯托纳尔|r
+    .turnin 3364 >>交任务: |cRXP_FRIENDLY_热酒快递|r
+    .accept 3365 >>接任务: |cRXP_LOOT_归还酒杯|r
     .goto Dun Morogh,28.77,66.37
-    .target +Durnan Furcutter
-    .turnin 3114 >> Turn in Glyphic Memorandum
-    .trainer >> Train your class spells (Arcane Intellect, Frostbolt)
+    .target +杜南·弗卡特
+    .turnin 3114 >>交任务: |cRXP_FRIENDLY_雕文备忘录|r
+    .trainer >>训练你的职业法术（奥术智慧、冰霜箭）
     .goto Dun Morogh,28.709,66.366
-    .target +Marryk Nurribit
+    .target +马里克·努里比特
     .isQuestAvailable 420
 step
     #optional
     #xprate <1.1
     .goto Dun Morogh,29.71,71.25
-    >>Talk to |cRXP_FRIENDLY_Balir Frosthammer|r
-    .turnin 170,3 >> Turn in A New Threat
+    >>对话: |cRXP_FRIENDLY_巴尔林·霜锤|r
+    .turnin 170,3 >>交任务: |cRXP_FRIENDLY_新的威胁|r
     .target Balir Frosthammer
     .isQuestComplete 170
 step
@@ -1787,103 +1758,102 @@ step
     .waypoint 1426,31.138,74.048,50,0
     .waypoint 1426,30.077,74.479,50,0
     .waypoint 1426,29.280,75.500,50,0
-    >>|cRXP_WARN_Kill ALL |cRXP_ENEMY_Rockjaw Troggs|r you see and|r |cRXP_ENEMY_Burly Rockjaw Troggs|r
+    >>|cRXP_WARN_杀死所有 |cRXP_ENEMY_Rockjaw Troggs|r 你看到的和|r |cRXP_ENEMY_Burly Rockjaw Troggs|r
     .complete 170,1 --Kill Rockjaw Trogg (x6)
-    .mob +Rockjaw Trogg
     .complete 170,2 --Kill Burly Rockjaw Trogg (x6)
-    .mob +Burly Rockjaw Trogg
+    .mob Rockjaw Trogg
+    .mob Burly Rockjaw Trogg
     .isOnQuest 170
 step
     #label StolenJ
-    >>Talk to |cRXP_FRIENDLY_Nori Pridedrift|r
-    -- >>Talk to |cRXP_FRIENDLY_Grelin Whitebeard|r and |cRXP_FRIENDLY_Nori Pridedrift|r
-    -- .turnin 218,2 >> Turn in The Stolen Journal
-    -- .accept 282 >> Accept Senir's Observations
-    -- .goto Dun Morogh,25.076,75.713
-    -- .target +Grelin Whitebeard
-    .turnin 3365 >> Turn in Bring Back the Mug
+    >>对话: |cRXP_FRIENDLY_格瑞林·白须|r, |cRXP_FRIENDLY_诺里斯·激流|r
+    .turnin 218,2 >>交任务: |cRXP_FRIENDLY_被窃取的日记|r
+    .accept 282 >>接任务: |cRXP_LOOT_森内尔的观察站|r
+    .goto Dun Morogh,25.076,75.713
+    .target +格雷林·白胡子
+    .turnin 3365 >>交任务: |cRXP_FRIENDLY_归还酒杯|r
     .goto Dun Morogh,24.98,75.96
-    .target +Nori Pridedrift
+    .target +诺里·普里德瑞夫特
 step
     #xprate <1.1
     #requires TroggEnd
     .goto Dun Morogh,29.71,71.25
-    >>Talk to |cRXP_FRIENDLY_Balir Frosthammer|r
-    .turnin 170,3 >> Turn in A New Threat
+    >>对话: |cRXP_FRIENDLY_巴尔林·霜锤|r
+    .turnin 170,3 >>交任务: |cRXP_FRIENDLY_新的威胁|r
     .target Balir Frosthammer
     .isQuestComplete 170
 step
     #requires TroggEnd
     #label Observations
-    >>Talk to |cRXP_FRIENDLY_Mountaineer Thalos|r and |cRXP_FRIENDLY_Hands Springsprocket|r
-    .turnin 282 >> Turn in Senir's Observations
-    .accept 420 >> Accept Senir's Observations
+    >>对话: |cRXP_FRIENDLY_巡山人萨鲁斯|r, |cRXP_FRIENDLY_汉兹·跳链|r
+    .turnin 282 >>交任务: |cRXP_FRIENDLY_森内尔的观察站|r
+    .accept 420 >>接任务: |cRXP_LOOT_森内尔的观察站|r
     .goto Dun Morogh,33.484,71.841
-    .target +Mountaineer Thalos
-    .accept 2160 >> Accept Supplies to Tannok
+    .target +登山者泰洛斯
+    .accept 2160 >>接任务: |cRXP_LOOT_塔诺克的补给品|r
     .goto Dun Morogh,33.85,72.24
-    .target +Hands Springsprocket
+    .target +指针 弹簧链轮
 step
     #xprate <1.1
     #optional
     #completewith StockingJ
-    .abandon 170 >> Abandon A New Threat
+    .abandon 170 >>放弃新的威胁
 step
     .goto Dun Morogh,34.32,70.95,15,0
-    .goto Dun Morogh,35.65,65.79,15 >> Travel through Coldridge Pass
+    .goto Dun Morogh,35.65,65.79,15 >>穿越寒脊山口
     .subzoneskip 800,1
     .isOnQuest 2160
 step
     #completewith StockingJ
     .goto Dun Morogh,36.51,62.94,40,0
-    >>Kill |cRXP_ENEMY_Crag Boars|r. Loot them for |T133970:0|t|cRXP_LOOT_[Chunks of Boar Meat]|r and |cRXP_LOOT_Crag Boar Ribs|r
-    >>|cRXP_WARN_Be careful as they cast|r |T132337:0|t[Charge] |cRXP_WARN_(Self Instant: Increases movespeed for 3 seconds, dealing 25-70 melee damage on hit. Only castable at range)|r
+    >>杀死 |cRXP_ENEMY_Crag Boars|r。拾取它们以获得 |T133970:0|t|cRXP_LOOT_[大块野猪肉]|r 和 |cRXP_LOOT_Crag Boar Ribs|r
+    >>|cRXP_WARN_施放时要小心|r |T132337:0|t[充电] |cRXP_WARN_（自身瞬发：增加移动速度 3 秒，击中时造成 25-70 点近战伤害。仅可远距离施放）|r
     .collect 769,4,317,1 --Collect Chunk of Boar Meat (x4)
     .collect 2886,6,384,1 --Collect Crag Boar Rib (x6)
     .mob Crag Boar
 step
     .goto Dun Morogh,37.97,61.87,30,0
-    .goto Dun Morogh,39.89,59.26,45 >> |cRXP_WARN_Deal 51%+ damage to nearby |cRXP_ENEMY_Juvenile Snow Leopards|r and |cRXP_ENEMY_Young Black Bears|r, then pull them to the |cRXP_FRIENDLY_Ironforge Mountaineer|r to kill them more efficiently|r
-    .mob Juvenile Snow Leopard
-    .mob Young Black Bear
+    .goto Dun Morogh,39.89,59.26,45 >>|cRXP_WARN_对附近的 |cRXP_ENEMY_Juvenile 雪豹s|r 和 |cRXP_ENEMY_年轻的黑熊s|r 造成 51%+ 的伤害，然后将它们拉到 |cRXP_FRIENDLY_Ironforge Mountaineer|r 处以更有效地杀死它们|r
+    .mob Juvenile 雪豹
+    .mob 年轻的黑熊
     .target Ironforge Mountaineer
     .isOnQuest 2160
 step
     #completewith next
     .goto Dun Morogh,43.44,55.64,50,0
     .goto Dun Morogh,44.14,52.64,50,0
-    .goto Dun Morogh,46.021,51.676,20 >>Travel toward |cRXP_FRIENDLY_Tharek|r
+    .goto Dun Morogh,46.021,51.676,20 >>前往 |cRXP_FRIENDLY_Tharek|r
 step
     .goto Dun Morogh,46.021,51.676
-    >>Talk to |cRXP_FRIENDLY_Tharek|r
-    .accept 400 >> Accept Tools for Steelgrill
+    >>对话: |cRXP_FRIENDLY_萨雷克·黑石|r
+    .accept 400 >>接任务: |cRXP_LOOT_贝尔丁的工具|r
     .target Tharek Blackstone
 step
     #label StockingJ
     .goto Dun Morogh,49.426,48.410
-    >>Kite |cRXP_ENEMY_Young Black Bears|r en route |cRXP_WARN_(make sure to deal 51%+ damage to get credit)|r
-    >>Talk to |cRXP_FRIENDLY_Bellowfiz|r
-    .accept 317 >> Accept Stocking Jetsteam
-    .mob Young Black Bear
-    .target Pilot Bellowfiz
+    >>风筝 |cRXP_ENEMY_年轻的黑熊s|r 途中 |cRXP_WARN_(确保造成 51% 以上的伤害才能获得奖励)|r
+    >>对话: |cRXP_FRIENDLY_驾驶员贝隆·风箱|r
+    .accept 317 >>接任务: |cRXP_LOOT_贝尔丁的补给|r
+    .mob 年轻的黑熊
+    .target 飞行员 Bellowfiz
 step
-    >>Talk to |cRXP_FRIENDLY_Stonegear|r, |cRXP_FRIENDLY_Beldin|r, and |cRXP_FRIENDLY_Loslor|r
-    >>|cRXP_WARN_Kite |cRXP_ENEMY_Young Black Bears|r to the |cRXP_FRIENDLY_Ironforge Mountaineer|r if you pulled any (make sure to deal 51%+ damage to get credit)|r
-    .accept 313 >> Accept The Grizzled Den
-    .target +Pilot Stonegear
+    >>对话: |cRXP_FRIENDLY_驾驶员迪恩·石轮|r, |cRXP_FRIENDLY_贝尔丁·钢架|r, |cRXP_FRIENDLY_罗斯洛·鲁治|r
+    >>|cRXP_WARN_放风筝 |cRXP_ENEMY_年轻的黑熊s|r 给 |cRXP_FRIENDLY_Ironforge Mountaineer|r 如果你拉到任何（确保造成 51% 以上的伤害以获得信用）|r
+    .accept 313 >>接任务: |cRXP_LOOT_灰色洞穴|r
     .goto Dun Morogh,49.622,48.612
-    .turnin 400 >> Turn in Tools for Steelgrill
-    .target +Beldin Steelgrill
+    .turnin 400 >>交任务: |cRXP_FRIENDLY_贝尔丁的工具|r
     .goto Dun Morogh,50.45,49.09
-    .accept 5541 >> Accept Ammo for Rumbleshot
-    .vendor >> Vendor Trash
+    .accept 5541 >>接任务: |cRXP_LOOT_海格纳的弹药|r
+    .vendor >>供应商垃圾
     .goto Dun Morogh,50.084,49.420
-    .target +Loslor Rudge
+    .target 飞行员石甲
+    .target Beldin 钢烤架
+    .target 洛斯洛·拉奇
     .isQuestAvailable 312
 step
     #completewith next
-    >>Kill |cRXP_ENEMY_Crag Boars|r and |cRXP_ENEMY_Large Crag Boars|r. Loot them for |T133970:0|t|cRXP_LOOT_[Chunks of Boar Meat]|r and |cRXP_LOOT_Crag Boar Ribs|r
-    >>|cRXP_WARN_Be careful as they cast|r |T132337:0|t[Charge] |cRXP_WARN_(Self Instant: Increases movespeed for 3 seconds, dealing 25-70 melee damage on hit. Only castable at range)|r
+    >>杀死 |cRXP_ENEMY_Crag Boars|r 和 |cRXP_ENEMY_Large Crag Boars|r。拾取它们以获得 |T133970:0|t|cRXP_LOOT_[大块野猪肉]|r 和 |cRXP_LOOT_Crag Boar Ribs|r
+    >>|cRXP_WARN_施放时要小心|r |T132337:0|t[充电] |cRXP_WARN_（自身瞬发：增加移动速度 3 秒，击中时造成 25-70 点近战伤害。仅可远距离施放）|r
     .complete 317,1 --Collect Chunk of Boar Meat (x4)
     .collect 2886,6,384,1 --Collect Crag Boar Rib (x6)
     .mob Crag Boar
@@ -1909,12 +1879,12 @@ step
     .goto Dun Morogh,45.37,49.50,50,0
     .goto Dun Morogh,43.69,52.05,50,0
     .goto Dun Morogh,45.18,54.38
-    >>Kill |cRXP_ENEMY_Young Black Bears|r and |cRXP_ENEMY_Ice Claw Bears|r. Loot them for their |cRXP_LOOT_Thick Bear Fur|r
-    >>|cRXP_WARN_Kite |cRXP_ENEMY_Young Black Bears|r and |cRXP_ENEMY_Ice Claw Bears|r to nearby |cRXP_FRIENDLY_Ironforge Mountaineers|r (make sure to deal 51%+ damage to get credit)|r
-    >>|cRXP_WARN_Be careful as they cast|r |T135853:0|t[Ice Claw] |cRXP_WARN_(Melee Instant: Deals an additional 4 melee damage)|r
-    .complete 317,2 --Collect Thick Bear Fur (x2)
-    .mob Young Black Bear
-    .mob Ice Claw Bear
+    >>杀死 |cRXP_ENEMY_幼年黑熊|r 和 |cRXP_ENEMY_冰爪熊|r。掠夺它们的 |cRXP_LOOT_厚熊皮|r
+    >>|cRXP_WARN_将 |cRXP_ENEMY_年轻的黑熊s|r 和 |cRXP_ENEMY_冰爪熊s|r 放风筝到附近的 |cRXP_FRIENDLY_Ironforge Mountaineers|r （确保造成 51% 以上的伤害才能获得奖励）|r
+    >>|cRXP_WARN_小心他们施放|r |T135853:0|t[冰爪] |cRXP_WARN_(近战瞬发：造成额外的 4 点近战伤害)|r
+    .complete 317,2 --Collect Thick 熊 Fur (x2)
+    .mob 年轻的黑熊
+    .mob 冰爪熊
 step
 #loop
 	.line Dun Morogh,51.70,49.66,51.08,52.42,51.43,53.21,50.06,51.66,49.56,50.82,48.12,49.10,48.21,46.93,45.48,50.04,44.07,52.50,43.69,55.59,42.78,56.86,44.45,59.33,46.31,61.85,46.26,59.49,48.08,59.05,49.40,58.97,48.30,56.86,49.09,54.74,49.61,54.32,51.43,53.21
@@ -1938,8 +1908,8 @@ step
 	.goto Dun Morogh,49.09,54.74,40,0
 	.goto Dun Morogh,49.61,54.32,40,0
 	.goto Dun Morogh,51.43,53.21,40,0
-    >>Kill |cRXP_ENEMY_Crag Boars|r and |cRXP_ENEMY_Large Crag Boars|r. Loot them for |T133970:0|t|cRXP_LOOT_[Chunks of Boar Meat]|r and |cRXP_LOOT_Crag Boar Ribs|r
-    >>|cRXP_WARN_Be careful as they cast|r |T132337:0|t[Charge] |cRXP_WARN_(Self Instant: Increases movespeed for 3 seconds, dealing 25-70 melee damage on hit. Only castable at range)|r
+    >>杀死 |cRXP_ENEMY_Crag Boars|r 和 |cRXP_ENEMY_Large Crag Boars|r。拾取它们以获得 |T133970:0|t|cRXP_LOOT_[大块野猪肉]|r 和 |cRXP_LOOT_Crag Boar Ribs|r
+    >>|cRXP_WARN_施放时要小心|r |T132337:0|t[充电] |cRXP_WARN_（自身瞬发：增加移动速度 3 秒，击中时造成 25-70 点近战伤害。仅可远距离施放）|r
     .complete 317,1 --Collect Chunk of Boar Meat (x4)
     .collect 2886,6,384,1 --Collect Crag Boar Rib (x6)
     .disablecheckbox
@@ -1947,10 +1917,10 @@ step
     .mob Large Crag Boar
 step
     .goto Dun Morogh,49.426,48.410
-    >>Talk to |cRXP_FRIENDLY_Bellowfiz|r
-    .turnin 317 >> Turn in Stocking Jetsteam
-    .accept 318 >> Accept Evershine
-    .target Pilot Bellowfiz
+    >>对话: |cRXP_FRIENDLY_驾驶员贝隆·风箱|r
+    .turnin 317 >>交任务: |cRXP_FRIENDLY_贝尔丁的补给|r
+    .accept 318 >>接任务: |cRXP_LOOT_艾沃沙酒|r
+    .target 飞行员 Bellowfiz
 step
 #loop
 	.line Dun Morogh,51.70,49.66,51.08,52.42,51.43,53.21,50.06,51.66,49.56,50.82,48.12,49.10,48.21,46.93,45.48,50.04,44.07,52.50,43.69,55.59,42.78,56.86,44.45,59.33,46.31,61.85,46.26,59.49,48.08,59.05,49.40,58.97,48.30,56.86,49.09,54.74,49.61,54.32,51.43,53.21
@@ -1974,62 +1944,61 @@ step
 	.goto Dun Morogh,49.09,54.74,40,0
 	.goto Dun Morogh,49.61,54.32,40,0
 	.goto Dun Morogh,51.43,53.21,40,0
-    .xp 5+2690 >> Grind to 2690+/2800xp
-    .mob Young Black Bear
+    .xp 5+2690 >>升级至 2690+/2800xp
+    .mob 年轻的黑熊
     .mob Crag Boar
 step
     #completewith InnLS1
-    +|cRXP_WARN_Unequip your current|r |T135148:0|t[Staff]
-    -- +|cRXP_WARN_Remember the Inn Logout Skip soon. Unequip your current|r |T135148:0|t[Staff]
-    -- >>|cRXP_WARN_NOTE: Itemrack currently can cause problems after logout skipping where your ingame UI freezes. Make sure to disable the addon or make a /reload command you can click when/if that happens|r
+    +|cRXP_WARN_记住旅馆登出跳过。解除你当前的装备|r |T135148:0|t[工作人员]
+    >>|cRXP_WARN_注意：Itemrack 目前可能会在退出后导致游戏内 UI 冻结的问题。请确保禁用插件或创建 /reload 命令，当发生这种情况时您可以单击该命令|r
 step
     #completewith Tannok
-    .cast 1459 >> Rebuff |T135932:0|t[Arcane Intellect]
-    .cast 168 >> Rebuff |T135843:0|t[Frost Armor]
+    .cast 1459 >>反击 |T135932:0|t[奥术智慧]
+    .cast 168 >>反击 |T135843:0|t[冰霜护甲]
 step
     .goto Dun Morogh,46.83,52.36
     >>Talk to |cRXP_FRIENDLY_Ragnar|r
-    .accept 384 >> Accept Beer Basted Boar Ribs
+    .accept 384 >>接任务: |cRXP_LOOT_啤酒烤猪排|r
     .target Ragnar Thunderbrew
 step
     #completewith next
     .goto Dun Morogh,46.97,51.99,10,0
-    .goto Dun Morogh,47.50,52.08,12 >>Go inside
+    .goto Dun Morogh,47.50,52.08,12 >>进去
 step
     .goto Dun Morogh,47.217,52.195
-    >>Talk to |cRXP_FRIENDLY_Tannok|r
-    .turnin 2160,2 >> Turn in Supplies to Tannok
+    >>对话: |cRXP_FRIENDLY_塔诺克·霜锤|r
+    .turnin 2160,2 >>交任务: |cRXP_FRIENDLY_塔诺克的补给品|r
     .target Tannok Frosthammer
     .xp >6,1
 step
     #completewith next
     .goto Dun Morogh,46.97,51.99,10,0
-    .goto Dun Morogh,47.50,52.08,12 >>Go inside
+    .goto Dun Morogh,47.50,52.08,12 >>进去
 step
     #sticky
     #label Tannok
     .goto Dun Morogh,47.217,52.195,0,0
-    >>Talk to |cRXP_FRIENDLY_Tannok|r
-    .turnin 2160,2 >> Turn in Supplies to Tannok
+    >>对话: |cRXP_FRIENDLY_塔诺克·霜锤|r
+    .turnin 2160,2 >>交任务: |cRXP_FRIENDLY_塔诺克的补给品|r
     .target Tannok Frosthammer
 step
     .goto Dun Morogh,47.50,52.08
     >>Talk to |cRXP_FRIENDLY_Magis|r upstairs
-    .trainer >> Train your class spells (Fireball R2, Fire Blast)
+    .trainer >>训练你的职业法术（火球 R2、火焰冲击）
     .target Magis Sparkmantle
     .isQuestAvailable 312
 step
     #completewith Golorn
     .goto Dun Morogh,47.38,52.52
     >>Talk to |cRXP_FRIENDLY_Belm|r
-    .home >> Set your Hearthstone to Thunderbrew Distillery
+    .home >>将你的炉石设置为雷酒酿酒厂
     .target Innkeeper Belm
     .isQuestAvailable 312
 step
     #requires Tannok
     .goto Dun Morogh,47.38,52.52
     >>Talk to |cRXP_FRIENDLY_Belm|r
-    >>|cRXP_BUY_Buy a|r |T132800:0|t[Rhapsody Malt] |cRXP_BUY_from him|r
+    >>|cRXP_BUY_从他那里购买 a|r |T132800:0|t[Rhapsody Malt] |cRXP_BUY_|r
     .complete 384,2 --Collect Rhapsody Malt (x1)
     .target Innkeeper Belm
     .itemcount 2886,6
@@ -2038,14 +2007,14 @@ step
     #requires Tannok
     .goto Dun Morogh,46.83,52.36
     >>Talk to |cRXP_FRIENDLY_Ragnar|r
-    .turnin 384 >> Turn in Beer Basted Boar Ribs
+    .turnin 384 >>交任务: |cRXP_FRIENDLY_啤酒烤猪排|r
     .target Ragnar Thunderbrew
     .isQuestComplete 384
 step
     #requires Tannok
     .goto Dun Morogh,47.38,52.52
     >>Talk to |cRXP_FRIENDLY_Belm|r
-    >>|cRXP_BUY_Buy 20|r |T132815:0|t[Ice Cold Milk] |cRXP_BUY_from him|r
+    >>|cRXP_BUY_从他那里购买 20|r |T132815:0|t[冰镇牛奶] |cRXP_BUY_|r
     .collect 1179,20,312,1 --Ice Cold Milk (20)
     .target Innkeeper Belm
     .money <0.0582
@@ -2053,7 +2022,7 @@ step
     #requires Tannok
     .goto Dun Morogh,47.38,52.52
     >>Talk to |cRXP_FRIENDLY_Belm|r
-    >>|cRXP_BUY_Buy 15|r |T132815:0|t[Ice Cold Milk] |cRXP_BUY_from him|r
+    >>|cRXP_BUY_从他那里购买 15|r |T132815:0|t[冰镇牛奶] |cRXP_BUY_|r
     .collect 1179,15,312,1 --Ice Cold Milk (15)
     .target Innkeeper Belm
     .money <0.0457
@@ -2061,7 +2030,7 @@ step
     #requires Tannok
     .goto Dun Morogh,47.38,52.52
     >>Talk to |cRXP_FRIENDLY_Belm|r
-    >>|cRXP_BUY_Buy 10|r |T132815:0|t[Ice Cold Milk] |cRXP_BUY_from him|r
+    >>|cRXP_BUY_从他那里购买 10|r |T132815:0|t[冰镇牛奶] |cRXP_BUY_|r
     .collect 1179,10,312,1 --Ice Cold Milk (10)
     .target Innkeeper Belm
     .money <0.0332
@@ -2070,7 +2039,7 @@ step
     #requires Tannok
     .goto Dun Morogh,47.38,52.52
     >>Talk to |cRXP_FRIENDLY_Belm|r
-    >>|cRXP_BUY_Buy 5|r |T132815:0|t[Ice Cold Milk] |cRXP_BUY_from him|r
+    >>|cRXP_BUY_从他那里购买 5|r |T132815:0|t[冰镇牛奶] |cRXP_BUY_|r
     .collect 1179,5,312,1 --Ice Cold Milk (5)
     .target Innkeeper Belm
     .money <0.0207
@@ -2078,7 +2047,7 @@ step
     #requires Tannok
     .goto Dun Morogh,47.38,52.52
     >>Talk to |cRXP_FRIENDLY_Belm|r
-    >>|cRXP_BUY_Buy 20|r |T132794:0|t[Refreshing Spring Water] |cRXP_BUY_from him|r
+    >>|cRXP_BUY_从他那里购买 20|r |T132794:0|t[清凉泉水] |cRXP_BUY_|r
     .collect 159,20,312,1 --Refreshing Spring Water (20)
     .itemcount 1179,<1
     .target Innkeeper Belm
@@ -2087,7 +2056,7 @@ step
     #requires Tannok
     .goto Dun Morogh,47.38,52.52
     >>Talk to |cRXP_FRIENDLY_Belm|r
-    >>|cRXP_BUY_Buy 15|r |T132794:0|t[Refreshing Spring Water] |cRXP_BUY_from him|r
+    >>|cRXP_BUY_从他那里购买 15|r |T132794:0|t[清凉泉水] |cRXP_BUY_|r
     .collect 159,15,312,1 --Refreshing Spring Water (15)
     .itemcount 1179,<1
     .target Innkeeper Belm
@@ -2096,7 +2065,7 @@ step
     #requires Tannok
     .goto Dun Morogh,47.38,52.52
     >>Talk to |cRXP_FRIENDLY_Belm|r
-    >>|cRXP_BUY_Buy 10|r |T132794:0|t[Refreshing Spring Water] |cRXP_BUY_from him|r
+    >>|cRXP_BUY_从他那里购买 10|r |T132794:0|t[清凉泉水] |cRXP_BUY_|r
     .collect 159,10,312,1 --Refreshing Spring Water (10)
     .itemcount 1179,<1
     .target Innkeeper Belm
@@ -2105,33 +2074,33 @@ step
     #requires Tannok
     .goto Dun Morogh,47.38,52.52
     >>Talk to |cRXP_FRIENDLY_Belm|r
-    >>|cRXP_BUY_Buy 5|r |T132794:0|t[Refreshing Spring Water] |cRXP_BUY_from him|r
+    >>|cRXP_BUY_从他那里购买 5|r |T132794:0|t[清凉泉水] |cRXP_BUY_|r
     .collect 159,5,312,1 --Refreshing Spring Water (5)
     .itemcount 1179,<1
     .target Innkeeper Belm
     .money <0.0107
-step << skip
+step
     #completewith SenirO
     .goto Dun Morogh,47.46,52.60,-1
-    .goto Dun Morogh,47.13,54.91,35 >>|cRXP_WARN_Jump up on top of the barrels on the wall behind |cRXP_FRIENDLY_Belm|r. Logout Skip to Kharanos|r
+    .goto Dun Morogh,47.13,54.91,35 >>|cRXP_WARN_跳到 |cRXP_FRIENDLY_Belm|r 后面墙上的桶顶上。退出 跳到 Kharanos|r
 step
     #sticky
     #label Golorn
     .goto Dun Morogh,46.77,53.72,-1
-    >>Talk to |cRXP_FRIENDLY_Golorn|r
-    >>|cRXP_BUY_Buy a|r |T135637:0|t[Skinning Knife] |cRXP_BUY_from him|r
+    >>对话: |cRXP_FRIENDLY_戈隆·霜须|r
+    >>|cRXP_BUY_从他那里购买一把|r |T135637:0|t[剥皮刀] |cRXP_BUY_|r
     .collect 7005,1,312,1 --Skinning Knife (1)
     .target Golorn Frostbeard
 step
     #label SenirO
     .goto Dun Morogh,46.726,53.826,-1
-    >>Talk to |cRXP_FRIENDLY_Senir|r
-    .turnin 420 >> Turn in Senir's Observations
+    >>对话: |cRXP_FRIENDLY_森内尔·白须|r
+    .turnin 420 >>交任务: |cRXP_FRIENDLY_森内尔的观察站|r
     .target Senir Whitebeard
 step
     #completewith next
     #requires Golorn
-    +Equip the |T135637:0|t[Skinning Knife]
+    +装备|T135637:0|t[剥皮刀]
     .use 7005
     .itemcount 7005,1
     .itemStat 16,QUALITY,<7
@@ -2148,50 +2117,50 @@ step
 	.goto Dun Morogh,42.46,51.96,10,0
 	.goto Dun Morogh,42.13,52.68,10,0
 	.goto Dun Morogh,42.57,54.80,10,0
-    >>Kill |cRXP_ENEMY_Young Wendigos|r and |cRXP_ENEMY_Wendigos|r. Loot them for their |cRXP_LOOT_Wendigo Manes|r
-    >>|cRXP_WARN_Be careful as they cast|r |T135848:0|t[Frost Breath] |cRXP_WARN_(Melee Cast: Deals 6-10 Frost damage) and have increased|r |T135849:0|t[Frost Resistance]
+    >>杀死 |cRXP_ENEMY_Young Wendigos|r 和 |cRXP_ENEMY_Wendigos|r。掠夺他们的 |cRXP_LOOT_Wendigo Manes|r
+    >>|cRXP_WARN_施放时请小心|r |T135848:0|t[冰霜吐息] |cRXP_WARN_（近战施法：造成 6-10 点冰霜伤害）并且增加了|r |T135849:0|t[冰霜抗性]
     .complete 313,1 --Collect Wendigo Mane (x8)
     .mob Young Wendigo
     .mob Wendigo
 step
     .goto Dun Morogh,44.13,56.95
-    >>Open the |cRXP_PICK_Ammo Crate|r on the ground. Loot it for |cRXP_LOOT_Rumbleshot's Ammo|r
-    >>|cRXP_WARN_This has a 5 second cast time|r
+    >>打开地面上的 |cRXP_PICK_Ammo Crate|r。从中获取 |cRXP_LOOT_Rumbleshot's Ammo|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
     .complete 5541,1 --Collect Rumbleshot's Ammo (x1)
 step
     #completewith Ammo
     .goto Dun Morogh,40.60,62.24,45,0
-    >>Kill |cRXP_ENEMY_Crag Boars|r and |cRXP_ENEMY_Juvenile Snow Leopards|r en route
-    >>Loot the |cRXP_ENEMY_Crag Boars|r for their |cRXP_LOOT_Crag Boar Ribs|r
-    >>|cRXP_WARN_Be careful as |cRXP_ENEMY_Crag Boars|r cast|r |T132337:0|t[Charge] |cRXP_WARN_(Self Instant: Increases movespeed for 3 seconds, dealing 25-70 melee damage on hit. Only castable at range)|r
+    >>途中杀死 |cRXP_ENEMY_Crag Boars|r 和 |cRXP_ENEMY_Juvenile 雪豹s|r
+    >>掠夺 |cRXP_ENEMY_Crag Boars|r 以获取其 |cRXP_LOOT_Crag Boar Ribs|r
+    >>|cRXP_WARN_小心 |cRXP_ENEMY_Crag Boars|r 施放|r |T132337:0|t[充电] |cRXP_WARN_(自身瞬发：增加移动速度 3 秒，击中时造成 25-70 点近战伤害。仅可远距离施放)|r
     .complete 384,1 --Crag Boar Rib (6)
     .disablecheckbox
-    .goto Dun Morogh,40.682,65.130,20 >>Travel toward |cRXP_FRIENDLY_Hegnar|r
+    .goto Dun Morogh,40.682,65.130,20 >>前往 |cRXP_FRIENDLY_Hegnar|r
     .mob Crag Boar
-    .mob Juvenile Snow Leopard
+    .mob Juvenile 雪豹
     .xp >7-1000,1
     .isQuestAvailable 384
 step
     #completewith Ammo
     .goto Dun Morogh,40.60,62.24,45,0
-    >>Kill |cRXP_ENEMY_Crag Boars|r and |cRXP_ENEMY_Juvenile Snow Leopards|r en route
-    >>|cRXP_WARN_Be careful as |cRXP_ENEMY_Crag Boars|r cast|r |T132337:0|t[Charge] |cRXP_WARN_(Self Instant: Increases movespeed for 3 seconds, dealing 25-70 melee damage on hit. Only castable at range)|r
-    .goto Dun Morogh,40.682,65.130,20 >>Travel toward |cRXP_FRIENDLY_Hegnar|r
+    >>途中杀死 |cRXP_ENEMY_Crag Boars|r 和 |cRXP_ENEMY_Juvenile 雪豹s|r
+    >>|cRXP_WARN_小心 |cRXP_ENEMY_Crag Boars|r 施放|r |T132337:0|t[充电] |cRXP_WARN_(自身瞬发：增加移动速度 3 秒，击中时造成 25-70 点近战伤害。仅可远距离施放)|r
+    .goto Dun Morogh,40.682,65.130,20 >>前往 |cRXP_FRIENDLY_Hegnar|r
     .mob Crag Boar
-    .mob Juvenile Snow Leopard
+    .mob Juvenile 雪豹
     .xp >7-1000,1
     .isQuestTurnedIn 384
 step
     #completewith next
     .goto Dun Morogh,40.60,62.24,45,0
-    .goto Dun Morogh,40.682,65.130,20 >>Travel toward |cRXP_FRIENDLY_Hegnar|r
+    .goto Dun Morogh,40.682,65.130,20 >>前往 |cRXP_FRIENDLY_Hegnar|r
     .xp <7-1000,1
 step
     #label Ammo
     .goto Dun Morogh,40.682,65.130
     >>Talk to |cRXP_FRIENDLY_Hegnar|r
-    .turnin 5541 >> Turn in Ammo for Rumbleshot
-    .vendor >> Vendor Trash
+    .turnin 5541 >>交任务: |cRXP_FRIENDLY_海格纳的弹药|r
+    .vendor >>供应商垃圾
     .target Hegnar Rumbleshot
     .isQuestAvailable 312
 step
@@ -2200,15 +2169,15 @@ step
     .goto Dun Morogh,35.11,56.78,45,0
     .goto Dun Morogh,35.62,54.73,50,0
     .goto Dun Morogh,36.38,52.49,40,0
-    >>|cRXP_WARN_Deal 51%+ damage to nearby |cRXP_ENEMY_Juvenile Snow Leopards|r and |cRXP_ENEMY_Young Black Bears|r, then pull them to the |cRXP_FRIENDLY_Ironforge Mountaineer|r to kill them more efficiently|r
-    >>Kill |cRXP_ENEMY_Large Crag Boars|r and |cRXP_ENEMY_Crag Boars|r en route. Loot them for their |cRXP_LOOT_Crag Boar Ribs|r
-    >>|cRXP_WARN_Be careful as |cRXP_ENEMY_Large Crag Boars|r and |cRXP_ENEMY_Crag Boars|r cast|r |T132337:0|t[Charge] |cRXP_WARN_(Self Instant: Increases movespeed for 3 seconds, dealing 25-70 melee damage on hit. Only castable at range)|r
+    >>|cRXP_WARN_对附近的 |cRXP_ENEMY_Juvenile 雪豹s|r 和 |cRXP_ENEMY_年轻的黑熊s|r 造成 51%+ 的伤害，然后将它们拉到 |cRXP_FRIENDLY_Ironforge Mountaineer|r 处以更有效地杀死它们|r
+    >>途中杀死 |cRXP_ENEMY_Large Crag Boars|r 和 |cRXP_ENEMY_Crag Boars|r。掠夺他们的 |cRXP_LOOT_Crag Boar Ribs|r
+    >>|cRXP_WARN_当 |cRXP_ENEMY_Large Crag Boars|r 和 |cRXP_ENEMY_Crag Boars|r 施放时要小心|r |T132337:0|t[充电] |cRXP_WARN_(Self Instant: 增加移动速度 3 秒，击中时造成 25-70 点近战伤害。仅可远距离施放)|r
     .complete 384,1 --Crag Boar Rib (6)
     .disablecheckbox
-    .xp 7 >> Grind to Level 7 en route to |cRXP_FRIENDLY_Tundra|r before talking to him
+    .xp 7 >>在前往 |cRXP_FRIENDLY_Tundra|r 的途中磨练至 7 级，然后与他交谈
     .target Ironforge Mountaineer
     .mob Crag Boar
-    .mob Juvenile Snow Leopard
+    .mob Juvenile 雪豹
     .isQuestAvailable 384
 step
     #completewith next
@@ -2216,42 +2185,42 @@ step
     .goto Dun Morogh,35.11,56.78,45,0
     .goto Dun Morogh,35.62,54.73,50,0
     .goto Dun Morogh,36.38,52.49,40,0
-    >>|cRXP_WARN_Deal 51%+ damage to nearby |cRXP_ENEMY_Juvenile Snow Leopards|r and |cRXP_ENEMY_Young Black Bears|r, then pull them to the |cRXP_FRIENDLY_Ironforge Mountaineer|r to kill them more efficiently|r
-    >>Kill |cRXP_ENEMY_Large Crag Boars|r and |cRXP_ENEMY_Crag Boars|r en route
-    >>|cRXP_WARN_Be careful as |cRXP_ENEMY_Large Crag Boars|r and |cRXP_ENEMY_Crag Boars|r cast|r |T132337:0|t[Charge] |cRXP_WARN_(Self Instant: Increases movespeed for 3 seconds, dealing 25-70 melee damage on hit. Only castable at range)|r
-    .xp 7 >> Grind to Level 7 en route to |cRXP_FRIENDLY_Tundra|r before talking to him
+    >>|cRXP_WARN_对附近的 |cRXP_ENEMY_Juvenile 雪豹s|r 和 |cRXP_ENEMY_年轻的黑熊s|r 造成 51%+ 的伤害，然后将它们拉到 |cRXP_FRIENDLY_Ironforge Mountaineer|r 处以更有效地杀死它们|r
+    >>途中杀死 |cRXP_ENEMY_Large Crag Boars|r 和 |cRXP_ENEMY_Crag Boars|r
+    >>|cRXP_WARN_当 |cRXP_ENEMY_Large Crag Boars|r 和 |cRXP_ENEMY_Crag Boars|r 施放时要小心|r |T132337:0|t[充电] |cRXP_WARN_(Self Instant: 增加移动速度 3 秒，击中时造成 25-70 点近战伤害。仅可远距离施放)|r
+    .xp 7 >>在前往 |cRXP_FRIENDLY_Tundra|r 的途中磨练至 7 级，然后与他交谈
     .target Ironforge Mountaineer
     .mob Crag Boar
-    .mob Juvenile Snow Leopard
+    .mob Juvenile 雪豹
     .isQuestTurnedIn 384
 step
     #label TundraOne
     .goto Dun Morogh,34.57,51.66
     >>Talk to |cRXP_FRIENDLY_Tundra|r
-    .accept 312 >> Accept Tundra MacGrann's Stolen Stash
+    .accept 312 >>接任务: |cRXP_LOOT_马克格拉恩的干肉|r
     .target Tundra MacGrann
 step
     #completewith next
-    +|cRXP_WARN_Kite an |cRXP_ENEMY_Ice Claw Bear|r toward|r |cRXP_FRIENDLY_Rejold|r
-    >>|cRXP_WARN_Try to accept the quest before the |cRXP_ENEMY_Ice Claw Bear|r dies to get quest credit|r
-    >>|cRXP_WARN_Be careful as they cast|r |T135853:0|t[Ice Claw] |cRXP_WARN_(Melee Instant: Deals an additional 4 melee damage)|r
-    >>|cRXP_WARN_Make sure to deal 51%+ damage to get credit|r
-    .mob Ice Claw Bear
+    +|cRXP_WARN_放风筝一只 |cRXP_ENEMY_冰爪熊|r 朝向|r |cRXP_FRIENDLY_Rejold|r
+    >>|cRXP_WARN_尝试在 |cRXP_ENEMY_冰爪熊|r 死亡之前接受任务以获得任务奖励|r
+    >>|cRXP_WARN_小心他们施放|r |T135853:0|t[冰爪] |cRXP_WARN_(近战瞬发：造成额外的 4 点近战伤害)|r
+    >>|cRXP_WARN_确保造成 51% 以上的伤害才能获得积分|r
+    .mob 冰爪熊
 step
-    >>Talk to |cRXP_FRIENDLY_Rejold|r and |cRXP_FRIENDLY_Marleth|r
-    .turnin 318 >> Turn in Evershine
-    .accept 319 >> Accept A Favor for Evershine
-    .accept 315 >> Accept The Perfect Stout
-    .target +Rejold Barleybrew
+    >>对话: |cRXP_FRIENDLY_雷杰德·麦酒|r, |cRXP_FRIENDLY_马莱斯·麦酒|r
+    .turnin 318 >>交任务: |cRXP_FRIENDLY_艾沃沙酒|r
+    .accept 319 >>接任务: |cRXP_LOOT_艾沃沙酒|r
+    .accept 315 >>接任务: |cRXP_LOOT_完美烈酒|r
     .goto Dun Morogh,30.19,45.73
-    .accept 310 >> Accept Bitter Rivals
+    .accept 310 >>接任务: |cRXP_LOOT_针锋相对|r
     .goto Dun Morogh,30.186,45.531
-    .target +Marleth Barleybrew
+    .target Rejold 大麦啤酒
+    .target 马莱斯大麦啤酒
 step
     .goto Dun Morogh,30.45,46.01,0,0
     >>Talk to |cRXP_FRIENDLY_Keeg|r
-    >>|cRXP_BUY_Buy up to 10 more|r |T132815:0|t[Ice Cold Milk] |cRXP_BUY_from him|r
-    .vendor >> Vendor Trash
+    >>|cRXP_BUY_再购买最多 10 杯|r |T132815:0|t[冰镇牛奶] |cRXP_BUY_来自他|r
+    .vendor >>供应商垃圾
     .collect 1179,10,312,1 --Ice Cold Milk (10)
     .target Keeg Gibn
     .itemcount 1179,10
@@ -2260,8 +2229,8 @@ step
 step
     .goto Dun Morogh,30.45,46.01,0,0
     >>Talk to |cRXP_FRIENDLY_Keeg|r
-    >>|cRXP_BUY_Buy up to 5 more|r |T132815:0|t[Ice Cold Milk] |cRXP_BUY_from him|r
-    .vendor >> Vendor Trash
+    >>|cRXP_BUY_再购买最多 5 杯|r |T132815:0|t[冰镇牛奶] |cRXP_BUY_来自他|r
+    .vendor >>供应商垃圾
     .collect 1179,5,312,1 --Ice Cold Milk (5)
     .target Keeg Gibn
     .itemcount 1179,5
@@ -2271,54 +2240,53 @@ step
     #completewith CaveLS
     .goto Dun Morogh,33.51,47.50,50,0
     .goto Dun Morogh,36.85,45.48,50,0
-    >>Kill |cRXP_ENEMY_Ice Claw Bears|r, |cRXP_ENEMY_Elder Crag Boars|r, and |cRXP_ENEMY_Snow Leopards|r en route to the Cave. Loot the |cRXP_ENEMY_Elder Crag Boars|r for |cRXP_LOOT_Crag Boar Ribs|r
-    >>|cRXP_WARN_Focus on the|r |cRXP_ENEMY_Snow Leopards|r
-    >>|cRXP_WARN_Be careful as |cRXP_ENEMY_Ice Claw Bears|r cast|r |T135853:0|t[Ice Claw] |cRXP_WARN_(Melee Instant: Deals an additional 4 melee damage), and |cRXP_ENEMY_Elder Crag Boars|r cast|r |T132337:0|t[Charge] |cRXP_WARN_(Self Instant: Increases movespeed for 3 seconds, dealing 25-70 melee damage on hit. Only castable at range)|r
-    .complete 319,1 --Kill Ice Claw Bear (x6)
-    .mob +Ice Claw Bear
-    .complete 319,2 --Kill Elder Crag Boar (x8)
-    .mob +Elder Crag Boar
-    .complete 319,3 --Kill Snow Leopard (x8)
-    .mob +Snow Leopard
+    >>在前往洞穴的路上杀死 |cRXP_ENEMY_冰爪熊s|r、|cRXP_ENEMY_老峭壁野猪s|r 和 |cRXP_ENEMY_雪豹s|r。从 |cRXP_ENEMY_老峭壁野猪s|r 中拾取 |cRXP_LOOT_Crag Boar Ribs|r
+    >>|cRXP_WARN_重点关注|r |cRXP_ENEMY_雪豹s|r
+    >>|cRXP_WARN_小心 |cRXP_ENEMY_冰爪熊s|r cast|r |T135853:0|t[Ice Claw] |cRXP_WARN_(近战瞬发：造成额外 4 点近战伤害) 和 |cRXP_ENEMY_老峭壁野猪s|r cast|r |T132337:0|t[充电] |cRXP_WARN_(自身瞬发：增加移动速度 3 秒，击中时造成 25-70 点近战伤害。仅可远距离施放)|r
+    .complete 319,1 --Kill 冰爪熊 (x6)
+    .complete 319,2 --Kill 老峭壁野猪 (x8)
+    .complete 319,3 --Kill 雪豹 (x8)
     .complete 384,1 --Crag Boar Rib (6)
-    .mob +Elder Crag Boar
+    .mob 冰爪熊
+    .mob 老峭壁野猪
+    .mob 雪豹
     .isQuestAvailable 384
 step
     #completewith CaveLS
     .goto Dun Morogh,33.51,47.50,50,0
     .goto Dun Morogh,36.85,45.48,50,0
-    >>Kill |cRXP_ENEMY_Ice Claw Bears|r, |cRXP_ENEMY_Elder Crag Boars|r, and |cRXP_ENEMY_Snow Leopards|r en route to the Cave
-    >>|cRXP_WARN_Focus on the|r |cRXP_ENEMY_Snow Leopards|r
-    >>|cRXP_WARN_Be careful as |cRXP_ENEMY_Ice Claw Bears|r cast|r |T135853:0|t[Ice Claw] |cRXP_WARN_(Melee Instant: Deals an additional 4 melee damage), and |cRXP_ENEMY_Elder Crag Boars|r cast|r |T132337:0|t[Charge] |cRXP_WARN_(Self Instant: Increases movespeed for 3 seconds, dealing 25-70 melee damage on hit. Only castable at range)|r
-    .complete 319,1 --Kill Ice Claw Bear (x6)
-    .mob +Ice Claw Bear
-    .complete 319,2 --Kill Elder Crag Boar (x8)
-    .mob +Elder Crag Boar
-    .complete 319,3 --Kill Snow Leopard (x8)
-    .mob +Snow Leopard
+    >>在前往洞穴的途中杀死 |cRXP_ENEMY_冰爪熊s|r、|cRXP_ENEMY_老峭壁野猪s|r 和 |cRXP_ENEMY_雪豹s|r
+    >>|cRXP_WARN_重点关注|r |cRXP_ENEMY_雪豹s|r
+    >>|cRXP_WARN_小心 |cRXP_ENEMY_冰爪熊s|r cast|r |T135853:0|t[Ice Claw] |cRXP_WARN_(近战瞬发：造成额外 4 点近战伤害) 和 |cRXP_ENEMY_老峭壁野猪s|r cast|r |T132337:0|t[充电] |cRXP_WARN_(自身瞬发：增加移动速度 3 秒，击中时造成 25-70 点近战伤害。仅可远距离施放)|r
+    .complete 319,1 --Kill 冰爪熊 (x6)
+    .complete 319,2 --Kill 老峭壁野猪 (x8)
+    .complete 319,3 --Kill 雪豹 (x8)
+    .mob 冰爪熊
+    .mob 老峭壁野猪
+    .mob 雪豹
     .isQuestTurnedIn 384
-step << skip
+step
     #completewith next
-    .goto Dun Morogh,38.00,42.77,30 >> Go inside the Cave
+    .goto Dun Morogh,38.00,42.77,30 >>进入洞穴
     .isOnQuest 319
-step << skip
+step
     #label CaveLS
     .goto Dun Morogh,38.32,43.36
-    .goto Dun Morogh,47.13,54.91,30 >> |cRXP_WARN_Perform a Logout Skip inside the cave to teleport back to Kharanos|r
+    .goto Dun Morogh,47.13,54.91,30 >>|cRXP_WARN_在洞穴内执行注销跳过以传送回卡拉诺斯|r
     .isOnQuest 319
 step
     .goto Dun Morogh,46.726,53.826
-    >>Talk to |cRXP_FRIENDLY_Senir|r
-    .accept 287 >> Accept Frostmane Hold
+    >>对话: |cRXP_FRIENDLY_森内尔·白须|r
+    .accept 287 >>接任务: |cRXP_LOOT_霜鬃巨魔要塞|r
     .target Senir Whitebeard
 step
     #completewith Rhapsody1
     .goto Dun Morogh,46.97,51.99,10,0
-    .goto Dun Morogh,47.19,52.02,12 >>Go inside
+    .goto Dun Morogh,47.19,52.02,12 >>进去
 step
     .goto Dun Morogh,47.38,52.52
     >>Talk to |cRXP_FRIENDLY_Belm|r
-    >>|cRXP_BUY_Buy|r |T132800:0|t[Rhapsody Malt] |cRXP_BUY_and|r |T132800:0|t[Thunder Ale] |cRXP_BUY_from him|r
+    >>|cRXP_BUY_从他那里购买|r |T132800:0|t[Rhapsody Malt] |cRXP_BUY_并|r |T132800:0|t[Thunder Ale] |cRXP_BUY_|r
     .complete 384,2 --Collect Rhapsody Malt (x1)
     .collect 2686,1,311,1 --Collect Thunder Ale (x1)
     .target Innkeeper Belm
@@ -2328,70 +2296,70 @@ step
     #label Rhapsody1
     .goto Dun Morogh,47.38,52.52
     >>Talk to |cRXP_FRIENDLY_Belm|r
-    >>|cRXP_BUY_Buy a|r |T132800:0|t[Thunder Ale] |cRXP_BUY_from him|r
+    >>|cRXP_BUY_从他那里购买 a|r |T132800:0|t[Thunder Ale] |cRXP_BUY_|r
     .collect 2686,1,311,1 --Collect Thunder Ale (x1)
     .target Innkeeper Belm
     .itemcount 2886,<6
 step
     #completewith next
     .goto Dun Morogh,47.50,52.40,8,0
-    .goto Dun Morogh,47.72,52.43,8 >>Go Downstairs
+    .goto Dun Morogh,47.72,52.43,8 >>下楼
 step
     #completewith next
     .goto Dun Morogh,47.65,52.66
-    >>Talk to |cRXP_FRIENDLY_Jarven|r downstairs
-    .turnin 308 >> Turn in Distracting Jarven
+    >>对话: |cRXP_FRIENDLY_加文·雷酒|r, 他在楼下
+    .turnin 308 >>交任务: |cRXP_FRIENDLY_加文的爱好|r
     .target Jarven Thunderbrew
 step
     .goto Dun Morogh,47.72,52.70
-    >>Keep mousing over the |cRXP_PICK_Guarded Thunder Ale Barrel|r downstairs. Wait for the |cRXP_PICK_Guarded Thunder Ale Barrel|r to become Unguarded
-    >>Click the |cRXP_PICK_Unguarded Thunder Ale Barrel|r
-    .turnin 310 >> Turn in Bitter Rivals
-    .accept 311 >> Accept Return to Marleth
+    >>继续将鼠标悬停在楼下的 |cRXP_PICK_Guarded Thunder Ale Barrel|r 上。等待 |cRXP_PICK_Guarded Thunder Ale Barrel|r 变为无人看守
+    >>点击 |cRXP_PICK_Unguarded Thunder Ale Barrel|r
+    .turnin 310 >>交任务: |cRXP_FRIENDLY_针锋相对|r
+    .accept 311 >>接任务: |cRXP_LOOT_向马莱斯回报|r
 step
     .goto Dun Morogh,47.38,52.52
     >>Talk to |cRXP_FRIENDLY_Belm|r
-    >>|cRXP_BUY_Buy up to 10 more|r |T132815:0|t[Ice Cold Milk] |cRXP_BUY_from him|r
+    >>|cRXP_BUY_再购买最多 10 杯|r |T132815:0|t[冰镇牛奶] |cRXP_BUY_来自他|r
     .collect 1179,10,312,1 --Ice Cold Milk (10)
     .target Innkeeper Belm
     .money <0.0250
 step
     .goto Dun Morogh,47.38,52.52
     >>Talk to |cRXP_FRIENDLY_Belm|r
-    >>|cRXP_BUY_Buy up to 5 more|r |T132815:0|t[Ice Cold Milk] |cRXP_BUY_from him|r
+    >>|cRXP_BUY_再购买最多 5 杯|r |T132815:0|t[冰镇牛奶] |cRXP_BUY_来自他|r
     .collect 1179,5,312,1 --Ice Cold Milk (5)
     .target Innkeeper Belm
     .money <0.0125
 step
     .goto Dun Morogh,47.19,52.02,12,0
     .goto Dun Morogh,46.97,51.99,10,0
-    .goto Dun Morogh,46.83,52.36,20 >>Exit the Inn
+    .goto Dun Morogh,46.83,52.36,20 >>退出旅馆
     .isOnQuest 287
 step
     .goto Dun Morogh,46.83,52.36
     >>Talk to |cRXP_FRIENDLY_Ragnar|r
-    .turnin 384 >> Turn in Beer Basted Boar Ribs
+    .turnin 384 >>交任务: |cRXP_FRIENDLY_啤酒烤猪排|r
     .target Ragnar Thunderbrew
     .isQuestComplete 384
 step
     #completewith next
     .goto Dun Morogh,46.65,47.42,40,0
-    +|cRXP_WARN_Deal 51%+ damage to nearby |cRXP_ENEMY_Snow Tracker Wolves|r, |cRXP_ENEMY_Winter Wolves|r, and |cRXP_ENEMY_Young Black Bears|r. Pull them to the |cRXP_FRIENDLY_Ironforge Mountaineer|r to kill them more efficiently|r
-    >>|cRXP_WARN_Be careful as |cRXP_ENEMY_Snow Tracker Wolves|r have|r |T132150:0|t[Increased Aggro Range] |cRXP_WARN_(Aggro range is increased by about 8 yards)|r
+    +|cRXP_WARN_对附近的 |cRXP_ENEMY_雪地追踪狼|r、|cRXP_ENEMY_冬狼|r 和 |cRXP_ENEMY_幼年黑熊|r 造成 51% 以上的伤害。将它们拉到 |cRXP_FRIENDLY_铁炉堡登山者|r 处，以更有效地杀死它们|r
+    >>|cRXP_WARN_小心 |cRXP_ENEMY_Snow Tracker Wolves|r 有|r |T132150:0|t[增加了攻击范围] |cRXP_WARN_(攻击范围增加了约 8 码)|r
     .mob Snow Tracker Wolf
     .mob Winter Wolf
-    .mob Young Black Bear
+    .mob 年轻的黑熊
     .target Ironforge Mountaineer
 step
     .goto Dun Morogh,42.91,45.17,25,0
-    .goto Dun Morogh,42.32,45.27,45 >> Run up the ramp toward the |cRXP_ENEMY_Frostmane Seers|r
+    .goto Dun Morogh,42.32,45.27,45 >>跑上斜坡，朝着 |cRXP_ENEMY_霜鬃先知s|r
     .isOnQuest 315
 step
     #requires SeerRamp
     #completewith next
-    >>Kill the |cRXP_ENEMY_Frostmane Headhunter|r patrol
-    >>|cRXP_WARN_Be careful, as he patrols between all the stationary|r |cRXP_ENEMY_Frostmane Seers|r
-    >>|cRXP_WARN_Be careful as they cast|r |T132222:0|t[Shoot] |cRXP_WARN_(Ranged Cast: Deals 8-15 damage)|r
+    >>杀死 |cRXP_ENEMY_Frostmane Headhunter|r 巡逻队
+    >>|cRXP_WARN_要小心，因为他会在所有静止的|r |cRXP_ENEMY_霜鬃先知s 之间巡逻|r
+    >>|cRXP_WARN_小心他们施法|r |T132222:0|t[射击] |cRXP_WARN_(远程施法：造成 8-15 点伤害)|r
     .complete 287,1 --Kill Frostmane Headhunters (5)
     .mob Frostmane Headhunter
 step
@@ -2407,45 +2375,45 @@ step
     .goto Dun Morogh,39.67,39.87,20,0
     .goto Dun Morogh,39.94,37.70,20,0
     .goto Dun Morogh,41.84,35.63
-    >>Kill |cRXP_ENEMY_Frostmane Seers|r. Loot them for their |cRXP_LOOT_Shimmerweed|r
-    >>Open the |cRXP_PICK_Shimmerweed Baskets|r on the ground. Loot them for their |cRXP_LOOT_Shimmerweed|r
-    >>|cRXP_WARN_This has a 5 second cast time|r
-    >>|cRXP_WARN_Be careful as they cast|r |T136048:0|t[Lightning Bolt] |cRXP_WARN_(Ranged Cast: Deals 15-30 Nature damage)|r
+    >>杀死 |cRXP_ENEMY_霜鬃先知s|r。掠夺他们的 |cRXP_LOOT_Shimmerweed|r
+    >>打开地面上的 |cRXP_PICK_Shimmerweed Baskets|r。拾取其中的 |cRXP_LOOT_Shimmerweed|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
+    >>|cRXP_WARN_施放时要小心|r |T136048:0|t[闪电] |cRXP_WARN_(远程施法：造成 15-30 自然伤害)|r
     .complete 315,1 --Collect Shimmerweed (x6)
-    .mob Frostmane Seer
+    .mob 霜鬃先知
 step
     #completewith IBCave
-    >>Kill |cRXP_ENEMY_Large Crag Boars|r and |cRXP_ENEMY_Elder Crag Boars|r. Loot them for their |cRXP_LOOT_Crag Boar Ribs|r
+    >>杀死 |cRXP_ENEMY_Large Crag Boars|r 和 |cRXP_ENEMY_老峭壁野猪s|r。掠夺他们的 |cRXP_LOOT_Crag Boar Ribs|r
     .complete 384,1 --Crag Boar Rib (6)
     .mob Large Crag Boar
-    .mob Elder Crag Boar
+    .mob 老峭壁野猪
 step
     #completewith next
     .goto Dun Morogh,40.45,47.23,40,0
     .goto Dun Morogh,37.72,51.88,40,0
-    >>Kill the two |cRXP_ENEMY_Elder Crag Boars|r en route to the cave (if they're up)
-    >>|cRXP_WARN_Be careful as they cast|r |T132337:0|t[Charge] |cRXP_WARN_(Self Instant: Increases movespeed for 3 seconds, dealing 25-85 melee damage on hit. Only castable at range)|r
-    .complete 319,2 --Kill Elder Crag Boar (x8)
-    .mob Elder Crag Boar
+    >>杀死前往洞穴途中的两只 |cRXP_ENEMY_老峭壁野猪s|r （如果它们在的话）
+    >>|cRXP_WARN_施放时要小心|r |T132337:0|t[充电] |cRXP_WARN_（自身瞬发：增加移动速度 3 秒，击中时造成 25-85 点近战伤害。仅可远距离施放）|r
+    .complete 319,2 --Kill 老峭壁野猪 (x8)
+    .mob 老峭壁野猪
 step
     #label IBCave
-    .goto Dun Morogh,37.85,53.71,50 >>Travel toward the Cave
+    .goto Dun Morogh,37.85,53.71,50 >>前往洞穴
     .isOnQuest 312
 step
     #completewith next
-    +|cRXP_WARN_After looting it, remember to jump-turn his attacks to avoid the Daze and to jump on the tree log to temporarily evade him|r
+    +|cRXP_WARN_抢劫后，记得跳跃转身以避开 Daze 的攻击，并跳到木头上暂时躲避他|r
 step
     .goto Dun Morogh,38.51,53.93
-    >>|cRXP_WARN_If |cRXP_ENEMY_Old Icebeard|r is in the cave, kite him up the side of the cave, then all the way above it. Wait for him to get close, then jump back down then go toward the back of the cave|r
-    >>Open |cRXP_PICK_MacGrann's Meat Locker|r on the ground. Loot it for |cRXP_LOOT_Macgrann's Dried Meats|r
-    >>|cRXP_WARN_This has a 5 second cast time|r
-    .link https://youtu.be/Zg4FNWw-P5k?t=3120 >>|cRXP_WARN_CLICK HERE If you're struggling|r
+    >>|cRXP_WARN_如果 |cRXP_ENEMY_Old Icebeard|r 在洞穴中，将他放风筝到洞穴的一侧，然后一直到洞穴上方。等他靠近，然后跳回洞穴，然后朝洞穴后面走去|r
+    >>打开地面上的 |cRXP_PICK_MacGrann 的肉柜|r。拾取 |cRXP_LOOT_Macgrann 的干肉|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
+    .link https://youtu.be/Zg4FNWw-P5k?t=3120 >>|cRXP_WARN_如果你遇到困难，请点击此处|r
     .complete 312,1 --Collect MacGrann's Dried Meats (x1)
     .mob Old Icebeard
 step
     .goto Dun Morogh,34.57,51.66
     >>Talk to |cRXP_FRIENDLY_Tundra|r
-    .turnin 312,1 >> Turn in Tundra MacGrann's Stolen Stash
+    .turnin 312,1 >>交任务: |cRXP_FRIENDLY_马克格拉恩的干肉|r
     .target Tundra MacGrann
 step
     .goto Dun Morogh,32.11,49.72,40,0
@@ -2460,18 +2428,17 @@ step
     .goto Dun Morogh,28.42,45.14,40,0
     .goto Dun Morogh,28.85,41.75,40,0
     .goto Dun Morogh,31.30,39.17
-    >>Kill |cRXP_ENEMY_Ice Claw Bears|r, |cRXP_ENEMY_Elder Crag Boars|r, and |cRXP_ENEMY_Snow Leopards|r. Loot the |cRXP_ENEMY_Elder Crag Boars|r for |cRXP_LOOT_Crag Boar Ribs|r
-    >>|cRXP_WARN_Remember to kite an |cRXP_ENEMY_Ice Claw Bear|r or |cRXP_ENEMY_Snow Leopards|r back to the questgiver if possible|r
-    >>|cRXP_WARN_Be careful as |cRXP_ENEMY_Ice Claw Bears|r cast|r |T135853:0|t[Ice Claw] |cRXP_WARN_(Melee Instant: Deals an additional 4 melee damage), and |cRXP_ENEMY_Elder Crag Boars|r cast|r |T132337:0|t[Charge] |cRXP_WARN_(Self Instant: Increases movespeed for 3 seconds, dealing 35-85 melee damage on hit. Only castable at range)|r
-    .complete 319,1 --Kill Ice Claw Bear (x6)
-    .mob +Ice Claw Bear
-    .complete 319,2 --Kill Elder Crag Boar (x8)
-    .mob +Elder Crag Boar
-    .complete 319,3 --Kill Snow Leopard (x8)
-    .mob +Snow Leopard
+    >>杀死 |cRXP_ENEMY_冰爪熊s|r、|cRXP_ENEMY_老峭壁野猪s|r 和 |cRXP_ENEMY_雪豹s|r。掠夺 |cRXP_ENEMY_老峭壁野猪s|r 以获得 |cRXP_LOOT_Crag Boar Ribs|r
+    >>|cRXP_WARN_如果可能的话，记得将 |cRXP_ENEMY_冰爪熊|r 或 |cRXP_ENEMY_雪豹s|r 放回给任务给予者|r
+    >>|cRXP_WARN_小心 |cRXP_ENEMY_冰爪熊s|r cast|r |T135853:0|t[Ice Claw] |cRXP_WARN_(近战瞬发：造成额外 4 点近战伤害) 和 |cRXP_ENEMY_老峭壁野猪s|r cast|r |T132337:0|t[充电] |cRXP_WARN_(自身瞬发：增加移动速度 3 秒，击中时造成 35-85 点近战伤害。仅可远距离施放)|r
+    .complete 319,1 --Kill 冰爪熊 (x6)
+    .complete 319,2 --Kill 老峭壁野猪 (x8)
+    .complete 319,3 --Kill 雪豹 (x8)
     .complete 384,1 --Crag Boar Rib (6)
     .disablecheckbox
-    .mob Elder Crag Boar
+    .mob 冰爪熊
+    .mob 老峭壁野猪
+    .mob 雪豹
     .isQuestAvailable 384
 step
     .goto Dun Morogh,32.11,49.72,40,0
@@ -2486,37 +2453,37 @@ step
     .goto Dun Morogh,28.42,45.14,40,0
     .goto Dun Morogh,28.85,41.75,40,0
     .goto Dun Morogh,31.30,39.17
-    >>Kill |cRXP_ENEMY_Ice Claw Bears|r, |cRXP_ENEMY_Elder Crag Boars|r, and |cRXP_ENEMY_Snow Leopards|r
-    >>|cRXP_WARN_Remember to kite an |cRXP_ENEMY_Ice Claw Bear|r or |cRXP_ENEMY_Snow Leopards|r back to the questgiver if possible|r
-    >>|cRXP_WARN_Be careful as |cRXP_ENEMY_Ice Claw Bears|r cast|r |T135853:0|t[Ice Claw] |cRXP_WARN_(Melee Instant: Deals an additional 4 melee damage), and |cRXP_ENEMY_Elder Crag Boars|r cast|r |T132337:0|t[Charge] |cRXP_WARN_(Self Instant: Increases movespeed for 3 seconds, dealing 35-85 melee damage on hit. Only castable at range)|r
-    .complete 319,1 --Kill Ice Claw Bear (x6)
-    .mob +Ice Claw Bear
-    .complete 319,2 --Kill Elder Crag Boar (x8)
-    .mob +Elder Crag Boar
-    .complete 319,3 --Kill Snow Leopard (x8)
-    .mob +Snow Leopard
+    >>杀死 |cRXP_ENEMY_冰爪熊s|r、|cRXP_ENEMY_老峭壁野猪s|r 和 |cRXP_ENEMY_雪豹s|r
+    >>|cRXP_WARN_如果可能的话，记得将 |cRXP_ENEMY_冰爪熊|r 或 |cRXP_ENEMY_雪豹s|r 放回给任务给予者|r
+    >>|cRXP_WARN_小心 |cRXP_ENEMY_冰爪熊s|r cast|r |T135853:0|t[Ice Claw] |cRXP_WARN_(近战瞬发：造成额外 4 点近战伤害) 和 |cRXP_ENEMY_老峭壁野猪s|r cast|r |T132337:0|t[充电] |cRXP_WARN_(自身瞬发：增加移动速度 3 秒，击中时造成 35-85 点近战伤害。仅可远距离施放)|r
+    .complete 319,1 --Kill 冰爪熊 (x6)
+    .complete 319,2 --Kill 老峭壁野猪 (x8)
+    .complete 319,3 --Kill 雪豹 (x8)
+    .mob 冰爪熊
+    .mob 老峭壁野猪
+    .mob 雪豹
     .isQuestTurnedIn 384
 step
-    >>Talk to |cRXP_FRIENDLY_Rejold|r and |cRXP_FRIENDLY_Marleth|r
-    .turnin 315,1 >> Turn in The Perfect Stout
-    .accept 413 >> Accept Shimmer Stout
-    .turnin 319 >> Turn in A Favor for Evershine
-    .accept 320 >> Accept Return to Bellowfiz
+    >>对话: |cRXP_FRIENDLY_雷杰德·麦酒|r, |cRXP_FRIENDLY_马莱斯·麦酒|r
+    .turnin 315,1 >>交任务: |cRXP_FRIENDLY_完美烈酒|r
+    .accept 413 >>接任务: |cRXP_LOOT_微光酒|r
+    .turnin 319 >>交任务: |cRXP_FRIENDLY_艾沃沙酒|r
+    .accept 320 >>接任务: |cRXP_LOOT_艾沃沙酒|r
     .goto Dun Morogh,30.189,45.725
-    .turnin 311 >> Turn in Return to Marleth
+    .turnin 311 >>交任务: |cRXP_FRIENDLY_向马莱斯回报|r
     .goto Dun Morogh,30.186,45.531
-    .target Rejold Barleybrew
+    .target Rejold 大麦啤酒
 step
     .goto Dun Morogh,30.45,46.01
     >>Talk to |cRXP_FRIENDLY_Keeg|r
-    >>|cRXP_BUY_Buy up to 10 more|r |T132815:0|t[Ice Cold Milk] |cRXP_BUY_from him|r
+    >>|cRXP_BUY_再购买最多 10 杯|r |T132815:0|t[冰镇牛奶] |cRXP_BUY_来自他|r
     .collect 1179,10,287,1 --Ice Cold Milk (10)
     .target Keeg Gibn
     .money <0.0250
 step
     .goto Dun Morogh,30.45,46.01
     >>Talk to |cRXP_FRIENDLY_Keeg|r
-    >>|cRXP_BUY_Buy up to 5 more|r |T132815:0|t[Ice Cold Milk] |cRXP_BUY_from him|r
+    >>|cRXP_BUY_再购买最多 5 杯|r |T132815:0|t[冰镇牛奶] |cRXP_BUY_来自他|r
     .collect 1179,5,287,1 --Ice Cold Milk (5)
     .target Keeg Gibn
     .money <0.0125
@@ -2533,174 +2500,174 @@ step
     .goto Dun Morogh,28.42,45.14,40,0
     .goto Dun Morogh,28.85,41.75,40,0
     .goto Dun Morogh,31.30,39.17
-    >>Kill |cRXP_ENEMY_Elder Crag Boars|r. Loot them for their |cRXP_LOOT_Crag Boar Ribs|r
-    >>|cRXP_WARN_Be careful as they cast|r |T132337:0|t[Charge] |cRXP_WARN_(Self Instant: Increases movespeed for 3 seconds, dealing 35-85 melee damage on hit. Only castable at range)|r
+    >>杀死 |cRXP_ENEMY_老峭壁野猪s|r。掠夺他们的 |cRXP_LOOT_Crag Boar Ribs|r
+    >>|cRXP_WARN_施放时要小心|r |T132337:0|t[充电] |cRXP_WARN_（自身瞬发：增加移动速度 3 秒，击中时造成 35-85 点近战伤害。仅可远距离施放）|r
     .complete 384,1 --Crag Boar Rib (6)
-    .mob Elder Crag Boar
+    .mob 老峭壁野猪
 step
     #completewith Explore
     .goto Dun Morogh,25.12,49.54,35,0
-    .goto Dun Morogh,24.94,50.61,12 >>Enter the cave from the north side
+    .goto Dun Morogh,24.94,50.61,12 >>从北侧进入洞穴
 step
     .goto Dun Morogh,24.29,50.80,40,0
     .goto Dun Morogh,23.31,51.36
-    >>Kill |cRXP_ENEMY_Frostmane Headhunters|r inside the cave
-    >>|cRXP_WARN_Be careful as they cast|r |T132222:0|t[Shoot] |cRXP_WARN_(Ranged Cast: Deals 8-15 damage)|r
-    >>|cRXP_WARN_Be careful of the patrolling |cRXP_ENEMY_Frostmane Headhunter|r inside|r
+    >>杀死洞穴内的 |cRXP_ENEMY_Frostmane Headhunters|r
+    >>|cRXP_WARN_小心他们施法|r |T132222:0|t[射击] |cRXP_WARN_(远程施法：造成 8-15 点伤害)|r
+    >>|cRXP_WARN_小心里面巡逻的|cRXP_ENEMY_Frostmane Headhunter|r|r
     .complete 287,1 --Kill Frostmane Headhunter (x5)
     .mob Frostmane Headhunter
 step
     #label Explore
     .goto Dun Morogh,23.01,52.04,8,0
     .goto Dun Morogh,22.90,52.09
-    >>|cRXP_WARN_Carefully WALK down onto the nook below (do NOT fall down). Walk carefully down the nook until you get credit|r
-    >>|cRXP_WARN_Be careful of the |cRXP_ENEMY_Frostmane Hideskinner|r below, as he may be able to attack you on the nook if he's close to it|r
-    >>|cRXP_WARN_Get ready to cast|r |T134414:0|t[Hearthstone]
-    .link https://youtu.be/Zg4FNWw-P5k?t=3619 >>|cRXP_WARN_CLICK HERE If you're struggling|r
+    >>|cRXP_WARN_小心地走到下面的角落（不要摔倒）。小心地走到角落，直到获得积分|r
+    >>|cRXP_WARN_小心下面的 |cRXP_ENEMY_Frostmane Hideskinner|r，因为如果他靠近角落，他可能会攻击你|r
+    >>|cRXP_WARN_准备施法|r |T134414:0|t[炉石]
+    .link https://youtu.be/Zg4FNWw-P5k?t=3619 >>|cRXP_WARN_如果你遇到困难，请点击此处|r
     .complete 287,2 --Fully explore Frostmane Hold
 step << skip
     #completewith next
-    +|cRXP_WARN_Remember the Inn Logout Skip soon!|r
+    +|cRXP_WARN_记住旅馆登出后立即跳过！|r
 step
     #completewith Senir2
-    .hs >> Hearth to Kharanos
+    .hs >>炉石到卡拉诺斯
 step
     .goto Dun Morogh,47.38,52.52
     >>Talk to |cRXP_FRIENDLY_Belm|r
-    >>|cRXP_BUY_Buy a|r |T132800:0|t[Rhapsody Malt] |cRXP_BUY_from him|r
+    >>|cRXP_BUY_从他那里购买 a|r |T132800:0|t[Rhapsody Malt] |cRXP_BUY_|r
     .complete 384,2 --Collect Rhapsody Malt (x1)
     .target Innkeeper Belm
 step
     .goto Dun Morogh,47.50,52.08
     >>Talk to |cRXP_FRIENDLY_Magis|r upstairs
-    .trainer >> Train your class spells (Frostbolt r2, Polymorph)
+    .trainer >>训练你的职业法术（冰箭 r2、变形术）
     .target Magis Sparkmantle
     .isQuestAvailable 314
 step
     #completewith Senir2
-    +|cRXP_WARN_Remember to save|r |T133970:0|t|cRXP_LOOT_[Chunks of Boar Meat]|r |cRXP_WARN_you get for leveling|r |T133971:0|t[Cooking] |cRXP_WARN_to 50 later|r
+    +|cRXP_WARN_记得保存|r |T133970:0|t|cRXP_LOOT_[大块野猪肉]|r |cRXP_WARN_你升级后得到的|r |T133971:0|t[烹饪] |cRXP_WARN_到 50 后|r
 step
     .goto Dun Morogh,46.83,52.36
     >>Talk to |cRXP_FRIENDLY_Ragnar|r
-    .turnin 384 >> Turn in Beer Basted Boar Ribs
+    .turnin 384 >>交任务: |cRXP_FRIENDLY_啤酒烤猪排|r
     .target Ragnar Thunderbrew
 step
     #label Senir2
     .goto Dun Morogh,46.726,53.826
-    >>Talk to |cRXP_FRIENDLY_Senir|r
-    .turnin 287,2 >> Turn in Frostmane Hold
-    .accept 291 >> Accept The Reports
+    >>对话: |cRXP_FRIENDLY_森内尔·白须|r
+    .turnin 287,2 >>交任务: |cRXP_FRIENDLY_霜鬃巨魔要塞|r
+    .accept 291 >>接任务: |cRXP_LOOT_森内尔的报告|r
     .target Senir Whitebeard
 step
     #completewith next
-    .cast 1459 >> Rebuff |T135932:0|t[Arcane Intellect]
-    .cast 168 >> Rebuff |T135843:0|t[Frost Armor]
+    .cast 1459 >>反击 |T135932:0|t[奥术智慧]
+    .cast 168 >>反击 |T135843:0|t[冰霜护甲]
 step
-    >>Talk to |cRXP_FRIENDLY_Bellowfiz|r and |cRXP_FRIENDLY_Stonegear|r
-    .turnin 320,2 >> Turn in Return to Bellowfiz
-    .target +Pilot Bellowfiz
+    >>对话: |cRXP_FRIENDLY_驾驶员贝隆·风箱|r, |cRXP_FRIENDLY_驾驶员迪恩·石轮|r
+    .turnin 320,2 >>交任务: |cRXP_FRIENDLY_艾沃沙酒|r
     .goto Dun Morogh,49.426,48.410
-    .turnin 313 >> Turn in The Grizzled Den
+    .turnin 313 >>交任务: |cRXP_FRIENDLY_灰色洞穴|r
     .goto Dun Morogh,49.622,48.612
-    .target +Pilot Stonegear
+    .target 飞行员 Bellowfiz
+    .target 飞行员石甲
 step
     #completewith next
-    +|cRXP_WARN_Deal 51%+ damage to nearby |cRXP_ENEMY_Winter Wolves|r, then pull them to the |cRXP_FRIENDLY_Ironforge Mountaineers|r that CAN be patrolling on the road to kill them more efficiently|r
-    >>|cRXP_WARN_If you don't see the |cRXP_FRIENDLY_Ironforge Mountaineers|r, skip this step|r
+    +|cRXP_WARN_对附近的 |cRXP_ENEMY_Winter Wolves|r 造成 51% 以上的伤害，然后将它们拉到可以在路上巡逻的 |cRXP_FRIENDLY_Ironforge Mountaineers|r 处，以更有效地杀死它们|r
+    >>|cRXP_WARN_如果你没有看到 |cRXP_FRIENDLY_Ironforge Mountaineers|r，请跳过此步骤|r
     .mob Winter Wolf
     .target Ironforge Mountaineer
 step
     #completewith Rudra
     #label Dirt
     .goto Dun Morogh,59.84,49.56,40,0
-    .goto Dun Morogh,61.36,47.07,40 >>Go up the dirt path
+    .goto Dun Morogh,61.36,47.07,40 >>沿着泥路向上走
     .isQuestAvailable 314
 step
     #completewith next
     #requires Dirt
-    .link https://youtu.be/Zg4FNWw-P5k?t=3815 >>|cRXP_WARN_CLICK HERE If you're struggling|r
-    +|cRXP_WARN_Kite |cRXP_ENEMY_Vagash|r down to|r |cRXP_FRIENDLY_Rudra|r
+    .link https://youtu.be/Zg4FNWw-P5k?t=3815 >>|cRXP_WARN_如果你遇到困难，请点击此处|r
+    +|cRXP_WARN_风筝 |cRXP_ENEMY_Vagash|r 向下至|r |cRXP_FRIENDLY_Rudra|r
     .mob Vagash
 step
     #label Rudra
     .goto Dun Morogh,63.08,49.85
-    >>Talk to |cRXP_FRIENDLY_Rudra|r
-    .accept 314 >> Accept Protecting the Herd
+    >>对话: |cRXP_FRIENDLY_鲁德拉·冻石|r
+    .accept 314 >>接任务: |cRXP_LOOT_保护牲畜|r
     .target Rudra Amberstill
 step
     .goto Dun Morogh,62.57,46.14,0
     .goto Dun Morogh,62.78,54.60,40,0
     .goto Dun Morogh,62.82,55.73
-    >>Kill |cRXP_ENEMY_Vagash|r. Loot him for the |cRXP_LOOT_Fang of Vagash|r
-    >>|cRXP_WARN_Kite |cRXP_ENEMY_Vagash|r down to the |cRXP_FRIENDLY_Dun Morogh Mountaineer|r south of the ranch. Make sure you do 51%+ damage to him|r
-    >>|cRXP_WARN_Remember to get The Tundrid Hills explore xp and pull the |cRXP_ENEMY_Snow Leopard|r to the |cRXP_FRIENDLY_Dun Morogh Mountaineer|r if convenient|r
-    .link https://youtu.be/Zg4FNWw-P5k?t=3815 >>|cRXP_WARN_CLICK HERE If you're struggling|r
+    >>杀死 |cRXP_ENEMY_Vagash|r。从他身上搜刮 |cRXP_LOOT_Fang of Vagash|r
+    >>|cRXP_WARN_将 |cRXP_ENEMY_Vagash|r 放风筝到牧场南边的 |cRXP_FRIENDLY_Dun Morogh Mountaineer|r。确保对他造成 51% 以上的伤害|r
+    >>|cRXP_WARN_如果方便的话，记得获取 Tundrid Hills 的探索经验并将 |cRXP_ENEMY_雪豹|r 拉到 |cRXP_FRIENDLY_Dun Morogh Mountaineer|r|r
+    .link https://youtu.be/Zg4FNWw-P5k?t=3815 >>|cRXP_WARN_如果你遇到困难，请点击此处|r
     .complete 314,1 --Collect Fang of Vagash (1)
     .mob Vagash
 step
     .goto Dun Morogh,63.08,49.85
-    >>Talk to |cRXP_FRIENDLY_Rudra|r
-    .turnin 314,3 >> Turn in Protecting the Herd
+    >>对话: |cRXP_FRIENDLY_鲁德拉·冻石|r
+    .turnin 314,3 >>交任务: |cRXP_FRIENDLY_保护牲畜|r
     .target Rudra Amberstill
 step << skip
     #completewith Ghilm
-    +|cRXP_WARN_Remember to save|r |T133970:0|t|cRXP_LOOT_[Chunks of Boar Meat]|r |cRXP_WARN_you get for leveling|r |T133971:0|t[Cooking] |cRXP_WARN_to 50 later|r
+    +|cRXP_WARN_记得保存|r |T133970:0|t|cRXP_LOOT_[大块野猪肉]|r |cRXP_WARN_你升级后得到的|r |T133971:0|t[烹饪] |cRXP_WARN_到 50 后|r
 step
     #completewith next
     .goto Dun Morogh,66.34,50.92,50,0
     .goto Dun Morogh,67.72,53.66,30,0
-    +|cRXP_WARN_Kite the |cRXP_ENEMY_Ice Claw Bear|r to the |cRXP_FRIENDLY_Ironforge Mountaineer|r (make sure to deal 51%+ damage to get credit)|r
-    >>|cRXP_WARN_Be careful as they cast|r |T135853:0|t[Ice Claw] |cRXP_WARN_(Melee Instant: Deals an additional 4 melee damage)|r
-    .mob Ice Claw Bear
+    +|cRXP_WARN_将 |cRXP_ENEMY_冰爪熊|r 放风筝到 |cRXP_FRIENDLY_Ironforge Mountaineer|r 处（确保造成 51% 以上的伤害才能获得奖励）|r
+    >>|cRXP_WARN_小心他们施放|r |T135853:0|t[冰爪] |cRXP_WARN_(近战瞬发：造成额外的 4 点近战伤害)|r
+    .mob 冰爪熊
 step
     #sticky
     #label Ghilm
     .goto Dun Morogh,68.40,54.45,0,0
-    >>Talk to |cRXP_FRIENDLY_Ghilm|r
-    .train 2550 >> Train |T133971:0|t[Cooking]
+    >>对话: |cRXP_FRIENDLY_厨师格瑞姆|r
+    .train 2550 >>训练 |T133971:0|t[烹饪]
     .target Cook Ghilm
 step
     .goto Dun Morogh,68.43,54.46,8,0
     .goto Dun Morogh,68.53,54.64
-    >>Talk to |cRXP_FRIENDLY_Kazan|r
-    >>|cRXP_BUY_Buy 15|r |T132815:0|t[Ice Cold Milk] |cRXP_BUY_from him|r
+    >>对话: |cRXP_FRIENDLY_卡杉·莫格什|r
+    >>|cRXP_BUY_从他那里购买 15|r |T132815:0|t[冰镇牛奶] |cRXP_BUY_|r
     .collect 1179,15,432,1 --Ice Cold Milk (15)
     .target Kazan Mogosh
     .money <0.0395
 step
     .goto Dun Morogh,68.43,54.46,8,0
     .goto Dun Morogh,68.53,54.64
-    >>Talk to |cRXP_FRIENDLY_Kazan|r
-    >>|cRXP_BUY_Buy 10|r |T132815:0|t[Ice Cold Milk] |cRXP_BUY_from him|r
+    >>对话: |cRXP_FRIENDLY_卡杉·莫格什|r
+    >>|cRXP_BUY_从他那里购买 10|r |T132815:0|t[冰镇牛奶] |cRXP_BUY_|r
     .collect 1179,10,432,1 --Ice Cold Milk (10)
     .target Kazan Mogosh
     .money <0.0260
 step
     .goto Dun Morogh,68.43,54.46,8,0
     .goto Dun Morogh,68.53,54.64
-    >>Talk to |cRXP_FRIENDLY_Kazan|r
-    >>|cRXP_BUY_Buy 5|r |T132815:0|t[Ice Cold Milk] |cRXP_BUY_from him|r
+    >>对话: |cRXP_FRIENDLY_卡杉·莫格什|r
+    >>|cRXP_BUY_从他那里购买 5|r |T132815:0|t[冰镇牛奶] |cRXP_BUY_|r
     .collect 1179,5,432,1 --Ice Cold Milk (5)
     .target Kazan Mogosh
     .money <0.0135
 step
     #requires Ghilm
     >>Talk to |cRXP_FRIENDLY_Mehr|r and |cRXP_FRIENDLY_Stonebrow|r
-    .accept 433 >> Accept The Public Servant
-    .target +Senator Mehr Stonehallow
+    .accept 433 >>接任务: |cRXP_LOOT_公众之仆|r
     .goto Dun Morogh,68.67,55.97
-    .accept 432 >> Accept Those Blasted Troggs!
+    .accept 432 >>接任务: |cRXP_LOOT_该死的石腭怪！|r
     .goto Dun Morogh,69.084,56.330
-    .target +Foreman Stonebrow
+    .target 参议员梅尔·斯通哈洛
+    .target 工头石眉
 step
     #completewith Bonesnappers
-    >>Kill |cRXP_ENEMY_Rockjaw Skullthumpers|r
-    >>|cRXP_WARN_Don't go out of your way to kill them|r
+    >>杀死 |cRXP_ENEMY_Rockjaw Skullthumpers|r
+    >>|cRXP_WARN_不要特意去杀他们|r
     .complete 432,1 --Kill Rockjaw Skullthumper (x6)
     .mob Rockjaw Skullthumper
 step
     #completewith next
-    .goto Dun Morogh,70.74,56.23,30 >>Enter the cave
+    .goto Dun Morogh,70.74,56.23,30 >>进入洞穴
 step
     #label Bonesnappers
     .goto Dun Morogh,70.98,54.31,40,0
@@ -2708,10 +2675,10 @@ step
     .goto Dun Morogh,71.94,50.48,40,0
     .goto Dun Morogh,72.55,51.50,40,0
     .goto Dun Morogh,72.62,52.56
-    >>Kill |cRXP_ENEMY_Rockjaw Bonesnappers|r inside the cave
-    >>|cRXP_WARN_Be careful as they cast|r |T132154:0|t[Knockdown] |cRXP_WARN_(Melee Instant: Stuns for 2 seconds)|r
-    .complete 433,1 --Kill Rockjaw Bonesnapper (x10)
-    .mob Rockjaw Bonesnapper
+    >>杀死洞穴内的 |cRXP_ENEMY_岩颚骨撕咬者s|r
+    >>|cRXP_WARN_小心他们施放|r |T132154:0|t[击倒] |cRXP_WARN_(近战瞬间：眩晕 2 秒)|r
+    .complete 433,1 --Kill 岩颚骨撕咬者 (x10)
+    .mob 岩颚骨撕咬者
 step
     .goto Dun Morogh,70.74,56.23,30,0
 #loop
@@ -2722,91 +2689,91 @@ step
 	.goto Dun Morogh,68.36,59.57,30,0
 	.goto Dun Morogh,69.16,57.51,30,0
 	.goto Dun Morogh,69.93,57.29,30,0
-    >>Kill |cRXP_ENEMY_Rockjaw Skullthumpers|r
+    >>杀死 |cRXP_ENEMY_Rockjaw Skullthumpers|r
     .complete 432,1 --Kill Rockjaw Skullthumper (x6)
     .mob Rockjaw Skullthumper
 step
     #sticky
     #label Frast
     .goto Dun Morogh,68.87,55.96,0,0
-    >>Talk to |cRXP_FRIENDLY_Frast|r
-    .vendor >> Vendor Trash
+    >>对话: |cRXP_FRIENDLY_弗拉斯特·多克南|r
+    .vendor >>供应商垃圾
     .target Frast Dokner
 step
     >>Talk to |cRXP_FRIENDLY_Stonebrow|r and |cRXP_FRIENDLY_Mehr|r
-    .turnin 432 >> Turn in Those Blasted Troggs!
-    .target +Foreman Stonebrow
+    .turnin 432 >>交任务: |cRXP_FRIENDLY_该死的石腭怪！|r
     .goto Dun Morogh,69.084,56.330
-    .turnin 433 >> Turn in The Public Servant
+    .turnin 433 >>交任务: |cRXP_FRIENDLY_公众之仆|r
     .goto Dun Morogh,68.67,55.97
-    .target +Senator Mehr Stonehallow
+    .target 工头石眉
+    .target 参议员梅尔·斯通哈洛
 step
     #requires Frast
     .goto Dun Morogh,69.33,55.46
     >>Talk to |cRXP_FRIENDLY_Dank|r
-    .train 2575 >> Train |T136248:0|t[Mining]
+    .train 2575 >>列车 |T136248:0|t[采矿]
     .target Dank Drizzlecut
 step
     #label Shortcut1
     #completewith Pilot
     .goto Dun Morogh,70.35,55.28,5,0
-    .link https://youtu.be/G2IscpFZVeQ?t=4034 >>|cRXP_WARN_CLICK HERE if you're struggling|r
-    .goto Dun Morogh,70.52,54.75,12 >>Take the shortcut up behind |cRXP_FRIENDLY_Dank|r
+    .link https://youtu.be/G2IscpFZVeQ?t=4034 >>|cRXP_WARN_如果你遇到困难，请点击此处|r
+    .goto Dun Morogh,70.52,54.75,12 >>走 |cRXP_FRIENDLY_Dank|r 后面的捷径
 step
     #completewith Pilot
     #requires Shortcut1
     #label Shortcut2
     .goto Dun Morogh,70.97,50.70,50,0
     .goto Dun Morogh,72.90,49.79,50,0
-    .goto Dun Morogh,77.11,48.82,50 >>|cRXP_WARN_Kite the nearby |cRXP_ENEMY_Rockjaw Ambushers|r to the |cRXP_FRIENDLY_Ironforge Mountaineers|r that can patrol on the road (make sure to deal 51%+ damage to get credit)|r
+    .goto Dun Morogh,77.11,48.82,50 >>|cRXP_WARN_将附近的 |cRXP_ENEMY_Rockjaw Ambushers|r 放风筝到可以在路上巡逻的 |cRXP_FRIENDLY_Ironforge Mountaineers|r 上（确保造成 51% 以上的伤害才能获得奖励）|r
     .mob Rockjaw Ambusher
     .unitscan Ironforge Mountaineer
 step
     #requires Shortcut2
     #completewith next
     .goto Dun Morogh,81.23,42.66,50,0
-    .goto Dun Morogh,83.01,40.31,30 >>Kite a |cRXP_ENEMY_Scarred Crag Boar|r through the tunnel
-    >>|cRXP_WARN_Be careful as they cast|r |T132337:0|t[Charge] |cRXP_WARN_(Self Instant: Increases movespeed for 3 seconds, dealing 40-100 melee damage on hit. Only castable at range)|r
+    .goto Dun Morogh,83.01,40.31,30 >>放风筝 |cRXP_ENEMY_Scarred Crag Boar|r 通过隧道
+    >>|cRXP_WARN_施放时要小心|r |T132337:0|t[充电] |cRXP_WARN_（自身瞬发：增加移动速度 3 秒，击中时造成 40-100 点近战伤害。仅可远距离施放）|r
     .mob Scarred Crag Boar
 step
     #label Pilot
     .goto Dun Morogh,83.89,39.19
-    >>Talk to |cRXP_FRIENDLY_Hammerfoot|r
-    .accept 419 >> Accept The Lost Pilot
+    >>对话: |cRXP_FRIENDLY_驾驶员塞克·锤足|r
+    .accept 419 >>接任务: |cRXP_LOOT_失踪的驾驶员|r
     .target Pilot Hammerfoot
     .isQuestAvailable 419
 step
     .goto Dun Morogh,81.37,37.02,30,0
     .goto Dun Morogh,79.67,36.17
-    >>Click the |cRXP_PICK_Dwarven Corpse|r on the ground
-    >>|cRXP_WARN_MAKE SURE You have a 1 free inventory slot for this turnin|r
-    >>|cRXP_WARN_Remember you're going to kite |cRXP_ENEMY_Mangeclaw|r back to |cRXP_FRIENDLY_Hammerfoot|r
-    .turnin 419 >> Turn in The Lost Pilot
-    .accept 417 >> Accept A Pilot's Revenge
+    >>点击地面上的 |cRXP_PICK_Dwarven Corpse|r
+    >>|cRXP_WARN_确保你有一个免费的库存位置用于此上交|r
+    >>|cRXP_WARN_记住你要放风筝 |cRXP_ENEMY_Mangeclaw|r 回到 |cRXP_FRIENDLY_Hammerfoot|r
+    .turnin 419 >>交任务: |cRXP_FRIENDLY_失踪的驾驶员|r
+    .accept 417 >>接任务: |cRXP_LOOT_驾驶员的复仇|r
 step
     .goto Dun Morogh,78.41,37.80,60,0
     .goto Dun Morogh,83.89,39.19
-    >>Kill |cRXP_ENEMY_Mangeclaw|r. Loot him for the |cRXP_LOOT_Mangy Claw|r
-    >>|cRXP_WARN_Kite him all the way over to |cRXP_FRIENDLY_Hammerfoot|r (make sure to deal 51%+ damage to get credit)|r
+    >>杀死 |cRXP_ENEMY_Mangeclaw|r。从他身上搜刮 |cRXP_LOOT_Mangy Claw|r
+    >>|cRXP_WARN_将他一路放风筝到 |cRXP_FRIENDLY_Hammerfoot|r （确保造成 51% 以上的伤害才能获得奖励）|r
     .complete 417,1 --Collect Mangy Claw (x1)
     .mob Mangeclaw
     .target Pilot Hammerfoot
 step
     .goto Dun Morogh,83.892,39.188
-    >>Talk to |cRXP_FRIENDLY_Hammerfoot|r
-    .turnin 417,1 >> Turn in A Pilot's Revenge
+    >>对话: |cRXP_FRIENDLY_驾驶员塞克·锤足|r
+    .turnin 417,1 >>交任务: |cRXP_FRIENDLY_驾驶员的复仇|r
     .target Pilot Hammerfoot
 step
     #label Tunnel1
     #completewith Barleybrew
     .goto Dun Morogh,83.01,40.31,30,0
-    .goto Dun Morogh,81.23,42.66,30 >>Run back through the tunnel
+    .goto Dun Morogh,81.23,42.66,30 >>穿过隧道跑回去
 step
     .goto Dun Morogh,78.73,49.77
-    >>|cRXP_WARN_Be careful as |cRXP_ENEMY_Scarred Crag Boars|r and |cRXP_ENEMY_Elder Crag Boars|r cast|r |T132337:0|t[Charge] |cRXP_WARN_(Self Instant: Increases movespeed for 3 seconds, dealing 40-100 melee damage on hit. Only castable at range), and |cRXP_ENEMY_Ice Claw Bears|r cast|r |T135853:0|t[Ice Claw] |cRXP_WARN_(Melee Instant: Deals an additional 4 melee damage)|r
-    .xp 9+5450 >> Grind to 5450+/6500xp
-    .mob Ice Claw Bear
-    .mob Elder Crag Boar
+    >>|cRXP_WARN_小心 |cRXP_ENEMY_Scarred Crag Boars|r 和 |cRXP_ENEMY_老峭壁野猪s|r 施放|r |T132337:0|t[冲锋] |cRXP_WARN_（自身瞬发：增加移动速度 3 秒，击中时造成 40-100 点近战伤害。只能在远距离施放），以及 |cRXP_ENEMY_冰爪熊s|r 施放|r |T135853:0|t[冰爪] |cRXP_WARN_（近战瞬发：造成额外的 4 点近战伤害）|r
+    .xp 9+5450 >>升级至 5450+/6500xp
+    .mob 冰爪熊
+    .mob 老峭壁野猪
     .mob Scarred Crag Boar
 step
     #requires Tunnel1
@@ -2816,35 +2783,35 @@ step
     .goto Dun Morogh,81.10,49.76,20,0
     .goto Dun Morogh,81.60,50.01,20,0
     .goto Dun Morogh,83.59,49.18,20,0
-    >>Kite a |cRXP_ENEMY_Scarred Crag Boar|r en route
-    >>|cRXP_WARN_Be careful as they cast|r |T132337:0|t[Charge] |cRXP_WARN_(Self Instant: Increases movespeed for 3 seconds, dealing 40-100 melee damage on hit. Only castable at range)|r
-    .goto Dun Morogh,84.26,48.93,20 >>Do the Mountain Skip. Remember to drop down carefully
+    >>放风筝 |cRXP_ENEMY_Scarred Crag Boar|r 在途中
+    >>|cRXP_WARN_施放时要小心|r |T132337:0|t[充电] |cRXP_WARN_（自身瞬发：增加移动速度 3 秒，击中时造成 40-100 点近战伤害。仅可远距离施放）|r
+    .goto Dun Morogh,84.26,48.93,20 >>跳山。记得小心地跳下去
     .mob Scarred Crag Boar
 step
     #requires Tunnel2
     #completewith next
-    >>|cRXP_WARN_Be careful as |cRXP_ENEMY_Scarred Crag Boars|r cast|r |T132337:0|t[Charge] |cRXP_WARN_(Self Instant: Increases movespeed for 3 seconds, dealing 40-100 melee damage on hit. Only castable at range)|r
-    .xp 9+5990 >> Grind to 5990+/6500xp
+    >>|cRXP_WARN_小心 |cRXP_ENEMY_Scarred Crag Boars|r 施放|r |T132337:0|t[充电] |cRXP_WARN_(自身瞬发：增加移动速度 3 秒，击中时造成 40-100 点近战伤害。仅可远距离施放)|r
+    .xp 9+5990 >>升级至 5990+/6500xp
     .mob Scarred Crag Boar
 step
     #label Barleybrew
     .goto Dun Morogh,86.278,48.812
     >>Talk to |cRXP_FRIENDLY_Barleybrew|r
-    .turnin 413 >> Turn in Shimmer Stout
-    .accept 414 >> Accept Stout to Kadrell
+    .turnin 413 >>交任务: |cRXP_FRIENDLY_微光酒|r
+    .accept 414 >>接任务: |cRXP_LOOT_卡德雷尔的酒|r
     .target Mountaineer Barleybrew
 step
     .goto Dun Morogh,86.74,49.58,40,0
     .goto Dun Morogh,86.36,47.36
-    .xp 9+6320 >> Grind to 6320+/6500xp
-    >>|cRXP_WARN_Be careful as |cRXP_ENEMY_Scarred Crag Boars|r cast|r |T132337:0|t[Charge] |cRXP_WARN_(Self Instant: Increases movespeed for 3 seconds, dealing 40-100 melee damage on hit. Only castable at range)|r
+    .xp 9+6320 >>升级至 6320+/6500xp
+    >>|cRXP_WARN_小心 |cRXP_ENEMY_Scarred Crag Boars|r 施放|r |T132337:0|t[充电] |cRXP_WARN_(自身瞬发：增加移动速度 3 秒，击中时造成 40-100 点近战伤害。仅可远距离施放)|r
     .mob Scarred Crag Boar
 step
     #label CragB1
     #completewith Cobbleflint
     .goto Loch Modan,16.45,58.54,20,0
-    .goto Loch Modan,19.59,62.76,30 >>Kite a |cRXP_ENEMY_Scarred Crag Boar|r through the tunnel
-    >>|cRXP_WARN_Be careful as they cast|r |T132337:0|t[Charge] |cRXP_WARN_(Self Instant: Increases movespeed for 3 seconds, dealing 40-100 melee damage on hit. Only castable at range)|r
+    .goto Loch Modan,19.59,62.76,30 >>放风筝 |cRXP_ENEMY_Scarred Crag Boar|r 通过隧道
+    >>|cRXP_WARN_施放时要小心|r |T132337:0|t[充电] |cRXP_WARN_（自身瞬发：增加移动速度 3 秒，击中时造成 40-100 点近战伤害。仅可远距离施放）|r
     .mob Scarred Crag Boar
 step
 #loop
@@ -2853,48 +2820,48 @@ step
 	.goto Loch Modan,19.06,75.46,35,0
 	.goto Loch Modan,20.91,77.67,35,0
 	.goto Loch Modan,21.14,71.62,35,0
-    .xp 10 >> Grind to Level 10
-    .mob Elder Black Bear
-    .mob Forest Lurker
+    .xp 10 >>升级至 10 级
+    .mob 黑熊长老
+    .mob 森林潜伏者
 step
     #requires CragB1
     #completewith Rugelfuss
-    +|cRXP_WARN_Try to kite a nearby |cRXP_ENEMY_Elder Black Bear|r or |cRXP_ENEMY_Forest Lurker|r into the Bunker with you (remember to deal 51%+ damage to get credit)|r
-    >>|cRXP_WARN_Loot the |cRXP_ENEMY_Elder Black Bears|r for their|r |T134027:0|t[|cRXP_LOOT_Bear Meat|r]
-    >>|cRXP_WARN_Loot the |cRXP_ENEMY_Forest Lurkers|r for their|r |T134437:0|t[|cRXP_LOOT_Spider Ichor|r]
-    >>|cRXP_FRIENDLY_Cobbleflint|r|cRXP_WARN_, |cRXP_FRIENDLY_Gravelgaw|r, and |cRXP_FRIENDLY_Wallbang|r won't assist you|r
-    .collect 3173,3,418,1 --Collect Bear Meat (x3)
+    +|cRXP_WARN_尝试将附近的 |cRXP_ENEMY_黑熊长老|r 或 |cRXP_ENEMY_森林潜伏者|r 放风筝到地堡中（记得造成 51% 以上的伤害才能获得奖励）|r
+    >>|cRXP_WARN_抢劫 |cRXP_ENEMY_老黑熊|r 以获取他们的|r |T134027:0|t[|cRXP_LOOT_熊肉|r]
+    >>|cRXP_WARN_Loot |cRXP_ENEMY_森林潜伏者s|r 以获取他们的|r |T134437：0|吨[|cRXP_LOOT_Spider Ichor|r]
+    >>|cRXP_FRIENDLY_Cobbleflint|r|cRXP_WARN_、|cRXP_FRIENDLY_Gravelgaw|r 和 |cRXP_FRIENDLY_Wallbang|r 不会帮助你|r
+    .collect 3173,3,418,1 --Collect 熊 Meat (x3)
     .disablecheckbox
     .collect 3174,3,418,1 --Collect Spider Ichor (x3)
     .disablecheckbox
-    .mob Elder Black Bear
-    .mob Forest Lurker
+    .mob 黑熊长老
+    .mob 森林潜伏者
 step
     #label Cobbleflint
     .goto Loch Modan,22.071,73.127
-    >>Talk to |cRXP_FRIENDLY_Cobbleflint|r
-    .accept 224 >> Accept In Defense of the King's Lands
-    .target Mountaineer Cobbleflint
+    >>对话: |cRXP_FRIENDLY_巡山人库伯弗林特|r
+    .accept 224 >>接任务: |cRXP_LOOT_保卫国王的领土|r
+    .target 登山者科布尔弗林特
 step
     #completewith next
     .goto Loch Modan,23.27,75.65,12,0
     .goto Loch Modan,23.62,75.42,12,0
-    .goto Loch Modan,23.12,73.93,12 >> Enter the Bunker. Go to the top floor
+    .goto Loch Modan,23.12,73.93,12 >>进入地堡。前往顶楼
 step
     #label Rugelfuss
     .goto Loch Modan,23.233,73.675
-    >>Talk to |cRXP_FRIENDLY_Rugelfuss|r
-    .accept 267 >> Accept The Trogg Threat
-    .target Captain Rugelfuss
-step << skip
+    >>对话: |cRXP_FRIENDLY_拉格弗斯上尉|r
+    .accept 267 >>接任务: |cRXP_LOOT_穴居人的威胁|r
+    .target 鲁格尔福斯上尉
+step
     #completewith next
     .goto Loch Modan,21.49,68.14,20,0
     .goto Loch Modan,20.86,64.46,20,0
-    .goto Loch Modan,19.50,62.56,30 >>Go back into the Tunnel
-step << skip
+    .goto Loch Modan,19.50,62.56,30 >>回到隧道
+step
     .goto Loch Modan,18.84,61.48
-    .link https://www.youtube.com/watch?v=AOAlX9B5aO0 >>|cRXP_WARN_CLICK HERE If you're struggling|r
-    .goto Loch Modan,32.19,46.95,30 >>|cRXP_WARN_Jumping Logout Skip from the Brazier inside the tunnel to Thelsamar|r
+    .link https://www.youtube.com/watch?v=AOAlX9B5aO0 >>|cRXP_WARN_如果你遇到困难，请点击此处|r
+    .goto Loch Modan,32.19,46.95,30 >>|cRXP_WARN_从通往塞尔萨玛的隧道内的火盆中跳跃退出|r
     .isOnQuest 414
 step
     .goto Loch Modan,32.93,49.51,40,0
@@ -2902,63 +2869,63 @@ step
     .goto Loch Modan,37.05,46.11,40,0
     .goto Loch Modan,37.39,45.17,40,0
     .goto Loch Modan,37.12,42.79
-    >>Talk to |cRXP_FRIENDLY_Kadrell|r
-    >>|cRXP_FRIENDLY_Kadrell|r |cRXP_WARN_patrols along the main Thelsamar road|r
-    .turnin 414 >>Turn in Stout to Kadrell
-    .accept 416 >> Accept Rat Catching
-    .accept 1339 >> Accept Mountaineer Stormpike's Task
+    >>对话: |cRXP_FRIENDLY_巡山人卡德雷尔|r
+    >>|cRXP_FRIENDLY_卡德雷尔|r |cRXP_WARN_巡逻塞尔萨玛主干道|r
+    .turnin 414 >>交任务: |cRXP_FRIENDLY_卡德雷尔的酒|r
+    .accept 416 >>接任务: |cRXP_LOOT_狗头人的耳朵|r
+    .accept 1339 >>接任务: |cRXP_LOOT_巡山人卡尔·雷矛的任务|r
     .target Mountaineer Kadrell
 step
     .goto Loch Modan,37.18,47.13,10,0
     .goto Loch Modan,37.02,47.80
     >>Talk to |cRXP_FRIENDLY_Brock|r
-    >>|cRXP_WARN_He can be inside or outside the building|r
-    .accept 6387 >>Accept Honor Students
+    >>|cRXP_WARN_他可以在建筑物内或建筑物外|r
+    .accept 6387 >>接任务: |cRXP_LOOT_荣誉学员|r
     .target Brock Stoneseeker
 step
     .goto Loch Modan,33.94,50.96
-    >>Talk to |cRXP_FRIENDLY_Thorgrum|r
-    .fp Thelsamar >> Get the Thelsamar flight path
-    .turnin 6387 >>Turn in Honor Students
-    .accept 6391 >>Accept Ride to Ironforge
+    >>对话: |cRXP_FRIENDLY_索格拉姆·伯雷森|r
+    .fp Thelsamar >>获取塞尔萨玛飞行路线
+    .turnin 6387 >>交任务: |cRXP_FRIENDLY_荣誉学员|r
+    .accept 6391 >>接任务: |cRXP_LOOT_飞往铁炉堡|r
     .target Thorgrum Borrelson
 step
     #completewith next
     .goto Loch Modan,33.94,50.96
-    >>Talk to |cRXP_FRIENDLY_Thorgrum|r
-    .fly Ironforge >> Fly to Ironforge
+    >>对话: |cRXP_FRIENDLY_索格拉姆·伯雷森|r
+    .fly Ironforge >>飞往铁炉堡
     .target Thorgrum Borrelson
 --VV Merge with step above
 step
-    .zone Ironforge >> Travel to Ironforge
+    .zone Ironforge >>前往: |cRXP_PICK_铁炉堡|r
     .isOnQuest 6391
 step
     #completewith next
     .goto Ironforge,55.81,38.35,30,0
     .goto Ironforge,51.83,29.77,15,0
     .goto Ironforge,49.67,28.23,12,0
-    >>Go inside the building
-    .goto Ironforge,51.54,26.30,10 >>Travel toward |cRXP_FRIENDLY_Golnir|r
+    >>进入大楼
+    .goto Ironforge,51.54,26.30,10 >>前往 |cRXP_FRIENDLY_Golnir|r
 step
     .goto Ironforge,51.54,26.30
-    >>Talk to |cRXP_FRIENDLY_Golnir|r
-    .turnin 6391 >>Turn in Ride to Ironforge
-    .accept 6388 >>Accept Gryth Thurden
-    .vendor >> Vendor Trash
+    >>对话: |cRXP_FRIENDLY_高尼尔·石趾|r
+    .turnin 6391 >>交任务: |cRXP_FRIENDLY_飞往铁炉堡|r
+    .accept 6388 >>接任务: |cRXP_LOOT_格莱斯·瑟登|r
+    .vendor >>供应商垃圾
     .target Golnir Bouldertoe
     .isOnQuest 291
 step
     #completewith next
     .goto Ironforge,49.67,28.23,12,0
     .goto Ironforge,55.81,38.35,30,0
-    >>Exit the building
-    .goto Ironforge,55.49,47.74,10 >>Travel toward |cRXP_FRIENDLY_Gryth|r
+    >>离开大楼
+    .goto Ironforge,55.49,47.74,10 >>前往 |cRXP_FRIENDLY_Gryth|r
 step
     .goto Ironforge,55.50,47.74
-    >>Talk to |cRXP_FRIENDLY_Gryth|r
-    .turnin 6388 >>Turn in Gryth Thurden
---   .accept 6392 >>Accept Return to Brock
--- .fly Thelsamar >> Fly to Thelsamar
+    >>对话: |cRXP_FRIENDLY_格莱斯·瑟登|r
+    .turnin 6388 >>交任务: |cRXP_FRIENDLY_格莱斯·瑟登|r
+--   .accept 6392 >>接任务: |cRXP_LOOT_向布洛克回复|r
+-- .fly Thelsamar >>飞往塞尔萨玛
     .target Gryth Thurden
 step
     #completewith next
@@ -2966,11 +2933,11 @@ step
     .goto Ironforge,49.11,56.02,30,0
     .goto Ironforge,46.67,50.56,20,0
     .goto Ironforge,44.12,50.37,20,0
-    .goto Ironforge,39.55,57.49,10 >>Travel toward |cRXP_FRIENDLY_Barin|r
+    .goto Ironforge,39.55,57.49,10 >>前往 |cRXP_FRIENDLY_Barin|r
 step
     .goto Ironforge,39.55,57.49
     >>Talk to |cRXP_FRIENDLY_Barin|r
-    .turnin 291 >>Turn in The Reports
+    .turnin 291 >>交任务: |cRXP_FRIENDLY_森内尔的报告|r
     .target Senator Barin Redstone
 step
     #completewith next
@@ -2979,58 +2946,51 @@ step
     .goto Ironforge,40.84,44.59,20,0
     .goto Ironforge,35.30,32.76,20,0
     .goto Ironforge,27.60,11.06,20,0
-    .goto Ironforge,27.17,8.58,10 >>Travel toward |cRXP_FRIENDLY_Dink|r
+    .goto Ironforge,27.17,8.58,10 >>前往 |cRXP_FRIENDLY_Dink|r
 step
     .goto Ironforge,27.17,8.58
-    >>Talk to |cRXP_FRIENDLY_Dink|r
-    .trainer >> Train your class spells (Frost Armor r2, Frost Nova, Polymorph, Conjure Water r1 & r2)
-    >>Total Cost: 15s
-    >>Remember you may want money for Healing Potions (3s each), Bronze Tube (8s each), and level 5 food (20c per 5)
+    >>对话: |cRXP_FRIENDLY_丁克|r
+    .trainer >>训练你的职业法术（冰霜护甲 r2、冰霜新星、变形术、召唤水系 r1 r2）
+    >>总花费：15秒
+    >>请记住，你可能需要钱来购买治疗药水（每瓶 3​​ 先令）、青铜管（每瓶 8 先令）和 5 级食物（每 5 瓶 20 美分）
     .target Dink
-step << skip
+step
     #completewith IFHS
-    +|cRXP_WARN_Remember to Logout Skip on the Candles after setting your|r |T134414:0|t[Hearthstone]
+    +|cRXP_WARN_设置完蜡烛后记得退出|r |T134414:0|t[炉石]
 step
     #completewith next
-    --.goto Ironforge,27.25,12.79,20,0
-    --.goto Ironforge,22.59,38.13,20,0
-    --.goto Ironforge,20.40,53.19,20,0
-    >>Go inside the building
-    .goto Ironforge,18.14,51.45,10 >>Travel toward |cRXP_FRIENDLY_Firebrew|r
+    .goto Ironforge,27.25,12.79,20,0
+    .goto Ironforge,22.59,38.13,20,0
+    .goto Ironforge,20.40,53.19,20,0
+    >>进入大楼
+    .goto Ironforge,18.14,51.45,10 >>前往 |cRXP_FRIENDLY_Firebrew|r
 step
     #label IFHS
     .goto Ironforge,18.14,51.45
     >>Talk to |cRXP_FRIENDLY_Firebrew|r
-    .home >> Set your Hearthstone to Ironforge
+    .home >>将你的炉石设置为铁炉堡
     .target Innkeeper Firebrew
-step << skip
+step
     .goto Ironforge,19.11,52.80
-    .zone Dun Morogh >>|cRXP_WARN_Jump on top of the Candles on the table. Logout skip to Dun Morogh|r
+    .zone Dun Morogh >>|cRXP_WARN_前往: |cRXP_PICK_丹莫罗|r|r
     .isOnQuest 416
 ]])
 
 RXPGuides.RegisterGuide([[
 #classic
-#tbc
 << Alliance Mage
-#name 10-12 ADV Darkshore 1 Mage AoE
+#name 10-12 冒险 黑海岸 1 法师 AoE
 #version 2
-#group RestedXP ADV AoE Alliance Mage
+#group RestedXP 冒险 AoE 联盟法师
 #defaultfor Human Mage/Gnome Mage
-#next 12-14 ADV Loch Modan Mage AoE
+#next 12-14 冒险 洛克莫丹法师 AoE
 
-step
-    #completewith DeathlessSkip
-    .goto Ironforge,15.16,85.70,20,0
-    .goto Dun Morogh,59.84,49.56
-    .zone Dun Morogh >> Exit Ironforge
 step
     #completewith next
     .goto Dun Morogh,53.48,37.50,30,0
     .goto Dun Morogh,54.04,38.60,30,0
-    .goto Dun Morogh,59.43,42.85,150 >> Travel to the skip spot. Hug the left side of the mountain en route
+    .goto Dun Morogh,59.43,42.85,150 >>前往跳跃点。沿途沿着山的左侧行走
 step
-    #label DeathlessSkip
     .goto Dun Morogh,60.18,43.01,12,0
     .goto Dun Morogh,60.42,43.75,12,0
     .goto Dun Morogh,60.71,44.18,4,0
@@ -3051,10 +3011,10 @@ step
     .goto Dun Morogh,60.64,13.89,6,0
     .goto Dun Morogh,61.40,13.27,10,0
     .goto Dun Morogh,61.52,12.58,8,0
-    >>|cRXP_WARN_Do the Deathless Dun Morogh -> Wetlands skip|r
-    >>|cRXP_WARN_Eat to full after each fall if you don't feel confident|r
-    .link https://youtu.be/QcEUvwu49KI?t=73 >> |cRXP_WARN_CLICK HERE for reference (it is HEAVILY advised you do so)|r
-    .goto Dun Morogh,60.65,11.38,20 >>Carefully drop down the mountain side
+    >>|cRXP_WARN_做不死丹莫洛->湿地跳过|r
+    >>|cRXP_WARN_如果你没有信心，每次跌倒后都要吃饱|r
+    .link https://youtu.be/QcEUvwu49KI?t=73 >>|cRXP_WARN_点击此处查看参考（强烈建议您这样做）|r
+    .goto Dun Morogh,60.65,11.38,20 >>小心地从山边掉下来
     .isQuestAvailable 983
 step
     .goto Dun Morogh,60.80,10.33,10,0
@@ -3068,12 +3028,12 @@ step
     .goto Wetlands,15.07,66.41,20,0
     .goto Wetlands,15.31,65.47,20,0
     .goto Wetlands,15.10,63.72,12,0
-    >>|cRXP_WARN_Do the Deathless Dun Morogh -> Wetlands skip|r
-    >>|cRXP_WARN_Be careful of |cRXP_ENEMY_Sludginn|r (rare) before you drop down toward the coast (if he's up)|r
-    >>|cRXP_WARN_Be careful of the |cRXP_ENEMY_Bluegill Raiders|r to the west when you reach the sea|r
-    >>|cRXP_WARN_Avoid the |cRXP_ENEMY_Young Wetlands Crocolisks|r when crossing the sea. Wait for them to patrol away|r
-    .link https://youtu.be/QcEUvwu49KI?t=336 >> |cRXP_WARN_CLICK HERE for reference (it is HEAVILY advised you do so)|r
-    .goto Wetlands,12.69,60.97,15 >> Travel to Menethil Harbor
+    >>|cRXP_WARN_做不死丹莫洛->湿地跳过|r
+    >>|cRXP_WARN_在你降落到海岸之前（如果他在上面的话），请小心 |cRXP_ENEMY_Sludginn|r（罕见）|r
+    >>|cRXP_WARN_到达海边时要小心西边的|cRXP_ENEMY_Bluegill Raiders|r|r
+    >>|cRXP_WARN_穿越海洋时避开 |cRXP_ENEMY_Young Wetlands Crocolisks|r。等待它们巡逻离开|r
+    .link https://youtu.be/QcEUvwu49KI?t=336 >>|cRXP_WARN_点击此处查看参考（强烈建议您这样做）|r
+    .goto Wetlands,12.69,60.97,15 >>前往: |cRXP_PICK_湿地|r
     .mob Young Wetlands Crocolisk
     .mob Bluegill Raider
     .unitscan Sludginn
@@ -3081,63 +3041,63 @@ step
 step
     #completewith next
     .goto Wetlands,10.80,59.80,10,0
-    .goto Wetlands,10.63,60.10,10 >>Go inside the Inn
+    .goto Wetlands,10.63,60.10,10 >>进入旅馆
 step
     .goto Wetlands,10.50,60.20
-    >>Jump onto the Chandelier downstairs
-    >>Talk to |cRXP_FRIENDLY_Samor|r through the wall
-    >>|cRXP_WARN_NOTE: To do this, bind "Interact with Target" under Gameplay -> Controls in the Options menu|r
-    >>|cRXP_WARN_If the Boat has just arrived, skip this step|r
-    .vendor 1457 >> |cRXP_BUY_Buy|r |T134831:0|t[Healing Potions] |cRXP_BUY_from him (if they're up)|r
+    >>跳到楼下的吊灯上
+    >>对话: |cRXP_FRIENDLY_萨莫尔·菲斯蒂沃斯|r
+    >>|cRXP_WARN_注意：要执行此操作，请在“选项”菜单中的“游戏玩法”->“控制”下绑定“与目标互动”|r
+    >>|cRXP_WARN_如果船刚刚抵达，请跳过此步骤|r
+    .vendor 1457 >>|cRXP_BUY_从他那里购买|r |T134831:0|t[治疗药水] |cRXP_BUY_（如果价格上涨）|r
     .target Samor Festivus
     .money <0.03
 step
     .goto Wetlands,9.49,59.69
-    >>Talk to |cRXP_FRIENDLY_Shellei|r
-    .fp Menethil Harbor >> Get the Menethil Harbor flight path
+    >>前往: |cRXP_PICK_暴风城|r
+    .fp Menethil Harbor >>获取米奈希尔港飞行路线
     .target Shellei Brondir
 step
     #completewith DarkshoreBoat
     .goto Wetlands,7.89,56.22
-    >>|cRXP_WARN_If the Boat has just arrived, skip this step|r
-    +|cRXP_WARN_Cook any|r |T133970:0|t|cRXP_LOOT_[Chunks of Boar Meat]|r |cRXP_WARN_you have from outside (there's a campfire inside)|r
+    >>|cRXP_WARN_如果船刚刚抵达，请跳过此步骤|r
+    +|cRXP_WARN_烹饪任何|r |T133970:0|t|cRXP_LOOT_[大块野猪肉]|r |cRXP_WARN_你从外面得到的（里面有篝火）|r
     .itemcount 769,1
 step
     .goto Wetlands,7.89,56.22
-    >>Talk to |cRXP_FRIENDLY_Dewin|r through the wall
-    >>|cRXP_WARN_If the Boat has just arrived, skip this step|r
-    .vendor 1453 >> |cRXP_BUY_Buy|r |T134831:0|t[Healing Potions] |cRXP_BUY_from him (if they're up)|r
+    >>对话: |cRXP_FRIENDLY_德温·晨光|r
+    >>|cRXP_WARN_如果船刚刚抵达，请跳过此步骤|r
+    .vendor 1453 >>|cRXP_BUY_从他那里购买|r |T134831:0|t[治疗药水] |cRXP_BUY_（如果价格上涨）|r
     .target Dewin Shimmerdawn
     .money <0.03
 step
     #completewith Darkshore
     #label DarkshoreBoat
     .goto Wetlands,6.09,58.45,20,0
-    .goto Wetlands,4.50,57.02,20 >>Travel toward the Darkshore Boat
+    .goto Wetlands,4.50,57.02,20 >>前往黑海岸船
 step
     #completewith next
     #requires DarkshoreBoat
-    +|cRXP_WARN_Start spam casting|r |T132794:0|t[Conjure Water r2] |cRXP_WARN_to conjure as much water as possible|r
+    +|cRXP_WARN_开始垃圾邮件投放|r |T132794:0|t[召唤水 r2] |cRXP_WARN_召唤尽可能多的水|r
 step
     #label Darkshore
     .goto Wetlands,4.25,57.21
-    .zone Darkshore >> Take the boat to Darkshore
+    .zone Darkshore >>前往: |cRXP_PICK_黑海岸|r
 step
     #label Darkshoreshore
     #completewith Wizbang
-    .goto Darkshore,35.73,45.23,60 >>Jump off the boat when you're closest to the shore
+    .goto Darkshore,35.73,45.23,60 >>当你距离岸边最近时跳下船
 step
     #requires Darkshoreshore
     #completewith Wizbang
-    +|cRXP_WARN_Kite 2-3 |cRXP_ENEMY_Pygmy Tide Crawlers|r toward |cRXP_FRIENDLY_Wizbang|r (Remember to use|r |T135848:0|t[Frost Nova]|cRXP_WARN_) Kill them when you accept the quest|r
+    +|cRXP_WARN_风筝 2-3 |cRXP_ENEMY_Pygmy Tide Crawlers|r 朝向 |cRXP_FRIENDLY_Wizbang|r （记得使用|r |T135848:0|t[Frost Nova]|cRXP_WARN_）当你接受任务时杀死他们|r
     .mob Pygmy Tide Crawler
 step
     #requires Darkshoreshore
     #completewith next
     .goto Darkshore,36.77,44.28,0,0
-    >>Talk to |cRXP_FRIENDLY_Laird|r
-    >>|cRXP_BUY_Buy up to 20|r |T133918:0|t[Longjaw Mud Snappers] |cRXP_BUY_from him|r
-    .vendor >> Vendor Trash
+    >>对话: |cRXP_FRIENDLY_莱尔德|r
+    >>|cRXP_BUY_从他那里购买最多 20|r |T133918:0|t[长颚泥鲷] |cRXP_BUY_|r
+    .vendor >>供应商垃圾
     .collect 4592,20,983,1 --Longjaw Mud Snapper (20)
     .isQuestAvailable 983
 step
@@ -3146,49 +3106,49 @@ step
     .goto Darkshore,36.72,44.52,20,0
     .goto Darkshore,36.84,44.18,10,0
     .goto Darkshore,36.71,43.87,10,0
-    >>Go upstairs to the top floor
-    .goto Darkshore,36.98,44.14,8 >>Travel toward |cRXP_FRIENDLY_Wizbang|r
+    >>上楼到顶楼
+    .goto Darkshore,36.98,44.14,8 >>前往 |cRXP_FRIENDLY_Wizbang|r
 step
     #label Wizbang
     .goto Darkshore,36.98,44.14
     >>Talk to |cRXP_FRIENDLY_Wizbang|r
-    .accept 983 >>Accept Buzzbox 827
+    .accept 983 >>接任务: |cRXP_LOOT_传声盒827号|r
     .target Wizbang Cranktoggle
 step
     #completewith next
-    >>Kill the |cRXP_ENEMY_Pygmy Tide Crawlers|r you kited. Loot them for their |cRXP_LOOT_Crawler Legs|r
+    >>杀死你放风筝的 |cRXP_ENEMY_Pygmy Tide Crawlers|r。掠夺他们的 |cRXP_LOOT_Crawler Legs|r
     .complete 983,1 --Crawler Leg (6)
     .mob Pygmy Tide Crawler
 step
     #completewith next
     .goto Darkshore,37.44,43.12,20,0
     .goto Darkshore,37.73,41.40,20,0
-    .goto Darkshore,37.39,40.13,10 >>Travel toward |cRXP_FRIENDLY_Thundris|r
+    .goto Darkshore,37.39,40.13,10 >>前往 |cRXP_FRIENDLY_Thundris|r
 step
     #sticky
     #label DalmondBags
     .goto Darkshore,37.45,40.50
-    >>Talk to |cRXP_FRIENDLY_Dalmond|r
-    .vendor 4182 >> |cRXP_BUY_Buy as many|r |T133634:0|t[Small Brown Pouches] |cRXP_BUY_as you need/can|r
+    >>对话: |cRXP_FRIENDLY_达蒙德|r
+    .vendor 4182 >>|cRXP_BUY_根据需要购买|r |T133634:0|t[小棕色袋] |cRXP_BUY_/can|r
     .target Dalmond
     .money <0.0500
     .isQuestAvailable 954
 step
     .goto Darkshore,37.39,40.13
     >>Talk to |cRXP_FRIENDLY_Thundris|r
-    .accept 954 >>Accept Bashal'Aran
-    .accept 958 >>Accept Tools of the Highborne
+    .accept 954 >>接任务: |cRXP_LOOT_巴莎兰|r
+    .accept 958 >>接任务: |cRXP_LOOT_上层精灵的工具|r
     .target Thundris Windweaver
 	.skill cooking,10,1
 step
-    >>Talk to |cRXP_FRIENDLY_Thundris|r and |cRXP_FRIENDLY_Alanndarian|r
-    .accept 954 >>Accept Bashal'Aran
-    .accept 958 >>Accept Tools of the Highborne
-    .target +Thundris Windweaver
+    >>对话: Thundris, |cRXP_FRIENDLY_奥兰达利亚·夜歌|r
+    .accept 954 >>接任务: |cRXP_LOOT_巴莎兰|r
+    .accept 958 >>接任务: |cRXP_LOOT_上层精灵的工具|r
     .goto Darkshore,37.39,40.13
-    .accept 2178 >>Accept Easy Strider Living
+    .accept 2178 >>接任务: |cRXP_LOOT_炖陆行鸟|r
     .goto Darkshore,37.69,40.66
-    .target +Alanndarian Nightsong
+    .target Thundris Windweaver
+    .target Alanndarian Nightsong
 	.skill cooking,<10,1
 step
     #requires DalmondBags
@@ -3196,21 +3156,21 @@ step
     .goto Darkshore,37.85,41.39,20,0
     .goto Darkshore,38.58,42.61,20,0
     .goto Darkshore,39.05,43.23,20,0
-    .goto Darkshore,39.37,43.49,12 >>Travel toward |cRXP_FRIENDLY_Terenthis|r
+    .goto Darkshore,39.37,43.49,12 >>前往 |cRXP_FRIENDLY_Terenthis|r
 step
     #requires DalmondBags
-    >>Talk to |cRXP_FRIENDLY_Terenthis|r and |cRXP_FRIENDLY_Tharnariun|r
-    .accept 984 >>Accept How Big a Threat?
-    .target +Terenthis
+    >>对话: |cRXP_FRIENDLY_特伦希斯|r, |cRXP_FRIENDLY_萨纳瑞恩·绿树|r
+    .accept 984 >>接任务: |cRXP_LOOT_熊怪的威胁|r
     .goto Darkshore,39.37,43.49
-    .accept 2118 >>Accept Plagued Lands
+    .accept 2118 >>接任务: |cRXP_LOOT_瘟疫蔓延|r
     .goto Darkshore,38.84,43.41
-    .target +Tharnariun Treetender
+    .target Terenthis
+    .target 萨纳利恩护树人
  step
     .goto Darkshore,36.77,44.28
-    >>Talk to |cRXP_FRIENDLY_Laird|r
-    >>|cRXP_BUY_Buy up to 20|r |T133918:0|t[Longjaw Mud Snappers] |cRXP_BUY_from him|r
-    .vendor >> Vendor Trash
+    >>对话: |cRXP_FRIENDLY_莱尔德|r
+    >>|cRXP_BUY_从他那里购买最多 20|r |T133918:0|t[长颚泥鲷] |cRXP_BUY_|r
+    .vendor >>供应商垃圾
     .collect 4592,20,983,1 --Longjaw Mud Snapper (20)
     .isQuestAvailable 983
     .itemcount 4592,<20
@@ -3221,63 +3181,63 @@ step
     .goto Darkshore,35.86,47.35,50,0
     .goto Darkshore,35.74,48.20,50,0
     .goto Darkshore,36.25,49.90,50,0
-    >>Kill |cRXP_ENEMY_Pygmy Tide Crawlers|r. Loot them for their |cRXP_LOOT_Crawler Legs|r
+    >>杀死 |cRXP_ENEMY_Pygmy Tide Crawlers|r。掠夺他们的 |cRXP_LOOT_Crawler Legs|r
     .complete 983,1 --Crawler Leg (6)
     .mob Pygmy Tide Crawler
 step
     #completewith next
     .goto Darkshore,38.23,52.84,75,0
-    >>|cRXP_WARN_Use|r |T134335:0|t[Tharnariun's Hope] |cRXP_WARN_on a |cRXP_ENEMY_Rabid Thistle Bear|r. It has a 50-yard range|r
-    >>|cRXP_WARN_Be careful as they cast|r |T135914:0|t[Rabies] |cRXP_WARN_(Instant Melee: Reduces ALL health regen by 50% for 10 Minutes)|r
-    .complete 2118,1 --Rabid Thistle Bear Captured (1)
+    >>|cRXP_WARN_使用|r |T134335:0|t[Tharnariun's Hope] |cRXP_WARN_on |cRXP_ENEMY_Rabid Thistle 熊|r。它有 50 码范围|r
+    >>|cRXP_WARN_施放时要小心|r |T135914:0|t[狂犬病] |cRXP_WARN_（即时近战：在 10 分钟内使所有生命值恢复降低 50%）|r
+    .complete 2118,1 --Rabid Thistle 熊 Captured (1)
     .use 7586
-    .unitscan Rabid Thistle Bear
+    .unitscan Rabid Thistle 熊
 step
     .goto Darkshore,38.90,53.59
-    >>Run toward the Furbolg Camp
-    >>|cRXP_WARN_Do not attempt to fight the|r |cRXP_ENEMY_Blackwood Windtalker|r
+    >>跑向熊怪营地
+    >>|cRXP_WARN_不要试图与|r |cRXP_ENEMY_黑木风语者 战斗|r
     .complete 984,1 --Find a corrupt furbolg camp (1)
 step
     .goto Darkshore,38.63,56.34,60,0
     .goto Darkshore,38.80,58.29,60,0
     .goto Darkshore,38.38,60.75,60,0
     .goto Darkshore,38.57,66.39
-    >>|cRXP_WARN_Use|r |T134335:0|t[Tharnariun's Hope] |cRXP_WARN_on a |cRXP_ENEMY_Rabid Thistle Bear|r. It has a 50-yard range|r
-    >>|cRXP_WARN_Be careful as they cast|r |T135914:0|t[Rabies] |cRXP_WARN_(Instant Melee: Reduces ALL health regen by 50% for 10 Minutes)|r
-    .complete 2118,1 --Rabid Thistle Bear Captured (1)
+    >>|cRXP_WARN_使用|r |T134335:0|t[Tharnariun's Hope] |cRXP_WARN_on |cRXP_ENEMY_Rabid Thistle 熊|r。它有 50 码范围|r
+    >>|cRXP_WARN_施放时要小心|r |T135914:0|t[狂犬病] |cRXP_WARN_（即时近战：在 10 分钟内使所有生命值恢复降低 50%）|r
+    .complete 2118,1 --Rabid Thistle 熊 Captured (1)
     .use 7586
-    .unitscan Rabid Thistle Bear
+    .unitscan Rabid Thistle 熊
 step
     .goto Darkshore,40.30,59.73
-    >>Talk to |cRXP_FRIENDLY_Tysha|r
-    .accept 953 >>Accept The Fall of Ameth'Aran
+    >>对话: |cRXP_FRIENDLY_哨兵坦莎·月刃|r
+    .accept 953 >>接任务: |cRXP_LOOT_亚米萨兰的毁灭|r
     .target Sentinel Tysha Moonblade
 step
     #completewith Relics
-    +|cRXP_WARN_Avoid pulling |cRXP_ENEMY_Lady Moongazer|r (rare) if she's up|r
+    +|cRXP_WARN_如果她站起来，避免拉 |cRXP_ENEMY_Lady Moongazer|r （罕见）|r
     .unitscan Lady Moongazer
 step
     #completewith Fall
-    >>Kill |cRXP_ENEMY_Cursed Highbornes|r and |cRXP_ENEMY_Writhing Highbornes|r. Loot them for |cRXP_LOOT_Highborne Relics|r
-    >>|cRXP_WARN_Kill |cRXP_ENEMY_Wailing Highbornes|r only if they're in your way|r
+    >>杀死 |cRXP_ENEMY_被诅咒的上层精灵s|r 和 |cRXP_ENEMY_痛苦挣扎的上层精灵s|r。掠夺他们以获得 |cRXP_LOOT_Highborne Relics|r
+    >>|cRXP_WARN_仅当他们挡住你的路时才杀死 |cRXP_ENEMY_Wailing Highborne|r|r
     .complete 958,1 --Highborne Relic (7)
-    .mob Cursed Highborne
-    .mob Writhing Highborne
+    .mob 被诅咒的上层精灵
+    .mob 痛苦挣扎的上层精灵
 step
     .goto Darkshore,42.65,63.15
-    >>Click |cRXP_PICK_The Fall of Ameth'Aran|r on the ground
-    >>|cRXP_WARN_This has a 5 second cast time|r
+    >>点击地面上的 |cRXP_PICK_The Fall of Ameth'Aran|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
     .complete 953,2 --Read the Fall of Ameth'Aran (1)
 step
     .goto Darkshore,43.30,58.70
-    >>Click |cRXP_PICK_The Lay of Ameth'Aran|r on the ground
-    >>|cRXP_WARN_This has a 5 second cast time|r
+    >>点击地面上的 |cRXP_PICK_The Lay of Ameth'Aran|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
     .complete 953,1 --Read the Lay of Ameth'Aran (1)
 step
     #label Fall
     .goto Darkshore,40.30,59.73
-    >>Talk to |cRXP_FRIENDLY_Tysha|r
-    .turnin 953 >>Turn in The Fall of Ameth'Aran
+    >>对话: |cRXP_FRIENDLY_哨兵坦莎·月刃|r
+    .turnin 953 >>交任务: |cRXP_FRIENDLY_亚米萨兰的毁灭|r
     .target Sentinel Tysha Moonblade
 step
     #label Relics
@@ -3289,25 +3249,37 @@ step
     .goto Darkshore,42.38,63.40,50,0
     .goto Darkshore,41.21,61.64,50,0
     .goto Darkshore,41.76,57.96
-    >>Kill |cRXP_ENEMY_Cursed Highbornes|r and |cRXP_ENEMY_Writhing Highbornes|r
-    >>|cRXP_WARN_Kill |cRXP_ENEMY_Wailing Highbornes|r only if they're in your way|r
+    >>杀死 |cRXP_ENEMY_被诅咒的上层精灵s|r 和 |cRXP_ENEMY_痛苦挣扎的上层精灵s|r
+    >>|cRXP_WARN_仅当他们挡住你的路时才杀死 |cRXP_ENEMY_Wailing Highborne|r|r
     .complete 958,1 --Highborne Relic (7)
-    .mob Cursed Highborne
-    .mob Writhing Highborne
+    .mob 被诅咒的上层精灵
+    .mob 痛苦挣扎的上层精灵
 step
     #completewith next
-    +|cRXP_WARN_Kite 2-3 |cRXP_ENEMY_Vile Sprites|r toward |cRXP_FRIENDLY_Asterion|r (Remember to use|r |T135848:0|t[Frost Nova]|cRXP_WARN_) Kill them when you accept the quest|r
+    .goto Darkshore,45.25,53.44,30 >>进入洞穴
+    >>|cRXP_WARN_避开途中的 |cRXP_ENEMY_Thistle 熊s|r、|cRXP_ENEMY_Moonkins|r、和 |cRXP_ENEMY_Raging Moonkins|r （如果可能）|r
+    .isOnQuest 958
+step
+    .goto Darkshore,45.75,53.08
+    .goto Darkshore,41.70,36.51,30 >>|cRXP_WARN_Kill the |cRXP_ENEMY_Moonkin Oracle|r inside the cave, then drink 前往: |cRXP_PICK_荒芜之地|r, 通过在洞穴后面的蘑菇顶部登出来跳过|r
+    >>|cRXP_WARN_施放时要小心|r |T136006:0|t[愤怒] |cRXP_WARN_（远程施法：造成 30-45 点自然伤害），|r |T136096:0|t[月火术] |cRXP_WARN_（远程瞬发：造成 20-30 点自然伤害，然后在 12 秒内造成 44 点自然伤害），以及|r |T136085:0|t[再生] |cRXP_WARN_（自我施法：治疗约 150 点伤害。罕见，但如果发生这种情况，请逃跑）|r
+    >>|cRXP_WARN_你可以在洞口的岩石后面看到他|r |T136006:0|t[Wrath] |cRXP_WARN_|r
+    .mob Moonkin Oracle
+    .isOnQuest 958
+step
+    #completewith next
+    +|cRXP_WARN_放风筝 2-3 |cRXP_ENEMY_Vile Sprites|r 朝向 |cRXP_FRIENDLY_Asterion|r （记得使用|r |T135848:0|t[Frost Nova]|cRXP_WARN_）当你接受任务时杀死他们|r
     .mob Vile Sprite
 step
     .goto Darkshore,44.17,36.29
-    >>Talk to |cRXP_FRIENDLY_Asterion|r
-    .turnin 954 >> Turn in Bashal'Aran
-    .accept 955 >> Accept Bashal'Aran
+    >>对话: |cRXP_FRIENDLY_阿斯特利安|r
+    .turnin 954 >>交任务: |cRXP_FRIENDLY_巴莎兰|r
+    .accept 955 >>接任务: |cRXP_LOOT_巴莎兰|r
     .target Asterion
 step
     #completewith BashalF
-    +|cRXP_WARN_Be careful as |cRXP_ENEMY_Licillin|r (rare) may be up|r
-    >>|cRXP_WARN_He casts|r |T136197:0|t[Shadow Bolt] |cRXP_WARN_(Ranged Cast: Deals 55-70 Shadow damage)|r
+    +|cRXP_WARN_请小心，因为 |cRXP_ENEMY_Licillin|r（罕见）可能出现|r
+    >>|cRXP_WARN_他施放|r |T136197:0|t[暗影箭] |cRXP_WARN_(远程施法：造成 55-70 点暗影伤害)|r
     .unitscan Licillin
 step
 #loop
@@ -3322,16 +3294,16 @@ step
 	.goto Darkshore,46.91,37.11,35,0
 	.goto Darkshore,45.47,36.01,35,0
 	.goto Darkshore,44.57,36.57,35,0
-    >>Kill |cRXP_ENEMY_Vile Sprites|r and |cRXP_ENEMY_Wild Grells|r. Loot them for their |cRXP_LOOT_Grell Earrings|r
-    >>|cRXP_WARN_Be careful as the |cRXP_ENEMY_Vile Sprites|r cast|r |T136016:0|t[Poison] |cRXP_WARN_(Melee Instant: Deals 3 damage every 3 seconds for 15 seconds) and |cRXP_ENEMY_Wild Grells|r cast|r |T136215:0|t[Crazed] |cRXP_WARN_(Self Instant: Increases attack speed by 20% at <20% health)|r
+    >>杀死 |cRXP_ENEMY_Vile Sprites|r 和 |cRXP_ENEMY_Wild Grells|r。掠夺他们的 |cRXP_LOOT_Grell Earrings|r
+    >>|cRXP_WARN_要小心 |cRXP_ENEMY_Vile Sprites|r cast|r |T136016:0|t[Poison] |cRXP_WARN_(Melee Instant: 15 秒内每 3 秒造成 3 点伤害) 和 |cRXP_ENEMY_Wild Grells|r cast|r |T136215:0|t[Crazed] |cRXP_WARN_(Self Instant: 生命值低于 20% 时攻击速度提高 20%)|r
     .complete 955,1 --Grell Earring (8)
     .mob Vile Sprite
     .mob Wild Grell
 step
     .goto Darkshore,44.17,36.29
-    >>Talk to |cRXP_FRIENDLY_Asterion|r
-    .turnin 955 >> Turn in Bashal'Aran
-    .accept 956 >> Accept Bashal'Aran
+    >>对话: |cRXP_FRIENDLY_阿斯特利安|r
+    .turnin 955 >>交任务: |cRXP_FRIENDLY_巴莎兰|r
+    .accept 956 >>接任务: |cRXP_LOOT_巴莎兰|r
     .target Asterion
 step
     .goto Darkshore,45.50,36.50,45,0
@@ -3350,8 +3322,8 @@ step
     .goto Darkshore,47.36,37.63,45,0
     .goto Darkshore,47.77,37.20,45,0
     .goto Darkshore,47.44,36.76
-    >>Kill |cRXP_ENEMY_Deth'ryll Satyrs|r. Loot them for the |cRXP_LOOT_Ancient Moonstone Seal|r
-    >>|cRXP_WARN_Be careful as they cast|r |T132222:0|t[Shoot] |cRXP_WARN_(Ranged Cast: Deals 15-25 damage)|r
+    >>杀死 |cRXP_ENEMY_Deth'ryll Satyrs|r。掠夺他们以获得 |cRXP_LOOT_Ancient Moonstone Seal|r
+    >>|cRXP_WARN_小心他们施法|r |T132222:0|t[射击] |cRXP_WARN_(远程施法：造成 15-25 点伤害)|r
     .complete 956,1 --Ancient Moonstone Seal (1)
     .mob Deth'ryll Satyr
 step
@@ -3367,61 +3339,61 @@ step
 	.goto Darkshore,46.91,37.11,35,0
 	.goto Darkshore,45.47,36.01,35,0
 	.goto Darkshore,44.57,36.57,35,0
-    .xp 11+1100 >> Grind to 1100+/8800xp
+    .xp 11+1100 >>升级至 1100+/8800xp
     .mob Vile Sprite
     .mob Wild Grell
---910+900+750+975+850 = 4385 (Turnins starting from Bashal Seal turnin)
---675+975 = 1650 (Turtle turnins)
+--910+900+750+975+850 = 4385 (从 巴沙尔印章 上交开始的上交数)
+--675+975 = 1650 (乌龟翻转)
 step
     #label BashalF
     .goto Darkshore,44.17,36.29
-    >>Talk to |cRXP_FRIENDLY_Asterion|r
-    .turnin 956 >> Turn in Bashal'Aran
-    .accept 957 >> Accept Bashal'Aran
+    >>对话: |cRXP_FRIENDLY_阿斯特利安|r
+    .turnin 956 >>交任务: |cRXP_FRIENDLY_巴莎兰|r
+    .accept 957 >>接任务: |cRXP_LOOT_巴莎兰|r
     .target Asterion
 step
     #sticky
     #label DalmondBags1
     .goto Darkshore,37.45,40.50,0,0
-    >>Talk to |cRXP_FRIENDLY_Dalmond|r
-    .vendor >> Vendor Trash
+    >>对话: |cRXP_FRIENDLY_达蒙德|r
+    .vendor >>供应商垃圾
     .target Dalmond
     .isQuestAvailable 3524
 step
     .goto Darkshore,37.40,40.13
     >>Talk to |cRXP_FRIENDLY_Thundris|r
-    .turnin 958 >>Turn in Tools of the Highborne
+    .turnin 958 >>交任务: |cRXP_FRIENDLY_上层精灵的工具|r
     .target Thundris Windweaver
 step
     #requires DalmondBags1
     .goto Darkshore,37.69,40.66
-    >>Talk to |cRXP_FRIENDLY_Alanndarian|r
-    .turnin 2178 >>Turn in Easy Strider Living
+    >>对话: |cRXP_FRIENDLY_奥兰达利亚·夜歌|r
+    .turnin 2178 >>交任务: |cRXP_FRIENDLY_炖陆行鸟|r
     .target Alanndarian Nightsong
     .itemcount 5469,5
     .skill cooking,<10,1
 step
-    >>Talk to |cRXP_FRIENDLY_Terenthis|r and |cRXP_FRIENDLY_Tharnariun|r
-    .turnin 984 >> Turn in How Big a Threat?
-    .accept 985 >> Accept How Big a Threat?
-    .accept 4761 >> Accept Thundris Windweaver
-    .target +Terenthis
+    >>对话: |cRXP_FRIENDLY_特伦希斯|r, |cRXP_FRIENDLY_萨纳瑞恩·绿树|r
+    .turnin 984 >>交任务: |cRXP_FRIENDLY_熊怪的威胁|r
+    .accept 985 >>接任务: |cRXP_LOOT_熊怪的威胁|r
+    .accept 4761 >>接任务: |cRXP_LOOT_桑迪斯·织风|r
     .goto Darkshore,39.37,43.49
-    .turnin 2118 >> Turn in Plagued Lands
-    .accept 2138 >> Accept Cleansing of the Infected
+    .turnin 2118 >>交任务: |cRXP_FRIENDLY_瘟疫蔓延|r
+    .accept 2138 >>接任务: |cRXP_LOOT_清除疫病|r
     .goto Darkshore,38.84,43.41
-    .target +Tharnariun Treetender
+    .target Terenthis
+    .target 萨纳利恩护树人
 step
     #sticky
     #label Gwennyth
     .goto Darkshore,36.62,45.59
-    >>Talk to |cRXP_FRIENDLY_Gwennyth|r
-    .accept 3524 >>Accept Washed Ashore
+    >>对话: |cRXP_FRIENDLY_温尼斯·布莱葛|r
+    .accept 3524 >>接任务: |cRXP_LOOT_搁浅的巨兽|r
     .target Gwennyth Bly'Leggonde
 step
     .goto Darkshore,36.34,45.58
     >>Talk to |cRXP_FRIENDLY_Caylais|r
-    .fp Auberdine >> Get the Auberdine flight path
+    .fp Auberdine >>获取奥伯丁飞行路线
     .target Caylais Moonfeather
 step
     #requires Gwennyth
@@ -3431,14 +3403,14 @@ step
     .goto Darkshore,35.86,47.35,50,0
     .goto Darkshore,35.74,48.20,50,0
     .goto Darkshore,36.25,49.90,50,0
-    >>Kill |cRXP_ENEMY_Pygmy Tide Crawlers|r and |cRXP_ENEMY_Young Reef Crawlers|r. Loot them for their |cRXP_LOOT_Crawler Legs|r
+    >>杀死 |cRXP_ENEMY_Pygmy Tide Crawlers|r 和 |cRXP_ENEMY_Young Reef Crawlers|r。掠夺他们的 |cRXP_LOOT_Crawler Legs|r
     .complete 983,1 --Crawler Leg (6)
     .mob Pygmy Tide Crawler
     .mob Young Reef Crawler
 step
     #requires Gwennyth
     #completewith next
-    >>|cRXP_WARN_Save the|r |T133884:0|t[Murloc Eyes] |cRXP_WARN_you loot from the |cRXP_ENEMY_Greymist Coastrunners|r and|r |cRXP_ENEMY_Greymist Raiders|r
+    >>|cRXP_WARN_保存|r |T133884:0|t[鱼人之眼] |cRXP_WARN_你从|cRXP_ENEMY_Greymist Coastrunners|r 和|r |cRXP_ENEMY_Greymist Raiders 手中抢来的物品|r
     .collect 730,3,38,1 --Murloc Eyes (3)
     .mob Greymist Coastrunner
     .mob Greymist Raider
@@ -3446,54 +3418,54 @@ step
     #requires Gwennyth
     #label Bones
     .goto Darkshore,36.38,50.88
-    >>Loot the |cRXP_LOOT_Beached Sea Creature|r
-    >>|cRXP_WARN_Be careful as the nearby |cRXP_ENEMY_Greymist Coastrunners|r have|r |T132307:0|t[Increased Movespeed]
-    >>|cRXP_WARN_This has a 5 second cast time|r
+    >>掠夺 |cRXP_LOOT_搁浅的海洋生物|r
+    >>|cRXP_WARN_小心附近的 |cRXP_ENEMY_Greymist Coastrunners|r 有|r |T132307:0|t[增加移动速度]
+    >>|cRXP_WARN_施法时间为 5 秒|r
     .complete 3524,1 --Sea Creature Bones (1)
 step
     .goto Darkshore,36.22,44.89
-    >>Kill |cRXP_ENEMY_Pygmy Tide Crawlers|r and |cRXP_ENEMY_Young Reef Crawlers|r. Loot them for their |cRXP_LOOT_Crawler Legs|r
+    >>杀死 |cRXP_ENEMY_Pygmy Tide Crawlers|r 和 |cRXP_ENEMY_Young Reef Crawlers|r。掠夺他们的 |cRXP_LOOT_Crawler Legs|r
     .complete 983,1 --Crawler Leg (6)
     .mob Pygmy Tide Crawler
     .mob Young Reef Crawler
 step
     .goto Darkshore,36.64,46.26
-    >>Click |cRXP_PICK_Buzzbox 827|r
-    .turnin 983 >>Turn in Buzzbox 827
-    .accept 1001 >>Accept Buzzbox 411
+    >>点击 |cRXP_PICK_Buzzbox 827|r
+    .turnin 983 >>交任务: |cRXP_FRIENDLY_传声盒827号|r
+    .accept 1001 >>接任务: |cRXP_LOOT_传声盒411号|r
 step
     .goto Darkshore,36.72,45.07,12,0
     .goto Darkshore,36.62,45.59
-    >>Talk to |cRXP_FRIENDLY_Gwennyth|r
-    .turnin 3524 >>Turn in Washed Ashore
-    .accept 4681 >>Accept Washed Ashore
+    >>对话: |cRXP_FRIENDLY_温尼斯·布莱葛|r
+    .turnin 3524 >>交任务: |cRXP_FRIENDLY_搁浅的巨兽|r
+    .accept 4681 >>接任务: |cRXP_LOOT_搁浅的巨兽|r
     .target Gwennyth Bly'Leggonde
  step
     .goto Darkshore,36.77,44.28
-    >>Talk to |cRXP_FRIENDLY_Laird|r
-    >>|cRXP_BUY_Buy up to 40|r |T133918:0|t[Longjaw Mud Snappers] |cRXP_BUY_from him|r
+    >>对话: |cRXP_FRIENDLY_莱尔德|r
+    >>|cRXP_BUY_从他那里购买最多 40|r |T133918:0|t[长颚泥鲷] |cRXP_BUY_|r
     .collect 4592,40,4681,1 --Longjaw Mud Snapper (40)
     .target Laird
 step
     .goto Darkshore,36.68,44.05,12,0
     .goto Darkshore,35.74,43.70
-    >>Talk to |cRXP_FRIENDLY_Cerellean|r
-    .accept 963 >>Accept For Love Eternal
+    >>对话: |cRXP_FRIENDLY_塞瑞利恩·白爪|r
+    .accept 963 >>接任务: |cRXP_LOOT_永志不渝|r
     .target Cerellean Whiteclaw
 step
     #completewith Gwen
-    >>Kill |cRXP_ENEMY_Darkshore Threshers|r
-    >>|cRXP_WARN_Do NOT go out of your way for these|r
+    >>杀死 |cRXP_ENEMY_黑海岸长尾蜥蜴|r
+    >>|cRXP_WARN_不要特意去买这些东西|r
     .complete 1001,1 --Thresher Eye (3)
     .mob Darkshore Thresher
 step
     #completewith next
     .goto Darkshore,32.91,42.24,15,0
-    .goto Darkshore,32.41,43.82,25 >> Run along the dock toward the |cRXP_LOOT_Sea Turtle Remains|r
+    .goto Darkshore,32.41,43.82,25 >>沿着码头跑向|cRXP_LOOT_海龟遗骸|r
 step
     .goto Darkshore,31.86,46.33
-    >>Swim underwater
-    >>Loot the |cRXP_LOOT_Sea Turtle Remains|r
+    >>水下游泳
+    >>掠夺 |cRXP_LOOT_海龟遗骸|r
     .complete 4681,1 --Sea Turtle Remains (1)
 step
     .goto Darkshore,36.12,44.70,50,0
@@ -3512,79 +3484,78 @@ step
     .goto Darkshore,35.23,53.81,50,0
     .goto Darkshore,35.22,55.37,50,0
     .goto Darkshore,36.70,57.09
-    .xp 11+7825 >> Grind to 7825+/8800xp
+    .xp 11+7825 >>升级至 7825+/8800xp
     .mob Pygmy Tide Crawler
     .mob Young Reef Crawler
 step
     #label Gwen
     .goto Darkshore,36.67,45.08,12,0
     .goto Darkshore,36.62,45.59
-    >>Talk to |cRXP_FRIENDLY_Gwennyth|r
-    .turnin 4681,1 >> Turn in Washed Ashore
+    >>对话: |cRXP_FRIENDLY_温尼斯·布莱葛|r
+    .turnin 4681,1 >>交任务: |cRXP_FRIENDLY_搁浅的巨兽|r
     .target Gwennyth Bly'Leggonde
 step << skip
     #completewith next
-    +Equip your new creps (Equip the |T132537:0|t[Sandcomber Boots])
+    +装备你的新 creps (装备 |T132537:0|t[Sandcomber Boots])
     .use 15398
     .itemcount 15398,1
     .itemStat 8,LEVEL,<14
 step
     .goto Darkshore,37.04,44.13
-    >>|cRXP_WARN_===PAY ATTENTION===|r
-    >>|cRXP_WARN_Talk to|r |cRXP_FRIENDLY_Shaussiy|r
-    >>|cRXP_WARN_If this is your first time doing a Hearthstone Batch, watch the guide for it below|r
-    >>|cRXP_WARN_Open the "Set Hearthstone" menu, then cast|r |T134414:0|t[Hearthstone]
-    .hs >> |cRXP_WARN_Hearthstone BATCH from Auberdine to Ironforge|r
-    .link https://www.youtube.com/watch?v=Is-h2TJpL3M >> |cRXP_WARN_CLICK HERE (it is HEAVILY advised you do so). Make sure you've set and tested your Batching Window Size prior to reduce risk of failure|r
+    >>|cRXP_WARN_===注意===|r
+    >>|cRXP_WARN_与|r |cRXP_FRIENDLY_Shaussiy交谈|r
+    >>|cRXP_WARN_如果这是你第一次进行炉石批次，请观看下面的指南|r
+    >>|cRXP_WARN_打开“设置炉石”菜单，然后施放|r |T134414:0|t[炉石]
+    .hs >>|cRXP_WARN_从 奥伯丁 炉石到 铁炉堡|r
+    .link https://www.youtube.com/watch?v=Is-h2TJpL3M >>|cRXP_WARN_单击此处（强烈建议您这样做）。请确保您已设置并测试了批处理窗口大小，以降低失败风险|r
     .target Innkeeper Shaussiy
     .zoneskip Ironforge
 step
     .goto Ironforge,27.17,8.58
-    >>Talk to |cRXP_FRIENDLY_Dink|r
-    .trainer >> Train your class spells (Fireball r3, Dampen Magic)
-    >>Total Cost: 12s
-    >>Remember you may want money for a |T133024:0|t[Bronze Tube] (8s each) and Thelsamar flying (1s 10c)
+    >>对话: |cRXP_FRIENDLY_丁克|r
+    .trainer >>训练你的职业法术（火球 r3、抑制魔法）
+    >>总花费：12 秒
+    >>记住你可能需要钱来购买 |T133024:0|t[青铜管]（每个 8 秒）和 Thelsamar 飞行器（1 秒 10 美分）
     .target Dink
-step << skip
+step
     .goto Ironforge,27.22,8.58,-1
     .goto Ironforge,67.83,42.47,-1
-    .vendor 5175 >> Logout skip on the pillar above |cRXP_FRIENDLY_Dink|r to check |cRXP_FRIENDLY_Cogspinner|r for a |T133024:0|t[Bronze Tube] if you wish
+    .vendor 5175 >>如果您愿意，请退出并跳过 |cRXP_FRIENDLY_Dink|r 上方的柱子，检查 |cRXP_FRIENDLY_Cogspinner|r 是否有 |T133024:0|t[青铜管]
     .itemcount 4371,<1
     .isQuestAvailable 418
 step
     #completewith next
-    +|cRXP_WARN_Start spam casting|r |T132794:0|t[Conjure Water r2] |cRXP_WARN_to conjure as much water as possible before taking the flight|r
+    +|cRXP_WARN_开始垃圾邮件投放|r |T132794:0|t[召唤水 r2] |cRXP_WARN_在飞行前召唤尽可能多的水|r
 step << Gnome
     .goto Ironforge,55.50,47.74
-    >>Talk to |cRXP_FRIENDLY_Gryth|r
-    .accept 6392 >>Accept Return to Brock
+    >>对话: |cRXP_FRIENDLY_格莱斯·瑟登|r
+    .accept 6392 >>接任务: |cRXP_LOOT_向布洛克回复|r
     .target Gryth Thurden
 step
     .goto Ironforge,55.50,47.74
-    >>Talk to |cRXP_FRIENDLY_Gryth|r
-    .fly Thelsamar >> Fly to Thelsamar
+    >>对话: |cRXP_FRIENDLY_格莱斯·瑟登|r
+    .fly Thelsamar >>飞往塞尔萨玛
     .target Gryth Thurden
 ]])
 
 RXPGuides.RegisterGuide([[
 #classic
-#tbc
 << Alliance Mage
-#name 10-12 LAUNCH ADV Darkshore 1 Mage AoE
+#name 10-12 冒险 黑海岸 1 法师 AoE
 #version 2
-#group RestedXP ADV AoE Alliance Mage
+#group RestedXP 冒险 AoE 联盟法师
 #defaultfor none
-#next 12-14 ADV Loch Modan Mage AoE
+#next 12-14 冒险 洛克莫丹法师 AoE
 
 --VV Make this an alternative route that must be manually selected
 step
     #completewith next
-    +|cRXP_WARN_NOTE: The Launch route contains quests that are VERY difficult to do solo. This is specifically for either heavily crowded servers where you can group up for the harder quests, OR players who have mob taggers|r
+    +|cRXP_WARN_注意：启动路线包含非常难以单独完成的任务。这专门针对那些人满为患的服务器，你可以组队完成更困难的任务，或者有群体标记的玩家|r
 step
     #completewith next
     .goto Dun Morogh,53.48,37.50,30,0
     .goto Dun Morogh,54.04,38.60,30,0
-    .goto Dun Morogh,59.43,42.85,150 >> Travel to the skip spot. Hug the left side of the mountain en route
+    .goto Dun Morogh,59.43,42.85,150 >>前往跳跃点。沿途沿着山的左侧行走
 step
     .goto Dun Morogh,60.18,43.01,12,0
     .goto Dun Morogh,60.42,43.75,12,0
@@ -3606,10 +3577,10 @@ step
     .goto Dun Morogh,60.64,13.89,6,0
     .goto Dun Morogh,61.40,13.27,10,0
     .goto Dun Morogh,61.52,12.58,8,0
-    >>|cRXP_WARN_Do the Deathless Dun Morogh -> Wetlands skip|r
-    >>|cRXP_WARN_Eat to full after each fall if you don't feel confident|r
-    .link https://youtu.be/QcEUvwu49KI?t=73 >> |cRXP_WARN_CLICK HERE for reference (it is HEAVILY advised you do so)|r
-    .goto Dun Morogh,60.65,11.38,20 >>Carefully drop down the mountain side
+    >>|cRXP_WARN_做不死丹莫洛->湿地跳过|r
+    >>|cRXP_WARN_如果你没有信心，每次跌倒后都要吃饱|r
+    .link https://youtu.be/QcEUvwu49KI?t=73 >>|cRXP_WARN_点击此处查看参考（强烈建议您这样做）|r
+    .goto Dun Morogh,60.65,11.38,20 >>小心地从山边掉下来
     .isQuestAvailable 983
 step
     .goto Dun Morogh,60.80,10.33,10,0
@@ -3623,12 +3594,12 @@ step
     .goto Wetlands,15.07,66.41,20,0
     .goto Wetlands,15.31,65.47,20,0
     .goto Wetlands,15.10,63.72,12,0
-    >>|cRXP_WARN_Do the Deathless Dun Morogh -> Wetlands skip|r
-    >>|cRXP_WARN_Be careful of |cRXP_ENEMY_Sludginn|r (rare) before you drop down toward the coast (if he's up)|r
-    >>|cRXP_WARN_Be careful of the |cRXP_ENEMY_Bluegill Raiders|r to the west when you reach the sea|r
-    >>|cRXP_WARN_Avoid the |cRXP_ENEMY_Young Wetlands Crocolisks|r when crossing the sea. Wait for them to patrol away|r
-    .link https://youtu.be/QcEUvwu49KI?t=336 >> |cRXP_WARN_CLICK HERE for reference (it is HEAVILY advised you do so)|r
-    .goto Wetlands,12.69,60.97,15 >> Travel to Menethil Harbor
+    >>|cRXP_WARN_做不死丹莫洛->湿地跳过|r
+    >>|cRXP_WARN_在你降落到海岸之前（如果他在上面的话），请小心 |cRXP_ENEMY_Sludginn|r（罕见）|r
+    >>|cRXP_WARN_到达海边时要小心西边的|cRXP_ENEMY_Bluegill Raiders|r|r
+    >>|cRXP_WARN_穿越海洋时避开 |cRXP_ENEMY_Young Wetlands Crocolisks|r。等待它们巡逻离开|r
+    .link https://youtu.be/QcEUvwu49KI?t=336 >>|cRXP_WARN_点击此处查看参考（强烈建议您这样做）|r
+    .goto Wetlands,12.69,60.97,15 >>前往: |cRXP_PICK_湿地|r
     .mob Young Wetlands Crocolisk
     .mob Bluegill Raider
     .unitscan Sludginn
@@ -3637,63 +3608,63 @@ step
 step
     #completewith next
     .goto Wetlands,10.80,59.80,10,0
-    .goto Wetlands,10.63,60.10,10 >>Go inside the Inn
+    .goto Wetlands,10.63,60.10,10 >>进入旅馆
 step
     .goto Wetlands,10.50,60.20
-    >>Jump onto the Chandelier downstairs
-    >>Talk to |cRXP_FRIENDLY_Samor|r through the wall
-    >>|cRXP_WARN_NOTE: To do this, bind "Interact with Target" under Gameplay -> Controls in the Options menu|r
-    >>|cRXP_WARN_If the Boat has just arrived, skip this step|r
-    .vendor 1457 >> |cRXP_BUY_Buy|r |T134831:0|t[Healing Potions] |cRXP_BUY_from him (if they're up)|r
+    >>跳到楼下的吊灯上
+    >>对话: |cRXP_FRIENDLY_萨莫尔·菲斯蒂沃斯|r
+    >>|cRXP_WARN_注意：要执行此操作，请在“选项”菜单中的“游戏玩法”->“控制”下绑定“与目标互动”|r
+    >>|cRXP_WARN_如果船刚刚抵达，请跳过此步骤|r
+    .vendor 1457 >>|cRXP_BUY_从他那里购买|r |T134831:0|t[治疗药水] |cRXP_BUY_（如果价格上涨）|r
     .target Samor Festivus
     .money <0.03
 step
     .goto Wetlands,9.49,59.69
-    >>Talk to |cRXP_FRIENDLY_Shellei|r
-    .fp Menethil Harbor >> Get the Menethil Harbor flight path
+    >>前往: |cRXP_PICK_暴风城|r
+    .fp Menethil Harbor >>获取米奈希尔港飞行路线
     .target Shellei Brondir
 step
     #completewith DarkshoreBoat
     .goto Wetlands,7.89,56.22
-    >>|cRXP_WARN_If the Boat has just arrived, skip this step|r
-    +|cRXP_WARN_Cook any|r |T133970:0|t|cRXP_LOOT_[Chunks of Boar Meat]|r |cRXP_WARN_you have from outside (there's a campfire inside)|r
+    >>|cRXP_WARN_如果船刚刚抵达，请跳过此步骤|r
+    +|cRXP_WARN_烹饪任何|r |T133970:0|t|cRXP_LOOT_[大块野猪肉]|r |cRXP_WARN_你从外面得到的（里面有篝火）|r
     .itemcount 769,1
 step
     .goto Wetlands,7.89,56.22
-    >>Talk to |cRXP_FRIENDLY_Dewin|r through the wall
-    >>|cRXP_WARN_If the Boat has just arrived, skip this step|r
-    .vendor 1453 >> |cRXP_BUY_Buy|r |T134831:0|t[Healing Potions] |cRXP_BUY_from him (if they're up)|r
+    >>对话: |cRXP_FRIENDLY_德温·晨光|r
+    >>|cRXP_WARN_如果船刚刚抵达，请跳过此步骤|r
+    .vendor 1453 >>|cRXP_BUY_从他那里购买|r |T134831:0|t[治疗药水] |cRXP_BUY_（如果价格上涨）|r
     .target Dewin Shimmerdawn
     .money <0.03
 step
     #completewith Darkshore
     #label DarkshoreBoat
     .goto Wetlands,6.09,58.45,20,0
-    .goto Wetlands,4.50,57.02,20 >>Travel toward the Darkshore Boat
+    .goto Wetlands,4.50,57.02,20 >>前往黑海岸船
 step
     #completewith next
     #requires DarkshoreBoat
-    +|cRXP_WARN_Start spam casting|r |T132794:0|t[Conjure Water r2] |cRXP_WARN_to conjure as much water as possible|r
+    +|cRXP_WARN_开始垃圾邮件投放|r |T132794:0|t[召唤水 r2] |cRXP_WARN_召唤尽可能多的水|r
 step
     #label Darkshore
     .goto Wetlands,4.25,57.21
-    .zone Darkshore >> Take the boat to Darkshore
+    .zone Darkshore >>前往: |cRXP_PICK_黑海岸|r
 step
     #label Darkshoreshore
     #completewith Wizbang
-    .goto Darkshore,35.73,45.23,60 >>Jump off the boat when you're closest to the shore
+    .goto Darkshore,35.73,45.23,60 >>当你距离岸边最近时跳下船
 step
     #requires Darkshoreshore
     #completewith Wizbang
-    +|cRXP_WARN_Kite 2-3 |cRXP_ENEMY_Pygmy Tide Crawlers|r toward |cRXP_FRIENDLY_Wizbang|r (Remember to use|r |T135848:0|t[Frost Nova]|cRXP_WARN_) Kill them when you accept the quest|r
+    +|cRXP_WARN_风筝 2-3 |cRXP_ENEMY_Pygmy Tide Crawlers|r 朝向 |cRXP_FRIENDLY_Wizbang|r （记得使用|r |T135848:0|t[Frost Nova]|cRXP_WARN_）当你接受任务时杀死他们|r
     .mob Pygmy Tide Crawler
 step
     #requires Darkshoreshore
     #completewith next
     .goto Darkshore,36.77,44.28,0,0
-    >>Talk to |cRXP_FRIENDLY_Laird|r
-    >>|cRXP_BUY_Buy up to 20|r |T133918:0|t[Longjaw Mud Snappers] |cRXP_BUY_from him|r
-    .vendor >> Vendor Trash
+    >>对话: |cRXP_FRIENDLY_莱尔德|r
+    >>|cRXP_BUY_从他那里购买最多 20|r |T133918:0|t[长颚泥鲷] |cRXP_BUY_|r
+    .vendor >>供应商垃圾
     .collect 4592,20,983,1 --Longjaw Mud Snapper (20)
     .isQuestAvailable 983
 step
@@ -3702,24 +3673,24 @@ step
     .goto Darkshore,36.72,44.52,20,0
     .goto Darkshore,36.84,44.18,10,0
     .goto Darkshore,36.71,43.87,10,0
-    >>Go upstairs to the top floor
-    .goto Darkshore,36.98,44.14,8 >>Travel toward |cRXP_FRIENDLY_Wizbang|r
+    >>上楼到顶楼
+    .goto Darkshore,36.98,44.14,8 >>前往 |cRXP_FRIENDLY_Wizbang|r
 step
     #label Wizbang
     .goto Darkshore,36.98,44.14
     >>Talk to |cRXP_FRIENDLY_Wizbang|r
-    .accept 983 >>Accept Buzzbox 827
+    .accept 983 >>接任务: |cRXP_LOOT_传声盒827号|r
     .target Wizbang Cranktoggle
 step
     #completewith DalmondBags
-    >>Kill the |cRXP_ENEMY_Pygmy Tide Crawlers|r you kited. Loot them for their |cRXP_LOOT_Crawler Legs|r
+    >>杀死你放风筝的 |cRXP_ENEMY_Pygmy Tide Crawlers|r。掠夺他们的 |cRXP_LOOT_Crawler Legs|r
     .complete 983,1 --Crawler Leg (6)
     .mob Pygmy Tide Crawler
 step
     .goto Darkshore,36.77,44.28
-    >>Talk to |cRXP_FRIENDLY_Laird|r
-    >>|cRXP_BUY_Buy up to 20|r |T133918:0|t[Longjaw Mud Snappers] |cRXP_BUY_from him|r
-    .vendor >> Vendor Trash
+    >>对话: |cRXP_FRIENDLY_莱尔德|r
+    >>|cRXP_BUY_从他那里购买最多 20|r |T133918:0|t[长颚泥鲷] |cRXP_BUY_|r
+    .vendor >>供应商垃圾
     .collect 4592,20,983,1 --Longjaw Mud Snapper (20)
     .isQuestAvailable 983
     .itemcount 4592,<20
@@ -3729,68 +3700,68 @@ step << skip
     .goto Darkshore,37.85,41.39,20,0
     .goto Darkshore,38.58,42.61,20,0
     .goto Darkshore,39.05,43.23,20,0
-    .goto Darkshore,39.37,43.49,12 >>Travel toward |cRXP_FRIENDLY_Terenthis|r
+    .goto Darkshore,39.37,43.49,12 >>前往 |cRXP_FRIENDLY_Terenthis|r
 step
-    >>Talk to |cRXP_FRIENDLY_Terenthis|r and |cRXP_FRIENDLY_Tharnariun|r
-    .accept 984 >>Accept How Big a Threat?
-    .target +Terenthis
+    >>对话: |cRXP_FRIENDLY_特伦希斯|r, |cRXP_FRIENDLY_萨纳瑞恩·绿树|r
+    .accept 984 >>接任务: |cRXP_LOOT_熊怪的威胁|r
     .goto Darkshore,39.37,43.49,-1
-    .accept 2118 >>Accept Plagued Lands
+    .accept 2118 >>接任务: |cRXP_LOOT_瘟疫蔓延|r
     .goto Darkshore,38.84,43.41,-1
-    .target +Tharnariun Treetender
+    .target Terenthis
+    .target 萨纳利恩护树人
 step << skip
     #completewith next
     .goto Darkshore,37.44,43.12,20,0
     .goto Darkshore,37.73,41.40,20,0
-    .goto Darkshore,37.39,40.13,10 >>Travel toward |cRXP_FRIENDLY_Thundris|r
+    .goto Darkshore,37.39,40.13,10 >>前往 |cRXP_FRIENDLY_Thundris|r
 step
     #sticky
     #label DalmondBags
     .goto Darkshore,37.45,40.50
-    >>Talk to |cRXP_FRIENDLY_Dalmond|r
-    .vendor 4182 >> |cRXP_BUY_Buy as many|r |T133634:0|t[Small Brown Pouches] |cRXP_BUY_as you need/can|r
+    >>对话: |cRXP_FRIENDLY_达蒙德|r
+    .vendor 4182 >>|cRXP_BUY_根据需要购买|r |T133634:0|t[小棕色袋] |cRXP_BUY_/can|r
     .target Dalmond
     .money <0.0500
     .isQuestAvailable 954
 step
     .goto Darkshore,37.39,40.13
     >>Talk to |cRXP_FRIENDLY_Thundris|r
-    .accept 954 >>Accept Bashal'Aran
-    .accept 958 >>Accept Tools of the Highborne
+    .accept 954 >>接任务: |cRXP_LOOT_巴莎兰|r
+    .accept 958 >>接任务: |cRXP_LOOT_上层精灵的工具|r
     .target Thundris Windweaver
 	.skill cooking,10,1
 step
-    >>Talk to |cRXP_FRIENDLY_Thundris|r and |cRXP_FRIENDLY_Alanndarian|r
-    .accept 954 >>Accept Bashal'Aran
-    .accept 958 >>Accept Tools of the Highborne
-    .target +Thundris Windweaver
+    >>对话: Thundris, |cRXP_FRIENDLY_奥兰达利亚·夜歌|r
+    .accept 954 >>接任务: |cRXP_LOOT_巴莎兰|r
+    .accept 958 >>接任务: |cRXP_LOOT_上层精灵的工具|r
     .goto Darkshore,37.39,40.13,-1
-    .accept 2178 >>Accept Easy Strider Living
+    .accept 2178 >>接任务: |cRXP_LOOT_炖陆行鸟|r
     .goto Darkshore,37.69,40.66,-1
-    .target +Alanndarian Nightsong
+    .target Thundris Windweaver
+    .target Alanndarian Nightsong
 	.skill cooking,<10,1
 step
     .goto Darkshore,46.71,34.64
-    >>|cRXP_WARN_If you find a |cRXP_ENEMY_Rabid Thistle Bear|r, use|r |T134335:0|t[Tharnariun's Hope] |cRXP_WARN_then aggro it|r
-    >>|cRXP_WARN_Be careful as they cast|r |T135914:0|t[Rabies] |cRXP_WARN_(Instant Melee: Reduces ALL health regen by 50% for 10 Minutes)|r
-    .complete 2118,1 --Rabid Thistle Bear Captured (1)
+    >>|cRXP_WARN_如果你发现 |cRXP_ENEMY_Rabid Thistle 熊|r，使用|r |T134335:0|t[Tharnariun's Hope] |cRXP_WARN_then 攻击它|r
+    >>|cRXP_WARN_施放时要小心|r |T135914:0|t[狂犬病] |cRXP_WARN_（即时近战：在 10 分钟内使所有生命值恢复降低 50%）|r
+    .complete 2118,1 --Rabid Thistle 熊 Captured (1)
     .use 7586
-    .unitscan Rabid Thistle Bear
+    .unitscan Rabid Thistle 熊
 step
     #completewith next
-    +|cRXP_WARN_Kite 2-3 |cRXP_ENEMY_Vile Sprites|r toward |cRXP_FRIENDLY_Asterion|r (Remember to use|r |T135848:0|t[Frost Nova]|cRXP_WARN_) Kill them when you accept the quest|r
+    +|cRXP_WARN_放风筝 2-3 |cRXP_ENEMY_Vile Sprites|r 朝向 |cRXP_FRIENDLY_Asterion|r （记得使用|r |T135848:0|t[Frost Nova]|cRXP_WARN_）当你接受任务时杀死他们|r
     .mob Vile Sprite
 step
     #label Bash1
     .goto Darkshore,44.17,36.29
-    >>Talk to |cRXP_FRIENDLY_Asterion|r
-    .turnin 954 >> Turn in Bashal'Aran
-    .accept 955 >> Accept Bashal'Aran
+    >>对话: |cRXP_FRIENDLY_阿斯特利安|r
+    .turnin 954 >>交任务: |cRXP_FRIENDLY_巴莎兰|r
+    .accept 955 >>接任务: |cRXP_LOOT_巴莎兰|r
     .target Asterion
 step
     #completewith BashalF
-    +|cRXP_WARN_Be careful as |cRXP_ENEMY_Licillin|r (rare) may be up|r
-    >>|cRXP_WARN_He casts|r |T136197:0|t[Shadow Bolt] |cRXP_WARN_(Ranged Cast: Deals 55-70 Shadow damage)|r
+    +|cRXP_WARN_请小心，因为 |cRXP_ENEMY_Licillin|r（罕见）可能出现|r
+    >>|cRXP_WARN_他施放|r |T136197:0|t[暗影箭] |cRXP_WARN_(远程施法：造成 55-70 点暗影伤害)|r
     .unitscan Licillin
 step
 #loop
@@ -3805,16 +3776,16 @@ step
 	.goto Darkshore,46.91,37.11,35,0
 	.goto Darkshore,45.47,36.01,35,0
 	.goto Darkshore,44.57,36.57,35,0
-    >>Kill |cRXP_ENEMY_Vile Sprites|r and |cRXP_ENEMY_Wild Grells|r. Loot them for their |cRXP_LOOT_Grell Earrings|r
-    >>|cRXP_WARN_Be careful as the |cRXP_ENEMY_Vile Sprites|r cast|r |T136016:0|t[Poison] |cRXP_WARN_(Melee Instant: Deals 3 damage every 3 seconds for 15 seconds) and |cRXP_ENEMY_Wild Grells|r cast|r |T136215:0|t[Crazed] |cRXP_WARN_(Self Instant: Increases attack speed by 20% at <20% health)|r
+    >>杀死 |cRXP_ENEMY_Vile Sprites|r 和 |cRXP_ENEMY_Wild Grells|r。掠夺他们的 |cRXP_LOOT_Grell Earrings|r
+    >>|cRXP_WARN_要小心 |cRXP_ENEMY_Vile Sprites|r cast|r |T136016:0|t[Poison] |cRXP_WARN_(Melee Instant: 15 秒内每 3 秒造成 3 点伤害) 和 |cRXP_ENEMY_Wild Grells|r cast|r |T136215:0|t[Crazed] |cRXP_WARN_(Self Instant: 生命值低于 20% 时攻击速度提高 20%)|r
     .complete 955,1 --Grell Earring (8)
     .mob Vile Sprite
     .mob Wild Grell
 step
     .goto Darkshore,44.17,36.29
-    >>Talk to |cRXP_FRIENDLY_Asterion|r
-    .turnin 955 >> Turn in Bashal'Aran
-    .accept 956 >> Accept Bashal'Aran
+    >>对话: |cRXP_FRIENDLY_阿斯特利安|r
+    .turnin 955 >>交任务: |cRXP_FRIENDLY_巴莎兰|r
+    .accept 956 >>接任务: |cRXP_LOOT_巴莎兰|r
     .target Asterion
 step
     .goto Darkshore,45.50,36.50,45,0
@@ -3833,48 +3804,48 @@ step
     .goto Darkshore,47.36,37.63,45,0
     .goto Darkshore,47.77,37.20,45,0
     .goto Darkshore,47.44,36.76
-    >>Kill |cRXP_ENEMY_Deth'ryll Satyrs|r. Loot them for the |cRXP_LOOT_Ancient Moonstone Seal|r
-    >>|cRXP_WARN_Be careful as they cast|r |T132222:0|t[Shoot] |cRXP_WARN_(Ranged Cast: Deals 15-25 damage)|r
+    >>杀死 |cRXP_ENEMY_Deth'ryll Satyrs|r。掠夺他们以获得 |cRXP_LOOT_Ancient Moonstone Seal|r
+    >>|cRXP_WARN_小心他们施法|r |T132222:0|t[射击] |cRXP_WARN_(远程施法：造成 15-25 点伤害)|r
     .complete 956,1 --Ancient Moonstone Seal (1)
     .mob Deth'ryll Satyr
 step
     #label BashalF
     .goto Darkshore,44.17,36.29
-    >>Talk to |cRXP_FRIENDLY_Asterion|r
-    .turnin 956 >> Turn in Bashal'Aran
-    .accept 957 >> Accept Bashal'Aran
+    >>对话: |cRXP_FRIENDLY_阿斯特利安|r
+    .turnin 956 >>交任务: |cRXP_FRIENDLY_巴莎兰|r
+    .accept 957 >>接任务: |cRXP_LOOT_巴莎兰|r
     .target Asterion
 step
     .goto Darkshore,38.84,43.41
-    .xp 10+6625 >> Grind to 6625+/7600xp en route back to |cRXP_FRIENDLY_Tharnariun|r
+    .xp 10+6625 >>在返回 |cRXP_FRIENDLY_Tharnariun|r 的途中升级至 6625+/7600xp
 step
     .goto Darkshore,38.84,43.41
-    >>Talk to |cRXP_FRIENDLY_Tharnariun|r
-    .turnin 2118 >> Turn in Plagued Lands
-    .accept 2138 >> Accept Cleansing of the Infected
-    .target Tharnariun Treetender
+    >>对话: |cRXP_FRIENDLY_萨纳瑞恩·绿树|r
+    .turnin 2118 >>交任务: |cRXP_FRIENDLY_瘟疫蔓延|r
+    .accept 2138 >>接任务: |cRXP_LOOT_清除疫病|r
+    .target 萨纳利恩护树人
 step
     .goto Darkshore,36.68,44.05,12,0
     .goto Darkshore,35.74,43.70
-    >>Talk to |cRXP_FRIENDLY_Cerellean|r
-    .accept 963 >>Accept For Love Eternal
+    >>对话: |cRXP_FRIENDLY_塞瑞利恩·白爪|r
+    .accept 963 >>接任务: |cRXP_LOOT_永志不渝|r
     .target Cerellean Whiteclaw
 step
     #completewith next
-    >>Kill |cRXP_ENEMY_Pygmy Tide Crawlers|r. Loot them for their |cRXP_LOOT_Crawler Legs|r
+    >>杀死 |cRXP_ENEMY_Pygmy Tide Crawlers|r。掠夺他们的 |cRXP_LOOT_Crawler Legs|r
     .complete 983,1 --Crawler Leg (6)
     .mob Pygmy Tide Crawler
 step
     #sticky
     #label Gwennyth
     .goto Darkshore,36.62,45.59
-    >>Talk to |cRXP_FRIENDLY_Gwennyth|r
-    .accept 3524 >>Accept Washed Ashore
+    >>对话: |cRXP_FRIENDLY_温尼斯·布莱葛|r
+    .accept 3524 >>接任务: |cRXP_LOOT_搁浅的巨兽|r
     .target Gwennyth Bly'Leggonde
 step
     .goto Darkshore,36.34,45.58
     >>Talk to |cRXP_FRIENDLY_Caylais|r
-    .fp Auberdine >> Get the Auberdine flight path
+    .fp Auberdine >>获取奥伯丁飞行路线
     .target Caylais Moonfeather
 step
     #requires Gwennyth
@@ -3884,14 +3855,14 @@ step
     .goto Darkshore,35.86,47.35,50,0
     .goto Darkshore,35.74,48.20,50,0
     .goto Darkshore,36.25,49.90,50,0
-    >>Kill |cRXP_ENEMY_Pygmy Tide Crawlers|r and |cRXP_ENEMY_Young Reef Crawlers|r. Loot them for their |cRXP_LOOT_Crawler Legs|r
+    >>杀死 |cRXP_ENEMY_Pygmy Tide Crawlers|r 和 |cRXP_ENEMY_Young Reef Crawlers|r。掠夺他们的 |cRXP_LOOT_Crawler Legs|r
     .complete 983,1 --Crawler Leg (6)
     .mob Pygmy Tide Crawler
     .mob Young Reef Crawler
 step
     #requires Gwennyth
     #completewith next
-    >>|cRXP_WARN_Save the|r |T133884:0|t[Murloc Eyes] |cRXP_WARN_you loot from the |cRXP_ENEMY_Greymist Coastrunners|r and|r |cRXP_ENEMY_Greymist Raiders|r
+    >>|cRXP_WARN_保存|r |T133884:0|t[鱼人之眼] |cRXP_WARN_你从|cRXP_ENEMY_Greymist Coastrunners|r 和|r |cRXP_ENEMY_Greymist Raiders 手中抢来的物品|r
     .collect 730,3,38,1 --Murloc Eyes (3)
     .mob Greymist Coastrunner
     .mob Greymist Raider
@@ -3899,64 +3870,64 @@ step
     #requires Gwennyth
     #label Bones
     .goto Darkshore,36.38,50.88
-    >>Loot the |cRXP_LOOT_Beached Sea Creature|r
-    >>|cRXP_WARN_Be careful as the nearby |cRXP_ENEMY_Greymist Coastrunners|r have|r |T132307:0|t[Increased Movespeed]
-    >>|cRXP_WARN_This has a 5 second cast time|r
+    >>掠夺 |cRXP_LOOT_搁浅的海洋生物|r
+    >>|cRXP_WARN_小心附近的 |cRXP_ENEMY_Greymist Coastrunners|r 有|r |T132307:0|t[增加移动速度]
+    >>|cRXP_WARN_施法时间为 5 秒|r
     .complete 3524,1 --Sea Creature Bones (1)
 step
     .goto Darkshore,36.22,44.89
-    >>Kill |cRXP_ENEMY_Pygmy Tide Crawlers|r and |cRXP_ENEMY_Young Reef Crawlers|r. Loot them for their |cRXP_LOOT_Crawler Legs|r
+    >>杀死 |cRXP_ENEMY_Pygmy Tide Crawlers|r 和 |cRXP_ENEMY_Young Reef Crawlers|r。掠夺他们的 |cRXP_LOOT_Crawler Legs|r
     .complete 983,1 --Crawler Leg (6)
     .mob Pygmy Tide Crawler
     .mob Young Reef Crawler
 step
     #requires Gwennyth
     .goto Darkshore,38.90,53.59
-    >>Run toward the Furbolg Camp
-    >>|cRXP_WARN_Do not attempt to fight the|r |cRXP_ENEMY_Blackwood Windtalker|r
+    >>跑向熊怪营地
+    >>|cRXP_WARN_不要试图与|r |cRXP_ENEMY_黑木风语者 战斗|r
     .complete 984,1 --Find a corrupt furbolg camp (1)
 step
     .goto Darkshore,40.30,59.73
-    >>Talk to |cRXP_FRIENDLY_Tysha|r
-    .accept 953 >>Accept The Fall of Ameth'Aran
+    >>对话: |cRXP_FRIENDLY_哨兵坦莎·月刃|r
+    .accept 953 >>接任务: |cRXP_LOOT_亚米萨兰的毁灭|r
     .target Sentinel Tysha Moonblade
 step
     #completewith Anaya
-    +|cRXP_WARN_Avoid pulling |cRXP_ENEMY_Lady Moongazer|r (rare) if she's up|r
+    +|cRXP_WARN_如果她站起来，避免拉 |cRXP_ENEMY_Lady Moongazer|r （罕见）|r
     .unitscan Lady Moongazer
  step
     #completewith Relics
     .goto Darkshore,42.45,60.66,0
-    >>Kill |cRXP_ENEMY_Anaya Dawnrunner|r. Loot her for |cRXP_LOOT_Anaya's Pendant|r
+    >>杀死 |cRXP_ENEMY_Anaya Dawnrunner|r。掠夺她以获得 |cRXP_LOOT_Anaya 的吊坠|r
     .complete 963,1 --Anaya's Pendant (1)
     .unitscan Anaya Dawnrunner
 step
     #completewith Fall
-    >>Kill |cRXP_ENEMY_Cursed Highbornes|r and |cRXP_ENEMY_Writhing Highbornes|r. Loot them for |cRXP_LOOT_Highborne Relics|r
-    >>|cRXP_WARN_Kill |cRXP_ENEMY_Wailing Highbornes|r only if they're in your way|r
+    >>杀死 |cRXP_ENEMY_被诅咒的上层精灵s|r 和 |cRXP_ENEMY_痛苦挣扎的上层精灵s|r。掠夺他们以获得 |cRXP_LOOT_Highborne Relics|r
+    >>|cRXP_WARN_仅当他们挡住你的路时才杀死 |cRXP_ENEMY_Wailing Highborne|r|r
     .complete 958,1 --Highborne Relic (7)
-    .mob Cursed Highborne
-    .mob Writhing Highborne
+    .mob 被诅咒的上层精灵
+    .mob 痛苦挣扎的上层精灵
 step
     .goto Darkshore,42.37,61.82
-    >>Click the |cRXP_PICK_Ancient Flame|r
-    >>|cRXP_WARN_This has a 5 second cast time|r
+    >>点击|cRXP_PICK_Ancient Flame|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
     .complete 957,1 --Destroy the seal at the ancient flame (1)
 step
     .goto Darkshore,42.65,63.15
-    >>Click |cRXP_PICK_The Fall of Ameth'Aran|r on the ground
-    >>|cRXP_WARN_This has a 5 second cast time|r
+    >>点击地面上的 |cRXP_PICK_The Fall of Ameth'Aran|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
     .complete 953,2 --Read the Fall of Ameth'Aran (1)
 step
     .goto Darkshore,43.30,58.70
-    >>Click |cRXP_PICK_The Lay of Ameth'Aran|r on the ground
-    >>|cRXP_WARN_This has a 5 second cast time|r
+    >>点击地面上的 |cRXP_PICK_The Lay of Ameth'Aran|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
     .complete 953,1 --Read the Lay of Ameth'Aran (1)
 step
     #label Fall
     .goto Darkshore,40.30,59.73
-    >>Talk to |cRXP_FRIENDLY_Tysha|r
-    .turnin 953 >>Turn in The Fall of Ameth'Aran
+    >>对话: |cRXP_FRIENDLY_哨兵坦莎·月刃|r
+    .turnin 953 >>交任务: |cRXP_FRIENDLY_亚米萨兰的毁灭|r
     .target Sentinel Tysha Moonblade
 step
     #label Relics
@@ -3968,100 +3939,100 @@ step
     .goto Darkshore,42.38,63.40,50,0
     .goto Darkshore,41.21,61.64,50,0
     .goto Darkshore,41.76,57.96
-    >>Kill |cRXP_ENEMY_Cursed Highbornes|r and |cRXP_ENEMY_Writhing Highbornes|r
-    >>|cRXP_WARN_Kill |cRXP_ENEMY_Wailing Highbornes|r only if they're in your way|r
+    >>杀死 |cRXP_ENEMY_被诅咒的上层精灵s|r 和 |cRXP_ENEMY_痛苦挣扎的上层精灵s|r
+    >>|cRXP_WARN_仅当他们挡住你的路时才杀死 |cRXP_ENEMY_Wailing Highborne|r|r
     .complete 958,1 --Highborne Relic (7)
-    .mob Cursed Highborne
-    .mob Writhing Highborne
+    .mob 被诅咒的上层精灵
+    .mob 痛苦挣扎的上层精灵
 step
     #label Anaya
     .goto Darkshore,42.45,60.66
-    >>Kill |cRXP_ENEMY_Anaya Dawnrunner|r. Loot her for |cRXP_LOOT_Anaya's Pendant|r
+    >>杀死 |cRXP_ENEMY_Anaya Dawnrunner|r。掠夺她以获得 |cRXP_LOOT_Anaya 的吊坠|r
     .complete 963,1 --Anaya's Pendant (1)
     .unitscan Anaya Dawnrunner
 step
     #completewith next
-    .goto Darkshore,45.25,53.44,30 >>Go inside the cave
-    >>|cRXP_WARN_Avoid |cRXP_ENEMY_Thistle Bears|r, |cRXP_ENEMY_Moonkins|r, and |cRXP_ENEMY_Raging Moonkins|r en route (if possible)|r
+    .goto Darkshore,45.25,53.44,30 >>进入洞穴
+    >>|cRXP_WARN_避开途中的 |cRXP_ENEMY_Thistle 熊s|r、|cRXP_ENEMY_Moonkins|r、和 |cRXP_ENEMY_Raging Moonkins|r （如果可能）|r
     .isOnQuest 958
 step
     .goto Darkshore,45.75,53.08
-    .goto Darkshore,41.70,36.51,30 >>|cRXP_WARN_Kill the |cRXP_ENEMY_Moonkin Oracle|r inside the cave --, then drink Logout Skip by logging out on top of the Mushroom at the back of the cave|r
-    >>|cRXP_WARN_Be careful as it casts|r |T136006:0|t[Wrath] |cRXP_WARN_(Ranged Cast: Deals 30-45 Nature damage),|r |T136096:0|t[Moonfire] |cRXP_WARN_(Ranged Instant: Deals 20-30 Nature damage, then 44 Nature damage over 12 seconds), and|r |T136085:0|t[Regrowth] |cRXP_WARN_(Self Cast: Heals for about 150 damage. Rare, but run if this happens)|r
-    >>|cRXP_WARN_You can LoS his|r |T136006:0|t[Wrath] |cRXP_WARN_behind the rocks inside the mouth of the cave|r
+    .goto Darkshore,41.70,36.51,30 >>|cRXP_WARN_Kill the |cRXP_ENEMY_Moonkin Oracle|r inside the cave, then drink 前往: |cRXP_PICK_荒芜之地|r, 通过在洞穴后面的蘑菇顶部登出来跳过|r
+    >>|cRXP_WARN_施放时要小心|r |T136006:0|t[愤怒] |cRXP_WARN_（远程施法：造成 30-45 点自然伤害），|r |T136096:0|t[月火术] |cRXP_WARN_（远程瞬发：造成 20-30 点自然伤害，然后在 12 秒内造成 44 点自然伤害），以及|r |T136085:0|t[再生] |cRXP_WARN_（自我施法：治疗约 150 点伤害。罕见，但如果发生这种情况，请逃跑）|r
+    >>|cRXP_WARN_你可以在洞口的岩石后面看到他|r |T136006:0|t[Wrath] |cRXP_WARN_|r
     .mob Moonkin Oracle
     .isOnQuest 958
 step
     .goto Darkshore,44.18,36.29
-    >>Talk to |cRXP_FRIENDLY_Asterion|r
-    .turnin 957,3 >>Turn in Bashal'Aran
+    >>对话: |cRXP_FRIENDLY_阿斯特利安|r
+    .turnin 957,3 >>交任务: |cRXP_FRIENDLY_巴莎兰|r
     .target Asterion
 step
     #sticky
     #label DalmondBags1
     .goto Darkshore,37.45,40.50,0,0
-    >>Talk to |cRXP_FRIENDLY_Dalmond|r
-    .vendor >> Vendor Trash
+    >>对话: |cRXP_FRIENDLY_达蒙德|r
+    .vendor >>供应商垃圾
     .target Dalmond
     .isQuestAvailable 3524
 step
     .goto Darkshore,37.40,40.13
     >>Talk to |cRXP_FRIENDLY_Thundris|r
-    .turnin 958 >>Turn in Tools of the Highborne
+    .turnin 958 >>交任务: |cRXP_FRIENDLY_上层精灵的工具|r
     .target Thundris Windweaver
 step
     #requires DalmondBags1
     .goto Darkshore,37.69,40.66
-    >>Talk to |cRXP_FRIENDLY_Alanndarian|r
-    .turnin 2178 >>Turn in Easy Strider Living
+    >>对话: |cRXP_FRIENDLY_奥兰达利亚·夜歌|r
+    .turnin 2178 >>交任务: |cRXP_FRIENDLY_炖陆行鸟|r
     .target Alanndarian Nightsong
     .itemcount 5469,5
     .skill cooking,<10,1
 step
     .goto Darkshore,39.37,43.49
-    >>Talk to |cRXP_FRIENDLY_Terenthis|r
-    .turnin 984 >> Turn in How Big a Threat?
-    .accept 985 >> Accept How Big a Threat?
-    .accept 4761 >> Accept Thundris Windweaver
+    >>对话: |cRXP_FRIENDLY_特伦希斯|r
+    .turnin 984 >>交任务: |cRXP_FRIENDLY_熊怪的威胁|r
+    .accept 985 >>接任务: |cRXP_LOOT_熊怪的威胁|r
+    .accept 4761 >>接任务: |cRXP_LOOT_桑迪斯·织风|r
     .target Terenthis
 step
     .goto Darkshore,36.64,46.26
-    >>Click |cRXP_PICK_Buzzbox 827|r
-    .turnin 983 >>Turn in Buzzbox 827
-    .accept 1001 >>Accept Buzzbox 411
+    >>点击 |cRXP_PICK_Buzzbox 827|r
+    .turnin 983 >>交任务: |cRXP_FRIENDLY_传声盒827号|r
+    .accept 1001 >>接任务: |cRXP_LOOT_传声盒411号|r
 step
     .goto Darkshore,36.72,45.07,12,0
     .goto Darkshore,36.62,45.59
-    >>Talk to |cRXP_FRIENDLY_Gwennyth|r
-    .turnin 3524 >>Turn in Washed Ashore
-    .accept 4681 >>Accept Washed Ashore
+    >>对话: |cRXP_FRIENDLY_温尼斯·布莱葛|r
+    .turnin 3524 >>交任务: |cRXP_FRIENDLY_搁浅的巨兽|r
+    .accept 4681 >>接任务: |cRXP_LOOT_搁浅的巨兽|r
     .target Gwennyth Bly'Leggonde
  step
     .goto Darkshore,36.77,44.28
-    >>Talk to |cRXP_FRIENDLY_Laird|r
-    >>|cRXP_BUY_Buy up to 40|r |T133918:0|t[Longjaw Mud Snappers] |cRXP_BUY_from him|r
+    >>对话: |cRXP_FRIENDLY_莱尔德|r
+    >>|cRXP_BUY_从他那里购买最多 40|r |T133918:0|t[长颚泥鲷] |cRXP_BUY_|r
     .collect 4592,40,4681,1 --Longjaw Mud Snapper (40)
     .target Laird
 step
     .goto Darkshore,36.68,44.05,12,0
     .goto Darkshore,35.74,43.70
-    >>Talk to |cRXP_FRIENDLY_Cerellean|r
-    .turnin 963 >>Turn in For Love Eternal
+    >>对话: |cRXP_FRIENDLY_塞瑞利恩·白爪|r
+    .turnin 963 >>交任务: |cRXP_FRIENDLY_永志不渝|r
     .target Cerellean Whiteclaw
 step
     #completewith Gwen
-    >>Kill |cRXP_ENEMY_Darkshore Threshers|r
-    >>|cRXP_WARN_Do NOT go out of your way for these|r
+    >>杀死 |cRXP_ENEMY_黑海岸长尾蜥蜴|r
+    >>|cRXP_WARN_不要特意去买这些东西|r
     .complete 1001,1 --Thresher Eye (3)
     .mob Darkshore Thresher
 step
     #completewith next
     .goto Darkshore,32.91,42.24,15,0
-    .goto Darkshore,32.41,43.82,25 >> Run along the dock toward the |cRXP_LOOT_Sea Turtle Remains|r
+    .goto Darkshore,32.41,43.82,25 >>沿着码头跑向|cRXP_LOOT_海龟遗骸|r
 step
     .goto Darkshore,31.86,46.33
-    >>Swim underwater
-    >>Loot the |cRXP_LOOT_Sea Turtle Remains|r
+    >>水下游泳
+    >>掠夺 |cRXP_LOOT_海龟遗骸|r
     .complete 4681,1 --Sea Turtle Remains (1)
 step
     .goto Darkshore,36.12,44.70,50,0
@@ -4080,197 +4051,194 @@ step
     .goto Darkshore,35.23,53.81,50,0
     .goto Darkshore,35.22,55.37,50,0
     .goto Darkshore,36.70,57.09
-    .xp 11+7825 >> Grind to 7825+/8800xp
+    .xp 11+7825 >>升级至 7825+/8800xp
     .mob Pygmy Tide Crawler
     .mob Young Reef Crawler
 step
     #label Gwen
     .goto Darkshore,36.67,45.08,12,0
     .goto Darkshore,36.62,45.59
-    >>Talk to |cRXP_FRIENDLY_Gwennyth|r
-    .turnin 4681,1 >> Turn in Washed Ashore
+    >>对话: |cRXP_FRIENDLY_温尼斯·布莱葛|r
+    .turnin 4681,1 >>交任务: |cRXP_FRIENDLY_搁浅的巨兽|r
     .target Gwennyth Bly'Leggonde
 step << skip
     #completewith next
-    +Equip your new creps (Equip the |T132537:0|t[Sandcomber Boots])
+    +装备你的新 creps (装备 |T132537:0|t[Sandcomber Boots])
     .use 15398
     .itemcount 15398,1
     .itemStat 8,LEVEL,<14
 step
     .goto Darkshore,37.04,44.13
-    >>|cRXP_WARN_===PAY ATTENTION===|r
-    >>|cRXP_WARN_Talk to|r |cRXP_FRIENDLY_Shaussiy|r
-    >>|cRXP_WARN_If this is your first time doing a Hearthstone Batch, watch the guide for it below|r
-    >>|cRXP_WARN_Open the "Set Hearthstone" menu, then cast|r |T134414:0|t[Hearthstone]
-    .hs >> |cRXP_WARN_Hearthstone BATCH from Auberdine to Ironforge|r
-    .link https://www.youtube.com/watch?v=Is-h2TJpL3M >> |cRXP_WARN_CLICK HERE (it is HEAVILY advised you do so). Make sure you've set and tested your Batching Window Size prior to reduce risk of failure|r
+    >>|cRXP_WARN_===注意===|r
+    >>|cRXP_WARN_与|r |cRXP_FRIENDLY_Shaussiy交谈|r
+    >>|cRXP_WARN_如果这是你第一次进行炉石批次，请观看下面的指南|r
+    >>|cRXP_WARN_打开“设置炉石”菜单，然后施放|r |T134414:0|t[炉石]
+    .hs >>|cRXP_WARN_从 奥伯丁 炉石到 铁炉堡|r
+    .link https://www.youtube.com/watch?v=Is-h2TJpL3M >>|cRXP_WARN_单击此处（强烈建议您这样做）。请确保您已设置并测试了批处理窗口大小，以降低失败风险|r
     .target Innkeeper Shaussiy
     .zoneskip Ironforge
 step
     .goto Ironforge,27.17,8.58
-    >>Talk to |cRXP_FRIENDLY_Dink|r
-    .trainer >> Train your class spells (Fireball r3, Dampen Magic)
-    >>Total Cost: 12s
-    >>Remember you may want money for a |T133024:0|t[Bronze Tube] (8s each) and Thelsamar flying (1s 10c)
+    >>对话: |cRXP_FRIENDLY_丁克|r
+    .trainer >>训练你的职业法术（火球 r3、抑制魔法）
+    >>总花费：12 秒
+    >>记住你可能需要钱来购买 |T133024:0|t[青铜管]（每个 8 秒）和 Thelsamar 飞行器（1 秒 10 美分）
     .target Dink
-step << skip
+step
     .goto Ironforge,27.22,8.58,-1
     .goto Ironforge,67.83,42.47,-1
-    .vendor 5175 >> Logout skip on the pillar above |cRXP_FRIENDLY_Dink|r to check |cRXP_FRIENDLY_Cogspinner|r for a |T133024:0|t[Bronze Tube] if you wish
+    .vendor 5175 >>如果您愿意，请退出并跳过 |cRXP_FRIENDLY_Dink|r 上方的柱子，检查 |cRXP_FRIENDLY_Cogspinner|r 是否有 |T133024:0|t[青铜管]
     .itemcount 4371,<1
     .isQuestAvailable 418
 step
     #completewith next
-    +|cRXP_WARN_Start spam casting|r |T132794:0|t[Conjure Water r2] |cRXP_WARN_to conjure as much water as possible before taking the flight|r
+    +|cRXP_WARN_开始垃圾邮件投放|r |T132794:0|t[召唤水 r2] |cRXP_WARN_在飞行前召唤尽可能多的水|r
 step << Gnome
     .goto Ironforge,55.50,47.74
-    >>Talk to |cRXP_FRIENDLY_Gryth|r
-    .accept 6392 >>Accept Return to Brock
+    >>对话: |cRXP_FRIENDLY_格莱斯·瑟登|r
+    .accept 6392 >>接任务: |cRXP_LOOT_向布洛克回复|r
     .target Gryth Thurden
 step
     .goto Ironforge,55.50,47.74
-    >>Talk to |cRXP_FRIENDLY_Gryth|r
-    .fly Thelsamar >> Fly to Thelsamar
+    >>对话: |cRXP_FRIENDLY_格莱斯·瑟登|r
+    .fly Thelsamar >>飞往塞尔萨玛
     .target Gryth Thurden
 ]])
 
 RXPGuides.RegisterGuide([[
 #classic
-#tbc
 << Alliance Mage
-#name 12-14 ADV Loch Modan Mage AoE
+#name 12-14 冒险 洛克莫丹法师 AoE
 #version 2
-#group RestedXP ADV AoE Alliance Mage
+#group RestedXP 冒险 AoE 联盟法师
 #defaultfor Human Mage/Gnome Mage
-#next 14-16 ADV Darkshore 2 Mage AoE
+#next 14-16 冒险 黑海岸 2 法师 AoE
 step
     #completewith next
-    +|cRXP_WARN_As you quest through Loch Modan, save ALL of the |T133970:0|t[|cRXP_LOOT_Chunks of Boar Meat]|r you loot for later|r
+    +|cRXP_WARN_当你在洛克莫丹进行任务时，请保存你拾取的所有 |T133970:0|t[|cRXP_LOOT_Chunks of Boar Meat]|r 以供日后使用|r
 step
-    .zone Loch Modan >> Travel to Loch Modan
+    .zone Loch Modan >>前往: |cRXP_PICK_洛克莫丹|r
     .isOnQuest 6392 << Gnome
 step
     .goto Loch Modan,22.071,73.127
-    >>Talk to |cRXP_FRIENDLY_Cobbleflint|r
-    .accept 224 >> Accept In Defense of the King's Lands
-    .target Mountaineer Cobbleflint
+    >>对话: |cRXP_FRIENDLY_巡山人库伯弗林特|r
+    .accept 224 >>接任务: |cRXP_LOOT_保卫国王的领土|r
+    .target 登山者科布尔弗林特
 step
     #completewith next
     .goto Loch Modan,23.27,75.65,12,0
     .goto Loch Modan,23.62,75.42,12,0
-    .goto Loch Modan,23.12,73.93,12 >> Enter the Bunker. Go to the top floor
+    .goto Loch Modan,23.12,73.93,12 >>进入地堡。前往顶楼
 step
     .goto Loch Modan,23.233,73.675
-    >>Talk to |cRXP_FRIENDLY_Rugelfuss|r
-    .accept 267 >> Accept The Trogg Threat
-    .target Captain Rugelfuss
+    >>对话: |cRXP_FRIENDLY_拉格弗斯上尉|r
+    .accept 267 >>接任务: |cRXP_LOOT_穴居人的威胁|r
+    .target 鲁格尔福斯上尉
 step
     #completewith Rugel2
-    >>Kill |cRXP_ENEMY_Mountain Boars|r. Loot them for their |cRXP_LOOT_Boar Intestines|r
-    >>Kill |cRXP_ENEMY_Elder Black Bears|r. Loot them for their |cRXP_LOOT_Bear Meat|r
-    >>Kill |cRXP_ENEMY_Forest Lurkers|r. Loot them for their |cRXP_LOOT_Spider Ichor|r
-    >>|cRXP_WARN_Remember to kite them to |cRXP_FRIENDLY_Mountaineers|r if needed|r
-    >>|cRXP_WARN_Be careful as |cRXP_ENEMY_Mountain Boars|r cast|r |T132337:0|t[Charge] |cRXP_WARN_(Self Instant: Increases movespeed for 3 seconds, dealing 40-100 melee damage on hit. Only castable at range)|r
+    >>杀死 |cRXP_ENEMY_山野猪s|r。掠夺它们的 |cRXP_LOOT_Boar Intestines|r
+    >>杀死 |cRXP_ENEMY_黑熊长老s|r。掠夺他们的 |cRXP_LOOT_熊 Meat|r
+    >>杀死 |cRXP_ENEMY_森林潜伏者s|r。掠夺他们的 |cRXP_LOOT_Spider Ichor|r
+    >>|cRXP_WARN_如果需要的话记得把他们放风筝到|cRXP_FRIENDLY_Mountaineers|r|r
+    >>|cRXP_WARN_小心 |cRXP_ENEMY_山野猪s|r 施放|r |T132337:0|t[冲锋] |cRXP_WARN_(自身瞬发：增加移动速度 3 秒，击中时造成 40-100 点近战伤害。仅可远距离施放)|r
     .collect 3172,3,418,1 --Collect Boar Intestines (x3)
-    .mob +Mountain Boar
-    .collect 3173,3,418,1 --Collect Bear Meat (x3)
-    .mob +Elder Black Bear
+    .collect 3173,3,418,1 --Collect 熊 Meat (x3)
     .collect 3174,3,418,1 --Collect Spider Ichor (x3)
-    .mob +Forest Lurker
+    .mob 山野猪
+    .mob 黑熊长老
+    .mob 森林潜伏者
 step
     .goto Loch Modan,26.67,56.94
-    >>Kill |cRXP_ENEMY_Stonesplinter Troggs|r and |cRXP_ENEMY_Stonesplinter Scouts|r. Loot them for their |cRXP_LOOT_Trogg Stone Teeth|r
-    >>|cRXP_WARN_Be careful as |cRXP_ENEMY_Stonesplinter Scouts|r cast|r |T132222:0|t[Shoot] |cRXP_WARN_(Ranged Cast: Deals 14-20 damage)|r
-    >>|cRXP_WARN_This is a hyperspawn area. You should not need to move from here|r
+    >>杀死 |cRXP_ENEMY_Stonesplinter Troggs|r 和 |cRXP_ENEMY_Stonesplinter Scouts|r。掠夺他们的 |cRXP_LOOT_Trogg Stone Teeth|r
+    >>|cRXP_WARN_小心 |cRXP_ENEMY_Stonesplinter Scouts|r 施法|r |T132222:0|t[射击] |cRXP_WARN_(远程施法：造成 14-20 点伤害)|r
+    >>|cRXP_WARN_这是一个超级生成区域。你不需要从这里移动|r
     .complete 224,1 --Kill Stonesplinter Trogg (x10)
-    .mob +Stonesplinter Trogg
     .complete 224,2 --Kill Stonesplinter Scout (x10)
-    .mob +Stonesplinter Scout
     .complete 267,1 --Collect Trogg Stone Tooth (x8)
-    .mob +Stonesplinter Trogg
-    .mob +Stonesplinter Scout
+    .mob Stonesplinter Trogg
+    .mob Stonesplinter Scout
 step
     .goto Loch Modan,22.071,73.127
-    >>Talk to |cRXP_FRIENDLY_Cobbleflint|r
-    .turnin 224 >> Turn in In Defense of the King's Lands
-    .target Mountaineer Cobbleflint
+    >>对话: |cRXP_FRIENDLY_巡山人库伯弗林特|r
+    .turnin 224 >>交任务: |cRXP_FRIENDLY_保卫国王的领土|r
+    .target 登山者科布尔弗林特
 step
     #completewith next
     .goto Loch Modan,23.27,75.65,12,0
     .goto Loch Modan,23.62,75.42,12,0
-    .goto Loch Modan,23.12,73.93,12 >> Enter the Bunker. Go to the top floor
+    .goto Loch Modan,23.12,73.93,12 >>进入地堡。前往顶楼
 step
     #label Rugel2
     .goto Loch Modan,23.233,73.675
-    >>Talk to |cRXP_FRIENDLY_Rugelfuss|r
-    .turnin 267 >> Turn in The Trogg Threat
-    .target Captain Rugelfuss
-step << skip
+    >>对话: |cRXP_FRIENDLY_拉格弗斯上尉|r
+    .turnin 267 >>交任务: |cRXP_FRIENDLY_穴居人的威胁|r
+    .target 鲁格尔福斯上尉
+step
     #completewith next
     .goto Loch Modan,21.49,68.14,20,0
     .goto Loch Modan,20.86,64.46,20,0
-    .goto Loch Modan,19.50,62.56,30 >>Go back into the Tunnel
-step << skip
+    .goto Loch Modan,19.50,62.56,30 >>回到隧道
+step
     .goto Loch Modan,18.84,61.48
-    .goto Loch Modan,32.19,46.95,30 >>Jumping Logout Skip from the Brazier inside the tunnel to Thelsamar
+    .goto Loch Modan,32.19,46.95,30 >>从通往塞尔萨玛的隧道内的火盆中跳跃退出
     .isOnQuest 1339
 step
     #completewith next
-    >>Kill |cRXP_ENEMY_Mountain Boars|r. Loot them for their |cRXP_LOOT_Boar Intestines|r
-    >>Kill |cRXP_ENEMY_Elder Black Bears|r. Loot them for their |cRXP_LOOT_Bear Meat|r
-    >>Kill |cRXP_ENEMY_Forest Lurkers|r. Loot them for their |cRXP_LOOT_Spider Ichor|r
-    >>|cRXP_WARN_Remember to kite them to |cRXP_FRIENDLY_Mountaineers|r if needed|r
-    >>|cRXP_WARN_Be careful as |cRXP_ENEMY_Mountain Boars|r cast|r |T132337:0|t[Charge] |cRXP_WARN_(Self Instant: Increases movespeed for 3 seconds, dealing 40-100 melee damage on hit. Only castable at range)|r
+    >>杀死 |cRXP_ENEMY_山野猪s|r。掠夺它们的 |cRXP_LOOT_Boar Intestines|r
+    >>杀死 |cRXP_ENEMY_黑熊长老s|r。掠夺他们的 |cRXP_LOOT_熊 Meat|r
+    >>杀死 |cRXP_ENEMY_森林潜伏者s|r。掠夺他们的 |cRXP_LOOT_Spider Ichor|r
+    >>|cRXP_WARN_如果需要的话记得把他们放风筝到|cRXP_FRIENDLY_Mountaineers|r|r
+    >>|cRXP_WARN_小心 |cRXP_ENEMY_山野猪s|r 施放|r |T132337:0|t[冲锋] |cRXP_WARN_(自身瞬发：增加移动速度 3 秒，击中时造成 40-100 点近战伤害。仅可远距离施放)|r
     .collect 3172,3,418,1 --Collect Boar Intestines (x3)
-    .mob +Mountain Boar
-    .collect 3173,3,418,1 --Collect Bear Meat (x3)
-    .mob +Elder Black Bear
+    .collect 3173,3,418,1 --Collect 熊 Meat (x3)
     .collect 3174,3,418,1 --Collect Spider Ichor (x3)
-    .mob +Forest Lurker
+    .mob 山野猪
+    .mob 黑熊长老
+    .mob 森林潜伏者
 step
-    .goto Loch Modan,23.57,17.93,30 >>Travel to Algaz Station
+    .goto Loch Modan,23.57,17.93,30 >>前往阿尔加兹站
     .isOnQuest 1339
 step
     .goto Loch Modan,24.13,18.20
-    >>Talk to |cRXP_FRIENDLY_Gothor|r
-    .vendor >>Vendor Trash
+    >>对话: |cRXP_FRIENDLY_高索·布鲁姆|r
+    .vendor >>供应商垃圾
     .target Gothor Brumn
     .isOnQuest 1339
 step
     .goto Loch Modan,24.764,18.397
-    >>Go Upstairs
+    >>上楼
     >>Talk to |cRXP_FRIENDLY_Stormpike|r
-    .turnin 353 >> Turn in Stormpike's Delivery << Human
-    .turnin 1339 >> Turn in Mountaineer Stormpike's Task
-    .accept 1338 >> Accept Stormpike's Order
-    .accept 307 >> Accept Filthy Paws
-    .target Mountaineer Stormpike
+    .turnin 353 >>交任务: |cRXP_FRIENDLY_雷矛的包裹|r << Human
+    .turnin 1339 >>交任务: |cRXP_FRIENDLY_巡山人卡尔·雷矛的任务|r
+    .accept 1338 >>接任务: |cRXP_LOOT_卡尔·雷矛的订单|r
+    .accept 307 >>接任务: |cRXP_LOOT_肮脏的爪子|r
+    .target 巡山人雷矛
 step
     #completewith Entrance
-    >>Kill |cRXP_ENEMY_Mountain Boars|r. Loot them for their |cRXP_LOOT_Boar Intestines|r
-    >>Kill |cRXP_ENEMY_Elder Black Bears|r. Loot them for their |cRXP_LOOT_Bear Meat|r
-    >>Kill |cRXP_ENEMY_Forest Lurkers|r. Loot them for their |cRXP_LOOT_Spider Ichor|r
-    >>|cRXP_WARN_Remember to kite them to |cRXP_FRIENDLY_Mountaineers|r if needed|r
-    >>|cRXP_WARN_Be careful as |cRXP_ENEMY_Mountain Boars|r cast|r |T132337:0|t[Charge] |cRXP_WARN_(Self Instant: Increases movespeed for 3 seconds, dealing 40-100 melee damage on hit. Only castable at range)|r
+    >>杀死 |cRXP_ENEMY_山野猪s|r。掠夺它们的 |cRXP_LOOT_Boar Intestines|r
+    >>杀死 |cRXP_ENEMY_黑熊长老s|r。掠夺他们的 |cRXP_LOOT_熊 Meat|r
+    >>杀死 |cRXP_ENEMY_森林潜伏者s|r。掠夺他们的 |cRXP_LOOT_Spider Ichor|r
+    >>|cRXP_WARN_如果需要的话记得把他们放风筝到|cRXP_FRIENDLY_Mountaineers|r|r
+    >>|cRXP_WARN_小心 |cRXP_ENEMY_山野猪s|r 施放|r |T132337:0|t[冲锋] |cRXP_WARN_(自身瞬发：增加移动速度 3 秒，击中时造成 40-100 点近战伤害。仅可远距离施放)|r
     .collect 3172,3,418,1 --Collect Boar Intestines (x3)
-    .mob +Mountain Boar
-    .collect 3173,3,418,1 --Collect Bear Meat (x3)
-    .mob +Elder Black Bear
+    .collect 3173,3,418,1 --Collect 熊 Meat (x3)
     .collect 3174,3,418,1 --Collect Spider Ichor (x3)
-    .mob +Forest Lurker
+    .mob 山野猪
+    .mob 黑熊长老
+    .mob 森林潜伏者
 step
     #completewith Exit
-    >>Kill |cRXP_ENEMY_Tunnel Rats|r. Loot them for their |cRXP_LOOT_Tunnel Rat Ears|r
+    >>杀死 |cRXP_ENEMY_Tunnel Rats|r。掠夺他们的 |cRXP_LOOT_Tunnel Rat Ears|r
     .complete 416,1 --Collect Tunnel Rat Ear (x12)
     .mob Tunnel Rat Vermin
     .mob Tunnel Rat Kobold
     .mob Tunnel Rat Scout
-    .mob Tunnel Rat Forager
-    .mob Tunnel Rat Geomancer
+    .mob 隧道鼠觅食器
+    .mob 隧道鼠风水师
     .mob Tunnel Rat Digger
 step
     #label Entrance
-    .goto Loch Modan,35.47,18.95,40 >>Travel to the entrance of the Mine
+    .goto Loch Modan,35.47,18.95,40 >>前往矿井入口
     .isOnQuest 307
 step
     #label Gear
@@ -4290,13 +4258,13 @@ step
     .goto Loch Modan,36.10,22.97,12,0
     .goto Loch Modan,36.23,24.88,12,0
     .goto Loch Modan,34.93,24.89
-    >>Loot the |cRXP_LOOT_Miners' Gear|r on the ground. |cRXP_WARN_They share spawnpoints|r
-    >>|cRXP_WARN_Be careful as the |cRXP_ENEMY_Tunnel Rat Geomancers|r cast|r |T135824:0|t[Quick Flame Ward] |cRXP_WARN_(Self Cast: Gives 10-second fire immunity) and|r |T135824:0|t[Fire Blast] |cRXP_WARN_(Ranged Instant: Deals 20-30 Fire damage)
+    >>掠夺地面上的 |cRXP_LOOT_矿工装备|r。|cRXP_WARN_他们共享出生点|r
+    >>|cRXP_WARN_小心 |cRXP_ENEMY_隧道鼠风水师s|r 施放|r |T135824:0|t[快速火焰防护] |cRXP_WARN_(自我施放：提供 10 秒的火焰免疫) 和|r |T135824:0|t[火焰冲击] |cRXP_WARN_(远程瞬发：造成 20-30 点火焰伤害)
     .complete 307,1 --Collect Miners' Gear (x4)
 --VV Rat Diggers
 step
     #label Exit
-    .goto Loch Modan,35.47,18.95,40 >>Exit the Mine
+    .goto Loch Modan,35.47,18.95,40 >>退出矿井
     .isOnQuest 307
 step
 #loop
@@ -4313,41 +4281,41 @@ step
 	.goto Loch Modan,38.85,21.25,40,0
 	.goto Loch Modan,37.89,18.88,40,0
 	.goto Loch Modan,34.38,17.67,40,0
-    >>Kill |cRXP_ENEMY_Tunnel Rat Scouts|r, |cRXP_ENEMY_Tunnel Rat Vermin|r, |cRXP_ENEMY_Tunnel Rat Kobolds|r, and |cRXP_ENEMY_Tunnel Rat Foragers|r. Loot them for their |cRXP_LOOT_Tunnel Rat Ears|r
-    >>|cRXP_WARN_Be careful as |cRXP_ENEMY_Tunnel Rat Kobolds|r cast|r |T132152:0|t[Thrash] |cRXP_WARN_(Charges 2 extra attacks every 10 seconds)|r
+    >>杀死 |cRXP_ENEMY_Tunnel Rat Scouts|r、|cRXP_ENEMY_Tunnel Rat Vermin|r、|cRXP_ENEMY_Tunnel Rat Kobolds|r 和 |cRXP_ENEMY_隧道鼠觅食器s|r。掠夺他们的 |cRXP_LOOT_Tunnel Rat Ears|r
+    >>|cRXP_WARN_小心 |cRXP_ENEMY_Tunnel Rat Kobolds|r 施法|r |T132152:0|t[Thrash] |cRXP_WARN_(每 10 秒发动 2 次额外攻击)|r
     .complete 416,1 --Collect Tunnel Rat Ear (x12)
     .mob Tunnel Rat Vermin
     .mob Tunnel Rat Kobold
     .mob Tunnel Rat Scout
-    .mob Tunnel Rat Forager
+    .mob 隧道鼠觅食器
 step
     #completewith next
-    >>Kill |cRXP_ENEMY_Mountain Boars|r. Loot them for their |cRXP_LOOT_Boar Intestines|r
-    >>Kill |cRXP_ENEMY_Elder Black Bears|r. Loot them for their |cRXP_LOOT_Bear Meat|r
-    >>Kill |cRXP_ENEMY_Forest Lurkers|r. Loot them for their |cRXP_LOOT_Spider Ichor|r
-    >>|cRXP_WARN_Remember to kite them to |cRXP_FRIENDLY_Mountaineers|r if needed|r
-    >>|cRXP_WARN_Be careful as |cRXP_ENEMY_Mountain Boars|r cast|r |T132337:0|t[Charge] |cRXP_WARN_(Self Instant: Increases movespeed for 3 seconds, dealing 40-100 melee damage on hit. Only castable at range)|r
+    >>杀死 |cRXP_ENEMY_山野猪s|r。掠夺它们的 |cRXP_LOOT_Boar Intestines|r
+    >>杀死 |cRXP_ENEMY_黑熊长老s|r。掠夺他们的 |cRXP_LOOT_熊 Meat|r
+    >>杀死 |cRXP_ENEMY_森林潜伏者s|r。掠夺他们的 |cRXP_LOOT_Spider Ichor|r
+    >>|cRXP_WARN_如果需要的话记得把他们放风筝到|cRXP_FRIENDLY_Mountaineers|r|r
+    >>|cRXP_WARN_小心 |cRXP_ENEMY_山野猪s|r 施放|r |T132337:0|t[冲锋] |cRXP_WARN_(自身瞬发：增加移动速度 3 秒，击中时造成 40-100 点近战伤害。仅可远距离施放)|r
     .collect 3172,3,418,1 --Collect Boar Intestines (x3)
-    .mob +Mountain Boar
-    .collect 3173,3,418,1 --Collect Bear Meat (x3)
-    .mob +Elder Black Bear
+    .collect 3173,3,418,1 --Collect 熊 Meat (x3)
     .collect 3174,3,418,1 --Collect Spider Ichor (x3)
-    .mob +Forest Lurker
+    .mob 山野猪
+    .mob 黑熊长老
+    .mob 森林潜伏者
 step
-    .goto Loch Modan,23.57,17.93,30 >>Travel to Algaz Station
+    .goto Loch Modan,23.57,17.93,30 >>前往阿尔加兹站
     .isOnQuest 307
 step
     .goto Loch Modan,24.13,18.20
-    >>Talk to |cRXP_FRIENDLY_Gothor|r
-    .vendor >>Vendor Trash
+    >>对话: |cRXP_FRIENDLY_高索·布鲁姆|r
+    .vendor >>供应商垃圾
     .target Gothor Brumn
     .isOnQuest 307
 step
     .goto Loch Modan,24.764,18.397
-    >>Go Upstairs
+    >>上楼
     >>Talk to |cRXP_FRIENDLY_Stormpike|r
-    .turnin 307,2 >> Turn in Filthy Paws
-    .target Mountaineer Stormpike
+    .turnin 307,2 >>交任务: |cRXP_FRIENDLY_肮脏的爪子|r
+    .target 巡山人雷矛
 step
 #loop
 	.line Loch Modan,31.01,24.84,32.69,28.67,34.93,31.55,36.78,33.19,39.65,32.82,38.15,38.16,33.53,40.53,29.87,53.51,29.58,46.54,29.95,39.84,27.09,40.10,29.03,33.44,27.19,29.01,25.77,25.60,23.64,22.20,31.01,24.84
@@ -4367,51 +4335,52 @@ step
 	.goto Loch Modan,25.77,25.60,35,0
 	.goto Loch Modan,23.64,22.20,35,0
 	.goto Loch Modan,31.01,24.84,35,0
-    >>Kill |cRXP_ENEMY_Mountain Boars|r. Loot them for their |cRXP_LOOT_Boar Intestines|r
-    >>Kill |cRXP_ENEMY_Elder Black Bears|r. Loot them for their |cRXP_LOOT_Bear Meat|r
-    >>Kill |cRXP_ENEMY_Forest Lurkers|r. Loot them for their |cRXP_LOOT_Spider Ichor|r
-    >>|cRXP_WARN_Remember to kite them to |cRXP_FRIENDLY_Mountaineers|r if needed|r
-    >>|cRXP_WARN_Be careful as |cRXP_ENEMY_Mountain Boars|r cast|r |T132337:0|t[Charge] |cRXP_WARN_(Self Instant: Increases movespeed for 3 seconds, dealing 40-100 melee damage on hit. Only castable at range)|r
+    >>杀死 |cRXP_ENEMY_山野猪s|r。掠夺它们的 |cRXP_LOOT_Boar Intestines|r
+    >>杀死 |cRXP_ENEMY_黑熊长老s|r。掠夺他们的 |cRXP_LOOT_熊 Meat|r
+    >>杀死 |cRXP_ENEMY_森林潜伏者s|r。掠夺他们的 |cRXP_LOOT_Spider Ichor|r
+    >>|cRXP_WARN_如果需要的话记得把他们放风筝到|cRXP_FRIENDLY_Mountaineers|r|r
+    >>|cRXP_WARN_小心 |cRXP_ENEMY_山野猪s|r 施放|r |T132337:0|t[冲锋] |cRXP_WARN_(自身瞬发：增加移动速度 3 秒，击中时造成 40-100 点近战伤害。仅可远距离施放)|r
     .collect 3172,3,418,1 --Collect Boar Intestines (x3)
-    .mob +Mountain Boar
-    .collect 3173,3,418,1 --Collect Bear Meat (x3)
-    .mob +Elder Black Bear
+    .collect 3173,3,418,1 --Collect 熊 Meat (x3)
     .collect 3174,3,418,1 --Collect Spider Ichor (x3)
-    .mob +Forest Lurker
+    .mob 山野猪
+    .mob 黑熊长老
+    .mob 森林潜伏者
     .xp <13+5500,1 << Gnome
 step
     #completewith Boast
-    >>Kill |cRXP_ENEMY_Mangy Mountain Boars|r and |cRXP_ENEMY_Mountain Boars|r. Loot them for their |cRXP_LOOT_Boar Intestines|r
-    >>Kill |cRXP_ENEMY_Grizzled Black Bears|r and |cRXP_ENEMY_Elder Black Bears|r. Loot them for their |cRXP_LOOT_Bear Meat|r
-    >>Kill |cRXP_ENEMY_Cliff Lurkers|r and |cRXP_ENEMY_Forest Lurkers|r. Loot them for their |cRXP_LOOT_Spider Ichor|r
-    >>|cRXP_WARN_Remember to kite them to |cRXP_FRIENDLY_Mountaineers|r if needed|r
-    >>|cRXP_WARN_Be careful as |cRXP_ENEMY_Mountain Boars|r cast|r |T132337:0|t[Charge] |cRXP_WARN_(Self Instant: Increases movespeed for 3 seconds, dealing 40-100 melee damage on hit. Only castable at range)|r
+    >>杀死 |cRXP_ENEMY_Mangy 山野猪s|r 和 |cRXP_ENEMY_山野猪s|r。掠夺它们的 |cRXP_LOOT_Boar Intestines|r
+    >>杀死 |cRXP_ENEMY_Grizzled Black 熊s|r 和 |cRXP_ENEMY_黑熊长老s|r。掠夺它们的 |cRXP_LOOT_熊 Meat|r
+    >>杀死 |cRXP_ENEMY_Cliff Lurkers|r 和 |cRXP_ENEMY_森林潜伏者s|r。掠夺他们的 |cRXP_LOOT_Spider Ichor|r
+    >>|cRXP_WARN_如果需要的话记得把他们放风筝到|cRXP_FRIENDLY_Mountaineers|r|r
+    >>|cRXP_WARN_小心 |cRXP_ENEMY_山野猪s|r 施放|r |T132337:0|t[冲锋] |cRXP_WARN_(自身瞬发：增加移动速度 3 秒，击中时造成 40-100 点近战伤害。仅可远距离施放)|r
     .collect 3172,3,418,1 --Collect Boar Intestines (x3)
-    .mob +Mangy Mountain Boar
-    .mob +Mountain Boar
-    .collect 3173,3,418,1 --Collect Bear Meat (x3)
-    .mob +Grizzled Black Bear
-    .mob +Elder Black Bear
+    .collect 3173,3,418,1 --Collect 熊 Meat (x3)
     .collect 3174,3,418,1 --Collect Spider Ichor (x3)
-    .mob +Cliff Lurker
-    .mob +Forest Lurker
+    .mob Mangy 山野猪
+    .mob 山野猪
+    .mob Grizzled Black 熊
+    .mob 黑熊长老
+    .mob Cliff Lurker
+    .mob 森林潜伏者
     .xp >13+5500,1 << Gnome
 step
     .goto Loch Modan,37.18,47.13,10,0
-    >>Talk to |cRXP_FRIENDLY_Brock|r and |cRXP_FRIENDLY_Jern|r
-    >>|cRXP_WARN_They can be inside or outside the building|r
-    .turnin 6392 >>Turn in Return to Brock << Gnome
-    .target +Brock Stoneseeker
+    >>对话: Brock, |cRXP_FRIENDLY_吉恩·角盔|r
+    >>|cRXP_WARN_它们可以位于建筑物内部或外部|r
+    .turnin 6392 >>交任务: |cRXP_FRIENDLY_向布洛克回复|r << Gnome
     .goto Loch Modan,37.02,47.80
-    .accept 436 >> Accept Ironband's Excavation
+    .accept 436 >>接任务: |cRXP_WARN_铁环挖掘场|r
     .goto Loch Modan,37.23,47.37
-    .target +Jern Hornhelm
+    .target Brock Stoneseeker
+    .target Jern Hornhelm
     .xp >13+5500,1 << Gnome
 step
     .goto Loch Modan,37.23,47.37
-    >>Talk to |cRXP_FRIENDLY_Jern|r
-    >>|cRXP_WARN_He can be inside or outside the building|r
-    .accept 436 >> Accept Ironband's Excavation
+    >>对话: |cRXP_FRIENDLY_吉恩·角盔|r
+    >>|cRXP_WARN_他可以在建筑物内或建筑物外|r
+    .accept 436 >>接任务: |cRXP_WARN_铁环挖掘场|r
+    .target Brock Stoneseeker
     .target Jern Hornhelm
     .xp >13+6550,1 << Gnome
     .isQuestTurnedIn 6392
@@ -4434,7 +4403,7 @@ step << Human
 	.goto Loch Modan,25.77,25.60,50,0
 	.goto Loch Modan,23.64,22.20,50,0
 	.goto Loch Modan,31.01,24.84,50,0
-    .xp 13+8675 >> Grind to 8675+/11400xp
+    .xp 13+8675 >>升级至 8675+/11400xp
 step << Gnome
 #loop
 	.line Loch Modan,31.01,24.84,32.69,28.67,34.93,31.55,36.78,33.19,39.65,32.82,38.15,38.16,33.53,40.53,29.87,53.51,29.58,46.54,29.95,39.84,27.09,40.10,29.03,33.44,27.19,29.01,25.77,25.60,23.64,22.20,31.01,24.84
@@ -4454,7 +4423,7 @@ step << Gnome
 	.goto Loch Modan,25.77,25.60,50,0
 	.goto Loch Modan,23.64,22.20,50,0
 	.goto Loch Modan,31.01,24.84,50,0
-    .xp 13+6545 >> Grind to 6545+/11400xp
+    .xp 13+6545 >>升级至 6545+/11400xp
     .xp <13+5500,1
     .isOnQuest 6392
 step << Gnome
@@ -4462,27 +4431,27 @@ step << Gnome
     .goto Loch Modan,46.14,63.53,50,0
     .goto Loch Modan,49.35,67.36,50,0
     .goto Loch Modan,51.91,68.00,50,0
-    .goto Loch Modan,64.83,66.05,20 >>Travel toward |cRXP_FRIENDLY_Aldren|r
+    .goto Loch Modan,64.83,66.05,20 >>前往 |cRXP_FRIENDLY_Aldren|r
 step << Gnome
     #completewith Boast
     .goto Loch Modan,64.83,66.05
-    >>Talk to |cRXP_FRIENDLY_Aldren|r
-    .vendor 1214 >> |cRXP_BUY_Buy the |r |T132491:0|t[Wise Man's Belt] |cRXP_BUY_from him (if it's up)|r
+    >>对话: |cRXP_FRIENDLY_奥德伦·科尔东|r
+    .vendor 1214 >>|cRXP_BUY_从他那里购买 |r |T132491:0|t[智者腰带] |cRXP_BUY_ （如果它涨价了）|r
     .isQuestAvailable 298
 step << Gnome
-    >>Talk to |cRXP_FRIENDLY_Ironband|r and |cRXP_FRIENDLY_Magmar|r
-    .accept 298 >> Accept Excavation Progress Report
-    .target +Prospector Ironband
+    >>对话: Ironband, |cRXP_FRIENDLY_麦格玛尔·落斧|r
+    .accept 298 >>接任务: |cRXP_LOOT_挖掘进度报告|r
     .goto Loch Modan,65.94,65.62
-    .turnin 436 >> Turn in Ironband's Excavation
+    .turnin 436 >>交任务: |cRXP_FRIENDLY_铁环挖掘场|r
     .goto Loch Modan,64.89,66.66
-    .target +Magmar Fellhew
+    .target Prospector Ironband
+    .target Magmar Fellhew
     .isOnQuest 436
 step << Gnome
     #label ExcavationP
     .goto Loch Modan,65.94,65.62
     >>Talk to |cRXP_FRIENDLY_Ironband|r
-    .accept 298 >> Accept Excavation Progress Report
+    .accept 298 >>接任务: |cRXP_LOOT_挖掘进度报告|r
     .target Prospector Ironband
     .isQuestTurnedIn 436
 step << Gnome
@@ -4491,12 +4460,12 @@ step << Gnome
     .goto Loch Modan,73.23,70.89,40,0
     .goto Loch Modan,77.25,68.20,40,0
     .goto Loch Modan,82.11,63.22,15,0
-    .goto Loch Modan,83.48,65.62,20 >>Travel to |cRXP_FRIENDLY_Daryl|r
+    .goto Loch Modan,83.48,65.62,20 >>前往 |cRXP_FRIENDLY_Daryl|r
 step << Gnome
     #label Boast
     .goto Loch Modan,83.48,65.62
     >>Talk to |cRXP_FRIENDLY_Daryl|r
-    .accept 257 >> Accept A Hunter's Boast
+    .accept 257 >>接任务: |cRXP_LOOT_自豪的猎人|r
     .target Daryl The Youngling
     .isOnQuest 298
 step << Gnome
@@ -4510,18 +4479,18 @@ step << Gnome
 	.goto Loch Modan,77.39,55.98,45,0
 	.goto Loch Modan,79.63,59.85,45,0
 	.goto Loch Modan,79.89,65.91,45,0
-    >>Kill |cRXP_ENEMY_Mountain Buzzards|r
+    >>杀死 |cRXP_ENEMY_Mountain Buzzards|r
     .complete 257,1 --Mountain Buzzard (6)
     .mob Mountain Buzzard
     .isOnQuest 257
 step << Gnome
     #completewith next
     .goto Loch Modan,82.11,63.22,15,0
-    .goto Loch Modan,83.48,65.62,20 >>Travel to |cRXP_FRIENDLY_Daryl|r
+    .goto Loch Modan,83.48,65.62,20 >>前往 |cRXP_FRIENDLY_Daryl|r
 step << Gnome
     .goto Loch Modan,83.48,65.62
     >>Talk to |cRXP_FRIENDLY_Daryl|r
-    .turnin 257,2 >> Turn in A Hunter's Boast
+    .turnin 257,2 >>交任务: |cRXP_FRIENDLY_自豪的猎人|r
     .target Daryl The Youngling
     .isQuestComplete 257
 step << Gnome
@@ -4543,20 +4512,20 @@ step << Gnome
 	.goto Loch Modan,25.77,25.60,50,0
 	.goto Loch Modan,23.64,22.20,50,0
 	.goto Loch Modan,31.01,24.84,50,0
-    >>Kill |cRXP_ENEMY_Mangy Mountain Boars|r and |cRXP_ENEMY_Mountain Boars|r. Loot them for their |cRXP_LOOT_Boar Intestines|r
-    >>Kill |cRXP_ENEMY_Grizzled Black Bears|r and |cRXP_ENEMY_Elder Black Bears|r. Loot them for their |cRXP_LOOT_Bear Meat|r
-    >>Kill |cRXP_ENEMY_Cliff Lurkers|r and |cRXP_ENEMY_Forest Lurkers|r. Loot them for their |cRXP_LOOT_Spider Ichor|r
-    >>|cRXP_WARN_Remember to kite them to |cRXP_FRIENDLY_Mountaineers|r if needed|r
-    >>|cRXP_WARN_Be careful as |cRXP_ENEMY_Mountain Boars|r cast|r |T132337:0|t[Charge] |cRXP_WARN_(Self Instant: Increases movespeed for 3 seconds, dealing 40-100 melee damage on hit. Only castable at range)|r
+    >>杀死 |cRXP_ENEMY_Mangy 山野猪s|r 和 |cRXP_ENEMY_山野猪s|r。掠夺它们的 |cRXP_LOOT_Boar Intestines|r
+    >>杀死 |cRXP_ENEMY_Grizzled Black 熊s|r 和 |cRXP_ENEMY_黑熊长老s|r。掠夺它们的 |cRXP_LOOT_熊 Meat|r
+    >>杀死 |cRXP_ENEMY_Cliff Lurkers|r 和 |cRXP_ENEMY_森林潜伏者s|r。掠夺他们的 |cRXP_LOOT_Spider Ichor|r
+    >>|cRXP_WARN_如果需要的话记得把他们放风筝到|cRXP_FRIENDLY_Mountaineers|r|r
+    >>|cRXP_WARN_小心 |cRXP_ENEMY_山野猪s|r 施放|r |T132337:0|t[冲锋] |cRXP_WARN_(自身瞬发：增加移动速度 3 秒，击中时造成 40-100 点近战伤害。仅可远距离施放)|r
     .collect 3172,3,418,1 --Collect Boar Intestines (x3)
-    .mob +Mangy Mountain Boar
-    .mob +Mountain Boar
-    .collect 3173,3,418,1 --Collect Bear Meat (x3)
-    .mob +Grizzled Black Bear
-    .mob +Elder Black Bear
+    .collect 3173,3,418,1 --Collect 熊 Meat (x3)
     .collect 3174,3,418,1 --Collect Spider Ichor (x3)
-    .mob +Cliff Lurker
-    .mob +Forest Lurker
+    .mob Mangy 山野猪
+    .mob 山野猪
+    .mob Grizzled Black 熊
+    .mob 黑熊长老
+    .mob Cliff Lurker
+    .mob 森林潜伏者
 step << Gnome
 #loop
 	.line Loch Modan,31.01,24.84,32.69,28.67,34.93,31.55,36.78,33.19,39.65,32.82,38.15,38.16,33.53,40.53,29.87,53.51,29.58,46.54,29.95,39.84,27.09,40.10,29.03,33.44,27.19,29.01,25.77,25.60,23.64,22.20,31.01,24.84
@@ -4576,7 +4545,7 @@ step << Gnome
 	.goto Loch Modan,25.77,25.60,50,0
 	.goto Loch Modan,23.64,22.20,50,0
 	.goto Loch Modan,31.01,24.84,50,0
-    .xp 13+6780 >> Grind to 6780+/11400xp
+    .xp 13+6780 >>升级至 6780+/11400xp
     .isOnQuest 298
 step
     #sticky
@@ -4586,137 +4555,137 @@ step
     .goto Loch Modan,37.05,46.11,40,0
     .goto Loch Modan,37.39,45.17,40,0
     .goto Loch Modan,37.12,42.79
-    >>Talk to |cRXP_FRIENDLY_Kadrell|r
-    >>|cRXP_FRIENDLY_Kadrell|r |cRXP_WARN_patrols along the main Thelsamar road|r
-    .turnin 416,2 >> Turn in Rat Catching
+    >>对话: |cRXP_FRIENDLY_巡山人卡德雷尔|r
+    >>|cRXP_FRIENDLY_卡德雷尔|r |cRXP_WARN_巡逻塞尔萨玛主干道|r
+    .turnin 416,2 >>交任务: |cRXP_FRIENDLY_狗头人的耳朵|r
     .target Mountaineer Kadrell
 step << Gnome
     .goto Loch Modan,37.18,47.13,10,0
-    >>Talk to |cRXP_FRIENDLY_Brock|r and |cRXP_FRIENDLY_Jern|r
-    >>|cRXP_WARN_They can be inside or outside the building|r
-    .turnin 6392 >>Turn in Return to Brock
-    .target +Brock Stoneseeker
+    >>对话: Brock, |cRXP_FRIENDLY_吉恩·角盔|r
+    >>|cRXP_WARN_它们可以位于建筑物内部或外部|r
+    .turnin 6392 >>交任务: |cRXP_FRIENDLY_向布洛克回复|r
     .goto Loch Modan,37.02,47.80
-    .turnin 298 >> Turn in Excavation Progress Report
-    .accept 301 >> Accept Report to Ironforge
+    .turnin 298 >>交任务: |cRXP_FRIENDLY_挖掘进度报告|r
+    .accept 301 >>接任务: |cRXP_LOOT_向铁炉堡报告|r
     .goto Loch Modan,37.23,47.37
-    .target +Jern Hornhelm
+    .target Brock Stoneseeker
+    .target Jern Hornhelm
     .isOnQuest 298
 step << Gnome
     .goto Loch Modan,37.18,47.13,10,0
-    >>Talk to |cRXP_FRIENDLY_Brock|r and |cRXP_FRIENDLY_Jern|r
-    >>|cRXP_WARN_They can be inside or outside the building|r
-    .turnin 6392 >>Turn in Return to Brock
-    .target Brock Stoneseeker
+    >>对话: Brock, |cRXP_FRIENDLY_吉恩·角盔|r
+    >>|cRXP_WARN_它们可以位于建筑物内部或外部|r
+    .turnin 6392 >>交任务: |cRXP_FRIENDLY_向布洛克回复|r
     .goto Loch Modan,37.02,47.80
-    .accept 301 >> Accept Report to Ironforge
+    .accept 301 >>接任务: |cRXP_LOOT_向铁炉堡报告|r
     .goto Loch Modan,37.23,47.37
-    .target +Jern Hornhelm
+    .target Brock Stoneseeker
+    .target Jern Hornhelm
     .isQuestTurnedIn 298
 step << Gnome
     .goto Loch Modan,37.18,47.13,10,0
     .goto Loch Modan,37.02,47.80
     >>Talk to |cRXP_FRIENDLY_Brock|r
-    >>|cRXP_WARN_He can be inside or outside the building|r
-    .turnin 6392 >>Turn in Return to Brock
+    >>|cRXP_WARN_他可以在建筑物内或建筑物外|r
+    .turnin 6392 >>交任务: |cRXP_FRIENDLY_向布洛克回复|r
     .target Brock Stoneseeker
 step
     #completewith next
     .goto Loch Modan,35.25,47.74,12,0
     .goto Loch Modan,35.39,48.36,12,0
-    >>Go inside the Inn
-    .goto Loch Modan,34.828,49.283,10 >>Travel toward |cRXP_FRIENDLY_Vidra|r
+    >>进入旅馆
+    .goto Loch Modan,34.828,49.283,10 >>前往 |cRXP_FRIENDLY_Vidra|r
 step
     .goto Loch Modan,34.828,49.283
-    >>Talk to |cRXP_FRIENDLY_Vidra|r
-    .accept 418 >> Accept Thelsamar Blood Sausages
-    .turnin 418 >> Turn in Thelsamar Blood Sausages
-    .target Vidra Hearthstove
+    >>对话: |cRXP_FRIENDLY_维德拉·壁炉|r
+    .accept 418 >>接任务: |cRXP_LOOT_塞尔萨玛血肠|r
+    .turnin 418 >>交任务: |cRXP_FRIENDLY_塞尔萨玛血肠|r
+    .target 维德拉炉灶
 step
     .goto Loch Modan,34.76,48.62
-    >>|cRXP_WARN_Do NOT get rid of any of your extra|r |T133970:0|t|cRXP_LOOT_[Chunks of Boar Meat]|r
-    .skill cooking,10 >> Cook |T133970:0|t|cRXP_LOOT_[Chunks of Boar Meat]|r into |T133974:0|t[Roasted Boar Meat] until your |T133971:0|t[Cooking] skill reaches 10
+    >>|cRXP_WARN_不要丢掉任何多余的|r |T133970:0|t|cRXP_LOOT_[大块野猪肉]|r
+    .skill cooking,10 >>将 |T133970:0|t|cRXP_LOOT_[大块野猪肉]|r 烹制成 |T133974:0|t[烤野猪肉]，直到你的 |T133971:0|t[烹饪] 技能达到 10
 step
     .goto Loch Modan,34.76,48.62
-    >>Talk to |cRXP_FRIENDLY_Yanni|r
-    >>|cRXP_BUY_Buy as many|r |T133634:0|t[Small Brown Pouches] |cRXP_BUY_as you need/can|r
-    >>|cRXP_WARN_Do NOT go below 45 Silver|r
-    .vendor >> Vendor Trash
+    >>对话: |cRXP_FRIENDLY_亚尼|r
+    >>|cRXP_BUY_根据需要购买|r |T133634:0|t[小棕色袋] |cRXP_BUY_/can|r
+    >>|cRXP_WARN_银牌不得低于 45|r
+    .vendor >>供应商垃圾
     .isOnQuest 1338
 step
     #completewith next
     #requires Kadrell
-    +|cRXP_WARN_Start spam casting|r |T132794:0|t[Conjure Water r2] |cRXP_WARN_to conjure as much water as possible before taking the flight|r
+    +|cRXP_WARN_开始垃圾邮件投放|r |T132794:0|t[召唤水 r2] |cRXP_WARN_在飞行前召唤尽可能多的水|r
 step
     #requires Kadrell
     .goto Loch Modan,33.94,50.96
-    >>Talk to |cRXP_FRIENDLY_Thorgrum|r
-    .fly Ironforge >> Fly to Ironforge
+    >>对话: |cRXP_FRIENDLY_索格拉姆·伯雷森|r
+    .fly Ironforge >>飞往铁炉堡
     .target Thorgrum Borrelson
     .isOnQuest 1338
 --VV WIP. Report to Ironforge needed
 step << Gnome
     .goto Ironforge,74.64,11.72
     >>Talk to |cRXP_FRIENDLY_Stormpike|r
-    .turnin 301 >> Turn in Report to Ironforge
+    .turnin 301 >>交任务: |cRXP_FRIENDLY_向铁炉堡报告|r
     .target Prospector Stormpike
     .isOnQuest 301
-step << skip
+step
     #completewith Monty
     .goto Ironforge,74.82,8.69,-1
     .goto Ironforge,56.21,46.86,-1
-    .goto Ironforge,76.41,51.22,30 >>Logout Skip to the outside of the Deeprun Tram
+    .goto Ironforge,76.41,51.22,30 >>退出 跳至 Deeprun Tram 外部
 step
     .goto Ironforge,67.83,42.47
     >>Talk to |cRXP_FRIENDLY_Cogspinner|r
-    .vendor 5175 >>|cRXP_BUY_Buy a|r |T133024:0|t[Bronze Tube] |cRXP_BUY_from him if its up|r
+    .vendor 5175 >>|cRXP_BUY_如果价格上涨，请从他那里购买 a|r |T133024:0|t[青铜管] |cRXP_BUY_|r
     .target Gearcutter Cogspinner
     .itemcount 4371,<1
 step << Gnome
     #label Monty
     .goto Ironforge,76.41,51.22,30,0
-    >>Go inside the Deeprun Tram
-    >>Talk to |cRXP_FRIENDLY_Monty|r
-    .accept 6661 >> Accept Deeprun Rat Roundup
+    >>进入 Deeprun 缆车
+    >>对话: |cRXP_FRIENDLY_蒙提|r
+    .accept 6661 >>接任务: |cRXP_LOOT_捕捉矿道老鼠|r
     .target Monty
 step << Gnome
-    >>Use the |T133942:0|t[Rat Catcher's Flute] on the |cRXP_FRIENDLY_Deeprun Rats|r in the Deeprun Tram
+    >>使用 |T133942:0|t[捕鼠者长笛] 对深泉有轨电车上的 |cRXP_FRIENDLY_深泉老鼠|r 进行攻击
     .complete 6661,1 --Rats Captured (x5)
     .target Deeprun Rat
     .use 17117
 step
-    >>Talk to |cRXP_FRIENDLY_Monty|r
-    >>|cRXP_WARN_Wait out the RP|r << Gnome
-    .turnin 6661 >> Turn in Deeprun Rat Roundup << Gnome
+    >>对话: |cRXP_FRIENDLY_蒙提|r
+    >>|cRXP_WARN_等待 RP|r << Gnome
+    .turnin 6661 >>交任务: |cRXP_FRIENDLY_捕捉矿道老鼠|r << Gnome
     .timer 13,Deeprun Rat Roundup RP << Gnome
-    .accept 6662 >> Accept Me Brother, Nipsy
+    .accept 6662 >>接任务: |cRXP_LOOT_我的兄弟，尼普希|r
     .target Monty
     .zoneskip Stormwind City
 step
-    >>|cRXP_WARN_Ride the Deeprun Tram whilst spam casting|r |T132794:0|t[Conjure Water r2]
-    >>Talk to |cRXP_FRIENDLY_Nipsy|r on the other side of the Deeprun Tram
-    .turnin 6662 >> Turn in Me Brother, Nipsy
+    >>|cRXP_WARN_乘坐深泉电车并进行垃圾邮件发送|r |T132794:0|t[召唤水 r2]
+    >>对话: |cRXP_FRIENDLY_尼普希|r
+    .turnin 6662 >>交任务: |cRXP_FRIENDLY_我的兄弟，尼普希|r
     .target Nipsy
     .isOnQuest 6662
 step
     #label Monty << Human
-    .zone Stormwind City >> Enter Stormwind City
+    .zone Stormwind City >>前往: |cRXP_PICK_暴风城|r
     .isOnQuest 1338
 step
     #completewith next
     .goto Stormwind City,59.96,12.21,20,0
     .goto Stormwind City,57.03,11.37,20,0
-    .goto Stormwind City,55.25,7.07,15 >>Travel toward |cRXP_FRIENDLY_Billibub|r
+    .goto Stormwind City,55.25,7.07,15 >>前往|cRXP_FRIENDLY_Billibub|r
 step
     .goto Stormwind City,55.25,7.07
-    >>Talk to |cRXP_FRIENDLY_Billibub|r
-    .vendor 5519 >>|cRXP_BUY_Buy a|r |T133024:0|t[Bronze Tube] |cRXP_BUY_from him if its up|r
+    >>对话: |cRXP_FRIENDLY_比利巴布·旋轮|r
+    .vendor 5519 >>|cRXP_BUY_如果价格上涨，请从他那里购买 a|r |T133024:0|t[青铜管] |cRXP_BUY_|r
     .target Billibub Cogspinner
     .itemcount 4371,<1
 step
     .goto Stormwind City,58.09,16.55
-    >>Talk to |cRXP_FRIENDLY_Furen|r
-    .turnin 1338 >> Turn in Stormpike's Order
+    >>对话: |cRXP_FRIENDLY_弗伦·长须|r
+    .turnin 1338 >>交任务: |cRXP_FRIENDLY_卡尔·雷矛的订单|r
     .target Furen Longbeard
 step
     #completewith next
@@ -4725,12 +4694,12 @@ step
     .goto Stormwind City,52.23,31.66,20,0
     .goto Stormwind City,49.82,34.42,20,0
     .goto Stormwind City,47.86,31.13,12,0
-    .goto Stormwind City,49.18,30.29,12 >>Travel toward |cRXP_FRIENDLY_Baros|r
+    .goto Stormwind City,49.18,30.29,12 >>前往 |cRXP_FRIENDLY_Baros|r
 step
     .goto Stormwind City,49.18,30.29
-    >>Go inside the building
-    >>Talk to |cRXP_FRIENDLY_Baros|r
-    .accept 399 >> Accept Humble Beginnings
+    >>进入大楼
+    >>对话: |cRXP_FRIENDLY_巴隆斯·阿历克斯顿|r
+    .accept 399 >>接任务: |cRXP_WARN_童年的记忆|r
     .target Baros Alexston
 step
     #completewith next
@@ -4743,18 +4712,17 @@ step
     .goto Stormwind City,51.83,60.41,4,0
     .goto Stormwind City,51.59,60.15,6,0
     .goto Stormwind City,39.17,76.58,12,0
-    >>|cRXP_WARN_Jump up onto the torch, then drop down to get under Stormwind|r
-    >>|cRXP_WARN_With Shadows on "Fair" or "Low", get in the middle of Derek the Dinosaur's feet (the lighter part of the dirt) just before the blue void, then walk straight forward|r
-    >>|cRXP_WARN_NOTE: There is a small chance of dying using this method. You can also walk to the Mage Tower normally if you wish|r
-    .link https://youtu.be/gV8-wgQEomc >> CLICK HERE for a guide
-    .goto Stormwind City,38.61,79.39,10 >>Travel toward |cRXP_FRIENDLY_Jennea|r
+    >>|cRXP_WARN_跳到火炬上，然后跳下来，躲到暴风城下面|r
+    >>|cRXP_WARN_将阴影设置为“良好”或“低”，在蓝色虚空前，站在恐龙德里克脚的中间（泥土较浅的部分），然后径直向前走|r
+    .link https://clips.twitch.tv/WonderfulObservantPigeonTwitchRPG-VGEqzHObhqqsv8Ae >>点击此处查看指南
+    .goto Stormwind City,38.61,79.39,10 >>前往 |cRXP_FRIENDLY_Jennea|r
 step
     .goto Stormwind City,38.61,79.39
-    >>Talk to |cRXP_FRIENDLY_Jennea|r
-    .accept 1861 >> Accept Mirror Lake << Gnome
-    .trainer >> Train your class spells (Fire Blast r2, Arcane Intellect r2, Arcane Explosion)
-    >>Total Cost: 27s
-    >>Remember you may want money for Potions (1-3s each) and Scrolls (50c-3s each)
+    >>对话: |cRXP_FRIENDLY_詹妮亚·坎农|r
+    .accept 1861 >>接任务: |cRXP_WARN_明镜湖|r << Gnome
+    .trainer >>训练你的职业法术（火焰冲击 r2、奥术智慧 r2、奥术爆炸）
+    >>总花费：27 秒
+    >>记住你可能需要钱来购买药水（每瓶 1-3 先令）和卷轴（每瓶 50 先令）
     .target Jennea Cannon
 step
     #completewith next
@@ -4767,13 +4735,13 @@ step
     .goto Stormwind City,31.12,79.42,15,0
     .goto Stormwind City,32.07,81.50,10,0
     .goto Stormwind City,32.63,80.62,8,0
-    >>Exit the Mage Tower
-    .goto Stormwind City,32.16,79.84,10 >>Travel toward |cRXP_FRIENDLY_Charys|r
+    >>退出法师塔
+    .goto Stormwind City,32.16,79.84,10 >>前往 |cRXP_FRIENDLY_Charys|r
 step
     .goto Stormwind City,32.16,79.84
-    >>Enter the building
-    >>Talk to |cRXP_FRIENDLY_Charys|r
-    .vendor 1307 >> |cRXP_BUY_Buy|r |T134851:0|t[Lesser Mana Potions] |cRXP_BUY_and|r |T134831:0|t[Healing Potions] |cRXP_BUY_from her (if they're up)|r
+    >>进入大楼
+    >>对话: |cRXP_FRIENDLY_查瑞斯·伊瑟里安|r
+    .vendor 1307 >>|cRXP_BUY_从她那里购买|r |T134851:0|t[低级法力药水] |cRXP_BUY_和|r |T134831:0|t[治疗药水] |cRXP_BUY_（如果它们涨价了）|r
     .money <0.0120
     .target Charys Yserian
 step
@@ -4784,13 +4752,13 @@ step
     .goto Stormwind City,46.32,66.93,20,0
     .goto Stormwind City,42.45,61.76,20,0
     .goto Stormwind City,41.17,63.74,15,0
-    .goto Stormwind City,41.57,65.46,10 >>Travel toward |cRXP_FRIENDLY_Adair|r
+    .goto Stormwind City,41.57,65.46,10 >>前往 |cRXP_FRIENDLY_Adair|r
     .money <0.0090
 step
     .goto Stormwind City,41.57,65.46
-    >>Enter the building
-    >>Talk to |cRXP_FRIENDLY_Adair|r
-    .vendor 1316 >> |cRXP_BUY_Buy non-intellect|r |T134943:0|t[Scrolls] |cRXP_BUY_from him (if they're up)|r
+    >>进入大楼
+    >>对话: |cRXP_FRIENDLY_艾代尔·吉尔罗|r
+    .vendor 1316 >>|cRXP_BUY_从他那里购买非智力|r |T134943:0|t[卷轴] |cRXP_BUY_（如果它们涨价了）|r
     .money <0.0090
     .target Adair Gilroy
 step << skip
@@ -4799,39 +4767,39 @@ step << skip
     .goto Stormwind City,52.10,61.42,12,0
     .goto Stormwind City,49.36,63.42,12,0
     .goto Stormwind City,51.16,68.35,12,0
-    .goto Stormwind City,52.05,67.96,10 >>Travel toward |cRXP_FRIENDLY_Roberto|r
+    .goto Stormwind City,52.05,67.96,10 >>前往 |cRXP_FRIENDLY_Roberto|r
 step << skip
     .goto Stormwind City,52.05,67.96
-    >>Go inside the building
-    >>Talk to |cRXP_FRIENDLY_Roberto|r
-    >>|cRXP_BUY_Buy a|r |T132620:0|t[Cask of Merlot] |cRXP_BUY_from him|r
+    >>进入大楼
+    >>对话: |cRXP_FRIENDLY_罗伯特·奥布斯|r
+    >>|cRXP_BUY_从他那里购买一|r |T132620:0|t[一桶梅洛] |cRXP_BUY_|r
     .collect 1941,1,116,1 --Cask of Merlot
     .target Roberto Pupellyverbos
 step
     #completewith next
     .goto Stormwind City,52.10,61.34,15,0
-    .goto Stormwind City,55.46,65.26,8 >>Travel toward |cRXP_FRIENDLY_Keldric|r
+    .goto Stormwind City,55.46,65.26,8 >>前往 |cRXP_FRIENDLY_Keldric|r
     .money <0.01
 step
     .goto Stormwind City,55.46,65.26
-    >>Talk to |cRXP_FRIENDLY_Keldric|r through the wall
-    .vendor 1257 >> |cRXP_BUY_Buy|r |T134830:0|t[Lesser Healing Potions] |cRXP_BUY_from him (if they're up)|r
+    >>对话: |cRXP_FRIENDLY_凯德雷克·布舍尔|r
+    .vendor 1257 >>|cRXP_BUY_从他那里购买|r |T134830:0|t[次级治疗药水] |cRXP_BUY_（如果价格上涨）|r
     .money <0.01
     .target Keldric Boucher
 step
     #completewith Bank
-    .goto Stormwind City,55.30,68.16,10 >>Enter the Stormwind Bank
+    .goto Stormwind City,55.30,68.16,10 >>进入暴风城银行
 step
     .goto Stormwind City,57.03,72.97
-    >>Talk to |cRXP_FRIENDLY_Newton|r
-    .bankdeposit 769,4371,730,7207,1941,1711,1478,1712,3012,1180,1181,3013,6889 >> Deposit the following items into the bank:
-    >>|T133970:0|t[Chunk of Boar Meat]
-    >>|T133024:0|t[Bronze Tube]
-    >>|T133884:0|t[Murloc Eyes]
-    >>|T132788:0|t[Jennea's Flask]
-    >>|T132620:0|t[Cask of Merlot]
-    >>|T134943:0|t[Scrolls]
-    >>|T132832:0|t[Small Egg]
+    >>对话: |cRXP_FRIENDLY_牛顿·伯恩赛德|r
+    .bankdeposit 769,4371,730,7207,1941,1711,1478,1712,3012,1180,1181,3013,6889 >>将以下物品存入银行：
+    >>|T133970:0|t[大块野猪肉]
+    >>|T133024:0|t[青铜管]
+    >>|T133884:0|t[鱼人之眼]
+    >>|T132788:0|t[詹妮娅的烧瓶]
+    >>|T132620:0|t[一桶梅洛]
+    >>|T134943:0|t[卷轴]
+    >>|T132832:0|t[小鸡蛋]
     .target Newton Burnside
 --   .itemcount 769,1
 --   .itemcount 4371,1
@@ -4841,143 +4809,142 @@ step
 --VV Vendor Crisp Spider Meat for now
 step << skip
     .goto Stormwind City,57.03,72.97
-    .bankdeposit 769,4371,7207 >> Deposit the following items into the bank:
-    >>|T133970:0|t[Chunk of Boar Meat]
-    >>|T133024:0|t[Bronze Tube]
-    >>|T132788:0|t[Jennea's Flask]
+    .bankdeposit 769,4371,7207 >>将以下物品存入银行：
+    >>|T133970:0|t[大块野猪肉]
+    >>|T133024:0|t[青铜管]
+    >>|T132788:0|t[詹妮娅的烧瓶]
     .target Newton Burnside
     .itemcount 769,1
     .itemcount 4371,1
     .itemcount 7207,1
 step << skip
     .goto Stormwind City,57.03,72.97
-    .bankdeposit 769,730,7207 >> Deposit the following items into the bank:
-    >>|T133970:0|t[Chunk of Boar Meat]
-    >>|T133884:0|t[Murloc Eyes]
-    >>|T132788:0|t[Jennea's Flask]
+    .bankdeposit 769,730,7207 >>将以下物品存入银行：
+    >>|T133970:0|t[大块野猪肉]
+    >>|T133884:0|t[鱼人之眼]
+    >>|T132788:0|t[詹妮娅的烧瓶]
     .target Newton Burnside
     .itemcount 769,1
     .itemcount 730,1
     .itemcount 7207,1
 step << skip
     .goto Stormwind City,57.03,72.97
-    .bankdeposit 4371,730,7207 >> Deposit the following items into the bank:
-    >>|T133024:0|t[Bronze Tube]
-    >>|T133884:0|t[Murloc Eyes]
-    >>|T132788:0|t[Jennea's Flask]
+    .bankdeposit 4371,730,7207 >>将以下物品存入银行：
+    >>|T133024:0|t[青铜管]
+    >>|T133884:0|t[鱼人之眼]
+    >>|T132788:0|t[詹妮娅的烧瓶]
     .target Newton Burnside
     .itemcount 4371,1
     .itemcount 730,1
     .itemcount 7207,1
 step << skip
     .goto Stormwind City,57.03,72.97
-    .bankdeposit 769,7207 >> Deposit the following items into the bank:
-    >>|T133970:0|t[Chunk of Boar Meat]
-    >>|T132788:0|t[Jennea's Flask]
+    .bankdeposit 769,7207 >>将以下物品存入银行：
+    >>|T133970:0|t[大块野猪肉]
+    >>|T132788:0|t[詹妮娅的烧瓶]
     .target Newton Burnside
     .itemcount 769,1
     .itemcount 7207,1
 step << skip
     .goto Stormwind City,57.03,72.97
-    .bankdeposit 4371,7207 >> Deposit the following items into the bank:
-    >>|T133024:0|t[Bronze Tube]
-    >>|T132788:0|t[Jennea's Flask]
+    .bankdeposit 4371,7207 >>将以下物品存入银行：
+    >>|T133024:0|t[青铜管]
+    >>|T132788:0|t[詹妮娅的烧瓶]
     .target Newton Burnside
     .itemcount 4371,1
     .itemcount 7207,1
 step << skip
     .goto Stormwind City,57.03,72.97
-    .bankdeposit 730,7207 >> Deposit the following items into the bank:
-    >>|T133884:0|t[Murloc Eyes]
-    >>|T132788:0|t[Jennea's Flask]
+    .bankdeposit 730,7207 >>将以下物品存入银行：
+    >>|T133884:0|t[鱼人之眼]
+    >>|T132788:0|t[詹妮娅的烧瓶]
     .target Newton Burnside
     .itemcount 730,1
     .itemcount 7207,1
 step << skip
     .goto Stormwind City,57.03,72.97
-    .bankdeposit 7207 >> Deposit the following item into the bank:
-    >>|T132788:0|t[Jennea's Flask]
+    .bankdeposit 7207 >>将以下物品存入银行：
+    >>|T132788:0|t[詹妮娅的烧瓶]
     .target Newton Burnside
     .itemcount 7207,1
 step
     #completewith next
     .goto Stormwind City,53.45,64.92,10,0
-    >>Enter the Inn
-    .goto Stormwind City,52.61,65.72,10 >>Travel Toward |cRXP_FRIENDLY_Allison|r
+    >>进入旅馆
+    .goto Stormwind City,52.61,65.72,10 >>前往 |cRXP_FRIENDLY_Allison|r
     .target Innkeeper Allison
 step
     .goto Stormwind City,52.61,65.72
-    >>|cRXP_WARN_===PAY ATTENTION===|r
-    >>|cRXP_WARN_Talk to|r |cRXP_FRIENDLY_Allison|r
-    >>|cRXP_WARN_Open the "Set Hearthstone" menu, then cast|r |T134414:0|t[Hearthstone]
-    .hs >> |cRXP_WARN_Hearthstone BATCH from Stormwind to Auberdine|r
+    >>|cRXP_WARN_===注意===|r
+    >>|cRXP_WARN_与|r |cRXP_FRIENDLY_Allison 交谈|r
+    >>|cRXP_WARN_打开“设置炉石”菜单，然后施放|r |T134414:0|t[炉石]
+    .hs >>|cRXP_WARN_从 暴风城 炉石到 奥伯丁|r
     .target Innkeeper Allison
     .zoneskip Darkshore
 
 ]])
 RXPGuides.RegisterGuide([[
 #classic
-#tbc
 << Alliance Mage
-#name 14-16 ADV Darkshore 2 Mage AoE
+#name 14-16 冒险 黑海岸 2 法师 AoE
 #version 2
-#group RestedXP ADV AoE Alliance Mage
+#group RestedXP 冒险 AoE 联盟法师
 #defaultfor Human Mage/Gnome Mage
-#next 16-18 ADV Westfall Mage AoE
+#next 16-18 冒险 西部荒野法师 AoE
 
 
 step
     #completewith DeepO
-    +|cRXP_WARN_Save any |T132917:0|t[Light Feathers] you get for later|r
+    +|cRXP_WARN_保存你获得的任何 |T132917:0|t[轻羽毛] 以供日后使用|r
 step
     .goto Darkshore,36.77,44.28
-    >>Talk to |cRXP_FRIENDLY_Laird|r
-    >>|cRXP_BUY_Buy up to 20|r |T133918:0|t[Longjaw Mud Snappers] |cRXP_BUY_from him|r
+    >>对话: |cRXP_FRIENDLY_莱尔德|r
+    >>|cRXP_BUY_从他那里购买最多 20|r |T133918:0|t[长颚泥鲷] |cRXP_BUY_|r
     .collect 4592,20,982,1 --Longjaw Mud Snapper (20)
     .target Laird
     .isQuestAvailable 982
 step
-    >>Talk to |cRXP_FRIENDLY_Barithras|r and |cRXP_FRIENDLY_Glynda|r
-    .accept 947 >>Accept Cave Mushrooms
-    .target +Barithras Moonshade
+    >>对话: |cRXP_FRIENDLY_巴瑞萨斯·月影|r, Glynda
+    .accept 947 >>接任务: |cRXP_LOOT_洞中的蘑菇|r
     .goto Darkshore,37.32,43.64
-    .accept 4811 >>Accept The Red Crystal
+    .accept 4811 >>接任务: |cRXP_LOOT_红色水晶|r
     .goto Darkshore,37.68,43.38
-    .target +Sentinel Glynda Nal'Shea
+    .target Barithras Moonshade
+    .target Sentinel Glynda Nal'Shea
 step
     #label DeepO
     .goto Darkshore,38.11,41.16
-    >>Talk to |cRXP_FRIENDLY_Gorbold|r
-    .accept 982 >> Accept Deep Ocean, Vast Sea
+    >>对话: |cRXP_FRIENDLY_高尔博德·钢手|r
+    .accept 982 >>接任务: |cRXP_LOOT_深不可测的海洋|r
     .target Gorbold Steelhand
 step
     .goto Darkshore,37.39,40.13
     >>Talk to |cRXP_FRIENDLY_Thundris|r
-    .turnin 4761 >> Turn in Thundris Windweaver
-    .accept 4762 >> Accept The Cliffspring River
+    .turnin 4761 >>交任务: |cRXP_FRIENDLY_桑迪斯·织风|r
+    .accept 4762 >>接任务: |cRXP_LOOT_壁泉河|r
     .target Thundris Windweaver
 step
     #completewith MistV
     .goto Darkshore,35.87,38.18,50,0
     .goto Darkshore,36.28,32.23,50,0
     .goto Darkshore,37.61,30.86,50,0
-    >>Kill |cRXP_ENEMY_Darkshore Threshers|r in the water. Loot them for their |cRXP_LOOT_Thresher Eyes|r
+    >>在水中杀死 |cRXP_ENEMY_Darkshore Threshers|r。掠夺它们的 |cRXP_LOOT_Thresher Eyes|r
    .complete 1001,1 --Thresher Eye (3)
    .mob Darkshore Thresher
 step
    .goto Darkshore,38.21,28.76
 --  .goto Darkshore,38.23,28.79
-    >>Loot the |cRXP_LOOT_Silver Dawning Lockbox|r through the wall of the boat
-    >>|cRXP_WARN_Use your "Interact with Target" keybind underwater next to the arrow location|r
-    >>|cRXP_WARN_This has a 5 second cast time|r
+    >>通过船壁抢劫 |cRXP_LOOT_Silver Dawning Lockbox|r
+    >>|cRXP_WARN_在箭头位置附近的水下使用“与目标互动”键|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
    .complete 982,1 --Silver Dawning's Lockbox (1)
 step
    #label MistV
    .goto Darkshore,39.58,27.47
 --  .goto Darkshore,39.63,27.45
-   >>Loot the |cRXP_LOOT_Mist Veil Lockbox|r through the wall of the boat
-   >>|cRXP_WARN_Use your "Interact with Target" keybind underwater next to the arrow location|r
-   >>|cRXP_WARN_This has a 5 second cast time|r
+   >>通过船壁抢劫 |cRXP_LOOT_Mist Veil Lockbox|r
+   >>|cRXP_WARN_在箭头位置附近的水下使用“与目标互动”键|r
+   >>|cRXP_WARN_施法时间为 5 秒|r
    .complete 982,2 --Mist Veil's Lockbox (1)
 step
    .goto Darkshore,40.44,28.63,50,0
@@ -4988,119 +4955,119 @@ step
    .goto Darkshore,35.87,38.18,50,0
    .goto Darkshore,36.28,32.23,50,0
    .goto Darkshore,37.61,30.86
-   >>Kill |cRXP_ENEMY_Darkshore Threshers|r in the water. Loot them for their |cRXP_LOOT_Thresher Eyes|r
+   >>在水中杀死 |cRXP_ENEMY_Darkshore Threshers|r。掠夺它们的 |cRXP_LOOT_Thresher Eyes|r
    .complete 1001,1 --Thresher Eye (3)
    .mob Darkshore Thresher
 step
    #completewith next
-   +|cRXP_WARN_Save the|r |T133884:0|t[Murloc Eyes] |cRXP_WARN_you loot from the|r |cRXP_ENEMY_Greymist Coastrunners|r |cRXP_WARN_and|r |cRXP_ENEMY_Greymist Seers|r
+   +|cRXP_WARN_拯救|r |T133884:0|t[鱼人之眼] |cRXP_WARN_你从|r |cRXP_ENEMY_Greymist Coastrunners|r |cRXP_WARN_和|r |cRXP_ENEMY_Greymist Seers 手中夺取的|r
 step
    .goto Darkshore,41.91,31.48
-   >>Loot the |cRXP_LOOT_Beached Sea Creature|r on the ground
-   >>|cRXP_WARN_This has a 5 second cast time|r
-   .accept 4723 >> Accept Beached Sea Creature
+   >>掠夺地面上的 |cRXP_LOOT_Beached Sea Creature|r
+   >>|cRXP_WARN_施法时间为 5 秒|r
+   .accept 4723 >>接任务: |cRXP_LOOT_搁浅的海洋生物|r
 step
    .goto Darkshore,41.96,28.61
-   >>Click |cRXP_PICK_Buzzbox 411|r
-   .turnin 1001 >> Turn in Buzzbox 411
-   .accept 1002 >> Accept Buzzbox 323
+   >>点击|cRXP_PICK_Buzzbox 411|r
+   .turnin 1001 >>交任务: |cRXP_FRIENDLY_传声盒411号|r
+   .accept 1002 >>接任务: |cRXP_LOOT_传声盒323号|r
 step
     #completewith SeaTurtle1
     .goto Darkshore,43.67,27.81,50,0
-    >>AoE |cRXP_ENEMY_Foreststrider Fledgelings|r. Loot them for their |cRXP_LOOT_Strider Meat|r
+    >>AoE |cRXP_ENEMY_Foreststrider Fledgelings|r。掠夺他们的 |cRXP_LOOT_Strider Meat|r
     .collect 5469,5,2178,1 --Strider Meat (5)
     .mob Foreststrider Fledgeling
 step
     #completewith SeaTurtle1
-    >>Kill |cRXP_ENEMY_Moonstalker Runts|r and |cRXP_ENEMY_Moonstalkers|r. Loot them for their |cRXP_LOOT_Moonstalker Fangs|r
-    .complete 1002,1 --Moonstalker Fang (6)
-    .mob Moonstalker Runt
-    .mob Moonstalker
+    >>杀死 |cRXP_ENEMY_月夜猎者 Runts|r 和 |cRXP_ENEMY_月夜猎者s|r。掠夺他们的 |cRXP_LOOT_月夜猎者 Fangs|r
+    .complete 1002,1 --月夜猎者 Fang (6)
+    .mob 月夜猎者 Runt
+    .mob 月夜猎者
 step
     #completewith next
-    >>Kill |cRXP_ENEMY_Rabid Thistle Bears|r
-    >>|cRXP_WARN_Be careful as they cast|r |T135914:0|t[Rabies] |cRXP_WARN_(Instant Melee: Reduces ALL health regen by 50% for 10 Minutes)|r
-    .complete 2138,1 --Rabid Thistle Bear (20)
-    .mob Rabid Thistle Bear
+    >>杀死 |cRXP_ENEMY_Rabid Thistle 熊s|r
+    >>|cRXP_WARN_施放时要小心|r |T135914:0|t[狂犬病] |cRXP_WARN_（即时近战：在 10 分钟内使所有生命值恢复降低 50%）|r
+    .complete 2138,1 --Rabid Thistle 熊 (20)
+    .mob Rabid Thistle 熊
 step
     #label SeaTurtle1
-    .goto Darkshore,44.20,20.60,80 >>Travel toward the |cRXP_LOOT_Beached Sea Turtle|r
+    .goto Darkshore,44.20,20.60,80 >>前往|cRXP_LOOT_搁浅的海龟|r
     .isQuestAvailable 4725
 step
     #completewith next
-    +Save the |T133884:0|t[Murloc Eyes] you loot from the |cRXP_ENEMY_Greymist Warriors|r and |cRXP_ENEMY_Greymist Netters|r
+    +保存你从 |cRXP_ENEMY_Greymist Warriors|r 和 |cRXP_ENEMY_Greymist Netters|r 手中夺取的 |T133884:0|t[鱼人之眼]
 step
     .goto Darkshore,44.20,20.60
-    >>Loot the |cRXP_LOOT_Beached Sea Turtle|r on the ground
-    >>|cRXP_WARN_This has a 5 second cast time|r
-    .accept 4725 >> Accept Beached Sea Turtle
+    >>拾取地面上的 |cRXP_LOOT_Beached Sea Turtle|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
+    .accept 4725 >>接任务: |cRXP_LOOT_搁浅的海龟|r
 step
     #completewith River
-    >>Kill |cRXP_ENEMY_Foreststrider Fledgelings|r. Loot them for their |cRXP_LOOT_Strider Meat|r
+    >>杀死 |cRXP_ENEMY_Foreststrider Fledgelings|r。掠夺它们的 |cRXP_LOOT_Strider Meat|r
     .collect 5469,5,2178,1 --Strider Meat (5)
     .mob Foreststrider Fledgeling
 step
     #completewith River
-    >>Kill |cRXP_ENEMY_Moonstalker Runts|r and |cRXP_ENEMY_Moonstalkers|r. Loot them for their |cRXP_LOOT_Moonstalker Fangs|r
-    .complete 1002,1 --Moonstalker Fang (6)
-    .mob Moonstalker Runt
-    .mob Moonstalker
+    >>杀死 |cRXP_ENEMY_月夜猎者 Runts|r 和 |cRXP_ENEMY_月夜猎者s|r。掠夺他们的 |cRXP_LOOT_月夜猎者 Fangs|r
+    .complete 1002,1 --月夜猎者 Fang (6)
+    .mob 月夜猎者 Runt
+    .mob 月夜猎者
 step
     #completewith RedC
-    >>Kill |cRXP_ENEMY_Rabid Thistle Bears|r
-    >>|cRXP_WARN_Be careful as they cast|r |T135914:0|t[Rabies] |cRXP_WARN_(Instant Melee: Reduces ALL health regen by 50% for 10 Minutes)|r
-    .complete 2138,1 --Rabid Thistle Bear (20)
-    .mob Rabid Thistle Bear
+    >>杀死 |cRXP_ENEMY_Rabid Thistle 熊s|r
+    >>|cRXP_WARN_施放时要小心|r |T135914:0|t[狂犬病] |cRXP_WARN_（即时近战：在 10 分钟内使所有生命值恢复降低 50%）|r
+    .complete 2138,1 --Rabid Thistle 熊 (20)
+    .mob Rabid Thistle 熊
 step
     #label River
     .goto Darkshore,50.77,25.43
-    >>Use the |T134865:0|t[Empty Sampling Tube] in the water
+    >>在水中使用 |T134865:0|t[空取样管]
     .complete 4762,1 --Cliffspring River Sample (1)
     .use 12350
 step
     #completewith RedC
-    >>Kill |cRXP_ENEMY_Foreststriders|r. Loot them for their |cRXP_LOOT_Strider Meat|r
+    >>杀死 |cRXP_ENEMY_Foreststriders|r。掠夺他们的 |cRXP_LOOT_Strider Meat|r
     .collect 5469,5,2178,1 --Strider Meat (5)
     .mob Foreststrider
 step
     #completewith RedC
-    >>Kill |cRXP_ENEMY_Moonstalker Runts|r and |cRXP_ENEMY_Moonstalkers|r. Loot them for their |cRXP_LOOT_Moonstalker Fangs|r
-    .complete 1002,1 --Moonstalker Fang (6)
-    .mob Moonstalker Runt
-    .mob Moonstalker
+    >>杀死 |cRXP_ENEMY_月夜猎者 Runts|r 和 |cRXP_ENEMY_月夜猎者s|r。掠夺他们的 |cRXP_LOOT_月夜猎者 Fangs|r
+    .complete 1002,1 --月夜猎者 Fang (6)
+    .mob 月夜猎者 Runt
+    .mob 月夜猎者
 step
     #label RedC
-    .goto Darkshore,47.11,48.63,400 >>Travel toward |cRXP_PICK_The Red Crystal|r
+    .goto Darkshore,47.11,48.63,400 >>前往|cRXP_PICK_红色水晶|r
     .isOnQuest 4811
 step
     #completewith Bash
-    >>Kill |cRXP_ENEMY_Foreststrider Fledglings|r. Loot them for their |cRXP_LOOT_Strider Meat|r
+    >>杀死 |cRXP_ENEMY_Foreststrider Fledglings|r。掠夺它们的 |cRXP_LOOT_Strider Meat|r
     .collect 5469,5,2178,1 --Strider Meat (5)
     .mob Foreststrider Fledgling
 step
     #completewith Bash
-    >>Kill |cRXP_ENEMY_Moonstalker Runts|r. Loot them for their |cRXP_LOOT_Moonstalker Fangs|r
-    .complete 1002,1 --Moonstalker Fang (6)
-    .mob Moonstalker Runt
+    >>杀死 |cRXP_ENEMY_月夜猎者 Runts|r。掠夺他们的 |cRXP_LOOT_月夜猎者 Fangs|r
+    .complete 1002,1 --月夜猎者 Fang (6)
+    .mob 月夜猎者 Runt
 step
     .goto Darkshore,47.11,48.63
-    >>Run up to |cRXP_PICK_The Red Crystal|r
-    >>|cRXP_WARN_Remember to pull the |cRXP_ENEMY_Raging Moonkins|r that are leashed together|r
+    >>跑到 |cRXP_PICK_红色水晶|r
+    >>|cRXP_WARN_记得拉动被拴在一起的 |cRXP_ENEMY_Raging Moonkins|r|r
     .complete 4811,1 --Locate the large, red crystal on Darkshore's eastern mountain range (1)
 step
     #label Bash
-    .goto Darkshore,42.37,61.82,175 >>Travel toward the |cRXP_PICK_Ancient Flame|r
+    .goto Darkshore,42.37,61.82,175 >>前往 |cRXP_PICK_Ancient Flame|r
     .isOnQuest 957
 step
     #completewith next
     .goto Darkshore,42.45,60.66,0
-    >>Kill |cRXP_ENEMY_Anaya Dawnrunner|r. Loot her for |cRXP_LOOT_Anaya's Pendant|r
+    >>杀死 |cRXP_ENEMY_Anaya Dawnrunner|r。掠夺她以获得 |cRXP_LOOT_Anaya 的吊坠|r
     .complete 963,1 --Anaya's Pendant (1)
     .unitscan Anaya Dawnrunner
 step
     .goto Darkshore,42.37,61.82
-    >>Click the |cRXP_PICK_Ancient Flame|r
-    >>|cRXP_WARN_This has a 5 second cast time|r
+    >>点击|cRXP_PICK_Ancient Flame|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
     .complete 957,1 --Destroy the seal at the ancient flame (1)
 step
     .goto Darkshore,42.45,60.66,50,0
@@ -5111,29 +5078,29 @@ step
     .goto Darkshore,42.53,59.00,50,0
     .goto Darkshore,42.45,60.66,50,0
     .goto Darkshore,43.25,62.41
-    >>Kill |cRXP_ENEMY_Anaya Dawnrunner|r. Loot her for |cRXP_LOOT_Anaya's Pendant|r
+    >>杀死 |cRXP_ENEMY_Anaya Dawnrunner|r。掠夺她以获得 |cRXP_LOOT_Anaya 的吊坠|r
     .complete 963,1 --Anaya's Pendant (1)
     .unitscan Anaya Dawnrunner
 step
-    #completewith RBears
-    >>Kill |cRXP_ENEMY_Foreststrider Fledglings|r. Loot them for their |cRXP_LOOT_Strider Meat|r
+    #completewith R熊s
+    >>杀死 |cRXP_ENEMY_Foreststrider Fledglings|r。掠夺它们的 |cRXP_LOOT_Strider Meat|r
     .collect 5469,5,2178,1 --Strider Meat (5)
     .mob Foreststrider Fledgling
 step
-    #completewith RBears
-    >>Kill |cRXP_ENEMY_Moonstalker Runts|r and |cRXP_ENEMY_Moonstalkers|r. Loot them for their |cRXP_LOOT_Moonstalker Fangs|r
-    .complete 1002,1 --Moonstalker Fang (6)
-    .mob Moonstalker Runt
-    .mob Moonstalker
+    #completewith R熊s
+    >>杀死 |cRXP_ENEMY_月夜猎者 Runts|r 和 |cRXP_ENEMY_月夜猎者s|r。掠夺他们的 |cRXP_LOOT_月夜猎者 Fangs|r
+    .complete 1002,1 --月夜猎者 Fang (6)
+    .mob 月夜猎者 Runt
+    .mob 月夜猎者
 step
     #completewith next
-    +Save the |T133884:0|t[Murloc Eyes] you loot from the |cRXP_ENEMY_Greymist Coastrunners|r and |cRXP_ENEMY_Greymist Seers|r
+    +保存你从 |cRXP_ENEMY_Greymist Coastrunners|r 和 |cRXP_ENEMY_Greymist Seers|r 处抢来的 |T133884:0|t[鱼人之眼]
 step
     #label BeachedST
     .goto Darkshore,37.10,62.17
-    >>Click the |cRXP_PICK_Beached Sea Turtle|r
-    >>|cRXP_WARN_This has a 5 second cast time|r
-    .accept 4722 >> Accept Beached Sea Turtle
+    >>点击 |cRXP_PICK_Beached Sea Turtle|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
+    .accept 4722 >>接任务: |cRXP_LOOT_搁浅的海龟|r
 step
 #loop
 	.line Darkshore,38.74,58.10,39.91,58.50,39.23,63.60,39.87,66.31,39.98,70.55,37.40,70.05,38.63,67.72,38.50,63.73,38.74,58.10
@@ -5146,12 +5113,12 @@ step
 	.goto Darkshore,38.63,67.72,45,0
 	.goto Darkshore,38.50,63.73,45,0
 	.goto Darkshore,38.74,58.10,45,0
-    >>Kill |cRXP_ENEMY_Rabid Thistle Bears|r
-    >>|cRXP_WARN_Be careful as they cast|r |T135914:0|t[Rabies] |cRXP_WARN_(Instant Melee: Reduces ALL health regen by 50% for 10 Minutes)|r
-    .complete 2138,1 --Rabid Thistle Bear (20)
-    .mob Rabid Thistle Bear
+    >>杀死 |cRXP_ENEMY_Rabid Thistle 熊s|r
+    >>|cRXP_WARN_施放时要小心|r |T135914:0|t[狂犬病] |cRXP_WARN_（即时近战：在 10 分钟内使所有生命值恢复降低 50%）|r
+    .complete 2138,1 --Rabid Thistle 熊 (20)
+    .mob Rabid Thistle 熊
 step
-    #label RBears
+    #label R熊s
 #loop
 	.line Darkshore,39.26,56.72,40.21,56.23,39.96,55.22,39.90,54.38,40.24,53.47,39.21,53.01,39.90,54.38
 	.goto Darkshore,39.26,56.72,50,0
@@ -5161,17 +5128,17 @@ step
 	.goto Darkshore,40.24,53.47,50,0
 	.goto Darkshore,39.21,53.01,50,0
 	.goto Darkshore,39.90,54.38,50,0
-    >>Kill |cRXP_ENEMY_Blackwood Pathfinders|r and |cRXP_ENEMY_Blackwood Windtalkers|r
-    >>|cRXP_WARN_Be careful as |cRXP_ENEMY_Blackwood Pathfinders|r cast|r |T132152:0|t[Thrash] |cRXP_WARN_(Charges 2 extra attacks every 10 seconds), and |cRXP_ENEMY_Blackwood Windtalkers|r cast|r |T136022:0|t[Gust of Wind] |cRXP_WARN_(melee-range aoe stun)|r
-    .complete 985,1 --Blackwood Pathfinder (8)
-    .mob +Blackwood Pathfinder
-    .complete 985,2 --Blackwood Windtalker (5)
-    .mob +Blackwood Windtalker
+    >>杀死 |cRXP_ENEMY_黑木探路者s|r 和 |cRXP_ENEMY_黑木风语者s|r
+    >>|cRXP_WARN_要小心 |cRXP_ENEMY_黑木探路者s|r cast|r |T132152:0|t[Thrash] |cRXP_WARN_(每 10 秒发动 2 次额外攻击) 和 |cRXP_ENEMY_黑木风语者s|r cast|r |T136022:0|t[Gust of Wind] |cRXP_WARN_(近战范围 aoe 眩晕)|r
+    .complete 985,1 --黑木探路者 (8)
+    .complete 985,2 --黑木风语者 (5)
+    .mob 黑木探路者
+    .mob 黑木风语者
 step
     #completewith Auberdine
-    >>Kill |cRXP_ENEMY_Moonstalker Runts|r Loot them for their |cRXP_LOOT_Moonstalker Fangs|r
-    .complete 1002,1 --Moonstalker Fang (6)
-    .mob Moonstalker Runt
+    >>杀死 |cRXP_ENEMY_月夜猎者 Runts|r 掠夺他们的 |cRXP_LOOT_月夜猎者 Fangs|r
+    .complete 1002,1 --月夜猎者 Fang (6)
+    .mob 月夜猎者 Runt
 step
 #loop
 	.line Darkshore,38.63,51.25,38.33,50.00,38.18,48.42,38.73,47.62,39.49,47.65,41.40,47.13,41.67,49.47,41.45,50.84,38.63,51.25
@@ -5184,60 +5151,60 @@ step
 	.goto Darkshore,41.67,49.47,50,0
 	.goto Darkshore,41.45,50.84,50,0
 	.goto Darkshore,38.63,51.25,50,0
-    >>Kill |cRXP_ENEMY_Foreststrider Fledglings|r. Loot them for their |cRXP_LOOT_Strider Meat|r
+    >>杀死 |cRXP_ENEMY_Foreststrider Fledglings|r。掠夺它们的 |cRXP_LOOT_Strider Meat|r
     .collect 5469,5,2178,1 --Strider Meat (5)
     .mob Foreststrider Fledgling
 step
     #label Auberdine
-    .goto Darkshore,36.62,45.59,150 >>Travel toward |cRXP_FRIENDLY_Gwennyth|r
+    .goto Darkshore,36.62,45.59,150 >>前往 |cRXP_FRIENDLY_Gwennyth|r
     .isOnQuest 982
 step
     .goto Darkshore,36.72,45.07,12,0
     .goto Darkshore,36.62,45.59
-    >>Talk to |cRXP_FRIENDLY_Gwennyth|r
-    .turnin 4722 >> Turn in Beached Sea Turtle
-    .turnin 4723 >> Turn in Beached Sea Creature
-    .turnin 4725 >> Turn in Beached Sea Turtle
+    >>对话: |cRXP_FRIENDLY_温尼斯·布莱葛|r
+    .turnin 4722 >>交任务: |cRXP_FRIENDLY_搁浅的海龟|r
+    .turnin 4723 >>交任务: |cRXP_FRIENDLY_搁浅的海洋生物|r
+    .turnin 4725 >>交任务: |cRXP_FRIENDLY_搁浅的海龟|r
     .target Gwennyth Bly'Leggonde
 --Fruit of the Sea at 18
 step
     .goto Darkshore,36.77,44.28
-    >>Talk to |cRXP_FRIENDLY_Laird|r
-    >>|cRXP_BUY_Buy up to 20|r |T133918:0|t[Longjaw Mud Snappers] |cRXP_BUY_from him|r
-    .vendor >> Vendor Trash
+    >>对话: |cRXP_FRIENDLY_莱尔德|r
+    >>|cRXP_BUY_从他那里购买最多 20|r |T133918:0|t[长颚泥鲷] |cRXP_BUY_|r
+    .vendor >>供应商垃圾
     .collect 4592,20,4763,1 --Longjaw Mud Snapper (40)
     .target Laird
     .isOnQuest 982
 step
     .goto Darkshore,36.68,44.05,12,0
     .goto Darkshore,35.74,43.70
-    >>Talk to |cRXP_FRIENDLY_Cerellean|r
-    .turnin 963 >>Turn in For Love Eternal
+    >>对话: |cRXP_FRIENDLY_塞瑞利恩·白爪|r
+    .turnin 963 >>交任务: |cRXP_FRIENDLY_永志不渝|r
     .target Cerellean Whiteclaw
 step
     #completewith CliffRi
-    +Equip the |T134797:0|t[Tear of Grief]
+    +装备 |T134797:0|t[悲伤之泪]
     .use 5611
     .itemcount 5611,1
     .itemStat 17,LEVEL,<16
 step
     .goto Darkshore,36.77,44.28
-    >>Talk to |cRXP_FRIENDLY_Allyndia|r
-    >>|cRXP_BUY_Buy 15|r |T132796:0|t[Melon Juice] |cRXP_BUY_from her|r
+    >>对话: |cRXP_FRIENDLY_奥琳迪雅|r
+    >>|cRXP_BUY_从她那里购买 15|r |T132796:0|t[甜瓜汁] |cRXP_BUY_|r
     .collect 1205,15,4763,1 --Melon Juice (15)
     .target Allyndia
     .money <0.1500
 step
     .goto Darkshore,36.77,44.28
-    >>Talk to |cRXP_FRIENDLY_Allyndia|r
-    >>|cRXP_BUY_Buy 10|r |T132796:0|t[Melon Juice] |cRXP_BUY_from her|r
+    >>对话: |cRXP_FRIENDLY_奥琳迪雅|r
+    >>|cRXP_BUY_从她那里购买 10|r |T132796:0|t[甜瓜汁] |cRXP_BUY_|r
     .collect 1205,10,4763,1 --Melon Juice (10)
     .target Allyndia
     .money <0.1000
 step
     .goto Darkshore,36.77,44.28
-    >>Talk to |cRXP_FRIENDLY_Allyndia|r
-    >>|cRXP_BUY_Buy 5|r |T132796:0|t[Melon Juice] |cRXP_BUY_from her|r
+    >>对话: |cRXP_FRIENDLY_奥琳迪雅|r
+    >>|cRXP_BUY_从她那里购买 5|r |T132796:0|t[甜瓜汁] |cRXP_BUY_|r
     .collect 1205,5,4763,1 --Melon Juice (5)
     .target Allyndia
     .money <0.0500
@@ -5245,176 +5212,170 @@ step
     #completewith next
     .goto Darkshore,37.45,43.10,20,0
     .goto Darkshore,37.47,42.40,20,0
-    .goto Darkshore,37.44,41.84,15 >>Travel toward |cRXP_FRIENDLY_Hollee|r
+    .goto Darkshore,37.44,41.84,15 >>前往 |cRXP_FRIENDLY_Hollee|r
 step
     .goto Darkshore,37.44,41.84
-    >>Talk to |cRXP_FRIENDLY_Hollee|r
-    .accept 729 >>Accept The Absent Minded Prospector
+    >>对话: |cRXP_FRIENDLY_霍莉|r
+    .accept 729 >>接任务: |cRXP_LOOT_健忘的勘察员|r
     .target Archaeologist Hollee
 step
     .goto Darkshore,37.45,40.50
-    >>Talk to |cRXP_FRIENDLY_Dalmond|r
-    .vendor 4182 >> |cRXP_BUY_Buy as many|r |T133634:0|t[Small Brown Pouches] |cRXP_BUY_as you need/can|r
+    >>对话: |cRXP_FRIENDLY_达蒙德|r
+    .vendor 4182 >>|cRXP_BUY_根据需要购买|r |T133634:0|t[小棕色袋] |cRXP_BUY_/can|r
     .target Dalmond
     .money <0.0500
     .money >0.2500
 step
     .goto Darkshore,37.45,40.50
-    >>Talk to |cRXP_FRIENDLY_Dalmond|r
-    .vendor 4182 >> |cRXP_BUY_Buy a|r |T133634:0|t[Brown Leather Satchel] |cRXP_BUY_from him|r
+    >>对话: |cRXP_FRIENDLY_达蒙德|r
+    .vendor 4182 >>|cRXP_BUY_从他那里购买 a|r |T133634:0|t[棕色皮革挎包] |cRXP_BUY_|r
     .target Dalmond
     .money <0.2500
 step
     #label CliffRi
     .goto Darkshore,37.39,40.13
     >>Talk to |cRXP_FRIENDLY_Thundris|r
-    .turnin 4762 >> Turn in The Cliffspring River
-    .accept 4763 >> Accept The Blackwood Corrupted
+    .turnin 4762 >>交任务: |cRXP_FRIENDLY_壁泉河|r
+    .accept 4763 >>接任务: |cRXP_LOOT_黑木熊怪的堕落|r
     .target Thundris Windweaver
 step
     .goto Darkshore,37.69,40.66
-    >>Talk to |cRXP_FRIENDLY_Alanndarian|r
-    .accept 2178 >>Accept Easy Strider Living
-    .turnin 2178 >>Turn in Easy Strider Living
+    >>对话: |cRXP_FRIENDLY_奥兰达利亚·夜歌|r
+    .accept 2178 >>接任务: |cRXP_LOOT_炖陆行鸟|r
+    .turnin 2178 >>交任务: |cRXP_FRIENDLY_炖陆行鸟|r
     .target Alanndarian Nightsong
 step
     #label DeepO
     .goto Darkshore,38.11,41.16
-    >>Talk to |cRXP_FRIENDLY_Gorbold|r
-    .turnin 982,2 >> Turn in Deep Ocean, Vast Sea
+    >>对话: |cRXP_FRIENDLY_高尔博德·钢手|r
+    .turnin 982,2 >>交任务: |cRXP_FRIENDLY_深不可测的海洋|r
     .target Gorbold Steelhand
 step
     #completewith next
     .goto Darkshore,37.64,42.46,15,0
     .goto Darkshore,37.61,43.21,15,0
-    .goto Darkshore,37.68,43.38,20 >>Travel toward Glynda
+    .goto Darkshore,37.68,43.38,20 >>前往格林达
 step
     .goto Darkshore,37.68,43.38
     >>Talk to |cRXP_FRIENDLY_Glynda|r
-    .turnin 4811 >>Turn in The Red Crystal
-    .accept 4812 >>Accept As Water Cascades
+    .turnin 4811 >>交任务: |cRXP_FRIENDLY_红色水晶|r
+    .accept 4812 >>接任务: |cRXP_LOOT_清洗水晶|r
     .target Sentinel Glynda Nal'Shea
 step
     .goto Darkshore,37.81,43.89
-    >>Use the |T133748:0|t[Empty Cleansing Bowl] and |T134865:0|t[Empty Water Tube] at the Moonwell
+    >>在月亮井处使用 |T133748:0|t[空的清洁碗] 和 |T134865:0|t[空的水管]
     .collect 12347,1,4763,1 --Filled Cleansing Bowl (1)
     .collect 14339,1,4812,1 --Moonwell Water Tube (1)
     .use 12346
     .use 14338
 step
-    >>Talk to |cRXP_FRIENDLY_Tharnariun|r, |cRXP_FRIENDLY_Terenthis|r, and then |cRXP_FRIENDLY_Elissa|r upstairs
-    .turnin 2138 >>Turn in Cleansing of the Infected
-    .accept 2139 >>Accept Tharnariun's Hope
-    .target +Tharnariun Treetender
+    >>对话: Tharnariun|r, |cRXP_FRIENDLY_Terenthis|r, and then |cRXP_FRIENDLY_Elissa, 他在楼上
+    .turnin 2138 >>交任务: |cRXP_FRIENDLY_清除疫病|r
+    .accept 2139 >>接任务: |cRXP_LOOT_萨纳瑞恩的希望|r
     .goto Darkshore,38.84,43.42
-    .turnin 985 >> Turn in How Big a Threat?
-    .accept 986 >> Accept A Lost Master
-    .target +Terenthis
+    .turnin 985 >>交任务: |cRXP_FRIENDLY_熊怪的威胁|r
+    .accept 986 >>接任务: |cRXP_LOOT_丢失的主人|r
     .goto Darkshore,39.37,43.49
-    .accept 965 >>Accept The Tower of Althalaxx
+    .accept 965 >>接任务: |cRXP_LOOT_奥萨拉克斯之塔|r
     .goto Darkshore,39.27,43.13,8,0
     .goto Darkshore,39.04,43.55
-    .target +Sentinel Elissa Starbreeze
+    .target 萨纳利恩护树人
+    .target Terenthis
+    .target Sentinel Elissa Starbreeze
 step << Gnome
     #completewith next
-    +Equip the |T132491:0|t[Wise Man's Belt]
+    +装备|T132491:0|t[贤者腰带]
     .use 4786
     .itemcount 4786,1
     .itemStat 6,LEVEL,<20
 step
     .goto Darkshore,47.32,48.70
-    >>Click |cRXP_PICK_The Red Crystal|r
-    >>|cRXP_WARN_This has a 5 second cast time|r
-    >>|cRXP_WARN_Remember to pull the |cRXP_ENEMY_Raging Moonkins|r that are leashed together|r
-    .turnin 4812 >> Turn in As Water Cascades
-    .accept 4813 >> Accept The Fragments Within
+    >>点击 |cRXP_PICK_红色水晶|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
+    >>|cRXP_WARN_记得拉动被拴在一起的 |cRXP_ENEMY_Raging Moonkins|r|r
+    .turnin 4812 >>交任务: |cRXP_FRIENDLY_清洗水晶|r
+    .accept 4813 >>接任务: |cRXP_LOOT_水晶中的碎骨|r
 step
-    #completewith GrainSample
-    >>Kill |cRXP_ENEMY_Moonstalker Runts|r and |cRXP_ENEMY_Moonstalkers|r. Loot them for their |cRXP_LOOT_Moonstalker Fangs|r
-    .complete 1002,1 --Moonstalker Fang (6)
-    .mob Moonstalker Runt
-    .mob Moonstalker
+    #completewith next
+    >>杀死 |cRXP_ENEMY_月夜猎者 Runts|r 和 |cRXP_ENEMY_月夜猎者s|r。掠夺他们的 |cRXP_LOOT_月夜猎者 Fangs|r
+    .complete 1002,1 --月夜猎者 Fang (6)
+    .mob 月夜猎者 Runt
+    .mob 月夜猎者
 step
-    .goto Darkshore,44.18,36.29
-    >>Talk to |cRXP_FRIENDLY_Asterion|r
-    .turnin 957,3 >>Turn in Bashal'Aran
-    .target Asterion
-step
-    #label GrainSample
     .goto Darkshore,50.66,34.98
-    >>Open the |cRXP_PICK_Blackwood Grain Stores|r. Loot it for the |cRXP_LOOT_Blackwood Grain Sample|r
-    >>|cRXP_WARN_Aggro the Mobs protecting it, cast|r |T135848:0|t[Frost Nova]|cRXP_WARN_, loot the |cRXP_LOOT_Blackwood Grain Sample|r, then run away toward |cRXP_ENEMY_Den Mother|r from the mobs that spawn|r
-    >>|cRXP_WARN_This has a 5 second cast time|r
+    >>打开 |cRXP_PICK_黑木谷物商店|r。获取 |cRXP_LOOT_黑木谷物样本|r
+    >>|cRXP_WARN_激怒保护它的怪物，施放|r |T135848:0|t[冰霜新星]|cRXP_WARN_，拾取 |cRXP_LOOT_黑木谷物样本|r，然后逃离生成的怪物，朝 |cRXP_ENEMY_Den Mother|r 的方向逃窜|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
     .collect 12342,1,4673,1 --Blackwood Grain Sample (1)
 step
     #completewith next
-    >>Kill |cRXP_ENEMY_Moonstalkers|r. Loot them for their |cRXP_LOOT_Moonstalker Fangs|r
-    .complete 1002,1 --Moonstalker Fang (6)
-    .mob Moonstalker
+    >>杀死 |cRXP_ENEMY_月夜猎者s|r。掠夺他们的 |cRXP_LOOT_月夜猎者 Fangs|r
+    .complete 1002,1 --月夜猎者 Fang (6)
+    .mob 月夜猎者
 step
     #completewith DenM
     .goto Darkshore,52.33,35.94,20,0
     .goto Darkshore,52.39,36.85,20,0
-    .goto Darkshore,51.58,37.52,30 >>Travel toward |cRXP_ENEMY_Den Mother|r
+    .goto Darkshore,51.58,37.52,30 >>前往 |cRXP_ENEMY_Den Mother|r
 step
     .goto Darkshore,51.51,38.22
-    >>Kill |cRXP_ENEMY_Den Mother|r
-    >>|cRXP_WARN_Be careful as |cRXP_ENEMY_Den Mother|r and her |cRXP_ENEMY_Thistle Cubs|r cast|r |T132141:0|t[Ravage] |cRXP_WARN_(2 second stun)|r
+    >>杀死 |cRXP_ENEMY_Den Mother|r
+    >>|cRXP_WARN_小心 |cRXP_ENEMY_Den Mother|r 和她的 |cRXP_ENEMY_Thistle Cubs|r 施放|r |T132141:0|t[Ravage] |cRXP_WARN_(2 秒眩晕)|r
     .complete 2139,1 --Den Mother (1)
     .mob Den Mother
     .itemcount 4358,<1
 step
     #label DenM
     .goto Darkshore,51.51,38.22
-    >>Kill |cRXP_ENEMY_Den Mother|r
-    >>|cRXP_WARN_Be careful as |cRXP_ENEMY_Den Mother|r and her |cRXP_ENEMY_Thistle Cubs|r cast|r |T132141:0|t[Ravage] |cRXP_WARN_(2 second stun)|r
-    >>|cRXP_WARN_Split Pull |cRXP_ENEMY_Den Mother|r with your|r |T133714:0|t[Rough Dynamite]
+    >>杀死 |cRXP_ENEMY_Den Mother|r
+    >>|cRXP_WARN_小心 |cRXP_ENEMY_Den Mother|r 和她的 |cRXP_ENEMY_Thistle Cubs|r 施放|r |T132141:0|t[Ravage] |cRXP_WARN_(2 秒眩晕)|r
+    >>|cRXP_WARN_Split Pull |cRXP_ENEMY_Den Mother|r 与你的|r |T133714:0|t[Rough Dynamite]
     .complete 2139,1 --Den Mother (1)
     .mob Den Mother
     .itemcount 4358,1
 step
     #completewith Talisman
-    >>Kill |cRXP_ENEMY_Moonstalkers|r. Loot them for their |cRXP_LOOT_Moonstalker Fangs|r
-    .complete 1002,1 --Moonstalker Fang (6)
-    .mob Moonstalker
+    >>杀死 |cRXP_ENEMY_月夜猎者s|r。掠夺他们的 |cRXP_LOOT_月夜猎者 Fangs|r
+    .complete 1002,1 --月夜猎者 Fang (6)
+    .mob 月夜猎者
 step
     .goto Darkshore,51.80,33.51
-    >>Open the |cRXP_PICK_Blackwood Nut Stores|r. Loot it for the |cRXP_LOOT_Blackwood Nut Sample|r :3
-    >>|cRXP_WARN_Aggro the Mobs protecting it, cast|r |T135848:0|t[Frost Nova]|cRXP_WARN_, loot the |cRXP_LOOT_Blackwood Nut Sample|r, then run north|r
-    >>|cRXP_WARN_This has a 5 second cast time|r
+    >>打开 |cRXP_PICK_黑木坚果商店|r。获取 |cRXP_LOOT_黑木坚果样本|r :3
+    >>|cRXP_WARN_激怒保护它的怪物，施放|r |T135848:0|t[冰霜新星]|cRXP_WARN_，掠夺|cRXP_LOOT_黑木坚果样本|r，然后向北跑|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
     .collect 12343,1,4673,1 --Blackwood Nut Sample (1)
 step
     .goto Darkshore,52.85,33.42
-    >>Open the |cRXP_PICK_Blackwood Fruit Stores|r. Loot it for the |cRXP_LOOT_Blackwood Fruit Sample|r
-    >>Kill the |cRXP_ENEMY_Blackwood Warriors|r that aggro
-    >>|cRXP_WARN_This has a 5 second cast time|r
+    >>打开 |cRXP_PICK_Blackwood 水果店|r。获取 |cRXP_LOOT_Blackwood 水果样本|r
+    >>杀死 |cRXP_ENEMY_Blackwood Warriors|r 攻击
+    >>|cRXP_WARN_施法时间为 5 秒|r
     .collect 12341,1,4673,1 --Blackwood Fruit Sample (1)
 step
     #completewith next
     .goto Darkshore,52.51,33.11
-    .cast 16072 >>Use the |T134712:0|t[Filled Cleansing Bowl] near the campfire to summon |cRXP_ENEMY_Xabraxxis|r
-    >>|cRXP_WARN_This has a 5 second cast time|r
+    .cast 16072 >>在营火附近使用 |T134712:0|t[装满的清洁碗] 召唤 |cRXP_ENEMY_Xabraxxis|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
     .timer 20,The Blackwood Corrupted RP
     .use 12347
 step
     #label Talisman
     .goto Darkshore,52.24,33.08
-    >>|cRXP_WARN_Wait out the RP|r
-    >>Kill |cRXP_ENEMY_Xabraxxis|r
-    >>Loot |cRXP_PICK_Xabraxxis' Demon Bag|r that drops on the ground. Loot it for the |cRXP_LOOT_Talisman of Corruption|r
-    >>|cRXP_WARN_This has a 5 second cast time|r
+    >>|cRXP_WARN_等待 RP|r
+    >>杀死 |cRXP_ENEMY_Xabraxxis|r
+    >>拾取掉落在地上的 |cRXP_PICK_Xabraxxis 的恶魔包|r。拾取它以获得 |cRXP_LOOT_腐化护身符|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
     .complete 4763,1 --Talisman of Corruption (1)
     .mob Xabraxxis
 step
     .goto Darkshore,51.29,24.53
-    >>Click |cRXP_PICK_Buzzbox 323|r
-    .turnin 1002 >> Turn in Buzzbox 323
-    .accept 1003 >> Accept Buzzbox 525
+    >>点击|cRXP_PICK_Buzzbox 323|r
+    .turnin 1002 >>交任务: |cRXP_FRIENDLY_传声盒323号|r
+    .accept 1003 >>接任务: |cRXP_LOOT_传声盒525号|r
     .isQuestComplete 1002
 step
     .goto Darkshore,51.29,24.53
-    >>Click |cRXP_PICK_Buzzbox 323|r
-    .accept 1003 >> Accept Buzzbox 525
+    >>点击|cRXP_PICK_Buzzbox 323|r
+    .accept 1003 >>接任务: |cRXP_LOOT_传声盒525号|r
     .isQuestTurnedIn 1002
 step
     #completewith next
@@ -5424,14 +5385,14 @@ step
     .goto Darkshore,52.54,25.47,60,0
     .goto Darkshore,55.21,22.89,60,0
     .goto Darkshore,54.65,21.03,60,0
-    >>Kill |cRXP_ENEMY_Moonstalkers|r. Loot them for their |cRXP_LOOT_Moonstalker Fangs|r
-    .complete 1002,1 --Moonstalker Fang (6)
-    .mob Moonstalker
+    >>杀死 |cRXP_ENEMY_月夜猎者s|r。掠夺他们的 |cRXP_LOOT_月夜猎者 Fangs|r
+    .complete 1002,1 --月夜猎者 Fang (6)
+    .mob 月夜猎者
 step
     .goto Darkshore,53.11,18.10
-    >>Loot the |cRXP_LOOT_Beached Sea Turtle|r
-    >>|cRXP_WARN_This has a 5 second cast time|r
-    .accept 4727 >>Accept Beached Sea Turtle
+    >>掠夺 |cRXP_LOOT_搁浅的海龟|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
+    .accept 4727 >>接任务: |cRXP_LOOT_搁浅的海龟|r
 step
     .goto Darkshore,53.74,31.52,60,0
     .goto Darkshore,54.52,29.55,60,0
@@ -5445,19 +5406,19 @@ step
     .goto Darkshore,52.54,25.47,60,0
     .goto Darkshore,55.21,22.89,60,0
     .goto Darkshore,54.65,21.03
-    >>Kill |cRXP_ENEMY_Moonstalkers|r. Loot them for their |cRXP_LOOT_Moonstalker Fangs|r
-    .complete 1002,1 --Moonstalker Fang (6)
-    .mob Moonstalker
+    >>杀死 |cRXP_ENEMY_月夜猎者s|r。掠夺他们的 |cRXP_LOOT_月夜猎者 Fangs|r
+    .complete 1002,1 --月夜猎者 Fang (6)
+    .mob 月夜猎者
 step
     .goto Darkshore,51.29,24.53
-    >>Click |cRXP_PICK_Buzzbox 323|r
-    .turnin 1002 >> Turn in Buzzbox 323
-    .accept 1003 >> Accept Buzzbox 525
+    >>点击|cRXP_PICK_Buzzbox 323|r
+    .turnin 1002 >>交任务: |cRXP_FRIENDLY_传声盒323号|r
+    .accept 1003 >>接任务: |cRXP_LOOT_传声盒525号|r
 step
     .goto Darkshore,54.97,24.89
-    >>Talk to |cRXP_FRIENDLY_Balthule|r
-    .turnin 965 >>Turn in The Tower of Althalaxx
-    .accept 966 >>Accept The Tower of Althalaxx
+    >>对话: |cRXP_FRIENDLY_巴苏尔·影击|r
+    .turnin 965 >>交任务: |cRXP_FRIENDLY_奥萨拉克斯之塔|r
+    .accept 966 >>接任务: |cRXP_LOOT_奥萨拉克斯之塔|r
     .target Balthule Shadowstrike
 step
     .goto Darkshore,55.36,26.49,50,0
@@ -5465,39 +5426,39 @@ step
     .goto Darkshore,58.27,25.30,50,0
     .goto Darkshore,55.36,26.49,50,0
     .goto Darkshore,56.36,27.01
-    >>Kill |cRXP_ENEMY_Dark Strand Fanatics|r. Loot them for |cRXP_LOOT_Worn Parchments|r
+    >>杀死 |cRXP_ENEMY_Dark Strand Fanatics|r。掠夺他们以获得 |cRXP_LOOT_Worn Parchments|r
     .complete 966,1 --Worn Parchment (4)
     .mob Dark Strand Fanatic
 step
     .goto Darkshore,54.97,24.89
-    >>Talk to |cRXP_FRIENDLY_Balthule|r
-    .turnin 966 >>Turn in The Tower of Althalaxx
-    .accept 967 >>Accept The Tower of Althalaxx
+    >>对话: |cRXP_FRIENDLY_巴苏尔·影击|r
+    .turnin 966 >>交任务: |cRXP_FRIENDLY_奥萨拉克斯之塔|r
+    .accept 967 >>接任务: |cRXP_LOOT_奥萨拉克斯之塔|r
     .target Balthule Shadowstrike
 step
     #label CapCave
     #completewith CapCave1
-    .goto Darkshore,55.00,33.42,30 >>Go inside the Cave
-step << skip
+    .goto Darkshore,55.00,33.42,30 >>进入洞穴
+step
     #requires CapCave
     #completewith CapCave1
-    +|cRXP_WARN_Remember the Cave Logout Skip soon|r
+    +|cRXP_WARN_记住洞穴 退出 尽快跳过|r
 step
     #completewith next
     .goto Darkshore,55.04,33.34,8,0
     .goto Darkshore,55.28,34.00,8,0
     .goto Darkshore,55.09,34.67,8,0
     .goto Darkshore,55.30,35.58,8,0
-    >>Loot the blue |cRXP_LOOT_Scaber Stalks|r on the ground
-    >>|cRXP_WARN_This has a 5 second cast time|r
+    >>拾取地面上的蓝色 |cRXP_LOOT_Scaber Stalks|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
     .complete 947,1,4 --Scaber Stalk (5)
 step
     .goto Darkshore,55.45,36.23,12,0
     .goto Darkshore,55.70,36.30,12,0
     .goto Darkshore,55.89,35.40,12,0
-    >>Stay on the upper level of the cave. Drop down if there's no |cRXP_LOOT_Death Cap|r on the upper level
-    >>Loot the orange |cRXP_LOOT_Death Cap|r on the ground at the end of the top path of the cave
-    >>|cRXP_WARN_This has a 5 second cast time|r
+    >>留在洞穴的上层。如果上层没有 |cRXP_LOOT_Death Cap|r，则跳下去
+    >>拾取洞穴上方小路尽头地面上的橙色 |cRXP_LOOT_Death Cap|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
     .complete 947,2 --Death Cap (1)
 step
     #label CapCave1
@@ -5505,110 +5466,109 @@ step
     .goto Darkshore,55.28,34.00,8,0
     .goto Darkshore,55.09,34.67,8,0
     .goto Darkshore,55.30,35.58
-    >>Loot the first |cRXP_LOOT_Scaber Stalks|r at the mouth of the cave after looting the |cRXP_LOOT_Death Cap|r
-    >>|cRXP_WARN_This has a 5 second cast time|r
+    >>在拾取 |cRXP_LOOT_Death Cap|r 后，拾取洞口的第一个 |cRXP_LOOT_Scaber Stalks|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
     .complete 947,1 --Scaber Stalk (5)
-step << skip
+step
     .goto Darkshore,54.96,34.52
-    .goto Darkshore,41.70,36.51,30 >> |cRXP_WARN_Perform a Logout Skip inside the cave|r
+    .goto Darkshore,41.70,36.51,30 >>|cRXP_WARN_在洞穴内执行退出跳过|r
     .isOnQuest 4763
 step
-    #completewith next
-    .subzone 442 >> Travel to Auberdine
-    .isOnQuest 4763
+    .goto Darkshore,44.18,36.29
+    >>对话: |cRXP_FRIENDLY_阿斯特利安|r
+    .turnin 957,3 >>交任务: |cRXP_FRIENDLY_巴莎兰|r
+    .target Asterion
 step
     .goto Darkshore,37.39,40.13
     >>Talk to |cRXP_FRIENDLY_Thundris|r
-    .turnin 4763,1 >> Turn in The Blackwood Corrupted
+    .turnin 4763,1 >>交任务: |cRXP_FRIENDLY_黑木熊怪的堕落|r
     .target Thundris Windweaver
 step
     .goto Darkshore,37.45,40.50
-    >>Talk to |cRXP_FRIENDLY_Dalmond|r
-    .vendor 4182 >> |cRXP_BUY_Buy a|r |T133634:0|t[Brown Leather Satchel] |cRXP_BUY_from him|r
-    >>|cRXP_WARN_Do NOT go below 30 Silver|r
+    >>对话: |cRXP_FRIENDLY_达蒙德|r
+    .vendor 4182 >>|cRXP_BUY_从他那里购买 a|r |T133634:0|t[棕色皮革挎包] |cRXP_BUY_|r
+    >>|cRXP_WARN_银币不要低于 30|r
     .target Dalmond
 step
     .goto Darkshore,38.84,43.42
-    >>Talk to |cRXP_FRIENDLY_Tharnariun|r
-    .turnin 2139,1 >>Turn in Tharnariun's Hope
-    .target Tharnariun Treetender
+    >>对话: |cRXP_FRIENDLY_萨纳瑞恩·绿树|r
+    .turnin 2139,1 >>交任务: |cRXP_FRIENDLY_萨纳瑞恩的希望|r
 step
-    >>Talk to |cRXP_FRIENDLY_Glynda|r, |cRXP_FRIENDLY_Barithras|r, and the |cRXP_PICK_Wanted Poster|r
-    .turnin 4813,2 >>Turn in The Fragments Within
-    .target +Sentinel Glynda Nal'Shea
+    >>对话: Glynda, |cRXP_FRIENDLY_巴瑞萨斯·月影|r, Wanted Poster
+    .turnin 4813,2 >>交任务: |cRXP_FRIENDLY_水晶中的碎骨|r
     .goto Darkshore,37.68,43.38
-    .turnin 947 >>Turn in Cave Mushrooms
-    .accept 948 >>Accept Onu
-    .target +Barithras Moonshade
+    .turnin 947 >>交任务: |cRXP_FRIENDLY_洞中的蘑菇|r
+    .accept 948 >>接任务: |cRXP_LOOT_安努|r
     .goto Darkshore,37.32,43.64
-    .accept 4740 >> Accept WANTED: Murkdeep!
+    .accept 4740 >>接任务: |cRXP_LOOT_通缉：莫克迪普！|r
     .goto Darkshore,37.22,44.22
+    .target Sentinel Glynda Nal'Shea
+    .target Barithras Moonshade
 step
     .goto Darkshore,36.77,44.28
-    >>Talk to |cRXP_FRIENDLY_Laird|r
-    >>|cRXP_BUY_Buy up to 40|r |T133918:0|t[Longjaw Mud Snappers] |cRXP_BUY_from him|r
+    >>对话: |cRXP_FRIENDLY_莱尔德|r
+    >>|cRXP_BUY_从他那里购买最多 40|r |T133918:0|t[长颚泥鲷] |cRXP_BUY_|r
     .collect 4592,40,729,1 --Longjaw Mud Snapper (40)
     .target Laird
 step
     .goto Darkshore,36.62,45.59
-    >>Talk to |cRXP_FRIENDLY_Gwennyth|r
-    .turnin 4727 >> Turn in Beached Sea Turtle
+    >>对话: |cRXP_FRIENDLY_温尼斯·布莱葛|r
+    .turnin 4727 >>交任务: |cRXP_FRIENDLY_搁浅的海龟|r
     .target Gwennyth Bly'Leggonde
 step
     .goto Darkshore,37.04,44.13
-    >>|cRXP_WARN_===PAY ATTENTION===|r
-    >>|cRXP_WARN_Talk to|r |cRXP_FRIENDLY_Shaussiy|r
-    >>|cRXP_WARN_Open the "Set Hearthstone" menu, then cast|r |T134414:0|t[Hearthstone]
-    .hs >> |cRXP_WARN_Hearthstone BATCH from Auberdine to Stormwind City|r
+    >>|cRXP_WARN_===注意===|r
+    >>|cRXP_WARN_与|r |cRXP_FRIENDLY_Shaussiy交谈|r
+    >>|cRXP_WARN_打开“设置炉石”菜单，然后施放|r |T134414:0|t[炉石]
+    .hs >>|cRXP_WARN_炉石 BATCH 从 奥伯丁 到 暴风城|r
     .target Innkeeper Shaussiy
     .zoneskip Stormwind City
 ]])
 
 RXPGuides.RegisterGuide([[
 #classic
-#tbc
 << Alliance Mage
-#name 16-18 ADV Westfall Mage AoE
+#name 16-18 冒险 西部荒野法师 AoE
 #version 2
-#group RestedXP ADV AoE Alliance Mage
+#group RestedXP 冒险 AoE 联盟法师
 #defaultfor Human Mage/Gnome Mage
-#next 18-20 ADV Darkshore 3 Mage AoE
+#next 18-20 冒险 黑海岸 3 法师 AoE
 
 step
     #completewith JenneaT
-    +|cRXP_WARN_NOTE: You need 12 stacks of each cloth (|r|T132911:0|t[Wool Cloth]|cRXP_WARN_,|r |T132905:0|t[Silk Cloth]|cRXP_WARN_,|r |T132892:0|t[Mageweave Cloth]|cRXP_WARN_,|r and |T132903:0|t[Runecloth]|cRXP_WARN_) to do the cloth turnins later. You'll get these naturally as you level|r
+    +|cRXP_WARN_注意：您需要每种布料 12 叠（|r|T132911:0|t[羊毛布]|cRXP_WARN_、|r |T132905:0|t[丝绸布]|cRXP_WARN_、|r |T132892:0|t[魔纹布]|cRXP_WARN_、|r 和 |T132903:0|t[符文布]|cRXP_WARN_）以便稍后上交布料。随着等级的提高，您会自然获得这些布料|r
 step << skip
     #completewith next
     .goto Stormwind City,53.53,64.63,12,0
     .goto Stormwind City,52.10,61.42,12,0
     .goto Stormwind City,49.36,63.42,12,0
     .goto Stormwind City,51.16,68.35,12,0
-    .goto Stormwind City,52.05,67.96,10 >>Travel toward |cRXP_FRIENDLY_Roberto|r
+    .goto Stormwind City,52.05,67.96,10 >>前往 |cRXP_FRIENDLY_Roberto|r
 step << skip
     .goto Stormwind City,52.05,67.96
-    >>Go inside the building
-    >>Talk to |cRXP_FRIENDLY_Roberto|r
-    >>|cRXP_BUY_Buy a|r |T132620:0|t[Cask of Merlot] |cRXP_BUY_from him|r
+    >>进入大楼
+    >>对话: |cRXP_FRIENDLY_罗伯特·奥布斯|r
+    >>|cRXP_BUY_从他那里购买一|r |T132620:0|t[一桶梅洛] |cRXP_BUY_|r
     .collect 1941,1,116,1 --Cask of Merlot
     .target Roberto Pupellyverbos
 step
     #sticky
     #label Bank2
-    >>Talk to |cRXP_FRIENDLY_Newton|r
-    .bankdeposit 17056,5354,2592,6889 >> Deposit the following items into the bank:
-    >>|T132917:0|t[Light Feather]
-    >>|T133469:0|t[Letter to Delgren]
-    >>|T132911:0|t[Wool Cloth]
-    >>|T132832:0|t[Small Egg]
+    >>对话: |cRXP_FRIENDLY_牛顿·伯恩赛德|r
+    .bankdeposit 17056,5354,2592,6889 >>将以下物品存入银行：
+    >>|T132917:0|t[轻羽]
+    >>|T133469:0|t[致德尔格伦的信]
+    >>|T132911:0|t[羊毛布]
+    >>|T132832:0|t[小鸡蛋]
     .target Newton Burnside
 step
     .goto Stormwind City,57.03,72.97
-    >>Talk to |cRXP_FRIENDLY_Newton|r
-    .bankwithdraw 730,7207 >> Withdraw the following items from your bank: << Gnome
-    .bankwithdraw 730,16115 >> Withdraw the following items from your bank: << Human
-    >>|T133884:0|t[Murloc Eyes]
-    >>|T132788:0|t[Jennea's Flask] << Gnome
-    >>|T132763:0|t[Osric's Crate] << Human
+    >>对话: |cRXP_FRIENDLY_牛顿·伯恩赛德|r
+    .bankwithdraw 730,7207 >>从您的银行提取以下物品： << Gnome
+    .bankwithdraw 730,16115 >>从您的银行提取以下物品： << Human
+    >>|T133884:0|t[鱼人之眼]
+    >>|T132788:0|t[詹妮娅的烧瓶] << Gnome
+    >>|T132763:0|t[奥斯瑞克的板条箱] << Human
     .target Newton Burnside
 step
     #requires Bank2
@@ -5617,52 +5577,51 @@ step
     .goto Stormwind City,51.83,60.41,4,0
     .goto Stormwind City,51.59,60.15,6,0
     .goto Stormwind City,39.17,76.58,12,0
-    >>|cRXP_WARN_Jump up onto the torch, then drop down to get under Stormwind|r
-    >>|cRXP_WARN_With Shadows on "Fair" or "Low", get in the middle of Derek the Dinosaur's feet (the lighter part of the dirt) just before the blue void, then walk straight forward|r
-    >>|cRXP_WARN_NOTE: There is a small chance of dying using this method. You can also walk to the Mage Tower normally if you wish|r
-    .link https://youtu.be/gV8-wgQEomc >> CLICK HERE for a guide
-    .goto Stormwind City,38.61,79.39,10 >>Travel toward |cRXP_FRIENDLY_Jennea|r
+    >>|cRXP_WARN_跳到火炬上，然后跳下来，躲到暴风城下面|r
+    >>|cRXP_WARN_将阴影设置为“良好”或“低”，在蓝色虚空前，站在恐龙德里克脚的中间（泥土较浅的部分），然后径直向前走|r
+    .link https://clips.twitch.tv/WonderfulObservantPigeonTwitchRPG-VGEqzHObhqqsv8Ae >>点击此处查看指南
+    .goto Stormwind City,38.61,79.39,10 >>前往 |cRXP_FRIENDLY_Jennea|r
 step
     #requires Bank2
     #label JenneaT
     .goto Stormwind City,38.61,79.39
-    >>Talk to |cRXP_FRIENDLY_Jennea|r
-    .trainer >> Train your class spells (Flamestrike)
-    >>Total Cost: 15s
+    >>对话: |cRXP_FRIENDLY_詹妮亚·坎农|r
+    .trainer >>训练你的职业法术（烈焰冲击）
+    >>总花费：15秒
     .target Jennea Cannon
 step
     .goto Stormwind City,55.46,65.26
-    >>Talk to |cRXP_FRIENDLY_Keldric|r through the wall
-    .vendor 1257 >> |cRXP_BUY_Buy|r |T134830:0|t[Lesser Healing Potions] |cRXP_BUY_from him (if they're up)|r
+    >>对话: |cRXP_FRIENDLY_凯德雷克·布舍尔|r
+    .vendor 1257 >>|cRXP_BUY_从他那里购买|r |T134830:0|t[次级治疗药水] |cRXP_BUY_（如果价格上涨）|r
     .target Keldric Boucher
     .money <0.14
 step
     #completewith next
     .goto Stormwind City,56.69,57.76,12,0
-    .goto Stormwind City,57.13,57.69,10 >>Travel toward |cRXP_FRIENDLY_Woo Ping|r
+    .goto Stormwind City,57.13,57.69,10 >>前往|cRXP_FRIENDLY_Woo Ping|r
 step
     .goto Stormwind City,57.13,57.69
-    >>Talk to |cRXP_FRIENDLY_Woo Ping|r
-    .train 1180 >> Train |T132321:0|t[Daggers]
+    >>对话: |cRXP_FRIENDLY_吴平|r
+    .train 1180 >>火车 |T132321:0|t[匕首]
     .target Woo Ping
 step
     #completewith next
     .goto Stormwind City,57.17,58.83,12,0
     .goto Stormwind City,63.42,63.75,20,0
     .goto Stormwind City,63.14,65.25,15,0
-    .goto Stormwind City,66.27,62.12,10 >>Travel toward |cRXP_FRIENDLY_Dungar|r
+    .goto Stormwind City,66.27,62.12,10 >>前往 |cRXP_FRIENDLY_Dungar|r
 step << Human
     .goto Stormwind City,66.27,62.12
-    >>Talk to |cRXP_FRIENDLY_Dungar|r
-    .turnin 6261 >> Turn in Dungar Longdrink
-    .accept 6285 >> Accept Return to Lewis
+    >>对话: |cRXP_FRIENDLY_杜加尔·朗德瑞克|r
+    .turnin 6261 >>交任务: |cRXP_FRIENDLY_杜加尔·朗德瑞克|r
+    .accept 6285 >>接任务: |cRXP_LOOT_返回西部荒野|r
     .target Dungar Longdrink
 step
     #completewith next << Human
     .goto Stormwind City,66.27,62.12
-    >>Talk to |cRXP_FRIENDLY_Dungar|r
-    .fp Stormwind City >> Get the Stormwind City flight path << Gnome
-    .fly Westfall >> Fly to Westfall << Human
+    >>对话: |cRXP_FRIENDLY_杜加尔·朗德瑞克|r
+    .fp Stormwind City >>获取暴风城飞行路线 << Gnome
+    .fly Westfall >>飞往西部荒野 << Human
     .target Dungar Longdrink
     .zoneskip Westfall << Human
 step << Gnome
@@ -5670,71 +5629,71 @@ step << Gnome
     #label Stormwind1
     .goto Stormwind City,65.94,65.48,12,0
     .goto Stormwind City,65.85,66.00,8,0
-    .goto Stormwind City,65.22,75.58,40 >>Drop down to the ledge below |cRXP_FRIENDLY_Dungar|r
+    .goto Stormwind City,65.22,75.58,40 >>掉到下面的壁架上 |cRXP_FRIENDLY_Dungar|r
 step << Gnome
     #completewith next
-    .goto Elwynn Forest,32.10,50.32,40 >>Exit Stormwind
+    .goto Elwynn Forest,32.10,50.32,40 >>前往: |cRXP_PICK_艾尔文森林|r
 step << skip
     #completewith next
     #requires Stormwind1
-    .goto Elwynn Forest,42.96,65.62,30 >>Travel toward the Goldshire Inn
+    .goto Elwynn Forest,42.96,65.62,30 >>前往金郡旅店
 step << skip
     #label GoldshireTrain
     .goto Elwynn Forest,43.25,66.25
-    >>Jump onto the Chandelier downstairs if you don't have train, otherwise jump up from the Chair
-    >>Talk to |cRXP_FRIENDLY_Zaldimar|r through the wall
-    .accept 1919 >> Accept Report to Jennea
-    .trainer >> Train your class spells (Flamestrike)
-    >>Total Cost: 15s
+    >>如果没有火车，就跳到楼下的吊灯上，否则就从椅子上跳上来
+    >>对话: |cRXP_FRIENDLY_扎尔迪玛·维夫希尔特|r
+    .accept 1919 >>接任务: |cRXP_WARN_向詹妮亚报告|r
+    .trainer >>训练你的职业法术（烈焰冲击）
+    >>总花费：15秒
 step << skip
     .goto Elwynn Forest,44.00,65.69
-    >>Talk to |cRXP_FRIENDLY_Dobbins|r
-    >>|cRXP_BUY_Buy a|r |T132794:0|t[Skin of Sweet Rum] |cRXP_BUY_from him|r
+    >>对话: |cRXP_FRIENDLY_酒吧老板杜宾斯|r
+    >>|cRXP_BUY_从他那里购买 a|r |T132794:0|t[Skin of Sweet Rum] |cRXP_BUY_|r
     .collect 1939,1,116,1 --Skin of Sweet Rum
     .target Barkeep Dobbins
 step << skip
     .goto Elwynn Forest,43.77,65.80
-    >>Talk to |cRXP_FRIENDLY_Farley|r
-    >>|cRXP_BUY_Buy 45|r |T132796:0|t[Melon Juice] |cRXP_BUY_from him|r
+    >>对话: |cRXP_FRIENDLY_旅店老板法雷|r
+    >>|cRXP_BUY_从他那里购买 45|r |T132796:0|t[甜瓜汁] |cRXP_BUY_|r
     .collect 1205,45,64,1 --Melon Juice (45)
     .target Innkeeper Farley
     .money <0.45
 step << Gnome
     .goto Elwynn Forest,28.98,61.50
-    >>Use |T132788:0|t[Jennea's Flask] at the waterfall
-    >>|cRXP_WARN_This has a 5 second cast time|r
+    >>在瀑布处使用 |T132788:0|t[詹妮娅的烧瓶]
+    >>|cRXP_WARN_施法时间为 5 秒|r
     .use 7207
     .complete 1861,1 --Mirror Lake Water Sample (1)
 step
-    >>Talk to |cRXP_FRIENDLY_Farmer Furlbrow|r and |cRXP_FRIENDLY_Verna|r
-    .accept 64 >> Accept The Forgotten Heirloom
-    .accept 109 >> Accept Report to Gryan Stoutmantle
-    .target +Farmer Furlbrow
+    >>对话: |cRXP_FRIENDLY_农夫法布隆|r, Verna
+    .accept 64 >>接任务: |cRXP_LOOT_遗失的怀表|r
+    .accept 109 >>接任务: |cRXP_LOOT_向格里安·斯托曼报到|r
     .goto Westfall,59.95,19.35
-    .accept 36 >> Accept Westfall Stew
-    .accept 151 >> Accept Poor Old Blanchy
+    .accept 36 >>接任务: |cRXP_LOOT_杂味炖肉|r
+    .accept 151 >>接任务: |cRXP_LOOT_老马布兰契|r
     .goto Westfall,59.91,19.41
-    .target +Verna Furlbrow
+    .target 农夫法布罗
+    .target 维尔纳·法布罗
 step << Gnome
     #completewith Gryan
-    >>Open the |cRXP_PICK_Sacks of Oats|r on the ground. Loot them for |cRXP_LOOT_Handfuls of Oats|r
-    >>|cRXP_WARN_This has a 5 second cast time|r
+    >>打开地面上的 |cRXP_PICK_Sacks of Oats|r。拾取它们可获得 |cRXP_LOOT_Handfuls of Oats|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
     .complete 151,1 --Handful of Oats (8)
 step
-    >>Talk to |cRXP_FRIENDLY_Farmer Saldean|r and then |cRXP_FRIENDLY_Salma|r inside
-    .accept 9 >> Accept The Killing Fields
-    .target +Farmer Saldean
+    >>对话: Farmer Saldean|r and then |cRXP_FRIENDLY_Salma, 他在里面
+    .accept 9 >>接任务: |cRXP_LOOT_清理荒野|r
     .goto Westfall,56.04,31.23
-    .turnin 36 >> Turn in Westfall Stew
-    .accept 38 >> Accept Westfall Stew
-    .accept 22 >> Accept Goretusk Liver Pie
+    .turnin 36 >>交任务: |cRXP_FRIENDLY_杂味炖肉|r
+    .accept 38 >>接任务: |cRXP_LOOT_杂味炖肉|r
+    .accept 22 >>接任务: |cRXP_LOOT_猪肝馅饼|r
     .goto Westfall,56.42,30.52
-    .target +Salma Saldean
+    .target Farmer Saldean
+    .target Salma Saldean
 step << Gnome
     #completewith Gryan
     .goto Westfall,53.54,31.72,60,0
-    >>AoE |cRXP_ENEMY_Harvest Watchers|r and |cRXP_ENEMY_Harvest Golems|r. Loot them for their |cRXP_LOOT_Flasks of Oil|r and |cRXP_LOOT_Hops|r
-    >>|cRXP_WARN_Remember to|r |T135826:0|t[Flamestrike]|cRXP_WARN_/|r|T136116:0|t[Arcane Explosion] |cRXP_WARN_AoE now|r
+    >>AoE |cRXP_ENEMY_Harvest Watchers|r 和 |cRXP_ENEMY_Harvest Golems|r。掠夺他们的 |cRXP_LOOT_Flasks of Oil|r 和 |cRXP_LOOT_Hops|r
+    >>|cRXP_WARN_现在请记住|r|T135826:0|t[Flamestrike]|cRXP_WARN_/|r|T136116:0|t[Arcane Explosion] |cRXP_WARN_AoE|r
     .complete 9,1 --Harvest Watcher (20)
     .collect 814,5,103,1 --Flask of Oil (5)
     .collect 1274,5,117,1 --Hops (5)
@@ -5742,123 +5701,121 @@ step << Gnome
     .mob Harvest Golem
 step << Gnome
     #completewith next
-    >>AoE |cRXP_ENEMY_Young Goretusks|r. Loot them for their |cRXP_LOOT_Goretusk Livers|r and |cRXP_LOOT_Goretusk Snouts|r
-    >>AoE |cRXP_ENEMY_Young Fleshrippers|r. Loot them for their |cRXP_LOOT_Stringy Vulture Meat|r
+    >>AoE |cRXP_ENEMY_Young Goretusks|r。掠夺他们的 |cRXP_LOOT_Goretusk 肝脏|r 和 |cRXP_LOOT_Goretusk 鼻子|r
+    >>AoE |cRXP_ENEMY_Young Fleshrippers|r. 掠夺他们的 |cRXP_LOOT_Stringy Vulture Meat|r
     .collect 723,8,22,1 --Goretusk Liver (8)
-    .mob +Young Goretusk
     .collect 731,3,38,1 --Goretusk Snout (3)
-    .mob +Young Goretusk
     .collect 729,3,38,1 --Stringy Vulture Meat (3)
-    .mob +Young Fleshripper
+    .mob Young Goretusk
+    .mob Young Fleshripper
 step
     #label Gryan << Gnome
-	>> Talk to |cRXP_FRIENDLY_Gryan|r and |cRXP_FRIENDLY_Danuvin|r << Gnome
-	>> Talk to |cRXP_FRIENDLY_Gryan|r and then |cRXP_FRIENDLY_Lewis|r inside << Human
-    .turnin 109 >> Turn in Report to Gryan Stoutmantle << Gnome
-    .accept 65 >> Accept The Defias Brotherhood
-    .accept 12 >> Accept The People's Militia << Gnome
-    .target +Gryan Stoutmantle
+	>>对话: Gryan, |cRXP_FRIENDLY_达努温上尉|r << Gnome
+	>>对话: Gryan|r and then |cRXP_FRIENDLY_Lewis, 他在里面 << Human
+    .turnin 109 >>交任务: |cRXP_FRIENDLY_向格里安·斯托曼报到|r << Gnome
+    .accept 65 >>接任务: |cRXP_LOOT_迪菲亚兄弟会|r
+    .accept 12 >>接任务: |cRXP_LOOT_西部荒野人民军|r << Gnome
     .goto Westfall,56.33,47.52
-    .turnin 6285 >> Turn in Return to Lewis << Human
+    .turnin 6285 >>交任务: |cRXP_FRIENDLY_返回西部荒野|r << Human
     .goto Westfall,57.002,47.169 << Human
-    .accept 102 >> Accept Patrolling Westfall << Gnome
+    .accept 102 >>接任务: |cRXP_LOOT_西部荒野的豺狼人|r << Gnome
     .goto Westfall,56.42,47.62 << Gnome
-	.target +Captain Danuvin << Gnome
-    .target +Quartermaster Lewis << Human
+	.target 格里安·斯托曼托
+	.target 丹努文船长 << Gnome
+    .target Quartermaster Lewis << Human
 step
     .goto Westfall,53.98,52.99
-	>>Talk to |cRXP_FRIENDLY_Galiaan|r
-    .accept 153 >> Accept Red Leather Bandanas
+	>>对话: |cRXP_FRIENDLY_哨兵加里安|r
+    .accept 153 >>接任务: |cRXP_LOOT_红色皮质面罩|r
 	.target Scout Galiaan
 step
     .goto Westfall,52.86,53.72
-	>>Talk to |cRXP_FRIENDLY_Heather|r
-    >>|cRXP_BUY_Buy 45|r |T132796:0|t[Melon Juice] |cRXP_BUY_from her|r
+	>>对话: |cRXP_FRIENDLY_旅店老板希瑟尔|r
+    >>|cRXP_BUY_从她那里购买 45|r |T132796:0|t[甜瓜汁] |cRXP_BUY_|r
     .collect 1205,45,64,1 --Melon Juice (45)
 	.target Innkeeper Heather
     .money <0.45
 step
     .goto Westfall,52.86,53.72
-	>>Talk to |cRXP_FRIENDLY_Heather|r
-    >>|cRXP_BUY_Buy 40|r |T132796:0|t[Melon Juice] |cRXP_BUY_from her|r
+	>>对话: |cRXP_FRIENDLY_旅店老板希瑟尔|r
+    >>|cRXP_BUY_从她那里购买 40|r |T132796:0|t[甜瓜汁] |cRXP_BUY_|r
     .collect 1205,40,64,1 --Melon Juice (40)
 	.target Innkeeper Heather
     .money <0.40
 step
     .goto Westfall,52.86,53.72
-	>>Talk to |cRXP_FRIENDLY_Heather|r
-    >>|cRXP_BUY_Buy 35|r |T132796:0|t[Melon Juice] |cRXP_BUY_from her|r
+	>>对话: |cRXP_FRIENDLY_旅店老板希瑟尔|r
+    >>|cRXP_BUY_从她那里购买 35|r |T132796:0|t[甜瓜汁] |cRXP_BUY_|r
     .collect 1205,35,64,1 --Melon Juice (35)
 	.target Innkeeper Heather
     .money <0.35
 step
     .goto Westfall,52.86,53.72
-	>>Talk to |cRXP_FRIENDLY_Heather|r
-    >>|cRXP_BUY_Buy 30|r |T132796:0|t[Melon Juice] |cRXP_BUY_from her|r
+	>>对话: |cRXP_FRIENDLY_旅店老板希瑟尔|r
+    >>|cRXP_BUY_从她那里购买 30|r |T132796:0|t[甜瓜汁] |cRXP_BUY_|r
     .collect 1205,30,64,1 --Melon Juice (30)
 	.target Innkeeper Heather
     .money <0.30
 step
     .goto Westfall,52.86,53.72
-	>>Talk to |cRXP_FRIENDLY_Heather|r
-    >>|cRXP_BUY_Buy 25|r |T132796:0|t[Melon Juice] |cRXP_BUY_from her|r
+	>>对话: |cRXP_FRIENDLY_旅店老板希瑟尔|r
+    >>|cRXP_BUY_从她那里购买 25|r |T132796:0|t[甜瓜汁] |cRXP_BUY_|r
     .collect 1205,25,64,1 --Melon Juice (25)
 	.target Innkeeper Heather
     .money <0.25
 step
     .goto Westfall,52.86,53.72
-	>>Talk to |cRXP_FRIENDLY_Heather|r
-    >>|cRXP_BUY_Buy 20|r |T132796:0|t[Melon Juice] |cRXP_BUY_from her|r
+	>>对话: |cRXP_FRIENDLY_旅店老板希瑟尔|r
+    >>|cRXP_BUY_从她那里购买 20|r |T132796:0|t[甜瓜汁] |cRXP_BUY_|r
     .collect 1205,20,64,1 --Melon Juice (20)
 	.target Innkeeper Heather
     .money <0.20
 step
     .goto Westfall,52.86,53.72
-	>>Talk to |cRXP_FRIENDLY_Heather|r
-    >>|cRXP_BUY_Buy 15|r |T132796:0|t[Melon Juice] |cRXP_BUY_from her|r
+	>>对话: |cRXP_FRIENDLY_旅店老板希瑟尔|r
+    >>|cRXP_BUY_从她那里购买 15|r |T132796:0|t[甜瓜汁] |cRXP_BUY_|r
     .collect 1205,15,64,1 --Melon Juice (15)
 	.target Innkeeper Heather
     .money <0.15
 step
     .goto Westfall,52.86,53.72
-	>>Talk to |cRXP_FRIENDLY_Heather|r
-    >>|cRXP_BUY_Buy 10|r |T132796:0|t[Melon Juice] |cRXP_BUY_from her|r
+	>>对话: |cRXP_FRIENDLY_旅店老板希瑟尔|r
+    >>|cRXP_BUY_从她那里购买 10|r |T132796:0|t[甜瓜汁] |cRXP_BUY_|r
     .collect 1205,10,64,1 --Melon Juice (10)
 	.target Innkeeper Heather
     .money <0.10
 step
     .goto Westfall,52.86,53.72
-	>>Talk to |cRXP_FRIENDLY_Heather|r
-    >>|cRXP_BUY_Buy 5|r |T132796:0|t[Melon Juice] |cRXP_BUY_from her|r
+	>>对话: |cRXP_FRIENDLY_旅店老板希瑟尔|r
+    >>|cRXP_BUY_从她那里购买 5|r |T132796:0|t[甜瓜汁] |cRXP_BUY_|r
     .collect 1205,5,64,1 --Melon Juice (5)
 	.target Innkeeper Heather
     .money <0.05
 step
     #completewith Grayson
-    >>Open the |cRXP_PICK_Sacks of Oats|r on the ground. Loot them for |cRXP_LOOT_Handfuls of Oats|r
-    >>|cRXP_WARN_This has a 5 second cast time|r
+    >>打开地面上的 |cRXP_PICK_Sacks of Oats|r。拾取它们可获得 |cRXP_LOOT_Handfuls of Oats|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
     .complete 151,1 --Handful of Oats (8)
 step
     #completewith Oil
-    >>AoE |cRXP_ENEMY_Goretusks|r. Loot them for their |cRXP_LOOT_Goretusk Livers|r and |cRXP_LOOT_Goretusk Snouts|r
-    >>AoE |cRXP_ENEMY_Fleshrippers|r. Loot them for their |cRXP_LOOT_Stringy Vulture Meat|r
+    >>AoE |cRXP_ENEMY_Goretusks|r。掠夺他们的 |cRXP_LOOT_Goretusk 肝脏|r 和 |cRXP_LOOT_Goretusk 鼻子|r
+    >>AoE |cRXP_ENEMY_Fleshrippers|r. 掠夺他们的 |cRXP_LOOT_Stringy Vulture Meat|r
     .collect 723,8,22,1 --Goretusk Liver (8)
-    .mob +Goretusk
     .collect 731,3,38,1 --Goretusk Snout (3)
-    .mob +Goretusk
     .collect 729,3,38,1 --Stringy Vulture Meat (3)
-    .mob +Fleshripper
+    .mob Goretusk
+    .mob Fleshripper
 step
     #completewith Compass
     .goto Westfall,39.45,52.34,60,0
-    >>AoE |cRXP_ENEMY_Harvest Watchers|r. Loot them for their |cRXP_LOOT_Flasks of Oil|r and |cRXP_LOOT_Hops|r
+    >>AoE |cRXP_ENEMY_Harvest Watchers|r。掠夺他们的 |cRXP_LOOT_Flasks of Oil|r 和 |cRXP_LOOT_Hops|r
     .complete 9,1 --Harvest Watcher (20)
     .collect 814,5,103,1 --Flask of Oil (5)
     .collect 1274,5,117,1 --Hops (5)
     .mob Harvest Watcher
 step
     #completewith Oil
-    >>AoE the |cRXP_ENEMY_Defias|r. Loot them for their |cRXP_LOOT_Red Leather Bandanas|r
+    >>对 |cRXP_ENEMY_Defias|r 进行范围攻击。掠夺他们的 |cRXP_LOOT_红色皮革头巾|r
     .complete 153,1 --Red Leather Bandana (15)
     .mob Defias Smuggler
     .mob Defias Trapper
@@ -5867,8 +5824,8 @@ step
 step
     #label Compass
     .goto Westfall,36.24,54.52
-    >>Open |cRXP_PICK_Alexston's Chest|r. Loot it for |cRXP_LOOT_A Simple Compass|r
-    >>|cRXP_WARN_This has a 5 second cast time|r
+    >>打开 |cRXP_PICK_Alexston 的宝箱|r。拾取 |cRXP_LOOT_简易指南针|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
     .complete 399,1 --A Simple Compass (1)
 step
     #label Oil
@@ -5882,36 +5839,36 @@ step
     .goto Westfall,33.64,47.01,60,0
     .goto Westfall,32.96,36.48,60,0
     .goto Westfall,39.45,52.34
-    >>AoE |cRXP_ENEMY_Harvest Watchers|r and |cRXP_ENEMY_Harvest Golems|r. Loot them for their |cRXP_LOOT_Flasks of Oil|r and |cRXP_LOOT_Hops|r
+    >>AoE |cRXP_ENEMY_Harvest Watchers|r 和 |cRXP_ENEMY_Harvest Golems|r。掠夺他们的 |cRXP_LOOT_Flasks of Oil|r 和 |cRXP_LOOT_Hops|r
     .collect 814,5,103,1 --Flask of Oil (5)
     .collect 1274,5,117,1 --Hops (5)
     .mob Harvest Watcher
     .mob Harvest Golem
 step
     #completewith next
-    +|cRXP_WARN_Keep an eye out for |cRXP_ENEMY_Old Murk-Eye|r. Try to stay close to the edge of the ridge as to not miss him|r
+    +|cRXP_WARN_留意 |cRXP_ENEMY_Old Murk-Eye|r。尽量靠近山脊边缘，以免错过他|r
     .unitscan Old Murk-Eye
 step
     .goto Westfall,30.40,57.93,60,0
     .goto Westfall,29.29,65.46,60,0
     .goto Westfall,32.62,68.40,60,0
     .goto Westfall,31.07,69.42,60,0
-    .goto Westfall,31.40,72.29,30 >> AoE the Gnoll Camps
-    >>AoE |cRXP_ENEMY_Riverpaw Herbalists|r, |cRXP_ENEMY_Riverpaw Mongrels|r, and |cRXP_ENEMY_Riverpaw Brutes|r. Loot them for their |cRXP_LOOT_Gnoll Paws|r
-    >>If you find |cRXP_ENEMY_Old Murk-Eye|r, skip this step
+    .goto Westfall,31.40,72.29,30 >>范围攻击豺狼人营地
+    >>AoE |cRXP_ENEMY_Riverpaw Herbalists|r、|cRXP_ENEMY_Riverpaw Mongrels|r 和 |cRXP_ENEMY_Riverpaw Brutes|r。掠夺他们的 |cRXP_LOOT_Gnoll Paws|r
+    >>如果你找到 |cRXP_ENEMY_Old Murk-Eye|r, 跳过此步骤
     .complete 102,1 --Gnoll Paws (8)
     .mob Riverpaw Herbalist
     .mob Riverpaw Mongrel
     .mob Riverpaw Brute
 step
     #completewith next
-    +|cRXP_WARN_Find |cRXP_ENEMY_Old Murk-Eye|r. Kite him toward|r |cRXP_FRIENDLY_Grayson|r
+    +|cRXP_WARN_找到 |cRXP_ENEMY_Old Murk-Eye|r。将他放风筝至|r |cRXP_FRIENDLY_Grayson|r
     .unitscan Old Murk-Eye
 step
     #label Grayson
     .goto Westfall,30.02,86.02
     >>Talk to |cRXP_FRIENDLY_Grayson|r
-    .accept 104 >> Accept The Coastal Menace
+    .accept 104 >>接任务: |cRXP_WARN_海岸上的威胁|r
     .target Captain Grayson
 step
     .goto Westfall,33.92,83.88,70,0
@@ -5940,65 +5897,62 @@ step
     .goto Westfall,27.27,69.96,70,0
     .goto Westfall,26.86,66.82,70,0
     .goto Westfall,26.27,65.76
-    >>AoE |cRXP_ENEMY_Old Murk-Eye|r. Loot him for the |cRXP_LOOT_Scale of Old Murk-Eye|r
+    >>AoE |cRXP_ENEMY_Old Murk-Eye|r。搜刮他以获取 |cRXP_LOOT_Scale of Old Murk-Eye|r
     .complete 104,1 --Scale of Old Murk-Eye
     .unitscan Old Murk-Eye
 step
     .goto Westfall,30.02,86.02
     >>Talk to |cRXP_FRIENDLY_Grayson|r
-    .accept 103 >> Accept Keeper of the Flame
-    .turnin 103,1 >> Turn in Keeper of the Flame
-    .turnin 104,3 >> Turn in The Coastal Menace
+    .accept 103 >>接任务: |cRXP_WARN_长明的灯塔|r
+    .turnin 103,1 >>交任务: |cRXP_FRIENDLY_长明的灯塔|r
+    .turnin 104,3 >>交任务: |cRXP_FRIENDLY_海岸上的威胁|r
     .target Captain Grayson
 step
     #completewith next
-    >>AoE |cRXP_ENEMY_Defias Knuckledusters|r and |cRXP_ENEMY_Defias Highwaymen|r. Loot them for their |cRXP_LOOT_Red Leather Bandanas|r
-    >>|cRXP_WARN_Be careful as the |cRXP_ENEMY_Defias Highwaymen|r cast|r |T132090:0|t[Backstab] |cRXP_WARN_(deals double damage from behind)|r
+    >>AoE |cRXP_ENEMY_Defias Knuckledasters|r 和 |cRXP_ENEMY_Defias Highwaymen|r。搜刮他们的 |cRXP_LOOT_Red Leather Bandanas|r
+    >>|cRXP_WARN_小心 |cRXP_ENEMY_Defias Highwaymen|r 施放|r |T132090:0|t[背刺] |cRXP_WARN_（从背后造成双倍伤害）|r
     .complete 153,1 --Red Leather Bandana (15)
     .mob Defias Knuckleduster
     .mob Defias Highwaymen
 step
     .goto Westfall,44.62,80.26
     >>Talk to |cRXP_FRIENDLY_Grimbooze|r
-    .accept 117 >> Accept Thunderbrew
-    .turnin 117 >> Turn in Thunderbrew
-    .target Grimbooze Thunderbrew
+    .accept 117 >>接任务: |cRXP_WARN_雷霆啤酒|r
+    .turnin 117 >>交任务: |cRXP_FRIENDLY_雷霆啤酒|r
+    .target 恐怖酒酿
 step
     #completewith next
     .goto Westfall,48.77,77.70,60,0
     .goto Westfall,51.73,74.67,60,0
     .goto Westfall,52.56,72.87,60,0
-    >>AoE |cRXP_ENEMY_Defias Knuckledusters|r and |cRXP_ENEMY_Defias Highwaymen|r. Loot them for their |cRXP_LOOT_Red Leather Bandanas|r
-    >>|cRXP_WARN_Be careful as the |cRXP_ENEMY_Defias Highwaymen|r cast|r |T132090:0|t[Backstab] |cRXP_WARN_(deals double damage from behind)|r
+    >>AoE |cRXP_ENEMY_Defias Knuckledasters|r 和 |cRXP_ENEMY_Defias Highwaymen|r。搜刮他们的 |cRXP_LOOT_Red Leather Bandanas|r
+    >>|cRXP_WARN_小心 |cRXP_ENEMY_Defias Highwaymen|r 施放|r |T132090:0|t[背刺] |cRXP_WARN_（从背后造成双倍伤害）|r
     .complete 153,1 --Red Leather Bandana (15)
     .mob Defias Knuckleduster
     .mob Defias Highwaymen
 step
-    .goto Westfall,52.08,71.94,60 >> Travel toward the end of The Dagger Hills
+    .goto Westfall,52.08,71.94,60 >>前往匕首山的尽头
     .isOnQuest 153
 step
     #completewith Footpads
-    >>Open the |cRXP_PICK_Sacks of Oats|r on the ground. Loot them for |cRXP_LOOT_Handfuls of Oats|r
-    >>|cRXP_WARN_This has a 5 second cast time|r
+    >>打开地面上的 |cRXP_PICK_Sacks of Oats|r。拾取它们可获得 |cRXP_LOOT_Handfuls of Oats|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
     .complete 151,1 --Handful of Oats (8)
 step
     #completewith AoE1
-    >>AoE |cRXP_ENEMY_Goretusks|r. Loot them for their |cRXP_LOOT_Goretusk Livers|r and |cRXP_LOOT_Goretusk Snouts|r
-    >>AoE |cRXP_ENEMY_Fleshrippers|r. Loot them for their |cRXP_LOOT_Stringy Vulture Meat|r
+    >>AoE |cRXP_ENEMY_Goretusks|r。掠夺他们的 |cRXP_LOOT_Goretusk 肝脏|r 和 |cRXP_LOOT_Goretusk 鼻子|r
+    >>AoE |cRXP_ENEMY_Fleshrippers|r. 掠夺他们的 |cRXP_LOOT_Stringy Vulture Meat|r
     .collect 723,8,22,1 --Goretusk Liver (8)
-    .mob +Great Goretusk
-    .mob +Goretusk
-    .mob +Young Goretusk
     .collect 731,3,38,1 --Goretusk Snout (3)
-    .mob +Great Goretusk
-    .mob +Goretusk
-    .mob +Young Goretusk
     .collect 729,3,38,1 --Stringy Vulture Meat (3)
-    .mob +Fleshripper
+    .mob 大血牙
+    .mob Goretusk
+    .mob Young Goretusk
+    .mob Fleshripper
 step
     #completewith next
-    >>AoE |cRXP_ENEMY_Defias Trappers|r and |cRXP_ENEMY_Defias Smugglers|r. Loot them for their |cRXP_LOOT_Red Leather Bandanas|r
-    >>|cRXP_WARN_Be careful as the |cRXP_ENEMY_Defias Trappers|r cast|r |T132090:0|t[Backstab] |cRXP_WARN_(deals double damage from behind) and|r |T132149:0|t[Net] |cRXP_WARN_(Immobilizes for 9 seconds)|r
+    >>AoE |cRXP_ENEMY_Defias Trappers|r 和 |cRXP_ENEMY_Defias Smugglers|r。掠夺他们的 |cRXP_LOOT_Red Leather Bandanas|r
+    >>|cRXP_WARN_小心 |cRXP_ENEMY_Defias Trappers|r 施放|r |T132090:0|t[背刺] |cRXP_WARN_（从背后造成双倍伤害）和|r |T132149:0|t[捕网] |cRXP_WARN_（使人无法动弹 9 秒）|r
     .complete 153,1 --Red Leather Bandana (15)
     .mob Defias Trapper
     .mob Defias Smuggler
@@ -6008,7 +5962,7 @@ step
     .goto Westfall,48.22,45.21,60,0
     .goto Westfall,45.77,39.19,60,0
     .goto Westfall,46.49,37.30,60,0
-    .goto Westfall,44.54,34.71,150 >> Travel toward The Molsen Farm
+    .goto Westfall,44.54,34.71,150 >>前往莫尔森农场
     .isOnQuest 153
 step
     #completewith Watch
@@ -6018,42 +5972,39 @@ step
     .mob Harvest Watcher
 step
     #completewith Furlbrows
-    >>AoE |cRXP_ENEMY_Young Goretusks|r. Loot them for their |cRXP_LOOT_Goretusk Livers|r and |cRXP_LOOT_Goretusk Snouts|r
-    >>AoE |cRXP_ENEMY_Fleshrippers|r and |cRXP_ENEMY_Young Fleshrippers|r. Loot them for their |cRXP_LOOT_Stringy Vulture Meat|r
+    >>AoE |cRXP_ENEMY_Young Goretusks|r。掠夺他们的 |cRXP_LOOT_Goretusk 肝脏|r 和 |cRXP_LOOT_Goretusk 鼻子|r
+    >>AoE |cRXP_ENEMY_Fleshrippers|r 和 |cRXP_ENEMY_Young Fleshrippers|r。掠夺他们的 |cRXP_LOOT_Stringy Vulture Meat|r
     .collect 723,8,22,1 --Goretusk Liver (8)
-    .mob +Young Goretusk
     .collect 731,3,38,1 --Goretusk Snout (3)
-    .mob +Young Goretusk
     .collect 729,3,38,1 --Stringy Vulture Meat (3)
-    .mob +Fleshripper
-    .mob +Young Fleshripper
+    .mob Young Goretusk
+    .mob Fleshripper
+    .mob Young Fleshripper
 step
     .goto Westfall,44.14,26.66,60,0
     .goto Westfall,46.13,26.52,60,0
     .goto Westfall,48.74,20.79
-    >>AoE |cRXP_ENEMY_Defias Trappers|r and |cRXP_ENEMY_Defias Smugglers|r. Loot them for their |cRXP_LOOT_Red Leather Bandanas|r
-    >>|cRXP_WARN_Be careful as the |cRXP_ENEMY_Defias Trappers|r cast|r |T132090:0|t[Backstab] |cRXP_WARN_and|r |T132149:0|t[Net]
-    >>|cRXP_WARN_Skip this step if you're not at least 10/15 on both |cRXP_ENEMY_Defias Trappers|r and|r |cRXP_ENEMY_Defias Smugglers|r
+    >>AoE |cRXP_ENEMY_Defias Trappers|r 和 |cRXP_ENEMY_Defias Smugglers|r。掠夺他们的 |cRXP_LOOT_Red Leather Bandanas|r
+    >>|cRXP_WARN_小心 |cRXP_ENEMY_Defias Trappers|r 施法|r |T132090:0|t[背刺] |cRXP_WARN_and|r |T132149:0|t[捕网]
+    >>|cRXP_WARN_如果你在 |cRXP_ENEMY_Defias Trappers|r 和|r |cRXP_ENEMY_Defias Smugglers 上的等级未达到 10/15，请跳过此步骤|r
     .complete 153,1,1 --Red Leather Bandana (15)
-    .mob +Defias Trapper
-    .mob +Defias Smuggler
     .complete 12,1 --Defias Trapper (15)
-    .mob +Defias Trapper
     .complete 12,2 --Defias Smuggler (15)
-    .mob +Defias Smuggler
+    .mob Defias Trapper
+    .mob Defias Smuggler
 step
     #completewith next
     .goto Westfall,48.74,20.79,60,0
-    >>AoE |cRXP_ENEMY_Defias Trappers|r and |cRXP_ENEMY_Defias Smugglers|r. Loot them for their |cRXP_LOOT_Red Leather Bandanas|r
-    >>|cRXP_WARN_Be careful as the |cRXP_ENEMY_Defias Trappers|r cast|r |T132090:0|t[Backstab] |cRXP_WARN_and|r |T132149:0|t[Net]
+    >>AoE |cRXP_ENEMY_Defias Trappers|r 和 |cRXP_ENEMY_Defias Smugglers|r。掠夺他们的 |cRXP_LOOT_Red Leather Bandanas|r
+    >>|cRXP_WARN_小心 |cRXP_ENEMY_Defias Trappers|r 施法|r |T132090:0|t[背刺] |cRXP_WARN_and|r |T132149:0|t[捕网]
     .complete 153,1 --Red Leather Bandana (15)
     .mob Defias Trapper
     .mob Defias Smuggler
 step
     #label Watch
     .goto Westfall,49.33,19.26
-    >>Open |cRXP_PICK_Furlbrow's Wardrobe|r. Loot it for |cRXP_LOOT_Furlbrow's Pocket Watch|r
-    >>|cRXP_WARN_This has a 5 second cast time|r
+    >>打开 |cRXP_PICK_Furlbrow 的衣柜|r。从中获取 |cRXP_LOOT_Furlbrow 的怀表|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
     .complete 64,1 --Furlbrow's Pocket Watch (1)
 step
     #completewith Oats
@@ -6065,7 +6016,7 @@ step
 step
     .goto Westfall,52.02,15.00,60,0
     .goto Westfall,56.93,12.75
-    >>AoE |cRXP_ENEMY_Riverpaw Scouts|r and |cRXP_ENEMY_Riverpaw Gnolls|r. Loot them for their |cRXP_LOOT_Gnoll Paws|r
+    >>AoE |cRXP_ENEMY_Riverpaw Scouts|r 和 |cRXP_ENEMY_Riverpaw Gnolls|r。掠夺他们的 |cRXP_LOOT_Gnoll Paws|r
     .complete 102,1 --Gnoll Paws (8)
     .mob Riverpaw Scout
     .mob Riverpaw Gnoll
@@ -6073,46 +6024,44 @@ step
     .goto Westfall,52.36,9.59,60,0
     .goto Westfall,53.80,10.69,60,0
     .goto Westfall,55.96,8.22
-    >>AoE |cRXP_ENEMY_Murloc Coastrunners|r and |cRXP_ENEMY_Murloc Raiders|r. Loot them for their |cRXP_LOOT_Murloc Eyes|r
+    >>AoE |cRXP_ENEMY_Murloc Coastrunners|r 和 |cRXP_ENEMY_Murloc Raiders|r。掠夺他们的 |cRXP_LOOT_Murloc Eyes|r
     .collect 730,3,38,1 --Murloc Eye (3)
     .mob Murloc Coastrunner
     .mob Murloc Raider
 step
     #label Footpads
     .goto Westfall,56.56,19.25
-    >>AoE |cRXP_ENEMY_Defias Footpads|r Loot them for their |cRXP_LOOT_Red Leather Bandanas|r
-    >>|cRXP_WARN_Be careful as |cRXP_ENEMY_Defias Footpads|r cast|r |T132090:0|t[Backstab]
+    >>AoE |cRXP_ENEMY_迪菲亚护足|r 掠夺他们的 |cRXP_LOOT_红色皮革头巾|r
+    >>|cRXP_WARN_小心 |cRXP_ENEMY_迪菲亚之足|r 施法|r |T132090:0|t[背刺]
     .complete 153,1 --Red Leather Bandana (15)
     .mob Defias Footpad
 step
     #label Oats
     .goto Westfall,56.56,19.25
-    >>Open the |cRXP_PICK_Sacks of Oats|r on the ground. Loot them for |cRXP_LOOT_Handfuls of Oats|r
-    >>|cRXP_WARN_This has a 5 second cast time|r
+    >>打开地面上的 |cRXP_PICK_Sacks of Oats|r。拾取它们可获得 |cRXP_LOOT_Handfuls of Oats|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
     .complete 151,1 --Handful of Oats (8)
 step
     #label Furlbrows
-    >>Talk to |cRXP_FRIENDLY_Farmer Furlbrow|r and |cRXP_FRIENDLY_Verna|r
-    .turnin 64 >> Turn in The Forgotten Heirloom
-    .target +Farmer Furlbrow
+    >>对话: |cRXP_FRIENDLY_农夫法布隆|r, Verna
+    .turnin 64 >>交任务: |cRXP_FRIENDLY_遗失的怀表|r
     .goto Westfall,59.95,19.35
-    .turnin 151 >> Turn in Poor Old Blanchy
+    .turnin 151 >>交任务: |cRXP_FRIENDLY_老马布兰契|r
     .goto Westfall,59.91,19.41
-    .target +Verna Furlbrow
+    .target 农夫法布罗
+    .target 维尔纳·法布罗
 step
     .goto Westfall,59.72,34.62,80,0
     .goto Westfall,60.24,47.40
-    >>AoE |cRXP_ENEMY_Goretusks|r and |cRXP_ENEMY_Young Goretusks|r. Loot them for their |cRXP_LOOT_Goretusk Livers|r and |cRXP_LOOT_Goretusk Snouts|r
-    >>AoE |cRXP_ENEMY_Fleshrippers|r |cRXP_ENEMY_Young Fleshrippers|r. Loot them for their |cRXP_LOOT_Stringy Vulture Meat|r
+    >>AoE |cRXP_ENEMY_Goretusks|r 和 |cRXP_ENEMY_Young Goretusks|r。掠夺它们的 |cRXP_LOOT_Goretusk 肝脏|r 和 |cRXP_LOOT_Goretusk 鼻子|r
+    >>AoE |cRXP_ENEMY_Fleshrippers|r |cRXP_ENEMY_Young Fleshrippers|r. 掠夺他们的 |cRXP_LOOT_Stringy Vulture Meat|r
     .collect 723,8,22,1 --Goretusk Liver (8)
-    .mob +Goretusk
-    .mob +Young Goretusk
     .collect 731,3,38,1 --Goretusk Snout (3)
-    .mob +Goretusk
-    .mob +Young Goretusk
     .collect 729,3,38,1 --Stringy Vulture Meat (3)
-    .mob +Fleshripper
-    .mob +Young Fleshripper
+    .mob Goretusk
+    .mob Young Goretusk
+    .mob Fleshripper
+    .mob Young Fleshripper
 step
     .goto Westfall,52.84,30.46,60,0
     .goto Westfall,51.70,23.16
@@ -6121,49 +6070,49 @@ step
     .mob Harvest Watcher
 step
     .goto Westfall,51.70,23.16
-    .xp 17+11890 >> Grind to 11890+/17700xp
+    .xp 17+11890 >>升级至 11890+/17700xp
     .isQuestComplete 12
 step
     .goto Westfall,51.70,23.16
-    >>|cRXP_WARN_Skip this step if you've finished the objective of The People's Militia|r
-    .xp 17+12800 >> Grind to 12800+/17700xp
+    >>|cRXP_WARN_如果你已经完成了人民民兵的目标，请跳过此步骤|r
+    .xp 17+12800 >>升级至 12800+/17700xp
 step
-    >>Talk to |cRXP_FRIENDLY_Farmer Saldean|r and then |cRXP_FRIENDLY_Salma|r inside
-    .turnin 9,1 >> Turn in The Killing Fields
-    .vendor >> Vendor Trash
-    .target +Farmer Saldean
+    >>对话: Farmer Saldean|r and then |cRXP_FRIENDLY_Salma, 他在里面
+    .turnin 9,1 >>交任务: |cRXP_FRIENDLY_清理荒野|r
+    .vendor >>供应商垃圾
     .goto Westfall,56.04,31.23
-    .turnin 22 >> Turn in Goretusk Liver Pie
-    .turnin 38 >> Turn in Westfall Stew
+    .turnin 22 >>交任务: |cRXP_FRIENDLY_猪肝馅饼|r
+    .turnin 38 >>交任务: |cRXP_FRIENDLY_杂味炖肉|r
     .goto Westfall,56.42,30.52
-    .target +Salma Saldean
+    .target Farmer Saldean
+    .target Salma Saldean
 step
-	>> Talk to |cRXP_FRIENDLY_Gryan|r and |cRXP_FRIENDLY_Danuvin|r
-    .turnin 12 >> Turn in The People's Militia
-    .target +Gryan Stoutmantle
+	>>对话: Gryan, |cRXP_FRIENDLY_达努温上尉|r
+    .turnin 12 >>交任务: |cRXP_FRIENDLY_西部荒野人民军|r
     .goto Westfall,56.33,47.52
-    .turnin 102,1 >> Turn in Patrolling Westfall
+    .turnin 102,1 >>交任务: |cRXP_FRIENDLY_西部荒野的豺狼人|r
     .goto Westfall,56.42,47.62
-	.target +Captain Danuvin
+	.target 格里安·斯托曼托
+	.target 丹努文船长
     .isQuestComplete 12
 step
     .goto Westfall,56.42,47.62
-	>> Talk to |cRXP_FRIENDLY_Danuvin|r
-    .turnin 102,1 >> Turn in Patrolling Westfall
-	.target Captain Danuvin
+	>>对话: |cRXP_FRIENDLY_达努温上尉|r
+    .turnin 102,1 >>交任务: |cRXP_FRIENDLY_西部荒野的豺狼人|r
+	.target 丹努文船长
 step
     .goto Westfall,53.98,52.99
-	>>Talk to |cRXP_FRIENDLY_Galiaan|r
-    .turnin 153,2 >> Turn in Red Leather Bandanas
+	>>对话: |cRXP_FRIENDLY_哨兵加里安|r
+    .turnin 153,2 >>交任务: |cRXP_FRIENDLY_红色皮质面罩|r
 	.target Scout Galiaan
 step
     #completewith next
-    +|cRXP_WARN_Start spam casting|r |T132794:0|t[Conjure Water r2] |cRXP_WARN_to conjure as much water as possible before taking the flight|r
+    +|cRXP_WARN_开始垃圾邮件投放|r |T132794:0|t[召唤水 r2] |cRXP_WARN_在飞行前召唤尽可能多的水|r
 step
     #completewith next
     .goto Westfall,56.56,52.64
-	>>Talk to |cRXP_FRIENDLY_Thor|r
-    .fly Stormwind >> Fly to Stormwind
+	>>对话: |cRXP_FRIENDLY_索尔|r
+    .fly Stormwind >>飞往暴风城
 	.target Thor
 step
     #completewith next
@@ -6171,18 +6120,17 @@ step
     .goto Stormwind City,51.83,60.41,4,0
     .goto Stormwind City,51.59,60.15,6,0
     .goto Stormwind City,39.17,76.58,12,0
-    >>|cRXP_WARN_Jump up onto the torch, then drop down to get under Stormwind|r
-    >>|cRXP_WARN_With Shadows on "Fair" or "Low", get in the middle of Derek the Dinosaur's feet (the lighter part of the dirt) just before the blue void, then walk straight forward|r
-    >>|cRXP_WARN_NOTE: There is a small chance of dying using this method. You can also walk to the Mage Tower normally if you wish|r
-    .link https://youtu.be/gV8-wgQEomc >> CLICK HERE for a guide
-    .goto Stormwind City,38.61,79.39,10 >>Travel toward |cRXP_FRIENDLY_Jennea|r
+    >>|cRXP_WARN_跳到火炬上，然后跳下来，躲到暴风城下面|r
+    >>|cRXP_WARN_将阴影设置为“良好”或“低”，在蓝色虚空前，站在恐龙德里克脚的中间（泥土较浅的部分），然后径直向前走|r
+    .link https://clips.twitch.tv/WonderfulObservantPigeonTwitchRPG-VGEqzHObhqqsv8Ae >>点击此处查看指南
+    .goto Stormwind City,38.61,79.39,10 >>前往 |cRXP_FRIENDLY_Jennea|r
 step
     .goto Stormwind City,38.61,79.39
-    >>Talk to |cRXP_FRIENDLY_Jennea|r
-    .turnin 1861,1 >> Turn in Mirror Lake
---   .turnin 1919 >> Turn in Report to Jennea
-    .trainer >> Train your class spells (Fireball r4)
-    >>Total Cost: 18s
+    >>对话: |cRXP_FRIENDLY_詹妮亚·坎农|r
+    .turnin 1861,1 >>交任务: |cRXP_FRIENDLY_明镜湖|r
+--   .turnin 1919 >>交任务: |cRXP_FRIENDLY_向詹妮亚报告|r
+    .trainer >>训练你的职业法术（火球 r4）
+    >>总成本：18 秒
     .target Jennea Cannon
 step
     #completewith next
@@ -6195,13 +6143,13 @@ step
     .goto Stormwind City,31.12,79.42,15,0
     .goto Stormwind City,32.07,81.50,10,0
     .goto Stormwind City,32.63,80.62,8,0
-    >>Exit the Mage Tower
-    .goto Stormwind City,32.16,79.84,10 >>Travel toward |cRXP_FRIENDLY_Charys|r
+    >>退出法师塔
+    .goto Stormwind City,32.16,79.84,10 >>前往 |cRXP_FRIENDLY_Charys|r
 step
     .goto Stormwind City,32.16,79.84
-    >>Enter the building
-    >>Talk to |cRXP_FRIENDLY_Charys|r
-    .vendor 1307 >> |cRXP_BUY_Buy|r |T134851:0|t[Lesser Mana Potions] |cRXP_BUY_and|r |T134831:0|t[Healing Potions] |cRXP_BUY_from her (if they're up)|r
+    >>进入大楼
+    >>对话: |cRXP_FRIENDLY_查瑞斯·伊瑟里安|r
+    .vendor 1307 >>|cRXP_BUY_从她那里购买|r |T134851:0|t[低级法力药水] |cRXP_BUY_和|r |T134831:0|t[治疗药水] |cRXP_BUY_（如果它们涨价了）|r
     .target Charys Yserian
 step
     #completewith next
@@ -6213,17 +6161,17 @@ step
     .goto Stormwind City,30.53,55.10,20,0
     .goto Stormwind City,26.04,52.25,20,0
     .goto Stormwind City,24.67,52.60,20,0
-    .goto Stormwind City,21.41,55.80,10 >>Travel toward |cRXP_FRIENDLY_Argos|r
+    .goto Stormwind City,21.41,55.80,10 >>前往 |cRXP_FRIENDLY_Argos|r
 step
     .goto Stormwind City,21.41,55.80
-    >>Talk to |cRXP_FRIENDLY_Argos|r
-    .accept 3765 >> Accept The Corruption Abroad
+    >>对话: |cRXP_FRIENDLY_阿古斯·夜语|r
+    .accept 3765 >>接任务: |cRXP_LOOT_遥远的旅途|r
     .target Argos Nightwhisper
 step
     .goto Stormwind City,41.57,65.46
-    >>Enter the building
-    >>Talk to |cRXP_FRIENDLY_Adair|r
-    .vendor 1316 >> |cRXP_BUY_Buy non-intellect|r |T134943:0|t[Scrolls] |cRXP_BUY_from him (if they're up)|r
+    >>进入大楼
+    >>对话: |cRXP_FRIENDLY_艾代尔·吉尔罗|r
+    .vendor 1316 >>|cRXP_BUY_从他那里购买非智力|r |T134943:0|t[卷轴] |cRXP_BUY_（如果它们涨价了）|r
     .target Adair Gilroy
 step
     #completewith next
@@ -6231,47 +6179,47 @@ step
     .goto Stormwind City,52.10,61.42,12,0
     .goto Stormwind City,49.36,63.42,12,0
     .goto Stormwind City,51.16,68.35,12,0
-    .goto Stormwind City,52.05,67.96,10 >>Travel toward |cRXP_FRIENDLY_Roberto|r
+    .goto Stormwind City,52.05,67.96,10 >>前往 |cRXP_FRIENDLY_Roberto|r
 step
     .goto Stormwind City,52.05,67.96
-    >>Go inside the building
-    >>Talk to |cRXP_FRIENDLY_Roberto|r
-    >>|cRXP_BUY_Buy a|r |T132620:0|t[Cask of Merlot] |cRXP_BUY_from him|r
+    >>进入大楼
+    >>对话: |cRXP_FRIENDLY_罗伯特·奥布斯|r
+    >>|cRXP_BUY_从他那里购买一|r |T132620:0|t[一桶梅洛] |cRXP_BUY_|r
     .collect 1941,1,116,1 --Cask of Merlot
     .target Roberto Pupellyverbos
 step
     #completewith next
     .goto Stormwind City,52.10,61.34,15,0
-    .goto Stormwind City,55.46,65.26,8 >>Travel toward |cRXP_FRIENDLY_Keldric|r
+    .goto Stormwind City,55.46,65.26,8 >>前往 |cRXP_FRIENDLY_Keldric|r
 step
     .goto Stormwind City,55.46,65.26
-    >>Talk to |cRXP_FRIENDLY_Keldric|r through the wall
-    .vendor 1257 >> |cRXP_BUY_Buy|r |T134830:0|t[Lesser Healing Potions] |cRXP_BUY_from him (if they're up)|r
+    >>对话: |cRXP_FRIENDLY_凯德雷克·布舍尔|r
+    .vendor 1257 >>|cRXP_BUY_从他那里购买|r |T134830:0|t[次级治疗药水] |cRXP_BUY_（如果价格上涨）|r
     .target Keldric Boucher
 step
     #completewith Bank3
-    .goto Stormwind City,55.30,68.16,10 >>Enter the Stormwind Bank
+    .goto Stormwind City,55.30,68.16,10 >>进入暴风城银行
 step
     #sticky
     #label Bank4
     .goto Stormwind City,57.03,72.97
-    >>Talk to |cRXP_FRIENDLY_Newton|r
-    .bankwithdraw 769,5354,6889 >> Withdraw the following items from your bank:
-    >>|T133970:0|t[Chunk of Boar Meat]
-    >>|T133469:0|t[Letter to Delgren]
-    >>|T132832:0|t[Small Egg]
+    >>对话: |cRXP_FRIENDLY_牛顿·伯恩赛德|r
+    .bankwithdraw 769,5354,6889 >>从您的银行提取以下物品：
+    >>|T133970:0|t[大块野猪肉]
+    >>|T133469:0|t[致德尔格伦的信]
+    >>|T132832:0|t[小鸡蛋]
 step
     #label Bank3
     .goto Stormwind City,57.03,72.97
-    >>Talk to |cRXP_FRIENDLY_Newton|r
-    >>|cRXP_WARN_NOTE: You need 12 stacks of each cloth (|r|T132911:0|t[Wool Cloth]|cRXP_WARN_,|r |T132905:0|t[Silk Cloth]|cRXP_WARN_,|r |T132892:0|t[Mageweave Cloth]|cRXP_WARN_,|r and |T132903:0|t[Runecloth]|cRXP_WARN_) to do the cloth turnins later. You'll get these naturally as you level|r
-    .bankdeposit 2998,4371,1711,1478,1712,3012,1180,1181,3013,17056,2592,2998,1941 >> Deposit the following items into the bank:
-    >>|T133024:0|t[Bronze Tube]
-    >>|T134943:0|t[Scrolls]
-    >>|T132917:0|t[Light Feather]
-    >>|T132911:0|t[Wool Cloth]
-    >>|T134377:0|t[A Simple Compass]
-    >>|T132620:0|t[Cask of Merlot]
+    >>对话: |cRXP_FRIENDLY_牛顿·伯恩赛德|r
+    >>|cRXP_WARN_注意：您需要每种布料 12 叠（|r|T132911:0|t[羊毛布]|cRXP_WARN_、|r |T132905:0|t[丝绸布]|cRXP_WARN_、|r |T132892:0|t[魔纹布]|cRXP_WARN_、|r 和 |T132903:0|t[符文布]|cRXP_WARN_）以便稍后上交布料。随着等级的提高，您会自然获得这些布料|r
+    .bankdeposit 2998,4371,1711,1478,1712,3012,1180,1181,3013,17056,2592,2998,1941 >>将以下物品存入银行：
+    >>|T133024:0|t[青铜管]
+    >>|T134943:0|t[卷轴]
+    >>|T132917:0|t[轻羽]
+    >>|T132911:0|t[羊毛布]
+    >>|T134377:0|t[简易指南针]
+    >>|T132620:0|t[一桶梅洛]
     .target Newton Burnside
 --   .itemcount 769,1
 --   .itemcount 4371,1
@@ -6282,155 +6230,154 @@ step
 step
     #completewith next
     .goto Stormwind City,53.45,64.92,10,0
-    >>Enter the Inn
-    .goto Stormwind City,52.61,65.72,10 >>Travel Toward |cRXP_FRIENDLY_Allison|r
+    >>进入旅馆
+    .goto Stormwind City,52.61,65.72,10 >>前往 |cRXP_FRIENDLY_Allison|r
     .target Innkeeper Allison
 step
     .goto Stormwind City,52.61,65.72
-    >>|cRXP_WARN_===PAY ATTENTION===|r
-    >>|cRXP_WARN_Talk to|r |cRXP_FRIENDLY_Allison|r
-    >>|cRXP_WARN_Open the "Set Hearthstone" menu, then cast|r |T134414:0|t[Hearthstone]
-    .hs >> |cRXP_WARN_Hearthstone BATCH from Stormwind to Auberdine|r
+    >>|cRXP_WARN_===注意===|r
+    >>|cRXP_WARN_与|r |cRXP_FRIENDLY_Allison 交谈|r
+    >>|cRXP_WARN_打开“设置炉石”菜单，然后施放|r |T134414:0|t[炉石]
+    .hs >>|cRXP_WARN_从 暴风城 炉石到 奥伯丁|r
     .target Innkeeper Allison
     .zoneskip Darkshore
 ]])
 
 RXPGuides.RegisterGuide([[
 #classic
-#tbc
 << Alliance Mage
-#name 18-20 ADV Darkshore 3 Mage AoE
+#name 18-20 冒险 黑海岸 3 法师 AoE
 #version 2
-#group RestedXP ADV AoE Alliance Mage
+#group RestedXP 冒险 AoE 联盟法师
 #defaultfor Human Mage/Gnome Mage
-#next 20-22 ADV Redridge 1 Mage AoE
+#next 20-22 冒险 赤脊山 1 法师 AoE
 
 step
     .goto Darkshore,36.83,43.91
-    >>Talk to |cRXP_FRIENDLY_Taldan|r
-    >>|cRXP_BUY_Buy 45|r |T132796:0|t[Melon Juice] |cRXP_BUY_from him|r
+    >>对话: |cRXP_FRIENDLY_塔尔丹|r
+    >>|cRXP_BUY_从他那里购买 45|r |T132796:0|t[甜瓜汁] |cRXP_BUY_|r
     .collect 1205,45,4740,1 --Melon Juice (45)
     .target Taldan
     .money <0.45
 step
     .goto Darkshore,36.83,43.91
-    >>Talk to |cRXP_FRIENDLY_Taldan|r
-    >>|cRXP_BUY_Buy 40|r |T132796:0|t[Melon Juice] |cRXP_BUY_from him|r
+    >>对话: |cRXP_FRIENDLY_塔尔丹|r
+    >>|cRXP_BUY_从他那里购买 40|r |T132796:0|t[甜瓜汁] |cRXP_BUY_|r
     .collect 1205,40,4740,1 --Melon Juice (40)
     .target Taldan
     .money <0.40
 step
     .goto Darkshore,36.83,43.91
-    >>Talk to |cRXP_FRIENDLY_Taldan|r
-    >>|cRXP_BUY_Buy 35|r |T132796:0|t[Melon Juice] |cRXP_BUY_from him|r
+    >>对话: |cRXP_FRIENDLY_塔尔丹|r
+    >>|cRXP_BUY_从他那里购买 35|r |T132796:0|t[甜瓜汁] |cRXP_BUY_|r
     .collect 1205,35,4740,1 --Melon Juice (35)
     .target Taldan
     .money <0.35
 step
     .goto Darkshore,36.83,43.91
-    >>Talk to |cRXP_FRIENDLY_Taldan|r
-    >>|cRXP_BUY_Buy 30|r |T132796:0|t[Melon Juice] |cRXP_BUY_from him|r
+    >>对话: |cRXP_FRIENDLY_塔尔丹|r
+    >>|cRXP_BUY_从他那里购买 30|r |T132796:0|t[甜瓜汁] |cRXP_BUY_|r
     .collect 1205,30,4740,1 --Melon Juice (30)
     .target Taldan
     .money <0.30
 step
     .goto Darkshore,36.83,43.91
-    >>Talk to |cRXP_FRIENDLY_Taldan|r
-    >>|cRXP_BUY_Buy 25|r |T132796:0|t[Melon Juice] |cRXP_BUY_from him|r
+    >>对话: |cRXP_FRIENDLY_塔尔丹|r
+    >>|cRXP_BUY_从他那里购买 25|r |T132796:0|t[甜瓜汁] |cRXP_BUY_|r
     .collect 1205,25,4740,1 --Melon Juice (25)
     .target Taldan
     .money <0.25
 step
     .goto Darkshore,36.83,43.91
-    >>Talk to |cRXP_FRIENDLY_Taldan|r
-    >>|cRXP_BUY_Buy 20|r |T132796:0|t[Melon Juice] |cRXP_BUY_from him|r
+    >>对话: |cRXP_FRIENDLY_塔尔丹|r
+    >>|cRXP_BUY_从他那里购买 20|r |T132796:0|t[甜瓜汁] |cRXP_BUY_|r
     .collect 1205,20,4740,1 --Melon Juice (20)
     .target Taldan
     .money <0.20
 step
     .goto Darkshore,36.83,43.91
-    >>Talk to |cRXP_FRIENDLY_Taldan|r
-    >>|cRXP_BUY_Buy 15|r |T132796:0|t[Melon Juice] |cRXP_BUY_from him|r
+    >>对话: |cRXP_FRIENDLY_塔尔丹|r
+    >>|cRXP_BUY_从他那里购买 15|r |T132796:0|t[甜瓜汁] |cRXP_BUY_|r
     .collect 1205,15,4740,1 --Melon Juice (15)
     .target Taldan
     .money <0.15
 step
     .goto Darkshore,36.83,43.91
-    >>Talk to |cRXP_FRIENDLY_Taldan|r
-    >>|cRXP_BUY_Buy 10|r |T132796:0|t[Melon Juice] |cRXP_BUY_from him|r
+    >>对话: |cRXP_FRIENDLY_塔尔丹|r
+    >>|cRXP_BUY_从他那里购买 10|r |T132796:0|t[甜瓜汁] |cRXP_BUY_|r
     .collect 1205,10,4740,1 --Melon Juice (10)
     .target Taldan
     .money <0.10
 step
     .goto Darkshore,36.83,43.91
-    >>Talk to |cRXP_FRIENDLY_Taldan|r
-    >>|cRXP_BUY_Buy 5|r |T132796:0|t[Melon Juice] |cRXP_BUY_from him|r
+    >>对话: |cRXP_FRIENDLY_塔尔丹|r
+    >>|cRXP_BUY_从他那里购买 5|r |T132796:0|t[瓜汁] |cRXP_BUY_|r
     .collect 1205,5,4740,1 --Melon Juice (5)
     .target Taldan
     .money <0.05
 step
     .goto Darkshore,36.77,44.28
-    >>Talk to |cRXP_FRIENDLY_Laird|r
-    >>|cRXP_BUY_Buy up to 40|r |T133918:0|t[Longjaw Mud Snappers] |cRXP_BUY_from him|r
+    >>对话: |cRXP_FRIENDLY_莱尔德|r
+    >>|cRXP_BUY_从他那里购买最多 40|r |T133918:0|t[长颚泥鲷] |cRXP_BUY_|r
     .collect 4592,40,4740,1 --Longjaw Mud Snapper (40)
     .target Laird
 step
-    >>REMOVE THIS STEP LATER
-    .accept 4740 >> Accept WANTED: Murkdeep!
+    >>稍后删除此步骤
+    .accept 4740 >>接任务: |cRXP_LOOT_通缉：莫克迪普！|r
     .goto Darkshore,37.22,44.22
 step
     .goto Darkshore,36.09,44.93
-    >>Talk to |cRXP_FRIENDLY_Gubber|r
-    .accept 1138 >>Accept Fruit of the Sea
+    >>对话: |cRXP_FRIENDLY_古博·布拉普|r
+    .accept 1138 >>接任务: |cRXP_LOOT_海中的水果|r
     .target Gubber Blump
 step
     .goto Darkshore,43.55,76.29
-    >>Talk to |cRXP_FRIENDLY_Onu|r
-    .turnin 948 >> Turn in Onu
-    .accept 944 >> Accept The Master's Glaive
+    >>对话: |cRXP_FRIENDLY_安努|r
+    .turnin 948 >>交任务: |cRXP_FRIENDLY_安努|r
+    .accept 944 >>接任务: |cRXP_LOOT_主宰之剑|r
     .target Onu
 step
     .goto Darkshore,44.40,76.42
-    >>Talk to |cRXP_FRIENDLY_Kerlonian|r
-    >>|cRXP_WARN_If |cRXP_FRIENDLY_Kerlonian|r is not there, skip this step|r
-    .accept 5321 >>Accept The Sleeper Has Awakened
+    >>对话: |cRXP_FRIENDLY_克罗尼亚·恒影|r
+    >>|cRXP_WARN_如果|cRXP_FRIENDLY_Kerlonian|r不存在，则跳过此步骤|r
+    .accept 5321 >>接任务: |cRXP_LOOT_昏昏欲睡|r
     .target Kerlonian Evershade
 step
     .goto Darkshore,44.39,76.30
-    >>Open |cRXP_PICK_Kerlonian's Chest|r. Loot it for the |cRXP_LOOT_Horn of Awakening|r
-    >>|cRXP_WARN_Use the|r |T134229:0|t[|cRXP_LOOT_Horn of Awakening|r] |cRXP_WARN_on |cRXP_FRIENDLY_Kerlonian|r when he falls asleep|r
-    >>|cRXP_WARN_These both have a 5 second cast time|r
+    >>打开 |cRXP_PICK_Kerlonian 的宝箱|r。拾取其中的 |cRXP_LOOT_觉醒之号角|r
+    >>|cRXP_WARN_当他睡着时使用|r |T134229:0|t[|cRXP_LOOT_觉醒号角|r] |cRXP_WARN_on |cRXP_FRIENDLY_Kerlonian|r|r
+    >>|cRXP_WARN_这两个都有 5 秒的施法时间|r
     .complete 5321,1 --Horn of Awakening (1)
     .isOnQuest 5321
 step
     #completewith Glaive1
-    >>AoE |cRXP_ENEMY_Moonstalker Sires|r. Loot them for their |cRXP_LOOT_Fine Moonstalker Pelts|r
-    >>|cRXP_ENEMY_Moonstalker Sires|r share spawns with |cRXP_ENEMY_Grizzled Thistle Bears|r and |cRXP_ENEMY_Giant Foreststriders|r
-   .complete 986,1 --Fine Moonstalker Pelt (5)
-   .mob Moonstalker Sire
+    >>AoE |cRXP_ENEMY_月夜猎者 Sires|r。掠夺他们的 |cRXP_LOOT_Fine 月夜猎者 Pelts|r
+    >>|cRXP_ENEMY_月夜猎者 Sires|r 与 |cRXP_ENEMY_灰蓟熊s|r 和 |cRXP_ENEMY_Giant Foreststriders 共享产卵|r
+   .complete 986,1 --Fine 月夜猎者 Pelt (5)
+   .mob 月夜猎者 Sire
    .use 13536
    .isOnQuest 5321
 step
     #completewith next
-    >>AoE |cRXP_ENEMY_Grizzled Thistle Bears|r. Loot them for their |cRXP_LOOT_Grizzled Scalps|r
-    >>|cRXP_ENEMY_Grizzled Thistle Bears|r share spawns with |cRXP_ENEMY_Moonstalker Sires|r and |cRXP_ENEMY_Giant Foreststriders|r
+    >>AoE |cRXP_ENEMY_灰蓟熊s|r。掠夺他们的 |cRXP_LOOT_Grizzled Scalps|r
+    >>|cRXP_ENEMY_灰蓟熊|r 与 |cRXP_ENEMY_月夜猎者 Sires|r 和 |cRXP_ENEMY_Giant Foreststriders 共享产卵|r
    .complete 1003,1 --Grizzled Scalp (4)
-   .mob Grizzled Thistle Bear
+   .mob 灰蓟熊
    .use 13536
    .isOnQuest 5321
 step
     #label Glaive1
    .goto Darkshore,38.65,87.34
-    >>Travel to The Master's Glaive
+    >>前往主宰者之刃
    .complete 944,1 --Enter the Master's Glaive (1)
    .use 13536
    .isOnQuest 5321
 step
     #completewith Therylune1
-    >>AoE |cRXP_ENEMY_Twilight Disciples|r and |cRXP_ENEMY_Twilight Thugs|r. Loot them for the |T133743:0|t[|cRXP_LOOT_Book: The Powers Below|r]
-    >>|cRXP_WARN_Use the |T133743:0|t[|cRXP_LOOT_Book: The Powers Below|r] to start the quest|r
+    >>AoE |cRXP_ENEMY_Twilight Disciples|r 和 |cRXP_ENEMY_Twilight Thugs|r。从他们身上搜刮 |T133743:0|t[|cRXP_LOOT_Book: The Powers Below|r]
+    >>|cRXP_WARN_使用 |T133743:0|t[|cRXP_LOOT_Book: The Powers Below|r] 开始任务|r
     .collect 5352,1,968,1 --Book: The Powers Below (1)
-    .accept 968 >> Accept The Powers Below
+    .accept 968 >>接任务: |cRXP_LOOT_深渊之神|r
     .mob Twilight Disciple
     .mob Twilight Thug
     .use 13536
@@ -6438,77 +6385,77 @@ step
 step
     #completewith next
     .goto Darkshore,38.65,87.34
-    >>Place the |T134715:0|t[Phial of Scrying] on the ground
-    >>|cRXP_WARN_This has a 5 second cast time|r
-    >>Click the |cRXP_PICK_Phial of Scrying|r on the ground
-    .turnin 944 >> Turn in The Master's Glaive
-    .accept 949 >> Accept The Twilight Camp
+    >>将 |T134715:0|t[占卜之瓶] 放在地上
+    >>|cRXP_WARN_施法时间为 5 秒|r
+    >>点击地面上的 |cRXP_PICK_Phial of Scrying|r
+    .turnin 944 >>交任务: |cRXP_FRIENDLY_主宰之剑|r
+    .accept 949 >>接任务: |cRXP_LOOT_暮光之锤的营地|r
     .use 13536
     .use 5251
     .isOnQuest 5321
 step
    .goto Darkshore,38.65,87.34
-    >>Talk to |cRXP_FRIENDLY_Therylune|r
-    >>|cRXP_WARN_If |cRXP_FRIENDLY_Therylune|r is not there, AoE |cRXP_ENEMY_Twilight Disciples|r and |cRXP_ENEMY_Twilight Thugs|r for |T133743:0|t[|cRXP_LOOT_Book: The Powers Below|r] until she's up|r
-   .accept 945 >> Accept Therylune's Escape
+    >>对话: |cRXP_FRIENDLY_瑟瑞露尼|r
+    >>|cRXP_WARN_如果 |cRXP_FRIENDLY_Therylune|r 不在，则对 |cRXP_ENEMY_Twilight Disciples|r 和 |cRXP_ENEMY_Twilight Thugs|r 进行 AoE，持续 |T133743:0|t[|cRXP_LOOT_Book: The Powers Below|r]，直到她醒来|r
+   .accept 945 >>接任务: |cRXP_LOOT_护送瑟瑞露尼|r
    .target Therylune
    .use 13536
    .isOnQuest 5321
 step
     #completewith Tome1
-    >>Escort |cRXP_FRIENDLY_Therylune|r
-    .complete 945,1 --Escort Therylune away from the Master's Glaive (1)
+    >>护送 |cRXP_FRIENDLY_Therylune|r
+    .complete 945,1 --护卫 Therylune away from the Master's Glaive (1)
     .use 13536
     .target Therylune
     .isOnQuest 5321
 step
    .goto Darkshore,38.55,86.03
-   >>Place the |T134715:0|t[Phial of Scrying] on the ground
-   >>|cRXP_WARN_This has a 5 second cast time|r
-   >>Click the |cRXP_PICK_Phial of Scrying|r on the ground
-   .turnin 944 >> Turn in The Master's Glaive
-   .accept 949 >> Accept The Twilight Camp
+   >>将 |T134715:0|t[占卜之瓶] 放在地上
+   >>|cRXP_WARN_施法时间为 5 秒|r
+   >>点击地面上的 |cRXP_PICK_Phial of Scrying|r
+   .turnin 944 >>交任务: |cRXP_FRIENDLY_主宰之剑|r
+   .accept 949 >>接任务: |cRXP_LOOT_暮光之锤的营地|r
    .use 13536
    .use 5251
    .isOnQuest 5321
 step
     #label Tome1
    .goto Darkshore,38.55,86.03
-    >>Click the |cRXP_PICK_Twilight Tome|r
-   .turnin 949 >> Turn in The Twilight Camp
-   .accept 950 >> Accept Return to Onu
+    >>点击|cRXP_PICK_Twilight Tome|r
+   .turnin 949 >>交任务: |cRXP_FRIENDLY_暮光之锤的营地|r
+   .accept 950 >>接任务: |cRXP_LOOT_向安努回复|r
    .use 13536
    .isOnQuest 5321
 step
    #label Therylune1
-   >>Escort |cRXP_FRIENDLY_Therylune|r
-   >>|cRXP_WARN_Make sure |cRXP_FRIENDLY_Therylune|r stays in render range or you will fail the quest|r
-   .complete 945,1 --Escort Therylune away from the Master's Glaive (1)
+   >>护送 |cRXP_FRIENDLY_Therylune|r
+   >>|cRXP_WARN_确保 |cRXP_FRIENDLY_Therylune|r 保持在渲染范围内，否则你将失败任务|r
+   .complete 945,1 --护卫 Therylune away from the Master's Glaive (1)
    .use 13536
    .target Therylune
    .isOnQuest 950
 step
     #completewith Remtravel1
-    >>AoE |cRXP_ENEMY_Moonstalker Sires|r. Loot them for their |cRXP_LOOT_Fine Moonstalker Pelts|r
-    >>|cRXP_ENEMY_Moonstalker Sires|r share spawns with |cRXP_ENEMY_Grizzled Thistle Bears|r and |cRXP_ENEMY_Giant Foreststriders|r
-    .complete 986,1 --Fine Moonstalker Pelt (5)
-    .mob Moonstalker Sire
+    >>AoE |cRXP_ENEMY_月夜猎者 Sires|r。掠夺他们的 |cRXP_LOOT_Fine 月夜猎者 Pelts|r
+    >>|cRXP_ENEMY_月夜猎者 Sires|r 与 |cRXP_ENEMY_灰蓟熊s|r 和 |cRXP_ENEMY_Giant Foreststriders 共享产卵|r
+    .complete 986,1 --Fine 月夜猎者 Pelt (5)
+    .mob 月夜猎者 Sire
     .use 13536
     .isOnQuest 950
 step
     #completewith next
-    >>AoE |cRXP_ENEMY_Grizzled Thistle Bears|r. Loot them for their |cRXP_LOOT_Grizzled Scalps|r
-    >>|cRXP_ENEMY_Grizzled Thistle Bears|r share spawns with |cRXP_ENEMY_Moonstalker Sires|r and |cRXP_ENEMY_Giant Foreststriders|r
+    >>AoE |cRXP_ENEMY_灰蓟熊s|r。掠夺他们的 |cRXP_LOOT_Grizzled Scalps|r
+    >>|cRXP_ENEMY_灰蓟熊|r 与 |cRXP_ENEMY_月夜猎者 Sires|r 和 |cRXP_ENEMY_Giant Foreststriders 共享产卵|r
     .complete 1003,1 --Grizzled Scalp (4)
-    .mob Grizzled Thistle Bear
+    .mob 灰蓟熊
     .use 13536
     .isOnQuest 950
 step
     #label Remtravel1
     .goto Darkshore,35.72,83.69
     >>Talk to |cRXP_FRIENDLY_Remtravel|r to start the escort
-    .turnin 729 >> Turn in The Absent Minded Prospector
-    .accept 731 >> Accept The Absent Minded Prospector
+    .turnin 729 >>交任务: |cRXP_FRIENDLY_健忘的勘察员|r
+    .accept 731 >>接任务: |cRXP_LOOT_健忘的勘察员|r
     .target Prospector Remtravel
     .use 13536
     .isOnQuest 950
@@ -6518,9 +6465,9 @@ step
     .goto Darkshore,35.35,84.72,40,0
     .goto Darkshore,35.72,83.69,40,0
     .goto Darkshore,31.28,87.39
-    >>Escort |cRXP_FRIENDLY_Remtravel|r
-    >>When the |cRXP_ENEMY_Gravelflint Bonesnapper|r and |cRXP_ENEMY_Gravelflint Geomancer|r spawn, let the |cRXP_ENEMY_Gravelflint Geomancer|r cast |T135812:0|t[Fireball] on |cRXP_FRIENDLY_Remtravel|r, then cast |T136071:0|t[Polymorph] on it. Kill the |cRXP_ENEMY_Gravelflint Bonesnapper|r and then the |cRXP_ENEMY_Gravelflint Geomancer|r
-    .complete 731,1 --Escort Prospector Remtravel (1)
+    >>护送 |cRXP_FRIENDLY_Remtravel|r
+    >>当 |cRXP_ENEMY_Gravelflint Bonesnapper|r 和 |cRXP_ENEMY_Gravelflint Geomancer|r 出现时，让 |cRXP_ENEMY_Gravelflint Geomancer|r 对 |cRXP_FRIENDLY_Remtravel|r 施放 |T135812:0|t[Fireball]，然后对其施放 |T136071:0|t[Polymorph]。杀死 |cRXP_ENEMY_Gravelflint Bonesnapper|r，然后杀死 |cRXP_ENEMY_Gravelflint Geomancer|r
+    .complete 731,1 --护送勘探者 Remtravel (1)
     .target Prospector Remtravel
     .mob Gravelflint Geomancer
     .mob Gravelflint Bonesnapper
@@ -6528,76 +6475,76 @@ step
     .isOnQuest 950
 step
     #completewith SeaC
-    >>AoE |cRXP_ENEMY_Moonstalker Sires|r. Loot them for their |cRXP_LOOT_Fine Moonstalker Pelts|r
-    >>|cRXP_ENEMY_Moonstalker Sires|r share spawns with |cRXP_ENEMY_Grizzled Thistle Bears|r and |cRXP_ENEMY_Giant Foreststriders|r
-    .complete 986,1 --Fine Moonstalker Pelt (5)
-    .mob Moonstalker Sire
+    >>AoE |cRXP_ENEMY_月夜猎者 Sires|r。掠夺他们的 |cRXP_LOOT_Fine 月夜猎者 Pelts|r
+    >>|cRXP_ENEMY_月夜猎者 Sires|r 与 |cRXP_ENEMY_灰蓟熊s|r 和 |cRXP_ENEMY_Giant Foreststriders 共享产卵|r
+    .complete 986,1 --Fine 月夜猎者 Pelt (5)
+    .mob 月夜猎者 Sire
     .use 13536
     .isOnQuest 950
 step
     #completewith SeaC
-    >>AoE |cRXP_ENEMY_Grizzled Thistle Bears|r. Loot them for their |cRXP_LOOT_Grizzled Scalps|r
-    >>|cRXP_ENEMY_Grizzled Thistle Bears|r share spawns with |cRXP_ENEMY_Moonstalker Sires|r and |cRXP_ENEMY_Giant Foreststriders|r
+    >>AoE |cRXP_ENEMY_灰蓟熊s|r。掠夺他们的 |cRXP_LOOT_Grizzled Scalps|r
+    >>|cRXP_ENEMY_灰蓟熊|r 与 |cRXP_ENEMY_月夜猎者 Sires|r 和 |cRXP_ENEMY_Giant Foreststriders 共享产卵|r
     .complete 1003,1 --Grizzled Scalp (4)
-    .mob Grizzled Thistle Bear
+    .mob 灰蓟熊
     .use 13536
     .isOnQuest 950
 step
     #completewith next
-    +Don't re-awaken |cRXP_FRIENDLY_Kerlonian|r from now on
-    >>Keep an eye out for |cRXP_ENEMY_Strider Clutchmother|r
+    +从现在起不要重新唤醒 |cRXP_FRIENDLY_Kerlonian|r
+    >>留意 |cRXP_ENEMY_Strider Clutchmother|r
     .unitscan Strider Clutchmother
     .isOnQuest 950
 step
     #label SeaC
     .goto Darkshore,31.28,87.39
-    >>Loot the |cRXP_LOOT_Beached Sea Creature|r on the ground
-    >>|cRXP_WARN_Loot it at the Neck|r
-    >>|cRXP_WARN_This has a 5 second cast time|r
-    .accept 4733 >>Accept Beached Sea Creature
+    >>掠夺地面上的 |cRXP_LOOT_Beached Sea Creature|r
+    >>|cRXP_WARN_抢夺脖子上的钱|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
+    .accept 4733 >>接任务: |cRXP_LOOT_搁浅的海洋生物|r
     .isOnQuest 950
 step
     #completewith next
-    .abandon 5321 >> Abandon The Sleeper has Awakened
+    .abandon 5321 >>抛弃沉睡者已苏醒
     .isOnQuest 950
 step
     .goto Darkshore,31.22,85.56
-    >>Loot the |cRXP_LOOT_Beached Sea Turtle|r on the ground
-    >>|cRXP_WARN_The Turtle Shell has LoS|r
-    >>|cRXP_WARN_This has a 5 second cast time|r
-    .accept 4732 >>Accept Beached Sea Turtle
+    >>拾取地面上的 |cRXP_LOOT_Beached Sea Turtle|r
+    >>|cRXP_WARN_龟壳有视线|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
+    .accept 4732 >>接任务: |cRXP_LOOT_搁浅的海龟|r
     .isOnQuest 950
 step
     #completewith SeaCreature
-    >>AoE |cRXP_ENEMY_Encrusted Tide Crawlers|r. Loot them for their |cRXP_LOOT_Fine Crab Chunks|r
+    >>AoE |cRXP_ENEMY_Encrusted Tide Crawlers|r. 掠夺他们的 |cRXP_LOOT_Fine Crab Chunks|r
    .complete 1138,1 --Fine Crab Chunks (6)
    .mob Encrusted Tide Crawler
    .isOnQuest 950
 step
     .goto Darkshore,31.70,83.72
-    >>Loot the |cRXP_LOOT_Beached Sea Turtle|r on the ground
-    >>|cRXP_WARN_The Turtle Shell has LoS|r
-    >>|cRXP_WARN_This has a 5 second cast time|r
-    .accept 4731 >>Accept Beached Sea Turtle
+    >>拾取地面上的 |cRXP_LOOT_Beached Sea Turtle|r
+    >>|cRXP_WARN_龟壳有视线|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
+    .accept 4731 >>接任务: |cRXP_LOOT_搁浅的海龟|r
     .isOnQuest 950
 step
     #label SeaCreature
     .goto Darkshore,32.70,80.73
-    >>Loot the |cRXP_LOOT_Beached Sea Creature|r on the ground
-    >>|cRXP_WARN_This has a 5 second cast time|r
-    .accept 4730 >>Accept Beached Sea Creature
+    >>掠夺地面上的 |cRXP_LOOT_Beached Sea Creature|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
+    .accept 4730 >>接任务: |cRXP_LOOT_搁浅的海洋生物|r
     .isOnQuest 950
 step
     #completewith next
-    >>AoE |cRXP_ENEMY_Reef Crawlers|r. Loot them for their |cRXP_LOOT_Fine Crab Chunks|r
+    >>AoE |cRXP_ENEMY_Reef Crawlers|r. 掠夺他们的 |cRXP_LOOT_Fine Crab Chunks|r
    .complete 1138,1 --Fine Crab Chunks (6)
    .mob Reef Crawler
    .isOnQuest 950
 step
    .goto Darkshore,36.52,76.55
-   >>Clear the Murloc Camp without moving to the center of the camp
-   >>Once you clear everything, move to the center of the camp to summon 3 waves (3 Coastrunners, 2 Warriors, Murkdeep and a Hunter)
-   >>|cRXP_WARN_If you're lucky, |cRXP_ENEMY_Murkdeep|r might already be up about 30 yards off the shore to the west (if someone died on him before)|r
+   >>无需移动到营地中心即可清理鱼人营地
+   >>清除所有敌人后，移至营地中心召唤 3 波敌人（3 个 Coastrunners、2 个 Warriors、Murkdeep 和 1 个 Hunter）
+   >>|cRXP_WARN_如果你够幸运的话，|cRXP_ENEMY_Murkdeep|r 可能已经到达西边海岸 30 码处了（如果之前有人死了的话）|r
    .complete 4740,1 --Murkdeep (1)
    .unitscan Murkdeep
    .isOnQuest 950
@@ -6607,15 +6554,15 @@ step
     .goto Darkshore,36.01,73.48,60,0
     .goto Darkshore,35.02,72.20,60,0
     .goto Darkshore,35.42,71.52,60,0
-    >>AoE |cRXP_ENEMY_Reef Crawlers|r. Loot them for their |cRXP_LOOT_Fine Crab Chunks|r
+    >>AoE |cRXP_ENEMY_Reef Crawlers|r. 掠夺他们的 |cRXP_LOOT_Fine Crab Chunks|r
     .complete 1138,1 --Fine Crab Chunks (6)
     .mob Reef Crawler
     .isOnQuest 950
 step
     .goto Darkshore,35.97,70.90
-    >>Loot the |cRXP_LOOT_Beached Sea Creature|r on the ground
-    >>|cRXP_WARN_This has a 5 second cast time|r
-    .accept 4728 >>Accept Beached Sea Creature
+    >>掠夺地面上的 |cRXP_LOOT_Beached Sea Creature|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
+    .accept 4728 >>接任务: |cRXP_LOOT_搁浅的海洋生物|r
     .isOnQuest 950
 step
     .goto Darkshore,35.42,71.52,60,0
@@ -6625,51 +6572,51 @@ step
     .goto Darkshore,35.61,78.13,60,0
     .goto Darkshore,35.27,79.57,60,0
     .goto Darkshore,34.18,80.71
-    >>AoE |cRXP_ENEMY_Reef Crawlers|r. Loot them for their |cRXP_LOOT_Fine Crab Chunks|r
+    >>AoE |cRXP_ENEMY_Reef Crawlers|r. 掠夺他们的 |cRXP_LOOT_Fine Crab Chunks|r
     .complete 1138,1 --Fine Crab Chunks (6)
     .mob Reef Crawler
     .isOnQuest 950
 step
     #completewith SeaCreatureGiga
-    >>AoE |cRXP_ENEMY_Moonstalker Sires|r. Loot them for their |cRXP_LOOT_Fine Moonstalker Pelts|r
-    >>|cRXP_ENEMY_Moonstalker Sires|r share spawns with |cRXP_ENEMY_Grizzled Thistle Bears|r and |cRXP_ENEMY_Giant Foreststriders|r
-    .complete 986,1 --Fine Moonstalker Pelt (5)
-    .mob Moonstalker Sire
+    >>AoE |cRXP_ENEMY_月夜猎者 Sires|r。掠夺他们的 |cRXP_LOOT_Fine 月夜猎者 Pelts|r
+    >>|cRXP_ENEMY_月夜猎者 Sires|r 与 |cRXP_ENEMY_灰蓟熊s|r 和 |cRXP_ENEMY_Giant Foreststriders 共享产卵|r
+    .complete 986,1 --Fine 月夜猎者 Pelt (5)
+    .mob 月夜猎者 Sire
     .use 13536
 step
     #completewith SeaCreatureGiga
-    >>AoE |cRXP_ENEMY_Grizzled Thistle Bears|r. Loot them for their |cRXP_LOOT_Grizzled Scalps|r
-    >>|cRXP_ENEMY_Grizzled Thistle Bears|r share spawns with |cRXP_ENEMY_Moonstalker Sires|r and |cRXP_ENEMY_Giant Foreststriders|r
+    >>AoE |cRXP_ENEMY_灰蓟熊s|r。掠夺他们的 |cRXP_LOOT_Grizzled Scalps|r
+    >>|cRXP_ENEMY_灰蓟熊|r 与 |cRXP_ENEMY_月夜猎者 Sires|r 和 |cRXP_ENEMY_Giant Foreststriders 共享产卵|r
     .complete 1003,1 --Grizzled Scalp (4)
-    .mob Grizzled Thistle Bear
+    .mob 灰蓟熊
     .use 13536
 step
     #label Onu2
     .goto Darkshore,43.55,76.29
-    >>Talk to |cRXP_FRIENDLY_Onu|r
-    .turnin 950 >> Turn in Return to Onu
+    >>对话: |cRXP_FRIENDLY_安努|r
+    .turnin 950 >>交任务: |cRXP_FRIENDLY_向安努回复|r
     .target Onu
     .isQuestComplete 950
 step
     #label SeaCreatureGiga
     .goto Darkshore,35.97,70.90
-    >>Loot the |cRXP_LOOT_Beached Sea Creature|r on the ground
-    >>|cRXP_WARN_This has a 5 second cast time|r
-    .accept 4728 >>Accept Beached Sea Creature
+    >>掠夺地面上的 |cRXP_LOOT_Beached Sea Creature|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
+    .accept 4728 >>接任务: |cRXP_LOOT_搁浅的海洋生物|r
 step
     #completewith next
     .goto Darkshore,35.42,71.52,60,0
     .goto Darkshore,35.02,72.20,60,0
     .goto Darkshore,36.01,73.48,60,0
     .goto Darkshore,35.96,75.22,60,0
-    >>AoE |cRXP_ENEMY_Reef Crawlers|r. Loot them for their |cRXP_LOOT_Fine Crab Chunks|r
+    >>AoE |cRXP_ENEMY_Reef Crawlers|r. 掠夺他们的 |cRXP_LOOT_Fine Crab Chunks|r
     .complete 1138,1 --Fine Crab Chunks (6)
     .mob Reef Crawler
 step
     .goto Darkshore,36.52,76.55
-    >>Clear the Murloc Camp without moving to the center of the camp
-    >>Once you clear everything, move to the center of the camp to summon 3 waves (3 Coastrunners, 2 Warriors, Murkdeep and a Hunter)
-    >>|cRXP_WARN_If you're lucky, |cRXP_ENEMY_Murkdeep|r might already be up about 30 yards off the shore to the west (if someone died on him before)|r
+    >>无需移动到营地中心即可清理鱼人营地
+    >>清除所有敌人后，移至营地中心召唤 3 波敌人（3 个 Coastrunners、2 个 Warriors、Murkdeep 和 1 个 Hunter）
+    >>|cRXP_WARN_如果你够幸运的话，|cRXP_ENEMY_Murkdeep|r 可能已经到达西边海岸 30 码处了（如果之前有人死了的话）|r
     .complete 4740,1 --Murkdeep (1)
     .unitscan Murkdeep
 step
@@ -6677,63 +6624,63 @@ step
     .goto Darkshore,35.61,78.13,60,0
     .goto Darkshore,35.27,79.57,60,0
     .goto Darkshore,34.18,80.71,60,0
-    >>AoE |cRXP_ENEMY_Reef Crawlers|r. Loot them for their |cRXP_LOOT_Fine Crab Chunks|r
+    >>AoE |cRXP_ENEMY_Reef Crawlers|r. 掠夺他们的 |cRXP_LOOT_Fine Crab Chunks|r
     .complete 1138,1 --Fine Crab Chunks (6)
     .mob Reef Crawler
 step
     .goto Darkshore,32.70,80.73
-    >>Loot the |cRXP_LOOT_Beached Sea Creature|r on the ground
-    >>|cRXP_WARN_This has a 5 second cast time|r
-    .accept 4730 >>Accept Beached Sea Creature
+    >>掠夺地面上的 |cRXP_LOOT_Beached Sea Creature|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
+    .accept 4730 >>接任务: |cRXP_LOOT_搁浅的海洋生物|r
 step
     .goto Darkshore,32.80,81.72,60,0
     .goto Darkshore,32.08,83.28
-    >>AoE |cRXP_ENEMY_Encrusted Tide Crawlers|r. Loot them for their |cRXP_LOOT_Fine Crab Chunks|r
+    >>AoE |cRXP_ENEMY_Encrusted Tide Crawlers|r. 掠夺他们的 |cRXP_LOOT_Fine Crab Chunks|r
     .complete 1138,1 --Fine Crab Chunks (6)
     .mob Encrusted Tide Crawler
 step
     .goto Darkshore,31.70,83.72
-    >>Loot the |cRXP_LOOT_Beached Sea Turtle|r on the ground
-    >>|cRXP_WARN_The Turtle Shell has LoS|r
-    >>|cRXP_WARN_This has a 5 second cast time|r
-    .accept 4731 >>Accept Beached Sea Turtle
+    >>拾取地面上的 |cRXP_LOOT_Beached Sea Turtle|r
+    >>|cRXP_WARN_龟壳有视线|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
+    .accept 4731 >>接任务: |cRXP_LOOT_搁浅的海龟|r
 step
     .goto Darkshore,31.22,85.56
-    >>Loot the |cRXP_LOOT_Beached Sea Turtle|r on the ground
-    >>|cRXP_WARN_The Turtle Shell has LoS|r
-    >>|cRXP_WARN_This has a 5 second cast time|r
-    .accept 4732 >>Accept Beached Sea Turtle
+    >>拾取地面上的 |cRXP_LOOT_Beached Sea Turtle|r
+    >>|cRXP_WARN_龟壳有视线|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
+    .accept 4732 >>接任务: |cRXP_LOOT_搁浅的海龟|r
 step
     .goto Darkshore,31.28,87.39
-    >>Loot the |cRXP_LOOT_Beached Sea Creature|r on the ground
-    >>|cRXP_WARN_Loot it at the Neck|r
-    >>|cRXP_WARN_This has a 5 second cast time|r
-    .accept 4733 >>Accept Beached Sea Creature
+    >>掠夺地面上的 |cRXP_LOOT_Beached Sea Creature|r
+    >>|cRXP_WARN_抢夺脖子上的钱|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
+    .accept 4733 >>接任务: |cRXP_LOOT_搁浅的海洋生物|r
 step
     #completewith Remtravel3
-    >>AoE |cRXP_ENEMY_Moonstalker Sires|r. Loot them for their |cRXP_LOOT_Fine Moonstalker Pelts|r
-    >>|cRXP_ENEMY_Moonstalker Sires|r share spawns with |cRXP_ENEMY_Grizzled Thistle Bears|r and |cRXP_ENEMY_Giant Foreststriders|r
-    .complete 986,1 --Fine Moonstalker Pelt (5)
-    .mob Moonstalker Sire
+    >>AoE |cRXP_ENEMY_月夜猎者 Sires|r。掠夺他们的 |cRXP_LOOT_Fine 月夜猎者 Pelts|r
+    >>|cRXP_ENEMY_月夜猎者 Sires|r 与 |cRXP_ENEMY_灰蓟熊s|r 和 |cRXP_ENEMY_Giant Foreststriders 共享产卵|r
+    .complete 986,1 --Fine 月夜猎者 Pelt (5)
+    .mob 月夜猎者 Sire
     .use 13536
 step
     #completewith Remtravel3
-    >>AoE |cRXP_ENEMY_Grizzled Thistle Bears|r. Loot them for their |cRXP_LOOT_Grizzled Scalps|r
-    >>|cRXP_ENEMY_Grizzled Thistle Bears|r share spawns with |cRXP_ENEMY_Moonstalker Sires|r and |cRXP_ENEMY_Giant Foreststriders|r
+    >>AoE |cRXP_ENEMY_灰蓟熊s|r。掠夺他们的 |cRXP_LOOT_Grizzled Scalps|r
+    >>|cRXP_ENEMY_灰蓟熊|r 与 |cRXP_ENEMY_月夜猎者 Sires|r 和 |cRXP_ENEMY_Giant Foreststriders 共享产卵|r
     .complete 1003,1 --Grizzled Scalp (4)
-    .mob Grizzled Thistle Bear
+    .mob 灰蓟熊
     .use 13536
 step
     #completewith next
-    +Don't re-awaken |cRXP_FRIENDLY_Kerlonian|r from now on
-    >>Keep an eye out for |cRXP_ENEMY_Strider Clutchmother|r
+    +从现在起不要重新唤醒 |cRXP_FRIENDLY_Kerlonian|r
+    >>留意 |cRXP_ENEMY_Strider Clutchmother|r
     .unitscan Strider Clutchmother
  step
     #label Remtravel3
     .goto Darkshore,35.72,83.69
     >>Talk to |cRXP_FRIENDLY_Remtravel|r to start the escort
-    .turnin 729 >> Turn in The Absent Minded Prospector
-    .accept 731 >> Accept The Absent Minded Prospector
+    .turnin 729 >>交任务: |cRXP_FRIENDLY_健忘的勘察员|r
+    .accept 731 >>接任务: |cRXP_LOOT_健忘的勘察员|r
     .target Prospector Remtravel
 step
     .goto Darkshore,35.35,84.72,40,0
@@ -6741,122 +6688,122 @@ step
     .goto Darkshore,35.35,84.72,40,0
     .goto Darkshore,35.72,83.69,40,0
     .goto Darkshore,38.65,87.34
-    >>Escort |cRXP_FRIENDLY_Remtravel|r
-    >>When the |cRXP_ENEMY_Gravelflint Bonesnapper|r and |cRXP_ENEMY_Gravelflint Geomancer|r spawn, let the |cRXP_ENEMY_Gravelflint Geomancer|r cast |T135812:0|t[Fireball] on |cRXP_FRIENDLY_Remtravel|r, then cast |T136071:0|t[Polymorph] on it. Kill the |cRXP_ENEMY_Gravelflint Bonesnapper|r and then the |cRXP_ENEMY_Gravelflint Geomancer|r
-    .complete 731,1 --Escort Prospector Remtravel (1)
+    >>护送 |cRXP_FRIENDLY_Remtravel|r
+    >>当 |cRXP_ENEMY_Gravelflint Bonesnapper|r 和 |cRXP_ENEMY_Gravelflint Geomancer|r 出现时，让 |cRXP_ENEMY_Gravelflint Geomancer|r 对 |cRXP_FRIENDLY_Remtravel|r 施放 |T135812:0|t[Fireball]，然后对其施放 |T136071:0|t[Polymorph]。杀死 |cRXP_ENEMY_Gravelflint Bonesnapper|r，然后杀死 |cRXP_ENEMY_Gravelflint Geomancer|r
+    .complete 731,1 --护送勘探者 Remtravel (1)
     .target Prospector Remtravel
     .mob Gravelflint Geomancer
     .mob Gravelflint Bonesnapper
 step
     #completewith Glaive2
-    >>AoE |cRXP_ENEMY_Moonstalker Sires|r. Loot them for their |cRXP_LOOT_Fine Moonstalker Pelts|r
-    >>|cRXP_ENEMY_Moonstalker Sires|r share spawns with |cRXP_ENEMY_Grizzled Thistle Bears|r and |cRXP_ENEMY_Giant Foreststriders|r
-    .complete 986,1 --Fine Moonstalker Pelt (5)
-    .mob Moonstalker Sire
+    >>AoE |cRXP_ENEMY_月夜猎者 Sires|r。掠夺他们的 |cRXP_LOOT_Fine 月夜猎者 Pelts|r
+    >>|cRXP_ENEMY_月夜猎者 Sires|r 与 |cRXP_ENEMY_灰蓟熊s|r 和 |cRXP_ENEMY_Giant Foreststriders 共享产卵|r
+    .complete 986,1 --Fine 月夜猎者 Pelt (5)
+    .mob 月夜猎者 Sire
 step
     #completewith next
-    >>AoE |cRXP_ENEMY_Grizzled Thistle Bears|r. Loot them for their |cRXP_LOOT_Grizzled Scalps|r
-    >>|cRXP_ENEMY_Grizzled Thistle Bears|r share spawns with |cRXP_ENEMY_Moonstalker Sires|r and |cRXP_ENEMY_Giant Foreststriders|r
+    >>AoE |cRXP_ENEMY_灰蓟熊s|r。掠夺他们的 |cRXP_LOOT_Grizzled Scalps|r
+    >>|cRXP_ENEMY_灰蓟熊|r 与 |cRXP_ENEMY_月夜猎者 Sires|r 和 |cRXP_ENEMY_Giant Foreststriders 共享产卵|r
     .complete 1003,1 --Grizzled Scalp (4)
-    .mob Grizzled Thistle Bear
+    .mob 灰蓟熊
 step
     #label Glaive2
    .goto Darkshore,38.65,87.34
-    >>Travel to The Master's Glaive
+    >>前往主宰者之刃
    .complete 944,1 --Enter the Master's Glaive (1)
 step
     #completewith Therylune2
-    >>AoE |cRXP_ENEMY_Twilight Disciples|r and |cRXP_ENEMY_Twilight Thugs|r. Loot them for the |T133743:0|t[|cRXP_LOOT_Book: The Powers Below|r]
-    >>|cRXP_WARN_Use the |T133743:0|t[|cRXP_LOOT_Book: The Powers Below|r] to start the quest|r
+    >>AoE |cRXP_ENEMY_Twilight Disciples|r 和 |cRXP_ENEMY_Twilight Thugs|r。从他们身上搜刮 |T133743:0|t[|cRXP_LOOT_Book: The Powers Below|r]
+    >>|cRXP_WARN_使用 |T133743:0|t[|cRXP_LOOT_Book: The Powers Below|r] 开始任务|r
     .collect 5352,1,968,1 --Book: The Powers Below (1)
-    .accept 968 >> Accept The Powers Below
+    .accept 968 >>接任务: |cRXP_LOOT_深渊之神|r
     .mob Twilight Disciple
     .mob Twilight Thug
 step
     #completewith next
     .goto Darkshore,38.65,87.34
-    >>Place the |T134715:0|t[Phial of Scrying] on the ground
-    >>|cRXP_WARN_This has a 5 second cast time|r
-    >>Click the |cRXP_PICK_Phial of Scrying|r on the ground
-    .turnin 944 >> Turn in The Master's Glaive
-    .accept 949 >> Accept The Twilight Camp
+    >>将 |T134715:0|t[占卜之瓶] 放在地上
+    >>|cRXP_WARN_施法时间为 5 秒|r
+    >>点击地面上的 |cRXP_PICK_Phial of Scrying|r
+    .turnin 944 >>交任务: |cRXP_FRIENDLY_主宰之剑|r
+    .accept 949 >>接任务: |cRXP_LOOT_暮光之锤的营地|r
     .use 5251
 step
     .goto Darkshore,38.65,87.34
-    >>Talk to |cRXP_FRIENDLY_Therylune|r
-    >>|cRXP_WARN_If |cRXP_FRIENDLY_Therylune|r is not there, AoE |cRXP_ENEMY_Twilight Disciples|r and |cRXP_ENEMY_Twilight Thugs|r for |T133743:0|t[|cRXP_LOOT_Book: The Powers Below|r] until she's up|r
-    .accept 945 >> Accept Therylune's Escape
+    >>对话: |cRXP_FRIENDLY_瑟瑞露尼|r
+    >>|cRXP_WARN_如果 |cRXP_FRIENDLY_Therylune|r 不在，则对 |cRXP_ENEMY_Twilight Disciples|r 和 |cRXP_ENEMY_Twilight Thugs|r 进行 AoE，持续 |T133743:0|t[|cRXP_LOOT_Book: The Powers Below|r]，直到她醒来|r
+    .accept 945 >>接任务: |cRXP_LOOT_护送瑟瑞露尼|r
     .target Therylune
 step
     #completewith Tome2
-    >>Escort |cRXP_FRIENDLY_Therylune|r
-    .complete 945,1 --Escort Therylune away from the Master's Glaive (1)
+    >>护送 |cRXP_FRIENDLY_Therylune|r
+    .complete 945,1 --护卫 Therylune away from the Master's Glaive (1)
     .target Therylune
 step
     .goto Darkshore,38.55,86.03
-    >>Place the |T134715:0|t[Phial of Scrying] on the ground
-    >>|cRXP_WARN_This has a 5 second cast time|r
-    >>Click the |cRXP_PICK_Phial of Scrying|r on the ground
-    .turnin 944 >> Turn in The Master's Glaive
-    .accept 949 >> Accept The Twilight Camp
+    >>将 |T134715:0|t[占卜之瓶] 放在地上
+    >>|cRXP_WARN_施法时间为 5 秒|r
+    >>点击地面上的 |cRXP_PICK_Phial of Scrying|r
+    .turnin 944 >>交任务: |cRXP_FRIENDLY_主宰之剑|r
+    .accept 949 >>接任务: |cRXP_LOOT_暮光之锤的营地|r
     .use 5251
 step
     #label Tome2
     .goto Darkshore,38.55,86.03
-    >>Click the |cRXP_PICK_Twilight Tome|r
-    .turnin 949 >> Turn in The Twilight Camp
-    .accept 950 >> Accept Return to Onu
+    >>点击|cRXP_PICK_Twilight Tome|r
+    .turnin 949 >>交任务: |cRXP_FRIENDLY_暮光之锤的营地|r
+    .accept 950 >>接任务: |cRXP_LOOT_向安努回复|r
     .use 13536
 step
     #label Therylune2
-    >>Escort |cRXP_FRIENDLY_Therylune|r
-    >>|cRXP_WARN_Make sure |cRXP_FRIENDLY_Therylune|r stays in render range or you will fail the quest|r
-    .complete 945,1 --Escort Therylune away from the Master's Glaive (1)
+    >>护送 |cRXP_FRIENDLY_Therylune|r
+    >>|cRXP_WARN_确保 |cRXP_FRIENDLY_Therylune|r 保持在渲染范围内，否则你将失败任务|r
+    .complete 945,1 --护卫 Therylune away from the Master's Glaive (1)
     .use 13536
     .target Therylune
 step
     #completewith Onu3
-    >>AoE |cRXP_ENEMY_Moonstalker Sires|r. Loot them for their |cRXP_LOOT_Fine Moonstalker Pelts|r
-    >>|cRXP_ENEMY_Moonstalker Sires|r share spawns with |cRXP_ENEMY_Grizzled Thistle Bears|r and |cRXP_ENEMY_Giant Foreststriders|r
-    .complete 986,1 --Fine Moonstalker Pelt (5)
-    .mob Moonstalker Sire
+    >>AoE |cRXP_ENEMY_月夜猎者 Sires|r。掠夺他们的 |cRXP_LOOT_Fine 月夜猎者 Pelts|r
+    >>|cRXP_ENEMY_月夜猎者 Sires|r 与 |cRXP_ENEMY_灰蓟熊s|r 和 |cRXP_ENEMY_Giant Foreststriders 共享产卵|r
+    .complete 986,1 --Fine 月夜猎者 Pelt (5)
+    .mob 月夜猎者 Sire
 step
     #completewith Onu3
     #label Scalps2
-    >>AoE |cRXP_ENEMY_Grizzled Thistle Bears|r. Loot them for their |cRXP_LOOT_Grizzled Scalps|r
-    >>|cRXP_ENEMY_Grizzled Thistle Bears|r share spawns with |cRXP_ENEMY_Moonstalker Sires|r and |cRXP_ENEMY_Giant Foreststriders|r
+    >>AoE |cRXP_ENEMY_灰蓟熊s|r。掠夺他们的 |cRXP_LOOT_Grizzled Scalps|r
+    >>|cRXP_ENEMY_灰蓟熊|r 与 |cRXP_ENEMY_月夜猎者 Sires|r 和 |cRXP_ENEMY_Giant Foreststriders 共享产卵|r
     .complete 1003,1 --Grizzled Scalp (4)
-    .mob Grizzled Thistle Bear
+    .mob 灰蓟熊
 step
     #requires Scalps2
     #completewith next
     .goto Darkshore,41.40,80.56,-1
-    >>Click |cRXP_PICK_Buzzbox 525|r
-    .turnin 1003 >> Turn in Buzzbox 525
+    >>点击|cRXP_PICK_Buzzbox 525|r
+    .turnin 1003 >>交任务: |cRXP_FRIENDLY_传声盒525号|r
 step
     #label Onu3
     .goto Darkshore,43.55,76.29,-1
-    >>Talk to |cRXP_FRIENDLY_Onu|r
-    .turnin 950 >> Turn in Return to Onu
+    >>对话: |cRXP_FRIENDLY_安努|r
+    .turnin 950 >>交任务: |cRXP_FRIENDLY_向安努回复|r
     .target Onu
 step
     .goto Darkshore,44.40,76.42
-    >>Talk to |cRXP_FRIENDLY_Kerlonian|r
-    >>|cRXP_WARN_If |cRXP_FRIENDLY_Kerlonian|r is not there, skip this step|r
-    .accept 5321 >>Accept The Sleeper Has Awakened
+    >>对话: |cRXP_FRIENDLY_克罗尼亚·恒影|r
+    >>|cRXP_WARN_如果|cRXP_FRIENDLY_Kerlonian|r不存在，则跳过此步骤|r
+    .accept 5321 >>接任务: |cRXP_LOOT_昏昏欲睡|r
     .target Kerlonian Evershade
 step
     .goto Darkshore,44.39,76.30
-    >>Open |cRXP_PICK_Kerlonian's Chest|r. Loot it for the |cRXP_LOOT_Horn of Awakening|r
-    >>|cRXP_WARN_This has a 5 second cast time|r
+    >>打开 |cRXP_PICK_Kerlonian 的宝箱|r。拾取其中的 |cRXP_LOOT_觉醒之号角|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
     .complete 5321,1 --Horn of Awakening (1)
     .isOnQuest 5321
 step
     #completewith 525
-    >>AoE |cRXP_ENEMY_Moonstalker Sires|r. Loot them for their |cRXP_LOOT_Fine Moonstalker Pelts|r
-    >>|cRXP_ENEMY_Moonstalker Sires|r share spawns with |cRXP_ENEMY_Grizzled Thistle Bears|r and |cRXP_ENEMY_Giant Foreststriders|r
-    .complete 986,1 --Fine Moonstalker Pelt (5)
-    .mob Moonstalker Sire
+    >>AoE |cRXP_ENEMY_月夜猎者 Sires|r。掠夺他们的 |cRXP_LOOT_Fine 月夜猎者 Pelts|r
+    >>|cRXP_ENEMY_月夜猎者 Sires|r 与 |cRXP_ENEMY_灰蓟熊s|r 和 |cRXP_ENEMY_Giant Foreststriders 共享产卵|r
+    .complete 986,1 --Fine 月夜猎者 Pelt (5)
+    .mob 月夜猎者 Sire
 step
     .goto Darkshore,43.94,80.14,60,0
     .goto Darkshore,43.09,81.72,60,0
@@ -6872,17 +6819,15 @@ step
     .goto Darkshore,38.70,82.44,60,0
     .goto Darkshore,38.13,79.75,60,0
     .goto Darkshore,40.52,80.57
-    >>AoE |cRXP_ENEMY_Grizzled Thistle Bears|r. Loot them for their |cRXP_LOOT_Grizzled Scalps|r
-    >>|cRXP_ENEMY_Grizzled Thistle Bears|r share spawns with |cRXP_ENEMY_Moonstalker Sires|r and |cRXP_ENEMY_Giant Foreststriders|r
+    >>AoE |cRXP_ENEMY_灰蓟熊s|r。掠夺他们的 |cRXP_LOOT_Grizzled Scalps|r
+    >>|cRXP_ENEMY_灰蓟熊|r 与 |cRXP_ENEMY_月夜猎者 Sires|r 和 |cRXP_ENEMY_Giant Foreststriders 共享产卵|r
     .complete 1003,1 --Grizzled Scalp (4)
-    .mob Grizzled Thistle Bear
-    .use 13536
+    .mob 灰蓟熊
 step
     #label 525
     .goto Darkshore,41.40,80.56
-    >>Click |cRXP_PICK_Buzzbox 525|r
-    .turnin 1003 >> Turn in Buzzbox 525
-    .use 13536
+    >>点击|cRXP_PICK_Buzzbox 525|r
+    .turnin 1003 >>交任务: |cRXP_FRIENDLY_传声盒525号|r
 step
     .goto Darkshore,41.10,84.17,70,0
     .goto Darkshore,40.38,90.49,70,0
@@ -6898,123 +6843,121 @@ step
     .goto Darkshore,42.76,90.70,70,0
     .goto Darkshore,41.77,87.88,70,0
     .goto Darkshore,44.57,93.03
-    >>AoE |cRXP_ENEMY_Moonstalker Matriarchs|r and |cRXP_ENEMY_Moonstalker Sires|r. Loot them for their |cRXP_LOOT_Fine Moonstalker Pelts|r
-    >>|cRXP_ENEMY_Moonstalker Sires|r share spawns with |cRXP_ENEMY_Grizzled Thistle Bears|r and |cRXP_ENEMY_Giant Foreststriders|r
-    .complete 986,1 --Fine Moonstalker Pelt (5)
-    .unitscan Moonstalker Sire
-    .unitscan Moonstalker Matriarch
-    .use 13536
+    >>范围 |cRXP_ENEMY_月夜猎者 Matriarchs|r 和 |cRXP_ENEMY_月夜猎者 Sires|r。掠夺他们的 |cRXP_LOOT_Fine 月夜猎者 Pelts|r
+    >>|cRXP_ENEMY_月夜猎者 Sires|r 与 |cRXP_ENEMY_灰蓟熊s|r 和 |cRXP_ENEMY_Giant Foreststriders 共享产卵|r
+    .complete 986,1 --Fine 月夜猎者 Pelt (5)
+    .unitscan 月夜猎者 Sire
+    .unitscan 月夜猎者 Matriarch
 step
     #completewith Sleeper
-    .xp 19+4635 >> Grind to 4635+/21300xp
+    .xp 19+4635 >>升级至 4635+/21300xp
     .isOnQuest 5321
 step
     #completewith Delgren
-    >>AoE |cRXP_ENEMY_Ghostpaw Runners|r. Loot them for their |cRXP_LOOT_Lean Wolf Flanks|r
+    >>AoE |cRXP_ENEMY_Ghostpaw Runners|r. 掠夺他们的 |cRXP_LOOT_Lean Wolf Flanks|r
     .collect 1015,10,90,1 --Lean Wolf Flank (10)
     .mob Ghostpaw Runner
 step
     #label Sleeper
     .goto Ashenvale,27.26,35.58
-    >>Talk to |cRXP_FRIENDLY_Liladris|r
-    .turnin 5321,1 >>Turn in The Sleeper Has Awakened
+    >>对话: |cRXP_FRIENDLY_利拉迪斯·月河|r
+    .turnin 5321,1 >>交任务: |cRXP_FRIENDLY_昏昏欲睡|r
     .target Liladris Moonriver
-    .use 13536
     .isOnQuest 5321
 step
     #label Delgren
     .goto Ashenvale,26.19,38.70
     >>Talk to |cRXP_FRIENDLY_Delgren|r
-    .turnin 967 >>Turn in The Tower of Althalaxx
+    .turnin 967 >>交任务: |cRXP_FRIENDLY_奥萨拉克斯之塔|r
     .target Delgren the Purifier
 step
     .goto Ashenvale,22.64,51.91
-    >>Talk to |cRXP_FRIENDLY_Therysil|r
-    .turnin 945 >>Turn in Therylune's Escape
+    >>对话: |cRXP_FRIENDLY_瑟瑞希尔|r
+    .turnin 945 >>交任务: |cRXP_FRIENDLY_护送瑟瑞露尼|r
     .target Therysil
 step
     .goto Ashenvale,34.41,47.99
-    .xp 19+8720 >> Grind to 8720+/21300xp
+    .xp 19+8720 >>升级至 8720+/21300xp
 step << skip
     #completewith next
-    +|cRXP_WARN_Start spam casting|r |T132794:0|t[Conjure Water r2] |cRXP_WARN_to conjure as much water as possible before taking the flight|r
+    +|cRXP_WARN_开始垃圾邮件投放|r |T132794:0|t[召唤水 r2] |cRXP_WARN_在飞行前召唤尽可能多的水|r
 step
     #completewith next
     .goto Ashenvale,34.41,47.99
-    >>Talk to |cRXP_FRIENDLY_Daelyshia|r
-    .fly Auberdine >> Fly to Auberdine
+    >>对话: |cRXP_FRIENDLY_黛琳希亚|r
+    .fly Auberdine >>飞往 奥伯丁
     .target Daelyshia
 step
-    >>Talk to |cRXP_FRIENDLY_Gwennyth|r and |cRXP_FRIENDLY_Gubber|r
-    .turnin 4728 >>Turn in Beached Sea Creature
-    .turnin 4730 >>Turn in Beached Sea Creature
-    .turnin 4731 >>Turn in Beached Sea Turtle
-    .turnin 4732 >>Turn in Beached Sea Turtle
-    .turnin 4733 >>Turn in Beached Sea Creature
-    .target +Gwennyth Bly'Leggonde
+    >>对话: |cRXP_FRIENDLY_温尼斯·布莱葛|r, |cRXP_FRIENDLY_古博·布拉普|r
+    .turnin 4728 >>交任务: |cRXP_FRIENDLY_搁浅的海洋生物|r
+    .turnin 4730 >>交任务: |cRXP_FRIENDLY_搁浅的海洋生物|r
+    .turnin 4731 >>交任务: |cRXP_FRIENDLY_搁浅的海龟|r
+    .turnin 4732 >>交任务: |cRXP_FRIENDLY_搁浅的海龟|r
+    .turnin 4733 >>交任务: |cRXP_FRIENDLY_搁浅的海洋生物|r
     .goto Darkshore,36.62,45.60
-    .turnin 1138,2 >>Turn in Fruit of the Sea
+    .turnin 1138,2 >>交任务: |cRXP_FRIENDLY_海中的水果|r
     .goto Darkshore,36.09,44.93
-    .target +Gubber Blump
+    .target Gwennyth Bly'Leggonde
+    .target Gubber Blump
 step
     .goto Darkshore,37.73,43.38
     >>Talk to |cRXP_FRIENDLY_Glynda|r
-    .turnin 4740 >>Turn in WANTED: Murkdeep!
+    .turnin 4740 >>交任务: |cRXP_FRIENDLY_通缉：莫克迪普！|r
     .target Sentinel Glynda Nal'Shea
 step
-    >>Talk to |cRXP_FRIENDLY_Terenthis|r and |cRXP_FRIENDLY_Gershala|r
-    .turnin 986 >>Turn in A Lost Master
-    --.accept 993 >>Accept A Lost Master
-    .target +Terenthis
+    >>对话: |cRXP_FRIENDLY_特伦希斯|r, |cRXP_FRIENDLY_戈沙拉·夜语|r
+    .turnin 986 >>交任务: |cRXP_FRIENDLY_丢失的主人|r
+    .accept 993 >>接任务: |cRXP_LOOT_丢失的主人|r
     .goto Darkshore,39.37,43.48
-    .turnin 3765 >> Turn in The Corruption Abroad
+    .turnin 3765 >>交任务: |cRXP_FRIENDLY_遥远的旅途|r
     .goto Darkshore,38.32,43.04
-    .target +Gershala Nightwhisper
+    .target Terenthis
+    .target Gershala Nightwhisper
 step
     .goto Darkshore,38.11,41.16
-    >>Talk to |cRXP_FRIENDLY_Gorbold|r
-    >>|cRXP_BUY_Buy 20|r |T134059:0|t[Mild Spices] |cRXP_BUY_from him|r
+    >>对话: |cRXP_FRIENDLY_高尔博德·钢手|r
+    >>|cRXP_BUY_从他那里购买 20|r |T134059:0|t[温和香料] |cRXP_BUY_|r
     .collect 2678,20,90,1 --Mild Spices (20)
     .target Gorbold Steelhand
     .itemcount 6889,20
     .skill cooking,50,1
 step
     .goto Darkshore,38.11,41.16
-    >>Talk to |cRXP_FRIENDLY_Gorbold|r
-    >>|cRXP_BUY_Buy 15|r |T134059:0|t[Mild Spices] |cRXP_BUY_from him|r
+    >>对话: |cRXP_FRIENDLY_高尔博德·钢手|r
+    >>|cRXP_BUY_从他那里购买 15|r |T134059:0|t[温和香料] |cRXP_BUY_|r
     .collect 2678,15,90,1 --Mild Spices (15)
     .target Gorbold Steelhand
     .itemcount 6889,15
     .skill cooking,50,1
 step
     .goto Darkshore,38.11,41.16
-    >>Talk to |cRXP_FRIENDLY_Gorbold|r
-    >>|cRXP_BUY_Buy 10|r |T134059:0|t[Mild Spices] |cRXP_BUY_from him|r
+    >>对话: |cRXP_FRIENDLY_高尔博德·钢手|r
+    >>|cRXP_BUY_从他那里购买 10|r |T134059:0|t[温和香料] |cRXP_BUY_|r
     .collect 2678,10,90,1 --Mild Spices (10)
     .target Gorbold Steelhand
     .itemcount 6889,10
     .skill cooking,50,1
 step
     .goto Darkshore,38.11,41.16
-    >>Talk to |cRXP_FRIENDLY_Gorbold|r
-    >>|cRXP_BUY_Buy 5|r |T134059:0|t[Mild Spices] |cRXP_BUY_from him|r
+    >>对话: |cRXP_FRIENDLY_高尔博德·钢手|r
+    >>|cRXP_BUY_从他那里购买 5|r |T134059:0|t[Mild Spices] |cRXP_BUY_|r
     .collect 2678,5,90,1 --Mild Spices (5)
     .target Gorbold Steelhand
     .itemcount 6889,5
     .skill cooking,50,1
 step
     .goto Darkshore,37.45,40.50
-    >>Talk to |cRXP_FRIENDLY_Dalmond|r
-    >>|cRXP_BUY_Buy a|r |T135435:0|t[Simple Wood] |cRXP_BUY_and|r |T135237:0|t[Flint and Tinder] |cRXP_BUY_from him|r
+    >>对话: |cRXP_FRIENDLY_达蒙德|r
+    >>|cRXP_BUY_从他那里购买|r |T135435:0|t[简易木材] |cRXP_BUY_和|r |T135237:0|t[燧石和火绒] |cRXP_BUY_|r
     .collect 4470,1,90,1 --Simple Wood (1)
     .collect 4471,1,90,1 --Flint and Tinder (1)
     .target Dalmond
     .skill cooking,50,1
 step
     .goto Darkshore,37.44,41.84
-    >>Talk to |cRXP_FRIENDLY_Hollee|r
-    .turnin 731 >> Turn in The Absent Minded Prospector
-    .accept 741 >> Accept The Absent Minded Prospector
+    >>对话: |cRXP_FRIENDLY_霍莉|r
+    .turnin 731 >>交任务: |cRXP_FRIENDLY_健忘的勘察员|r
+    .accept 741 >>接任务: |cRXP_LOOT_健忘的勘察员|r
     .target Archaeologist Hollee
 step
     #completewith Teldrassil
@@ -7023,113 +6966,112 @@ step
     .goto Darkshore,37.44,43.03,20,0
     .goto Darkshore,36.85,44.05,20,0
     .goto Darkshore,32.96,41.88,20,0
-    .goto Darkshore,33.23,39.91,50 >>Travel toward the Darnassus Boat
+    .goto Darkshore,33.23,39.91,50 >>前往达纳苏斯船
 step
     #completewith Teldrassil
     #requires BoatT
-    .cast 818 >> Cast |T135805:0|t[Basic Campfire] on the Boat (or Dock if the boat isn't visible yet)
-    >>|cRXP_WARN_This has a 5 second cast time|r
+    .cast 818 >>在船上施放 |T135805:0|t[Basic Campfire]（如果船还不可见，则在码头上施放）
+    >>|cRXP_WARN_施法时间为 5 秒|r
     .skill cooking,50,1
 step
     #completewith Teldrassil
     #requires BoatT
     #label BoarM
-    +Cook any |T133970:0|t|cRXP_LOOT_[Chunks of Boar Meat]|r into |T133974:0|t[Roasted Boar Meat]
+    +将任意 |T133970:0|t|cRXP_LOOT_[大块野猪肉]|r 烹制成 |T133974:0|t[烤野猪肉]
     .itemcount 769,1
     .skill cooking,50,1
 step
     #completewith next
     #requires BoarM
-    +|cRXP_WARN_Start spam casting|r |T132794:0|t[Conjure Water r2] |cRXP_WARN_to conjure as much water as possible|r
+    +|cRXP_WARN_开始垃圾邮件投放|r |T132794:0|t[召唤水 r2] |cRXP_WARN_召唤尽可能多的水|r
 step
     #label Teldrassil
-    .goto Teldrassil,54.91,96.25,100 >> Take the Boat to Teldrassil
+    .goto Teldrassil,54.91,96.25,100 >>乘船前往泰达希尔
 step
     #completewith next
     .goto Teldrassil,55.52,93.68,60,0
     .goto Teldrassil,56.80,92.90,40,0
     .goto Teldrassil,57.47,92.97,20,0
-    .goto Teldrassil,58.40,94.01,20 >>Travel toward |cRXP_FRIENDLY_Vesprystus|r
+    .goto Teldrassil,58.40,94.01,20 >>前往 |cRXP_FRIENDLY_Vesprystus|r
 step
     .goto Teldrassil,58.40,94.01
-    >>Talk to |cRXP_FRIENDLY_Vesprystus|r
-    .fp Rut'theran >> Get the Rut'theran Village flight path
+    >>对话: |cRXP_FRIENDLY_维斯派塔斯|r
+    .fp Rut'theran >>获取鲁瑟兰村飞行路线
     .target Vesprystus
 step
     #completewith next
     .goto 1438,55.885,89.350
-    .zone Darnassus >> Go through the purple portal into Darnassus
+    .zone Darnassus >>前往: |cRXP_PICK_达纳苏斯|r
 step
     #completewith next
     .goto Darnassus,37.94,48.14,30,0
     .goto Darnassus,38.20,65.96,30,0
     .goto Darnassus,36.79,72.44,30,0
-    .goto Darnassus,31.24,84.49,20 >>Travel toward |cRXP_FRIENDLY_Greywhisker|r
+    .goto Darnassus,31.24,84.49,20 >>前往 |cRXP_FRIENDLY_Greywhisker|r
 step
     .goto Darnassus,31.24,84.49
-    >>Talk to |cRXP_FRIENDLY_Greywhisker|r
-    .turnin 741,3 >>Turn in The Absent Minded Prospector
-    .accept 942 >>Accept The Absent Minded Prospector
+    >>对话: |cRXP_FRIENDLY_首席考古学家杜瑟·灰胡|r
+    .turnin 741,3 >>交任务: |cRXP_FRIENDLY_健忘的勘察员|r
+    .accept 942 >>接任务: |cRXP_LOOT_健忘的勘察员|r
     .target Chief Archaeologist Greywhisker
 
 ]])
 
 RXPGuides.RegisterGuide([[
 #classic
-#tbc
 << Alliance Mage
-#name 20-22 ADV Redridge 1 Mage AoE
+#name 20-22 冒险 赤脊山 1 法师 AoE
 #version 2
-#group RestedXP ADV AoE Alliance Mage
+#group RestedXP 冒险 AoE 联盟法师
 #defaultfor Human Mage/Gnome Mage
-#next 22-26 ADV Wetlands 1 Mage AoE
+#next 22-26 冒险 湿地 1 法师 AoE
 
 step
     #completewith next
-    .hs >> Hearth to Stormwind City
+    .hs >>炉火之城
     .zoneskip Stormwind City
 step
     .goto Stormwind City,55.46,65.26
-    >>Talk to |cRXP_FRIENDLY_Keldric|r through the wall
-    .vendor 1257 >> Vendor Trash. |cRXP_BUY_Buy|r |T134830:0|t[Lesser Healing Potions] |cRXP_BUY_from him (if they're up)|r
+    >>对话: |cRXP_FRIENDLY_凯德雷克·布舍尔|r
+    .vendor 1257 >>供应商垃圾。|cRXP_BUY_Buy|r |T134830:0|t[次级治疗药水] |cRXP_BUY_来自他（如果它们涨价了）|r
     .target Keldric Boucher
 step
     #completewith Bank
-    .goto Stormwind City,55.30,68.16,10 >>Enter the Stormwind Bank
+    .goto Stormwind City,55.30,68.16,10 >>进入暴风城银行
 step
     #sticky
     #label Bank1
     .goto Stormwind City,57.03,72.97
-    >>Talk to |cRXP_FRIENDLY_Newton|r
-    .bankwithdraw 4371,1941,1711,1478,1712,3012,1180,1181,3013,2998 >> Withdraw the following items from your bank:
-    >>|T133024:0|t[Bronze Tube]
-    >>|T134943:0|t[Scrolls]
-    >>|T132620:0|t[Cask of Merlot]
-    >>|T134377:0|t[A Simple Compass]
+    >>对话: |cRXP_FRIENDLY_牛顿·伯恩赛德|r
+    .bankwithdraw 4371,1941,1711,1478,1712,3012,1180,1181,3013,2998 >>从您的银行提取以下物品：
+    >>|T133024:0|t[青铜管]
+    >>|T134943:0|t[卷轴]
+    >>|T132620:0|t[一桶梅洛]
+    >>|T134377:0|t[简易指南针]
     .target Newton Burnside
 step
     #label Bank
     .goto Stormwind City,57.03,72.97
-    >>Talk to |cRXP_FRIENDLY_Newton|r
-    >>|cRXP_WARN_NOTE: You need 12 stacks of each cloth (|r|T132911:0|t[Wool Cloth]|cRXP_WARN_,|r |T132905:0|t[Silk Cloth]|cRXP_WARN_,|r |T132892:0|t[Mageweave Cloth]|cRXP_WARN_,|r and |T132903:0|t[Runecloth]|cRXP_WARN_) to do the cloth turnins later. You'll get these naturally as you level|r
-    .bankdeposit 17056,2592,1015,4654 >> Deposit the following items into the bank:
-    >>|T132917:0|t[Light Feather]
-    >>|T132911:0|t[Wool Cloth]
-    >>|T133970:0|t[Lean Wolf Flank]
-    >>|T134431:0|t[Mysterious Fossil]
+    >>对话: |cRXP_FRIENDLY_牛顿·伯恩赛德|r
+    >>|cRXP_WARN_注意：您需要每种布料 12 叠（|r|T132911:0|t[羊毛布]|cRXP_WARN_、|r |T132905:0|t[丝绸布]|cRXP_WARN_、|r |T132892:0|t[魔纹布]|cRXP_WARN_、|r 和 |T132903:0|t[符文布]|cRXP_WARN_）以便稍后上交布料。随着等级的提高，您会自然获得这些布料|r
+    .bankdeposit 17056,2592,1015,4654 >>将以下物品存入银行：
+    >>|T132917:0|t[轻羽]
+    >>|T132911:0|t[羊毛布]
+    >>|T133970:0|t[瘦狼侧翼]
+    >>|T134431:0|t[神秘化石]
     .target Newton Burnside
 step
     #completewith next
     #requires Bank1
     .goto Stormwind City,52.16,61.44,12,0
     .goto Stormwind City,49.41,63.41,12,0
-    .goto Stormwind City,51.16,68.33,12 >>Travel toward |cRXP_FRIENDLY_Roberto|r
+    .goto Stormwind City,51.16,68.33,12 >>前往 |cRXP_FRIENDLY_Roberto|r
 step
     #requires Bank1
     .goto Stormwind City,52.05,67.96
-    >>Go inside the building
-    >>Talk to |cRXP_FRIENDLY_Roberto|r
-    >>|cRXP_BUY_Buy a|r |T132620:0|t[Cask of Merlot] |cRXP_BUY_from him|r
+    >>进入大楼
+    >>对话: |cRXP_FRIENDLY_罗伯特·奥布斯|r
+    >>|cRXP_BUY_从他那里购买一|r |T132620:0|t[一桶梅洛] |cRXP_BUY_|r
     .collect 1941,1,116,1 --Cask of Merlot
     .target Roberto Pupellyverbos
 step
@@ -7139,24 +7081,23 @@ step
     .goto Stormwind City,51.83,60.41,4,0
     .goto Stormwind City,51.59,60.15,6,0
     .goto Stormwind City,39.17,76.58,12,0
-    >>|cRXP_WARN_Jump up onto the torch, then drop down to get under Stormwind|r
-    >>|cRXP_WARN_With Shadows on "Fair" or "Low", get in the middle of Derek the Dinosaur's feet (the lighter part of the dirt) just before the blue void, then walk straight forward|r
-    >>|cRXP_WARN_NOTE: There is a small chance of dying using this method. You can also walk to the Mage Tower normally if you wish|r
-    .link https://youtu.be/gV8-wgQEomc >> CLICK HERE for a guide
-    .goto Stormwind City,38.61,79.39,10 >>Travel toward |cRXP_FRIENDLY_Larimaine|r
+    >>|cRXP_WARN_跳到火炬上，然后跳下来，躲到暴风城下面|r
+    >>|cRXP_WARN_将阴影设置为“良好”或“低”，在蓝色虚空前，站在恐龙德里克脚的中间（泥土较浅的部分），然后径直向前走|r
+    .link https://clips.twitch.tv/WonderfulObservantPigeonTwitchRPG-VGEqzHObhqqsv8Ae >>点击此处查看指南
+    .goto Stormwind City,38.61,79.39,10 >>前往 |cRXP_FRIENDLY_Larimaine|r
 step
     #requires Bank1
-    .goto Stormwind City,39.69,79.56
-    >>Talk to |cRXP_FRIENDLY_Larimaine|r
-    .train 3561 >> Train |T135763:0|t[Teleport: Stormwind]
-    >>Total Cost: 20s
-    .target Larimaine Purdue
+    .goto Stormwind City,38.61,79.39
+    >>对话: |cRXP_FRIENDLY_拉瑞麦尼·普尔度|r
+    .train 3561 >>火车 |T135763:0|t[传送：暴风城]
+    >>总成本：20 秒
+    .target 拉里曼普渡大学
 step
     .goto Stormwind City,38.61,79.39
-    >>Talk to |cRXP_FRIENDLY_Jennea|r
-    .trainer >> Train your class spells (Blink, Evocation, Frost Armor r3, Mana Shield, Conjure Water r3)
-    >>|cRXP_WARN_Do NOT train Blizzard yet|r
-    >>Total Cost: 1g
+    >>对话: |cRXP_FRIENDLY_詹妮亚·坎农|r
+    .trainer >>训练你的职业法术（闪现、召唤、冰霜护甲 r3、法力护盾、召唤水 r3）
+    >>|cRXP_WARN_暂时不要训练暴雪|r
+    >>总成本：1g
     .target Jennea Cannon
 step
     #completewith Charys
@@ -7169,24 +7110,24 @@ step
     .goto Stormwind City,31.12,79.42,15,0
     .goto Stormwind City,32.07,81.50,10,0
     .goto Stormwind City,32.63,80.62,8,0
-    >>Exit the Mage Tower
-    .goto Stormwind City,32.16,79.84,10 >>Travel toward |cRXP_FRIENDLY_Charys|r
+    >>退出法师塔
+    .goto Stormwind City,32.16,79.84,10 >>前往 |cRXP_FRIENDLY_Charys|r
 step
     .goto Stormwind City,32.16,79.84
-    >>Enter the building
-    >>Talk to |cRXP_FRIENDLY_Charys|r
-    >>|cRXP_BUY_Buy 2|r |T134419:0|t[Runes of Teleportation]|cRXP_BUY_,|r |T134851:0|t[Lesser Mana Potions]|cRXP_BUY_,|r |T134831:0|t[Healing Potions]|cRXP_BUY_, and a|r |T132515:0|t[Cloth Belt] |cRXP_BUY_from her (if they're up)|r
-    >>|cRXP_WARN_DON'T go below 18s 31c|r
+    >>进入大楼
+    >>对话: |cRXP_FRIENDLY_查瑞斯·伊瑟里安|r
+    >>|cRXP_BUY_从她那里购买 2|r |T134419:0|t[传送符文]|cRXP_BUY_、|r |T134851:0|t[次级法力药水]|cRXP_BUY_、|r |T134831:0|t[治疗药水]|cRXP_BUY_ 和一个|r |T132515:0|t[布质腰带] |cRXP_BUY_（如果它们已售出）|r
+    >>|cRXP_WARN_不要低于 18s 31c|r
     .collect 17031,2,344,1 --Rune of Teleportation (2)
     .target Charys Yserian
     .itemcount 4371,1
 step
     #label Charys
     .goto Stormwind City,32.16,79.84
-    >>Enter the building
-    >>Talk to |cRXP_FRIENDLY_Charys|r
-    >>|cRXP_BUY_Buy two|r |T134419:0|t[Runes of Teleportation]|cRXP_BUY_,|r |T134851:0|t[Lesser Mana Potions]|cRXP_BUY_,|r |T134831:0|t[Healing Potions]|cRXP_BUY_, and a|r |T132515:0|t[Cloth Belt] |cRXP_BUY_from her (if they're up)|r
-    >>|cRXP_WARN_DON'T go below 26s 31c|r
+    >>进入大楼
+    >>对话: |cRXP_FRIENDLY_查瑞斯·伊瑟里安|r
+    >>|cRXP_BUY_从她那里购买两件|r |T134419:0|t[传送符文]|cRXP_BUY_、|r |T134851:0|t[次级法力药水]|cRXP_BUY_、|r |T134831:0|t[治疗药水]|cRXP_BUY_和一件|r |T132515:0|t[布质腰带] |cRXP_BUY_（如果它们已售出）|r
+    >>|cRXP_WARN_不要低于 26s 31c|r
     .collect 17031,2,344,1 --Rune of Teleportation (2)
     .target Charys Yserian
     .itemcount 4371,<1
@@ -7198,48 +7139,48 @@ step
     .goto Stormwind City,46.32,66.93,20,0
     .goto Stormwind City,42.45,61.76,20,0
     .goto Stormwind City,41.17,63.74,15,0
-    .goto Stormwind City,41.57,65.46,10 >>Travel toward |cRXP_FRIENDLY_Adair|r
+    .goto Stormwind City,41.57,65.46,10 >>前往 |cRXP_FRIENDLY_Adair|r
 step
     .goto Stormwind City,41.57,65.46
-    >>Enter the building
-    >>Talk to |cRXP_FRIENDLY_Adair|r
-    .vendor 1316 >> |cRXP_BUY_Buy non-intellect|r |T134943:0|t[Scrolls] |cRXP_BUY_from him (if they're up)|r
-    >>|cRXP_WARN_DON'T go below 18s 31c|r
+    >>进入大楼
+    >>对话: |cRXP_FRIENDLY_艾代尔·吉尔罗|r
+    .vendor 1316 >>|cRXP_BUY_从他那里购买非智力|r |T134943:0|t[卷轴] |cRXP_BUY_（如果它们涨价了）|r
+    >>|cRXP_WARN_不要低于 18s 31c|r
     .money <0.1831
     .target Adair Gilroy
 step
     #label Adair
     .goto Stormwind City,41.57,65.46
-    >>Enter the building
-    >>Talk to |cRXP_FRIENDLY_Adair|r
-    .vendor 1316 >> |cRXP_BUY_Buy non-intellect|r |T134943:0|t[Scrolls] |cRXP_BUY_from him (if they're up)|r
-    >>|cRXP_WARN_DON'T go below 26s 31c|r
+    >>进入大楼
+    >>对话: |cRXP_FRIENDLY_艾代尔·吉尔罗|r
+    .vendor 1316 >>|cRXP_BUY_从他那里购买非智力|r |T134943:0|t[卷轴] |cRXP_BUY_（如果它们涨价了）|r
+    >>|cRXP_WARN_不要低于 26s 31c|r
     .money <0.2631
     .target Adair Gilroy
 step
     #completewith next
     .goto Stormwind City,37.84,58.50,5,0
-    .goto Stormwind City,37.81,45.02,20 >>Run up the edge of the wall instead of going around
+    .goto Stormwind City,37.81,45.02,20 >>沿着墙边跑，而不是绕着墙跑
 step
     .goto Stormwind City,45.70,38.42
     >>Talk to |cRXP_FRIENDLY_Kristoff|r
-    .accept 343 >> Accept Speaking of Fortitude
+    .accept 343 >>接任务: |cRXP_WARN_关于坚韧的演讲|r
     .target Brother Kristoff
 step
     #completewith next
     .goto Stormwind City,47.85,32.67,15,0
     .goto Stormwind City,47.96,31.15,12,0
-    .goto Stormwind City,49.18,30.29,12 >>Travel toward |cRXP_FRIENDLY_Baros|r
+    .goto Stormwind City,49.18,30.29,12 >>前往 |cRXP_FRIENDLY_Baros|r
 step
     .goto Stormwind City,49.18,30.29
-    >>Go inside the building
-    >>Talk to |cRXP_FRIENDLY_Baros|r
-    .turnin 399 >> Turn in Humble Beginnings
+    >>进入大楼
+    >>对话: |cRXP_FRIENDLY_巴隆斯·阿历克斯顿|r
+    .turnin 399 >>交任务: |cRXP_FRIENDLY_童年的记忆|r
     .target Baros Alexston
 step
     .goto Stormwind City,55.25,7.07
-    >>Talk to |cRXP_FRIENDLY_Billibub|r
-    .vendor 5519 >>|cRXP_BUY_Buy a|r |T133024:0|t[Bronze Tube] |cRXP_BUY_from him if its up|r
+    >>对话: |cRXP_FRIENDLY_比利巴布·旋轮|r
+    .vendor 5519 >>|cRXP_BUY_如果价格上涨，请从他那里购买 a|r |T133024:0|t[青铜管] |cRXP_BUY_|r
     .target Billibub Cogspinner
     .itemcount 4371,<1
 step
@@ -7248,12 +7189,12 @@ step
     .goto Stormwind City,72.60,23.21,20,0
     .goto Stormwind City,69.78,16.58,20,0
     .goto Stormwind City,70.34,11.47,20,0
-    .goto Stormwind City,74.19,7.45,12 >>Travel toward |cRXP_FRIENDLY_Milton|r
+    .goto Stormwind City,74.19,7.45,12 >>前往 |cRXP_FRIENDLY_Milton|r
 step
     .goto Stormwind City,74.19,7.45
     >>Talk to |cRXP_FRIENDLY_Milton|r
-    .turnin 343 >> Turn in Speaking of Fortitude
-    .accept 344 >> Accept Brother Paxton
+    .turnin 343 >>交任务: |cRXP_FRIENDLY_关于坚韧的演讲|r
+    .accept 344 >>接任务: |cRXP_WARN_帕克斯顿修士|r
     .target Milton Sheaf
 step
     #completewith next
@@ -7263,11 +7204,11 @@ step
     .goto Stormwind City,69.20,29.08,30,0
     .goto Stormwind City,61.74,42.34,20,0
     .goto Stormwind City,64.80,60.34,12,0
-    .goto Stormwind City,64.17,60.60,12 >>Travel toward |cRXP_FRIENDLY_Felicia|r
+    .goto Stormwind City,64.17,60.60,12 >>前往 |cRXP_FRIENDLY_Felicia|r
 step
     .goto Stormwind City,64.17,60.60
     >>Talk to |cRXP_FRIENDLY_Felicia|r
-    >>|cRXP_BUY_Buy the|r |T133849:0|t[Stormwind Seasoning Herbs] |cRXP_BUY_from her|r
+    >>|cRXP_BUY_从她那里购买|r |T133849:0|t[暴风城调味草药] |cRXP_BUY_|r
     .collect 2665,1,90,1 --Stormwind Seasoning Herbs
     .target Felicia Gump
 step
@@ -7279,10 +7220,10 @@ step
     .goto Stormwind City,63.13,65.23,20,0
     .goto Stormwind City,65.94,65.48,12,0
     .goto Stormwind City,65.85,66.00,8,0
-    .goto Stormwind City,65.22,75.58,40 >>Drop down to the ledge below |cRXP_FRIENDLY_Dungar|r
+    .goto Stormwind City,65.22,75.58,40 >>掉到下面的壁架上 |cRXP_FRIENDLY_Dungar|r
 step
     #completewith next
-    .goto Elwynn Forest,42.96,65.62,30 >>Travel toward the Goldshire Inn
+    .goto Elwynn Forest,42.96,65.62,30 >>前往金郡旅店
 step << skip
     #completewith Paxton
     #requires PaxtonT
@@ -7291,33 +7232,33 @@ step << skip
     .goto Elwynn Forest,48.27,41.93,50,0
     .goto Elwynn Forest,48.79,41.56,10,0
     .goto Elwynn Forest,49.26,40.69,10,0
-    >>Take the Mountain Path toward |cRXP_FRIENDLY_Paxton|r
-    .goto Elwynn Forest,49.61,40.41,10 >>Travel toward |cRXP_FRIENDLY_Paxton|r
+    >>沿着山路前往 |cRXP_FRIENDLY_Paxton|r
+    .goto Elwynn Forest,49.61,40.41,10 >>前往 |cRXP_FRIENDLY_Paxton|r
 step
     .goto Elwynn Forest,44.00,65.69
-    >>Talk to |cRXP_FRIENDLY_Dobbins|r
-    >>|cRXP_BUY_Buy a|r |T132794:0|t[Skin of Sweet Rum] |cRXP_BUY_from him|r
+    >>对话: |cRXP_FRIENDLY_酒吧老板杜宾斯|r
+    >>|cRXP_BUY_从他那里购买 a|r |T132794:0|t[Skin of Sweet Rum] |cRXP_BUY_|r
     .collect 1939,1,116,1 --Skin of Sweet Rum
     .target Barkeep Dobbins
 step
     #sticky
     #label FarleyHome
     .goto Elwynn Forest,43.77,65.80,0,0
-    >>Talk to |cRXP_FRIENDLY_Farley|r
-    .home >> Set your Hearthstone to Goldshire
+    >>对话: |cRXP_FRIENDLY_旅店老板法雷|r
+    .home >>将你的炉石设置为闪金郡
     .target Innkeeper Farley
 step
     #completewith next
     #requires FarleyHome
     .goto Elwynn Forest,48.79,41.56,10,0
     .goto Elwynn Forest,49.26,40.69,10,0
-    .goto Elwynn Forest,49.61,40.41,10 >>Travel toward |cRXP_FRIENDLY_Paxton|r
+    .goto Elwynn Forest,49.61,40.41,10 >>前往 |cRXP_FRIENDLY_Paxton|r
 step
     #requires FarleyHome
     .goto Elwynn Forest,49.61,40.41
     >>Talk to |cRXP_FRIENDLY_Paxton|r
-    .turnin 344 >> Turn in Brother Paxton
-    .accept 345 >> Accept Ink Supplies
+    .turnin 344 >>交任务: |cRXP_FRIENDLY_帕克斯顿修士|r
+    .accept 345 >>接任务: |cRXP_WARN_墨水短缺|r
     .target Brother Paxton
 step
     #completewith Theo
@@ -7325,14 +7266,14 @@ step
     .goto Elwynn Forest,48.79,41.56,10,0
     .goto Elwynn Forest,48.28,42.21,10,0
     .goto Elwynn Forest,57.62,51.97,30,0
-    .goto Elwynn Forest,64.45,69.10,15 >>Take the Mountain Path toward the Tower of Azora
+    .goto Elwynn Forest,64.45,69.10,15 >>沿着山路前往阿佐拉之塔
 step
     #sticky
     #label Dawn
     .goto Elwynn Forest,64.88,69.19,0,0
     >>Talk to |cRXP_FRIENDLY_Dawn|r upstairs
-    .vendor 958 >> |cRXP_BUY_Buy non-intellect|r |T134943:0|t[Scrolls]|cRXP_BUY_,|r |T134850:0|t[Minor Mana Potions]|cRXP_BUY_, and|r |T134830:0|t[Lesser Healing Potions] |cRXP_BUY_from her (if they're up)|r
-    >>|cRXP_WARN_DON'T go below 11s 38c|r
+    .vendor 958 >>|cRXP_BUY_从她那里购买非智力|r |T134943:0|t[卷轴]|cRXP_BUY_、|r |T134850:0|t[初级法力药水]|cRXP_BUY_、和|r |T134830:0|t[次级治疗药水] |cRXP_BUY_（如果它们涨价了）|r
+    >>|cRXP_WARN_DON'T 低于 11s 38c|r
     .money <0.1138
     .target Dawn Brightstar
     .itemcount 4371,1
@@ -7341,17 +7282,17 @@ step
     #label Dawn2
     .goto Elwynn Forest,64.88,69.19,0,0
     >>Talk to |cRXP_FRIENDLY_Dawn|r upstairs
-    .vendor 958 >> |cRXP_BUY_Buy non-intellect|r |T134943:0|t[Scrolls]|cRXP_BUY_,|r |T134850:0|t[Minor Mana Potions]|cRXP_BUY_, and|r |T134830:0|t[Lesser Healing Potions] |cRXP_BUY_from her (if they're up)|r
-    >>|cRXP_WARN_DON'T go below 19s 38c|r
+    .vendor 958 >>|cRXP_BUY_从她那里购买非智力|r |T134943:0|t[卷轴]|cRXP_BUY_、|r |T134850:0|t[初级法力药水]|cRXP_BUY_、和|r |T134830:0|t[次级治疗药水] |cRXP_BUY_（如果它们涨价了）|r
+    >>|cRXP_WARN_不要低于 19 秒 38c|r
     .money <0.1938
     .target Dawn Brightstar
     .itemcount 4371,<1
 step
     #label Theo
     .goto Elwynn Forest,65.22,69.71
-    >>Go upstairs
-    >>Talk to |cRXP_FRIENDLY_Theocritus|r
-    .accept 94 >> Accept A Watchful Eye
+    >>上楼去
+    >>对话: |cRXP_FRIENDLY_塞欧克瑞图斯|r
+    .accept 94 >>接任务: |cRXP_LOOT_法师的眼线|r
     .target Theocritus
 step
     #requires Dawn
@@ -7359,205 +7300,204 @@ step
     #completewith next
     #requires Dawn2
     .goto Duskwood,73.79,45.98,20,0
-    .goto Duskwood,74.01,45.36,10 >>Go Inside the Inn
+    .goto Duskwood,74.01,45.36,10 >>进入旅馆
 step
     #requires Dawn2
     .goto Duskwood,73.81,44.02
     >>Talk to |cRXP_FRIENDLY_Hann|r
-    >>|cRXP_BUY_Buy the|r |T132798:0|t[Bottle of Moonshine] |cRXP_BUY_from him|r
+    >>|cRXP_BUY_从他那里购买|r |T132798:0|t[一瓶月光酒] |cRXP_BUY_|r
     .collect 1942,1,116,1 --Bottle of Moonshine (1)
     .target Barkeep Hann
 step
     #completewith Viktori
     .goto Duskwood,74.01,45.36,10,0
-    .goto Duskwood,73.79,45.98,10 >>Exit the Inn
+    .goto Duskwood,73.79,45.98,10 >>退出旅馆
 step
     #completewith next
-    .goto Duskwood,75.22,48.26,12 >>Go inside the building
+    .goto Duskwood,75.22,48.26,12 >>进入大楼
 step
     .goto Duskwood,75.34,48.74
     >>Talk to |cRXP_FRIENDLY_Elaine|r
-    .accept 163 >>Accept Raven Hill
-    .accept 164 >>Accept Deliveries to Sven
-    .accept 165 >>Accept The Hermit
+    .accept 163 >>接任务: |cRXP_LOOT_乌鸦岭|r
+    .accept 164 >>接任务: |cRXP_LOOT_斯温的货物|r
+    .accept 165 >>接任务: |cRXP_LOOT_隐士|r
     .target Elaine Carevin
 step
     .goto Duskwood,78.00,48.33
-    >>Talk to |cRXP_FRIENDLY_Herble|r
-    .vendor 3133 >>|cRXP_BUY_Buy a|r |T133024:0|t[Bronze Tube] |cRXP_BUY_from him if its up|r
+    >>对话: |cRXP_FRIENDLY_赫尔伯|r
+    .vendor 3133 >>|cRXP_BUY_如果价格上涨，请从他那里购买 a|r |T133024:0|t[青铜管] |cRXP_BUY_|r
     .target Herble Baubbletump
     .itemcount 4371,<1
 step
     .goto Duskwood,79.78,48.06
-    >>Talk to |cRXP_FRIENDLY_Viktori|r
-    .accept 174 >> Accept Look To The Stars
-    .turnin 174 >> Turn in Look To The Stars
-    .accept 175 >> Accept Look To The Stars
+    >>对话: |cRXP_FRIENDLY_维克托·安特拉斯|r
+    .accept 174 >>接任务: |cRXP_LOOT_仰望星空|r
+    .turnin 174 >>交任务: |cRXP_FRIENDLY_仰望星空|r
+    .accept 175 >>接任务: |cRXP_LOOT_仰望星空|r
     .target Viktori Prism'Antras
     .itemcount 4371,1
 step
     #label Viktori
     .goto Duskwood,79.78,48.06
-    >>Talk to |cRXP_FRIENDLY_Viktori|r
-    .accept 175 >> Accept Look To The Stars
+    >>对话: |cRXP_FRIENDLY_维克托·安特拉斯|r
+    .accept 175 >>接任务: |cRXP_LOOT_仰望星空|r
     .target Viktori Prism'Antras
     .isQuestTurnedIn 174
 step
-    .goto Duskwood,81.46,59.02
+    .goto Duskwood,79.78,48.06
     >>Talk to |cRXP_FRIENDLY_Mary|r
-    .turnin 175 >> Turn in Look To The Stars
-    .accept 177 >> Accept Look To The Stars
+    .turnin 175 >>交任务: |cRXP_FRIENDLY_仰望星空|r
+    .accept 177 >>接任务: |cRXP_LOOT_仰望星空|r
     .target Blind Mary
     .isQuestTurnedIn 174
 step
     .goto Duskwood,77.48,44.29
     >>Talk to |cRXP_FRIENDLY_Felicia|r
-    .fp Duskwood >> Get the Duskwood flight path
+    .fp Duskwood >>获取暮色森林飞行路线
     .target Felicia Mane
 step
     #completewith Kzixx
     .goto Duskwood,76.66,23.49,60,0
-    .goto Duskwood,81.82,19.76,20 >>Travel toward |cRXP_FRIENDLY_Kzixx|r
+    .goto Duskwood,81.82,19.76,20 >>前往 |cRXP_FRIENDLY_Kzixx|r
 step
     .goto Duskwood,81.82,19.76
-    >>Talk to |cRXP_FRIENDLY_Kzixx|r
-    .vendor 3134 >>|cRXP_BUY_Buy|r |T134851:0|t[Lesser Mana Potions] |cRXP_BUY_and|r  |T134831:0|t[Healing Potions] |cRXP_BUY_from him (if they're up)|r
+    >>对话: |cRXP_FRIENDLY_卡兹克斯|r
+    .vendor 3134 >>|cRXP_BUY_从他那里购买|r |T134851:0|t[次级法力药水] |cRXP_BUY_和|r |T134831:0|t[治疗药水] |cRXP_BUY_（如果它们涨价了）|r
     .itemcount 4827,1
     .target Kzixx
 step
     .goto Duskwood,81.82,19.76
-    >>Talk to |cRXP_FRIENDLY_Kzixx|r
-    .vendor 3134 >>|cRXP_BUY_Buy|r |T134851:0|t[Lesser Mana Potions] |cRXP_BUY_and|r  |T134831:0|t[Healing Potions] |cRXP_BUY_from him (if they're up)|r
+    >>对话: |cRXP_FRIENDLY_卡兹克斯|r
+    .vendor 3134 >>|cRXP_BUY_从他那里购买|r |T134851:0|t[次级法力药水] |cRXP_BUY_和|r |T134831:0|t[治疗药水] |cRXP_BUY_（如果它们涨价了）|r
     .itemcount 4828,1
     .target Kzixx
 step
     .goto Duskwood,81.82,19.76
-    >>Talk to |cRXP_FRIENDLY_Kzixx|r
-    .vendor 3134 >>|cRXP_BUY_Buy|r |T134851:0|t[Lesser Mana Potions] |cRXP_BUY_and|r  |T134831:0|t[Healing Potions] |cRXP_BUY_from him (if they're up)|r
+    >>对话: |cRXP_FRIENDLY_卡兹克斯|r
+    .vendor 3134 >>|cRXP_BUY_从他那里购买|r |T134851:0|t[次级法力药水] |cRXP_BUY_和|r |T134831:0|t[治疗药水] |cRXP_BUY_（如果它们涨价了）|r
     .itemcount 4829,1
     .target Kzixx
 step
     #label Kzixx
     .goto Duskwood,81.82,19.76
-    >>Talk to |cRXP_FRIENDLY_Kzixx|r
-    .vendor 3134 >>|cRXP_BUY_Buy|r |T134851:0|t[Lesser Mana Potions]|cRXP_BUY_,|r |T134831:0|t[Healing Potions]|cRXP_BUY_, and a|r |T132515:0|t[Cloth Belt] |cRXP_BUY_from him (if they're up, and if needed)|r
+    >>对话: |cRXP_FRIENDLY_卡兹克斯|r
+    .vendor 3134 >>|cRXP_BUY_从他那里购买|r |T134851:0|t[次级法力药水]|cRXP_BUY_、|r |T134831:0|t[治疗药水]|cRXP_BUY_、以及|r |T132515:0|t[布质腰带] |cRXP_BUY_（如果它们已备好，且需要的话）|r
     .itemcount 4827,<1
     .itemcount 4828,<1
     .itemcount 4829,<1
     .target Kzixx
 step
     #completewith Gnolls
-    >>AoE |cRXP_ENEMY_Tarantulas|r. Loot them for |cRXP_LOOT_Crisp Spider Meat|r
-    >>AoE |cRXP_ENEMY_Great Goretusks|r. Loot them for |cRXP_LOOT_Great Goretusk Snouts|r and |T133970:0|t|cRXP_LOOT_[Chunks of Boar Meat]|r
+    >>AoE |cRXP_ENEMY_狼蛛s|r。掠夺它们以获得 |cRXP_LOOT_酥脆蜘蛛肉|r
+    >>AoE |cRXP_ENEMY_大血牙s|r。拾取它们可获得 |cRXP_LOOT_大血牙 Snouts|r 和 |T133970:0|t|cRXP_LOOT_[大块野猪肉]|r
     .collect 1081,5,92,1 --Crisp Spider Meat (5)
-    .mob +Tarantula
-    .collect 2296,5,92,1 --Great Goretusk Snout (5)
-    .mob +Great Goretusk
+    .collect 2296,5,92,1 --大血牙 Snout (5)
     .collect 769,50,90,1,1 --Chunk of Boar Meat (50)
-    .mob +Great Goretusk
+    .mob 狼蛛
+    .mob 大血牙
     .skill cooking,50,1
 step
     #completewith Gnolls
-    >>AoE |cRXP_ENEMY_Tarantulas|r. Loot them for |cRXP_LOOT_Crisp Spider Meat|r
-    >>AoE |cRXP_ENEMY_Great Goretusks|r. Loot them for |cRXP_LOOT_Great Goretusk Snouts|r
+    >>AoE |cRXP_ENEMY_狼蛛s|r。掠夺它们以获得 |cRXP_LOOT_酥脆蜘蛛肉|r
+    >>AoE |cRXP_ENEMY_大血牙s|r。掠夺它们可获得 |cRXP_LOOT_大血牙 Snouts|r
     .collect 1081,5,92,1 --Crisp Spider Meat (5)
-    .mob +Tarantula
-    .collect 2296,5,92,1 --Great Goretusk Snout (5)
-    .mob +Great Goretusk
+    .collect 2296,5,92,1 --大血牙 Snout (5)
+    .mob 狼蛛
+    .mob 大血牙
     .skill cooking,<50,1
 step
     .goto Redridge Mountains,15.52,72.58,60,0
     .goto Redridge Mountains,14.87,70.30,60,0
     .goto Redridge Mountains,16.93,70.20
     >>Talk to |cRXP_FRIENDLY_Parker|r
-    .accept 244 >>Accept Encroaching Gnolls
+    .accept 244 >>接任务: |cRXP_LOOT_豺狼人的入侵|r
     .target Guard Parker
 step << skip
     #label AoE1
-    .goto Redridge Mountains,15.73,62.47,60 >>AoE the |cRXP_ENEMY_Redridge Mongrels|r and |cRXP_ENEMY_Redridge Thrashers|r
+    .goto Redridge Mountains,15.73,62.47,60 >>对 |cRXP_ENEMY_混血赤脊山豺狼人|r 和 |cRXP_ENEMY_赤脊山鞭笞者|r 进行范围攻击
     .isOnQuest 244
 step << skip
     #completewith Gnolls
-    >>AoE |cRXP_ENEMY_Great Goretusks|r. Loot them for |cRXP_LOOT_Great Goretusk Snouts|r and |T133970:0|t|cRXP_LOOT_[Chunks of Boar Meat]|r
-    .collect 2296,5,92,1 --Great Goretusk Snout (5)
+    >>AoE |cRXP_ENEMY_大血牙s|r。拾取它们可获得 |cRXP_LOOT_大血牙 Snouts|r 和 |T133970:0|t|cRXP_LOOT_[大块野猪肉]|r
+    .collect 2296,5,92,1 --大血牙 Snout (5)
     .collect 769,50,90,1,1 --Chunk of Boar Meat (50)
-    .mob Great Goretusk
+    .mob 大血牙
     .skill cooking,50,1
 step << skip
     #completewith next
-    >>AoE |cRXP_ENEMY_Great Goretusks|r. Loot them for |cRXP_LOOT_Great Goretusk Snouts|r
-    .collect 2296,5,92,1 --Great Goretusk Snout (5)
-    .mob Great Goretusk
+    >>AoE |cRXP_ENEMY_大血牙s|r。掠夺它们可获得 |cRXP_LOOT_大血牙 Snouts|r
+    .collect 2296,5,92,1 --大血牙 Snout (5)
+    .mob 大血牙
     .skill cooking,50
 step
     #label Gnolls
     .goto Redridge Mountains,30.74,59.99
-    >>Talk to |cRXP_FRIENDLY_Feldon|r
-    .turnin 244 >>Turn in Encroaching Gnolls
-    .accept 246 >>Accept Assessing the Threat
+    >>对话: |cRXP_FRIENDLY_菲尔顿副队长|r
+    .turnin 244 >>交任务: |cRXP_FRIENDLY_豺狼人的入侵|r
+    .accept 246 >>接任务: |cRXP_LOOT_审时度势|r
     .target Deputy Feldon
 step
     .goto Redridge Mountains,30.59,59.40
-    >>Talk to |cRXP_FRIENDLY_Ariena|r
-    .fp Redridge Mountains >> Get the Redridge Mountains flight path
+    >>对话: |cRXP_FRIENDLY_艾蕾娜·斯托姆法瑟|r
+    .fp Redridge Mountains >>获取赤脊山飞行路线
 step
     >>Talk to |cRXP_FRIENDLY_Marris|r and |cRXP_FRIENDLY_Oslow|r
-    .accept 20 >>Accept Blackrock Menace
-    .target +Marshal Marris
+    .accept 20 >>接任务: |cRXP_LOOT_黑石氏族的威胁|r
     .goto Redridge Mountains,33.51,48.96
-    .accept 125 >>Accept The Lost Tools
-    .turnin 345 >>Turn in Ink Supplies
-    .accept 347 >>Accept Rethban Ore
+    .accept 125 >>接任务: |cRXP_LOOT_丢失的工具|r
+    .turnin 345 >>交任务: |cRXP_FRIENDLY_墨水短缺|r
+    .accept 347 >>接任务: |cRXP_WARN_瑞斯班矿石|r
     .goto Redridge Mountains,32.14,48.64
-    .target +Foreman Oslow
+    .target 马里斯元帅
+    .target 工头奥斯洛
 step
     .goto Redridge Mountains,29.89,47.36
     >>Talk to |cRXP_FRIENDLY_Karen|r
-    >>|cRXP_BUY_Buy a|r |T134708:0|t[Mining Pick] |cRXP_BUY_from her|r
-    >>|cRXP_WARN_You'll need this for later|r
+    >>|cRXP_BUY_从她那里购买 a|r |T134708:0|t[采矿镐] |cRXP_BUY_|r
+    >>|cRXP_WARN_你稍后会需要它|r
     .collect 2901,1,125,1 --Mining Pick (1)
     .target Karen Taylor
 step
-    >>Talk to |cRXP_FRIENDLY_Conacher|r
---  .accept 120 >>Accept Messenger to Stormwind
+    >>对话: |cRXP_FRIENDLY_拜里弗·科纳彻尔|r
+--  .accept 120 >>接任务: |cRXP_LOOT_送往暴风城的信|r
 --  .goto Redridge Mountains,29.99,44.45
-    .accept 91 >>Accept Solomon's Law
+    .accept 91 >>接任务: |cRXP_LOOT_所罗门的律法|r
     .goto Redridge Mountains,29.72,44.26
---  .target Magistrate Solomon
-    .target Bailiff Conacher
+--  .target 所罗门法官
+    .target 法警康纳彻
 step
-    >>Talk to |cRXP_FRIENDLY_Baren|r and the |cRXP_PICK_Wanted Poster|r
-    .accept 127 >>Accept Selling Fish
+    >>对话: |cRXP_FRIENDLY_码头管理员巴伦|r, Wanted Poster
+    .accept 127 >>接任务: |cRXP_LOOT_卖鱼|r
     .goto Redridge Mountains,27.72,47.38
-    .accept 180 >>Accept Wanted: Lieutenant Fangore
+    .accept 180 >>接任务: |cRXP_LOOT_通缉：范高雷中尉|r
     .goto Redridge Mountains,26.75,46.42
     .target Dockmaster Baren
 step
     #sticky
     #label Darcy1
     .goto Redridge Mountains,26.92,44.95,0,0
-    >>Go Inside the Inn
+    >>进入旅馆
     >>Talk to |cRXP_FRIENDLY_Darcy|r
-    .accept 129 >>Accept A Free Lunch
+    .accept 129 >>接任务: |cRXP_LOOT_免费的午餐|r
     .target Darcy
 step
     .goto Redridge Mountains,26.49,43.95
-    >>Inside the Inn
+    >>客栈内部
     >>Talk to |cRXP_FRIENDLY_Daniels|r
-    .accept 116 >>Accept Dry Times
-    .turnin 116 >>Turn in Dry Times
+    .accept 116 >>接任务: |cRXP_WARN_旱季|r
+    .turnin 116 >>交任务: |cRXP_FRIENDLY_旱季|r
     .target Barkeep Daniels
 step
     .goto Redridge Mountains,26.47,45.33
-    >>Inside the Inn
+    >>客栈内部
     >>Talk to |cRXP_FRIENDLY_Wiley|r by jumping from the bannister downstairs
-    .turnin 65 >>Turn in The Defias Brotherhood
---  .accept 132 >>Accept The Defias Brotherhood
+    .turnin 65 >>交任务: |cRXP_FRIENDLY_迪菲亚兄弟会|r
+--  .accept 132 >>接任务: |cRXP_LOOT_迪菲亚兄弟会|r
     .target Wiley the Black
 step
     .goto Redridge Mountains,29.32,53.64
-    >>Talk to |cRXP_FRIENDLY_Shawn|r
-    .accept 3741 >>Accept Hilary's Necklace
+    >>对话: |cRXP_FRIENDLY_肖恩|r
+    .accept 3741 >>接任务: |cRXP_LOOT_希拉里的项链|r
     .target Shawn
 step
     .goto Redridge Mountains,31.29,54.27,90,0
@@ -7568,62 +7508,61 @@ step
     .goto Redridge Mountains,31.12,54.21,90,0
     .goto Redridge Mountains,34.03,55.34,90,0
     .goto Redridge Mountains,38.09,54.49
-    >>|cRXP_WARN_Swim underwater and check the spawn locations. There are 8 locations with 2 spawns up at once|r
-    >>Open the |cRXP_PICK_Glinting Mud|r. Loot it for |cRXP_LOOT_Hilary's Necklace|r
-    >>|cRXP_WARN_This has a 5 second cast time|r
+    >>|cRXP_WARN_潜入水下并检查刷新点。共有 8 个刷新点，每次刷新 2 个|r
+    >>打开 |cRXP_PICK_Glinting Mud|r。拾取它以获得 |cRXP_LOOT_Hilary's Necklace|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
     .complete 3741,1 --Hilary's Necklace (1)
 step
     .goto Redridge Mountains,29.24,53.63
     >>Talk to |cRXP_FRIENDLY_Hilary|r
-    .turnin 3741 >>Turn in Hilary's Necklace
+    .turnin 3741 >>交任务: |cRXP_FRIENDLY_希拉里的项链|r
     .target Hilary
 step
     #completewith Gnolls2
-    >>AoE |cRXP_ENEMY_Great Goretusks|r. Loot them for |cRXP_LOOT_Great Goretusk Snouts|r and |T133970:0|t|cRXP_LOOT_[Chunks of Boar Meat]|r
-    .collect 2296,5,92,1 --Great Goretusk Snout (5)
+    >>AoE |cRXP_ENEMY_大血牙s|r。拾取它们可获得 |cRXP_LOOT_大血牙 Snouts|r 和 |T133970:0|t|cRXP_LOOT_[大块野猪肉]|r
+    .collect 2296,5,92,1 --大血牙 Snout (5)
     .collect 769,50,90,1,1 --Chunk of Boar Meat (50)
-    .mob Great Goretusk
+    .mob 大血牙
     .skill cooking,50,1
 step
     #completewith next
-    >>AoE |cRXP_ENEMY_Great Goretusks|r. Loot them for |cRXP_LOOT_Great Goretusk Snouts|r
-    .collect 2296,5,92,1 --Great Goretusk Snout (5)
-    .mob Great Goretusk
+    >>AoE |cRXP_ENEMY_大血牙s|r。掠夺它们可获得 |cRXP_LOOT_大血牙 Snouts|r
+    .collect 2296,5,92,1 --大血牙 Snout (5)
+    .mob 大血牙
     .skill cooking,<50,1
 step
     #label Gnolls2
     .goto Redridge Mountains,15.73,62.47
-    >>AoE the |cRXP_ENEMY_Redridge Mongrels|r and |cRXP_ENEMY_Redridge Thrashers|r
+    >>对 |cRXP_ENEMY_混血赤脊山豺狼人|r 和 |cRXP_ENEMY_赤脊山鞭笞者|r 进行范围攻击
     .complete 246,1,1 --Redridge Mongrel (1)
     .mob Redridge Mongrel
     .mob Redridge Thrasher
 step
     #completewith Gnolls3
-    >>AoE |cRXP_ENEMY_Tarantulas|r. Loot them for |cRXP_LOOT_Crisp Spider Meat|r
-    >>AoE |cRXP_ENEMY_Great Goretusks|r. Loot them for |cRXP_LOOT_Great Goretusk Snouts|r and |T133970:0|t|cRXP_LOOT_[Chunks of Boar Meat]|r
+    >>AoE |cRXP_ENEMY_狼蛛s|r。掠夺它们以获得 |cRXP_LOOT_酥脆蜘蛛肉|r
+    >>AoE |cRXP_ENEMY_大血牙s|r。拾取它们可获得 |cRXP_LOOT_大血牙 Snouts|r 和 |T133970:0|t|cRXP_LOOT_[大块野猪肉]|r
     .collect 1081,5,92,1 --Crisp Spider Meat (5)
-    .mob +Tarantula
-    .collect 2296,5,92,1 --Great Goretusk Snout (5)
-    .mob +Great Goretusk
+    .collect 2296,5,92,1 --大血牙 Snout (5)
     .collect 769,50,90,1,1 --Chunk of Boar Meat (50)
-    .mob +Great Goretusk
+    .mob 狼蛛
+    .mob 大血牙
     .skill cooking,50,1
 step
     #completewith Gnolls3
-    >>AoE |cRXP_ENEMY_Tarantulas|r. Loot them for |cRXP_LOOT_Crisp Spider Meat|r
-    >>AoE |cRXP_ENEMY_Great Goretusks|r. Loot them for |cRXP_LOOT_Great Goretusk Snouts|r
+    >>AoE |cRXP_ENEMY_狼蛛s|r。掠夺它们以获得 |cRXP_LOOT_酥脆蜘蛛肉|r
+    >>AoE |cRXP_ENEMY_大血牙s|r。掠夺它们可获得 |cRXP_LOOT_大血牙 Snouts|r
     .collect 1081,5,92,1 --Crisp Spider Meat (5)
-    .mob +Tarantula
-    .collect 2296,5,92,1 --Great Goretusk Snout (5)
-    .mob +Great Goretusk
+    .collect 2296,5,92,1 --大血牙 Snout (5)
+    .mob 狼蛛
+    .mob 大血牙
     .skill cooking,<50,1
 step
     .goto Redridge Mountains,15.52,72.58,60,0
     .goto Redridge Mountains,14.87,70.30,60,0
     .goto Redridge Mountains,16.93,70.20
     >>Talk to |cRXP_FRIENDLY_Parker|r
-    .turnin 129 >>Turn in A Free Lunch
-    .accept 130 >>Accept Visit the Herbalist
+    .turnin 129 >>交任务: |cRXP_FRIENDLY_免费的午餐|r
+    .accept 130 >>接任务: |cRXP_LOOT_寻访草药师|r
     .target Guard Parker
 step
     #label Gnolls3
@@ -7637,27 +7576,27 @@ step
     .goto Redridge Mountains,32.26,82.83,60,0
     .goto Redridge Mountains,34.60,82.99,60,0
     .goto Redridge Mountains,43.37,71.01
-    >>AoE the |cRXP_ENEMY_Redridge Mongrels|r, |cRXP_ENEMY_Redridge Thrashers|r, and |cRXP_ENEMY_Redridge Poachers|r
-    >>|cRXP_WARN_Remember to deadzone the|r |cRXP_ENEMY_Redridge Poachers|r
+    >>对 |cRXP_ENEMY_Redridge Mongrels|r、|cRXP_ENEMY_Redridge Thrashers|r 和 |cRXP_ENEMY_Redridge Poachers|r 进行范围攻击
+    >>|cRXP_WARN_记得对|r |cRXP_ENEMY_赤脊山偷猎者 进行死亡区域控制|r
     .complete 246,1 --Redridge Mongrel (10)
-    .mob +Redridge Mongrel
     .complete 246,2 --Redridge Poacher (6)
-    .mob +Redridge Poacher
+    .mob Redridge Mongrel
+    .mob Redridge Poacher
 step
     .goto Redridge Mountains,30.74,59.99
-    >>Talk to |cRXP_FRIENDLY_Feldon|r
-    .turnin 246 >>Turn in Assessing the Threat
+    >>对话: |cRXP_FRIENDLY_菲尔顿副队长|r
+    .turnin 246 >>交任务: |cRXP_FRIENDLY_审时度势|r
     .target Deputy Feldon
 step
     .goto Redridge Mountains,41.52,54.68,-1
-    >>Go underwater
-    >>Open the |cRXP_PICK_Sunken Chest|r. Loot it for |cRXP_LOOT_Oslow's Toolbox|r
-    >>|cRXP_WARN_This has a 5 second cast time|r
+    >>潜入水下
+    >>打开 |cRXP_PICK_Sunken Chest|r。将其拾取以获取 |cRXP_LOOT_Oslow's Toolbox|r
+    >>|cRXP_WARN_施法时间为 5 秒|r
     .complete 125,1 --Oslow's Toolbox (1)
 step
     #completewith next
     .goto Redridge Mountains,40.30,45.98,60,0
-    >>AoE |cRXP_ENEMY_Murloc Flesheaters|r and |cRXP_ENEMY_Murloc Scouts|r. Loot them for some of the |cRXP_LOOT_Spotted Sunfish|r and |cRXP_LOOT_Murloc Fins|r
+    >>AoE |cRXP_ENEMY_Murloc Flesheaters|r 和 |cRXP_ENEMY_Murloc Scouts|r。从他们身上搜刮一些 |cRXP_LOOT_Spotted Sunfish|r 和 |cRXP_LOOT_Murloc Fins|r
     .complete 127,1 --Spotted Sunfish (10)
     .collect 1468,8,150,1 --Murloc Fin (8)
     .mob Murloc Flesheater
@@ -7665,19 +7604,19 @@ step
 step
     .goto Redridge Mountains,32.14,48.63
     >>Talk to |cRXP_FRIENDLY_Oslow|r
-    .turnin 125 >>Turn in The Lost Tools
-    .accept 89 >>Accept The Everstill Bridge
-    .target Foreman Oslow
+    .turnin 125 >>交任务: |cRXP_FRIENDLY_丢失的工具|r
+    .accept 89 >>接任务: |cRXP_LOOT_止水湖上的桥|r
+    .target 工头奥斯洛
 step
     .goto Redridge Mountains,30.83,46.49
     >>Talk to |cRXP_FRIENDLY_Dorin|r
-    .vendor >> Vendor Trash
+    .vendor >>供应商垃圾
     .target Dorin Songblade
     .isOnQuest 89
 step << skip
     #completewith next
     .goto Redridge Mountains,29.24,45.40,10,0
-    .goto Redridge Mountains,28.89,44.87,8 >>Go inside the Town Hall
+    .goto Redridge Mountains,28.89,44.87,8 >>进入市政厅
 step
     .goto Redridge Mountains,37.16,45.20,60,0
     .goto Redridge Mountains,38.36,41.34,60,0
@@ -7693,13 +7632,13 @@ step
     .goto Redridge Mountains,59.74,42.01,60,0
     .goto Redridge Mountains,62.34,41.76,60,0
     .goto Redridge Mountains,62.56,45.36,60,0
-    >>AoE |cRXP_ENEMY_Blackrock Outrunners|r, |cRXP_ENEMY_Blackrock Renegades|r and |cRXP_ENEMY_Blackrock Grunts|r. Loot them for their |cRXP_LOOT_Battleworn Axes|r
-    >>AoE |cRXP_ENEMY_Murloc Tidecallers|r and |cRXP_ENEMY_Murloc Scouts|r. Loot them for their |cRXP_LOOT_Spotted Sunfish|r and |cRXP_LOOT_Murloc Fins|r
-    >>AoE |cRXP_ENEMY_Dire Condors|r. Loot them for their |cRXP_LOOT_Tough Condor Meat|r
-    >>AoE |cRXP_ENEMY_Greater Tarantulas|r. Loot them for their |cRXP_LOOT_Crisp Spider Meat|r
-    >>AoE |cRXP_ENEMY_Great Goretusks|r. Loot them for |cRXP_LOOT_Great Goretusk Snouts|r
-    >>AoE |cRXP_ENEMY_Redridge Mystics|r and |cRXP_ENEMY_Redridge Brutes|r Loot them for their |cRXP_LOOT_Iron Pikes|r and |cRXP_LOOT_Iron Rivets|r
-    >>|cRXP_WARN_Be careful as |cRXP_ENEMY_Blackrock Outrunners|r cast|r |T132149:0|t[Net]|cRXP_WARN_, |cRXP_ENEMY_Dire Condors|r cast|r |T132154:0|t[Knockdown]
+    >>范围 |cRXP_ENEMY_Blackrock Outrunners|r、|cRXP_ENEMY_Blackrock Renegades|r 和 |cRXP_ENEMY_Blackrock Grunts|r。掠夺他们的 |cRXP_LOOT_Battleworn Axes|r
+    >>范围 |cRXP_ENEMY_Murloc Tidecallers|r 和 |cRXP_ENEMY_Murloc Scouts|r。掠夺他们的 |cRXP_LOOT_Spotted Sunfish|r 和 |cRXP_LOOT_Murloc Fins|r
+    >>AoE |cRXP_ENEMY_凶猛秃鹰s|r. 掠夺他们的 |cRXP_LOOT_Tough Condor Meat|r
+    >>AoE |cRXP_ENEMY_Greater 狼蛛s|r. 掠夺它们以获取 |cRXP_LOOT_Crisp Spider Meat|r
+    >>AoE |cRXP_ENEMY_大血牙s|r。掠夺它们可获得 |cRXP_LOOT_大血牙 Snouts|r
+    >>AoE |cRXP_ENEMY_Redridge Mystics|r 和 |cRXP_ENEMY_Redridge Brutes|r 掠夺他们的 |cRXP_LOOT_Iron Pikes|r 和 |cRXP_LOOT_Iron Rivets|r
+    >>|cRXP_WARN_小心 |cRXP_ENEMY_Blackrock Outrunners|r cast|r |T132149:0|t[Net]|cRXP_WARN_，|cRXP_ENEMY_凶猛秃鹰s|r cast|r |T132154:0|t[Knockdown]
     .complete 20,1 --Blackrock Axe (10)
 #loop
 	.line Redridge Mountains,37.16,45.20,38.36,41.34,40.09,40.64,42.89,39.26,59.36,44.56,59.79,42.05,62.58,41.46,62.57,45.48,59.36,44.56
@@ -7741,7 +7680,7 @@ step
 	.goto Redridge Mountains,52.67,42.73,30,0
 	.goto Redridge Mountains,50.50,41.55,30,0
 	.goto Redridge Mountains,52.26,36.56,30,0
-    .collect 2296,5,92,1 --Great Goretusk Snout (5)
+    .collect 2296,5,92,1 --大血牙 Snout (5)
     .disablecheckbox
     .complete 89,1 --Iron Pike (5)
     .disablecheckbox
@@ -7753,26 +7692,26 @@ step
     .mob Blackrock Renegade
     .mob Murloc Scout
     .mob Murloc Tidecaller
-    .mob Dire Condor
-    .mob Greater Tarantula
-    .mob Great Goretusk
+    .mob 凶猛秃鹰
+    .mob Greater 狼蛛
+    .mob 大血牙
     .mob Redridge Mystic
     .mob Redridge Brute
 step
     #completewith Herbalist
     .goto Redridge Mountains,36.64,37.01,60,0
     .goto Redridge Mountains,32.21,40.09,60,0
-    >>AoE |cRXP_ENEMY_Redridge Mystics|r and |cRXP_ENEMY_Redridge Brutes|r Loot them for their |cRXP_LOOT_Iron Pikes|r and |cRXP_LOOT_Iron Rivets|r
+    >>AoE |cRXP_ENEMY_Redridge Mystics|r 和 |cRXP_ENEMY_Redridge Brutes|r 掠夺他们的 |cRXP_LOOT_Iron Pikes|r 和 |cRXP_LOOT_Iron Rivets|r
     .complete 89,1 --Iron Pike (5)
     .complete 89,2 --Iron Rivet (5)
     .mob Redridge Mystic
     .mob Redridge Brute
 step
     .goto Redridge Mountains,22.68,43.83
-    >>Go inside
-    >>Talk to |cRXP_FRIENDLY_Breanna|r
-    .accept 92 >> Accept Redridge Goulash
-    .turnin 92 >> Turn in Redridge Goulash
+    >>进去
+    >>对话: |cRXP_FRIENDLY_厨师布雷纳|r
+    .accept 92 >>接任务: |cRXP_LOOT_赤脊山炖肉|r
+    .turnin 92 >>交任务: |cRXP_FRIENDLY_赤脊山炖肉|r
     .target Chef Breanna
     .itemcount 1080,5
     .itemcount 1081,5
@@ -7780,30 +7719,30 @@ step
 step
     #label Herbalist
     .goto Redridge Mountains,21.86,46.33
-    >>Talk to |cRXP_FRIENDLY_Martie|r
-    .turnin 130 >>Turn in Visit the Herbalist
-    .accept 131 >>Accept Delivering Daffodils
-    .accept 34 >>Accept An Unwelcome Guest
+    >>对话: |cRXP_FRIENDLY_玛蒂·詹罗斯|r
+    .turnin 130 >>交任务: |cRXP_FRIENDLY_寻访草药师|r
+    .accept 131 >>接任务: |cRXP_LOOT_水仙诉衷情|r
+    .accept 34 >>接任务: |cRXP_LOOT_不速之客|r
     .target Martie Jainrose
 step
     #completewith next
     .goto Redridge Mountains,17.72,55.71,60,0
     .goto Redridge Mountains,16.09,53.08,60,0
-    >>AoE |cRXP_ENEMY_Great Goretusks|r. Loot them for |cRXP_LOOT_Great Goretusk Snouts|r
-    .collect 2296,5,92,1 --Great Goretusk Snout (5)
-    .mob Great Goretusk
+    >>AoE |cRXP_ENEMY_大血牙s|r。掠夺它们可获得 |cRXP_LOOT_大血牙 Snouts|r
+    .collect 2296,5,92,1 --大血牙 Snout (5)
+    .mob 大血牙
 step
     .goto Redridge Mountains,15.66,49.31
-    >>Kill |cRXP_ENEMY_Bellygrub|r
-    >>|cRXP_WARN_Kite her toward the fence north of |cRXP_FRIENDLY_Lamar|r. Jump back and forth to safespot her without taking any damage|r
-    >>Be careful as |cRXP_ENEMY_Bellygrub|r casts |T132337:0|t[Charge] and |T136025:0|t[Tremor]
+    >>杀死 |cRXP_ENEMY_Bellygrub|r
+    >>|cRXP_WARN_放风筝她去 |cRXP_FRIENDLY_Lamar|r 北边的栅栏。来回跳跃以找到她的安全点，不要受到任何伤害|r
+    >>小心 |cRXP_ENEMY_Bellygrub|r 施放 |T132337:0|t[充电] 和 |T136025:0|t[Tremor]
     .complete 34,1 --Bellygrub's Tusk (1)
     .mob Bellygrub
     .target Lamar Veisilli
 step
     .goto Redridge Mountains,21.86,46.33
-    >>Talk to |cRXP_FRIENDLY_Martie|r
-    .turnin 34 >>Turn in An Unwelcome Guest
+    >>对话: |cRXP_FRIENDLY_玛蒂·詹罗斯|r
+    .turnin 34 >>交任务: |cRXP_FRIENDLY_不速之客|r
     .target Martie Jainrose
 step
     .goto Redridge Mountains,17.47,43.62,60,0
@@ -7814,20 +7753,20 @@ step
     .goto Redridge Mountains,20.92,39.37,60,0
     .goto Redridge Mountains,17.72,55.71,60,0
     .goto Redridge Mountains,16.09,53.08
-    >>AoE |cRXP_ENEMY_Great Goretusks|r. Loot them for |cRXP_LOOT_Great Goretusk Snouts|r
-    .collect 2296,5,92,1 --Great Goretusk Snout (5)
-    .mob Great Goretusk
+    >>AoE |cRXP_ENEMY_大血牙s|r。掠夺它们可获得 |cRXP_LOOT_大血牙 Snouts|r
+    .collect 2296,5,92,1 --大血牙 Snout (5)
+    .mob 大血牙
 step
     #completewith next
     .goto Redridge Mountains,21.35,36.34,60,0
-    >>AoE |cRXP_ENEMY_Redridge Mystics|r and |cRXP_ENEMY_Redridge Brutes|r Loot them for their |cRXP_LOOT_Iron Pikes|r and |cRXP_LOOT_Iron Rivets|r
+    >>AoE |cRXP_ENEMY_Redridge Mystics|r 和 |cRXP_ENEMY_Redridge Brutes|r 掠夺他们的 |cRXP_LOOT_Iron Pikes|r 和 |cRXP_LOOT_Iron Rivets|r
     .complete 89,1 --Iron Pike (5)
     .complete 89,2 --Iron Rivet (5)
     .mob Redridge Mystic
     .mob Redridge Brute
 step
     .goto Redridge Mountains,19.50,31.91,60,0
-    .goto Redridge Mountains,20.58,28.29,40 >>Travel to the Rethban Caverns
+    .goto Redridge Mountains,20.58,28.29,40 >>前往瑞斯班洞穴
     .isOnQuest 347
 step
 #loop
@@ -7841,15 +7780,14 @@ step
 	.goto Redridge Mountains,17.48,19.55,20,0
 	.goto Redridge Mountains,16.05,21.04,20,0
 	.goto Redridge Mountains,18.95,24.50,20,0
-    >>AoE |cRXP_ENEMY_Redridge Drudgers|r. Loot them for their |cRXP_LOOT_Rethban Ore|r, |cRXP_LOOT_Iron Pikes|r, and |cRXP_LOOT_Iron Rivets|r
-    >>AoE |cRXP_ENEMY_Redridge Bashers|r. Loot them for their |cRXP_LOOT_Iron Pikes|r and |cRXP_LOOT_Iron Rivets|r
-    >>Mine the |cRXP_PICK_Copper Veins|r in the cave. Loot them for the |cRXP_LOOT_Rethban Ore|r
+    >>范围 |cRXP_ENEMY_Redridge Drudgers|r。掠夺他们的 |cRXP_LOOT_Rethban Ore|r、|cRXP_LOOT_Iron Pikes|r、和 |cRXP_LOOT_Iron Rivets|r
+    >>范围 |cRXP_ENEMY_Redridge Bashers|r。掠夺他们的 |cRXP_LOOT_Iron Pikes|r 和 |cRXP_LOOT_Iron Rivets|r
+    >>挖掘洞穴中的 |cRXP_PICK_铜矿脉|r。掠夺它们以获得 |cRXP_LOOT_Rethban 矿石|r
     .complete 347,1 --Rethban Ore (5)
-    .mob +Redridge Drudger
     .complete 89,1 --Iron Pike (5)
-    .mob +Redridge Basher
     .complete 89,2 --Iron Rivet (5)
-    .mob +Redridge Basher
+    .mob Redridge Drudger
+    .mob Redridge Basher
 step
 #loop
 	.line Redridge Mountains,18.95,24.50,21.62,23.72,21.89,15.06,20.21,13.25,18.82,15.03,16.06,17.08,17.48,19.55,16.05,21.04,18.95,24.50
@@ -7862,7 +7800,7 @@ step
 	.goto Redridge Mountains,17.48,19.55,20,0
 	.goto Redridge Mountains,16.05,21.04,20,0
 	.goto Redridge Mountains,18.95,24.50,20,0
-    .xp 21+14365 >> Grind to 14365+/25200xp
+    .xp 21+14365 >>升级至 14365+/25200xp
     .isQuestAvailable 92
 step
 #loop
@@ -7876,98 +7814,95 @@ step
 	.goto Redridge Mountains,17.48,19.55,20,0
 	.goto Redridge Mountains,16.05,21.04,20,0
 	.goto Redridge Mountains,18.95,24.50,20,0
-    .xp 21+15715 >> Grind to 15715+/25200xp
+    .xp 21+15715 >>升级至 15715+/25200xp
     .isQuestTurnedIn 92
-step << skip
+step
     #completewith next
     .goto Redridge Mountains,18.79,13.84,-1
     .goto Redridge Mountains,22.04,17.14,-1
     .goto Redridge Mountains,18.40,24.13,-1
     .goto Redridge Mountains,21.29,24.06,-1
     .goto Redridge Mountains,16.58,20.97,-1
-    .goto Redridge Mountains,33.82,48.07,30 >>Logout Skip out of the cave (on the EAST side) back to Lakeshire
-step
-    #completewith next
-    .subzone 69 >> Return to Lakeshire
+    .goto Redridge Mountains,33.82,48.07,30 >>退出 跳出洞穴（在东侧）回到湖畔郡
 step
     >>Talk to |cRXP_FRIENDLY_Marris|r and |cRXP_FRIENDLY_Oslow|r
-    .turnin 20 >>Turn in Blackrock Menace
-    .accept 19 >>Accept Tharil'zun
-    .target +Marshal Marris
+    .turnin 20 >>交任务: |cRXP_FRIENDLY_黑石氏族的威胁|r
+    .accept 19 >>接任务: |cRXP_LOOT_萨瑞尔祖恩|r
     .goto Redridge Mountains,33.51,48.96
-    .turnin 89,1 >>Turn in The Everstill Bridge
+    .turnin 89,1 >>交任务: |cRXP_FRIENDLY_止水湖上的桥|r
     .goto Redridge Mountains,32.14,48.64
-    .target +Foreman Oslow
+    .target 马里斯元帅
+    .target 工头奥斯洛
 step
     .goto Redridge Mountains,30.94,47.24
-    >>Talk to |cRXP_FRIENDLY_Verner|r
-    .accept 118 >>Accept The Price of Shoes
+    >>对话: |cRXP_FRIENDLY_弗纳·奥斯古|r
+    .accept 118 >>接任务: |cRXP_LOOT_马掌|r
     .target Verner Osgood
 step
     .goto Redridge Mountains,27.72,47.38
-    >>Talk to |cRXP_FRIENDLY_Baren|r
-    .turnin 127 >> Turn in Selling Fish
-    .accept 150 >> Accept Murloc Poachers
-    .turnin 150 >> Turn in Murloc Poachers
+    >>对话: |cRXP_FRIENDLY_码头管理员巴伦|r
+    .turnin 127 >>交任务: |cRXP_FRIENDLY_卖鱼|r
+    .accept 150 >>接任务: |cRXP_LOOT_鱼人偷猎者|r
+    .turnin 150 >>交任务: |cRXP_FRIENDLY_鱼人偷猎者|r
     .goto Redridge Mountains,27.72,47.38
     .target Dockmaster Baren
 step
     #sticky
     #label Kimberly
     .goto Redridge Mountains,27.08,45.54,0,0
-    .vendor >> Vendor Trash. You can sell the |T134708:0|t[Mining Pick] now if you wish
+    .vendor >>供应商垃圾。如果你愿意，你可以立即出售 |T134708:0|t[采矿镐]
     .target Kimberly Hiett
 step
     .goto Redridge Mountains,26.92,44.95
-    >>Go Inside the Inn
+    >>进入旅馆
     >>Talk to |cRXP_FRIENDLY_Darcy|r
-    .turnin 131 >>Turn in Delivering Daffodils
+    .turnin 131 >>交任务: |cRXP_FRIENDLY_水仙诉衷情|r
     .target Darcy
 step
     #completewith next
     .goto Redridge Mountains,26.52,46.38,12,0
     .goto Redridge Mountains,22.86,44.57,12,0
-    >>Travel toward |cRXP_FRIENDLY_Breanna|r
+    >>前往 |cRXP_FRIENDLY_Breanna|r
 step
     .goto Redridge Mountains,22.68,43.83
-    >>Go inside
-    >>Talk to |cRXP_FRIENDLY_Breanna|r
-    .accept 92 >> Accept Redridge Goulash
-    .turnin 92 >> Turn in Redridge Goulash
+    >>进去
+    >>对话: |cRXP_FRIENDLY_厨师布雷纳|r
+    .accept 92 >>接任务: |cRXP_LOOT_赤脊山炖肉|r
+    .turnin 92 >>交任务: |cRXP_FRIENDLY_赤脊山炖肉|r
     .target Chef Breanna
 step
     #completewith next
-    .hs >> Hearth to Goldshire
+    .hs >>炉石到闪金镇
 step
     .goto Elwynn Forest,41.71,65.55
     >>Talk to |cRXP_FRIENDLY_Argus|r
-    .turnin 118 >>Turn in The Price of Shoes
-    .accept 119 >>Accept Return to Vener
+    .turnin 118 >>交任务: |cRXP_FRIENDLY_马掌|r
+    .accept 119 >>接任务: |cRXP_WARN_回复弗纳|r
     .target Smith Argus
 step
     #completewith next
     .goto Elwynn Forest,48.79,41.56,10,0
     .goto Elwynn Forest,49.26,40.69,10,0
-    .goto Elwynn Forest,49.61,40.41,10 >>Travel toward |cRXP_FRIENDLY_Paxton|r
+    .goto Elwynn Forest,49.61,40.41,10 >>前往 |cRXP_FRIENDLY_Paxton|r
 step
     .goto Elwynn Forest,49.61,40.41
     >>Talk to |cRXP_FRIENDLY_Paxton|r
-    .turnin 347 >> Turn in Rethban Ore
-    .accept 346 >> Accept Return to Kristoff
+    .turnin 347 >>交任务: |cRXP_FRIENDLY_瑞斯班矿石|r
+    .accept 346 >>接任务: |cRXP_WARN_克里斯托弗的书|r
     .target Brother Paxton
 step
     #completewith CharysEnd
-    .cast 3561 >> Cast |T135763:0|t[Teleport: Stormwind]
+    .cast 3561 >>施放 |T135763:0|t[传送：暴风城]
     .zoneskip Stormwind City
 step
     #completewith CharysEnd
-    >>|cRXP_WARN_===PAY ATTENTION===|r
-    +|cRXP_WARN_Respec to the Frost AoE spec|r
+    >>|cRXP_WARN_===注意===|r
+    +|cRXP_WARN_重新指定冰霜范围专精|r
     .xp <22,1
 step
     .goto Stormwind City,38.23,81.86
     >>Talk to |cRXP_FRIENDLY_Dumas|r
-    .train 10 >> Train Blizzard
+    .train 10 >>列车暴风雪
     .target Maginor Dumas
     .xp <22,1
 step
@@ -7981,39 +7916,39 @@ step
     .goto Stormwind City,31.12,79.42,15,0
     .goto Stormwind City,32.07,81.50,10,0
     .goto Stormwind City,32.63,80.62,8,0
-    >>Exit the Mage Tower
-    .goto Stormwind City,32.16,79.84,10 >>Travel toward |cRXP_FRIENDLY_Charys|r
+    >>退出法师塔
+    .goto Stormwind City,32.16,79.84,10 >>前往 |cRXP_FRIENDLY_Charys|r
 step
     #completewith BankDeposit
-    +|cRXP_WARN_DON'T Go below 1g 43s 30c|r
+    +|cRXP_WARN_不要低于 1g 43s 30c|r
     .xp >22,1
 step
     .goto Stormwind City,32.16,79.84
-    >>Enter the building
-    >>Talk to |cRXP_FRIENDLY_Charys|r
-    .vendor 1307 >>|cRXP_BUY_Buy|r |T134851:0|t[Lesser Mana Potions] |cRXP_BUY_and|r  |T134831:0|t[Healing Potions] |cRXP_BUY_from him (if they're up)|r
+    >>进入大楼
+    >>对话: |cRXP_FRIENDLY_查瑞斯·伊瑟里安|r
+    .vendor 1307 >>|cRXP_BUY_从他那里购买|r |T134851:0|t[次级法力药水] |cRXP_BUY_和|r |T134831:0|t[治疗药水] |cRXP_BUY_（如果它们涨价了）|r
     .itemcount 4827,1
     .target Charys Yserian
 step
     .goto Stormwind City,32.16,79.84
-    >>Enter the building
-    >>Talk to |cRXP_FRIENDLY_Charys|r
-    .vendor 1307 >>|cRXP_BUY_Buy|r |T134851:0|t[Lesser Mana Potions] |cRXP_BUY_and|r  |T134831:0|t[Healing Potions] |cRXP_BUY_from him (if they're up)|r
+    >>进入大楼
+    >>对话: |cRXP_FRIENDLY_查瑞斯·伊瑟里安|r
+    .vendor 1307 >>|cRXP_BUY_从他那里购买|r |T134851:0|t[次级法力药水] |cRXP_BUY_和|r |T134831:0|t[治疗药水] |cRXP_BUY_（如果它们涨价了）|r
     .itemcount 4828,1
     .target Charys Yserian
 step
     .goto Stormwind City,32.16,79.84
-    >>Enter the building
-    >>Talk to |cRXP_FRIENDLY_Charys|r
-    .vendor 1307 >>|cRXP_BUY_Buy|r |T134851:0|t[Lesser Mana Potions] |cRXP_BUY_and|r  |T134831:0|t[Healing Potions] |cRXP_BUY_from him (if they're up)|r
+    >>进入大楼
+    >>对话: |cRXP_FRIENDLY_查瑞斯·伊瑟里安|r
+    .vendor 1307 >>|cRXP_BUY_从他那里购买|r |T134851:0|t[次级法力药水] |cRXP_BUY_和|r |T134831:0|t[治疗药水] |cRXP_BUY_（如果它们涨价了）|r
     .itemcount 4829,1
     .target Charys Yserian
 step
     #label CharysEnd
     .goto Stormwind City,32.16,79.84
-    >>Enter the building
-    >>Talk to |cRXP_FRIENDLY_Charys|r
-    .vendor 1307 >>|cRXP_BUY_Buy|r |T134851:0|t[Lesser Mana Potions]|cRXP_BUY_,|r |T134831:0|t[Healing Potions]|cRXP_BUY_, and a|r |T132515:0|t[Cloth Belt] |cRXP_BUY_from him (if they're up, and if needed)|r
+    >>进入大楼
+    >>对话: |cRXP_FRIENDLY_查瑞斯·伊瑟里安|r
+    .vendor 1307 >>|cRXP_BUY_从他那里购买|r |T134851:0|t[次级法力药水]|cRXP_BUY_、|r |T134831:0|t[治疗药水]|cRXP_BUY_、以及|r |T132515:0|t[布质腰带] |cRXP_BUY_（如果它们已备好，且需要的话）|r
     .itemcount 4827,<1
     .itemcount 4828,<1
     .itemcount 4829,<1
@@ -8026,91 +7961,91 @@ step
     .goto Stormwind City,46.32,66.93,20,0
     .goto Stormwind City,42.45,61.76,20,0
     .goto Stormwind City,41.17,63.74,15,0
-    .goto Stormwind City,41.57,65.46,10 >>Travel toward |cRXP_FRIENDLY_Adair|r
+    .goto Stormwind City,41.57,65.46,10 >>前往 |cRXP_FRIENDLY_Adair|r
 step
     #label AdairX
     .goto Stormwind City,41.57,65.46
-    >>Enter the building
-    >>Talk to |cRXP_FRIENDLY_Adair|r
-    .vendor 1316 >> |cRXP_BUY_Buy non-intellect|r |T134943:0|t[Scrolls] |cRXP_BUY_from him (if they're up)|r
+    >>进入大楼
+    >>对话: |cRXP_FRIENDLY_艾代尔·吉尔罗|r
+    .vendor 1316 >>|cRXP_BUY_从他那里购买非智力|r |T134943:0|t[卷轴] |cRXP_BUY_（如果它们涨价了）|r
     .target Adair Gilroy
 step
     #completewith next
     .goto Stormwind City,37.84,58.50,5,0
-    .goto Stormwind City,37.81,45.02,20 >>Run up the edge of the wall instead of going around
+    .goto Stormwind City,37.81,45.02,20 >>沿着墙边跑，而不是绕着墙跑
 step
     .goto Stormwind City,45.70,38.42
     >>Talk to |cRXP_FRIENDLY_Kristoff|r
-    .turnin 346 >> Turn in Return to Kristoff
+    .turnin 346 >>交任务: |cRXP_FRIENDLY_克里斯托弗的书|r
     .target Brother Kristoff
 step
     .goto Stormwind City,55.25,7.07
-    >>Talk to |cRXP_FRIENDLY_Billibub|r
-    .vendor 5519 >>|cRXP_BUY_Buy a|r |T133024:0|t[Bronze Tube] |cRXP_BUY_from him if its up|r
+    >>对话: |cRXP_FRIENDLY_比利巴布·旋轮|r
+    .vendor 5519 >>|cRXP_BUY_如果价格上涨，请从他那里购买 a|r |T133024:0|t[青铜管] |cRXP_BUY_|r
     .target Billibub Cogspinner
     .itemcount 4371,<1
     .isQuestAvailable 174
 step
     #completewith next
-    .goto Stormwind City,63.89,8.25,20 >> Travel to the Deeprun Tram
+    .goto Stormwind City,63.89,8.25,20 >>前往 Deeprun 缆车
 step
     #completewith next
-    +|cRXP_WARN_Ride the Deeprun Tram whilst spam casting|r |T132816:0|t[Conjure Water r3]
+    +|cRXP_WARN_乘坐深泉电车并进行垃圾邮件发送|r |T132816:0|t[召唤水 r3]
 step
-    .zone Ironforge >> Take the Deeprun Tram to Ironforge
+    .zone Ironforge >>前往: |cRXP_PICK_铁炉堡|r
 step
     .goto Ironforge,67.83,42.47
     >>Talk to |cRXP_FRIENDLY_Cogspinner|r
-    .vendor 5175>>|cRXP_BUY_Buy a|r |T133024:0|t[Bronze Tube] |cRXP_BUY_from him if its up|r
+    .vendor 5175>>|cRXP_BUY_如果价格上涨，请从他那里购买 a|r |T133024:0|t[青铜管] |cRXP_BUY_|r
     .target Gearcutter Cogspinner
     .itemcount 4371,<1
     .isQuestAvailable 174
 step
     #completewith BankDeposit
-    .goto Ironforge,33.44,63.56,30 >>Enter the Ironforge Bank
+    .goto Ironforge,33.44,63.56,30 >>进入铁炉堡银行
 step
     .goto Ironforge,35.93,60.13
-    >>Talk to |cRXP_FRIENDLY_Bailey|r
-    >>|cRXP_WARN_NOTE: You need 12 stacks of each cloth (|r|T132911:0|t[Wool Cloth]|cRXP_WARN_,|r |T132905:0|t[Silk Cloth]|cRXP_WARN_,|r |T132892:0|t[Mageweave Cloth]|cRXP_WARN_,|r and |T132903:0|t[Runecloth]|cRXP_WARN_) to do the cloth turnins later. You'll get these naturally as you level|r
-    .bankdeposit 17056,2592,1015,1083,2665,1922,1284 >> Deposit the following items into the bank:
-    >>|T132917:0|t[Light Feather]
-    >>|T132911:0|t[Wool Cloth]
-    >>|T133970:0|t[Lean Wolf Flank]
-    >>|T133277:0|t[Glyph of Azora]
-    >>|T133849:0|t[Stormwind Seasoning Herbs]
-    >>|T133629:0|t[Supplies for Sven]
-    >>|T132761:0|t[Crate of Horseshoes]
+    >>对话: |cRXP_FRIENDLY_拜雷|r
+    >>|cRXP_WARN_注意：您需要每种布料 12 叠（|r|T132911:0|t[羊毛布]|cRXP_WARN_、|r |T132905:0|t[丝绸布]|cRXP_WARN_、|r |T132892:0|t[魔纹布]|cRXP_WARN_、|r 和 |T132903:0|t[符文布]|cRXP_WARN_）以便稍后上交布料。随着等级的提高，您会自然获得这些布料|r
+    .bankdeposit 17056,2592,1015,1083,2665,1922,1284 >>将以下物品存入银行：
+    >>|T132917:0|t[轻羽]
+    >>|T132911:0|t[羊毛布]
+    >>|T133970:0|t[瘦狼侧翼]
+    >>|T133277:0|t[阿佐拉雕文]
+    >>|T133849:0|t[暴风城调味草药]
+    >>|T133629:0|t[为斯文提供的补给]
+    >>|T132761:0|t[一箱马蹄铁]
     .target Bailey Stonemantle
 step
     #label BankDeposit
     .goto Ironforge,35.93,60.13
-    .bankwithdraw 4654 >> Withdraw the following items from your bank:
-    >>|T134431:0|t[Mysterious Fossil]
+    .bankwithdraw 4654 >>从您的银行提取以下物品：
+    >>|T134431:0|t[神秘化石]
     .target Bailey Stonemantle
 step
     .goto Ironforge,25.50,7.04
-    >>Talk to |cRXP_FRIENDLY_Milstaff|r
-    .train 3562 >> Train |T135757:0|t[Teleport: Ironforge]
+    >>对话: |cRXP_FRIENDLY_贝尔斯塔弗·风暴之眼|r
+    .train 3562 >>火车 |T135757:0|t[传送：铁炉堡]
     .target Milstaff Stormeye
 step
     #completewith FlyMene
-    >>|cRXP_WARN_===PAY ATTENTION===|r
-    +|cRXP_WARN_Respec to the Frost AoE spec|r
+    >>|cRXP_WARN_===注意===|r
+    +|cRXP_WARN_重新指定冰霜范围专精|r
 step
     .goto Ironforge,27.18,8.60
-    >>Talk to |cRXP_FRIENDLY_Dink|r
-    .train 10 >> Train Blizzard
+    >>对话: |cRXP_FRIENDLY_丁克|r
+    .train 10 >>列车暴风雪
     .target Dink
 step
     #completewith next
-    +|cRXP_WARN_Start spam casting|r |T132816:0|t[Conjure Water r3] |cRXP_WARN_to conjure as much water as possible before taking the flight|r
+    +|cRXP_WARN_开始垃圾邮件投放|r |T132816:0|t[召唤水 r3] |cRXP_WARN_在飞行前召唤尽可能多的水|r
 step
     #completewith next
     #label FlyMene
     .goto Ironforge,55.50,47.74
-    >>Talk to |cRXP_FRIENDLY_Gryth|r
-    .fly Menethil >> Fly to Menethil Harbor
+    >>对话: |cRXP_FRIENDLY_格莱斯·瑟登|r
+    .fly Menethil >>飞往米奈希尔港
     .target Gryth Thurden
 step
-    .zone Wetlands >> Travel to Wetlands
+    .zone Wetlands >>前往: |cRXP_PICK_湿地|r
 ]])

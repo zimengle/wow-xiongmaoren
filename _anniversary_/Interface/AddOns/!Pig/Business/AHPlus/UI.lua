@@ -58,17 +58,12 @@ function BusinessInfo.ADD_Newdata(name,xianjiaV,itemLink,itemID)
 		NewData[name]={itemLinkJJ,{{xianjiaV,GetServerTime()}},itemID}
 	end
 end
-local linkyijiazaiCCC=nil
-function BusinessInfo.SetTooltipOfflineG(ItemInfo,tooltip)
+function BusinessInfo.SetTooltipOfflineG(tooltip,ItemInfo)
 	if PIGA["AHPlus"]["Open"] and PIGA["AHPlus"]["AHtooltip"] then
 		if not ItemInfo then return end
 		if tooltip == GameTooltip or tooltip == ItemRefTooltip then
-			local itemName,_,_,_,_,_,_,_,_,_,_,classID,_,bindType= GetItemInfo(ItemInfo)
+			local itemName,_,_,_,_,_,_,_,_,_,_,_,_,bindType= GetItemInfo(ItemInfo)
 			if itemName and bindType~=1 and bindType~=4 then
-				if classID==9 and not linkyijiazaiCCC then
-					linkyijiazaiCCC=true
-					return
-				end
 				local NameData = BusinessInfo.GetCacheDataG(itemName)
 				if NameData then
 					local DataNum=#NameData
@@ -78,8 +73,6 @@ function BusinessInfo.SetTooltipOfflineG(ItemInfo,tooltip)
 				else
 					tooltip:AddDoubleLine(AUCTIONS..AUCTION_BROWSE_UNIT_PRICE_SORT..":",UNKNOWN,0,1,1,0,1,1)
 				end
-				tooltip:Show()
-				linkyijiazaiCCC=nil
 			end
 		end
 	end

@@ -8,8 +8,8 @@ TomTomDB = {
 ["Vscode - 加丁"] = "Default",
 ["特变电工 - 祈福"] = "Default",
 ["码农巴菲特 - 祈福"] = "Default",
-["新特能源 - 祈福"] = "Default",
 ["京东的董事长 - 祈福"] = "Default",
+["新特能源 - 祈福"] = "Default",
 },
 ["profiles"] = {
 ["Default"] = {
@@ -44,8 +44,8 @@ TomTomWaypointsM = {
 ["Vscode - 加丁"] = "Vscode - 加丁",
 ["特变电工 - 祈福"] = "特变电工 - 祈福",
 ["码农巴菲特 - 祈福"] = "码农巴菲特 - 祈福",
-["新特能源 - 祈福"] = "新特能源 - 祈福",
 ["京东的董事长 - 祈福"] = "京东的董事长 - 祈福",
+["新特能源 - 祈福"] = "新特能源 - 祈福",
 },
 ["profiles"] = {
 ["沈南鹏 - 祈福"] = {
@@ -65,9 +65,9 @@ TomTomWaypointsM = {
 ["callbacks"] = {
 ["distance"] = {
 },
-["world"] = {
-},
 ["minimap"] = {
+},
+["world"] = {
 },
 },
 ["minimap"] = true,
@@ -100,9 +100,9 @@ TomTomWaypointsM = {
 ["callbacks"] = {
 ["distance"] = {
 },
-["world"] = {
-},
 ["minimap"] = {
+},
+["world"] = {
 },
 },
 ["minimap"] = true,
@@ -112,12 +112,103 @@ TomTomWaypointsM = {
 },
 ["码农巴菲特 - 祈福"] = {
 },
-["新特能源 - 祈福"] = {
+["京东的董事长 - 祈福"] = {
 [390] = {
-["390:827088195.59073:373966885.19862:TomTom 路径点"] = {
+["390:788692780.95951:357027807.62411:TomTom 路径点"] = {
 390,
-0.8270881955907252,
-0.3739668851986163,
+0.7886927809595149,
+0.35702780762411,
+["arrivaldistance"] = 15,
+["crazy"] = true,
+["persistent"] = true,
+["minimap"] = true,
+["cleardistance"] = 10,
+["title"] = "TomTom 路径点",
+["from"] = "TomTom/wm",
+["callbacks"] = {
+["distance"] = {
+[10] = nil --[[ skipped inline function ]],
+[15] = nil --[[ skipped inline function ]],
+},
+["world"] = {
+["onclick"] = nil --[[ skipped inline function ]],
+["tooltip_update"] = nil --[[ skipped inline function ]],
+["tooltip_show"] = nil --[[ skipped inline function ]],
+},
+["minimap"] = {
+["onclick"] = nil --[[ skipped inline function ]],
+["tooltip_update"] = nil --[[ skipped inline function ]],
+["tooltip_show"] = nil --[[ skipped inline function ]],
+},
+},
+["world"] = true,
+},
+},
+[376] = {
+["376:706377840.00079:611114916.27556:TomTom 路径点"] = {
+376,
+0.7063778400007888,
+0.6111149162755595,
+["arrivaldistance"] = 15,
+["crazy"] = true,
+["persistent"] = true,
+["minimap"] = true,
+["cleardistance"] = 10,
+["title"] = "TomTom 路径点",
+["from"] = "TomTom/wm",
+["callbacks"] = {
+["distance"] = {
+[10] = nil --[[ skipped inline function ]],
+[15] = nil --[[ skipped inline function ]],
+},
+["world"] = {
+["onclick"] = nil --[[ skipped inline function ]],
+["tooltip_update"] = nil --[[ skipped inline function ]],
+["tooltip_show"] = nil --[[ skipped inline function ]],
+},
+["minimap"] = {
+["onclick"] = nil --[[ skipped inline function ]],
+["tooltip_update"] = nil --[[ skipped inline function ]],
+["tooltip_show"] = nil --[[ skipped inline function ]],
+},
+},
+["world"] = true,
+},
+["376:173801985.91546:810996845.83775:TomTom 路径点"] = {
+376,
+0.1738019859154555,
+0.8109968458377471,
+["arrivaldistance"] = 15,
+["crazy"] = true,
+["persistent"] = true,
+["minimap"] = true,
+["cleardistance"] = 10,
+["title"] = "TomTom 路径点",
+["from"] = "TomTom/wm",
+["callbacks"] = {
+["distance"] = {
+[10] = nil --[[ skipped inline function ]],
+[15] = nil --[[ skipped inline function ]],
+},
+["world"] = {
+["onclick"] = nil --[[ skipped inline function ]],
+["tooltip_update"] = nil --[[ skipped inline function ]],
+["tooltip_show"] = nil --[[ skipped inline function ]],
+},
+["minimap"] = {
+["onclick"] = nil --[[ skipped inline function ]],
+["tooltip_update"] = nil --[[ skipped inline function ]],
+["tooltip_show"] = nil --[[ skipped inline function ]],
+},
+},
+["world"] = true,
+},
+},
+[379] = {
+["379:495645651.80837:852497716.74613:TomTom 路径点"] = {
+379,
+0.4956456518083711,
+0.852497716746129,
 ["arrivaldistance"] = 15,
 ["crazy"] = true,
 ["persistent"] = true,
@@ -145,7 +236,30 @@ TomTomWaypointsM = {
 },
 },
 },
-["京东的董事长 - 祈福"] = {
+["新特能源 - 祈福"] = {
+[390] = {
+["390:827088195.59073:373966885.19862:TomTom 路径点"] = {
+390,
+0.8270881955907252,
+0.3739668851986163,
+["arrivaldistance"] = 15,
+["crazy"] = true,
+["persistent"] = true,
+["minimap"] = true,
+["cleardistance"] = 10,
+["title"] = "TomTom 路径点",
+["from"] = "TomTom/wm",
+["callbacks"] = {
+["distance"] = {
+},
+["minimap"] = {
+},
+["world"] = {
+},
+},
+["world"] = true,
+},
+},
 },
 },
 }

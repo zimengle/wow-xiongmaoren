@@ -28,6 +28,14 @@ DBM_SpellTimers_Settings = {
 ["bartext"] = "%spell: %player",
 },
 },
+["spells"] = {
+{
+["spell"] = 22700,
+["cooldown"] = 600,
+["bartext"] = "%spell: %player",
+},
+},
+["show_portal"] = true,
 ["portal_horde"] = {
 {
 ["spell"] = 11417,
@@ -47,14 +55,6 @@ DBM_SpellTimers_Settings = {
 {
 ["spell"] = 32667,
 ["cooldown"] = 60,
-["bartext"] = "%spell: %player",
-},
-},
-["show_portal"] = true,
-["spells"] = {
-{
-["spell"] = 22700,
-["cooldown"] = 600,
 ["bartext"] = "%spell: %player",
 },
 },

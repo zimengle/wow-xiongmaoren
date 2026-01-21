@@ -18,35 +18,26 @@ _G.BINDING_HEADER_PIG = addonName
 local ActionFun={}
 ----------
 local suijizuoqi = [=[/run C_MountJournal.SummonByID(0)]=]
-local function UseKeyDownUP(fuji)
-	if PIG_MaxTocversion() then
-		fuji:RegisterForClicks("AnyUp");
+local function UseKeyDownUpdate(button)
+	if PIG_MaxTocversion() and not PIG_MaxTocversion("tbc") then
+		button:RegisterForClicks("AnyUp");
 	else
+		--button:RegisterForClicks("AnyUp", "LeftButtonDown", "RightButtonDown");
 		local UseKeyDown =GetCVar("ActionButtonUseKeyDown")
 		if UseKeyDown=="0" then
-			fuji:RegisterForClicks("AnyUp");
+			button:RegisterForClicks("AnyUp");
 		elseif UseKeyDown=="1" then
-			fuji:RegisterForClicks("AnyDown")
+			button:RegisterForClicks("AnyDown")
 		end
 	end
-	-- SetBinding("CTRL-SHIFT-ALT-Q", "CLICK fuji:Button31")
-	-- fuji:RegisterForClicks("AnyUp", "Button31Down")
-	-- fuji:SetAttribute("type31", "")
-	-- fuji:WrapScript(fuji, "OnClick", [=[
-	-- 	print(button, down)
-	--     -- fuji, button, down
-	--     if (button == "Button31" and down) then
-	--         return "LeftButton"
-	--     end
-	-- ]=])
 end
-function ActionFun.PIGUseKeyDown(fuji)
-	UseKeyDownUP(fuji)
-	fuji:RegisterEvent("CVAR_UPDATE");
-	fuji:HookScript("OnEvent", function(self,event,arg1)
+function ActionFun.PIGUseKeyDown(button)
+	UseKeyDownUpdate(button)
+	button:RegisterEvent("CVAR_UPDATE");
+	button:HookScript("OnEvent", function(self,event,arg1)
 		if event=="CVAR_UPDATE" then
 			if arg1=="ActionButtonUseKeyDown" then
-				UseKeyDownUP(self)
+				UseKeyDownUpdate(self)
 			end
 		end
 	end)
@@ -55,7 +46,7 @@ addonTable.Fun.PIGUseKeyDown=ActionFun.PIGUseKeyDown
 function ActionFun.Update_Attribute(self)
 	local Type=self.Type
 	if Type then
-		self:SetAttribute("type", Type)	
+		self:SetAttribute("type", Type)
 		local SimID=self.SimID
 		if Type=="spell" then
 			self:SetAttribute(Type, SimID)
@@ -465,14 +456,15 @@ function ActionFun.loadingButInfo_Mode(self,dataY)
 end
 function ActionFun.loadingButInfo(self,dataY)
 	self:RegisterForDrag("LeftButton")
-	local butInfo = PIGA_Per[dataY]["ActionData"][self.action]
+	local actionID=self:GetAttribute("action")
+	local butInfo = PIGA_Per[dataY]["ActionData"][actionID]
 	if butInfo then
 		self.Type=butInfo[1]
 		if butInfo[1]=="equipmentset" then
 			local eqid=C_EquipmentSet.GetEquipmentSetID(butInfo[2])
 			if not eqid then
 				self.Type=nil
-				PIGA_Per[dataY]["ActionData"][self.action]=nil
+				PIGA_Per[dataY]["ActionData"][actionID]=nil
 				return
 			end
 		end
@@ -635,7 +627,8 @@ end
 ---处理光标
 local function Cursor_Loot(self,oldType,dataY)
 	self.Type=nil
-	PIGA_Per[dataY]["ActionData"][self.action]=nil
+	local actionID=self:GetAttribute("action")
+	PIGA_Per[dataY]["ActionData"][actionID]=nil
 	--self.icon:SetTexture();
 	self.Count:SetText()
 	self.Name:SetText()
@@ -669,31 +662,32 @@ end
 local function Cursor_FZ(self,NewType,canshu1,canshu2,canshu3,dataY)
 	--print(NewType,canshu1,canshu2,canshu3,dataY)
 	self.Type=NewType
+	local actionID=self:GetAttribute("action")
 	if NewType=="spell" then
 		self.SimID=canshu3
-		PIGA_Per[dataY]["ActionData"][self.action]={NewType,canshu3}
+		PIGA_Per[dataY]["ActionData"][actionID]={NewType,canshu3}
 	elseif NewType=="item" then
 		self.SimID=canshu2
 		self.ItemID=canshu1
-		PIGA_Per[dataY]["ActionData"][self.action]={NewType,canshu2,canshu1}
+		PIGA_Per[dataY]["ActionData"][actionID]={NewType,canshu2,canshu1}
 	elseif NewType=="macro" then
 		self.SimID=canshu1
 		local name, icon, body = GetMacroInfo(canshu1)
-		PIGA_Per[dataY]["ActionData"][self.action]={NewType,canshu1,name,body}
+		PIGA_Per[dataY]["ActionData"][actionID]={NewType,canshu1,name,body}
 	elseif NewType=="companion" or NewType=="mount" then
 		if canshu1==268435455 then
 			self.SimID=268435455
 	    	self.SimID_3=150544
-			PIGA_Per[dataY]["ActionData"][self.action]={NewType,268435455,150544}
+			PIGA_Per[dataY]["ActionData"][actionID]={NewType,268435455,150544}
 		else
 			local name, spellID= C_MountJournal.GetMountInfoByID(canshu1)
 	    	self.SimID=name
 	    	self.SimID_3=spellID
-			PIGA_Per[dataY]["ActionData"][self.action]={NewType,name,spellID}
+			PIGA_Per[dataY]["ActionData"][actionID]={NewType,name,spellID}
 		end
 	elseif NewType=="equipmentset" then
 		self.SimID=canshu1
-		PIGA_Per[dataY]["ActionData"][self.action]={NewType,canshu1}
+		PIGA_Per[dataY]["ActionData"][actionID]={NewType,canshu1}
 	end
 	if InCombatLockdown() then return end
 	self:Show()
@@ -782,7 +776,8 @@ function ActionFun.Update_Macro(self,PigMacroDeleted,PigMacroCount,dataY)
 		self:RegisterEvent("PLAYER_REGEN_ENABLED");
 	 	return PigMacroDeleted,PigMacroCount 
 	end
-	local OldInfo =PIGA_Per[dataY]["ActionData"][self.action]
+	local actionID=self:GetAttribute("action")
+	local OldInfo =PIGA_Per[dataY]["ActionData"][actionID]
 	local OldIndex =OldInfo[2]
 	local OldName =OldInfo[3]
 	local OldBody = OldInfo[4]
@@ -800,8 +795,8 @@ function ActionFun.Update_Macro(self,PigMacroDeleted,PigMacroCount,dataY)
 	if (IncBetween(OldIndex - 1, 1, AccMacros) or IncBetween(OldIndex - 1, MAX_ACCOUNT_MACROS + 1, MAX_ACCOUNT_MACROS + CharMacros)) then
 		local Name, Icon, Body = GetMacroInfo(OldIndex - 1);
 		if (TrimBody == strtrim(Body or "") and OldName == Name) then
-			PIGA_Per[dataY]["ActionData"][self.action][1]="macro"
-			PIGA_Per[dataY]["ActionData"][self.action][2]=OldIndex-1
+			PIGA_Per[dataY]["ActionData"][actionID][1]="macro"
+			PIGA_Per[dataY]["ActionData"][actionID][2]=OldIndex-1
 			self.Type="macro"
 			self.SimID=OldIndex-1
 			self.icon:SetTexture(Icon);
@@ -814,8 +809,8 @@ function ActionFun.Update_Macro(self,PigMacroDeleted,PigMacroCount,dataY)
 	if (IncBetween(OldIndex + 1, 1, AccMacros) or IncBetween(OldIndex + 1, MAX_ACCOUNT_MACROS + 1, MAX_ACCOUNT_MACROS + CharMacros)) then
 		local Name, Icon, Body = GetMacroInfo(OldIndex + 1);
 		if (TrimBody == strtrim(Body or "") and OldName == Name) then
-			PIGA_Per[dataY]["ActionData"][self.action][1]="macro"
-			PIGA_Per[dataY]["ActionData"][self.action][2]=OldIndex+1
+			PIGA_Per[dataY]["ActionData"][actionID][1]="macro"
+			PIGA_Per[dataY]["ActionData"][actionID][2]=OldIndex+1
 			self.Type="macro"
 			self.SimID=OldIndex+1
 			self.icon:SetTexture(Icon);
@@ -829,8 +824,8 @@ function ActionFun.Update_Macro(self,PigMacroDeleted,PigMacroCount,dataY)
 		local Name, Icon, Body = GetMacroInfo(i);
 		local Body = strtrim(Body or "");
 		if (TrimBody == Body and OldName == Name) then
-			PIGA_Per[dataY]["ActionData"][self.action][1]="macro"
-			PIGA_Per[dataY]["ActionData"][self.action][2]=i
+			PIGA_Per[dataY]["ActionData"][actionID][1]="macro"
+			PIGA_Per[dataY]["ActionData"][actionID][2]=i
 			self.Type="macro"
 			self.SimID=i
 			self.icon:SetTexture(Icon);	
@@ -849,8 +844,8 @@ function ActionFun.Update_Macro(self,PigMacroDeleted,PigMacroCount,dataY)
 		local Name, Icon, Body = GetMacroInfo(i);
 		local Body = strtrim(Body or "");
 		if (TrimBody == Body and OldName == Name) then
-			PIGA_Per[dataY]["ActionData"][self.action][1]="macro"
-			PIGA_Per[dataY]["ActionData"][self.action][2]=i
+			PIGA_Per[dataY]["ActionData"][actionID][1]="macro"
+			PIGA_Per[dataY]["ActionData"][actionID][2]=i
 			self.Type="macro"
 			self.SimID=i
 			self.icon:SetTexture(Icon);	
@@ -866,11 +861,11 @@ function ActionFun.Update_Macro(self,PigMacroDeleted,PigMacroCount,dataY)
 	if PigMacroDeleted==false then
 		--有相同body
 		if (BodyIndex ~= 0) then 
-			PIGA_Per[dataY]["ActionData"][self.action][2]=BodyIndex
+			PIGA_Per[dataY]["ActionData"][actionID][2]=BodyIndex
 			self.Type="macro"
 			self.SimID=BodyIndex
 			local Name, Icon, Body = GetMacroInfo(BodyIndex);
-			PIGA_Per[dataY]["ActionData"][self.action][3]=Name
+			PIGA_Per[dataY]["ActionData"][actionID][3]=Name
 			self.icon:SetTexture(Icon);	
 			self.Name:SetText(Name);
 			self:SetAttribute("macro", BodyIndex);
@@ -879,14 +874,14 @@ function ActionFun.Update_Macro(self,PigMacroDeleted,PigMacroCount,dataY)
 		--有相同Name
 		local Name, Icon, Body = GetMacroInfo(OldIndex);
 		if (OldName == Name) then
-			PIGA_Per[dataY]["ActionData"][self.action][4]=Body
+			PIGA_Per[dataY]["ActionData"][actionID][4]=Body
 			self.icon:SetTexture(Icon);
 			return PigMacroDeleted,PigMacroCount
 		end
 	end
 	--有删除
 	if PigMacroDeleted==true then
-		PIGA_Per[dataY]["ActionData"][self.action]=nil
+		PIGA_Per[dataY]["ActionData"][actionID]=nil
 		self.Type=nil
 		self.icon:SetTexture();
 		self.Count:SetText();

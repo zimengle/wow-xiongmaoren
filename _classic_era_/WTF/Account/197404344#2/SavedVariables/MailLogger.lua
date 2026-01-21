@@ -14,6 +14,7 @@ MailLoggerDB = {
 ["EnableML"] = true,
 ["AltList"] = {
 ["京东哔哩美团-无情"] = true,
+["李家沱-哈霍兰"] = true,
 },
 ["SetWindowPos"] = {
 "CENTER",

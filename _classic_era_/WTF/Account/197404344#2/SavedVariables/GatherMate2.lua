@@ -1,5 +1,8 @@
 
 GatherMate2DB = {
+["global"] = {
+["data_version"] = 5,
+},
 ["profileKeys"] = {
 ["加拿大打桩机 - 铁血"] = "Default",
 ["伊芙莉特 - 铁血"] = "Default",
@@ -8,12 +11,10 @@ GatherMate2DB = {
 ["超小露露糖 - 铁血"] = "Default",
 ["露露糖 - 铁血"] = "Default",
 ["京东哔哩哔哩 - 无情"] = "Default",
-["萌萌的露小露 - 铁血"] = "Default",
-["愛雅法拉 - 铁血"] = "Default",
+["李家沱 - 哈霍兰"] = "Default",
 ["京东哔哩美团 - 无情"] = "Default",
-},
-["global"] = {
-["data_version"] = 5,
+["愛雅法拉 - 铁血"] = "Default",
+["萌萌的露小露 - 铁血"] = "Default",
 },
 ["profiles"] = {
 ["Default"] = {

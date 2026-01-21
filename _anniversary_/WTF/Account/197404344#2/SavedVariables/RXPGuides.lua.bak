@@ -1,17 +1,17 @@
 
 RXPData = {
-["cacheVersion"] = 29,
 ["gameVersion"] = 20505,
+["cacheVersion"] = 29,
 ["defaultProfile"] = false,
-["questNames"] = {
-["locale"] = "zhCN",
-},
+["trainGenericSpells"] = true,
 ["release"] = "v4.9.11",
 ["realmData"] = {
 ["铁血"] = {
 },
 },
-["trainGenericSpells"] = true,
+["questNames"] = {
+["locale"] = "zhCN",
+},
 }
 RXPDB = {
 ["profileKeys"] = {
@@ -24,8 +24,8 @@ RXPDB = {
 ["露露緹婭 - 无情"] = "global",
 ["渥伦巴菲特 - 铁血"] = "global",
 ["露露缇娅丶 - 铁血"] = "global",
-["愛雅法拉 - 铁血"] = "global",
 ["萌萌的露小露 - 铁血"] = "global",
+["愛雅法拉 - 铁血"] = "global",
 },
 ["profiles"] = {
 ["global"] = {
@@ -43,8 +43,8 @@ RXPSettings = {
 ["露露緹婭 - 无情"] = "露露缇娅丶 - 铁血",
 ["渥伦巴菲特 - 铁血"] = "渥伦巴菲特 - 铁血",
 ["露露缇娅丶 - 铁血"] = "露露缇娅丶 - 铁血",
-["愛雅法拉 - 铁血"] = "露露緹婭 - 无情",
 ["萌萌的露小露 - 铁血"] = "露露緹婭 - 无情",
+["愛雅法拉 - 铁血"] = "露露緹婭 - 无情",
 },
 ["profiles"] = {
 ["露露缇娅丶 - 铁血"] = {
@@ -57,7 +57,7 @@ RXPSettings = {
 ["macroAnnounced"] = true,
 ["hardcore"] = false,
 ["framePositions"] = {
-["activeTargetFrame"] = {
+["arrowFrame"] = {
 {
 "LEFT",
 nil,
@@ -84,7 +84,7 @@ nil,
 0,
 },
 },
-["arrowFrame"] = {
+["activeTargetFrame"] = {
 {
 "LEFT",
 nil,
@@ -94,15 +94,15 @@ nil,
 },
 },
 },
-["phase"] = 1,
+["arrowScale"] = 1.2,
 ["enableAddonIncompatibilityCheck"] = false,
 ["disableArrow"] = false,
 ["frameHeight"] = 28.0000114440918,
 ["arrowText"] = 16,
 ["frameSizes"] = {
-["activeTargetFrame"] = {
-54.22221755981445,
-43.00001907348633,
+["arrowFrame"] = {
+38.40000152587891,
+38.39999008178711,
 },
 ["RXPFrame"] = {
 257.3334045410156,
@@ -112,20 +112,20 @@ nil,
 51.87730407714844,
 40.00001907348633,
 },
-["arrowFrame"] = {
-38.40000152587891,
-38.39999008178711,
+["activeTargetFrame"] = {
+54.22221755981445,
+43.00001907348633,
 },
 },
 ["hideInRaid"] = true,
-["arrowScale"] = 1.2,
+["phase"] = 1,
 },
 ["李家沱 - 铁血"] = {
 ["hardcore"] = false,
 ["frameSizes"] = {
-["arrowFrame"] = {
-31.99998283386231,
-31.99998283386231,
+["activeTargetFrame"] = {
+54.22237014770508,
+43.00001907348633,
 },
 ["RXPFrame"] = {
 235,
@@ -135,12 +135,41 @@ nil,
 51.87730407714844,
 40.00001907348633,
 },
-["activeTargetFrame"] = {
-54.22237014770508,
-43.00001907348633,
+["arrowFrame"] = {
+31.99998283386231,
+31.99998283386231,
 },
 },
+["frameHeight"] = 125.0000152587891,
+["macroAnnounced"] = true,
 ["framePositions"] = {
+["activeTargetFrame"] = {
+{
+"RIGHT",
+nil,
+"RIGHT",
+-189.2873229980469,
+-88.888916015625,
+},
+},
+["RXPFrame"] = {
+{
+"LEFT",
+"UIParent",
+"LEFT",
+0,
+35.00000381469727,
+},
+},
+["activeItemFrame"] = {
+{
+"CENTER",
+"UIParent",
+"CENTER",
+0,
+0,
+},
+},
 ["arrowFrame"] = {
 {
 "CENTER",
@@ -150,69 +179,13 @@ nil,
 -279.6012878417969,
 },
 },
-["RXPFrame"] = {
-{
-"LEFT",
-"UIParent",
-"LEFT",
-0,
-35.00000381469727,
 },
-},
-["activeItemFrame"] = {
-{
-"CENTER",
-"UIParent",
-"CENTER",
-0,
-0,
-},
-},
-["activeTargetFrame"] = {
-{
-"RIGHT",
-nil,
-"RIGHT",
--189.2873077392578,
--88.888916015625,
-},
-},
-},
-["frameHeight"] = 125.0000152587891,
-["macroAnnounced"] = true,
 },
 ["渥伦巴菲特 - 铁血"] = {
 ["frameHeight"] = 125.0000152587891,
 ["macroAnnounced"] = true,
 ["hardcore"] = false,
 ["framePositions"] = {
-["arrowFrame"] = {
-{
-"CENTER",
-nil,
-"CENTER",
-34.94247055053711,
--114.6972808837891,
-},
-},
-["RXPFrame"] = {
-{
-"LEFT",
-"UIParent",
-"LEFT",
-0,
-35.00000381469727,
-},
-},
-["activeItemFrame"] = {
-{
-"CENTER",
-"UIParent",
-"CENTER",
-0,
-0,
-},
-},
 ["activeTargetFrame"] = {
 {
 "CENTER",
@@ -222,11 +195,38 @@ nil,
 -247.0500030517578,
 },
 },
+["RXPFrame"] = {
+{
+"LEFT",
+"UIParent",
+"LEFT",
+0,
+35.00000381469727,
+},
+},
+["activeItemFrame"] = {
+{
+"CENTER",
+"UIParent",
+"CENTER",
+0,
+0,
+},
+},
+["arrowFrame"] = {
+{
+"CENTER",
+nil,
+"CENTER",
+34.94247055053711,
+-114.6972808837891,
+},
+},
 },
 ["frameSizes"] = {
-["arrowFrame"] = {
-31.99998283386231,
-31.99998283386231,
+["activeTargetFrame"] = {
+54.22237014770508,
+68.00004577636719,
 },
 ["RXPFrame"] = {
 235,
@@ -236,9 +236,9 @@ nil,
 51.87730407714844,
 40.00001907348633,
 },
-["activeTargetFrame"] = {
-54.22237014770508,
-68.00004577636719,
+["arrowFrame"] = {
+31.99998283386231,
+31.99998283386231,
 },
 },
 },

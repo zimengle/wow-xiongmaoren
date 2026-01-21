@@ -30,8 +30,7 @@ end
 local GetItemCooldown = (C_Container and C_Container.GetItemCooldown or _G.GetItemCooldown) or function(searchItemID)
 	local searchItemName = GetItemInfo(searchItemID);
 	if not searchItemName then return end
-    local n = _G.KEYRING_CONTAINER or _G.BACKPACK_CONTAINER
-	for bagID = n, _G.NUM_BAG_FRAMES do
+	for bagID = _G.BACKPACK_CONTAINER, _G.NUM_BAG_FRAMES do
 		local slots = GetContainerNumSlots(bagID) or 0;
 		for slot = 1, slots do
 			local itemInfo = GetContainerItemInfo(bagID, slot);
@@ -50,8 +49,6 @@ addon.GetItemCooldown = GetItemCooldown
 local function GetActiveItemList(ref)
     local itemList = {}
     local activeItems = {}
-    local activeSpells = {}
-    local activeMacros = {}
     --[[
     if not (ref and ref.activeItems) then
         ref = addon
@@ -59,49 +56,22 @@ local function GetActiveItemList(ref)
     ref = addon
 
     if ref.activeSpells then
-        for spellId,arg in pairs(ref.activeSpells) do
-            --print(arg)
-            if (addon.IsPlayerSpell(spellId) or arg == "p") and not activeSpells[spellId] then
+        for spellId in pairs(ref.activeSpells) do
+            if addon.IsPlayerSpell(spellId) then
                 local name, rank, icon = GetSpellInfo(spellId)
-                activeSpells[spellId] = true
                 table.insert(itemList, {
                     name = name,
                     texture = icon,
                     spell = true,
                     id = spellId,
-                    arg = arg,
                 })
-            end
-        end
-    end
-
-    if ref.activeMacros then
-        for id,arg in pairs(ref.activeMacros) do
-            --print(arg)
-            if not activeMacros[id] then
-                local icon,name = id:match("(%d+):(.*)")
-                icon = tonumber(icon)
-                if not icon or icon == 0 then
-                    icon = 134400
-                end
-                activeMacros[id] = true
-
-                if name then
-                    table.insert(itemList, {
-                        name = name,
-                        texture = icon,
-                        macro = true,
-                        arg = arg,
-                    })
-                end
             end
         end
     end
 
     for i = 1, _G.INVSLOT_LAST_EQUIPPED do
         local id = GetInventoryItemID("player", i)
-        local arg = ref.activeItems[id]
-        if id and arg then
+        if id and ref.activeItems[id] then
             local itemName, _, _, _, _, _, _, _, _, itemTexture, _, classID =
                 GetItemInfo(id)
             table.insert(itemList, {
@@ -110,17 +80,15 @@ local function GetActiveItemList(ref)
                 invSlot = i,
                 id = id,
                 spell = false,
-                arg = arg,
             })
         end
     end
-    local n = _G.KEYRING_CONTAINER or _G.BACKPACK_CONTAINER
-    for bag = n, _G.NUM_BAG_FRAMES do
+
+    for bag = _G.BACKPACK_CONTAINER, _G.NUM_BAG_FRAMES do
         for slot = 1, GetContainerNumSlots(bag) do
             local id = GetContainerItemID(bag, slot)
             -- local spell = GetItemSpell(id)
-            local arg = ref.activeItems[id]
-            if id and arg and not activeItems[id] then
+            if id and ref.activeItems[id] and not activeItems[id] then
                 activeItems[id] = true
                 local itemName, _, _, _, _, _, _, _, _, itemTexture, _, classID =
                     GetItemInfo(id)
@@ -131,34 +99,25 @@ local function GetActiveItemList(ref)
                     slot = slot,
                     id = id,
                     spell = false,
-                    arg = arg,
                 })
             end
         end
     end
-
-    for id,arg in pairs(ref.activeItems) do
-        local toy = C_ToyBox and PlayerHasToy(id)
-        if not activeItems[id] and (arg == "p" or toy) then
-            activeItems[id] = true
-            local name,icon
-            if toy then
-             _, name, icon = C_ToyBox.GetToyInfo(id)
-            else
-                name, _, _, _, _, _, _, _, _, icon =
-                    GetItemInfo(id)
+    if C_ToyBox and PlayerHasToy then
+        for id in pairs(ref.activeItems) do
+            if not activeItems[id] and PlayerHasToy(id) then
+                activeItems[id] = true
+                local itemID, toyName, icon = C_ToyBox.GetToyInfo(id)
+                table.insert(itemList, {
+                    name = toyName,
+                    texture = icon,
+                    toy = true,
+                    id = id,
+                    spell = false,
+                })
             end
-            table.insert(itemList, {
-                name = name,
-                texture = icon,
-                toy = toy,
-                id = id,
-                spell = false,
-                arg = arg,
-            })
         end
     end
-
     return itemList
 end
 
@@ -190,7 +149,7 @@ local function UpdateCooldowns()
                 start,duration = GetItemCooldown(id)
             end
             --local remaining, cd
-            if start and duration then
+            if start then
                 --remaining = start + duration - GetTime()
                 --cd = FormatCooldown(start,remaining,enable)
                 btn.cooldown:SetCooldown(start,duration)
@@ -248,8 +207,7 @@ function addon.CreateActiveItemFrame(self, anchor, enableText)
 
     addon.enabledFrames["activeItemFrame"] = f
     f.IsFeatureEnabled = function()
-        local shown = not addon.settings.profile.disableItemWindow and next(GetActiveItemList()) ~= nil
-        return shown,true
+        return not addon.settings.profile.disableItemWindow and next(GetActiveItemList()) ~= nil
     end
 
     f.onMouseDown = function()
@@ -293,7 +251,7 @@ end
 
 local fOnEnter = function(self)
     -- print(self.itemId)
-    if not GameTooltip:IsForbidden() and (self.itemId or self.macro) then
+    if not GameTooltip:IsForbidden() and self.itemId then
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
         if self.bag or self.invSlot then
             GameTooltip:SetInventoryItemByID(self.itemId)
@@ -301,10 +259,6 @@ local fOnEnter = function(self)
             GameTooltip:SetSpellByID(self.itemId)
         elseif self.toy then
             GameTooltip:SetToyByItemID(self.itemId)
-        elseif self.macro then
-            GameTooltip:SetText(self.name)
-        else
-            GameTooltip:SetItemByID(self.itemId)
         end
         GameTooltip:Show()
     end
@@ -402,17 +356,13 @@ function addon.UpdateItemFrame(itemFrame)
 
         -- print(id,item.texture,item.name)
         local attribute = "item"
-        if item.macro then
-            attribute = "macro"
-        elseif item.spell then
+        if item.spell then
             attribute = "spell"
         end
         btn:SetAttribute("type1",attribute)
         if attribute == "item" then
             --btn:SetAttribute("macro", format("/use item:%d",item.id))
             btn:SetAttribute(attribute, format("item:%d",item.id))
-        elseif attribute == "macro" then
-            btn:SetAttribute("macrotext", item.arg)
         else
             btn:SetAttribute(attribute, item.name)
         end
@@ -426,8 +376,6 @@ function addon.UpdateItemFrame(itemFrame)
         btn.invSlot = item.invSlot
         btn.spell = item.spell
         btn.toy = item.toy
-        btn.macro = item.macro
-        btn.name = item.name
 
         btn.icon:SetTexture(item.texture)
         btn:Show()
@@ -446,10 +394,4 @@ function addon.UpdateItemFrame(itemFrame)
     itemFrame:SetWidth(width);
     UpdateCooldowns()
 
-end
-
-function addon.ResetItemPosition()
-    local f = _G.RXPItemFrame
-    f:ClearAllPoints()
-    f:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
 end

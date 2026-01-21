@@ -2697,8 +2697,10 @@ do	--	extern style
 				return f(...);
 			end
 		end);
+		local C_AddOns = _G.C_AddOns;
+		local isLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or _G.IsAddOnLoaded;
 		for addon, handler in next, handler_table do
-			if IsAddOnLoaded(addon) then
+			if isLoaded and isLoaded(addon) then
 				handler();
 			end
 		end

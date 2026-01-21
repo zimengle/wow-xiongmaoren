@@ -1,18 +1,15 @@
 local _,addon = ...
-if addon.gameVersion < 40000 or addon.player.faction == 'Alliance' then return end
+if addon.game ~= "CATA" or addon.player.faction ~= 'Horde' then return end
 
 RXPGuides.RegisterGuide([[
 #cata
-#mop
 << Horde
 #name 1-6 Tirisfal Glades
 #next 6-10 Eversong Woods
 #version 1
---#group RXP Cataclysm (H) << cata
-
+--#group RXP Cataclysm (H)
 #defaultfor Undead
-#group RXP Cataclysm 1-80 (H) << cata
-#group RXP MoP 1-60 (H) << mop
+#group RXP Cataclysm 1-80 (H)
 #subweight 10000
 
 step << !Undead
@@ -163,7 +160,6 @@ step
     .goto 18,30.83,66.20
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Sarvis|r
     .turnin 26801 >>Turn in Scourge on our Perimeter
-    .accept 31146 >>Accept Scribbled Scroll << Monk
     .accept 3096 >>Accept Encrypted Scroll << Rogue
     .accept 3095 >>Accept Simple Scroll << Warrior
     .accept 24962 >>Accept Trail-Worn Scroll << Hunter
@@ -176,59 +172,65 @@ step
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Elreth|r
     .accept 24961 >>Accept The Truth of the Grave
     .target Novice Elreth
+
+
+
 step << Mage
     .goto 18,30.91,66.34
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Isabella|r
     .turnin 3098 >>Turn in Glyphic Scroll
     .accept 24965 >>Accept Magic Training
-    .train 5143 >>Train |T136096:0|t[Arcane Missiles] << Cata
+    .train 5143 >>Train |T136096:0|t[Arcane Missiles]
     .target Isabella
+step << Rogue
+    .goto 18,32.53,65.66
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_David|r
+    .turnin 3096 >>Turn in Encrypted Scroll
+    .accept 24967 >>Accept Stab!
+    .train 2098 >>Train |T132292:0|t[Eviscerate]
+    .target David Trias
+step << Warrior
+    .goto 18,32.67,65.61
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dannal|r
+    .turnin 3095 >>Turn in Simple Scroll
+    .accept 24969 >>Accept Charging into Battle
+    .train 100 >>Train |T132337:0|t[Charge]
+    .target Dannal Stern
 step << Hunter
     .goto 18,31.45,65.61
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Xavier|r
     .turnin 24962 >>Turn in Trail-Worn Scroll
     .accept 24964 >>Accept The Thrill of the Hunt
-    .train 56641 >>Train |T132213:0|t[Steady Shot] << Cata
+    .train 56641 >>Train |T132213:0|t[Steady Shot]
     .target Xavier the Huntsman
 step << Priest
     .goto 18,31.10,66.02
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Duesten|r
     .turnin 3097 >>Turn in Hallowed Scroll
     .accept 24966 >>Accept Of Light and Shadows
-    .train 2061 >>Train |T135907:0|t[Flash Heal] << Cata
+    .train 2061 >>Train |T135907:0|t[Flash Heal]
     .target Dark Cleric Duesten
 step << Warlock
     .goto 18,30.92,66.35
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Maximillion|r
     .turnin 3099 >>Turn in Tainted Scroll
     .accept 24968 >>Accept Dark Deeds
-    .train 348 >>Train |T135817:0|t[Immolate] << Cata
+    .train 348 >>Train |T135817:0|t[Immolate]
     .target Maximillion
-step << Mage cata
+step << Mage
     .goto 18,31.64,66.91
 	>>Cast |T136096:0|t[Arcane Missiles] on a |cRXP_ENEMY_Training Dummy|r
 	.complete 24965,1 --Cast Arcane Missiles (x3)
 	.mob Training Dummy
-step << Mage !cata
-    .goto 18,31.64,66.91
-	>>Cast |T135848:0|t[Frost Nova] on a |cRXP_ENEMY_Training Dummy|r
-	.complete 24965,2 --Cast Frost Nova
-	.mob Training Dummy
-step << Priest cata
+step << Priest
     .goto 18,31.20,66.02
 	>>Cast |T135907:0|t[Flash Heal] on a |cRXP_FRIENDLY_Wounded Deathguard|r
 	.complete 24966,1 --Cast Flash Heal (x5)
 	.target Wounded Deathguard
-step << Priest !cata
-    .goto 18,31.64,66.91
-	>>Cast |T136207:0|t[Shadow Word: Pain] on a |cRXP_ENEMY_Training Dummy|r
-	.complete 24966,2 --Cast Shadow Word: Pain
-	.mob Training Dummy
 step << Warlock
     .goto 18,31.64,66.91
 	>>Cast |T135817:0|t[Immolate] on a |cRXP_ENEMY_Training Dummy|r
-	.complete 24968,2 << !Cata --Cast Immolate (x3)
-	.complete 24968,1 << Cata --Cast Immolate (x3)
+	.complete 24968,1 --Cast Immolate (x3)
 	.mob Training Dummy
 step
     #completewith next
@@ -238,72 +240,24 @@ step
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Lilian|r
     >>|cRXP_WARN_She might be upstairs. Do not wait for the RP|r
     .complete 24961,1 --1/1 Show Lilian her reflection
-    .timer 9,The Truth of the Grave RP
     .skipgossip
     .target Lilian Voss
-step << Monk
-    .goto 465/0,1567.900,1857.500
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ting, Strong of Stomach|r
-    .turnin 31146 >>Turn in Scribbled Scroll
-    .accept 31147 >>Accept Tiger Palm
-    .target Ting, Strong of Stomach
-step << Rogue
-    .goto 18,32.53,65.66
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_David|r
-    .turnin 3096 >>Turn in Encrypted Scroll
-    .accept 24967 >>Accept Stab!
-    .train 2098 >>Train |T132292:0|t[Eviscerate] << Cata
-    .target David Trias
-step << Warrior
-    .goto 18,32.67,65.61
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dannal|r
-    .turnin 3095 >>Turn in Simple Scroll
-    .accept 24969 >>Accept Charging into Battle
-    .train 100 >>Train |T132337:0|t[Charge] << Cata
-    .target Dannal Stern
-step << Monk
-    .goto 18,31.64,66.91
-	>>Cast |T606551:0|t[Tiger Palm] on a |cRXP_ENEMY_Training Dummy|r
-    .complete 31147,2 --|Practice Tiger Palm: 1/1
-	.mob Training Dummy
+    --VV TODO: Roleplay timer
 step << Rogue
     .goto 18,31.64,66.91
 	>>Cast |T132292:0|t[Eviscerate] on a |cRXP_ENEMY_Training Dummy|r
-	.complete 24967,2 << !Cata --Cast Eviscerate (x3)
-	.complete 24967,1 << Cata --Cast Eviscerate (x3)
+	.complete 24967,1 --Cast Eviscerate (x3)
 	.mob Training Dummy
 step << Warrior
     .goto 18,31.64,66.91
     >>Cast |T132337:0|t[Charge] on a |cRXP_ENEMY_Training Dummy|r
-	.complete 24969,2 << !Cata --Cast Charge (x3)
-	.complete 24969,1 << Cata --Cast Charge (x3)
+	.complete 24969,1 --Cast Charge (x3)
 	.mob Training Dummy
 step << Hunter
     .goto 18,31.64,66.91
 	>>Cast |T132213:0|t[Steady Shot] on a |cRXP_ENEMY_Training Dummy|r
-	.complete 24964,2 << !Cata --Steady Shot (x3)
-	.complete 24964,1 << Cata --Steady Shot (x3)
+	.complete 24964,1 --Steady Shot (x3)
 	.mob Training Dummy
-step << Monk
-    .goto 465/0,1568.100,1857.500
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ting, Strong of Stomach|r
-    .turnin 31147 >>Turn in Tiger Palm
-    .target Ting, Strong of Stomach
-step << Rogue
-    .goto 18,32.53,65.66
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_David|r
-    .turnin 24967 >>Turn in Stab!
-    .target David Trias
-step << Warrior
-    .goto 18,32.67,65.61
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dannal|r
-    .turnin 24969 >>Turn in Simple Scroll
-    .target Dannal Stern
-step << Hunter
-    .goto 18,31.45,65.61
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Xavier|r
-    .turnin 24964 >>Turn in The Thrill of the Hunt
-    .target Xavier the Huntsman
 step
     #completewith next
     .goto 18,31.38,66.23,8 >>Enter the church
@@ -328,6 +282,21 @@ step << Warlock
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Maximillion|r
     .turnin 24968 >>Turn in Dark Deeds
     .target Maximillion
+step << Rogue
+    .goto 18,32.53,65.66
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_David|r
+    .turnin 24967 >>Turn in Stab!
+    .target David Trias
+step << Warrior
+    .goto 18,32.67,65.61
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dannal|r
+    .turnin 24969 >>Turn in Simple Scroll
+    .target Dannal Stern
+step << Hunter
+    .goto 18,31.45,65.61
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Xavier|r
+    .turnin 24964 >>Turn in The Thrill of the Hunt
+    .target Xavier the Huntsman
 step
     .goto 18,32.97,61.13
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Arren|r
@@ -476,31 +445,31 @@ step
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Sedrick|r
     .accept 24974 >>Accept Ever So Lonely
     .target Sedrick Calston
-step << Hunter Cata
+step << Hunter
     .goto 18,44.97,53.57
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Darna|r outside
     .train 2973 >>Train your class spells
     .target Darna Woad
     .xp <6,1
-step << Warrior Cata
+step << Warrior
     .goto 18,45.03,53.54
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Karla|r outside
     .train 34428 >>Train your class spells
     .target Karla Fain
     .xp <5,1
-step << Mage Cata
+step << Mage
     .goto 18,44.78,53.26
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Larah|r outside
     .train 2136 >>Train your class spells
     .target Larah Firesong
     .xp <5,1
-step << Priest Cata
+step << Priest
     .goto 18,44.78,53.16
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Claressa|r outside
     .train 589 >>Train your class spells
     .target Dark Cleric Claressa
     .xp <5,1
-step << Warlock Cata
+step << Warlock
     .goto 18,44.73,53.18
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Maressa|r outside
     .train 87389 >>Train your class spells
@@ -593,35 +562,35 @@ step
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Sedrick|r
     .turnin 24974 >>Turn in Ever So Lonely
     .target Sedrick Calston
-step << Hunter Cata
+step << Hunter
     #xprate <1.2
     .goto 18,44.97,53.57
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Darna|r outside
     .train 2973 >>Train your class spells
     .target Darna Woad
     .xp <6,1
-step << Warrior Cata
+step << Warrior
     #xprate <1.2
     .goto 18,45.03,53.54
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Karla|r outside
     .train 34428 >>Train your class spells
     .target Karla Fain
     .xp <5,1
-step << Mage Cata
+step << Mage
     #xprate <1.2
     .goto 18,44.78,53.26
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Larah|r outside
     .train 2136 >>Train your class spells
     .target Larah Firesong
     .xp <5,1
-step << Priest Cata
+step << Priest
     #xprate <1.2
     .goto 18,44.78,53.16
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Claressa|r outside
     .train 589 >>Train your class spells
     .target Dark Cleric Claressa
     .xp <5,1
-step << Warlock Cata
+step << Warlock
     #xprate <1.2
     .goto 18,44.73,53.18
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Maressa|r outside

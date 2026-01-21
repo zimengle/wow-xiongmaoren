@@ -528,21 +528,27 @@ local UnitPopupButtonsExtra = {
     ["BLOCK"] = { enUS ="Block player",zhCN = "加入屏蔽名单",zhTW = "加入屏蔽名单" },
 }
 
-for k, v in pairs(UnitPopupButtonsExtra) do
-    v.text = v[locale] or k
-    UnitPopupButtons[k] = v
+if _G.UnitPopupButtons then
+    for k, v in pairs(UnitPopupButtonsExtra) do
+        v.text = v[locale] or k
+        _G.UnitPopupButtons[k] = v
+    end
 end
 
-tinsert(UnitPopupMenus["FRIEND"], 9, "BLOCK")
+if _G.UnitPopupMenus and _G.UnitPopupMenus["FRIEND"] then
+    tinsert(_G.UnitPopupMenus["FRIEND"], 9, "BLOCK")
+end
 
-hooksecurefunc("UnitPopup_OnClick", function(self)
-    local name = UIDROPDOWNMENU_INIT_MENU.name
-    local IGNORE_ADD = format(ERR_IGNORE_ADDED_S,name)
-    if (self.value == "BLOCK") then
-        table.insert(BFWC_Filter_SavedConfigs_G.blocklist, name)
-        SendSystemMessage(IGNORE_ADD)
-    end
-end)
+if _G.UnitPopup_OnClick then
+    hooksecurefunc("UnitPopup_OnClick", function(self)
+        local name = UIDROPDOWNMENU_INIT_MENU.name
+        local IGNORE_ADD = format(ERR_IGNORE_ADDED_S,name)
+        if (self.value == "BLOCK") then
+            table.insert(BFWC_Filter_SavedConfigs_G.blocklist, name)
+            SendSystemMessage(IGNORE_ADD)
+        end
+    end)
+end
 
 function shortChannels()
     local gsub = _G.string.gsub    

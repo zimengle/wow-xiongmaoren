@@ -1,4 +1,3 @@
-
 MSBTProfiles_SavedVars = {
 ["profiles"] = {
 ["Default"] = {
@@ -54,8 +53,8 @@ MSBTProfiles_SavedVars = {
 ["stickyDirection"] = "Down",
 ["direction"] = "Up",
 ["offsetX"] = -477,
-["behavior"] = "MSBT_NORMAL",
 ["iconAlign"] = "Right",
+["behavior"] = "MSBT_NORMAL",
 ["offsetY"] = -382,
 ["animationStyle"] = "Static",
 ["scrollHeight"] = 85,
@@ -366,11 +365,11 @@ MSBTProfiles_SavedVars = {
 ["PET_OUTGOING_DEFLECT"] = {
 ["message"] = "偏转*",
 },
-["NOTIFICATION_HOLY_POWER_CHANGE"] = {
-["disabled"] = true,
+["NOTIFICATION_POWER_GAIN"] = {
 ["scrollArea"] = "Notification",
 },
-["NOTIFICATION_POWER_GAIN"] = {
+["NOTIFICATION_HOLY_POWER_CHANGE"] = {
+["disabled"] = true,
 ["scrollArea"] = "Notification",
 },
 ["PET_OUTGOING_DODGE"] = {

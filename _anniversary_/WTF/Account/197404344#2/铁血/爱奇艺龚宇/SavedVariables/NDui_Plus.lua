@@ -5,8 +5,8 @@ NDuiPlusCharDB = {
 ["TankDirec"] = 1,
 ["TankTarget"] = false,
 ["TankHeight"] = 30,
-["TankWidth"] = 100,
-["TankPowerHeight"] = 2,
 ["TankFilter"] = 1,
+["TankPowerHeight"] = 2,
+["TankWidth"] = 100,
 },
 }

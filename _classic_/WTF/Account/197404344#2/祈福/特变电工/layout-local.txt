@@ -1,4 +1,11 @@
 Version: 1
+Frame: RXPG_ARROW
+FrameLevel: 1
+Anchor: CENTER
+X: 6
+Y: -141
+W: 32
+H: 32
 Frame: ColorPickerFrame
 FrameLevel: 1
 Anchor: CENTER

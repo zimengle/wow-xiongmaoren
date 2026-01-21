@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 2.5.000 (14th January 2026)
+-- 	Leatrix Plus 2.5.001 (17th January 2026)
 ----------------------------------------------------------------------
 
 --	01:Functions 02:Locks   03:Restart 40:Player   45:Rest
@@ -19,7 +19,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "2.5.000"
+	LeaPlusLC["AddonVer"] = "2.5.001"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -1147,6 +1147,7 @@
 					"belltollhorde.ogg#565853",
 					"belltollnightelf.ogg#566558",
 					"belltolltribal.ogg#566027",
+					"kharazahnbelltoll.ogg#566254",
 					"dwarfhorn.ogg#566064",
 				},
 
@@ -1163,6 +1164,8 @@
 				-- Trains
 				["MuteTrains"] = {
 
+					--[[Blood Elf]]	"sound#539219", "sound#539203",
+					--[[Draenei]]	"sound#539516", "sound#539730",
 					--[[Dwarf]]		"sound#539802", "sound#539881",
 					--[[Gnome]]		"sound#540271", "sound#540275",
 					--[[Human]]		"sound#540535", "sound#540734",
@@ -1244,8 +1247,69 @@
 				-- Screech (sound/spells/)
 				["MuteScreech"] = {"screech.ogg#569429",},
 
+				-- Events
+				["MuteEvents"] = {
+
+					-- Headless Horseman (sound/creature/headlesshorseman/)
+					"horseman_beckon_01.ogg#551670",
+					"horseman_bodydefeat_01.ogg#551706",
+					"horseman_bomb_01.ogg#551705",
+					"horseman_conflag_01.ogg#551686",
+					"horseman_death_01.ogg#551695",
+					"horseman_failing_01.ogg#551684",
+					"horseman_failing_02.ogg#551700",
+					"horseman_fire_01.ogg#551673",
+					"horseman_laugh_01.ogg#551703",
+					"horseman_laugh_02.ogg#551682",
+					"horseman_out_01.ogg#551680",
+					"horseman_request_01.ogg#551687",
+					"horseman_return_01.ogg#551698",
+					"horseman_slay_01.ogg#551676",
+					"horseman_special_01.ogg#551696",
+
+				},
+
+				-- Gyrocopters
+				["MuteGyrocopters"] = {
+
+					-- sound/creature/gyrocopter/
+					"gyrocopterfly.ogg#551390",
+					"gyrocopterflyidle.ogg#551398",
+					"gyrocopterflyup.ogg#551389",
+					"gyrocoptergearshift1.ogg#551384",
+					"gyrocoptergearshift2.ogg#551391",
+					"gyrocoptergearshift3.ogg#551387",
+					"gyrocopterjumpend.ogg#551396",
+					"gyrocopterjumpstart.ogg#551399",
+					"gyrocopterrun.ogg#551386",
+					"gyrocoptershuffleleftorright1.ogg#551385",
+					"gyrocoptershuffleleftorright2.ogg#551382",
+					"gyrocoptershuffleleftorright3.ogg#551392",
+					"gyrocopterstallinair.ogg#551395",
+					"gyrocopterstand.ogg#551383",
+					"gyrocopterstandvar1_a.ogg#551388",
+					"gyrocopterstandvar1_b.ogg#551397",
+					"gyrocopterstandvar1_bnew.ogg#551400",
+					"gyrocopterwalk.ogg#551401",
+
+					-- sound/spells/
+					"summongyrocopter.ogg#568252",
+
+				},
+
 				-- Yawns (sound/creature/tiger/)
 				["MuteYawns"] = {"mtigerstand2a.ogg#562388",},
+
+				-- A'dal
+				["MuteAdal"] = {
+
+					-- sound/creature/naaru/
+					"naruuloopgood.ogg#601649",
+
+					-- sound/doodad/
+					"ancient_d_lights.ogg#567134",
+
+				},
 
 			}
 
@@ -1272,16 +1336,21 @@
 			LeaPlusLC:MakeCB(SoundPanel, "MuteInterface", "Interface", 16, -132, false, "If checked, the interface button sound, the chat frame tab click sound and the game menu toggle sound will be muted.")
 			LeaPlusLC:MakeCB(SoundPanel, "MuteLogin", "Login", 16, -152, false, "If checked, login screen sounds will be muted when you logout of the game.|n|nNote that login screen sounds will not be muted when you initially launch the game.|n|nThey will only be muted when you logout of the game.  This includes manually logging out as well as being forcefully logged out by the game server for reasons such as being away for an extended period of time.")
 			LeaPlusLC:MakeCB(SoundPanel, "MuteTrains", "Trains", 16, -172, false, "If checked, train sounds will be muted.")
-			LeaPlusLC:MakeCB(SoundPanel, "MuteReady", "Ready", 16, -192, false, "If checked, the ready check sound will be muted.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteEvents", "Events", 16, -192, false, "If checked, holiday event sounds will be muted.|n|nThis applies to Headless Horseman.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteReady", "Ready", 16, -212, false, "If checked, the ready check sound will be muted.")
 
 			LeaPlusLC:MakeTx(SoundPanel, "Mounts", 150, -72)
-			LeaPlusLC:MakeCB(SoundPanel, "MuteMechSteps", "Mechsteps", 150, -92, false, "If checked, footsteps for mechanical mounts will be muted.")
-			LeaPlusLC:MakeCB(SoundPanel, "MuteStriders", "Mechstriders", 150, -112, false, "If checked, mechanostriders will be quieter.")
-			LeaPlusLC:MakeCB(SoundPanel, "MuteHorsesteps", "Horsesteps", 150, -132, false, "If checked, footsteps for horse mounts will be muted.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteGyrocopters", "Gyrocopters", 150, -92, false, "If checked, gyrocopters will be muted.|n|nThis applies to the engineering flying machine mounts.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteMechSteps", "Mechsteps", 150, -112, false, "If checked, footsteps for mechanical mounts will be muted.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteStriders", "Mechstriders", 150, -132, false, "If checked, mechanostriders will be quieter.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteHorsesteps", "Horsesteps", 150, -152, false, "If checked, footsteps for horse mounts will be muted.")
 
 			LeaPlusLC:MakeTx(SoundPanel, "Pets", 284, -72)
 			LeaPlusLC:MakeCB(SoundPanel, "MuteScreech", "Screech", 284, -92, false, "If checked, Screech will be muted.|n|nThis is a spell used by some flying pets.")
 			LeaPlusLC:MakeCB(SoundPanel, "MuteYawns", "Yawns", 284, -112, false, "If checked, yawns from hunter pet cats will be muted.")
+
+			LeaPlusLC:MakeTx(SoundPanel, "Misc", 388, -72)
+			LeaPlusLC:MakeCB(SoundPanel, "MuteAdal", "A'dal", 388, -92, false, "If checked, A'dal in Shattrath City will be muted.")
 
 			-- Set click width for sounds checkboxes
 			for k, v in pairs(muteTable) do
@@ -1629,8 +1698,11 @@
 				-- Trainer (https://www.wowhead.com/tbc/npcs?filter=28;1;0)
 				19778, 20791, 18775, 18772, 20500, 7867, 20511, 19775, 19052, 18749, 19252, 15501, 18773, 18802, 18753, 7866, 20124, 18751, 16588, 18774, 18752, 19063, 27703, 4752, 7868, 17637, 16583, 7232, 7869, 11178, 16773, 7870, 18776, 18779, 20914, 19186, 18747, 19184, 17634, 7871, 16640, 5491, 23128, 4732, 17204, 8126, 11146, 18777, 27705, 16280, 16729, 7231, 16681, 25099, 16621, 4218, 24868, 16275, 16646, 1317, 5493, 18771, 18987, 1346, 16253, 20407, 5885, 16823, 4614, 11073, 19540, 18988, 12042, 16755, 4753, 16663, 19187, 3332, 3032, 1103, 3494, 5159, 17441, 5173, 16644, 3363, 17212, 18754, 7954, 3345, 19539, 3344, 13417, 19576, 4568, 7406, 23127, 3365, 11557, 16654, 18748, 16633, 3171, 5492, 1300, 18993, 8128, 16276, 3065, 3353, 11866, 4576, 5174, 16642, 17089, 4773, 17110, 17101, 16269, 3324, 17520, 5938, 4606, 8736, 16667, 3601, 16680, 19340, 6251, 3406, 11097, 4165, 11072, 19180, 5994, 11098, 16655, 11048, 16648, 11870, 20406, 5157, 7089, 7953, 5164, 16272, 14740, 4616, 18755, 3605, 22225, 3355, 5566, 17246, 17121, 3484, 928, 331, 18018, 16266, 9584, 3404, 13283, 3357, 16726, 377, 11017, 3007, 5515, 3064, 9465, 17504, 16763, 5137, 16647, 11068, 5144, 5513, 5153, 6297, 16723, 11177, 3352, 3328, 918, 4212, 4772, 17424, 4573, 23534, 16660, 17488, 17482, 1234, 3354, 3041, 16728, 4156, 16756, 11074, 17519, 3028, 3690, 17480, 3407, 16676, 3033, 5495, 1232, 16761, 4595, 2836, 3290, 11031, 15280, 1651, 16719, 1700, 2327, 1683, 914, 17120, 4258, 5957, 13084, 3698, 5484, 8142, 2837, 3555, 3013, 3604, 5567, 5564, 5482, 3011, 3347, 16771, 16658, 2856, 5149, 4582, 17005, 1676, 5161, 19341, 5497, 5113, 917, 5506, 2798, 16277, 514, 7944, 11867, 17514, 16669, 3523, 5172, 4598, 7315, 7312, 16780, 5498, 16774, 17487, 4586, 986, 17983, 16653, 4138, 17505, 5499, 16688, 2489, 17442, 5504, 3403, 16271, 11052, 8738, 16674, 16662, 11865, 3963, 4211, 461, 16738, 5883, 16712, 11406, 5165, 19185, 5941, 1228, 15284, 17434, 5146, 16679, 15285, 3688, 5392, 16651, 16684, 3373, 17222, 7946, 4898, 2399, 3594, 4193, 4146, 16499, 3036, 12025, 11397, 16673, 3401, 328, 3624, 4160, 2131, 5142, 3001, 19369, 5690, 8306, 19251, 4204, 4219, 4254, 5612, 2627, 3620, 376, 3154, 3170, 16659, 3704, 2130, 1680, 16686, 11096, 17481, 3034, 5502, 17219, 4213, 3169, 5505, 895, 2857, 1430, 10993, 460, 3607, 3047, 16501, 1702, 927, 16736, 1701, 6299, 19478, 5127, 21087, 2704, 5501, 2998, 7948, 3061, 3600, 16273, 16724, 3325, 1382, 16725, 6287, 5943, 10276, 2391, 16721, 17483, 10266, 5516, 6295, 7949, 3399, 8308, 4087, 4605, 5489, 3153, 1470, 1229, 1466, 1231, 915, 5145, 198, 4564, 5884, 4217, 3137, 5150, 3412, 375, 3067, 1386, 3706, 16279, 5939, 5784, 3326, 11869, 4588, 4090, 17245, 2128, 5115, 4611, 16270, 3179, 3039, 4596, 4091, 17509, 988, 3707, 3063, 985, 12030, 16752, 3066, 8153, 16731, 5882, 2878, 3042, 4163, 5171, 3031, 5143, 11050, 7311, 16502, 1632, 3606, 812, 2390, 5148, 5114, 837, 1385, 1681, 8140, 957, 4205, 4607, 5167, 3327, 4584, 3557, 1218, 17510, 11037, 4578, 4563, 1473, 3703, 3175, 8144, 11067, 4591, 2126, 2329, 4583, 5759, 5116, 15513, 11868, 7230, 3173, 2326, 5880, 6018, 5695, 17122, 6286, 17214, 4215, 15400, 3009, 17484, 3136, 3087, 3965, 2123, 23103, 16685, 4552, 3046, 908, 17513, 3599, 11066, 3602, 1901, 913, 3597, 906, 3044, 11041, 3185, 987, 5166, 11401, 5117, 2127, 16278, 16366, 2818, 2855, 15283, 5517, 7088, 11029, 3048, 11051, 17844, 6291, 10090, 926, 925, 3069, 3545, 2119, 11083, 3172, 459, 16749, 6292, 4214, 17511, 2114, 4608, 3622, 6306, 10086, 5480, 15279, 3043, 3598, 2485, 5518, 4159, 3062, 3156, 16652, 4565, 8146, 3595, 5177, 1458, 5141, 5511, 3049, 10088, 6290, 4900, 3593, 22477, 3026, 16367, 6094, 4320, 17215, 223, 4609, 6387, 6707, 11081, 3181, 10277, 16675, 27704, 2124, 6288, 11028, 3038, 3306, 12961, 7087, 11047, 3964, 11070, 911, 3008, 1292, 1226, 18804, 6289, 11049, 3030, 1383, 3004, 10278, 5958, 3478, 16692, 3040, 1703, 16500, 5147, 11046, 3408, 20125, 3967, 1215, 4210, 4594, 16161, 3596, 4593, 1355, 3603, 2129, 2122, 11044, 2367, 3174, 3060, 1699, 4566, 5811, 3184, 2834, 4567, 3155, 3549, 3157, 4089, 10089, 916, 11026, 11042, 16672, 11084, 5500, 1246, 6014, 8141, 10930, 3059, 16503, 1404, 12032, 16160, 944, 11071, 11025, 11065, 912, 2132, 1411, 2879, 4092, 2492, 3045, 543, 5496, 1241, 5479,
 
-				-- Vendor (https://www.wowhead.com/tbc/npcs?filter=29;1;0)
-				12794, 18525, 12795, 12784, 12785, 12792, 21432, 1448, 17904, 12777, 19331, 21643, 21655, 4229, 12919, 19321, 4561, 23381, 4877, 17657, 2626, 12022, 17585, 27722, 23489, 18960, 20242, 12793, 14754, 14753, 12781, 20241, 18382, 14581, 8137, 20240, 18775, 18772, 13219, 18756, 22213, 13217, 12782, 13216, 22208, 18990, 18911, 20616, 20807, 3954, 27668, 20080, 15126, 22212, 18749, 20097, 19004, 15127, 2381, 12043, 12796, 18773, 18802, 18753, 11189, 25032, 12783, 2810, 20096, 19213, 19662, 13218, 2805, 18751, 20278, 16588, 18774, 18752, 19663, 21183, 19837, 20510, 8125, 16583, 17518, 1285, 19227, 13476, 19074, 19521, 3955, 19296, 18484, 19772, 21905, 15179, 25976, 18255, 9636, 23007, 14921, 21906, 7947, 23428, 19186, 4730, 20494, 18005, 3313, 4897, 19232, 15419, 2664, 1286, 23367, 16826, 19773, 20028, 20916, 18015, 17512, 26352, 27721, 19373, 25977, 3546, 20808, 14847, 2803, 16274, 16528, 18991, 8139, 1148, 25176, 20613, 19575, 12941, 16641, 11536, 16624, 23363, 18672, 18581, 27667, 16585, 2821, 17584, 16705, 19042, 12805, 18011, 18771, 18987, 19038, 16782, 9499, 20981, 16388, 12944, 16829, 16253, 66, 20986, 18898, 16823, 25046, 12033, 19540, 989, 18988, 19678, 24780, 3499, 16657, 7952, 2806, 19536, 3362, 23159, 1460, 4731, 15174, 2393, 26089, 14846, 11278, 10667, 12097, 5594, 5163, 5494, 23437, 6382, 5173, 23995, 19383, 19538, 8177, 21483, 21485, 18754, 19539, 340, 23396, 16638, 5940, 18897, 18564, 3410, 11557, 16636, 18993, 21113, 25196, 16748, 23484, 19015, 8145, 16264, 12384, 4775, 295, 10618, 2848, 4575, 5111, 3027, 3333, 18267, 17101, 3367, 19239, 16611, 14437, 1691, 22227, 4165, 18907, 17630, 25195, 27666, 2482, 19017, 19196, 16268, 3323, 1257, 16187, 25950, 11185, 19857, 12799, 5162, 1261, 21488, 1319, 1303, 6746, 14740, 2685, 14738, 22225, 14322, 17246, 11057, 4981, 16722, 384, 19694, 19370, 17412, 5132, 18266, 18018, 18664, 3522, 21474, 2397, 24396, 6740, 19049, 12942, 4453, 21112, 20092, 1465, 25177, 18427, 16602, 18822, 3366, 3556, 23710, 19333, 13418, 4305, 19722, 8178, 3413, 23896, 23244, 3162, 15197, 20989, 11188, 5175, 3685, 18957, 3312, 18821, 21744, 12943, 22099, 3409, 3952, 20081, 16619, 8361, 16376, 25178, 3000, 3547, 2483, 5815, 1670, 7955, 19314, 3314, 19245, 3882, 23245, 23483, 16713, 5110, 16650, 5128, 2672, 16767, 16768, 24468, 8363, 5817, 12096, 19661, 5140, 16670, 14337, 15165, 3329, 8362, 8157, 16635, 7564, 2849, 18017, 12246, 1350, 5510, 4602, 23009, 9549, 27819, 16739, 4236, 19371, 11555, 24408, 11103, 6735, 7744, 4169, 6730, 19342, 16262, 24975, 4177, 2357, 3883, 4085, 18006, 4228, 17486, 8359, 5101, 16267, 3335, 6741, 12028, 14731, 4558, 3135, 3550, 8160, 4879, 491, 15289, 3625, 4553, 3342, 21019, 6779, 3482, 19244, 1146, 6777, 16664, 18906, 1304, 24510, 1314, 4891, 3495, 28225, 19879, 12776, 15291, 6574, 19345, 17929, 14624, 13429, 19014, 18810, 7852, 19718, 19236, 20892, 14371, 1650, 1690, 19472, 3935, 4782, 14522, 15864, 15176, 16612, 16015, 1685, 2225, 14637, 24208, 2118, 19235, 10857, 17222, 16917, 465, 20377, 16757, 23263, 5570, 17421, 2668, 19194, 2820, 3343, 7714, 16542, 16618, 26090, 3937, 8679, 16747, 3005, 12024, 4878, 4241, 14739, 22266, 16732, 16718, 16690, 3361, 19436, 3953, 984, 4194, 3534, 1309, 20082, 19234, 16689, 20917, 1214, 777, 19932, 151, 8158, 16553, 17553, 14481, 19197, 2682, 25179, 4256, 8161, 1247, 6747, 11106, 7854, 9179, 23699, 3683, 18277, 8305, 4580, 10118, 4265, 8681, 19451, 7879, 16224, 5193, 3334, 15199, 23208, 3053, 3779, 23533, 9676, 23010, 19625, 7978, 17655, 24495, 4240, 4896, 4220, 483, 16765, 1310, 19053, 233, 21110, 5569, 14860, 12958, 5750, 3085, 23511, 11703, 7775, 4885, 5133, 6928, 3542, 16918, 4589, 13435, 3159, 24392, 1299, 19836, 2683, 20915, 26091, 16613, 18009, 3319, 3138, 3029, 2669, 5178, 26092, 4221, 19498, 7976, 16442, 3489, 3405, 1316, 1673, 10856, 4203, 5611, 1302, 28344, 27812, 6374, 19435, 19534, 20194, 1250, 4180, 4170, 4585, 5188, 3090, 1362, 1104, 6929, 3491, 8403, 2115, 372, 1684, 3346, 3536, 5871, 18998, 227, 12031, 1287, 16620, 4217, 1322, 3529, 23373, 4233, 3479, 2832, 19372, 3539, 17446, 2699, 4562, 4086, 16714, 13433, 11137, 5944, 19043, 1347, 19517, 16631, 3481, 3951, 17245, 12957, 6576, 3096, 11038, 4569, 4084, 12021, 19351, 16683, 5102, 19526, 5503, 3969, 3095, 3091, 2698, 2687, 6301, 3881, 19561, 4187, 6731, 1324, 8358, 11187, 5170, 3490, 2844, 19065, 1464, 6738, 6807, 16860, 5565, 5134, 2997, 25039, 5816, 3072, 2401, 16625, 4883, 5411, 5139, 18929, 4173, 1295, 8118, 18243, 19560, 3587, 18811, 3321, 9555, 16706, 19243, 3959, 2364, 16691, 23065, 1323, 3532, 1645, 1249, 19374, 25043, 19182, 16259, 5122, 19012, 19315, 8307, 19343, 3488, 896, 12245, 13431, 3167, 4230, 23897, 16623, 4604, 23604, 11056, 18542, 23521, 16715, 19617, 5123, 27806, 23605, 3075, 5514, 1351, 6028, 20980, 19532, 4555, 2137, 5483, 4181, 225, 16257, 8176, 16753, 19223, 3493, 3086, 10216, 3540, 2839, 7943, 3088, 7733, 7737, 6791, 1318, 1311, 1301, 5512, 7772, 5509, 15353, 1237, 3497, 3015, 3689, 4200, 3958, 4574, 3970, 15898, 5156, 3351, 7941, 15397, 1339, 3613, 5190, 23112, 4571, 3330, 3017, 222, 23110, 14450, 3530, 5108, 16678, 1474, 3161, 1457, 16261, 16191, 3553, 1320, 5191, 3089, 20890, 3612, 5135, 4192, 19348, 18426, 982, 983, 25034, 10369, 12027, 5812, 4235, 25035, 3960, 12962, 20112, 3485, 8404, 10364, 15494, 16443, 12956, 19679, 1349, 1294, 3552, 4172, 15400, 22476, 9087, 8131, 1240, 3364, 1450, 2480, 5106, 9548, 2697, 2838, 20249, 4182, 19537, 14962, 18959, 836, 23064, 4587, 8360, 18951, 19518, 4601, 19572, 4600, 3165, 5820, 3358, 3369, 2908, 3093, 5138, 3962, 5119, 3160, 2352, 6739, 15433, 8931, 5688, 19495, 1686, 1325, 1454, 4892, 16256, 5698, 3186, 3487, 3021, 3331, 23481, 5748, 74, 1275, 4257, 27478, 19520, 5757, 19330, 3658, 17489, 11186, 2303, 13434, 18010, 5848, 11874, 18913, 4171, 26124, 26123, 3044, 19559, 3076, 19664, 17930, 2380, 3614, 11182, 19045, 8364, 19452, 17598, 6495, 945, 4225, 23724, 3541, 16366, 3609, 5821, 1326, 2622, 5520, 14845, 3356, 19001, 3016, 3500, 24545, 4195, 2819, 19238, 16186, 4175, 6568, 15011, 8129, 9544, 3537, 2135, 829, 10379, 3554, 2113, 16260, 23522, 3350, 11287, 5519, 2846, 11183, 2481, 27810, 27820, 4255, 2365, 152, 18251, 21746, 1291, 21487, 20378, 3578, 12019, 3180, 19530, 19533, 19535, 1453, 5125, 956, 6300, 4168, 21083, 18997, 1296, 3168, 3591, 4223, 1333, 1273, 3291, 8508, 13436, 5112, 4307, 23143, 5155, 11116, 9501, 3934, 6727, 6736, 18908, 2388, 9356, 7736, 16766, 3700, 8150, 78, 13430, 3498, 4083, 4590, 8678, 2843, 793, 790, 22491, 3588,
+				-- Vendor Level 1-40 (https://www.wowhead.com/tbc/npcs/min-level:1/max-level:40?filter=29;1;0)
+				1448, 4561, 4229, 3954, 4877, 12043, 8137, 3955, 16528, 2810, 16262, 1285, 12033, 16442, 1298, 17246, 3323, 16611, 8139, 16191, 66, 17421, 2381, 1257, 16757, 5494, 16624, 23995, 4897, 17630, 3350, 3410, 2821, 17584, 5940, 16367, 1286, 16268, 16443, 3027, 3550, 3313, 16224, 384, 16619, 16264, 16274, 5162, 3482, 4574, 16253, 16444, 10118, 1261, 3499, 6929, 1465, 1148, 1460, 3556, 5163, 3935, 2393, 16678, 16690, 16739, 3334, 17245, 16635, 16612, 14860, 16187, 16636, 16366, 4981, 4730, 5942, 5101, 16683, 16860, 2685, 14847, 3029, 3367, 14846, 16657, 4169, 3351, 3342, 4731, 9087, 8363, 12246, 15400, 8361, 4775, 3335, 6740, 16638, 16625, 16747, 23521, 23604, 6746, 7564, 1303, 16618, 5110, 483, 17930, 14637, 3490, 5817, 4453, 4604, 4575, 6741, 16259, 3413, 16705, 15433, 21019, 17101, 2118, 17490, 18427, 1321, 4265, 3333, 5122, 16782, 20377, 16748, 1275, 2357, 18672, 12245, 3562, 4891, 4307, 16263, 17412, 844, 16768, 16613, 4553, 17553, 1291, 16641, 5175, 4305, 11106, 16767, 5193, 7978, 1351, 4585, 15397, 16691, 3314, 4896, 6301, 3348, 3658, 3614, 1146, 16689, 16664, 16553, 16765, 5483, 11116, 1325, 2401, 3497, 16715, 4569, 19383, 5188, 4885, 16732, 23481, 3489, 5128, 16722, 1297, 2832, 1326, 734, 5565, 5748, 789, 3346, 4241, 7683, 4165, 5160, 5151, 894, 2483, 5411, 3958, 277, 18426, 17222, 4555, 18951, 16919, 1308, 16623, 3369, 3881, 16542, 1684, 3361, 16714, 17486, 16650, 8362, 16706, 4085, 16718, 3541, 16261, 3366, 6576, 16709, 3291, 3133, 4200, 24468, 15289, 3178, 16631, 3090, 5111, 3322, 3015, 1462, 2698, 19065, 8666, 1287, 5124, 7976, 3405, 1347, 777, 465, 1463, 3168, 3495, 13418, 21145, 3005, 18347, 18810, 3409, 3364, 16267, 3578, 16716, 1318, 222, 8681, 18947, 3488, 2481, 16257, 3493, 3532, 274, 3522, 5100, 3934, 4557, 5848, 4562, 4086, 3485, 5620, 3368, 23605, 4236, 24396, 10216, 6731, 9501, 7714, 4892, 5783, 1237, 4558, 18811, 1350, 4189, 16637, 4602, 5514, 2672, 5138, 3962, 7733, 15291, 4173, 227, 3883, 5520, 4195, 3960, 2808, 13433, 3081, 1682, 4894, 4220, 956, 836, 4170, 2682, 15353, 1313, 3531, 3479, 3012, 4603, 3539, 1249, 16677, 2819, 3534, 2679, 4230, 829, 4203, 5123, 1304, 1250, 3329, 1299, 3529, 13429, 16632, 491, 18954, 5178, 4222, 1349, 4610, 4191, 3019, 4556, 1362, 5816, 3480, 4879, 3528, 18926, 4221, 3953, 16626, 15494, 1214, 11287, 17667, 1302, 9549, 3577, 1669, 16708, 14481, 3165, 1692, 1243, 1247, 3542, 8403, 3025, 3683, 2380, 17446, 5132, 3319, 15287, 9551, 3187, 5754, 23896, 3481, 5519, 152, 6028, 4587, 4256, 3088, 12776, 2388, 6790, 3164, 1454, 6730, 3937, 17489, 1694, 4580, 16620, 1322, 3017, 14450, 1645, 1474, 23571, 5510, 12962, 3537, 16917, 151, 1319, 54, 6374, 4182, 190, 233, 16666, 5750, 16753, 8508, 1452, 1104, 17656, 5155, 295, 6737, 16766, 3498, 4589, 2115, 3186, 3021, 372, 1456, 4231, 5871, 791, 3533, 2364, 3530, 3161, 3053, 5812, 4194, 23603, 896, 4175, 1668, 11137, 5944, 2816, 228, 5611, 3096, 6373, 2668, 24510, 3969, 3095, 4181, 960, 1464, 6747, 13435, 8305, 8118, 5757, 3970, 5107, 4171, 4183, 23065, 13420, 5108, 4225, 4597, 4185, 3609, 14845, 3016, 1650, 12027, 3492, 3167, 16750, 3075, 2365, 2812, 6300, 225, 843, 4232, 4082, 3956, 6930, 11118, 4083, 16918, 3072, 1691, 18929, 12028, 5049, 5156, 12031, 2394, 4577, 3330, 2814, 6495, 3553, 1320, 3612, 9099, 3356, 8307, 10369, 4226, 4228, 8404, 3572, 1673, 3162, 20378, 3180, 4167, 23064, 1310, 16258, 3091, 5820, 3085, 3358, 3086, 3093, 5133, 1324, 2264, 8931, 5688, 5814, 3491, 13430, 9179, 3360, 3536, 3002, 3134, 1295, 13434, 5753, 4186, 16751, 4878, 4571, 9555, 3959, 8364, 945, 10380, 3548, 5191, 6298, 4235, 1685, 3400, 16260, 23522, 3951, 4266, 2397, 14962, 5125, 5140, 2137, 5569, 3591, 3705, 4600, 3540, 3316, 3160, 6736, 7736, 1686, 3483, 6574, 8122, 74, 5758, 2383, 4177, 5190, 3321, 7485, 4592, 2136, 3317, 1323, 16920, 5821, 3089, 1407, 4192, 9676, 3177, 5169, 16186, 4560, 16693, 8129, 1309, 3592, 5152, 17655, 5120, 2697, 3166, 5102, 6367, 2140, 5503, 3020, 4601, 1698, 4223, 1348, 5886, 12045, 3486, 4187, 14964, 5119, 8358, 5170, 3948, 1147, 3477, 6727, 12196, 11103, 8150, 3590, 4876, 3884, 6027, 16610, 3561, 1671, 1672, 3077, 3135, 3961, 3076, 8878, 2683, 3684, 5154, 15354, 2684, 1457, 3138, 13432, 2669, 4617, 3518, 1690, 5158, 3315, 3074, 13431, 8117, 6376, 1263, 3952, 8359, 3608, 4234, 1312, 2366, 3097, 2116, 1450, 3611, 8934, 4084, 1687, 4164, 958, 1453, 1314, 3158, 15292, 3003, 1238, 14963, 1273, 5103, 1289, 3933, 8401, 3547, 4886, 3080, 2265, 3018, 2352, 6739, 16458, 6734, 7731, 6738, 9356, 7744, 1305, 3544, 3610, 1311, 4590, 1301, 5512, 5509, 5749, 1697, 3589, 3078, 18277, 17929, 3159, 5129, 3010, 3613, 1670, 3044, 14961, 167, 959, 2134, 16735, 5109, 4233, 1459, 3014, 8398, 5126, 1198, 3543, 4581, 5508, 3022, 23606, 4570, 3092, 15124, 4554, 4259, 1149, 3882, 1294, 3552, 14480, 3554, 2113, 1441, 6496, 5106, 4216, 12960, 6091, 3411, 8360, 20121, 4043, 2820, 13436, 5112, 8152, 4188, 7737, 6928, 6272, 6791, 78, 5698, 2997, 793, 790, 3331, 954, 4615, 5121, 3588, 1381, 5870, 4190, 3587, 3073, 1339, 5819, 226, 1461, 9553, 13018, 3551, 955, 8665, 3023, 14844, 2999, 5189, 4889, 16762, 4875, 3163, 3349, 4899, 4954, 1678, 1469, 1341, 2135, 1315, 4172, 2046, 1240, 23525, 4240, 6328, 4168, 1333, 1213, 2117, 6735, 8121, 258, 3487, 3359, 15125, 4888, 4599, 4559, 3079,
+
+				-- Vendor Level 41-200 (https://www.wowhead.com/tbc/npcs/min-level:41/max-level:200?filter=29;1;0)
+				12794, 12777, 12792, 12784, 14753, 12785, 12795, 14754, 13219, 12022, 13218, 13217, 13216, 15126, 15127, 18525, 12919, 12781, 2805, 8125, 12782, 2626, 14581, 12793, 13476, 21643, 15419, 11189, 20080, 17904, 17585, 2803, 12097, 12096, 21432, 340, 15179, 19321, 21655, 10667, 17657, 2664, 17512, 7947, 23381, 19331, 8145, 20278, 12805, 2806, 9499, 12796, 12783, 3362, 7955, 989, 18990, 18756, 18774, 23489, 18960, 27721, 20510, 18772, 19232, 12941, 27668, 7952, 18752, 11038, 20494, 18382, 18802, 19663, 9636, 18775, 20241, 25176, 18911, 20613, 18751, 5594, 16826, 20240, 20097, 14921, 20096, 12799, 20242, 22213, 22208, 27722, 20807, 3546, 12944, 7852, 22212, 18255, 11536, 16583, 18771, 18749, 19837, 19004, 20616, 16588, 19213, 7775, 3685, 11185, 18773, 25976, 18753, 2482, 18987, 15174, 11278, 23428, 19074, 18005, 23007, 26352, 25032, 14437, 18484, 21905, 19662, 20081, 4217, 18011, 25046, 21183, 18754, 23748, 20916, 18991, 18993, 16376, 16015, 18898, 28225, 25177, 23437, 2084, 19772, 19038, 19042, 20028, 19373, 11557, 19521, 2848, 19773, 11056, 15165, 11057, 21906, 21113, 14522, 18908, 7854, 19186, 25950, 17518, 18015, 21488, 18988, 5134, 2670, 18581, 18267, 14322, 3625, 23263, 23367, 11187, 20808, 9544, 18897, 16585, 25179, 18564, 20981, 19539, 18822, 18821, 15006, 11555, 16823, 14740, 18664, 2480, 6779, 25196, 12384, 16388, 10618, 18266, 25977, 19678, 19227, 6568, 23396, 14624, 12959, 19296, 19661, 21485, 5173, 10857, 16602, 21474, 19536, 15471, 23159, 19575, 26089, 8679, 24975, 3682, 27667, 18957, 6382, 12942, 18906, 16829, 8178, 15176, 19836, 18018, 20092, 24780, 2839, 19722, 7879, 26092, 21483, 12943, 19932, 5815, 19015, 20082, 4782, 10856, 23710, 20980, 19049, 22227, 19540, 19017, 1307, 19197, 27666, 19452, 8177, 14371, 20112, 19196, 7940, 5139, 8157, 19314, 23245, 18907, 6807, 26091, 23363, 19538, 3343, 24408, 11184, 19617, 27819, 19053, 19047, 11874, 8160, 4890, 18017, 12957, 19371, 4184, 19223, 18905, 19342, 19857, 14738, 2699, 12956, 18542, 19235, 25036, 9548, 19534, 2687, 19694, 19560, 16798, 5135, 15197, 20989, 20986, 25178, 7942, 3000, 23484, 19879, 12023, 6548, 19236, 20892, 984, 10364, 9552, 24208, 20249, 12021, 1328, 16670, 25195, 23373, 19370, 19451, 19436, 19244, 15864, 6777, 19194, 6567, 8161, 3700, 26090, 4883, 19330, 22225, 23533, 18019, 19625, 23483, 16713, 22476, 8131, 27812, 11188, 12958, 26124, 21744, 2622, 23482, 24495, 4255, 19532, 18959, 19526, 4180, 3298, 23511, 19561, 8678, 2303, 18010, 23112, 19664, 18006, 19014, 22266, 19718, 17277, 2849, 25035, 15293, 27806, 14301, 8158, 19499, 19573, 21110, 2908, 25039, 11186, 7941, 23560, 19374, 16649, 23243, 19517, 27817, 16543, 11703, 19333, 23143, 7772, 4257, 18913, 14739, 19011, 19473, 17598, 19182, 20890, 19012, 982, 2225, 18962, 21112, 19056, 2838, 19537, 10293, 19518, 19572, 2844, 19195, 2843, 3689, 27478, 24392, 19520, 18243, 26123, 19559, 2663, 11182, 22264, 23724, 23510, 2842, 1316, 23244, 21111, 28344, 2846, 5570, 21746, 19535, 21083, 19495, 1471, 21082, 15898, 19239, 12024, 20893, 23110, 3312, 19479, 18009, 23145, 2688, 15199, 19315, 19472, 24545, 15011, 4884, 19679, 4893, 21084, 19533, 20194, 19352, 21484, 14337, 19050, 10361, 7943, 23573, 18245, 12026, 15315, 19021, 19528, 20915, 19471, 19045, 19372, 21172, 20231, 19348, 27711, 983, 25034, 22099, 10379, 20463, 27810, 27820, 18251, 19435, 19531, 1296, 12807, 23144, 981, 19345, 2840, 19020, 22271, 20250, 27489, 22479, 19240, 20891, 14737, 3500, 19343, 19013, 19245, 23157, 11183, 27811, 27813, 27814, 27818, 19497, 21487, 19351, 12019, 19649, 24501, 18997, 2845, 8176, 19470, 980, 3708, 16256, 19474, 23699, 15175, 19574, 3621, 24409, 8143, 19243, 21085, 1695, 21086, 7945, 25043, 10367, 23208, 19001, 19498, 19238, 8159, 20917, 19043, 18914, 19530, 2847, 15012, 22491, 19339, 14731, 18998, 23535, 12029, 22270, 19562, 18278, 19450, 3779, 19234, 8116, 23897,
 
 				-- Battlemaster (https://www.wowhead.com/tbc/npcs?filter=20;1;0)
 				12197, 14981, 18895, 15105, 3890, 20384, 14990, 25991, 15008, 15007, 907, 19858, 20388, 19911, 5118, 14991, 15103, 20497, 19910, 20271, 20381, 19912, 857, 20118, 19908, 15106, 20386, 12198, 19859, 21235, 20273, 22101, 19923, 20383, 22013, 347, 20374, 20119, 19915, 19925, 7427, 20120, 20390, 22015, 20274, 10360, 16696, 19855, 7410, 20385, 15006, 16695, 14942, 20269, 19909, 15102, 20276, 2302, 20499, 19907, 16694, 20272, 19905, 20362, 2804, 14982, 19906,
@@ -2727,9 +2799,13 @@
 		if LeaPlusLC["ShowPlayerChain"] == "On" and not LeaLockList["ShowPlayerChain"] then
 
 			-- Fix for Burning Crusade Anniversary
+			-- PlayerFrameTexture:ClearAllPoints()
+			-- PlayerFrameTexture:SetPoint("CENTER", -18, -4)
+			-- PlayerFrameTexture:SetSize(232, 100)
+
 			PlayerFrameTexture:ClearAllPoints()
-			PlayerFrameTexture:SetPoint("CENTER", -16, -3)
-			PlayerFrameTexture:SetSize(232, 100)
+			PlayerFrameTexture:SetPoint("TOPLEFT", PlayerFrame, "TOPLEFT", -17, -4)
+			PlayerFrameTexture:SetSize(231, 99)
 
 			-- Ensure chain doesnt clip through pet portrait
 			PetPortrait:GetParent():SetFrameLevel(4)
@@ -4733,6 +4809,9 @@
 						-- Print debug string (used for showing full routes for nodes)
 						-- print(debugString)
 
+						-- Print destination node
+						-- print(destination .. " - " .. barName)
+
 					end
 				end
 			end)
@@ -6299,8 +6378,9 @@
 			local ChatFilterPanel = LeaPlusLC:CreatePanel("Filter chat messages", "ChatFilterPanel")
 
 			LeaPlusLC:MakeTx(ChatFilterPanel, "Settings", 16, -72)
-			LeaPlusLC:MakeCB(ChatFilterPanel, "BlockDrunkenSpam", "Block drunken spam", 16, -92, false, "If checked, drunken messages will be blocked unless they apply to your character.|n|nThis applies to the system channel.")
-			LeaPlusLC:MakeCB(ChatFilterPanel, "BlockDuelSpam", "Block duel spam", 16, -112, false, "If checked, duel victory and retreat messages will be blocked unless your character took part in the duel.|n|nThis applies to the system channel.")
+			LeaPlusLC:MakeCB(ChatFilterPanel, "BlockSpellLinks", "Block spell links during combat", 16, -92, false, "If checked, messages containing spell links will be blocked while you are in combat.|n|nThis is useful for blocking spell interrupt spam.|n|nThis applies to the say, party, raid, emote and yell channels.")
+			LeaPlusLC:MakeCB(ChatFilterPanel, "BlockDrunkenSpam", "Block drunken spam", 16, -112, false, "If checked, drunken messages will be blocked unless they apply to your character.|n|nThis applies to the system channel.")
+			LeaPlusLC:MakeCB(ChatFilterPanel, "BlockDuelSpam", "Block duel spam", 16, -132, false, "If checked, duel victory and retreat messages will be blocked unless your character took part in the duel.|n|nThis applies to the system channel.")
 
 			-- Lock block drunken spam option for zhTW
 			if GameLocale == "zhTW" then
@@ -6343,6 +6423,10 @@
 						return true
 					end
 				end
+				-- Block spell links
+				if LeaPlusLC["BlockSpellLinks"] == "On" and UnitAffectingCombat("player") then
+					if msg:find("|Hspell") then return true end
+				end
 				-- Block drunken spam
 				if LeaPlusLC["BlockDrunkenSpam"] == "On" then
 					for i = 1, 4 do
@@ -6357,6 +6441,23 @@
 
 			-- Enable or disable chat filter settings
 			local function SetChatFilter()
+				if LeaPlusLC["BlockSpellLinks"] == "On" then
+					ChatFrame_AddMessageEventFilter("CHAT_MSG_SAY", ChatFilterFunc)
+					ChatFrame_AddMessageEventFilter("CHAT_MSG_PARTY", ChatFilterFunc)
+					ChatFrame_AddMessageEventFilter("CHAT_MSG_PARTY_LEADER", ChatFilterFunc)
+					ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID", ChatFilterFunc)
+					ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID_LEADER", ChatFilterFunc)
+					ChatFrame_AddMessageEventFilter("CHAT_MSG_EMOTE", ChatFilterFunc)
+					ChatFrame_AddMessageEventFilter("CHAT_MSG_YELL", ChatFilterFunc)
+				else
+					ChatFrame_RemoveMessageEventFilter("CHAT_MSG_SAY", ChatFilterFunc)
+					ChatFrame_RemoveMessageEventFilter("CHAT_MSG_PARTY", ChatFilterFunc)
+					ChatFrame_RemoveMessageEventFilter("CHAT_MSG_PARTY_LEADER", ChatFilterFunc)
+					ChatFrame_RemoveMessageEventFilter("CHAT_MSG_RAID", ChatFilterFunc)
+					ChatFrame_RemoveMessageEventFilter("CHAT_MSG_RAID_LEADER", ChatFilterFunc)
+					ChatFrame_RemoveMessageEventFilter("CHAT_MSG_EMOTE", ChatFilterFunc)
+					ChatFrame_RemoveMessageEventFilter("CHAT_MSG_YELL", ChatFilterFunc)
+				end
 				if LeaPlusLC["BlockDrunkenSpam"] == "On" or LeaPlusLC["BlockDuelSpam"] == "On" then
 					ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", ChatFilterFunc)
 				else
@@ -6365,6 +6466,7 @@
 			end
 
 			-- Set chat filter when settings are clicked and on startup
+			LeaPlusCB["BlockSpellLinks"]:HookScript("OnClick", SetChatFilter)
 			LeaPlusCB["BlockDrunkenSpam"]:HookScript("OnClick", SetChatFilter)
 			LeaPlusCB["BlockDuelSpam"]:HookScript("OnClick", SetChatFilter)
 			SetChatFilter()
@@ -6373,6 +6475,7 @@
 			ChatFilterPanel.r:SetScript("OnClick", function()
 
 				-- Reset controls
+				LeaPlusLC["BlockSpellLinks"] = "Off"
 				LeaPlusLC["BlockDrunkenSpam"] = "Off"
 				LeaPlusLC["BlockDuelSpam"] = "Off"
 				SetChatFilter()
@@ -6386,6 +6489,7 @@
 			LeaPlusCB["FilterChatMessagesBtn"]:SetScript("OnClick", function()
 				if IsShiftKeyDown() and IsControlKeyDown() then
 					-- Preset profile
+					LeaPlusLC["BlockSpellLinks"] = "On"
 					LeaPlusLC["BlockDrunkenSpam"] = "On"
 					LeaPlusLC["BlockDuelSpam"] = "On"
 					SetChatFilter()
@@ -6510,11 +6614,25 @@
 
 			-- Hide bind text
 			for i = 1, 12 do
-				_G["ActionButton"..i.."HotKey"]:SetAlpha(0) -- Main bar
-				_G["MultiBarBottomRightButton"..i.."HotKey"]:SetAlpha(0) -- Bottom right bar
-				_G["MultiBarBottomLeftButton"..i.."HotKey"]:SetAlpha(0) -- Bottom left bar
-				_G["MultiBarRightButton"..i.."HotKey"]:SetAlpha(0) -- Right bar
-				_G["MultiBarLeftButton"..i.."HotKey"]:SetAlpha(0) -- Left bar
+
+				-- Bar 1: Main action bar
+				_G["ActionButton"..i.."HotKey"]:SetAlpha(0)
+
+				-- Bars 2 and 3: Bottom of screen
+				_G["MultiBarBottomLeftButton"..i.."HotKey"]:SetAlpha(0)
+				_G["MultiBarBottomRightButton"..i.."HotKey"]:SetAlpha(0)
+
+				-- Bars 4 and 5: Right side of screen
+				_G["MultiBarRightButton"..i.."HotKey"]:SetAlpha(0)
+				_G["MultiBarLeftButton"..i.."HotKey"]:SetAlpha(0)
+
+				-- Bars 6, 7 and 8: Middle of screen
+				for j = 5, 7 do
+					if _G["MultiBar"..j.."Button"..i.."HotKey"] then
+						_G["MultiBar"..j.."Button"..i.."HotKey"]:SetAlpha(0)
+					end
+				end
+
 			end
 
 		end
@@ -6527,11 +6645,25 @@
 
 			-- Hide marco text
 			for i = 1, 12 do
-				_G["ActionButton"..i.."Name"]:SetAlpha(0) -- Main bar
-				_G["MultiBarBottomRightButton"..i.."Name"]:SetAlpha(0) -- Bottom right bar
-				_G["MultiBarBottomLeftButton"..i.."Name"]:SetAlpha(0) -- Bottom left bar
-				_G["MultiBarRightButton"..i.."Name"]:SetAlpha(0) -- Right bar
-				_G["MultiBarLeftButton"..i.."Name"]:SetAlpha(0) -- Left bar
+
+				-- Bar 1: Main action bar
+				_G["ActionButton"..i.."Name"]:SetAlpha(0)
+
+				-- Bars 2 and 3: Bottom of screen
+				_G["MultiBarBottomLeftButton"..i.."Name"]:SetAlpha(0)
+				_G["MultiBarBottomRightButton"..i.."Name"]:SetAlpha(0)
+
+				-- Bars 4 and 5: Right side of screen
+				_G["MultiBarRightButton"..i.."Name"]:SetAlpha(0)
+				_G["MultiBarLeftButton"..i.."Name"]:SetAlpha(0)
+
+				-- Bars 6, 7 and 8: Middle of screen
+				for j = 5, 7 do
+					if _G["MultiBar"..j.."Button"..i.."Name"] then
+						_G["MultiBar"..j.."Button"..i.."Name"]:SetAlpha(0)
+					end
+				end
+
 			end
 
 		end
@@ -11869,6 +12001,7 @@
 				LeaPlusLC:LoadVarNum("RecentChatSize", 170, 170, 600)		-- Recent chat size
 				LeaPlusLC:LoadVarChk("MaxChatHstory", "Off")				-- Increase chat history
 				LeaPlusLC:LoadVarChk("FilterChatMessages", "Off")			-- Filter chat messages
+				LeaPlusLC:LoadVarChk("BlockSpellLinks", "Off")				-- Block spell links
 				LeaPlusLC:LoadVarChk("BlockDrunkenSpam", "Off")				-- Block drunken spam
 				LeaPlusLC:LoadVarChk("BlockDuelSpam", "Off")				-- Block duel spam
 				LeaPlusLC:LoadVarChk("RestoreChatMessages", "Off")			-- Restore chat messages
@@ -12067,7 +12200,7 @@
 					end
 
 					-- Disable items that currently are not compatible with Burning Crusade Anniversary
-					Lock("FilterChatMessages", L["This option is not currently available in Burning Crusade Anniversary"])
+					-- Lock("FilterChatMessages", L["This option is not currently available in Burning Crusade Anniversary"])
 
 					-- Disable items that conflict with Easy Frames
 					if C_AddOns.IsAddOnLoaded("EasyFrames") then
@@ -12232,6 +12365,7 @@
 			LeaPlusDB["RecentChatSize"]			= LeaPlusLC["RecentChatSize"]
 			LeaPlusDB["MaxChatHstory"]			= LeaPlusLC["MaxChatHstory"]
 			LeaPlusDB["FilterChatMessages"]		= LeaPlusLC["FilterChatMessages"]
+			LeaPlusDB["BlockSpellLinks"]		= LeaPlusLC["BlockSpellLinks"]
 			LeaPlusDB["BlockDrunkenSpam"]		= LeaPlusLC["BlockDrunkenSpam"]
 			LeaPlusDB["BlockDuelSpam"]			= LeaPlusLC["BlockDuelSpam"]
 			LeaPlusDB["RestoreChatMessages"]	= LeaPlusLC["RestoreChatMessages"]
@@ -14345,6 +14479,7 @@
 				LeaPlusDB["RecentChatSize"] = 170				-- Recent chat size
 				LeaPlusDB["MaxChatHstory"] = "Off"				-- Increase chat history
 				LeaPlusDB["FilterChatMessages"] = "On"			-- Filter chat messages
+				LeaPlusDB["BlockSpellLinks"] = "On"				-- Block spell links
 				LeaPlusDB["BlockDrunkenSpam"] = "On"			-- Block drunken spam
 				LeaPlusDB["BlockDuelSpam"] = "On"				-- Block duel spam
 				LeaPlusDB["RestoreChatMessages"] = "On"			-- Restore chat messages

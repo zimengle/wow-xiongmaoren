@@ -1,21 +1,4 @@
-
 WhisperPopDB = {
-["listWidth"] = 200,
-["listHeight"] = 320,
-["sound"] = 1,
-["showRealm"] = 1,
-["listScale"] = 100,
-["save"] = 1,
-["timeFormat"] = 2,
-["version"] = 4.12,
-["buttonScale"] = 100,
-["history"] = {
-},
-["time"] = 1,
-["applyFilters"] = 1,
-["foreignOnly"] = 1,
-["ignoreTags"] = 1,
-["notifyButton"] = 1,
 ["positions"] = {
 ["WhisperPopFrame"] = {
 "CENTER",
@@ -32,4 +15,36 @@ WhisperPopDB = {
 262,
 },
 },
+["listHeight"] = 320,
+["notifyButton"] = 1,
+["showRealm"] = 1,
+["ignoreTags"] = 1,
+["listWidth"] = 200,
+["timeFormat"] = 2,
+["time"] = 1,
+["buttonScale"] = 100,
+["history"] = {
+{
+["messages"] = {
+"1[T1768729603]对头",
+"1[T1768729625]你也是吗",
+"1[T1768729674]五小区",
+"1[T1768729696]桥南村可以",
+"1[T1768729701]来耍过没得嘛",
+"1[T1768729827]啥时候开70",
+"1[T1768729831]感觉人好少",
+"1[T1768729885]哈霍兰不是永久60吗",
+"1[T1768729937]合理 到时候起新号玩70",
+"1[T1768729949]不然毕业号直接变新号",
+},
+["class"] = "HUNTER",
+["name"] = "乘風归-铁血",
+},
+},
+["listScale"] = 100,
+["applyFilters"] = 1,
+["foreignOnly"] = 1,
+["version"] = 4.12,
+["sound"] = 1,
+["save"] = 1,
 }

@@ -1,28 +1,16 @@
 local _,addon = ...
-if addon.gameVersion < 40000 or addon.player.faction == 'Alliance' then return end
+if addon.game ~= "CATA" or addon.player.faction ~= 'Horde' then return end
 
 RXPGuides.RegisterGuide([[
 #cata
-#mop
 << Horde
 #name 22-27 Ashenvale
 #next 27-31 Northern Stranglethorn
 #version 1
---#group RXP Cataclysm (H) << cata
-
-#group RXP Cataclysm 1-80 (H) << cata
-#group RXP MoP 1-60 (H) << mop
+--#group RXP Cataclysm (H)
+#group RXP Cataclysm 1-80 (H)
 #subweight 10000
 
-step
-    #optional
-    .goto 63,94.410,46.819
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kulg Gorespatter|r
-    .gossipoption 111683 >>Fly to The Mor'Shan Ramparts
-    .target Kulg Gorespatter
-    .subzoneskip 2457,1
-    .subzoneskip 1703
-    .isOnQuest 13866
 step
     .goto 1413/1,-2251.30005,1236.80005
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kadrak|r
@@ -803,7 +791,7 @@ step
     .isQuestTurnedIn 13712
 step
     #completewith next
-    .subzone 2897 >>Travel to Zoram'gar Outpost
+    .subzone 2897 >>Travel to Zoram'gar Outpost 
     .isQuestAvailable 13712
 step
     .goto 63,11.16,34.43
@@ -840,7 +828,7 @@ step
     .goto 63,12.77,34.20
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Muglash|r
     >>|cRXP_WARN_This will start an escort quest. Be careful as it's difficult|r
-    .accept 6641,1 >> Accept Vorsha the Lasher
+    .accept 6641 >>Accept Vorsha the Lasher
     .target Muglash
 step
     #completewith LitLightHouse
@@ -1142,8 +1130,7 @@ step
     .mob +Astranaar Thrower
 step
     #completewith next
-    .cast vehicle,65481 >>|cRXP_WARN_Use|r |T136011:0|t[Return to Base!] |cRXP_WARN_to fly back to Hellscream's Watch|r
-    .subzoneskip 4691
+    +|cRXP_WARN_Use|r |T136011:0|t[Return to Base!] |cRXP_WARN_to fly back to Hellscream's Watch|r
 step
     .goto 63,37.99,42.83
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Captain Goggath|r
@@ -1545,38 +1532,38 @@ step
     .fly Orgrimmar >>Fly to Orgrimmar
     .target Vhulgra
     .zoneskip Orgrimmar
-step << Rogue Cata/Warlock Cata
+step << Rogue/Warlock
     #completewith next
     .goto 1454,45.81,66.88,40 >> Travel toward the Cleft of Shadow
-step << Shaman Cata/Druid Cata/Paladin Cata/Warrior Cata/Hunter Cata/Priest Cata
+step << Shaman/Druid/Paladin/Warrior/Hunter/Priest
     #completewith next
     .goto 1454/1,-4291.89990,1876.70007,50 >> Travel to the Valley of Wisdom
-step << Rogue Cata
+step << Rogue
     .goto 1454,44.65,61.51
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gordul|r
     .trainer >> Train your class spells
     .target Gordul
-step << Rogue Cata
+step << Rogue
     .goto 1454,29.60,50.40
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Rekkul|r.
     .vendor >>|cRXP_BUY_Stock up on|r |T132273:0|t[Poisons]
     .target Rekkul
-step << Shaman Cata
+step << Shaman
     .goto 1454/1,-4282.60010,1884.09998
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Sahi|r
     .trainer >> Train your class spells
     .target Sahi Cloudsinger
-step << Druid Cata
+step << Druid
     .goto 1454/1,-4285.10010,1889.09998
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Shalla|r
     .trainer >> Train your class spells
     .target Shalla Whiteleaf
-step << Mage Cata
+step << Mage
     .goto 1454/1,-4125.10010,1690.59998
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Uthel'nay|r
     .trainer >> Train your class spells
     .target Uthel'nay
-step << Mage Cata
+step << Mage
     .goto 1454/1,-4128.89990,1692.09998
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Zirazi the Star-Gazer|r
     .train 3567 >>Train |T135759:0|t[Teleport: Orgrimmar]
@@ -1585,32 +1572,32 @@ step << Mage Cata
     .train 32272 >>Train |T135761:0|t[Teleport: Silvermoon]
     .target Zirazi the Star-Gazer
     .xp <24,1
-step << Mage Cata
+step << Mage
     .goto 1454/1,-4382.50000,1673.30005
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Horthus|r
     .collect 17031,20 >>|cRXP_BUY_Buy a stack of|r |T134419:0|t[Rune of Teleportation] |cRXP_BUY_from him|r
     .target Horthus
-step << Priest Cata
+step << Priest
     .goto 1454/1,-4297.60010,1863.30005
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Liwatha|r
     .trainer >> Train your class spells
     .target Seer Liwatha
-step << Warlock Cata
+step << Warlock
     .goto 1454,54.49,39.68
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mirket|r
     .trainer >> Train your class spells
     .target Mirket
-step << Paladin Cata
+step << Paladin
     .goto 1454/1,-4292.50000,1863.70007
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Atohmo|r
     .trainer >> Train your class spells
     .target Sunwalker Atohmo
-step << Hunter Cata
+step << Hunter
     .goto 1454/1,-4281.00000,1872.50000
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Nohi|r
     .trainer >> Train your class spells
     .target Nohi Plainswalker
-step << Warrior Cata
+step << Warrior
     .goto 1454/1,-4284.00000,1867.80005
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Nahu|r
     .trainer >> Train your class spells
@@ -1686,6 +1673,7 @@ step
     .goto 85,51.31,56.01
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Bort|r
     .turnin 26416 >>Turn in Well, Come to the Jungle
+    .accept 26417 >>Accept Northern Stranglethorn: The Fallen Empire
     .target Bort
     .isOnQuest 26416
     --STV breadcrumb quest
@@ -1697,5 +1685,4 @@ step
     .accept 26417 >>Accept Northern Stranglethorn: The Fallen Empire
     .target Bort
     .isQuestTurnedIn 26416
-    .isNotOnQuest 28688
     ]])

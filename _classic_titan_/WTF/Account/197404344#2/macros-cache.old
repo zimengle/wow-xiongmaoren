@@ -5,16 +5,12 @@ VER 3 0000000000000003 "MJE: Random Mount" "132599"
 /cancelform [nocombat,noknown:15473]
 /run C_MountJournal.SummonByID(0)
 END
-VER 3 0000000000000002 "RXPTargeting" "Ability_eyeoftheowl"
-/targetexact 暗影专家
-/targetexact 邪恶通灵师
-/targetexact 笨重的憎恶
+VER 3 0000000000000004 "RXPTargeting" "Ability_eyeoftheowl"
+/targetexact 格罗萨·硬须
 /targetlasttarget [dead]
 END
-VER 3 0000000000000004 "RXPTargeting" "Ability_eyeoftheowl"
-/targetexact 暗影专家
-/targetexact 邪恶通灵师
-/targetexact 笨重的憎恶
+VER 3 0000000000000002 "RXPTargeting" "Ability_eyeoftheowl"
+/targetexact 跳跃者
 /targetlasttarget [dead]
 END
 VER 3 0000000000000006 "坐骑" "134400"

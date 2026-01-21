@@ -3,7 +3,7 @@ local FramePlusfun=addonTable.FramePlusfun
 -----------------------
 function FramePlusfun.Trainer()
 	if not PIGA["FramePlus"]["Trainer"] then return end
-	if PIG_MaxTocversion(40000,true) then return end
+	if PIG_MaxTocversion(60000,true) then return end
 	if NDui then return end
 	addonTable.Fun.IsAddOnLoaded("Blizzard_TrainerUI",function()
 		UIPanelWindows["ClassTrainerFrame"].width = 713

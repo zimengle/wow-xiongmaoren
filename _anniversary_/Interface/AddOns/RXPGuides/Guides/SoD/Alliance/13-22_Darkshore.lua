@@ -567,7 +567,6 @@ step << Druid
     #season 0
     >>Kill |cRXP_ENEMY_Moonkin|r. Loot them for their |T132832:0|t|cRXP_LOOT_[Small Eggs]|r
     >>|cRXP_WARN_This will be used to level your|r |T133971:0|t[Cooking] |cRXP_WARN_later|r  |cRXP_WARN_to 50 later|r
-    >>|cRXP_WARN_Don't go out of your way to farm this now. Just remember to hold onto the eggs and start thinking how many skillups u still need to reach 50 cooking|r
     .collect 6889,50,90,1,0x20,cooking --Small Egg (10-49)
     .mob Young Moonkin
     .mob Raging Moonkin
@@ -1128,8 +1127,15 @@ step
     .goto 1439,44.168,36.289
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Asterion|r
     .turnin 956 >> Turn in Bashal'Aran
+    .accept 957 >> Accept Bashal'Aran
     .target Asterion
     .isQuestComplete 956
+step
+    .goto 1439,44.168,36.289
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Asterion|r
+    .accept 957 >> Accept Bashal'Aran
+    .target Asterion
+    .isQuestTurnedIn 956
 step << !sod/Warrior/Rogue
     #optional
     #completewith RedCrystal
@@ -1260,7 +1266,7 @@ step << !Warrior !Rogue
     .turnin 947 >> Turn in Cave Mushrooms
     .accept 948 >> Accept Onu
     .target Barithras Moonshade
-step << NightElf/Hunter/Druid/Rogue
+step << NightElf/Hunter/Druid/Warrior/Rogue
     #season 2 << Warrior/Rogue
     #optional
     .goto 1439,37.703,43.393
@@ -1269,9 +1275,9 @@ step << NightElf/Hunter/Druid/Rogue
     .accept 4812 >> Accept As Water Cascades << !Druid sod
     .turnin 4813 >> Turn in The Fragments Within << Druid sod
     .target Sentinel Glynda Nal'Shea
-    .xp >17,1 << !Warrior
+    .xp >14,1 << Hunter/Druid << !sod
 --XX If Night Elves, Hunters, or Druids are lower than level 14, do questline
-step << Hunter/Druid/Warrior
+step << Hunter/Druid
     #season 0,1 << Druid
     .goto 1439,37.703,43.393
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Sentinel Glynda Nal'Shea|r
@@ -1279,9 +1285,8 @@ step << Hunter/Druid/Warrior
     .accept 4812 >> Accept As Water Cascades
     .target Sentinel Glynda Nal'Shea
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<9.5 << Hunter/Druid
-    .xp >17,1
 --XX If Hunters and Druids (in Era) have a worse weapon than the Oakthrush Staff, do the quest even if 14+
-step << NightElf/Hunter/Druid/Warrior
+step << NightElf/Hunter/Druid
     #optional
     #label Cascade
     .goto 1439,37.703,43.393
@@ -1289,7 +1294,17 @@ step << NightElf/Hunter/Druid/Warrior
     .accept 4812 >> Accept As Water Cascades
     .target Sentinel Glynda Nal'Shea
     .isQuestTurnedIn 4811 --show step if Red Crystal turned in
-    .xp >17,1
+step << NightElf/Hunter/Druid
+    #optional
+    #season 0
+    .goto 1439,36.767,44.285
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Laird|r
+    >>|cRXP_WARN_Buy up to 40|r |T133918:0|t[Longjaw Mud Snappers] |cRXP_WARN_from him. Sell all your other level 5 or below food|r
+    .collect 4592,40 --Longjaw Mud Snapper (40)
+    .target Laird
+    .subzoneskip 442,1 --skip if you leave Auber
+    .xp >15,1 << Warrior/Rogue
+    .isQuestTurnedIn 4811 --show step if you turned in red crystal
 step << NightElf/Hunter/Druid/Warrior/Rogue
     #optional
     #season 2 << Warrior/Rogue
@@ -1298,7 +1313,6 @@ step << NightElf/Hunter/Druid/Warrior/Rogue
     .complete 4812,1 --Moonwell Water Tube (1)
     .use 14338
     .isQuestTurnedIn 4811
-    .isOnQuest 4812
 step << !Warrior !Rogue
     #season 2
     .goto Darkshore,37.78,44.06
@@ -1332,6 +1346,20 @@ step << NightElf/Hunter/Druid/Warrior/Rogue
     .skill cooking,10,1 --XX Shows if cooking skill is <10
     .isQuestTurnedIn 4811
 step << NightElf/Hunter/Druid
+    #optional
+    #completewith EarlyCrystalEnd
+    #season 0
+    >>Kill |cRXP_ENEMY_Moonkin|r. Loot them for their |T132832:0|t|cRXP_LOOT_[Small Eggs]|r
+    >>|cRXP_WARN_This will be used to level your|r |T133971:0|t[Cooking] |cRXP_WARN_later|r  |cRXP_WARN_to 50 later|r
+    .collect 6889,50,90,1,0x20,cooking --Small Egg (10-49)
+    .mob Young Moonkin
+    .mob Raging Moonkin
+    .mob Moonkin Oracle
+    .mob Moonkin
+    .skill cooking,<10,1 --XX Shows if cooking skill is 10-50
+    .skill cooking,50,1
+    .isQuestTurnedIn 4811
+step << NightElf/Hunter/Druid
     #xprate <1.5 --<< !NightElf/Hunter
     #optional
     #completewith MysteriousCrystalHuntDruidEnd
@@ -1339,6 +1367,15 @@ step << NightElf/Hunter/Druid
     .complete 1002,1 -- Moonstalker Fang (6)
     .mob Moonstalker Runt
     .isOnQuest 1002
+    .isQuestTurnedIn 4811
+step << NightElf/Hunter/Druid
+    #season 0
+    .goto 1439,47.314,48.676
+    #label EarlyCrystalEnd
+    >>Click the |cRXP_PICK_Mysterious Red Crystal|r
+    >>|cRXP_WARN_Be careful of the two group of 2 |cRXP_ENEMY_Raging Moonkins|r west of the |cRXP_PICK_Mysterious Red Crystal|r as the duos closest to each other are leashed together|r
+    .turnin 4812 >> Turn in As Water Cascades
+    .accept 4813 >> Accept The Fragments Within
     .isQuestTurnedIn 4811
 step << !Druid sod
     #season 2
@@ -1349,7 +1386,6 @@ step << !Druid sod
     .turnin 4812 >> Turn in As Water Cascades
     .accept 4813 >> Accept The Fragments Within
     .isQuestTurnedIn 4811
-    .isOnQuest 4812
 step << skip --logout skip
     #season 2 << Hunter
     #season 1 << Druid/Warrior/Rogue/Priest
@@ -1371,7 +1407,15 @@ step
     .goto 1439,37.703,43.393
     .subzone 442 >> Return to Auberdine
     .isQuestTurnedIn 4811
-    .isOnQuest 4812
+step << NightElf/Hunter/Druid/Warrior
+    #season 0
+    .goto Darkshore,37.70,43.39
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Sentinel Glynda Nal'Shea|r
+    >>|cRXP_WARN_Choose the|r |T135641:0|t[Curvewood Dagger] |cRXP_WARN_as you should try to save a|r |T135641:0|t[Dagger] |cRXP_WARN_for your|r |T132290:0|t[Poisons] |cRXP_WARN_quest later|r << Rogue
+    .turnin 4813 >> Turn in The Fragments Within << !Hunter !Druid
+    .turnin 4813,3 >> Turn in The Fragments Within << Hunter/Druid
+    .target Sentinel Glynda Nal'Shea
+    .isQuestTurnedIn 4811
 step
     #season 2 << Hunter
     #season 1 << Druid/Warrior/Rogue/Priest
@@ -1382,7 +1426,6 @@ step
     .turnin 4813,3 >> Turn in The Fragments Within << Hunter/Druid
     .target Sentinel Glynda Nal'Shea
     .isQuestTurnedIn 4811
-    .isOnQuest 4813
 step << Hunter/Druid/Warrior
     #completewith AmethStart
     +|cRXP_WARN_Equip the|r |T135145:0|t[Oakthrush Staff]
@@ -2842,7 +2885,7 @@ step
     >>|cRXP_WARN_This quest is VERY difficult. Skip this step if you fail it|r << !Warrior
     >>|cRXP_WARN_You will most likely not be able to solo this quest!|r I'd recommend not even attempting it unless you can find another player to group with << Warrior
     >>Skip this step if you fail or there's no one to group with << Warrior
-    .link https://youtu.be/3d-htESNztE >> |cRXP_WARN_Click here for a video guide|r << Hunter
+    .link https://www.twitch.tv/videos/1182180918 >> |cRXP_WARN_Click here for a video guide|r << Hunter
     .link https://youtu.be/md926sh3L6U >> |cRXP_WARN_Click here for a video walkthrough|r << !Hunter
     .target Prospector Remtravel
 step
@@ -2850,7 +2893,7 @@ step
     #season 2
     >>|cRXP_WARN_Escort |cRXP_FRIENDLY_Prospector Remtravel|r through the Excavation|r
     >>|cRXP_WARN_This quest is VERY difficult. Skip this step if you fail it|r
-    .link https://youtu.be/3d-htESNztE >> |cRXP_WARN_Click here for a video guide|r << Hunter
+    .link https://www.twitch.tv/videos/1182180918 >> |cRXP_WARN_Click here for a video guide|r << Hunter
     .complete 731,1
     .isOnQuest 731
 step << Druid/Hunter/Warrior
@@ -2879,7 +2922,7 @@ step << !Warrior
     >>Click the |cRXP_PICK_Beached Sea Creature|r
     .accept 4733 >> Accept Beached Sea Creature
     >>|cRXP_WARN_This quest can be VERY difficult. Engage the |cRXP_ENEMY_Murlocs|r 1 by 1, otherwise you may agro multiple at the same time|r
-    .link https://youtu.be/lfQM3Q-Ag5A >> |cRXP_WARN_Click here for a video guide|r << Hunter
+    .link https://www.twitch.tv/videos/992307825?t=05h48m36s >> |cRXP_WARN_Click here for a video guide|r << Hunter
 step << !Warrior
 	#season 2
     .goto 1439,31.229,85.564
@@ -3875,6 +3918,16 @@ step
     .mob Moonstalker Sire
     .mob Moonstalker Matriarch
     .mob Moonstalker Runt
+step << Warrior/Paladin/Rogue
+    #season 0
+    #requires foreststriders
+    .goto 1439,56.654,13.484
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gelkak Gyromast|r
+    >>|cRXP_WARN_Start looking for a group for Gyromast's Revenge/|r|cRXP_ENEMY_The Threshwackonator 4100|r << Warrior/Paladin/Rogue
+    .turnin 2098 >> Turn in Gyromast's Retrieval
+    .accept 2078 >> Accept Gyromast's Revenge
+    .target Gelkak Gyromast
+    .solo
 step << !sod/Hunter/Druid
     #requires foreststriders
     .group 2 << Warrior/Paladin/Rogue
@@ -3899,7 +3952,6 @@ step << !sod/Hunter
     >>Click the |cRXP_PICK_Beached Sea Turtle|r
     .accept 4727 >> Accept Beached Sea Turtle
 step << !sod/Hunter/Druid
-    .goto Darkshore,55.81,18.29,10,0
     .goto 1439,56.654,13.484
     #optional
     >>Escort |cRXP_FRIENDLY_The Threshwackonator 4100|r to |cRXP_FRIENDLY_Gelkak Gyromast|r
@@ -3910,7 +3962,7 @@ step << !sod/Hunter/Druid
     >>|cRXP_WARN_Use|r |T136100:0|t[Entangling Roots] |cRXP_WARN_on him when he turns hostile then create distance and kite using instant cast spells|r << Druid
     >>|cRXP_WARN_If you are unable to kill the |cRXP_ENEMY_The Threshwackonator 4100|r, skip this step|r
     .complete 2078,1 --Gyromast's Revenge (1)
-    .link https://youtu.be/1WRRmKYBr9s >> |cRXP_WARN_Click here for a video guide|r
+    .link https://clips.twitch.tv/VainAmorphousMacaroniPRChase-iGvhTnz0ked6LO0A >> |cRXP_WARN_Click here for a video guide|r
     .mob The Threshwackonator 4100
     .isOnQuest 2078 << Warrior/Paladin/Rogue
 --XX DRUID: Test if you can root
@@ -4004,7 +4056,6 @@ step << !Warrior
     #completewith BlackwoodSod
     .hs >> Hearth to Auberdine
     .subzoneskip 442
-    .cooldown item,6948,>0,1
 step << !Druid !Warrior
     #optional
     #season 2
@@ -4075,7 +4126,7 @@ step
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Terenthis|r
     .turnin 986 >> Turn in A Lost Master
     .target Terenthis
-    .isQuestComplete 986
+    .isQuestTurnedIn 986
 step
     #xprate >1.59
     #requires DeleteGyromast
@@ -4268,22 +4319,15 @@ step << Druid
 	.target Daelyshia
 step << Druid
     #season 2
-    .goto Ashenvale,34.8,49.8
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Sentinel Thenysil|r
-    .target Sentinel Thenysil
-    .accept 1070 >> Accept On Guard in Stonetalon
-step << Druid
-    #season 2
     .goto Ashenvale,42.4,72.3,30 >> Head to the Talondeep path leading to the Stonetalon Mountains
 step << Druid
     #season 2
     .goto Stonetalon Mountains,78.2,42.6,40 >> Run through the tunnel into the Stonetalon Mountains
 step << Druid
     #season 2
-    .goto Stonetalon Mountains,59.8,66.8
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kaela Shadowspear|r
-    .target Kaela Shadowspear
-    .turnin 1070 >> Turn in On Guard in Stonetalon
+    .goto Stonetalon Mountains,59.6,67.0
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_Gaxim Rustfizzle|r
+    .accept 1075 >> Accept A Scroll from Mauren
 step << Druid
     #season 2
     .goto Stonetalon Mountains,71.5,86.5,40 >> Head to the Grimtotem Village marked on your map
@@ -6041,6 +6085,13 @@ step << Warlock
     .target Spackle Thornberry
     .itemcount 16346,<1 --Grimoire of Torment (<1)
     .train 20317,1
+    .dungeon DM
+step << Warlock
+    #xprate >1.59
+    .goto StormwindClassic,25.25,78.59
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gakin the Darkbinder|r
+    .accept 1716 >> Accept Devourer of Souls
+    .target Gakin the Darkbinder
     .dungeon DM
 step << Warlock
     #xprate >1.59

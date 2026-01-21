@@ -5,34 +5,34 @@ RXPGuides.RegisterGuide([[
 #tbc
 #wotlk
 << Horde
-#name 1-6 Tirisfal Glades
+#name 1-6 提瑞斯法林地
 #version 1
-#group RestedXP Horde 1-30
+#group RestedXP 部落 1-30
 #defaultfor Scourge
-#next 6-10 Eversong Woods
+#next 6-10 永歌森林
 
 step << !Undead
     #completewith next
-    +|cRXP_WARN_You have selected a guide meant for Undead. It is recommended you choose the same starter zone that you start in|r
+    +|cRXP_WARN_您已选择一本针对亡灵的指南。建议您选择与您开始的相同起始区域|r
 step
     #completewith Zombies
-	.destroy 6948 >> Destroy the |T134414:0|t[Hearthstone] in your bags, as it's no longer needed
+	.destroy 6948 >>摧毁: |cRXP_ENEMY_炉石|r, 它在你的背包中. 不再需要它了
 step << tbc
     #completewith next
     .goto Tirisfal Glades,30.04,72.78,8,0
     .goto Tirisfal Glades,30.27,72.78,8,0
-    .goto Tirisfal Glades,30.22,71.65,10 >> Run up out of the crypt toward |cRXP_FRIENDLY_Mordo|r
+    .goto Tirisfal Glades,30.22,71.65,10 >>跑出墓穴，朝 |cRXP_FRIENDLY_Mordo|r 跑去
 step
     .goto Tirisfal Glades,30.22,71.65 << tbc
     .goto Tirisfal Glades,29.99,71.89 << wotlk
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mordo|r
-    .accept 363 >> Accept Rude Awakening
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_送葬者摩尔多|r
+    .accept 363 >>接任务: |cRXP_LOOT_突然醒来|r
     .target Undertaker Mordo
 step << wotlk
     #completewith next
     .goto Tirisfal Glades,30.04,72.78,8,0
     .goto Tirisfal Glades,30.27,72.78,8,0
-    .goto Tirisfal Glades,30.32,72.32,10 >> Run up out of the crypt
+    .goto Tirisfal Glades,30.32,72.32,10 >>跑出墓穴
 step << Warrior/Warlock/Priest/Mage
     #completewith Vendor
     .goto Tirisfal Glades,30.70,69.28,0 << Warrior/Warlock
@@ -41,73 +41,73 @@ step << Warrior/Warlock/Priest/Mage
     .goto Tirisfal Glades,29.18,68.94,40,0 << Priest/Mage
     .goto Tirisfal Glades,29.10,67.66,40,0 << Priest/Mage
     .goto Tirisfal Glades,30.19,65.32,40,0 << Priest/Mage
-    +|cRXP_WARN_Kill |cRXP_ENEMY_Young Scavengers|r and |cRXP_ENEMY_Duskbats|r. Loot them until you have 60 copper worth of vendor items (including your armor)|r << Mage tbc
-    +|cRXP_WARN_Kill |cRXP_ENEMY_Young Scavengers|r and |cRXP_ENEMY_Duskbats|r. Loot them until you have 50 copper worth of vendor items (including your armor)|r << Priest tbc
-    +|cRXP_WARN_Kill |cRXP_ENEMY_Young Scavengers|r and |cRXP_ENEMY_Duskbats|r. Loot them until you have 34 copper worth of vendor items (including your armor)|r << Mage wotlk/Warlock wotlk
-    +|cRXP_WARN_Kill |cRXP_ENEMY_Young Scavengers|r and |cRXP_ENEMY_Duskbats|r. Loot them until you have 24 copper worth of vendor items (including your armor)|r << Priest wotlk
-    +|cRXP_WARN_Kill |cRXP_ENEMY_Young Scavengers|r and |cRXP_ENEMY_Duskbats|r. Loot them until you have 10 copper worth of vendor items (including your armor)|r << Warrior/Warlock tbc
-    .mob Young Scavenger
+    +|cRXP_WARN_杀死 |cRXP_ENEMY_年轻清道夫s|r 和 |cRXP_ENEMY_Duskbats|r。掠夺他们，直到你拥有价值 60 铜的供应商物品（包括你的盔甲）|r << Mage tbc
+    +|cRXP_WARN_杀死 |cRXP_ENEMY_年轻清道夫s|r 和 |cRXP_ENEMY_Duskbats|r。掠夺他们，直到你拥有价值 50 铜的供应商物品（包括你的盔甲）|r << Priest tbc
+    +|cRXP_WARN_杀死 |cRXP_ENEMY_年轻清道夫s|r 和 |cRXP_ENEMY_Duskbats|r。掠夺他们，直到你拥有价值 34 铜的商贩物品（包括你的盔甲）|r << Mage wotlk/Warlock wotlk
+    +|cRXP_WARN_杀死 |cRXP_ENEMY_年轻清道夫s|r 和 |cRXP_ENEMY_Duskbats|r。掠夺他们直到你拥有价值 24 铜的商贩物品（包括你的盔甲）|r << Priest wotlk
+    +|cRXP_WARN_杀死 |cRXP_ENEMY_年轻清道夫s|r 和 |cRXP_ENEMY_Duskbats|r。掠夺他们直到你拥有价值 10 铜的供应商物品（包括你的盔甲）|r << Warrior/Warlock tbc
+    .mob 年轻清道夫
     .mob Duskbat
     .money >0.01
 step << Warrior/Priest/Mage/Warlock wotlk
     #completewith Training1
-    .goto Tirisfal Glades,32.22,65.64,8 >> Go inside the building
+    .goto Tirisfal Glades,32.22,65.64,8 >>进入大楼
 step << Priest/Mage/Warlock wotlk
     #label Vendor
     .goto Tirisfal Glades,32.29,65.44
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Joshua|r
-    >>|cRXP_BUY_Buy|r |T132794:0|t[Refreshing Spring Water] |cRXP_BUY_from him|r
-    .vendor >> Vendor Trash
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_乔舒|r
+    >>|cRXP_BUY_从他那里购买|r |T132794:0|t[清凉泉水] |cRXP_BUY_|r
+    .vendor >>供应商垃圾
 	.collect 159,10,383,1 << tbc --Collect Refreshing Spring Water (10)
 	.collect 159,5,383,1 << wotlk --Collect Refreshing Spring Water (5)
     .target Joshua Kien
 step << Warlock/Mage
     #sticky
     #label Piercing
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Venya|r and |cRXP_FRIENDLY_Sarvis|r << Warlock tbc
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Sarvis|r << Warlock wotlk/Mage
-    .accept 1470 >>Accept Piercing the Veil << Warlock tbc
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_温雅·玛山德|r, |cRXP_FRIENDLY_暗影牧师萨维斯|r << Warlock tbc
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_暗影牧师萨维斯|r << Warlock wotlk/Mage
+    .accept 1470 >>接任务: |cRXP_LOOT_控制小鬼|r << Warlock tbc
     .goto Tirisfal Glades,30.98,66.41,0,0 << Warlock tbc
-    .turnin 363 >> Turn in Rude Awakening
-    .accept 364 >> Accept The Mindless Ones
+    .turnin 363 >>交任务: |cRXP_FRIENDLY_突然醒来|r
+    .accept 364 >>接任务: |cRXP_LOOT_无脑的僵尸|r
     .goto Tirisfal Glades,30.84,66.20,0,0
     .target Venya Marthand << tbc
     .target Shadow Priest Sarvis
 step << Warlock/Mage
     .goto Tirisfal Glades,31.35,66.21,10,0
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Elreth|r
-    .accept 376 >> Accept The Damned
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_新兵艾尔雷斯|r
+    .accept 376 >>接任务: |cRXP_LOOT_被诅咒者|r
     .goto Tirisfal Glades,30.86,66.05
     .target Shadow Priest Sarvis
     .target Novice Elreth
     .xp <2,1
 step << Mage
     .goto Tirisfal Glades,30.94,66.06
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Isabella|r
-    .train 1459 >> Train |T135932:0|t[Arcane Intellect]
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_伊莎贝拉|r
+    .train 1459 >>训练 |T135932:0|t[奥术智慧]
     .target Isabella
 step << Warlock tbc
     #label Vendor
     .goto Tirisfal Glades,30.81,66.41
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kayla|r
-    .vendor >>Vendor Trash
+    .vendor >>供应商垃圾
     .target Kayla Smithe
     .money >0.1
 step << Warlock
     .goto Tirisfal Glades,30.91,66.34
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Maximillion|r
-    .train 348 >>Train |T135817:0|t[Immolate]
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_马克希米林|r
+    .train 348 >>列车 |T135817:0|t[献祭]
     .target Maximillion
 step << !Warlock !Mage
     .goto Tirisfal Glades,31.35,66.21,10,0
     .goto Tirisfal Glades,30.84,66.20
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Sarvis|r
-    .turnin 363 >> Turn in Rude Awakening
-    .accept 364 >> Accept The Mindless Ones
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_暗影牧师萨维斯|r
+    .turnin 363 >>交任务: |cRXP_FRIENDLY_突然醒来|r
+    .accept 364 >>接任务: |cRXP_LOOT_无脑的僵尸|r
     .target Shadow Priest Sarvis
 step << !Warlock !Mage
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Elreth|r
-    .accept 376 >> Accept The Damned
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_新兵艾尔雷斯|r
+    .accept 376 >>接任务: |cRXP_LOOT_被诅咒者|r
     .goto Tirisfal Glades,30.86,66.05
     .target Shadow Priest Sarvis
     .target Novice Elreth
@@ -116,16 +116,16 @@ step << Warrior
     #completewith next
     #label Vendor
     .goto Tirisfal Glades,32.42,65.66
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Archibald|r
-    .vendor >> Vendor Trash
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_阿基巴德|r
+    .vendor >>供应商垃圾
     .target Archibald Kava
     .money >0.1
 step << Warrior
     #label Training1
     .goto Tirisfal Glades,32.68,65.56 << tbc
     .goto Tirisfal Glades,32.66,65.61 << wotlk
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dannal|r
-    .train 6673 >>Train |T132333:0|t[Battle Shout]
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_丹纳尔·斯特恩|r
+    .train 6673 >>训练 |T132333:0|t[战斗呐喊]
     .target Dannal Stern
 step << Warlock tbc
     #requires Piercing
@@ -142,32 +142,32 @@ step << Warlock tbc
 	.goto Tirisfal Glades,34.21,63.05,40,0
 	.goto Tirisfal Glades,33.01,63.01,40,0
 	.goto Tirisfal Glades,31.82,61.48,40,0
-    >>Kill |cRXP_ENEMY_Rattlecage Skeletons|r. Loot them for their |cRXP_LOOT_Rattlecage Skulls|r
+    >>杀死 |cRXP_ENEMY_Rattlecage Skeletons|r。掠夺他们的 |cRXP_LOOT_Rattlecage Skulls|r
     .complete 1470,1 --Rattlecage Skull (3)
     .mob Rattlecage Skeleton
 step << Warlock tbc
     #completewith next
-    +|cRXP_WARN_Kill |cRXP_ENEMY_Mindless Zombies|r and |cRXP_ENEMY_Wretched Zombies|r. Loot them until you have 24 copper worth of vendor items (including your armor)|r
-    .mob Mindless Zombie
-    .mob Wretched Zombie
+    +|cRXP_WARN_杀死 |cRXP_ENEMY_无脑僵尸s|r 和 |cRXP_ENEMY_可怜的僵尸s|r。掠夺它们，直到你拥有价值 24 铜的供应商物品（包括你的盔甲）|r
+    .mob 无脑僵尸
+    .mob 可怜的僵尸
     .money >0.0024
 step << Warlock tbc
     .goto Tirisfal Glades,32.23,65.59,8,0
     .goto Tirisfal Glades,32.29,65.44
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Joshua|r
-    >>|cRXP_BUY_Buy|r |T132794:0|t[Refreshing Spring Water] |cRXP_BUY_from him|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_乔舒|r
+    >>|cRXP_BUY_从他那里购买|r |T132794:0|t[清凉泉水] |cRXP_BUY_|r
 	.collect 159,5,383,1 --Collect Refreshing Spring Water (10)
     .target Joshua Kien
     .isOnQuest 1470
 step << Warlock tbc
     .goto Tirisfal Glades,31.35,66.21,10,0
     .goto Tirisfal Glades,30.98,66.41
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Venya|r
-    .turnin 1470 >>Turn in Piercing the Veil
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_温雅·玛山德|r
+    .turnin 1470 >>交任务: |cRXP_FRIENDLY_控制小鬼|r
     .target Venya Marthand
 step << Warlock tbc
     #completewith next
-    .cast 688 >>|cRXP_WARN_Cast|r |T136218:0|t[Summon Imp]
+    .cast 688 >>|cRXP_WARN_Cast|r |T136218:0|t[召唤小鬼]
 step
     #label Zombies
     #requires Piercing << Warlock/Mage
@@ -188,26 +188,26 @@ step
 	.goto Tirisfal Glades,33.55,64.57,40,0
 	.goto Tirisfal Glades,33.29,64.96,40,0
 	.goto Tirisfal Glades,31.72,63.98,40,0
-    >>Kill |cRXP_ENEMY_Mindless Zombies|r and |cRXP_ENEMY_Wretched Zombies|r << tbc
-    >>Kill |cRXP_ENEMY_Mindless Zombies|r and |cRXP_ENEMY_Wretched Ghouls|r << wotlk
-    .complete 364,1 --Kill Mindless Zombie (x8) // --Kill Mindless Zombie (x5) wotlk
-    .complete 364,2 --Kill Wretched Zombie (x8) // --Kill Wretched Ghoul (x5) wotlk
-    .mob Mindless Zombie
-    .mob Wretched Zombie << tbc
+    >>杀死 |cRXP_ENEMY_无脑僵尸s|r 和 |cRXP_ENEMY_可怜的僵尸s|r << tbc
+    >>杀死 |cRXP_ENEMY_无脑僵尸s|r 和 |cRXP_ENEMY_Wretched Ghouls|r << wotlk
+    .complete 364,1 --Kill 无脑僵尸 (x8) // --Kill 无脑僵尸 (x5) wotlk
+    .complete 364,2 --Kill 可怜的僵尸 (x8) // --Kill Wretched Ghoul (x5) wotlk
+    .mob 无脑僵尸
+    .mob 可怜的僵尸 << tbc
     .mob Wretched Ghoul << wotlk
 step << Mage/Warlock tbc/Priest
     #completewith Vendor2
-    +|cRXP_WARN_Kill |cRXP_ENEMY_Mindless Zombies|r and |cRXP_ENEMY_Wretched Zombies|r. Loot them until you have 33 copper worth of vendor items (including your armor)|r
-    .mob Mindless Zombie
-    .mob Wretched Zombie
+    +|cRXP_WARN_杀死 |cRXP_ENEMY_无脑僵尸s|r 和 |cRXP_ENEMY_可怜的僵尸s|r。掠夺它们，直到你拥有价值 33 铜的供应商物品（包括你的盔甲）|r
+    .mob 无脑僵尸
+    .mob 可怜的僵尸
     .money >0.0033
 step << Mage/Warlock tbc/Priest
     .goto Tirisfal Glades,32.23,65.59,8,0
     .goto Tirisfal Glades,32.29,65.44
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Joshua|r
-    >>|cRXP_BUY_Buy|r |T132794:0|t[Refreshing Spring Water] |cRXP_BUY_from him|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_乔舒|r
+    >>|cRXP_BUY_从他那里购买|r |T132794:0|t[清凉泉水] |cRXP_BUY_|r
     .collect 159,10,383,1 --Collect Refreshing Spring Water (5)
-    .vendor >> Vendor Trash
+    .vendor >>供应商垃圾
     .target Joshua Kien
     .isOnQuest 364
     .money <0.0050
@@ -216,21 +216,21 @@ step << Mage/Warlock tbc/Priest
     #label Vendor2
     .goto Tirisfal Glades,32.23,65.59,8,0
     .goto Tirisfal Glades,32.29,65.44
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Joshua|r
-    >>|cRXP_BUY_Buy|r |T132794:0|t[Refreshing Spring Water] |cRXP_BUY_from him|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_乔舒|r
+    >>|cRXP_BUY_从他那里购买|r |T132794:0|t[清凉泉水] |cRXP_BUY_|r
     .collect 159,5,383,1 --Collect Refreshing Spring Water (5)
-    .vendor >> Vendor Trash
+    .vendor >>供应商垃圾
     .target Joshua Kien
     .isOnQuest 364
     .money >0.0050
     .itemcount 159,<5
 step << Warlock wotlk
     #completewith next
-    >>Kill |cRXP_ENEMY_Young Scavengers|r. Loot them for their |cRXP_LOOT_Scavenger Paws|r
-    >>Kill |cRXP_ENEMY_Duskbats|r. Loot them for their |cRXP_LOOT_Duskbat Wings|r
+    >>杀死 |cRXP_ENEMY_年轻清道夫s|r。掠夺他们的 |cRXP_LOOT_Scavenger Paws|r
+    >>杀死 |cRXP_ENEMY_Duskbats|r。掠夺他们的 |cRXP_LOOT_Duskbat Wings|r
     .complete 376,1 --Collect Scavenger Paw (x6)
     .complete 376,2 --Collect Duskbat Wing (x6)
-    .mob Young Scavenger
+    .mob 年轻清道夫
     .mob Duskbat
     .isOnQuest 376
 step << Warlock wotlk
@@ -245,43 +245,43 @@ step << Warlock wotlk
     .goto Tirisfal Glades,29.18,68.94,40,0
     .goto Tirisfal Glades,30.70,69.28,40,0
     .goto Tirisfal Glades,29.92,70.30
-    +|cRXP_WARN_Grind |cRXP_ENEMY_Young Scavengers|r and |cRXP_ENEMY_Duskbats|r. Loot them until you have 78 copper worth of vendor items (including your armor)|r
-    >>|cRXP_WARN_Skip this step once you have 78 copper|r
-    .mob Young Scavenger
+    +|cRXP_WARN_升级 |cRXP_ENEMY_年轻清道夫s|r 和 |cRXP_ENEMY_Duskbats|r。掠夺他们直到你有价值 78 铜的供应商物品（包括你的盔甲）|r
+    >>|cRXP_WARN_一旦你有 78 铜，就跳过这一步|r
+    .mob 年轻清道夫
     .mob Duskbat
 	.money >0.0078
     .isOnQuest 364
 step << Warlock wotlk
     .goto Tirisfal Glades,32.25,65.59,8,0
     .goto Tirisfal Glades,32.29,65.44
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Joshua|r
-    >>|cRXP_WARN_Do NOT buy any|r |T132794:0|t[Refreshing Spring Water]
-    .vendor >> Vendor Trash
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_乔舒|r
+    >>|cRXP_WARN_请勿购买任何|r |T132794:0|t[清爽泉水]
+    .vendor >>供应商垃圾
     .target Joshua Kien
     .isOnQuest 364
 step
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Sarvis|r and |cRXP_FRIENDLY_Elreth|r << !Warlock !Mage !Priest
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Sarvis|r, |cRXP_FRIENDLY_Elreth|r, and |cRXP_FRIENDLY_Maximillion|r << Warlock
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Sarvis|r, |cRXP_FRIENDLY_Elreth|r, and |cRXP_FRIENDLY_Isabella|r << Mage
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Sarvis|r, |cRXP_FRIENDLY_Elreth|r, and |cRXP_FRIENDLY_Duesten|r << Priest
-    .turnin 364 >> Turn in The Mindless Ones
-    .accept 3095 >> Accept Simple Scroll << Warrior
-    .accept 3096 >> Accept Encrypted Scroll << Rogue
-    .accept 3097 >> Accept Hallowed Scroll << Priest
-    .accept 3098 >> Accept Glyphic Scroll << Mage
-    .accept 3099 >> Accept Tainted Scroll << Warlock
-    .accept 3901 >> Accept Rattling the Rattlecages
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_暗影牧师萨维斯|r, |cRXP_FRIENDLY_新兵艾尔雷斯|r << !Warlock !Mage !Priest
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_暗影牧师萨维斯|r, |cRXP_FRIENDLY_新兵艾尔雷斯|r, |cRXP_FRIENDLY_马克希米林|r << Warlock
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_暗影牧师萨维斯|r, |cRXP_FRIENDLY_新兵艾尔雷斯|r, |cRXP_FRIENDLY_伊莎贝拉|r << Mage
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_暗影牧师萨维斯|r, |cRXP_FRIENDLY_新兵艾尔雷斯|r, |cRXP_FRIENDLY_黑暗牧师杜斯滕|r << Priest
+    .turnin 364 >>交任务: |cRXP_FRIENDLY_无脑的僵尸|r
+    .accept 3095 >>接任务: |cRXP_LOOT_简易卷轴|r << Warrior
+    .accept 3096 >>接任务: |cRXP_LOOT_密文卷轴|r << Rogue
+    .accept 3097 >>接任务: |cRXP_LOOT_神圣卷轴|r << Priest
+    .accept 3098 >>接任务: |cRXP_LOOT_雕文卷轴|r << Mage
+    .accept 3099 >>接任务: |cRXP_LOOT_被污染的卷轴|r << Warlock
+    .accept 3901 >>接任务: |cRXP_LOOT_断骨骷髅|r
     .goto Tirisfal Glades,31.35,66.21,10,0
     .goto Tirisfal Glades,30.84,66.20
-    .accept 376 >> Accept The Damned
+    .accept 376 >>接任务: |cRXP_LOOT_被诅咒者|r
     .goto Tirisfal Glades,30.86,66.05
-    .turnin 3099 >> Turn in Tainted Scroll << Warlock
+    .turnin 3099 >>交任务: |cRXP_FRIENDLY_被污染的卷轴|r << Warlock
     .goto Tirisfal Glades,30.91,66.34 << Warlock
-	.train 688 >> Train |T136218:0|t[Summon Imp] << Warlock wotlk
+	.train 688 >>训练 |T136218:0|t[召唤小鬼] << Warlock wotlk
     .goto Tirisfal Glades,30.91,66.34 << Warlock wotlk
-    .turnin 3098 >> Turn in Glyphic Scroll << Mage
+    .turnin 3098 >>交任务: |cRXP_FRIENDLY_雕文卷轴|r << Mage
     .goto Tirisfal Glades,30.94,66.06 << Mage
-    .turnin 3097 >> Turn in Hallowed Scroll << Priest
+    .turnin 3097 >>交任务: |cRXP_FRIENDLY_神圣卷轴|r << Priest
     .goto Tirisfal Glades,31.11,66.02 << Priest
     .target Shadow Priest Sarvis
     .target Novice Elreth
@@ -290,12 +290,12 @@ step
     .target Dark Cleric Duesten << Priest
 step << Warlock wotlk
 	#completewith next
-	.cast 688 >>|cRXP_WARN_Cast|r |T136218:0|t[Summon Imp]
+	.cast 688 >>|cRXP_WARN_Cast|r |T136218:0|t[召唤小鬼]
 step << Mage/Warlock tbc/Priest
     .goto Tirisfal Glades,32.23,65.59,8,0
     .goto Tirisfal Glades,32.29,65.44
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Joshua|r
-    >>|cRXP_BUY_Buy|r |T132794:0|t[Refreshing Spring Water] |cRXP_BUY_from him|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_乔舒|r
+    >>|cRXP_BUY_从他那里购买|r |T132794:0|t[清凉泉水] |cRXP_BUY_|r
     .collect 159,10,383,1 --Collect Refreshing Spring Water (10)
     .target Joshua Kien
     .isOnQuest 364
@@ -320,15 +320,15 @@ step
     .goto Tirisfal Glades,32.07,57.74,40,0
     .goto Tirisfal Glades,32.85,58.35,40,0
     .goto Tirisfal Glades,34.32,56.79
-    >>Kill |cRXP_ENEMY_Young Scavengers|r and |cRXP_ENEMY_Ragged Scavengers|r. Loot them for their |cRXP_LOOT_Scavenger Paws|r
-    >>Kill |cRXP_ENEMY_Duskbats|r and |cRXP_ENEMY_Mangy Duskbats|r. Loot them for their |cRXP_LOOT_Duskbat Wings|r
-    >>|cRXP_WARN_Try to avoid |cRXP_ENEMY_Mangy Duskbats|r if you can due to them being much tougher to kill than |cRXP_ENEMY_Duskbats|r|r
+    >>杀死 |cRXP_ENEMY_年轻清道夫s|r 和 |cRXP_ENEMY_衣衫褴褛的清道夫s|r。掠夺他们的 |cRXP_LOOT_Scavenger Paws|r
+    >>杀死 |cRXP_ENEMY_Duskbats|r 和 |cRXP_ENEMY_肮脏的杜斯克巴特s|r。掠夺他们的 |cRXP_LOOT_Duskbat Wings|r
+    >>|cRXP_WARN_如果可以的话尽量避开 |cRXP_ENEMY_肮脏的杜斯克巴特s|r 因为它们比 |cRXP_ENEMY_Duskbats|r 更难杀死|r
     .complete 376,1 --Collect Scavenger Paw (x6)
     .complete 376,2 --Collect Duskbat Wing (x6)
-    .mob Young Scavenger
-    .mob Ragged Scavenger
+    .mob 年轻清道夫
+    .mob 衣衫褴褛的清道夫
     .mob Duskbat
-    .mob Mangy Duskbat
+    .mob 肮脏的杜斯克巴特
 step
 #loop
 	.line Tirisfal Glades,31.82,61.48,31.11,60.71,32.07,60.17,32.26,59.21,33.28,59.53,33.66,60.76,33.94,61.81,34.21,63.05,33.01,63.01,31.82,61.48
@@ -342,7 +342,7 @@ step
 	.goto Tirisfal Glades,34.21,63.05,40,0
 	.goto Tirisfal Glades,33.01,63.01,40,0
 	.goto Tirisfal Glades,31.82,61.48,40,0
-    >>Kill |cRXP_ENEMY_Rattlecage Skeletons|r
+    >>杀死 |cRXP_ENEMY_Rattlecage Skeletons|r
     .complete 3901,1 --Kill Rattlecage Skeleton (12)
     .mob Rattlecage Skeleton
 step
@@ -362,58 +362,58 @@ step
 	.goto Tirisfal Glades,63.82,33.55,40,0
 	.goto Tirisfal Glades,64.57,33.29,40,0
 	.goto Tirisfal Glades,64.96,31.72,40,0
-    .xp 3+980 >>Grind to 980+/1400xp
-    .mob Mindless Zombie
-    .mob Wretched Zombie << tbc
+    .xp 3+980 >>升级至 980+/1400xp
+    .mob 无脑僵尸
+    .mob 可怜的僵尸 << tbc
     .mob Wretched Ghoul << wotlk
 step << Mage/Warlock/Priest
     .goto Tirisfal Glades,32.25,65.59,8,0
     .goto Tirisfal Glades,32.29,65.44
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Joshua|r
-    >>|cRXP_BUY_Buy|r |T132794:0|t[Refreshing Spring Water] |cRXP_BUY_from him|r
-    >>|cRXP_WARN_Do NOT go below 95 Copper|r << Mage/Warlock/Priest
-    .vendor >> Vendor Trash
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_乔舒|r
+    >>|cRXP_BUY_从他那里购买|r |T132794:0|t[清凉泉水] |cRXP_BUY_|r
+    >>|cRXP_WARN_不要低于 95 铜|r << Mage/Warlock/Priest
+    .vendor >>供应商垃圾
     .target Joshua Kien
     .money >0.1
     .isOnQuest 3901
 step
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Sarvis|r and |cRXP_FRIENDLY_Elreth|r
-    .turnin 3901 >> Turn in Rattling the Rattlecages
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_暗影牧师萨维斯|r, |cRXP_FRIENDLY_新兵艾尔雷斯|r
+    .turnin 3901 >>交任务: |cRXP_FRIENDLY_断骨骷髅|r
     .goto Tirisfal Glades,31.35,66.21,10,0
     .goto Tirisfal Glades,30.84,66.20
-    .turnin 376 >> Turn in The Damned
-    .accept 6395 >> Accept Marla's Last Wish
+    .turnin 376 >>交任务: |cRXP_FRIENDLY_被诅咒者|r
+    .accept 6395 >>接任务: |cRXP_LOOT_玛拉的遗愿|r
     .goto Tirisfal Glades,30.86,66.05
     .target Shadow Priest Sarvis
     .target Novice Elreth
 step << Priest
     .goto Tirisfal Glades,31.11,66.02
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Duesten|r
-    .train 589 >> Train your class spells
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_黑暗牧师杜斯滕|r
+    .train 589 >>训练你的职业法术
     .target Dark Cleric Duesten
 step << Warlock
     .goto Tirisfal Glades,30.91,66.34
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Maximillion|r
-    .train 172 >> Train |T136118:0|t[Corruption]
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_马克希米林|r
+    .train 172 >>列车 |T136118:0|t[腐败]
     .target Maximillion
 step << Mage
     .goto Tirisfal Glades,30.94,66.06
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Isabella|r
-    .train 116 >> Train |T135846:0|t[Frostbolt]
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_伊莎贝拉|r
+    .train 116 >>训练 |T135846:0|t[冰箭]
     .target Isabella
 step
     .goto Tirisfal Glades,31.35,66.21,10,0
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Saltain|r and |cRXP_FRIENDLY_Arren|r
-    .accept 3902 >> Accept Scavenging Deathknell
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_亡灵卫兵萨尔坦|r, |cRXP_FRIENDLY_执行官阿伦|r
+    .accept 3902 >>接任务: |cRXP_LOOT_捡破烂|r
     .goto Tirisfal Glades,31.61,65.62
-    .accept 380 >> Accept Night Web's Hollow
+    .accept 380 >>接任务: |cRXP_LOOT_夜行蜘蛛洞穴|r
     .goto Tirisfal Glades,32.15,66.01
-    .target Deathguard Saltain
-    .target Executor Arren
+    .target 死亡守卫萨尔坦
+    .target 执行官阿伦
 step << Rogue/Warrior
     .goto Tirisfal Glades,32.42,65.66
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Archibald|r
-    .vendor >> Vendor Trash
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_阿基巴德|r
+    .vendor >>供应商垃圾
     .target Archibald Kava
     .money >0.1
     .isOnQuest 3095 << Warrior
@@ -421,36 +421,36 @@ step << Rogue/Warrior
 step << Warrior
     .goto Tirisfal Glades,32.68,65.56 << tbc
     .goto Tirisfal Glades,32.66,65.61 << wotlk
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dannal|r
-    .turnin 3095 >> Turn in Simple Scroll
-    .train 100 >> Train |T132337:0|t[Charge]
-    .train 772 >> Train |T132155:0|t[Rend]
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_丹纳尔·斯特恩|r
+    .turnin 3095 >>交任务: |cRXP_FRIENDLY_简易卷轴|r
+    .train 100 >>列车 |T132337:0|t[收费]
+    .train 772 >>列车 |T132155:0|t[Rend]
     .target Dannal Stern
     .money <0.02
  step << Warrior
     #label Training2
     .goto Tirisfal Glades,32.68,65.56 << tbc
     .goto Tirisfal Glades,32.66,65.61 << wotlk
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dannal|r
-    .turnin 3095 >> Turn in Simple Scroll
-    .train 772 >> Train |T132155:0|t[Rend]
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_丹纳尔·斯特恩|r
+    .turnin 3095 >>交任务: |cRXP_FRIENDLY_简易卷轴|r
+    .train 772 >>列车 |T132155:0|t[Rend]
     .target Dannal Stern
     .money <0.01
 step << Rogue
     .goto Tirisfal Glades,32.53,65.65
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_David|r
-    .turnin 3096 >> Turn in Encrypted Scroll
-    .train 53 >> Train |T132090:0|t[Backstab]
+    .turnin 3096 >>交任务: |cRXP_FRIENDLY_密文卷轴|r
+    .train 53 >>训练 |T132090:0|t[背刺]
     .money <0.04
     .target David Trias
 step << Rogue
     #label Training2
     .goto Tirisfal Glades,32.53,65.65
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_David|r
-    .turnin 3096 >> Turn in Encrypted Scroll
+    .turnin 3096 >>交任务: |cRXP_FRIENDLY_密文卷轴|r
     .target David Trias
 step
-    >>Open the |cRXP_PICK_Equipment Boxes|r on the ground. Loot them for the |cRXP_LOOT_Scavenged Goods|r
+    >>打开地面上的 |cRXP_PICK_Equipment Boxes|r。从中获取 |cRXP_LOOT_Scavenged Goods|r
 #loop
 	.line Tirisfal Glades,32.37,64.37,32.81,64.39,32.89,64.60,33.01,65.38,33.79,64.57,33.13,63.08,32.79,63.11,31.86,61.49,31.75,61.96,31.70,62.53,31.34,62.44,32.37,64.37
 	.goto Tirisfal Glades,32.37,64.37,12,0
@@ -482,7 +482,7 @@ step
 	.goto Tirisfal Glades,29.29,59.40,40,0
 	.goto Tirisfal Glades,29.67,58.53,40,0
 	.goto Tirisfal Glades,29.94,57.33,40,0
-    >>Kill |cRXP_ENEMY_Young Night Web Spiders|r
+    >>杀死 |cRXP_ENEMY_年轻的夜网蜘蛛|r
     .complete 380,1,5 << WOTLK --Kill Young Night Web Spider (8)
     .complete 380,1,6 << TBC --Kill Young Night Web Spider (10)
     .mob Young Night Web Spider
@@ -498,14 +498,14 @@ step
 	.goto Tirisfal Glades,26.94,56.42,40,0
 	.goto Tirisfal Glades,27.51,56.00,40,0
 	.goto Tirisfal Glades,28.25,58.27,40,0
-    >>Kill |cRXP_ENEMY_Young Night Web Spiders|r close to the cave entrance
+    >>杀死靠近洞穴入口的 |cRXP_ENEMY_Young Night Web Spiders|r
     .complete 380,1 << WOTLK --Kill Young Night Web Spider (8)
     .complete 380,1 << TBC --Kill Young Night Web Spider (10)
     .mob Young Night Web Spider
 step
     #completewith next
     .goto Tirisfal Glades,26.80,59.40,15,0
-    .goto Tirisfal Glades,26.31,59.60,30 >>Go inside the cave
+    .goto Tirisfal Glades,26.31,59.60,30 >>进入洞穴
 step
     .goto Tirisfal Glades,26.31,59.60,30,0
     .goto Tirisfal Glades,25.61,59.55,20,0
@@ -521,42 +521,42 @@ step
     .goto Tirisfal Glades,23.23,59.91,20,0
     .goto Tirisfal Glades,23.89,58.36,20,0
     .goto Tirisfal Glades,24.68,59.54
-    >>Kill |cRXP_ENEMY_Young Night Web Spiders|r inside the cave
+    >>杀死洞穴内的 |cRXP_ENEMY_Young Night Web Spiders|r
 	.complete 380,2 --Kill Night Web Spider (x8)
     .mob Night Web Spider
 step << Warlock
     #completewith ScarletC
-    .cast 688 >>|cRXP_WARN_Cast|r |T136218:0|t[Summon Imp]
+    .cast 688 >>|cRXP_WARN_Cast|r |T136218:0|t[召唤小鬼]
 step
     #completewith next
-    .deathskip >> Die and respawn at the |cRXP_FRIENDLY_Spirit Healer|r
+    .deathskip >>死亡后在 |cRXP_FRIENDLY_Spirit Healer|r 处重生
     .target Spirit Healer
 step
     .goto Tirisfal Glades,31.61,65.62
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Saltain|r
-    .turnin 3902 >> Turn in Scavenging Deathknell
-    .target Deathguard Saltain
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_亡灵卫兵萨尔坦|r
+    .turnin 3902 >>交任务: |cRXP_FRIENDLY_捡破烂|r
+    .target 死亡守卫萨尔坦
 step
     #sticky
     #label NightWebH
     .goto Tirisfal Glades,32.15,66.01,0,0
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Arren|r
-    .turnin 380 >> Turn in Night Web's Hollow
-    .accept 381 >> Accept The Scarlet Crusade
-    .target Executor Arren
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_执行官阿伦|r
+    .turnin 380 >>交任务: |cRXP_FRIENDLY_夜行蜘蛛洞穴|r
+    .accept 381 >>接任务: |cRXP_LOOT_血色十字军|r
+    .target 执行官阿伦
 step << Rogue/Warrior
     .goto Tirisfal Glades,32.42,65.66
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Archibald|r
-    .vendor >> Vendor Trash
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_阿基巴德|r
+    .vendor >>供应商垃圾
     .target Archibald Kava
     .isOnQuest 6395
 step << Warlock/Mage/Priest
     .goto Tirisfal Glades,32.29,65.44
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Joshua|r
-    >>|cRXP_BUY_Buy|r |T132794:0|t[Refreshing Spring Water] |cRXP_BUY_from him|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_乔舒|r
+    >>|cRXP_BUY_从他那里购买|r |T132794:0|t[清凉泉水] |cRXP_BUY_|r
 	.collect 159,15,383,1 << Warlock tbc/Mage tbc/Priest tbc --Collect Refreshing Spring Water (15)
 	.collect 159,5,383,1 << warlock wotlk/Mage wotlk/Priest wotlk --Collect Refreshing Spring Water (5)
-    .vendor >> Vendor Trash
+    .vendor >>供应商垃圾
     .target Joshua Kien
     .isOnQuest 6395
     .itemcount 159,<15 << tbc
@@ -583,35 +583,35 @@ step
 	.goto Tirisfal Glades,37.45,67.95,40,0
 	.goto Tirisfal Glades,36.93,68.16,40,0
 	.goto Tirisfal Glades,36.13,68.74,40,0
-    >>Kill |cRXP_ENEMY_Scarlet Initiates|r and |cRXP_ENEMY_Scarlet Converts|r. Loot them for their |cRXP_LOOT_Scarlet Armbands|r
-    >>|cRXP_WARN_Don't kill |cRXP_ENEMY_Meven Korgal|r yet|r
-    >>|cRXP_WARN_Try to avoid |cRXP_ENEMY_Scarlet Converts|r if you can as they have|r |T135843:0|t[Frost Armor] |cRXP_WARN_(slows your attack speed)|r << Warrior/Rogue
+    >>杀死 |cRXP_ENEMY_Scarlet 新兵|r 和 |cRXP_ENEMY_Scarlet 皈依者|r。掠夺他们的 |cRXP_LOOT_Scarlet 臂章|r
+    >>|cRXP_WARN_先别杀 |cRXP_ENEMY_Meven Korgal|r|r
+    >>|cRXP_WARN_如果可以的话尽量避免 |cRXP_ENEMY_Scarlet Converts|r 因为他们有|r |T135843:0|t[Frost Armor] |cRXP_WARN_(减慢你的攻击速度)|r << Warrior/Rogue
     .complete 381,1 --Collect Scarlet Armband (12)
     .mob Scarlet Initiate
     .mob Scarlet Convert
 step
     .goto Tirisfal Glades,36.69,61.67
-    >>Kill |cRXP_ENEMY_Samuel|r. Loot him for |cRXP_LOOT_Samuel's Remains|r
+    >>杀死 |cRXP_ENEMY_Samuel|r。掠夺他以获取 |cRXP_LOOT_Samuel 的遗物|r
     .collect 16333,1,6395,1 --Collect Samuel's Remains
     .mob Samuel Fipps
 step
     #completewith next
-    .deathskip >> Die and respawn at the |cRXP_FRIENDLY_Spirit Healer|r
+    .deathskip >>死亡后在 |cRXP_FRIENDLY_Spirit Healer|r 处重生
     .target Spirit Healer
 step
     .goto Tirisfal Glades,31.17,65.08
-	>>Click |cRXP_PICK_Marla's Grave|r on the ground
+	>>点击地面上的 |cRXP_PICK_Marla's Grave|r
     .complete 6395,1 --Collect Samuel's Remains Buried (1)
  step << Warlock
 	#completewith ScarletC
-	.cast 688 >>|cRXP_WARN_Cast|r |T136218:0|t[Summon Imp]
+	.cast 688 >>|cRXP_WARN_Cast|r |T136218:0|t[召唤小鬼]
 step
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Elreth|r << !Priest/Priest wotlk
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Elreth|r and |cRXP_FRIENDLY_Duesten|r << Priest tbc
-    .turnin 6395 >> Turn in Marla's Last Wish
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_新兵艾尔雷斯|r << !Priest/Priest wotlk
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_新兵艾尔雷斯|r, |cRXP_FRIENDLY_黑暗牧师杜斯滕|r << Priest tbc
+    .turnin 6395 >>交任务: |cRXP_FRIENDLY_玛拉的遗愿|r
     .goto Tirisfal Glades,31.35,66.21,10,0
     .goto Tirisfal Glades,30.86,66.05
-    .accept 5651 >> Accept In Favor of Darkness << Priest tbc
+    .accept 5651 >>接任务: |cRXP_LOOT_黑暗的恩赐|r << Priest tbc
     .goto Tirisfal Glades,31.11,66.02 << Priest tbc
     .target Novice Elreth
     .target Dark Cleric Duesten << Priest tbc
@@ -619,27 +619,27 @@ step
     #sticky
     #label ScarletC
     .goto Tirisfal Glades,32.15,66.01,0,0
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Arren|r
-    .turnin 381 >> Turn in The Scarlet Crusade
-    .accept 382 >> Accept The Red Messenger
-    .target Executor Arren
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_执行官阿伦|r
+    .turnin 381 >>交任务: |cRXP_FRIENDLY_血色十字军|r
+    .accept 382 >>接任务: |cRXP_LOOT_十字军信使|r
+    .target 执行官阿伦
 step
     .goto Tirisfal Glades,32.42,65.66
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Archibald|r
-    .vendor >> Vendor Trash
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_阿基巴德|r
+    .vendor >>供应商垃圾
     .target Archibald Kava
 step
     #requires ScarletC
     .goto Tirisfal Glades,36.50,68.82
-    >>Kill |cRXP_ENEMY_Meven|r. Loot him for the |cRXP_LOOT_Scarlet Crusade Documents|r
+    >>杀死 |cRXP_ENEMY_Meven|r。从他身上搜刮 |cRXP_LOOT_Scarlet Crusade Documents|r
     .complete 382,1 --Collect Scarlet Crusade Documents (1)
     .mob Meven Korgal
 step
     .goto Tirisfal Glades,32.15,66.01
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Arren|r
-    .turnin 382 >> Turn in The Red Messenger
-    .accept 383 >> Accept Vital Intelligence
-    .target Executor Arren
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_执行官阿伦|r
+    .turnin 382 >>交任务: |cRXP_FRIENDLY_十字军信使|r
+    .accept 383 >>接任务: |cRXP_LOOT_重要情报|r
+    .target 执行官阿伦
 step << Warrior
     .goto Tirisfal Glades,34.08,59.51,40,0
     .goto Tirisfal Glades,35.34,56.55,40,0
@@ -666,54 +666,54 @@ step << Warrior
 	.goto Tirisfal Glades,37.45,67.95,40,0
 	.goto Tirisfal Glades,36.93,68.16,40,0
 	.goto Tirisfal Glades,36.13,68.74,40,0
-    .xp 5+2350 >>Grind to 2350+/2800xp
+    .xp 5+2350 >>升级至 2350+/2800xp
 step
     .goto Tirisfal Glades,38.24,56.77
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Calvin|r
-    .accept 8 >> Accept A Rogue's Deal
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_卡尔文·蒙泰古|r
+    .accept 8 >>接任务: |cRXP_LOOT_潜行者的交易|r
     .target Calvin Montague
 ----
 step
     .goto Tirisfal Glades,38.96,55.74,20,0
-    .goto Tirisfal Glades,41.57,57.66,110 >>Run out toward Tirisfal Glades
+    .goto Tirisfal Glades,41.57,57.66,110 >>奔向提瑞斯法林地
     .isOnQuest 8
 step
     #completewith next
-    >>|cRXP_WARN_Make sure your subzone is Nightmare Vale|r
-    .deathskip >> Die and respawn at the |cRXP_FRIENDLY_Spirit Healer|r
+    >>|cRXP_WARN_确保您的子区域是梦魇谷|r
+    .deathskip >>死亡后在 |cRXP_FRIENDLY_Spirit Healer|r 处重生
     .target Spirit Healer
 step
     .goto Tirisfal Glades,60.58,51.77
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Zygand|r
-    .turnin 383 >> Turn in Vital Intelligence
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_执行官塞加德|r
+    .turnin 383 >>交任务: |cRXP_FRIENDLY_重要情报|r
     .target Executor Zygand
 step
     #completewith next
     .goto Tirisfal Glades,61.58,52.99,8,0
-    .goto Tirisfal Glades,61.75,52.72,8 >>Go inside the Inn
+    .goto Tirisfal Glades,61.75,52.72,8 >>进入旅馆
 step
     .goto Tirisfal Glades,61.71,52.05
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Renee|r
-    .turnin 8 >>Turn in A Rogue's Deal
-    .home << Set your Hearthstone to Brill << Priest tbc
-    .vendor >>Vendor Trash << Warrior
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_旅店老板瑞尼|r
+    .turnin 8 >>交任务: |cRXP_FRIENDLY_潜行者的交易|r
+    .home << 将你的炉石设为 Brill << Priest tbc
+    .vendor >>供应商垃圾 << Warrior
     .isQuestAvailable 8463 << Warrior
 step << Warrior
-    .xp 6 >> Grind to 6
+    .xp 6 >>升级至 6
 step << Warrior
     .goto Tirisfal Glades,61.85,52.54
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Austil|r
-    .trainer >>Train your class spells
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_奥斯蒂尔·德·蒙|r
+    .trainer >>训练你的职业法术
     .target Austil de Mon
 step << Priest tbc
     .goto Tirisfal Glades,61.99,52.19,6,0
     .goto Tirisfal Glades,61.76,52.31,6,0
     .goto Tirisfal Glades,61.57,52.19
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Beryl|r upstairs
-    .turnin 5651 >> Turn in In Favor of Darkness
-    .accept 5650 >> Accept Garments of Darkness
-    .train 2052 >> Train |T135929:0|t[Lesser Heal Rank 2]
-    .train 1243 >> Train |T135987:0|t[Power Word: Fortitude]
+    .turnin 5651 >>交任务: |cRXP_FRIENDLY_黑暗的恩赐|r
+    .accept 5650 >>接任务: |cRXP_LOOT_黑暗之衣|r
+    .train 2052 >>训练 |T135929:0|t[次级治疗 2 级]
+    .train 1243 >>训练 |T135987:0|t[真言术：坚毅]
     .target Dark Cleric Beryl
     .train 2052,1
     .train 1243,1
@@ -722,9 +722,9 @@ step << Priest tbc
     .goto Tirisfal Glades,61.76,52.31,6,0
     .goto Tirisfal Glades,61.57,52.19
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Beryl|r upstairs
-    .turnin 5651 >> Turn in In Favor of Darkness
-    .accept 5650 >> Accept Garments of Darkness
-    .train 1243 >> Train |T135987:0|t[Power Word: Fortitude]
+    .turnin 5651 >>交任务: |cRXP_FRIENDLY_黑暗的恩赐|r
+    .accept 5650 >>接任务: |cRXP_LOOT_黑暗之衣|r
+    .train 1243 >>训练 |T135987:0|t[真言术：坚毅]
     .target Dark Cleric Beryl
     .train 1243,1
  step << Priest tbc
@@ -732,9 +732,9 @@ step << Priest tbc
     .goto Tirisfal Glades,61.76,52.31,6,0
     .goto Tirisfal Glades,61.57,52.19
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Beryl|r upstairs
-    .turnin 5651 >> Turn in In Favor of Darkness
-    .accept 5650 >> Accept Garments of Darkness
-    .train 2052 >> Train |T135929:0|t[Lesser Heal Rank 2]
+    .turnin 5651 >>交任务: |cRXP_FRIENDLY_黑暗的恩赐|r
+    .accept 5650 >>接任务: |cRXP_LOOT_黑暗之衣|r
+    .train 2052 >>训练 |T135929:0|t[次级治疗 2 级]
     .target Dark Cleric Beryl
     .train 2052,1
 step << Priest tbc
@@ -742,73 +742,73 @@ step << Priest tbc
     .goto Tirisfal Glades,61.76,52.31,6,0
     .goto Tirisfal Glades,61.57,52.19
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Beryl|r upstairs
-    .turnin 5651 >> Turn in In Favor of Darkness
-    .accept 5650 >> Accept Garments of Darkness
+    .turnin 5651 >>交任务: |cRXP_FRIENDLY_黑暗的恩赐|r
+    .accept 5650 >>接任务: |cRXP_LOOT_黑暗之衣|r
     .target Dark Cleric Beryl
 step << Priest tbc
     #completewith next
     .goto Tirisfal Glades,61.75,52.72,8,0
-    .goto Tirisfal Glades,61.58,52.99,8 >>Exit the Inn
+    .goto Tirisfal Glades,61.58,52.99,8 >>退出旅馆
 step << Priest tbc
-    .goto Tirisfal Glades,59.18,46.49,50 >>Travel toward |cRXP_FRIENDLY_Kel|r
+    .goto Tirisfal Glades,59.18,46.49,50 >>前往 |cRXP_FRIENDLY_Kel|r
     .isOnQuest 5650
 step << Priest tbc
     #sticky
     #label Kel1
     .goto Tirisfal Glades,59.18,46.49
-    .cast 2052 >> Cast |T135929:0|t[Lesser Heal Rank 2] on |cRXP_FRIENDLY_Kel|r
+    .cast 2052 >>对 |cRXP_FRIENDLY_Kel|r 施放 |T135929:0|t[次级治疗术 2 级]
     .isOnQuest 5650
 step << Priest tbc
     #sticky
     #requires Kel1
     #completewith next
     .goto Tirisfal Glades,59.18,46.49
-    .cast 1243 >> Cast |T135987:0|t[Power Word: Fortitude] on |cRXP_FRIENDLY_Kel|r
+    .cast 1243 >>对 |cRXP_FRIENDLY_Kel|r 施放 |T135987:0|t[真言术：韧]
 step << Priest tbc
     .goto Tirisfal Glades,59.18,46.49
-    >>Heal and then Fortify |cRXP_FRIENDLY_Kel|r
+    >>治愈然后强化 |cRXP_FRIENDLY_Kel|r
     .complete 5650,1 --Heal and fortify Deathguard Kel
     .target Deathguard Kel
 step << Priest tbc
     #completewith next
-    .hs >> Hearth to Brill
+    .hs >>从炉火到辉煌
 step << Priest tbc
     .goto Tirisfal Glades,61.99,52.19,6,0
     .goto Tirisfal Glades,61.76,52.31,6,0
     .goto Tirisfal Glades,61.57,52.19
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Beryl|r upstairs
-    .turnin 5650 >> Turn in Garments of Darkness
+    .turnin 5650 >>交任务: |cRXP_FRIENDLY_黑暗之衣|r
     .target Dark Cleric Beryl
 step
     #completewith next
     .goto Tirisfal Glades,61.75,52.72,8,0
-    .goto Tirisfal Glades,61.58,52.99,8 >>Exit the Inn
+    .goto Tirisfal Glades,61.58,52.99,8 >>退出旅馆
 step
     #completewith next
     .goto Undercity,65.87,1.48,15,0
     .goto Undercity,65.82,5.44,15,0
     .goto Undercity,62.76,11.02,12,0
     .goto Undercity,54.67,11.25
-    .zone Silvermoon City >> Take the Orb of Translocation to Silvermoon City
+    .zone Silvermoon City >>前往: |cRXP_PICK_银月城|r
  step
     #completewith next
     .goto Silvermoon City,62.89,31.20,20,0
     .goto Silvermoon City,75.63,58.34,20,0
     .goto Silvermoon City,73.22,59.91,20,0
     .goto Eversong Woods,56.43,49.91
-    .zone Eversong Woods >>Exit Silvermoon
+    .zone Eversong Woods >>前往: |cRXP_PICK_永歌森林|r
 step
     .goto Eversong Woods,54.37,50.73
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gloaming|r
-    .fp Silvermoon >> Get the Silvermoon City flight path
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_葛拉米|r
+    .fp Silvermoon >>获取银月城飞行路线
     .target Skymistress Gloaming
 step
     .goto Eversong Woods,50.34,50.77
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Jaela|r
-    .accept 8475 >> Accept The Dead Scar
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话: |cRXP_FRIENDLY_雅尔拉|r
+    .accept 8475 >>接任务: |cRXP_LOOT_死亡之痕|r
     .target Ranger Jaela
 step
-    .goto Eversong Woods,46.68,49.10,40 >>Travel to Falconwing Square
+    .goto Eversong Woods,46.68,49.10,40 >>前往鹰翼广场
     .isQuestAvailable 8463
 ]])
 

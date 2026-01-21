@@ -1,12 +1,10 @@
 local _,addon = ...
-if addon.gameVersion < 40000 or addon.player.faction == 'Horde' then return end
+if addon.game ~= "CATA" or addon.player.faction ~= 'Alliance' then return end
 RXPGuides.RegisterGuide([[
 
 #version 1
-#group RXP Cataclysm 1-80 (A) << cata
-#group RXP MoP 1-60 (A) << mop
+#group RXP Cataclysm 1-80 (A)
 #cata
-#mop
 #name 1-6 Coldridge Valley
 #displayname 1-6 Coldridge Valley
 #next 6-7 Dun Morogh;6-9 Elwynn Forest
@@ -787,10 +785,8 @@ step
 RXPGuides.RegisterGuide([[
 
 #version 1
-#group RXP Cataclysm 1-80 (A) << cata
-#group RXP MoP 1-60 (A) << mop
+#group RXP Cataclysm 1-80 (A)
 #cata
-#mop
 #name 1-6 New Tinkertown
 #displayname 1-6 New Tinkertown
 #next 6-7 Dun Morogh;6-9 Elwynn Forest
@@ -1120,12 +1116,12 @@ step
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Engineer Grindspark|r
     .turnin 26205 >>Turn in A Job for the Multi-Bot
 	.target Engineer Grindspark
-step << Priest cata
+step << Priest
     .goto Dun Morogh,33.898,34.782
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_"Doc" Cogspin|r
     .trainer >> Train your class spells
 	.target "Doc" Cogspin
-step << Mage cata
+step << Mage
     .goto Dun Morogh,34.534,35.065
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Bipsi Frostflinger|r
     .trainer >> Train your class spells
@@ -1141,7 +1137,7 @@ step
     .accept 26316 >>Accept What's Keeping Jessup? << cata
     .accept 26316 >>Accept What's Keeping Kharmarn? << !tbc !wotlk !cata
 	.target Captain Tread Sparknozzle
-step << Warrior cata
+step << Warrior
     .goto Dun Morogh,34.274,37.520
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Drill Sergeant Steamcrank|r
     .trainer >> Train your class spells
@@ -1158,8 +1154,7 @@ step << Warrior
     .isOnQuest 26204
     .goto Dun Morogh,34.53,37.45
     >>|cRXP_WARN_Cast|r |T132337:0|t[Charge] |cRXP_WARN_on the|r |cRXP_ENEMY_Training Dummy|r
-    .complete 26204,1 << cata -- Practice Charge (1)
-    .complete 26204,2 << mop -- Practice Charge (1)
+    .complete 26204,1 -- Practice Charge (1)
     .mob Training Dummy
     .itemStat 16,QUALITY,<7
 step << Warrior
@@ -1177,12 +1172,12 @@ step << Warrior
     .use 59039
     .itemcount 59039,1
     .itemStat 16,QUALITY,<7
-step << Warlock cata
+step << Warlock
     .goto Dun Morogh,33.246,38.397
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Alamar Grimm|r
     .trainer >> Train your class spells
 	.target Alamar Grimm
-step << Rogue cata
+step << Rogue
     .goto Dun Morogh,33.376,36.738
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kelsey Steelspark|r
     .trainer >> Train your class spells
@@ -1199,8 +1194,7 @@ step << Rogue
     .isOnQuest 26207
     .goto Dun Morogh,34.53,37.45
     >>|cRXP_WARN_Cast|r |T136189:0|t[Sinister Strike] |cRXP_WARN_and then|r |T132292:0|t[Eviscerate] |cRXP_WARN_on a|r |cRXP_ENEMY_Training Dummy|r |cRXP_WARN_3 times|r << Rogue
-    .complete 26207,1 << cata -- Practice Eviscerate (1)
-    .complete 26207,2 << mop -- Practice Eviscerate (1)
+    .complete 26207,1 -- Practice Eviscerate (1)
     .mob Training Dummy
     .itemStat 16,QUALITY,<7
 step << Rogue
@@ -1526,10 +1520,8 @@ RXPGuides.RegisterGuide([[
 
 #xprate <1.2
 #version 1
-#group RXP Cataclysm 1-80 (A) << cata
-#group RXP MoP 1-60 (A) << mop
+#group RXP Cataclysm 1-80 (A)
 #cata
-#mop
 #name 6-7 Dun Morogh
 #next 6-9 Elwynn Forest
 #defaultfor Dwarf/Gnome
@@ -1594,7 +1586,7 @@ step
     .home >>Set your Hearthstone to Thunderbrew Distillery
 	.target Innkeeper Belm
     .zoneskip 27,1
-step << Warrior cata
+step << Warrior
     .goto 27,54.470,50.974
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Granis Swiftaxe|r
     .trainer >> Train your class spells
@@ -1607,37 +1599,37 @@ step << Dwarf/Gnome/DarkIronDwarf
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gremlock Pilsnor|r inside in the backroom
     .accept 6387 >>Accept Honor Students
 	.target Gremlock Pilsnor
-step << Rogue cata
+step << Rogue
     .goto 27,54.673,50.933
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Hogral Bakkan|r
     .trainer >> Train your class spells
     .target Hogral Bakkan
-step << Priest cata
+step << Priest
     .goto 27,54.455,50.508
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Maxan Anvol|r
     .trainer >> Train your class spells
     .target Maxan Anvol
-step << Shaman cata
+step << Shaman
     .goto 27,54.605,50.232
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Halbin Frosthammer|r
     .trainer >> Train your class spells
     .target Halbin Frosthammer
-step << Mage cata
+step << Mage
     .goto 27,54.609,50.397
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Magis Sparkmantle|r
     .trainer >> Train your class spells
     .target Magis Sparkmantle
-step << Paladin cata
+step << Paladin
     .goto 27,54.709,50.392
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Azar Stronghammer|r
     .trainer >> Train your class spells
     .target Azar Stronghammer
-step << Warlock cata
+step << Warlock
     .goto 27,54.437,52.022
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gimrizz Shadowcog|r
     .trainer >> Train your class spells
     .target Gimrizz Shadowcog
-step << Hunter cata
+step << Hunter
     .goto 27,52.913,51.364
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Grif Wildheart|r
     .trainer >> Train your class spells
@@ -1898,10 +1890,8 @@ step
 RXPGuides.RegisterGuide([[
 
 #version 1
-#group RXP Cataclysm 1-80 (A) << cata
-#group RXP MoP 1-60 (A) << mop
+#group RXP Cataclysm 1-80 (A)
 #cata
-#mop
 #name 7-9 Dun Morogh
 #next 9-11 Dun Morogh
 #defaultfor None
@@ -2230,10 +2220,8 @@ step
 RXPGuides.RegisterGuide([[
 
 #version 1
-#group RXP Cataclysm 1-80 (A) << cata
-#group RXP MoP 1-60 (A) << mop
+#group RXP Cataclysm 1-80 (A)
 #cata
-#mop
 #name 9-11 Dun Morogh
 #displayname 9-10 Dun Morogh
 #next 10-20 Loch Modan

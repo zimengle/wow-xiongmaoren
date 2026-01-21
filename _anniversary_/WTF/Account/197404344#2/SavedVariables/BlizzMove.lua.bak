@@ -25,8 +25,8 @@ BlizzMoveDB = {
 ["anchorPoint"] = "CENTER",
 ["relativeFrame"] = "UIParent",
 ["offY"] = 1.569475352880545e-05,
-["offX"] = 5.095951200928539e-05,
 ["relativePoint"] = "CENTER",
+["offX"] = 5.095951200928539e-05,
 },
 },
 ["dragged"] = true,
@@ -35,8 +35,8 @@ BlizzMoveDB = {
 ["anchorPoint"] = "CENTER",
 ["relativeFrame"] = "UIParent",
 ["offY"] = 0.6130146138675627,
-["relativePoint"] = "CENTER",
 ["offX"] = 3.456320700934157e-05,
+["relativePoint"] = "CENTER",
 },
 },
 },
@@ -70,8 +70,8 @@ BlizzMoveDB = {
 ["anchorPoint"] = "CENTER",
 ["relativeFrame"] = "UIParent",
 ["offY"] = 70.57145690917969,
-["offX"] = 3.0517578125e-05,
 ["relativePoint"] = "CENTER",
+["offX"] = 3.0517578125e-05,
 },
 },
 ["dragged"] = true,
@@ -80,8 +80,8 @@ BlizzMoveDB = {
 ["anchorPoint"] = "CENTER",
 ["relativeFrame"] = "UIParent",
 ["offY"] = 69.95843505859375,
-["relativePoint"] = "CENTER",
 ["offX"] = -0.613067626953125,
+["relativePoint"] = "CENTER",
 },
 },
 },
@@ -103,8 +103,8 @@ BlizzMoveDB = {
 ["anchorPoint"] = "BOTTOMRIGHT",
 ["relativeFrame"] = "UIParent",
 ["offY"] = -317.9867714711381,
-["offX"] = 305.3100679620111,
 ["relativePoint"] = "BOTTOMRIGHT",
+["offX"] = 305.3100679620111,
 },
 },
 ["dragged"] = true,
@@ -113,8 +113,8 @@ BlizzMoveDB = {
 ["anchorPoint"] = "CENTER",
 ["relativeFrame"] = "UIParent",
 ["offY"] = 16.64786258266167,
-["offX"] = -21.37235463688103,
 ["relativePoint"] = "CENTER",
+["offX"] = -21.37235463688103,
 },
 },
 },
@@ -128,8 +128,8 @@ BlizzMoveDB = {
 ["anchorPoint"] = "TOPLEFT",
 ["relativeFrame"] = "UIParent",
 ["offY"] = -104.0001220703125,
-["relativePoint"] = "TOPLEFT",
 ["offX"] = 0,
+["relativePoint"] = "TOPLEFT",
 },
 },
 ["dragged"] = true,
@@ -138,8 +138,8 @@ BlizzMoveDB = {
 ["anchorPoint"] = "TOPLEFT",
 ["relativeFrame"] = "UIParent",
 ["offY"] = -104.0001220703125,
-["relativePoint"] = "TOPLEFT",
 ["offX"] = 0,
+["relativePoint"] = "TOPLEFT",
 },
 },
 },
@@ -155,14 +155,18 @@ BlizzMoveDB = {
 },
 ["LFGParentFrame"] = {
 },
+["ChannelFrame"] = {
+},
+["ChatConfigFrame"] = {
+},
 ["ClassTrainerFrame"] = {
 ["startPoints"] = {
 {
 ["anchorPoint"] = "TOPLEFT",
 ["relativeFrame"] = "UIParent",
 ["offY"] = -104.0001220703125,
-["offX"] = 0,
 ["relativePoint"] = "TOPLEFT",
+["offX"] = 0,
 },
 },
 ["dragged"] = true,
@@ -171,30 +175,26 @@ BlizzMoveDB = {
 ["anchorPoint"] = "TOPLEFT",
 ["relativeFrame"] = "UIParent",
 ["offY"] = -172.6590576171875,
-["offX"] = 343.9080200195313,
 ["relativePoint"] = "TOPLEFT",
+["offX"] = 343.9080200195313,
 },
 },
-},
-["ChatConfigFrame"] = {
-},
-["SendMailFrame"] = {
 },
 ["GuildEventLogFrame"] = {
 },
 ["GameMenuFrame.Header"] = {
 },
-["TradeSkillFrame"] = {
+["InspectPaperDollFrame"] = {
 },
-["InspectPVPFrameArena"] = {
+["TimeManagerFrame"] = {
 },
-["InspectPVPFrame"] = {
+["GuildFrame"] = {
 },
 ["TabardFrame"] = {
 },
-["FriendsFrame"] = {
+["GuildInfoFrame"] = {
 },
-["PVPFrameHonor"] = {
+["FriendsFrame"] = {
 },
 ["PVPBannerFrame"] = {
 },
@@ -202,46 +202,27 @@ BlizzMoveDB = {
 },
 ["InspectPVPFrameHonor"] = {
 },
-["HelpFrame"] = {
+["LootFrame"] = {
 },
 ["InspectTalentFrame"] = {
 },
-["GuildControlPopupFrame"] = {
+["CommunitiesGuildTextEditFrame"] = {
 },
 ["InspectPVPTeam3"] = {
 },
-["FriendsFrameBattlenetFrame.BroadcastFrame"] = {
+["CharacterFrame"] = {
 },
 ["PVPTeam1"] = {
 },
-["SpellBookFrame"] = {
-["startPoints"] = {
-{
-["anchorPoint"] = "TOPLEFT",
-["relativeFrame"] = "UIParent",
-["offY"] = -103.9999389648438,
-["offX"] = 0,
-["relativePoint"] = "TOPLEFT",
-},
-},
-["dragged"] = true,
-["dragPoints"] = {
-{
-["anchorPoint"] = "TOPLEFT",
-["relativeFrame"] = "UIParent",
-["offY"] = -104.0001220703125,
-["offX"] = 0,
-["relativePoint"] = "TOPLEFT",
-},
-},
+["WorldStateScoreFrame"] = {
 },
 ["GuildRegistrarFrame"] = {
 },
-["PlayerTalentFrame"] = {
+["InspectFrame"] = {
+},
+["PVPTeam2"] = {
 },
 ["TokenFrameContainer"] = {
-},
-["TokenFrame"] = {
 },
 ["ReputationDetailFrame"] = {
 },
@@ -255,49 +236,68 @@ BlizzMoveDB = {
 },
 ["ModelPreviewFrame"] = {
 },
-["MerchantFrame"] = {
+["ArenaRegistrarFrame"] = {
 },
 ["FriendsFrameFriendsScrollFrame"] = {
 },
 ["OpenMailFrame"] = {
 },
-["CommunitiesGuildNewsFiltersFrame"] = {
-},
 ["PVPFrame"] = {
+},
+["CommunitiesGuildNewsFiltersFrame"] = {
 },
 ["InspectPVPTeam1"] = {
 },
-["ArenaRegistrarFrame"] = {
+["TokenFrame"] = {
 },
-["PVPTeam2"] = {
+["MerchantFrame"] = {
 },
-["InspectFrame"] = {
+["PlayerTalentFrame"] = {
 },
 ["OpenMailSender"] = {
 },
-["WorldStateScoreFrame"] = {
+["SpellBookFrame"] = {
+["startPoints"] = {
+{
+["anchorPoint"] = "TOPLEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = -103.9999389648438,
+["relativePoint"] = "TOPLEFT",
+["offX"] = 0,
 },
-["CharacterFrame"] = {
 },
-["CommunitiesGuildTextEditFrame"] = {
+["dragged"] = true,
+["dragPoints"] = {
+{
+["anchorPoint"] = "TOPLEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = -104.0001220703125,
+["relativePoint"] = "TOPLEFT",
+["offX"] = 0,
 },
-["LootFrame"] = {
+},
+},
+["FriendsFrameBattlenetFrame.BroadcastFrame"] = {
+},
+["HelpFrame"] = {
+},
+["GuildControlPopupFrame"] = {
 },
 ["GuildControlUI"] = {
 },
-["GuildInfoFrame"] = {
+["PVPFrameHonor"] = {
 },
-["GuildFrame"] = {
+["InspectPVPFrame"] = {
 },
-["TimeManagerFrame"] = {
+["InspectPVPFrameArena"] = {
 },
-["InspectPaperDollFrame"] = {
+["TradeSkillFrame"] = {
 },
 ["ArenaFrame"] = {
 },
 ["TokenFramePopup"] = {
 },
-["ChannelFrame"] = {
+["SendMailFrame"] = {
 },
 },
 ["savePosStrategy"] = "permanent",

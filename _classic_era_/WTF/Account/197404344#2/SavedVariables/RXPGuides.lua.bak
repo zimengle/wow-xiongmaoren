@@ -8,14 +8,14 @@ RXPData = {
 }
 RXPDB = {
 ["profileKeys"] = {
+["露露糖 - 铁血"] = "global",
 ["京东哔哩哔哩 - 无情"] = "global",
-["伊芙莉特 - 铁血"] = "global",
 ["蒂琪爱尔 - 铁血"] = "global",
-["愛雅法拉 - 铁血"] = "global",
+["伊芙莉特 - 铁血"] = "global",
 ["小露露糖 - 铁血"] = "global",
 ["萌萌的露小露 - 铁血"] = "global",
 ["京东哔哩美团 - 无情"] = "global",
-["露露糖 - 铁血"] = "global",
+["愛雅法拉 - 铁血"] = "global",
 },
 ["profiles"] = {
 ["global"] = {
@@ -24,14 +24,14 @@ RXPDB = {
 }
 RXPSettings = {
 ["profileKeys"] = {
+["露露糖 - 铁血"] = "京东哔哩哔哩 - 无情",
 ["京东哔哩哔哩 - 无情"] = "露露缇娅丶 - 铁血",
-["伊芙莉特 - 铁血"] = "京东哔哩哔哩 - 无情",
 ["蒂琪爱尔 - 铁血"] = "京东哔哩哔哩 - 无情",
-["愛雅法拉 - 铁血"] = "京东哔哩哔哩 - 无情",
+["伊芙莉特 - 铁血"] = "京东哔哩哔哩 - 无情",
 ["小露露糖 - 铁血"] = "京东哔哩哔哩 - 无情",
 ["萌萌的露小露 - 铁血"] = "京东哔哩哔哩 - 无情",
 ["京东哔哩美团 - 无情"] = "京东哔哩美团 - 无情",
-["露露糖 - 铁血"] = "京东哔哩哔哩 - 无情",
+["愛雅法拉 - 铁血"] = "京东哔哩哔哩 - 无情",
 },
 ["profiles"] = {
 ["露露缇娅丶 - 铁血"] = {
@@ -42,15 +42,15 @@ RXPSettings = {
 ["hardcore"] = false,
 ["hideCompletedSteps"] = false,
 ["season"] = 0,
-["phase"] = 1,
+["enableBindAutomation"] = false,
 ["framePositions"] = {
-["activeTargetFrame"] = {
+["arrowFrame"] = {
 {
 "LEFT",
 nil,
 "LEFT",
-264.5238037109375,
-6.952399253845215,
+277.1809997558594,
+-39.23849105834961,
 },
 },
 ["RXPFrame"] = {
@@ -71,24 +71,24 @@ nil,
 0,
 },
 },
-["arrowFrame"] = {
+["activeTargetFrame"] = {
 {
 "LEFT",
 nil,
 "LEFT",
-277.1809997558594,
--39.23849105834961,
+264.5238037109375,
+6.952399253845215,
 },
 },
 },
 ["enableAddonIncompatibilityCheck"] = false,
 ["frameHeight"] = 28.0000114440918,
-["arrowText"] = 15,
 ["arrowScale"] = 1.2,
+["arrowText"] = 15,
 ["frameSizes"] = {
-["activeTargetFrame"] = {
-54.40001678466797,
-40,
+["arrowFrame"] = {
+38.39999771118164,
+38.40005111694336,
 },
 ["RXPFrame"] = {
 257.3334045410156,
@@ -98,32 +98,33 @@ nil,
 51.23808288574219,
 40,
 },
-["arrowFrame"] = {
-38.39999771118164,
-38.40005111694336,
+["activeTargetFrame"] = {
+54.40001678466797,
+40,
 },
 },
 ["hideInRaid"] = true,
-["enableBindAutomation"] = false,
+["phase"] = 1,
 },
 ["京东哔哩美团 - 无情"] = {
+["hardcore"] = true,
 ["framePositions"] = {
-["arrowFrame"] = {
+["activeTargetFrame"] = {
 {
-"TOP",
-"UIParent",
-"TOP",
-0,
-0,
+"RIGHT",
+nil,
+"RIGHT",
+-231.4441986083984,
+-219.6509399414063,
 },
 },
 ["RXPFrame"] = {
 {
 "LEFT",
-"UIParent",
+nil,
 "LEFT",
-0,
-35.00000381469727,
+1.523805022239685,
+-49.82540130615234,
 },
 },
 ["activeItemFrame"] = {
@@ -135,11 +136,11 @@ nil,
 0,
 },
 },
-["activeTargetFrame"] = {
+["arrowFrame"] = {
 {
-"CENTER",
+"TOP",
 "UIParent",
-"CENTER",
+"TOP",
 0,
 0,
 },
@@ -147,26 +148,23 @@ nil,
 },
 ["season"] = 0,
 ["frameSizes"] = {
-["arrowFrame"] = {
-31.99997329711914,
-31.99997329711914,
+["activeTargetFrame"] = {
+197,
+68.00004577636719,
 },
 ["RXPFrame"] = {
 235,
-28.00007438659668,
+125.0000076293945,
 },
 ["activeItemFrame"] = {
 50.47617340087891,
 40,
 },
-["activeTargetFrame"] = {
-54.22223281860352,
-68.00000762939453,
+["arrowFrame"] = {
+31.99997329711914,
+31.99997329711914,
 },
 },
-["showDangerousMobsMap"] = true,
-["enableGroupQuests"] = true,
-["frameHeight"] = 125.0000076293945,
 ["dungeons"] = {
 ["ULDA"] = true,
 ["SFK"] = true,
@@ -183,8 +181,12 @@ nil,
 ["ZF"] = true,
 },
 ["soloSelfFound"] = false,
-["phase"] = 1,
+["showDangerousMobsMap"] = true,
+["enableGroupQuests"] = true,
+["frameHeight"] = 125.0000076293945,
+["macroAnnounced"] = true,
 ["showDangerousUnitscan"] = true,
+["phase"] = 1,
 },
 },
 }

@@ -1,4 +1,3 @@
-
 ImmersionSetup = {
 ["strata"] = "MEDIUM",
 ["scale"] = 1,

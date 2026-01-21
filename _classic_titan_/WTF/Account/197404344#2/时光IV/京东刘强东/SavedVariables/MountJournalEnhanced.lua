@@ -10,36 +10,58 @@ MJEPersonalSettings = {
 ["enableCursorKeys"] = true,
 ["slotPosition"] = "top",
 ["displayStatistics"] = {
-["TravelDistance"] = true,
 ["UsedCount"] = true,
-["LearnedDate"] = true,
+["TravelDistance"] = true,
+["TravelTime"] = true,
 ["Rarity"] = true,
 ["Family"] = true,
 ["CustomizationCount"] = true,
 ["Wowhead"] = true,
-["TravelTime"] = true,
+["LearnedDate"] = true,
 },
 ["windowSize"] = {
 0,
 0,
 },
-["previewButton"] = true,
+["autoRotateModel"] = false,
 ["showResizeEdge"] = true,
 ["showPersonalCount"] = true,
 ["displayBackground"] = "original",
-["autoRotateModel"] = false,
+["previewButton"] = true,
 ["colorizeNameByRarity"] = true,
 ["compactMountList"] = true,
 ["unlockDisplayCamera"] = true,
 ["displayAnimation"] = "stand",
 },
-["summonPreviousPetAgain"] = false,
-["searchInFamilyName"] = false,
 ["searchInNotes"] = false,
+["hiddenMounts"] = {
+},
+["summonPreviousPetAgain"] = false,
 ["pets"] = {
 ["assignments"] = {
 },
 ["seenInfo"] = false,
+},
+["favorites"] = {
+["assignments"] = {
+},
+["profiles"] = {
+{
+["mounts"] = {
+197,
+266,
+},
+["name"] = "",
+["autoFavor"] = false,
+},
+},
+},
+["sort"] = {
+["unownedOnBottom"] = true,
+["descending"] = false,
+["by"] = "name",
+["favoritesOnTop"] = true,
+["unusableToBottom"] = false,
 },
 ["filter"] = {
 ["expansion"] = {
@@ -88,18 +110,9 @@ true,
 true,
 true,
 },
-["color"] = {
-},
+["hiddenIngame"] = false,
 ["hidden"] = false,
 ["notCollected"] = true,
-["faction"] = {
-["horde"] = true,
-["alliance"] = true,
-["noFaction"] = true,
-},
-["onlyTradable"] = false,
-["onlyFavorites"] = false,
-["onlyUsable"] = false,
 ["mountType"] = {
 ["repair"] = true,
 ["flying"] = true,
@@ -109,6 +122,14 @@ true,
 ["ground"] = true,
 ["rideAlong"] = true,
 },
+["onlyTradable"] = false,
+["onlyFavorites"] = false,
+["faction"] = {
+["horde"] = true,
+["alliance"] = true,
+["noFaction"] = true,
+},
+["onlyUsable"] = false,
 ["family"] = {
 ["Drakes"] = {
 ["Undead Drakes"] = true,
@@ -205,32 +226,11 @@ true,
 },
 ["collected"] = true,
 ["onlyRecent"] = false,
-["hiddenIngame"] = false,
-},
-["sort"] = {
-["unownedOnBottom"] = true,
-["descending"] = false,
-["by"] = "name",
-["favoritesOnTop"] = true,
-["unusableToBottom"] = false,
-},
-["favorites"] = {
-["assignments"] = {
-},
-["profiles"] = {
-{
-["mounts"] = {
-197,
-266,
-},
-["name"] = "",
-["autoFavor"] = false,
-},
+["color"] = {
 },
 },
 ["personalHiddenMounts"] = false,
 ["personalUi"] = false,
-["hiddenMounts"] = {
-},
+["searchInFamilyName"] = false,
 ["searchInDescription"] = true,
 }

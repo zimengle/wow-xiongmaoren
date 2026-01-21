@@ -1,5 +1,17 @@
 
 Postal3DB = {
+["profileKeys"] = {
+["退休码农 - 时光IV"] = "退休码农 - 时光IV",
+["于鹏 - 时光IV"] = "于鹏 - 时光IV",
+["小米军儿 - 时光IV"] = "小米军儿 - 时光IV",
+["京东刘强东 - 时光IV"] = "京东刘强东 - 时光IV",
+["三角碑崽儿 - 时光IV"] = "三角碑崽儿 - 时光IV",
+["美团王兴 - 时光IV"] = "美团王兴 - 时光IV",
+["卧伦巴菲特 - 时光IV"] = "卧伦巴菲特 - 时光IV",
+["京东董事长 - 时光IV"] = "京东董事长 - 时光IV",
+["哔站陈睿 - 时光IV"] = "哔站陈睿 - 时光IV",
+["爱奇艺龚宇 - 时光IV"] = "爱奇艺龚宇 - 时光IV",
+},
 ["global"] = {
 ["BlackBook"] = {
 ["alts"] = {
@@ -16,18 +28,6 @@ Postal3DB = {
 },
 },
 },
-["profileKeys"] = {
-["退休码农 - 时光IV"] = "退休码农 - 时光IV",
-["于鹏 - 时光IV"] = "于鹏 - 时光IV",
-["小米军儿 - 时光IV"] = "小米军儿 - 时光IV",
-["京东刘强东 - 时光IV"] = "京东刘强东 - 时光IV",
-["三角碑崽儿 - 时光IV"] = "三角碑崽儿 - 时光IV",
-["美团王兴 - 时光IV"] = "美团王兴 - 时光IV",
-["卧伦巴菲特 - 时光IV"] = "卧伦巴菲特 - 时光IV",
-["京东董事长 - 时光IV"] = "京东董事长 - 时光IV",
-["哔站陈睿 - 时光IV"] = "哔站陈睿 - 时光IV",
-["爱奇艺龚宇 - 时光IV"] = "爱奇艺龚宇 - 时光IV",
-},
 ["profiles"] = {
 ["退休码农 - 时光IV"] = {
 ["BlackBook"] = {
@@ -42,6 +42,7 @@ Postal3DB = {
 ["于鹏 - 时光IV"] = {
 ["BlackBook"] = {
 ["recent"] = {
+"三角碑崽儿|时光IV|Alliance",
 "退休码农|时光IV|Alliance",
 "小米军儿|时光IV|Alliance",
 "美团王兴|时光IV|Alliance",
@@ -64,9 +65,6 @@ Postal3DB = {
 },
 ["京东刘强东 - 时光IV"] = {
 ["BlackBook"] = {
-["contacts"] = {
-"美团王兴",
-},
 ["recent"] = {
 "于鹏|时光IV|Alliance",
 "哔站陈睿|时光IV|Alliance",
@@ -78,15 +76,18 @@ Postal3DB = {
 "扛不住的小德|时光IV|Alliance",
 "超爱吃火锅|时光IV|Alliance",
 },
+["contacts"] = {
+"美团王兴",
+},
 },
 },
 ["三角碑崽儿 - 时光IV"] = {
 ["BlackBook"] = {
 ["recent"] = {
+"哔站陈睿|时光IV|Alliance",
 "于鹏|时光IV|Alliance",
 "京东刘强东|时光IV|Alliance",
 "退休码农|时光IV|Alliance",
-"哔站陈睿|时光IV|Alliance",
 "美团王兴|时光IV|Alliance",
 "咸鱼九号|时光IV|Alliance",
 },
@@ -106,8 +107,8 @@ Postal3DB = {
 ["哔站陈睿 - 时光IV"] = {
 ["BlackBook"] = {
 ["recent"] = {
-"退休码农|时光IV|Alliance",
 "小米军儿|时光IV|Alliance",
+"退休码农|时光IV|Alliance",
 "三角碑崽儿|时光IV|Alliance",
 "美团王兴|时光IV|Alliance",
 "京东刘强东|时光IV|Alliance",

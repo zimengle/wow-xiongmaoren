@@ -58,3 +58,4 @@ bind ALT-3 CLICK ItemRack特变电工鱼人摩洛克双手武器:LeftButton
 bind NUMPAD4 CLICK ItemRack特变电工鱼人摩洛克pvp:LeftButton
 bind NUMPAD2 NONE
 bind META-R REPLY
+bind ; QUESTIE_TOGGLE_JOURNEY

@@ -1,5 +1,6 @@
 local addonName, addonTable = ...;
 local L=addonTable.locale
+local Fun=addonTable.Fun
 ---
 local Create=addonTable.Create
 local PIGFrame=Create.PIGFrame

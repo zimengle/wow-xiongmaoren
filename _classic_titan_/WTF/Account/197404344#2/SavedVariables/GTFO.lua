@@ -8,7 +8,8 @@ GTFOData = {
 "",
 "",
 },
-["TrivialDamagePercent"] = 2,
+["IgnoreSpellList"] = {
+},
 ["SoundChannel"] = "SFX",
 ["Sounds"] = {
 true,
@@ -17,8 +18,7 @@ true,
 true,
 },
 ["DataCode"] = "4",
-["IgnoreSpellList"] = {
-},
+["TrivialDamagePercent"] = 2,
 ["Volume"] = 3,
 ["IgnoreOptions"] = {
 ["Fatigue"] = false,

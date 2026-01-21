@@ -163,7 +163,7 @@ if PIG_MaxTocversion() then
 			PIG_OptionsUI.RLUI:Show()
 		end
 	end)
-	if PIG_MaxTocversion(40000) then
+	if PIG_MaxTocversion(60000) then
 		FrameExtF.Trainer = PIGCheckbutton_R(FrameExtF,{"训练师界面扩展","扩展训练师界面为两列"},true)
 		FrameExtF.Trainer:SetScript("OnClick", function (self)
 			if self:GetChecked() then

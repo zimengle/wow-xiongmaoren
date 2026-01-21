@@ -1,4 +1,3 @@
-
 DBM_SpellTimers_Settings = {
 ["enabled"] = true,
 ["active_in_pvp"] = true,

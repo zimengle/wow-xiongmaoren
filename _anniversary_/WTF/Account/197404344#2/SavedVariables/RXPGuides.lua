@@ -1,31 +1,28 @@
-
 RXPData = {
 ["gameVersion"] = 20505,
-["cacheVersion"] = 29,
-["defaultProfile"] = false,
+["cache"] = "露露缇娅#5600",
+["cacheVersion"] = 26,
+["questNames"] = {
+["locale"] = "zhCN",
+},
 ["trainGenericSpells"] = true,
-["release"] = "v4.9.11",
+["release"] = "Rurutia Fix4",
 ["realmData"] = {
 ["铁血"] = {
 },
 },
-["questNames"] = {
-["locale"] = "zhCN",
-},
+["defaultProfile"] = false,
 }
 RXPDB = {
 ["profileKeys"] = {
+["愛雅法拉 - 铁血"] = "global",
 ["伊芙莉特 - 铁血"] = "global",
 ["蒂琪爱尔 - 铁血"] = "global",
-["爱奇艺龚宇 - 铁血"] = "global",
 ["小露露糖 - 铁血"] = "global",
-["露露糖 - 铁血"] = "global",
-["李家沱 - 铁血"] = "global",
-["露露緹婭 - 无情"] = "global",
-["渥伦巴菲特 - 铁血"] = "global",
-["露露缇娅丶 - 铁血"] = "global",
 ["萌萌的露小露 - 铁血"] = "global",
-["愛雅法拉 - 铁血"] = "global",
+["三角碑 - 无情"] = "global",["京东哔哩美团 - 无情"] = "global",["三角碑 - 铁血"] = "global",["李家沱 - 铁血"] = "global",["渥伦巴菲特 - 铁血"] = "global",["爱奇艺龚宇 - 铁血"] = "global",["袜子的去 - 铁血"] = "global",
+["露露緹婭 - 无情"] = "global",
+["露露糖 - 铁血"] = "global",
 },
 ["profiles"] = {
 ["global"] = {
@@ -34,213 +31,90 @@ RXPDB = {
 }
 RXPSettings = {
 ["profileKeys"] = {
-["伊芙莉特 - 铁血"] = "露露緹婭 - 无情",
-["蒂琪爱尔 - 铁血"] = "露露緹婭 - 无情",
-["爱奇艺龚宇 - 铁血"] = "露露缇娅丶 - 铁血",
-["小露露糖 - 铁血"] = "露露緹婭 - 无情",
-["露露糖 - 铁血"] = "露露緹婭 - 无情",
-["李家沱 - 铁血"] = "李家沱 - 铁血",
-["露露緹婭 - 无情"] = "露露缇娅丶 - 铁血",
-["渥伦巴菲特 - 铁血"] = "渥伦巴菲特 - 铁血",
-["露露缇娅丶 - 铁血"] = "露露缇娅丶 - 铁血",
-["萌萌的露小露 - 铁血"] = "露露緹婭 - 无情",
-["愛雅法拉 - 铁血"] = "露露緹婭 - 无情",
+["伊芙莉特 - 铁血"] = "Default",
+["蒂琪爱尔 - 铁血"] = "Default",
+["愛雅法拉 - 铁血"] = "Default",
+["三角碑 - 无情"] = "Default",["京东哔哩美团 - 无情"] = "Default",["三角碑 - 铁血"] = "Default",["李家沱 - 铁血"] = "Default",["渥伦巴菲特 - 铁血"] = "Default",["爱奇艺龚宇 - 铁血"] = "Default",["袜子的去 - 铁血"] = "Default",
+["萌萌的露小露 - 铁血"] = "Default",
+["小露露糖 - 铁血"] = "Default",
+["露露糖 - 铁血"] = "Default",
 },
 ["profiles"] = {
-["露露缇娅丶 - 铁血"] = {
-["hideCompletedSteps"] = false,
-["season"] = 0,
+["Default"] = {
 ["enableGossipAutomation"] = false,
-["enableTracker"] = false,
-["guideFontSize"] = 16,
-["enableBindAutomation"] = false,
-["macroAnnounced"] = true,
 ["hardcore"] = false,
-["framePositions"] = {
-["arrowFrame"] = {
-{
-"LEFT",
-nil,
-"LEFT",
-0,
-0,
-},
-},
-["RXPFrame"] = {
-{
-"LEFT",
-nil,
-"LEFT",
-42.91188430786133,
--21.45589828491211,
-},
-},
-["activeItemFrame"] = {
-{
-"CENTER",
-"UIParent",
-"CENTER",
-0,
-0,
-},
-},
-["activeTargetFrame"] = {
-{
-"LEFT",
-nil,
-"LEFT",
-0,
-0,
-},
-},
-},
-["arrowScale"] = 1.2,
 ["enableAddonIncompatibilityCheck"] = false,
-["disableArrow"] = false,
-["frameHeight"] = 28.0000114440918,
-["arrowText"] = 16,
+["season"] = 0,
+["enableTracker"] = false,
+["guideFontSize"] = 15,
+["enableBindAutomation"] = false,
 ["frameSizes"] = {
-["arrowFrame"] = {
-38.40000152587891,
-38.39999008178711,
+["activeTargetFrame"] = {
+54.39999771118164,
+18.00000190734863,
 },
 ["RXPFrame"] = {
-257.3334045410156,
-28.00006675720215,
+242.8572540283203,
+28.00007438659668,
 },
 ["activeItemFrame"] = {
-51.87730407714844,
-40.00001907348633,
+51.23808288574219,
+40,
 },
-["activeTargetFrame"] = {
-54.22221755981445,
-43.00001907348633,
+["arrowFrame"] = {
+38.39999771118164,
+38.3999137878418,
 },
 },
 ["hideInRaid"] = true,
+["hideCompletedSteps"] = false,
+["arrowScale"] = 1.2,
+["enableFPAutomation"] = false,
+["enableTargetMacro"] = false,
+["arrowText"] = 16,
+["frameHeight"] = 28.00007438659668,
+["macroAnnounced"] = true,
+["disableArrow"] = false,
+["framePositions"] = {
+["activeTargetFrame"] = {
+{
+"LEFT",
+nil,
+"LEFT",
+258.4285278320313,
+155.5242614746094,
+},
+},
+["RXPFrame"] = {
+{
+"LEFT",
+nil,
+"LEFT",
+0,
+39.85727310180664,
+},
+},
+["activeItemFrame"] = {
+{
+"CENTER",
+"UIParent",
+"CENTER",
+0,
+0,
+},
+},
+["arrowFrame"] = {
+{
+"LEFT",
+nil,
+"LEFT",
+266.1605834960938,
+96.25267028808594,
+},
+},
+},
+["enableTargetAutomation"] = false,
 ["phase"] = 1,
-},
-["李家沱 - 铁血"] = {
-["hardcore"] = false,
-["frameSizes"] = {
-["activeTargetFrame"] = {
-54.22237014770508,
-43.00001907348633,
-},
-["RXPFrame"] = {
-235,
-125.0000152587891,
-},
-["activeItemFrame"] = {
-51.87730407714844,
-40.00001907348633,
-},
-["arrowFrame"] = {
-31.99998283386231,
-31.99998283386231,
-},
-},
-["frameHeight"] = 125.0000152587891,
-["macroAnnounced"] = true,
-["framePositions"] = {
-["activeTargetFrame"] = {
-{
-"RIGHT",
-nil,
-"RIGHT",
--189.2873229980469,
--88.888916015625,
-},
-},
-["RXPFrame"] = {
-{
-"LEFT",
-"UIParent",
-"LEFT",
-0,
-35.00000381469727,
-},
-},
-["activeItemFrame"] = {
-{
-"CENTER",
-"UIParent",
-"CENTER",
-0,
-0,
-},
-},
-["arrowFrame"] = {
-{
-"CENTER",
-nil,
-"CENTER",
-261.1490478515625,
--279.6012878417969,
-},
-},
-},
-},
-["渥伦巴菲特 - 铁血"] = {
-["frameHeight"] = 125.0000152587891,
-["macroAnnounced"] = true,
-["hardcore"] = false,
-["framePositions"] = {
-["activeTargetFrame"] = {
-{
-"CENTER",
-nil,
-"CENTER",
-375.172119140625,
--247.0500030517578,
-},
-},
-["RXPFrame"] = {
-{
-"LEFT",
-"UIParent",
-"LEFT",
-0,
-35.00000381469727,
-},
-},
-["activeItemFrame"] = {
-{
-"CENTER",
-"UIParent",
-"CENTER",
-0,
-0,
-},
-},
-["arrowFrame"] = {
-{
-"CENTER",
-nil,
-"CENTER",
-34.94247055053711,
--114.6972808837891,
-},
-},
-},
-["frameSizes"] = {
-["activeTargetFrame"] = {
-54.22237014770508,
-68.00004577636719,
-},
-["RXPFrame"] = {
-235,
-125.0000152587891,
-},
-["activeItemFrame"] = {
-51.87730407714844,
-40.00001907348633,
-},
-["arrowFrame"] = {
-31.99998283386231,
-31.99998283386231,
-},
-},
 },
 },
 }

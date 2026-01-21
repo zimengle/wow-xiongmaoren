@@ -54,7 +54,9 @@ BF:SetScript("OnEvent", function(self, event)
         if BFWC_Filter_SavedConfigs.bigfoot == true then
 			C_Timer.After(2, JoinBigfoot)
         end
-        shortChannels()
+        if _G.shortChannels then
+            _G.shortChannels()
+        end
     elseif event == "CHAT_MSG_CHANNEL_NOTICE" then
         C_Timer.After(1, SwapChannel)
     end

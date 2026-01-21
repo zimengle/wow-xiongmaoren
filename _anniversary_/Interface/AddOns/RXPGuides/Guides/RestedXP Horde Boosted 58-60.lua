@@ -5,24 +5,24 @@ RXPGuides.RegisterGuide([[
 #tbc
 #wotlk
 << Horde
-#name Boosted Character 58-60
+#name 增强角色 58-60
 #version 1
-#group RestedXP Horde Boosted 58-60
+#group 部落休息经验值提升 58-60
 #defaultfor 58Boost
-#next RestedXP Horde 60-70\60-61 Hellfire Peninsula
+#next 休息经验 部落 60-70\\60-61 地狱火半岛
 step << !Druid !Paladin
-    .turnin 64046 >>Turn in A New Beginning
+    .turnin 64046 >>交任务: |cRXP_FRIENDLY_新的开始|r
 step << Druid
-    .turnin 64047 >>Turn in A New Beginning
-	.accept 64049 >>Accept Tools for Survival
+    .turnin 64047 >>交任务: |cRXP_FRIENDLY_新的开始|r
+	.accept 64049 >>接受生存工具
 
 step << !Druid !Paladin
-    .accept 64048 >>Accept Tools for Survival
+    .accept 64048 >>接受生存工具
 
 step << !Paladin
 	#sticky
 	#completewith next
-	>>Open your Azeroth Survival Kit & equip a weapon.
+	>>打开你的艾泽拉斯生存工具包并装备一件武器。
 step << !Druid !Paladin
     .complete 64048,1 --1/1 Open the Survival Kit (1)
     .complete 64048,2 --1/1 Equip a Weapon (1)
@@ -31,34 +31,34 @@ step << Druid
     .complete 64049,2 --1/1 Equip a Weapon (1)
 
 step << !Druid !Paladin
-    .turnin 64048 >>Turn in Tools for Survival
-    .accept 64050 >>Accept Combat Training
+    .turnin 64048 >>上交生存工具
+    .accept 64050 >>接任务: |cRXP_WARN_战斗训练|r
 
 step << Druid
-    .turnin 64049 >>Turn in Tools for Survival
-    .accept 64051 >>Accept Combat Training
+    .turnin 64049 >>上交生存工具
+    .accept 64051 >>接任务: |cRXP_WARN_战斗训练|r
 
 step << Warrior
-    .train 11581 >> Learn Thunder Clap.
+    .train 11581 >>学习雷霆一击。
 step << Rogue
-    .train 11269 >> Learn Ambush
+    .train 11269 >>学习伏击
 step << Hunter
-    .train 14325 >> Learn Hunter's Mark
+    .train 14325 >>学习猎人印记
 step << Shaman
-    .train 10473 >> Learn Frost Shock
+    .train 10473 >>学习冰霜冲击
 step << Warlock
-    .train 11726 >> Learn Enslave Demon
+    .train 11726 >>学习奴役恶魔
 step << Priest
-	.train 10912 >> Learn Mind Control
+	.train 10912 >>学习精神控制
 step << BloodElf Priest
-    .train 32676 >> Learn Consume Magic
+    .train 32676 >>学习消耗魔法
 step << Troll Priest
-    .train 9035 >> Learn all the ranks of Hex of Weakness
-    .train 18137 >> Learn all the ranks of Shadowguard
+    .train 9035 >>了解所有等级的虚弱诅咒
+    .train 18137 >>了解暗影守卫的所有等级
 step << Druid
-    .train 9853 >> Learn Entangling Roots
+    .train 9853 >>学习缠绕根
 step << Mage
-    .train 22783 >> Learn Mage Armor
+    .train 22783 >>学习魔法护甲
 
 step << !Druid !Paladin
 	.complete 64050,1 --1/1 Train a Spell (1)
@@ -66,45 +66,45 @@ step << Druid
     .complete 64051,1 --1/1 Train a Spell (1)
 
 step << !Druid !Paladin
-    .turnin 64050 >>Turn in Combat Training
-    .accept 64052 >>Accept Talented
+    .turnin 64050 >>交任务: |cRXP_FRIENDLY_战斗训练|r
+    .accept 64052 >>接受有才华的人
 step << Druid
-    .turnin 64051 >>Turn in Combat Training
+    .turnin 64051 >>交任务: |cRXP_FRIENDLY_战斗训练|r
 step << Druid
-    .accept 64053 >>Accept Talented
+    .accept 64053 >>接受有才华的人
 step << !Druid !Paladin
-	>>Spec into any talent build you want to play while leveling.
+	>>选择您在升级时想要发挥的任何天赋。
 	.complete 64052,1 --1/1 Spend a Talent Point (1)
 step << Druid
-	>>Spec into any talent build you want to play while leveling.
+	>>选择您在升级时想要发挥的任何天赋。
     .complete 64053,1 --1/1 Spend a Talent Point (1)
 
 step << !Druid !Paladin
-    .turnin 64052 >>Turn in Talented
+    .turnin 64052 >>上交才华
 step << Druid
-    .turnin 64053 >>Turn in Talented
+    .turnin 64053 >>上交才华
 step << !Druid !Paladin
 	#label nondruidboost
-    .accept 64063 >> Accept The Dark Portal
+    .accept 64063 >>接任务: |cRXP_LOOT_黑暗之门|r
 step << Druid
 	#label druidboost
-	.accept 64217 >> Accept The Dark Portal
+	.accept 64217 >>接任务: |cRXP_LOOT_黑暗之门|r
 
 step << Druid
 
-    .fly Orgrimmar >>Fly to Orgrimmar
+    .fly Orgrimmar >>飞往奥格瑞玛
 
 step << Mage
     .goto Orgrimmar,38.7,85.5
-    >>Run up to the 2nd floor to train Teleport & Portal to Orgrimmar
-	.train 3567 >> Teleport: Orgrimmar
-	.train 11417 >> Portal: Orgrimmar
+    >>跑到二楼训练传送门到奥格瑞玛
+	.train 3567 >>传送：奥格瑞玛
+	.train 11417 >>传送门：奥格瑞玛
 step << Warlock
     .goto Orgrimmar,47.6,46.7,0
-	.vendor 5815 >> Talk to Kurgul to purchase your minions Grimoires
+	.vendor 5815 >>与库尔古尔交谈，购买你的仆从魔法书
 step	<<!Paladin
     .goto Orgrimmar,54.5,67.6
-    >>Buy at least 2 stacks of food/water from Barkeep Morag.
+    >>从酒保莫拉格 (Barkeep Morag) 购买至少 2 堆食物/水。
 	.vendor
 step << Druid
     .goto Durotar,50.7,12.9
@@ -115,99 +115,99 @@ step << !Druid
 step
     #sticky
     #completewith next
-+Take the zeppelin to Undercity
++乘坐飞艇前往幽暗城
     .goto Durotar,50.8,13.8
 step
-	.zone Tirisfal Glades >>Arrive in Tirisfal
+	.zone Tirisfal Glades >>前往: |cRXP_PICK_提瑞斯法林地|r
 step
 	.goto Tirisfal Glades,83.1,68.9
 .target High Executor Derrington
->>Talk to |cRXP_FRIENDLY_High Executor Derrington|r
-    .accept 5096 >>Accept Scarlet Diversions
+>>对话: |cRXP_FRIENDLY_高级执行官德灵顿|r
+    .accept 5096 >>接任务: |cRXP_LOOT_误导血色十字军|r
 step
-	>> Loot the crate next to the fire. Also save every Bone Fragment you get in the zone!
+	>>抢劫火堆旁边的箱子。同时保存您在该区域获得的所有骨头碎片！
 	.goto Tirisfal Glades,83.1,68.9
 	.collect 12814,1
 step
     .goto Tirisfal Glades,83.2,68.6
 .target Argent Quartermaster Lightspark
->>Talk to |cRXP_FRIENDLY_Argent Quartermaster Lightspark|r
-    .turnin 5405 >>Turn in Argent Dawn Commission
+>>对话: |cRXP_FRIENDLY_银色黎明军需官莱斯巴克|r
+    .turnin 5405 >>交任务: |cRXP_FRIENDLY_银色黎明委任徽章|r
 step
 	#sticky
 	#completewith next
-	>>Equip your Argent Dawn Commission trinket. We will need the Scourgestones for a later quest.
+	>>装备你的银色黎明委托饰品。我们稍后会用到天灾石。
 step
     .goto Tirisfal Glades,83.1,71.6
 .target Mehlar Dawnblade
->>Talk to |cRXP_FRIENDLY_Mehlar Dawnblade|r
-    .accept 9443 >>Accept The So-Called Mark of the Lightbringer
+>>对话: |cRXP_FRIENDLY_麦拉·黎明之刃|r
+    .accept 9443 >>接任务: |cRXP_LOOT_所谓的光明使者印记|r
 step
     .goto Tirisfal Glades,83.3,72.1
 .target Mickey Levine
->>Talk to |cRXP_FRIENDLY_Mickey Levine|r
-    .accept 5901 >>Accept A Plague Upon Thee
+>>对话: |cRXP_FRIENDLY_米克·莱文|r
+    .accept 5901 >>接任务: |cRXP_LOOT_瘟疫与你|r
 step
-	>> This quest can be hard. Clear them out slowly from the back of the tent and destroy it. Put down the banner afterwards.
+	>>这个任务可能很难。慢慢地把他们从帐篷后面清理出来，然后摧毁它。然后放下横幅。
     .goto Western Plaguelands,40.7,51.7
     .complete 5096,1 --Destroy the command tent and plant the Scourge banner in the camp (1)
 step
     .goto Tirisfal Glades,83.1,68.9
 .target High Executor Derrington
->>Talk to |cRXP_FRIENDLY_High Executor Derrington|r
-    .turnin 5096 >>Turn in Scarlet Diversions
+>>对话: |cRXP_FRIENDLY_高级执行官德灵顿|r
+    .turnin 5096 >>交任务: |cRXP_FRIENDLY_误导血色十字军|r
 step
     .goto Tirisfal Glades,83.1,69.2
 .target High Executor Derrington
->>Talk to |cRXP_FRIENDLY_High Executor Derrington|r
-    .accept 5098 >>Accept All Along the Watchtowers
-    .accept 5228 >>Accept The Scourge Cauldrons
+>>对话: |cRXP_FRIENDLY_高级执行官德灵顿|r
+    .accept 5098 >>接任务: |cRXP_LOOT_标记哨塔|r
+    .accept 5228 >>接任务: |cRXP_LOOT_瘟疫之锅|r
 
 step
     .goto Tirisfal Glades,83.0,71.9
 .target Shadow Priestess Vandis
->>Talk to |cRXP_FRIENDLY_Shadow Priestess Vandis|r
-    .turnin 5228 >>Turn in The Scourge Cauldrons
+>>对话: |cRXP_FRIENDLY_暗影牧师范蒂丝|r
+    .turnin 5228 >>交任务: |cRXP_FRIENDLY_瘟疫之锅|r
 step
     .goto Tirisfal Glades,83.0,71.6
 .target Shadow Priestess Vandis
->>Talk to |cRXP_FRIENDLY_Shadow Priestess Vandis|r
-    .accept 5229 >>Accept Target: Felstone Field
+>>对话: |cRXP_FRIENDLY_暗影牧师范蒂丝|r
+    .accept 5229 >>接任务: |cRXP_LOOT_目标：费尔斯通农场|r
 step
-	>>Kill the Cauldon Lord
+	>>杀死考尔顿领主
     .goto Western Plaguelands,36.5,57.7
     .complete 5229,1 --Felstone Field Cauldron Key (1)
 step
     .goto Western Plaguelands,37.2,56.9
-    .turnin 5229 >>Turn in Target: Felstone Field
-    .accept 5230 >>Accept Return to the Bulwark
+    .turnin 5229 >>交任务: |cRXP_FRIENDLY_目标：费尔斯通农场|r
+    .accept 5230 >>接任务: |cRXP_LOOT_返回亡灵壁垒|r
 step
     .goto Western Plaguelands,38.3,54.1
 .target Janice Felstone
->>Talk to |cRXP_FRIENDLY_Janice Felstone|r
-    .accept 5021 >>Accept Better Late Than Never
+>>对话: |cRXP_FRIENDLY_詹妮丝·费尔斯通|r
+    .accept 5021 >>接任务: |cRXP_LOOT_迟到总比不到好|r
 step
     .goto Western Plaguelands,38.7,55.3
-    .turnin 5021 >>Turn in Better Late Than Never
-    .accept 5023 >>Accept Better Late Than Never
+    .turnin 5021 >>交任务: |cRXP_FRIENDLY_迟到总比不到好|r
+    .accept 5023 >>接任务: |cRXP_LOOT_迟到总比不到好|r
 step
     .goto Tirisfal Glades,83.1,71.9
->>Talk to |cRXP_FRIENDLY_Shadow Priestess Vandis|r
-    .turnin 5230 >>Turn in Return to the Bulwark
+>>对话: |cRXP_FRIENDLY_暗影牧师范蒂丝|r
+    .turnin 5230 >>交任务: |cRXP_FRIENDLY_返回亡灵壁垒|r
 .target Shadow Priestess Vandis
-    .accept 5231 >>Accept Target: Dalson's Tears
+    .accept 5231 >>接任务: |cRXP_LOOT_目标：达尔松之泪|r
 
 
 step
     .goto Western Plaguelands,39.5,67.0
 .target Chromie
->>Talk to |cRXP_FRIENDLY_Chromie|r
-    .accept 4971 >>Accept A Matter of Time
+>>对话: |cRXP_FRIENDLY_克罗米|r
+    .accept 4971 >>接任务: |cRXP_LOOT_时间问题|r
 
 step
 	#sticky
 	#completewith wplbf
-	+Make sure you kill & loot mobs between each tower for Bone Fragments.
+	+确保杀死每座塔之间的掠夺怪物以获取骨头碎片。
 step
     .goto Western Plaguelands,40.2,71.5
     .complete 5098,1 --Tower One marked (1)
@@ -222,40 +222,40 @@ step
 	.goto Western Plaguelands,46.7,71.1
     .complete 5098,4 --Tower Four marked (1)
 step
-	>>Use the Temporal Displacer near the silos of Andorhal to spawn the parasites.
+	>>使用安多哈尔筒仓附近的时间置换器来生成寄生虫。
     .goto Western Plaguelands,45.8,63.3
     .complete 4971,1 --Temporal Parasite (10)
 step
-	>>Kill the Cauldron Lord
+	>>杀死大锅领主
     .goto Western Plaguelands,46.2,52.4
     .complete 5231,1 --Dalson's Tears Cauldron Key (1)
 step
     .goto Western Plaguelands,46.2,52.1
-    .turnin 5231 >>Turn in Target: Dalson's Tears
-    .accept 5232 >>Accept Return to the Bulwark
+    .turnin 5231 >>交任务: |cRXP_FRIENDLY_目标：达尔松之泪|r
+    .accept 5232 >>接任务: |cRXP_LOOT_返回亡灵壁垒|r
 step
     .goto Western Plaguelands,47.8,50.8
-    .turnin 5058 >>Turn in Mrs. Dalson's Diary
+    .turnin 5058 >>交任务: |cRXP_FRIENDLY_达尔松夫人的日记|r
 step
-	>>Kill the Wandering Skeleton that is behind both buildings & loot the Outhouse Key. If he's not up, grind more Bone Fragments.
+	>>杀死两座建筑后面的游荡骷髅，拾取厕所钥匙。如果他没起来，就升级更多骨头碎片。
 	.collect 12738,1
 step
-	>>Using the key on the Outhouse will summon Farmer Dalson. Kill/loot him.
+	>>使用户外厕所的钥匙将召唤农夫达尔森。杀死并==并抢劫他。
     .goto Western Plaguelands,48.2,49.7
-    .turnin 5059 >>Turn in Locked Away
+    .turnin 5059 >>交任务: |cRXP_FRIENDLY_被锁起来的农夫|r
 step
-	>>Kill Farmer Dalson and loot his key.
+	>>杀死农夫达尔森并夺取他的钥匙。
 	.collect 12739,1
 step
     .goto Western Plaguelands,47.3,49.7
-    .turnin 5060 >>Turn in Locked Away
+    .turnin 5060 >>交任务: |cRXP_FRIENDLY_被锁起来的农夫|r
 step
     .goto Western Plaguelands,51.920,28.058
 .target Kirsta Deepshadow
->>Talk to |cRXP_FRIENDLY_Kirsta Deepshadow|r
-    .accept 6004 >>Accept Unfinished Business
+>>对话: |cRXP_FRIENDLY_科尔斯塔·迪普沙东|r
+    .accept 6004 >>接任务: |cRXP_LOOT_未竟的事业|r
 step
-	>>Run to all the different Scarlet camps to complete this.
+	>>跑向所有不同的猩红营地来完成这一任务。
     .goto Western Plaguelands,50.6,41.4
 	.goto Western Plaguelands,41.6,53.6,0
 	.goto Western Plaguelands,40.0,52.0,0
@@ -265,71 +265,71 @@ step
 	.complete 6004,4 --Scarlet Knight (2)
 step
     .goto Western Plaguelands,51.920,28.058
->>Talk to |cRXP_FRIENDLY_Kirsta Deepshadow|r
-    .turnin 6004 >>Turn in Unfinished Business
+>>对话: |cRXP_FRIENDLY_科尔斯塔·迪普沙东|r
+    .turnin 6004 >>交任务: |cRXP_FRIENDLY_未竟的事业|r
 .target Kirsta Deepshadow
-    .accept 6023 >>Accept Unfinished Business
+    .accept 6023 >>接任务: |cRXP_LOOT_未竟的事业|r
 step
     .goto Western Plaguelands,57.5,35.7
     .complete 6023,1 --Huntsman Radley (1)
 step
-    >>Kill Cavalier Durgen. He can be on top of the tower, or he can patrol to the front of it
+    >>杀死骑士杜尔根。他可以在塔顶，也可以在塔前巡逻
 	.goto Western Plaguelands,55.1,23.6
     .complete 6023,2 --Cavalier Durgen (1)
 step
     .goto Western Plaguelands,55.1,23.5
-	>>If the rare is up and you're unable to group and kill him, just die and res as high up as you can in the tower. Loot the chest at the top
+	>>如果稀有生物出现，而你无法组队杀死他，那就死掉，然后尽可能在塔顶复活。抢劫塔顶的宝箱
     .complete 9443,1 --Mark of the Lightbringer (1)
 step
     .goto Western Plaguelands,51.920,28.058
->>Talk to |cRXP_FRIENDLY_Kirsta Deepshadow|r
-    .turnin 6023 >>Turn in Unfinished Business
+>>对话: |cRXP_FRIENDLY_科尔斯塔·迪普沙东|r
+    .turnin 6023 >>交任务: |cRXP_FRIENDLY_未竟的事业|r
 .target Kirsta Deepshadow
-    .accept 6025 >>Accept Unfinished Business
+    .accept 6025 >>接任务: |cRXP_LOOT_未竟的事业|r
 step
-	>>Climb to the top of the tower.
+	>>爬到塔顶。
     .goto Western Plaguelands,45.6,18.7
     .complete 6025,1 --Overlook Hearthglen from a high vantage point (1)
 step
     .goto Western Plaguelands,52.0,28.1
 .target Kirsta Deepshadow
->>Talk to |cRXP_FRIENDLY_Kirsta Deepshadow|r
-    .turnin 6025 >>Turn in Unfinished Business
+>>对话: |cRXP_FRIENDLY_科尔斯塔·迪普沙东|r
+    .turnin 6025 >>交任务: |cRXP_FRIENDLY_未竟的事业|r
 step
     .goto Tirisfal Glades,83.1,68.9
->>Talk to |cRXP_FRIENDLY_High Executor Derrington|r
-    .turnin 5098 >>Turn in All Along the Watchtowers
+>>对话: |cRXP_FRIENDLY_高级执行官德灵顿|r
+    .turnin 5098 >>交任务: |cRXP_FRIENDLY_标记哨塔|r
 .target High Executor Derrington
-    .accept 105 >>Accept Alas, Andorhal
-    .accept 838 >>Accept Scholomance
+    .accept 105 >>接任务: |cRXP_LOOT_啊，安多哈尔！|r
+    .accept 838 >>接任务: |cRXP_LOOT_通灵学院|r
 step
     .goto Tirisfal Glades,83.2,69.3
->>Talk to |cRXP_FRIENDLY_Apothecary Dithers|r
-    .turnin 838 >>Turn in Scholomance
+>>对话: |cRXP_FRIENDLY_药剂师迪瑟斯|r
+    .turnin 838 >>交任务: |cRXP_FRIENDLY_通灵学院|r
 .target Apothecary Dithers
-    .accept 964 >>Accept Skeletal Fragments
+    .accept 964 >>接任务: |cRXP_LOOT_骸骨碎片|r
 step
     .goto Tirisfal Glades,83.218,71.324
->>Talk to |cRXP_FRIENDLY_Mehlar Dawnblade|r
-    .turnin 9443 >>Turn in The So-Called Mark of the Lightbringer
+>>对话: |cRXP_FRIENDLY_麦拉·黎明之刃|r
+    .turnin 9443 >>交任务: |cRXP_FRIENDLY_所谓的光明使者印记|r
 .target Mehlar Dawnblade
-    .accept 9444 >>Accept Defiling Uther's Tomb
+    .accept 9444 >>接任务: |cRXP_LOOT_亵渎乌瑟尔之墓|r
 step
     .goto Tirisfal Glades,83.0,71.9
->>Talk to |cRXP_FRIENDLY_Shadow Priestess Vandis|r
-    .turnin 5232 >>Turn in Return to the Bulwark
+>>对话: |cRXP_FRIENDLY_暗影牧师范蒂丝|r
+    .turnin 5232 >>交任务: |cRXP_FRIENDLY_返回亡灵壁垒|r
 .target Shadow Priestess Vandis
-    .accept 5233 >>Accept Target: Writhing Haunt
+    .accept 5233 >>接任务: |cRXP_LOOT_目标：嚎哭鬼屋|r
 
 
 step
     .goto Western Plaguelands,39.5,66.8
->>Talk to |cRXP_FRIENDLY_Chromie|r
-    .turnin 4971 >>Turn in A Matter of Time
+>>对话: |cRXP_FRIENDLY_克罗米|r
+    .turnin 4971 >>交任务: |cRXP_FRIENDLY_时间问题|r
 .target Chromie
-    .accept 4972 >>Accept Counting Out Time
+    .accept 4972 >>接任务: |cRXP_LOOT_找回时间|r
 step
-	>>Search for tiny lockboxes around the ruins. They're usually in the corners of the broken buildings.
+	>>在废墟周围寻找小型锁箱。它们通常位于破损建筑物的角落。
     .goto Western Plaguelands,56.5,51.3,40,0
     .goto Western Plaguelands,61.8,52.3,40,0
     .goto Western Plaguelands,68.1,46.8,40,0
@@ -362,35 +362,35 @@ step
 step
     .goto Western Plaguelands,49.2,78.4
 .target Marlene Redpath
->>Talk to |cRXP_FRIENDLY_Marlene Redpath|r
-    .accept 5142 >>Accept Little Pamela
+>>对话: |cRXP_FRIENDLY_玛莱恩·雷德帕斯|r
+    .accept 5142 >>接任务: |cRXP_LOOT_小帕米拉|r
 step
     .goto Western Plaguelands,52.1,83.5
-	>>Equip the Corrupted Mark of the Lightbringer. Use it at the Tomb - You may get pvp flagged by having to CC/Kill the mob at the tomb
+	>>装备光明使者的腐化印记。在墓穴处使用它 - 你可能会因为必须 CC/杀死墓穴处的怪物而被标记 pvp
     .complete 9444,1 --Uther's Tomb Defiled (1)
 step
-	>>Kill the Cauldron Lord
+	>>杀死大锅领主
     .goto Western Plaguelands,52.8,66.2
     .complete 5233,1 --Writhing Haunt Cauldron Key (1)
 step
     .goto Western Plaguelands,52.9,65.7
-    .turnin 5233 >>Turn in Target: Writhing Haunt
-    .accept 5234 >>Accept Return to the Bulwark
+    .turnin 5233 >>交任务: |cRXP_FRIENDLY_目标：嚎哭鬼屋|r
+    .accept 5234 >>接任务: |cRXP_LOOT_返回亡灵壁垒|r
 step
     .goto Western Plaguelands,53.7,64.6
 .target Mulgris Deepriver
->>Talk to |cRXP_FRIENDLY_Mulgris Deepriver|r
-    .accept 4984 >>Accept The Wildlife Suffers Too
+>>对话: |cRXP_FRIENDLY_穆格雷斯·深水|r
+    .accept 4984 >>接任务: |cRXP_LOOT_大自然的苦楚|r
 step
     .goto Western Plaguelands,48.7,47.3,0
-	>>The wolves share spawns with Carrion Lurkers. Kill them too if you're unable to find wolves.
-    .complete 4984,1 --Diseased Wolf (8)
+	>>狼与腐尸潜伏者共享产卵。如果你找不到狼，就把它们也杀掉。
+    .complete 4984,1 --病狼 (8)
 step
     .goto Western Plaguelands,53.7,64.7
->>Talk to |cRXP_FRIENDLY_Mulgris Deepriver|r
-    .turnin 4984 >>Turn in The Wildlife Suffers Too
+>>对话: |cRXP_FRIENDLY_穆格雷斯·深水|r
+    .turnin 4984 >>交任务: |cRXP_FRIENDLY_大自然的苦楚|r
 .target Mulgris Deepriver
-    .accept 4985 >>Accept The Wildlife Suffers Too
+    .accept 4985 >>接任务: |cRXP_LOOT_大自然的苦楚|r
 step
     .goto Western Plaguelands,56.5,51.3,40,0
     .goto Western Plaguelands,61.8,52.3,40,0
@@ -412,74 +412,74 @@ step
     .goto Western Plaguelands,68.1,46.8,40,0
     .goto Western Plaguelands,65.3,54.5,40,0
     .goto Western Plaguelands,54.9,63.8,40,0
-    >>Find & kill 8 Diseased Grizzlies
+    >>找到并杀死 8 只患病的灰熊
     .complete 4985,1 --Diseased Grizzly (8)
 step
     .goto Eastern Plaguelands,26.6,74.8
 .target Nathanos Blightcaller
->>Talk to |cRXP_FRIENDLY_Nathanos Blightcaller|r
-    .accept 6022 >>Accept To Kill With Purpose
+>>对话: |cRXP_FRIENDLY_纳萨诺斯·凋零者|r
+    .accept 6022 >>接任务: |cRXP_LOOT_杀戮的理由|r
 step
     .goto Eastern Plaguelands,27.3,85.3
-    .accept 6024 >>Accept Hameya's Plea
+    .accept 6024 >>接任务: |cRXP_LOOT_哈米亚的请求|r
 step
     .goto Eastern Plaguelands,36.5,90.9
->>Talk to |cRXP_FRIENDLY_Pamela Redpath|r
-    .turnin 5142 >>Turn in Little Pamela
+>>对话: |cRXP_FRIENDLY_帕米拉·雷德帕斯|r
+    .turnin 5142 >>交任务: |cRXP_FRIENDLY_小帕米拉|r
 .target Pamela Redpath
-    .accept 5149 >>Accept Pamela's Doll
+    .accept 5149 >>接任务: |cRXP_LOOT_帕米拉的洋娃娃|r
 step
-	>>Find the doll parts laying around the town. Put the pieces back together.
+	>>找到散落在城镇各处的娃娃部件。将碎片重新拼凑起来。
     .goto Eastern Plaguelands,38.1,90.5,0
     .complete 5149,1 --Pamela's Doll (1)
 step
     .goto Eastern Plaguelands,36.5,90.9
->>Talk to |cRXP_FRIENDLY_Pamela Redpath|r
-    .turnin 5149 >>Turn in Pamela's Doll
+>>对话: |cRXP_FRIENDLY_帕米拉·雷德帕斯|r
+    .turnin 5149 >>交任务: |cRXP_FRIENDLY_帕米拉的洋娃娃|r
 .target Pamela Redpath
-    .accept 5152 >>Accept Auntie Marlene
-    .accept 5241 >>Accept Uncle Carlin
+    .accept 5152 >>接任务: |cRXP_LOOT_玛莱恩姑妈|r
+    .accept 5241 >>接任务: |cRXP_LOOT_卡林叔叔|r
 step
-	>> Get 7 Living Rot from the undead mobs in town and turn it into a Coagulated Rot before they expire
+	>>从城镇中的亡灵怪物那里获取 7 个活腐烂物，并在它们死亡之前将其转化为凝固腐烂物
     .goto Eastern Plaguelands,61.5,71.4
     .complete 6022,1 --Coagulated Rot (1)
 step
     .goto Eastern Plaguelands,79.6,63.8
 .target Caretaker Alen
->>Talk to |cRXP_FRIENDLY_Caretaker Alen|r
-    .accept 6021 >>Accept Zaeldarr the Outcast
-    .accept 5281 >>Accept The Restless Souls
+>>对话: |cRXP_FRIENDLY_护理者奥林|r
+    .accept 6021 >>接任务: |cRXP_LOOT_流亡者塞达尔|r
+    .accept 5281 >>接任务: |cRXP_LOOT_永不安息的灵魂|r
 step
     .goto Eastern Plaguelands,81.5,59.6
->>Talk to |cRXP_FRIENDLY_Carlin Redpath|r
-    .turnin 5241 >>Turn in Uncle Carlin
+>>对话: |cRXP_FRIENDLY_卡林·雷德帕斯|r
+    .turnin 5241 >>交任务: |cRXP_FRIENDLY_卡林叔叔|r
 .target Carlin Redpath
-    .accept 5211 >>Accept Defenders of Darrowshire
+    .accept 5211 >>接任务: |cRXP_LOOT_达隆郡的保卫者|r
 step
     .goto Eastern Plaguelands,81.6,58.1
-    .home >>Set your Hearthstone to Light's Hope Chapel
+    .home >>将你的炉石设为圣光之愿礼拜堂
 step
 	.goto Eastern Plaguelands,71.0,16.6
-	>>Find & kill Infiltrator Hameya. He roams around the area. Loot his key.
+	>>找到并杀死渗透者哈米亚。他在该区域游荡。抢走他的钥匙。
 	.complete 6024,1 --Hameya's Key (1)
 step
 	#sticky
 	#label dssf
-	>>Kill Ghouls and the Darrowshire spirits will emerge from the corpses. Talk to them to free their spirit.
+	>>杀死食尸鬼后，达隆郡的灵魂就会从尸体中出现。与他们交谈以释放他们的灵魂。
     .goto Eastern Plaguelands,34.3,30.8
 	.goto Eastern Plaguelands,65.5,41.0,0
     .complete 5211,1 --Darrowshire Spirits Freed (15)
 step
-	>>Find & destroy the termite mounds around Plaguewood.
+	>>找到并摧毁瘟疫森林周围的白蚁丘。
     .complete 5901,1 --Plagueland Termites (100)
 step
 	#requires dssf
     .goto Eastern Plaguelands,14.5,33.6
 .target Egan
->>Talk to |cRXP_FRIENDLY_Egan|r
-    .turnin 5281 >>Turn in The Restless Souls
+>>对话: |cRXP_FRIENDLY_埃根|r
+    .turnin 5281 >>交任务: |cRXP_FRIENDLY_永不安息的灵魂|r
 step
-	>>Finish gathering 20 Minion's Scourgestones from mobs in the zone.
+	>>从该区域内的怪物身上收集 20 个仆从天灾石。
 	.collect 12840,20
 
 
@@ -487,195 +487,195 @@ step
 
 step <<!Paladin
     #completewith next
-    .hs >>Hearth to Light's Hope Chapel
+    .hs >>炉边到光明之愿礼拜堂
 
 step
 	.goto Eastern Plaguelands,81.4,59.8
 .target Duke Nicholas Zverenhoff
->>Talk to |cRXP_FRIENDLY_Duke Nicholas Zverenhoff|r
-	.turnin 5510 >>Turn in Minion's Scourgestones
+>>对话: |cRXP_FRIENDLY_尼古拉斯·瑟伦霍夫公爵|r
+	.turnin 5510 >>交任务: |cRXP_FRIENDLY_爪牙的天灾石|r
 step
     .goto Eastern Plaguelands,81.0,57.6
 .target Dispatch Commander Metz
->>Talk to |cRXP_FRIENDLY_Dispatch Commander Metz|r
-    .accept 9141 >>Accept They Call Me "The Rooster"
-    .turnin 9141 >>Turn in They Call Me "The Rooster"
+>>对话: |cRXP_FRIENDLY_物资官员梅兹|r
+    .accept 9141 >>接任务: |cRXP_LOOT_梅兹的文书|r
+    .turnin 9141 >>交任务: |cRXP_FRIENDLY_梅兹的文书|r
 step
     .goto Eastern Plaguelands,81.5,59.8
 .target Carlin Redpath
->>Talk to |cRXP_FRIENDLY_Carlin Redpath|r
-    .turnin 5211 >>Turn in Defenders of Darrowshire
+>>对话: |cRXP_FRIENDLY_卡林·雷德帕斯|r
+    .turnin 5211 >>交任务: |cRXP_FRIENDLY_达隆郡的保卫者|r
 
 step
     .goto Eastern Plaguelands,80.2,57.0
-    .fly Undercity >>Fly to Undercity
+    .fly Undercity >>飞往幽暗城
 step
     .goto Undercity,69.6,43.3
 .target Royal Overseer Bauhaus
->>Talk to |cRXP_FRIENDLY_Royal Overseer Bauhaus|r
-    .turnin 5023 >>Turn in Better Late Than Never
+>>对话: |cRXP_FRIENDLY_皇家管理人巴哈乌斯|r
+    .turnin 5023 >>交任务: |cRXP_FRIENDLY_迟到总比不到好|r
 step
     .goto Undercity,69.3,43.4
 .target Royal Overseer Bauhaus
->>Talk to |cRXP_FRIENDLY_Royal Overseer Bauhaus|r
-    .accept 5049 >>Accept The Jeremiah Blues
+>>对话: |cRXP_FRIENDLY_皇家管理人巴哈乌斯|r
+    .accept 5049 >>接任务: |cRXP_LOOT_杰雷米亚的忧伤|r
 step
     .goto Undercity,67.4,43.7
 .target Jeremiah Payson
->>Talk to |cRXP_FRIENDLY_Jeremiah Payson|r
-    .turnin 5049 >>Turn in The Jeremiah Blues
+>>对话: |cRXP_FRIENDLY_杰雷米亚·派森|r
+    .turnin 5049 >>交任务: |cRXP_FRIENDLY_杰雷米亚的忧伤|r
 step
     .goto Undercity,67.5,43.1
 .target Jeremiah Payson
 .target Ol' Emma
->>Talk to |cRXP_FRIENDLY_Ol' Emma|r
--->>Talk to |cRXP_FRIENDLY_Jeremiah Payson|r
-    .accept 5050 >>Accept Good Luck Charm
+>>对话: |cRXP_FRIENDLY_老艾玛|r
+-->>对话: |cRXP_FRIENDLY_杰雷米亚·派森|r
+    .accept 5050 >>接任务: |cRXP_LOOT_好运护符|r
 step
     .goto Undercity,57.4,91.4
 .target Lady Sylvanas Windrunner
->>Talk to |cRXP_FRIENDLY_Lady Sylvanas Windrunner|r
-    .accept 5961 >>Accept The Champion of the Banshee Queen
+>>对话: |cRXP_FRIENDLY_希尔瓦娜斯·风行者|r
+    .accept 5961 >>接任务: |cRXP_LOOT_女妖之王的勇士|r
 step
     .goto Tirisfal Glades,83.0,72.0
->>Talk to |cRXP_FRIENDLY_Shadow Priestess Vandis|r
-    .turnin 5234 >>Turn in Return to the Bulwark
+>>对话: |cRXP_FRIENDLY_暗影牧师范蒂丝|r
+    .turnin 5234 >>交任务: |cRXP_FRIENDLY_返回亡灵壁垒|r
 .target Shadow Priestess Vandis
-    .accept 5235 >>Accept Target: Gahrron's Withering
+    .accept 5235 >>接任务: |cRXP_LOOT_目标：盖罗恩农场|r
 step
     .goto Tirisfal Glades,83.2,72.3
->>Talk to |cRXP_FRIENDLY_Mickey Levine|r
-    .turnin 5901 >>Turn in A Plague Upon Thee
+>>对话: |cRXP_FRIENDLY_米克·莱文|r
+    .turnin 5901 >>交任务: |cRXP_FRIENDLY_瘟疫与你|r
 .target Mickey Levine
-    .accept 5902 >>Accept A Plague Upon Thee
+    .accept 5902 >>接任务: |cRXP_LOOT_瘟疫与你|r
 step
     .goto Tirisfal Glades,83.3,71.3
 .target Mehlar Dawnblade
->>Talk to |cRXP_FRIENDLY_Mehlar Dawnblade|r
-    .turnin 9444 >>Turn in Defiling Uther's Tomb
+>>对话: |cRXP_FRIENDLY_麦拉·黎明之刃|r
+    .turnin 9444 >>交任务: |cRXP_FRIENDLY_亵渎乌瑟尔之墓|r
 step
     .goto Western Plaguelands,38.5,54.2
->>Talk to |cRXP_FRIENDLY_Janice Felstone|r
-    .turnin 5050 >>Turn in Good Luck Charm
+>>对话: |cRXP_FRIENDLY_詹妮丝·费尔斯通|r
+    .turnin 5050 >>交任务: |cRXP_FRIENDLY_好运护符|r
 .target Janice Felstone
-    .accept 5051 >>Accept Two Halves Become One
+    .accept 5051 >>接任务: |cRXP_LOOT_两半合一|r
 step
     .goto Western Plaguelands,38.0,54.6
-	>>Find a Jabbering Ghoul. Kill him and loot the Good Luck Charm
+	>>找到一个喋喋不休的食尸鬼。杀死他并拾取好运护身符
     .complete 5051,1 --Good Luck Charm (1)
 step
     .goto Western Plaguelands,38.401,54.053
 .target Janice Felstone
->>Talk to |cRXP_FRIENDLY_Janice Felstone|r
-    .turnin 5051 >>Turn in Two Halves Become One
+>>对话: |cRXP_FRIENDLY_詹妮丝·费尔斯通|r
+    .turnin 5051 >>交任务: |cRXP_FRIENDLY_两半合一|r
 step
     .goto Western Plaguelands,48.9,78.4
->>Talk to |cRXP_FRIENDLY_Marlene Redpath|r
-    .turnin 5152 >>Turn in Auntie Marlene
+>>对话: |cRXP_FRIENDLY_玛莱恩·雷德帕斯|r
+    .turnin 5152 >>交任务: |cRXP_FRIENDLY_玛莱恩姑妈|r
 .target Marlene Redpath
-    .accept 5153 >>Accept A Strange Historian
+    .accept 5153 >>接任务: |cRXP_LOOT_古怪的历史学家|r
 step
     .goto Western Plaguelands,49.6,76.9
-    .complete 5153,1 --Joseph's Wedding Ring (1)
+    .complete 5153,1 --Joseph's Wedding 戒指 (1)
 step
     .goto Western Plaguelands,39.5,66.8
->>Talk to |cRXP_FRIENDLY_Chromie|r
-    .turnin 5153 >>Turn in A Strange Historian
+>>对话: |cRXP_FRIENDLY_克罗米|r
+    .turnin 5153 >>交任务: |cRXP_FRIENDLY_古怪的历史学家|r
 .target Chromie
-    .accept 5154 >>Accept The Annals of Darrowshire
-    .turnin 4972 >>Turn in Counting Out Time
+    .accept 5154 >>接任务: |cRXP_LOOT_达隆郡的历史|r
+    .turnin 4972 >>交任务: |cRXP_FRIENDLY_找回时间|r
 step
 	#sticky
-    >>Continue killing skeletons around the zone until you have 15 Skeletal Fragments
+    >>继续杀死该区域周围的骷髅，直到你有 15 个骷髅碎片
     .complete 964,1 --Skeletal Fragments (15)
 step
     .goto Western Plaguelands,43.4,69.6
-	>> Look for the correct book. The correct book will be WHITE only on the pages when you hover over it. Not half gray/half white.
+	>>寻找正确的书。当您将鼠标悬停在正确的书上时，书页上才会显示白色。不是半灰半白。
     .complete 5154,1 --Annals of Darrowshire (1)
 
 step
     .goto Western Plaguelands,53.7,64.6
 .target Mulgris Deepriver
->>Talk to |cRXP_FRIENDLY_Mulgris Deepriver|r
-    .turnin 4985 >>Turn in The Wildlife Suffers Too
+>>对话: |cRXP_FRIENDLY_穆格雷斯·深水|r
+    .turnin 4985 >>交任务: |cRXP_FRIENDLY_大自然的苦楚|r
 step
     .goto Western Plaguelands,53.6,64.8
 .target Mulgris Deepriver
->>Talk to |cRXP_FRIENDLY_Mulgris Deepriver|r
-    .accept 4987 >>Accept Glyphed Oaken Branch
+>>对话: |cRXP_FRIENDLY_穆格雷斯·深水|r
+    .accept 4987 >>接任务: |cRXP_LOOT_雕文橡木枝|r
 step
-	>>Kill the Cauldron Lord
+	>>杀死大锅领主
     .goto Western Plaguelands,61.8,59.3
     .complete 5235,1 --Gahrron's Withering Cauldron Key (1)
 step
     .goto Western Plaguelands,62.5,58.7
-    .turnin 5235 >>Turn in Target: Gahrron's Withering
-    .accept 5236 >>Accept Return to the Bulwark
+    .turnin 5235 >>交任务: |cRXP_FRIENDLY_目标：盖罗恩农场|r
+    .accept 5236 >>接任务: |cRXP_LOOT_返回亡灵壁垒|r
 step
     .goto Eastern Plaguelands,28.1,86.2
-    .turnin 6024 >>Turn in Hameya's Plea
+    .turnin 6024 >>交任务: |cRXP_FRIENDLY_哈米亚的请求|r
 step
     .goto Eastern Plaguelands,26.6,74.6
 .target Nathanos Blightcaller
->>Talk to |cRXP_FRIENDLY_Nathanos Blightcaller|r
-    .turnin 6022 >>Turn in To Kill With Purpose
-	.turnin 5961 >>Turn in The Champion of the Banshee Queen
+>>对话: |cRXP_FRIENDLY_纳萨诺斯·凋零者|r
+    .turnin 6022 >>交任务: |cRXP_FRIENDLY_杀戮的理由|r
+	.turnin 5961 >>交任务: |cRXP_FRIENDLY_女妖之王的勇士|r
 step
     .goto Western Plaguelands,48.3,31.8
-    .turnin 5902 >>Turn in A Plague Upon Thee
-    .accept 6390 >>Accept A Plague Upon Thee
+    .turnin 5902 >>交任务: |cRXP_FRIENDLY_瘟疫与你|r
+    .accept 6390 >>接任务: |cRXP_LOOT_瘟疫与你|r
 step
     .goto Western Plaguelands,39.5,66.8
 .target Chromie
->>Talk to |cRXP_FRIENDLY_Chromie|r
-    .turnin 5154 >>Turn in The Annals of Darrowshire
+>>对话: |cRXP_FRIENDLY_克罗米|r
+    .turnin 5154 >>交任务: |cRXP_FRIENDLY_达隆郡的历史|r
 step
     .goto Tirisfal Glades,82.9,72.0
 .target Shadow Priestess Vandis
->>Talk to |cRXP_FRIENDLY_Shadow Priestess Vandis|r
-    .turnin 5236 >>Turn in Return to the Bulwark
+>>对话: |cRXP_FRIENDLY_暗影牧师范蒂丝|r
+    .turnin 5236 >>交任务: |cRXP_FRIENDLY_返回亡灵壁垒|r
 step
     .goto Tirisfal Glades,83.3,72.1
 .target Mickey Levine
->>Talk to |cRXP_FRIENDLY_Mickey Levine|r
-    .turnin 6390 >>Turn in A Plague Upon Thee
+>>对话: |cRXP_FRIENDLY_米克·莱文|r
+    .turnin 6390 >>交任务: |cRXP_FRIENDLY_瘟疫与你|r
 step
     .goto Tirisfal Glades,83.2,69.3
 .target Apothecary Dithers
->>Talk to |cRXP_FRIENDLY_Apothecary Dithers|r
-    .turnin 964 >>Turn in Skeletal Fragments
+>>对话: |cRXP_FRIENDLY_药剂师迪瑟斯|r
+    .turnin 964 >>交任务: |cRXP_FRIENDLY_骸骨碎片|r
 step
     .goto Tirisfal Glades,83.1,68.9
 .target High Executor Derrington
->>Talk to |cRXP_FRIENDLY_High Executor Derrington|r
-    .turnin 5238 >>Turn in Mission Accomplished!
+>>对话: |cRXP_FRIENDLY_高级执行官德灵顿|r
+    .turnin 5238 >>交任务: |cRXP_FRIENDLY_任务完成！|r
 step
     #sticky
     #completewith next
-+Go to the Zeppelin tower. Take the zeppelin to Stranglethorn
++前往齐柏林飞艇塔。乘坐齐柏林飞艇前往荆棘谷
     .goto Tirisfal Glades,61.9,59.1
 step
-.zone Stranglethorn Vale >>Arrive in Stranglethorn Vale
+.zone Stranglethorn Vale >>前往: |cRXP_PICK_荆棘谷|r
 step << Druid
     .goto Stranglethorn Vale,32.5,29.3
     .complete 64217,2 --Speak to Thysta at Grom'gol Base Camp (1)
-	.fly Stonard >> Fly to Stonard
+	.fly Stonard >>飞往 斯托纳德
 step << !Druid
     .goto Stranglethorn Vale,32.5,29.3
     .complete 64063,2 --Speak to Thysta at Grom'gol Base Camp (1)
-	.fly Stonard >> Fly to Stonard
+	.fly Stonard >>飞往 斯托纳德
 step
-	.zone Blasted Lands >> Run to Blasted Lands
+	.zone Blasted Lands >>前往: |cRXP_PICK_诅咒之地|r
 step << !Druid
     .goto Blasted Lands,58.1,56.1
-    .turnin 64063 >>Turn in The Dark Portal
+    .turnin 64063 >>交任务: |cRXP_FRIENDLY_黑暗之门|r
 .target Warlord Dar'toon
->>Talk to |cRXP_FRIENDLY_Warlord Dar'toon|r
-    .accept 9407 >>Accept Through the Dark Portal
+>>对话: |cRXP_FRIENDLY_督军达图恩|r
+    .accept 9407 >>接任务: |cRXP_LOOT_跨越黑暗之门|r
 step << Druid
     .goto Blasted Lands,58.1,56.1
-    .turnin 64217 >>Turn in The Dark Portal
+    .turnin 64217 >>交任务: |cRXP_FRIENDLY_黑暗之门|r
 .target Warlord Dar'toon
->>Talk to |cRXP_FRIENDLY_Warlord Dar'toon|r
-    .accept 9407 >>Accept Through the Dark Portal
+>>对话: |cRXP_FRIENDLY_督军达图恩|r
+    .accept 9407 >>接任务: |cRXP_LOOT_跨越黑暗之门|r
 ]])

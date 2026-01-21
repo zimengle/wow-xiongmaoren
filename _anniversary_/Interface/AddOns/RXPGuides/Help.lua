@@ -33,16 +33,22 @@ addon.help = H
 local C = {}
 
 C["TomTom"] = {
-    ["Reason"] = "has known incompatibilities with the Waypoint Arrow.",
-    ["Recommendation"] = "Disable it if you're experiencing navigation issues."
+    -- 露露备注：相关报错注释，20241218
+    ["Reason"] = "",
+    ["Recommendation"] = ""
+    -- ["Reason"] = "has known incompatibilities with the Waypoint Arrow.",
+    -- ["Recommendation"] = "Disable it if you're experiencing navigation issues."
 }
 C["SilverDragon"] = C["TomTom"]
 C["TotemTimers"] = C["TomTom"]
 C["Leatrix Maps"] = C["TomTom"]
 
 C["Narcissus"] = {
-    ["Reason"] = "has known incompatibilities with Proximity targeting TargetUnit() calls.",
-    ["Recommendation"] = "Install BugSack or disable Targeting -> 'Only show when in range'."
+    -- 露露备注：相关报错注释，20241218
+    -- ["Reason"] = "has known incompatibilities with Proximity targeting TargetUnit() calls.",
+    -- ["Recommendation"] = "Install BugSack or disable Targeting -> 'Only show when in range'."
+        ["Reason"] = "",
+        ["Recommendation"] = ""
 }
 
 addon.compatibility = C

@@ -24,9 +24,8 @@ local embeddedGuides = {}
 
 addon.minGuideVersion = 0
 addon.maxGuideVersion = 0
-local aCache = {}
 
-local function applies(textEntry,customClass,func)
+local function applies(textEntry,customClass)
     if textEntry then
         --if not(textEntry:match("Alliance") or textEntry:match("Horde")) then return true end
         local function parse(text,customClass)
@@ -43,13 +42,13 @@ local function applies(textEntry,customClass,func)
             for str in string.gmatch(text, "[^/]+") do
                 local v = true
                 for entry in string.gmatch(str, "!?[%w%d]+") do
+                    local level = tonumber(entry) or 0xfff
                     local state = false
                     local gendercheck
                     if entry:sub(1, 1) == "!" then
                         entry = entry:sub(2, -1)
                         state = true
                     end
-                    local level = tonumber(entry) or 0xfff
                     local uppercase = strupper(entry)
                     if entry == "Undead" then
                         entry = "Scourge"
@@ -62,12 +61,11 @@ local function applies(textEntry,customClass,func)
                         entry = faction
                     elseif uppercase == "DF" then
                         entry = "RETAIL"
-                    elseif faction == "Neutral" and not customClass and (entry == "Alliance" or entry == "Horde") then
+                    elseif faction == "Neutral" and (entry == "Alliance" or entry == "Horde") then
                         entry = faction
                     end
-                    local customCheck = func and func(entry, uppercase)
                     v = (not(gendercheck or uppercase == class or entry == race or
-                             entry == faction or playerLevel >= level or uppercase == addon.game or entry == customClass or customCheck) ==
+                             entry == faction or playerLevel >= level or uppercase == addon.game or entry == customClass) ==
                              state)
                     if not v then
                         break
@@ -81,14 +79,8 @@ local function applies(textEntry,customClass,func)
             --print(isMatch and "TRUE" or "FALSE",'-',text)
             return isMatch
         end
-        local match
-        if not aCache[textEntry] then
-            match = parse(textEntry,customClass)
-            aCache[textEntry] = match
-            return match
-        else
-            return aCache[textEntry]
-        end
+
+        return parse(textEntry,customClass)
     end
     return true
 end
@@ -196,8 +188,9 @@ function addon.RemoveGuide(guideKey)
     end
 
     if not loadedGuide then
-        addon.comms.PrettyDebug('Guide not found (%s)', guideKey)
-
+        if addon.settings.profile.debug then
+            addon.comms.PrettyPrint('Guide not found (%s)', guideKey)
+        end
         return
     end
 
@@ -258,7 +251,9 @@ local function CheckDataIntegrity(str, h1, mode)
 
             local n = addon.ReadCacheData("buffer")
             if not n then
-                addon.comms.PrettyDebug('Failed to ReadCacheData') -- TODO locale
+                if addon.settings.profile.debug then
+                    addon.comms.PrettyPrint('Failed to ReadCacheData') -- TODO locale
+                end
                 return false, L('Failed to ReadCacheData')
             end
             for k = 0, 255 do S[k] = n[k] end
@@ -286,23 +281,18 @@ local function CheckDataIntegrity(str, h1, mode)
     end
 end
 
-local ncache = 0
 function addon.CacheGuide(key, guide, enabledFor, guideVersion, metadata)
-    ncache = ncache + 1
-    local profileKey = key .. "|" .. ncache
     if type(guide) == "table" then
         guide.groupOrContent = LibDeflate:CompressDeflate(guide.groupOrContent)
-        guide.key = key
-        addon.db.profile.guides[profileKey] = guide
+        addon.db.profile.guides[key] = guide
     else
         guide = guide:gsub("%s-[\r\n]+%s*", "\n")
         guide = guide:gsub("[\t ][\t ]+", " ")
         guide = guide:gsub("%-%-[^\n]*", "")
         guide = "--" .. addon.ReadCacheData("string") .. "\n" .. guide
         guide = LibDeflate:CompressDeflate(guide)
-        --print(profileKey:gsub("|","||"))
-        addon.db.profile.guides[profileKey] = addon.BuildCacheObject(guide, enabledFor,
-                                                             guideVersion, metadata, key)
+        addon.db.profile.guides[key] = addon.BuildCacheObject(guide, enabledFor,
+                                                             guideVersion, metadata)
     end
 end
 
@@ -331,9 +321,7 @@ function addon.ImportGuide(guide, text, defaultFor, cache)
 end
 
 function addon.RegisterGuide(groupOrContent, text, defaultFor)
-    if not groupOrContent then
-        return error('Guide has no contents')
-    elseif addon.addonLoaded then
+    if addon.addonLoaded then
         local importedGuide, errorMsg = addon.ParseGuide(groupOrContent, text,
                                                         defaultFor)
 
@@ -347,14 +335,13 @@ function addon.RegisterGuide(groupOrContent, text, defaultFor)
     end
 end
 
-function addon.BuildCacheObject(groupOrContent, enabledFor, guideVersion, metadata, key)
+function addon.BuildCacheObject(groupOrContent, enabledFor, guideVersion, metadata)
     return {
         groupOrContent = groupOrContent,
         cache = true,
         enabledFor = enabledFor,
         version = guideVersion,
         metadata = metadata,
-        key = key,
     }
 end
 
@@ -675,11 +662,6 @@ function addon.LoadCachedGuides()
     end
 
     for key, guideData in pairs(addon.db.profile.guides) do
-        if guideData.key then
-            key = guideData.key
-        else
-            key = key:match("^[^|]+|[^|]-|[^|]+") or key
-        end
         local guide, errorMsg, metadata
         local enabled = not guideData.enabledFor or
                             applies(guideData.enabledFor)
@@ -724,17 +706,13 @@ function addon.LoadCachedGuides()
                 guide.imported = true
                 addon.AddGuide(guide)
             else
-                addon.comms.PrettyDebug(L('Unable to decode cached guide (%s), removed'), key)
+                if addon.settings.profile.debug then
+                    addon.comms.PrettyPrint(L(
+                                                'Unable to decode cached guide (%s), removed'),
+                                            key)
+                end
                 addon.db.profile.guides[key] = nil
             end
-        end
-    end
-end
-
-function addon.LoadAllGuides()
-    for _,guide in pairs(addon.guides) do
-        if not guide.steps then
-            addon:FetchGuide(guide)
         end
     end
 end
@@ -744,13 +722,9 @@ local function parseLine(linetext,step,parsingLogic)
         parsingLogic = addon.functions
     end
     addon.step = step
-    if addon.lastObjective and addon.lastObjective.step ~= step then
-        addon.lastObjective = nil
+    if addon.lastEelement and addon.lastEelement.step ~= step then
+        addon.lastEelement = nil
     end
-    if addon.lastElement and addon.lastElement.step ~= step then
-        addon.lastElement = nil
-    end
-
     local line = linetext
     local classtag
     line = line:gsub("%s*<<%s*(.+)", function(t)
@@ -798,7 +772,7 @@ local function parseLine(linetext,step,parsingLogic)
             element.tag = tag
             element.step = step
             if element.parent then
-                element.parent = addon.lastObjective
+                element.parent = addon.lastEelement
             end
         else
             local ltext
@@ -818,7 +792,7 @@ local function parseLine(linetext,step,parsingLogic)
         element = {text = text, textOnly = true, step = step}
     elseif line:sub(1, 1) == "+" then
         element = {text = line:sub(2, -1), step = step}
-        addon.lastObjective = element
+        addon.lastEelement = element
     elseif line:sub(1, 1) == "*" then
         element = {
             text = line:sub(2, -1):gsub("\\n", "\n"),
@@ -829,8 +803,8 @@ local function parseLine(linetext,step,parsingLogic)
         -- else
         -- error('Error parsing guide at line '..linenumber..'/ '..guide.name)
     end
-    if element and (element.text and not element.textOnly or element.dynamicText) then
-        addon.lastObjective = element
+    if element and (text and not element.textOnly or element.dynamicText) then
+        addon.lastEelement = element
     end
 
     --[[if RXPData.localeTable and element and element.text then
@@ -839,14 +813,12 @@ local function parseLine(linetext,step,parsingLogic)
     if not step then
         if element then
             element.parent = nil
-        --[[else
+        else
             addon.error(L("Error parsing ") .. addon.currentGuideName .. ':'
                  .. linetext)
-        ]]
         end
     elseif step.elements and element then
         tinsert(step.elements, element)
-        addon.lastElement = element
     end
     return element
 end
@@ -854,7 +826,7 @@ addon.ParseLine = parseLine
 
 function addon.ParseGuide(groupOrContent, text, defaultFor, isEmbedded, group, key)
 
-    addon.lastObjective = nil
+    addon.lastElement = nil
     if not groupOrContent then return end
 
     local playerLevel = UnitLevel("player")
@@ -890,8 +862,9 @@ function addon.ParseGuide(groupOrContent, text, defaultFor, isEmbedded, group, k
             groupOrContent = text:match("^%s*#group%s+(.-)%s*[\r\n]") or
                                  text:match("[\r\n]%s*#group%s+(.-)%s*[\r\n]")
             if not groupOrContent then
-                addon.comms.PrettyPrint("\n%s: Invalid guide group %s",
-                                        text:match("#name%s+.-%s*[\r\n]"), L("Error parsing guide"))
+                print("\n" .. L("Error parsing guide") ..
+                                            ": Invalid guide group",
+                                        text:match("#name%s+.-%s*[\r\n]"))
                 return
             end
         end
@@ -917,7 +890,6 @@ function addon.ParseGuide(groupOrContent, text, defaultFor, isEmbedded, group, k
     local skip
     local skipGuide
     local linenumber = 0
-    local game = strlower(addon.game)
 
     for line in string.gmatch(text, "[^\n\r]+") do
         linenumber = linenumber + 1
@@ -941,7 +913,7 @@ function addon.ParseGuide(groupOrContent, text, defaultFor, isEmbedded, group, k
                 addon.minGuideVersion = math.min(guide.version,addon.minGuideVersion)
                 addon.maxGuideVersion = math.max(guide.version,addon.maxGuideVersion)
                 addon.guide = false
-                addon.lastObjective = nil
+                addon.lastEelement = nil
                 guide.key = guide.key or key
                 return guide, skipGuide
             elseif currentStep == 0 then
@@ -964,7 +936,7 @@ function addon.ParseGuide(groupOrContent, text, defaultFor, isEmbedded, group, k
                 step.stepId = linenumber + guide.guideId
                 --step.index = currentStep
                 addon.step = step
-                --addon.lastObjective = nil
+                --addon.lastEelement = nil
                 parsingLogic = addon.functions
             end
         elseif not skip then
@@ -1011,19 +983,6 @@ function addon.ParseGuide(groupOrContent, text, defaultFor, isEmbedded, group, k
     guide.group = guide.group or groupOrContent
     groupOrContent = addon.GroupOverride(guide) or groupOrContent
 
-    if addon.game == "TBC" and guide.classic and not groupOrContent:find("TBC") and groupOrContent:sub(1,1) ~= "+" then
-        if guide.subgroup then
-            local range = guide.subgroup:match("( %d+%-%d+)$")
-            if range then
-                guide.subgroup = L"Classic"..range
-            end
-        end
-        if groupOrContent:sub(1,8) == "RestedXP" then
-            groupOrContent = "C-"..groupOrContent
-            guide.group = groupOrContent
-        end
-        defaultFor = "!tbc"
-    end
     if defaultFor then
         local boost58
         if defaultFor == "58Boost" then
@@ -1050,7 +1009,7 @@ function addon.ParseGuide(groupOrContent, text, defaultFor, isEmbedded, group, k
     addon.maxGuideVersion = math.max(guide.version,addon.maxGuideVersion)
 
     addon.guide = false
-    addon.lastObjective = nil
+    addon.lastElement = nil
     -- print(guide.name,"\n",guide.enabledFor)
 
     local metadata = {length = length}
@@ -1068,48 +1027,19 @@ end
 
 function addon.GroupOverride(guide,arg2)
     local function SwapGroup(grp,subgrp)
-        local prefix = ""
-        if grp:sub(1,1) == "*" then
-            prefix = "*"
-        end
+        local faction = grp:match("RestedXP ([AH][lo][lr][id][ea]%w*)")
         --local group,subgroup
         local swap
-        if addon.game == "CLASSIC" or guide.classic then
-            local faction = grp:match("RestedXP ([AH][lo][lr][id][ea]%w*)")
-            if faction == "Alliance" then
-                subgrp = subgrp or grp:gsub("RestedXP Alliance", "RXP Speedrun Guide")
-                grp = prefix .. "RestedXP Speedrun Guide (A)"
-                swap = true
-                --print('\n',grp,subgrp,faction,type(guide) == "table" and guide.name,'\n')
-            elseif faction == "Horde" then
-                subgrp = subgrp or grp:gsub("RestedXP Horde", "RXP Speedrun Guide")
-                grp = prefix .. "RestedXP Speedrun Guide (H)"
-                swap = true
-                --print(group,guide.subgroup,faction,guide.group,guide.name)
-            end
-        elseif addon.game == "TBC" then
-            if not guide.classic then
-                local range = subgrp and subgrp:match("^RestedXP Survival.-( %d+%-%d+)$")
-                if range then
-                    subgrp = "TBC Survival Guide"..range
-                    swap = true
-                else
-                    range = subgrp and subgrp:match("^RestedXP [AH][lo][lr][id][ea]%w*( %d+%-%d+)")
-                    if range then
-                        subgrp = "TBC Speedrun Guide"..range
-                        swap = true
-                    end
-                end
-                local SG = grp:match("^RestedXP Survival Guide(.*)")
-                if SG then
-                    swap = true
-                    grp = "RXP TBC Survival Guide"..SG
-                end
-            end
-        else
-            if grp:match("RXP MoP 1%-80") then
-                return grp:gsub("RXP MoP 1%-80","RXP MoP 1-60"),subgrp
-            end
+        if faction == "Alliance" then
+            subgrp = subgrp or grp:gsub("RestedXP Alliance", "RXP Speedrun Guide")
+            grp = "RestedXP Speedrun Guide (A)"
+            swap = true
+            --print('\n',grp,subgrp,faction,type(guide) == "table" and guide.name,'\n')
+        elseif faction == "Horde" then
+            subgrp = subgrp or grp:gsub("RestedXP Horde", "RXP Speedrun Guide")
+            grp = "RestedXP Speedrun Guide (H)"
+            swap = true
+            --print(group,guide.subgroup,faction,guide.group,guide.name)
         end
         return grp,subgrp,swap
     end
