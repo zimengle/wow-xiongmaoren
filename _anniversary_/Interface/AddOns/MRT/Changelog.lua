@@ -1,6 +1,13 @@
 local GlobalAddonName, ExRT = ...
 
 ExRT.Options.Changelog = [=[
+v.5250
+* Midnight update
+* Minor fixes
+
+v.5250-MoP
+* Note: added ToT bosses autoload
+
 v.5240-MoP
 * ToT updates
 

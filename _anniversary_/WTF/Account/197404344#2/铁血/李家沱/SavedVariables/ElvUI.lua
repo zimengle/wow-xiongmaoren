@@ -16,6 +16,7 @@ ElvCharacterDB = {
 "/pig",
 "/rl",
 "/wa",
+"/reload",
 },
 ["ChatHistoryLog"] = {
 },

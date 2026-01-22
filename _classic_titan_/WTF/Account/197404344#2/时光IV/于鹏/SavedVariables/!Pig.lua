@@ -1,6 +1,18 @@
 
 PIGA_Per = {
 ["PigAction"] = {
+["Lock"] = {
+false,
+false,
+false,
+false,
+},
+["ShowTJ"] = {
+1,
+1,
+1,
+1,
+},
 ["AnniuNum"] = {
 12,
 12,
@@ -8,14 +20,6 @@ PIGA_Per = {
 12,
 },
 ["Scale"] = {
-1,
-1,
-1,
-1,
-},
-["ActionData"] = {
-},
-["ShowTJ"] = {
 1,
 1,
 1,
@@ -33,22 +37,8 @@ false,
 false,
 false,
 },
-["Lock"] = {
-false,
-false,
-false,
-false,
+["ActionData"] = {
 },
-},
-["AutoSellBuy"] = {
-["Take_List"] = {
-},
-["Save_List"] = {
-},
-["Save_Money"] = 10000000,
-["Buy_List"] = {
-},
-["Take_Money"] = 10000000,
 },
 ["QuickBut"] = {
 ["LushiID"] = 6948,
@@ -92,6 +82,16 @@ false,
 ["TrinketList"] = {
 },
 ["TrinketMode"] = 1,
+},
+["AutoSellBuy"] = {
+["Take_List"] = {
+},
+["Save_List"] = {
+},
+["Save_Money"] = 10000000,
+["Buy_List"] = {
+},
+["Take_Money"] = 10000000,
 },
 ["Tardis"] = {
 },

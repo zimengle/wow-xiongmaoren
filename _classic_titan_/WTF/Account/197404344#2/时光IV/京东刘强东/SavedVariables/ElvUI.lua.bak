@@ -2,8 +2,6 @@
 ElvCharacterDB = {
 ["ConvertKeybindings"] = true,
 ["ChatEditHistory"] = {
-"刷匕首",
-"/团队 进本拉",
 "/团队 他不是叮的",
 "/团队 yy 多少",
 "/cw 莽村村花 邪dk和奶骑 有位置吗",
@@ -22,6 +20,8 @@ ElvCharacterDB = {
 "/cw 神冰降临 来个桌子",
 "/团队 4队工资谁发",
 "/团队 。",
+"/cw 燕飞艳儿 奶骑和盗贼",
+"/cw 神兜兜丶 奶骑和盗贼有坑吗",
 },
 ["ChatHistoryLog"] = {
 },

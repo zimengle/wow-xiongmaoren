@@ -1,3 +1,4 @@
+
 BlizzMoveDB = {
 ["saveScaleStrategy"] = "permanent",
 ["scales"] = {
@@ -66,6 +67,25 @@ BlizzMoveDB = {
 },
 },
 ["SettingsPanel"] = {
+["startPoints"] = {
+{
+["anchorPoint"] = "TOP",
+["relativeFrame"] = "UIParent",
+["offY"] = -116,
+["relativePoint"] = "TOP",
+["offX"] = -0.000152587890625,
+},
+},
+["dragged"] = true,
+["dragPoints"] = {
+{
+["anchorPoint"] = "TOP",
+["relativeFrame"] = "UIParent",
+["offY"] = -116,
+["relativePoint"] = "TOP",
+["offX"] = 2.01226806640625,
+},
+},
 },
 ["MailFrameInset"] = {
 },
@@ -112,6 +132,8 @@ BlizzMoveDB = {
 },
 ["CommunitiesSettingsDialog"] = {
 },
+["ChannelFrame"] = {
+},
 ["ClubFinderGuildFinderFrame.RequestToJoinFrame"] = {
 },
 ["MailFrame"] = {
@@ -122,11 +144,7 @@ BlizzMoveDB = {
 },
 ["ChatConfigFrame"] = {
 },
-["ChannelFrame"] = {
-},
 ["ClassTrainerFrame"] = {
-},
-["GameMenuFrame.Header"] = {
 },
 ["TradeSkillFrame"] = {
 ["startPoints"] = {
@@ -149,19 +167,23 @@ BlizzMoveDB = {
 },
 },
 },
+["GameMenuFrame.Header"] = {
+},
 ["InspectPVPFrameArena"] = {
 },
 ["InspectPVPFrame"] = {
 },
-["TabardFrame"] = {
-},
 ["InspectPaperDollFrame"] = {
+},
+["TabardFrame"] = {
 },
 ["GuildInfoFrame"] = {
 },
+["GuildFrame"] = {
+},
 ["PVPBannerFrame"] = {
 },
-["GuildFrame"] = {
+["GuildBankFrame"] = {
 },
 ["InspectPVPFrameHonor"] = {
 },

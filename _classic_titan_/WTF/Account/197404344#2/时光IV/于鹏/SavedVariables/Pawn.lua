@@ -1,8 +1,6 @@
 
 PawnOptions = {
 ["LastVersion"] = 2.0811,
-["LastPlayerFullName"] = "于鹏-时光IV",
-["AutoSelectScales"] = false,
 ["ItemLevels"] = {
 {
 ["ID"] = 255024,
@@ -36,9 +34,9 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:255026::::::::80::::::::::|h[恶魔之心长裤]|h|r",
 },
 {
-["ID"] = 36954,
-["Level"] = 187,
-["Link"] = "|cff0070dd|Hitem:36954::::::::78::::::::::|h[咒术师的便鞋]|h|r",
+["ID"] = 255019,
+["Level"] = 213,
+["Link"] = "|cffa335ee|Hitem:255019::::::::80::::::::::|h[恶魔之心便鞋]|h|r",
 },
 {
 ["ID"] = 37361,
@@ -57,10 +55,10 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:255144::::::::80::::::::::|h[灼烧指环]|h|r",
 },
 {
-["ID"] = 37232,
-["Level"] = 200,
+["ID"] = 255105,
+["Level"] = 213,
 ["AlsoFitsIn"] = 11,
-["Link"] = "|cff0070dd|Hitem:37232::::::::80::::::::::|h[叛变国王之戒]|h|r",
+["Link"] = "|cffa335ee|Hitem:255105::::::::80::::::::::|h[潮汐指环]|h|r",
 },
 {
 ["ID"] = 255126,
@@ -85,9 +83,9 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:255138::::::::80::::::::::|h[巫术匕首]|h|r",
 },
 {
-["ID"] = 40698,
-["Level"] = 200,
-["Link"] = "|cffa335ee|Hitem:40698::::::::80::::::::::|h[紫罗兰城堡结界]|h|r",
+["ID"] = 255145,
+["Level"] = 213,
+["Link"] = "|cffa335ee|Hitem:255145::::::::80::::::::::|h[火焰符文魔典]|h|r",
 },
 {
 ["ID"] = 259900,
@@ -95,6 +93,8 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:259900::::::::80::::::::::|h[赤红震荡者]|h|r",
 },
 },
+["AutoSelectScales"] = false,
+["LastPlayerFullName"] = "于鹏-时光IV",
 }
 PawnMrRobotScaleProviderOptions = nil
 PawnClassicScaleProviderOptions = {

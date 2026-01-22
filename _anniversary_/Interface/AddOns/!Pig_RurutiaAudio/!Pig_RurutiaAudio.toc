@@ -8,6 +8,6 @@
 ## IconTexture: Interface/AddOns/!Pig/Libs/logo32.blp
 ## RequiredDeps: !Pig
 ## Author: geligasi
-## Version: 1.08
+## Version: 1.09
 AudioList.lua
 Options.lua

@@ -1,0 +1,80 @@
+
+PawnOptions = {
+["LastVersion"] = 2.1301,
+["ItemLevels"] = {
+nil,
+nil,
+{
+["ID"] = 2913,
+["Level"] = 28,
+["Link"] = "|cff1eff00|Hitem:2913::::::::31::::::::::|h[加姆的丝质衬肩]|h|r",
+},
+nil,
+{
+["ID"] = 24347,
+["Level"] = 18,
+["Link"] = "|cff1eff00|Hitem:24347::::::::31::::::::::|h[斩龙者外衣]|h|r",
+},
+{
+["ID"] = 6600,
+["Level"] = 27,
+["Link"] = "|cff1eff00|Hitem:6600::::::509:162564096:31::::::::::|h[孤狼之僧侣腰带]|h|r",
+},
+{
+["ID"] = 26021,
+["Level"] = 17,
+["Link"] = "|cff1eff00|Hitem:26021::::::::31::::::::::|h[守备官的皮护腿]|h|r",
+},
+{
+["ID"] = 26025,
+["Level"] = 19,
+["Link"] = "|cff1eff00|Hitem:26025::::::::31::::::::::|h[技师的长靴]|h|r",
+},
+{
+["ID"] = 6556,
+["Level"] = 15,
+["Link"] = "|cff1eff00|Hitem:6556::::::1547:264200192:31::::::::::|h[能量之吟游诗人护腕]|h|r",
+},
+{
+["ID"] = 6554,
+["Level"] = 17,
+["Link"] = "|cff1eff00|Hitem:6554::::::588:430815360:31::::::::::|h[灵猴之吟游诗人手套]|h|r",
+},
+{
+["ID"] = 2043,
+["Level"] = 35,
+["AlsoFitsIn"] = 12,
+["Link"] = "|cff0070dd|Hitem:2043::::::::31::::::::::|h[弃灵之戒]|h|r",
+},
+{
+["ID"] = 12052,
+["Level"] = 21,
+["AlsoFitsIn"] = 11,
+["Link"] = "|cff1eff00|Hitem:12052::::::::31::::::::::|h[月光戒指]|h|r",
+},
+nil,
+nil,
+{
+["ID"] = 2953,
+["Level"] = 33,
+["Link"] = "|cff1eff00|Hitem:2953::::::::31::::::::::|h[守夜人披风]|h|r",
+},
+{
+["ID"] = 3209,
+["Level"] = 32,
+["Link"] = "|cff1eff00|Hitem:3209::::::::31::::::::::|h[上古长剑]|h|r",
+},
+[18] = {
+["ID"] = 3037,
+["Level"] = 34,
+["Link"] = "|cff1eff00|Hitem:3037::::::::31::::::::::|h[柳木弯弓]|h|r",
+},
+},
+["LastPlayerFullName"] = "李家沱-铁血",
+["AutoSelectScales"] = false,
+}
+PawnMrRobotScaleProviderOptions = nil
+PawnClassicScaleProviderOptions = {
+["LastClass"] = "HUNTER",
+["LastAdded"] = 3,
+}

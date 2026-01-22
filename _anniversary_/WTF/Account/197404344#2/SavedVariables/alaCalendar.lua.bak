@@ -1,0 +1,389 @@
+
+alaCalendarSV = {
+["daily"] = {
+{
+},
+{
+},
+{
+},
+{
+},
+},
+["_GlobalRef"] = {
+["cal"] = {
+["SlashCmdList"] = 5.521397077432456e+70,
+["OK"] = 5.521397077432456e+70,
+["Mixin"] = 1.380349269358118e+71,
+["GameTimeFrame_UpdateTooltip"] = 2.760698538716228e+70,
+["hooksecurefunc"] = 2.760698538716228e+70,
+["UnitLevel"] = 1.380416669224783e+71,
+["alaCalendarSV"] = 1.104279415486491e+71,
+["UIParent"] = 1.104279415486491e+71,
+["DAILY"] = 5.521397077432456e+70,
+["GameTimeFrame"] = 5.521397077432456e+70,
+["DONE"] = 5.521397077432456e+70,
+["RESETS_IN"] = 5.521397077432456e+70,
+["UISpecialFrames"] = 8.282095616148688e+70,
+["YES"] = 5.521397077432456e+70,
+["LibStub"] = 8.282095616148688e+70,
+["StaticPopupDialogs"] = 5.521397077432456e+70,
+},
+},
+["set"] = {
+["minimapPos"] = 215,
+["char_list"] = {
+"Player-6457-04DA9799",
+"Player-6457-0476F4B3",
+"Player-5453-0476F4B3",
+"Player-5453-0476F498",
+"Player-5453-040319F3",
+"Player-5453-03FE5A8D",
+},
+["inst_hash"] = {
+["Eye of the Storm"] = true,
+["TAQ"] = false,
+["RAQ"] = false,
+["Alterac Valley"] = true,
+["Arathi Basin"] = true,
+["Kara"] = true,
+["SW"] = true,
+["NAXX"] = false,
+["DarkMoon: Terokkar"] = true,
+["BT"] = true,
+["Gruul"] = true,
+["DarkMoon: Elwynn"] = true,
+["Warsong Gulch"] = true,
+["Serpent"] = true,
+["Fishing Extravaganza"] = true,
+["DarkMoon: Mulgore"] = true,
+["BWL"] = false,
+["MC"] = false,
+["Tempest"] = true,
+["ONY"] = false,
+["Hyjal"] = true,
+["ZAM"] = true,
+["ZG"] = true,
+["Magtheridon"] = true,
+},
+["collapsed"] = {
+},
+["raid_list"] = {
+"SW",
+"BT",
+"Hyjal",
+"ZAM",
+"Tempest",
+"Serpent",
+"Gruul",
+"Magtheridon",
+"Kara",
+"NAXX",
+"TAQ",
+"BWL",
+"ONY",
+"MC",
+"RAQ",
+"ZG",
+},
+},
+["var"] = {
+["Player-5453-03FE5A8D"] = {
+["Tempest"] = {
+},
+["Ruins of Ahn'Qiraj"] = {
+},
+["Gruul"] = {
+},
+["Blackwing Lair"] = {
+},
+["RAQ"] = {
+},
+["realm_name"] = "铁血",
+["Hyjal"] = {
+},
+["Naxxramas"] = {
+},
+["NAXX"] = {
+},
+["ZG"] = {
+},
+["MC"] = {
+},
+["BT"] = {
+},
+["TAQ"] = {
+},
+["Kara"] = {
+},
+["Temple of Ahn'Qiraj"] = {
+},
+["PLAYER_LEVEL"] = 60,
+["ONY"] = {
+},
+["ZAM"] = {
+},
+["BWL"] = {
+},
+["SW"] = {
+},
+["Serpent"] = {
+},
+["Onyxia's Lair"] = {
+},
+["Zul'Gurub"] = {
+},
+["realm_id"] = 5453,
+["Molten Core"] = {
+},
+["Magtheridon"] = {
+},
+},
+["Player-5453-0476F498"] = {
+["Tempest"] = {
+},
+["Ruins of Ahn'Qiraj"] = {
+},
+["Gruul"] = {
+},
+["Blackwing Lair"] = {
+},
+["RAQ"] = {
+},
+["realm_name"] = "铁血",
+["Hyjal"] = {
+},
+["SW"] = {
+},
+["NAXX"] = {
+},
+["ZG"] = {
+},
+["MC"] = {
+},
+["BT"] = {
+},
+["TAQ"] = {
+},
+["Kara"] = {
+},
+["Temple of Ahn'Qiraj"] = {
+},
+["PLAYER_LEVEL"] = 10,
+["ONY"] = {
+},
+["ZAM"] = {
+},
+["BWL"] = {
+},
+["Naxxramas"] = {
+},
+["Serpent"] = {
+},
+["Onyxia's Lair"] = {
+},
+["Zul'Gurub"] = {
+},
+["realm_id"] = 5453,
+["Molten Core"] = {
+},
+["Magtheridon"] = {
+},
+},
+["Player-6457-04DA9799"] = {
+["Tempest"] = {
+},
+["Gruul"] = {
+},
+["realm_name"] = "铁血",
+["Hyjal"] = {
+},
+["SW"] = {
+},
+["NAXX"] = {
+},
+["BT"] = {
+},
+["Kara"] = {
+},
+["PLAYER_LEVEL"] = 31,
+["Serpent"] = {
+},
+["RAQ"] = {
+},
+["ZAM"] = {
+},
+["MC"] = {
+},
+["ONY"] = {
+},
+["BWL"] = {
+},
+["TAQ"] = {
+},
+["realm_id"] = 6457,
+["ZG"] = {
+},
+["Magtheridon"] = {
+},
+},
+["Player-6457-0476F4B3"] = {
+["Tempest"] = {
+},
+["Ruins of Ahn'Qiraj"] = {
+},
+["Gruul"] = {
+},
+["Blackwing Lair"] = {
+},
+["RAQ"] = {
+},
+["realm_name"] = "铁血",
+["Hyjal"] = {
+},
+["Naxxramas"] = {
+},
+["NAXX"] = {
+},
+["ZG"] = {
+},
+["MC"] = {
+},
+["BT"] = {
+},
+["TAQ"] = {
+},
+["Kara"] = {
+},
+["Temple of Ahn'Qiraj"] = {
+},
+["PLAYER_LEVEL"] = 10,
+["ONY"] = {
+},
+["ZAM"] = {
+},
+["BWL"] = {
+},
+["SW"] = {
+},
+["Serpent"] = {
+},
+["Onyxia's Lair"] = {
+},
+["Zul'Gurub"] = {
+},
+["realm_id"] = 6457,
+["Molten Core"] = {
+},
+["Magtheridon"] = {
+},
+},
+["Player-5453-0476F4B3"] = {
+["Tempest"] = {
+},
+["Ruins of Ahn'Qiraj"] = {
+},
+["Gruul"] = {
+},
+["Blackwing Lair"] = {
+},
+["RAQ"] = {
+},
+["realm_name"] = "铁血",
+["Hyjal"] = {
+},
+["Naxxramas"] = {
+},
+["NAXX"] = {
+},
+["ZG"] = {
+},
+["MC"] = {
+},
+["BT"] = {
+},
+["TAQ"] = {
+},
+["Kara"] = {
+},
+["Temple of Ahn'Qiraj"] = {
+},
+["PLAYER_LEVEL"] = 10,
+["ONY"] = {
+},
+["ZAM"] = {
+},
+["BWL"] = {
+},
+["SW"] = {
+},
+["Serpent"] = {
+},
+["Onyxia's Lair"] = {
+},
+["Zul'Gurub"] = {
+},
+["realm_id"] = 5453,
+["Molten Core"] = {
+},
+["Magtheridon"] = {
+},
+},
+["Player-5453-040319F3"] = {
+["Tempest"] = {
+},
+["Ruins of Ahn'Qiraj"] = {
+},
+["Gruul"] = {
+},
+["Blackwing Lair"] = {
+},
+["RAQ"] = {
+},
+["realm_name"] = "铁血",
+["Hyjal"] = {
+},
+["Naxxramas"] = {
+},
+["NAXX"] = {
+},
+["ZG"] = {
+},
+["MC"] = {
+},
+["BT"] = {
+},
+["TAQ"] = {
+},
+["Kara"] = {
+},
+["Temple of Ahn'Qiraj"] = {
+},
+["PLAYER_LEVEL"] = 1,
+["ONY"] = {
+},
+["ZAM"] = {
+},
+["BWL"] = {
+},
+["SW"] = {
+},
+["Serpent"] = {
+},
+["Onyxia's Lair"] = {
+},
+["Zul'Gurub"] = {
+},
+["realm_id"] = 5453,
+["Molten Core"] = {
+},
+["Magtheridon"] = {
+},
+},
+},
+["_version"] = 220308.01,
+["_GlobalAssign"] = {
+["cal"] = {
+},
+},
+}

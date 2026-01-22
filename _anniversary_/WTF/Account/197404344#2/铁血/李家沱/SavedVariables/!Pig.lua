@@ -1,11 +1,7 @@
 
 PIGA_Per = {
 ["PigAction"] = {
-["Lock"] = {
-false,
-false,
-false,
-false,
+["ActionData"] = {
 },
 ["Scale"] = {
 1,
@@ -13,11 +9,11 @@ false,
 1,
 1,
 },
-["AnniuNum"] = {
-12,
-12,
-12,
-12,
+["Lock"] = {
+false,
+false,
+false,
+false,
 },
 ["ShowTJ"] = {
 1,
@@ -37,13 +33,46 @@ false,
 false,
 false,
 },
-["ActionData"] = {
+["AnniuNum"] = {
+12,
+12,
+12,
+12,
 },
 },
 ["QuickBut"] = {
 ["LushiID"] = 6948,
 ["LockTrinket"] = 0,
 ["ActionData"] = {
+[410] = {
+"spell",
+2641,
+},
+[411] = {
+"spell",
+1462,
+},
+[412] = {
+"spell",
+1515,
+},
+[413] = {
+"spell",
+883,
+},
+[414] = {
+"spell",
+5149,
+},
+[415] = {
+"spell",
+6991,
+},
+[401] = {
+"item",
+"|cff1eff00|Hitem:18984::::::::10::::::::::|h[空间撕裂器 - 永望镇]|h|r",
+18984,
+},
 [402] = {
 "item",
 "|cff1eff00|Hitem:18986::::::::10::::::::::|h[安全传送器：加基森]|h|r",
@@ -69,10 +98,17 @@ false,
 "|cff1eff00|Hitem:18660::::::::10::::::::::|h[世界放大器]|h|r",
 18660,
 },
-[401] = {
-"item",
-"|cff1eff00|Hitem:18984::::::::10::::::::::|h[空间撕裂器 - 永望镇]|h|r",
-18984,
+[407] = {
+"spell",
+1002,
+},
+[408] = {
+"spell",
+6197,
+},
+[409] = {
+"spell",
+982,
 },
 },
 ["EquipList"] = {

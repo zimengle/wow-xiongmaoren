@@ -1,3 +1,4 @@
+
 BugSackDB = {
 ["soundMedia"] = "BugSack: Fatality",
 ["altwipe"] = true,

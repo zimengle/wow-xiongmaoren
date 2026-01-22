@@ -1,0 +1,38 @@
+
+TomTomDB = {
+["profileKeys"] = {
+["李家沱 - 铁血"] = "Default",
+},
+["profiles"] = {
+["Default"] = {
+["arrow"] = {
+["position"] = {
+"CENTER",
+nil,
+"CENTER",
+0,
+0,
+},
+},
+["block"] = {
+["position"] = {
+"CENTER",
+nil,
+"CENTER",
+0,
+-100,
+},
+},
+},
+},
+}
+TomTomWaypoints = nil
+TomTomWaypointsM = {
+["profileKeys"] = {
+["李家沱 - 铁血"] = "李家沱 - 铁血",
+},
+["profiles"] = {
+["李家沱 - 铁血"] = {
+},
+},
+}

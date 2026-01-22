@@ -1,15 +1,16 @@
+
 LeaMapsDB = {
 ["MapScale"] = 1.248172163963318,
 ["AutoChangeZones"] = "Off",
 ["ShowZoneLevels"] = "On",
 ["ShowZoneMenu"] = "On",
 ["ShowSpiritHealers"] = "Off",
+["MainPanelA"] = "RIGHT",
 ["MapPosY"] = 25.48291015625,
-["BattleMaxZoom"] = 1,
 ["RevTint"] = "Off",
 ["BattlePlayerArrowSize"] = 12,
 ["MapPosA"] = "CENTER",
-["MainPanelA"] = "RIGHT",
+["BattleMaxZoom"] = 1,
 ["stationaryOpacity"] = 1,
 ["IncreaseZoom"] = "Off",
 ["ShowFishingLevels"] = "On",

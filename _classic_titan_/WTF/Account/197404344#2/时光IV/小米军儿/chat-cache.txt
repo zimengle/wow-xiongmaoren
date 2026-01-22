@@ -8,7 +8,6 @@ CHANNELS
 26 0 3 1
 1 0 4 1
 PIG 1 5 3
-大脚世界频道 0 7 3
 END
 
 ZONECHANNELS 0
@@ -231,7 +230,6 @@ END
 
 CHANNELS
 寻求组队
-大脚世界频道
 END
 
 ZONECHANNELS 2

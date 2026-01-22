@@ -1339,6 +1339,10 @@ table.insert(Private.LoginFnQueue, function()
 
 				local unit = select(2, GameTooltip:GetUnit())
 
+				if issecretvalue and issecretvalue(unit) then
+					return
+				end
+
 				if unit then
 					if GameTooltip.RefreshData then
 						GameTooltip:RefreshData()

@@ -1,0 +1,13 @@
+
+WclBoxCharacter = {
+["class"] = "HUNTER",
+["version"] = "1.0.29",
+["loginTime"] = 1769099438,
+["race"] = "矮人",
+["name"] = "李家沱",
+["faction"] = "Alliance",
+["realmName"] = "铁血",
+["level"] = 31,
+["realmID"] = 6457,
+["playerGUID"] = "Player-6457-04DA9799",
+}

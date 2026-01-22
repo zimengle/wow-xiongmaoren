@@ -21,7 +21,15 @@ function Fun.IsAddOnLoaded(AddOnName,funx)
 		end)
 	end
 end
-
+function Fun.EventCOMBAT_LOG(frame,bot)
+	if PIG_MaxTocversion(120000) then
+		if bot then
+			frame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED");
+		else
+			frame:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED");
+		end
+	end
+end
 Fun.IsElvUI=function(vf1,vf2,vf3)
 	if IsAddOnLoaded("ElvUI") then
 		if not vf1 then return true end
