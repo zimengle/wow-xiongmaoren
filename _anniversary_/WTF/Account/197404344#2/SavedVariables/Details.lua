@@ -439,12 +439,12 @@ _detalhes_global = {
 ["always_use_profile_name"] = "露露缇娅",
 ["profile_by_spec"] = {
 },
-["userCustomSpells"] = {
+["boss_wipe_counter"] = {
 },
-["combat_id_global"] = 6239,
+["combat_id_global"] = 6462,
 ["displays_by_spec"] = {
 },
-["encounter_journal_cache"] = {
+["userCustomSpells"] = {
 },
 ["plugin_window_pos"] = {
 ["y"] = 50.34262722615313,
@@ -452,7 +452,7 @@ _detalhes_global = {
 ["point"] = "CENTER",
 ["scale"] = 1.200000047683716,
 },
-["boss_wipe_counter"] = {
+["encounter_journal_cache"] = {
 },
 ["breakdown_general"] = {
 ["font_size"] = 11,
@@ -471,7 +471,77 @@ _detalhes_global = {
 ["lastUpdateWarning"] = 1769099406,
 ["deathlog_line_height"] = 16,
 ["npcid_pool"] = {
+[702] = "血顶食腐者",
+[1095] = "风险投资公司经理",
+[877] = "盐鳞强盗",
+[23620] = "私掠船水手",
+[671] = "血顶猎头者",
+[1096] = "风险投资公司地质学家",
+[814] = "玛尔苏斯中士",
+[1144] = "莫什奥格巫医",
+[1097] = "风险投资公司技工",
+[2624] = "加兹班",
+[1860] = "麦兹诺斯",
+[942] = "库尔森巫医",
+[4393] = "酸性沼泽软泥怪",
+[4394] = "起泡的沼泽软泥怪",
+[4458] = "黑腮猎人",
+[736] = "黑豹",
+[871] = "盐鳞战士",
+[879] = "盐鳞猎人",
+[681] = "荆棘谷猛虎幼崽",
+[689] = "晶背蜥蜴",
+[697] = "血顶萨满祭司",
+[4401] = "污壳巨钳龙虾人",
+[1561] = "血帆袭击者",
+[729] = "辛达尔",
+[2535] = "\"畸形足\"玛雷·维尔金斯",
+[4404] = "污壳狂钳龙虾人",
+[4723] = "工头考兹尔",
+[682] = "荆棘谷猛虎",
+[3903] = "灼热图腾 III <库尔森巫医>",
+[1150] = "淡水鳄",
+[587] = "血顶战士",
+[595] = "血顶猎人",
+[873] = "盐鳞智者",
+[3619] = "豹",
+[2667] = "懒惰结界 <莫什奥格巫医>",
+[921] = "风险投资公司伐木工",
+[937] = "库尔森丛林战士",
+[7464] = "熔岩图腾 II <割斑马丶>",
+[699] = "血顶兽王",
+[1152] = "钳嘴鳄鱼",
+[23637] = "叛逃者军官",
+[5057] = "塞拉摩逃亡者",
+[938] = "库尔森特种兵",
+[597] = "血顶狂战士",
+[875] = "盐鳞首领",
+[4539] = "蝙蝠",
+[4412] = "暗牙爬行者",
+[772] = "荆棘谷雌虎",
+[4348] = "毒性切割者",
+[23941] = "贾维斯·格雷希德",
+[4344] = "尘泥杂斑鳄鱼",
+[940] = "库尔森药草师",
+[1108] = "薄雾谷猩猩",
 [14388] = "游荡的黑龙",
+[701] = "血顶秘法师",
+[23928] = "潜伏的鲨鱼",
+[4403] = "污壳钳手龙虾人",
+[698] = "血顶猛虎",
+[1085] = "老年荆棘谷猛虎",
+[588] = "血顶斥候",
+[941] = "库尔森精神医师",
+[3631] = "风蛇",
+[2408] = "海龟",
+[685] = "荆棘谷迅猛龙",
+[728] = "巴尔瑟拉",
+[691] = "次级水元素",
+[660] = "血顶巫医",
+[939] = "库尔森精英",
+[686] = "鞭尾迅猛龙",
+[684] = "深喉猎豹",
+[16347] = "豹",
 },
 ["death_recap"] = {
 ["enabled"] = false,
@@ -493,6 +563,69 @@ _detalhes_global = {
 },
 ["merge_player_abilities"] = false,
 ["spell_pool"] = {
+3,
+3,
+[75] = 3,
+[1833] = 4,
+[13810] = 3,
+[42454] = 3,
+[5234] = 11,
+[6150] = 3,
+[14283] = 3,
+[13530] = 4,
+[15571] = 3,
+[8104] = 5,
+[1495] = 3,
+[8053] = 7,
+[2974] = 3,
+[186403] = 3,
+[8680] = 4,
+[14319] = 3,
+[14288] = 3,
+[992] = 5,
+[1086] = 9,
+[13551] = 3,
+[5697] = 9,
+[2479] = 3,
+[7178] = 3,
+[14323] = 3,
+[14251] = 4,
+[768] = 11,
+[945] = 7,
+[3409] = 4,
+[5384] = 3,
+[1760] = 4,
+[5116] = 3,
+[16280] = 7,
+[2024] = 3,
+[15487] = 5,
+[26367] = 7,
+[19708] = 7,
+[3355] = 3,
+[10444] = 7,
+[17311] = 5,
+[18265] = 9,
+[6899] = 3,
+[8914] = 11,
+[17258] = 1,
+[8222] = 4,
+[5215] = 11,
+[355363] = 4,
+[1135] = 3,
+[14272] = 3,
+[349981] = 7,
+[25504] = 7,
+[5118] = 3,
+[1785] = 4,
+[3661] = 3,
+[16828] = 1,
+[34406] = 3,
+[43339] = 7,
+[13552] = 3,
+[8116] = 4,
+[5171] = 4,
+[24394] = 3,
+[6217] = 9,
 },
 ["arena_debug"] = false,
 ["merge_pet_abilities"] = false,
@@ -510,7 +643,7 @@ _detalhes_global = {
 ["got_first_run"] = true,
 ["plater"] = {
 ["realtime_dps_enabled"] = false,
-["damage_taken_shadow"] = true,
+["realtime_dps_size"] = 12,
 ["realtime_dps_player_shadow"] = true,
 ["realtime_dps_player_enabled"] = false,
 ["realtime_dps_player_size"] = 12,
@@ -526,12 +659,12 @@ _detalhes_global = {
 ["x"] = 0,
 ["side"] = 7,
 },
+["damage_taken_shadow"] = true,
 ["damage_taken_anchor"] = {
 ["y"] = 0,
 ["x"] = 0,
 ["side"] = 7,
 },
-["realtime_dps_size"] = 12,
 ["realtime_dps_player_color"] = {
 1,
 1,
@@ -552,11 +685,142 @@ _detalhes_global = {
 ["damage_taken_enabled"] = false,
 ["realtime_dps_shadow"] = true,
 },
+["frame_background_color"] = {
+0.1215,
+0.1176,
+0.1294,
+0.8,
+},
+["aura_tracker_frame"] = {
+["scaletable"] = {
+["scale"] = 1,
+},
+["position"] = {
+},
+},
+["titletext_showtimer_always"] = false,
+["switchSaved"] = {
+["slots"] = 18,
+["table"] = {
+{
+["atributo"] = 1,
+["sub_atributo"] = 1,
+},
+{
+["atributo"] = 2,
+["sub_atributo"] = 1,
+},
+{
+["atributo"] = 1,
+["sub_atributo"] = 6,
+},
+{
+["atributo"] = 4,
+["sub_atributo"] = 5,
+},
+{
+["atributo"] = 4,
+["sub_atributo"] = 4,
+},
+{
+["atributo"] = 1,
+["sub_atributo"] = 3,
+},
+{
+["atributo"] = 1,
+["sub_atributo"] = 4,
+},
+{
+["atributo"] = 1,
+["sub_atributo"] = 8,
+},
+{
+["atributo"] = 5,
+["sub_atributo"] = 10,
+},
+{
+},
+{
+},
+{
+},
+{
+},
+{
+},
+{
+},
+{
+},
+{
+},
+{
+},
+{
+},
+{
+},
+{
+},
+{
+},
+{
+},
+{
+},
+{
+},
+{
+},
+{
+},
+{
+["atributo"] = 1,
+["sub_atributo"] = 1,
+},
+{
+["atributo"] = 2,
+["sub_atributo"] = 1,
+},
+{
+["atributo"] = 1,
+["sub_atributo"] = 6,
+},
+{
+["atributo"] = 4,
+["sub_atributo"] = 5,
+},
+{
+["atributo"] = 4,
+["sub_atributo"] = 4,
+},
+{
+},
+{
+},
+{
+},
+{
+},
+{
+},
+{
+},
+{
+},
+{
+},
+},
+},
+["all_switch_config"] = {
+["scale"] = 1,
+["font_size"] = 10,
+},
 ["tutorial"] = {
 ["unlock_button"] = 4,
-["main_help_button"] = 10282,
+["main_help_button"] = 10286,
 ["ATTRIBUTE_SELECT_TUTORIAL1"] = true,
-["logons"] = 10282,
+["logons"] = 10286,
 ["ctrl_click_close_tutorial"] = false,
 ["DISABLE_ONDEATH_PANEL"] = true,
 ["STREAMER_PLUGIN_FIRSTRUN"] = true,
@@ -582,19 +846,6 @@ false,
 ["FORGE_TUTORIAL"] = true,
 ["WINDOW_LOCK_UNLOCK1"] = true,
 },
-["slash_me_used"] = false,
-["titletext_showtimer_always"] = false,
-["frame_background_color"] = {
-0.1215,
-0.1176,
-0.1294,
-0.8,
-},
-["all_switch_config"] = {
-["scale"] = 1,
-["font_size"] = 10,
-},
-["spell_category_latest_save"] = 0,
 ["__profiles"] = {
 ["露露缇娅"] = {
 ["show_arena_role_icon"] = false,
@@ -1147,24 +1398,24 @@ false,
 ["skin"] = "WoW Interface",
 ["override_spellids"] = true,
 ["default_bg_color"] = 0.0941,
-["new_window_size"] = {
-["height"] = 158,
-["width"] = 310,
-},
-["overall_clear_logout"] = false,
 ["font_sizes"] = {
 ["menus"] = 16,
+},
+["overall_clear_logout"] = false,
+["window_clamp"] = {
+-8,
+0,
+21,
+-14,
 },
 ["minimum_combat_time"] = 5,
 ["segments_amount_to_save"] = 40,
 ["cloud_capture"] = true,
 ["damage_taken_everything"] = false,
 ["scroll_speed"] = 2,
-["window_clamp"] = {
--8,
-0,
-21,
--14,
+["new_window_size"] = {
+["height"] = 158,
+["width"] = 310,
 },
 ["chat_tab_embed"] = {
 ["enabled"] = false,
@@ -1189,11 +1440,11 @@ false,
 0,
 0.125,
 },
-["ROGUE"] = {
-0.248046875,
-0.37109375,
-0,
+["SHAMAN"] = {
 0.125,
+0.248046875,
+0.125,
+0.25,
 },
 ["MAGE"] = {
 0.125,
@@ -1231,11 +1482,11 @@ false,
 0.375,
 0.5,
 },
-["PALADIN"] = {
+["ROGUE"] = {
+0.248046875,
+0.37109375,
 0,
 0.125,
-0.25,
-0.375,
 },
 ["UNKNOW"] = {
 0.25,
@@ -1249,11 +1500,11 @@ false,
 0.125,
 0.25,
 },
-["SHAMAN"] = {
-0.125,
-0.248046875,
+["PALADIN"] = {
+0,
 0.125,
 0.25,
+0.375,
 },
 ["Alliance"] = {
 0.248046875,
@@ -1313,10 +1564,10 @@ false,
 0.61,
 0.43,
 },
-["SHAMAN"] = {
-0,
-0.44,
-0.87,
+["ROGUE"] = {
+1,
+0.96,
+0.41,
 },
 ["MAGE"] = {
 0.41,
@@ -1348,20 +1599,20 @@ false,
 0.12,
 0.23,
 },
-["PALADIN"] = {
-0.96,
-0.55,
-0.73,
+["SHAMAN"] = {
+0,
+0.44,
+0.87,
 },
 ["SELF"] = {
 0.89019,
 0.32156,
 0.89019,
 },
-["ROGUE"] = {
-1,
+["PALADIN"] = {
 0.96,
-0.41,
+0.55,
+0.73,
 },
 ["UNKNOW"] = {
 0.2,
@@ -1439,8 +1690,8 @@ false,
 {
 ["__pos"] = {
 ["normal"] = {
-["y"] = -603.3471984863281,
-["x"] = 667.734375,
+["y"] = -620.1188125610352,
+["x"] = 681.1484375,
 ["w"] = 308.5684814453125,
 ["h"] = 188.6936798095703,
 },
@@ -1635,7 +1886,7 @@ false,
 },
 ["textR_outline_small"] = true,
 ["textL_outline_small"] = true,
-["percent_type"] = 1,
+["show_faction_icon"] = true,
 ["fixed_text_color"] = {
 1,
 1,
@@ -1661,7 +1912,7 @@ false,
 ["size"] = 11,
 },
 ["font_size"] = 15,
-["textL_enable_custom_text"] = false,
+["percent_type"] = 1,
 ["textL_outline_small_color"] = {
 0,
 0,
@@ -1672,7 +1923,7 @@ false,
 ["texture_custom_file"] = "Interface\\",
 ["texture_file"] = "Interface\\Buttons\\WHITE8X8",
 ["icon_size_offset"] = 0,
-["show_faction_icon"] = true,
+["textL_enable_custom_text"] = false,
 ["icon_mask"] = "",
 ["overlay_color"] = {
 0.7,
@@ -1847,8 +2098,8 @@ false,
 ["desaturated_menu"] = true,
 ["rounded_corner_enabled"] = false,
 ["libwindow"] = {
-["y"] = 26.83434295654297,
-["x"] = -466.03173828125,
+["y"] = 10.06272602081299,
+["x"] = -452.61767578125,
 ["point"] = "BOTTOMRIGHT",
 ["scale"] = 1,
 },
@@ -1886,8 +2137,8 @@ false,
 ["hide_in_combat"] = false,
 ["posicao"] = {
 ["normal"] = {
-["y"] = -603.3471984863281,
-["x"] = 667.734375,
+["y"] = -620.1188125610352,
+["x"] = 681.1484375,
 ["w"] = 308.5684814453125,
 ["h"] = 188.6936798095703,
 },
@@ -1939,8 +2190,8 @@ false,
 {
 ["__pos"] = {
 ["normal"] = {
-["y"] = -609.9133453369141,
-["x"] = -514.6553344726562,
+["y"] = -612.5970687866211,
+["x"] = -487.8223266601563,
 ["w"] = 318.6312561035156,
 ["h"] = 162.7502288818359,
 },
@@ -2135,7 +2386,7 @@ false,
 },
 ["textR_outline_small"] = true,
 ["textL_outline_small"] = true,
-["percent_type"] = 1,
+["show_faction_icon"] = true,
 ["fixed_text_color"] = {
 1,
 1,
@@ -2161,7 +2412,7 @@ false,
 ["size"] = 11,
 },
 ["font_size"] = 15,
-["textL_enable_custom_text"] = false,
+["percent_type"] = 1,
 ["textL_outline_small_color"] = {
 0,
 0,
@@ -2172,7 +2423,7 @@ false,
 ["texture_custom_file"] = "Interface\\",
 ["texture_file"] = "Interface\\Buttons\\WHITE8X8",
 ["icon_size_offset"] = 0,
-["show_faction_icon"] = true,
+["textL_enable_custom_text"] = false,
 ["icon_mask"] = "",
 ["overlay_color"] = {
 0.7,
@@ -2347,8 +2598,8 @@ false,
 ["desaturated_menu"] = true,
 ["rounded_corner_enabled"] = false,
 ["libwindow"] = {
-["y"] = 33.23992538452148,
-["x"] = -514.6553344726562,
+["y"] = 30.55620384216309,
+["x"] = -487.8223876953125,
 ["point"] = "BOTTOM",
 ["scale"] = 1,
 },
@@ -2386,8 +2637,8 @@ false,
 ["hide_in_combat"] = false,
 ["posicao"] = {
 ["normal"] = {
-["y"] = -609.9133453369141,
-["x"] = -514.6553344726562,
+["y"] = -612.5970687866211,
+["x"] = -487.8223266601563,
 ["w"] = 318.6312561035156,
 ["h"] = 162.7502288818359,
 },
@@ -2511,118 +2762,13 @@ false,
 },
 },
 ["check_stuttering"] = false,
-["switchSaved"] = {
-["slots"] = 18,
-["table"] = {
-{
-["atributo"] = 1,
-["sub_atributo"] = 1,
-},
-{
-["atributo"] = 2,
-["sub_atributo"] = 1,
-},
-{
-["atributo"] = 1,
-["sub_atributo"] = 6,
-},
-{
-["atributo"] = 4,
-["sub_atributo"] = 5,
-},
-{
-["atributo"] = 4,
-["sub_atributo"] = 4,
-},
-{
-["atributo"] = 1,
-["sub_atributo"] = 3,
-},
-{
-["atributo"] = 1,
-["sub_atributo"] = 4,
-},
-{
-["atributo"] = 1,
-["sub_atributo"] = 8,
-},
-{
-["atributo"] = 5,
-["sub_atributo"] = 10,
-},
-{
-},
-{
-},
-{
-},
-{
-},
-{
-},
-{
-},
-{
-},
-{
-},
-{
-},
-{
-},
-{
-},
-{
-},
-{
-},
-{
-},
-{
-},
-{
-},
-{
-},
-{
-},
-{
-["atributo"] = 1,
-["sub_atributo"] = 1,
-},
-{
-["atributo"] = 2,
-["sub_atributo"] = 1,
-},
-{
-["atributo"] = 1,
-["sub_atributo"] = 6,
-},
-{
-["atributo"] = 4,
-["sub_atributo"] = 5,
-},
-{
-["atributo"] = 4,
-["sub_atributo"] = 4,
-},
-{
-},
-{
-},
-{
-},
-{
-},
-{
-},
-{
-},
-{
-},
-{
-},
-},
+["data_wipes_exp"] = {
+["9"] = true,
+["14"] = false,
+["13"] = false,
+["12"] = false,
+["11"] = false,
+["10"] = false,
 },
 ["played_class_time"] = true,
 ["createauraframe"] = {
@@ -2633,7 +2779,8 @@ false,
 },
 ["class_time_played"] = {
 {
-["HUNTER"] = 518.6499999999942,
+["HUNTER"] = 11583.09499999999,
+["WARRIOR"] = 95.1289999999999,
 ["PRIEST"] = 10685.78100000003,
 },
 {
@@ -2659,21 +2806,8 @@ false,
 ["PALADIN"] = 58066.45699999988,
 },
 ["realm_sync"] = true,
-["aura_tracker_frame"] = {
-["scaletable"] = {
-["scale"] = 1,
-},
-["position"] = {
-},
-},
-["data_wipes_exp"] = {
-["9"] = true,
-["14"] = false,
-["13"] = false,
-["12"] = false,
-["11"] = false,
-["10"] = false,
-},
+["slash_me_used"] = false,
+["auto_change_to_standard"] = true,
 ["debug_options_panel"] = {
 ["position"] = {
 },
@@ -2681,7 +2815,7 @@ false,
 ["scale"] = 1,
 },
 },
-["show_warning_id1"] = true,
+["spell_category_latest_save"] = 0,
 ["mythic_plus"] = {
 ["mythicrun_chart_frame_ready"] = {
 },
@@ -2733,7 +2867,7 @@ false,
 },
 ["item_level_pool"] = {
 },
-["auto_change_to_standard"] = true,
+["show_warning_id1"] = true,
 ["spell_category_latest_query"] = 0,
 ["last_10days_cache_cleanup"] = 1769275636,
 ["transcriptor_frame"] = {
@@ -3380,6 +3514,37 @@ false,
 ["switch_missing_type"] = 0,
 }
 __details_backup = {
+["_general_logs"] = {
+"2026-01-24 12:38:40 | actor removed 丨龍啸丨 (ungrouped)",
+"2026-01-24 12:38:40 | actor removed 眩晕 (ungrouped)",
+"2026-01-24 12:38:40 | actor removed 老爷爷在此 (ungrouped)",
+"2026-01-24 12:38:40 | actor removed 蝙蝠 (ungrouped)",
+"2026-01-24 12:38:40 | actor removed 老爷爷在此 (ungrouped)",
+"2026-01-24 12:38:40 | actor removed 蝙蝠 (disposable)",
+"2026-01-24 00:15:56 | actor removed 盖世小宝 (ungrouped)",
+"2026-01-24 00:15:56 | actor removed 盖世小宝 (ungrouped)",
+"2026-01-24 00:15:56 | actor removed 扎尔卡斯 (ungrouped)",
+"2026-01-24 00:15:56 | actor removed 盖世小宝 (ungrouped)",
+"2026-01-24 00:15:56 | actor removed 起泡的沼泽软泥怪 (ungrouped)",
+"2026-01-24 00:15:56 | actor removed 盖世小宝 (ungrouped)",
+"2026-01-24 00:15:56 | actor removed 冒泡的软泥怪 (ungrouped)",
+"2026-01-24 00:15:56 | actor removed 扎尔卡斯 <盖世小宝> (orphan)",
+"2026-01-24 00:15:56 | actor removed 盖世小宝 (ungrouped)",
+"2026-01-24 00:15:56 | actor removed 冒泡的软泥怪 (ungrouped)",
+"2026-01-24 00:15:56 | actor removed 眩晕 (ungrouped)",
+"2026-01-24 00:15:56 | actor removed 冰冻陷阱 (ungrouped)",
+"2026-01-23 23:30:42 | actor removed 昕月蔷薇 (ungrouped)",
+"2026-01-23 23:30:42 | actor removed 天使鱼 (ungrouped)",
+"2026-01-23 23:30:42 | actor removed 昕月蔷薇 (ungrouped)",
+"2026-01-23 23:30:42 | actor removed 地狱就是天堂 (ungrouped)",
+"2026-01-23 23:30:42 | actor removed 天使鱼 (ungrouped)",
+"2026-01-23 23:30:42 | actor removed 昕月蔷薇 (ungrouped)",
+"2026-01-23 23:30:42 | actor removed 昕月蔷薇 (ungrouped)",
+"2026-01-23 23:30:42 | actor removed 天使鱼 (ungrouped)",
+"2026-01-23 23:30:42 | actor removed 地狱就是天堂 (ungrouped)",
+"2026-01-23 23:30:42 | actor removed 昕月蔷薇 (ungrouped)",
+"2026-01-23 23:30:42 | actor removed 天使鱼 (ungrouped)",
+},
 ["_instance_backup"] = {
 },
 ["_exit_error"] = {
@@ -3387,37 +3552,6 @@ __details_backup = {
 "2023-09-07 21:57:08 | Saving Play Time: Interface/AddOns/Details/core/gears.lua:3100: attempt to call field 'GetStartupTime' (a nil value)",
 "2023-09-07 21:08:34 | Saving Play Time: Interface/AddOns/Details/core/gears.lua:3100: attempt to call field 'GetStartupTime' (a nil value)",
 "Sat Mar  4 19:14:31 2023|Saving Play Time: Interface/AddOns/Details/core/gears.lua:3096: attempt to call field 'GetStartupTime' (a nil value)",
-},
-["_general_logs"] = {
-"2026-01-15 01:55:23 | actor removed 乱需折寿 (ungrouped)",
-"2026-01-15 01:55:23 | actor removed 內個胖子 (ungrouped)",
-"2026-01-15 01:55:23 | actor removed 冰冻包 (ungrouped)",
-"2026-01-15 01:55:23 | actor removed 青瓷如水 (ungrouped)",
-"2026-01-15 01:55:23 | actor removed 遗忘深渊伏击者 (ungrouped)",
-"2026-01-15 01:55:23 | actor removed 遗忘深渊杀戮者 (ungrouped)",
-"2026-01-15 01:55:23 | actor removed 说我没她跌硬 (ungrouped)",
-"2026-01-15 01:55:23 | actor removed 魔暴龙 (ungrouped)",
-"2026-01-15 01:55:23 | actor removed 棺木屈服者 (ungrouped)",
-"2026-01-15 01:55:23 | actor removed 复活的食尸鬼 (ungrouped)",
-"2026-01-15 01:55:23 | actor removed 镜像 (ungrouped)",
-"2026-01-15 01:55:23 | actor removed 温柔的田伯光 (ungrouped)",
-"2026-01-15 01:55:23 | actor removed 圣洁十字军 (ungrouped)",
-"2026-01-15 01:55:23 | actor removed 血虫 (ungrouped)",
-"2026-01-15 01:55:23 | actor removed 春天的大术 (ungrouped)",
-"2026-01-15 01:55:23 | actor removed 萌萌宝儿 (ungrouped)",
-"2026-01-15 01:55:23 | actor removed 被网住的北伐军士兵 (ungrouped)",
-"2026-01-15 01:52:02 | actor removed 我踏风而来 (ungrouped)",
-"2026-01-15 01:52:02 | actor removed 乱需折寿 (ungrouped)",
-"2026-01-15 01:52:02 | actor removed 故巷旧人 (ungrouped)",
-"2026-01-15 01:52:02 | actor removed 圣洁十字军 (ungrouped)",
-"2026-01-15 01:52:02 | actor removed 青瓷如水 (ungrouped)",
-"2026-01-15 01:52:02 | actor removed 遗忘深渊伏击者 (ungrouped)",
-"2026-01-15 01:52:02 | actor removed 遗忘深渊杀戮者 (ungrouped)",
-"2026-01-15 01:52:02 | actor removed 內個胖子 (ungrouped)",
-"2026-01-15 01:52:02 | actor removed 魔暴龙 (ungrouped)",
-"2026-01-15 01:52:02 | actor removed 春天的大术 (ungrouped)",
-"2026-01-15 01:52:02 | actor removed 温柔的田伯光 (ungrouped)",
-"2026-01-15 01:52:02 | actor removed 冰冻包 (ungrouped)",
 },
 }
 __details_debug = {

@@ -1,16 +1,16 @@
 
 GTFOData = {
-["SoundChannel"] = "SFX",
-["Active"] = true,
-["IgnoreSpellList"] = {
-},
-["TrivialDamagePercent"] = 2,
 ["SoundOverrides"] = {
 "",
 "",
 "",
 "",
 },
+["Active"] = true,
+["IgnoreSpellList"] = {
+},
+["TrivialDamagePercent"] = 2,
+["EnableVibration"] = false,
 ["TestMode"] = false,
 ["DataCode"] = "4",
 ["UnmuteMode"] = false,
@@ -28,6 +28,6 @@ true,
 true,
 true,
 },
-["EnableVibration"] = false,
+["SoundChannel"] = "SFX",
 ["TrivialMode"] = false,
 }

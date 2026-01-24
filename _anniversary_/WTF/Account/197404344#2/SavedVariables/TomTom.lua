@@ -2,6 +2,7 @@
 TomTomDB = {
 ["profileKeys"] = {
 ["李家沱 - 铁血"] = "Default",
+["仓库萌 - 铁血"] = "Default",
 },
 ["profiles"] = {
 ["Default"] = {
@@ -30,9 +31,12 @@ TomTomWaypoints = nil
 TomTomWaypointsM = {
 ["profileKeys"] = {
 ["李家沱 - 铁血"] = "李家沱 - 铁血",
+["仓库萌 - 铁血"] = "仓库萌 - 铁血",
 },
 ["profiles"] = {
 ["李家沱 - 铁血"] = {
+},
+["仓库萌 - 铁血"] = {
 },
 },
 }

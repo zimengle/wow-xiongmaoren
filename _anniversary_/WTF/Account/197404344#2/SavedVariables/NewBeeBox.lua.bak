@@ -1,15 +1,26 @@
 
 WclBoxGlobal = {
-["version"] = "1.0.29",
 ["Player-6457-04DA9799"] = {
 ["realmID"] = 6457,
-["loginTime"] = 1769099438,
+["loginTime"] = 1769182365,
 ["race"] = "矮人",
 ["name"] = "李家沱",
 ["faction"] = "Alliance",
 ["realmName"] = "铁血",
-["level"] = 31,
+["level"] = 37,
 ["class"] = "HUNTER",
 ["playerGUID"] = "Player-6457-04DA9799",
 },
+["Player-6457-04ED99FB"] = {
+["realmID"] = 6457,
+["faction"] = "Alliance",
+["race"] = "人类",
+["name"] = "仓库萌",
+["loginTime"] = 1769182258,
+["class"] = "WARRIOR",
+["level"] = 1,
+["realmName"] = "铁血",
+["playerGUID"] = "Player-6457-04ED99FB",
+},
+["version"] = "1.0.29",
 }

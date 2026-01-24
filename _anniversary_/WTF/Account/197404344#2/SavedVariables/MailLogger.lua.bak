@@ -13,8 +13,9 @@ MailLoggerDB = {
 ["LogEverything"] = false,
 ["EnableML"] = true,
 ["AltList"] = {
-["渥伦巴菲特-铁血"] = true,
 ["李家沱-铁血"] = true,
+["仓库萌-铁血"] = true,
+["渥伦巴菲特-铁血"] = true,
 },
 ["SetWindowPos"] = {
 "CENTER",
@@ -36,5 +37,280 @@ true,
 ["OnlyThisCharacter"] = false,
 },
 ["TradeLog"] = {
+{
+["PlayerName"] = "李家沱-铁血",
+["Date"] = "2026-01-23",
+["Time"] = "23:24:15",
+["ReceiveMoney"] = 0,
+["GiveItems"] = {
+{
+["Number"] = 4,
+["ItemLink"] = "|cffffffff|Hitem:2751::::::::37::::::::::|h[荆棘谷的青山 - 第27页]|h|r",
+["Name"] = "荆棘谷的青山 - 第27页",
+},
+{
+["Number"] = 2,
+["ItemLink"] = "|cffffffff|Hitem:2744::::::::37::::::::::|h[荆棘谷的青山 - 第20页]|h|r",
+["Name"] = "荆棘谷的青山 - 第20页",
+},
+{
+["Number"] = 1,
+["ItemLink"] = "|cffffffff|Hitem:2745::::::::37::::::::::|h[荆棘谷的青山 - 第21页]|h|r",
+["Name"] = "荆棘谷的青山 - 第21页",
+},
+{
+["Number"] = 54,
+["ItemLink"] = "|cffffffff|Hitem:4306::::::::37::::::::::|h[丝绸]|h|r",
+["Name"] = "丝绸",
+},
+nil,
+nil,
+{
+["Number"] = 6,
+["ItemLink"] = "|cffffffff|Hitem:2592::::::::37::::::::::|h[毛料]|h|r",
+["Name"] = "毛料",
+},
+{
+["Number"] = 1,
+["ItemLink"] = "|cffffffff|Hitem:4338::::::::37::::::::::|h[魔纹布]|h|r",
+["Name"] = "魔纹布",
+},
+{
+["Number"] = 1,
+["ItemLink"] = "|cffffffff|Hitem:2734::::::::37::::::::::|h[荆棘谷的青山 - 第10页]|h|r",
+["Name"] = "荆棘谷的青山 - 第10页",
+},
+{
+["Number"] = 1,
+["ItemLink"] = "|cffffffff|Hitem:2735::::::::37::::::::::|h[荆棘谷的青山 - 第11页]|h|r",
+["Name"] = "荆棘谷的青山 - 第11页",
+},
+},
+["GiveMoney"] = 0,
+["Location"] = "荆棘谷",
+["TargetName"] = "仓库萌-铁血",
+["Result"] = "sent",
+["ReceiveItems"] = {
+},
+},
+{
+["PlayerName"] = "仓库萌-铁血",
+["Date"] = "2026-01-23",
+["GiveItems"] = {
+{
+["Number"] = 2000,
+["ItemLink"] = "|cffffffff|Hitem:3033::::::::1::::::::::|h[实心子弹]|h|r",
+["Name"] = "实心子弹",
+},
+},
+["ReceiveMoney"] = 0,
+["Time"] = "23:32:28",
+["GiveMoney"] = 0,
+["Location"] = "暴风城",
+["TargetName"] = "李家沱-铁血",
+["Result"] = "sent",
+["ReceiveItems"] = {
+},
+},
+{
+["PlayerName"] = "李家沱-铁血",
+["Date"] = "2026-01-23",
+["Reason"] = 1,
+["Time"] = "23:32:59",
+["ReceiveMoney"] = 0,
+["GiveItems"] = {
+},
+["GiveMoney"] = 0,
+["Location"] = "尘泥沼泽",
+["TargetName"] = "仓库萌-铁血",
+["Result"] = "received",
+["ReceiveItems"] = {
+{
+["Number"] = 200,
+["ItemLink"] = "|cffffffff|Hitem:3033::::::::37::::::::::|h[实心子弹]|h|r",
+["Name"] = "实心子弹",
+},
+},
+},
+{
+["PlayerName"] = "李家沱-铁血",
+["Date"] = "2026-01-23",
+["Reason"] = 1,
+["Time"] = "23:33:00",
+["ReceiveMoney"] = 0,
+["GiveItems"] = {
+},
+["GiveMoney"] = 0,
+["Location"] = "尘泥沼泽",
+["TargetName"] = "仓库萌-铁血",
+["Result"] = "received",
+["ReceiveItems"] = {
+{
+["Number"] = 200,
+["ItemLink"] = "|cffffffff|Hitem:3033::::::::37::::::::::|h[实心子弹]|h|r",
+["Name"] = "实心子弹",
+},
+},
+},
+{
+["PlayerName"] = "李家沱-铁血",
+["Date"] = "2026-01-23",
+["Reason"] = 1,
+["Time"] = "23:33:00",
+["ReceiveMoney"] = 0,
+["GiveItems"] = {
+},
+["GiveMoney"] = 0,
+["Location"] = "尘泥沼泽",
+["TargetName"] = "仓库萌-铁血",
+["Result"] = "received",
+["ReceiveItems"] = {
+{
+["Number"] = 200,
+["ItemLink"] = "|cffffffff|Hitem:3033::::::::37::::::::::|h[实心子弹]|h|r",
+["Name"] = "实心子弹",
+},
+},
+},
+{
+["PlayerName"] = "李家沱-铁血",
+["Date"] = "2026-01-23",
+["Reason"] = 1,
+["Time"] = "23:33:01",
+["ReceiveMoney"] = 0,
+["GiveItems"] = {
+},
+["GiveMoney"] = 0,
+["Location"] = "尘泥沼泽",
+["TargetName"] = "仓库萌-铁血",
+["Result"] = "received",
+["ReceiveItems"] = {
+{
+["Number"] = 200,
+["ItemLink"] = "|cffffffff|Hitem:3033::::::::37::::::::::|h[实心子弹]|h|r",
+["Name"] = "实心子弹",
+},
+},
+},
+{
+["PlayerName"] = "李家沱-铁血",
+["Date"] = "2026-01-23",
+["Reason"] = 1,
+["Time"] = "23:33:01",
+["ReceiveMoney"] = 0,
+["GiveItems"] = {
+},
+["GiveMoney"] = 0,
+["Location"] = "尘泥沼泽",
+["TargetName"] = "仓库萌-铁血",
+["Result"] = "received",
+["ReceiveItems"] = {
+{
+["Number"] = 200,
+["ItemLink"] = "|cffffffff|Hitem:3033::::::::37::::::::::|h[实心子弹]|h|r",
+["Name"] = "实心子弹",
+},
+},
+},
+{
+["PlayerName"] = "李家沱-铁血",
+["Date"] = "2026-01-23",
+["Reason"] = 1,
+["Time"] = "23:33:02",
+["ReceiveMoney"] = 0,
+["GiveItems"] = {
+},
+["GiveMoney"] = 0,
+["Location"] = "尘泥沼泽",
+["TargetName"] = "仓库萌-铁血",
+["Result"] = "received",
+["ReceiveItems"] = {
+{
+["Number"] = 200,
+["ItemLink"] = "|cffffffff|Hitem:3033::::::::37::::::::::|h[实心子弹]|h|r",
+["Name"] = "实心子弹",
+},
+},
+},
+{
+["PlayerName"] = "李家沱-铁血",
+["Date"] = "2026-01-23",
+["Reason"] = 1,
+["Time"] = "23:33:02",
+["ReceiveMoney"] = 0,
+["GiveItems"] = {
+},
+["GiveMoney"] = 0,
+["Location"] = "尘泥沼泽",
+["TargetName"] = "仓库萌-铁血",
+["Result"] = "received",
+["ReceiveItems"] = {
+{
+["Number"] = 200,
+["ItemLink"] = "|cffffffff|Hitem:3033::::::::37::::::::::|h[实心子弹]|h|r",
+["Name"] = "实心子弹",
+},
+},
+},
+{
+["PlayerName"] = "李家沱-铁血",
+["Date"] = "2026-01-23",
+["Reason"] = 1,
+["Time"] = "23:33:03",
+["ReceiveMoney"] = 0,
+["GiveItems"] = {
+},
+["GiveMoney"] = 0,
+["Location"] = "尘泥沼泽",
+["TargetName"] = "仓库萌-铁血",
+["Result"] = "received",
+["ReceiveItems"] = {
+{
+["Number"] = 200,
+["ItemLink"] = "|cffffffff|Hitem:3033::::::::37::::::::::|h[实心子弹]|h|r",
+["Name"] = "实心子弹",
+},
+},
+},
+{
+["PlayerName"] = "李家沱-铁血",
+["Date"] = "2026-01-23",
+["Reason"] = 1,
+["Time"] = "23:33:03",
+["ReceiveMoney"] = 0,
+["GiveItems"] = {
+},
+["GiveMoney"] = 0,
+["Location"] = "尘泥沼泽",
+["TargetName"] = "仓库萌-铁血",
+["Result"] = "received",
+["ReceiveItems"] = {
+{
+["Number"] = 200,
+["ItemLink"] = "|cffffffff|Hitem:3033::::::::37::::::::::|h[实心子弹]|h|r",
+["Name"] = "实心子弹",
+},
+},
+},
+{
+["PlayerName"] = "李家沱-铁血",
+["Date"] = "2026-01-23",
+["Reason"] = 1,
+["Time"] = "23:33:04",
+["ReceiveMoney"] = 0,
+["GiveItems"] = {
+},
+["GiveMoney"] = 0,
+["Location"] = "尘泥沼泽",
+["TargetName"] = "仓库萌-铁血",
+["Result"] = "received",
+["ReceiveItems"] = {
+{
+["Number"] = 200,
+["ItemLink"] = "|cffffffff|Hitem:3033::::::::37::::::::::|h[实心子弹]|h|r",
+["Name"] = "实心子弹",
+},
+},
+},
 },
 }

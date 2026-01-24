@@ -3,16 +3,16 @@ RXPData = {
 ["gameVersion"] = 20505,
 ["cache"] = "露露缇娅#5600",
 ["cacheVersion"] = 26,
-["questNames"] = {
-["locale"] = "zhCN",
-},
-["trainGenericSpells"] = true,
-["release"] = "Rurutia Fix4",
 ["realmData"] = {
 ["铁血"] = {
 },
 },
+["trainGenericSpells"] = true,
+["release"] = "Rurutia Fix4",
 ["defaultProfile"] = false,
+["questNames"] = {
+["locale"] = "zhCN",
+},
 }
 RXPDB = {
 ["profileKeys"] = {
@@ -20,6 +20,7 @@ RXPDB = {
 ["蒂琪爱尔 - 铁血"] = "global",
 ["爱奇艺龚宇 - 铁血"] = "global",
 ["小露露糖 - 铁血"] = "global",
+["萌萌的露小露 - 铁血"] = "global",
 ["三角碑 - 无情"] = "global",
 ["愛雅法拉 - 铁血"] = "global",
 ["李家沱 - 铁血"] = "global",
@@ -29,7 +30,7 @@ RXPDB = {
 ["袜子的去 - 铁血"] = "global",
 ["露露緹婭 - 无情"] = "global",
 ["京东哔哩美团 - 无情"] = "global",
-["萌萌的露小露 - 铁血"] = "global",
+["仓库萌 - 铁血"] = "global",
 },
 ["profiles"] = {
 ["global"] = {
@@ -45,12 +46,13 @@ RXPSettings = {
 ["三角碑 - 无情"] = "Default",
 ["愛雅法拉 - 铁血"] = "Default",
 ["李家沱 - 铁血"] = "Default",
+["京东哔哩美团 - 无情"] = "Default",
 ["三角碑 - 铁血"] = "Default",
 ["渥伦巴菲特 - 铁血"] = "Default",
 ["袜子的去 - 铁血"] = "Default",
 ["露露糖 - 铁血"] = "Default",
 ["小露露糖 - 铁血"] = "Default",
-["京东哔哩美团 - 无情"] = "Default",
+["仓库萌 - 铁血"] = "仓库萌 - 铁血",
 },
 ["profiles"] = {
 ["Default"] = {
@@ -62,41 +64,17 @@ RXPSettings = {
 ["enableTracker"] = false,
 ["guideFontSize"] = 15,
 ["enableBindAutomation"] = false,
-["frameSizes"] = {
-["arrowFrame"] = {
-38.40012741088867,
-38.39995193481445,
-},
-["RXPFrame"] = {
-242.8572540283203,
-27.99996376037598,
-},
-["activeItemFrame"] = {
-50.18870544433594,
-39.99990463256836,
-},
-["activeTargetFrame"] = {
-54.39999771118164,
-17.9998893737793,
-},
-},
-["hideInRaid"] = true,
-["enableCollectStepAnnouncements"] = true,
 ["phase"] = 1,
-["hideCompletedSteps"] = false,
-["shareQuests"] = true,
 ["enableQuestRewardAutomation"] = true,
-["arrowScale"] = 1.2,
-["arrowText"] = 16,
-["frameHeight"] = 28.00007438659668,
-["macroAnnounced"] = true,
+["hideInRaid"] = true,
+["hideCompletedSteps"] = false,
 ["framePositions"] = {
 ["arrowFrame"] = {
 {
 "CENTER",
 nil,
 "CENTER",
-4.270683765411377,
+4.270684242248535,
 -97.62651824951172,
 },
 },
@@ -106,7 +84,74 @@ nil,
 nil,
 "LEFT",
 0,
-39.85727310180664,
+-14.41319370269775,
+},
+},
+["activeItemFrame"] = {
+{
+"CENTER",
+nil,
+"CENTER",
+583.6480712890625,
+-18.78389930725098,
+},
+},
+["activeTargetFrame"] = {
+{
+"CENTER",
+nil,
+"CENTER",
+499.2706298828125,
+-147.0333099365234,
+},
+},
+},
+["arrowScale"] = 1.2,
+["shareQuests"] = true,
+["enableCollectStepAnnouncements"] = true,
+["arrowText"] = 16,
+["frameHeight"] = 136.5409393310547,
+["macroAnnounced"] = true,
+["autoSellJunk"] = true,
+["frameSizes"] = {
+["arrowFrame"] = {
+38.40012741088867,
+38.39995193481445,
+},
+["RXPFrame"] = {
+334.0941467285156,
+136.5409393310547,
+},
+["activeItemFrame"] = {
+50.18870544433594,
+39.99985885620117,
+},
+["activeTargetFrame"] = {
+54.22235107421875,
+39.99994659423828,
+},
+},
+["enableCompleteStepAnnouncements"] = true,
+},
+["仓库萌 - 铁血"] = {
+["hardcore"] = false,
+["framePositions"] = {
+["arrowFrame"] = {
+{
+"TOP",
+"UIParent",
+"TOP",
+0,
+0,
+},
+},
+["RXPFrame"] = {
+{
+"LEFT",
+"UIParent",
+"LEFT",
+0,
+35.00000381469727,
 },
 },
 ["activeItemFrame"] = {
@@ -120,16 +165,33 @@ nil,
 },
 ["activeTargetFrame"] = {
 {
-"LEFT",
-nil,
-"LEFT",
-258.4285278320313,
-155.5242614746094,
+"CENTER",
+"UIParent",
+"CENTER",
+0,
+0,
 },
 },
 },
-["autoSellJunk"] = true,
-["enableCompleteStepAnnouncements"] = true,
+["frameHeight"] = 125.0000152587891,
+["frameSizes"] = {
+["arrowFrame"] = {
+31.99995803833008,
+31.99995803833008,
+},
+["RXPFrame"] = {
+235,
+27.99996376037598,
+},
+["activeItemFrame"] = {
+50.18870544433594,
+39.99999237060547,
+},
+["activeTargetFrame"] = {
+54.22217559814453,
+68,
+},
+},
 },
 },
 }

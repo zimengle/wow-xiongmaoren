@@ -25,6 +25,8 @@ alaGearManSV = {
 },
 ["Player-5381-152D7C91"] = {
 },
+["Player-6457-04ED99FB"] = {
+},
 ["Player-6457-04DA9799"] = {
 },
 ["Player-5453-041DA806"] = {
@@ -53,13 +55,13 @@ alaGearManSV = {
 },
 ["Player-5453-041DA61B"] = {
 },
-["Player-5843-00D14C3F"] = {
-},
 ["Player-5843-00D04D9B"] = {
 },
-["Player-5843-00E2C300"] = {
+["Player-5843-00D14C3F"] = {
 },
 ["Player-5453-040319F3"] = {
+},
+["Player-5843-00E2C300"] = {
 },
 },
 ["useBar"] = true,

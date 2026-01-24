@@ -23,6 +23,9 @@ PawnCommon = {
 ["ClassID"] = 1,
 ["LocalizedName"] = "战士: 狂怒",
 ["PerCharacterOptions"] = {
+["仓库萌-铁血"] = {
+["Visible"] = true,
+},
 },
 ["DoNotShow1HUpgrades"] = false,
 ["Role"] = "DAMAGER",
@@ -130,6 +133,9 @@ PawnCommon = {
 ["ClassID"] = 1,
 ["LocalizedName"] = "战士: 防护",
 ["PerCharacterOptions"] = {
+["仓库萌-铁血"] = {
+["Visible"] = true,
+},
 },
 ["DoNotShow1HUpgrades"] = false,
 ["Role"] = "TANK",
@@ -214,6 +220,9 @@ PawnCommon = {
 ["ClassID"] = 1,
 ["LocalizedName"] = "战士: 武器",
 ["PerCharacterOptions"] = {
+["仓库萌-铁血"] = {
+["Visible"] = true,
+},
 },
 ["DoNotShow1HUpgrades"] = false,
 ["Role"] = "DAMAGER",
@@ -222,18 +231,18 @@ PawnCommon = {
 ["SpecID"] = 1,
 ["UnenchantedColor"] = "957552",
 },
-["\"Classic\":PALADIN3"] = {
-["Color"] = "f58cba",
-["ClassID"] = 2,
-["LocalizedName"] = "圣骑士: 惩戒",
+["\"Classic\":SHAMAN1"] = {
+["Color"] = "0070de",
+["ClassID"] = 7,
+["LocalizedName"] = "萨满祭司: 元素",
 ["PerCharacterOptions"] = {
 },
 ["DoNotShow1HUpgrades"] = false,
 ["Role"] = "DAMAGER",
 ["DoNotShow2HUpgrades"] = false,
 ["Provider"] = "Classic",
-["SpecID"] = 3,
-["UnenchantedColor"] = "b7698b",
+["SpecID"] = 1,
+["UnenchantedColor"] = "0054a6",
 },
 ["\"Classic\":SHAMAN3"] = {
 ["Color"] = "0070de",
@@ -248,18 +257,18 @@ PawnCommon = {
 ["SpecID"] = 3,
 ["UnenchantedColor"] = "0054a6",
 },
-["\"Classic\":SHAMAN1"] = {
-["Color"] = "0070de",
-["ClassID"] = 7,
-["LocalizedName"] = "萨满祭司: 元素",
+["\"Classic\":PALADIN3"] = {
+["Color"] = "f58cba",
+["ClassID"] = 2,
+["LocalizedName"] = "圣骑士: 惩戒",
 ["PerCharacterOptions"] = {
 },
 ["DoNotShow1HUpgrades"] = false,
 ["Role"] = "DAMAGER",
 ["DoNotShow2HUpgrades"] = false,
 ["Provider"] = "Classic",
-["SpecID"] = 1,
-["UnenchantedColor"] = "0054a6",
+["SpecID"] = 3,
+["UnenchantedColor"] = "b7698b",
 },
 ["\"Classic\":ROGUE"] = {
 ["Color"] = "fff569",

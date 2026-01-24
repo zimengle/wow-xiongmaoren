@@ -3,13 +3,13 @@ SpellActivationOverlayDB = {
 ["classes"] = {
 ["DEATHKNIGHT"] = {
 ["alert"] = {
-[51124] = {
+[81141] = {
 [0] = true,
 },
 [81340] = {
 [0] = true,
 },
-[92572] = {
+[51124] = {
 [0] = true,
 },
 [93426] = {
@@ -24,7 +24,7 @@ SpellActivationOverlayDB = {
 [59052] = {
 [0] = true,
 },
-[81141] = {
+[92572] = {
 [0] = true,
 },
 },
@@ -38,17 +38,17 @@ SpellActivationOverlayDB = {
 [56815] = {
 [56815] = true,
 },
+[93426] = {
+[63560] = true,
+},
 [81141] = {
 [48721] = true,
 },
-[96171] = {
-[48982] = true,
-},
 [51124] = {
 [49184] = true,
+[49143] = true,
 [49020] = true,
 [45477] = true,
-[49143] = true,
 },
 [59052] = {
 [49184] = true,
@@ -65,8 +65,8 @@ SpellActivationOverlayDB = {
 [114851] = {
 [45529] = true,
 },
-[93426] = {
-[63560] = true,
+[96171] = {
+[48982] = true,
 },
 },
 },
