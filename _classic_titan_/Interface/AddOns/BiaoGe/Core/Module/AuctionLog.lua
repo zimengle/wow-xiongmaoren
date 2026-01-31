@@ -28,7 +28,7 @@ BG.Init(function()
     BiaoGe.auctionTrade = nil
     BG.auctionTrade = {}
 
-    local function HighlightBiaoGeSameItems(itemID, self)
+    local function HighlightBiaoGeSameItems(itemID, link, self)
         local tbl = {}
         local FB = BG.FB1
         for b = 1, Maxb[FB] do
@@ -52,6 +52,7 @@ BG.Init(function()
             t:SetPoint("RIGHT", self, "RIGHT", -2, 0)
             t:SetTextColor(1, 0, 0)
             t:SetText(#tbl)
+            BG.HighlightItemAuctionLog(link)
         end
         tbl = nil
     end
@@ -1183,8 +1184,10 @@ BG.Init(function()
                 local itemID = GetItemInfoInstant(link)
                 if itemID then
                     GameTooltip:SetHyperlink(BG.SetSpecIDToLink(link))
-                    BG.Show_AllHighlight(link, "auctionlog")
-                    HighlightBiaoGeSameItems(itemID, self)
+                    if not isHistory then
+                        BG.Show_AllHighlight(link, "auctionlog")
+                        HighlightBiaoGeSameItems(itemID, link, self)
+                    end
                     BG.SetHistoryMoney(itemID)
                     if IsAltKeyDown() and BG.IsML and v.type == 3 and BiaoGe.options["autoAuctionStart"] == 1 then
                         SetCursor("interface/cursor/repair")

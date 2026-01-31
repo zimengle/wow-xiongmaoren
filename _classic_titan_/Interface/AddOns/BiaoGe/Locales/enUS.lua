@@ -28,6 +28,11 @@ do --英语说明书
     ns.updateText_now = {
     }
     ns.updateText_before = {
+        "|cff00FF00" .. [[Updated v1.25.2 on January 30]],
+        [[-<Time Server>Update P2 raid equipment drops again]],
+        [[-<Time Server>Fixed the issue where [a bundle of void spikes] would be automatically recorded into the table]],
+        [[-<Time Server>Fixed the issue where Hados’ equipment was incorrectly recorded in miscellaneous items (should be)]],
+        " ",
         "|cff00FF00" .. [[Updated v1.25.1 on January 30]],
         [[-<Time Server>Update P2 raid equipment drops]],
         [[-<Time Server>Void Vortex will now be recorded in Miscellaneous]],

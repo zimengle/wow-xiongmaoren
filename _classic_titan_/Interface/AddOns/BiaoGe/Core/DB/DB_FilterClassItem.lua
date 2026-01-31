@@ -302,6 +302,8 @@ BG.Init(function()
             }
         elseif BG.IsWLK or BG.IsCTM then
             if BG.IsWLK then
+                local f1 = ITEM_MOD_SPELL_DAMAGE_DONE:gsub("%%s", ".+")
+                local f2 = ITEM_MOD_SPELL_HEALING_DONE:gsub("%%s", ".+")
                 BG.FilterClassItemDB.ShuXing = {
                     { name = "力量", value = "%+%C-" .. ITEM_MOD_STRENGTH_SHORT, name2 = ITEM_MOD_STRENGTH_SHORT },
                     { name = "敏捷", value = "%+%C-" .. SPEC_FRAME_PRIMARY_STAT_AGILITY, name2 = SPEC_FRAME_PRIMARY_STAT_AGILITY },
@@ -321,7 +323,7 @@ BG.Init(function()
                     { name = "护甲穿透", value = ITEM_MOD_ARMOR_PENETRATION_RATING },
                     { name = "近战攻击", value = MELEE_ATTACK },
                     { name = "远程攻击", value = RANGED_ATTACK },
-                    { name = "法术强度", value = ITEM_MOD_SPELL_POWER_SHORT },
+                    { name = "法术强度", name2 = ITEM_MOD_SPELL_POWER_SHORT, value = { ITEM_MOD_SPELL_POWER_SHORT, f1, f2 } },
                 }
             else
                 BG.FilterClassItemDB.ShuXing = {

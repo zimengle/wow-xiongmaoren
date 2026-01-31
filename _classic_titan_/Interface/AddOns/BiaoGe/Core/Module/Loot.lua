@@ -211,8 +211,9 @@ BG.Init(function()
     local f = CreateFrame("Frame")
     f:RegisterEvent("ENCOUNTER_START")
     f:RegisterEvent("ENCOUNTER_END")
-    f:SetScript("OnEvent", function(self, event, bossID, _, _, _, success)
-        -- pt(bossID)
+    f:SetScript("OnEvent", function(self, event, ...)
+        local bossID, _, _, _, success = ...
+        -- pt(numb, event, ...)
         local FB = BG.FB2
         if not FB then return end
         if event == "ENCOUNTER_START" then
@@ -228,7 +229,7 @@ BG.Init(function()
                 end
             end
         elseif event == "ENCOUNTER_END" then
-            if success == 1 then
+            if success == 1 or bossID == 623 then
                 if IsBWLsod_boss5orboss6(bossID) then
                     numb = IsBWLsod_boss5orboss6(bossID)
                     lasttime = GetTime()
@@ -250,6 +251,7 @@ BG.Init(function()
                 start = nil
             end
         end
+        -- pt(numb, event, ...)
     end)
     local f = CreateFrame("Frame")
     f:RegisterEvent("PLAYER_REGEN_DISABLED") -- 进入战斗
@@ -459,17 +461,15 @@ BG.Init(function()
     local testItemID = 67429
     GetItemInfo(testItemID)
     local function LootItem(self, event, msg, ...)
-        local FB = BG.FB2
         if BiaoGe.options["autoLoot"] ~= 1 then -- 有没勾选自动记录功能
             return
         end
 
+        local FB = BG.FB2
         if BG.DeBug then
             FB = BG.FB1
         else
-            if not FB then -- 有没FB
-                return
-            end
+            if not FB then return end
         end
 
         if trade then return end -- 是否刚交易完
@@ -532,18 +532,6 @@ BG.Init(function()
                 if quality < BG.lootQuality[FB] then
                     return
                 end
-                -- 不记录ICC声望戒指
-                if FB == "ICC" then
-                    for i = 2, 5 do
-                        if BG.Loot.ICC.Faction["1156:" .. i] then
-                            for _, _itemId in ipairs(BG.Loot.ICC.Faction["1156:" .. i]) do
-                                if itemID == _itemId then
-                                    return
-                                end
-                            end
-                        end
-                    end
-                end
                 -- 不记录牌子、宝石
                 if typeID == 10 or typeID == 3 then
                     return
@@ -595,17 +583,21 @@ BG.Init(function()
                 return
             end
         end
-        -- 大灾变以上版本的坐骑记录到杂项
-        if BG.verOver4 and typeID == 15 and subclassID == 5 then
-            local numb = Maxb[FB] - 1
-            AddLootItem(FB, numb, link, Texture, level, isHope, count, typeID, lootplayer)
-            return
-        end
-        -- 图纸记到杂项
-        if typeID == 9 then
+        -- 图纸、坐骑记录到杂项
+        if typeID == 9 or (typeID == 15 and subclassID == 5) then
             local numb = Maxb[FB] - 1
             AddLootItem(FB, numb, link, Texture, level, isHope, count, typeID, lootplayer, nil, typeID == 9)
             return
+        end
+        -- ICC小怪掉落总是记录到杂项
+        if FB == "ICC" then
+            for key, value in pairs(BG.Loot.ICC.H25.boss14) do
+                if itemID == value then
+                    local numb = Maxb[FB] - 1
+                    AddLootItem(FB, numb, link, Texture, level, isHope, count, typeID, lootplayer)
+                    return
+                end
+            end
         end
         -- TOC嘉奖宝箱通过读取掉落列表来记录装备
         if FB == "TOC" and itemID ~= 47242 then
@@ -636,16 +628,6 @@ BG.Init(function()
                         AddLootItem(FB, numb, link, Texture, level, isHope, count, typeID, lootplayer)
                         return
                     end
-                end
-            end
-        end
-        -- ICC小怪掉落总是记录到杂项
-        if FB == "ICC" then
-            for key, value in pairs(BG.Loot.ICC.H25.boss14) do
-                if itemID == value then
-                    local numb = Maxb[FB] - 1
-                    AddLootItem(FB, numb, link, Texture, level, isHope, count, typeID, lootplayer)
-                    return
                 end
             end
         end

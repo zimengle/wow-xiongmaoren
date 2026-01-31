@@ -13,8 +13,8 @@ TitanBistooltip_classes_indexes = {
     ["Priest"] = 6,
     ["Rogue"] = 7,
     ["Shaman"] = 8,
-    ["Warlock"] = 9,
-    ["Warrior"] = 10
+    ["Warrior"] = 9,
+    ["Warlock"] = 10
 }
 
 TitanBistooltip_spec_icons = {};

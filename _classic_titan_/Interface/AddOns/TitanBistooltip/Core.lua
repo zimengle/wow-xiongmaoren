@@ -258,7 +258,7 @@ end
 function TitanBistooltipAddon:OnInitialize()
     createEquipmentWatcher()
     TitanBistooltipAddon.AceAddonName = "TitanBistooltip 快跑兄弟"
-    TitanBistooltipAddon.AddonNameAndVersion = "TitanBistooltip v1.36 |cFF00ff00（时光1）快跑兄弟|r"
+    TitanBistooltipAddon.AddonNameAndVersion = "TitanBistooltip v1.37 |cFF00ff00（时光1）快跑兄弟|r"
     
     TitanBistooltipAddon:initConfig()
     TitanBistooltipAddon:addMapIcon()
