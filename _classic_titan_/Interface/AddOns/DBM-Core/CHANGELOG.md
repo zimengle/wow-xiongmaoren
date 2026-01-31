@@ -1,19 +1,29 @@
 # DBM - Core
 
-## [12.0.10](https://github.com/DeadlyBossMods/DeadlyBossMods/tree/12.0.10) (2026-01-06)
-[Full Changelog](https://github.com/DeadlyBossMods/DeadlyBossMods/compare/12.0.9...12.0.10) [Previous Releases](https://github.com/DeadlyBossMods/DeadlyBossMods/releases)
+## [12.0.16](https://github.com/DeadlyBossMods/DeadlyBossMods/tree/12.0.16) (2026-01-27)
+[Full Changelog](https://github.com/DeadlyBossMods/DeadlyBossMods/compare/12.0.15...12.0.16) [Previous Releases](https://github.com/DeadlyBossMods/DeadlyBossMods/releases)
 
-- Update localization.br.lua (#1832)  
-- Update localization.fr.lua (#1831)  
-- Update localization.br.lua (#1836)  
-- Update localization.fr.lua (#1835)  
-- Update localization.es.lua (#1834)  
-- Update RU locales (#1833)  
-- Update koKR (#1837)  
-    Co-authored-by: Adam <MysticalOS@users.noreply.github.com>  
-    Co-authored-by: Artemis <QartemisT@gmail.com>  
-- prep new tag  
-- Don't run "OnCombatStart" on midnight client, instead run a new variant of it that'll only execute in midnight mods. This allows easier multi instruction support for modules that will run on both classic and retail  
-- Preliminary work on easily loopable objects, for the next era of boss modding.  
-- clarify variance bar enable togle to explain feature better now that it'll heavily be used in midnight  
+- Update localization.ru.lua (#1875)  
+- tweal default sounds for retail (this will not change your sounds if they are already set, if you don't like your defaults, change them yourself)  
+- Update localization.fr.lua (#1871)  
+- Update localization.ru.lua (#1874)  
+- Update localization.br.lua (#1870)  
+- Update localization.es.lua (#1869)  
+- Plz  
+- *cries quietly in a corner*  
+- GAH.  
+- FIX?  
+- Fix some luals stuff?  
+- Fix some luals stuff?  
+- Fix some luals stuff?  
+- Add new Journal icon features to go with artemis journal icon gui  
+- Done gui options.  
+- push ui code thus far  
+- Hardcode to our BLP path.  
+- make it possible to run old demo mode in midnight  
+- Double tripple check on TableUtils if table is a table  
+- Bugfix for findChatFrameUnderCursor  
+- new journal icons.  
+- Fix and close https://github.com/DeadlyBossMods/DeadlyBossMods/issues/1841  
+- make combat only event unregister more robust now that it's checking two diff tables (which means at least one table will usually be nil) Should fix https://github.com/DeadlyBossMods/DeadlyBossMods/issues/1868  
 - bump alpha  

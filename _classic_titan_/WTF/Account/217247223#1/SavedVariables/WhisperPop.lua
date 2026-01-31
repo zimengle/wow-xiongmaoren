@@ -1,4 +1,3 @@
-
 WhisperPopDB = {
 ["notifyButton"] = 1,
 ["listHeight"] = 320,

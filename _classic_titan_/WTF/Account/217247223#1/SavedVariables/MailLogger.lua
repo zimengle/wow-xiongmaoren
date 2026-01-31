@@ -1,4 +1,3 @@
-
 MailLoggerDB = {
 ["IgnoreItems"] = {
 ["魔法肉桂面包"] = true,

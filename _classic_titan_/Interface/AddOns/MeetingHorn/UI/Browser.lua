@@ -105,14 +105,14 @@ function Browser:Constructor()
     --@end-bcc@]==]
 
     -- @lkc@
+    self:SetupQuickButton('毒蛇')
+    self:SetupQuickButton('风暴')
     self:SetupQuickButton('MC')
     self:SetupQuickButton('宝库')
-    self:SetupQuickButton('日常')
-    self:SetupQuickButton('周常')
-    self:SetupQuickButton('排随机')
+    self:SetupQuickButton('卡扎克')
+    self:SetupQuickButton('末日行者')
     self:SetupQuickButton('升级')
     self:SetupQuickButton('PVP')
-    self:SetupQuickButton('黑石战场')
     -- @end-lkc@
 
     local  button = CreateFrame("Button", "Frame", self, "UIPanelButtonTemplate");
@@ -388,8 +388,9 @@ function Browser:OnItemFormatting(button, item, isVoice)
         --@end-classic@]=]
 
         -- @lkc@
-        if item:GetCertificationLevel() and item:GetCertificationBgID() then
-            button.Icon:SetTexture(format([[Interface\AddOns\MeetingHorn\Media\certification\%d\certification_icon]], item:GetCertificationBgID()))
+        local certificationTexture = ns.GetCertificationIconTexture(item:GetCertificationLevel(), item:GetCertificationBgID())
+        if certificationTexture then
+            button.Icon:SetTexture(certificationTexture)
             button.Icon:SetSize(384 / 6, 96 / 6)
             button.Icon:SetTexCoord(0, 225 / 256, 0, 56 / 64)
             button.Icon:SetShown(true)
@@ -473,8 +474,9 @@ function Browser:OnItemEnter(item)
     GameTooltip:SetOwner(self, 'ANCHOR_NONE')
     GameTooltip:SetPoint('TOPLEFT', self, 'TOPRIGHT', 8, 60)
     GameTooltip:SetText(item:GetTitle())
-    if item:GetCertificationLevel() and item:GetCertificationBgID() then
-        GameTooltip:AddLine(LeaderName..format([[|TInterface\AddOns\MeetingHorn\Media\certification\%d\certification_icon:16:64:0:0:256:64:0:225:0:56|t]], item:GetCertificationBgID()),  r, g, b)
+    if item:GetCertificationLevel() then
+        GameTooltip:AddLine(LeaderName..format([[|TInterface\AddOns\MeetingHorn\Media\certification_icon_%d:16:64:0:0:128:64:0:128:0:33|t]],
+            item:GetCertificationLevel()),  r, g, b)
     else
         GameTooltip:AddLine(LeaderName, r, g, b)
     end

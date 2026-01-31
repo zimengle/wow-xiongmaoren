@@ -3,13 +3,15 @@ local FramePlusfun=addonTable.FramePlusfun
 ----
 local match = _G.string.match
 local Data=addonTable.Data
+local Fun = addonTable.Fun
 local Create=addonTable.Create
 local PIGFrame=Create.PIGFrame
 local PIGEnter=Create.PIGEnter
 local PIGDiyBut=Create.PIGDiyBut
 local PIGFontString=Create.PIGFontString
 ---
-local iconxx={237553,294475}
+local iconxx={"newplayerchat-chaticon-newcomer",294475}
+iconxx[2] =PIG_MaxTocversion(30000) and PIG_MaxTocversion(20000,true) and "bags-greenarrow" or 294475
 local function add_butF(id,gnname,tooltip,classFilename)
 	local but = CreateFrame("CheckButton",nil, SpellBookFrame, "SpellBookSkillLineTabTemplate");
 	but:SetNormalTexture(iconxx[id+1]);
@@ -29,7 +31,7 @@ local function add_butF(id,gnname,tooltip,classFilename)
 	but:Show()
 	local EextData={
 		["ElvUI"]={true,{0,0,0,0}},
-		["NDui"]={NDui and NDuiDB and NDuiDB["Skins"]["BlizzardSkins"],{0,0,0,0}},
+		["NDui"]={Fun.IsNDui("Skins","BlizzardSkins"),{0,0,0,0}},
 	}
 	local fui =PIGFrame(SpellBookFrame,{"TOPLEFT",SpellBookFrame,"TOPRIGHT",8,-14},nil,nil,nil,nil,EextData)
 	fui:SetPoint("BOTTOMLEFT", SpellBookFrame, "BOTTOMRIGHT", 8, 74);

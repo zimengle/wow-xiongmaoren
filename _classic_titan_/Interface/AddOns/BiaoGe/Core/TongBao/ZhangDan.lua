@@ -601,7 +601,7 @@ function BG.ZhangDanUI(lastbt)
     end)
 
     local t = bt:CreateFontString()
-    t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+    t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
     t:SetPoint("RIGHT", bt, "LEFT", -5, 0)
     t:SetTextColor(1, 0.82, 0)
     t:SetText(L["通报："])

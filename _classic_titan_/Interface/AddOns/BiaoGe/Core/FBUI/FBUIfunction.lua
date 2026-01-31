@@ -91,15 +91,15 @@ local function HighlightBiaoGeSameItems(itemID, self)
     if #tbl > 1 then
         local frame
         for i, v in ipairs(tbl) do
-            frame = BG.CreateHighlightFrame(v.zb, nil, { RGB("FF69B4", 0.5) }, 4)
+            frame = BG.CreateHighlightFrame(v.zb, nil, { 1, 0, 0, }, 4)
             frame:ClearAllPoints()
             frame:SetPoint("TOPLEFT", v.zb, "TOPLEFT", 0, 0)
             frame:SetPoint("BOTTOMRIGHT", v.jine, "BOTTOMRIGHT", 0, 0)
         end
         local t = frame:CreateFontString()
-        t:SetFont(STANDARD_TEXT_FONT, 20, "OUTLINE")
+        t:SetFont(BIAOGE_TEXT_FONT, 20, "OUTLINE")
         t:SetPoint("RIGHT", self, "RIGHT", -2, 0)
-        t:SetTextColor(RGB("FF69B4"))
+        t:SetTextColor(1, 0, 0)
         t:SetText(#tbl)
     end
     tbl = nil
@@ -212,7 +212,7 @@ local function ShowTardeHighLightItem(self)
                         f:SetPoint("TOPLEFT", zb, "TOPLEFT", 0, 0)
                         f:SetPoint("BOTTOMRIGHT", jine, "BOTTOMRIGHT", 0, 0)
                         local t = f:CreateFontString()
-                        t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+                        t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
                         t:SetPoint("LEFT", jine, "RIGHT", 2, 0)
                         t:SetTextColor(0, 1, 0)
                         t:SetText(L["打包交易"])
@@ -310,14 +310,14 @@ function BG.FBTitleUI(FB, t)
     else
         version:SetPoint("TOPLEFT", frameright, "TOPLEFT", 100, 0)
     end
-    version:SetFont(STANDARD_TEXT_FONT, fontsize, "OUTLINE")
+    version:SetFont(BIAOGE_TEXT_FONT, fontsize, "OUTLINE")
     version:SetTextColor(RGB(BG.y2))
     version:SetText(L["  项目"])
     preWidget = version
 
     local version = parent:CreateFontString()
     version:SetPoint("TOPLEFT", preWidget, "TOPLEFT", 70, 0)
-    version:SetFont(STANDARD_TEXT_FONT, fontsize, "OUTLINE")
+    version:SetFont(BIAOGE_TEXT_FONT, fontsize, "OUTLINE")
     version:SetTextColor(RGB(BG.y2))
     version:SetText(BG.fakuanIsFirst[FB] and t == Maxt[FB] and L["事由"] or L["装备"])
     preWidget = version
@@ -325,14 +325,14 @@ function BG.FBTitleUI(FB, t)
 
     local version = parent:CreateFontString()
     version:SetPoint("TOPLEFT", preWidget, "TOPLEFT", BG.zhuangbeiWidth + 5, 0)
-    version:SetFont(STANDARD_TEXT_FONT, fontsize, "OUTLINE")
+    version:SetFont(BIAOGE_TEXT_FONT, fontsize, "OUTLINE")
     version:SetTextColor(RGB(BG.y2))
     version:SetText(BG.fakuanIsFirst[FB] and t == Maxt[FB] and L["罚款人"] or L["买家"])
     preWidget = version
 
     local version = parent:CreateFontString()
     version:SetPoint("TOPLEFT", preWidget, "TOPLEFT", BG.maijiaWidth + 5, 0)
-    version:SetFont(STANDARD_TEXT_FONT, fontsize, "OUTLINE")
+    version:SetFont(BIAOGE_TEXT_FONT, fontsize, "OUTLINE")
     version:SetTextColor(RGB(BG.y2))
     version:SetText(L["金额"])
     preWidget = version
@@ -1253,7 +1253,7 @@ function BG.BossNameUI(FB, t, b, bb, i, ii, frameName)
     end
     f:SetSize(15, 40)
     f.text = f:CreateFontString()
-    f.text:SetFont(STANDARD_TEXT_FONT, fontsize, "OUTLINE")
+    f.text:SetFont(BIAOGE_TEXT_FONT, fontsize, "OUTLINE")
     f.text:SetTextColor(RGB(BG.Boss[FB]["boss" .. boss].color))
     if frameName == "DuiZhangFrame" then
         if boss == Maxb[FB] then
@@ -1307,12 +1307,11 @@ function BG.BossNameUI(FB, t, b, bb, i, ii, frameName)
         local f = CreateFrame("Frame", nil, BG[frameName .. FB])
         f:SetPoint("BOTTOM", BG.Frame[FB]["boss" .. Maxb[FB] + 2].zhuangbei5, "BOTTOMLEFT", -45, 7)
         f.text = f:CreateFontString()
-        f.text:SetFont(STANDARD_TEXT_FONT, fontsize, "OUTLINE")
+        f.text:SetFont(BIAOGE_TEXT_FONT, fontsize, "OUTLINE")
         f.text:SetTextColor(RGB("00BFFF"))
         f.text:SetText(L["工\n资"])
         BG.SetBossNamePoint(FB, boss, f)
     end
-
 end
 
 ------------------击杀用时------------------
@@ -1328,7 +1327,7 @@ function BG.JiShaUI(FB, t, b, bb, i, ii, frameName)
         end
     end
     text:SetPoint("TOPLEFT", BG[frameName][FB]["boss" .. boss]["zhuangbei" .. num], "BOTTOMLEFT", -0, -3)
-    text:SetFont(STANDARD_TEXT_FONT, 10, "OUTLINE,THICK")
+    text:SetFont(BIAOGE_TEXT_FONT, 10, "OUTLINE,THICK")
     text:SetTextColor(RGB(BG.Boss[FB]["boss" .. boss].color))
     BG[frameName][FB]["boss" .. boss]["time"] = text
     if frameName == "Frame" then

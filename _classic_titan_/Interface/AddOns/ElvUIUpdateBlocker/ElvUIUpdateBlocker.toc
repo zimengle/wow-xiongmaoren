@@ -1,0 +1,10 @@
+## Interface: 110100
+## Title: |cff1784d1ElvUI|r Update Blocker  |cffff99cc爱|r|cffddaaee萝|r|cffbbccff莉|r|cff99eeff制|r|cff77ffff作|r
+## Notes: Intercepts and hides ElvUI update popup windows.
+## Notes-zhCN: 拦截并隐藏 ElvUI 的版本更新提示弹窗。
+## Author: 爱萝莉的格雷福斯#5462
+## Version: 1.6
+## SavedVariables: Update_Blocker_DB
+## Dependencies: ElvUI
+
+ElvUIUpdateBlocker.lua

@@ -57,11 +57,9 @@ function BusinessInfo.AHPlusOptions()
 	}
 	--扫描间隔
 	local Scaninfo = {1,10,1,{["Right"]="扫描间隔%s"}}
-	BusinessInfo.AHPlusData.ScanCD=PIGA["AHPlus"]["ScanTimeCD"]
 	AHPlusF.ScanSlider = PIGSlider(AHPlusF,{"TOPLEFT",AHPlusF,"TOPLEFT",20,-40},Scaninfo)
 	function AHPlusF.ScanSlider:PIGOnValueChange(arg1)
 		PIGA["AHPlus"]["ScanTimeCD"]=arg1
-		BusinessInfo.AHPlusData.ScanCD=arg1
 	end
 
 	----
@@ -102,30 +100,6 @@ function BusinessInfo.AHPlusOptions()
 				PIG_OptionsUI.RLUI:Show()
 			end
 		end);
-		GameTooltip:HookScript("OnTooltipSetItem", function(self)
-			local _, itemlink = self:GetItem()
-			if itemlink then
-				local itemID = GetItemInfoInstant(itemlink)
-				BusinessInfo.SetTooltipOfflineG(itemID,self)
-			end
-		end)
-		-- AtlasLootTooltip:HookScript("OnTooltipSetItem", function(self)
-		-- 	local _, itemlink = self:GetItem()
-		-- 	if itemlink then
-		-- 		local itemID = GetItemInfoInstant(itemlink)
-		-- 		BusinessInfo.SetTooltipOfflineG(itemID,self)
-		-- 	end
-		-- end)
-		hooksecurefunc("SetItemRef", function(link, text, button, chatFrame)
-			if link:find("^item:") then
-				local itemID = GetItemInfoInstant(link) 
-				BusinessInfo.SetTooltipOfflineG(itemID,ItemRefTooltip)
-			end
-		end)
-	else
-		TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, function(tooltip, data)
-			BusinessInfo.SetTooltipOfflineG(data.id,tooltip)
-		end)
 	end
 	--------
 	function AHPlusF:ShowChecked()

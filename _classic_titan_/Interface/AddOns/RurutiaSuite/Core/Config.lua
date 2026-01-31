@@ -8,7 +8,8 @@ local addonName, ns = ...
 -- 字体逻辑
 local FONT_PREFERRED = "Interface\\AddOns\\MikScrollingBattleText\\Fonts\\Rurutia.ttf"
 local FONT_FALLBACK  = "Fonts\\ARKai_T.ttf"
-local GLOBAL_FONT = IsAddOnLoaded("MikScrollingBattleText") and FONT_PREFERRED or FONT_FALLBACK
+local GLOBAL_FONT = FONT_FALLBACK
+--local GLOBAL_FONT = IsAddOnLoaded("MikScrollingBattleText") and FONT_PREFERRED or FONT_FALLBACK
 
 local RURUTIA_SUITE_CONFIG = {
     -- ========================================
@@ -51,7 +52,7 @@ local RURUTIA_SUITE_CONFIG = {
     
     offsets = {
         titleBarY = -20, subTitleY = -50, subTitleColor = {r=1,g=1,b=1},
-        mainTabGroup = { top=-60, bottom=90, left=25, right=-25 },
+        mainTabGroup = { top=-65, bottom=90, left=25, right=-25 },
         mainTabContent = { top=-45, left=25 },
         mainBottomButtons = { left=25, right=-25, bottom=25, spacing=0 },
         mainFunctionButtons = { spacing=0, align="CENTER" },
@@ -117,7 +118,7 @@ local RURUTIA_SUITE_CONFIG = {
 
         -- [层级设置] 控制框体显示层级，避免被其他UI遮挡
         -- 可选值: "BACKGROUND"(最低), "LOW", "MEDIUM"(默认), "HIGH", "DIALOG"(最高)
-        frameStrata = "HIGH",
+        frameStrata = "MEDIUM",
         frameLevel = 100,  -- 相对层级，数值越大越靠前
 
         unlock = { bgColor={r=0,g=0,b=0,a=0.8}, borderColor={r=0,g=0,b=0,a=1} },
@@ -129,7 +130,7 @@ local RURUTIA_SUITE_CONFIG = {
                 size=12,
                 flags="OUTLINE",
                 point="TOP",
-                x=0, y=-3,
+                x=1, y=-3, -- [Fix] 向右微调
                 color={r=1,g=1,b=1}
             },
 
@@ -149,31 +150,3 @@ local RURUTIA_SUITE_CONFIG = {
 
 _G.RURUTIA_SUITE_CONFIG = RURUTIA_SUITE_CONFIG
 ns.Config = RURUTIA_SUITE_CONFIG
-
--- 兼容层
-_G.RS_UI_SIZES = {
-    buttonHeight = RURUTIA_SUITE_CONFIG.buttons.height,
-    buttonWidth = RURUTIA_SUITE_CONFIG.buttons.width,
-    windowSize = RURUTIA_SUITE_CONFIG.windows,
-    titleBar = { fontSize = RURUTIA_SUITE_CONFIG.font.headerSize, offsetY = RURUTIA_SUITE_CONFIG.offsets.titleBarY },
-    subTitle = { fontSize = RURUTIA_SUITE_CONFIG.font.subHeaderSize, offsetY = RURUTIA_SUITE_CONFIG.offsets.subTitleY, color = RURUTIA_SUITE_CONFIG.offsets.subTitleColor },
-    background = RURUTIA_SUITE_CONFIG.background,
-    mainFrame = {
-        tabGroup = RURUTIA_SUITE_CONFIG.offsets.mainTabGroup,
-        tabContent = RURUTIA_SUITE_CONFIG.offsets.mainTabContent,
-        bottomButtons = {
-            container = RURUTIA_SUITE_CONFIG.offsets.mainBottomButtons,
-            button1 = { width = RURUTIA_SUITE_CONFIG.buttons.width.bottomButton1 },
-            button2 = { width = RURUTIA_SUITE_CONFIG.buttons.width.bottomButton2 },
-            spacing = RURUTIA_SUITE_CONFIG.offsets.mainBottomButtons.spacing,
-        },
-    },
-    changelogWindow = {
-        title = RURUTIA_SUITE_CONFIG.changelog,
-        content = { fontSize = RURUTIA_SUITE_CONFIG.font.contentSize },
-        topSpacer = RURUTIA_SUITE_CONFIG.offsets.changelogWindow.topSpacer,
-        scrollBox = RURUTIA_SUITE_CONFIG.offsets.changelogWindow.scrollBox,
-        buttons = RURUTIA_SUITE_CONFIG.offsets.changelogWindow.buttons,
-    },
-    consumableBar = RURUTIA_SUITE_CONFIG.consumableBar,
-}

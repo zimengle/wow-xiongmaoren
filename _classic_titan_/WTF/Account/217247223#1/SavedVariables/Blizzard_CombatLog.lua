@@ -1,4 +1,3 @@
-
 Blizzard_CombatLog_Filters = {
 ["currentFilter"] = 1,
 ["filters"] = {

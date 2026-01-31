@@ -23,9 +23,9 @@ C('Raid', L.CATEGORY_RAID, true)
 C('Dungeon', L.CATEGORY_DUNGEON, true)
 C('Boss', L.CATEGORY_BOSS)
 C('PvP', L.CATEGORY_PVP)
-C('Recruit', L.CATEGORY_RECRUIT, nil, L['CHANNEL: Recruit'], 150, 300, true)
-C('Port', L.CATEGORY_PORT, nil, L['CHANNEL: Group'], 150, 300)
-C('Summon', L.CATEGORY_SUMMON, nil, L['CHANNEL: Group'], 150, 300)
+--C('Recruit', L.CATEGORY_RECRUIT, nil, L['CHANNEL: Recruit'], 150, 300, true)
+--C('Port', L.CATEGORY_PORT, nil, L['CHANNEL: Group'], 150, 300)
+--C('Summon', L.CATEGORY_SUMMON, nil, L['CHANNEL: Group'], 150, 300)
 C('Other', OTHER)
 --[[@debug@
 C('Debug', 'Debug', nil, 'MeetingHornDebug')
@@ -259,12 +259,12 @@ P(2):quest(141) -- 泰达希尔
 P(2):quest(1) -- 丹莫罗
 P(2):quest(12) -- 艾尔文森林
 P(2):quest(85) -- 提瑞斯法林地
--- 传送
-P():base(L.CATEGORY_PORT, 'Port', 25, nil, 'MAGE') --
--- 召唤
-P():base(L.CATEGORY_SUMMON, 'Summon', 20, nil, 'WARLOCK') --
--- 招募
-P():base(L.CATEGORY_RECRUIT, 'Recruit') --
+---- 传送
+--P():base(L.CATEGORY_PORT, 'Port', 25, nil, 'MAGE') --
+---- 召唤
+--P():base(L.CATEGORY_SUMMON, 'Summon', 20, nil, 'WARLOCK') --
+---- 招募
+--P():base(L.CATEGORY_RECRUIT, 'Recruit') --
 -- 其它
 P():base(OTHER, 'Other') --
 --[[@debug@

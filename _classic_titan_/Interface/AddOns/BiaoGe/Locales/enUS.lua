@@ -26,40 +26,35 @@ do --英语说明书
         " ",
     }
     ns.updateText_now = {
-        "|cff00FF00" ..[[Updated on January 7 v1.24.3]] ,
-        [[-<Time Server>Member World BossCD: The member frame now supports right-clicking to open the menu (you can quickly kick people, etc.)]],
-        [[-<MOP>Character Overview: Some brands will now display the total upper limit]],
-        [[-<MOP>Character Overview: Added professional skill CD "Jewelry Research" (check it in the settings)]],
-        " " ,
     }
     ns.updateText_before = {
-        "|cff00FF00" .. [[Updated v1.23.9 on December 25]],
-        [[-Added function: Move debtors to team 78 (the entrance is in the team interface where you press the O key, visible when you are the team leader)]],
-        [[-Automatic auction: You can now hold down ALT+click on the equipment in the pickup box to initiate an auction]],
-        [[-<MOP>Character Overview: Added currency "Supreme Stone Fragments" and "Iron Palm Emblem", added task "Collect Food" (the above 3 items are not checked by default)]],
-        " ",
-        "|cff00FF00" .. [[Updated on December 22 v1.23.7]],
-        [[-<MOP>Character Overview: Add professional skill CD (check it in the settings)]],
-        [[-Role Overview: Added display of professional skill points (only main majors are displayed by default, auxiliary majors need to be checked by yourself)]],
-        [[-Character Overview: If a character who has learned a major has not completed the professional daily tasks that day, a red X will be displayed]],
-        [[-Settings: You can now set the zoom individually for the character overview UI]],
-        [[-Fixed the problem of invalid viewing of online users in foreign servers]],
-        " ",
-        "|cff00FF00" .. [[Updated on December 17th v1.23.6]],
-        [[-<MOP>Supports Chinese version of Pandaren]],
-        " ",
-        "|cff00FF00" .. [[Updated on December 16th v1.23.5]],
-        [[-<Time Server>Even if the chat is blocked, an equipment will record the results normally after the automatic auction ends, and no longer rely on the team leader’s notification]],
-        " ",
-        "|cff00FF00" .. [[Updated on December 15th v1.23.4]],
-        [[-Notification bill: Add a self-selected notification channel (next to the notification button)]],
-        [[-Settings: Add option "Block sending restricted system messages" (checked by default)]],
-        [[-Added support for English localization]],
-        [[-Fixed the issue of abnormal auction records when using automatic auction in the English version]],
+        "|cff00FF00" .. [[Updated v1.25.1 on January 30]],
+        [[-<Time Server>Update P2 raid equipment drops]],
+        [[-<Time Server>Void Vortex will now be recorded in Miscellaneous]],
+        [[-<Time Server> will now automatically record drawings to Miscellaneous]],
+        [[-<Time Server>Fixed the problem that the table would be cleared when fighting the Storm and then the Viper]],
+        [[-<Time Server>Fixed the problem that the character overview CD of the New World BOSS is not displayed]],
     }
 end
 
 do
+    L["输入框字号"] = "Input Box Font Size"
+    L["BiaoGe插件大量使用输入框，该选项可以修改其字体大小。"] = "The BiaoGe AddOn uses numerous input boxes; this option allows you to modify their font size."
+    L["输入框字号（需重载）"] = "Input Box Font Size (Requires Reload)"
+    L["清空表格时的金币："] = "Gold on Table Clear: "
+    L["开启该模块需要重载游戏。\n现在立刻重载吗？"] = "Enabling this module requires reloading the game.\nReload now?"
+    L["+职业"] = "+Class"
+    L["移动欠款者"] = "Move Debtors"
+    L["把欠款者移到78队"] = "Move Debtors to Group 7 & 8"
+    L["插件加载错误。"] = "AddOn load error."
+    L["你没有安装官方WCL插件（安装入口在WCL客户端）。"] = "You have not installed the official WCL AddOn (installation entry is in the WCL client)."
+    L["当前团队成员没有WCL分数。"] = "No WCL scores for current raid members."
+    L["战斗中不能查看WCL。"] = "Cannot view WCL during combat."
+    L["该功能仅修改买家和金额，如果表格里的装备栏是空的，则什么都不会发生。"] = "This feature only modifies buyers and amounts. If the equipment column in the table is empty, nothing will happen."
+    L["金团竞价"] = "Guild Gold Raid Auction"
+    L["Roll点"] = "Roll"
+    L["字体（需重载）"] = "Font (Requires Reload)"
+    L["字体预览\n\nBiaoGe插件\n1234567890"] = "Font Preview\n\nBiaoGe AddOn\n1234567890"
     L["|cff808080（带*的设置需要重载才能生效）|r"] = "|cff808080(Settings marked with * require a reload to take effect)|r"
     L["显示牌子总上限"] = "Show Total Currency Cap"
     L["像勇气点数、征服点数有总上限的牌子，在角色总览里会显示其总上限。"] = "For currencies with a total cap (e.g., Valor Points, Conquest Points), their total cap will be displayed in the Character Overview."
@@ -96,7 +91,7 @@ do
     L["表格UI缩放"] = "Table UI Scale"
     L["专业CD"] = "Profession CD"
     L["专业技能"] = "Professions"
-    L["未学"] = "Not Learned"
+    L["未学"] = "Unln"
     L["炼金转化"] = "Alchemy Transmutation"
     L["霹雳钢锭"] = "Thundersteel Ingot"
     L["智慧卷轴"] = "Scroll of Wisdom"
@@ -599,7 +594,7 @@ do
     L["使用组合键打开拍卖面板"] = "Use the 'Glowy (Purple)' key to open the auction panel."
     L["团长/物品分配者ALT+点击背包/表格/聊天框装备，来打开拍卖面板。"] = "Troupe Leader/Item Dispenser ALT+click on the backpack/form/chat box Gear to open the auction panel."
     L["出价记录"] = "Bid Record"
-    L["、"] = "Bids are recorded,"
+    L["、"] = ". "
     L["复制活动说明"] = "Copy the event description"
     L["在聊天频道玩家的右键菜单里增加[密语模板]按钮。"] = "Add [Secret Message Template] button to the right-click menu of chat channel players."
     L["在聊天输入框的右键菜单里增加[密语模板]按钮。"] = "Add [Secret Message Template] button to the right-click menu of chat input box."
@@ -676,7 +671,7 @@ do
     L["设为流拍"] = "Set as unsold"
     L["设为已拍"] = "Set as Auctioned"
     L["增加记录"] = "Add record"
-    L["<正在拍卖>"] = "<Auctioning"
+    L["<正在拍卖>"] = "<Auctioning>"
     L["离线"] = "Offline"
     L["操作提示："] = "Action Tip:"
     L["右键点击一个装备可以打开菜单"] = "Right click on a Gear to open the menu"
@@ -805,7 +800,7 @@ do
     L["把拍卖聊天记录定位到当前装备%s所在处。%s"] = "Locates the auction chat to the current Gear %s. %s"
     L["周常任务已记录，距离重置还剩%s。"] = "Weekly Quests Recorded with %s left to reset."
     L["泰坦"] = "Titan"
-    L["珠宝"] = "Jewelry."
+    L["珠宝"] = "Jewelry"
     L["多个获取途径"] = "Multiple ways to obtain"
     L["英雄"] = "Seal of the Crusader Judgement Increase"
     L["v1.5：拍卖价格为100~3000的加价幅度现在为100一次"] = "v1.5: Auction prices of 100~3000 are now increased by 100 a time"
@@ -832,7 +827,7 @@ do
     L["拍卖WA"] = "AucWA"
     L["团本锁定ID："] = "Group book 'Increase Spell Dam 16' ID:"
     L["T补贴"] = "T allowance"
-    L["N补贴"] = "N allowance."
+    L["N补贴"] = "N allowance"
     L["DPS补贴"] = "DPS Subsidy"
     L["快速记账的时候，可以预览这次的记账效果。"] = "You can preview the results of this bookkeeping when you do some quick bookkeeping."
     L["更新记录："] = "Updated logging:"
@@ -1050,9 +1045,9 @@ do
     L["声望最高可提升至"] = "Reputation Up to"
     L["(贸易局)"] = "(TRADE BUREAU)"
     L["我"] = "ME."
-    L["炼金转化"] = "Icy Cloak."
-    L["裁缝洗布"] = "Icy Cloak."
-    L["制皮筛盐"] = "Mind Vision."
+    L["炼金转化"] = "Alchemy Conversion"
+    L["裁缝洗布"] = "Tailor washing cloth"
+    L["制皮筛盐"] = "Leather sieving salt"
     L["小时"] = "Hour"
     L["分钟"] = "Minutes"
     L["秒"] = "Seconds"
@@ -1309,7 +1304,6 @@ do
     L["心愿装备"] = "Wish Gear"
     L["右键取消心愿装备"] = "Right click to cancel the Wish Gear"
     L["装绑"] = "BoE"
-    L["当前表格"] = "Current Form"
     L["< 当前表格 >"] = "< Current Form >"
     L["表格的核心功能都在这里"] = "The core functions of the form are all here"
     L["心愿清单"] = "Wishlist"
@@ -1570,7 +1564,6 @@ do
     L["|cffffffff< 交易通知字体大小 >|r|cff808080（右键还原设置）|r\n\n1、调整该字体的大小"] = "|cffffffff< Transaction notification font size >|r|cff808080 (right-click to restore settings)|r\n\n1, 'Improved Gouge' Size of this font"
     L["交易通知字体大小"] = "Transaction notification font size"
     L["|cffffffff< 当前表格 >|r\n\n1、表格的核心功能都在这里"] = "|cffffffff< Current Form >|r\n\n1, the core functions of the form are here"
-    L["当前表格"] = "Current Form"
     L["对账"] = "Reconciliation"
     L["心愿清单"] = "Wish List"
     L["YY评价"] = "YY Evaluation"
@@ -1874,8 +1867,8 @@ do
     L["心愿清单："] = "Wishlist:"
     L["心愿装备只要掉落就会有提醒，并且掉落后自动关注团长拍卖"] = "WishGear Alerts whenever it drops and automatically follows the Head Auction after it drops"
     L["你今天的运气指数(1-100)："] = "Your luck index for the day (1-100):"
-    L["当前表格"] = "Current Table"
-    L["历史表格"] = "History"
+    L["当前表格"] = "Current table"
+    L["历史表格"] = "Historical table"
     L["（当前为自动显示)"] = "(Currently displayed automatically)"
     L["<BiaoGe>金团表格"] = "<BiaoGe>"
     L["左键：|r打开表格"] = "Left button: |r to open the table"

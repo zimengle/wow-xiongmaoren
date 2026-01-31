@@ -1,0 +1,7 @@
+## Interface: 11508, 30405, 38000 40402, 50502, 50503
+## Title: 欢迎文字快滚
+## Notes: 屏蔽不受待见的系统黄字
+## Author: 雷水
+## Version: 2.0
+
+WelcomeFilter.lua

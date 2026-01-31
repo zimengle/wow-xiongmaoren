@@ -1,4 +1,3 @@
-
 CellDB = {
 ["general"] = {
 ["fadeOut"] = false,

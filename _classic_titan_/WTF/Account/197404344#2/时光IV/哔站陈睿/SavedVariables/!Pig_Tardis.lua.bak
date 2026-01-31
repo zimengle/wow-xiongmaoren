@@ -1,2 +1,0 @@
-
-PIGT_Per = nil

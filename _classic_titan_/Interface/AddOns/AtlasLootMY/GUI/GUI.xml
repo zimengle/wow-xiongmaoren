@@ -23,7 +23,7 @@
 		<Scripts>
 			<OnShow>
 				self:SetFrameLevel(self:GetParent():GetFrameLevel()+2)
-				if AtlasLoot.GUI.ModelFrame.SelectedCreature == self then
+				if AtlasLootMY.GUI.ModelFrame.SelectedCreature == self then
 					self:Disable()
 				else
 					self:Enable()
@@ -38,7 +38,7 @@
 				self.creature:SetSize(30, 30)
 			</OnEnable>
 			<OnClick>
-				AtlasLoot.GUI.ModelFrame.ButtonOnClick(self)
+				AtlasLootMY.GUI.ModelFrame.ButtonOnClick(self)
 				PlaySound(852)
 			</OnClick>
 			<OnEnter>

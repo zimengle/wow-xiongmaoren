@@ -1,0 +1,1 @@
+MythicArchiveDB = nil

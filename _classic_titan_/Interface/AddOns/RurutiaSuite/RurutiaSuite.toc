@@ -1,10 +1,10 @@
-## Interface: 30405, 38000
+## Interface: 30305, 30405, 38000, 50502
 ## Title: <RS> |cffff559aRurutiaSuite|r
-## Title-zhCN: <RS> |cffff559a露露工具箱|r 核心
+## Title-zhCN: <RS> |cffff559a露露的工具箱|r 核心
 ## Notes: RurutiaSuite, Rurutia's Toolbox.
 ## Notes-zhCN: RurutiaSuite, 露露的常用工具箱。
 ## Author: 露露緹婭
-## Version: 2.4.2
+## Version: 2.6.5
 ## SavedVariables: RurutiaSuiteDB
 ## OptionalDeps: Ace3
 
@@ -33,8 +33,10 @@ Libs\AceLocale-3.0\AceLocale-3.0.xml
 # ========================================
 # 关键：Init.lua 必须第一个加载（初始化 Addon 对象）
 Core\Init.lua
+Core\Compat.lua
 Core\Config.lua
 Core\UILib.lua
+Core\AsyncLib.lua
 Core\Skin.lua
 Core\Changelog.lua
 
@@ -43,3 +45,6 @@ Core\Changelog.lua
 # ========================================
 Modules\Consumables\Data.lua
 Modules\Consumables\Core.lua
+Modules\AutoMark\Core.lua
+Modules\CVarSettings\Core.lua
+Modules\CVarSettings\Data.lua

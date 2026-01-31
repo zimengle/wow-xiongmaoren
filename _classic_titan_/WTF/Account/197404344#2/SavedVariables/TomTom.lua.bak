@@ -3,14 +3,19 @@ TomTomDB = {
 ["profileKeys"] = {
 ["退休码农 - 时光IV"] = "Default",
 ["于鹏 - 时光IV"] = "Default",
+["于鹏 - 时光IV - 红色信仰"] = "Default",
 ["小米军儿 - 时光IV"] = "Default",
 ["京东刘强东 - 时光IV"] = "Default",
+["爱奇艺龚宇 - 时光IV"] = "Default",
+["三角碑崽儿 - 时光IV - 红色信仰"] = "Default",
 ["三角碑崽儿 - 时光IV"] = "Default",
+["退休码农 - 时光IV - 红色信仰"] = "Default",
 ["哔站陈睿 - 时光IV"] = "Default",
+["美团王兴 - 时光IV"] = "Default",
 ["卧伦巴菲特 - 时光IV"] = "Default",
 ["京东董事长 - 时光IV"] = "Default",
-["美团王兴 - 时光IV"] = "Default",
-["爱奇艺龚宇 - 时光IV"] = "Default",
+["小米军儿 - 时光IV - 红色信仰"] = "Default",
+["哔站陈睿 - 时光IV - 红色信仰"] = "Default",
 },
 ["profiles"] = {
 ["Default"] = {
@@ -40,14 +45,19 @@ TomTomWaypointsM = {
 ["profileKeys"] = {
 ["退休码农 - 时光IV"] = "退休码农 - 时光IV",
 ["于鹏 - 时光IV"] = "于鹏 - 时光IV",
+["于鹏 - 时光IV - 红色信仰"] = "于鹏 - 时光IV - 红色信仰",
 ["小米军儿 - 时光IV"] = "小米军儿 - 时光IV",
 ["京东刘强东 - 时光IV"] = "京东刘强东 - 时光IV",
+["爱奇艺龚宇 - 时光IV"] = "爱奇艺龚宇 - 时光IV",
+["三角碑崽儿 - 时光IV - 红色信仰"] = "三角碑崽儿 - 时光IV - 红色信仰",
 ["三角碑崽儿 - 时光IV"] = "三角碑崽儿 - 时光IV",
+["退休码农 - 时光IV - 红色信仰"] = "退休码农 - 时光IV - 红色信仰",
 ["哔站陈睿 - 时光IV"] = "哔站陈睿 - 时光IV",
+["美团王兴 - 时光IV"] = "美团王兴 - 时光IV",
 ["卧伦巴菲特 - 时光IV"] = "卧伦巴菲特 - 时光IV",
 ["京东董事长 - 时光IV"] = "京东董事长 - 时光IV",
-["美团王兴 - 时光IV"] = "美团王兴 - 时光IV",
-["爱奇艺龚宇 - 时光IV"] = "爱奇艺龚宇 - 时光IV",
+["小米军儿 - 时光IV - 红色信仰"] = "小米军儿 - 时光IV - 红色信仰",
+["哔站陈睿 - 时光IV - 红色信仰"] = "哔站陈睿 - 时光IV - 红色信仰",
 },
 ["profiles"] = {
 ["退休码农 - 时光IV"] = {
@@ -67,34 +77,9 @@ TomTomWaypointsM = {
 ["callbacks"] = {
 ["distance"] = {
 },
-["world"] = {
-},
 ["minimap"] = {
 },
-},
-["minimap"] = true,
-["world"] = true,
-},
-},
-[118] = {
-["118:544000000:907000000:映像大厅\n萨隆矿坑\n灵魂洪炉"] = {
-118,
-0.544,
-0.907,
-["arrivaldistance"] = 15,
-["crazy"] = true,
-["persistent"] = true,
-["desc"] = "映像大厅\n萨隆矿坑\n灵魂洪炉",
-["silent"] = true,
-["cleardistance"] = 10,
-["title"] = "映像大厅\n萨隆矿坑\n灵魂洪炉",
-["from"] = "?",
-["callbacks"] = {
-["distance"] = {
-},
 ["world"] = {
-},
-["minimap"] = {
 },
 },
 ["minimap"] = true,
@@ -117,9 +102,34 @@ TomTomWaypointsM = {
 ["callbacks"] = {
 ["distance"] = {
 },
+["minimap"] = {
+},
 ["world"] = {
 },
+},
+["minimap"] = true,
+["world"] = true,
+},
+},
+[118] = {
+["118:544000000:907000000:映像大厅\n萨隆矿坑\n灵魂洪炉"] = {
+118,
+0.544,
+0.907,
+["arrivaldistance"] = 15,
+["crazy"] = true,
+["persistent"] = true,
+["desc"] = "映像大厅\n萨隆矿坑\n灵魂洪炉",
+["silent"] = true,
+["cleardistance"] = 10,
+["title"] = "映像大厅\n萨隆矿坑\n灵魂洪炉",
+["from"] = "?",
+["callbacks"] = {
+["distance"] = {
+},
 ["minimap"] = {
+},
+["world"] = {
 },
 },
 ["minimap"] = true,
@@ -144,59 +154,9 @@ TomTomWaypointsM = {
 ["callbacks"] = {
 ["distance"] = {
 },
-["minimap"] = {
-},
 ["world"] = {
 },
-},
-["minimap"] = true,
-["world"] = true,
-},
-},
-[1431] = {
-["1431:754552623.50062:438565138.25764:TomTom 路径点"] = {
-1431,
-0.7545526235006239,
-0.4385651382576383,
-["arrivaldistance"] = 15,
-["crazy"] = true,
-["persistent"] = true,
-["desc"] = "TomTom 路径点",
-["silent"] = true,
-["cleardistance"] = 10,
-["title"] = "TomTom 路径点",
-["from"] = "TomTom/wm",
-["callbacks"] = {
-["distance"] = {
-},
 ["minimap"] = {
-},
-["world"] = {
-},
-},
-["minimap"] = true,
-["world"] = true,
-},
-},
-[123] = {
-["123:508006244.82223:158238864.05127:TomTom 路径点"] = {
-123,
-0.5080062448222279,
-0.1582388640512714,
-["arrivaldistance"] = 15,
-["crazy"] = true,
-["persistent"] = true,
-["desc"] = "TomTom 路径点",
-["silent"] = true,
-["cleardistance"] = 10,
-["title"] = "TomTom 路径点",
-["from"] = "TomTom/wm",
-["callbacks"] = {
-["distance"] = {
-},
-["minimap"] = {
-},
-["world"] = {
 },
 },
 ["minimap"] = true,
@@ -219,9 +179,59 @@ TomTomWaypointsM = {
 ["callbacks"] = {
 ["distance"] = {
 },
+["world"] = {
+},
 ["minimap"] = {
 },
+},
+["minimap"] = true,
+["world"] = true,
+},
+},
+[123] = {
+["123:508006244.82223:158238864.05127:TomTom 路径点"] = {
+123,
+0.5080062448222279,
+0.1582388640512714,
+["arrivaldistance"] = 15,
+["crazy"] = true,
+["persistent"] = true,
+["desc"] = "TomTom 路径点",
+["silent"] = true,
+["cleardistance"] = 10,
+["title"] = "TomTom 路径点",
+["from"] = "TomTom/wm",
+["callbacks"] = {
+["distance"] = {
+},
 ["world"] = {
+},
+["minimap"] = {
+},
+},
+["minimap"] = true,
+["world"] = true,
+},
+},
+[1431] = {
+["1431:754552623.50062:438565138.25764:TomTom 路径点"] = {
+1431,
+0.7545526235006239,
+0.4385651382576383,
+["arrivaldistance"] = 15,
+["crazy"] = true,
+["persistent"] = true,
+["desc"] = "TomTom 路径点",
+["silent"] = true,
+["cleardistance"] = 10,
+["title"] = "TomTom 路径点",
+["from"] = "TomTom/wm",
+["callbacks"] = {
+["distance"] = {
+},
+["world"] = {
+},
+["minimap"] = {
 },
 },
 ["minimap"] = true,
@@ -229,11 +239,19 @@ TomTomWaypointsM = {
 },
 },
 },
+["于鹏 - 时光IV - 红色信仰"] = {
+},
 ["小米军儿 - 时光IV"] = {
 },
 ["京东刘强东 - 时光IV"] = {
 },
+["爱奇艺龚宇 - 时光IV"] = {
+},
+["三角碑崽儿 - 时光IV - 红色信仰"] = {
+},
 ["三角碑崽儿 - 时光IV"] = {
+},
+["退休码农 - 时光IV - 红色信仰"] = {
 },
 ["哔站陈睿 - 时光IV"] = {
 [118] = {
@@ -252,9 +270,9 @@ TomTomWaypointsM = {
 ["callbacks"] = {
 ["distance"] = {
 },
-["world"] = {
-},
 ["minimap"] = {
+},
+["world"] = {
 },
 },
 ["minimap"] = true,
@@ -275,9 +293,9 @@ TomTomWaypointsM = {
 ["callbacks"] = {
 ["distance"] = {
 },
-["world"] = {
-},
 ["minimap"] = {
+},
+["world"] = {
 },
 },
 ["minimap"] = true,
@@ -300,9 +318,9 @@ TomTomWaypointsM = {
 ["callbacks"] = {
 ["distance"] = {
 },
-["world"] = {
-},
 ["minimap"] = {
+},
+["world"] = {
 },
 },
 ["minimap"] = true,
@@ -323,9 +341,9 @@ TomTomWaypointsM = {
 ["callbacks"] = {
 ["distance"] = {
 },
-["world"] = {
-},
 ["minimap"] = {
+},
+["world"] = {
 },
 },
 ["minimap"] = true,
@@ -348,9 +366,9 @@ TomTomWaypointsM = {
 ["callbacks"] = {
 ["distance"] = {
 },
-["world"] = {
-},
 ["minimap"] = {
+},
+["world"] = {
 },
 },
 ["minimap"] = true,
@@ -358,13 +376,15 @@ TomTomWaypointsM = {
 },
 },
 },
+["美团王兴 - 时光IV"] = {
+},
 ["卧伦巴菲特 - 时光IV"] = {
 },
 ["京东董事长 - 时光IV"] = {
 },
-["美团王兴 - 时光IV"] = {
+["小米军儿 - 时光IV - 红色信仰"] = {
 },
-["爱奇艺龚宇 - 时光IV"] = {
+["哔站陈睿 - 时光IV - 红色信仰"] = {
 },
 },
 }

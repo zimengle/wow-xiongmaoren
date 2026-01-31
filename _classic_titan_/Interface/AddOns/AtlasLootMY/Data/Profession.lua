@@ -72,7 +72,7 @@ local PROFESSION_ICON = {
 }
 
 local PROFESSION, PROFESSION_DATA = AtlasLoot:GetGameVersionDataTable()
-_G['ATLAS_PRP']=PROFESSION	
+-- _G['ATLAS_PRP']=PROFESSION	
 PROFESSION_DATA.CLASSIC = {
 	-- [spellID] = { createdItemID, prof, minLvl, lowLvl, highLvl, reagents{}, reagentsCount{}, numCreatedItems }
 	[818] = {nil,6,25,0,0,{4470},{1}},

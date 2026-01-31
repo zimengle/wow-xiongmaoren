@@ -215,7 +215,7 @@ function BG.ClearBiaoGeUI()
             -- 超过x天了
             if GetServerTime() - BiaoGe[FB].raidRoster.time >= 86400 * 1 then return true end
             -- 服务器不同
-            if GetRealmName() ~= BiaoGe[FB].raidRoster.realm then return true end
+            if BG.realmName ~= BiaoGe[FB].raidRoster.realm then return true end
 
             local maxCount = max(#BG.raidRosterInfo, #BiaoGe[FB].raidRoster.roster)
             local sameCount = 0
@@ -326,11 +326,10 @@ function BG.ClearBiaoGeUI()
             if not (BiaoGe.clearBiaoGeMoney and BiaoGe.clearBiaoGeMoney[FB]) then
                 f:Hide()
             else
-                local zhuangbei = BG.Frame[FB]["boss" .. Maxb[FB] + 2].zhuangbei5
-                local scroll = BG["Frame" .. FB]["scrollFrame" .. Maxb[FB] + 2].owner
+                local jine = BG.Frame[FB]["boss" .. Maxb[FB] + 2].jine5
                 f:Show()
                 f:ClearAllPoints()
-                f:SetPoint("TOPLEFT", scroll, "BOTTOMLEFT", zhuangbei:GetWidth() + 10, 0)
+                f:SetPoint("TOPRIGHT", jine, "BOTTOMRIGHT", 1, -1)
                 f.Text:SetText(BiaoGe.clearBiaoGeMoney[FB].money)
                 if BiaoGe.clearBiaoGeMoney[FB].realmID == realmID and BiaoGe.clearBiaoGeMoney[FB].name == player then
                     f.Text:SetTextColor(1, .82, 0)
@@ -347,7 +346,7 @@ function BG.ClearBiaoGeUI()
         f:SetSize(jine:GetWidth(), 20)
         BG.ButtonClearBiaoGeMoney = f
         local t = f:CreateFontString()
-        t:SetFontObject(ChatFontNormal)
+        t:SetFont(BIAOGE_TEXT_FONT, 14, "OUTLINE")
         t:SetAllPoints()
         t:SetJustifyH("LEFT")
         t:SetTextColor(1, .82, 0)
@@ -361,11 +360,11 @@ function BG.ClearBiaoGeUI()
         poit = f
         BG.ButtonClearBiaoGeMoney.title = f
         local t = f:CreateFontString()
-        t:SetFontObject(ChatFontNormal)
-        t:SetAllPoints()
-        t:SetJustifyH("RIGHT")
+        t:SetFont(BIAOGE_TEXT_FONT, 14, "OUTLINE")
+        t:SetPoint("RIGHT")
         t:SetTextColor(1, .82, 0)
-        t:SetText(L["清空表格时的金币： "])
+        t:SetJustifyH("RIGHT")
+        t:SetText(L["清空表格时的金币："])
         t:SetWordWrap(false)
         f:SetWidth(min(t:GetStringWidth() + 20, 160))
         f.Text = t
@@ -422,7 +421,7 @@ function BG.ClearBiaoGeUI()
 
         f.titleText = f:CreateFontString()
         f.titleText:SetPoint("CENTER", f, "TOP", 0, -11)
-        f.titleText:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+        f.titleText:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
         f.titleText:SetFormattedText(L["清空表格（%s）"], BG.GetFBinfo(FB, "localName"))
 
         local function CreateCheckButton(b, text)
@@ -433,6 +432,7 @@ function BG.ClearBiaoGeUI()
             else
                 bt:SetPoint("TOPLEFT", 10, -30)
             end
+            bt.Text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             bt.Text:SetText(text)
             bt:SetHitRectInsets(0, -bt.Text:GetWidth(), 0, 0)
             bt.id = b

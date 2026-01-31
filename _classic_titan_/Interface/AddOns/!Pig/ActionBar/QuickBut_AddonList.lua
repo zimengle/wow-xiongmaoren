@@ -1,5 +1,6 @@
 local addonName, addonTable = ...;
 local Data=addonTable.Data
+local Fun = addonTable.Fun
 --------
 local QuickButUI=_G[Data.QuickButUIname]
 QuickButUI.ButList[6]=function()
@@ -643,7 +644,7 @@ QuickButUI.ButList[6]=function()
 	--场景提示
 	local EextData={
 		["ElvUI"]={true,{0,0,0,0}},
-		["NDui"]={NDui and NDuiDB and NDuiDB["Skins"]["BlizzardSkins"],{0,0,0,0}},
+		["NDui"]={Fun.IsNDui("Skins","BlizzardSkins"),{0,0,0,0}},
 	}
 	local TispUI=PIGFrame(UIParent,{"TOP",UIParent,"TOP",0,-100},{320,200},"PIG_AddonConfigUI",true,nil,EextData)
 	TispUI:PIGSetBackdrop()

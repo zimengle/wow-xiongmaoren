@@ -1233,7 +1233,7 @@ do
 				frame:SetParent(E.HiddenFrame)
 				frame:UnregisterAllEvents()
 
-				if not E.Retail then
+				if not (E.Retail or E.TBC) then
 					AB:SetNoopsi(frame)
 				elseif name == 'PetActionBar' then -- EditMode messes with it, be specific otherwise bags taint
 					frame.UpdateVisibility = E.noop
@@ -1448,6 +1448,9 @@ function AB:UpdateButtonConfig(barName, buttonName)
 	config.useDrawBling = not AB.db.hideCooldownBling
 	config.useDrawSwipeOnCharges = AB.db.useDrawSwipeOnCharges
 	config.handleOverlay = AB.db.handleOverlay
+
+	-- NOTE: Pick Up Action Key will break macros of the same key (secure action code)
+	--- it happens because `useOnKeyDown` is temporarily set to `false` while using the pickup key inside of LibActionButton
 	SetModifiedClick('PICKUPACTION', AB.db.movementModifier)
 
 	if not buttonName then

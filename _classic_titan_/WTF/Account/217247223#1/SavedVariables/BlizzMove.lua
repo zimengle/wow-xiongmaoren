@@ -1,4 +1,3 @@
-
 BlizzMoveDB = {
 ["saveScaleStrategy"] = "permanent",
 ["scales"] = {
@@ -153,13 +152,13 @@ BlizzMoveDB = {
 },
 ["PVPFrameHonor"] = {
 },
-["GuildControlPopupFrame"] = {
+["LootFrame"] = {
 },
 ["GlyphFrame"] = {
 },
 ["TabardFrame"] = {
 },
-["LootFrame"] = {
+["CommunitiesGuildNewsFiltersFrame"] = {
 },
 ["PlayerTalentFrame"] = {
 ["startPoints"] = {
@@ -186,7 +185,7 @@ BlizzMoveDB = {
 },
 ["WorldStateScoreFrame"] = {
 },
-["InspectPVPFrameHonor"] = {
+["GuildFrame"] = {
 },
 ["HelpFrame"] = {
 },
@@ -263,8 +262,6 @@ BlizzMoveDB = {
 },
 },
 },
-["GuildFrame"] = {
-},
 ["SpellBookFrame"] = {
 ["startPoints"] = {
 {
@@ -286,7 +283,9 @@ BlizzMoveDB = {
 },
 },
 },
-["CommunitiesGuildNewsFiltersFrame"] = {
+["InspectPVPFrameHonor"] = {
+},
+["GuildControlPopupFrame"] = {
 },
 ["GuildControlUI"] = {
 },
@@ -322,6 +321,11 @@ BlizzMoveDB = {
 ["TokenFramePopup"] = {
 },
 ["SendMailFrame"] = {
+},
+},
+["disabledFrames"] = {
+["BlizzMove"] = {
+["SpellBookFrame"] = true,
 },
 },
 ["savePosStrategy"] = "session",

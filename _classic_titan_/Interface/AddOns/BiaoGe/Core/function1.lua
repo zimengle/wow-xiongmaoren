@@ -506,8 +506,6 @@ end
 ----------高亮按钮----------
 function BG.SetTextHighlightTexture(bt)
     local tex = bt:CreateTexture()
-    -- tex:SetPoint("CENTER")
-    -- tex:SetSize(bt:GetWidth() + 15, bt:GetHeight() - 10)
     tex:SetPoint("TOPLEFT", bt, "TOPLEFT", -8, 0)
     tex:SetPoint("BOTTOMRIGHT", bt, "BOTTOMRIGHT", 8, 0)
     tex:SetTexture("Interface/PaperDollInfoFrame/UI-Character-Tab-Highlight")
@@ -586,9 +584,9 @@ function BG.FormatNumber(num, type)
     if ns.enUS then
         if type == 1 then
             if num >= 1000000 then
-                return format("%.1fm", num / 1000000)
+                return format("%.1fm", floor(num / 1000000 * 10) / 10)
             elseif num >= 1000 then
-                return format("%.1fk", num / 1000)
+                return format("%.1fk", floor(num / 1000 * 10) / 10)
             else
                 return num
             end
@@ -598,11 +596,11 @@ function BG.FormatNumber(num, type)
             return formatted
         elseif type == 3 then
             if num >= 1000000 then
-                return format("%.1fm", num / 1000000)
+                return format("%.1fm", floor(num / 1000000 * 10) / 10)
             elseif num >= 10000 then
-                return format("%dk", num / 1000)
+                return format("%dk", floor(num / 1000 * 10) / 10)
             elseif num >= 1000 then
-                return format("%.1fk", num / 1000)
+                return format("%.1fk", floor(num / 1000 * 10) / 10)
             else
                 return num
             end
@@ -610,7 +608,7 @@ function BG.FormatNumber(num, type)
     else
         if type == 1 then -- 省略百十个位
             if num >= 10000 then
-                return format(L["%.1f万"], num / 10000)
+                return format(L["%.1f万"], floor(num / 10000 * 10) / 10)
             else
                 return num
             end
@@ -633,9 +631,9 @@ function BG.FormatNumber(num, type)
             end
         elseif type == 3 then -- 省略十个位
             if num >= 10000 then
-                return format(L["%.1f万"], num / 10000)
+                return format(L["%.1f万"], floor(num / 10000 * 10) / 10)
             elseif num >= 1000 then
-                return format(L["%.1fk"], num / 1000)
+                return format(L["%.1fk"], floor(num / 1000 * 10) / 10)
             else
                 return num
             end

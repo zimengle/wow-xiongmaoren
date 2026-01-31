@@ -1,4 +1,3 @@
-
 MAILBAGDB = {
 ["MAIL_DEFAULT"] = false,
 ["GROUP_STACKS"] = true,

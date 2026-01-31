@@ -119,7 +119,7 @@ AL["Module %s is not installed."] = "%s 模块未安装。"
 AL["N"] = "普通"
 AL["New version available!"] = "有新版本可用!"
 AL["No module found."] = "未找到模块。"
-AL["Normal"] = "一般"
+AL["Normal"] = "普通"
 AL["Noth the Plaguebringer"] = "瘟疫使者诺斯"
 AL["One-Hand, Axe"] = "单手斧"
 AL["One-Hand, Mace"] = "单手锤"
@@ -239,6 +239,20 @@ AL["I Guess"]="我的猜测"
 
 
 AL['changelogText']=[[
+|cff00ff00=== v1.5.0 更新日志 ===|r
+• P2所有掉落位置已确认
+• 移除新本的圣契、图腾、神像（不再掉落）
+• 增加永恒水瓶任务戒指
+• 踏潮者掉落机制有些特殊为3+1 
+• 3=掉落列表里随机掉3件 1=必掉1件职业饰品（全职业随机）
+• 1跟3并不冲突 3里包含法师DK饰品 也就是可能出现双开
+
+|cff00ff00=== v1.4.0 更新日志 ===|r
+|cffFFA500★ 修复问题：|r
+• 修正所有P2装备掉落
+• 213牌子装改为P3阶段
+• 增加宝库风王
+
 |cff00ff00=== v1.3.0 更新日志 ===|r
 
 |cffFFA500★ 新增功能：|r
@@ -260,3 +274,6 @@ AL['changelogText']=[[
 • 优化装备名拷贝功能 CTRL+X 剪切之后 自动隐藏窗口
 • 删除PVP S套装
 ]]
+
+
+

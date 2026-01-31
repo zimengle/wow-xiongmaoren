@@ -1,5 +1,6 @@
 local addonName, addonTable = ...;
 local L=addonTable.locale
+local Fun = addonTable.Fun
 local Data = addonTable.Data
 local Create = addonTable.Create
 local PIGFrame=Create.PIGFrame
@@ -182,7 +183,7 @@ function Create.PIGQuickBut(QkButUI,Tooltip,Icon,ShowGnUI,FrameLevel,Template)
 	else
 		But:SetNormalAtlas(Icon)
 	end
-	if PIG_OptionsUI.IsOpen_ElvUI() or PIG_OptionsUI.IsOpen_NDui() then
+	if Fun.IsElvUI() or Fun.IsNDui() then
 		But:GetNormalTexture():SetTexCoord(0.1,0.9,0.1,0.9)
 	else
 		But._BACKGROUND = But:CreateTexture(nil, "BACKGROUND");

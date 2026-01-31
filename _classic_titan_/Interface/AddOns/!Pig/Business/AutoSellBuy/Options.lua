@@ -13,7 +13,8 @@ local PIGOptionsList_R=Create.PIGOptionsList_R
 ------
 local BusinessInfo=addonTable.BusinessInfo
 local fuFrame,fuFrameBut = BusinessInfo.fuFrame,BusinessInfo.fuFrameBut
-local GnName,GnUI,GnIcon,FrameLevel = "售卖助手","PIG_AutoSellBuy",136453,20
+local GnName,GnUI,FrameLevel = "售卖助手","PIG_AutoSellBuy",20
+local GnIcon =PIG_MaxTocversion(30000) and PIG_MaxTocversion(20000,true) and 132836 or 134152
 BusinessInfo.AutoSellBuyData={GnName,GnUI,GnIcon,FrameLevel}
 ------------
 function BusinessInfo.AutoSellBuyOptions()

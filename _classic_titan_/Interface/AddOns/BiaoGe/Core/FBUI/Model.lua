@@ -166,7 +166,7 @@ local function CreateBossModel(FB, bossnum, point_x, point_y, NPCID, scale)
     return model
 end
 function BG.CreateBossModel()
-    if BG.IsVanilla_60 then
+    if BG.IsVanilla_60 and not BG.IsTBC then
         local model = CreateBossModel("MC", 10, 0, 30, 11502, 0.8)
         model:SetPosition(-30, 0, -7) -- Z,X,Y
         model:SetFacing(-0.3)         -- 左右

@@ -5,17 +5,7 @@
 		<Size>
 			<AbsDimension x = "100" y = "34"/>
 		</Size>
-		<Backdrop bgFile = "Interface\Tooltips\UI-Tooltip-Background" edgeFile = "Interface\Tooltips\UI-Tooltip-Border" tile = "true">
-			<EdgeSize>
-				<AbsValue val = "8"/>
-			</EdgeSize>
-			<TileSize>
-				<AbsValue val = "8"/>
-			</TileSize>
-			<BackgroundInsets>
-				<AbsInset left = "2" right = "2" top = "3" bottom = "2"/>
-			</BackgroundInsets>
-		</Backdrop>
+		<NormalTexture/>
 		<Layers>
 			<Layer level = "OVERLAY">
 				<Texture name = "$parentIcon" file = "Interface/Icons/Spell_Holy_SealOfFury">
@@ -1853,40 +1843,12 @@
 					</OnLeave>
 				</Scripts>
 			</Button>
-			<Button name = "$parentOptions" inherits = "GameMenuButtonTemplate" text = "PALLYPOWER_OPTIONS" hidden = "false">
-				<Size>
-					<AbsDimension x = "100" y = "20"/>
-				</Size>
-				<Anchors>
-					<Anchor point = "BOTTOMRIGHT" relativeTo = "$parentAutoAssign" relativePoint = "BOTTOMLEFT">
-						<Offset>
-							<AbsDimension x = "-7" y = "0"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<Scripts>
-					<OnClick>
-						PallyPower:OpenConfigWindow();
-					</OnClick>
-					<OnEnter>
-						if PallyPower.opt.ShowTooltips then
-							GameTooltip:SetOwner(self, "ANCHOR_BOTTOM");
-							GameTooltip:SetText(PALLYPOWER_OPTIONS_DESC);
-							GameTooltip:Show(self, motion);
-							CursorUpdate(self, motion);
-						end
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide(self, motion);
-					</OnLeave>
-				</Scripts>
-			</Button>			
 			<Button name = "$parentPreset" inherits = "GameMenuButtonTemplate" text = "PALLYPOWER_PRESET" hidden = "false">
 				<Size>
 					<AbsDimension x = "100" y = "20"/>
 				</Size>
 				<Anchors>
-					<Anchor point = "BOTTOMRIGHT" relativeTo = "$parentOptions" relativePoint = "BOTTOMLEFT">
+					<Anchor point = "BOTTOMRIGHT" relativeTo = "$parentAutoAssign" relativePoint = "BOTTOMLEFT">
 						<Offset>
 							<AbsDimension x = "-7" y = "0"/>
 						</Offset>
@@ -1937,6 +1899,34 @@
 						if PallyPower.opt.ShowTooltips then
 							GameTooltip:SetOwner(self, "ANCHOR_BOTTOM");
 							GameTooltip:SetText(PALLYPOWER_REPORT_DESC);
+							GameTooltip:Show(self, motion);
+							CursorUpdate(self, motion);
+						end
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide(self, motion);
+					</OnLeave>
+				</Scripts>
+			</Button>
+			<Button name = "$parentOptions" inherits = "GameMenuButtonTemplate" text = "PALLYPOWER_OPTIONS" hidden = "false">
+				<Size>
+					<AbsDimension x = "100" y = "20"/>
+				</Size>
+				<Anchors>
+					<Anchor point = "BOTTOMRIGHT" relativeTo = "$parentReport" relativePoint = "BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x = "-7" y = "0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						PallyPower:OpenConfigWindow();
+					</OnClick>
+					<OnEnter>
+						if PallyPower.opt.ShowTooltips then
+							GameTooltip:SetOwner(self, "ANCHOR_BOTTOM");
+							GameTooltip:SetText(PALLYPOWER_OPTIONS_DESC);
 							GameTooltip:Show(self, motion);
 							CursorUpdate(self, motion);
 						end

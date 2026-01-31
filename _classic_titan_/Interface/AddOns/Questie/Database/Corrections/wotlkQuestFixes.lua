@@ -198,9 +198,6 @@ function QuestieWotlkQuestFixes:Load()
         [2279] = {
             [questKeys.preQuestSingle] = {2278},
         },
-        [2358] = {
-            [questKeys.startedBy] = {{7009}},
-        },
         [2701] = {
             [questKeys.finishedBy] = {nil,{141980}},
         },
@@ -461,9 +458,6 @@ function QuestieWotlkQuestFixes:Load()
         [8888] = {
             [questKeys.exclusiveTo] = {8889},
         },
-        [8892] = {
-            [questKeys.preQuestSingle] = {},
-        },
         [9078] = {
             [questKeys.requiredClasses] = classIDs.ROGUE,
         },
@@ -508,14 +502,20 @@ function QuestieWotlkQuestFixes:Load()
         [9247] = {
             [questKeys.finishedBy] = {{16281}},
         },
-        [9358] = {
-            [questKeys.exclusiveTo] = {9252},
+        [9358] = { -- Ranger Sareyn
+            [questKeys.nextQuestInChain] = 9252,
         },
         [9361] = {
             [questKeys.requiredSourceItems] = {23270},
         },
         [9425] = {
             [questKeys.requiredRaces] = raceIDs.BLOOD_ELF,
+        },
+        [9644] = {
+            [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_OBJECT, l10n("Summon Nightbane"), 0, {{"object", 194092}}}},
+        },
+        [9645] = {
+            [questKeys.triggerEnd] = {"Journal Entry Read", {[zoneIDs.KARAZHAN]={{-1,-1}}}},
         },
         [9648] = {
             [questKeys.name] = "Maatparm Mushroom Menagerie",

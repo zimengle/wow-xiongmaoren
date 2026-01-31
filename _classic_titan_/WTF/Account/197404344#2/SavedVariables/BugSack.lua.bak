@@ -9,5 +9,5 @@ BugSackDB = {
 ["chatframe"] = false,
 }
 BugSackLDBIconDB = {
-["minimapPos"] = 203.3569002714266,
+["minimapPos"] = 205.4914499630644,
 }

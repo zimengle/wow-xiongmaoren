@@ -1,60 +1,42 @@
-
 MJEGlobalSettings = {
-["trackUsageStats"] = false,
+["trackUsageStats"] = true,
 ["notes"] = {
 },
 ["personalFilter"] = false,
 ["ui"] = {
-["showAchievementPoints"] = false,
-["showMountspecialButton"] = false,
-["enableCursorKeys"] = false,
+["showAchievementPoints"] = true,
+["showMountspecialButton"] = true,
+["enableCursorKeys"] = true,
 ["slotPosition"] = "top",
-["previewButton"] = true,
-["colorizeNameByRarity"] = true,
-["compactMountList"] = false,
-["showResizeEdge"] = false,
-["showPersonalCount"] = false,
+["compactMountList"] = true,
+["displayStatistics"] = {
+["UsedCount"] = true,
+["TravelTime"] = true,
+["Family"] = true,
+["TravelDistance"] = true,
+["Wowhead"] = true,
+["LearnedDate"] = true,
+},
 ["autoRotateModel"] = false,
+["showResizeEdge"] = true,
+["showPersonalCount"] = true,
+["displayBackground"] = "original",
+["previewButton"] = true,
 ["windowSize"] = {
 0,
 0,
 },
-["displayStatistics"] = {
-},
-["unlockDisplayCamera"] = false,
+["colorizeNameByRarity"] = true,
+["unlockDisplayCamera"] = true,
 ["displayAnimation"] = "stand",
 },
-["searchInNotes"] = true,
-["hiddenMounts"] = {
-},
 ["summonPreviousPetAgain"] = true,
+["searchInFamilyName"] = true,
+["searchInNotes"] = true,
 ["pets"] = {
 ["assignments"] = {
 },
 ["seenInfo"] = true,
-},
-["favorites"] = {
-["assignments"] = {
-},
-["profiles"] = {
-{
-["mounts"] = {
-197,
-266,
-363,
-},
-["name"] = "",
-["initialScan"] = true,
-["autoFavor"] = false,
-},
-},
-},
-["sort"] = {
-["unownedOnBottom"] = true,
-["descending"] = false,
-["by"] = "name",
-["favoritesOnTop"] = true,
-["unusableToBottom"] = false,
 },
 ["filter"] = {
 ["expansion"] = {
@@ -96,9 +78,9 @@ true,
 ["Promotion"] = true,
 ["Unavailable"] = true,
 },
-["hiddenIngame"] = false,
 ["color"] = {
 },
+["hiddenIngame"] = false,
 ["notCollected"] = true,
 ["hidden"] = false,
 ["onlyUsable"] = false,
@@ -222,29 +204,54 @@ true,
 true,
 },
 },
+["sort"] = {
+["unownedOnBottom"] = true,
+["descending"] = false,
+["by"] = "name",
+["favoritesOnTop"] = true,
+["unusableToBottom"] = false,
+},
+["favorites"] = {
+["assignments"] = {
+},
+["profiles"] = {
+{
+["mounts"] = {
+197,
+266,
+363,
+2647,
+},
+["name"] = "",
+["initialScan"] = true,
+["autoFavor"] = false,
+},
+},
+},
 ["personalHiddenMounts"] = false,
 ["personalUi"] = false,
-["searchInFamilyName"] = true,
+["hiddenMounts"] = {
+},
 ["searchInDescription"] = true,
 }
 MJETrackingData = {
-[1765] = {
-5,
-1750140773,
-26,
-12.92075127854283,
-},
-[199] = {
-0,
-[3] = 0,
-[4] = 0,
-[5] = 1721016000,
+[2340] = {
+28,
+1767198094,
+2581,
+9745.837381379011,
 },
 [304] = {
 0,
 [3] = 0,
 [4] = 0,
 [5] = 1731124800,
+},
+[199] = {
+0,
+[3] = 0,
+[4] = 0,
+[5] = 1721016000,
 },
 [363] = {
 22,
@@ -253,12 +260,17 @@ MJETrackingData = {
 9194.008278539104,
 1753454777,
 },
-[415] = {
-1,
-1753442940,
+[149] = {
+2,
+1747155101,
 5,
-10.43477076499409,
-1752909891,
+12.43366901261136,
+},
+[133] = {
+4,
+1730795529,
+6,
+519.3904716455755,
 },
 [266] = {
 1993,
@@ -266,11 +278,11 @@ MJETrackingData = {
 5201,
 148886.9747944157,
 },
-[149] = {
-2,
-1747155101,
+[1765] = {
 5,
-12.43366901261136,
+1750140773,
+26,
+12.92075127854283,
 },
 [420] = {
 0,
@@ -291,16 +303,16 @@ MJETrackingData = {
 [5] = 1721282114,
 },
 [197] = {
-10271,
-1764210431,
-35214,
-325156.0926049462,
+10301,
+1769481540,
+36475,
+330871.7255414715,
 },
 [2647] = {
-2,
-1764210451,
-13,
-146.2203852348459,
+16,
+1767199095,
+654,
+1763.115510504744,
 },
 [393] = {
 0,
@@ -314,10 +326,11 @@ MJETrackingData = {
 735,
 17384.74636346403,
 },
-[133] = {
-4,
-1730795529,
-6,
-519.3904716455755,
+[415] = {
+1,
+1753442940,
+5,
+10.43477076499409,
+1752909891,
 },
 }

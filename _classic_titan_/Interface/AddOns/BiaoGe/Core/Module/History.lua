@@ -23,7 +23,6 @@ local pt = print
 
 local realmID = GetRealmID()
 local player = BG.playerName
-local realmName = GetRealmName()
 
 BG.History = {}
 
@@ -75,13 +74,13 @@ function BG.HistoryUI()
 
         local TitleText = BG["HistoryFrame" .. BG.FB1]:CreateFontString() -- 标题
         TitleText:SetPoint("TOP", BG.MainFrame, "TOP", 0, -4);
-        TitleText:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+        TitleText:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
         TitleText:SetTextColor(RGB("00FF00"))
         BG.History.Title = TitleText
 
         local text = BG.History.List:CreateFontString() -- 提示文字
         text:SetPoint("TOP", BG.History.List, "BOTTOM", 0, 0)
-        text:SetFont(STANDARD_TEXT_FONT, 14, "OUTLINE")
+        text:SetFont(BIAOGE_TEXT_FONT, 14, "OUTLINE")
         text:SetText(BG.STC_w1(format(L["（ALT+%s改名，ALT+%s删除表格）"], AddTexture("LEFT"), AddTexture("RIGHT"))))
     
         local bt = BG.CreateButton(BG.History.List)
@@ -561,7 +560,7 @@ function BG.HistoryUI()
 
         local text = f:CreateFontString() -- 标题
         text:SetPoint("TOP", BG.History.GaiMingFrame, "TOP", 0, -20)
-        text:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+        text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
         text:SetTextColor(RGB("00BFFF"))
         BG.History.GaiMingBiaoTi = text
 
@@ -582,7 +581,7 @@ function BG.HistoryUI()
         edit:SetAutoFocus(false)
         edit:EnableMouse(true)
         edit:SetMultiLine(true)
-        edit:SetFont(STANDARD_TEXT_FONT, 13, "OUTLINE")
+        edit:SetFont(BIAOGE_TEXT_FONT, 13, "OUTLINE")
         edit.bg = f
         BG.History.GaiMingEdit1 = edit
         edit:SetScript("OnEscapePressed", function(self)
@@ -838,7 +837,7 @@ do
             --标题（装备）
             local t = BG.HistoryMoneyFrame:CreateFontString()
             t:SetPoint("TOP", BG.HistoryMoneyFrame, "TOP", 3, -10)
-            t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             BG.HistoryMoneyFrame.title = t
         end
 
@@ -973,7 +972,7 @@ do
 
                     local t = f:CreateFontString() -- 日期
                     t:SetPoint("LEFT", f, "RIGHT", 3, 0)
-                    t:SetFont(STANDARD_TEXT_FONT, 12, "OUTLINE")
+                    t:SetFont(BIAOGE_TEXT_FONT, 12, "OUTLINE")
                     t:SetTextColor(RGB(color[i]))
                     if nowMoney and i == 1 then
                         t:SetText(L["当前"])
@@ -991,13 +990,13 @@ do
 
                     local t = f:CreateFontString() -- 金额
                     t:SetPoint("RIGHT", f, "LEFT", -3, 0)
-                    t:SetFont(STANDARD_TEXT_FONT, 14, "OUTLINE")
+                    t:SetFont(BIAOGE_TEXT_FONT, 14, "OUTLINE")
                     t:SetTextColor(RGB(color[i]))
                     t:SetText(v.money .. (v.isAccounts and "*" or ""))
 
                     local t = f:CreateFontString(nil, "OVERLAY") -- 买家
                     t:SetPoint("RIGHT")
-                    t:SetFont(STANDARD_TEXT_FONT, 12, "OUTLINE")
+                    t:SetFont(BIAOGE_TEXT_FONT, 12, "OUTLINE")
                     t:SetTextColor(unpack(v.color))
                     t:SetText(v.player)
                 end

@@ -135,7 +135,7 @@ DBT.DefaultOptions = {
 	Spark = true,
 	ColorByType = true,
 	NoBarFade = false,
-	InlineIcons = true,
+	JournalIcons = 2,-- 0: off, 1: 1 large, 2: 2 large, 3: 3 large, 4: stacked small icons
 	IconLeft = true,
 	IconRight = false,
 	IconLocked = true,
@@ -290,6 +290,23 @@ do
 		local icon2 = bar:CreateTexture("$parentIcon2", "OVERLAY")
 		icon2:SetPoint("LEFT", bar, "RIGHT")
 		icon2:SetSize(20, 20)
+		frame.JournalIcons = {}
+		local jIcons = bar:CreateTexture("$parentJIcons", "OVERLAY")
+		jIcons:SetPoint("RIGHT", icon1, "LEFT", 2, 0)
+		jIcons:SetSize(20, 20)
+		table.insert( frame.JournalIcons, jIcons)
+		local jIcons2 = bar:CreateTexture("$parentJIcons2", "OVERLAY")
+		jIcons2:SetPoint("RIGHT", jIcons, "LEFT", 2, 0)
+		jIcons2:SetSize(20, 20)
+		table.insert( frame.JournalIcons, jIcons2)
+		local jIcons3 = bar:CreateTexture("$parentJIcons3", "OVERLAY")
+		jIcons3:SetPoint("RIGHT", jIcons2, "LEFT", 2, 0)
+		jIcons3:SetSize(20, 20)
+		table.insert( frame.JournalIcons, jIcons3)
+		local jIcons4 = bar:CreateTexture("$parentJIcons4", "OVERLAY")
+		jIcons4:SetPoint("RIGHT", jIcons, "LEFT", 2, 0)
+		jIcons4:SetSize(20, 20)
+		table.insert( frame.JournalIcons, jIcons4)
 		local varianceTex = bar:CreateTexture("$parentVariance", "OVERLAY")
 		varianceTex:SetPoint("RIGHT", bar, "RIGHT")
 		varianceTex:SetPoint("TOPRIGHT", bar, "TOPRIGHT")
@@ -378,10 +395,11 @@ do
 			newBar:ApplyStyle()
 			if isSecret then
 				newBar:SetText(secretText, inlineIcon, true)
+				newBar:SetIcon(icon, id)
 			else
 				newBar:SetText(id)
+				newBar:SetIcon(icon)
 			end
-			newBar:SetIcon(icon)
 			if self.Options.HideLongBars and timer > (self.Options.HiddenBarTime or 60) then
 				newBar:ResetAnimations()
 			end
@@ -468,10 +486,11 @@ do
 			end
 			if isSecret then
 				newBar:SetText(secretText, inlineIcon, true)
+				newBar:SetIcon(icon, id)
 			else
 				newBar:SetText(id)
+				newBar:SetIcon(icon)
 			end
-			newBar:SetIcon(icon)
 			self.bars[newBar] = true
 			self:UpdateBars(true)
 			newBar:ApplyStyle()
@@ -901,7 +920,7 @@ function barPrototype:SetElapsed(elapsed)
 end
 
 function barPrototype:SetText(text, inlineIcon, isSecret)
-	if not DBT.Options.InlineIcons then
+	if DBT.Options.JournalIcons == 0 then
 		inlineIcon = nil
 	end
 	if isSecret then--We can't touch the text in ANY way
@@ -912,10 +931,14 @@ function barPrototype:SetText(text, inlineIcon, isSecret)
 	end
 end
 
-function barPrototype:SetIcon(icon)
+function barPrototype:SetIcon(icon, eventID)
 	local frame_name = self.frame:GetName()
 	_G[frame_name.."BarIcon1"]:SetTexture(icon)
 	_G[frame_name.."BarIcon2"]:SetTexture(icon)
+	if eventID then
+		--secretIcons just inherits blizzards enabled/disabled icons state. Maybe should pass our own?
+		C_EncounterTimeline.SetEventIconTextures(eventID, 1023, _G[frame_name].JournalIcons)
+	end
 end
 
 function barPrototype:SetColor(color)
@@ -1218,6 +1241,10 @@ function barPrototype:ApplyStyle()
 	local spark = _G[frame_name.."BarSpark"]
 	local icon1 = _G[frame_name.."BarIcon1"]
 	local icon2 = _G[frame_name.."BarIcon2"]
+	local jIcons = _G[frame_name.."BarJIcons"]
+	local jIcons2 = _G[frame_name.."BarJIcons2"]
+	local jIcons3 = _G[frame_name.."BarJIcons3"]
+	local jIcons4 = _G[frame_name.."BarJIcons4"]
 	local name = _G[frame_name.."BarName"]
 	local timer = _G[frame_name.."BarTimer"]
 	local barOptions = DBT.Options
@@ -1243,7 +1270,65 @@ function barPrototype:ApplyStyle()
 	local barHeight, barHugeHeight, barWidth, barHugeWidth = barOptions.Height, barOptions.HugeHeight, barOptions.Width, barOptions.HugeWidth
 	name:SetTextColor(barTextColorRed, barTextColorGreen, barTextColorBlue)
 	timer:SetTextColor(barTextColorRed, barTextColorGreen, barTextColorBlue)
-	if barOptions.IconLeft then icon1:Show() else icon1:Hide() end
+	if barOptions.IconLeft then
+		icon1:Show()
+		if barOptions.JournalIcons ~= 0 then
+			--More efficient way than doing this every bar start?
+			if barOptions.JournalIcons == 4 then
+				jIcons:ClearAllPoints()
+				jIcons:SetPoint("BOTTOMRIGHT", icon1, "BOTTOMLEFT", 0, 0)
+			else
+				jIcons:ClearAllPoints()
+				jIcons:SetPoint("RIGHT", icon1, "LEFT", 0, 0)
+			end
+			jIcons:Show()
+		else
+			jIcons:Hide()
+		end
+	else
+		icon1:Hide()
+		if barOptions.JournalIcons ~= 0 then
+			--More efficient way than doing this every bar start?
+			jIcons:ClearAllPoints()
+			if barOptions.JournalIcons == 4 then
+				jIcons:ClearAllPoints()
+				jIcons:SetPoint("BOTTOMRIGHT", bar, "BOTTOMLEFT", 0, 0)
+			else
+				jIcons:ClearAllPoints()
+				jIcons:SetPoint("RIGHT", bar, "LEFT", 0, 0)
+			end
+			jIcons:Show()
+		else
+			jIcons:Hide()
+		end
+	end
+	if barOptions.JournalIcons >= 2 then
+		if barOptions.JournalIcons == 4 then
+			jIcons2:ClearAllPoints()
+			jIcons2:SetPoint("BOTTOMRIGHT", jIcons, "TOPRIGHT", 0, 0)
+		else
+			jIcons2:ClearAllPoints()
+			jIcons2:SetPoint("RIGHT", jIcons, "LEFT", 2, 0)
+		end
+		jIcons2:Show()
+	else
+		jIcons2:Hide()
+	end
+	if barOptions.JournalIcons >= 3 then
+		--if barOptions.JournalIcons == 4 then
+		--	jIcons2:SetPoint("RIGHT", jIcons, "LEFT", 0, 0)
+		--else
+		--	jIcons2:SetPoint("RIGHT", jIcons, "LEFT", 2, 0)
+		--end
+		jIcons3:Show()
+	else
+		jIcons3:Hide()
+	end
+	if barOptions.JournalIcons >= 4 then
+		jIcons4:Show()
+	else
+		jIcons4:Hide()
+	end
 	if barOptions.IconRight then icon2:Show() else icon2:Hide() end
 	if enlarged then
 		bar:SetSize(barHugeWidth, barHugeHeight)
@@ -1267,6 +1352,17 @@ function barPrototype:ApplyStyle()
 		frame:SetSize(enlarged and barHugeWidth or barWidth, sizeHeight)
 		icon1:SetSize(sizeHeight, sizeHeight)
 		icon2:SetSize(sizeHeight, sizeHeight)
+		if barOptions.JournalIcons == 4 then
+			jIcons:SetSize(sizeHeight/2, sizeHeight/2)
+			jIcons2:SetSize(sizeHeight/2, sizeHeight/2)
+			jIcons3:SetSize(sizeHeight/2, sizeHeight/2)
+			jIcons4:SetSize(sizeHeight/2, sizeHeight/2)
+		else
+			jIcons:SetSize(sizeHeight, sizeHeight)
+			jIcons2:SetSize(sizeHeight, sizeHeight)
+			jIcons3:SetSize(sizeHeight, sizeHeight)
+			--4 icons not supported in large icon mode to prevent users being dumb
+		end
 	end
 	self:SetVariance()
 	self.frame:Show()

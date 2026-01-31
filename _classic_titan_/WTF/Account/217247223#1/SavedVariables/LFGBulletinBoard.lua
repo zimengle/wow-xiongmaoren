@@ -1,4 +1,3 @@
-
 GroupBulletinBoardDB = {
 ["DisplayLFG"] = false,
 ["FontSize"] = "GameFontNormal",

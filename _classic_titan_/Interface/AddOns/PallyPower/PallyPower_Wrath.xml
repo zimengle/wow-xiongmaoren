@@ -3,7 +3,7 @@
 <!-- PallyPower Buttons -->
 	<Button name = "PallyPowerRFButtonTemplate" virtual = "true" frameStrata = "LOW" inherits = "SecureActionButtonTemplate">
 		<Size>
-			<AbsDimension x = "100" y = "34"/>
+			<AbsDimension x = "110" y = "34"/>
 		</Size>
 		
 		<Layers>
@@ -27,7 +27,7 @@
 					<Anchors>
 						<Anchor point = "TOPLEFT">
 							<Offset>
-								<AbsDimension x = "5" y = "-4"/>
+								<AbsDimension x = "32" y = "-4"/>
 							</Offset>
 						</Anchor>
 					</Anchors>
@@ -71,7 +71,7 @@
 
 	<Button name = "PallyPowerAuraButtonTemplate" virtual = "true" frameStrata = "LOW" inherits = "SecureActionButtonTemplate">
 		<Size>
-			<AbsDimension x = "100" y = "34"/>
+			<AbsDimension x = "110" y = "34"/>
 		</Size>
 		
 		<Layers>
@@ -129,7 +129,7 @@
 
 	<Button name = "PallyPowerAutoButtonTemplate" virtual = "true" frameStrata = "LOW">
 		<Size>
-			<AbsDimension x = "100" y = "34"/>
+			<AbsDimension x = "110" y = "34"/>
 		</Size>
 		
 		<Layers>
@@ -196,7 +196,7 @@
 
 	<Button name = "PallyPowerButtonTemplate" virtual = "true" frameStrata = "LOW">
 		<Size>
-			<AbsDimension x = "100" y = "34"/>
+			<AbsDimension x = "110" y = "34"/>
 		</Size>
 		
 		<Layers>

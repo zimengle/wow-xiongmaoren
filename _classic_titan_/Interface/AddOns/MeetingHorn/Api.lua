@@ -579,15 +579,16 @@ function ns.DataMake(allowCrossRealm)
     local currentBgID
     local function Realm(realm)
         realm = decode(realm)
-        if allowCrossRealm or realm == GetRealmName() then
-            currentRealm = realm
+        local realmNum = tonumber(realm)
+        if allowCrossRealm or realmNum == GetRealmID() then
+            currentRealm = GetRealmID()
             return
         end
         currentRealm = nil
     end
 
     local function Name(name)
-        if not currentRealm or currentRealm ~= GetRealmName() then
+        if not currentRealm or currentRealm ~= GetRealmID() then
             return nop
         end
 
@@ -767,4 +768,41 @@ function ns.FindFirstTwoUnboundKeys()
         end
     end
     return unboundKeys
+end
+
+-- 获取认证图标的统一函数
+-- 根据认证等级和bgID返回正确的认证图标ID
+function ns.GetCertificationIconId(certificationLevel, certificationBgID)
+    if certificationLevel then
+        -- 如果有等级，默认返回1001
+        local iconId = 1001
+        -- 如果既有等级又bgID等于1002，则返回1002
+        if certificationBgID == 1002 then
+            iconId = 1002
+        end
+        return iconId
+    end
+    return nil
+end
+
+-- 获取认证图标纹理路径的函数
+function ns.GetCertificationIconTexture(certificationLevel, certificationBgID, format, ...)
+    local iconId = ns.GetCertificationIconId(certificationLevel, certificationBgID)
+    if iconId then
+        if format then
+            return string.format(format, iconId, ...)
+        else
+            return string.format([[Interface\AddOns\MeetingHorn\Media\certification\%d\certification_icon]], iconId)
+        end
+    end
+    return nil
+end
+
+-- 获取认证图标文本纹理的函数（用于聊天等）
+function ns.GetCertificationIconTextTexture(certificationLevel, certificationBgID)
+    local iconId = ns.GetCertificationIconId(certificationLevel, certificationBgID)
+    if iconId then
+        return string.format([[|TInterface\AddOns\MeetingHorn\Media\certification\%d\certification_icon:16:64:0:0:256:64:0:225:0:56|t]], iconId)
+    end
+    return ""
 end

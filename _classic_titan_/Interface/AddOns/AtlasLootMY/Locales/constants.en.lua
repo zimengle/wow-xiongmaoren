@@ -4,6 +4,11 @@ if not AL then return end
 
 -- These localization strings are translated on Curseforge: https://www.curseforge.com/wow/addons/AtlasLootMY/localization
 AL['changelogText']=[[
+|cff00ff00=== v1.4.0 更新日志 ===|r
+|cffFFA500★ Fixes：|r
+• Update Phase2 Loot
+• Remove 213 ilvl vendor gears
+
 |cff00ff00=== v1.3.0 Changelog ===|r
 
 |cffFFA500★ New Features:|r

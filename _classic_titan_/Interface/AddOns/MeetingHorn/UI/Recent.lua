@@ -267,7 +267,8 @@ function Recent:Constructor()
     self.Left:SetCallback('OnItemFormatting', function(_, button, info)
         local starData = ns.Addon.db.realm.starRegiment.regimentData[info.role_name]
         if starData then
-            button.starIcon:SetTexture(format([[|TInterface\AddOns\MeetingHorn\Media\certification\%d\certification_icon:16:64:0:0:256:64:0:225:0:56|t]], starData.bgID))
+                    local certificationIconText = ns.GetCertificationIconTextTexture(starData.level, starData.bgID)
+                    button.starIcon:SetTexture(certificationIconText)
         end
         button.describe:SetText(info.raid_name)
         button.activityEndTime:SetText(info.start_time)

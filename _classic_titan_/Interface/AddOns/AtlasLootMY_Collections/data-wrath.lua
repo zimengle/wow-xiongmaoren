@@ -33,6 +33,7 @@ local RAID25_DIFF = data:AddDifficulty("25RAID")
 local RAID25H_DIFF = data:AddDifficulty("25RAIDH")
 local P1_DIFF = data:AddDifficulty("P1", nil, nil, nil, true)
 local P2_DIFF = data:AddDifficulty("P2", nil, nil, nil, true)
+local P3_DIFF = data:AddDifficulty("P3", nil, nil, nil, true)
 local VENDOR_DIFF = data:AddDifficulty(AL["Vendor"], "vendor", 0)
 local T10_1_DIFF = data:AddDifficulty(AL["10H / 25 / 25H"], "T10_1", 0)
 local T10_2_DIFF = data:AddDifficulty(AL["25 Raid Heroic"], "T10_2", 0)
@@ -183,7 +184,7 @@ data["EmblemofHeroism"] = {
 				{ 20, 40688 }, -- Verdungo's Barbarian Cord
 				{ 21, 40689 }, -- Waistguard of Living Iron
 			},
-			[P2_DIFF] = {
+			[P3_DIFF] = {
 				{ 1, 40741 }, -- Cuffs of the Shadow Ascendant
 				{ 2, 40740 }, -- Wraps of the Astral Traveler
 				{ 16, 40751 }, -- Slippers of the Holy Light
@@ -260,7 +261,7 @@ data["EmblemofHeroism"] = {
 				{ 5, 44935 }, 		  --Ring of the Kirin Tor
 			
 			},
-			[P2_DIFF] = {
+			[P3_DIFF] = {
 				{ 1, 40719 }, -- Band of Channeled Magic
 				{ 2, 40720 }, -- Renewal of Life
 				{ 3, 40717 }, -- Ring of Invincibility
@@ -388,7 +389,7 @@ data["EmblemofHeroism"] = {
 				-- { 22, 51573 }, -- Titan-Forged Shoulderpads of Domination
 				-- { 23, 51572 }, -- Titan-Forged Shoulderpads of Salvation
 			},
-			[P2_DIFF]={
+			[P3_DIFF]={
 				{ 1, 46065 }, -- Titan-Forged Raiment of Dominance
 				{ 2, 46079 }, -- Titan-Forged Cord of Dominance
 				{ 4, 46066 }, -- Titan-Forged Raiment of Salvation
@@ -424,7 +425,7 @@ data["EmblemofHeroism"] = {
 				-- { 27, 51575 }, -- Titan-Forged Leather Spaulders of Salvation
 				-- { 28, 51576 }, -- Titan-Forged Leather Spaulders of Triumph
 			},
-			[P2_DIFF] = {
+			[P3_DIFF] = {
 				{ 1, 46064 }, -- Titan-Forged Leather Chestguard of Dominance
 				{ 2, 46076 }, -- Titan-Forged Belt of Dominance
 				
@@ -465,7 +466,7 @@ data["EmblemofHeroism"] = {
 				-- { 27, 51579 }, -- Titan-Forged Shoulders of Salvation
 				-- { 28, 51577 }, -- Titan-Forged Shoulders of Triumph
 			},
-			[P2_DIFF] = {
+			[P3_DIFF] = {
 				{ 1, 46061 }, -- Titan-Forged Mail Armor of Domination
 				{ 2, 46073 }, -- Titan-Forged Waistguard of Dominance
 				{ 4, 46060 }, -- Titan-Forged Ringmail of Salvation
@@ -496,7 +497,7 @@ data["EmblemofHeroism"] = {
 				-- { 23, 51581 }, -- Titan-Forged Shoulderplates of Salvation
 				-- { 24, 51580 }, -- Titan-Forged Plate Shoulderplates of Triumph
 			},
-			[P2_DIFF] = {
+			[P3_DIFF] = {
 				{ 1, 46057 }, -- Titan-Forged Chestguard of Salvation
 				{ 2, 46071 }, -- Titan-Forged Girdle of Salvation
 				{ 4, 46058 }, -- Titan-Forged Breastplate of Triumph
@@ -521,7 +522,7 @@ data["EmblemofHeroism"] = {
 				-- { 23, 51581 }, -- Titan-Forged Shoulderplates of Salvation
 				-- { 24, 51580 }, -- Titan-Forged Plate Shoulderplates of Triumph
 			},
-			[P2_DIFF] = {
+			[P3_DIFF] = {
 				{ 1, 46083 }, -- Titan-Forged Rune of Accuracy
 				{ 2, 46085 }, -- Titan-Forged Rune of Alacrity
 				{ 3, 46081 }, -- Titan-Forged Rune of Audacity

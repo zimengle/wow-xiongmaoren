@@ -56,11 +56,13 @@ BG.Init(function()
         main:Hide()
         main.name = BG.optionsName
         ns.InterfaceOptions_AddCategory(main)
-        local t = main:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
+        local t = main:CreateFontString()
+        t:SetFont(BIAOGE_TEXT_FONT, 16, "OUTLINE")
         t:SetText("|cff" .. "00BFFF" .. L["<BiaoGe> 金团表格"] .. "|r")
         t:SetPoint("TOPLEFT", main, 15, 0)
         local top = t
-        local t = main:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall2")
+        local t = main:CreateFontString()
+        t:SetFont(BIAOGE_TEXT_FONT, 13, "OUTLINE")
         t:SetText(L["|cff808080（带*的设置需要重载才能生效）|r"])
         t:SetPoint("BOTTOMLEFT", top, "BOTTOMRIGHT", 5, 0)
         -- 重载
@@ -268,7 +270,13 @@ BG.Init(function()
                 value = max(minValue, value)
                 BiaoGe.options[name] = value
 
-                local template = BG.IsWLK_80 and "TextToSpeechSliderTemplate" or "OptionsSliderTemplate"
+                local template
+                if BG.IsWLK_80 then
+                    template = "TextToSpeechSliderTemplate"
+                else
+                    template = "OptionsSliderTemplate"
+                end
+
                 local slider = CreateFrame("Slider", nil, parent, template)
                 slider:SetPoint("TOPLEFT", parent, x, y)
                 slider:SetWidth(width or 180)
@@ -280,11 +288,27 @@ BG.Init(function()
                 slider.name = name
                 slider.ontext = ontext
                 slider:SetScript("OnValueChanged", OnValueChanged)
+                if BG.IsTBC then
+                    slider.bar = CreateFrame("Frame", nil, slider, "BackdropTemplate")
+                    slider.bar:SetBackdrop({
+                        bgFile = "Interface/ChatFrame/ChatFrameBackground",
+                        edgeFile = "Interface/ChatFrame/ChatFrameBackground",
+                        edgeSize = 1.5,
+                    })
+                    slider.bar:SetBackdropColor(0, 0, 0, 0)
+                    slider.bar:SetBackdropBorderColor(1, 1, 1, .3)
+                    slider.bar:SetSize(slider:GetWidth(), slider:GetHeight() - 5)
+                    slider.bar:SetPoint("CENTER")
+                    slider.bar:SetFrameLevel(slider:GetFrameLevel())
+                end
 
+                slider.Low:SetFont(BIAOGE_TEXT_FONT, 14, "OUTLINE")
                 slider.Low:SetText(minValue)
                 slider.Low:SetPoint("TOPLEFT", slider, "BOTTOMLEFT", 10, -2)
+                slider.High:SetFont(BIAOGE_TEXT_FONT, 14, "OUTLINE")
                 slider.High:SetText(maxValue)
                 slider.High:SetPoint("TOPRIGHT", slider, "BOTTOMRIGHT", -10, -2)
+                slider.Text:SetFont(BIAOGE_TEXT_FONT, 14, "OUTLINE")
                 slider.Text:ClearAllPoints()
                 slider.Text:SetPoint("CENTER", 0, 25)
                 slider.Text:SetText(text)
@@ -346,6 +370,7 @@ BG.Init(function()
                 local bt = CreateFrame("CheckButton", nil, parent, "ChatConfigCheckButtonTemplate")
                 bt:SetSize(30, 30)
                 bt:SetPoint("TOPLEFT", parent, x, y)
+                bt.Text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
                 bt.Text:SetText(text)
                 bt.Text:SetWordWrap(false)
                 bt.Text:SetWidth(min(bt.Text:GetStringWidth() + 20, long and 500 or 160))
@@ -568,7 +593,7 @@ BG.Init(function()
 
             local t = dropDown:CreateFontString()
             t:SetPoint("BOTTOM", dropDown, "TOP", 0, 8)
-            t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             t:SetTextColor(1, 1, 1)
             t:SetText(L["背景材质"])
 
@@ -660,7 +685,7 @@ BG.Init(function()
             local f = O.CreateSlider(name, "|cffFFFFFF" .. L["装备记录通知字号"] .. "|r", biaoge, 10, 30, 1, 425, height - h - 25, ontext)
             BG.options["button" .. name] = f
             f:HookScript("OnValueChanged", function(self, value)
-                BG.FrameLootMsg:SetFont(STANDARD_TEXT_FONT, value, "OUTLINE")
+                BG.FrameLootMsg:SetFont(BIAOGE_TEXT_FONT, value, "OUTLINE")
             end)
             local name = "autoLoot"
             if BiaoGe.options[name] ~= 1 then
@@ -789,7 +814,7 @@ BG.Init(function()
             local f = O.CreateSlider(name, "|cffFFFFFF" .. L["交易通知字号"] .. "|r", biaoge, 10, 30, 1, 425, height - h - 25, ontext)
             BG.options["button" .. name] = f
             f:HookScript("OnValueChanged", function(self, value)
-                BG.FrameTradeMsg:SetFont(STANDARD_TEXT_FONT, value, "OUTLINE")
+                BG.FrameTradeMsg:SetFont(BIAOGE_TEXT_FONT, value, "OUTLINE")
             end)
             local name = "autoTrade"
             if BiaoGe.options[name] ~= 1 or BiaoGe.options["tradeNotice"] ~= 1 then
@@ -1425,7 +1450,8 @@ BG.Init(function()
                     f:Hide()
                 end
 
-                local text = f:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+                local text = f:CreateFontString()
+                text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
                 text:SetPoint("TOPLEFT", BG.options.buttonQingKongPeople, "BOTTOMRIGHT", 0, -5)
                 text:SetText(L["|cffFFFFFF10人团本分钱人数：|r"])
 
@@ -1442,7 +1468,8 @@ BG.Init(function()
                     self:ClearFocus()
                 end)
 
-                local text = f:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+                local text = f:CreateFontString()
+                text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
                 text:SetPoint("LEFT", edit, "RIGHT", 40, 0)
                 text:SetText(L["|cffFFFFFF25人团本分钱人数：|r"])
 
@@ -1528,7 +1555,7 @@ BG.Init(function()
             f:SetPoint("BOTTOM", dropDown, "TOP", 0, 8)
             local t = f:CreateFontString()
             t:SetPoint("CENTER")
-            t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             t:SetTextColor(1, 1, 1)
             t:SetText(L["语音包"])
             f:SetSize(t:GetWidth(), t:GetHeight())
@@ -1610,7 +1637,7 @@ BG.Init(function()
             end)
 
             local t = biaoge:CreateFontString()
-            t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             t:SetPoint("BOTTOM", bt, "TOP", 0, 8)
             t:SetTextColor(1, 1, 1)
             t:SetText(L["我想成为语音包作者"])
@@ -1635,18 +1662,90 @@ BG.Init(function()
             BG.options["button" .. name] = f
         end
 
-        -- 对账单保存时长(小时)
+        -- 字体
+        if BG.fontList then
+            local name = "font"
+
+            local dropDown = LibBG:Create_UIDropDownMenu(nil, biaoge)
+            dropDown:SetPoint("TOPLEFT", 220, height - h - 25)
+            LibBG:UIDropDownMenu_SetWidth(dropDown, 120)
+            LibBG:UIDropDownMenu_SetText(dropDown, BiaoGe[name])
+            LibBG:UIDropDownMenu_SetAnchor(dropDown, 0, 0, "TOP", dropDown, "BOTTOM")
+            BG.dropDownToggle(dropDown)
+            BG.options["button" .. name] = dropDown
+
+            local t = dropDown:CreateFontString()
+            t:SetPoint("BOTTOM", dropDown, "TOP", 0, 8)
+            t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
+            t:SetTextColor(1, 1, 1)
+            t:SetText(AddTexture("QUEST") .. L["字体（需重载）"])
+
+            LibBG:UIDropDownMenu_Initialize(dropDown, function(self, level)
+                for i, font in ipairs(BG.fontList) do
+                    local info = LibBG:UIDropDownMenu_CreateInfo()
+                    info.text = font
+                    info.arg1 = font
+                    info.func = function()
+                        BiaoGe[name] = font
+                        LibBG:UIDropDownMenu_SetText(dropDown, font)
+                    end
+                    info.checked = font:lower() == BiaoGe[name]:lower()
+                    LibBG:UIDropDownMenu_AddButton(info)
+                end
+            end)
+
+            local f = CreateFrame("Frame", nil, UIParent, "BackdropTemplate")
+            f:SetBackdrop({
+                bgFile = "Interface/ChatFrame/ChatFrameBackground",
+                edgeFile = "Interface/ChatFrame/ChatFrameBackground",
+                edgeSize = 1,
+            })
+            f:SetBackdropColor(0, 0, 0, 0.5)
+            f:SetBackdropBorderColor(0, 0, 0, 1)
+            f:SetSize(20, 40)
+            f.t = f:CreateFontString()
+            f.t:SetPoint("CENTER")
+            f.t:SetTextColor(1, 1, 1)
+            f.t:SetJustifyH("LEFT")
+            function f:Update(button, font)
+                f:SetParent(button)
+                f:ClearAllPoints()
+                f:SetPoint("BOTTOMLEFT", button, "TOPRIGHT", 0, 0)
+                f.t:SetFont(format("Fonts\\%s", font), 15, "OUTLINE")
+                f.t:SetText(font .. L["字体预览\n\nBiaoGe插件\n1234567890"])
+                f:SetWidth(f.t:GetStringWidth() + 10)
+                f:SetHeight(f.t:GetStringHeight() + 10)
+                f:Show()
+            end
+
+            for i = 1, L_UIDROPDOWNMENU_MAXBUTTONS do
+                local button = _G["L_DropDownList1Button" .. i]
+                button:HookScript("OnEnter", function()
+                    if L_DropDownList1.dropdown ~= dropDown then return end
+                    if button.arg1 then
+                        f:Update(button, button.arg1)
+                    end
+                end)
+                button:HookScript("OnLeave", function()
+                    if L_DropDownList1.dropdown ~= dropDown then return end
+                    button.isOnEnter = false
+                    f:Hide()
+                end)
+            end
+        end
+
+        -- 输入框字号
         do
-            local name = "duiZhangTime"
+            local name = "editFontSize"
+            BG.options[name .. "reset"] = 14
             local ontext = {
-                L["对账单保存时长"] .. L["|cff808080（右键还原设置）|r"],
-                L["对账单保存多久后自动删除。"],
-                -- " ",
-                -- L[""],
+                L["输入框字号"] .. L["|cff808080（右键还原设置）|r"],
+                L["BiaoGe插件大量使用输入框，该选项可以修改其字体大小。"],
             }
-            local f = O.CreateSlider(name, "|cffFFFFFF" .. L["对账单保存时长(小时)"] .. "|r", biaoge, 1, 168, 1, 220, height - h - 25, ontext)
+            local f = O.CreateSlider(name, AddTexture("QUEST") .. "|cffFFFFFF" .. L["输入框字号（需重载）"] .. "|r", biaoge, 10, 20, 1, 430, height - h - 25, ontext)
             BG.options["button" .. name] = f
         end
+
         h = h + 30
 
         -- 自动获取在线人数
@@ -1747,6 +1846,19 @@ BG.Init(function()
             end)
         end
         h = h + 30
+        
+        -- 对账单保存时长(小时)
+        do
+            local name = "duiZhangTime"
+            local ontext = {
+                L["对账单保存时长"] .. L["|cff808080（右键还原设置）|r"],
+                L["对账单保存多久后自动删除。"],
+                -- " ",
+                -- L[""],
+            }
+            local f = O.CreateSlider(name, "|cffFFFFFF" .. L["对账单保存时长(小时)"] .. "|r", biaoge, 1, 168, 1, 430, height - h - 25, ontext)
+            BG.options["button" .. name] = f
+        end
 
         -- 自动删除屏蔽团员
         do
@@ -1879,7 +1991,7 @@ BG.Init(function()
 
             local t = dropDown:CreateFontString()
             t:SetPoint("BOTTOM", dropDown, "TOP", 0, 8)
-            t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             t:SetTextColor(1, 1, 1)
             t:SetText(L["UI层级"])
 
@@ -1931,7 +2043,7 @@ BG.Init(function()
                         mainFrame.testFrame = f
 
                         local t = f:CreateFontString()
-                        t:SetFont(STANDARD_TEXT_FONT, 20, "OUTLINE")
+                        t:SetFont(BIAOGE_TEXT_FONT, 20, "OUTLINE")
                         t:SetPoint("CENTER", f, "CENTER", 0, 0)
                         t:SetTextColor(1, 0.82, 0)
                         t:SetText(L["这是拍卖框架\n你可以通过拖动来改变位置。"])
@@ -2342,6 +2454,7 @@ BG.Init(function()
                         row = row + 1
                     end
                     right = bt
+                    bt.Text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
                     bt.Text:SetText("|cff" .. color .. (name2 or name):gsub("sod", "") .. RR)
                     bt.Text:SetWidth(buttonWidth - buttonHeight)
                     bt.Text:SetWordWrap(false)
@@ -2408,6 +2521,7 @@ BG.Init(function()
                         row = row + 1
                     end
                     right = bt
+                    bt.Text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
                     bt.Text:SetText(AddTexture(tex))
                     if not BiaoGe.MONEYchoice[id] or BiaoGe.MONEYchoice[id] == 0 then
                         BiaoGe.MONEYchoice[id] = nil
@@ -2455,7 +2569,7 @@ BG.Init(function()
                 frame.tex:SetSize(18, 18)
                 frame.tex:SetTexture(130821)
                 frame.text = frame:CreateFontString()
-                frame.text:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+                frame.text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
                 frame.text:SetPoint("LEFT", frame.tex, "RIGHT", 2, 0)
                 frame.text:SetText(name)
                 frame.open = true
@@ -2650,7 +2764,7 @@ BG.Init(function()
             frame:SetSize(frameWidth, frameHeight)
             lastFrame = frame
             local t = frame:CreateFontString()
-            t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             t:SetPoint("LEFT")
             t:SetTextColor(1, 1, 1)
             t:SetText(L["角色总览的排序方式："])
@@ -2686,12 +2800,12 @@ BG.Init(function()
                                     BGV.RoleOverviewSortFrame:Hide()
                                 end
                             end
-                            dropDown.bt:SetShown(BiaoGe.options[name] == "vip" and BG.BiaoGeVIPVerNum and BG.BiaoGeVIPVerNum >= 10140)
+                            dropDown.bt:SetShown(BiaoGe.options[name] == "vip" and ns.isVIP)
                         end
                         if BiaoGe.options[name] == v.key then
                             info.checked = true
                         end
-                        if v.key == "vip" and not (BG.BiaoGeVIPVerNum and BG.BiaoGeVIPVerNum >= 10140) then
+                        if v.key == "vip" and not ns.isVIP then
                             info.disabled = true
                         end
                         LibBG:UIDropDownMenu_AddButton(info)
@@ -2702,7 +2816,7 @@ BG.Init(function()
                 dropDown.bt:SetSize(100, 25)
                 dropDown.bt:SetPoint("LEFT", dropDown, "RIGHT", 0, 3)
                 dropDown.bt:SetText(L["修改排序"])
-                dropDown.bt:SetShown(BiaoGe.options[name] == "vip" and BG.BiaoGeVIPVerNum and BG.BiaoGeVIPVerNum >= 10140)
+                dropDown.bt:SetShown(BiaoGe.options[name] == "vip" and ns.isVIP)
                 dropDown.bt:SetScript("OnClick", function(self)
                     BG.PlaySound(1)
                     if BGV.RoleOverviewSortFrame and BGV.RoleOverviewSortFrame:IsVisible() then
@@ -2730,7 +2844,7 @@ BG.Init(function()
             frame:SetSize(frameWidth, frameHeight)
             lastFrame = frame
             local t = frame:CreateFontString()
-            t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             t:SetPoint("LEFT")
             t:SetTextColor(1, 1, 1)
             t:SetText(L["角色总览的默认显示："])
@@ -2786,7 +2900,7 @@ BG.Init(function()
             frame:SetSize(frameWidth, frameHeight)
             lastFrame = frame
             local t = frame:CreateFontString()
-            t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             t:SetPoint("LEFT")
             t:SetTextColor(1, 1, 1)
             t:SetText(L["角色总览的布局方式："])
@@ -2837,7 +2951,7 @@ BG.Init(function()
             frame:SetSize(frameWidth, frameHeight)
             lastFrame = frame
             local t = frame:CreateFontString()
-            t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             t:SetPoint("LEFT")
             t:SetTextColor(1, 1, 1)
             t:SetText(L["仅显示高于该等级的角色："])
@@ -2866,7 +2980,7 @@ BG.Init(function()
             frame:SetSize(frameWidth, frameHeight)
             lastFrame = frame
             local t = frame:CreateFontString()
-            t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             t:SetPoint("LEFT")
             t:SetTextColor(1, 1, 1)
             t:SetText(L["仅显示高于该装等的角色："])
@@ -2942,7 +3056,8 @@ BG.Init(function()
 
         -- 原生功能
         do
-            local text = others:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+            local text = others:CreateFontString()
+            text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             text:SetPoint("TOPLEFT", width, height)
             text:SetText(BG.STC_g1(L["原生功能"]))
             height = height - height_jiange
@@ -3164,7 +3279,8 @@ BG.Init(function()
         -- AtlasLoot
         BG.Init2(function()
             if not BG.canShowAtlasLoot then return end
-            local text = others:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+            local text = others:CreateFontString()
+            text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             text:SetPoint("TOPLEFT", width, height - h)
             text:SetText(BG.STC_g1("AtlasLoot"))
             height = height - height_jiange
@@ -3268,7 +3384,8 @@ BG.Init(function()
                 local height = -10
                 local h = 0
                 local h_jiange = 28
-                local text = bt.frame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+                local text = bt.frame:CreateFontString()
+                text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
                 text:SetPoint("TOPLEFT", 20, height - h)
                 text:SetText(BG.STC_g1(L["其他功能|cff808080（由BiaoGe插件提供）|r"]))
                 height = height - height_jiange
@@ -3308,7 +3425,8 @@ BG.Init(function()
 
         -- 集结号
         BG.Init2(function()
-            local text = others:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+            local text = others:CreateFontString()
+            text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             text:SetPoint("TOPLEFT", width, height - h)
             text:SetText(BG.STC_g1(L["集结号"]))
             height = height - height_jiange
@@ -3520,7 +3638,8 @@ BG.Init(function()
             local h = 0
             local h_jiange = 28
 
-            local text = others:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+            local text = others:CreateFontString()
+            text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             text:SetPoint("TOPLEFT", width, height - h)
             text:SetText(BG.STC_g1(L["集结号增强|cff808080（该功能由BiaoGe插件提供）|r"]))
             height = height - height_jiange
@@ -3572,7 +3691,7 @@ BG.Init(function()
 
         do
             local text = config:CreateFontString()
-            text:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+            text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             text:SetPoint("TOPLEFT", width, height)
             text:SetText(L["BiaoGe的配置文件中，大部分都是账号互通的，比如当前表格、历史表格、YY评价、设置。但也有一些是按角色来保存的，比如心愿清单、装备过滤方案、集结号的搜索记录和密语模板。\n\n当一个角色改名或者转服时，该角色的心愿清单等数据就会丢失。所以该功能就是为了帮你找回原来的角色数据。"])
             text:SetTextColor(1, 1, 1)
@@ -3582,21 +3701,21 @@ BG.Init(function()
             height = height - text:GetHeight()
 
             local text = config:CreateFontString()
-            text:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+            text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             text:SetPoint("TOPLEFT", width, height - 15)
             text:SetText(L["选择一个目标角色"])
             text:SetTextColor(0, 1, 0)
             text:SetWidth(width2)
 
             local text = config:CreateFontString()
-            text:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+            text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             text:SetPoint("TOPLEFT", width + width2 + 15, height - 15)
             text:SetText(L["要复制的内容"])
             text:SetTextColor(0, 1, 0)
             text:SetWidth(width2)
 
             local text = config:CreateFontString()
-            text:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+            text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             text:SetPoint("TOPLEFT", width + width2 + 15 + width2 + 15, height - 15)
             text:SetText(L["操作"])
             text:SetTextColor(0, 1, 0)
@@ -3752,6 +3871,7 @@ BG.Init(function()
             else
                 bt:SetPoint("TOPLEFT", button2s[#button2s], "BOTTOMLEFT", 0, 0)
             end
+            bt.Text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             bt.Text:SetText(text)
             bt.Text:SetWidth(width2 - 30 - 20)
             bt:SetHitRectInsets(0, -bt.Text:GetWidth(), 0, 0)
@@ -4073,5 +4193,5 @@ end)
 
 -- debug
 -- BG.Init2(function(self, event, ...)
---     InterfaceOptionsFrame_OpenToCategory(BG.optionsName)
+--     ns.InterfaceOptionsFrame_OpenToCategory(BG.optionsName)
 -- end)

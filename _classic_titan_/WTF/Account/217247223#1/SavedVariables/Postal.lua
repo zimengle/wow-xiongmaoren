@@ -1,4 +1,3 @@
-
 Postal3DB = {
 ["global"] = {
 ["BlackBook"] = {

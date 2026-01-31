@@ -34,7 +34,62 @@ if not RS then
     return
 end
 
-local CFG = _G.RURUTIA_SUITE_CONFIG.theme
+local CFG = ns.Config.theme
+
+-- ========================================
+-- 主题兼容/兜底：避免把 nil 传给 SetBackdrop*Color
+-- ========================================
+
+local function NormalizeThemeColor(color, fallbackR, fallbackG, fallbackB, fallbackA)
+    if type(color) == "table" then
+        if type(color.GetRGBA) == "function" then
+            local r, g, b, a = color:GetRGBA()
+            if r ~= nil and g ~= nil and b ~= nil then
+                return r, g, b, a
+            end
+        end
+        local r = color.r ~= nil and color.r or color[1]
+        local g = color.g ~= nil and color.g or color[2]
+        local b = color.b ~= nil and color.b or color[3]
+        local a = color.a ~= nil and color.a or color[4]
+        if r ~= nil and g ~= nil and b ~= nil then
+            return r, g, b, a
+        end
+    end
+    return fallbackR, fallbackG, fallbackB, fallbackA
+end
+
+local function GetThemeBorderInfo()
+    local border = (CFG and CFG.border) or {}
+    local edgeSize = border.edgeSize or border.size or 1
+
+    local color = border.color or border
+    local r, g, b, a = NormalizeThemeColor(color, 0, 0, 0, 1)
+    if a == nil then a = 1 end
+    return edgeSize, r, g, b, a
+end
+
+local function GetThemeBackgroundColor()
+    local bg = (CFG and CFG.background) or {}
+    local r, g, b, a = NormalizeThemeColor(bg, 0, 0, 0, 0.8)
+    if a == nil then a = 0.8 end
+    return r, g, b, a
+end
+
+local function GetThemeButtonColors()
+    local btn = (CFG and CFG.button) or nil
+    if type(btn) == "table"
+        and type(btn.normal) == "table"
+        and type(btn.hover) == "table"
+        and type(btn.pushed) == "table" then
+        return btn
+    end
+    return {
+        normal = { r = 0.12, g = 0.12, b = 0.12, a = 0.8 },
+        hover  = { r = 0.18, g = 0.18, b = 0.18, a = 0.9 },
+        pushed = { r = 0.10, g = 0.10, b = 0.10, a = 0.9 },
+    }
+end
 
 -- ========================================
 -- 核心函数：剥离原生材质
@@ -85,20 +140,21 @@ end
 local function CreateBackdrop(frame)
     if not frame then return end
     
+    local edgeSize, br, bg, bb, ba = GetThemeBorderInfo()
+    local r, g, b, a = GetThemeBackgroundColor()
+
     -- 设置 Backdrop
     frame:SetBackdrop({
         bgFile = "Interface\\Buttons\\WHITE8X8",
         edgeFile = "Interface\\Buttons\\WHITE8X8",
         tile = false,
-        edgeSize = CFG.border.size,
+        edgeSize = edgeSize,
         insets = { left = 1, right = 1, top = 1, bottom = 1 }
     })
     
     -- 应用颜色
-    local bg = CFG.background
-    local border = CFG.border
-    frame:SetBackdropColor(bg.r, bg.g, bg.b, bg.a)
-    frame:SetBackdropBorderColor(border.r, border.g, border.b, border.a)
+    frame:SetBackdropColor(r, g, b, a)
+    frame:SetBackdropBorderColor(br, bg, bb, ba)
 end
 
 -- ========================================
@@ -256,19 +312,20 @@ function RS:SkinButton(button)
     StripTextures(button)
     
     -- 创建扁平化背景
+    local edgeSize, br, bg, bb, ba = GetThemeBorderInfo()
+    local btnColors = GetThemeButtonColors()
     button:SetBackdrop({
         bgFile = "Interface\\Buttons\\WHITE8X8",
         edgeFile = "Interface\\Buttons\\WHITE8X8",
         tile = false,
-        edgeSize = CFG.border.size,
+        edgeSize = edgeSize,
         insets = { left = 1, right = 1, top = 1, bottom = 1 }
     })
     
     -- 应用正常状态颜色
-    local normal = CFG.button.normal
-    local border = CFG.border
+    local normal = btnColors.normal
     button:SetBackdropColor(normal.r, normal.g, normal.b, normal.a)
-    button:SetBackdropBorderColor(border.r, border.g, border.b, border.a)
+    button:SetBackdropBorderColor(br, bg, bb, ba)
     
     -- ========================================
     -- 关键修复2：增大按钮文本字号（+2）
@@ -288,8 +345,8 @@ function RS:SkinButton(button)
     
     -- 保存原始颜色
     button._skinNormalColor = normal
-    button._skinHoverColor = CFG.button.hover
-    button._skinPushedColor = CFG.button.pushed
+    button._skinHoverColor = btnColors.hover
+    button._skinPushedColor = btnColors.pushed
     
     -- OnEnter: 悬停变色
     button:HookScript("OnEnter", function(self)
@@ -309,9 +366,9 @@ function RS:SkinButton(button)
     -- OnLeave: 恢复正常颜色
     button:HookScript("OnLeave", function(self)
         local normal = self._skinNormalColor
-        local border = CFG.border
         self:SetBackdropColor(normal.r, normal.g, normal.b, normal.a)
-        self:SetBackdropBorderColor(border.r, border.g, border.b, border.a)
+        local _, br2, bg2, bb2, ba2 = GetThemeBorderInfo()
+        self:SetBackdropBorderColor(br2, bg2, bb2, ba2)
     end)
     
     -- OnMouseDown: 按下变色
@@ -355,23 +412,19 @@ function RS:SkinTabGroup(tabGroup)
                         region:SetTexture("Interface\\Buttons\\WHITE8X8")
                         region:SetVertexColor(0, 0, 0, 0)
                     elseif region and region:GetObjectType() == "FontString" then
-                        -- 增大Tab文本字号（只执行一次）
-                        if not region._RS_FontSized then
-                            region._RS_FontSized = true
-                            local fontPath, fontSize, fontFlags = region:GetFont()
-                            if fontPath and fontSize then
-                                region:SetFont(fontPath, fontSize + 4, fontFlags)  -- 字号 +4
-                            end
+                        -- 统一设置Tab文本字号
+                        local fontPath, _, fontFlags = region:GetFont()
+                        if fontPath then
+                            region:SetFont(fontPath, 14, fontFlags)
                         end
                     end
                 end
                 
                 -- 尝试直接获取文本对象（AceGUI 可能用其他方式存储）
-                if tab.text and tab.text.GetFont and not tab.text._RS_FontSized then
-                    tab.text._RS_FontSized = true
-                    local fontPath, fontSize, fontFlags = tab.text:GetFont()
-                    if fontPath and fontSize then
-                        tab.text:SetFont(fontPath, fontSize + 4, fontFlags)
+                if tab.text and tab.text.GetFont then
+                    local fontPath, _, fontFlags = tab.text:GetFont()
+                    if fontPath then
+                        tab.text:SetFont(fontPath, 14, fontFlags)
                     end
                 end
                 
@@ -416,6 +469,26 @@ function RS:SkinTabGroup(tabGroup)
         for _, tab in pairs(tabGroup.tabs) do
             if tab and tab.SetBackdrop then
                 RS:SkinButton(tab)
+                
+                -- [修复] 再次强制统一字号为 14 (覆盖 SkinButton 的 +2 效果)
+                -- 确保所有 Tab（无论是否选中）字号一致
+                if tab.GetFontString then
+                    local fs = tab:GetFontString()
+                    if fs then
+                        local fontPath, _, fontFlags = fs:GetFont()
+                        if fontPath then
+                            fs:SetFont(fontPath, 14, fontFlags)
+                        end
+                    end
+                end
+                
+                -- 尝试通过 text 属性设置（AceGUI 内部结构）
+                if tab.text and tab.text.SetFont then
+                    local fontPath, _, fontFlags = tab.text:GetFont()
+                    if fontPath then
+                        tab.text:SetFont(fontPath, 14, fontFlags)
+                    end
+                end
             end
         end
     end

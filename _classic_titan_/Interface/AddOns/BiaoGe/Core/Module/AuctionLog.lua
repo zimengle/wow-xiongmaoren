@@ -28,6 +28,34 @@ BG.Init(function()
     BiaoGe.auctionTrade = nil
     BG.auctionTrade = {}
 
+    local function HighlightBiaoGeSameItems(itemID, self)
+        local tbl = {}
+        local FB = BG.FB1
+        for b = 1, Maxb[FB] do
+            for i = 1, BG.GetMaxi(FB, b) do
+                local zb = BG.Frame[FB]["boss" .. b]["zhuangbei" .. i]
+                local jine = BG.Frame[FB]["boss" .. b]["jine" .. i]
+                if zb then
+                    if itemID == GetItemID(zb:GetText()) then
+                        tinsert(tbl, { zb = zb, jine = jine })
+                    end
+                end
+            end
+        end
+        if #tbl > 1 then
+            local frame
+            for i, v in ipairs(tbl) do
+                frame = BG.CreateHighlightFrame(self, nil, { 1, 0, 0, 0 }, 4)
+            end
+            local t = frame:CreateFontString()
+            t:SetFont(BIAOGE_TEXT_FONT, 20, "OUTLINE")
+            t:SetPoint("RIGHT", self, "RIGHT", -2, 0)
+            t:SetTextColor(1, 0, 0)
+            t:SetText(#tbl)
+        end
+        tbl = nil
+    end
+
     local bt = CreateFrame("Button", nil, BG.MainFrame)
     do
         bt:SetPoint("LEFT", BG.ButtonAucitonWA, "RIGHT", BG.TopLeftButtonJianGe, 0)
@@ -80,7 +108,7 @@ BG.Init(function()
             GameTooltip:ClearLines()
             GameTooltip:AddLine(self:GetText(), 1, 1, 1, true)
             GameTooltip:AddLine(L["自动拍卖装备（拍卖WA）的记录。"], 1, 0.82, 0, true)
-            GameTooltip:AddLine(format(L["自动拍卖合计收入：|cff%s%s|r"], color, BG.FormatNumber(sum,2)), 1, 0.82, 0, true)
+            GameTooltip:AddLine(format(L["自动拍卖合计收入：|cff%s%s|r"], color, BG.FormatNumber(sum, 2)), 1, 0.82, 0, true)
             GameTooltip:Show()
         end)
         bt:SetScript("OnLeave", GameTooltip_Hide)
@@ -127,7 +155,7 @@ BG.Init(function()
             end)
 
             local t = f:CreateFontString()
-            t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             t:SetPoint("TOP", f, "TOP", 0, -5)
             BG.auctionLogFrame.title = t
 
@@ -179,7 +207,7 @@ BG.Init(function()
                 bt:SetSize(15, 15)
                 tinsert(buttons, bt)
                 bt.Text = bt:CreateFontString()
-                bt.Text:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+                bt.Text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
                 bt.Text:SetPoint("LEFT", bt, "RIGHT", 0, 0)
                 bt.Text:SetText(numOptions[i].name)
                 bt.Text:SetTextColor(1, .82, 0)
@@ -253,7 +281,7 @@ BG.Init(function()
             frame.tooltip = _f
 
             local t = child:CreateFontString()
-            t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             t:SetPoint("TOP", 0, 0)
             t:SetTextColor(1, 0, 0)
             t:SetText(L["没有自动拍卖记录。"])
@@ -297,7 +325,7 @@ BG.Init(function()
         -- 合计收入
         do
             local t = f:CreateFontString()
-            t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             t:SetPoint("TOPLEFT", frame, "BOTTOMLEFT", 2, -5)
             t:SetTextColor(1, 1, 1)
             t:SetJustifyH("LEFT")
@@ -359,6 +387,8 @@ BG.Init(function()
                 GameTooltip:ClearLines()
                 GameTooltip:AddLine(self:GetText(), 1, 1, 1, true)
                 GameTooltip:AddLine(L["根据自动拍卖记录，直接覆盖表格里每件装备所对应的买家和金额。"], 1, 0.82, 0, true)
+                GameTooltip:AddLine(" ")
+                GameTooltip:AddLine(L["该功能仅修改买家和金额，如果表格里的装备栏是空的，则什么都不会发生。"], 1, 0.82, 0, true)
                 GameTooltip:Show()
             end)
             bt:SetScript("OnLeave", GameTooltip_Hide)
@@ -509,14 +539,14 @@ BG.Init(function()
             end)
 
             local t = f:CreateFontString()
-            t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             t:SetPoint("TOP", 0, -10)
             f.title = t
         end
         -- 装备
         do
             local title = f:CreateFontString()
-            title:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+            title:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             title:SetPoint("TOPLEFT", 5, -35)
             title:SetText(L["装备："])
             title:SetTextColor(1, 0.82, 0)
@@ -531,7 +561,7 @@ BG.Init(function()
                 _f:SetSize(120, 15)
                 _f:SetHyperlinksEnabled(true)
                 local t = _f:CreateFontString()
-                t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+                t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
                 t:SetAllPoints()
                 t:SetJustifyH("LEFT")
                 t:SetWordWrap(false)
@@ -619,7 +649,7 @@ BG.Init(function()
         -- 买家
         do
             local t = f:CreateFontString()
-            t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             t:SetPoint("TOPLEFT", f.item.title, "BOTTOMLEFT", 0, -7)
             t:SetText(L["买家："])
             t:SetTextColor(1, 0.82, 0)
@@ -685,7 +715,7 @@ BG.Init(function()
         -- 金额
         do
             local t = f:CreateFontString()
-            t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             t:SetPoint("TOPLEFT", f.maijia.title, "BOTTOMLEFT", 0, -7)
             t:SetText(L["金额："])
             t:SetTextColor(1, 0.82, 0)
@@ -1154,6 +1184,7 @@ BG.Init(function()
                 if itemID then
                     GameTooltip:SetHyperlink(BG.SetSpecIDToLink(link))
                     BG.Show_AllHighlight(link, "auctionlog")
+                    HighlightBiaoGeSameItems(itemID, self)
                     BG.SetHistoryMoney(itemID)
                     if IsAltKeyDown() and BG.IsML and v.type == 3 and BiaoGe.options["autoAuctionStart"] == 1 then
                         SetCursor("interface/cursor/repair")
@@ -1309,13 +1340,13 @@ BG.Init(function()
             tex:SetTexCoord(.04, .96, .04, .96)
             bts.icon = tex
             f.level = f:CreateFontString()
-            f.level:SetFont(STANDARD_TEXT_FONT, 11, "OUTLINE")
+            f.level:SetFont(BIAOGE_TEXT_FONT, 11, "OUTLINE")
             f.level:SetPoint("BOTTOM", bts.icon, 0, 1)
             f.level:SetText((typeID == 2 or typeID == 4) and v.itemlevel or nil)
             f.level:SetTextColor(r, g, b)
             if v.bindType == 2 then
                 local text = bts.iconFrame:CreateFontString()
-                text:SetFont(STANDARD_TEXT_FONT, 10, "OUTLINE")
+                text:SetFont(BIAOGE_TEXT_FONT, 10, "OUTLINE")
                 text:SetPoint("TOP", bts.iconFrame, 0, -1)
                 text:SetText(L["装绑"])
                 text:SetTextColor(0, 1, 0)
@@ -1324,7 +1355,7 @@ BG.Init(function()
         -- 装备
         do
             local text = bts.frame:CreateFontString()
-            text:SetFont(STANDARD_TEXT_FONT, 14, "OUTLINE")
+            text:SetFont(BIAOGE_TEXT_FONT, 14, "OUTLINE")
             text:SetWidth(width - bts.icon:GetWidth())
             text:SetPoint("TOPLEFT", bts.icon, "TOPRIGHT", 1, 0)
             text:SetText(link:gsub("%[", ""):gsub("%]", ""))
@@ -1335,14 +1366,14 @@ BG.Init(function()
         -- 买家和金额
         do
             local text = bts.frame:CreateFontString()
-            text:SetFont(STANDARD_TEXT_FONT, 14, "OUTLINE")
+            text:SetFont(BIAOGE_TEXT_FONT, 14, "OUTLINE")
             text:SetPoint("BOTTOMLEFT", bts.icon, "BOTTOMRIGHT", 1, 0)
             text:SetWidth(width - bts.icon:GetWidth())
             text.notAuctionedText = BG.STC_dis(L["<未拍>"])
             text.LiuPaiText = BG.STC_r1(L["<流拍>"])
             text.auctionText = BG.STC_y1(L["<正在拍卖>"])
             if v.type == 1 then
-                text:SetText(BG.FormatNumber(v.jine,2) .. "|c" .. select(4, GetClassColor(v.class)) .. " " .. v.maijia .. "" .. RR)
+                text:SetText(BG.FormatNumber(v.jine, 2) .. "|c" .. select(4, GetClassColor(v.class)) .. " " .. v.maijia .. "" .. RR)
             elseif notAuctioned then
                 text:SetText(text.notAuctionedText)
             else
@@ -1355,7 +1386,7 @@ BG.Init(function()
         -- 已拍未交易
         if v.type == 1 and v.trade then
             local text = bts.frame:CreateFontString(nil, "OVERLAY")
-            text:SetFont(STANDARD_TEXT_FONT, 14, "OUTLINE")
+            text:SetFont(BIAOGE_TEXT_FONT, 14, "OUTLINE")
             text:SetPoint("TOPRIGHT", -1, -1)
             text:SetText(L["已交易"])
             text:SetTextColor(0, 1, 0)
@@ -1538,7 +1569,7 @@ BG.Init(function()
             end
         end
 
-        BG.auctionLogFrame.sumText:SetText(L["合计收入："] .. BG.FormatNumber(sum,2))
+        BG.auctionLogFrame.sumText:SetText(L["合计收入："] .. BG.FormatNumber(sum, 2))
 
         if BiaoGe.options.auctionLogChoose == 4 then
             if not notSetUp then
@@ -1611,7 +1642,7 @@ BG.Init(function()
                     if BG.sendMoneyLog and BG.sendMoneyLog[itemID] and next(BG.sendMoneyLog[itemID]) then
                         log = {}
                         local num = 1
-                        local isVIP = BG.BiaoGeVIPVerNum and BG.BiaoGeVIPVerNum >= 10120 or nil
+                        local isVIP = ns.isVIP
                         for i = #BG.sendMoneyLog[itemID], 1, -1 do
                             if not isVIP and num > 5 then break end
                             num = num + 1
@@ -1662,6 +1693,10 @@ BG.Init(function()
                             BG.tradelastAuctionFrame.UpdateAutoButtons()
                         end
                     end
+
+                    if BGV and BGV.SaveRLAuction then
+                        BGV.SaveRLAuction(zhuangbei, maijia, jine)
+                    end
                 end)
                 return
             elseif endType == 2 and zhuangbei then -- 流拍
@@ -1690,126 +1725,6 @@ BG.Init(function()
                 BG.UpdateAuctioning()
             end
         end
-
-        --[[
-        BG.RegisterEvent("CHAT_MSG_RAID_LEADER", function(self, event, msg, ...)
-            local time = GetServerTime()
-            local zhuangbei, maijia, jine
-            zhuangbei, maijia, jine = msg:match("{rt6}拍卖成功{rt6} (|c%x+|Hitem:[^|]+|h%[.-%]|h|r) (.-) (.+)")
-            if not (zhuangbei and maijia and jine) then
-                zhuangbei, maijia, jine = msg:match("{rt6}拍賣成功{rt6} (|c%x+|Hitem:[^|]+|h%[.-%]|h|r) (.-) (.+)")
-            end
-            if not (zhuangbei and maijia and jine) then
-                zhuangbei, maijia, jine = msg:match("{rt6}Auction Successful{rt6} (|c%x+|Hitem:[^|]+|h%[.-%]|h|r) (.-) (.+)")
-            end
-            -- "|cffffffff|Hitem:2592::::::::::::::::::|h[Wool Cloth]|h|r"
-            if (zhuangbei and maijia and jine) then
-                local itemID = GetItemID(zhuangbei)
-                DeleteAuctioning(itemID)
-                local item = Item:CreateFromItemID(itemID)
-                item:ContinueOnItemLoad(function()
-                    local name, link, quality, level, _, _, _, _, EquipLoc, Texture, _, typeID, subclassID, bindType = GetItemInfo(zhuangbei)
-                    local FB = BG.FB1
-                    local log
-                    if BG.sendMoneyLog and BG.sendMoneyLog[itemID] and next(BG.sendMoneyLog[itemID]) then
-                        log = {}
-                        local num = 1
-                        local isVIP = BG.BiaoGeVIPVerNum and BG.BiaoGeVIPVerNum >= 10120 or nil
-                        for i = #BG.sendMoneyLog[itemID], 1, -1 do
-                            if not isVIP and num > 5 then break end
-                            num = num + 1
-                            local a = BG.Copy(BG.sendMoneyLog[itemID][i])
-                            a.i = i
-                            tinsert(log, 1, a)
-                        end
-                        if MoneyIsError(jine) and BG.sendMoneyLog[itemID][#BG.sendMoneyLog[itemID] ] then
-                            jine = tostring(BG.sendMoneyLog[itemID][#BG.sendMoneyLog[itemID] ].money)
-                        end
-                        BG.After(0, function()
-                            BG.sendMoneyLog[itemID] = nil
-                        end)
-                    end
-
-                    local playerClass = {}
-                    for k, v in pairs(BG.playerClass) do
-                        local value = select(v.select, v.func(maijia))
-                        if value == 0 then value = nil end
-                        playerClass[k] = value
-                    end
-                    if not playerClass.guild then
-                        playerClass.realm = nil
-                    end
-                    local a = {
-                        type = 1,
-                        time = time,
-                        zhuangbei = zhuangbei,
-                        maijia = maijia,
-                        jine = jine,
-                        itemlevel = level,
-                        quality = quality,
-                        bindType = bindType,
-                        log = log,
-                    }
-                    for k, v in pairs(playerClass) do
-                        a[k] = v
-                    end
-                    BiaoGe[FB].auctionLog = BiaoGe[FB].auctionLog or {}
-                    tinsert(BiaoGe[FB].auctionLog, a)
-                    BG.UpdateAuctionLogFrame(nil, true)
-
-                    local tradeName = BG.GN("NPC")
-                    if BG.tradelastAuctionFrame.frame:IsVisible() and tradeName and maijia == tradeName then
-                        BG.auctionLogFrame.GetTargetTradeTbl(maijia)
-                        if BG.ImML() then
-                            BG.tradelastAuctionFrame.UpdateChooseType()
-                            BG.tradelastAuctionFrame.UpdateAutoButtons()
-                        end
-                    end
-                end)
-                return
-            end
-
-            zhuangbei = msg:match("{rt7}流拍{rt7} (|c%x+|Hitem:[^|]+|h%[.-%]|h|r)")
-            if not zhuangbei then
-                zhuangbei = msg:match("^{rt7}Auction Failed{rt7} (|c%x+|Hitem:[^|]+|h%[.-%]|h|r)$")
-            end
-            if zhuangbei then
-                local itemID = GetItemID(zhuangbei)
-                DeleteAuctioning(itemID)
-                local item = Item:CreateFromItemID(itemID)
-                item:ContinueOnItemLoad(function()
-                    local name, link, quality, level, _, _, _, _, EquipLoc, Texture,
-                    _, typeID, subclassID, bindType = GetItemInfo(zhuangbei)
-                    local FB = BG.FB1
-                    local a = {
-                        type = 2,
-                        time = time,
-                        zhuangbei = zhuangbei,
-                        itemlevel = level,
-                        quality = quality,
-                        bindType = bindType,
-                    }
-                    BiaoGe[FB].auctionLog = BiaoGe[FB].auctionLog or {}
-                    tinsert(BiaoGe[FB].auctionLog, a)
-                    BG.UpdateAuctionLogFrame(nil, true)
-                end)
-                return
-            end
-
-            zhuangbei = msg:match("{rt7}拍卖取消{rt7} (|c%x+|Hitem:[^|]+|h%[.-%]|h|r)")
-            if not zhuangbei then
-                zhuangbei = msg:match("^{rt7}拍賣取消{rt7} (|c%x+|Hitem:[^|]+|h%[.-%]|h|r)$")
-            end
-            if not zhuangbei then
-                zhuangbei = msg:match("^{rt7}Auction Cancelled{rt7} (|c%x+|Hitem:[^|]+|h%[.-%]|h|r)$")
-            end
-            if zhuangbei then
-                DeleteAuctioning(GetItemID(zhuangbei))
-                BG.UpdateAuctioning()
-            end
-        end)
-
-         ]]
     end
 
     -- 拍卖成功的聊天信息后面附上出价记录
@@ -1916,7 +1831,7 @@ BG.Init(function()
             end
         end
         if notBound then
-            local first=true
+            local first = true
             for k, v in pairs(BiaoGe[FB].auctionLog) do
                 if v.type == 1 and v.trade and BG.IsSameItem(info.hyperlink, v.zhuangbei) then
                     if first then

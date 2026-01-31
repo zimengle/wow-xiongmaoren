@@ -139,13 +139,13 @@ BG.Init(function()
 
         local TitleText = BG.MainFrame:CreateFontString()
         TitleText:SetPoint("TOP", -40, -4);
-        TitleText:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+        TitleText:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
         TitleText:SetTextColor(RGB("00BFFF"))
         TitleText:SetText(L["<BiaoGe> 金团表格"])
         BG.Title = TitleText
         local VerText = BG.MainFrame:CreateFontString()
         VerText:SetPoint("BOTTOMLEFT", TitleText, "BOTTOMRIGHT", 0, 0)
-        VerText:SetFont(STANDARD_TEXT_FONT, 12, "OUTLINE")
+        VerText:SetFont(BIAOGE_TEXT_FONT, 12, "OUTLINE")
         VerText:SetTextColor(RGB("00BFFF"))
         VerText:SetText(BG.ver)
         BG.VerText = VerText
@@ -156,7 +156,7 @@ BG.Init(function()
         f:SetHitRectInsets(0, 0, 0, 0)
         local t = f:CreateFontString()
         t:SetPoint("CENTER")
-        t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+        t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
         t:SetJustifyH("LEFT")
         t:SetText(L["说明书"])
         t:SetTextColor(0, 1, 0)
@@ -197,11 +197,11 @@ BG.Init(function()
 
         -- 报错
         BG.MainFrame.ErrorText = BG.MainFrame:CreateFontString()
-        BG.MainFrame.ErrorText:SetFont(STANDARD_TEXT_FONT, 70, "OUTLINE")
+        BG.MainFrame.ErrorText:SetFont(BIAOGE_TEXT_FONT, 70, "OUTLINE")
         BG.MainFrame.ErrorText:SetPoint("CENTER")
         BG.MainFrame.ErrorText:SetWidth(BG.MainFrame:GetWidth() - 50)
         BG.MainFrame.ErrorText:SetTextColor(1, 0, 0)
-        BG.MainFrame.ErrorText:SetText(L["插件加载错误，请把报错发给作者，谢谢。（Q群322785325）\n\n如果你不知道怎么看报错，请你安装BugSack和BugGrabber插件。"])
+        BG.MainFrame.ErrorText:SetText(L["插件加载错误。"])
 
         -- VIP
         BG.Init2(function()
@@ -210,7 +210,7 @@ BG.Init(function()
                 BG.VIPVerText:SetPoint("LEFT", BG.VerText, "RIGHT", 5, 0)
                 local t = BG.VIPVerText:CreateFontString()
                 t:SetPoint("CENTER")
-                t:SetFont(STANDARD_TEXT_FONT, 12, "OUTLINE")
+                t:SetFont(BIAOGE_TEXT_FONT, 12, "OUTLINE")
                 t:SetTextColor(.5, .5, .5)
                 t:SetText(L["订阅模块"])
                 BG.VIPVerText:SetSize(t:GetWidth(), 15)
@@ -240,8 +240,8 @@ BG.Init(function()
                 local type = select(5, C_AddOns.GetAddOnInfo("BiaoGeVIP"))
                 if type == "MISSING" then
                     vipState = L["|cffff0000（未订阅）"]
-                elseif BGV then
-                    if not BGV.raidVersion then
+                elseif BiaoGeVIP then
+                    if not BGV then
                         if BiaoGeLib then
                             vipState = L["|cffff0000（订阅已过期或未开更新器）"]
                         else
@@ -305,7 +305,7 @@ BG.Init(function()
         end
         if next(ns.updateText_now) and not BiaoGe.options.SearchHistory[ns.updateText_now[1]] then
             BiaoGe.options.SearchHistory[ns.updateText_now[1]] = true
-            if BiaoGe.options.lastVer and FiterVer("1.24.2") then
+            if BiaoGe.options.lastVer then
                 local f = BG.CreateMainFrame()
                 f:SetSize(450, 1)
                 f:SetFrameStrata("HIGH")
@@ -315,7 +315,7 @@ BG.Init(function()
                 local w = 15
                 for i, text in ipairs(ns.updateText_now) do
                     local t = f:CreateFontString()
-                    t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+                    t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
                     t:SetText(text)
                     t:SetWidth(f:GetWidth() - w * 2)
                     if i == 1 then
@@ -440,13 +440,13 @@ BG.Init(function()
             do
                 local t = BG.HopeMainFrame:CreateFontString()
                 t:SetPoint("BOTTOMLEFT", BG.MainFrame, "BOTTOMLEFT", 35, 75)
-                t:SetFont(STANDARD_TEXT_FONT, 20, "OUTLINE")
+                t:SetFont(BIAOGE_TEXT_FONT, 20, "OUTLINE")
                 t:SetTextColor(RGB(BG.g1))
                 t:SetText(L["心愿清单："])
                 local tt = t
                 local t = BG.HopeMainFrame:CreateFontString()
                 t:SetPoint("LEFT", tt, "RIGHT", 0, 0)
-                t:SetFont(STANDARD_TEXT_FONT, 14, "OUTLINE")
+                t:SetFont(BIAOGE_TEXT_FONT, 14, "OUTLINE")
                 t:SetTextColor(RGB(BG.g2))
                 t:SetText(L["你可以设置一些装备，这些装备只要掉落就会提醒，并且自动关注团长拍卖"])
             end
@@ -486,19 +486,19 @@ BG.Init(function()
             do
                 local t = BG.ItemLibMainFrame:CreateFontString()
                 t:SetPoint("BOTTOMLEFT", BG.MainFrame, "BOTTOMLEFT", 35, 45)
-                t:SetFont(STANDARD_TEXT_FONT, 20, "OUTLINE")
+                t:SetFont(BIAOGE_TEXT_FONT, 20, "OUTLINE")
                 t:SetTextColor(RGB(BG.g1))
                 t:SetText(L["装备库："])
                 local tt = t
                 local t = BG.ItemLibMainFrame:CreateFontString()
                 t:SetPoint("LEFT", tt, "RIGHT", 0, 0)
-                t:SetFont(STANDARD_TEXT_FONT, 14, "OUTLINE")
+                t:SetFont(BIAOGE_TEXT_FONT, 14, "OUTLINE")
                 t:SetTextColor(RGB(BG.g2))
                 t:SetText(L["查看所有适合你的装备"])
                 local tt = t
                 local t = BG.ItemLibMainFrame:CreateFontString()
                 t:SetPoint("LEFT", tt, "RIGHT", 0, 0)
-                t:SetFont(STANDARD_TEXT_FONT, 13, "OUTLINE")
+                t:SetFont(BIAOGE_TEXT_FONT, 13, "OUTLINE")
                 -- t:SetTextColor(RGB(BG.dis))
                 t:SetText(format(L["（ALT+%s设为心愿装备。部位按钮支持使用滚轮切换）"], AddTexture("LEFT")))
             end
@@ -542,7 +542,7 @@ BG.Init(function()
             do
                 local t = BG.DuiZhangMainFrame:CreateFontString()
                 t:SetPoint("BOTTOMLEFT", BG.MainFrame, "BOTTOMLEFT", 35, 45)
-                t:SetFont(STANDARD_TEXT_FONT, 20, "OUTLINE")
+                t:SetFont(BIAOGE_TEXT_FONT, 20, "OUTLINE")
                 t:SetTextColor(RGB(BG.g1))
                 t:SetText(L["对账"])
             end
@@ -569,7 +569,7 @@ BG.Init(function()
             do
                 local t = BG.YYMainFrame:CreateFontString()
                 t:SetPoint("BOTTOMLEFT", BG.MainFrame, "BOTTOMLEFT", 35, 45)
-                t:SetFont(STANDARD_TEXT_FONT, 20, "OUTLINE")
+                t:SetFont(BIAOGE_TEXT_FONT, 20, "OUTLINE")
                 t:SetTextColor(RGB(BG.g1))
                 t:SetText(L["YY评价"])
             end
@@ -600,13 +600,13 @@ BG.Init(function()
                 do
                     local t = BG[name]:CreateFontString()
                     t:SetPoint("BOTTOMLEFT", BG.MainFrame, "BOTTOMLEFT", 35, 45)
-                    t:SetFont(STANDARD_TEXT_FONT, 20, "OUTLINE")
+                    t:SetFont(BIAOGE_TEXT_FONT, 20, "OUTLINE")
                     t:SetTextColor(RGB(BG.g1))
                     t:SetText(L["团员成就："])
                     local tt = t
                     local t = BG[name]:CreateFontString()
                     t:SetPoint("LEFT", tt, "RIGHT", 0, 0)
-                    t:SetFont(STANDARD_TEXT_FONT, 14, "OUTLINE")
+                    t:SetFont(BIAOGE_TEXT_FONT, 14, "OUTLINE")
                     t:SetTextColor(RGB(BG.g2))
                     t:SetText(L["查看团员的团本成就完成情况（该功能引用于比较成就里的API）"])
                 end
@@ -648,7 +648,7 @@ BG.Init(function()
                 do
                     local t = BG.BossMainFrame:CreateFontString()
                     t:SetPoint("BOTTOMLEFT", BG.MainFrame, "BOTTOMLEFT", 35, 45)
-                    t:SetFont(STANDARD_TEXT_FONT, 20, "OUTLINE")
+                    t:SetFont(BIAOGE_TEXT_FONT, 20, "OUTLINE")
                     t:SetTextColor(RGB(BG.g1))
                     t:SetText(L["团本攻略"])
                 end
@@ -734,7 +734,7 @@ BG.Init(function()
         BG.HopeDaoChuUI()
 
         --通报UI
-        if BG.IsWLK_80 then
+        if BG.IsWLK or BG.IsMOP then
             BG.hasWCL = true
         end
         local lastbt
@@ -805,7 +805,7 @@ BG.Init(function()
                 bt:SetFrameLevel(200)
                 local font = bt:CreateFontString()
                 font:SetTextColor(RGB("00FF00"))
-                font:SetFont(STANDARD_TEXT_FONT, 20, "OUTLINE")
+                font:SetFont(BIAOGE_TEXT_FONT, 20, "OUTLINE")
                 bt:SetFontString(font)
                 bt:SetText(L["通知锁定"])
                 bt:SetSize(font:GetWidth() + 30, font:GetHeight() + 10)
@@ -813,7 +813,7 @@ BG.Init(function()
                 BG.ButtonMoveLock = bt
 
                 local text = bt:CreateFontString()
-                text:SetFont(STANDARD_TEXT_FONT, 12, "OUTLINE")
+                text:SetFont(BIAOGE_TEXT_FONT, 12, "OUTLINE")
                 text:SetAlpha(0.8)
                 text:SetPoint("BOTTOMLEFT", bt, "BOTTOMRIGHT", 5, 0)
                 text:SetText(AddTexture("RIGHT") .. L["通知框体可还原位置"])
@@ -969,6 +969,7 @@ BG.Init(function()
 
             local bt = CreateFrame("CheckButton", nil, BG["Frame" .. FB]["scrollFrame" .. Maxb[FB] + 2].owner, "ChatConfigCheckButtonTemplate")
             bt:SetSize(25, 25)
+            bt.Text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             bt.Text:SetText(L["工资抹零"])
             bt.Text:SetTextColor(RGB(BG.b1))
             bt.Text:ClearAllPoints()
@@ -1055,7 +1056,7 @@ BG.Init(function()
         BG.NanDuDropDown.DropDown = dropDown
         local text = dropDown:CreateFontString()
         text:SetPoint("RIGHT", dropDown, "LEFT", 10, 3)
-        text:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+        text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
         text:SetTextColor(RGB(BG.y2))
         text:SetText(L["当前难度："])
         BG.NanDuDropDown.title = text
@@ -1314,11 +1315,14 @@ BG.Init(function()
             bt:SetSize(width or 90, 28)
             if #BG.tabButtons == 0 then
                 if BG.IsWLK_80 then
+                    -- 有团本攻略 团员成就
                     bt:SetPoint("TOPLEFT", BG.MainFrame, "BOTTOM", -330, 1)
                 elseif BG.IsMOP then
-                    bt:SetPoint("TOPLEFT", BG.MainFrame, "BOTTOM", -300, 1)
+                    -- 团员成就
+                    bt:SetPoint("TOPLEFT", BG.MainFrame, "BOTTOM", -260, 1)
                 else
-                    bt:SetPoint("TOPLEFT", BG.MainFrame, "BOTTOM", -280, 1)
+                    -- 什么都没
+                    bt:SetPoint("TOPLEFT", BG.MainFrame, "BOTTOM", -220, 1)
                 end
             else
                 bt:SetPoint("LEFT", BG.tabButtons[#BG.tabButtons].button, "RIGHT", 3, 0)
@@ -1328,7 +1332,7 @@ BG.Init(function()
             bt.bg:SetTexture("Interface\\Buttons\\WHITE8x8")
             local t = bt:CreateFontString()
             t:SetAllPoints()
-            t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             t:SetText(text)
             t:SetWordWrap(false)
             bt:SetFontString(t)
@@ -1765,12 +1769,6 @@ BG.Init(function()
                 BG.Show_AllHighlight(link, "chat")
             end)
             _G["ChatFrame" .. i]:HookScript("OnHyperlinkLeave", BG.Hide_AllHighlight)
-
-            hooksecurefunc(_G["ChatFrame" .. i], "RefreshDisplay", function(self)
-                BG.Hide_ChatHighlight()
-                if not (self:IsVisible() and BG.highlightChatFrameItemID) then return end
-                BG.HighlightChatFrame("item:" .. BG.highlightChatFrameItemID .. ":")
-            end)
             i = i + 1
         end
 
@@ -2056,9 +2054,6 @@ BG.Init(function()
             return oldFuc(self, text, ...)
         end
     end
-    --[[
-/run UIErrorsFrame:AddMessage(ERR_GENERIC_THROTTLE)
-]]
     ----------初始显示----------
     do
         if BiaoGe.lastFrame and BG[BiaoGe.lastFrame .. "MainFrameTabNum"] and BG[BiaoGe.lastFrame .. "MainFrame"] then

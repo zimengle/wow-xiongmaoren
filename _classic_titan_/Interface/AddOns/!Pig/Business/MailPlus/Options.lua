@@ -14,6 +14,7 @@ local PIGFontString=Create.PIGFontString
 local PIGDiyBut=Create.PIGDiyBut
 local PIGDiyTex=Create.PIGDiyTex
 local Data=addonTable.Data
+local Fun = addonTable.Fun
 ------
 local PIGGetRaceAtlas=addonTable.Fun.PIGGetRaceAtlas
 local GetContainerNumSlots = GetContainerNumSlots or C_Container and C_Container.GetContainerNumSlots
@@ -85,7 +86,7 @@ function BusinessInfo.MailPlus_ADDUI()
 	local SizePointData = {60,25,60,-30}
 	local EextData={
 		["ElvUI"]={true},
-		["NDui"]={NDui and NDuiDB and NDuiDB["Skins"]["BlizzardSkins"]},
+		["NDui"]={Fun.IsNDui("Skins","BlizzardSkins")},
 	}
 	local InboxTabs={"目录",ITEMS,MONEY}
 	InboxFrame.TabButList={}

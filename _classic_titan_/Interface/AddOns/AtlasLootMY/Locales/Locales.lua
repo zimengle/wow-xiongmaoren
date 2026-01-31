@@ -12,7 +12,7 @@ local localeSave = {}
 function _G.AtlasLootMY.GetLocales(locale)
 	return ALPrivate.ACCOUNT_LOCALE == locale and AL or nil
 end
-
+AtlasLootMY.__al=localeSave
 setmetatable(AL, {
 	__index = function(self, key)
 		--self[key] = key or ""

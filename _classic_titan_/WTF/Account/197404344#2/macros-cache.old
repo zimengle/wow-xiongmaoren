@@ -1,20 +1,40 @@
+VER 3 0000000000000002 "Decursive" "INV_MISC_QUESTIONMARK"
+/stopcasting
+/cast [@mouseover,nomod,exists] 净化灵魂;  [@mouseover,exists,mod:ctrl] 驱毒术; [@mouseover,exists,mod:shift] 净化术
+END
 VER 3 0000000000000005 "Decursive" "INV_MISC_QUESTIONMARK"
 /stopcasting
-/cast [@mouseover,nomod,exists] 清洁术;  [@mouseover,exists,mod:ctrl] 清洁术; [@mouseover,exists,mod:shift] 清洁术
+/cast [@mouseover,nomod,exists] 恐惧;  [@mouseover,exists,mod:ctrl] 恐惧; [@mouseover,exists,mod:shift] 恐惧
 END
 VER 3 0000000000000003 "MJE: Random Mount" "132599"
 /cancelform [nocombat,noknown:15473]
 /run C_MountJournal.SummonByID(0)
 END
-VER 3 0000000000000002 "RXPTargeting" "Ability_eyeoftheowl"
-/targetexact 跳跃者
+VER 3 0000000000000004 "RXPTargeting" "Ability_eyeoftheowl"
+/targetexact 黑暗低语者阿克希姆
+/targetexact 萨隆邪铁矿洞奴隶
+/targetexact 伊米海姆天选战士
+/targetexact 伊米海姆防御者
+/targetexact 伊米亚元素师
 /targetlasttarget [dead]
 END
-VER 3 0000000000000004 "RXPTargeting" "Ability_eyeoftheowl"
-/targetexact 跳跃者
-/targetlasttarget [dead]
+VER 3 0000000000000007 "传核" "132104"
+/use 污染之核
+/大喊 我把污染之核传给:%T了!
+/script SendChatMessage("我把污染之核传给你了，%T","whisper",GetDefaultLanguage("target"),UnitName("target"))
+/script SetRaidTarget("target",2); 
 END
 VER 3 0000000000000006 "坐骑" "134400"
 /施放 泰坦重铸无敌
 /施放 迎福巨熊
+END
+VER 3 0000000000000008 "治疗专用换武器宏" "136043"
+#showtooltip 宇宙灌注者
+/equipslot 16 宇宙灌注者
+/equipslot 17 相位壁垒
+END
+VER 3 0000000000000009 "法系dps" "135150"
+#showtooltip 瓦解法杖
+/equipslot 16 瓦解法杖
+/use 瓦解法杖
 END

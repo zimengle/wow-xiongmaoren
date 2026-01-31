@@ -105,6 +105,10 @@ function BG.RoleOverviewUI()
             }
         elseif BG.IsTitan then
             BiaoGe.FBCDchoice = {
+                SSCtitan = 1,
+                TKtitan = 1,
+                Doomwalker = 1,
+                DoomLordKazzak = 1,
                 ["MCtitan"] = 1,
                 ["VOAtitan"] = 1,
                 ["Lanlongtitan"] = 1,
@@ -282,6 +286,12 @@ function BG.RoleOverviewUI()
                 BiaoGe.MONEYchoice[50274] = 1
             end)
         elseif BG.IsTitan then
+            BG.Once("FBCDchoice", 260129, function()
+                BiaoGe.FBCDchoice["SSCtitan"] = 1
+                BiaoGe.FBCDchoice["TKtitan"] = 1
+                BiaoGe.FBCDchoice["Doomwalker"] = 1
+                BiaoGe.FBCDchoice["DoomLordKazzak"] = 1
+            end)
             BG.Once("FBCDchoice", 251204, function()
                 BiaoGe.FBCDchoice["VOAtitan"] = 1
                 BiaoGe.FBCDchoice["Lanlongtitan"] = 1
@@ -457,8 +467,8 @@ function BG.RoleOverviewUI()
                 { name = "TKtitan", name2 = L["风暴"], color = "00BFFF", fbId = 550, type = "fb" },
                 { name = "MCtitan", name2 = L["熔火"], color = "00BFFF", fbId = 409, type = "fb" },
                 { name = "VOAtitan", name2 = L["宝库"], color = "00BFFF", fbId = 624, type = "fb" },
-                { name = "Doomwalker", name2 = L["末日行者"], color = "00BFFF", fbId = 116, type = "fb" },
-                { name = "DoomLordKazzak", name2 = L["末日领主"], color = "00BFFF", fbId = 116, type = "fb" },
+                { name = "Doomwalker", name2 = L["末日行者"], color = "00BFFF", fbId = 119, type = "fb" },
+                { name = "DoomLordKazzak", name2 = L["末日领主"], color = "00BFFF", fbId = 118, type = "fb" },
                 { name = "Lanlongtitan", name2 = L["蓝龙"], color = "00BFFF", fbId = 116, type = "fb" },
                 { name = "Kazaketitan", name2 = L["卡扎克"], color = "00BFFF", fbId = 117, type = "fb" },
                 -- 日常
@@ -713,6 +723,7 @@ GameTooltip:SetCurrencyByID(697)
                 { color = "C0C0C0", id = 738, width = 70 }, -- 次级好运护符
                 { color = "FFFFFF", id = 402, width = 70 }, -- 铁掌徽记
                 { color = "FFFFFF", id = 515, width = 70 }, -- 暗月
+                { color = "FFFFFF", id = 3407, width = 70 }, -- 白金硬币
                 { color = "CC9933", id = 390, width = BG.showCurrencyTop and 135 or 70 }, -- 征服点数
                 { color = "FFFFFF", id = 1901, width = 70 }, -- 荣誉点数
                 { name = L["金币"], color = "FFD700", type = "money", id = "money", tex = 237618, width = 80 }, -- 金币
@@ -1101,7 +1112,7 @@ GameTooltip:SetCurrencyByID(697)
             BG.weekQuests = {
                 week1 = {
                     questIDs = { 24579, 24580, 24581, 24582, 24583, 24584, 24585, 24586, 24587, 24588, 24589, 24590,
-                        93975, -- 时光服
+                        93975, 94577, -- 时光服
                     }
                 },
             }
@@ -1141,7 +1152,7 @@ GameTooltip:SetCurrencyByID(697)
             BG.RegisterEvent("UNIT_SPELLCAST_SUCCEEDED", function(self, event, ...)
                 local unit, _, spellID = ...
                 -- pt(...)
-                if unit == "player" and (spellID == 111003 or spellID == 116357) then -- 开垦和万能犁
+                if unit == "player" and (spellID == 111003 or spellID == 116357 or spellID == 139892) then -- 开垦和万能犁
                     SaveDayQuest("shoucai", 111003)
                 end
             end)
@@ -1326,7 +1337,6 @@ GameTooltip:SetCurrencyByID(697)
                     name = L["霹雳钢锭"],
                     name2 = L["锻造"],
                     spell = 138646
-                    -- spell = 6673 -- test
                 },
                 enchanting_xieshashuijing = {
                     name = L["邪煞水晶"],
@@ -1388,10 +1398,15 @@ GameTooltip:SetCurrencyByID(697)
                 end
             end
         end
-        local _msg = TRADESKILL_LOG_FIRSTPERSON:gsub("%%s", "(.+)")
-        BG.RegisterEvent("CHAT_MSG_TRADESKILLS", function(self, event, msg)
-            if not strfind(msg, _msg) then return end
-            GetCooldown()
+        -- local _msg = TRADESKILL_LOG_FIRSTPERSON:gsub("%%s", "(.+)")
+        -- BG.RegisterEvent("CHAT_MSG_TRADESKILLS", function(self, event, msg)
+        --     if not strfind(msg, _msg) then return end
+        --     GetCooldown()
+        -- end)
+        BG.RegisterEvent("SPELL_UPDATE_COOLDOWN", function(self, event)
+            if not InCombatLockdown() then
+                GetCooldown()
+            end
         end)
 
         -- 检查其他角色cd是否到期
@@ -1464,10 +1479,12 @@ GameTooltip:SetCurrencyByID(697)
         end
 
         BG.Init2(function()
-            GetCooldown()
-            UpdateProfessionCD()
+            BG.After(2, function()
+                GetCooldown()
+                UpdateProfessionCD()
+            end)
         end)
-        C_Timer.NewTicker(10, function()
+        C_Timer.NewTicker(19, function()
             UpdateProfessionCD()
         end)
     end
@@ -1851,7 +1868,7 @@ GameTooltip:SetCurrencyByID(697)
             BiaoGe.playerInfo[realmID][player].iLevel = avgLevel or 0
             local avgLevel0 = Round(avgLevel, 0)
             -- 更新集结号密语装等
-            if BG.MeetingHorn and BG.MeetingHorn.iLevelCheckButton then
+            if BG.isFullLevel and BG.MeetingHorn and BG.MeetingHorn.iLevelCheckButton then
                 BG.MeetingHorn.iLevelCheckButton.Text:SetText(avgLevel0)
             end
         end
@@ -2069,7 +2086,7 @@ GameTooltip:SetCurrencyByID(697)
     -- 团本锁定ID
     do
         local t = BG.FBMainFrame:CreateFontString()
-        t:SetFont(STANDARD_TEXT_FONT, 13, "OUTLINE")
+        t:SetFont(BIAOGE_TEXT_FONT, 13, "OUTLINE")
         t:SetPoint("TOPLEFT", BG.MainFrame, 5, -30)
         t:SetTextColor(1, 1, 0)
         t:Hide()

@@ -135,21 +135,25 @@ TNI.Indicators = {}
 --- @field unit string
 --- @field priority number
 --- @field LNR_RegisterCallback fun(self: Indicator, eventName: string, callbackName: string)
---- @field GetPlateByGUID fun(string) : Frame, table
 local Indicator = {}
 
-function Indicator:Update(nameplate)
+function Indicator:Update(nameplate, skipConfigCheck)
 	self.currentNameplate = nameplate
 	self.Texture:ClearAllPoints()
 
-	local unitConfig = TNI.db.profile[self.unit]
-	local config = UnitIsUnit("player", self.unit) and unitConfig.self or
-		UnitIsFriend("player", self.unit) and unitConfig.friendly or unitConfig.hostile
+	local config
+	if not skipConfigCheck then
+		local unitConfig = TNI.db.profile[self.unit]
 
-	self:SetShown(unitConfig.enable)
-	self.enabled = unitConfig.enable;
+		config = UnitIsUnit("player", self.unit) and unitConfig.self or
+			UnitIsFriend("player", self.unit) and unitConfig.friendly or
+			unitConfig.hostile
 
-	if nameplate and config.enable then
+		self:SetShown(unitConfig.enable)
+		self.enabled = unitConfig.enable;
+	end
+
+	if nameplate and config and config.enable then
 		local texture = config.texture
 		if texture == "custom" then
 			texture = config.textureCustom
@@ -172,7 +176,7 @@ end
 
 function Indicator:OnRecyclePlate(callback, nameplate, plateData)
 	--[=[@alpha@
-	debugprint("Callback fired (recycle)", self.unit, nameplate == self.currentNameplate)
+	--debugprint("Callback fired (recycle)", self.unit, nameplate == self.currentNameplate)
 	--@end-alpha@]=]
 
 	if nameplate == self.currentNameplate then
@@ -201,10 +205,21 @@ function Indicator:CheckAndHideLowerPriorityIndicators()
 	return true
 end
 
--- Verfies that the current nameplate (if there is one) has a unit token and disables the indicator and throws an error if it doesn't.
+local GetNamePlateUnit
+if NamePlateBaseMixin and NamePlateBaseMixin.GetUnit then -- In Retail, use the GetUnit method
+	GetNamePlateUnit = function(nameplate)
+		return nameplate:GetUnit()
+	end
+else -- In Classic, use the namePlateUnitToken field
+	GetNamePlateUnit = function(nameplate)
+		return nameplate.namePlateUnitToken
+	end
+end
+
+-- Verifies that the current nameplate (if there is one) has a unit token and disables the indicator and throws an error if it doesn't.
 -- Returns true if there's no issue.
-function Indicator:VerifyNameplateUnitToken()
-	if self.currentNameplate and not self.currentNameplate.namePlateUnitToken then
+function Indicator:VerifyNameplateUnit()
+	if self.currentNameplate and not GetNamePlateUnit(self.currentNameplate) then
 		TNI.db.profile[self.unit].enable = false
 		self:Hide()
 
@@ -250,9 +265,36 @@ end
 --- @class NonTargetIndicator : Indicator
 local NonTargetIndicator = {}
 
+local hasSecretRestrictions = C_Secrets and C_Secrets.ShouldUnitComparisonBeSecret and true or false
+
+function NonTargetIndicator:Disable()
+	--[=[@alpha@
+	debugprint(self.unit, "Disabling due to secret restrictions")
+	--@end-alpha@]=]
+
+	self:Update(nil, true)
+	self.enabled = false
+	self:Hide()
+end
+
+function NonTargetIndicator:Enable()
+	--[=[@alpha@
+	debugprint(self.unit, "Enabling")
+	--@end-alpha@]=]
+
+	self:Show()
+	self:Refresh()
+end
+
 function NonTargetIndicator:OnUpdate()
+	-- If comparisons with this indicator's unit are currently secret, disable it until they're no longer secret
+	if hasSecretRestrictions and C_Secrets.ShouldUnitComparisonBeSecret(self.unit, "nameplate1") then
+		self:Disable()
+		return
+	end
+
 	-- If there's a current nameplate and it's still this indicator's unit, do nothing
-	if self.currentNameplate and self:VerifyNameplateUnitToken() and UnitIsUnit(self.unit, self.currentNameplate.namePlateUnitToken) then
+	if self.currentNameplate and self:VerifyNameplateUnit() and UnitIsUnit(self.unit, GetNamePlateUnit(self.currentNameplate)) then
 		return
 	end
 
@@ -261,12 +303,14 @@ function NonTargetIndicator:OnUpdate()
 		return
 	end
 
-	local nameplate, plateData = self:GetPlateByGUID(UnitGUID(self.unit))
+	local nameplate = C_NamePlate.GetNamePlateForUnit(self.unit)
 
 	local shouldDisplay = self:CheckAndHideLowerPriorityIndicators()
 
 	--[=[@alpha@
-	debugprint(self.unit, "changed", nameplate, "shouldDisplay?", shouldDisplay)
+	if self.unit ~= "mouseover" then
+		debugprint(self.unit, "changed", nameplate, "shouldDisplay?", shouldDisplay)
+	end
 	--@end-alpha@]=]
 
 	-- If the nameplate for this indicator's unit doesn't already have a higher priority indicator displaying on it, update the indicator; otherwise hide it.
@@ -277,6 +321,27 @@ function NonTargetIndicator:OnUpdate()
 	end
 end
 
+function NonTargetIndicator:ADDON_RESTRICTION_STATE_CHANGED(type, state)
+	--[=[@alpha@
+	local function getEnumName(enum, value)
+		for k, v in pairs(enum) do
+			if v == value then
+				return k
+			end
+		end
+	end
+
+	local typeName = getEnumName(Enum.AddOnRestrictionType, type)
+	local stateName = getEnumName(Enum.AddOnRestrictionState, state)
+
+	debugprint(self.unit, "ADDON_RESTRICTION_STATE_CHANGED", "type?", typeName, "state?", stateName)
+	--@end-alpha@]=]
+
+	if state == Enum.AddOnRestrictionState.Inactive and not C_Secrets.ShouldUnitComparisonBeSecret(self.unit, "nameplate1") then
+		self:Enable()
+	end
+end
+
 local function CreateNonTargetIndicator(unit, priority)
 	local indicator = CreateIndicator(unit, priority)
 	--- @cast indicator NonTargetIndicator
@@ -284,6 +349,10 @@ local function CreateNonTargetIndicator(unit, priority)
 	Mixin(indicator, NonTargetIndicator)
 
 	indicator:SetScript("OnUpdate", indicator.OnUpdate)
+
+	if hasSecretRestrictions then
+		indicator:RegisterEvent("ADDON_RESTRICTION_STATE_CHANGED")
+	end
 
 	return indicator
 end
@@ -297,7 +366,7 @@ end
 local TargetIndicator = CreateIndicator("target", 100)
 
 function TargetIndicator:PLAYER_TARGET_CHANGED()
-	local nameplate, plateData = self:GetPlateByGUID(UnitGUID("target"))
+	local nameplate = C_NamePlate.GetNamePlateForUnit(self.unit)
 
 	--[=[@alpha@
 	debugprint("Player target changed", nameplate)

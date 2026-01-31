@@ -399,7 +399,7 @@ function ItemDB.Proto:AddContentType(typ, color)
 	return content_types[self.__atlaslootdata.addonName][typ]
 end
 
-function ItemDB.Proto:GetContentTypes()
+function ItemDB.Proto:GetContentTypes()	
 	return content_types[self.__atlaslootdata.addonName]
 end
 

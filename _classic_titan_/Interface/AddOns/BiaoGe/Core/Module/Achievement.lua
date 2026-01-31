@@ -315,7 +315,7 @@ BG.Init(function()
         BG.AchievementMainFrame.Frame1 = child
 
         local t = f:CreateFontString()
-        t:SetFont(STANDARD_TEXT_FONT, 20, "OUTLINE")
+        t:SetFont(BIAOGE_TEXT_FONT, 20, "OUTLINE")
         t:SetPoint("RIGHT", f, "BOTTOMLEFT", -10, 0)
         t:SetTextColor(0, 1, 0)
         t:SetText(L["成\n就"])
@@ -357,7 +357,7 @@ BG.Init(function()
         BG.AchievementMainFrame.Frame3 = child
 
         local t = f:CreateFontString()
-        t:SetFont(STANDARD_TEXT_FONT, 20, "OUTLINE")
+        t:SetFont(BIAOGE_TEXT_FONT, 20, "OUTLINE")
         t:SetPoint("RIGHT", f, "LEFT", -10, 0)
         t:SetTextColor(0, 1, 0)
         t:SetText(L["统\n计"])
@@ -441,7 +441,7 @@ BG.Init(function()
                 f:SetParent(BG.AchievementMainFrame.raidFrame)
 
                 local text = f:CreateFontString()
-                text:SetFont(STANDARD_TEXT_FONT, 13, "OUTLINE")
+                text:SetFont(BIAOGE_TEXT_FONT, 13, "OUTLINE")
                 text:SetPoint("BOTTOM", f, "TOP", 0, 2)
                 text:SetText(1)
                 text:SetTextColor(.5, .5, .5)
@@ -450,7 +450,7 @@ BG.Init(function()
                 f:SetParent(BG.AchievementMainFrame.raidFrame)
 
                 local text = f:CreateFontString()
-                text:SetFont(STANDARD_TEXT_FONT, 13, "OUTLINE")
+                text:SetFont(BIAOGE_TEXT_FONT, 13, "OUTLINE")
                 text:SetPoint("BOTTOM", f, "TOP", 0, 2)
                 text:SetText((i - 1) / 5 + 1)
                 text:SetTextColor(.5, .5, .5)
@@ -459,7 +459,7 @@ BG.Init(function()
                 f:SetParent(BG.AchievementMainFrame.raidFrame)
 
                 local text = f:CreateFontString()
-                text:SetFont(STANDARD_TEXT_FONT, 13, "OUTLINE")
+                text:SetFont(BIAOGE_TEXT_FONT, 13, "OUTLINE")
                 text:SetPoint("BOTTOM", f, "TOP", 0, 2)
                 text:SetText((i - 1) / 5 + 1)
                 text:SetTextColor(.5, .5, .5)
@@ -473,7 +473,7 @@ BG.Init(function()
             f:SetScript("OnLeave", OnLeave)
 
             local text = f:CreateFontString()
-            text:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+            text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             text:SetPoint("TOPLEFT", 2, -2)
             text:SetWidth(f:GetWidth() - 5)
             text:SetJustifyH("LEFT")
@@ -481,7 +481,7 @@ BG.Init(function()
             f.nameText = text
 
             local text = f:CreateFontString()
-            text:SetFont(STANDARD_TEXT_FONT, 13, "OUTLINE")
+            text:SetFont(BIAOGE_TEXT_FONT, 13, "OUTLINE")
             text:SetPoint("BOTTOMLEFT", 2, 2)
             text:SetWidth(f:GetWidth() - 5)
             text:SetJustifyH("LEFT")
@@ -732,7 +732,7 @@ BG.Init(function()
         end
 
         local text = f:CreateFontString()
-        text:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+        text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
         text:SetPoint("TOPLEFT", icon_tex, "TOPRIGHT", 1, -1)
         text:SetText(name)
         text:SetTextColor(1, 1, 0)
@@ -741,7 +741,7 @@ BG.Init(function()
         end
 
         local text = f:CreateFontString()
-        text:SetFont(STANDARD_TEXT_FONT, 13, "OUTLINE")
+        text:SetFont(BIAOGE_TEXT_FONT, 13, "OUTLINE")
         text:SetPoint("BOTTOMLEFT", icon_tex, "BOTTOMRIGHT", 1, 1)
         if not isStats then
             if IsInRaid(1) then

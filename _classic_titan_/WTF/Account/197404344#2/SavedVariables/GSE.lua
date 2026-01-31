@@ -1,4 +1,3 @@
-
 GSEOptions = {
 ["HideLoginMessage"] = false,
 ["STANDARDFUNCS"] = "|cff55ddcc",

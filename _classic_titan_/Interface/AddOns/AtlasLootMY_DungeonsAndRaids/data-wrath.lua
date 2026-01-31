@@ -85,7 +85,7 @@ local PURPLE = "|cff9900ff%s|r"
 local BONUS_LOOT_SPLIT = "%s - %s"
 
 
-local KEYS = {	-- Keys
+local   KEYS = {	-- Keys
 	name = AL["Keys"],
 	TableType = NORMAL_ITTYPE,
 	ExtraList = true,
@@ -105,7 +105,7 @@ local T7_SET = {
 	name = format(AL["Tier %s Sets"], "7"),
 	ExtraList = true,
 	TableType = SET_ITTYPE,
-	--ContentPhaseBC = 6,
+	--ContentPhase = 6,
 	IgnoreAsSource = true,
 	[RAID10_DIFF] = {
 		{ 1,    3100802 }, -- Warlock
@@ -155,7 +155,7 @@ local T8_SET = {
 	name = format(AL["Tier %s Sets"], "8"),
 	ExtraList = true,
 	TableType = SET_ITTYPE,
-	--ContentPhaseBC = 6,
+	--ContentPhase = 6,
 	IgnoreAsSource = true,
 	[RAID10_DIFF] = {
 		{ 1,    3100837 }, -- Warlock
@@ -205,7 +205,7 @@ local T9_SET = {
 	name = format(AL["Tier %s Sets"], "9"),
 	ExtraList = true,
 	TableType = SET_ITTYPE,
-	--ContentPhaseBC = 6,
+	--ContentPhase = 6,
 	IgnoreAsSource = true,
 	[NORMAL_DIFF] = AtlasLoot:GetRetByFaction(
         { -- horde
@@ -345,7 +345,7 @@ local T10_SET = {
 	name = format(AL["Tier %s Sets"], "10"),
 	ExtraList = true,
 	TableType = SET_ITTYPE,
-	--ContentPhaseBC = 6,
+	--ContentPhase = 6,
 	IgnoreAsSource = true,
 	[VENDOR_DIFF] = {
 		{ 1,    3000884 }, -- Warlock
@@ -415,7 +415,7 @@ local T1_SET = {
 	name = format(AL["Tier %s Sets"], "1"),
 	ExtraList = true,
 	TableType = SET_ITTYPE,
-	--ContentPhaseBC = 6,
+	--ContentPhase = 6,
 	IgnoreAsSource = true,
 	[NORMAL_DIFF] = {
         {1,1994},
@@ -443,7 +443,7 @@ local T5_SET = {
 	name = format(AL["Tier %s Sets"], "5"),
 	ExtraList = true,
 	TableType = SET_ITTYPE,
-	--ContentPhaseBC = 6,
+	--ContentPhase = 6,
 	IgnoreAsSource = true,
 	[NORMAL_DIFF] = {
 		{ 1,    646 }, -- Warlock
@@ -472,7 +472,7 @@ local T6_SET = {
 	name = format(AL["Tier %s Sets"], "6"),
 	ExtraList = true,
 	TableType = SET_ITTYPE,
-	--ContentPhaseBC = 6,
+	--ContentPhase = 6,
 	IgnoreAsSource = true,
 	[NORMAL_DIFF] = {
 		{ 1,    670 }, -- Warlock
@@ -3803,6 +3803,7 @@ data["TrialoftheChampion"] = {
 	AtlasMapID = "TrialOfTheChampion",
 	AtlasMapFile = {"TrialOfTheChampion"},
 	LevelRange = {75, 79, 80},
+    Phase=4,
 	items = {
         { -- TrialoftheChampionChampions / 213
             name = AL["Grand Champions"],
@@ -4082,6 +4083,7 @@ data["ForgeOfSouls"] = {
 	AtlasMapID = "FHTheForgeOfSouls",
 	AtlasMapFile = {"FHTheForgeOfSouls", "IcecrownEnt"},
 	LevelRange = {75, 79, 80},
+    Phase=10,
 	items = {
         { -- FoSBronjahm / 268
             name = AL["Bronjahm"],
@@ -4165,6 +4167,7 @@ data["PitOfSaron"] = {
 	AtlasMapID = "FHPitOfSaron",
 	AtlasMapFile = {"FHPitOfSaron", "IcecrownEnt"},
 	LevelRange = {75, 79, 80},
+    Phase=10,
 	items = {
         { -- PoSGarfrost / 271
             name = AL["Forgemaster Garfrost"],
@@ -4268,6 +4271,7 @@ data["HallsOfReflection"] = {
 	AtlasMapID = "FHHallsOfReflection",
 	AtlasMapFile = {"FHHallsOfReflection", "IcecrownEnt"},
 	LevelRange = {75, 79, 80},
+    Phase=10,
 	items = {
         { -- HoRFalric / 275
             name = AL["Falric"],
@@ -4370,6 +4374,7 @@ data["MoltenCore80"] = {
     AtlasMapFile = "CL_MoltenCore",
     AtlasMapFile_AL = "MoltenCore",
     ContentType = RAID_CONTENT,
+    Phase=1,
     items = {{
         DisplayIDs = {{13031}, {12030}},
         name = AL["Lucifron"],
@@ -4623,10 +4628,15 @@ data["MoltenCore80"] = {
         [NORMAL_DIFF] = {{1, 255105}, {2, 255106}, {3, 263276}, {4, 263277}},
         ExtraList = true
     }, 
+    --  {
+    --     name ="测试",
+    --     [NORMAL_DIFF]={
+    --         {1,17142},{2,256141},{3,268706},{4,268922},{5,268924},{6,268925},{7,268926},{8,268923},        }
+    -- },
     -- {
     --     name ="PPP",
     --     [NORMAL_DIFF]={
-    --         {1,255107},{2,255102},{3,255108},{4,255112},{5,255113},{6,256035},{7,256054},{8,256069},{9,256056},{10,256068},{11,256070},{12,256052},{13,256141},{14,256396},{15,257606},
+    --         {1,17142},{2,256141},{3,255108},{4,255112},{5,255113},{6,256035},{7,256054},{8,256069},{9,256056},{10,256068},{11,256070},{12,256052},{14,256396},{15,257606},
     --     }
     -- },
 
@@ -4659,7 +4669,14 @@ data["MoltenCore80"] = {
     --     name="eee",
     --     [NORMAL_DIFF]={
     --         {1,224002},{2,224378},{3,224375},{4,224379},{5,224377},{6,224376},{7,224383},{8,224380},{9,224381},{10,224382},{11,225921},{12,225926},{13,225924},{14,225923},{15,225922},{16,225925},{17,226805},{18,226812},{19,230769},{20,230757},{21,230759},{22,230756},{23,230761},{24,230758},{25,230767},{26,230766},{27,230755},{28,230768},{29,230763},{30,230765},{101,231312},{102,232614},{103,235404},{104,235464},{105,235562},{106,235561},{107,237044},{108,237052},{109,237066},{110,237061},{111,237059},{112,237050},{113,237054},{114,237063},{115,237069},{116,237056},{117,237065},{118,237064},{119,237045},{120,237042},{121,237067},{122,237046},{123,237047},{124,237051},{125,237060},{126,237048},{127,237062},{128,237068},{129,237049},{130,237055},{201,237043},{202,237053},{203,237077},{204,237086},{205,237091},{206,237071},{207,237088},{208,237083},{209,237079},{210,237073},{211,237080},{212,237089},{213,237092},{214,237070},{215,237085},{216,237082},{217,237075},{218,237078},{219,237087},{220,237093},{221,237090},{222,237084},{223,237076},{224,237072},{225,237074},{226,237081},{227,238343},{228,238340},{229,238341},{230,238339},{301,238342},{302,242551},{303,242550},{304,245584},{305,245613},{306,245612},{307,246901},{308,247893},{309,248263},{310,248398},{311,248754},{312,248753},{313,248946},{314,248949},{315,248947},{316,248945},{317,248948},{318,248950},{319,249819},{320,249821},{321,249820},
-    -- }}
+    --     },
+    -- },
+    -- {
+    --     name="fff",
+    --     [NORMAL_DIFF]={
+    --        {1,198643},{2,186060},{3,76902},{4,198644},{5,186061},{6,71665},{7,186062},{8,260221},{9,68823},{10,185999},{11,186063},{12,92553},{13,186064},{14,199478},{15,68824},{16,186001},{17,186065},{18,199479},{19,142503},{20,186002},{21,186066},{22,199480},{23,142504},{24,186067},{25,199481},{26,192455},{27,186068},{28,199482},{29,186069},{30,199483},{101,187794},{102,186070},{103,251542},{104,78919},{105,186071},{106,199485},{107,186072},{108,199486},{109,186073},{110,135548},{111,185690},{112,186074},{113,135549},{114,185691},{115,187799},{116,186075},{117,134017},{118,185692},{119,187800},{120,186076},{121,187737},{122,187801},{123,134019},{124,187738},{125,191060},{126,186078},{127,187739},{128,184865},{129,191061},{130,186015},{201,186079},{202,187740},{203,143539},{204,186016},{205,186080},{206,190232},{207,199494},{208,186081},{209,199495},{210,198665},{211,186018},{212,186082},{213,71739},{214,199496},{215,187807},{216,260433},{217,186019},{218,186083},{219,199497},{220,185956},{221,186020},{222,186084},{223,199498},{224,184871},{225,186021},{226,186085},{227,199499},{228,76755},{229,186022},{230,186086},{301,71741},{302,199500},{303,184937},{304,186023},{305,186087},{306,199501},{307,260438},{308,184938},{309,186024},{310,186088},{311,186025},{312,260759},{313,199503},{314,187814},{315,187048},{316,199504},{317,187815},{318,186027},{319,190179},{320,190307},{321,72159},{322,186028},{323,190180},{324,190308},{325,186029},{326,95474},{327,190309},{328,72575},{329,199635},{330,187435},{401,255973},{402,122270},{403,199508},{404,199636},{405,186031},{406,95475},{407,199509},{408,199637},{409,72161},{410,186032},{411,199510},{412,199638},{413,186033},{414,199511},{415,199639},{416,186034},{417,190186},{418,69224},{419,199640},{420,186035},{421,190187},{422,186163},{423,199513},{424,186036},{425,199514},{426,77069},{427,83086},{428,135550},{429,185687},{430,186037},{501,63125},{502,76889},{503,186038},{504,172070},{505,199643},{506,135510},{507,69747},{508,168664},{509,168659},{510,186039},{511,199516},{512,122284},{513,199644},{514,63043},{515,186030},{516,168665},{517,199505},{518,77067},{519,199517},{520,199711},{521,185848},{522,199709},{523,185976},{524,186040},{525,199490},{526,67151},{527,199518},{528,134112},{529,185849},{530,199710},{601,185977},{602,186041},{603,76062},{604,199519},{605,134111},{606,186044},{607,185850},{608,72134},{609,199489},{610,199328},{611,185998},{612,199523},{613,199520},{614,199778},{615,185851},{616,199712},{617,199484},{618,199329},{619,187129},{620,186682},{621,199521},{622,72582},{623,185852},{624,199713},{625,199777},{626,199330},{627,187130},{628,186683},{629,199522},{630,199332},{701,198628},{702,199714},{703,185981},{704,186045},{705,186047},{706,199526},{707,190325},{708,185923},{709,198629},{710,199715},{711,185982},{712,186046},{713,187643},{714,199335},{715,199524},{716,186050},{717,198630},{718,199716},{719,185983},{720,199333},{721,135522},{722,199334},{723,199525},{724,85870},{725,198631},{726,199717},{727,185984},{728,186048},{729,199909},{730,199720},{801,63040},{802,191481},{803,198632},{804,199718},{805,185985},{806,186049},{807,199910},{808,199463},{809,199527},{810,199210},{811,198633},{812,185922},{813,185986},{814,199336},{815,199911},{816,199464},{817,199528},{818,199530},{819,198634},{820,158329},{821,185987},{822,186051},{823,199912},{824,199465},{825,199529},{826,199722},{827,198635},{828,199721},{829,185988},{830,186052},{901,199913},{902,199466},{903,63041},{904,194101},{905,198636},{906,185925},{907,187049},{908,186053},{909,199914},{910,187714},{911,69227},{912,185926},{913,198637},{914,199723},{915,199331},{916,186054},{917,199506},{918,199468},{919,185686},{920,199467},{921,198638},{922,199724},{923,92707},{924,186055},{925,67097},{926,199469},{927,199719},{928,185924},{929,198639},{930,199725},{1001,199699},{1002,186056},{1003,71726},{1004,199470},{1005,63042},{1006,199488},{1007,198640},{1008,199493},{1009,199327},{1010,186057},{1011,199507},{1012,199471},{1013,199512},{1014,134110},{1015,198641},{1016,199491},{1017,97213},{1018,186058},{1019,185693},{1020,199642},{1021,187783},{1022,199492},{1023,198642},{1024,190181},{1025,186026},{1026,198647},{1027,199747},{1028,199487},{1029,180089},
+    --     }
+    -- },
           --
 
     -- {
@@ -4710,6 +4727,7 @@ data["WorldBosses81"] = {
     name = AL["P1 World bosses of Vanilla"],
 	AtlasMapFile = "Azuregos",
 	ContentType = RAID_CONTENT,
+    Phase=1,
 	items = {
 		{ -- AAzuregos
 			name = AL["Azuregos"],
@@ -4843,55 +4861,55 @@ data["VaultofArchavon"] = {
             --     { 28, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Retribution"],  "VoA_A_PALADIN_25_D" },
             -- }
         },
-        -- { -- VaultofArchavonEmalon
-        --     name = AL["Emalon the Storm Watcher"],
-        --     npcID = 33993,
-        --     Level = 999,
-        --     --DisplayIDs = {{17386}},
-        --     AtlasMapBossID = 2,
-        --     [RAID10_DIFF] = {
-        --         { 1, "CLASS_WARLOCK",       nil, CLASS_NAME["WARLOCK"],     nil,                "VoA_E_WARLOCK_10" },
-        --         { 3, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Holy"],         "VoA_E_PRIEST_10_H" },
-        --         { 4, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Shadow"],       "VoA_E_PRIEST_10_D" },
-        --         { 6, "CLASS_ROGUE",         nil, CLASS_NAME["ROGUE"],       nil,                "VoA_E_ROGUE_10" },
-        --         { 8, "CLASS_HUNTER",        nil, CLASS_NAME["HUNTER"],      nil,                "VoA_E_HUNTER_10" },
-        --         { 10, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     AL["Protection"],   "VoA_E_WARRIOR_10_T" },
-        --         { 11, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     ROLE_DD,            "VoA_E_WARRIOR_10_D" },
-        --         { 13, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], AL["Blood"],        "VoA_E_DEATHKNIGHT_10_T" },
-        --         { 14, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], ROLE_DD,            "VoA_E_DEATHKNIGHT_10_D" },
-        --         { 16, "CLASS_MAGE",         nil, CLASS_NAME["MAGE"],        nil,                "VoA_E_MAGE_10" },
-        --         { 18, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Restoration"],  "VoA_E_DRUID_10_H" },
-        --         { 19, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Balance"],      "VoA_E_DRUID_10_DR" },
-        --         { 20, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Feral"],        "VoA_E_DRUID_10_D" },
-        --         { 22, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Restoration"],  "VoA_E_SHAMAN_10_H" },
-        --         { 23, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Elemental"],    "VoA_E_SHAMAN_10_DR" },
-        --         { 24, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Enhancement"],  "VoA_E_SHAMAN_10_D" },
-        --         { 26, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Protection"],   "VoA_E_PALADIN_10_T" },
-        --         { 27, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Holy"],         "VoA_E_PALADIN_10_H" },
-        --         { 28, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Retribution"],  "VoA_E_PALADIN_10_D" },
-        --     },
-        --     [RAID25_DIFF] = {
-        --         { 1, "CLASS_WARLOCK",       nil, CLASS_NAME["WARLOCK"],     nil,                "VoA_E_WARLOCK_25" },
-        --         { 3, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Holy"],         "VoA_E_PRIEST_25_H" },
-        --         { 4, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Shadow"],       "VoA_E_PRIEST_25_D" },
-        --         { 6, "CLASS_ROGUE",         nil, CLASS_NAME["ROGUE"],       nil,                "VoA_E_ROGUE_25" },
-        --         { 8, "CLASS_HUNTER",        nil, CLASS_NAME["HUNTER"],      nil,                "VoA_E_HUNTER_25" },
-        --         { 10, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     AL["Protection"],   "VoA_E_WARRIOR_25_T" },
-        --         { 11, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     ROLE_DD,            "VoA_E_WARRIOR_25_D" },
-        --         { 13, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], AL["Blood"],        "VoA_E_DEATHKNIGHT_25_T" },
-        --         { 14, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], ROLE_DD,            "VoA_E_DEATHKNIGHT_25_D" },
-        --         { 16, "CLASS_MAGE",         nil, CLASS_NAME["MAGE"],        nil,                "VoA_E_MAGE_25" },
-        --         { 18, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Restoration"],  "VoA_E_DRUID_25_H" },
-        --         { 19, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Balance"],      "VoA_E_DRUID_25_DR" },
-        --         { 20, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Feral"],        "VoA_E_DRUID_25_D" },
-        --         { 22, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Restoration"],  "VoA_E_SHAMAN_25_H" },
-        --         { 23, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Elemental"],    "VoA_E_SHAMAN_25_DR" },
-        --         { 24, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Enhancement"],  "VoA_E_SHAMAN_25_D" },
-        --         { 26, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Protection"],   "VoA_E_PALADIN_25_T" },
-        --         { 27, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Holy"],         "VoA_E_PALADIN_25_H" },
-        --         { 28, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Retribution"],  "VoA_E_PALADIN_25_D" },
-        --     }
-        -- },
+        { -- VaultofArchavonEmalon
+            name = AL["Emalon the Storm Watcher"],
+            npcID = 33993,
+            Level = 999,
+            --DisplayIDs = {{17386}},
+            AtlasMapBossID = 2,
+            [P1_DIFF] = {
+                { 1, "CLASS_WARLOCK",       nil, CLASS_NAME["WARLOCK"],     nil,                "VoA_E_WARLOCK_10" },
+                { 3, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Holy"],         "VoA_E_PRIEST_10_H" },
+                { 4, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Shadow"],       "VoA_E_PRIEST_10_D" },
+                { 6, "CLASS_ROGUE",         nil, CLASS_NAME["ROGUE"],       nil,                "VoA_E_ROGUE_10" },
+                { 8, "CLASS_HUNTER",        nil, CLASS_NAME["HUNTER"],      nil,                "VoA_E_HUNTER_10" },
+                { 10, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     AL["Protection"],   "VoA_E_WARRIOR_10_T" },
+                { 11, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     ROLE_DD,            "VoA_E_WARRIOR_10_D" },
+                { 13, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], AL["Blood"],        "VoA_E_DEATHKNIGHT_10_T" },
+                { 14, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], ROLE_DD,            "VoA_E_DEATHKNIGHT_10_D" },
+                { 16, "CLASS_MAGE",         nil, CLASS_NAME["MAGE"],        nil,                "VoA_E_MAGE_10" },
+                { 18, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Restoration"],  "VoA_E_DRUID_10_H" },
+                { 19, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Balance"],      "VoA_E_DRUID_10_DR" },
+                { 20, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Feral"],        "VoA_E_DRUID_10_D" },
+                { 22, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Restoration"],  "VoA_E_SHAMAN_10_H" },
+                { 23, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Elemental"],    "VoA_E_SHAMAN_10_DR" },
+                { 24, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Enhancement"],  "VoA_E_SHAMAN_10_D" },
+                { 26, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Protection"],   "VoA_E_PALADIN_10_T" },
+                { 27, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Holy"],         "VoA_E_PALADIN_10_H" },
+                { 28, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Retribution"],  "VoA_E_PALADIN_10_D" },
+            },
+            -- [RAID25_DIFF] = {
+            --     { 1, "CLASS_WARLOCK",       nil, CLASS_NAME["WARLOCK"],     nil,                "VoA_E_WARLOCK_25" },
+            --     { 3, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Holy"],         "VoA_E_PRIEST_25_H" },
+            --     { 4, "CLASS_PRIEST",        nil, CLASS_NAME["PRIEST"],      AL["Shadow"],       "VoA_E_PRIEST_25_D" },
+            --     { 6, "CLASS_ROGUE",         nil, CLASS_NAME["ROGUE"],       nil,                "VoA_E_ROGUE_25" },
+            --     { 8, "CLASS_HUNTER",        nil, CLASS_NAME["HUNTER"],      nil,                "VoA_E_HUNTER_25" },
+            --     { 10, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     AL["Protection"],   "VoA_E_WARRIOR_25_T" },
+            --     { 11, "CLASS_WARRIOR",      nil, CLASS_NAME["WARRIOR"],     ROLE_DD,            "VoA_E_WARRIOR_25_D" },
+            --     { 13, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], AL["Blood"],        "VoA_E_DEATHKNIGHT_25_T" },
+            --     { 14, "CLASS_DEATHKNIGHT",  nil, CLASS_NAME["DEATHKNIGHT"], ROLE_DD,            "VoA_E_DEATHKNIGHT_25_D" },
+            --     { 16, "CLASS_MAGE",         nil, CLASS_NAME["MAGE"],        nil,                "VoA_E_MAGE_25" },
+            --     { 18, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Restoration"],  "VoA_E_DRUID_25_H" },
+            --     { 19, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Balance"],      "VoA_E_DRUID_25_DR" },
+            --     { 20, "CLASS_DRUID",        nil, CLASS_NAME["DRUID"],       AL["Feral"],        "VoA_E_DRUID_25_D" },
+            --     { 22, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Restoration"],  "VoA_E_SHAMAN_25_H" },
+            --     { 23, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Elemental"],    "VoA_E_SHAMAN_25_DR" },
+            --     { 24, "CLASS_SHAMAN",       nil, CLASS_NAME["SHAMAN"],      AL["Enhancement"],  "VoA_E_SHAMAN_25_D" },
+            --     { 26, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Protection"],   "VoA_E_PALADIN_25_T" },
+            --     { 27, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Holy"],         "VoA_E_PALADIN_25_H" },
+            --     { 28, "CLASS_PALADIN",      nil, CLASS_NAME["PALADIN"],     AL["Retribution"],  "VoA_E_PALADIN_25_D" },
+            -- }
+        },
         -- { -- VaultofArchavonKoralon_Alliance
         --     name = AL["Koralon the Flame Watcher"],
         --     npcID = 35013,
@@ -5034,7 +5052,8 @@ data["TempestKeep80"] = {
 	AtlasMapID = "CL_TempestKeepTheEye",
 	AtlasMapFile = {"CL_TempestKeepTheEye", "TempestKeepEnt"},
 	ContentType = RAID_CONTENT,
-    ContentPhaseBC = 2,
+    ContentPhase = 2,
+    Phase=2,
 	items = {
         { -- TKEyeAlar
             name = AL["Al'ar"],
@@ -5052,12 +5071,21 @@ data["TempestKeep80"] = {
                 { 7, 30448 }, -- Talon of Al'ar
                 { 8, 30447 }, -- Tome of Fiery Redemption
                 { 9, 29923 }, -- Talisman of the Sun King
-                { 10, 264937 }, -- Talisman of the Sun King
-                { 12, 265335 }, -- Talisman of the Sun King
-                { 16, 32944 }, -- Talon of the Phoenix
-                { 17, 29948 }, -- Claw of the Phoenix
-                { 18, 29924 }, -- Netherbane
-                { 19, 29949 }, -- Arcanite Steam-Pistol
+               
+                { 10, 32944 }, -- Talon of the Phoenix
+                { 11, 29948 }, -- Claw of the Phoenix
+                { 12, 29924 }, -- Netherbane
+                { 13, 29949 }, -- Arcanite Steam-Pistol
+                { 14, 264937 }, -- Talisman of the Sun King
+                { 16, 30248 }, -- Pauldrons of the Vanquished Champion
+                { 17, 30249 }, -- Pauldrons of the Vanquished Defender
+                { 18, 30250 }, -- Pauldrons of the Vanquished Hero
+                { 20, 265335 }, -- Talisman of the Sun King
+
+                { 22, 30183 }, -- Talisman of the Sun King
+
+                { 24, 30020},
+                
             }
         },
         { -- TKEyeVoidReaver
@@ -5074,9 +5102,11 @@ data["TempestKeep80"] = {
                 { 5, 32515 }, -- Wristguards of Determination
                 { 6, 30619 }, -- Fel Reaver's Piston
                 { 7, 30450 }, -- Warp-Spring Coil
+                { 9, 265333},
                 { 16, 30248 }, -- Pauldrons of the Vanquished Champion
                 { 17, 30249 }, -- Pauldrons of the Vanquished Defender
                 { 18, 30250 }, -- Pauldrons of the Vanquished Hero
+                { 20, 30183 },
             }
         },
         { -- TKEyeSolarian
@@ -5094,11 +5124,17 @@ data["TempestKeep80"] = {
                 { 6, 29965 }, -- Girdle of the Righteous Path
                 { 7, 29950 }, -- Greaves of the Bloodwarder
                 { 8, 32267 }, -- Boots of the Resilient
+                { 10, 30028 },
+                { 11, 30024 },
+                { 12, 30029},
+                { 13, 30026},
+                { 14, 30030},
                 { 16, 30446 }, -- Solarian's Sapphire
                 { 17, 30449 }, -- Void Star Talisman
                 { 18, 29962 }, -- Heartrazor
                 { 19, 29981 }, -- Ethereum Life-Staff
                 { 20, 29982 }, -- Wand of the Forgotten Star
+                { 22, 30183 },
             }
         },
         { -- TKEyeKaelthas
@@ -5120,14 +5156,16 @@ data["TempestKeep80"] = {
                 { 10, 29993 }, -- Twinblade of the Phoenix
                 { 11, 29996 }, -- Rod of the Sun King
                 { 12, 29988 }, -- The Nexus Key
-                { 16, "INV_Box_01", nil, AL["I Guess"] },
-                {17,19018},
-                { 19, 30236 }, -- Chestguard of the Vanquished Champion
-                { 20, 30237 }, -- Chestguard of the Vanquished Defender
-                { 21, 30238 }, -- Chestguard of the Vanquished Hero
+                
+                
+                { 16, 30236 }, -- Chestguard of the Vanquished Champion
+                { 17, 30237 }, -- Chestguard of the Vanquished Defender
+                { 18, 30238 }, -- Chestguard of the Vanquished Hero
+                { 20, 30183 },
                 { 23, 32458 }, -- Ashes of Al'ar
                 { 25, 32405 }, -- Verdant Sphere
                 { 27, 29905 }, -- Kael's Vial Remnant
+
             }
         },
         { -- TKEyeLegendaries
@@ -5150,33 +5188,35 @@ data["TempestKeep80"] = {
             name = AL["All bosses"],
             ExtraList = true,
             [NORMAL_DIFF] = {
-                { 1, 30024 }, -- Mantle of the Elven Kings
-                { 2, 30020 }, -- Fire-Cord of the Magus
-                { 3, 30029 }, -- Bark-Gloves of Ancient Wisdom
-                { 4, 30026 }, -- Bands of the Celestial Archer
-                { 5, 30030 }, -- Girdle of Fallen Stars
-                { 6, 30028 }, -- Seventh Ring of the Tirisfalen
-                { 8, 30324 }, -- Plans: Red Havoc Boots
-                { 9, 30322 }, -- Plans: Red Belt of Battle
-                { 10, 30323 }, -- Plans: Boots of the Protector
-                { 11, 30321 }, -- Plans: Belt of the Guardian
-                { 12, 30280 }, -- Pattern: Belt of Blasting
-                { 13, 30282 }, -- Pattern: Boots of Blasting
-                { 14, 30283 }, -- Pattern: Boots of the Long Road
-                { 15, 30281 }, -- Pattern: Belt of the Long Road
-                { 16, 30308 }, -- Pattern: Hurricane Boots
-                { 17, 30304 }, -- Pattern: Monsoon Belt
-                { 18, 30305 }, -- Pattern: Boots of Natural Grace
-                { 19, 30307 }, -- Pattern: Boots of the Crimson Hawk
-                { 20, 30306 }, -- Pattern: Boots of Utter Darkness
-                { 21, 30301 }, -- Pattern: Belt of Natural Power
-                { 22, 30303 }, -- Pattern: Belt of the Black Eagle
-                { 23, 30302 }, -- Pattern: Belt of Deep Shadow
-                { 25, 30183 }, -- Nether Vortex
-                { 27, 32897 }, -- Mark of the Illidari
+               
+                { 1, 30323 }, -- Plans: Boots of the Protector
+                { 2, 30321 }, -- Plans: Belt of the Guardian
+                { 3, 30280 }, -- Pattern: Belt of Blasting
+                { 4, 30282 }, -- Pattern: Boots of Blasting
+                { 5, 30283 }, -- Pattern: Boots of the Long Road
+                { 6, 30281 }, -- Pattern: Belt of the Long Road
+                { 7, 30308 }, -- Pattern: Hurricane Boots
+                { 8, 30304 }, -- Pattern: Monsoon Belt
+                { 9, 30305 }, -- Pattern: Boots of Natural Grace
+                { 10, 30307 }, -- Pattern: Boots of the Crimson Hawk
+                { 11, 30306 }, -- Pattern: Boots of Utter Darkness
+                { 12, 30301 }, -- Pattern: Belt of Natural Power
+                { 13, 30303 }, -- Pattern: Belt of the Black Eagle
+                { 14, 30302 }, -- Pattern: Belt of Deep Shadow
+                { 16, 30183 }, -- Nether Vortex
             }
         },
-        T5_SET
+        T5_SET,
+         {
+            name = AL["Eternity Rings"],
+            ExtraList = true,
+            [NORMAL_DIFF] = {
+                {1,29294},
+                {2,29298},
+                {3,29302},
+                {4,29307},
+            }
+        }
     }
 }
 
@@ -5188,7 +5228,8 @@ data["SerpentshrineCavern80"] = {
 	AtlasMapID = "CL_CFRSerpentshrineCavern",
 	AtlasMapFile = {"CL_CFRSerpentshrineCavern", "CL_CoilfangReservoirEnt"},
 	ContentType = RAID_CONTENT,
-    ContentPhaseBC = 2,
+    ContentPhase = 2,
+    Phase=2,
 	items = {
         { -- CFRSerpentHydross
             name = AL["Hydross the Unstable"],
@@ -5205,12 +5246,17 @@ data["SerpentshrineCavern80"] = {
                 { 6, 30054 }, -- Ranger-General's Chestguard
                 { 7, 30048 }, -- Brighthelm of Justice
                 { 8, 30053 }, -- Pauldrons of the Wardancer
-                { 16, 30052 }, -- Ring of Lethality
-                { 17, 33055 }, -- Band of Vile Aggression
-                { 18, 30664 }, -- Living Root of the Wildheart
-                { 19, 30629 }, -- Scarab of Displacement
-                { 20, 30049 }, -- Fathomstone
-                { 21, 30051 }, -- Idol of the Crescent Goddess
+                { 9, 30052 }, -- Ring of Lethality
+                { 10, 33055 }, -- Band of Vile Aggression
+                { 11, 30664 }, -- Living Root of the Wildheart
+                { 12, 30629 }, -- Scarab of Displacement
+                { 13, 30049 }, -- Fathomstone
+                
+                { 16, 30239 }, -- Gloves of the Vanquished Champion
+                { 17, 30240 }, -- Gloves of the Vanquished Defender
+                { 18, 30241 }, -- Gloves of the Vanquished Hero
+                { 20, 265340},
+                { 22, 30183}
             }
         },
         { -- CFRSerpentLurker
@@ -5227,13 +5273,18 @@ data["SerpentshrineCavern80"] = {
                 { 5, 30066 }, -- Tempest-Strider Boots
                 { 6, 30065 }, -- Glowing Breastplate of Truth
                 { 7, 30057 }, -- Bracers of Eradication
-                { 8, 265492},
-                { 16, 30059 }, -- Choker of Animalistic Fury
-                { 17, 30061 }, -- Ancestral Ring of Conquest
-                { 18, 33054 }, -- The Seal of Danzalar
-                { 19, 30665 }, -- Earring of Soulful Meditation
-                { 20, 30063 }, -- Libram of Absolute Truth
-                { 21, 30058 }, -- Mallet of the Tides
+                
+                { 8, 30059 }, -- Choker of Animalistic Fury
+                { 9, 30061 }, -- Ancestral Ring of Conquest
+                { 10, 33054 }, -- The Seal of Danzalar
+                { 11, 30665 }, -- Earring of Soulful Meditation
+               
+                { 12, 30058 }, -- Mallet of the Tides
+
+                { 16, 30239 }, -- Gloves of the Vanquished Champion
+                { 17, 30240 }, -- Gloves of the Vanquished Defender
+                { 18, 30241 }, -- Gloves of the Vanquished Hero
+                { 20, 30183}
             }
         },
         { -- CFRSerpentLeotheras
@@ -5249,9 +5300,19 @@ data["SerpentshrineCavern80"] = {
                 { 4, 30096 }, -- Girdle of the Invulnerable
                 { 5, 30627 }, -- Tsunami Talisman
                 { 6, 30095 }, -- Fang of the Leviathan
+                { 7, 30021 },
+
+                { 8, 30022},
                 { 16, 30239 }, -- Gloves of the Vanquished Champion
                 { 17, 30240 }, -- Gloves of the Vanquished Defender
                 { 18, 30241 }, -- Gloves of the Vanquished Hero
+                
+                { 20, 30245 }, -- Leggings of the Vanquished Champion
+                { 21, 30246 }, -- Leggings of the Vanquished Defender
+                { 22, 30247 }, -- Leggings of the Vanquished Hero
+                { 24, 19018 },
+                { 26, 30183}
+
             }
         },
         { -- CFRSerpentKarathress
@@ -5267,6 +5328,9 @@ data["SerpentshrineCavern80"] = {
                 { 4, 30663 }, -- Fathom-Brooch of the Tidewalker
                 { 5, 30626 }, -- Sextant of Unstable Currents
                 { 6, 30090 }, -- World Breaker
+                { 7, 30620 },
+                { 8, 30025 },
+                { 9, 30027 },
                 { 16, 30245 }, -- Leggings of the Vanquished Champion
                 { 17, 30246 }, -- Leggings of the Vanquished Defender
                 { 18, 30247 }, -- Leggings of the Vanquished Hero
@@ -5286,12 +5350,26 @@ data["SerpentshrineCavern80"] = {
                 { 5, 30068 }, -- Girdle of the Tidal Call
                 { 6, 30084 }, -- Pauldrons of the Argent Sentinel
                 { 7, 30081 }, -- Warboots of Obliteration
-                { 16, 30008 }, -- Pendant of the Lost Ages
-                { 17, 30083 }, -- Ring of Sundered Souls
-                { 18, 33058 }, -- Band of the Vigilant
-                { 19, 30720 }, -- Serpent-Coil Braid
-                { 20, 30082 }, -- Talon of Azshara
-                { 21, 30080 }, -- Luminescent Rod of the Naaru
+                { 8, 30008 }, -- Pendant of the Lost Ages
+                { 9, 30083 }, -- Ring of Sundered Souls
+                { 10, 33058 }, -- Band of the Vigilant
+                { 11, 30720 }, -- Serpent-Coil Braid
+                { 12, 265492},
+                { 13, 30082 }, -- Talon of Azshara
+                { 14, 30080 }, -- Luminescent Rod of the Naaru
+                { 16, "INV_Box_01", nil, AL["100% drop one of below"],AL["special description"]},
+                {17,265492},
+                {18,264937},
+                {19,30720},
+                {20,30665},
+                {21,30664},
+                {22,30663},
+                {23,30450},
+                {24,30449},
+                {25,30447},
+                {26,30446},
+                {28,30183},
+
             }
         },
         { -- CFRSerpentVashj
@@ -5317,44 +5395,49 @@ data["SerpentshrineCavern80"] = {
                 { 17, 30243 }, -- Helm of the Vanquished Defender
                 { 18, 30244 }, -- Helm of the Vanquished Hero
                 { 20, 29906 }, -- Vashj's Vial Remnant
+                { 22, 30183},
             }
         },
         { -- CFRSerpentTrash
-            name = AL["Trash"],
+            name = AL["All bosses"],
             ExtraList = true,
             [NORMAL_DIFF] = {
-                { 1, 30027 }, -- Boots of Courage Unending
-                { 2, 30022 }, -- Pendant of the Perilous
-                { 3, 30620 }, -- Spyglass of the Hidden Fleet
-                { 4, 30023 }, -- Totem of the Maelstrom
-                { 5, 30021 }, -- Wildfury Greatstaff
-                { 6, 30025 }, -- Serpentshrine Shuriken
-                { 8, 30324 }, -- Plans: Red Havoc Boots
-                { 9, 30322 }, -- Plans: Red Belt of Battle
-                { 10, 30323 }, -- Plans: Boots of the Protector
-                { 11, 30321 }, -- Plans: Belt of the Guardian
-                { 12, 30280 }, -- Pattern: Belt of Blasting
-                { 13, 30282 }, -- Pattern: Boots of Blasting
-                { 14, 30283 }, -- Pattern: Boots of the Long Road
-                { 15, 30281 }, -- Pattern: Belt of the Long Road
-                { 16, 30308 }, -- Pattern: Hurricane Boots
-                { 17, 30304 }, -- Pattern: Monsoon Belt
-                { 18, 30305 }, -- Pattern: Boots of Natural Grace
-                { 19, 30307 }, -- Pattern: Boots of the Crimson Hawk
-                { 20, 30306 }, -- Pattern: Boots of Utter Darkness
-                { 21, 30301 }, -- Pattern: Belt of Natural Power
-                { 22, 30303 }, -- Pattern: Belt of the Black Eagle
-                { 23, 30302 }, -- Pattern: Belt of Deep Shadow
-                { 25, 30183 }, -- Nether Vortex
-                { 27, 32897 }, -- Mark of the Illidari
+                { 1, 30324 }, -- Plans: Red Havoc Boots
+                { 2, 30322 }, -- Plans: Red Belt of Battle
+                { 3, 30323 }, -- Plans: Boots of the Protector
+                { 4, 30321 }, -- Plans: Belt of the Guardian
+                { 5, 30280 }, -- Pattern: Belt of Blasting
+                { 6, 30282 }, -- Pattern: Boots of Blasting
+                { 7, 30283 }, -- Pattern: Boots of the Long Road
+                { 8, 30281 }, -- Pattern: Belt of the Long Road
+                { 9, 30308 }, -- Pattern: Hurricane Boots
+                { 10, 30304 }, -- Pattern: Monsoon Belt
+                { 11, 30305 }, -- Pattern: Boots of Natural Grace
+                { 12, 30307 }, -- Pattern: Boots of the Crimson Hawk
+                { 13, 30306 }, -- Pattern: Boots of Utter Darkness
+                { 14, 30301 }, -- Pattern: Belt of Natural Power
+                { 15, 30303 }, -- Pattern: Belt of the Black Eagle
+                { 16, 30302 }, -- Pattern: Belt of Deep Shadow
+                { 19, 30183 }, -- Nether Vortex
             }
         },
-        T5_SET
+        T5_SET,
+        {
+            name = AL["Eternity Rings"],
+            ExtraList = true,
+            [NORMAL_DIFF] = {
+                {1,29294},
+                {2,29298},
+                {3,29302},
+                {4,29307},
+            }
+        }
     }
 }
 data["WorldBossesBC80"] = {
     name = AL["P2 World bosses of TBC"],
 	ContentType = RAID_CONTENT,
+    Phase=2,
 	items = {
         { -- DDoomwalker
             name = AL["Doomwalker"],
@@ -5402,6 +5485,7 @@ data["NaxxramasWrath"] = {
 	AtlasMapID = "Naxxramas",
 	AtlasMapFile = "Naxxramas",
 	ContentType = RAID_CONTENT,
+    Phase=3,
     -- LevelRange = {80, 80, 80},
 	items = {
 		-- The Arachnid Quarter
@@ -5960,6 +6044,7 @@ data["TheEyeOfEternity"] = {
 	AtlasModule = ATLAS_MODULE_NAME,
 	AtlasMapID = "TheEyeOfEternity",
 	AtlasMapFile = {"TheEyeOfEternity"},
+    Phase=3,
 	-- LevelRange = {80, 80, 80},
 	items = {
         { -- Malygos / 180
@@ -6006,6 +6091,7 @@ data["ObsidianSanctum"] = {
 	AtlasModule = ATLAS_MODULE_NAME,
 	AtlasMapID = "ObsidianSanctum",
 	AtlasMapFile = {"ObsidianSanctum"},
+    Phase=3,
 	-- LevelRange = {80, 80, 80},
 	items = {
         { -- CoTHillsbradDrake
@@ -6066,6 +6152,7 @@ data["Zul'Gurub80"] = {
 	AtlasMapFile = "CL_ZulGurub",
 	AtlasMapFile_AL = "ZulGurub",
 	ContentType = RAID_CONTENT,
+    Phase=4,
 	items = {
 		{ -- ZGJeklik
 			name = AL["High Priestess Jeklik"],
@@ -6446,6 +6533,7 @@ data["TrialoftheCrusader"] = {
     AtlasModule = ATLAS_MODULE_NAME,
 	AtlasMapID = "TrialOfTheCrusader",
     AtlasMapFile = "TrialOfTheCrusader",
+    Phase=4,
 	ContentType = RAID_CONTENT,
     -- LevelRange = {80, 80, 80},
 	items = {
@@ -7431,6 +7519,7 @@ data["SunwellPlateau80"] = {
 	AtlasMapID = "CL_SunwellPlateau",
 	AtlasMapFile = "CL_SunwellPlateau",
 	ContentType = RAID_CONTENT,
+    Phase=5,
 	items = {
         { -- SPKalecgos
             name = AL["Kalecgos"],
@@ -7677,6 +7766,7 @@ data["ZulAman80"] = {
 	AtlasMapID = "ZulAman",
 	AtlasMapFile = "ZulAman",
 	ContentType = RAID_CONTENT,
+    Phase=5,
 	items = {
         { -- ZAAkilZon
             name = AL["Akil'zon"],
@@ -7852,6 +7942,7 @@ data["Ulduar"] = {
 	AtlasModule = ATLAS_MODULE_NAME,
 	AtlasMapID = "UlduarA",
 	AtlasMapFile = {"UlduarA", "UlduarEnt"},
+    Phase=6,
 	--LoadDifficulty = NORMAL_DIFF,
 	-- LevelRange = {80, 80, 80},
 	items = {
@@ -8671,6 +8762,7 @@ data["MagtheridonsLair80"] = {
 	AtlasMapID = "CL_HCMagtheridonsLair",
 	AtlasMapFile = {"CL_HCMagtheridonsLair", "HellfireCitadelEnt"},
 	ContentType = RAID_CONTENT,
+    Phase=7,
 	items = {
         { -- HCMagtheridon
             name = AL["Magtheridon"],
@@ -8711,6 +8803,7 @@ data["GruulsLair80"] = {
 	AtlasMapID = "CL_GruulsLair",
 	AtlasMapFile = "CL_GruulsLair",
 	ContentType = RAID_CONTENT,
+    Phase=7,
 	items = {
         { -- GruulsLairHighKingMaulgar
             name = AL["High King Maulgar"],
@@ -8768,6 +8861,7 @@ data["Karazhan80"] = {
 	AtlasMapID = "CL_KarazhanStart",
 	AtlasMapFile = {"CL_KarazhanStart", "CL_KarazhanEnt"},
 	ContentType = RAID_CONTENT,
+    Phase=7,
 	items = {
         { -- KaraAttumen
             name = AL["Attumen the Huntsman"],
@@ -9160,6 +9254,7 @@ data["BlackwingLair80"] = {
 	AtlasMapFile = "CL_BlackwingLair",
 	AtlasMapFile_AL = "BlackwingLair",
 	ContentType = RAID_CONTENT,
+    Phase=8,
 	items = {
 		{ -- BWLRazorgore
 			name = AL["Razorgore the Untamed"],
@@ -9425,7 +9520,7 @@ data["TheRuinsofAhnQiraj80"] = { -- AQ20
 	AtlasMapFile = "CL_TheRuinsofAhnQiraj",
 	AtlasMapFile_AL = "TheRuinsofAhnQiraj",
 	ContentType = RAID_CONTENT,
-
+    Phase=8,
 	items = {
 		{ -- AQ20Kurinnaxx
 			name = AL["Kurinnaxx"],
@@ -9648,6 +9743,7 @@ data["WrathOnyxiasLair"] = {
 	AtlasMapID = "OnyxiasLair",
     AtlasMapFile = "CL_OnyxiasLair",
 	ContentType = RAID_CONTENT,
+    Phase=8,
     -- LevelRange = {80, 80, 80},
 	items = {
 		{	--Onyxia
@@ -9724,6 +9820,7 @@ data["TheTempleofAhnQiraj80"] = { -- AQ40
 	AtlasMapFile = "CL_TheTempleofAhnQiraj",
 	AtlasMapFile_AL = "TheTempleofAhnQiraj",
 	ContentType = RAID_CONTENT,
+    Phase=9,
 	items = {
 		{ -- AQ40Skeram
 			name = AL["The Prophet Skeram"],
@@ -9972,6 +10069,7 @@ data["WorldBosses4ll"] = {
 	AtlasMapFile = "Azuregos",
     name = AL["P9 World bosses of Four Dragons"],
 	ContentType = RAID_CONTENT,
+    Phase=9,
 	items = {
 		
 		{ -- DLethon
@@ -10121,6 +10219,7 @@ data["IcecrownCitadel"] = {
 	AtlasMapID = "IcecrownCitadelA",
     AtlasMapFile = {"IcecrownCitadelA", "IcecrownEnt"},
 	ContentType = RAID_CONTENT,
+    Phase=10,
     -- LevelRange = {80, 80, 80},
 	items = {
 		{	--ICC LordMarrowgar
@@ -11060,6 +11159,7 @@ data["RubySanctum"] = {
 	AtlasMapID = "RubySanctum",
     AtlasMapFile = {"RubySanctum"},
 	ContentType = RAID_CONTENT,
+    Phase=10,
     -- LevelRange = {80, 80, 80},
 	items = {
 		{	--Halion
@@ -11148,7 +11248,8 @@ data["HyjalSummit80"] = {
 	AtlasMapID = "CoTHyjal",
 	AtlasMapFile = {"CoTHyjal", "CL_CoTHyjalEnt"},
 	ContentType = RAID_CONTENT,
-    ContentPhaseBC = 3,
+    ContentPhase = 3,
+    Phase=11,
 	items = {
         { -- MountHyjalWinterchill
             name = AL["Rage Winterchill"],
@@ -11293,7 +11394,8 @@ data["BlackTemple80"] = {
 	AtlasMapID = "CL_BlackTempleStart",
 	AtlasMapFile = "CL_BlackTempleStart",
 	ContentType = RAID_CONTENT,
-    ContentPhaseBC = 3,
+    ContentPhase = 3,
+    Phase=11,
 	items = {
         { -- BTNajentus
             name = AL["High Warlord Naj'entus"],

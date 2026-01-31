@@ -33,7 +33,7 @@ QuickButUI.ButList[5]=function()
 	local ClickTooltip ="《"..CHARACTER_INFO.."C键》界面管理配装"
 	local Tooltip = KEY_BUTTON1.."-|cff00FFFF展开切换按钮|r\n"..KEY_BUTTON2.."-|cff00FFFF卸下身上有耐久装备|r"
 	local AutoEquip=PIGQuickBut(GnUI,Tooltip,Icon)
-	AutoEquip.tips = PIGFontString(AutoEquip,nil,"你没有已保存的配装，\n"..ClickTooltip,"OUTLINE");
+	AutoEquip.tips = PIGFontString(AutoEquip,nil,"没有已保存的配装，\n"..ClickTooltip,"OUTLINE");
 	AutoEquip.tips:SetTextColor(1, 0, 0, 1)
 	AutoEquip.tips:Hide()
 	--
@@ -227,36 +227,36 @@ QuickButUI.ButList[5]=function()
 					fujikj.name:SetText(name);
 				end
 			end
-			local numTalentGroups = PIG_MaxTocversion(40000) and GetNumTalentGroups(false, false) or GetNumSpecGroups()
-			local activeTalentGroup= C_SpecializationInfo.GetActiveSpecGroup(false, false)
-			if numTalentGroups>1 then
-				for talentGroup=1,numTalentGroups do	
-					self.cunzainum=self.cunzainum+1
-					local fujikj = AutoEquipList.ButList[self.cunzainum]
-					fujikj.mode=2
-					fujikj:Show()
-					fujikj.id=talentGroup
-					fujikj.active=talentGroup==activeTalentGroup
-					local spec = TALENT_UI_SPECS[talentGroup];
-					local tishixx=talentGroup==activeTalentGroup and "|cff00FF00("..ACTIVE_PETS..")|r" or ""
-					if PIGA_Per["QuickBut"]["TalentEquip"][talentGroup] then
-						local name= C_EquipmentSet.GetEquipmentSetInfo(PIGA_Per["QuickBut"]["TalentEquip"][talentGroup])
-						fujikj.name:SetText("|cff"..TALENT_UI_SPECS[talentGroup].color..spec.name..tishixx.."|r\n"..name)
-					else
-						fujikj.name:SetText("|cff"..TALENT_UI_SPECS[talentGroup].color..spec.name..tishixx.."|r\n未绑定配装")
-					end
-					TalentFrame_UpdateSpecInfoCache(talentSpecInfoCache[talentGroup],  nil, nil, talentGroup)
-					local specInfoCache = talentSpecInfoCache[talentGroup];
-					if ( specInfoCache.primaryTabIndex and specInfoCache.primaryTabIndex > 0 ) then
-						fujikj.NormalTex:SetTexture(specInfoCache[specInfoCache.primaryTabIndex].icon);
-					else
-						fujikj.NormalTex:SetTexture("Interface\\Icons\\Ability_Marksmanship");
-					end
+		end
+		local numTalentGroups = PIG_MaxTocversion(40000) and GetNumTalentGroups(false, false) or GetNumSpecGroups()
+		local activeTalentGroup= C_SpecializationInfo.GetActiveSpecGroup(false, false)
+		if numTalentGroups>1 then
+			for talentGroup=1,numTalentGroups do	
+				self.cunzainum=self.cunzainum+1
+				local fujikj = AutoEquipList.ButList[self.cunzainum]
+				fujikj.mode=2
+				fujikj:Show()
+				fujikj.id=talentGroup
+				fujikj.active=talentGroup==activeTalentGroup
+				local spec = TALENT_UI_SPECS[talentGroup];
+				local tishixx=talentGroup==activeTalentGroup and "|cff00FF00("..ACTIVE_PETS..")|r" or ""
+				if PIGA_Per["QuickBut"]["TalentEquip"][talentGroup] then
+					local name= C_EquipmentSet.GetEquipmentSetInfo(PIGA_Per["QuickBut"]["TalentEquip"][talentGroup])
+					fujikj.name:SetText("|cff"..TALENT_UI_SPECS[talentGroup].color..spec.name..tishixx.."|r\n"..name)
+				else
+					fujikj.name:SetText("|cff"..TALENT_UI_SPECS[talentGroup].color..spec.name..tishixx.."|r\n未绑定配装")
+				end
+				TalentFrame_UpdateSpecInfoCache(talentSpecInfoCache[talentGroup],  nil, nil, talentGroup)
+				local specInfoCache = talentSpecInfoCache[talentGroup];
+				if ( specInfoCache.primaryTabIndex and specInfoCache.primaryTabIndex > 0 ) then
+					fujikj.NormalTex:SetTexture(specInfoCache[specInfoCache.primaryTabIndex].icon);
+				else
+					fujikj.NormalTex:SetTexture("Interface/Icons/Ability_Marksmanship");
 				end
 			end
 		end
 		AutoEquipList:SetShown(self.cunzainum>0)
-		self.tips:SetShown(self.cunzainum==0)
+		self.tips:SetShown(self.cunzainum-numTalentGroups<=0)
 	end)
 	AutoEquip:HookScript("OnLeave", function(self)
 		AutoEquipList:Hide()

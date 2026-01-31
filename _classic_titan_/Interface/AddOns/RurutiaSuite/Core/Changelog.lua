@@ -13,6 +13,14 @@ local RS = ns.RS
 local AceGUI = LibStub("AceGUI-3.0", true)
 if not AceGUI then return end
 
+-- 兼容性处理：获取版本号
+local function GetAddOnVersion()
+    if C_AddOns and C_AddOns.GetAddOnMetadata then
+        return C_AddOns.GetAddOnMetadata(addonName, "Version") or "0.0.0"
+    end
+    return GetAddOnMetadata(addonName, "Version") or "0.0.0"
+end
+
 -- 获取职业色
 local function GetClassColor()
     local _, class = UnitClass("player")
@@ -29,68 +37,125 @@ end
 -- ========================================
 
 local CHANGELOG = {
-    ["2.4.2"] = {
-        title = "v2.4.2 - 动作条开关与层级优化",
-        date = "2025-12-03",
+-- @StartChangelogData
+    ["latest"] = {
+        version = "2.6.5",
+        date = "2026-01-07",
         content = function()
             local classColor = GetClassColor()
-            return string.format([[
-%s[动作条开关控制]|r
-• 新增 enabled 开关：可在 Config.lua 中独立控制 bar1（消耗品条）和 bar2（法术条）的启用/禁用
-• 职业限制：bar2（法术条）现在仅限法师职业使用，非法师职业会收到友好提示
-• 安全检查：所有相关函数添加了安全检查，避免访问不存在的动作条
+            local text = [[
+%sv2.6.5|r
+%s[法师动作条]|r
+• 新增法术：新增托尔巴拉德传送/传送门（MOP）。
 
-%s[层级配置优化]|r
-• 新增 frameStrata 配置：可设置框体层级（BACKGROUND/LOW/MEDIUM/HIGH/DIALOG）
-• 新增 frameLevel 配置：可设置相对层级（数值越大越靠前）
-• 默认层级提升：消耗品条和法术条默认层级提升至 HIGH + 100，避免被其他UI遮挡
+%s[自动标记]|r
+• 权限优化：/ram、/ramc、标记/清标按钮，不需要队长权限也可以使用。
+• 队长权限：默认不勾选。
 
-%s[配置示例]|r
-• 禁用消耗品条：consumableBar.enabled = false
-• 移除职业限制：spellBar.classRestriction = nil
-• 调整层级：frameStrata = "DIALOG", frameLevel = 200
-            ]], classColor, classColor, classColor)
+%s[CVAR自动设置]|r
+• 失控警报：新增选项，默认禁用失控警报。
+
+
+%sv2.6.4|r
+%s[法师动作条]|r
+• 材料刷新：购买/消耗符文后，图示材料数量实时刷新，无需/RL。
+• 事件优化：仅在动作条启用且需要显示材料时监听背包变化，避免无效开销。
+
+%s[CVAR自动设置]|r
+• 失控警报：新增“禁用失控警报”开关，4/5 版本可用；WLK 3.x 自动隐藏且不会写入。
+• WLK兼容：WLK 3.x 下自动隐藏不支持的特效相关选项，并拦截写入以防无效设置。
+
+
+%sv2.6.3|r
+%s[法师动作条]|r
+• 解锁展开：点击解锁后将强制展开显示全部按钮，不再只显示一个按钮。
+• 覆盖层修复：解锁拖拽绿色覆盖层保持覆盖整条动作条，交互更直观。
+
+%s[CVAR自动设置]|r
+• 默认勾选：41码血条现在默认启用（推荐预设改为 41 码）。
+
+
+%sv2.6.2|r
+%s[法师动作条]|r
+• 内置字体：现在使用插件自带的 Rurutia.ttf（思源黑体），防止乱码问题。
+• 初始化优化：修复登录时动作条默认展开的问题，现在会正确保持折叠状态。
+• UI微调：优化传送门按钮文本。
+• 智能显示：根据游戏版本智能显示施法材料。
+
+%s[数据修正]|r
+• MOP传送门：修正锦绣谷传送门法术ID和图标显示问题（MOP）。
+
+%s[CVAR自动设置]|r
+• 即时开关：新增模块启用/禁用开关，切换后立刻生效，无需 /RL。
+• 持久化修复：用户勾选/取消的自定义设置稳定写入 WTF，不再因 /RL 或重登丢失。
+• 预设精简：移除冗余预设，统一基于“露露基准 + 用户自定义覆盖”。
+• 新增选项：新增“禁用系统法术特效”，并默认启用禁用（关闭系统触发特效）。
+• 默认勾选：屏蔽 Lua 错误、关闭死亡特效、关闭全屏幕泛光默认勾选。
+• 样式统一：复刻其他 Tab 的标题/间距/布局，交互更一致。
+
+
+%sv2.6.0|r
+%s[新增功能]|r
+• 功能迁移：CVAR设置模块迁移到插件中，设置命令/rs。
+• 法师动作条：新增生长方向选择，支持上/下/左/右四个方向自由生长，满足不同布局需求。
+• 设置面板：未安装RSE插件时，智能隐藏“其他”标签页。
+
+%s[问题修复]|r
+• 法师动作条：适配MOP，修复传送锦绣谷按钮阵营主城（七星殿/双月殿）识别问题。
+
+
+%sv2.5.8|r
+%s[核心重构]|r
+• 架构升级：全面消除全局变量依赖，统一使用 UILib 组件工厂，代码更健壮。
+• 模块标准化：CVar、更新日志、法师动作条等模块完成组件化适配。
+• 配置统一：模块配置路径迁移至，移除旧兼容层。
+
+%s[界面优化]|r
+• 样式统一：所有子窗口和按钮统一调用 UILib 标准样式，视觉体验更一致。
+• 代码精简：移除冗余的胶水代码和硬编码尺寸，体积更小巧。
+
+%s[问题修复]|r
+• CVar 设置：修复选项注册时的报错问题。
+• UI 组件：修复按钮 Tooltip 锚点错误及变长参数支持问题。
+
+
+%sv2.5.7|r
+%s[新增功能]|r
+• 设置界面升级：游戏参数设置页面全新改版，更好看、更好用，且已整合到工具箱内。  
+• 超远视距：新增视距调整滑块，可拉得比默认更远，视野更广。  
+• 画质细节开关：新增伤害数字、装备管理、天气、泛光等设置的单独开关，/rs进行设置。  
+
+%s[体验优化]|r
+• 智能应用：设置智能生效。
+• 快速入口：现在可以在 ESC-选项-插件-RS 露露的工具箱 中找到全新的设置页。
+
+%s[问题修复]|r
+• 修复报错：修复了一些语言包加载顺序导致的报错。
+
+
+%sv2.5.6|r
+%s[新增功能]|r
+• 兼容性扩展：新增 MoP (熊猫人之谜) 版本支持，完美适配 5.4.x 版本客户端。
+• 字体优化：默认使用系统字体，移除对第三方字体的依赖，提升跨平台兼容性。
+• UI 容器工厂：新增通用布局容器工厂，彻底解决 RSE 窗口重复布局问题。
+
+%s[性能优化]|r
+• 自动标记优化：重构标记逻辑，使用表复用技术减少 GC 压力，提升运行效率。
+• 内存管理：优化自动标记模块内存使用，减少临时表创建，降低内存占用。
+
+%s[界面改进]|r
+• 窗口美化：新增隐藏状态栏和关闭按钮选项，界面更加简洁美观。
+• 布局统一：标准化所有窗口布局参数，确保不同模块间的一致性体验。
+
+%s[代码架构]|r
+• 异步库：新增 AsyncLib.lua 提供异步操作支持，为后续功能扩展奠定基础。
+• 兼容层：新增 Compat.lua 兼容层，统一处理不同版本间的 API 差异。
+• UI 库增强：UILib 新增容器工厂函数，简化复杂界面构建流程。
+            ]]
+            return text:gsub("%%s", classColor)
         end,
     },
-    ["2.4.0"] = {
-        title = "v2.4.0 - 动作条系统重构与传送门合集",
-        date = "2025-12-01",
-        content = function()
-            local classColor = GetClassColor()
-            return string.format([[
-%s[动作条系统重构]|r
-• 新增多动作条支持：独立的消耗品条和法术条
-• 智能锚点系统：支持 TOPLEFT/TOPRIGHT/CENTER 等多种对齐方式
-• 自适应布局：支持水平(HORIZONTAL)和垂直(VERTICAL)排列
-• 分辨率适配：修复了改变游戏分辨率导致位置错乱的问题
-
-%s[法术动作条：传送门合集]|r
-• 新增法术动作条，默认收纳常用法术（火球术、奥术洪流等）
-• 智能传送门按钮：整合所有主城传送门（达拉然、沙塔斯、部落/联盟主城）
-• 阵营自适应：自动过滤敌对阵营的传送门
-• 交互增强：左键传送门，右键传送，鼠标划过自动展开列表（Flyout）
-• 状态监控：未学会的传送门自动变暗，Tooltip 显示"未学会"提示
-
-%s[视觉体验升级]|r
-• 扁平化风格：去除暴雪原生圆角边框，采用 1px 极细黑色描边
-• 黄金比例切边：图标裁剪 8%% 边缘，去除白边且保持不变形
-• 字体优化：自动检测并调用 MSBT 字体（如果存在），否则使用备选字体
-• 修复了图标层级导致的变暗模糊问题
-
-%s[技术细节]|r
-• 移除了 ActionButtonTemplate，重写了按钮点击和高亮逻辑
-• 优化了 GetContainerItemCooldown 调用，确保物品 CD 显示准确
-• Config.lua 集中管理所有视觉参数（字体、间距、尺寸、锚点）
-            ]], classColor, classColor, classColor, classColor)
-        end,
-    },
-    ["2.3.1"] = {
-        title = "v2.3.1 - 标题字号优化+更新Rules",
-        date = "2025-11-23",
-        content = function()
-            return "标题改用Label+GameFontNormalLarge，禁用InlineGroup"
-        end,
-    },
+    -- @EndChangelogData
 }
 
 -- ========================================
@@ -99,15 +164,18 @@ local CHANGELOG = {
 
 function RS:CheckVersionUpdate()
     -- 获取当前版本号
-    local currentVersion = GetAddOnMetadata(addonName, "Version") or "0.0.0"
+    local currentVersion = GetAddOnVersion()
     local lastSeenVersion = self.db.global.lastSeenVersion or "0.0.0"
 
     -- 比较完整版本号（包括修订号）
     -- 任何版本号变化都会弹窗
     if currentVersion ~= lastSeenVersion then
+        -- 立即更新版本号，防止 /rl 后重复弹出
+        self.db.global.lastSeenVersion = currentVersion
+
         -- 延迟3秒显示，避免登录时弹窗过多
         C_Timer.After(3, function()
-            self:ShowChangelogWindow(currentVersion)
+            self:ShowChangelogWindow()
         end)
     end
 end
@@ -116,148 +184,35 @@ end
 -- 显示更新日志弹窗
 -- ========================================
 
--- 获取所有版本号列表（按版本号降序排列）
-local function GetVersionList()
-    local versions = {}
-    for v in pairs(CHANGELOG) do
-        table.insert(versions, v)
-    end
-    -- 按版本号降序排列
-    table.sort(versions, function(a, b)
-        local aMajor, aMinor, aPatch = a:match("^(%d+)%.(%d+)%.(%d+)$")
-        local bMajor, bMinor, bPatch = b:match("^(%d+)%.(%d+)%.(%d+)$")
-        
-        -- 简单的版本号比较逻辑
-        if not aMajor then return false end
-        if not bMajor then return true end
-        
-        if aMajor ~= bMajor then
-            return tonumber(aMajor) > tonumber(bMajor)
-        elseif aMinor ~= bMinor then
-            return tonumber(aMinor) > tonumber(bMinor)
-        else
-            return tonumber(aPatch) > tonumber(bPatch)
-        end
-    end)
-    return versions
-end
-
--- 获取上一个版本号
-local function GetPreviousVersion(currentVersion)
-    local versions = GetVersionList()
-    for i, v in ipairs(versions) do
-        if v == currentVersion and i < #versions then
-            return versions[i + 1]
-        end
-    end
-    return nil
-end
-
--- 获取下一个版本号
-local function GetNextVersion(currentVersion)
-    local versions = GetVersionList()
-    for i, v in ipairs(versions) do
-        if v == currentVersion and i > 1 then
-            return versions[i - 1]
-        end
-    end
-    return nil
-end
-
-function RS:ShowChangelogWindow(version)
-    local changelog = CHANGELOG[version]
-    if not changelog then
-        -- 如果没有该版本的更新日志，只记录版本号
-        self:Print("没有找到版本 %s 的更新日志", version)
-        self.db.global.lastSeenVersion = version
-        return
+function RS:ShowChangelogWindow()
+    -- 关闭其他互斥窗口
+    if self.CloseAllManagedWindows then
+        self:CloseAllManagedWindows("changelogFrame")
     end
 
-    -- 使用 Config 配置
-    local cfg = RS_UI_SIZES.changelogWindow
-    local titleCfg = cfg.title
+    -- 获取当前版本号用于记录
+    local currentVersion = GetAddOnVersion()
+
+    -- 标题始终使用职业色（牧师也是白色）
+    local classColor = RS:GetThemeColorCode(true)
+    local title = string.format("%s露露的工具箱 更新日志|r", classColor)
     
-    -- 获取标题颜色
-    local titleColor
-    if titleCfg.useClassColor then
-        titleColor = GetClassColor()
-    else
-        local c = titleCfg.fallbackColor
-        titleColor = string.format("|cFF%02x%02x%02x", c.r * 255, c.g * 255, c.b * 255)
-    end
-    local title = string.format("%s%s%s|r", titleColor, version, titleCfg.suffix)
+    local winCfg = ns.Config.windows.changelogWindow
 
-    -- 创建弹窗
-    local frame = AceGUI:Create("Frame")
-    frame:SetTitle(title)
-    frame:SetStatusText("更新日期: " .. changelog.date)
-    frame:SetLayout("Fill")
-    
-    -- 使用 Config 配置窗口尺寸
-    local winCfg = RS_UI_SIZES.windowSize.changelogWindow
-    frame:SetWidth(winCfg.width)
-    frame:SetHeight(winCfg.height)
-
-    frame:SetCallback("OnClose", function(widget)
-        -- 只有当查看的是当前版本时，才更新 lastSeenVersion
-        local currentVersion = GetAddOnMetadata(addonName, "Version") or "0.0.0"
-        if version == currentVersion then
-            self.db.global.lastSeenVersion = version
+    local frame, isNew = self.UILib:GetOrCreateWindow(self, "changelogFrame", {
+        title = title,
+        width = winCfg.width,
+        height = winCfg.height,
+        resizable = winCfg.resizable,
+        onClose = function(widget)
+            self.db.global.lastSeenVersion = currentVersion
         end
-        widget:Release()
-    end)
+    })
+
+    if not isNew then return end
 
     -- 获取内层原生Frame
     local frameObj = frame.frame
-
-    -- 禁用窗口尺寸调整（延迟执行，避免 taint）
-    if not winCfg.resizable then
-        C_Timer.After(0.1, function()
-            if frameObj.SetResizable then
-                frameObj:SetResizable(false)
-            end
-            if frameObj.sizer_se then frameObj.sizer_se:Hide() end
-            if frameObj.sizer_s then frameObj.sizer_s:Hide() end
-            if frameObj.sizer_e then frameObj.sizer_e:Hide() end
-        end)
-    end
-
-    -- 设置半透明黑色背景 (RSE 风格)
-    local bgAlpha = RS_UI_SIZES.background.opacity
-    frameObj:SetBackdrop({
-        bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
-        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Background",
-        tile = true, tileSize = 16, edgeSize = 1,
-        insets = { left = 1, right = 1, top = 1, bottom = 1 }
-    })
-    frameObj:SetBackdropColor(0, 0, 0, bgAlpha)
-    frameObj:SetBackdropBorderColor(0, 0, 0, bgAlpha)
-    
-    -- 应用皮肤系统
-    if RS.SkinFrame then
-        RS:SkinFrame(frameObj)
-    end
-    
-    -- 手动隐藏 AceGUI 容器的标题栏材质
-    for _, region in pairs({frameObj:GetRegions()}) do
-        if region:GetObjectType() == "Texture" then
-            local texturePath = region:GetTexture()
-            if texturePath and type(texturePath) == "string" then
-                if texturePath:find("UI%-") or texturePath:find("Dialog") then
-                    region:Hide()
-                    region:SetTexture(nil)
-                end
-            end
-        end
-    end
-
-    -- 设置标题样式
-    if frame.titletext then
-        local titleBarCfg = RS_UI_SIZES.titleBar
-        frame.titletext:SetFont("Fonts\\ARKai_T.ttf", titleBarCfg.fontSize, "OUTLINE")
-        frame.titletext:ClearAllPoints()
-        frame.titletext:SetPoint("TOP", frameObj, "TOP", 0, titleBarCfg.offsetY)
-    end
 
     -- 隐藏AceGUI自带的关闭按钮
     for _, child in pairs({frameObj:GetChildren()}) do
@@ -272,138 +227,133 @@ function RS:ShowChangelogWindow(version)
         frame.statustext:GetParent():Hide()
     end
 
-    -- 创建主容器
-    local mainContainer = AceGUI:Create("SimpleGroup")
-    mainContainer:SetLayout("Fill")
-    mainContainer:SetFullWidth(true)
-    mainContainer:SetFullHeight(true)
-    frame:AddChild(mainContainer)
+    -- 创建主容器（SimpleGroup）
+    local mainContainer = self.UILib:CreateSimpleGroup({
+        layout = "Fill",
+        fullWidth = true,
+        fullHeight = true,
+        parent = frame
+    })
 
-    -- 创建滚动文本框容器
-    local scrollContainer = AceGUI:Create("SimpleGroup")
-    scrollContainer:SetLayout("Fill")
-    scrollContainer:SetFullWidth(true)
-    scrollContainer:SetFullHeight(true)
-    mainContainer:AddChild(scrollContainer)
+    -- 创建滚动框容器（占据大部分空间）
+    local scrollContainer = self.UILib:CreateSimpleGroup({
+        layout = "Fill",
+        fullWidth = true,
+        parent = mainContainer
+    })
 
-    -- 定义滚动框布局函数
-    local scrollCfg = cfg.scrollBox
+    -- 布局应用函数 (模仿 Init.lua，复用主界面边距)
+    -- [Refactor] 直接使用 ns.Config
+    local mainCfg = {
+        tabGroup = ns.Config.offsets.mainTabGroup,
+        bottomButtons = {
+            container = ns.Config.offsets.mainBottomButtons,
+            button1 = { width = ns.Config.buttons.width.bottomButton1 },
+            button2 = { width = ns.Config.buttons.width.bottomButton2 },
+            spacing = ns.Config.offsets.mainBottomButtons.spacing,
+        }
+    }
+    
     local function ApplyScrollLayout()
-        local scrollFrame = scrollContainer.frame
-        scrollFrame:ClearAllPoints()
-        scrollFrame:SetPoint("TOPLEFT", frameObj, "TOPLEFT", scrollCfg.left, scrollCfg.top)
-        scrollFrame:SetPoint("BOTTOMRIGHT", frameObj, "BOTTOMRIGHT", scrollCfg.right, scrollCfg.bottom)
+        local scFrame = scrollContainer.frame
+        scFrame:ClearAllPoints()
+        -- 使用主界面的 tabGroup 边距配置
+        scFrame:SetPoint("TOPLEFT", frameObj, "TOPLEFT", mainCfg.tabGroup.left, mainCfg.tabGroup.top)
+        scFrame:SetPoint("BOTTOMRIGHT", frameObj, "BOTTOMRIGHT", mainCfg.tabGroup.right, mainCfg.tabGroup.bottom)
     end
+    ApplyScrollLayout()
 
     -- 创建滚动文本框
-    local scrollFrame = AceGUI:Create("ScrollFrame")
-    scrollFrame:SetLayout("Flow")
-    scrollFrame:SetFullWidth(true)
-    scrollFrame:SetFullHeight(true)
-    scrollContainer:AddChild(scrollFrame)
+    local scrollFrame = self.UILib:CreateScrollFrame({
+        layout = "Flow",
+        fullWidth = true,
+        fullHeight = true,
+        parent = scrollContainer
+    })
 
-    -- 添加顶部间距
-    local topSpacer = AceGUI:Create("Label")
-    topSpacer:SetFullWidth(true)
-    topSpacer:SetHeight(cfg.topSpacer)
-    topSpacer:SetText("")
-    scrollFrame:AddChild(topSpacer)
+    -- 2. 显示合并后的更新日志
+    local entry = CHANGELOG["latest"]
+    local contentCfg = { fontSize = ns.Config.font.contentSize }
+    
+    if entry then
+        local body = type(entry.content) == "function" and entry.content() or entry.content
 
-    -- 创建文本标签
-    local contentCfg = cfg.content
-    local label = AceGUI:Create("Label")
-    local content = type(changelog.content) == "function" and changelog.content() or changelog.content
-    label:SetText(content)
-    label.label:SetFont("Fonts\\ARKai_T.ttf", contentCfg.fontSize, "OUTLINE")
-    label:SetFullWidth(true)
-    scrollFrame:AddChild(label)
+        -- [Fix] 如果当前版本比日志版本新，插入提示
+        if currentVersion ~= entry.version then
+            local classColor = RS:GetThemeColorCode(true)
+            local warning = string.format("%sv%s|r\n待补充。\n\n", classColor, currentVersion)
+            body = warning .. body
+        end
 
-    -- 创建按钮组容器
-    local btnCfg = cfg.buttons
-    local btnContainer = AceGUI:Create("SimpleGroup")
-    btnContainer:SetLayout("Table")
-    btnContainer:SetFullWidth(true)
-    btnContainer:SetHeight(btnCfg.height)
+        self.UILib:CreateLabel({
+            text = body,
+            font = "Fonts\\ARKai_T.ttf",
+            fontSize = contentCfg.fontSize,
+            outline = "OUTLINE",
+            fullWidth = true,
+            parent = scrollFrame
+        })
+    else
+        self.UILib:CreateLabel({
+            text = "未找到更新日志数据。",
+            font = "Fonts\\ARKai_T.ttf",
+            fontSize = contentCfg.fontSize,
+            outline = "OUTLINE",
+            fullWidth = true,
+            parent = scrollFrame
+        })
+    end
+
+    -- 创建按钮组容器（位于底部，复用主界面配置）
+    local btnCfg = mainCfg.bottomButtons
+    local btnContainer = self.UILib:CreateSimpleGroup({
+        layout = "Table",
+        fullWidth = true,
+        height = ns.Config.buttons.height.dialog + 25,
+        parent = frame -- 注意：直接作为 frame 的子元素
+    })
+    
     btnContainer:SetUserData("table", {
-        columns = {btnCfg.width, btnCfg.width, btnCfg.width, btnCfg.width}, -- 4个按钮
+        columns = {btnCfg.button1.width, btnCfg.button2.width}, 
         space = btnCfg.spacing,
         align = "LEFT"
     })
-    frame:AddChild(btnContainer)
 
-    -- 定义按钮组布局函数
-    local function ApplyButtonLayout()
+    -- 应用底部按钮布局 (模仿 Init.lua)
+    local function ApplyBottomButtonLayout()
         local btnFrame = btnContainer.frame
         btnFrame:ClearAllPoints()
-        btnFrame:SetPoint("BOTTOMLEFT", frameObj, "BOTTOMLEFT", btnCfg.left, btnCfg.bottom)
-        btnFrame:SetPoint("BOTTOMRIGHT", frameObj, "BOTTOMRIGHT", btnCfg.right, btnCfg.bottom)
+        btnFrame:SetPoint("BOTTOMLEFT", frameObj, "BOTTOMLEFT", btnCfg.container.left, btnCfg.container.bottom)
+        btnFrame:SetPoint("BOTTOMRIGHT", frameObj, "BOTTOMRIGHT", btnCfg.container.right, btnCfg.container.bottom)
     end
+    ApplyBottomButtonLayout()
 
-    -- 打开主界面按钮 (新增)
-    local btnOpen = AceGUI:Create("Button")
-    btnOpen:SetText("打开主界面")
-    btnOpen:SetWidth(btnCfg.width)
-    btnOpen:SetHeight(RS_UI_SIZES.buttonHeight.dialog)
-    btnOpen:SetCallback("OnClick", function()
-        RS:ShowMainFrame()
-        -- 不关闭更新日志窗口，让用户自己决定
-    end)
-    btnContainer:AddChild(btnOpen)
-    -- 应用皮肤
-    if RS.SkinButton then RS:SkinButton(btnOpen.frame) end
+    -- 打开主界面按钮 (Width: button1)
+    self.UILib:CreateButton({
+        text = "打开主界面",
+        width = btnCfg.button1.width,
+        height = ns.Config.buttons.height.dialog,
+        onClick = function()
+            if RS.ShowMainFrame then
+                RS:ShowMainFrame()
+            else
+                RS:Print("功能未实现: ShowMainFrame")
+            end
+        end,
+        parent = btnContainer
+    })
 
-    -- <按钮（往新版本翻页）
-    local btnNewer = AceGUI:Create("Button")
-    btnNewer:SetText("<")
-    btnNewer:SetWidth(btnCfg.width)
-    btnNewer:SetHeight(RS_UI_SIZES.buttonHeight.dialog)
-    local newerVersion = GetNextVersion(version)
-    if newerVersion then
-        btnNewer:SetCallback("OnClick", function()
+    -- 关闭按钮 (Width: button2)
+    self.UILib:CreateButton({
+        text = "关闭",
+        width = btnCfg.button2.width,
+        height = ns.Config.buttons.height.dialog,
+        onClick = function()
+            self.db.global.lastSeenVersion = currentVersion
             frame:Release()
-            RS:ShowChangelogWindow(newerVersion)
-        end)
-    else
-        btnNewer:SetDisabled(true)
-    end
-    btnContainer:AddChild(btnNewer)
-    -- 应用皮肤
-    if RS.SkinButton then RS:SkinButton(btnNewer.frame) end
-
-    -- >按钮（往旧版本翻页）
-    local btnOlder = AceGUI:Create("Button")
-    btnOlder:SetText(">")
-    btnOlder:SetWidth(btnCfg.width)
-    btnOlder:SetHeight(RS_UI_SIZES.buttonHeight.dialog)
-    local olderVersion = GetPreviousVersion(version)
-    if olderVersion then
-        btnOlder:SetCallback("OnClick", function()
-            frame:Release()
-            RS:ShowChangelogWindow(olderVersion)
-        end)
-    else
-        btnOlder:SetDisabled(true)
-    end
-    btnContainer:AddChild(btnOlder)
-    -- 应用皮肤
-    if RS.SkinButton then RS:SkinButton(btnOlder.frame) end
-
-    -- 关闭按钮
-    local btnClose = AceGUI:Create("Button")
-    btnClose:SetText("关闭")
-    btnClose:SetWidth(btnCfg.width)
-    btnClose:SetHeight(RS_UI_SIZES.buttonHeight.dialog)
-    btnClose:SetCallback("OnClick", function()
-        self.db.global.lastSeenVersion = version
-        frame:Release()
-    end)
-    btnContainer:AddChild(btnClose)
-    -- 应用皮肤
-    if RS.SkinButton then RS:SkinButton(btnClose.frame) end
-
-    -- 应用布局
-    ApplyScrollLayout()
-    ApplyButtonLayout()
+        end,
+        parent = btnContainer
+    })
 end
 
 -- ========================================
@@ -411,6 +361,6 @@ end
 -- ========================================
 
 function RS:ShowChangelog(version)
-    version = version or GetAddOnMetadata(addonName, "Version")
-    self:ShowChangelogWindow(version)
+    -- version 参数不再使用，但为了兼容性保留接口
+    self:ShowChangelogWindow()
 end

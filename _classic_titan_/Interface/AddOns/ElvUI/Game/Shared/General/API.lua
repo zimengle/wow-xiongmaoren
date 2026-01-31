@@ -196,7 +196,7 @@ E.SpecName = { -- english locale
 -- the secure header is different on retail because of evokers
 -- if both are registered on non-retail, it will fire on down and up
 function E:RegisterClicks(frame)
-	if E.Retail then
+	if E.Retail or E.TBC then
 		frame:RegisterForClicks('AnyDown', 'AnyUp')
 	else
 		frame:RegisterForClicks('AnyUp')
@@ -1048,7 +1048,7 @@ function E:PositionGameMenuButton()
 
 			local lastIndex = gameMenuLastButtons[text]
 			if lastIndex == gameMenuLastButtons.ElvUI and GameMenuFrame.ElvUI then
-				GameMenuFrame.ElvUI:Point('TOPLEFT', button, 'BOTTOMLEFT', 0, E.TBC and -30 or -10)
+				GameMenuFrame.ElvUI:Point('TOPLEFT', button, 'BOTTOMLEFT', 0, -10)
 			elseif not lastIndex then
 				button:NudgePoint(nil, -offset)
 			end
@@ -1106,7 +1106,9 @@ function E:SetupGameMenu()
 		GameMenuFrame.ElvUI = button
 		GameMenuFrame.MenuButtons = {}
 
-		E:ScaleGameMenu()
+		if E.Retail then
+			E:ScaleGameMenu()
+		end
 
 		hooksecurefunc(GameMenuFrame, 'Layout', E.PositionGameMenuButton)
 	else

@@ -1,6 +1,6 @@
 
 GTFOData = {
-["UnmuteMode"] = false,
+["TestMode"] = false,
 ["Active"] = true,
 ["SoundOverrides"] = {
 "",
@@ -27,7 +27,7 @@ true,
 ["GarroshDesecrated"] = false,
 ["HagaraWateryEntrenchment"] = false,
 },
-["TestMode"] = false,
+["UnmuteMode"] = false,
 ["SoundChannel"] = "SFX",
 ["TrivialMode"] = false,
 }

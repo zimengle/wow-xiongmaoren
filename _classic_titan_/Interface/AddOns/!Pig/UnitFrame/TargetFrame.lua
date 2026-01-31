@@ -95,7 +95,7 @@ function UnitFramefun.Mubiao()
 			            end
 			        end
 			    end
-			    TextStatusBar_UpdateTextString(statusbar);
+			    statusbar:UpdateTextString();
 			end
 			hooksecurefunc("UnitFrameHealthBar_Update", HealthBar_Update)
 		end
@@ -106,7 +106,9 @@ function UnitFramefun.Mubiao()
 		TargetFrame.ClassBut:SetPoint("TOPLEFT", TargetFrame, "TOPLEFT", 119, 3);
 		TargetFrame.ClassBut:SetHighlightTexture("Interface\\Minimap\\UI-Minimap-ZoomButton-Highlight");
 		TargetFrame.ClassBut:Hide()
-		if PIG_MaxTocversion() then
+		if PIG_MaxTocversion("tbc") then
+			TargetFrame.ClassBut:SetPoint("TOPLEFT", TargetFrame, "TOPLEFT", 136, 0);
+		elseif PIG_MaxTocversion() then
 			TargetFrame.ClassBut:SetPoint("TOPLEFT", TargetFrame, "TOPLEFT", 119, 3);
 		else
 			TargetFrame.ClassBut:SetPoint("TOPLEFT", TargetFrame, "TOPLEFT", 144, 4);
@@ -129,7 +131,9 @@ function UnitFramefun.Mubiao()
 		--目标种族/生物类型
 		TargetFrame.mubiaoLX = CreateFrame("Frame", nil, TargetFrame);
 		TargetFrame.mubiaoLX:SetSize(68,18);
-		if PIG_MaxTocversion() then
+		if PIG_MaxTocversion("tbc") then
+			TargetFrame.mubiaoLX:SetPoint("TOPLEFT", TargetFrame, "TOPLEFT", 72, -6);
+		elseif PIG_MaxTocversion() then
 			TargetFrame.mubiaoLX:SetPoint("TOPLEFT", TargetFrame, "TOPLEFT", 52, -3);
 		else
 			TargetFrame.mubiaoLX:SetPoint("TOPLEFT", TargetFrame, "TOPLEFT", 64, -3);
@@ -158,7 +162,9 @@ function UnitFramefun.Mubiao()
 		end);
 		--目标生命百分比
 		TargetFrame.mubiaoHP=CreateFrame("Frame",nil,TargetFrame);
-		if PIG_MaxTocversion() then
+		if PIG_MaxTocversion("tbc") then
+			TargetFrame.mubiaoHP:SetPoint("RIGHT",TargetFrame,"LEFT",24,-4);
+		elseif PIG_MaxTocversion() then
 			TargetFrame.mubiaoHP:SetPoint("RIGHT",TargetFrame,"LEFT",5,-2);
 		else
 			TargetFrame.mubiaoHP:SetPoint("RIGHT",TargetFrame,"LEFT",24,-2);
@@ -166,17 +172,19 @@ function UnitFramefun.Mubiao()
 		TargetFrame.mubiaoHP:SetSize(49,22);
 		TargetFrame.mubiaoHP.title = PIGFontString(TargetFrame.mubiaoHP,{"TOPRIGHT", TargetFrame.mubiaoHP, "TOPRIGHT", 0, 0},"", "OUTLINE",13)
 		TargetFrame.mubiaoHP.title:SetTextColor(1, 1, 0.47,1);
-		----------------------
+		--
 		TargetFrame:HookScript("OnEvent", function (self,event,arg1)
-			if event=="PLAYER_ENTERING_WORLD" or event=="PLAYER_TARGET_CHANGED" or event=="UNIT_HEALTH" or event=="UNIT_AURA" then
-				if not UnitExists("target") then return end
-				local mubiaoH = UnitHealth("target")
-				local mubiaoHmax = UnitHealthMax("target")
-				local mubiaobaifenbi = math.ceil((mubiaoH/mubiaoHmax)*100);--目标血量百分比
-				if mubiaoHmax>0 then
-					TargetFrame.mubiaoHP.title:SetText(mubiaobaifenbi..'%');
-				else
-					TargetFrame.mubiaoHP.title:SetText('??%');
+			if PIG_MaxTocversion(120000) then
+				if event=="PLAYER_ENTERING_WORLD" or event=="PLAYER_TARGET_CHANGED" or event=="UNIT_HEALTH" or event=="UNIT_AURA" then
+					if not UnitExists("target") then return end
+					local mubiaoH = UnitHealth("target")
+					local mubiaoHmax = UnitHealthMax("target")
+					local mubiaobaifenbi = math.ceil((mubiaoH/mubiaoHmax)*100);--目标血量百分比
+					if mubiaoHmax>0 then
+						TargetFrame.mubiaoHP.title:SetText(mubiaobaifenbi..'%');
+					else
+						TargetFrame.mubiaoHP.title:SetText('??%');
+					end
 				end
 			end
 		end)
@@ -186,7 +194,7 @@ function UnitFramefun.Mubiao()
 		if TargetFrame.threatNumericIndicator then
 			TargetFrame:HookScript("OnEvent", function (self,event,arg1)
 				if event=="PLAYER_ENTERING_WORLD" or event=="PLAYER_TARGET_CHANGED" or event=="UNIT_THREAT_LIST_UPDATE" or event=="UNIT_THREAT_SITUATION_UPDATE" then
-					if PIG_MaxTocversion() then
+					if TocversionOK then
 						TargetFrame.threatNumericIndicator:SetPoint("BOTTOM", TargetFrame, "TOP", -86, -22);
 					else
 						TargetFrame.threatNumericIndicator:SetPoint("BOTTOM", TargetFrame, "TOP", -68, -24);
@@ -329,7 +337,7 @@ function UnitFramefun.Mubiao()
 		RegisterUnitWatch(fuF.TTT)
 
 		function fuF.TTT:CheckDead()
-			if ((UnitHealth(self.unit) <= 0) and UnitIsConnected(self.unit)) then
+			if UnitIsDead(self.unit) and UnitIsConnected(self.unit) then
 				local unitIsUnconscious = UnitIsUnconscious(self.unit);
 				self.HealthBar.UnconsciousText:SetShown(unitIsUnconscious);
 				self.HealthBar.DeadText:SetShown(not unitIsUnconscious);
@@ -339,7 +347,7 @@ function UnitFramefun.Mubiao()
 			end
 		end
 		function TargetFrame_CheckDead (self)
-			if ( (UnitHealth(self.unit) <= 0) and UnitIsConnected(self.unit) ) then
+			if UnitIsDead(self.unit) and UnitIsConnected(self.unit) then
 				if ( UnitIsUnconscious(self.unit) ) then
 					self.unconsciousText:Show();
 					self.deadText:Hide();
@@ -407,12 +415,12 @@ function UnitFramefun.Mubiao()
 				UnitFrameHealthBar_Update(self.healthbar, self.unit);
 				UnitFrameManaBar_Update(self.manabar, self.unit);
 			else
-				self.Name:SetText(TTTname);
-				SetPortraitTexture(self.Portrait, self.unit)
-				self:HealthCheck()
-				self:CheckDead()
-				UnitFrameHealthBar_Update(self.HealthBar, self.unit);
-				UnitFrameManaBar_Update(self.ManaBar, self.unit);
+				-- self.Name:SetText(TTTname);
+				-- SetPortraitTexture(self.Portrait, self.unit)
+				-- self:HealthCheck()
+				-- self:CheckDead()
+				-- UnitFrameHealthBar_Update(self.HealthBar, self.unit);
+				-- UnitFrameManaBar_Update(self.ManaBar, self.unit);
 			end
 			-- if event=="PLAYER_REGEN_ENABLED" then
 			-- 	self:UnregisterEvent("PLAYER_REGEN_ENABLED");
@@ -430,23 +438,23 @@ function UnitFramefun.Mubiao()
 				UnitFrameManaBar_Update(self, unitMubiao);
 			end)
 		else
-			fuF.TTT.HealthBar:RegisterUnitEvent("UNIT_HEALTH",unitMubiao);
-			fuF.TTT.HealthBar:RegisterUnitEvent("UNIT_MAXHEALTH",unitMubiao);
-			fuF.TTT.ManaBar:RegisterUnitEvent("UNIT_POWER_FREQUENT",unitMubiao);
-			fuF.TTT.ManaBar:RegisterUnitEvent("UNIT_MAXPOWER",unitMubiao);
-			fuF.TTT.HealthBar:HookScript("OnEvent", function (self,event)
-				UnitFrameHealthBar_Update(self, unitMubiao);
-			end)
-			fuF.TTT.ManaBar:HookScript("OnEvent", function (self,event)
-				UnitFrameManaBar_Update(self, unitMubiao);
-			end)
+			-- fuF.TTT.HealthBar:RegisterUnitEvent("UNIT_HEALTH",unitMubiao);
+			-- fuF.TTT.HealthBar:RegisterUnitEvent("UNIT_MAXHEALTH",unitMubiao);
+			-- fuF.TTT.ManaBar:RegisterUnitEvent("UNIT_POWER_FREQUENT",unitMubiao);
+			-- fuF.TTT.ManaBar:RegisterUnitEvent("UNIT_MAXPOWER",unitMubiao);
+			-- fuF.TTT.HealthBar:HookScript("OnEvent", function (self,event)
+			-- 	UnitFrameHealthBar_Update(self, unitMubiao);
+			-- end)
+			-- fuF.TTT.ManaBar:HookScript("OnEvent", function (self,event)
+			-- 	UnitFrameManaBar_Update(self, unitMubiao);
+			-- end)
 		end
 	end
 	--
 	if PIGA["UnitFrame"]["TargetFrame"]["Yisu"] and not TargetFrame.yisuF then
 		TargetFrame.yisuF=CreateFrame("Frame",nil,TargetFrame);
 		TargetFrame.yisuF:SetSize(49,18);
-		if PIG_MaxTocversion() then
+		if TocversionOK then
 			TargetFrame.yisuF:SetPoint("TOPLEFT", TargetFrame, "TOPLEFT", 192, -58);
 			TargetFrame.yisuF:SetFrameLevel(9)
 		else

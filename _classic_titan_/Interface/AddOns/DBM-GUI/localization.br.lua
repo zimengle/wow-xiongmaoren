@@ -7,8 +7,8 @@ local L = DBM_GUI_L
 L.MainFrame = "Deadly Boss Mods"
 
 L.TranslationByPrefix		= "Traduzido por "
-L.TranslationBy 			= "GlitterStorm @ Azralon" -- your name here, localizers!
-L.Website					= "Por favor, siga a MysticalOS para notícias e atualizações |cFF73C2FBhttps://allmylinks.com/mysticalos|r"
+L.TranslationBy 			= "GlitterStorm @ Azralon"
+L.Website					= "Siga a MysticalOS para notícias e atualizações |cFF73C2FBhttps://allmylinks.com/mysticalos|r"
 L.WebsiteButton				= "Site"
 
 L.OTabBosses				= "Chefes"
@@ -90,6 +90,7 @@ L.Button_TestBars			= "Iniciar barras de teste"
 L.Button_MoveBars			= "Mover barras"
 L.Button_ResetInfoRange		= "Redefinir quadros de informações/distância"
 
+L.Button_ShowMidnightWizard = "Assistente de configuração de Midnight"
 L.ModelOptions				= "Opções do visualizador de modelos 3D"
 L.EnableModels				= "Ativar modelos 3D nas opções de chefe"
 L.ModelSoundOptions			= "Definir opção de som para o visualizador de modelos"
@@ -105,7 +106,7 @@ L.Editbox_WindowHeight		= "Altura da janela GUI"
 L.UIGroupingOptions					= "Opções de agrupamento de IU (alterá-las requer recarregamento da IU)"
 L.GroupOptionsExcludeIcon			= "Excluir as opções de 'Ativar ícone' de serem agrupadas por feitiço (elas serão agrupadas na categoria categoria de 'Ícones')"
 L.GroupOptionsExcludePrivateAura 	= "Excluir as opções de som 'Aura privada' de serem agrupadas por feitiço (elas serão agrupadas na categoria de 'Auras privadas')"
-L.AutoExpandSpellGroups				= "Expandir automaticamente as opções agrupadas por feitiço"
+L.AutoExpandSpellGroups2				= "Expandir automaticamente as opções agrupadas por feitiço"
 L.ShowWAKeys						= "Exibir as teclas WeakAuras ao lado dos nomes dos feitiços para ajudar a escrever WeakAuras usando os gatilhos do módulo de chefe"
 --L.ShowSpellDescWhenExpanded		= "Continuar mostrando a descrição do feitiço quando os grupos forem expandidos"--Might not be used
 L.NoDescription						= "Esta habilidade não tem descrição"
@@ -371,6 +372,10 @@ L.Area_BlizzFiltersSetup 	= "Guia de filtros Blizzard"
 
 -- Panel: Toggle DBM Features
 L.Panel_SpamFilter 			= "Desativar funcionalidades de DBM"
+
+L.Area_Global_Toggles           = "Opções globais de funcionalidades"
+L.NoWarnings                    = "Desativar os avisos do DBM"
+L.NoTimers                      = "Desativar os cronômetros do DBM"
 
 L.Area_SpamFilter_SpecFeatures 	= "Funcionalidades de anúncios"
 L.SpamBlockNoShowAnnounce 		= "Não exibir texto nem reproduzir som para QUALQUER anúncio geral"

@@ -1,4 +1,3 @@
-
 MSBTProfiles_SavedVars = {
 ["profiles"] = {
 ["Default"] = {
@@ -45,8 +44,8 @@ MSBTProfiles_SavedVars = {
 },
 ["MSBT_TRIGGER_EXECUTE"] = false,
 },
-["hotThrottleDuration"] = 2,
 ["abbreviateAbilities"] = true,
+["hotThrottleDuration"] = 2,
 ["critOutlineIndex"] = 2,
 ["animationSpeed"] = 120,
 ["critFontName"] = "默认",
@@ -59,10 +58,10 @@ MSBTProfiles_SavedVars = {
 ["direction"] = "Up",
 ["offsetX"] = -477,
 ["scrollHeight"] = 85,
-["iconAlign"] = "Right",
+["behavior"] = "MSBT_NORMAL",
 ["offsetY"] = -382,
 ["animationStyle"] = "Static",
-["behavior"] = "MSBT_NORMAL",
+["iconAlign"] = "Right",
 },
 ["Custom2"] = {
 ["stickyTextAlignIndex"] = 3,
@@ -250,6 +249,7 @@ MSBTProfiles_SavedVars = {
 },
 ["NOTIFICATION_PET_COOLDOWN"] = {
 ["soundFile"] = "",
+["disabled"] = true,
 ["fontSize"] = false,
 },
 ["PET_OUTGOING_SPELL_DAMAGE_SHIELD"] = {
@@ -366,11 +366,11 @@ MSBTProfiles_SavedVars = {
 ["OUTGOING_HOT"] = {
 ["scrollArea"] = "Custom2",
 },
-["NOTIFICATION_HOLY_POWER_CHANGE"] = {
-["disabled"] = true,
+["NOTIFICATION_POWER_GAIN"] = {
 ["scrollArea"] = "Notification",
 },
-["NOTIFICATION_POWER_GAIN"] = {
+["NOTIFICATION_HOLY_POWER_CHANGE"] = {
+["disabled"] = true,
 ["scrollArea"] = "Notification",
 },
 ["PET_OUTGOING_DEFLECT"] = {

@@ -1,4 +1,3 @@
-
 PawnCommon = {
 ["ShowUpgradesOnTooltips"] = true,
 ["AlignNumbersRight"] = false,

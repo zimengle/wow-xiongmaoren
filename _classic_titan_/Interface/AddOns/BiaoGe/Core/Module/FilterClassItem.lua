@@ -28,20 +28,20 @@ local RealmId = GetRealmID()
 local player = BG.playerName
 local _, class = UnitClass("player")
 
--- Font
-do
-    local color = "Filter_+" -- BG.FontFilter_+
-    BG["Font" .. color] = CreateFont("BG.Font" .. color)
-    BG["Font" .. color]:SetTextColor(RGB("FFFFFF"))
-    BG["Font" .. color]:SetFont(STANDARD_TEXT_FONT, 25, "OUTLINE")
-
-    local color = "Filter_+_Highlight" -- BG.FontFilter_+_Highlight
-    BG["Font" .. color] = CreateFont("BG.Font" .. color)
-    BG["Font" .. color]:SetTextColor(RGB("FFFFFF"))
-    BG["Font" .. color]:SetFont(STANDARD_TEXT_FONT, 30, "OUTLINE")
-end
-
 function BG.FilterClassItemUI()
+    -- Font
+    do
+        local color = "Filter_+" -- BG.FontFilter_+
+        BG["Font" .. color] = CreateFont("BG.Font" .. color)
+        BG["Font" .. color]:SetTextColor(RGB("FFFFFF"))
+        BG["Font" .. color]:SetFont(BIAOGE_TEXT_FONT, 25, "OUTLINE")
+
+        local color = "Filter_+_Highlight" -- BG.FontFilter_+_Highlight
+        BG["Font" .. color] = CreateFont("BG.Font" .. color)
+        BG["Font" .. color]:SetTextColor(RGB("FFFFFF"))
+        BG["Font" .. color]:SetFont(BIAOGE_TEXT_FONT, 30, "OUTLINE")
+    end
+
     BG.filterClassButtons = {}
     local function UpdateAllButton(num)
         for k, v in pairs(F.frames) do
@@ -309,7 +309,7 @@ function BG.FilterClassItemUI()
         local f_tilte = CreateFrame("Frame", nil, f)
         f_tilte:SetPoint("TOPLEFT", 10, -5)
         local t = f_tilte:CreateFontString()
-        t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+        t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
         t:SetPoint("LEFT")
         t:SetText(tilte)
         f_tilte:SetSize(t:GetStringWidth(), 20)
@@ -353,6 +353,7 @@ function BG.FilterClassItemUI()
             buttons[i] = bt
             local text = v.name2 or v.value
             text = text:gsub("%(%.%+%)", "xx")
+            bt.Text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             bt.Text:SetText(text)
             bt.Text:SetWidth(width)
             bt.Text:SetWordWrap(false)
@@ -436,7 +437,7 @@ function BG.FilterClassItemUI()
         BG.FilterClassItemMainFrame = f
 
         local t = f:CreateFontString()
-        t:SetFont(STANDARD_TEXT_FONT, 16, "OUTLINE")
+        t:SetFont(BIAOGE_TEXT_FONT, 16, "OUTLINE")
         t:SetText(L["< 装备过滤 >"])
         t:SetPoint("TOP", 0, -7)
         t:SetTextColor(1, 1, 1)
@@ -469,7 +470,7 @@ function BG.FilterClassItemUI()
         BG.FilterClassItemMainFrame.Buttons = Buttons
         tinsert(BG.filterClassButtons, Buttons)
         local t = Buttons:CreateFontString()
-        t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+        t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
         t:SetText(L["选择方案："])
         t:SetPoint("RIGHT", Buttons, "LEFT", -10, 0)
         t:SetTextColor(1, 0.82, 0)
@@ -529,7 +530,7 @@ function BG.FilterClassItemUI()
         local t = f:CreateFontString()
         do
             t:SetPoint("TOP", 0, -15)
-            t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             t:SetTextColor(RGB(BG.g1))
             t:SetText(L["新建过滤方案"])
             f.tilte = t
@@ -543,7 +544,7 @@ function BG.FilterClassItemUI()
 
         local t = f:CreateFontString()
         t:SetPoint("TOPLEFT", 25, -40)
-        t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+        t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
         t:SetTextColor(RGB("FFD100"))
         t:SetText(L["名称："])
 
@@ -574,7 +575,7 @@ function BG.FilterClassItemUI()
 
         local t = f:CreateFontString()
         t:SetPoint("TOPLEFT", edit, "BOTTOMLEFT", 0, -12)
-        t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+        t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
         t:SetTextColor(RGB("FFD100"))
         t:SetText(L["图标："])
 

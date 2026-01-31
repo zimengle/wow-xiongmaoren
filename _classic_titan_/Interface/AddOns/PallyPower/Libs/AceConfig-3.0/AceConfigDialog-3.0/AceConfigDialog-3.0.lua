@@ -1,13 +1,13 @@
 --- AceConfigDialog-3.0 generates AceGUI-3.0 based windows based on option tables.
 -- @class file
 -- @name AceConfigDialog-3.0
--- @release $Id: AceConfigDialog-3.0.lua 1351 2024-07-24 18:23:24Z funkehdude $
+-- @release $Id: AceConfigDialog-3.0.lua 1292 2022-09-29 08:00:11Z nevcairiel $
 
 local LibStub = LibStub
 local gui = LibStub("AceGUI-3.0")
 local reg = LibStub("AceConfigRegistry-3.0")
 
-local MAJOR, MINOR = "AceConfigDialog-3.0", 87
+local MAJOR, MINOR = "AceConfigDialog-3.0", 85
 local AceConfigDialog, oldminor = LibStub:NewLibrary(MAJOR, MINOR)
 
 if not AceConfigDialog then return end
@@ -147,7 +147,6 @@ local stringIsLiteral = {
 	width = true,
 	image = true,
 	fontSize = true,
-	tooltipHyperlink = true
 }
 
 --Is Never a function or method
@@ -502,14 +501,6 @@ local function OptionOnMouseOver(widget, event)
 	local tooltip = AceConfigDialog.tooltip
 
 	tooltip:SetOwner(widget.frame, "ANCHOR_TOPRIGHT")
-
-	local tooltipHyperlink = GetOptionsMemberValue("tooltipHyperlink", opt, options, path, appName)
-	if tooltipHyperlink then
-		tooltip:SetHyperlink(tooltipHyperlink)
-		tooltip:Show()
-		return
-	end
-
 	local name = GetOptionsMemberValue("name", opt, options, path, appName)
 	local desc = GetOptionsMemberValue("desc", opt, options, path, appName)
 	local usage = GetOptionsMemberValue("usage", opt, options, path, appName)
@@ -544,7 +535,6 @@ local function GetFuncName(option)
 	end
 end
 do
-	local InCombatLockdown = InCombatLockdown
 	local frame = AceConfigDialog.popup
 	if not frame or oldminor < 81 then
 		frame = CreateFrame("Frame", nil, UIParent)
@@ -557,15 +547,13 @@ do
 		frame:SetFrameLevel(100) -- Lots of room to draw under it
 		frame:SetScript("OnKeyDown", function(self, key)
 			if key == "ESCAPE" then
-				if not InCombatLockdown() then
-					self:SetPropagateKeyboardInput(false)
-				end
+				self:SetPropagateKeyboardInput(false)
 				if self.cancel:IsShown() then
 					self.cancel:Click()
 				else -- Showing a validation error
 					self:Hide()
 				end
-			elseif not InCombatLockdown() then
+			else
 				self:SetPropagateKeyboardInput(true)
 			end
 		end)

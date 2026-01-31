@@ -1,13 +1,10 @@
 -- Pawn by Vger-Azjol-Nerub
 -- www.vgermods.com
--- © 2006-2024 Travis Spomer.  This mod is released under the Creative Commons Attribution-NonCommercial-NoDerivs 3.0 license.
--- See Readme.htm for more information.
+-- © 2006-2026 Travis Spomer.  This mod is released under the Creative Commons Attribution-NonCommercial-NoDerivs 3.0 license.
+-- See Readme.md for more information.
 --
 -- Gem information (Wrath of the Lich King Classic)
 ------------------------------------------------------------
-
-
-if VgerCore.IsWrath then
 
 
 --========================================
@@ -117,10 +114,10 @@ local PawnGemData70Uncommon =
 -- Purple gems
 ------------------------------------------------------------
 
-{ ID = 23100, R = true, B = true, Stats = { Strength = 3, Stamina = 4 } }, -- Sovereign Shadow Draenite
 { ID = 23108, R = true, B = true, Stats = { SpellPower = 4, Stamina = 4 } }, -- Glowing Shadow Draenite
 { ID = 23109, R = true, B = true, Stats = { SpellPower = 4, Mp5 = 2 } }, -- Royal Shadow Draenite
 { ID = 23110, R = true, B = true, Stats = { Agility = 3, Stamina = 4 } }, -- Shifting Shadow Draenite
+{ ID = 23111, R = true, B = true, Stats = { Strength = 3, Stamina = 4 } }, -- Sovereign Shadow Draenite
 { ID = 31862, R = true, B = true, Stats = { Ap = 6, Stamina = 4 } }, -- Balanced Shadow Draenite
 { ID = 31864, R = true, B = true, Stats = { Ap = 6, Mp5 = 1 } }, -- Infused Shadow Draenite
 
@@ -737,6 +734,7 @@ PawnMetaGemQualityLevels =
 	{ 0, PawnMetaGemData70Rare },
 }
 
-PawnMinimumItemLevelToConsiderGems = 187
+PawnCogwheelQualityLevels = nil
+PawnCrystalOfFearQualityLevels = nil
 
-end -- if VgerCore.IsWrath
+PawnMinimumItemLevelToConsiderGems = 187

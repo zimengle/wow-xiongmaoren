@@ -8011,12 +8011,7 @@ step
 .turnin 608 >>交任务: |cRXP_FRIENDLY_血帆海盗|r
 step
 #completewith CaptainsChest
-+ 从您的银行取出绿山页面并尝试从拍卖行购买缺失的页面。
->>第一章：1,4,6,8
->>第2章：10,11,14,16
->>第三章：18,20,21,24
->>第四章：25,26,27
-step
+
 .goto Stranglethorn Vale,27.7,77.1
 .target "Sea Wolf" MacKinley
 >>对话: |cRXP_FRIENDLY_\"海狼\"马克基雷|r

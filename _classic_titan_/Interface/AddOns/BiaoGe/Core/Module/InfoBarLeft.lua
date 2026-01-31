@@ -22,7 +22,6 @@ local Maxb = ns.Maxb
 local pt = print
 local realmID = GetRealmID()
 local player = BG.playerName
-local realmName = GetRealmName()
 local IsAddOnLoaded = IsAddOnLoaded or C_AddOns.IsAddOnLoaded
 
 BG.Init(function()
@@ -59,14 +58,14 @@ BG.Init(function()
             f.buttons = {}
             self.frame = f
             local toptitle = f:CreateFontString()
-            toptitle:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+            toptitle:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             toptitle:SetPoint("TOP", f, "TOP", 0, -5)
             toptitle:SetTextColor(0, .75, 1)
             toptitle:SetText(AddTexture(1120721) .. L["时光徽章历史价格"])
 
             local function CreateBar(i, v, isNow)
                 local title = f:CreateFontString()
-                title:SetFont(STANDARD_TEXT_FONT, 14, "OUTLINE")
+                title:SetFont(BIAOGE_TEXT_FONT, 14, "OUTLINE")
                 title:SetSize(titleWidth, barHeight)
                 if next(f.buttons) then
                     title:SetPoint("TOPLEFT", f.buttons[i - 1], "BOTTOMLEFT", 0, 0)
@@ -98,7 +97,7 @@ BG.Init(function()
                 bar:SetSize(width, 14)
 
                 local price = f:CreateFontString()
-                price:SetFont(STANDARD_TEXT_FONT, 14, "OUTLINE")
+                price:SetFont(BIAOGE_TEXT_FONT, 14, "OUTLINE")
                 price:SetSize(priceWidth, 20)
                 price:SetPoint("LEFT", bar, "RIGHT", 5, 0)
                 price:SetTextColor(1, 0.82, 0)
@@ -131,7 +130,7 @@ BG.Init(function()
             end
             text = text .. "   " .. GetMoneyString(10000, true) .. " = " .. m2 .. moneyTitle
             local bottomText = f:CreateFontString()
-            bottomText:SetFont(STANDARD_TEXT_FONT, 14, "OUTLINE")
+            bottomText:SetFont(BIAOGE_TEXT_FONT, 14, "OUTLINE")
             bottomText:SetPoint("BOTTOM", f, "BOTTOM", 0, 8)
             bottomText:SetTextColor(1, .85, 0)
             bottomText:SetText(text)
@@ -143,7 +142,7 @@ BG.Init(function()
         bt:SetSize(1, 20)
         bt:SetPoint("BOTTOMLEFT", 10, 2)
         bt.text = bt:CreateFontString()
-        bt.text:SetFont(STANDARD_TEXT_FONT, 13, "OUTLINE")
+        bt.text:SetFont(BIAOGE_TEXT_FONT, 13, "OUTLINE")
         bt.text:SetPoint("LEFT")
         bt.text:SetTextColor(1, 1, 1)
         BG.OnEnterDelay(bt, CreateHistoryFrame,0)

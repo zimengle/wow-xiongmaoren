@@ -1,9 +1,0 @@
-
-MountsJournalChar = {
-["profileBySpecializationPVP"] = {
-},
-["macrosConfig"] = {
-},
-["holidayProfiles"] = {
-},
-}

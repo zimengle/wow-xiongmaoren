@@ -1,5 +1,6 @@
 local addonName, addonTable = ...;
 local L=addonTable.locale
+local Fun=addonTable.Fun
 ---
 local Create=addonTable.Create
 local PIGFrame=Create.PIGFrame
@@ -198,7 +199,7 @@ GeneralF:HookScript("OnShow", function (self)
 		self.Minimap_but_Point:Disable();
 		self.CZinfo:Disable();
 		self.Minimap_but_Point:PIGDownMenu_SetText("被外部插件"..Mapfun.MiniMapBut.EXaddonName.."控制")
-	elseif PIG_OptionsUI.IsOpen_ElvUI() then
+	elseif Fun.IsElvUI() then
 		self.Minimap_but_Point:Disable();
 		self.CZinfo:Disable();
 		self.Minimap_but_Point:PIGDownMenu_SetText("ElvUI模式")

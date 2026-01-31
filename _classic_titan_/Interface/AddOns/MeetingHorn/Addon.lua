@@ -49,7 +49,18 @@ local function chatFilter(_, _, msg)
     end
 end
 
+local function systemChatFilter(_, _, msg)
+    if strfind(msg, "^未找到名为") then
+        local serverPrefix = ns.NETEASE_SERVER_PREFIX .. UnitFactionGroup('player') .. ns.NETEASE_SERVER_RANDOM
+        if strfind(msg, serverPrefix) then
+            return true
+        end
+    end
+    return false
+end
+
 ChatFrame_AddMessageEventFilter('CHAT_MSG_CHANNEL', chatFilter)
+ChatFrame_AddMessageEventFilter('CHAT_MSG_SYSTEM', systemChatFilter)
 
 function Addon:OnInitialize()
     self.db = LibStub('AceDB-3.0'):New('MEETINGHORN_DB', { --
@@ -88,13 +99,13 @@ function Addon:OnInitialize()
     self.DataBroker = ns.UI.DataBroker:Bind(MeetingHornDataBroker)
 
     self:RegisterMessage('MEETINGHORN_OPTION_CHANGED_CHATFILTER')
-    --[=[@classic@
+    --[[@classic@
     self:RegisterMessage('MEETINGHORN_WORLDBUFF_STATUS_CHANGED')
     self:RegisterEvent('ZONE_CHANGED_NEW_AREA', 'ZoneChanged')
     self:RegisterEvent('PLAYER_ENTERING_WORLD', 'ZoneChanged')
     self:RegisterEvent('GROUP_JOINED', 'ZoneChanged')
     self:RegisterEvent('UNIT_PHASE', 'ZoneChanged')
-    --@end-classic@]=]
+    --@end-classic@]]
 
     self:SetupHyperlink()
 end
@@ -130,11 +141,19 @@ function Addon:hookChat()
                             end
                             if currentLevel then
                                 local pname = name .. ']'
-                                v.message = string.gsub(msg, pname, [[|TInterface\AddOns\MeetingHorn\Media\certification_icon:48|t]] .. pname, 1)
-                            end
+                                local currentActivity = ns.LFG:GetCurrentActivity()
+                                local certificationLevel = currentActivity and currentActivity:GetCertificationLevel()
+                                local certificationBgID = currentActivity and currentActivity:GetCertificationBgID()
+                                local certificationIcon = ns.GetCertificationIconTextTexture(certificationLevel, certificationBgID)
+                                if certificationIcon ~= "" then
+                                    v.message = string.gsub(msg, pname, certificationIcon .. pname, 1)
+                                else
+                                    v.message = msg
+                                end
+                                    end
 
-                        end
-                        v.flag = true
+                                end
+                                v.flag = true
                     end
                 end
             end)
@@ -198,7 +217,7 @@ function Addon:OpenEncounter(...)
     self.MainPanel.Encounter:Open(...)
 end
 
---[=[@classic@
+--[[@classic@
 function Addon:MEETINGHORN_WORLDBUFF_STATUS_CHANGED(_, enable)
     ns.WorldBuff:SetStatus(enable)
 end
@@ -206,7 +225,7 @@ end
 function Addon:ZoneChanged(ev)
     ns.WorldBuff:CheckEnable()
 end
---@end-classic@]=]
+--@end-classic@]]
 
 function Addon:GetEncouterDataByKey(key)
     if key == 'ENCOUNTER_BOSSES' or key == 'ENCOUNTER_INSTANCES' or key == 'ENCOUNTER_DATA' or key ==

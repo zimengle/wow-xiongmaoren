@@ -39,7 +39,7 @@ BG.Init(function()
         f:SetTimeVisible(BiaoGe.options[name] or BG.options[name .. "reset"]) -- 可见时间
         f:SetJustifyH("LEFT")                                                 -- 对齐格式
         f:SetSize(700, 170)                                                   -- 大小
-        f:SetFont(STANDARD_TEXT_FONT, BiaoGe.options["lootFontSize"] or 20, "OUTLINE")
+        f:SetFont(BIAOGE_TEXT_FONT, BiaoGe.options["lootFontSize"] or 20, "OUTLINE")
         f:SetFrameStrata("FULLSCREEN_DIALOG")
         f:SetFrameLevel(130)
         f:SetClampedToScreen(true)
@@ -56,7 +56,7 @@ BG.Init(function()
         BG.FrameLootMsg = f
 
         f.name = f:CreateFontString()
-        f.name:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+        f.name:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
         f.name:SetTextColor(1, 1, 1, 1)
         f.name:SetText(L["装备记录通知"])
         f.name:SetPoint("TOP", 0, -5)
@@ -212,6 +212,7 @@ BG.Init(function()
     f:RegisterEvent("ENCOUNTER_START")
     f:RegisterEvent("ENCOUNTER_END")
     f:SetScript("OnEvent", function(self, event, bossID, _, _, _, success)
+        -- pt(bossID)
         local FB = BG.FB2
         if not FB then return end
         if event == "ENCOUNTER_START" then
@@ -237,7 +238,7 @@ BG.Init(function()
                         numb = _numb
                         lasttime = GetTime()
                         start = nil
-                        BiaoGe[FB].raidRoster = { time = GetServerTime(), realm = GetRealmName(), roster = {} }
+                        BiaoGe[FB].raidRoster = { time = GetServerTime(), realm = BG.realmName, roster = {} }
                         for i, v in ipairs(BG.raidRosterInfo) do
                             tinsert(BiaoGe[FB].raidRoster.roster, v.name)
                         end
@@ -531,31 +532,21 @@ BG.Init(function()
                 if quality < BG.lootQuality[FB] then
                     return
                 end
-
-                if BG.IsMOP then
-                    -- 不记录牌子、宝石
-                    if typeID == 10 or typeID == 3 then
-                        return
-                    end
-                else
-                    if not BG.IsVanilla then
-                        -- WLK不记录图纸、牌子、宝石
-                        if typeID == 9 or typeID == 10 or typeID == 3 then
-                            return
-                        end
-                        -- 不记录ICC声望戒指
-                        if FB == "ICC" then
-                            for i = 2, 5 do
-                                if BG.Loot.ICC.Faction["1156:" .. i] then
-                                    for _, _itemId in ipairs(BG.Loot.ICC.Faction["1156:" .. i]) do
-                                        if itemID == _itemId then
-                                            return
-                                        end
-                                    end
+                -- 不记录ICC声望戒指
+                if FB == "ICC" then
+                    for i = 2, 5 do
+                        if BG.Loot.ICC.Faction["1156:" .. i] then
+                            for _, _itemId in ipairs(BG.Loot.ICC.Faction["1156:" .. i]) do
+                                if itemID == _itemId then
+                                    return
                                 end
                             end
                         end
                     end
+                end
+                -- 不记录牌子、宝石
+                if typeID == 10 or typeID == 3 then
+                    return
                 end
                 -- 过滤附魔分解的物品（例如：深渊水晶），subclassID==0 是60年代的附魔材料子分类
                 if typeID == 7 and (subclassID == 12 or subclassID == 0) then
@@ -610,20 +601,11 @@ BG.Init(function()
             AddLootItem(FB, numb, link, Texture, level, isHope, count, typeID, lootplayer)
             return
         end
-        -- 经典旧世的图纸、牌子、宝石记录到杂项
-        if BG.IsVanilla then
-            if typeID == 9 or typeID == 10 or typeID == 3 then
-                local numb = Maxb[FB] - 1
-                AddLootItem(FB, numb, link, Texture, level, isHope, count, typeID, lootplayer, nil, typeID == 9)
-                return
-            end
-        else
-            -- MOP、TOC的图纸记到杂项
-            if typeID == 9 then
-                local numb = Maxb[FB] - 1
-                AddLootItem(FB, numb, link, Texture, level, isHope, count, typeID, lootplayer, nil, typeID == 9)
-                return
-            end
+        -- 图纸记到杂项
+        if typeID == 9 then
+            local numb = Maxb[FB] - 1
+            AddLootItem(FB, numb, link, Texture, level, isHope, count, typeID, lootplayer, nil, typeID == 9)
+            return
         end
         -- TOC嘉奖宝箱通过读取掉落列表来记录装备
         if FB == "TOC" and itemID ~= 47242 then
@@ -657,7 +639,7 @@ BG.Init(function()
                 end
             end
         end
-        -- ICC小怪掉落
+        -- ICC小怪掉落总是记录到杂项
         if FB == "ICC" then
             for key, value in pairs(BG.Loot.ICC.H25.boss14) do
                 if itemID == value then
@@ -687,7 +669,6 @@ BG.Init(function()
 
     BG.RegisterEvent("CHAT_MSG_LOOT", LootItem)
 end)
-
 
 ----------一键分配装备给自己----------
 BG.Init2(function()
@@ -949,7 +930,7 @@ BG.Init2(function()
                     f:SetPoint("TOPLEFT", 15, -25)
 
                     local text = f:CreateFontString()
-                    text:SetFont(STANDARD_TEXT_FONT, 13, "OUTLINE")
+                    text:SetFont(BIAOGE_TEXT_FONT, 13, "OUTLINE")
                     text:SetPoint("BOTTOM", f, "TOP", 0, 2)
                     text:SetText(1)
                     text:SetTextColor(.5, .5, .5)
@@ -957,7 +938,7 @@ BG.Init2(function()
                     f:SetPoint("TOPLEFT", mainFrame.buttons[5], "BOTTOMLEFT", 0, -30)
 
                     local text = f:CreateFontString()
-                    text:SetFont(STANDARD_TEXT_FONT, 13, "OUTLINE")
+                    text:SetFont(BIAOGE_TEXT_FONT, 13, "OUTLINE")
                     text:SetPoint("BOTTOM", f, "TOP", 0, 2)
                     text:SetText((i - 1) / 5 + 1)
                     text:SetTextColor(.5, .5, .5)
@@ -965,7 +946,7 @@ BG.Init2(function()
                     f:SetPoint("TOPLEFT", mainFrame.buttons[i - 5], "TOPRIGHT", 5, 0)
 
                     local text = f:CreateFontString()
-                    text:SetFont(STANDARD_TEXT_FONT, 13, "OUTLINE")
+                    text:SetFont(BIAOGE_TEXT_FONT, 13, "OUTLINE")
                     text:SetPoint("BOTTOM", f, "TOP", 0, 2)
                     text:SetText((i - 1) / 5 + 1)
                     text:SetTextColor(.5, .5, .5)
@@ -980,7 +961,7 @@ BG.Init2(function()
                 f.icon = tex
 
                 local text = f:CreateFontString()
-                text:SetFont(STANDARD_TEXT_FONT, 13, "OUTLINE")
+                text:SetFont(BIAOGE_TEXT_FONT, 13, "OUTLINE")
                 text:SetPoint("TOPLEFT", 2, -1)
                 text:SetWidth(f:GetWidth() - 5)
                 text:SetJustifyH("LEFT")
@@ -988,7 +969,7 @@ BG.Init2(function()
                 f.nameText = text
 
                 local text = f:CreateFontString()
-                text:SetFont(STANDARD_TEXT_FONT, 13, "OUTLINE")
+                text:SetFont(BIAOGE_TEXT_FONT, 13, "OUTLINE")
                 text:SetPoint("BOTTOMLEFT", 2, 2)
                 text:SetWidth(f:GetWidth() - 5)
                 text:SetJustifyH("LEFT")
@@ -1110,6 +1091,7 @@ BG.Init2(function()
         bt:SetText(L["记录到表格"])
         bt:SetSize(bt:GetFontString():GetWidth() + 10, 25)
         bt:Hide()
+        bt.isSave = {}
         BG.saveLootButton = bt
         bt:SetScript("OnEnter", function(self)
             GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT", 0, 0)
@@ -1144,6 +1126,14 @@ BG.Init2(function()
             BG.ClickFBbutton(FB)
         end)
 
+        function BG.saveLootButton:AutoSave()
+            local guid = UnitGUID("target")
+            if not self.isSave[guid] then
+                self.isSave[guid] = true
+                self:Click()
+            end
+        end
+
         local isSend = {}
         function BG.badManLootFrameUpdate()
             if BG.badManLootFrame then
@@ -1174,7 +1164,7 @@ BG.Init2(function()
                     f:SetSize(1, 1)
                     f:SetPoint("TOPLEFT", parent, "TOPRIGHT", 2, 0)
                     local t = f:CreateFontString()
-                    t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+                    t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
                     t:SetPoint("TOPLEFT")
                     t:SetTextColor(1, 0, 0)
                     t:SetText(L["以下玩家无法分配装备：\n(已有CD或没进战斗)"])
@@ -1185,7 +1175,7 @@ BG.Init2(function()
                     for name, colorName in pairs(list) do
                         count = count + 1
                         local t = f:CreateFontString()
-                        t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+                        t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
                         t:SetPoint("TOPLEFT", 0, -count * 20 - 15)
                         t:SetText(count .. L["、"] .. colorName)
                         tinsert(sendTbl, { count .. L["、"] .. name })
@@ -1268,6 +1258,7 @@ BG.Init2(function()
                     if npcID == _npcID then
                         BG.saveLootButton.bossIndex = index
                         BG.saveLootButton:Show()
+                        BG.saveLootButton:AutoSave()
                         BG.badManLootFrameUpdate()
                         break
                     end

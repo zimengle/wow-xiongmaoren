@@ -1,13 +1,10 @@
 -- Pawn by Vger-Azjol-Nerub
 -- www.vgermods.com
--- © 2006-2024 Travis Spomer.  This mod is released under the Creative Commons Attribution-NonCommercial-NoDerivs 3.0 license.
--- See Readme.htm for more information.
+-- © 2006-2026 Travis Spomer.  This mod is released under the Creative Commons Attribution-NonCommercial-NoDerivs 3.0 license.
+-- See Readme.md for more information.
 --
 -- Gem information (Burning Crusade Classic)
 ------------------------------------------------------------
-
-
-if VgerCore.IsBurningCrusade then
 
 
 --========================================
@@ -336,6 +333,7 @@ PawnMetaGemQualityLevels =
 	{ 0, PawnMetaGemData70Rare },
 }
 
-PawnMinimumItemLevelToConsiderGems = 100
+PawnCogwheelQualityLevels = nil
+PawnCrystalOfFearQualityLevels = nil
 
-end -- if VgerCore.IsBurningCrusade
+PawnMinimumItemLevelToConsiderGems = 100

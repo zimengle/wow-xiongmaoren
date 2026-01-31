@@ -1,10 +1,10 @@
 ## Interface: 50502, 50503
 ## Author: Aznamir, Dyaxler, Es, gallantron
-## Title: PallyPower Classic
-## Version: 3.4.5 谷风修复版
+## Title: PallyPower 美化版
+## Version: 3.4.8
 ## Notes: Raid/Party Paladin buffs
 ## Notes-esES: Buffs de Paladín para Grupo/Banda
-## Notes-zhCN: 圣骑士祝福管理
+## Notes-zhCN: 圣骑士祝福管理，谷风修复版，露露美化材质。
 ## DefaultState: enabled
 ## Dependencies:
 ## OptionalDeps: Ace3, LibSharedMedia-3.0, SharedMedia

@@ -1,4 +1,3 @@
-
 ImmersionSetup = {
 ["strata"] = "MEDIUM",
 ["scale"] = 1,
@@ -15,9 +14,9 @@ ImmersionSetup = {
 ["titlescale"] = 1,
 ["flipshortcuts"] = false,
 ["boxlock"] = true,
-["titlelock"] = true,
-["boxpoint"] = "Bottom",
 ["delaydivisor"] = 15,
+["boxpoint"] = "Bottom",
+["titlelock"] = true,
 ["anidivisor"] = 1,
 ["inspect"] = "SHIFT",
 ["reset"] = "BACKSPACE",

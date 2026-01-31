@@ -101,7 +101,7 @@ function QuickChatfun.QuickBut_Jilu()
 			-- 	end
 			-- end
 			-- if #v==0 then
-			-- 	table.clear(miyushuju[2],k)
+			-- 	wipe(miyushuju[2],k)
 			-- end
 		end
 		for x=#miyushuju[1],1,-1 do
@@ -244,7 +244,7 @@ function QuickChatfun.QuickBut_Jilu()
 		PIG_PlaySoundFile(AudioData[PIGA["Chatjilu"]["WHISPER"]["AudioID"]])
 	end)
 	---重置密语记录
-	miyijiluF.shezhiF.MIYUJILUBUT = PIGButton(miyijiluF.shezhiF, {"BOTTOMLEFT",miyijiluF.shezhiF,"BOTTOMLEFT",30,10},{76,20},L["ERROR_CLEAR"]..GUILD_BANK_LOG);  
+	miyijiluF.shezhiF.MIYUJILUBUT = PIGButton(miyijiluF.shezhiF, {"BOTTOMLEFT",miyijiluF.shezhiF,"BOTTOMLEFT",30,10},{76,20},KEY_NUMLOCK_MAC..L["RECORD"]);  
 	miyijiluF.shezhiF.MIYUJILUBUT:SetScript("OnClick", function ()
 		StaticPopup_Show("CHONGZHI_MIYUJILU");
 	end);
@@ -514,14 +514,14 @@ function QuickChatfun.QuickBut_Jilu()
 			if self.name.Xlx=="BN_2" then
 				local _,bnetIDAccount=PIG_GetbetIDName(self.name.X)
 				local displayName = BNGetDisplayName(bnetIDAccount);
-				ChatFrame_SendBNetTell(displayName)
+				PIGSendBNetTell(displayName)
 			else
 				local nameyc1, nameyc2 = strsplit("-", nameinfo)
 				if nameyc2 and nameyc2==PIG_OptionsUI.Realm then
 					nameinfo=nameyc1;
 				end
 				if button=="LeftButton" then
-					ChatFrame_SendTell(nameinfo.." ".. ChatEdit_ChooseBoxForSend():GetText(), DEFAULT_CHAT_FRAME);
+					PIGSendTell(nameinfo.." ".. ChatEdit_ChooseBoxForSend():GetText(), DEFAULT_CHAT_FRAME);
 				elseif button=="RightButton" then
 					miyijiluF.RGN:ClearAllPoints();
 					miyijiluF.RGN:SetPoint("TOPLEFT",self,"BOTTOMLEFT",0,0);
@@ -786,7 +786,7 @@ function QuickChatfun.QuickBut_Jilu()
 	ChatRecordF.baocuntianchu:Hide()
 	ChatRecordF.tianshuxiala:Hide()
 
-	ChatRecordF.qingkong = PIGButton(ChatRecordF,{"TOPRIGHT",ChatRecordF,"TOPRIGHT",-40,-24},{90,22},L["ERROR_CLEAR"]..GUILD_BANK_LOG);
+	ChatRecordF.qingkong = PIGButton(ChatRecordF,{"TOPRIGHT",ChatRecordF,"TOPRIGHT",-40,-24},{90,22},KEY_NUMLOCK_MAC..GUILD_BANK_LOG);
 	ChatRecordF.qingkong:SetFrameLevel(ChatRecordF.qingkong:GetFrameLevel()+5)
 	ChatRecordF.qingkong:SetScript("OnClick", function (self)
 		StaticPopup_Show ("QINGKONGLIAOTIANJILU");

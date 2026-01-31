@@ -49,14 +49,14 @@ local function CheckSameName(frame, realmID, player)
     --         end
     --         if #tbl > 1 then
     --             local t = frame:CreateFontString()
-    --             t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+    --             t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
     --             t:SetPoint("RIGHT", frame, "LEFT", -15, 0)
     --             t:SetTextColor(1, 0, 0)
     --             t:SetText(L["角色重复"])
 
     --             if not BG.FBCDFrame.errText then
     --                 local t = frame:CreateFontString()
-    --                 t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+    --                 t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
     --                 t:SetPoint("BOTTOM", BG.FBCDFrame, "TOP", 0, 0)
     --                 t:SetTextColor(1, 0, 0)
     --                 t:SetText(L["你部分角色存在重复（同一个角色存在于多个子账号）。请你登录曾经复制过配置的账号，在表格设置-角色配置里面删掉重复角色。"])
@@ -73,11 +73,11 @@ local function SetFactionText(f, FBCDchoice_table, text_table, info, ii, height,
         (FBCDchoice_table[ii].width + text_table[ii]:GetWidth() / 2),
         (-16 - height * n))
     if info.standingID == 8 then
-        t:SetFont(STANDARD_TEXT_FONT, fontsize, "OUTLINE")
+        t:SetFont(BIAOGE_TEXT_FONT, fontsize, "OUTLINE")
         t:SetTextColor(0, 1, 0)
         t:SetText(_G["FACTION_STANDING_LABEL" .. info.standingID])
     else
-        t:SetFont(STANDARD_TEXT_FONT, 9, "OUTLINE")
+        t:SetFont(BIAOGE_TEXT_FONT, 9, "OUTLINE")
         local infoText = format("%s\n%s",
             _G["FACTION_STANDING_LABEL" .. info.standingID],
             info.currentValue)
@@ -138,7 +138,7 @@ function BG.SortRoleOverview(newTbl)
         end
         return false
     end)
-    if isVIP and BG.BiaoGeVIPVerNum and BG.BiaoGeVIPVerNum >= 10140 then
+    if isVIP and ns.isVIP then
         local tbl = {}
         for _, vv in ipairs(BiaoGeVIP.RoleOverviewSort[realmID]) do
             for i, v in ipairs(newTbl) do
@@ -180,7 +180,7 @@ function BG.SetFBCD(self, position, click, refresh)
     BG.UpdateFBCD()
     BG.UpdateXP()
 
-    local isVIP = BG.BiaoGeVIPVerNum and BG.BiaoGeVIPVerNum >= 10170
+    local isVIP = ns.isVIP
 
     local height = 20
     local width_jiange = 5
@@ -338,7 +338,7 @@ function BG.SetFBCD(self, position, click, refresh)
     local FBCDTitle
     do
         local t = f:CreateFontString()
-        t:SetFont(STANDARD_TEXT_FONT, fontsize2, "OUTLINE")
+        t:SetFont(BIAOGE_TEXT_FONT, fontsize2, "OUTLINE")
         t:SetPoint("TOPLEFT", 15, -10 - (n - 1) * height)
         t:SetText(BG.STC_g1(L["< 角色团本完成总览 >"]))
         t:SetJustifyH("LEFT")
@@ -394,7 +394,7 @@ function BG.SetFBCD(self, position, click, refresh)
         end
         for i, v in ipairs(FBCDchoice_table) do
             local t = f:CreateFontString()
-            t:SetFont(STANDARD_TEXT_FONT, fontsize, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, fontsize, "OUTLINE")
             if i == 1 then
                 t:SetPoint("TOPLEFT", f, "TOPLEFT", 15, -10 - height * n)
             elseif i == 2 then
@@ -512,7 +512,7 @@ function BG.SetFBCD(self, position, click, refresh)
             local bt = CreateFrame("Button", nil, BG.FBCDFrame)
             bt:SetPoint("TOPLEFT", BG.FBCDFrame, "TOPLEFT", FBCDchoice_table[1].width, -7 - height * n)
             local t = bt:CreateFontString()
-            t:SetFont(STANDARD_TEXT_FONT, fontsize, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, fontsize, "OUTLINE")
             t:SetPoint("LEFT")
             t:SetText(talentText .. realmName .. colorplayer .. " |cff808080(" .. Round(iLevel, 0) .. ")|r")
             bt.width = t:GetWidth()
@@ -591,11 +591,11 @@ function BG.SetFBCD(self, position, click, refresh)
                                     (FBCDchoice_table[ii].width + text_table[ii]:GetWidth() / 2),
                                     (-16 - height * n))
                                 if v.ready then
-                                    t:SetFont(STANDARD_TEXT_FONT, fontsize, "OUTLINE")
+                                    t:SetFont(BIAOGE_TEXT_FONT, fontsize, "OUTLINE")
                                     t:SetTextColor(0, 1, 0)
                                     t:SetText(READY)
                                 else
-                                    t:SetFont(STANDARD_TEXT_FONT, fontsize0, "OUTLINE")
+                                    t:SetFont(BIAOGE_TEXT_FONT, fontsize0, "OUTLINE")
                                     t:SetTextColor(1, .82, 0)
                                     t:SetText(BG.SecondsToTime(v.resettime))
                                 end
@@ -640,7 +640,7 @@ function BG.SetFBCD(self, position, click, refresh)
 
         if num == 1 then
             local t = BG.FBCDFrame:CreateFontString()
-            t:SetFont(STANDARD_TEXT_FONT, fontsize, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, fontsize, "OUTLINE")
             t:SetPoint("TOPLEFT", BG.FBCDFrame, "TOPLEFT", FBCDchoice_table[1].width, -10 - height * n)
             t:SetText(BG.STC_dis(L["当前没有满级角色"]))
             n = n + 1
@@ -662,7 +662,7 @@ function BG.SetFBCD(self, position, click, refresh)
         n = n + 1
 
         local t = f:CreateFontString()
-        t:SetFont(STANDARD_TEXT_FONT, fontsize2, "OUTLINE")
+        t:SetFont(BIAOGE_TEXT_FONT, fontsize2, "OUTLINE")
         t:SetPoint("TOPLEFT", left, -10 - height * n)
         t:SetText(BG.STC_g1(L["< 角色货币总览 >"]))
         t:SetJustifyH("LEFT")
@@ -796,7 +796,7 @@ function BG.SetFBCD(self, position, click, refresh)
         local right
         for i, v in ipairs(MONEYchoice_table) do
             local t = f:CreateFontString()
-            t:SetFont(STANDARD_TEXT_FONT, fontsize, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, fontsize, "OUTLINE")
             if i == 1 then
                 t:SetPoint("TOPLEFT", left, -10 - height * n)
                 t:SetJustifyH("LEFT")
@@ -897,7 +897,7 @@ function BG.SetFBCD(self, position, click, refresh)
             local bt = CreateFrame("Button", nil, BG.FBCDFrame)
             bt:SetPoint("TOPLEFT", BG.FBCDFrame, "TOPLEFT", left, -7 - height * n)
             local t = bt:CreateFontString()
-            t:SetFont(STANDARD_TEXT_FONT, fontsize, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, fontsize, "OUTLINE")
             t:SetPoint("LEFT")
             t:SetText(talentText .. realmName .. colorplayer .. levelText)
             bt.width = t:GetWidth()
@@ -922,7 +922,7 @@ function BG.SetFBCD(self, position, click, refresh)
                     countString = BG.FormatNumber(count) .. " " .. AddTexture(vv.tex)
                 end
                 local t_paizi = f:CreateFontString()
-                t_paizi:SetFont(STANDARD_TEXT_FONT, fontsize, "OUTLINE")
+                t_paizi:SetFont(BIAOGE_TEXT_FONT, fontsize, "OUTLINE")
                 local width
                 if ii == 2 then
                     width = MONEYchoice_table[ii - 1].width + MONEYchoice_table[ii].width
@@ -995,7 +995,7 @@ function BG.SetFBCD(self, position, click, refresh)
             if Size(copyTbl1) ~= 0 then
                 local right
                 local t_name = f:CreateFontString()
-                t_name:SetFont(STANDARD_TEXT_FONT, fontsize, "OUTLINE")
+                t_name:SetFont(BIAOGE_TEXT_FONT, fontsize, "OUTLINE")
                 t_name:SetPoint("TOPLEFT", left, -10 - height * n)
                 t_name:SetText(L["合计"])
                 right = t_name
@@ -1005,7 +1005,7 @@ function BG.SetFBCD(self, position, click, refresh)
                     local id = vv.id
                     local count = BG.FormatNumber(GetCount(sum, id, vv.type)) .. " " .. AddTexture(vv.tex) -- 牌子
                     local t_paizi = f:CreateFontString()
-                    t_paizi:SetFont(STANDARD_TEXT_FONT, fontsize, "OUTLINE")
+                    t_paizi:SetFont(BIAOGE_TEXT_FONT, fontsize, "OUTLINE")
                     local width
                     if ii == 2 then
                         width = MONEYchoice_table[ii - 1].width + MONEYchoice_table[ii].width

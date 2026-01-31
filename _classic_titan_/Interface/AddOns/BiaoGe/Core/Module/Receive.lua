@@ -66,7 +66,7 @@ function BG.ReceiveUI()
 
         local TitleText = BG.ReceiveMainFrame:CreateFontString()
         TitleText:SetPoint("TOP", BG.ReceiveMainFrame, "TOP", 0, -10)
-        TitleText:SetFont(STANDARD_TEXT_FONT, 16, "OUTLINE")
+        TitleText:SetFont(BIAOGE_TEXT_FONT, 16, "OUTLINE")
         BG.ReceiveMainFrameTitle = TitleText
 
         local l = BG.ReceiveMainFrame:CreateLine()
@@ -107,8 +107,10 @@ function BG.ReceiveUI()
                     money:SetText(BG.ReceiveBiaoGe["boss" .. b]["jine" .. i] or "")
                     if BG.Frame[FB]["boss" .. b]["time"] then
                         local t = BG.ReceiveBiaoGe["boss" .. b]["time"]
-                        BG.Frame[FB]["boss" .. b]["time"]:SetText(L["击杀用时"] .. " " .. t)
-                        BiaoGe[FB]["boss" .. b]["time"] = t
+                        if t then
+                            BG.Frame[FB]["boss" .. b]["time"]:SetText(L["击杀用时"] .. " " .. t)
+                            BiaoGe[FB]["boss" .. b]["time"] = t
+                        end
                     end
                 end, nil, true, FB)
                 BG.ReceiveMainFrame:Hide()
@@ -164,7 +166,7 @@ function BG.ReceiveUI()
 
         local text = BG.ReceiveMainFrame:CreateFontString()
         text:SetPoint("LEFT", bt, "RIGHT", 10, 0)
-        text:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+        text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
         text:SetTextColor(0, 1, 0)
         BG.ReceiveMainFrametext = text
 

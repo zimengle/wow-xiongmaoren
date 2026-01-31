@@ -1,4 +1,3 @@
-
 Blizzard_CompactRaidFrameManager_FilterOptions = {
 true,
 true,

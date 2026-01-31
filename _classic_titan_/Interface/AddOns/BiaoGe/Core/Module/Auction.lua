@@ -38,9 +38,16 @@ BG.Init(function()
         end)
         BiaoGe.Auction.money = BiaoGe.Auction.money or 1000
         BiaoGe.Auction.fastMoney = BiaoGe.Auction.fastMoney or { 300, 500, 1000, 2000, 3000 }
-    else
+    elseif BG.IsWLK then
         BiaoGe.Auction.money = BiaoGe.Auction.money or 1000
         BiaoGe.Auction.fastMoney = BiaoGe.Auction.fastMoney or { 1000, 2000, 3000, 5000, 10000 }
+    else
+        BG.Once("fastMoney", 260110, function()
+            BiaoGe.Auction.money = nil
+            BiaoGe.Auction.fastMoney = nil
+        end)
+        BiaoGe.Auction.money = BiaoGe.Auction.money or 10000
+        BiaoGe.Auction.fastMoney = BiaoGe.Auction.fastMoney or { 10000, 20000, 30000, 50000, 100000 }
     end
 
     local sending = {}
@@ -208,9 +215,6 @@ BG.Init(function()
                     -- if titleString:match("Loaded/Standby") or titleString:match("已载入") then
                     local tbl = { header:GetParent():GetChildren() }
                     for i, bt in ipairs(tbl) do
-                        -- if bt.id and bt.id:find("BiaoGe") then
-                        --     pt(bt.id, WeakAuras.IsAuraLoaded(bt.id), bt:GetPoint(1))
-                        -- end
                         if bt.id and WeakAuras.IsAuraLoaded(bt.id) then
                             local ver = bt.id:match("<BiaoGe>拍卖%s-v(%d+%.%d+)")
                             if ver then
@@ -333,7 +337,9 @@ BG.Init(function()
             end
         end
         local function Start_OnClick(self)
-            BG.PlaySound(1)
+            if not self.noSound then
+                BG.PlaySound(1)
+            end
             local mod = BiaoGe.Auction.mod
             if mod == "roll" then
                 if #self.items > 1 then
@@ -354,7 +360,7 @@ BG.Init(function()
                             money .. "," .. duration .. ",," .. mod .. "," .. link
                         C_ChatInfo.SendAddonMessage("BiaoGeAuction", text, "RAID")
                     end)
-                    t = t + 0.2
+                    t = t + 0.8
                 end
             end
             self:GetParent():Hide()
@@ -389,6 +395,25 @@ BG.Init(function()
             GameTooltip:AddLine(L["最后20秒有人出价时，拍卖时间会重置到20秒"], 1, 0.82, 0, true)
             GameTooltip:Show()
         end
+        local matchStr = ITEM_CLASSES_ALLOWED:gsub("%%s", "")
+        function BG.GetTooltipClassText(itemID)
+            BG.Tooltip_SetItemByID(itemID)
+            for i = 1, BiaoGeTooltip:NumLines() do
+                local str = _G["BiaoGeTooltipTextLeft" .. i]:GetText()
+                if str then
+                    local classStr = str:match(matchStr .. "(.+)")
+                    if classStr then
+                        local colorCls = ""
+                        for _, className in ipairs({ strsplit(",", classStr) }) do
+                            className = className:gsub("^%s+", "")
+                            colorCls = colorCls .. (BG.classColorNames[className] or className) .. "  "
+                        end
+                        return colorCls
+                    end
+                end
+            end
+            return ""
+        end
 
         local function UpdateFrame()
             local mainFrame = BG.StartAucitonFrame
@@ -421,7 +446,7 @@ BG.Init(function()
             end
         end
 
-        function BG.StartAuction(link, bt, isNotAuctioned, notAlt, isRightButton)
+        function BG.StartAuction(link, bt, isNotAuctioned, notAlt, isRightButton, noSound)
             if BiaoGe.options["autoAuctionStart"] ~= 1 and not notAlt then return end
             if not link then return end
             if not BG.IsML then return end
@@ -561,14 +586,14 @@ BG.Init(function()
                     ftex.tex:SetTexCoord(0.1, 0.9, 0.1, 0.9)
                     -- 装备等级
                     local t = ftex:CreateFontString()
-                    t:SetFont(STANDARD_TEXT_FONT, 12, "OUTLINE")
+                    t:SetFont(BIAOGE_TEXT_FONT, 12, "OUTLINE")
                     t:SetPoint("BOTTOM", ftex, "BOTTOM", 0, 1)
                     t:SetText(level)
                     t:SetTextColor(r, g, b)
                     -- 装绑
                     if bindType == 2 then
                         local t = ftex:CreateFontString()
-                        t:SetFont(STANDARD_TEXT_FONT, 11, "OUTLINE")
+                        t:SetFont(BIAOGE_TEXT_FONT, 11, "OUTLINE")
                         t:SetPoint("TOP", ftex, 0, -2)
                         t:SetText(L["装绑"])
                         t:SetTextColor(0, 1, 0)
@@ -578,26 +603,28 @@ BG.Init(function()
                 if #items == 1 then
                     -- 装备名称
                     local t = f:CreateFontString()
-                    t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+                    t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
                     t:SetPoint("TOPLEFT", icons[1], "TOPRIGHT", 2, -2)
                     t:SetWidth(f:GetWidth() - f:GetHeight() - 10)
                     t:SetText(link:gsub("%[", ""):gsub("%]", ""))
                     t:SetJustifyH("LEFT")
                     t:SetWordWrap(false)
+                    local itemNameText = t
                     -- 装备类型
                     local t = f:CreateFontString()
-                    t:SetFont(STANDARD_TEXT_FONT, 12, "OUTLINE")
+                    t:SetFont(BIAOGE_TEXT_FONT, 12, "OUTLINE")
                     t:SetPoint("BOTTOMLEFT", icons[1], "BOTTOMRIGHT", 2, 1)
                     t:SetHeight(12)
-
+                    t:SetWidth(itemNameText:GetWidth())
+                    local classText = BG.GetTooltipClassText(items[1].id) or ""
                     if _G[itemEquipLoc] then
                         if classID == 2 then
-                            t:SetText(itemSubType)
+                            t:SetText(itemSubType .. "  " .. classText)
                         else
-                            t:SetText(_G[itemEquipLoc] .. " " .. itemSubType)
+                            t:SetText(_G[itemEquipLoc] .. " " .. itemSubType .. "  " .. classText)
                         end
                     else
-                        t:SetText("")
+                        t:SetText(classText)
                     end
                     t:SetJustifyH("LEFT")
                 end
@@ -607,7 +634,7 @@ BG.Init(function()
             -- 起拍价、拍卖时长
             do
                 local t = mainFrame:CreateFontString()
-                t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+                t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
                 t:SetSize(width, 20)
                 t:SetPoint("TOPLEFT", mainFrame.itemFrame, "BOTTOMLEFT", 8, -2)
                 t:SetJustifyH("LEFT")
@@ -630,7 +657,7 @@ BG.Init(function()
                 mainFrame.Edit1 = edit
 
                 local t = f:CreateFontString()
-                t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+                t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
                 t:SetSize(width, 20)
                 t:SetPoint("TOPLEFT", mainFrame.Text1, "BOTTOMLEFT", 0, -20)
                 t:SetJustifyH("LEFT")
@@ -655,7 +682,7 @@ BG.Init(function()
             -- 拍卖模式
             do
                 local t = f:CreateFontString()
-                t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+                t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
                 t:SetSize(width, 20)
                 t:SetJustifyH("LEFT")
                 t:SetText(L["|cffFFD100拍卖模式|r"])
@@ -692,6 +719,7 @@ BG.Init(function()
                 local bt = BG.CreateButton(mainFrame)
                 bt:SetSize(width + 19, 25)
                 bt.items = items
+                bt.noSound = noSound
                 mainFrame.bt = bt
                 bt:SetScript("OnClick", Start_OnClick)
                 bt:SetScript("OnEnter", Start_OnEnter)
@@ -731,6 +759,7 @@ BG.Init(function()
 
                 local buttons = {}
                 local function CreateButton()
+                    local money = BiaoGe.Auction.fastMoney[#buttons + 1]
                     local bt = CreateFrame("Button", nil, mainFrame.fastMoneyFrame)
                     bt:SetSize(50, 20)
                     if #buttons == 0 then
@@ -741,21 +770,19 @@ BG.Init(function()
                     if BiaoGe.Auction.fastMoney[#buttons + 1] == "" then
                         bt:Hide()
                     end
+                    bt.money = money
                     local t = bt:CreateFontString()
-                    t:SetFont(STANDARD_TEXT_FONT, 10, "OUTLINE")
+                    t:SetFont(BIAOGE_TEXT_FONT, 10, "OUTLINE")
                     t:SetWidth(bt:GetWidth())
                     t:SetPoint("CENTER")
-                    t:SetText(20000)
-                    t:SetText(BiaoGe.Auction.fastMoney[#buttons + 1])
+                    t:SetText(BG.FormatNumber(money, 2))
                     t:SetTextColor(1, 0.82, 0)
                     t:SetWordWrap(false)
                     bt:SetFontString(t)
                     tinsert(buttons, bt)
                     bt:SetScript("OnClick", function(self)
-                        BG.PlaySound(1)
-                        local money = bt:GetText()
-                        mainFrame.Edit2:SetText(money)
-                        BiaoGe.Auction.money = money
+                        mainFrame.Edit2:SetText(self.money)
+                        BiaoGe.Auction.money = self.money
                         Start_OnClick(mainFrame.bt)
                     end)
                     bt:SetScript("OnEnter", function(self)
@@ -819,7 +846,7 @@ BG.Init(function()
             guild:SetScript("OnEnter", Guild_OnEnter)
             guild:SetScript("OnLeave", GameTooltip_Hide)
             guild.text = guild:CreateFontString()
-            guild.text:SetFont(STANDARD_TEXT_FONT, 13, "OUTLINE")
+            guild.text:SetFont(BIAOGE_TEXT_FONT, 13, "OUTLINE")
             guild.text:SetPoint("LEFT")
             guild.text:SetTextColor(RGB(BG.g1))
             BG.ButtonGuildVer = guild
@@ -842,7 +869,7 @@ BG.Init(function()
                 self.isOnEnter = false
             end)
             addon.text = addon:CreateFontString()
-            addon.text:SetFont(STANDARD_TEXT_FONT, 13, "OUTLINE")
+            addon.text:SetFont(BIAOGE_TEXT_FONT, 13, "OUTLINE")
             addon.text:SetPoint("LEFT")
             addon.text:SetTextColor(RGB(BG.g1))
             BG.ButtonRaidVer = addon
@@ -868,7 +895,7 @@ BG.Init(function()
                 SendWACode()
             end)
             auction.text = auction:CreateFontString()
-            auction.text:SetFont(STANDARD_TEXT_FONT, 13, "OUTLINE")
+            auction.text:SetFont(BIAOGE_TEXT_FONT, 13, "OUTLINE")
             auction.text:SetPoint("LEFT")
             auction.text:SetTextColor(RGB(BG.g1))
             BG.ButtonRaidAuction = auction
@@ -1016,7 +1043,7 @@ BG.Init(function()
         -- 关注
         if not f.itemFrame2.guanzhu then
             local t = f.itemFrame2:CreateFontString()
-            t:SetFont(STANDARD_TEXT_FONT, 12, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, 12, "OUTLINE")
             t:SetPoint("LEFT", f.itemFrame2.itemTypeText, "RIGHT", 2, 0)
             t:SetText(L["<关注>"])
             t:SetTextColor(RGB(BG.b1))
@@ -1042,7 +1069,7 @@ BG.Init(function()
         -- 心愿
         if not f.itemFrame2.hope then
             local t = f.itemFrame2:CreateFontString()
-            t:SetFont(STANDARD_TEXT_FONT, 12, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, 12, "OUTLINE")
             t:SetPoint("LEFT", f.itemFrame2.guanzhu, "RIGHT", 2, 0)
             t:SetText(L["<心愿>"])
             t:SetTextColor(0, 1, 0)
@@ -1334,7 +1361,7 @@ BG.Init(function()
                     edit:EnableMouse(true)
                     edit:SetTextInsets(5, 20, 5, 10)
                     edit:SetMultiLine(true)
-                    edit:SetFont(STANDARD_TEXT_FONT, 13, "OUTLINE")
+                    edit:SetFont(BIAOGE_TEXT_FONT, 13, "OUTLINE")
                     edit:SetText(wa)
                     edit:HighlightText()
                     edit:SetCursorPosition(0)

@@ -1,4 +1,3 @@
-
 BFWC_Filter_SavedConfigs_G = {
 ["blocklist"] = {
 "蓝鲸揉一巴",

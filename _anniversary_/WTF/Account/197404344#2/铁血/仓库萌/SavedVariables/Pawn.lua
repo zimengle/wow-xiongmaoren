@@ -1,6 +1,8 @@
 
 PawnOptions = {
 ["LastVersion"] = 2.1301,
+["LastPlayerFullName"] = "仓库萌-铁血",
+["AutoSelectScales"] = false,
 ["ItemLevels"] = {
 [16] = {
 ["ID"] = 25,
@@ -18,8 +20,6 @@ PawnOptions = {
 ["Link"] = "|cff9d9d9d|Hitem:2362::::::::1::::::::::|h[用旧的木盾]|h|r",
 },
 },
-["LastPlayerFullName"] = "仓库萌-铁血",
-["AutoSelectScales"] = false,
 }
 PawnMrRobotScaleProviderOptions = nil
 PawnClassicScaleProviderOptions = {

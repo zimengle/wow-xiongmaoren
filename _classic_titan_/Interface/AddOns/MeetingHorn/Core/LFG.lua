@@ -30,7 +30,7 @@ local function isMoreThan24Hours(time1, time2)
     end
     local differenceInSeconds = math.abs(time1 - time2)
     local hoursDifference = differenceInSeconds / (60 * 60)
-    return hoursDifference > 24
+    return hoursDifference < 24
 end
 
 function LFG:OnEnable()

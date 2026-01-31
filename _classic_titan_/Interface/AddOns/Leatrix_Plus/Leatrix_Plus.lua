@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 3.80.03
+-- 	Leatrix Plus 3.80.04
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -19,7 +19,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "3.80.03"
+	LeaPlusLC["AddonVer"] = "3.80.04"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -1605,7 +1605,12 @@
 					tDelay = GetTime()
 					if GetCVarBool("autoLootDefault") ~= IsModifiedClick("AUTOLOOTTOGGLE") then
 						if TSMDestroyBtn and TSMDestroyBtn:IsShown() and TSMDestroyBtn:GetButtonState() == "DISABLED" then tDelay = GetTime() return end
-						local lootMethod = GetLootMethod()
+						local lootMethod = nil
+						if C_PartyInfo and C_PartyInfo.GetLootMethod then
+							lootMethod = select(1, C_PartyInfo.GetLootMethod())
+						elseif GetLootMethod then
+							lootMethod = select(1, GetLootMethod())
+						end
 						if lootMethod == "master" then
 							-- Master loot is enabled so fast loot if item should be auto looted
 							local lootThreshold = GetLootThreshold()
@@ -12776,13 +12781,15 @@
 			if (LeaPlusLC["AcceptPartyFriends"] == "On" and LeaPlusLC:FriendCheck(arg1, guid)) then
 				if not LeaPlusLC:IsInLFGQueue() then
 					AcceptGroup()
-					for i=1, STATICPOPUP_NUMDIALOGS do
-						if _G["StaticPopup"..i].which == "PARTY_INVITE" then
-							_G["StaticPopup"..i].inviteAccepted = 1
+					local numDialogs = STATICPOPUP_NUMDIALOGS or 4
+					for i=1, numDialogs do
+						local popup = _G["StaticPopup"..i]
+						if popup and popup.which == "PARTY_INVITE" then
+							popup.inviteAccepted = 1
 							StaticPopup_Hide("PARTY_INVITE")
 							break
-						elseif _G["StaticPopup"..i].which == "PARTY_INVITE_XREALM" then
-							_G["StaticPopup"..i].inviteAccepted = 1
+						elseif popup and popup.which == "PARTY_INVITE_XREALM" then
+							popup.inviteAccepted = 1
 							StaticPopup_Hide("PARTY_INVITE_XREALM")
 							break
 						end

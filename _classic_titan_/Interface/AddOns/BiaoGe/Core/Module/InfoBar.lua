@@ -22,7 +22,7 @@ local Maxb = ns.Maxb
 local pt = print
 local realmID = GetRealmID()
 local player = BG.playerName
-local realmName = GetRealmName()
+local realmName = BG.realmName
 
 --最后更新时间：25/6/23 10:25
 local AFDtbl_360 = {
@@ -678,7 +678,7 @@ BG.Init(function()
             end
 
             local t = self.child:CreateFontString()
-            t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             t:SetText(text)
             t:SetWidth(f:GetWidth() - w * 3)
             if not next(self.texts) then

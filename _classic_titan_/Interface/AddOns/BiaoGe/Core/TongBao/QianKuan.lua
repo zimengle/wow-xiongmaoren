@@ -142,7 +142,7 @@ function BG.QianKuanUI(lastbt)
 end
 
 -- 欠款者移到78队
-do
+BG.Init(function()
     local bt
     local qkPlayers
     local function IsLeader()
@@ -256,12 +256,12 @@ do
         if not CanMove() then return end
         BG.After((Move78() and .5 or 0), Move16)
     end
-
+    
     bt = BG.CreateButton(RaidFrame)
-    bt:SetSize(120, 25)
+    bt:SetSize(90, 25)
     bt:SetPoint("TOPRIGHT", FriendsFrame, "BOTTOMRIGHT", -2, -2)
-    bt:SetText(L["欠款者移到78队"])
-    bt:Hide()
+    bt:SetText(L["移动欠款者"])
+    bt:SetShown(IsInRaid(1) and IsLeader())
     bt:SetScript("OnClick", function(self)
         if qkPlayers then
             self:SetEnabled(false)
@@ -273,7 +273,7 @@ do
         qkPlayers = nil
         GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT", 0, 0)
         GameTooltip:ClearLines()
-        GameTooltip:AddLine(self:GetText(), 1, 1, 1, true)
+        GameTooltip:AddLine(L["把欠款者移到78队"], 1, 1, 1, true)
         if not IsInRaid(1) then
             GameTooltip:AddLine(L["不在团队，该功能无法使用。"], 1, 0, 0, true)
             GameTooltip:Show()
@@ -315,7 +315,9 @@ do
     end)
     bt:SetScript("OnLeave", GameTooltip_Hide)
 
-    RaidFrame:HookScript("OnShow", function(self)
-        bt:SetShown(IsInRaid(1) and IsLeader())
+    BG.RegisterEvent("GROUP_ROSTER_UPDATE", function()
+        BG.After(0.5, function()
+            bt:SetShown(IsInRaid(1) and IsLeader())
+        end)
     end)
-end
+end)

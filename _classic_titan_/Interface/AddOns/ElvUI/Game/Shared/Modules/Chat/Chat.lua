@@ -76,9 +76,13 @@ local GetChannelRulesetForChannelID = C_ChatInfo.GetChannelRulesetForChannelID
 local GetChannelShortcutForChannelID = C_ChatInfo.GetChannelShortcutForChannelID
 local IsChannelRegionalForChannelID = C_ChatInfo.IsChannelRegionalForChannelID
 
-local IsRecentAllyByGUID = C_RecentAllies and C_RecentAllies.IsRecentAllyByGUID
 local GetTitleIconTexture = C_Texture.GetTitleIconTexture
-local GetClientTexture = _G.BNet_GetClientEmbeddedAtlas or _G.BNet_GetClientEmbeddedTexture
+local IsRecentAllyByGUID = C_RecentAllies and C_RecentAllies.IsRecentAllyByGUID
+local GetClientTexture = BNet_GetClientEmbeddedAtlas or BNet_GetClientEmbeddedTexture
+
+local ShouldColorChatByClass = (ChatFrameUtil and ChatFrameUtil.ShouldColorChatByClass) or Chat_ShouldColorChatByClass
+local GetMentorChannelStatus = (ChatFrameUtil and ChatFrameUtil.GetMentorChannelStatus) or ChatFrame_GetMentorChannelStatus
+local GetChatCategory = (ChatFrameUtil and ChatFrameUtil.GetChatCategory) or Chat_GetChatCategory
 
 local TitleIconVersion_Small = Enum.TitleIconVersion and Enum.TitleIconVersion.Small
 local CHATCHANNELRULESET_MENTOR = Enum.ChatChannelRuleset and Enum.ChatChannelRuleset.Mentor
@@ -338,9 +342,10 @@ do --this can save some main file locals
 			z['Player-5813-0301DEC1']	= itsSimpy -- Warlock: Yubi
 			-- Simpy Era (5149: Mankrik)
 			z['Player-5149-04172B76']	= itsSimpy -- Warlock: Simpy
-			-- Simpy Anniversary (6103: Dreamscythe)
-			z['Player-6103-02A886D5']	= itsSimpy -- Warlock: Simpy
-			z['Player-6103-0301DECC']	= itsSimpy -- Priest: Hunie
+		elseif E.TBC then
+			-- Simpy TBC Anniversary (6064: Dreamscythe)
+			z['Player-6064-02A886D5']	= itsSimpy -- Warlock: Simpy
+			z['Player-6064-0301DECC']	= itsSimpy -- Priest: Hunie
 		elseif E.Mists then
 			-- Simpy (4385: Pagle)
 			z['Player-4385-05E5F6DF']	= itsSimpy -- Shaman:	Kybi
@@ -506,11 +511,6 @@ do --this can save some main file locals
 		end
 	elseif portal == 'EU' then
 		if E.Classic then
-			-- Luckyone Anniversary (6112: Spineshatter EU)
-			z['Player-6112-028A3A6D']	= ElvGreen -- [Horde] Hunter
-			z['Player-6112-02A2F754']	= ElvGreen -- [Horde] Priest
-			z['Player-6112-02A39E0E']	= ElvGreen -- [Horde] Warlock
-			z['Player-6112-02BBE8AB']	= ElvGreen -- [Horde] Hunter 2
 			-- Luckyone Seasonal (5827: Living Flame EU)
 			z['Player-5827-0273D732']	= ElvGreen -- [Alliance] Hunter
 			z['Player-5827-0273D63E']	= ElvGreen -- [Alliance] Paladin
@@ -529,6 +529,12 @@ do --this can save some main file locals
 			-- Luckyone Classic Era (5233: Firemaw)
 			z['Player-5233-01D22A72']	= ElvGreen -- [Horde] Hunter: Unluckyone
 			z['Player-5233-01D27011']	= ElvGreen -- [Horde] Druid: Luckydruid
+		elseif E.TBC then
+			-- Luckyone Anniversary (6412: Spineshatter EU)
+			z['Player-6412-028A3A6D']	= ElvGreen -- [Horde] Hunter
+			z['Player-6412-0336641F']	= ElvGreen -- [Horde] Priest
+			z['Player-6412-02A39E0E']	= ElvGreen -- [Horde] Warlock
+			z['Player-6412-02BBE8AB']	= ElvGreen -- [Horde] Hunter 2
 		elseif E.Mists then
 			-- Luckyone (Horde: Garalon, Alliance: Shek'zeer)
 			z['Player-4454-060E2FD9']	= ElvGreen -- [Horde] Mage
@@ -1915,7 +1921,6 @@ function CH:GetColoredName(event, _, arg2, _, _, _, _, _, arg8, _, _, _, arg12)
 	local name = Ambiguate(arg2, (chatType == 'GUILD' and 'guild') or 'none')
 
 	-- handle the class color
-	local ShouldColorChatByClass = _G.ChatFrameUtil and _G.ChatFrameUtil.ShouldColorChatByClass or _G.Chat_ShouldColorChatByClass
 	local info = name and arg12 and _G.ChatTypeInfo[chatType]
 	if info and ShouldColorChatByClass(info) then
 		local data = CH:GetPlayerInfoByGUID(arg12)
@@ -1968,7 +1973,6 @@ function CH:GetPFlag(specialFlag, zoneChannelID, unitGUID)
 	local flag = ''
 
 	if specialFlag ~= '' then
-		local GetMentorChannelStatus = (_G.ChatFrameUtil and _G.ChatFrameUtil.GetMentorChannelStatus) or _G.ChatFrame_GetMentorChannelStatus
 		if specialFlag == 'GM' or specialFlag == 'DEV' then
 			-- Add Blizzard Icon if this was sent by a GM/DEV
 			flag = [[|TInterface\ChatFrame\UI-ChatIcon-Blizz:12:20:0:0:32:16:4:28:0:16|t ]]
@@ -2019,7 +2023,11 @@ local function ChatFrame_CheckAddChannel(chatFrame, eventType, channelID)
 		return false
 	end
 
-	return _G.ChatFrame_AddChannel(chatFrame, GetChannelShortcutForChannelID(channelID)) ~= nil
+	if chatFrame.AddChannel then
+		return chatFrame:AddChannel(GetChannelShortcutForChannelID(channelID)) ~= nil
+	else
+		return _G.ChatFrame_AddChannel(chatFrame, GetChannelShortcutForChannelID(channelID)) ~= nil
+	end
 end
 
 -- Clone of FCFManager_GetChatTarget as it doesn't exist on Classic ERA
@@ -2285,8 +2293,6 @@ function CH:ChatFrame_MessageEventHandler(frame, event, arg1, arg2, arg3, arg4, 
 				end
 			end
 		end
-
-		local GetChatCategory = _G.ChatFrameUtil and _G.ChatFrameUtil.GetChatCategory or _G.Chat_GetChatCategory
 
 		local chatGroup = GetChatCategory(chatType)
 		local chatTarget = CH:FCFManager_GetChatTarget(chatGroup, arg2, arg8)
@@ -3866,9 +3872,15 @@ function CH:FCF_Close(fallback)
 	end
 
 	--Reset what this window receives.
-	_G.ChatFrame_RemoveAllChannels(self)
-	_G.ChatFrame_RemoveAllMessageGroups(self)
-	_G.ChatFrame_ReceiveAllPrivateMessages(self)
+	if self.RemoveAllMessageGroups then
+		self:RemoveAllMessageGroups()
+		self:RemoveAllChannels()
+		self:ReceiveAllPrivateMessages()
+	else
+		_G.ChatFrame_RemoveAllMessageGroups(self)
+		_G.ChatFrame_RemoveAllChannels(self)
+		_G.ChatFrame_ReceiveAllPrivateMessages(self)
+	end
 
 	CH:PostChatClose(self) -- also call this since it won't call from blizzard in this case
 end

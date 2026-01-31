@@ -38,7 +38,7 @@ local scannerTooltip = CreateFrame("GameTooltip", "BagSyncScannerTooltip", UIPar
 
 Scanner.currencyTransferInProgress = false
 Scanner.lastCurrencyID = 0
-Scanner.pendingdMail = {items={}}
+Scanner.pendingMail = {items={}}
 
 function Scanner:ResetTooltips()
 	--the true is to set it to silent and not return an error if not found
@@ -155,8 +155,11 @@ function Scanner:SaveBag(bagtype, bagid)
 	if not BSYC.tracking[bagtype] then return end
 	if not BSYC.db.player[bagtype] then BSYC.db.player[bagtype] = {} end
 
-	local xGetNumSlots = (C_Container and C_Container.GetContainerNumSlots) or GetContainerNumSlots
-	local xGetContainerInfo = (C_Container and C_Container.GetContainerItemInfo) or GetContainerItemInfo
+	-- CLEAR FIRST (important!)
+	BSYC.db.player[bagtype][bagid] = nil
+
+	local xGetNumSlots = BSYC.API.GetContainerNumSlots
+	local xGetContainerInfo = BSYC.API.GetContainerItemInfo
 
 	local numSlots = xGetNumSlots(bagid)
 
@@ -202,16 +205,42 @@ function Scanner:SaveEquippedBags(bagtype)
 
 	local slotItems = {}
 
-	--add the bag slots
-	local minCnt, maxCnt = self:GetBagSlots(bagtype)
+	-- add the bag slots (EQUIPPED bags only; do NOT include Backpack/container 0)
+	local minCnt, maxCnt
+
+	if bagtype == "bag" then
+		-- equipped bag containers are 1..4; backpack (0) is NOT an equipped bag slot
+		minCnt, maxCnt = Enum.BagIndex.Bag_1, Enum.BagIndex.Bag_4
+	else
+		-- bank equip bags stay based on GetBagSlots()
+		minCnt, maxCnt = self:GetBagSlots(bagtype)
+	end
+
+	-- sanity range for equipped bag inventory slots (Bag0Slot..Bag3Slot)
+	local bagInvMin, bagInvMax
+	if bagtype == "bag" then
+		bagInvMin = GetInventorySlotInfo("Bag0Slot")
+		bagInvMax = GetInventorySlotInfo("Bag3Slot")
+	end
+
 	for i = minCnt, maxCnt do
 		local invID = C_Container.ContainerIDToInventoryID(i)
-		local bagLink = GetInventoryItemLink("player",invID)
-		if bagLink then
-			local parseLink =  BSYC:ParseItemLink(bagLink)
-			if parseLink then
-				local encodeStr = BSYC:EncodeOpts({bagslot=i}, parseLink)
-				table.insert(slotItems,  encodeStr)
+
+		-- OPTIONAL HARDENING: ensure this invID is actually a bag slot
+		if bagtype == "bag" then
+			if not (invID and bagInvMin and bagInvMax and invID >= bagInvMin and invID <= bagInvMax) then
+				invID = nil
+			end
+		end
+
+		if invID then
+			local bagLink = GetInventoryItemLink("player", invID)
+			if bagLink then
+				local parseLink = BSYC:ParseItemLink(bagLink)
+				if parseLink then
+					local encodeStr = BSYC:EncodeOpts({bagslot=i}, parseLink)
+					table.insert(slotItems, encodeStr)
+				end
 			end
 		end
 	end
@@ -492,8 +521,8 @@ function Scanner:SaveWarbandBank(bagID)
 	local warbandDB = Data:CheckWarbandBankDB()
 
 	local allTabs = C_Bank.FetchPurchasedBankTabData(Enum.BankType.Account)
-	local xGetNumSlots = (C_Container and C_Container.GetContainerNumSlots) or GetContainerNumSlots
-	local xGetContainerInfo = (C_Container and C_Container.GetContainerItemInfo) or GetContainerItemInfo
+	local xGetNumSlots = BSYC.API.GetContainerNumSlots
+	local xGetContainerInfo = BSYC.API.GetContainerItemInfo
 
 	local function doWarbandSlot(bagID, slotID, tabID)
 		if not bagID or not slotID then return end
@@ -614,41 +643,41 @@ function Scanner:SaveMailbox(isShow)
 end
 
 function Scanner:SendMail(mailTo, addMail)
-	Debug(BSYC_DL.INFO, "SendMail", mailTo, addMail, BSYC.tracking.mailbox)
+	Debug(BSYC_DL.INFO, "SendMail", mailTo, addMail)
 	if not BSYC.tracking.mailbox then return end
+	if not Unit.atMailbox then return end
 
 	if not addMail then
 		if not mailTo then return end
-		Scanner.pendingdMail = {items={}}
-		Scanner.pendingdMail.mailTo = mailTo
 
-		for i = 1, ATTACHMENTS_MAX_SEND do
-			if (_G.HasSendMailItem(i)) then
-				local name, itemID, texture, count, quality = _G.GetSendMailItem(i)
+		Scanner.pendingMail = Scanner.pendingMail or {items={}}
+		Scanner.pendingMail.mailTo = mailTo
+		Scanner.pendingMail.items = {}
 
-				if (itemID) then
-					--we don't have to worry about BattletPets as the actual itemLink is returned instead of the PetCage
-					local sendLink = _G.GetSendMailItemLink(i)
-					local link = BSYC:ParseItemLink(sendLink, count)
-					Debug(BSYC_DL.FINE, "SendMail-Queue", mailTo, name, itemID, count, quality, link)
+		for i=1, ATTACHMENTS_MAX_SEND do
+			local name, itemID, texture, count, quality = _G.GetSendMailItem(i)
+			if itemID then
+				--we don't have to worry about BattlePets as the actual itemLink is returned instead of the PetCage
+				local sendLink = _G.GetSendMailItemLink(i)
+				local link = BSYC:ParseItemLink(sendLink, count)
+				Debug(BSYC_DL.FINE, "SendMail-Queue", mailTo, name, itemID, count, quality, link)
 
-					local slotItems = {}
-					slotItems.name = name
-					slotItems.link = link
-					slotItems.itemID = itemID
-					slotItems.texture = texture
-					slotItems.count = count
-					slotItems.quality = quality
-					slotItems.sendLink = sendLink
+				local slotItems = {}
+				slotItems.name = name
+				slotItems.link = link
+				slotItems.itemID = itemID
+				slotItems.texture = texture
+				slotItems.count = count
+				slotItems.quality = quality
+				slotItems.sendLink = sendLink
 
-					table.insert(Scanner.pendingdMail.items, slotItems)
-				end
+				table.insert(Scanner.pendingMail.items, slotItems)
 			end
 		end
 	else
-		if not Scanner.pendingdMail.mailTo then return end
-		mailTo = Scanner.pendingdMail.mailTo
-		local mailItems = Scanner.pendingdMail.items
+		if not Scanner.pendingMail or not Scanner.pendingMail.mailTo then return end
+		mailTo = Scanner.pendingMail.mailTo
+		local mailItems = Scanner.pendingMail.items
 
 		local mailRealm = _G.GetRealmName() --get current realm, we will replace if sending to another realm
 		if mailTo:find("%-") then --check for another realm
@@ -670,10 +699,12 @@ function Scanner:SendMail(mailTo, addMail)
 			Debug(BSYC_DL.FINE, "SendMail-Add", mailTo, mailRealm, mailItems[i].name, mailItems[i].itemID, mailItems[i].link)
 		end
 
-		Scanner.pendingdMail = {items={}} --reset everything
+		Scanner.pendingMail = {items={}}
 	end
+
 	self:ResetTooltips()
 end
+
 
 function Scanner:SaveAuctionHouse()
 	Debug(BSYC_DL.INFO, "SaveAuctionHouse", Unit.atAuction, BSYC.tracking.auction)

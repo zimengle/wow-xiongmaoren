@@ -161,7 +161,7 @@ BG.Init2(function()
 
         local t = f:CreateFontString()
         t:SetPoint("BOTTOM", f, "TOP", 0, 0)
-        t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+        t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
         t:SetTextColor(RGB("FFFFFF"))
         t:SetText(L["< 历史搜索记录 >"])
 
@@ -486,7 +486,7 @@ BG.Init2(function()
             -- 标题
             local t = f:CreateFontString()
             t:SetPoint("TOP", 0, -5)
-            t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             t:SetTextColor(RGB("FFFFFF"))
             t:SetText(L["< 密语模板 >"])
 
@@ -521,7 +521,7 @@ BG.Init2(function()
         if AchievementIDs then
             local t = f:CreateFontString()
             t:SetPoint("TOPLEFT", 15, -30)
-            t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             t:SetTextColor(RGB(BG.g1))
             t:SetText(L["成就"])
             AchievementTitle = t
@@ -534,7 +534,7 @@ BG.Init2(function()
 
             local t = f:CreateFontString()
             t:SetPoint("TOPLEFT", AchievementTitle, "BOTTOMLEFT", 0, -8)
-            t:SetFont(STANDARD_TEXT_FONT, 14, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, 14, "OUTLINE")
             t:SetTextColor(RGB("FFFFFF"))
             t:SetText(L["成就ID："])
             AchievementTitleID = t
@@ -600,6 +600,7 @@ BG.Init2(function()
             elseif BiaoGe.MeetingHornWhisper[RealmID][player].AchievementChoose == 0 then
                 bt:SetChecked(false)
             end
+            bt.Text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             bt.Text:SetTextColor(.5, .5, .5)
             bt.Text:SetWidth(BG.MeetingHorn.WhisperFrame.width - 50)
             bt.Text:SetWordWrap(false)
@@ -646,10 +647,11 @@ BG.Init2(function()
             else
                 t:SetPoint("TOPLEFT", AchievementCheckButton, "BOTTOMLEFT", 0, -5)
             end
-            t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             t:SetTextColor(RGB(BG.g1))
             t:SetText(L["装等"])
             iLevelTitle = t
+            BG.MeetingHorn.iLevelTitle = t
 
             local l = f:CreateLine()
             l:SetColorTexture(RGB("808080", 1))
@@ -662,11 +664,8 @@ BG.Init2(function()
             bt:SetPoint("TOPLEFT", iLevelTitle, "BOTTOMLEFT", 0, -5)
             bt:SetHitRectInsets(0, -40, 0, 0)
             bt:SetChecked(true)
-            if BiaoGe.MeetingHornWhisper[RealmID][player].iLevelChoose == 1 then
-                bt:SetChecked(true)
-            elseif BiaoGe.MeetingHornWhisper[RealmID][player].iLevelChoose == 0 then
-                bt:SetChecked(false)
-            end
+            bt:SetChecked(BiaoGe.MeetingHornWhisper[RealmID][player].iLevelChoose == 1)
+            bt.Text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             bt.Text:SetWidth(BG.MeetingHorn.WhisperFrame.width - 50)
             bt.Text:SetWordWrap(false)
             iLevelCheckButton = bt
@@ -680,6 +679,17 @@ BG.Init2(function()
                 BG.PlaySound(1)
             end)
         end
+
+        function BG.UpdateMeetingHornLevelButton()
+            if BG.isFullLevel then
+                BG.MeetingHorn.iLevelTitle:SetText(L["装等"])
+            else
+                BG.MeetingHorn.iLevelTitle:SetText(LEVEL)
+                BG.MeetingHorn.iLevelCheckButton.Text:SetText(UnitLevel("player"))
+            end
+        end
+
+        BG.UpdateMeetingHornLevelButton()
 
         -- 自定义文本
         local otherTitle, otherCheckButton1, otherEdit1, otherCheckButton2, otherEdit2
@@ -697,7 +707,7 @@ BG.Init2(function()
         do
             local t = f:CreateFontString()
             t:SetPoint("TOPLEFT", iLevelCheckButton, "BOTTOMLEFT", 0, -5)
-            t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             t:SetTextColor(RGB(BG.g1))
             t:SetText(L["自定义文本"])
             otherTitle = t
@@ -714,6 +724,7 @@ BG.Init2(function()
             bt:SetPoint("TOPLEFT", otherTitle, "BOTTOMLEFT", 0, -5)
             bt:SetHitRectInsets(0, 0, 0, 0)
             bt:SetChecked(true)
+            bt.Text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             if BiaoGe.MeetingHornWhisper[RealmID][player].otherChoose1 == 1 then
                 bt:SetChecked(true)
             elseif BiaoGe.MeetingHornWhisper[RealmID][player].otherChoose1 == 0 then
@@ -778,6 +789,7 @@ BG.Init2(function()
             bt:SetPoint("TOPLEFT", otherCheckButton1, "BOTTOMLEFT", 0, 2)
             bt:SetHitRectInsets(0, 0, 0, 0)
             bt:SetChecked(true)
+            bt.Text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             if BiaoGe.MeetingHornWhisper[RealmID][player].otherChoose2 == 1 then
                 bt:SetChecked(true)
             elseif BiaoGe.MeetingHornWhisper[RealmID][player].otherChoose2 == 0 then
@@ -852,7 +864,7 @@ BG.Init2(function()
             if BiaoGe.options["MeetingHorn_whisper"] == 1 then
                 local iLevel
                 if BG.IsVanilla then
-                    iLevel = iLevelCheckButton.Text:GetText() .. L["装等"]
+                    iLevel = iLevelCheckButton.Text:GetText() .. (BG.isFullLevel and L["装等"] or "")
                 else
                     iLevel = iLevelCheckButton.Text:GetText()
                 end
@@ -913,8 +925,8 @@ BG.Init2(function()
                     })
                 tinsert(tbl, 4,
                     {
-                        text = L["装等+职业"],
-                        tooltipTitle = L["装等+职业"],
+                        text = (BG.isFullLevel and L["装等"] or LEVEL) .. L["+职业"],
+                        tooltipTitle = (BG.isFullLevel and L["装等"] or LEVEL) .. L["+职业"],
                         tooltipText = text2,
                         func = function()
                             SendWhisper(activity:GetLeader(), "onlylevel")
@@ -950,7 +962,7 @@ BG.Init2(function()
                     rootDescription:CreateButton(L["密语模板"], function()
                         SendWhisper(contextData.name)
                     end)
-                    rootDescription:CreateButton(L["装等+职业"], function()
+                    rootDescription:CreateButton((BG.isFullLevel and L["装等"] or LEVEL) .. L["+职业"], function()
                         SendWhisper(contextData.name, "onlylevel")
                     end)
                 end)
@@ -988,9 +1000,9 @@ BG.Init2(function()
                             end
                         },
                         {
-                            text = L["装等+职业"],
+                            text = (BG.isFullLevel and L["装等"] or LEVEL) .. L["+职业"],
                             notCheckable = true,
-                            tooltipTitle = L["装等+职业"],
+                            tooltipTitle = (BG.isFullLevel and L["装等"] or LEVEL) .. L["+职业"],
                             tooltipText = text2,
                             tooltipOnButton = true,
                             func = function()
