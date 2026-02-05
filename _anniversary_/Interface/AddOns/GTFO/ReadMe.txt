@@ -2349,3 +2349,7 @@ Change Log:
 * Updated TBC Classic TOC to 2.5.5
 * Updated Mists Classic 5.5.3
 * Added TWW spells for Brawler's Guild
+
+6.0
+* Updated for patch 12.0 with much of its functionality gone :'(
+* Updated TOC for Wrath 3.4.5

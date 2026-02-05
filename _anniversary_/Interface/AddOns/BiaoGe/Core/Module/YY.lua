@@ -16,13 +16,12 @@ local GetText_T = ns.GetText_T
 local AddTexture = ns.AddTexture
 local GetItemID = ns.GetItemID
 
-local RealmName = GetRealmName()
 local IsAddOnLoaded = IsAddOnLoaded or C_AddOns.IsAddOnLoaded
 
 local pt = print
 
 local Y = {}
-Y.lateTime = .5 -- 延迟发送评价的秒数
+Y.lateTime = .5       -- 延迟发送评价的秒数
 Y.maxHistory = 40     -- 最多保存多少个历史查询记录
 Y.maxSearchText = 300 -- 最多接受多少个评价详细
 Y.searchLastDay = 360 -- 接收最近多少天内的评价
@@ -132,7 +131,9 @@ BG.Init(function()
             tinsert(Y.textcolor_table, edit)
             BG.YYMainFrame.new.yy = edit
             n = n + 1
-            local t = edit:CreateFontString(nil, "ARTWORK", "GameFontDisableSmall2")
+            local t = edit:CreateFontString(nil, "ARTWORK")
+            t:SetFont(BIAOGE_TEXT_FONT, 12, "OUTLINE")
+            t:SetTextColor(.5, .5, .5)
             t:SetPoint("LEFT", 3, 0)
             t:SetText(L["必填"])
             edit:HookScript("OnEditFocusGained", function(self)
@@ -189,7 +190,9 @@ BG.Init(function()
             tinsert(Y.textcolor_table, edit)
             BG.YYMainFrame.new.name = edit
             n = n + 1
-            local t = edit:CreateFontString(nil, "ARTWORK", "GameFontDisableSmall2")
+            local t = edit:CreateFontString(nil, "ARTWORK")
+            t:SetFont(BIAOGE_TEXT_FONT, 12, "OUTLINE")
+            t:SetTextColor(.5, .5, .5)
             t:SetPoint("LEFT", 3, 0)
             t:SetText(L["选填（仅自己可见）"])
             t:SetJustifyH("LEFT")
@@ -303,9 +306,13 @@ BG.Init(function()
             scroll:SetScrollChild(edit)
             BG.YYMainFrame.new.scroll = scroll
 
-            local rightt = f:CreateFontString(nil, "ARTWORK", "GameFontDisableSmall2")
+            local rightt = f:CreateFontString(nil, "ARTWORK")
+            rightt:SetFont(BIAOGE_TEXT_FONT, 12, "OUTLINE")
+            rightt:SetTextColor(.5, .5, .5)
             rightt:SetPoint("BOTTOMRIGHT", -5, 5)
-            local leftt = f:CreateFontString(nil, "ARTWORK", "GameFontDisableSmall2")
+            local leftt = f:CreateFontString(nil, "ARTWORK")
+            leftt:SetFont(BIAOGE_TEXT_FONT, 12, "OUTLINE")
+            leftt:SetTextColor(.5, .5, .5)
             leftt:SetPoint("TOPLEFT", 7, -5)
             leftt:SetText(L["选填"])
 
@@ -903,7 +910,7 @@ BG.Init(function()
                             end)
                         end
 
-                        -- BG.YYMainFrame.searchText = nil
+                        BG.YYMainFrame.searchText = nil
 
                         edit:SetEnabled(true)
                         edit:SetTextColor(RGB(BG.w1))
@@ -1858,7 +1865,9 @@ BG.Init(function()
                 tinsert(BG.EndPJ.textcolor_table, edit)
                 BG.EndPJ.new.yy = edit
                 n = n + 1
-                local t = edit:CreateFontString(nil, "ARTWORK", "GameFontDisableSmall2")
+                local t = edit:CreateFontString(nil, "ARTWORK")
+                t:SetFont(BIAOGE_TEXT_FONT, 12, "OUTLINE")
+                t:SetTextColor(.5, .5, .5)
                 t:SetPoint("LEFT", 3, 0)
                 t:SetText(L["必填"])
                 edit:SetScript("OnEditFocusGained", function(self)
@@ -1910,7 +1919,9 @@ BG.Init(function()
                 tinsert(BG.EndPJ.textcolor_table, edit)
                 BG.EndPJ.new.name = edit
                 n = n + 1
-                local t = edit:CreateFontString(nil, "ARTWORK", "GameFontDisableSmall2")
+                local t = edit:CreateFontString(nil, "ARTWORK")
+                t:SetFont(BIAOGE_TEXT_FONT, 12, "OUTLINE")
+                t:SetTextColor(.5, .5, .5)
                 t:SetPoint("LEFT", 3, 0)
                 t:SetText(L["选填（仅自己可见）"])
                 t:SetJustifyH("LEFT")
@@ -2023,7 +2034,9 @@ BG.Init(function()
                 scroll:SetScrollChild(edit)
                 n = n + 2
 
-                local leftt = f:CreateFontString(nil, "ARTWORK", "GameFontDisableSmall2")
+                local leftt = f:CreateFontString(nil, "ARTWORK")
+                leftt:SetFont(BIAOGE_TEXT_FONT, 12, "OUTLINE")
+                leftt:SetTextColor(.5, .5, .5)
                 leftt:SetPoint("TOPLEFT", 7, -5)
                 leftt:SetText(L["选填"])
 
@@ -2290,16 +2303,28 @@ BG.Init(function()
                 Y.closeYYButton:SetScript("OnClick", function(self)
                     BiaoGe.YYdb.share = 0
                     BG.YYShowHide()
-                    LeaveChannelByName(BG.BiaoGeYY)
+                    Y.Leave()
                     BG.PlaySound(1)
                 end)
             else
                 Y.closeYYButton:SetText(L["开启该模块"])
                 Y.closeYYButton:SetScript("OnClick", function(self)
-                    BiaoGe.YYdb.share = 1
-                    JoinPermanentChannel(BG.BiaoGeYY, nil, 1)
-                    BG.YYShowHide()
-                    BG.PlaySound(1)
+                    StaticPopupDialogs["BiaoGe_OpenYY"] = {
+                        text = L["开启该模块需要重载游戏。\n现在立刻重载吗？"],
+                        button1 = L["是"],
+                        button2 = L["否"],
+                        OnAccept = function()
+                            BiaoGe.YYdb.share = 1
+                            ReloadUI()
+                        end,
+                        OnCancel = function()
+                        end,
+                        timeout = 0,
+                        whileDead = true,
+                        hideOnEscape = true,
+                        showAlert = true,
+                    }
+                    StaticPopup_Show("BiaoGe_OpenYY")
                 end)
             end
         end
@@ -2314,9 +2339,7 @@ BG.Init(function()
         end
     end)
 
-
     local CDing = {}
-    local VIP = "|T" .. "Interface\\AddOns\\BiaoGeVIP\\Media\\icon\\VIP:0:0:0:0:100:100:10:90:10:90" .. "|t"
     local f = CreateFrame("Frame")
     f:RegisterEvent("CHAT_MSG_ADDON")
     f:RegisterEvent("CHAT_MSG_CHANNEL")
@@ -2325,12 +2348,9 @@ BG.Init(function()
         if event == "CHAT_MSG_ADDON" then
             if not BG.YYMainFrame.searchText then return end
             local prefix, msg, distType, sender = ...
-            local name, realmName = strsplit("-", sender)
-            if not realmName then realmName = GetRealmName() end
-            if prefix ~= BG.BiaoGeYY then return end
-            if BG.blackListPlayer[realmName] and BG.blackListPlayer[realmName][name] then return end
+            sender = BG.GSN(sender)
+            if prefix ~= BG.YYName then return end
             if #BG.YYMainFrame.searchText.all >= Y.maxSearchText then return end -- 最多收集300个评价详细
-
             local date, pingjia, edit = strsplit(",", msg, 3)
             edit = edit:gsub(",$", "")
             if edit and edit ~= "" and ns.isVIP then
@@ -2338,15 +2358,11 @@ BG.Init(function()
             end
             pingjia = tonumber(pingjia)
             BG.YYMainFrame.searchText.sumpingjia[pingjia] = BG.YYMainFrame.searchText.sumpingjia[pingjia] + 1
-
-            if BG.DeBug and BG.YYMainFrame.search.edit:GetText() == "34229022" and pingjia == 3 then
-                print(sender, date, edit)
-            end
             tinsert(BG.YYMainFrame.searchText.all, { date = date, pingjia = pingjia, edit = edit })
         elseif event == "CHAT_MSG_CHANNEL" then
             local text, sender, languageName, channelName, playerName2, specialFlags, zoneChannelID, channelIndex, channelBaseName,
             languageID, lineID, guid, bnSenderID, isMobile, isSubtitle, hideSenderInLetterbox, supressRaidIcons = ...
-            if channelBaseName ~= BG.BiaoGeYY then return end
+            if channelBaseName ~= BG.YYName then return end
             sender = BG.GSN(sender)
             local yy, date = strmatch(text, "yy(%d+),(%d+)")
             if not yy or CDing[sender] then return end
@@ -2361,7 +2377,7 @@ BG.Init(function()
                             BG.YYMainFrame.shareCountFrame:SetWidth(BG.YYMainFrame.shareCountFrame.Text:GetStringWidth())
                             BG.YYMainFrame.shareCountFrame:SetHeight(BG.YYMainFrame.shareCountFrame.Text:GetStringHeight())
                         end
-                        C_ChatInfo.SendAddonMessage(BG.BiaoGeYY, resendtext, "WHISPER", sender)
+                        C_ChatInfo.SendAddonMessage(BG.YYName, resendtext, "WHISPER", sender)
                         CDing[sender] = true
                         BG.After(5, function()
                             CDing[sender] = nil
@@ -2373,93 +2389,129 @@ BG.Init(function()
         end
     end)
 
-    local f = CreateFrame("Frame")
-    f:RegisterEvent("CHANNEL_UI_UPDATE")
-    f:SetScript("OnEvent", function(self, event)
+    local yyList = { "BiaoGeYY" }
+    for i = 2, 8 do
+        tinsert(yyList, "BiaoGeYY" .. i)
+    end
+    local yyIndex = 1
+    local yyCount = 0
+    BG.YYName = ""
+
+    function Y.GetYYName()
+        return yyList[yyIndex]
+    end
+
+    function Y.Leave()
+        for _, yy in ipairs(yyList) do
+            LeaveChannelByName(yy)
+        end
+    end
+
+    local function Default()
         local i = 1
         while _G["ChatFrame" .. i] do
-            ChatFrame_RemoveChannel(_G["ChatFrame" .. i], BG.BiaoGeYY)
             ChatFrame_RemoveChannel(_G["ChatFrame" .. i], "MeetingHorn")
+            for _, yy in ipairs(yyList) do
+                ChatFrame_RemoveChannel(_G["ChatFrame" .. i], yy)
+            end
             i = i + 1
         end
-
-        local channelID, channelName = GetChannelName(BG.BiaoGeYY)
+        local channelID, channelName = GetChannelName(Y.GetYYName())
         if not channelName then
             BG.YYchannelID = nil
+            BG.YYName = ""
         else
             BG.YYchannelID = channelID
+            BG.YYName = channelName
+            C_ChatInfo.RegisterAddonMessagePrefix(BG.YYName)
         end
+    end
+
+    BG.RegisterEvent("CHANNEL_UI_UPDATE", function(self, event)
+        Default()
         if BiaoGe.YYdb.share ~= 1 then
-            LeaveChannelByName(BG.BiaoGeYY)
+            Y.Leave()
         end
     end)
 
-    BG.RegisterEvent("CHAT_MSG_CHANNEL_NOTICE", function(self, event, text, playerName, _, _, _, _, _, _, channelBaseName)
-        if channelBaseName ~= BG.BiaoGeYY then return end
-        if text == "YOU_LEFT" then
-            BiaoGe.YYdb.share = 0
-            BG.YYShowHide()
-            SendSystemMessage(BG.BG .. format(L["你已退出%s频道，YY评价模块自动关闭。"], BG.BiaoGeYY))
+    BG.RegisterEvent("CHANNEL_PASSWORD_REQUEST", function(_, _, channel)
+        if BG.ValueInTable(yyList, channel) then
+            yyCount = 0
+            yyIndex = yyIndex + 1
+            StaticPopup_Hide("CHAT_CHANNEL_PASSWORD")
         end
     end)
 
     BG.Init2(function()
+        Default()
+        Y.autoJoin = true
         BG.YYShowHide()
-
-        local i = 1
-        while _G["ChatFrame" .. i] do
-            ChatFrame_RemoveChannel(_G["ChatFrame" .. i], BG.BiaoGeYY)
-            i = i + 1
-        end
-
-        -- 禁止玩家点击频道
-        hooksecurefunc('ChatConfig_UpdateCheckboxes', function(frame)
-            if not frame.checkBoxTable or not frame.checkBoxTable[1] or not frame.checkBoxTable[1].channelID then
-                return
+        LeaveChannelByName("BiaoGeYYY")
+        for i, yy in ipairs(yyList) do
+            local channelID, channelName = GetChannelName(yy)
+            if channelName then
+                yyIndex = i
+                Y.autoJoin = false
+                BG.YYchannelID = channelID
+                BG.YYName = channelName
+                C_ChatInfo.RegisterAddonMessagePrefix(channelName)
+                break
             end
-
-            local checkBoxName = frame:GetName() .. 'CheckBox'
-            for i, value in ipairs(frame.checkBoxTable) do
-                if value.channelName then
-                    local checkBox = _G[checkBoxName .. i .. 'Check'] or _G[frame:GetName() .. "Checkbox" .. i .. "Check"]
-                    if value.channelName == BG.BiaoGeYY then
-                        if BG.IsNewUI then
-                            checkBox:Disable()
-                            checkBox.Text:SetTextColor(.5, .5, .5)
-                        else
-                            BlizzardOptionsPanel_CheckButton_Disable(checkBox)
-                        end
-                        BG.YYchannelID = i
-                    end
-                end
-            end
-        end)
-        hooksecurefunc(ChannelFrame.ChannelList, 'AddChannelButtonInternal', function(f, button, _, name, _, channelId)
-            if name == BG.BiaoGeYY then
-                button:Disable()
-                local text = ('%s %s %s'):format(button:GetChannelNumberText(), button:GetChannelName(),
-                    button:GetMemberCountText())
-                button.Text:SetText(DISABLED_FONT_COLOR:WrapTextInColorCode(text))
-            end
-        end)
-
-        -- 初始化频道
-        local channelID, channelName = GetChannelName(BG.BiaoGeYY)
-        if not channelName then
-            BG.YYchannelID = nil
-        else
-            BG.YYchannelID = channelID
         end
 
         local function JoinYY()
-            if not BG.YYchannelID and BiaoGe.YYdb.share == 1 then
+            if not BG.YYchannelID and BiaoGe.YYdb.share == 1 and Y.autoJoin then
                 local channels = { GetChannelList() }
+                local yy
                 if channels and #channels > 3 then
-                    JoinPermanentChannel(BG.BiaoGeYY, nil, 1)
+                    yyCount = yyCount + 1
+                    if yyCount > 3 then
+                        yyCount = 0
+                        yyIndex = yyIndex + 1
+                    end
+                    yy = yyList[yyIndex]
+                    if yy then
+                        JoinTemporaryChannel(yy)
+                    else
+                        return
+                    end
                 end
                 BG.After(3, JoinYY)
             end
         end
         JoinYY()
+
+        -- 禁止玩家点击频道
+        do
+            hooksecurefunc('ChatConfig_UpdateCheckboxes', function(frame)
+                if not frame.checkBoxTable or not frame.checkBoxTable[1] or not frame.checkBoxTable[1].channelID then
+                    return
+                end
+
+                local checkBoxName = frame:GetName() .. 'CheckBox'
+                for i, value in ipairs(frame.checkBoxTable) do
+                    if value.channelName then
+                        local checkBox = _G[checkBoxName .. i .. 'Check'] or _G[frame:GetName() .. "Checkbox" .. i .. "Check"]
+                        if BG.ValueInTable(yyList, value.channelName) then
+                            if BG.IsNewUI then
+                                checkBox:Disable()
+                                checkBox.Text:SetTextColor(.5, .5, .5)
+                            else
+                                BlizzardOptionsPanel_CheckButton_Disable(checkBox)
+                            end
+                            BG.YYchannelID = i
+                        end
+                    end
+                end
+            end)
+            hooksecurefunc(ChannelFrame.ChannelList, 'AddChannelButtonInternal', function(f, button, _, name, _, channelId)
+                if BG.ValueInTable(yyList, name) then
+                    button:Disable()
+                    local text = ('%s %s %s'):format(button:GetChannelNumberText(), button:GetChannelName(),
+                        button:GetMemberCountText())
+                    button.Text:SetText(DISABLED_FONT_COLOR:WrapTextInColorCode(text))
+                end
+            end)
+        end
     end)
 end)

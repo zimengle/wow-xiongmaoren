@@ -932,3 +932,16 @@ function ArkInventory.MoneyAccountBankWithdraw( )
 	end
 	
 end
+
+
+-- workaround for secret values left on moneyframes, just swap them out with text
+
+local ArkInventory_SetTooltipMoney_Original = SetTooltipMoney
+function ArkInventory.SetTooltipMoney( ... )
+	local frame, money, type, prefixText, suffixText = ...
+	ArkInventory.TooltipAddMoneyText( frame, money, prefixText, 1, 1, 1, 1, 1, 1 )
+end
+
+if ArkInventory_SetTooltipMoney_Original and ArkInventory.ClientCheck( ArkInventory.ENUM.EXPANSION.MIDNIGHT ) then
+	SetTooltipMoney = ArkInventory.SetTooltipMoney
+end

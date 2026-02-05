@@ -16,31 +16,19 @@ local function Debug(level, ...)
     if BSYC.DEBUG then BSYC.DEBUG(level, "Blacklist", ...) end
 end
 
-local L = LibStub("AceLocale-3.0"):GetLocale("BagSync")
+local L = BSYC.L
 
 function Blacklist:OnEnable()
-	local blacklistFrame = _G.CreateFrame("Frame", nil, UIParent, "BagSyncFrameTemplate")
-	Mixin(blacklistFrame, Blacklist) --implement new frame to our parent module Mixin, to have access to parent methods
-	_G["BagSyncBlacklistFrame"] = blacklistFrame
-    --Add to special frames so window can be closed when the escape key is pressed.
-    tinsert(UISpecialFrames, "BagSyncBlacklistFrame")
-    blacklistFrame.TitleText:SetText("BagSync - "..L.Blacklist)
-    blacklistFrame:SetHeight(506) --irregular height to allow the scroll frame to fit the bottom most button
-	blacklistFrame:SetWidth(380)
-    blacklistFrame:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
-    blacklistFrame:EnableMouse(true) --don't allow clickthrough
-    blacklistFrame:SetMovable(true)
-    blacklistFrame:SetResizable(false)
-    blacklistFrame:SetFrameStrata("FULLSCREEN_DIALOG")
-	blacklistFrame:RegisterForDrag("LeftButton")
-	blacklistFrame:SetClampedToScreen(true)
-	blacklistFrame:SetScript("OnDragStart", blacklistFrame.StartMoving)
-	blacklistFrame:SetScript("OnDragStop", blacklistFrame.StopMovingOrSizing)
-	local closeBtn = CreateFrame("Button", nil, blacklistFrame, "UIPanelCloseButton")
-	closeBtn:SetPoint("TOPRIGHT", C_EditMode and -3 or 2, C_EditMode and -3 or 1) --check for classic servers to adjust for positioning using a check for the new EditMode
-	blacklistFrame.closeBtn = closeBtn
-    blacklistFrame:SetScript("OnShow", function() Blacklist:OnShow() end)
-    Blacklist.frame = blacklistFrame
+	local blacklistFrame = BSYC:UI_CreateModuleFrame(Blacklist, {
+		template = "BagSyncFrameTemplate",
+		globalName = "BagSyncBlacklistFrame",
+		title = "BagSync - "..L.Blacklist,
+		height = 506, --irregular height to allow the scroll frame to fit the bottom most button
+		width = 380,
+		point = { "CENTER", UIParent, "CENTER", 0, 0 },
+		onShow = function() Blacklist:OnShow() end,
+	})
+	Blacklist.frame = blacklistFrame
 
 	--guild dropdown
 	local guildDD = CreateFrame("Frame", nil, blacklistFrame, "UIDropDownMenuTemplate")
@@ -80,20 +68,16 @@ function Blacklist:OnEnable()
 	blacklistFrame.infoText:SetJustifyH("LEFT")
 	blacklistFrame.infoText:SetWidth(blacklistFrame:GetWidth() - 15)
 
-    Blacklist.scrollFrame = _G.CreateFrame("ScrollFrame", nil, blacklistFrame, "HybridScrollFrameTemplate")
-    Blacklist.scrollFrame:SetWidth(337)
-    Blacklist.scrollFrame:SetPoint("TOPLEFT", blacklistFrame, "TOPLEFT", 13, -100)
-    --set ScrollFrame height by altering the distance from the bottom of the frame
-    Blacklist.scrollFrame:SetPoint("BOTTOMLEFT", blacklistFrame, "BOTTOMLEFT", -25, 15)
-    Blacklist.scrollFrame.scrollBar = CreateFrame("Slider", "$parentscrollBar", Blacklist.scrollFrame, "HybridScrollBarTemplate")
-    Blacklist.scrollFrame.scrollBar:SetPoint("TOPLEFT", Blacklist.scrollFrame, "TOPRIGHT", 1, -16)
-    Blacklist.scrollFrame.scrollBar:SetPoint("BOTTOMLEFT", Blacklist.scrollFrame, "BOTTOMRIGHT", 1, 12)
-	--initiate the scrollFrame
-    --the items we will work with
-    Blacklist.listItems = {}
-	Blacklist.scrollFrame.update = function() Blacklist:RefreshList(); end
-    HybridScrollFrame_SetDoNotHideScrollBar(Blacklist.scrollFrame, true)
-	HybridScrollFrame_CreateButtons(Blacklist.scrollFrame, "BagSyncListSimpleItemTemplate")
+	Blacklist.scrollFrame = BSYC:UI_CreateHybridScrollFrame(blacklistFrame, {
+		width = 337,
+		pointTopLeft = { "TOPLEFT", blacklistFrame, "TOPLEFT", 13, -100 },
+		-- set ScrollFrame height by altering the distance from the bottom of the frame
+		pointBottomLeft = { "BOTTOMLEFT", blacklistFrame, "BOTTOMLEFT", -25, 15 },
+		buttonTemplate = "BagSyncListSimpleItemTemplate",
+		update = function() Blacklist:RefreshList(); end,
+	})
+	--the items we will work with
+	Blacklist.listItems = {}
 
 	StaticPopupDialogs["BAGSYNC_BLACKLIST_REMOVE"] = {
 		text = L.BlackListRemove,
@@ -136,20 +120,21 @@ function Blacklist:CreateList()
 	Blacklist.selectedGuild = nil
 
 	--do the dropdown first
-	local tmp = {}
+	local guildList = {}
 	for unitObj in Data:IterateUnits() do
 		if unitObj.isGuild then
 			local guildName = select(2, Unit:GetUnitAddress(unitObj.name))
 			local key = unitObj.name..unitObj.realm --note key is different then displayed name
-			tmp[key] = guildName.." - "..unitObj.realm
+			guildList[#guildList + 1] = { key = key, display = guildName.." - "..unitObj.realm }
 		end
 	end
-	table.sort(tmp, function(a,b) return (a < b) end)
+	table.sort(guildList, function(a, b) return (a.display or "") < (b.display or "") end)
 
 	UIDropDownMenu_Initialize(Blacklist.frame.guildDD, function(self)
 		local info = UIDropDownMenu_CreateInfo()
-		for k, v in pairs(tmp) do
-			info.text, info.value, info.arg1 = v, k, v
+		for i = 1, #guildList do
+			local entry = guildList[i]
+			info.text, info.value, info.arg1 = entry.display, entry.key, entry.display
 			info.notCheckable = true
 			info.func = function(data)
 				self.Text:SetText(data.arg1)
@@ -188,7 +173,7 @@ function Blacklist:RefreshList()
 
     for buttonIndex = 1, #buttons do
         local button = buttons[buttonIndex]
-		button.parentHandler = Blacklist
+		BSYC:UI_AttachListItemHandlers(button, Blacklist)
 
         local itemIndex = buttonIndex + offset
 
@@ -210,10 +195,10 @@ function Blacklist:RefreshList()
 			button.Text:SetText(item.value or "")
 			button.HeaderHighlight:SetAlpha(0)
 
-			if BSYC.GMF() == button then
-				Blacklist:Item_OnLeave() --hide first
-				Blacklist:Item_OnEnter(button)
-			end
+				if BSYC:IsMouseOver(button) then
+					Blacklist:Item_OnLeave() --hide first
+					Blacklist:Item_OnEnter(button)
+				end
 
             button:Show()
         else
@@ -263,17 +248,20 @@ function Blacklist:AddItemID()
 		BSYC.db.blacklist[itemid] = "|cFFCF9FFF"..speciesName.."|r"
 		BSYC:Print(L.ItemIDAdded:format(itemid), speciesName)
 	else
-		if not C_Item.GetItemInfo(itemid) then
+		local xGetItemInfo = BSYC.API.GetItemInfo
+		if not (xGetItemInfo and xGetItemInfo(itemid)) then
 			BSYC:Print(L.ItemIDNotValid:format(itemid))
 			editBox:SetText("")
 			return
 		end
 
-		local dName, dItemLink = C_Item.GetItemInfo(itemid)
+		local dName, dItemLink = xGetItemInfo(itemid)
 
 		BSYC.db.blacklist[itemid] = dItemLink
 		BSYC:Print(L.ItemIDAdded:format(itemid), dItemLink)
 	end
+	Tooltip:ResetCache()
+	Tooltip:ResetLastLink()
 	editBox:SetText("")
 
 	Blacklist:UpdateList()
@@ -289,6 +277,8 @@ function Blacklist:AddGuild()
 
 	BSYC.db.blacklist[Blacklist.selectedGuild.value] = Blacklist.selectedGuild.arg1
 	BSYC:Print(L.GuildAdded:format(Blacklist.selectedGuild.arg1))
+	Tooltip:ResetCache()
+	Tooltip:ResetLastLink()
 
 	Blacklist:UpdateList()
 end
@@ -304,6 +294,7 @@ function Blacklist:RemoveData(entry)
 		Blacklist:UpdateList()
 		--reset tooltip cache since we have blacklisted some items or guilds
 		Tooltip:ResetCache()
+		Tooltip:ResetLastLink()
 	else
 		BSYC:Print(L.BlackListErrorRemove)
 	end

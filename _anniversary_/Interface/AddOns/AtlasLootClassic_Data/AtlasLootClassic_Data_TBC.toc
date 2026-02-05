@@ -25,7 +25,7 @@
 ## Notes-zhTW: 副本戰利品查詢的數據設定。
 
 ## Author: nanderson11, Lag
-## Version: v3.7.2
+## Version: v3.7.3
 ## Group: AtlasLootClassic
 ## IconTexture: Interface\Icons\INV_Box_01
 ## Dependencies: AtlasLootClassic

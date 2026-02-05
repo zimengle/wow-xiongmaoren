@@ -1,33 +1,29 @@
 # DBM - Core
 
-## [12.0.13](https://github.com/DeadlyBossMods/DeadlyBossMods/tree/12.0.13) (2026-01-22)
-[Full Changelog](https://github.com/DeadlyBossMods/DeadlyBossMods/compare/12.0.12...12.0.13) [Previous Releases](https://github.com/DeadlyBossMods/DeadlyBossMods/releases)
+## [12.0.16](https://github.com/DeadlyBossMods/DeadlyBossMods/tree/12.0.16) (2026-01-27)
+[Full Changelog](https://github.com/DeadlyBossMods/DeadlyBossMods/compare/12.0.15...12.0.16) [Previous Releases](https://github.com/DeadlyBossMods/DeadlyBossMods/releases)
 
-- Update localization.br.lua (#1866)  
-- Update localization.fr.lua (#1865)  
-- Update localization.es.lua (#1864)  
-- Update localization.es.lua (#1863)  
-- Update localization.cn.lua (#1862)  
-- prep new release  
-- temp fix  
-- restore functionality of brawlers guild queue alerts and match berserk timers (about all that can be restored, sorry)  
-- New sound options design.  
-- Add button to GUI  
-- Add C\_Secrets to CI  
-- fix and close https://github.com/DeadlyBossMods/DeadlyBossMods/issues/1860 with better checks  
-- Fix unit event registration in midnight for sure this time  
-- Update localization.es.lua (#1857)  
-- Fix restricted event registration in midnight to include all used UNIT\_SPELLCAST\_* variants across DBM projects. Closes #1858  
-- Update localization.es.lua (#1853)  
-- Update localization.fr.lua (#1851)  
-- Update localization.br.lua (#1852)  
-- Update localization.es.lua (#1850)  
-- Update localization.fr.lua (#1854)  
-- Update localization.br.lua (#1855)  
-- Update koKR (#1848)  
-    Co-authored-by: Adam <MysticalOS@users.noreply.github.com>  
-    Co-authored-by: Artemis <QartemisT@gmail.com>  
-- Update RU locales (#1849)  
-- Update localization.cn.lua (#1856)  
-- for good measure, ignore comms that contain secrets  
-- prep new alpha cycle  
+- Update localization.ru.lua (#1875)  
+- tweal default sounds for retail (this will not change your sounds if they are already set, if you don't like your defaults, change them yourself)  
+- Update localization.fr.lua (#1871)  
+- Update localization.ru.lua (#1874)  
+- Update localization.br.lua (#1870)  
+- Update localization.es.lua (#1869)  
+- Plz  
+- *cries quietly in a corner*  
+- GAH.  
+- FIX?  
+- Fix some luals stuff?  
+- Fix some luals stuff?  
+- Fix some luals stuff?  
+- Add new Journal icon features to go with artemis journal icon gui  
+- Done gui options.  
+- push ui code thus far  
+- Hardcode to our BLP path.  
+- make it possible to run old demo mode in midnight  
+- Double tripple check on TableUtils if table is a table  
+- Bugfix for findChatFrameUnderCursor  
+- new journal icons.  
+- Fix and close https://github.com/DeadlyBossMods/DeadlyBossMods/issues/1841  
+- make combat only event unregister more robust now that it's checking two diff tables (which means at least one table will usually be nil) Should fix https://github.com/DeadlyBossMods/DeadlyBossMods/issues/1868  
+- bump alpha  

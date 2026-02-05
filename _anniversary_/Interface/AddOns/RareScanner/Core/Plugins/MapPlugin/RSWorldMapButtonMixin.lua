@@ -20,6 +20,7 @@ local RSMapDB =  private.ImportLib("RareScannerMapDB")
 -- RareScanner service libraries
 local RSMinimap = private.ImportLib("RareScannerMinimap")
 local RSProvider = private.ImportLib("RareScannerProvider")
+local RSTooltip = private.ImportLib("RareScannerTooltip")
 
 -- Locales
 local AL = LibStub("AceLocale-3.0"):GetLocale("RareScanner");
@@ -53,9 +54,13 @@ function RSWorldMapButtonMixin:OnMouseUp()
 end
 
 function RSWorldMapButtonMixin:OnEnter()
-    GameTooltip:SetOwner(self, 'ANCHOR_RIGHT')
-    GameTooltip_SetTitle(GameTooltip, "RareScanner")
-    GameTooltip:Show()
+    RSTooltip.Tooltip:SetOwner(self, 'ANCHOR_RIGHT')
+    GameTooltip_SetTitle(RSTooltip.Tooltip, "RareScanner")
+    RSTooltip.Tooltip:Show()
+end
+
+function RSWorldMapButtonMixin:OnLeave()
+    RSTooltip.Tooltip:Hide()
 end
 
 function RSWorldMapButtonMixin:Refresh()
@@ -133,7 +138,7 @@ function RSWorldMapButtonMixin:SetupMenu()
 				npcsGroup:SetEnabled(function() return RSConfigDB.IsShowingNpcs() end)
 			end
 		end
-		
+
 		-- Filter NPCs		
 		local npcIDsWithNames = RSNpcDB.GetActiveNpcIDsWithNamesByMapID(mapID, false)
 		if (RSUtils.GetTableLength(npcIDsWithNames) > 0) then
@@ -273,7 +278,7 @@ function RSWorldMapButtonMixin:SetupMenu()
 		containersNotDiscovered:SetEnabled(function() return RSConfigDB.IsShowingContainers() end)
 		
 		containersSubmenu:CreateDivider()
-
+		
 		-- Filter Containers
 		local containerIDsWithNames = RSContainerDB.GetActiveContainerIDsWithNamesByMapID(mapID)
 		if (RSUtils.GetTableLength(containerIDsWithNames) > 0) then

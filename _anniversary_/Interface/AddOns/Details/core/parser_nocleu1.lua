@@ -12,6 +12,15 @@ local _
 ---@field ParserFrame frame
 
 local debug = false
+local L = {}
+
+local debugMode = false
+
+local printDebug = function(...)
+    if debugMode then
+        print("|cFFFFFF22Details!Debug:", ...)
+    end
+end
 
 local combatStartTime = 0 --GetTime()
 local combatEndTime = 0 --GetTime()
@@ -29,6 +38,39 @@ local bRegenIsDisabled = false --based on the event REGEN_DISABLED/REGEN_ENABLED
 local bPlayerInCombat = false --based on the event PLAYER_IN_COMBAT_CHANGED
 
 local targetGUID
+
+local restrictionFlag = 0x0
+
+local onPvpMatch = false
+local sessionIdAtArenaStart = 0
+
+---@class sessionmythicplus : table
+---@field startTime number
+---@field endTime number?
+---@field startUnixTime number
+---@field endUnixTime number?
+---@field startDate string
+---@field endDate string?
+---@field sessionId number the session id the client was when the mythic+ started
+---@field level number
+---@field mapId number
+---@field isActive boolean whether the mythic+ is currently active or completed
+
+---@type sessionmythicplus
+local mythicPlusInfo = {
+    startTime = 0,
+    endTime = 0,
+    startUnixTime = 0,
+    endUnixTime = 0,
+    startDate = "",
+    endDate = "",
+    sessionId = 0,
+    level = 0,
+    mapId = 0,
+    isActive = false,
+}
+
+local currentZoneType = "none"
 
 ---@class bparser : table
 ---@field InSecretLockdown fun():boolean
@@ -52,6 +94,18 @@ local print = function(...)
 end
 
 local print = _G.print
+
+local restrictionFlags
+
+if Enum.AddOnRestrictionType then
+    restrictionFlags = {
+        [Enum.AddOnRestrictionType.Combat]        = 0x1,
+        [Enum.AddOnRestrictionType.Encounter]     = 0x2,
+        [Enum.AddOnRestrictionType.ChallengeMode] = 0x4,
+        [Enum.AddOnRestrictionType.PvPMatch]      = 0x8,
+        [Enum.AddOnRestrictionType.Map]           = 0x10,
+    }
+end
 
 ---@type bparser
 local bParser = Details222.BParser
@@ -113,6 +167,18 @@ local getCurrentSessionId = function()
     return 0
 end
 
+local getSessionDetailsId = function(sessionId)
+    ---@type damagemeter_availablecombat_session[]
+    local sessions = C_DamageMeter.GetAvailableCombatSessions()
+    for i = 1, #sessions do
+        if sessions[i].sessionID == sessionId then
+           local thisSessionName = sessions[i].name
+           local thisSessionId = sessions[i].sessionID
+           return thisSessionName .. thisSessionId
+        end
+    end
+end
+
 local doesSessionExists = function(sessionId)
     ---@type damagemeter_availablecombat_session[]
     local sessions = C_DamageMeter.GetAvailableCombatSessions()
@@ -133,9 +199,15 @@ end
 ---@field endDate string?
 ---@field sessionId number
 ---@field added boolean?
+---@field detailsId string?
+
+local getSession = function(sessionId)
+    return sessionCache[sessionId]
+end
 
 local createAndAddSession = function(sessionId)
-    if not sessionCache[sessionId] then
+    local session = getSession(sessionId)
+    if not session then
         ---@type sessioncache
         local newSession = {
             startTime = GetTime(),
@@ -143,13 +215,19 @@ local createAndAddSession = function(sessionId)
             startDate = date("%H:%M:%S"),
             sessionId = sessionId,
             added = false,
+            detailsId = getSessionDetailsId(sessionId),
         }
         sessionCache[sessionId] = newSession
+    else
+        local timeNow = time()
+        if session.startUnixTime+60 < timeNow then
+            session.startTime = GetTime()
+            session.startUnixTime = timeNow
+            session.startDate = date("%H:%M:%S")
+            session.added = false
+            session.detailsId = getSessionDetailsId(sessionId)
+        end
     end
-end
-
-local getSession = function(sessionId)
-    return sessionCache[sessionId]
 end
 
 local getSessions = function()
@@ -255,23 +333,25 @@ local getSourceSpells = function(sessionType, sessionID, damageMeterType, source
     return {maxAmount = 0, combatSpells = {}}
 end
 
-local doUpdate = function()
-    --Details:InstanceCallDetailsFunc(Details.FadeHandler.Fader, "IN", nil, "barras")
-    Details:InstanceCallDetailsFunc(Details.UpdateCombatObjectInUse)
-    --Details:InstanceCallDetailsFunc(Details.AtualizaSoloMode_AfertReset)
-    --Details:InstanceCallDetailsFunc(Details.ResetaGump)
-    Details:RefreshMainWindow(-1, true)
-
-    --[=[
-    local isshowning = 0
-    local children = {DetailsRowFrame1:GetChildren()}
-    for i = 1, #children do
-        local line = children[i]
-        if line:IsShown() then
-            isshowning = isshowning + 1
-        end
+---@param instance instance
+local doTrick = function(instance) --~trick
+    local mainDisplay, subDisplay = instance:GetDisplay()
+    local segmentId = nil
+    local modeId = nil
+    local quick = true
+    if (mainDisplay == DETAILS_ATTRIBUTE_DAMAGE) then
+        instance:SetDisplay(segmentId, DETAILS_ATTRIBUTE_HEAL, DETAILS_SUBATTRIBUTE_HEALDONE, modeId, quick)
+        instance:SetDisplay(segmentId, DETAILS_ATTRIBUTE_DAMAGE, subDisplay, modeId, quick)
+    elseif (mainDisplay == DETAILS_ATTRIBUTE_HEAL) then
+        instance:SetDisplay(segmentId, DETAILS_ATTRIBUTE_DAMAGE, DETAILS_SUBATTRIBUTE_DAMAGEDONE, modeId, quick)
+        instance:SetDisplay(segmentId, DETAILS_ATTRIBUTE_HEAL, subDisplay, modeId, quick)
     end
-    --]=]
+end
+
+local doUpdate = function()
+    Details:InstanceCallDetailsFunc(Details.UpdateCombatObjectInUse)
+    Details:RefreshMainWindow(-1, true)
+    Details:InstanceCall(doTrick)
 end
 
 local scheduledUpdateObject
@@ -279,6 +359,93 @@ function bParser.DoUpdateOnDetails()
     scheduledUpdateObject = nil
     doUpdate()
     C_Timer.After(Details.update_speed+0.03, doUpdate)
+end
+
+---@param sessionId number
+---@return boolean hasSources
+local hasSources = function(sessionId)
+    ---@type damagemeter_combat_session
+    local blzDamageContainer = C_DamageMeter.GetCombatSessionFromID(sessionId, Enum.DamageMeterType.DamageDone)
+    local damageActorList = blzDamageContainer.combatSources
+    return #damageActorList > 0
+end
+
+---@return boolean
+local doYouHaveASecret = function()
+    local sessionId = getCurrentSessionId()
+    ---@type damagemeter_combat_session
+    local blzDamageContainer = C_DamageMeter.GetCombatSessionFromID(sessionId, Enum.DamageMeterType.DamageDone)
+    local damageActorList = blzDamageContainer.combatSources
+
+    if #damageActorList > 0 then
+        for i = 1, #damageActorList do
+            ---@type damagemeter_combat_source
+            local source = damageActorList[i]
+            local sourceName = source.name
+            local sourceGUID = source.sourceGUID
+            local amountDone = source.totalAmount
+            local classFile = source.classFilename
+
+            if issecretvalue(sourceName) or issecretvalue(sourceGUID) or issecretvalue(amountDone) or issecretvalue(classFile) then
+                return true
+            end
+        end
+    end
+
+    return false
+end
+
+local waitSecretDropTimer
+local startWaitSecretDropTimer = function()
+    if waitSecretDropTimer then
+        waitSecretDropTimer:Cancel()
+        waitSecretDropTimer = nil
+    end
+
+    if not waitSecretDropTimer then
+        waitSecretDropTimer = C_Timer.NewTicker(0.3, function(timerObject)
+            if InCombatLockdown() then
+                return
+            end
+
+            local stateCombat = C_RestrictedActions.GetAddOnRestrictionState(Enum.AddOnRestrictionType.Combat)
+            if stateCombat > 0 then
+                return
+            end
+
+            local hasSecret = doYouHaveASecret()
+            local isFreeToGo = not hasSecret
+
+            if not isFreeToGo then
+                return
+            end
+
+            --local stateChallengeMode = C_RestrictedActions.GetAddOnRestrictionState(Enum.AddOnRestrictionType.ChallengeMode)
+            --!need to check for m+ plus restrictions
+
+            local _, instanceType = GetInstanceInfo()
+            if (instanceType == "arena") then
+                local pvpMode = C_RestrictedActions.GetAddOnRestrictionState(Enum.AddOnRestrictionType.Map)
+                if pvpMode > 0 then
+                    printDebug("arena is restricted by map.")
+                    --isFreeToGo = false --!change to true in releases
+                end
+            end
+
+            if isFreeToGo then
+                timerObject:Cancel()
+                waitSecretDropTimer = nil
+                L.ParseSegments()
+            end
+        end)
+    end
+end
+
+local cancelWaitSecretDropTimer = function()
+    if waitSecretDropTimer then
+        waitSecretDropTimer:Cancel()
+        waitSecretDropTimer = nil
+    end
 end
 
 ---@param parameterType any
@@ -290,8 +457,26 @@ local addSegment = function(parameterType, session, bIsUpdate)
         dumpt(session)
     end
 
+    --get all sessions
+    ---@type damagemeter_availablecombat_session[]
+    local sessions = C_DamageMeter.GetAvailableCombatSessions()
+    if #sessions > 0 then
+        for i = 1, #sessions do
+            local thisSession = sessions[i]
+            local thisSessionId = thisSession.sessionID
+            if thisSessionId == sessionId then
+                printDebug("adding segment name:", thisSession.name, GetTime(), thisSession.durationSeconds)
+            end
+        end
+    end
+
     ---@type combat
     local currentCombat
+
+    -------DAMAGE DONE
+    ---@type damagemeter_combat_session
+    local blzDamageContainer = C_DamageMeter.GetCombatSessionFromID(sessionId, Enum.DamageMeterType.DamageDone)
+    local damageActorList = blzDamageContainer.combatSources
 
     if not bIsUpdate then
         Details222.StartCombat()
@@ -309,12 +494,10 @@ local addSegment = function(parameterType, session, bIsUpdate)
             currentCombat.totals_grupo[4].interrupt = 0
             currentCombat.totals[4].dispell = 0
             currentCombat.totals_grupo[4].dispell = 0
-
         else
             Details222.StartCombat()
             currentCombat = Details:GetCurrentCombat()
             bIsUpdate = false
-
         end
     end
 
@@ -325,30 +508,38 @@ local addSegment = function(parameterType, session, bIsUpdate)
     --pull deathlog data and parse it
 
     local zoneName, instanceType, difficultyID, difficultyName, maxPlayers, dynamicDifficulty, isDynamic, instanceMapID, instanceGroupSize = GetInstanceInfo()
-
     local order = Details:GetOrderNumber()
-
-    -------DAMAGE DONE
-    ---@type damagemeter_combat_session
-    local blzDamageContainer = C_DamageMeter.GetCombatSessionFromID(sessionId, Enum.DamageMeterType.DamageDone)
-    local damageActorList = blzDamageContainer.combatSources
 
     for i = 1, #damageActorList do
         ---@type damagemeter_combat_source
         local source = damageActorList[i]
 
-        ---@type actordamage
-        local actor = damageContainer:GetOrCreateActor(source.sourceGUID, source.name, 0x512, true)
+        local sourceName = source.name
+        local sourceGUID = source.sourceGUID
 
-        actor.nome = source.name
+        if issecretvalue(sourceName) then
+            local stateCombat = C_RestrictedActions.GetAddOnRestrictionState(Enum.AddOnRestrictionType.Combat)
+            local stateEncounter = C_RestrictedActions.GetAddOnRestrictionState(Enum.AddOnRestrictionType.Encounter)
+            local stateChallengeMode = C_RestrictedActions.GetAddOnRestrictionState(Enum.AddOnRestrictionType.ChallengeMode)
+            local pvp = C_RestrictedActions.GetAddOnRestrictionState(Enum.AddOnRestrictionType.PvPMatch)
+            local map = C_RestrictedActions.GetAddOnRestrictionState(Enum.AddOnRestrictionType.Map)
+
+            --PAREI AQUI, SOURCE.NAME IS SECRET, MAS NAO PEGOU O SECRET ALI EM CIMA QUANDO CHECOU O FIRST PLAYER?
+            --adicionei um iterator pra ver se todos os players estao sem segredos
+
+            Details:Msg("(2) Value is secret and an error will occur, Restrictions in place:", stateCombat, stateEncounter, stateChallengeMode, pvp, map)
+        end
+
+        ---@type actordamage
+        local actor = damageContainer:GetOrCreateActor(sourceGUID, sourceName, 0x512, true)
+
+        actor.nome = sourceName
         actor.total = source.totalAmount
         actor.classe = source.classFilename
         actor.last_dps = source.amountPerSecond
         actor.specIcon = source.specIconID
-        actor.serial = source.sourceGUID
+        actor.serial = sourceGUID
         actor.grupo = true
-
-
 
         currentCombat.totals[1] = currentCombat.totals[1] + source.totalAmount
         currentCombat.totals_grupo[1] = currentCombat.totals_grupo[1] + source.totalAmount
@@ -545,6 +736,11 @@ local addSegment = function(parameterType, session, bIsUpdate)
         end
     end
 
+    local _, instanceType = GetInstanceInfo()
+    if (instanceType == "arena") then
+        currentCombat.secretArena = true
+    end
+
     if not bIsUpdate then
         if not bCombatEnded then
             Details:SairDoCombate()
@@ -562,6 +758,21 @@ local parseSegments = function()
 
     end
 
+    local hasSecret = doYouHaveASecret()
+    if hasSecret then
+        --debug restriction if there is secret values are found
+        --local stateCombat = C_RestrictedActions.GetAddOnRestrictionState(Enum.AddOnRestrictionType.Combat)
+        --local stateEncounter = C_RestrictedActions.GetAddOnRestrictionState(Enum.AddOnRestrictionType.Encounter)
+        --local stateChallengeMode = C_RestrictedActions.GetAddOnRestrictionState(Enum.AddOnRestrictionType.ChallengeMode)
+        --local pvp = C_RestrictedActions.GetAddOnRestrictionState(Enum.AddOnRestrictionType.PvPMatch)
+        --local map = C_RestrictedActions.GetAddOnRestrictionState(Enum.AddOnRestrictionType.Map)
+        --Details:Msg("(1) parseSegments => secret found:", stateCombat, stateEncounter, stateChallengeMode, pvp, map)
+
+        startWaitSecretDropTimer()
+        return
+    end
+
+    cancelWaitSecretDropTimer()
 
     local parameterType = DAMAGE_METER_SESSIONPARAMETER_ID
     local currentSessionId = getCurrentSessionId()
@@ -569,21 +780,25 @@ local parseSegments = function()
 
     local sessions = {}
     for sessionId, session in pairs(sessionCache) do
-        table.insert(sessions, {sessionId = sessionId, session = session})
+        local thisSession = C_DamageMeter.GetCombatSessionFromID(sessionId, Enum.DamageMeterType.DamageDone)
+        if thisSession then
+            local hasAtLeastOneSource = hasSources(sessionId)
+            if hasAtLeastOneSource then
+                table.insert(sessions, {sessionId = sessionId, session = session, detailsId = getSessionDetailsId(sessionId)})
+            end
+        end
     end
 
     table.sort(sessions, function(a, b)
         return a.sessionId < b.sessionId
     end)
 
-    --when it adds a segment, it is not adding the second one after
-
     for i = 1, #sessions do
         local session = sessions[i].session
         local sessionId = sessions[i].sessionId
         if not session.added then
-
             if (addSegment(parameterType, session, false)) then
+                --print("(debug) Segment added:", sessionId, sessions[i].detailsId)
                 needUpdate = true
                 session.added = true
             end
@@ -591,8 +806,8 @@ local parseSegments = function()
             if currentSessionId-2 <= sessionId then
                 if C_DamageMeter.GetCombatSessionFromID(sessionId, Enum.DamageMeterType.DamageDone) then
                     if Details:GetCombatWithSessionId(sessionId) then
-
                         addSegment(parameterType, session, true)
+                        --print("(debug) Segment updated:", sessionId, sessions[i].detailsId)
                     end
                 end
             end
@@ -605,6 +820,8 @@ local parseSegments = function()
         end
     end
 end
+
+L.ParseSegments = parseSegments
 
 ---@class detailstooltip : button
 ---@field maxAmount number
@@ -752,11 +969,13 @@ local getTooltipFrame = function() --~tooltip
     --call a refresh in the scrollBox
     scrollBox:Refresh()
 
+    local defaultColor = {r=0.5, g=0.5, b=0.5, a=1}
+
     ---@param self df_scrollbox
     ---@param data addonapoc_tooltipdata
     function scrollBox:RefreshMe(data)
         --refresh the line appearance
-        local classColor = RAID_CLASS_COLORS[data.class] or {1, 1, 1, 1}
+        local classColor = RAID_CLASS_COLORS[data.class] or defaultColor
         local r, g, b, a = unpack(Details.tooltip.bar_color)
         local rBG, gBG, bBG, aBG = unpack(Details.tooltip.background)
 
@@ -922,8 +1141,6 @@ function bParser.ShowTooltip_Hook(instanceLine, mouse)
     tooltip:SetMaxAmount(maxAmount)
     tooltip:SetHeight(spellAmount * (tooltipLineHeight+1) + 4)
 
-
-
     ---@type addonapoc_tooltipdata[]
     local tooltipData = {}
 
@@ -990,27 +1207,13 @@ end)
 ---@field GetAllLines fun(self:details):frame[]
 
 ---hide all lines in the instance and clearup the secret strings
-local clearWindow = function(instance)
+local clearLineSecrets = function(instance)
     ---@type detailsline[]
     local allInstanceLines = instance.barras --instance:GetAllLines()
 
     --cleanup all bars
     for i = 1, #allInstanceLines do
         local instanceLine = allInstanceLines[i]
-        --instanceLine:Hide()
-        --set the text to empty string
-        --instanceLine.lineText1:SetText("")
-        --instanceLine.lineText2:SetText("")
-        --instanceLine.lineText3:SetText("")
-        --instanceLine.lineText4:SetText("")
-        --instanceLine.statusbar:SetMinMaxValues(0, 1)
-        --instanceLine.statusbar:SetValue(0)
-
-        --instanceLine.lineText11:SetText("")
-        --instanceLine.lineText12:SetText("")
-        --instanceLine.lineText13:SetText("")
-        --instanceLine.lineText14:SetText("")
-
         instanceLine.secret_SourceGUID = nil
         instanceLine.secret_SourceName = nil
     end
@@ -1098,9 +1301,11 @@ local abbreviateSettingsDPS
 if CreateAbbreviateConfig then
     abbreviateSettingsDamage = CreateAbbreviateConfig(abbreviateOptionsDamage)
     abbreviateSettingsDamage = {config = abbreviateSettingsDamage}
+    Details.abbreviateOptionsDamage = abbreviateSettingsDamage
 
     abbreviateSettingsDPS = CreateAbbreviateConfig(abbreviateOptionsDPS)
     abbreviateSettingsDPS = {config = abbreviateSettingsDPS}
+    Details.abbreviateOptionsDPS = abbreviateSettingsDPS
 end
 
 local tt = GetTime()
@@ -1151,7 +1356,7 @@ local updateWindow = function(instance) --~update
         instanceLine.lineText14:SetText("")
     end
 
-    if (damageMeterType) then
+    if (damageMeterType and damageMeterType < 100) then
         ---@type segmentid
         local segmentId = instance:GetSegmentId()
 
@@ -1159,16 +1364,18 @@ local updateWindow = function(instance) --~update
         local session
 
         local sessionType, sessionNumber, sessionTypeParam
+        --/dump C_DamageMeter.GetCombatSessionFromType(1, 0)
 
         if segmentId == -1 then
             session = C_DamageMeter.GetCombatSessionFromType(Enum.DamageMeterSessionType.Overall, damageMeterType)
             sessionType = DAMAGE_METER_SESSIONPARAMETER_TYPE
             sessionTypeParam = Enum.DamageMeterSessionType.Overall
---/dump C_DamageMeter.GetCombatSessionFromType(1, 0)
+
         elseif segmentId == 0 then
             session = C_DamageMeter.GetCombatSessionFromType(Enum.DamageMeterSessionType.Current, damageMeterType)
             sessionType = DAMAGE_METER_SESSIONPARAMETER_TYPE
             sessionTypeParam = Enum.DamageMeterSessionType.Current
+
         else
             ---@type damagemeter_availablecombat_session[]
             local sessions = C_DamageMeter.GetAvailableCombatSessions()
@@ -1198,7 +1405,6 @@ local updateWindow = function(instance) --~update
             --combatSources = combatSources.combatSources
 
             local amountOfSources = #combatSources
-
             local topValue = session.maxAmount
             local segmentName = session.name
             local sessionId = session.sessionID
@@ -1206,9 +1412,10 @@ local updateWindow = function(instance) --~update
             for i = 1, amountOfSources do
                 ---@type detailsline
                 local instanceLine = allInstanceLines[i]
-                if (instanceLine) then --~refresh
+                if (instanceLine) then
                     ---@type damagemeter_combat_source
                     local source = combatSources[i]
+                    local updateStatusbarColor = true
 
                     instanceLine.lineIndex = i
                     instanceLine.sourceData = source
@@ -1228,54 +1435,28 @@ local updateWindow = function(instance) --~update
                     instanceLine.secret_SourceGUID = actorGUID
                     instanceLine.secret_SourceName = actorName
 
-                    ---@class numberabbreviation_data : table
-                    ---@field breakpoint number
-                    ---@field abbreviation string
-                    ---@field significandDivisor number
-                    ---@field fractionDivisor number
-                    ---@field abbreviationIsGlobal boolean?
-
-                    ---@class numberabbreviation_options : table
-                    ---@field breakpointData table[]?
-                    ---@field locale string?
-                    ---@field config table?
-
-                    instanceLine.lineText11:SetText(actorName) --left text
-
-                    if instance.use_multi_fontstrings then
-                        instanceLine.lineText12:SetText("") --left right text
-                        instanceLine.lineText13:SetText(AbbreviateNumbers(value, abbreviateSettingsDamage)) --middle right text
-
-                        local abbrv = AbbreviateNumbers(totalAmountPerSecond, abbreviateSettingsDPS)
-                        instanceLine.lineText14:SetText(abbrv) --format("%.1f", abbrv) --right right text
+                    local _, instanceType = GetInstanceInfo()
+                    if instanceType == "arena" then
+                        local okey, errortext = pcall(function()
+                            if UnitName(actorName) == nil then
+                                instanceLine.textura:SetVertexColor(detailsFramework:ParseColors(Details.class_colors.ARENA_YELLOW))
+                                updateStatusbarColor = false
+                            else
+                                instanceLine.textura:SetVertexColor(detailsFramework:ParseColors(Details.class_colors.ARENA_GREEN))
+                                actorName = UnitName(actorName)
+                                updateStatusbarColor = false
+                            end
+                        end)
                     else
-                        --barsShowData
-                        local formattedTotal = ""
-                        local formattedDPS = ""
-                        local formattedPercent = ""
+                        actorName = UnitName(actorName)
+                    end --~refresh
 
-                        if (barsShowData[1] and barsShowData[2]) then --total and dps
-                            formattedTotal = AbbreviateNumbers(value, abbreviateSettingsDamage)
-                            formattedDPS = AbbreviateNumbers(totalAmountPerSecond, abbreviateSettingsDPS)
-                            local rightText = format("%s %s%s%s", formattedTotal, barsBrackets[1], formattedDPS, barsBrackets[2])
-                            instanceLine.lineText14:SetText(rightText)
+                    instanceLine.lineText1:SetText(actorName) --left text
+                    --instanceLine.lineText11:SetText(actorName) --left text
 
-                        elseif (barsShowData[2]) then --only total
-                            formattedTotal = AbbreviateNumbers(value, abbreviateSettingsDamage)
-                            instanceLine.lineText14:SetText(formattedTotal)
-
-                        elseif (barsShowData[3]) then --only dps
-                            formattedDPS = AbbreviateNumbers(totalAmountPerSecond, abbreviateSettingsDPS)
-                            instanceLine.lineText14:SetText(formattedDPS)
-                        end
-
-                        --percent not available now
-                    end
-
-                    --instanceLine.lineText13:SetText(value)
-                    --instanceLine.lineText14:SetText(totalAmountPerSecond)
-
-
+                    local perCent = nil
+                    local ruleToUse = 2 --total dps
+                    Details:SimpleFormat(instanceLine.lineText2, instanceLine.lineText3, instanceLine.lineText4, AbbreviateNumbers(value, abbreviateSettingsDamage), AbbreviateNumbers(totalAmountPerSecond, abbreviateSettingsDPS), perCent, ruleToUse)
 
                     instanceLine.statusbar:SetMinMaxValues(0, topValue, Enum.StatusBarInterpolation.ExponentialEaseOut)
                     instanceLine.statusbar:SetValue(value, Enum.StatusBarInterpolation.ExponentialEaseOut)
@@ -1290,16 +1471,13 @@ local updateWindow = function(instance) --~update
                         instanceLine.icone_classe:SetTexCoord(l, r, t, b)
                     end
 
-                    instanceLine.textura:SetTexture(textureFile)
-                    instanceLine.background:SetTexture(textureFile2)
-                    instanceLine.overlayTexture:SetTexture(overlayTexture)
-                    instanceLine.overlayTexture:SetVertexColor(unpack(overlayColor))
-
-                    local classColor = Details.class_colors[classFilename or "UNGROUPPLAYER"]
-                    if (classColor) then
-                        instanceLine.textura:SetVertexColor(classColor[1], classColor[2], classColor[3])
-                    else
-                        instanceLine.textura:SetVertexColor(detailsFramework:ParseColors("brown"))
+                    if updateStatusbarColor then
+                        local classColor = Details.class_colors[classFilename or "UNGROUPPLAYER"]
+                        if (classColor) then
+                            instanceLine.textura:SetVertexColor(classColor[1], classColor[2], classColor[3])
+                        else
+                            instanceLine.textura:SetVertexColor(detailsFramework:ParseColors("brown"))
+                        end
                     end
 
                     linesInUse = linesInUse + 1
@@ -1308,28 +1486,34 @@ local updateWindow = function(instance) --~update
                 end
             end
         end
-
+    else
+        if (damageMeterType and damageMeterType == 100) then
+            instance:SetDisplay(DETAILS_ATTRIBUTE_DAMAGE, DETAILS_SUBATTRIBUTE_DAMAGEDONE)
+        end
     end
 end
 
-local updateOpenedWindows = function()
+local updateOpenWindows = function()
     Details:InstanceCall(updateWindow)--update all opened details! windows with the new data from blizzard damage meter
 end
 
-local switchWindowFontStrings = function(instance)
+local showFontStringsForPrivateText = function(instance)
     local allInstanceLines = instance.barras
 
     for i = 1, #allInstanceLines do
         ---@type detailsline
         local line = allInstanceLines[i]
-        line.lineText1:SetText("")
-        line.lineText2:SetText("")
-        line.lineText3:SetText("")
-        line.lineText4:SetText("")
-        line.lineText11:SetShown(true)
-        line.lineText12:SetShown(true)
-        line.lineText13:SetShown(true)
-        line.lineText14:SetShown(true)
+        --clear the regular font string
+        --line.lineText1:SetText("")
+        --line.lineText2:SetText("")
+        --line.lineText3:SetText("")
+        --line.lineText4:SetText("")
+
+        --show the secret font strings
+        --line.lineText11:SetShown(true)
+        --line.lineText12:SetShown(true)
+        --line.lineText13:SetShown(true)
+        --line.lineText14:SetShown(true)
 
         line.inCombat = bRegenIsDisabled
     end
@@ -1338,10 +1522,10 @@ end
 ---@param self instance
 function Details:GetFormattedTimeForTitleBar()
     local combat = self:GetCombat()
-    local t = 0
+    local elapsedTime = 0
 
     if not detailsFramework.IsAddonApocalypseWow() then
-        t = combat:GetCombatTime()
+        elapsedTime = combat:GetCombatTime()
     else
         local currentSessionId = getCurrentSessionId()
         local segmentId = self:GetSegmentId()
@@ -1349,25 +1533,25 @@ function Details:GetFormattedTimeForTitleBar()
         if segmentId == DETAILS_SEGMENTID_OVERALL then
             if bRegenIsDisabled then
                 local thisSessionTime = getSessionCombatTime(currentSessionId)
-                t = combat:GetCombatTime() + thisSessionTime
+                elapsedTime = combat:GetCombatTime() + thisSessionTime
             else
-                t = combat:GetCombatTime()
+                elapsedTime = combat:GetCombatTime()
             end
 
         elseif segmentId == DETAILS_SEGMENTID_CURRENT then
             if bRegenIsDisabled then
-                t = getSessionCombatTime(currentSessionId)
+                elapsedTime = getSessionCombatTime(currentSessionId)
             else
-                t = combat:GetCombatTime()
+                elapsedTime = combat:GetCombatTime()
             end
         else
-            t = combat:GetCombatTime()
+            elapsedTime = combat:GetCombatTime()
         end
     end
 
-    if t > 0 then
-        local minutes = math.floor(t / 60)
-        local seconds = math.floor(t % 60)
+    if elapsedTime > 0 then
+        local minutes = math.floor(elapsedTime / 60)
+        local seconds = math.floor(elapsedTime % 60)
         local timeString = string.format("%02d:%02d", minutes, seconds)
         return timeString
     end
@@ -1379,17 +1563,18 @@ local timerUpdateInterval = 1 --time in seconds
 local timerUpdateObject = nil
 local updateTime = function(timerObject)
     local instance = timerObject.instance
-    local timeString = instance:GetFormattedTimeForTitleBar()
-    if instance:GetSegmentId() ~= DETAILS_SEGMENTID_OVERALL then
-        local attributeText = instance:GetInstanceAttributeText() --this return 'damage done'
-        timeString = timeString .. " " .. attributeText
-        instance:SetTitleBarText(timeString)
+    if instance.attribute_text.show_timer then
+        local timeString = instance:GetFormattedTimeForTitleBar()
+        if instance:GetSegmentId() ~= DETAILS_SEGMENTID_OVERALL then
+            local attributeText = instance:GetInstanceAttributeText() --this return 'damage done'
+            timeString = timeString .. " " .. attributeText
+            instance:SetTitleBarText(timeString)
+        end
     end
 end
 
 --this function update the time in settings shown in the window
-local startTimeUpdate = function()
-    --
+local startElapsedTimeUpdate = function()
     local lowerInstanceId = Details:GetLowerInstanceNumber()
     if lowerInstanceId then
         local instance = Details:GetInstance(lowerInstanceId)
@@ -1407,26 +1592,25 @@ end
 local updaterTicker = nil
 local startUpdater = function()
     --bParser.MakeAsOverlay()
-    Details:InstanceCall(switchWindowFontStrings)
-    startTimeUpdate()
+    if (bRegenIsDisabled) then
+        Details:InstanceCall(showFontStringsForPrivateText)
 
-    --start a ticker that will update opened details! windows every X seconds
-    if (not updaterTicker) then
-        updaterTicker = C_Timer.NewTicker(Details.update_speed, function()
-            if (bRegenIsDisabled) then
-                updateOpenedWindows()
-            end
-        end)
+        startElapsedTimeUpdate()
+
+        --start a ticker that will update opened details! windows every X seconds
+        if (not updaterTicker) then
+            updaterTicker = C_Timer.NewTicker(Details.update_speed, function()
+                updateOpenWindows()
+            end)
+        end
     end
 end
 
 local stopUpdaterAndClearWindow = function()
-    --bParser.UnmakeAsOverlay()
-
     if (updaterTicker) then
         updaterTicker:Cancel()
         updaterTicker = nil
-        Details:InstanceCall(clearWindow)
+        Details:InstanceCall(clearLineSecrets)
     end
 
     if (timerUpdateObject) then
@@ -1451,6 +1635,12 @@ if detailsFramework.IsAddonApocalypseWow() then
     combatEventFrame:RegisterEvent("ENCOUNTER_START")
     combatEventFrame:RegisterEvent("ENCOUNTER_END")
     combatEventFrame:RegisterEvent("DAMAGE_METER_RESET")
+    combatEventFrame:RegisterEvent("ADDON_RESTRICTION_STATE_CHANGED")
+    combatEventFrame:RegisterEvent("PVP_MATCH_COMPLETE")
+    combatEventFrame:RegisterEvent("PVP_MATCH_ACTIVE")
+    combatEventFrame:RegisterEvent("PLAYER_DEAD")
+    combatEventFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+    combatEventFrame:RegisterEvent("CHALLENGE_MODE_START")
 end
 
 local parserFrame = CreateFrame("frame")
@@ -1465,12 +1655,11 @@ parserFrame:SetScript("OnEvent", function(self, event, ...)
         if sessionId ~= 0 then
             local existingSession = getSession(sessionId)
             if not existingSession then
-
+                --print("change session detected:", GetTime(), getSessionDetailsId(sessionId))
                 createAndAddSession(sessionId)
 
                 if not isUpdaterRunning() then
                     if Details:ArePlayersInCombat() then
-
                         startUpdater()
                     end
                 end
@@ -1480,6 +1669,14 @@ parserFrame:SetScript("OnEvent", function(self, event, ...)
     elseif (event == "DAMAGE_METER_CURRENT_SESSION_UPDATED") then
         local sessionId = getCurrentSessionId()
         createAndAddSession(sessionId)
+
+        if onPvpMatch then
+            if sessionIdAtArenaStart == 0 then
+                sessionIdAtArenaStart = sessionId
+            end
+        end
+
+        --print("|cffff1111new session", GetTime(), getSessionDetailsId(sessionId))
 
         if not isUpdaterRunning() then
             if Details:ArePlayersInCombat() then
@@ -1513,6 +1710,19 @@ local onDataReset = function()
     end
 end
 
+local updateAllRestrictionFlags = function()
+    C_Timer.After(1, function()
+    restrictionFlag = 0
+    for restrictionType, bitToChange in pairs(restrictionFlags) do
+            local state = C_RestrictedActions.GetAddOnRestrictionState(restrictionType)
+            if state > 0 then
+                restrictionFlag = restrictionFlag + bitToChange
+            end
+        end
+        --print("restrictionFlag", restrictionFlag)
+    end)
+end
+
 combatEventFrame:SetScript("OnEvent", function(mySelf, ev, ...)
     if (ev == "PLAYER_LOGIN") then
 
@@ -1524,6 +1734,38 @@ combatEventFrame:SetScript("OnEvent", function(mySelf, ev, ...)
 
             end
         end)
+
+    elseif (ev == "ADDON_RESTRICTION_STATE_CHANGED") then
+        local restrictionType, state = ...
+
+        local bitToChange = restrictionFlags[restrictionType]
+        if bitToChange then
+            if state > 0 then
+                restrictionFlag = bit.bor(restrictionFlag, bitToChange)
+            else
+                restrictionFlag = bit.band(restrictionFlag, bit.bnot(bitToChange))
+            end
+        end
+
+    elseif (ev == "CHALLENGE_MODE_START") then
+        --print("CHALLENGE_MODE_START", GetTime())
+        mythicPlusInfo.startTime = GetTime()
+        mythicPlusInfo.startUnixTime = time()
+        mythicPlusInfo.startDate = date("%H:%M:%S")
+        mythicPlusInfo.sessionId = getCurrentSessionId()
+        mythicPlusInfo.level = C_ChallengeMode.GetActiveKeystoneInfo()
+        mythicPlusInfo.mapId = C_ChallengeMode.GetActiveChallengeMapID()
+        mythicPlusInfo.isActive = true
+
+    elseif (ev == "CHALLENGE_MODE_COMPLETED") then
+        --print("CHALLENGE_MODE_COMPLETED", GetTime())
+        mythicPlusInfo.endTime = GetTime()
+        mythicPlusInfo.endUnixTime = time()
+        mythicPlusInfo.endDate = date("%H:%M:%S")
+        mythicPlusInfo.isActive = false
+
+    elseif (ev == "PLAYER_DEAD") then
+        --print("PLAYER_DEAD", GetTime())
 
     elseif (ev == "DAMAGE_METER_RESET") then
         --if bRegenIsDisabled then
@@ -1554,9 +1796,52 @@ combatEventFrame:SetScript("OnEvent", function(mySelf, ev, ...)
 
         end
 
-    elseif (ev == "PLAYER_REGEN_ENABLED") then --left the combat
-        if debug then
+    elseif (ev == "ZONE_CHANGED_NEW_AREA") then
+        local _, newInstanceType = GetInstanceInfo()
 
+        if currentZoneType ~= "arena" and newInstanceType == "arena" then --joined arena
+            --sessionIdAtArenaStart = getCurrentSessionId()
+            --print("ENTERED ARENA, session at entry:", sessionIdAtArenaStart)
+
+        elseif currentZoneType == "arena" and newInstanceType ~= "arena" then --left arena
+            C_Timer.After(2, function()
+                onPvpMatch = false
+                --sessionIdAtArenaStart = 0
+            end)
+        end
+
+        currentZoneType = newInstanceType
+
+    elseif (ev == "PVP_MATCH_ACTIVE") then
+        --print("PVP_MATCH_ACTIVE", GetTime())
+        --sessionIdAtArenaStart = getCurrentSessionId()
+        onPvpMatch = true
+
+    elseif (ev == "PVP_MATCH_COMPLETE") then
+        --print("PVP_MATCH_COMPLETE", GetTime())
+
+        local _, instanceType = GetInstanceInfo()
+        if instanceType == "arena" then
+            C_Timer.After(1, function()
+                combatEventFrame:GetScript("OnEvent")(combatEventFrame, "PLAYER_REGEN_ENABLED")
+            end)
+        end
+
+    elseif (ev == "PLAYER_REGEN_ENABLED") then --left the combat ~regen
+        --print("PLAYER_REGEN_ENABLED", GetTime())
+
+        local hasSecret = doYouHaveASecret()
+        if not hasSecret then
+            if debug then
+                print("=> regen enabled, doYouHaveASecret() returned false.")
+            end
+        end
+
+        local _, instanceType = GetInstanceInfo()
+        if instanceType == "arena" then
+            if not C_PvP.IsMatchComplete() then
+                return
+            end
         end
 
         if IsEncounterInProgress and IsEncounterInProgress() then
@@ -1607,6 +1892,8 @@ combatEventFrame:SetScript("OnEvent", function(mySelf, ev, ...)
         end
 
     elseif (ev == "PLAYER_REGEN_DISABLED") then --entered in combat
+        --print("PLAYER_REGEN_DISABLED", GetTime())
+
         bRegenIsDisabled = true
         combatStartTime = GetTime()
         evTime = GetTime()
@@ -1661,16 +1948,12 @@ function bParser.SetSessionCache(t)
 
     local availableCombatSessions = C_DamageMeter.GetAvailableCombatSessions()
 
-
     local latestSession = availableCombatSessions[#availableCombatSessions]
     if latestSession then
         local latestSessionId = latestSession.sessionID
-
-
         for sessionId in pairs(sessionCache) do
             if sessionId > latestSessionId then
                 sessionCache[sessionId] = nil
-
             end
         end
     else

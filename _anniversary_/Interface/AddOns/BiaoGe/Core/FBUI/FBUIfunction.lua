@@ -91,7 +91,7 @@ local function HighlightBiaoGeSameItems(itemID, self)
     if #tbl > 1 then
         local frame
         for i, v in ipairs(tbl) do
-            frame = BG.CreateHighlightFrame(v.zb, nil, { RGB("FF69B4", 0.5) }, 4)
+            frame = BG.CreateHighlightFrame(v.zb, nil, { 1, 0, 0, }, 4)
             frame:ClearAllPoints()
             frame:SetPoint("TOPLEFT", v.zb, "TOPLEFT", 0, 0)
             frame:SetPoint("BOTTOMRIGHT", v.jine, "BOTTOMRIGHT", 0, 0)
@@ -99,7 +99,7 @@ local function HighlightBiaoGeSameItems(itemID, self)
         local t = frame:CreateFontString()
         t:SetFont(BIAOGE_TEXT_FONT, 20, "OUTLINE")
         t:SetPoint("RIGHT", self, "RIGHT", -2, 0)
-        t:SetTextColor(RGB("FF69B4"))
+        t:SetTextColor(1, 0, 0)
         t:SetText(#tbl)
     end
     tbl = nil
@@ -1312,7 +1312,6 @@ function BG.BossNameUI(FB, t, b, bb, i, ii, frameName)
         f.text:SetText(L["工\n资"])
         BG.SetBossNamePoint(FB, boss, f)
     end
-
 end
 
 ------------------击杀用时------------------

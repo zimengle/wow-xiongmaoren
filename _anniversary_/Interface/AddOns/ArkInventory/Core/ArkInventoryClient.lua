@@ -889,6 +889,26 @@ function ArkInventory.CrossClient.TransmogCollection_GetItemInfo( ... )
 	end
 end
 
+function ArkInventory.CrossClient.TransmogCollectionGetAppearanceSourceInfo( ... )
+	
+	local r = { }
+	
+	if C_TransmogCollection and C_TransmogCollection.GetAppearanceSourceInfo then
+		
+		local test = C_TransmogCollection.GetAppearanceSourceInfo( ... )
+		if type( test ) == "table" then
+			r = test
+		else
+			r = { }
+			r.categoryID, r.visualID, r.canEnchant, r.icon, r.isCollected, r.itemLink, r.transmogLink, r.unknown1, r.itemSubTypeIndex = C_TransmogCollection.GetAppearanceSourceInfo( ... )
+		end
+
+	end
+	
+	return r
+
+end
+
 function ArkInventory.CrossClient.GetMouseFocus( )
 	if GetMouseFoci then
 		local regions = GetMouseFoci( )

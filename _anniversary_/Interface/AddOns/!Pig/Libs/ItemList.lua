@@ -22,13 +22,12 @@ local TalentData=Data.TalentData
 --
 local Fun=addonTable.Fun
 local GetRuneData=Fun.GetRuneData
-local _GetItemLevel=Fun._GetItemLevel
+local _GetTooltipLevel=Fun._GetTooltipLevel
 local _GetAverageItemLevel=Fun._GetAverageItemLevel
 local _Get_GEM_EMPTY_SOCKET=Fun._Get_GEM_EMPTY_SOCKET
 local GetItemStats=GetItemStats or C_Item and C_Item.GetItemStats
 local GetItemGem=GetItemGem or C_Item and C_Item.GetItemGem
 local GetItemInfoInstant=GetItemInfoInstant or C_Item and C_Item.GetItemInfoInstant
-local GetDetailedItemLevelInfo=GetDetailedItemLevelInfo or C_Item and C_Item.GetDetailedItemLevelInfo
 -------------
 local ListWWWHHH = {206,425,18,36,6}--3hangH,Gembut/4buweiW/5宝石+附魔+符文数
 --宝石槽位信息
@@ -178,20 +177,19 @@ local function Show_fuwenBut_yanchi(Parent,hangUI,fuwenIcon,k)
 end
 
 --------------
-local function Update_ItemLevel(unit,SlotID,SlotBut)
-	local Parent=SlotBut:GetParent()
-    local ItemDX = _GetItemLevel(unit,SlotID,SlotBut)
-    if ItemDX == "RETRIEVING" and Parent.SlotOKs[SlotID].TooltipCount < 10 then
-    	--print("RETRIEVING",unit,SlotID,itemLink,SlotBut,Parent.SlotOKs[SlotID].TooltipCount)
-        C_Timer.After(0.05, function()
-        	Parent.SlotOKs[SlotID].TooltipCount = Parent.SlotOKs[SlotID].TooltipCount + 1
-        	Update_ItemLevel(unit,SlotID,SlotBut)
-        end)
-    else
-    	Parent.SlotOKs[SlotID].laodnd=nil
-    	if ItemDX then
-    		local itemLevel,taodata=unpack(ItemDX)
-    		Parent.SlotOKs[SlotID].tao=taodata
+local function Update_ItemLevel(unit,SlotID,SlotBut,itemLink)
+	local Newdata={}
+	if unit=="lx" or unit=="yc" then
+		Newdata[1]="link"
+		Newdata[2]={itemLink}
+	else
+		Newdata[1]=unit
+		Newdata[2]={SlotID}
+	end
+	_GetTooltipLevel(Newdata[1],Newdata[2],function(itemLevel,taodata)
+		local Parent=SlotBut:GetParent()
+		Parent.SlotOKs[SlotID].laodnd=nil
+    	if itemLevel then
     		SlotBut.iLv=itemLevel
     		SlotBut.itemlink.lv:SetText(itemLevel)
     		local width = SlotBut.itemlink.t:GetStringWidth()+SlotBut.itemlink.lv:GetStringWidth()
@@ -202,7 +200,8 @@ local function Update_ItemLevel(unit,SlotID,SlotBut)
 			end
 			Parent:SetWidth(Parent.hangMaxW)
 		end
-    end
+		Parent.SlotOKs[SlotID].tao=taodata
+	end,0,true)
 end
 local function Update_SlotButton(SlotBut,SlotID,zbData)
 	local Parent=SlotBut:GetParent()
@@ -327,7 +326,7 @@ local function Update_SlotButton(SlotBut,SlotID,zbData)
 		local itemID, itemType, itemSubType, itemEquipLoc = GetItemInfoInstant(itemLink)
    		SlotBut.itemEquipLoc=itemEquipLoc
    		Parent.SlotOKs[SlotID].TooltipCount=0
-		Update_ItemLevel(unit,SlotID,SlotBut)
+		Update_ItemLevel(unit,SlotID,SlotBut,itemLink)
 	else
 		Parent.SlotOKs[SlotID].laodnd=nil
 	end

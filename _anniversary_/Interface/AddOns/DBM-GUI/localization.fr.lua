@@ -107,7 +107,7 @@ L.UIGroupingOptions					= "Options d'interface partagées (requiert de recharger
 L.GroupOptionsExcludeIcon			= "Exclure l'option 'Définir l'icône sur' du regroupement par sort (elles seront regroupées dans la catégorie 'Icônes' à la place)"
 L.GroupOptionsExcludePrivateAura	= "Exclure les options sonores des 'Auras Privées' du regroupement par sort (elles seront regroupées dans la catégorie 'Auras Privées' à la place)"
 L.ShowWAKeys						= "Afficher les clés WeakAuras à côté des noms de sorts pour aider à écrire des WeakAuras en utilisant les déclencheurs du boss mod"
-L.AutoExpandSpellGroups				= "Déplier automatiquement les options liées à la même capacité"
+L.AutoExpandSpellGroups2				= "Déplier automatiquement les options liées à la même capacité"
 --L.ShowSpellDescWhenExpanded		= "Continuer à afficher la description du sort lorsque les groupes sont déployés."--Might not be used
 L.NoDescription						= "Cette capacité n'a aucune description"
 L.CustomOptions						= "Cette catégorie contient des options personnalisées pour une capacité ou un événement qui n'a pas son propre ID de sort ou de journal. Ces options ont été regroupées ensemble en utilisant un ID manuel personnalisé pour faciliter la création de WeakAuras."
@@ -446,8 +446,8 @@ L.Panel_ReducedInformation 	= "Réduire les informations"
 L.Panel_SpamFilter					= "Désactiver les fonctions de DBM"
 
 L.Area_Global_Toggles              = "Options globales des fonctionnalités"
-L.NoWarnings                       = "Désactiver entièrement les alertes de DBM"
-L.NoTimers                         = "Désactiver entièrement les chronomètres de DBM"
+L.NoWarnings                       = "Désactiver les alertes de DBM"
+L.NoTimers                         = "Désactiver les chronomètres de DBM"
 
 L.Area_SpamFilter_Anounces			= "Filtres d'annonces"
 L.SpamBlockNoShowAnnounce			= "Ne pas afficher de texte ni jouer de son pour AUCUNE annonce générale"

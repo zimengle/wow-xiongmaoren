@@ -143,3 +143,7 @@ ArkInventoryRules: enabled
 ArkInventorySearch: enabled
 Cell: enabled
 Pawn: enabled
+FakeAchievement: enabled
+TomTom: enabled
+NewBeeBox: enabled
+EasyAuction: enabled

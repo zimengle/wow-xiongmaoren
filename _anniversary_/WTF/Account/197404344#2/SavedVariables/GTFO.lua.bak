@@ -1,16 +1,11 @@
 
 GTFOData = {
-["SoundChannel"] = "SFX",
+["EnableVibration"] = false,
 ["Active"] = true,
-["TrivialDamagePercent"] = 2,
 ["IgnoreSpellList"] = {
 },
-["SoundOverrides"] = {
-"",
-"",
-"",
-"",
-},
+["TrivialDamagePercent"] = 2,
+["SoundChannel"] = "SFX",
 ["Sounds"] = {
 true,
 true,
@@ -18,7 +13,7 @@ true,
 true,
 },
 ["DataCode"] = "4",
-["TestMode"] = false,
+["UnmuteMode"] = false,
 ["Volume"] = 3,
 ["IgnoreOptions"] = {
 ["Fatigue"] = false,
@@ -27,7 +22,12 @@ true,
 ["GarroshDesecrated"] = false,
 ["HagaraWateryEntrenchment"] = false,
 },
-["UnmuteMode"] = false,
-["EnableVibration"] = false,
+["TestMode"] = false,
+["SoundOverrides"] = {
+"",
+"",
+"",
+"",
+},
 ["TrivialMode"] = false,
 }

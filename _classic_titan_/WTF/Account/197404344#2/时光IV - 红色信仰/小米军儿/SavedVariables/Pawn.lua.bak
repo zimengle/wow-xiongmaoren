@@ -1,6 +1,8 @@
 
 PawnOptions = {
 ["LastVersion"] = 2.1303,
+["LastPlayerFullName"] = "小米军儿-时光IV - 红色信仰",
+["AutoSelectScales"] = false,
 ["ItemLevels"] = {
 {
 ["ID"] = 257631,
@@ -34,9 +36,9 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:257630:3823:42142:39948:::::80::::::::::|h[北境腿甲]|h|r",
 },
 {
-["ID"] = 257633,
-["Level"] = 213,
-["Link"] = "|cffa335ee|Hitem:257633:1597:::::::80::::::::::|h[北境长靴]|h|r",
+["ID"] = 30081,
+["Level"] = 226,
+["Link"] = "|cffa335ee|Hitem:30081::::::::80::::::::::|h[湮灭战靴]|h|r",
 },
 {
 ["ID"] = 257627,
@@ -44,21 +46,21 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:257627:3845:::::::80::::::::::|h[北境臂铠]|h|r",
 },
 {
-["ID"] = 257632,
-["Level"] = 213,
-["Link"] = "|cffa335ee|Hitem:257632:684:39996::::::80::::::::::|h[北境手套]|h|r",
+["ID"] = 264438,
+["Level"] = 219,
+["Link"] = "|cffa335ee|Hitem:264438::::::::80::::::::::|h[亵渎者护手]|h|r",
 },
 {
-["ID"] = 255106,
-["Level"] = 213,
+["ID"] = 29298,
+["Level"] = 219,
 ["AlsoFitsIn"] = 12,
-["Link"] = "|cffa335ee|Hitem:255106::40034::::::80::::::::::|h[海洋之风]|h|r",
+["Link"] = "|cffa335ee|Hitem:29298::::::::80::::::::::|h[永恒之戒]|h|r",
 },
 {
-["ID"] = 37151,
-["Level"] = 200,
+["ID"] = 29298,
+["Level"] = 219,
 ["AlsoFitsIn"] = 11,
-["Link"] = "|cff0070dd|Hitem:37151::::::::80::::::::::|h[冰霜荆棘指环]|h|r",
+["Link"] = "|cffa335ee|Hitem:29298::39996::::::80::::::::::|h[永恒之戒]|h|r",
 },
 {
 ["ID"] = 40684,
@@ -78,19 +80,18 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:30098::::::::80::::::::::|h[锋鳞作战披风]|h|r",
 },
 {
-["ID"] = 44250,
-["Level"] = 200,
+["ID"] = 30311,
+["Level"] = 298,
 ["AlsoFitsIn"] = 17,
-["Link"] = "|cff0070dd|Hitem:44250:3368:::::::80::::::::::|h[暗魂收割者]|h|r",
+["Link"] = "|cffff8000|Hitem:30311::::::::80::::::::::|h[迁跃切割者]|h|r",
 },
 {
-["ID"] = 40703,
-["Level"] = 200,
-["Link"] = "|cffa335ee|Hitem:40703:3368:::::::80::::::::::|h[草薙]|h|r",
+["ID"] = 28437,
+["Level"] = 226,
+["AlsoFitsIn"] = 16,
+["Link"] = "|cffa335ee|Hitem:28437:3368:::::::80::::::::::|h[龙拳之锤]|h|r",
 },
 },
-["AutoSelectScales"] = false,
-["LastPlayerFullName"] = "小米军儿-时光IV - 红色信仰",
 }
 PawnMrRobotScaleProviderOptions = nil
 PawnClassicScaleProviderOptions = {

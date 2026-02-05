@@ -114,8 +114,8 @@ function addonTable.Load_Config()
 end
 function addonTable.Get_PlayerRealmData()
 	local englishFaction= UnitFactionGroup("player")--阵营"Alliance"/"Horde"
-	local wanjia, realm = UnitFullName("player")
-	local realm = realm or GetRealmName()
+	local wanjia= UnitName("player")
+	local realm = GetRealmName()
 	local className, classFile, classId = UnitClass("player")
 	local raceName, raceFile, raceId = UnitRace("player")
 	local gender = UnitSex("player")

@@ -7,6 +7,16 @@ VER 3 0100000000000006 "aoe" "134400"
 /startattack
 /petattack
 END
+VER 3 0100000000000008 "丐版天贵" "134400"
+#showtooltip
+/stopmacro [nocombat]
+/施放 狮心(种族特长)
+/cast 召唤石像鬼
+/use 10
+/use 13
+/use 14
+/startattack
+END
 VER 3 0100000000000003 "凋零" "134400"
 #showtooltip 枯萎凋零
 /cast [@player] 枯萎凋零; [mod:alt,@cursor] 枯萎凋零

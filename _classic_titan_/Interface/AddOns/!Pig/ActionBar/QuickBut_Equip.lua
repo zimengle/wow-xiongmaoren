@@ -256,7 +256,7 @@ QuickButUI.ButList[5]=function()
 			end
 		end
 		AutoEquipList:SetShown(self.cunzainum>0)
-		self.tips:SetShown(self.cunzainum-numTalentGroups<=0)
+		self.tips:SetShown(self.cunzainum==0)
 	end)
 	AutoEquip:HookScript("OnLeave", function(self)
 		AutoEquipList:Hide()

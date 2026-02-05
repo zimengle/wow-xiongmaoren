@@ -1,0 +1,13 @@
+
+WclBoxCharacter = {
+["class"] = "PALADIN",
+["realmID"] = 6383,
+["version"] = "1.0.29",
+["race"] = "人类",
+["name"] = "京东刘强东",
+["faction"] = "Alliance",
+["realmName"] = "时光IV - 红色信仰",
+["level"] = 80,
+["loginTime"] = 1770260645,
+["playerGUID"] = "Player-6383-00247F67",
+}

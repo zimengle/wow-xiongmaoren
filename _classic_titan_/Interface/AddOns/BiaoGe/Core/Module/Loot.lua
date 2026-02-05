@@ -213,7 +213,6 @@ BG.Init(function()
     f:RegisterEvent("ENCOUNTER_END")
     f:SetScript("OnEvent", function(self, event, ...)
         local bossID, _, _, _, success = ...
-        -- pt(numb, event, ...)
         local FB = BG.FB2
         if not FB then return end
         if event == "ENCOUNTER_START" then
@@ -251,7 +250,6 @@ BG.Init(function()
                 start = nil
             end
         end
-        -- pt(numb, event, ...)
     end)
     local f = CreateFrame("Frame")
     f:RegisterEvent("PLAYER_REGEN_DISABLED") -- 进入战斗
@@ -263,8 +261,6 @@ BG.Init(function()
         if numb ~= Maxb[FB] - 1 then
             if _time - lasttime >= 45 then -- 击杀BOSS x秒后进入下一次战斗，就变回杂项
                 numb = Maxb[FB] - 1
-                -- local text = BG.STC_r1(L["非BOSS战"])
-                -- PrintLootBoss(FB, event, numb, text)
             end
         end
     end)

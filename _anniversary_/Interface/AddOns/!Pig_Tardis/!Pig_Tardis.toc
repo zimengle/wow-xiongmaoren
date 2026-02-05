@@ -11,7 +11,7 @@
 ## AddonCompartmentFuncOnLeave: PIGCompartmentLeave_Tardis
 ## RequiredDeps: !Pig
 ## Author: geligasi
-## Version: 1.83
+## Version: 1.84
 ## SavedVariables: PIGT
 ## SavedVariablesPerCharacter: PIGT_Per
 Default.lua

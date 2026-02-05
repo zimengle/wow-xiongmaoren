@@ -56,7 +56,9 @@ Postal3DB = {
 ["小米军儿 - 时光IV - 红色信仰"] = {
 ["BlackBook"] = {
 ["recent"] = {
+"京东刘强东|时光IV - 红色信仰|Alliance",
 "退休码农|时光IV - 红色信仰|Alliance",
+"美团王兴|时光IV - 红色信仰|Alliance",
 },
 },
 },
@@ -98,11 +100,17 @@ Postal3DB = {
 ["退休码农 - 时光IV - 红色信仰"] = {
 ["BlackBook"] = {
 ["recent"] = {
+"美团王兴|时光IV - 红色信仰|Alliance",
 "京东刘强东|时光IV - 红色信仰|Alliance",
 },
 },
 },
 ["三角碑崽儿 - 时光IV - 红色信仰"] = {
+["BlackBook"] = {
+["recent"] = {
+"小米军儿|时光IV - 红色信仰|Alliance",
+},
+},
 },
 ["美团王兴 - 时光IV"] = {
 ["BlackBook"] = {
@@ -138,8 +146,8 @@ Postal3DB = {
 ["美团王兴 - 时光IV - 红色信仰"] = {
 ["BlackBook"] = {
 ["recent"] = {
-"京东刘强东|时光IV - 红色信仰|Alliance",
 "小米军儿|时光IV - 红色信仰|Alliance",
+"京东刘强东|时光IV - 红色信仰|Alliance",
 },
 },
 },
@@ -166,6 +174,7 @@ Postal3DB = {
 ["于鹏 - 时光IV - 红色信仰"] = {
 ["BlackBook"] = {
 ["recent"] = {
+"美团王兴|时光IV - 红色信仰|Alliance",
 "哔站陈睿|时光IV - 红色信仰|Alliance",
 },
 },

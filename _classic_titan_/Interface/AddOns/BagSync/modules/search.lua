@@ -15,50 +15,32 @@ local function Debug(level, ...)
     if BSYC.DEBUG then BSYC.DEBUG(level, "Search", ...) end
 end
 
-local L = LibStub("AceLocale-3.0"):GetLocale("BagSync")
+local L = BSYC.L
 local ItemScout = LibStub("LibItemScout-1.0")
 
-Search.cacheItems = {}
-
 function Search:OnEnable()
-    local searchFrame = _G.CreateFrame("Frame", nil, UIParent, "BagSyncSearchFrameTemplate")
-	Mixin(searchFrame, Search) --implement new frame to our parent module Mixin, to have access to parent methods
-	_G["BagSyncSearchFrame"] = searchFrame
-    --Add to special frames so window can be closed when the escape key is pressed.
-    tinsert(UISpecialFrames, "BagSyncSearchFrame")
-    searchFrame.TitleText:SetText("BagSync - "..L.Search)
-	searchFrame:SetWidth(400)
-    searchFrame:SetHeight(500)
-    searchFrame:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
-    searchFrame:EnableMouse(true) --don't allow clickthrough
-    searchFrame:SetMovable(true)
-    searchFrame:SetResizable(false)
-    searchFrame:SetFrameStrata("FULLSCREEN_DIALOG")
-	searchFrame:RegisterForDrag("LeftButton")
-	searchFrame:SetClampedToScreen(true)
-	searchFrame:SetScript("OnDragStart", searchFrame.StartMoving)
-	searchFrame:SetScript("OnDragStop", searchFrame.StopMovingOrSizing)
-	searchFrame:SetScript("OnShow", function() Search:OnShow() end)
-	searchFrame:SetScript("OnHide", function() Search:OnHide() end)
-	local closeBtn = CreateFrame("Button", nil, searchFrame, "UIPanelCloseButton")
-	closeBtn:SetPoint("TOPRIGHT", C_EditMode and -3 or 2, C_EditMode and -3 or 1) --check for classic servers to adjust for positioning using a check for the new EditMode
-    searchFrame.closeBtn = closeBtn
-    Search.frame = searchFrame
+	local searchFrame = BSYC:UI_CreateModuleFrame(Search, {
+		template = "BagSyncSearchFrameTemplate",
+		globalName = "BagSyncSearchFrame",
+		title = "BagSync - "..L.Search,
+		width = 400,
+		height = 500,
+		point = { "CENTER", UIParent, "CENTER", 0, 0 },
+		onShow = function() Search:OnShow() end,
+		onHide = function() Search:OnHide() end,
+	})
+	Search.frame = searchFrame
 
-    Search.scrollFrame = _G.CreateFrame("ScrollFrame", nil, searchFrame, "HybridScrollFrameTemplate")
-    Search.scrollFrame:SetWidth(357)
-    Search.scrollFrame:SetPoint("TOPLEFT", searchFrame, "TOPLEFT", 13, -60)
-    --set ScrollFrame height by altering the distance from the bottom of the frame
-    Search.scrollFrame:SetPoint("BOTTOMLEFT", searchFrame, "BOTTOMLEFT", -25, 42)
-    Search.scrollFrame.scrollBar = CreateFrame("Slider", "$parentscrollBar", Search.scrollFrame, "HybridScrollBarTemplate")
-    Search.scrollFrame.scrollBar:SetPoint("TOPLEFT", Search.scrollFrame, "TOPRIGHT", 1, -16)
-    Search.scrollFrame.scrollBar:SetPoint("BOTTOMLEFT", Search.scrollFrame, "BOTTOMRIGHT", 1, 12)
-	--initiate the scrollFrame
-    --the items we will work with
-    Search.items = {}
-	Search.scrollFrame.update = function() Search:RefreshList(); end
-    HybridScrollFrame_SetDoNotHideScrollBar(Search.scrollFrame, true)
-	HybridScrollFrame_CreateButtons(Search.scrollFrame, "BagSyncListItemTemplate")
+	Search.scrollFrame = BSYC:UI_CreateHybridScrollFrame(searchFrame, {
+		width = 357,
+		pointTopLeft = { "TOPLEFT", searchFrame, "TOPLEFT", 13, -60 },
+		-- set ScrollFrame height by altering the distance from the bottom of the frame
+		pointBottomLeft = { "BOTTOMLEFT", searchFrame, "BOTTOMLEFT", -25, 42 },
+		buttonTemplate = "BagSyncListItemTemplate",
+		update = function() Search:RefreshList(); end,
+	})
+	--the items we will work with
+	Search.items = {}
 
 	--total counter
 	searchFrame.totalText = searchFrame:CreateFontString(nil, "BACKGROUND", "GameFontHighlightSmall")
@@ -68,20 +50,20 @@ function Search:OnEnable()
 	searchFrame.totalText:SetPoint("LEFT", searchFrame, "BOTTOMLEFT", 15, 20)
 	searchFrame.totalText:SetJustifyH("LEFT")
 
-	--Advanced Search button
-	searchFrame.advSearchBtn = _G.CreateFrame("Button", nil, searchFrame, "UIPanelButtonTemplate")
-	searchFrame.advSearchBtn:SetText(L.AdvancedSearch)
-	searchFrame.advSearchBtn:SetHeight(20)
-	searchFrame.advSearchBtn:SetWidth(searchFrame.advSearchBtn:GetTextWidth() + 30)
-	searchFrame.advSearchBtn:SetPoint("RIGHT", searchFrame, "BOTTOMRIGHT", -10, 23)
-	searchFrame.advSearchBtn:SetScript("OnClick", function() Search:ShowAdvanced() end)
+	--Search Filters button
+	searchFrame.searchFiltersBtn = _G.CreateFrame("Button", nil, searchFrame, "UIPanelButtonTemplate")
+	searchFrame.searchFiltersBtn:SetText(L.SearchFilters)
+	searchFrame.searchFiltersBtn:SetHeight(20)
+	searchFrame.searchFiltersBtn:SetWidth(searchFrame.searchFiltersBtn:GetTextWidth() + 30)
+	searchFrame.searchFiltersBtn:SetPoint("RIGHT", searchFrame, "BOTTOMRIGHT", -10, 23)
+	searchFrame.searchFiltersBtn:SetScript("OnClick", function() Search:ShowSearchFilters() end)
 
 	--Reset button
 	searchFrame.resetButton = _G.CreateFrame("Button", nil, searchFrame, "UIPanelButtonTemplate")
 	searchFrame.resetButton:SetText(L.Reset)
 	searchFrame.resetButton:SetHeight(20)
 	searchFrame.resetButton:SetWidth(searchFrame.resetButton:GetTextWidth() + 30)
-	searchFrame.resetButton:SetPoint("RIGHT", searchFrame.advSearchBtn, "LEFT", 0, 0)
+	searchFrame.resetButton:SetPoint("RIGHT", searchFrame.searchFiltersBtn, "LEFT", 0, 0)
 	searchFrame.resetButton:SetScript("OnClick", function() Search:Reset() end)
 
 	--Warning Frame
@@ -112,6 +94,9 @@ function Search:OnEnable()
 	warningFrame.infoText2:SetPoint("LEFT", warningFrame.infoText1, "BOTTOMLEFT", 5, -70)
 	warningFrame.infoText2:SetJustifyH("CENTER")
 	Search.warningFrame = warningFrame
+	if warningFrame.CloseButton then
+		warningFrame.CloseButton:SetScript("OnClick", function(self) self:GetParent():Hide() end)
+	end
 
 	--Help Frame
 	local helpFrame = _G.CreateFrame("Frame", nil, searchFrame, "BagSyncInfoFrameTemplate")
@@ -147,6 +132,9 @@ function Search:OnEnable()
 	helpFrame.EditBox:SetTextColor(1, 1, 1) --set default to white
 	helpFrame.ScrollFrame:EnableMouse(false)
 	Search.helpFrame = helpFrame
+	if helpFrame.CloseButton then
+		helpFrame.CloseButton:SetScript("OnClick", function(self) self:GetParent():Hide() end)
+	end
 
 	--Saved Search Frame
 	local savedSearch = _G.CreateFrame("Frame", nil, searchFrame, "BagSyncInfoFrameTemplate")
@@ -165,20 +153,19 @@ function Search:OnEnable()
 	savedSearch.TitleText:SetTextColor(1, 1, 1)
 	savedSearch:SetScript("OnShow", function() Search:SavedSearch_UpdateList() end)
 	Search.savedSearch = savedSearch
-    savedSearch.scrollFrame = _G.CreateFrame("ScrollFrame", nil, savedSearch, "HybridScrollFrameTemplate")
-    savedSearch.scrollFrame:SetWidth(357)
-    savedSearch.scrollFrame:SetPoint("TOPLEFT", savedSearch, "TOPLEFT", 13, -32)
-    --set ScrollFrame height by altering the distance from the bottom of the frame
-    savedSearch.scrollFrame:SetPoint("BOTTOMLEFT", savedSearch, "BOTTOMLEFT", -25, 36)
-    savedSearch.scrollFrame.scrollBar = CreateFrame("Slider", "$parentscrollBar", savedSearch.scrollFrame, "HybridScrollBarTemplate")
-    savedSearch.scrollFrame.scrollBar:SetPoint("TOPLEFT", savedSearch.scrollFrame, "TOPRIGHT", 1, -16)
-    savedSearch.scrollFrame.scrollBar:SetPoint("BOTTOMLEFT", savedSearch.scrollFrame, "BOTTOMRIGHT", 1, 12)
-	--initiate the scrollFrame
-    --the items we will work with
-    savedSearch.items = {}
-	savedSearch.scrollFrame.update = function() Search:SavedSearch_RefreshList(); end
-    HybridScrollFrame_SetDoNotHideScrollBar(savedSearch.scrollFrame, true)
-	HybridScrollFrame_CreateButtons(savedSearch.scrollFrame, "BagSyncSavedListTemplate")
+	if savedSearch.CloseButton then
+		savedSearch.CloseButton:SetScript("OnClick", function(self) self:GetParent():Hide() end)
+	end
+	savedSearch.scrollFrame = BSYC:UI_CreateHybridScrollFrame(savedSearch, {
+		width = 357,
+		pointTopLeft = { "TOPLEFT", savedSearch, "TOPLEFT", 13, -32 },
+		-- set ScrollFrame height by altering the distance from the bottom of the frame
+		pointBottomLeft = { "BOTTOMLEFT", savedSearch, "BOTTOMLEFT", -25, 36 },
+		buttonTemplate = "BagSyncSavedListTemplate",
+		update = function() Search:SavedSearch_RefreshList(); end,
+	})
+	--the items we will work with
+	savedSearch.items = {}
 	--Add Search Button
 	savedSearch.addSavedBtn = _G.CreateFrame("Button", nil, savedSearch, "UIPanelButtonTemplate")
 	savedSearch.addSavedBtn:SetText(L.SavedSearch_Add)
@@ -221,6 +208,72 @@ function Search:OnEnable()
 		modulesButtonIcon:SetPoint("TOPLEFT", 7, -6)
 	end
 
+	local searchBox = searchFrame.SearchBox
+	if searchBox then
+		searchBox.parentHandler = Search
+		if searchBox.ClearButton then
+			searchBox.ClearButton.parentHandler = Search
+			searchBox.ClearButton:SetScript("OnEnter", function(self)
+				self.Texture:SetAlpha(1.0)
+			end)
+			searchBox.ClearButton:SetScript("OnLeave", function(self)
+				self.Texture:SetAlpha(0.5)
+			end)
+			searchBox.ClearButton:SetScript("OnMouseDown", function(self)
+				self.Texture:SetPoint("TOPLEFT", -1, -2)
+			end)
+			searchBox.ClearButton:SetScript("OnMouseUp", function(self)
+				self.Texture:SetPoint("TOPLEFT", 0, 0)
+			end)
+			searchBox.ClearButton:SetScript("OnShow", function(self)
+				self.Texture:SetPoint("TOPLEFT", 0, 0)
+			end)
+			searchBox.ClearButton:SetScript("OnClick", function(self)
+				BSYC:UI_CallHandler(self, "SearchBox_ResetSearch", self)
+			end)
+		end
+		searchBox:SetScript("OnEscapePressed", function(self)
+			self:ClearFocus()
+			BSYC:UI_CallHandler(self, "SearchBox_OnEscapePressed", self:GetText())
+		end)
+		searchBox:SetScript("OnEnterPressed", function(self)
+			self:ClearFocus()
+			BSYC:UI_CallHandler(self, "SearchBox_OnEnterPressed", self:GetText())
+		end)
+		searchBox:SetScript("OnEditFocusLost", function(self)
+			self.SearchIcon:SetVertexColor(0.6, 0.6, 0.6)
+			self.SearchInfo:SetShown(self:GetText():len() == 0)
+			self.ClearButton:SetShown(self:GetText():len() > 0)
+		end)
+		searchBox:SetScript("OnEditFocusGained", function(self)
+			self.SearchIcon:SetVertexColor(1.0, 1.0, 1.0)
+			self.ClearButton:Show()
+			self.SearchInfo:Hide()
+		end)
+		searchBox:SetScript("OnTextChanged", function(self, userInput)
+			BSYC:UI_CallHandler(self, "SearchBox_OnTextChanged", userInput)
+		end)
+	end
+
+	if searchFrame.PlusButton then
+		searchFrame.PlusButton.parentHandler = Search
+		searchFrame.PlusButton:SetScript("OnClick", function(self)
+			BSYC:UI_CallHandler(self, "PlusClick")
+		end)
+	end
+	if searchFrame.RefreshButton then
+		searchFrame.RefreshButton.parentHandler = Search
+		searchFrame.RefreshButton:SetScript("OnClick", function(self)
+			BSYC:UI_CallHandler(self, "RefreshClick")
+		end)
+	end
+	if searchFrame.HelpButton then
+		searchFrame.HelpButton.parentHandler = Search
+		searchFrame.HelpButton:SetScript("OnClick", function(self)
+			BSYC:UI_CallHandler(self, "HelpClick")
+		end)
+	end
+
 	searchFrame:Hide() --important
 end
 
@@ -228,8 +281,9 @@ function Search:OnShow()
 	BSYC:SetBSYC_FrameLevel(Search)
 	Data:PopulateItemCache() --do a background caching of items
 	BSYC.advUnitList = nil
+	BSYC.advAllowList = nil
 
-	if not BSYC.options.alwaysShowAdvSearch then
+	if not BSYC.options.alwaysShowSearchFilters then
 		C_Timer.After(0.5, function()
 			if BSYC.options.focusSearchEditBox then
 				Search.frame.SearchBox:ClearFocus()
@@ -237,7 +291,7 @@ function Search:OnShow()
 			end
 		end)
 	else
-		Search:ShowAdvanced(true)
+		Search:ShowSearchFilters(true)
 	end
     Search:RefreshList()
 end
@@ -246,12 +300,13 @@ function Search:OnHide()
 	Search.warningFrame:Hide()
 	Search.helpFrame:Hide()
 	BSYC.advUnitList = nil
-	Search:ShowAdvanced(false)
+	BSYC.advAllowList = nil
+	Search:ShowSearchFilters(false)
 end
 
-function Search:ShowAdvanced(visible)
-	if BSYC:GetModule("AdvancedSearch", true) then
-		local frame = BSYC:GetModule("AdvancedSearch", true).frame
+function Search:ShowSearchFilters(visible)
+	if BSYC:GetModule("SearchFilters", true) then
+		local frame = BSYC:GetModule("SearchFilters", true).frame
 		if frame then
 			if visible == nil then
 				frame:SetShown(not frame:IsShown())
@@ -344,10 +399,10 @@ function Search:CheckItems(searchStr, unitObj, target, checkList, atUserLoc)
 	return total
 end
 
-function Search:DoSearch(searchStr, advUnitList, advAllowList, isAdvancedSearch, warnCount)
+function Search:DoSearch(searchStr, advUnitList, advAllowList, isSearchFilters, warnCount)
 
-	--only check for specifics when not using advanced search
-	if not isAdvancedSearch then
+	--only check for specifics when not using search filters
+	if not isSearchFilters then
 		if not searchStr then searchStr = Search.frame.SearchBox:GetText() end
 		if string.len(searchStr) <= 0 then return end
 	end
@@ -357,25 +412,17 @@ function Search:DoSearch(searchStr, advUnitList, advAllowList, isAdvancedSearch,
 	local warnTotal = 0
 	local atUserLoc
 
-	--make sure to always be using updated information, especially if processing items from Advanced Frame
+	--make sure to always be using updated information, especially if processing items from Search Filters frame
 	Tooltip:ResetLastLink()
 
 	BSYC.advUnitList = advUnitList
+	BSYC.advAllowList = advAllowList
 
 	--items aren't counted into this array, it's just for allowing the search to pass through
-	local allowList = {
-		bag = true,
-		bank = true,
-		reagents = true,
-		equip = true,
-		mailbox = true,
-		void = true,
-		auction = true,
-		warband = true,
-	}
+	local allowList = BSYC.DEFAULT_ALLOW_LIST
 
 	--This is used when a player is requesting to view a custom list, such as @bank, @auction, @bag etc...
-	if not isAdvancedSearch and string.len(searchStr) > 1 then
+	if not isSearchFilters and string.len(searchStr) > 1 then
 		atUserLoc = searchStr:match("@(.+)")
 		--check it to verify it's a valid command
 		if atUserLoc and (string.len(atUserLoc) < 1 or (atUserLoc ~= "guild" and not allowList[atUserLoc])) then atUserLoc = nil end
@@ -383,20 +430,22 @@ function Search:DoSearch(searchStr, advUnitList, advAllowList, isAdvancedSearch,
 
 	--overwrite the allowlist with the advance one if it isn't empty
 	allowList = advAllowList or allowList
-	Debug(BSYC_DL.INFO, "init:DoSearch", searchStr, atUserLoc, advUnitList, advAllowList, isAdvancedSearch, warnCount)
+	Debug(BSYC_DL.INFO, "init:DoSearch", searchStr, atUserLoc, advUnitList, advAllowList, isSearchFilters, warnCount)
 
 	local warbandObj = Data:GetWarbandBankObj()
 
 	if not atUserLoc then
 		for unitObj in Data:IterateUnits(false, advUnitList) do
 			if not unitObj.isGuild then
-				for k, v in pairs(allowList) do
-					warnTotal = warnTotal + Search:CheckItems(searchStr, unitObj, k, checkList)
+				for k in pairs(allowList) do
+					if k ~= "guild" then
+						warnTotal = warnTotal + Search:CheckItems(searchStr, unitObj, k, checkList)
+					end
 				end
 			else
-				--only do guild if we aren't using a custom adllowlist, otherwise it will always show up regardless of what custom field is selected
+				--only do guild if filters allow it, otherwise it will always show up regardless of what custom field is selected
 				--obviously guilds can't have stuff stored in AH, Mailbox, Void, etc...
-				if not advAllowList then
+				if not advAllowList or advAllowList.guild then
 					warnTotal = warnTotal + Search:CheckItems(searchStr, unitObj, "guild", checkList)
 				end
 			end
@@ -414,7 +463,7 @@ function Search:DoSearch(searchStr, advUnitList, advAllowList, isAdvancedSearch,
 			warnTotal = warnTotal + Search:CheckItems(searchStr, playerObj, atUserLoc, checkList, true)
 		else
 			--only do guild if we aren't using a custom adllowlist, otherwise it will always show up regardless of what custom field is selected
-			if playerObj.data.guild and not advAllowList then
+			if playerObj.data.guild and (not advAllowList or advAllowList.guild) then
 				local guildObj = Data:GetPlayerGuildObj()
 				if guildObj then
 					warnTotal = warnTotal + Search:CheckItems(searchStr, guildObj, atUserLoc, checkList, true)
@@ -432,7 +481,7 @@ function Search:DoSearch(searchStr, advUnitList, advAllowList, isAdvancedSearch,
 		--lets not do TOO many refreshes
 		if not warnCount or warnCount <= 5 then
 			warnCount = (warnCount or 0) + 1
-			BSYC:StartTimer("SearchCacheChk", 0.5, Search, "DoSearch", searchStr, advUnitList, advAllowList, isAdvancedSearch, warnCount)
+			BSYC:StartTimer("SearchCacheChk", 0.5, Search, "DoSearch", searchStr, advUnitList, advAllowList, isSearchFilters, warnCount)
 			return
 		end
 	else
@@ -450,7 +499,7 @@ function Search:RefreshList()
 
     for buttonIndex = 1, #buttons do
         local button = buttons[buttonIndex]
-		button.parentHandler = Search
+		BSYC:UI_AttachListItemHandlers(button, Search, { detailsButton = "DetailsButton" })
 
         local itemIndex = buttonIndex + offset
 
@@ -468,10 +517,10 @@ function Search:RefreshList()
 
 			--while we are updating the scrollframe, is the mouse currently over a button?
 			--if so we need to force the OnEnter as the items will scroll up in data but the button remains the same position on our cursor
-			if BSYC.GMF() == button then
-				Search:Item_OnLeave() --hide first
-				Search:Item_OnEnter(button)
-			end
+				if BSYC:IsMouseOver(button) then
+					Search:Item_OnLeave() --hide first
+					Search:Item_OnEnter(button)
+				end
 
             button:Show()
         else
@@ -493,12 +542,14 @@ function Search:Reset()
 	Search.frame.SearchBox.ClearButton:Hide()
 	Search.frame.SearchBox.SearchInfo:Show()
 	BSYC.advUnitList = nil
+	BSYC.advAllowList = nil
 	Search.items = {}
 	Search:RefreshList()
 end
 
 function Search:ClearList()
 	BSYC.advUnitList = nil
+	BSYC.advAllowList = nil
 	Search.items = {}
 	Search:RefreshList()
 end
@@ -549,7 +600,7 @@ end
 
 function Search:Item_OnEnter(btn)
 	if BSYC.advUnitList then
-		--reset the last cache link when using the advanced search to prevent improper listings from being cached
+		--reset the last cache link when using the search filters to prevent improper listings from being cached
 		Tooltip:ResetLastLink()
 	end
     if btn.data then
@@ -569,7 +620,7 @@ end
 
 function Search:Item_OnLeave()
 	if BSYC.advUnitList then
-		--reset the last cache link when using the advanced search to prevent improper listings from being cached
+		--reset the last cache link when using the search filters to prevent improper listings from being cached
 		Tooltip:ResetLastLink()
 	end
 	GameTooltip.isBSYCSearch = nil
@@ -592,7 +643,10 @@ function Search:ItemDetails_OnEnter(btn)
 	GameTooltip:AddLine("|cFFFFFFFF"..L.TooltipDetailsInfo.."|r")
 	GameTooltip:AddLine(" ")
 	if item and item.data then
-		GameTooltip:AddLine("|cFFCF9FFF"..item.data.entry.."|r")
+		local entry = item.data.entry or item.data.parseLink or item.data.link
+		if entry then
+			GameTooltip:AddLine("|cFFCF9FFF"..entry.."|r")
+		end
 	end
 	GameTooltip:Show()
 end
@@ -634,7 +688,15 @@ function Search:SavedSearch_RefreshList()
 
     for buttonIndex = 1, #buttons do
         local button = buttons[buttonIndex]
-		button.parentHandler = Search
+		BSYC:UI_AttachListItemHandlers(button, Search, {
+			onClick = "SavedSearch_Item_OnClick",
+			onEnter = "SavedSearch_Item_OnEnter",
+			onLeave = "SavedSearch_Item_OnLeave",
+			detailsButton = "DeleteButton",
+			onDetailsClick = "SavedSearch_Delete",
+			onDetailsEnter = false,
+			onDetailsLeave = false,
+		})
 
         local itemIndex = buttonIndex + offset
 
@@ -673,8 +735,8 @@ function Search:SavedSearch_AddItem()
 	local storeText = ""
 	local frame = Search.frame
 
-	if BSYC:GetModule("AdvancedSearch", true) and BSYC:GetModule("AdvancedSearch").frame:IsVisible() then
-		frame = BSYC:GetModule("AdvancedSearch").frame
+	if BSYC:GetModule("SearchFilters", true) and BSYC:GetModule("SearchFilters").frame:IsVisible() then
+		frame = BSYC:GetModule("SearchFilters").frame
 	end
 	storeText = frame.SearchBox:GetText()
 	if not storeText or string.len(storeText) < 1 then
@@ -694,18 +756,18 @@ end
 
 function Search:SavedSearch_Item_OnClick(btn)
 	local frame = Search.frame
-	local isAdvanced = false
+	local isSearchFilters = false
 
-	if BSYC:GetModule("AdvancedSearch", true) and BSYC:GetModule("AdvancedSearch").frame:IsVisible() then
-		frame = BSYC:GetModule("AdvancedSearch").frame
-		isAdvanced = true
+	if BSYC:GetModule("SearchFilters", true) and BSYC:GetModule("SearchFilters").frame:IsVisible() then
+		frame = BSYC:GetModule("SearchFilters").frame
+		isSearchFilters = true
 	end
 
 	frame.SearchBox.SearchInfo:Hide()
 	frame.SearchBox:SetText(btn.data.value)
 
-	if isAdvanced then
-		BSYC:GetModule("AdvancedSearch"):DoSearch()
+	if isSearchFilters then
+		BSYC:GetModule("SearchFilters"):DoSearch()
 	else
 		Search:DoSearch()
 	end

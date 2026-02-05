@@ -30,7 +30,7 @@ local IsAddOnLoaded = IsAddOnLoaded or C_AddOns.IsAddOnLoaded
 
 local function GetPrice(itemID)
     itemID = tostring(itemID)
-    local realmName = GetRealmName()
+    local realmName = BG.realmName
     local faction = UnitFactionGroup("player")
     if AUCTIONATOR_PRICE_DATABASE and AUCTIONATOR_PRICE_DATABASE[realmName .. " " .. faction] and
         AUCTIONATOR_PRICE_DATABASE[realmName .. " " .. faction][itemID] then
@@ -266,6 +266,7 @@ BG.Init2(function()
 
     local bt = CreateFrame("CheckButton", nil, UIParent, "ChatConfigCheckButtonTemplate")
     bt:SetSize(30, 30)
+    bt.Text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
     bt.Text:SetText(BG.BG .. L["荆棘谷血月活动期间自动释放尸体和对话自动复活"])
     bt.Text:SetPoint("TOPLEFT", bt, "TOPRIGHT", 0, -5)
     bt:SetHitRectInsets(0, 0, 0, 0)

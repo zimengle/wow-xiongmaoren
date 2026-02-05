@@ -3,6 +3,6 @@
 -------------------------------------------------------------------------------
 local FOLDER_NAME, private = ...
 
-private.CONTAINER_LOOT = {
+private.CONTAINER_INFO = {
 
 }

@@ -13,6 +13,7 @@ local AL = LibStub("AceLocale-3.0"):GetLocale("RareScanner");
 local RSContainerDB = private.ImportLib("RareScannerContainerDB")
 local RSGeneralDB = private.ImportLib("RareScannerGeneralDB")
 local RSConfigDB = private.ImportLib("RareScannerConfigDB")
+local RSProfessionDB = private.ImportLib("RareScannerProfessionDB")
 
 -- RareScanner internal libraries
 local RSConstants = private.ImportLib("RareScannerConstants")
@@ -23,27 +24,6 @@ local RSUtils = private.ImportLib("RareScannerUtils")
 -- RareScanner services
 local RSRecentlySeenTracker = private.ImportLib("RareScannerRecentlySeenTracker")
 
-
----============================================================================
--- Not discovered entities
---- In order to avoid long process time, it caches this list on load
----============================================================================
-
-local notDiscoveredContainerIDs = {}
-
-function RSContainerPOI.InitializeNotDiscoveredContainers()
-	for containerID, _ in pairs (RSContainerDB.GetAllInternalContainerInfo()) do
-		if (not RSGeneralDB.GetAlreadyFoundEntity(containerID)) then
-			notDiscoveredContainerIDs[containerID] = true
-		end
-	end
-end
-
-local function RemoveNotDiscoveredContainer(containerID)
-	if (containerID) then
-		notDiscoveredContainerIDs[containerID] = nil
-	end
-end
 
 ---============================================================================
 -- Container Map POIs
@@ -86,7 +66,7 @@ function RSContainerPOI.GetContainerPOI(containerID, mapID, containerInfo, alrea
 	return POI
 end
 
-local function IsContainerPOIFiltered(containerID, mapID, zoneQuestID, onWorldMap, onMinimap)
+local function IsContainerPOIFiltered(containerID, mapID, containerInfo, onWorldMap, onMinimap)
 	local name = RSContainerDB.GetContainerName(containerID) or AL["CONTAINER"]
 	
 	-- Skip if part of a disabled event
@@ -102,9 +82,9 @@ local function IsContainerPOIFiltered(containerID, mapID, zoneQuestID, onWorldMa
 	end
 
 	-- Skip if the entity appears only while a quest event is going on and it isnt active
-	if (zoneQuestID) then
+	if (containerInfo and containerInfo.zoneQuestId) then
 		local active = false
-		for _, questID in ipairs(zoneQuestID) do
+		for _, questID in ipairs(containerInfo.zoneQuestId) do
 			if (C_TaskQuest.IsActive(questID) or C_QuestLog.IsQuestFlaggedCompleted(questID)) then
 				active = true
 				break
@@ -120,74 +100,30 @@ local function IsContainerPOIFiltered(containerID, mapID, zoneQuestID, onWorldMa
 	return false
 end
 
-function RSContainerPOI.GetMapNotDiscoveredContainerPOIs(mapID, onWorldMap, onMinimap)
-	-- Skip if not showing container icons
-	if (not RSConfigDB.IsShowingContainers()) then
-		return
-	end
-	
-	-- Skip if not showing not discovered icons
-	if (not RSConfigDB.IsShowingNotDiscoveredContainers()) then
-		return
-	end
-
-	local POIs = {}
-	for containerID, _ in pairs(notDiscoveredContainerIDs) do
-		local filtered = false
-		local containerInfo = RSContainerDB.GetInternalContainerInfo(containerID)
-
-		-- Skip if it was discovered in this session
-		if (RSGeneralDB.GetAlreadyFoundEntity(containerID)) then
-			RemoveNotDiscoveredContainer(containerID)
-			RSLogger:PrintDebugMessageEntityID(containerID, string.format("Saltado Contenedor N/D [%s]: Ya no es 'no descubierto'.", containerID))
-			filtered = true
-		end
-
-		-- Skip if the entity belong to a different mapID/artID that the one displaying
-		if (not filtered and not RSContainerDB.IsInternalContainerInMap(containerID, mapID)) then
-			RSLogger:PrintDebugMessageEntityID(containerID, string.format("Saltado Contenedor N/D [%s]: En distinta zona (no descubierto).", containerID))
-			filtered = true
-		end
-
-		-- Skip if common filters
-		if (not filtered and not IsContainerPOIFiltered(containerID, mapID, containerInfo.zoneQuestId, onWorldMap, onMinimap)) then
-			tinsert(POIs, RSContainerPOI.GetContainerPOI(containerID, mapID, containerInfo))
-		end
-	end
-
-	return POIs
-end
-
-function RSContainerPOI.GetMapAlreadyFoundContainerPOI(containerID, alreadyFoundInfo, mapID, onWorldMap, onMinimap)
+function RSContainerPOI.GetMapContainerPOI(containerID, mapID, onWorldMap, onMinimap, recentlySeenInfo)
 	-- Skip if not showing container icons
 	if (not RSConfigDB.IsShowingContainers()) then
 		RSLogger:PrintDebugMessageEntityID(containerID, string.format("Saltado Contenedor [%s]: Iconos de contenedores deshabilitado.", containerID))
 		return
 	end
+	
+	local alreadyFoundInfo = recentlySeenInfo or RSGeneralDB.GetAlreadyFoundEntity(containerID)
 
-	local containerInfo = RSContainerDB.GetInternalContainerInfo(containerID)
-
-	-- Skip if the entity belongs to a different map that the one displaying
-	-- First checks with the already found information
-	local correctMap = false
-	if (RSGeneralDB.IsAlreadyFoundEntityInZone(containerID, mapID)) then
-		correctMap = true
-	end
-
-	-- Then checks with the internal found information just in case its a multizone
-	-- Its possible that the player is opening a map where this container can show up, but the last time seen was in a different map
-	if (not correctMap and (not containerInfo or not RSContainerDB.IsInternalContainerInMap(containerID, mapID))) then
-		RSLogger:PrintDebugMessageEntityID(containerID, string.format("Saltando Contenedor [%s]: En distinta zona.", containerID))
+	-- Skip if not showing not discovered icons
+	if (not RSConfigDB.IsShowingNotDiscoveredContainers() and not alreadyFoundInfo) then
 		return
 	end
 
-	-- Skip if common filters
-	local zoneQuestID
-	if (containerInfo) then
-		zoneQuestID = containerInfo.zoneQuestId
+	-- Skip if the entity has been seen before the max amount of time that the player want to see the icon on the map
+	-- This filter doesnt apply to opened entities
+	if (RSConfigDB.IsMaxSeenTimeContainerFilterEnabled() and not RSContainerDB.IsContainerOpened(containerID) and alreadyFoundInfo and time() - alreadyFoundInfo.foundTime > RSTimeUtils.MinutesToSeconds(RSConfigDB.GetMaxSeenContainerTimeFilter())) then
+		RSLogger:PrintDebugMessageEntityID(containerID, string.format("Saltado Contenedor [%s]: Visto hace demasiado tiempo.", containerID))
+		return
 	end
-
-	if (not IsContainerPOIFiltered(containerID, mapID, zoneQuestID, onWorldMap, onMinimap)) then
+	
+	-- Skip if common filters
+	local containerInfo = RSContainerDB.GetInternalContainerInfo(containerID)
+	if (not IsContainerPOIFiltered(containerID, mapID, containerInfo, onWorldMap, onMinimap)) then
 		return RSContainerPOI.GetContainerPOI(containerID, mapID, containerInfo, alreadyFoundInfo)
 	end
 end

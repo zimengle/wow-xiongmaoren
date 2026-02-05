@@ -192,6 +192,17 @@ local function createSpellFrame(spell_id, size)
                 GameTooltip:Hide()
             end)
         end)
+    else
+        -- 法术ID无效时的处理
+        spell_frame:SetCallback("OnEnter", function(widget)
+            GameTooltip:SetOwner(spell_frame.frame)
+            GameTooltip:SetPoint("TOPRIGHT", spell_frame.frame, "TOPRIGHT", 220, -13);
+            GameTooltip:SetText("|cffff0000无效的法术ID|r")
+            GameTooltip:Show()
+        end)
+        spell_frame:SetCallback("OnLeave", function(widget)
+            GameTooltip:Hide()
+        end)
     end
     return spell_frame
 end
@@ -489,6 +500,14 @@ function TitanBistooltipAddon:closeMainFrame()
     if main_frame then
         main_frame.frame:Hide()
         return
+    end
+end
+
+function TitanBistooltipAddon:ToggleBisListFrame()
+    if main_frame and main_frame.frame:IsVisible() then
+        main_frame.frame:Hide()
+    else
+        TitanBistooltipAddon:createMainFrame()
     end
 end
 

@@ -215,9 +215,6 @@ BG.Init(function()
                     -- if titleString:match("Loaded/Standby") or titleString:match("已载入") then
                     local tbl = { header:GetParent():GetChildren() }
                     for i, bt in ipairs(tbl) do
-                        -- if bt.id and bt.id:find("BiaoGe") then
-                        --     pt(bt.id, WeakAuras.IsAuraLoaded(bt.id), bt:GetPoint(1))
-                        -- end
                         if bt.id and WeakAuras.IsAuraLoaded(bt.id) then
                             local ver = bt.id:match("<BiaoGe>拍卖%s-v(%d+%.%d+)")
                             if ver then
@@ -340,7 +337,9 @@ BG.Init(function()
             end
         end
         local function Start_OnClick(self)
-            BG.PlaySound(1)
+            if not self.noSound then
+                BG.PlaySound(1)
+            end
             local mod = BiaoGe.Auction.mod
             if mod == "roll" then
                 if #self.items > 1 then
@@ -361,7 +360,7 @@ BG.Init(function()
                             money .. "," .. duration .. ",," .. mod .. "," .. link
                         C_ChatInfo.SendAddonMessage("BiaoGeAuction", text, "RAID")
                     end)
-                    t = t + 0.2
+                    t = t + 0.8
                 end
             end
             self:GetParent():Hide()
@@ -447,7 +446,7 @@ BG.Init(function()
             end
         end
 
-        function BG.StartAuction(link, bt, isNotAuctioned, notAlt, isRightButton)
+        function BG.StartAuction(link, bt, isNotAuctioned, notAlt, isRightButton, noSound)
             if BiaoGe.options["autoAuctionStart"] ~= 1 and not notAlt then return end
             if not link then return end
             if not BG.IsML then return end
@@ -610,7 +609,7 @@ BG.Init(function()
                     t:SetText(link:gsub("%[", ""):gsub("%]", ""))
                     t:SetJustifyH("LEFT")
                     t:SetWordWrap(false)
-                    local itemNameText=t
+                    local itemNameText = t
                     -- 装备类型
                     local t = f:CreateFontString()
                     t:SetFont(BIAOGE_TEXT_FONT, 12, "OUTLINE")
@@ -720,6 +719,7 @@ BG.Init(function()
                 local bt = BG.CreateButton(mainFrame)
                 bt:SetSize(width + 19, 25)
                 bt.items = items
+                bt.noSound = noSound
                 mainFrame.bt = bt
                 bt:SetScript("OnClick", Start_OnClick)
                 bt:SetScript("OnEnter", Start_OnEnter)
@@ -775,13 +775,12 @@ BG.Init(function()
                     t:SetFont(BIAOGE_TEXT_FONT, 10, "OUTLINE")
                     t:SetWidth(bt:GetWidth())
                     t:SetPoint("CENTER")
-                    t:SetText(BG.FormatNumber(money,2))
+                    t:SetText(BG.FormatNumber(money, 2))
                     t:SetTextColor(1, 0.82, 0)
                     t:SetWordWrap(false)
                     bt:SetFontString(t)
                     tinsert(buttons, bt)
                     bt:SetScript("OnClick", function(self)
-                        BG.PlaySound(1)
                         mainFrame.Edit2:SetText(self.money)
                         BiaoGe.Auction.money = self.money
                         Start_OnClick(mainFrame.bt)

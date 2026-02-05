@@ -5,4 +5,5 @@
 	<Script file="ContainerInfoTables.lua"/>
 	<Script file="ContainerLootTables.lua"/>
 	<Script file="LootQuestsTables.lua"/>
+	<Script file="MapEntitiesTables.lua"/>
 </Ui>

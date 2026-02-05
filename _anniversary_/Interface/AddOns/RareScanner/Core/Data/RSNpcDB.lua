@@ -13,6 +13,7 @@ local RSConstants = private.ImportLib("RareScannerConstants")
 local RSLogger = private.ImportLib("RareScannerLogger")
 local RSUtils = private.ImportLib("RareScannerUtils")
 local RSTooltipScanners = private.ImportLib("RareScannerTooltipScanners")
+local RSTimeUtils = private.ImportLib("RareScannerTimeUtils")
 
 ---============================================================================
 -- Custom NPC database
@@ -127,6 +128,7 @@ function RSNpcDB.DeleteCustomNpcInfo(npcID)
 	
 	private.dbglobal.custom_npcs[tonumber(npcID)] = nil
 	private.NPC_INFO[tonumber(npcID)] = nil
+	private.dbglobal.rares_found[tonumber(npcID)] = nil
 	
 	RSNpcDB.DeleteCustomNpcLoot(npcID)
 end
@@ -281,9 +283,9 @@ function RSNpcDB.GetAllInternalNpcInfo()
 	return private.NPC_INFO
 end
 
-function RSNpcDB.GetNpcIDsByMapID(mapID, onlyCustom)
+local function GetCustomNpcIDsByMapID(mapID)
 	local npcIDs = {}
-	for npcID, npcInfo in pairs((onlyCustom and RSNpcDB.GetAllCustomNpcInfo() or RSNpcDB.GetAllInternalNpcInfo())) do
+	for npcID, npcInfo in pairs(RSNpcDB.GetAllCustomNpcInfo()) do
 		if (RSNpcDB.IsInternalNpcMultiZone(npcID)) then
 			-- First check if there is a matching mapID in the database
 			for internalMapID, _ in pairs (npcInfo.zoneID) do
@@ -299,13 +301,41 @@ function RSNpcDB.GetNpcIDsByMapID(mapID, onlyCustom)
 				end
 			end
 		elseif (RSNpcDB.IsInternalNpcMonoZone(npcID)) then
-			if (npcInfo.zoneID == mapID or (npcInfo.noVignette and npcInfo.zoneID == 0)) then
+			if (npcInfo.zoneID == mapID) then
+				tinsert(npcIDs,npcID)
+			end
+			
+			-- Then check if there is a matching subMapID in the database
+			if (RSMapDB.IsMapInParentMap(mapID, npcInfo.zoneID)) then
 				tinsert(npcIDs,npcID)
 			end
 		end
 	end
 	
 	return npcIDs
+end
+
+function RSNpcDB.GetNpcIDsByMapID(mapID, onlyCustom, onlyWithoutVignette)	
+	-- Custom NPCs
+	local customNpcIDs = GetCustomNpcIDsByMapID(mapID)
+	if (onlyCustom) then
+		return customNpcIDs
+	end
+	
+	-- Internal NPCs
+	local internalNpcIDs = RSMapDB.GetEntitiesByMapID(mapID, RSConstants.MAP_ENTITY_NPC, true) or {}
+	if (not onlyWithoutVignette) then
+		return RSUtils.JoinTables(customNpcIDs, internalNpcIDs)
+	end
+	
+	-- Every custom NPCs has noVignette = true, so we add the internal NPCs to that list
+	for _, npcID in ipairs(internalNpcIDs) do
+		if (onlyWithoutVignette and RSNpcDB.GetInternalNpcInfo(npcID).noVignette) then
+			tinsert(customNpcIDs, npcID)
+		end
+	end
+	
+	return customNpcIDs
 end
 
 function RSNpcDB.GetInternalNpcInfo(npcID)
@@ -372,7 +402,11 @@ function RSNpcDB.GetInternalNpcCoordinates(npcID, mapID)
 	if (npcID and mapID) then
 		local npcInfo = RSNpcDB.GetInternalNpcInfoByMapID(npcID, mapID)
 		if (npcInfo and npcInfo.x and npcInfo.y) then
-			return RSUtils.FixCoord(npcInfo.x), RSUtils.FixCoord(npcInfo.y)
+			if (npcInfo.custom) then
+				return RSUtils.FixCoord(npcInfo.x), RSUtils.FixCoord(npcInfo.y)
+			end
+			
+			return RSUtils.FixCoord(RSUtils.Lpad(npcInfo.x, 4, '0')), RSUtils.FixCoord(RSUtils.Lpad(npcInfo.y, 4, '0'))
 		end
 	end
 
@@ -405,7 +439,7 @@ function RSNpcDB.GetBestInternalNpcCoordinates(npcID, mapID)
 			local coords = {}
 			for _, coordinates in ipairs (overlay) do
 				local xo, yo = strsplit("-", coordinates)
-				local distance = RSUtils.DistanceBetweenCoords(playerx, xo, playery, yo);
+				local distance = RSUtils.DistanceBetweenCoords(playerx, RSUtils.FixCoord(xo), playery, RSUtils.FixCoord(yo));
 				if (distance >= 0 and distance <= 0.02) then
 					tinsert(distances, distance)
 					coords[distance] = {}
@@ -453,11 +487,11 @@ function RSNpcDB.IsInternalNpcMonoZone(npcID)
 	return npcInfo and type(npcInfo.zoneID) ~= "table"
 end
 
-function RSNpcDB.IsInternalNpcInMap(npcID, mapID, checkSubzones)
+function RSNpcDB.IsInternalNpcInMap(npcID, mapID, checkSubzones, ignoreAtlas)
 	if (npcID and mapID) then
 		if (RSNpcDB.IsInternalNpcMultiZone(npcID)) then
 			for internalMapID, internalNpcInfo in pairs(RSNpcDB.GetInternalNpcInfo(npcID).zoneID) do
-				if (internalMapID == mapID and (not internalNpcInfo.artID or RSUtils.Contains(internalNpcInfo.artID, C_Map.GetMapArtID(mapID)))) then
+				if (internalMapID == mapID and (ignoreAtlas or not internalNpcInfo.artID or RSUtils.Contains(internalNpcInfo.artID, C_Map.GetMapArtID(mapID)))) then
 					return true;
 				elseif (checkSubzones and RSMapDB.IsMapInParentMap(mapID, internalMapID)) then
 					return true;
@@ -465,7 +499,7 @@ function RSNpcDB.IsInternalNpcInMap(npcID, mapID, checkSubzones)
 			end
 		elseif (RSNpcDB.IsInternalNpcMonoZone(npcID)) then
 			local npcInfo = RSNpcDB.GetInternalNpcInfo(npcID)
-			if (npcInfo.zoneID == mapID and (not npcInfo.artID or RSUtils.Contains(npcInfo.artID, C_Map.GetMapArtID(mapID)))) then
+			if (npcInfo.zoneID == mapID and (ignoreAtlas or not npcInfo.artID or RSUtils.Contains(npcInfo.artID, C_Map.GetMapArtID(mapID)))) then
 				return true;
 			elseif (checkSubzones and RSMapDB.IsMapInParentMap(mapID, npcInfo.zoneID)) then
 				return true;
@@ -499,25 +533,7 @@ end
 function RSNpcDB.IsDisabledEvent(npcID)
 	if (npcID) then
 		local npcInfo = RSNpcDB.GetInternalNpcInfo(npcID)
-		return npcInfo and npcInfo.event and not RSConstants.EVENTS[npcInfo.event]
-	end
-	
-	return false
-end
-
-function RSNpcDB.IsSeasonDisabled(npcID)
-	if (npcID) then
-		local npcInfo = RSNpcDB.GetInternalNpcInfo(npcID)
-		if (npcInfo) then
-			if (not npcInfo.season) then
-				return false
-			else
-				local activeSeason = C_Seasons.GetActiveSeason()
-				if (not activeSeason or npcInfo.season ~= activeSeason) then
-					return true
-				end
-			end
-		end
+		return npcInfo and npcInfo.event and not RSTimeUtils.IsHolidayEventActive(npcInfo.event)
 	end
 	
 	return false
@@ -665,7 +681,7 @@ function RSNpcDB.GetAllNpcNames()
 end
 
 function RSNpcDB.SetNpcName(npcID, name)
-	if (npcID and name) then
+	if (npcID) then
 		private.dbglobal.rare_names[GetLocale()][npcID] = name
 	end
 end
@@ -682,11 +698,11 @@ function RSNpcDB.GetNpcName(npcID, refresh)
 	return nil
 end
 
-function RSNpcDB.GetActiveNpcIDsWithNamesByMapID(mapID, onlyCustom)
-	local npcIDs =  RSNpcDB.GetNpcIDsByMapID(mapID, onlyCustom)
+function RSNpcDB.GetActiveNpcIDsWithNamesByMapID(mapID)
+	local npcIDs = RSNpcDB.GetNpcIDsByMapID(mapID)
 	local npcIDsWithNames = nil
 	
-	if (RSUtils.GetTableLength(npcIDs)) then
+	if (RSUtils.GetTableLength(npcIDs) > 0) then
 		npcIDsWithNames = {}
 		for _, npcID in ipairs(npcIDs) do
 			if (RSNpcDB.IsDisabledEvent(npcID)) then

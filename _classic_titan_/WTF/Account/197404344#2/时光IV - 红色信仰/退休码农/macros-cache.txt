@@ -8,7 +8,7 @@ VER 3 0100000000000003 "压制" "134400"
 /施放 绝望祷言
 END
 VER 3 0100000000000005 "固定人员灌注" "134400"
-/cast [target=萨满崔] 能量灌注
+/cast [target=飞升老祖] 能量灌注
 END
 VER 3 0100000000000004 "暗影魔" "134400"
 #showtooltip 暗影魔 
@@ -16,11 +16,26 @@ VER 3 0100000000000004 "暗影魔" "134400"
 /cast 暗影魔 
 /petattack
 END
+VER 3 0100000000000009 "暗牧爆发" "134400"
+/施放 狮心(种族特长)
+/施放 心灵专注
+END
 VER 3 0100000000000002 "灌注" "134400"
 #showtooltip 能量灌注
 /目标 mouseover
 /脚本 local A=GetSpellLink("能量灌注")s,d,_,t=GetSpellCooldown("能量灌注")t=s==0 and""..A.."→%t，你被强化了，快上！"or""..A.."还有"..ceil(s+d-GetTime()).."秒冷却"SendChatMessage(t,"whisper",nil,UnitName("target"))
 /施放 [@mouseover,help,exists]能量灌注
+END
+VER 3 0100000000000008 "爆发" "134400"
+/use 热情冥想耳环
+/施放 狮心(种族特长)
+/施放 心灵专注
+/use 暗月卡片：幻象
+END
+VER 3 0100000000000007 "盾" "134400"
+#showtooltip 真言术：盾
+/施放 真言术：盾
+/use 热情冥想耳环
 END
 VER 3 0100000000000006 "驱散" "134400"
 #showtooltip

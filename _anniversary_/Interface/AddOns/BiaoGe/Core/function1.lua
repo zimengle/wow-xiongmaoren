@@ -506,8 +506,6 @@ end
 ----------高亮按钮----------
 function BG.SetTextHighlightTexture(bt)
     local tex = bt:CreateTexture()
-    -- tex:SetPoint("CENTER")
-    -- tex:SetSize(bt:GetWidth() + 15, bt:GetHeight() - 10)
     tex:SetPoint("TOPLEFT", bt, "TOPLEFT", -8, 0)
     tex:SetPoint("BOTTOMRIGHT", bt, "BOTTOMRIGHT", 8, 0)
     tex:SetTexture("Interface/PaperDollInfoFrame/UI-Character-Tab-Highlight")

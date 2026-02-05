@@ -1,0 +1,28 @@
+
+MEETINGHORN_DB_CHARACTER_MEMBERS = {
+[77393486] = {
+["丿强运-时光IV-红色信仰"] = "DEATHKNIGHT",
+["辣一基-时光IV-红色信仰"] = "WARLOCK",
+["灬吃喝撩赌灬-时光IV-红色信仰"] = "ROGUE",
+["六角亭医生-时光IV-红色信仰"] = "DRUID",
+["瓜瓜是你的-时光IV-红色信仰"] = "SHAMAN",
+["随风灬舞-时光IV-红色信仰"] = "WARRIOR",
+["槑槑熊-时光IV-红色信仰"] = "HUNTER",
+["猎户丶-时光IV-红色信仰"] = "HUNTER",
+["诡谋弈命丶-时光IV-红色信仰"] = "PRIEST",
+["高调坑你-时光IV-红色信仰"] = "PALADIN",
+["Akamo-时光IV-红色信仰"] = "DRUID",
+["露露和杰尼龟-时光IV-红色信仰"] = "MAGE",
+["老酒摸鱼-时光IV-红色信仰"] = "DEATHKNIGHT",
+["花生酱教授-时光IV-红色信仰"] = "DRUID",
+["蔓姐超勇的-时光IV-红色信仰"] = "PALADIN",
+["合久必婚-时光IV-红色信仰"] = "WARLOCK",
+["Freia-时光IV-红色信仰"] = "PALADIN",
+["简薇丶-时光IV-红色信仰"] = "WARRIOR",
+["Lolosm-时光IV-红色信仰"] = "SHAMAN",
+["神佑之林-时光IV-红色信仰"] = "SHAMAN",
+["leader"] = "槑槑熊-时光IV-红色信仰",
+["张如梦-时光IV-红色信仰"] = "ROGUE",
+["饼饼和杰尼龟-时光IV-红色信仰"] = "MAGE",
+},
+}

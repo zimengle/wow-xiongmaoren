@@ -16,6 +16,7 @@ local RSContainerDB = private.ImportLib("RareScannerContainerDB")
 -- RareScanner services
 local RSMinimap = private.ImportLib("RareScannerMinimap")
 local RSProvider = private.ImportLib("RareScannerProvider")
+local RSMacro = private.ImportLib("RareScannerMacro")
 
 -- RareScanner internal libraries
 local RSConstants = private.ImportLib("RareScannerConstants")
@@ -41,8 +42,6 @@ local function HandleEntityWithoutVignette(rareScannerButton, unitID, trackingSy
 	local unitType, _, _, _, _, entityID = strsplit("-", unitGuid)
 	if (unitType == "Creature" or unitType == "Vehicle") then
 		local npcID = entityID and tonumber(entityID) or nil
-	
-		-- If player in a zone with vignettes ignore it
 		local mapID = C_Map.GetBestMapForUnit("player")
 		local inInstance, _ = IsInInstance()
 		
@@ -69,9 +68,10 @@ local function HandleEntityWithoutVignette(rareScannerButton, unitID, trackingSy
 		end
 	elseif (unitType == "Object") then
 		local containerID = entityID and tonumber(entityID) or nil
+		local containerName = UnitName(unitID)
+		local containerDbName = RSContainerDB.GetContainerName(containerID)
 		-- If the container didn't have a vignette this is the last chance to get the name
-		if (RSContainerDB.GetInternalContainerInfo(containerID) and not RSContainerDB.GetContainerName(containerID)) then
-			local containerName = UnitName(unitID)
+		if (RSContainerDB.GetInternalContainerInfo(containerID) and containerDbName and containerDbName ~= containerName) then
 			if (containerName) then
 				RSContainerDB.SetContainerName(containerName)
 			end
@@ -85,7 +85,8 @@ end
 ---============================================================================
 
 local function OnNamePlateUnitAdded(rareScannerButton, namePlateID)
-	if (namePlateID and not UnitIsUnit("player", namePlateID)) then
+	local unitIsPlayer = UnitIsUnit("player", namePlateID)
+	if (namePlateID and not unitIsPlayer) then
 		HandleEntityWithoutVignette(rareScannerButton, namePlateID, RSConstants.TRACKING_SYSTEM.NAMEPLATE_MOUSEOVER)
 	end
 end
@@ -96,7 +97,9 @@ end
 ---============================================================================
 
 local function OnUpdateMouseoverUnit(rareScannerButton)
-	if (not UnitIsUnit("player", "mouseover") and not UnitIsDead("mouseover")) then
+	local unitIsPlayer = UnitIsUnit("player", "mouseover")
+	local unitIsDead = UnitIsDead("mouseover")
+	if (not unitIsPlayer and not unitIsDead) then
 		HandleEntityWithoutVignette(rareScannerButton, "mouseover", RSConstants.TRACKING_SYSTEM.NAMEPLATE_MOUSEOVER)
 	end
 end
@@ -123,7 +126,11 @@ end
 ---============================================================================
 
 local function OnPlayerTargetChanged(rareScannerButton)
-	if (UnitExists("target") and not UnitIsUnit("player", "target") and not UnitIsDead("target")) then
+	local unitExists = UnitExists("target")
+	local unitIsPlayer = UnitIsUnit("player", "target")
+	local unitIsDead = UnitIsDead("target")
+	
+	if (unitExists and not unitIsPlayer and not unitIsDead) then
 		HandleEntityWithoutVignette(rareScannerButton, "target", RSConstants.TRACKING_SYSTEM.UNIT_TARGET)
 		
 		-- Update coordinates if the NPC doesnt have a vignette
@@ -196,7 +203,6 @@ local function OnLootOpened()
 					local itemLink = GetLootSlotLink(i)
 					if (itemLink) then
 						local _, _, _, lootType, id, _, _, _, _, _, _, _, _, _, name = string.find(itemLink, "|?c?f?f?(%x*)|?H?([^:]*):?(%d+):?(%d*):?(%d*):?(%d*):?(%d*):?(%d*):?(%-?%d*):?(%-?%d*):?(%d*):?(%d*)|?h?%[?([^%[%]]*)%]?|?h?|?r?")
-						
 						if (lootType == "item") then
 							local itemID = id and tonumber(id) or nil
 							RSNpcDB.AddItemToNpcLootFound(npcID, itemID)
@@ -222,7 +228,10 @@ end
 local function SimulateRareFound(rareScannerButton, npcID, mapID, name)
 	if (RSNpcDB.GetInternalNpcInfo(npcID)) then
 		local x, y = RSNpcDB.GetInternalNpcCoordinates(npcID, mapID)
-		rareScannerButton:SimulateRareFound(npcID, nil, name, x, y, RSConstants.NPC_VIGNETTE)
+		if (not x or not y) then
+			x, y = RSNpcDB.GetBestInternalNpcCoordinates(npcID, mapID)
+		end
+		rareScannerButton:SimulateRareFound(npcID, nil, name, x, y, RSConstants.NPC_VIGNETTE, RSConstants.TRACKING_SYSTEM.CHAT_EMOTE)
 	end
 end
 
@@ -281,9 +290,9 @@ end
 -- Fired when a cinematic starts
 ---============================================================================
 
-local isCinematicPlaying = false
 local function OnCinematicStart(rareScannerButton)
-	isCinematicPlaying = true
+	RSGeneralDB.SetCinematicPlaying(true)
+	
 	if (rareScannerButton:IsVisible()) then
 		rareScannerButton:HideButton()
 	end
@@ -295,11 +304,7 @@ end
 ---============================================================================
 
 local function OnCinematicStop(rareScannerButton)
-	isCinematicPlaying = false
-end
-
-function RSEventHandler.IsCinematicPlaying()
-	return isCinematicPlaying
+	RSGeneralDB.SetCinematicPlaying(false)
 end
 
 ---============================================================================
@@ -318,6 +323,9 @@ local function OnPlayerLogin(rareScannerButton)
 	if (RSConfigDB.GetChatWindowName()) then
 		RSLogger:CreateChatFrame(RSConfigDB.GetChatWindowName())
 	end
+	
+	-- Init macro
+	RSMacro.CreateMacro()
 	
 	rareScannerButton:UnregisterEvent("PLAYER_LOGIN")
 end

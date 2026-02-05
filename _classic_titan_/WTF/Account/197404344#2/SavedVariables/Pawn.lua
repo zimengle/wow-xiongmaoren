@@ -11,21 +11,22 @@ PawnCommon = {
 ["ColorTooltipBorder"] = true,
 ["IgnoreGemsWhileLeveling"] = true,
 ["ShowTooltipIcons"] = true,
-["ShowSpecIcons"] = true,
-["ShowSocketingAdvisor"] = true,
 ["Scales"] = {
 ["\"Classic\":WARRIOR2"] = {
 ["Color"] = "c79c6e",
 ["ClassID"] = 1,
 ["LocalizedName"] = "战士: 狂怒",
 ["PerCharacterOptions"] = {
+["美团王兴-时光IV - 红色信仰"] = {
+["Visible"] = true,
+},
+["三角碑崽儿-时光IV - 红色信仰"] = {
+["Visible"] = true,
+},
 ["三角碑崽儿-时光IV"] = {
 ["Visible"] = true,
 },
 ["美团王兴-时光IV"] = {
-["Visible"] = true,
-},
-["美团王兴-时光IV - 红色信仰"] = {
 ["Visible"] = true,
 },
 },
@@ -182,13 +183,16 @@ PawnCommon = {
 ["ClassID"] = 1,
 ["LocalizedName"] = "战士: 防护",
 ["PerCharacterOptions"] = {
+["美团王兴-时光IV - 红色信仰"] = {
+["Visible"] = true,
+},
+["三角碑崽儿-时光IV - 红色信仰"] = {
+["Visible"] = true,
+},
 ["三角碑崽儿-时光IV"] = {
 ["Visible"] = true,
 },
 ["美团王兴-时光IV"] = {
-["Visible"] = true,
-},
-["美团王兴-时光IV - 红色信仰"] = {
 ["Visible"] = true,
 },
 },
@@ -406,13 +410,16 @@ PawnCommon = {
 ["ClassID"] = 1,
 ["LocalizedName"] = "战士: 武器",
 ["PerCharacterOptions"] = {
+["美团王兴-时光IV - 红色信仰"] = {
+["Visible"] = true,
+},
+["三角碑崽儿-时光IV - 红色信仰"] = {
+["Visible"] = true,
+},
 ["三角碑崽儿-时光IV"] = {
 ["Visible"] = true,
 },
 ["美团王兴-时光IV"] = {
-["Visible"] = true,
-},
-["美团王兴-时光IV - 红色信仰"] = {
 ["Visible"] = true,
 },
 },
@@ -576,6 +583,8 @@ PawnCommon = {
 ["UnenchantedColor"] = "bf3950",
 },
 },
+["ShowSocketingAdvisor"] = true,
+["ShowSpecIcons"] = true,
 ["LastVersion"] = 2.1303,
 ["ButtonPosition"] = 2,
 ["ShowLootUpgradeAdvisor"] = true,

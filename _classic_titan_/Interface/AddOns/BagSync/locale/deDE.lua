@@ -1,13 +1,11 @@
-
-local L = LibStub("AceLocale-3.0"):NewLocale("BagSync", "deDE")
+local _, BSYC = ...
+local L = BSYC:NewLocale("deDE")
 if not L then return end
 
 --special thanks to Dlarge, GrimPala from wowinterface.com
 
 L.Yes = "Ja"
 L.No = "Nein"
-L.Page = "Seite"
-L.Done = "Fertig"
 L.Realm = "Realm:"
 L.TooltipCR_Tag = "CR"
 L.TooltipBNET_Tag = "BN"
@@ -41,9 +39,7 @@ L.TooltipIcon_auction = [[|TInterface\AddOns\BagSync\media\auction:13:13|t]]
 L.TooltipIcon_warband = [[|TInterface\AddOns\BagSync\media\warband:13:13|t]]
 L.TooltipTotal = "Total:"
 L.TooltipTabs = "T:"
-L.TooltipBagSlot = "S:"
 L.TooltipItemID = "[Gegenstands ID]:"
-L.TooltipDebug = "[Debug]:"
 L.TooltipCurrencyID = "[Währungs ID]:"
 L.TooltipFakeID = "[FakeID]:"
 L.TooltipExpansion = "[Erweiterung]:"
@@ -54,14 +50,6 @@ L.TooltipDetailsInfo = "Detaillierte Zusammenfassung des Gegenstands."
 L.DetailsBagID = "Tasche:"
 L.DetailsSlot = "Slot:"
 L.DetailsTab = "Tab:"
-L.Debug_DEBUG = "DEBUG"
-L.Debug_INFO = "INFO"
-L.Debug_TRACE = "PFAD"
-L.Debug_WARN = "WARN"
-L.Debug_FINE = "GUT"
-L.Debug_SL1 = "SL1" --sublevel 1
-L.Debug_SL2 = "SL2" --sublevel 2
-L.Debug_SL3 = "SL3" --sublevel 3
 L.DebugEnable = "Aktiviere Debug"
 L.DebugCache = "Deaktiviere Cache"
 L.DebugDumpOptions = "Dump Optionen |cff3587ff[DEBUG]|r"
@@ -72,13 +60,11 @@ L.DebugExport = "Exportieren"
 L.DebugWarning = "|cFFDF2B2BWARNING:|R BagSync Debug ist derzeit aktiviert! |cFFDF2B2B(WIRD LAGS AUSLÖSEN)|r"
 L.Search = "Suche"
 L.Debug = "Debug"
-L.AdvSearchBtn = "Suche/Aktualisierung"
 L.Reset = "Zurücksetzen"
-L.Refresh = "Aktualisierung"
 L.Clear = "Frei"
-L.AdvancedSearch = "Erweiterte Suche"
-L.AdvancedSearchInformation = "* Benutze BagSync |cffff7d0a[CR]|r und |cff3587ff[BNet]|r Einstellungen."
-L.AdvancedLocationInformation = "* Wenn Du keine auswählst, wird standardmäßig ALLE ausgewählt."
+L.SearchFilters = "Suchfilter"
+L.SearchFiltersInformation = "* Benutze BagSync |cffff7d0a[CR]|r und |cff3587ff[BNet]|r Einstellungen."
+L.SearchFiltersLocationInformation = "* Wenn Du keine auswählst, wird standardmäßig ALLE ausgewählt."
 L.Units = "Einheiten:"
 L.Locations = "Standort:"
 L.Profiles = "Profile"
@@ -95,7 +81,6 @@ L.FixDB = "FixDB"
 L.Config = "Einstellungen"
 L.DeleteWarning = "Wähle ein Profil zum löschen aus. INFO: Dies ist nicht umkehrbar!"
 L.Delete = "Löschen"
-L.Confirm = "Bestätigen"
 L.SelectAll = "Alles Auswählen"
 L.FixDBComplete = "Die Funktion FixDB wurde ausgeführt! Die Datenbank wurde optimiert!"
 L.ResetDBInfo = "BaySync:\nBist Du sicher, dass Du die Datenbank zurücksetzen möchtest?\nin|cFFDF2B2B HINWEIS: Dies kann nicht rückgängig gemacht werden!|r"
@@ -104,16 +89,12 @@ L.OFF = "Aus"
 L.LeftClickSearch = "|cffddff00Links Klick|r |cff00ff00= Suchen|r"
 L.RightClickBagSyncMenu = "|cffddff00Rechts Klick|r |cff00ff00= BagSync Menu|r"
 L.ProfessionInformation = "|cffddff00Links Klick|r |cff00ff00a Beruf zum Anzeigen von Rezepten.|r"
-L.ClickViewProfession = "Klicke hier, um den Beruf anzuzeigen: "
-L.ClickHere = "Klicke hier"
 L.ErrorUserNotFound = "BagSync: Fehler, Benutzer nicht gefunden!"
 L.EnterItemID = "Trage bitte eine Gegenstands ID ein. (Benutze wowhead.com)"
 L.AddGuild = "Gilde einfügen"
 L.AddItemID = "Gegenstands ID Einfügen"
-L.RemoveItemID = "Entferne Gegenstands ID"
 L.PleaseRescan = "|cFF778899[Please Rescan]|r"
 L.UseFakeID = "Verwende [FakeID] für kampfhaustiere statt [Gegenstands ID]."
-L.ItemIDNotFound = "[%s] Gegenstands ID nicht gefunden. Versuche es erneut!"
 L.ItemIDNotValid = "[%s] Gegenstands ID ungültige Gegenstands ID oder der Server hat nicht geantwortet. Versuche es erneut!"
 L.ItemIDRemoved = "[%s] Gegenstands ID entfernt"
 L.ItemIDAdded = "[%s] Gegenstands ID hinzugefügt"
@@ -127,9 +108,7 @@ L.WhiteListRemove = "[%s] von der Whitelist entfernen?"
 L.BlackListErrorRemove = "Fehler beim Löschen von der Blacklist."
 L.WhiteListErrorRemove = "Fehler beim Löschen von der Whitelist."
 L.ProfilesRemove = "Entferne [%s][|cFF99CC33%s|r] Profil von BagSync?"
-L.ProfilesErrorRemove = "Fehler beim Löschen aus BagSync."
 L.ProfileBeenRemoved = "[%s][|cFF99CC33%s|r] Profil entfert von BagSync!"
-L.ProfessionsFailedRequest = "[%s] Serveranforderung fehlgeschlagen."
 L.ProfessionHasRecipes = "Klicke mit der linken Maustaste, um Rezepte anzuzeigen."
 L.ProfessionHasNoRecipes = "Hat keine Rezepte zum Anzeigen."
 L.KeybindBlacklist = "Zeige Blacklist Fenster"
@@ -142,10 +121,8 @@ L.KeybindSearch = "Zeige Suchfenster"
 L.ObsoleteWarning = "\n\nNotiz: Veraltete Artikel werden weiterhin als fehlend angezeigt. Um dieses Problem zu beheben, scanne Deine Charaktere erneut, um veraltete Gegenstände zu entfernen.\n(Taschen, Bank, Reagenzien, Leerenlager, etc...)"
 L.DatabaseReset = "Aufgrund von Änderungen in der Datenbank. Deine BagSync Datenbank wurde zurückgesetzt."
 L.UnitDBAuctionReset = "Die Auktionsdaten wurden für alle Charaktere zurückgesetzt."
-L.ScanGuildBankStart = "Abfrage des Servers für Informationen zur Gildenbank, bitte warten....."
 L.ScanGuildBankDone = "Gildenbank Scan abgeschlossen!"
 L.ScanGuildBankError = "Warnung: Das Scannen der Gildenbank ist unvollständig."
-L.ScanGuildBankScanInfo = "Scanne Gildentab (%s/%s)."
 L.DefaultColors = "Standard Farben"
 -- ----THESE ARE FOR SLASH COMMANDS OPERATORS
 L.SlashItemName = "[gegenstandsname]"
@@ -190,12 +167,10 @@ L.ModValue_SHIFT = "SHIFT"
 L.EnableExtTooltip = "Zeige Artikelzähldaten in einer externen QuickInfo an"
 L.EnableLoginVersionInfo = "BagSync Versionsinfo bei der Anmeldung anzeigen"
 L.FocusSearchEditBox = "Suchfeld beim Öffnen des Suchfensters fokussieren"
-L.AlwaysShowAdvSearch = "Immer das erweiterte Suchfenster von Bagsync anzeigen."
+L.AlwaysShowSearchFilters = "Immer das Suchfilterfenster von Bagsync anzeigen."
 L.DisplayTotal = "Anzeige des [Gesamt] Betrags."
 L.DisplayGuildGoldInGoldWindow = "Zeige [Gilde] Goldsummen im Gold Fenster an"
 L.Display_GSC = "zeige |cFFFFD700Gold|r, |cFFC0C0C0Silver|r und |cFFB87333Copper|r in dem Goldfenster."
-L.DisplayMailbox = "Postfachgegenstände anzeigen"
-L.DisplayAuctionHouse = "Auktionshausgegenstände anzeigen"
 L.DisplayMinimap = "BagSync Minikartensymbol anzeigen"
 L.DisplayFaction = "Gegenstände für beide Fraktionen anzeigen (|cff3587ffAllianz|r/|cFFDF2B2BHorde|r)"
 L.DisplayClassColor = "Klassenfarben für Charaktere anzeigen"
@@ -211,7 +186,6 @@ L.DisplayCurrentRealmShortName = "Verwenden Sie einen Kurznamen für |cFF4CBB17[
 L.DisplayCR = "Aktiviere Gegenstände für |cffff7d0a[Verbundener Realm]|r Charaktere.  |cffff7d0a[CR]|r"
 L.DisplayBNET = "Aktiviere Battle.net Account Charaktere. |cff3587ff[BNet]|r |cFFDF2B2B(Nicht empfohlen!)|r"
 L.DisplayItemID = "Gegenstands ID im Tooltip anzeigen"
-L.DisplaySourceDebugInfo = "Zeigt hilfreiche [Debug] Informationen im Tooltip an"
 L.DisplayWhiteListOnly = "Gesamtsummen der Tooltip Gegenstände nur für Artikel auf der Whitelist anzeigen."
 L.DisplaySourceExpansion = "Erweiterungsquelle für Artikel im Tooltip anzeigen. |cFF99CC33[Nur Retail]|r"
 L.DisplayItemTypes = "Zeigt die Kategorien [Gegenstandstyp | Untertyp] im Tooltip an."
@@ -234,16 +208,20 @@ L.DisplayShortRealmName = "Kurze Realmnamen für |cffff7d0a[CR]|r und |cff3587ff
 L.DisplayFactionIcons = "Fraktionssymbole im Tooltip anzeigen"
 L.DisplayGuildBankTabs = "Gildenbank-Reiter [1,2,3, etc...] im Tooltip anzeigen."
 L.DisplayWarbandBankTabs = "Zeigt die Tabs [1, 2, 3 usw.] der Kriegermeuten Bank im Tooltip an."
+L.DisplayBankTabs = "Bank-Reiter [1,2,3, etc...] im Tooltip anzeigen."
 L.DisplayEquipBagSlots = "Zeigt die ausgerüsteten Taschenplätze <1,2,3, etc.> im Tooltip an."
 L.DisplayRaceIcons = "Symbole der Charakterrasse im Tooltip anzeigen."
 L.DisplaySingleCharLocs = "Zeige ein einzelnes Zeichen für Speicherorte an."
 L.DisplayIconLocs = "Zeige ein Symbol für Speicherorte an."
-L.DisplayGuildSeparately = "Zeige [Gilden-]Namen und Gegenstandssummen getrennt von den Charaktersummen an."
-L.DisplayGuildCurrentCharacter = "Zeige [Gilden] Gegenstände nur für den aktuell eingeloggten Charakter"
-L.DisplayGuildBankScanAlert = "Zeigt das Scan Warnfenster der Gildenbank an"
 L.DisplayAccurateBattlePets = "Genaue Kampfhaustiere in der Gildenbank und Mailbox aktivieren. |cFFDF2B2B(Kann zu Verzögerungen führen)|r |cff3587ff[Siehe BagSync FAQ]|r"
+L.DisplaySortCurrencyByExpansionFirst = "Sortiere das BagSync-Währungsfenster zuerst nach Erweiterung statt alphabetisch."
 L.DisplaySorting = "Tooltip Sortierung"
 L.DisplaySortInfo = "Standard: Tooltips werden alphabetisch nach Realm und dann nach Charakternamen sortiert."
+L.SortMode = "Sortiermodus"
+L.SortMode_RealmCharacter = "Realm dann Charakter (Standard)"
+L.SortMode_Character = "Charakter"
+L.SortMode_ClassCharacter = "Klasse dann Charakter"
+L.SortCurrentPlayerOnTop = "Standardmäßig sortieren und aktuellen Charakter immer oben anzeigen."
 L.SortTooltipByTotals = "Sortiere die BagSync Tooltips nach Summen und nicht alphabetisch."
 L.SortByCustomSortOrder = "Sortieren nach benutzerdefinierter Sortierreihenfolge."
 L.CustomSortInfo = "Liste verwendet eine aufsteigende Reihenfolge (1,2,3)"
@@ -269,19 +247,17 @@ L.ColorExpansion = "BagSync [Erweiterungen] Tooltipfarbe."
 L.ColorItemTypes = "BagSync [Gegenstandstyp] Tooltipfarbe."
 L.ColorGuildTabs = "Gilden Tabs [1,2,3, etc...] Tooltipfarbe."
 L.ColorWarbandTabs = "Kriegsmeuten Tabs [1,2,3, etc...] Tooltipfarbe."
+L.ColorBankTabs = "Bank Tabs [1,2,3, etc...] Tooltipfarbe."
 L.ColorBagSlots = "Taschen Slots <1,2,3, etc...> Tooltipfarbe."
-L.ConfigHeader = "Einstellungen für verschiedene BagSync Funktionen."
 L.ConfigDisplay = "Anzeige"
 L.ConfigTooltipHeader = "Einstellungen für die angezeigten BagSync Tooltip Informationen."
 L.ConfigColor = "Farbe"
 L.ConfigColorHeader = "Farbeinstellungen für BagSync Tooltip Informationen"
 L.ConfigMain = "Hauptkonfig"
 L.ConfigMainHeader = "Haupteinstellungen von BagSync"
-L.ConfigSearch = "Suche"
 L.ConfigKeybindings = "Keybindings"
 L.ConfigKeybindingsHeader = "Tastenbelegungseinstellungen für BagSync Funktionen."
 L.ConfigExternalTooltip = "Externer Tooltip"
-L.ConfigSearchHeader = "Einstellungen für das Suchfenster"
 L.ConfigFont = "Schriftart"
 L.ConfigFontSize = "Schriftart Größe"
 L.ConfigFontOutline = "Outline"
@@ -310,12 +286,28 @@ L.TrackingModule_WarbandBank = "Kriegsmeuten Bank (WarBank)"
 L.TrackingModule_Professions = "Berufe- / Handelsfertigkeiten"
 L.TrackingModule_Currency = "Währungs Tokens"
 L.WarningItemSearch = "WARNUNG: Insgesamt [|cFFFFFFFF%s|r] Elemente wurden nicht durchsucht!\n\nBagSync wartet immer noch auf die Antwort des Servers/Cache.\n\nDrücke die Schaltfläche Suchen oder Aktualisieren."
-L.WarningUpdatedDB = "Du wurdest auf die neueste Datenbankversion aktualisiert! Du musst alle Deine Charaktere erneut scannen!|r"
 L.WarningCurrencyUpt = "Fehler beim Aktualisieren der Währung. Bitte melde Dich mit dem Charakter an: "
 L.WarningHeader = "Warnung!"
 L.SavedSearch = "Gespeicherte Suche"
 L.SavedSearch_Add = "Suche hinzufügen"
 L.SavedSearch_Warn = "Du mußt etwas in das Suchfeld eingeben."
+---------------------------------------
+--Blizzard doesn't return the same header title in the Currency/Token window that is used in their expansion globals.
+--Meaning that, "The Burning Crusade" is listed as "Burning Crusade" in the Currency/Token window.  The same for "The War Within" being shown as "War Within"
+--In order to do a proper sorting of the Currency/Token Window for BagSync.  I've done the following steps
+--1) Removed all spaces and special characters from the expansion name
+--2) forced all characters to be lower case
+--3) Use the filter below to remove any other additional words in the name to match it to the currency/token window.
+--
+--Example: "The War Within" and "War Within" gets matched as "warwithin".  "Battle for Azeroth" gets matched as "battleforazeroth"
+--You can add as many words as you want below, just make sure it's lowercase, no spaces or symbols and to follow each entry with a comma
+---------------------------------------
+L.CurrencySortFilters = {
+	"der",
+	"die",
+	"das",
+	"the",
+}
 ---------------------------------------
 --Localization Note:  Please be advised that the commands for the SearchHelp are english only, however the variables can be any language.  Example: class:<name of class in your locale>
 --This includes name searches like name:<name in your locale>
@@ -336,7 +328,7 @@ L.SearchHelp = [[
 @guild
 @warband
 
-|cffff7d0aAdvanced Search|r (|cFF99CC33commands|r | |cFFFFD580example|r):
+|cffff7d0aSuchfilter|r (|cFF99CC33commands|r | |cFFFFD580example|r):
 
 |cff00ffff<item name>|r = |cFF99CC33n|r ; |cFF99CC33name|r | |cFFFFD580n:<text>|r ; |cFFFFD580name:<text>|r (n:ore ; name:ore)
 
@@ -356,12 +348,13 @@ L.SearchHelp = [[
 
 |cff00ffff<expansion>|r = |cFF99CC33x|r ; |cFF99CC33xpac|r ; |cFF99CC33expansion|r | |cFFFFD580x:<expacID>|r ; |cFFFFD580x:<expansion name>|r ; |cFFFFD580xpac:<expansion name>|r (xpac:shadow)
 
-|cff00ffff<keyword>|r = |cFF99CC33k|r ; |cFF99CC33key|r ; |cFF99CC33keyword|r | |cFFFFD580k:<keyword>|r (key:quest) (keywords: soulbound, bound, boe, bop, bou, boa, quest, unique, toy, reagent, crafting, naval, follower, follow, power, apperance)
+|cff00ffff<keyword>|r = |cFF99CC33k|r ; |cFF99CC33key|r ; |cFF99CC33keyword|r | |cFFFFD580k:<keyword>|r (key:quest) (keywords: soulbound, bound, boe, bop, bou, boa, quest, unique, toy, reagent, crafting, naval, follower, follow, power, appearance, apperance)
 
 |cff00ffff<class>|r = |cFF99CC33c|r ; |cFF99CC33class|r | |cFFFFD580c:<classname>|r ; |cFFFFD580class:<classname>|r (class:shaman)
 
 |cffff7d0aOperators <op>|r:
 |cFF99CC33:|r | |cFF99CC33=|r | |cFF99CC33==|r | |cFF99CC33!=|r | |cFF99CC33~=|r | |cFF99CC33<|r | |cFF99CC33>|r | |cFF99CC33<=|r | |cFF99CC33>=|r
+|cFFDF2B2BNote:|r |cFF99CC33!=|r and |cFF99CC33~=|r are supported (not equal).
 
 
 |cffff7d0aBefehle Negieren|r:
@@ -413,4 +406,20 @@ L.FAQ_Question_7_p1 = [[
 Blizzard speichert Kampfhaustiere nicht mit einer korrekten ItemID oder SpeciesID in der Gildenbank oder Mailbox. Tatsächlich werden Kampfhaustiere in der Gildenbank und im Postfach als |cFF99CC33[Haustierkäfig]|r mit der ItemID |cFF99CC3382800|r gespeichert. Dies macht es für Addon-Entwickler schwierig, Daten zu bestimmten Kampfhaustieren zu erhalten. Dies zeigt sich auch im Log der Gildenbank, dort werden Kaupfhaustiere als |cFF99CC33[Haustierkäfig]|r angezeigt. Auch beim Verlinken aus der Gildenbank werden sie als |cFF99CC33[Haustierkäfig]|r angezeigt. Um dieses Problem zu umgehen, gibt es zwei Methoden. Die erste Methode besteht darin, das Kampfhaustier einem Tooltip zuzuweisen und dann die SpeciesID von dort zu holen. Dafür muss der Server auf den WoW-Client antworten. Das kann zu massiven Lags führen, insbesondere wenn sich viele Kampfhaustiere in der Gildenbank befinden. Die zweite Methode verwendet die Symboltextur des Kampfhaustiers, um die SpeciesID herauszufinden. Dies ist manchmal ungenau, da manche Kampfhaustiere die gleiche Symboltextur haben. Beispiel: Giftmüllschleimling verwendet die gleiche Symboltextur wie Jadeschlammling. Aktivieren dieser Option erzwingt die Tooltip-Scanmethode für möglichst genaue Ergebnisse, kann aber Lags verursachen. |cFFDF2B2BDaran führt kein Weg vorbei, bis Blizzard uns mehr Daten zum Arbeiten gibt.|r
 ]]
 
+L.BagSyncInfoWindow = [[
+BagSync zeigt standardmäßig nur Tooltip-Daten von Charakteren auf verbundenen Realms an. ( |cffff7d0a[CR]|r )
+
+Verbundene Realms ( |cffff7d0a[CR]|r ) sind Server, die miteinander verbunden wurden.
+
+Für eine vollständige Liste besuche bitte:
+(|cFF99CC33 https://tinyurl.com/msncc7j6 |r)
+
+
+|cFFfd5c63BagSync zeigt standardmäßig NICHT die Daten deines gesamten Battle.Net-Kontos. Du musst dies aktivieren!|r
+( |cff3587ff[BNet]|r )
+
+|cFF52D386Wenn du alle deine Charaktere über dein gesamtes Battle.net-Konto ( |cff3587ff[BNet]|r ) hinweg sehen möchtest, musst du die Option im BagSync-Konfigurationsfenster unter [Account Wide] aktivieren.|r
+
+Die Option heißt:
+]]
 

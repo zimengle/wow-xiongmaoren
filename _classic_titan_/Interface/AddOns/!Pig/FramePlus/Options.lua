@@ -453,6 +453,7 @@ local BlizzardUIList={
 	{false, nil, "LootFrame",nil,"掉落列表"},
 	{false, nil, "WorldMapFrame",nil,"世界地图"},
 	{false, nil, "WorldMapFrame", "WorldMapTitleButton", "世界地图(mini模式)"},
+	{false, nil, "TradeFrame",nil, "交易界面"},
 	{false, nil, "GameMenuFrame",nil, "ESC菜单"},
 	{false, nil, "SettingsPanel",nil, "设置选项"},
 	{false, nil, "HelpFrame",nil, "客服支持"},

@@ -1,7 +1,6 @@
 # Auctionator
 
-## [311](https://github.com/TheMouseNest/Auctionator/tree/311) (2026-01-21)
-[Full Changelog](https://github.com/TheMouseNest/Auctionator/compare/310...311) 
+## [315](https://github.com/TheMouseNest/Auctionator/tree/315) (2026-02-02)
+[Full Changelog](https://github.com/TheMouseNest/Auctionator/compare/314...315) 
 
-- Fix "Open Options" button in Auctionator tab  
-- Retail: Fix displaying crafted item qualities in AH UI  
+- Fix tooltips on classic  

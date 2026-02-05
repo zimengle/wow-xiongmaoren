@@ -245,10 +245,10 @@ function BG.WCLUI(lastbt)
     -- 鼠标悬停提示
     bt:SetScript("OnEnter", function(self)
         if BG.Backing then return end
-        GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT", 0, 0)
-        GameTooltip:ClearLines()
         if IsAddOnLoaded("ArchonTooltip") then
             local tbl = CreateListTable()
+            GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT", 0, 0)
+            GameTooltip:ClearLines()
             if InCombatLockdown() then
                 GameTooltip:AddLine(L["战斗中不能查看WCL。"], 1, 0, 0)
             else
@@ -261,7 +261,10 @@ function BG.WCLUI(lastbt)
                     GameTooltip:AddLine(L["当前团队成员没有WCL分数。"], 1, 0, 0)
                 end
             end
+            GameTooltip:Show()
         else
+            GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT", 0, 0)
+            GameTooltip:ClearLines()
             GameTooltip:AddLine(L["错误"], 1, 0, 0, true)
             GameTooltip:AddLine(L["你没有安装官方WCL插件（安装入口在WCL客户端）。"], 1, .82, 0, true)
         end

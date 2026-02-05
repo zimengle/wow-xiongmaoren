@@ -36,7 +36,7 @@ AtlasLootClassic_Factions: enabled
 Auctionator: enabled
 BlizzMove: enabled
 BlizzMove_Debug: enabled
-BoomTime: disabled
+BoomTime: enabled
 !BugGrabber: enabled
 BugSack: enabled
 BuyEmAll: enabled
@@ -117,3 +117,11 @@ ElvUI_SecondsToBuff: disabled
 ElvUI_BuffHighlight: disabled
 ElvUI_RatioMinimapAuras: disabled
 kExtraBossFrames: disabled
+ArkInventory: enabled
+ArkInventoryConfig: enabled
+ArkInventoryRules: enabled
+ArkInventorySearch: enabled
+ArkInventoryRules_Example: enabled
+Pawn: enabled
+TomTom: enabled
+NewBeeBox: enabled

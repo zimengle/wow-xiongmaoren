@@ -31,6 +31,13 @@ local RSNotes = private.ImportLib("RareScannerNotes")
 local RSLoot = private.ImportLib("RareScannerLoot")
 
 --=====================================================
+-- Shared tooltip
+--=====================================================
+
+RSTooltip.Tooltip = CreateFrame("GameTooltip", "RSSharedTooltip", nil, "GameTooltipTemplate")
+RSTooltip.Tooltip:SetScale(RSConstants.TOOLTIPS_SCALE)
+
+--=====================================================
 -- LibQtip provider for groups
 --=====================================================
 
@@ -592,10 +599,16 @@ function RSTooltip.ShowLinkTooltip(pin, chatFrame)
 	tooltip:EnableMouse(true)
 	tooltip:SetClampedToScreen(true)
 	tooltip:RegisterForDrag("LeftButton")
-	tooltip:SetScript("OnDragStart", tooltip.StartMoving)
+	tooltip:SetScript("OnDragStart", function(self)
+		if (not InCombatLockdown()) then 
+			self:StartMoving()
+		end
+	end)
 	tooltip:SetScript("OnDragStop", function(self)
-		self:StopMovingOrSizing()
-		RSGeneralDB.SetChatTooltipPositionCoordinates(self:GetLeft(), self:GetBottom())
+		if (not InCombatLockdown()) then 
+			self:StopMovingOrSizing()
+			RSGeneralDB.SetChatTooltipPositionCoordinates(self:GetLeft(), self:GetBottom())
+		end
 	end)
 	
 	if (not tooltip.closeButton) then

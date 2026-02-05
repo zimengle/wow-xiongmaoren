@@ -44,7 +44,7 @@ Private.Zones[1046] = {
 
 Private.Zones[1051] = {
     id = 1051,
-    name = "HOF / ToES",
+    name = "HoF / ToES",
     hasMultipleDifficulties = true,
     hasMultipleSizes = true,
     encounters = {

@@ -22,7 +22,7 @@ local Maxb = ns.Maxb
 local pt = print
 local realmID = GetRealmID()
 local player = BG.playerName
-local realmName = GetRealmName()
+local realmName = BG.realmName
 
 --最后更新时间：25/6/23 10:25
 local AFDtbl_360 = {

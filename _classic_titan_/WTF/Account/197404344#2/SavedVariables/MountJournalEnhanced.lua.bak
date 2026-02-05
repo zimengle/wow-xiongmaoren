@@ -11,20 +11,20 @@ MJEGlobalSettings = {
 ["slotPosition"] = "top",
 ["compactMountList"] = true,
 ["displayStatistics"] = {
+["TravelTime"] = true,
 ["TravelDistance"] = true,
-["UsedCount"] = true,
 ["LearnedDate"] = true,
 ["Rarity"] = true,
 ["Family"] = true,
 ["CustomizationCount"] = true,
 ["Wowhead"] = true,
-["TravelTime"] = true,
+["UsedCount"] = true,
 },
-["previewButton"] = true,
+["autoRotateModel"] = false,
 ["showResizeEdge"] = true,
 ["showPersonalCount"] = true,
 ["displayBackground"] = "original",
-["autoRotateModel"] = false,
+["previewButton"] = true,
 ["windowSize"] = {
 0,
 0,
@@ -33,38 +33,13 @@ MJEGlobalSettings = {
 ["unlockDisplayCamera"] = true,
 ["displayAnimation"] = "stand",
 },
-["searchInNotes"] = true,
-["hiddenMounts"] = {
-},
 ["summonPreviousPetAgain"] = true,
+["searchInFamilyName"] = true,
+["searchInNotes"] = true,
 ["pets"] = {
 ["assignments"] = {
 },
 ["seenInfo"] = true,
-},
-["favorites"] = {
-["assignments"] = {
-},
-["profiles"] = {
-{
-["mounts"] = {
-197,
-266,
-363,
-2647,
-},
-["name"] = "",
-["initialScan"] = true,
-["autoFavor"] = false,
-},
-},
-},
-["sort"] = {
-["unownedOnBottom"] = true,
-["descending"] = false,
-["by"] = "name",
-["favoritesOnTop"] = true,
-["unusableToBottom"] = false,
 },
 ["filter"] = {
 ["expansion"] = {
@@ -106,15 +81,19 @@ true,
 ["Promotion"] = true,
 ["Unavailable"] = true,
 },
-["hiddenIngame"] = false,
 ["color"] = {
 },
+["hiddenIngame"] = false,
 ["notCollected"] = true,
 ["hidden"] = false,
-["faction"] = {
-["horde"] = true,
-["alliance"] = true,
-["noFaction"] = true,
+["mountType"] = {
+["repair"] = true,
+["flying"] = true,
+["underwater"] = true,
+["passenger"] = true,
+["transform"] = true,
+["ground"] = true,
+["rideAlong"] = true,
 },
 ["family"] = {
 ["Drakes"] = {
@@ -212,16 +191,12 @@ true,
 ["Bats"] = true,
 },
 ["onlyFavorites"] = false,
-["onlyUsable"] = false,
-["mountType"] = {
-["repair"] = true,
-["flying"] = true,
-["underwater"] = true,
-["passenger"] = true,
-["transform"] = true,
-["ground"] = true,
-["rideAlong"] = true,
+["faction"] = {
+["horde"] = true,
+["alliance"] = true,
+["noFaction"] = true,
 },
+["onlyUsable"] = false,
 ["onlyTradable"] = false,
 ["collected"] = true,
 ["onlyRecent"] = false,
@@ -233,17 +208,42 @@ true,
 true,
 },
 },
+["sort"] = {
+["unownedOnBottom"] = true,
+["descending"] = false,
+["by"] = "name",
+["favoritesOnTop"] = true,
+["unusableToBottom"] = false,
+},
+["favorites"] = {
+["assignments"] = {
+},
+["profiles"] = {
+{
+["mounts"] = {
+197,
+266,
+363,
+2647,
+},
+["name"] = "",
+["initialScan"] = true,
+["autoFavor"] = false,
+},
+},
+},
 ["personalHiddenMounts"] = false,
 ["personalUi"] = false,
-["searchInFamilyName"] = true,
+["hiddenMounts"] = {
+},
 ["searchInDescription"] = true,
 }
 MJETrackingData = {
 [2925] = {
-17,
-1769770079,
-367,
-8817.580136442768,
+130,
+1770277552,
+5999,
+65594.84007715964,
 },
 [197] = {
 10301,
@@ -259,10 +259,10 @@ MJETrackingData = {
 1753454777,
 },
 [2251] = {
-26,
-1769769660,
-1700,
-16415.26098205885,
+79,
+1770275984,
+3239,
+40011.1277919908,
 },
 [1765] = {
 5,
@@ -338,10 +338,10 @@ MJETrackingData = {
 519.3904716455755,
 },
 [84] = {
-14,
-1769706477,
-776,
-1445.119598154489,
+33,
+1770260644,
+975,
+6178.447592930289,
 },
 [199] = {
 0,
@@ -356,15 +356,15 @@ MJETrackingData = {
 [5] = 1754034709,
 },
 [221] = {
-8,
-1769767330,
-240,
-3160.936997053685,
+58,
+1770279392,
+1199,
+29678.96835718714,
 },
 [129] = {
-2,
-1769684529,
-227,
-1512.998221649839,
+8,
+1770254797,
+731,
+2575.852871349312,
 },
 }

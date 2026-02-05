@@ -1,30 +1,6 @@
 
 PIGA_Per = {
-["GDKP"] = {
-},
-["AutoSellBuy"] = {
-["Take_List"] = {
-},
-["Save_List"] = {
-},
-["Save_Money"] = 10000000,
-["Buy_List"] = {
-},
-["Take_Money"] = 10000000,
-},
 ["PigAction"] = {
-["Lock"] = {
-false,
-false,
-false,
-false,
-},
-["ShowTJ"] = {
-1,
-1,
-1,
-1,
-},
 ["AnniuNum"] = {
 12,
 12,
@@ -32,6 +8,14 @@ false,
 12,
 },
 ["Scale"] = {
+1,
+1,
+1,
+1,
+},
+["ActionData"] = {
+},
+["ShowTJ"] = {
 1,
 1,
 1,
@@ -49,7 +33,11 @@ false,
 false,
 false,
 },
-["ActionData"] = {
+["Lock"] = {
+false,
+false,
+false,
+false,
 },
 },
 ["QuickBut"] = {
@@ -131,12 +119,24 @@ false,
 },
 ["TrinketMode"] = 1,
 },
-["CombatPlus"] = {
-["PetFoodList"] = {
+["GDKP"] = {
 },
+["AutoSellBuy"] = {
+["Take_List"] = {
+},
+["Save_List"] = {
+},
+["Save_Money"] = 10000000,
+["Buy_List"] = {
+},
+["Take_Money"] = 10000000,
+},
+["Tardis"] = {
 },
 ["Pig_UI"] = {
 },
-["Tardis"] = {
+["CombatPlus"] = {
+["PetFoodList"] = {
+},
 },
 }

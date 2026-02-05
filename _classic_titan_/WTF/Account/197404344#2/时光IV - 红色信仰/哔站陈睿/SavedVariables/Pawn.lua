@@ -1,8 +1,6 @@
 
 PawnOptions = {
 ["LastVersion"] = 2.1303,
-["LastPlayerFullName"] = "哔站陈睿-时光IV - 红色信仰",
-["AutoSelectScales"] = false,
 ["ItemLevels"] = {
 {
 ["ID"] = 255135,
@@ -90,6 +88,8 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:255098:1128:::::::80::::::::::|h[玛利斯达尔防御者]|h|r",
 },
 },
+["AutoSelectScales"] = false,
+["LastPlayerFullName"] = "哔站陈睿-时光IV - 红色信仰",
 }
 PawnMrRobotScaleProviderOptions = nil
 PawnClassicScaleProviderOptions = {

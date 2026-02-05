@@ -1,6 +1,8 @@
 
 PawnOptions = {
-["LastVersion"] = 2.1301,
+["LastVersion"] = 2.1303,
+["LastPlayerFullName"] = "李家沱-铁血",
+["AutoSelectScales"] = false,
 ["ItemLevels"] = {
 {
 ["ID"] = 10741,
@@ -19,9 +21,9 @@ PawnOptions = {
 },
 nil,
 {
-["ID"] = 11193,
-["Level"] = 57,
-["Link"] = "|cff1eff00|Hitem:11193::::::::46::::::::::|h[火风胸甲]|h|r",
+["ID"] = 15787,
+["Level"] = 59,
+["Link"] = "|cff1eff00|Hitem:15787::::::::56::::::::::|h[柳环锁甲]|h|r",
 },
 {
 ["ID"] = 19125,
@@ -44,9 +46,9 @@ nil,
 ["Link"] = "|cff1eff00|Hitem:4745::::::::46::::::::::|h[骑兵护腕]|h|r",
 },
 {
-["ID"] = 4107,
-["Level"] = 37,
-["Link"] = "|cff1eff00|Hitem:4107::::::::37::::::::::|h[猎虎手套]|h|r",
+["ID"] = 11918,
+["Level"] = 55,
+["Link"] = "|cff1eff00|Hitem:11918::::::::55::::::::::|h[洞穴岩石手套]|h|r",
 },
 {
 ["ID"] = 9533,
@@ -60,12 +62,22 @@ nil,
 ["AlsoFitsIn"] = 11,
 ["Link"] = "|cff0070dd|Hitem:9533::::::::50::::::::::|h[石工兄弟会之戒]|h|r",
 },
-nil,
-nil,
 {
-["ID"] = 33261,
-["Level"] = 39,
-["Link"] = "|cff1eff00|Hitem:33261::::::::46::::::::::|h[毁灭者披风]|h|r",
+["ID"] = 34423,
+["Level"] = 59,
+["AlsoFitsIn"] = 14,
+["Link"] = "|cff0070dd|Hitem:34423::::::::56::::::::::|h[熊怪酋长之力]|h|r",
+},
+{
+["ID"] = 34423,
+["Level"] = 59,
+["AlsoFitsIn"] = 13,
+["Link"] = "|cff0070dd|Hitem:34423::::::::57::::::::::|h[熊怪酋长之力]|h|r",
+},
+{
+["ID"] = 15789,
+["Level"] = 56,
+["Link"] = "|cff1eff00|Hitem:15789::::::::56::::::::::|h[深水披风]|h|r",
 },
 {
 ["ID"] = 13003,
@@ -78,8 +90,6 @@ nil,
 ["Link"] = "|cff1eff00|Hitem:15324::::::596:232060544:53::::::::::|h[灵猴之伯恩赛德步枪]|h|r",
 },
 },
-["AutoSelectScales"] = false,
-["LastPlayerFullName"] = "李家沱-铁血",
 }
 PawnMrRobotScaleProviderOptions = nil
 PawnClassicScaleProviderOptions = {

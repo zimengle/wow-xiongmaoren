@@ -8,10 +8,7 @@ local pt = print
 local LibBG = LibStub:GetLibrary("LibUIDropDownMenu-4.0") -- 调用库菜单UI
 ns.LibBG = LibBG
 
-BG.BiaoGeYY = BG.IsTitan and "BiaoGeYYY" or "BiaoGeYY"
-
 C_ChatInfo.RegisterAddonMessagePrefix("BiaoGe") -- 注册插件通信频道
-C_ChatInfo.RegisterAddonMessagePrefix(BG.BiaoGeYY)
 C_ChatInfo.RegisterAddonMessagePrefix("BiaoGeVIP")
 C_ChatInfo.RegisterAddonMessagePrefix("BiaoGeWorldBoss")
 
@@ -28,7 +25,7 @@ BINDING_NAME_RoleOverview = L["打开/关闭角色总览"]
 
 local realmID = GetRealmID()
 local player = BG.playerName
-local realmName = GetRealmName()
+local realmName = BG.realmName
 local GetAddOnMetadata = GetAddOnMetadata or C_AddOns.GetAddOnMetadata
 local IsAddOnLoaded = IsAddOnLoaded or C_AddOns.IsAddOnLoaded
 
@@ -237,7 +234,7 @@ do
             AddDB("MCtitan", mainFrameWidth, 870, 3, 12, { 0, 6, 11 }, nil, nil,
                 { 5, 5, 5, 5, 5, 6, 5, 5, 5, 6, 11, 20, })
             AddDB("SSCtitan", mainFrameWidth, 870, 3, 12, { 0, 6, 11 }, nil, nil,
-                { 5, 5, 5, 5, 5, 6, 5, 5, 5, 6, 11, 20, })
+                { 5, 5, 5, 5, 5, 6, 5, 5, 5, 7, 18, 11, },11)
             AddDB("Worldtitan", mainFrameWidth, 930, 3, 10, { 0, 4, 8 }, nil, nil,
                 { 9, 9, 9, 9, 9, 9, 9, 9, 3, 4 })
         end
@@ -399,7 +396,7 @@ do
             BG.fullLevel_RoleOverview = 60
             BG.theEndBossID = { 672, 628, 733 } --MC 毒蛇 风暴
             AddDB("MCtitan", 409, "P1", 25)
-            AddDB("SSCtitan", 548, "P2", 25, nil, nil, nil, L["毒蛇风暴"])
+            AddDB("SSCtitan", 548, "P2", 25, nil, nil, { 1, 6 }, L["毒蛇风暴"])
             BG.FBIDtable[550] = "SSCtitan" -- 风暴要塞
             BG.bossPositionStartEnd[550] = { 7, 10 }
             for i = 7, 10 do
@@ -887,7 +884,6 @@ do
     end)
 end
 
-
 -- 本地配置数据库
 BG.Init(function()
     if BiaoGe then
@@ -1035,11 +1031,16 @@ BG.Init(function()
         BiaoGe.playerInfo[realmID][player] = BiaoGe.playerInfo[realmID][player] or {}
         BiaoGe.playerInfo[realmID][player].class = select(2, UnitClass("player"))
         BiaoGe.playerInfo[realmID][player].raceID = select(3, UnitRace("player"))
-        BiaoGe.playerInfo[realmID][player].level = UnitLevel("player")
         BiaoGe.playerInfo[realmID][player].iLevel = select(2, GetAverageItemLevel()) or 0
 
-        BG.RegisterEvent("PLAYER_LEVEL_UP", function(self, event, level)
+        local function UpdateLevel(level)
             BiaoGe.playerInfo[realmID][player].level = level
+            BG.isFullLevel = level >= BG.fullLevel
+        end
+        UpdateLevel(UnitLevel("player"))
+        BG.RegisterEvent("PLAYER_LEVEL_UP", function(self, event, level)
+            UpdateLevel(level)
+            BG.UpdateMeetingHornLevelButton()
         end)
 
         -- 天赋
@@ -1251,8 +1252,8 @@ BG.Init(function()
                 "ARKai_T.ttf",
                 "ARKai_C.ttf",
                 "ARHei.ttf",
-                "ARIALN.ttf",
-                "FRIZQT__.ttf",
+                -- "ARIALN.ttf",
+                -- "FRIZQT__.ttf",
             }
         elseif (l == "zhTW") then
             default = "blei00d.TTF"
@@ -1300,7 +1301,13 @@ BG.Init(function()
                 end
             end
         end
-        BG.fontList=list
+        BG.fontList = list
+
+        local name = "editFontSize"
+        BiaoGe.options[name] = BiaoGe.options[name] or 14
+        function BiaoGe_InputBoxTemplate_OnLoad(self)
+            self:SetFont(BIAOGE_TEXT_FONT, BiaoGe.options[name], "OUTLINE")
+        end
     end
 
     -- 自定义字体
@@ -1352,6 +1359,7 @@ BG.Init(function()
         CreateMyFont("Fen", 15)
 
         CreateMyFont("White", 13)
+        CreateMyFont("White", 14)
         CreateMyFont("White", 15)
         CreateMyFont("White", 18)
         CreateMyFont("White", 25)

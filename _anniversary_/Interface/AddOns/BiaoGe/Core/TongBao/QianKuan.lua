@@ -256,7 +256,7 @@ BG.Init(function()
         if not CanMove() then return end
         BG.After((Move78() and .5 or 0), Move16)
     end
-
+    
     bt = BG.CreateButton(RaidFrame)
     bt:SetSize(90, 25)
     bt:SetPoint("TOPRIGHT", FriendsFrame, "BOTTOMRIGHT", -2, -2)

@@ -11,32 +11,32 @@ MJEGlobalSettings = {
 ["slotPosition"] = "top",
 ["compactMountList"] = true,
 ["displayStatistics"] = {
-["TravelTime"] = true,
+["UsedCount"] = true,
 ["TravelDistance"] = true,
-["LearnedDate"] = true,
+["TravelTime"] = true,
 ["Rarity"] = true,
 ["Family"] = true,
 ["CustomizationCount"] = true,
 ["Wowhead"] = true,
-["UsedCount"] = true,
+["LearnedDate"] = true,
 },
 ["colorizeNameByRarity"] = true,
 ["showResizeEdge"] = true,
 ["showPersonalCount"] = true,
 ["displayBackground"] = "original",
-["previewButton"] = true,
+["autoRotateModel"] = false,
 ["windowSize"] = {
 0,
 0,
 },
-["autoRotateModel"] = false,
+["previewButton"] = true,
 ["unlockDisplayCamera"] = true,
 ["displayAnimation"] = "stand",
 },
-["searchInFamilyName"] = true,
 ["hiddenMounts"] = {
 },
-["searchInNotes"] = true,
+["searchInFamilyName"] = true,
+["summonPreviousPetAgain"] = true,
 ["pets"] = {
 ["assignments"] = {
 },
@@ -50,24 +50,6 @@ MJEGlobalSettings = {
 ["favoritesOnTop"] = true,
 ["unusableToBottom"] = false,
 },
-["favorites"] = {
-["assignments"] = {
-},
-["profiles"] = {
-{
-["mounts"] = {
-197,
-266,
-363,
-2647,
-},
-["initialScan"] = true,
-["name"] = "",
-["autoFavor"] = false,
-},
-},
-},
-["personalHiddenMounts"] = false,
 ["filter"] = {
 ["expansion"] = {
 true,
@@ -115,12 +97,18 @@ true,
 true,
 true,
 },
-["hiddenIngame"] = false,
+["color"] = {
+},
 ["hidden"] = false,
 ["notCollected"] = true,
-["onlyUsable"] = false,
+["faction"] = {
+["horde"] = true,
+["alliance"] = true,
+["noFaction"] = true,
+},
 ["onlyTradable"] = false,
 ["onlyFavorites"] = false,
+["onlyUsable"] = false,
 ["mountType"] = {
 ["repair"] = true,
 ["flying"] = true,
@@ -129,11 +117,6 @@ true,
 ["transform"] = true,
 ["ground"] = true,
 ["passenger"] = true,
-},
-["faction"] = {
-["horde"] = true,
-["alliance"] = true,
-["noFaction"] = true,
 },
 ["family"] = {
 ["Drakes"] = {
@@ -232,18 +215,35 @@ true,
 },
 ["collected"] = true,
 ["onlyRecent"] = false,
-["color"] = {
+["hiddenIngame"] = false,
+},
+["personalHiddenMounts"] = false,
+["favorites"] = {
+["assignments"] = {
+},
+["profiles"] = {
+{
+["mounts"] = {
+197,
+266,
+363,
+2647,
+},
+["initialScan"] = true,
+["name"] = "",
+["autoFavor"] = false,
 },
 },
-["summonPreviousPetAgain"] = true,
+},
+["searchInNotes"] = true,
 ["searchInDescription"] = true,
 }
 MJETrackingData = {
 [2925] = {
-17,
-1769770079,
-367,
-8817.580136442768,
+130,
+1770277552,
+5999,
+65594.84007715964,
 },
 [197] = {
 10301,
@@ -259,10 +259,10 @@ MJETrackingData = {
 1753454777,
 },
 [2251] = {
-26,
-1769769660,
-1700,
-16415.26098205885,
+81,
+1770279421,
+3239,
+40011.1277919908,
 },
 [1765] = {
 5,
@@ -326,22 +326,22 @@ MJETrackingData = {
 1752909891,
 },
 [129] = {
-2,
-1769684529,
-227,
-1512.998221649839,
+8,
+1770254797,
+731,
+2575.852871349312,
 },
 [221] = {
-8,
-1769767330,
-240,
-3160.936997053685,
+58,
+1770279392,
+1199,
+29678.96835718714,
 },
 [84] = {
-14,
-1769706477,
-776,
-1445.119598154489,
+33,
+1770260644,
+975,
+6178.447592930289,
 },
 [199] = {
 0,

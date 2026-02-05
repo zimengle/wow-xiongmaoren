@@ -46,7 +46,7 @@ MSBTProfiles_SavedVars = {
 ["MSBT_TRIGGER_EXECUTE"] = false,
 },
 ["enableBlizzardDamage"] = true,
-["hotThrottleDuration"] = 2,
+["abbreviateAbilities"] = true,
 ["critOutlineIndex"] = 2,
 ["animationSpeed"] = 120,
 ["normalOutlineIndex"] = 2,
@@ -58,8 +58,8 @@ MSBTProfiles_SavedVars = {
 ["stickyDirection"] = "Down",
 ["direction"] = "Up",
 ["offsetX"] = -477,
-["behavior"] = "MSBT_NORMAL",
 ["iconAlign"] = "Right",
+["behavior"] = "MSBT_NORMAL",
 ["offsetY"] = -382,
 ["animationStyle"] = "Static",
 ["scrollHeight"] = 85,
@@ -367,11 +367,11 @@ MSBTProfiles_SavedVars = {
 ["PET_OUTGOING_DEFLECT"] = {
 ["message"] = "偏转*",
 },
-["NOTIFICATION_HOLY_POWER_CHANGE"] = {
-["disabled"] = true,
+["NOTIFICATION_POWER_GAIN"] = {
 ["scrollArea"] = "Notification",
 },
-["NOTIFICATION_POWER_GAIN"] = {
+["NOTIFICATION_HOLY_POWER_CHANGE"] = {
+["disabled"] = true,
 ["scrollArea"] = "Notification",
 },
 ["PET_OUTGOING_DODGE"] = {
@@ -417,7 +417,7 @@ MSBTProfiles_SavedVars = {
 ["damageColoringDisabled"] = true,
 ["normalFontName"] = "默认",
 ["critFontName"] = "默认",
-["abbreviateAbilities"] = true,
+["hotThrottleDuration"] = 2,
 },
 },
 }

@@ -598,6 +598,21 @@ function platerInternal.CreateCastBarOptions()
             name = "OPTIONS_SIZE",
             desc = "OPTIONS_SIZE",
         },
+        --target text length
+		{
+			type = "range",
+			get = function() return Plater.db.profile.castbar_target_text_max_width end,
+			set = function (self, fixedparam, value) 
+				Plater.db.profile.castbar_target_text_max_width = value
+				Plater.UpdateAllPlates()
+			end,
+			min = 0,
+			max = 300,
+			step = 1,
+			usedecimals = false,
+			name = "Max width",
+			desc = "Target text width limitation.\n 0 = no limitation",
+		},
         --text font
         {
             type = "select",

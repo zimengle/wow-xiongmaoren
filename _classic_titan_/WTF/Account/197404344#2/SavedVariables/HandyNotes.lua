@@ -59,9 +59,9 @@ HandyNotes_HandyNotesDB = {
 ["global"] = {
 [1953] = {
 [71126490] = {
+["icon"] = 1,
 ["title"] = "1",
 ["cont"] = false,
-["icon"] = 1,
 ["desc"] = "",
 },
 },

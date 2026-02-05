@@ -28,6 +28,11 @@ do --英语说明书
     ns.updateText_now = {
     }
     ns.updateText_before = {
+        "|cff00FF00" .. [[Updated on February 1st v1.25.3]],
+        [[-Generate table bill: If the number of successful auctions of a piece of equipment is greater than the actual number of records of the equipment in the table,]],
+        [[Indicates that the equipment may have problems with re-shooting or wrong shooting. There will now be corresponding prompts to facilitate better reconciliation]],
+        [[-<Time Server>Fixed some problems with the P2 suit in the equipment library]],
+        " ",
         "|cff00FF00" .. [[Updated v1.25.2 on January 30]],
         [[-<Time Server>Update P2 raid equipment drops again]],
         [[-<Time Server>Fixed the issue where [a bundle of void spikes] would be automatically recorded into the table]],
@@ -43,6 +48,8 @@ do --英语说明书
 end
 
 do
+    L["以下装备可能存在重拍："] = "The following equipment may have been re-auctioned:"
+    L["%s%s：拍卖成功%s件，表格实际只有%s件"] = "%s%s: %s pieces auctioned successfully, only %s pieces in the table"
     L["输入框字号"] = "Input Box Font Size"
     L["BiaoGe插件大量使用输入框，该选项可以修改其字体大小。"] = "The BiaoGe AddOn uses numerous input boxes; this option allows you to modify their font size."
     L["输入框字号（需重载）"] = "Input Box Font Size (Requires Reload)"

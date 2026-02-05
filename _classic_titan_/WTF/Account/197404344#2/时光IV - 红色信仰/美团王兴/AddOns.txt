@@ -54,7 +54,7 @@ Doom_CooldownPulse: disabled
 ElvUI_Libraries: disabled
 ElvUI_Options: disabled
 ElvUIUpdateBlocker: disabled
-ElvUI: disabled
+ElvUI: enabled
 GatherMate2: disabled
 GatherMate2_Data: disabled
 GF_Auction: disabled
@@ -137,7 +137,7 @@ WeakAurasCompanion: enabled
 ArchonTooltip: disabled
 ArchonTooltipDB_5236: disabled
 ArkInventoryRules_Example: disabled
-ArkInventory: disabled
+ArkInventory: enabled
 ArkInventoryConfig: disabled
 ArkInventoryRules: disabled
 ArkInventorySearch: disabled
@@ -145,3 +145,6 @@ Cell: disabled
 Pawn: disabled
 TomTom: disabled
 NewBeeBox: disabled
+FakeAchievement: disabled
+Auctionator: disabled
+EasyAuction: enabled

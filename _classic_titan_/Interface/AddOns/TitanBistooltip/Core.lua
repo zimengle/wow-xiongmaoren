@@ -1,4 +1,11 @@
 TitanBistooltipAddon = LibStub("AceAddon-3.0"):NewAddon("TitanBistooltip")
+
+-- 全局函数用于按键绑定
+function TitanBistooltipToggle()
+    if TitanBistooltipAddon and TitanBistooltipAddon.ToggleBisListFrame then
+        TitanBistooltipAddon:ToggleBisListFrame()
+    end
+end
 --local AceAddon =
 
 TitanBistooltip_char_equipment = {}
@@ -257,8 +264,8 @@ end
 
 function TitanBistooltipAddon:OnInitialize()
     createEquipmentWatcher()
-    TitanBistooltipAddon.AceAddonName = "TitanBistooltip 快跑兄弟"
-    TitanBistooltipAddon.AddonNameAndVersion = "TitanBistooltip v1.37 |cFF00ff00（时光1）快跑兄弟|r"
+    TitanBistooltipAddon.AceAddonName = "TitanBistooltip"
+    TitanBistooltipAddon.AddonNameAndVersion = "|cFF00BFFF[快跑兄弟]|r TitanBistooltip v1.40"
     
     TitanBistooltipAddon:initConfig()
     TitanBistooltipAddon:addMapIcon()

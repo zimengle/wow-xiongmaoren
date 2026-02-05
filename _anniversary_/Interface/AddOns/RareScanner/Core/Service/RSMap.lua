@@ -29,16 +29,6 @@ local RSRecentlySeenTracker = private.ImportLib("RareScannerRecentlySeenTracker"
 
 
 ---============================================================================
--- Not discovered entities
----- Stores in a temporal list all the not discovered entities to help displaying them on the map
----============================================================================
-
-function RSMap.InitializeNotDiscoveredLists()
-	RSNpcPOI.InitializeNotDiscoveredNpcs()
-	RSContainerPOI.InitializeNotDiscoveredContainers()
-end
-
----============================================================================
 -- Groups of POIs
 ---============================================================================
 
@@ -99,27 +89,6 @@ end
 
 local MapPOIs = {}
 
-local function GetMapNotDiscoveredPOIs(mapID, onWorldMap, onMiniMap)
-	-- Skip if not showing 'not discovered' icons in old expansions
-	if (not RSConfigDB.IsShowingOldNotDiscoveredMapIcons() and not RSMapDB.IsMapInCurrentExpansion(mapID)) then
-		return
-	end
-
-	-- Add icons
-	local notDiscoveredNpcPOIs = RSNpcPOI.GetMapNotDiscoveredNpcPOIs(mapID, onWorldMap, onMiniMap)
-	if (RSUtils.GetTableLength(notDiscoveredNpcPOIs) > 0) then
-		for _, POI in ipairs (notDiscoveredNpcPOIs) do
-			tinsert(MapPOIs,POI)
-		end
-	end
-	local notDiscoveredContainerPOIs = RSContainerPOI.GetMapNotDiscoveredContainerPOIs(mapID, onWorldMap, onMiniMap)
-	if (RSUtils.GetTableLength(notDiscoveredContainerPOIs) > 0) then
-		for _, POI in ipairs (notDiscoveredContainerPOIs) do
-			tinsert(MapPOIs,POI)
-		end
-	end
-end
-
 function RSMap.GetMapPOIs(mapID, onWorldMap, onMiniMap)
 	-- Clear previous list
 	MapPOIs = {}
@@ -128,52 +97,70 @@ function RSMap.GetMapPOIs(mapID, onWorldMap, onMiniMap)
 	if (RSConfigDB.IsZoneFiltered(mapID) or RSConfigDB.IsZoneFilteredOnlyWorldmap(mapID)) then
 		return
 	end
-
-	-- Extract world quests in the area.
-	local questsOnMap = C_TaskQuest.GetQuestsOnMap(mapID)
-	local questTitles = {}
-	if (questsOnMap) then
-		for _, info in ipairs (questsOnMap) do
-			if (info.questID and HaveQuestData(info.questID)) then
-				local title, _, _ = C_TaskQuest.GetQuestInfoByQuestID(info.questID)
-				table.insert(questTitles, title)
+	
+	-- Add NPCs POIs
+	local npcIDs = RSNpcDB.GetNpcIDsByMapID(mapID)
+	if (RSUtils.GetTableLength(npcIDs) > 0) then
+		for _, npcID in ipairs(npcIDs) do
+			local POI = RSNpcPOI.GetMapNpcPOI(npcID, mapID, onWorldMap, onMiniMap)
+			if (POI) then
+				tinsert(MapPOIs,POI)
 			end
 		end
 	end
-
-	-- Extract POIs from already found entities
-	for entityID, entityInfo in pairs (RSGeneralDB.GetAlreadyFoundEntities()) do
-		-- Extract POI from already found NPC
-		local POI = nil
-		if (RSConstants.IsNpcAtlas(entityInfo.atlasName)) then
-			POI = RSNpcPOI.GetMapAlreadyFoundNpcPOI(entityID, entityInfo, mapID, onWorldMap, onMiniMap)
-		elseif (RSConstants.IsContainerAtlas(entityInfo.atlasName)) then
-			POI = RSContainerPOI.GetMapAlreadyFoundContainerPOI(entityID, entityInfo, mapID, onWorldMap, onMiniMap)
-		end
-
-		if (POI) then
-			tinsert(MapPOIs,POI)
+	
+	-- Add containers POIs
+	local containerIDs = RSContainerDB.GetContainerIDsByMapID(mapID)
+	if (RSUtils.GetTableLength(containerIDs) > 0) then
+		for _, containerID in ipairs(containerIDs) do
+			local POI = RSContainerPOI.GetMapContainerPOI(containerID, mapID, onWorldMap, onMiniMap)
+			if (POI) then
+				tinsert(MapPOIs,POI)
+			end
 		end
 	end
 	
-	-- extract POIs from recently seen entities (multi spawn)
+	-- Add points not included in the database
+	local entitiesNodb = RSGeneralDB.GetAlreadyFoundEntitiesNoDB()
+	if (entitiesNodb and entitiesNodb[mapID] and entitiesNodb[mapID][C_Map.GetMapArtID(mapID)]) then
+		for _, entityID in ipairs(entitiesNodb[mapID][C_Map.GetMapArtID(mapID)]) do
+			local POI
+			
+			local entityInfo = RSGeneralDB.GetAlreadyFoundEntity(entityID)
+			if (entityInfo) then
+				if (RSConstants.IsNpcAtlas(entityInfo.atlasName)) then
+					POI = RSNpcPOI.GetMapNpcPOI(entityID, mapID, onWorldMap, onMiniMap)
+				elseif (RSConstants.IsContainerAtlas(entityInfo.atlasName)) then
+					POI = RSContainerPOI.GetMapContainerPOI(entityID, mapID, onWorldMap, onMiniMap)
+				end
+				
+				if (POI) then
+					tinsert(MapPOIs,POI)
+				end
+			end
+		end
+	end
+	
+	-- Add POIs from recently seen entities (multi spawn)
 	local recentlySeenEntities = RSRecentlySeenTracker.GetAllRecentlySeenSpots()
 	if (RSUtils.GetTableLength(recentlySeenEntities) > 0) then
 		for entityID, entityInfo in pairs (recentlySeenEntities) do
 			if (type(entityInfo) == "table") then
 				for xy, info in pairs (entityInfo) do
 					if (info.mapID == mapID) then
-						local entityInfo = {}
-						entityInfo.mapID = mapID
-						entityInfo.coordX = info.x
-						entityInfo.coordY = info.y
-						entityInfo.foundTime = info.time
+						local recentlySeenInfo = {}
+						recentlySeenInfo.mapID = mapID
+						recentlySeenInfo.coordX = info.x
+						recentlySeenInfo.coordY = info.y
+						recentlySeenInfo.foundTime = info.time
 					
 						local POI = nil
 						if (RSConstants.IsNpcAtlas(info.atlasName)) then
-							POI = RSNpcPOI.GetMapAlreadyFoundNpcPOI(entityID, entityInfo, mapID, onWorldMap, onMiniMap)
+							RSNpcDB.DeleteNpcKilled(entityID)
+							POI = RSNpcPOI.GetMapNpcPOI(entityID, mapID, onWorldMap, onMiniMap, recentlySeenInfo)
 						elseif (RSConstants.IsContainerAtlas(info.atlasName)) then
-							POI = RSContainerPOI.GetMapAlreadyFoundContainerPOI(entityID, entityInfo, mapID, onWorldMap, onMiniMap)
+							RSContainerDB.DeleteContainerOpened(entityID)
+							POI = RSContainerPOI.GetMapContainerPOI(entityID, mapID, onWorldMap, onMiniMap, recentlySeenInfo)
 						end
 		
 						if (POI) then						
@@ -195,9 +182,6 @@ function RSMap.GetMapPOIs(mapID, onWorldMap, onMiniMap)
 			end
 		end
 	end
-
-	-- Extract POIs not discovered
-	GetMapNotDiscoveredPOIs(mapID, onWorldMap, onMiniMap)
 
 	-- Create groups if the pins go in the worldmap
 	if (onWorldMap) then

@@ -28,6 +28,35 @@ BG.Init(function()
     BiaoGe.auctionTrade = nil
     BG.auctionTrade = {}
 
+    local function HighlightBiaoGeSameItems(itemID, link, self)
+        local tbl = {}
+        local FB = BG.FB1
+        for b = 1, Maxb[FB] do
+            for i = 1, BG.GetMaxi(FB, b) do
+                local zb = BG.Frame[FB]["boss" .. b]["zhuangbei" .. i]
+                local jine = BG.Frame[FB]["boss" .. b]["jine" .. i]
+                if zb then
+                    if itemID == GetItemID(zb:GetText()) then
+                        tinsert(tbl, { zb = zb, jine = jine })
+                    end
+                end
+            end
+        end
+        if #tbl > 1 then
+            local frame
+            for i, v in ipairs(tbl) do
+                frame = BG.CreateHighlightFrame(self, nil, { 1, 0, 0, 0 }, 4)
+            end
+            local t = frame:CreateFontString()
+            t:SetFont(BIAOGE_TEXT_FONT, 20, "OUTLINE")
+            t:SetPoint("RIGHT", self, "RIGHT", -2, 0)
+            t:SetTextColor(1, 0, 0)
+            t:SetText(#tbl)
+            BG.HighlightItemAuctionLog(link)
+        end
+        tbl = nil
+    end
+
     local bt = CreateFrame("Button", nil, BG.MainFrame)
     do
         bt:SetPoint("LEFT", BG.ButtonAucitonWA, "RIGHT", BG.TopLeftButtonJianGe, 0)
@@ -347,8 +376,37 @@ BG.Init(function()
             end)
         end
 
-        -- 生成账单按钮
+        -- 生成账单
         do
+            local function CheckErrorItem()
+                local FB = BG.FB1
+                local items = {}
+                for _, v in ipairs(BiaoGe[FB].auctionLog) do
+                    if v.type == 1 then
+                        local itemID = GetItemID(v.zhuangbei)
+                        items[itemID] = items[itemID] or { link = v.zhuangbei, logCount = 0 }
+                        items[itemID].logCount = items[itemID].logCount + 1
+                    end
+                end
+                if next(items) then
+                    BG.PairFBItem(function(zhuangbei)
+                        local itemID = GetItemID(zhuangbei:GetText())
+                        if itemID and items[itemID] then
+                            items[itemID].bgCount = items[itemID].bgCount or 0
+                            items[itemID].bgCount = items[itemID].bgCount + 1
+                        end
+                    end)
+                    local tbl = {}
+                    for itemID, v in pairs(items) do
+                        if not v.bgCount or v.bgCount < v.logCount then
+                            tinsert(tbl, { itemID = itemID, link = v.link, bgCount = v.bgCount or 0, logCount = v.logCount })
+                        end
+                    end
+                    if next(tbl) then
+                        return tbl
+                    end
+                end
+            end
             local bt = BG.CreateButton(BG.auctionLogFrame)
             bt:SetSize(110, 25)
             bt:SetPoint("BOTTOMLEFT", BG.auctionLogFrame, 5, 10)
@@ -361,6 +419,15 @@ BG.Init(function()
                 GameTooltip:AddLine(L["根据自动拍卖记录，直接覆盖表格里每件装备所对应的买家和金额。"], 1, 0.82, 0, true)
                 GameTooltip:AddLine(" ")
                 GameTooltip:AddLine(L["该功能仅修改买家和金额，如果表格里的装备栏是空的，则什么都不会发生。"], 1, 0.82, 0, true)
+                local errorTbl = CheckErrorItem()
+                if errorTbl then
+                    GameTooltip:AddLine(" ", 1, 0, 0, true)
+                    GameTooltip:AddLine(L["以下装备可能存在重拍："], 1, 0, 0, true)
+                    for _, v in ipairs(errorTbl) do
+                        local icon=select(5,GetItemInfoInstant(v.itemID))
+                        GameTooltip:AddLine(L["%s%s：拍卖成功%s件，表格实际只有%s件"]:format(AddTexture(icon),v.link, v.logCount, v.bgCount), 1, .82, 0)
+                    end
+                end
                 GameTooltip:Show()
             end)
             bt:SetScript("OnLeave", GameTooltip_Hide)
@@ -420,7 +487,10 @@ BG.Init(function()
                     end
                 end
             end)
+        end
 
+        -- 生成对账单
+        do
             local bt = BG.CreateButton(BG.auctionLogFrame)
             bt:SetSize(95, 25)
             bt:SetPoint("BOTTOMRIGHT", BG.auctionLogFrame, -5, 10)
@@ -1155,7 +1225,10 @@ BG.Init(function()
                 local itemID = GetItemInfoInstant(link)
                 if itemID then
                     GameTooltip:SetHyperlink(BG.SetSpecIDToLink(link))
-                    BG.Show_AllHighlight(link, "auctionlog")
+                    if not isHistory then
+                        BG.Show_AllHighlight(link, "auctionlog")
+                        HighlightBiaoGeSameItems(itemID, link, self)
+                    end
                     BG.SetHistoryMoney(itemID)
                     if IsAltKeyDown() and BG.IsML and v.type == 3 and BiaoGe.options["autoAuctionStart"] == 1 then
                         SetCursor("interface/cursor/repair")
@@ -1663,6 +1736,10 @@ BG.Init(function()
                             BG.tradelastAuctionFrame.UpdateChooseType()
                             BG.tradelastAuctionFrame.UpdateAutoButtons()
                         end
+                    end
+
+                    if BGV and BGV.SaveRLAuction then
+                        BGV.SaveRLAuction(zhuangbei, maijia, jine)
                     end
                 end)
                 return

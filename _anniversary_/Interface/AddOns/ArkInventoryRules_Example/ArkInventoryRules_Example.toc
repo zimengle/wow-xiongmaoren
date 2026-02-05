@@ -2,6 +2,7 @@
 
 ## Interface: 120000,120001
 
+## Category: Ark
 ## Title: ArkInventory [Rules] Example
 ## Notes: Example rule for ArkInventory
 ## Author: Arkayenro - Khaz'goroth

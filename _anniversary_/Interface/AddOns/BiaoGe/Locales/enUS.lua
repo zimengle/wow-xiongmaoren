@@ -28,37 +28,34 @@ do --英语说明书
     ns.updateText_now = {
     }
     ns.updateText_before = {
-        "|cff00FF00" ..[[Updated on January 16th v1.24.5]] ,
-        [[-<MOP>Character Overview: Add currency "Platinum Coins" (check it in the settings)]],
-        [[-<TBC>Support anniversary server TBC eve]],
-        [[-Settings: Add option "Font"]],
-        [[-Fixed the problem that the "Use Form" button was invalid when receiving a form shared by others]],
-        " " ,
-        "|cff00FF00" .. [[Updated on January 10th v1.24.4]],
-        [[-Auction WA: Adjusted the bid increase per lot for bids above 10,000 to shorten the auction time]],
-        [[-<Time Server/MOP>Support reporting WCL]],
-        [[-<Time Server>World Boss: Now when you touch the Boss, the equipment will be automatically recorded in the table, no need to click the button]],
+        "|cff00FF00" .. [[Updated on February 1st v1.25.3]],
+        [[-Generate table bill: If the number of successful auctions of a piece of equipment is greater than the actual number of records of the equipment in the table,]],
+        [[Indicates that the equipment may have problems with re-shooting or wrong shooting. There will now be corresponding prompts to facilitate better reconciliation]],
+        [[-<Time Server>Fixed some problems with the P2 suit in the equipment library]],
         " ",
-        "|cff00FF00" .. [[Updated on January 7 v1.24.3]],
-        [[-<Time Server>Member World BossCD: The member frame now supports right-clicking to open the menu (you can quickly kick people, etc.)]],
-        [[-<MOP>Character Overview: Some brands will now display the total upper limit]],
-        [[-<MOP>Character Overview: Added professional skill CD "Jewelry Research" (check it in the settings)]],
+        "|cff00FF00" .. [[Updated v1.25.2 on January 30]],
+        [[-<Time Server>Update P2 raid equipment drops again]],
+        [[-<Time Server>Fixed the issue where [a bundle of void spikes] would be automatically recorded into the table]],
+        [[-<Time Server>Fixed the issue where Hados’ equipment was incorrectly recorded in miscellaneous items (should be)]],
         " ",
-        "|cff00FF00" .. [[Updated v1.23.9 on December 25]],
-        [[-Added function: Move debtors to team 78 (the entrance is in the team interface where you press the O key, visible when you are the team leader)]],
-        [[-Automatic auction: You can now hold down ALT+click on the equipment in the pickup box to initiate an auction]],
-        [[-<MOP>Character Overview: Added currency "Supreme Stone Fragments" and "Iron Palm Emblem", added task "Collect Food" (the above 3 items are not checked by default)]],
-        " ",
-        "|cff00FF00" .. [[Updated on December 22 v1.23.7]],
-        [[-<MOP>Character Overview: Add professional skill CD (check it in the settings)]],
-        [[-Role Overview: Added display of professional skill points (only main majors are displayed by default, auxiliary majors need to be checked by yourself)]],
-        [[-Character Overview: If a character who has learned a major has not completed the professional daily tasks that day, a red X will be displayed]],
-        [[-Settings: You can now set the zoom individually for the character overview UI]],
-        [[-Fixed the problem of invalid viewing of online users in foreign servers]],
+        "|cff00FF00" .. [[Updated v1.25.1 on January 30]],
+        [[-<Time Server>Update P2 raid equipment drops]],
+        [[-<Time Server>Void Vortex will now be recorded in Miscellaneous]],
+        [[-<Time Server> will now automatically record drawings to Miscellaneous]],
+        [[-<Time Server>Fixed the problem that the table would be cleared when fighting the Storm and then the Viper]],
+        [[-<Time Server>Fixed the problem that the character overview CD of the New World BOSS is not displayed]],
     }
 end
 
 do
+    L["以下装备可能存在重拍："] = "The following equipment may have been re-auctioned:"
+    L["%s%s：拍卖成功%s件，表格实际只有%s件"] = "%s%s: %s pieces auctioned successfully, only %s pieces in the table"
+    L["输入框字号"] = "Input Box Font Size"
+    L["BiaoGe插件大量使用输入框，该选项可以修改其字体大小。"] = "The BiaoGe AddOn uses numerous input boxes; this option allows you to modify their font size."
+    L["输入框字号（需重载）"] = "Input Box Font Size (Requires Reload)"
+    L["清空表格时的金币："] = "Gold on Table Clear: "
+    L["开启该模块需要重载游戏。\n现在立刻重载吗？"] = "Enabling this module requires reloading the game.\nReload now?"
+    L["+职业"] = "+Class"
     L["移动欠款者"] = "Move Debtors"
     L["把欠款者移到78队"] = "Move Debtors to Group 7 & 8"
     L["插件加载错误。"] = "AddOn load error."
@@ -1319,7 +1316,6 @@ do
     L["心愿装备"] = "Wish Gear"
     L["右键取消心愿装备"] = "Right click to cancel the Wish Gear"
     L["装绑"] = "BoE"
-    L["当前表格"] = "Current Form"
     L["< 当前表格 >"] = "< Current Form >"
     L["表格的核心功能都在这里"] = "The core functions of the form are all here"
     L["心愿清单"] = "Wishlist"
@@ -1580,7 +1576,6 @@ do
     L["|cffffffff< 交易通知字体大小 >|r|cff808080（右键还原设置）|r\n\n1、调整该字体的大小"] = "|cffffffff< Transaction notification font size >|r|cff808080 (right-click to restore settings)|r\n\n1, 'Improved Gouge' Size of this font"
     L["交易通知字体大小"] = "Transaction notification font size"
     L["|cffffffff< 当前表格 >|r\n\n1、表格的核心功能都在这里"] = "|cffffffff< Current Form >|r\n\n1, the core functions of the form are here"
-    L["当前表格"] = "Current Form"
     L["对账"] = "Reconciliation"
     L["心愿清单"] = "Wish List"
     L["YY评价"] = "YY Evaluation"
@@ -1884,8 +1879,8 @@ do
     L["心愿清单："] = "Wishlist:"
     L["心愿装备只要掉落就会有提醒，并且掉落后自动关注团长拍卖"] = "WishGear Alerts whenever it drops and automatically follows the Head Auction after it drops"
     L["你今天的运气指数(1-100)："] = "Your luck index for the day (1-100):"
-    L["当前表格"] = "Current Table"
-    L["历史表格"] = "History"
+    L["当前表格"] = "Current table"
+    L["历史表格"] = "Historical table"
     L["（当前为自动显示)"] = "(Currently displayed automatically)"
     L["<BiaoGe>金团表格"] = "<BiaoGe>"
     L["左键：|r打开表格"] = "Left button: |r to open the table"

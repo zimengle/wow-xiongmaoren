@@ -105,6 +105,10 @@ function BG.RoleOverviewUI()
             }
         elseif BG.IsTitan then
             BiaoGe.FBCDchoice = {
+                SSCtitan = 1,
+                TKtitan = 1,
+                Doomwalker = 1,
+                DoomLordKazzak = 1,
                 ["MCtitan"] = 1,
                 ["VOAtitan"] = 1,
                 ["Lanlongtitan"] = 1,
@@ -282,6 +286,12 @@ function BG.RoleOverviewUI()
                 BiaoGe.MONEYchoice[50274] = 1
             end)
         elseif BG.IsTitan then
+            BG.Once("FBCDchoice", 260129, function()
+                BiaoGe.FBCDchoice["SSCtitan"] = 1
+                BiaoGe.FBCDchoice["TKtitan"] = 1
+                BiaoGe.FBCDchoice["Doomwalker"] = 1
+                BiaoGe.FBCDchoice["DoomLordKazzak"] = 1
+            end)
             BG.Once("FBCDchoice", 251204, function()
                 BiaoGe.FBCDchoice["VOAtitan"] = 1
                 BiaoGe.FBCDchoice["Lanlongtitan"] = 1
@@ -457,8 +467,8 @@ function BG.RoleOverviewUI()
                 { name = "TKtitan", name2 = L["风暴"], color = "00BFFF", fbId = 550, type = "fb" },
                 { name = "MCtitan", name2 = L["熔火"], color = "00BFFF", fbId = 409, type = "fb" },
                 { name = "VOAtitan", name2 = L["宝库"], color = "00BFFF", fbId = 624, type = "fb" },
-                { name = "Doomwalker", name2 = L["末日行者"], color = "00BFFF", fbId = 116, type = "fb" },
-                { name = "DoomLordKazzak", name2 = L["末日领主"], color = "00BFFF", fbId = 116, type = "fb" },
+                { name = "Doomwalker", name2 = L["末日行者"], color = "00BFFF", fbId = 119, type = "fb" },
+                { name = "DoomLordKazzak", name2 = L["末日领主"], color = "00BFFF", fbId = 118, type = "fb" },
                 { name = "Lanlongtitan", name2 = L["蓝龙"], color = "00BFFF", fbId = 116, type = "fb" },
                 { name = "Kazaketitan", name2 = L["卡扎克"], color = "00BFFF", fbId = 117, type = "fb" },
                 -- 日常
@@ -1102,7 +1112,7 @@ GameTooltip:SetCurrencyByID(697)
             BG.weekQuests = {
                 week1 = {
                     questIDs = { 24579, 24580, 24581, 24582, 24583, 24584, 24585, 24586, 24587, 24588, 24589, 24590,
-                        93975, -- 时光服
+                        93975, 94577, -- 时光服
                     }
                 },
             }
@@ -1469,7 +1479,7 @@ GameTooltip:SetCurrencyByID(697)
         end
 
         BG.Init2(function()
-            BG.After(2,function ()
+            BG.After(2, function()
                 GetCooldown()
                 UpdateProfessionCD()
             end)
@@ -1858,7 +1868,7 @@ GameTooltip:SetCurrencyByID(697)
             BiaoGe.playerInfo[realmID][player].iLevel = avgLevel or 0
             local avgLevel0 = Round(avgLevel, 0)
             -- 更新集结号密语装等
-            if BG.MeetingHorn and BG.MeetingHorn.iLevelCheckButton then
+            if BG.isFullLevel and BG.MeetingHorn and BG.MeetingHorn.iLevelCheckButton then
                 BG.MeetingHorn.iLevelCheckButton.Text:SetText(avgLevel0)
             end
         end

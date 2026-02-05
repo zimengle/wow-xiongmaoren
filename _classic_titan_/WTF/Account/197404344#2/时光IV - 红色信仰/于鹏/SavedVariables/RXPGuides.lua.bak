@@ -3179,7 +3179,7 @@ RXPCTrackingData = {
 ["levels"] = {
 [80] = {
 ["groupExperience"] = 0,
-["deaths"] = 8,
+["deaths"] = 12,
 ["mobs"] = {
 },
 ["timestamp"] = {
@@ -3199,21 +3199,21 @@ RXPCComms = {
 ["profiles"] = {
 ["于鹏 - 时光IV - 红色信仰"] = {
 ["players"] = {
-["大橙子咕咕"] = {
-["isRxp"] = true,
+["城东刘亦菲"] = {
 ["level"] = 80,
+["isRxp"] = true,
 ["version"] = 1,
-["lastSeen"] = 1508.356,
-["xpPercentage"] = 0,
-["class"] = "DRUID",
-["xp"] = 0,
+["lastSeen"] = 9010.97,
 ["timePlayed"] = 0,
+["class"] = "WARLOCK",
+["xp"] = 0,
+["xpPercentage"] = 0,
 },
 ["Kom"] = {
 ["timePlayed"] = 0,
 ["class"] = "WARLOCK",
 ["version"] = 1,
-["lastSeen"] = 5062.576,
+["lastSeen"] = 9465.756,
 ["xpPercentage"] = 0,
 ["isRxp"] = true,
 ["xp"] = 0,
@@ -3228,6 +3228,26 @@ RXPCComms = {
 ["isRxp"] = true,
 ["xp"] = 0,
 ["level"] = 80,
+},
+["大橙子咕咕"] = {
+["isRxp"] = true,
+["level"] = 80,
+["version"] = 1,
+["lastSeen"] = 1508.356,
+["xpPercentage"] = 0,
+["class"] = "DRUID",
+["xp"] = 0,
+["timePlayed"] = 0,
+},
+["罗卜飞"] = {
+["level"] = 80,
+["isRxp"] = true,
+["version"] = 1,
+["lastSeen"] = 4690.355000000001,
+["timePlayed"] = 0,
+["class"] = "PRIEST",
+["xp"] = 0,
+["xpPercentage"] = 0,
 },
 },
 },

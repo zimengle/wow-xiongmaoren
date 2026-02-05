@@ -9,6 +9,7 @@ local AL = LibStub("AceLocale-3.0"):GetLocale("RareScanner");
 
 -- Minimap pins
 local HBD_Pins = LibStub("HereBeDragons-Pins-2.0")
+local AceConfigDialog = LibStub("AceConfigDialog-3.0")
 
 -- Minimap icon
 local ldi = LibStub("LibDBIcon-1.0")
@@ -51,7 +52,7 @@ function RSMinimap.LoadMinimapButton()
 		icon = RSConstants.NORMAL_NPC_TEXTURE,
 		OnClick = function(self, button) 
 			if (button == "RightButton") then
-				Settings.OpenToCategory("RareScanner")
+				Settings.OpenToCategory(AceConfigDialog.BlizOptionsIDMap["RareScanner"])
 			end
 		end,
 		OnTooltipShow = function(tooltip)
@@ -100,6 +101,26 @@ end
 -- Entities layer
 ---============================================================================
 
+local function AddMinimapPin(POI)
+	if (not POI) then
+		return
+	end
+	
+	local pin = pinFramesPool:Acquire()
+	pin.POI = POI
+		
+	-- Ignore POIs from worldmap
+	if (not POI.worldmap) then
+		pin.Texture:SetTexture(POI.Texture)
+		pin.Texture:SetScale(RSConfigDB.GetIconsMinimapScale())
+		pin:SetFrameLevel(ENTITY_FRAME_LEVEL)
+		pin.IconTexture:SetAtlas(POI.iconAtlas)
+		if (type(POI.mapID) == "number" and type(RSUtils.FixCoord(POI.x)) == "number" and type(RSUtils.FixCoord(POI.y)) == "number") then
+			HBD_Pins:AddMinimapIconMap(RSMinimap, pin, POI.mapID, RSUtils.FixCoord(POI.x), RSUtils.FixCoord(POI.y), false, false)
+		end
+	end
+end
+
 function RSMinimap.RefreshAllData(forzed)
 	-- Ignore if minimap not available
 	if (not Minimap:IsVisible()) then
@@ -142,17 +163,7 @@ function RSMinimap.RefreshAllData(forzed)
 	end
 
 	for _, POI in ipairs (POIs) do
-		local pin = pinFramesPool:Acquire()
-		pin.POI = POI
-			
-		-- Ignore POIs from worldmap
-		if (not POI.worldmap) then
-			pin.Texture:SetTexture(POI.Texture)
-			pin.Texture:SetScale(RSConfigDB.GetIconsMinimapScale())
-			pin:SetFrameLevel(ENTITY_FRAME_LEVEL)
-			pin.IconTexture:SetAtlas(POI.iconAtlas)
-			HBD_Pins:AddMinimapIconMap(RSMinimap, pin, POI.mapID, RSUtils.FixCoord(POI.x), RSUtils.FixCoord(POI.y), false, false)
-		end
+		AddMinimapPin(POI)
 	end
 	
 	-- Adds overlay if active
@@ -168,9 +179,11 @@ end
 
 function RSMinimap.RefreshEntityState(entityID)
 	if (pinFramesPool) then
+		local pinExists = false
 		for pin in pinFramesPool:EnumerateActive() do
 			local POI = pin.POI
 			if (POI.entityID == entityID) then
+				pinExists = true
 				HBD_Pins:RemoveMinimapIcon(RSMinimap, pin)
 				
 				if (POI.isNpc) then
@@ -184,8 +197,37 @@ function RSMinimap.RefreshEntityState(entityID)
 				pin.Texture:SetScale(RSConfigDB.GetIconsMinimapScale())
 				pin.IconTexture:SetAtlas(POI.iconAtlas)
 				pin:SetFrameLevel(ENTITY_FRAME_LEVEL)
-				HBD_Pins:AddMinimapIconMap(RSMinimap, pin, POI.mapID, RSUtils.FixCoord(POI.x), RSUtils.FixCoord(POI.y), false, false)
+				if (type(POI.mapID) == "number" and type(RSUtils.FixCoord(POI.x)) == "number" and type(RSUtils.FixCoord(POI.y)) == "number") then
+					HBD_Pins:AddMinimapIconMap(RSMinimap, pin, POI.mapID, RSUtils.FixCoord(POI.x), RSUtils.FixCoord(POI.y), false, false)
+				end
 			end
+		end
+		
+		if (not pinExists) then
+			-- Avoid adding the pin if it doesn't belong to the current player's map
+			if (not previousMapID) then
+				return
+			else
+				local mapID = C_Map.GetBestMapForUnit("player")
+				if (not mapID or mapID ~= previousMapID) then
+					return
+				end
+			end
+	
+			local POI
+			if (RSNpcDB.GetInternalNpcInfoByMapID(entityID, previousMapID)) then
+				POI = RSNpcPOI.GetNpcPOI(entityID, previousMapID, RSNpcDB.GetInternalNpcInfo(entityID), RSGeneralDB.GetAlreadyFoundEntity(entityID))
+				if (POI.isDead and not RSConfigDB.IsShowingAlreadyKilledNpcs()) then
+					return
+				end
+			elseif (RSContainerDB.GetInternalContainerInfoByMapID(entityID, previousMapID)) then
+				POI = RSContainerPOI.GetContainerPOI(entityID, previousMapID, RSContainerDB.GetInternalContainerInfo(entityID), RSGeneralDB.GetAlreadyFoundEntity(entityID))
+				if (POI.isOpened and not RSConfigDB.IsShowingAlreadyOpenedContainers()) then
+					return
+				end
+			end
+			
+			AddMinimapPin(POI)
 		end
 	end
 end

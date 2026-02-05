@@ -23,7 +23,6 @@ local pt = print
 
 local realmID = GetRealmID()
 local player = BG.playerName
-local realmName = GetRealmName()
 
 BG.History = {}
 

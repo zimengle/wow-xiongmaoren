@@ -1,8 +1,6 @@
 
 PawnOptions = {
 ["LastVersion"] = 2.1303,
-["LastPlayerFullName"] = "退休码农-时光IV - 红色信仰",
-["AutoSelectScales"] = false,
 ["ItemLevels"] = {
 {
 ["ID"] = 257621,
@@ -15,9 +13,9 @@ PawnOptions = {
 ["Link"] = "|cffa335ee|Hitem:40681::::::::80::::::::::|h[圣光珠串项链]|h|r",
 },
 {
-["ID"] = 37196,
-["Level"] = 200,
-["Link"] = "|cff0070dd|Hitem:37196::::::::80::::::::::|h[符文法师衬肩]|h|r",
+["ID"] = 30079,
+["Level"] = 219,
+["Link"] = "|cffa335ee|Hitem:30079::::::::80::::::::::|h[伊利达雷护肩]|h|r",
 },
 nil,
 {
@@ -51,28 +49,28 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:257620:3246:40048::::::80::::::::::|h[预言裹手]|h|r",
 },
 {
-["ID"] = 255144,
-["Level"] = 213,
+["ID"] = 29302,
+["Level"] = 219,
 ["AlsoFitsIn"] = 12,
-["Link"] = "|cffa335ee|Hitem:255144::::::::80::::::::::|h[灼烧指环]|h|r",
+["Link"] = "|cffa335ee|Hitem:29302::::::::80::::::::::|h[永恒之戒]|h|r",
 },
 {
-["ID"] = 37192,
-["Level"] = 200,
+["ID"] = 29302,
+["Level"] = 219,
 ["AlsoFitsIn"] = 11,
-["Link"] = "|cffa335ee|Hitem:37192::::::::80::::::::::|h[安海尔德之戒]|h|r",
+["Link"] = "|cffa335ee|Hitem:29302::39998::::::80::::::::::|h[永恒之戒]|h|r",
 },
 {
-["ID"] = 42988,
-["Level"] = 200,
+["ID"] = 30665,
+["Level"] = 219,
 ["AlsoFitsIn"] = 14,
-["Link"] = "|cffa335ee|Hitem:42988::::::::80::::::::::|h[暗月卡片：幻象]|h|r",
+["Link"] = "|cffa335ee|Hitem:30665::::::::80::::::::::|h[热情冥想耳环]|h|r",
 },
 {
-["ID"] = 37657,
-["Level"] = 200,
+["ID"] = 30665,
+["Level"] = 219,
 ["AlsoFitsIn"] = 13,
-["Link"] = "|cff0070dd|Hitem:37657::::::::80::::::::::|h[生命的火花]|h|r",
+["Link"] = "|cffa335ee|Hitem:30665::39998:39998:39998::::80::::::::::|h[热情冥想耳环]|h|r",
 },
 {
 ["ID"] = 37291,
@@ -80,9 +78,9 @@ nil,
 ["Link"] = "|cff0070dd|Hitem:37291::::::::80::::::::::|h[上古龙魂斗篷]|h|r",
 },
 {
-["ID"] = 255107,
-["Level"] = 219,
-["Link"] = "|cffa335ee|Hitem:255107:3854:::::::80::::::::::|h[祈福]|h|r",
+["ID"] = 30313,
+["Level"] = 298,
+["Link"] = "|cffff8000|Hitem:30313::::::::80::::::::::|h[瓦解法杖]|h|r",
 },
 [18] = {
 ["ID"] = 259900,
@@ -90,6 +88,8 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:259900::::::::80::::::::::|h[赤红震荡者]|h|r",
 },
 },
+["AutoSelectScales"] = false,
+["LastPlayerFullName"] = "退休码农-时光IV - 红色信仰",
 }
 PawnMrRobotScaleProviderOptions = nil
 PawnClassicScaleProviderOptions = {

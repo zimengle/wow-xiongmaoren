@@ -195,6 +195,7 @@ BG.Init(function()
         L["心理价格需高于当前价格"] = "Maximum Bid must be higher than the Current Price"
     end
 
+    local realmName = GetRealmName():gsub(" %- ", "")
     function aura.GN(unit)
         unit = unit or "player"
         if unit == "t" then
@@ -206,14 +207,14 @@ BG.Init(function()
     function aura.GFN(name)
         if not name then return end
         local name, realm = strsplit("-", name)
-        realm = realm or GetRealmName()
+        realm = realm or realmName
         return name .. "-" .. realm
     end
 
     function aura.GSN(name)
         if not name then return end
         local name, realm = strsplit("-", name)
-        if not realm or realm == "" or realm == GetRealmName() then
+        if not realm or realm == "" or realm == realmName then
             return name
         else
             return name .. "-" .. realm
@@ -349,7 +350,7 @@ BG.Init(function()
         edit.Middle:SetTexture("interface/common/commonsearch")
         edit.Middle:SetTexCoord(0, .8, .01, .31)
 
-        edit:SetFontObject(ChatFontNormal)
+        edit:SetFont(FONT, 14, "OUTLINE")
         edit:SetScript("OnTabPressed", EditBox_OnTabPressed)
         edit:SetScript("OnEscapePressed", EditBox_ClearFocus)
         edit:SetScript("OnEditFocusLost", EditBox_ClearHighlight)

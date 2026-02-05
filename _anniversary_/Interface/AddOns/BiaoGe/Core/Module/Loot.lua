@@ -211,7 +211,8 @@ BG.Init(function()
     local f = CreateFrame("Frame")
     f:RegisterEvent("ENCOUNTER_START")
     f:RegisterEvent("ENCOUNTER_END")
-    f:SetScript("OnEvent", function(self, event, bossID, _, _, _, success)
+    f:SetScript("OnEvent", function(self, event, ...)
+        local bossID, _, _, _, success = ...
         local FB = BG.FB2
         if not FB then return end
         if event == "ENCOUNTER_START" then
@@ -227,7 +228,7 @@ BG.Init(function()
                 end
             end
         elseif event == "ENCOUNTER_END" then
-            if success == 1 then
+            if success == 1 or bossID == 623 then
                 if IsBWLsod_boss5orboss6(bossID) then
                     numb = IsBWLsod_boss5orboss6(bossID)
                     lasttime = GetTime()
@@ -237,7 +238,7 @@ BG.Init(function()
                         numb = _numb
                         lasttime = GetTime()
                         start = nil
-                        BiaoGe[FB].raidRoster = { time = GetServerTime(), realm = GetRealmName(), roster = {} }
+                        BiaoGe[FB].raidRoster = { time = GetServerTime(), realm = BG.realmName, roster = {} }
                         for i, v in ipairs(BG.raidRosterInfo) do
                             tinsert(BiaoGe[FB].raidRoster.roster, v.name)
                         end
@@ -260,8 +261,6 @@ BG.Init(function()
         if numb ~= Maxb[FB] - 1 then
             if _time - lasttime >= 45 then -- 击杀BOSS x秒后进入下一次战斗，就变回杂项
                 numb = Maxb[FB] - 1
-                -- local text = BG.STC_r1(L["非BOSS战"])
-                -- PrintLootBoss(FB, event, numb, text)
             end
         end
     end)
@@ -458,17 +457,15 @@ BG.Init(function()
     local testItemID = 67429
     GetItemInfo(testItemID)
     local function LootItem(self, event, msg, ...)
-        local FB = BG.FB2
         if BiaoGe.options["autoLoot"] ~= 1 then -- 有没勾选自动记录功能
             return
         end
 
+        local FB = BG.FB2
         if BG.DeBug then
             FB = BG.FB1
         else
-            if not FB then -- 有没FB
-                return
-            end
+            if not FB then return end
         end
 
         if trade then return end -- 是否刚交易完
@@ -531,31 +528,9 @@ BG.Init(function()
                 if quality < BG.lootQuality[FB] then
                     return
                 end
-
-                if BG.IsMOP then
-                    -- 不记录牌子、宝石
-                    if typeID == 10 or typeID == 3 then
-                        return
-                    end
-                else
-                    if not BG.IsVanilla then
-                        -- WLK不记录图纸、牌子、宝石
-                        if typeID == 9 or typeID == 10 or typeID == 3 then
-                            return
-                        end
-                        -- 不记录ICC声望戒指
-                        if FB == "ICC" then
-                            for i = 2, 5 do
-                                if BG.Loot.ICC.Faction["1156:" .. i] then
-                                    for _, _itemId in ipairs(BG.Loot.ICC.Faction["1156:" .. i]) do
-                                        if itemID == _itemId then
-                                            return
-                                        end
-                                    end
-                                end
-                            end
-                        end
-                    end
+                -- 不记录牌子、宝石
+                if typeID == 10 or typeID == 3 then
+                    return
                 end
                 -- 过滤附魔分解的物品（例如：深渊水晶），subclassID==0 是60年代的附魔材料子分类
                 if typeID == 7 and (subclassID == 12 or subclassID == 0) then
@@ -604,25 +579,20 @@ BG.Init(function()
                 return
             end
         end
-        -- 大灾变以上版本的坐骑记录到杂项
-        if BG.verOver4 and typeID == 15 and subclassID == 5 then
+        -- 图纸、坐骑记录到杂项
+        if typeID == 9 or (typeID == 15 and subclassID == 5) then
             local numb = Maxb[FB] - 1
-            AddLootItem(FB, numb, link, Texture, level, isHope, count, typeID, lootplayer)
+            AddLootItem(FB, numb, link, Texture, level, isHope, count, typeID, lootplayer, nil, typeID == 9)
             return
         end
-        -- 经典旧世的图纸、牌子、宝石记录到杂项
-        if BG.IsVanilla then
-            if typeID == 9 or typeID == 10 or typeID == 3 then
-                local numb = Maxb[FB] - 1
-                AddLootItem(FB, numb, link, Texture, level, isHope, count, typeID, lootplayer, nil, typeID == 9)
-                return
-            end
-        else
-            -- MOP、TOC的图纸记到杂项
-            if typeID == 9 then
-                local numb = Maxb[FB] - 1
-                AddLootItem(FB, numb, link, Texture, level, isHope, count, typeID, lootplayer, nil, typeID == 9)
-                return
+        -- ICC小怪掉落总是记录到杂项
+        if FB == "ICC" then
+            for key, value in pairs(BG.Loot.ICC.H25.boss14) do
+                if itemID == value then
+                    local numb = Maxb[FB] - 1
+                    AddLootItem(FB, numb, link, Texture, level, isHope, count, typeID, lootplayer)
+                    return
+                end
             end
         end
         -- TOC嘉奖宝箱通过读取掉落列表来记录装备
@@ -657,16 +627,6 @@ BG.Init(function()
                 end
             end
         end
-        -- ICC小怪掉落
-        if FB == "ICC" then
-            for key, value in pairs(BG.Loot.ICC.H25.boss14) do
-                if itemID == value then
-                    local numb = Maxb[FB] - 1
-                    AddLootItem(FB, numb, link, Texture, level, isHope, count, typeID, lootplayer)
-                    return
-                end
-            end
-        end
         -- plus神庙老3
         if FB == "Temple" then
             for _, _itemID in pairs(BG.Loot.Temple.N.boss3) do
@@ -687,7 +647,6 @@ BG.Init(function()
 
     BG.RegisterEvent("CHAT_MSG_LOOT", LootItem)
 end)
-
 
 ----------一键分配装备给自己----------
 BG.Init2(function()

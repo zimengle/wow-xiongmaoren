@@ -38,7 +38,6 @@ local RSAudioAlerts = private.ImportLib("RareScannerAudioAlerts")
 local RSEventHandler = private.ImportLib("RareScannerEventHandler")
 local RSCommandLine = private.ImportLib("RareScannerCommandLine")
 local RSRecentlySeenTracker = private.ImportLib("RareScannerRecentlySeenTracker")
-local RSWaypoints = private.ImportLib("RareScannerWaypoints")
 
 -- RareScanner other addons integration services
 local RSTomtom = private.ImportLib("RareScannerTomtom")
@@ -93,13 +92,15 @@ scanner_button:SetClampedToScreen(true)
 scanner_button:RegisterForDrag("LeftButton")
 
 scanner_button:SetScript("OnDragStart", function(self)
-	if (not RSConfigDB.IsLockingPosition()) then
+	if (not RSConfigDB.IsLockingPosition() and not InCombatLockdown()) then
 		self:StartMoving()
 	end
 end)
 scanner_button:SetScript("OnDragStop", function(self)
-	self:StopMovingOrSizing()
-	RSGeneralDB.SetButtonPositionCoordinates(self:GetLeft(), self:GetBottom())
+	if (not InCombatLockdown()) then
+		self:StopMovingOrSizing()
+		RSGeneralDB.SetButtonPositionCoordinates(self:GetLeft(), self:GetBottom())
+	end
 end)
 scanner_button:SetScript("OnEnter", function(self)
 	self:SetBackdropBorderColor(0.9, 0.9, 0.9)
@@ -453,7 +454,6 @@ end
 -- Hide action
 function scanner_button:HideButton()
 	if (not InCombatLockdown()) then
-		GameTooltip:Hide()
 		scanner_button.ModelView:ClearModel()
 		scanner_button.ModelView:Hide()
 		scanner_button:Hide()
@@ -608,9 +608,6 @@ function RareScanner:OnInitialize()
 
 	-- Initialize setup panels
 	self:SetupOptions()
-
-	-- Initialize not discovered lists
-	RSMap.InitializeNotDiscoveredLists()
 
 	-- Setup our map provider
 	local provider = CreateFromMixins(RareScannerDataProviderMixin)
@@ -862,6 +859,9 @@ local function RefreshDatabaseData(previousDbVersion)
 		RSMinimap.RefreshAllData(true)
 	end)
 	
+	-- Clear already found entities not in the database that maybe now are included
+	RSGeneralDB.RefreshAlreadyFoundEntitiesNoDB()
+	
 	-- Clear previous overlay if active when closed the game
 	RSGeneralDB.RemoveAllOverlayActive()
 end
@@ -933,6 +933,11 @@ function RareScanner:InitializeDataBase()
 	if (currentDbVersion) then
 		version = currentDbVersion.version
 		databaseUpdated = currentDbVersion.version == RSConstants.CURRENT_DB_VERSION
+	
+		-- Refresh list while working on the addon
+		if (RSConstants.DEBUG_MODE) then
+			RSGeneralDB.RefreshAlreadyFoundEntitiesNoDB()
+		end
 	end
 	if (not databaseUpdated) then
 		UpdateRareNamesDB(version); -- Internally calls to RefreshDatabaseData once its done

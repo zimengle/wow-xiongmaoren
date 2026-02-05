@@ -202,11 +202,7 @@ function BG.DuiZhangZhuangBeiUI(FB, t, b, bb, i, ii)
         if not tonumber(self:GetText()) then
             local link = bt:GetText()
             local itemID = select(1, GetItemID(link))
-            BG.Hide_AllHighlight()
-            BG.HighlightBag(link)
-            BG.HighlightChatFrame(link)
-            BG.HighlightItemOutTime(link)
-            BG.HighlightItemAuctionLog(link)
+            BG.Show_AllHighlight(link, "biaoge")
             if itemID then
                 if BG.ButtonIsInRight(self) then
                     GameTooltip:SetOwner(self, "ANCHOR_LEFT", 0, 0)

@@ -49,13 +49,13 @@ TargetNameplateIndicatorDB = {
 ["width"] = 25,
 ["texture"] = "Interface\\AddOns\\TargetNameplateIndicator\\Textures\\NeonReticule",
 },
-["friendly"] = {
+["hostile"] = {
 ["yOffset"] = -3,
 ["height"] = 25,
 ["width"] = 25,
 ["texture"] = "Interface\\AddOns\\TargetNameplateIndicator\\Textures\\NeonReticule",
 },
-["hostile"] = {
+["friendly"] = {
 ["yOffset"] = -3,
 ["height"] = 25,
 ["width"] = 25,
@@ -71,17 +71,17 @@ TargetNameplateIndicatorDB = {
 ["width"] = 25,
 ["texture"] = "Interface\\AddOns\\TargetNameplateIndicator\\Textures\\NeonGreenArrow",
 },
-["friendly"] = {
-["yOffset"] = -3,
-["height"] = 25,
-["width"] = 25,
-["texture"] = "Interface\\AddOns\\TargetNameplateIndicator\\Textures\\NeonGreenArrow",
-},
 ["hostile"] = {
 ["yOffset"] = -3,
 ["height"] = 25,
 ["width"] = 25,
 ["texture"] = "Interface\\AddOns\\TargetNameplateIndicator\\Textures\\NeonReticule",
+},
+["friendly"] = {
+["yOffset"] = -3,
+["height"] = 25,
+["width"] = 25,
+["texture"] = "Interface\\AddOns\\TargetNameplateIndicator\\Textures\\NeonGreenArrow",
 },
 ["enable"] = false,
 },

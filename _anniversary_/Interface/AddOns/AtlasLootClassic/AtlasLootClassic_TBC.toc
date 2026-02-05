@@ -37,7 +37,7 @@
 ## Category-zhTW: 戰利品
 
 ## Author: nanderson11, Lag
-## Version: v3.7.2
+## Version: v3.7.3
 ## Group: AtlasLootClassic
 ## IconTexture: Interface\Icons\INV_Box_01
 ## SavedVariables: AtlasLootClassicDB

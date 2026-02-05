@@ -22,12 +22,12 @@ local function UseKeyDownUpdate(button)
 	if PIG_MaxTocversion() and not PIG_MaxTocversion("tbc") then
 		button:RegisterForClicks("AnyUp");
 	else
-		--button:RegisterForClicks("AnyUp", "LeftButtonDown", "RightButtonDown");
 		local UseKeyDown =GetCVar("ActionButtonUseKeyDown")
 		if UseKeyDown=="0" then
 			button:RegisterForClicks("AnyUp");
 		elseif UseKeyDown=="1" then
-			button:RegisterForClicks("AnyDown")
+			button:RegisterForClicks("AnyUp", "LeftButtonDown", "RightButtonDown");
+			--button:RegisterForClicks("AnyDown")
 		end
 	end
 end

@@ -8240,8 +8240,8 @@ end
 
 function ArkInventory.ItemTransmogStateAccount( itemID )
 
-	-- /dump ArkInventory.ItemTransmogStateAccount( 215252 )
-
+	--ArkInventory.Output( "itemID = ", itemID )
+	
 	if not itemID then return end
 
 	if not ArkInventory.ClientCheck( ArkInventory.ENUM.EXPANSION.CATACLYSM ) then return end
@@ -8260,43 +8260,40 @@ function ArkInventory.ItemTransmogStateAccount( itemID )
 
 			appearanceAll = C_TransmogSets.GetAllSourceIDs( setID )
 
-			local appearancePrimary = C_TransmogSets.GetSetPrimaryAppearances( setID )
-			if appearancePrimary then
+			local primaryAppearances = C_TransmogSets.GetSetPrimaryAppearances( setID )
+			local total = ArkInventory.Table.Elements( primaryAppearances ) or 0
+			local count = 0
 
-				local isCollected
-				local total = ArkInventory.Table.Elements( appearancePrimary )
-				local count = 0
+			--ArkInventory.Output( "all=", ArkInventory.Table.Elements( appearanceAll ), " - primary=", total )
 
-				-- does the account know all the slot appearances for the set
-				for k, v in pairs( appearancePrimary ) do
-					isCollected = select( 5, C_TransmogCollection.GetAppearanceSourceInfo( v.appearanceID ) )
-					if isCollected then
+			if primaryAppearances then
+				for k, v in pairs( primaryAppearances ) do
+					if v.collected then
 						count = count + 1
 					end
 				end
+			end
 
-				ArkInventory.Global.Cache.ItemTransmogOwned[itemID] = { setTotal = total, setCount = count }
-				obj = ArkInventory.Global.Cache.ItemTransmogOwned[itemID]
+			ArkInventory.Global.Cache.ItemTransmogOwned[itemID] = { setTotal = total, setCount = count }
 
-				if count == total then
-					obj.isCollected = true
-				end
+			obj = ArkInventory.Global.Cache.ItemTransmogOwned[itemID]
 
+			if total > 0 and count == total then
+				obj.isCollected = true
 			end
 
 		else
-
+			
 			-- its not a transmog set, check if it has an appearance
-
-			local isCollected
+			
 			local appearanceID, sourceID = C_TransmogCollection.GetItemInfo( itemID )
 			if appearanceID and sourceID then
 
 				appearanceAll = C_TransmogCollection.GetAllAppearanceSources( appearanceID )
+				
+				local appearanceInfo = ArkInventory.CrossClient.TransmogCollectionGetAppearanceSourceInfo( sourceID )
+				ArkInventory.Global.Cache.ItemTransmogOwned[itemID] = { isCollected = appearanceInfo.isCollected, itemKnown = appearanceInfo.isCollected }
 
-				isCollected = select( 5, C_TransmogCollection.GetAppearanceSourceInfo( sourceID ) )
-
-				ArkInventory.Global.Cache.ItemTransmogOwned[itemID] = { isCollected = isCollected, itemKnown = isCollected }
 				obj = ArkInventory.Global.Cache.ItemTransmogOwned[itemID]
 
 			else
@@ -8310,14 +8307,54 @@ function ArkInventory.ItemTransmogStateAccount( itemID )
 
 		if obj then
 
+			if obj.isCollected then
+
+				obj.text1 = ArkInventory.Localise["COLLECTED"]
+				obj.colour1 = GREEN_FONT_COLOR_CODE
+				
+				if not obj.setTotal then
+					
+					local text2
+
+					if obj.itemKnown then
+						text2 = ArkInventory.Localise["CONFIG_GENERAL_TOOLTIP_TRANSMOG_FROM_THIS_ITEM"]
+					else
+						obj.colour1 = ORANGE_FONT_COLOR_CODE
+						text2 = ArkInventory.Localise["CONFIG_GENERAL_TOOLTIP_TRANSMOG_FROM_THIS_ITEM_NOT"]
+					end
+
+					obj.text1 = string.format( "%s (%s)", obj.text1, text2 )
+
+				end
+
+			else
+
+				obj.text1 = ArkInventory.Localise["NOT_COLLECTED"]
+				obj.colour1 = RED_FONT_COLOR_CODE
+				
+
+				if obj.setTotal then
+
+					if obj.setTotal == 0 then
+						obj.text1 = ArkInventory.Localise["NO_DATA_AVAILABLE"]
+					elseif obj.setCount > 0 then
+						obj.colour1 = ORANGE_FONT_COLOR_CODE
+					end
+
+				end
+
+			end
+
+
 			if appearanceAll then
 
 				local total = ArkInventory.Table.Elements( appearanceAll )
 				local count = 0
 
 				for k, v in pairs( appearanceAll ) do
-					local isCollected = select( 5, C_TransmogCollection.GetAppearanceSourceInfo( v ) )
-					if isCollected then
+					
+					local appearanceInfo = ArkInventory.CrossClient.TransmogCollectionGetAppearanceSourceInfo( v )
+					if appearanceInfo.isCollected then
 
 						count = count + 1
 
@@ -8326,49 +8363,26 @@ function ArkInventory.ItemTransmogStateAccount( itemID )
 						end
 
 					end
+
 				end
 
 				obj.itemTotal = total
 				obj.itemCount = count
 
-			end
 
-
-			obj.text1 = ArkInventory.Localise["NOT_COLLECTED"]
-			obj.colour1 = RED_FONT_COLOR_CODE
-			obj.colour2 = RED_FONT_COLOR_CODE
-
-			if obj.isCollected then
-
-				obj.text1 = ArkInventory.Localise["COLLECTED"]
-
-				if obj.setTotal then
-					if obj.setTotal == obj.setCount then
-						obj.colour1 = GREEN_FONT_COLOR_CODE
-					end
-				else
-					if obj.itemKnown then
-						obj.colour1 = GREEN_FONT_COLOR_CODE
-						obj.text2 = ArkInventory.Localise["CONFIG_GENERAL_TOOLTIP_TRANSMOG_FROM_THIS_ITEM"]
-					else
-						obj.colour1 = ORANGE_FONT_COLOR_CODE
-						obj.text2 = ArkInventory.Localise["CONFIG_GENERAL_TOOLTIP_TRANSMOG_FROM_THIS_ITEM_NOT"]
-					end
-				end
-
-				if obj.itemTotal == obj.itemCount then
+				if obj.itemCount == 0 then
+					obj.colour2 = RED_FONT_COLOR_CODE
+				elseif obj.itemCount == obj.itemTotal then
 					obj.colour2 = GREEN_FONT_COLOR_CODE
 				else
 					obj.colour2 = ORANGE_FONT_COLOR_CODE
 				end
 
-				if obj.text2 then
-					obj.text1 = string.format( "%s (%s)", obj.text1, obj.text2 )
-				end
-
 			end
 
 		end
+
+
 
 	end
 
@@ -9270,12 +9284,12 @@ function ArkInventory.Frame_Item_UpdateTooltip( frame )
 			end
 
 			if IsModifiedClick("COMPAREITEMS") or ArkInventory.CrossClient.GetCVarBool( "alwaysCompareItems" ) then
-				GameTooltip_ShowCompareItem( GameTooltip )
+				ArkInventory.ShowCompareItem( )
 			end
 
 			if InRepairMode( ) and ( tooltipInfo.repairCost and tooltipInfo.repairCost > 0 ) then
 				GameTooltip:AddLine( REPAIR_COST, nil, nil, nil, true )
-				SetTooltipMoney( GameTooltip, tooltipInfo.repairCost )
+				ArkInventory.SetTooltipMoney( GameTooltip, tooltipInfo.repairCost )
 				GameTooltip:Show( )
 			elseif MerchantFrame:IsShown( ) and MerchantFrame.selectedTab == 1 then
 				showSell = 1
@@ -9323,7 +9337,7 @@ function ArkInventory.Frame_Item_UpdateTooltip( frame )
 
 		elseif IsModifiedClick( "COMPAREITEMS" ) or ArkInventory.CrossClient.GetCVarBool( "alwaysCompareItems" ) then
 
-			GameTooltip_ShowCompareItem( )
+			ArkInventory.ShowCompareItem( )
 
 		elseif reset then
 

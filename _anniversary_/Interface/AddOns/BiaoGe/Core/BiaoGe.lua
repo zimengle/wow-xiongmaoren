@@ -240,8 +240,8 @@ BG.Init(function()
                 local type = select(5, C_AddOns.GetAddOnInfo("BiaoGeVIP"))
                 if type == "MISSING" then
                     vipState = L["|cffff0000（未订阅）"]
-                elseif BGV then
-                    if not BGV.raidVersion then
+                elseif BiaoGeVIP then
+                    if not BGV then
                         if BiaoGeLib then
                             vipState = L["|cffff0000（订阅已过期或未开更新器）"]
                         else
@@ -969,6 +969,7 @@ BG.Init(function()
 
             local bt = CreateFrame("CheckButton", nil, BG["Frame" .. FB]["scrollFrame" .. Maxb[FB] + 2].owner, "ChatConfigCheckButtonTemplate")
             bt:SetSize(25, 25)
+            bt.Text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             bt.Text:SetText(L["工资抹零"])
             bt.Text:SetTextColor(RGB(BG.b1))
             bt.Text:ClearAllPoints()
@@ -1768,12 +1769,6 @@ BG.Init(function()
                 BG.Show_AllHighlight(link, "chat")
             end)
             _G["ChatFrame" .. i]:HookScript("OnHyperlinkLeave", BG.Hide_AllHighlight)
-
-            hooksecurefunc(_G["ChatFrame" .. i], "RefreshDisplay", function(self)
-                BG.Hide_ChatHighlight()
-                if not (self:IsVisible() and BG.highlightChatFrameItemID) then return end
-                BG.HighlightChatFrame("item:" .. BG.highlightChatFrameItemID .. ":")
-            end)
             i = i + 1
         end
 

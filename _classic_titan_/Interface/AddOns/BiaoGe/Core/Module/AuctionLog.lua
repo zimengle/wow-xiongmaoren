@@ -376,8 +376,37 @@ BG.Init(function()
             end)
         end
 
-        -- 生成账单按钮
+        -- 生成账单
         do
+            local function CheckErrorItem()
+                local FB = BG.FB1
+                local items = {}
+                for _, v in ipairs(BiaoGe[FB].auctionLog) do
+                    if v.type == 1 then
+                        local itemID = GetItemID(v.zhuangbei)
+                        items[itemID] = items[itemID] or { link = v.zhuangbei, logCount = 0 }
+                        items[itemID].logCount = items[itemID].logCount + 1
+                    end
+                end
+                if next(items) then
+                    BG.PairFBItem(function(zhuangbei)
+                        local itemID = GetItemID(zhuangbei:GetText())
+                        if itemID and items[itemID] then
+                            items[itemID].bgCount = items[itemID].bgCount or 0
+                            items[itemID].bgCount = items[itemID].bgCount + 1
+                        end
+                    end)
+                    local tbl = {}
+                    for itemID, v in pairs(items) do
+                        if not v.bgCount or v.bgCount < v.logCount then
+                            tinsert(tbl, { itemID = itemID, link = v.link, bgCount = v.bgCount or 0, logCount = v.logCount })
+                        end
+                    end
+                    if next(tbl) then
+                        return tbl
+                    end
+                end
+            end
             local bt = BG.CreateButton(BG.auctionLogFrame)
             bt:SetSize(110, 25)
             bt:SetPoint("BOTTOMLEFT", BG.auctionLogFrame, 5, 10)
@@ -390,6 +419,15 @@ BG.Init(function()
                 GameTooltip:AddLine(L["根据自动拍卖记录，直接覆盖表格里每件装备所对应的买家和金额。"], 1, 0.82, 0, true)
                 GameTooltip:AddLine(" ")
                 GameTooltip:AddLine(L["该功能仅修改买家和金额，如果表格里的装备栏是空的，则什么都不会发生。"], 1, 0.82, 0, true)
+                local errorTbl = CheckErrorItem()
+                if errorTbl then
+                    GameTooltip:AddLine(" ", 1, 0, 0, true)
+                    GameTooltip:AddLine(L["以下装备可能存在重拍："], 1, 0, 0, true)
+                    for _, v in ipairs(errorTbl) do
+                        local icon=select(5,GetItemInfoInstant(v.itemID))
+                        GameTooltip:AddLine(L["%s%s：拍卖成功%s件，表格实际只有%s件"]:format(AddTexture(icon),v.link, v.logCount, v.bgCount), 1, .82, 0)
+                    end
+                end
                 GameTooltip:Show()
             end)
             bt:SetScript("OnLeave", GameTooltip_Hide)
@@ -449,7 +487,10 @@ BG.Init(function()
                     end
                 end
             end)
+        end
 
+        -- 生成对账单
+        do
             local bt = BG.CreateButton(BG.auctionLogFrame)
             bt:SetSize(95, 25)
             bt:SetPoint("BOTTOMRIGHT", BG.auctionLogFrame, -5, 10)

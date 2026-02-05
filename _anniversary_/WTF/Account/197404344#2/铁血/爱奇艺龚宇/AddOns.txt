@@ -158,7 +158,15 @@ MissingTradeSkillsList_TBC_Data: enabled
 !Pig_Tardis: enabled
 !Pig_GDKP: enabled
 !LibGetFrame-1.0: enabled
-BoomTime: disabled
+BoomTime: enabled
 BuyEmAll: enabled
 LoonBestInSlot: enabled
 SpeedyAutoLoot: enabled
+ArkInventory: enabled
+ArkInventoryConfig: enabled
+ArkInventoryRules: enabled
+ArkInventorySearch: enabled
+ArkInventoryRules_Example: enabled
+Pawn: enabled
+TomTom: enabled
+NewBeeBox: enabled

@@ -353,6 +353,7 @@ function BG.FilterClassItemUI()
             buttons[i] = bt
             local text = v.name2 or v.value
             text = text:gsub("%(%.%+%)", "xx")
+            bt.Text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             bt.Text:SetText(text)
             bt.Text:SetWidth(width)
             bt.Text:SetWordWrap(false)

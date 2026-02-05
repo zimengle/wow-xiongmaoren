@@ -1,6 +1,8 @@
 # Already Known?
 
-## [1.90](https://github.com/ahakola/AlreadyKnown/tree/1.90) (2026-01-21)
-[Full Changelog](https://github.com/ahakola/AlreadyKnown/compare/1.89...1.90) [Previous Releases](https://github.com/ahakola/AlreadyKnown/releases)
+## [1.94](https://github.com/ahakola/AlreadyKnown/tree/1.94) (2026-02-02)
+[Full Changelog](https://github.com/ahakola/AlreadyKnown/compare/1.93...1.94) [Previous Releases](https://github.com/ahakola/AlreadyKnown/releases)
 
-- Update for Midnight pre-patch  
+- Fix CF issue #25  
+    - For some reason itemId isn't always available?  
+- Less debug info  

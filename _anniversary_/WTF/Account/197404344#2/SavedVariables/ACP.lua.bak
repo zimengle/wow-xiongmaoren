@@ -2,6 +2,8 @@
 ACP_Data = {
 ["sorter"] = "默认",
 ["NoRecurse"] = true,
+["NoChildren"] = true,
+["scale"] = 0.8347626792704069,
 ["AddonSet"] = {
 {
 "SpellActivationOverlay",
@@ -203,8 +205,6 @@ ACP_Data = {
 ["name"] = "【露露】完整版",
 },
 },
-["scale"] = 0.8347626792704069,
-["NoChildren"] = true,
 ["collapsed"] = {
 },
 ["ProtectedAddons"] = {

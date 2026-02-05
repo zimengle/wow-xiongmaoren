@@ -2160,6 +2160,7 @@ function BG.ItemLibUI()
                 end
                 bt.name = v.name
                 bt.name2 = v.name2
+                bt.Text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
                 bt.Text:SetText(v.name)
                 bt:SetHitRectInsets(0, -bt.Text:GetWidth(), 0, 0)
                 bt.Text:SetWidth(150)

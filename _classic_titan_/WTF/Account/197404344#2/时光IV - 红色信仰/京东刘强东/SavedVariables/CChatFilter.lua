@@ -10,7 +10,7 @@ BFWC_Filter_SavedConfigs = {
 ["whitelist"] = {
 },
 ["blocklist_enable"] = true,
-["bigfoot_chatframe_name"] = 1,
+["bigfoot_chatframe_name"] = "5",
 ["white_to_chatframe_color"] = {
 ["a"] = 1,
 ["r"] = 1,

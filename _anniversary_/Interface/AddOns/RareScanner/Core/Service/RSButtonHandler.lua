@@ -60,7 +60,7 @@ local function FixVignetteInfo(vignetteInfo)
 	if (not entityID) then
 		return
 	end
-	
+
 	return entityID, vignetteInfo
 end
 
@@ -345,7 +345,7 @@ function RSButtonHandler.AddAlert(button, vignetteInfo, isNavigating)
 		RSLogger:PrintDebugMessage("Se ha intentado notificar algo para lo que no ha llegado vignetteInfo")
 		return
 	end
-	
+
 	--RSLogger:PrintDebugMessage(string.format("Vignette ATLAS [%s]", vignetteInfo.atlasName))
 	
 	local entityID, vignetteInfo = FixVignetteInfo(vignetteInfo)
@@ -369,7 +369,6 @@ function RSButtonHandler.AddAlert(button, vignetteInfo, isNavigating)
 			preFoundAlerts[entityID] = { trackingSystem = trackingSystem, expireTime = time() + RSConstants.PREFOUND_TIMER }
 		end
 	end
-	
 	-- Apply filters
 	local mapID = RSGeneralDB.GetBestMapForUnit(entityID, vignetteInfo.atlasName)
 	local isInstance, _ = IsInInstance()

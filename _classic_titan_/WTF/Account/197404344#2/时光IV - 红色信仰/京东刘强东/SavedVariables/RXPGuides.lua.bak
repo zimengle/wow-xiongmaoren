@@ -3177,7 +3177,7 @@ RXPCTrackingData = {
 ["levels"] = {
 [80] = {
 ["groupExperience"] = 0,
-["deaths"] = 4,
+["deaths"] = 5,
 ["mobs"] = {
 },
 ["timestamp"] = {
@@ -3197,6 +3197,26 @@ RXPCComms = {
 ["profiles"] = {
 ["京东刘强东 - 时光IV - 红色信仰"] = {
 ["players"] = {
+["睦睦"] = {
+["level"] = 80,
+["isRxp"] = true,
+["version"] = 1,
+["lastSeen"] = 15945.336,
+["timePlayed"] = 0,
+["class"] = "PRIEST",
+["xp"] = 0,
+["xpPercentage"] = 0,
+},
+["重伤的汗水"] = {
+["level"] = 80,
+["isRxp"] = true,
+["version"] = 1,
+["lastSeen"] = 15945.336,
+["timePlayed"] = 0,
+["class"] = "SHAMAN",
+["xp"] = 0,
+["xpPercentage"] = 0,
+},
 ["我可以陪着你"] = {
 ["level"] = 80,
 ["isRxp"] = true,

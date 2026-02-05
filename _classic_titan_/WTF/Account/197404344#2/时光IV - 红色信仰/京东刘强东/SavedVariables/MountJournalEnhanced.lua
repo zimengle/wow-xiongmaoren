@@ -111,9 +111,14 @@ true,
 ["hiddenIngame"] = false,
 ["hidden"] = false,
 ["notCollected"] = true,
-["onlyUsable"] = false,
+["faction"] = {
+["horde"] = true,
+["alliance"] = true,
+["noFaction"] = true,
+},
 ["onlyTradable"] = false,
 ["onlyFavorites"] = false,
+["onlyUsable"] = false,
 ["mountType"] = {
 ["repair"] = true,
 ["flying"] = true,
@@ -122,11 +127,6 @@ true,
 ["passenger"] = true,
 ["ground"] = true,
 ["rideAlong"] = true,
-},
-["faction"] = {
-["horde"] = true,
-["alliance"] = true,
-["noFaction"] = true,
 },
 ["family"] = {
 ["Drakes"] = {

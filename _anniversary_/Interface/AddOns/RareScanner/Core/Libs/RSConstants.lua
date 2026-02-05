@@ -63,6 +63,14 @@ RSConstants.ITEM_SOURCE = {
 }
 
 ---============================================================================
+-- Types of entity by map (used in MapEntitiesTables)
+---============================================================================
+
+RSConstants.MAP_ENTITY_NPC = 1
+RSConstants.MAP_ENTITY_CONTAINER = 2
+RSConstants.MAP_ENTITY_EVENT = 3
+
+---============================================================================
 -- Types of entity filters
 ---============================================================================
 
@@ -159,7 +167,7 @@ RSConstants.PROFILE_DEFAULTS = {
 			cleanWorldMapSearcherOnChange = true,
 			displayMinimapIcons = true,
 			waypointTomtom = false,
-			tooltipsScale = 1.0,
+			tooltipsScale = 0.7,
 			tooltipsNotes = true,
 			tooltipsSeen = true,
 			tooltipsCommands = true,
@@ -280,12 +288,19 @@ RSConstants.ALL_ZONES_CUSTOM_NPC = 0
 RSConstants.ALL_ZONES = "all"
 RSConstants.UNKNOWN_ZONE_ID = 0
 RSConstants.AZEROTH = 947
+RSConstants.COSMIC = 946
 
 ---============================================================================
 -- Custom NPCs
 ---============================================================================
 
 RSConstants.DEFAULT_GROUP = 0
+
+---============================================================================
+-- Tooltips
+---============================================================================
+
+RSConstants.TOOLTIPS_SCALE = 0.65
 
 ---============================================================================
 -- Textures

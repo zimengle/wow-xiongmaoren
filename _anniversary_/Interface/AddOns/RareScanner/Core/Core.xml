@@ -40,9 +40,9 @@
 	<Include file="Service\RSLoot.lua"/>
 	<Include file="Service\RSLootTooltip.lua"/>
 	<Include file="Service\RSAudioAlerts.lua"/>
-	<Include file="Service\RSEventHandler.lua"/>
 	<Include file="Service\RSButtonHandler.lua"/>
 	<Include file="Service\RSMacro.lua"/>
+	<Include file="Service\RSEventHandler.lua"/>
 	<Include file="Service\RSCustomNpcs.lua"/>
 	<Include file="Service\RSCommandLine.lua"/>
 	

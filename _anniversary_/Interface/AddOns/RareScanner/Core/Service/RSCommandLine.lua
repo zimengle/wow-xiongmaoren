@@ -31,6 +31,17 @@ local RSTomtom = private.ImportLib("RareScannerTomtom")
 local RARESCANNER_CMD = "rarescanner"
 local RARESCANNERS_CMD = "rs"
 
+function RSCommandLine.PrintHelp()
+	print("|cFFFBFF00"..AL["CMD_HELP1"])
+	print("|cFFFBFF00   /"..RARESCANNER_CMD.." "..RSConstants.CMD_TOGGLE_MAP_ICONS.." |cFF00FFFB"..AL["CMD_HELP2"])
+	print("|cFFFBFF00   /"..RARESCANNER_CMD.." "..RSConstants.CMD_TOGGLE_TREASURES.." |cFF00FFFB"..AL["CMD_HELP4"])
+	print("|cFFFBFF00   /"..RARESCANNER_CMD.." "..RSConstants.CMD_TOGGLE_RARES.." |cFF00FFFB"..AL["CMD_HELP5"])
+	print("|cFFFBFF00   /"..RARESCANNER_CMD.." "..RSConstants.CMD_TOGGLE_ALERTS.." |cFF00FFFB"..AL["CMD_HELP6"])
+	print("|cFFFBFF00   /"..RARESCANNER_CMD.." "..RSConstants.CMD_TOGGLE_TREASURES_ALERTS.." |cFF00FFFB"..AL["CMD_HELP8"])
+	print("|cFFFBFF00   /"..RARESCANNER_CMD.." "..RSConstants.CMD_TOGGLE_RARES_ALERTS.." |cFF00FFFB"..AL["CMD_HELP9"])
+	print("|cFFFBFF00   /"..RARESCANNERS_CMD.." "..RSConstants.CMD_IMPORT.." |cFFFFFFFBstring".." |cFF00FFFB"..AL["CMD_HELP13"])
+end
+
 function RSCommandLine.SlashCommand(command, ...)
 	if (command == RSConstants.CMD_TOGGLE_MAP_ICONS) then
 		if (not private.db.map.cmdToggle) then
@@ -82,14 +93,7 @@ function RSCommandLine.SlashCommand(command, ...)
 			end)
 		end
 	else
-		print("|cFFFBFF00"..AL["CMD_HELP1"])
-		print("|cFFFBFF00   /"..RARESCANNER_CMD.." "..RSConstants.CMD_TOGGLE_MAP_ICONS.." |cFF00FFFB"..AL["CMD_HELP2"])
-		print("|cFFFBFF00   /"..RARESCANNER_CMD.." "..RSConstants.CMD_TOGGLE_TREASURES.." |cFF00FFFB"..AL["CMD_HELP4"])
-		print("|cFFFBFF00   /"..RARESCANNER_CMD.." "..RSConstants.CMD_TOGGLE_RARES.." |cFF00FFFB"..AL["CMD_HELP5"])
-		print("|cFFFBFF00   /"..RARESCANNER_CMD.." "..RSConstants.CMD_TOGGLE_ALERTS.." |cFF00FFFB"..AL["CMD_HELP6"])
-		print("|cFFFBFF00   /"..RARESCANNER_CMD.." "..RSConstants.CMD_TOGGLE_TREASURES_ALERTS.." |cFF00FFFB"..AL["CMD_HELP8"])
-		print("|cFFFBFF00   /"..RARESCANNER_CMD.." "..RSConstants.CMD_TOGGLE_RARES_ALERTS.." |cFF00FFFB"..AL["CMD_HELP9"])
-		print("|cFFFBFF00   /"..RARESCANNERS_CMD.." "..RSConstants.CMD_IMPORT.." |cFFFFFFFBstring".." |cFF00FFFB"..AL["CMD_HELP13"])
+		RSCommandLine.PrintHelp()
 	end
 end
 

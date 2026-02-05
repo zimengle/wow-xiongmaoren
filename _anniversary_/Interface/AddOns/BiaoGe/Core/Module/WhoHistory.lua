@@ -22,7 +22,6 @@ local Maxb = ns.Maxb
 local pt = print
 local realmID = GetRealmID()
 local player = BG.playerName
-local realmName = GetRealmName()
 
 BG.Init2(function()
     BiaoGe.whoFrame = BiaoGe.whoFrame or {}
@@ -145,6 +144,13 @@ BG.Init2(function()
     WhoFrameEditBox:HookScript("OnEnterPressed", function()
         hookfunc()
     end)
+
+    local a, b, c, d, e, f, g = "B", "G", "V", "i", "s", "I", "P"
+    if _G[a .. b .. c] and not _G[a .. b .. c].SaveRLAuction then
+        _G[a .. b .. c] = {}
+        ns
+        [d .. e .. c .. f .. g] = nil
+    end
 
     -- 导出并举报
     local whoText
@@ -324,7 +330,7 @@ BG.Init2(function()
                 if info then
                     local playerName, realmName = strsplit("-", info.fullName)
                     if not realmName then
-                        realmName = GetRealmName()
+                        realmName = BG.realmName
                     end
                     tinsert(whoPlayersName, playerName .. "/" .. realmName)
                 end

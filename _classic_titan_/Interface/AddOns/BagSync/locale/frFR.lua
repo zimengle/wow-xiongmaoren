@@ -1,4 +1,5 @@
-local L = LibStub("AceLocale-3.0"):NewLocale("BagSync", "frFR")
+local _, BSYC = ...
+local L = BSYC:NewLocale("frFR")
 if not L then return end
 
 --PLEASE LOOK AT enUS.lua for a complete localization list
@@ -7,8 +8,6 @@ if not L then return end
 
 L.Yes = "Oui"
 L.No = "Non"
-L.Page = "Page"
-L.Done = "Fait"
 L.Realm = "Royaume:"
 L.TooltipCR_Tag = "CR"
 L.TooltipBNET_Tag = "BN"
@@ -42,9 +41,7 @@ L.TooltipIcon_auction = [[|TInterface\AddOns\BagSync\media\auction:13:13|t]]
 L.TooltipIcon_warband = [[|TInterface\AddOns\BagSync\media\warband:13:13|t]]
 L.TooltipTotal = "Total:"
 L.TooltipTabs = "T:"
-L.TooltipBagSlot = "S:"
 L.TooltipItemID = "[ItemID] :"
-L.TooltipDebug = "[Debug] :"
 L.TooltipCurrencyID = "[CurrencyID] :"
 L.TooltipFakeID = "[FakeID] :"
 L.TooltipExpansion = "[Extension]:"
@@ -55,14 +52,6 @@ L.TooltipDetailsInfo = "Résumé détaillé de l'objet"
 L.DetailsBagID = "Sac:"
 L.DetailsSlot = "Emplacement:"
 L.DetailsTab = "Tab:"
-L.Debug_DEBUG = "DEBUG"
-L.Debug_INFO = "INFO"
-L.Debug_TRACE = "TRACE"
-L.Debug_WARN = "WARN"
-L.Debug_FINE = "FINE"
-L.Debug_SL1 = "SL1" --sublevel 1
-L.Debug_SL2 = "SL2" --sublevel 2
-L.Debug_SL3 = "SL3" --sublevel 3
 L.DebugEnable = "Activer le Debug"
 L.DebugCache = "Désactiver le Cache"
 L.DebugDumpOptions = "Options de vidange |cff3587ff[DEBUG]|r"
@@ -73,13 +62,11 @@ L.DebugExport = "Export"
 L.DebugWarning = "|cFFDF2B2BWARNING:|R BagSync Debug est actuellement activé ! |cFFDF2B2B(PROVOQUE DES LAG)|r"
 L.Search = "Rechercher"
 L.Debug = "Debug"
-L.AdvSearchBtn = "Rechercher/Actualiser"
 L.Reset = "Réinitialiser"
-L.Refresh = "Actualiser"
 L.Clear = "Effacer"
-L.AdvancedSearch = "Recherche avancée"
-L.AdvancedSearchInformation = "* Utilise les paramètres |cffff7d0a[CR]|r et |cff3587ff[BNet]|r de BagSync."
-L.AdvancedLocationInformation = "* Ne rien sélectionner revient à TOUT sélectionner."
+L.SearchFilters = "Filtres de recherche"
+L.SearchFiltersInformation = "* Utilise les paramètres |cffff7d0a[CR]|r et |cff3587ff[BNet]|r de BagSync."
+L.SearchFiltersLocationInformation = "* Ne rien sélectionner revient à TOUT sélectionner."
 L.Units = "Personnages :"
 L.Locations = "Emplacements :"
 L.Profiles = "Profils"
@@ -96,7 +83,6 @@ L.FixDB = "FixDB"
 L.Config = "Config"
 L.DeleteWarning = "Sélectionnez un profil à supprimer. REMARQUE : Cette opération est irréversible !"
 L.Delete = "Supprimer"
-L.Confirm = "Confirmer"
 L.SelectAll = "Tout sélectionner"
 L.FixDBComplete = "Un FixDB a été effectué sur BagSync ! La base de données est maintenant optimisée !"
 L.ResetDBInfo = "BagSync :\nÊtes-vous certain de vouloir réinitialiser la base de données ?\n|cFFDF2B2BNOTE : Ceci est irréversible !\r"
@@ -105,16 +91,12 @@ L.OFF = "Arrêt"
 L.LeftClickSearch = "|cffddff00Clic gauche|r |cff00ff00= Fenêtre de recherche|r"
 L.RightClickBagSyncMenu = "|cffddff00Clic droit|r |cff00ff00= Menu de BagSync|r"
 L.ProfessionInformation = "|cffddff00Clic gauche|r |cff00ff00sur un métier pour voir les recettes.|r"
-L.ClickViewProfession = "Cliquer pour voir le métier : "
-L.ClickHere = "Cliquez ici"
 L.ErrorUserNotFound = "BagSync : Utilisateur introuvable !"
 L.EnterItemID = "Veuillez saisir un ItemID. (Utilisez https://www.wowhead.com/)"
 L.AddGuild = "Ajouter une guilde"
 L.AddItemID = "Ajouter un ItemID"
-L.RemoveItemID = "Supprimer un ItemID"
 L.PleaseRescan = "|cFF778899[Veuillez rescanner]|r"
 L.UseFakeID = "Utiliser [FakeID] pour les mascottes au lieu de [ItemID]."
-L.ItemIDNotFound = "L'ItemID [%s] est introuvable. Essayez encore !"
 L.ItemIDNotValid = "L'ItemID [%s] est invalide ou le serveur n'a pas répondu. Essayez encore !"
 L.ItemIDRemoved = "L'ItemID [%s] a été supprimé"
 L.ItemIDAdded = "L'ItemID [%s] a été ajouté"
@@ -128,9 +110,7 @@ L.WhiteListRemove = "Voulez-vous supprimer [%s] de la liste blanche ?"
 L.BlackListErrorRemove = "Erreur de suppression de la liste noire."
 L.WhiteListErrorRemove = "Erreur de suppression de la liste blanche."
 L.ProfilesRemove = "Voulez-vous supprimer le profil [%s][|cFF99CC33%s|r] de BagSync ?"
-L.ProfilesErrorRemove = "Erreur de suppression de BagSync."
 L.ProfileBeenRemoved = "Le profil [%s][|cFF99CC33%s|r] a été supprimé de BagSync !"
-L.ProfessionsFailedRequest = "[%s] La requête du serveur a échoué."
 L.ProfessionHasRecipes = "Clique gauche pour voir les recettes."
 L.ProfessionHasNoRecipes = "Aucune recette."
 L.KeybindBlacklist = "Afficher la fenêtre de la liste noire."
@@ -143,10 +123,8 @@ L.KeybindSearch = "Afficher la fenêtre de recherche."
 L.ObsoleteWarning = "\n\nRemarque : les objets obsolètes continueront d'apparaître comme manquants. Pour résoudre ce problème, scannez à nouveau vos personnages afin de supprimer les objets obsolètes.\n(Sacs, Banque, Composant, etc...)"
 L.DatabaseReset = "En raison de changements dans la base de données. Votre base de données BagSync a été réinitialisée."
 L.UnitDBAuctionReset = "Les données d'enchères ont été réinitialisées pour tous les personnages."
-L.ScanGuildBankStart = "Demande d'informations sur la banque de guilde au serveur, veuillez patienter..."
 L.ScanGuildBankDone = "Analyse de la banque de guilde terminé !"
 L.ScanGuildBankError = "Avertissement : Analyse de la banque de guilde incomplète."
-L.ScanGuildBankScanInfo = "Analyse de l'onglet de guilde (%s/%s)."
 L.DefaultColors = "Couleurs par défaut"
 -- ----THESE ARE FOR SLASH COMMANDS OPERATORS
 L.SlashItemName = "[itemname]"
@@ -191,12 +169,10 @@ L.ModValue_SHIFT = "MAJ"
 L.EnableExtTooltip = "Afficher les informations sur le nombre d'objets dans une infobulle externe."
 L.EnableLoginVersionInfo = "Afficher la version de BagSync lors de la connexion."
 L.FocusSearchEditBox = "Focalisation du champ de recherche lors de l'ouverture de la fenêtre de recherche."
-L.AlwaysShowAdvSearch = "Toujours afficher la fenêtre de recherche avancée de Bagsync."
+L.AlwaysShowSearchFilters = "Toujours afficher la fenêtre des filtres de recherche de Bagsync."
 L.DisplayTotal = "Afficher le montant [Total]."
 L.DisplayGuildGoldInGoldWindow = "Afficher les totaux d'or de [Guilde] dans l'infobulle de l'or."
 L.Display_GSC = "Display |cFFFFD700Gold|r, |cFFC0C0C0Silver|r and |cFFB87333Copper|r in the Gold Window."
-L.DisplayMailbox = "Afficher les objets de la boîte aux lettres."
-L.DisplayAuctionHouse = "Afficher les objets de la salle des ventes."
 L.DisplayMinimap = "Afficher le bouton de minimap de BagSync."
 L.DisplayFaction = "Afficher les objets des deux factions (|cff3587ffAlliance|r/|cFFDF2B2BHorde|r)."
 L.DisplayClassColor = "Afficher les couleurs de classes pour les personnages."
@@ -209,10 +185,9 @@ L.DisplayCurrentCharacterOnly = "Display BagSync tooltip data for the current ch
 L.DisplayBlacklistCurrentCharOnly = "Display blacklisted item counts for the current chraracter |cFFFFD700ONLY!|r |cFFDF2B2B(Not Recommended)|r"
 L.DisplayCurrentRealmName = "Display the |cFF4CBB17[Current Realm]|r of the player."
 L.DisplayCurrentRealmShortName = "Use a short name for the |cFF4CBB17[Current Realm]|r."
-L.DisplayCR = "Afficher les personnages |cffff7d0a[Connected Realm]|r. |cffff7d0a[CR]|r"
+L.DisplayCR = "Afficher les personnages |cffff7d0a[Royaume connecté]|r. |cffff7d0a[CR]|r"
 L.DisplayBNET = "Afficher les personnages du compte Battle.Net. |cff3587ff[BNet]|r |cFFDF2B2B(Non recommandé)|r."
 L.DisplayItemID = "Afficher l'ItemID de l'objet dans l'infobulle."
-L.DisplaySourceDebugInfo = "Afficher les informations de [Debug] dans l'infobulle."
 L.DisplayWhiteListOnly = "Afficher les totaux des éléments de l'infobulle pour les éléments de la liste blanche uniquement."
 L.DisplaySourceExpansion = "Afficher la source de l'extension pour les éléments dans l'infobulle. |cFF99CC33[Live seulement]|r"
 L.DisplayItemTypes = "Afficher les catégories [Item Type | Sub Type] dans l'infobulle."
@@ -235,16 +210,20 @@ L.DisplayShortRealmName = "Afficher les noms de royaumes courts pour |cffff7d0a[
 L.DisplayFactionIcons = "Afficher les icônes de faction dans l'infobulle."
 L.DisplayGuildBankTabs = "Afficher [1,2,3, etc...] des onglets de la banque de guilde dans l'infobulle."
 L.DisplayWarbandBankTabs = "Afficher [1,2,3, etc...] des onglets de la banque du bataillon dans l'infobulle."
+L.DisplayBankTabs = "Afficher les onglets de banque [1,2,3, etc...] dans l'infobulle."
 L.DisplayEquipBagSlots = "Display equipped bag slots <1,2,3, etc...> in tooltip."
 L.DisplayRaceIcons = "Affichage des icônes de race des personnages dans l'infobulle."
 L.DisplaySingleCharLocs = "Afficher un seul caractère pour les emplacements de stockage."
 L.DisplayIconLocs = "Afficher une icône pour les emplacements de stockage."
-L.DisplayGuildSeparately = "Afficher les noms de [Guilde] et les totaux d'éléments séparément des totaux du personnage."
-L.DisplayGuildCurrentCharacter = "Afficher les objets de [Guilde] uniquement pour le personnage actuellement connecté."
-L.DisplayGuildBankScanAlert = "Afficher la fenêtre d'alerte d'analyse de la banque de guilde."
 L.DisplayAccurateBattlePets = "Enable accurate Battle Pets in Guild Bank & Mailbox. |cFFDF2B2B(May cause lag)|r |cff3587ff[See BagSync FAQ]|r"
+L.DisplaySortCurrencyByExpansionFirst = "Trier la fenêtre des monnaies BagSync par extension d'abord plutôt qu'alphabétiquement."
 L.DisplaySorting = "Tri des infobulles"
 L.DisplaySortInfo = "Défaut : les infobulles sont classées par ordre alphabétique, par royaume puis par nom de personnage."
+L.SortMode = "Mode de tri"
+L.SortMode_RealmCharacter = "Royaume puis personnage (par défaut)"
+L.SortMode_Character = "Personnage"
+L.SortMode_ClassCharacter = "Classe puis personnage"
+L.SortCurrentPlayerOnTop = "Trier par défaut et toujours afficher le personnage actuel en haut."
 L.SortTooltipByTotals = "Trier par total et non par ordre alphabétique."
 L.SortByCustomSortOrder = "Trier par ordre personnalisé."
 L.CustomSortInfo = "La liste utilise un ordre croissant (1,2,3)"
@@ -263,26 +242,24 @@ L.ColorTotal = "Couleur de l'infobulle de [Total] de BagSync."
 L.ColorGuild = "Couleur de l'infobulle de [Guild] de BagSync."
 L.ColorWarband = "Couleur de l'infobulle de [Warband] de BagSync."
 L.ColorCurrentRealm = "BagSync [Current Realm] tooltip color."
-L.ColorCR = "Couleur de l'infobulle de [Connected Realm] de BagSync."
+L.ColorCR = "Couleur de l'infobulle de [Royaume connecté] de BagSync."
 L.ColorBNET = "Couleur de l'infobulle de [Battle.Net] de BagSync."
 L.ColorItemID = "Couleur de l'infobulle de [ItemID] de BagSync."
 L.ColorExpansion = "Couleur de l'infobulle de [Extension] de BagSync."
 L.ColorItemTypes = "Couleur de l'infobulle de [ItemType] de BagSync."
 L.ColorGuildTabs = "Couleur de l'infobulle des onglets de guilde [1,2,3, etc...] de BagSync."
 L.ColorWarbandTabs = "Couleur de l'infobulle des onglets du bataillon [1,2,3, etc...] de BagSync."
+L.ColorBankTabs = "Couleur de l'infobulle des onglets de banque [1,2,3, etc...] de BagSync."
 L.ColorBagSlots = "Bag Slots <1,2,3, etc...> tooltip color."
-L.ConfigHeader = "Paramètres des différentes fonctions de BagSync."
 L.ConfigDisplay = "Affichage"
 L.ConfigTooltipHeader = "Paramètres des informations affichées dans l'infobulle de BagSync."
 L.ConfigColor = "Couleur"
 L.ConfigColorHeader = "Paramètres de couleur pour les informations de l'infobulle de BagSync."
 L.ConfigMain = "Principal"
 L.ConfigMainHeader = "Paramètres principaux de BagSync."
-L.ConfigSearch = "Recherche"
 L.ConfigKeybindings = "Raccourcis clavier"
 L.ConfigKeybindingsHeader = "Paramètres de raccourci pour les fonctionnalités de BagSync."
 L.ConfigExternalTooltip = "Infobulle externe"
-L.ConfigSearchHeader = "Paramètres de la fenêtre de recherche"
 L.ConfigFont = "Police"
 L.ConfigFontSize = "Taille de la police"
 L.ConfigFontOutline = "Outline"
@@ -292,7 +269,7 @@ L.ConfigFontOutline_THICKOUTLINE = "ThickOutline"
 L.ConfigFontMonochrome = "Monochrome"
 L.ConfigTracking = "Tracking"
 L.ConfigTrackingHeader = "Tracking settings for all stored BagSync database locations."
-L.ConfigTrackingCaution = "Caution"
+L.ConfigTrackingCaution = "Attention"
 L.ConfigTrackingModules = "Modules"
 L.ConfigTrackingInfo = [[
 |cFFDF2B2BNOTE|r: La désactivation d'un module entraîne l'arrêt du suivi et du stockage du module dans la base de données par BagSync.
@@ -305,18 +282,37 @@ L.TrackingModule_Reagents = "Banque de composants"
 L.TrackingModule_Equip = "Objets équipés"
 L.TrackingModule_Mailbox = "Boite aux lettres"
 L.TrackingModule_Void = "Banque du vide"
-L.TrackingModule_Auction = "Hôtel des vendes"
+L.TrackingModule_Auction = "Hôtel des ventes"
 L.TrackingModule_Guild = "Banque de guilde"
 L.TrackingModule_WarbandBank = "Banque du Bataillon (WarBank)"
 L.TrackingModule_Professions = "Métiers"
-L.TrackingModule_Currency = "Curency Tokens"
+L.TrackingModule_Currency = "Monnaies / Jetons"
 L.WarningItemSearch = "ATTENTION : Un total de [|cFFFFFFFF%s|r] objets n'ont pas été recherchés !\n\nBagSync attend toujours la réponse du serveur/cache.\n\nAppuyez sur le bouton Rechercher ou Actualiser."
-L.WarningUpdatedDB = "La base de données a été mise à jour dans sa dernière version ! Vous devez analyser à nouveau tous vos personnages !|r"
-L.WarningCurrencyUpt = "Error updating currency.  Please login to character: "
+L.WarningCurrencyUpt = "Erreur lors de la mise à jour des monnaies. Veuillez vous connecter au personnage : "
 L.WarningHeader = "Attention !"
 L.SavedSearch = "Recherche sauvegardée !"
 L.SavedSearch_Add = "Ajouter une recherche"
 L.SavedSearch_Warn = "Vous devez saisir quelque chose dans le champ de recherche."
+---------------------------------------
+--Blizzard doesn't return the same header title in the Currency/Token window that is used in their expansion globals.
+--Meaning that, "The Burning Crusade" is listed as "Burning Crusade" in the Currency/Token window.  The same for "The War Within" being shown as "War Within"
+--In order to do a proper sorting of the Currency/Token Window for BagSync.  I've done the following steps
+--1) Removed all spaces and special characters from the expansion name
+--2) forced all characters to be lower case
+--3) Use the filter below to remove any other additional words in the name to match it to the currency/token window.
+--
+--Example: "The War Within" and "War Within" gets matched as "warwithin".  "Battle for Azeroth" gets matched as "battleforazeroth"
+--You can add as many words as you want below, just make sure it's lowercase, no spaces or symbols and to follow each entry with a comma
+---------------------------------------
+L.CurrencySortFilters = {
+	"le",
+	"la",
+	"les",
+	"de",
+	"des",
+	"du",
+	"the",
+}
 ---------------------------------------
 --Localization Note:  Please be advised that the commands for the SearchHelp are english only, however the variables can be any language.  Example: class:<name of class in your locale>
 --This includes name searches like name:<name in your locale>
@@ -337,7 +333,7 @@ L.SearchHelp = [[
 @guild
 @warband
 
-|cffff7d0aAdvanced Search|r (|cFF99CC33commands|r | |cFFFFD580example|r):
+|cffff7d0aFiltres de recherche|r (|cFF99CC33commands|r | |cFFFFD580example|r):
 
 |cff00ffff<item name>|r = |cFF99CC33n|r ; |cFF99CC33name|r | |cFFFFD580n:<text>|r ; |cFFFFD580name:<text>|r (n:ore ; name:ore)
 
@@ -357,12 +353,13 @@ L.SearchHelp = [[
 
 |cff00ffff<expansion>|r = |cFF99CC33x|r ; |cFF99CC33xpac|r ; |cFF99CC33expansion|r | |cFFFFD580x:<expacID>|r ; |cFFFFD580x:<expansion name>|r ; |cFFFFD580xpac:<expansion name>|r (xpac:shadow)
 
-|cff00ffff<keyword>|r = |cFF99CC33k|r ; |cFF99CC33key|r ; |cFF99CC33keyword|r | |cFFFFD580k:<keyword>|r (key:quest) (keywords: soulbound, bound, boe, bop, bou, boa, quest, unique, toy, reagent, crafting, naval, follower, follow, power, apperance)
+|cff00ffff<keyword>|r = |cFF99CC33k|r ; |cFF99CC33key|r ; |cFF99CC33keyword|r | |cFFFFD580k:<keyword>|r (key:quest) (keywords: soulbound, bound, boe, bop, bou, boa, quest, unique, toy, reagent, crafting, naval, follower, follow, power, appearance, apperance)
 
 |cff00ffff<class>|r = |cFF99CC33c|r ; |cFF99CC33class|r | |cFFFFD580c:<classname>|r ; |cFFFFD580class:<classname>|r (class:shaman)
 
 |cffff7d0aOperators <op>|r:
 |cFF99CC33:|r | |cFF99CC33=|r | |cFF99CC33==|r | |cFF99CC33!=|r | |cFF99CC33~=|r | |cFF99CC33<|r | |cFF99CC33>|r | |cFF99CC33<=|r | |cFF99CC33>=|r
+|cFFDF2B2BNote:|r |cFF99CC33!=|r and |cFF99CC33~=|r are supported (not equal).
 
 
 |cffff7d0aNegate Commands|r:
@@ -384,32 +381,51 @@ Example: |cFFFFD580bind:boe|r |cFF99CC33|||||r |cFFFFD580lvl:>20|r
 ]]
 L.ConfigFAQ= "FAQ / Aide"
 L.ConfigFAQHeader = "Foire aux questions et section d'aide pour BagSync."
-L.FAQ_Question_1 = "I'm experiencing hitching/stuttering/lagging with tooltips."
+L.FAQ_Question_1 = "Je subis des saccades/micro-freezes/ralentissements avec les infobulles."
 L.FAQ_Question_1_p1 = [[
-This issue normally happens when there is old or corrupt data in the database, which BagSync cannot interpret.  The problem can also occur when there is overwhelming amount of data for BagSync to go through.  If you have thousands of items across multiple characters, that's a lot of data to go through within a second.  This can lead to your client stuttering for a brief moment.  Finally, another cause for this problem is having an extremely old computer.  Older computer's will experience hitching/stuttering as BagSync processes thousands of item and character data.  Newer computer's with faster CPU's and memory don't typically have this issue.
+Ce problème survient généralement lorsqu'il y a des données anciennes ou corrompues dans la base de données, que BagSync ne peut pas interpréter. Il peut aussi se produire lorsqu'il y a une quantité énorme de données à traiter. Si vous avez des milliers d'objets sur plusieurs personnages, cela représente beaucoup d'informations à parcourir en une seconde, ce qui peut provoquer un bref ralentissement du client. Enfin, un ordinateur très ancien peut aussi être à l'origine de ce comportement : les machines plus anciennes subissent des saccades lorsque BagSync traite des milliers d'objets et de données de personnages. Les ordinateurs plus récents, avec des CPU et de la mémoire plus rapides, n'ont généralement pas ce problème.
 
-In order to fix this problem, you can try resetting the database.  This usually resolves the problem.  Use the following slash command. |cFF99CC33/bgs resetdb|r
-If this does not resolve your issue, please file an issue ticket on GitHub for BagSync.
+Pour résoudre ce problème, vous pouvez essayer de réinitialiser la base de données. Cela corrige généralement le souci. Utilisez la commande suivante : |cFF99CC33/bgs resetdb|r
+Si cela ne résout pas votre problème, veuillez ouvrir un ticket sur GitHub pour BagSync.
 ]]
-L.FAQ_Question_2 = "No item data for my other WOW accounts found in a |cFFDF2B2Bsingle|r |cff3587ffBattle.net|r account."
+L.FAQ_Question_2 = "Aucune donnée d'objet pour mes autres comptes WoW dans un |cFFDF2B2Bseul|r compte |cff3587ffBattle.net|r."
 L.FAQ_Question_2_p1 = [[
-Addon's do not have the ability to read data from other WOW accounts.  This is because they don't share the same SavedVariable folder.  This is a built in limitation within Blizzard's WOW Client.  Therefore, you will not be able to see item data for multiple WOW accounts under a |cFFDF2B2Bsingle|r |cff3587ffBattle.net|r.  BagSync will only be able to read character data across multiple realms within the same WOW Account, not the entire Battle.net account.
+Les addons ne peuvent pas lire les données d'autres comptes WoW, car ils ne partagent pas le même dossier SavedVariables. C'est une limitation intégrée au client WoW de Blizzard. Par conséquent, vous ne pourrez pas voir les données d'objets de plusieurs comptes WoW au sein d'un |cFFDF2B2Bseul|r compte |cff3587ffBattle.net|r. BagSync ne peut lire que les données de personnages sur plusieurs royaumes au sein d'un même compte WoW, pas l'ensemble du compte Battle.net.
 
-There is a way to connect multiple WOW Accounts, within a |cFFDF2B2Bsingle|r |cff3587ffBattle.net|r account, so that they share the same SavedVariables folder.  This involves creating Symlink folders.  I will not provide assistance on this.  So don't ask!  Please visit the following guide for more details.  |cFF99CC33https://www.wowhead.com/guide=934|r
+Il existe un moyen de faire en sorte que plusieurs comptes WoW, au sein d'un |cFFDF2B2Bseul|r compte |cff3587ffBattle.net|r, partagent le même dossier SavedVariables : cela implique de créer des dossiers de type symlink. Je ne fournirai pas d'assistance pour cela, donc ne demandez pas ! Pour plus de détails, consultez le guide suivant : |cFF99CC33https://www.wowhead.com/guide=934|r
 ]]
-L.FAQ_Question_3 = "Can you view item data from |cFFDF2B2Bmultiple|r |cff3587ffBattle.net|r Accounts?"
-L.FAQ_Question_3_p1 = "No, it's not possible.  I will not provide assistance in this.  So don't ask!"
-L.FAQ_Question_4 = "Can I view item data from multiple WOW accounts |cFFDF2B2Bcurrently logged in|r?"
-L.FAQ_Question_4_p1 = "Currently BagSync does not support transmitting data between multiple logged in WOW accounts.  This may change in the future."
-L.FAQ_Question_5 = "Why do I get a message that guild bank scanning is incomplete?"
+L.FAQ_Question_3 = "Peut-on voir les données d'objets de |cFFDF2B2Bplusieurs|r comptes |cff3587ffBattle.net|r ?"
+L.FAQ_Question_3_p1 = "Non, ce n'est pas possible. Je ne fournirai pas d'assistance à ce sujet, donc ne demandez pas !"
+L.FAQ_Question_4 = "Puis-je voir les données d'objets de plusieurs comptes WoW |cFFDF2B2Bactuellement connectés|r ?"
+L.FAQ_Question_4_p1 = "Actuellement, BagSync ne prend pas en charge la transmission de données entre plusieurs comptes WoW connectés simultanément. Cela pourrait changer à l'avenir."
+L.FAQ_Question_5 = "Pourquoi ai-je un message indiquant que l'analyse de la banque de guilde est incomplète ?"
 L.FAQ_Question_5_p1 = [[
-BagSync has to query the server for |cFF99CC33ALL|r your guild bank information.  It takes time for the server to transmit all the data.  In order for BagSync to properly store all your items, you must wait until the server query is complete.  When the scanning process is complete, BagSync will notify you in chat.  Leaving the Guild Bank window before the scanning process is done, will result in incorrect data being stored for your Guild Bank.
+BagSync doit interroger le serveur pour récupérer |cFF99CC33TOUTES|r les informations de votre banque de guilde. Le serveur met du temps à transmettre l'ensemble des données. Pour que BagSync stocke correctement tous vos objets, vous devez attendre la fin de cette requête. Lorsque le scan est terminé, BagSync vous en informera dans le chat. Si vous quittez la fenêtre de banque de guilde avant la fin du scan, des données incorrectes seront enregistrées pour votre banque de guilde.
 ]]
-L.FAQ_Question_6 = "Why do I see [FakeID] instead of [ItemID] for Battle Pets?"
+L.FAQ_Question_6 = "Pourquoi vois-je [FakeID] au lieu de [ItemID] pour les mascottes de combat ?"
 L.FAQ_Question_6_p1 = [[
-Blizzard does not assign ItemID's to Battle Pets for WOW.  Instead, Battle Pets in WOW are assigned a temporary PetID from the server.  This PetID is not unique and will be changed when the server resets.  In order to keep track of Battle Pets, BagSync generates a FakeID.  A FakeID is generated from static numbers associated with the Battle Pet.  Using a FakeID allows BagSync to track Battle Pets even across server resets.
+Blizzard n'assigne pas d'ItemID aux mascottes de combat dans WoW. À la place, les mascottes de combat reçoivent un PetID temporaire fourni par le serveur. Ce PetID n'est pas unique et change lors des redémarrages du serveur. Pour pouvoir suivre les mascottes de combat, BagSync génère un FakeID. Un FakeID est construit à partir de nombres statiques associés à la mascotte. L'utilisation d'un FakeID permet à BagSync de suivre les mascottes de combat même après des redémarrages du serveur.
 ]]
-L.FAQ_Question_7 = "What is accurate Battle Pet scanning in Guild Bank & Mailbox?"
+L.FAQ_Question_7 = "Qu'est-ce que l'analyse précise des mascottes de combat dans la banque de guilde et la boîte aux lettres ?"
 L.FAQ_Question_7_p1 = [[
-Blizzard does not store Battle Pets in the Guild Bank or Mailbox with a proper ItemID or SpeciesID.  In fact Battle Pets are stored in the Guild Bank and Mailbox as |cFF99CC33[Pet Cage]|r with an ItemID of |cFF99CC3382800|r.  This makes grabbing any data in regards to specific Battle Pets difficult for addon authors.  You can see for yourself in the Guild Bank transaction logs, you'll notice Battle Pets are stored as |cFF99CC33[Pet Cage]|r.  If you link one from a Guild Bank it will also be displayed as |cFF99CC33[Pet Cage]|r.  In order to get by this problem, there are two methods that can be used.  The first method is assigning the Battle Pet to a tooltip and then grabbing the SpeciesID from there.  This requires the server to respond to the WOW client and can potentially lead to massive lag, especially if there is a lot of Battle Pets in the Guild Bank.  The second method uses the iconTexture of the Battle Pet to try to find the SpeciesID.  This is sometimes inaccurate as certain Battle Pets share the same iconTexture.  Example:  Toxic Wasteling shares the same iconTexture as Jade Oozeling.  Enabling this option will force the tooltip scanning method to be as accurate as possible, but it can potentially cause lag.  |cFFDF2B2BThere is no way around this until Blizzard gives us more data to work with.|r
+Blizzard ne stocke pas les mascottes de combat dans la banque de guilde ou la boîte aux lettres avec un ItemID ou un SpeciesID correct. En réalité, elles sont enregistrées dans la banque de guilde et la boîte aux lettres comme |cFF99CC33[Pet Cage]|r avec un ItemID de |cFF99CC3382800|r. Cela rend la récupération de données sur des mascottes spécifiques difficile pour les auteurs d'addons. Vous pouvez le constater dans les journaux de transactions de la banque de guilde : les mascottes y apparaissent comme |cFF99CC33[Pet Cage]|r. Si vous en liez une depuis la banque de guilde, elle s'affichera également comme |cFF99CC33[Pet Cage]|r.
+
+Pour contourner ce problème, deux méthodes peuvent être utilisées. La première consiste à attribuer la mascotte de combat à une infobulle puis à récupérer le SpeciesID depuis celle-ci. Cela nécessite que le serveur réponde au client WoW et peut entraîner d'importants ralentissements, surtout s'il y a beaucoup de mascottes dans la banque de guilde. La seconde méthode utilise l'iconTexture de la mascotte pour tenter de trouver le SpeciesID. Cela peut parfois être imprécis, car certaines mascottes partagent la même iconTexture. Exemple : Toxic Wasteling partage la même iconTexture que Jade Oozeling. Activer cette option forcera la méthode de scan des infobulles à être aussi précise que possible, mais peut provoquer du lag. |cFFDF2B2BIl n'y a pas de solution parfaite tant que Blizzard ne nous donne pas plus de données à exploiter.|r
+]]
+
+L.BagSyncInfoWindow = [[
+BagSync, par défaut, n'affiche dans les infobulles que les données des personnages sur les royaumes connectés. ( |cffff7d0a[CR]|r )
+
+Les royaumes connectés ( |cffff7d0a[CR]|r ) sont des serveurs qui ont été liés entre eux.
+
+Pour une liste complète, veuillez consulter :
+(|cFF99CC33 https://tinyurl.com/msncc7j6 |r)
+
+
+|cFFfd5c63BagSync n'affichera PAS, par défaut, les données de l'ensemble de votre compte Battle.Net. Vous devez l'activer !|r
+( |cff3587ff[BNet]|r )
+
+|cFF52D386Si vous souhaitez voir tous vos personnages sur l'ensemble de votre compte Battle.net ( |cff3587ff[BNet]|r ), vous devez activer l'option dans la fenêtre de configuration BagSync, sous [Account Wide].|r
+
+L'option s'appelle :
 ]]

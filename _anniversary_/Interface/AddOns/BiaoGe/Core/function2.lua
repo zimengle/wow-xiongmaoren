@@ -39,7 +39,7 @@ do
     function BG.GetTooltipTextLeftAll(itemID)
         BG.Tooltip_SetItemByID(itemID)
         local tbl = {}
-        local ii = 1
+        local ii = 2
         while _G["BiaoGeTooltipTextLeft" .. ii] do
             local text = _G["BiaoGeTooltipTextLeft" .. ii]:GetText()
             if text and text ~= "" then
@@ -1338,7 +1338,7 @@ do
                 local t = f:CreateFontString()
                 t:SetPoint("LEFT", icon, "RIGHT", 0, 0)
                 t:SetWidth(f:GetWidth() - icon:GetWidth())
-                t:SetFontObject(GameFontNormal)
+                t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
                 t:SetText(v.link)
                 t:SetJustifyH("LEFT")
                 t:SetWordWrap(false)
@@ -1806,53 +1806,19 @@ do
 
     BG.updateHighlightChatFrame = CreateFrame("Frame")
     BG.updateHighlightChatFrame.frames = {}
-    function BG.HighlightChatFrame(link)
-        -- if BiaoGe.options["HighOnterItem"] ~= 1 then return end
-        -- if not IsInRaid(1) then return end
-        -- local itemID = GetItemID(link)
-        -- if not itemID then return end
-        -- BG.highlightChatFrameItemID = itemID
-        -- local i = 1
-        -- while _G["ChatFrame" .. i] do
-        --     local ChatFrame = _G["ChatFrame" .. i]
-        --     if ChatFrame and ChatFrame:IsVisible() then
-        --         for i, fontString in ipairs(ChatFrame.visibleLines) do
-        --             local text = fontString:GetText()
-        --             if text and text:find("item:" .. itemID .. ":") and fontString:IsVisible() and fontString:GetAlpha() ~= 0 then
-        --                 local f = CreateFrame("Frame", nil, nil, "BackdropTemplate")
-        --                 f:SetPoint("TOPLEFT", fontString, "TOPLEFT", 0, 0)
-        --                 f:SetPoint("BOTTOMRIGHT", fontString, "BOTTOMRIGHT", 0, 0)
-        --                 f:SetFrameLevel(ChatFrame:GetFrameLevel() + 2)
-        --                 tinsert(BG.updateHighlightChatFrame.frames, f)
-        --                 tinsert(BG.LastBagItemFrame, f)
-
-        --                 local l = f:CreateLine()
-        --                 l:SetColorTexture(1, 0, 0)
-        --                 l:SetStartPoint("BOTTOMLEFT", 0, 0)
-        --                 l:SetEndPoint("BOTTOMRIGHT", 0, 0)
-        --                 l:SetThickness(1)
-        --             end
-        --         end
-        --     end
-        --     i = i + 1
-        -- end
-    end
 
     function BG.Show_AllHighlight(link, btType)
         BG.Hide_AllHighlight()
-        if (btType and btType ~= "bag") or not btType then
+        if not btType or btType ~= "bag"  then
             BG.HighlightBag(link)
         end
-        if (btType and btType ~= "biaoge") or not btType then
+        if not btType or btType ~= "biaoge"  then
             BG.HighlightBiaoGe(link)
         end
-        if (btType and btType ~= "chat") or not btType then
-            BG.HighlightChatFrame(link)
-        end
-        if (btType and btType ~= "outtime") or not btType then
+        if not btType or btType ~= "outtime"  then
             BG.HighlightItemOutTime(link)
         end
-        if (btType and btType ~= "auctionlog") or not btType then
+        if not btType or btType ~= "auctionlog"  then
             BG.HighlightItemAuctionLog(link)
         end
     end
@@ -1862,17 +1828,9 @@ do
             f:Hide()
         end
         wipe(BG.LastBagItemFrame)
-
-        BG.Hide_ChatHighlight()
         BG.highlightChatFrameItemID = nil
     end
 
-    function BG.Hide_ChatHighlight()
-        for _, f in pairs(BG.updateHighlightChatFrame.frames) do
-            f:Hide()
-        end
-        wipe(BG.updateHighlightChatFrame.frames)
-    end
 end
 
 ------------------创建按钮模板1------------------
@@ -2509,7 +2467,7 @@ function BG.SetEditBg(edit)
     edit.Middle:SetTexture("interface/common/commonsearch")
     edit.Middle:SetTexCoord(0, .8, .01, .31)
 
-    edit:SetFontObject(ChatFontNormal)
+    edit:SetFont(BIAOGE_TEXT_FONT, 14, "OUTLINE")
     edit:SetScript("OnTabPressed", EditBox_OnTabPressed)
     edit:SetScript("OnEscapePressed", EditBox_ClearFocus)
     edit:SetScript("OnEditFocusLost", EditBox_ClearHighlight)

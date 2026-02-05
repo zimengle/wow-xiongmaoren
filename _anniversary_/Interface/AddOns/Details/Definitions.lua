@@ -715,7 +715,7 @@ DETAILS_SEGMENTTYPE_TRAININGDUMMY = true
 ---@field baseframe frame
 ---@field use_multi_fontstrings boolean
 ---@field
----@field
+---@field CheckForSecretsAndAspects fun(self: instance)
 ---@field GetActorBySubDisplayAndRank fun(self: instance, displayid: attributeid, subDisplay: attributeid, rank: number) : actor
 ---@field GetSize fun(instance: instance) : width, height
 ---@field GetInstanceGroup fun() : table
@@ -734,7 +734,7 @@ DETAILS_SEGMENTTYPE_TRAININGDUMMY = true
 ---@field Freeze fun(instance: instance)
 ---@field UnFreeze fun(instance: instance)
 ---@field SetSegment fun(instance: instance, segment: segmentid, force: boolean|nil)
----@field SetDisplay fun(instance: instance, segmentId: segmentid?, attributeId: attributeid?, subAttributeId: attributeid?, modeId: modeid?)
+---@field SetDisplay fun(instance: instance, segmentId: segmentid?, attributeId: attributeid?, subAttributeId: attributeid?, modeId: modeid?, quickMode:boolean?)
 ---@field GetDisplay fun(instance: instance) : attributeid, attributeid
 ---@field IsShowing fun(instance: instance, segmentId: segmentid, displayId: attributeid, subDisplayId: attributeid) : boolean
 ---@field ResetWindow fun(instance: instance, resetType: number|nil, segmentId: segmentid|nil)

@@ -395,11 +395,26 @@ function UnitFramefun.Mubiao()
 				end
 			end
 		end
-		-- if InCombatLockdown() then
-		-- 	fuF.TTT:RegisterEvent("PLAYER_REGEN_ENABLED");
-		-- end
-		--fuF.TTT:RegisterEvent("UNIT_HEALTH");
-		fuF.TTT:RegisterUnitEvent("UNIT_HEALTH",unitMubiao);
+		local function PigUnitFrameHealthBar_Update(statusbar, unit)
+			if statusbar:IsShown() and UnitGUID(unitMubiao) then
+				local maxValue = UnitHealthMax(unit);
+				statusbar:SetMinMaxValues(0, maxValue);
+				local currValue = UnitHealth(unit);
+				statusbar:SetStatusBarColor(0.0, 1.0, 0.0);
+				statusbar:SetValue(currValue);
+			end
+		end
+		local function PigUnitFrameManaBar_Update(statusbar, unit)
+			if statusbar:IsShown() and UnitGUID(unitMubiao) then
+				local maxValue = UnitPowerMax(unit, statusbar.powerType);
+				statusbar:SetMinMaxValues(0, maxValue);
+				local currValue = UnitPower(unit, statusbar.powerType);
+				statusbar:SetValue(currValue);
+			end
+		end
+		if InCombatLockdown() then
+			fuF.TTT:RegisterEvent("PLAYER_REGEN_ENABLED");
+		end
 		fuF.TTT:RegisterUnitEvent("UNIT_TARGET","target");
 		fuF.TTT:RegisterUnitEvent("UNIT_TARGET","targettarget");
 		fuF.TTT:RegisterUnitEvent("UNIT_AURA", unit);
@@ -415,16 +430,16 @@ function UnitFramefun.Mubiao()
 				UnitFrameHealthBar_Update(self.healthbar, self.unit);
 				UnitFrameManaBar_Update(self.manabar, self.unit);
 			else
-				-- self.Name:SetText(TTTname);
-				-- SetPortraitTexture(self.Portrait, self.unit)
-				-- self:HealthCheck()
-				-- self:CheckDead()
-				-- UnitFrameHealthBar_Update(self.HealthBar, self.unit);
-				-- UnitFrameManaBar_Update(self.ManaBar, self.unit);
+				self.Name:SetText(TTTname);
+				SetPortraitTexture(self.Portrait, self.unit)
+				self:HealthCheck()
+				self:CheckDead()
+				PigUnitFrameHealthBar_Update(self.HealthBar, self.unit)
+				PigUnitFrameManaBar_Update(self.ManaBar, self.unit);
 			end
-			-- if event=="PLAYER_REGEN_ENABLED" then
-			-- 	self:UnregisterEvent("PLAYER_REGEN_ENABLED");
-			-- end
+			if event=="PLAYER_REGEN_ENABLED" then
+				self:UnregisterEvent("PLAYER_REGEN_ENABLED");
+			end
 		end)
 		if PIG_MaxTocversion() then
 			fuF.TTT.healthbar:RegisterUnitEvent("UNIT_HEALTH",unitMubiao);
@@ -438,16 +453,16 @@ function UnitFramefun.Mubiao()
 				UnitFrameManaBar_Update(self, unitMubiao);
 			end)
 		else
-			-- fuF.TTT.HealthBar:RegisterUnitEvent("UNIT_HEALTH",unitMubiao);
-			-- fuF.TTT.HealthBar:RegisterUnitEvent("UNIT_MAXHEALTH",unitMubiao);
-			-- fuF.TTT.ManaBar:RegisterUnitEvent("UNIT_POWER_FREQUENT",unitMubiao);
-			-- fuF.TTT.ManaBar:RegisterUnitEvent("UNIT_MAXPOWER",unitMubiao);
-			-- fuF.TTT.HealthBar:HookScript("OnEvent", function (self,event)
-			-- 	UnitFrameHealthBar_Update(self, unitMubiao);
-			-- end)
-			-- fuF.TTT.ManaBar:HookScript("OnEvent", function (self,event)
-			-- 	UnitFrameManaBar_Update(self, unitMubiao);
-			-- end)
+			fuF.TTT.HealthBar:RegisterUnitEvent("UNIT_HEALTH",unitMubiao);
+			fuF.TTT.HealthBar:RegisterUnitEvent("UNIT_MAXHEALTH",unitMubiao);
+			fuF.TTT.ManaBar:RegisterUnitEvent("UNIT_POWER_FREQUENT",unitMubiao);
+			fuF.TTT.ManaBar:RegisterUnitEvent("UNIT_MAXPOWER",unitMubiao);
+			fuF.TTT.HealthBar:HookScript("OnEvent", function (self,event)
+				PigUnitFrameHealthBar_Update(self, unitMubiao)
+			end)
+			fuF.TTT.ManaBar:HookScript("OnEvent", function (self,event)
+				PigUnitFrameManaBar_Update(self, unitMubiao)
+			end)
 		end
 	end
 	--

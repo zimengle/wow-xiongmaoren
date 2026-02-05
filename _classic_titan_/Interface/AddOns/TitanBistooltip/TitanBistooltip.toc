@@ -1,10 +1,10 @@
-## Interface: 
-## Title: TitanBistooltip |cFF00ff00快跑兄弟v1.37
-## Notes: v1.37 In game BiS lists and item tooltip enrichment.
+## Interface: 30405
+## Title: |cFF00ff00[快跑兄弟]|r TitanBistooltip v1.40
+## Notes: v1.40 In game BiS lists and item tooltip enrichment.
 ## Author: 快跑兄弟
 ## Author: 快跑兄弟
-## Notes-zhCN: 泰坦时光服全职业毕业装鼠标提示。|n左键点击小地图按钮，可以查看所有职业所有阶段的毕业装备列表。|n右键小地图按钮，可以对鼠标提示信息进行设置。|n此版用于泰坦重铸时光服客户端。|n|cFF00ff00快跑兄弟（时光1部落）|r
-## Version: 1.37
+## Notes-zhCN: 泰坦时光服全职业毕业装鼠标提示。|n左键点击小地图按钮，可以查看所有职业所有阶段的毕业装备列表。|n右键小地图按钮，可以对鼠标提示信息进行设置。|n此版用于泰坦重铸时光服客户端。|n|cFF00BFFF快跑兄弟（时光1部落）|r
+## Version: 1.40
 ## SavedVariables: TitanBistooltipDB
 ## OptionalDeps:
 

@@ -3,6 +3,10 @@ local eventFrame = CreateFrame("Frame", nil, UIParent)
 local L = LibStub("AceLocale-3.0"):GetLocale("TitanBistooltip", false)
 TitanBistooltip_phases_string = ""
 
+-- 快捷键绑定定义
+BINDING_HEADER_TITANBISTOOLTIP = "TitanBistooltip"
+BINDING_NAME_TOGGLE_BISLIST = L["打开/关闭 BIS面板"] or "Toggle BIS Panel"
+
 local function specHighlighted(class_name, spec_name)
     -- 遍历所有职业，检查当前职业是否在高亮列表中
     for key, value in pairs(TitanBistooltipAddon.db.char.highlight_specs) do

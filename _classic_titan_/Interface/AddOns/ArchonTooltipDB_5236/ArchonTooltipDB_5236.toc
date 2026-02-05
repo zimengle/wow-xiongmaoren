@@ -7,7 +7,7 @@
 ## X-Database-Key: 5236
 ## X-Database-Name: 时光IV
 ## X-Game-Version-ID: warcraft-classic-titan-reforged
-## X-Updated-At: 2026-01-24T01:37:13.000Z
+## X-Updated-At: 2026-02-01T02:11:58.000Z
 ## IconTexture: Interface/AddOns/ArchonTooltip/Media/logo-32-circle.tga
 ## Category: Archon
 

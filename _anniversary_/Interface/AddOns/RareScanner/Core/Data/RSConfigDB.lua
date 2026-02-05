@@ -361,7 +361,7 @@ function RSConfigDB.IsNpcFiltered(npcID)
 	if (filterType and filterType == RSConstants.ENTITY_FILTER_ALL) then
 		return true
 	end
-	
+
 	return false
 end
 

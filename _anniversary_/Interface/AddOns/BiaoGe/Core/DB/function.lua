@@ -76,6 +76,19 @@ function BG.Init2(func)
     tinsert(enterWorldFuncs, func)
 end
 
+local loginFuncs = {}
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_LOGIN")
+f:SetScript("OnEvent", function(self, event)
+    self:UnregisterEvent("PLAYER_LOGIN")
+    for _, func in ipairs(loginFuncs) do
+        func(self, event)
+    end
+end)
+function BG.Init3(func)
+    tinsert(loginFuncs, func)
+end
+
 local events = {}
 local f = CreateFrame("Frame")
 f:SetScript("OnEvent", function(_, event, ...)
@@ -198,19 +211,21 @@ function BG.GN(unit)
 end
 
 BG.playerName = BG.GN()
+BG.realmName = GetRealmName()
 BG.realmID = GetRealmID()
+local realmName = GetRealmName():gsub(" %- ", "")
 
 function BG.GFN(name)
     if not name then return end
     local name, realm = strsplit("-", name)
-    realm = realm or GetRealmName()
+    realm = realm or realmName
     return name .. "-" .. realm
 end
 
 function BG.GSN(name)
     if not name then return end
     local name, realm = strsplit("-", name)
-    if not realm or realm == "" or realm == GetRealmName() then
+    if not realm or realm == "" or realm == realmName then
         return name
     else
         return name .. "-" .. realm
@@ -219,5 +234,5 @@ end
 
 function BG.SPN(name)
     if not name then return end
-    return strsplit("-", name)
+    return strsplit("-", name,2)
 end

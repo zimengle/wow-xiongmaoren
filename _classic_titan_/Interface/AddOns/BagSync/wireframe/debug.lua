@@ -7,7 +7,7 @@
 --]]
 
 local BSYC = select(2, ...) --grab the addon namespace
-local L = LibStub("AceLocale-3.0"):GetLocale("BagSync")
+local L = BSYC.L
 local Debug = BSYC:NewModule("Debug")
 
 local xListLen = 500
@@ -351,6 +351,9 @@ function Debug:OnEnable()
 	exportFrame.EditBox:SetTextColor(1, 1, 1) --set default to white
 	exportFrame.ScrollFrame:EnableMouse(false)
 	DebugFrame.exportFrame = exportFrame
+	if exportFrame.CloseButton then
+		exportFrame.CloseButton:SetScript("OnClick", function(self) self:GetParent():Hide() end)
+	end
 
 	--export button
 	local exportBtn = _G.CreateFrame("Button", nil, optionsFrame, "UIPanelButtonTemplate")
@@ -410,7 +413,7 @@ function Debug:RefreshList()
 
     for buttonIndex = 1, #buttons do
         local button = buttons[buttonIndex]
-		button.parentHandler = Debug
+		BSYC:UI_AttachListItemHandlers(button, Debug)
 
         local itemIndex = buttonIndex + offset
 

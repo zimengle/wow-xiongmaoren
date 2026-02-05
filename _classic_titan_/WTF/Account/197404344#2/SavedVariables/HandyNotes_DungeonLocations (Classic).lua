@@ -7,6 +7,7 @@ HandyNotes_DungeonLocationsClassicDB = {
 ["美团王兴 - 时光IV - 红色信仰"] = "Default",
 ["露露缇娅 - 时光III"] = "Default",
 ["露露緹婭 - 时光III"] = "Default",
+["三角碑崽儿 - 时光IV - 红色信仰"] = "Default",
 ["京东刘强东 - 时光IV - 红色信仰"] = "Default",
 ["露露缇娅 - 时光III - Apex"] = "Default",
 ["于鹏 - 时光IV - 红色信仰"] = "Default",

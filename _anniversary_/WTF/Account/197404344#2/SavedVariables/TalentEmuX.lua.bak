@@ -8,20 +8,20 @@ TalentEmuSV = {
 ["setmetatable"] = 104,
 },
 ["EXTERNAL"] = {
-["LibStub"] = 275,
+["LibStub"] = 286,
 },
 ["UI-EquipmentContainer"] = {
 ["ceil"] = 1,
 },
 ["METHOD"] = {
-["BLUE_GEM"] = 126,
-["ENCHANT_CONDITION_MORE_VALUE"] = 126,
-["RED_GEM"] = 126,
-["ITEM_SET_BONUS_GRAY"] = 232,
-["ENCHANT_CONDITION_REQUIRES"] = 126,
-["YELLOW_GEM"] = 126,
-["ENCHANT_CONDITION_MORE_COMPARE"] = 126,
-["ITEM_SET_BONUS"] = 232,
+["BLUE_GEM"] = 137,
+["ENCHANT_CONDITION_MORE_VALUE"] = 137,
+["RED_GEM"] = 137,
+["ITEM_SET_BONUS_GRAY"] = 243,
+["ENCHANT_CONDITION_REQUIRES"] = 137,
+["YELLOW_GEM"] = 137,
+["ENCHANT_CONDITION_MORE_COMPARE"] = 137,
+["ITEM_SET_BONUS"] = 243,
 },
 },
 ["set"] = {
@@ -31,7 +31,7 @@ TalentEmuSV = {
 ["Player-6457-041DA392"] = "!T22410110!E220+^+^+^+^+h:81:-+^+^+g:81:-+f:81:-+^+^+^+^+^+^+^+tY:81:-+^+^+^",
 ["Player-6457-0476F4B3"] = "!T225-0110!E220+^+^+^+^+p:8-:-+YJ:8-:-+LD:8-:-+Ci:8-:-+E1:8-:-+Zo:8-:-+Ei:8-:-+^+^+^+^+UJ:8-:-+H71:8-:-+^+Lk2:8-:-+^",
 ["Player-5453-0476F498"] = "!T123-0110!E120+^+^+^+^+ET1:8-:9+YJ:8-:9+LD:8-:9+D1:8-:9+ri2:8-:9+^+D=:8-:9+^+^+^+^+UJ:8-:9+7V1:8-:9+^+Lk2:8-:9+^",
-["Player-6457-04DA9799"] = "!T222p011-xZLQGkSl61!E220+^+pb2:8p:-+l78:8p:-+T78:8p:-+I2:8p:-+ti2:8p:-+pe4:8p:-+Eo1:6=4:10Y26Y1:1p:-+V78:8p:-+9-1:8p:-+oB1:8p:-+j78:8p:-+xI2:8p:-+mh2:8p:-+5f4:8p:-+h78:8p:-+==3:8p:-+^+Qj3:6I9:10ODpB:1p:-+Nm5:8p:-",
+["Player-6457-04DA9799"] = "!T222t011CxdlWGkSl611::2!E220+^+pb2:8t:-+l78:8t:-+T78:8t:-+I2:8t:-+fq3:8t:-+pe4:8t:-+Eo1:6=4:10Y26Y1:1t:-+V78:8t:-+9-1:8t:-+Cu2:8t:-+j78:8t:-+xI2:8t:-+mh2:8t:-+rN8:8t:-+hq3:8t:-+==3:8t:-+^+Qj3:6I9:10ODpB:1t:-+Nm5:8t:-",
 ["Player-5453-0476F4B3"] = "!T125-0110!E120+^+^+^+^+p:8-:-+YJ:8-:-+LD:8-:-+Ci:8-:-+E1:8-:-+Zo:8-:-+Ei:8-:-+^+^+^+^+UJ:8-:-+H71:8-:-+^+Lk2:8-:-+^",
 ["savedTalent"] = {
 },

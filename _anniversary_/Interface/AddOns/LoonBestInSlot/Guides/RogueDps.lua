@@ -24,8 +24,7 @@ LBIS:AddEnchant(spec0, "35490", LBIS.L["Legs"]) --
 LBIS:AddEnchant(spec0, "34007", LBIS.L["Feet"]) --
 LBIS:AddEnchant(spec0, "27984", LBIS.L["Main Hand~Off Hand"]) --
 
-LBIS:AddItem(spec0, "32478", LBIS.L["Head"], "BIS") --Deathblow X11 Goggles
-LBIS:AddItem(spec0, "28224", LBIS.L["Head"], "Alt") --Wastewalker Helm
+LBIS:AddItem(spec0, "28224", LBIS.L["Head"], "BIS") --Wastewalker Helm
 LBIS:AddItem(spec0, "32087", LBIS.L["Head"], "Alt") --Mask of the Deceiver
 LBIS:AddItem(spec0, "28182", LBIS.L["Head"], "Alt") --Helm of the Claw
 LBIS:AddItem(spec0, "27797", LBIS.L["Shoulder"], "BIS") --Wastewalker Shoulderpads
@@ -39,12 +38,11 @@ LBIS:AddItem(spec0, "28032", LBIS.L["Back"], "Alt") --Delicate Green Poncho
 LBIS:AddItem(spec0, "28264", LBIS.L["Chest"], "BIS") --Wastewalker Tunic
 LBIS:AddItem(spec0, "29525", LBIS.L["Chest"], "BIS") --Primalstrike Vest
 LBIS:AddItem(spec0, "30933", LBIS.L["Chest"], "Alt") --Hauberk of Karabor
-LBIS:AddItem(spec0, "32647", LBIS.L["Wrist"], "BIS") --Shard-bound Bracers
-LBIS:AddItem(spec0, "29246", LBIS.L["Wrist"], "Alt") --Nightfall Wristguards
+LBIS:AddItem(spec0, "29246", LBIS.L["Wrist"], "BIS") --Nightfall Wristguards
 LBIS:AddItem(spec0, "29527", LBIS.L["Wrist"], "Alt") --Primalstrike Bracers
 LBIS:AddItem(spec0, "28171", LBIS.L["Wrist"], "Alt") --Spymistress's Wristguards
 LBIS:AddItem(spec0, "25685", LBIS.L["Hands"], "BIS") --Fel Leather Gloves
-LBIS:AddItem(spec0, "27531", LBIS.L["Hands"], "BIS") --Wastewalker Gloves
+LBIS:AddItem(spec0, "27531", LBIS.L["Hands"], "Alt") --Wastewalker Gloves
 LBIS:AddItem(spec0, "30003", LBIS.L["Hands"], "Alt") --Gloves of the Nether-Stalker
 LBIS:AddItem(spec0, "29247", LBIS.L["Waist"], "BIS") --Girdle of the Deathdealer
 LBIS:AddItem(spec0, "29526", LBIS.L["Waist"], "BIS") --Primalstrike Belt
@@ -68,22 +66,16 @@ LBIS:AddItem(spec0, "27925", LBIS.L["Ring"], "Alt") --Ravenclaw Band
 LBIS:AddItem(spec0, "23206", LBIS.L["Trinket"], "BIS") --Mark of the Champion
 LBIS:AddItem(spec0, "29383", LBIS.L["Trinket"], "BIS") --Bloodlust Brooch
 LBIS:AddItem(spec0, "28288", LBIS.L["Trinket"], "BIS") --Abacus of Violent Odds
-LBIS:AddItem(spec0, "23041", LBIS.L["Trinket"], "Alt") --Slayer's Crest
 LBIS:AddItem(spec0, "22954", LBIS.L["Trinket"], "Alt") --Kiss of the Spider
 LBIS:AddItem(spec0, "28034", LBIS.L["Trinket"], "Alt") --Hourglass of the Unraveller
 LBIS:AddItem(spec0, "21670", LBIS.L["Trinket"], "Alt") --Badge of the Swarmguard
-LBIS:AddItem(spec0, "32052", LBIS.L["Main Hand"], "BIS") --Merciless Gladiator's Slicer
-LBIS:AddItem(spec0, "28312", LBIS.L["Main Hand"], "BIS") --Gladiator's Shanker
-LBIS:AddItem(spec0, "28438", LBIS.L["Main Hand"], "Alt") --Dragonmaw
-LBIS:AddItem(spec0, "28295", LBIS.L["Main Hand"], "Alt") --Gladiator's Slicer
-LBIS:AddItem(spec0, "31332", LBIS.L["Main Hand"], "Alt") --Blinkstrike
+LBIS:AddItem(spec0, "23041", LBIS.L["Trinket"], "Alt") --Slayer's Crest
+LBIS:AddItem(spec0, "28438", LBIS.L["Main Hand"], "BIS") --Dragonmaw
+LBIS:AddItem(spec0, "31332", LBIS.L["Main Hand"], "BIS") --Blinkstrike
+LBIS:AddItem(spec0, "31331", LBIS.L["Main Hand"], "BIS") --The Night Blade
 LBIS:AddItem(spec0, "29124", LBIS.L["Main Hand"], "Alt") --Vindicator's Brand
-LBIS:AddItem(spec0, "31331", LBIS.L["Main Hand"], "Alt") --The Night Blade
-LBIS:AddItem(spec0, "32027", LBIS.L["Off Hand"], "BIS") --Merciless Gladiator's Quickblade
+LBIS:AddItem(spec0, "28189", LBIS.L["Off Hand"], "BIS") --Latro's Shifting Sword
 LBIS:AddItem(spec0, "29275", LBIS.L["Off Hand"], "BIS") --Searing Sunblade
-LBIS:AddItem(spec0, "28307", LBIS.L["Off Hand"], "Alt") --Gladiator's Quickblade
-LBIS:AddItem(spec0, "28189", LBIS.L["Off Hand"], "Alt") --Latro's Shifting Sword
-LBIS:AddItem(spec0, "28310", LBIS.L["Off Hand"], "Alt") --Gladiator's Shiv
 LBIS:AddItem(spec0, "29151", LBIS.L["Ranged/Relic"], "BIS") --Veteran's Musket
 LBIS:AddItem(spec0, "29152", LBIS.L["Ranged/Relic"], "BIS") --Marksman's Bow
 LBIS:AddItem(spec0, "30279", LBIS.L["Ranged/Relic"], "Alt") --Mama's Insurance
@@ -132,19 +124,17 @@ LBIS:AddItem(spec1, "29383", LBIS.L["Trinket"], "BIS") --Bloodlust Brooch
 LBIS:AddItem(spec1, "28288", LBIS.L["Trinket"], "Alt") --Abacus of Violent Odds
 LBIS:AddItem(spec1, "28579", LBIS.L["Trinket"], "Alt") --Romulo's Poison Vial
 LBIS:AddItem(spec1, "22954", LBIS.L["Trinket"], "Alt") --Kiss of the Spider
-LBIS:AddItem(spec1, "23041", LBIS.L["Trinket"], "Alt") --Slayer's Crest
-LBIS:AddItem(spec1, "21670", LBIS.L["Trinket"], "Alt") --Badge of the Swarmguard
 LBIS:AddItem(spec1, "28438", LBIS.L["Main Hand"], "BIS") --Dragonmaw
 LBIS:AddItem(spec1, "28295", LBIS.L["Main Hand"], "BIS") --Gladiator's Slicer
 LBIS:AddItem(spec1, "31332", LBIS.L["Main Hand"], "BIS") --Blinkstrike
-LBIS:AddItem(spec1, "28768", LBIS.L["Main Hand"], "BIS") --Malchazeen
 LBIS:AddItem(spec1, "28729", LBIS.L["Main Hand"], "Alt") --Spiteblade
 LBIS:AddItem(spec1, "30733", LBIS.L["Main Hand"], "Alt") --Hope Ender
 LBIS:AddItem(spec1, "28312", LBIS.L["Main Hand"], "Alt") --Gladiator's Shanker
+LBIS:AddItem(spec1, "28768", LBIS.L["Main Hand"], "Alt") --Malchazeen
 LBIS:AddItem(spec1, "28307", LBIS.L["Off Hand"], "BIS") --Gladiator's Quickblade
 LBIS:AddItem(spec1, "28189", LBIS.L["Off Hand"], "BIS") --Latro's Shifting Sword
-LBIS:AddItem(spec1, "29275", LBIS.L["Off Hand"], "BIS") --Searing Sunblade
 LBIS:AddItem(spec1, "28310", LBIS.L["Off Hand"], "Alt") --Gladiator's Shiv
+LBIS:AddItem(spec1, "29275", LBIS.L["Off Hand"], "Alt") --Searing Sunblade
 LBIS:AddItem(spec1, "29151", LBIS.L["Ranged/Relic"], "BIS") --Veteran's Musket
 LBIS:AddItem(spec1, "29152", LBIS.L["Ranged/Relic"], "BIS") --Marksman's Bow
 LBIS:AddItem(spec1, "30724", LBIS.L["Ranged/Relic"], "BIS") --Barrel-Blade Longrifle
@@ -183,8 +173,8 @@ LBIS:AddItem(spec2, "30039", LBIS.L["Feet"], "Alt") --Boots of Utter Darkness
 LBIS:AddItem(spec2, "25686", LBIS.L["Feet"], "Alt") --Fel Leather Boots
 LBIS:AddItem(spec2, "29381", LBIS.L["Neck"], "BIS") --Choker of Vile Intent
 LBIS:AddItem(spec2, "24114", LBIS.L["Neck"], "BIS") --Braided Eternium Chain
-LBIS:AddItem(spec2, "30017", LBIS.L["Neck"], "Alt") --Telonicus's Pendant of Mayhem
 LBIS:AddItem(spec2, "28509", LBIS.L["Neck"], "Alt") --Worgen Claw Necklace
+LBIS:AddItem(spec2, "30017", LBIS.L["Neck"], "Alt") --Telonicus's Pendant of Mayhem
 LBIS:AddItem(spec2, "30052", LBIS.L["Ring"], "BIS") --Ring of Lethality
 LBIS:AddItem(spec2, "29997", LBIS.L["Ring"], "BIS") --Band of the Ranger-General
 LBIS:AddItem(spec2, "30738", LBIS.L["Ring"], "Alt") --Ring of Reciprocity
@@ -192,30 +182,30 @@ LBIS:AddItem(spec2, "28757", LBIS.L["Ring"], "Alt") --Ring of a Thousand Marks
 LBIS:AddItem(spec2, "28649", LBIS.L["Ring"], "Alt") --Garona's Signet Ring
 LBIS:AddItem(spec2, "28830", LBIS.L["Trinket"], "BIS") --Dragonspine Trophy
 LBIS:AddItem(spec2, "30450", LBIS.L["Trinket"], "BIS") --Warp-Spring Coil
-LBIS:AddItem(spec2, "30627", LBIS.L["Trinket"], "Alt") --Tsunami Talisman
 LBIS:AddItem(spec2, "29383", LBIS.L["Trinket"], "Alt") --Bloodlust Brooch
+LBIS:AddItem(spec2, "30627", LBIS.L["Trinket"], "Alt") --Tsunami Talisman
 LBIS:AddItem(spec2, "28288", LBIS.L["Trinket"], "Alt") --Abacus of Violent Odds
 LBIS:AddItem(spec2, "28579", LBIS.L["Trinket"], "Alt") --Romulo's Poison Vial
 LBIS:AddItem(spec2, "21670", LBIS.L["Trinket"], "Alt") --Badge of the Swarmguard
 LBIS:AddItem(spec2, "30082", LBIS.L["Main Hand"], "BIS") --Talon of Azshara
-LBIS:AddItem(spec2, "30103", LBIS.L["Main Hand"], "BIS") --Fang of Vashj
 LBIS:AddItem(spec2, "28439", LBIS.L["Main Hand"], "Alt") --Dragonstrike
 LBIS:AddItem(spec2, "32052", LBIS.L["Main Hand"], "Alt") --Merciless Gladiator's Slicer
 LBIS:AddItem(spec2, "32944", LBIS.L["Main Hand"], "Alt") --Talon of the Phoenix
-LBIS:AddItem(spec2, "29996", LBIS.L["Main Hand"], "Alt") --Rod of the Sun King
 LBIS:AddItem(spec2, "28438", LBIS.L["Main Hand"], "Alt") --Dragonmaw
+LBIS:AddItem(spec2, "29996", LBIS.L["Main Hand"], "Alt") --Rod of the Sun King
 LBIS:AddItem(spec2, "28295", LBIS.L["Main Hand"], "Alt") --Gladiator's Slicer
+LBIS:AddItem(spec2, "30103", LBIS.L["Main Hand"], "Alt") --Fang of Vashj
 LBIS:AddItem(spec2, "29962", LBIS.L["Main Hand"], "Alt") --Heartrazor
 LBIS:AddItem(spec2, "32027", LBIS.L["Off Hand"], "BIS") --Merciless Gladiator's Quickblade
-LBIS:AddItem(spec2, "32046", LBIS.L["Off Hand"], "BIS") --Merciless Gladiator's Shiv
 LBIS:AddItem(spec2, "28307", LBIS.L["Off Hand"], "Alt") --Gladiator's Quickblade
+LBIS:AddItem(spec2, "29151", LBIS.L["Off Hand"], "Alt") --Veteran's Musket
+LBIS:AddItem(spec2, "29152", LBIS.L["Off Hand"], "Alt") --Marksman's Bow
 LBIS:AddItem(spec2, "28189", LBIS.L["Off Hand"], "Alt") --Latro's Shifting Sword
+LBIS:AddItem(spec2, "30724", LBIS.L["Off Hand"], "Alt") --Barrel-Blade Longrifle
+LBIS:AddItem(spec2, "32046", LBIS.L["Off Hand"], "Alt") --Merciless Gladiator's Shiv
+LBIS:AddItem(spec2, "28772", LBIS.L["Off Hand"], "Alt") --Sunfury Bow of the Phoenix
 LBIS:AddItem(spec2, "29275", LBIS.L["Off Hand"], "Alt") --Searing Sunblade
 LBIS:AddItem(spec2, "29949", LBIS.L["Ranged/Relic"], "BIS") --Arcanite Steam-Pistol
-LBIS:AddItem(spec2, "29151", LBIS.L["Ranged/Relic"], "Alt") --Veteran's Musket
-LBIS:AddItem(spec2, "29152", LBIS.L["Ranged/Relic"], "Alt") --Marksman's Bow
-LBIS:AddItem(spec2, "30724", LBIS.L["Ranged/Relic"], "Alt") --Barrel-Blade Longrifle
-LBIS:AddItem(spec2, "28772", LBIS.L["Ranged/Relic"], "Alt") --Sunfury Bow of the Phoenix
 
 LBIS:AddItem(spec3, "32235", LBIS.L["Head"], "BIS") --Cursed Vision of Sargeras
 LBIS:AddItem(spec3, "31027", LBIS.L["Head"], "Alt") --Slayer's Helm
