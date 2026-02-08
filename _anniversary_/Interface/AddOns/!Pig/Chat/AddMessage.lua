@@ -245,9 +245,6 @@ end
 ---
 function QuickChatfun.PIGMessage()
 	hooksecurefunc("SetItemRef", function(text,link, button, chatFrame)
-		-- print(text)
-		-- local newTextxx = link:gsub("|", "||")
-		-- print(newTextxx)
 		if not PIGA["Chat"]["ShowZb"] and not PIGA["Chat"]["FastCopy"] then return end
 		if ( strsub(text, 1, 11) ~= "garrmission" ) then return end
 		local nametext = strsub(text, 13);
@@ -338,9 +335,12 @@ function QuickChatfun.PIGMessage()
 	end
 	jiluoldmsgfun()
 	local function NewAddMessage(msninfo,frame, text, ...)
+		-- print(text)
 		--local text=text:gsub("|cff%w%w%w%w%w%w|Hmount:.-|h%[","");				
 		--if i==1 then table.insert(PIGA["xxxxxx"],text) end
 		--PIG_ChatFrameKeyWord:AddMessage(...);
+		-- local newTextxx = link:gsub("|", "||")
+		-- print(newTextxx)
 		if text and text~="" and text:match("player") then
 			if text:match("Hitem:") and PIGA["Chat"]["ShowLinkLV"] then
 				GetMsgItemLists(text,msninfo,frame,{...})

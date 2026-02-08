@@ -4,7 +4,9 @@ local L=addonTable.locale
 local Create=addonTable.Create
 local PIGFrame=Create.PIGFrame
 local PIGButton=Create.PIGButton
+local PIGDiyBut=Create.PIGDiyBut
 local PIGSlider = Create.PIGSlider
+local PIGDownMenu=Create.PIGDownMenu
 local PIGCheckbutton=Create.PIGCheckbutton
 local PIGCheckbutton_R=Create.PIGCheckbutton_R
 local PIGOptionsList=Create.PIGOptionsList
@@ -15,6 +17,7 @@ local PIGFontStringBG=Create.PIGFontStringBG
 --
 local Fun=addonTable.Fun
 local Data=addonTable.Data
+local AudioData=addonTable.AudioList.Data
 ---
 local fuFrame = PIGOptionsList(L["FRAMEP_TABNAME"],"TOP")
 --
@@ -25,8 +28,57 @@ addonTable.FramePlusfun=FramePlusfun
 --
 local FramePlusF,FramePlustabbut =PIGOptionsList_R(RTabFrame,GENERAL,70)
 FramePlusF:Show()
-FramePlustabbut:Selected()
-----------------------
+FramePlustabbut:Selected(true)
+---任务提示音
+FramePlusF.QuestsEnd =PIGCheckbutton_R(FramePlusF,{"任务完成提示音","任务完成提示音"},true)
+FramePlusF.QuestsEnd:SetScript("OnClick", function (self)
+	if self:GetChecked() then
+		PIGA["Common"]["QuestsEnd"]=true;	
+	else
+		PIGA["Common"]["QuestsEnd"]=false;
+	end
+	CommonInfo.Commonfun.QuestsEnd()
+end);
+FramePlusF.QuestsEnd.xiala=PIGDownMenu(FramePlusF.QuestsEnd,{"LEFT",FramePlusF.QuestsEnd.Text, "RIGHT", 4,0},{180,24})
+function FramePlusF.QuestsEnd.xiala:PIGDownMenu_Update_But()
+	local info = {}
+	info.func = self.PIGDownMenu_SetValue
+	for i=1,#AudioData.QuestEnd,1 do
+	    info.text, info.arg1 = AudioData.QuestEnd[i][1], i
+	    info.checked = i==PIGA["Common"]["QuestsEndAudio"]
+		self:PIGDownMenu_AddButton(info)
+	end 
+end
+function FramePlusF.QuestsEnd.xiala:PIGDownMenu_SetValue(value,arg1)
+	self:PIGDownMenu_SetText(value)
+	PIGA["Common"]["QuestsEndAudio"]=arg1
+	PIGCloseDropDownMenus()
+end
+FramePlusF.QuestsEnd.PlayBut =PIGDiyBut(FramePlusF.QuestsEnd,{"LEFT",FramePlusF.QuestsEnd.xiala,"RIGHT",8,0},{24,24,nil,nil,"chatframe-button-icon-speaker-on",130757});
+FramePlusF.QuestsEnd.PlayBut:SetScript("OnClick", function()
+	PIG_PlaySoundFile(AudioData.QuestEnd[PIGA["Common"]["QuestsEndAudio"]])
+end)
+FramePlusF.QuestLevel = PIGCheckbutton_R(FramePlusF,{"任务界面显示任务等级"},true)
+FramePlusF.QuestLevel:SetScript("OnClick", function (self)
+	if self:GetChecked() then
+		PIGA["FramePlus"]["QuestLevel"]=true;
+		FramePlusfun.QuestLevel()
+	else
+		PIGA["FramePlus"]["QuestLevel"]=false
+		PIG_OptionsUI.RLUI:Show()
+	end
+end);
+FramePlusF.QuestSellMax = PIGCheckbutton_R(FramePlusF,{"任务奖励显示最贵卖价"},true)
+FramePlusF.QuestSellMax:SetScript("OnClick", function (self)
+	if self:GetChecked() then
+		PIGA["FramePlus"]["QuestSellMax"]=true;
+		FramePlusfun.QuestSellMax()
+	else
+		PIGA["FramePlus"]["QuestSellMax"]=false
+		PIG_OptionsUI.RLUI:Show()
+	end
+end);
+----
 FramePlusF.BuffTime = PIGCheckbutton_R(FramePlusF,{"优化自身BUFF时间显示","精确显示自身BUFF/DEBUFF时间"},true)
 FramePlusF.BuffTime:SetScript("OnClick", function (self)
 	if self:GetChecked() then
@@ -57,8 +109,20 @@ FramePlusF.GemUIplus:SetScript("OnClick", function (self)
 	end
 	PIG_OptionsUI.RLUI:Show()
 end);
+if PIG_MaxTocversion(60000) then
+	FramePlusF.NoUseSpell = PIGCheckbutton_R(FramePlusF,{"未使用技能提示","技能页增加未使用技能提示"},true)
+	FramePlusF.NoUseSpell:SetScript("OnClick", function (self)
+		if self:GetChecked() then
+			PIGA["FramePlus"]["NoUseSpell"]=true;
+			FramePlusfun.NoUseSpell()
+		else
+			PIGA["FramePlus"]["NoUseSpell"]=false
+			PIG_OptionsUI.RLUI:Show()
+		end
+	end)
+end
 if PIG_MaxTocversion(40000) then
-	FramePlusF.Spell = PIGCheckbutton_R(FramePlusF,{"未学习/未使用技能提示","技能页增加未学习/未使用技能提示"},true)
+	FramePlusF.Spell = PIGCheckbutton_R(FramePlusF,{"未学习技能提示","技能页增加未学习技能提示"},true)
 	FramePlusF.Spell:SetScript("OnClick", function (self)
 		if self:GetChecked() then
 			PIGA["FramePlus"]["SpellOpen"]=true;
@@ -86,7 +150,12 @@ end
 FramePlusF:HookScript("OnShow", function(self)
 	self.BuffTime:SetChecked(PIGA["FramePlus"]["BuffTime"])
 	self.Skill_QKbut:SetChecked(PIGA["FramePlus"]["Skill_QKbut"])
+	self.QuestLevel:SetChecked(PIGA["FramePlus"]["QuestLevel"])
+	self.QuestSellMax:SetChecked(PIGA["FramePlus"]["QuestSellMax"])
 	self.GemUIplus:SetChecked(PIGA["FramePlus"]["GemUIplus"])
+	self.QuestsEnd:SetChecked(PIGA["Common"]["QuestsEnd"]);
+	self.QuestsEnd.xiala:PIGDownMenu_SetText(AudioData.QuestEnd[PIGA["Common"]["QuestsEndAudio"]][1])
+	if self.NoUseSpell then self.NoUseSpell:SetChecked(PIGA["FramePlus"]["NoUseSpell"]) end
 	if self.Spell then self.Spell:SetChecked(PIGA["FramePlus"]["SpellOpen"]) end
 	if self.Tracking then self.Tracking:SetChecked(PIGA["FramePlus"]["Tracking"]) end
 end)
@@ -124,23 +193,7 @@ FrameExtF.Macro:SetScript("OnClick", function (self)
 end)
 ---
 if PIG_MaxTocversion() then
-	FrameExtF.Quest = PIGCheckbutton_R(FrameExtF,{"任务界面扩展",""},true)
-	if PIG_MaxTocversion(30000) then
-		FrameExtF.Quest.tooltip= "扩展任务界面为两列,左边任务列表，右边任务详情,显示任务等级\n提示任务奖励最贵物品";
-	else
-		FrameExtF.Quest.tooltip= "任务列表显示任务等级\n提示任务奖励最贵物品";
-	end
-	FrameExtF.Quest:SetScript("OnClick", function (self)
-		if self:GetChecked() then
-			PIGA["FramePlus"]["Quest"]=true;
-			FramePlusfun.Quest()
-		else
-			PIGA["FramePlus"]["Quest"]=false
-			PIG_OptionsUI.RLUI:Show()
-		end
-	end);
-	--
-	FrameExtF.Skill = PIGCheckbutton_R(FrameExtF,{"专业界面扩展","扩展专业技能界面为两列；左边配方列表，右边配方详情"},true)
+	FrameExtF.Skill = PIGCheckbutton_R(FrameExtF,{TRADE_SKILLS.."界面扩展","扩展"..TRADE_SKILLS.."界面为两列"},true)
 	FrameExtF.Skill:SetScript("OnClick", function (self)
 		if self:GetChecked() then
 			PIGA["FramePlus"]["Skill"]=true;
@@ -150,23 +203,38 @@ if PIG_MaxTocversion() then
 			PIG_OptionsUI.RLUI:Show()
 		end
 	end)
-	if PIG_MaxTocversion(40000) then
-		FrameExtF.Trainer = PIGCheckbutton_R(FrameExtF,{"训练师界面扩展","扩展训练师界面为两列"},true)
-		FrameExtF.Trainer:SetScript("OnClick", function (self)
+	FrameExtF.Trainer = PIGCheckbutton_R(FrameExtF,{"训练师界面扩展","扩展训练师界面为两列"},true)
+	FrameExtF.Trainer:SetScript("OnClick", function (self)
+		if self:GetChecked() then
+			PIGA["FramePlus"]["Trainer"]=true;
+			FramePlusfun.Trainer()
+		else
+			PIGA["FramePlus"]["Trainer"]=false
+			PIG_OptionsUI.RLUI:Show()
+		end
+	end)
+	if PIG_MaxTocversion() then
+		local Questtooltip= "扩展"..QUESTS_LABEL.."界面为两列";
+		if PIG_MaxTocversion(29999,true) then
+			Questtooltip= "增加全部展开/折叠按钮";
+		end
+		FrameExtF.Quest = PIGCheckbutton_R(FrameExtF,{QUESTS_LABEL.."界面扩展","扩展"..QUESTS_LABEL.."界面为两列"},true)
+		FrameExtF.Quest:SetScript("OnClick", function (self)
 			if self:GetChecked() then
-				PIGA["FramePlus"]["Trainer"]=true;
-				FramePlusfun.Trainer()
+				PIGA["FramePlus"]["Quest"]=true;
+				FramePlusfun.Quest()
 			else
-				PIGA["FramePlus"]["Trainer"]=false
+				PIGA["FramePlus"]["Quest"]=false
 				PIG_OptionsUI.RLUI:Show()
 			end
-		end)
-		FrameExtF.Talent = PIGCheckbutton_R(FrameExtF,{"天赋界面扩展"," "},true)
-		if PIG_MaxTocversion(30000) then
-			FrameExtF.Talent.tooltip= "在一页显示三系天赋";
-		else
-			FrameExtF.Talent.tooltip= "在一页显示三系天赋和雕文";
+		end);
+	end
+	if PIG_MaxTocversion(40000) then
+		local Talenttooltip= "在一页显示三系天赋";
+		if PIG_MaxTocversion(29999,true) then
+			Talenttooltip= Talenttooltip.."和雕文";
 		end
+		FrameExtF.Talent = PIGCheckbutton_R(FrameExtF,{TALENT.."界面扩展",Talenttooltip},true)
 		FrameExtF.Talent:SetScript("OnClick", function (self)
 			if self:GetChecked() then
 				PIGA["FramePlus"]["Talent"]=true;
@@ -176,7 +244,7 @@ if PIG_MaxTocversion() then
 				PIG_OptionsUI.RLUI:Show()
 			end
 		end)
-	end
+	end	
 end
 FrameExtF:HookScript("OnShow", function(self)
 	self.Merchant:SetChecked(PIGA["FramePlus"]["Merchant"])
@@ -234,10 +302,8 @@ end)
 
 --角色信息UI扩展
 local newText=Fun.Delmaohaobiaodain(REPAIR_COST)
-if PIG_MaxTocversion(30000) then
+if PIG_MaxTocversion(40000) then
 	CharacterF.Shuxingtishi=CHARACTER_INFO.."扩展("..PAPERDOLL_SIDEBAR_STATS.."/"..EQUIPMENT_MANAGER.."/"..newText.."/"..COMBAT_RATING_NAME6.."说明"..")"
-elseif PIG_MaxTocversion(40000) then
-	CharacterF.Shuxingtishi=CHARACTER_INFO.."扩展("..EQUIPMENT_MANAGER.."/"..newText.."/"..COMBAT_RATING_NAME6.."说明"..")"
 elseif PIG_MaxTocversion() then
 	CharacterF.Shuxingtishi="常驻"..DISPLAY..PAPERDOLL_SIDEBAR_STATS
 else
@@ -320,7 +386,7 @@ if PIG_MaxTocversion() then
 	LootRollF.Debug:SetScript("OnClick", function (self)
 		ISopenUI(FramePlusfun.RollDebugUI)
 	end)
-	LootRollF.CZ = PIGButton(LootRollF,{"LEFT", LootRollF.Debug,"RIGHT",40,0},{50,22},"重置")
+	LootRollF.CZ = PIGButton(LootRollF,{"LEFT", LootRollF.Debug,"RIGHT",40,0},{50,22},RESET)
 	LootRollF.CZ:SetScript("OnClick", function (self)
 		PIGA["FramePlus"]["RollScale"]=addonTable.Default["FramePlus"]["RollScale"]
 		LootRollF.Roll.Slider:PIGSetValue(PIGA["FramePlus"]["RollScale"])
@@ -385,10 +451,11 @@ local BlizzardUIList={
 	{false, nil, "LootFrame",nil,"掉落列表"},
 	{false, nil, "WorldMapFrame",nil,"世界地图"},
 	{false, nil, "WorldMapFrame", "WorldMapTitleButton", "世界地图(mini模式)"},
+	{false, nil, "TradeFrame",nil, "交易界面"},
 	{false, nil, "GameMenuFrame",nil, "ESC菜单"},
 	{false, nil, "SettingsPanel",nil, "设置选项"},
 	{false, nil, "HelpFrame",nil, "客服支持"},
-	{false, nil, "ContainerFrameCombinedBags",{"ContainerFrameCombinedBags","TitleContainer"}, "整合背包"},
+	{false, nil, "ContainerFrameCombinedBags",{"ContainerFrameCombinedBags","TitleContainer"}, "整合背包",true},
 	{false, "Blizzard_MacroUI","MacroFrame",nil,"宏命令"},
 	{false, "Blizzard_AchievementUI","AchievementFrame",{"AchievementFrame","Header"},"成就"},
 	{false, "Blizzard_Communities","CommunitiesFrame",nil,"公会与社区"},
@@ -431,7 +498,7 @@ FrameMovF.MoveF.BlizzardUI_Move.Save:SetScript("OnClick", function (self)
 		PIGA["FramePlus"]["BlizzardUI_Move_Save"]=false
 	end
 end);
-FrameMovF.MoveF.CZ = PIGButton(FrameMovF.MoveF,{"BOTTOMRIGHT",FrameMovF.MoveF,"TOPRIGHT",0,2},{170,22},"重置暴雪界面位置/缩放")
+FrameMovF.MoveF.CZ = PIGButton(FrameMovF.MoveF,{"BOTTOMRIGHT",FrameMovF.MoveF,"TOPRIGHT",-2,2},{170,20},"重置暴雪界面位置/缩放")
 FrameMovF.MoveF.CZ:SetScript("OnClick", function ()
 	PIGA["Blizzard_UI"]=addonTable.Default["Blizzard_UI"]
 	PIGA["FramePlus"]["BlizzardUI_Not"]=addonTable.Default["BlizzardUI_Not"]
@@ -529,6 +596,9 @@ end);
 
 --==================================
 addonTable.FramePlus = function()
+	FramePlusfun.QuestsEnd()
+	FramePlusfun.QuestLevel()
+	FramePlusfun.QuestSellMax()
 	FramePlusfun.BuffTime()
 	FramePlusfun.Skill_QKbut()
 	FramePlusfun.Tracking()
@@ -542,6 +612,7 @@ addonTable.FramePlus = function()
 	FramePlusfun.Quest()
 	FramePlusfun.Skill()
 	FramePlusfun.Trainer()
+	FramePlusfun.NoUseSpell()
 	FramePlusfun.Spell()
 	FramePlusfun.Character_ADD()
 	FramePlusfun.Talent()

@@ -35,14 +35,14 @@ function BG.ReceiveTitleUI(FB, t, b, bb, i, ii)
     else
         version:SetPoint("TOPLEFT", frameright, "TOPLEFT", 100, 0)
     end
-    version:SetFont(STANDARD_TEXT_FONT, fontsize, "OUTLINE")
+    version:SetFont(BIAOGE_TEXT_FONT, fontsize, "OUTLINE")
     version:SetTextColor(RGB(BG.y2))
     version:SetText(L["  项目"])
     preWidget = version
 
     local version = BG["ReceiveFrame" .. FB]:CreateFontString()
     version:SetPoint("TOPLEFT", preWidget, "TOPLEFT", 70, 0);
-    version:SetFont(STANDARD_TEXT_FONT, fontsize, "OUTLINE")
+    version:SetFont(BIAOGE_TEXT_FONT, fontsize, "OUTLINE")
     version:SetTextColor(RGB(BG.y2))
     version:SetText(L["装备"])
     preWidget = version
@@ -50,14 +50,14 @@ function BG.ReceiveTitleUI(FB, t, b, bb, i, ii)
 
     local version = BG["ReceiveFrame" .. FB]:CreateFontString()
     version:SetPoint("TOPLEFT", preWidget, "TOPLEFT", BG.zhuangbeiWidth+5, 0);
-    version:SetFont(STANDARD_TEXT_FONT, fontsize, "OUTLINE")
+    version:SetFont(BIAOGE_TEXT_FONT, fontsize, "OUTLINE")
     version:SetTextColor(RGB(BG.y2))
     version:SetText(L["买家"])
     preWidget = version
 
     local version = BG["ReceiveFrame" .. FB]:CreateFontString()
     version:SetPoint("TOPLEFT", preWidget, "TOPLEFT", BG.maijiaWidth+5, 0);
-    version:SetFont(STANDARD_TEXT_FONT, fontsize, "OUTLINE")
+    version:SetFont(BIAOGE_TEXT_FONT, fontsize, "OUTLINE")
     version:SetTextColor(RGB(BG.y2))
     version:SetText(L["金额"])
     preWidget = version

@@ -28,7 +28,7 @@ QuickChatfun.RTabFrame=RTabFrame
 --
 local ChatF,Chattabbut =PIGOptionsList_R(RTabFrame,L["CHAT_TABNAME1"],70)
 ChatF:Show()
-Chattabbut:Selected()
+Chattabbut:Selected(true)
 --（关闭语言过滤器）
 local function guanbiGuolv()
 	--if PIGA["Chat"]["Guolv"] then return end
@@ -417,7 +417,11 @@ local function WhoWhisper_Fun()
 		end)
 		button.senmsgFun=true
 	end
-	WhoFrame.senmsg.bianji.F=PIGFrame(WhoFrame.senmsg.bianji,{"TOPLEFT",WhoFrame.senmsg.bianji,"TOPRIGHT",4,0},{300,200},nil,nil,nil,{["ElvUI"]={0,0,0,0},["NDui"]={0,0,0,0}})
+	local EextData={
+		["ElvUI"]={true,{0,0,0,0}},
+		["NDui"]={Fun.IsNDui("Skins","BlizzardSkins"),{0,0,0,0}},
+	}
+	WhoFrame.senmsg.bianji.F=PIGFrame(WhoFrame.senmsg.bianji,{"TOPLEFT",WhoFrame.senmsg.bianji,"TOPRIGHT",4,0},{300,200},nil,nil,nil,EextData)
 	WhoFrame.senmsg.bianji.F:PIGSetBackdrop(1)
 	WhoFrame.senmsg.bianji.F:PIGClose()
 	WhoFrame.senmsg.bianji.F:Hide()
@@ -822,7 +826,6 @@ local function GetNextPindao(NewType)
 		end
 	end
 end
-
 local function chaxunxiayipindao(currChatType)
 	local pindaoNum = #TABpindaoList
 	for i=1,pindaoNum do
@@ -841,6 +844,10 @@ local function chaxunxiayipindao(currChatType)
 	return TABpindaoList[1]
 end
 ChatFrame1EditBox:HookScript("OnKeyDown",function(self,key)
+	local _, _, difficultyID= GetInstanceInfo()
+	if difficultyID==8 or difficultyID==16 or difficultyID==23 or difficultyID==40 then
+		return
+	end
 	if key=="TAB" then
 		if PIGA["Chat"]["TABqiehuanOpen"] then
 			if #TABpindaoList==0 then return end
@@ -865,7 +872,6 @@ ChatFrame1EditBox:HookScript("OnKeyDown",function(self,key)
 		end
 	end
 end)
-
 local function TABchatPindao()
 	local chatpindao = {GetChatWindowMessages(1)}
 	local chatpindaoList = {}

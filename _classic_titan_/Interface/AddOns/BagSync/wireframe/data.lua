@@ -6,8 +6,9 @@
 		License included with addon.
 --]]
 
-local BSYC = select(2, ...) --grab the addon namespace
+local ADDON_NAME, BSYC = ... --grab the addon namespace
 local Data = BSYC:NewModule("Data")
+local UI = BSYC:GetModule("UI")
 local hasMark = BSYC.hasMark
 local Unit = BSYC:GetModule("Unit")
 local L = BSYC.L
@@ -33,6 +34,7 @@ local optionsDefaults = {
 	showTotal = true,
 	enableUnitClass = true,
 	enableMinimap = true,
+	enableAddonCompartment = true,
 	enableFaction = true,
 	tooltipOnlySearch = false,
 	enableTooltips = true,
@@ -69,6 +71,7 @@ local optionsDefaults = {
 	extTT_FontSize = 12,
 	extTT_FontOutline = "OUTLINE",
 	extTT_FontMonochrome = false,
+	extTT_Anchor = "BOTTOM",
 	enable_GSC_Display = false,
 	enableCurrentRealmName = false,
 	enableCurrentRealmShortName = false,
@@ -79,6 +82,7 @@ local optionsDefaults = {
 	sortCurrencyByExpansion = true,
 	showBNETCRInfoWindow = true,
 	sortShowCurrentPlayerOnTop = false,
+	cacheThrottle = "slow",
 }
 
 local colorsDefaults = {
@@ -124,6 +128,9 @@ Data.__cache.tooltipCount = 0
 Data.__cache.ignore = {}
 Data.__cache.pending = Data.__cache.pending or {}
 Data.__cache.itemCacheRun = Data.__cache.itemCacheRun or nil
+Data.__cache.throttleMode = Data.__cache.throttleMode or "background"
+Data.__cache.backgroundThrottle = Data.__cache.backgroundThrottle or nil
+Data.__cache.rampIndex = Data.__cache.rampIndex or 1
 
 local ITEMCACHE_ALLOW_LIST = {
 	bag = true,
@@ -135,6 +142,55 @@ local ITEMCACHE_ALLOW_LIST = {
 	auction = true,
 	equipbags = true,
 }
+
+-- Item cache throttle tiers (batch size / tick delay):
+-- background: 8 per 0.30s (~27 items/sec) for login idle
+-- medium: 30 per 0.15s (~200 items/sec) for search window open
+-- full: 60 per 0.10s (~600 items/sec) for active searches
+-- Optional ramp idea (every 90s, gentle steps to avoid FPS spikes):
+-- 8 per 0.30s (~27/sec) -> 12 per 0.26s (~46/sec) -> 16 per 0.24s (~67/sec) -> 20 per 0.22s (~91/sec)
+local ITEMCACHE_THROTTLE = {
+	-- batch = items processed per tick
+	-- tick = delay between ticks within a pass (seconds)
+	-- pass = delay between passes (seconds)
+	background = { batch = 8, tick = 0.30, pass = 0.60 },
+	medium = { batch = 30, tick = 0.15, pass = 0.30 },
+	full = { batch = 60, tick = 0.10, pass = 0.20 },
+}
+
+-- Background ramp (safe cap for FPS); advances every 90s while in background mode
+local ITEMCACHE_RAMP_INTERVAL = 90
+local ITEMCACHE_RAMP_STEPS = {
+	{ batch = 8, tick = 0.30, pass = 0.60 }, -- ~27/sec
+	{ batch = 12, tick = 0.26, pass = 0.52 }, -- ~46/sec
+	{ batch = 16, tick = 0.24, pass = 0.48 }, -- ~67/sec
+	{ batch = 20, tick = 0.22, pass = 0.44 }, -- ~91/sec (cap)
+}
+
+local CACHE_SPEED_MODES = {
+	slow = "background",
+	medium = "medium",
+	fast = "full",
+	disabled = "background",  --this is a fallback, not an actual mapping...
+}
+
+local function GetThrottleConfig(mode)
+	if mode == "background" and Data.__cache.backgroundThrottle then
+		return Data.__cache.backgroundThrottle
+	end
+	return ITEMCACHE_THROTTLE[mode] or ITEMCACHE_THROTTLE.background
+end
+
+local function GetCacheRemaining(run)
+	if not run or not run.running then return 0 end
+	local remaining = 0
+	if run.queue then
+		local curRemaining = #run.queue - (run.pos or 1) + 1
+		if curRemaining < 0 then curRemaining = 0 end
+		remaining = curRemaining + (#run.nextQueue or 0)
+	end
+	return remaining
+end
 
 ----------------------
 --   DB Functions   --
@@ -210,7 +266,9 @@ function Data:OnEnable()
 	self:ShowInfoWindow()
 
 	if BSYC.options.enableLoginVersionInfo then
-		BSYC:Print("[v|cFF20ff20"..ver.."|r] /bgs, /bagsync")
+		local getMeta = (C_AddOns and C_AddOns.GetAddOnMetadata) or GetAddOnMetadata
+		local ver = (type(getMeta) == "function" and getMeta(ADDON_NAME, "Version")) or "1.0"
+		BSYC:Print(string.format("[v|cFF20ff20%s|r] loaded:   /bgs, /bagsync", ver))
 	end
 	if BSYC.options.debug.enable then
 		BSYC:Print(L.DebugWarning)
@@ -223,37 +281,36 @@ end
 function Data:ShowInfoWindow()
 	if BSYC.options.showBNETCRInfoWindow == false then return end
 
-	local bgsInfoWindow = _G.CreateFrame("Frame", nil, UIParent, "BagSyncInfoFrameTemplate")
-	bgsInfoWindow:SetHeight(500)
-	bgsInfoWindow:SetWidth(500)
-	bgsInfoWindow:SetBackdropColor(0, 0, 0, 0.75)
-	bgsInfoWindow:EnableMouse(true) --don't allow clickthrough
-	bgsInfoWindow:SetMovable(false)
-	bgsInfoWindow:SetResizable(false)
-	bgsInfoWindow:SetFrameStrata("FULLSCREEN_DIALOG")
-	bgsInfoWindow:ClearAllPoints()
-	bgsInfoWindow:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
-	bgsInfoWindow.TitleText:SetText("BagSync")
-	bgsInfoWindow.TitleText:SetFont(STANDARD_TEXT_FONT, 14, "")
-	bgsInfoWindow.TitleText:SetTextColor(1, 1, 1)
-	bgsInfoWindow.infoText1 = bgsInfoWindow:CreateFontString(nil, "BACKGROUND", "GameFontHighlightSmall")
-	bgsInfoWindow.infoText1:SetText(L.BagSyncInfoWindow.."\n"..L.DisplayBNET)
-	bgsInfoWindow.infoText1:SetFont(STANDARD_TEXT_FONT, 14, "")
-	bgsInfoWindow.infoText1:SetTextColor(1, 1, 1)
-	bgsInfoWindow.infoText1:SetJustifyH("CENTER")
-	bgsInfoWindow.infoText1:SetWidth(bgsInfoWindow:GetWidth() - 30)
-	bgsInfoWindow.infoText1:SetPoint("CENTER", bgsInfoWindow, "CENTER", 0, 0)
-	bgsInfoWindow.okBTN = _G.CreateFrame("Button", nil, bgsInfoWindow, "UIPanelButtonTemplate")
-	bgsInfoWindow.okBTN:SetText(OKAY)
-	bgsInfoWindow.okBTN:SetWidth(100)
-	bgsInfoWindow.okBTN:SetHeight(30)
-	bgsInfoWindow.okBTN:SetPoint("RIGHT", bgsInfoWindow, "BOTTOMRIGHT", -10, 23)
-	bgsInfoWindow.okBTN:SetScript("OnClick", function() BSYC.options.showBNETCRInfoWindow = false; bgsInfoWindow:Hide()  end)
+	local bgsInfoWindow = UI:CreateInfoFrame(UIParent, {
+		title = "BagSync",
+		width = 500,
+		height = 500,
+		point = { "CENTER", UIParent, "CENTER", 0, 0 },
+		backdropColor = { 0, 0, 0, 0.75 },
+		frameStrata = "FULLSCREEN_DIALOG",
+	})
+	bgsInfoWindow.infoText1 = UI:CreateFontString(bgsInfoWindow, {
+		template = "GameFontHighlightSmall",
+		text = L.BagSyncInfoWindow.."\n"..L.DisplayBNET,
+		font = { STANDARD_TEXT_FONT, 14, "" },
+		textColor = { 1, 1, 1 },
+		justifyH = "CENTER",
+		width = bgsInfoWindow:GetWidth() - 30,
+		point = { "CENTER", bgsInfoWindow, "CENTER", 0, 0 },
+	})
+	bgsInfoWindow.okBTN = UI:CreateButton(bgsInfoWindow, {
+		template = "UIPanelButtonTemplate",
+		text = OKAY,
+		width = 100,
+		height = 30,
+		point = { "RIGHT", bgsInfoWindow, "BOTTOMRIGHT", -10, 23 },
+		onClick = function()
+			BSYC.options.showBNETCRInfoWindow = false
+			bgsInfoWindow:Hide()
+		end,
+	})
 
 	bgsInfoWindow.CloseButton:Hide()
-	if bgsInfoWindow.CloseButton then
-		bgsInfoWindow.CloseButton:SetScript("OnClick", function(self) self:GetParent():Hide() end)
-	end
 	bgsInfoWindow:Show()
 end
 
@@ -273,6 +330,28 @@ function Data:FixDB()
 		if BSYC.options[legacyKey] ~= nil then
 			BSYC.options.alwaysShowSearchFilters = BSYC.options[legacyKey]
 			BSYC.options[legacyKey] = nil
+		end
+	end
+
+	-- ensure new ext tooltip anchor option is present
+	do
+		if BSYC.options.extTT_Anchor == nil then
+			BSYC.options.extTT_Anchor = optionsDefaults.extTT_Anchor
+		end
+	end
+
+	-- ensure addon compartment option is present
+	do
+		if BSYC.options.enableAddonCompartment == nil then
+			BSYC.options.enableAddonCompartment = optionsDefaults.enableAddonCompartment
+		end
+	end
+
+	-- ensure cache throttle setting is present
+	do
+		local speed = BSYC.options.cacheThrottle
+		if speed ~= "slow" and speed ~= "medium" and speed ~= "fast" and speed ~= "disabled" then
+			BSYC.options.cacheThrottle = optionsDefaults.cacheThrottle
 		end
 	end
 
@@ -376,30 +455,37 @@ function Data:LoadSlashCommand()
 		local cmd, args = strlower(parts[1] or ""), table.concat(parts, " ", 2)
 
 		if string.len(cmd) > 0 then
+			local function showModuleFrame(name)
+				local module = BSYC:GetModule(name, true)
+				if module and module.frame and module.frame.Show then
+					module.frame:Show()
+					return module
+				end
+			end
 
 			if cmd == L.SlashSearch then
-				BSYC:GetModule("Search").frame:Show()
+				showModuleFrame("Search")
 				return true
 			elseif cmd == L.SlashGold or cmd == L.SlashMoney then
-				BSYC:GetModule("Gold").frame:Show()
+				showModuleFrame("Gold")
 				return true
 			elseif cmd == L.SlashCurrency and BSYC:CanDoCurrency() and BSYC.tracking.currency then
-				BSYC:GetModule("Currency").frame:Show()
+				showModuleFrame("Currency")
 				return true
 			elseif cmd == L.SlashProfiles then
-				BSYC:GetModule("Profiles").frame:Show()
+				showModuleFrame("Profiles")
 				return true
 			elseif cmd == L.SlashProfessions and BSYC:CanDoProfessions() and BSYC.tracking.professions then
-				BSYC:GetModule("Professions").frame:Show()
+				showModuleFrame("Professions")
 				return true
 			elseif cmd == L.SlashBlacklist then
-				BSYC:GetModule("Blacklist").frame:Show()
+				showModuleFrame("Blacklist")
 				return true
 			elseif cmd == L.SlashWhitelist then
-				BSYC:GetModule("Whitelist").frame:Show()
+				showModuleFrame("Whitelist")
 				return true
 			elseif cmd == L.SlashSortOrder then
-				BSYC:GetModule("SortOrder").frame:Show()
+				showModuleFrame("SortOrder")
 				return true
 			elseif cmd == L.SlashFixDB then
 				self:FixDB()
@@ -414,14 +500,18 @@ function Data:LoadSlashCommand()
 				BSYC:OpenConfig()
 				return true
 			elseif cmd == L.SlashDebug then
-				BSYC:GetModule("Debug").frame:Show()
+				showModuleFrame("Debug")
 				return true
 			else
 				--do an item search, use the full command to search
-				BSYC:GetModule("Search").frame:Show()
-				BSYC:GetModule("Search").frame.SearchBox:SetText(input)
-				BSYC:GetModule("Search").frame.SearchBox.SearchInfo:Hide()
-				BSYC:GetModule("Search"):DoSearch()
+				local search = showModuleFrame("Search")
+				if search and search.frame and search.frame.SearchBox then
+					search.frame.SearchBox:SetText(input)
+					if search.frame.SearchBox.SearchInfo then
+						search.frame.SearchBox.SearchInfo:Hide()
+					end
+					search:DoSearch()
+				end
 				return true
 			end
 
@@ -613,8 +703,8 @@ function Data:CacheLink(parseLink)
 				end
 			end
 
-			local xGetItemInfo = (BSYC.API and BSYC.API.GetItemInfo) or GetItemInfo
-			itemName, itemLink, itemQuality, itemLevel, itemMinLevel, itemType, itemSubType, itemStackCount, itemEquipLoc, itemTexture, sellPrice, classID, subclassID, bindType, expacID, setID, isCraftingReagent = xGetItemInfo(shortID)
+			local getItemInfo = BSYC.API and BSYC.API.GetItemInfo
+			itemName, itemLink, itemQuality, itemLevel, itemMinLevel, itemType, itemSubType, itemStackCount, itemEquipLoc, itemTexture, sellPrice, classID, subclassID, bindType, expacID, setID, isCraftingReagent = getItemInfo(shortID)
 
 			--if we are missing itemName and itemLink then request it (retail async cache)
 			if not itemName or not itemLink then
@@ -655,10 +745,133 @@ function Data:CacheLink(parseLink)
 	return nil
 end
 
-local ITEMCACHE_BATCH_SIZE = 200
+function Data:StopBackgroundRamp()
+	BSYC:StopTimer("DataCacheRamp")
+end
+
+function Data:AdvanceBackgroundRamp()
+	if Data:GetCacheThrottle() ~= "background" then return end
+
+	local idx = Data.__cache.rampIndex or 1
+	if idx < #ITEMCACHE_RAMP_STEPS then
+		idx = idx + 1
+		Data.__cache.rampIndex = idx
+		Data.__cache.backgroundThrottle = ITEMCACHE_RAMP_STEPS[idx]
+		Debug(BSYC_DL.SL2, "CacheThrottle-Ramp", "background", idx, "batch", Data.__cache.backgroundThrottle.batch, "tick", Data.__cache.backgroundThrottle.tick, "pass", Data.__cache.backgroundThrottle.pass)
+		Debug(BSYC_DL.SL3, "CacheThrottle-Remaining", GetCacheRemaining(Data.__cache.itemCacheRun))
+		Data:SetCacheThrottle("background")
+		BSYC:StartTimer("DataCacheRamp", ITEMCACHE_RAMP_INTERVAL, Data, "AdvanceBackgroundRamp")
+	end
+end
+
+function Data:StartBackgroundRamp()
+	Data.__cache.rampIndex = 1
+	Data.__cache.backgroundThrottle = ITEMCACHE_RAMP_STEPS[1]
+	Debug(BSYC_DL.SL2, "CacheThrottle-Ramp", "background", Data.__cache.rampIndex, "batch", Data.__cache.backgroundThrottle.batch, "tick", Data.__cache.backgroundThrottle.tick, "pass", Data.__cache.backgroundThrottle.pass)
+	Debug(BSYC_DL.SL3, "CacheThrottle-Remaining", GetCacheRemaining(Data.__cache.itemCacheRun))
+	Data:SetCacheThrottle("background")
+	BSYC:StartTimer("DataCacheRamp", ITEMCACHE_RAMP_INTERVAL, Data, "AdvanceBackgroundRamp")
+end
+
+function Data:GetCacheSpeedSetting()
+	local speed = BSYC.options and BSYC.options.cacheThrottle
+	if speed == "slow" or speed == "medium" or speed == "fast" or speed == "disabled" then
+		return speed
+	end
+	return "slow"
+end
+
+function Data:IsCacheDisabled()
+	return Data:GetCacheSpeedSetting() == "disabled"
+end
+
+function Data:GetCacheSpeedMode()
+	local speed = Data:GetCacheSpeedSetting()
+	return CACHE_SPEED_MODES[speed] or "background"
+end
+
+function Data:ApplyCacheSpeed()
+	local speed = Data:GetCacheSpeedSetting()
+	if speed == "disabled" then
+		Data:StopBackgroundRamp()
+		local run = Data.__cache.itemCacheRun
+		if run and run.running then
+			run.running = false
+			Data.__cache.itemCacheRun = nil
+		end
+		Data.__cache.throttleMode = "background"
+		return
+	end
+
+	if speed == "slow" then
+		Data:StartBackgroundRamp()
+		return
+	end
+
+	Data:StopBackgroundRamp()
+	Data:SetCacheThrottle(Data:GetCacheSpeedMode())
+end
+
+function Data:GetCacheThrottleInfo()
+	return {
+		throttle = ITEMCACHE_THROTTLE,
+		ramp = ITEMCACHE_RAMP_STEPS,
+		rampInterval = ITEMCACHE_RAMP_INTERVAL,
+	}
+end
+
+function Data:SetCacheThrottle(mode)
+	local throttleMode = ITEMCACHE_THROTTLE[mode] and mode or "background"
+	local cfg = GetThrottleConfig(throttleMode)
+	local prevMode = Data.__cache.throttleMode
+	Data.__cache.throttleMode = throttleMode
+
+	if prevMode ~= throttleMode then
+		Debug(BSYC_DL.SL2, "CacheThrottle-Mode", prevMode, "->", throttleMode, "batch", cfg.batch, "tick", cfg.tick, "pass", cfg.pass)
+		Debug(BSYC_DL.SL3, "CacheThrottle-Remaining", GetCacheRemaining(run))
+	end
+
+	local run = Data.__cache.itemCacheRun
+	if run and run.running then
+		run.batchSize = cfg.batch
+		run.tickDelay = cfg.tick
+		run.passDelay = cfg.pass
+		run.mode = Data.__cache.throttleMode
+	end
+
+	if throttleMode ~= "background" then
+		Data:StopBackgroundRamp()
+	end
+end
+
+function Data:GetCacheThrottle()
+	return Data.__cache.throttleMode or "background"
+end
+
+function Data:GetItemCacheStatus()
+	local run = Data.__cache.itemCacheRun
+	if not run or not run.running then return false, 0, 0, Data:GetCacheThrottle() end
+
+	local remaining = 0
+	if run.queue then
+		local curRemaining = #run.queue - (run.pos or 1) + 1
+		if curRemaining < 0 then curRemaining = 0 end
+		remaining = curRemaining + (#run.nextQueue or 0)
+	end
+
+	return true, remaining, (run.totalQueued or 0), (run.mode or Data:GetCacheThrottle())
+end
+
 local ITEMCACHE_MAX_PASSES = 20
 
-function Data:PopulateItemCache()
+function Data:PopulateItemCache(mode)
+	if mode == "background" then
+		if Data:IsCacheDisabled() then return end
+		Data:ApplyCacheSpeed()
+	elseif mode then
+		Data:SetCacheThrottle(mode)
+	end
+
 	-- already running
 	if Data.__cache.itemCacheRun and Data.__cache.itemCacheRun.running then return end
 
@@ -719,6 +932,8 @@ function Data:PopulateItemCache()
 
 	if #queue < 1 then return end
 
+	local throttle = GetThrottleConfig(Data:GetCacheThrottle())
+
 	Data.__cache.itemCacheRun = {
 		running = true,
 		pass = 0,
@@ -727,11 +942,16 @@ function Data:PopulateItemCache()
 		nextQueue = {},
 		cachedThisPass = 0,
 		totalThisPass = 0,
+		totalQueued = #queue,
 		noProgress = 0,
 		lastRemaining = nil,
+		batchSize = throttle.batch,
+		tickDelay = throttle.tick,
+		passDelay = throttle.pass,
+		mode = Data:GetCacheThrottle(),
 	}
 
-	BSYC:StartTimer("DataDumpCache", 0.1, Data, "ProcessItemCacheRun")
+	BSYC:StartTimer("DataDumpCache", Data.__cache.itemCacheRun.tickDelay, Data, "ProcessItemCacheRun")
 end
 
 function Data:ProcessItemCacheRun()
@@ -739,7 +959,8 @@ function Data:ProcessItemCacheRun()
 	if not run or not run.running then return end
 
 	local startPos = run.pos
-	local endPos = math.min(#run.queue, startPos + ITEMCACHE_BATCH_SIZE - 1)
+	local batchSize = run.batchSize or 10
+	local endPos = math.min(#run.queue, startPos + batchSize - 1)
 
 	for i = startPos, endPos do
 		local link = run.queue[i]
@@ -758,7 +979,7 @@ function Data:ProcessItemCacheRun()
 
 	-- still more work in this pass
 	if run.pos <= #run.queue then
-		BSYC:StartTimer("DataDumpCache", 0.05, Data, "ProcessItemCacheRun")
+		BSYC:StartTimer("DataDumpCache", run.tickDelay or 0.1, Data, "ProcessItemCacheRun")
 		return
 	end
 
@@ -806,7 +1027,7 @@ function Data:ProcessItemCacheRun()
 	run.cachedThisPass = 0
 	run.totalThisPass = 0
 
-	BSYC:StartTimer("DataDumpCache", 0.3, Data, "ProcessItemCacheRun")
+	BSYC:StartTimer("DataDumpCache", run.passDelay or 0.2, Data, "ProcessItemCacheRun")
 end
 
 function Data:CheckExpiredAuctions()
@@ -951,7 +1172,17 @@ local function GetOption(key, defaultValue)
 	return value
 end
 
-local function ShouldIncludeRealm(realmKey, meta, dumpAll, filterList)
+local function GetUnitFilterOptions()
+	local tracking = BSYC.tracking or (BSYC.options and BSYC.options.tracking) or {}
+	return {
+		enableBNET = GetOption("enableBNET", optionsDefaults.enableBNET),
+		enableCR = GetOption("enableCR", optionsDefaults.enableCR),
+		enableFaction = GetOption("enableFaction", optionsDefaults.enableFaction),
+		trackingGuild = tracking.guild ~= false,
+	}
+end
+
+local function ShouldIncludeRealm(realmKey, meta, dumpAll, filterList, opts)
 	if hasMark(realmKey, "§") then
 		return false
 	end
@@ -961,8 +1192,8 @@ local function ShouldIncludeRealm(realmKey, meta, dumpAll, filterList)
 
 	if meta.isCurrent then return true end
 
-	local enableBNET = GetOption("enableBNET", optionsDefaults.enableBNET)
-	local enableCR = GetOption("enableCR", optionsDefaults.enableCR)
+	local enableBNET = opts.enableBNET
+	local enableCR = opts.enableCR
 
 	if enableBNET then
 		-- allow all realms, but preserve legacy equivalence safety
@@ -987,9 +1218,10 @@ local function ShouldIncludeRealm(realmKey, meta, dumpAll, filterList)
 	return false
 end
 
-local function ShouldIncludeUnit(realmKey, unitKey, unitData, meta, dumpAll, filterList, currentFaction)
+local function ShouldIncludeUnit(realmKey, unitKey, unitData, meta, dumpAll, filterList, currentFaction, opts)
 	local isGuild = hasMark(unitKey, "©")
-	local hasAnyMark = hasMark(unitKey, "©") or hasMark(unitKey, "§")
+	local hasSystemMark = hasMark(unitKey, "§")
+	local hasAnyMark = isGuild or hasSystemMark
 
 	if dumpAll then
 		return true
@@ -1001,7 +1233,7 @@ local function ShouldIncludeUnit(realmKey, unitKey, unitData, meta, dumpAll, fil
 		end
 	end
 
-	local enableCR = GetOption("enableCR", optionsDefaults.enableCR)
+	local enableCR = opts.enableCR
 
 	-- blacklist (guilds)
 	if isGuild and BSYC.db and BSYC.db.blacklist and BSYC.db.blacklist[unitKey .. realmKey] then
@@ -1014,7 +1246,7 @@ local function ShouldIncludeUnit(realmKey, unitKey, unitData, meta, dumpAll, fil
 	end
 
 	-- faction filtering (characters only)
-	local enableFaction = GetOption("enableFaction", optionsDefaults.enableFaction)
+	local enableFaction = opts.enableFaction
 	if not isGuild and not hasAnyMark and not enableFaction then
 		if currentFaction and unitData.faction and unitData.faction ~= currentFaction then
 			return false
@@ -1022,7 +1254,7 @@ local function ShouldIncludeUnit(realmKey, unitKey, unitData, meta, dumpAll, fil
 	end
 
 	-- guild toggle
-	if isGuild and BSYC.tracking and BSYC.tracking.guild == false then
+	if isGuild and not opts.trackingGuild then
 		return false
 	end
 
@@ -1037,6 +1269,7 @@ end
 
 function Data:IterateUnits(dumpAll, filterList)
 	local currentFaction = (BSYC.db and BSYC.db.player and BSYC.db.player.faction) or _G.UnitFactionGroup("player")
+	local opts = GetUnitFilterOptions()
 
 	-- snapshot realm keys (FixDB-safe)
 	local realmKeys = {}
@@ -1074,7 +1307,7 @@ function Data:IterateUnits(dumpAll, filterList)
 				currentRealmData = BagSyncDB[realmKey]
 				local meta = realmMeta[realmKey]
 
-				if currentRealmData and meta and ShouldIncludeRealm(realmKey, meta, dumpAll, filterList) then
+				if currentRealmData and meta and ShouldIncludeRealm(realmKey, meta, dumpAll, filterList, opts) then
 					-- snapshot unit keys for this realm
 					unitKeys = {}
 					for unitKey in pairs(currentRealmData) do
@@ -1094,9 +1327,9 @@ function Data:IterateUnits(dumpAll, filterList)
 					local unitData = currentRealmData[unitKey]
 					local meta = realmMeta[realmKey]
 
-					if unitData and ShouldIncludeUnit(realmKey, unitKey, unitData, meta, dumpAll, filterList, currentFaction) then
+					if unitData and ShouldIncludeUnit(realmKey, unitKey, unitData, meta, dumpAll, filterList, currentFaction, opts) then
 						local isGuild = hasMark(unitKey, "©")
-						local enableCR = GetOption("enableCR", optionsDefaults.enableCR)
+						local enableCR = opts.enableCR
 						local isXRGuild = (not enableCR and meta.isConnected and isGuild)
 
 						return {

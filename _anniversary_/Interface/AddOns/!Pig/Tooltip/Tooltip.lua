@@ -390,7 +390,7 @@ local function add_ShowCompareItemIcon(TooltipF,duibiUI,retail)
 			TooltipF.pigplusBorder:SetPoint("BOTTOMLEFT",TooltipF,"TOPLEFT", 4, -2);
 		end
 		local TooltipData=TooltipF:GetTooltipData()
-	   	if TooltipData then
+	   	if TooltipData and TooltipData.guid or TooltipData and TooltipData.hyperlink then
 	   		TooltipF.pigplusBorder:SetAtlas(GetItemQualityBorder(C_Item.GetItemQualityByID(TooltipData.guid or TooltipData.hyperlink) or 1))
 	   		TooltipF.pigplusicon:SetTexture(C_Item.GetItemIconByID(TooltipData.guid or TooltipData.hyperlink) or 134400);
 	   	end

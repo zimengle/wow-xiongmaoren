@@ -280,6 +280,9 @@ function TooltipPlusfun.InfoPlus()
 			local ItemID = data["id"]
 			if ItemID then
 				add_Tooltip_ExtData(self,ItemID)
+				if self==ItemRefTooltip then
+					ItemSell_Tooltip(ItemRefTooltip, ItemID, nil,"ItemRef")
+				end
 			end
 		end)
 		-- TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, function(self, data)
@@ -380,21 +383,21 @@ local function add_ShowCompareItemIcon(TooltipF,duibiUI,retail)
 			TooltipF.tisptxt:SetTextColor(0, 1, 0, 1)
 		end
 	end
-	if retail then		
+	if retail then
 		if duibiUI then
 			TooltipF.pigplusBorder:SetPoint("BOTTOMLEFT",TooltipF,"TOPLEFT", 70, -2);
 		else
 			TooltipF.pigplusBorder:SetPoint("BOTTOMLEFT",TooltipF,"TOPLEFT", 4, -2);
 		end
 		local TooltipData=TooltipF:GetTooltipData()
-	   	if TooltipData and TooltipData.guid then
-	   		TooltipF.pigplusBorder:SetAtlas(GetItemQualityBorder(C_Item.GetItemQualityByID(TooltipData.guid) or 1))
-	   		TooltipF.pigplusicon:SetTexture(C_Item.GetItemIconByID(TooltipData.id) or 134400);
+	   	if TooltipData and TooltipData.guid or TooltipData and TooltipData.hyperlink then
+	   		TooltipF.pigplusBorder:SetAtlas(GetItemQualityBorder(C_Item.GetItemQualityByID(TooltipData.guid or TooltipData.hyperlink) or 1))
+	   		TooltipF.pigplusicon:SetTexture(C_Item.GetItemIconByID(TooltipData.guid or TooltipData.hyperlink) or 134400);
 	   	end
 	else
-		TooltipF.pigplusBorder:SetPoint("BOTTOMLEFT",TooltipF,"TOPLEFT", 4, -2);
 		local _, linkd = TooltipF:GetItem()
 		if linkd then
+			TooltipF.pigplusBorder:SetPoint("BOTTOMLEFT",TooltipF,"TOPLEFT", 4, -2);
 			TooltipF.pigplusBorder:SetAtlas(GetItemQualityBorder(C_Item.GetItemQualityByID(linkd) or 1))
 			TooltipF.pigplusicon:SetTexture(C_Item.GetItemIconByID(linkd) or 134400);
 		end
@@ -419,7 +422,7 @@ function TooltipPlusfun.CompareItemPlus()
 		end)
 	else
 		TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, function(self, data)
-			add_ShowCompareItemIcon(self,self==ShoppingTooltip1 or self==ShoppingTooltip2,true)
+			add_ShowCompareItemIcon(self,self==ShoppingTooltip1 or self==ShoppingTooltip2 or self==ItemRefShoppingTooltip1 or self==ItemRefShoppingTooltip2,true)
 		end)
 	end
 end

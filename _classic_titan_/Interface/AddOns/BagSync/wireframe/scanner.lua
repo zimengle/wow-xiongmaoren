@@ -16,6 +16,10 @@ local function Debug(level, ...)
     if BSYC.DEBUG then BSYC.DEBUG(level, "Scanner", ...) end
 end
 
+local function IsSafeTable(v)
+	return (BSYC and BSYC.IsSafeTable and BSYC:IsSafeTable(v)) or type(v) == "table"
+end
+
 --https://github.com/tomrus88/BlizzardInterfaceCode/blob/master/Interface/AddOns/Blizzard_VoidStorageUI/Blizzard_VoidStorageUI.lua
 local VOID_STORAGE_MAX = 80
 local VOID_STORAGE_PAGES = 2
@@ -154,7 +158,7 @@ function Scanner:StartupScans()
 	self:CleanupProfessions()
 
 	--populate the cache
-	Data:PopulateItemCache()
+	Data:PopulateItemCache("background")
 
 	BSYC.startupScanChk = true
 end
@@ -168,22 +172,16 @@ function Scanner:SaveBag(bagtype, bagid)
 	-- CLEAR FIRST (important!)
 	BSYC.db.player[bagtype][bagid] = nil
 
-	local xGetNumSlots = BSYC.API.GetContainerNumSlots
-	local xGetContainerInfo = BSYC.API.GetContainerItemInfo
+	local getNumSlots = BSYC.API.GetContainerNumSlots
+	local getContainerLinkCount = BSYC.API.GetContainerItemLinkCount
 
-	local numSlots = xGetNumSlots(bagid)
+	local numSlots = getNumSlots(bagid)
 
 	if numSlots > 0 then
 		local slotItems = {}
 
 		for slot = 1, numSlots do
-			local xObj, count, _,_,_,_, link = xGetContainerInfo(bagid, slot)
-
-			--lets check for C_Container
-			if xObj and xObj.hyperlink then
-				link = xObj.hyperlink
-				count = xObj.stackCount or 1
-			end
+			local link, count = getContainerLinkCount(bagid, slot)
 			if link then
 				local tmpItem = BSYC:ParseItemLink(link, count)
 				Debug(BSYC_DL.FINE, "SaveBag", bagtype, bagid, tmpItem)
@@ -381,13 +379,14 @@ local function findBattlePet(iconTexture, petName, typeSlot, arg1, arg2)
 
 		--https://github.com/tomrus88/BlizzardInterfaceCode/blob/4e7b4f5df63d240038912624218ebb9c0c8a3edf/Interface/SharedXML/Tooltip/TooltipDataRules.lua
 		--it may be possible to use C_PetJournal.GetPetStats(petID) in the future if the guildbank and mailbox return the GUID of the pet
-		if typeSlot == "guild" then
-			--MOP Classic and a few other classic servers don't have C_TooltipInfo implemented for some stupid reason. So check for that.  *facepalm*
-			if C_TooltipInfo then
-				data = C_TooltipInfo.GetGuildBankItem(arg1, arg2)
-			else
-				--local speciesID, level, breedQuality, maxHealth, power, speed, name = GameTooltip:SetGuildBankItem(arg1, arg2)
-				local speciesID, level, breedQuality, maxHealth, power, speed, name = scannerTooltip:SetGuildBankItem(arg1, arg2)
+			if typeSlot == "guild" then
+				--MOP Classic and a few other classic servers don't have C_TooltipInfo implemented for some stupid reason. So check for that.  *facepalm*
+				if C_TooltipInfo then
+					data = C_TooltipInfo.GetGuildBankItem(arg1, arg2)
+					if not IsSafeTable(data) then data = {} end
+				else
+					--local speciesID, level, breedQuality, maxHealth, power, speed, name = GameTooltip:SetGuildBankItem(arg1, arg2)
+					local speciesID, level, breedQuality, maxHealth, power, speed, name = scannerTooltip:SetGuildBankItem(arg1, arg2)
 
 				if speciesID and speciesID > 0 then
 					data.battlePetSpeciesID = speciesID
@@ -400,13 +399,14 @@ local function findBattlePet(iconTexture, petName, typeSlot, arg1, arg2)
 				end
 				scannerTooltip:Hide()
 			end
-		else
-			--MOP Classic and a few other classic servers don't have C_TooltipInfo implemented for some stupid reason. So check for that.  *facepalm*
-			if C_TooltipInfo then
-				data = C_TooltipInfo.GetInboxItem(arg1, arg2)
 			else
-				--local hasCooldown, speciesID, level, breedQuality, maxHealth, power, speed, name = scannerTooltip:SetInboxItem(mailIndex)
-				local hasCooldown, speciesID, level, breedQuality, maxHealth, power, speed, name = scannerTooltip:SetInboxItem(arg1)
+				--MOP Classic and a few other classic servers don't have C_TooltipInfo implemented for some stupid reason. So check for that.  *facepalm*
+				if C_TooltipInfo then
+					data = C_TooltipInfo.GetInboxItem(arg1, arg2)
+					if not IsSafeTable(data) then data = {} end
+				else
+					--local hasCooldown, speciesID, level, breedQuality, maxHealth, power, speed, name = scannerTooltip:SetInboxItem(mailIndex)
+					local hasCooldown, speciesID, level, breedQuality, maxHealth, power, speed, name = scannerTooltip:SetInboxItem(arg1)
 				if speciesID and speciesID > 0 then
 					data.battlePetSpeciesID = speciesID
 					data.battlePetLevel = level
@@ -558,18 +558,12 @@ function Scanner:SaveWarbandBank(bagID)
 	local warbandDB = Data:CheckWarbandBankDB()
 
 	local allTabs = C_Bank.FetchPurchasedBankTabData(Enum.BankType.Account)
-	local xGetNumSlots = BSYC.API.GetContainerNumSlots
-	local xGetContainerInfo = BSYC.API.GetContainerItemInfo
+	local getNumSlots = BSYC.API.GetContainerNumSlots
+	local getContainerLinkCount = BSYC.API.GetContainerItemLinkCount
 
 	local function doWarbandSlot(bagID, slotID, tabID)
 		if not bagID or not slotID then return end
-		local xObj, count, _,_,_,_, link = xGetContainerInfo(bagID, slotID)
-
-		--lets check for C_Container
-		if xObj and xObj.hyperlink then
-			link = xObj.hyperlink
-			count = xObj.stackCount or 1
-		end
+		local link, count = getContainerLinkCount(bagID, slotID)
 		if link then
 			local tmpItem = BSYC:ParseItemLink(link, count)
 			Debug(BSYC_DL.FINE, "doWarbandSlot", bagID, slotID, tabID, tmpItem)
@@ -585,7 +579,7 @@ function Scanner:SaveWarbandBank(bagID)
 
 			if BSYC.WarbandIndex.tabs[tabID] then
 				bagID = BSYC.WarbandIndex.tabs[tabID]
-				local numSlots = xGetNumSlots(bagID)
+				local numSlots = getNumSlots(bagID)
 				Debug(BSYC_DL.INFO, "SaveWarbandBank", tabID, bagID, numSlots, tabData)
 
 				for slotID = 1, numSlots do
@@ -605,7 +599,7 @@ function Scanner:SaveWarbandBank(bagID)
 
 		if tabID then
 			if not warbandDB.tabs then warbandDB.tabs = {} end
-			local numSlots = xGetNumSlots(bagID)
+			local numSlots = getNumSlots(bagID)
 			Debug(BSYC_DL.INFO, "SaveWarbandBank", tabID, bagID, numSlots)
 
 			for slotID = 1, numSlots do
@@ -651,13 +645,15 @@ function Scanner:SaveMailbox(isShow)
 
 	local slotItems = {}
 	local numInbox = GetInboxNumItems()
+	local getInboxItem = GetInboxItem
+	local getInboxItemLink = GetInboxItemLink
 
 	--scan the inbox
 	if (numInbox > 0) then
 		for mailIndex = 1, numInbox do
 			for i = 1, ATTACHMENTS_MAX_RECEIVE do
-				local name, itemID, itemTexture, count = GetInboxItem(mailIndex, i)
-				local link = GetInboxItemLink(mailIndex, i)
+				local name, itemID, itemTexture, count = getInboxItem(mailIndex, i)
+				local link = getInboxItemLink(mailIndex, i)
 
 				if name and link then
 
@@ -694,12 +690,14 @@ function Scanner:SendMail(mailTo, addMail)
 		Scanner.pendingMail = Scanner.pendingMail or {items={}}
 		Scanner.pendingMail.mailTo = mailTo
 		Scanner.pendingMail.items = {}
+		local getSendMailItem = _G.GetSendMailItem
+		local getSendMailItemLink = _G.GetSendMailItemLink
 
 		for i=1, ATTACHMENTS_MAX_SEND do
-			local name, itemID, texture, count, quality = _G.GetSendMailItem(i)
+			local name, itemID, texture, count, quality = getSendMailItem(i)
 			if itemID then
 				--we don't have to worry about BattlePets as the actual itemLink is returned instead of the PetCage
-				local sendLink = _G.GetSendMailItemLink(i)
+				local sendLink = getSendMailItemLink(i)
 				local link = BSYC:ParseItemLink(sendLink, count)
 				Debug(BSYC_DL.FINE, "SendMail-Queue", mailTo, name, itemID, count, quality, link)
 
@@ -759,13 +757,16 @@ function Scanner:SaveAuctionHouse()
 
 		--scan the auction house
 		if (numActiveAuctions > 0) then
-			for ahIndex = 1, numActiveAuctions do
+				for ahIndex = 1, numActiveAuctions do
 
-				--https://wow.gamepedia.com/API_C_AuctionHouse.GetOwnedAuctionInfo
-				local itemObj = C_AuctionHouse.GetOwnedAuctionInfo(ahIndex)
+					--https://wow.gamepedia.com/API_C_AuctionHouse.GetOwnedAuctionInfo
+					local itemObj = C_AuctionHouse.GetOwnedAuctionInfo(ahIndex)
+					if itemObj and not IsSafeTable(itemObj) then
+						itemObj = nil
+					end
 
-				--we only want active auctions not sold one.  So check itemObj.status
-				if itemObj and itemObj.timeLeftSeconds and itemObj.status == 0 then
+					--we only want active auctions not sold one.  So check itemObj.status
+					if itemObj and itemObj.timeLeftSeconds and itemObj.status == 0 then
 
 					local expTime = time() + itemObj.timeLeftSeconds -- current Time + advance time in seconds to get expiration time and date
 					local itemCount = itemObj.quantity or 1
@@ -865,8 +866,9 @@ function Scanner:ProcessCurrencyTransfer(doCurrentPlayer, sourceGUID, currencyID
 
 	elseif doCurrentPlayer and Scanner.lastCurrencyID > 0 and Scanner.currencyTransferInProgress then
 		--update the current player
-		local xGetCurrencyInfo = (C_CurrencyInfo and C_CurrencyInfo.GetCurrencyInfo) or GetCurrencyInfo
-		local currencyData = xGetCurrencyInfo(Scanner.lastCurrencyID)
+		local getCurrencyInfo = BSYC.API and BSYC.API.GetCurrencyInfo
+		local currencyData = getCurrencyInfo and getCurrencyInfo(Scanner.lastCurrencyID)
+		if currencyData and not IsSafeTable(currencyData) then currencyData = nil end
 		local dofullScan = true
 
 		if currencyData and currencyData.quantity then
@@ -898,10 +900,10 @@ function Scanner:SaveCurrency(showDebug)
 	local slotItems = {}
 
 	--WOTLK still doesn't have all the correct C_CurrencyInfo functions
-	local xGetCurrencyListSize = (C_CurrencyInfo and C_CurrencyInfo.GetCurrencyListSize) or GetCurrencyListSize
-	local xGetCurrencyListInfo = (C_CurrencyInfo and C_CurrencyInfo.GetCurrencyListInfo) or GetCurrencyListInfo
-	local xGetCurrencyListLink = (C_CurrencyInfo and C_CurrencyInfo.GetCurrencyListLink) or GetCurrencyListLink
-	local xExpandCurrencyList = (C_CurrencyInfo and C_CurrencyInfo.ExpandCurrencyList) or ExpandCurrencyList
+	local getCurrencyListSize = BSYC.API and BSYC.API.GetCurrencyListSize
+	local getCurrencyListInfo = BSYC.API and BSYC.API.GetCurrencyListInfo
+	local getCurrencyListLink = BSYC.API and BSYC.API.GetCurrencyListLink
+	local expandCurrencyList = BSYC.API and BSYC.API.ExpandCurrencyList
 	local questionMarkIcon = 134400
 
 	local function pickIcon(icon1, icon2)
@@ -916,33 +918,35 @@ function Scanner:SaveCurrency(showDebug)
 	end
 
 	--only do this if we have the functions to work with
-	if not (xGetCurrencyListSize and xGetCurrencyListInfo) then
+	if not (getCurrencyListSize and getCurrencyListInfo) then
 		BSYC.db.player.currency = slotItems
 		self:ResetTooltips()
 		return
 	end
 
 	--first lets expand everything just in case (supports both retail-table and classic multi-return APIs)
-	if xExpandCurrencyList then
+	if expandCurrencyList then
 		for _ = 1, 50 do
 			local expandedAny = false
-			local listSize = xGetCurrencyListSize()
+			local listSize = getCurrencyListSize()
 
 			for i = 1, listSize do
 				--Retail returns a table; Classic/WotLK can return multiple values.
-				local currencyInfoOrName, isHeaderFlag, isHeaderExpandedFlag = xGetCurrencyListInfo(i)
+				local currencyInfoOrName, isHeaderFlag, isHeaderExpandedFlag = getCurrencyListInfo(i)
 				local isHeader, isExpanded
 
 				if type(currencyInfoOrName) == "table" then
-					isHeader = currencyInfoOrName.isHeader
-					isExpanded = currencyInfoOrName.isHeaderExpanded
+					if IsSafeTable(currencyInfoOrName) then
+						isHeader = currencyInfoOrName.isHeader
+						isExpanded = currencyInfoOrName.isHeaderExpanded
+					end
 				else
 					isHeader = isHeaderFlag
 					isExpanded = isHeaderExpandedFlag
 				end
 
 				if isHeader and not isExpanded then
-					xExpandCurrencyList(i, true)
+					expandCurrencyList(i, true)
 					expandedAny = true
 				end
 			end
@@ -953,40 +957,46 @@ function Scanner:SaveCurrency(showDebug)
 		end
 	end
 
-	local listSize = xGetCurrencyListSize()
-	for i = 1, listSize do
-		--Retail (C_CurrencyInfo.GetCurrencyListInfo) returns a table.
-		--Classic (GetCurrencyListInfo) returns multiple values:
-		--name, isHeader, isHeaderExpanded, isTypeUnused, isShowInBackpack, count, extraCurrencyType, iconFileID
-		local currencyInfoOrName,
-			isHeaderFlag,
-			isHeaderExpandedFlag,
-			isTypeUnused,
-			isShowInBackpack,
-			count,
-			extraCurrencyType,
-			iconFileID = xGetCurrencyListInfo(i)
+	local listSize = getCurrencyListSize()
+		for i = 1, listSize do
+			--Retail (C_CurrencyInfo.GetCurrencyListInfo) returns a table.
+			--Classic (GetCurrencyListInfo) returns multiple values:
+			--name, isHeader, isHeaderExpanded, isTypeUnused, isShowInBackpack, count, extraCurrencyType, iconFileID
+			local currencyInfoOrName,
+				isHeaderFlag,
+				isHeaderExpandedFlag,
+				isTypeUnused,
+				isShowInBackpack,
+				count,
+				extraCurrencyType,
+				iconFileID = getCurrencyListInfo(i)
 
-		local currName, isHeader, currQuantity, currIcon
-		if type(currencyInfoOrName) == "table" then
-			currName = currencyInfoOrName.name
-			isHeader = currencyInfoOrName.isHeader
-			currQuantity = currencyInfoOrName.quantity or 0
-			currIcon = currencyInfoOrName.iconFileID or questionMarkIcon
-		else
-			currName = currencyInfoOrName
-			isHeader = isHeaderFlag
-			currQuantity = count or 0
-			currIcon = pickIcon(extraCurrencyType, iconFileID)
-		end
+			local currName, isHeader, currQuantity, currIcon
+			local isSafeInfo = true
+			if type(currencyInfoOrName) == "table" and not IsSafeTable(currencyInfoOrName) then
+				isSafeInfo = false
+			end
+			if isSafeInfo then
+				if type(currencyInfoOrName) == "table" then
+					currName = currencyInfoOrName.name
+					isHeader = currencyInfoOrName.isHeader
+					currQuantity = currencyInfoOrName.quantity or 0
+					currIcon = currencyInfoOrName.iconFileID or questionMarkIcon
+				else
+					currName = currencyInfoOrName
+					isHeader = isHeaderFlag
+					currQuantity = count or 0
+					currIcon = pickIcon(extraCurrencyType, iconFileID)
+				end
+			end
 
-		if currName then
-			if isHeader then
-				lastHeader = currName
-			else
-				local currencyID
-				if xGetCurrencyListLink then
-					local link = xGetCurrencyListLink(i)
+			if currName then
+				if isHeader then
+					lastHeader = currName
+				else
+					local currencyID
+					if getCurrencyListLink then
+					local link = getCurrencyListLink(i)
 					currencyID = BSYC:GetShortCurrencyID(link)
 				end
 
@@ -1030,11 +1040,13 @@ function Scanner:SaveProfessions()
 	--https://wowpedia.fandom.com/wiki/API_C_TradeSkillUI.GetBaseProfessionInfo
 	--https://wowpedia.fandom.com/wiki/API_C_TradeSkillUI.GetTradeSkillLineInfoByID
 	local baseInfo = C_TradeSkillUI.GetBaseProfessionInfo()
+	if baseInfo and not IsSafeTable(baseInfo) then baseInfo = nil end
 
 	local parentSkillLineID, parentSkillLineName
 
 	if not baseInfo or not baseInfo.professionID then
 		local professionInfo = C_TradeSkillUI.GetChildProfessionInfo()
+		if professionInfo and not IsSafeTable(professionInfo) then professionInfo = nil end
 		if not professionInfo or not professionInfo.parentProfessionID then return end
 
 		parentSkillLineID = professionInfo.parentProfessionID
@@ -1059,6 +1071,7 @@ function Scanner:SaveProfessions()
 
 		for i, categoryID in ipairs(categories) do
 			local categoryData = C_TradeSkillUI.GetCategoryInfo(categoryID)
+			if categoryData and not IsSafeTable(categoryData) then categoryData = nil end
 
 			if categoryData and categoryData.categoryID and categoryData.skillLineCurrentLevel and categoryData.skillLineCurrentLevel > 0 then
 
@@ -1089,16 +1102,19 @@ function Scanner:SaveProfessions()
 		--store the recipes
 		for i = 1, #Scanner.recipeIDs do
 			recipeData = C_TradeSkillUI.GetRecipeInfo(Scanner.recipeIDs[i])
+			if recipeData and not IsSafeTable(recipeData) then recipeData = nil end
 
 			if recipeData then
 				local categoryID = recipeData.categoryID
 				local categoryData = C_TradeSkillUI.GetCategoryInfo(categoryID)
+				if categoryData and not IsSafeTable(categoryData) then categoryData = nil end
 
 				--grab the parent name, Engineering, Herbalism, Blacksmithing, etc...
 				if recipeData.learned and categoryData and categoryData.categoryID == categoryID and categoryData.parentCategoryID then
 
 					--grab categories, Legion Engineering, Cateclysm Engineering, etc...
 					local subCatData = C_TradeSkillUI.GetCategoryInfo(categoryData.parentCategoryID)
+					if subCatData and not IsSafeTable(subCatData) then subCatData = nil end
 
 					--make sure we have something to work with, we don't want to store stuff that doesn't have levels
 					if subCatData and subCatData.categoryID == categoryData.parentCategoryID then

@@ -52,6 +52,7 @@ local ImportCrossRefTable = {
 {17254,{23712,-30152}}, -- Ash'ana / White Tiger Cub
 {55187,{75040}}, -- Darkmoon Balloon / Flimsy Darkmoon Balloon
 {91226,{122477}}, -- Graves / My Special Pet
+{113827,{141349}}, -- Strange Humming Crystal / Wondrous Wisdomball
 
 -- extracted from wowhead
 {2671,{4401,-4055}}, -- Mechanical Squirrel / Mechanical Squirrel Box
@@ -1689,7 +1690,12 @@ end
 
 
 function ArkInventory.Collection.Pet.OnHide( )
+
+	if not ArkInventory:IsEnabled( ) then return end
+
+
 	ArkInventory:SendMessage( "EVENT_ARKINV_COLLECTION_PET_UPDATE_BUCKET", "FRAME_CLOSED" )
+	
 end
 
 function ArkInventory.Collection.Pet.IsReady( )

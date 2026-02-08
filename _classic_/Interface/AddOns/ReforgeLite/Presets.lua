@@ -12,58 +12,62 @@ local StatHaste = addonTable.statIds.HASTE
 local StatExp = addonTable.statIds.EXP
 
 local SPELL_HASTE_BUFFS = {
-  24907,  -- Moonkin Aura
-  49868,  -- Mind Quickening
   51470,  -- Elemental Oath
   135678, -- Energizing Spores
+  49868,  -- Mind Quickening
+  24907,  -- Moonkin Aura
 }
 
 local MELEE_HASTE_BUFFS = {
-  55610,  -- Unholy Aura
   128432, -- Cackling Howl
   128433, -- Serpent's Swiftness
   113742, -- Swiftblade's Cunning
+  55610,  -- Unholy Aura
   30809,  -- Unleashed Rage
 }
 
 local MASTERY_BUFFS = {
-  93435,  -- Roar of Courage
-  128997, -- Spirit Beast Blessing
   19740,  -- Blessing of Might
   116956, -- Grace of Air
+  93435,  -- Roar of Courage
+  128997, -- Spirit Beast Blessing
 }
+
+local CRIT_BUFFS = {
+  1459,   -- Arcane Brilliance
+  24604,  -- Furious Howl
+  17007,  -- Leader of the Pack
+  116781, -- Legacy of the White Tiger
+  126309, -- Still Water
+  90309,  -- Terrifying Roar
+}
+
+local function CheckForPlayerAura(buffTable)
+  return ContainsIf(buffTable, C_UnitAuras.GetPlayerAuraBySpellID)
+end
 
 ---Checks if player has a spell haste buff active
 ---@return boolean hasSpellHaste True if any spell haste buff is active
 function ReforgeLite:PlayerHasSpellHasteBuff()
-  for _, v in ipairs(SPELL_HASTE_BUFFS) do
-    if C_UnitAuras.GetPlayerAuraBySpellID(v) then
-      return true
-    end
-  end
-  return false
+  return CheckForPlayerAura(SPELL_HASTE_BUFFS)
 end
 
 ---Checks if player has a melee haste buff active
 ---@return boolean hasMeleeHaste True if any melee haste buff is active
 function ReforgeLite:PlayerHasMeleeHasteBuff()
-  for _, v in ipairs(MELEE_HASTE_BUFFS) do
-    if C_UnitAuras.GetPlayerAuraBySpellID(v) then
-      return true
-    end
-  end
-  return false
+  return CheckForPlayerAura(MELEE_HASTE_BUFFS)
 end
 
 ---Checks if player has a mastery buff active
 ---@return boolean hasMastery True if any mastery buff is active
 function ReforgeLite:PlayerHasMasteryBuff()
-  for _, v in ipairs(MASTERY_BUFFS) do
-    if C_UnitAuras.GetPlayerAuraBySpellID(v) then
-      return true
-    end
-  end
-  return false
+  return CheckForPlayerAura(MASTERY_BUFFS)
+end
+
+---Checks if player has a crit buff active
+---@return boolean hasCrit True if any crit buff is active
+function ReforgeLite:PlayerHasCritBuff()
+  return CheckForPlayerAura(CRIT_BUFFS)
 end
 
 ---Gets the rating required per 1% of a stat at a given level
@@ -114,6 +118,10 @@ end
 ---@return number bonus Ranged haste multiplier from buffs
 function ReforgeLite:GetRangedHasteBonus()
   return self:GetNonSpellHasteBonus(GetRangedHaste, CR_HASTE_RANGED)
+end
+function ReforgeLite:GetMasteryBonus()
+  local mastery, bonusCoeff = GetMasteryEffect()
+  return mastery - GetCombatRatingBonus(CR_MASTERY) * bonusCoeff, bonusCoeff
 end
 ---Gets spell haste bonus multiplier from buffs
 ---@return number bonus Spell haste multiplier from buffs
@@ -520,9 +528,9 @@ function ReforgeLite:InitClassPresets()
       [SPEC_IDS.HUNTER.survival] = MeleePreset(33, 32, 27, 33, 21),
     },
     ["MAGE"] = {
-      [SPEC_IDS.MAGE.arcane] = CasterPreset(145, 52, 60, 63),
+      [SPEC_IDS.MAGE.arcane] = CasterPreset(145, 59, 64, 70),
       [SPEC_IDS.MAGE.fire] = CasterPreset(121, 94, 95, 59),
-      [SPEC_IDS.MAGE.frost] = CasterPreset(115, 49, 51, 44),
+      [SPEC_IDS.MAGE.frost] = CasterPreset(155, 54, 81, 52),
     },
     ["MONK"] = {
       [SPEC_IDS.MONK.brewmaster] = {
@@ -693,16 +701,21 @@ function ReforgeLite:InitPresets()
 
     rootDescription:CreateDivider()
 
-    local function FormatWeightsTooltip(tooltip, element, weights, addBlank)
-      if not weights then return end
+    local function GetCapPresetName(presetValue)
+      local value = FindValueInTableIf(self.capPresets, function(preset) return preset.value == presetValue end) or {}
+      return value.name
+    end
+
+    local function FormatWeightsTooltip(tooltip, element, preset)
+      if not preset or not preset.weights then return end
       local statWeights = {}
-      for i, weight in ipairs(weights) do
+      for i, weight in ipairs(preset.weights) do
         if weight and weight > 0 then
           tinsert(statWeights, {stat = addonTable.itemStats[i].long, weight = weight, index = i})
         end
       end
-      if #statWeights > 0 then
-        local rightR, rightG, rightB = addonTable.COLORS.white:GetRGB()
+      local rightR, rightG, rightB = addonTable.COLORS.white:GetRGB()
+      if statWeights[1] then
         tooltip:AddLine(element.text, rightR, rightG, rightB)
         sort(statWeights, function(a, b)
           if a.weight == b.weight then
@@ -713,8 +726,28 @@ function ReforgeLite:InitPresets()
         for _, entry in ipairs(statWeights) do
           tooltip:AddDoubleLine(entry.stat, entry.weight, nil, nil, nil, rightR, rightG, rightB)
         end
-        if addBlank then
-          tooltip:AddLine(" ")
+      end
+      if preset.caps then
+        local methodNames = {
+          [addonTable.StatCapMethods.AtLeast] = L["At least"],
+          [addonTable.StatCapMethods.AtMost] = L["At most"],
+          [addonTable.StatCapMethods.Exactly] = L["Exactly"],
+        }
+        for i, cap in ipairs(preset.caps) do
+          if cap and cap.stat and cap.stat > 0 and cap.points and cap.points[1] then
+            local statName = addonTable.itemStats[cap.stat] and addonTable.itemStats[cap.stat].long or ""
+            local pt = cap.points[1]
+            local presetName = GetCapPresetName(pt.preset)
+            local methodName = methodNames[pt.method] or ""
+            local capText
+            if presetName and pt.preset ~= CAPS.ManualCap then
+              capText = ("%s %s"):format(methodName, presetName)
+            else
+              capText = ("%s %d"):format(methodName, pt.value or 0)
+            end
+            tooltip:AddLine(L["Cap %d - %s"]:format(i, statName))
+            tooltip:AddLine("  " .. capText, rightR, rightG, rightB)
+          end
         end
       end
     end
@@ -739,9 +772,9 @@ function ReforgeLite:InitPresets()
           end
         end)
         button:SetTooltip(function(tooltip, element)
-          FormatWeightsTooltip(tooltip, element, info.value.weights, true)
-          GameTooltip_AddNormalLine(tooltip, L["Click to load preset"])
-          GameTooltip_AddColoredLine(tooltip, L["Shift+Click to delete"], RED_FONT_COLOR)
+          FormatWeightsTooltip(tooltip, element, info.value)
+          tooltip:AddLine(" ")
+          GameTooltip_AddColoredLine(tooltip, L["Shift+Click to delete"], addonTable.COLORS.red)
         end)
       else
         local button = desc:CreateButton(info.text, function()
@@ -752,7 +785,7 @@ function ReforgeLite:InitPresets()
           self:SetStatWeights(info.value.weights, info.value.caps or {})
         end)
         button:SetTooltip(function(tooltip, element)
-          FormatWeightsTooltip(tooltip, element, info.value.weights)
+          FormatWeightsTooltip(tooltip, element, info.value)
         end)
       end
     end

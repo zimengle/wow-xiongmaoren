@@ -857,9 +857,15 @@ function BusinessInfo.MailPlus_ADDUI()
 			local PlayerData = PIGA["StatsInfo"]["Players"]
 			local name, server
 			for nameserver,data in pairs(PlayerData) do
-				name, server = strsplit("-", nameserver, 2)
-				if name~=PIG_OptionsUI.Name and PIG_OptionsUI.Realm==server then
-					table.insert(linData,{name,data})
+				if PIG_MaxTocversion() then
+					name, server = strsplit("-", nameserver, 2)
+					if name~=PIG_OptionsUI.Name and PIG_OptionsUI.Realm==server then
+						table.insert(linData,{name,data})
+					end
+				else
+					if nameserver~=PIG_OptionsUI.AllName then
+						table.insert(linData,{nameserver,data})
+					end
 				end
 			end
 		end

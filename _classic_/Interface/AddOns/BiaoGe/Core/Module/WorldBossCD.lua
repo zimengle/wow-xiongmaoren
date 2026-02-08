@@ -29,8 +29,8 @@ BG.Init(function()
     local dropDownDB = {
         { name = BG.Boss[FB]["boss" .. 1].name2, id = 116 },
         { name = BG.Boss[FB]["boss" .. 2].name2, id = 117 },
-        -- { name = BG.Boss[FB]["boss" .. 3].name2, id = 0 },
-        -- { name = BG.Boss[FB]["boss" .. 4].name2, id = 0 },
+        { name = BG.Boss[FB]["boss" .. 3].name2, id = 119 },
+        { name = BG.Boss[FB]["boss" .. 4].name2, id = 118 },
         -- { name = BG.Boss[FB]["boss" .. 5].name2, id = 0 },
         -- { name = BG.Boss[FB]["boss" .. 6].name2, id = 0 },
         -- { name = BG.Boss[FB]["boss" .. 7].name2, id = 0 },
@@ -45,7 +45,7 @@ BG.Init(function()
     end
 
     local parent = BG["Frame" .. FB]
-    local GetWorldBossCDText, GetBossIDByIndex
+    local GetWorldBossCDText, GetBossIDByIndex, GetWorldBossCDMsg
 
     local f = CreateFrame("Frame", nil, parent, "BackdropTemplate")
     do
@@ -72,11 +72,17 @@ BG.Init(function()
         end)
 
         local text = f:CreateFontString()
-        text:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+        text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
         text:SetPoint("BOTTOM", f, "TOP", 0, 5)
         text:SetText(L["团员世界BossCD"])
         text:SetTextColor(1, 1, 1)
         f.title = text
+
+        local text = f:CreateFontString()
+        text:SetFont(BIAOGE_TEXT_FONT, 13, "OUTLINE")
+        text:SetPoint("BOTTOMLEFT", f, "TOPLEFT", 0, 5)
+        text:SetTextColor(0, 1, 0)
+        f.cdCount = text
 
         local function AddButton(dropDown, index)
             local info = LibBG:UIDropDownMenu_CreateInfo()
@@ -105,6 +111,20 @@ BG.Init(function()
         end)
     end
 
+    local function UpdateCDCount()
+        local count = 0
+        for _, bt in ipairs(BG.worldBossCDFrame.buttons) do
+            if bt.noCD then
+                count = count + 1
+            end
+        end
+        if IsInRaid(1) then
+            BG.worldBossCDFrame.cdCount:SetText(format("%s/%s", count, GetNumGroupMembers()))
+        else
+            BG.worldBossCDFrame.cdCount:SetText("")
+        end
+    end
+
     function BG.worldBossCDFrame:CreateRaidButton(i)
         local bt = CreateFrame("Frame", nil, self, "BackdropTemplate")
         do
@@ -123,7 +143,7 @@ BG.Init(function()
                 bt:SetPoint("TOPLEFT", 10, -20)
 
                 local text = bt:CreateFontString()
-                text:SetFont(STANDARD_TEXT_FONT, 13, "OUTLINE")
+                text:SetFont(BIAOGE_TEXT_FONT, 13, "OUTLINE")
                 text:SetPoint("BOTTOM", bt, "TOP", 0, 2)
                 text:SetText(1)
                 text:SetTextColor(.5, .5, .5)
@@ -131,7 +151,7 @@ BG.Init(function()
                 bt:SetPoint("TOPLEFT", self.buttons[5], "BOTTOMLEFT", 0, -25)
 
                 local text = bt:CreateFontString()
-                text:SetFont(STANDARD_TEXT_FONT, 13, "OUTLINE")
+                text:SetFont(BIAOGE_TEXT_FONT, 13, "OUTLINE")
                 text:SetPoint("BOTTOM", bt, "TOP", 0, 2)
                 text:SetText((i - 1) / 5 + 1)
                 text:SetTextColor(.5, .5, .5)
@@ -139,7 +159,7 @@ BG.Init(function()
                 bt:SetPoint("TOPLEFT", self.buttons[i - 5], "TOPRIGHT", 5, 0)
 
                 local text = bt:CreateFontString()
-                text:SetFont(STANDARD_TEXT_FONT, 13, "OUTLINE")
+                text:SetFont(BIAOGE_TEXT_FONT, 13, "OUTLINE")
                 text:SetPoint("BOTTOM", bt, "TOP", 0, 2)
                 text:SetText((i - 1) / 5 + 1)
                 text:SetTextColor(.5, .5, .5)
@@ -154,13 +174,17 @@ BG.Init(function()
             tex:SetSize(10, 10)
             bt.icon = tex
 
+            local tex = bt:CreateTexture(nil,"OVERLAY")
+            tex:SetSize(10, 10)
+            bt.master = tex
+
             local tex = bt:CreateTexture()
             tex:SetPoint("TOPLEFT", 2, -1)
             tex:SetSize(12, 12)
             bt.talent = tex
 
             local text = bt:CreateFontString()
-            text:SetFont(STANDARD_TEXT_FONT, 13, "OUTLINE")
+            text:SetFont(BIAOGE_TEXT_FONT, 13, "OUTLINE")
             text:SetPoint("LEFT", bt.talent, "RIGHT", 0, 0)
             text:SetWidth(bt:GetWidth() - bt.talent:GetWidth() - 3)
             text:SetJustifyH("LEFT")
@@ -168,52 +192,75 @@ BG.Init(function()
             bt.nameText = text
 
             local text = bt:CreateFontString()
-            text:SetFont(STANDARD_TEXT_FONT, 12, "OUTLINE")
+            text:SetFont(BIAOGE_TEXT_FONT, 12, "OUTLINE")
             text:SetPoint("BOTTOMLEFT", 2, 1)
             text:SetWidth(bt:GetWidth() - 5)
             text:SetJustifyH("LEFT")
             text:SetWordWrap(false)
             bt.infoText = text
+
+            bt:SetScript("OnMouseDown", function(self, button)
+                if button == "RightButton" and self.unit then
+                    CompactUnitFrame_OpenMenu(self)
+                else
+                    BG.MainFrame:GetScript("OnMouseDown")(BG.MainFrame)
+                end
+            end)
+            bt:SetScript("OnMouseUp", function(self)
+                BG.MainFrame:GetScript("OnMouseUp")(BG.MainFrame)
+            end)
         end
 
         function bt:Reset()
+            self.unit = nil
+            self.noCD = nil
             self.name = nil
             self.nameText:SetText("")
             self.infoText:SetText("")
             self.icon:SetTexture(nil)
+            self.master:SetTexture(nil)
             self.talent:SetTexture(nil)
             self.talent:SetAtlas(nil)
             self.talent:SetTexCoord(0, 1, 0, 1)
             self:SetBackdropColor(unpack(self.color1))
         end
 
-        function bt:FullUpdate(raidIndex)
-            local v = BG.raidRosterInfo[raidIndex]
-            if v then
-                local name = v.name
+        function bt:FullUpdate(i, name, rank, class, role, combatRole, isML)
+            if name then
                 local color = "ffFFFFFF"
-                if v.class then
-                    color = select(4, GetClassColor(v.class))
+                if class then
+                    color = select(4, GetClassColor(class))
                 end
+                self.unit = "raid" .. i
                 self.name = name
                 self.nameText:SetText("|c" .. color .. name)
-                if v.rank == 2 then
+                if rank == 2 then
                     self.icon:SetTexture("interface/groupframe/ui-group-leadericon")
-                elseif v.role == "MAINTANK" then
+                elseif role == "MAINTANK" then
                     self.icon:SetTexture(132064)
-                elseif v.role == "MAINASSIST" then
+                elseif role == "MAINASSIST" then
                     self.icon:SetTexture(132063)
-                elseif v.rank == 1 then
+                elseif rank == 1 then
                     self.icon:SetTexture("interface/groupframe/ui-group-assistanticon")
                 end
-                if v.combatRole == "TANK" then
+                if isML then
+                    self.master:SetTexture("Interface/GroupFrame/UI-Group-MasterLooter")
+                    self.master:ClearAllPoints()
+                    if self.icon:GetTexture() then
+                        self.master:SetPoint("LEFT", self.icon, "RIGHT", 0, 0)
+                    else
+                        self.master:SetPoint("CENTER", self, "TOPLEFT", 2, -2)
+                    end
+                end
+                if combatRole == "TANK" then
                     self.talent:SetAtlas("ui-lfg-roleicon-tank")
-                elseif v.combatRole == "HEALER" then
+                elseif combatRole == "HEALER" then
                     self.talent:SetAtlas("ui-lfg-roleicon-healer")
-                elseif v.combatRole == "DAMAGER" then
+                elseif combatRole == "DAMAGER" then
                     self.talent:SetAtlas("ui-lfg-roleicon-dps")
                 end
             elseif not IsInRaid(1) then
+                self.unit = "player"
                 self.name = player
                 self.nameText:SetText(SetClassCFF(player))
                 self.talent:SetAtlas("GarrMission_ClassIcon-" .. select(2, UnitClass("player")))
@@ -233,6 +280,7 @@ BG.Init(function()
                     self.infoText:SetText(L["无CD"])
                     self.infoText:SetTextColor(0, 1, 0)
                     self:SetBackdropColor(unpack(self.color3))
+                    self.noCD = true
                 else
                     self.infoText:SetText(UNKNOWN)
                     self.infoText:SetTextColor(.5, .5, .5)
@@ -259,28 +307,34 @@ BG.Init(function()
                 bt:Reset()
             end
             if IsInRaid(1) then
-                for i, v in ipairs(BG.raidRosterInfo) do
-                    local team = v.subgroup
-                    local num
-                    for ii = (team - 1) * 5 + 1, team * 5 do
-                        local bt = self.buttons[ii]
-                        local text = bt.nameText:GetText()
-                        if not text or text == "" then
-                            num = ii
-                            break
+                for i = 1, GetNumGroupMembers() do
+                    local name, rank, subgroup, level, class2, class, zone, online, isDead, role, isML, combatRole =
+                        GetRaidRosterInfo(i)
+                    if name then
+                        local team = subgroup
+                        local num
+                        for ii = (team - 1) * 5 + 1, team * 5 do
+                            local bt = self.buttons[ii]
+                            local text = bt.nameText:GetText()
+                            if not text or text == "" then
+                                num = ii
+                                break
+                            end
                         end
+                        self.buttons[num]:FullUpdate(i, name, rank, class, role, combatRole, isML)
                     end
-                    self.buttons[num]:FullUpdate(i)
                 end
             else
+                f.cdCount:SetText("")
                 self.buttons[1]:FullUpdate()
             end
         end
+        UpdateCDCount()
     end
 
     BG.worldBossRaidCD = {}
     local FBCD = "RaidCD"
-    function BG.GetWorldBossCDMsg()
+    function GetWorldBossCDMsg()
         if BiaoGe[FBCD][realmID][player] then
             for k, v in pairs(BiaoGe[FBCD][realmID][player]) do
                 if v.isWorldBoss then
@@ -296,8 +350,8 @@ BG.Init(function()
         return msg
     end
 
-    function BG.SendMyWorldBossCD()
-        ChatThrottleLib:SendAddonMessage("NORMAL", "BiaoGeWorldBoss", BG.GetWorldBossCDMsg(), "RAID")
+    function ns.SendMyWorldBossCD()
+        ChatThrottleLib:SendAddonMessage("NORMAL", "BiaoGeWorldBoss", GetWorldBossCDMsg(), "RAID")
     end
 
     function GetBossIDByIndex()
@@ -313,7 +367,7 @@ BG.Init(function()
     end
 
     local function UpdateMyWorldBossCD()
-        BG.GetWorldBossCDMsg()
+        GetWorldBossCDMsg()
         for bossID, cd in pairs(bossInfo) do
             BG.worldBossRaidCD[player] = BG.worldBossRaidCD[player] or {}
             BG.worldBossRaidCD[player][bossID] = cd
@@ -321,7 +375,7 @@ BG.Init(function()
     end
 
     local lastNum = 0
-    function BG.CanSend_WorldCD()
+    local function CanSend_WorldCD()
         local n
         local canSend = true
         if IsInRaid(1) then
@@ -343,23 +397,16 @@ BG.Init(function()
     f:RegisterEvent("PLAYER_ENTERING_WORLD")
     f:SetScript("OnEvent", function(self, event, ...)
         if event == "GROUP_ROSTER_UPDATE" then
-            local canSend = BG.CanSend_WorldCD()
-            self.t = 0
-            self:SetScript("OnUpdate", function(self, t)
-                self.t = self.t + t
-                if self.t >= 1 then
-                    self:SetScript("OnUpdate", nil)
-                    if IsInRaid(1) and canSend then
-                        BG.SendMyWorldBossCD()
-                    end
-                    BG.worldBossCDFrame:UpdateFrame()
-                end
-            end)
+            local canSend = CanSend_WorldCD()
+            if IsInRaid(1) and canSend then
+                ns.SendMyWorldBossCD()
+            end
+            BG.worldBossCDFrame:UpdateFrame()
         elseif event == "CHAT_MSG_ADDON" then
             local prefix, msg, distType, _, sender = ...
-            if prefix == "BiaoGeWorldBoss" and distType == "RAID" then -- 插件版本
+            if prefix == "BiaoGeWorldBoss" and distType == "RAID" then
                 if msg == "VersionCheck" and sender ~= player then
-                    BG.SendMyWorldBossCD()
+                    ns.SendMyWorldBossCD()
                 elseif msg:find("cd%^") then
                     BG.worldBossRaidCD[sender] = BG.worldBossRaidCD[sender] or {}
                     local _, info = strsplit("^", msg)
@@ -392,4 +439,15 @@ BG.Init(function()
     end)
 
     BG.worldBossCDFrame:UpdateFrame()
+
+    -- 修复团队信息按钮BUG
+    local function func()
+        if GetNumSavedInstances() > 0 or GetNumSavedWorldBosses() > 0 then
+            RaidFrameRaidInfoButton:Enable()
+        else
+            RaidFrameRaidInfoButton:Disable()
+        end
+    end
+    RaidFrame:HookScript("OnShow", func)
+    BG.RegisterEvent("UPDATE_INSTANCE_INFO", func)
 end)

@@ -1,7 +1,7 @@
 ## Title: |cff1784d1ElvUI|r |cfd9b9b9bTBC|r
 ## Notes: User Interface Replacement
 ## Author: Elv, Simpy
-## Version: v14.04
+## Version: v14.07
 ## SavedVariables: ElvDB, ElvPrivateDB
 ## SavedVariablesPerCharacter: ElvCharacterDB
 ## OptionalDeps: SharedMedia, Tukui, Masque, BigWigs
@@ -9,5 +9,6 @@
 ## Interface: 20505
 ## X-Tukui-ProjectID: -2
 ## X-Tukui-ProjectFolders: ElvUI, ElvUI_Libraries, ElvUI_Options
+## IconTexture: Interface\AddOns\ElvUI\Game\Shared\Media\Textures\LogoAddon
 
 Game\TBC\!load.xml

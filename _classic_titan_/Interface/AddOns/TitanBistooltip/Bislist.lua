@@ -79,6 +79,18 @@ local boemarks = {}
 
 local isHorde = UnitFactionGroup("player") == "Horde"
 
+-- 添加缓存机制，避免重复计算
+local itemCache = {}
+local factionItemCache = {}
+local equipmentCache = {}
+
+-- 清除缓存
+local function clearCaches()
+    itemCache = {}
+    factionItemCache = {}
+    equipmentCache = {}
+end
+
 local function createItemFrame(item_id, size, with_checkmark)
     if item_id < 0 then
         local f = AceGUI:Create("Label")
@@ -133,8 +145,13 @@ local function createItemFrame(item_id, size, with_checkmark)
                 end
             end)
             item_frame:SetCallback("OnEnter", function(widget)
-                GameTooltip:SetOwner(item_frame.frame)
-                GameTooltip:SetPoint("TOPRIGHT", item_frame.frame, "TOPRIGHT", 220, -13);
+                GameTooltip:SetOwner(item_frame.frame, "ANCHOR_NONE")
+                local position = TitanBistooltipAddon.db.char.tooltip_position or "bottom"
+                if position == "right" then
+                    GameTooltip:SetPoint("TOPRIGHT", item_frame.frame, "TOPRIGHT", 220, -13);
+                else
+                    GameTooltip:SetPoint("BOTTOMLEFT", item_frame.frame, "TOPRIGHT", 10, -13);
+                end
                 GameTooltip:SetHyperlink(ilink)
             end)
             item_frame:SetCallback("OnLeave", function(widget)
@@ -184,8 +201,13 @@ local function createSpellFrame(spell_id, size)
                 end
             end)
             spell_frame:SetCallback("OnEnter", function(widget)
-                GameTooltip:SetOwner(spell_frame.frame)
-                GameTooltip:SetPoint("TOPRIGHT", spell_frame.frame, "TOPRIGHT", 220, -13);
+                GameTooltip:SetOwner(spell_frame.frame, "ANCHOR_NONE")
+                local position = TitanBistooltipAddon.db.char.tooltip_position or "bottom"
+                if position == "right" then
+                    GameTooltip:SetPoint("TOPRIGHT", spell_frame.frame, "TOPRIGHT", 220, -13);
+                else
+                    GameTooltip:SetPoint("BOTTOMLEFT", spell_frame.frame, "TOPRIGHT", 10, -13);
+                end
                 GameTooltip:SetHyperlink(link)
             end)
             spell_frame:SetCallback("OnLeave", function(widget)
@@ -195,8 +217,13 @@ local function createSpellFrame(spell_id, size)
     else
         -- 法术ID无效时的处理
         spell_frame:SetCallback("OnEnter", function(widget)
-            GameTooltip:SetOwner(spell_frame.frame)
-            GameTooltip:SetPoint("TOPRIGHT", spell_frame.frame, "TOPRIGHT", 220, -13);
+            GameTooltip:SetOwner(spell_frame.frame, "ANCHOR_NONE")
+            local position = TitanBistooltipAddon.db.char.tooltip_position or "bottom"
+            if position == "right" then
+                GameTooltip:SetPoint("TOPRIGHT", spell_frame.frame, "TOPRIGHT", 220, -13);
+            else
+                GameTooltip:SetPoint("BOTTOMLEFT", spell_frame.frame, "TOPRIGHT", 10, -13);
+            end
             GameTooltip:SetText("|cffff0000无效的法术ID|r")
             GameTooltip:Show()
         end)
@@ -248,12 +275,25 @@ local function drawItemSlot(slot)
     spec_frame:AddChild(f)
     spec_frame:AddChild(createEnhancementsFrame(slot.enhs))
     for i, item_id in ipairs(slot) do
-        if isHorde == true then
-            if TitanBistooltip_horde_to_ali[item_id] ~= nil then
-                item_id = TitanBistooltip_horde_to_ali[item_id]
+        -- 使用缓存来避免重复计算部落/联盟物品映射
+        local cacheKey = item_id
+        if isHorde then
+            if factionItemCache[cacheKey] == nil then
+                factionItemCache[cacheKey] = TitanBistooltip_horde_to_ali[item_id] or item_id
             end
+            item_id = factionItemCache[cacheKey]
         end
-        if item_id ~= nil and TitanBistooltip_char_equipment[item_id] ~= nil then
+        
+        -- 使用缓存来避免重复检查玩家装备状态
+        local hasEquipment = false
+        if item_id ~= nil then
+            if equipmentCache[cacheKey] == nil then
+                equipmentCache[cacheKey] = TitanBistooltip_char_equipment[item_id] ~= nil
+            end
+            hasEquipment = equipmentCache[cacheKey]
+        end
+        
+        if hasEquipment then
             spec_frame:AddChild(createItemFrame(item_id, 40, true))
         else
             spec_frame:AddChild(createItemFrame(item_id, 40))
@@ -310,9 +350,20 @@ local function drawSpecData()
         return
     end
     local slots = TitanBistooltip_bislists[class][spec][phase]
-    for i, slot in ipairs(slots) do
-        drawItemSlot(slot)
+    
+    -- 使用延迟加载机制，避免一次性创建大量 UI 元素导致卡顿
+    local currentIndex = 1
+    local function loadNextSlot()
+        if currentIndex <= #slots then
+            drawItemSlot(slots[currentIndex])
+            currentIndex = currentIndex + 1
+            -- 每次加载一个槽位，延迟 0.01 秒，避免卡顿
+            C_Timer.After(0.01, loadNextSlot)
+        end
     end
+    
+    -- 开始延迟加载
+    loadNextSlot()
 end
 
 local function buildClassDict()
@@ -384,6 +435,9 @@ local function drawDropdowns()
     classDropdown:SetCallback("OnValueChanged", function(_, _, key)
         class_index = key
         class = class_options_to_class[class_options[key]].name
+        
+        -- 清除缓存，确保数据正确性
+        clearCaches()
 
         specDropdown:SetDisabled(false)
         buildSpecsDict(key)
@@ -515,6 +569,9 @@ function TitanBistooltipAddon:initBislists()
     buildClassDict()
     loadData()
     LibStub("AceConsole-3.0"):RegisterChatCommand("titanbistooltip", function()
+        TitanBistooltipAddon:createMainFrame()
+    end, persist)
+    LibStub("AceConsole-3.0"):RegisterChatCommand("bis", function()
         TitanBistooltipAddon:createMainFrame()
     end, persist)
 end

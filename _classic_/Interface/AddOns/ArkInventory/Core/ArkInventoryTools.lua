@@ -39,7 +39,7 @@ end
 
 function ArkInventory.Tools.GlobalSearch( )
 --[[
- 	local z = "session"
+ 	local z = "sell price"
 	ArkInventory.Output( "search=", z )
 	for k, v in pairs (_G) do
 		if type( k ) == "string" and type( v ) == "string" then
@@ -79,3 +79,24 @@ function ArkInventory.Tools.dump( value )
 		ArkInventory.Output( value )
 	end
 end
+
+
+--[[
+	api secret stuff
+
+	canaccessallvalues(values)
+	canaccesssecrets()
+	canaccesstable(table) 
+	canaccessvalue(value)
+
+	hasanysecretvalues(values)
+
+	issecretvalue(value)
+	issecrettable(table)
+
+	scrubsecretvalues(values)
+	secretwrap(values)
+
+	:IsAnchoringSecret()
+	
+]]--

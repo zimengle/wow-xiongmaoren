@@ -1,4 +1,5 @@
-local L = LibStub("AceLocale-3.0"):NewLocale("BagSync", "zhTW")
+local _, BSYC = ...
+local L = BSYC:NewLocale("zhTW")
 if not L then return end
 
 --  zhTW client (三皈依-暗影之月@TW補齊)
@@ -6,8 +7,6 @@ if not L then return end
 
 L.Yes = "是"
 L.No = "否"
-L.Page = "頁面"
-L.Done = "完成"
 L.Realm = "伺服器:"
 L.TooltipCR_Tag = "CR"
 L.TooltipBNET_Tag = "BN"
@@ -29,11 +28,19 @@ L.TooltipSmall_mailbox = "郵"
 L.TooltipSmall_void = "虛"
 L.TooltipSmall_auction = "拍"
 L.TooltipSmall_warband = "戰"
+--do not touch these unless requiring a new image for a specific localization
+L.TooltipIcon_bag = [[|TInterface\AddOns\BagSync\media\bag:13:13|t]]
+L.TooltipIcon_bank = [[|TInterface\AddOns\BagSync\media\bank:13:13|t]]
+L.TooltipIcon_reagents = [[|TInterface\AddOns\BagSync\media\reagents:13:13|t]]
+L.TooltipIcon_equip = [[|TInterface\AddOns\BagSync\media\equip:13:13|t]]
+L.TooltipIcon_guild = [[|TInterface\AddOns\BagSync\media\guild:13:13|t]]
+L.TooltipIcon_mailbox = [[|TInterface\AddOns\BagSync\media\mailbox:13:13|t]]
+L.TooltipIcon_void = [[|TInterface\AddOns\BagSync\media\void:13:13|t]]
+L.TooltipIcon_auction = [[|TInterface\AddOns\BagSync\media\auction:13:13|t]]
+L.TooltipIcon_warband = [[|TInterface\AddOns\BagSync\media\warband:13:13|t]]
 L.TooltipTotal = "總計:"
 L.TooltipTabs = "公:"
-L.TooltipBagSlot = "位:"
 L.TooltipItemID = "[物品ID]:"
-L.TooltipDebug = "[偵錯]:"
 L.TooltipCurrencyID = "[貨幣ID]:"
 L.TooltipFakeID = "[虛擬ID]:"
 L.TooltipExpansion = "[資料片]:"
@@ -44,14 +51,6 @@ L.TooltipDetailsInfo = "物品詳細總計。"
 L.DetailsBagID = "背包:"
 L.DetailsSlot = "部位:"
 L.DetailsTab = "標籤:"			 
-L.Debug_DEBUG = "偵錯"
-L.Debug_INFO = "資訊"
-L.Debug_TRACE = "追蹤"
-L.Debug_WARN = "警告"
-L.Debug_FINE = "良好"
-L.Debug_SL1 = "SL1" --sublevel 1
-L.Debug_SL2 = "SL2" --sublevel 2
-L.Debug_SL3 = "SL3" --sublevel 3
 L.DebugEnable = "啟用偵錯"
 L.DebugCache = "停用快取"
 L.DebugDumpOptions = "傾印選項 |cff3587ff[DEBUG]|r"
@@ -62,13 +61,11 @@ L.DebugExport = "匯出"
 L.DebugWarning = "|cFFDF2B2B警告:|R BagSync偵錯目前為啟用！ |cFFDF2B2B(可能導致LAG)|r"
 L.Search = "搜索"
 L.Debug = "偵錯"
-L.AdvSearchBtn = "搜索/刷新"
 L.Reset = "重置"
-L.Refresh = "刷新"
 L.Clear = "清除"
-L.AdvancedSearch = "高級搜索"
-L.AdvancedSearchInformation = "* 使用 BagSync |cffff7d0a[CR]|r 和 |cff3587ff[BNet]|r 設置"
-L.AdvancedLocationInformation = "* 選擇所有因為無預設"
+L.SearchFilters = "搜尋篩選"
+L.SearchFiltersInformation = "* 使用 BagSync |cffff7d0a[CR]|r 和 |cff3587ff[BNet]|r 設置"
+L.SearchFiltersLocationInformation = "* 選擇所有因為無預設"
 L.Units = "名字:"
 L.Locations = "位置:"
 L.Profiles = "訊息"
@@ -85,7 +82,6 @@ L.FixDB = "優化數據庫"
 L.Config = "設定"
 L.DeleteWarning = "選擇要刪除的設定檔. 注意:此操作不可逆！"
 L.Delete = "刪除"
-L.Confirm = "確認"
 L.SelectAll = "全選"
 L.FixDBComplete = "已執行FixDB, 數據庫已優化!"
 L.ResetDBInfo = "BagSync:\n您確定要重置數據庫嗎?\n|cFFDF2B2B注意: 這是不可逆的!|r"
@@ -94,16 +90,12 @@ L.OFF = "關[OFF]"
 L.LeftClickSearch = "|cffddff00左鍵|r |cff00ff00= 搜索窗|r"
 L.RightClickBagSyncMenu = "|cffddff00右鍵|r |cff00ff00= 選單|r"
 L.ProfessionInformation = "|cffddff00左鍵|r |cff00ff00查看專業配方|r"
-L.ClickViewProfession = "點擊查看專業"
-L.ClickHere = "點這裡"
 L.ErrorUserNotFound = "BagSync: 錯誤, 未找到用戶!"
 L.EnterItemID = "輸入物品ID(用wowhead.com查詢)"
 L.AddGuild = "添加公會"
 L.AddItemID = "添加物品ID"
-L.RemoveItemID = "移除物品ID"
 L.PleaseRescan = "|cFF778899[請重新掃描]|r"
 L.UseFakeID = "在戰寵使用[FakeID]取代[ItemID]。"
-L.ItemIDNotFound = "[%s] 未找到物品ID。再試一次!"
 L.ItemIDNotValid = "[%s] 物品ID無效或者查詢伺服器未響應。再試一次!"
 L.ItemIDRemoved = "[%s] 物品ID已移除"
 L.ItemIDAdded = "[%s] 已添加物品ID"
@@ -117,9 +109,7 @@ L.WhiteListRemove = "從白名單中移除 [%s]？"
 L.BlackListErrorRemove = "黑名單中移除時出錯"
 L.WhiteListErrorRemove = "白名單中移除時出錯"
 L.ProfilesRemove = "移除 [%s][|cFF99CC33%s|r] 來自BagSync個人資料?"
-L.ProfilesErrorRemove = "BagSync 移除時出錯"
 L.ProfileBeenRemoved = "[%s][|cFF99CC33%s|r] 從BagSync中移除個人資料!"
-L.ProfessionsFailedRequest = "[%s] 伺服器請求失敗"
 L.ProfessionHasRecipes = "左鍵點擊查看專業"
 L.ProfessionHasNoRecipes = "沒有查看內容。"
 L.KeybindBlacklist = "顯示黑名單視窗。"
@@ -132,10 +122,8 @@ L.KeybindSearch = "顯示搜索視窗"
 L.ObsoleteWarning = "\n\n注意：過時的物品將繼續顯示為缺失。 要修復此問題,請再次掃描您的角色以刪除過時的物品。\n（背包、銀行、虛空銀行等 ...)"
 L.DatabaseReset = "由於數據庫的變化。您的BagSync數據庫已重置"
 L.UnitDBAuctionReset = "所有角色的拍賣數據已重置。 "
-L.ScanGuildBankStart = "公會銀行內訊息正在查詢伺服器,請稍候....."
 L.ScanGuildBankDone = "公會銀行掃描完成!"
 L.ScanGuildBankError = "警告: 公會銀行掃描不完整"
-L.ScanGuildBankScanInfo = "掃描公會標簽 (%s/%s)"
 L.DefaultColors = "預設顏色"
 -- ----THESE ARE FOR SLASH COMMANDS OPERATORS
 L.SlashItemName = "[物品名稱]"
@@ -180,13 +168,14 @@ L.ModValue_SHIFT = "SHIFT"
 L.EnableExtTooltip = "在單獨框體上顯示物品統計數據"
 L.EnableLoginVersionInfo = "顯示BagSync的登入訊息"
 L.FocusSearchEditBox = "開啟搜尋視窗時聚焦到搜尋框架"
-L.AlwaysShowAdvSearch = "始終顯示BagSync進階搜尋視窗。"
+L.AlwaysShowSearchFilters = "始終顯示BagSync搜尋篩選視窗。"
 L.DisplayTotal = "顯示 [總計] 金額"
-L.DisplayGuildGoldInGoldTooltip = "顯示 [公會] 金幣總數"
+L.DisplayGuildGoldInGoldWindow = "在金幣視窗顯示 [公會] 金幣總數。"
 L.Display_GSC = "顯示[詳細]金額（|cFFFFD700金|r， |cFFC0C0C0銀|r 和 |cFFB87333銅|r）。"
-L.DisplayMailbox = "包括信箱內物品"
-L.DisplayAuctionHouse = "包括拍賣行物品"
 L.DisplayMinimap = "顯示小地圖按鈕"
+L.EnableAddonCompartment = "啟用暴雪插件收納箱整合。"
+L.ResetMinimapBtn = "重置小地圖按鈕位置。"
+L.AddonCompartmentReloadMsg = "插件收納箱設定變更需要重新載入介面。使用 /reload 套用。"
 L.DisplayFaction = "同時顯示聯盟和部落的物品 (|cff3587ffAlliance|r/|cFFDF2B2BHorde|r)"
 L.DisplayClassColor = "職業顏色"
 L.DisplayItemTotalsByClassColor = "顯示物品總計根據角色的職業顏色。"
@@ -201,7 +190,6 @@ L.DisplayCurrentRealmShortName = "為\"當前\"|cFF4CBB17[伺服器]|r使用一�
 L.DisplayCR = "顯示 |cffff7d0a[連結伺服器]|r 角色。 |cffff7d0a[CR]|r"																			  
 L.DisplayBNET = "顯示戰網賬號訊息 |cff3587ff[BNet]|r |cFFDF2B2B(不推薦)|r"
 L.DisplayItemID = "顯示 [物品ID] "
-L.DisplaySourceDebugInfo = "在鼠標提示中顯示有用的 [Debug] 訊息."
 L.DisplayWhiteListOnly = "顯示工具提示物品總計僅適用於白名單的物品。"
 L.DisplaySourceExpansion = "顯示工具提示中物品的來源資料片。 |cFF99CC33[只限正式版]|r"
 L.DisplayItemTypes = "顯示工具提示中 [物品類型 | 子類型] 的類別。"
@@ -224,17 +212,19 @@ L.DisplayShortRealmName = "顯示短位名字 |cffff7d0a[CR]|r 和 |cff3587ff[BN
 L.DisplayFactionIcons = "顯示陣營圖案"
 L.DisplayGuildBankTabs = "在工具提示中顯示公會銀行標籤 [1,2,3, 等等...]。"
 L.DisplayWarbandBankTabs = "在鼠標提示中顯示[戰團銀行]標簽[1,2,3, 等...]。"
+L.DisplayBankTabs = "在工具提示中顯示銀行標籤 [1,2,3, 等...]。"
 L.DisplayEquipBagSlots = "在鼠標提示中顯示[裝備]背包欄位<1,2,3, 等...>。"
 L.DisplayRaceIcons = "在工具提示中顯示角色種族圖示。"
 L.DisplaySingleCharLocs = "在儲存位置顯示一個單獨角色。"
 L.DisplayIconLocs = "在儲存位置顯示一個圖示。"
-L.DisplayGuildSeparately = "從角色總計中分離顯示[公會]名稱與物品總計。"
-L.DisplayGuildCurrentCharacter = "僅顯示當前游戲角色的 [公會] 物品"
-L.DisplayGuildBankScanAlert = "顯示公會銀行掃描視窗。"
 L.DisplayAccurateBattlePets = "在公會銀行和郵箱中啟用準確的戰鬥寵物。 |cFFDF2B2B(可能導致延遲)|r |cff3587ff[請參閱BagSync的常見問題]|r"
 L.DisplaySortCurrencyByExpansionFirst = "BagSync 的貨幣窗口是依據游戲資料片順序而不是字母順序來進行排序。"
 L.DisplaySorting = "工具提示排序"
 L.DisplaySortInfo = "預設：工具提示先根據伺服器的字母先後排序，然後才是角色名稱。"
+L.SortMode = "排序模式"
+L.SortMode_RealmCharacter = "伺服器然後角色（預設）"
+L.SortMode_Character = "角色"
+L.SortMode_ClassCharacter = "職業然後角色"
 L.SortCurrentPlayerOnTop = "默認排序，始終將當前角色顯示在首位。"
 L.SortTooltipByTotals = "排序根據總數而非字母順序。"
 L.SortByCustomSortOrder = "排序依據自定義順序。"
@@ -261,26 +251,46 @@ L.ColorExpansion = "BagSync [資料片] 提示顏色"
 L.ColorItemTypes = "BagSync [物品類型] 提示顏色"
 L.ColorGuildTabs = "公會標籤 [1,2,3, etc...] 提示顏色"
 L.ColorWarbandTabs = "戰隊標簽 [1,2,3, 等...] 提示顏色。"
+L.ColorBankTabs = "銀行標籤 [1,2,3, 等...] 提示顏色。"
 L.ColorBagSlots = "背包位 <1,2,3, 等...> 提示顏色。"
-L.ConfigHeader = "各種BagSync功能的設置"
 L.ConfigDisplay = "顯示"
 L.ConfigTooltipHeader = "顯示BagSync提示訊息的設置"
 L.ConfigColor = "顏色"
 L.ConfigColorHeader = "BagSyn提示訊息的顏色設置"
+L.ConfigCache = "快取"
+L.ConfigCacheHeader = "BagSync 物品快取與節流設定。"
+L.ConfigCacheHowTitle = "快取如何運作"
+L.ConfigCacheHowText_1 = "登入時物品資訊並不完整可用。像 |cFFB19CD9GetItemInfo|r 或 |cFFB19CD9C_Item.GetItemInfo|r 的 API 會回傳 nil（或沒有內容），直到該物品在本次連線中被快取。"
+L.ConfigCacheHowText_2 = "BagSync 會以小批量請求缺失的物品資料，並等待用戶端接收（同樣會觸發 GET_ITEM_INFO_RECEIVED）。"
+L.ConfigCacheHowText_3 = "節流可在快取逐步填充時保持效能穩定，使搜尋與提示逐步完整。"
+L.ConfigCacheRatesTitle = "目前速率"
+L.ConfigCacheSpeedTitle = "快取速度"
+L.ConfigCacheSpeedLabel = "節流"
+L.ConfigCacheSpeedHelp = "|cFFB19CD9慢|r 為預設且最有利於效能，但搜尋需要更久才能完全快取。\n|cFFB19CD9中|r 更快，但可能在登入時出現小尖峰。\n|cFFB19CD9快|r 最激進，可能在登入時出現卡頓尖峰。\n|cFFFF4D4D停用|r |cFFFF4D4D不建議|r（|cFFFFFFFF當搜尋視窗開啟或進行搜尋時，BagSync 將使用 |cFFB19CD9快|r。|r）"
+L.CacheSpeedSlow = "慢（背景 + 遞增）"
+L.CacheSpeedMedium = "中"
+L.CacheSpeedFast = "快"
+L.CacheSpeedDisabled = "停用（無背景快取）"
+L.CacheSpeedRampIntro = "慢速模式每 %d 秒遞增。"
+L.CacheSpeedRampLine = "第 %d 步：每 %.2fs %d 件（約每秒 %d 件）。"
+L.CacheSpeedSingleLine = "每 %.2fs %d 件（約每秒 %d 件）。"
+L.CacheSpeedDisabledSummary = "背景快取已停用。開啟 BagSync 會使用「快」，搜尋也會使用「快」。"
 L.ConfigMain = "主設置"
 L.ConfigMainHeader = "BagSync的主設置"
-L.ConfigSearch = "搜尋"
 L.ConfigKeybindings = "按鍵綁定"
 L.ConfigKeybindingsHeader = "BagSync功能的按鍵綁定。"
 L.ConfigExternalTooltip = "工具提示外表"								
-L.ConfigSearchHeader = "搜尋視窗的設定"
 L.ConfigFont = "字體"
+L.ConfigExtTooltipAnchor = "位置"
 L.ConfigFontSize = "字體大小"
 L.ConfigFontOutline = "描邊"
 L.ConfigFontOutline_NONE = "無"
 L.ConfigFontOutline_OUTLINE = "描邊"
 L.ConfigFontOutline_THICKOUTLINE = "粗描邊"
 L.ConfigFontMonochrome = "無鋸齒改善"
+L.ExtTooltipAnchor_Bottom = "下方"
+L.ExtTooltipAnchor_Left = "左側"
+L.ExtTooltipAnchor_Right = "右側"
 L.ConfigTracking = "追蹤"
 L.ConfigTrackingHeader = "所有已儲存的BagSync資料庫位置的追蹤設定。"
 L.ConfigTrackingCaution = "警告"
@@ -302,11 +312,26 @@ L.TrackingModule_WarbandBank = "戰隊銀行（戰隊）"
 L.TrackingModule_Professions = "專業 / 交易技能"
 L.TrackingModule_Currency = "兌換通貨"
 L.WarningItemSearch = "警告：共有 [|cFFFFFFFF%s|r] 個物品未被搜索！\n\nBagSync 仍在等待伺服器/數據庫響應\n\n按“搜尋”或“更新”按鈕"
-L.WarningUpdatedDB = "您已更新到最新的版本!您將需要再次重新掃描所有角色!|r "
+L.CachingItemData = "正在快取物品資料...（剩餘%d）"
+L.WarningCurrencyUpt = "貨幣更新失敗。請登入角色："
 L.WarningHeader = "警告!"
 L.SavedSearch = "搜尋已儲存"
 L.SavedSearch_Add = "加入搜尋"
 L.SavedSearch_Warn = "你必須在搜尋框中輸入某些東西。"
+---------------------------------------
+--Blizzard doesn't return the same header title in the Currency/Token window that is used in their expansion globals.
+--Meaning that, "The Burning Crusade" is listed as "Burning Crusade" in the Currency/Token window.  The same for "The War Within" being shown as "War Within"
+--In order to do a proper sorting of the Currency/Token Window for BagSync.  I've done the following steps
+--1) Removed all spaces and special characters from the expansion name
+--2) forced all characters to be lower case
+--3) Use the filter below to remove any other additional words in the name to match it to the currency/token window.
+--
+--Example: "The War Within" and "War Within" gets matched as "warwithin".  "Battle for Azeroth" gets matched as "battleforazeroth"
+--You can add as many words as you want below, just make sure it's lowercase, no spaces or symbols and to follow each entry with a comma
+---------------------------------------
+L.CurrencySortFilters = {
+	"the",
+}
 ---------------------------------------
 --Localization Note:  Please be advised that the commands for the SearchHelp are english only, however the variables can be any language.  範例: class:<name of class in your locale>
 --This includes name searches like name:<name in your locale>
@@ -327,7 +352,7 @@ L.SearchHelp = [[
 @guild <公會>
 @warband <戰隊>
 
-|cffff7d0a進階搜尋|r (|cFF99CC33指令|r | |cFFFFD580範例|r):
+|cffff7d0a搜尋篩選|r (|cFF99CC33指令|r | |cFFFFD580範例|r):
 
 |cff00ffff<物品名稱>|r = |cFF99CC33n|r ; |cFF99CC33name|r | 示例：|cFFFFD580[輸入簡稱]:礦石|r ;  |cFFFFD580[輸入全稱]:寧鐵礦石|r 
 
@@ -347,12 +372,13 @@ L.SearchHelp = [[
 
 |cff00ffff<版本>|r = |cFF99CC33x|r ; |cFF99CC33xpac|r ; |cFF99CC33expansion|r | 示例： |cFFFFD580x:巨龍時代|r  ;   |cFFFFD580xpac:暗影國度|r 
 
-|cff00ffff<關鍵字>|r = |cFF99CC33k|r ; |cFF99CC33key|r ; |cFF99CC33keyword|r | 示例：|cFFFFD580k:任務|r（關鍵字: soulbound, bound, boe, bop, bou, boa, quest, unique, toy, reagent, crafting, naval, follower, follow, power, apperance）
+|cff00ffff<關鍵字>|r = |cFF99CC33k|r ; |cFF99CC33key|r ; |cFF99CC33keyword|r | 示例：|cFFFFD580k:任務|r（關鍵字: soulbound, bound, boe, bop, bou, boa, quest, unique, toy, reagent, crafting, naval, follower, follow, power, appearance, apperance）
 
 |cff00ffff<職業>|r = |cFF99CC33c|r ; |cFF99CC33class|r | 示例：|cFFFFD580class:戰士|r  ;  |cFFFFD580c:惡魔獵手|r
 
 |cffff7d0a運算符號 <op>|r:
 |cFF99CC33:|r | |cFF99CC33=|r | |cFF99CC33==|r | |cFF99CC33!=|r | |cFF99CC33~=|r | |cFF99CC33<|r | |cFF99CC33>|r | |cFF99CC33<=|r | |cFF99CC33>=|r
+|cFFDF2B2BNote:|r |cFF99CC33!=|r and |cFF99CC33~=|r are supported (not equal).
 
 
 |cffff7d0a反向指令|r:

@@ -87,6 +87,7 @@ L.Button_InfoFrame			= "정보 창 표시/숨기기"
 L.Button_TestBars			= "테스트 바 시작"
 L.Button_MoveBars			= "바 이동"
 L.Button_ResetInfoRange		= "정보/거리 창 위치 초기화"
+L.Button_ShowMidnightWizard			= "한밤 설정 마법사"
 
 L.ModelOptions				= "3D 모델 뷰어 설정"
 L.EnableModels				= "보스 설정에 3D 모델 사용"
@@ -104,7 +105,7 @@ L.UIGroupingOptions			= "UI 그룹 설정 (이미 로딩이 된 모드는 UI 재
 L.GroupOptionsExcludeIcon	= "주문 단위로 형성된 그룹에서 '공격대 징표' 설정 제외 (제외된 설정들은 '공격대 징표' 카테고리에 배치)"
 L.GroupOptionsExcludePrivateAura	= "주문 단위로 형성된 그룹에서 '비공개 오라' 효과음 설정 제외 (제외된 설정들은 '비공개 오라' 카테고리에 배치)"
 
-L.AutoExpandSpellGroups		= "주문 단위로 그룹이 형성된 설정들을 자동으로 펼치기"
+L.AutoExpandSpellGroups2		= "주문 단위로 그룹이 형성된 설정들을 자동으로 펼치기"
 L.ShowWAKeys				= "보스 모드 활성 조건을 이용한 WeakAuras 제작을 지원하기 위해 주문 이름 옆에 WeakAuras 키를 표시합니다."
 --L.ShowSpellDescWhenExpanded	= "설정 그룹이 펼쳐진 상태에서도 주문 설명 계속 표시"--Might not be used
 L.NoDescription				= "이 능력에 대한 설명이 없습니다"
@@ -125,12 +126,12 @@ L.RecordOnlyBosses			= "일반몹 기록 안함 (보스만 기록합니다. 보�
 L.DoNotLogLFG				= "던전 찾기와 공격대 찾기 기록 안함 (대기열 등록 콘텐트)"
 --Auto Logging: Recorded Content types
 L.Area_AutoLoggingContent	= "자동으로 기록할 콘텐트"
-L.LogCurrentMythicRaids		= "현재 확장팩 (또는 리믹스) 신화 레이드"--Retail Only
-L.LogCurrentRaids			= "현재 확장팩 (또는 리믹스) 비 신화 레이드 (영웅, 일반 그리고 던전 찾기와 공찾 기록 안함 옵션이 꺼져있을 경우엔 공찾까지)"
-L.LogTWRaids				= "시간여행 또는 크로미의 시간 레이드 (리믹스 제외)"--Retail Only
-L.LogTrivialRaids			= "구 레이드 (이전 확장팩)"
-L.LogCurrentMPlus			= "현재 확장팩 (또는 리믹스) 신화+ 던전"--Retail Only
-L.LogCurrentMythicZero		= "현재 확장팩 (또는 리믹스) 신화 0단 던전"--Retail Only
+L.LogCurrentMythicRaids		= "현재 확장팩 (리믹스 포함) 신화 공격대"--Retail Only
+L.LogCurrentRaids			= "현재 확장팩 (리믹스 포함) 비 신화 공격대 (영웅, 일반 그리고 던전 찾기와 공찾 기록 안함 옵션이 꺼져있을 경우엔 공찾까지)"
+L.LogTWRaids				= "시간여행 및 크로미의 시간 공격대 (리믹스 제외)"--Retail Only
+L.LogTrivialRaids			= "낭만 공격대 (이전 확장팩)"
+L.LogCurrentMPlus			= "현재 확장팩 (리믹스 포함) 신화+ 던전"--Retail Only
+L.LogCurrentMythicZero		= "현재 확장팩 (리믹스 포함) 신화 0단 던전"--Retail Only
 L.LogTWDungeons				= "시간여행 또는 크로미의 시간 던전 (리믹스 제외)"--Retail Only
 L.LogCurrentHeroic			= "현재 확장팩 영웅 던전 (알림: 던전 찾기를 통해 영던을 돌면서 로그를 기록하고 싶다면 던전 찾기 기록 안함 옵션을 끄세요)"
 L.LogDelves					= "현재 레벨 구렁"--Retail Only
@@ -212,9 +213,10 @@ L.Tab_RaidWarning 			= "알림"
 L.RaidWarning_Header		= "알림 설정"
 L.RaidWarnColors 			= "알림 색상"
 L.RaidWarnColor_1 			= "색상 1"
-L.RaidWarnColor_2 			= "색상 2"--Only one used in midnight
+L.RaidWarnColor_2 			= "색상 2"
 L.RaidWarnColor_3 			= "색상 3"
 L.RaidWarnColor_4 			= "색상 4"
+L.RaidWarnColor 			= "색상"--Only one used in midnight
 L.InfoRaidWarning			= [[레이드 경고 프레임의 위치와 색상을 설정할 수 있습니다.
 본 프레임은 "플레이어 X가 Y에 걸렸습니다"와 같은 메시지를 표시하는데 사용됩니다.]]
 L.ColorResetted 			= "이 영역의 색상 설정을 초기화 합니다."
@@ -406,7 +408,7 @@ L.AreaTitle_BarSetupSmall 	= "작은 바 설정"
 L.AreaTitle_BarSetupHuge 	= "커다란 바 설정"
 L.AreaTitle_BarSetupVariance		= "가변적 바 설정"
 L.EnableHugeBar 			= "커다란 바 사용 (일명 바 2)"
-L.EnableVarianceBar 				= "편차 바 사용"
+L.EnableVarianceBar 				= "타이머 바를 확장해서 스킬의 최대 대기 시간 표시"
 L.VarianceColor						= "편차 바 색상"
 L.VarianceTransparency				= "바 투명도: %0.1f"
 L.VarianceTimerTextBehavior			= "편차 타이머 텍스트 작동 방식 설정"
@@ -452,7 +454,11 @@ L.Area_BlizzFiltersSetup	= "블리자드 기능 필터 가이드"
 -- Panel: Toggle DBM Features
 L.Panel_SpamFilter			= "DBM 기능 끄기"
 
-L.Area_SpamFilter_SpecFeatures		= "알림 기능"
+L.Area_Global_Toggles				= "전체 기능 켜기/끄기"
+L.NoWarnings						= "모든 DBM 알림 끄기"
+L.NoTimers							= "모든 DBM 타이머 바 끄기"
+
+L.Area_SpamFilter_SpecFeatures		= "세부 알림 기능 (위에서 전체 비활성화를 하지 않을 때만 적용)"
 L.SpamBlockNoShowAnnounce	= "모든 알림 및 효과음 재생 안함"
 L.SpamBlockNoSpecWarnText	= "특수 알림 텍스트 표시 안함"
 L.SpamBlockNoSpecWarnFlash	= "특수 알림에 화면 점멸 사용 안함"
@@ -460,7 +466,7 @@ L.SpamBlockNoSpecWarnVibrate		= "특수 알림에 컨트롤러 진동 안함"
 L.SpamBlockNoSpecWarnSound	= "특수 알림 효과음 재생 안함 (초읽기와 음성팩 메뉴에서 활성화된 음성팩은 계속 작동)"
 L.SpamBlockNoPrivateAuraSound		= "비공개 오라 효과음 등록 안함"
 
-L.Area_SpamFilter_Timers	= "타이머"
+L.Area_SpamFilter_Timers			= "세부 타이머 기능 (위에서 전체 비활성화를 하지 않을 때만 적용)"
 L.SpamBlockNoShowBossTimers		= "던전/레이드 보스 타이머 표시 안함"
 L.SpamBlockNoShowTrashTimers		= "던전/레이드 일반몹 타이머 표시 안함 (알림: 이름표의 쿨타임도 표시되지 않습니다)"
 L.SpamBlockNoShowEventTimers		= "이벤트나 알림 타이머 표시 안함 (대기열, 보스 재생성 등)"
@@ -471,7 +477,7 @@ L.Area_SpamFilter_Nameplates		= "이름표"
 L.SpamBlockNoNameplate				= "특수한 보스 패턴의 스킬 아이콘을 이름표에 표시 안함 (예: 적에게 버프나 디버프 거는 패턴)"
 L.SpamBlockNoNameplateCD			= "스킬 쿨타임 타이머 아이콘을 이름표에 표시 안함"
 L.SpamBlockNoNameplateCasts			= "스킬 시전시 아이콘을 이름표에 표시 안함"
-L.SpamBlockNoBossGUIDs				= "타이머도 있는 스킬의 쿨타임 타이머 아이콘을 이름표에 표시 안함\n(보통 던전 보스에 적용)"
+L.SpamBlockNoBossGUIDs				= "타이머를 보유한 스킬의 쿨타임 타이머 아이콘을 이름표에 표시 안함\n(보통 던전 보스에 적용)"
 L.AlwaysKeepNPs						= "쿨타임 타이머 아이콘을 만료됐어도 스킬 재시전까지 유지"
 
 L.Area_SpamFilter_Misc		= "기타"
@@ -536,28 +542,28 @@ L.SpamSpecRoleGTFO					= "'바닥 피하기' 경고 빼기 (텍스트와 효과�
 L.Panel_HideBlizzard				= "블리자드 기능 차단"
 --Toast
 L.Area_HideToast					= "블리자드 토스트 알림 비활성화 (팝업)"
-L.HideGarrisonUpdates				= "보스 전투중 추종자 토스트 알림 숨기기"
-L.HideGuildChallengeUpdates			= "보스 전투중 길드 도전 과제 토스트 알림 숨기기"
+L.HideGarrisonUpdates				= "보스 전투 중 추종자 토스트 알림 숨기기"
+L.HideGuildChallengeUpdates			= "보스 전투 중 길드 도전 과제 토스트 알림 숨기기"
 --L.HideBossKill				= "보스 처치 토스트 알림 숨기기"--NYI
 --L.HideVaultUnlock					= "금고 잠금 해제 토스트 알림 숨기기"--NYI
 --Cut Scenes
 L.Area_Cinematics					= "게임내 시네마틱 재생 차단"
-L.DuringFight						= "보스 전투중 컷신 재생 차단"--uses explicite IsEncounterInProgress check
+L.DuringFight						= "보스 전투 중 컷신 재생 차단"--uses explicite IsEncounterInProgress check
 L.InstanceAnywhere					= "던전이나 공격대 인스턴스에서 비전투 컷신 재생 차단"
 L.NonInstanceAnywhere				= "위험: 야외 컷신 재생 차단 (권장하지 않음)"
 L.OnlyAfterSeen						= "위 선택 사항에 해당되는 것 중 1회 이상 본 컷신만 재생 차단 (스토리 이해를 위해 한번은 보도록 의도된 옵션이며 사용을 강력히 권장합니다)"
 --Sound
 L.Area_Sound						= "게임내 소리 차단"
-L.DisableSFX					= "보스 전투중 효과 음량 비활성화"
-L.DisableAmbiance					= "보스 전투중 환경 음량 비활성화"
-L.DisableMusic						= "보스 전투중 배경음악 음량 비활성화 (알림: 옵션을 켜면 이벤트 효과음에서 보스 전투 배경음을 설정해도 재생이 되지 않습니다)"
+L.DisableSFX					= "보스 전투 중 효과 음량 비활성화"
+L.DisableAmbiance					= "보스 전투 중 환경 음량 비활성화"
+L.DisableMusic						= "보스 전투 중 배경음악 음량 비활성화 (알림: 옵션을 켜면 이벤트 효과음에서 보스 전투 배경음을 설정해도 재생이 되지 않습니다)"
 --Other
 L.Area_HideBlizzard			= "그 외 블리자드 성가신 요소 비활성화 및 숨김"
-L.HideBossEmoteFrame		= "보스 전투중 보스 감정표현 프레임 숨기기"
+L.HideBossEmoteFrame		= "보스 전투 중 보스 경고 숨기기"
 L.HideWatchFrame			= "추적중인 업적이 없고 신화+ 난이도가 아니라면 보스 전투시 퀘스트 추적 프레임 숨기기"
-L.HideQuestTooltips			= "보스 전투중 툴팁에서 퀘스트 목표 숨기기"--Currently hidden (NYI)
-L.HideTooltips				= "보스 전투중 툴팁 완전히 숨기기"
-L.HideBlizzardTimeline				= "보스 전투중 블리자드 기본 공격대 타임라인 숨기기"
+L.HideQuestTooltips			= "보스 전투 중 툴팁에서 퀘스트 목표 숨기기"--Currently hidden (NYI)
+L.HideTooltips				= "보스 전투 중 툴팁 완전히 숨기기"
+L.HideBlizzardTimeline				= "보스 전투 중 블리자드 기본 공격대 타임라인 숨기기"
 
 -- Panel: Raid Leader Controls
 L.Tab_RLControls					= "공대장 제어 설정"
@@ -594,7 +600,7 @@ L.TabFooter							= "이 패널의 모든 설정은 당신이 공격대/공찾 �
 L.Tab_Privacy 				= "자동 응답과 사생활 보호"
 L.Tab_PrivacyMidnight				= "애드온 통신과 사생활 보호"
 L.Area_WhisperMessages		= "귓속말 설정"
-L.AutoRespond 				= "전투중 자동 귓속말 답변"
+L.AutoRespond 				= "전투 중 자동 귓속말 답변"
 L.WhisperStats 				= "귓속말 답변에 처치/전멸 통계 포함"
 L.DisableStatusWhisper 		= "공격대 전반에 관한 상태 보고 귓속말을 끕니다. (공대장 권한 필요) 일반/영웅/신화 레이드와 신화+ 던전에만 적용됩니다"
 L.Area_SyncMessages			= "애드온 동기화 설정"

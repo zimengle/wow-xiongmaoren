@@ -279,7 +279,7 @@ fujiF.Deaths.Clear:HookScript("OnClick", function ()
 	PIGA["Hardcore"]["Deaths"]["Player"]={}
 	HardcoreDeaths.Update_List()
 end);
-fujiF.Deaths.CZINFO = PIGButton(fujiF.Deaths,{"LEFT",fujiF.Deaths.Clear,"RIGHT",100,0},{60,20},"重置")
+fujiF.Deaths.CZINFO = PIGButton(fujiF.Deaths,{"LEFT",fujiF.Deaths.Clear,"RIGHT",100,0},{60,20},RESET)
 fujiF.Deaths.CZINFO:HookScript("OnClick", function ()
 	Create.PIG_ResPoint(UIname)
 end);
@@ -674,7 +674,7 @@ function CommonInfo.Commonfun.HardcoreDeaths()
 		hang.nameF:HookScript("OnMouseUp", function(self,button)
 			local nameX = self:GetParent().name:GetText()
 			if button=="LeftButton" then
-				ChatFrame_SendTell(nameX.." ".. ChatEdit_ChooseBoxForSend():GetText(), DEFAULT_CHAT_FRAME);
+				PIGSendTell(nameX.." ".. ChatEdit_ChooseBoxForSend():GetText(), DEFAULT_CHAT_FRAME);
 			else
 				SendChatMessage("你如星辰，虽已陨落，但光芒永存，照亮我们前行的道路", "WHISPER", nil, nameX);
 			end

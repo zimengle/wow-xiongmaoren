@@ -380,7 +380,7 @@ function UnitFramefun.Mubiao()
 			end
 		end
 		function fuF.TTT:HealthCheck()
-			if (UnitIsPlayer(self.unit)) then
+			if (PIG_MaxTocversion() and UnitIsPlayer(self.unit)) then
 				local _, unitHPMax = self.HealthBar:GetMinMaxValues();
 				local unitCurrHP = self.HealthBar:GetValue();
 				self.unitHPPercent = unitCurrHP / unitHPMax;

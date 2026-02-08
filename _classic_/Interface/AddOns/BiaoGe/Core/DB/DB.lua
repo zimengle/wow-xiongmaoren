@@ -9,7 +9,6 @@ local LibBG = LibStub:GetLibrary("LibUIDropDownMenu-4.0") -- 调用库菜单UI
 ns.LibBG = LibBG
 
 C_ChatInfo.RegisterAddonMessagePrefix("BiaoGe") -- 注册插件通信频道
-C_ChatInfo.RegisterAddonMessagePrefix("BiaoGeYY")
 C_ChatInfo.RegisterAddonMessagePrefix("BiaoGeVIP")
 C_ChatInfo.RegisterAddonMessagePrefix("BiaoGeWorldBoss")
 
@@ -24,10 +23,9 @@ BINDING_HEADER_BIAOGE = "BiaoGe"
 BINDING_NAME_BIAOGE = L["打开/关闭表格"]
 BINDING_NAME_RoleOverview = L["打开/关闭角色总览"]
 
-
 local realmID = GetRealmID()
 local player = BG.playerName
-local realmName = GetRealmName()
+local realmName = BG.realmName
 local GetAddOnMetadata = GetAddOnMetadata or C_AddOns.GetAddOnMetadata
 local IsAddOnLoaded = IsAddOnLoaded or C_AddOns.IsAddOnLoaded
 
@@ -236,7 +234,7 @@ do
             AddDB("MCtitan", mainFrameWidth, 870, 3, 12, { 0, 6, 11 }, nil, nil,
                 { 5, 5, 5, 5, 5, 6, 5, 5, 5, 6, 11, 20, })
             AddDB("SSCtitan", mainFrameWidth, 870, 3, 12, { 0, 6, 11 }, nil, nil,
-                { 5, 5, 5, 5, 5, 6, 5, 5, 5, 6, 11, 20, })
+                { 5, 5, 5, 5, 5, 6, 5, 5, 5, 7, 18, 11, },11)
             AddDB("Worldtitan", mainFrameWidth, 930, 3, 10, { 0, 4, 8 }, nil, nil,
                 { 9, 9, 9, 9, 9, 9, 9, 9, 3, 4 })
         end
@@ -325,7 +323,7 @@ do
         if BG.IsVanilla_60 then
             BG.FB1 = "MC"
             BG.fullLevel = 60
-            BG.fullLevel_RoleOverview = 60
+            BG.fullLevel_RoleOverview = 35
             BG.theEndBossID = { 672, 617, 793, 723, 717, 1114 } --MC BWL ZUG AQL TAQ NAXX
             AddDB("MC", 409, "P1-P2", 40, nil, nil, { 1, 10 })
             AddDB("BWL", 469, "P3", 40)
@@ -344,7 +342,7 @@ do
         if BG.IsWLK_80 then
             BG.FB1 = "NAXX"
             BG.fullLevel = 80
-            BG.fullLevel_RoleOverview = 68
+            BG.fullLevel_RoleOverview = 60
             BG.theEndBossID = { 1114, 756, 645, 856, }
 
             AddDB("NAXX", 533, "P1", nil, nil, nil, { 1, 15 })
@@ -395,10 +393,10 @@ do
         if BG.IsTitan then
             BG.FB1 = "MCtitan"
             BG.fullLevel = 80
-            BG.fullLevel_RoleOverview = 70
+            BG.fullLevel_RoleOverview = 60
             BG.theEndBossID = { 672, 628, 733 } --MC 毒蛇 风暴
             AddDB("MCtitan", 409, "P1", 25)
-            AddDB("SSCtitan", 548, "P2", 25, nil, nil, nil, L["毒蛇风暴"])
+            AddDB("SSCtitan", 548, "P2", 25, nil, nil, { 1, 6 }, L["毒蛇风暴"])
             BG.FBIDtable[550] = "SSCtitan" -- 风暴要塞
             BG.bossPositionStartEnd[550] = { 7, 10 }
             for i = 7, 10 do
@@ -417,7 +415,7 @@ do
         if BG.IsCTM then
             BG.FB1 = "DS"
             BG.fullLevel = 85
-            BG.fullLevel_RoleOverview = 80
+            BG.fullLevel_RoleOverview = 70
             BG.theEndBossID = { 1082, 1026, 1034, 1203, 1299, } -- BOT BWD TOF FL DS
             AddDB("BOT", 671, "P1", nil, nil, nil, { 1, 5 })    -- 暮光堡垒
             BG.FBIDtable[669] = "BOT"                           -- 黑翼血环
@@ -444,10 +442,10 @@ do
         if BG.IsMOP then
             BG.FB1 = "MSV"
             BG.fullLevel = 90
-            BG.fullLevel_RoleOverview = 85
-            BG.theEndBossID = { 1407, 1501, 1431, 1579 } -- 魔古山 大女皇 惧之煞 雷神
+            BG.fullLevel_RoleOverview = 80
+            BG.theEndBossID = { 1407, 1501, 1431, 1579 }           -- 魔古山 大女皇 惧之煞 雷神
             BG.worldBossID = { 32098, 32099, 32518, 32519, 37464 } -- 炮舰 怒之煞 暴风领主纳拉克 乌达斯塔 鲁赫马尔
-            AddDB("MSV", 1008, "P1", nil, nil, nil, { 1, 6 }, L["魔古山宝库"]) -- 魔古山
+            AddDB("MSV", 1008, "P1", nil, nil, nil, { 1, 6 })      -- 魔古山
             -- 恐惧之心
             BG.FBIDtable[1009] = "MSV"
             BG.bossPositionStartEnd[1009] = { 7, 12 }
@@ -686,63 +684,6 @@ do
         end
     end
 
-    -- 字体
-    do
-        local function CreateMyFont(color, size, H)
-            local cff
-            if color == "Blue" then
-                cff = "00BFFF"
-            elseif color == "Green" then
-                cff = "00FF00"
-            elseif color == "Green2" then
-                cff = "40c040"
-            elseif color == "Red" then
-                cff = "FF0000"
-            elseif color == "Fen" then
-                cff = "FF69B4"
-            elseif color == "Gold" then
-                cff = "FFD100"
-            elseif color == "Yellow" then
-                cff = "FFFF00"
-            elseif color == "White" then
-                cff = "FFFFFF"
-            elseif color == "Dis" then
-                cff = "808080"
-            end
-            BG["Font" .. color .. size] = CreateFont("BG.Font" .. color .. size)
-            BG["Font" .. color .. size]:SetTextColor(RGB(cff))
-            BG["Font" .. color .. size]:SetFont(STANDARD_TEXT_FONT, size, "OUTLINE")
-        end
-
-        CreateMyFont("Blue", 13)
-        CreateMyFont("Blue", 15)
-
-        CreateMyFont("Green", 13)
-        CreateMyFont("Green", 15)
-        CreateMyFont("Green", 25)
-
-        CreateMyFont("Green2", 15)
-
-        CreateMyFont("Gold", 13)
-        CreateMyFont("Gold", 15)
-
-        CreateMyFont("Yellow", 13)
-        CreateMyFont("Yellow", 15)
-
-        CreateMyFont("Red", 13)
-        CreateMyFont("Red", 15)
-
-        CreateMyFont("Fen", 15)
-
-        CreateMyFont("White", 13)
-        CreateMyFont("White", 15)
-        CreateMyFont("White", 18)
-        CreateMyFont("White", 25)
-
-        CreateMyFont("Dis", 13)
-        CreateMyFont("Dis", 15)
-    end
-
     -- 颜色
     do
         BG.b1 = "00BFFF"
@@ -914,6 +855,15 @@ do
         end)
     end
 
+    BG.classColorNames = {}
+    for i = 1, GetNumClasses() do
+        local className, classFilename = GetClassInfo(i)
+        if className then
+            local color = select(4, GetClassColor(classFilename))
+            BG.classColorNames[className] = format("|c%s%s|r", color, className)
+        end
+    end
+
     hooksecurefunc(LibBG, "ToggleDropDownMenu", function(_, _, _, dropDown)
         for i = 1, L_UIDROPDOWNMENU_MAXBUTTONS do
             local button = _G["L_DropDownList1Button" .. i]
@@ -933,7 +883,6 @@ do
         end
     end)
 end
-
 
 -- 本地配置数据库
 BG.Init(function()
@@ -1082,11 +1031,16 @@ BG.Init(function()
         BiaoGe.playerInfo[realmID][player] = BiaoGe.playerInfo[realmID][player] or {}
         BiaoGe.playerInfo[realmID][player].class = select(2, UnitClass("player"))
         BiaoGe.playerInfo[realmID][player].raceID = select(3, UnitRace("player"))
-        BiaoGe.playerInfo[realmID][player].level = UnitLevel("player")
         BiaoGe.playerInfo[realmID][player].iLevel = select(2, GetAverageItemLevel()) or 0
 
-        BG.RegisterEvent("PLAYER_LEVEL_UP", function(self, event, level)
+        local function UpdateLevel(level)
             BiaoGe.playerInfo[realmID][player].level = level
+            BG.isFullLevel = level >= BG.fullLevel
+        end
+        UpdateLevel(UnitLevel("player"))
+        BG.RegisterEvent("PLAYER_LEVEL_UP", function(self, event, level)
+            UpdateLevel(level)
+            BG.UpdateMeetingHornLevelButton()
         end)
 
         -- 天赋
@@ -1285,14 +1239,143 @@ BG.Init(function()
             end
         end
     end
+
+    -- 默认字体
+    do
+        local l = GetLocale()
+        local default, list
+        if (l == "koKR") then
+            default = "2002.TTF"
+        elseif (l == "zhCN") then
+            default = "ARKai_T.ttf"
+            list = {
+                "ARKai_T.ttf",
+                "ARKai_C.ttf",
+                "ARHei.ttf",
+                -- "ARIALN.ttf",
+                -- "FRIZQT__.ttf",
+            }
+        elseif (l == "zhTW") then
+            default = "blei00d.TTF"
+            list = {
+                "bLEI00D.ttf",
+                "bHEI00M.ttf",
+                "bHEI01B.ttf",
+                "bKAI00M.ttf",
+            }
+        elseif (l == "ruRU") then
+            default = "FRIZQT___CYR.TTF"
+        else
+            default = "FRIZQT__.TTF"
+            list = {
+                "FRIZQT__.TTF",
+                "2002.TTF",
+                "2002B.TTF",
+                "ARHei.TTF",
+                "ARKai_C.TTF",
+                "ARKai_T.TTF",
+                "ARIALN.TTF",
+                "K_Pagetext.TTF",
+                "MORPHEUS_CYR.TTF",
+                "NIM_____.ttf",
+                "SKURRI_CYR.TTF",
+            }
+        end
+        BiaoGe.font = BiaoGe.font or default
+
+        local t = UIParent:CreateFontString()
+        t:SetFont(format("Fonts\\%s", BiaoGe.font), 15, "OUTLINE")
+        t:Hide()
+        if not t:GetFont() then
+            BiaoGe.font = default
+        end
+        BIAOGE_TEXT_FONT = format("Fonts\\%s", BiaoGe.font)
+
+        if list then
+            for i = #list, 1, -1 do
+                local t = UIParent:CreateFontString()
+                t:SetFont(format("Fonts\\%s", list[i]), 15, "OUTLINE")
+                t:Hide()
+                if not t:GetFont() then
+                    tremove(list, i)
+                end
+            end
+        end
+        BG.fontList = list
+
+        local name = "editFontSize"
+        BiaoGe.options[name] = BiaoGe.options[name] or 14
+        function BiaoGe_InputBoxTemplate_OnLoad(self)
+            self:SetFont(BIAOGE_TEXT_FONT, BiaoGe.options[name], "OUTLINE")
+        end
+    end
+
+    -- 自定义字体
+    do
+        local function CreateMyFont(color, size, H)
+            local cff
+            if color == "Blue" then
+                cff = "00BFFF"
+            elseif color == "Green" then
+                cff = "00FF00"
+            elseif color == "Green2" then
+                cff = "40c040"
+            elseif color == "Red" then
+                cff = "FF0000"
+            elseif color == "Fen" then
+                cff = "FF69B4"
+            elseif color == "Gold" then
+                cff = "FFD100"
+            elseif color == "Yellow" then
+                cff = "FFFF00"
+            elseif color == "White" then
+                cff = "FFFFFF"
+            elseif color == "Dis" then
+                cff = "808080"
+            end
+            BG["Font" .. color .. size] = CreateFont("BG.Font" .. color .. size)
+            BG["Font" .. color .. size]:SetTextColor(RGB(cff))
+            BG["Font" .. color .. size]:SetFont(BIAOGE_TEXT_FONT, size, "OUTLINE")
+        end
+
+        CreateMyFont("Blue", 13)
+        CreateMyFont("Blue", 15)
+
+        CreateMyFont("Green", 13)
+        CreateMyFont("Green", 15)
+        CreateMyFont("Green", 25)
+
+        CreateMyFont("Green2", 15)
+
+        CreateMyFont("Gold", 13)
+        CreateMyFont("Gold", 15)
+
+        CreateMyFont("Yellow", 13)
+        CreateMyFont("Yellow", 15)
+
+        CreateMyFont("Red", 13)
+        CreateMyFont("Red", 15)
+
+        CreateMyFont("Fen", 15)
+
+        CreateMyFont("White", 13)
+        CreateMyFont("White", 14)
+        CreateMyFont("White", 15)
+        CreateMyFont("White", 18)
+        CreateMyFont("White", 25)
+
+        CreateMyFont("Dis", 13)
+        CreateMyFont("Dis", 15)
+    end
 end)
 
 BG.Init2(function()
-    if IsAddOnLoaded("BiaoGeVIP") then
-        BG.BiaoGeVIPVerNum = BGV.GetVerNum(GetAddOnMetadata("BiaoGeVIP", "Version"))
+    if IsAddOnLoaded("BiaoGeVIP") and BGV and BGV.raidVersion
+        and BG.GetVerNum(GetAddOnMetadata("BiaoGeVIP", "Version")) >= 10300 then
+        ns.isVIP = true
     end
     if BG.IsWLK_80 then
-        if BG.BiaoGeVIPVerNum and BG.BiaoGeVIPVerNum >= 10120 then
+        if ns.isVIP then
             ns.canShowTBC = true
         end
         if BG.IsTBCFB(BG.FB1) and not ns.canShowTBC then

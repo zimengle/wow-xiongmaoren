@@ -530,18 +530,19 @@ ArkInventory.ENUM = {
 	},
 	EXPANSION = {
 		CURRENT = nil, -- set elsewhere,
-		RETAIL = 10, -- manually set this to the latest version
+		
+		MIDNIGHT = 11,
 		WARWITHIN = 10,
-		DRAGONFLIGHT = LE_EXPANSION_DRAGONFLIGHT or 9,
-		SHADOWLANDS = LE_EXPANSION_SHADOWLANDS or 8,
-		BFA = LE_EXPANSION_BATTLE_FOR_AZEROTH or 7,
-		LEGION = LE_EXPANSION_LEGION or 6,
-		DRAENOR = LE_EXPANSION_WARLORDS_OF_DRAENOR or 5,
-		PANDARIA = LE_EXPANSION_MISTS_OF_PANDARIA or 4,
-		CATACLYSM = LE_EXPANSION_CATACLYSM or 3,
-		WRATH = LE_EXPANSION_WRATH_OF_THE_LICH_KING or 2,
-		TBC = LE_EXPANSION_BURNING_CRUSADE or 1,
-		CLASSIC = LE_EXPANSION_CLASSIC or 0,
+		DRAGONFLIGHT = 9,
+		SHADOWLANDS = 8,
+		BFA = 7,
+		LEGION = 6,
+		DRAENOR = 5,
+		PANDARIA = 4,
+		CATACLYSM = 3,
+		WRATH = 2,
+		TBC = 1,
+		CLASSIC = 0,
 	},
 	FLIGHT = {
 		MODE = {
@@ -734,13 +735,13 @@ ArkInventory.ENUM = {
 			},
 			MISC = {
 				PARENT = ( Enum and Enum.ItemClass and Enum.ItemClass.Miscellaneous ) or 15,
-				JUNK = Enum.ItemMiscellaneousSubclass.Junk or 0,
-				REAGENT = Enum.ItemMiscellaneousSubclass.Reagent or 1,
-				PET = Enum.ItemMiscellaneousSubclass.CompanionPet or 2,
-				HOLIDAY = Enum.ItemMiscellaneousSubclass.Holiday or 3,
-				OTHER = Enum.ItemMiscellaneousSubclass.Other or 4,
-				MOUNT = Enum.ItemMiscellaneousSubclass.Mount or 5,
-				MOUNT_EQUIPMENT = Enum.ItemMiscellaneousSubclass.MountEquipment or 6,
+				JUNK = ( Enum and Enum.ItemMiscellaneousSubclass and Enum.ItemMiscellaneousSubclass.Junk ) or 0,
+				REAGENT = ( Enum and Enum.ItemMiscellaneousSubclass and Enum.ItemMiscellaneousSubclass.Reagent ) or 1,
+				PET = ( Enum and Enum.ItemMiscellaneousSubclass and Enum.ItemMiscellaneousSubclass.CompanionPet ) or 2,
+				HOLIDAY = ( Enum and Enum.ItemMiscellaneousSubclass and Enum.ItemMiscellaneousSubclass.Holiday ) or 3,
+				OTHER = ( Enum and Enum.ItemMiscellaneousSubclass and Enum.ItemMiscellaneousSubclass.Other ) or 4,
+				MOUNT = ( Enum and Enum.ItemMiscellaneousSubclass and Enum.ItemMiscellaneousSubclass.Mount ) or 5,
+				MOUNT_EQUIPMENT = ( Enum and Enum.ItemMiscellaneousSubclass and Enum.ItemMiscellaneousSubclass.MountEquipment ) or 6,
 			},
 			GLYPH = {
 				PARENT = ( Enum and Enum.ItemClass and Enum.ItemClass.Glyph ) or 16,
@@ -762,6 +763,15 @@ ArkInventory.ENUM = {
 				PARENT = ( Enum and Enum.ItemClass and Enum.ItemClass.WoWToken ) or 18,
 				WOWTOKEN = 0, -- [174]
 			},
+			HOUSING = {
+				PARENT = ( Enum and Enum.ItemClass and Enum.ItemClass.Housing ) or 20,
+				DECOR = ( Enum and Enum.ItemHousingSubclass and Enum.ItemHousingSubclass.Decor ) or 0,
+				DYE = ( Enum and Enum.ItemHousingSubclass and Enum.ItemHousingSubclass.Dye ) or 1,
+				ROOM = ( Enum and Enum.ItemHousingSubclass and Enum.ItemHousingSubclass.Room ) or 2,
+				ROOMCUSTOMIZATION = ( Enum and Enum.ItemHousingSubclass and Enum.ItemHousingSubclass.RoomCustomization ) or 3,
+				EXTERIORCUSTOMIZATION = ( Enum and Enum.ItemHousingSubclass and Enum.ItemHousingSubclass.ExteriorCustomization ) or 4,
+				SERVICEITEM = ( Enum and Enum.ItemHousingSubclass and Enum.ItemHousingSubclass.ServiceItem ) or 4,
+			}
 		},
 	},
 	LIST = {
@@ -821,9 +831,6 @@ ArkInventory.Const = { -- constants
 			NAME = _G[string.format( "EXPANSION_NAME%s", GetExpansionLevel( ) )],
 			EXPANSION = { },
 			TIMERUNNINGSEASONID = 0,
-			PTR = 0.1,
-			BETA = 0.2,
-			ALPHA = 0.3,
 			ELEVEN_POINT_TWO = false, -- calculated in ArkInventory.Client
 		},
 		
@@ -1642,14 +1649,12 @@ ArkInventory.Const.BLIZZARD.GLOBAL.CONTAINER.NUM_BAGS = ArkInventory.Const.BLIZZ
 
 
 -- populate the min/max toc values, and ids for each expansion
-for k, v in pairs( ArkInventory.ENUM.EXPANSION ) do
-	if k ~= "CURRENT" then
-		ArkInventory.Const.BLIZZARD.CLIENT.EXPANSION[v] = {
-			ID = v,
-			TOC = {
-				MIN = ( v + 1 ) * 10000,
-				MAX = ( v + 2 ) * 10000 - 1,
-			},
-		}
-	end
+for k = 0, 50 do
+	ArkInventory.Const.BLIZZARD.CLIENT.EXPANSION[k] = {
+		ID = k,
+		TOC = {
+			MIN = ( k + 1 ) * 10000,
+			MAX = ( k + 2 ) * 10000 - 1,
+		},
+	}
 end

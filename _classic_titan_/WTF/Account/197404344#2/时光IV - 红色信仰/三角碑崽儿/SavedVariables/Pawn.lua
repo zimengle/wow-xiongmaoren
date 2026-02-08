@@ -1,6 +1,8 @@
 
 PawnOptions = {
 ["LastVersion"] = 2.1303,
+["LastPlayerFullName"] = "三角碑崽儿-时光IV - 红色信仰",
+["AutoSelectScales"] = false,
 ["ItemLevels"] = {
 {
 ["ID"] = 255080,
@@ -78,15 +80,15 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:259906:1099:::::::80::::::::::|h[龙血斗篷]|h|r",
 },
 {
-["ID"] = 37401,
-["Level"] = 200,
+["ID"] = 30311,
+["Level"] = 298,
 ["AlsoFitsIn"] = 17,
-["Link"] = "|cffa335ee|Hitem:37401:3788:::::::80::::::::::|h[勇气红剑]|h|r",
+["Link"] = "|cffff8000|Hitem:30311::::::::80::::::::::|h[迁跃切割者]|h|r",
 },
 {
-["ID"] = 42508,
-["Level"] = 200,
-["Link"] = "|cffa335ee|Hitem:42508:3849:::::::80::::::::::|h[泰坦精钢盾墙]|h|r",
+["ID"] = 30314,
+["Level"] = 298,
+["Link"] = "|cffff8000|Hitem:30314::::::::80::::::::::|h[相位壁垒]|h|r",
 },
 {
 ["ID"] = 41168,
@@ -94,8 +96,6 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:41168::36767::::::80::::::::::|h[铁甲战斗猎枪]|h|r",
 },
 },
-["AutoSelectScales"] = false,
-["LastPlayerFullName"] = "三角碑崽儿-时光IV - 红色信仰",
 }
 PawnMrRobotScaleProviderOptions = nil
 PawnClassicScaleProviderOptions = {

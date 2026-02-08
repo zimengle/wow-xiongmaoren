@@ -2,6 +2,7 @@ local addonName, addon = ...
 local AcamarGUI = addon:NewModule("AcamarGUI", "AceEvent-3.0", "AceHook-3.0", "AceConsole-3.0")
 local L = LibStub("AceLocale-3.0"):GetLocale(addonName)
 local AceGUI = LibStub("AceGUI-3.0")
+local AceConfigDialog = LibStub("AceConfigDialog-3.0")
 local private = {}
 ------------------------------------------------------------------------------
 
@@ -12,9 +13,28 @@ function AcamarGUI:OnLogout()
 end
 
 function AcamarGUI:ShowSysSettings()
-    InterfaceOptionsFrame_Show()
-    InterfaceOptionsFrame_OpenToCategory(addonName);
-    InterfaceOptionsFrame_OpenToCategory(addonName);
+	if Settings and Settings.OpenToCategory then
+		if Settings.GetCategory then
+			local category = Settings.GetCategory(addon.METADATA.NAME)
+			if category and category.ID then
+				Settings.OpenToCategory(category.ID)
+				return
+			end
+			category = Settings.GetCategory(addonName)
+			if category and category.ID then
+				Settings.OpenToCategory(category.ID)
+				return
+			end
+		end
+		Settings.OpenToCategory(addon.METADATA.NAME)
+		return
+	end
+	
+	if InterfaceOptionsFrame_OpenToCategory then
+		InterfaceOptionsFrame_OpenToCategory(addon.METADATA.NAME)
+		InterfaceOptionsFrame_OpenToCategory(addon.METADATA.NAME)
+		return
+	end
 end
 
 function AcamarGUI:Load_Ace_Custom()

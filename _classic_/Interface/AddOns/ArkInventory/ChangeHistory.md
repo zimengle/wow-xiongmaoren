@@ -1,10 +1,9 @@
-﻿# 3.12.05 (24-OCT-2025)
- - updated - (classic) toc updated to 1.15.8
- - updated - (retail) toc updated to 11.2.5
- - updated - (pandaria) toc updated to 5.5.1
- - updated - category for some items
- - fixed - timerunning scrolls and openable categories should now be visible again
- - added - rule function - `scrapable( )` - only works for items in your own bag
+﻿# 3.12.08 (30-JAN-2026)
+ - fixed - issue with how transmog data was being displayed in tooltips
+ - fixed - issue with tooltips when the unit is a secret value
+ - fixed - issue with dewdrop library and item comparison tooltips
+ - fixed - handle C_TransmogCollection.GetAppearanceSourceInfo returning a table of parameters instead of individual parameters
+ - added - (midnight) workaround for money frames leaving behind secret values on tooltips.  replacing them with text instead
  
 # known issues post 11.2
  - without reagent or profession bags in the bank a restack wont transfer new stacks of reageants or profession items - potential workaround will be to look for tabs that have been assigned 'reagents' and treat those the same way the reagent bank was previously

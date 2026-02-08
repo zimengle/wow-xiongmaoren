@@ -2,7 +2,6 @@
 ElvCharacterDB = {
 ["ConvertKeybindings"] = true,
 ["ChatEditHistory"] = {
-"/pig",
 "/y 干他们",
 "/cw 今儿就今儿了 恶魔术",
 "/cw 血浮萍 恶魔术",
@@ -22,6 +21,7 @@ ElvCharacterDB = {
 "/cw 行云流水盾破 .",
 "/cw 灬飘落灬 邪dk需要吗",
 "/s 。",
+"你还有号？",
 },
 ["ChatHistoryLog"] = {
 },

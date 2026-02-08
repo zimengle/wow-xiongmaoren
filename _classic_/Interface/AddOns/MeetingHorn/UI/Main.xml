@@ -622,6 +622,12 @@
                     <Anchor point="BOTTOMRIGHT" x="-6" y="6"/>
                 </Anchors>
             </Frame>
+            <Frame parentKey="FriendRecall" hidden="true">
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="2" y="-25"/>
+                    <Anchor point="BOTTOMRIGHT" x="-6" y="6"/>
+                </Anchors>
+            </Frame>
             <Frame parentKey="Announcement" hidden="true" inherits="AnnouncementTemplate">
                 <Anchors>
                     <Anchor point="TOPLEFT" x="2" y="-25"/>

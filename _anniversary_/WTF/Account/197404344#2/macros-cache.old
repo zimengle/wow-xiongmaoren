@@ -1,9 +1,6 @@
 VER 3 0000000000000042 " 大脚世界频道" "132098"
 /join 大脚世界频道
 END
-VER 3 0000000000000002 "12" "132112"
-/4 {十字}{十字}{十字} PT 破碎ae {十字}{十字}{十字} 徵 補 DD(法術)~
-END
 VER 3 0000000000000043 "12" "132112"
 /4 {十字}{十字}{十字} H 奴隸監獄 {十字}{十字}{十字} 徵 坦 補 術~
 END
@@ -13,6 +10,9 @@ END
 VER 3 0000000000000001 "12" "132112"
 /4 {十字}{十字}{十字} 斯坦索姆血色区 {十字}{十字}{十字} 
 END
+VER 3 0000000000000002 "12" "132112"
+/4 {十字}{十字}{十字} PT 破碎ae {十字}{十字}{十字} 徵 補 DD(法術)~
+END
 VER 3 0000000000000044 "22" "132090"
 /1 2v2 戰德衝分隊 招一個補D 280韌+
 /2 2v2 戰德衝分隊 招一個補D 280韌+
@@ -21,12 +21,12 @@ VER 3 000000000000005F "33" "132089"
 /1  {十字}{十字}{十字} 3V3 戰術德衝分隊伍招募一補D 要求300+韌 意者詳聊
 /2  {十字}{十字}{十字} 3V3 戰術德衝分隊伍招募一補D 要求300+韌 意者詳聊
 END
+VER 3 0000000000000045 "55" "132089"
+/1  zg 小怪声望队伍速刷 补个法師治疗 18=2
+END
 VER 3 0000000000000065 "55" "132089"
 /1  5v5 2346認真隊找補牧 補騎 電薩/獵人 韌性要求280+ 意者詳聊
 /2 5v5 2346認真隊找補牧 補騎 電薩/獵人 韌性要求280+ 意者詳聊
-END
-VER 3 0000000000000045 "55" "132089"
-/1  zg 小怪声望队伍速刷 补个法師治疗 18=2
 END
 VER 3 0000000000000041 "alaGearMan0" "132293"
 /run AGM_FUNC.takeoffAll()
@@ -65,7 +65,10 @@ VER 3 0000000000000009 "RE假" "INV_Misc_QuestionMark"
 /cast 多重射擊
 END
 VER 3 0000000000000070 "RXPTargeting" "Ability_eyeoftheowl"
-//RXPGuides - 当前步骤没有配置目标
+/targetexact 裂蹄公牛
+/targetexact 被激怒的碾压者
+/targetexact 塔布羊刺食者
+/targetlasttarget [dead]
 END
 VER 3 000000000000000A "SS" "132101"
 /吐口水
@@ -111,12 +114,6 @@ END
 VER 3 0000000000000061 "VuhDoDCShieldNames" "132281"
 N[x]斷風五初夏的Nat給本仙屁縫子韓森蓋魅惑夜民主的[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]Dde[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]鬆餅給
 END
-VER 3 000000000000001B "假死" "INV_Misc_QuestionMark"
-#showtooltip
-/PetPassiveMode
-/petpassive
-/castsequence reset=10 假死,冰凍陷阱
-END
 VER 3 0000000000000018 "假死" "INV_Misc_QuestionMark"
 #showtooltip
 /petpassive
@@ -139,6 +136,12 @@ VER 3 0000000000000019 "假死" "INV_Misc_QuestionMark"
 /stopcasting
 /cleartarget
 /castsequence reset=10 假死,獻祭陷阱
+END
+VER 3 000000000000001B "假死" "INV_Misc_QuestionMark"
+#showtooltip
+/PetPassiveMode
+/petpassive
+/castsequence reset=10 假死,冰凍陷阱
 END
 VER 3 000000000000001C "假死爆" "INV_Misc_QuestionMark"
 #showtooltip
@@ -170,11 +173,6 @@ END
 VER 3 0000000000000021 "切换宏" "132301"
 /castsequence 雄鷹守護,獵豹守護
 END
-VER 3 0000000000000068 "卡哈来战人" "INV_Misc_QuestionMark"
-#showtooltip 哈卡莱战刃
-/equipslot 16 item:19865
-/equipslot 17 item:19866
-END
 VER 3 000000000000006E "卡哈来战人" "INV_Misc_QuestionMark"
 #showtooltip 哈卡莱战刃
 /equipslot 16 item:19865
@@ -186,6 +184,11 @@ VER 3 000000000000006A "卡哈来战人" "INV_Misc_QuestionMark"
 /equipslot 17 item:19866
 END
 VER 3 0000000000000066 "卡哈来战人" "INV_Misc_QuestionMark"
+#showtooltip 哈卡莱战刃
+/equipslot 16 item:19865
+/equipslot 17 item:19866
+END
+VER 3 0000000000000068 "卡哈来战人" "INV_Misc_QuestionMark"
 #showtooltip 哈卡莱战刃
 /equipslot 16 item:19865
 /equipslot 17 item:19866
@@ -250,13 +253,13 @@ VER 3 0000000000000024 "圖騰" "132136"
 /petattack [target=灼熱圖騰][target=圖騰]
 /petattack [target=法力之泉圖騰][target=圖騰]
 END
-VER 3 0000000000000053 "坐騎" "132231"
-/cast 迅捷紅色雙足飛龍
-/cast 大型棕色科多獸
-END
 VER 3 000000000000006C "坐騎" "132231"
 /cast 迅捷紅色雙足飛龍
 /cast 黑色戰鬥迅猛龍之哨
+END
+VER 3 0000000000000053 "坐騎" "132231"
+/cast 迅捷紅色雙足飛龍
+/cast 大型棕色科多獸
 END
 VER 3 0000000000000025 "坐騎宏" "132265"
 /cast 塞納里奧戰爭角鷹獸
@@ -290,11 +293,6 @@ VER 3 0000000000000055 "援護" "132365"
 /cast [stance:1/3] 防禦姿態
 /cast 阻擾
 END
-VER 3 000000000000006F "正常武器" "INV_Misc_QuestionMark"
-#showtooltip 哈卡莱战刃
-/equipslot 16 item:19335
-/equipslot 17 item:18832
-END
 VER 3 000000000000006B "正常武器" "INV_Misc_QuestionMark"
 #showtooltip 哈卡莱战刃
 /equipslot 16 item:19335
@@ -306,6 +304,11 @@ VER 3 0000000000000067 "正常武器" "INV_Misc_QuestionMark"
 /equipslot 17 item:18832
 END
 VER 3 0000000000000069 "正常武器" "INV_Misc_QuestionMark"
+#showtooltip 哈卡莱战刃
+/equipslot 16 item:19335
+/equipslot 17 item:18832
+END
+VER 3 000000000000006F "正常武器" "INV_Misc_QuestionMark"
 #showtooltip 哈卡莱战刃
 /equipslot 16 item:19335
 /equipslot 17 item:18832
@@ -333,15 +336,15 @@ VER 3 000000000000002D "獻技" "INV_Misc_QuestionMark"
 /cleartarget
 /castsequence reset=10 假死,獻祭陷阱
 END
-VER 3 0000000000000056 "王子" "132148"
-/equipslot 16 無盡之刃
-/equipslot 17 相位壁壘
-/targetenemyplayer
-/castsequence reset=alt/5 破甲攻擊(等級 6),破甲攻擊(等級 6),破甲攻擊(等級 6)
-END
 VER 3 000000000000006D "王子" "132148"
 /equipslot 16 無盡之刃
 /equipslot 17 扭曲分割者
+/targetenemyplayer
+/castsequence reset=alt/5 破甲攻擊(等級 6),破甲攻擊(等級 6),破甲攻擊(等級 6)
+END
+VER 3 0000000000000056 "王子" "132148"
+/equipslot 16 無盡之刃
+/equipslot 17 相位壁壘
 /targetenemyplayer
 /castsequence reset=alt/5 破甲攻擊(等級 6),破甲攻擊(等級 6),破甲攻擊(等級 6)
 END
@@ -414,15 +417,15 @@ VER 3 0000000000000033 "萬能" "INV_Misc_QuestionMark"
 #showtooltip
 /castsequence [@pet,dead] 復活寵物;[nopet]reset=2 召喚寵物,復活寵物;reset=2 治療寵物, 解散寵物
 END
+VER 3 0000000000000035 "通告" "132111"
+/RA 上組門神重置時間 20:38
+/RA 下組門神重置時間 20:39
+END
 VER 3 0000000000000034 "通告" "132111"
 /RA 樓梯眼睛要殺 刷太快沒和平
 /RA 蟲子重置時間 20:13
 /RA 上組門神重置時間 20:46
 /RA 下組門神重置時間 20:55
-END
-VER 3 0000000000000035 "通告" "132111"
-/RA 上組門神重置時間 20:38
-/RA 下組門神重置時間 20:39
 END
 VER 3 0000000000000036 "野性" "132104"
 /castsequence 野性守護,獵豹守護
@@ -453,26 +456,19 @@ VER 3 000000000000003A "開抓" "INV_Misc_QuestionMark"
 /targetenemy
 / SetCVar("targetNearestDistance", 41)
 END
-VER 3 000000000000003B "雄鹰" "136076"
-/cast [mod:shift]獵豹守護
-/cast [mod:alt]野性守護
-/cast 雄鷹守護
-END
 VER 3 000000000000003C "雄鹰" "136076"
 /cast [mod:shift]獵豹守護
 /cast [mod:alt]自然守護
 /cast 雄鷹守護
 END
+VER 3 000000000000003B "雄鹰" "136076"
+/cast [mod:shift]獵豹守護
+/cast [mod:alt]野性守護
+/cast 雄鷹守護
+END
 VER 3 000000000000005C "雙手武器" "132090"
 /cast 狂暴姿態
 /equip 深雷
-END
-VER 3 000000000000003E "驅散" "INV_Misc_QuestionMark"
-#showtooltip
-/petpassive
-/petfollow
-/stopcasting
-/施放 驅散射擊
 END
 VER 3 000000000000003D "驅散" "INV_Misc_QuestionMark"
 #showtooltip 驅散射擊
@@ -480,6 +476,13 @@ VER 3 000000000000003D "驅散" "INV_Misc_QuestionMark"
 /cast 猛禽一擊
 /cast 驅散射擊
 /stopattack
+END
+VER 3 000000000000003E "驅散" "INV_Misc_QuestionMark"
+#showtooltip
+/petpassive
+/petfollow
+/stopcasting
+/施放 驅散射擊
 END
 VER 3 000000000000003F "魔化" "INV_Misc_QuestionMark"
 #showtooltip

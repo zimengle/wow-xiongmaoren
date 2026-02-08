@@ -16,8 +16,8 @@ local InvSlot=Data.InvSlot
 local EnchantItemID=Data.EnchantItemID
 local EnchantSpellID=Data.EnchantSpellID
 local EnchantSlot=Data.EnchantSlot
-local EngravingSlot=Data.EngravingSlot
 local EnchantSlotID=Data.EnchantSlotID
+local EngravingSlot=Data.EngravingSlot
 local TalentData=Data.TalentData
 --
 local Fun=addonTable.Fun
@@ -30,6 +30,7 @@ local GetItemGem=GetItemGem or C_Item and C_Item.GetItemGem
 local GetItemInfoInstant=GetItemInfoInstant or C_Item and C_Item.GetItemInfoInstant
 -------------
 local ListWWWHHH = {206,425,18,36,6}--3hangH,Gembut/4buweiW/5宝石+附魔+符文数
+
 --宝石槽位信息
 local function _GetGemSocket(Link)
 	local datax = {}
@@ -87,9 +88,9 @@ local function Update_GemBut(itemLink,id,GemBut,nulltishi)
 		end);
 	end
 end
-local function Update_GemListInfo(framef,itemLink)
+local function Update_GemListInfo(framef,itemLink,SlotID)
 	local GemDatax=_GetGemSocket(itemLink)
-	if PIG_MaxTocversion() and PIG_MaxTocversion(29999,true) and Slot==6 then table.insert(GemDatax,55655) end
+	if PIG_MaxTocversion() and PIG_MaxTocversion(29999,true) and SlotID==6 then table.insert(GemDatax,55655) end
     local baoshiNUM=#GemDatax
     framef.GemNums=framef.GemNums+baoshiNUM
 	for Gemid=1,baoshiNUM do
@@ -117,7 +118,6 @@ local function Update_EnchantInfo(EnchantBut,fumoid)
 		Newdata.ItemID=EnchantItemID[fumoid]
 		Newdata.laiyuan=""
 	end
-	GetItemInfo(Newdata.ItemID)
 	local _, ItemLink, quality, _, _, _, _, _, _, texture = GetItemInfo(Newdata.ItemID)
 	if ItemLink then
 		EnchantBut.icon:SetTexture(texture)
@@ -228,7 +228,7 @@ local function Update_SlotButton(SlotBut,SlotID,zbData)
 		SlotBut.itemlink.t:SetText(itemLink)
 		SlotBut.t:SetTextColor(0, 1, 1, 0.8);
 		SlotBut:SetBackdropBorderColor(0, 1, 1, 0.5)
-		Update_GemListInfo(SlotBut,itemLink)
+		Update_GemListInfo(SlotBut,itemLink,SlotID)
 		local fumoid = PIGGetEnchantID(itemLink)
 		local Enchantui=SlotBut.ButGem[5]
 		if fumoid>0 then
@@ -278,21 +278,26 @@ local function Update_SlotButton(SlotBut,SlotID,zbData)
 			end
 		else
 			if EnchantSlot[SlotID] then
-				SlotBut.GemNums=SlotBut.GemNums+1
 				local itemID, itemType, itemSubType, itemEquipLoc = GetItemInfoInstant(itemLink)
 				if SlotID==17 and itemEquipLoc=="INVTYPE_HOLDABLE" then 
 				else
-					Enchantui:SetWidth(ListWWWHHH[3])
-					Enchantui:SetAlpha(1)
-					Enchantui.icon:SetDesaturated(true)
-					Enchantui:SetBackdropBorderColor(0.5, 0.5, 0.5, 1);
-					Enchantui.icon:SetTexture(136244)
-					Enchantui:SetScript("OnEnter", function (self)
-						GameTooltip:ClearLines();
-						GameTooltip:SetOwner(self, "ANCHOR_RIGHT",0,0);
-						GameTooltip:AddLine("|cff00FFFF["..addonName.."]:|r|cffFF0000"..InvSlot["Name"][SlotID][2]..NONE..ENCHANTS.."|r")
-						GameTooltip:Show();
-					end);
+					if (SlotID ~= 11 and SlotID ~= 12) 
+						or (SlotID == 11 or SlotID == 12) and (not (PIG_MaxTocversion(49999, true) and PIG_MaxTocversion(60000))
+				        or (PIG_MaxTocversion(49999, true) and PIG_MaxTocversion(60000) and IsPlayerSpell(13262))
+				    ) then
+						SlotBut.GemNums=SlotBut.GemNums+1
+						Enchantui:SetWidth(ListWWWHHH[3])
+						Enchantui:SetAlpha(1)
+						Enchantui.icon:SetDesaturated(true)
+						Enchantui:SetBackdropBorderColor(0.5, 0.5, 0.5, 1);
+						Enchantui.icon:SetTexture(136244)
+						Enchantui:SetScript("OnEnter", function (self)
+							GameTooltip:ClearLines();
+							GameTooltip:SetOwner(self, "ANCHOR_RIGHT",0,0);
+							GameTooltip:AddLine("|cff00FFFF["..addonName.."]:|r|cffFF0000"..InvSlot["Name"][SlotID][2]..NONE..ENCHANTS.."|r")
+							GameTooltip:Show();
+						end);
+					end
 				end
 			end
 		end
@@ -696,7 +701,7 @@ local function add_ItemList(fujik,miaodian,ZBLsit_C,TalentUI)
 	return ZBLsit
 end
 function Create.PIGItemListUI(laiyuan)
-	if laiyuan.ZBLsit then return end	
+	if laiyuan.ZBLsit then return end
 	if laiyuan==PaperDollFrame then
 		laiyuan.ZBLsit = add_ItemList(laiyuan,laiyuan)
 	elseif laiyuan==InspectFrame then

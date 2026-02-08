@@ -114,90 +114,20 @@ function addonTable.Load_Config()
 end
 function addonTable.Get_PlayerRealmData()
 	local englishFaction= UnitFactionGroup("player")--阵营"Alliance"/"Horde"
-	local wanjia, realm = UnitFullName("player")
-	local realm = realm or GetRealmName()
+	local wanjia= UnitName("player")
+	local realm = GetRealmName()
+	if not englishFaction or not wanjia or not realm then
+		C_Timer.After(0.01,addonTable.Get_PlayerRealmData)
+	end
+	local gender = UnitSex("player") or 2
 	local className, classFile, classId = UnitClass("player")
 	local raceName, raceFile, raceId = UnitRace("player")
-	local gender = UnitSex("player")
-	PIG_OptionsUI.englishFaction=englishFaction or ""
-	PIG_OptionsUI.Name=wanjia or ""
-	PIG_OptionsUI.Realm=realm or ""
+	PIG_OptionsUI.englishFaction=englishFaction
+	PIG_OptionsUI.Name=wanjia
+	PIG_OptionsUI.Realm=realm
 	PIG_OptionsUI.AllName = wanjia.."-"..realm
-	PIG_OptionsUI.gender=gender or 2
+	PIG_OptionsUI.gender=gender
 	PIG_OptionsUI.ClassData = {["className"]=className,["classFile"]=classFile,["classId"]=classId}
 	PIG_OptionsUI.RaceData = {["raceName"]=raceName,["raceFile"]=raceFile,["raceId"]=raceId}
 	PIG_OptionsUI.AllNameElvUI = format('%s - %s', wanjia, realm)
-	PIG_OptionsUI.IsOpen_ElvUI=function(vf1,vf2,vf3)
-		if IsAddOnLoaded("ElvUI") then
-			if ElvPrivateDB then
-				local peizName=ElvPrivateDB["profileKeys"][PIG_OptionsUI.AllNameElvUI]
-				if peizName then
-					local peizData=ElvPrivateDB["profiles"][peizName]
-					if peizData then
-						if vf1 and vf2 and vf3 then
-							if peizData[vf1] and peizData[vf1][vf2] then
-								if peizData[vf1][vf2][vf3]==false then
-									return false
-								end
-							end
-						elseif vf1 and vf2 then		
-							if peizData[vf1] then
-								if peizData[vf1][vf2]==false then
-									return false
-								end
-							end
-						elseif vf1 then
-							if peizData[vf1]==false then
-								return false
-							end
-						end
-					end
-					return true
-				end
-			elseif ElvDB then
-				local peizData=ElvDB["profiles"]
-				if peizData then
-					if vf1 and vf2 and vf3 then
-						if peizData[vf1] and peizData[vf1][vf2] then
-							if peizData[vf1][vf2][vf3]==false then
-								return false
-							end
-						end
-					elseif vf1 and vf2 then		
-						if peizData[vf1] then
-							if peizData[vf1][vf2]==false then
-								return false
-							end
-						end
-					elseif vf1 then
-						if peizData[vf1]==false then
-							return false
-						end
-					end
-				end
-				return true
-			end
-			return true
-		else
-			return false
-		end
-	end
-	PIG_OptionsUI.IsOpen_NDui=function(vf1,vf2,vf3)
-		if IsAddOnLoaded("NDui") then
-			if vf1 or vf2 or vf3 then
-				if vf1 and vf2 and vf3 then
-					if NDuiDB[vf1] and NDuiDB[vf1][vf2] and NDuiDB[vf1][vf2][vf3] then return true end
-				elseif vf1 and vf2 then
-					if NDuiDB[vf1] and NDuiDB[vf1][vf2] then return true end
-				elseif vf1 then
-					if NDuiDB[vf1] then return true end
-				end
-				return false
-			else
-				return true
-			end
-		else
-			return false
-		end
-	end
 end

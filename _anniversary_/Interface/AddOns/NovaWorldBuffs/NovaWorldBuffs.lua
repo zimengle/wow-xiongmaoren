@@ -80,6 +80,10 @@ function NWB:setServerConfig()
 		--Era 11, hardcore 12, probably no need to do lower layer expire time on hardcore servers but we'll do it anyway just for launch due to streamer zerg.
 		NWB.isMegaserver = true;
 	end
+	if (NWB.isTBC) then
+		--TBC launch track more layers but only track the current expansion continent so it's actually less data overall.
+		NWB.limitLayerCount = 20;
+	end
 	if (NWB.isMOP and NWB.isMegaserver) then
 		--The 2 MoP megaservers track more layers but only track the current expansion continent so it's actually less data overall.
 		NWB.limitLayerCount = 20;
@@ -91,7 +95,29 @@ function NWB:setServerConfig()
 	NWB.layerExpireTime = layerExpireTime;
 	NWB:setLayerExpireTimeData();
 	
-	if (NWB.isMOP and NWB.isMegaserver) then
+	if (NWB.isTBC) then
+		--Just for launch, increase layer limit and don't track azeroth zones
+		NWB.layerMapWhitelist = {
+			[1453] = "Stormwind City",
+			[1454] = "Orgrimmar",
+			
+			--[1941] = "Eversong Woods";
+			--[1942] = "Ghostlands";
+			--[1943] = "Azuremyst Isle";
+			[1944] = "Hellfire Peninsula";
+			[1946] = "Zangarmarsh";
+			--[1947] = "The Exodar";
+			[1948] = "Shadowmoon Valley";
+			[1949] = "Blade's Edge Mountains";
+			--[1950] = "Bloodmyst Isle";
+			[1951] = "Nagrand";
+			[1952] = "Terokkar Forest";
+			[1953] = "Netherstorm";
+			--[1954] = "Silvermoon City";
+			[1955] = "Shattrath City";
+			[1957] = "Isle of Quel'Danas";
+		};
+	elseif (NWB.isMOP and NWB.isMegaserver) then
 		NWB.layerMapWhitelist = {
 			[1453] = "Stormwind City",
 			[1454] = "Orgrimmar",
@@ -4145,7 +4171,7 @@ function NWB:openConfig()
 		InterfaceOptionsFrameAddOnsListScrollBar:SetValue(math.floor(max/2));
 	end
 	InterfaceOptionsFrame_OpenToCategory("NovaWorldBuffs");]]
-	Settings.OpenToCategory("NovaWorldBuffs");
+	Settings.OpenToCategory(self.NWBOptions.name);
 end
 
 function NWB:doResetTimerData()
@@ -5136,7 +5162,7 @@ end
 end]]
 
 function NWB:sendBigWigs(time, msg, type)
-	if (NWB.db.global.bigWigsSupport and NWB.isClassic) then
+	if (NWB.db.global.bigWigsSupport and (NWB.isClassic or (NWB.isTBC and UnitLevel("player") < 64))) then
 		--This cooldown is checked in the first yell func instead.
 		--if (GetServerTime() - NWB.firstYells[type] > NWB.buffDropSpamCooldown) then
 		if (NWB:isCapitalCityAction(type)) then
@@ -5640,7 +5666,7 @@ function NWB:doFlowerMsg(type, layer)
 	end
 	if (type and (GetServerTime() - flowerMsg) > 10) then
 		if (NWB.db.global.guildSongflower == true or NWB.db.global.guildSongflower == 1) then
-			NWB:sendGuildMsg(string.format(L["songflowerPicked"], NWB.songFlowers[type].subZone) .. layerMsg, "guildSongflower", "songflower");
+			NWB:sendGuildMsg(string.format(L["songflowerPicked"], L[NWB.songFlowers[type].subZone]) .. layerMsg, "guildSongflower", "songflower");
 		end
 		flowerMsg = GetServerTime();
 	end
@@ -5765,7 +5791,8 @@ function NWB:updateFelwoodWorldmapMarker(type)
 				frame = _G[type .. "NWB"].timerFrame;
 				if (not _G[type .. "NWB"]["timerFrame"].fs2) then
 					_G[type .. "NWB"]["timerFrame"].fs2 = _G[type .. "NWB"]["timerFrame"]:CreateFontString(k .. "NWBTimerFrameFS2", "ARTWORK");
-					_G[type .. "NWB"]["timerFrame"].fs2:SetPoint("RIGHT", 17, 1);
+					--_G[type .. "NWB"]["timerFrame"].fs2:SetPoint("RIGHT", 17, 1);
+					_G[type .. "NWB"]["timerFrame"].fs2:SetPoint("LEFT", _G[type .. "NWB"]["timerFrame"], "RIGHT", 1, 1);
 					_G[type .. "NWB"]["timerFrame"].fs2:SetFont(NWB.regionFont, 13);
 					_G[type .. "NWB"]["timerFrame"].fs2:SetText("|cff00ff00[" .. L["shortLayerPrefix"] .. count .. "]");
 				end
@@ -5783,7 +5810,8 @@ function NWB:updateFelwoodWorldmapMarker(type)
 					_G[type .. "NWB"]["timerFrame" .. count].fs:SetText("00:00");
 					--Outside frame layer text.
 					_G[type .. "NWB"]["timerFrame" .. count].fs2 = _G[type .. "NWB"]["timerFrame" .. count]:CreateFontString(k .. "NWBTimerFrameFS2" .. count, "ARTWORK");
-					_G[type .. "NWB"]["timerFrame" .. count].fs2:SetPoint("RIGHT", 17, 1);
+					--_G[type .. "NWB"]["timerFrame" .. count].fs2:SetPoint("RIGHT", 17, 1);
+					_G[type .. "NWB"]["timerFrame" .. count].fs2:SetPoint("LEFT", _G[type .. "NWB"]["timerFrame" .. count], "RIGHT", 1, 1);
 					_G[type .. "NWB"]["timerFrame" .. count].fs2:SetFont(NWB.regionFont, 13);
 					_G[type .. "NWB"]["timerFrame" .. count].fs2:SetText("|cff00ff00[" .. L["shortLayerPrefix"] .. count .. "]");
 					_G[type .. "NWB"]["timerFrame" .. count]:SetWidth(_G[type .. "NWB"]["timerFrame" .. count].fs:GetStringWidth() + 14);
@@ -10737,6 +10765,14 @@ function NWB:resetLayerData()
 			NWB.data.layerMapBackups = {};
 		end
 		NWB.db.global.resetLayers17 = false;
+	end
+	if (NWB.db.global.resetLayers18) then
+		if (NWB.isTBC) then
+			NWB:debug("resetting layer data");
+			NWB.data.layers = {};
+			NWB.data.layerMapBackups = {};
+		end
+		NWB.db.global.resetLayers18 = false;
 	end
 end
 

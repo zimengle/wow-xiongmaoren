@@ -318,7 +318,7 @@ if PIG_MaxTocversion(100000,true) then
 	table.insert(CVarsList1,9,{CAMERA_FOV,"cameraFov","90",GetCVarDefault("cameraFov"),"启用最大镜头视野范围",false})
 end
 for i=1,#CVarsList1 do
-	local CVarsCB = PIGCheckbutton_R(CVarsF,{CVarsList1[i][1],CVarsList1[i][5]},true,6)
+	local CVarsCB = PIGCheckbutton_R(CVarsF,{CVarsList1[i][1],CVarsList1[i][5]},true,7)
 	if CVarsList1[i][6] then
 		ADD_tishi(CVarsCB,CVarsList1[i][1],-2,0)
 	end

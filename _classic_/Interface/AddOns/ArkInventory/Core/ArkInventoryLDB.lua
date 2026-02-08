@@ -59,7 +59,7 @@ function ArkInventory.LDB.Update( )
 		
 		
 		ArkInventory.LDB.Tracking_Bronze = ArkInventory.Lib.DataBroker:NewDataObject( string.format( "%s_%s_%s", ArkInventory.Const.Program.Name, "Tracking", "Bronze" ), {
-			type = ArkInventory.Const.BLIZZARD.CLIENT.TIMERUNNINGSEASONID > 0 and ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Currency].ClientCheck ) and "data source" or "hidden",
+			type = ArkInventory.Const.BLIZZARD.CLIENT.TIMERUNNINGSEASONID > 0 and ArkInventory.Global.Location[ArkInventory.Const.Location.Currency].ClientCheck and "data source" or "hidden",
 			text = ArkInventory.Localise["LOADING"],
 		} )
 		
@@ -69,7 +69,7 @@ function ArkInventory.LDB.Update( )
 		
 		
 		ArkInventory.LDB.Tracking_Reputation = ArkInventory.Lib.DataBroker:NewDataObject( string.format( "%s_%s_%s", ArkInventory.Const.Program.Name, "Tracking", "Reputation" ), {
-			type = ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Reputation].ClientCheck ) and "data source" or "hidden",
+			type = ArkInventory.Global.Location[ArkInventory.Const.Location.Reputation].ClientCheck and "data source" or "hidden",
 			text = ArkInventory.Localise["LOADING"],
 		} )
 		
@@ -89,7 +89,7 @@ function ArkInventory.LDB.Update( )
 		
 		
 		ArkInventory.LDB.Pets = ArkInventory.Lib.DataBroker:NewDataObject( string.format( "%s_%s", ArkInventory.Const.Program.Name, "Pets" ), {
-			type = ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck ) and "data source" or "hidden",
+			type = ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck and "data source" or "hidden",
 			text = ArkInventory.Localise["LOADING"],
 		} )
 		
@@ -99,7 +99,7 @@ function ArkInventory.LDB.Update( )
 		
 		
 		ArkInventory.LDB.Mounts = ArkInventory.Lib.DataBroker:NewDataObject( string.format( "%s_%s", ArkInventory.Const.Program.Name, "Mounts" ), {
-			type = ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Mount].ClientCheck ) and "data source" or "hidden",
+			type = ArkInventory.Global.Location[ArkInventory.Const.Location.Mount].ClientCheck and "data source" or "hidden",
 			text = ArkInventory.Localise["LOADING"],
 		} )
 		

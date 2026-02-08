@@ -268,7 +268,7 @@ local _G = _G
 			return false -- Battlepet is uncollected... or something went wrong
 		end
 
-		if classId == Enum.ItemClass.Miscellaneous then
+		if itemId and classId == Enum.ItemClass.Miscellaneous then
 			if subclassId == Enum.ItemMiscellaneousSubclass.CompanionPet then -- CompanionPet
 				local _, numOwned = C_PetJournal.GetNumPets()
 				for i = 1, numOwned do
@@ -494,8 +494,8 @@ local _G = _G
 	end
 
 	function f:PLAYER_ENTERING_WORLD(event, isInitialLogin, isReloadingUi)
-		Debug("===", event, isInitialLogin, isReloadingUi)
 		if isInitialLogin or isReloadingUi then
+			Debug("===", event, isInitialLogin, isReloadingUi)
 			-- The collection status of Decor items is not immidiately available through the API. We have to either change the vendor page or try to pre-cache things.
 			-- This should cache Decor stuff, or at least HOUSING_STORAGE_UPDATED event is fired:
 			local searcher = C_HousingCatalog.CreateCatalogSearcher()

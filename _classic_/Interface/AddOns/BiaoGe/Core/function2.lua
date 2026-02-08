@@ -39,7 +39,7 @@ do
     function BG.GetTooltipTextLeftAll(itemID)
         BG.Tooltip_SetItemByID(itemID)
         local tbl = {}
-        local ii = 1
+        local ii = 2
         while _G["BiaoGeTooltipTextLeft" .. ii] do
             local text = _G["BiaoGeTooltipTextLeft" .. ii]:GetText()
             if text and text ~= "" then
@@ -409,7 +409,7 @@ do
 
         local text = f:CreateFontString()
         text:SetPoint("TOP", 0, -10)
-        text:SetFont(STANDARD_TEXT_FONT, 14, "OUTLINE")
+        text:SetFont(BIAOGE_TEXT_FONT, 14, "OUTLINE")
         text:SetText(L["拾取记录"])
 
         local w = f:GetWidth() - 15
@@ -430,7 +430,7 @@ do
         local texts = {}
         for _, v in ipairs(BiaoGe[FB]["boss" .. b]["loot" .. i]) do
             local t = child:CreateFontString()
-            t:SetFont(STANDARD_TEXT_FONT, 12, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, 12, "OUTLINE")
             if #texts == 0 then
                 t:SetPoint("TOPLEFT", 0, 0)
             else
@@ -445,13 +445,13 @@ do
             tinsert(texts, t)
 
             local t = child:CreateFontString()
-            t:SetFont(STANDARD_TEXT_FONT, 12, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, 12, "OUTLINE")
             t:SetPoint("TOPRIGHT", texts[#texts], "BOTTOMRIGHT", 0, 0)
             t:SetHeight(15)
             t:SetText("x" .. v.count)
 
             local t = child:CreateFontString()
-            t:SetFont(STANDARD_TEXT_FONT, 13, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, 13, "OUTLINE")
             t:SetPoint("TOPLEFT", texts[#texts], "BOTTOMLEFT", 0, 0)
             t:SetHeight(15)
             t:SetText("|c" .. select(4, GetClassColor(v.class)) .. v.player .. RR)
@@ -523,13 +523,14 @@ do
         f:SetClampedToScreen(true)
         BG.FrameZhuangbeiList = f
         if not loots or #loots == 0 then
-            f:SetSize(300, 150)
+            f:SetWidth(300)
             local text = f:CreateFontString()
             text:SetPoint("TOPLEFT", f, "TOPLEFT", 5, -10)
-            text:SetFont(STANDARD_TEXT_FONT, 14, "OUTLINE")
+            text:SetFont(BIAOGE_TEXT_FONT, 14, "OUTLINE")
             text:SetWidth(f:GetWidth() - 10)
             text:SetJustifyH("LEFT")
             text:SetText(BG.STC_w1(L["|cff00BFFF由于该BOSS未有具体掉落列表，如果你想手动添加装备，可以使用以下方法：|r\n\n第一种：从背包把装备拖进表格\n\n第二种：先点击一个表格格子，然后SHIFT+点击聊天框/背包装备"]))
+            f:SetHeight(text:GetHeight() + 20)
             return
         end
 
@@ -543,7 +544,7 @@ do
         -- 提示文字
         local text = f:CreateFontString()
         text:SetPoint("TOPLEFT", f, "BOTTOMLEFT", 3, 0)
-        text:SetFont(STANDARD_TEXT_FONT, 14, "OUTLINE")
+        text:SetFont(BIAOGE_TEXT_FONT, 14, "OUTLINE")
         text:SetJustifyH("LEFT")
         if self.hopenandu then
             text:SetText(BG.STC_w1(L["（SHIFT+点击发送装备，CTRL+点击查看该部位的其他可选装备）"]))
@@ -710,7 +711,7 @@ function BG.LevelText(bt, level, typeID)
         local f = CreateFrame("Frame", nil, bt)
         f:SetPoint("RIGHT", 0, 0)
         f.text = f:CreateFontString()
-        f.text:SetFont(STANDARD_TEXT_FONT, 11, "OUTLINE")
+        f.text:SetFont(BIAOGE_TEXT_FONT, 11, "OUTLINE")
         f.text:SetTextColor(RGB("A9A9A9", 0.8))
         f:SetSize(f.text:GetWidth(), 20)
         bt.levelText = f
@@ -769,7 +770,7 @@ function BG.LootedText(bt)
     f:Hide()
     f.text = f:CreateFontString()
     f.text:SetPoint("RIGHT")
-    f.text:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+    f.text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
     f.text:SetTextColor(RGB(BG.dis))
     f.text:SetText(L["已掉落"])
     f:SetSize(f.text:GetWidth(), 15)
@@ -800,7 +801,7 @@ do
         f:Hide()
         f.text = f:CreateFontString()
         f.text:SetPoint("CENTER")
-        f.text:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+        f.text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
         f.text:SetTextColor(RGB(BG.b1))
         f.text:SetText(L["关注"])
         f:SetWidth(f.text:GetWrappedWidth())
@@ -870,7 +871,7 @@ function BG.CreateQiankuanButton(bt, _type)
     f:Hide()
     f.text = f:CreateFontString()
     f.text:SetPoint("CENTER")
-    f.text:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+    f.text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
     f.text:SetTextColor(RGB(BG.r1))
     f.text:SetText(L["欠"])
     f:SetWidth(f.text:GetWrappedWidth())
@@ -1224,7 +1225,7 @@ do
 
         local t = f:CreateFontString()
         t:SetPoint("TOP", f, "TOP", 0, -10)
-        t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+        t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
         t:SetText(L["欠款金额"])
         t:SetTextColor(1, 0, 0)
         t:SetWidth(f:GetWidth() - 5)
@@ -1281,7 +1282,7 @@ do
         if tradeInfo then
             local t = f:CreateFontString()
             t:SetPoint("TOP", edit, "BOTTOM", 0, -15)
-            t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             t:SetText(L["打包交易"])
             t:SetTextColor(0, 1, 0)
             t:SetWidth(BG.FrameJineList:GetWidth() - 5)
@@ -1337,7 +1338,7 @@ do
                 local t = f:CreateFontString()
                 t:SetPoint("LEFT", icon, "RIGHT", 0, 0)
                 t:SetWidth(f:GetWidth() - icon:GetWidth())
-                t:SetFontObject(GameFontNormal)
+                t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
                 t:SetText(v.link)
                 t:SetJustifyH("LEFT")
                 t:SetWordWrap(false)
@@ -1578,7 +1579,7 @@ function BG.JiaoHuan(button, FB, b, i, t)
 
             local text = BG.copy2.btzhuangbei:CreateFontString()
             text:SetPoint("RIGHT", BG.copy2.btzhuangbei, "LEFT", -5, 0)
-            text:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+            text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             text:SetText(BG.STC_b1(L["交换成功"]))
             C_Timer.After(1, function()
                 BG.DongHuaAlpha(text)
@@ -1805,53 +1806,19 @@ do
 
     BG.updateHighlightChatFrame = CreateFrame("Frame")
     BG.updateHighlightChatFrame.frames = {}
-    function BG.HighlightChatFrame(link)
-        -- if BiaoGe.options["HighOnterItem"] ~= 1 then return end
-        -- if not IsInRaid(1) then return end
-        -- local itemID = GetItemID(link)
-        -- if not itemID then return end
-        -- BG.highlightChatFrameItemID = itemID
-        -- local i = 1
-        -- while _G["ChatFrame" .. i] do
-        --     local ChatFrame = _G["ChatFrame" .. i]
-        --     if ChatFrame and ChatFrame:IsVisible() then
-        --         for i, fontString in ipairs(ChatFrame.visibleLines) do
-        --             local text = fontString:GetText()
-        --             if text and text:find("item:" .. itemID .. ":") and fontString:IsVisible() and fontString:GetAlpha() ~= 0 then
-        --                 local f = CreateFrame("Frame", nil, nil, "BackdropTemplate")
-        --                 f:SetPoint("TOPLEFT", fontString, "TOPLEFT", 0, 0)
-        --                 f:SetPoint("BOTTOMRIGHT", fontString, "BOTTOMRIGHT", 0, 0)
-        --                 f:SetFrameLevel(ChatFrame:GetFrameLevel() + 2)
-        --                 tinsert(BG.updateHighlightChatFrame.frames, f)
-        --                 tinsert(BG.LastBagItemFrame, f)
-
-        --                 local l = f:CreateLine()
-        --                 l:SetColorTexture(1, 0, 0)
-        --                 l:SetStartPoint("BOTTOMLEFT", 0, 0)
-        --                 l:SetEndPoint("BOTTOMRIGHT", 0, 0)
-        --                 l:SetThickness(1)
-        --             end
-        --         end
-        --     end
-        --     i = i + 1
-        -- end
-    end
 
     function BG.Show_AllHighlight(link, btType)
         BG.Hide_AllHighlight()
-        if (btType and btType ~= "bag") or not btType then
+        if not btType or btType ~= "bag"  then
             BG.HighlightBag(link)
         end
-        if (btType and btType ~= "biaoge") or not btType then
+        if not btType or btType ~= "biaoge"  then
             BG.HighlightBiaoGe(link)
         end
-        if (btType and btType ~= "chat") or not btType then
-            BG.HighlightChatFrame(link)
-        end
-        if (btType and btType ~= "outtime") or not btType then
+        if not btType or btType ~= "outtime"  then
             BG.HighlightItemOutTime(link)
         end
-        if (btType and btType ~= "auctionlog") or not btType then
+        if not btType or btType ~= "auctionlog"  then
             BG.HighlightItemAuctionLog(link)
         end
     end
@@ -1861,17 +1828,9 @@ do
             f:Hide()
         end
         wipe(BG.LastBagItemFrame)
-
-        BG.Hide_ChatHighlight()
         BG.highlightChatFrameItemID = nil
     end
 
-    function BG.Hide_ChatHighlight()
-        for _, f in pairs(BG.updateHighlightChatFrame.frames) do
-            f:Hide()
-        end
-        wipe(BG.updateHighlightChatFrame.frames)
-    end
 end
 
 ------------------创建按钮模板1------------------
@@ -1916,7 +1875,7 @@ function BG.BackBiaoGe(parent)
         end)
         BG.PlaySound(1)
     end)
-    parent.backBiaoGeButton=bt
+    parent.backBiaoGeButton = bt
 end
 
 ------------------跳转装备库相同部位------------------
@@ -2023,7 +1982,7 @@ do
             child:SetAutoFocus(false)
             child:EnableMouse(false)
             child:SetMultiLine(true)
-            child:SetFontObject(GameFontNormal)
+            child:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
         else
             child = CreateFrame("Frame", nil, scroll)
             child:SetWidth(scroll:GetWidth())
@@ -2189,7 +2148,7 @@ function BG.CreateButton(parent)
     local t = bt:CreateFontString()
     t:SetAllPoints()
     t:SetTextColor(1, .82, 0)
-    t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+    t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
     bt:SetFontString(t)
 
     hooksecurefunc(bt, "SetScript", function(arg1, arg2, ...)
@@ -2357,7 +2316,7 @@ function BG.CreateMainFrame()
 
     f.titleText = f:CreateFontString()
     f.titleText:SetPoint("TOP", 0, -4)
-    f.titleText:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+    f.titleText:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
     f.titleText:SetTextColor(RGB("00BFFF"))
     return f
 end
@@ -2447,7 +2406,7 @@ function BG.CreateExportFrame(title, text)
 
         f.titleText = f:CreateFontString()
         f.titleText:SetPoint("TOP", 0, -2)
-        f.titleText:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+        f.titleText:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
 
         local scroll = CreateFrame("ScrollFrame", nil, f, "UIPanelScrollFrameTemplate") -- 滚动
         scroll:SetWidth(f:GetWidth() - 30)
@@ -2458,7 +2417,7 @@ function BG.CreateExportFrame(title, text)
         BG.CreateSrollBarBackdrop(scroll.ScrollBar)
 
         local edit = CreateFrame("EditBox", nil, f) -- 子框架
-        edit:SetFontObject(GameFontNormal)
+        edit:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
         edit:SetWidth(scroll:GetWidth())
         edit:SetHeight(scroll:GetHeight())
         edit:SetMultiLine(true)
@@ -2508,7 +2467,7 @@ function BG.SetEditBg(edit)
     edit.Middle:SetTexture("interface/common/commonsearch")
     edit.Middle:SetTexCoord(0, .8, .01, .31)
 
-    edit:SetFontObject(ChatFontNormal)
+    edit:SetFont(BIAOGE_TEXT_FONT, 14, "OUTLINE")
     edit:SetScript("OnTabPressed", EditBox_OnTabPressed)
     edit:SetScript("OnEscapePressed", EditBox_ClearFocus)
     edit:SetScript("OnEditFocusLost", EditBox_ClearHighlight)
@@ -2526,46 +2485,4 @@ function BG.GetBossIndexByBossID(bossID, FB)
             end
         end
     end
-end
-
-function BG.SetCD(cd, time)
-    if cd.cd then return true end
-    cd.cd = true
-    BG.After(time, function()
-        cd.cd = nil
-    end)
-end
-
-function BG.GetNextWeekTime() -- 距离下周四还有多少秒
-    local resetDay = 2
-    if BG.IsCN() then
-        resetDay = 4
-    end
-
-    local currentTimestamp = GetServerTime()
-    local currentWeekday = date("%w", currentTimestamp)
-    local daysToThursday = resetDay - currentWeekday
-    local nextThursdayTimestamp
-
-    local today = date("*t", currentTimestamp)
-    if daysToThursday == 0 and today.hour < 7 then
-        -- 如果时间小于当天凌晨7点
-        today.hour = 7
-        today.min = 0
-        today.sec = 0
-        nextThursdayTimestamp = time(today)
-    else
-        -- 如果已经是周四了，则日期+7
-        if daysToThursday <= 0 then
-            daysToThursday = daysToThursday + 7
-        end
-        nextThursdayTimestamp = currentTimestamp + daysToThursday * 86400
-
-        local nextThursdayDateTable = date("*t", nextThursdayTimestamp)
-        nextThursdayDateTable.hour = 7
-        nextThursdayDateTable.min = 0
-        nextThursdayDateTable.sec = 0
-        nextThursdayTimestamp = time(nextThursdayDateTable)
-    end
-    return nextThursdayTimestamp - currentTimestamp, nextThursdayTimestamp
 end

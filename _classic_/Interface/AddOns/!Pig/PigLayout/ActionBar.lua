@@ -43,6 +43,11 @@ fujiF.setF.HideShijiu:SetScript("OnClick", function (self)
 	ActionBar_HideShijiu()
 end)
 local function ActionBar_HideBarBG()
+	local StanceBarLeft=StanceBarLeft or StanceBar.BackgroundArtLeft
+	local StanceBarRight=StanceBarRight or StanceBar.BackgroundArtRight
+	local StanceBarMiddle=StanceBarMiddle or StanceBar.BackgroundArtMiddle
+	local SlidingActionBarTexture0=SlidingActionBarTexture0 or MainMenuBarTexture3
+	local SlidingActionBarTexture1=SlidingActionBarTexture1 or MainMenuBarTexture3
 	if PIGA["PigLayout"]["ActionBar"]["HideBarBG"] then
 		MainMenuBarTexture0:SetAlpha(0);
 		MainMenuBarTexture1:SetAlpha(0);
@@ -72,14 +77,20 @@ fujiF.setF.HideBarBG:SetScript("OnClick", function (self)
 	ActionBar_HideBarBG()
 end);
 local function ActionBar_HideBarExpBG()
+	local MainMenuXPBarTexture0=MainMenuXPBarTexture0 or MainStatusTrackingBarContainer.MainMenuBarFrameTexture1
+	local MainMenuXPBarTexture3=MainMenuXPBarTexture3 or MainStatusTrackingBarContainer.MainMenuBarFrameTexture4
+	local WatchBarTexture0=ReputationWatchBar and ReputationWatchBar.StatusBar.WatchBarTexture0 or SecondaryStatusTrackingBarContainer.StandaloneFrameTexture1
+	local WatchBarTexture3=ReputationWatchBar and ReputationWatchBar.StatusBar.WatchBarTexture3 or SecondaryStatusTrackingBarContainer.StandaloneFrameTexture4
+	local XPBarTexture0=ReputationWatchBar and ReputationWatchBar.StatusBar.XPBarTexture0 or MainStatusTrackingBarContainer.StandaloneFrameTexture1
+	local XPBarTexture3=ReputationWatchBar and ReputationWatchBar.StatusBar.XPBarTexture3 or MainStatusTrackingBarContainer.StandaloneFrameTexture4
 	if PIGA["PigLayout"]["ActionBar"]["HideBarExpBG"] then
 		MainMenuXPBarTexture0:Hide();MainMenuXPBarTexture3:Hide();
-		ReputationWatchBar.StatusBar.WatchBarTexture0:Hide();ReputationWatchBar.StatusBar.WatchBarTexture3:Hide()
-		ReputationWatchBar.StatusBar.XPBarTexture0:Hide();ReputationWatchBar.StatusBar.XPBarTexture3:Hide()
+		WatchBarTexture0:Hide();WatchBarTexture3:Hide()
+		XPBarTexture0:Hide();XPBarTexture3:Hide()
 	else
 		MainMenuXPBarTexture0:Show();MainMenuXPBarTexture3:Show();
-		ReputationWatchBar.StatusBar.WatchBarTexture0:Show();ReputationWatchBar.StatusBar.WatchBarTexture3:Show()
-		ReputationWatchBar.StatusBar.XPBarTexture0:Show();ReputationWatchBar.StatusBar.XPBarTexture3:Show()
+		WatchBarTexture0:Show();WatchBarTexture3:Show()
+		XPBarTexture0:Show();XPBarTexture3:Show()
 	end
 end
 ActionBar_HideBarExpBG()
@@ -217,8 +228,8 @@ local function Update_Vertical(mode,WidthX)
 	end
 end
 local function ActionBar_Layout()
-	if PIG_OptionsUI.IsOpen_ElvUI("actionbar","enable") then return end
-	if PIG_OptionsUI.IsOpen_NDui("Actionbar","Enable") then return end
+	if Fun.IsElvUI("actionbar","enable") then return end
+	if Fun.IsNDui("Actionbar","Enable") then return end
 	if not PIGA["PigLayout"]["ActionBar"]["BarRight"] then return end
 	--主力动作条
 	local function Update_MultiBar()
@@ -453,6 +464,7 @@ fujiF.setF:HookScript("OnShow", function(self)
 	self.Layout.LRInterval:PIGSetValue(PIGA["PigLayout"]["ActionBar"]["LRInterval"])
 	fujiF.setF.Update_Set()
 end)
+
 --=====
 local HHH=22
 local WWW=HHH*0.84
@@ -544,7 +556,7 @@ end);
 fujiF.setMicroF = PIGFrame(fujiF,{"TOPLEFT", fujiF, "TOPLEFT", 10, topoffset-20})
 fujiF.setMicroF:SetPoint("BOTTOMRIGHT", fujiF, "BOTTOMRIGHT", -10, 10);
 fujiF.setMicroF:PIGSetBackdrop(0)
-fujiF.setMicroF.cz = PIGButton(fujiF.setMicroF,{"TOPRIGHT",fujiF.setMicroF,"TOPRIGHT",-20,-20},{60,22},"重置");
+fujiF.setMicroF.cz = PIGButton(fujiF.setMicroF,{"TOPRIGHT",fujiF.setMicroF,"TOPRIGHT",-20,-20},{60,22},RESET);
 fujiF.setMicroF.cz:SetScript("OnClick", function (self)
 	PIGA["PigLayout"]["MicroMenu"]=addonTable.Default["PigLayout"]["MicroMenu"]
 	PIGA["PigLayout"]["MicroMenu"]["Open"]=true;
@@ -699,8 +711,8 @@ local function CZPoints(fujik,uix)
 end
 local function SetEnableDisable(bizbut)
 	local playerLevel = UnitLevel("player");
-	bizbut.minLevel=bizbut.minLevel or 10
-	if PIG_MaxTocversion(50000) and playerLevel < bizbut.minLevel or C_SpecializationInfo and C_SpecializationInfo.CanPlayerUseTalentSpecUI and not C_SpecializationInfo.CanPlayerUseTalentSpecUI() then
+	local minLevel=bizbut.minLevel or 10
+	if PIG_MaxTocversion(50000) and playerLevel < minLevel or C_SpecializationInfo and C_SpecializationInfo.CanPlayerUseTalentSpecUI and not C_SpecializationInfo.CanPlayerUseTalentSpecUI() then
 		bizbut:Disable();
 		if bizbut and bizbut.icon then
 			bizbut.icon:SetDesaturated(true)
@@ -726,6 +738,12 @@ local UpdateMicroButFun = {
 		local bizbut = _G[GameMenu["PIG_TalentMicroButton"]]
 		bizbut:Show()
 		SetEnableDisable(bizbut)
+	end,
+	["PIG_AchievementMicroButton"]=function(but)
+		if PIGA["PigLayout"]["MicroMenu"]["HideBut"]["PIG_AchievementMicroButton"] then
+			local bizbut = _G[GameMenu["PIG_AchievementMicroButton"]]
+			bizbut:Hide()
+		end
 	end,
 	["PIG_GuildMicroButton"]=function(but)
 		local bizbut = _G[GameMenu["PIG_GuildMicroButton"]]
@@ -1117,4 +1135,5 @@ function fujiF.add_MicroMenu()
 	fujiF.UpdateUIScaleXY()
 end
 fujiF.add_MicroMenu()
+-----
 end

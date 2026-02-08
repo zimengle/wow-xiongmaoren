@@ -1,5 +1,4 @@
-﻿---@diagnostic disable: undefined-field
-local _G = _G
+﻿local _G = _G
 local select = _G.select
 local pairs = _G.pairs
 local ipairs = _G.ipairs
@@ -694,8 +693,12 @@ function ArkInventory:EVENT_ARKINV_BACKPACK_TOKEN_UPDATE_BUCKET( ... )
 end
 
 function ArkInventory:EVENT_ARKINV_BACKPACK_TOKEN_UPDATE( ... )
+	
+	if not ArkInventory:IsEnabled( ) then return end
+	
 	local event = ...
 	ArkInventory:SendMessage( "EVENT_ARKINV_BACKPACK_TOKEN_UPDATE_BUCKET", event )
+
 end
 
 function ArkInventory:EVENT_ARKINV_TALENT_CHANGED( ... )
@@ -1329,10 +1332,11 @@ end
 
 function ArkInventory.HookMailSend( ... )
 	
-	--ArkInventory.Output( "HookMailSend( )" )
-	
 	if not ArkInventory:IsEnabled( ) then return end
 	
+	
+	--ArkInventory.Output( "HookMailSend( )" )
+
 	local loc_id = ArkInventory.Const.Location.Mailbox
 	
 	if not ArkInventory.isLocationMonitored( loc_id ) then
@@ -1372,9 +1376,10 @@ end
 
 function ArkInventory.HookMailReturn( index )
 	
-	--ArkInventory.Output( "HookMailReturn( ", index, " )" )
-	
 	if not ArkInventory:IsEnabled( ) then return end
+
+
+	--ArkInventory.Output( "HookMailReturn( ", index, " )" )
 	
 	local loc_id = ArkInventory.Const.Location.Mailbox
 	
@@ -1794,7 +1799,10 @@ function ArkInventory:EVENT_ARKINV_ZONE_CHANGED( ... )
 end
 
 function ArkInventory.HookC_TradeSkillUI_SetTooltipRecipeResultItem( ... )
+	
 	if not ArkInventory:IsEnabled( ) then return end
+
+
 	local recipeID, reagents, recraft, recipeLevel = ...
 	--ArkInventory.Output( "recipe ", recipeID )
 	local info = C_TradeSkillUI.GetRecipeOutputItemData( recipeID, reagents, recraft )
@@ -1803,6 +1811,7 @@ function ArkInventory.HookC_TradeSkillUI_SetTooltipRecipeResultItem( ... )
 		GameTooltip:SetHyperlink( info.hyperlink )
 		--ArkInventory.TooltipAddItemCount( GameTooltip, info.hyperlink )
 	end
+
 end
 
 function ArkInventory:EVENT_ARKINV_ACTIONBAR_UPDATE_USABLE_BUCKET( ... )
@@ -2431,8 +2440,6 @@ function ArkInventory.GetItemTinted( i, codex )
 				local e = string.trim( info.equiploc )
 				if not ( e == "" or info.itemtypeid == ArkInventory.ENUM.ITEM.TYPE.CONTAINER.PARENT ) then
 					
-					
-
 					if ArkInventory.GetItemUnwearable( i, codex, false, true, ignore_level ) then
 						return true
 					end
@@ -5069,8 +5076,6 @@ function ArkInventory.ScanVoidStorage( blizzard_id, rescan )
 	
 end
 
-local CanUseVoidStorage = CanUseVoidStorage or ArkInventory.HookDoNothing
-
 function ArkInventory.ScanVoidStorage_Threaded( blizzard_id, thread_id, rescan )
 	
 	ArkInventory.OutputThread( "ScanVoidStorage_Threaded( ", blizzard_id, " ) START" )
@@ -5080,6 +5085,16 @@ function ArkInventory.ScanVoidStorage_Threaded( blizzard_id, thread_id, rescan )
 		return
 	end
 	
+	if ArkInventory.Global.Mode.Void == false then
+		--ArkInventory.Output( RED_FONT_COLOR_CODE, "aborted scan of void storage, not at npc" )
+		return
+	end
+	
+	if not ArkInventory.CrossClient.CanUseVoidStorage( ) then
+		--ArkInventory.Output( RED_FONT_COLOR_CODE, "aborted scan of void storage, storage not active" )
+		return
+	end
+
 	local map = ArkInventory.Util.MapGetBlizzard( blizzard_id )
 	
 	local loc_id_window = map.loc_id_window
@@ -5092,18 +5107,6 @@ function ArkInventory.ScanVoidStorage_Threaded( blizzard_id, thread_id, rescan )
 	
 	local loc_id_storage = map.loc_id_storage
 	local bag_id_storage = map.bag_id_storage
-	
-	
-	if ArkInventory.Global.Mode.Void == false then
-		--ArkInventory.Output( RED_FONT_COLOR_CODE, "aborted scan of void storage, not at npc" )
-		return
-	end
-	
-	if not CanUseVoidStorage( ) then
-		--ArkInventory.Output( RED_FONT_COLOR_CODE, "aborted scan of void storage, storage not active" )
-		return
-	end
-	
 	
 	local codex = ArkInventory.Codex.GetPlayer( loc_id_storage )
 	local bag = codex.player.data.location[loc_id_storage].bag[bag_id_storage]
@@ -5136,8 +5139,8 @@ function ArkInventory.ScanVoidStorage_Threaded( blizzard_id, thread_id, rescan )
 		
 		local i = bag.slot[slot_id]
 		
-		local item_id, texture, locked, recentDeposit, isFiltered, q = GetVoidItemInfo( bag_id_storage, slot_id )
-		local h = GetVoidItemHyperlinkString( ( bag_id_storage - 1 ) * bag.count + slot_id )
+		local item_id, texture, locked, recentDeposit, isFiltered, q = ArkInventory.CrossClient.GetVoidItemInfo( bag_id_storage, slot_id )
+		local h = ArkInventory.CrossClient.GetVoidItemHyperlinkString( ( bag_id_storage - 1 ) * bag.count + slot_id )
 		local info = ArkInventory.GetObjectInfo( h )
 		local count = 1
 		local sb = ArkInventory.ENUM.ITEM.BINDING.PICKUP

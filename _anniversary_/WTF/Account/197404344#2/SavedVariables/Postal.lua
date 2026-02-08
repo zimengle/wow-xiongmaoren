@@ -9,7 +9,7 @@ Postal3DB = {
 ["BlackBook"] = {
 ["alts"] = {
 "仓库萌|铁血|Alliance|1|WARRIOR",
-"李家沱|铁血|Alliance|57|HUNTER",
+"李家沱|铁血|Alliance|64|HUNTER",
 "渥伦巴菲特|铁血|Alliance|1|WARLOCK",
 },
 },

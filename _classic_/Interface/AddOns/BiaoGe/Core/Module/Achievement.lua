@@ -296,21 +296,6 @@ BG.Init(function()
 /dump GetComparisonStatistic(334)
 /dump GetStatistic(334)
  ]]
-    local function FormatNumber(num)
-        if not tonumber(num) or ns.enUS then return num end
-        num = tostring(num)
-        local len = strlen(num)
-        if len <= 3 then
-            return num
-        else
-            local k = num:sub(-4, -4)
-            local w = num:sub(1, -5)
-            if w == "" then
-                w = 0
-            end
-            return w .. "." .. k .. L["万"]
-        end
-    end
 
     -- 25人
     local f, child = BG.CreateScrollFrame(BG.AchievementMainFrame, 300, 250, nil, true)
@@ -330,7 +315,7 @@ BG.Init(function()
         BG.AchievementMainFrame.Frame1 = child
 
         local t = f:CreateFontString()
-        t:SetFont(STANDARD_TEXT_FONT, 20, "OUTLINE")
+        t:SetFont(BIAOGE_TEXT_FONT, 20, "OUTLINE")
         t:SetPoint("RIGHT", f, "BOTTOMLEFT", -10, 0)
         t:SetTextColor(0, 1, 0)
         t:SetText(L["成\n就"])
@@ -372,7 +357,7 @@ BG.Init(function()
         BG.AchievementMainFrame.Frame3 = child
 
         local t = f:CreateFontString()
-        t:SetFont(STANDARD_TEXT_FONT, 20, "OUTLINE")
+        t:SetFont(BIAOGE_TEXT_FONT, 20, "OUTLINE")
         t:SetPoint("RIGHT", f, "LEFT", -10, 0)
         t:SetTextColor(0, 1, 0)
         t:SetText(L["统\n计"])
@@ -421,7 +406,7 @@ BG.Init(function()
             GameTooltip:AddLine(" ")
             GameTooltip:AddLine(L["统计："])
             for i in ipairs(db_stats) do
-                local text = raidAchievement_AllPlayer[name]["stats" .. db_stats[i].ID]:gsub("(GoldIcon.-|t).+", "%1"):gsub("(%d+)", FormatNumber)
+                local text = raidAchievement_AllPlayer[name]["stats" .. db_stats[i].ID]:gsub("(GoldIcon.-|t).+", "%1"):gsub("(%d+)", BG.FormatNumber)
                 GameTooltip:AddDoubleLine(db_stats[i].name, text, 1, 1, 0, 1, 1, 1)
             end
             GameTooltip:Show()
@@ -456,7 +441,7 @@ BG.Init(function()
                 f:SetParent(BG.AchievementMainFrame.raidFrame)
 
                 local text = f:CreateFontString()
-                text:SetFont(STANDARD_TEXT_FONT, 13, "OUTLINE")
+                text:SetFont(BIAOGE_TEXT_FONT, 13, "OUTLINE")
                 text:SetPoint("BOTTOM", f, "TOP", 0, 2)
                 text:SetText(1)
                 text:SetTextColor(.5, .5, .5)
@@ -465,7 +450,7 @@ BG.Init(function()
                 f:SetParent(BG.AchievementMainFrame.raidFrame)
 
                 local text = f:CreateFontString()
-                text:SetFont(STANDARD_TEXT_FONT, 13, "OUTLINE")
+                text:SetFont(BIAOGE_TEXT_FONT, 13, "OUTLINE")
                 text:SetPoint("BOTTOM", f, "TOP", 0, 2)
                 text:SetText((i - 1) / 5 + 1)
                 text:SetTextColor(.5, .5, .5)
@@ -474,7 +459,7 @@ BG.Init(function()
                 f:SetParent(BG.AchievementMainFrame.raidFrame)
 
                 local text = f:CreateFontString()
-                text:SetFont(STANDARD_TEXT_FONT, 13, "OUTLINE")
+                text:SetFont(BIAOGE_TEXT_FONT, 13, "OUTLINE")
                 text:SetPoint("BOTTOM", f, "TOP", 0, 2)
                 text:SetText((i - 1) / 5 + 1)
                 text:SetTextColor(.5, .5, .5)
@@ -488,7 +473,7 @@ BG.Init(function()
             f:SetScript("OnLeave", OnLeave)
 
             local text = f:CreateFontString()
-            text:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+            text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             text:SetPoint("TOPLEFT", 2, -2)
             text:SetWidth(f:GetWidth() - 5)
             text:SetJustifyH("LEFT")
@@ -496,7 +481,7 @@ BG.Init(function()
             f.nameText = text
 
             local text = f:CreateFontString()
-            text:SetFont(STANDARD_TEXT_FONT, 13, "OUTLINE")
+            text:SetFont(BIAOGE_TEXT_FONT, 13, "OUTLINE")
             text:SetPoint("BOTTOMLEFT", 2, 2)
             text:SetWidth(f:GetWidth() - 5)
             text:SetJustifyH("LEFT")
@@ -607,7 +592,7 @@ BG.Init(function()
                         bt.otherText:SetText(text)
                         bt.otherText:Show()
                     else
-                        text = raidAchievement_AllPlayer[bt.name]["stats" .. ID]:gsub("(GoldIcon.-|t).+", "%1"):gsub("(%d+)", FormatNumber)
+                        text = raidAchievement_AllPlayer[bt.name]["stats" .. ID]:gsub("(GoldIcon.-|t).+", "%1"):gsub("(%d+)", BG.FormatNumber)
                         bt.otherText:SetText(text)
                         bt.otherText:SetTextColor(1, 1, 1)
                         bt.otherText:Show()
@@ -747,7 +732,7 @@ BG.Init(function()
         end
 
         local text = f:CreateFontString()
-        text:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+        text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
         text:SetPoint("TOPLEFT", icon_tex, "TOPRIGHT", 1, -1)
         text:SetText(name)
         text:SetTextColor(1, 1, 0)
@@ -756,7 +741,7 @@ BG.Init(function()
         end
 
         local text = f:CreateFontString()
-        text:SetFont(STANDARD_TEXT_FONT, 13, "OUTLINE")
+        text:SetFont(BIAOGE_TEXT_FONT, 13, "OUTLINE")
         text:SetPoint("BOTTOMLEFT", icon_tex, "BOTTOMRIGHT", 1, 1)
         if not isStats then
             if IsInRaid(1) then

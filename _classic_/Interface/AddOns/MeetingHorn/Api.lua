@@ -575,15 +575,16 @@ function ns.DataMake(allowCrossRealm)
     local currentBgID
     local function Realm(realm)
         realm = decode(realm)
-        if allowCrossRealm or realm == GetRealmName() then
-            currentRealm = realm
+        local realmNum = tonumber(realm)
+        if allowCrossRealm or realmNum == GetRealmID() then
+            currentRealm = GetRealmID()
             return
         end
         currentRealm = nil
     end
 
     local function Name(name)
-        if not currentRealm or currentRealm ~= GetRealmName() then
+        if not currentRealm or currentRealm ~= GetRealmID() then
             return nop
         end
 

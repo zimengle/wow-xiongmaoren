@@ -155,20 +155,8 @@ function QuestieWotlkQuestFixes:Load()
             [questKeys.requiredRaces] = raceIDs.ALL_ALLIANCE,
             [questKeys.zoneOrSort] = sortKeys.SPECIAL,
         },
-        [1678] = {
-            [questKeys.requiredRaces] = raceIDs.ALL_ALLIANCE,
-        },
-        [1679] = {
-            [questKeys.requiredRaces] = raceIDs.ALL_ALLIANCE,
-        },
-        [1680] = {
-            [questKeys.requiredRaces] = raceIDs.ALL_ALLIANCE,
-        },
-        [1681] = {
-            [questKeys.requiredRaces] = raceIDs.ALL_ALLIANCE,
-        },
-        [1682] = {
-            [questKeys.requiredRaces] = raceIDs.ALL_ALLIANCE,
+        [1681] = { -- Ironband's Compound
+            [questKeys.nextQuestInChain] = 1682,
         },
         [1687] = {
             [questKeys.questLevel] = -1,
@@ -178,8 +166,14 @@ function QuestieWotlkQuestFixes:Load()
         [1698] = {
             [questKeys.startedBy] = {{5479,7315}},
         },
+        [1712] = { -- Cyclonian
+            [questKeys.requiredSourceItems] = {4480,4479,4481},
+        },
         [1716] = {
             [questKeys.preQuestSingle] = {},
+        },
+        [1782] = { -- Furen's Armor
+            [questKeys.requiredClasses] = classIDs.WARRIOR,
         },
         [1795] = {
             [questKeys.requiredSourceItems] = {},
@@ -7844,7 +7838,7 @@ function QuestieWotlkQuestFixes:Load()
             [questKeys.requiredLevel] = 80,
             [questKeys.questLevel] = 80,
             [questKeys.requiredRaces] = raceIDs.NONE,
-            [questKeys.objectivesText] = {"团队消灭拉格纳罗斯。"}, -- {"Kill Ragnaros."}, only present on chinese servers
+            [questKeys.objectivesText] = {"团队消灭拉格纳罗斯。"}, -- "Kill Ragnaros.", only present on chinese servers
             [questKeys.objectives] = {{{11502}}},
             [questKeys.zoneOrSort] = zoneIDs.MOLTEN_CORE,
             [questKeys.specialFlags] = specialFlags.REPEATABLE,

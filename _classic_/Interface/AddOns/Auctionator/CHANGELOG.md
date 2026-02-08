@@ -1,6 +1,6 @@
 # Auctionator
 
-## [306](https://github.com/TheMouseNest/Auctionator/tree/306) (2025-12-18)
-[Full Changelog](https://github.com/TheMouseNest/Auctionator/compare/305...306) 
+## [315](https://github.com/TheMouseNest/Auctionator/tree/315) (2026-02-02)
+[Full Changelog](https://github.com/TheMouseNest/Auctionator/compare/314...315) 
 
-- Tag as supporting 5.5.3  
+- Fix tooltips on classic  

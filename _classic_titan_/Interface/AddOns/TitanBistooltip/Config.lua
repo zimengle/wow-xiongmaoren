@@ -80,7 +80,8 @@ local db_defaults = {
         highlight_specs = {},
         data_source = "TitanP1P2",
         minimap_icon = true,
-        tooltip_with_ctrl = false
+        tooltip_with_ctrl = false,
+        tooltip_position = "bottom"
     }
 }
 
@@ -133,9 +134,27 @@ local configTable = {
                 return TitanBistooltipAddon.db.char.tooltip_with_ctrl
             end
         },
+        tooltip_position = {
+            name = "鼠标提示排名位置设置",
+            order = 3,
+            desc = "自定义BIS面板鼠标提示框的位置。\n备注：当装备提示框在屏幕左侧时，无论用户如何设置，BIS 提示框都会显示在装备提示框的下方，以避免覆盖某些装备对比插件的比较信息",
+            type = "select",
+            style = "dropdown",
+            width = "double",
+            values = {
+                right = "装备提示框右侧",
+                bottom = "装备提示框下侧"
+            },
+            set = function(info, val)
+                TitanBistooltipAddon.db.char.tooltip_position = val
+            end,
+            get = function(info)
+                return TitanBistooltipAddon.db.char.tooltip_position
+            end
+        },
         data_source = {
             name = L["Data source"],
-            order = 3,
+            order = 4,
             desc = L["Changes source"],
             type = "select",
             style = "dropdown",
@@ -151,7 +170,7 @@ local configTable = {
         },
         filter_specs = {
             name = L["Hide specs"],
-            order = 4,
+            order = 5,
             desc = L["Removes specs from tooltips"],
             type = "multiselect",
             values = function()
@@ -221,7 +240,7 @@ local configTable = {
         },
         highlight_spec = {
             name = L["Highlight spec"],
-            order = 5,
+            order = 6,
             desc = L["Highlights spec in tooltips"],
             type = "multiselect",
             values = nil,

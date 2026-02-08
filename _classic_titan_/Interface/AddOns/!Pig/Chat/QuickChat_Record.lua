@@ -549,8 +549,8 @@ function QuickChatfun.QuickBut_Jilu()
 		hang.highlight:Hide();
 		hang.zhiye = hang:CreateTexture(nil, "BORDER");
 		hang.zhiye:SetPoint("LEFT", hang, "LEFT", 4,0);
-		hang.zhiye:SetSize(hang_Height-5,hang_Height-5);
-		hang.name = PIGFontString(hang,{"LEFT", hang.zhiye, "RIGHT", 4,0},nil,nil,13)
+		hang.zhiye:SetSize(hang_Height-2,hang_Height-2);
+		hang.name = PIGFontString(hang,{"LEFT", hang.zhiye, "RIGHT", 4,0})
 		hang.del = PIGDiyBut(hang,{"RIGHT",hang,"RIGHT",-14,-0},{hang_Height-8});
 		hang.del.icon:SetAlpha(0.5)
 		hang.del:HookScript("OnClick", function (self)
@@ -1114,7 +1114,7 @@ function QuickChatfun.QuickBut_Jilu()
 		---根据启用注册事件
 		ChatRecordF.shijianzhucequxiao(id,PIGA["Chatjilu"][jilupindaoID[id]]["Open"],PindaolistF)
 		PindaolistF:HookScript("OnEvent", function (self,event,arg1,arg2,arg3,arg4,arg5,_,_,_,_,_,_,arg12)
-			if arg1:match("[!Pig]:") then return end
+			if not arg1 or arg1:match("[!Pig]:") then return end
 			for jj=1,#jilupindaoEvent[jilupindaoID[id]] do
 				if event==jilupindaoEvent[jilupindaoID[id]][jj] then
 							--print(event,arg1,arg2,arg3,arg4,arg5,arg12)

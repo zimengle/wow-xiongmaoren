@@ -244,6 +244,22 @@ MAX_NUM_TALENTS = 0
 ---| "Minimap"
 ---| "GameTooltip"
 
+---objects that can be created with CreateFrame
+---@alias frameobjects
+---| "Frame"
+---| "Button"
+---| "StatusBar"
+---| "EditBox"
+---| "CheckButton"
+---| "Slider"
+---| "Model"
+---| "PlayerModel"
+---| "DressUpModel"
+---| "TabardModel"
+---| "Cooldown"
+---| "Minimap"
+---| "GameTooltip"
+
 ---@alias audiochannels
 ---| "Master"
 ---| "SFX"
@@ -1035,6 +1051,18 @@ TraitConsts = {
     VIEW_TRAIT_CONFIG_ID = -3,
 }
 
+---@class numberabbreviation_data : table
+---@field breakpoint number
+---@field abbreviation string
+---@field significandDivisor number
+---@field fractionDivisor number
+---@field abbreviationIsGlobal boolean?
+
+---@class numberabbreviation_options : table
+---@field breakpointData table[]?
+---@field locale string?
+---@field config table?
+
 ---@alias spellid number integer each spell in the game has a unique spell id, this id can be used to identify a spell.
 ---@alias unitname string name of a unit
 ---@alias unitguid string unique id of a unit (GUID)
@@ -1122,6 +1150,7 @@ BackdropTemplateMixin = {}
 ---@class objectsize : {height: number, width: number}
 ---@class texturetable : {texture: string, coords: texturecoords, size: objectsize}
 
+---all ui objects inherit from this base class
 ---@class uiobject
 ---@field GetObjectType fun(self: uiobject) : objecttype
 ---@field IsObjectType fun(self: uiobject, objectType: string) : boolean
@@ -1154,6 +1183,7 @@ BackdropTemplateMixin = {}
 ---@field CreateAnimationGroup fun(self: uiobject, name: string|nil, templateName: string|nil) : animationgroup
 ---@field SetIgnoreParentAlpha fun(self: region, ignore: boolean)
 
+---created by frame:CreateAnimationGroup()
 ---@class animationgroup : uiobject
 ---@field CreateAnimation fun(self: animationgroup, animationType: animationtype, name: string|nil, inheritsFrom: string|nil) : animation
 ---@field GetAnimation fun(self: animationgroup, name: string) : animation
@@ -1176,6 +1206,7 @@ BackdropTemplateMixin = {}
 ---@field SetSmoothProgress fun(self: animationgroup, smooth: animsmoothing)
 ---@field Stop fun(self: animationgroup)
 
+---created by animationgroup:CreateAnimation()
 ---@class animation : uiobject
 ---@field GetDuration fun(self: animation) : number
 ---@field GetEndDelay fun(self: animation) : number
@@ -1418,6 +1449,7 @@ BackdropTemplateMixin = {}
 
 ---@class region : uiobject
 
+---created by frame:CreateFontString()
 ---@class fontstring : region
 ---@field SetDrawLayer fun(self: fontstring, layer: drawlayer, subLayer: number?)
 ---@field SetFont fun(self: fontstring, font: string, size: number, flags: string)
@@ -1466,6 +1498,7 @@ BackdropTemplateMixin = {}
 ---@field SetTextTruncateLines fun(self: fontstring, lines: number)
 ---@field GetTextTruncateLines fun(self: fontstring) : number
 
+---created by frame:CreateTexture()
 ---@class texture : region
 ---@field AddMaskTexture fun(self: texture, maskTexture: texture)
 ---@field GetDrawLayer  fun(self: texture) : drawlayer, number
@@ -1550,14 +1583,15 @@ BackdropTemplateMixin = {}
 ---@field SetStepsPerPage fun(self: slider, steps: number)
 
 ---@class damagemetertype : table
----@field DamageDone number
----@field Dps number
----@field HealingDone number
----@field Hps number
----@field Absorbs number
----@field Interrupts number
----@field Dispels number
----@field DamageTaken number
+---@field DamageDone number 0
+---@field Dps number 1 
+---@field HealingDone number 2
+---@field Hps number 3
+---@field Absorbs number 4
+---@field Interrupts number 5
+---@field Dispels number 6
+---@field DamageTaken number 7
+---@field AvoidableDamageTaken number 8
 
 ---return is the value passed is a secret
 ---@param value any
@@ -1572,6 +1606,12 @@ function issecrettable(value) return false end
 ---@class enum : table
 ---@field DamageMeterType damagemetertype
 ---@field CompressionMethod compressionmethod
+---@field DamageMeterSessionType damagemetersessiontype
+
+---@class damagemetersessiontype : table
+---@field Overall number 0
+---@field Current number 1
+---@field Expired number 2
 
 ---@class compressionmethod : table
 ---@field Deflate number 0
@@ -1590,13 +1630,20 @@ Enum = {
         Interrupts = 5,
         Dispels = 6,
         DamageTaken = 7,
+        AvoidableDamageTaken = 8,
     },
     CompressionMethod = {
         Deflate = 0,
         Zlib = 1,
         Gzip = 2,
     },
+    DamageMeterSessionType = {
+        Overall = 0,
+        Current = 1,
+        Expired = 2,
+    },
 }
+
 
 ---@class encodingutil : table
 ---@field EncodeHex fun(self: encodingutil, str: string) : string
@@ -4189,11 +4236,11 @@ SetWatchedFactionIndex = function(factionIndex) end
 ---@return string, number
 UnitFactionGroup = function(unit) return "", 0 end
 
----@param frameType string
+---@param frameType frameobjects
 ---@param name string | nil
 ---@param parent table | nil
 ---@param template string | nil
----@return table
+---@return frame
 CreateFrame = function(frameType, name, parent, template) return {} end
 
 ---@param fontName string

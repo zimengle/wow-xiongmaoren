@@ -1,4 +1,3 @@
-
 boomTimeSv = {
 ["instance_timer_sv"] = {
 ["locked"] = false,
@@ -17,10 +16,6 @@ nil,
 ["locked"] = false,
 },
 ["Player-6457-0476F4B3"] = {
-["on"] = true,
-["locked"] = false,
-},
-["Player-6457-04DA9799"] = {
 ["on"] = true,
 ["locked"] = false,
 },

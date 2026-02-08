@@ -32,40 +32,47 @@ function addon:OnInitialize()
 
 	-- loads data and options
 	addon.db = AceDB:New(addonName .. "DB", addon.Options.defaults, true)
-    AceConfigRegistry:RegisterOptionsTable(addonName, addon.Options.GetOptions)
-    if Settings and Settings.RegisterCanvasLayoutCategory then
-        local canvas = CreateFrame("Frame")
-        canvas.name = addon.METADATA.NAME
-        canvas:SetScript("OnShow", function()
-            if AceConfigDialog and AceConfigDialog.Open then
-                AceConfigDialog:Open(addonName)
-            end
-        end)
-        local category = Settings.RegisterCanvasLayoutCategory(canvas, addon.METADATA.NAME)
-        addon.settingsCategory = category
-        Settings.RegisterAddOnCategory(category)
-        addon.Options.frame = nil
-    elseif AceConfigDialog and AceConfigDialog.AddToBlizOptions then
-        local optionsFrame = AceConfigDialog:AddToBlizOptions(addonName, addon.METADATA.NAME)
-        addon.Options.frame = optionsFrame
-    else
-        addon.Options.frame = nil
-    end
+	AceConfigRegistry:RegisterOptionsTable(addonName, addon.Options.GetOptions)
+	
+	if Settings and Settings.RegisterCanvasLayoutCategory and not InterfaceOptions_AddCategory then
+		InterfaceOptions_AddCategory = function(frame, addOn, position)
+			if frame.parent then
+				local category = Settings.GetCategory(frame.parent)
+				if category then
+					local subcategory = Settings.RegisterCanvasLayoutSubcategory(category, frame, frame.name)
+					subcategory.ID = frame.name
+					return subcategory, category
+				end
+			else
+				local category = Settings.RegisterCanvasLayoutCategory(frame, frame.name)
+				category.ID = frame.name
+				Settings.RegisterAddOnCategory(category)
+				return category
+			end
+		end
+	end
+	
+	local success, optionsFrame, categoryID = pcall(function()
+		return AceConfigDialog:AddToBlizOptions(addonName, addon.METADATA.NAME)
+	end)
+	
+	if success and optionsFrame then
+		addon.Options.frame = optionsFrame
+	else
+		addon.Options.frame = nil
+	end
 
 	-- addon state flags
 	addon.isDebug = true
 
-	-- 5.5.2版本兼容：检查WOW_PROJECT_ID是否存在
 	if WOW_PROJECT_ID and WOW_PROJECT_CLASSIC then
 		addon.isClassic = (WOW_PROJECT_ID == WOW_PROJECT_CLASSIC)
 	else
-		-- 5.5.2版本没有WOW_PROJECT_ID，默认为非经典版本
 		addon.isClassic = false
 	end
 
     -- initialize chat command
     local chatfunc = function(input)
-    	-- /acamar options 打开设置窗口（Ace3 独立对话框）
     	if input and input:match("^%s*options%s*$") then
     		if AceConfigDialog and AceConfigDialog.Open then
     			AceConfigDialog:Open(addonName)
@@ -74,7 +81,6 @@ function addon:OnInitialize()
     		end
     		return
     	end
-    	-- 默认打开主界面
     	addon:ShowUI()
     end
 

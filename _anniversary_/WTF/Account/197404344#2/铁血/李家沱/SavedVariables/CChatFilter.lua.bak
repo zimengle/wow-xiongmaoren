@@ -8,20 +8,22 @@ BFWC_Filter_SavedConfigs = {
 },
 ["interval"] = 40,
 ["whitelist"] = {
+"复仇的先驱者",
 },
-["blocklist_enable"] = true,
-["bigfoot_chatframe_name"] = 1,
+["new_msg_flash"] = true,
 ["white_to_chatframe"] = true,
-["filter_request_to_join"] = true,
+["bigfoot_chatframe_name"] = "5",
+["auto_filter_by_level"] = false,
+["white_to_chatframe_num"] = "1",
 ["white_to_chatframe_color"] = {
 ["a"] = 1,
 ["r"] = 1,
-["hex"] = "ffffc0c0",
-["g"] = 0.753,
-["b"] = 0.753,
+["hex"] = "ffff02b",
+["g"] = 0,
+["b"] = 0.168627455830574,
 },
-["dungeons"] = {
-},
+["hide_enter_leave"] = true,
+["bigfoot"] = true,
 ["blacklist_enable"] = true,
 ["player"] = {
 ["Player-6457-04DA9799"] = {
@@ -29,10 +31,11 @@ BFWC_Filter_SavedConfigs = {
 ["Player-6457-0476F4B3"] = {
 },
 },
-["remain_unchanged_msg"] = false,
-["saved"] = true,
-["bigfoot"] = false,
 ["dlg_width"] = 900,
-["auto_filter_by_level"] = false,
-["hide_enter_leave"] = true,
+["saved"] = true,
+["dungeons"] = {
+},
+["remain_unchanged_msg"] = false,
+["filter_request_to_join"] = true,
+["blocklist_enable"] = true,
 }

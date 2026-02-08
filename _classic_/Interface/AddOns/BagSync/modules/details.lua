@@ -7,6 +7,7 @@
 --]]
 
 local BSYC = select(2, ...) --grab the addon namespace
+local UI = BSYC:GetModule("UI")
 local Details = BSYC:NewModule("Details")
 local Data = BSYC:GetModule("Data")
 local Tooltip = BSYC:GetModule("Tooltip")
@@ -15,7 +16,7 @@ local function Debug(level, ...)
     if BSYC.DEBUG then BSYC.DEBUG(level, "Details", ...) end
 end
 
-local L = LibStub("AceLocale-3.0"):GetLocale("BagSync")
+local L = BSYC.L
 
 local function comma_value(n)
 	if not n or not tonumber(n) then return "?" end
@@ -23,51 +24,37 @@ local function comma_value(n)
 end
 
 function Details:OnEnable()
-	local detailsFrame = _G.CreateFrame("Frame", nil, UIParent, "BagSyncFrameTemplate")
-	Mixin(detailsFrame, Details) --implement new frame to our parent module Mixin, to have access to parent methods
-	_G["BagSyncDetailsFrame"] = detailsFrame
-    --Add to special frames so window can be closed when the escape key is pressed.
-    tinsert(UISpecialFrames, "BagSyncDetailsFrame")
-    detailsFrame.TitleText:SetText("BagSync - "..L.Details)
-    detailsFrame:SetHeight(606)
-	detailsFrame:SetWidth(600)
-    detailsFrame:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
-    detailsFrame:EnableMouse(true) --don't allow clickthrough
-    detailsFrame:SetMovable(true)
-    detailsFrame:SetResizable(false)
-    detailsFrame:SetFrameStrata("FULLSCREEN_DIALOG")
-	detailsFrame:RegisterForDrag("LeftButton")
-	detailsFrame:SetClampedToScreen(true)
-	detailsFrame:SetScript("OnDragStart", detailsFrame.StartMoving)
-	detailsFrame:SetScript("OnDragStop", detailsFrame.StopMovingOrSizing)
-	detailsFrame:SetScript("OnShow", function() Details:OnShow() end)
-	local closeBtn = CreateFrame("Button", nil, detailsFrame, "UIPanelCloseButton")
-	closeBtn:SetPoint("TOPRIGHT", C_EditMode and -3 or 2, C_EditMode and -3 or 1) --check for classic servers to adjust for positioning using a check for the new EditMode			
-    detailsFrame.closeBtn = closeBtn
+	local detailsFrame = UI:CreateModuleFrame(Details, {
+		template = "BagSyncFrameTemplate",
+		globalName = "BagSyncDetailsFrame",
+		title = "BagSync - "..L.Details,
+		height = 606,
+		width = 600,
+		point = { "CENTER", UIParent, "CENTER", 0, 0 },
+		onShow = function() Details:OnShow() end,
+	})
 	Details.frame = detailsFrame
 
-	detailsFrame.infoText = detailsFrame:CreateFontString(nil, "BACKGROUND", "GameFontHighlightSmall")
-	detailsFrame.infoText:SetText(L.Details)
-	detailsFrame.infoText:SetFont(STANDARD_TEXT_FONT, 12, "")
-	detailsFrame.infoText:SetTextColor(1, 165/255, 0)
-	detailsFrame.infoText:SetPoint("LEFT", detailsFrame, "TOPLEFT", 15, -35)
-	detailsFrame.infoText:SetJustifyH("LEFT")
-	detailsFrame.infoText:SetWidth(detailsFrame:GetWidth() - 15)
+	detailsFrame.infoText = UI:CreateFontString(detailsFrame, {
+		template = "GameFontHighlightSmall",
+		text = L.Details,
+		font = { STANDARD_TEXT_FONT, 12, "" },
+		textColor = { 1, 165/255, 0 },
+		point = { "LEFT", detailsFrame, "TOPLEFT", 15, -35 },
+		justifyH = "LEFT",
+		width = detailsFrame:GetWidth() - 15,
+	})
 
-    Details.scrollFrame = _G.CreateFrame("ScrollFrame", nil, detailsFrame, "HybridScrollFrameTemplate")
-    Details.scrollFrame:SetWidth(557)
-    Details.scrollFrame:SetPoint("TOPLEFT", detailsFrame, "TOPLEFT", 13, -45)
-    --set ScrollFrame height by altering the distance from the bottom of the frame
-    Details.scrollFrame:SetPoint("BOTTOMLEFT", detailsFrame, "BOTTOMLEFT", -25, 15)
-    Details.scrollFrame.scrollBar = CreateFrame("Slider", "$parentscrollBar", Details.scrollFrame, "HybridScrollBarTemplate")
-    Details.scrollFrame.scrollBar:SetPoint("TOPLEFT", Details.scrollFrame, "TOPRIGHT", 1, -16)
-    Details.scrollFrame.scrollBar:SetPoint("BOTTOMLEFT", Details.scrollFrame, "BOTTOMRIGHT", 1, 12)
-	--initiate the scrollFrame
-    --the items we will work with
-    Details.items = {}
-	Details.scrollFrame.update = function() Details:RefreshList(); end
-    HybridScrollFrame_SetDoNotHideScrollBar(Details.scrollFrame, true)
-	HybridScrollFrame_CreateButtons(Details.scrollFrame, "BagSyncListSimpleItemTemplate")
+	Details.scrollFrame = UI:CreateHybridScrollFrame(detailsFrame, {
+		width = 557,
+		pointTopLeft = { "TOPLEFT", detailsFrame, "TOPLEFT", 13, -45 },
+		-- set ScrollFrame height by altering the distance from the bottom of the frame
+		pointBottomLeft = { "BOTTOMLEFT", detailsFrame, "BOTTOMLEFT", -25, 15 },
+		buttonTemplate = "BagSyncListSimpleItemTemplate",
+		update = function() Details:RefreshList(); end,
+	})
+	--the items we will work with
+	Details.items = {}
 
 	detailsFrame:Hide()
 end
@@ -93,7 +80,6 @@ function Details:CheckItems(usrData, unitObj, target, itemID, colorized)
 	if not unitObj or not target then return end
 
 	local function parseItems(data, tab, equipped)
-		local iCount = 0
 		for i=1, #data do
 			if data[i] then
 				local link, count, qOpts = BSYC:Split(data[i])
@@ -117,7 +103,6 @@ function Details:CheckItems(usrData, unitObj, target, itemID, colorized)
 				end
 			end
 		end
-		return iCount
 	end
 
 	if unitObj.data[target] and BSYC.tracking[target] then
@@ -152,16 +137,7 @@ function Details:CreateList(itemID)
 	Details.items = {}
 
 	local usrData = {}
-	local allowList = {
-		bag = true,
-		bank = true,
-		reagents = true,
-		equip = true,
-		mailbox = true,
-		void = true,
-		auction = true,
-		warband = true,
-	}
+	local allowList = BSYC.DEFAULT_ALLOW_LIST
 	if BSYC.options.enableShowUniqueItemsTotals then itemID = BSYC:GetShortItemID(itemID) end
 
 	for unitObj in Data:IterateUnits(true) do
@@ -242,7 +218,7 @@ function Details:RefreshList()
 
     for buttonIndex = 1, #buttons do
         local button = buttons[buttonIndex]
-		button.parentHandler = Details
+		UI:AttachListItemHandlers(button, Details)
 
         local itemIndex = buttonIndex + offset
 
@@ -316,7 +292,7 @@ function Details:RefreshList()
 
 			--while we are updating the scrollframe, is the mouse currently over a button?
 			--if so we need to force the OnEnter as the items will scroll up in data but the button remains the same position on our cursor
-			if BSYC.GMF() == button then
+			if BSYC:IsMouseOver(button) then
 				Details:Item_OnLeave() --hide first
 				Details:Item_OnEnter(button)
 			end

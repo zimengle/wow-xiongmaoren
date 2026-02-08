@@ -2,7 +2,8 @@ VER 3 0000000000000005 "Decursive" "INV_MISC_QUESTIONMARK"
 /script DecursiveRootTable.Dcr:Println('没有相关技能')
 END
 VER 3 0000000000000002 "Decursive" "INV_MISC_QUESTIONMARK"
-/script DecursiveRootTable.Dcr:Println('没有相关技能')
+/stopcasting
+/cast [@mouseover,nomod,exists] 恐惧;  [@mouseover,exists,mod:ctrl] 恐惧; [@mouseover,exists,mod:shift] 恐惧
 END
 VER 3 000000000000000B "dk救人" "135407"
 #showtooltip 迁跃切割者
@@ -54,4 +55,10 @@ VER 3 0000000000000009 "法系dps" "135150"
 #showtooltip 瓦解法杖
 /equipslot 16 瓦解法杖
 /use 瓦解法杖
+END
+VER 3 000000000000000E "防战救人" "134951"
+#showtooltip 相位壁垒
+/equipslot 16 无尽之刃
+/equipslot 17 相位壁垒
+/cast 毁灭打击
 END

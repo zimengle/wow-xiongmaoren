@@ -76,6 +76,19 @@ function BG.Init2(func)
     tinsert(enterWorldFuncs, func)
 end
 
+local loginFuncs = {}
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_LOGIN")
+f:SetScript("OnEvent", function(self, event)
+    self:UnregisterEvent("PLAYER_LOGIN")
+    for _, func in ipairs(loginFuncs) do
+        func(self, event)
+    end
+end)
+function BG.Init3(func)
+    tinsert(loginFuncs, func)
+end
+
 local events = {}
 local f = CreateFrame("Frame")
 f:SetScript("OnEvent", function(_, event, ...)
@@ -101,9 +114,19 @@ if GetCurrentRegion() ~= 5 then
 end
 
 local ver = select(4, GetBuildInfo())
+if ver >= 30000  then
+    BG.verOver3 = true
+end
+if ver >= 40000 then
+    BG.verOver4 = true
+end
+if ver >= 50000 then
+    BG.verOver5 = true
+end
+
 if ver < 20000 then
     BG.IsVanilla = true
-    BG.onlyOneHard=true
+    BG.onlyOneHard = true
     if (C_Engraving and C_Engraving.IsEngravingEnabled()) then
         BG.IsVanilla_Sod = true
     else
@@ -111,9 +134,16 @@ if ver < 20000 then
     end
 end
 
+if ver >= 20000 and ver < 30000 then
+    BG.IsVanilla = true
+    BG.onlyOneHard=true
+    BG.IsVanilla_60 = true
+
+    BG.IsTBC = true
+end
+
 if ver >= 30000 and ver < 40000 then
     BG.IsWLK = true
-    BG.verOver3 = true
     if ver >= 38000 then
         BG.IsTitan = true
         BG.onlyOneHard=true
@@ -124,12 +154,10 @@ end
 
 if ver >= 40000 and ver < 50000 then
     BG.IsCTM = true
-    BG.verOver4 = true
 end
 
 if ver >= 50000 and ver < 60000 then
     BG.IsMOP = true
-    BG.verOver5 = true
     if BG.IsTW then
         BG.IsMOP_TW = true
     else
@@ -183,18 +211,21 @@ function BG.GN(unit)
 end
 
 BG.playerName = BG.GN()
+BG.realmName = GetRealmName()
+BG.realmID = GetRealmID()
+local realmName = GetRealmName():gsub(" %- ", "")
 
 function BG.GFN(name)
     if not name then return end
     local name, realm = strsplit("-", name)
-    realm = realm or GetRealmName()
+    realm = realm or realmName
     return name .. "-" .. realm
 end
 
 function BG.GSN(name)
     if not name then return end
     local name, realm = strsplit("-", name)
-    if not realm or realm == "" or realm == GetRealmName() then
+    if not realm or realm == "" or realm == realmName then
         return name
     else
         return name .. "-" .. realm
@@ -203,5 +234,5 @@ end
 
 function BG.SPN(name)
     if not name then return end
-    return strsplit("-", name)
+    return strsplit("-", name,2)
 end

@@ -49,7 +49,18 @@ local function chatFilter(_, _, msg)
     end
 end
 
+local function systemChatFilter(_, _, msg)
+    if strfind(msg, "^未找到名为") then
+        local serverPrefix = ns.NETEASE_SERVER_PREFIX .. UnitFactionGroup('player') .. ns.NETEASE_SERVER_RANDOM
+        if strfind(msg, serverPrefix) then
+            return true
+        end
+    end
+    return false
+end
+
 ChatFrame_AddMessageEventFilter('CHAT_MSG_CHANNEL', chatFilter)
+ChatFrame_AddMessageEventFilter('CHAT_MSG_SYSTEM', systemChatFilter)
 
 function Addon:OnInitialize()
     self.db = LibStub('AceDB-3.0'):New('MEETINGHORN_DB', { --

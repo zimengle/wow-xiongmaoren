@@ -1254,6 +1254,18 @@ function MopItemFixes.Load()
         [93212] = { -- Spirit Essence of Varatus
             [itemKeys.npcDrops] = {68907},
         },
+        [93668] = { -- Saur Fetish
+            [itemKeys.npcDrops] = {69154,69155,69286},
+        },
+        [93731] = { -- Mogu Codex Fragment
+            [itemKeys.npcDrops] = {69435},
+        },
+        [93733] = { -- Mask of the Spirit-Caller
+            [itemKeys.npcDrops] = {69301},
+        },
+        [93734] = { -- Mask of the Dark Mystic
+            [itemKeys.npcDrops] = {69300},
+        },
         [94197] = { -- The Zandalari Prophecy
             [itemKeys.startQuest] = 32600,
         },
@@ -1267,8 +1279,20 @@ function MopItemFixes.Load()
             [itemKeys.npcDrops] = {50358,69664,69996,69997,69998,69999,70000,70001,70002,70003,70530},
             [itemKeys.objectDrops] = {218593},
         },
+        [94594] = { -- Titan Runestone
+            [itemKeys.npcDrops] = {68036,69427,69017,68078,68904,68397,69473}, -- TODO: Add SOO Bosses, once that is live
+        },
         [94605] = { -- Wild Pterrorwing Hatchling
             [itemKeys.npcDrops] = {69428},
+        },
+        [94721] = { -- Strange Metal Ingot
+            [itemKeys.startQuest] = 32621,
+        },
+        [95372] = { -- Choker of Storms
+            [itemKeys.objectDrops] = {218853},
+        },
+        [95374] = { -- Hoard-Keeper's Key
+            [itemKeys.npcDrops] = {69274},
         },
         [95383] = { -- Pristine Banner of the Mantid Empire
             [itemKeys.startQuest] = 32686,
@@ -1294,8 +1318,44 @@ function MopItemFixes.Load()
         [95390] = { -- Pristine Kypari Sap Container
             [itemKeys.startQuest] = 32693,
         },
+        [95433] = { -- Tempered Lightning Lance
+            [itemKeys.npcDrops] = {69739},
+        },
+        [97978] = { -- Knockoff Grumplefloot
+            [itemKeys.startQuest] = 32836,
+        },
+        [97979] = { -- The Bear and the Lady Fair
+            [itemKeys.startQuest] = 32838,
+        },
+        [97980] = { -- Hozen-Fur Fuse
+            [itemKeys.startQuest] = 32840,
+        },
+        [97981] = { -- Impeccably Sharp Tooth
+            [itemKeys.startQuest] = 32842,
+        },
+        [97982] = { -- Vial of Reddish Ooze
+            [itemKeys.startQuest] = 32844,
+        },
+        [97983] = { -- Modified Chomping Apparatus
+            [itemKeys.startQuest] = 32846,
+        },
+        [97984] = { -- Frost-Tipped Eggshell
+            [itemKeys.startQuest] = 32848,
+        },
         [97985] = { -- Dusty Old Robot
             [itemKeys.startQuest] = 32850,
+        },
+        [97986] = { -- Digmaster's Earthblade
+            [itemKeys.startQuest] = 32852,
+        },
+        [97987] = { -- Well-Worn Blindfold
+            [itemKeys.startQuest] = 32854,
+        },
+        [97988] = { -- Paper-Covered Rock
+            [itemKeys.startQuest] = 32856,
+        },
+        [97990] = { -- Raptorhide Boxing Gloves
+            [itemKeys.startQuest] = 32858,
         },
         [105891] = { -- Moonfang's Pelt
             [itemKeys.startQuest] = 33354,

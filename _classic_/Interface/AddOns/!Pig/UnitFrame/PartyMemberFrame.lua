@@ -110,10 +110,14 @@ local function Update_mubiao(Party,id)
 			Party.title:SetTextColor(0, 1, 0);
 		end
 		if UnitIsDead(PartymubiaiT) then
-			Party.title:SetText(partytargetname.."(死亡)");
+			Party.title:SetText(partytargetname.."("..DEAD..")");
 		else
-			local duiyoumubiaobaifenbi = math.floor((UnitHealth(PartymubiaiT)/UnitHealthMax(PartymubiaiT))*100);
-			Party.title:SetText(partytargetname.."("..duiyoumubiaobaifenbi.."%)");
+			if PIG_MaxTocversion() then
+				local duiyoumubiaobaifenbi = math.floor((UnitHealth(PartymubiaiT)/UnitHealthMax(PartymubiaiT))*100);
+				Party.title:SetText(partytargetname.."("..duiyoumubiaobaifenbi.."%)");
+			else
+				Party.title:SetText(partytargetname.."("..UnitHealth(PartymubiaiT).."/"..UnitHealthMax(PartymubiaiT)..")");
+			end
 		end
 	else
 		Party.title:SetText("");
@@ -272,11 +276,11 @@ local function PartyMember_Buff()
 	if duiyouFrameReg.Buff then return end
 	duiyouFrameReg.Buff=true
 	--隐藏系统自带队友buff鼠标提示
-	if PIG_MaxTocversion() then
+	if PartyMemberBuffTooltip_Update then
 		hooksecurefunc("PartyMemberBuffTooltip_Update", function(self)
 		    PartyMemberBuffTooltip:Hide();
 		end)
-	else
+	elseif PartyMemberBuffTooltip then
 		hooksecurefunc(PartyMemberBuffTooltip, "UpdateTooltip", function(self)
 			self:Hide();
 		end)
@@ -316,7 +320,7 @@ local function PartyMember_Buff()
 		    end
 	    end
 	    --改动系统DEBUFF位置
-	    if PIG_MaxTocversion() then
+	    if _G["PartyMemberFrame"..id.."Debuff1"] then
 	    	_G["PartyMemberFrame"..id.."Debuff1"]:ClearAllPoints();
 			_G["PartyMemberFrame"..id.."Debuff1"]:SetPoint("TOPRIGHT", _G["PartyMemberFrame"..id], "TOPRIGHT", 50, 8);
 	    else

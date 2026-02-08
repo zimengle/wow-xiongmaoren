@@ -11,7 +11,8 @@ function MainPanel:Constructor()
     self.selectedTab = 1
     self.TitleText:SetText(L.ADDON_NAME .. ' ' .. ns.ADDON_VERSION)
 
-    self:SetupTabs({
+    -- 基础tabs配置（不包括战友召回）
+    self.baseTabs = {
         {L['Search Activity'], self.Browser}, --
         {L['Create Activity'], self.Manage}, --
         {L['Recent members'], self.Recent}, --
@@ -26,7 +27,17 @@ function MainPanel:Constructor()
         --{'挑战活动', self.Quest},
         {L['Options'], self.Options}, --
         --{L['Help'], self.Help}, --
-    })
+    }
+
+    -- 战友召回tab配置
+    self.friendRecallTab = {'战友召回', self.FriendRecall}
+    self.friendRecallEnabled = false -- 默认不显示
+
+    -- 初始设置tabs（不包括战友召回）
+    self:SetupTabs(self.baseTabs)
+
+    -- 注册服务器消息
+    self:RegisterMessage('MEETINGHORN_FRIENDRECALL')
 
     self.portrait:SetTexture([[Interface\AddOns\MeetingHorn\Media\Logo]])
 
@@ -56,6 +67,7 @@ function MainPanel:Constructor()
     ns.UI.Challenge:Bind(self.Challenge)
     ns.UI.GoodLeaderFrame:Bind(self.GoodLeader)
     ns.UI.PracticalTool:Bind(self.PracticalTool)
+    ns.UI.FriendRecall:Bind(self.FriendRecall)
     --ns.UI.Announcement:Bind(self.Announcement)
     ns.UI.MissionGuidance:Bind(self.MissionGuidance)
     --ns.UI.QuestPanel:Bind(self.Quest) # 挑战活动临时隐藏
@@ -172,5 +184,41 @@ function MainPanel:CreateTabButton(id)
     button:SetPoint('LEFT', self.Tabs[id - 1], 'RIGHT', -18, 0)
     button:SetID(id)
     return button
+end
+
+-- 重建tabs配置
+function MainPanel:RebuildTabs()
+    local newTabs = {}
+
+    -- 添加基础tabs
+    for i, tab in ipairs(self.baseTabs) do
+        table.insert(newTabs, tab)
+    end
+
+    -- 如果启用了战友召回，在"实用工具"后面插入
+    if self.friendRecallEnabled then
+        table.insert(newTabs, 6, self.friendRecallTab) -- 插入到位置6（实用工具后面）
+    end
+
+    -- 重新设置tabs
+    self:SetupTabs(newTabs)
+    self:UpdateTabs()
+    self:UpdateTabFrames()
+end
+
+function MainPanel:MEETINGHORN_FRIENDRECALL(eventName, data)
+    local shouldShow = data and type(data) == "table" and next(data) and
+                       data.friends and type(data.friends) == "table" and next(data.friends)
+
+    if shouldShow ~= self.friendRecallEnabled then
+        self.friendRecallEnabled = shouldShow
+        self:RebuildTabs()
+
+        if shouldShow and self.FriendRecall then
+            self.FriendRecall:UpdateServerData(data)
+        elseif self.FriendRecall then
+            self.FriendRecall:Hide()
+        end
+    end
 end
 

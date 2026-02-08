@@ -161,33 +161,33 @@ function UnitFramefun.Mubiao()
 			end
 		end);
 		--目标生命百分比
-		TargetFrame.mubiaoHP=CreateFrame("Frame",nil,TargetFrame);
-		if PIG_MaxTocversion("tbc") then
-			TargetFrame.mubiaoHP:SetPoint("RIGHT",TargetFrame,"LEFT",24,-4);
-		elseif PIG_MaxTocversion() then
-			TargetFrame.mubiaoHP:SetPoint("RIGHT",TargetFrame,"LEFT",5,-2);
-		else
-			TargetFrame.mubiaoHP:SetPoint("RIGHT",TargetFrame,"LEFT",24,-2);
-		end
-		TargetFrame.mubiaoHP:SetSize(49,22);
-		TargetFrame.mubiaoHP.title = PIGFontString(TargetFrame.mubiaoHP,{"TOPRIGHT", TargetFrame.mubiaoHP, "TOPRIGHT", 0, 0},"", "OUTLINE",13)
-		TargetFrame.mubiaoHP.title:SetTextColor(1, 1, 0.47,1);
-		--
-		TargetFrame:HookScript("OnEvent", function (self,event,arg1)
-			if PIG_MaxTocversion(120000) then
+		if PIG_MaxTocversion(120000) then
+			TargetFrame.mubiaoHP=CreateFrame("Frame",nil,TargetFrame);
+			if PIG_MaxTocversion("tbc") then
+				TargetFrame.mubiaoHP:SetPoint("RIGHT",TargetFrame,"LEFT",24,-4);
+			elseif PIG_MaxTocversion() then
+				TargetFrame.mubiaoHP:SetPoint("RIGHT",TargetFrame,"LEFT",5,-2);
+			else
+				TargetFrame.mubiaoHP:SetPoint("RIGHT",TargetFrame,"LEFT",24,-2);
+			end
+			TargetFrame.mubiaoHP:SetSize(49,22);
+			TargetFrame.mubiaoHP.title = PIGFontString(TargetFrame.mubiaoHP,{"TOPRIGHT", TargetFrame.mubiaoHP, "TOPRIGHT", 0, 0},"", "OUTLINE",13)
+			TargetFrame.mubiaoHP.title:SetTextColor(1, 1, 0.47,1);
+			--
+			TargetFrame:HookScript("OnEvent", function (self,event,arg1)	
 				if event=="PLAYER_ENTERING_WORLD" or event=="PLAYER_TARGET_CHANGED" or event=="UNIT_HEALTH" or event=="UNIT_AURA" then
 					if not UnitExists("target") then return end
 					local mubiaoH = UnitHealth("target")
 					local mubiaoHmax = UnitHealthMax("target")
-					local mubiaobaifenbi = math.ceil((mubiaoH/mubiaoHmax)*100);--目标血量百分比
+					local mubiaobaifenbi = math.ceil((mubiaoH/mubiaoHmax)*100);
 					if mubiaoHmax>0 then
 						TargetFrame.mubiaoHP.title:SetText(mubiaobaifenbi..'%');
 					else
 						TargetFrame.mubiaoHP.title:SetText('??%');
 					end
 				end
-			end
-		end)
+			end)
+		end
 	end
 	--目标仇恨百分比
 	if PIGA["UnitFrame"]["TargetFrame"]["Chouhen"] then
@@ -380,7 +380,7 @@ function UnitFramefun.Mubiao()
 			end
 		end
 		function fuF.TTT:HealthCheck()
-			if (UnitIsPlayer(self.unit)) then
+			if (PIG_MaxTocversion() and UnitIsPlayer(self.unit)) then
 				local _, unitHPMax = self.HealthBar:GetMinMaxValues();
 				local unitCurrHP = self.HealthBar:GetValue();
 				self.unitHPPercent = unitCurrHP / unitHPMax;
@@ -432,7 +432,6 @@ function UnitFramefun.Mubiao()
 			else
 				self.Name:SetText(TTTname);
 				SetPortraitTexture(self.Portrait, self.unit)
-				self:HealthCheck()
 				self:CheckDead()
 				PigUnitFrameHealthBar_Update(self.HealthBar, self.unit)
 				PigUnitFrameManaBar_Update(self.ManaBar, self.unit);

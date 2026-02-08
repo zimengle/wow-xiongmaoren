@@ -77,6 +77,33 @@ local function reset_configs_character()
     whitelist_init()
 end
 
+local function ChatFrame_AddChannel(chatFrame, channelName)
+    if _G.ChatFrame_AddChannel then
+        _G.ChatFrame_AddChannel(chatFrame, channelName)
+        return
+    end
+    if not chatFrame or not channelName then return end
+    if not chatFrame.channelList then chatFrame.channelList = {} end
+    for _, v in pairs(chatFrame.channelList) do
+        if v == channelName then return end
+    end
+    table.insert(chatFrame.channelList, channelName)
+end
+
+local function ChatFrame_RemoveChannel(chatFrame, channelName)
+    if _G.ChatFrame_RemoveChannel then
+        _G.ChatFrame_RemoveChannel(chatFrame, channelName)
+        return
+    end
+    if not chatFrame or not channelName or not chatFrame.channelList then return end
+    for k, v in pairs(chatFrame.channelList) do
+        if v == channelName then
+            table.remove(chatFrame.channelList, k)
+            return
+        end
+    end
+end
+
 function JoinBigfoot()
     local id = GetChannelName("大脚世界频道")
     if id == 0 then
@@ -298,7 +325,7 @@ local config_options = {
                     width = 'full',
                     get = function() return not BFWC_Filter_SavedConfigs.remain_unchanged_msg end,
                     set = function(info,val)
-                        BFWC_Filter_SavedConfigs.remain_unchanged_msg=not val
+                        BFWC_Fier_SavedCos.remain_unchanged_msg=not val
                     end,
                     disabled = function(info)
                         return not BFWC_Filter_SavedConfigs.enable
@@ -325,7 +352,7 @@ local config_options = {
                     order = 12,
                     width = 'full',
                     get = function()
-                        local v,_ = GetCVarInfo('chatClassColorOverride')
+                        local v = GetCVar('chatClassColorOverride')
                         if v == '0' then
                             return true
                         end

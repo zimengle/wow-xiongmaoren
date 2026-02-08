@@ -1262,8 +1262,8 @@ local function setProfileOption(info, value)
 
 end
 
-local titleText = (_G.GetAddOnMetadata and _G.GetAddOnMetadata(addonName, "Title")) or "FeedOMatic";
-local version = (_G.GetAddOnMetadata and _G.GetAddOnMetadata(addonName, "Version")) or "";
+local titleText = (GetAddOnMetadata and GetAddOnMetadata(addonName, "Title")) or "FeedOMatic";
+local version = (GetAddOnMetadata and GetAddOnMetadata(addonName, "Version")) or "";
 if version and version ~= "" then
 	titleText = titleText .. " " .. version;
 end
@@ -1388,7 +1388,7 @@ function GFW_FeedOMatic:SetupOptions()
 	-- Register options table
 	AceConfig:RegisterOptionsTable(addonName, options)
 
-	local titleText = GetAddOnMetadata(addonName, "Title");
+	local titleText = (C_AddOns and C_AddOns.GetAddOnMetadata or GetAddOnMetadata)(addonName, "Title");
 	titleText = string.gsub(titleText, "Fizzwidget", "GFW");		-- shorter so it fits in the list width
 
 	-- Setup Blizzard option frames

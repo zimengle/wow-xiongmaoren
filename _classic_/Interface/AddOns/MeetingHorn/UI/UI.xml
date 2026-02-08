@@ -30,6 +30,7 @@
     <Script file="ScoreWidget.lua"/>
     <Script file="GradePanel.lua"/>
     <Script file="PracticalTool.lua"/>
+    <Script file="FriendRecall.lua"/>
     <Script file="Announcement.lua"/>
     <Script file="MissionGuidance.lua"/>
 

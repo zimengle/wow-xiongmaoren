@@ -1531,7 +1531,12 @@ end
 -- the UI filters have no impact on the mount source so we can safely ignore them
 
 function ArkInventory.Collection.Mount.OnHide( )
+
+	if not ArkInventory:IsEnabled( ) then return end
+
+
 	ArkInventory:SendMessage( "EVENT_ARKINV_COLLECTION_MOUNT_UPDATE_BUCKET", "FRAME_HIDE" )
+	
 end
 
 function ArkInventory.Collection.Mount.IsReady( )
@@ -1740,7 +1745,7 @@ function ArkInventory.Collection.Mount.isFlyable( )
 		
 		-- you can fly here but you need a specific spell
 		if IsFlyable and ArkInventory.Const.Flying.Spell[instancemapid] then
-			local known = IsSpellKnown( ArkInventory.Const.Flying.Spell[instancemapid] )
+			local known = IsSpellKnown( ArkInventory.Const.Flying.Spell[instancemapid], false )
 			if not known then
 				--ArkInventory.Output( "zone ", instancemapid, " but you do not have spell ", ArkInventory.Const.Flying.Spell[instancemapid] )
 				IsFlyable = false
@@ -1838,30 +1843,30 @@ function ArkInventory.Collection.Mount.SkillLevel( )
 	
 	if UnitLevel( "player" ) >= PLAYER_MOUNT_LEVEL then
 		
-		if IsSpellKnown( 90265 ) then
+		if IsSpellKnown( 90265, false ) then
 			-- master
 			-- level 80
 			-- 310% flying
 			-- 100% ground
 			skill = 310
-		elseif IsSpellKnown( 34091 ) then
+		elseif IsSpellKnown( 34091, false ) then
 			-- artisan
 			-- level 70
 			-- 280% flying
 			-- 100% ground
 			skill = 300
-		elseif IsSpellKnown( 34090 ) then
+		elseif IsSpellKnown( 34090, false ) then
 			-- expert
 			-- level 60
 			-- 150% flying
 			-- 100% ground
 			skill = 225
-		elseif IsSpellKnown( 33391 ) then
+		elseif IsSpellKnown( 33391, false ) then
 			-- journeyman
 			-- level 40
 			-- 100% ground
 			skill = 150
-		elseif IsSpellKnown( 33388 ) then
+		elseif IsSpellKnown( 33388, false ) then
 			-- apprentice
 			-- level 20
 			-- 60% ground

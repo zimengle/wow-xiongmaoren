@@ -6,7 +6,7 @@ L.MainFrame = "Deadly Boss Mods"
 
 L.TranslationByPrefix		= "Traduit par "
 L.TranslationBy 			= "Psyco/Sasmira/Pettigrow/Edoz@EU-Ysondre/Leybola@EU-Sargeras/Noleen@EU-Hyjal" -- your name here, localizers!
-L.Website					= "Visitez notre discord sur |cFF73C2FBhttps://discord.gg/deadlybossmods|r"
+L.Website					= "Suivre MysticalOS pour les actualités et les mises à jour |cFF73C2FBhttps://allmylinks.com/mysticalos|r"
 L.WebsiteButton				= "Site web"
 
 L.OTabBosses						= "Options de Boss"--Deprecated and will be deleted once tabs no longer use this
@@ -90,6 +90,7 @@ L.Button_TestBars			= "Barres de test"
 L.Button_MoveBars			= "Déplacer les barres"
 L.Button_ResetInfoRange		= "Réinit. les cadres de portée et d'info"
 
+L.Button_ShowMidnightWizard = "Assistant de configuration de Midnight"
 L.ModelOptions				= "Options du visualiseur de modèle 3D"
 L.EnableModels				= "Activer les modèles 3D dans les options des boss"
 L.ModelSoundOptions			= "Configurer le son pour le visualiseur 3D"
@@ -106,7 +107,7 @@ L.UIGroupingOptions					= "Options d'interface partagées (requiert de recharger
 L.GroupOptionsExcludeIcon			= "Exclure l'option 'Définir l'icône sur' du regroupement par sort (elles seront regroupées dans la catégorie 'Icônes' à la place)"
 L.GroupOptionsExcludePrivateAura	= "Exclure les options sonores des 'Auras Privées' du regroupement par sort (elles seront regroupées dans la catégorie 'Auras Privées' à la place)"
 L.ShowWAKeys						= "Afficher les clés WeakAuras à côté des noms de sorts pour aider à écrire des WeakAuras en utilisant les déclencheurs du boss mod"
-L.AutoExpandSpellGroups				= "Déplier automatiquement les options liées à la même capacité"
+L.AutoExpandSpellGroups2				= "Déplier automatiquement les options liées à la même capacité"
 --L.ShowSpellDescWhenExpanded		= "Continuer à afficher la description du sort lorsque les groupes sont déployés."--Might not be used
 L.NoDescription						= "Cette capacité n'a aucune description"
 L.CustomOptions						= "Cette catégorie contient des options personnalisées pour une capacité ou un événement qui n'a pas son propre ID de sort ou de journal. Ces options ont été regroupées ensemble en utilisant un ID manuel personnalisé pour faciliter la création de WeakAuras."
@@ -117,13 +118,13 @@ L.Panel_AutoLogging					= "Enregistrement automatique"
 --Auto Logging: Logging toggles/types
 L.Area_AutoLogging					= "Options d'enregistrement automatique"
 L.AutologBosses						= "Enregistrer automatiquement les combats avec le journal de combat de Blizzard"
-L.AdvancedAutologBosses				= "Enregistrer automatiquement le contenu sélectionné avec Transcriptor"
+L.AdvancedAutologBosses				= "Enregistrer automatiquement les combats avec Transcriptor"
 --Auto Logging: Global filter Options
 L.Area_AutoLoggingFilters			= "Filtres d'enregistrement automatique"
 L.RecordOnlyBosses					= "Enregistrer uniquement les combats contre les boss"
-L.DoNotLogLFG						= "Ne pas enregistrer les contenus de recherche de groupe"
+L.DoNotLogLFG						= "Ne pas enregistrer les combats de recherche de groupe"
 --Auto Logging: Recorded Content types
-L.Area_AutoLoggingContent			= "Contenu de l'enregistrement automatique"
+L.Area_AutoLoggingContent			= "Contenu d'enregistrement automatique"
 L.LogCurrentMythicRaids				= "Raids mythiques actuels" --Retail Only
 L.LogCurrentRaids					= "Raids actueles"
 L.LogTWRaids						= "Raids de Marcheurs du temps ou de Temps de Chromie" --Retail Only
@@ -213,6 +214,7 @@ L.RaidWarnColor_1 			= "Couleur 1"
 L.RaidWarnColor_2 			= "Couleur 2"
 L.RaidWarnColor_3		 	= "Couleur 3"
 L.RaidWarnColor_4 			= "Couleur 4"
+L.RaidWarnColor				= "Couleur"
 L.InfoRaidWarning			= [[Vous pouvez préciser la position et les couleurs de la fenêtre des alertes raid.
 Cette fenêtre est utilisée pour les messages de type "Joueur X est affecté par Y".]]
 L.ColorResetted 			= "Les paramètres de couleur de ce champ ont été réinitialisés"
@@ -407,9 +409,11 @@ L.BarIconRight 					= "Icône à droite"
 L.ExpandUpwards					= "Étendre vers le haut"
 L.FillUpBars					= "Remplissage"
 L.ClickThrough					= "Désactiver les interactions souris"
-L.Bar_Decimal					= "Décimales affichées à partir de : %d"
+L.Bar_Decimal					= "Décimales affichées à partir de : %d s"
 L.Bar_Alpha						= "Transparence : %0.1f"
-L.Bar_EnlargeTime				= "Barres agrandies à partir de : %d"
+L.Bar_EnlargeTime				= "Barres agrandies à partir de : %d s"
+L.Bar_AppearTime				= "Barres cachées au-dessus de : %d s" --Used for when hidden bars show on the small bar anchor
+L.Bar_HideLongBars				= "Cacher les barres jusqu’à ce qu’elles soient en dessous du seuil"
 L.BarSpark						= "Barre clignotante"
 L.BarFlash						= "Faire clignoter les barres qui vont expirer"
 L.BarSort						= "Trier par temps restant"
@@ -440,6 +444,11 @@ L.Panel_ReducedInformation 	= "Réduire les informations"
 
 -- Panel: DBM Features
 L.Panel_SpamFilter					= "Désactiver les fonctions de DBM"
+
+L.Area_Global_Toggles              = "Options globales des fonctionnalités"
+L.NoWarnings                       = "Désactiver les alertes de DBM"
+L.NoTimers                         = "Désactiver les chronomètres de DBM"
+
 L.Area_SpamFilter_Anounces			= "Filtres d'annonces"
 L.SpamBlockNoShowAnnounce			= "Ne pas afficher de texte ni jouer de son pour AUCUNE annonce générale"
 L.SpamBlockNoShowTgtAnnounce		= "Ne pas afficher de texte ni jouer de son pour les annonces générales CIBLE qui ne vous affectent pas"
@@ -473,10 +482,10 @@ L.SpamBlockNoShowUTimers			= "Ne pas afficher les chronomètres envoyés par les
 L.SpamBlockNoCountdowns				= "Ne pas jouer les sons de compte à rebours"
 
 L.Area_SpamFilter_Nameplates		= "Options des plaques de nom"
-L.SpamBlockNoNameplate				= "Ne pas afficher uniquement les icônes des plaques de nom pour les mécaniques spéciales des boss (ex. buffs ou affaiblissements sur les ennemis)"
-L.SpamBlockNoNameplateCD			= "Ne pas afficher uniquement les icônes des chronomètres de recharge des plaques de nom pour les capacités"
-L.SpamBlockNoNameplateCasts			= "Ne pas afficher uniquement les icônes des chronomètres d'incantation des plaques de nom pour les capacités"
-L.SpamBlockNoBossGUIDs				= "Ne pas afficher les icônes des chronomètres de recharge des plaques de nom pour les capacités qui ont également des chronomètres"
+L.SpamBlockNoNameplate        		= "Ne pas afficher d’icônes d’améliorations ou d’affaiblissements"
+L.SpamBlockNoNameplateCD      		= "Ne pas afficher d’icônes de temps de recharge des capacités"
+L.SpamBlockNoNameplateCasts   		= "Ne pas afficher d’icônes de chronomètres de lancement des capacités"
+L.SpamBlockNoBossGUIDs       		= "Ne pas afficher d’icônes pour les capacités avec chronomètres"
 L.AlwaysKeepNPs						= "Maintenir visibles les icônes des chronomètres de recharge des plaques de nom expirées jusqu'à ce que la capacité soit réincantée"
 
 L.Area_SpamFilter_Misc		= "Options divers"

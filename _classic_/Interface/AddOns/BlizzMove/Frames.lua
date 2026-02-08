@@ -851,6 +851,7 @@ BlizzMoveAPI:RegisterAddOnFrames({
         ["WardrobeFrame"] =
         {
             MinVersion = 40000,
+            MaxVersion = 120000, -- Renamed to WardrobeCollectionFrame, but no longer acts as standalone frame
         },
     },
     ["Blizzard_Communities"] =
@@ -1508,6 +1509,7 @@ BlizzMoveAPI:RegisterAddOnFrames({
         ["PlayerChoiceFrame"] =
         {
             MinVersion = 100000, -- Moved from Blizzard_PlayerChoiceUI
+            ForceUseSecureMoveHandle = true,
         },
     },
     ["Blizzard_PlayerChoiceUI"] =

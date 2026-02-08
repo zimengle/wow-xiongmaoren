@@ -196,6 +196,12 @@ end
 --任务完成
 local QuestsEndFrameUI = CreateFrame("Frame");
 QuestsEndFrameUI.EndList={}
+local function PIG_PlaySoundAudio(ok,questID)										
+	if ok and not QuestsEndFrameUI.initialize and not QuestsEndFrameUI.EndList[questID] then
+		PIG_PlaySoundFile(AudioData.QuestEnd[PIGA["Common"]["QuestsEndAudio"]])
+	end
+	QuestsEndFrameUI.EndList[questID]=ok
+end
 local function GetQuestsInfo(event)
 	if PIG_MaxTocversion() then
 		if QuestMapFrame then QuestMapFrame.ignoreQuestLogUpdate = true end
@@ -211,17 +217,12 @@ local function GetQuestsInfo(event)
 		for questIndex=1,numShownEntries do	
 			local title, level, suggestedGroup, isHeader, isCollapsed, isComplete, frequency, questID = GetQuestLogTitle(questIndex)
 			if not isHeader then
-				if isComplete then
-					if event~="PLAYER_ENTERING_WORLD" and not QuestsEndFrameUI.EndList[questID] then
-						PIG_PlaySoundFile(AudioData.QuestEnd[PIGA["Common"]["QuestsEndAudio"]])
-					end
-					-- local numQuestLogLeaderBoards,= GetNumQuestLeaderBoards(questID)--子项目完成情况
-					-- for ii=1,1 do
-					-- 	local description, objectiveType, isCompleted = GetQuestLogLeaderBoard(ii, questIndex)
-					-- 	print(description, objectiveType, isCompleted)
-					-- end
-				end
-				QuestsEndFrameUI.EndList[questID]=isComplete
+				-- local numQuestLogLeaderBoards,= GetNumQuestLeaderBoards(questID)--子项目完成情况
+				-- for ii=1,1 do
+				-- 	local description, objectiveType, isCompleted = GetQuestLogLeaderBoard(ii, questIndex)
+				-- 	print(description, objectiveType, isCompleted)
+				-- end
+				PIG_PlaySoundAudio(isComplete,questID)
 			end
 		end
 		if QuestMapFrame then QuestMapFrame.ignoreQuestLogUpdate = nil end
@@ -240,16 +241,12 @@ local function GetQuestsInfo(event)
 							break
 						end
 					end
-					if yiwancheng then
-						if event~="PLAYER_ENTERING_WORLD" and not QuestsEndFrameUI.EndList[info.questID] then
-							PIG_PlaySoundFile(AudioData.QuestEnd[PIGA["Common"]["QuestsEndAudio"]])
-						end		
-					end
-					QuestsEndFrameUI.EndList[info.questID]=yiwancheng
+					PIG_PlaySoundAudio(yiwancheng,info.questID)
 				end
 			end
 		end
 	end
+	
 end
 QuestsEndFrameUI:SetScript("OnEvent", function(self,event)
 	if event == "PLAYER_ENTERING_WORLD" then
@@ -258,11 +255,13 @@ QuestsEndFrameUI:SetScript("OnEvent", function(self,event)
 		self:RegisterEvent("QUEST_WATCH_UPDATE")
 		self:RegisterEvent("QUEST_WATCH_LIST_CHANGED")
 		self:RegisterUnitEvent("UNIT_QUEST_LOG_CHANGED","player")
+		self.initialize=true
 		GetQuestsInfo(event)
-	else
-		C_Timer.After(0.6,function()
-			GetQuestsInfo(event)
+		C_Timer.After(3,function()
+			self.initialize=nil
 		end)
+	else
+		GetQuestsInfo(event)
 	end
 end)
 function FramePlusfun.QuestsEnd()

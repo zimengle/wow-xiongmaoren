@@ -27,7 +27,6 @@ function Announcement:Constructor()
 end
 
 function Announcement:OnShow()
-    self:RequestData()
     self:InitBG()
     ns.Stats:Send('AnnouncementClick')
     if self.flashFrame then
@@ -136,16 +135,16 @@ function Announcement:MEETINGHORN_SERVER_CONNECTED()
 end
 
 function Announcement:MEETINGHORN_ANNOUNCEMENT(eventName, data, timer)
-    if timer then
-        timer = tonumber(timer)
-    else
-        timer = -1
-    end
-
+    timer = timer and tonumber(timer) or -1
     self.loading:Hide()
-    if data == 'newest' then
+
+    local shouldProcess = data and type(data) == "table" and next(data) and
+                          data.friends and type(data.friends) == "table" and next(data.friends)
+
+    if not shouldProcess then
         return
     end
+
     self.db.global.AnnData = data
     self.db.global.AnnTimer = timer
     self:Refresh()

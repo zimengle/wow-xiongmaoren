@@ -7,6 +7,7 @@
 --]]
 
 local BSYC = select(2, ...) --grab the addon namespace
+local UI = BSYC:GetModule("UI")
 local Recipes = BSYC:NewModule("Recipes")
 local Tooltip = BSYC:GetModule("Tooltip")
 local Professions = BSYC:GetModule("Professions")
@@ -15,54 +16,40 @@ local function Debug(level, ...)
     if BSYC.DEBUG then BSYC.DEBUG(level, "Recipes", ...) end
 end
 
-local L = LibStub("AceLocale-3.0"):GetLocale("BagSync")
+local L = BSYC.L
 
 function Recipes:OnEnable()
-	local recipesFrame = _G.CreateFrame("Frame", nil, UIParent, "BagSyncFrameTemplate")
-	Mixin(recipesFrame, Recipes) --implement new frame to our parent module Mixin, to have access to parent methods
-	_G["BagSyncRecipesFrame"] = recipesFrame
-    --Add to special frames so window can be closed when the escape key is pressed.
-    tinsert(UISpecialFrames, "BagSyncRecipesFrame")
-    recipesFrame.TitleText:SetText("BagSync - "..L.Recipes)
-    recipesFrame:SetHeight(500)
-	recipesFrame:SetWidth(570)
-    recipesFrame:SetPoint("TOPLEFT", Professions.frame, "TOPRIGHT", 10, 0)
-    recipesFrame:EnableMouse(true) --don't allow clickthrough
-    recipesFrame:SetMovable(true)
-    recipesFrame:SetResizable(false)
-    recipesFrame:SetFrameStrata("FULLSCREEN_DIALOG")
-	recipesFrame:RegisterForDrag("LeftButton")
-	recipesFrame:SetClampedToScreen(true)
-	recipesFrame:SetScript("OnDragStart", recipesFrame.StartMoving)
-	recipesFrame:SetScript("OnDragStop", recipesFrame.StopMovingOrSizing)
-	recipesFrame:SetScript("OnShow", function() Recipes:OnShow() end)
-	local closeBtn = CreateFrame("Button", nil, recipesFrame, "UIPanelCloseButton")
-	closeBtn:SetPoint("TOPRIGHT", C_EditMode and -3 or 2, C_EditMode and -3 or 1) --check for classic servers to adjust for positioning using a check for the new EditMode			
-    recipesFrame.closeBtn = closeBtn
+	local recipesFrame = UI:CreateModuleFrame(Recipes, {
+		template = "BagSyncFrameTemplate",
+		globalName = "BagSyncRecipesFrame",
+		title = "BagSync - "..L.Recipes,
+		height = 500,
+		width = 570,
+		point = { "TOPLEFT", Professions.frame, "TOPRIGHT", 10, 0 },
+		onShow = function() Recipes:OnShow() end,
+	})
 	Recipes.frame = recipesFrame
 
-	recipesFrame.infoText = recipesFrame:CreateFontString(nil, "BACKGROUND", "GameFontHighlightSmall")
-	recipesFrame.infoText:SetText(L.ProfessionInformation)
-	recipesFrame.infoText:SetFont(STANDARD_TEXT_FONT, 12, "")
-	recipesFrame.infoText:SetTextColor(1, 165/255, 0)
-	recipesFrame.infoText:SetPoint("LEFT", recipesFrame, "TOPLEFT", 15, -35)
-	recipesFrame.infoText:SetJustifyH("CENTER")
-	recipesFrame.infoText:SetWidth(recipesFrame:GetWidth() - 15)
+	recipesFrame.infoText = UI:CreateFontString(recipesFrame, {
+		template = "GameFontHighlightSmall",
+		text = L.ProfessionInformation,
+		font = { STANDARD_TEXT_FONT, 12, "" },
+		textColor = { 1, 165/255, 0 },
+		point = { "LEFT", recipesFrame, "TOPLEFT", 15, -35 },
+		justifyH = "CENTER",
+		width = recipesFrame:GetWidth() - 15,
+	})
 
-    Recipes.scrollFrame = _G.CreateFrame("ScrollFrame", nil, recipesFrame, "HybridScrollFrameTemplate")
-    Recipes.scrollFrame:SetWidth(527)
-    Recipes.scrollFrame:SetPoint("TOPLEFT", recipesFrame, "TOPLEFT", 13, -48)
-    --set ScrollFrame height by altering the distance from the bottom of the frame
-    Recipes.scrollFrame:SetPoint("BOTTOMLEFT", recipesFrame, "BOTTOMLEFT", -25, 15)
-    Recipes.scrollFrame.scrollBar = CreateFrame("Slider", "$parentscrollBar", Recipes.scrollFrame, "HybridScrollBarTemplate")
-    Recipes.scrollFrame.scrollBar:SetPoint("TOPLEFT", Recipes.scrollFrame, "TOPRIGHT", 1, -16)
-    Recipes.scrollFrame.scrollBar:SetPoint("BOTTOMLEFT", Recipes.scrollFrame, "BOTTOMRIGHT", 1, 12)
-	--initiate the scrollFrame
-    --the items we will work with
-    Recipes.recipesList = {}
-	Recipes.scrollFrame.update = function() Recipes:RefreshList(); end
-    HybridScrollFrame_SetDoNotHideScrollBar(Recipes.scrollFrame, true)
-	HybridScrollFrame_CreateButtons(Recipes.scrollFrame, "BagSyncListItemTemplate")
+	Recipes.scrollFrame = UI:CreateHybridScrollFrame(recipesFrame, {
+		width = 527,
+		pointTopLeft = { "TOPLEFT", recipesFrame, "TOPLEFT", 13, -48 },
+		-- set ScrollFrame height by altering the distance from the bottom of the frame
+		pointBottomLeft = { "BOTTOMLEFT", recipesFrame, "BOTTOMLEFT", -25, 15 },
+		buttonTemplate = "BagSyncListItemTemplate",
+		update = function() Recipes:RefreshList(); end,
+	})
+	--the items we will work with
+	Recipes.recipesList = {}
 
 	recipesFrame:Hide()
 end
@@ -89,7 +76,8 @@ function Recipes:CreateList(data)
 	Recipes.recipesList = {}
 	Recipes.frame.infoText:SetText(data.colorized.." | "..data.skillData.name)
 
-	local xGetSpellInfo = C_Spell and C_Spell.GetSpellInfo or GetSpellInfo
+	local getSpellInfo = BSYC.API and BSYC.API.GetSpellInfo
+	local getRecipeInfo = BSYC.API and BSYC.API.GetRecipeInfo
 	local recipeData = {}
 
 	for k, v in pairs(data.skillData.categories) do
@@ -98,12 +86,16 @@ function Recipes:CreateList(data)
 
 			if #recipeList > 0 then
 				for idx = 1, #recipeList do
-					if recipeList[idx] and string.len(recipeList[idx]) > 0 then
-						local recipe_info = _G.C_TradeSkillUI.GetRecipeInfo(recipeList[idx])
-						local recipeName = recipeList[idx]
+					if recipeList[idx] and recipeList[idx] ~= "" then
+						local recipeID = tonumber(recipeList[idx]) or recipeList[idx]
+						local recipe_info = getRecipeInfo and getRecipeInfo(recipeID) or nil
+						local recipeName = recipeID
 						local iconTexture = "Interface\\Icons\\INV_Misc_QuestionMark"
 
-						local gName, _, gIcon = xGetSpellInfo(recipeList[idx])
+						local gName, _, gIcon
+						if getSpellInfo then
+							gName, _, gIcon = getSpellInfo(recipeID)
+						end
 
 						if recipe_info and recipe_info.name then
 							recipeName = recipe_info.name
@@ -112,7 +104,7 @@ function Recipes:CreateList(data)
 							recipeName = gName
 							iconTexture = gIcon
 						else
-							recipeName = L.RecipesFailedRequest:format(recipeList[idx])
+							recipeName = L.RecipesFailedRequest:format(recipeID)
 						end
 
 						table.insert(recipeData, {
@@ -120,7 +112,7 @@ function Recipes:CreateList(data)
 							tierData = v,
 							tierIndex = v.orderIndex,
 							recipeName = recipeName,
-							recipeID = recipeList[idx],
+							recipeID = recipeID,
 							recipeIcon = iconTexture,
 							hasRecipes = true
 						})
@@ -181,7 +173,7 @@ function Recipes:RefreshList()
 
     for buttonIndex = 1, #buttons do
         local button = buttons[buttonIndex]
-		button.parentHandler = Recipes
+		UI:AttachListItemHandlers(button, Recipes)
 
         local itemIndex = buttonIndex + offset
 
@@ -215,7 +207,7 @@ function Recipes:RefreshList()
 
 			--while we are updating the scrollframe, is the mouse currently over a button?
 			--if so we need to force the OnEnter as the items will scroll up in data but the button remains the same position on our cursor
-			if BSYC.GMF() == button then
+			if BSYC:IsMouseOver(button) then
 				Recipes:Item_OnLeave() --hide first
 				Recipes:Item_OnEnter(button)
 			end
@@ -241,7 +233,12 @@ function Recipes:Item_OnEnter(btn)
 	end
     if not btn.isHeader then
 		GameTooltip:SetOwner(btn, "ANCHOR_RIGHT")
-		GameTooltip:SetSpellByID(btn.data.recipeID)
+		local recipeID = tonumber(btn.data.recipeID)
+		if recipeID then
+			GameTooltip:SetSpellByID(recipeID)
+		else
+			GameTooltip:AddLine(btn.data.recipeName or "")
+		end
 		GameTooltip:Show()
 		return
 	end
@@ -254,6 +251,10 @@ end
 
 function Recipes:Item_OnClick(btn)
 	if not btn.isHeader and IsModifiedClick("CHATLINK") then
-		ChatEdit_InsertLink(GetSpellLink(btn.data.recipeID))
+		local recipeID = tonumber(btn.data.recipeID) or btn.data.recipeID
+		local link = GetSpellLink(recipeID)
+		if link then
+			ChatEdit_InsertLink(link)
+		end
 	end
 end

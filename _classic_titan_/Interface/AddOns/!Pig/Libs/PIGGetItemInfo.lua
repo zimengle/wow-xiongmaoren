@@ -484,6 +484,7 @@ function Fun._GetAverageItemLevel(Parent)
     end
     return "??"
 end
+
 --获取宝石默认图标
 local GEM_EMPTY_SOCKET= {
     ["EMPTY_SOCKET_META"]      = 136257,  -- 多彩
@@ -508,6 +509,7 @@ function Fun._Get_GEM_EMPTY_SOCKET(key)
     return 55655
 end
 
+--获取品质边框
 local QualityBorder={
     [1]="loottoast-itemborder-white",
     [2]="loottoast-itemborder-green",

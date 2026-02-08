@@ -6,10 +6,12 @@
 		License included with addon.
 --]]
 
-local BSYC = select(2, ...) --grab the addon namespace
+local ADDON_NAME, BSYC = ... --grab the addon namespace
 local Data = BSYC:NewModule("Data")
+local UI = BSYC:GetModule("UI")
+local hasMark = BSYC.hasMark
 local Unit = BSYC:GetModule("Unit")
-local L = LibStub("AceLocale-3.0"):GetLocale("BagSync")
+local L = BSYC.L
 
 local function Debug(level, ...)
     if BSYC.DEBUG then BSYC.DEBUG(level, "Data", ...) end
@@ -32,6 +34,7 @@ local optionsDefaults = {
 	showTotal = true,
 	enableUnitClass = true,
 	enableMinimap = true,
+	enableAddonCompartment = true,
 	enableFaction = true,
 	tooltipOnlySearch = false,
 	enableTooltips = true,
@@ -49,12 +52,10 @@ local optionsDefaults = {
 	enableShowUniqueItemsTotals = true,
 	enableRealmNames = true,
 	showGuildInGoldTooltip = true,
-	showGuildCurrentCharacter = false,
 	focusSearchEditBox = false,
 	enableAccurateBattlePets = true,
-	alwaysShowAdvSearch = false,
-	sortTooltipByTotals = false,
-	sortByCustomOrder = false,
+	alwaysShowSearchFilters = false,
+	tooltipSortMode = "realm_character",
 	tooltipModifer = "NONE",
 	singleCharLocations = false,
 	useIconLocations = true,
@@ -70,6 +71,7 @@ local optionsDefaults = {
 	extTT_FontSize = 12,
 	extTT_FontOutline = "OUTLINE",
 	extTT_FontMonochrome = false,
+	extTT_Anchor = "BOTTOM",
 	enable_GSC_Display = false,
 	enableCurrentRealmName = false,
 	enableCurrentRealmShortName = false,
@@ -80,6 +82,7 @@ local optionsDefaults = {
 	sortCurrencyByExpansion = true,
 	showBNETCRInfoWindow = true,
 	sortShowCurrentPlayerOnTop = false,
+	cacheThrottle = "slow",
 }
 
 local colorsDefaults = {
@@ -118,9 +121,76 @@ local trackingDefaults = {
 Data.__cache = {}
 Data.__cache.items = {}
 Data.__cache.tooltip = {}
+Data.__cache.tooltipOrder = {}
+Data.__cache.tooltipOrderHead = 1
+Data.__cache.tooltipOrderTail = 0
+Data.__cache.tooltipCount = 0
 Data.__cache.ignore = {}
+Data.__cache.pending = Data.__cache.pending or {}
+Data.__cache.itemCacheRun = Data.__cache.itemCacheRun or nil
+Data.__cache.throttleMode = Data.__cache.throttleMode or "background"
+Data.__cache.backgroundThrottle = Data.__cache.backgroundThrottle or nil
+Data.__cache.rampIndex = Data.__cache.rampIndex or 1
 
-local ignoreChk, ignoreTotal = 0, 0
+local ITEMCACHE_ALLOW_LIST = {
+	bag = true,
+	bank = true,
+	reagents = true,
+	equip = true,
+	mailbox = true,
+	void = true,
+	auction = true,
+	equipbags = true,
+}
+
+-- Item cache throttle tiers (batch size / tick delay):
+-- background: 8 per 0.30s (~27 items/sec) for login idle
+-- medium: 30 per 0.15s (~200 items/sec) for search window open
+-- full: 60 per 0.10s (~600 items/sec) for active searches
+-- Optional ramp idea (every 90s, gentle steps to avoid FPS spikes):
+-- 8 per 0.30s (~27/sec) -> 12 per 0.26s (~46/sec) -> 16 per 0.24s (~67/sec) -> 20 per 0.22s (~91/sec)
+local ITEMCACHE_THROTTLE = {
+	-- batch = items processed per tick
+	-- tick = delay between ticks within a pass (seconds)
+	-- pass = delay between passes (seconds)
+	background = { batch = 8, tick = 0.30, pass = 0.60 },
+	medium = { batch = 30, tick = 0.15, pass = 0.30 },
+	full = { batch = 60, tick = 0.10, pass = 0.20 },
+}
+
+-- Background ramp (safe cap for FPS); advances every 90s while in background mode
+local ITEMCACHE_RAMP_INTERVAL = 90
+local ITEMCACHE_RAMP_STEPS = {
+	{ batch = 8, tick = 0.30, pass = 0.60 }, -- ~27/sec
+	{ batch = 12, tick = 0.26, pass = 0.52 }, -- ~46/sec
+	{ batch = 16, tick = 0.24, pass = 0.48 }, -- ~67/sec
+	{ batch = 20, tick = 0.22, pass = 0.44 }, -- ~91/sec (cap)
+}
+
+local CACHE_SPEED_MODES = {
+	slow = "background",
+	medium = "medium",
+	fast = "full",
+	disabled = "background",  --this is a fallback, not an actual mapping...
+}
+
+local function GetThrottleConfig(mode)
+	if mode == "background" and Data.__cache.backgroundThrottle then
+		return Data.__cache.backgroundThrottle
+	end
+	return ITEMCACHE_THROTTLE[mode] or ITEMCACHE_THROTTLE.background
+end
+
+local function GetCacheRemaining(run)
+	if not run or not run.running then return 0 end
+	local remaining = 0
+	if run.queue then
+		local curRemaining = #run.queue - (run.pos or 1) + 1
+		if curRemaining < 0 then curRemaining = 0 end
+		remaining = curRemaining + (#run.nextQueue or 0)
+	end
+	return remaining
+end
 
 ----------------------
 --   DB Functions   --
@@ -128,7 +198,7 @@ local ignoreChk, ignoreTotal = 0, 0
 
 function Data:OnEnable()
 	Debug(BSYC_DL.INFO, "OnEnable")
-	local ver = C_AddOns.GetAddOnMetadata("BagSync","Version") or 0
+	local ver = (BSYC.API.GetAddOnMetadata and BSYC.API.GetAddOnMetadata("BagSync", "Version")) or 0
 
 	--get player information from Unit
 	local player = Unit:GetPlayerInfo(true)
@@ -196,43 +266,49 @@ function Data:OnEnable()
 	self:ShowInfoWindow()
 
 	if BSYC.options.enableLoginVersionInfo then
-		BSYC:Print("[v|cFF20ff20"..ver.."|r] /bgs, /bagsync")
+		local getMeta = (C_AddOns and C_AddOns.GetAddOnMetadata) or GetAddOnMetadata
+		local ver = (type(getMeta) == "function" and getMeta(ADDON_NAME, "Version")) or "1.0"
+		BSYC:Print(string.format("[v|cFF20ff20%s|r] loaded:   /bgs, /bagsync", ver))
 	end
 	if BSYC.options.debug.enable then
 		BSYC:Print(L.DebugWarning)
-		C_Timer.After(6, function() BSYC:Print(L.DebugWarning) end)
+		if C_Timer and C_Timer.After then
+			C_Timer.After(6, function() BSYC:Print(L.DebugWarning) end)
+		end
 	end
 end
 
 function Data:ShowInfoWindow()
-	if not BSYC.options.showBNETCRInfoWindow then return end
+	if BSYC.options.showBNETCRInfoWindow == false then return end
 
-	local bgsInfoWindow = _G.CreateFrame("Frame", nil, UIParent, "BagSyncInfoFrameTemplate")
-	bgsInfoWindow:SetHeight(500)
-	bgsInfoWindow:SetWidth(500)
-	bgsInfoWindow:SetBackdropColor(0, 0, 0, 0.75)
-	bgsInfoWindow:EnableMouse(true) --don't allow clickthrough
-	bgsInfoWindow:SetMovable(false)
-	bgsInfoWindow:SetResizable(false)
-	bgsInfoWindow:SetFrameStrata("FULLSCREEN_DIALOG")
-	bgsInfoWindow:ClearAllPoints()
-	bgsInfoWindow:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
-	bgsInfoWindow.TitleText:SetText("BagSync")
-	bgsInfoWindow.TitleText:SetFont(STANDARD_TEXT_FONT, 14, "")
-	bgsInfoWindow.TitleText:SetTextColor(1, 1, 1)
-	bgsInfoWindow.infoText1 = bgsInfoWindow:CreateFontString(nil, "BACKGROUND", "GameFontHighlightSmall")
-	bgsInfoWindow.infoText1:SetText(L.BagSyncInfoWindow.."\n"..L.DisplayBNET)
-	bgsInfoWindow.infoText1:SetFont(STANDARD_TEXT_FONT, 14, "")
-	bgsInfoWindow.infoText1:SetTextColor(1, 1, 1)
-	bgsInfoWindow.infoText1:SetJustifyH("CENTER")
-	bgsInfoWindow.infoText1:SetWidth(bgsInfoWindow:GetWidth() - 30)
-	bgsInfoWindow.infoText1:SetPoint("CENTER", bgsInfoWindow, "CENTER", 0, 0)
-	bgsInfoWindow.okBTN = _G.CreateFrame("Button", nil, bgsInfoWindow, "UIPanelButtonTemplate")
-	bgsInfoWindow.okBTN:SetText(OKAY)
-	bgsInfoWindow.okBTN:SetWidth(100)
-	bgsInfoWindow.okBTN:SetHeight(30)
-	bgsInfoWindow.okBTN:SetPoint("RIGHT", bgsInfoWindow, "BOTTOMRIGHT", -10, 23)
-	bgsInfoWindow.okBTN:SetScript("OnClick", function() BSYC.options.showBNETCRInfoWindow = false; bgsInfoWindow:Hide()  end)
+	local bgsInfoWindow = UI:CreateInfoFrame(UIParent, {
+		title = "BagSync",
+		width = 500,
+		height = 500,
+		point = { "CENTER", UIParent, "CENTER", 0, 0 },
+		backdropColor = { 0, 0, 0, 0.75 },
+		frameStrata = "FULLSCREEN_DIALOG",
+	})
+	bgsInfoWindow.infoText1 = UI:CreateFontString(bgsInfoWindow, {
+		template = "GameFontHighlightSmall",
+		text = L.BagSyncInfoWindow.."\n"..L.DisplayBNET,
+		font = { STANDARD_TEXT_FONT, 14, "" },
+		textColor = { 1, 1, 1 },
+		justifyH = "CENTER",
+		width = bgsInfoWindow:GetWidth() - 30,
+		point = { "CENTER", bgsInfoWindow, "CENTER", 0, 0 },
+	})
+	bgsInfoWindow.okBTN = UI:CreateButton(bgsInfoWindow, {
+		template = "UIPanelButtonTemplate",
+		text = OKAY,
+		width = 100,
+		height = 30,
+		point = { "RIGHT", bgsInfoWindow, "BOTTOMRIGHT", -10, 23 },
+		onClick = function()
+			BSYC.options.showBNETCRInfoWindow = false
+			bgsInfoWindow:Hide()
+		end,
+	})
 
 	bgsInfoWindow.CloseButton:Hide()
 	bgsInfoWindow:Show()
@@ -247,6 +323,65 @@ end
 
 function Data:FixDB()
 	Debug(BSYC_DL.INFO, "FixDB")
+
+	--migrate legacy option name
+	do
+		local legacyKey = "alwaysShowAdvSearch"
+		if BSYC.options[legacyKey] ~= nil then
+			BSYC.options.alwaysShowSearchFilters = BSYC.options[legacyKey]
+			BSYC.options[legacyKey] = nil
+		end
+	end
+
+	-- ensure new ext tooltip anchor option is present
+	do
+		if BSYC.options.extTT_Anchor == nil then
+			BSYC.options.extTT_Anchor = optionsDefaults.extTT_Anchor
+		end
+	end
+
+	-- ensure addon compartment option is present
+	do
+		if BSYC.options.enableAddonCompartment == nil then
+			BSYC.options.enableAddonCompartment = optionsDefaults.enableAddonCompartment
+		end
+	end
+
+	-- ensure cache throttle setting is present
+	do
+		local speed = BSYC.options.cacheThrottle
+		if speed ~= "slow" and speed ~= "medium" and speed ~= "fast" and speed ~= "disabled" then
+			BSYC.options.cacheThrottle = optionsDefaults.cacheThrottle
+		end
+	end
+
+	-- migrate + prune legacy sort toggles into the new sort mode option
+	do
+		local validModes = {
+			realm_character = true,
+			character = true,
+			class_character = true,
+			totals = true,
+			custom = true,
+		}
+
+		local mode = BSYC.options.tooltipSortMode
+		if not validModes[mode] then
+			if BSYC.options.sortTooltipByTotals then
+				mode = "totals"
+			elseif BSYC.options.sortByCustomOrder then
+				mode = "custom"
+			else
+				mode = "realm_character"
+			end
+			BSYC.options.tooltipSortMode = mode
+		end
+
+		-- legacy flags (no longer used post-config revamp)
+		BSYC.options.sortTooltipByTotals = nil
+		BSYC.options.sortByCustomOrder = nil
+		BSYC.options.showGuildCurrentCharacter = nil
+	end
 
     local storeGuilds = {}
 	if not BSYC.options.unitDBVersion then BSYC.options.unitDBVersion = {} end
@@ -280,7 +415,7 @@ function Data:FixDB()
 	local removeList = {}
 	for k, v in pairs(BagSyncDB) do
 		--only do checks for realms not on options
-		if not string.match(k, '§*') then
+		if not hasMark(k, "§") then
 			if BSYC:GetHashTableLen(v) == 0 then
 				--don't remove tables while iterating, that causes complications, do it afterwards
 				table.insert(removeList, k)
@@ -320,30 +455,37 @@ function Data:LoadSlashCommand()
 		local cmd, args = strlower(parts[1] or ""), table.concat(parts, " ", 2)
 
 		if string.len(cmd) > 0 then
+			local function showModuleFrame(name)
+				local module = BSYC:GetModule(name, true)
+				if module and module.frame and module.frame.Show then
+					module.frame:Show()
+					return module
+				end
+			end
 
 			if cmd == L.SlashSearch then
-				BSYC:GetModule("Search").frame:Show()
+				showModuleFrame("Search")
 				return true
 			elseif cmd == L.SlashGold or cmd == L.SlashMoney then
-				BSYC:GetModule("Gold").frame:Show()
+				showModuleFrame("Gold")
 				return true
 			elseif cmd == L.SlashCurrency and BSYC:CanDoCurrency() and BSYC.tracking.currency then
-				BSYC:GetModule("Currency").frame:Show()
+				showModuleFrame("Currency")
 				return true
 			elseif cmd == L.SlashProfiles then
-				BSYC:GetModule("Profiles").frame:Show()
+				showModuleFrame("Profiles")
 				return true
 			elseif cmd == L.SlashProfessions and BSYC:CanDoProfessions() and BSYC.tracking.professions then
-				BSYC:GetModule("Professions").frame:Show()
+				showModuleFrame("Professions")
 				return true
 			elseif cmd == L.SlashBlacklist then
-				BSYC:GetModule("Blacklist").frame:Show()
+				showModuleFrame("Blacklist")
 				return true
 			elseif cmd == L.SlashWhitelist then
-				BSYC:GetModule("Whitelist").frame:Show()
+				showModuleFrame("Whitelist")
 				return true
 			elseif cmd == L.SlashSortOrder then
-				BSYC:GetModule("SortOrder").frame:Show()
+				showModuleFrame("SortOrder")
 				return true
 			elseif cmd == L.SlashFixDB then
 				self:FixDB()
@@ -355,31 +497,21 @@ function Data:LoadSlashCommand()
 				StaticPopup_Show("BAGSYNC_RESETDATABASE")
 				return true
 			elseif cmd == L.SlashConfig then
-				if Settings then
-					Settings.OpenToCategory("BagSync")
-				elseif InterfaceOptionsFrame_OpenToCategory then
-
-					if not BSYC.IsRetail then
-						--only do this for Expansions less than Retail
-						InterfaceOptionsFrame:Show() --has to be here to load the about frame onLoad
-					else
-						if InCombatLockdown() or GameMenuFrame:IsShown() or InterfaceOptionsFrame then
-							return false
-						end
-					end
-
-					InterfaceOptionsFrame_OpenToCategory(BSYC.aboutPanel)
-				end
+				BSYC:OpenConfig()
 				return true
 			elseif cmd == L.SlashDebug then
-				BSYC:GetModule("Debug").frame:Show()
+				showModuleFrame("Debug")
 				return true
 			else
 				--do an item search, use the full command to search
-				BSYC:GetModule("Search").frame:Show()
-				BSYC:GetModule("Search").frame.SearchBox:SetText(input)
-				BSYC:GetModule("Search").frame.SearchBox.SearchInfo:Hide()
-				BSYC:GetModule("Search"):DoSearch()
+				local search = showModuleFrame("Search")
+				if search and search.frame and search.frame.SearchBox then
+					search.frame.SearchBox:SetText(input)
+					if search.frame.SearchBox.SearchInfo then
+						search.frame.SearchBox.SearchInfo:Hide()
+					end
+					search:DoSearch()
+				end
 				return true
 			end
 
@@ -412,8 +544,97 @@ function Data:LoadSlashCommand()
 end
 
 function Data:RemoveTooltipCacheLink(link)
-	if Data.__cache.tooltip[link] then
+	if not link then return end
+	if Data.__cache and Data.__cache.tooltip and Data.__cache.tooltip[link] then
 		Data.__cache.tooltip[link] = nil
+		Data.__cache.tooltipCount = math.max(0, (Data.__cache.tooltipCount or 0) - 1)
+	end
+end
+
+function Data:ResetTooltipCache()
+	if not Data.__cache then return end
+	Data.__cache.tooltip = {}
+	Data.__cache.tooltipOrder = {}
+	Data.__cache.tooltipOrderHead = 1
+	Data.__cache.tooltipOrderTail = 0
+	Data.__cache.tooltipCount = 0
+end
+
+function Data:EnforceTooltipCacheCap()
+	local maxEntries = tonumber(BSYC and BSYC.TOOLTIP_CACHE_MAX) or 1000
+	if maxEntries <= 0 then return end
+	if not Data.__cache or not Data.__cache.tooltip then return end
+
+	local cache = Data.__cache.tooltip
+	local order = Data.__cache.tooltipOrder or {}
+	local head = Data.__cache.tooltipOrderHead or 1
+	local tail = Data.__cache.tooltipOrderTail or 0
+	local count = Data.__cache.tooltipCount or 0
+
+	if count <= maxEntries then return end
+
+	while count > maxEntries and head <= tail do
+		local key = order[head]
+		order[head] = nil
+		head = head + 1
+
+		if key and cache[key] then
+			cache[key] = nil
+			count = count - 1
+		end
+	end
+
+	Data.__cache.tooltipOrderHead = head
+	Data.__cache.tooltipCount = count
+
+	-- compact queue if head has advanced far enough (avoid ever-growing arrays)
+	if head > 256 and head > (tail / 2) then
+		local new = {}
+		local newTail = 0
+		for i = head, tail do
+			local key = order[i]
+			if key then
+				newTail = newTail + 1
+				new[newTail] = key
+			end
+		end
+		Data.__cache.tooltipOrder = new
+		Data.__cache.tooltipOrderHead = 1
+		Data.__cache.tooltipOrderTail = newTail
+	end
+end
+
+function Data:SetTooltipCache(link, unitList, grandTotal)
+	if not link then return end
+	if not Data.__cache then return end
+
+	local cache = Data.__cache.tooltip
+	if not cache then
+		cache = {}
+		Data.__cache.tooltip = cache
+	end
+
+	local entry = cache[link]
+	local isNew = entry == nil
+	if not entry then
+		entry = {}
+		cache[link] = entry
+	end
+
+	entry.unitList = unitList or {}
+	entry.grandTotal = grandTotal or 0
+
+	if isNew then
+		Data.__cache.tooltipCount = (Data.__cache.tooltipCount or 0) + 1
+		local order = Data.__cache.tooltipOrder
+		if not order then
+			order = {}
+			Data.__cache.tooltipOrder = order
+		end
+		local tail = (Data.__cache.tooltipOrderTail or 0) + 1
+		order[tail] = link
+		Data.__cache.tooltipOrderTail = tail
+		self:EnforceTooltipCacheCap()
 	end
 end
 
@@ -425,6 +646,11 @@ function Data:CacheLink(parseLink)
 	local shortID = tonumber(BSYC:GetShortItemID(parseLink))
 	if not shortID then return nil end
 
+	-- fast path
+	if Data.__cache.items[shortID] then
+		return Data.__cache.items[shortID]
+	end
+
 	local itemObj = {}
 	local speciesID = BSYC:FakeIDToSpeciesID(shortID)
 
@@ -435,49 +661,83 @@ function Data:CacheLink(parseLink)
 			itemObj.speciesID = speciesID
 			itemObj.parseLink = origLink
 
-			--https://wowpedia.fandom.com/wiki/API_C_PetJournal.GetPetInfoBySpeciesID
+			--https://wowpedia.fandom.com/wiki/API_(C_PetJournal and C_PetJournal.GetPetInfoBySpeciesID)
 			itemObj.speciesName,
 			itemObj.speciesIcon,
 			itemObj.petType,
 			itemObj.companionID,
 			itemObj.tooltipSource,
-			itemObj.tooltipDescription,
-			itemObj.isWild,
-			itemObj.canBattle,
-			itemObj.isTradeable,
+			itemObj.isNotTradable,
 			itemObj.isUnique,
-			itemObj.obtainable,
-			itemObj.creatureDisplayID = C_PetJournal.GetPetInfoBySpeciesID(speciesID)
-		else
-			if C_Item.IsItemDataCachedByID(shortID) then
-				itemObj.parseLink = origLink
+			itemObj.ownedByBattleNet,
+			itemObj.sourceText,
+			itemObj.description,
+			itemObj.isWildPet,
+			itemObj.canBattle,
+			itemObj.tradeSkill
+			= (C_PetJournal and C_PetJournal.GetPetInfoBySpeciesID)(speciesID)
 
-				--https://wowpedia.fandom.com/wiki/API_C_Item.GetItemInfo
-				itemObj.itemName,
-				itemObj.itemLink,
-				itemObj.itemQuality,
-				itemObj.itemLevel,
-				itemObj.itemMinLevel,
-				itemObj.itemType,
-				itemObj.itemSubType,
-				itemObj.itemStackCount,
-				itemObj.itemEquipLoc,
-				itemObj.itemTexture,
-				itemObj.sellPrice,
-				itemObj.classID,
-				itemObj.subclassID,
-				itemObj.bindType,
-				itemObj.expacID,
-				itemObj.setID,
-				itemObj.isCraftingReagent = C_Item.GetItemInfo(shortID)
-			else
-				C_Item.RequestLoadItemDataByID(shortID)
+			--grab some additional information from the species
+			if C_PetJournal and C_PetJournal.GetPetAbilityList then
+				itemObj.ability1, itemObj.ability2, itemObj.ability3, itemObj.ability4, itemObj.ability5, itemObj.ability6 = C_PetJournal.GetPetAbilityList(speciesID)
 			end
-		end
-		--add to Cache if we have something to work with
-		if itemObj.speciesName or (itemObj.itemName and itemObj.itemLink) then
+
+			-- battle pets bypass itemID logic entirely
+			itemObj.itemName = itemObj.speciesName
+			-- no itemID for pets
+
+			--lets store our fakeID
 			Data.__cache.items[shortID] = itemObj
 			return itemObj
+		else
+
+			--https://warcraft.wiki.gg/wiki/API_C_Item.GetItemInfo
+			--Use the addon wrapper for C_Item/GetItemInfo compatibility.
+			local itemName, itemLink, itemQuality, itemLevel, itemMinLevel, itemType, itemSubType, itemStackCount, itemEquipLoc, itemTexture, sellPrice, classID, subclassID, bindType, expacID, setID, isCraftingReagent
+
+			-- retail: avoid spamming RequestLoadItemDataByID for the same item repeatedly
+			if C_Item and C_Item.IsItemDataCachedByID and not C_Item.IsItemDataCachedByID(shortID) then
+				local lastReq = Data.__cache.pending[shortID]
+				if lastReq and (GetTime() - lastReq) < 1 then
+					return nil
+				end
+			end
+
+			local getItemInfo = BSYC.API and BSYC.API.GetItemInfo
+			itemName, itemLink, itemQuality, itemLevel, itemMinLevel, itemType, itemSubType, itemStackCount, itemEquipLoc, itemTexture, sellPrice, classID, subclassID, bindType, expacID, setID, isCraftingReagent = getItemInfo(shortID)
+
+			--if we are missing itemName and itemLink then request it (retail async cache)
+			if not itemName or not itemLink then
+				if C_Item and C_Item.RequestLoadItemDataByID then
+					Data.__cache.pending[shortID] = GetTime()
+					C_Item.RequestLoadItemDataByID(shortID)
+				end
+			end
+
+			itemObj.itemName = itemName
+			itemObj.itemLink = itemLink
+			itemObj.itemQuality = itemQuality or 1
+			itemObj.itemLevel = itemLevel
+			itemObj.itemMinLevel = itemMinLevel
+			itemObj.itemType = itemType
+			itemObj.itemSubType = itemSubType
+			itemObj.itemStackCount = itemStackCount
+			itemObj.itemEquipLoc = itemEquipLoc
+			itemObj.itemTexture = itemTexture
+			itemObj.sellPrice = sellPrice
+			itemObj.classID = classID
+			itemObj.subclassID = subclassID
+			itemObj.bindType = bindType
+			itemObj.expacID = expacID
+			itemObj.setID = setID
+			itemObj.isCraftingReagent = isCraftingReagent
+
+			--add to Cache if we have something to work with
+			if itemObj.itemName and itemObj.itemLink then
+				Data.__cache.pending[shortID] = nil
+				Data.__cache.items[shortID] = itemObj
+				return itemObj
+			end
 		end
 	else
 		return Data.__cache.items[shortID]
@@ -485,36 +745,154 @@ function Data:CacheLink(parseLink)
 	return nil
 end
 
-function Data:PopulateItemCache(errorList, errorCount)
-	if errorList and errorCount then
-		Debug(BSYC_DL.INFO, "PopulateItemCache", #errorList, errorCount)
+function Data:StopBackgroundRamp()
+	BSYC:StopTimer("DataCacheRamp")
+end
+
+function Data:AdvanceBackgroundRamp()
+	if Data:GetCacheThrottle() ~= "background" then return end
+
+	local idx = Data.__cache.rampIndex or 1
+	if idx < #ITEMCACHE_RAMP_STEPS then
+		idx = idx + 1
+		Data.__cache.rampIndex = idx
+		Data.__cache.backgroundThrottle = ITEMCACHE_RAMP_STEPS[idx]
+		Debug(BSYC_DL.SL2, "CacheThrottle-Ramp", "background", idx, "batch", Data.__cache.backgroundThrottle.batch, "tick", Data.__cache.backgroundThrottle.tick, "pass", Data.__cache.backgroundThrottle.pass)
+		Debug(BSYC_DL.SL3, "CacheThrottle-Remaining", GetCacheRemaining(Data.__cache.itemCacheRun))
+		Data:SetCacheThrottle("background")
+		BSYC:StartTimer("DataCacheRamp", ITEMCACHE_RAMP_INTERVAL, Data, "AdvanceBackgroundRamp")
 	end
-	local allowList = {
-		bag = true,
-		bank = true,
-		reagents = true,
-		equip = true,
-		mailbox = true,
-		void = true,
-		auction = true,
-		equipbags = true,
+end
+
+function Data:StartBackgroundRamp()
+	Data.__cache.rampIndex = 1
+	Data.__cache.backgroundThrottle = ITEMCACHE_RAMP_STEPS[1]
+	Debug(BSYC_DL.SL2, "CacheThrottle-Ramp", "background", Data.__cache.rampIndex, "batch", Data.__cache.backgroundThrottle.batch, "tick", Data.__cache.backgroundThrottle.tick, "pass", Data.__cache.backgroundThrottle.pass)
+	Debug(BSYC_DL.SL3, "CacheThrottle-Remaining", GetCacheRemaining(Data.__cache.itemCacheRun))
+	Data:SetCacheThrottle("background")
+	BSYC:StartTimer("DataCacheRamp", ITEMCACHE_RAMP_INTERVAL, Data, "AdvanceBackgroundRamp")
+end
+
+function Data:GetCacheSpeedSetting()
+	local speed = BSYC.options and BSYC.options.cacheThrottle
+	if speed == "slow" or speed == "medium" or speed == "fast" or speed == "disabled" then
+		return speed
+	end
+	return "slow"
+end
+
+function Data:IsCacheDisabled()
+	return Data:GetCacheSpeedSetting() == "disabled"
+end
+
+function Data:GetCacheSpeedMode()
+	local speed = Data:GetCacheSpeedSetting()
+	return CACHE_SPEED_MODES[speed] or "background"
+end
+
+function Data:ApplyCacheSpeed()
+	local speed = Data:GetCacheSpeedSetting()
+	if speed == "disabled" then
+		Data:StopBackgroundRamp()
+		local run = Data.__cache.itemCacheRun
+		if run and run.running then
+			run.running = false
+			Data.__cache.itemCacheRun = nil
+		end
+		Data.__cache.throttleMode = "background"
+		return
+	end
+
+	if speed == "slow" then
+		Data:StartBackgroundRamp()
+		return
+	end
+
+	Data:StopBackgroundRamp()
+	Data:SetCacheThrottle(Data:GetCacheSpeedMode())
+end
+
+function Data:GetCacheThrottleInfo()
+	return {
+		throttle = ITEMCACHE_THROTTLE,
+		ramp = ITEMCACHE_RAMP_STEPS,
+		rampInterval = ITEMCACHE_RAMP_INTERVAL,
 	}
-	local tmpList = {}
-	local tmpError = {}
+end
+
+function Data:SetCacheThrottle(mode)
+	local throttleMode = ITEMCACHE_THROTTLE[mode] and mode or "background"
+	local cfg = GetThrottleConfig(throttleMode)
+	local prevMode = Data.__cache.throttleMode
+	Data.__cache.throttleMode = throttleMode
+
+	if prevMode ~= throttleMode then
+		Debug(BSYC_DL.SL2, "CacheThrottle-Mode", prevMode, "->", throttleMode, "batch", cfg.batch, "tick", cfg.tick, "pass", cfg.pass)
+		Debug(BSYC_DL.SL3, "CacheThrottle-Remaining", GetCacheRemaining(run))
+	end
+
+	local run = Data.__cache.itemCacheRun
+	if run and run.running then
+		run.batchSize = cfg.batch
+		run.tickDelay = cfg.tick
+		run.passDelay = cfg.pass
+		run.mode = Data.__cache.throttleMode
+	end
+
+	if throttleMode ~= "background" then
+		Data:StopBackgroundRamp()
+	end
+end
+
+function Data:GetCacheThrottle()
+	return Data.__cache.throttleMode or "background"
+end
+
+function Data:GetItemCacheStatus()
+	local run = Data.__cache.itemCacheRun
+	if not run or not run.running then return false, 0, 0, Data:GetCacheThrottle() end
+
+	local remaining = 0
+	if run.queue then
+		local curRemaining = #run.queue - (run.pos or 1) + 1
+		if curRemaining < 0 then curRemaining = 0 end
+		remaining = curRemaining + (#run.nextQueue or 0)
+	end
+
+	return true, remaining, (run.totalQueued or 0), (run.mode or Data:GetCacheThrottle())
+end
+
+local ITEMCACHE_MAX_PASSES = 20
+
+function Data:PopulateItemCache(mode)
+	if mode == "background" then
+		if Data:IsCacheDisabled() then return end
+		Data:ApplyCacheSpeed()
+	elseif mode then
+		Data:SetCacheThrottle(mode)
+	end
+
+	-- already running
+	if Data.__cache.itemCacheRun and Data.__cache.itemCacheRun.running then return end
+
+	local seen = {}
+	local queue = {}
+
+	local function pushLink(link)
+		if not link or Data.__cache.ignore[link] or seen[link] then return end
+		seen[link] = true
+
+		local shortID = tonumber(BSYC:GetShortItemID(link))
+		if shortID and not Data.__cache.items[shortID] then
+			queue[#queue + 1] = link
+		end
+	end
 
 	local function doItem(data)
-		for i=1, #data do
+		for i = 1, #data do
 			if data[i] then
 				local link = BSYC:Split(data[i], true)
-				if link and not tmpList[link] and not Data.__cache.ignore[link] then
-					local cacheObj = Data:CacheLink(link)
-					if cacheObj then
-						tmpList[link] = true --lets not check the same item twice in same pass
-					else
-						table.insert(tmpError, link)
-						tmpList[link] = true --lets not check the same item twice in same pass
-					end
-				end
+				pushLink(link)
 			end
 		end
 	end
@@ -522,83 +900,134 @@ function Data:PopulateItemCache(errorList, errorCount)
 	local function CacheCheck(unitObj, target)
 		if unitObj.data[target] then
 			if target == "bag" or target == "bank" or target == "reagents" then
-				for bagID, bagData in pairs(unitObj.data[target] or {}) do
+				for _, bagData in pairs(unitObj.data[target] or {}) do
 					doItem(bagData)
 				end
 			elseif target == "auction" then
 				doItem(unitObj.data[target].bag or {})
-
 			elseif target == "equipbags" then
 				doItem(unitObj.data[target].bag or {})
 				doItem(unitObj.data[target].bank or {})
-
 			elseif target == "equip" or target == "void" or target == "mailbox" then
 				doItem(unitObj.data[target] or {})
 			end
 		end
+
 		if target == "guild" then
-			for tabID, tabData in pairs(unitObj.data.tabs or {}) do
+			for _, tabData in pairs(unitObj.data.tabs or {}) do
 				doItem(tabData)
 			end
 		end
 	end
 
-	--do initial grab before we do a timed loop
-	if not errorList then
-		ignoreChk, ignoreTotal = 0, 0 --reset our ignore counts
+	for unitObj in Data:IterateUnits(true) do
+		if not unitObj.isGuild then
+			for k in pairs(ITEMCACHE_ALLOW_LIST) do
+				CacheCheck(unitObj, k)
+			end
+		else
+			CacheCheck(unitObj, "guild")
+		end
+	end
 
-		for unitObj in Data:IterateUnits(true) do
-			if not unitObj.isGuild then
-				for k, v in pairs(allowList) do
-					CacheCheck(unitObj, k)
-				end
+	if #queue < 1 then return end
+
+	local throttle = GetThrottleConfig(Data:GetCacheThrottle())
+
+	Data.__cache.itemCacheRun = {
+		running = true,
+		pass = 0,
+		pos = 1,
+		queue = queue,
+		nextQueue = {},
+		cachedThisPass = 0,
+		totalThisPass = 0,
+		totalQueued = #queue,
+		noProgress = 0,
+		lastRemaining = nil,
+		batchSize = throttle.batch,
+		tickDelay = throttle.tick,
+		passDelay = throttle.pass,
+		mode = Data:GetCacheThrottle(),
+	}
+
+	BSYC:StartTimer("DataDumpCache", Data.__cache.itemCacheRun.tickDelay, Data, "ProcessItemCacheRun")
+end
+
+function Data:ProcessItemCacheRun()
+	local run = Data.__cache.itemCacheRun
+	if not run or not run.running then return end
+
+	local startPos = run.pos
+	local batchSize = run.batchSize or 10
+	local endPos = math.min(#run.queue, startPos + batchSize - 1)
+
+	for i = startPos, endPos do
+		local link = run.queue[i]
+		if link and not Data.__cache.ignore[link] then
+			run.totalThisPass = run.totalThisPass + 1
+			local cacheObj = Data:CacheLink(link)
+			if cacheObj then
+				run.cachedThisPass = run.cachedThisPass + 1
 			else
-				CacheCheck(unitObj, "guild")
+				run.nextQueue[#run.nextQueue + 1] = link
 			end
 		end
-		--only loop again if we have anything to work with
-		if #tmpError > 0 then
-			BSYC:StartTimer("DataDumpCache-0", 0.3, Data, "PopulateItemCache", tmpError, 0)
-		end
+	end
+
+	run.pos = endPos + 1
+
+	-- still more work in this pass
+	if run.pos <= #run.queue then
+		BSYC:StartTimer("DataDumpCache", run.tickDelay or 0.1, Data, "ProcessItemCacheRun")
 		return
 	end
 
-	--we don't want to do these checks more than 20 times, otherwise endless loop
-	if #errorList > 0 and errorCount < 20 then
-		errorCount = errorCount + 1
-
-		--iterate backwards since we are using table.remove
-		for i=#errorList, 1, -1 do
-			local errObj = Data:CacheLink(errorList[i])
-			if errObj then
-				--remove it since we have a cached item
-				table.remove(errorList, i)
-			end
-		end
-
-		if #errorList > 0 then
-			--check our ignore list in case we repeatedly process invalid or broken itemIDs
-			if ignoreChk ~= #errorList then
-				ignoreChk = #errorList
-				ignoreTotal = 0
-			else
-				ignoreTotal = ignoreTotal + 1
-			end
-
-			--if we have ignored the same list of items on more than 5 separate occasions then it's probably invalid, add them to ignore
-			if ignoreTotal > 4 then
-				for i=1, #errorList do
-					Data.__cache.ignore[errorList[i]] = errorList[i]
-					Debug(BSYC_DL.WARN, "DataDumpCache-Ignore", errorList[i])
-				end
-				errorList = {}
-				errorCount = -1
-			end
-
-			--loop again if we still have something
-			BSYC:StartTimer("DataDumpCache-"..errorCount, 0.3, Data, "PopulateItemCache", errorList, errorCount)
-		end
+	-- end of pass
+	if #run.nextQueue < 1 then
+		Debug(BSYC_DL.INFO, "PopulateItemCache-Done", run.totalThisPass, run.pass)
+		run.running = false
+		Data.__cache.itemCacheRun = nil
+		return
 	end
+
+	-- progress / ignore heuristics (preserves existing behavior, but scoped per pass)
+	local remaining = #run.nextQueue
+	if run.lastRemaining ~= nil and run.lastRemaining == remaining and run.cachedThisPass == 0 then
+		run.noProgress = run.noProgress + 1
+	else
+		run.noProgress = 0
+	end
+	run.lastRemaining = remaining
+
+	if run.noProgress > 4 then
+		for i = 1, #run.nextQueue do
+			Data.__cache.ignore[run.nextQueue[i]] = run.nextQueue[i]
+			Debug(BSYC_DL.WARN, "DataDumpCache-Ignore", run.nextQueue[i])
+		end
+		run.running = false
+		Data.__cache.itemCacheRun = nil
+		return
+	end
+
+	run.pass = run.pass + 1
+	if run.pass >= ITEMCACHE_MAX_PASSES then
+		Debug(BSYC_DL.INFO, "PopulateItemCache-Stop", remaining, run.pass)
+		run.running = false
+		Data.__cache.itemCacheRun = nil
+		return
+	end
+
+	Debug(BSYC_DL.INFO, "PopulateItemCache", remaining, run.pass, run.cachedThisPass, run.totalThisPass)
+
+	-- next pass
+	run.queue = run.nextQueue
+	run.nextQueue = {}
+	run.pos = 1
+	run.cachedThisPass = 0
+	run.totalThisPass = 0
+
+	BSYC:StartTimer("DataDumpCache", run.passDelay or 0.2, Data, "ProcessItemCacheRun")
 end
 
 function Data:CheckExpiredAuctions()
@@ -652,7 +1081,7 @@ end
 
 function Data:GetPlayerObj(player)
 	if not player then player = Unit:GetPlayerInfo(true) end
-	local isConnectedRealm = Unit:isConnectedRealm(player.realm)
+	local isConnectedRealm = Unit:CheckConnectedRealm(player.realm)
 	Debug(BSYC_DL.TRACE, "GetPlayerObj", player.name, player.realm, isConnectedRealm)
 	return {
 		realm = player.realm,
@@ -670,9 +1099,16 @@ function Data:GetPlayerGuildObj(player)
 	if not BSYC.tracking.guild then return end
 	Debug(BSYC_DL.TRACE, "GetPlayerGuild", player.guild, BSYC.tracking.guild)
 
-	local isConnectedRealm = Unit:isConnectedRealm(player.guildrealm)
+	local isConnectedRealm = Unit:CheckConnectedRealm(player.guildrealm)
 	local isXRGuild = false
-	if not BSYC.options.enableCR and not BSYC.options.enableBNET then
+
+	local enableCR = BSYC.options and BSYC.options.enableCR
+	if enableCR == nil then enableCR = optionsDefaults.enableCR end
+
+	local enableBNET = BSYC.options and BSYC.options.enableBNET
+	if enableBNET == nil then enableBNET = optionsDefaults.enableBNET end
+
+	if not enableCR and not enableBNET then
 		isXRGuild = not Unit:CompareRealms(player.guildrealm, player.realm) or false
 	end
 
@@ -725,120 +1161,190 @@ function Data:GetWarbandBankObj()
 	}
 end
 
-function Data:IterateUnits(dumpAll, filterList)
-	Debug(BSYC_DL.INFO, "IterateUnits", dumpAll, filterList)
+-- -------------------------------------------------------
+-- IterateUnits helpers
+-- -------------------------------------------------------
 
-	local player = Unit:GetPlayerInfo(true)
-	local argKey, argValue = next(BagSyncDB)
-	local k, v
+local function GetOption(key, defaultValue)
+	if not BSYC.options then return defaultValue end
+	local value = BSYC.options[key]
+	if value == nil then return defaultValue end
+	return value
+end
 
-	return function()
-		while argKey do
+local function GetUnitFilterOptions()
+	local tracking = BSYC.tracking or (BSYC.options and BSYC.options.tracking) or {}
+	return {
+		enableBNET = GetOption("enableBNET", optionsDefaults.enableBNET),
+		enableCR = GetOption("enableCR", optionsDefaults.enableCR),
+		enableFaction = GetOption("enableFaction", optionsDefaults.enableFaction),
+		trackingGuild = tracking.guild ~= false,
+	}
+end
 
-			if argKey and string.match(argKey, '§*') then
-				argKey, argValue = next(BagSyncDB, argKey)
+local function ShouldIncludeRealm(realmKey, meta, dumpAll, filterList, opts)
+	if hasMark(realmKey, "§") then
+		return false
+	end
 
-			elseif argKey then
-				local isConnectedRealm = Unit:isConnectedRealm(argKey)
+	if dumpAll then return true end
+	if filterList and filterList[realmKey] then return true end
 
-				--check to see if a user joined a guild on a connected realm and doesn't have the CR or BNET options on
-				--if they have guilds enabled, then we should show it anyways, regardless of the CR and BNET options
-				--NOTE: This should ONLY be done if the guild realm is NOT the player realm.  If it's the same realms for both then it would be processed anyways.
-				local isXRGuild = false
-				if BSYC.tracking.guild and player.guild and not BSYC.options.enableCR and not BSYC.options.enableBNET then
-					if player.guildrealm and Unit:CompareRealms(argKey, player.guildrealm) then
-						isXRGuild = not Unit:CompareRealms(argKey, player.realm) or false
-					end
-				end
+	if meta.isCurrent then return true end
 
-				local passChk = false
-				if dumpAll or filterList then
-					if dumpAll or (filterList and filterList[argKey]) then passChk = true end
-				else
-					if argKey == player.realm or isXRGuild then passChk = true end
-					if isConnectedRealm and BSYC.options.enableCR then passChk = true end
-					if BSYC.options.enableBNET then passChk = true end
-				end
+	local enableBNET = opts.enableBNET
+	local enableCR = opts.enableCR
 
-				if passChk then
+	if enableBNET then
+		-- allow all realms, but preserve legacy equivalence safety
+		if meta.isConnected then
+			return true
+		end
 
-					--pull entries from characters until k is empty, then pull next realm entry
-					k, v = next(argValue, k)
+		-- legacy fallback: string-equivalent realms
+		if Unit:CompareRealms(realmKey, BSYC.realm) then
+			return true
+		end
 
-					if k then
+		return true -- still allow, but flags below will differ
+	end
+	if enableCR and meta.isConnected then return true end
 
-						local skipReturn = false
-						local isGuild = (k:find('©*') and true) or false
+	-- XR-guild passthrough
+	if not enableCR and meta.isConnected then
+		return true
+	end
 
-						--return everything regardless of user settings
-						if dumpAll or filterList then
+	return false
+end
 
-							if filterList and not filterList[argKey][k] then
-								skipReturn = true
-							end
+local function ShouldIncludeUnit(realmKey, unitKey, unitData, meta, dumpAll, filterList, currentFaction, opts)
+	local isGuild = hasMark(unitKey, "©")
+	local hasSystemMark = hasMark(unitKey, "§")
+	local hasAnyMark = isGuild or hasSystemMark
 
-							if not skipReturn then
-								return {
-									realm = argKey,
-									name = k,
-									data = v,
-									isGuild = isGuild,
-									isConnectedRealm = isConnectedRealm,
-									isXRGuild = isXRGuild
-								}
-							end
-
-						elseif v.faction and (v.faction == BSYC.db.player.faction or BSYC.options.enableFaction) then
-
-							--check for guilds and if we have them merged or not
-							if BSYC.tracking.guild and isGuild then
-
-								--check for guilds only on current character if enabled and on their current realm
-								if (isXRGuild or BSYC.options.showGuildCurrentCharacter) and player.guild and player.guildrealm then
-									--if we have the same guild realm and same guild name, then let it pass, otherwise skip it
-									if Unit:CompareRealms(argKey, player.guildrealm) and k == player.guild then
-										skipReturn = false
-									else
-										skipReturn = true
-									end
-								end
-
-								--check for the guild blacklist
-								if BSYC.db.blacklist[k..argKey] then skipReturn = true end
-
-							elseif not BSYC.tracking.guild and isGuild then
-								skipReturn = true
-
-							elseif isXRGuild then
-								--if this is enabled, then we only want guilds, skip all users
-								skipReturn = true
-							end
-
-							if not skipReturn then
-								return {
-									realm = argKey,
-									name = k,
-									data = v,
-									isGuild = isGuild,
-									isConnectedRealm = isConnectedRealm,
-									isXRGuild = isXRGuild
-								}
-							end
-
-						end
-
-					else
-						--we have looped through all the characters and next k entry is empty, pull next entry from realms
-						argKey, argValue = next(BagSyncDB, argKey)
-					end
-
-				else
-					--realm doesn't match our criteria, pull next entry from realms
-					argKey, argValue = next(BagSyncDB, argKey)
-				end
-
-			end
+	if dumpAll then
+		return true
+	end
+	if filterList then
+		local realmFilter = filterList[realmKey]
+		if realmFilter and type(realmFilter) == "table" and not realmFilter[unitKey] then
+			return false
 		end
 	end
 
+	local enableCR = opts.enableCR
+
+	-- blacklist (guilds)
+	if isGuild and BSYC.db and BSYC.db.blacklist and BSYC.db.blacklist[unitKey .. realmKey] then
+		return false
+	end
+
+	-- XR realm suppression
+	if not enableCR and meta.isConnected then
+		return isGuild
+	end
+
+	-- faction filtering (characters only)
+	local enableFaction = opts.enableFaction
+	if not isGuild and not hasAnyMark and not enableFaction then
+		if currentFaction and unitData.faction and unitData.faction ~= currentFaction then
+			return false
+		end
+	end
+
+	-- guild toggle
+	if isGuild and not opts.trackingGuild then
+		return false
+	end
+
+	-- blacklist (characters only)
+	if not isGuild and BSYC.db and BSYC.db.blacklist and BSYC.db.blacklist[unitKey] then
+		return false
+	end
+
+
+	return true
+end
+
+function Data:IterateUnits(dumpAll, filterList)
+	local currentFaction = (BSYC.db and BSYC.db.player and BSYC.db.player.faction) or _G.UnitFactionGroup("player")
+	local opts = GetUnitFilterOptions()
+
+	-- snapshot realm keys (FixDB-safe)
+	local realmKeys = {}
+	for realmKey in pairs(BagSyncDB) do
+		realmKeys[#realmKeys + 1] = realmKey
+	end
+
+	-- precompute realm metadata once
+	local realmMeta = {}
+	for _, realmKey in ipairs(realmKeys) do
+		if not hasMark(realmKey, "§") then
+			realmMeta[realmKey] = {
+				isConnected = Unit:CheckConnectedRealm(realmKey),
+				isCurrent   = (realmKey == BSYC.realm),
+			}
+		end
+	end
+
+	local realmIndex = 0
+	local unitKeys
+	local unitIndex
+	local realmKey
+	local currentRealmData
+
+	return function()
+		while true do
+			-- advance realm
+			if not unitKeys then
+				realmIndex = realmIndex + 1
+				realmKey = realmKeys[realmIndex]
+				if not realmKey then
+					return
+				end
+
+				currentRealmData = BagSyncDB[realmKey]
+				local meta = realmMeta[realmKey]
+
+				if currentRealmData and meta and ShouldIncludeRealm(realmKey, meta, dumpAll, filterList, opts) then
+					-- snapshot unit keys for this realm
+					unitKeys = {}
+					for unitKey in pairs(currentRealmData) do
+						unitKeys[#unitKeys + 1] = unitKey
+					end
+					unitIndex = 0
+				else
+					unitKeys = nil
+				end
+			end
+
+			-- advance unit
+			if unitKeys then
+				unitIndex = unitIndex + 1
+				local unitKey = unitKeys[unitIndex]
+				if unitKey then
+					local unitData = currentRealmData[unitKey]
+					local meta = realmMeta[realmKey]
+
+					if unitData and ShouldIncludeUnit(realmKey, unitKey, unitData, meta, dumpAll, filterList, currentFaction, opts) then
+						local isGuild = hasMark(unitKey, "©")
+						local enableCR = opts.enableCR
+						local isXRGuild = (not enableCR and meta.isConnected and isGuild)
+
+						return {
+							realm = realmKey,
+							name = unitKey,
+							data = unitData,
+							isGuild = isGuild,
+							isConnectedRealm = meta.isConnected,
+							isXRGuild = isXRGuild,
+						}
+					end
+				else
+					unitKeys = nil
+				end
+			end
+		end
+	end
 end

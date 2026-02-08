@@ -1,5 +1,4 @@
-﻿---@diagnostic disable: missing-parameter
--- local addonName, addonTbl = ...
+﻿-- local addonName, addonTbl = ...
 
 --License: All Rights Reserved, (c) 2006-2024
 
@@ -3144,23 +3143,23 @@ function ArkInventory.OnInitialize( )
 
 		{ "GUILDBANKFRAME_OPENED", "EVENT_ARKINV_VAULT_ENTER", ArkInventory.ENUM.EXPANSION.TBC, ArkInventory.ENUM.EXPANSION.SHADOWLANDS },
 		{ "GUILDBANKFRAME_CLOSED", "EVENT_ARKINV_VAULT_LEAVE", ArkInventory.ENUM.EXPANSION.TBC, ArkInventory.ENUM.EXPANSION.SHADOWLANDS },
-		{ "GUILDBANKBAGSLOTS_CHANGED", "EVENT_ARKINV_VAULT_UPDATE", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Vault].ClientCheck ) },
-		{ "GUILDBANKLOG_UPDATE", "EVENT_ARKINV_VAULT_LOG", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Vault].ClientCheck ) },
-		{ "GUILDBANK_ITEM_LOCK_CHANGED", "EVENT_ARKINV_VAULT_LOCK", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Vault].ClientCheck ) },
-		{ "GUILDBANK_UPDATE_MONEY", "EVENT_ARKINV_VAULT_MONEY", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Vault].ClientCheck ) },
-		{ "GUILDBANK_UPDATE_TABS", "EVENT_ARKINV_VAULT_TABS_UPDATE", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Vault].ClientCheck ) },
-		{ "GUILDBANK_UPDATE_TEXT", "EVENT_ARKINV_VAULT_INFO", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Vault].ClientCheck ) },
+		{ "GUILDBANKBAGSLOTS_CHANGED", "EVENT_ARKINV_VAULT_UPDATE", ArkInventory.Global.Location[ArkInventory.Const.Location.Vault].ClientCheck },
+		{ "GUILDBANKLOG_UPDATE", "EVENT_ARKINV_VAULT_LOG", ArkInventory.Global.Location[ArkInventory.Const.Location.Vault].ClientCheck },
+		{ "GUILDBANK_ITEM_LOCK_CHANGED", "EVENT_ARKINV_VAULT_LOCK", ArkInventory.Global.Location[ArkInventory.Const.Location.Vault].ClientCheck },
+		{ "GUILDBANK_UPDATE_MONEY", "EVENT_ARKINV_VAULT_MONEY", ArkInventory.Global.Location[ArkInventory.Const.Location.Vault].ClientCheck },
+		{ "GUILDBANK_UPDATE_TABS", "EVENT_ARKINV_VAULT_TABS_UPDATE", ArkInventory.Global.Location[ArkInventory.Const.Location.Vault].ClientCheck },
+		{ "GUILDBANK_UPDATE_TEXT", "EVENT_ARKINV_VAULT_INFO", ArkInventory.Global.Location[ArkInventory.Const.Location.Vault].ClientCheck },
 
 --		{ "BANK_TABS_CHANGED", "EVENT_ARKINV_", ArkInventory.ENUM.EXPANSION.WARWITHIN }, 0=CHAR, 1=GUILD, 2=ACCOUNT
 --		{ "BANK_TAB_SETTINGS_UPDATED", "EVENT_ARKINV_", ArkInventory.ENUM.EXPANSION.WARWITHIN }, 0=CHAR, 1=GUILD, 2=ACCOUNT
 
-		{ "HEIRLOOMS_UPDATED", "EVENT_ARKINV_COLLECTION_HEIRLOOM_UPDATE", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Heirloom].ClientCheck ) },
+		{ "HEIRLOOMS_UPDATED", "EVENT_ARKINV_COLLECTION_HEIRLOOM_UPDATE", ArkInventory.Global.Location[ArkInventory.Const.Location.Heirloom].ClientCheck },
 
 		{ "ITEM_DATA_LOAD_RESULT", "EVENT_ARKINV_ITEM_DATA_LOAD_RESULT" },
 		{ "TRADE_SKILL_ITEM_CRAFTED_RESULT", "EVENT_ARKINV_TRADE_SKILL_ITEM_CRAFTED_RESULT", ArkInventory.ENUM.EXPANSION.DRAGONFLIGHT },
 --		{ "TRADE_SKILL_CURRENCY_REWARD_RESULT", "EVENT_ARKINV_ITEM_DATA_LOAD_RESULT" },
 
-		{ "CURRENCY_DISPLAY_UPDATE", "EVENT_ARKINV_COLLECTION_CURRENCY_UPDATE", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Currency].ClientCheck ) },
+		{ "CURRENCY_DISPLAY_UPDATE", "EVENT_ARKINV_COLLECTION_CURRENCY_UPDATE", ArkInventory.Global.Location[ArkInventory.Const.Location.Currency].ClientCheck },
 		{ "PLAYER_TRADE_CURRENCY", "EVENT_ARKINV_COLLECTION_CURRENCY_UPDATE", ArkInventory.ENUM.EXPANSION.DRAENOR }, --FIX ME, check when this got added
 		{ "ACCOUNT_CHARACTER_CURRENCY_DATA_RECEIVED", "EVENT_ARKINV_COLLECTION_CURRENCY_UPDATE", ArkInventory.ENUM.EXPANSION.WARWITHIN },
 
@@ -3173,34 +3172,34 @@ function ArkInventory.OnInitialize( )
 		{ "MERCHANT_SHOW", "EVENT_ARKINV_MERCHANT_ENTER", nil, ArkInventory.ENUM.EXPANSION.SHADOWLANDS },
 		{ "MERCHANT_CLOSED", "EVENT_ARKINV_MERCHANT_LEAVE", nil, ArkInventory.ENUM.EXPANSION.SHADOWLANDS },
 
-		{ "MOUNT_EQUIPMENT_APPLY_RESULT", "EVENT_ARKINV_COLLECTION_MOUNT_EQUIPMENT_UPDATE", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.MountEquipment].ClientCheck ) },
+		{ "MOUNT_EQUIPMENT_APPLY_RESULT", "EVENT_ARKINV_COLLECTION_MOUNT_EQUIPMENT_UPDATE", ArkInventory.Global.Location[ArkInventory.Const.Location.MountEquipment].ClientCheck },
 --		{ "MOUNT_JOURNAL_SEARCH_UPDATED", "" },
 --		{ "MOUNT_JOURNAL_USABILITY_CHANGED", "" },
-		{ "NEW_MOUNT_ADDED", "EVENT_ARKINV_COLLECTION_MOUNT_UPDATE", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Mount].ClientCheck ) },
-		{ "UNIT_AURA", "EVENT_ARKINV_UNIT_AURA", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Mount].ClientCheck ) },
---		{ "PLAYER_CAN_GLIDE_CHANGED", "EVENT_ARKINV_PLAYER_CAN_GLIDE_CHANGED", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Mount].ClientCheck ) },
+		{ "NEW_MOUNT_ADDED", "EVENT_ARKINV_COLLECTION_MOUNT_UPDATE", ArkInventory.Global.Location[ArkInventory.Const.Location.Mount].ClientCheck },
+		{ "UNIT_AURA", "EVENT_ARKINV_UNIT_AURA", ArkInventory.Global.Location[ArkInventory.Const.Location.Mount].ClientCheck },
+--		{ "PLAYER_CAN_GLIDE_CHANGED", "EVENT_ARKINV_PLAYER_CAN_GLIDE_CHANGED", ArkInventory.Global.Location[ArkInventory.Const.Location.Mount].ClientCheck },
 
-		{ "BATTLE_PET_CURSOR_CLEAR", "EVENT_ARKINV_COLLECTION_PET_UPDATE", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck ) },
---		{ "CHAT_MSG_PET_BATTLE_COMBAT_LOG", "EVENT_ARKINV_COLLECTION_PET_UPDATE", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck ) },
---		{ "CHAT_MSG_PET_BATTLE_INFO", "EVENT_ARKINV_COLLECTION_PET_UPDATE", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck ) },
---		{ "CHAT_MSG_PET_INFO", "EVENT_ARKINV_COLLECTION_PET_UPDATE", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck ) },
-		{ "COMPANION_LEARNED", "EVENT_ARKINV_COLLECTION_MOUNT_UPDATE", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck ) },
-		{ "COMPANION_UNLEARNED", "EVENT_ARKINV_COLLECTION_MOUNT_UPDATE", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck ) },
---		{ "COMPANION_UPDATE", "EVENT_ARKINV_COLLECTION_MOUNT_UPDATE", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck ) }, -- do i really need this? it triggers when other people mount/dismount as well
-		{ "NEW_PET_ADDED", "EVENT_ARKINV_COLLECTION_PET_UPDATE", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck ) },
-		{ "PET_BATTLE_CLOSE", "EVENT_ARKINV_COLLECTION_PET_UPDATE", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck ) },
-		{ "PET_BATTLE_LEVEL_CHANGED", "EVENT_ARKINV_COLLECTION_PET_UPDATE", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck ) },
-		{ "PET_BATTLE_OPENING_DONE", "EVENT_ARKINV_BATTLEPET_OPENING_DONE", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck ) },
---		{ "PET_BATTLE_OVER", "EVENT_ARKINV_COLLECTION_PET_UPDATE", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck ) },
---		{ "PET_BATTLE_PET_CHANGED", "EVENT_ARKINV_COLLECTION_PET_UPDATE", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck ) },
---		{ "PET_BATTLE_PET_ROUND_RESULTS", "EVENT_ARKINV_COLLECTION_PET_UPDATE", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck ) },
-		{ "PET_BATTLE_QUEUE_STATUS", "EVENT_ARKINV_COLLECTION_PET_UPDATE", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck ) },
---		{ "PET_BATTLE_XP_CHANGED", "EVENT_ARKINV_COLLECTION_PET_UPDATE", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck ) },
-		{ "PET_JOURNAL_LIST_UPDATE", "EVENT_ARKINV_COLLECTION_PET_UPDATE", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck ) },
-		{ "PET_JOURNAL_PET_DELETED", "EVENT_ARKINV_COLLECTION_PET_UPDATE", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck ) },
-		{ "PET_JOURNAL_PET_RESTORED", "EVENT_ARKINV_COLLECTION_PET_UPDATE", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck ) },
-		{ "PET_JOURNAL_PET_REVOKED", "EVENT_ARKINV_COLLECTION_PET_UPDATE", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck ) },
-		{ "PET_JOURNAL_PETS_HEALED", "EVENT_ARKINV_COLLECTION_PET_UPDATE", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck ) },
+		{ "BATTLE_PET_CURSOR_CLEAR", "EVENT_ARKINV_COLLECTION_PET_UPDATE", ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck },
+--		{ "CHAT_MSG_PET_BATTLE_COMBAT_LOG", "EVENT_ARKINV_COLLECTION_PET_UPDATE", ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck },
+--		{ "CHAT_MSG_PET_BATTLE_INFO", "EVENT_ARKINV_COLLECTION_PET_UPDATE", ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck },
+--		{ "CHAT_MSG_PET_INFO", "EVENT_ARKINV_COLLECTION_PET_UPDATE", ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck },
+		{ "COMPANION_LEARNED", "EVENT_ARKINV_COLLECTION_MOUNT_UPDATE", ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck },
+		{ "COMPANION_UNLEARNED", "EVENT_ARKINV_COLLECTION_MOUNT_UPDATE", ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck },
+--		{ "COMPANION_UPDATE", "EVENT_ARKINV_COLLECTION_MOUNT_UPDATE", ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck }, -- do i really need this? it triggers when other people mount/dismount as well
+		{ "NEW_PET_ADDED", "EVENT_ARKINV_COLLECTION_PET_UPDATE", ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck },
+		{ "PET_BATTLE_CLOSE", "EVENT_ARKINV_COLLECTION_PET_UPDATE", ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck },
+		{ "PET_BATTLE_LEVEL_CHANGED", "EVENT_ARKINV_COLLECTION_PET_UPDATE", ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck },
+		{ "PET_BATTLE_OPENING_DONE", "EVENT_ARKINV_BATTLEPET_OPENING_DONE", ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck },
+--		{ "PET_BATTLE_OVER", "EVENT_ARKINV_COLLECTION_PET_UPDATE", ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck },
+--		{ "PET_BATTLE_PET_CHANGED", "EVENT_ARKINV_COLLECTION_PET_UPDATE", ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck },
+--		{ "PET_BATTLE_PET_ROUND_RESULTS", "EVENT_ARKINV_COLLECTION_PET_UPDATE", ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck },
+		{ "PET_BATTLE_QUEUE_STATUS", "EVENT_ARKINV_COLLECTION_PET_UPDATE", ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck },
+--		{ "PET_BATTLE_XP_CHANGED", "EVENT_ARKINV_COLLECTION_PET_UPDATE", ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck },
+		{ "PET_JOURNAL_LIST_UPDATE", "EVENT_ARKINV_COLLECTION_PET_UPDATE", ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck },
+		{ "PET_JOURNAL_PET_DELETED", "EVENT_ARKINV_COLLECTION_PET_UPDATE", ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck },
+		{ "PET_JOURNAL_PET_RESTORED", "EVENT_ARKINV_COLLECTION_PET_UPDATE", ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck },
+		{ "PET_JOURNAL_PET_REVOKED", "EVENT_ARKINV_COLLECTION_PET_UPDATE", ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck },
+		{ "PET_JOURNAL_PETS_HEALED", "EVENT_ARKINV_COLLECTION_PET_UPDATE", ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck },
 
 		{ "OBLITERUM_FORGE_SHOW", "EVENT_ARKINV_OBLITERUM_ENTER", ArkInventory.ENUM.EXPANSION.LEGION, ArkInventory.ENUM.EXPANSION.SHADOWLANDS },
 		{ "OBLITERUM_FORGE_CLOSE", "EVENT_ARKINV_OBLITERUM_LEAVE", ArkInventory.ENUM.EXPANSION.LEGION, ArkInventory.ENUM.EXPANSION.SHADOWLANDS },
@@ -3237,8 +3236,8 @@ function ArkInventory.OnInitialize( )
 		{ "TRANSMOGRIFY_OPEN", "EVENT_ARKINV_TRANSMOG_ENTER", ArkInventory.ENUM.EXPANSION.CATACLYSM, ArkInventory.ENUM.EXPANSION.SHADOWLANDS },
 		{ "TRANSMOGRIFY_CLOSE", "EVENT_ARKINV_TRANSMOG_LEAVE", ArkInventory.ENUM.EXPANSION.CATACLYSM, ArkInventory.ENUM.EXPANSION.SHADOWLANDS },
 
-		{ "NEW_TOY_ADDED", "EVENT_ARKINV_COLLECTION_TOYBOX_UPDATE", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Toybox].ClientCheck ) },
-		{ "TOYS_UPDATED", "EVENT_ARKINV_COLLECTION_TOYBOX_UPDATE", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Toybox].ClientCheck ) },
+		{ "NEW_TOY_ADDED", "EVENT_ARKINV_COLLECTION_TOYBOX_UPDATE", ArkInventory.Global.Location[ArkInventory.Const.Location.Toybox].ClientCheck },
+		{ "TOYS_UPDATED", "EVENT_ARKINV_COLLECTION_TOYBOX_UPDATE", ArkInventory.Global.Location[ArkInventory.Const.Location.Toybox].ClientCheck },
 
 		{ "UPDATE_FACTION", "EVENT_ARKINV_COLLECTION_REPUTATION_UPDATE" }, -- triggers off gui changes and can cause infinite loops if another mod changes the gui
 		{ "CHAT_MSG_COMBAT_FACTION_CHANGE", "EVENT_ARKINV_COLLECTION_REPUTATION_UPDATE" },
@@ -3248,11 +3247,11 @@ function ArkInventory.OnInitialize( )
 --		{ "VOID_STORAGE_OPEN", "EVENT_ARKINV_VOID_ENTER", ArkInventory.ClientCheck( ArkInventory.ENUM.EXPANSION.PANDARIA, ArkInventory.ENUM.EXPANSION.SHADOWLANDS ) }, -- void storage not implemented in cata beta yet so moved to pandaria temporarily
 --		{ "VOID_STORAGE_CLOSE", "EVENT_ARKINV_VOID_LEAVE", ArkInventory.ClientCheck( ArkInventory.ENUM.EXPANSION.PANDARIA, ArkInventory.ENUM.EXPANSION.SHADOWLANDS ) }, -- void storage not implemented in cata beta yet so moved to pandaria temporarily
 
-		{ "VOID_STORAGE_UPDATE", "EVENT_ARKINV_VOID_UPDATE", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Void].ClientCheck ) },
-		{ "VOID_STORAGE_CONTENTS_UPDATE", "EVENT_ARKINV_VOID_UPDATE", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Void].ClientCheck ) },
-		{ "VOID_STORAGE_DEPOSIT_UPDATE", "EVENT_ARKINV_VOID_UPDATE", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Void].ClientCheck ) },
-		{ "VOID_TRANSFER_DONE", "EVENT_ARKINV_VOID_UPDATE", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Void].ClientCheck ) },
---		{ "VOID_DEPOSIT_WARNING", "EVENT_ARKINV_VOID_UPDATE", ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Void].ClientCheck ) },
+		{ "VOID_STORAGE_UPDATE", "EVENT_ARKINV_VOID_UPDATE", ArkInventory.Global.Location[ArkInventory.Const.Location.Void].ClientCheck },
+		{ "VOID_STORAGE_CONTENTS_UPDATE", "EVENT_ARKINV_VOID_UPDATE", ArkInventory.Global.Location[ArkInventory.Const.Location.Void].ClientCheck },
+		{ "VOID_STORAGE_DEPOSIT_UPDATE", "EVENT_ARKINV_VOID_UPDATE", ArkInventory.Global.Location[ArkInventory.Const.Location.Void].ClientCheck },
+		{ "VOID_TRANSFER_DONE", "EVENT_ARKINV_VOID_UPDATE", ArkInventory.Global.Location[ArkInventory.Const.Location.Void].ClientCheck },
+--		{ "VOID_DEPOSIT_WARNING", "EVENT_ARKINV_VOID_UPDATE", ArkInventory.Global.Location[ArkInventory.Const.Location.Void].ClientCheck },
 
 --		{ "ZONE_CHANGED", "EVENT_ARKINV_ZONE_CHANGED" },
 --		{ "ZONE_CHANGED_INDOORS", "EVENT_ARKINV_ZONE_CHANGED" },
@@ -4692,7 +4691,7 @@ function ArkInventory.Frame_Main_Toggle( loc_id )
 
 	ArkInventory.Util.Assert( loc_id, "loc_id is nil" )
 
-	if not ArkInventory.ClientCheck( ArkInventory.Global.Location[loc_id].ClientCheck ) then
+	if not ArkInventory.Global.Location[loc_id].ClientCheck then
 		ArkInventory.OutputWarning( string.format( ArkInventory.Localise["MENU_LOCATION_NOT_SUPPORTED"], ArkInventory.Global.Location[loc_id].Name ) )
 		return
 	end
@@ -4713,6 +4712,8 @@ end
 
 function ArkInventory.Frame_Main_Show( loc_id, player_id )
 
+	if not ArkInventory:IsEnabled( ) then return end
+
 	if ArkInventory.TOCVersionFail( true ) then return end
 
 	--ArkInventory.Output( "Frame_Main_Show( ", loc_id, ", ", player_id, " )" )
@@ -4721,7 +4722,7 @@ function ArkInventory.Frame_Main_Show( loc_id, player_id )
 
 	ArkInventory.Global.Location[loc_id].retryCount = 0
 
-	if not ArkInventory.ClientCheck( ArkInventory.Global.Location[loc_id].ClientCheck ) then
+	if not ArkInventory.Global.Location[loc_id].ClientCheck then
 		ArkInventory.OutputWarning( string.format( ArkInventory.Localise["MENU_LOCATION_NOT_SUPPORTED"], ArkInventory.Global.Location[loc_id].Name ) )
 		return
 	end
@@ -7798,41 +7799,28 @@ function ArkInventory.Frame_Item_Update_StatusIconUpgrade( frame, codex )
 				local codex = codex or ArkInventory.Codex.GetLocation( loc_id )
 				if codex.style.slot.upgradeicon.show then
 
-					local itemIsUpgrade = false
+					if PawnShouldItemLinkHaveUpgradeArrowUnbudgeted then
+						
+						local itemIsUpgrade = PawnShouldItemLinkHaveUpgradeArrowUnbudgeted( i.h, true )
+						
+						if itemIsUpgrade then
 
-					if not itemIsUpgrade and PawnShouldItemLinkHaveUpgradeArrowUnbudgeted then
-						itemIsUpgrade = PawnShouldItemLinkHaveUpgradeArrowUnbudgeted( i.h, true )
-					end
+							--ArkInventory.Output( "item upgrade - ", i.h )
 
-					if ContainerFrameItemButton_UpdateItemUpgradeIcon then -- legion to shadowlands
-						itemIsUpgrade = true
-						ContainerFrameItemButton_UpdateItemUpgradeIcon( frame )
-					end
+							obj:SetWidth( codex.style.slot.upgradeicon.size )
+							obj:SetHeight( codex.style.slot.upgradeicon.size )
 
-					if not itemIsUpgrade and IsContainerItemAnUpgrade then -- was in dragonflight for a while then got removed
-						itemIsUpgrade = IsContainerItemAnUpgrade( frame:GetBagID( ), frame:GetID( ) )
-						if frame.isExtended then
-							itemIsUpgrade = false
+							ArkInventory.SetAnchorPoint( obj, frame, codex.style.slot.upgradeicon.anchor, ArkInventory.ENUM.ANCHOR.BOTTOMLEFT, -3 )
+
+							obj:Show( )
+
+							return
+
+						else
+
+							--ArkInventory.Output( "item not an upgrade - ", i.h )
+
 						end
-					end
-
-
-					if itemIsUpgrade then
-
-						--ArkInventory.Output( "item upgrade - ", i.h )
-
-						obj:SetWidth( codex.style.slot.upgradeicon.size )
-						obj:SetHeight( codex.style.slot.upgradeicon.size )
-
-						ArkInventory.SetAnchorPoint( obj, frame, codex.style.slot.upgradeicon.anchor, ArkInventory.ENUM.ANCHOR.BOTTOMLEFT, -3 )
-
-						obj:Show( )
-
-						return
-
-					else
-
-						--ArkInventory.Output( "item not an upgrade - ", i.h )
 
 					end
 
@@ -8252,9 +8240,11 @@ end
 
 function ArkInventory.ItemTransmogStateAccount( itemID )
 
-	-- /dump ArkInventory.ItemTransmogStateAccount( 215252 )
-
+	--ArkInventory.Output( "itemID = ", itemID )
+	
 	if not itemID then return end
+
+	if not ArkInventory.ClientCheck( ArkInventory.ENUM.EXPANSION.CATACLYSM ) then return end
 
 	if not C_Item or not C_TransmogSets or not C_TransmogCollection then return end
 
@@ -8270,43 +8260,40 @@ function ArkInventory.ItemTransmogStateAccount( itemID )
 
 			appearanceAll = C_TransmogSets.GetAllSourceIDs( setID )
 
-			local appearancePrimary = C_TransmogSets.GetSetPrimaryAppearances( setID )
-			if appearancePrimary then
+			local primaryAppearances = C_TransmogSets.GetSetPrimaryAppearances( setID )
+			local total = ArkInventory.Table.Elements( primaryAppearances ) or 0
+			local count = 0
 
-				local isCollected
-				local total = ArkInventory.Table.Elements( appearancePrimary )
-				local count = 0
+			--ArkInventory.Output( "all=", ArkInventory.Table.Elements( appearanceAll ), " - primary=", total )
 
-				-- does the account know all the slot appearances for the set
-				for k, v in pairs( appearancePrimary ) do
-					isCollected = select( 5, C_TransmogCollection.GetAppearanceSourceInfo( v.appearanceID ) )
-					if isCollected then
+			if primaryAppearances then
+				for k, v in pairs( primaryAppearances ) do
+					if v.collected then
 						count = count + 1
 					end
 				end
+			end
 
-				ArkInventory.Global.Cache.ItemTransmogOwned[itemID] = { setTotal = total, setCount = count }
-				obj = ArkInventory.Global.Cache.ItemTransmogOwned[itemID]
+			ArkInventory.Global.Cache.ItemTransmogOwned[itemID] = { setTotal = total, setCount = count }
 
-				if count == total then
-					obj.isCollected = true
-				end
+			obj = ArkInventory.Global.Cache.ItemTransmogOwned[itemID]
 
+			if total > 0 and count == total then
+				obj.isCollected = true
 			end
 
 		else
-
+			
 			-- its not a transmog set, check if it has an appearance
-
-			local isCollected
+			
 			local appearanceID, sourceID = C_TransmogCollection.GetItemInfo( itemID )
 			if appearanceID and sourceID then
 
 				appearanceAll = C_TransmogCollection.GetAllAppearanceSources( appearanceID )
+				
+				local appearanceInfo = ArkInventory.CrossClient.TransmogCollectionGetAppearanceSourceInfo( sourceID )
+				ArkInventory.Global.Cache.ItemTransmogOwned[itemID] = { isCollected = appearanceInfo.isCollected, itemKnown = appearanceInfo.isCollected }
 
-				isCollected = select( 5, C_TransmogCollection.GetAppearanceSourceInfo( sourceID ) )
-
-				ArkInventory.Global.Cache.ItemTransmogOwned[itemID] = { isCollected = isCollected, itemKnown = isCollected }
 				obj = ArkInventory.Global.Cache.ItemTransmogOwned[itemID]
 
 			else
@@ -8320,14 +8307,54 @@ function ArkInventory.ItemTransmogStateAccount( itemID )
 
 		if obj then
 
+			if obj.isCollected then
+
+				obj.text1 = ArkInventory.Localise["COLLECTED"]
+				obj.colour1 = GREEN_FONT_COLOR_CODE
+				
+				if not obj.setTotal then
+					
+					local text2
+
+					if obj.itemKnown then
+						text2 = ArkInventory.Localise["CONFIG_GENERAL_TOOLTIP_TRANSMOG_FROM_THIS_ITEM"]
+					else
+						obj.colour1 = ORANGE_FONT_COLOR_CODE
+						text2 = ArkInventory.Localise["CONFIG_GENERAL_TOOLTIP_TRANSMOG_FROM_THIS_ITEM_NOT"]
+					end
+
+					obj.text1 = string.format( "%s (%s)", obj.text1, text2 )
+
+				end
+
+			else
+
+				obj.text1 = ArkInventory.Localise["NOT_COLLECTED"]
+				obj.colour1 = RED_FONT_COLOR_CODE
+				
+
+				if obj.setTotal then
+
+					if obj.setTotal == 0 then
+						obj.text1 = ArkInventory.Localise["NO_DATA_AVAILABLE"]
+					elseif obj.setCount > 0 then
+						obj.colour1 = ORANGE_FONT_COLOR_CODE
+					end
+
+				end
+
+			end
+
+
 			if appearanceAll then
 
 				local total = ArkInventory.Table.Elements( appearanceAll )
 				local count = 0
 
 				for k, v in pairs( appearanceAll ) do
-					local isCollected = select( 5, C_TransmogCollection.GetAppearanceSourceInfo( v ) )
-					if isCollected then
+					
+					local appearanceInfo = ArkInventory.CrossClient.TransmogCollectionGetAppearanceSourceInfo( v )
+					if appearanceInfo.isCollected then
 
 						count = count + 1
 
@@ -8336,49 +8363,26 @@ function ArkInventory.ItemTransmogStateAccount( itemID )
 						end
 
 					end
+
 				end
 
 				obj.itemTotal = total
 				obj.itemCount = count
 
-			end
 
-
-			obj.text1 = ArkInventory.Localise["NOT_COLLECTED"]
-			obj.colour1 = RED_FONT_COLOR_CODE
-			obj.colour2 = RED_FONT_COLOR_CODE
-
-			if obj.isCollected then
-
-				obj.text1 = ArkInventory.Localise["COLLECTED"]
-
-				if obj.setTotal then
-					if obj.setTotal == obj.setCount then
-						obj.colour1 = GREEN_FONT_COLOR_CODE
-					end
-				else
-					if obj.itemKnown then
-						obj.colour1 = GREEN_FONT_COLOR_CODE
-						obj.text2 = ArkInventory.Localise["CONFIG_GENERAL_TOOLTIP_TRANSMOG_FROM_THIS_ITEM"]
-					else
-						obj.colour1 = ORANGE_FONT_COLOR_CODE
-						obj.text2 = ArkInventory.Localise["CONFIG_GENERAL_TOOLTIP_TRANSMOG_FROM_THIS_ITEM_NOT"]
-					end
-				end
-
-				if obj.itemTotal == obj.itemCount then
+				if obj.itemCount == 0 then
+					obj.colour2 = RED_FONT_COLOR_CODE
+				elseif obj.itemCount == obj.itemTotal then
 					obj.colour2 = GREEN_FONT_COLOR_CODE
 				else
 					obj.colour2 = ORANGE_FONT_COLOR_CODE
 				end
 
-				if obj.text2 then
-					obj.text1 = string.format( "%s (%s)", obj.text1, obj.text2 )
-				end
-
 			end
 
 		end
+
+
 
 	end
 
@@ -9280,12 +9284,12 @@ function ArkInventory.Frame_Item_UpdateTooltip( frame )
 			end
 
 			if IsModifiedClick("COMPAREITEMS") or ArkInventory.CrossClient.GetCVarBool( "alwaysCompareItems" ) then
-				GameTooltip_ShowCompareItem( GameTooltip )
+				ArkInventory.ShowCompareItem( )
 			end
 
 			if InRepairMode( ) and ( tooltipInfo.repairCost and tooltipInfo.repairCost > 0 ) then
 				GameTooltip:AddLine( REPAIR_COST, nil, nil, nil, true )
-				SetTooltipMoney( GameTooltip, tooltipInfo.repairCost )
+				ArkInventory.SetTooltipMoney( GameTooltip, tooltipInfo.repairCost )
 				GameTooltip:Show( )
 			elseif MerchantFrame:IsShown( ) and MerchantFrame.selectedTab == 1 then
 				showSell = 1
@@ -9333,7 +9337,7 @@ function ArkInventory.Frame_Item_UpdateTooltip( frame )
 
 		elseif IsModifiedClick( "COMPAREITEMS" ) or ArkInventory.CrossClient.GetCVarBool( "alwaysCompareItems" ) then
 
-			GameTooltip_ShowCompareItem( )
+			ArkInventory.ShowCompareItem( )
 
 		elseif reset then
 
@@ -9781,7 +9785,9 @@ function ArkInventory.Frame_Item_OnMouseUp( frame, button )
 
 
 	if loc_id == ArkInventory.Const.Location.Keyring then
-		return ContainerFrameItemButton_OnClick( frame, button )
+		--return ContainerFrameItemButton_OnClick( frame, button )
+		ArkInventory.Lib.StaticDialog:Spawn( "PROTECTED_KEY" )
+		return
 	end
 
 
@@ -9947,8 +9953,7 @@ function ArkInventory.Frame_Item_OnMouseUp( frame, button )
 
 		if button == "LeftButton" then
 
-			--ArkInventory.Collection.Toybox.Summon( i.index )
-			ArkInventory.OutputWarning( "Toys can no longer be summoned by addon code. Please drag the ", i.h, " toy to your action bar to use" )
+			ArkInventory.Collection.Toybox.Summon( i.index )
 
 		elseif button == "RightButton" then
 
@@ -12452,7 +12457,8 @@ function ArkInventory.Frame_Changer_Slot_OnClick( frame, button, loop_protection
 
 				if loc_id_storage == ArkInventory.Const.Location.Bank then
 					if ArkInventory.Const.BLIZZARD.CLIENT.ELEVEN_POINT_TWO then
-						StaticPopup_Show( "CONFIRM_BUY_BANK_TAB", nil, nil, { bankType = ArkInventory.ENUM.BANKTYPE.CHARACTER } )
+						--StaticPopup_Show( "CONFIRM_BUY_BANK_TAB", nil, nil, { bankType = ArkInventory.ENUM.BANKTYPE.CHARACTER } )
+						ArkInventory.Lib.StaticDialog:Spawn( "PROTECTED_BANK_TAB_PURCHASE" )
 					else
 						StaticPopup_Show( "CONFIRM_BUY_BANK_SLOT" )
 					end
@@ -12466,7 +12472,8 @@ function ArkInventory.Frame_Changer_Slot_OnClick( frame, button, loop_protection
 
 				if loc_id_storage == ArkInventory.Const.Location.AccountBank then
 					if not ArkInventory.CrossClient.IsWarbankInUseByAnotherCharacter( ) then
-						StaticPopup_Show( "CONFIRM_BUY_BANK_TAB", nil, nil, { bankType = ArkInventory.ENUM.BANKTYPE.ACCOUNT } )
+						--StaticPopup_Show( "CONFIRM_BUY_BANK_TAB", nil, nil, { bankType = ArkInventory.ENUM.BANKTYPE.ACCOUNT } )
+						ArkInventory.Lib.StaticDialog:Spawn( "PROTECTED_BANK_TAB_PURCHASE" )
 					end
 					return
 				end
@@ -12862,8 +12869,13 @@ end
 
 function ArkInventory.HookOpenBackpack( self, ... )
 
---	ArkInventory.OutputDebug( "HookOpenBackpack( )" )
+	if not ArkInventory:IsEnabled( ) then
+		return ArkInventory.hooks.OpenBackpack( ... )
+	end
 
+
+	-- ArkInventory.OutputDebug( "HookOpenBackpack( )" )
+	
 	local loc_id = ArkInventory.Const.Location.Bag
 
 	if ArkInventory.isLocationControlled( loc_id ) then
@@ -12873,13 +12885,19 @@ function ArkInventory.HookOpenBackpack( self, ... )
 		return BackpackAlreadyOpen
 	end
 
+
 	return ArkInventory.hooks.OpenBackpack( ... )
 
 end
 
 function ArkInventory.HookToggleBackpack( self, ... )
 
---	ArkInventory.OutputDebug( "HookToggleBackpack( )" )
+	if not ArkInventory:IsEnabled( ) then
+		return ArkInventory.hooks.ToggleBackpack( ... )
+	end
+
+
+	--	ArkInventory.OutputDebug( "HookToggleBackpack( )" )
 
 	local loc_id = ArkInventory.Const.Location.Bag
 
@@ -12888,11 +12906,17 @@ function ArkInventory.HookToggleBackpack( self, ... )
 		return
 	end
 
+
 	return ArkInventory.hooks.ToggleBackpack( ... )
 
 end
 
 function ArkInventory.HookOpenBag( self, ... )
+
+	if not ArkInventory:IsEnabled( ) then
+		return ArkInventory.hooks.OpenBag( ... )
+	end
+
 
 	local blizzard_id = ...
 
@@ -12913,15 +12937,21 @@ function ArkInventory.HookOpenBag( self, ... )
 
 	end
 
+
 	return ArkInventory.hooks.OpenBag( ... )
 
 end
 
 function ArkInventory.HookCloseBag( self, ... )
 
-	local blizzard_id = ...
+	if not ArkInventory:IsEnabled( ) then
+		return ArkInventory.hooks.CloseBag( ... )
+	end
+		
 
---	ArkInventory.OutputDebug( "HookCloseBag( ", blizzard_id, " )" )
+	--local blizzard_id = ...
+	--ArkInventory.OutputDebug( "HookCloseBag( ", blizzard_id, " )" )
+
 
 	return ArkInventory.hooks.CloseBag( ... )
 
@@ -12929,9 +12959,14 @@ end
 
 function ArkInventory.HookToggleBag( self, ... )
 
+	if not ArkInventory:IsEnabled( ) then
+		return ArkInventory.hooks.ToggleBag( ... )
+	end
+
+
 	local blizzard_id = ...
 
---	ArkInventory.OutputDebug( "HookToggleBag( ", blizzard_id, " )" )
+	-- ArkInventory.OutputDebug( "HookToggleBag( ", blizzard_id, " )" )
 
 	if blizzard_id then
 
@@ -12948,14 +12983,19 @@ function ArkInventory.HookToggleBag( self, ... )
 
 	end
 
+
 	return ArkInventory.hooks.ToggleBag( ... )
 
 end
 
 function ArkInventory.HookOpenAllBags( self, ... )
 
-	--ArkInventory.Output( "---------------" )
-	--ArkInventory.Output( "HookOpenAllBags" )
+	if not ArkInventory:IsEnabled( ) then
+		return ArkInventory.hooks.OpenAllBags( self, ... )
+	end
+
+
+	--ArkInventory.OutputDebug( "HookOpenAllBags" )
 
 	local who = ...
 	local whoname = who
@@ -13106,7 +13146,7 @@ function ArkInventory.HookOpenAllBags( self, ... )
 
 	end
 
-	--ArkInventory.Output( "HookOpenAllBags - part 2" )
+	--ArkInventory.OutputDebug( "HookOpenAllBags - part 2" )
 
 	if BackpackAlreadyOpen then
 		who = nil
@@ -13115,7 +13155,7 @@ function ArkInventory.HookOpenAllBags( self, ... )
 
 	local loc_id = ArkInventory.Const.Location.Bag
 	if not ArkInventory.isLocationControlled( loc_id ) then
---		ArkInventory.OutputDebug( "HookOpenAllBags - closing all bags" )
+		--ArkInventory.OutputDebug( "HookOpenAllBags - closing all bags" )
 		CloseAllBags( )
 	end
 
@@ -13136,7 +13176,7 @@ function ArkInventory.HookOpenAllBags( self, ... )
 	end
 
 	local loc_id = ArkInventory.Const.Location.Bag
---	ArkInventory.OutputDebug( "HookOpenAllBags - opening all bags by ", whoname )
+	--ArkInventory.OutputDebug( "HookOpenAllBags - opening all bags by ", whoname )
 	ArkInventory.Global.BagsOpenedBy = whoname
 	ArkInventory.hooks.OpenAllBags( who )
 
@@ -13148,7 +13188,7 @@ function ArkInventory.HookOpenAllBags( self, ... )
 			if not ArkInventory.isLocationControlled( loc_id ) then
 				for x = ArkInventory.Const.BLIZZARD.GLOBAL.CONTAINER.NUM_BAGS + 1, ArkInventory.Const.BLIZZARD.GLOBAL.CONTAINER.NUM_BAGS + ArkInventory.Const.BLIZZARD.GLOBAL.BANK.NUM_BAGS do
 					if ArkInventory.CrossClient.GetContainerNumSlots( x ) > 0 then
-	--					ArkInventory.OutputDebug( "HookOpenAllBags - opening bag ", x )
+						--ArkInventory.OutputDebug( "HookOpenAllBags - opening bag ", x )
 						ArkInventory.hooks.OpenBag( x )
 					end
 				end
@@ -13163,7 +13203,12 @@ end
 
 function ArkInventory.HookCloseAllBags( self, ... )
 
---	ArkInventory.OutputDebug( "HookCloseAllBags( )" )
+	if not ArkInventory:IsEnabled( ) then
+		return ArkInventory.hooks.CloseAllBags( ... )
+	end
+
+
+	--ArkInventory.OutputDebug( "HookCloseAllBags( )" )
 
 	local who = ...
 	local whoname = who
@@ -13171,7 +13216,7 @@ function ArkInventory.HookCloseAllBags( self, ... )
 		whoname = who:GetName( )
 	end
 
---	ArkInventory.OutputDebug( "closed by ", whoname )
+	--ArkInventory.OutputDebug( "closed by ", whoname )
 
 	return ArkInventory.hooks.CloseAllBags( ... )
 
@@ -13215,6 +13260,11 @@ local function helper_toggle_blizzard_bags( )
 end
 
 function ArkInventory.HookToggleAllBags( self, ... )
+
+	if not ArkInventory:IsEnabled( ) then
+		return ArkInventory.hooks.ToggleAllBags( ... )
+	end
+
 
 	if ArkInventory.isLocationControlled( ArkInventory.Const.Location.Bag ) and ArkInventory.isLocationControlled( ArkInventory.Const.Location.Bank ) then
 		-- ai bags, ai bank
@@ -13314,120 +13364,130 @@ function ArkInventory.HookToggleAllBags( self, ... )
 end
 
 
-function ArkInventory.HookPlayerInteractionShow( ... )
-	local self, index = ...
-	return ArkInventory.HookPlayerInteractionProcess( index, ArkInventory.Const.BLIZZARD.GLOBAL.FRAME.SHOW )
-end
+local function helper_HookPlayerInteractionProcess( index, state, event, ... )
 
-function ArkInventory.HookPlayerInteractionHide( ... )
-	local self, index = ...
-	return ArkInventory.HookPlayerInteractionProcess( index, ArkInventory.Const.BLIZZARD.GLOBAL.FRAME.HIDE )
-end
+	local e = event or "PLAYER_INTERACTION_HOOK"
+	ArkInventory.OutputDebug( "PlayerInteraction [", index, "] [", state, "] [", e, "]" )
 
-function ArkInventory.HookPlayerInteractionProcess( index, state, event, ... )
+	if state == ArkInventory.Const.BLIZZARD.GLOBAL.FRAME.SHOW then
 
-	if ArkInventory:IsEnabled( ) then
-
-		local e = event or "PLAYER_INTERACTION_HOOK"
-		ArkInventory.OutputDebug( "PlayerInteraction [", index, "] [", state, "] [", e, "]" )
-
-		if state == ArkInventory.Const.BLIZZARD.GLOBAL.FRAME.SHOW then
-
-			if index == Enum.PlayerInteractionType.None then
-				-- do nothing
-			elseif index == Enum.PlayerInteractionType.Banker then
-				ArkInventory:EVENT_ARKINV_BANK_ENTER( e )
-				--if ArkInventory.isLocationControlled( ArkInventory.Const.Location.Bank ) then return end
-			elseif index == Enum.PlayerInteractionType.AccountBanker then
-				ArkInventory:EVENT_ARKINV_ACCOUNTBANK_ENTER( e )
-				ArkInventory:EVENT_ARKINV_BANK_ENTER( e )
-				--if ArkInventory.isLocationControlled( ArkInventory.Const.Location.Bank ) then return end
-			elseif index == Enum.PlayerInteractionType.GuildBanker then
-				ArkInventory:EVENT_ARKINV_VAULT_ENTER( e )
-				--if ArkInventory.isLocationControlled( ArkInventory.Const.Location.Vault ) then return end
-			elseif index == Enum.PlayerInteractionType.MailInfo then
-				ArkInventory:EVENT_ARKINV_MAIL_ENTER( e )
-			elseif index == Enum.PlayerInteractionType.VoidStorageBanker then
-				ArkInventory:EVENT_ARKINV_VOID_ENTER( e )
-			elseif index == Enum.PlayerInteractionType.Transmogrifier then
-				ArkInventory:EVENT_ARKINV_TRANSMOG_ENTER( e )
-			elseif index == Enum.PlayerInteractionType.Auctioneer then
-				ArkInventory:EVENT_ARKINV_AUCTION_ENTER( e )
-			elseif index == Enum.PlayerInteractionType.TradePartner then
-				ArkInventory:EVENT_ARKINV_TRADE_ENTER( e )
-			elseif index == Enum.PlayerInteractionType.ObliterumForge then
-				ArkInventory:EVENT_ARKINV_OBLITERUM_ENTER( e )
-			elseif index == Enum.PlayerInteractionType.ScrappingMachine then
-				ArkInventory:EVENT_ARKINV_SCRAP_ENTER( e )
-			elseif index == Enum.PlayerInteractionType.Vendor or index == Enum.PlayerInteractionType.Merchant then
-				ArkInventory:EVENT_ARKINV_MERCHANT_ENTER( e )
-			else
-				ArkInventory.OutputDebug( "code issue: PlayerInteraction-Show has uncoded index [", index, "]" )
-			end
-
-			if not event then
-
---				if InCombatLockdown( ) then
---					ArkInventory.OutputWarning( "you are in combat, opening this interaction window is going to fail due to in combat restrictions" )
---				end
-
-				ArkInventory.OutputDebug( "show frame [", index, "]" )
-				return ArkInventory.hooks[PlayerInteractionFrameManager].ShowFrame( nil, index )
-
-			end
-
-		elseif state == ArkInventory.Const.BLIZZARD.GLOBAL.FRAME.HIDE then
-
-			if index == Enum.PlayerInteractionType.None then
-				-- do nothing
-			elseif index == Enum.PlayerInteractionType.Banker then
-				ArkInventory:EVENT_ARKINV_BANK_LEAVE( e )
-				--if ArkInventory.isLocationControlled( ArkInventory.Const.Location.Bank ) then return end
-			elseif index == Enum.PlayerInteractionType.AccountBanker then
-				ArkInventory:EVENT_ARKINV_ACCOUNTBANK_LEAVE( e )
-				ArkInventory:EVENT_ARKINV_BANK_LEAVE( e )
-				--if ArkInventory.isLocationControlled( ArkInventory.Const.Location.Bank ) then return end
-			elseif index == Enum.PlayerInteractionType.GuildBanker then
-				ArkInventory:EVENT_ARKINV_VAULT_LEAVE( e )
-				--if ArkInventory.isLocationControlled( ArkInventory.Const.Location.Vault ) then return end
-			elseif index == Enum.PlayerInteractionType.MailInfo then
-				ArkInventory:EVENT_ARKINV_MAIL_LEAVE( e )
-			elseif index == Enum.PlayerInteractionType.VoidStorageBanker then
-				ArkInventory:EVENT_ARKINV_VOID_LEAVE( e )
-			elseif index == Enum.PlayerInteractionType.Transmogrifier then
-				ArkInventory:EVENT_ARKINV_TRANSMOG_LEAVE( e )
-			elseif index == Enum.PlayerInteractionType.Auctioneer then
-				ArkInventory:EVENT_ARKINV_AUCTION_LEAVE( e )
-			elseif index == Enum.PlayerInteractionType.TradePartner then
-				ArkInventory:EVENT_ARKINV_TRADE_LEAVE( e )
-			elseif index == Enum.PlayerInteractionType.ObliterumForge then
-				ArkInventory:EVENT_ARKINV_OBLITERUM_LEAVE( e )
-			elseif index == Enum.PlayerInteractionType.ScrappingMachine then
-				ArkInventory:EVENT_ARKINV_SCRAP_LEAVE( e )
-			elseif index == Enum.PlayerInteractionType.Vendor or index == Enum.PlayerInteractionType.Merchant then
-				ArkInventory:EVENT_ARKINV_MERCHANT_LEAVE( e )
-			else
-				ArkInventory.OutputDebug( "code issue: PlayerInteraction-Hide has uncoded index [", index, "]" )
-			end
-
-			if not event then
-				ArkInventory.OutputDebug( "hide frame [", index, "]" )
-				return ArkInventory.hooks[PlayerInteractionFrameManager].HideFrame( nil, index )
-			end
-
+		if index == Enum.PlayerInteractionType.None then
+			-- do nothing
+		elseif index == Enum.PlayerInteractionType.Banker then
+			ArkInventory:EVENT_ARKINV_BANK_ENTER( e )
+			--if ArkInventory.isLocationControlled( ArkInventory.Const.Location.Bank ) then return end
+		elseif index == Enum.PlayerInteractionType.AccountBanker then
+			ArkInventory:EVENT_ARKINV_ACCOUNTBANK_ENTER( e )
+			ArkInventory:EVENT_ARKINV_BANK_ENTER( e )
+			--if ArkInventory.isLocationControlled( ArkInventory.Const.Location.Bank ) then return end
+		elseif index == Enum.PlayerInteractionType.GuildBanker then
+			ArkInventory:EVENT_ARKINV_VAULT_ENTER( e )
+			--if ArkInventory.isLocationControlled( ArkInventory.Const.Location.Vault ) then return end
+		elseif index == Enum.PlayerInteractionType.MailInfo then
+			ArkInventory:EVENT_ARKINV_MAIL_ENTER( e )
+		elseif index == Enum.PlayerInteractionType.VoidStorageBanker then
+			ArkInventory:EVENT_ARKINV_VOID_ENTER( e )
+		elseif index == Enum.PlayerInteractionType.Transmogrifier then
+			ArkInventory:EVENT_ARKINV_TRANSMOG_ENTER( e )
+		elseif index == Enum.PlayerInteractionType.Auctioneer then
+			ArkInventory:EVENT_ARKINV_AUCTION_ENTER( e )
+		elseif index == Enum.PlayerInteractionType.TradePartner then
+			ArkInventory:EVENT_ARKINV_TRADE_ENTER( e )
+		elseif index == Enum.PlayerInteractionType.ObliterumForge then
+			ArkInventory:EVENT_ARKINV_OBLITERUM_ENTER( e )
+		elseif index == Enum.PlayerInteractionType.ScrappingMachine then
+			ArkInventory:EVENT_ARKINV_SCRAP_ENTER( e )
+		elseif index == Enum.PlayerInteractionType.Vendor or index == Enum.PlayerInteractionType.Merchant then
+			ArkInventory:EVENT_ARKINV_MERCHANT_ENTER( e )
 		else
+			ArkInventory.OutputDebug( "code issue: PlayerInteraction-Show has uncoded index [", index, "]" )
+		end
 
-			ArkInventory.OutputWarning( "code issue: PlayerInteraction has unknown state [", state, "]" )
+		if not event then
+
+			--if InCombatLockdown( ) then
+				--ArkInventory.OutputWarning( "you are in combat, opening this interaction window is going to fail due to in combat restrictions" )
+			--end
+
+			ArkInventory.OutputDebug( "show frame [", index, "]" )
+			return ArkInventory.hooks[PlayerInteractionFrameManager].ShowFrame( nil, index )
 
 		end
+
+	elseif state == ArkInventory.Const.BLIZZARD.GLOBAL.FRAME.HIDE then
+
+		if index == Enum.PlayerInteractionType.None then
+			-- do nothing
+		elseif index == Enum.PlayerInteractionType.Banker then
+			ArkInventory:EVENT_ARKINV_BANK_LEAVE( e )
+			--if ArkInventory.isLocationControlled( ArkInventory.Const.Location.Bank ) then return end
+		elseif index == Enum.PlayerInteractionType.AccountBanker then
+			ArkInventory:EVENT_ARKINV_ACCOUNTBANK_LEAVE( e )
+			ArkInventory:EVENT_ARKINV_BANK_LEAVE( e )
+			--if ArkInventory.isLocationControlled( ArkInventory.Const.Location.Bank ) then return end
+		elseif index == Enum.PlayerInteractionType.GuildBanker then
+			ArkInventory:EVENT_ARKINV_VAULT_LEAVE( e )
+			--if ArkInventory.isLocationControlled( ArkInventory.Const.Location.Vault ) then return end
+		elseif index == Enum.PlayerInteractionType.MailInfo then
+			ArkInventory:EVENT_ARKINV_MAIL_LEAVE( e )
+		elseif index == Enum.PlayerInteractionType.VoidStorageBanker then
+			ArkInventory:EVENT_ARKINV_VOID_LEAVE( e )
+		elseif index == Enum.PlayerInteractionType.Transmogrifier then
+			ArkInventory:EVENT_ARKINV_TRANSMOG_LEAVE( e )
+		elseif index == Enum.PlayerInteractionType.Auctioneer then
+			ArkInventory:EVENT_ARKINV_AUCTION_LEAVE( e )
+		elseif index == Enum.PlayerInteractionType.TradePartner then
+			ArkInventory:EVENT_ARKINV_TRADE_LEAVE( e )
+		elseif index == Enum.PlayerInteractionType.ObliterumForge then
+			ArkInventory:EVENT_ARKINV_OBLITERUM_LEAVE( e )
+		elseif index == Enum.PlayerInteractionType.ScrappingMachine then
+			ArkInventory:EVENT_ARKINV_SCRAP_LEAVE( e )
+		elseif index == Enum.PlayerInteractionType.Vendor or index == Enum.PlayerInteractionType.Merchant then
+			ArkInventory:EVENT_ARKINV_MERCHANT_LEAVE( e )
+		else
+			ArkInventory.OutputDebug( "code issue: PlayerInteraction-Hide has uncoded index [", index, "]" )
+		end
+
+		if not event then
+			ArkInventory.OutputDebug( "hide frame [", index, "]" )
+			return ArkInventory.hooks[PlayerInteractionFrameManager].HideFrame( nil, index )
+		end
+
+	else
+
+		ArkInventory.OutputWarning( "code issue: PlayerInteraction has unknown state [", state, "]" )
 
 	end
 
 end
 
+function ArkInventory.HookPlayerInteractionShow( ... )
+	
+	if not ArkInventory:IsEnabled( ) then
+		return ArkInventory.hooks[PlayerInteractionFrameManager].ShowFrame( ... )
+	end
+
+
+	local self, index = ...
+	return helper_HookPlayerInteractionProcess( index, ArkInventory.Const.BLIZZARD.GLOBAL.FRAME.SHOW )
+
+end
+
+function ArkInventory.HookPlayerInteractionHide( ... )
+	
+	if not ArkInventory:IsEnabled( ) then
+		return ArkInventory.hooks[PlayerInteractionFrameManager].HideFrame( ... )
+	end
+
+
+	local self, index = ...
+	return helper_HookPlayerInteractionProcess( index, ArkInventory.Const.BLIZZARD.GLOBAL.FRAME.HIDE )
+end
+
 function ArkInventory.HookEngravingFrameHide( ... )
 
 	if not ArkInventory:IsEnabled( ) then return end
+
 
 	if ArkInventory.db.option.auto.close.rune > ArkInventory.ENUM.BAG.OPENCLOSE.NO and ArkInventory.isLocationControlled( ArkInventory.Const.Location.Bag ) then
 		if ArkInventory.db.option.auto.close.rune == ArkInventory.ENUM.BAG.OPENCLOSE.ALWAYS or ArkInventory.Global.BagsOpenedBy == "EngravingFrame" then
@@ -13444,6 +13504,9 @@ end
 
 function ArkInventory.HookBankFrame_ShowPanel( ... )
 
+	if not ArkInventory:IsEnabled( ) then return end
+
+
 	-- account bank panel in bank clicked
 
 	local loc_id_window = ArkInventory.Const.Location.Bank
@@ -13456,13 +13519,13 @@ function ArkInventory.HookBankFrame_ShowPanel( ... )
 		return
 	end
 
-	if ArkInventory.Global.Location[loc_id_window].isOffline then
-		--ArkInventory.Output( "bank window is offline - ignored" )
+	if ArkInventory.isLocationControlled( loc_id_window ) then
+		--ArkInventory.Output( "bank window is controlled by ai - ignored" )
 		return
 	end
 
-	if ArkInventory.isLocationControlled( loc_id_window ) then
-		--ArkInventory.Output( "bank window is controlled by ai - ignored" )
+	if ArkInventory.Global.Location[loc_id_window].isOffline then
+		--ArkInventory.Output( "bank window is offline - ignored" )
 		return
 	end
 
@@ -13491,6 +13554,9 @@ end
 
 function ArkInventory.HookBankFrame_SetTab( self, ... )
 
+	if not ArkInventory:IsEnabled( ) then return end
+
+
 	-- blizzard bank type changed, sync ai window
 
 	local loc_id_window = ArkInventory.Const.Location.Bank
@@ -13508,6 +13574,9 @@ function ArkInventory.HookBankFrame_SetTab( self, ... )
 end
 
 function ArkInventory.HookBankPanel_SelectTab( self, ... )
+
+	if not ArkInventory:IsEnabled( ) then return end
+
 
 	-- blizzard bank bag clicked, sync ai window
 
@@ -13537,24 +13606,40 @@ function ArkInventory.HookBankPanel_SelectTab( self, ... )
 end
 
 function ArkInventory.HookVoidStorageShow( self, ... )
+	
+	if not ArkInventory:IsEnabled( ) then return end
+	
+	
 	ArkInventory:EVENT_ARKINV_VOID_ENTER( ... )
+
 end
 
 function ArkInventory.HookVoidStorageHide( self, ... )
+
+	if not ArkInventory:IsEnabled( ) then return end
+
+
 	ArkInventory:EVENT_ARKINV_VOID_LEAVE( ... )
+
 end
 
 function ArkInventory.HookVoidStorageEvent( self, event )
---	ArkInventory.OutputDebug( "void storage event ", event )
+
+	if not ArkInventory:IsEnabled( ) then return end
+
+
+	--ArkInventory.OutputDebug( "void storage event ", event )
+
 end
 
 function ArkInventory.HookFloatingBattlePet_Show( ... )
 
+	if not ArkInventory:IsEnabled( ) then return end
+	
+	
 	-- speciesID, level, breedQuality, maxHealth, power, speed, customName, bPetID
 
 	--ArkInventory.OutputDebug( "0 - HookFloatingBattlePet_Show" )
-
-	if not ArkInventory:IsEnabled( ) then return end
 
 	if not ArkInventory.db.option.tooltip.battlepet.enable then return end
 
@@ -13575,15 +13660,30 @@ function ArkInventory.HookFloatingBattlePet_Show( ... )
 end
 
 function ArkInventory.HookCPetJournalSetFavorite( ... )
+	
+	if not ArkInventory:IsEnabled( ) then return end
+	
+
 	ArkInventory:SendMessage( "EVENT_ARKINV_COLLECTION_PET_UPDATE_BUCKET", "SET_FAVOURITE" )
+
 end
 
 function ArkInventory.HookCPetJournalSetCustomName( ... )
+	
+	if not ArkInventory:IsEnabled( ) then return end
+	
+	
 	ArkInventory:SendMessage( "EVENT_ARKINV_COLLECTION_PET_UPDATE_BUCKET", "RENAME" )
+
 end
 
 function ArkInventory.HookCToyboxSetFavorite( ... )
+
+	if not ArkInventory:IsEnabled( ) then return end
+
+
 	ArkInventory:SendMessage( "EVENT_ARKINV_COLLECTION_TOYBOX_UPDATE_BUCKET", "SET_FAVOURITE" )
+
 end
 
 function ArkInventory.LoadAddOn( addonname )
@@ -13634,12 +13734,12 @@ function ArkInventory.BlizzardAPIHook( disable, reload )
 	--ArkInventory.LoadAddOn( "Blizzard_AuctionHouseUI" )
 
 
-	if ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Vault].ClientCheck ) then
+	if ArkInventory.Global.Location[ArkInventory.Const.Location.Vault].ClientCheck then
 		ArkInventory.LoadAddOn( "Blizzard_GuildBankUI" )
 	end
 
 
-	if ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Void].ClientCheck ) then
+	if ArkInventory.Global.Location[ArkInventory.Const.Location.Void].ClientCheck then
 		ArkInventory.LoadAddOn( "Blizzard_VoidStorageUI" )
 	end
 
@@ -13647,34 +13747,34 @@ function ArkInventory.BlizzardAPIHook( disable, reload )
 	if not ArkInventory.Global.BlizzardAPIHook then
 
 		-- void storage
-		if ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Void].ClientCheck ) then
+		if ArkInventory.Global.Location[ArkInventory.Const.Location.Void].ClientCheck then
 			VoidStorageFrame:HookScript( "OnShow", ArkInventory.HookVoidStorageShow )
 			VoidStorageFrame:HookScript( "OnHide", ArkInventory.HookVoidStorageHide )
 		end
 
 
 		-- collections
-		if ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck ) then
+		if ArkInventory.Global.Location[ArkInventory.Const.Location.Pet].ClientCheck then
 			PetJournal:HookScript( "OnHide", ArkInventory.Collection.Pet.OnHide )
 		end
 
-		if ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Mount].ClientCheck ) then
+		if ArkInventory.Global.Location[ArkInventory.Const.Location.Mount].ClientCheck then
 			MountJournal:HookScript( "OnHide", ArkInventory.Collection.Mount.OnHide )
 		end
 
-		if ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Heirloom].ClientCheck ) then
+		if ArkInventory.Global.Location[ArkInventory.Const.Location.Heirloom].ClientCheck then
 			HeirloomsJournal:HookScript( "OnHide", ArkInventory.Collection.Heirloom.OnHide )
 		end
 
-		if ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Toybox].ClientCheck ) then
+		if ArkInventory.Global.Location[ArkInventory.Const.Location.Toybox].ClientCheck then
 			ToyBox:HookScript( "OnHide", ArkInventory.Collection.Toybox.OnHide )
 		end
 
-		if ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Currency].ClientCheck ) then
+		if ArkInventory.Global.Location[ArkInventory.Const.Location.Currency].ClientCheck then
 			TokenFrame:HookScript( "OnHide", ArkInventory.Collection.Currency.OnHide )
 		end
 
-		if ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Reputation].ClientCheck ) then
+		if ArkInventory.Global.Location[ArkInventory.Const.Location.Reputation].ClientCheck then
 			ReputationFrame:HookScript( "OnHide", ArkInventory.Collection.Reputation.OnHide )
 		end
 
@@ -13769,7 +13869,7 @@ function ArkInventory.BlizzardAPIHook( disable, reload )
 
 		-- tooltips
 		for func, proj in pairs( ArkInventory.Const.BLIZZARD.TooltipFunctions ) do
-			if true or proj then -- fix this once the table is sorted out
+			if true or proj then -- fix me once the table is sorted out
 				-- one off error message here instead of one per tooltip below
 				local myfunc = "HookTooltip"..func
 				if not ArkInventory[myfunc] then
@@ -13785,7 +13885,7 @@ function ArkInventory.BlizzardAPIHook( disable, reload )
 				ArkInventory.TooltipMyDataClear( obj )
 
 				for func, proj in pairs( ArkInventory.Const.BLIZZARD.TooltipFunctions ) do
-					if true or proj then -- fix this once the table is sorted out
+					if true or proj then -- fix me once the table is sorted out
 						local myfunc = "HookTooltip"..func
 						ArkInventory.MySecureHook( obj:GetName( ), func, ArkInventory[myfunc] )
 					end
@@ -13836,7 +13936,7 @@ function ArkInventory.BlizzardAPIHook( disable, reload )
 
 
 	-- guild bank
-	if ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Vault].ClientCheck ) then
+	if ArkInventory.Global.Location[ArkInventory.Const.Location.Vault].ClientCheck then
 
 		if not GuildBankFrame or not GuildBankPopupFrame then
 
@@ -13910,7 +14010,6 @@ function ArkInventory.BlizzardAPIHook( disable, reload )
 			if obj then
 
 				if ArkInventory.db.option.tooltip.scale.enabled then
----@diagnostic disable-next-line: undefined-field
 					if not obj.IsEmbedded then
 						-- do not scale embedded tooltips, theyre already scaled from their parent
 						obj:SetScale( ArkInventory.db.option.tooltip.scale.amount or 1 )
@@ -13930,6 +14029,7 @@ function ArkInventory.BlizzardAPIHook( disable, reload )
 			FloatingBattlePetTooltip:Hide( )
 		end
 	end
+
 
 	ArkInventory.OutputDebug( "BlizzardAPIHook - End" )
 
@@ -14103,6 +14203,9 @@ function ArkInventory.ToggleChanger( loc_id )
 end
 
 function ArkInventory.ToggleEditMode( )
+	
+	if not ArkInventory:IsEnabled( ) then return end
+
 	ArkInventory.Lib.Dewdrop:Close( )
 	ArkInventory.Global.Mode.Edit = not ArkInventory.Global.Mode.Edit
 	--ArkInventory.OutputWarning( "ToggleEditMode - .restart window draw" )
@@ -14309,7 +14412,7 @@ function ArkInventory.ScrollingMessageFrame_ScrollWheel( parent, name, direction
 end
 
 function ArkInventory.isLocationMonitored( loc_id_window )
-	if ArkInventory.ClientCheck( ArkInventory.Global.Location[loc_id_window].ClientCheck ) then
+	if ArkInventory.Global.Location[loc_id_window].ClientCheck then
 		local me = ArkInventory.Codex.GetPlayer( loc_id_window )
 		return me.profile.location[loc_id_window].monitor
 	end
@@ -14330,14 +14433,16 @@ function ArkInventory.LocationMonitorChanged( loc_id_window )
 end
 
 function ArkInventory.isLocationControlled( loc_id_window )
-	if ArkInventory.ClientCheck( ArkInventory.Global.Location[loc_id_window].ClientCheck ) then
-		local me = ArkInventory.Codex.GetPlayer( loc_id_window )
-		return me.profile.location[loc_id_window].override
+	if ArkInventory:IsEnabled( ) then
+		if ArkInventory.Global.Location[loc_id_window].ClientCheck then
+			local me = ArkInventory.Codex.GetPlayer( loc_id_window )
+			return me.profile.location[loc_id_window].override
+		end
 	end
 end
 
 function ArkInventory.isLocationSaved( loc_id_window )
-	if ArkInventory.ClientCheck( ArkInventory.Global.Location[loc_id_window].ClientCheck ) then
+	if ArkInventory.Global.Location[loc_id_window].ClientCheck then
 		local me = ArkInventory.Codex.GetPlayer( loc_id_window )
 		return me.profile.location[loc_id_window].save
 	end

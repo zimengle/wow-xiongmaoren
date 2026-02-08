@@ -1,27 +1,18 @@
 local _, addonTable = ...;
+local Create=addonTable.Create
+local PIGButton=Create.PIGButton
+local CommonInfo=addonTable.CommonInfo
+local AudioData=addonTable.AudioList.Data
+local Fun=addonTable.Fun
 local FramePlusfun=addonTable.FramePlusfun
---任务界面扩展--------------------
-function FramePlusfun.Quest()
-	local Create=addonTable.Create
-	local PIGButton=Create.PIGButton
-	if not PIGA["FramePlus"]["Quest"] then return end
-	if NDui then return end
-	if PIG_MaxTocversion(20000,true) and QuestLogFrame and not QuestLogFrame.allopen then
-		QuestLogFrame.allopen = PIGButton(QuestLogFrame,{"TOPLEFT",QuestLogFrame,"TOPLEFT",185,-38.6},{24,23},"+",nil,nil,nil,nil,0);
-		QuestLogFrame.allopen:SetScript("OnClick", function(self)
-			ExpandQuestHeader(0)
-		end)
-		QuestLogFrame.allopen.alloff = PIGButton(QuestLogFrame.allopen,{"LEFT",QuestLogFrame.allopen,"RIGHT",6,1.6},{24,23},"-",nil,nil,nil,nil,0);
-		QuestLogFrame.allopen.alloff:SetScript("OnClick", function(self)
-			CollapseQuestHeader(0) 
-		end)
-		if PIG_MaxTocversion() then
-			QuestLogFrame.allopen:SetPoint("TOPLEFT",QuestLogFrame,"TOPLEFT",180,-40);
-		end
-	end
-	local maxWWW = 250
+--=============
+--显示任务等级
+function FramePlusfun.QuestLevel()
 	if PIG_MaxTocversion() then
-		local function gengxinLVQR()--显示任务等级
+		if not PIGA["FramePlus"]["QuestLevel"] then return end
+		if QuestLogListScrollFrame.PIGQuestLevel then return end
+		QuestLogListScrollFrame.PIGQuestLevel=true
+		local function gengxinLVQR()
 			local numEntries, numQuests = GetNumQuestLogEntries();
 			if (numEntries == 0) then return end
 			for i = 1, QUESTS_DISPLAYED, 1 do
@@ -64,6 +55,59 @@ function FramePlusfun.Quest()
 		hooksecurefunc("QuestLog_Update", function()
 			gengxinLVQR()
 		end)
+	end
+end
+
+--最贵卖价
+function FramePlusfun.QuestSellMax()
+	if PIG_MaxTocversion() then
+		if not PIGA["FramePlus"]["QuestSellMax"] then return end
+		if QuestFrame.PIGQuestSellMax then return end
+		QuestFrame.PIGQuestSellMax=true
+		local rewardsFrame = QuestInfoFrame.rewardsFrame
+		local rewardButtons = rewardsFrame.RewardButtons;
+		QuestFrame:HookScript("OnEvent", function(self,event)
+			if event == "QUEST_COMPLETE" then
+				C_Timer.After(0.2,function()
+					if not self:IsShown() then return end
+					self.junkGGG={0,0}
+					for index,butui in pairs(rewardButtons) do
+						if butui.junkcoin then butui.junkcoin:Hide() end
+						local questItem = QuestInfo_GetRewardButton(rewardsFrame, index);
+						if questItem and questItem.objectType == "item" then
+							local ItemLink=GetQuestItemLink(questItem.type, index)
+							if ItemLink then
+								local sellPrice= select(11, C_Item.GetItemInfo(ItemLink))
+								if sellPrice and sellPrice>0 then
+									if sellPrice>self.junkGGG[2] then
+										self.junkGGG[2]=sellPrice
+										self.junkGGG[1]=index
+									end
+								end
+							end
+						end
+					end
+					if self.junkGGG[1]>0 then
+						local butui=rewardButtons[self.junkGGG[1]]
+						if not butui.junkcoin then
+							butui.junkcoin = butui:CreateTexture(nil, "OVERLAY");
+							butui.junkcoin:SetAtlas("bags-junkcoin")
+							butui.junkcoin:SetSize(20,18);
+							butui.junkcoin:SetPoint("BOTTOMRIGHT", butui,"BOTTOMRIGHT",0, 0);
+						end
+						butui.junkcoin:Show()
+					end
+				end)
+			end
+		end)
+	end
+end
+
+--扩展界面
+function FramePlusfun.Quest()
+	if PIG_MaxTocversion() then
+		if not PIGA["FramePlus"]["Quest"] then return end
+		if NDui then return end
 		if PIG_MaxTocversion(30000) then
 			if QUESTS_DISPLAYED==6 then 
 				local xssdadas = 714
@@ -118,7 +162,7 @@ function FramePlusfun.Quest()
 				QuestFramePushQuestButton:ClearAllPoints()
 				QuestFramePushQuestButton:SetPoint("LEFT", QuestLogFrameAbandonButton, "RIGHT", -3, 0)
 				-- 增加显示地图按钮
-				logMapButton = PIGButton(QuestLogFrame,{"LEFT", QuestFramePushQuestButton, "RIGHT", -3, 0},{80, 21},SHOW_MAP,nil,nil,nil,nil,0);
+				logMapButton = PIGButton(QuestLogFrame,{"LEFT", QuestFramePushQuestButton, "RIGHT", 0, 0},{100, 21},SHOW_MAP,nil,nil,nil,nil,0);
 				logMapButton:SetScript("OnClick", ToggleWorldMap)
 				-- 调整没有任务文字提示位置
 				QuestLogNoQuestsText:ClearAllPoints();
@@ -130,43 +174,101 @@ function FramePlusfun.Quest()
 				txset[3]:Hide();
 				txset[4]:Hide();
 			end
+		else
+			if QuestLogFrame and not QuestLogFrame.allopen then
+				local xxxx,yyyy=185,-38.6
+				if PIG_MaxTocversion(40000,true) then
+					xxxx,yyyy=200,-32
+				end
+				QuestLogFrame.allopen = PIGButton(QuestLogFrame,{"TOPLEFT",QuestLogFrame,"TOPLEFT",xxxx,yyyy},{24,23},"+",nil,nil,nil,nil,0);
+				QuestLogFrame.allopen:SetScript("OnClick", function(self)
+					ExpandQuestHeader(0)
+				end)
+				QuestLogFrame.allopen.alloff = PIGButton(QuestLogFrame.allopen,{"LEFT",QuestLogFrame.allopen,"RIGHT",6,0},{24,23},"-",nil,nil,nil,nil,0);
+				QuestLogFrame.allopen.alloff:SetScript("OnClick", function(self)
+					CollapseQuestHeader(0) 
+				end)
+			end
 		end
 	end
-	--最贵卖价
-	local rewardsFrame = QuestInfoFrame.rewardsFrame
-	local rewardButtons = rewardsFrame.RewardButtons;
-	QuestFrame:HookScript("OnEvent", function(self,event)
-		if event == "QUEST_COMPLETE" then
-			C_Timer.After(0.2,function()
-				if not self:IsShown() then return end
-				self.junkGGG={0,0}
-				for index,butui in pairs(rewardButtons) do
-					if butui.junkcoin then butui.junkcoin:Hide() end
-					local questItem = QuestInfo_GetRewardButton(rewardsFrame, index);
-					if questItem and questItem.objectType == "item" then
-						local ItemLink=GetQuestItemLink(questItem.type, index)
-						if ItemLink then
-							local sellPrice= select(11, C_Item.GetItemInfo(ItemLink))
-							if sellPrice and sellPrice>0 then
-								if sellPrice>self.junkGGG[2] then
-									self.junkGGG[2]=sellPrice
-									self.junkGGG[1]=index
-								end
-							end
+end
+
+--任务完成
+local QuestsEndFrameUI = CreateFrame("Frame");
+QuestsEndFrameUI.EndList={}
+local function PIG_PlaySoundAudio(ok,questID)										
+	if ok and not QuestsEndFrameUI.initialize and not QuestsEndFrameUI.EndList[questID] then
+		PIG_PlaySoundFile(AudioData.QuestEnd[PIGA["Common"]["QuestsEndAudio"]])
+	end
+	QuestsEndFrameUI.EndList[questID]=ok
+end
+local function GetQuestsInfo(event)
+	if PIG_MaxTocversion() then
+		if QuestMapFrame then QuestMapFrame.ignoreQuestLogUpdate = true end
+		local numShownEntries = GetNumQuestLogEntries()
+		for questIndex=1,numShownEntries do	
+			local title, level, suggestedGroup, isHeader, isCollapsed, isComplete, frequency, questID = GetQuestLogTitle(questIndex)
+			if isHeader and isCollapsed then--是标题
+				ExpandQuestHeader(questIndex)
+				return
+			end
+		end
+		local numShownEntries, numQuests = GetNumQuestLogEntries()
+		for questIndex=1,numShownEntries do	
+			local title, level, suggestedGroup, isHeader, isCollapsed, isComplete, frequency, questID = GetQuestLogTitle(questIndex)
+			if not isHeader then
+				-- local numQuestLogLeaderBoards,= GetNumQuestLeaderBoards(questID)--子项目完成情况
+				-- for ii=1,1 do
+				-- 	local description, objectiveType, isCompleted = GetQuestLogLeaderBoard(ii, questIndex)
+				-- 	print(description, objectiveType, isCompleted)
+				-- end
+				PIG_PlaySoundAudio(isComplete,questID)
+			end
+		end
+		if QuestMapFrame then QuestMapFrame.ignoreQuestLogUpdate = nil end
+	else
+		local numShownEntries, numQuests = C_QuestLog.GetNumQuestLogEntries()
+		for i=1,numShownEntries do
+			local info = C_QuestLog.GetInfo(i)
+			if not info.isHeader then
+				local objectives = C_QuestLog.GetQuestObjectives(info.questID)
+				local renwuzixiang = #objectives
+				if renwuzixiang>0 then
+					local yiwancheng = true
+					for ii=1,renwuzixiang do
+						if not objectives[ii].finished then
+							yiwancheng = objectives[ii].finished
+							break
 						end
 					end
+					PIG_PlaySoundAudio(yiwancheng,info.questID)
 				end
-				if self.junkGGG[1]>0 then
-					local butui=rewardButtons[self.junkGGG[1]]
-					if not butui.junkcoin then
-						butui.junkcoin = butui:CreateTexture(nil, "OVERLAY");
-						butui.junkcoin:SetAtlas("bags-junkcoin")
-						butui.junkcoin:SetSize(20,18);
-						butui.junkcoin:SetPoint("BOTTOMRIGHT", butui,"BOTTOMRIGHT",0, 0);
-					end
-					butui.junkcoin:Show()
-				end
-			end)
+			end
 		end
-	end)
+	end
+	
+end
+QuestsEndFrameUI:SetScript("OnEvent", function(self,event)
+	if event == "PLAYER_ENTERING_WORLD" then
+		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
+		self:RegisterEvent("QUEST_LOG_UPDATE")
+		self:RegisterEvent("QUEST_WATCH_UPDATE")
+		self:RegisterEvent("QUEST_WATCH_LIST_CHANGED")
+		self:RegisterUnitEvent("UNIT_QUEST_LOG_CHANGED","player")
+		self.initialize=true
+		GetQuestsInfo(event)
+		C_Timer.After(3,function()
+			self.initialize=nil
+		end)
+	else
+		GetQuestsInfo(event)
+	end
+end)
+function FramePlusfun.QuestsEnd()
+	PIGA["Common"]["QuestsEndAudio"]=Fun.IsAudioNumMaxV(PIGA["Common"]["QuestsEndAudio"],AudioData.QuestEnd)
+	if PIGA["Common"]["QuestsEnd"] then
+		QuestsEndFrameUI:RegisterEvent("PLAYER_ENTERING_WORLD")
+	else
+		QuestsEndFrameUI:UnregisterAllEvents()
+	end
 end

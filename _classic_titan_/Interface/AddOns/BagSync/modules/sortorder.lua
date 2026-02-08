@@ -7,6 +7,7 @@
 --]]
 
 local BSYC = select(2, ...) --grab the addon namespace
+local UI = BSYC:GetModule("UI")
 local SortOrder = BSYC:NewModule("SortOrder")
 local Data = BSYC:GetModule("Data")
 local Tooltip = BSYC:GetModule("Tooltip")
@@ -18,7 +19,7 @@ end
 local L = BSYC.L
 
 function SortOrder:OnEnable()
-	local sortorderFrame = BSYC:UI_CreateModuleFrame(SortOrder, {
+	local sortorderFrame = UI:CreateModuleFrame(SortOrder, {
 		template = "BagSyncFrameTemplate",
 		globalName = "BagSyncSortOrderFrame",
 		title = "BagSync - "..L.SortOrder,
@@ -29,7 +30,7 @@ function SortOrder:OnEnable()
 	})
 	SortOrder.frame = sortorderFrame
 
-	SortOrder.scrollFrame = BSYC:UI_CreateHybridScrollFrame(sortorderFrame, {
+	SortOrder.scrollFrame = UI:CreateHybridScrollFrame(sortorderFrame, {
 		width = 397,
 		pointTopLeft = { "TOPLEFT", sortorderFrame, "TOPLEFT", 13, -29 },
 		-- set ScrollFrame height by altering the distance from the bottom of the frame
@@ -41,37 +42,31 @@ function SortOrder:OnEnable()
 	SortOrder.sortorderList = {}
 
 	--Warning Frame
-	local warningFrame = _G.CreateFrame("Frame", nil, sortorderFrame, "BagSyncInfoFrameTemplate")
-	warningFrame:Hide()
-	warningFrame:SetBackdropColor(0, 0, 0, 0.75)
-    warningFrame:EnableMouse(true) --don't allow clickthrough
-    warningFrame:SetMovable(false)
-	warningFrame:SetResizable(false)
-    warningFrame:SetFrameStrata("FULLSCREEN_DIALOG")
-	warningFrame:ClearAllPoints()
-	warningFrame:SetPoint("TOPLEFT", sortorderFrame, "TOPRIGHT", 5, 0)
-	warningFrame.TitleText:SetText(L.DisplaySortOrderHelp)
-	warningFrame.TitleText:SetFont(STANDARD_TEXT_FONT, 14, "")
-	warningFrame.TitleText:SetTextColor(1, 1, 1)
-	warningFrame.infoText1 = warningFrame:CreateFontString(nil, "BACKGROUND", "GameFontHighlightSmall")
-	warningFrame.infoText1:SetText(L.DisplaySortOrderStatus)
-	warningFrame.infoText1:SetFont(STANDARD_TEXT_FONT, 14, "")
-	warningFrame.infoText1:SetTextColor(1, 165/255, 0) --orange, red is just too much sometimes
-	warningFrame.infoText1:SetJustifyH("CENTER")
-	warningFrame.infoText1:SetWidth(warningFrame:GetWidth() - 30)
-	warningFrame.infoText1:SetPoint("LEFT", warningFrame, "TOPLEFT", 10, -40)
-	warningFrame.infoText2 = warningFrame:CreateFontString(nil, "BACKGROUND", "GameFontHighlightSmall")
-	warningFrame.infoText2:SetText(L.CustomSortInfo.."\n\n"..L.CustomSortInfoWarn)
-	warningFrame.infoText2:SetFont(STANDARD_TEXT_FONT, 14, "")
-	warningFrame.infoText2:SetTextColor(50/255, 165/255, 0)
-	warningFrame.infoText2:SetWidth(warningFrame:GetWidth() - 30)
-	warningFrame.infoText2:SetPoint("LEFT", warningFrame.infoText1, "BOTTOMLEFT", 5, -100)
-	warningFrame.infoText2:SetJustifyH("CENTER")
+	local warningFrame = UI:CreateInfoFrame(sortorderFrame, {
+		title = L.DisplaySortOrderHelp,
+		point = { "TOPLEFT", sortorderFrame, "TOPRIGHT", 5, 0 },
+		backdropColor = { 0, 0, 0, 0.75 },
+		frameStrata = "FULLSCREEN_DIALOG",
+	})
+	warningFrame.infoText1 = UI:CreateFontString(warningFrame, {
+		template = "GameFontHighlightSmall",
+		text = L.DisplaySortOrderStatus,
+		font = { STANDARD_TEXT_FONT, 14, "" },
+		textColor = { 1, 165/255, 0 }, --orange, red is just too much sometimes
+		justifyH = "CENTER",
+		width = warningFrame:GetWidth() - 30,
+		point = { "LEFT", warningFrame, "TOPLEFT", 10, -40 },
+	})
+	warningFrame.infoText2 = UI:CreateFontString(warningFrame, {
+		template = "GameFontHighlightSmall",
+		text = L.CustomSortInfo.."\n\n"..L.CustomSortInfoWarn,
+		font = { STANDARD_TEXT_FONT, 14, "" },
+		textColor = { 50/255, 165/255, 0 },
+		width = warningFrame:GetWidth() - 30,
+		point = { "LEFT", warningFrame.infoText1, "BOTTOMLEFT", 5, -100 },
+		justifyH = "CENTER",
+	})
 	SortOrder.warningFrame = warningFrame
-	if warningFrame.CloseButton then
-		warningFrame.CloseButton:SetScript("OnClick", function(self) self:GetParent():Hide() end)
-	end
-
 	sortorderFrame:Hide()
 end
 
@@ -98,8 +93,20 @@ function SortOrder:CreateList()
 	SortOrder.sortorderList = {}
 	local usrData = {}
 	local SortIndex = 0
+	local function normalizeSortIndex(unitObj)
+		if not unitObj or not unitObj.data then return end
+		local v = unitObj.data.SortIndex
+		if v == nil then return end
+		local n = tonumber(v)
+		if n then
+			unitObj.data.SortIndex = n
+		else
+			unitObj.data.SortIndex = nil
+		end
+	end
 
 	for unitObj in Data:IterateUnits(true) do
+		normalizeSortIndex(unitObj)
 		table.insert(usrData, {
 			unitObj = unitObj,
 			name = unitObj.name,
@@ -111,6 +118,7 @@ function SortOrder:CreateList()
 	--add warband
 	local warbandObj = Data:GetWarbandBankObj()
 	if warbandObj then
+		normalizeSortIndex(warbandObj)
 		table.insert(usrData, {
 			unitObj = warbandObj,
 			name = warbandObj.name,
@@ -168,19 +176,19 @@ function SortOrder:RefreshList()
 
     for buttonIndex = 1, #buttons do
         local button = buttons[buttonIndex]
-		BSYC:UI_AttachListItemHandlers(button, SortOrder)
+		UI:AttachListItemHandlers(button, SortOrder)
 		if button.SortBox and not button.SortBox.__bsycHandlers then
 			button.SortBox.parentHandler = SortOrder
 			button.SortBox:SetScript("OnEscapePressed", function(self)
 				self:ClearFocus()
-				BSYC:UI_CallHandler(self, "SortBox_OnEscapePressed", self:GetText(), self)
+				UI:CallHandler(self, "SortBox_OnEscapePressed", self:GetText(), self)
 			end)
 			button.SortBox:SetScript("OnEnterPressed", function(self)
 				self:ClearFocus()
-				BSYC:UI_CallHandler(self, "SortBox_OnEnterPressed", self:GetText(), self)
+				UI:CallHandler(self, "SortBox_OnEnterPressed", self:GetText(), self)
 			end)
 			button.SortBox:SetScript("OnTextChanged", function(self, userInput)
-				BSYC:UI_CallHandler(self, "SortBox_OnTextChanged", userInput, self)
+				UI:CallHandler(self, "SortBox_OnTextChanged", userInput, self)
 			end)
 			button.SortBox.__bsycHandlers = true
 		end
@@ -214,10 +222,10 @@ function SortOrder:RefreshList()
 
 			--while we are updating the scrollframe, is the mouse currently over a button?
 			--if so we need to force the OnEnter as the items will scroll up in data but the button remains the same position on our cursor
-				if BSYC:IsMouseOver(button) then
-					SortOrder:Item_OnLeave() --hide first
-					SortOrder:Item_OnEnter(button)
-				end
+			if BSYC:IsMouseOver(button) then
+				SortOrder:Item_OnLeave() --hide first
+				SortOrder:Item_OnEnter(button)
+			end
 
             button:Show()
         else

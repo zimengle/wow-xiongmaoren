@@ -1,5 +1,4 @@
-﻿---@diagnostic disable: undefined-field
-local _G = _G
+﻿local _G = _G
 local select = _G.select
 local pairs = _G.pairs
 local ipairs = _G.ipairs
@@ -211,7 +210,7 @@ function ArkInventory.MenuMainOpen( frame )
 					end
 				)
 				
-				if ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Mount].ClientCheck ) then
+				if ArkInventory.Global.Location[ArkInventory.Const.Location.Mount].ClientCheck then
 					
 					ArkInventory.Lib.Dewdrop:AddLine(
 						"icon", ArkInventory.Global.Location[ArkInventory.Const.Location.Mount].Texture,
@@ -2472,7 +2471,8 @@ function ArkInventory.MenuBagOpen( frame )
 									"closeWhenClicked", true,
 									"func", function( )
 										PlaySound( SOUNDKIT.IG_MAINMENU_OPTION )
-										StaticPopup_Show( "CONFIRM_BUY_BANK_TAB", nil, nil, { bankType = ArkInventory.ENUM.BANKTYPE.CHARACTER } )
+										--StaticPopup_Show( "CONFIRM_BUY_BANK_TAB", nil, nil, { bankType = ArkInventory.ENUM.BANKTYPE.CHARACTER } )
+										ArkInventory.Lib.StaticDialog:Spawn( "PROTECTED_BANK_TAB_PURCHASE" )
 									end
 								)
 
@@ -2498,7 +2498,7 @@ function ArkInventory.MenuBagOpen( frame )
 							
 						end
 						
-						if loc_id_storage == ArkInventory.Const.Location.ReagentBank then
+						if GetReagentBankCost and loc_id_storage == ArkInventory.Const.Location.ReagentBank then
 							
 							local cost = GetReagentBankCost( )
 							
@@ -2519,51 +2519,36 @@ function ArkInventory.MenuBagOpen( frame )
 						
 						if loc_id_storage == ArkInventory.Const.Location.AccountBank then
 							
+							local txt = ""
 							if ArkInventory.Const.BLIZZARD.CLIENT.ELEVEN_POINT_TWO then
-
 								local tabData = C_Bank.FetchNextPurchasableBankTabData( ArkInventory.ENUM.BANKTYPE.ACCOUNT )
-								local txt = string.format( "%s %s", ArkInventory.Localise["COSTS_LABEL"], ArkInventory.MoneyText( tabData.tabCost, true ) )
-								
-								ArkInventory.Lib.Dewdrop:AddLine( )
-								
-								ArkInventory.Lib.Dewdrop:AddLine(
-									"text", ArkInventory.Localise["BANKSLOTPURCHASE"],
-									"tooltipTitle", ArkInventory.Localise["ACCOUNTBANK"],
-									"tooltipText", txt,
-									"closeWhenClicked", true,
-									"func", function( )
-										PlaySound( SOUNDKIT.IG_MAINMENU_OPTION )
-										StaticPopup_Show( "CONFIRM_BUY_BANK_TAB", nil, nil, { bankType = ArkInventory.ENUM.BANKTYPE.ACCOUNT } )
-									end
-								)
-
+								txt = string.format( "%s %s", ArkInventory.Localise["COSTS_LABEL"], ArkInventory.MoneyText( tabData.tabCost, true ) )
 							else
-
 								local cost = C_Bank.FetchNextPurchasableBankTabCost( ArkInventory.ENUM.BANKTYPE.ACCOUNT )
-								local txt = string.format( "%s\n\n%s %s", ArkInventory.Localise["ACCOUNT_BANK_TAB_PURCHASE_PROMPT"], ArkInventory.Localise["COSTS_LABEL"], ArkInventory.MoneyText( cost, true ) )
-								
-								if ArkInventory.CrossClient.IsWarbankInUseByAnotherCharacter( ) then
-									txt = string.format("%s\n\n%s", txt, ArkInventory.Localise["ACCOUNT_BANK_LOCKED_PROMPT"] )
-								end
-								
-								ArkInventory.Lib.Dewdrop:AddLine( )
-
-								ArkInventory.Lib.Dewdrop:AddLine(
-									"text", ArkInventory.Localise["BANKSLOTPURCHASE"],
-									"tooltipTitle", ArkInventory.Localise["ACCOUNTBANK"],
-									"tooltipText", txt,
-									"closeWhenClicked", true,
-									"disabled", function( )
-										return ArkInventory.CrossClient.IsWarbankInUseByAnotherCharacter( )
-									end,
-									"func", function( )
-										PlaySound( SOUNDKIT.IG_MAINMENU_OPTION )
-										StaticPopup_Show( "CONFIRM_BUY_BANK_TAB", nil, nil, { bankType = ArkInventory.ENUM.BANKTYPE.ACCOUNT } )
-									end
-								)
-
+								txt = string.format( "%s\n\n%s %s", ArkInventory.Localise["ACCOUNT_BANK_TAB_PURCHASE_PROMPT"], ArkInventory.Localise["COSTS_LABEL"], ArkInventory.MoneyText( cost, true ) )
 							end
-							
+
+							if ArkInventory.CrossClient.IsWarbankInUseByAnotherCharacter( ) then
+								txt = string.format("%s\n\n%s", txt, ArkInventory.Localise["ACCOUNT_BANK_LOCKED_PROMPT"] )
+							end
+
+							ArkInventory.Lib.Dewdrop:AddLine( )
+								
+							ArkInventory.Lib.Dewdrop:AddLine(
+								"text", ArkInventory.Localise["BANKSLOTPURCHASE"],
+								"tooltipTitle", ArkInventory.Localise["ACCOUNTBANK"],
+								"tooltipText", txt,
+								"closeWhenClicked", true,
+								"disabled", function( )
+									return ArkInventory.CrossClient.IsWarbankInUseByAnotherCharacter( )
+								end,
+								"func", function( )
+									PlaySound( SOUNDKIT.IG_MAINMENU_OPTION )
+									--StaticPopup_Show( "CONFIRM_BUY_BANK_TAB", nil, nil, { bankType = ArkInventory.ENUM.BANKTYPE.ACCOUNT } )
+									ArkInventory.Lib.StaticDialog:Spawn( "PROTECTED_BANK_TAB_PURCHASE" )
+								end
+							)
+
 						end
 						
 						if loc_id_storage == ArkInventory.Const.Location.Vault then
@@ -3009,7 +2994,7 @@ function ArkInventory.MenuBagOpen( frame )
 					end
 						
 					-- reagent bank deposit options
-					if loc_id_storage == ArkInventory.Const.Location.ReagentBank then
+					if DepositReagentBank and loc_id_storage == ArkInventory.Const.Location.ReagentBank then
 						
 						if not ArkInventory.Global.Location[loc_id].isOffline then
 							
@@ -3350,7 +3335,7 @@ function ArkInventory.MenuSwitchLocation( offset, level, value, frame )
 			
 			local t = ArkInventory.Global.Location
 			for loc_id, loc_data in ArkInventory.spairs( t, function( a, b ) return ( t[a].Name or "" ) < ( t[b].Name or "" ) end ) do
-				if loc_data.canView and ArkInventory.ClientCheck( loc_data.ClientCheck ) then
+				if loc_data.canView and loc_data.ClientCheck then
 					ArkInventory.Lib.Dewdrop:AddLine(
 						"text", loc_data.Name,
 						"tooltipTitle", loc_data.Name,
@@ -3963,7 +3948,7 @@ function ArkInventory.MenuLDBBagsOpen( frame )
 						
 						if not v.hide then
 							
-							if ArkInventory.ClientCheck( v.ClientCheck ) then
+							if v.ClientCheck then
 								
 								ArkInventory.Lib.Dewdrop:AddLine(
 									"text", v.name,
@@ -5764,7 +5749,7 @@ function ArkInventory.MenuStatusActionOpen( frame )
 					ArkInventory.Lib.Dewdrop:AddLine(
 						"text", DEPOSIT,
 						"closeWhenClicked", true,
-						"disabled", not ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.AccountBank].ClientCheck ),
+						"disabled", not ArkInventory.Global.Location[ArkInventory.Const.Location.AccountBank].ClientCheck,
 						"func", function( )
 							ArkInventory.MoneyAccountBankDeposit( )
 						end
@@ -5774,7 +5759,7 @@ function ArkInventory.MenuStatusActionOpen( frame )
 						"text", WITHDRAW,
 						"tooltipTitle", WITHDRAW,
 						"closeWhenClicked", true,
-						"disabled", not ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.AccountBank].ClientCheck ),
+						"disabled", not ArkInventory.Global.Location[ArkInventory.Const.Location.AccountBank].ClientCheck,
 						"func", function( )
 							ArkInventory.MoneyAccountBankWithdraw( )
 						end

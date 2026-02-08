@@ -23,7 +23,7 @@ local CombatPlusfun=addonTable.CombatPlusfun
 --------------------------
 local CombatPlusF,CombatPlustabbut =PIGOptionsList_R(CombatPlusfun.RTabFrame,L["COMBAT_TABNAME1"],90)
 CombatPlusF:Show()
-CombatPlustabbut:Selected()
+CombatPlustabbut:Selected(true)
 function CombatPlusF:Show_OptionsUI()
 	if PIG_OptionsUI:IsShown() then
 		PIG_OptionsUI:Hide()
@@ -97,7 +97,15 @@ local function SetAutoShowFun(peizhiT)
 			end
 		end
 	end
-	pigui:SetShown(pigui.ShowHide)
+	if PIG_MaxTocversion() then
+		pigui:SetShown(pigui.ShowHide)
+	else
+		if peizhiT=="markerR" then
+			for i=1,#pigui.ButList do
+				pigui.ButList[i].icon:SetDesaturated(not pigui.ShowHide)
+			end
+		end
+	end
 end
 local function SetAutoShow(peizhiT)
 	local pigui=_G[GNNmame..peizhiT]
@@ -146,7 +154,9 @@ local function add_barUI(peizhiT)
 	biaojiUIx.bartopV=bartopV
 	CombatPlusF.addGongnum=CombatPlusF.addGongnum-SizeHH-2
 	biaojiUIx:PIGSetBackdrop(0.4,0.9,nil,{0.3,0.3,0.3})
-	biaojiUIx:Hide()
+	if PIG_MaxTocversion() then
+		biaojiUIx:Hide()
+	end
 	biaojiUIx.yidong = PIGFrame(biaojiUIx)
 	biaojiUIx.yidong:PIGSetBackdrop(0.4,0.9,nil,{0.3,0.3,0.3})
 	biaojiUIx.yidong:SetSize(12, SizeHH)
@@ -168,21 +178,31 @@ local function add_barUI(peizhiT)
 		if Button=="RightButton" then CombatPlusF:Show_OptionsUI() end
 	end);
 	---
+	biaojiUIx.ButList={}
 	for i=1,listNum do
 		local listbut
 		if peizhiT=="markerR" then
-			listbut = CreateFrame("Button", nil, biaojiUIx)
+			listbut = CreateFrame("Button", nil, biaojiUIx,"SecureActionButtonTemplate")
 			listbut:SetHighlightTexture("Interface/Buttons/ButtonHilight-Square")
 			listbut:SetSize(biaojiW,biaojiW)	
 			listbut:SetPoint("LEFT", biaojiUIx, "LEFT",i*(biaojiW+3)-biaojiW,0)
-			listbut:SetNormalTexture(RiconList[i][1])
+			listbut.icon = listbut:CreateTexture()
+			listbut.icon:SetTexture(RiconList[i][1]);
+			listbut.icon:SetSize(biaojiW,biaojiW)
+			listbut.icon:SetPoint("CENTER", 0, 0);
 			if RiconList[i][2] then
-				listbut:GetNormalTexture():SetTexCoord(RiconList[i][2][1],RiconList[i][2][2],RiconList[i][2][3],RiconList[i][2][4])
+				listbut.icon:SetTexCoord(RiconList[i][2][1],RiconList[i][2][2],RiconList[i][2][3],RiconList[i][2][4])
 			end
-			listbut:SetScript("OnClick", function(self) 
-				--SetRaidTargetIcon("target", listNum-i) 
-				SetRaidTarget("target", listNum-i)
-			end)
+			if PIG_MaxTocversion() then
+				listbut:SetScript("OnClick", function(self) 
+					--SetRaidTargetIcon("target", listNum-i) 
+					SetRaidTarget("target", listNum-i)
+				end)
+			else
+				listbut:RegisterForClicks("LeftButtonUp", "LeftButtonDown", "RightButtonUp", "RightButtonDown")
+				listbut:SetAttribute("type1", "macro")
+				listbut:SetAttribute("macrotext1", "/tm " .. listNum-i)
+			end		
 		elseif peizhiT=="markerW" then
 			listbut = CreateFrame("CheckButton", nil, biaojiUIx,"SecureActionButtonTemplate")
 			PIGUseKeyDown(listbut)
@@ -215,6 +235,7 @@ local function add_barUI(peizhiT)
 				PlaySound(SOUNDKIT.IG_CHAT_EMOTE_BUTTON);
 			end
 		end)
+		biaojiUIx.ButList[i]=listbut
 	end
 	biaojiUIx:SetScale(PIGA["CombatPlus"][peizhiT]["Scale"])
 	biaojiUIx.yidong:SetShown(not PIGA["CombatPlus"][peizhiT]["Lock"])
@@ -280,7 +301,7 @@ local function add_Options(peizhiT,topHV)
 		PIGA["CombatPlus"][peizhiT]["Scale"]=arg1;
 		SetScaleUI(peizhiT)
 	end
-	checkbutOpen.F.Lock.CZBUT = PIGButton(checkbutOpen.F.Lock,{"LEFT",checkbutOpen.F.Slider,"RIGHT",70,0},{50,22},"重置")
+	checkbutOpen.F.Lock.CZBUT = PIGButton(checkbutOpen.F.Lock,{"LEFT",checkbutOpen.F.Slider,"RIGHT",70,0},{50,22},RESET)
 	checkbutOpen.F.Lock.CZBUT:SetScript("OnClick", function ()
 		Create.PIG_ResPoint(GNNmame..peizhiT)
 		local pigui=_G[GNNmame..peizhiT]

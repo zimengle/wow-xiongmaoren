@@ -1226,5 +1226,145 @@ nil,
 ["ReceiveItems"] = {
 },
 },
+{
+["PlayerName"] = "李家沱-铁血",
+["Date"] = "2026-02-07",
+["Time"] = "16:47:04",
+["ReceiveMoney"] = 0,
+["GiveItems"] = {
+{
+["Number"] = 63,
+["ItemLink"] = "|cffffffff|Hitem:21877::::::::63::::::::::|h[灵纹布]|h|r",
+["Name"] = "灵纹布",
+},
+[6] = {
+["Number"] = 69,
+["ItemLink"] = "|cffffffff|Hitem:14047::::::::63::::::::::|h[符文布]|h|r",
+["Name"] = "符文布",
+},
+[10] = {
+["Number"] = 1,
+["ItemLink"] = "|cff1eff00|Hitem:7080::::::::63::::::::::|h[水之精华]|h|r",
+["Name"] = "水之精华",
+},
+[12] = {
+["Number"] = 1,
+["ItemLink"] = "|cffffffff|Hitem:22578::::::::63::::::::::|h[水之微粒]|h|r",
+["Name"] = "水之微粒",
+},
+[4] = {
+["Number"] = 1,
+["ItemLink"] = "|cffffffff|Hitem:4291::::::::63::::::::::|h[丝线]|h|r",
+["Name"] = "丝线",
+},
+[11] = {
+["Number"] = 1,
+["ItemLink"] = "|cff1eff00|Hitem:21885::::::::63::::::::::|h[源生之水]|h|r",
+["Name"] = "源生之水",
+},
+},
+["GiveMoney"] = 0,
+["Location"] = "泰罗卡森林",
+["TargetName"] = "仓库萌-铁血",
+["Result"] = "sent",
+["ReceiveItems"] = {
+},
+},
+{
+["PlayerName"] = "李家沱-铁血",
+["Date"] = "2026-02-07",
+["Time"] = "16:47:13",
+["ReceiveMoney"] = 0,
+["GiveItems"] = {
+{
+["Number"] = 29,
+["ItemLink"] = "|cffffffff|Hitem:27676::::::::63::::::::::|h[奇怪的孢子]|h|r",
+["Name"] = "奇怪的孢子",
+},
+nil,
+{
+["Number"] = 35,
+["ItemLink"] = "|cffffffff|Hitem:24401::::::::63::::::::::|h[未鉴定过的植物]|h|r",
+["Name"] = "未鉴定过的植物",
+},
+{
+["Number"] = 6,
+["ItemLink"] = "|cffffffff|Hitem:24449::::::::63::::::::::|h[成熟的孢子]|h|r",
+["Name"] = "成熟的孢子",
+},
+},
+["GiveMoney"] = 0,
+["Location"] = "泰罗卡森林",
+["TargetName"] = "仓库萌-铁血",
+["Result"] = "sent",
+["ReceiveItems"] = {
+},
+},
+{
+["PlayerName"] = "李家沱-铁血",
+["Date"] = "2026-02-07",
+["Time"] = "16:47:16",
+["ReceiveMoney"] = 0,
+["GiveItems"] = {
+{
+["Number"] = 2,
+["ItemLink"] = "|cffffffff|Hitem:22575::::::::63::::::::::|h[生命微粒]|h|r",
+["Name"] = "生命微粒",
+},
+},
+["GiveMoney"] = 0,
+["Location"] = "泰罗卡森林",
+["TargetName"] = "仓库萌-铁血",
+["Result"] = "sent",
+["ReceiveItems"] = {
+},
+},
+{
+["Date"] = "2026-02-08",
+["PlayerName"] = "李家沱-铁血",
+["ReceiveMoney"] = 0,
+["Time"] = "00:33:53",
+["GiveMoney"] = 0,
+["Location"] = "泰罗卡森林",
+["TargetName"] = "网名而已-铁血",
+["GiveItems"] = {
+},
+["ReceiveItems"] = {
+},
+},
+{
+["PlayerName"] = "李家沱-铁血",
+["Date"] = "2026-02-08",
+["Time"] = "00:54:34",
+["ReceiveMoney"] = 0,
+["GiveItems"] = {
+{
+["Number"] = 73,
+["ItemLink"] = "|cffffffff|Hitem:21877::::::::64::::::::::|h[灵纹布]|h|r",
+["Name"] = "灵纹布",
+},
+[5] = {
+["Number"] = 1,
+["ItemLink"] = "|cffffffff|Hitem:21881::::::::64::::::::::|h[灵网蜘蛛丝]|h|r",
+["Name"] = "灵网蜘蛛丝",
+},
+[6] = {
+["Number"] = 2,
+["ItemLink"] = "|cffffffff|Hitem:22575::::::::64::::::::::|h[生命微粒]|h|r",
+["Name"] = "生命微粒",
+},
+[8] = {
+["Number"] = 7,
+["ItemLink"] = "|cffffffff|Hitem:14047::::::::64::::::::::|h[符文布]|h|r",
+["Name"] = "符文布",
+},
+},
+["GiveMoney"] = 0,
+["Location"] = "沙塔斯城",
+["TargetName"] = "仓库萌-铁血",
+["Result"] = "sent",
+["ReceiveItems"] = {
+},
+},
 },
 }

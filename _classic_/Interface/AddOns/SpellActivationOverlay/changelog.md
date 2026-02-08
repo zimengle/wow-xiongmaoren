@@ -1,5 +1,135 @@
 ## SpellActivationOverlay Changelog
 
+#### v2.7.2 (2026-02-03)
+
+Thank you to our amazing contributors for helping out. Thanks!
+- Nezzey and catpokemon for suggesting Priest's Clearcasting effect
+- simgr0 for suggesting Shaman's Shamanistic Focus
+- cottycotty for reporting the Dominos issue
+
+New Spell Alerts
+- Priest's Clearcasting (The Burning Crusade)
+- Shaman's Shamanistic Focus (The Burning Crusade, Wrath, Cataclysm)
+
+New Glowing Buttons
+- Priest's Binding Heal, during Clearcasting (The Burning Crusade)
+- Priest's Flash Heal, during Clearcasting (The Burning Crusade)
+- Priest's Greater Heal, during Clearcasting (The Burning Crusade)
+- Shaman's Earth Shock, during Shamanistic Focus (TBC, Wrath, Cata)
+- Shaman's Flame Shock, during Shamanistic Focus (TBC, Wrath, Cata)
+- Shaman's Frost Shock, during Shamanistic Focus (TBC, Wrath, Cata)
+
+Updated Spell Alerts
+- Shaman's Elemental Focus visuals are now consistent
+- Healing Trance visuals have been updated (The Burning Crusade, Wrath)
+
+Bug Fixes
+- Buttons should glow as intended with Dominos (The Burning Crusade)
+
+This release optimizes code size a bit further than in 2.7.0
+
+#### v2.7.1 (2026-01-21)
+
+Support for Titan Reforged: Wrath
+- It uses the Wrath Classic flavor
+- Since testing on Titan Reforged servers is complicated, support is limited
+- Make sure to report issues, thank you :)
+
+Bug Fixes
+- Universal build is no longer seen as 'out of date' (The Burning Crusade)
+- Developer build is no longer seen as 'out of date' (Era, TBC, Wrath, Cata)
+
+#### v2.7.0 (2026-01-20)
+
+Thank you to our amazing contributors for helping out. Thanks!
+- @Amanthuul my man, for adding Death Knights effects to Mists of Pandaria
+
+Introducing The Burning Crusade flavor!
+- The addon has pretty advanced support at the moment
+- Make sure to report issues and suggest ideas, thank you :)
+
+Spell Alerts for The Burning Crusade
+- Druid's Nature's Grace
+- Hunter's Mongoose Bite
+- Mage's Clearcasting
+- Mage's Freeze debuff
+- Priest's Surge of Light
+- Rogue's Riposte
+- Shaman's Elemental Focus
+- Warlock's Backlash
+- Warlock's Eye of Kilrogg
+- Warlock's Nightfall
+- Healing Trance / Eye of Gruul, for all healing classes
+
+Glowing Buttons for The Burning Crusade
+- Hunter's Counterattack
+- Hunter's Mongoose Bite
+- Mage's Ice Lance, when the target is Frozen
+- Priest's Shadowform, when not assuming the shadowform
+- Priest's Smite, during Surge of Light
+- Paladin's Exorcism
+- Paladin's Hammer of Wrath
+- Paladin's Holy Shock
+- Rogue's Riposte
+- Warlock's Incinerate, during Backlash
+- Warlock's Shadow Bolt, during Backlash
+- Warlock's Shadow Bolt, during Nightfall
+- Warrior's Execute
+- Warrior's Overpower
+- Warrior's Revenge
+- Warrior's Victory Rush
+
+This release optimizes code size
+- The addon loads slightly faster
+- The addon uses slightly less memory
+- Packages are slightly smaller to download
+- Gains are about 5-15% depending on game flavor and player class
+
+New Glowing Buttons
+- Death Knight's Blood Tap, with 5+ charges of Blood Charge (Mists of Pandaria)
+- Death Knight's Soul Reaper, when the target has low hp (Mists of Pandaria)
+- There are three Soul Reaper options - one for each spec
+- By default, Soul Reaper's execute threshold is 35% of the target's health
+- Soul Reaper's execute threshold increases to 45% with the tier 15 set bonus
+
+Bug Fixes
+- Glowing Buttons are now functional (The Burning Crusade)
+- Item text\* is now always displayed in options (The Burning Crusade, Wrath)
+
+\* Currently supported items are Eye of Gruul (TBC) and Soul Preserver (Wrath)
+
+Known Limitations
+- Sliders in the options panel have no background ruler (The Burning Crusade)
+
+#### v2.6.2 (2026-01-07)
+
+Bug Fixes
+- The addon should no longer cause Lua errors at start
+
+#### v2.6.1 (2026-01-06)
+
+Thank you to our amazing contributors for helping out. Thanks!
+- COl3RA79 and user_lomdxj6j146bfugc for reporting the Riposte issue
+- lecrabby for reporting the Mongoose Bite issue
+
+Bump in TOC file for Throne of Thunder patch (Mists of Pandaria)
+
+This release is focused on optimizing code
+- Messages for developers are no longer called in non-developer builds
+- Improved performance for classes with several stances, such as Druid
+- The deprecated Counter system, used in pre-2.0, has been terminated
+- Less CPU is used to dispatch game events to intended recipients
+
+New Spell Alert
+- Warlock's Soul Swap (Mists of Pandaria)
+
+New Glowing Button
+- Warlock's Soul Swap: Exhale, during Soul Swap (Mists of Pandaria)
+
+Bug Fixes
+- Hunter's Mongoose Bite should now always trigger as intended (Classic Era)
+- Rogue's Riposte should now trigger as intended (Classic Era)
+
 #### v2.6.0 (2025-11-10)
 
 Thank you to our amazing contributors for helping out. Thanks!
@@ -97,7 +227,7 @@ Bug Fixes
 Ghosts\*\*\* Busted
 - Hunter's Mongoose Bite (Classic Era, The Burning Crusade)
 - Hunter's Flanking Strike (Season of Discovery)
-- Shaman's Rolling Thunder  (Season of Discovery, The Burning Crusade)
+- Shaman's Rolling Thunder (Season of Discovery, The Burning Crusade)
 - Shaman's Molten Blast (Season of Discovery)
 - Shaman's Fulmination (Cataclysm, Mists of Pandaria)
 - Shaman's Lava Surge (Cataclysm, Mists of Pandaria)
@@ -377,7 +507,7 @@ New Glowing Buttons
 - Warrior's Execute, during Regicide (Season of Discovery)
 - Warrior's Heroic Strike, during Incite (Cataclysm)
 
-Introducting Mists of Pandaria flavor!
+Introducing Mists of Pandaria flavor!
 - The addon is still in very early stage
 - Support for Death Knight's Crimson Scourge
 - Support for Death Knight's Will of the Necropolis

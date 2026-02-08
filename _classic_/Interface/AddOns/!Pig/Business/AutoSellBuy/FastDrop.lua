@@ -33,7 +33,7 @@ function BusinessInfo.FastDrop(QuickButUI_index)
 	local BindingName = GnUI.."_".._GNE
 	local fujiF,fujiTabBut=PIGOptionsList_R(_G[GnUI].F,"丢",50,"Left")
 	fujiF:Show()
-	fujiTabBut:Selected()
+	fujiTabBut:Selected(true)
 	BusinessInfo.ADDScroll(fujiF,_GN,_GNE,17,{false,"AutoSellBuy",_GNE.."_List"})
 	----
 	fujiF.Bindings = PIGButton(fujiF,{"TOPLEFT",fujiF,"TOPLEFT",20,-10},{76,20},KEY_BINDING);
@@ -98,7 +98,7 @@ function BusinessInfo.FastDrop(QuickButUI_index)
 			if QuickButUI[_GNE] then return end
 			QuickButUI[_GNE]=true
 			local QuickTooltip = KEY_BUTTON1.."-|cff00FFFF".._GN.."指定物品|r\n"..KEY_BUTTON2.."-|cff00FFFF打开"..GnName.."|r"
-			local QkBut=PIGQuickBut(nil,QuickTooltip,134152,nil,FrameLevel)----133799
+			local QkBut=PIGQuickBut(nil,QuickTooltip,GnIcon,nil,FrameLevel)
 			QkBut:SetScript("OnClick", function(self,button)
 				if button=="LeftButton" then
 					PlaySound(SOUNDKIT.U_CHAT_SCROLL_BUTTON);

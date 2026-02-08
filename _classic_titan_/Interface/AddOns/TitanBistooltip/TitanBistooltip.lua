@@ -297,12 +297,12 @@ local function OnGameTooltipSetItem(tooltip)
     else
         -- 如果在战斗中，尝试从缓存中获取数据
         if TitanBistooltip_Titan_items[itemId] then
-            for _, item_info in ipairs(TitanBistooltip_Titan_items[itemId]) do
+            for _, item_info in pairs(TitanBistooltip_Titan_items[itemId]) do
                 -- 跳过缓存时间字段
                 if type(item_info) == "table" and item_info.class_name then
                     local class_name = item_info.class_name
                     local spec_name = item_info.spec_name
-                    for _, slot_info in ipairs(item_info.slots) do
+                    for _, slot_info in pairs(item_info.slots) do
                         local slot_name = slot_info.name
                         table.insert(dynamic_item_data, {
                             class_name = class_name,
@@ -312,7 +312,7 @@ local function OnGameTooltipSetItem(tooltip)
                     end
                 end
             end
-            found = true
+            found = #dynamic_item_data > 0
         end
     end
     
@@ -371,11 +371,24 @@ local function OnGameTooltipSetItem(tooltip)
 end
 
 function TitanBistooltipAddon:initBisTooltip()
+    -- 检测 TipTac 及其相关插件是否存在
+    local hasTipTac = IsAddOnLoaded("TipTac") or IsAddOnLoaded("TipTacItemRef") or IsAddOnLoaded("TipTacTalents")
+    TitanBistooltipAddon.hasTipTac = hasTipTac
+    
+    -- 无论是否存在 TipTac，都使用相同的回调设置
+    -- 确保 OnGameTooltipSetItem 函数能够被正确调用
     LibExtraTip:AddCallback({ type = "item", callback = OnGameTooltipSetItem, allevents = true })
+    
     LibExtraTip:RegisterTooltip(GameTooltip);
     LibExtraTip:RegisterTooltip(ItemRefTooltip);
+    
     eventFrame:RegisterEvent("MODIFIER_STATE_CHANGED");
     eventFrame:SetScript("OnEvent", function(_, _, e_key, _, _)
+        -- 如果 TipTac 存在，减少事件处理频率
+        if hasTipTac then
+            return
+        end
+        
         if (GameTooltip:GetOwner()) then
             if (GameTooltip:GetOwner().hasItem) then
                 return

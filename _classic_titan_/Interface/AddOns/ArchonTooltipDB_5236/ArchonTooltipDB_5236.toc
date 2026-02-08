@@ -11,5 +11,5 @@
 ## IconTexture: Interface/AddOns/ArchonTooltip/Media/logo-32-circle.tga
 ## Category: Archon
 
-../ArchonTooltip/DB/db_1049_5236_5236_subscribers.lua
+../ArchonTooltip/DB/db_1052_5236_5236_subscribers.lua
 ../ArchonTooltip/DB/db_1049_5236_5236_weekly.lua

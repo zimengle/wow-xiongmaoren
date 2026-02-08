@@ -42,14 +42,95 @@ BSYC.DEFAULT_ALLOW_LIST = BSYC.DEFAULT_ALLOW_LIST or {
 	auction = true,
 	warband = true,
 }
+-- NOTE: Keep this ordered list for UI and filter displays. It preserves the
+-- legacy, user-facing order that was previously defined inline in modules.
+-- We still support additional keys via DEFAULT_ALLOW_LIST; any extra keys
+-- will be appended by GetDefaultAllowListKeys().
+BSYC.DEFAULT_ALLOW_LIST_ORDER = BSYC.DEFAULT_ALLOW_LIST_ORDER or {
+	"bag",
+	"bank",
+	"reagents",
+	"equip",
+	"mailbox",
+	"void",
+	"auction",
+	"warband",
+}
+BSYC.__defaultAllowListKeys = BSYC.__defaultAllowListKeys or nil
+BSYC.__defaultAllowListKeysWithGuild = BSYC.__defaultAllowListKeysWithGuild or nil
 
--- centralized API compatibility table (preserves fallbacks)
+function BSYC:GetDefaultAllowListKeys(includeGuild)
+	-- Returns an ordered list of storage keys for UI/search filters.
+	-- We cannot rely on pairs(DEFAULT_ALLOW_LIST) order, so this uses
+	-- DEFAULT_ALLOW_LIST_ORDER as a stable base and then appends any
+	-- additional keys that might be added in the future.
+	-- includeGuild inserts "guild" before "warband" to match legacy UI order.
+	local cache = includeGuild and self.__defaultAllowListKeysWithGuild or self.__defaultAllowListKeys
+	if cache then return cache end
+
+	local list = {}
+	local seen = {}
+	for i = 1, #self.DEFAULT_ALLOW_LIST_ORDER do
+		local key = self.DEFAULT_ALLOW_LIST_ORDER[i]
+		if self.DEFAULT_ALLOW_LIST[key] then
+			list[#list + 1] = key
+			seen[key] = true
+		end
+	end
+
+	for k in pairs(self.DEFAULT_ALLOW_LIST) do
+		if not seen[k] then
+			list[#list + 1] = k
+			seen[k] = true
+		end
+	end
+
+	if includeGuild and not seen.guild then
+		local insertAt = #list + 1
+		for i = 1, #list do
+			if list[i] == "warband" then
+				insertAt = i
+				break
+			end
+		end
+		table.insert(list, insertAt, "guild")
+	end
+
+	if includeGuild then
+		self.__defaultAllowListKeysWithGuild = list
+	else
+		self.__defaultAllowListKeys = list
+	end
+	return list
+end
+
+-- centralized API compatibility table (preserves fallbacks for older clients like classic)
 BSYC.API = BSYC.API or {}
-BSYC.API.GetContainerNumSlots = (C_Container and C_Container.GetContainerNumSlots) or GetContainerNumSlots
-BSYC.API.GetContainerItemInfo = (C_Container and C_Container.GetContainerItemInfo) or GetContainerItemInfo
+local getContainerNumSlots = (C_Container and C_Container.GetContainerNumSlots) or GetContainerNumSlots
+local getContainerItemInfo = (C_Container and C_Container.GetContainerItemInfo) or GetContainerItemInfo
+BSYC.API.GetContainerNumSlots = getContainerNumSlots
+BSYC.API.GetContainerItemInfo = getContainerItemInfo
 BSYC.API.GetAddOnMetadata = (C_AddOns and C_AddOns.GetAddOnMetadata) or GetAddOnMetadata
 BSYC.API.IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
 BSYC.API.GetItemInfo = (C_Item and C_Item.GetItemInfo) or GetItemInfo
+BSYC.API.GetItemCount = (C_Item and C_Item.GetItemCount) or GetItemCount
+BSYC.API.GetSpellInfo = (C_Spell and C_Spell.GetSpellInfo) or GetSpellInfo
+BSYC.API.GetRecipeInfo = (C_TradeSkillUI and C_TradeSkillUI.GetRecipeInfo) or nil
+BSYC.API.GetCurrencyInfo = (C_CurrencyInfo and C_CurrencyInfo.GetCurrencyInfo) or GetCurrencyInfo
+BSYC.API.GetCurrencyListSize = (C_CurrencyInfo and C_CurrencyInfo.GetCurrencyListSize) or GetCurrencyListSize
+BSYC.API.GetCurrencyListInfo = (C_CurrencyInfo and C_CurrencyInfo.GetCurrencyListInfo) or GetCurrencyListInfo
+BSYC.API.GetCurrencyListLink = (C_CurrencyInfo and C_CurrencyInfo.GetCurrencyListLink) or GetCurrencyListLink
+BSYC.API.ExpandCurrencyList = (C_CurrencyInfo and C_CurrencyInfo.ExpandCurrencyList) or ExpandCurrencyList
+-- normalize container item link + count across Classic/Retail
+BSYC.API.GetContainerItemLinkCount = function(bagID, slotID)
+	if not getContainerItemInfo then return nil, nil end
+	local info, count, _, _, _, _, link = getContainerItemInfo(bagID, slotID)
+	if type(info) == "table" then
+		link = info.hyperlink
+		count = info.stackCount or 1
+	end
+	return link, count, info
+end
 
 BSYC.IsBankTabsActive = Enum.BagIndex.CharacterBankTab_1 ~= nil
 BSYC.IsReagentBagActive = (Constants.InventoryConstants.NumReagentBagSlots or 0) > 0
@@ -130,6 +211,21 @@ StaticPopupDialogs["BAGSYNC_RESETDB_INFO"] = {
 	hideOnEscape = 1,
 }
 
+StaticPopupDialogs["BAGSYNC_RELOADUI"] = {
+	text = L.AddonCompartmentReloadMsg,
+	button1 = OKAY,
+	button2 = nil,
+	timeout = 0,
+	whileDead = 1,
+	hideOnEscape = 1,
+}
+
+function BSYC:ShowReloadUIPopup()
+	if StaticPopup_Show then
+		StaticPopup_Show("BAGSYNC_RELOADUI")
+	end
+end
+
 function BSYC.DEBUG(level, sName, ...)
 	if not BSYC.options or not BSYC.options.debug or not BSYC.options.debug.enable then return end
 
@@ -179,6 +275,70 @@ function BSYC:IsMouseOver(frame)
 	return self.GMF and (self.GMF() == frame) or false
 end
 
+-----------------------------------------------------------------
+-- Secret value helpers (Retail 12.0+). These APIs may not exist on older clients.
+------------------------------------------------------------------
+function BSYC:IsSecretValue(v)
+	local fn = _G.issecretvalue
+	if type(fn) == "function" then
+		local ok, res = pcall(fn, v)
+		if ok then return not not res end
+	end
+	return false
+end
+
+function BSYC:CanAccessValue(v)
+	local fn = _G.canaccessvalue
+	if type(fn) == "function" then
+		local ok, res = pcall(fn, v)
+		if ok then return not not res end
+	end
+	return true
+end
+
+function BSYC:IsSecretTable(v)
+	local fn = _G.issecrettable
+	if type(fn) == "function" then
+		local ok, res = pcall(fn, v)
+		if ok then return not not res end
+	end
+	return false
+end
+
+function BSYC:HasAnySecretValue(v)
+	local fn = _G.hasanysecretvalue
+	if type(fn) == "function" then
+		local ok, res = pcall(fn, v)
+		if ok then return not not res end
+	end
+	return false
+end
+
+function BSYC:CanAccessAllValues(v)
+	local fn = _G.canaccessallvalues
+	if type(fn) == "function" then
+		local ok, res = pcall(fn, v)
+		if ok then return not not res end
+	end
+	return true
+end
+
+function BSYC:IsSafeNumber(v)
+	if type(v) ~= "number" then return false end
+	if self:IsSecretValue(v) then return false end
+	if not self:CanAccessValue(v) then return false end
+	return true
+end
+
+function BSYC:IsSafeTable(v)
+	if type(v) ~= "table" then return false end
+	if self:IsSecretTable(v) then return false end
+	if self:HasAnySecretValue(v) then return false end
+	if not self:CanAccessAllValues(v) then return false end
+	return true
+end
+-----------------------------------------------------------------
+---
 --this is only for hash tables that aren't indexed with 1,2,3,4 etc.. but use custom index keys
 --if you are using table.insert() or tables that are indexed with numbers then use # instead for table length.  #table as example
 function BSYC:GetHashTableLen(tbl)
@@ -246,6 +406,7 @@ function BSYC:OpenConfig()
 
 	return false
 end
+
 
 function BSYC:DecodeOpts(tblString, mergeOpts)
 	--Example = "petdata=245:12:4:5:3|auction=124567|foo=bar|tickle=elmo|test=12:3:4|forthe=horde"
@@ -795,157 +956,6 @@ function BSYC:SetBSYC_FrameLevel(module)
 			module.frame.closeBtn:SetFrameLevel((bsycLVL or 1) + 1) --you have to increment it at least once to draw over our frame background
 		end
 	end
-end
-
--- ------------------------------------------------------------
--- UI helpers (backbone only; preserves existing layout/behavior)
--- ------------------------------------------------------------
-
-function BSYC:UI_FindHandler(widget)
-	if not widget then return nil end
-	if widget.parentHandler then return widget.parentHandler end
-
-	local p = widget
-	while p do
-		if p.parentHandler then
-			widget.parentHandler = p.parentHandler
-			return p.parentHandler
-		end
-		p = p:GetParent()
-	end
-end
-
-function BSYC:UI_CallHandler(widget, method, ...)
-	local handler = self:UI_FindHandler(widget)
-	local fn = handler and handler[method]
-	if type(fn) == "function" then
-		return fn(handler, ...)
-	end
-end
-
-function BSYC:UI_AttachListItemHandlers(button, handler, opts)
-	if not button or button.__bsycHandlers then return end
-
-	opts = opts or {}
-	local onClick = opts.onClick or "Item_OnClick"
-	local onEnter = opts.onEnter or "Item_OnEnter"
-	local onLeave = opts.onLeave or "Item_OnLeave"
-
-	button.parentHandler = handler
-	button:SetScript("OnClick", function(self)
-		BSYC:UI_CallHandler(self, onClick, self)
-	end)
-	button:SetScript("OnEnter", function(self)
-		BSYC:UI_CallHandler(self, onEnter, self)
-	end)
-	button:SetScript("OnLeave", function(self)
-		BSYC:UI_CallHandler(self, onLeave, self)
-	end)
-
-	local details = opts.detailsButton and button[opts.detailsButton]
-	if details then
-		local onDetailsClick = opts.onDetailsClick or "ItemDetails"
-		local onDetailsEnter = opts.onDetailsEnter or "ItemDetails_OnEnter"
-		local onDetailsLeave = opts.onDetailsLeave or "ItemDetails_OnLeave"
-		details.parentHandler = handler
-		details:SetScript("OnClick", function(self)
-			BSYC:UI_CallHandler(self, onDetailsClick, self)
-		end)
-		if onDetailsEnter ~= false then
-			details:SetScript("OnEnter", function(self)
-				if self:GetParent().DetailsHighlight then
-					self:GetParent().DetailsHighlight:SetAlpha(0.75)
-				end
-				BSYC:UI_CallHandler(self, onDetailsEnter, self)
-			end)
-		end
-		if onDetailsLeave ~= false then
-			details:SetScript("OnLeave", function(self)
-				if self:GetParent().DetailsHighlight then
-					self:GetParent().DetailsHighlight:SetAlpha(0)
-				end
-				BSYC:UI_CallHandler(self, onDetailsLeave, self)
-			end)
-		end
-	end
-
-	button.__bsycHandlers = true
-end
-
-function BSYC:UI_CreateModuleFrame(module, opts)
-	opts = opts or {}
-
-	local parent = opts.parent or UIParent
-	local template = opts.template or "BagSyncFrameTemplate"
-
-	local frame = _G.CreateFrame("Frame", nil, parent, template)
-	if module then
-		Mixin(frame, module)
-	end
-
-	if opts.globalName then
-		_G[opts.globalName] = frame
-		-- Add to special frames so window can be closed when the escape key is pressed.
-		tinsert(UISpecialFrames, opts.globalName)
-	end
-
-	if frame.TitleText and opts.title then
-		frame.TitleText:SetText(opts.title)
-	end
-
-	if opts.width then frame:SetWidth(opts.width) end
-	if opts.height then frame:SetHeight(opts.height) end
-	if opts.point then frame:SetPoint(unpack(opts.point)) end
-
-	frame:EnableMouse(opts.enableMouse ~= false)
-	frame:SetMovable(opts.movable ~= false)
-	frame:SetResizable(false)
-	frame:SetFrameStrata(opts.frameStrata or "FULLSCREEN_DIALOG")
-	frame:RegisterForDrag(opts.dragButton or "LeftButton")
-	frame:SetClampedToScreen(true)
-	frame:SetScript("OnDragStart", frame.StartMoving)
-	frame:SetScript("OnDragStop", frame.StopMovingOrSizing)
-
-	if opts.onShow then frame:SetScript("OnShow", opts.onShow) end
-	if opts.onHide then frame:SetScript("OnHide", opts.onHide) end
-
-	if opts.createCloseButton ~= false then
-		local closeBtn = CreateFrame("Button", nil, frame, "UIPanelCloseButton")
-		closeBtn:SetPoint("TOPRIGHT", C_EditMode and -3 or 2, C_EditMode and -3 or 1)
-		frame.closeBtn = closeBtn
-	end
-
-	return frame
-end
-
-function BSYC:UI_CreateHybridScrollFrame(parent, opts)
-	opts = opts or {}
-	local scroll = _G.CreateFrame("ScrollFrame", nil, parent, "HybridScrollFrameTemplate")
-
-	if opts.width then
-		scroll:SetWidth(opts.width)
-	end
-	if opts.pointTopLeft then
-		scroll:SetPoint(unpack(opts.pointTopLeft))
-	end
-	if opts.pointBottomLeft then
-		scroll:SetPoint(unpack(opts.pointBottomLeft))
-	end
-
-	scroll.scrollBar = CreateFrame("Slider", "$parentscrollBar", scroll, "HybridScrollBarTemplate")
-	scroll.scrollBar:SetPoint("TOPLEFT", scroll, "TOPRIGHT", 1, -16)
-	scroll.scrollBar:SetPoint("BOTTOMLEFT", scroll, "BOTTOMRIGHT", 1, 12)
-
-	if opts.update then
-		scroll.update = opts.update
-	end
-
-	HybridScrollFrame_SetDoNotHideScrollBar(scroll, opts.doNotHideScrollBar ~= false)
-	if opts.buttonTemplate then
-		HybridScrollFrame_CreateButtons(scroll, opts.buttonTemplate)
-	end
-
-	return scroll
 end
 
 BSYC.timerFrame = CreateFrame("Frame")

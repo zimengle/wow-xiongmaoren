@@ -5,7 +5,6 @@ local sub = _G.string.sub
 local gmatch = _G.string.gmatch
 local match = _G.string.match
 local upper = _G.string.upper
-local lower= _G.string.lower
 local L=addonTable.locale
 local Fun=addonTable.Fun
 local Data=addonTable.Data
@@ -35,7 +34,10 @@ local PIGFontStringBG=Create.PIGFontStringBG
 local PIGSetFont=Create.PIGSetFont
 --===============================
 local AudioData=addonTable.AudioList.Data
-local BlackList = {["BlackName"]=true,["FilterRepeat"]=true,["IGNORE_DND"]=true,["Precise"]=false,["name"]={},["word"]={},["chongfu"]={},["count"]=0,["OKcount"]=0,["name_count"]=0,["chongfu_count"]=0,["word_count"]=0}
+local BlackList = {["BlackName"]=true,["FilterRepeat"]=true,["IGNORE_DND"]=true,["Precise"]=false,
+	["name"]={},["word"]={},["chongfu"]={},["count"]=0,["OKcount"]=0,
+	["name_count"]=0,["chongfu_count"]=0,["word_count"]=0
+}
 local function FilterBlack_Chongfu(chongfuData,newText,chatbox)
 	local time = GetServerTime()
 	for i=#chongfuData,1,-1 do
@@ -49,7 +51,6 @@ local function FilterBlack_Chongfu(chongfuData,newText,chatbox)
 		end
 	end
 	chongfuData[#chongfuData+1]={time,newText,chatbox}
-	--table.insert(chongfuData,{time,newText,chatbox})
 	return false
 end
 local function FilterBlack_IsFriend(name,name1)
@@ -358,7 +359,8 @@ function QuickChatfun.QuickBut_Keyword()
 			end
 		end
 	end)
-	------------------
+	----=======
+
 	local White_keywords={}
 	local function zairuKeyFun()
 		White_keywords={}
@@ -389,7 +391,17 @@ function QuickChatfun.QuickBut_Keyword()
 		if PIGA["Chat"]["ShowZb"] then
 			local _, _, _, englishRace, sex = GetPlayerInfoByGUID(arg12)
 			local raceX = GetRaceClassTXT(0,500,englishRace,sex)
-			PlayerLink = "|Hgarrmission:"..arg2.."|h"..raceX.."|h "..PlayerLink
+			PlayerLink = "|Hgarrmission:-998:"..arg2.."|h"..raceX.."|h "..PlayerLink
+		end
+		if PIGA["Chat"]["FastCopy"] then
+			-- local left=0.08*Texheight+5
+			-- local right=0.92*Texheight-5
+			-- local top=0*Texheight+5
+			-- local bottom=0.95*Texheight-5
+			-- local Copyicon ="|Tinterface/buttons/ui-guildbutton-publicnote-up.blp:0:0:0:0:"..Texheight..":"..Texheight..":"..left..":"..right..":"..top..":"..bottom.."|t"
+			-- if Copyicon~="" then
+			-- 	PlayerLink=PlayerLink:gsub("(|Hplayer:(.-)|h%[.-%]|h)", "|Hgarrmission:-999:%2|h"..Copyicon.."|h%1")
+			-- end
 		end
 		if not InCombatLockdown() and timetxt-Show_MSG_TIMECD>30 then
 			Show_MSG_TIMECD=timetxt
@@ -528,16 +540,44 @@ function QuickChatfun.QuickBut_Keyword()
 		end
 	end
 	QuickUI.Keyword:TiquBlack_Fun()
-	-----
+
+	-----========
 	BlackList["BlackName"]=PIGA["Chat"]["Filter"]["BlackName"]
 	BlackList["IGNORE_DND"]=PIGA["Chat"]["Filter"]["IGNORE_DND"]
 	BlackList["FilterRepeat"]=PIGA["Chat"]["Filter"]["FilterRepeat"]
 	BlackList["Precise"]=PIGA["Chat"]["Filter"]["Precise"]
+	local function zairuBlackFun()
+		local BlackListX={["word"]={},["name"]={}}
+		local keyslist = PIGA["Chat"]["Filter"]["Blacks"]
+		local keyslist = keyslist:gsub("，", ",")
+		local fengelist = Key_fenge(keyslist, ",", true)
+		for i=1,#fengelist do
+			local newTxT=fengelist[i]
+			if newTxT:match("#") then
+				local newTxT_1 = Key_fenge(newTxT, "#",true)
+				table.insert(BlackListX["word"], newTxT_1);
+			else
+				table.insert(BlackListX["word"], newTxT);
+			end
+		end
+		local P_keyslist = PIGA["Chat"]["Filter"]["Blacks_P"]
+		local P_keyslist = P_keyslist:gsub("，", ",")
+		local P_fengelist = Key_fenge(P_keyslist, ",", true)
+		for i=1,#P_fengelist do
+			local newTxT=P_fengelist[i]
+			if newTxT:match("#") then
+				local newTxT_1 = Key_fenge(newTxT, "#",true)
+				table.insert(BlackListX["name"], newTxT_1);
+			else
+				table.insert(BlackListX["name"], newTxT);
+			end
+		end
+		return BlackListX["word"],BlackListX["name"]
+	end
+	BlackList["word"],BlackList["name"]=zairuBlackFun()
 	local function FilterBlack(self,event,arg1,arg2,arg3,arg4,arg5,arg6)
 		if self==ChatFrame2 or self==ChatFrame3 then return end
-		--print(self:GetName(),self:IsShown())
-		--local name = GetChatWindowInfo(i);
-		if arg2~=PIG_OptionsUI.AllName then--自身不过滤
+		--if arg2~=PIG_OptionsUI.AllName then--自身不过滤
 			BlackList["count"]=BlackList["count"]+1
 			if event=="CHAT_MSG_WHISPER" then
 				if FilterBlack_IsFriend(arg2,arg5) then
@@ -564,7 +604,7 @@ function QuickChatfun.QuickBut_Keyword()
 				return true
 			end
 			BlackList["OKcount"]=BlackList["OKcount"]+1
-		end
+		--end
 		return false
 	end
 	function QuickUI.Keyword:Filter_SetFun(setck)
@@ -610,7 +650,7 @@ function QuickChatfun.QuickBut_Keyword()
 		---提取
 		local TiquF,TiquTabBut=PIGOptionsList_R(KeywordF.F,L["CHAT_KEYWORD_NAMETAB"],60,"Left")
 		TiquF:Show()
-		TiquTabBut:Selected()
+		TiquTabBut:Selected(true)
 
 		TiquF.KeyOpen = PIGCheckbutton(TiquF,{"TOPLEFT",TiquF,"TOPLEFT",20,-20},{"|cff00FF00"..ENABLE.."|r"..L["CHAT_KEYWORD_NAME1"]..L["CHAT_KEYWORD_NAME"]..INFO})
 		TiquF.KeyOpen:SetScript("OnClick", function (self)
@@ -877,7 +917,7 @@ function QuickChatfun.QuickBut_Keyword()
 		--设置
 		BlackF.F.SetF,BlackF.F.SetTabBut=PIGOptionsList_R(BlackF.F,SETTINGS,70)
 		BlackF.F.SetF:Show()
-		BlackF.F.SetTabBut:Selected()
+		BlackF.F.SetTabBut:Selected(true)
 		----
 		local function Filter_Open()
 			BlackF.F.SetF.Open:SetChecked(PIGA["Chat"]["Filter"]["Open"])
@@ -1120,35 +1160,6 @@ function QuickChatfun.QuickBut_Keyword()
 		    end 
 		    return Newtxt
 		end
-		local function zairuBlackFun()
-			local BlackListX={["word"]={},["name"]={}}
-			local keyslist = PIGA["Chat"]["Filter"]["Blacks"]
-			local keyslist = keyslist:gsub("，", ",")
-			local fengelist = Key_fenge(keyslist, ",", true)
-			for i=1,#fengelist do
-				local newTxT=fengelist[i]
-				if newTxT:match("#") then
-					local newTxT_1 = Key_fenge(newTxT, "#",true)
-					table.insert(BlackListX["word"], newTxT_1);
-				else
-					table.insert(BlackListX["word"], newTxT);
-				end
-			end
-			local P_keyslist = PIGA["Chat"]["Filter"]["Blacks_P"]
-			local P_keyslist = P_keyslist:gsub("，", ",")
-			local P_fengelist = Key_fenge(P_keyslist, ",", true)
-			for i=1,#P_fengelist do
-				local newTxT=P_fengelist[i]
-				if newTxT:match("#") then
-					local newTxT_1 = Key_fenge(newTxT, "#",true)
-					table.insert(BlackListX["name"], newTxT_1);
-				else
-					table.insert(BlackListX["name"], newTxT);
-				end
-			end
-			return BlackListX["word"],BlackListX["name"]
-		end
-		BlackList["word"],BlackList["name"]=zairuBlackFun()
 		local function Save_BlackValue(fuji,peizhiV)
 			local value = fuji:GetText();
 			local value = value:gsub(" ", "")

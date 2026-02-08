@@ -2,7 +2,7 @@
 ## Title: Acamar |cff20FF9E谷|r|cff18FF9B风|r|cff10FF99修|r|cff08FF97复|r|cff00FF96版|r
 ## Title-zhCN: Acamar |cff20FF9E谷|r|cff18FF9B风|r|cff10FF99修|r|cff08FF97复|r|cff00FF96版|r
 ## Author: Acamar@DaggerRidge
-## Version: 5.5.20
+## Version: 5.5.21
 ## Notes: |cff00aaaa Acamar auto-learning spam blocker.|r
 ## SavedVariables: AcamarDB
 

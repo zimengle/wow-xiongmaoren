@@ -3,6 +3,22 @@ local AddonName, ns = ...
 
 local pt = print
 
+--[[
+1万-3万，每手加价1000
+3万-10万，每手加价2000
+10万-30万，每手加价5000
+30万-100万，每手加价1万
+100万以上，每手加价5万
+
+1万-2万，每手加价1000
+2万-5万，每手加价2000
+5万-10万，每手加价5000
+10万-20万，每手加价1万
+20万-50万，每手加价2万
+50万-100万，每手加价5万
+100万以上，每手加价10万
+ ]]
+
 BG.Init(function()
     local aura = aura_env or {}
     aura.ver = "v3.2"
@@ -179,6 +195,7 @@ BG.Init(function()
         L["心理价格需高于当前价格"] = "Maximum Bid must be higher than the Current Price"
     end
 
+    local realmName = GetRealmName():gsub(" %- ", "")
     function aura.GN(unit)
         unit = unit or "player"
         if unit == "t" then
@@ -190,14 +207,14 @@ BG.Init(function()
     function aura.GFN(name)
         if not name then return end
         local name, realm = strsplit("-", name)
-        realm = realm or GetRealmName()
+        realm = realm or realmName
         return name .. "-" .. realm
     end
 
     function aura.GSN(name)
         if not name then return end
         local name, realm = strsplit("-", name)
-        if not realm or realm == "" or realm == GetRealmName() then
+        if not realm or realm == "" or realm == realmName then
             return name
         else
             return name .. "-" .. realm
@@ -266,46 +283,51 @@ BG.Init(function()
         aura.backdropBorderColor_IsMe = { 0, 1, 0, 1 }
         aura.raidRosterInfo = {}
         aura.endMsg = {}
-
-        aura.MiniMoneyTbl = {
-            -- 小于该价格时，每次加价幅度，最低加价幅度
-            { 50, 1, 1 },
-            { 100, 10, 1 },
-            { 5000, 100, 100 },
-            { 10000, 500, 100 },
-            { 30000, 1000, 500 },
-            { 100000, 2000, 500 },
-            { 300000, 5000, 1000 },
-            { 1000000, 10000, 1000 },
-            { nil, 50000, 5000 },
-        }
     end
 
+    -- 加价幅度
+    aura.MiniMoneyTbl = {
+        -- 小于该价格时，每次加价幅度，最低加价幅度
+        { 50, 1, 1 },
+        { 100, 10, 1 },
+        { 2000, 100, 100 },
+        { 5000, 200, 100 },
+        { 1 * 10000, 500, 100 },
+        { 2 * 10000, 1000, 500 },
+        { 5 * 10000, 2000, 500 },
+        { 10 * 10000, 5000, 500 },
+        { 20 * 10000, 10000, 1000 },
+        { 50 * 10000, 20000, 1000 },
+        { 100 * 10000, 50000, 1000 },
+        { nil, 100000, 5000 },
+    }
+
     -- 字体
+    local FONT = BIAOGE_TEXT_FONT or STANDARD_TEXT_FONT
     do
         local color = "Gold18" -- BGA.FontGold18
         _G.BGA.FontGold18 = CreateFont("BGA.Font" .. color)
         _G.BGA.FontGold18:SetTextColor(1, 0.82, 0)
-        _G.BGA.FontGold18:SetFont(STANDARD_TEXT_FONT, 18, "OUTLINE")
+        _G.BGA.FontGold18:SetFont(FONT, 18, "OUTLINE")
 
         local color = "Dis18" -- BGA.FontDis18
         _G.BGA.FontDis18 = CreateFont("BGA.Font" .. color)
         _G.BGA.FontDis18:SetTextColor(.5, .5, .5)
-        _G.BGA.FontDis18:SetFont(STANDARD_TEXT_FONT, 18, "OUTLINE")
+        _G.BGA.FontDis18:SetFont(FONT, 18, "OUTLINE")
         local color = "Dis15" -- BGA.FontDis15
         _G.BGA.FontDis15 = CreateFont("BGA.Font" .. color)
         _G.BGA.FontDis15:SetTextColor(.5, .5, .5)
-        _G.BGA.FontDis15:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+        _G.BGA.FontDis15:SetFont(FONT, 15, "OUTLINE")
 
         local color = "Green15" -- BGA.FontGreen15
         _G.BGA.FontGreen15 = CreateFont("BGA.Font" .. color)
         _G.BGA.FontGreen15:SetTextColor(0, 1, 0)
-        _G.BGA.FontGreen15:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+        _G.BGA.FontGreen15:SetFont(FONT, 15, "OUTLINE")
 
         local color = "white15" -- BGA.Fontwhite15
         _G.BGA.FontWhite15 = CreateFont("BGA.Font" .. color)
         _G.BGA.FontWhite15:SetTextColor(1, 1, 1)
-        _G.BGA.FontWhite15:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+        _G.BGA.FontWhite15:SetFont(FONT, 15, "OUTLINE")
     end
 
     function aura.SetEditBg(edit)
@@ -328,7 +350,7 @@ BG.Init(function()
         edit.Middle:SetTexture("interface/common/commonsearch")
         edit.Middle:SetTexCoord(0, .8, .01, .31)
 
-        edit:SetFontObject(ChatFontNormal)
+        edit:SetFont(FONT, 14, "OUTLINE")
         edit:SetScript("OnTabPressed", EditBox_OnTabPressed)
         edit:SetScript("OnEscapePressed", EditBox_ClearFocus)
         edit:SetScript("OnEditFocusLost", EditBox_ClearHighlight)
@@ -336,26 +358,31 @@ BG.Init(function()
     end
 
     function aura.FormatNumber(num)
-        if not tonumber(num) or Locale == "enUS" then return num end
-        if Locale == "enUS" then return num end
-        num = tostring(num)
-        local len = strlen(num)
-        if len < 5 then return num end
-        local k = num:sub(-4, -1)
-        local w = num:sub(1, -5)
-        if tonumber(k) == 0 then
-            return w .. L["万"]
+        if not tonumber(num) then return num end
+        if Locale == "enUS" then
+            local formatted = tostring(num)
+            formatted = formatted:reverse():gsub("(%d%d%d)", "%1,"):reverse():gsub("^,", "")
+            return formatted
         else
-            for i = 1, 4 do
-                local len = strlen(k)
-                local last = k:sub(len, len)
-                if last == "0" then
-                    k = k:sub(1, len - 1)
-                else
-                    break
+            num = tostring(num)
+            local len = strlen(num)
+            if len < 5 then return num end
+            local k = num:sub(-4, -1)
+            local w = num:sub(1, -5)
+            if tonumber(k) == 0 then
+                return w .. L["万"]
+            else
+                for i = 1, 4 do
+                    local len = strlen(k)
+                    local last = k:sub(len, len)
+                    if last == "0" then
+                        k = k:sub(1, len - 1)
+                    else
+                        break
+                    end
                 end
+                return w .. "." .. k .. L["万"]
             end
-            return w .. "." .. k .. L["万"]
         end
     end
 
@@ -732,7 +759,7 @@ BG.Init(function()
                     f.bar:SetStatusBarColor(1, 0, 0, 0.6)
                 end
                 f.remainingTime:SetTextColor(1, 0, 0)
-                f.remainingTime:SetFont(STANDARD_TEXT_FONT, 20, "OUTLINE")
+                f.remainingTime:SetFont(FONT, 20, "OUTLINE")
             else
                 if f.filter and not (f.player and f.player == aura.GN()) then
                     f.bar:SetStatusBarColor(unpack(BGA.aura_env.barColor_filter))
@@ -740,7 +767,7 @@ BG.Init(function()
                     f.bar:SetStatusBarColor(1, 1, 0, 0.6)
                 end
                 f.remainingTime:SetTextColor(1, 1, 1)
-                f.remainingTime:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+                f.remainingTime:SetFont(FONT, 15, "OUTLINE")
             end
             f.remainingTime:SetText((format("%d", remaining) + 1) .. "s")
             f.remaining = remaining
@@ -758,7 +785,7 @@ BG.Init(function()
                 f.cancel:Hide()
 
                 local t = f.itemFrame2:CreateFontString()
-                t:SetFont(STANDARD_TEXT_FONT, 30, "OUTLINE")
+                t:SetFont(FONT, 30, "OUTLINE")
                 t:SetPoint("TOPRIGHT", f.itemFrame, "BOTTOMRIGHT", -10, -5)
 
                 local itemID = f.itemID
@@ -768,7 +795,7 @@ BG.Init(function()
                     result = aura.SetClassCFF(f.player) .. f.money
                     t:SetText(L["拍卖成功"])
                     t:SetTextColor(0, 1, 0)
-                    f.currentMoneyText:SetText(L["|cff00FF00成交价：|r"] .. f.money)
+                    f.currentMoneyText:SetText(L["|cff00FF00成交价：|r"] .. aura.FormatNumber(f.money))
                     if f.player == aura.GN() then
                         f.topMoneyText:SetText(L["|cff00FF00买家：|r"] .. "|cff" .. aura.GREEN1 .. L[">> 你 <<"])
                     else
@@ -790,7 +817,7 @@ BG.Init(function()
                     result = L["流拍"]
                     t:SetText(L["流拍"])
                     t:SetTextColor(1, 0, 0)
-                    f.currentMoneyText:SetText(L["|cffFF0000流拍：|r"] .. f.money)
+                    f.currentMoneyText:SetText(L["|cffFF0000流拍：|r"] .. aura.FormatNumber(f.money))
                     f.topMoneyText:SetText("")
                     if aura.IsRaidLeader() then
                         SendChatMessage(format(L["{rt7}流拍{rt7} %s"], f.link), "RAID")
@@ -1574,7 +1601,7 @@ BG.Init(function()
 
             local t = f:CreateFontString()
             do
-                t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+                t:SetFont(FONT, 15, "OUTLINE")
                 t:SetPoint("TOP", 0, -8)
                 t:SetTextColor(1, 0.82, 0)
                 t:SetText(L["设置心理价格"])
@@ -1748,7 +1775,7 @@ BG.Init(function()
             AuctionFrame.itemFrame.iconFrame = ftex
             -- 装备等级
             local t = f2:CreateFontString()
-            t:SetFont(STANDARD_TEXT_FONT, 12, "OUTLINE")
+            t:SetFont(FONT, 12, "OUTLINE")
             t:SetPoint("BOTTOM", ftex, "BOTTOM", 0, 1)
             t:SetText(level)
             t:SetTextColor(r, g, b)
@@ -1756,7 +1783,7 @@ BG.Init(function()
             -- 装绑
             if bindType == 2 then
                 local t = f2:CreateFontString()
-                t:SetFont(STANDARD_TEXT_FONT, 11, "OUTLINE")
+                t:SetFont(FONT, 11, "OUTLINE")
                 t:SetPoint("TOP", ftex, 0, -2)
                 t:SetText(L["装绑"])
                 t:SetTextColor(0, 1, 0)
@@ -1764,7 +1791,7 @@ BG.Init(function()
             end
             -- 装备名称
             local t = f:CreateFontString()
-            t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+            t:SetFont(FONT, 15, "OUTLINE")
             t:SetPoint("TOPLEFT", ftex, "TOPRIGHT", 2, -2)
             t:SetWidth(f:GetWidth() - f:GetHeight() - 50)
             t:SetText(link:gsub("%[", ""):gsub("%]", ""))
@@ -1781,17 +1808,19 @@ BG.Init(function()
             end
             -- 装备类型
             local t = f2:CreateFontString()
-            t:SetFont(STANDARD_TEXT_FONT, 12, "OUTLINE")
+            t:SetFont(FONT, 12, "OUTLINE")
             t:SetPoint("BOTTOMLEFT", ftex, "BOTTOMRIGHT", 2, 2)
             t:SetHeight(13)
+            t:SetWidth(AuctionFrame.itemFrame.itemNameText:GetWidth())
+            local classText = BG and BG.GetTooltipClassText and BG.GetTooltipClassText(itemID) or ""
             if _G[itemEquipLoc] then
                 if classID == 2 then
-                    t:SetText(itemSubType)
+                    t:SetText(itemSubType .. "  " .. classText)
                 else
-                    t:SetText(_G[itemEquipLoc] .. " " .. itemSubType)
+                    t:SetText(_G[itemEquipLoc] .. " " .. itemSubType .. "  " .. classText)
                 end
             else
-                t:SetText("")
+                t:SetText(classText)
             end
             t:SetJustifyH("LEFT")
             AuctionFrame.itemFrame.itemTypeText = t
@@ -1809,7 +1838,7 @@ BG.Init(function()
 
             -- 剩余时间
             local remainingTime = f2:CreateFontString()
-            remainingTime:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+            remainingTime:SetFont(FONT, 15, "OUTLINE")
             remainingTime:SetPoint("RIGHT", f, "RIGHT", -5, 0)
             remainingTime:SetTextColor(1, 1, 1)
             AuctionFrame.remainingTime = remainingTime
@@ -1827,7 +1856,7 @@ BG.Init(function()
             f:SetScript("OnMouseUp", aura.currentMoney_OnMouseUp)
             f.owner = AuctionFrame
             local t = f:CreateFontString()
-            t:SetFont(STANDARD_TEXT_FONT, 14, "OUTLINE")
+            t:SetFont(FONT, 14, "OUTLINE")
             t:SetAllPoints()
             t:SetJustifyH("LEFT")
             if player and player ~= "" then
@@ -1846,7 +1875,7 @@ BG.Init(function()
             f:SetSize(textwidth, height)
             f:SetPoint("TOPLEFT", currentMoneyText, "BOTTOMLEFT", 0, 0)
             local t = f:CreateFontString()
-            t:SetFont(STANDARD_TEXT_FONT, 14, "OUTLINE")
+            t:SetFont(FONT, 14, "OUTLINE")
             t:SetAllPoints()
             t:SetJustifyH("LEFT")
             if player then
@@ -2069,7 +2098,7 @@ BG.Init(function()
                 for _, f in pairs(_G.BGA.Frames) do
                     if f[_auctionID_] == auctionID and not f.IsEnd then
                         local t = f.itemFrame2:CreateFontString()
-                        t:SetFont(STANDARD_TEXT_FONT, 30, "OUTLINE")
+                        t:SetFont(FONT, 30, "OUTLINE")
                         t:SetPoint("TOPRIGHT", f.itemFrame, "BOTTOMRIGHT", -10, -5)
                         t:SetText(L["拍卖取消"])
                         t:SetTextColor(1, 0, 0)

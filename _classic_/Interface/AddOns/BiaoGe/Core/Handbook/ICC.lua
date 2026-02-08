@@ -28,7 +28,7 @@ function BG.RoadBossUI()
         if FB ~= "ICC" then
             local t = BG["BossFrame" .. FB]:CreateFontString()
             t:SetPoint("TOP", BG.MainFrame, "TOP", 0, -70)
-            t:SetFont(STANDARD_TEXT_FONT, 20, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, 20, "OUTLINE")
             t:SetTextColor(1, 1, 1)
             t:SetText(L["该副本没有团本攻略。目前只有ICC有团本攻略"])
         end

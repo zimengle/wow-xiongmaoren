@@ -44,6 +44,9 @@ function QuestieTBCQuestFixes:Load()
         [100] = {
             [questKeys.childQuests] = {},
         },
+        [123] = { -- The Collector
+            [questKeys.nextQuestInChain] = 147,
+        },
         [171] = {
             [questKeys.questLevel] = -1,
         },
@@ -241,19 +244,76 @@ function QuestieTBCQuestFixes:Load()
         [1558] = {
             [questKeys.questLevel] = -1,
         },
+        [1638] = { -- A Warrior's Training
+            [questKeys.startedBy] = {{913,5480}},
+            [questKeys.exclusiveTo] = {
+                1678,1683, -- not available once you turn in these main quests
+                1639, -- "follow up" quest from same NPC. NOT breadcrumb
+                9582, -- not available once you pick this draenei main quest -- TBC+
+            },
+        },
+        [1639] = { -- Bartleby the Drunk
+            [questKeys.exclusiveTo] = {1678,1683,9582},
+        },
+        [1640] = { -- Beat Bartleby
+            [questKeys.preQuestSingle] = {1639,1678,1683,9582},
+        },
+        [1678] = { -- Vejrek
+            [questKeys.exclusiveTo] = {1639,1683,9582},
+            [questKeys.requiredRaces] = raceIDs.ALL_ALLIANCE, -- TBC+
+        },
+        [1679] = { -- Muren Stormpike
+            [questKeys.exclusiveTo] = {
+                1639,1683, -- not available once you turn in these main quests
+                9582, -- not available once you pick this draenei main quest -- TBC+
+            },
+            [questKeys.requiredRaces] = raceIDs.ALL_ALLIANCE, -- TBC+
+        },
+        [1680] = { -- Tormus Deepforge
+            [questKeys.preQuestSingle] = {1683,1678,1639,9582},
+            [questKeys.requiredRaces] = raceIDs.ALL_ALLIANCE, -- TBC+
+        },
+        [1681] = { -- Ironband's Compound
+            [questKeys.preQuestSingle] = {1683,1678,1639,9582},
+            [questKeys.requiredRaces] = raceIDs.ALL_ALLIANCE, -- TBC+
+        },
+        [1682] = { -- Grey Iron Weapons
+            [questKeys.requiredRaces] = raceIDs.ALL_ALLIANCE, -- TBC+
+        },
+        [1683] = { -- Vorlus Vilehoof
+            [questKeys.exclusiveTo] = {1639,1678,9582},
+        },
+        [1684] = { -- Elanaria
+            [questKeys.exclusiveTo] = {
+                1639,1678, -- not available once you pick these main quests
+                1683, -- "follow up" quest from same NPC. NOT breadcrumb
+                9582, -- not available once you pick this draenei main quest
+            },
+        },
+        [1686] = { -- The Shade of Elura
+            [questKeys.preQuestSingle] = {1683,1678,1639,9582},
+        },
         [1687] = {
             [questKeys.questLevel] = -1,
         },
-        [1698] = {
-            [questKeys.startedBy] = {{5479,7315}},
+        [1698] = { -- Yorus Barleybrew
+            [questKeys.requiredRaces] = raceIDs.ALL_ALLIANCE,
+            [questKeys.exclusiveTo] = {10371},
         },
-        [1699] = {
+        [1699] = { -- The Rethban Gauntlet
             [questKeys.triggerEnd] = {"Enter the Rethban Caverns", {[zoneIDs.REDRIDGE_MOUNTAINS]={{19.22,25.25}}}},
+            [questKeys.breadcrumbs] = {1698,10371},
+        },
+        [1703] = { -- Mathiel
+            [questKeys.requiredRaces] = raceIDs.NIGHT_ELF,
+        },
+        [1704] = { -- Klockmort Spannerspan
+            [questKeys.requiredRaces] = raceIDs.GNOME + raceIDs.DWARF,
         },
         [1719] = {
             [questKeys.triggerEnd] = {"Step on the grate to begin the Affray", {[zoneIDs.THE_BARRENS]={{68.61,48.72}}}},
         },
-        [1782] = {
+        [1782] = { -- Furen's Armor
             [questKeys.zoneOrSort] = sortKeys.WARRIOR,
         },
         [1799] = {
@@ -270,6 +330,9 @@ function QuestieTBCQuestFixes:Load()
         },
         [1805] = {
             [questKeys.requiredRaces] = raceIDs.ORC + raceIDs.UNDEAD + raceIDs.BLOOD_ELF,
+        },
+        [1821] = { -- Agamand Heirlooms
+            [questKeys.nextQuestInChain] = 1822,
         },
         [1858] = {
             [questKeys.requiredRaces] = raceIDs.ORC + raceIDs.TROLL,
@@ -468,6 +531,15 @@ function QuestieTBCQuestFixes:Load()
         },
         [5002] = {
             [questKeys.requiredRaces] = raceIDs.ALL_ALLIANCE,
+        },
+        [5054] = { -- Ursius of the Shardtooth
+            [questKeys.requiredRaces] = raceIDs.NONE,
+        },
+        [5055] = { -- Brumeran of the Chillwind
+            [questKeys.requiredRaces] = raceIDs.NONE,
+        },
+        [5056] = { -- Shy-Rotam
+            [questKeys.requiredRaces] = raceIDs.NONE,
         },
         [5168] = {
             [questKeys.preQuestSingle] = {5210},
@@ -1422,16 +1494,20 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.preQuestSingle] = {10123},
             [questKeys.requiredRaces] = raceIDs.BLOOD_ELF,
         },
-        [9500] = {
+        [9500] = { -- Call of Water
+            [questKeys.startedBy] = {{17212}},
             [questKeys.questLevel] = -1,
         },
-        [9501] = {
+        [9501] = { -- Call of Water
             [questKeys.questLevel] = -1,
         },
-        [9503] = {
+        [9502] = { -- Call of Water
+            [questKeys.startedBy] = {{17219}},
+        },
+        [9503] = { -- Call of Water
             [questKeys.questLevel] = -1,
         },
-        [9504] = {
+        [9504] = { -- Call of Water
             [questKeys.questLevel] = -1,
         },
         [9505] = { -- The Prophecy of Velen
@@ -1440,11 +1516,11 @@ function QuestieTBCQuestFixes:Load()
         [9506] = { -- A Small Start
             [questKeys.breadcrumbs] = {9505},
         },
-        [9508] = {
+        [9508] = { -- Call of Water
             [questKeys.questLevel] = -1,
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_OBJECT, l10n("Destroy the barrel using the Skin of Purest Water"), 0, {{"object", 181699}}}},
         },
-        [9509] = {
+        [9509] = { -- Call of Water
             [questKeys.questLevel] = -1,
         },
         [9514] = {
@@ -1523,6 +1599,7 @@ function QuestieTBCQuestFixes:Load()
         },
         [9582] = { -- Strength of One
             [questKeys.requiredSourceItems] = {},
+            [questKeys.exclusiveTo] = {1678,1683,1639},
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_OBJECT, l10n("Open the cage"), 0, {{"object", 181849}}}},
         },
         [9587] = {
@@ -2378,6 +2455,9 @@ function QuestieTBCQuestFixes:Load()
         [10344] = {
             [questKeys.exclusiveTo] = {10163},
         },
+        [10350] = { -- Behomat
+            [questKeys.preQuestSingle] = {1639,1678,1683,9582},
+        },
         [10352] = {
             [questKeys.startedBy] = {{14725},nil,nil},
             [questKeys.finishedBy] = {{14725},nil},
@@ -2408,6 +2488,11 @@ function QuestieTBCQuestFixes:Load()
         },
         [10369] = {
             [questKeys.objectives] = {{{19354}}},
+        },
+        [10371] = { -- Yorus Barleybrew
+            [questKeys.requiredRaces] = raceIDs.ALL_ALLIANCE,
+            [questKeys.exclusiveTo] = {1698},
+            [questKeys.breadcrumbForQuestId] = 1699,
         },
         [10373] = {
             [questKeys.startedBy] = {{20722},nil,nil},

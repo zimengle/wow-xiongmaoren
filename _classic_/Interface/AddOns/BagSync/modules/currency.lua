@@ -7,6 +7,7 @@
 --]]
 
 local BSYC = select(2, ...) --grab the addon namespace
+local UI = BSYC:GetModule("UI")
 local Currency = BSYC:NewModule("Currency")
 local Data = BSYC:GetModule("Data")
 local Tooltip = BSYC:GetModule("Tooltip")
@@ -15,46 +16,30 @@ local function Debug(level, ...)
     if BSYC.DEBUG then BSYC.DEBUG(level, "Currency", ...) end
 end
 
-local L = LibStub("AceLocale-3.0"):GetLocale("BagSync")
+local L = BSYC.L
 
 function Currency:OnEnable()
-	local currencyFrame = _G.CreateFrame("Frame", nil, UIParent, "BagSyncFrameTemplate")
-	Mixin(currencyFrame, Currency) --implement new frame to our parent module Mixin, to have access to parent methods
-	_G["BagSyncCurrencyFrame"] = currencyFrame
-    --Add to special frames so window can be closed when the escape key is pressed.
-    tinsert(UISpecialFrames, "BagSyncCurrencyFrame")
-    currencyFrame.TitleText:SetText("BagSync - "..L.Currency)
-    currencyFrame:SetHeight(506) --irregular height to allow the scroll frame to fit the bottom most button
-	currencyFrame:SetWidth(380)
-    currencyFrame:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
-    currencyFrame:EnableMouse(true) --don't allow clickthrough
-    currencyFrame:SetMovable(true)
-    currencyFrame:SetResizable(false)
-    currencyFrame:SetFrameStrata("FULLSCREEN_DIALOG")
-	currencyFrame:RegisterForDrag("LeftButton")
-	currencyFrame:SetClampedToScreen(true)
-	currencyFrame:SetScript("OnDragStart", currencyFrame.StartMoving)
-	currencyFrame:SetScript("OnDragStop", currencyFrame.StopMovingOrSizing)
-	currencyFrame:SetScript("OnShow", function() Currency:OnShow() end)
-	local closeBtn = CreateFrame("Button", nil, currencyFrame, "UIPanelCloseButton")
-	closeBtn:SetPoint("TOPRIGHT", C_EditMode and -3 or 2, C_EditMode and -3 or 1) --check for classic servers to adjust for positioning using a check for the new EditMode		
-    currencyFrame.closeBtn = closeBtn
-    Currency.frame = currencyFrame
+	local currencyFrame = UI:CreateModuleFrame(Currency, {
+		template = "BagSyncFrameTemplate",
+		globalName = "BagSyncCurrencyFrame",
+		title = "BagSync - "..L.Currency,
+		height = 506, --irregular height to allow the scroll frame to fit the bottom most button
+		width = 380,
+		point = { "CENTER", UIParent, "CENTER", 0, 0 },
+		onShow = function() Currency:OnShow() end,
+	})
+	Currency.frame = currencyFrame
 
-    Currency.scrollFrame = _G.CreateFrame("ScrollFrame", nil, currencyFrame, "HybridScrollFrameTemplate")
-    Currency.scrollFrame:SetWidth(337)
-    Currency.scrollFrame:SetPoint("TOPLEFT", currencyFrame, "TOPLEFT", 13, -30)
-    --set ScrollFrame height by altering the distance from the bottom of the frame
-    Currency.scrollFrame:SetPoint("BOTTOMLEFT", currencyFrame, "BOTTOMLEFT", -25, 15)
-    Currency.scrollFrame.scrollBar = CreateFrame("Slider", "$parentscrollBar", Currency.scrollFrame, "HybridScrollBarTemplate")
-    Currency.scrollFrame.scrollBar:SetPoint("TOPLEFT", Currency.scrollFrame, "TOPRIGHT", 1, -16)
-    Currency.scrollFrame.scrollBar:SetPoint("BOTTOMLEFT", Currency.scrollFrame, "BOTTOMRIGHT", 1, 12)
-	--initiate the scrollFrame
-    --the items we will work with
-    Currency.currencies = {}
-	Currency.scrollFrame.update = function() Currency:RefreshList(); end
-    HybridScrollFrame_SetDoNotHideScrollBar(Currency.scrollFrame, true)
-	HybridScrollFrame_CreateButtons(Currency.scrollFrame, "BagSyncListItemTemplate")
+	Currency.scrollFrame = UI:CreateHybridScrollFrame(currencyFrame, {
+		width = 337,
+		pointTopLeft = { "TOPLEFT", currencyFrame, "TOPLEFT", 13, -30 },
+		-- set ScrollFrame height by altering the distance from the bottom of the frame
+		pointBottomLeft = { "BOTTOMLEFT", currencyFrame, "BOTTOMLEFT", -25, 15 },
+		buttonTemplate = "BagSyncListItemTemplate",
+		update = function() Currency:RefreshList(); end,
+	})
+	--the items we will work with
+	Currency.currencies = {}
 
 	currencyFrame:Hide()
 end
@@ -166,7 +151,7 @@ function Currency:RefreshList()
 
     for buttonIndex = 1, #buttons do
         local button = buttons[buttonIndex]
-		button.parentHandler = Currency
+		UI:AttachListItemHandlers(button, Currency)
 
         local itemIndex = buttonIndex + offset
 
@@ -200,7 +185,7 @@ function Currency:RefreshList()
 
 			--while we are updating the scrollframe, is the mouse currently over a button?
 			--if so we need to force the OnEnter as the items will scroll up in data but the button remains the same position on our cursor
-			if BSYC.GMF() == button then
+			if BSYC:IsMouseOver(button) then
 				Currency:Item_OnLeave() --hide first
 				Currency:Item_OnEnter(button)
 			end

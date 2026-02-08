@@ -91,6 +91,8 @@ function LFG:OnEnable()
     self:RegisterServer('SERVER_CONNECTED')
     self:RegisterServer('SNEWVERSION')
     self:RegisterServer('ANNOUNCEMENT')
+    self:RegisterServer('SQIRSL')
+    self:RegisterServer('SQIR')
     --[[@classic@
     self:RegisterServer('SWORLDBUFF')
     --@end-classic@]]
@@ -1000,6 +1002,14 @@ end
 
 function LFG:ANNOUNCEMENT(eventName, ...)
     self:SendMessage('MEETINGHORN_ANNOUNCEMENT', ...)
+end
+
+function LFG:SQIRSL(eventName, ...)
+    self:SendMessage('MEETINGHORN_FRIENDRECALL', ...)
+end
+
+function LFG:SQIR(eventName, ...)
+    self:SendMessage('MEETINGHORN_SQIR', ...)
 end
 
 function LFG:SQG(eventName, ...)

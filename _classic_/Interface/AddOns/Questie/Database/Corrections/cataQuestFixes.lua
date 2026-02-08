@@ -570,6 +570,13 @@ function CataQuestFixes.Load()
         [6324] = { -- Return to Morris
             [questKeys.requiredRaces] = raceIDs.UNDEAD,
         },
+        [6341] = { -- The Bounty of Teldrassil
+            [questKeys.preQuestSingle] = {6344},
+            [questKeys.breadcrumbs] = {},
+        },
+        [6344] = { -- Nessa Shadowsong
+            [questKeys.breadcrumbForQuestId] = 0,
+        },
         [6362] = { -- Ride to Thunder Bluff
             [questKeys.requiredRaces] = raceIDs.TAUREN,
         },
@@ -654,6 +661,7 @@ function CataQuestFixes.Load()
             [questKeys.requiredMinRep] = {},
         },
         [6983] = { -- You're a Mean One...
+            [questKeys.startedBy] = {{13418,13636}},
             [questKeys.specialFlags] = specialFlags.REPEATABLE,
             [questKeys.preQuestSingle] = {},
             [questKeys.nextQuestInChain] = 0,
@@ -676,13 +684,13 @@ function CataQuestFixes.Load()
             [questKeys.startedBy] = {{13429}},
         },
         [7043] = { -- You're a Mean One...
+            [questKeys.startedBy] = {{13433,13636}},
             [questKeys.specialFlags] = specialFlags.REPEATABLE,
             [questKeys.preQuestSingle] = {},
             [questKeys.nextQuestInChain] = 0,
             [questKeys.requiredLevel] = 80,
             [questKeys.objectives] = {{{15664,nil,Questie.ICON_TYPE_INTERACT}},nil,{{17662}}},
             [questKeys.objectivesText] = {"Recover the Stolen Treats and free Metzen the Reindeer after defeating the Abominable Greench, who is hiding out near Growless Cave in the Hillsbrad Foothills."},
-            [questKeys.startedBy] = {{13433}},
         },
         [7045] = { -- A Smokywood Pastures' Thank You!
             [questKeys.requiredRaces] = raceIDs.ALL_ALLIANCE,
@@ -854,9 +862,6 @@ function CataQuestFixes.Load()
         },
         [8335] = { -- Felendren the Banished
             [questKeys.startedBy] = {{15281}},
-        },
-        [8347] = { -- Aiding the Outrunners
-            [questKeys.breadcrumbForQuestId] = 9704,
         },
         [8481] = { -- The Root of All Evil
             [questKeys.objectives] = {nil,nil,{{21145}},{576,42000}},
@@ -1160,12 +1165,6 @@ function CataQuestFixes.Load()
         [9272] = { -- Dressing the Part
             [questKeys.zoneOrSort] = zoneIDs.STRANGLETHORN_VALE,
         },
-        [9279] = { -- You Survived!
-            [questKeys.breadcrumbForQuestId] = 9280,
-        },
-        [9280] = { -- Replenishing the Healing Crystals
-            [questKeys.breadcrumbs] = {9279},
-        },
         [9283] = { -- Rescue the Survivors!
             [questKeys.objectives] = {{{16483,nil,Questie.ICON_TYPE_INTERACT}}},
             [questKeys.startedBy] = {{16502}},
@@ -1207,9 +1206,6 @@ function CataQuestFixes.Load()
         },
         [9369] = { -- Replenishing the Healing Crystals
             [questKeys.requiredRaces] = raceIDs.ALL_ALLIANCE - raceIDs.DRAENEI,
-        },
-        [9371] = { -- Botanist Taerix
-            [questKeys.breadcrumbForQuestId] = 10302,
         },
         [9372] = { -- Demonic Contamination
             [questKeys.preQuestSingle] = {},
@@ -1260,15 +1256,16 @@ function CataQuestFixes.Load()
         },
         [9625] = { -- Elekks Are Serious Business
             [questKeys.exclusiveTo] = {28559},
-            [questKeys.nextQuestInChain] = 9634,
-            [questKeys.breadcrumbForQuestId] = 9634,
+            [questKeys.breadcrumbForQuestId] = 9634, -- TO DO: check if "fake" breadcrumb
         },
         [9626] = { -- Meeting the Warchief
             [questKeys.finishedBy] = {{39605}},
         },
         [9634] = { -- Alien Predators
-            [questKeys.preQuestSingle] = {},
-            [questKeys.breadcrumbs] = {9625,28559},
+            [questKeys.breadcrumbs] = {9625,28559}, -- TO DO: check if "fake" breadcrumb 9625
+        },
+        [9645] = {
+            [questKeys.triggerEnd] = {"Journal Entry Read", {[zoneIDs.KARAZHAN_MASTERS_TERRACE]={{45.92,90.39}},[zoneIDs.KARAZHAN]={{-1,-1}}}},
         },
         [9672] = { -- The Bloodcurse Legacy
             [questKeys.exclusiveTo] = {9751},
@@ -1281,9 +1278,6 @@ function CataQuestFixes.Load()
         },
         [9701] = { -- Observing the Sporelings
             [questKeys.breadcrumbs] = {9697},
-        },
-        [9704] = { -- Slain by the Wretched
-            [questKeys.breadcrumbs] = {8347},
         },
         [9729] = { -- Fhwoor Smash!
             [questKeys.requiredMinRep] = {970,42000},
@@ -1506,11 +1500,13 @@ function CataQuestFixes.Load()
         [10277] = { -- The Caverns of Time
             [questKeys.zoneOrSort] = zoneIDs.CAVERNS_OF_TIME,
             [questKeys.preQuestSingle] = {},
+            [questKeys.breadcrumbs] = {10279},
             [questKeys.triggerEnd] = {"Caverns of Time Explained", {[zoneIDs.TANARIS]={{58.56,54.14}}}},
         },
         [10279] = { -- To The Master's Lair
             [questKeys.zoneOrSort] = zoneIDs.CAVERNS_OF_TIME,
             [questKeys.requiredRaces] = raceIDs.NONE,
+            [questKeys.breadcrumbForQuestId] = 10277,
         },
         [10282] = { -- Old Hillsbrad
             [questKeys.zoneOrSort] = zoneIDs.CAVERNS_OF_TIME,
@@ -1535,10 +1531,6 @@ function CataQuestFixes.Load()
         },
         [10302] = { -- Volatile Mutations
             [questKeys.preQuestSingle] = {9369,9280},
-            [questKeys.breadcrumbs] = {9371},
-        },
-        [10304] = { -- Vindicator Aldar
-            [questKeys.breadcrumbForQuestId] = 9303,
         },
         [10305] = { -- Abjurist Belmara
             [questKeys.startedBy] = {nil,nil,{29234}},
@@ -1960,9 +1952,6 @@ function CataQuestFixes.Load()
             [questKeys.finishedBy] = {{19935}},
             [questKeys.specialFlags] = 1,
         },
-        [11129] = { -- Kyle's Gone Missing!
-            [questKeys.objectives] = {{{23616,nil,Questie.ICON_TYPE_INTERACT}}},
-        },
         [11131] = { -- Stop the Fires!
             [questKeys.exclusiveTo] = {12135},
             [questKeys.preQuestSingle] = {11360,11439,11440},
@@ -2341,11 +2330,8 @@ function CataQuestFixes.Load()
         [12492] = { -- Direbrew's Dire Brew
             [questKeys.requiredRaces] = raceIDs.ALL_HORDE,
         },
-        [12513] = { -- Nice Hat...
-            [questKeys.zoneOrSort] = zoneIDs.CAVERNS_OF_TIME,
-        },
         [12515] = { -- Nice Hat...
-            [questKeys.zoneOrSort] = zoneIDs.CAVERNS_OF_TIME,
+            [questKeys.requiredRaces] = raceIDs.ORC + raceIDs.NIGHT_ELF + raceIDs.DRAENEI + raceIDs.TROLL + raceIDs.TAUREN + raceIDs.UNDEAD + raceIDs.BLOOD_ELF + raceIDs.GOBLIN + raceIDs.WORGEN,
         },
         [12517] = { -- Rogues Deck
             [questKeys.requiredSkill] = {},
@@ -5079,6 +5065,10 @@ function CataQuestFixes.Load()
         [25046] = { -- A Daughter's Embrace
             [questKeys.objectives] = {{{39097,nil,Questie.ICON_TYPE_EVENT}}},
         },
+        [25047] = { -- Broken Panther Figurine
+            [questKeys.requiredClasses] = classIDs.HUNTER + classIDs.ROGUE + classIDs.SHAMAN + classIDs.DRUID,
+            [questKeys.requiredSkill] = {profKeys.JEWELCRAFTING,475},
+        },
         [25050] = { -- Rocket Rescue
             [questKeys.objectives] = {{{38571,nil,Questie.ICON_TYPE_EVENT},{40583}}},
             [questKeys.preQuestGroup] = {25048,25049},
@@ -5782,6 +5772,9 @@ function CataQuestFixes.Load()
         },
         [25451] = { -- Pristine Yeti Hide
             [questKeys.preQuestSingle] = {25449},
+        },
+        [25454] = { -- Pristine Yeti Hide
+            [questKeys.preQuestSingle] = {25452},
         },
         [25459] = { -- Ophidophobia
             [questKeys.preQuestSingle] = {25602},
@@ -13663,6 +13656,22 @@ function CataQuestFixes.Load()
             [questKeys.requiredRaces] = raceIDs.HUMAN,
             [questKeys.zoneOrSort] = zoneIDs.ELWYNN_FOREST,
             --[questKeys.nextQuestInChain] = 3100, -- removing this key because some chars did these class quests before the prepatch
+        },
+        [28775] = { -- Broken Serpent Figurine
+            [questKeys.requiredClasses] = classIDs.PALADIN + classIDs.PRIEST + classIDs.SHAMAN + classIDs.MAGE + classIDs.WARLOCK + classIDs.DRUID,
+            [questKeys.requiredSkill] = {profKeys.JEWELCRAFTING,475},
+        },
+        [28776] = { -- Broken Earthen Figurine
+            [questKeys.requiredClasses] = classIDs.WARRIOR + classIDs.PALADIN + classIDs.DEATH_KNIGHT + classIDs.DRUID,
+            [questKeys.requiredSkill] = {profKeys.JEWELCRAFTING,475},
+        },
+        [28777] = { -- Broken Owl Figurine
+            [questKeys.requiredClasses] = classIDs.PALADIN + classIDs.PRIEST + classIDs.SHAMAN + classIDs.DRUID,
+            [questKeys.requiredSkill] = {profKeys.JEWELCRAFTING,475},
+        },
+        [28778] = { -- Broken Boar Figurine
+            [questKeys.requiredClasses] = classIDs.WARRIOR + classIDs.PALADIN + classIDs.DEATH_KNIGHT,
+            [questKeys.requiredSkill] = {profKeys.JEWELCRAFTING,475},
         },
         [28780] = { -- Join the Battle! -- Human Hunter
             [questKeys.requiredRaces] = raceIDs.HUMAN,

@@ -1,5 +1,4 @@
-﻿---@diagnostic disable: assign-type-mismatch
-local cacheGetObjectInfo = { }
+﻿local cacheGetObjectInfo = { }
 local cacheObjectStringStandard = { }
 local cacheObjectStringDecode = { }
 

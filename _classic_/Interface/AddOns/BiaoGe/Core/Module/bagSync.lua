@@ -17,7 +17,6 @@ local SendSystemMessage = ns.SendSystemMessage
 local ver = ns.ver
 local VIP = ns.VIP
 local After = C_Timer.After
-local realmName = GetRealmName()
 local player = UnitName("player")
 local realmID = GetRealmID()
 

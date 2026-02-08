@@ -1,5 +1,4 @@
-﻿---@diagnostic disable: undefined-global, redundant-parameter
-
+﻿
 -- blizzzard functions that no longer exist, or have been replaced across clients
 
 ArkInventory.CrossClient = {
@@ -890,6 +889,26 @@ function ArkInventory.CrossClient.TransmogCollection_GetItemInfo( ... )
 	end
 end
 
+function ArkInventory.CrossClient.TransmogCollectionGetAppearanceSourceInfo( ... )
+	
+	local r = { }
+	
+	if C_TransmogCollection and C_TransmogCollection.GetAppearanceSourceInfo then
+		
+		local test = C_TransmogCollection.GetAppearanceSourceInfo( ... )
+		if type( test ) == "table" then
+			r = test
+		else
+			r = { }
+			r.categoryID, r.visualID, r.canEnchant, r.icon, r.isCollected, r.itemLink, r.transmogLink, r.unknown1, r.itemSubTypeIndex = C_TransmogCollection.GetAppearanceSourceInfo( ... )
+		end
+
+	end
+	
+	return r
+
+end
+
 function ArkInventory.CrossClient.GetMouseFocus( )
 	if GetMouseFoci then
 		local regions = GetMouseFoci( )
@@ -899,7 +918,6 @@ function ArkInventory.CrossClient.GetMouseFocus( )
 --		ArkInventory.Output( "---" )
 		return regions[1]
 	else
----@diagnostic disable-next-line: undefined-global
 		return GetMouseFocus( )
 	end
 end
@@ -1796,7 +1814,7 @@ function ArkInventory.CrossClient.EquipmentManager_UnpackLocation( ... )
 
 		local isPlayer, isBank, isBags, isVoid, slot, bag, voidTab, voidSlot
 
-		if ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Void].ClientCheck ) then
+		if ArkInventory.Global.Location[ArkInventory.Const.Location.Void].ClientCheck then
 			isPlayer, isBank, isBags, isVoid, slot, bag, voidTab, voidSlot = EquipmentManager_UnpackLocation( ... )
 		else
 			isPlayer, isBank, isBags, slot, bag = EquipmentManager_UnpackLocation( ... )
@@ -1819,38 +1837,60 @@ function ArkInventory.CrossClient.EquipmentManager_UnpackLocation( ... )
 
 end
 
+function ArkInventory.CrossClient.CanUseVoidStorage( )
+	if CanUseVoidStorage then
+		return CanUseVoidStorage( )
+	end
+end
+
+function ArkInventory.CrossClient.GetVoidItemInfo( ... )
+	if GetVoidItemInfo then
+		return GetVoidItemInfo( ... )
+	end
+end
+
+function ArkInventory.CrossClient.GetVoidItemHyperlinkString( ... )
+	if GetVoidItemHyperlinkString then
+		return GetVoidItemHyperlinkString( ... )
+	end
+end
+
+function ArkInventory.CrossClient.BankButtonIDToInvSlotID( ... )
+	if BankButtonIDToInvSlotID then
+		return BankButtonIDToInvSlotID( ... )
+	end
+end
+
+function ArkInventory.CrossClient.ReagentBankButtonIDToInvSlotID( ... )
+	if ReagentBankButtonIDToInvSlotID then
+		return ReagentBankButtonIDToInvSlotID( ... )
+	end
+end
+
+
+
+
+
+
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 local a = string.lower( ArkInventory.CrossClient.GetCVar( "agentuid" ) )
 local p = string.lower( ArkInventory.CrossClient.GetCVar( "portal" ) )
 
-for k, v in pairs( ArkInventory.Const.BLIZZARD.CLIENT.EXPANSION ) do
-	--ArkInventory.Output( k, " = ", v )
-	if ArkInventory.Const.BLIZZARD.TOC >= v.TOC.MIN and ArkInventory.Const.BLIZZARD.TOC <= v.TOC.MAX then
-		ArkInventory.Const.BLIZZARD.CLIENT.ID = v.ID
-		break
-	end
-end
+-- GetExpansionLevel( ) shows the highest PURCHASED game expansion, not the game client that is running
+-- to cater for people that have not purchased the latest expansion(s) use the TOC value instead
+ArkInventory.ENUM.EXPANSION.CURRENT = floor(ArkInventory.Const.BLIZZARD.TOC / 10000)
 
-ArkInventory.ENUM.EXPANSION.CURRENT = ArkInventory.Const.BLIZZARD.CLIENT.ID
-
-if ArkInventory.Const.BLIZZARD.CLIENT.ID <= ArkInventory.ENUM.EXPANSION.WRATH then
+if ArkInventory.ENUM.EXPANSION.CURRENT <= ArkInventory.ENUM.EXPANSION.WRATH then
 	ArkInventory.CrossClient.TemplateVersion = 2
 end
 
-if ArkInventory.Const.BLIZZARD.CLIENT.ID == nil then
-	ArkInventory.OutputError( "code error: unable to determine game client, please contact the author with the following client data: project=[", WOW_PROJECT_ID, "], agent=[", a, "], portal=[", p, "] TOC=[", ArkInventory.Const.BLIZZARD.TOC, "]")
-else
-	if string.match( a, "alpha" ) then
-		ArkInventory.Const.BLIZZARD.CLIENT.ID = ArkInventory.Const.BLIZZARD.CLIENT.ID + ArkInventory.Const.BLIZZARD.CLIENT.ALPHA
-		ArkInventory.Const.BLIZZARD.CLIENT.NAME = string.format( "%s: Alpha", ArkInventory.Const.BLIZZARD.CLIENT.NAME )
-	elseif string.match( a, "beta" ) then
-		ArkInventory.Const.BLIZZARD.CLIENT.ID = ArkInventory.Const.BLIZZARD.CLIENT.ID + ArkInventory.Const.BLIZZARD.CLIENT.BETA
-		ArkInventory.Const.BLIZZARD.CLIENT.NAME = string.format( "%s: Beta", ArkInventory.Const.BLIZZARD.CLIENT.NAME )
-	elseif string.match( a, "ptr" ) or p == "test" then
-		ArkInventory.Const.BLIZZARD.CLIENT.ID = ArkInventory.Const.BLIZZARD.CLIENT.ID + ArkInventory.Const.BLIZZARD.CLIENT.PTR
-		ArkInventory.Const.BLIZZARD.CLIENT.NAME = string.format( "%s: PTR", ArkInventory.Const.BLIZZARD.CLIENT.NAME )
-	end
+if string.match( a, "alpha" ) then
+	ArkInventory.Const.BLIZZARD.CLIENT.NAME = string.format( "%s: Alpha", ArkInventory.Const.BLIZZARD.CLIENT.NAME )
+elseif string.match( a, "beta" ) then
+	ArkInventory.Const.BLIZZARD.CLIENT.NAME = string.format( "%s: Beta", ArkInventory.Const.BLIZZARD.CLIENT.NAME )
+elseif string.match( a, "ptr" ) or p == "test" then
+	ArkInventory.Const.BLIZZARD.CLIENT.NAME = string.format( "%s: PTR", ArkInventory.Const.BLIZZARD.CLIENT.NAME )
 end
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -1861,7 +1901,9 @@ ArkInventory.Const.BLIZZARD.CLIENT.ELEVEN_POINT_TWO = ArkInventory.ClientCheck( 
 
 if true then
 	
-	-- WARNING - DO NOT TRUST ENUMS FOR THIS.  BLIZZARD DO NOT UPDATE THE VALUES ACROSS ALL CLIENTS CORRECTLY.  YOU NEED TO HARDCODE THE VALUES OR YOU WILL RUN INTO ISSUES.
+	-- WARNING - DO NOT TRUST ENUMS FOR THIS.
+	-- BLIZZARD DO NOT UPDATE THE VALUES ACROSS ALL CLIENTS SIMULTANEOUSLY.
+	-- YOU NEED TO HARDCODE THE VALUES OR YOU WILL RUN INTO ISSUES.
 
 	ArkInventory.ENUM.BAG.INDEX.BACKPACK = 0
 	ArkInventory.ENUM.BAG.INDEX.BAG_1 = 1
@@ -1885,8 +1927,8 @@ if true then
 	ArkInventory.Const.BLIZZARD.GLOBAL.BANK.NUM_SLOTS = 28
 
 
-	if ArkInventory.ClientCheck( ArkInventory.ENUM.EXPANSION.CATACLYSM ) then
-
+	if ArkInventory.ClientCheck( ArkInventory.ENUM.EXPANSION.TBC ) then
+		
 		ArkInventory.Const.BLIZZARD.GLOBAL.BANK.NUM_BAGS = 7
 		
 		ArkInventory.ENUM.BAG.INDEX.BANKBAG_7 = 11
@@ -1900,6 +1942,7 @@ if true then
 
 	end
 	
+
 	if ArkInventory.ClientCheck( ArkInventory.ENUM.EXPANSION.DRAGONFLIGHT ) then
 
 		ArkInventory.ENUM.BAG.INDEX.REAGENTBAG = 5

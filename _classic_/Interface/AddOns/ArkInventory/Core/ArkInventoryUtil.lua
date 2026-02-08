@@ -98,7 +98,7 @@ function ArkInventory.Util.MapAddBag( info )
 	end
 	
 	
-	if ArkInventory.ClientCheck( ArkInventory.Global.Location[loc_id_storage].ClientCheck ) then
+	if ArkInventory.Global.Location[loc_id_storage].ClientCheck then
 		
 		--ArkInventory.Output( "added bag for storage [", blizzard_id, " ", ArkInventory.Global.Location[loc_id_storage].Name, "]" )
 		

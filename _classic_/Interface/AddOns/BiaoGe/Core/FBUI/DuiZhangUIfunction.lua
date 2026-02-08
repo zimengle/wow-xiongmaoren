@@ -71,14 +71,14 @@ function BG.DuiZhangBiaoTiUI(FB, t, b, bb, i, ii)
         else
             version:SetPoint("TOPLEFT", frameright, "TOPLEFT", 105, 0)
         end
-        version:SetFont(STANDARD_TEXT_FONT, fontsize, "OUTLINE")
+        version:SetFont(BIAOGE_TEXT_FONT, fontsize, "OUTLINE")
         version:SetTextColor(RGB(BG.y2))
         version:SetText(L["  项目"])
         preWidget = version
 
         local version = BG["DuiZhangFrame" .. FB]:CreateFontString()
         version:SetPoint("TOPLEFT", preWidget, "TOPLEFT", 70, 0);
-        version:SetFont(STANDARD_TEXT_FONT, fontsize, "OUTLINE")
+        version:SetFont(BIAOGE_TEXT_FONT, fontsize, "OUTLINE")
         version:SetTextColor(RGB(BG.y2))
         version:SetText(L["装备"])
         preWidget = version
@@ -86,7 +86,7 @@ function BG.DuiZhangBiaoTiUI(FB, t, b, bb, i, ii)
 
         local version = BG["DuiZhangFrame" .. FB]:CreateFontString()
         version:SetPoint("TOPLEFT", preWidget, "TOPLEFT", BG.zhuangbeiWidth+5, 0);
-        version:SetFont(STANDARD_TEXT_FONT, fontsize, "OUTLINE")
+        version:SetFont(BIAOGE_TEXT_FONT, fontsize, "OUTLINE")
         version:SetTextColor(RGB(BG.y2))
         version:SetText(L["我的金额"])
         version:SetTextColor(RGB("00BFFF"))
@@ -94,7 +94,7 @@ function BG.DuiZhangBiaoTiUI(FB, t, b, bb, i, ii)
 
         local version = BG["DuiZhangFrame" .. FB]:CreateFontString()
         version:SetPoint("TOPLEFT", preWidget, "TOPLEFT", 90, 0);
-        version:SetFont(STANDARD_TEXT_FONT, fontsize, "OUTLINE")
+        version:SetFont(BIAOGE_TEXT_FONT, fontsize, "OUTLINE")
         version:SetTextColor(RGB(BG.y2))
         version:SetText(L["对方金额"])
         version:SetTextColor(RGB("FF69B4"))
@@ -202,11 +202,7 @@ function BG.DuiZhangZhuangBeiUI(FB, t, b, bb, i, ii)
         if not tonumber(self:GetText()) then
             local link = bt:GetText()
             local itemID = select(1, GetItemID(link))
-            BG.Hide_AllHighlight()
-            BG.HighlightBag(link)
-            BG.HighlightChatFrame(link)
-            BG.HighlightItemOutTime(link)
-            BG.HighlightItemAuctionLog(link)
+            BG.Show_AllHighlight(link, "biaoge")
             if itemID then
                 if BG.ButtonIsInRight(self) then
                     GameTooltip:SetOwner(self, "ANCHOR_LEFT", 0, 0)

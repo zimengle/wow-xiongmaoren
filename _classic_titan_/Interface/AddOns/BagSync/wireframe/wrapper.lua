@@ -4,16 +4,21 @@
 		module/event/message/console/locale/config behavior stable across Classic → Retail.
 --]]
 
-local addonName, BSYC = ...
+local ADDON_NAME, BSYC = ...
 BSYC = BSYC or {}
-_G[addonName] = BSYC
+_G[ADDON_NAME] = BSYC
 
 -- ---------------------------------------------------------------------------
 -- Locale (AceLocale replacement)
 -- ---------------------------------------------------------------------------
 
+local currentLocale = (type(_G.GetLocale) == "function" and _G.GetLocale()) or "enUS"
+if currentLocale == "enGB" then
+	currentLocale = "enUS"
+end
+
 BSYC._locales = BSYC._locales or {
-	current = (type(_G.GetLocale) == "function" and _G.GetLocale()) or "enUS",
+	current = currentLocale,
 	default = nil,
 	locales = {},
 }
@@ -57,7 +62,11 @@ BSYC.L = BSYC.L or setmetatable({}, {
 BSYC._chatCommands = BSYC._chatCommands or {}
 
 function BSYC:Print(...)
-	local msg = string.join(" ", tostringall(...))
+	local prefix = ""
+	if ADDON_NAME then
+		prefix = "|cFF99CC33" .. ADDON_NAME .. "|r: "
+	end
+	local msg = prefix .. string.join(" ", tostringall(...))
 	if _G.DEFAULT_CHAT_FRAME and _G.DEFAULT_CHAT_FRAME.AddMessage then
 		_G.DEFAULT_CHAT_FRAME:AddMessage(msg)
 	else
@@ -274,7 +283,7 @@ BSYC.ConfigDialog = BSYC.ConfigDialog or { _settingsCategories = {} }
 local uiNameCounter = 0
 local function uiName(kind)
 	uiNameCounter = uiNameCounter + 1
-	return ("%s_%s_%d"):format(addonName, tostring(kind or "UI"), uiNameCounter)
+	return ("%s_%s_%d"):format(ADDON_NAME or "BagSync", tostring(kind or "UI"), uiNameCounter)
 end
 
 local function resolveText(v, ctx)
@@ -591,6 +600,7 @@ local function applyDirty(dirty)
 		if minimap and minimap.UpdateVisibility then pcall(minimap.UpdateVisibility, minimap) end
 	end
 
+
 	if flags.bindings and _G.SaveBindings and _G.GetCurrentBindingSet then
 		pcall(_G.SaveBindings, _G.GetCurrentBindingSet())
 	end
@@ -697,15 +707,12 @@ local function compileBinding(item)
 				local opts = BSYC.options
 				if not opts then return true end
 				if opts.enableMinimap == false then return false end
-				if opts.minimap and opts.minimap.hide then return false end
 				return true
 			end,
 			set = function(enabled)
 				enabled = enabled and true or false
 				BSYC.options = BSYC.options or {}
 				BSYC.options.enableMinimap = enabled
-				BSYC.options.minimap = BSYC.options.minimap or {}
-				BSYC.options.minimap.hide = not enabled
 			end,
 		}
 	end
@@ -795,7 +802,15 @@ local function renderItems(parent, items, widgets, y)
 
 			elseif itemType == "text" then
 				local text = resolveText(item.text or item.name) or ""
-				_, y = createDescription(parent, text, y, item.font)
+				local fs
+				fs, y = createDescription(parent, text, y, item.font)
+				if type(item.text) == "function" or type(item.name) == "function" then
+					table.insert(widgets, {
+						refresh = function()
+							fs:SetText(resolveText(item.text or item.name) or "")
+						end
+					})
+				end
 
 			elseif itemType == "toggle" then
 				local label = resolveText(item.label or item.name) or ""
@@ -855,7 +870,11 @@ local function renderItems(parent, items, widgets, y)
 					refresh = function()
 						local selected = binding and binding.get and binding.get()
 						UIDropDownMenu_SetSelectedValue(dd, selected)
-						local t = labelByValue[selected] or ""
+						local t = labelByValue[selected]
+						if t == nil and selected ~= nil then
+							t = tostring(selected)
+						end
+						t = t or ""
 						UIDropDownMenu_SetText(dd, t)
 						UIDropDownMenu_DisableDropDown(dd)
 						if not evalBool(item.disabled) then
@@ -1196,7 +1215,7 @@ local modulesEnabled = false
 
 eventFrame:HookScript("OnEvent", function(_, eventName, arg1)
 	if eventName == "ADDON_LOADED" then
-		if arg1 ~= addonName or coreEnabled then return end
+		if arg1 ~= ADDON_NAME or coreEnabled then return end
 		coreEnabled = true
 		if type(BSYC.OnEnable) == "function" then
 			pcall(BSYC.OnEnable, BSYC)

@@ -20,7 +20,7 @@ local RTabFrame =Create.PIGOptionsList_RF(fuFrame)
 --
 local zishenF,zishentabbut =PIGOptionsList_R(RTabFrame,L["UNIT_TABNAME1"],90)
 zishenF:Show()
-zishentabbut:Selected()
+zishentabbut:Selected(true)
 --------
 zishenF.HPFF=PIGCheckbutton_R(zishenF,{"额外血量框架","在自身头像右侧显示额外血量框架.\n额外血量框架可能会和目标头像框架重叠，开启此选项后可能会右移目标头像"})
 zishenF.HPFF:SetScript("OnClick", function (self)
@@ -95,11 +95,15 @@ duiyouF:HookScript("OnShow", function(self)
 end)
 -------------------
 local mubiaoF =PIGOptionsList_R(RTabFrame,L["UNIT_TABNAME3"],90)
-mubiaoF.PlusText = {"血量百分比/职业/种族","显示目标血量百分比/职业/种族！\r|cff00FFFF小提示：|r\r目标职业图标可以点击，"..KEY_BUTTON1.."观察/"..KEY_BUTTON2.."交易"}
-if PIG_MaxTocversion(30000) then
-	mubiaoF.PlusText= {"血量/血量百分比/职业/种族","显示目标血量/血量百分比/职业/种族！\r|cff00FFFF小提示：|r\r目标职业图标可以点击，"..KEY_BUTTON1.."观察/"..KEY_BUTTON2.."交易"}
+local mubiaoText = {"职业/种族"}
+if PIG_MaxTocversion() then
+	mubiaoText[1]="血量百分比/"..mubiaoText[1]
+	if PIG_MaxTocversion(30000) then
+		mubiaoText[1]="血量值/"..mubiaoText[1]
+	end
 end
-mubiaoF.Plus=PIGCheckbutton_R(mubiaoF,mubiaoF.PlusText)
+mubiaoText[2]="显示"..mubiaoText[1].."\r|cff00FFFF小提示：|r\r目标职业图标可以点击，"..KEY_BUTTON1.."观察/"..KEY_BUTTON2.."交易"
+mubiaoF.Plus=PIGCheckbutton_R(mubiaoF,mubiaoText)
 mubiaoF.Plus:SetScript("OnClick", function (self)
 	if self:GetChecked() then
 		PIGA["UnitFrame"]["TargetFrame"]["Plus"]=true;
@@ -141,23 +145,34 @@ mubiaoF.Yisu:SetScript("OnClick", function (self)
 end);
 local function BigDebuff()
 	if PIGA["UnitFrame"]["TargetFrame"]["BigDebuff"] then
-		if PIG_MaxTocversion() then
-			TargetFrameToT:SetPoint("BOTTOMRIGHT", TargetFrame, "BOTTOMRIGHT", -4, -12);
-			hooksecurefunc("TargetFrame_UpdateDebuffAnchor", function(self, debuffName, index)
-				local buff = _G[debuffName..index];
-				local _, _, _, _, _, _, caster = UnitDebuff(self.unit, index)
-				if caster == "player" then
-					buff:SetSize(30,30)
-				end
-			end)
-		else
-			hooksecurefunc("TargetFrame_UpdateDebuffAnchor", function(_, buff)
-				if buff and buff.auraInstanceID then
-					local UnitP = C_UnitAuras.GetAuraDataByAuraInstanceID("target", buff.auraInstanceID)
-					if UnitP and UnitP["sourceUnit"] == "player" then
+		if TargetFrame_UpdateDebuffAnchor then
+			if PIG_MaxTocversion(120000) then
+				TargetFrameToT:SetPoint("BOTTOMRIGHT", TargetFrame, "BOTTOMRIGHT", -4, -12);
+				hooksecurefunc("TargetFrame_UpdateDebuffAnchor", function(self, debuffName, index)
+					local buff = _G[debuffName..index];
+					local _, _, _, _, _, _, caster = UnitDebuff(self.unit, index)
+					if caster == "player" then
 						buff:SetSize(30,30)
 					end
-				end
+				end)
+			end
+		else
+			hooksecurefunc(TargetFrame,"UpdateAuras", function(self)
+				local debuffIndex = 1;
+				AuraUtil.ForEachAura(self.unit, AuraUtil.CreateFilterString(AuraUtil.AuraFilters.Harmful, AuraUtil.AuraFilters.IncludeNameplateOnly), maxDebuffs, function(...)
+					local debuffName, icon, count, debuffType, duration, expirationTime, caster, _, _, _, _, _, casterIsPlayer, nameplateShowAll = ...;
+					if ( debuffName ) then
+						if ( self:ShouldShowDebuffs(self.unit, caster, nameplateShowAll, casterIsPlayer) ) then
+							if ( icon ) then
+								if caster == "player" then
+									frameName = "TargetFrameDebuff"..debuffIndex;
+									_G[frameName]:SetSize(30,30)
+								end
+								debuffIndex = debuffIndex + 1;
+							end
+						end
+					end
+				end);
 			end)
 		end
 	end

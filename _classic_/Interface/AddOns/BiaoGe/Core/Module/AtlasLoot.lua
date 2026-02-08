@@ -62,45 +62,6 @@ BG.Init2(function()
     end
 
     local infoTbl = {
-        [3] = {
-            ["Enchanting"] = 1,      -- 附魔
-            ["Blacksmithing"] = 14,  -- 锻造
-            ["Engineering"] = 6,     -- 工程
-            ["Tailoring"] = 11,      -- 裁缝
-            ["Leatherworking"] = 10, -- 制皮
-            ["Jewelcrafting"] = 5,   -- 珠宝
-            ["Inscription"] = function()
-                local id
-                if classFilename == "DRUID" then
-                    id = 3 + classID - 1
-                else
-                    id = 3 + classID
-                end
-                mainFrame.boss:SetSelected(id)
-            end,              -- 铭文
-            ["Alchemy"] = 1,  -- 炼金
-            ["Cooking"] = 13, -- 烹饪
-            -- 专业制造
-            [addonName .. "_Crafting"] = function()
-                mainFrame.subCatSelect:SetSelected("Enchanting" .. GetVerText())
-            end,
-            -- 地下城和团队副本
-            -- [addonName.."_DungeonsAndRaids"] = function()
-            --     mainFrame.subCatSelect:SetSelected("DragonSoul")
-            --     ClickSelectButton(6, 1, "notRefresh")
-            -- end,
-            -- PVP
-            -- [addonName.."_PvP"] = function()
-            --     mainFrame.subCatSelect:SetSelected("ArenaS11PvP")
-            --     ClickSelectButton(14, 1, "notRefresh")
-            -- end,
-            -- 藏品
-            -- [addonName.."_Collections"] = function()
-            --     mainFrame.subCatSelect:SetSelected("TierSets")
-            --     mainFrame.boss:SetSelected(14)
-            --     ClickSelectButton(5, 1)
-            -- end,
-        },
         [4] = {
             ["Enchanting"] = 1,      -- 附魔
             ["Blacksmithing"] = 15,  -- 锻造
@@ -181,6 +142,86 @@ BG.Init2(function()
             end,
         },
     }
+    if addonName == "AtlasLootMY" then
+        infoTbl[3] = {
+            ["Enchanting"] = 1,      -- 附魔
+            ["Blacksmithing"] = 20,  -- 锻造
+            ["Engineering"] = 6,     -- 工程
+            ["Tailoring"] = 11,      -- 裁缝
+            ["Leatherworking"] = 10, -- 制皮
+            ["Jewelcrafting"] = 5,   -- 珠宝
+            ["Inscription"] = function()
+                local id
+                if classFilename == "DRUID" then
+                    id = 3 + classID - 1
+                else
+                    id = 3 + classID
+                end
+                mainFrame.boss:SetSelected(id)
+            end,              -- 铭文
+            ["Alchemy"] = 1,  -- 炼金
+            ["Cooking"] = 13, -- 烹饪
+            -- 专业制造
+            [addonName .. "_Crafting"] = function()
+                mainFrame.subCatSelect:SetSelected("Enchanting" .. GetVerText())
+            end,
+            -- 地下城和团队副本
+            [addonName.."_DungeonsAndRaids"] = function()
+                mainFrame.moduleSelect:SetSelected(addonName .. "_DungeonsAndRaids")
+                mainFrame.subCatSelect:SetSelected("MoltenCore80")
+            end,
+            -- PVP
+            -- [addonName.."_PvP"] = function()
+            --     mainFrame.subCatSelect:SetSelected("ArenaS11PvP")
+            --     ClickSelectButton(14, 1, "notRefresh")
+            -- end,
+            -- 藏品
+            [addonName.."_Collections"] = function()
+                mainFrame.moduleSelect:SetSelected(addonName .. "_Collections")
+                mainFrame.subCatSelect:SetSelected("EmblemofHeroism")
+            end,
+        }
+    else
+        infoTbl[3] = {
+            ["Enchanting"] = 1,      -- 附魔
+            ["Blacksmithing"] = 14,  -- 锻造
+            ["Engineering"] = 6,     -- 工程
+            ["Tailoring"] = 11,      -- 裁缝
+            ["Leatherworking"] = 10, -- 制皮
+            ["Jewelcrafting"] = 5,   -- 珠宝
+            ["Inscription"] = function()
+                local id
+                if classFilename == "DRUID" then
+                    id = 3 + classID - 1
+                else
+                    id = 3 + classID
+                end
+                mainFrame.boss:SetSelected(id)
+            end,              -- 铭文
+            ["Alchemy"] = 1,  -- 炼金
+            ["Cooking"] = 13, -- 烹饪
+            -- 专业制造
+            [addonName .. "_Crafting"] = function()
+                mainFrame.subCatSelect:SetSelected("Enchanting" .. GetVerText())
+            end,
+            -- 地下城和团队副本
+            -- [addonName.."_DungeonsAndRaids"] = function()
+            --     mainFrame.subCatSelect:SetSelected("DragonSoul")
+            --     ClickSelectButton(6, 1, "notRefresh")
+            -- end,
+            -- PVP
+            -- [addonName.."_PvP"] = function()
+            --     mainFrame.subCatSelect:SetSelected("ArenaS11PvP")
+            --     ClickSelectButton(14, 1, "notRefresh")
+            -- end,
+            -- 藏品
+            -- [addonName.."_Collections"] = function()
+            --     mainFrame.subCatSelect:SetSelected("TierSets")
+            --     mainFrame.boss:SetSelected(14)
+            --     ClickSelectButton(5, 1)
+            -- end,
+        }
+    end
 
     function ClickSelectButton(id, selectFrameID, notRefresh)
         for i, SelectButton in ipairs(_G["AtlasLoot-Select-" .. (selectFrameID or 2)].obj.buttons) do
@@ -383,15 +424,32 @@ BG.Init2(function()
         end)
     elseif BG.IsTitan then
         if addonName == "AtlasLootMY" then
+            CreateButton("毒蛇", function()
+                mainFrame.moduleSelect:SetSelected(addonName .. "_DungeonsAndRaids")
+                mainFrame.subCatSelect:SetSelected("SerpentshrineCavern80")
+            end)
+            CreateButton("风暴", function()
+                mainFrame.moduleSelect:SetSelected(addonName .. "_DungeonsAndRaids")
+                mainFrame.subCatSelect:SetSelected("TempestKeep80")
+            end)
+            CreateButton(L["世界"], function()
+                mainFrame.moduleSelect:SetSelected(addonName .. "_DungeonsAndRaids")
+                mainFrame.subCatSelect:SetSelected("WorldBossesBC80")
+            end)
+            CreateButton(L["T2"], function()
+                mainFrame.moduleSelect:SetSelected(addonName .. "_DungeonsAndRaids")
+                mainFrame.subCatSelect:SetSelected("TempestKeep80")
+                ClickSelectButton(7, 3, "notRefresh")
+            end)
             CreateButton("MC", function()
                 mainFrame.moduleSelect:SetSelected(addonName .. "_DungeonsAndRaids")
                 mainFrame.subCatSelect:SetSelected("MoltenCore80")
-            end)
+            end, -20)
             CreateButton(L["世界"], function()
                 mainFrame.moduleSelect:SetSelected(addonName .. "_DungeonsAndRaids")
                 mainFrame.subCatSelect:SetSelected("WorldBosses81")
             end)
-            CreateButton(L["T1套"], function()
+            CreateButton(L["T1"], function()
                 mainFrame.moduleSelect:SetSelected(addonName .. "_DungeonsAndRaids")
                 mainFrame.subCatSelect:SetSelected("MoltenCore80")
                 ClickSelectButton(12, 3, "notRefresh")

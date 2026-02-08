@@ -7,6 +7,7 @@
 --]]
 
 local BSYC = select(2, ...) --grab the addon namespace
+local UI = BSYC:GetModule("UI")
 local Gold = BSYC:NewModule("Gold")
 local Data = BSYC:GetModule("Data")
 local Tooltip = BSYC:GetModule("Tooltip")
@@ -15,54 +16,40 @@ local function Debug(level, ...)
     if BSYC.DEBUG then BSYC.DEBUG(level, "Gold", ...) end
 end
 
-local L = LibStub("AceLocale-3.0"):GetLocale("BagSync")
+local L = BSYC.L
 
 function Gold:OnEnable()
-	local goldFrame = _G.CreateFrame("Frame", nil, UIParent, "BagSyncFrameTemplate")
-	Mixin(goldFrame, Gold) --implement new frame to our parent module Mixin, to have access to parent methods
-	_G["BagSyncGoldFrame"] = goldFrame
-    --Add to special frames so window can be closed when the escape key is pressed.
-    tinsert(UISpecialFrames, "BagSyncGoldFrame")
-    goldFrame.TitleText:SetText("BagSync - "..L.Gold)
-    goldFrame:SetHeight(506)
-	goldFrame:SetWidth(440)
-    goldFrame:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
-    goldFrame:EnableMouse(true) --don't allow clickthrough
-    goldFrame:SetMovable(true)
-    goldFrame:SetResizable(false)
-    goldFrame:SetFrameStrata("FULLSCREEN_DIALOG")
-	goldFrame:RegisterForDrag("LeftButton")
-	goldFrame:SetClampedToScreen(true)
-	goldFrame:SetScript("OnDragStart", goldFrame.StartMoving)
-	goldFrame:SetScript("OnDragStop", goldFrame.StopMovingOrSizing)
-	goldFrame:SetScript("OnShow", function() Gold:OnShow() end)
-	local closeBtn = CreateFrame("Button", nil, goldFrame, "UIPanelCloseButton")
-	closeBtn:SetPoint("TOPRIGHT", C_EditMode and -3 or 2, C_EditMode and -3 or 1) --check for classic servers to adjust for positioning using a check for the new EditMode		
-    goldFrame.closeBtn = closeBtn
-    Gold.frame = goldFrame
+	local goldFrame = UI:CreateModuleFrame(Gold, {
+		template = "BagSyncFrameTemplate",
+		globalName = "BagSyncGoldFrame",
+		title = "BagSync - "..L.Gold,
+		height = 506,
+		width = 440,
+		point = { "CENTER", UIParent, "CENTER", 0, 0 },
+		onShow = function() Gold:OnShow() end,
+	})
+	Gold.frame = goldFrame
 
-    Gold.scrollFrame = _G.CreateFrame("ScrollFrame", nil, goldFrame, "HybridScrollFrameTemplate")
-    Gold.scrollFrame:SetWidth(397)
-    Gold.scrollFrame:SetPoint("TOPLEFT", goldFrame, "TOPLEFT", 13, -29)
-    --set ScrollFrame height by altering the distance from the bottom of the frame
-    Gold.scrollFrame:SetPoint("BOTTOMLEFT", goldFrame, "BOTTOMLEFT", -25, 37)
-    Gold.scrollFrame.scrollBar = CreateFrame("Slider", "$parentscrollBar", Gold.scrollFrame, "HybridScrollBarTemplate")
-    Gold.scrollFrame.scrollBar:SetPoint("TOPLEFT", Gold.scrollFrame, "TOPRIGHT", 1, -16)
-    Gold.scrollFrame.scrollBar:SetPoint("BOTTOMLEFT", Gold.scrollFrame, "BOTTOMRIGHT", 1, 12)
-	--initiate the scrollFrame
-    --the items we will work with
-    Gold.goldList = {}
-	Gold.scrollFrame.update = function() Gold:RefreshList(); end
-    HybridScrollFrame_SetDoNotHideScrollBar(Gold.scrollFrame, true)
-	HybridScrollFrame_CreateButtons(Gold.scrollFrame, "BagSyncListSimpleItemTemplate")
+	Gold.scrollFrame = UI:CreateHybridScrollFrame(goldFrame, {
+		width = 397,
+		pointTopLeft = { "TOPLEFT", goldFrame, "TOPLEFT", 13, -29 },
+		-- set ScrollFrame height by altering the distance from the bottom of the frame
+		pointBottomLeft = { "BOTTOMLEFT", goldFrame, "BOTTOMLEFT", -25, 37 },
+		buttonTemplate = "BagSyncListSimpleItemTemplate",
+		update = function() Gold:RefreshList(); end,
+	})
+	--the items we will work with
+	Gold.goldList = {}
 
 	--total counter
-	goldFrame.totalText = goldFrame:CreateFontString(nil, "BACKGROUND", "GameFontHighlightSmall")
-	goldFrame.totalText:SetText("|cFFF4A460"..L.TooltipTotal.."|r  "..GetMoneyString(0, true))
-	goldFrame.totalText:SetFont(STANDARD_TEXT_FONT, 12, "")
-	goldFrame.totalText:SetTextColor(1, 165/255, 0)
-	goldFrame.totalText:SetPoint("LEFT", goldFrame, "BOTTOMLEFT", 15, 20)
-	goldFrame.totalText:SetJustifyH("LEFT")
+	goldFrame.totalText = UI:CreateFontString(goldFrame, {
+		template = "GameFontHighlightSmall",
+		text = "|cFFF4A460"..L.TooltipTotal.."|r  "..GetMoneyString(0, true),
+		font = { STANDARD_TEXT_FONT, 12, "" },
+		textColor = { 1, 165/255, 0 },
+		point = { "LEFT", goldFrame, "BOTTOMLEFT", 15, 20 },
+		justifyH = "LEFT",
+	})
 	goldFrame.totalText:SetTextColor(1, 1, 1)
 
 	goldFrame:Hide()
@@ -119,19 +106,18 @@ local function CustomMoneyString(money, separateThousands, showAll)
 end
 
 function Gold:CreateList()
-	Gold.goldList = {}
-	local usrData = {}
+	local goldList = {}
 	local total = 0
 
 	for unitObj in Data:IterateUnits() do
 		if unitObj.data.money and unitObj.data.money > 0 then
 			if not unitObj.isGuild or (unitObj.isGuild and BSYC.tracking.guild and BSYC.options.showGuildInGoldTooltip) then
-				table.insert(usrData, {
+				goldList[#goldList + 1] = {
 					unitObj = unitObj,
 					colorized = Tooltip:ColorizeUnit(unitObj, true, false, true, true),
 					sortIndex = Tooltip:GetSortIndex(unitObj),
 					count = unitObj.data.money --we use count because of the DoSort() function
-				})
+				}
 			end
 		end
 	end
@@ -139,30 +125,27 @@ function Gold:CreateList()
 	--add warband
 	local warbandObj = Data:GetWarbandBankObj()
 	if warbandObj then
-		table.insert(usrData, {
+		goldList[#goldList + 1] = {
 			unitObj = warbandObj,
 			colorized = Tooltip:ColorizeUnit(warbandObj, true, false, false, false),
 			sortIndex = Tooltip:GetSortIndex(warbandObj),
 			count = warbandObj.data.money --we use count because of the DoSort() function
-		})
+		}
 	end
 
-	if #usrData > 0 then
-		usrData = Tooltip:DoSort(usrData)
+	if #goldList > 0 then
+		goldList = Tooltip:DoSort(goldList)
 
-		for i=1, #usrData do
-			total = total + usrData[i].count
-			table.insert(Gold.goldList, {
-				unitObj = usrData[i].unitObj,
-				colorized = usrData[i].colorized,
-				sortIndex = usrData[i].sortIndex,
-				count = usrData[i].count,
-				moneyString = CustomMoneyString(usrData[i].count, true, BSYC.options.enable_GSC_Display)
-			})
+		for i = 1, #goldList do
+			local entry = goldList[i]
+			total = total + entry.count
+			entry.moneyString = CustomMoneyString(entry.count, true, BSYC.options.enable_GSC_Display)
 		end
 
 		Gold.frame.totalText:SetText("|cFFF4A460"..L.TooltipTotal.."|r  "..GetMoneyString(total, true))
 	end
+
+	Gold.goldList = goldList
 end
 
 function Gold:RefreshList()
@@ -173,7 +156,7 @@ function Gold:RefreshList()
 
     for buttonIndex = 1, #buttons do
         local button = buttons[buttonIndex]
-		button.parentHandler = Gold
+		UI:AttachListItemHandlers(button, Gold)
 
         local itemIndex = buttonIndex + offset
 
@@ -208,7 +191,7 @@ function Gold:RefreshList()
 
 			--while we are updating the scrollframe, is the mouse currently over a button?
 			--if so we need to force the OnEnter as the items will scroll up in data but the button remains the same position on our cursor
-			if BSYC.GMF() == button then
+			if BSYC:IsMouseOver(button) then
 				Gold:Item_OnLeave() --hide first
 				Gold:Item_OnEnter(button)
 			end

@@ -7,6 +7,7 @@
 --]]
 
 local BSYC = select(2, ...) --grab the addon namespace
+local UI = BSYC:GetModule("UI")
 local Blacklist = BSYC:NewModule("Blacklist")
 local Data = BSYC:GetModule("Data")
 local Unit = BSYC:GetModule("Unit")
@@ -19,7 +20,7 @@ end
 local L = BSYC.L
 
 function Blacklist:OnEnable()
-	local blacklistFrame = BSYC:UI_CreateModuleFrame(Blacklist, {
+	local blacklistFrame = UI:CreateModuleFrame(Blacklist, {
 		template = "BagSyncFrameTemplate",
 		globalName = "BagSyncBlacklistFrame",
 		title = "BagSync - "..L.Blacklist,
@@ -31,44 +32,53 @@ function Blacklist:OnEnable()
 	Blacklist.frame = blacklistFrame
 
 	--guild dropdown
-	local guildDD = CreateFrame("Frame", nil, blacklistFrame, "UIDropDownMenuTemplate")
-	guildDD:SetPoint("LEFT", blacklistFrame, "TOPLEFT", 0, -40)
-	UIDropDownMenu_SetWidth(guildDD, 200)
-	UIDropDownMenu_SetText(guildDD, L.Tooltip_guild)
+	local guildDD = UI:CreateDropdown(blacklistFrame, {
+		point = { "LEFT", blacklistFrame, "TOPLEFT", 0, -40 },
+		width = 200,
+		text = L.Tooltip_guild,
+	})
 	blacklistFrame.guildDD = guildDD
 
 	--add guild button
-	blacklistFrame.addGuildBtn = _G.CreateFrame("Button", nil, blacklistFrame, "UIPanelButtonTemplate")
-	blacklistFrame.addGuildBtn:SetText(L.AddGuild)
-	blacklistFrame.addGuildBtn:SetHeight(20)
-	blacklistFrame.addGuildBtn:SetWidth(blacklistFrame.addGuildBtn:GetTextWidth() + 30)
-	blacklistFrame.addGuildBtn:SetPoint("LEFT", guildDD, "RIGHT", -10, 2)
-	blacklistFrame.addGuildBtn:SetScript("OnClick", function() Blacklist:AddGuild() end)
+	blacklistFrame.addGuildBtn = UI:CreateButton(blacklistFrame, {
+		template = "UIPanelButtonTemplate",
+		text = L.AddGuild,
+		height = 20,
+		autoWidth = true,
+		point = { "LEFT", guildDD, "RIGHT", -10, 2 },
+		onClick = function() Blacklist:AddGuild() end,
+	})
 
-	local itemIDBox = CreateFrame("EditBox", nil, blacklistFrame, "InputBoxTemplate")
-	itemIDBox:SetSize(210, 20)
-	itemIDBox:SetPoint("LEFT", blacklistFrame, "TOPLEFT", 20, -70)
-	itemIDBox:SetAutoFocus(false)
-	itemIDBox:SetText("")
+	local itemIDBox = UI:CreateEditBox(blacklistFrame, {
+		template = "InputBoxTemplate",
+		size = { 210, 20 },
+		point = { "LEFT", blacklistFrame, "TOPLEFT", 20, -70 },
+		autoFocus = false,
+		text = "",
+	})
 	blacklistFrame.itemIDBox = itemIDBox
 
 	--add itemID button
-	blacklistFrame.addItemIDBtn = _G.CreateFrame("Button", nil, blacklistFrame, "UIPanelButtonTemplate")
-	blacklistFrame.addItemIDBtn:SetText(L.AddItemID)
-	blacklistFrame.addItemIDBtn:SetHeight(20)
-	blacklistFrame.addItemIDBtn:SetWidth(blacklistFrame.addItemIDBtn:GetTextWidth() + 30)
-	blacklistFrame.addItemIDBtn:SetPoint("LEFT", itemIDBox, "RIGHT", 5, 2)
-	blacklistFrame.addItemIDBtn:SetScript("OnClick", function() Blacklist:AddItemID() end)
+	blacklistFrame.addItemIDBtn = UI:CreateButton(blacklistFrame, {
+		template = "UIPanelButtonTemplate",
+		text = L.AddItemID,
+		height = 20,
+		autoWidth = true,
+		point = { "LEFT", itemIDBox, "RIGHT", 5, 2 },
+		onClick = function() Blacklist:AddItemID() end,
+	})
 
-	blacklistFrame.infoText = blacklistFrame:CreateFontString(nil, "BACKGROUND", "GameFontHighlightSmall")
-	blacklistFrame.infoText:SetText(L.UseFakeID)
-	blacklistFrame.infoText:SetFont(STANDARD_TEXT_FONT, 12, "")
-	blacklistFrame.infoText:SetTextColor(1, 165/255, 0)
-	blacklistFrame.infoText:SetPoint("LEFT", blacklistFrame, "TOPLEFT", 15, -90)
-	blacklistFrame.infoText:SetJustifyH("LEFT")
-	blacklistFrame.infoText:SetWidth(blacklistFrame:GetWidth() - 15)
+	blacklistFrame.infoText = UI:CreateFontString(blacklistFrame, {
+		template = "GameFontHighlightSmall",
+		text = L.UseFakeID,
+		font = { STANDARD_TEXT_FONT, 12, "" },
+		textColor = { 1, 165/255, 0 },
+		point = { "LEFT", blacklistFrame, "TOPLEFT", 15, -90 },
+		justifyH = "LEFT",
+		width = blacklistFrame:GetWidth() - 15,
+	})
 
-	Blacklist.scrollFrame = BSYC:UI_CreateHybridScrollFrame(blacklistFrame, {
+	Blacklist.scrollFrame = UI:CreateHybridScrollFrame(blacklistFrame, {
 		width = 337,
 		pointTopLeft = { "TOPLEFT", blacklistFrame, "TOPLEFT", 13, -100 },
 		-- set ScrollFrame height by altering the distance from the bottom of the frame
@@ -116,7 +126,7 @@ function Blacklist:UpdateList()
 end
 
 function Blacklist:CreateList()
-	Blacklist.listItems = {}
+	local listItems = {}
 	Blacklist.selectedGuild = nil
 
 	--do the dropdown first
@@ -144,25 +154,19 @@ function Blacklist:CreateList()
 		end
 	end)
 
-	local dataObj = {}
-
 	--loop through our blacklist
 	for k, v in pairs(BSYC.db.blacklist) do
-		table.insert(dataObj, {
+		listItems[#listItems + 1] = {
 			key = k,
 			value = v
-		})
+		}
 	end
 
-	if #dataObj > 0 then
-		table.sort(dataObj, function(a,b) return (a.value < b.value) end)
-		for i=1, #dataObj do
-			table.insert(Blacklist.listItems, {
-				key = dataObj[i].key,
-				value = dataObj[i].value
-			})
-		end
+	if #listItems > 0 then
+		table.sort(listItems, function(a, b) return (a.value or "") < (b.value or "") end)
 	end
+
+	Blacklist.listItems = listItems
 end
 
 function Blacklist:RefreshList()
@@ -173,7 +177,7 @@ function Blacklist:RefreshList()
 
     for buttonIndex = 1, #buttons do
         local button = buttons[buttonIndex]
-		BSYC:UI_AttachListItemHandlers(button, Blacklist)
+		UI:AttachListItemHandlers(button, Blacklist)
 
         local itemIndex = buttonIndex + offset
 
@@ -195,10 +199,10 @@ function Blacklist:RefreshList()
 			button.Text:SetText(item.value or "")
 			button.HeaderHighlight:SetAlpha(0)
 
-				if BSYC:IsMouseOver(button) then
-					Blacklist:Item_OnLeave() --hide first
-					Blacklist:Item_OnEnter(button)
-				end
+			if BSYC:IsMouseOver(button) then
+				Blacklist:Item_OnLeave() --hide first
+				Blacklist:Item_OnEnter(button)
+			end
 
             button:Show()
         else
@@ -248,14 +252,14 @@ function Blacklist:AddItemID()
 		BSYC.db.blacklist[itemid] = "|cFFCF9FFF"..speciesName.."|r"
 		BSYC:Print(L.ItemIDAdded:format(itemid), speciesName)
 	else
-		local xGetItemInfo = BSYC.API.GetItemInfo
-		if not (xGetItemInfo and xGetItemInfo(itemid)) then
+		local getItemInfo = BSYC.API.GetItemInfo
+		if not (getItemInfo and getItemInfo(itemid)) then
 			BSYC:Print(L.ItemIDNotValid:format(itemid))
 			editBox:SetText("")
 			return
 		end
 
-		local dName, dItemLink = xGetItemInfo(itemid)
+		local dName, dItemLink = getItemInfo(itemid)
 
 		BSYC.db.blacklist[itemid] = dItemLink
 		BSYC:Print(L.ItemIDAdded:format(itemid), dItemLink)

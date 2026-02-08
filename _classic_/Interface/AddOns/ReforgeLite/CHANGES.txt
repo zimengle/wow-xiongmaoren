@@ -1,22 +1,10 @@
-tag 770c2de87ae3db59947effd672e029cc33584ce7 v2.3.5
-Author:	skyler-code <skylerh15@github.com>
-Date:	Tue Dec 9 09:54:19 2025 -0600
+tag 15931f9ac70d3482afbac806df48c3f2b2bc0437 v2.3.8a
+Author:	brues-code <5278969+brues-code@users.noreply.github.com>
+Date:	Tue Feb 3 14:00:31 2026 -0600
 
-commit ac1229d8cd7b99f1a22598272af97e4affda4752
-Author: skyler-code <skylerh15@github.com>
-Date:   Tue Dec 9 09:53:18 2025 -0600
+commit dc8ab6a1de6bd539a17fd5f96e3c35fd8a0feaa1
+Author: brues-code <5278969+brues-code@users.noreply.github.com>
+Date:   Tue Feb 3 13:55:31 2026 -0600
 
-    toc bump
-
-commit 74a4299525265112f8324551f84310b9fe0f4536
-Author: skyler-code <skylerh15@github.com>
-Date:   Sun Nov 23 00:13:26 2025 -0600
-
-    tighten up the talent textures
-
-commit 62c1af60a71d6070cb5e827388c3189de0f222d2
-Author: skyler-code <skylerh15@github.com>
-Date:   Sat Nov 22 19:51:52 2025 -0600
-
-    small cleanup
+    should be ClearEditFocus
 

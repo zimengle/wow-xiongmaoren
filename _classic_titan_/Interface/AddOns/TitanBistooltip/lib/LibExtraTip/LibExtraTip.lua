@@ -1520,9 +1520,42 @@ do -- ExtraTip "class" definition
 		self.parent = tooltip
 		self:SetParent(tooltip)
 		self:SetOwner(tooltip,"ANCHOR_NONE")
-		local parentPoint = tooltip:GetPoint(1)
-		local attach = attachPointsLookup[parentPoint] or pointsRight
-		self:SetPoint(attach[1], tooltip, attach[2])
+		-- 检查用户设置的 BIS 排名提示框位置
+		local position = "bottom"
+		if TitanBistooltipAddon and TitanBistooltipAddon.db and TitanBistooltipAddon.db.char then
+			position = TitanBistooltipAddon.db.char.tooltip_position or "bottom"
+		end
+		-- 检测是否存在多个可见的提示框（装备比较提示框）
+		local hasMultipleTooltips = false
+		-- 检测 GameTooltip2
+		local comparisonTooltip = GameTooltip2
+		if comparisonTooltip and comparisonTooltip:IsVisible() then
+			hasMultipleTooltips = true
+		end
+		-- 检测 GameTooltipComparison
+		local comparisonTooltip2 = GameTooltipComparison
+		if comparisonTooltip2 and comparisonTooltip2:IsVisible() then
+			hasMultipleTooltips = true
+		end
+		-- 检测是否按住了 Shift 键（手动比较装备）
+		local isShiftDown = IsShiftKeyDown()
+		-- 检测装备提示框在屏幕上的位置
+		local tooltipX, tooltipY = tooltip:GetCenter()
+		local screenWidth = GetScreenWidth()
+		local isTooltipOnLeft = false
+		if tooltipX then
+			-- 如果装备提示框的中心在屏幕左侧 1/2 区域（中轴线左侧），则认为在左侧
+			isTooltipOnLeft = tooltipX < screenWidth / 2
+		end
+		
+		-- 根据用户设置、装备比较情况和装备提示框位置决定 BIS 排名提示框的位置
+		if position == "right" and not isShiftDown and not hasMultipleTooltips and not isTooltipOnLeft then
+			-- 显示在主提示框的右侧，顶部对齐，消除缝隙
+			self:SetPoint("TOPLEFT", tooltip, "TOPRIGHT", 0, 0)
+		else
+			-- 显示在主提示框的下方，消除缝隙
+			self:SetPoint("TOP", tooltip, "BOTTOM", 0, 0)
+		end
 	end
 
 	function class:Release()

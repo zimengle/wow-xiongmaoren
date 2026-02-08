@@ -14,7 +14,7 @@ function MainPanel:Constructor()
     self:SetupTabs({
         {L['Search Activity'], self.Browser}, --
         {L['Create Activity'], self.Manage}, --
-        --{L['Recent members'], self.Recent}, --
+        {L['Recent members'], self.Recent}, --
         {'星团长', self.GoodLeader}, --
         {'实用工具', self.PracticalTool}, --
         --{L['Announcement'], self.Announcement}, --
@@ -52,7 +52,7 @@ function MainPanel:Constructor()
     ns.UI.Filters:Bind(self.Options.Filters)
     ns.UI.Chat:Bind(self.Manage.Chat)
     ns.UI.Encounter:Bind(self.Encounter)
-    --ns.UI.Recent:Bind(self.Recent)
+    ns.UI.Recent:Bind(self.Recent)
     ns.UI.Challenge:Bind(self.Challenge)
     ns.UI.GoodLeaderFrame:Bind(self.GoodLeader)
     ns.UI.PracticalTool:Bind(self.PracticalTool)
@@ -60,7 +60,6 @@ function MainPanel:Constructor()
     ns.UI.MissionGuidance:Bind(self.MissionGuidance)
     --ns.UI.QuestPanel:Bind(self.Quest) # 挑战活动临时隐藏
     self.Manage.Applicant:Hide()
-    self.Recent:Hide()
 
     local FeedBack = ns.GUI:GetClass('BlockDialog'):New(self)
     FeedBack:SetPoint('TOPLEFT', 3, -22)

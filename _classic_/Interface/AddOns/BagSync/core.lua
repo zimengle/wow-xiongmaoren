@@ -7,11 +7,8 @@
 --]]
 
 local BAGSYNC, BSYC = ... --grab the addon namespace
-LibStub("AceAddon-3.0"):NewAddon(BSYC, "BagSync", "AceEvent-3.0", "AceConsole-3.0")
 _G[BAGSYNC] = BSYC --add it to the global frame space, otherwise you won't be able to call it
-local L = LibStub("AceLocale-3.0"):GetLocale("BagSync")
-local SML = LibStub("LibSharedMedia-3.0")
-local SML_FONT = SML.MediaType and SML.MediaType.FONT or "font"
+local L = BSYC.L
 
 local WOW_PROJECT_ID = _G.WOW_PROJECT_ID
 local WOW_PROJECT_MAINLINE = _G.WOW_PROJECT_MAINLINE
@@ -33,10 +30,111 @@ BSYC.IsClassic = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC
 --BSYC.IsTBC_C = WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC
 BSYC.IsWLK_C = WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC
 
+BSYC.DEFAULT_FONT_NAME = BSYC.DEFAULT_FONT_NAME or "Friz Quadrata TT"
+BSYC.TOOLTIP_CACHE_MAX = BSYC.TOOLTIP_CACHE_MAX or 1000
+BSYC.DEFAULT_ALLOW_LIST = BSYC.DEFAULT_ALLOW_LIST or {
+	bag = true,
+	bank = true,
+	reagents = true,
+	equip = true,
+	mailbox = true,
+	void = true,
+	auction = true,
+	warband = true,
+}
+-- NOTE: Keep this ordered list for UI and filter displays. It preserves the
+-- legacy, user-facing order that was previously defined inline in modules.
+-- We still support additional keys via DEFAULT_ALLOW_LIST; any extra keys
+-- will be appended by GetDefaultAllowListKeys().
+BSYC.DEFAULT_ALLOW_LIST_ORDER = BSYC.DEFAULT_ALLOW_LIST_ORDER or {
+	"bag",
+	"bank",
+	"reagents",
+	"equip",
+	"mailbox",
+	"void",
+	"auction",
+	"warband",
+}
+BSYC.__defaultAllowListKeys = BSYC.__defaultAllowListKeys or nil
+BSYC.__defaultAllowListKeysWithGuild = BSYC.__defaultAllowListKeysWithGuild or nil
+
+function BSYC:GetDefaultAllowListKeys(includeGuild)
+	-- Returns an ordered list of storage keys for UI/search filters.
+	-- We cannot rely on pairs(DEFAULT_ALLOW_LIST) order, so this uses
+	-- DEFAULT_ALLOW_LIST_ORDER as a stable base and then appends any
+	-- additional keys that might be added in the future.
+	-- includeGuild inserts "guild" before "warband" to match legacy UI order.
+	local cache = includeGuild and self.__defaultAllowListKeysWithGuild or self.__defaultAllowListKeys
+	if cache then return cache end
+
+	local list = {}
+	local seen = {}
+	for i = 1, #self.DEFAULT_ALLOW_LIST_ORDER do
+		local key = self.DEFAULT_ALLOW_LIST_ORDER[i]
+		if self.DEFAULT_ALLOW_LIST[key] then
+			list[#list + 1] = key
+			seen[key] = true
+		end
+	end
+
+	for k in pairs(self.DEFAULT_ALLOW_LIST) do
+		if not seen[k] then
+			list[#list + 1] = k
+			seen[k] = true
+		end
+	end
+
+	if includeGuild and not seen.guild then
+		local insertAt = #list + 1
+		for i = 1, #list do
+			if list[i] == "warband" then
+				insertAt = i
+				break
+			end
+		end
+		table.insert(list, insertAt, "guild")
+	end
+
+	if includeGuild then
+		self.__defaultAllowListKeysWithGuild = list
+	else
+		self.__defaultAllowListKeys = list
+	end
+	return list
+end
+
+-- centralized API compatibility table (preserves fallbacks for older clients like classic)
+BSYC.API = BSYC.API or {}
+local getContainerNumSlots = (C_Container and C_Container.GetContainerNumSlots) or GetContainerNumSlots
+local getContainerItemInfo = (C_Container and C_Container.GetContainerItemInfo) or GetContainerItemInfo
+BSYC.API.GetContainerNumSlots = getContainerNumSlots
+BSYC.API.GetContainerItemInfo = getContainerItemInfo
+BSYC.API.GetAddOnMetadata = (C_AddOns and C_AddOns.GetAddOnMetadata) or GetAddOnMetadata
+BSYC.API.IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
+BSYC.API.GetItemInfo = (C_Item and C_Item.GetItemInfo) or GetItemInfo
+BSYC.API.GetItemCount = (C_Item and C_Item.GetItemCount) or GetItemCount
+BSYC.API.GetSpellInfo = (C_Spell and C_Spell.GetSpellInfo) or GetSpellInfo
+BSYC.API.GetRecipeInfo = (C_TradeSkillUI and C_TradeSkillUI.GetRecipeInfo) or nil
+BSYC.API.GetCurrencyInfo = (C_CurrencyInfo and C_CurrencyInfo.GetCurrencyInfo) or GetCurrencyInfo
+BSYC.API.GetCurrencyListSize = (C_CurrencyInfo and C_CurrencyInfo.GetCurrencyListSize) or GetCurrencyListSize
+BSYC.API.GetCurrencyListInfo = (C_CurrencyInfo and C_CurrencyInfo.GetCurrencyListInfo) or GetCurrencyListInfo
+BSYC.API.GetCurrencyListLink = (C_CurrencyInfo and C_CurrencyInfo.GetCurrencyListLink) or GetCurrencyListLink
+BSYC.API.ExpandCurrencyList = (C_CurrencyInfo and C_CurrencyInfo.ExpandCurrencyList) or ExpandCurrencyList
+-- normalize container item link + count across Classic/Retail
+BSYC.API.GetContainerItemLinkCount = function(bagID, slotID)
+	if not getContainerItemInfo then return nil, nil end
+	local info, count, _, _, _, _, link = getContainerItemInfo(bagID, slotID)
+	if type(info) == "table" then
+		link = info.hyperlink
+		count = info.stackCount or 1
+	end
+	return link, count, info
+end
+
 BSYC.IsBankTabsActive = Enum.BagIndex.CharacterBankTab_1 ~= nil
 BSYC.IsReagentBagActive = (Constants.InventoryConstants.NumReagentBagSlots or 0) > 0
 
-BSYC.GMF = GetMouseFocus or GetMouseFoci
 --since FetchPurchasedBankTabData supports Guilds, it's possible in the future they will put it on a classic server with no Warband support.  So lets do it as last resort
 BSYC.isWarbandActive = (C_Container and C_Container.SortAccountBankBags) and (Enum and Enum.BagIndex and Enum.BagIndex.AccountBankTab_1) and (C_Bank and C_Bank.FetchPurchasedBankTabData)
 
@@ -113,6 +211,21 @@ StaticPopupDialogs["BAGSYNC_RESETDB_INFO"] = {
 	hideOnEscape = 1,
 }
 
+StaticPopupDialogs["BAGSYNC_RELOADUI"] = {
+	text = L.AddonCompartmentReloadMsg,
+	button1 = OKAY,
+	button2 = nil,
+	timeout = 0,
+	whileDead = 1,
+	hideOnEscape = 1,
+}
+
+function BSYC:ShowReloadUIPopup()
+	if StaticPopup_Show then
+		StaticPopup_Show("BAGSYNC_RELOADUI")
+	end
+end
+
 function BSYC.DEBUG(level, sName, ...)
 	if not BSYC.options or not BSYC.options.debug or not BSYC.options.debug.enable then return end
 
@@ -122,25 +235,110 @@ function BSYC.DEBUG(level, sName, ...)
 	Debug:AddMessage(level, sName, ...)
 end
 
-local debugf = tekDebug and tekDebug:GetFrame("BagSync")
-function BSYC.T_DEBUG(...)
-
-	--old tekDebug code just in case I want to track old debugging method
-    if debugf then
-		local debugStr = string.join(", ", tostringall(...))
-		local moduleName = string.format("|cFFffff00[%s]|r: ", "BagSync")
-		debugStr = moduleName..debugStr
-		debugf:AddMessage(debugStr)
-	end
-end
-
 local function Debug(level, ...)
 	BSYC.DEBUG(level, "CORE", ...)
 end
 
+-- literal marker helper (no Lua patterns)
+local function hasMark(s, mark)
+    return type(s) == "string" and s:find(mark, 1, true) ~= nil
+end
+BSYC.hasMark = hasMark
+
 --use /framestack to debug windows and show tooltip information
 --if you press SHIFT while doing the above command it gives you a bit more information
 
+-- Mouse focus compatibility: some clients provide GetMouseFocus() (single region),
+-- others provide GetMouseFoci() (returns ScriptRegion[]).  Normalize to a single region.
+function BSYC.GMF()
+	if type(_G.GetMouseFocus) == "function" then
+		return _G.GetMouseFocus()
+	end
+	if type(_G.GetMouseFoci) == "function" then
+		local regions = _G.GetMouseFoci()
+		if type(regions) == "table" then
+			return regions[1]
+		end
+	end
+	return nil
+end
+
+-- Unified hover check used throughout scroll lists.  Prefer IsMouseOver() when available.
+function BSYC:IsMouseOver(frame)
+	if not frame then return false end
+	if type(frame.IsMouseOver) == "function" then
+		local ok, res = pcall(frame.IsMouseOver, frame)
+		if ok then
+			return not not res
+		end
+	end
+	return self.GMF and (self.GMF() == frame) or false
+end
+
+-----------------------------------------------------------------
+-- Secret value helpers (Retail 12.0+). These APIs may not exist on older clients.
+------------------------------------------------------------------
+function BSYC:IsSecretValue(v)
+	local fn = _G.issecretvalue
+	if type(fn) == "function" then
+		local ok, res = pcall(fn, v)
+		if ok then return not not res end
+	end
+	return false
+end
+
+function BSYC:CanAccessValue(v)
+	local fn = _G.canaccessvalue
+	if type(fn) == "function" then
+		local ok, res = pcall(fn, v)
+		if ok then return not not res end
+	end
+	return true
+end
+
+function BSYC:IsSecretTable(v)
+	local fn = _G.issecrettable
+	if type(fn) == "function" then
+		local ok, res = pcall(fn, v)
+		if ok then return not not res end
+	end
+	return false
+end
+
+function BSYC:HasAnySecretValue(v)
+	local fn = _G.hasanysecretvalue
+	if type(fn) == "function" then
+		local ok, res = pcall(fn, v)
+		if ok then return not not res end
+	end
+	return false
+end
+
+function BSYC:CanAccessAllValues(v)
+	local fn = _G.canaccessallvalues
+	if type(fn) == "function" then
+		local ok, res = pcall(fn, v)
+		if ok then return not not res end
+	end
+	return true
+end
+
+function BSYC:IsSafeNumber(v)
+	if type(v) ~= "number" then return false end
+	if self:IsSecretValue(v) then return false end
+	if not self:CanAccessValue(v) then return false end
+	return true
+end
+
+function BSYC:IsSafeTable(v)
+	if type(v) ~= "table" then return false end
+	if self:IsSecretTable(v) then return false end
+	if self:HasAnySecretValue(v) then return false end
+	if not self:CanAccessAllValues(v) then return false end
+	return true
+end
+-----------------------------------------------------------------
+---
 --this is only for hash tables that aren't indexed with 1,2,3,4 etc.. but use custom index keys
 --if you are using table.insert() or tables that are indexed with numbers then use # instead for table length.  #table as example
 function BSYC:GetHashTableLen(tbl)
@@ -151,21 +349,74 @@ function BSYC:GetHashTableLen(tbl)
 	return count
 end
 
+function BSYC:CopyArray(src)
+	if type(src) ~= "table" then return {} end
+	local out = {}
+	for i = 1, #src do
+		out[i] = src[i]
+	end
+	return out
+end
+
+function BSYC:OpenConfig()
+	if InCombatLockdown and InCombatLockdown() then return false end
+
+	local addonCategoryName = "BagSync"
+
+	if _G.Settings and type(_G.Settings.OpenToCategory) == "function" then
+		local category = self.settingsCategory
+		if not category and self.ConfigDialog and type(self.ConfigDialog._settingsCategories) == "table" then
+			category = self.ConfigDialog._settingsCategories[addonCategoryName]
+		end
+
+		local categoryID
+		if type(category) == "number" then
+			categoryID = category
+		elseif type(category) == "table" then
+			if type(category.GetID) == "function" then
+				categoryID = category:GetID()
+			elseif type(category.GetCategoryID) == "function" then
+				categoryID = category:GetCategoryID()
+			elseif type(category.ID) == "number" then
+				categoryID = category.ID
+			elseif type(category.id) == "number" then
+				categoryID = category.id
+			end
+		end
+
+		if categoryID ~= nil then
+			if pcall(_G.Settings.OpenToCategory, categoryID) then return true end
+		end
+
+		-- Some older clients accepted an addon name string here; keep as a last resort.
+		if pcall(_G.Settings.OpenToCategory, addonCategoryName) then return true end
+	end
+
+	if _G.InterfaceOptionsFrame_OpenToCategory then
+		if not self.IsRetail and _G.InterfaceOptionsFrame then
+			-- required on some clients to ensure panels are created before opening
+			_G.InterfaceOptionsFrame:Show()
+		end
+
+		local panel = self.blizzPanel or self.aboutPanel
+		if panel then
+			return pcall(_G.InterfaceOptionsFrame_OpenToCategory, panel)
+		end
+	end
+
+	return false
+end
+
+
 function BSYC:DecodeOpts(tblString, mergeOpts)
 	--Example = "petdata=245:12:4:5:3|auction=124567|foo=bar|tickle=elmo|test=12:3:4|forthe=horde"
 	local t = mergeOpts or {}
+	if type(tblString) ~= "string" or tblString == "" then return t end
 
-	--([^=]+) everything except '='
-	-- followed by '='
-	-- ([^|]+) = then everything except '|'
-	-- followed by an optional '|'
-
-	if tblString and string.len(tblString) > 0 then
-		for k, v in string.gmatch(tblString, "([^=]+)=([^|]+)|*") do
-			--only overwrite if we don't have an existing value, the reason for this is because we don't want to overwrite any mergeOpts values that are newer
-			if not t[k] then
-				t[k] = v
-			end
+	for k, v in tblString:gmatch("([^=|]+)=([^|]*)") do
+		-- Only overwrite if we don't have an existing value; we don't want to overwrite any mergeOpts values that are newer.
+		if t[k] == nil then
+			t[k] = v
 		end
 	end
 
@@ -174,55 +425,67 @@ end
 
 function BSYC:EncodeOpts(tbl, link, removeOpts)
 	if not tbl then return end
-	local tmpStr = ""
 	--To Remove Opts: (example) BSYC:EncodeOpts(qOpts, link, {gtab=true})
+	if removeOpts ~= nil and type(removeOpts) ~= "table" then
+		removeOpts = nil
+	end
 
 	if link then
 		--when doing the split, make sure to merge our table
 		local xLink, xCount, xOpts = self:Split(link, nil, tbl)
 
 		if xLink then
-			if not xCount then xCount = 1 end
+			xCount = tonumber(xCount) or 1
 
+			local parts = {}
 			for k, v in pairs(xOpts) do
-				if not removeOpts or (type(removeOpts) == "table" and not removeOpts[k]) then
-					tmpStr = tmpStr.."|"..k.."="..v
+				if not removeOpts or not removeOpts[k] then
+					parts[#parts + 1] = k .. "=" .. tostring(v)
 				end
 			end
-			tmpStr = string.sub(tmpStr, 2)  -- remove first pipe
 
-			return xLink..";"..xCount..( (string.len(tmpStr) > 0 and ";"..tmpStr) or "")
+			if #parts > 0 then
+				return xLink .. ";" .. xCount .. ";" .. table.concat(parts, "|")
+			end
+			return xLink .. ";" .. xCount
 		end
 
 		--this is an invalid ParseItemLink, return empty string
 		return
 	end
 
+	local parts = {}
 	for k, v in pairs(tbl) do
-		tmpStr = tmpStr.."|"..k.."="..v
+		parts[#parts + 1] = k .. "=" .. tostring(v)
 	end
 
-	tmpStr = string.sub(tmpStr, 2)  -- remove first pipe
-	if tmpStr ~= "" then
-		return tmpStr
+	if #parts > 0 then
+		return table.concat(parts, "|")
 	end
 
 end
 
 function BSYC:Split(dataStr, skipOpts, mergeOpts)
-	if not dataStr then return nil, nil, {} end
+	if not dataStr then return nil, nil, nil end
 
-	local qLink, qCount, qOpts = strsplit(";", dataStr)
-	if not qLink or string.len(qLink) < 1 then
-		return nil, nil, {}
+	if type(dataStr) == "number" then
+		dataStr = tostring(dataStr)
+	end
+	if type(dataStr) ~= "string" or dataStr == "" then
+		return nil, nil, nil
+	end
+
+	local qLink, qCount, qOpts = strsplit(";", dataStr, 3)
+	if not qLink or qLink == "" then
+		return nil, nil, nil
 	end
 
 	--only do Opts functions if we need too, otherwise just return the link and count
 	if not skipOpts or mergeOpts then
-		return qLink, qCount, self:DecodeOpts(qOpts, mergeOpts) or {}
+		return qLink, tonumber(qCount) or qCount, self:DecodeOpts(qOpts, mergeOpts) or {}
 	end
 
-	return qLink, qCount, {}
+	return qLink, tonumber(qCount) or qCount, nil
 end
 
 function BagSync_ShowWindow(windowName)
@@ -238,94 +501,104 @@ end
 
 --This function will always return the base short itemID if no count is provided or if the count is less than 1.
 --Note: In addition to above, the base itemID is returned as an integer unless the item has bonusID, in which case the itemID with bonusID string is returned.
+BSYC.__parseCache = BSYC.__parseCache or {}
+BSYC.__parseCacheSize = BSYC.__parseCacheSize or 0
+
+local MAX_PARSE_CACHE = 5000
+
 function BSYC:ParseItemLink(link, count)
-	if link then
-		if not count then count = 1 end
+	if not link then return end
+	if not count then count = 1 end
 
-		--there are times link comes in as a number and breaks string matching, convert to string to fix
-		if type(link) == "number" then link = tostring(link) end
+	if type(link) == "number" then
+		link = tostring(link)
+	end
 
-		--if we are parsing a database entry just return it, chances are it's a battlepet anyways
-		local qLink, qCount = BSYC:Split(link, true)
-		if qLink and qCount then
-			return link
-		end
+	-- hard cap protection (defensive)
+	if next(self.__parseCache) and self.__parseCacheSize > MAX_PARSE_CACHE then
+		wipe(self.__parseCache)
+		self.__parseCacheSize = 0
+	end
 
-		--local linkType, linkOptions, name = LinkUtil.ExtractLink(battlePetLink);
-		--if linkType ~= "battlepet" then
-		--	return false;
-		--end
-		local isBattlepet = string.match(link, ".*(battlepet):.*") == "battlepet"
-		if isBattlepet then
-			return BSYC:CreateFakeID(link, count)
-		end
+	local cacheKey = link .. ";" .. tostring(count)
 
-		local result = link:match("item:([%d:]+)")
-		local shortID = self:GetShortItemID(link)
+	-- fast path
+	local cached = self.__parseCache[cacheKey]
+	if cached then
+		return cached
+	end
 
-		--sometimes the profession window has a bug for the items it parses, so lets fix it
-		-----------------------------
-		if shortID and tonumber(shortID) == 0 and TradeSkillFrame then
-			local focus = BSYC.GMF():GetName()
-
-			if focus == 'TradeSkillSkillIcon' then
-				link = C_TradeSkillUI.GetRecipeItemLink(TradeSkillFrame.selectedSkill)
-			else
-				local i = focus:match('TradeSkillReagent(%d+)')
-				if i then
-					link = C_TradeSkillUI.GetRecipeReagentItemLink(TradeSkillFrame.selectedSkill, tonumber(i))
-				end
-			end
-			if link then
-				result = link:match("item:([%d:]+)")
-				shortID = self:GetShortItemID(link)
-			end
-		end
-		-----------------------------
-
-		if result then
-			--https://wowpedia.fandom.com/wiki/ItemLink
-
-			local linkSplit = {strsplit(":", result)}
-			result = shortID --set this to default shortID, if we have something in the bonusID we will replace it below
-
-			if linkSplit and #linkSplit > 13 then
-
-				--check for bonusID, we do this by checking 13th marker value
-				local bonusCount = linkSplit[13] or 0 -- do we have a bonusID number count?
-				bonusCount = bonusCount == "" and 0 or bonusCount --make sure we have a count if not default to zero
-				bonusCount = tonumber(bonusCount)
-
-				--if we don't have a bonusCount than just stick to use the shortID from the result above
-				if bonusCount and bonusCount > 0 then
-					--empty out everything after the bonusIDs, so starting at 13 + the bonusCount
-					--example 138823::::::::::::1:664::::::::, 664 is 14th slot, but we want to start emptying after that so it would be > 13th slot + bonusCount, so > 14 or 15
-					--example 36374::::::::::::2:6654:1708:::::::::: 6654 is 14th slot, but we want 14th slot and 15th slot, so 13th + bonusCount (which is 2) would be 15th slot.
-
-					--Remove  (enchantID : gemID1 : gemID2 : gemID3 : gemID4: suffixID : uniqueID : linkLevel : specializationID : modifiersMask : itemContext)
-					for i = 2, #linkSplit do
-						if i < 13 or i > (13 + bonusCount) then
-							linkSplit[i] = ""
-						end
-					end
-
-					--put everything together
-					result = table.concat(linkSplit, ":")
-				end
-			end
-		end
-
-		--grab the link results if we have it, otherwise use the shortID
-		link = result or shortID
-
-		--if we have a count, then add it to the parse string
-		if count and count > 1 then
-			link = link .. ';' .. count
-		end
-
+	-- database entry short-circuit
+	local qLink, qCount = self:Split(link, true)
+	if qLink and qCount then
 		return link
 	end
+
+	-- battle pet handling
+	if link:find("battlepet:", 1, true) then
+		local parsed = self:CreateFakeID(link, count)
+		if parsed then
+			self.__parseCache[cacheKey] = parsed
+			self.__parseCacheSize = self.__parseCacheSize + 1
+		end
+		return parsed
+	end
+
+	local result = link:match("item:([%d:]+)")
+	local shortID = self:GetShortItemID(link)
+
+	-- profession frame bug workaround
+	if shortID and tonumber(shortID) == 0 and TradeSkillFrame then
+		local focusObj = self.GMF and self.GMF()
+		local focus = (focusObj and focusObj.GetName and focusObj:GetName()) or nil
+
+		if focus == "TradeSkillSkillIcon" then
+			if C_TradeSkillUI and C_TradeSkillUI.GetRecipeItemLink then
+				link = C_TradeSkillUI.GetRecipeItemLink(TradeSkillFrame.selectedSkill)
+			end
+		else
+			local i = type(focus) == "string" and focus:match("TradeSkillReagent(%d+)")
+			if i and C_TradeSkillUI and C_TradeSkillUI.GetRecipeReagentItemLink then
+				link = C_TradeSkillUI.GetRecipeReagentItemLink(TradeSkillFrame.selectedSkill, tonumber(i))
+			end
+		end
+
+		if link then
+			result = link:match("item:([%d:]+)")
+			shortID = self:GetShortItemID(link)
+		end
+	end
+
+	if result then
+		local linkSplit = { strsplit(":", result) }
+		result = shortID
+
+		if #linkSplit > 13 then
+			local bonusCount = tonumber(linkSplit[13]) or 0
+
+			if bonusCount > 0 then
+				for i = 2, #linkSplit do
+					if i < 13 or i > (13 + bonusCount) then
+						linkSplit[i] = ""
+					end
+				end
+				result = table.concat(linkSplit, ":")
+			end
+		end
+	end
+
+	link = result or shortID
+
+	if count > 1 then
+		link = link .. ";" .. count
+	end
+
+	self.__parseCache[cacheKey] = link
+	self.__parseCacheSize = self.__parseCacheSize + 1
+
+	return link
 end
+
 
 function BSYC:CreateFakeID(link, count, speciesID, level, breedQuality, maxHealth, power, speed, name)
 	if not BattlePetTooltip then return end
@@ -385,30 +658,28 @@ function BSYC:FakeIDToSpeciesID(fakeID)
 end
 
 function BSYC:GetShortItemID(link)
-	if link then
-		if type(link) == "number" then link = tostring(link) end
+  if not link then return end
+  if type(link) == "number" then link = tostring(link) end
 
-		--first check if we are being sent a battlepet link
-		local isBattlepet = string.match(link, ".*(battlepet):.*") == "battlepet"
-		if isBattlepet then
-			--create a FakeID
-			link = BSYC:CreateFakeID(link)
-		end
-		if not link then return end
+  if link:find("battlepet:", 1, true) then
+    link = BSYC:CreateFakeID(link) -- may return nil if BattlePetTooltip missing
+    if not link then return end
+  end
 
-		return link:match("item:(%d+):") or link:match("^(%d+):") or strsplit(";", link) or link
-	end
+  return link:match("item:(%d+):")
+      or link:match("^(%d+):")
+      or (select(1, strsplit(";", link)))
+      or link
 end
 
 function BSYC:GetShortCurrencyID(link)
-	--https://wowpedia.fandom.com/wiki/Hyperlinks#currency
-    if link then
-        if type(link) == "number" then link = tostring(link) end
-        link = link:match("currency:([%d:]+)[:]?") or link
-        local link = link:match("currency:([%d:]+):") or link:match("currency:(%d+):") or link:match("^(%d+):") or link
-        return tonumber(link)
-    end
+  if not link then return end
+  if type(link) == "number" then link = tostring(link) end
+
+  local id = link:match("currency:(%d+):") or link:match("currency:(%d+)$") or link:match("^(%d+):") or link
+  return tonumber(id)
 end
+
 
 function BSYC:SetDefaults(category, defaults)
 	local dbObj = BagSyncDB["options§"]
@@ -421,6 +692,155 @@ function BSYC:SetDefaults(category, defaults)
 			dbObj[k] = v
 		end
 	end
+end
+
+--- -------------------
+--- FONT stuff
+--- -------------------
+
+function BSYC:GetLibSharedMedia()
+	local libStub = _G.LibStub
+	if type(libStub) ~= "table" and type(libStub) ~= "function" then return nil end
+
+	local ok, sml = pcall(libStub, "LibSharedMedia-3.0", true)
+	if not ok or not sml then return nil end
+	if type(sml.List) ~= "function" or type(sml.Fetch) ~= "function" then return nil end
+
+	local mtFont = (sml.MediaType and sml.MediaType.FONT) or "font"
+	return sml, mtFont
+end
+
+function BSYC:GetBlizzardFontMap()
+	if self.__blizzFontMap then return self.__blizzFontMap end
+
+	local map = {}
+
+	local function add(name, path)
+		if type(name) ~= "string" or name == "" then return end
+		if type(path) ~= "string" or path == "" then return end
+		local p = path:lower()
+		if not (p:find("%.ttf$") or p:find("%.otf$")) then return end
+		map[name] = path
+	end
+
+	add("Friz Quadrata TT", _G.STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF")
+	add("Arial Narrow", "Fonts\\ARIALN.TTF")
+	add("Skurri", "Fonts\\SKURRI.TTF")
+	add("Morpheus", "Fonts\\MORPHEUS.TTF")
+
+	-- Add known Blizzard font globals (locale-dependent).
+	local knownGlobals = {
+		"STANDARD_TEXT_FONT",
+		"UNIT_NAME_FONT",
+		"DAMAGE_TEXT_FONT",
+		"NAMEPLATE_FONT",
+		"CHAT_FONT",
+		"RAID_WARNING_FONT",
+		"SYSTEM_FONT_NAME",
+	}
+	for i = 1, #knownGlobals do
+		local varName = knownGlobals[i]
+		add("Blizzard: " .. varName, _G[varName])
+	end
+
+	-- Best-effort scan for additional *_FONT globals.
+	for k, v in pairs(_G) do
+		if type(k) == "string" and k:find("_FONT$") and type(v) == "string" then
+			add("Blizzard: " .. k, v)
+		end
+	end
+
+	self.__blizzFontMap = map
+	self.__blizzFontList = nil
+	return map
+end
+
+function BSYC:GetBlizzardFontList()
+	if self.__blizzFontList then return self.__blizzFontList end
+
+	local map = self:GetBlizzardFontMap()
+	local list = {}
+	local seen = {}
+
+	local function push(name)
+		if name and map[name] and not seen[name] then
+			seen[name] = true
+			list[#list + 1] = name
+		end
+	end
+
+	-- Keep the traditional list first.
+	push("Friz Quadrata TT")
+	push("Arial Narrow")
+	push("Skurri")
+	push("Morpheus")
+
+	local rest = {}
+	for name in pairs(map) do
+		if not seen[name] then
+			rest[#rest + 1] = name
+		end
+	end
+
+	table.sort(rest, function(a, b)
+		return a:lower() < b:lower()
+	end)
+
+	for i = 1, #rest do
+		push(rest[i])
+	end
+
+	self.__blizzFontList = list
+	return list
+end
+
+function BSYC:GetFontPathOrNil(fontName)
+	if type(fontName) ~= "string" or fontName == "" then return nil end
+
+	local sml, mtFont = self:GetLibSharedMedia()
+	if sml then
+		local path = sml:Fetch(mtFont, fontName, true)
+		if type(path) == "string" and path ~= "" then return path end
+		return nil
+	end
+
+	return self:GetBlizzardFontMap()[fontName]
+end
+
+function BSYC:GetFontPath(fontName)
+	return self:GetFontPathOrNil(fontName)
+		or self:GetFontPathOrNil(self.DEFAULT_FONT_NAME)
+		or _G.STANDARD_TEXT_FONT
+		or "Fonts\\FRIZQT__.TTF"
+end
+
+function BSYC:GetAvailableFontNames()
+	local list
+
+	local sml, mtFont = self:GetLibSharedMedia()
+	if sml then
+		local ok, res = pcall(sml.List, sml, mtFont)
+		if ok and type(res) == "table" and #res > 0 then
+			list = self:CopyArray(res)
+		end
+	end
+
+	if not list then
+		list = self:GetBlizzardFontList()
+	end
+
+	local hasDefault = false
+	for _, name in ipairs(list) do
+		if name == self.DEFAULT_FONT_NAME then
+			hasDefault = true
+			break
+		end
+	end
+	if not hasDefault then
+		table.insert(list, 1, self.DEFAULT_FONT_NAME)
+	end
+
+	return list
 end
 
 function BSYC:CreateFonts()
@@ -437,9 +857,24 @@ function BSYC:CreateFonts()
 	BSYC.__fontFlags = flags
 
 	local fontObject = CreateFont("BagSyncExtTT_Font")
-	fontObject:SetFont(SML:Fetch(SML_FONT, BSYC.options.extTT_Font), BSYC.options.extTT_FontSize, flags)
+
+	local fontName = BSYC.options.extTT_Font or BSYC.DEFAULT_FONT_NAME
+	if not BSYC:GetFontPathOrNil(fontName) then
+		fontName = BSYC.DEFAULT_FONT_NAME
+		BSYC.options.extTT_Font = fontName
+	end
+	fontObject:SetFont(BSYC:GetFontPath(fontName), BSYC.options.extTT_FontSize, flags)
 	BSYC.__font = fontObject
+
+	if BSYC.GetModule then
+		local tooltip = BSYC:GetModule("Tooltip", true)
+		if tooltip and tooltip.ApplyExtTipFont then
+			pcall(tooltip.ApplyExtTipFont, tooltip)
+		end
+	end
 end
+
+--------------------
 
 function BSYC:CanDoCurrency()
 	--Classic servers do have some implementations of these features installed, so we have to do checks
@@ -471,7 +906,7 @@ function BSYC:ResetFramePositions()
 		"Gold",
 		"Profiles",
 		"Search",
-		"AdvancedSearch",
+		"SearchFilters",
 		"SortOrder",
 		"Debug",
 		"Details",
@@ -496,7 +931,7 @@ function BSYC:GetBSYC_FrameLevel()
 		"Gold",
 		"Profiles",
 		"Search",
-		"AdvancedSearch",
+		"SearchFilters",
 		"SortOrder",
 		"Debug",
 		"Details",
@@ -525,44 +960,90 @@ end
 
 BSYC.timerFrame = CreateFrame("Frame")
 BSYC.timerFrame:Hide()
-BSYC.timers = {}
+BSYC.timers = BSYC.timers or {}
+BSYC.timersByName = BSYC.timersByName or {}
+
+local HAS_C_TIMER = (C_Timer and type(C_Timer.NewTimer) == "function")
+
+local function FireTimer(tmr)
+	Debug(BSYC_DL.SL3, "DoTimer", tmr.name, tmr.origDelay, tmr.object, tmr.func)
+
+	if type(tmr.func) == "string" then
+		local obj = tmr.object
+		local method = obj and obj[tmr.func]
+		if type(method) == "function" then
+			method(obj, unpack(tmr.argsList or {}, 1, tmr.argsCount))
+		end
+	elseif type(tmr.func) == "function" then
+		tmr.func(unpack(tmr.argsList or {}, 1, tmr.argsCount))
+	end
+end
 
 function BSYC:StartTimer(name, delay, selfObj, func, ...)
-	local found = false
-	for i=#BSYC.timers, 1, -1 do
-		local tmr = BSYC.timers[i]
-		if tmr.name == name then
-			BSYC.timers[i].func = func
-			BSYC.timers[i].object = selfObj
-			BSYC.timers[i].delay = delay
-			BSYC.timers[i].origDelay = delay
-			BSYC.timers[i].argsCount = select("#", ...)
-			BSYC.timers[i].argsList = {...}
-			found = true
-			break
-		end
-	end
-	if not found then
-		-- args (...) are passed a variable length arguments in an index table (https://www.lua.org/pil/5.2.html)
-		table.insert(BSYC.timers, {
+	if not name then return end
+
+	delay = tonumber(delay) or 0
+	local argsCount = select("#", ...)
+	local argsList = { ... }
+
+	-- Enforce uniqueness by name; StartTimer is used as a debounce in many places.
+	self:StopTimer(name)
+
+	-- Prefer C_Timer when available (no OnUpdate scanning).
+	if HAS_C_TIMER then
+		local tmr = {
 			func = func,
 			object = selfObj,
-			delay = delay,
 			origDelay = delay,
 			name = name,
-			argsCount = select("#", ...),
-			argsList = {...}
-		})
+			argsCount = argsCount,
+			argsList = argsList,
+		}
+
+		self.timersByName[name] = tmr
+		tmr.handle = C_Timer.NewTimer(delay, function()
+			if self.timersByName[name] ~= tmr then return end -- replaced/cancelled
+			self.timersByName[name] = nil
+			FireTimer(tmr)
+		end)
+
+		return
 	end
-	BSYC.timerFrame:Show() --show frame to start the OnUpdate
+
+	-- Fallback: manual OnUpdate timers for older clients.
+	table.insert(self.timers, {
+		func = func,
+		object = selfObj,
+		delay = delay,
+		origDelay = delay,
+		name = name,
+		argsCount = argsCount,
+		argsList = argsList,
+	})
+	self.timerFrame:Show() --show frame to start the OnUpdate
 end
 
 function BSYC:StopTimer(name)
-	--iterate backwards since we are using table.remove
-	for i=#BSYC.timers, 1, -1 do
-		if BSYC.timers[i] and BSYC.timers[i].name == name then
-			table.remove(BSYC.timers, i)
+	if not name then return end
+
+	-- C_Timer path
+	local tmr = self.timersByName and self.timersByName[name]
+	if tmr then
+		self.timersByName[name] = nil
+		if tmr.handle and type(tmr.handle.Cancel) == "function" then
+			tmr.handle:Cancel()
 		end
+	end
+
+	-- Fallback list removal (iterate backwards since we are using table.remove)
+	for i = #self.timers, 1, -1 do
+		if self.timers[i] and self.timers[i].name == name then
+			table.remove(self.timers, i)
+		end
+	end
+
+	if self.timerFrame and (not self.timers or #self.timers < 1) then
+		self.timerFrame:Hide()
 	end
 end
 
@@ -575,12 +1056,7 @@ BSYC.timerFrame:SetScript("OnUpdate", function(self, elapsed)
 			tmr.delay = tmr.delay - elapsed
 
 			if tmr.delay < 0 then
-				Debug(BSYC_DL.SL3, "DoTimer", tmr.name, tmr.origDelay, tmr.object, tmr.func)
-				if type(tmr.func) == "string" and tmr.object then
-					tmr.object[tmr.func](tmr.object, unpack(tmr.argsList or {}, 1, tmr.argsCount))
-				else
-					tmr.func(unpack(tmr.argsList or {}, 1, tmr.argsCount))
-				end
+				FireTimer(tmr)
 				table.remove(BSYC.timers, i)
 			end
 			chk = true
@@ -590,19 +1066,6 @@ BSYC.timerFrame:SetScript("OnUpdate", function(self, elapsed)
         BSYC.timerFrame:Hide()
     end
 end)
-
--- function BSYC:CheckDB_Reset()
--- 	Debug(BSYC_DL.INFO, "CheckDB_Reset")
--- 	if not BagSyncDB["forceDBReset§"] or BagSyncDB["forceDBReset§"] < forceDBReset then
--- 		BagSyncDB = { ["forceDBReset§"] = forceDBReset }
--- 		BSYC:Print("|cFFFF9900"..L.DatabaseReset.."|r")
--- 		C_Timer.After(6, function()
--- 			StaticPopup_Show("BAGSYNC_RESETDB_INFO")
---			ReloadUI()
--- 		end)
--- 		return
--- 	end
--- end
 
 --create base DB entries before we load any modules
 function BSYC:OnEnable()

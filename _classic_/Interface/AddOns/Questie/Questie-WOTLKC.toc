@@ -1,5 +1,5 @@
-## Interface: 30405
-## Title: Questie|cFF00FF00 v11.14.0|r
+## Interface: 38000
+## Title: Questie|cFF00FF00 v11.21.0|r
 ## Author: Aero/Logon/Muehe/TheCrux(BreakBB)/Drejjmit/Dyaxler/Cheeq/TechnoHunter/Everyone else
 ## Notes: A standalone Classic QuestHelper
 ## Notes-esES: Un asistente de misiones
@@ -9,7 +9,18 @@
 ## Notes-ruRU: Помощник по заданиям в WoW Classic
 ## Notes-zhCN: 独立的怀旧服任务助手
 ## Notes-zhTW: 獨立的經典版任務助手
-## Version: 11.14.0
+## Category: Quests
+## Category-deDE: Quests
+## Category-esES: Misiones
+## Category-esMX: Misiones
+## Category-frFR: Quêtes
+## Category-itIT: Missioni
+## Category-koKR: 퀘스트
+## Category-ptBR: Missões
+## Category-ruRU: Задания
+## Category-zhCN: 任务
+## Category-zhTW: 任務
+## Version: 11.21.0
 ## RequiredDeps:
 ## OptionalDeps: Ace3, CallbackHandler-1.0, HereBeDragons, Krowi_WorldMapButtons, LibDataBroker-1.1, LibDBIcon-1.0, LibSharedMedia-3.0, LibStub, LibUIDropDownMenu
 ## SavedVariables: QuestieConfig
@@ -113,6 +124,11 @@ Database\Corrections\wotlkNPCFixes.lua
 Database\Corrections\wotlkItemFixes.lua
 Database\Corrections\wotlkObjectFixes.lua
 
+# Item Drops
+Database\DropTables\dropDB.lua
+Database\DropTables\data\itemDropCorrections.lua
+Database\DropTables\data\wotlkItemDrops.lua
+
 # Compiler
 Database\compiler.lua
 
@@ -156,7 +172,6 @@ Modules\QuestieMenu\QuestieMenu.lua
 Modules\QuestieAnnounce.lua
 Modules\QuestieShutUp.lua
 Modules\Sounds.lua
-Modules\TaskQueue.lua
 Modules\QuestiePlayer.lua
 Modules\QuestieDebugOffer.lua
 Modules\WatchFrameHook.lua
@@ -173,6 +188,7 @@ Modules\QuestLinks\Link.lua
 Modules\Tooltips\Tooltip.lua
 Modules\Tooltips\MapIconTooltip.lua
 Modules\Tooltips\TooltipHandler.lua
+Modules\Tooltips\DeveloperList.lua
 
 # Auto
 Modules\Auto\AutoQuesting.lua
@@ -205,6 +221,7 @@ Modules\QuestieNameplate.lua
 Modules\QuestieCoordinates.lua
 
 # Network
+Modules\Network\Comms.lua
 Modules\Network\QuestieComms.lua
 Modules\Network\QuestieCommsData.lua
 

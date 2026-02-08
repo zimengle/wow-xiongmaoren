@@ -2,6 +2,15 @@ VER 3 0100000000000002 "1" "134400"
 #showtooltip
 /cast [@cursor] 火焰之雨
 END
+VER 3 0100000000000003 "丐版爆发" "134400"
+#showtooltip 
+/use 10
+/use 13
+/use 14
+/cast 血性狂怒
+/cast 狮心
+/cast 恶魔变形
+END
 VER 3 0100000000000001 "爆发" "134400"
 #showtooltip 
 /use 10

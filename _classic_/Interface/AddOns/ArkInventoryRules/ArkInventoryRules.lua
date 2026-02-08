@@ -322,6 +322,10 @@ end
 
 function ArkInventoryRules.System.boolean_scrapable( )
 	
+	if not ArkInventoryRules.Object.h then
+		return false
+	end
+	
 	local fn = "scrapable"
 
 	if ArkInventoryRules.Object.loc_id == ArkInventory.Const.Location.Bag then
@@ -333,7 +337,7 @@ function ArkInventoryRules.System.boolean_scrapable( )
 				local blizzard_id = ArkInventory.Util.getBlizzardBagIdFromWindowId( ArkInventoryRules.Object.loc_id, ArkInventoryRules.Object.bag_id )
 				local blizzardLocation = ItemLocation:CreateFromBagAndSlot( blizzard_id, ArkInventoryRules.Object.slot_id )
 				
-				if C_Item.CanScrapItem( blizzardLocation ) then
+				if blizzardLocation and C_Item.CanScrapItem( blizzardLocation ) then
 					return true
 				end
 
@@ -1217,7 +1221,7 @@ function ArkInventoryRules.System.boolean_outfit_blizzard( ... )
 						loc_id_window = ArkInventory.Const.Location.Void
 						bag_id_window = ArkInventory.Const.Offset.Void + locationData.voidTab
 						slot_id = locationData.voidSlot
-						id = GetVoidItemInfo( locationData.voidTab, locationData.voidSlot )
+						id = ArkInventory.CrossClient.GetVoidItemInfo( locationData.voidTab, locationData.voidSlot )
 						
 						--ArkInventory.Output( setname, ":", k, " -> [void] [", loc_id_window, ".", bag_id_window, ".", slot_id, "] [", id, "] = ", location )
 						

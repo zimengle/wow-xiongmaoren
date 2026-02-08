@@ -190,7 +190,7 @@ local function CreateLoadingText()
     f:SetPoint("TOP", 0, -38)
     f:SetFrameLevel(110)
     local t = f:CreateFontString()
-    t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+    t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
     t:SetPoint("TOP")
     t:SetText(L["读取中..."])
     return f
@@ -1180,7 +1180,7 @@ local function SetItemLib()
             f.itemID = GetItemInfoInstant(vv.link)
             f.itemLink = vv.link
             f.Text = f:CreateFontString()
-            f.Text:SetFont(STANDARD_TEXT_FONT, i == 1 and 13 or 15, "OUTLINE")
+            f.Text:SetFont(BIAOGE_TEXT_FONT, i == 1 and 13 or 15, "OUTLINE")
             f.Text:SetPoint("CENTER")
             f.Text:SetTextColor(RGB(titleTbl[i].color))
             f.Text:SetJustifyH(titleTbl[i].JustifyH)
@@ -1353,7 +1353,7 @@ local function SetItemLib()
                 local t = frame:CreateFontString()
                 t:SetPoint("RIGHT")
                 t:SetSize(50, 20)
-                t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+                t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
                 t:SetTextColor(RGB(BG.y2))
                 t:SetText(BG.STC_g1(L["心愿"]))
                 t:SetJustifyH("RIGHT")
@@ -2011,12 +2011,12 @@ function BG.ItemLibUI()
             mainFrame.sorter = sorter
             -- 头顶大标题
             local t = f:CreateFontString()
-            t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             t:SetPoint("BOTTOM", mainFrame.bg, "TOP", 0, 0)
             mainFrame.toptitle = t
             -- 没有合适的装备
             local t = f:CreateFontString()
-            t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             t:SetPoint("TOP", 0, -38)
             t:SetTextColor(.5, .5, .5)
             mainFrame.noItem = t
@@ -2140,7 +2140,7 @@ function BG.ItemLibUI()
             end)
 
             local t = f:CreateFontString()
-            t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             t:SetPoint("TOP", f, "TOP", 0, -10)
             t:SetTextColor(RGB("FFD100"))
             t:SetText(L["获取途径显示"])
@@ -2160,6 +2160,7 @@ function BG.ItemLibUI()
                 end
                 bt.name = v.name
                 bt.name2 = v.name2
+                bt.Text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
                 bt.Text:SetText(v.name)
                 bt:SetHitRectInsets(0, -bt.Text:GetWidth(), 0, 0)
                 bt.Text:SetWidth(150)
@@ -2279,7 +2280,7 @@ function BG.ItemLibUI()
     -- 装等过滤
     do
         local t = mainFrame:CreateFontString()
-        t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+        t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
         t:SetPoint("TOPLEFT", BG.ItemLibMainFrame.invtypeFrame, "BOTTOMLEFT", 10, -10)
         t:SetTextColor(1, 0.82, 0)
         t:SetText(L["仅显示高于该装等的装备："])
@@ -2315,7 +2316,7 @@ function BG.ItemLibUI()
     -- 过滤方案
     do
         local t = mainFrame:CreateFontString()
-        t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+        t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
         t:SetPoint("TOPLEFT", BG.ItemLibMainFrame.iLevelText, "BOTTOMLEFT", 0, -25)
         t:SetText(L["过滤方案："])
         t:SetTextColor(1, 0.82, 0)
@@ -2343,13 +2344,13 @@ function BG.ItemLibUI()
 
         -- 头顶大标题
         local t = f:CreateFontString()
-        t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+        t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
         t:SetPoint("BOTTOM", mainFrame.Hope, "TOP", 0, 0)
         t:SetText(L["心愿汇总"])
         t:SetTextColor(RGB(BG.b1))
         -- 底下提示文字
         local t = f:CreateFontString()
-        t:SetFont(STANDARD_TEXT_FONT, 13, "OUTLINE")
+        t:SetFont(BIAOGE_TEXT_FONT, 13, "OUTLINE")
         t:SetPoint("TOP", mainFrame.Hope, "BOTTOM", 0, 0)
         t:SetText(AddTexture("RIGHT") .. L["（删除心愿装备）"])
 
@@ -2374,7 +2375,7 @@ function BG.ItemLibUI()
                 f:SetPoint("LEFT", right, "RIGHT", w_jiange, 0)
             end
             local t = f:CreateFontString()
-            t:SetFont(STANDARD_TEXT_FONT, 15, "OUTLINE")
+            t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             t:SetPoint("CENTER")
             t:SetText(title_table[i].name)
             t:SetTextColor(RGB(title_table[i].color))
