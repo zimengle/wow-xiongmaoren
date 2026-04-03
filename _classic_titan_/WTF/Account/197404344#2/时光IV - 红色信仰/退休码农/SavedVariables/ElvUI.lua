@@ -2,11 +2,6 @@
 ElvCharacterDB = {
 ["ConvertKeybindings"] = true,
 ["ChatEditHistory"] = {
-"/cell opt",
-"/cw 紫微大帝-时光IV红色信仰 暗牧",
-"/cw 赤练灬冰焰 来个桌子",
-"/cw 不赴少年游 来个桌子吧",
-"/团队 近战武器会坏",
 "/团队 修装备30G",
 "/biaoge",
 "/团队 2700",
@@ -22,6 +17,11 @@ ElvCharacterDB = {
 "/cw Mincea 211戒律牧",
 "/cw 蓝色忧郁丶 211戒律牧",
 "/cw 灵魂协奏曲 211戒律牧",
+"/cw Eoon 暗牧",
+"/cw 菈丶妮 暗牧",
+"/cw 我是凑数得 暗牧",
+"/cw 菈丶妮-时光IV红色信仰 已经有其他队伍了 开打了",
+"/团队 打几个？",
 },
 ["ChatHistoryLog"] = {
 },

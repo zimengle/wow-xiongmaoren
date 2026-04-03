@@ -31,7 +31,7 @@ SET flaggedTutorials "v11##M##$##%##&##'##:##(##)##8##*##+##;##E##7##6##1##K##,#
 SET nameplateOverlapV "1.1613864898682"
 SET talentFrameShown "1"
 SET floatingCombatTextEnergyGains "1"
-SET petJournalTab "3"
+SET petJournalTab "5"
 SET cameraPivot "0"
 SET showTargetOfTarget "1"
 SET cameraPitchMoveSpeed "90"

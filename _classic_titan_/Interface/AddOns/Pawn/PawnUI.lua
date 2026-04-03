@@ -1968,9 +1968,6 @@ function PawnUIOptionsTabPage_OnShow()
 	PawnUIFrame_ShowSocketingAdvisorCheck:SetChecked(PawnCommon.ShowSocketingAdvisor)
 	PawnUIFrame_ShowReforgingAdvisorCheck:SetChecked(PawnCommon.ShowReforgingAdvisor)
 	PawnUIFrame_ShowItemLevelUpgradesCheck:SetChecked(PawnCommon.ShowItemLevelUpgrades)
-	if PawnTempBlockItemLevelUpgradeFeatures then
-		PawnUIFrame_ShowItemLevelUpgradesCheck:Hide()
-	end
 
 	-- Other options
 	PawnUIFrame_DebugCheck:SetChecked(PawnCommon.Debug)
@@ -2194,6 +2191,9 @@ function PawnUI_OnSocketUpdate()
 					if GemListString then GemListString = GemListString .. ", " .. ThisColorGemList else GemListString = ThisColorGemList end
 				end
 			else
+				-- This case is for when there's no socket bonus or the value is maximized by ignoring gem color. But this case is also hit
+				-- for items that are too low-level when the "ignore sockets on low-level items" feature is enabled. Right now we don't have
+				-- a way to tell those two cases apart from this code, and it's a minor edge case, so we can live with it.
 				GemListString, IsVague = PawnGetGemListString(ScaleName, PawnOptions.AutoSelectScales, Item.Level, "Prismatic")
 				if IsVague then GemListString = PawnLocal.GemListMany end
 			end
@@ -2525,7 +2525,8 @@ function PawnUI_OnQuestInfo_ShowRewards()
 		Tooltip[SetQuestRewardFunctionName](Tooltip, "reward", i)
 		local _, ItemLink = Tooltip:GetItem()
 		-- Workaround for bug in Mists of Pandaria Classic
-		if ItemName and ItemLink and ItemName ~= strsub(ItemLink, (strfind(ItemLink, "%[") or 0) + 1, (strfind(ItemLink, "%[") or 0) + strlen(ItemName)) then
+		-- Skip this for non-MoP clients because it can get falsely triggered by quests that reward a recipe, because Tooltip:GetItem() returns what the recipe produces, not the recipe itself.
+		if VgerCore.IsMists and ItemName and ItemLink and ItemName ~= strsub(ItemLink, (strfind(ItemLink, "%[") or 0) + 1, (strfind(ItemLink, "%[") or 0) + strlen(ItemName)) then
 			VgerCore.Message("Pawn thinks static reward #" .. i .. " is:\n" .. tostring(ItemName) .. " " .. tostring(ItemID or "") .. "\n" .. tostring(ItemLink) .. " " .. PawnGetItemIDsForDisplay(ItemLink))
 			Tooltip:ClearLines()
 			Tooltip[SetQuestRewardFunctionName](Tooltip, "reward", i)
@@ -2552,7 +2553,8 @@ function PawnUI_OnQuestInfo_ShowRewards()
 		Tooltip[SetQuestRewardFunctionName](Tooltip, "choice", i)
 		local _, ItemLink = Tooltip:GetItem()
 		-- Workaround for bug in Mists of Pandaria Classic
-		if ItemName and ItemLink and ItemName ~= strsub(ItemLink, (strfind(ItemLink, "%[") or 0) + 1, (strfind(ItemLink, "%[") or 0) + strlen(ItemName)) then
+		-- Skip this for non-MoP clients because it can get falsely triggered by quests that reward a recipe, because Tooltip:GetItem() returns what the recipe produces, not the recipe itself.
+		if VgerCore.IsMists and ItemName and ItemLink and ItemName ~= strsub(ItemLink, (strfind(ItemLink, "%[") or 0) + 1, (strfind(ItemLink, "%[") or 0) + strlen(ItemName)) then
 			VgerCore.Message("Pawn thinks choice reward #" .. i .. " is:\n" .. tostring(ItemName) .. " " .. tostring(ItemID or "") .. "\n" .. tostring(ItemLink) .. " " .. PawnGetItemIDsForDisplay(ItemLink))
 			Tooltip:ClearLines()
 			Tooltip[SetQuestRewardFunctionName](Tooltip, "choice", i)

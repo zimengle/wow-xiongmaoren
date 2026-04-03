@@ -1606,4 +1606,4 @@ function ItemSet.GetSetBonusString(setID)
 	return ret
 end
 
-_G['AT_SET_DATA']=ITEM_SET_DATA
+-- _G['AT_SET_DATA']=ITEM_SET_DATA

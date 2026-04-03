@@ -1,8 +1,7 @@
 # BagSync
 
-## [v20.4](https://github.com/Xruptor/BagSync/tree/v20.4) (2026-02-07)
-[Full Changelog](https://github.com/Xruptor/BagSync/compare/v20.3...v20.4) [Previous Releases](https://github.com/Xruptor/BagSync/releases)
+## [v20.16](https://github.com/Xruptor/BagSync/tree/v20.16) (2026-03-29)
+[Full Changelog](https://github.com/Xruptor/BagSync/compare/v20.15...v20.16) [Previous Releases](https://github.com/Xruptor/BagSync/releases)
 
-- New Option and Fixed another Secret Value issue.  
-    * Added a new config option to disable the Blizzard Addon Compartment integration for BagSync. (Fixes #445)  
-    * Fixed yet ANOTHER "secret value" garbage from Blizzards restrictions on addon.  
+- Fixed Currency Transfer Issue  
+    * Fixed a bug in currency transfers where it was being calculated incorrectly and values were going into the negatives.  (Fixes #459)  

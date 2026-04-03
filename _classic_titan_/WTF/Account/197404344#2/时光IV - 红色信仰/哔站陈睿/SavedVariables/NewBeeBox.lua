@@ -1,11 +1,11 @@
 
 WclBoxCharacter = {
 ["class"] = "SHAMAN",
-["name"] = "哔站陈睿",
 ["realmID"] = 6383,
+["name"] = "哔站陈睿",
 ["race"] = "德莱尼",
-["version"] = "1.0.29",
-["loginTime"] = 1769759631,
+["version"] = "1.0.30",
+["loginTime"] = 1775220428,
 ["realmName"] = "时光IV - 红色信仰",
 ["level"] = 80,
 ["faction"] = "Alliance",

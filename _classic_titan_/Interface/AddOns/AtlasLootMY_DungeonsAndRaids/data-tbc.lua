@@ -3281,7 +3281,6 @@ data["TempestKeep"] = {
                 { 4, 29921 }, -- Fire Crest Breastplate
                 { 5, 29922 }, -- Band of Al'ar
                 { 6, 29920 }, -- Phoenix-Ring of Rebirth
-                { 7, 30448 }, -- Talon of Al'ar
                 { 8, 30447 }, -- Tome of Fiery Redemption
                 { 9, 29923 }, -- Talisman of the Sun King
                 { 16, 32944 }, -- Talon of the Phoenix

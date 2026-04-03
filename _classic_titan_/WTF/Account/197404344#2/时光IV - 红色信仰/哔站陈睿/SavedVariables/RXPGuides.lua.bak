@@ -3177,7 +3177,7 @@ RXPCTrackingData = {
 ["levels"] = {
 [80] = {
 ["groupExperience"] = 0,
-["deaths"] = 2,
+["deaths"] = 8,
 ["mobs"] = {
 },
 ["timestamp"] = {
@@ -3207,6 +3207,26 @@ RXPCComms = {
 ["xp"] = 0,
 ["level"] = 80,
 },
+["橙子风"] = {
+["timePlayed"] = 0,
+["class"] = "DRUID",
+["version"] = 1,
+["lastSeen"] = 19223.195,
+["xpPercentage"] = 0,
+["isRxp"] = true,
+["xp"] = 0,
+["level"] = 80,
+},
+["跑步像陀螺"] = {
+["xpPercentage"] = 0,
+["class"] = "MAGE",
+["version"] = 1,
+["lastSeen"] = 815.124,
+["timePlayed"] = 0,
+["level"] = 80,
+["xp"] = 0,
+["isRxp"] = true,
+},
 ["慕舞"] = {
 ["timePlayed"] = 0,
 ["class"] = "PRIEST",
@@ -3217,15 +3237,15 @@ RXPCComms = {
 ["xp"] = 0,
 ["level"] = 80,
 },
-["橙子风"] = {
-["timePlayed"] = 0,
-["class"] = "DRUID",
-["version"] = 1,
-["lastSeen"] = 19223.195,
-["xpPercentage"] = 0,
-["isRxp"] = true,
-["xp"] = 0,
+["麻大花"] = {
 ["level"] = 80,
+["isRxp"] = true,
+["version"] = 1,
+["lastSeen"] = 1300.215,
+["timePlayed"] = 0,
+["class"] = "PALADIN",
+["xp"] = 0,
+["xpPercentage"] = 0,
 },
 },
 },

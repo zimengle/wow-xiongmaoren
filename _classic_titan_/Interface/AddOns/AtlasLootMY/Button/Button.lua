@@ -1176,7 +1176,7 @@ end
 local ITEM_ICON_SIZE = 30
 local ITEM_DISTANCE = 3
 local BORDER_DISTANCE = 6
-local MAX_ITEMS_PER_LINE = 9
+local MAX_ITEMS_PER_LINE = 10
 local ExtraItemFrame_Frame
 
 local function ExtraItemFrame_AddButton(self)

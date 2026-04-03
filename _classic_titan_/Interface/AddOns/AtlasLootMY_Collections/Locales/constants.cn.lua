@@ -98,3 +98,5 @@ AL["Level Boost - Plate"] = "直升装备 - 板甲"
 AL["Level Boost - Leather"] = "直升装备 - 皮甲"
 AL["Level Boost - Weapon"] = "直升装备 - 武器"
 AL["Level Boost - Misc"] = "直升装备 - 杂项"
+
+AL["'Titan Ember' Vendor"] = '泰坦余烬供应商'

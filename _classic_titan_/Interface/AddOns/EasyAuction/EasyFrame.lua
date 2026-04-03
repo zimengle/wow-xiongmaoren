@@ -1,18 +1,67 @@
 local addonName, ns = ...
 local AuctionBar = CreateFrame("Frame", "AuctionBarFrame", UIParent)
-EasyAuctionDB = EasyAuctionDB or {}
-EasyAuctionDB.bidDiscount = EasyAuctionDB.bidDiscount or 0.99      -- 起拍折扣比例，默认0.99
-EasyAuctionDB.undercut = EasyAuctionDB.undercut or 1               -- 压价金额，铜
-EasyAuctionDB.stackCount = EasyAuctionDB.stackCount or 20          -- 默认堆叠数
-EasyAuctionDB.auctionDuration = EasyAuctionDB.auctionDuration or 1 -- 默认12小时
-EasyAuctionDB.showSections = EasyAuctionDB.showSections or { items = true, price = true, myauct = true }
-EasyAuctionDB.buyRiskLimit = EasyAuctionDB.buyRiskLimit or 500     -- 购买风控价格500金
-EasyAuctionDB.uiScale = EasyAuctionDB.uiScale or 1.0
-EasyAuctionDB.locked = EasyAuctionDB.locked ~= true                -- 默认锁定
-EasyAuctionDB.customPos = EasyAuctionDB.customPos or nil
-EasyAuctionDB.autoFillLastAuction = EasyAuctionDB.autoFillLastAuction or false
-EasyAuctionDB.OperationHistory = EasyAuctionDB.OperationHistory or {}
-EasyAuctionDB.LastActiveTab = EasyAuctionDB.LastActiveTab or 1
+
+-- 声明局部变量，将在 ADDON_LOADED 事件后指向当前服务器-阵营的数据库
+local EasyAuctionDB
+
+local function NormalizePositiveInt(value, fallback)
+    value = math.floor(tonumber(value) or fallback or 1)
+    if value < 1 then
+        value = fallback or 1
+    end
+    return value
+end
+
+local function ApplyFrameDBDefaults()
+    if not EasyAuctionDB then return end
+
+    -- 设置默认值
+    if EasyAuctionDB.bidDiscount == nil then EasyAuctionDB.bidDiscount = 0.99 end -- 起拍折扣比例，默认0.99
+    if EasyAuctionDB.undercut == nil then EasyAuctionDB.undercut = 1 end           -- 压价金额，铜
+    if EasyAuctionDB.stackCount == nil then EasyAuctionDB.stackCount = 20 end      -- 默认堆叠数
+    if EasyAuctionDB.defaultNumStacks == nil then EasyAuctionDB.defaultNumStacks = 1 end -- 默认组数
+    if EasyAuctionDB.auctionDuration == nil then EasyAuctionDB.auctionDuration = 1 end -- 默认12小时
+    if EasyAuctionDB.showSections == nil then
+        EasyAuctionDB.showSections = { items = true, price = true, myauct = true }
+    end
+    if EasyAuctionDB.buyRiskLimit == nil then EasyAuctionDB.buyRiskLimit = 500 end -- 购买风控价格500金
+    if EasyAuctionDB.uiScale == nil then EasyAuctionDB.uiScale = 1.0 end
+    if EasyAuctionDB.locked == nil then
+        EasyAuctionDB.locked = true
+    end
+    EasyAuctionDB.customPos = EasyAuctionDB.customPos or nil
+    if EasyAuctionDB.autoFillLastAuction == nil then EasyAuctionDB.autoFillLastAuction = false end
+    if EasyAuctionDB.OperationHistory == nil then EasyAuctionDB.OperationHistory = {} end
+    if EasyAuctionDB.LastActiveTab == nil then EasyAuctionDB.LastActiveTab = 1 end
+    EasyAuctionDB.scanKeepPerItem = NormalizePositiveInt(EasyAuctionDB.scanKeepPerItem or 120, 120)
+    EasyAuctionDB.dailyKeepDays = NormalizePositiveInt(
+        EasyAuctionDB.dailyKeepDays or EasyAuctionDB.historyKeepDays or 30,
+        NormalizePositiveInt(EasyAuctionDB.historyKeepDays or 30, 30)
+    )
+    EasyAuctionDB.hourlyKeepHours = math.min(
+        24,
+        NormalizePositiveInt(EasyAuctionDB.hourlyKeepHours or 24, 24)
+    )
+    if EasyAuctionDB.SellPanel == nil then
+        EasyAuctionDB.SellPanel = true
+    end
+end
+
+-- 延迟初始化函数，在 ADDON_LOADED 事件中调用
+local function InitFrameDB()
+    -- 从全局获取当前服务器-阵营的数据库引用
+    EasyAuctionDB = _G.EasyAuctionDB
+    if not EasyAuctionDB then return end
+
+    ApplyFrameDBDefaults()
+end
+
+function EasyAuction_RebindFrameDB()
+    EasyAuctionDB = _G.EasyAuctionDB
+    ApplyFrameDBDefaults()
+    return EasyAuctionDB
+end
+
 EasyAuction_SessionBuyStats = {}
 EasyAuction_NeedAutoFillFromRecent = false
 local EA_pendingAutoNumStacks = 0
@@ -25,14 +74,50 @@ local LastAuctionSold = {
 
 local LastBuyItemID, LastBuyName, LastBuyCount, LastBuyUnitPrice = nil, nil, nil, nil
 
-if EasyAuctionDB.SellPanel == nil then
-    EasyAuctionDB.SellPanel = true
+-- 当前选择的拍卖时长
+local selectedDuration = 1
+
+-- 延迟获取 selectedDuration，在初始化后
+local function GetSelectedDuration()
+    return EasyAuctionDB and EasyAuctionDB.auctionDuration or selectedDuration or 1
 end
-local selectedDuration = EasyAuctionDB.auctionDuration or 1
+
+-- 设置拍卖时长
+local function SetSelectedDuration(val)
+    selectedDuration = val
+    if EasyAuctionDB then
+        EasyAuctionDB.auctionDuration = val
+    end
+end
 local function GetCopper(g, s, c) return (g or 0) * 10000 + (s or 0) * 100 + (c or 0) end
 local function SplitCopper(c)
     return math.floor(c / 10000), math.floor((c % 10000) / 100), c % 100
 end
+
+local function GetAutoFillFlashSellCounts(availableStackCount, availableTotalCount)
+    local stackCount = NormalizePositiveInt(EasyAuctionDB and EasyAuctionDB.stackCount or 20, 20)
+    local numStacks = NormalizePositiveInt(EasyAuctionDB and EasyAuctionDB.defaultNumStacks or 1, 1)
+    if availableStackCount and availableStackCount > 0 and stackCount > availableStackCount then
+        stackCount = availableStackCount
+    end
+    if availableTotalCount and availableTotalCount > 0 and stackCount > availableTotalCount then
+        stackCount = availableTotalCount
+    end
+    if stackCount < 1 then
+        stackCount = 1
+    end
+    if availableTotalCount and availableTotalCount > 0 then
+        local maxGroups = math.floor(availableTotalCount / stackCount)
+        if maxGroups < 1 then
+            maxGroups = 1
+        end
+        if numStacks > maxGroups then
+            numStacks = maxGroups
+        end
+    end
+    return stackCount, numStacks
+end
+
 local version = GetAddOnMetadata(addonName, "Version") or "?"
 
 local ITEM_QUALITY_COLORS = {
@@ -319,6 +404,7 @@ local function SetupAutoBlurForEditBox(editBox, onSave)
 end
 
 function CreateEasyAuctionConfigFrame(parent)
+    EasyAuctionDB = EasyAuction_RebindFrameDB() or EasyAuctionDB
     if EasyAuctionConfigFrame then return end
     local width, height = 340, 400
     local frame = CreateFrame("Frame", "EasyAuctionConfigFrame", UIParent, "BackdropTemplate")
@@ -420,7 +506,7 @@ function CreateEasyAuctionConfigFrame(parent)
         return box
     end
 
-    local labelHistoryDays = AddCfgLabel("保留天数：", 8)
+    local labelHistoryDays = AddCfgLabel("保留天数：", 9)
     labelHistoryDays:SetScript("OnEnter", function(self)
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
         GameTooltip:SetText("价格历史保留天数", 1, 1, 1)
@@ -429,7 +515,7 @@ function CreateEasyAuctionConfigFrame(parent)
     end)
     labelHistoryDays:SetScript("OnLeave", GameTooltip_Hide)
 
-    local boxHistoryDays = AddCfgEditBox(52, 8)
+    local boxHistoryDays = AddCfgEditBox(52, 9)
     boxHistoryDays:SetNumber(EasyAuctionDB.historyKeepDays or 30)
     SetupAutoBlurForEditBox(boxHistoryDays, function(self)
         local v = tonumber(self:GetText()) or 30
@@ -440,7 +526,7 @@ function CreateEasyAuctionConfigFrame(parent)
     boxHistoryDays:SetScript("OnEnter", labelHistoryDays:GetScript("OnEnter"))
     boxHistoryDays:SetScript("OnLeave", GameTooltip_Hide)
 
-    local labelHistoryMax = AddCfgLabel("保留条数：", 9)
+    local labelHistoryMax = AddCfgLabel("保留条数：", 10)
     labelHistoryMax:SetScript("OnEnter", function(self)
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
         GameTooltip:SetText("每物品保留条数", 1, 1, 1)
@@ -449,7 +535,7 @@ function CreateEasyAuctionConfigFrame(parent)
     end)
     labelHistoryMax:SetScript("OnLeave", GameTooltip_Hide)
 
-    local boxHistoryMax = AddCfgEditBox(52, 9)
+    local boxHistoryMax = AddCfgEditBox(52, 10)
     boxHistoryMax:SetNumber(EasyAuctionDB.historyMaxEntry or 0)
     SetupAutoBlurForEditBox(boxHistoryMax, function(self)
         local v = tonumber(self:GetText()) or 0
@@ -552,7 +638,27 @@ function CreateEasyAuctionConfigFrame(parent)
         UpdateStackPrice(AuctionBar.AuctionFrame)
     end)
 
-    local labelDuration = AddCfgLabel("默认时长：", 4)
+    local labelDefaultNumStacks = AddCfgLabel("默认组数：", 4)
+    labelDefaultNumStacks:SetScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:SetText("闪卖默认组数", 1, 1, 1)
+        GameTooltip:AddLine("闪卖页放入物品时默认填入的组数。若超过当前物品实际可上架组数，将自动按实际可上架组数填入。", 1, .82, 0, 1)
+        GameTooltip:Show()
+    end)
+    labelDefaultNumStacks:SetScript("OnLeave", GameTooltip_Hide)
+
+    local boxDefaultNumStacks = AddCfgEditBox(32, 4)
+    boxDefaultNumStacks:SetNumber(EasyAuctionDB.defaultNumStacks or 1)
+    SetupAutoBlurForEditBox(boxDefaultNumStacks, function(self)
+        local v = tonumber(self:GetText()) or 1
+        if v < 1 then v = 1 elseif v > 999 then v = 999 end
+        EasyAuctionDB.defaultNumStacks = v
+        self:SetNumber(v)
+    end)
+    boxDefaultNumStacks:SetScript("OnEnter", labelDefaultNumStacks:GetScript("OnEnter"))
+    boxDefaultNumStacks:SetScript("OnLeave", GameTooltip_Hide)
+
+    local labelDuration = AddCfgLabel("默认时长：", 5)
     labelDuration:SetScript("OnEnter", function(self)
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
         GameTooltip:SetText("默认时长", 1, 1, 1)
@@ -561,7 +667,7 @@ function CreateEasyAuctionConfigFrame(parent)
     end)
     labelDuration:SetScript("OnLeave", GameTooltip_Hide)
     local durationBox = CreateFrame("Frame", nil, pageAuction, "UIDropDownMenuTemplate")
-    durationBox:SetPoint("TOPLEFT", inputStartX - 30, startY - (4 - 1.5) * rowHeight + 4)
+    durationBox:SetPoint("TOPLEFT", inputStartX - 30, startY - (5 - 1.5) * rowHeight + 4)
     UIDropDownMenu_SetWidth(durationBox, 80)
     local durations = { { text = "12小时", value = 1 }, { text = "24小时", value = 2 }, { text = "48小时", value = 3 } }
     UIDropDownMenu_Initialize(durationBox, function(self, level)
@@ -617,7 +723,7 @@ function CreateEasyAuctionConfigFrame(parent)
         UpdateStackPrice(AuctionBar.AuctionFrame)
     end)
 
-    local labelScanPerFrame = AddCfgLabel("扫描帧速：", 5)
+    local labelScanPerFrame = AddCfgLabel("扫描帧速：", 8)
     labelScanPerFrame:SetScript("OnEnter", function(self)
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
         GameTooltip:SetText("全局扫描每帧条数", 1, 1, 1)
@@ -626,7 +732,7 @@ function CreateEasyAuctionConfigFrame(parent)
     end)
     labelScanPerFrame:SetScript("OnLeave", GameTooltip_Hide)
 
-    local boxScanPerFrame = AddCfgEditBox(50, 5)
+    local boxScanPerFrame = AddCfgEditBox(50, 8)
     boxScanPerFrame:SetNumber(EasyAuctionDB.scanPerFrame or 200)
     SetupAutoBlurForEditBox(boxScanPerFrame, function(self)
         local v = tonumber(self:GetText()) or 200
@@ -658,7 +764,7 @@ function CreateEasyAuctionConfigFrame(parent)
         cb.tooltip = tooltip
         cb:SetChecked(EasyAuctionDB[key] ~= false)
         cb:SetScript("OnClick", function(self)
-            EasyAuctionDB[key] = self:GetChecked()
+            EasyAuctionDB[key] = self:GetChecked() and true or false
             if key == "enableUndercut" then
                 UpdateStackPrice(AuctionBar.AuctionFrame)
             end
@@ -673,7 +779,7 @@ function CreateEasyAuctionConfigFrame(parent)
     AddOptionCheck(-140, "EA分解概率", "enableDisenchantProb", "是否显示物品分解概率")
     AddOptionCheck(-162, "EA选矿收益", "enableProspect", "是否显示物品选矿价值")
     AddOptionCheck(-184, "EA研磨收益", "enableMill", "是否显示物品研磨价值")
-    AddOptionCheck(-206, "总价/单价显示优先", "showUnitPrice", "开启后：\n鼠标提示优先显示总价，按Shift显示单价\n关闭则优先显示单价，按Shift显示总价")
+    AddOptionCheck(-206, "总价/单价显示优先", "showUnitPrice", "关闭后：\n鼠标提示优先显示总价，按Shift显示单价\n开启则优先显示单价，按Shift显示总价")
     AddOptionCheck(-228, "启用自动压价", "enableUndercut", "开启后，总价/起拍价会自动减去配置的压价金额")
     AddOptionCheck(-250, "连续上架相同物品自动同价", "autoFillLastAuction", "开启后，连续上架相同物品时，会自动填充上一次拍卖的价格\n（开启后，自动压价不生效！）")
     AddOptionCheck(-272, "在售列表左键复制", "enableAuctionListCopy", "开启后，可在在售列表中左键点击物品名称进行复制")
@@ -798,22 +904,34 @@ function CreateEasyAuctionConfigFrame(parent)
             button1 = "确定",
             button2 = "取消",
             OnAccept = function()
-                EasyAuctionDB = {
-                    bidDiscount     = 0.99,
-                    undercut        = 1,
-                    stackCount      = 20,
-                    auctionDuration = 1,
-                    showSections    = { items = true, price = true, myauct = true },
-                    buyRiskLimit    = 500,
-                    scanPerFrame    = 200,
-                    PriceHistory    = {},
-                    DailyMinPrice   = {},
-                    CurrentTodayMin = {},
-                    FavoriteItems   = {},
-                    RecentSearch    = {},
-                    scanQuickLimit  = 100,
-                }
-                _G.EasyAuctionDB = EasyAuctionDB
+                if type(EasyAuction_ResetSavedVariables) == "function" then
+                    EasyAuctionDB = EasyAuction_ResetSavedVariables(true)
+                else
+                    EasyAuctionDB = {
+                        bidDiscount = 0.99,
+                        undercut = 1,
+                        stackCount = 20,
+                        defaultNumStacks = 1,
+                        auctionDuration = 1,
+                        showSections = { items = true, price = true, myauct = true },
+                        buyRiskLimit = 500,
+                        scanPerFrame = 200,
+                        scanKeepPerItem = 120,
+                        historyKeepDays = 30,
+                        historyMaxEntry = 0,
+                        dailyKeepDays = 30,
+                        hourlyKeepHours = 24,
+                        PriceHistory = {},
+                        DailyMinPrice = {},
+                        HourlyMinPrice = {},
+                        CurrentTodayMin = {},
+                        FavoriteItems = {},
+                        RecentSearch = {},
+                        scanQuickLimit = 100,
+                    }
+                    _G.EasyAuctionDB = EasyAuctionDB
+                    _G.EasyAuctionDB2 = _G.EasyAuctionDB2 or {}
+                end
 
                 if EasyAuctionDBFrame and EasyAuctionDBFrame:IsShown() then
                     RefreshDBFrame()
@@ -894,7 +1012,7 @@ function UpdateDepositMoney()
 
     local StackSize = HookAuctionFrame.StackCount:GetNumber()
     local NumStacks = HookAuctionFrame.NumStacks:GetNumber()
-    local duration = selectedDuration or 1
+    local duration = GetSelectedDuration()
     local perDepositMoney = GetAuctionDeposit(1, 1, 1, StackSize, 1)
     local TolDepositMoney
     if duration == 3 then
@@ -930,6 +1048,7 @@ function CreateAuctionSide()
     if type(EasyAuctionDB.stackCount) ~= "number" or EasyAuctionDB.stackCount <= 0 then
         EasyAuctionDB.stackCount = 20
     end
+    EasyAuctionDB.defaultNumStacks = NormalizePositiveInt(EasyAuctionDB.defaultNumStacks, 1)
     if type(EasyAuctionDB.auctionDuration) ~= "number" then
         EasyAuctionDB.auctionDuration = 1
     end
@@ -2447,6 +2566,9 @@ function CreateAuctionSide()
     f.NumStacks:SetPoint("LEFT", numStacksLabel, "RIGHT", 4, 0)
     f.NumStacks:SetJustifyH("RIGHT")
     f.NumStacks:SetScript("OnTextChanged", function(self)
+        if self:GetNumber() < 1 then
+            self:SetNumber(1)
+        end
         UpdateDepositMoney()
     end)
 
@@ -2499,8 +2621,7 @@ function CreateAuctionSide()
     }
     local durationBtns = {}
     local function SetAuctionDuration(val)
-        selectedDuration = val
-        EasyAuctionDB.auctionDuration = val
+        SetSelectedDuration(val)
         for i, btn in ipairs(durationBtns) do
             btn:SetChecked(btn.value == val)
             UpdateDepositMoney()
@@ -2553,7 +2674,6 @@ function CreateAuctionSide()
         UpdateDepositMoney()
         SetItemButtonCount(ItemButton, self:GetNumber() or 1)
     end)
-
     MaxStackCountBtn:SetScript("OnClick", function()
         local name, _, _, _, _, _, _, maxStack, totalCount = GetAuctionSellItemInfo()
         if name and maxStack and totalCount then
@@ -2652,7 +2772,7 @@ function CreateAuctionSide()
                         LastAuctionSold.name = name
                         LastAuctionSold.itemID = itemID
                         LastAuctionSold.unitPrice = unitPrice
-                        PostAuction(minBid, buyout, selectedDuration, stackSize, numStacks, false)
+                        PostAuction(minBid, buyout, GetSelectedDuration(), stackSize, numStacks, false)
                         print("|cff00ff00已发布拍卖：|r" .. name .. " x" .. numStacks)
                         table.insert(EasyAuctionDB.OperationHistory, {
                             time = time(),
@@ -2696,7 +2816,7 @@ function CreateAuctionSide()
                         LastAuctionSold.name = name
                         LastAuctionSold.itemID = itemID
                         LastAuctionSold.unitPrice = unitPrice
-                        PostAuction(minBid, buyout, selectedDuration, stackSize, numStacks, false)
+                        PostAuction(minBid, buyout, GetSelectedDuration(), stackSize, numStacks, false)
                         table.insert(EasyAuctionDB.OperationHistory, {
                             time = time(),
                             op = "拍卖",
@@ -2727,7 +2847,7 @@ function CreateAuctionSide()
             LastAuctionSold.itemID = itemID
             LastAuctionSold.unitPrice = unitPrice
             LastAuctionSold.Progress = false
-            PostAuction(minBid, buyout, selectedDuration, stackSize, numStacks, false)
+            PostAuction(minBid, buyout, GetSelectedDuration(), stackSize, numStacks, false)
             table.insert(EasyAuctionDB.OperationHistory, {
                 time = time(),
                 op = "拍卖",
@@ -3900,12 +4020,9 @@ function CreateAuctionSide()
 
 
         local vendorPrice = select(11, GetItemInfo(itemID)) or 0
-        local defaultStack = EasyAuctionDB.stackCount or 20
-        local useStack = math.min(defaultStack, totalCount or defaultStack)
-        if useStack > (stackCount or 1) then useStack = stackCount or 1 end
-        if totalCount < useStack then useStack = totalCount end
+        local useStack, useNumStacks = GetAutoFillFlashSellCounts(stackCount, totalCount)
         f.StackCount:SetNumber(useStack)
-        f.NumStacks:SetNumber(1)
+        f.NumStacks:SetNumber(useNumStacks)
 
         local unitPrice
         if EasyAuctionDB.autoFillLastAuction
@@ -4184,7 +4301,12 @@ multiSellFrame:SetScript("OnEvent", function(self, event, current, total)
                                             f.UnitGold:SetNumber(ug)
                                             f.UnitSilver:SetNumber(us)
                                             f.UnitCopper:SetNumber(uc)
-                                            f.StackCount:SetNumber(info.stackCount)
+                                            local useStack, useNumStacks = GetAutoFillFlashSellCounts(
+                                                info.stackCount,
+                                                info.stackCount
+                                            )
+                                            f.StackCount:SetNumber(useStack)
+                                            f.NumStacks:SetNumber(useNumStacks)
                                             UpdateStackPrice(f)
                                         end
                                     end)
@@ -4634,3 +4756,13 @@ function EasyAuction_ShowOperationHistory()
     f:Refresh()
     EasyAuction_OpHistoryFrame = f
 end
+
+-- 注册 ADDON_LOADED 事件，在插件加载完成后初始化数据库引用
+local eaFrameInit = CreateFrame("Frame")
+eaFrameInit:RegisterEvent("ADDON_LOADED")
+eaFrameInit:SetScript("OnEvent", function(self, event, addon)
+    if addon == "EasyAuction" then
+        InitFrameDB()
+        self:UnregisterEvent("ADDON_LOADED")
+    end
+end)

@@ -1985,22 +1985,113 @@ end
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-local on_drag_start = function(self)
-	if (not self.bIsDragging) then
-		self.bIsDragging = true
-		self:StartMoving()
+local savedPoints = {}
+
+local saveFrameLocation = function(frame)
+    local savedPoint = savedPoints[frame]
+    local scale = frame:GetScale()
+    local uiWidthScaled = GetScreenWidth() * UIParent:GetScale()
+    local uiHeightScaled = GetScreenHeight() * UIParent:GetScale()
+--does not work, cba.
+    --edges
+    local leftEdge = frame:GetLeft() * scale
+    local rightEdge = frame:GetRight() * scale
+    local bottomEdge = frame:GetBottom() * scale
+    local topEdge = frame:GetTop() * scale
+
+    local frameCenterX = (leftEdge + rightEdge) * 0.5
+    local frameCenterY = (bottomEdge + topEdge) * 0.5
+
+    --distance
+    local distLeft = leftEdge
+    local distRight = uiWidthScaled - rightEdge
+    local distTop = uiHeightScaled - topEdge
+    local distBottom = bottomEdge
+    local distCenterX = abs(frameCenterX - uiWidthScaled * 0.5)
+    local distCenterY = abs(frameCenterY - uiHeightScaled * 0.5)
+
+    --horizontal anchor
+    local hAnchor, xOffset
+    if distLeft <= distRight and distLeft <= distCenterX then
+        hAnchor = "LEFT"
+        xOffset = leftEdge
+    elseif distRight <= distCenterX then
+        hAnchor = "RIGHT"
+        xOffset = rightEdge - uiWidthScaled --negative: frame is left of the right edge
+    else
+        hAnchor = ""
+        xOffset = frameCenterX - uiWidthScaled * 0.5 --offset from screen center
+    end
+
+    --vertical
+    local vAnchor, yOffset
+    if distBottom <= distTop and distBottom <= distCenterY then
+        vAnchor = "BOTTOM"
+        yOffset = bottomEdge
+    elseif distTop <= distCenterY then
+        vAnchor = "TOP"
+        yOffset = topEdge - uiHeightScaled --negative: frame is below the top edge
+    else
+        vAnchor = ""
+        yOffset = frameCenterY - uiHeightScaled * 0.5
+    end
+
+    local point = (vAnchor .. hAnchor) ~= "" and (vAnchor .. hAnchor) or "CENTER"
+
+	--save
+    savedPoint.point = point
+    savedPoint.x = xOffset / scale
+    savedPoint.y = yOffset / scale
+    savedPoint.scale = scale
+end
+
+local restoreFrameLocation = function(frame)
+    local savedPoint = savedPoints[frame]
+    local scale = savedPoint.scale
+    local point = savedPoint.point
+    local x = savedPoint.x
+    local y = savedPoint.y
+
+    frame:SetScale(scale)
+
+    if not point or not x or not y then
+        frame:ClearAllPoints()
+        frame:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
+        return
+    end
+
+    frame:ClearAllPoints()
+    frame:SetPoint(point, UIParent, point, x, y)
+end
+
+local on_drag_start = function(frame)
+	if (not frame.bIsDragging) then
+		frame.bIsDragging = true
+		frame:StartMoving()
 	end
 end
 
-local on_drag_stop = function(self)
-	self.bIsDragging = false
-	self:StopMovingOrSizing()
+local on_drag_stop = function(frame)
+	frame.bIsDragging = false
+	frame:StopMovingOrSizing()
+	if savedPoints[frame] then
+		saveFrameLocation(frame)
+	end
 end
 
-function detailsFramework:MakeDraggable(frame)
+function detailsFramework:MakeDraggable(frame, profileTable)
 	frame:SetMovable(true)
 	frame:EnableMouse(true)
 	frame:RegisterForDrag("LeftButton")
+
+	if (profileTable) then
+		savedPoints[frame] = profileTable
+		if not profileTable.point then
+			saveFrameLocation(frame)
+		end
+		restoreFrameLocation(frame)
+	end
+
 	frame:SetScript("OnDragStart", on_drag_start)
 	frame:SetScript("OnDragStop", on_drag_stop)
 end
@@ -2051,12 +2142,7 @@ local SimplePanel_frame_backdrop_border_color = {0, 0, 0, 1}
 ---@field thumb texture
 function detailsFramework:CreateScaleBar(frame, config, bNoRightClick) --~scale
 	---@type df_scalebar
-	local scaleText = "Scale:"
-	local DetailsLoc = LibStub("AceLocale-3.0", true) and LibStub("AceLocale-3.0"):GetLocale("Details", true)
-	if (DetailsLoc and DetailsLoc ["STRING_SCALE"]) then
-		scaleText = DetailsLoc ["STRING_SCALE"]
-	end
-	local scaleBar, text = detailsFramework:CreateSlider(frame, 120, 14, 0.6, 1.6, 0.1, config.scale, true, "ScaleBar", nil, scaleText, detailsFramework:GetTemplate("slider", "OPTIONS_SLIDER_TEMPLATE"), detailsFramework:GetTemplate("font", "ORANGE_FONT_TEMPLATE"))
+	local scaleBar, text = detailsFramework:CreateSlider(frame, 120, 14, 0.6, 1.6, 0.1, config.scale, true, "ScaleBar", nil, "Scale:", detailsFramework:GetTemplate("slider", "OPTIONS_SLIDER_TEMPLATE"), detailsFramework:GetTemplate("font", "ORANGE_FONT_TEMPLATE"))
 	scaleBar.thumb:SetWidth(24)
 	scaleBar:SetValueStep(0.05)
 	scaleBar:SetObeyStepOnDrag(true)
@@ -5015,20 +5101,9 @@ end
 ]]
 
 function detailsFramework:BuildStatusbarAuthorInfo(f, addonBy, authorsNameString)
-	local DetailsLoc = LibStub("AceLocale-3.0", true) and LibStub("AceLocale-3.0"):GetLocale("Details", true)
-	local addonByText = "An addon by "
-	local discordText = "Discord: "
-	if (DetailsLoc) then
-		if (DetailsLoc ["STRING_ADDON_BY"]) then
-			addonByText = DetailsLoc ["STRING_ADDON_BY"]
-		end
-		if (DetailsLoc ["STRING_DISCORD"]) then
-			discordText = DetailsLoc ["STRING_DISCORD"]
-		end
-	end
-	local authorName = detailsFramework:CreateLabel(f, "" .. (addonBy or addonByText) .. "|cFFFFFFFF" .. (authorsNameString or "Terciob") .. "|r")
+	local authorName = detailsFramework:CreateLabel(f, "" .. (addonBy or "An addon by ") .. "|cFFFFFFFF" .. (authorsNameString or "Terciob") .. "|r")
 	authorName.textcolor = "silver"
-	local discordLabel = detailsFramework:CreateLabel(f, discordText)
+	local discordLabel = detailsFramework:CreateLabel(f, "Discord: ")
 	discordLabel.textcolor = "silver"
 
 	local options_dropdown_template = detailsFramework:GetTemplate("dropdown", "OPTIONS_DROPDOWN_TEMPLATE")

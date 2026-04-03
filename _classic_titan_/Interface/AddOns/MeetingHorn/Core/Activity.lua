@@ -10,7 +10,16 @@ local PATTERNS = { --
     ['^(.+)@@'] = 3,
 }
 
+local MHH_PATTERN = '^(.+)%.MHH@@'
+
+
 local function ParseProto(text)
+    -- MHH 格式优先匹配（必须在通用 @@ 之前）
+    local mhhBody = text:match(MHH_PATTERN)
+    if mhhBody and mhhBody:trim() ~= '' then
+        return 4, mhhBody
+    end
+
     for p, v in pairs(PATTERNS) do
         local body = text:match(p)
         if body and body:trim() ~= '' then
@@ -62,6 +71,77 @@ end
 function Activity:Update(proto, leader, guid, channelName, lineId)
     local version, body = ParseProto(proto)
     local id, modeId, comment, name, mode, members, leaderLevel, raidId
+
+    -- MHH 格式解析 (version 4)
+    -- 新格式(10字段): leaderName.comment.memberCount.playerLevel.raidId.modeId.neededRolesStr.leaderClass.membersData.MHH
+    -- 旧格式(9字段):  leaderName.comment.memberCount.playerLevel.raidId.modeId.neededRolesStr.leaderClass.MHH
+    if version == 4 then
+        -- 先尝试新格式（9个字段，membersData 在第9位，MHH 已被 pattern 去掉）
+        local mhhLeader, mhhComment, mhhMembers, mhhLevel, mhhRaidId, mhhModeId, mhhRolesStr, mhhClass =
+            body:match('^([^.]+)%.([^.]+)%.([^.]+)%.([^.]+)%.([^.]+)%.([^.]+)%.([^.]*)%.([^.]*)')
+
+        if not mhhRaidId then
+            return
+        end
+
+        raidId = tonumber(mhhRaidId)
+        id = ns.GetActivityIdByRaidId(raidId)
+        if not id then
+            return
+        end
+
+        -- MHH 活动统一使用"其它"模式
+        modeId = ns.ModeToId('其它') or 1
+
+        comment = mhhComment
+        members = tonumber(mhhMembers)
+        leaderLevel = tonumber(mhhLevel)
+
+        local data = ns.GetActivityData(id)
+        if not data or not data.category or not data.category.channels[channelName] then
+            return
+        end
+
+        local leaderFullName = leader
+        local dashIndex = string.find(leaderFullName, '-')
+        if dashIndex then
+            leaderFullName = string.sub(leaderFullName, 1, dashIndex - 1)
+        end
+
+        self.raidId = raidId
+        self.sameInstance = raidId and ns.GetRaidId(ns.GetActivityData(id).instanceName) == raidId
+        self.modeId = modeId
+        self.isMHH = true
+        self.neededRolesStr = mhhRolesStr
+        self:SetActivityId(id)
+        self:SetLeaderGUID(guid)
+        self:SetLeader(leader)
+        self:SetLeaderLevel(leaderLevel)
+        self:SetComment(comment)
+        self:SetMembers(members)
+        self:SetLineId(lineId)
+        self:UpdateTick()
+
+        -- 设置 MHH 传来的职业信息（覆盖 GUID 解析的默认值）
+        if mhhClass and mhhClass ~= '' then
+            self.leaderClass = mhhClass
+        end
+
+        local currentLevel = ns.Addon.db.realm.starRegiment.regimentData[leaderFullName]
+        local currentBgID = 0
+        local currentRoomID = 0
+        if currentLevel then
+            currentRoomID = currentLevel.roomID
+            currentBgID = currentLevel.bgID
+            currentLevel = currentLevel.level
+        end
+        self:SetCertificationLevel(currentLevel)
+        self:SetCertificationBgID(currentBgID)
+        self:SetOurAddonCreate(false)
+        return true
+    end
+
+    -- 原有 v1/v2/v3 解析
     if version == 1 then
         name, mode, comment = body:match('^([^.]+)%.([^.]+)%.%.%.%.%.%.%.%.(.+)$')
     elseif version == 2 then
@@ -97,6 +177,7 @@ function Activity:Update(proto, leader, guid, channelName, lineId)
         leaderFullName = string.sub(leaderFullName, 1, dashIndex - 1)
     end
 
+    self.isMHH = false
     self.raidId = raidId
     self.sameInstance = raidId and ns.GetRaidId(ns.GetActivityData(id).instanceName) == raidId
     self.modeId = modeId
@@ -130,6 +211,9 @@ function Activity:ToProto()
 end
 
 function Activity:HaveProgress()
+    if self.isMHH then
+        return false
+    end
     return self.raidId
 end
 
@@ -380,4 +464,8 @@ end
 
 function Activity:IsOurAddonCreate()
     return self.isOurAddonCreate
+end
+
+function Activity:IsMHH()
+    return self.isMHH or false
 end

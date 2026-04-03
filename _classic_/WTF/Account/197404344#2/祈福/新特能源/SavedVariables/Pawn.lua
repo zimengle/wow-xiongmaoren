@@ -1,6 +1,6 @@
 
 PawnOptions = {
-["LastVersion"] = 2.1201,
+["LastVersion"] = 2.1303,
 ["LastPlayerFullName"] = "新特能源-祈福",
 ["AutoSelectScales"] = true,
 ["AutoSelectScalesEnabledOnce"] = true,
@@ -27,9 +27,9 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:86758::::::::90::256::::::::|h[皇家缚魂者长袍]|h|r",
 },
 {
-["ID"] = 81058,
-["Level"] = 463,
-["Link"] = "|cff0070dd|Hitem:81058::::::::90::256::::::::|h[地域之怒腰带]|h|r",
+["ID"] = 86897,
+["Level"] = 483,
+["Link"] = "|cffa335ee|Hitem:86897::::::::90::256::::::::|h[术士的深冬腰带]|h|r",
 },
 {
 ["ID"] = 86747,

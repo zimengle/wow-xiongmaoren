@@ -201,26 +201,7 @@ BlizzMoveDB = {
 },
 },
 },
-["PlayerTalentFrame"] = {
-["startPoints"] = {
-{
-["anchorPoint"] = "LEFT",
-["relativeFrame"] = "UIParent",
-["offY"] = -0.02856015949510038,
-["offX"] = 0,
-["relativePoint"] = "LEFT",
-},
-},
-["dragged"] = true,
-["dragPoints"] = {
-{
-["anchorPoint"] = "CENTER",
-["relativeFrame"] = "UIParent",
-["offY"] = 18.77471292399605,
-["offX"] = -10.27821615843641,
-["relativePoint"] = "CENTER",
-},
-},
+["PVPBannerFrame"] = {
 },
 ["GuildFrame"] = {
 },
@@ -303,7 +284,26 @@ BlizzMoveDB = {
 },
 ["WorldStateScoreFrame"] = {
 },
-["PVPBannerFrame"] = {
+["PlayerTalentFrame"] = {
+["startPoints"] = {
+{
+["anchorPoint"] = "LEFT",
+["relativeFrame"] = "UIParent",
+["offY"] = -0.02856015949510038,
+["offX"] = 0,
+["relativePoint"] = "LEFT",
+},
+},
+["dragged"] = true,
+["dragPoints"] = {
+{
+["anchorPoint"] = "CENTER",
+["relativeFrame"] = "UIParent",
+["offY"] = 18.77471292399605,
+["offX"] = -10.27821615843641,
+["relativePoint"] = "CENTER",
+},
+},
 },
 ["GuildControlPopupFrame"] = {
 },

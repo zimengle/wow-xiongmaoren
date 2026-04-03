@@ -182,7 +182,11 @@ local function add_barUI(peizhiT)
 	for i=1,listNum do
 		local listbut
 		if peizhiT=="markerR" then
-			listbut = CreateFrame("Button", nil, biaojiUIx,"SecureActionButtonTemplate")
+			if PIG_MaxTocversion() then
+				listbut = CreateFrame("Button", nil, biaojiUIx)
+			else
+				listbut = CreateFrame("Button", nil, biaojiUIx,"SecureActionButtonTemplate")
+			end
 			listbut:SetHighlightTexture("Interface/Buttons/ButtonHilight-Square")
 			listbut:SetSize(biaojiW,biaojiW)	
 			listbut:SetPoint("LEFT", biaojiUIx, "LEFT",i*(biaojiW+3)-biaojiW,0)

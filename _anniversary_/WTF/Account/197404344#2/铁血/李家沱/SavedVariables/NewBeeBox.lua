@@ -2,12 +2,12 @@
 WclBoxCharacter = {
 ["class"] = "HUNTER",
 ["realmID"] = 6457,
-["faction"] = "Alliance",
+["version"] = "1.0.30",
 ["race"] = "矮人",
 ["name"] = "李家沱",
-["loginTime"] = 1770525745,
+["faction"] = "Alliance",
 ["realmName"] = "铁血",
-["level"] = 64,
-["version"] = "1.0.29",
+["level"] = 70,
+["loginTime"] = 1774444175,
 ["playerGUID"] = "Player-6457-04DA9799",
 }

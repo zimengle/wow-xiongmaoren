@@ -2,7 +2,6 @@
 local Details = Details
 local DetailsFramework = _G.DetailsFramework
 local GameCooltip2 = GameCooltip2
-local Loc = _G.LibStub("AceLocale-3.0"):GetLocale("Details")
 
 function Details:CreateAPI2Frame()
     if (not _G.DetailsAPI2Frame or not _G.DetailsAPI2Frame.Initialized) then
@@ -96,7 +95,7 @@ function Details:CreateAPI2Frame()
                     parameterLine.index = i
                     parameterLine.name.text = parameterInfo.name
                     parameterLine.typeData.text = parameterInfo.type
-                    parameterLine.required.text = parameterInfo.required and (Loc ["STRING_YES"] or "yes") or (Loc ["STRING_NO"] or "no")
+                    parameterLine.required.text = parameterInfo.required and "yes" or "no"
                     parameterLine.default.text = parameterInfo.default or ""
                 else
                     parameterLine:Hide()
@@ -218,7 +217,7 @@ function Details:CreateAPI2Frame()
             Api2Frame.ApiFunctionDesc.valign = "top"
             
             --api func to copy
-            local apiCopyString = DetailsFramework:CreateLabel(Api2Frame, Loc ["STRING_API_COPY_STRING"] or "Copy String", 12, "orange")
+            local apiCopyString = DetailsFramework:CreateLabel(Api2Frame, "Copy String", 12, "orange")
             apiCopyString:SetPoint("topleft", Api2Frame.ApiFunctionDesc, "bottomleft", 0, -20)
             Api2Frame.ApiCopy = DetailsFramework:CreateTextEntry(Api2Frame, function() end, infoWidth, 20)
             Api2Frame.ApiCopy:SetPoint("topleft", apiCopyString, "bottomleft", 0, -2)
@@ -226,7 +225,7 @@ function Details:CreateAPI2Frame()
             
             --parameters
             local parametersYStart = yStart - 110
-            local parametersString = DetailsFramework:CreateLabel(Api2Frame, Loc ["STRING_API_PARAMETERS"] or "Parameters", 12, "orange")
+            local parametersString = DetailsFramework:CreateLabel(Api2Frame, "Parameters", 12, "orange")
             parametersString:SetPoint("topleft", Api2Frame, "topleft", xAnchorPoint, parametersYStart)
             
             parametersYStart = parametersYStart - 20
@@ -237,10 +236,10 @@ function Details:CreateAPI2Frame()
             parametersHeader:SetPoint("topleft", Api2Frame, "topleft", xAnchorPoint, parametersYStart)
             parametersHeader:SetBackdrop({bgFile = [[Interface\Tooltips\UI-Tooltip-Background]], tileSize = 64, tile = true})
             parametersHeader:SetBackdropColor(unpack(backdropColor))
-            parametersHeader.name = DetailsFramework:CreateLabel(parametersHeader, Loc ["STRING_API_NAME"] or "Name", 12, "yellow")
-            parametersHeader.typeData = DetailsFramework:CreateLabel(parametersHeader, Loc ["STRING_API_TYPE"] or "Type", 12, "yellow")
-            parametersHeader.required = DetailsFramework:CreateLabel(parametersHeader, Loc ["STRING_API_IS_REQUIRED"] or "Is Required", 12, "yellow")
-            parametersHeader.default = DetailsFramework:CreateLabel(parametersHeader, Loc ["STRING_API_DEFAULT_VALUE"] or "Default Value", 12, "yellow")
+            parametersHeader.name = DetailsFramework:CreateLabel(parametersHeader, "Name", 12, "yellow")
+            parametersHeader.typeData = DetailsFramework:CreateLabel(parametersHeader, "Type", 12, "yellow")
+            parametersHeader.required = DetailsFramework:CreateLabel(parametersHeader, "Is Required", 12, "yellow")
+            parametersHeader.default = DetailsFramework:CreateLabel(parametersHeader, "Default Value", 12, "yellow")
             parametersHeader.name:SetPoint("left", parametersHeader, "left", 2, 0)
             parametersHeader.typeData:SetPoint("left", parametersHeader, "left", space1, 0)
             parametersHeader.required:SetPoint("left", parametersHeader, "left", space2, 0)
@@ -292,7 +291,7 @@ function Details:CreateAPI2Frame()
         
         --return value box
             local returnYStart = yStart - 260
-            local returnString = DetailsFramework:CreateLabel(Api2Frame, Loc ["STRING_API_RETURN_VALUES"] or "Return Values", 12, "orange")
+            local returnString = DetailsFramework:CreateLabel(Api2Frame, "Return Values", 12, "orange")
             returnString:SetPoint("topleft", Api2Frame, "topleft", xAnchorPoint, returnYStart)
             
             returnYStart = returnYStart - 20
@@ -303,8 +302,8 @@ function Details:CreateAPI2Frame()
             returnHeader:SetPoint("topleft", Api2Frame, "topleft", xAnchorPoint, returnYStart)
             returnHeader:SetBackdrop({bgFile = [[Interface\Tooltips\UI-Tooltip-Background]], tileSize = 64, tile = true})
             returnHeader:SetBackdropColor(unpack(backdropColor))
-            returnHeader.name = DetailsFramework:CreateLabel(returnHeader, Loc ["STRING_API_NAME"] or "Name", 12, "yellow")
-            returnHeader.typeData = DetailsFramework:CreateLabel(returnHeader, Loc ["STRING_API_TYPE"] or "Type", 12, "yellow")
+            returnHeader.name = DetailsFramework:CreateLabel(returnHeader, "Name", 12, "yellow")
+            returnHeader.typeData = DetailsFramework:CreateLabel(returnHeader, "Type", 12, "yellow")
             returnHeader.name:SetPoint("left", returnHeader, "left", 2, 0)
             returnHeader.typeData:SetPoint("left", returnHeader, "left", space1, 0)
 

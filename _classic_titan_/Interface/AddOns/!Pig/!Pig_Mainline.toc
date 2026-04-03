@@ -1,4 +1,4 @@
-﻿## Interface: 120000
+﻿## Interface: 120001
 ## Title: !Pig
 ## Title-zhCN: !Pig
 ## Title-zhTW: !Pig
@@ -13,7 +13,7 @@
 ## AddonCompartmentFuncOnEnter: PIGCompartmentEnter
 ## AddonCompartmentFuncOnLeave: PIGCompartmentLeave
 ## Author: geligasi
-## Version: 9.9993
+## Version: 9.999991
 ## SavedVariables: PIGA
 ## SavedVariablesPerCharacter: PIGA_Per
 Localization\Localization.xml

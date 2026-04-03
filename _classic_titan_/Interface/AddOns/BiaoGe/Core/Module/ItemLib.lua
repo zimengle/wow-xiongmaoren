@@ -38,88 +38,6 @@ local titleTbl
 local maxhope
 local CreateAllItemInfoCache, CheckItemInfo, CheckSameItem, Sort
 
-local getFiterTbl
-do
-    if BG.IsVanilla_Sod then
-        getFiterTbl = {
-            { name = L["团本"], name2 = "raid", },
-            { name = L["牌子/货币"], name2 = "currency", },
-            { name = L["5人本"], name2 = "fb5", },
-            { name = L["声望"], name2 = "faction", },
-            { name = L["专业"], name2 = "profession", },
-            { name = L["世界掉落"], name2 = "world", },
-            { name = L["PVP"], name2 = "pvp", },
-        }
-    elseif BG.IsVanilla_60 then
-        getFiterTbl = {
-            { name = L["团本"], name2 = "raid", },
-            { name = L["声望"], name2 = "faction", },
-            { name = L["专业"], name2 = "profession", },
-            { name = L["世界掉落"], name2 = "world", },
-            { name = L["世界BOSS"], name2 = "worldboss", },
-            { name = L["PVP"], name2 = "pvp", },
-        }
-    elseif BG.IsWLK_80 then
-        getFiterTbl = {
-            { name = L["团本：25人"], name2 = "raid25", },
-            { name = L["团本：10人"], name2 = "raid10", },
-            { name = L["团本：英雄难度"], name2 = "raidhero", },
-            { name = L["团本：普通难度"], name2 = "raidnormal", },
-            { name = L["5人本"], name2 = "fb5", },
-            { name = L["牌子/货币"], name2 = "currency", },
-            { name = L["声望"], name2 = "faction", },
-            { name = L["专业"], name2 = "profession", },
-            { name = L["PVP"], name2 = "pvp", },
-        }
-    elseif BG.IsTitan then
-        getFiterTbl = {
-            { name = L["团本"], name2 = "raid", },
-            { name = L["世界BOSS"], name2 = "worldboss", },
-            { name = L["5人本"], name2 = "fb5", },
-            { name = L["牌子/货币"], name2 = "currency", },
-            { name = L["声望"], name2 = "faction", },
-            { name = L["专业"], name2 = "profession", },
-            -- { name = L["PVP"], name2 = "pvp", },
-            { name = L["世界掉落"], name2 = "world", },
-        }
-    elseif BG.IsCTM then
-        getFiterTbl = {
-            { name = L["团本：英雄难度"], name2 = "raidhero", },
-            { name = L["团本：普通难度"], name2 = "raidnormal", },
-            { name = L["5人本"], name2 = "fb5", },
-            { name = L["牌子/货币"], name2 = "currency", },
-            { name = L["声望"], name2 = "faction", },
-            { name = L["专业"], name2 = "profession", },
-            { name = L["世界掉落"], name2 = "world", },
-            -- { name = L["世界BOSS"], name2 = "worldboss", },
-            { name = L["PVP"], name2 = "pvp", },
-        }
-    elseif BG.IsMOP then
-        getFiterTbl = {
-            { name = L["团本：英雄难度"], name2 = "raidhero", },
-            { name = L["团本：普通难度"], name2 = "raidnormal", },
-            -- { name = L["5人本"], name2 = "fb5", },
-            { name = L["牌子/货币"], name2 = "currency", },
-            -- { name = L["声望"], name2 = "faction", },
-            { name = L["专业"], name2 = "profession", },
-            { name = L["世界掉落"], name2 = "world", },
-            { name = L["世界BOSS"], name2 = "worldboss", },
-            -- { name = L["PVP"], name2 = "pvp", },
-        }
-    elseif BG.IsRetail then
-        getFiterTbl = {
-            { name = L["团本：史诗难度"], name2 = "raidmyth", },
-            { name = L["团本：英雄难度"], name2 = "raidhero", },
-            { name = L["团本：普通难度"], name2 = "raidnormal", },
-            { name = L["5人本"], name2 = "fb5", },
-            { name = L["牌子/货币"], name2 = "currency", },
-            { name = L["声望"], name2 = "faction", },
-            { name = L["专业"], name2 = "profession", },
-            { name = L["世界掉落"], name2 = "world", },
-        }
-    end
-end
-
 -- 给获取途径排序
 local typeIDtbl = {
     "raid",
@@ -378,6 +296,12 @@ do
                 for _, v in pairs(BG.Loot[FB].Shop) do
                     InsertToAllItem(v.id)
                 end
+                -- 节日
+                for _, holiday in pairs(BG.Loot[FB].Holiday) do
+                    for _, itemID in pairs(holiday.items) do
+                        InsertToAllItem(itemID)
+                    end
+                end
             end)
             delay = delay + add
         end
@@ -421,9 +345,8 @@ do
         local tooltipText = info[FB][itemID].tooltipText
         return not BG.FilterAll(itemID, typeID, EquipLoc, subclassID, tooltipText)
     end
-    local function InsertItemInfo(itemID, type, hard, ii, other)
+    local function InsertItemInfo(FB, itemID, type, hard, ii, other)
         if not IsYesItem(itemID) then return end
-        local FB = BG.FB1
         local link = info[FB][itemID].link
         local quality = info[FB][itemID].quality
         local level = info[FB][itemID].level
@@ -897,6 +820,21 @@ do
                 type = GetTypeID(type),
                 haved = CheckHaved(itemID)
             })
+        elseif type == "holiday" then -- 节日
+            local get = "|cff" .. "FF9900" .. L["节日:"] .. other
+
+            tinsert(db_old, {
+                itemID = itemID,
+                link = link,
+                level = level,
+                quality = quality,
+                texture = Texture,
+                get = get,
+                bindType = bindType,
+                setID = setID,
+                type = GetTypeID(type),
+                haved = CheckHaved(itemID)
+            })
         end
     end
     function CheckItemInfo()
@@ -932,12 +870,12 @@ do
                         while BG.Loot[FB][hard]["boss" .. ii] do
                             if not (FB == "TOC" and ii == 7 and hard:find("H")) then
                                 for i, itemID in ipairs(BG.Loot[FB][hard]["boss" .. ii]) do
-                                    InsertItemInfo(itemID, "raid", hard, ii, k)
+                                    InsertItemInfo(FB, itemID, "raid", hard, ii, k)
                                 end
                                 -- BOSS掉落后兑换的装备
                                 if BG.Loot[FB][hard]["boss" .. ii .. "other"] then
                                     for i, itemID in ipairs(BG.Loot[FB][hard]["boss" .. ii .. "other"]) do
-                                        InsertItemInfo(itemID, "raid", hard, ii, "other")
+                                        InsertItemInfo(FB, itemID, "raid", hard, ii, "other")
                                     end
                                 end
                             end
@@ -948,7 +886,7 @@ do
                         if BG.Loot[FB][hard].Quest then
                             for name, _ in pairs(BG.Loot[FB][hard].Quest) do
                                 for _, itemID in pairs(BG.Loot[FB][hard].Quest[name]) do
-                                    InsertItemInfo(itemID, "raid", hard, ii, name)
+                                    InsertItemInfo(FB, itemID, "raid", hard, ii, name)
                                 end
                             end
                         end
@@ -960,7 +898,7 @@ do
                 for FB_5 in pairs(BG.Loot[FB].Team) do
                     for BossName, _ in pairs(BG.Loot[FB].Team[FB_5]) do
                         for _, itemID in pairs(BG.Loot[FB].Team[FB_5][BossName]) do
-                            InsertItemInfo(itemID, "fb5", hard, ii, FB_5 .. "#" .. BossName)
+                            InsertItemInfo(FB, itemID, "fb5", hard, ii, FB_5 .. "#" .. BossName)
                         end
                     end
                 end
@@ -968,20 +906,20 @@ do
             -- 野外任务
             for k, v in pairs(BG.Loot[FB].Quest) do
                 for i, itemID in ipairs(BG.Loot[FB].Quest[k].itemID) do
-                    InsertItemInfo(itemID, "quest", hard, ii, v)
+                    InsertItemInfo(FB, itemID, "quest", hard, ii, v)
                 end
             end
             -- 牌子装备
             if not BiaoGe.ItemLib.fitlerGet.currency then
                 for itemID, v in pairs(BG.Loot[FB].Currency) do
-                    InsertItemInfo(itemID, "currency", hard, ii, v)
+                    InsertItemInfo(FB, itemID, "currency", hard, ii, v)
                 end
             end
             -- 赛季服货币/牌子
             if not BiaoGe.ItemLib.fitlerGet.currency then
                 for i, v in pairs(BG.Loot[FB].Sod_Currency) do
                     for itemID, currency in pairs(BG.Loot[FB].Sod_Currency[i]) do
-                        InsertItemInfo(itemID, "sod_currency", hard, ii, currency)
+                        InsertItemInfo(FB, itemID, "sod_currency", hard, ii, currency)
                     end
                 end
             end
@@ -989,7 +927,7 @@ do
             if not BiaoGe.ItemLib.fitlerGet.faction then
                 for k, v in pairs(BG.Loot[FB].Faction) do
                     for i, itemID in ipairs(BG.Loot[FB].Faction[k]) do
-                        InsertItemInfo(itemID, "faction", hard, ii, k)
+                        InsertItemInfo(FB, itemID, "faction", hard, ii, k)
                     end
                 end
             end
@@ -997,21 +935,21 @@ do
             if not BiaoGe.ItemLib.fitlerGet.profession then
                 for k, v in pairs(BG.Loot[FB].Profession) do
                     for i, itemID in ipairs(BG.Loot[FB].Profession[k]) do
-                        InsertItemInfo(itemID, "profession", hard, ii, k)
+                        InsertItemInfo(FB, itemID, "profession", hard, ii, k)
                     end
                 end
             end
             -- 世界掉落
             if not BiaoGe.ItemLib.fitlerGet.world then
                 for i, itemID in ipairs(BG.Loot[FB].World) do
-                    InsertItemInfo(itemID, "world", hard, ii, k)
+                    InsertItemInfo(FB, itemID, "world", hard, ii, k)
                 end
             end
             -- 世界BOSS
             if not BiaoGe.ItemLib.fitlerGet.worldboss then
                 for k, v in pairs(BG.Loot[FB].WorldBoss) do
                     for i, itemID in ipairs(BG.Loot[FB].WorldBoss[k]) do
-                        InsertItemInfo(itemID, "worldboss", hard, ii, k)
+                        InsertItemInfo(FB, itemID, "worldboss", hard, ii, k)
                     end
                 end
             end
@@ -1019,20 +957,28 @@ do
             if not BiaoGe.ItemLib.fitlerGet.pvp then
                 for k, v in pairs(BG.Loot[FB].PVP) do
                     for i, itemID in ipairs(BG.Loot[FB].PVP[k]) do
-                        InsertItemInfo(itemID, "pvp", hard, ii, k)
+                        InsertItemInfo(FB, itemID, "pvp", hard, ii, k)
                     end
                 end
             end
             -- PVP货币
             if not BiaoGe.ItemLib.fitlerGet.pvp then
                 for itemID, v in pairs(BG.Loot[FB].PVP_currency) do
-                    InsertItemInfo(itemID, "pvp_currency", hard, ii, v)
+                    InsertItemInfo(FB, itemID, "pvp_currency", hard, ii, v)
                 end
             end
             -- 商店
             if not BiaoGe.ItemLib.fitlerGet.shop then
                 for _, v in pairs(BG.Loot[FB].Shop) do
-                    InsertItemInfo(v.id, "shop", hard, ii, v.m)
+                    InsertItemInfo(FB, v.id, "shop", hard, ii, v.m)
+                end
+            end
+            -- 节日
+            if not BiaoGe.ItemLib.fitlerGet.holiday then
+                for _, holiday in pairs(BG.Loot[FB].Holiday) do
+                    for _, itemID in pairs(holiday.items) do
+                        InsertItemInfo(FB, itemID, "holiday", hard, ii, holiday.name)
+                    end
                 end
             end
         end
@@ -1092,7 +1038,6 @@ do
             for _, v in ipairs(tbl) do
                 local key = v.key
                 if a[key] and b[key] then
-                    -- pt(key,a[key])
                     if a[key] ~= b[key] then
                         local order = v.order
                         if order == 1 then
@@ -1499,7 +1444,7 @@ do
         end
     end
 
-    local function CheckIsSave_ItemLib_RightHope(itemID)
+    local function CheckIsSame_ItemLib_RightHope(itemID)
         for i, v in ipairs(BG.invtypetable) do
             local EquipLoc = v.name2
             for i = 1, maxhope do
@@ -1525,7 +1470,7 @@ do
         for i = 1, maxhope do
             local hope = mainFrame.Hope[EquipLoc .. i]
             if ShoworHide == 1 then
-                if not CheckIsSave_ItemLib_RightHope(itemID) then
+                if not CheckIsSame_ItemLib_RightHope(itemID) then
                     if hope:GetText() == "" then
                         hope:SetText(AddTexture(Texture) .. link)
                         hope:SetCursorPosition(0)
@@ -1699,7 +1644,7 @@ do
                 for i = 1, BG.GetMaxi(FB, b) do
                     local zb = BG.Frame[FB]["boss" .. b]["zhuangbei" .. i]
                     if zb then
-                        local _itemID = GetItemID(zb:GetText())
+                        local _itemID = BG.GetLeiTingItem(GetItemID(zb:GetText()), FB)
                         if itemID == _itemID then
                             bt.looted:Show()
                             return
@@ -1830,11 +1775,11 @@ do
         f:ClearModel()
         if creatureID then
             f:SetCreature(creatureID)
-            f:SetCamDistanceScale(BG.IsVanilla and 2 or 1)
+            f:SetCamDistanceScale(BG.verLess2 and 2 or 1)
             f:SetPortraitZoom(f.zoomLevel)
         else
             f:SetCamDistanceScale(1)
-            if not BG.IsVanilla then
+            if not BG.verLess2 then
                 f:SetUseTransmogSkin(true)
                 f:SetUseTransmogChoices(true)
                 f:SetObeyHideInTransmogFlag(true)
@@ -2097,7 +2042,7 @@ function BG.ItemLibUI()
 
             local function UpdateTex()
                 local hasFitlerGet
-                for kk, vv in pairs(getFiterTbl) do
+                for kk, vv in pairs(BG.itemLibGetFiter) do
                     for k, v in pairs(BiaoGe.ItemLib.fitlerGet) do
                         if vv.name2 == k then
                             hasFitlerGet = true
@@ -2124,7 +2069,7 @@ function BG.ItemLibUI()
                 insets = { left = 3, right = 3, top = 3, bottom = 3 }
             })
             f:SetBackdropColor(0, 0, 0, 0.8)
-            f:SetSize(180, #getFiterTbl * 25 + 40)
+            f:SetSize(180, #BG.itemLibGetFiter * 25 + 40)
             f:SetPoint("TOPLEFT", mainFrame.bg, "TOPRIGHT", 0, 1)
             f:EnableMouse(true)
             f:SetFrameLevel(110)
@@ -2150,7 +2095,7 @@ function BG.ItemLibUI()
             f.CloseButton:SetPoint("TOPRIGHT", f, "TOPRIGHT", BG.CloseButtonOffset, BG.CloseButtonOffset)
 
             local buttons = {}
-            for i, v in ipairs(getFiterTbl) do
+            for i, v in ipairs(BG.itemLibGetFiter) do
                 local bt = CreateFrame("CheckButton", nil, f, "ChatConfigCheckButtonTemplate")
                 bt:SetSize(25, 25)
                 if i == 1 then

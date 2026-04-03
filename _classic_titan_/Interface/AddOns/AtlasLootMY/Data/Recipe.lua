@@ -14,7 +14,7 @@ local RECIPE_PROF_DEFAULT = 0
 local RECIPE_PROF_TEXT = Profession.PROFESSION_TEXT
 
 local RECIPE, RECIPE_DATA = AtlasLoot:GetGameVersionDataTable()
-_G["ARECIPE"]=RECIPE
+--_G["ARECIPE"]=RECIPE
 RECIPE_DATA.CLASSIC = {
 	-- [itemID] = { profession, profRank, creationSpell }
 	[728] = {6,75,2543}, -- Recipe: Westfall Stew
@@ -2257,6 +2257,7 @@ if AtlasLoot:GameVersion_GE(AtlasLoot.WRATH_VERSION_NUM) then
 		[47656] = {8,450,67065}, -- Pattern: Royal Moonshroud Bracers
 		[47657] = {8,450,67064}, -- Pattern: Royal Moonshroud Robe
 		[49050] = {9,450,68067}, -- Schematic: Jeeves
+		[269965] = {9,450,1287152},
 		[49112] = {14,450,68253}, -- Design: Nightmare Tear
 		[49953] = {8,450,70550}, -- Pattern: Leggings of Woven Death
 		[49954] = {8,450,70551}, -- Pattern: Deathfrost Boots

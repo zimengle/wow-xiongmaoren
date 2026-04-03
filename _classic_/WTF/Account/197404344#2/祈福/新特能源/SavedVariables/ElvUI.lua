@@ -2,12 +2,6 @@
 ElvCharacterDB = {
 ["ConvertKeybindings"] = true,
 ["ChatEditHistory"] = {
-"/cw 輪回小法-法尔班克斯 来个桌子",
-"/i 怎么疯狂ot",
-"/i 你是不是开的防御姿态",
-"/cell opt",
-"/i 跑",
-"/i 没脱战",
 "/i 可以了",
 "/i 别进",
 "/i 踩了3个",
@@ -22,6 +16,12 @@ ElvCharacterDB = {
 "/cw 小糯 来个桌子.",
 "/cw 夏末清歌-狮心 来个桌子",
 "/cw 萌萌得德-祈福 123",
+"正式服啊",
+"好玩吗",
+"玩不来",
+"玩不来啊",
+"我擦",
+"哪个服",
 },
 ["ChatHistoryLog"] = {
 },

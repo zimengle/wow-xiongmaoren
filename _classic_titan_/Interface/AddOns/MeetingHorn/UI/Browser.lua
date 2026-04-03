@@ -452,6 +452,23 @@ function Browser:OnItemFormatting(button, item, isVoice)
         button.Instance:SetPoint('RIGHT', button, 'LEFT', 155, 0)
         button.Name:SetPoint('LEFT', 5, 0)
         --@end-classic@]=]
+
+    -- MHH 活动淡色边框标识
+    if item:IsMHH() then
+        if not button.MHHBorder then
+            button.MHHBorder = CreateFrame('Frame', nil, button, 'BackdropTemplate')
+            button.MHHBorder:SetAllPoints(button)
+            button.MHHBorder:SetBackdrop({
+                edgeFile = 'Interface\\Tooltips\\UI-Tooltip-Border',
+                edgeSize = 12,
+            })
+            button.MHHBorder:SetBackdropBorderColor(0.4, 0.6, 1.0, 0.3)
+            button.MHHBorder:SetFrameLevel(button:GetFrameLevel() + 1)
+        end
+        button.MHHBorder:Show()
+    elseif button.MHHBorder then
+        button.MHHBorder:Hide()
+    end
 end
 
 function Browser:OnItemSignupClick(button, item, isVoice)
@@ -511,6 +528,13 @@ function Browser:OnItemEnter(item)
         GameTooltip:AddLine(L['<Double-Click> Whisper to player'], 1, 1, 1)
     end
     GameTooltip:AddLine(L['<Right-Click> Open activity menu'], 1, 1, 1)
+
+    -- MHH 活动来源提示
+    if item:IsMHH() then
+        GameTooltip:AddLine(' ')
+        GameTooltip:AddLine('团本招募创建活动', 1, 0.82, 0)
+    end
+
     GameTooltip:Show()
 end
 

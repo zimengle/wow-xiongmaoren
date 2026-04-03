@@ -199,7 +199,9 @@ local function CreateListTable()
                         FB = ""
                         per = text:match("^(%d+%.-%d-)%s+")
                     else
-                        FB, per = text:match("^(%D+)%s+(%d+%.-%d-)%s+")
+                        -- FB, per = text:match("^(%D+)%s+(%d+%.-%d-)%s+")
+                        FB = ""
+                        per = text:match("%s+(%d+%.-%d-)%s+")
                     end
                     if FB and per then
                         info = {

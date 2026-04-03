@@ -1,0 +1,18 @@
+VER 3 0100000000000004 "hong" "134400"
+/use 金色狮鹫
+/use 迅捷灰山羊
+END
+VER 3 0100000000000002 "target" "134400"
+/target 达
+END
+VER 3 0100000000000001 "爆发" "134400"
+/施放 杀戮命令
+/施放 狂野怒火
+/施放 急速射击
+/use 13
+/use 14
+END
+VER 3 0100000000000003 "误导" "134400"
+#showtooltip 误导
+/cast [@mouseover,help][@focus,help][@pet] 误导
+END

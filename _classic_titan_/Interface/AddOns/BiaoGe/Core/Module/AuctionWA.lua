@@ -195,7 +195,7 @@ BG.Init(function()
         L["心理价格需高于当前价格"] = "Maximum Bid must be higher than the Current Price"
     end
 
-    local realmName = GetRealmName():gsub(" %- ", "")
+    local realmName = GetRealmName():gsub(" ", ""):gsub("%-", "")
     function aura.GN(unit)
         unit = unit or "player"
         if unit == "t" then
@@ -769,12 +769,11 @@ BG.Init(function()
                 f.remainingTime:SetTextColor(1, 1, 1)
                 f.remainingTime:SetFont(FONT, 15, "OUTLINE")
             end
-            f.remainingTime:SetText((format("%d", remaining) + 1) .. "s")
+            f.remainingTime:SetText((remaining <= 0 and 0 or (format("%d", remaining) + 1)) .. "s")
             f.remaining = remaining
 
-            if remaining <= 0.5 then
+            if remaining <= 1 then
                 f.myMoneyEdit:Hide()
-                f.remainingTime:SetText("0s")
             end
             if remaining <= -0.5 then
                 f.bar:SetScript("OnUpdate", nil)
@@ -787,6 +786,10 @@ BG.Init(function()
                 local t = f.itemFrame2:CreateFontString()
                 t:SetFont(FONT, 30, "OUTLINE")
                 t:SetPoint("TOPRIGHT", f.itemFrame, "BOTTOMRIGHT", -10, -5)
+
+                After(aura.HIDEFRAME_TIME, function()
+                    aura.UpdateFrame(f)
+                end)
 
                 local itemID = f.itemID
                 local link = f.link
@@ -826,10 +829,6 @@ BG.Init(function()
                         BG.AuctionWAEnd(2, f.link, f.player, f.money)
                     end
                 end
-
-                After(aura.HIDEFRAME_TIME, function()
-                    aura.UpdateFrame(f)
-                end)
 
                 -- After(3, function()
                 --     if not aura.endMsg[itemID] then
@@ -1017,7 +1016,7 @@ BG.Init(function()
                         button2 = _G.NO,
                         OnCancel = function()
                         end,
-                        timeout = 10,
+                        timeout = 0,
                         whileDead = true,
                         hideOnEscape = true,
                         showAlert = true,
@@ -1037,6 +1036,9 @@ BG.Init(function()
         if not f.IsSmallWindow then
             f.updateFrame:Show()
             f.autoFrame.updateFrame:Show()
+        end
+        if not f.isAuto and BG and BG.PlayTopPriceSound then
+            BG.PlayTopPriceSound(f, player)
         end
 
         f.money = money

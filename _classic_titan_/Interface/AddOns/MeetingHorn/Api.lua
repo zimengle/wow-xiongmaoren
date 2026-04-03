@@ -116,6 +116,30 @@ function ns.GetInstanceName(mapName)
     end
 end
 
+-- 通过 raidId (mapId) 反查 MeetingHorn 的 activityId
+function ns.GetActivityIdByRaidId(raidId)
+    if not raidId then
+        return nil
+    end
+    -- 先通过 C_Map.GetAreaInfo 获取副本名称
+    local instanceName = C_Map.GetAreaInfo(raidId)
+    if not instanceName then
+        return nil
+    end
+    -- 检查 INSTANCE_DATA 中是否有 instanceName 覆盖
+    local instData = ns.INSTANCE_DATA[instanceName]
+    if instData and instData.instanceName then
+        instanceName = instData.instanceName
+    end
+    -- 通过名称查找 activityId
+    local id = ns.NameToId(instanceName)
+    if id then
+        return id
+    end
+    -- 尝试模糊匹配
+    return ns.MatchId(instanceName)
+end
+
 function ns.GetInstanceLogo(mapName)
     local data = ns.INSTANCE_DATA[mapName]
     return data and data.logo
@@ -393,7 +417,7 @@ end
 function ns.MakeQRCode(leader)
     local name, _ = SplitName(leader)
     local realm = GetRealmID()
-    local url = format('https://act.ds.163.com/1a8e6733be2b85c8/?meetinghorn_in=true&realmId=%s&charName=%s', realm, name)
+    local url = format('https://u.ds.163.com/s/QJIL/?meetinghorn_in=true&realmId=%s&charName=%s', realm, name)
     return url
 end
 

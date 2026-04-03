@@ -497,8 +497,7 @@
 
 	function Details:CreateRightClickToCloseLabel(parent)
 		local mouseIcon = detailsFramework:CreateAtlasString(Details:GetTextureAtlas("right-mouse-click"), 12, 9)
-		local rightClickText = Loc ["STRING_RIGHTCLICK_CLOSE"] or "right click to close"
-		local rightClickToBackLabel = detailsFramework:CreateLabel(parent, mouseIcon .. " " .. rightClickText, "GameFontNormal")
+		local rightClickToBackLabel = detailsFramework:CreateLabel(parent, mouseIcon .. " right click to close", "GameFontNormal")
 		rightClickToBackLabel:SetAlpha(0.834)
 		rightClickToBackLabel.textcolor = "gray"
 		parent.RightClickLabel = rightClickToBackLabel
@@ -584,8 +583,7 @@
 		titleBarTools:SetHeight(pluginContainerFrame.TitleHeight)
 
 		--tools title label
-		local toolsTitle = Loc ["STRING_TOOLS"] or "Tools"
-		local titleBarTools_TitleLabel = detailsFramework:NewLabel(titleBarTools, titleBarTools, nil, "titulo", toolsTitle, "GameFontHighlightLeft", 12, {227/255, 186/255, 4/255})
+		local titleBarTools_TitleLabel = detailsFramework:NewLabel(titleBarTools, titleBarTools, nil, "titulo", "Tools", "GameFontHighlightLeft", 12, {227/255, 186/255, 4/255})
 		PixelUtil.SetPoint(titleBarTools_TitleLabel, "center", titleBarTools , "center", 0, 0)
 		PixelUtil.SetPoint(titleBarTools_TitleLabel, "top", titleBarTools , "top", 0, -5)
 

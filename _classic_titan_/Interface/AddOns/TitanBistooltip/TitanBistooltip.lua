@@ -6,6 +6,7 @@ TitanBistooltip_phases_string = ""
 -- 快捷键绑定定义
 BINDING_HEADER_TITANBISTOOLTIP = "TitanBistooltip"
 BINDING_NAME_TOGGLE_BISLIST = L["打开/关闭 BIS面板"] or "Toggle BIS Panel"
+BINDING_NAME_TOGGLE_MAXED = L["打开/关闭 毕业配装面板"] or "Toggle Maxed Panel"
 
 local function specHighlighted(class_name, spec_name)
     -- 遍历所有职业，检查当前职业是否在高亮列表中
@@ -72,37 +73,63 @@ local function getFilteredItem(item)
     return filtered_item
 end
 
+-- 缓存排名数据，避免重复计算
+local rank_cache = {}
+
 local function getDynamicRank(itemId, class_name, spec_name, slot_name)
+    -- 生成缓存键，包含过滤配置
+    local filter_key = ""
+    if TitanBistooltipAddon.db and TitanBistooltipAddon.db.char and TitanBistooltipAddon.db.char.filter_phases then
+        for _, phase in ipairs(TitanBistooltip_phases or {}) do
+            filter_key = filter_key .. (TitanBistooltipAddon.db.char.filter_phases[phase] and "1" or "0")
+        end
+    end
+    local cache_key = itemId .. "|" .. class_name .. "|" .. spec_name .. "|" .. slot_name .. "|" .. filter_key
+    
+    -- 检查缓存是否存在
+    if rank_cache[cache_key] then
+        return rank_cache[cache_key]
+    end
+    
     -- 根据 TitanBistooltip_bislists 中的数据动态计算排名
-    local phases = TitanBistooltip_phases
+    local phases = TitanBistooltip_phases or {}
     local dynamic_ranks = {}
     
     for phase_index, phase_name in ipairs(phases) do
-        local phase_rank = "-"
-        
-        -- 检查该阶段是否有数据
-        if TitanBistooltip_bislists[class_name] and 
-           TitanBistooltip_bislists[class_name][spec_name] and 
-           TitanBistooltip_bislists[class_name][spec_name][phase_name] then
+        -- 检查该阶段是否被过滤
+        if not (TitanBistooltipAddon.db and TitanBistooltipAddon.db.char and TitanBistooltipAddon.db.char.filter_phases and TitanBistooltipAddon.db.char.filter_phases[phase_name]) then
+            local phase_rank = "-"
             
-            -- 遍历该阶段的装备槽
-            local slots = TitanBistooltip_bislists[class_name][spec_name][phase_name]
-            for _, slot in ipairs(slots) do
-                if slot.slot_name == slot_name then
-                    -- 查找该装备在当前阶段的排名
-                    for rank = 1, 6 do
-                        if slot[rank] == itemId and slot[rank] ~= -1 then
-                            phase_rank = tostring(rank)
+            -- 检查该阶段是否有数据
+            if TitanBistooltip_bislists and 
+               TitanBistooltip_bislists[class_name] and 
+               TitanBistooltip_bislists[class_name][spec_name] and 
+               TitanBistooltip_bislists[class_name][spec_name][phase_name] then
+                
+                -- 遍历该阶段的装备槽
+                local slots = TitanBistooltip_bislists[class_name][spec_name][phase_name]
+                if slots then
+                    for _, slot in ipairs(slots) do
+                        if slot and slot.slot_name == slot_name then
+                            -- 查找该装备在当前阶段的排名
+                            for rank = 1, 6 do
+                                if slot[rank] == itemId and slot[rank] ~= -1 then
+                                    phase_rank = tostring(rank)
+                                    break
+                                end
+                            end
                             break
                         end
                     end
-                    break
                 end
             end
+            
+            table.insert(dynamic_ranks, phase_rank)
         end
-        
-        table.insert(dynamic_ranks, phase_rank)
     end
+    
+    -- 缓存结果
+    rank_cache[cache_key] = dynamic_ranks
     
     -- 返回排名表，而不是拼接后的字符串，以便后续处理对齐
     return dynamic_ranks
@@ -121,13 +148,21 @@ end
 
 local currentItemId = nil
 
+-- 缓存格式化的排名字符串
+local formatted_ranks_cache = {}
+
 local function printSpecLine(tooltip, slot, class_name, spec_name)
     local slot_name = slot.name
     local prefix = "   "
     if TitanBistooltipAddon.db.char.filter_class_names then
         prefix = ""
     end
-    local left_text = prefix .. "|T" .. TitanBistooltip_spec_icons[class_name][spec_name] .. ":14|t " .. L[spec_name]
+    local left_text = prefix
+    -- 检查TitanBistooltip_spec_icons是否存在
+    if TitanBistooltip_spec_icons and TitanBistooltip_spec_icons[class_name] and TitanBistooltip_spec_icons[class_name][spec_name] then
+        left_text = left_text .. "|T" .. TitanBistooltip_spec_icons[class_name][spec_name] .. ":14|t "
+    end
+    left_text = left_text .. L[spec_name]
     if (slot_name == "Off hand" or slot_name == "Weapon" or slot_name == "Weapon 1h" or slot_name == "Weapon 2h") then
         left_text = left_text .. " (" .. L[slot_name] .. ")"
     end
@@ -140,32 +175,43 @@ local function printSpecLine(tooltip, slot, class_name, spec_name)
         color_b = 0.129
     end
     
-    -- 动态计算排名
-    local slot_ranks = getDynamicRank(currentItemId, class_name, spec_name, slot_name)
-    
-    -- 格式化排名，确保竖状对齐
-    -- 为每个阶段的排名添加适当的空格，确保与表头对齐
-    local formatted_ranks = ""
-    local phases = TitanBistooltip_phases
-    
-    -- 检查slot_ranks是否是表
-    if type(slot_ranks) == "table" then
-        -- 为每个阶段的排名添加适当的空格，确保与表头对齐
-        for i, rank in ipairs(slot_ranks) do
-            if i == 1 then
-                -- PR阶段，添加空格使其与表头PR对齐
-                formatted_ranks = formatted_ranks .. "   " .. rank -- 3个空格
-            elseif i == 2 then
-                -- P1阶段，添加空格使其与表头P1对齐
-                formatted_ranks = formatted_ranks .. "/  " .. rank -- 2个空格
-            elseif i == 3 then
-                -- P2阶段，添加空格使其与表头P2对齐
-                formatted_ranks = formatted_ranks .. "/  " .. rank -- 2个空格
-            end
+    -- 生成缓存键，包含过滤配置
+    local filter_key = ""
+    if TitanBistooltipAddon.db and TitanBistooltipAddon.db.char and TitanBistooltipAddon.db.char.filter_phases then
+        for _, phase in ipairs(TitanBistooltip_phases or {}) do
+            filter_key = filter_key .. (TitanBistooltipAddon.db.char.filter_phases[phase] and "1" or "0")
         end
-    else
-        -- 如果slot_ranks不是表，直接使用
-        formatted_ranks = slot_ranks
+    end
+    local cache_key = currentItemId .. "|" .. class_name .. "|" .. spec_name .. "|" .. slot_name .. "|" .. filter_key
+    
+    -- 检查缓存是否存在
+    local formatted_ranks = formatted_ranks_cache[cache_key]
+    if not formatted_ranks then
+        -- 动态计算排名
+        local slot_ranks = getDynamicRank(currentItemId, class_name, spec_name, slot_name)
+        
+        -- 格式化排名，确保竖状对齐
+        formatted_ranks = ""
+        
+        -- 检查slot_ranks是否是表
+        if type(slot_ranks) == "table" then
+            -- 为每个阶段的排名添加适当的空格，确保与表头对齐
+            for i, rank in ipairs(slot_ranks) do
+                if i == 1 then
+                    -- 第一个可见阶段，添加空格使其与表头对齐
+                    formatted_ranks = formatted_ranks .. "   " .. rank -- 3个空格
+                else
+                    -- 其他可见阶段，添加空格使其对齐
+                    formatted_ranks = formatted_ranks .. "/  " .. rank -- 2个空格
+                end
+            end
+        else
+            -- 如果slot_ranks不是表，直接使用
+            formatted_ranks = slot_ranks
+        end
+        
+        -- 缓存结果
+        formatted_ranks_cache[cache_key] = formatted_ranks
     end
     
     LibExtraTip:AddDoubleLine(
@@ -194,55 +240,26 @@ local function OnGameTooltipSetItem(tooltip)
     itemId = tonumber(itemId);
     currentItemId = itemId; -- 保存到全局变量
     
-    -- 强制从TitanBistooltip_bislists中动态获取装备信息，避免缓存问题
-    -- 这样可以确保不同ID但同名的装备都能正确显示
+    -- 使用装备映射表快速获取装备信息
     local dynamic_item_data = {}
     local found = false
     
-    -- 只有在不在战斗中的时候才处理
-    if not InCombatLockdown() then
-        -- 从TitanBistooltip_bislists中动态获取装备的职业、专精和槽位信息
-        local temp_item_data = {}
-        
-        for class_name, class_data in pairs(TitanBistooltip_bislists) do
-            for spec_name, spec_data in pairs(class_data) do
-                for phase_name, phase_data in pairs(spec_data) do
-                    for _, slot_data in ipairs(phase_data) do
-                        for i = 1, 6 do
-                            if slot_data[i] == itemId then
-                                -- 找到装备在BIS列表中的位置
-                                local slot_name = slot_data.slot_name
-                                
-                                -- 检查是否已经添加过相同的职业-专精-槽位组合
-                                local already_exists = false
-                                for _, entry in ipairs(temp_item_data) do
-                                    if entry.class_name == class_name and entry.spec_name == spec_name and entry.slot_name == slot_name then
-                                        already_exists = true
-                                        break
-                                    end
-                                end
-                                
-                                if not already_exists then
-                                    -- 添加到动态装备数据中
-                                    table.insert(temp_item_data, {
-                                        class_name = class_name,
-                                        spec_name = spec_name,
-                                        slot_name = slot_name
-                                    })
-                                    found = true
-                                end
-                            end
-                        end
-                    end
-                end
-            end
+    -- 无论是否在战斗中，都从映射表或BIS列表中获取数据
+    -- 检查装备是否在映射表中
+    if TitanBistooltip_item_mapping and TitanBistooltip_item_mapping[itemId] then
+        -- 从映射表中获取装备信息
+        for combo_key, _ in pairs(TitanBistooltip_item_mapping[itemId]) do
+            local class_name, spec_name, slot_name = strsplit("|", combo_key)
+            table.insert(dynamic_item_data, {
+                class_name = class_name,
+                spec_name = spec_name,
+                slot_name = slot_name
+            })
+            found = true
         end
         
-        -- 如果找到装备信息，更新dynamic_item_data
-        if found then
-            dynamic_item_data = temp_item_data
-            
-            -- 同时更新TitanBistooltip_Titan_items缓存
+        -- 同时更新TitanBistooltip_Titan_items缓存（如果不存在）
+        if not TitanBistooltip_Titan_items[itemId] then
             TitanBistooltip_Titan_items[itemId] = {}
             
             -- 添加缓存时间戳
@@ -250,7 +267,7 @@ local function OnGameTooltipSetItem(tooltip)
             
             -- 按职业分组，同一职业的所有专精都放在一起
             local class_map = {}
-            for _, entry in ipairs(temp_item_data) do
+            for _, entry in ipairs(dynamic_item_data) do
                 local class_name = entry.class_name
                 local spec_name = entry.spec_name
                 local slot_name = entry.slot_name
@@ -295,8 +312,129 @@ local function OnGameTooltipSetItem(tooltip)
             end
         end
     else
-        -- 如果在战斗中，尝试从缓存中获取数据
-        if TitanBistooltip_Titan_items[itemId] then
+        -- 回退到传统方法（如果映射表中没有）
+        local temp_item_data = {}
+        
+        if TitanBistooltip_bislists then
+            for class_name, class_data in pairs(TitanBistooltip_bislists) do
+                for spec_name, spec_data in pairs(class_data) do
+                    for phase_name, phase_data in pairs(spec_data) do
+                        for _, slot_data in ipairs(phase_data) do
+                            for i = 1, 6 do
+                                if slot_data[i] == itemId then
+                                    -- 找到装备在BIS列表中的位置
+                                    local slot_name = slot_data.slot_name
+                                    
+                                    -- 检查是否已经添加过相同的职业-专精-槽位组合
+                                    local already_exists = false
+                                    for _, entry in ipairs(temp_item_data) do
+                                        if entry.class_name == class_name and entry.spec_name == spec_name and entry.slot_name == slot_name then
+                                            already_exists = true
+                                            break
+                                        end
+                                    end
+                                    
+                                    if not already_exists then
+                                        -- 添加到动态装备数据中
+                                        table.insert(temp_item_data, {
+                                            class_name = class_name,
+                                            spec_name = spec_name,
+                                            slot_name = slot_name
+                                        })
+                                        found = true
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        end
+        
+        if found then
+            dynamic_item_data = temp_item_data
+            
+            -- 更新缓存
+            TitanBistooltip_Titan_items[itemId] = {}
+            TitanBistooltip_Titan_items[itemId]._cache_time = GetTime()
+            
+            local class_map = {}
+            for _, entry in ipairs(temp_item_data) do
+                local class_name = entry.class_name
+                local spec_name = entry.spec_name
+                local slot_name = entry.slot_name
+                
+                if not class_map[class_name] then
+                    class_map[class_name] = {}
+                end
+                
+                if not class_map[class_name][spec_name] then
+                    class_map[class_name][spec_name] = {
+                        class_name = class_name,
+                        spec_name = spec_name,
+                        slots = {}
+                    }
+                end
+                
+                local slot_exists = false
+                for _, existing_slot in ipairs(class_map[class_name][spec_name].slots) do
+                    if existing_slot.name == slot_name then
+                        slot_exists = true
+                        break
+                    end
+                end
+                
+                if not slot_exists then
+                    table.insert(class_map[class_name][spec_name].slots, {
+                        name = slot_name,
+                        ranks = "- / - / -"
+                    })
+                end
+            end
+            
+            for _, specs in pairs(class_map) do
+                for _, item_info in pairs(specs) do
+                    table.insert(TitanBistooltip_Titan_items[itemId], item_info)
+                end
+            end
+        end
+    end
+    
+    -- 如果没有找到装备信息，尝试从缓存中获取数据
+    if not found and TitanBistooltip_Titan_items[itemId] then
+        -- 检查装备是否真的在BIS列表中
+        local actually_exists = false
+        if TitanBistooltip_bislists then
+            for class_name, class_data in pairs(TitanBistooltip_bislists) do
+                for spec_name, spec_data in pairs(class_data) do
+                    for phase_name, phase_data in pairs(spec_data) do
+                        for _, slot_data in ipairs(phase_data) do
+                            for i = 1, 6 do
+                                if slot_data[i] == itemId then
+                                    actually_exists = true
+                                    break
+                                end
+                            end
+                            if actually_exists then
+                                break
+                            end
+                        end
+                        if actually_exists then
+                            break
+                        end
+                    end
+                    if actually_exists then
+                        break
+                    end
+                end
+                if actually_exists then
+                    break
+                end
+            end
+        end
+        
+        -- 只有当装备真的在BIS列表中时，才从缓存中读取数据
+        if actually_exists then
             for _, item_info in pairs(TitanBistooltip_Titan_items[itemId]) do
                 -- 跳过缓存时间字段
                 if type(item_info) == "table" and item_info.class_name then
@@ -324,7 +462,26 @@ local function OnGameTooltipSetItem(tooltip)
     -- 应用过滤，根据用户设置显示相关专精
     local filtered_item_data = getFilteredItem(dynamic_item_data)
     if (#filtered_item_data > 0) then
-        LibExtraTip:AddDoubleLine(tooltip, L["Spec name"], TitanBistooltip_phases_string, 1, 1, 0, 1, 1, 0, false)
+        -- 检查是否有可见阶段
+        local has_visible_phases = false
+        local visible_phases = {}
+        for _, phase in ipairs(TitanBistooltip_phases or {}) do
+            if not (TitanBistooltipAddon.db and TitanBistooltipAddon.db.char and TitanBistooltipAddon.db.char.filter_phases and TitanBistooltipAddon.db.char.filter_phases[phase]) then
+                has_visible_phases = true
+                table.insert(visible_phases, phase)
+            end
+        end
+        if has_visible_phases then
+            -- 动态生成阶段标题字符串，确保根据当前配置过滤
+            local current_phases_string = ""
+            for i, phase in ipairs(visible_phases) do
+                if i ~= 1 then
+                    current_phases_string = current_phases_string .. "/"
+                end
+                current_phases_string = current_phases_string .. phase
+            end
+            LibExtraTip:AddDoubleLine(tooltip, L["Spec name"], current_phases_string, 1, 1, 0, 1, 1, 0, false)
+        end
     else
         return
     end
@@ -354,7 +511,7 @@ local function OnGameTooltipSetItem(tooltip)
         
         printSpecLine(tooltip, temp_slot, class_name, spec_name)
     end
-    if #filtered_item_data > 0 and TitanBistooltip_char_equipment[itemId] ~= nil then
+    if #filtered_item_data > 0 and TitanBistooltip_char_equipment and TitanBistooltip_char_equipment[itemId] ~= nil then
         LibExtraTip:AddLine(tooltip, " ", 1, 1, 0, false)
         if TitanBistooltip_char_equipment[itemId] == 2 then
             LibExtraTip:AddLine(tooltip, L["You have this item equipped"], 0.074, 0.964, 0.129, false)
@@ -375,12 +532,23 @@ function TitanBistooltipAddon:initBisTooltip()
     local hasTipTac = IsAddOnLoaded("TipTac") or IsAddOnLoaded("TipTacItemRef") or IsAddOnLoaded("TipTacTalents")
     TitanBistooltipAddon.hasTipTac = hasTipTac
     
-    -- 无论是否存在 TipTac，都使用相同的回调设置
-    -- 确保 OnGameTooltipSetItem 函数能够被正确调用
-    LibExtraTip:AddCallback({ type = "item", callback = OnGameTooltipSetItem, allevents = true })
+    -- 检查是否禁用了鼠标BIS增强提示
+    if not TitanBistooltipAddon.db.char.disable_tooltip_enhancement and LibExtraTip then
+        -- 只有在未禁用且LibExtraTip存在时才注册回调
+        LibExtraTip:AddCallback({ type = "item", callback = OnGameTooltipSetItem, allevents = true })
+        LibExtraTip:RegisterTooltip(GameTooltip);
+        LibExtraTip:RegisterTooltip(ItemRefTooltip);
+    end
     
-    LibExtraTip:RegisterTooltip(GameTooltip);
-    LibExtraTip:RegisterTooltip(ItemRefTooltip);
+    -- ESC键监听：关闭所有面板
+    local escFrame = CreateFrame("Frame")
+    escFrame:SetScript("OnKeyDown", function(self, key)
+        if key == "ESCAPE" then
+            TitanBistooltipAddon:closeAllPanels()
+        end
+    end)
+    escFrame:SetPropagateKeyboardInput(true)
+    TitanBistooltipAddon.escFrame = escFrame
     
     eventFrame:RegisterEvent("MODIFIER_STATE_CHANGED");
     eventFrame:SetScript("OnEvent", function(_, _, e_key, _, _)
@@ -403,4 +571,29 @@ function TitanBistooltipAddon:initBisTooltip()
             end
         end
     end)
+end
+
+function TitanBistooltipAddon:reinitBisTooltip()
+    -- 配置已经保存，下次加载插件时会自动生效
+    -- 不需要在这里做任何操作
+end
+
+function TitanBistooltipAddon:closeAllPanels()
+    -- 关闭BIS面板
+    if TitanBistooltipAddon.closeMainFrame then
+        TitanBistooltipAddon:closeMainFrame()
+    end
+    
+    -- 关闭毕业装面板
+    if Maxed and Maxed.CloseFrame then
+        Maxed:CloseFrame()
+    end
+    
+    -- 关闭设置界面
+    if InterfaceOptionsFrame then
+        InterfaceOptionsFrame:Hide()
+    end
+    if AceConfigDialog and AceConfigDialog.CloseAll then
+        AceConfigDialog:CloseAll()
+    end
 end

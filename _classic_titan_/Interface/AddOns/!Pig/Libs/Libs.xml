@@ -1,5 +1,6 @@
 <Ui>
 	<Script file="AudioList.lua" />
+	<Script file="BlizzardAPI.lua" />
 	<Script file="Fun.lua" />
 	<Script file="LFG.lua" />
 	<Script file="ActionFun.lua" />	
@@ -8,6 +9,7 @@
 	<Script file="Enchant.lua" />
 	<Script file="Frame.lua" />
 	<Script file="Button.lua" />
+	<Script file="ItemButton.lua" />
 	<Script file="ColorBut.lua" />
 	<Script file="CheckButton.lua" />
 	<Script file="EditBox.lua" />

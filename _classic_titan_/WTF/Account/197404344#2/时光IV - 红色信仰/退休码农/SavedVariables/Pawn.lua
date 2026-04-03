@@ -1,8 +1,6 @@
 
 PawnOptions = {
-["LastVersion"] = 2.1303,
-["LastPlayerFullName"] = "退休码农-时光IV - 红色信仰",
-["AutoSelectScales"] = false,
+["LastVersion"] = 2.1308,
 ["ItemLevels"] = {
 {
 ["ID"] = 257621,
@@ -10,9 +8,9 @@ PawnOptions = {
 ["Link"] = "|cffa335ee|Hitem:257621:3820:41401:40026:::::80::::::::::|h[预言风帽]|h|r",
 },
 {
-["ID"] = 40681,
-["Level"] = 200,
-["Link"] = "|cffa335ee|Hitem:40681::::::::80::::::::::|h[圣光珠串项链]|h|r",
+["ID"] = 238342,
+["Level"] = 213,
+["Link"] = "|cffa335ee|Hitem:238342::::::::80::::::::::|h[心碎护符]|h|r",
 },
 {
 ["ID"] = 30079,
@@ -21,9 +19,9 @@ PawnOptions = {
 },
 nil,
 {
-["ID"] = 37851,
-["Level"] = 200,
-["Link"] = "|cff0070dd|Hitem:37851::::::::80::::::::::|h[精致羊毛外套]|h|r",
+["ID"] = 30159,
+["Level"] = 219,
+["Link"] = "|cffa335ee|Hitem:30159:3252:39998:39998:::::80::::::::::|h[神使长袍]|h|r",
 },
 {
 ["ID"] = 255140,
@@ -46,9 +44,9 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:255034:2332:::::::80::::::::::|h[预言臂甲]|h|r",
 },
 {
-["ID"] = 257620,
-["Level"] = 213,
-["Link"] = "|cffa335ee|Hitem:257620:3246:40048::::::80::::::::::|h[预言裹手]|h|r",
+["ID"] = 30160,
+["Level"] = 219,
+["Link"] = "|cffa335ee|Hitem:30160:3246:39911::::::80::::::::::|h[神使护手]|h|r",
 },
 {
 ["ID"] = 29302,
@@ -90,6 +88,8 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:259900::::::::80::::::::::|h[赤红震荡者]|h|r",
 },
 },
+["AutoSelectScales"] = false,
+["LastPlayerFullName"] = "退休码农-时光IV - 红色信仰",
 }
 PawnMrRobotScaleProviderOptions = nil
 PawnClassicScaleProviderOptions = {

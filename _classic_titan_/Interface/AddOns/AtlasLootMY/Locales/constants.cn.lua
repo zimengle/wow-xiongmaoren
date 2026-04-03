@@ -37,14 +37,14 @@ AL["AQ opening"] = "安其拉开门事件"
 AL["Arena"] = "竞技场"
 AL["Armor"] = "装备"
 AL["Atlas map"] = "Atlas 副本地图"
-AL["Fire Resistance Gears"] ="火抗装"
+AL["Resistance Gears"] ="抗性装备"
 AL["Faction Rings"] ="水元素任务戒指"
 AL["Data Mining"]="数据挖掘"
 AL["AtlasLoot - MiaoYing"] ="喵影掉落插件"
 AL["LootSettings"] ="掉落设置"
 AL["Forbidden Minimap be stored"] ="避免小地图图标被大脚/有爱等插件包折叠收纳"
 AL["AtlasLoot - Titan"] = "喵影掉落插件"
-AL["  By MiaoYing33"] ="（B站或者抖音 关注“喵影三三” 获取最新更新）"
+AL["  By MiaoYing33"] =""
 AL["AtlasLoot Modules"] = "副本掉落信息模块"
 AL["Balzaphon"] = "巴尔萨冯"
 AL["Bonus"] = "奖励"
@@ -128,6 +128,7 @@ AL["Onyxia"] = "奥妮克希亚"
 AL["Open AtlasLoot"] = "打开 掉落插件"
 AL["Open AtlasLoot without auto select"] = "打开掉落插件的时候不自动选择副本"
 AL["Open Favourites"] = "打开我的最爱"
+AL["Open MYGear"] = "打开喵影Bis配装插件"
 AL["Open Options"] = "打开设定选项"
 AL["Patchwerk"] = "帕奇维克"
 AL["Plans"] = "计划"
@@ -201,7 +202,7 @@ AL["Two-Hand, Axe"] = "双手斧"
 AL["Two-Hand, Mace"] = "双手锤"
 AL["Two-Hand, Sword"] = "双手剑"
 AL["Undress item"] = "脱下物品"
-AL["Valorous %s"] = "勇猛 %s"
+AL["Valorous %s"] = "%s"
 AL["Vendor"] = "商人"
 AL["Wand"] = "魔杖"
 AL["Weapons"] = "武器"
@@ -236,9 +237,28 @@ AL["Finale BlackTemple"] ="终章 黑暗神庙"
 AL["Misc"]="杂项"
 AL["Titan Ember"]="泰坦余烬"
 AL["I Guess"]="我的猜测"
+AL['Search MYGear on Curseforge for instaling MiaoYingGear Emulator']='网易DD/新手盒子搜索喵影Bis 下载配装插件'
 
 
 AL['changelogText']=[[
+|cff00ff00=== v1.9.0 更新日志 ===|r
+• 补全蓝龙和黑龙的10人装备
+• 大量调整naxx掉落 这次暴雪把naxx掉落搞的一片狼藉，装备各种乱放。只能一个一个手动调累惨了，目前还没有完全修正，持续更新中
+• 增加宝库火王掉落
+
+|cff00ff00=== v1.8.0 更新日志 ===|r
+• 去掉标题里的关注“喵影三三” 反正也没人关注
+• 掉落物品大量更新和整理 Naxx掉落已完全更新
+• P3掉落预更新
+• 增加老的偏好界面打开快捷键shift+右键
+|cff00ff00=== v1.7.0 更新日志 ===|r
+• 联动喵影Bis配装插件 目前已正式发布 请在网易DD/新手盒子 搜索喵影Bis
+|cff00ff00=== v1.6.0 更新日志 ===|r
+• 移除猎人奥的余烬 玩具
+• 新增工程学图纸 陀螺接地装置（杂项里）
+• 修复与Biaoge侧边栏联动的bug
+• 放出213版本的情人节项链（被打脸 雷火你既然不用为什么要做206版本）
+• 整理下部分物品 方便导出来源数据到我的新Bis配装插件和E大模拟器里
 |cff00ff00=== v1.5.0 更新日志 ===|r
 • P2所有掉落位置已确认
 • 移除新本的圣契、图腾、神像（不再掉落）

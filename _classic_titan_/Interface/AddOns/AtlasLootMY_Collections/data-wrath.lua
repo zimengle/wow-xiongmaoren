@@ -163,14 +163,15 @@ data["CookingVendorWrath"] = {
 }
 
 data["EmblemofHeroism"] = {
-	name = format(AL["'%s' Vendor"], AL["Titan Ember"]),
+	name = AL["'Titan Ember' Vendor"]..' P1',
 	ContentType = VENDOR_CONTENT,
 	TableType = NORMAL_ITTYPE,
+	Phase=1,
 	gameVersion = AtlasLoot.WRATH_VERSION_NUM,
 	items = {
 		{
 			name = ALIL["Armor"],
-			[P1_DIFF] = {
+			[NORMAL_DIFF] = {
 				{ 1, 40697 }, -- Elegant Temple Gardens' Girdle
 				{ 2, 40696 }, -- Plush Sash of Guzbah
 
@@ -184,7 +185,399 @@ data["EmblemofHeroism"] = {
 				{ 20, 40688 }, -- Verdungo's Barbarian Cord
 				{ 21, 40689 }, -- Waistguard of Living Iron
 			},
-			[P3_DIFF] = {
+		},
+		{
+			name = ALIL["Weapon"],
+			[NORMAL_DIFF] = {
+				{ 1, 40704 }, -- Pride
+				{ 2, 40702 }, -- Rolfsen's Ripper
+				{ 3, 40703 }, -- Grasscutter
+				{ 16, 40716 }, -- Lillehoff's Winged Blades
+			},
+		},
+		{
+			name = ALIL["Shield"],
+			[NORMAL_DIFF] = {
+				{ 1, 40701 }, -- Crygil's Discarded Plate Panel
+				{ 2, 40700 }, -- Protective Barricade of the Light
+			},
+		},
+		{
+			name = ALIL["Off Hand"],
+			[NORMAL_DIFF] = {
+				{ 1, 40699 }, -- Handbook of Obscure Remedies
+				{ 2, 40698 }, -- Ward of the Violet Citadel
+			},
+		},
+		{
+			name = ALIL["Neck"],
+			[NORMAL_DIFF] = {
+				{ 1, 40679 }, -- Chained Military Gorget
+				{ 2, 40680 }, -- Encircling Burnished Gold Chains
+				{ 3, 40681 }, -- Lattice Choker of Light
+				{ 4, 40678 }, -- Pendant of the Outcast Hero
+			},
+		},
+		
+		{
+			name = ALIL["Finger"],
+			[NORMAL_DIFF] ={
+				{ 1, "f1090rep8" },
+				-- caster
+				{ 2, 40585}, 		  --Signet of the Kirin Tor
+				-- healer
+				{ 3, 44934 }, 		  --Loop of the Kirin Tor
+				
+				-- agi
+				{ 4, 40586 }, 		  --Band of the Kirin Tor
+				
+				-- str
+				{ 5, 44935 }, 		  --Ring of the Kirin Tor
+			
+			},
+		},
+		{
+			name = ALIL["Trinket"],
+			[NORMAL_DIFF] = {
+				{ 1, 40684 }, -- Mirror of Truth
+				{ 2, 40682 }, -- Sundial of the Exiled
+				{ 3, 40685 }, -- The Egg of Mortal Essence
+				{ 4, 40683 }, -- Valor Medal of the First War
+			},
+		},
+		{
+			name = ALIL["Idols"],
+			[NORMAL_DIFF] = {
+				{ 1, 40711 }, -- Idol of Lush Moss
+				{ 2, 40712 }, -- Idol of Steadfast Renewal
+				{ 3, 40713 }, -- Idol of the Ravenous Beast
+				{ 4, 42574 },
+				{ 5, 42575 },
+				{ 6, 42576 },
+				{ 7, 42577 },
+				{ 8, 42587 },
+				{ 9, 42582 },
+				{ 16, 40321 },
+				{ 17, 39757},
+				{ 18, 40342},
+				{ 19, 42583 },
+				{ 20, 42588 },
+				{ 21, 42578 },
+				
+			}
+		},
+		{
+			name = ALIL["Librams"],
+			[NORMAL_DIFF] = {
+				{ 1,  40707 }, -- Libram of Obstruction
+				{ 2, 40706 }, -- Libram of Reciprocation
+				{ 3, 40705 }, -- Libram of Renewal
+				{ 4, 42612 },
+				{ 5, 42611 },
+				{ 6, 42613 },
+				{ 7, 42851 },
+				{ 16, 40191 },
+				{ 17, 40268 },
+				{ 18, 40337 },
+				{ 19, 42614},
+				{ 20, 42852 },
+			}
+		},
+		{
+			name = ALIL["Totems"],
+			[NORMAL_DIFF] = {
+				{ 1, 40709 }, -- Totem of Forest Growth
+				{ 2, 40710 }, -- Totem of Splintering
+				{ 3, 40708 }, -- Totem of the Elemental Plane
+				{ 4, 42593 },
+				{ 5, 42594 },
+				{ 6, 42595 },
+				{ 7,42596 },
+				{ 8,42601 },
+				{ 9,42606 },
+				{ 16,40322 },
+				{ 17,39728 },
+				{ 18,40267 },
+				{ 19,42597 },
+				{ 20,42602 },
+				{ 21,42607 },
+			}
+		},
+		{
+			name = ALIL["Sigil"],
+			[NORMAL_DIFF] = {
+				{ 1, 40715 }, -- Sigil of Haunted Dreams
+				{ 2, 40714 }, -- Sigil of the Unfaltering Knight
+				{ 3, 42618},
+				{ 4, 42619},
+				{6, 40207},
+				{ 7, 42620},
+			}
+		},
+		-- {
+		-- 	name = AL["Token"],
+		-- 	[NORMAL_DIFF] = {
+		-- 		{ 1, 40610 }, -- Chestguard of the Lost Conqueror
+		-- 		{ 2, 40611 }, -- Chestguard of the Lost Protector
+		-- 		{ 3, 40612 }, -- Chestguard of the Lost Vanquisher
+		-- 		{ 16, 40613 }, -- Gloves of the Lost Conqueror
+		-- 		{ 17, 40614 }, -- Gloves of the Lost Protector
+		-- 		{ 18, 40615 }, -- Gloves of the Lost Vanquisher
+		-- 	},
+		-- },
+		{
+			name = AL["Misc"],
+			[NORMAL_DIFF] = {
+				{ 1, AtlasLoot:GetRetByFaction(44231,44230) }, -- Reins of the Wooly Mammoth
+				{ 3, 43102 }, -- Frozen Orb
+				{ 16, 36919 }, -- Cardinal Ruby
+				{ 17, 36922 }, -- King's Amber
+				{ 18, 36925 }, -- Majestic Zircon
+				{ 19, 36931 }, -- Ametrine
+				{ 20, 36928 }, -- Dreadstone
+				{ 21, 36934 }, -- Eye of Zul
+			},
+		},
+		 {
+        name = AL["Resistance Gears"],
+        [NORMAL_DIFF] = {{1, 262915}, {2, 262916}, {3, 262919}, {4, 262920}, {5, 262921}, {6, 262922}, {7, 262924},
+                         {8, 262925}, {9, 262926}, {10, 262927}, {11, 262931}, {12, 262932}, {13, 262933}, {14, 262934},
+                         {15, 262935}, {16, 262937}, {17, 262939}, {18, 262940}, {19, 262941}, {20, 262942},
+                         {21, 262943}, {22, 262944}, {23, 262945}, {24, 262946}, {25, 262947}, {26, 262948},
+                         {27, 262949}, {28, 262950}, {29, 262952}, {30, 262953}, {101, 262954}, {102, 262955},
+                         {103, 262956}, {104, 262958}, {105, 262959}, {106, 262960}, {107, 262961}, {108, 262968},
+                         {109, 262969}, {110, 262971}, {111, 262972}, {112, 262974}, {113, 262975}, {114, 262976},
+                         {115, 262977}, {116, 262978}, {117, 262979}, {118, 262980}, {119, 262981}, {120, 262985},
+                         {121, 262986}, {122, 262987}, {123, 262988}, {124, 262993}, {125, 262995}, {126, 262996},
+                         {127, 262997}, {128, 262998}, {129, 263000}, {130, 263001}, {201, 263002}, {202, 263003},
+                         {203, 263004}, {204, 263008}},
+    },
+		{ -- LakeWintergrasp2 / 1385
+			name = AL["Wintergrasp"]..' - '..ALIL["Cloth"],
+			[NORMAL_DIFF] = {
+				{ 1, 44910 }, -- Titan-Forged Hood of Dominance
+				-- { 2, 46065 }, -- Titan-Forged Raiment of Dominance
+				-- { 3, 46079 }, -- Titan-Forged Cord of Dominance
+				{ 2, 44899 }, -- Titan-Forged Slippers of Dominance
+				{ 6, 44909 }, -- Titan-Forged Hood of Salvation
+				-- { 7, 46066 }, -- Titan-Forged Raiment of Salvation
+				-- { 8, 46080 }, -- Titan-Forged Cord of Salvation
+				{ 7, 44900 }, -- Titan-Forged Slippers of Salvation
+
+				-- { 16, 48997 }, -- Titan-Forged Cloth Trousers of Domination
+				-- { 18, 48991 }, -- Titan-Forged Cloth Leggings of Salvation
+				-- { 19, 48979 }, -- Titan-Forged Cuffs of Salvation
+
+				-- { 22, 51573 }, -- Titan-Forged Shoulderpads of Domination
+				-- { 23, 51572 }, -- Titan-Forged Shoulderpads of Salvation
+			},
+		},
+		{ -- LakeWintergrasp3 / 1386
+			name = AL["Wintergrasp"]..' - '..ALIL["Leather"],
+			[NORMAL_DIFF] = {
+				{ 1, 44907 }, -- Titan-Forged Leather Helm of Dominance
+				-- { 2, 46064 }, -- Titan-Forged Leather Chestguard of Dominance
+				-- { 3, 46076 }, -- Titan-Forged Belt of Dominance
+				{ 2, 44891 }, -- Titan-Forged Boots of Dominance
+				
+				{ 6, 44906 }, -- Titan-Forged Leather Helm of Salvation
+				-- { 7, 46063 }, -- Titan-Forged Leather Chestguard of Salvation
+				-- { 8, 46077 }, -- Titan-Forged Belt of Salvation
+				{ 7, 44892 }, -- Titan-Forged Boots of Salvation
+				
+				{ 11, 44908 }, -- Titan-Forged Leather Helm of Triumph
+				-- { 12, 46062 }, -- Titan-Forged Leather Tunic of Triumph
+				-- { 13, 46078 }, -- Titan-Forged Belt of Triumph
+				{ 12, 44893 }, -- Titan-Forged Boots of Triumph
+
+				-- { 16, 48974 }, -- Titan-Forged Armwraps of Dominance
+				-- { 17, 48998 }, -- Titan-Forged Leather Legguards of Dominance
+				-- { 19, 48975 }, -- Titan-Forged Armwraps of Salvation
+				-- { 20, 48987 }, -- Titan-Forged Leather Legguards of Salvation
+				-- { 22, 48976 }, -- Titan-Forged Armwraps of Triumph
+				-- { 23, 48988 }, -- Titan-Forged Leather Legguards of Triumph
+
+				-- { 26, 51574 }, -- Titan-Forged Leather Spaulders of Dominance
+				-- { 27, 51575 }, -- Titan-Forged Leather Spaulders of Salvation
+				-- { 28, 51576 }, -- Titan-Forged Leather Spaulders of Triumph
+			},
+		},
+		{ -- LakeWintergrasp4 / 1387
+			name = AL["Wintergrasp"]..' - '..ALIL["Mail"],
+			[NORMAL_DIFF] = {
+				{ 1, 44904 }, -- Titan-Forged Mail Helm of Dominance
+				-- { 2, 46061 }, -- Titan-Forged Mail Armor of Domination
+				-- { 3, 46073 }, -- Titan-Forged Waistguard of Dominance
+				{ 2, 44896 }, -- Titan-Forged Sabatons of Dominance
+				
+				{ 6, 44905 }, -- Titan-Forged Ringmail Helm of Salvation
+				-- { 7, 46060 }, -- Titan-Forged Ringmail of Salvation
+				-- { 8, 46074 }, -- Titan-Forged Waistguard of Salvation
+				{ 7, 44897 }, -- Titan-Forged Sabatons of Salvation
+				
+				{ 11, 44903 }, -- Titan-Forged Chain Helm of Triumph
+				-- { 12, 46059 }, -- Titan-Forged Chain Armor of Triumph
+				-- { 13, 46075 }, -- Titan-Forged Waistguard of Triumph
+				{ 12, 44898 }, -- Titan-Forged Sabatons of Triumph
+
+				-- { 16, 48980 }, -- Titan-Forged Wristguards of Dominance
+				-- { 17, 48990 }, -- Titan-Forged Mail Leggings of Dominance
+				-- { 19, 48981 }, -- Titan-Forged Wristguards of Salvation
+				-- { 20, 48994 }, -- Titan-Forged Mail Leggings of Salvation
+				-- { 22, 48982 }, -- Titan-Forged Wristguards of Triumph
+				-- { 23, 48983 }, -- Titan-Forged Mail Leggings of Triumph
+
+				-- { 26, 51578 }, -- Titan-Forged Shoulders of Dominance
+				-- { 27, 51579 }, -- Titan-Forged Shoulders of Salvation
+				-- { 28, 51577 }, -- Titan-Forged Shoulders of Triumph
+			},
+		},
+		{ -- LakeWintergrasp5 / 1388
+			name = AL["Wintergrasp"]..' - '..ALIL["Plate"],
+			[NORMAL_DIFF] = {
+				{ 1, 44901 }, -- Titan-Forged Plate Headcover of Salvation
+				-- { 2, 46057 }, -- Titan-Forged Chestguard of Salvation
+				-- { 3, 46071 }, -- Titan-Forged Girdle of Salvation
+				{ 2, 44894 }, -- Titan-Forged Greaves of Salvation
+				
+				{ 6, 44902 }, -- Titan-Forged Plate Helm of Triumph
+				-- { 7, 46058 }, -- Titan-Forged Breastplate of Triumph
+				--{ 8, 46072 }, -- Titan-Forged Girdle of Triumph
+				{ 7, 44895 }, -- Titan-Forged Greaves of Triumph
+
+
+				-- { 16, 48977 }, -- Titan-Forged Bracers of Salvation
+				-- { 17, 48992 }, -- Titan-Forged Plate Legplates of Salvation
+				-- { 19, 48978 }, -- Titan-Forged Bracers of Triumph
+				-- { 20, 48993 }, -- Titan-Forged Plate Legguards of Triumph
+
+				-- { 23, 51581 }, -- Titan-Forged Shoulderplates of Salvation
+				-- { 24, 51580 }, -- Titan-Forged Plate Shoulderplates of Triumph
+			},
+		},
+		{ -- LakeWintergrasp5 / 1388
+			name = AL["Wintergrasp"]..' - '..ALIL["Trinket"],
+			[NORMAL_DIFF] = {
+				{ 1, 44914 }, -- Titan-Forged Plate Headcover of Salvation
+				
+				
+				
+				{ 2, 44912 }, -- Titan-Forged Greaves of Salvation
+				{ 12, 46057 }, -- Titan-Forged Chestguard of Salvation
+				{ 13, 46071 }, -- Titan-Forged Girdle of Salvation
+
+				{ 16, 48977 }, -- Titan-Forged Bracers of Salvation
+				{ 17, 48992 }, -- Titan-Forged Plate Legplates of Salvation
+				{ 19, 48978 }, -- Titan-Forged Bracers of Triumph
+				{ 20, 48993 }, -- Titan-Forged Plate Legguards of Triumph
+
+				{ 23, 51581 }, -- Titan-Forged Shoulderplates of Salvation
+				{ 24, 51580 }, -- Titan-Forged Plate Shoulderplates of Triumph
+			},
+		},
+		{	-- Gems
+			name = AL["Wintergrasp"]..' - '..ALIL["Gems"],
+			[NORMAL_DIFF] = {
+				{ 1, 44066 }, -- Kharmaa's Grace
+
+				{ 3, 44081 }, -- Enigmatic Starflare Diamond
+				{ 4, 44084 }, -- Forlorn Starflare Diamond
+				{ 5, 44082 }, -- Impassive Starflare Diamond
+				{ 6, 44076 }, -- Swift Starflare Diamond
+				{ 7, 44078 }, -- Swift Starflare Diamond
+
+				{ 18, 44087 }, -- Persistent Earthshatter Diamond
+				{ 19, 44088 }, -- Powerful Earthshatter Diamond
+				{ 20, 44089 }, -- Trenchant Earthshatter Diamond
+			}
+		},
+		{	-- Gems
+		name = AL["Wintergrasp"]..' - '..AL["Enhancements"],
+			[NORMAL_DIFF] = {
+				{ 1, 44075 }, -- Arcanum of Dominance
+				{ 2, 44069 }, -- Arcanum of Triumph
+				{ 16, 44068 }, -- Inscription of Dominance
+				{ 17, 44067 }, -- Inscription of Triumph
+			}
+		},
+		{ -- LakeWintergrasp6 / 1389
+			name = AL["Wintergrasp"]..' - '..AL["Recipe"],
+			[NORMAL_DIFF] = {
+				{ 1, 41730 }, -- Design: Durable Monarch Topaz
+				{ 2, 41732 }, -- Design: Empowered Monarch Topaz
+				{ 3, 41733 }, -- Design: Lucent Monarch Topaz
+				{ 4, 41735 }, -- Design: Shattered Forest Emerald
+				{ 5, 41739 }, -- Design: Opaque Forest Emerald
+				{ 6, 41736 }, -- Design: Tense Forest Emerald
+				{ 7, 41737 }, -- Design: Turbid Forest Emerald
+				{ 8, 41738 }, -- Design: Steady Forest Emerald
+				{ 9, 41734 }, -- Design: Resplendent Monarch Topaz
+				{ 10, 41727 }, -- Design: Mystic Autumn's Glow
+				{ 11, 41740 }, -- Design: Mysterious Twilight Opal
+				{ 12, 41728 }, -- Design: Stormy Sky Sapphire
+				{ 13, 41742 }, -- Design: Enigmatic Skyflare Diamond
+				{ 14, 41743 }, -- Design: Forlorn Skyflare Diamond
+				{ 15, 41744 }, -- Design: Impassive Skyflare Diamond
+			},
+			
+		},
+		 {
+				name = AL["Level Boost - Accessories"],
+				ExtraList = true,
+				[NORMAL_DIFF] = {{1, 209663}, {2, 209664}, {3, 209662}, {4, 209665}, {5, 210135}, {6, 209556}, {7, 209557}, {8, 209558},
+							{9,268835},{10, 209695}, {11, 209697}, {12, 209696}, {13, 209780},{14,268869}}
+			}, {
+				name = AL["Level Boost - Cloth"],
+				ExtraList = true,
+				[NORMAL_DIFF] = {{1, 209606}, {2, 209600}, {3, 209599}, {4, 209603}, {5, 209602}, {6, 209656}, {7, 209637}, {8, 209532},
+							{9, 209650}, {10, 209589}, {11, 209644}, {12, 209631},{13,268841},{14,268839},{15,268836},{16,268844},{20,268837}
+							,{21,268842},{22,268838},{23,268840},{24,268843}
+						}
+			}, {
+				name = AL["Level Boost - Leather"],
+				ExtraList = true,
+				[NORMAL_DIFF] = {{1, 209627}, {2, 209607}, {3, 209658}, {4, 209657}, {5, 209639}, {6, 209638}, {7, 209530}, {8, 209529},
+							{9, 209652}, {10, 209651}, {11, 209584}, {12, 209587}, {13, 209645}, {14, 209646}, {15, 209632},
+							{16, 209633},{17,268850},{18,268848},{19,268845},{20,268846},{21,268851},{22,268847},{23,268849},{24,268852}}
+			}, {
+				name = AL["Level Boost - Mail"],
+				ExtraList = true,
+				[NORMAL_DIFF] = {{1, 209628}, {2, 209629}, {3, 209660}, {4, 209659}, {5, 209641}, {6, 209640}, {7, 209533}, {8, 209531},
+							{9, 209653}, {10, 209654}, {11, 209585}, {12, 209583}, {13, 209648}, {14, 209647}, {15, 209634},
+							{16, 209635},{17,268857},{18,268855},{19,268860},{20,268853},{21,268858},{22,268854},{23,268856},{24,268859}}
+			}, {
+				name = AL["Level Boost - Plate"],
+				ExtraList = true,
+				[NORMAL_DIFF] = {{1, 209518}, {2, 209630}, {3, 209519}, {4, 209661}, {5, 209642}, {6, 209517}, {7, 209515}, {8, 209528},
+							{9, 209655}, {10, 209522}, {11, 209586}, {12, 209588}, {13, 209649}, {14, 209521}, {15, 209636},
+							{16, 209516},{17,268865},{18,268863},{19,268868},{20,268861},{21,268866},{22,268862},{23,268864},{24,268867}}
+			}, {
+				name = AL["Level Boost - Misc"],
+				ExtraList = true,
+				[NORMAL_DIFF] = {{1, 209808}, {2, 209815}, {3, 209812}, {4, 209826}, {5, 209810}, {6, 209827}, {7, 209814}, {8, 209829},
+							{9, 209809}, {10, 209811}, {11, 209807}, {12, 209813}, {13, 209787}, {14, 209786}}
+			}, {
+				name = AL["Level Boost - Weapon"],
+				ExtraList = true,
+				[NORMAL_DIFF] = {{1, 209789}, {2, 209794}, {3, 209790}, {4, 209785}, {5, 209782}, {6, 209784}, {7, 209792}, {8, 209791},
+							{9, 209793}, {10, 209801}, {11, 209783}, {12, 209796}, {13, 209803}, {14, 209804}}
+			}
+
+		
+			
+	}
+}
+
+data["EmblemofHeroismP3"] = {
+	name = AL["'Titan Ember' Vendor"]..' P3',
+	ContentType = VENDOR_CONTENT,
+	Phase=3,
+	TableType = NORMAL_ITTYPE,
+	gameVersion = AtlasLoot.WRATH_VERSION_NUM,
+	items = {
+		{
+			name = ALIL["Armor"],
+			[NORMAL_DIFF] = {
 				{ 1, 40741 }, -- Cuffs of the Shadow Ascendant
 				{ 2, 40740 }, -- Wraps of the Astral Traveler
 				{ 16, 40751 }, -- Slippers of the Holy Light
@@ -212,139 +605,15 @@ data["EmblemofHeroism"] = {
 				{ 15, 40721 }, -- Hammerhead Sharkskin Cloak
 			},
 		},
-		{
-			name = ALIL["Weapon"],
-			[P1_DIFF] = {
-				{ 1, 40704 }, -- Pride
-				{ 2, 40702 }, -- Rolfsen's Ripper
-				{ 3, 40703 }, -- Grasscutter
-				{ 16, 40716 }, -- Lillehoff's Winged Blades
-			},
-		},
-		{
-			name = ALIL["Shield"],
-			[P1_DIFF] = {
-				{ 1, 40701 }, -- Crygil's Discarded Plate Panel
-				{ 2, 40700 }, -- Protective Barricade of the Light
-			},
-		},
-		{
-			name = ALIL["Off Hand"],
-			[P1_DIFF] = {
-				{ 1, 40699 }, -- Handbook of Obscure Remedies
-				{ 2, 40698 }, -- Ward of the Violet Citadel
-			},
-		},
-		{
-			name = ALIL["Neck"],
-			[P1_DIFF] = {
-				{ 1, 40679 }, -- Chained Military Gorget
-				{ 2, 40680 }, -- Encircling Burnished Gold Chains
-				{ 3, 40681 }, -- Lattice Choker of Light
-				{ 4, 40678 }, -- Pendant of the Outcast Hero
-			},
-		},
 		
 		{
 			name = ALIL["Finger"],
-			[P1_DIFF] ={
-				{ 1, "f1090rep8" },
-				-- caster
-				{ 2, 40585}, 		  --Signet of the Kirin Tor
-				-- healer
-				{ 3, 44934 }, 		  --Loop of the Kirin Tor
-				
-				-- agi
-				{ 4, 40586 }, 		  --Band of the Kirin Tor
-				
-				-- str
-				{ 5, 44935 }, 		  --Ring of the Kirin Tor
-			
-			},
-			[P3_DIFF] = {
+			[NORMAL_DIFF] = {
 				{ 1, 40719 }, -- Band of Channeled Magic
 				{ 2, 40720 }, -- Renewal of Life
 				{ 3, 40717 }, -- Ring of Invincibility
 				{ 4, 40718 }, -- Signet of the Impregnable Fortress
 			},
-		},
-		{
-			name = ALIL["Trinket"],
-			[P1_DIFF] = {
-				{ 1, 40684 }, -- Mirror of Truth
-				{ 2, 40682 }, -- Sundial of the Exiled
-				{ 3, 40685 }, -- The Egg of Mortal Essence
-				{ 4, 40683 }, -- Valor Medal of the First War
-			},
-		},
-		{
-			name = ALIL["Idols"],
-			[P1_DIFF] = {
-				{ 1, 40711 }, -- Idol of Lush Moss
-				{ 2, 40712 }, -- Idol of Steadfast Renewal
-				{ 3, 40713 }, -- Idol of the Ravenous Beast
-				{ 4, 42574 },
-				{ 5, 42575 },
-				{ 6, 42576 },
-				{ 7, 42577 },
-				{ 8, 42587 },
-				{ 9, 42582 },
-				{ 16, 40321 },
-				{ 17, 39757},
-				{ 18, 40342},
-				{ 19, 42583 },
-				{ 20, 42588 },
-				{ 21, 42578 },
-				
-			}
-		},
-		{
-			name = ALIL["Librams"],
-			[P1_DIFF] = {
-				{ 1,  40707 }, -- Libram of Obstruction
-				{ 2, 40706 }, -- Libram of Reciprocation
-				{ 3, 40705 }, -- Libram of Renewal
-				{ 4, 42612 },
-				{ 5, 42611 },
-				{ 6, 42613 },
-				{ 7, 42851 },
-				{ 16, 40191 },
-				{ 17, 40268 },
-				{ 18, 40337 },
-				{ 19, 42614},
-				{ 20, 42852 },
-			}
-		},
-		{
-			name = ALIL["Totems"],
-			[P1_DIFF] = {
-				{ 1, 40709 }, -- Totem of Forest Growth
-				{ 2, 40710 }, -- Totem of Splintering
-				{ 3, 40708 }, -- Totem of the Elemental Plane
-				{ 4, 42593 },
-				{ 5, 42594 },
-				{ 6, 42595 },
-				{ 7,42596 },
-				{ 8,42601 },
-				{ 9,42606 },
-				{ 16,40322 },
-				{ 17,39728 },
-				{ 18,40267 },
-				{ 19,42597 },
-				{ 20,42602 },
-				{ 21,42607 },
-			}
-		},
-		{
-			name = ALIL["Sigil"],
-			[P1_DIFF] = {
-				{ 1, 40715 }, -- Sigil of Haunted Dreams
-				{ 2, 40714 }, -- Sigil of the Unfaltering Knight
-				{ 3, 42618},
-				{ 4, 42619},
-				{6, 40207},
-				{ 7, 42620},
-			}
 		},
 		-- {
 		-- 	name = AL["Token"],
@@ -357,39 +626,10 @@ data["EmblemofHeroism"] = {
 		-- 		{ 18, 40615 }, -- Gloves of the Lost Vanquisher
 		-- 	},
 		-- },
-		{
-			name = AL["Misc"],
-			[P1_DIFF] = {
-				{ 1, AtlasLoot:GetRetByFaction(44231,44230) }, -- Reins of the Wooly Mammoth
-				{ 3, 43102 }, -- Frozen Orb
-				{ 16, 36919 }, -- Cardinal Ruby
-				{ 17, 36922 }, -- King's Amber
-				{ 18, 36925 }, -- Majestic Zircon
-				{ 19, 36931 }, -- Ametrine
-				{ 20, 36928 }, -- Dreadstone
-				{ 21, 36934 }, -- Eye of Zul
-			},
-		},
 		{ -- LakeWintergrasp2 / 1385
 			name = AL["Wintergrasp"]..' - '..ALIL["Cloth"],
-			[P1_DIFF] = {
-				{ 1, 44910 }, -- Titan-Forged Hood of Dominance
-				-- { 2, 46065 }, -- Titan-Forged Raiment of Dominance
-				-- { 3, 46079 }, -- Titan-Forged Cord of Dominance
-				{ 2, 44899 }, -- Titan-Forged Slippers of Dominance
-				{ 6, 44909 }, -- Titan-Forged Hood of Salvation
-				-- { 7, 46066 }, -- Titan-Forged Raiment of Salvation
-				-- { 8, 46080 }, -- Titan-Forged Cord of Salvation
-				{ 7, 44900 }, -- Titan-Forged Slippers of Salvation
-
-				-- { 16, 48997 }, -- Titan-Forged Cloth Trousers of Domination
-				-- { 18, 48991 }, -- Titan-Forged Cloth Leggings of Salvation
-				-- { 19, 48979 }, -- Titan-Forged Cuffs of Salvation
-
-				-- { 22, 51573 }, -- Titan-Forged Shoulderpads of Domination
-				-- { 23, 51572 }, -- Titan-Forged Shoulderpads of Salvation
-			},
-			[P3_DIFF]={
+			
+			[NORMAL_DIFF]={
 				{ 1, 46065 }, -- Titan-Forged Raiment of Dominance
 				{ 2, 46079 }, -- Titan-Forged Cord of Dominance
 				{ 4, 46066 }, -- Titan-Forged Raiment of Salvation
@@ -398,34 +638,7 @@ data["EmblemofHeroism"] = {
 		},
 		{ -- LakeWintergrasp3 / 1386
 			name = AL["Wintergrasp"]..' - '..ALIL["Leather"],
-			[P1_DIFF] = {
-				{ 1, 44907 }, -- Titan-Forged Leather Helm of Dominance
-				-- { 2, 46064 }, -- Titan-Forged Leather Chestguard of Dominance
-				-- { 3, 46076 }, -- Titan-Forged Belt of Dominance
-				{ 2, 44891 }, -- Titan-Forged Boots of Dominance
-				
-				{ 6, 44906 }, -- Titan-Forged Leather Helm of Salvation
-				-- { 7, 46063 }, -- Titan-Forged Leather Chestguard of Salvation
-				-- { 8, 46077 }, -- Titan-Forged Belt of Salvation
-				{ 7, 44892 }, -- Titan-Forged Boots of Salvation
-				
-				{ 11, 44908 }, -- Titan-Forged Leather Helm of Triumph
-				-- { 12, 46062 }, -- Titan-Forged Leather Tunic of Triumph
-				-- { 13, 46078 }, -- Titan-Forged Belt of Triumph
-				{ 12, 44893 }, -- Titan-Forged Boots of Triumph
-
-				-- { 16, 48974 }, -- Titan-Forged Armwraps of Dominance
-				-- { 17, 48998 }, -- Titan-Forged Leather Legguards of Dominance
-				-- { 19, 48975 }, -- Titan-Forged Armwraps of Salvation
-				-- { 20, 48987 }, -- Titan-Forged Leather Legguards of Salvation
-				-- { 22, 48976 }, -- Titan-Forged Armwraps of Triumph
-				-- { 23, 48988 }, -- Titan-Forged Leather Legguards of Triumph
-
-				-- { 26, 51574 }, -- Titan-Forged Leather Spaulders of Dominance
-				-- { 27, 51575 }, -- Titan-Forged Leather Spaulders of Salvation
-				-- { 28, 51576 }, -- Titan-Forged Leather Spaulders of Triumph
-			},
-			[P3_DIFF] = {
+			[NORMAL_DIFF] = {
 				{ 1, 46064 }, -- Titan-Forged Leather Chestguard of Dominance
 				{ 2, 46076 }, -- Titan-Forged Belt of Dominance
 				
@@ -439,34 +652,7 @@ data["EmblemofHeroism"] = {
 		},
 		{ -- LakeWintergrasp4 / 1387
 			name = AL["Wintergrasp"]..' - '..ALIL["Mail"],
-			[P1_DIFF] = {
-				{ 1, 44904 }, -- Titan-Forged Mail Helm of Dominance
-				-- { 2, 46061 }, -- Titan-Forged Mail Armor of Domination
-				-- { 3, 46073 }, -- Titan-Forged Waistguard of Dominance
-				{ 2, 44896 }, -- Titan-Forged Sabatons of Dominance
-				
-				{ 6, 44905 }, -- Titan-Forged Ringmail Helm of Salvation
-				-- { 7, 46060 }, -- Titan-Forged Ringmail of Salvation
-				-- { 8, 46074 }, -- Titan-Forged Waistguard of Salvation
-				{ 7, 44897 }, -- Titan-Forged Sabatons of Salvation
-				
-				{ 11, 44903 }, -- Titan-Forged Chain Helm of Triumph
-				-- { 12, 46059 }, -- Titan-Forged Chain Armor of Triumph
-				-- { 13, 46075 }, -- Titan-Forged Waistguard of Triumph
-				{ 12, 44898 }, -- Titan-Forged Sabatons of Triumph
-
-				-- { 16, 48980 }, -- Titan-Forged Wristguards of Dominance
-				-- { 17, 48990 }, -- Titan-Forged Mail Leggings of Dominance
-				-- { 19, 48981 }, -- Titan-Forged Wristguards of Salvation
-				-- { 20, 48994 }, -- Titan-Forged Mail Leggings of Salvation
-				-- { 22, 48982 }, -- Titan-Forged Wristguards of Triumph
-				-- { 23, 48983 }, -- Titan-Forged Mail Leggings of Triumph
-
-				-- { 26, 51578 }, -- Titan-Forged Shoulders of Dominance
-				-- { 27, 51579 }, -- Titan-Forged Shoulders of Salvation
-				-- { 28, 51577 }, -- Titan-Forged Shoulders of Triumph
-			},
-			[P3_DIFF] = {
+			[NORMAL_DIFF] = {
 				{ 1, 46061 }, -- Titan-Forged Mail Armor of Domination
 				{ 2, 46073 }, -- Titan-Forged Waistguard of Dominance
 				{ 4, 46060 }, -- Titan-Forged Ringmail of Salvation
@@ -477,27 +663,7 @@ data["EmblemofHeroism"] = {
 		},
 		{ -- LakeWintergrasp5 / 1388
 			name = AL["Wintergrasp"]..' - '..ALIL["Plate"],
-			[P1_DIFF] = {
-				{ 1, 44901 }, -- Titan-Forged Plate Headcover of Salvation
-				-- { 2, 46057 }, -- Titan-Forged Chestguard of Salvation
-				-- { 3, 46071 }, -- Titan-Forged Girdle of Salvation
-				{ 2, 44894 }, -- Titan-Forged Greaves of Salvation
-				
-				{ 6, 44902 }, -- Titan-Forged Plate Helm of Triumph
-				-- { 7, 46058 }, -- Titan-Forged Breastplate of Triumph
-				--{ 8, 46072 }, -- Titan-Forged Girdle of Triumph
-				{ 7, 44895 }, -- Titan-Forged Greaves of Triumph
-
-
-				-- { 16, 48977 }, -- Titan-Forged Bracers of Salvation
-				-- { 17, 48992 }, -- Titan-Forged Plate Legplates of Salvation
-				-- { 19, 48978 }, -- Titan-Forged Bracers of Triumph
-				-- { 20, 48993 }, -- Titan-Forged Plate Legguards of Triumph
-
-				-- { 23, 51581 }, -- Titan-Forged Shoulderplates of Salvation
-				-- { 24, 51580 }, -- Titan-Forged Plate Shoulderplates of Triumph
-			},
-			[P3_DIFF] = {
+			[NORMAL_DIFF] = {
 				{ 1, 46057 }, -- Titan-Forged Chestguard of Salvation
 				{ 2, 46071 }, -- Titan-Forged Girdle of Salvation
 				{ 4, 46058 }, -- Titan-Forged Breastplate of Triumph
@@ -507,22 +673,7 @@ data["EmblemofHeroism"] = {
 		},
 		{ -- LakeWintergrasp5 / 1388
 			name = AL["Wintergrasp"]..' - '..ALIL["Trinket"],
-			[P1_DIFF] = {
-				{ 1, 44914 }, -- Titan-Forged Plate Headcover of Salvation
-				-- { 2, 46057 }, -- Titan-Forged Chestguard of Salvation
-				-- { 3, 46071 }, -- Titan-Forged Girdle of Salvation
-				{ 2, 44912 }, -- Titan-Forged Greaves of Salvation
-				
-
-				-- { 16, 48977 }, -- Titan-Forged Bracers of Salvation
-				-- { 17, 48992 }, -- Titan-Forged Plate Legplates of Salvation
-				-- { 19, 48978 }, -- Titan-Forged Bracers of Triumph
-				-- { 20, 48993 }, -- Titan-Forged Plate Legguards of Triumph
-
-				-- { 23, 51581 }, -- Titan-Forged Shoulderplates of Salvation
-				-- { 24, 51580 }, -- Titan-Forged Plate Shoulderplates of Triumph
-			},
-			[P3_DIFF] = {
+			[NORMAL_DIFF] = {
 				{ 1, 46083 }, -- Titan-Forged Rune of Accuracy
 				{ 2, 46085 }, -- Titan-Forged Rune of Alacrity
 				{ 3, 46081 }, -- Titan-Forged Rune of Audacity
@@ -534,97 +685,18 @@ data["EmblemofHeroism"] = {
 				{ 18, 46087 }, -- Platinum Disks of Sorcery
 			}
 		},
-		{	-- Gems
-			name = AL["Wintergrasp"]..' - '..ALIL["Gems"],
-			[P1_DIFF] = {
-				{ 1, 44066 }, -- Kharmaa's Grace
-
-				{ 3, 44081 }, -- Enigmatic Starflare Diamond
-				{ 4, 44084 }, -- Forlorn Starflare Diamond
-				{ 5, 44082 }, -- Impassive Starflare Diamond
-				{ 6, 44076 }, -- Swift Starflare Diamond
-				{ 7, 44078 }, -- Swift Starflare Diamond
-
-				{ 18, 44087 }, -- Persistent Earthshatter Diamond
-				{ 19, 44088 }, -- Powerful Earthshatter Diamond
-				{ 20, 44089 }, -- Trenchant Earthshatter Diamond
+		{ -- LakeWintergrasp5 / 1388
+			name = ALIL["Relic"],
+			[NORMAL_DIFF] = {
+				{ 1, 23006 }, -- Titan-Forged Rune of Accuracy
+				{ 3, 23004 }, -- Titan-Forged Rune of Alacrity
+				{ 5, 23005 }, -- Titan-Forged Rune of Audacity
 			}
 		},
-		{	-- Gems
-		name = AL["Wintergrasp"]..' - '..AL["Enhancements"],
-			[P1_DIFF] = {
-				{ 1, 44075 }, -- Arcanum of Dominance
-				{ 2, 44069 }, -- Arcanum of Triumph
-				{ 16, 44068 }, -- Inscription of Dominance
-				{ 17, 44067 }, -- Inscription of Triumph
-			}
-		},
-		{ -- LakeWintergrasp6 / 1389
-			name = AL["Wintergrasp"]..' - '..AL["Recipe"],
-			[P1_DIFF] = {
-				{ 1, 41730 }, -- Design: Durable Monarch Topaz
-				{ 2, 41732 }, -- Design: Empowered Monarch Topaz
-				{ 3, 41733 }, -- Design: Lucent Monarch Topaz
-				{ 4, 41735 }, -- Design: Shattered Forest Emerald
-				{ 5, 41739 }, -- Design: Opaque Forest Emerald
-				{ 6, 41736 }, -- Design: Tense Forest Emerald
-				{ 7, 41737 }, -- Design: Turbid Forest Emerald
-				{ 8, 41738 }, -- Design: Steady Forest Emerald
-				{ 9, 41734 }, -- Design: Resplendent Monarch Topaz
-				{ 10, 41727 }, -- Design: Mystic Autumn's Glow
-				{ 11, 41740 }, -- Design: Mysterious Twilight Opal
-				{ 12, 41728 }, -- Design: Stormy Sky Sapphire
-				{ 13, 41742 }, -- Design: Enigmatic Skyflare Diamond
-				{ 14, 41743 }, -- Design: Forlorn Skyflare Diamond
-				{ 15, 41744 }, -- Design: Impassive Skyflare Diamond
-			},
-			
-		},
-		 {
-				name = AL["Level Boost - Accessories"],
-				ExtraList = true,
-				[P1_DIFF] = {{1, 209663}, {2, 209664}, {3, 209662}, {4, 209665}, {5, 210135}, {6, 209556}, {7, 209557}, {8, 209558},
-							{9, 209695}, {10, 209697}, {11, 209696}, {12, 209780}}
-			}, {
-				name = AL["Level Boost - Cloth"],
-				ExtraList = true,
-				[P1_DIFF] = {{1, 209606}, {2, 209600}, {3, 209599}, {4, 209603}, {5, 209602}, {6, 209656}, {7, 209637}, {8, 209532},
-							{9, 209650}, {10, 209589}, {11, 209644}, {12, 209631}}
-			}, {
-				name = AL["Level Boost - Leather"],
-				ExtraList = true,
-				[P1_DIFF] = {{1, 209627}, {2, 209607}, {3, 209658}, {4, 209657}, {5, 209639}, {6, 209638}, {7, 209530}, {8, 209529},
-							{9, 209652}, {10, 209651}, {11, 209584}, {12, 209587}, {13, 209645}, {14, 209646}, {15, 209632},
-							{16, 209633}}
-			}, {
-				name = AL["Level Boost - Mail"],
-				ExtraList = true,
-				[P1_DIFF] = {{1, 209628}, {2, 209629}, {3, 209660}, {4, 209659}, {5, 209641}, {6, 209640}, {7, 209533}, {8, 209531},
-							{9, 209653}, {10, 209654}, {11, 209585}, {12, 209583}, {13, 209648}, {14, 209647}, {15, 209634},
-							{16, 209635}}
-			}, {
-				name = AL["Level Boost - Plate"],
-				ExtraList = true,
-				[P1_DIFF] = {{1, 209518}, {2, 209630}, {3, 209519}, {4, 209661}, {5, 209642}, {6, 209517}, {7, 209515}, {8, 209528},
-							{9, 209655}, {10, 209522}, {11, 209586}, {12, 209588}, {13, 209649}, {14, 209521}, {15, 209636},
-							{16, 209516}}
-			}, {
-				name = AL["Level Boost - Misc"],
-				ExtraList = true,
-				[P1_DIFF] = {{1, 209808}, {2, 209815}, {3, 209812}, {4, 209826}, {5, 209810}, {6, 209827}, {7, 209814}, {8, 209829},
-							{9, 209809}, {10, 209811}, {11, 209807}, {12, 209813}, {13, 209787}, {14, 209786}}
-			}, {
-				name = AL["Level Boost - Weapon"],
-				ExtraList = true,
-				[P1_DIFF] = {{1, 209789}, {2, 209794}, {3, 209790}, {4, 209785}, {5, 209782}, {6, 209784}, {7, 209792}, {8, 209791},
-							{9, 209793}, {10, 209801}, {11, 209783}, {12, 209796}, {13, 209803}, {14, 209804}}
-			}
 
-		
-			
 	}
 }
-
+--copy/paste from Rootkit for P5 badge items - github issue #199
 -- data["EmblemofValor"] = {
 -- 	name = format(AL["'%s' Vendor"], AL["Emblem of Valor"]),
 -- 	ContentType = VENDOR_CONTENT,
@@ -703,104 +775,418 @@ data["EmblemofHeroism"] = {
 -- 		},
 -- 	}
 -- }
+data["EmblemofHeroismP4"] = {
+	name =  AL["'Titan Ember' Vendor"]..' P4',
+	ContentType = VENDOR_CONTENT,
+	Phase=4,
+	TableType = NORMAL_ITTYPE,
+	gameVersion = AtlasLoot.WRATH_VERSION_NUM,
+	items = {
+		{
+			name = ALIL["Relic"],
+			[NORMAL_DIFF] = {
+				{ 1, 47671 }, -- Idol of Flaring Growth
+				{ 2, 47670 }, -- Idol of Lunar Fury
+				{ 3, 47668 }, -- Idol of Mutilation
+				{ 5, 47664 }, -- Libram of Defiance
+				{ 6, 47661 }, -- Libram of Valiance
+				{ 7, 47662 }, -- Libram of Veracity
+				{ 9, 47665 }, -- Totem of Calming Tides
+				{ 10, 47666 }, -- Totem of Electrifying Wind
+				{ 11, 47667 }, -- Totem of Quaking Earth
+				{ 13, 47672 }, -- Sigil of Insolence
+				{ 14, 47673 }, -- Sigil of Virulence
+				
+			},
+		},
+	}
+}
+data["EmblemofHeroismP6"] = {
+	name =  AL["'Titan Ember' Vendor"]..' P6',
+	ContentType = VENDOR_CONTENT,
+	Phase=6,
+	TableType = NORMAL_ITTYPE,
+	gameVersion = AtlasLoot.WRATH_VERSION_NUM,
+	items = {
+		{
+			name = ALIL["Armor"].." - "..ALIL["Cloth"],
+			[NORMAL_DIFF] = {
+				{ 1, 45840 }, -- Touch of the Occult
+				{ 3, 45831 }, -- Sash of Potent Incantations
+				{ 4, 45848 }, -- Legwraps of the Master Conjurer
 
--- data["EmblemofConquest"] = {
--- 	name = format(AL["'%s' Vendor"], AL["Emblem of Conquest"]),
--- 	ContentType = VENDOR_CONTENT,
--- 	TableType = NORMAL_ITTYPE,
--- 	gameVersion = AtlasLoot.WRATH_VERSION_NUM,
--- 	items = {
--- 		{
--- 			name = ALIL["Armor"].." - "..ALIL["Cloth"],
--- 			[NORMAL_DIFF] = {
--- 				{ 1, 45840 }, -- Touch of the Occult
--- 				{ 3, 45831 }, -- Sash of Potent Incantations
--- 				{ 16, 45848 }, -- Legwraps of the Master Conjurer
--- 			},
--- 		},
--- 		{
--- 			name = ALIL["Armor"].." - "..ALIL["Leather"],
--- 			[NORMAL_DIFF] = {
--- 				{ 1, 45838 }, -- Gloves of the Blind Stalker
--- 				{ 2, 45839 }, -- Grips of the Secret Grove
--- 				{ 4, 45830 }, -- Belt of the Living Thicket
--- 				{ 5, 45829 }, -- Belt of the Twilight Assassin
--- 				{ 16, 45846 }, -- Leggings of Wavering Shadow
--- 				{ 17, 45847 }, -- Wildstrider Legguards
--- 			},
--- 		},
--- 		{
--- 			name = ALIL["Armor"].." - "..ALIL["Mail"],
--- 			[NORMAL_DIFF] = {
--- 				{ 1, 45837 }, -- Gloves of Augury
--- 				{ 2, 45836 }, -- Gloves of Unerring Aim
--- 				{ 4, 45827 }, -- Belt of the Ardent Marksman
--- 				{ 5, 45828 }, -- Windchill Binding
--- 				{ 16, 45844 }, -- Leggings of the Tireless Sentry
--- 				{ 17, 45845 }, -- Leggings of the Weary Mystic
--- 			},
--- 		},
--- 		{
--- 			name = ALIL["Armor"].." - "..ALIL["Plate"],
--- 			[NORMAL_DIFF] = {
--- 				{ 1, 45833 }, -- Bladebreaker Gauntlets
--- 				{ 2, 45835 }, -- Gauntlets of Serene Blessing
--- 				{ 3, 45834 }, -- Gauntlets of the Royal Watch
--- 				{ 5, 45824 }, -- Belt of the Singing Blade
--- 				{ 6, 45826 }, -- Girdle of Unyielding Trust
--- 				{ 7, 45825 }, -- Shieldwarder Girdle
--- 				{ 16, 45843 }, -- Legguards of the Peaceful Covenant
--- 				{ 17, 45841 }, -- Legplates of the Violet Champion
--- 				{ 18, 45842 }, -- Wyrmguard Legplates
--- 			},
--- 		},
--- 		{
--- 			name = ALIL["Neck"],
--- 			[NORMAL_DIFF] = {
--- 				{ 1, 45820 }, -- Broach of the Wailing Night
--- 				{ 2, 45822 }, -- Evoker's Charm
--- 				{ 3, 45823 }, -- Frozen Tear of Elune
--- 				{ 4, 45821 }, -- Shard of the Crystal Forest
--- 				{ 5, 45819 }, -- Spiked Battleguard Choker
--- 			},
--- 		},
--- 		{
--- 			name = ALIL["Relic"],
--- 			[NORMAL_DIFF] = {
--- 				{ 1, 45509 }, -- Idol of the Corruptor
--- 				{ 2, 45270 }, -- Idol of the Crying Wind
--- 				{ 3, 46138 }, -- Idol of the Flourishing Life
--- 				{ 5, 45510 }, -- Libram of Discord
--- 				{ 6, 45436 }, -- Libram of the Resolute
--- 				{ 7, 45145 }, -- Libram of the Sacred Shield
+				{ 16, 47695 }, -- Hood of Clouded Sight
+				{ 17, 47692 }, -- Hood of Smoldering Aftermath
+				{ 18, 47714 }, -- Pauldrons of Catastrophic Emanation
+				{ 19, 47716 }, -- Mantle of Revered Mortality
 
--- 				{ 16, 45114 }, -- Steamcaller's Totem
--- 				{ 17, 45255 }, -- Thunderfall Totem
--- 				{ 18, 45169 }, -- Totem of the Dancing Flame
--- 				{ 20, 45144 }, -- Sigil of Deflection
--- 				{ 21, 45254 }, -- Sigil of the Vengeful Heart
--- 			},
--- 		},
--- 		{
--- 			name = AL["Token"],
--- 			[NORMAL_DIFF] = {
--- 				{ 1, 45638 }, -- Crown of the Wayward Conqueror
--- 				{ 2, 45639 }, -- Crown of the Wayward Protector
--- 				{ 3, 45640 }, -- Crown of the Wayward Vanquisher
--- 				{ 16, 45632 }, -- Breastplate of the Wayward Conqueror
--- 				{ 17, 45633 }, -- Breastplate of the Wayward Protector
--- 				{ 18, 45634 }, -- Breastplate of the Wayward Vanquisher
--- 			},
--- 		},
--- 		{
--- 			name = AL["Misc"],
--- 			[NORMAL_DIFF] = {
--- 				{ 1, 45087 }, -- Runed Orb
--- 			},
--- 		},
--- 	}
--- }
+				{ 21, 47694 }, -- Helm of Clouded Sight
+				{ 22, 47693 }, -- Hood of Fiery Aftermath
+				{ 23, 47713 }, -- Mantle of Catastrophic Emanation
+				{ 24, 47715 }, -- Pauldrons of Revered Mortality
+			},
+		},
+		{
+			name = ALIL["Armor"].." - "..ALIL["Leather"],
+			[NORMAL_DIFF] = {
+				{ 1, 45838 }, -- Gloves of the Blind Stalker
+				{ 2, 45839 }, -- Grips of the Secret Grove
+				{ 3, 45830 }, -- Belt of the Living Thicket
+				{ 4, 45829 }, -- Belt of the Twilight Assassin
+				{ 5, 45846 }, -- Leggings of Wavering Shadow
+				{ 6, 45847 }, -- Wildstrider Legguards
 
+				{ 16, 47691 }, -- Mask of Abundant Growth
+				{ 17, 47688 }, -- Mask of Lethal Intent
+				{ 18, 47709 }, -- Duskstalker Pauldrons
+				{ 19, 47710 }, -- Epaulets of the Fateful Accord
+				{ 21, 47690 }, -- Helm of Abundant Growth
+				{ 22, 47689 }, -- Hood of Lethal Intent
+				{ 23, 47708 }, -- Duskstalker Shoulderpads
+				{ 24, 47712 }, -- Shoulders of the Fateful Accord
+			},
+		},
+		{
+			name = ALIL["Armor"].." - "..ALIL["Mail"],
+			[NORMAL_DIFF] = {
+				{ 1, 45837 }, -- Gloves of Augury
+				{ 2, 45836 }, -- Gloves of Unerring Aim
+				{ 4, 45827 }, -- Belt of the Ardent Marksman
+				{ 5, 45828 }, -- Windchill Binding
+				{ 6, 45844 }, -- Leggings of the Tireless Sentry
+				{ 7, 45845 }, -- Leggings of the Weary Mystic
+				{ 16, 47687 }, -- Headguard of Inner Warmth
+				{ 17, 47684 }, -- Coif of the Brooding Dragon
+				{ 18, 47705 }, -- Pauldrons of the Devourer
+				{ 19, 47706 }, -- Shoulders of the Groundbreaker
+				{ 21, 47686 }, -- Helm of Inner Warmth
+				{ 22, 47685 }, -- Helm of the Brooding Dragon
+				{ 23, 47704 }, -- Epaulets of the Devourer
+				{ 24, 47707 }, -- Mantle of the Groundbreaker
+			},
+		},
+		{
+			name = ALIL["Armor"].." - "..ALIL["Plate"],
+			[NORMAL_DIFF] = {
+				{ 1, 45833 }, -- Bladebreaker Gauntlets
+				{ 2, 45835 }, -- Gauntlets of Serene Blessing
+				{ 3, 45834 }, -- Gauntlets of the Royal Watch
+				{ 5, 45824 }, -- Belt of the Singing Blade
+				{ 6, 45826 }, -- Girdle of Unyielding Trust
+				{ 7, 45825 }, -- Shieldwarder Girdle
+				{ 8, 45843 }, -- Legguards of the Peaceful Covenant
+				{ 9, 45841 }, -- Legplates of the Violet Champion
+				{ 10, 45842 }, -- Wyrmguard Legplates
+
+
+				{ 16, 47678 }, -- Headplate of the Honorbound
+					{ 17, 47682 }, -- Helm of the Restless Watch
+					{ 18, 47675 }, -- Faceplate of Thunderous Rampage
+					{ 19, 47701 }, -- Shoulderplates of the Cavalier
+					{ 20, 47696 }, -- Shoulderplates of Trembling Rage
+					{ 21, 47699 }, -- Shoulderguards of Enduring Order
+					{ 23, 47677 }, -- Faceplate of the Honorbound
+					{ 24, 47681 }, -- Heaume of the Restless Watch
+					{ 25, 47674 }, -- Helm of Thunderous Rampage
+					{ 26, 47702 }, -- Pauldrons of the Cavalier
+					{ 27, 47697 }, -- Pauldrons of Trembling Rage
+					{ 28, 47698 }, -- Shoulderplates of Enduring Order
+			},
+		},
+		{
+			name = ALIL["Neck"],
+			[NORMAL_DIFF] = {
+				{ 1, 45820 }, -- Broach of the Wailing Night
+				{ 2, 45822 }, -- Evoker's Charm
+				{ 3, 45823 }, -- Frozen Tear of Elune
+				{ 4, 45821 }, -- Shard of the Crystal Forest
+				{ 5, 45819 }, -- Spiked Battleguard Choker
+			},
+		},
+		{
+			name = ALIL["Weapon"],
+			[NORMAL_DIFF] = {
+			{ 1, 47659 }, -- Crimson Star
+			{ 2, 47660 }, -- Blades of the Sable Cross
+			{ 16, 47658 }, -- Brimstone Igniter
+			},
+		},
+		{
+			name = ALIL["Trinket"],
+			[NORMAL_DIFF] = {
+				{ 1, 47735 }, -- Glyph of Indomitability
+				{ 2, 47734 }, -- Mark of Supremacy
+				{ 3, 48722 }, -- Shard of the Crystal Heart
+				{ 4, 48724 }, -- Talisman of Resurgence
+			},
+		},
+		{
+			name = ALIL["Finger"],
+			[NORMAL_DIFF] = {
+				{ 1, 47732 }, -- Band of the Invoker
+				{ 2, 47729 }, -- Bloodshed Band
+				{ 3, 47731 }, -- Clutch of Fortification
+				{ 4, 47730 }, -- Dexterous Brightstone Ring
+				{ 5, 47733 }, -- Heartmender Circle
+			},
+		},
+		{
+			name = ALIL["Relic"],
+			[NORMAL_DIFF] = {
+				
+				{ 16, 45509 }, -- Idol of the Corruptor
+				{ 17, 45270 }, -- Idol of the Crying Wind
+				{ 18, 46138 }, -- Idol of the Flourishing Life
+				{ 20, 45510 }, -- Libram of Discord
+				{ 21, 45436 }, -- Libram of the Resolute
+				{ 22, 45145 }, -- Libram of the Sacred Shield
+
+				{ 24, 45114 }, -- Steamcaller's Totem
+				{ 25, 45255 }, -- Thunderfall Totem
+				{ 26, 45169 }, -- Totem of the Dancing Flame
+				{ 28, 45144 }, -- Sigil of Deflection
+				{ 29, 45254 }, -- Sigil of the Vengeful Heart
+			},
+		},
+		-- {
+		-- 	name = AL["Token"],
+		-- 	[NORMAL_DIFF] = {
+		-- 		{ 1, 45638 }, -- Crown of the Wayward Conqueror
+		-- 		{ 2, 45639 }, -- Crown of the Wayward Protector
+		-- 		{ 3, 45640 }, -- Crown of the Wayward Vanquisher
+		-- 		{ 16, 45632 }, -- Breastplate of the Wayward Conqueror
+		-- 		{ 17, 45633 }, -- Breastplate of the Wayward Protector
+		-- 		{ 18, 45634 }, -- Breastplate of the Wayward Vanquisher
+		-- 	},
+		-- },
+		{
+			name = AL["Misc"],
+			[NORMAL_DIFF] = {
+				{ 1, 45087 }, -- Runed Orb
+			},
+		},
+	}
+}
+data["EmblemofHeroismP7"] = {
+	name = AL["'Titan Ember' Vendor"]..' P7（存疑）',
+	ContentType = VENDOR_CONTENT,
+	TableType = NORMAL_ITTYPE,
+	gameVersion = AtlasLoot.WRATH_VERSION_NUM,
+	Phase=7,
+	items = {
+		{
+			name = ALIL["Armor"].." - "..ALIL["Cloth"],
+			[NORMAL_DIFF] = {
+				{1, 33588 },
+				{2, 33586 },
+				{3, 33291 },
+				{4, 33584 },
+				{6, 33589 },
+				{7, 33587 },
+				{8, 33585 },
+				{16, 34926},
+				{17, 34924},
+				{18, 34925},
+				{19, 34919},
+				{20, 34917},
+				{21, 34918},
+				{22, 34938},
+				{23, 34936},
+				{24, 34937},
+			},
+		},
+		{
+			name = ALIL["Armor"].." - "..ALIL["Leather"],
+			[NORMAL_DIFF] = {
+				{1, 33972 },
+				{2, 33973 },
+				{3, 33566 },
+				{4, 33578 },
+				{5, 33974 },
+				{6, 33559 },
+				{7, 33577 },
+
+				{9, 33287 },
+				{10, 33557 },
+				{11, 33552 },
+
+				{12, 33579 }, -- bonus armor
+				{13, 33580 }, -- bonus armor
+				{14, 33583 }, -- bonus armor
+				{15, 33582 }, -- bonus armor
+
+				{16, 33540 },
+				{17, 33539 },
+				{18, 33538 },
+				{19, 33222 },
+				{21, 34911}, --bonus armor
+				{22, 34906},  --bonus armor
+				{23, 34910}, --bonus armor
+				{24, 34929}, -- AP
+				{25, 34927}, -- AP
+				{26, 34928}, --AP
+				{27, 34902},  -- healing
+				{28, 34901}, -- healing
+				{29, 34900}, -- healing
+				{30, 34904},  -- SP
+				{101, 34903},  --SP
+				{102, 34905},  -- SP
+			},
+		},
+		{
+			name = ALIL["Armor"].." - "..ALIL["Mail"],
+			[NORMAL_DIFF] = {
+				{1, 33970 },
+				{2, 33965 },
+				{3, 33535 },
+				{4, 33524 },
+				{5, 33536 },
+				{6, 33537 },
+
+				{8, 33529 },
+				{9, 33528 },
+				{10, 33280 },
+				{11, 33527 },
+
+				{12, 33532 },
+				{13, 33531 },
+				{14, 33386 },
+				{15, 33530 },
+				{16, 33324 },
+				{18, 34932}, -- Heal
+				{19, 34931}, -- heal
+				{20, 34930}, -- Heal
+				{21, 34916}, -- AP
+				{22, 34912}, -- AP
+				{23, 34914}, -- AP
+				{24, 34935}, -- SP
+				{25, 34934}, -- SP
+				{26, 34933}, -- SP
+			},
+		},
+		{
+			name = ALIL["Armor"].." - "..ALIL["Plate"],
+			[NORMAL_DIFF] = {
+				{1, 33810 },
+				{2, 33514 },
+				{3, 33513 },
+				{4, 33331 },
+				{5, 33512 },
+				{6, 33501 },
+
+				{8, 33520 },
+				{9, 33519 },
+				{10, 33518 },
+				{11, 33207 },
+
+				{12, 33522 },
+				{13, 33516 },
+				{14, 33517 },
+				{15},
+				{16, 33524 },
+				{17, 33515 },
+				{18, 33523 },
+
+				{19, 34947}, -- DEF + SP
+				{20, 34945}, -- Def + SP
+				{21, 34946}, -- DEF + SP
+				{22, 34941}, -- Def + Expertise
+				{23, 34939}, -- Def
+				{24, 34940}, -- Def + Expertise
+				{25, 34923}, -- Healing
+				{26, 34921}, -- Healing
+				{27, 34922}, -- Healing
+				{28, 34944}, -- STR + Haste
+				{29, 34942}, -- STR + Haste
+				{30, 34943}, -- STR + Haste
+			},
+		},
+		{
+			name = ALIL["Weapon"],
+			[NORMAL_DIFF] = {
+				{1, 34894},  -- 1H Dagger
+				{2, 34949}, -- OH Dagger
+				{3, 34952}, -- OH Dagger
+				{4, 34950}, -- OH Fist 1.5
+				{6, 34893}, -- MH Fist 2.5
+				{7, 34951}, -- OH - Fist 2.5
+				{16, 34891}, -- 2H Axe
+				{18, 34892}, -- Crossbow
+				{20, 34898}, -- Staff AP
+				{22, 34895}, -- MH Dagger - SP
+				{24, 34896}, -- MH Mace - Healing
+			},
+		},
+		{
+			name = ALIL["Off Hand"],
+			[NORMAL_DIFF] = {
+				{ 1, 33334 },
+				{ 2, 33325 },
+			},
+		},
+		{
+			name = ALIL["Neck"],
+			[NORMAL_DIFF] = {
+				{1, 33296},
+			},
+		},
+		{
+			name = ALIL["Finger"],
+			[NORMAL_DIFF] = {
+				{1, 34887},
+				{2, 34890},
+				{3, 34889},
+				{4, 34888},
+			},
+		},
+		{
+			name = ALIL["Cloak"],
+			[NORMAL_DIFF] = {
+				{ 1, 33593 },
+				{ 2, 35321 },
+				{ 3, 33304 },
+				{ 4, 35324 },
+				{ 5, 33484 },
+				{ 6, 33333 },
+			},
+		},
+		{
+			name = ALIL["Trinket"],
+			[NORMAL_DIFF] = {
+				{1, 35326 },
+				{2, 34049 },
+				{3, 34162 },
+				{4, 34163 },
+				{5, 33832 },
+				{6, 34050 },
+			},
+		},
+		
+		{
+			name = ALIL["Relic"],
+			[NORMAL_DIFF] = {
+				{ 1, "INV_Box_01", nil, AL["Idols"] },
+				{ 2, 33510 },
+				{ 3, 33509 },
+				{ 4, 33508 },
+				{ 6, "INV_Box_01", nil, AL["Librams"] },
+				{ 7, 33503 }, -- Libram of Divine Judgement
+				{ 8, 33502 }, -- Libram of Mending
+				{ 9, 33504 }, -- Libram of Divine Purpose
+				{ 16, "INV_Box_01", nil, AL["Totems"] },
+				{ 17, 33506 },
+				{ 18, 33507 },
+				{ 19, 33505 },
+			},
+		},
+		{
+			name = ALIL["Wands"],
+			[NORMAL_DIFF] = {
+				{ 1, 33192 }, -- Carved Witch Doctor Stick
+			},
+		},
+	}
+}
 -- data["EmblemofTriumph"] = {
 -- 	name = format(AL["'%s' Vendor"], AL["Emblem of Triumph"]),
 -- 	ContentType = VENDOR_CONTENT,
@@ -939,242 +1325,244 @@ data["EmblemofHeroism"] = {
 
 
 
--- data["EmblemofFrost"] = {
--- 	name = format(AL["'%s' Vendor"], AL["Emblem of Frost"]),
--- 	ContentType = VENDOR_CONTENT,
--- 	TableType = NORMAL_ITTYPE,
--- 	gameVersion = AtlasLoot.WRATH_VERSION_NUM,
--- 	items = {
--- 		{
--- 			name = ALIL["Armor"].." - "..ALIL["Cloth"],
--- 			[NORMAL_DIFF] = {
--- 				{ 1, 50975 }, -- Ermine Coronation Robes
--- 				{ 2, 50974 }, -- Meteor Chaser's Raiment
--- 				{ 4, 50984 }, -- Gloves of Ambivalence
--- 				{ 5, 50983 }, -- Gloves of False Gestures
--- 				{ 16, 50996 }, -- Belt of Omission
--- 				{ 17, 50997 }, -- Circle of Ossus
--- 			},
--- 		},
--- 		{
--- 			name = ALIL["Armor"].." - "..ALIL["Leather"],
--- 			[NORMAL_DIFF] = {
--- 				{ 1, 50972 }, -- Shadow Seeker's Tunic
--- 				{ 2, 50973 }, -- Vestments of Spruce and Fir
--- 				{ 4, 50982 }, -- Cat Burglar's Grips
--- 				{ 5, 50981 }, -- Gloves of the Great Horned Owl
--- 				{ 16, 50994 }, -- Belt of Petrified Ivy
--- 				{ 17, 50995 }, -- Vengeful Noose
--- 			},
--- 		},
--- 		{
--- 			name = ALIL["Armor"].." - "..ALIL["Mail"],
--- 			[NORMAL_DIFF] = {
--- 				{ 1, 50970 }, -- Longstrider's Vest
--- 				{ 2, 50971 }, -- Mail of the Geyser
--- 				{ 4, 50980 }, -- Blizzard Keeper's Mitts
--- 				{ 5, 50979 }, -- Logsplitters
--- 				{ 16, 50993 }, -- Band of the Night Raven
--- 				{ 17, 50992 }, -- Waistband of Despair
--- 			},
--- 		},
--- 		{
--- 			name = ALIL["Armor"].." - "..ALIL["Plate"],
--- 			[NORMAL_DIFF] = {
--- 				{ 1, 50965 }, -- Castle Breaker's Battleplate
--- 				{ 2, 50969 }, -- Chestplate of Unspoken Truths
--- 				{ 3, 50968 }, -- Cataclysmic Chestguard
--- 				{ 5, 50977 }, -- Gatecrasher's Gauntlets
--- 				{ 6, 50976 }, -- Gauntlets of Overexposure
--- 				{ 7, 50978 }, -- Gauntlets of the Kraken
--- 				{ 16, 50989 }, -- Lich Killer's Lanyard
--- 				{ 17, 50987 }, -- Malevolant Girdle
--- 				{ 18, 50991 }, -- Verdigris Chain Belt
--- 			},
--- 		},
--- 		{
--- 			name = ALIL["Back"],
--- 			[NORMAL_DIFF] = {
--- 				{ 1, 50468 }, -- Drape of the Violet Tower
--- 				{ 2, 50467 }, -- Might of the Ocean Serpent
--- 				{ 3, 50470 }, -- Recovered Scarlet Onslaught Cape
--- 				{ 4, 50466 }, -- Sentinel's Winter Cloak
--- 				{ 5, 50469 }, -- Volde's Cloak of the Night Sky
--- 			},
--- 		},
--- 		{
--- 			name = ALIL["Weapon"],
--- 			[NORMAL_DIFF] = {
--- 				{ 1, 50474 }, -- Shrapnel Star
--- 			},
--- 		},
--- 		{
--- 			name = ALIL["Relic"],
--- 			[NORMAL_DIFF] = {
--- 				{ 1, 50456 }, -- Idol of the Crying Moon
--- 				{ 2, 50457 }, -- Idol of the Lunar Eclipse
--- 				{ 3, 50454 }, -- Idol of the Black Willow
--- 				{ 5, 50460 }, -- Libram of Blinding Light
--- 				{ 6, 50461 }, -- Libram of the Eternal Tower
--- 				{ 7, 50455 }, -- Libram of Three Truths
--- 				{ 16, 50458 }, -- Bizuri's Totem of Shattered Ice
--- 				{ 17, 50463 }, -- Totem of the Avalanche
--- 				{ 18, 50464 }, -- Totem of the Surging Sea
--- 				{ 20, 50462 }, -- Sigil of the Bone Gryphon
--- 				{ 21, 50459 }, -- Sigil of the Hanged Man
--- 			},
--- 		},
--- 		{
--- 			name = ALIL["Trinket"],
--- 			[NORMAL_DIFF] = {
--- 				{ 1, 50356 }, -- Corroded Skeleton Key
--- 				{ 2, 50355 }, -- Herkuml War Token
--- 				{ 3, 50357 }, -- Maghia's Misguided Quill
--- 				{ 4, 50358 }, -- Purified Lunar Dust
--- 			},
--- 		},
--- 		{
--- 			name = AL["Misc"],
--- 			[NORMAL_DIFF] = {
--- 				{ 1, 49908 }, -- Primordial Saronite
--- 			},
--- 		},
--- 	}
--- }
-
--- data["SiderealEssence"] = {
--- 	name = format(AL["'%s' Vendor"], AL["Sidereal Essence"]),
--- 	ContentType = VENDOR_CONTENT,
--- 	TableType = NORMAL_ITTYPE,
--- 	gameVersion = AtlasLoot.WRATH_VERSION_NUM,
--- 	items = {
--- 		{
--- 			name = ALIL["Armor"].." - "..ALIL["Cloth"],
--- 			[NORMAL_DIFF] = {
--- 				{ 1, 46068 }, -- Amice of Inconceivable Horror
--- 				{ 2, 46045 }, -- Pulsar Gloves
--- 				{ 3, 46034 }, -- Leggings of Profound Darkness
--- 				{ 4, 46050 }, -- Starlight Treads
--- 			},
--- 		},
--- 		{
--- 			name = ALIL["Armor"].." - "..ALIL["Leather"],
--- 			[NORMAL_DIFF] = {
--- 				{ 1, 45993 }, -- Mimiron's Flight Goggles
--- 				{ 2, 45869 }, -- Fluxing Energy Coils
--- 				{ 3, 46043 }, -- Gloves of the Endless Dark
--- 				{ 4, 46095 }, -- Soul-Devouring Cinch
--- 				{ 16, 45293 }, -- Handguards of Potent Cures
--- 				{ 17, 45455 }, -- Belt of the Crystal Tree
--- 				{ 18, 46049 }, -- Zodiac Leggings
--- 			},
--- 		},
--- 		{
--- 			name = ALIL["Armor"].." - "..ALIL["Mail"],
--- 			[NORMAL_DIFF] = {
--- 				{ 1, 45300 }, -- Mantle of Fiery Vengaence
--- 				{ 2, 45989 }, -- Tempered Murcury Greaves
--- 				{ 16, 46044 }, -- Observer's Mantle
--- 				{ 17, 45867 }, -- Breastplate of the Stoneshaper
--- 				{ 18, 45943 }, -- Gloves of Whispering Winds
--- 			},
--- 		},
--- 		{
--- 			name = ALIL["Armor"].." - "..ALIL["Plate"],
--- 			[NORMAL_DIFF] = {
--- 				{ 1, 46037 }, -- Shoulderplates of the Celestial Watch
--- 				{ 2, 45888 }, -- Bitter Cold Armguards
--- 				{ 3, 46041 }, -- Starfall Girdle
--- 				{ 4, 45982 }, -- Fused Alloy Legplates
--- 				{ 6, 46039 }, -- Breastplate of the Timeless
--- 				{ 7, 45988 }, -- Greaves of the Iron Army
--- 				{ 8, 45295 }, -- Gilded Steel Legplates
--- 				{ 16, 45928 }, -- Gauntlets of the Thunder God
--- 			},
--- 		},
--- 		{
--- 			name = ALIL["Back"],
--- 			[NORMAL_DIFF] = {
--- 				{ 1, 46032 }, -- Drape of the Faceless General
--- 				{ 16, 46042 }, -- Drape of the Messenger
--- 			},
--- 		},
--- 		{
--- 			name = ALIL["Neck"],
--- 			[NORMAL_DIFF] = {
--- 				{ 1, 46040 }, -- Strength of the Heavens
--- 				{ 3, 45945 }, -- Seed of Budding Carnage
--- 				{ 16, 45933 }, -- Pendant of the Shallow Grave
--- 				{ 17, 45447 }, -- Watchful Eye of Hate
--- 				{ 18, 46047 }, -- Pendant of the Somber Witness
--- 			},
--- 		},
--- 		{
--- 			name = ALIL["Finger"],
--- 			[NORMAL_DIFF] = {
--- 				{ 1, 46048 }, -- Band of Lights
--- 				{ 2, 45456 }, -- Loop of the Agile
--- 				{ 4, 45871 }, -- Seal of Ulduar
--- 				{ 16, 46046 }, -- Nebula Band
--- 				{ 17, 45297 }, -- Shimmering Seal
--- 				{ 18, 46096 }, -- Signet of Soft Lament
--- 				{ 19, 45946 }, -- Fire Orchid Signet
--- 			},
--- 		},
--- 		{
--- 			name = ALIL["Trinket"],
--- 			[NORMAL_DIFF] = {
--- 				{ 1, 45931 }, -- Mjolnir Runestone
--- 				{ 2, 46038 }, -- Dark Matter
--- 				{ 16, 46051 }, -- Meteorite Crystal
--- 				{ 17, 45929 }, -- Sif's Remembrance
--- 			},
--- 		},
 
 
--- 		{
--- 			name = ALIL["Weapon"],
--- 			[NORMAL_DIFF] = {
--- 				{ 1, 46067 }, -- Hammer of Crushing Whispers
--- 				{ 16, 45868 }, -- Aesir's Edge
+data["EmblemofHeroismP8"] = {
+	name = AL["'Titan Ember' Vendor"]..' P8',
+	ContentType = VENDOR_CONTENT,
+	TableType = NORMAL_ITTYPE,
+	Phase=8,
+	gameVersion = AtlasLoot.WRATH_VERSION_NUM,
+	items = {
+		{
+			name = ALIL["Armor"].." - "..ALIL["Cloth"],
+			[NORMAL_DIFF] = {
+				{ 1, 46068 }, -- Amice of Inconceivable Horror
+				{ 2, 46045 }, -- Pulsar Gloves
+				{ 3, 46034 }, -- Leggings of Profound Darkness
+				{ 4, 46050 }, -- Starlight Treads
+			},
+		},
+		{
+			name = ALIL["Armor"].." - "..ALIL["Leather"],
+			[NORMAL_DIFF] = {
+				{ 1, 45993 }, -- Mimiron's Flight Goggles
+				{ 2, 45869 }, -- Fluxing Energy Coils
+				{ 3, 46043 }, -- Gloves of the Endless Dark
+				{ 4, 46095 }, -- Soul-Devouring Cinch
+				{ 16, 45293 }, -- Handguards of Potent Cures
+				{ 17, 45455 }, -- Belt of the Crystal Tree
+				{ 18, 46049 }, -- Zodiac Leggings
+			},
+		},
+		{
+			name = ALIL["Armor"].." - "..ALIL["Mail"],
+			[NORMAL_DIFF] = {
+				{ 1, 45300 }, -- Mantle of Fiery Vengaence
+				{ 2, 45989 }, -- Tempered Murcury Greaves
+				{ 16, 46044 }, -- Observer's Mantle
+				{ 17, 45867 }, -- Breastplate of the Stoneshaper
+				{ 18, 45943 }, -- Gloves of Whispering Winds
+			},
+		},
+		{
+			name = ALIL["Armor"].." - "..ALIL["Plate"],
+			[NORMAL_DIFF] = {
+				{ 1, 46037 }, -- Shoulderplates of the Celestial Watch
+				{ 2, 45888 }, -- Bitter Cold Armguards
+				{ 3, 46041 }, -- Starfall Girdle
+				{ 4, 45982 }, -- Fused Alloy Legplates
+				{ 6, 46039 }, -- Breastplate of the Timeless
+				{ 7, 45988 }, -- Greaves of the Iron Army
+				{ 8, 45295 }, -- Gilded Steel Legplates
+				{ 16, 45928 }, -- Gauntlets of the Thunder God
+			},
+		},
+		{
+			name = ALIL["Back"],
+			[NORMAL_DIFF] = {
+				{ 1, 46032 }, -- Drape of the Faceless General
+				{ 16, 46042 }, -- Drape of the Messenger
+			},
+		},
+		{
+			name = ALIL["Neck"],
+			[NORMAL_DIFF] = {
+				{ 1, 46040 }, -- Strength of the Heavens
+				{ 3, 45945 }, -- Seed of Budding Carnage
+				{ 16, 45933 }, -- Pendant of the Shallow Grave
+				{ 17, 45447 }, -- Watchful Eye of Hate
+				{ 18, 46047 }, -- Pendant of the Somber Witness
+			},
+		},
+		{
+			name = ALIL["Finger"],
+			[NORMAL_DIFF] = {
+				{ 1, 46048 }, -- Band of Lights
+				{ 2, 45456 }, -- Loop of the Agile
+				{ 4, 45871 }, -- Seal of Ulduar
+				{ 16, 46046 }, -- Nebula Band
+				{ 17, 45297 }, -- Shimmering Seal
+				{ 18, 46096 }, -- Signet of Soft Lament
+				{ 19, 45946 }, -- Fire Orchid Signet
+			},
+		},
+		{
+			name = ALIL["Trinket"],
+			[NORMAL_DIFF] = {
+				{ 1, 45931 }, -- Mjolnir Runestone
+				{ 2, 46038 }, -- Dark Matter
+				{ 16, 46051 }, -- Meteorite Crystal
+				{ 17, 45929 }, -- Sif's Remembrance
+			},
+		},
 
--- 				{ 3, 46033 }, -- Tortured Earth
 
--- 				{ 5, 45449 }, -- The Masticator
--- 				{ 20, 46097 }, -- Caress of Insanity
--- 				{ 6, 45947 }, -- Serilas, Blood Blade of Invar One-Arm
--- 				{ 21, 46036 }, -- Void Sabre
--- 				{ 7, 45448 }, -- Perilous Bite
--- 				{ 22, 45930 }, -- Combatant's Bootblade
+		{
+			name = ALIL["Weapon"],
+			[NORMAL_DIFF] = {
+				{ 1, 46067 }, -- Hammer of Crushing Whispers
+				{ 16, 45868 }, -- Aesir's Edge
 
--- 				{ 9, 45876 }, -- Shiver
+				{ 3, 46033 }, -- Tortured Earth
 
--- 				{ 11, 45870 }, -- Magnetized Projectile Emitter
--- 				{ 26, 45296 }, -- Twirling Blades
+				{ 5, 45449 }, -- The Masticator
+				{ 20, 46097 }, -- Caress of Insanity
+				{ 6, 45947 }, -- Serilas, Blood Blade of Invar One-Arm
+				{ 21, 46036 }, -- Void Sabre
+				{ 7, 45448 }, -- Perilous Bite
+				{ 22, 45930 }, -- Combatant's Bootblade
 
--- 				{ 13, 45990 }, -- Fusion Blade
--- 				{ 28, 46035 }, -- Aesuga, Hand of the Ardent Champion
--- 				{ 14, 45886 }, -- Icecore Staff
--- 				{ 29, 45294 }, -- Petrified Ivy Sprig
+				{ 9, 45876 }, -- Shiver
 
--- 			},
--- 		},
--- 		{
--- 			name = ALIL["Shield"],
--- 			[NORMAL_DIFF] = {
--- 				{ 1, 45877 }, -- The Boreal Guard
--- 				{ 16, 45887 }, -- Ice Layered Barrier
--- 			},
--- 		},
--- 		{
--- 			name = AL["Misc"],
--- 			[NORMAL_DIFF] = {
--- 				{ 1, 47556 }, -- Crusader Orb
--- 			},
--- 		},
--- 	}
--- }
+				{ 11, 45870 }, -- Magnetized Projectile Emitter
+				{ 26, 45296 }, -- Twirling Blades
 
+				{ 13, 45990 }, -- Fusion Blade
+				{ 28, 46035 }, -- Aesuga, Hand of the Ardent Champion
+				{ 14, 45886 }, -- Icecore Staff
+				{ 29, 45294 }, -- Petrified Ivy Sprig
+
+			},
+		},
+		{
+			name = ALIL["Shield"],
+			[NORMAL_DIFF] = {
+				{ 1, 45877 }, -- The Boreal Guard
+				{ 16, 45887 }, -- Ice Layered Barrier
+			},
+		},
+		{
+			name = AL["Misc"],
+			[NORMAL_DIFF] = {
+				{ 1, 47556 }, -- Crusader Orb
+			},
+		},
+	}
+}
+data["EmblemofHeroismP11"] = {
+	name =AL["'Titan Ember' Vendor"]..' P11',
+	ContentType = VENDOR_CONTENT,
+	TableType = NORMAL_ITTYPE,
+	Phase=11,
+	gameVersion = AtlasLoot.WRATH_VERSION_NUM,
+	items = {
+		{
+			name = ALIL["Armor"].." - "..ALIL["Cloth"],
+			[NORMAL_DIFF] = {
+				{ 1, 50975 }, -- Ermine Coronation Robes
+				{ 2, 50974 }, -- Meteor Chaser's Raiment
+				{ 4, 50984 }, -- Gloves of Ambivalence
+				{ 5, 50983 }, -- Gloves of False Gestures
+				{ 16, 50996 }, -- Belt of Omission
+				{ 17, 50997 }, -- Circle of Ossus
+			},
+		},
+		{
+			name = ALIL["Armor"].." - "..ALIL["Leather"],
+			[NORMAL_DIFF] = {
+				{ 1, 50972 }, -- Shadow Seeker's Tunic
+				{ 2, 50973 }, -- Vestments of Spruce and Fir
+				{ 4, 50982 }, -- Cat Burglar's Grips
+				{ 5, 50981 }, -- Gloves of the Great Horned Owl
+				{ 16, 50994 }, -- Belt of Petrified Ivy
+				{ 17, 50995 }, -- Vengeful Noose
+			},
+		},
+		{
+			name = ALIL["Armor"].." - "..ALIL["Mail"],
+			[NORMAL_DIFF] = {
+				{ 1, 50970 }, -- Longstrider's Vest
+				{ 2, 50971 }, -- Mail of the Geyser
+				{ 4, 50980 }, -- Blizzard Keeper's Mitts
+				{ 5, 50979 }, -- Logsplitters
+				{ 16, 50993 }, -- Band of the Night Raven
+				{ 17, 50992 }, -- Waistband of Despair
+			},
+		},
+		{
+			name = ALIL["Armor"].." - "..ALIL["Plate"],
+			[NORMAL_DIFF] = {
+				{ 1, 50965 }, -- Castle Breaker's Battleplate
+				{ 2, 50969 }, -- Chestplate of Unspoken Truths
+				{ 3, 50968 }, -- Cataclysmic Chestguard
+				{ 5, 50977 }, -- Gatecrasher's Gauntlets
+				{ 6, 50976 }, -- Gauntlets of Overexposure
+				{ 7, 50978 }, -- Gauntlets of the Kraken
+				{ 16, 50989 }, -- Lich Killer's Lanyard
+				{ 17, 50987 }, -- Malevolant Girdle
+				{ 18, 50991 }, -- Verdigris Chain Belt
+			},
+		},
+		{
+			name = ALIL["Back"],
+			[NORMAL_DIFF] = {
+				{ 1, 50468 }, -- Drape of the Violet Tower
+				{ 2, 50467 }, -- Might of the Ocean Serpent
+				{ 3, 50470 }, -- Recovered Scarlet Onslaught Cape
+				{ 4, 50466 }, -- Sentinel's Winter Cloak
+				{ 5, 50469 }, -- Volde's Cloak of the Night Sky
+			},
+		},
+		{
+			name = ALIL["Weapon"],
+			[NORMAL_DIFF] = {
+				{ 1, 50474 }, -- Shrapnel Star
+			},
+		},
+		{
+			name = ALIL["Relic"],
+			[NORMAL_DIFF] = {
+				{ 1, 50456 }, -- Idol of the Crying Moon
+				{ 2, 50457 }, -- Idol of the Lunar Eclipse
+				{ 3, 50454 }, -- Idol of the Black Willow
+				{ 5, 50460 }, -- Libram of Blinding Light
+				{ 6, 50461 }, -- Libram of the Eternal Tower
+				{ 7, 50455 }, -- Libram of Three Truths
+				{ 16, 50458 }, -- Bizuri's Totem of Shattered Ice
+				{ 17, 50463 }, -- Totem of the Avalanche
+				{ 18, 50464 }, -- Totem of the Surging Sea
+				{ 20, 50462 }, -- Sigil of the Bone Gryphon
+				{ 21, 50459 }, -- Sigil of the Hanged Man
+			},
+		},
+		{
+			name = ALIL["Trinket"],
+			[NORMAL_DIFF] = {
+				{ 1, 50356 }, -- Corroded Skeleton Key
+				{ 2, 50355 }, -- Herkuml War Token
+				{ 3, 50357 }, -- Maghia's Misguided Quill
+				{ 4, 50358 }, -- Purified Lunar Dust
+			},
+		},
+		{
+			name = AL["Misc"],
+			[NORMAL_DIFF] = {
+				{ 1, 49908 }, -- Primordial Saronite
+			},
+		},
+	}
+}
 -- data["DefilersScourgestone"] = {
 -- 	name = format(AL["'%s' Vendor"], AL["Defiler's Scourgestone"]),
 -- 	ContentType = VENDOR_CONTENT,
@@ -1773,8 +2161,12 @@ data["LegendarysWrath"] = {
 		{
 			name = AL["Legendarys"],
 			[NORMAL_ITTYPE] = {
-				{ 1, 49623, "ac4623" },	-- Shadowmourne
-				{ 16, 46017, "ac3142" },	-- Val'anyr, Hammer of Ancient Kings
+				-- { 1, 49623, "ac4623" },	-- Shadowmourne
+				-- { 16, 46017, "ac3142" },	-- Val'anyr, Hammer of Ancient Kings
+				{1,19019},
+				{2,259908},
+				{3,260344},
+				{4,22632},
 			},
 		},
 	},
@@ -1895,17 +2287,26 @@ data["ValentinedayWrath"] = {
 		{ -- SFKApothecaryH
 			name = C_Map_GetAreaInfo(209).." - "..AL["Apothecary Hummel"],
 			[NORMAL_DIFF] = {
-				{ 1,  51804 }, -- Winking Eye of Love
-				{ 2,  51805 }, -- Heartbreak Charm
-				{ 3,  51806 }, -- Shard of Pirouetting Happiness
-				{ 4,  51807 }, -- Sweet Perfume Broach
-				{ 5,  51808 }, -- Choker of the Pure Heart
-				{ 7,  49641 }, -- Faded Lovely Greeting Card
-				{ 8,  49715 }, -- Forever-Lovely Rose
-				{ 9,  50250 }, -- X-45 Heartbreaker
-				{ 10,  50446 }, -- Toxic Wasteling
-				{ 11,  50471 }, -- The Heartbreaker
-				{ 12,  50741 }, -- Vile Fumigator's Mask
+				{ 1, "INV_Box_01", nil, "第一套（未使用）", nil },
+				{ 2,  51804 }, -- Winking Eye of Love
+				{ 3,  51805 }, -- Heartbreak Charm
+				{ 4,  51806 }, -- Shard of Pirouetting Happiness
+				{ 5,  51807 }, -- Sweet Perfume Broach
+				{ 6,  51808 }, -- Choker of the Pure Heart
+				{ 8,  49641 }, -- Faded Lovely Greeting Card
+				{ 9,  49715 }, -- Forever-Lovely Rose
+				{ 10,  50250 }, -- X-45 Heartbreaker
+				{ 11,  50446 }, -- Toxic Wasteling
+				{ 12,  50471 }, -- The Heartbreaker
+				{ 13,  50741 }, -- Vile Fumigator's Mask
+
+				{ 16,"INV_Box_01", nil, "第二套（实装）", nil },
+				{ 17,238343},
+				{ 18, 238342},
+				{ 19, 238341},
+				{ 20, 238340},
+				{ 21, 238339},{ 22, 33475},
+
 			},
 		},
 	},
@@ -1943,6 +2344,7 @@ data["MidsummerFestivalWrath"] = {
 	TableType = NORMAL_ITTYPE,
 	gameVersion = AtlasLoot.WRATH_VERSION_NUM,
 	CorrespondingFields = private.MIDSUMMER_FESTIVAL,
+	Phase=4,
 	items = {
 		{ -- MidsummerFestivalWrath
 			name = AL["Midsummer Festival"],
@@ -1989,6 +2391,7 @@ data["BrewfestWrath"] = {
 	LoadDifficulty = NORMAL_DIFF,
 	TableType = NORMAL_ITTYPE,
 	gameVersion = AtlasLoot.WRATH_VERSION_NUM,
+	Phase=6,
 	items = {
 		{ -- Brewfest
 			name = AL["Brewfest"],
@@ -2059,6 +2462,7 @@ data["HalloweenWrath"] = {
 	TableType = NORMAL_ITTYPE,
 	gameVersion = AtlasLoot.WRATH_VERSION_NUM,
 	CorrespondingFields = private.HALLOWEEN,
+	Phase=7,
 	items = {
 		{ -- Halloween1
 			name = AL["Hallow's End"].." - "..AL["Misc"],

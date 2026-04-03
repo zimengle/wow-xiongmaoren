@@ -220,6 +220,7 @@ L.DBMLOOTREMINDER					= "警告: 第三方插件DBM-LootReminder已安装。该�
 L.UPDATE_REQUIRES_RELAUNCH		= "警告: 如果你不完全重启游戏，" .. L.DBM .. "可能会工作不正常。此次更新包含了新的文件，或者toc文件的改变，这是重载界面无法加载的。不重启游戏可能导致作战模块功能错误。"
 L.OUT_OF_DATE_NAG				= "你的" .. L.DBM .. "版本已经过期，新版本针对特定的首领战斗增加新的功能和错误的修复。建议您进行更新来改善您的游戏体验。"
 L.PLATER_NP_AURAS_MSG					= L.DBM .. "现在提供可以在敌人姓名版提供技能冷却的高级功能。对于大部分用户来说，本功能默认开启，但 Plater 用户需要在 Plater “Buff选项” 中手动开启。如果你不想见到本消息，你也可以在DBM设置界面的“姓名版全局开启与过滤选项”中关掉它"
+L.HARDCODED_FALLBACK				= L.DBM .. "检测到硬编码模组出现异常结果。" .. L.DBM .. "将在这场战斗中回退为暴雪计时器和警报。"
 
 L.MOVABLE_BAR				= "拖动我！"
 
@@ -280,6 +281,7 @@ L.SLASHCMD_HELP				= {
 	"/dbm key: 执行大秘钥石和评级检查，适用于队伍/公会，并提供副本传送的快捷方式。 (也可使用: key, keys, keystone)",
 	"/dbm lag: 检测全团网络延时",
 	"/dbm durability: 检测全团装备耐久度",
+	"/dbm brez: 显示战斗复活计时器框架以供定位。",--AI translated (check me)
 	"/dbm help2: 显示额外的/命令"
 }
 L.SLASHCMD_HELP2				= {
@@ -476,30 +478,30 @@ L.AUTO_SPEC_WARN_OPTIONS.targetchange	= "特殊警报：需要立刻切换目标
 L.AUTO_TIMER_TEXTS.target				= "%s: >%%s<"
 L.AUTO_TIMER_TEXTS.targetcount 			= "%s: >%%s< (%%s)"
 L.AUTO_TIMER_TEXTS.cast					= "%s"
-L.AUTO_TIMER_TEXTS.castcount				= "%s (%%s)"
-L.AUTO_TIMER_TEXTS.castsource			= "%s: %%s"
+L.AUTO_TIMER_TEXTS.castcount			= "%s (%%s)"
+L.AUTO_TIMER_TEXTS.castsource			= "%s：%%s"
 L.AUTO_TIMER_TEXTS.active				= "%s结束"--Buff/Debuff/event on boss
-L.AUTO_TIMER_TEXTS.fades					= "%s消失"--Buff/Debuff on players
+L.AUTO_TIMER_TEXTS.fades				= "%s消失"--Buff/Debuff on players
 L.AUTO_TIMER_TEXTS.ai					= "%s AI"
 
-L.AUTO_TIMER_TEXTS.cd					= "%s冷却"
-L.AUTO_TIMER_TEXTS.cdcount				= "%s冷却（%%s）"
-L.AUTO_TIMER_TEXTS.cdsource				= "%s冷却: >%%s<"
-L.AUTO_TIMER_TEXTS.cdspecial				= "特殊技能冷却"
+L.AUTO_TIMER_TEXTS.cd					= "%s"
+L.AUTO_TIMER_TEXTS.cdcount				= "%s（%%s）"
+L.AUTO_TIMER_TEXTS.cdsource				= "%s：>%%s<"
+L.AUTO_TIMER_TEXTS.cdspecial			= "特殊技能冷却"
 
-L.AUTO_TIMER_TEXTS.next 					= "下一次%s"
-L.AUTO_TIMER_TEXTS.nextcount				= "下一次%s（%%s）"
-L.AUTO_TIMER_TEXTS.nextsource			= "下一次%s: >%%s<"
+L.AUTO_TIMER_TEXTS.next 				= "%s"
+L.AUTO_TIMER_TEXTS.nextcount			= "%s（%%s）"
+L.AUTO_TIMER_TEXTS.nextsource			= "%s：>%%s<"
 L.AUTO_TIMER_TEXTS.nextspecial			= "下一次特殊技能"
 
 L.AUTO_TIMER_TEXTS.achievement 			= "%s"
-L.AUTO_TIMER_TEXTS.stage					= "阶段"
-L.AUTO_TIMER_TEXTS.stagecount				= "阶段 %%s"
-L.AUTO_TIMER_TEXTS.stagecountcycle			= "阶段 %%s (%%s)"--Example: Stage 2 (3) for a fight that alternates stage 1 and stage 2, but also tracks total cycles
-L.AUTO_TIMER_TEXTS.stagecontext				= "%s"
-L.AUTO_TIMER_TEXTS.stagecontextcount		= "%s (%%s)"
-L.AUTO_TIMER_TEXTS.intermission				= "转阶段"
-L.AUTO_TIMER_TEXTS.intermissioncount		= "转阶段 %%s"
+L.AUTO_TIMER_TEXTS.stage				= "阶段"
+L.AUTO_TIMER_TEXTS.stagecount			= "阶段 %%s"
+L.AUTO_TIMER_TEXTS.stagecountcycle		= "阶段 %%s (%%s)"--Example: Stage 2 (3) for a fight that alternates stage 1 and stage 2, but also tracks total cycles
+L.AUTO_TIMER_TEXTS.stagecontext			= "%s"
+L.AUTO_TIMER_TEXTS.stagecontextcount	= "%s (%%s)"
+L.AUTO_TIMER_TEXTS.intermission			= "转阶段"
+L.AUTO_TIMER_TEXTS.intermissioncount	= "转阶段 %%s"
 L.AUTO_TIMER_TEXTS.adds					= "下一波小怪"
 L.AUTO_TIMER_TEXTS.addscustom			= "小怪 (%%s)"
 L.AUTO_TIMER_TEXTS.roleplay				= GUILD_INTEREST_RP or "剧情"
@@ -644,7 +646,6 @@ L.ARROW_ERROR_USAGE	= {
 
 L.SPEED_KILL_TIMER_TEXT	= "击杀记录"
 L.SPEED_CLEAR_TIMER_TEXT	= "最速清除"
-L.COMBAT_RES_TIMER_TEXT	= "下一次可用战复"
 L.TIMER_RESPAWN		= "%s 刷新"
 
 L.LAG_HEADER					= L.DBM .. " - 延时检测"

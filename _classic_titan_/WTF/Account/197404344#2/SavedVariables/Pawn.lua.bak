@@ -11,13 +11,15 @@ PawnCommon = {
 ["ColorTooltipBorder"] = true,
 ["IgnoreGemsWhileLeveling"] = true,
 ["ShowTooltipIcons"] = true,
+["ShowSpecIcons"] = true,
+["ShowSocketingAdvisor"] = true,
 ["Scales"] = {
 ["\"Classic\":WARRIOR2"] = {
 ["Color"] = "c79c6e",
 ["ClassID"] = 1,
 ["LocalizedName"] = "战士: 狂怒",
 ["PerCharacterOptions"] = {
-["美团王兴-时光IV"] = {
+["美团王兴-时光IV - 红色信仰"] = {
 ["Visible"] = true,
 },
 ["三角碑崽儿-时光IV - 红色信仰"] = {
@@ -26,7 +28,7 @@ PawnCommon = {
 ["三角碑崽儿-时光IV"] = {
 ["Visible"] = true,
 },
-["美团王兴-时光IV - 红色信仰"] = {
+["美团王兴-时光IV"] = {
 ["Visible"] = true,
 },
 },
@@ -183,7 +185,7 @@ PawnCommon = {
 ["ClassID"] = 1,
 ["LocalizedName"] = "战士: 防护",
 ["PerCharacterOptions"] = {
-["美团王兴-时光IV"] = {
+["美团王兴-时光IV - 红色信仰"] = {
 ["Visible"] = true,
 },
 ["三角碑崽儿-时光IV - 红色信仰"] = {
@@ -192,7 +194,7 @@ PawnCommon = {
 ["三角碑崽儿-时光IV"] = {
 ["Visible"] = true,
 },
-["美团王兴-时光IV - 红色信仰"] = {
+["美团王兴-时光IV"] = {
 ["Visible"] = true,
 },
 },
@@ -230,10 +232,10 @@ PawnCommon = {
 ["ClassID"] = 2,
 ["LocalizedName"] = "圣骑士: 惩戒",
 ["PerCharacterOptions"] = {
-["京东刘强东-时光IV - 红色信仰"] = {
+["京东董事长-时光IV"] = {
 ["Visible"] = true,
 },
-["京东董事长-时光IV"] = {
+["京东刘强东-时光IV - 红色信仰"] = {
 ["Visible"] = true,
 },
 ["京东刘强东-时光IV"] = {
@@ -410,7 +412,7 @@ PawnCommon = {
 ["ClassID"] = 1,
 ["LocalizedName"] = "战士: 武器",
 ["PerCharacterOptions"] = {
-["美团王兴-时光IV"] = {
+["美团王兴-时光IV - 红色信仰"] = {
 ["Visible"] = true,
 },
 ["三角碑崽儿-时光IV - 红色信仰"] = {
@@ -419,7 +421,7 @@ PawnCommon = {
 ["三角碑崽儿-时光IV"] = {
 ["Visible"] = true,
 },
-["美团王兴-时光IV - 红色信仰"] = {
+["美团王兴-时光IV"] = {
 ["Visible"] = true,
 },
 },
@@ -489,10 +491,10 @@ PawnCommon = {
 ["ClassID"] = 2,
 ["LocalizedName"] = "圣骑士: 防护",
 ["PerCharacterOptions"] = {
-["京东刘强东-时光IV - 红色信仰"] = {
+["京东董事长-时光IV"] = {
 ["Visible"] = true,
 },
-["京东董事长-时光IV"] = {
+["京东刘强东-时光IV - 红色信仰"] = {
 ["Visible"] = true,
 },
 ["京东刘强东-时光IV"] = {
@@ -527,10 +529,10 @@ PawnCommon = {
 ["ClassID"] = 2,
 ["LocalizedName"] = "圣骑士: 神圣",
 ["PerCharacterOptions"] = {
-["京东刘强东-时光IV - 红色信仰"] = {
+["京东董事长-时光IV"] = {
 ["Visible"] = true,
 },
-["京东董事长-时光IV"] = {
+["京东刘强东-时光IV - 红色信仰"] = {
 ["Visible"] = true,
 },
 ["京东刘强东-时光IV"] = {
@@ -583,9 +585,7 @@ PawnCommon = {
 ["UnenchantedColor"] = "bf3950",
 },
 },
-["ShowSocketingAdvisor"] = true,
-["ShowSpecIcons"] = true,
-["LastVersion"] = 2.1303,
+["LastVersion"] = 2.1308,
 ["ButtonPosition"] = 2,
 ["ShowLootUpgradeAdvisor"] = true,
 ["ShowQuestUpgradeAdvisor"] = true,

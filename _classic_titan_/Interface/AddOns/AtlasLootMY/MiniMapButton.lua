@@ -19,7 +19,12 @@ local ALButton = LibStub("LibDBIcon-1.0")
 local TT_H_1, TT_H_2 = "|cff00FF00"..AL["AtlasLoot - Titan"].."|r", string.format("|cffFFFFFF%s|r", AtlasLoot.__addonversion)
 local TT_ENTRY = "|cFFCFCFCF%s:|r %s" --|cffFFFFFF%s|r"
 
-
+StaticPopupDialogs["ATLAS_MY_ALERT"] = {
+    text = "%s",
+    button1 = 'OK',
+    whileDead = true,
+    hideOnEscape = true
+}
 -- LDB
 if not LibStub:GetLibrary("LibDataBroker-1.1", true) then return end
 
@@ -35,11 +40,21 @@ local MiniMapLDB = LibStub:GetLibrary("LibDataBroker-1.1"):NewDataObject("AtlasL
 			tooltip:AddLine(format(TT_ENTRY, AL["Middle Click"], AL["Open AtlasLoot without auto select"]))
 		end
 		tooltip:AddLine(format(TT_ENTRY, AL["Shift + Left Click"], AL["Open Options"]))
-		tooltip:AddLine(format(TT_ENTRY, AL["Right Click"], AL["Open Favourites"]))
+		tooltip:AddLine(format(TT_ENTRY, AL["Right Click"], AL["Open MYGear"]))
 	end,
 	OnClick = function(self, button)
 		if button == "RightButton" then
-			AtlasLoot.Addons:GetAddon("Favourites").GUI:Toggle()
+			if IsShiftKeyDown() then
+				AtlasLoot.Addons:GetAddon("Favourites").GUI:Toggle()
+				return
+			end
+			if _G['MYGear'] then
+				_G['MYGear'].UI:Toggle()
+			else
+				StaticPopup_Show("ATLAS_MY_ALERT", AL['Search MYGear on Curseforge for instaling MiaoYingGear Emulator'])
+				AtlasLoot.Addons:GetAddon("Favourites").GUI:Toggle()
+			end
+			
 		elseif button == "MiddleButton" and AtlasLoot.db.enableAutoSelect then
 			AtlasLoot.db.enableAutoSelect = false
 			SlashCommands:Run("")

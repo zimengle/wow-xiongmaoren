@@ -15,6 +15,17 @@ local xListLen = 500
 local debugWidth = 880
 local debugHeight = 465
 
+local levels = {
+	"DEBUG",
+	"INFO",
+	"TRACE",
+	"WARN",
+	"FINE",
+	"SL1",
+	"SL2",
+	"SL3",
+}
+
 local function unescape(str)
     str = gsub(str, "|T.-|t", "") --textures in chat like currency coins and such
 	str = gsub(str, "|H.-|h(.-)|h", "%1") --links, just put the item description and chat color
@@ -92,24 +103,13 @@ function Debug:OnEnable()
 	})
 	optionsFrame.disableCacheChk = disableCacheChk
 
-	local levels = {
-		"DEBUG",
-		"INFO",
-		"TRACE",
-		"WARN",
-		"FINE",
-		"SL1",
-		"SL2",
-		"SL3",
-	}
-
 	local lastPoint
 
 	optionsFrame.debugLevels = {}
 
 	for k=1, #levels do
 		local tmpLevel = UI:CreateCheckButton(optionsFrame, {
-			text = L["Debug_"..levels[k]],
+			text = levels[k],
 			textColor = { 1, 1, 1 },
 			point = {
 				(not lastPoint and "BOTTOMLEFT") or "LEFT",
@@ -310,9 +310,37 @@ function Debug:OnEnable()
 		autoWidth = true,
 		point = { "LEFT", dumpTotals, "RIGHT", 10, 0 },
 		onClick = function()
-			for i=1, GetNumAddOns() do
-				local _, title = GetAddOnInfo(i)
-				Debug:AddMessage(1, "AddonList", title)
+			local getNum = (C_AddOns and C_AddOns.GetNumAddOns) or _G.GetNumAddOns
+			local getInfo = (C_AddOns and C_AddOns.GetAddOnInfo) or _G.GetAddOnInfo
+			local isLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or _G.IsAddOnLoaded
+			local isEnabled = (C_AddOns and C_AddOns.IsAddOnEnabled) or _G.IsAddOnEnabled
+
+			if type(getNum) ~= "function" or type(getInfo) ~= "function" then
+				Debug:AddMessage(1, "AddonList", "GetAddOnInfo/GetNumAddOns unavailable")
+				return
+			end
+
+			Debug:AddMessage(1, "AddonList", string.format("total=%s", tostring(getNum())))
+
+			for i = 1, getNum() do
+				local name, title, notes, enabled, loadable, reason, security = getInfo(i)
+				if name and isEnabled then
+					enabled = isEnabled(name)
+				end
+				local loaded = name and isLoaded and isLoaded(name)
+				local displayTitle = title or name
+				local line = string.format(
+					"%d: %s | %s | enabled=%s | loaded=%s | loadable=%s | reason=%s | security=%s",
+					i,
+					tostring(name),
+					tostring(displayTitle),
+					tostring(enabled),
+					tostring(loaded),
+					tostring(loadable),
+					tostring(reason),
+					tostring(security)
+				)
+				Debug:AddMessage(1, "AddonList", line)
 			end
 		end,
 	})
@@ -327,6 +355,15 @@ function Debug:OnEnable()
 		backdropColor = { 0, 0, 0, 0.75 },
 		frameStrata = "FULLSCREEN_DIALOG",
 	})
+	exportFrame:SetMovable(true)
+	exportFrame:SetClampedToScreen(true)
+	exportFrame:RegisterForDrag("LeftButton")
+	exportFrame:SetScript("OnDragStart", function(self)
+		self:StartMoving()
+	end)
+	exportFrame:SetScript("OnDragStop", function(self)
+		self:StopMovingOrSizing()
+	end)
 	exportFrame.ScrollFrame = UI:CreateScrollFrame(exportFrame, {
 		points = {
 			{ "TOPLEFT", exportFrame, "TOPLEFT", 8, -30 },
@@ -480,7 +517,8 @@ function Debug:AddMessage(level, sName, ...)
 
 	local moduleName = string.format("|c"..color.."[%s]|r: ", sName)
 	debugStr = moduleName..debugStr
-	debugStr = "|cff808080["..date("%X").."]:|r "..debugStr
+	--ff00bfaf
+	debugStr = "|cff808080["..date("%X").."]|r|cff91aaff["..levels[level].."]:|r "..debugStr
 
 	--if it exceeds the amount of labels then remove top most one before adding
 	if #Debug.debugItems > xListLen then

@@ -3,16 +3,16 @@ RXPData = {
 ["gameVersion"] = 20505,
 ["cache"] = "露露缇娅#5600",
 ["cacheVersion"] = 26,
-["defaultProfile"] = false,
-["trainGenericSpells"] = true,
-["release"] = "Rurutia Fix4",
 ["questNames"] = {
 ["locale"] = "zhCN",
 },
+["trainGenericSpells"] = true,
+["release"] = "Rurutia Fix4",
 ["realmData"] = {
 ["铁血"] = {
 },
 },
+["defaultProfile"] = false,
 }
 RXPDB = {
 ["profileKeys"] = {
@@ -29,14 +29,14 @@ RXPDB = {
 ["小露露糖 - 铁血"] = "global",
 ["超小露露old1768996719483喵 - 铁血"] = "global",
 ["爱奇艺龚宇 - 铁血"] = "global",
-["超小露露 - 铁血"] = "global",
-["京东哔哩美团 - 无情"] = "global",
-["露露緹婭 - 无情"] = "global",
+["李家沱 - 铁血"] = "global",
+["露露糖 - 铁血"] = "global",
 ["三角碑 - 铁血"] = "global",
+["露露緹婭 - 无情"] = "global",
 ["渥伦巴菲特 - 铁血"] = "global",
 ["超小露露old1768996719483咩 - 铁血"] = "global",
-["露露糖 - 铁血"] = "global",
-["李家沱 - 铁血"] = "global",
+["京东哔哩美团 - 无情"] = "global",
+["超小露露 - 铁血"] = "global",
 ["仓库萌 - 铁血"] = "global",
 },
 ["profiles"] = {
@@ -59,22 +59,22 @@ RXPSettings = {
 ["小露露糖 - 铁血"] = "Default",
 ["超小露露old1768996719483喵 - 铁血"] = "Default",
 ["愛雅法拉 - 铁血"] = "Default",
-["京东哔哩美团 - 无情"] = "Default",
-["超小露露 - 铁血"] = "Default",
+["李家沱 - 铁血"] = "Default",
+["爱奇艺龚宇 - 铁血"] = "Default",
 ["三角碑 - 铁血"] = "Default",
 ["渥伦巴菲特 - 铁血"] = "Default",
 ["超小露露old1768996719483咩 - 铁血"] = "Default",
-["爱奇艺龚宇 - 铁血"] = "Default",
-["李家沱 - 铁血"] = "Default",
+["超小露露 - 铁血"] = "Default",
+["京东哔哩美团 - 无情"] = "Default",
 ["仓库萌 - 铁血"] = "Default",
 },
 ["profiles"] = {
 ["超小露露咩 - 铁血"] = {
 ["hardcore"] = false,
 ["frameSizes"] = {
-["activeTargetFrame"] = {
-54.40003204345703,
-68.00000762939453,
+["arrowFrame"] = {
+31.99997329711914,
+31.99997329711914,
 },
 ["RXPFrame"] = {
 235,
@@ -84,18 +84,18 @@ RXPSettings = {
 51.23808288574219,
 40,
 },
-["arrowFrame"] = {
-31.99997329711914,
-31.99997329711914,
+["activeTargetFrame"] = {
+54.40003204345703,
+68.00000762939453,
 },
 },
 ["frameHeight"] = 125.0000076293945,
 ["framePositions"] = {
-["activeTargetFrame"] = {
+["arrowFrame"] = {
 {
-"CENTER",
+"TOP",
 "UIParent",
-"CENTER",
+"TOP",
 0,
 0,
 },
@@ -118,11 +118,11 @@ RXPSettings = {
 0,
 },
 },
-["arrowFrame"] = {
+["activeTargetFrame"] = {
 {
-"TOP",
+"CENTER",
 "UIParent",
-"TOP",
+"CENTER",
 0,
 0,
 },
@@ -137,34 +137,17 @@ RXPSettings = {
 ["enableTracker"] = false,
 ["guideFontSize"] = 15,
 ["phase"] = 1,
-["frameSizes"] = {
-["activeTargetFrame"] = {
-89.00001525878906,
-39.99994659423828,
-},
-["RXPFrame"] = {
-449.482177734375,
-215.0316467285156,
-},
-["activeItemFrame"] = {
-50.18870544433594,
-40.00003433227539,
-},
-["arrowFrame"] = {
-38.40012741088867,
-38.39995193481445,
-},
-},
+["enableQuestRewardAutomation"] = false,
 ["hideInRaid"] = true,
 ["hideCompletedSteps"] = false,
 ["framePositions"] = {
-["activeTargetFrame"] = {
+["arrowFrame"] = {
 {
 "CENTER",
 nil,
 "CENTER",
-218.4530181884766,
--9.506880760192871,
+-3.109707593917847,
+-129.8274841308594,
 },
 },
 ["RXPFrame"] = {
@@ -185,13 +168,13 @@ nil,
 -52.99790573120117,
 },
 },
-["arrowFrame"] = {
+["activeTargetFrame"] = {
 {
 "CENTER",
 nil,
 "CENTER",
--3.109707593917847,
--129.8274841308594,
+608.2225341796875,
+-24.26590156555176,
 },
 },
 },
@@ -204,17 +187,34 @@ nil,
 ["frameHeight"] = 215.0316467285156,
 ["macroAnnounced"] = true,
 ["autoSellJunk"] = true,
-["enableQuestRewardAutomation"] = false,
 ["showJunkIcon"] = true,
+["frameSizes"] = {
+["arrowFrame"] = {
+38.40012741088867,
+38.39995193481445,
+},
+["RXPFrame"] = {
+449.482177734375,
+215.0316467285156,
+},
+["activeItemFrame"] = {
+50.18870544433594,
+40.00003433227539,
+},
+["activeTargetFrame"] = {
+54.22235107421875,
+68,
+},
+},
 },
 ["超小露露喵 - 铁血"] = {
 ["hardcore"] = false,
 ["framePositions"] = {
-["activeTargetFrame"] = {
+["arrowFrame"] = {
 {
-"CENTER",
+"TOP",
 "UIParent",
-"CENTER",
+"TOP",
 0,
 0,
 },
@@ -237,11 +237,11 @@ nil,
 0,
 },
 },
-["arrowFrame"] = {
+["activeTargetFrame"] = {
 {
-"TOP",
+"CENTER",
 "UIParent",
-"TOP",
+"CENTER",
 0,
 0,
 },
@@ -249,9 +249,9 @@ nil,
 },
 ["frameHeight"] = 125.0000076293945,
 ["frameSizes"] = {
-["activeTargetFrame"] = {
-54.40003204345703,
-68.00000762939453,
+["arrowFrame"] = {
+31.99997329711914,
+31.99997329711914,
 },
 ["RXPFrame"] = {
 235,
@@ -261,9 +261,9 @@ nil,
 51.23808288574219,
 40,
 },
-["arrowFrame"] = {
-31.99997329711914,
-31.99997329711914,
+["activeTargetFrame"] = {
+54.40003204345703,
+68.00000762939453,
 },
 },
 },

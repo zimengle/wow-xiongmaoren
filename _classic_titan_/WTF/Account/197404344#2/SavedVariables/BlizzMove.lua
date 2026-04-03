@@ -161,8 +161,6 @@ BlizzMoveDB = {
 },
 ["GuildControlPopupFrame"] = {
 },
-["PVPBannerFrame"] = {
-},
 ["PlayerTalentFrame"] = {
 ["startPoints"] = {
 {
@@ -183,6 +181,8 @@ BlizzMoveDB = {
 ["offX"] = -10.27821615843641,
 },
 },
+},
+["PVPBannerFrame"] = {
 },
 ["WorldStateScoreFrame"] = {
 },

@@ -72,24 +72,43 @@ ns.EA_CATEGORY_LIST = {
     },
     ["矿石"] = {
         { "银矿石", 2775, 4 },
+        { "银锭", 2842, 4 },
         { "金矿石", 2776, 6 },
+        { "金锭", 3577, 6 },
         { "铁矿石", 2772, 8 },
+        { "铁锭", 3575, 8 },
+        { "钢锭", 3859, 8 },
         { "锡矿石", 2771, 4 },
+        { "锡锭", 3576, 4 },
         { "真银矿石", 7911, 14 },
+        { "真银锭", 6037, 14 },
         { "铜矿石", 2770, 2 },
+        { "铜锭", 2840, 2 },
+        { "青铜锭", 2841, 6 },
         { "秘银矿石", 3858, 10 },
+        { "秘银锭", 3860, 10 },
         { "精金矿石", 23425, 18 },
+        { "精金锭", 23446, 32 },
         { "魔铁矿石", 23424, 16 },
+        { "魔铁锭", 23445, 32 },
         { "沉重的石头", 2838, 6 },
         { "泰坦神铁矿石", 36910, 100 },
+        { "泰坦神铁锭", 41163, 200 },
         { "坚固的石头", 7912, 8 },
         { "瑟银矿石", 10620, 12 },
+        { "瑟银锭", 12359, 12 },
         { "粗糙的石头", 2836, 4 },
         { "钴矿石", 36909, 30 },
+        { "钴锭", 36916, 30 },
         { "萨隆邪铁矿石", 36912, 40 },
+        { "萨隆邪铁锭", 36913, 80 },
         { "氪金矿石", 23426, 24 },
+        { "氪金锭", 23449, 48 },
         { "恒金矿石", 23427, 30 },
+        { "恒金锭", 23447, 60 },
         { "黑铁矿石", 11370, 10 },
+        { "黑铁锭", 11371, 80 },
+        { "魔钢锭", 23448, 90 },
         { "厚重的石头", 12365, 10 },
         { "劣质的石头", 2835, 2 },
     },
@@ -748,6 +767,33 @@ end
 
 local function GetMatPrice()
     local lastItemID, lastPrice = nil, nil
+    local function GetMinUnitFromIndexEntry(entry)
+        if type(entry) ~= "table" then return nil end
+        local minUnit = tonumber(entry.minUnit)
+        if minUnit and minUnit > 0 then
+            return minUnit
+        end
+
+        local history = entry.key and _G.EasyAuctionDB and _G.EasyAuctionDB.PriceHistory and
+            _G.EasyAuctionDB.PriceHistory[entry.key]
+        if type(history) ~= "table" then
+            return nil
+        end
+
+        minUnit = tonumber(history.minUnit)
+        if minUnit and minUnit > 0 then
+            return minUnit
+        end
+
+        for _, info in ipairs(history) do
+            local unit = tonumber(info.unit or info[2])
+            if unit and unit > 0 and (not minUnit or unit < minUnit) then
+                minUnit = unit
+            end
+        end
+        return minUnit
+    end
+
     return function(itemID)
         if lastItemID == itemID then
             return lastPrice
@@ -757,14 +803,9 @@ local function GetMatPrice()
         local idHistories = EasyAuction_ItemID_Index[itemID]
         if idHistories then
             for _, entry in ipairs(idHistories) do
-                local history = entry.history
-                if type(history) == "table" then
-                    for _, info in ipairs(history) do
-                        local unit = info.unit or info[2]
-                        if unit and (not bestPrice or unit < bestPrice) then
-                            bestPrice = unit
-                        end
-                    end
+                local unit = GetMinUnitFromIndexEntry(entry)
+                if unit and unit > 0 and (not bestPrice or unit < bestPrice) then
+                    bestPrice = unit
                 end
             end
         end
@@ -775,14 +816,9 @@ local function GetMatPrice()
             local exHistories = EasyAuction_ItemID_Index[exchangeID]
             if exHistories then
                 for _, entry in ipairs(exHistories) do
-                    local history = entry.history
-                    if type(history) == "table" then
-                        for _, info in ipairs(history) do
-                            local unit = info.unit or info[2]
-                            if unit and (not exBestPrice or unit < exBestPrice) then
-                                exBestPrice = unit
-                            end
-                        end
+                    local unit = GetMinUnitFromIndexEntry(entry)
+                    if unit and unit > 0 and (not exBestPrice or unit < exBestPrice) then
+                        exBestPrice = unit
                     end
                 end
             end

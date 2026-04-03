@@ -70,13 +70,9 @@ end
 
 local function Send(num, sumMoney, FB)
     local FBtext = ""
-    if FB then
-        for i, v in ipairs(BG.FBtable2) do
-            if FB == v.FB then
-                FBtext = L["，"] .. BG.STC_b1(v.localName)
-                break
-            end
-        end
+    local FBName = BG.GetFBinfo(FB, "shortName")
+    if FBName then
+        FBtext = L["，"] .. BG.STC_b1(FBName)
     end
     local link = format(L["|Hgarrmission:BiaoGeDuiZhang:%s|h[点击：对账]（|cff00ff00装备总收入%s|r%s）"],
         num, sumMoney, FBtext)
@@ -101,35 +97,34 @@ local function SaveRaidMember()
     end
 end
 
-
 -- 自动记录别人账单
 local f = CreateFrame("Frame")
 f:RegisterEvent("CHAT_MSG_RAID_WARNING")
 f:RegisterEvent("CHAT_MSG_RAID_LEADER")
 f:RegisterEvent("CHAT_MSG_RAID")
-f:SetScript("OnEvent", function(self, event, msg, playerName, ...)
+f:SetScript("OnEvent", function(self, event, msg, sender, ...)
     local IsRaidLedger = BG.FindTableString(msg, locales["RaidLedger:.... 收入 ...."])
     local IsBiaoGe = BG.FindTableString(msg, locales["通报金团账单"])
     local IsBigFoot = BG.FindTableString(msg, locales["事件：.-|c.-|Hitem.-|h|r"])
     local _time = GetServerTime()
-    playerName = BG.GSN(playerName)
+    sender = BG.GSN(sender)
     -- 判断是否一个账单
     if IsRaidLedger then -- 金团账本
-        linshi_duizhang = Default(playerName, _time)
+        linshi_duizhang = Default(sender, _time)
         linshi_duizhang.yes = 1
         linshi_duizhang.addons = "raidledger"
         tinsert(linshi_duizhang.msgTbl, msg)
         CheckTimeOut(_time)
         return
     elseif IsBiaoGe then -- 金团表格
-        linshi_duizhang = Default(playerName, _time)
+        linshi_duizhang = Default(sender, _time)
         linshi_duizhang.yes = 2
         linshi_duizhang.addons = "biaoge"
         tinsert(linshi_duizhang.msgTbl, msg)
         CheckTimeOut(_time)
         return
     elseif not bigfootyes and IsBigFoot then -- 大脚
-        linshi_duizhang = Default(playerName, _time)
+        linshi_duizhang = Default(sender, _time)
         linshi_duizhang.addons = "bigfoot"
         bigfoot = {}
         bigfootyes = true
@@ -142,18 +137,18 @@ f:SetScript("OnEvent", function(self, event, msg, playerName, ...)
     if not linshi_duizhang then return end
 
     -- 保存聊天记录
-    if (linshi_duizhang.yes or bigfootyes) and playerName == linshi_duizhang.player then
+    if (linshi_duizhang.yes or bigfootyes) and sender == linshi_duizhang.player then
         tinsert(linshi_duizhang.msgTbl, msg)
     end
 
     -- 识别表格
     local FB = BG.MatchTableString(msg, locales["表格：(.+)"])
-    if linshi_duizhang.yes and playerName == linshi_duizhang.player and FB then
+    if linshi_duizhang.yes and sender == linshi_duizhang.player and FB then
         linshi_duizhang.FB = FB
     end
 
     -- 如果已经是账单了，则开始保存每个装备的价格
-    if linshi_duizhang.yes and playerName == linshi_duizhang.player and strfind(msg, h_item) then
+    if linshi_duizhang.yes and sender == linshi_duizhang.player and strfind(msg, h_item) then
         local item = strmatch(msg, h_item)
         local jine
 
@@ -202,16 +197,16 @@ f:SetScript("OnEvent", function(self, event, msg, playerName, ...)
             tinsert(linshi_duizhang.zhangdan, a)
         end
         return
-    elseif bigfootyes and playerName == linshi_duizhang.player and (BG.FindTableString(msg, locales["事件：.-|c.-|Hitem.-|h|r"]) or BG.FindTableString(msg, locales["^收入为："])) then -- 大脚
+    elseif bigfootyes and sender == linshi_duizhang.player and (BG.FindTableString(msg, locales["事件：.-|c.-|Hitem.-|h|r"]) or BG.FindTableString(msg, locales["^收入为："])) then -- 大脚
         tinsert(bigfoot, msg)
         return
     end
 
     -- 保存完整账单至数据库
     local yes
-    if linshi_duizhang.yes and playerName == linshi_duizhang.player and (BG.FindTableString(msg, locales["平均每人收入:"]) or BG.FindTableString(msg, locales["感谢使用金团表格"])) then
+    if linshi_duizhang.yes and sender == linshi_duizhang.player and (BG.FindTableString(msg, locales["平均每人收入:"]) or BG.FindTableString(msg, locales["感谢使用金团表格"])) then
         yes = true
-    elseif bigfootyes and playerName == linshi_duizhang.player and BG.FindTableString(msg, locales["-感谢使用大脚金团辅助工具-"]) then -- 大脚
+    elseif bigfootyes and sender == linshi_duizhang.player and BG.FindTableString(msg, locales["-感谢使用大脚金团辅助工具-"]) then -- 大脚
         for i, value in ipairs(bigfoot) do
             if strfind(bigfoot[i], h_item) then
                 if bigfoot[i + 1] and BG.FindTableString(bigfoot[i + 1], locales["^收入为：%d+。"]) then
@@ -250,6 +245,7 @@ f:SetScript("OnEvent", function(self, event, msg, playerName, ...)
             BG.After(0.1, function()
                 Send(#BiaoGe.duizhang, sumMoney, FB)
             end)
+            BG.ShowYYPJ(sender)
         end
         return
     end
@@ -659,7 +655,11 @@ function BG.DuiZhangUI()
         child:SetScript("OnHyperlinkClick", function(self, link, text, button)
             if (strsub(link, 1, 6) == "player") then
                 local _, name, lineID, chatType = strsplit(":", link)
-                ChatFrame_SendTell(name, ChatFrame1)
+                if button == "LeftButton" then
+                    ChatFrame_SendTell(name, ChatFrame1)
+                elseif button == "RightButton" then
+                    FriendsFrame_ShowDropdown(name, 1, nil, "RAID", nil)
+                end
             elseif (strsub(link, 1, 4) == "item") then
                 local name, link, quality, level, _, _, _, _, _, Texture, _, typeID = GetItemInfo(link)
                 if IsShiftKeyDown() then
@@ -696,7 +696,7 @@ local function CreateZhangDanTitle(num)
     if zhangdan.FB then
         for i, v in ipairs(BG.FBtable2) do
             if zhangdan.FB == v.FB then
-                FBtext = L["，"] .. BG.STC_b1(v.localName)
+                FBtext = L["，"] .. BG.STC_b1(v.shortName or v.localName)
                 break
             end
         end

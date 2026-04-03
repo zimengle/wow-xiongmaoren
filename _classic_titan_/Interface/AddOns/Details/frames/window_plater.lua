@@ -2,12 +2,11 @@
 
 local Details = _G.Details
 local DF = _G.DetailsFramework
-local Loc = _G.LibStub("AceLocale-3.0"):GetLocale("Details")
 
 function Details:InitializePlaterIntegrationWindow()
     local DetailsPlaterIntegrationPanel = DF:CreateSimplePanel(UIParent, 700, 480, "Details! Plater Nameplates Integration", "DetailsPlaterIntegrationPanel")
     DetailsPlaterIntegrationPanel.Frame = DetailsPlaterIntegrationPanel
-    DetailsPlaterIntegrationPanel.__name = Loc ["STRING_PLATER_NAMEPLATES"] or "Plater Nameplates"
+    DetailsPlaterIntegrationPanel.__name = "Plater Nameplates"
     DetailsPlaterIntegrationPanel.real_name = "DETAILS_PLATERWINDOW"
     DetailsPlaterIntegrationPanel.__icon = [[Interface\AddOns\Details\images\plater_icon]]
     DetailsPlaterIntegrationPanel.__iconcoords = {0, 1, 0, 1}
@@ -42,21 +41,7 @@ function Details.OpenPlaterIntegrationWindow()
         f:SetBackdropBorderColor(0, 0, 0, 1)
 
         --anchor text function
-        local anchor_names = {
-            Loc ["STRING_ANCHOR_TOPLEFT"] or "Top Left",
-            Loc ["STRING_ANCHOR_LEFT"] or "Left",
-            Loc ["STRING_ANCHOR_BOTTOMLEFT"] or "Bottom Left",
-            Loc ["STRING_ANCHOR_BOTTOM"] or "Bottom",
-            Loc ["STRING_ANCHOR_BOTTOMRIGHT"] or "Bottom Right",
-            Loc ["STRING_ANCHOR_RIGHT"] or "Right",
-            Loc ["STRING_ANCHOR_TOPRIGHT"] or "Top Right",
-            Loc ["STRING_ANCHOR_TOP"] or "Top",
-            Loc ["STRING_CENTER"] or "Center",
-            Loc ["STRING_ANCHOR_INNER_LEFT"] or "Inner Left",
-            Loc ["STRING_ANCHOR_INNER_RIGHT"] or "Inner Right",
-            Loc ["STRING_ANCHOR_INNER_TOP"] or "Inner Top",
-            Loc ["STRING_ANCHOR_INNER_BOTTOM"] or "Inner Bottom"
-        }
+        local anchor_names = {"Top Left", "Left", "Bottom Left", "Bottom", "Bottom Right", "Right", "Top Right", "Top", "Center", "Inner Left", "Inner Right", "Inner Top", "Inner Bottom"}
         local build_anchor_side_table = function(member)
             local t = {}
             for i = 1, 13 do
@@ -76,7 +61,7 @@ function Details.OpenPlaterIntegrationWindow()
         
         local menu_table = {
         
-            {type = "label", get = function() return Loc ["STRING_PLATER_REALTIME_DPS_ALL"] or "Add Real Time DPS Info in the Nameplate:" end, text_template = DF:GetTemplate("font", "ORANGE_FONT_TEMPLATE")},
+            {type = "label", get = function() return "Add Real Time DPS Info in the Nameplate:" end, text_template = DF:GetTemplate("font", "ORANGE_FONT_TEMPLATE")},
         
             --real time dps from all sources
             {
@@ -95,8 +80,8 @@ function Details.OpenPlaterIntegrationWindow()
                         end
                     end
                 end,
-                name = Loc ["STRING_PLATER_SHOW_REALTIME_DPS"] or "Show Real Time Dps",
-                desc = Loc ["STRING_PLATER_SHOW_REALTIME_DPS_DESC"] or "Show Real Time DPS on the nameplate.\n\nReal time DPS is how much damage has been inflicted to the unit in the last 5 seconds.",
+                name = "Show Real Time Dps",
+                desc = "Show Real Time DPS on the nameplate.\n\nReal time DPS is how much damage has been inflicted to the unit in the last 5 seconds.",
             },
                 --text size
                 {
@@ -111,8 +96,8 @@ function Details.OpenPlaterIntegrationWindow()
                     min = 6,
                     max = 32,
                     step = 1,
-                    name = Loc ["STRING_PLATER_TEXT_SIZE"] or "Text Size",
-                    desc = Loc ["STRING_PLATER_TEXT_SIZE_DESC"] or "Text Size",
+                    name = "Text Size",
+                    desc = "Text Size",
                 },
                 --text color
                 {
@@ -128,8 +113,8 @@ function Details.OpenPlaterIntegrationWindow()
                             Plater.UpdateAllPlates()
                         end
                     end,
-                    desc = Loc ["STRING_PLATER_TEXT_COLOR_DESC"] or "Text Color",
-                    name = Loc ["STRING_PLATER_TEXT_COLOR"] or "Text Color",
+                    desc = "Text Color",
+                    name = "Text Color",
                     text_template = options_text_template,
                 },
                 --text shadow
@@ -142,8 +127,8 @@ function Details.OpenPlaterIntegrationWindow()
                             Plater.UpdateAllPlates()
                         end
                     end,
-                    name = Loc ["STRING_PLATER_TEXT_SHADOW"] or "Text Shadow",
-                    desc = Loc ["STRING_PLATER_TEXT_SHADOW_DESC"] or "Text Shadow",
+                    name = "Text Shadow",
+                    desc = "Text Shadow",
                 },
                 --text anchor
                     --anchor location
@@ -151,8 +136,8 @@ function Details.OpenPlaterIntegrationWindow()
                         type = "select",
                         get = function() return Details.plater.realtime_dps_anchor.side end,
                         values = function() return build_anchor_side_table ("realtime_dps_anchor") end,
-                        name = Loc ["STRING_PLATER_ANCHOR_POINT"] or "Anchor Point",
-                        desc = Loc ["STRING_PLATER_ANCHOR_POINT_DESC"] or "Which side of the nameplate the text is attach to.",
+                        name = "Anchor Point",
+                        desc = "Which side of the nameplate the text is attach to.",
                     },
                     --anchor x offset
                     {
@@ -167,8 +152,8 @@ function Details.OpenPlaterIntegrationWindow()
                         min = -20,
                         max = 20,
                         step = 1,
-                        name = Loc ["STRING_PLATER_ANCHOR_X_OFFSET"] or "Anchor X Offset",
-                        desc = Loc ["STRING_PLATER_ANCHOR_X_OFFSET_DESC"] or "Slightly move the text horizontally.",
+                        name = "Anchor X Offset",
+                        desc = "Slightly move the text horizontally.",
                     },
                     --anchor x offset
                     {
@@ -183,12 +168,12 @@ function Details.OpenPlaterIntegrationWindow()
                         min = -20,
                         max = 20,
                         step = 1,
-                        name = Loc ["STRING_PLATER_ANCHOR_Y_OFFSET"] or "Anchor Y Offset",
-                        desc = Loc ["STRING_PLATER_ANCHOR_Y_OFFSET_DESC"] or "Slightly move the text vertically.",
+                        name = "Anchor Y Offset",
+                        desc = "Slightly move the text vertically.",
                     },	
             
             {type = "breakline"},
-            {type = "label", get = function() return Loc ["STRING_PLATER_REALTIME_DPS_PLAYER"] or "Add Real Time DPS Info Only From You in the Nameplate:" end, text_template = DF:GetTemplate("font", "ORANGE_FONT_TEMPLATE")},
+            {type = "label", get = function() return "Add Real Time DPS Info Only From You in the Nameplate:" end, text_template = DF:GetTemplate("font", "ORANGE_FONT_TEMPLATE")},
             
             --real time dps from the player only
             {
@@ -207,8 +192,8 @@ function Details.OpenPlaterIntegrationWindow()
                         end
                     end
                 end,
-                name = Loc ["STRING_PLATER_SHOW_REALTIME_DPS_PLAYER"] or "Show Real Time Dps (From You)",
-                desc = Loc ["STRING_PLATER_SHOW_REALTIME_DPS_PLAYER_DESC"] or "Show Real Time DPS you are currently applying in the unit.\n\nReal time DPS is how much damage has been inflicted to the unit in the last 5 seconds.",
+                name = "Show Real Time Dps (From You)",
+                desc = "Show Real Time DPS you are currently applying in the unit.\n\nReal time DPS is how much damage has been inflicted to the unit in the last 5 seconds.",
             },
                 --text size
                 {
@@ -223,8 +208,8 @@ function Details.OpenPlaterIntegrationWindow()
                     min = 6,
                     max = 32,
                     step = 1,
-                    name = Loc ["STRING_PLATER_TEXT_SIZE"] or "Text Size",
-                    desc = Loc ["STRING_PLATER_TEXT_SIZE_DESC"] or "Text Size",
+                    name = "Text Size",
+                    desc = "Text Size",
                 },
                 --text color
                 {
@@ -240,8 +225,8 @@ function Details.OpenPlaterIntegrationWindow()
                             Plater.UpdateAllPlates()
                         end
                     end,
-                    desc = Loc ["STRING_PLATER_TEXT_COLOR_DESC"] or "Text Color",
-                    name = Loc ["STRING_PLATER_TEXT_COLOR"] or "Text Color",
+                    desc = "Text Color",
+                    name = "Text Color",
                     text_template = options_text_template,
                 },
                 --text shadow
@@ -254,8 +239,8 @@ function Details.OpenPlaterIntegrationWindow()
                             Plater.UpdateAllPlates()
                         end
                     end,
-                    name = Loc ["STRING_PLATER_TEXT_SHADOW"] or "Text Shadow",
-                    desc = Loc ["STRING_PLATER_TEXT_SHADOW_DESC"] or "Text Shadow",
+                    name = "Text Shadow",
+                    desc = "Text Shadow",
                 },
                 --text anchor
                     --anchor location
@@ -263,8 +248,8 @@ function Details.OpenPlaterIntegrationWindow()
                         type = "select",
                         get = function() return Details.plater.realtime_dps_player_anchor.side end,
                         values = function() return build_anchor_side_table ("realtime_dps_player_anchor") end,
-                        name = Loc ["STRING_PLATER_ANCHOR_POINT"] or "Anchor Point",
-                        desc = Loc ["STRING_PLATER_ANCHOR_POINT_DESC"] or "Which side of the nameplate the text is attach to.",
+                        name = "Anchor Point",
+                        desc = "Which side of the nameplate the text is attach to.",
                     },
                     --anchor x offset
                     {
@@ -279,8 +264,8 @@ function Details.OpenPlaterIntegrationWindow()
                         min = -20,
                         max = 20,
                         step = 1,
-                        name = Loc ["STRING_PLATER_ANCHOR_X_OFFSET"] or "Anchor X Offset",
-                        desc = Loc ["STRING_PLATER_ANCHOR_X_OFFSET_DESC"] or "Slightly move the text horizontally.",
+                        name = "Anchor X Offset",
+                        desc = "Slightly move the text horizontally.",
                     },
                     --anchor x offset
                     {
@@ -295,12 +280,12 @@ function Details.OpenPlaterIntegrationWindow()
                         min = -20,
                         max = 20,
                         step = 1,
-                        name = Loc ["STRING_PLATER_ANCHOR_Y_OFFSET"] or "Anchor Y Offset",
-                        desc = Loc ["STRING_PLATER_ANCHOR_Y_OFFSET_DESC"] or "Slightly move the text vertically.",
+                        name = "Anchor Y Offset",
+                        desc = "Slightly move the text vertically.",
                     },	
             
             {type = "breakline"},
-            {type = "label", get = function() return Loc ["STRING_PLATER_DAMAGE_TAKEN"] or "Add Total Damage Taken in the Nameplate:" end, text_template = DF:GetTemplate("font", "ORANGE_FONT_TEMPLATE")},
+            {type = "label", get = function() return "Add Total Damage Taken in the Nameplate:" end, text_template = DF:GetTemplate("font", "ORANGE_FONT_TEMPLATE")},
             
             --total damage taken from all sources
             {
@@ -319,8 +304,8 @@ function Details.OpenPlaterIntegrationWindow()
                         end
                     end
                 end,
-                name = Loc ["STRING_PLATER_SHOW_DAMAGE_TAKEN"] or "Show Total Damage Taken",
-                desc = Loc ["STRING_PLATER_SHOW_DAMAGE_TAKEN_DESC"] or "Show the total damage taken by the unit",
+                name = "Show Total Damage Taken",
+                desc = "Show the total damage taken by the unit",
             },
                 --text size
                 {
@@ -335,8 +320,8 @@ function Details.OpenPlaterIntegrationWindow()
                     min = 6,
                     max = 32,
                     step = 1,
-                    name = Loc ["STRING_PLATER_TEXT_SIZE"] or "Text Size",
-                    desc = Loc ["STRING_PLATER_TEXT_SIZE_DESC"] or "Text Size",
+                    name = "Text Size",
+                    desc = "Text Size",
                 },
                 --text color
                 {
@@ -352,8 +337,8 @@ function Details.OpenPlaterIntegrationWindow()
                             Plater.UpdateAllPlates()
                         end
                     end,
-                    desc = Loc ["STRING_PLATER_TEXT_COLOR_DESC"] or "Text Color",
-                    name = Loc ["STRING_PLATER_TEXT_COLOR"] or "Text Color",
+                    desc = "Text Color",
+                    name = "Text Color",
                     text_template = options_text_template,
                 },
                 --text shadow
@@ -366,8 +351,8 @@ function Details.OpenPlaterIntegrationWindow()
                             Plater.UpdateAllPlates()
                         end
                     end,
-                    name = Loc ["STRING_PLATER_TEXT_SHADOW"] or "Text Shadow",
-                    desc = Loc ["STRING_PLATER_TEXT_SHADOW_DESC"] or "Text Shadow",
+                    name = "Text Shadow",
+                    desc = "Text Shadow",
                 },
                 --text anchor
                     --anchor location
@@ -375,8 +360,8 @@ function Details.OpenPlaterIntegrationWindow()
                         type = "select",
                         get = function() return Details.plater.damage_taken_anchor.side end,
                         values = function() return build_anchor_side_table ("damage_taken_anchor") end,
-                        name = Loc ["STRING_PLATER_ANCHOR_POINT"] or "Anchor Point",
-                        desc = Loc ["STRING_PLATER_ANCHOR_POINT_DESC"] or "Which side of the nameplate the text is attach to.",
+                        name = "Anchor Point",
+                        desc = "Which side of the nameplate the text is attach to.",
                     },
                     --anchor x offset
                     {
@@ -391,8 +376,8 @@ function Details.OpenPlaterIntegrationWindow()
                         min = -20,
                         max = 20,
                         step = 1,
-                        name = Loc ["STRING_PLATER_ANCHOR_X_OFFSET"] or "Anchor X Offset",
-                        desc = Loc ["STRING_PLATER_ANCHOR_X_OFFSET_DESC"] or "Slightly move the text horizontally.",
+                        name = "Anchor X Offset",
+                        desc = "Slightly move the text horizontally.",
                     },
                     --anchor x offset
                     {
@@ -407,8 +392,8 @@ function Details.OpenPlaterIntegrationWindow()
                         min = -20,
                         max = 20,
                         step = 1,
-                        name = Loc ["STRING_PLATER_ANCHOR_Y_OFFSET"] or "Anchor Y Offset",
-                        desc = Loc ["STRING_PLATER_ANCHOR_Y_OFFSET_DESC"] or "Slightly move the text vertically.",
+                        name = "Anchor Y Offset",
+                        desc = "Slightly move the text vertically.",
                     },
         }
         
@@ -436,9 +421,9 @@ function Details.OpenPlaterIntegrationWindow()
         titleBackground:SetBackdropColor(.5, .5, .5, .7)
         titleBackground:SetBackdropBorderColor(0, 0, 0, 1)
         
-        local platerTitle = DF:CreateLabel(titleBackground, Loc ["STRING_PLATER_INTEGRATION_TITLE"] or "Plater Nameplates Integration", 16, "white")
-        local platerDesc1 = DF:CreateLabel(titleBackground, Loc ["STRING_PLATER_INTEGRATION_DESC1"] or "Add DPS and Damage information directly into the nameplate", 11, "silver")
-        local platerDesc2 = DF:CreateLabel(titleBackground, Loc ["STRING_PLATER_INTEGRATION_DESC2"] or "See how much damage the enemy is taking in real time!", 11, "silver")
+        local platerTitle = DF:CreateLabel(titleBackground, "Plater Nameplates Integration", 16, "white")
+        local platerDesc1 = DF:CreateLabel(titleBackground, "Add DPS and Damage information directly into the nameplate", 11, "silver")
+        local platerDesc2 = DF:CreateLabel(titleBackground, "See how much damage the enemy is taking in real time!", 11, "silver")
         local platerImage = DF:CreateImage(titleBackground, "Interface\\AddOns\\Details\\images\\plater_image")
         platerImage:SetSize(256, 64)
         
@@ -456,7 +441,7 @@ function Details.OpenPlaterIntegrationWindow()
                 end
             end
             
-            local PlaterDisabled1 = DF:CreateLabel(f, Loc ["STRING_PLATER_NOT_INSTALLED"] or "Plater isn't installed! you may download it from the Curseforge app.", 16, "red")
+            local PlaterDisabled1 = DF:CreateLabel(f, "Plater isn't installed! you may download it from the Curseforge app.", 16, "red")
             PlaterDisabled1:SetPoint(10, -330)
         end
         

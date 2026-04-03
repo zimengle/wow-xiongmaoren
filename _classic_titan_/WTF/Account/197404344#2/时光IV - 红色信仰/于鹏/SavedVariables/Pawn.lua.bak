@@ -1,6 +1,8 @@
 
 PawnOptions = {
-["LastVersion"] = 2.1303,
+["LastVersion"] = 2.1307,
+["LastPlayerFullName"] = "于鹏-时光IV - 红色信仰",
+["AutoSelectScales"] = false,
 ["ItemLevels"] = {
 {
 ["ID"] = 255024,
@@ -19,9 +21,9 @@ PawnOptions = {
 },
 nil,
 {
-["ID"] = 42102,
-["Level"] = 200,
-["Link"] = "|cffa335ee|Hitem:42102:3252:::::::80::::::::::|h[法纹长袍]|h|r",
+["ID"] = 30214,
+["Level"] = 219,
+["Link"] = "|cffa335ee|Hitem:30214:3252:39998:39998:::::80::::::::::|h[腐蚀者长袍]|h|r",
 },
 {
 ["ID"] = 40696,
@@ -29,14 +31,14 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:40696::40049::::::80::::::::::|h[古兹巴的毛绒腰带]|h|r",
 },
 {
-["ID"] = 255026,
-["Level"] = 213,
-["Link"] = "|cffa335ee|Hitem:255026:3719:39998:40051:::::80::::::::::|h[恶魔之心长裤]|h|r",
+["ID"] = 30213,
+["Level"] = 219,
+["Link"] = "|cffa335ee|Hitem:30213:3719:39998:40026:::::80::::::::::|h[腐蚀者护腿]|h|r",
 },
 {
-["ID"] = 255019,
-["Level"] = 213,
-["Link"] = "|cffa335ee|Hitem:255019::::::::80::::::::::|h[恶魔之心便鞋]|h|r",
+["ID"] = 30050,
+["Level"] = 219,
+["Link"] = "|cffa335ee|Hitem:30050:8640:39998::::::80::::::::::|h[混沌噩梦之靴]|h|r",
 },
 {
 ["ID"] = 37361,
@@ -44,9 +46,9 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:37361::::::::80::::::::::|h[巨翼护腕]|h|r",
 },
 {
-["ID"] = 255021,
-["Level"] = 213,
-["Link"] = "|cffa335ee|Hitem:255021::::::::80::::::::::|h[恶魔之心手套]|h|r",
+["ID"] = 30211,
+["Level"] = 219,
+["Link"] = "|cffa335ee|Hitem:30211:3246:39998::::::80::::::::::|h[腐蚀者手套]|h|r",
 },
 {
 ["ID"] = 33054,
@@ -93,8 +95,6 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:259900::::::::80::::::::::|h[赤红震荡者]|h|r",
 },
 },
-["AutoSelectScales"] = false,
-["LastPlayerFullName"] = "于鹏-时光IV - 红色信仰",
 }
 PawnMrRobotScaleProviderOptions = nil
 PawnClassicScaleProviderOptions = {

@@ -145,15 +145,19 @@ function Details:ResetSpecCache(forced)
 		Details:Destroy(Details.cached_specs)
 
 		if (Details.track_specs) then
-			local playerSpec = DetailsFramework.GetSpecialization()
-			if (type(playerSpec) == "number") then
-				local specId = DetailsFramework.GetSpecializationInfo(playerSpec)
-				if (type(specId) == "number") then
-					local playerGuid = UnitGUID(Details.playername)
-					if (playerGuid) then
-						Details.cached_specs[playerGuid] = specId
-					end
-				end
+            if (DetailsFramework.IsTBCWow()) then
+                Details.GetOldSchoolTalentInformation()
+            else
+                local playerSpec = DetailsFramework.GetSpecialization()
+                if (type(playerSpec) == "number") then
+                    local specId = DetailsFramework.GetSpecializationInfo(playerSpec)
+                    if (type(specId) == "number") then
+                        local playerGuid = UnitGUID(Details.playername)
+                        if (playerGuid) then
+                            Details.cached_specs[playerGuid] = specId
+                        end
+                    end
+                end
 			end
 		end
 
@@ -573,7 +577,10 @@ function ilvl_core:HasQueuedInspec(unitName)
 end
 
 local inspect_frame = CreateFrame("frame")
-inspect_frame:RegisterEvent("INSPECT_READY")
+
+if not detailsFramework.IsAddonApocalypseWow() then
+	inspect_frame:RegisterEvent("INSPECT_READY")
+end
 
 local two_hand = {
 	["INVTYPE_2HWEAPON"] = true,
@@ -745,6 +752,12 @@ Details.ilevel.CalcItemLevel = ilvl_core.CalcItemLevel
 
 inspect_frame:SetScript("OnEvent", function(self, event, ...)
 	local guid = select(1, ...)
+
+	if detailsFramework.IsAddonApocalypseWow() then
+		if issecretvalue(guid) then
+			return
+		end
+	end
 
 	if (inspecting [guid]) then
 		local unitid, cancel_tread = inspecting [guid] [1], inspecting [guid] [2]
@@ -1197,7 +1210,7 @@ Details.specToRole = {
 }
 
 --oldschool talent tree
-if (DetailsFramework.IsWotLKWow() or DetailsFramework.IsCataWow()) then
+if (DetailsFramework.IsWotLKWow() or DetailsFramework.IsCataWow() or DetailsFramework.IsClassicWow() or DetailsFramework.IsTBCWow()) then
 	local talentWatchClassic = CreateFrame("frame")
 	talentWatchClassic:RegisterEvent("CHARACTER_POINTS_CHANGED")
 	talentWatchClassic:RegisterEvent("SPELLS_CHANGED")

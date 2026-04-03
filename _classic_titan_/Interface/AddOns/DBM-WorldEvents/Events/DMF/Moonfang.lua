@@ -1,11 +1,16 @@
 local mod	= DBM:NewMod("Moonfang", "DBM-WorldEvents", 3)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20240421062339")
+mod:SetRevision("20260315034941")
+mod:DisableHardcodedOptions()
 mod:SetCreatureID(71992)
 --mod:SetModelID(328)
+mod:SetZone(974)
 
 mod:RegisterCombat("combat")
+
+--Rest of mod below this point is only useful pre midnight
+if DBM:IsPostMidnight() then return end
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 144546 144590 144602 144702",

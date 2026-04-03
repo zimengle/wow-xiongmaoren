@@ -82,6 +82,28 @@ Pawn plays along with most other addons, but there are a few that break Pawn tha
 
 ## Updates
 
+### Version 2.13.8
+
+* Midnight: The changes from 2.13.7 are reverted.
+
+### Version 2.13.7
+
+* Midnight: Includes a new workaround for WoW 12.0 tooltip bugs that were causing "secret taint" (lol) errors. Special thanks to Caerdon for finding this!
+
+### Version 2.13.6
+
+* Midnight: Added new default stat weights for Devourer demon hunters from Ask Mr. Robot.
+* Midnight: Removed a harmless warning message that could occur when viewing a quest that rewards a housing decor profession recipe.
+
+### Version 2.13.5
+
+* Fixed a typo in Pawn 2.13.4 that caused it to, uh, not work at all.
+
+### Version 2.13.4
+
+* The War Within and Midnight: Pawn's item level upgrade features have been restored.
+* Upgrade arrows in your bags will now properly update after equipping or unequipping an item.
+
 ### Version 2.13.3
 
 * The War Within and Midnight: Pawn is temporarily ignoring "currently equipped" tooltips, as they appear to be major contributors to triggering bugs in item tooltips caused by WoW 12.0's combat addon restrictions. Those bugs are reportedly getting fixed ASAP, and I'll un-ignore those tooltips once they are.

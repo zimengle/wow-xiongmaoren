@@ -1,15 +1,49 @@
 
 WhisperPopDB = {
-["save"] = 1,
+["notifyButton"] = 1,
 ["listHeight"] = 320,
-["sound"] = 1,
+["positions"] = {
+["WhisperPopFrame"] = {
+"CENTER",
+"UIParent",
+"CENTER",
+0,
+-20,
+},
+["WhisperPopNotifyButton"] = {
+"BOTTOM",
+"UIParent",
+"BOTTOM",
+-563,
+262,
+},
+},
 ["showRealm"] = 1,
-["version"] = 4.12,
-["listWidth"] = 200,
+["time"] = 1,
+["save"] = 1,
 ["timeFormat"] = 2,
-["listScale"] = 100,
+["ignoreTags"] = 1,
 ["buttonScale"] = 100,
 ["history"] = {
+{
+["received"] = 1,
+["messages"] = {
+"1[T1769430752]wca ",
+"1[T1769430758]啥情况",
+"1[T1769430765]别去熊猫人",
+"1[T1769431016]我擦",
+"0[T1769431985]熊猫人 我有个号。。",
+"0[T1769431987]随便玩玩",
+"1[T1769432002]熊猫人人少",
+"1[T1769432004]而且很难",
+"1[T1774444454]wca ",
+"1[T1774444459]彻底上瘾？",
+"0[T1774444469]来啊",
+},
+["class"] = "BN",
+["name"] = "FAFAFA#5900",
+["new"] = 1,
+},
 {
 ["received"] = 1,
 ["messages"] = {
@@ -97,12 +131,11 @@ WhisperPopDB = {
 },
 ["class"] = "MAGE",
 ["name"] = "重庆摄像师-铁血",
-["new"] = 1,
 },
 {
 ["received"] = 1,
-["name"] = "沉默小羔羊#5701",
 ["class"] = "BN",
+["name"] = "沉默小羔羊#5701",
 ["messages"] = {
 "1[T1769356188]打完了 分了600G 黑的一批",
 "1[T1769356198]TBC 我准备起3个号",
@@ -190,7 +223,6 @@ WhisperPopDB = {
 "1[T1770530108]纳格兰竞技场任务来个T 4=1",
 "0[T1770530177]111",
 },
-["new"] = 1,
 },
 {
 ["received"] = 1,
@@ -200,69 +232,68 @@ WhisperPopDB = {
 "1[T1770530172]纳格兰竞技场任务来个T 4=1",
 "0[T1770530177]做完了",
 },
-["new"] = 1,
 },
 {
+["class"] = "WARRIOR",
 ["messages"] = {
 "1[T1770530176]纳格兰竞技场任务来个T 4=1",
 },
-["class"] = "WARRIOR",
 ["name"] = "铅矿-铁血",
 },
 {
+["class"] = "WARRIOR",
 ["messages"] = {
 "1[T1770530174]纳格兰竞技场任务来个T 4=1",
 },
-["class"] = "WARRIOR",
 ["name"] = "Watch-铁血",
 },
 {
+["class"] = "PALADIN",
 ["messages"] = {
 "1[T1770530169]纳格兰竞技场任务来个T 4=1",
 },
-["class"] = "PALADIN",
 ["name"] = "襄平大盖-铁血",
 },
 {
+["class"] = "PALADIN",
 ["messages"] = {
 "1[T1770530165]纳格兰竞技场任务来个T 4=1",
 },
-["class"] = "PALADIN",
 ["name"] = "刘牛一家子-铁血",
 },
 {
+["class"] = "PALADIN",
 ["messages"] = {
 "1[T1770530162]纳格兰竞技场任务来个T 4=1",
 },
-["class"] = "PALADIN",
 ["name"] = "Effiew-铁血",
 },
 {
+["class"] = "PALADIN",
 ["messages"] = {
 "1[T1770530149]纳格兰竞技场任务来个T 4=1",
 },
-["class"] = "PALADIN",
 ["name"] = "杉目-铁血",
 },
 {
+["class"] = "PALADIN",
 ["messages"] = {
 "1[T1770530119]纳格兰竞技场任务来个T 4=1",
 },
-["class"] = "PALADIN",
 ["name"] = "矮脚小骑士-铁血",
 },
 {
+["class"] = "PALADIN",
 ["messages"] = {
 "1[T1770530114]纳格兰竞技场任务来个T 4=1",
 },
-["class"] = "PALADIN",
 ["name"] = "英雄乄卡普-铁血",
 },
 {
+["class"] = "DRUID",
 ["messages"] = {
 "1[T1770530111]纳格兰竞技场任务来个T 4=1",
 },
-["class"] = "DRUID",
 ["name"] = "姬安娜的初恋-铁血",
 },
 {
@@ -276,23 +307,23 @@ WhisperPopDB = {
 ["new"] = 1,
 },
 {
+["class"] = "PALADIN",
 ["messages"] = {
 "1[T1770530087]纳格兰竞技场任务来个T 4=1",
 },
-["class"] = "PALADIN",
 ["name"] = "圣盾丶骑士-铁血",
 },
 {
+["class"] = "PALADIN",
 ["messages"] = {
 "1[T1770530083]纳格兰竞技场任务来个T 4=1",
 },
-["class"] = "PALADIN",
 ["name"] = "拔旗-铁血",
 },
 {
 ["received"] = 1,
-["name"] = "你姐姐贵姓-铁血",
 ["class"] = "DRUID",
+["name"] = "你姐姐贵姓-铁血",
 ["messages"] = {
 "0[T1770529732]11T",
 "1[T1770529995]人齐了",
@@ -302,53 +333,53 @@ WhisperPopDB = {
 },
 },
 {
+["class"] = "PRIEST",
 ["messages"] = {
 "1[T1770529944]纳格兰竞技场任务来个奶 4=1",
 },
-["class"] = "PRIEST",
 ["name"] = "要你命丶叁千-铁血",
 },
 {
 ["received"] = 1,
-["name"] = "千李沧岚-铁血",
 ["class"] = "SHAMAN",
+["name"] = "千李沧岚-铁血",
 ["messages"] = {
 "1[T1770529938]纳格兰竞技场任务来个奶 4=1",
 "0[T1770529944]1",
 },
 },
 {
+["class"] = "PRIEST",
 ["messages"] = {
 "1[T1770529925]纳格兰竞技场任务来个奶 4=1",
 },
-["class"] = "PRIEST",
 ["name"] = "小麦苹果汁-铁血",
 },
 {
+["class"] = "PRIEST",
 ["messages"] = {
 "1[T1770529923]纳格兰竞技场任务来个奶 4=1",
 },
-["class"] = "PRIEST",
 ["name"] = "千之羽-铁血",
 },
 {
+["class"] = "PRIEST",
 ["messages"] = {
 "1[T1770529890]纳格兰竞技场任务来个奶 4=1",
 },
-["class"] = "PRIEST",
 ["name"] = "忆逝逝丶-铁血",
 },
 {
+["class"] = "PRIEST",
 ["messages"] = {
 "1[T1770529884]纳格兰竞技场任务来个奶 4=1",
 },
-["class"] = "PRIEST",
 ["name"] = "一杯敬爱情-铁血",
 },
 {
 ["received"] = 1,
-["name"] = "灬贼恐怖灬-铁血",
 ["class"] = "MAGE",
+["name"] = "灬贼恐怖灬-铁血",
 ["messages"] = {
 "0[T1770527765]组",
 "0[T1770529737]1",
@@ -373,6 +404,7 @@ WhisperPopDB = {
 ["new"] = 1,
 },
 {
+["class"] = "ROGUE",
 ["messages"] = {
 "1[T1770528443]我擦",
 "1[T1770528446]看我",
@@ -389,7 +421,6 @@ WhisperPopDB = {
 "1[T1770528578]人呢",
 "1[T1770528645]88",
 },
-["class"] = "ROGUE",
 ["name"] = "捕鲸叉-铁血",
 },
 {
@@ -599,21 +630,6 @@ WhisperPopDB = {
 },
 {
 ["received"] = 1,
-["class"] = "BN",
-["name"] = "FAFAFA#5900",
-["messages"] = {
-"1[T1769430752]wca ",
-"1[T1769430758]啥情况",
-"1[T1769430765]别去熊猫人",
-"1[T1769431016]我擦",
-"0[T1769431985]熊猫人 我有个号。。",
-"0[T1769431987]随便玩玩",
-"1[T1769432002]熊猫人人少",
-"1[T1769432004]而且很难",
-},
-},
-{
-["received"] = 1,
 ["name"] = "包包会磨皮-铁血",
 ["class"] = "ROGUE",
 ["messages"] = {
@@ -673,25 +689,10 @@ WhisperPopDB = {
 ["name"] = "乘風归-铁血",
 },
 },
-["ignoreTags"] = 1,
+["version"] = 4.12,
 ["applyFilters"] = 1,
 ["foreignOnly"] = 1,
-["time"] = 1,
-["positions"] = {
-["WhisperPopFrame"] = {
-"CENTER",
-"UIParent",
-"CENTER",
-0,
--20,
-},
-["WhisperPopNotifyButton"] = {
-"BOTTOM",
-"UIParent",
-"BOTTOM",
--563,
-262,
-},
-},
-["notifyButton"] = 1,
+["listScale"] = 100,
+["sound"] = 1,
+["listWidth"] = 200,
 }

@@ -11,32 +11,32 @@ MJEGlobalSettings = {
 ["slotPosition"] = "top",
 ["compactMountList"] = true,
 ["displayStatistics"] = {
-["UsedCount"] = true,
 ["TravelDistance"] = true,
-["TravelTime"] = true,
+["UsedCount"] = true,
+["LearnedDate"] = true,
 ["Rarity"] = true,
 ["Family"] = true,
 ["CustomizationCount"] = true,
 ["Wowhead"] = true,
-["LearnedDate"] = true,
+["TravelTime"] = true,
 },
 ["colorizeNameByRarity"] = true,
 ["showResizeEdge"] = true,
 ["showPersonalCount"] = true,
 ["displayBackground"] = "original",
-["autoRotateModel"] = false,
+["previewButton"] = true,
 ["windowSize"] = {
 0,
 0,
 },
-["previewButton"] = true,
+["autoRotateModel"] = false,
 ["unlockDisplayCamera"] = true,
 ["displayAnimation"] = "stand",
 },
+["searchInFamilyName"] = true,
 ["hiddenMounts"] = {
 },
-["searchInFamilyName"] = true,
-["summonPreviousPetAgain"] = true,
+["searchInNotes"] = true,
 ["pets"] = {
 ["assignments"] = {
 },
@@ -50,6 +50,24 @@ MJEGlobalSettings = {
 ["favoritesOnTop"] = true,
 ["unusableToBottom"] = false,
 },
+["favorites"] = {
+["assignments"] = {
+},
+["profiles"] = {
+{
+["mounts"] = {
+197,
+266,
+363,
+2647,
+},
+["initialScan"] = true,
+["name"] = "",
+["autoFavor"] = false,
+},
+},
+},
+["personalHiddenMounts"] = false,
 ["filter"] = {
 ["expansion"] = {
 true,
@@ -97,8 +115,7 @@ true,
 true,
 true,
 },
-["color"] = {
-},
+["hiddenIngame"] = false,
 ["hidden"] = false,
 ["notCollected"] = true,
 ["onlyUsable"] = false,
@@ -215,35 +232,18 @@ true,
 },
 ["collected"] = true,
 ["onlyRecent"] = false,
-["hiddenIngame"] = false,
-},
-["personalHiddenMounts"] = false,
-["favorites"] = {
-["assignments"] = {
-},
-["profiles"] = {
-{
-["mounts"] = {
-197,
-266,
-363,
-2647,
-},
-["initialScan"] = true,
-["name"] = "",
-["autoFavor"] = false,
+["color"] = {
 },
 },
-},
-["searchInNotes"] = true,
+["summonPreviousPetAgain"] = true,
 ["searchInDescription"] = true,
 }
 MJETrackingData = {
 [2925] = {
-140,
-1770470487,
-8370,
-72665.46291394913,
+171,
+1775220184,
+9547,
+79901.14066272769,
 },
 [197] = {
 10301,
@@ -259,10 +259,10 @@ MJETrackingData = {
 1753454777,
 },
 [2251] = {
-86,
-1770479291,
-3244,
-42054.87563107658,
+107,
+1775220571,
+3787,
+54215.05404417586,
 },
 [1765] = {
 5,
@@ -338,10 +338,10 @@ MJETrackingData = {
 29779.1528523674,
 },
 [84] = {
-33,
-1770260644,
-975,
-6178.447592930289,
+49,
+1775220950,
+1223,
+10916.42839771538,
 },
 [199] = {
 0,

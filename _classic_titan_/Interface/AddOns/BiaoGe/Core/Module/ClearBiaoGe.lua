@@ -72,11 +72,6 @@ function BG.ClearBiaoGeUI()
                     BG.DuiZhangFrame[FB]["boss" .. b]["myjine" .. i]:SetText("")
                 end
             end
-            if BG.Frame[FB]["boss" .. b]["time"] then
-                BG.Frame[FB]["boss" .. b]["time"]:SetText("")
-            end
-            BiaoGe[FB]["boss" .. b]["time"] = nil
-            BiaoGe[FB]["boss" .. b]["difficultyID"] = nil
         end
     end
 
@@ -87,16 +82,16 @@ function BG.ClearBiaoGeUI()
                 BG.ClearBiaoGeByIndex(FB, b)
             end
             BiaoGe[FB].tradeTbl = {}
-            BiaoGe[FB].lockoutIDtbl = nil
             BiaoGe[FB].raidRoster = nil
             BiaoGe[FB].auctionLog = nil
             BG.UpdateAuctionLogFrame()
-            BG.UpdateLockoutIDText()
             BG.auctionLogFrame.changeFrame:Hide()
 
             local num -- 分钱人数
             if BG.IsVanilla then
                 num = BG.GetFBinfo(FB, "maxplayers") or 40
+            elseif BG.IsTBC then
+                num = BG.GetFBinfo(FB, "maxplayers") or 25
             elseif BG.IsTitan then
                 if BiaoGe.options["QingKongPeople"] == 1
                     and tonumber(BiaoGe.options["MaxPlayers_Titan"])
@@ -154,8 +149,8 @@ function BG.ClearBiaoGeUI()
     -- 清空按钮
     do
         local bt = BG.CreateButton(BG.FBMainFrame)
-        bt:SetSize(120, BG.ButtonZhangDan:GetHeight())
-        bt:SetPoint("BOTTOMLEFT", BG.MainFrame, "BOTTOMLEFT", 30, select(5, BG.ButtonZhangDan:GetPoint()))
+        bt:SetSize(120, 25)
+        bt:SetPoint("BOTTOMLEFT", BG.MainFrame, "BOTTOMLEFT", 30, 38)
         bt:SetText(L["清空表格"])
         bt:RegisterForClicks("AnyUp")
         BG.ButtonQingKong = bt
@@ -189,10 +184,10 @@ function BG.ClearBiaoGeUI()
                 local num = BG.ClearBiaoGe("biaoge", BG.FB1)
                 if num then
                     BG.SendSystemMessage(BG.STC_b1(format(
-                        L["已清空表格< %s >，分钱人数已改为%s人。"], BG.GetFBinfo(BG.FB1, "localName"), num)))
+                        L["已清空表格< %s >，分钱人数已改为%s人。"], BG.GetFBinfo(BG.FB1, "shortName"), num)))
                 else
                     BG.SendSystemMessage(BG.STC_b1(format(
-                        L["已清空表格< %s >。"], BG.GetFBinfo(BG.FB1, "localName"))))
+                        L["已清空表格< %s >。"], BG.GetFBinfo(BG.FB1, "shortName"))))
                 end
                 BG.PlaySound(2)
             end,
@@ -216,7 +211,6 @@ function BG.ClearBiaoGeUI()
             if GetServerTime() - BiaoGe[FB].raidRoster.time >= 86400 * 1 then return true end
             -- 服务器不同
             if BG.realmName ~= BiaoGe[FB].raidRoster.realm then return true end
-
             local maxCount = max(#BG.raidRosterInfo, #BiaoGe[FB].raidRoster.roster)
             local sameCount = 0
             for _, vv in ipairs(BG.raidRosterInfo) do
@@ -237,10 +231,9 @@ function BG.ClearBiaoGeUI()
                 BG.SendSystemMessage(L["提醒团长：如果你没有物品分配权，将会导致交易的相关功能失效。"])
             end
         end
-        BG.RegisterEvent("RAID_INSTANCE_WELCOME", function(self, event, ...)
-            if BiaoGe.options["autoQingKong"] ~= 1 then return end
-            RequestRaidInfo()
 
+        local needCheck
+        local function CheckCD()
             BG.After(3, function()
                 local _, _, _, _, maxPlayers, _, _, instanceID = GetInstanceInfo()
                 local FB = BG.FBIDtable[instanceID]
@@ -270,16 +263,27 @@ function BG.ClearBiaoGeUI()
                             local num = BG.ClearBiaoGe("biaoge", FB)
                             local link = "|cffFFFF00|Hgarrmission:" .. "BiaoGe:" .. L["撤回清空"] .. ":" .. FB .. ":" .. GetServerTime() ..
                                 "|h[" .. L["撤回清空"] .. "]|h|r"
-                            SendSystemMessage(BG.STC_b1(format(L["<BiaoGe> 已自动清空表格< %s >，分钱人数已改为%s人。原表格数据已保存至历史表格1。"], BG.GetFBinfo(FB, "localName"), num)) .. link)
+                            SendSystemMessage(BG.STC_b1(format(L["<BiaoGe> 已自动清空表格< %s >，分钱人数已改为%s人。原表格数据已保存至历史表格1。"], BG.GetFBinfo(FB, "shortName"), num)) .. link)
                         else
                             local num = BG.ClearBiaoGe("biaoge", FB)
-                            SendSystemMessage(BG.STC_b1(format(L["<BiaoGe> 已自动清空表格< %s >，分钱人数已改为%s人。"], BG.GetFBinfo(FB, "localName"), num)))
+                            SendSystemMessage(BG.STC_b1(format(L["<BiaoGe> 已自动清空表格< %s >，分钱人数已改为%s人。"], BG.GetFBinfo(FB, "shortName"), num)))
                         end
 
                         BG.PlaySound("qingkong")
                     end
                 end
             end)
+        end
+        BG.RegisterEvent("RAID_INSTANCE_WELCOME", function(self, event, ...)
+            if BiaoGe.options["autoQingKong"] ~= 1 then return end
+            needCheck = true
+            RequestRaidInfo()
+        end)
+        BG.RegisterEvent("UPDATE_INSTANCE_INFO", function()
+            if needCheck then
+                needCheck = nil
+                CheckCD()
+            end
         end)
 
         local clicked = {}
@@ -306,7 +310,7 @@ function BG.ClearBiaoGeUI()
         local function OnEnter(self)
             local FB = BG.FB1
             local p = SetClassCFF(BiaoGe.clearBiaoGeMoney[FB].name)
-            local f = BG.GetFBinfo(BiaoGe.clearBiaoGeMoney[FB].FB, "localName")
+            local f = BG.GetFBinfo(BiaoGe.clearBiaoGeMoney[FB].FB, "shortName")
             local t = date("%m-%d %H:%M", BiaoGe.clearBiaoGeMoney[FB].time)
             local m = GetMoneyString(BiaoGe.clearBiaoGeMoney[FB].money .. "0000", true)
             GameTooltip:SetOwner(poit, "ANCHOR_TOPLEFT", 0, 0)
@@ -422,7 +426,7 @@ function BG.ClearBiaoGeUI()
         f.titleText = f:CreateFontString()
         f.titleText:SetPoint("CENTER", f, "TOP", 0, -11)
         f.titleText:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
-        f.titleText:SetFormattedText(L["清空表格（%s）"], BG.GetFBinfo(FB, "localName"))
+        f.titleText:SetFormattedText(L["清空表格（%s）"], BG.GetFBinfo(FB, "shortName"))
 
         local function CreateCheckButton(b, text)
             local bt = CreateFrame("CheckButton", nil, f, "ChatConfigCheckButtonTemplate")
@@ -510,8 +514,8 @@ function BG.ClearBiaoGeUI()
     -- 清空心愿
     do
         local bt = BG.CreateButton(BG.HopeMainFrame)
-        bt:SetSize(120, BG.ButtonZhangDan:GetHeight())
-        bt:SetPoint("BOTTOMLEFT", BG.MainFrame, "BOTTOMLEFT", 30, select(5, BG.ButtonZhangDan:GetPoint()))
+        bt:SetSize(120, 25)
+        bt:SetPoint("BOTTOMLEFT", BG.MainFrame, "BOTTOMLEFT", 30, 38)
         bt:SetText(L["清空心愿"])
         BG.ButtonHopeQingKong = bt
         -- 按钮触发
@@ -534,7 +538,7 @@ function BG.ClearBiaoGeUI()
             button2 = L["否"],
             OnAccept = function()
                 BG.ClearBiaoGe("hope", BG.FB1)
-                SendSystemMessage(BG.STC_g1(format(L["已清空心愿< %s >"], BG.GetFBinfo(BG.FB1, "localName"))))
+                SendSystemMessage(BG.STC_g1(format(L["已清空心愿< %s >"], BG.GetFBinfo(BG.FB1, "shortName"))))
                 BG.PlaySound(2)
             end,
             OnCancel = function()

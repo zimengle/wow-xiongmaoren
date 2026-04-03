@@ -2,14 +2,13 @@
 
 local Details = _G.Details
 local DF = _G.DetailsFramework
-local Loc = _G.LibStub("AceLocale-3.0"):GetLocale("Details")
 
 local _
 
 function Details:InitializeMacrosWindow()
     local DetailsMacrosPanel = DF:CreateSimplePanel(UIParent, 700, 480, "Details! Useful Macros", "DetailsMacrosPanel")
     DetailsMacrosPanel.Frame = DetailsMacrosPanel
-    DetailsMacrosPanel.__name = Loc ["STRING_MACROS"] or "Macros"
+    DetailsMacrosPanel.__name = "Macros"
     DetailsMacrosPanel.real_name = "DETAILS_MACROSWINDOW"
     DetailsMacrosPanel.__icon = [[Interface\MacroFrame\MacroFrame-Icon]]
     DetailsMacrosPanel.__iconcoords = {0, 1, 0, 1}

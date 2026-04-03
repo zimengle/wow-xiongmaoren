@@ -7,10 +7,7 @@
 -- Main non-UI code
 ------------------------------------------------------------
 
-PawnVersion = 2.1303
-
--- Remove this when 12.0's item level APIs are working or a workaround is found.
-PawnTempBlockItemLevelUpgradeFeatures = VgerCore.IsMidnight
+PawnVersion = 2.1308
 
 -- Remove this when 12.0's tooltip secret taint bugs are fixed.
 -- 1. Pawn hooks ShoppingTooltip1.ProcessInfo with PawnUpdateTooltip
@@ -19,6 +16,10 @@ PawnTempBlockItemLevelUpgradeFeatures = VgerCore.IsMidnight
 -- 4. If we're in combat, we introduce taint into MoneyFrame.staticMoney
 -- 5. Later calls to MoneyFrame_Update fail due to taint
 PawnTempBlockShoppingTooltipUpdates = VgerCore.IsMidnight
+
+-- Remove this when 12.0's tooltip secret taint bugs are fixed.
+-- Reverted in Pawn 2.13.8 after a game patch.
+PawnTempWrapWorldQuestTooltipResize = nil
 
 -- Pawn requires this version of VgerCore:
 local PawnVgerCoreVersionRequired = 1.20
@@ -328,6 +329,17 @@ function PawnInitialize()
 		end)
 
 	-- World quest embedded tooltips
+
+	if PawnTempWrapWorldQuestTooltipResize and EmbeddedItemTooltip_UpdateSize then
+		-- This arcane incantation seems to prevent the embedded item tooltip inside of the world quest tooltip from exploding due to
+		-- the secret taint bugs in the 12.0 tooltip code. We replace the normal EmbeddedItemTooltip_UpdateSize with one that's
+		-- pre-tainted by addon code. I have no idea why this works and I don't want to. May the Light have mercy on our souls.
+		local OriginalEmbeddedItemTooltipUpdateSize = EmbeddedItemTooltip_UpdateSize
+		EmbeddedItemTooltip_UpdateSize = function(...)
+			return OriginalEmbeddedItemTooltipUpdateSize(...)
+		end
+	end
+
 	hooksecurefunc("EmbeddedItemTooltip_SetItemByQuestReward",
 		function(self, QuestLogIndex, QuestID, ...)
 			if PawnCommon.ShowQuestUpgradeAdvisor then
@@ -904,7 +916,7 @@ function PawnIsItemDefinitivelyAnUpgrade(ItemLink, CheckLevel)
 		if Item == nil or Item.Link == nil then return nil end
 		local UpgradeInfo, ItemLevelIncrease = PawnIsItemAnUpgrade(Item)
 		-- If upgrade info was returned, it's an upgrade OR if there is an item level increase, it's an upgrade
-		return UpgradeInfo ~= nil or (PawnCommon.ShowItemLevelUpgrades and (not PawnTempBlockItemLevelUpgradeFeatures) and ItemLevelIncrease ~= nil)
+		return UpgradeInfo ~= nil or (PawnCommon.ShowItemLevelUpgrades and ItemLevelIncrease ~= nil)
 	elseif PawnCommon.ShowRelicUpgrades and PawnCanItemBeArtifactUpgrade(ItemLink) then
 		-- If there is artifact relic upgrade information, it's an upgrade.
 		return PawnGetRelicUpgradeInfo(ItemLink) ~= nil
@@ -1700,7 +1712,7 @@ function PawnUpdateTooltip(TooltipName, MethodName, Param1, ...)
 
 	local Tooltip = _G[TooltipName]
 	if not Tooltip then
-		VgerCore.Fail("Where'd the tooltip go?  I seem to have misplaced it.")
+		VgerCore.Fail("Pawn was trying to update the tooltip named " .. tostring(TooltipName) .. " but it doesn't exist, probably due to either an error when logging in, or a conflict with another addon.")
 		return
 	end
 
@@ -1767,7 +1779,7 @@ function PawnUpdateTooltip(TooltipName, MethodName, Param1, ...)
 		end
 
 		-- Add the item level info to the tooltip.
-		if ItemLevelIncrease and PawnCommon.ShowItemLevelUpgrades and not PawnTempBlockItemLevelUpgradeFeatures then
+		if ItemLevelIncrease and PawnCommon.ShowItemLevelUpgrades then
 			-- Find which line of the tooltip (2-4) contains the text "Item Level" and annotate that.
 			local AnnotatedItemLevel
 			for i = 2, 5 do
@@ -1797,7 +1809,7 @@ function PawnUpdateTooltip(TooltipName, MethodName, Param1, ...)
 
 	-- Color or reset the tooltip border as necessary.
 	if PawnCommon.ColorTooltipBorder then
-		if UpgradeInfo or ((not PawnTempBlockItemLevelUpgradeFeatures) and ItemLevelIncrease and PawnCommon.ShowItemLevelUpgrades) then PawnSetTooltipBorderColor(Tooltip, 0, 1, 0) else PawnSetTooltipBorderColor(Tooltip, 1, 1, 1) end
+		if UpgradeInfo or (ItemLevelIncrease and PawnCommon.ShowItemLevelUpgrades) then PawnSetTooltipBorderColor(Tooltip, 0, 1, 0) else PawnSetTooltipBorderColor(Tooltip, 1, 1, 1) end
 	end
 
 	-- Add the item ID to the tooltip if known.
@@ -3777,7 +3789,7 @@ function PawnIsItemAnUpgrade(Item, DoNotRescan)
 	if UpgradeTable then sort(UpgradeTable, PawnLocalizedScaleNameComparer) end
 
 	local ItemLevelIncrease
-	if PawnCommon.ShowItemLevelUpgrades and not PawnTempBlockItemLevelUpgradeFeatures then
+	if PawnCommon.ShowItemLevelUpgrades then
 		ItemLevelIncrease = PawnIsItemAnItemLevelUpgrade(Item)
 	end
 
@@ -4138,6 +4150,7 @@ PawnOnInventoryChanged = VgerCore.Throttle(.250, function()
 	if InCombatLockdown() then return end
 
 	PawnCheckInventoryForUpgrades()
+	PawnResetBags()
 end)
 
 -- Called whenever the player vendors or destroys an item.  We need to check their best-item sets for that item and remove it
@@ -4162,6 +4175,7 @@ function PawnOnItemLost(ItemLink)
 		InvType2 = "INVTYPE_WEAPONOFFHAND"
 	end
 
+	local RemovedFromAnyScale = false
 	for _, Scale in pairs(PawnCommon.Scales) do
 		local CharacterOptions = Scale.PerCharacterOptions[PawnPlayerFullName]
 		if CharacterOptions then
@@ -4182,9 +4196,13 @@ function PawnOnItemLost(ItemLink)
 				if RemovedItem then
 					--VgerCore.Message(VgerCore.Color.Blue .. "Pawn: Warning! You just lost your best " .. _G[InvType] .. " from " .. PawnGetScaleLocalizedName(ScaleName) .. ". :(")
 					CharacterOptions.BestItems = nil
+					RemovedFromAnyScale = true
 				end
 			end
 		end
+	end
+	if RemovedFromAnyScale then
+		PawnResetBags()
 	end
 
 	for Slot = 1, 18 do
@@ -4236,7 +4254,7 @@ function PawnFindInterestingItems(List)
 			Info.Result = "trinket"
 		end
 		local UpgradeInfo, ItemLevelIncrease = PawnIsItemAnUpgrade(Info.Item)
-		if Info.Usable and (UpgradeInfo or (PawnCommon.ShowItemLevelUpgrades and ItemLevelIncrease and not PawnTempBlockItemLevelUpgradeFeatures)) then
+		if Info.Usable and (UpgradeInfo or (PawnCommon.ShowItemLevelUpgrades and ItemLevelIncrease)) then
 			-- If it's usable and an upgrade, mark it as such.
 			Info.Result = "upgrade"
 			-- If it's a choice item, then we shouldn't pick a choice item to vendor.
@@ -5993,7 +6011,7 @@ function PawnShouldItemLinkHaveUpgradeArrowUnbudgeted(ItemLink, CheckLevel)
 			return UpgradeInfo ~= nil
 		else
 			local UpgradeInfo, ItemLevelIncrease = PawnIsItemAnUpgrade(Item)
-			return UpgradeInfo ~= nil or (PawnCommon.ShowItemLevelUpgrades and ItemLevelIncrease ~= nil and not PawnTempBlockItemLevelUpgradeFeatures)
+			return UpgradeInfo ~= nil or (PawnCommon.ShowItemLevelUpgrades and ItemLevelIncrease ~= nil)
 		end
 	elseif PawnCommon.ShowRelicUpgrades and PawnCanItemBeArtifactUpgrade(ItemLink) then
 		return PawnGetRelicUpgradeInfo(ItemLink) ~= nil
@@ -6061,7 +6079,7 @@ end
 function PawnUnregisterThirdPartyTooltip(AddonName)
 	if not AddonName then VgerCore.Fail("AddonName can't be empty.") return end
 	PawnThirdPartyTooltips[AddonName] = nil
-	PawnIsAThirdPartyTooltipRegistered = #PawnThirdPartyBags > 0
+	PawnIsAThirdPartyTooltipRegistered = #PawnThirdPartyTooltips > 0
 end
 
 -- Shows or hides the Pawn UI.

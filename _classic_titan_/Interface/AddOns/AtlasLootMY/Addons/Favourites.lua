@@ -976,7 +976,6 @@ function Favourites:GetIconForActiveItemID(itemID)
     elseif listName[1][2] then
         icon = listName[1][2]
     end
-
     return icon
 end
 

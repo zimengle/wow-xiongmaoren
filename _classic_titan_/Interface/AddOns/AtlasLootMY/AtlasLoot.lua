@@ -211,6 +211,27 @@ end
 -- Faction switch
 -- #############################
 function AtlasLoot:GetRetByFaction(horde, alliance)
+	if AtlasLootMYDB.Debug and type(horde)=='table'and type(horde[1]) =='table' then
+		local list={}
+		local idx=1
+		for i, v in ipairs(horde) do
+			v.ha='h'
+			if type(v[2])=='number' then
+				v[1]=math.floor(idx/30)*100+idx%30
+				idx=idx+1
+				tinsert(list,v)
+			end
+		end
+		for i, v in ipairs(alliance) do
+			v.ha='a'
+			if type(v[2])=='number' then
+				v[1]=math.floor(idx/30)*100+idx%30
+				idx=idx+1
+				tinsert(list,v)
+			end
+		end
+		return list
+	end
 	return UnitFactionGroup("player") == "Horde" and horde or alliance
 end
 
@@ -302,3 +323,10 @@ AtlasLoot.DIFFICULTY = {
 for k,v in pairs(AtlasLoot.DIFFICULTY) do
 	AtlasLoot.DIFFICULTY[v.key] = v
 end
+function StartAtlasLootDebug()
+	AtlasLootMYDB.Debug=true
+end
+
+
+
+

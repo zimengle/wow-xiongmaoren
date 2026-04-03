@@ -2,10 +2,6 @@
 ElvCharacterDB = {
 ["ConvertKeybindings"] = true,
 ["ChatEditHistory"] = {
-"魔兽是真tm的好玩？",
-"/团队 使用一下就行了",
-"/团队 有buff",
-"/团队 正常",
 "/团队 有时候有bug",
 "终于过了",
 "人呢",
@@ -22,6 +18,10 @@ ElvCharacterDB = {
 "T补500",
 "我擦",
 "舒服",
+"/cw 呔看我破甲 zst",
+"wca",
+"你居然在啊",
+"稀客",
 },
 ["ChatHistoryLog"] = {
 },

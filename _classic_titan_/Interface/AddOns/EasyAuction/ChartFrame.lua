@@ -1,5 +1,10 @@
 function EasyAuction_ShowChart(itemName)
-    EasyAuctionDB = EasyAuctionDB or {}
+    -- 使用全局数据库引用
+    local EasyAuctionDB = _G.EasyAuctionDB
+    if not EasyAuctionDB then
+        print("|cff00ff00[EasyAuction]|r 数据库未初始化。")
+        return
+    end
     EasyAuctionDB.DailyMinPrice = EasyAuctionDB.DailyMinPrice or {}
     EasyAuctionDB.PriceHistory = EasyAuctionDB.PriceHistory or {}
     EasyAuctionDB.HourlyMinPrice = EasyAuctionDB.HourlyMinPrice or {}

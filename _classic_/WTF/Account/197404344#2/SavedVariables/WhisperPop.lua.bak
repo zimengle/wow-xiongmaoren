@@ -1,35 +1,20 @@
 
 WhisperPopDB = {
-["positions"] = {
-["WhisperPopFrame"] = {
-"CENTER",
-"UIParent",
-"CENTER",
-0,
--20,
-},
-["WhisperPopNotifyButton"] = {
-"BOTTOMLEFT",
-"UIParent",
-"BOTTOMLEFT",
-516,
-311,
-},
-},
+["save"] = 1,
 ["listHeight"] = 320,
-["notifyButton"] = 1,
+["sound"] = 1,
 ["showRealm"] = 1,
-["ignoreTags"] = 1,
+["version"] = 4.12,
 ["listWidth"] = 200,
 ["timeFormat"] = 2,
-["time"] = 1,
+["listScale"] = 100,
 ["buttonScale"] = 100,
 ["history"] = {
 {
+["class"] = "WARRIOR",
 ["messages"] = {
 "1[T1768383406]123",
 },
-["class"] = "WARRIOR",
 ["name"] = "街头球王-祈福",
 },
 {
@@ -265,10 +250,25 @@ WhisperPopDB = {
 ["name"] = "哈灬圣光闪耀-祈福",
 },
 },
-["listScale"] = 100,
+["ignoreTags"] = 1,
 ["applyFilters"] = 1,
 ["foreignOnly"] = 1,
-["version"] = 4.12,
-["sound"] = 1,
-["save"] = 1,
+["time"] = 1,
+["positions"] = {
+["WhisperPopFrame"] = {
+"CENTER",
+"UIParent",
+"CENTER",
+0,
+-20,
+},
+["WhisperPopNotifyButton"] = {
+"BOTTOMLEFT",
+"UIParent",
+"BOTTOMLEFT",
+516,
+311,
+},
+},
+["notifyButton"] = 1,
 }

@@ -200,6 +200,7 @@ local IngameLocales = {
 	["Trinket"]	= GLOBAL["INVTYPE_TRINKET"],
 	["Robe"] = GLOBAL["INVTYPE_ROBE"],
 	["Cloak"] = GLOBAL["INVTYPE_CLOAK"],
+	["Back"] = GLOBAL["INVTYPE_CLOAK"],
 	["Head"] = GLOBAL["INVTYPE_HEAD"],
 	["Holdable"] = GLOBAL["INVTYPE_HOLDABLE"],
 	["Chest"] = GLOBAL["INVTYPE_CHEST"],

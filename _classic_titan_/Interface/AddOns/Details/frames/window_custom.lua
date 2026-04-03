@@ -702,7 +702,7 @@
 				customWindow.codeeditor:Show()
 				DetailsCustomPanel.CodeEditing = code
 
-				DetailsCustomPanel:SetAcceptButtonText (Loc ["STRING_CUSTOM_SAVE_CODE"] or "Save Code")
+				DetailsCustomPanel:SetAcceptButtonText ("Save Code") --Loc ["STRING_CUSTOM_DONE"]
 			end
 
 			--left menu
@@ -1680,15 +1680,15 @@
 				tooltipcode_button:SetTemplate(CONST_CODETEXTENTRY_OPENCODEBUTTONS_TEMPLATE)
 
 				--edit total code
-				local totalcode_button = gump:NewButton(box2, nil, "$parentTotalCodeButton", "totalcodebutton", 160, 20, DetailsCustomPanel.StartEditCode, 3, nil, nil, Loc ["STRING_CUSTOM_EDIT_TOTAL_CODE"] or "Edit Total Code")
+				local totalcode_button = gump:NewButton(box2, nil, "$parentTotalCodeButton", "totalcodebutton", 160, 20, DetailsCustomPanel.StartEditCode, 3, nil, nil, "Edit Total Code")
 				totalcode_button:SetPoint("topleft", tooltipcode_button, "bottomleft", 0, -8)
-				totalcode_button.tooltip = Loc ["STRING_CUSTOM_EDITTOTAL_DESC"] or "This code is responsible for edit the total number shown in the player bar.\n\nThis is not necessary if you want show exactly the value gotten in the search code."
+				totalcode_button.tooltip = "This code is responsible for edit the total number shown in the player bar.\n\nThis is not necessary if you want show exactly the value gotten in the search code."
 				totalcode_button:SetTemplate(CONST_CODETEXTENTRY_OPENCODEBUTTONS_TEMPLATE)
 
 				--edit percent code
-				local percentcode_button = gump:NewButton(box2, nil, "$parentPercentCodeButton", "percentcodebutton", 160, 20, DetailsCustomPanel.StartEditCode, 4, nil, nil, Loc ["STRING_CUSTOM_EDIT_PERCENT_CODE"] or "Edit Percent Code")
+				local percentcode_button = gump:NewButton(box2, nil, "$parentPercentCodeButton", "percentcodebutton", 160, 20, DetailsCustomPanel.StartEditCode, 4, nil, nil, "Edit Percent Code")
 				percentcode_button:SetPoint("topleft", totalcode_button, "bottomleft", 0, -8)
-				percentcode_button.tooltip = Loc ["STRING_CUSTOM_EDITPERCENT_DESC"] or "Edit the code responsible for the percent number in the player bar.\n\nThis is not required if you want to use simple percentage (comparing with total)."
+				percentcode_button.tooltip = "Edit the code responsible for the percent number in the player bar.\n\nThis is not required if you want to use simple percentage (comparing with total)."
 				percentcode_button:SetTemplate(CONST_CODETEXTENTRY_OPENCODEBUTTONS_TEMPLATE)
 
 				box2:Hide()
@@ -1794,7 +1794,7 @@
 					local object = DetailsCustomPanel.IsEditing
 
 					if (type(object) ~= "table") then
-						return _detalhes:Msg(Loc ["STRING_CUSTOM_NEED_SAVED"] or "This object need to be saved before.")
+						return _detalhes:Msg("This object need to be saved before.")
 					end
 
 					object.script = main_code

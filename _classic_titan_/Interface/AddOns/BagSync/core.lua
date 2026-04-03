@@ -121,6 +121,7 @@ BSYC.API.GetCurrencyListSize = (C_CurrencyInfo and C_CurrencyInfo.GetCurrencyLis
 BSYC.API.GetCurrencyListInfo = (C_CurrencyInfo and C_CurrencyInfo.GetCurrencyListInfo) or GetCurrencyListInfo
 BSYC.API.GetCurrencyListLink = (C_CurrencyInfo and C_CurrencyInfo.GetCurrencyListLink) or GetCurrencyListLink
 BSYC.API.ExpandCurrencyList = (C_CurrencyInfo and C_CurrencyInfo.ExpandCurrencyList) or ExpandCurrencyList
+BSYC.API.LoadAddOn = (C_AddOns and C_AddOns.LoadAddOn) or LoadAddOn
 -- normalize container item link + count across Classic/Retail
 BSYC.API.GetContainerItemLinkCount = function(bagID, slotID)
 	if not getContainerItemInfo then return nil, nil end
@@ -275,68 +276,6 @@ function BSYC:IsMouseOver(frame)
 	return self.GMF and (self.GMF() == frame) or false
 end
 
------------------------------------------------------------------
--- Secret value helpers (Retail 12.0+). These APIs may not exist on older clients.
-------------------------------------------------------------------
-function BSYC:IsSecretValue(v)
-	local fn = _G.issecretvalue
-	if type(fn) == "function" then
-		local ok, res = pcall(fn, v)
-		if ok then return not not res end
-	end
-	return false
-end
-
-function BSYC:CanAccessValue(v)
-	local fn = _G.canaccessvalue
-	if type(fn) == "function" then
-		local ok, res = pcall(fn, v)
-		if ok then return not not res end
-	end
-	return true
-end
-
-function BSYC:IsSecretTable(v)
-	local fn = _G.issecrettable
-	if type(fn) == "function" then
-		local ok, res = pcall(fn, v)
-		if ok then return not not res end
-	end
-	return false
-end
-
-function BSYC:HasAnySecretValue(v)
-	local fn = _G.hasanysecretvalue
-	if type(fn) == "function" then
-		local ok, res = pcall(fn, v)
-		if ok then return not not res end
-	end
-	return false
-end
-
-function BSYC:CanAccessAllValues(v)
-	local fn = _G.canaccessallvalues
-	if type(fn) == "function" then
-		local ok, res = pcall(fn, v)
-		if ok then return not not res end
-	end
-	return true
-end
-
-function BSYC:IsSafeNumber(v)
-	if type(v) ~= "number" then return false end
-	if self:IsSecretValue(v) then return false end
-	if not self:CanAccessValue(v) then return false end
-	return true
-end
-
-function BSYC:IsSafeTable(v)
-	if type(v) ~= "table" then return false end
-	if self:IsSecretTable(v) then return false end
-	if self:HasAnySecretValue(v) then return false end
-	if not self:CanAccessAllValues(v) then return false end
-	return true
-end
 -----------------------------------------------------------------
 ---
 --this is only for hash tables that aren't indexed with 1,2,3,4 etc.. but use custom index keys
@@ -628,7 +567,7 @@ function BSYC:CreateFakeID(link, count, speciesID, level, breedQuality, maxHealt
 
 		if fakePetID then
 			if not count then count = 1 end
-
+			Debug(BSYC_DL.INFO, "FakeID [Created]", speciesID, link, name, fakePetID)
 			local encodeStr = self:EncodeOpts({petdata=petData})
 			if encodeStr then
 				return fakePetID..";"..count..";"..encodeStr
@@ -699,11 +638,29 @@ end
 --- -------------------
 
 function BSYC:GetLibSharedMedia()
+	local function tryLoadLib()
+		if self.__lsmLoadAttempted then return end
+		self.__lsmLoadAttempted = true
+
+		local loadAddon = BSYC.API and BSYC.API.LoadAddOn
+		if type(loadAddon) == "function" then
+			pcall(loadAddon, "LibSharedMedia-3.0")
+		end
+	end
+
 	local libStub = _G.LibStub
-	if type(libStub) ~= "table" and type(libStub) ~= "function" then return nil end
+	if type(libStub) ~= "table" and type(libStub) ~= "function" then
+		tryLoadLib()
+		libStub = _G.LibStub
+		if type(libStub) ~= "table" and type(libStub) ~= "function" then return nil end
+	end
 
 	local ok, sml = pcall(libStub, "LibSharedMedia-3.0", true)
-	if not ok or not sml then return nil end
+	if not ok or not sml then
+		tryLoadLib()
+		ok, sml = pcall(libStub, "LibSharedMedia-3.0", true)
+		if not ok or not sml then return nil end
+	end
 	if type(sml.List) ~= "function" or type(sml.Fetch) ~= "function" then return nil end
 
 	local mtFont = (sml.MediaType and sml.MediaType.FONT) or "font"
@@ -867,9 +824,9 @@ function BSYC:CreateFonts()
 	BSYC.__font = fontObject
 
 	if BSYC.GetModule then
-		local tooltip = BSYC:GetModule("Tooltip", true)
-		if tooltip and tooltip.ApplyExtTipFont then
-			pcall(tooltip.ApplyExtTipFont, tooltip)
+		local extTip = BSYC:GetModule("ExtTip", true)
+		if extTip and extTip.ApplyFont then
+			pcall(extTip.ApplyFont, extTip)
 		end
 	end
 end
@@ -887,13 +844,23 @@ function BSYC:CanDoCurrency()
 end
 
 function BSYC:CanDoProfessions()
-	if not C_TradeSkillUI or not C_TradeSkillUI.GetAllRecipeIDs then return false end
-	if not C_TradeSkillUI.IsTradeSkillLinked or not C_TradeSkillUI.IsTradeSkillGuild or not C_TradeSkillUI.IsNPCCrafting then return false end
-	if not C_TradeSkillUI.GetBaseProfessionInfo or not C_TradeSkillUI.GetChildProfessionInfo then return false end
-	if not C_TradeSkillUI.GetCategories or not C_TradeSkillUI.GetCategoryInfo then return false end
-	if not C_TradeSkillUI.GetRecipeInfo then return false end
 	if not GetProfessions or not GetProfessionInfo then return false end
-	return true
+
+	-- Retail (Dragonflight+): Uses C_TradeSkillUI
+	if C_TradeSkillUI and C_TradeSkillUI.GetAllRecipeIDs then
+		if not C_TradeSkillUI.IsTradeSkillLinked or not C_TradeSkillUI.IsTradeSkillGuild or not C_TradeSkillUI.IsNPCCrafting then return false end
+		if not C_TradeSkillUI.GetBaseProfessionInfo or not C_TradeSkillUI.GetChildProfessionInfo then return false end
+		if not C_TradeSkillUI.GetCategories or not C_TradeSkillUI.GetCategoryInfo then return false end
+		if not C_TradeSkillUI.GetRecipeInfo then return false end
+		return true
+	end
+
+	-- Classic (Vanilla/TBC/Wrath): Uses GetTradeSkillInfo/GetCraftInfo
+	if GetNumTradeSkills and GetTradeSkillInfo and GetTradeSkillRecipeLink then
+		return true
+	end
+
+	return false
 end
 
 function BSYC:ResetFramePositions()

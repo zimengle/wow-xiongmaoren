@@ -1,18 +1,18 @@
 local addonName, ns = ...
-EasyAuctionDB = EasyAuctionDB or {}
-EasyAuctionDB.PriceHistory = EasyAuctionDB.PriceHistory or {}
-EasyAuctionDB.DailyMinPrice = EasyAuctionDB.DailyMinPrice or {}
-EasyAuctionDB.CustomHistoryPage = EasyAuctionDB.CustomHistoryPage or 1
-EasyAuctionDB.scanPerFrame = EasyAuctionDB.scanPerFrame or 200
+
+-- 新的全局数据库，按服务器-阵营存储
+EasyAuctionDB2 = EasyAuctionDB2 or {}
+
+-- 向后兼容：保留旧的全局变量引用，但数据将从新的结构中迁移
+-- EasyAuctionDB 将在 PLAYER_LOGIN 后被设置为当前服务器-阵营的数据库
+_G.EasyAuctionDB = _G.EasyAuctionDB or {}
+
+-- 声明局部变量 EasyAuctionDB，将在初始化时指向当前服务器-阵营的数据库
+local EasyAuctionDB
+
 EasyAuction_SearchHistoryDropDown = CreateFrame("Frame", "EasyAuction_SearchHistoryDropDown", UIParent,
     "UIDropDownMenuTemplate")
-EasyAuctionDB.LastSelectedPriceInfo = nil
-EasyAuctionDB.CurrentDistItemName = nil
-EasyAuctionDB.CurrentDistData = nil
-EasyAuctionDB.undercutMode = EasyAuctionDB.undercutMode or "total" -- "total"：压总价，"unit"：压单价
-EasyAuctionDB.showSections = EasyAuctionDB.showSections or { items = true, price = true, myauct = true }
-EasyAuctionDB.RecentSearch = EasyAuctionDB.RecentSearch or {}
-EasyAuctionDB.FavoriteItems = EasyAuctionDB.FavoriteItems or {}
+
 local RECENT_MAX = 20
 local FAVORITE_MAX = 50
 local EA_CategoryMode = nil
@@ -22,65 +22,314 @@ local EA_CategoryCurrentPage = 1
 local EA_CategoryTotalPages = 1
 local EA_ActiveCategory = nil
 
-if EasyAuctionDB.ShowPrice == nil then
-    EasyAuctionDB.ShowPrice = true
-end
-if EasyAuctionDB.enablePrice == nil then
-    EasyAuctionDB.enablePrice = true
-end
-if EasyAuctionDB.enableDisenchant == nil then
-    EasyAuctionDB.enableDisenchant = true
-end
-if EasyAuctionDB.enableProspect == nil then
-    EasyAuctionDB.enableProspect = true
-end
-if EasyAuctionDB.enableMill == nil then
-    EasyAuctionDB.enableMill = true
-end
-if EasyAuctionDB.enableTitanValue == nil then
-    EasyAuctionDB.enableTitanValue = true
-end
-if EasyAuctionDB.showUnitPrice == nil then
-    EasyAuctionDB.showUnitPrice = true
-end
-if EasyAuctionDB.enableUndercut == nil then
-    EasyAuctionDB.enableUndercut = true
-end
-if EasyAuctionDB.undercutMode ~= "unit" then
-    EasyAuctionDB.undercutMode = "total"
-end
-if EasyAuctionDB.hideSellPrice == nil then
-    EasyAuctionDB.hideSellPrice = false
-end
-if EasyAuctionDB.enableDisenchantProb == nil then
-    EasyAuctionDB.enableDisenchantProb = true
+local function EA_ClampInt(value, defaultValue, minValue, maxValue)
+    local n = math.floor(tonumber(value) or tonumber(defaultValue) or 0)
+    if minValue and n < minValue then n = minValue end
+    if maxValue and n > maxValue then n = maxValue end
+    return n
 end
 
-EasyAuctionDB.autoFillLastAuction = EasyAuctionDB.autoFillLastAuction == nil and false or
-    EasyAuctionDB.autoFillLastAuction
-EasyAuctionDB.enableAuctionListCopy = EasyAuctionDB.enableAuctionListCopy == nil and true or
-    EasyAuctionDB.enableAuctionListCopy
+local function EA_AssignIfNil(tbl, key, value)
+    if tbl[key] == nil then
+        tbl[key] = value
+    end
+end
 
-EasyAuctionDB.VendorPrice = EasyAuctionDB.VendorPrice or {}
+local function EA_CompressHistoryRecords(records, keepLimit, cutoffTime)
+    if type(records) ~= "table" then
+        return {}, 0
+    end
+
+    local byUnit = {}
+    local removed = 0
+    for _, rec in ipairs(records) do
+        local unit = rec and tonumber(rec.unit)
+        local count = rec and tonumber(rec.count) or 1
+        local t = rec and tonumber(rec.t) or nil
+
+        if not unit or unit <= 0 then
+            removed = removed + 1
+        elseif cutoffTime and t and t <= cutoffTime then
+            removed = removed + 1
+        else
+            local bucket = byUnit[unit]
+            if not bucket then
+                byUnit[unit] = {
+                    unit = unit,
+                    count = count > 0 and count or 1,
+                    t = t or time(),
+                }
+            else
+                bucket.count = (bucket.count or 0) + (count > 0 and count or 1)
+                if t and ((bucket.t or 0) < t) then
+                    bucket.t = t
+                end
+                removed = removed + 1
+            end
+        end
+    end
+
+    local out = {}
+    for _, bucket in pairs(byUnit) do
+        out[#out + 1] = bucket
+    end
+    table.sort(out, function(a, b) return (a.unit or 0) < (b.unit or 0) end)
+
+    local limit = EA_ClampInt(keepLimit or 0, 0, 0, 5000)
+    if limit > 0 and #out > limit then
+        for i = #out, limit + 1, -1 do
+            out[i] = nil
+            removed = removed + 1
+        end
+    end
+
+    return out, removed
+end
+
+-- 获取当前服务器-阵营的键名
+local function GetRealmFactionKey()
+    local realm = GetRealmName() or "Unknown"
+    local _, faction = UnitFactionGroup("player")
+    faction = faction or "Neutral"
+    return realm .. "-" .. faction
+end
+
+-- 初始化当前服务器-阵营的数据库
+local function InitEasyAuctionDB()
+    local key = GetRealmFactionKey()
+    
+    -- 如果新数据库中不存在当前服务器-阵营的数据，则创建
+    if not EasyAuctionDB2[key] then
+        EasyAuctionDB2[key] = {}
+    end
+    
+    -- 设置局部变量 EasyAuctionDB 指向当前服务器-阵营的数据
+    EasyAuctionDB = EasyAuctionDB2[key]
+    
+    -- 向后兼容：如果旧数据库有数据且新数据库为空，则迁移数据
+    local oldDB = _G.EasyAuctionDB
+    if oldDB and next(oldDB) ~= nil then
+        -- 检查是否已有价格历史数据
+        if not EasyAuctionDB.PriceHistory or next(EasyAuctionDB.PriceHistory) == nil then
+            if oldDB.PriceHistory and next(oldDB.PriceHistory) ~= nil then
+                EasyAuctionDB.PriceHistory = oldDB.PriceHistory
+            end
+        end
+        if not EasyAuctionDB.DailyMinPrice or next(EasyAuctionDB.DailyMinPrice) == nil then
+            if oldDB.DailyMinPrice and next(oldDB.DailyMinPrice) ~= nil then
+                EasyAuctionDB.DailyMinPrice = oldDB.DailyMinPrice
+            end
+        end
+        if not EasyAuctionDB.FavoriteItems or next(EasyAuctionDB.FavoriteItems) == nil then
+            if oldDB.FavoriteItems and next(oldDB.FavoriteItems) ~= nil then
+                EasyAuctionDB.FavoriteItems = oldDB.FavoriteItems
+            end
+        end
+        if not EasyAuctionDB.RecentSearch or #EasyAuctionDB.RecentSearch == 0 then
+            if oldDB.RecentSearch and #oldDB.RecentSearch > 0 then
+                EasyAuctionDB.RecentSearch = oldDB.RecentSearch
+            end
+        end
+        -- 迁移其他设置
+        EA_AssignIfNil(EasyAuctionDB, "CustomHistoryPage", oldDB.CustomHistoryPage)
+        EA_AssignIfNil(EasyAuctionDB, "scanPerFrame", oldDB.scanPerFrame)
+        EA_AssignIfNil(EasyAuctionDB, "undercutMode", oldDB.undercutMode)
+        EA_AssignIfNil(EasyAuctionDB, "showSections", oldDB.showSections)
+        EA_AssignIfNil(EasyAuctionDB, "ShowPrice", oldDB.ShowPrice)
+        EA_AssignIfNil(EasyAuctionDB, "enablePrice", oldDB.enablePrice)
+        EA_AssignIfNil(EasyAuctionDB, "enableDisenchant", oldDB.enableDisenchant)
+        EA_AssignIfNil(EasyAuctionDB, "enableProspect", oldDB.enableProspect)
+        EA_AssignIfNil(EasyAuctionDB, "enableMill", oldDB.enableMill)
+        EA_AssignIfNil(EasyAuctionDB, "enableTitanValue", oldDB.enableTitanValue)
+        EA_AssignIfNil(EasyAuctionDB, "showUnitPrice", oldDB.showUnitPrice)
+        EA_AssignIfNil(EasyAuctionDB, "enableUndercut", oldDB.enableUndercut)
+        EA_AssignIfNil(EasyAuctionDB, "hideSellPrice", oldDB.hideSellPrice)
+        EA_AssignIfNil(EasyAuctionDB, "enableDisenchantProb", oldDB.enableDisenchantProb)
+        EA_AssignIfNil(EasyAuctionDB, "autoFillLastAuction", oldDB.autoFillLastAuction)
+        EA_AssignIfNil(EasyAuctionDB, "enableAuctionListCopy", oldDB.enableAuctionListCopy)
+        EA_AssignIfNil(EasyAuctionDB, "VendorPrice", oldDB.VendorPrice)
+        EA_AssignIfNil(EasyAuctionDB, "bidDiscount", oldDB.bidDiscount)
+        EA_AssignIfNil(EasyAuctionDB, "undercut", oldDB.undercut)
+        EA_AssignIfNil(EasyAuctionDB, "stackCount", oldDB.stackCount)
+        EA_AssignIfNil(EasyAuctionDB, "defaultNumStacks", oldDB.defaultNumStacks)
+        EA_AssignIfNil(EasyAuctionDB, "auctionDuration", oldDB.auctionDuration)
+        EA_AssignIfNil(EasyAuctionDB, "buyRiskLimit", oldDB.buyRiskLimit)
+        EA_AssignIfNil(EasyAuctionDB, "scanQuickLimit", oldDB.scanQuickLimit)
+        EA_AssignIfNil(EasyAuctionDB, "historyKeepDays", oldDB.historyKeepDays)
+        EA_AssignIfNil(EasyAuctionDB, "historyMaxEntry", oldDB.historyMaxEntry)
+        EA_AssignIfNil(EasyAuctionDB, "scanKeepPerItem", oldDB.scanKeepPerItem)
+        EA_AssignIfNil(EasyAuctionDB, "dailyKeepDays", oldDB.dailyKeepDays)
+        EA_AssignIfNil(EasyAuctionDB, "hourlyKeepHours", oldDB.hourlyKeepHours)
+        EA_AssignIfNil(EasyAuctionDB, "ShowMinPrice", oldDB.ShowMinPrice)
+        EA_AssignIfNil(EasyAuctionDB, "enableVendor", oldDB.enableVendor)
+        EA_AssignIfNil(EasyAuctionDB, "SellPanel", oldDB.SellPanel)
+        EA_AssignIfNil(EasyAuctionDB, "minimap", oldDB.minimap)
+        EA_AssignIfNil(EasyAuctionDB, "OperationHistory", oldDB.OperationHistory)
+    end
+    
+    -- 设置默认值
+    EasyAuctionDB.PriceHistory = EasyAuctionDB.PriceHistory or {}
+    EasyAuctionDB.DailyMinPrice = EasyAuctionDB.DailyMinPrice or {}
+    EasyAuctionDB.HourlyMinPrice = EasyAuctionDB.HourlyMinPrice or {}
+    EasyAuctionDB.CustomHistoryPage = EasyAuctionDB.CustomHistoryPage or 1
+    EasyAuctionDB.scanPerFrame = EA_ClampInt(EasyAuctionDB.scanPerFrame or 200, 200, 50, 500)
+    EasyAuctionDB.scanKeepPerItem = EA_ClampInt(EasyAuctionDB.scanKeepPerItem or 120, 120, 20, 500)
+    EasyAuctionDB.historyKeepDays = EA_ClampInt(EasyAuctionDB.historyKeepDays or 30, 30, 1, 365)
+    EasyAuctionDB.historyMaxEntry = EA_ClampInt(EasyAuctionDB.historyMaxEntry or 0, 0, 0, 2000)
+    EasyAuctionDB.dailyKeepDays = EA_ClampInt(
+        EasyAuctionDB.dailyKeepDays or EasyAuctionDB.historyKeepDays or 30,
+        EasyAuctionDB.historyKeepDays or 30,
+        1,
+        365
+    )
+    -- HourlyMinPrice 当前结构仅按小时(0-23)聚合，最多保留 24 小时窗口。
+    EasyAuctionDB.hourlyKeepHours = EA_ClampInt(EasyAuctionDB.hourlyKeepHours or 24, 24, 1, 24)
+    EasyAuctionDB.LastSelectedPriceInfo = nil
+    EasyAuctionDB.CurrentDistItemName = nil
+    EasyAuctionDB.CurrentDistData = nil
+    EasyAuctionDB.undercutMode = EasyAuctionDB.undercutMode or "total"
+    EasyAuctionDB.showSections = EasyAuctionDB.showSections or { items = true, price = true, myauct = true }
+    EasyAuctionDB.RecentSearch = EasyAuctionDB.RecentSearch or {}
+    EasyAuctionDB.FavoriteItems = EasyAuctionDB.FavoriteItems or {}
+    
+    if EasyAuctionDB.ShowPrice == nil then EasyAuctionDB.ShowPrice = true end
+    if EasyAuctionDB.enablePrice == nil then EasyAuctionDB.enablePrice = true end
+    if EasyAuctionDB.enableDisenchant == nil then EasyAuctionDB.enableDisenchant = true end
+    if EasyAuctionDB.enableProspect == nil then EasyAuctionDB.enableProspect = true end
+    if EasyAuctionDB.enableMill == nil then EasyAuctionDB.enableMill = true end
+    if EasyAuctionDB.enableTitanValue == nil then EasyAuctionDB.enableTitanValue = true end
+    if EasyAuctionDB.showUnitPrice == nil then EasyAuctionDB.showUnitPrice = true end
+    if EasyAuctionDB.enableUndercut == nil then EasyAuctionDB.enableUndercut = true end
+    if EasyAuctionDB.undercutMode ~= "unit" then EasyAuctionDB.undercutMode = "total" end
+    if EasyAuctionDB.hideSellPrice == nil then EasyAuctionDB.hideSellPrice = false end
+    if EasyAuctionDB.enableDisenchantProb == nil then EasyAuctionDB.enableDisenchantProb = true end
+    
+    EasyAuctionDB.autoFillLastAuction = EasyAuctionDB.autoFillLastAuction == nil and false or EasyAuctionDB.autoFillLastAuction
+    EasyAuctionDB.enableAuctionListCopy = EasyAuctionDB.enableAuctionListCopy == nil and true or EasyAuctionDB.enableAuctionListCopy
+    EasyAuctionDB.VendorPrice = EasyAuctionDB.VendorPrice or {}
+    -- 更新全局引用（用于兼容其他可能的访问）
+    _G.EasyAuctionDB = EasyAuctionDB
+    if type(EasyAuction_RebindFrameDB) == "function" then
+        EasyAuction_RebindFrameDB()
+    end
+    if oldDB and oldDB ~= EasyAuctionDB then
+        -- 旧结构可能是大表，尽早释放引用，降低登录后常驻压力。
+        oldDB = nil
+        collectgarbage("collect")
+    end
+    
+    return EasyAuctionDB
+end
 
 IsScanningAll = false
 local EasyAuctionScanProgressFrame = nil
 EasyAuction_ItemID_Index = {}
+local function EA_UpdateItemIDIndexForKey(key, minUnit)
+    if type(key) ~= "string" or key == "" then return end
+    local matchID = key:match(":(%d+)$")
+    local itemid = tonumber(matchID)
+    if not itemid then return end
+
+    local entries = EasyAuction_ItemID_Index[itemid]
+    if not entries then
+        entries = {}
+        EasyAuction_ItemID_Index[itemid] = entries
+    end
+
+    for i = 1, #entries do
+        local entry = entries[i]
+        if entry and entry.key == key then
+            entry.minUnit = minUnit
+            return
+        end
+    end
+
+    entries[#entries + 1] = {
+        key = key,
+        minUnit = minUnit,
+    }
+end
+
+local function EA_RemoveItemIDIndexForKey(key)
+    if type(key) ~= "string" or key == "" then return end
+    local matchID = key:match(":(%d+)$")
+    local itemid = tonumber(matchID)
+    if not itemid then return end
+
+    local entries = EasyAuction_ItemID_Index[itemid]
+    if not entries then return end
+    for i = #entries, 1, -1 do
+        local entry = entries[i]
+        if entry and entry.key == key then
+            table.remove(entries, i)
+        end
+    end
+    if #entries == 0 then
+        EasyAuction_ItemID_Index[itemid] = nil
+    end
+end
+
 local function BuildItemIDIndex()
     wipe(EasyAuction_ItemID_Index)
     for key, history in pairs(EasyAuctionDB.PriceHistory or {}) do
-        local matchID = key:match(":(%d+)$")
-        local itemid = tonumber(matchID)
-        if itemid then
-            EasyAuction_ItemID_Index[itemid] = EasyAuction_ItemID_Index[itemid] or {}
-            tinsert(EasyAuction_ItemID_Index[itemid], {
-                key = key,
-                history = history,
-                minUnit = history.minUnit,
-            })
-        end
+        local minUnit = type(history) == "table" and history.minUnit or nil
+        EA_UpdateItemIDIndexForKey(key, minUnit)
     end
 end
+
+local function EasyAuction_CreateDefaultDB()
+    return {
+        bidDiscount = 0.99,
+        undercut = 1,
+        stackCount = 20,
+        defaultNumStacks = 1,
+        auctionDuration = 1,
+        showSections = { items = true, price = true, myauct = true },
+        buyRiskLimit = 500,
+        scanPerFrame = 200,
+        scanKeepPerItem = 120,
+        historyKeepDays = 30,
+        historyMaxEntry = 0,
+        dailyKeepDays = 30,
+        hourlyKeepHours = 24,
+        scanQuickLimit = 100,
+        PriceHistory = {},
+        DailyMinPrice = {},
+        HourlyMinPrice = {},
+        CurrentTodayMin = {},
+        FavoriteItems = {},
+        RecentSearch = {},
+        VendorPrice = {},
+        OperationHistory = {},
+        minimap = {},
+        autoFillLastAuction = false,
+        enableAuctionListCopy = true,
+        CustomHistoryPage = 1,
+    }
+end
+
+-- resetAllRealms=true 时清空 EasyAuctionDB2 下所有服务器-阵营数据。
+function EasyAuction_ResetSavedVariables(resetAllRealms)
+    local key = GetRealmFactionKey()
+    EasyAuctionDB2 = type(EasyAuctionDB2) == "table" and EasyAuctionDB2 or {}
+    if resetAllRealms then
+        wipe(EasyAuctionDB2)
+    end
+
+    local newDB = EasyAuction_CreateDefaultDB()
+    EasyAuctionDB2[key] = newDB
+    EasyAuctionDB = newDB
+    _G.EasyAuctionDB2 = EasyAuctionDB2
+    _G.EasyAuctionDB = newDB
+
+    if type(EasyAuction_RebindFrameDB) == "function" then
+        EasyAuction_RebindFrameDB()
+    end
+
+    wipe(EasyAuction_ItemID_Index)
+    return newDB
+end
+
 function AddRecentSearch(itemID, name, price, t)
     if not itemID or not name then return end
     for i = #EasyAuctionDB.RecentSearch, 1, -1 do
@@ -343,7 +592,7 @@ local function EasyAuction_OnTooltipItem()
                 if idHistories then
                     local latestTime = nil
                     for _, entry in ipairs(idHistories) do
-                        local history = entry.history
+                        local history = EasyAuctionDB.PriceHistory and EasyAuctionDB.PriceHistory[entry.key]
                         if type(history) == "table" and #history > 0 then
                             for _, v in ipairs(history) do
                                 if v.unit and v.t and (not latestTime or v.t > latestTime) then
@@ -355,7 +604,7 @@ local function EasyAuction_OnTooltipItem()
                     -- 30分钟内的最低价
                     if latestTime then
                         for _, entry in ipairs(idHistories) do
-                            local history = entry.history
+                            local history = EasyAuctionDB.PriceHistory and EasyAuctionDB.PriceHistory[entry.key]
                             if type(history) == "table" and #history > 0 then
                                 for _, v in ipairs(history) do
                                     if v.unit and v.t and v.t >= latestTime - timeWindow then
@@ -496,7 +745,7 @@ local function EasyAuction_OnTooltipItem()
             end
         end
 
-        if EasyAuctionDB.enableTitanValue ~= false then
+        if EasyAuctionDB.enableTitanValue then
             local titan
 
             for _, arr in pairs(ns.EA_CATEGORY_LIST) do
@@ -1048,11 +1297,14 @@ eventFrame:SetScript("OnEvent", function()
     if IsScanningAll then return end
 
     local DB = EasyAuctionDB or {}
+    DB.PriceHistory = DB.PriceHistory or {}
     local n = GetNumAuctionItems("list")
     local today = date("%Y-%m-%d")
     local hour = tonumber(date("%H"))
 
-    local batchData = {} -- key = name:itemID -> { {unit=, count=, t=, ...}, ... }
+    local keepPerItem = EA_ClampInt(DB.scanKeepPerItem or 120, 120, 20, 500)
+    local nowTs = time()
+    local batchData = {} -- key = name:itemID -> { byUnit = {}, minUnit/maxUnit/totalCount/... }
     local lastSearchMap = {}
     local searchItemIDs = {}
 
@@ -1062,16 +1314,44 @@ eventFrame:SetScript("OnEvent", function()
         if name and itemID and buyout and buyout > 0 and count and count > 0 then
             local unit = math.floor((buyout / count) + 0.5)
             local key = name .. ":" .. itemID
-            batchData[key] = batchData[key] or {}
-            table.insert(batchData[key], {
-                unit = unit,
-                count = count,
-                t = time(),
-                owner = owner,
-                link = link,
-            })
+            batchData[key] = batchData[key] or {
+                byUnit = {},
+                minUnit = nil,
+                minCount = 0,
+                maxUnit = nil,
+                maxCount = 0,
+                totalCount = 0,
+            }
+            local bucket = batchData[key]
+            local unitKey = tostring(unit)
+            local unitRec = bucket.byUnit[unitKey]
+            if unitRec then
+                unitRec.count = (unitRec.count or 0) + count
+                if nowTs > (unitRec.t or 0) then
+                    unitRec.t = nowTs
+                end
+            else
+                bucket.byUnit[unitKey] = {
+                    unit = unit,
+                    count = count,
+                    t = nowTs,
+                }
+            end
+            bucket.totalCount = (bucket.totalCount or 0) + count
+            if not bucket.minUnit or unit < bucket.minUnit then
+                bucket.minUnit = unit
+                bucket.minCount = count
+            elseif unit == bucket.minUnit then
+                bucket.minCount = (bucket.minCount or 0) + count
+            end
+            if not bucket.maxUnit or unit > bucket.maxUnit then
+                bucket.maxUnit = unit
+                bucket.maxCount = count
+            elseif unit == bucket.maxUnit then
+                bucket.maxCount = (bucket.maxCount or 0) + count
+            end
 
-            AddRecentSearch(itemID, name, unit, time())
+            AddRecentSearch(itemID, name, unit, nowTs)
 
             if lastSearchName and name == lastSearchName then
                 if not lastSearchMap[itemID] then
@@ -1081,7 +1361,7 @@ eventFrame:SetScript("OnEvent", function()
                 table.insert(lastSearchMap[itemID].searchList, {
                     count = count,
                     unit = unit,
-                    t = time(),
+                    t = nowTs,
                     owner = owner,
                     itemID = itemID,
                     link = link,
@@ -1093,29 +1373,25 @@ eventFrame:SetScript("OnEvent", function()
         end
     end
 
-    for key, records in pairs(batchData) do
-        -- 统计本批min/max/totalCount
-        local minUnit, minCount, maxUnit, maxCount, totalCount = nil, 0, nil, 0, 0
-        for _, v in ipairs(records) do
-            local unit, count = v.unit, v.count or 1
-            totalCount = totalCount + count
-            if not minUnit or unit < minUnit then
-                minUnit, minCount = unit, count
-            elseif unit == minUnit then
-                minCount = minCount + count
-            end
-            if not maxUnit or unit > maxUnit then
-                maxUnit, maxCount = unit, count
-            elseif unit == maxUnit then
-                maxCount = maxCount + count
-            end
-        end
+    for key, bucket in pairs(batchData) do
+        local minUnit = bucket.minUnit
+        local minCount = bucket.minCount or 0
+        local maxUnit = bucket.maxUnit or minUnit
+        local totalCount = bucket.totalCount or 0
 
-        DB.PriceHistory[key] = {}
-        for i, record in ipairs(records) do
-            DB.PriceHistory[key][i] = record
+        local records = {}
+        for _, rec in pairs(bucket.byUnit or {}) do
+            records[#records + 1] = rec
         end
-        DB.PriceHistory[key].minUnit = minUnit
+        local compressed = EA_CompressHistoryRecords(records, keepPerItem, nil)
+        if type(compressed) == "table" and #compressed > 0 then
+            DB.PriceHistory[key] = compressed
+            DB.PriceHistory[key].minUnit = minUnit or compressed[1].unit or 0
+            EA_UpdateItemIDIndexForKey(key, DB.PriceHistory[key].minUnit)
+        else
+            DB.PriceHistory[key] = nil
+            EA_RemoveItemIDIndexForKey(key)
+        end
 
         DB.HourlyMinPrice = DB.HourlyMinPrice or {}
         DB.HourlyMinPrice[key] = DB.HourlyMinPrice[key] or {}
@@ -1151,6 +1427,8 @@ eventFrame:SetScript("OnEvent", function()
         if not foundDaily then
             table.insert(DB.DailyMinPrice[key], { today, minUnit, minCount, minUnit, maxUnit, totalCount })
         end
+
+        batchData[key] = nil
     end
 
     if EasyAuctionDBFrame and EasyAuctionDBFrame:IsShown() and type(RefreshDBFrame) == "function" then RefreshDBFrame() end
@@ -1235,7 +1513,6 @@ eventFrame:SetScript("OnEvent", function()
             end
         end
     end
-    BuildItemIDIndex()
 end)
 local closeEvent = CreateFrame("Frame")
 closeEvent:RegisterEvent("AUCTION_HOUSE_CLOSED")
@@ -1892,21 +2169,7 @@ resetBtn:SetScript("OnClick", function()
         button1 = "确定",
         button2 = "取消",
         OnAccept = function()
-            EasyAuctionDB = {
-                bidDiscount     = 0.99,
-                undercut        = 1,
-                stackCount      = 20,
-                auctionDuration = 1,
-                showSections    = { items = true, price = true, myauct = true },
-                buyRiskLimit    = 500,
-                scanPerFrame    = 200,
-                PriceHistory    = {},
-                DailyMinPrice   = {},
-                FavoriteItems   = {},
-                RecentSearch    = {},
-                scanQuickLimit  = 100,
-            }
-            _G.EasyAuctionDB = EasyAuctionDB
+            EasyAuctionDB = EasyAuction_ResetSavedVariables(true)
 
             if EasyAuctionDBFrame and EasyAuctionDBFrame:IsShown() then
                 RefreshDBFrame()
@@ -2858,37 +3121,17 @@ minimapLDBInitFrame:SetScript("OnEvent", function(self, event, addon)
         if addon == "Blizzard_AuctionUI" then
             InitEasyAuctionUI()
         elseif addon == "EasyAuction" then
+            local DB = InitEasyAuctionDB()
+            DB.minimap = DB.minimap or {}
+            if DB.scanPerFrame < 50 then
+                DB.scanPerFrame = 50
+            elseif DB.scanPerFrame >= 500 then
+                DB.scanPerFrame = 200
+            end
+
             local LDB = LibStub("LibDataBroker-1.1", true)
             local LDBIcon = LibStub("LibDBIcon-1.0", true)
             if LDB and LDBIcon then
-                EasyAuctionDB = EasyAuctionDB or {}
-                local DB = EasyAuctionDB or {}
-                DB.minimap = DB.minimap or {}
-                DB.PriceHistory = DB.PriceHistory or {}
-                DB.DailyMinPrice = DB.DailyMinPrice or {}
-                DB.OperationHistory = DB.OperationHistory or {}
-                DB.FavoriteItems = DB.FavoriteItems or {}
-                DB.RecentSearch = DB.RecentSearch or {}
-                DB.ShowPrice = DB.ShowPrice == nil and true or DB.ShowPrice
-                DB.enablePrice = DB.enablePrice == nil and true or DB.enablePrice
-                DB.enableVendor = DB.enableVendor == nil and true or DB.enableVendor
-                DB.ShowMinPrice = DB.ShowMinPrice == nil and true or DB.ShowMinPrice
-                DB.enableDisenchant = DB.enableDisenchant == nil and true or DB.enableDisenchant
-                DB.enableDisenchantProb = DB.enableDisenchantProb == nil and true or DB.enableDisenchantProb
-                DB.enableProspect = DB.enableProspect == nil and true or DB.enableProspect
-                DB.enableMill = DB.enableMill == nil and true or DB.enableMill
-                DB.enableTitanValue = DB.enableTitanValue == nil and true or DB.enableTitanValue
-                DB.SellPanel = DB.SellPanel == nil and true or DB.SellPanel
-                DB.showUnitPrice = DB.showUnitPrice == nil and true or DB.showUnitPrice
-                DB.enableUndercut = DB.enableUndercut == nil and true or DB.enableUndercut
-                DB.undercutMode = DB.undercutMode == "unit" and "unit" or "total"
-                DB.showSections = DB.showSections or { items = true, price = true, myauct = true }
-                DB.scanPerFrame = DB.scanPerFrame or 200
-                if DB.scanPerFrame < 50 then DB.scanPerFrame = 50 elseif DB.scanPerFrame >= 500 then DB.scanPerFrame = 200 end
-                DB.buyRiskLimit = DB.buyRiskLimit or 500
-                DB.scanQuickLimit = DB.scanQuickLimit or 100
-                DB.autoFillLastAuction = DB.autoFillLastAuction == nil and false or DB.autoFillLastAuction
-                DB.enableAuctionListCopy = DB.enableAuctionListCopy == nil and true or DB.enableAuctionListCopy
                 local dataobj = LDB:NewDataObject("EasyAuction", {
                     type = "data source",
                     text = "EasyAuction",
@@ -2916,13 +3159,29 @@ minimapLDBInitFrame:SetScript("OnEvent", function(self, event, addon)
                     end,
                 })
                 LDBIcon:Register("EasyAuction", dataobj, DB.minimap)
-                print("|cff00ff00[EasyAuction]|r 拍卖行增强插件已加载，输入 |cff00ff00/epah|r 打开插件。")
-                EasyAuction_BackupAddonList()
-                CheckShowUpdateNotes()
-                BuildItemIDIndex()
-                self:UnregisterEvent("ADDON_LOADED")
             end
+            print("|cff00ff00[EasyAuction]|r 拍卖行增强插件已加载，输入 |cff00ff00/epah|r 打开插件。")
+            EasyAuction_BackupAddonList()
+            CheckShowUpdateNotes()
+            BuildItemIDIndex()
+            self:UnregisterEvent("ADDON_LOADED")
         end
+    end
+end)
+
+local legacyShadowFrame = CreateFrame("Frame")
+legacyShadowFrame:RegisterEvent("PLAYER_LOGOUT")
+legacyShadowFrame:SetScript("OnEvent", function()
+    local realmKey = GetRealmFactionKey()
+    if type(EasyAuctionDB2) == "table" and EasyAuctionDB2[realmKey] then
+        -- 避免 EasyAuctionDB 与 EasyAuctionDB2 持久化双份大表。
+        _G.EasyAuctionDB = {
+            legacyRedirect = true,
+            realmKey = realmKey,
+            ts = time(),
+            version = tostring(GetAddOnMetadata(addonName, "Version") or "?"),
+            note = "Use EasyAuctionDB2[realmKey]",
+        }
     end
 end)
 function EasyAuction_ShowScanProgress()
@@ -3083,9 +3342,17 @@ function EasyAuction_ShowScanProgress()
 
     f:StartPrepareTimer()
 end
+local isUpdatingScanProgress = false
 
 function EasyAuction_UpdateScanProgress(cur, total, elapsed)
-    if not EasyAuctionScanProgressFrame then return end
+    if isUpdatingScanProgress then return end   -- 防止递归/死循环
+    isUpdatingScanProgress = true
+
+    if not EasyAuctionScanProgressFrame then
+        isUpdatingScanProgress = false
+        return
+    end
+
     local f = EasyAuctionScanProgressFrame
     f.ProgressBar:SetMinMaxValues(0, total > 0 and total or 1)
     f.ProgressBar:SetValue(cur)
@@ -3101,38 +3368,143 @@ function EasyAuction_UpdateScanProgress(cur, total, elapsed)
     if elapsed then
         f.Status:SetText(string.format("已采集：%d / %d  用时：%.1fs", cur, total, elapsed))
     end
+
+    isUpdatingScanProgress = false
 end
 
 function CleanupOldData()
-    local days = EasyAuctionDB.historyKeepDays or 30
-    local maxEntry = EasyAuctionDB.historyMaxEntry or 0
+    local days = EA_ClampInt(EasyAuctionDB.historyKeepDays or 30, 30, 1, 365)
+    local maxEntry = EA_ClampInt(EasyAuctionDB.historyMaxEntry or 0, 0, 0, 2000)
+    local keepPerItem = EA_ClampInt(EasyAuctionDB.scanKeepPerItem or 120, 120, 20, 500)
+    local dailyKeepDays = EA_ClampInt(EasyAuctionDB.dailyKeepDays or days, days, 1, 365)
+    local hourlyKeepHours = EA_ClampInt(EasyAuctionDB.hourlyKeepHours or 24, 24, 1, 24)
+    EasyAuctionDB.historyKeepDays = days
+    EasyAuctionDB.historyMaxEntry = maxEntry
+    EasyAuctionDB.scanKeepPerItem = keepPerItem
+    EasyAuctionDB.dailyKeepDays = dailyKeepDays
+    EasyAuctionDB.hourlyKeepHours = hourlyKeepHours
+
     local cutoffTime = time() - (days * 86400)
+    local cutoffDay = date("%Y-%m-%d", time() - (dailyKeepDays * 86400))
     local removedRecords = 0
+    local removedDaily = 0
+    local removedHourly = 0
 
     for key, data in pairs(EasyAuctionDB.PriceHistory or {}) do
         if type(data) == "table" then
-            local newData = {}
-            for idx, record in ipairs(data) do
-                if not record.t or record.t > cutoffTime then
-                    table.insert(newData, record)
-                else
-                    removedRecords = removedRecords + 1
-                end
+            local perItemLimit = keepPerItem
+            if maxEntry > 0 and maxEntry < perItemLimit then
+                perItemLimit = maxEntry
             end
+
+            local newData, removed = EA_CompressHistoryRecords(data, perItemLimit, cutoffTime)
+            removedRecords = removedRecords + removed
+
             for k, v in pairs(data) do
-                if type(k) ~= "number" then
+                if type(k) ~= "number" and k ~= "minUnit" then
                     newData[k] = v
                 end
             end
-            if maxEntry > 0 then
-                table.sort(newData, function(a, b) return (a.t or 0) > (b.t or 0) end)
-                while #newData > maxEntry do
-                    table.remove(newData)
-                    removedRecords = removedRecords + 1
-                    print(string.format("|cff00ff00[EasyAuction]|r 清理完成，移除%d条记录。", removedRecords))
+
+            local minUnit = nil
+            for _, rec in ipairs(newData) do
+                if rec.unit and (not minUnit or rec.unit < minUnit) then
+                    minUnit = rec.unit
                 end
             end
+            newData.minUnit = minUnit or data.minUnit or 0
+
+            if #newData == 0 and (not newData.minUnit or newData.minUnit <= 0) then
+                EasyAuctionDB.PriceHistory[key] = nil
+                EA_RemoveItemIDIndexForKey(key)
+            else
+                EasyAuctionDB.PriceHistory[key] = newData
+                EA_UpdateItemIDIndexForKey(key, newData.minUnit)
+            end
         end
+    end
+
+    for key, arr in pairs(EasyAuctionDB.DailyMinPrice or {}) do
+        if type(arr) == "table" then
+            local newArr = {}
+            for _, rec in ipairs(arr) do
+                local day = rec and rec[1]
+                if type(day) == "string" and day >= cutoffDay then
+                    newArr[#newArr + 1] = rec
+                else
+                    removedDaily = removedDaily + 1
+                end
+            end
+            if #newArr > 0 then
+                EasyAuctionDB.DailyMinPrice[key] = newArr
+            else
+                EasyAuctionDB.DailyMinPrice[key] = nil
+            end
+        else
+            EasyAuctionDB.DailyMinPrice[key] = nil
+        end
+    end
+
+    local function NormalizeHourlyList(arr)
+        if type(arr) ~= "table" then return nil, 0 end
+        local currentHour = tonumber(date("%H")) or 0
+        local keepHourCount = math.min(24, math.max(1, math.floor(hourlyKeepHours)))
+        local oldestHour = (currentHour - keepHourCount + 24) % 24
+        local function IsHourInWindow(hour)
+            if keepHourCount >= 24 then return true end
+            if oldestHour <= currentHour then
+                return hour >= oldestHour and hour <= currentHour
+            end
+            return hour >= oldestHour or hour <= currentHour
+        end
+
+        local removed = 0
+        local byHour = {}
+        for _, rec in ipairs(arr) do
+            local hour = rec and tonumber(rec[1]) or nil
+            if hour and hour >= 0 and hour <= 23 and IsHourInWindow(hour) then
+                local old = byHour[hour]
+                if not old then
+                    byHour[hour] = rec
+                else
+                    old[4] = (old[4] or 0) + (rec[4] or rec[3] or 0)
+                    if (rec[2] or math.huge) < (old[2] or math.huge) then
+                        old[2] = rec[2]
+                        old[3] = rec[3]
+                    elseif rec[2] == old[2] then
+                        old[3] = (old[3] or 0) + (rec[3] or 0)
+                    end
+                    removed = removed + 1
+                end
+            else
+                removed = removed + 1
+            end
+        end
+
+        local normalized = {}
+        for _, rec in pairs(byHour) do
+            normalized[#normalized + 1] = rec
+        end
+        table.sort(normalized, function(a, b)
+            return (tonumber(a[1]) or 0) < (tonumber(b[1]) or 0)
+        end)
+        return normalized, removed
+    end
+
+    for key, arr in pairs(EasyAuctionDB.HourlyMinPrice or {}) do
+        local normalized, removed = NormalizeHourlyList(arr)
+        removedHourly = removedHourly + removed
+        if normalized and #normalized > 0 then
+            EasyAuctionDB.HourlyMinPrice[key] = normalized
+        else
+            EasyAuctionDB.HourlyMinPrice[key] = nil
+        end
+    end
+
+    local totalRemoved = removedRecords + removedDaily + removedHourly
+    if totalRemoved > 0 then
+        print(string.format("|cff00ff00[EasyAuction]|r 清理完成，移除记录%d条（历史%d/日聚合%d/小时聚合%d）。",
+            totalRemoved, removedRecords, removedDaily, removedHourly))
     end
     collectgarbage("collect")
 end
@@ -3240,6 +3612,7 @@ function EasyAuction_ScanAllAuctionItems()
         return
     end
 
+    --print("|cff00ff00[EasyAuction]|r ===== 扫描开始 =====")
     CleanupOldData()
     IsScanningAll = true
     UpdateScanBtnState()
@@ -3247,13 +3620,15 @@ function EasyAuction_ScanAllAuctionItems()
     EasyAuction_ShowScanProgress()
 
     local scanStartTime = GetTime()
-    local perFrame      = EasyAuctionDB.scanPerFrame or 200
+    local perFrame      = EA_ClampInt(EasyAuctionDB.scanPerFrame or 200, 200, 50, 500)
+    local keepPerItem   = EA_ClampInt(EasyAuctionDB.scanKeepPerItem or 120, 120, 20, 500)
     if perFrame < 50 then perFrame = 50 elseif perFrame >= 500 then perFrame = 200 end
+    EasyAuctionDB.scanPerFrame = perFrame
+    EasyAuctionDB.scanKeepPerItem = keepPerItem
     local totalItems            = 0
     local result                = {}
     local totalKinds            = 0
     local newCount, updateCount = 0, 0
-    local itemScanCount         = {}
     local waitingItems          = {}
     local processedIndexes      = {}
 
@@ -3310,7 +3685,11 @@ function EasyAuction_ScanAllAuctionItems()
     end
 
     local function processItemData(itemInfo, index)
-        if not itemInfo or not IsScanningAll then return end
+        if not itemInfo or not IsScanningAll then 
+            print("|cffff0000[EasyAuction]|r processItemData 返回: 无效数据或扫描已停止")
+            return 
+        end
+        --print(string.format("|cff00ff00[EasyAuction]|r processItemData: index=%d", index))
         local link = itemInfo.link
         local itemID = itemInfo.itemID
         local count = itemInfo.count
@@ -3326,14 +3705,24 @@ function EasyAuction_ScanAllAuctionItems()
         if not safeName or safeName == "" then return end
 
         local key = safeName .. ":" .. linkID
+        --print(string.format("|cff00ff00[EasyAuction]|r 生成key: %s", key))
 
-        result[key] = result[key] or {}
-        table.insert(result[key], {
-            unit = unit,
-            count = count,
-            t = time(),
-        })
-        itemScanCount[key] = (itemScanCount[key] or 0) + 1
+        result[key] = result[key] or { byUnit = {} }
+        local bucket = result[key]
+        local nowTs = time()
+        local unitKey = tostring(unit)
+        if bucket.byUnit[unitKey] then
+            bucket.byUnit[unitKey].count = (bucket.byUnit[unitKey].count or 0) + count
+            if nowTs > (bucket.byUnit[unitKey].t or 0) then
+                bucket.byUnit[unitKey].t = nowTs
+            end
+        else
+            bucket.byUnit[unitKey] = {
+                unit = unit,
+                count = count,
+                t = nowTs,
+            }
+        end
         totalItems = totalItems + 1
 
         updatePriceData(key, unit, count)
@@ -3345,9 +3734,12 @@ function EasyAuction_ScanAllAuctionItems()
     end
 
     local function processBatch(startIndex)
+        --print(string.format("|cff00ff00[EasyAuction]|r processBatch 被调用, startIndex=%s", tostring(startIndex)))
         startIndex = startIndex or 0
         local n = GetNumAuctionItems("list")
+        --print(string.format("|cff00ff00[EasyAuction]|r 当前拍卖物品总数: %d, 起始索引: %d", n, startIndex))
         if startIndex >= n then
+            --print("|cff00ff00[EasyAuction]|r 扫描完成，准备保存数据...")
             -- 检查是否还有等待加载的物品
             local hasWaitingItems = false
             for idx, _ in pairs(waitingItems) do
@@ -3358,6 +3750,7 @@ function EasyAuction_ScanAllAuctionItems()
             end
 
             if hasWaitingItems then
+                --print("|cff00ff00[EasyAuction]|r 存在等待物品，延迟0.5秒重试...")
                 C_Timer.After(0.5, function()
                     processBatch(startIndex)
                 end)
@@ -3367,17 +3760,48 @@ function EasyAuction_ScanAllAuctionItems()
             local itemKeys = {}
             for k in pairs(result) do table.insert(itemKeys, k) end
             totalKinds = #itemKeys
+            --print(string.format("|cff00ff00[EasyAuction]|r 收集到 %d 种物品，准备分批保存...", totalKinds))
+            -- 打印前5个key用于调试
+            for i = 1, math.min(5, #itemKeys) do
+                local key = itemKeys[i]
+                local itemCount = 0
+                if result[key] and type(result[key].byUnit) == "table" then
+                    for _ in pairs(result[key].byUnit) do
+                        itemCount = itemCount + 1
+                    end
+                elseif result[key] and type(result[key]) == "table" then
+                    itemCount = #result[key]
+                end
+                --print(string.format("|cff00ff00[EasyAuction]|r 物品示例 %d: key=%s, 记录数=%d", i, key, itemCount))
+            end
             local idx = 1
             local perSave = 50
 
             local function saveBatch()
+                --print(string.format("|cff00ff00[EasyAuction]|r saveBatch 被调用, idx=%d, totalKinds=%d", idx, totalKinds))
                 local i = 0
+                local savedCount = 0
                 while idx <= totalKinds and i < perSave do
                     local key = itemKeys[idx]
                     if key and key ~= "" then
-                        local items = result[key]
+                        local bucket = result[key]
+                        local items = nil
+                        if type(bucket) == "table" then
+                            if bucket.byUnit then
+                                local tmp = {}
+                                for _, rec in pairs(bucket.byUnit) do
+                                    tmp[#tmp + 1] = rec
+                                end
+                                items = tmp
+                            else
+                                items = bucket
+                            end
+                        end
+
                         if type(items) == "table" and #items > 0 then
-                            table.sort(items, function(a, b) return a.unit < b.unit end)
+                            local compressed = nil
+                            compressed = EA_CompressHistoryRecords(items, keepPerItem, nil)
+                            items = compressed
                             if items[1] and items[1].unit and items[1].unit > 0 then
                                 local prev = EasyAuctionDB.PriceHistory[key]
                                 if not prev then
@@ -3397,26 +3821,50 @@ function EasyAuction_ScanAllAuctionItems()
                                     EasyAuctionDB.PriceHistory[key][i] = v
                                 end
                                 EasyAuctionDB.PriceHistory[key].minUnit = minUnit or 0
+                                EA_UpdateItemIDIndexForKey(key, EasyAuctionDB.PriceHistory[key].minUnit)
+                                savedCount = savedCount + 1
+                                --print(string.format("|cff00ff00[EasyAuction]|r 已保存: key=%s, items=%d, minUnit=%s", key, #items, tostring(minUnit)))
+                            else
+                                --print(string.format("|cffff0000[EasyAuction]|r 保存失败: items[1].unit 无效, key=%s", key))
                             end
+                        else
+                            --print(string.format("|cffff0000[EasyAuction]|r 保存失败: items 表为空或无效, key=%s", key))
                         end
+                    else
+                        --print(string.format("|cffff0000[EasyAuction]|r 保存失败: key 为空"))
+                    end
+                    if key then
+                        result[key] = nil
                     end
                     idx = idx + 1
                     i = i + 1
                 end
-                EasyAuction_UpdateScanProgress(idx - 1, totalKinds, GetTime() - scanStartTime)
+                --print(string.format("|cff00ff00[EasyAuction]|r 本批次保存完成: savedCount=%d, idx=%d", savedCount, idx))
+                if idx % 50 == 0 or idx == totalKinds then
+                    EasyAuction_UpdateScanProgress(idx - 1, totalKinds, GetTime() - scanStartTime)
+                end
                 if idx <= totalKinds then
-                    C_Timer.After(0.01, saveBatch)
+                    C_Timer.After(0.01, saveBatch)       -- 分批续写
                 else
-                    EasyAuction_ShowScanResult(newCount, updateCount, totalKinds, GetTime() - scanStartTime)
-                    print(string.format("|cff00ff00[EasyAuction]|r 全服拍卖价格已采集，种类%d，新增%d，更新%d，耗时%.2fs。", totalKinds,
-                        newCount, updateCount, GetTime() - scanStartTime))
+                    for k in pairs(result) do result[k] = nil end
+                    for k in pairs(waitingItems) do waitingItems[k] = nil end
+                    for k in pairs(processedIndexes) do processedIndexes[k] = nil end
+                    collectgarbage("collect")
+                    --print("|cff00ff00[EasyAuction]|r ===== 所有数据保存完成 =====")
                     IsScanningAll = false
                     UpdateScanBtnState()
                     UpdateAuctionQueryStatusText()
-                    AuctionFrame:Hide()
-                    ShowEasyAuctionScanFinishFrame()
-                    C_Timer.After(2, function()
-                        for k in pairs(result) do result[k] = nil end
+                    EasyAuction_ShowScanResult(newCount, updateCount, totalKinds, GetTime() - scanStartTime)
+                    C_Timer.After(0.5, function()
+                        ShowEasyAuctionScanFinishFrame() -- 延时弹完成UI
+                        C_Timer.After(2.0, function()
+                            --if AuctionFrame then AuctionFrame:Hide() end  -- 再延时关闭拍卖
+                            C_Timer.After(2.0, function()
+                                if EasyAuctionDBFrame and EasyAuctionDBFrame:IsShown() then
+                                    RefreshDBFrame()
+                                end
+                            end)
+                        end)
                     end)
                 end
             end
@@ -3424,8 +3872,9 @@ function EasyAuction_ScanAllAuctionItems()
         else
             local endIndex = math.min(startIndex + perFrame, n)
             for i = startIndex + 1, endIndex do
-                EasyAuction_UpdateScanProgress(i, n, GetTime() - scanStartTime)
-
+                if i % 50 == 0 or i == n then
+                    EasyAuction_UpdateScanProgress(i, n, GetTime() - scanStartTime)
+                end
                 local name, _, count, _, _, _, _, _, _, buyout, _, _, _, owner, _, _, itemID = GetAuctionItemInfo("list", i)
                 local link = GetAuctionItemLink("list", i)
                 local unit = (buyout and count and count > 0) and math.floor(buyout / count) or nil
@@ -3532,35 +3981,71 @@ function EasyAuction_ScanAllAuctionItems()
                 end
             end
 
+            --print(string.format("|cff00ff00[EasyAuction]|r 本批次处理完成，准备处理下一批: endIndex=%d", endIndex))
             C_Timer.After(0.05, function()
                 if IsScanningAll then
                     processBatch(endIndex)
+                else
+                    --print("|cffff0000[EasyAuction]|r 扫描被中断，不再继续")
                 end
             end)
         end
     end
 
+    --print("|cff00ff00[EasyAuction]|r 注册 AUCTION_ITEM_LIST_UPDATE 事件...")
     local eventFrame = CreateFrame("Frame")
     eventFrame:RegisterEvent("AUCTION_ITEM_LIST_UPDATE")
     eventFrame:SetScript("OnEvent", function(self)
+        --print("|cff00ff00[EasyAuction]|r AUCTION_ITEM_LIST_UPDATE 触发，开始处理数据...")
         eventFrame:UnregisterAllEvents()
         processBatch(0)
     end)
 
+-- 必须在拍卖行界面，并且在“浏览”Tab
     if not (AuctionFrame and AuctionFrame:IsShown()) then
+        --print("|cffff0000[EasyAuction]|r 拍卖行界面未打开，无法扫描！")
         BuildItemIDIndex()
         IsScanningAll = false
         return
     end
 
-    if AuctionFrame and AuctionFrameBrowse and not AuctionFrameBrowse:IsShown() then
-        AuctionFrameTab1:Click()
-        C_Timer.After(0.2, function()
+    -- 封装安全的Query方式，保证真的在浏览页
+    local function TryQueryAuctionItems(retries)
+        retries = retries or 0
+        if not AuctionFrameBrowse:IsShown() then
+            AuctionFrameTab1:Click()
+            C_Timer.After(0.25, function()
+                -- 最多尝试3次
+                if retries < 3 then
+                    TryQueryAuctionItems(retries + 1)
+                else
+                    if not AuctionFrameBrowse:IsShown() then
+                        --print("|cffff0000[EasyAuction]|r 始终无法切换至浏览页，扫描中止")
+                        IsScanningAll = false
+                        return
+                    end
+                end
+            end)
+        else
+            --print("|cff00ff00[EasyAuction]|r 已在浏览页，开始全服拍卖查询")
             QueryAuctionItems("", nil, nil, 0, nil, nil, true, true, nil)
-        end)
-    else
-        QueryAuctionItems("", nil, nil, 0, nil, nil, true, true, nil)
+        end
     end
+
+    TryQueryAuctionItems()
+
+    -- 兜底：5秒内仍未触发事件则强行推进
+    C_Timer.After(5, function()
+        if IsScanningAll and GetNumAuctionItems("list") > 0 then
+            --print("|cff00ff00[EasyAuction]|r [兜底] 事件未触发，手动进入处理流程")
+            processBatch(0)
+        elseif IsScanningAll then
+            --print("|cffff0000[EasyAuction]|r [兜底] 5秒后仍未获取到拍卖数据，扫描中止")
+            IsScanningAll = false
+            UpdateScanBtnState()
+            UpdateAuctionQueryStatusText()
+        end
+    end)
 end
 
 StaticPopupDialogs["EASYAUCTION_SCANALL_CONFIRM"] = {
@@ -3589,6 +4074,7 @@ StaticPopupDialogs["BUYOUT_AUCTION"] = {
     whileDead = true,
     hideOnEscape = true,
     preferredIndex = 3,
+    hasMoneyFrame = false,
 }
 
 
@@ -3870,6 +4356,7 @@ f:SetScript("OnEvent", function(_, event)
 end)
 
 hooksecurefunc("FauxScrollFrame_Update", function(frame)
+    if IsScanningAll then return end
     if frame == _G["BrowseScrollFrame"] then
         EasyAuction_EnsureFlashBuyButtons()
         EasyAuction_RefreshFlashBuyButtons()

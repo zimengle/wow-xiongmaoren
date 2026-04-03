@@ -51,8 +51,11 @@ function Details222.OptionsPanel.InitializeOptionsWindow(instance)
     detailsFramework:AddRoundedCornersToFrame(optionsFrame, Details.PlayerBreakdown.RoundedCornerPreset)
     optionsFrame:SetColor(unpack(Details.frame_background_color))
 
+    local patreonButton = CreateFrame("button", "$parentPatreonButton", optionsFrame)
+    
+
 	optionsFrame.Frame = optionsFrame
-	optionsFrame.__name = Loc ["STRING_OPTIONS"] or "Options"
+	optionsFrame.__name = "Options"
 	optionsFrame.real_name = "DETAILS_OPTIONS"
 	optionsFrame.__icon = [[Interface\Scenarios\ScenarioIcon-Interact]]
     _G.DetailsPluginContainerWindow.EmbedPlugin(optionsFrame, optionsFrame, true)
@@ -203,7 +206,7 @@ function Details222.OptionsPanel.InitializeOptionsWindow(instance)
     editingGroupCheckBox:SetAsCheckBox()
     editingGroupCheckBox.tooltip = Loc ["STRING_MINITUTORIAL_OPTIONS_PANEL2"]
 
-    local editingGroupLabel = detailsFramework:NewLabel(optionsFrame, nil, "$parentEditingGroupLabel", "editingGroupLabel", Loc ["STRING_OPTIONS_EDITING_GROUP"], "GameFontNormal", 12)
+    local editingGroupLabel = detailsFramework:NewLabel(optionsFrame, nil, "$parentEditingGroupLabel", "editingGroupLabel", "Editing Group:", "GameFontNormal", 12) --localize-me
     editingGroupLabel:SetPoint("bottomleft", instancesFontString, "topleft", 0, 5)
     editingGroupCheckBox:SetPoint("left", editingGroupLabel, "right", 2, 0)
     formatFooterText(editingGroupLabel)
@@ -211,12 +214,12 @@ function Details222.OptionsPanel.InitializeOptionsWindow(instance)
 	--create test bars ~test
         detailsFramework:NewColor("C_OptionsButtonOrange", 0.9999, 0.8196, 0, 1)
         local create_test_bars_func = function()
-            Details.CreateTestBars()
             if (not Details.test_bar_update) then
                 Details:StartTestBarUpdate()
             else
                 Details:StopTestBarUpdate()
             end
+            Details.CreateTestBars()
         end
 
         local fillbars = detailsFramework:NewButton(optionsFrame, _, "$parentCreateExampleBarsButton", nil, 140, 20, create_test_bars_func, nil, nil, nil, Loc ["STRING_OPTIONS_TESTBARS"], 1)
@@ -328,12 +331,12 @@ function Details222.OptionsPanel.InitializeOptionsWindow(instance)
         [11] = Loc ["STRING_OPTIONSMENU_DATAFEED"],
 
         [14] = Loc ["STRING_OPTIONSMENU_RAIDTOOLS"],
-        [15] = Loc ["STRING_OPTIONSMENU_BROADCASTER"],
+        [15] = "Broadcaster Tools",
         [16] = Loc ["STRING_OPTIONSMENU_SPELLS"],
         [17] = Loc ["STRING_OPTIONSMENU_DATACHART"],
-        [18] = Loc ["STRING_OPTIONSMENU_MYTHICDUNGEON"],
-        [19] = Loc ["STRING_OPTIONSMENU_SEARCHRESULTS"],
-        [20] = Loc ["STRING_OPTIONSMENU_COMBATLOG"],
+        [18] = "Mythic Dungeon",
+        [19] = "Search Results",
+        [20] = "Combat Log",
     }
 
     local optionsSectionsOrder = {

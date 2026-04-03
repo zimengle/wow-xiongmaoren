@@ -17,7 +17,7 @@ local function Set_ConfigValue(cfdata,bool,count)
 end
 Fun.Set_ConfigValue=Set_ConfigValue
 ---
-local function Load_DefaultData(DqCF, moren,count,Per)
+local function Load_DefaultData(DqCF, moren, count, Per)
 	if type(moren) ~= "table" then return end
 	for k,v in pairs(moren) do
 		if DqCF[k]==nil then
@@ -72,6 +72,7 @@ local function Clear_FailureData()
 	PIGA["StatsInfo"]["Skill_ExistCD"]=nil
 	PIGA["StatsInfo"]["SkillCD"]=nil
 	PIGA["StatsInfo"]["FubenCD"]=nil
+	PIGA["StatsInfo"]["InstancesCD"]=nil
 	PIGA["StatsInfo"]["AHOffline"]=nil
 	PIGA["StatsInfo"]["AHData"]=nil
 			
@@ -95,6 +96,8 @@ local function Clear_FailureData()
 	PIGA["FramePlus"]["yidongUI"]=nil
 	PIGA["FramePlus"]["Character_Mingzhong"]=nil
 	PIGA["FramePlus"]["Character_naijiu"]=nil
+	PIGA["FramePlus"]["Character_ItemLevel"]=nil
+	PIGA["FramePlus"]["Character_ItemColor"]=nil
 	PIGA["Tooltip"]["SpellID"]=nil
 	PIGA["QuickBut"]["Point"]=nil
 	PIGA["QuickBut"]["AutoEquip"]=nil

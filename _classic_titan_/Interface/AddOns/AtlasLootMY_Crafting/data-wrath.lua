@@ -147,11 +147,16 @@ data["AlchemyWrath"] = {
 			},
 		},
 		{
-			name = AL["Stones"],
+			name = AL["Armor"].." - "..AL["Stones"],
 			[NORMAL_DIFF] = {
 				{ 1, 60403 },	-- Indestructible Alchemist Stone
 				{ 2, 60396 },	-- Mercurial Alchemist Stone
 				{ 3, 60405 },	-- Mighty Alchemist Stone
+				{ 16,'INV_Box_01',nil,'P5', '太阳之井高地'},
+				{ 17, 47048 }, -- Sorcerer's Alchemist Stone (375)
+				{ 18, 47049 }, -- Redeemer's Alchemist Stone (375)
+				{ 19, 47046 }, -- Guardian's Alchemist Stone (375)
+				{ 20, 47050 }, -- Assassin's Alchemist Stone (375)
 			},
 		},
 		{
@@ -361,6 +366,10 @@ data["BlacksmithingWrath"] = {
 				{ 5, 54941 },	-- Spiked Cobalt Shoulders
 				{ 6, 54978 },	-- Reinforced Cobalt Shoulders
 				{ 7, 52572 },	-- Cobalt Shoulders
+				{ 16,'INV_Box_01',nil,'P11', '黑暗神庙'},
+				{ 17, 41135 }, -- Mantle of Nimble Thought (375)
+				{ 18, 41133 }, -- Swiftheal Mantle (375)
+				
 			},
 		},
 		{ -- Chest
@@ -378,6 +387,9 @@ data["BlacksmithingWrath"] = {
 				{ 10, 54944 },	-- Spiked Cobalt Chestpiece
 				{ 11, 54981 },	-- Reinforced Cobalt Chestpiece
 				{ 12, 52570 },	-- Cobalt Chestpiece
+				{ 16,'INV_Box_01',nil,'P5', '太阳之井高地'},
+				{ 17, 46144 }, -- Sunfire Robe (365)
+				{ 18, 46142 }, -- Robe of Eternal Light (365)
 			},
 		},
 		{ -- Feet
@@ -415,6 +427,9 @@ data["BlacksmithingWrath"] = {
 				{ 6, 55056 },	-- Brilliant Saronite Gauntlets
 				{ 7, 54945 },	-- Spiked Cobalt Gauntlets
 				{ 8, 55835 },	-- Cobalt Gauntlets
+				{ 16,'INV_Box_01',nil,'P5', '太阳之井高地'},
+				{ 17, 46141 }, -- Sunfire Robe (365)
+				{ 18, 46140 }, -- Robe of Eternal Light (365)
 			},
 		},
 		{ -- Legs
@@ -466,6 +481,10 @@ data["BlacksmithingWrath"] = {
 				{ 8, 59438 },	-- Brilliant Saronite Bracers
 				{ 9, 54948 },	-- Spiked Cobalt Bracers
 				{ 10, 55834 },	-- Cobalt Bracers
+				{ 16,'INV_Box_01',nil,'P11', '黑暗神庙'},
+				{ 17, 41134 }, -- Mantle of Nimble Thought (375)
+				{ 18, 41132 }, -- Swiftheal Mantle (375)
+				{ 19, 40034 }, -- Swiftheal Mantle (375)
 			},
 		},
 		{
@@ -747,6 +766,9 @@ data["EngineeringWrath"] = {
 			name = AL["Armor"].." - "..ALIL["Head"].." - "..ALIL["Cloth"],
 			[NORMAL_DIFF] = {
 				{ 1, 56484 },	-- Visage Liquification Goggles
+				{ 16,'INV_Box_01',nil,'P5', '太阳之井高地'},
+				{ 17, 46111 }, -- Annihilator Holo-Gogs (375)
+				{ 18, 46108 }, -- Powerheal 9000 Lens (375)
 			}
 		},
 		{
@@ -754,6 +776,10 @@ data["EngineeringWrath"] = {
 			[NORMAL_DIFF] = {
 				{ 1, 56486 },	-- Greensight Gogs
 				{ 2, 56481 },	-- Weakness Spectralizers
+				{ 16,'INV_Box_01',nil,'P5', '太阳之井高地'},
+				{ 17, 46106 }, -- Wonderheal XT68 Shades (375)
+				{ 18, 46116 }, -- Quad Deathblow X44 Goggles (375)
+				{ 20, 46109 }, -- Hyper-Magnified Moon Specs (375)
 			}
 		},
 		{
@@ -761,6 +787,10 @@ data["EngineeringWrath"] = {
 			[NORMAL_DIFF] = {
 				{ 1, 56487 },	-- Electroflux Sight Enhancers
 				{ 2, 56574 },	-- Truesight Ice Blinders
+				{ 16,'INV_Box_01',nil,'P5', '太阳之井高地'},
+				{ 17, 46112 }, -- Lightning Etched Specs (375)
+				{ 18, 46113 }, -- Surestrike Goggles v3.0 (375)
+				{ 20, 46110 }, -- Primal-Attuned Goggles (375)
 			}
 		},
 		{
@@ -769,7 +799,11 @@ data["EngineeringWrath"] = {
 				{ 1, 56480 },	-- Armored Titanium Goggles
 				{ 2, 56483 },	-- Charged Titanium Specs
 				{ 3, 62271 },	-- Unbreakable Healing Amplifiers
-				{ 16, 61483 },	-- Mechanized Snow Goggles
+				{ 5, 61483 },	-- Mechanized Snow Goggles
+				{ 16,'INV_Box_01',nil,'P5', '太阳之井高地'},
+				{ 17, 46115 }, -- Hard Khorium Goggles (375)
+				{ 18, 46114 }, -- Mayhem Projection Goggles (375)
+				{ 19, 46107 }, -- Justicebringer 3000 Specs (375)
 			}
 		},
 		{
@@ -854,6 +888,7 @@ data["EngineeringWrath"] = {
 				{ 20, 67920 },	-- Wormhole Generator: Northrend
 				{ 22, 30349 },	-- Titanium Toolbox
 				{ 24, 56473 },	-- Gnomish X-Ray Specs
+				{ 25,1287152}
 			}
 		},
 	}
@@ -893,6 +928,9 @@ data["TailoringWrath"] = {
 				{ 2, 55910 },	-- Mystic Frostwoven Shoulders
 				{ 3, 55923 },	-- Duskweave Shoulders
 				{ 4, 55902 },	-- Frostwoven Shoulders
+				{ 16,'INV_Box_01',nil,'P11', '黑暗神庙'},
+				{ 17, 41206 }, -- Mantle of Nimble Thought (375)
+				{ 18, 41208 }, -- Swiftheal Mantle (375)
 			}
 		},
 		{
@@ -909,6 +947,14 @@ data["TailoringWrath"] = {
 				{ 9, 55911 },	-- Mystic Frostwoven Robe
 				{ 10, 55921 },	-- Duskweave Robe
 				{ 11, 55903 },	-- Frostwoven Robe
+				{ 16,'INV_Box_01',nil,'P4', '祖尔格拉布'},
+				{ 17, 24091 }, --Bloodvine Vest / 65
+				
+				{ 18,'INV_Box_01',nil,'P5', '太阳之井高地'},
+				{ 19, 46130 }, -- Sunfire Robe (365)
+				{ 20, 46131 }, -- Robe of Eternal Light (365)
+				{ 21,'INV_Box_01',nil,'P7', '卡拉赞'},
+				{ 22,26781},
 			},
 		},
 		{
@@ -927,7 +973,9 @@ data["TailoringWrath"] = {
 
 				{ 16,'INV_Box_01',nil,'P2','风暴要塞-毒蛇神殿'},
 				{ 17,36317 },
-				{ 18,36318}
+				{ 18,36318},
+				{ 20,'INV_Box_01',nil,'P4', '祖尔格拉布'},
+				{ 21,24093},
 			}
 		},
 		{
@@ -940,6 +988,11 @@ data["TailoringWrath"] = {
 				{ 5, 56022 },	-- Light Blessed Mittens
 				{ 6, 55922 },	-- Duskweave Gloves
 				{ 7, 55904 },	-- Frostwoven Gloves
+				{ 16,'INV_Box_01',nil,'P5', '太阳之井高地'},
+				{17,46128},
+				{18,46129},
+				{ 21,'INV_Box_01',nil,'P7', '卡拉赞'},
+				{ 22,26779},
 			}
 		},
 		{
@@ -952,6 +1005,8 @@ data["TailoringWrath"] = {
 				{ 5, 55925 },	-- Black Duskweave Leggings
 				{ 6, 55901 },	-- Duskweave Leggings
 				{ 7, 56030 },	-- Frostwoven Leggings
+				{ 16,'INV_Box_01',nil,'P4', '祖尔格拉布'},
+				{ 17,24092},
 			}
 		},
 		{
@@ -979,6 +1034,10 @@ data["TailoringWrath"] = {
 				{ 5, 55913 },	-- Mystic Frostwoven Wriststraps
 				{ 6, 55920 },	-- Duskweave Wriststraps
 				{ 7, 56031 },	-- Frostwoven Wriststraps
+				{ 16,'INV_Box_01',nil,'P11', '黑暗神庙'},
+				{ 17, 41207 }, -- Mantle of Nimble Thought (375)
+				{ 18, 41205 }, -- Swiftheal Mantle (375)
+				{ 19, 40021 }, -- Swiftheal Mantle (375)
 			}
 		},
 		{
@@ -1060,6 +1119,15 @@ data["LeatherworkingWrath"] = {
 				{ 8, 60613 },	-- Dark Iceborne Chestguard
 				{ 9, 50944 },	-- Arctic Chestpiece
 				{ 10, 50938 },	-- Iceborne Chestguard
+				{ 16,'INV_Box_01',nil,'P4', '祖尔格拉布'},
+				{ 17, 24121 }, --Bloodvine Vest / 65
+				{ 18, 24124 }, --Bloodvine Vest / 65
+				
+				{ 20,'INV_Box_01',nil,'P5', '太阳之井高地'},
+				{ 21, 46136 }, -- Sunfire Robe (365)
+				{ 22, 46138 }, -- Robe of Eternal Light (365)
+				{ 24,'INV_Box_01',nil,'P7', '卡拉赞'},
+				{ 25,42731},
 			},
 			[MAIL_DIFF] = {
 				{ 1, [ATLASLOOT_IT_ALLIANCE] = { 67082 }, [ATLASLOOT_IT_HORDE] = { 67138 } },	-- Crusader's Dragonscale Breastplate
@@ -1073,8 +1141,13 @@ data["LeatherworkingWrath"] = {
 				{ 9, 60629 },	-- Dark Nerubian Chestpiece
 				{ 10, 50950 },	-- Frostscale Chestguard
 				{ 11, 50956 },	-- Nerubian Chestguard
-				{ 16, "INV_Box_01", nil, "P8" },
-				{ 17, 19106}
+				
+				{ 20,'INV_Box_01',nil,'P5', '太阳之井高地'},
+				{ 21, 46137 }, -- Sunfire Robe (365)
+				{ 22, 46139 }, -- Robe of Eternal Light (365)
+
+				{ 27, "INV_Box_01", nil, "P8" },
+				{ 28, 19106}
 			},
 		},
 		{ -- Feet
@@ -1097,6 +1170,7 @@ data["LeatherworkingWrath"] = {
 				{ 16,'INV_Box_01',nil,'P2','风暴要塞-毒蛇神殿'},
 				{ 17,36355 },
 				{ 18,36357}
+				
 			},
 			[MAIL_DIFF] = {
 				{ 1, 70559 },	-- Earthsoul Boots
@@ -1139,6 +1213,10 @@ data["LeatherworkingWrath"] = {
 				{ 2, 60715 },	-- Overcast Headguard
 				{ 3, 51572 },	-- Arctic Helm
 				{ 4, 60608 },	-- Iceborne Helm
+				
+				{ 16,'INV_Box_01',nil,'P5', '太阳之井高地'},
+				{ 17, 46134 }, -- Sunfire Robe (365)
+				{ 18, 46132 }, -- Robe of Eternal Light (365)
 			},
 			[MAIL_DIFF] = {
 				{ 1, 60728 },	-- Swiftarrow Helm
@@ -1146,6 +1224,9 @@ data["LeatherworkingWrath"] = {
 				{ 3, 60655 },	-- Nightshock Hood
 				{ 4, 60600 },	-- Frostscale Helm
 				{ 5, 60624 },	-- Nerubian Helm
+				{ 16,'INV_Box_01',nil,'P5', '太阳之井高地'},
+				{ 17, 46135 }, -- Sunfire Robe (365)
+				{ 18, 46133 }, -- Robe of Eternal Light (365)
 			},
 		},
 		{ -- Legs
@@ -1184,6 +1265,9 @@ data["LeatherworkingWrath"] = {
 				{ 4, 60671 },	-- Purehorn Spaulders
 				{ 5, 50946 },	-- Arctic Shoulderpads
 				{ 6, 50940 },	-- Iceborne Shoulderpads
+				{ 16,'INV_Box_01',nil,'P11', '黑暗神庙'},
+				{ 17, 41160 }, -- Mantle of Nimble Thought (375)
+				{ 18, 41157 }, -- Swiftheal Mantle (375)
 			},
 			[MAIL_DIFF] = {
 				{ 1, 60729 },	-- Swiftarrow Shoulderguards
@@ -1191,6 +1275,9 @@ data["LeatherworkingWrath"] = {
 				{ 3, 60651 },	-- Virulent Spaulders
 				{ 4, 50952 },	-- Frostscale Shoulders
 				{ 5, 50958 },	-- Nerubian Shoulders
+				{ 16,'INV_Box_01',nil,'P11', '黑暗神庙'},
+				{ 17, 41162 }, -- Mantle of Nimble Thought (375)
+				{ 18, 41164 }, -- Swiftheal Mantle (375)
 			},
 		},
 		{ -- Waist
@@ -1232,6 +1319,10 @@ data["LeatherworkingWrath"] = {
 				{ 5, 55243 },
 				{ 6, 51571 },	-- Arctic Wristguards
 				{ 7, 60607 },	-- Iceborne Wristguards
+				{ 16,'INV_Box_01',nil,'P11', '黑暗神庙'},
+				{ 17, 41158 }, -- Mantle of Nimble Thought (375)
+				{ 18, 41156 }, -- Swiftheal Mantle (375)
+				{ 19, 40004 }, -- Swiftheal Mantle (375)
 			},
 			[MAIL_DIFF] = {
 				{ 1, [ATLASLOOT_IT_ALLIANCE] = { 67081 }, [ATLASLOOT_IT_HORDE] = { 67137 } },	-- Black Chitin Bracers
@@ -1243,7 +1334,10 @@ data["LeatherworkingWrath"] = {
 				{ 7, 60599 },	-- Frostscale Bracers
 				{ 8, 60622 },	-- Nerubian Bracers
 
-				{ 16, 52733},
+				{ 16,'INV_Box_01',nil,'P11', '黑暗神庙'},
+				{ 17, 41163 }, -- Mantle of Nimble Thought (375)
+				{ 18, 41161 }, -- Swiftheal Mantle (375)
+				{ 19, 52733 }, -- Swiftheal Mantle (375)
 				
 			},
 			
@@ -1357,6 +1451,10 @@ data["JewelcraftingWrath"] = {
 				{ 8, 56195 },	-- Jade Dagger Pendant
 				{ 10, 58142 },	-- Crystal Chalcedony Amulet
 				{ 11, 58141 },	-- Crystal Citrine Necklace
+				{ 16,'INV_Box_01',nil,'P5', '太阳之井高地'},
+				{ 17, 46127 }, -- Hard Khorium Choker (365)
+				{ 18, 46126 }, -- Amulet of Flowing Life (365)
+				{ 19, 46125 }, -- Pendant of Sunfire (365)
 			}
 		},
 		{
@@ -1381,6 +1479,10 @@ data["JewelcraftingWrath"] = {
 				{ 17, 58144 },	-- Jade Ring of Slaying
 				{ 18, 56193 },	-- Bloodstone Band
 				{ 19, 56194 },	-- Sun Rock Ring
+				{ 21,'INV_Box_01',nil,'P5', '太阳之井高地'},
+				{ 22, 46122 }, -- Loop of Forged Power (365)
+				{ 23, 46123 }, -- Loop of Forged Power (365)
+				{ 24, 46124 }, -- Loop of Forged Power (365)
 			}
 		},
 		{

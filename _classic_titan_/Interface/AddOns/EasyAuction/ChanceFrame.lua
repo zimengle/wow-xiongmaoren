@@ -7,7 +7,9 @@ function EasyAuction_ChanceOptionsFrame()
         minNetProfitRate = 0.08, -- 最低净利润率（8%=0.08）
         maxSaturation = 2.0,     -- 最大库存饱和度
     }
-    EasyAuctionDB = EasyAuctionDB or {}
+    -- 使用全局数据库引用
+    local EasyAuctionDB = _G.EasyAuctionDB
+    if not EasyAuctionDB then return end
     EasyAuctionDB.OpportunityOptions = EasyAuctionDB.OpportunityOptions or {}
     local opts = EasyAuctionDB.OpportunityOptions
     for k, v in pairs(defaultOptions) do

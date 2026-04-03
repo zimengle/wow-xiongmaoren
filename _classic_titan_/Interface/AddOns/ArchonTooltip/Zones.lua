@@ -1,20 +1,21 @@
 ---@class Private
 local Private = select(2, ...)
 
-Private.Zones[44] = {
-    id = 44,
-    name = "Manaforge",
+Private.Zones[46] = {
+    id = 46,
+    name = "VS / DR / MQD",
     hasMultipleDifficulties = true,
     hasMultipleSizes = false,
     encounters = {
-        { id = 3129, },
-        { id = 3131, },
-        { id = 3130, },
-        { id = 3132, },
-        { id = 3122, },
-        { id = 3133, },
-        { id = 3134, },
-        { id = 3135, },
+        { id = 3176, },
+        { id = 3177, },
+        { id = 3179, },
+        { id = 3178, },
+        { id = 3180, },
+        { id = 3181, },
+        { id = 3306, },
+        { id = 3182, },
+        { id = 3183, },
     },
     difficultyIconMap = nil,
 }
@@ -80,47 +81,35 @@ Private.Zones[2018] = {
     difficultyIconMap = nil,
 }
 
-Private.Zones[1049] = {
-    id = 1049,
-    name = "Molten Core",
+Private.Zones[1052] = {
+    id = 1052,
+    name = "SSC / TK",
     hasMultipleDifficulties = false,
     hasMultipleSizes = false,
     encounters = {
-        { id = 200663, },
-        { id = 200664, },
-        { id = 200665, },
-        { id = 200666, },
-        { id = 200667, },
-        { id = 200668, },
-        { id = 200669, },
-        { id = 200670, },
-        { id = 200671, },
-        { id = 200672, },
+        { id = 50623, },
+        { id = 50624, },
+        { id = 50625, },
+        { id = 50626, },
+        { id = 50627, },
+        { id = 50628, },
+        { id = 50730, },
+        { id = 50731, },
+        { id = 50732, },
+        { id = 50733, },
     },
     difficultyIconMap = nil,
 }
 
-Private.Zones[1036] = {
-    id = 1036,
-    name = "Naxxramas",
+Private.Zones[1048] = {
+    id = 1048,
+    name = "Gruul / Magtheridon",
     hasMultipleDifficulties = false,
     hasMultipleSizes = false,
     encounters = {
-        { id = 251118, },
-        { id = 251111, },
-        { id = 251108, },
-        { id = 251120, },
-        { id = 251117, },
-        { id = 251112, },
-        { id = 251115, },
-        { id = 251107, },
-        { id = 251110, },
-        { id = 251116, },
-        { id = 251113, },
-        { id = 251109, },
-        { id = 251121, },
-        { id = 251119, },
-        { id = 251114, },
+        { id = 50649, },
+        { id = 50650, },
+        { id = 50651, },
     },
     difficultyIconMap = nil,
 }

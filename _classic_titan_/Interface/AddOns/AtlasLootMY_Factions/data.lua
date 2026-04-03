@@ -224,6 +224,7 @@ data["CenarionCircle"] = {
 	FactionID = 609,
 	ContentType = FACTIONS_CONTENT,
 	LoadDifficulty = LOAD_DIFF,
+	Phase=7,
 	items = {
 		{ -- Exalted
 			name = ALIL["Exalted"],

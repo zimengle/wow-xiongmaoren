@@ -109,10 +109,10 @@
 				local row_proxima = self.barras [i+1]
 
 				if (row_proxima and not row.animacao_ignorar) then
-					local v = row.statusbar.value
-					local v_proxima = row_proxima.statusbar.value
+					local v = row.statusbar.value --secret
+					local v_proxima = row_proxima.statusbar.value --secret
 
-					if (v_proxima > v) then
+					if (v_proxima > v) then --not possible, is it?
 						if (row.animacao_fim >= v_proxima) then
 							row:SetValue(v_proxima)
 						else
@@ -1436,7 +1436,7 @@
 						tooltip:AddLine(Loc ["STRING_MINIMAP_TOOLTIP12"])
 					end
 					tooltip:AddLine(Loc ["STRING_MINIMAP_TOOLTIP2"])
-					tooltip:AddLine(Loc ["STRING_MINIMAP_TOOLTIP3"])
+					tooltip:AddLine("|cFFCFCFCFctrl + left click|r: show/hide windows")
 				end,
 			})
 
@@ -1531,7 +1531,7 @@
 function Details:InitializeAPIWindow()
 	local DetailsAPI2Frame = gump:CreateSimplePanel(UIParent, 700, 480, "Details! API", "DetailsAPI2Frame")
 	DetailsAPI2Frame.Frame = DetailsAPI2Frame
-	DetailsAPI2Frame.__name = Loc ["STRING_API"] or "API"
+	DetailsAPI2Frame.__name = "API"
 	DetailsAPI2Frame.real_name = "DETAILS_APIWINDOW"
 	DetailsAPI2Frame.__icon = [[Interface\AddOns\Details\images\icons]]
 	DetailsAPI2Frame.__iconcoords = {449/512, 480/512, 62/512, 83/512}

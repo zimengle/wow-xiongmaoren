@@ -1,9 +1,6 @@
 VER 3 0000000000000007 "Decursive" "INV_MISC_QUESTIONMARK"
-/script DecursiveRootTable.Dcr:Println('没有相关技能')
-END
-VER 3 0000000000000006 "RXPTargeting" "Ability_eyeoftheowl"
-/targetexact Ogo the Elder
-/targetlasttarget [dead]
+/stopcasting
+/cast [@mouseover,nomod,exists] 纯净术;  [@mouseover,exists,mod:ctrl] 驱散魔法; [@mouseover,exists,mod:shift] 纯净术
 END
 VER 3 0000000000000001 "RXPTargeting" "Ability_eyeoftheowl"
 /targetexact Sapmaster Vu
@@ -16,6 +13,10 @@ VER 3 0000000000000002 "RXPTargeting" "Ability_eyeoftheowl"
 /targetexact Razorquill Porcupine
 /targetexact Highlands Mushan
 /targetexact Highlands Calf
+/targetlasttarget [dead]
+END
+VER 3 0000000000000006 "RXPTargeting" "Ability_eyeoftheowl"
+/targetexact Ogo the Elder
 /targetlasttarget [dead]
 END
 VER 3 000000000000000B "TSMMacro" "INV_Misc_Flower_01"
@@ -45,15 +46,15 @@ VER 3 000000000000000E "毁伤" "INV_MISC_QUESTIONMARK"
 /equipslot 17 邪恶复仇
 /cast 毁伤
 END
-VER 3 000000000000000F "自动攻击" "132223"
-/startattack
-/petattack
-END
 VER 3 0000000000000003 "自动攻击" "135325"
 /startattack
 /petattack
 /equipslot 16  死亡之网
 /equipslot 17 邪恶复仇
+END
+VER 3 000000000000000F "自动攻击" "132223"
+/startattack
+/petattack
 END
 VER 3 0000000000000004 "谢谢" "135805"
 /thanks

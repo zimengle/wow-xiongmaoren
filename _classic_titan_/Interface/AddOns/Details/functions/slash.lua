@@ -403,6 +403,16 @@ function SlashCmdList.DETAILS (msg, editbox)
 		print("GetTime()", GetTime())
 		print("time()", time())
 
+	elseif (msg == "bdsm") then
+		if detailsFramework.IsAddonApocalypseWow() then
+			local isDamageMeterEnabled = C_CVar.GetCVarBool("damageMeterEnabled")
+			if not isDamageMeterEnabled then
+				C_CVar.SetCVar("damageMeterEnabled", "1")
+			else
+				C_CVar.SetCVar("damageMeterEnabled", "0")
+			end
+		end
+
 	elseif (msg == "copy") then
 		_G.DetailsCopy:Show()
 		_G.DetailsCopy.MyObject.text:HighlightText()
@@ -1695,6 +1705,11 @@ function SlashCmdList.DETAILS (msg, editbox)
 	elseif (msg == "auras") then
 		Details.AuraTracker.Open()
 
+	elseif (msg == "tooltip") then
+		local lower_instance = Details:GetLowerInstanceNumber()
+		local instance = Details:GetInstance(lower_instance)
+		Details:OpenOptionsWindow(instance, nil, 10)
+
 	elseif (msg == "generatespelllist") then
 		Details.GenerateSpecSpellList()
 
@@ -2229,13 +2244,13 @@ if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 			local cooldownInfo = C_Spell.GetSpellCooldown(spellIdToCheckCooldown)
 			if (cooldownInfo) then
 				local start, duration = cooldownInfo.startTime, cooldownInfo.duration
-				if (start > 0) then
-					cooldownBlocker:Show()
-					cooldownBlocker.cooldownText:SetText(detailsFramework:IntegerToCooldownTime((start + duration) - GetTime()) .. "\n remaining")
-				else
+				--if (start > 0) then
+				--	cooldownBlocker:Show()
+				--	cooldownBlocker.cooldownText:SetText(detailsFramework:IntegerToCooldownTime((start + duration) - GetTime()) .. "\n remaining")
+				--else
 					cooldownBlocker:Hide()
 					cooldownBlocker.cooldownText:SetText("")
-				end
+				--end
 			end
 		end
 
@@ -3416,6 +3431,9 @@ recentPlayerTable = {
 						end
 					end
 
+					local playersAdded = {}
+
+					--from open raid lib
 					if (keystoneData) then
 						local unitsAdded = {}
 						local isOnline = true
@@ -3488,6 +3506,7 @@ recentPlayerTable = {
 							end
 						end
 					end
+
 
 					--get which column is currently selected and the sort order
 					local columnIndex, order = f.Header:GetSelectedColumn()

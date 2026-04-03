@@ -39,9 +39,9 @@ function BG.HopeUI(FB)
             local version = BG["HopeFrame" .. FB]:CreateFontString()
             if n == 1 then
                 version:SetPoint("TOPLEFT", BG.MainFrame, "TOPLEFT", 10, -60)
-            elseif n == 2 or n == 4 then
+            elseif n == 3 or n == 4 then
                 version:SetPoint("TOPLEFT", frameright, "TOPRIGHT", titlewidth2, 0)
-            elseif n == 3 then
+            elseif n == 2 then
                 version:SetPoint("TOPRIGHT", framedownH, "TOPLEFT", -titlewidth2, -30)
             end
             version:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
@@ -104,7 +104,7 @@ function BG.HopeUI(FB)
                     bt:SetSize(btwidth, 20)
                     bt:SetFrameLevel(110)
                     if i == 1 then
-                        bt:SetPoint("TOPLEFT", framedown, "BOTTOMLEFT", 0, -4)
+                        bt:SetPoint("TOPLEFT", framedown, "BOTTOMLEFT", 0, -2)
                     else
                         bt:SetPoint("TOPLEFT", framedown, "TOPLEFT", (btwidth + 26) * (i - 1), 0)
                     end
@@ -486,7 +486,7 @@ function BG.HopeUI(FB)
                         GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT", 0, 0)
                         GameTooltip:ClearLines()
                         GameTooltip:AddLine(format(L["当前团队还有 %s 人也许愿该装备！"], self.text:GetText()), 1, 0, 0, true)
-                        GameTooltip:AddLine(AddTexture("RIGHT")..L["取消提示"], 1, 0.82, 0, true)
+                        GameTooltip:AddLine(AddTexture("RIGHT") .. L["取消提示"], 1, 0.82, 0, true)
                         GameTooltip:Show()
                     end)
                     f:SetScript("OnLeave", function(self)
@@ -731,7 +731,7 @@ function BG.HopeUI(FB)
                     end
                 end
 
-                self:SetEnabled(false) 
+                self:SetEnabled(false)
                 C_Timer.After(2, function()
                     bt:SetEnabled(true)
                 end)
@@ -967,7 +967,7 @@ function BG.HopeDaoChuUI()
 
                         BG.After(0.2, function()
                             SendSystemMessage(BG.BG .. BG.STC_g1(format(
-                                L["心愿清单导入成功：%s，一共导入%s件装备。"], BG.GetFBinfo(FB, "localName"), count)))
+                                L["心愿清单导入成功：%s，一共导入%s件装备。"], BG.GetFBinfo(FB, "shortName"), count)))
                         end)
                     end
                     break
@@ -1192,4 +1192,3 @@ function BG.HopeDaoChuUI()
         end)
     end
 end
-

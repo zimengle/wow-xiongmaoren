@@ -74,19 +74,6 @@ Data.ClasseNameID=ClasseNameID
 Data.cl_Name_Role=cl_Name_Role
 Data.ClassFile_Name=ClassFile_Name
 
---种族
-local PIGraceList = {}
-for i=100,1,-1 do
-	local raceInfo = C_CreatureInfo.GetRaceInfo(i)
-	if raceInfo then
-		if raceInfo.raceName then
-			if raceInfo.clientFileString=="Scourge" then raceInfo.clientFileString="undead" end
-			if raceInfo.clientFileString=="EarthenDwarf" then raceInfo.clientFileString="earthen" end
-			PIGraceList[raceInfo.raceName]=raceInfo.clientFileString
-		end
-	end
-end
-Data.PIGraceList=PIGraceList
 --职责
 --local zhizeIcon = {{0.01,0.26,0.26,0.51},{0.27,0.52,0,0.25},{0.27,0.52,0.25,0.5},{0.01,0.26,0,0.25}}
 local zhizeIcon = {{0.01,0.26,0.26,0.51},{0.27,0.52,0,0.25},{0.27,0.52,0.25,0.5}}
@@ -113,8 +100,8 @@ Data.InvSlot = {
 	["Name"]={
 		[0]={"AMMOSLOT",AMMOSLOT,"Ammo",false},[1]={"HEADSLOT",HEADSLOT,"Head",true},[2]={"NECKSLOT",NECKSLOT,"Neck",false},
 		[3]={"SHOULDERSLOT",SHOULDERSLOT,"Shoulder",true},[4]={"SHIRTSLOT",SHIRTSLOT,"Shirt",false},[5]={"CHESTSLOT",CHESTSLOT,"Chest",true},
-		[6]={"WAISTSLOT",WAISTSLOT,"Waist",true},[7]={"LEGSSLOT",LEGSSLOT,"Legs",true},[8]=Data.buwei.FEET,
-		[9]={"WRISTSLOT",WRISTSLOT,"Wrist",true},[10]=Data.buwei.HANDS,[11]={"FINGER0SLOT",FINGER0SLOT,"Finger0",false},
+		[6]={"WAISTSLOT",WAISTSLOT,"Waist",true},[7]={"LEGSSLOT",LEGSSLOT,"Legs",true},[8]={"FEETSLOT",FEETSLOT,"Feet",true},
+		[9]={"WRISTSLOT",WRISTSLOT,"Wrist",true},[10]={"HANDSSLOT",HANDSSLOT,"Hands",true},[11]={"FINGER0SLOT",FINGER0SLOT,"Finger0",false},
 		[12]={"FINGER1SLOT",FINGER1SLOT,"Finger1",false},[13]={"TRINKET0SLOT",TRINKET0SLOT,"Trinket0",false},[14]={"TRINKET1SLOT",TRINKET1SLOT,"Trinket1",false},
 		[15]={"BACKSLOT",BACKSLOT,"Back",false},[16]={"MAINHANDSLOT",MAINHANDSLOT,"MainHand",true},[17]={"SECONDARYHANDSLOT",SECONDARYHANDSLOT,"SecondaryHand",true},
 		[18]={"RANGEDSLOT",RANGEDSLOT,"Ranged",true},[19]={"TABARDSLOT",TABARDSLOT,"Tabard",false},

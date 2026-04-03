@@ -282,7 +282,20 @@ L.ConfigKeybindings = "Raccourcis clavier"
 L.ConfigKeybindingsHeader = "Paramètres de raccourci pour les fonctionnalités de BagSync."
 L.ConfigExternalTooltip = "Infobulle externe"
 L.ConfigFont = "Police"
-L.ConfigExtTooltipAnchor = "Position"
+L.ConfigExtTooltipAnchor = "Position de GameTooltip"
+L.ConfigExtTipPositionSettings = "Paramètres de position de l'infobulle externe"
+L.ConfigExtTipCustomAnchorEnable = "Activer la position d'ancrage personnalisée"
+L.ConfigExtTipCustomAnchorLocation = "Emplacement personnalisé"
+L.ConfigExtTipCustomAnchorShow = "Afficher l'ancrage ExtTip"
+L.ExtTipCustomAnchor_TopLeft = "Haut gauche"
+L.ExtTipCustomAnchor_TopRight = "Haut droite"
+L.ExtTipCustomAnchor_BottomLeft = "Bas gauche"
+L.ExtTipCustomAnchor_BottomRight = "Bas droite"
+L.ExtTipCustomAnchor_Center = "Centre"
+L.ExtTipCustomAnchor_CenterTop = "Centre haut"
+L.ExtTipCustomAnchor_CenterBottom = "Centre bas"
+L.ExtTipCustomAnchor_UseAnchor = "Utiliser l'ancrage ExtTip"
+L.ExtTipAnchorLabel = "Ancrage ExtTip de BagSync\\n\\n(Clic droit pour enregistrer la position)"
 L.ConfigFontSize = "Taille de la police"
 L.ConfigFontOutline = "Outline"
 L.ConfigFontOutline_NONE = "Aucun"
@@ -292,6 +305,8 @@ L.ConfigFontMonochrome = "Monochrome"
 L.ExtTooltipAnchor_Bottom = "Bas"
 L.ExtTooltipAnchor_Left = "Gauche"
 L.ExtTooltipAnchor_Right = "Droite"
+L.ExtTipNoticeTitle = "Avis d'infobulle externe (ExtTip)"
+L.ExtTipNoticeText = "|cFFFFFFFFLes |cFFFF0000Secret Values|r|cFFFFFFFF de Blizzard peuvent bloquer le positionnement d’ExtTip. BagSync ajoute des protections, mais si aucun tooltip sûr n’est trouvé, les totaux s’affichent dans le |cFFFF0000GameTooltip|r|cFFFFFFFF. Voir la FAQ « |cFFFF0000Secret Values|r|cFFFFFFFF » pour plus d’infos.|r"
 L.ConfigTracking = "Tracking"
 L.ConfigTrackingHeader = "Tracking settings for all stored BagSync database locations."
 L.ConfigTrackingCaution = "Attention"
@@ -437,6 +452,14 @@ L.FAQ_Question_7_p1 = [[
 Blizzard ne stocke pas les mascottes de combat dans la banque de guilde ou la boîte aux lettres avec un ItemID ou un SpeciesID correct. En réalité, elles sont enregistrées dans la banque de guilde et la boîte aux lettres comme |cFF99CC33[Pet Cage]|r avec un ItemID de |cFF99CC3382800|r. Cela rend la récupération de données sur des mascottes spécifiques difficile pour les auteurs d'addons. Vous pouvez le constater dans les journaux de transactions de la banque de guilde : les mascottes y apparaissent comme |cFF99CC33[Pet Cage]|r. Si vous en liez une depuis la banque de guilde, elle s'affichera également comme |cFF99CC33[Pet Cage]|r.
 
 Pour contourner ce problème, deux méthodes peuvent être utilisées. La première consiste à attribuer la mascotte de combat à une infobulle puis à récupérer le SpeciesID depuis celle-ci. Cela nécessite que le serveur réponde au client WoW et peut entraîner d'importants ralentissements, surtout s'il y a beaucoup de mascottes dans la banque de guilde. La seconde méthode utilise l'iconTexture de la mascotte pour tenter de trouver le SpeciesID. Cela peut parfois être imprécis, car certaines mascottes partagent la même iconTexture. Exemple : Toxic Wasteling partage la même iconTexture que Jade Oozeling. Activer cette option forcera la méthode de scan des infobulles à être aussi précise que possible, mais peut provoquer du lag. |cFFDF2B2BIl n'y a pas de solution parfaite tant que Blizzard ne nous donne pas plus de données à exploiter.|r
+]]
+L.FAQ_Question_8 = "Erreurs de valeurs secrètes et restrictions des addons Blizzard"
+L.FAQ_Question_8_p1 = [[
+Le nouveau système de |cFFDF2B2B« valeurs secrètes »|r de Blizzard est conçu pour que les addons puissent |cFF99CC33afficher|r certaines données liées au combat, mais |cFFDF2B2Bne puissent pas les inspecter ni effectuer des calculs dessus en toute sécurité|r. Dans des chemins de code contaminés, les opérations arithmétiques, les comparaisons, et même certains indexages de ces valeurs provoquent immédiatement des erreurs Lua. Ces valeurs peuvent aussi « infecter » des frames et des infobulles via des aspects/ancrages secrets, de sorte que |cFF99CC33la même infobulle|r peut ensuite renvoyer des coordonnées secrètes — même si l'addon qui l'a touchée n'a pas créé la valeur secrète au départ. Cela signifie qu'une trace de pile pointant BagSync ne |cFFDF2B2Bprouve pas|r que BagSync a introduit la valeur secrète ; cela veut souvent juste dire que BagSync a été le prochain addon à toucher l'objet déjà contaminé.
+
+Ce n'est pas un problème propre à BagSync. L'interface Blizzard elle-même renvoie les mêmes erreurs « attempt to perform arithmetic on a secret value » (ex. MoneyFrame / GameTooltip) même sans addons tiers. D'autres addons publient déjà des correctifs d'urgence ou des garde-fous pour la |cFF99CC33même classe d'erreur exacte|r déclenchée par les valeurs secrètes dans les infobulles et money frames. |cFFDF2B2BEn bref : c'est un problème de plateforme, pas un bug unique à BagSync|r.
+
+J'|cFFDF2B2Bai essayé|r d'ajouter autant de protections et de vérifications défensives que possible pour réduire les risques que BagSync déclenche ces erreurs, mais Blizzard a rendu les valeurs secrètes |cFFDF2B2Bincroyablement difficiles à tracer et à contrôler|r dans un environnement multi-addons — par conception. Ce système empêche activement les addons d'inspecter la valeur de façon fiable ou même de confirmer |cFF99CC33où|r elle a pris naissance. C'est précisément pourquoi ces erreurs sont difficiles à reproduire et pourquoi elles n'apparaissent souvent qu'au moment où l'erreur se produit.
 ]]
 
 L.BagSyncInfoWindow = [[

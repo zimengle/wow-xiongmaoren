@@ -87,7 +87,7 @@ MT.BuildEnv('COMM');
 			elseif realm == nil or realm == "" then
 				realm = CT.SELFREALM;
 			end
-			if realm ~= CT.SELFREALM then
+			if realm ~= CT.SELFREALM and realm ~= CT.SELFREALMSTRIP and realm ~= CT.SELFREALMSHORT then
 				name = name .. "-" .. realm;
 			end
 			VT.QuerySent[name] = auto_popup and Tick or VT.QuerySent[name] or nil;

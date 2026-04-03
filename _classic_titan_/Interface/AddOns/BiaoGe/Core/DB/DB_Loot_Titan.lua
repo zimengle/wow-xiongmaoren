@@ -325,7 +325,7 @@ ZS              LR       SS       MS               QS                     SM    
         BG.Loot[FB][hard].boss5                      = { 30098, 30079, 30075, 30085, 30068, 30084, 30081, 30008, 30083, 33058, 30720, 265492, 30082, 30080, 265492, 264937, 30720, 30665, 30664, 30663, 30450, 30449, 30447, 30446, }
         BG.Loot[FB][hard].boss6                      = { 30242, 30243, 30244, 30107, 30111, 30106, 30104, 30102, 30112, 30109, 30110, 30621, 30103, 30108, 30105, }
 
-        BG.Loot[FB][hard].boss7                      = { 265335, 30248, 30249, 30250, 29925, 29918, 29947, 29921, 29922, 29920, 30448, 30447, 29923, 32944, 29948, 29924, 29949, 264937, 30020, }
+        BG.Loot[FB][hard].boss7                      = { 265335, 30248, 30249, 30250, 29925, 29918, 29947, 29921, 29922, 29920, 30447, 29923, 32944, 29948, 29924, 29949, 264937, 30020, }
         BG.Loot[FB][hard].boss8                      = { 30248, 30249, 30250, 29986, 29984, 29985, 29983, 32515, 30619, 30450, 265333, }
         BG.Loot[FB][hard].boss9                      = { 29977, 29972, 29966, 29976, 29951, 29965, 29950, 32267, 30028, 30024, 30029, 30026, 30030, 30446, 30449, 29962, 29981, 29982, }
         BG.Loot[FB][hard].boss10                     = { 32458, 30236, 30237, 30238, 29992, 29989, 29994, 29990, 29987, 29995, 29991, 29998, 29997, 29993, 29996, 29988, 32405, }
@@ -335,6 +335,7 @@ ZS              LR       SS       MS               QS                     SM    
         BG.Loot[FB][hard].boss3other                 = { 19019 }
         BG.Loot[FB][hard].boss7other                 = { 264731, 264927, }
         BG.Loot[FB][hard].boss10other                = { 30015, 30017, 30007, 30018, }
+
         BG.Loot[FB].ExchangeItems                    = {
             [32405] = { 30015, 30017, 30007, 30018, },      -- 王子项链
             [19018] = { 19019, },                           -- 风剑
@@ -400,6 +401,104 @@ ZS              LR       SS       MS               QS                     SM    
                     [30236] = { 30139, 30118, 30113, 30150, 30159, 30214, },
                     [30237] = { 30134, 30144, 30185, 30129, 30123, 30164, 30169, },
                     [30238] = { 30196, 30231, 264446, 264437, 30216, 30222, },
+                }
+            },
+        }
+        for boss, v in pairs(tbl) do
+            for hard, vv in pairs(v) do
+                for exItemID, vvv in pairs(vv) do
+                    BG.Loot[FB].ExchangeItems[exItemID] = vvv
+                    for _, itemID in pairs(vvv) do
+                        BG.Loot[FB][hard]["boss" .. boss .. "other"] =
+                            BG.Loot[FB][hard]["boss" .. boss .. "other"] or {}
+                        tinsert(BG.Loot[FB][hard]["boss" .. boss .. "other"], itemID)
+                    end
+                end
+            end
+        end
+    end
+
+    -- P3
+    do
+        local FB                      = "NAXXtitan"
+        BG.Loot[FB][hard].Quest[""]   = { 22632 }
+        BG.Loot[FB][hard].boss1       = { 39192, 39190, 39191, 39189, 39188, 39139, 39146, 39193, 39141, 39140, 39712, 39719, 39721, 39720, 39722, 39701, 39702, 39704, 39717, 39706, 40065, 40069, 40064, 40080, 40075, 40107, 40074, 39714, 39716, }
+        BG.Loot[FB][hard].boss2       = { 39216, 39215, 39196, 39217, 39194, 39198, 39195, 39197, 39199, 39200, 39731, 39733, 39735, 39756, 39727, 39734, 39723, 39726, 40065, 40069, 40064, 40080, 40075, 40107, 40108, 40074, 39730, }
+        BG.Loot[FB][hard].boss3       = { 39225, 39230, 39224, 39228, 39232, 39231, 39229, 39226, 39221, 39233, 40250, 40254, 40252, 40251, 40063, 39765, 39761, 39762, 39767, 39764, 39759, 40257, 40255, 40258, 40256, 39766, 39763, 39758, }
+        BG.Loot[FB][hard].boss4       = { 39272, 39273, 39275, 39274, 39267, 39262, 39261, 39271, 39270, 39417, 40271, 40269, 40260, 40270, 40272, 40263, 40259, 40065, 40069, 40064, 40080, 40075, 40107, 40074, 40273, 40264, 40265, }
+        BG.Loot[FB][hard].boss5       = { 39284, 39285, 39283, 39279, 39278, 39280, 39282, 39277, 39281, 39276, 23221, 40250, 40254, 40252, 40251, 40286, 40289, 40277, 40288, 40283, 40275, 40279, 40274, 40278, 40257, 40255, 40258, 40256, 40281, 40280, 40284, }
+        BG.Loot[FB][hard].boss6       = { 39467, 39472, 39470, 39427, 39468, 39473, 40410, 40409, 40414, 40408, 40407, 40406, 40637, 40638, 40639, 40625, 40626, 40627, 40634, 40635, 40636, }
+        BG.Loot[FB][hard].boss7       = { 39295, 39294, 39293, 39292, 39291, 40303, 40301, 40304, 40299, 40302, 40298, 40294, 40297, 40300, 40634, 40635, 40636, 265526, }
+        BG.Loot[FB][hard].boss8       = { 39297, 39310, 39309, 39299, 39308, 39307, 39306, 39298, 39311, 39296, 40074, 40325, 40326, 40305, 40323, 40315, 40324, 40327, 40306, 40316, 40317, 40318, 40320, 40065, 40069, 40064, 40080, 40075, 40107, }
+        BG.Loot[FB][hard].boss9       = { 39390, 39386, 39391, 39379, 39345, 39369, 39392, 39389, 39388, 39344, 40335, 40250, 40254, 40252, 40251, 40339, 40338, 40329, 40340, 40331, 40328, 40334, 40332, 40330, 40257, 40255, 40258, 40256, 40336, }
+        BG.Loot[FB][hard].boss10      = { 39396, 39397, 39395, 39393, 39394, 40395, 40349, 40344, 40352, 40347, 40350, 40345, 40348, 22691, 40626, 40627, 40625, 22812, }
+        BG.Loot[FB][hard].boss11      = { 39241, 39242, 39240, 39237, 39243, 39236, 39239, 39235, 39234, 39244, 40189, 40602, 40198, 40186, 40200, 40193, 40196, 40184, 40185, 40188, 40187, 40065, 40069, 40064, 40080, 40075, 40107, 40074, 40192, 40190, }
+        BG.Loot[FB][hard].boss12      = { 39252, 39254, 39247, 39248, 39251, 39249, 39246, 39250, 40233, 40256, 40250, 40254, 40252, 40251, 40234, 40236, 40238, 40205, 40235, 40209, 40201, 40237, 40203, 40210, 40206, 40257, 40255, 40258, }
+        BG.Loot[FB][hard].boss13      = { 39259, 39260, 39258, 39257, 39256, 40343, 40246, 40249, 40243, 40242, 40241, 40244, 40239, 40245, 40239, 40638, 40639, 40637, }
+        BG.Loot[FB][hard].boss14      = { 39415, 39404, 39409, 39408, 39399, 39405, 39403, 39398, 39401, 39407, 40376, 40362, 40379, 40367, 40366, 40377, 40365, 40363, 40374, 40369, 40370, 40371, 40373, 40372, 40382, 40368, 44577, }
+        BG.Loot[FB][hard].boss15      = { 39425, 39421, 39424, 39420, 22798, 39423, 39422, 39426, 39419, 40405, 40403, 40398, 40387, 40399, 40383, 40386, 40396, 40402, 40384, 40388, 40401, 40400, 40385, 40631, 40632, 40633, }
+        BG.Loot[FB][hard].boss16      = { 44002, 44003, 44004, 44000, 43988, 43990, 43991, 43989, 43992, 44005, 44008, 44007, 44011, 44006, 43995, 43998, 43996, 43994, 43993, 40437, 40439, 40451, 40438, 40453, 40446, 40433, 40431, 40432, 40455, 40428, 40427, 40426, 40433, 40430, 40628, 40629, 40630, 40429, 43993, 265523, 43345, 43346, 43954, }
+        BG.Loot[FB][hard].boss17      = { 40562, 40555, 40194, 40561, 40560, 40558, 40594, 40539, 40541, 40566, 40543, 40588, 40564, 40549, 40590, 40589, 40592, 40591, 40532, 40531, 40526, 40519, 40475, 40486, 40474, 40491, 40488, 40489, 40497, 265524, 43952, }
+        BG.Loot[FB][hard].boss18      = { 22726, 34057 }
+        BG.Loot[FB][hard].boss7other  = { 265514 }
+        BG.Loot[FB][hard].boss14other = { 44661, 44662, 44664, 44665, }
+        BG.Loot[FB][hard].boss16other = { 264741, 264928, }
+        BG.Loot[FB][hard].boss17other = { 264751, 264780, 264770, 264760, }
+        -- 就差风剑未确定哪个BOSS掉落
+        BG.Loot[FB].ExchangeItems     = {
+            [44577] = { 44661, 44662, 44664, 44665, },      -- 冰龙任务项链
+            [265523] = { 264741, 264928, },                 -- 橙锤
+            [265524] = { 264751, 264780, 264770, 264760, }, -- 项链
+            [265526] = { 265514, },                         -- 风剑
+            [22726] = { 22632, },                           -- 橙杖
+        }
+        local tbl                     = {
+            ["6"] = {
+                ["N"] = {
+                    [40634] = { 40572, 40583, 40448, 40422, 40457, 40577, },
+                    [40635] = { 40522, 40529, 40506, 40517, 40512, 40547, },
+                    [40636] = { 40500, 40493, 40468, 40556, 40462, 40417, 40567, },
+                    [40625] = { 40569, 40579, 40449, 40423, 40458, 40574, },
+                    [40626] = { 40523, 40525, 40503, 40514, 40508, 40544, },
+                    [40627] = { 40495, 40471, 40469, 40550, 40463, 40559, 40418, },
+                    [40637] = { 40573, 40584, 40450, 40459, 40424, 40578, },
+                    [40638] = { 40524, 40530, 40507, 40518, 40513, 40548, },
+                    [40639] = { 40502, 40494, 40470, 40557, 40465, 40568, 40419, },
+                }
+            },
+            ["7"] = {
+                ["N"] = {
+                    [40634] = { 40572, 40583, 40448, 40422, 40457, 40577, },
+                    [40635] = { 40522, 40529, 40506, 40517, 40512, 40547, },
+                    [40636] = { 40500, 40493, 40468, 40556, 40462, 40417, 40567, },
+                }
+            },
+            ["10"] = {
+                ["N"] = {
+                    [40625] = { 40569, 40579, 40449, 40423, 40458, 40574, },
+                    [40626] = { 40523, 40525, 40503, 40514, 40508, 40544, },
+                    [40627] = { 40495, 40471, 40469, 40550, 40463, 40559, 40418, },
+                }
+            },
+            ["13"] = {
+                ["N"] = {
+                    [40637] = { 40573, 40584, 40450, 40459, 40424, 40578, },
+                    [40638] = { 40524, 40530, 40507, 40518, 40513, 40548, },
+                    [40639] = { 40502, 40494, 40470, 40557, 40465, 40568, 40419, },
+                }
+            },
+            ["15"] = {
+                ["N"] = {
+                    [40631] = { 40571, 40581, 40447, 40456, 40421, 40576, },
+                    [40632] = { 40521, 40528, 40505, 40516, 40510, 40546, },
+                    [40633] = { 40499, 40473, 40467, 40554, 40461, 40565, 40416, },
+                }
+            },
+            ["16"] = {
+                ["N"] = {
+                    [40628] = { 40570, 40580, 40445, 40454, 40420, 40575, },
+                    [40629] = { 40520, 40527, 40504, 40515, 40509, 40545, },
+                    [40630] = { 40496, 40472, 40466, 40552, 40460, 40563, 40415, },
                 }
             },
         }
@@ -490,147 +589,191 @@ do
         end
     end
 
-    local FB = "MCtitan"
-    -- 牌子装
-    -- 200
-    AddCurrency(FB, 3403, 43102, 2)
-    AddCurrency(FB, 3403, 40679, 6)
-    AddCurrency(FB, 3403, 40680, 6)
-    AddCurrency(FB, 3403, 40681, 6)
-    AddCurrency(FB, 3403, 40678, 6)
-    AddCurrency(FB, 3403, 40684, 10)
-    AddCurrency(FB, 3403, 40682, 10)
-    AddCurrency(FB, 3403, 40685, 10)
-    AddCurrency(FB, 3403, 40683, 10)
-    AddCurrency(FB, 3403, 40693, 10)
-    AddCurrency(FB, 3403, 40697, 10)
-    AddCurrency(FB, 3403, 40694, 10)
-    AddCurrency(FB, 3403, 40691, 10)
-    AddCurrency(FB, 3403, 40696, 10)
-    AddCurrency(FB, 3403, 40688, 10)
-    AddCurrency(FB, 3403, 40692, 10)
-    AddCurrency(FB, 3403, 40695, 10)
-    AddCurrency(FB, 3403, 40689, 10)
-    AddCurrency(FB, 3403, 40699, 6)
-    AddCurrency(FB, 3403, 40698, 6)
-    AddCurrency(FB, 3403, 40701, 8)
-    AddCurrency(FB, 3403, 40700, 8)
-    AddCurrency(FB, 3403, 40703, 12)
-    AddCurrency(FB, 3403, 40716, 3)
-    AddCurrency(FB, 3403, 40704, 12)
-    AddCurrency(FB, 3403, 40702, 12)
-    AddCurrency(FB, 3403, 40707, 3)
-    AddCurrency(FB, 3403, 40706, 3)
-    AddCurrency(FB, 3403, 40705, 3)
-    AddCurrency(FB, 3403, 40711, 3)
-    AddCurrency(FB, 3403, 40712, 3)
-    AddCurrency(FB, 3403, 40713, 3)
-    AddCurrency(FB, 3403, 40715, 3)
-    AddCurrency(FB, 3403, 40714, 3)
-    AddCurrency(FB, 3403, 40709, 3)
-    AddCurrency(FB, 3403, 40710, 3)
-    AddCurrency(FB, 3403, 40708, 3)
-    -- 213圣契
-    AddCurrency(FB, 3403, 40342, 8)
-    AddCurrency(FB, 3403, 40321, 8)
-    AddCurrency(FB, 3403, 39757, 8)
-    AddCurrency(FB, 3403, 40191, 8)
-    AddCurrency(FB, 3403, 40337, 8)
-    AddCurrency(FB, 3403, 40268, 8)
-    AddCurrency(FB, 3403, 40322, 8)
-    AddCurrency(FB, 3403, 40267, 8)
-    AddCurrency(FB, 3403, 39728, 8)
-    AddCurrency(FB, 3403, 40207, 8)
-    -- PVP圣契
-    AddCurrency(FB, 3403, 42851, 4) -- QS
-    AddCurrency(FB, 3403, 42613, 4)
-    AddCurrency(FB, 3406, 42611, 200)
-    AddCurrency(FB, 3406, 42612, 200)
-    AddCurrency(FB, 3403, 42619, 4) -- DK
-    AddCurrency(FB, 3406, 42618, 200)
-    AddCurrency(FB, 3403, 42577, 4) -- XD
-    AddCurrency(FB, 3403, 42582, 4)
-    AddCurrency(FB, 3403, 42587, 4)
-    AddCurrency(FB, 3406, 42574, 200)
-    AddCurrency(FB, 3406, 42575, 200)
-    AddCurrency(FB, 3406, 42576, 200)
-    AddCurrency(FB, 3403, 42596, 4) -- SM
-    AddCurrency(FB, 3403, 42601, 4)
-    AddCurrency(FB, 3403, 42606, 4)
-    AddCurrency(FB, 3406, 42593, 200)
-    AddCurrency(FB, 3406, 42594, 200)
-    AddCurrency(FB, 3406, 42595, 200)
-    -- 冬拥湖
-    AddCurrency(FB, 3403, 44910, 14) -- 头
-    AddCurrency(FB, 3403, 44909, 14)
-    AddCurrency(FB, 3403, 44907, 14)
-    AddCurrency(FB, 3403, 44906, 14)
-    AddCurrency(FB, 3403, 44908, 14)
-    AddCurrency(FB, 3403, 44904, 14)
-    AddCurrency(FB, 3403, 44903, 14)
-    AddCurrency(FB, 3403, 44905, 14)
-    AddCurrency(FB, 3403, 44901, 14)
-    AddCurrency(FB, 3403, 44902, 14)
-    AddCurrency(FB, 3403, 44899, 5) -- 鞋子
-    AddCurrency(FB, 3403, 44900, 5)
-    AddCurrency(FB, 3403, 44891, 5)
-    AddCurrency(FB, 3403, 44892, 5)
-    AddCurrency(FB, 3403, 44893, 5)
-    AddCurrency(FB, 3403, 44896, 5)
-    AddCurrency(FB, 3403, 44898, 5)
-    AddCurrency(FB, 3403, 44897, 5)
-    AddCurrency(FB, 3403, 44894, 5)
-    AddCurrency(FB, 3403, 44895, 5)
-    AddCurrency(FB, 3403, 44914, 9) -- 耐力饰品
-    AddCurrency(FB, 3403, 44912, 9) -- 耐力饰品
+    -- P1
+    do
+        local FB = "MCtitan"
+        -- 200
+        AddCurrency(FB, 3403, 43102, 2)
+        AddCurrency(FB, 3403, 40679, 6)
+        AddCurrency(FB, 3403, 40680, 6)
+        AddCurrency(FB, 3403, 40681, 6)
+        AddCurrency(FB, 3403, 40678, 6)
+        AddCurrency(FB, 3403, 40684, 10)
+        AddCurrency(FB, 3403, 40682, 10)
+        AddCurrency(FB, 3403, 40685, 10)
+        AddCurrency(FB, 3403, 40683, 10)
+        AddCurrency(FB, 3403, 40693, 10)
+        AddCurrency(FB, 3403, 40697, 10)
+        AddCurrency(FB, 3403, 40694, 10)
+        AddCurrency(FB, 3403, 40691, 10)
+        AddCurrency(FB, 3403, 40696, 10)
+        AddCurrency(FB, 3403, 40688, 10)
+        AddCurrency(FB, 3403, 40692, 10)
+        AddCurrency(FB, 3403, 40695, 10)
+        AddCurrency(FB, 3403, 40689, 10)
+        AddCurrency(FB, 3403, 40699, 6)
+        AddCurrency(FB, 3403, 40698, 6)
+        AddCurrency(FB, 3403, 40701, 8)
+        AddCurrency(FB, 3403, 40700, 8)
+        AddCurrency(FB, 3403, 40703, 12)
+        AddCurrency(FB, 3403, 40716, 3)
+        AddCurrency(FB, 3403, 40704, 12)
+        AddCurrency(FB, 3403, 40702, 12)
+        AddCurrency(FB, 3403, 40707, 3)
+        AddCurrency(FB, 3403, 40706, 3)
+        AddCurrency(FB, 3403, 40705, 3)
+        AddCurrency(FB, 3403, 40711, 3)
+        AddCurrency(FB, 3403, 40712, 3)
+        AddCurrency(FB, 3403, 40713, 3)
+        AddCurrency(FB, 3403, 40715, 3)
+        AddCurrency(FB, 3403, 40714, 3)
+        AddCurrency(FB, 3403, 40709, 3)
+        AddCurrency(FB, 3403, 40710, 3)
+        AddCurrency(FB, 3403, 40708, 3)
+        -- 213圣契
+        AddCurrency(FB, 3403, 40342, 8)
+        AddCurrency(FB, 3403, 40321, 8)
+        AddCurrency(FB, 3403, 39757, 8)
+        AddCurrency(FB, 3403, 40191, 8)
+        AddCurrency(FB, 3403, 40337, 8)
+        AddCurrency(FB, 3403, 40268, 8)
+        AddCurrency(FB, 3403, 40322, 8)
+        AddCurrency(FB, 3403, 40267, 8)
+        AddCurrency(FB, 3403, 39728, 8)
+        AddCurrency(FB, 3403, 40207, 8)
+        -- PVP圣契
+        AddCurrency(FB, 3403, 42851, 4) -- QS
+        AddCurrency(FB, 3403, 42613, 4)
+        AddCurrency(FB, 3406, 42611, 200)
+        AddCurrency(FB, 3406, 42612, 200)
+        AddCurrency(FB, 3403, 42619, 4) -- DK
+        AddCurrency(FB, 3406, 42618, 200)
+        AddCurrency(FB, 3403, 42577, 4) -- XD
+        AddCurrency(FB, 3403, 42582, 4)
+        AddCurrency(FB, 3403, 42587, 4)
+        AddCurrency(FB, 3406, 42574, 200)
+        AddCurrency(FB, 3406, 42575, 200)
+        AddCurrency(FB, 3406, 42576, 200)
+        AddCurrency(FB, 3403, 42596, 4) -- SM
+        AddCurrency(FB, 3403, 42601, 4)
+        AddCurrency(FB, 3403, 42606, 4)
+        AddCurrency(FB, 3406, 42593, 200)
+        AddCurrency(FB, 3406, 42594, 200)
+        AddCurrency(FB, 3406, 42595, 200)
+        -- 冬拥湖
+        AddCurrency(FB, 3403, 44910, 14) -- 头
+        AddCurrency(FB, 3403, 44909, 14)
+        AddCurrency(FB, 3403, 44907, 14)
+        AddCurrency(FB, 3403, 44906, 14)
+        AddCurrency(FB, 3403, 44908, 14)
+        AddCurrency(FB, 3403, 44904, 14)
+        AddCurrency(FB, 3403, 44903, 14)
+        AddCurrency(FB, 3403, 44905, 14)
+        AddCurrency(FB, 3403, 44901, 14)
+        AddCurrency(FB, 3403, 44902, 14)
+        AddCurrency(FB, 3403, 44899, 5) -- 鞋子
+        AddCurrency(FB, 3403, 44900, 5)
+        AddCurrency(FB, 3403, 44891, 5)
+        AddCurrency(FB, 3403, 44892, 5)
+        AddCurrency(FB, 3403, 44893, 5)
+        AddCurrency(FB, 3403, 44896, 5)
+        AddCurrency(FB, 3403, 44898, 5)
+        AddCurrency(FB, 3403, 44897, 5)
+        AddCurrency(FB, 3403, 44894, 5)
+        AddCurrency(FB, 3403, 44895, 5)
+        AddCurrency(FB, 3403, 44914, 9) -- 耐力饰品
+        AddCurrency(FB, 3403, 44912, 9) -- 耐力饰品
 
-    -- 213
-    -- AddCurrency(FB, 3403, 40742, 13)
-    -- AddCurrency(FB, 3403, 40733, 20)
-    -- AddCurrency(FB, 3403, 40743, 13)
-    -- AddCurrency(FB, 3403, 40734, 20)
-    -- AddCurrency(FB, 3403, 40745, 13)
-    -- AddCurrency(FB, 3403, 40735, 20)
-    -- AddCurrency(FB, 3403, 40750, 13)
-    -- AddCurrency(FB, 3403, 40740, 20)
-    -- AddCurrency(FB, 3403, 40751, 13)
-    -- AddCurrency(FB, 3403, 40748, 13)
-    -- AddCurrency(FB, 3403, 40738, 20)
-    -- AddCurrency(FB, 3403, 40749, 13)
-    -- AddCurrency(FB, 3403, 40739, 20)
-    -- AddCurrency(FB, 3403, 40747, 13)
-    -- AddCurrency(FB, 3403, 40737, 20)
-    -- AddCurrency(FB, 3403, 40746, 13)
-    -- AddCurrency(FB, 3403, 40736, 20)
+        -- 抗性装
+        AddCurrency(FB, 3403, 263008, 5)
+        AddCurrency(FB, 3403, 262932, 5)
+        AddCurrency(FB, 3403, 262931, 5)
+        AddCurrency(FB, 3403, 262940, 5)
+        AddCurrency(FB, 3403, 262998, 5)
+        AddCurrency(FB, 3403, 262996, 5)
+        AddCurrency(FB, 3403, 262993, 9)
+        AddCurrency(FB, 3403, 262995, 9)
+        AddCurrency(FB, 3403, 262997, 3)
+        AddCurrency(FB, 3403, 263004, 5)
+        AddCurrency(FB, 3403, 263002, 5)
+        AddCurrency(FB, 3403, 263000, 9)
+        AddCurrency(FB, 3403, 263001, 9)
+        AddCurrency(FB, 3403, 263003, 3)
+        AddCurrency(FB, 3403, 262988, 5)
+        AddCurrency(FB, 3403, 262986, 5)
+        AddCurrency(FB, 3403, 262981, 9)
+        AddCurrency(FB, 3403, 262985, 9)
+        AddCurrency(FB, 3403, 262987, 3)
+        AddCurrency(FB, 3403, 265342, 5)
+        AddCurrency(FB, 3403, 265343, 5)
+        AddCurrency(FB, 3403, 265344, 5)
+        AddCurrency(FB, 3403, 265345, 5)
+        AddCurrency(FB, 3403, 265355, 5)
+        AddCurrency(FB, 3403, 265354, 5)
+        AddCurrency(FB, 3403, 265353, 5)
+        AddCurrency(FB, 3403, 265352, 5)
+    end
 
-    -- 抗性装
-    AddCurrency(FB, 3403, 263008, 5)
-    AddCurrency(FB, 3403, 262932, 5)
-    AddCurrency(FB, 3403, 262931, 5)
-    AddCurrency(FB, 3403, 262940, 5)
-    AddCurrency(FB, 3403, 262998, 5)
-    AddCurrency(FB, 3403, 262996, 5)
-    AddCurrency(FB, 3403, 262993, 9)
-    AddCurrency(FB, 3403, 262995, 9)
-    AddCurrency(FB, 3403, 262997, 3)
-    AddCurrency(FB, 3403, 263004, 5)
-    AddCurrency(FB, 3403, 263002, 5)
-    AddCurrency(FB, 3403, 263000, 9)
-    AddCurrency(FB, 3403, 263001, 9)
-    AddCurrency(FB, 3403, 263003, 3)
-    AddCurrency(FB, 3403, 262988, 5)
-    AddCurrency(FB, 3403, 262986, 5)
-    AddCurrency(FB, 3403, 262981, 9)
-    AddCurrency(FB, 3403, 262985, 9)
-    AddCurrency(FB, 3403, 262987, 3)
-    AddCurrency(FB, 3403, 265342, 5)
-    AddCurrency(FB, 3403, 265343, 5)
-    AddCurrency(FB, 3403, 265344, 5)
-    AddCurrency(FB, 3403, 265345, 5)
-    AddCurrency(FB, 3403, 265355, 5)
-    AddCurrency(FB, 3403, 265354, 5)
-    AddCurrency(FB, 3403, 265353, 5)
-    AddCurrency(FB, 3403, 265352, 5)
+    -- P3
+    do
+        local FB = "NAXXtitan"
+        AddCurrency(FB, 3403, 40719, 8)
+        AddCurrency(FB, 3403, 40720, 8)
+        AddCurrency(FB, 3403, 40717, 8)
+        AddCurrency(FB, 3403, 40718, 8)
+        AddCurrency(FB, 3403, 40724, 8)
+        AddCurrency(FB, 3403, 40723, 8)
+        AddCurrency(FB, 3403, 40721, 8)
+        AddCurrency(FB, 3403, 40722, 8)
+        AddCurrency(FB, 3403, 40736, 20)
+        AddCurrency(FB, 3403, 40739, 20)
+        AddCurrency(FB, 3403, 40734, 20)
+        AddCurrency(FB, 3403, 40741, 20)
+        AddCurrency(FB, 3403, 40737, 20)
+        AddCurrency(FB, 3403, 40740, 20)
+        AddCurrency(FB, 3403, 40733, 20)
+        AddCurrency(FB, 3403, 40738, 20)
+        AddCurrency(FB, 3403, 40735, 20)
+        AddCurrency(FB, 3403, 40742, 13)
+        AddCurrency(FB, 3403, 40748, 13)
+        AddCurrency(FB, 3403, 40743, 13)
+        AddCurrency(FB, 3403, 40746, 13)
+        AddCurrency(FB, 3403, 40749, 13)
+        AddCurrency(FB, 3403, 40745, 13)
+        AddCurrency(FB, 3403, 40751, 13)
+        AddCurrency(FB, 3403, 40747, 13)
+        AddCurrency(FB, 3403, 40750, 13)
+
+        -- 冬拥湖
+        AddCurrency(FB, 3403, 46083, 9)
+        AddCurrency(FB, 3403, 46085, 9)
+        AddCurrency(FB, 3403, 46081, 9)
+        AddCurrency(FB, 3403, 46084, 9)
+        AddCurrency(FB, 3403, 46082, 9)
+        AddCurrency(FB, 3403, 46086, 9)
+        AddCurrency(FB, 3403, 46088, 9)
+        AddCurrency(FB, 3403, 46087, 9)
+        AddCurrency(FB, 3403, 46057, 14)
+        AddCurrency(FB, 3403, 46058, 14)
+        AddCurrency(FB, 3403, 46061, 14)
+        AddCurrency(FB, 3403, 46060, 14)
+        AddCurrency(FB, 3403, 46059, 14)
+        AddCurrency(FB, 3403, 46064, 14)
+        AddCurrency(FB, 3403, 46063, 14)
+        AddCurrency(FB, 3403, 46062, 14)
+        AddCurrency(FB, 3403, 46065, 14)
+        AddCurrency(FB, 3403, 46066, 14)
+        AddCurrency(FB, 3403, 46071, 5)
+        AddCurrency(FB, 3403, 46072, 5)
+        AddCurrency(FB, 3403, 46073, 5)
+        AddCurrency(FB, 3403, 46074, 5)
+        AddCurrency(FB, 3403, 46075, 5)
+        AddCurrency(FB, 3403, 46076, 5)
+        AddCurrency(FB, 3403, 46077, 5)
+        AddCurrency(FB, 3403, 46078, 5)
+        AddCurrency(FB, 3403, 46079, 5)
+        AddCurrency(FB, 3403, 46080, 5)
+    end
 end
 
 -- 声望装备
@@ -751,3 +894,23 @@ do
         { id = 44934, m = 85000000 },
     }
 end
+
+-- 节日
+BG.AddHolidayLoot({
+    [324] = {
+        name = L["万圣节"],
+        items = {},
+    },
+    [341] = {
+        name = L["仲夏火焰节"],
+        items = {},
+    },
+    [372] = {
+        name = L["美酒节"],
+        items = {},
+    },
+    [423] = {
+        name = L["情人节"],
+        items = { 238339, 238340, 238341, 238342, 238343, },
+    },
+})

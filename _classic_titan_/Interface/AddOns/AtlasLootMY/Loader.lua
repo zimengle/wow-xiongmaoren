@@ -108,7 +108,7 @@ function AtlasLoot:uncollectMMB()
     if M and type(M) == "table" then
         -- 删除OnUpdate事件处理器
         local iconName = "LibDBIcon10_AtlasLootMY"
-        if _G[iconName].opoint then
+        if _G[iconName] and _G[iconName].opoint then
             M:addignored("LibDBIcon10_AtlasLootMY")
         else
             M:addignored("_AtlasLootMY")

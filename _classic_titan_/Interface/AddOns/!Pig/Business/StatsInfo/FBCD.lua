@@ -1,5 +1,8 @@
 local addonName, addonTable = ...;
 local L=addonTable.locale
+local gsub = _G.string.gsub
+local match = _G.string.match
+----
 local Fun=addonTable.Fun
 local Create=addonTable.Create
 local PIGLine=Create.PIGLine
@@ -43,55 +46,52 @@ function BusinessInfo.FBCD(StatsInfo)
 	local fujiF,fujiTabBut=PIGOptionsList_R(StatsInfo.F,"副\n本",StatsInfo.butW,"Left")
 	fujiF:Show()
 	fujiTabBut:Selected(true)
-	PIGA["StatsInfo"]["InstancesCD"]["Mode"]=PIGA["StatsInfo"]["InstancesCD"]["Mode"] or 1
-	fujiF.SetMode = PIGDiyBut(fujiF,{"TOPLEFT", fujiF, "TOPLEFT", 10, -2},{17,17,nil,nil,"loottoast-arrow-orange"})
-	local Tooltipx = {"","在"..addonName.."小地图按钮鼠标提示\n注意:为了节省性能开销，战斗中无效"}
-	fujiF.MinibutTisp = PIGCheckbutton(fujiF,{"LEFT",fujiF.SetMode,"RIGHT",4,0},Tooltipx,{14,14})
-	fujiF.MinibutTisp:SetScript("OnClick", function (self)
-		if self:GetChecked() then
-			PIGA["StatsInfo"]["InstancesCD"]["MinibutTisp"]=true
-		else
-			PIGA["StatsInfo"]["InstancesCD"]["MinibutTisp"]=false
-		end
-	end);
-	fujiF.CZdataBut = PIGDiyBut(fujiF,{"TOPRIGHT", fujiF, "TOPRIGHT", -10, -2},{17,17,nil,nil,"common-icon-undo"})
+	fujiF.CZdataBut = PIGDiyBut(fujiF,{"TOPLEFT", fujiF, "TOPLEFT", 10, -2},{17,17,nil,nil,"common-icon-undo"})
 	PIGEnter(fujiF.CZdataBut,"重置副本CD数据")
 	fujiF.CZdataBut:SetScript("OnClick", function (self)
-		local olddata=PIGA["StatsInfo"]["InstancesCD"]["Records"]
-		PIGA["StatsInfo"]["InstancesCD"]=addonTable.Default["StatsInfo"]["InstancesCD"]
-		PIGA["StatsInfo"]["InstancesCD"]["Records"]=olddata
+		PIGA["StatsInfo"]["FBCDRecords"]={}
+		fujiF.Get_InstancesCD()
 		StatsInfo:Hide()
+		StatsInfo:Show()
 	end);
-	if PIGA["StatsInfo"]["InstancesCD"]["Mode"]==1 then
-		fujiF.SetMode.tisptxt="切换为旧版记录模式？\n需要重载界面"
+	local Tooltipx = {"","在"..addonName.."小地图按钮鼠标提示本页内容\n注意:为了节省性能开销，战斗中无效"}
+	fujiF.MinibutTisp = PIGCheckbutton(fujiF,{"LEFT",fujiF.CZdataBut,"RIGHT",4,0},Tooltipx,{14,14})
+	fujiF.MinibutTisp:SetScript("OnClick", function (self)
+		if self:GetChecked() then
+			PIGA["StatsInfo"]["FBCDMinibutTisp"]=true
+		else
+			PIGA["StatsInfo"]["FBCDMinibutTisp"]=false
+		end
+	end);
+	local OldMode = PIGA["StatsInfo"]["FBCDMode"]==2
+	if PIG_MaxTocversion(50000) then
+		local tisptxt="切换为%s记录模式？\n需要重载界面"
+		local tisptxt=PIGA["StatsInfo"]["FBCDMode"]==1 and string.format(tisptxt,"旧版") or string.format(tisptxt,"新版")
+		fujiF.SetMode = PIGDiyBut(fujiF,{"LEFT",fujiF.MinibutTisp,"RIGHT",4,0},{17,17,nil,nil,"loottoast-arrow-orange"})
+		PIGEnter(fujiF.SetMode,tisptxt)
+		fujiF.SetMode:SetScript("OnClick", function ()
+			StaticPopup_Show("PIG_STATSINFOFBCDMODE");
+		end);
+		StaticPopupDialogs["PIG_STATSINFOFBCDMODE"] = {
+			text = tisptxt,
+			button1 = YES,
+			button2 = NO,
+			OnAccept = function(self,arg1)
+				if PIGA["StatsInfo"]["FBCDMode"]==1 then
+					PIGA["StatsInfo"]["FBCDMode"]=2
+				else
+					PIGA["StatsInfo"]["FBCDMode"]=1
+				end
+				ReloadUI()
+			end,
+			timeout = 0,
+			whileDead = true,
+			hideOnEscape = true,
+		}
 	else
-		fujiF.SetMode.tisptxt="切换为新版记录模式？\n需要重载界面"
+		OldMode = true
 	end
-	if PIG_MaxTocversion(50000,true) then
-		PIGA["StatsInfo"]["InstancesCD"]["Mode"]=2
-		fujiF.SetMode:Hide()
-	end
-	PIGEnter(fujiF.SetMode,fujiF.SetMode.tisptxt)
-	fujiF.SetMode:SetScript("OnClick", function ()
-		StaticPopup_Show("STATSINFOINSTANCESCDMODE");
-	end);
-	StaticPopupDialogs["STATSINFOINSTANCESCDMODE"] = {
-		text = fujiF.SetMode.tisptxt,
-		button1 = YES,
-		button2 = NO,
-		OnAccept = function(self,arg1)
-			if PIGA["StatsInfo"]["InstancesCD"]["Mode"]==1 then
-				PIGA["StatsInfo"]["InstancesCD"]["Mode"]=2
-			else
-				PIGA["StatsInfo"]["InstancesCD"]["Mode"]=1
-			end
-			ReloadUI()
-		end,
-		timeout = 0,
-		whileDead = true,
-		hideOnEscape = true,
-	}
-	local OldMode = PIGA["StatsInfo"]["InstancesCD"]["Mode"]==2
+	----
 	local MiniMapBut=addonTable.Mapfun.MiniMapBut
 	fujiF.tispBG=PIGFrame(fujiF)
 	fujiF.tispBG:PIGSetBackdrop(1,1)
@@ -100,7 +100,7 @@ function BusinessInfo.FBCD(StatsInfo)
 	fujiF.tispBG:SetFrameLevel(fujiF.tispBG:GetFrameLevel()-1)
 	MiniMapBut:HookScript("OnEnter", function(self)
 		if InCombatLockdown() then return end
-		if not PIGA["StatsInfo"]["InstancesCD"]["MinibutTisp"] then return end
+		if not PIGA["StatsInfo"]["FBCDMinibutTisp"] then return end
 		local offsetWW = fujiF:GetWidth()
 		local offsetHH = fujiF:GetHeight()
 		fujiF:SetParent(MiniMapBut)
@@ -110,7 +110,7 @@ function BusinessInfo.FBCD(StatsInfo)
 		fujiF.tispBG:Show()
 	end);
 	MiniMapBut:HookScript("OnLeave", function()
-		if not PIGA["StatsInfo"]["InstancesCD"]["MinibutTisp"] then return end
+		if not PIGA["StatsInfo"]["FBCDMinibutTisp"] then return end
 		fujiF:SetParent(StatsInfo.F.Bot)
 		fujiF:ClearAllPoints();
 		fujiF:SetPoint("TOPLEFT",StatsInfo.F.Bot,"TOPLEFT",0,0);
@@ -118,7 +118,13 @@ function BusinessInfo.FBCD(StatsInfo)
 		fujiF.tispBG:Hide()
 	end);
 	---
-	local funamelist = {[836]=-2,[839]=-1}--ZUG/MC--BOSS数-1
+	local function GetBossNUM_1_1()--MC--BOSS数-1
+		if PIG_MaxTocversion(20000) and C_Engraving and C_Engraving.IsEngravingEnabled() then
+			return -1
+		end
+		return 0
+	end
+	local funamelist = {[836]=-2,[839]=GetBossNUM_1_1()}--ZUGBOSS数-2
 	local function GetBossNUM_1(name)
 		for k,v in pairs(funamelist) do
 			local activityInfo = C_LFGList.GetActivityInfoTable(k);
@@ -128,7 +134,7 @@ function BusinessInfo.FBCD(StatsInfo)
 		end
 		return 0
 	end
-	local function Get_InstancesCD()
+	function fujiF.Get_InstancesCD()
 		local numInstances = GetNumSavedInstances();
 		local InstancesCDinfo={};
 		for id = 1, numInstances, 1 do				
@@ -145,12 +151,13 @@ function BusinessInfo.FBCD(StatsInfo)
 		local numSavedWorldBosses = GetNumSavedWorldBosses()
 		for id=1,numSavedWorldBosses do
 			local name, worldBossID, reset = GetSavedWorldBossInfo(id)
-			InstancesCDinfo[name]={reset+GetServerTime()}
+			InstancesCDinfo[name]=InstancesCDinfo[name] or {}
+			InstancesCDinfo[name]["world"]={reset+GetServerTime(),1,1,{}}
 		end
-		PIGA["StatsInfo"]["InstancesCD"][StatsInfo.allname]=InstancesCDinfo
+		PIGA["StatsInfo"]["FBCDRecords"][StatsInfo.allname]=InstancesCDinfo
 	end
 	fujiF:HookScript("OnShow", function(self)
-		self.MinibutTisp:SetChecked(PIGA["StatsInfo"]["InstancesCD"]["MinibutTisp"])
+		self.MinibutTisp:SetChecked(PIGA["StatsInfo"]["FBCDMinibutTisp"])
 		self.Update_List();
 	end)
 	fujiF:RegisterEvent("PLAYER_ENTERING_WORLD")       
@@ -159,7 +166,7 @@ function BusinessInfo.FBCD(StatsInfo)
 		if event=="PLAYER_ENTERING_WORLD" then
 			RequestRaidInfo()
 		elseif event=="UPDATE_INSTANCE_INFO" then
-			C_Timer.After(1,Get_InstancesCD)
+			C_Timer.After(1,fujiF.Get_InstancesCD)
 		end
 	end)
 	if OldMode then
@@ -234,7 +241,15 @@ function BusinessInfo.FBCD(StatsInfo)
 							fujik.Race:SetWidth(0.01);
 							fujik.Class:SetWidth(0.01);
 							fujik.name:SetTextColor(1, 1, 1, 1);
-							fujik.name:SetText(dataX[dangqian][1].."\124cff66FF11["..dataX[dangqian][2].."]\124r".." "..disp_time(dataX[dangqian][3]-GetServerTime()));
+							local time,minnum,maxnum=dataX[dangqian][3][1],dataX[dangqian][3][2],dataX[dangqian][3][3]
+							local iconx="|T137025:0|t"
+							local minmaxtxt=""
+							if minnum<maxnum then
+								minmaxtxt="\124cffFF1133"..minnum.."/"..maxnum.."\124r"
+							else
+								minmaxtxt="\124cff00ff00"..minnum.."/"..maxnum.."\124r"
+							end
+							fujik.name:SetText(dataX[dangqian][1].."\124cff00ccff["..dataX[dangqian][2].."]\124r["..iconx..minmaxtxt.."] "..disp_time(time-GetServerTime()));
 						end
 					end
 				end
@@ -262,33 +277,31 @@ function BusinessInfo.FBCD(StatsInfo)
 		   	for allname,datav in pairs(PlayerData) do
 		   		fujiF.raidyou=false
 	   			fujiF.partyyou=false
-		   		local fubenData  = PIGA["StatsInfo"]["InstancesCD"][allname]
+		   		local fubenData  = PIGA["StatsInfo"]["FBCDRecords"][allname]
 				if fubenData then
 					for funame,CDdata in pairs(fubenData) do
-						if type(CDdata)=="number" then
-							if not fujiF.raidyou then
-								table.insert(cdmulu[2],{"juese",allname,datav[1],datav[2],datav[3],datav[4],datav[5]})
-								fujiF.raidyou=true
-							end
-							table.insert(cdmulu[2],{funame,WORLD.."BOSS",CDdata})
-						else
-							for difficultyId,dataX in pairs(CDdata) do
-								if GetServerTime()<dataX[1] then
-									local name, groupType, isHeroic, isChallengeMode, displayHeroic, displayMythic, toggleDifficultyID, isLFR, minPlayers, maxPlayers = GetDifficultyInfo(difficultyId)
-									if groupType=="raid" then
-										if not fujiF.raidyou then
-											table.insert(cdmulu[2],{"juese",allname,datav[1],datav[2],datav[3],datav[4],datav[5]})
-											fujiF.raidyou=true
-										end
-										table.insert(cdmulu[2],{funame,name,dataX[1]})
-									elseif groupType=="party" then
-										if not fujiF.partyyou then
-											table.insert(cdmulu[1],{"juese",allname,datav[1],datav[2],datav[3],datav[4],datav[5]})
-											fujiF.partyyou=true
-										end
-										table.insert(cdmulu[1],{funame,name,dataX[1]})
-									end
+						for difficultyId,dataX in pairs(CDdata) do
+							if GetServerTime()<dataX[1] then
+								local name, groupType
+								if difficultyId=="world" then
+									name, groupType=WORLD.."BOSS","raid"
+								else
+									name, groupType= PIG_GetDifficultyInfo(difficultyId)
 								end
+								if groupType=="raid" then
+									if not fujiF.raidyou then
+										table.insert(cdmulu[2],{"juese",allname,datav[1],datav[2],datav[3],datav[4],datav[5]})
+										fujiF.raidyou=true
+									end
+									table.insert(cdmulu[2],{funame,name,dataX})
+								elseif groupType=="party" then
+									if not fujiF.partyyou then
+										table.insert(cdmulu[1],{"juese",allname,datav[1],datav[2],datav[3],datav[4],datav[5]})
+										fujiF.partyyou=true
+									end
+									table.insert(cdmulu[1],{funame,name,dataX})
+								end
+
 							end
 						end
 					end
@@ -310,16 +323,17 @@ function BusinessInfo.FBCD(StatsInfo)
 			end
 			return jiludata
 		end
+		local NewTabList  = PIGA["StatsInfo"]["FBCDTabList"]
 		if PIG_MaxTocversion(20000) then
 			local raid60 = {836,838,839,840,842,843,841}
 			table.insert(insList_RAIDS,{"["..RAIDS.."]-"..EXPANSION_NAME0,raid60})
-			PIGA["StatsInfo"]["InstancesCD"]["Records"]=PIGA["StatsInfo"]["InstancesCD"]["Records"] or morenRecords(raid60)
+			NewTabList=morenRecords(raid60)
 		elseif PIG_MaxTocversion(30000) then
 			table.insert(insList_RAIDS,{"["..RAIDS.."]-"..EXPANSION_NAME0,{836,838,839,840,842,843,841}})
 			table.insert(insList_DUNGEONS,{"["..DUNGEONS.."]-"..EXPANSION_NAME1,{903,904,905,906,907,908,909,910,911,912,913,914,915,916,917,918}})
 			local tbcid = {844,845,846,847,848,849,850,851,852}
 			table.insert(insList_RAIDS,{"["..RAIDS.."]-"..EXPANSION_NAME1,tbcid})
-			PIGA["StatsInfo"]["InstancesCD"]["Records"]=PIGA["StatsInfo"]["InstancesCD"]["Records"] or morenRecords(tbcid)
+			NewTabList=morenRecords(tbcid)
 		elseif PIG_MaxTocversion(40000) then
 			table.insert(insList_DUNGEONS,{"["..DUNGEONS.."]-"..EXPANSION_NAME1,{903,904,905,906,907,908,909,910,911,912,913,914,915,916,917,918}})
 			table.insert(insList_DUNGEONS,{"["..DUNGEONS.."]-"..EXPANSION_NAME2,{1121,1122,1123,1124,1125,1126,1127,1128,1129,1130,1131,1132,1133,1134,1135,1136,
@@ -329,10 +343,10 @@ function BusinessInfo.FBCD(StatsInfo)
 			-- table.insert(insList_RAIDS,{"["..RAIDS.."]-"..EXPANSION_NAME0,{836,839,840,842,843}})
 			-- table.insert(insList_RAIDS,{"["..RAIDS.."]-"..EXPANSION_NAME1,{844,845,846,847,848,849,850,851,852}})
 			-- table.insert(insList_RAIDS,{"["..RAIDS.."]-"..EXPANSION_NAME2,wlkid})
-			-- PIGA["StatsInfo"]["InstancesCD"]["Records"]=PIGA["StatsInfo"]["InstancesCD"]["Records"] or morenRecords(wlkid)
-			local titanraid = {839,1095}
-			table.insert(insList_RAIDS,{"["..RAIDS.."]-"..GetDifficultyInfo(244),titanraid})
-			local titanword = {116,117}
+			-- NewTabList=NewTabList or morenRecords(wlkid)
+			local titanraid = {848,847,839,1095}
+			table.insert(insList_RAIDS,{"["..RAIDS.."]-"..PIG_GetDifficultyInfo(244),titanraid})
+			local titanword = {116,117,118,119}
 			table.insert(insList_WORDBOSS,{"["..WORLD.."BOSS]",titanword})
 			local hejirdlist={}
 			for i=1,#titanraid do
@@ -341,21 +355,22 @@ function BusinessInfo.FBCD(StatsInfo)
 			for i=1,#titanword do
 				table.insert(hejirdlist,titanword[i])
 			end
-			PIGA["StatsInfo"]["InstancesCD"]["Records"]= morenRecords(hejirdlist)
+			NewTabList= morenRecords(hejirdlist)
 		elseif PIG_MaxTocversion(50000) then
 			table.insert(insList_DUNGEONS,{"["..DUNGEONS.."]-"..EXPANSION_NAME3,{}})
 			table.insert(insList_RAIDS,{"["..RAIDS.."]-"..EXPANSION_NAME3,{}})
-			PIGA["StatsInfo"]["InstancesCD"]["Records"]=PIGA["StatsInfo"]["InstancesCD"]["Records"] or {}
+			NewTabList=NewTabList or {}
 		elseif PIG_MaxTocversion(60000) then
 			table.insert(insList_DUNGEONS,{"["..DUNGEONS.."]-"..EXPANSION_NAME3,{}})
 			table.insert(insList_RAIDS,{"["..RAIDS.."]-"..EXPANSION_NAME3,{}})
-			PIGA["StatsInfo"]["InstancesCD"]["Records"]=PIGA["StatsInfo"]["InstancesCD"]["Records"] or {}
+			NewTabList=NewTabList or {}
 		else
 			table.insert(insList_DUNGEONS,{"["..DUNGEONS.."]-"..EXPANSION_NAME10,{}})
 			local dangqianid={1601,1600,1602,1505,1506,1504}
 			table.insert(insList_RAIDS,{"["..RAIDS.."]-"..EXPANSION_NAME10,dangqianid})
-			PIGA["StatsInfo"]["InstancesCD"]["Records"]=PIGA["StatsInfo"]["InstancesCD"]["Records"] or morenRecords(dangqianid)
+			NewTabList=NewTabList or morenRecords(dangqianid)
 		end
+		PIGA["StatsInfo"]["FBCDTabList"]=NewTabList
 		local insList = {}
 		for i=1,#insList_DUNGEONS do
 			table.insert(insList,insList_DUNGEONS[i])
@@ -369,13 +384,13 @@ function BusinessInfo.FBCD(StatsInfo)
 		local biaotiName = {
 			[836]="ZUG",[837]="黑上",[838]="黑龙MM",[839]="MC",[840]="BWL",[842]="废墟",[843]="TAQ",[841]="NAXX",
 			[1100]="TOC",[1110]="ICC",[1106]="ULD",[1102]="EoE",[1101]="OS",[1095]="宝库",[1156]="黑龙MM",
-			[852]="SW",[851]="ZAM",[850]="BT",[849]="HS",[848]="DS",[847]="FB",[846]="GLR",[845]="MSLD",[844]="KLZ",
-		}
-		local WordBossName = {
-			[116]="蓝龙",[117]="卡扎克",
+			[852]="SW",[851]="ZAM",[850]="BT",[849]="海山",[848]="毒蛇",[847]="风暴",[846]="GLR",[845]="MSLD",[844]="KLZ",
 		}
 		local WordBossFullName = {
-			[116]="艾索雷葛斯",[117]="卡扎克",
+			[116]="艾索雷葛斯",[117]="卡扎克",[118]="末日领主卡扎克",[119]="末日行者",
+		}
+		local WordBossbiaotiName = {
+			[116]="蓝龙",[118]="卡扎克70",
 		}
 		---
 		fujiF.Setfuben = PIGDownMenu(fujiF,{"TOPLEFT", fujiF, "TOPLEFT", 50, -18},{126,20})
@@ -396,14 +411,18 @@ function BusinessInfo.FBCD(StatsInfo)
 				if #menuList>0 then
 					for ii=1, #menuList do
 						info.isNotRadio=true
-						if WordBossName[menuList[ii]] then
-							info.text, info.arg1= WordBossFullName[menuList[ii]].."("..WordBossName[menuList[ii]]..")",menuList[ii]
+						if WordBossFullName[menuList[ii]] then
+							jianchengName=""
+							if WordBossbiaotiName[menuList[ii]] then
+								jianchengName="("..WordBossbiaotiName[menuList[ii]]..")"
+							end
+							info.text, info.arg1= WordBossFullName[menuList[ii]]..jianchengName,menuList[ii]
 						else
 							local activityInfo = C_LFGList.GetActivityInfoTable(menuList[ii]);
 							local kuozhanname = biaotiName[menuList[ii]] and "("..biaotiName[menuList[ii]]..")" or ""
 							info.text, info.arg1= activityInfo.shortName..kuozhanname,menuList[ii]--activityInfo.fullName
 						end
-						info.checked = PIGA["StatsInfo"]["InstancesCD"]["Records"][menuList[ii]]
+						info.checked = PIGA["StatsInfo"]["FBCDTabList"][menuList[ii]]
 						self:PIGDownMenu_AddButton(info, level)
 					end
 				else
@@ -417,13 +436,13 @@ function BusinessInfo.FBCD(StatsInfo)
 		function fujiF.Setfuben:PIGDownMenu_SetValue(value,arg1,arg2,checked)
 			if checked then
 				self.hejinum=0
-				for k,v in pairs(PIGA["StatsInfo"]["InstancesCD"]["Records"]) do
+				for k,v in pairs(PIGA["StatsInfo"]["FBCDTabList"]) do
 					self.hejinum=self.hejinum+1
 				end
 				if self.hejinum==lienum then PIG_OptionsUI:ErrorMsg("监控位已满，请取消一些") return end
-				PIGA["StatsInfo"]["InstancesCD"]["Records"][arg1]=checked
+				PIGA["StatsInfo"]["FBCDTabList"][arg1]=checked
 			else
-				PIGA["StatsInfo"]["InstancesCD"]["Records"][arg1]=nil
+				PIGA["StatsInfo"]["FBCDTabList"][arg1]=nil
 			end
 			fujiF.Update_List()
 			PIGCloseDropDownMenus()
@@ -497,91 +516,93 @@ function BusinessInfo.FBCD(StatsInfo)
 			hang.mode2 = PIGFontString(hang,{"TOPLEFT", hang.mode1, "BOTTOMLEFT", 0, -8},RAID_DIFFICULTY2)
 			hang.mode2:SetTextColor(1,1,0,1);
 			hang.TimeCDBut={}
-			for butID=1,lienum do
+			local function addCDbut()
 				local CDbutTop = PIGDiyBut(hang,nil,{hang_Height,hang_Height})
-				local CDbutDown = PIGDiyBut(hang,nil,{hang_Height,hang_Height})
 				CDbutTop.jindu=PIGFontString(CDbutTop,{"LEFT",CDbutTop, "RIGHT", -2, 0},"01/01")
-				CDbutDown.jindu=PIGFontString(CDbutDown,{"LEFT",CDbutDown, "RIGHT", -2, 0},"01/01")
-				function hangOnEnterOnLeave(uix)
-					uix:HookScript("OnEnter", function (self)
-						if self.killData then
-							GameTooltip:ClearLines();
-							GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT",0,0);
-							GameTooltip:AddLine("击杀详情：")
-							for iki=1,#self.killData do
-								local bossName,isKilled = unpack(self.killData[iki])
-								if isKilled then
-									GameTooltip:AddDoubleLine(bossName, BOSS_DEAD, 1, 1, 1, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b);
-								else
-									GameTooltip:AddDoubleLine(bossName, BOSS_ALIVE, 1, 1, 1, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
-								end
-							end
-							GameTooltip:Show();
-						end
-					end);
-					uix:HookScript("OnLeave", function ()
+				CDbutTop:HookScript("OnEnter", function (self)
+					if self.killData then
 						GameTooltip:ClearLines();
-						GameTooltip:Hide() 
-					end);
-				end
-				hangOnEnterOnLeave(CDbutTop.jindu)
-				hang.TimeCDBut[butID]={CDbutTop,CDbutDown}
+						GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT",0,0);
+						GameTooltip:AddLine("击杀详情：")
+						for iki=1,#self.killData do
+							local bossName,isKilled = unpack(self.killData[iki])
+							if isKilled then
+								GameTooltip:AddDoubleLine(bossName, BOSS_DEAD, 1, 1, 1, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b);
+							else
+								GameTooltip:AddDoubleLine(bossName, BOSS_ALIVE, 1, 1, 1, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
+							end
+						end
+						GameTooltip:Show();
+					end
+				end);
+				CDbutTop:HookScript("OnLeave", function ()
+					GameTooltip:ClearLines();
+					GameTooltip:Hide() 
+				end);
+				return CDbutTop
+			end
+			for butID=1,lienum do
+				hang.TimeCDBut[butID]={addCDbut(),addCDbut()}
 			end
 
-			function hang:resetCDlie(but,Atlas,xxx,yyy)
+			function hang:resetCDlie(hangID,but,Atlas,xxx,yyy)
 				but:Hide()
 				but.jindu:SetText("")
 				but.icon:SetAtlas(Atlas)
 				but.dfpiayiV_X=xxx
 				but.errpiayiV_X=xxx-hang_Height*0.5
 				but.dfpiayiV_Y=yyy
-				if PIG_MaxTocversion(20000) then
-					but:SetPoint("LEFT", self, "LEFT", xxx, 0);
-				else
-					but:SetPoint("TOPLEFT", self, "TOPLEFT", xxx, yyy);
-				end
 			end
-			function hang:UpdataCDlie(but,min,max,data)
+			function hang:UpdataCDlie(hangnum,but,min,max,data)
+				but:ClearAllPoints();
+				if hangnum==1 then
+					but:SetPoint("LEFT", self, "LEFT", but.dfpiayiV_X, 0);
+				else
+					but:SetPoint("TOPLEFT", self, "TOPLEFT", but.dfpiayiV_X, but.dfpiayiV_Y);
+				end
 				but:Show()
 				but.killData=data
-				if min<max then	
+				if min<max then
 					but.icon:SetAtlas("DungeonSkull")
 					but.jindu:SetText(min.."/"..max)
-					if PIG_MaxTocversion(20000) then
-						but:SetPoint("LEFT", self, "LEFT", but.errpiayiV_X, 0);
-					else
+					if hangnum>1 then
 						but:SetPoint("TOPLEFT", self, "TOPLEFT", but.errpiayiV_X, but.dfpiayiV_Y);
+					else
+						but:SetPoint("LEFT", self, "LEFT", but.errpiayiV_X, 0);
 					end
 				end
 			end
 			function hang:SetInstancesCD(CDdata,JKdata)
 				for butID=1,lienum do
-					self:resetCDlie(self.TimeCDBut[butID][1],"common-icon-checkmark",(butID-1)*nrjiange+nrpianyi,0)
-					self:resetCDlie(self.TimeCDBut[butID][2],"common-icon-checkmark-yellow",(butID-1)*nrjiange+nrpianyi,-hang_Height-2)
+					self:resetCDlie(1,self.TimeCDBut[butID][1],"common-icon-checkmark",(butID-1)*nrjiange+nrpianyi,0)
+					self:resetCDlie(2,self.TimeCDBut[butID][2],"common-icon-checkmark-yellow",(butID-1)*nrjiange+nrpianyi,-hang_Height-2)
 				end
 				if not CDdata then return end
-				for butID=1,#JKdata do
-					if CDdata[JKdata[butID][2]] then
-						for difficultyId,dataX in pairs(CDdata[JKdata[butID][2]]) do
-							if GetServerTime()<dataX[1] then
-								if difficultyId==-666 then
-									self:UpdataCDlie(self.TimeCDBut[butID][1],dataX[3],dataX[2],dataX[4])
-								else
-									local name, groupType, isHeroic, isChallengeMode, displayHeroic, displayMythic, toggleDifficultyID, isLFR, minPlayers, maxPlayers = GetDifficultyInfo(difficultyId)
-									if groupType=="raid" then
-										if name==RAID_DIFFICULTY1 or name==RAID_DIFFICULTY3 then
-											self.mode1:SetText(RAID_DIFFICULTY1); self.mode2:SetText(RAID_DIFFICULTY2)
-											self:UpdataCDlie(self.TimeCDBut[butID][1],dataX[3],dataX[2],dataX[4])
-										elseif name==RAID_DIFFICULTY2 or name==RAID_DIFFICULTY4 then
-											self.mode1:SetText(RAID_DIFFICULTY1); self.mode2:SetText(RAID_DIFFICULTY2)
-											self:UpdataCDlie(self.TimeCDBut[butID][2],dataX[3],dataX[2],dataX[4])
-										elseif name==RAID_DIFFICULTY_20PLAYER or name==RAID_DIFFICULTY_40PLAYER then
-											self:UpdataCDlie(self.TimeCDBut[butID][1],dataX[3],dataX[2],dataX[4])
-										else
-											self:UpdataCDlie(self.TimeCDBut[butID][1],dataX[3],dataX[2],dataX[4])
-										end
-									elseif groupType=="party" then
+				for fbname,data in pairs(CDdata) do
+					for butID=1,#JKdata do
+						if fbname:match(JKdata[butID][2]) then
+							for difficultyId,dataX in pairs(data) do
+								if GetServerTime()<dataX[1] then
+									if difficultyId==-666 then
+										self:UpdataCDlie(1,self.TimeCDBut[butID][1],dataX[3],dataX[2],dataX[4])
+									else
+										local name, groupType = PIG_GetDifficultyInfo(difficultyId)
+										if groupType=="raid" then
+											if name==RAID_DIFFICULTY1 or name==RAID_DIFFICULTY3 then
+												self.mode1:SetText(RAID_DIFFICULTY1); self.mode2:SetText(RAID_DIFFICULTY2)
+												self:UpdataCDlie(2,self.TimeCDBut[butID][1],dataX[3],dataX[2],dataX[4])
+											elseif name==RAID_DIFFICULTY2 or name==RAID_DIFFICULTY4 then
+												self.mode1:SetText(RAID_DIFFICULTY1); self.mode2:SetText(RAID_DIFFICULTY2)
+												self:UpdataCDlie(2,self.TimeCDBut[butID][2],dataX[3],dataX[2],dataX[4])
+											-- elseif name==RAID_DIFFICULTY_20PLAYER or name==RAID_DIFFICULTY_40PLAYER then
+											-- 	self:UpdataCDlie(self.TimeCDBut[butID][1],dataX[3],dataX[2],dataX[4])
+											else
+												--print(difficultyId, name, groupType)
+												self:UpdataCDlie(1,self.TimeCDBut[butID][1],dataX[3],dataX[2],dataX[4])
+											end
+										elseif groupType=="party" then
 
+										end
 									end
 								end
 							end
@@ -598,7 +619,7 @@ function BusinessInfo.FBCD(StatsInfo)
 			local insList_biaoti = {}
 			for i=#insList_RAIDS,1,-1 do
 				for ii=#insList_RAIDS[i][2],1,-1 do
-					if PIGA["StatsInfo"]["InstancesCD"]["Records"][insList_RAIDS[i][2][ii]] then
+					if PIGA["StatsInfo"]["FBCDTabList"][insList_RAIDS[i][2][ii]] then
 						local activityInfo = C_LFGList.GetActivityInfoTable(insList_RAIDS[i][2][ii]);
 						if PIG_MaxTocversion() then
 							table.insert(insList_biaoti,{biaotiName[insList_RAIDS[i][2][ii]],activityInfo.shortName})
@@ -610,14 +631,14 @@ function BusinessInfo.FBCD(StatsInfo)
 			end
 			for i=#insList_WORDBOSS,1,-1 do
 				for ii=#insList_WORDBOSS[i][2],1,-1 do
-					if PIGA["StatsInfo"]["InstancesCD"]["Records"][insList_WORDBOSS[i][2][ii]] then
-						table.insert(insList_biaoti,{WordBossName[insList_WORDBOSS[i][2][ii]],WordBossFullName[insList_WORDBOSS[i][2][ii]]})
+					if PIGA["StatsInfo"]["FBCDTabList"][insList_WORDBOSS[i][2][ii]] then
+						table.insert(insList_biaoti,{WordBossbiaotiName[insList_WORDBOSS[i][2][ii]],WordBossFullName[insList_WORDBOSS[i][2][ii]]})
 					end
 				end
 			end
 			for i=#insList_DUNGEONS,1,-1 do
 				for ii=#insList_DUNGEONS[i][2],1,-1 do
-					if PIGA["StatsInfo"]["InstancesCD"]["Records"][insList_DUNGEONS[i][2][ii]] then
+					if PIGA["StatsInfo"]["FBCDTabList"][insList_DUNGEONS[i][2][ii]] then
 						local activityInfo = C_LFGList.GetActivityInfoTable(insList_DUNGEONS[i][2][ii]);
 						if PIG_MaxTocversion() then
 							table.insert(insList_biaoti,{biaotiName[insList_DUNGEONS[i][2][ii]],activityInfo.shortName})
@@ -638,11 +659,11 @@ function BusinessInfo.FBCD(StatsInfo)
 				fujik.mode1:SetText("")
 				fujik.mode2:SetText("")
 			end
-			Get_InstancesCD()
+			fujiF.Get_InstancesCD()
 			local cdmulu={};
 			local PlayerData = PIGA["StatsInfo"]["Players"]
 			local PlayerSH = PIGA["StatsInfo"]["PlayerSH"]
-			local InstancesCD=PIGA["StatsInfo"]["InstancesCD"]
+			local InstancesCD=PIGA["StatsInfo"]["FBCDRecords"]
 			if PlayerData[StatsInfo.allname] and not PlayerSH[StatsInfo.allname] then
 				local dangqianC=PlayerData[StatsInfo.allname]
 				table.insert(cdmulu,{StatsInfo.allname,dangqianC[1],dangqianC[2],dangqianC[3],dangqianC[4],dangqianC[5],InstancesCD[StatsInfo.allname],true})

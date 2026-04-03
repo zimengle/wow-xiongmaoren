@@ -1,6 +1,28 @@
-local ADDON_VERSION = "2.7.5"
+local ADDON_VERSION = "2.8.2"
 
 local UPDATE_NOTES = {
+            {
+        version = "2.8.2",
+        date = "2026-03-22",
+        note = [[
+- 按单价聚合拍卖记录，减少重复数据
+- 支持配置历史记录保留天数、每小时聚合窗口
+- 添加数据清理功能，自动移除过期记录
+- 优化内存使用，减少常驻内存占用
+- 改进重置数据库逻辑，支持多服务器数据管理
+- 修正设置无法保存的问题
+]],
+    },
+
+            {
+        version = "2.7.6",
+        date = "2026-02-11",
+        note = [[
+- 重构数据库结构为按服务器-阵营存储
+- 修复全局扫描时的报错问题
+- 若扫描超时，请切换为极简模式再进行全局扫描
+]],
+    }, 
             {
         version = "2.7.5",
         date = "2026-01-21",
@@ -190,6 +212,7 @@ local RELATED_ADDONS = {
 }
 
 local function EnsureUpdateNotes()
+    if not EasyAuctionDB then return end
     if not EasyAuctionDB.updateNotes then EasyAuctionDB.updateNotes = {} end
     local exists = {}
     for _, v in ipairs(EasyAuctionDB.updateNotes) do
@@ -278,7 +301,9 @@ function ShowUpdateNotesPopup()
     okBtn:SetNormalFontObject(GameFontHighlightLarge)
     okBtn:SetScript("OnClick", function()
         f:Hide()
-        EasyAuctionDB.lastSeenVersion = ADDON_VERSION
+        if EasyAuctionDB then
+            EasyAuctionDB.lastSeenVersion = ADDON_VERSION
+        end
     end)
     okBtn:SetMotionScriptsWhileDisabled(true)
     okBtn:HookScript("OnEnter", function(self)
@@ -321,7 +346,7 @@ end
 
 function CheckShowUpdateNotes()
     --EnsureUpdateNotes()
-    if EasyAuctionDB.lastSeenVersion ~= ADDON_VERSION then
+    if EasyAuctionDB and EasyAuctionDB.lastSeenVersion ~= ADDON_VERSION then
         ShowUpdateNotesPopup()
     end
 end

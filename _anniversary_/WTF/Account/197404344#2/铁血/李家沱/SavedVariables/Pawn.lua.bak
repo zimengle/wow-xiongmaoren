@@ -1,6 +1,8 @@
 
 PawnOptions = {
 ["LastVersion"] = 2.1303,
+["LastPlayerFullName"] = "李家沱-铁血",
+["AutoSelectScales"] = false,
 ["ItemLevels"] = {
 {
 ["ID"] = 25976,
@@ -55,10 +57,10 @@ nil,
 ["Link"] = "|cff1eff00|Hitem:31820::::::::64::::::::::|h[赐福徽记之戒]|h|r",
 },
 {
-["ID"] = 31729,
-["Level"] = 99,
+["ID"] = 31820,
+["Level"] = 102,
 ["AlsoFitsIn"] = 11,
-["Link"] = "|cff1eff00|Hitem:31729::::::::64::::::::::|h[世传勇气徽记]|h|r",
+["Link"] = "|cff1eff00|Hitem:31820::::::::65::::::::::|h[赐福徽记之戒]|h|r",
 },
 {
 ["ID"] = 25937,
@@ -67,10 +69,10 @@ nil,
 ["Link"] = "|cff1eff00|Hitem:25937::::::::64::::::::::|h[泰罗卡精准石板]|h|r",
 },
 {
-["ID"] = 28041,
-["Level"] = 88,
+["ID"] = 25937,
+["Level"] = 99,
 ["AlsoFitsIn"] = 13,
-["Link"] = "|cff0070dd|Hitem:28041::::::::64::::::::::|h[刃拳的宽容]|h|r",
+["Link"] = "|cff1eff00|Hitem:25937::::::::65::::::::::|h[泰罗卡精准石板]|h|r",
 },
 {
 ["ID"] = 25927,
@@ -78,9 +80,9 @@ nil,
 ["Link"] = "|cff1eff00|Hitem:25927::::::::63::::::::::|h[星界财团迅捷披风]|h|r",
 },
 {
-["ID"] = 29908,
-["Level"] = 81,
-["Link"] = "|cff1eff00|Hitem:29908::::::::63::::::::::|h[愤怒掠夺者]|h|r",
+["ID"] = 25762,
+["Level"] = 103,
+["Link"] = "|cff0070dd|Hitem:25762::::::::65::::::::::|h[虚空角斧]|h|r",
 },
 [18] = {
 ["ID"] = 31762,
@@ -88,8 +90,6 @@ nil,
 ["Link"] = "|cff1eff00|Hitem:31762::::::::63::::::::::|h[覆羽硬弓]|h|r",
 },
 },
-["AutoSelectScales"] = false,
-["LastPlayerFullName"] = "李家沱-铁血",
 }
 PawnMrRobotScaleProviderOptions = nil
 PawnClassicScaleProviderOptions = {

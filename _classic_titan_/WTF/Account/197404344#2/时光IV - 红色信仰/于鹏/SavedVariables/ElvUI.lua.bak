@@ -2,13 +2,6 @@
 ElvCharacterDB = {
 ["ConvertKeybindings"] = true,
 ["ChatEditHistory"] = {
-"/pig",
-"/y 干他们",
-"/cw 今儿就今儿了 恶魔术",
-"/cw 血浮萍 恶魔术",
-"/cw 血浮萍 210",
-"/cw 血浮萍 123",
-"/s 组一个",
 "/cw 血浮萍 211恶魔术",
 "/cw 今儿就今儿了 211恶魔术",
 "/cw 秩丶序 211恶魔术",
@@ -22,6 +15,13 @@ ElvCharacterDB = {
 "/cw 行云流水盾破 .",
 "/cw 灬飘落灬 邪dk需要吗",
 "/s 。",
+"你还有号？",
+"我擦",
+"你进组了啊",
+"/cw 七月的小宝箱 恶魔术",
+"/团队 yy多少",
+"/wa",
+"/reload",
 },
 ["ChatHistoryLog"] = {
 },

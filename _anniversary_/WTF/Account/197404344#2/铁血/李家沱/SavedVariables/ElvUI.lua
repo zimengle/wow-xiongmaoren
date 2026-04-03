@@ -2,8 +2,6 @@
 ElvCharacterDB = {
 ["ConvertKeybindings"] = true,
 ["ChatEditHistory"] = {
-"/cw 矮脚小骑士 纳格兰竞技场任务来个T 4=1",
-"/cw 杉目 纳格兰竞技场任务来个T 4=1",
 "/cw Effiew 纳格兰竞技场任务来个T 4=1",
 "/cw 刘牛一家子 纳格兰竞技场任务来个T 4=1",
 "/cw 襄平大盖 纳格兰竞技场任务来个T 4=1",
@@ -22,6 +20,8 @@ ElvCharacterDB = {
 "/p 88",
 "纳格兰竞技场任务做完了",
 "大提升",
+"wca",
+"彻底上瘾？",
 },
 ["ChatHistoryLog"] = {
 },

@@ -147,3 +147,5 @@ FakeAchievement: enabled
 TomTom: enabled
 NewBeeBox: enabled
 EasyAuction: enabled
+!Swatter: disabled
+!ImprovedErrorFrame: disabled

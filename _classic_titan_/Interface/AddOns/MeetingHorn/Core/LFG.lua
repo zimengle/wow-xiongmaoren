@@ -785,6 +785,13 @@ end
 
 function LFG:OnLeaveTimer()
     self.leaveTimer:Stop()
+
+    -- 如果 MeetingHornHeroic 的主窗口正在显示，不退出频道
+    local mhhFrame = _G['MeetingHornHeroicMainFrame']
+    if mhhFrame and mhhFrame:IsShown() then
+        return
+    end
+
     ns.Channel:Leave(L['CHANNEL: Group'])
 end
 

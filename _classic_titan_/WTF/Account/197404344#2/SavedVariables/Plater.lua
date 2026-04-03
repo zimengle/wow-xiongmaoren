@@ -1,787 +1,427 @@
 
 PlaterDB = {
 ["captured_spells"] = {
-[32982] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "火元素图腾",
-["encounterID"] = 733,
+[32851] = {
+["encounterName"] = "萨塔里奥",
+["type"] = "BUFF",
+["source"] = "斯克利索卡",
+["encounterID"] = 742,
+["event"] = "SPELL_AURA_APPLIED",
+["npcID"] = 17252,
+},
+[61684] = {
+["encounterName"] = "萨塔里奥",
+["source"] = "豹",
 ["isChanneled"] = false,
+["encounterID"] = 742,
+["event"] = "SPELL_CAST_SUCCESS",
+["npcID"] = 731,
+},
+[57724] = {
+["type"] = "DEBUFF",
+["source"] = "未知目标",
+["event"] = "SPELL_AURA_APPLIED",
+["npcID"] = 17252,
+},
+[47468] = {
+["encounterName"] = "萨塔里奥",
+["source"] = "白骨切割者",
+["isChanneled"] = false,
+["encounterID"] = 742,
+["event"] = "SPELL_CAST_SUCCESS",
+["npcID"] = 26125,
+},
+[60430] = {
+["encounterName"] = "萨塔里奥",
+["type"] = "BUFF",
+["source"] = "烈焰飓风",
+["encounterID"] = 742,
+["event"] = "SPELL_AURA_APPLIED",
+["npcID"] = 30616,
+},
+[58956] = {
+["encounterName"] = "萨塔里奥",
+["source"] = "萨塔里奥",
+["isChanneled"] = false,
+["encounterID"] = 742,
+["event"] = "SPELL_CAST_SUCCESS",
+["npcID"] = 28860,
+},
+[32982] = {
+["encounterName"] = "萨塔里奥",
+["source"] = "火元素图腾",
+["isChanneled"] = false,
+["encounterID"] = 742,
 ["event"] = "SPELL_CAST_SUCCESS",
 ["npcID"] = 15439,
 },
-[47468] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "亡者军团食尸鬼",
-["encounterID"] = 733,
+[47996] = {
+["encounterName"] = "萨塔里奥",
+["source"] = "斯克利索卡",
 ["isChanneled"] = false,
+["encounterID"] = 742,
 ["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 24207,
+["npcID"] = 17252,
 },
-[44178] = {
+[58957] = {
+["encounterName"] = "萨塔里奥",
+["source"] = "萨塔里奥",
 ["isChanneled"] = false,
+["encounterID"] = 742,
 ["event"] = "SPELL_CAST_SUCCESS",
-["source"] = "金队法师",
-["npcID"] = 32341,
-},
-[14032] = {
-["isChanneled"] = false,
-["source"] = "绿队牧师",
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 32343,
-},
-[9080] = {
-["isChanneled"] = false,
-["source"] = "金队战士",
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 32322,
+["npcID"] = 28860,
 },
 [72898] = {
-["encounterName"] = "凯尔萨斯·逐日者",
+["encounterName"] = "萨塔里奥",
 ["source"] = "水元素",
-["encounterID"] = 733,
 ["isChanneled"] = false,
+["encounterID"] = 742,
 ["event"] = "SPELL_CAST_SUCCESS",
 ["npcID"] = 37994,
 },
+[1275841] = {
+["encounterName"] = "萨塔里奥",
+["source"] = "火元素图腾",
+["isChanneled"] = false,
+["encounterID"] = 742,
+["event"] = "SPELL_CAST_SUCCESS",
+["npcID"] = 258114,
+},
 [1604] = {
-["event"] = "SPELL_AURA_APPLIED",
+["encounterName"] = "萨塔里奥",
 ["type"] = "DEBUFF",
-["source"] = "金队萨满祭司",
-["npcID"] = 32340,
+["source"] = "熔岩烈焰",
+["encounterID"] = 742,
+["event"] = "SPELL_AURA_APPLIED",
+["npcID"] = 30643,
 },
-[36971] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "星术师卡波妮娅",
-["encounterID"] = 733,
+[36213] = {
+["encounterName"] = "萨塔里奥",
+["source"] = "强力土元素",
 ["isChanneled"] = false,
+["encounterID"] = 742,
 ["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 20062,
+["npcID"] = 15352,
 },
-[36979] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "灵弦长弓",
-["encounterID"] = 733,
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 21268,
+[57634] = {
+["encounterName"] = "萨塔里奥",
+["type"] = "DEBUFF",
+["source"] = "迅猛龙",
+["encounterID"] = 742,
+["event"] = "SPELL_AURA_APPLIED",
+["npcID"] = 26641,
 },
 [424340] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "强力火元素",
-["encounterID"] = 733,
+["encounterName"] = "萨塔里奥",
+["source"] = "庞然火元素",
 ["isChanneled"] = false,
+["encounterID"] = 742,
 ["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 15438,
-},
-[36991] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "迁跃切割者",
-["encounterID"] = 733,
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 21272,
+["npcID"] = 258116,
 },
 [57458] = {
-["encounterName"] = "凯尔萨斯·逐日者",
 ["type"] = "BUFF",
-["source"] = "魔暴龙",
-["encounterID"] = 733,
-["event"] = "SPELL_AURA_APPLIED",
-["npcID"] = 6500,
-},
-[41587] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "凤凰",
-["encounterID"] = 733,
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 21362,
-},
-[53148] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["type"] = "DEBUFF",
-["source"] = "魔暴龙",
-["encounterID"] = 733,
-["event"] = "SPELL_AURA_APPLIED",
-["npcID"] = 6500,
-},
-[57724] = {
 ["source"] = "未知目标",
-["type"] = "DEBUFF",
 ["event"] = "SPELL_AURA_APPLIED",
-["npcID"] = 26125,
+["npcID"] = 6498,
+},
+[58867] = {
+["encounterName"] = "萨塔里奥",
+["source"] = "幽灵狼",
+["isChanneled"] = false,
+["encounterID"] = 742,
+["event"] = "SPELL_CAST_SUCCESS",
+["npcID"] = 29264,
 },
 [75447] = {
-["encounterName"] = "凯尔萨斯·逐日者",
 ["type"] = "BUFF",
-["source"] = "魔暴龙",
-["encounterID"] = 733,
+["source"] = "未知目标",
 ["event"] = "SPELL_AURA_APPLIED",
-["npcID"] = 6500,
+["npcID"] = 6498,
 },
 [59637] = {
-["encounterName"] = "凯尔萨斯·逐日者",
+["encounterName"] = "萨塔里奥",
 ["source"] = "镜像",
-["encounterID"] = 733,
 ["isChanneled"] = false,
+["encounterID"] = 742,
 ["event"] = "SPELL_CAST_SUCCESS",
 ["npcID"] = 31216,
 },
 [54053] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "弗拉图恩",
-["encounterID"] = 733,
+["encounterName"] = "萨塔里奥",
+["source"] = "玛昆",
 ["isChanneled"] = false,
+["encounterID"] = 742,
 ["event"] = "SPELL_CAST_SUCCESS",
 ["npcID"] = 417,
 },
-[61685] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "魔暴龙",
-["encounterID"] = 733,
+[60034] = {
+["encounterName"] = "萨塔里奥",
+["source"] = "幽灵狼",
 ["isChanneled"] = false,
+["encounterID"] = 742,
 ["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 6500,
+["npcID"] = 29264,
 },
-[29385] = {
+[53434] = {
+["encounterName"] = "萨塔里奥",
+["source"] = "狼",
 ["isChanneled"] = false,
-["source"] = "绿队圣骑士",
+["encounterID"] = 742,
 ["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 32342,
-},
-[36805] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "凯尔萨斯·逐日者",
-["encounterID"] = 733,
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 19622,
+["npcID"] = 5286,
 },
 [64495] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "小浣熊",
-["encounterID"] = 733,
+["encounterName"] = "萨塔里奥",
+["source"] = "豹",
 ["isChanneled"] = false,
+["encounterID"] = 742,
 ["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 178449,
+["npcID"] = 731,
 },
-[46604] = {
+[47481] = {
+["encounterName"] = "萨塔里奥",
+["source"] = "白骨切割者",
 ["isChanneled"] = false,
+["encounterID"] = 742,
 ["event"] = "SPELL_CAST_SUCCESS",
-["source"] = "金队法师",
-["npcID"] = 32341,
-},
-[37018] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "星术师卡波妮娅",
-["encounterID"] = 733,
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 20062,
-},
-[57565] = {
-["source"] = "未知目标",
-["type"] = "BUFF",
-["event"] = "SPELL_AURA_APPLIED",
-["npcID"] = 417,
-},
-[23600] = {
-["isChanneled"] = false,
-["source"] = "金队战士",
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 32322,
-},
-[39586] = {
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["source"] = "金队萨满祭司",
-["npcID"] = 32340,
+["npcID"] = 26125,
 },
 [35706] = {
-["source"] = "未知目标",
+["encounterName"] = "萨塔里奥",
 ["type"] = "BUFF",
+["source"] = "斯克利索卡",
+["encounterID"] = 742,
 ["event"] = "SPELL_AURA_APPLIED",
 ["npcID"] = 17252,
 },
 [52474] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "小浣熊",
-["encounterID"] = 733,
+["encounterName"] = "萨塔里奥",
+["source"] = "狼",
 ["isChanneled"] = false,
+["encounterID"] = 742,
 ["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 178449,
+["npcID"] = 5286,
 },
-[36980] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "灵弦长弓",
-["encounterID"] = 733,
+[57984] = {
+["encounterName"] = "萨塔里奥",
+["source"] = "庞然火元素",
 ["isChanneled"] = false,
+["encounterID"] = 742,
 ["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 21268,
-},
-[15090] = {
-["isChanneled"] = false,
-["source"] = "金队牧师",
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 32325,
+["npcID"] = 258116,
 },
 [25228] = {
-["source"] = "未知目标",
 ["type"] = "BUFF",
+["source"] = "祖瑞尔卡祖尔",
 ["event"] = "SPELL_AURA_APPLIED",
 ["npcID"] = 17252,
 },
-[19134] = {
-["isChanneled"] = false,
-["source"] = "金队战士",
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 32322,
-},
-[59886] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "小浣熊",
-["encounterID"] = 733,
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 178449,
-},
-[32736] = {
-["isChanneled"] = false,
-["source"] = "金队战士",
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 32322,
-},
-[34341] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "凤凰",
-["encounterID"] = 733,
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 21362,
-},
-[35869] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "凯尔萨斯·逐日者",
-["encounterID"] = 733,
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 19622,
-},
-[9128] = {
-["isChanneled"] = false,
-["source"] = "金队战士",
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 32322,
-},
 [53403] = {
-["encounterName"] = "凯尔萨斯·逐日者",
+["encounterName"] = "萨塔里奥",
 ["type"] = "BUFF",
-["source"] = "魔暴龙",
-["encounterID"] = 733,
+["source"] = "迅猛龙",
+["encounterID"] = 742,
 ["event"] = "SPELL_AURA_APPLIED",
-["npcID"] = 6500,
-},
-[53401] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "魔暴龙",
-["encounterID"] = 733,
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 6500,
+["npcID"] = 26641,
 },
 [57475] = {
-["encounterName"] = "凯尔萨斯·逐日者",
 ["type"] = "BUFF",
-["source"] = "魔暴龙",
-["encounterID"] = 733,
+["source"] = "未知目标",
 ["event"] = "SPELL_AURA_APPLIED",
-["npcID"] = 6500,
-},
-[13704] = {
-["isChanneled"] = false,
-["source"] = "绿队牧师",
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 32343,
-},
-[70893] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["type"] = "BUFF",
-["source"] = "小浣熊",
-["encounterID"] = 733,
-["event"] = "SPELL_AURA_APPLIED",
-["npcID"] = 178449,
+["npcID"] = 6498,
 },
 [59638] = {
-["encounterName"] = "凯尔萨斯·逐日者",
+["encounterName"] = "萨塔里奥",
 ["source"] = "镜像",
-["encounterID"] = 733,
 ["isChanneled"] = false,
+["encounterID"] = 742,
 ["event"] = "SPELL_CAST_SUCCESS",
 ["npcID"] = 31216,
 },
-[54681] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["type"] = "BUFF",
-["source"] = "魔暴龙",
-["encounterID"] = 733,
-["event"] = "SPELL_AURA_APPLIED",
-["npcID"] = 6500,
-},
-[36797] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "凯尔萨斯·逐日者",
-["encounterID"] = 733,
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 19622,
-},
-[35859] = {
-["encounterName"] = "凯尔萨斯·逐日者",
+[57491] = {
+["encounterName"] = "萨塔里奥",
 ["type"] = "DEBUFF",
-["source"] = "虚空雾气",
-["encounterID"] = 733,
+["source"] = "烈焰飓风",
+["encounterID"] = 742,
 ["event"] = "SPELL_AURA_APPLIED",
-["npcID"] = 21002,
-},
-[3391] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "无尽之刃",
-["encounterID"] = 733,
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 21271,
-},
-[47982] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "格布纳姆",
-["encounterID"] = 733,
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 416,
-},
-[61684] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "迅猛龙",
-["encounterID"] = 733,
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 29698,
+["npcID"] = 30616,
 },
 [47482] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "亡者军团食尸鬼",
-["encounterID"] = 733,
+["encounterName"] = "萨塔里奥",
+["source"] = "白骨切割者",
 ["isChanneled"] = false,
+["encounterID"] = 742,
 ["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 24207,
+["npcID"] = 26125,
 },
 [53582] = {
-["encounterName"] = "凯尔萨斯·逐日者",
+["encounterName"] = "萨塔里奥",
 ["source"] = "迅猛龙",
-["encounterID"] = 733,
 ["isChanneled"] = false,
+["encounterID"] = 742,
 ["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 29698,
+["npcID"] = 26641,
 },
 [63619] = {
-["encounterName"] = "凯尔萨斯·逐日者",
+["encounterName"] = "萨塔里奥",
 ["source"] = "暗影魔",
-["encounterID"] = 733,
 ["isChanneled"] = false,
+["encounterID"] = 742,
 ["event"] = "SPELL_CAST_SUCCESS",
 ["npcID"] = 19668,
 },
-[30225] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "亵渎者萨拉德雷",
-["encounterID"] = 733,
+[33663] = {
+["encounterName"] = "萨塔里奥",
+["source"] = "土元素图腾",
 ["isChanneled"] = false,
+["encounterID"] = 742,
 ["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 20064,
+["npcID"] = 15430,
 },
-[35941] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "凯尔萨斯·逐日者",
-["encounterID"] = 733,
+[51963] = {
+["encounterName"] = "萨塔里奥",
+["source"] = "黑锋石像鬼",
 ["isChanneled"] = false,
+["encounterID"] = 742,
 ["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 19622,
+["npcID"] = 27829,
 },
-[36834] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "凯尔萨斯·逐日者",
-["encounterID"] = 733,
+[58702] = {
+["encounterName"] = "萨塔里奥",
+["source"] = "灼热图腾 X",
 ["isChanneled"] = false,
+["encounterID"] = 742,
 ["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 19622,
+["npcID"] = 31165,
 },
-[36965] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "亵渎者萨拉德雷",
-["encounterID"] = 733,
+[47994] = {
+["encounterName"] = "萨塔里奥",
+["source"] = "斯克利索卡",
 ["isChanneled"] = false,
+["encounterID"] = 742,
 ["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 20064,
-},
-[36990] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "瓦解法杖",
-["encounterID"] = 733,
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 21274,
-},
-[55499] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "魔暴龙",
-["encounterID"] = 733,
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 6500,
-},
-[36723] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "凯尔萨斯·逐日者",
-["encounterID"] = 733,
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 19622,
-},
-[36981] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "毁灭",
-["encounterID"] = 733,
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 21269,
-},
-[36985] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "宇宙灌注者",
-["encounterID"] = 733,
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 21270,
-},
-[36989] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "瓦解法杖",
-["encounterID"] = 733,
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 21274,
+["npcID"] = 17252,
 },
 [57567] = {
-["encounterName"] = "凯尔萨斯·逐日者",
+["encounterName"] = "萨塔里奥",
 ["type"] = "BUFF",
-["source"] = "弗拉图恩",
-["encounterID"] = 733,
+["source"] = "玛昆",
+["encounterID"] = 742,
 ["event"] = "SPELL_AURA_APPLIED",
 ["npcID"] = 417,
 },
-[19579] = {
-["source"] = "艾索雷苟斯",
+[50872] = {
+["encounterName"] = "萨塔里奥",
 ["type"] = "BUFF",
-["event"] = "SPELL_AURA_APPLIED",
-["npcID"] = 6499,
-},
-[15786] = {
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["source"] = "金队萨满祭司",
-["npcID"] = 32340,
-},
-[52472] = {
-["encounterName"] = "凯尔萨斯·逐日者",
 ["source"] = "迅猛龙",
-["encounterID"] = 733,
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 29698,
-},
-[24453] = {
-["source"] = "未知目标",
-["type"] = "BUFF",
+["encounterID"] = 742,
 ["event"] = "SPELL_AURA_APPLIED",
-["npcID"] = 10737,
+["npcID"] = 26641,
 },
-[11974] = {
-["isChanneled"] = false,
-["source"] = "绿队牧师",
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 32343,
-},
-[35696] = {
-["source"] = "未知目标",
+[48090] = {
+["encounterName"] = "萨塔里奥",
 ["type"] = "BUFF",
+["source"] = "斯克利索卡",
+["encounterID"] = 742,
 ["event"] = "SPELL_AURA_APPLIED",
 ["npcID"] = 17252,
 },
-[48011] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "弗拉图恩",
-["encounterID"] = 733,
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 417,
-},
-[37027] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "首席技师塔隆尼库斯",
-["encounterID"] = 733,
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 20063,
-},
-[57984] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "强力火元素",
-["encounterID"] = 733,
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 15438,
-},
-[4511] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "格布纳姆",
-["encounterID"] = 733,
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 416,
-},
-[20615] = {
-["source"] = "金队战士",
+[47995] = {
+["encounterName"] = "萨塔里奥",
 ["type"] = "DEBUFF",
+["source"] = "斯克利索卡",
+["encounterID"] = 742,
 ["event"] = "SPELL_AURA_APPLIED",
-["npcID"] = 32322,
+["npcID"] = 17252,
 },
-[15532] = {
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["source"] = "金队法师",
-["npcID"] = 32341,
-},
-[44415] = {
-["isChanneled"] = false,
-["source"] = "绿队牧师",
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 32343,
-},
-[12470] = {
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["source"] = "金队萨满祭司",
-["npcID"] = 32340,
-},
-[19615] = {
-["encounterName"] = "凯尔萨斯·逐日者",
+[35696] = {
+["encounterName"] = "萨塔里奥",
 ["type"] = "BUFF",
-["source"] = "魔暴龙",
-["encounterID"] = 733,
+["source"] = "斯克利索卡",
+["encounterID"] = 742,
 ["event"] = "SPELL_AURA_APPLIED",
-["npcID"] = 6500,
+["npcID"] = 17252,
 },
-[6713] = {
+[56909] = {
+["encounterName"] = "萨塔里奥",
+["source"] = "萨塔里奥",
 ["isChanneled"] = false,
-["source"] = "金队战士",
+["encounterID"] = 742,
 ["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 32322,
+["npcID"] = 28860,
 },
-[47983] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "格布纳姆",
-["encounterID"] = 733,
+[52472] = {
+["encounterName"] = "萨塔里奥",
+["source"] = "豹",
 ["isChanneled"] = false,
+["encounterID"] = 742,
 ["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 416,
+["npcID"] = 731,
 },
-[35361] = {
-["source"] = "林地行者",
+[54508] = {
+["encounterName"] = "萨塔里奥",
 ["type"] = "BUFF",
+["source"] = "斯克利索卡",
+["encounterID"] = 742,
 ["event"] = "SPELL_AURA_APPLIED",
-["npcID"] = 31228,
-},
-[36815] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "凯尔萨斯·逐日者",
-["encounterID"] = 733,
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 19622,
-},
-[36819] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "凯尔萨斯·逐日者",
-["encounterID"] = 733,
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 19622,
-},
-[58921] = {
-["event"] = "SPELL_AURA_APPLIED",
-["type"] = "BUFF",
-["source"] = "卡玛洛斯神父",
-["npcID"] = 32800,
-},
-[17843] = {
-["isChanneled"] = false,
-["source"] = "绿队牧师",
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 32343,
-},
-[21401] = {
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["source"] = "金队萨满祭司",
-["npcID"] = 32340,
-},
-[56520] = {
-["source"] = "被解救的北伐军战士",
-["type"] = "BUFF",
-["event"] = "SPELL_AURA_APPLIED",
-["npcID"] = 30274,
-},
-[36966] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "亵渎者萨拉德雷",
-["encounterID"] = 733,
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 20064,
-},
-[36970] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "星术师卡波妮娅",
-["encounterID"] = 733,
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 20062,
-},
-[44863] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "萨古纳尔男爵",
-["encounterID"] = 733,
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 20060,
-},
-[12611] = {
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["source"] = "金队法师",
-["npcID"] = 32341,
-},
-[36982] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "毁灭",
-["encounterID"] = 733,
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 21269,
+["npcID"] = 17252,
 },
 [54131] = {
-["encounterName"] = "凯尔萨斯·逐日者",
+["encounterName"] = "萨塔里奥",
 ["type"] = "BUFF",
 ["source"] = "迅猛龙",
-["encounterID"] = 733,
+["encounterID"] = 742,
 ["event"] = "SPELL_AURA_APPLIED",
-["npcID"] = 29698,
+["npcID"] = 26641,
 },
-[49309] = {
+[61632] = {
+["encounterName"] = "萨塔里奥",
+["source"] = "萨塔里奥",
 ["isChanneled"] = false,
+["encounterID"] = 742,
 ["event"] = "SPELL_CAST_SUCCESS",
-["source"] = "金队萨满祭司",
-["npcID"] = 32340,
+["npcID"] = 28860,
 },
-[54261] = {
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["source"] = "金队法师",
-["npcID"] = 32341,
-},
-[53434] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "小浣熊",
-["encounterID"] = 733,
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 178449,
-},
-[1284201] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "豪猪",
-["encounterID"] = 733,
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 260730,
-},
-[19647] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "弗拉图恩",
-["encounterID"] = 733,
-["isChanneled"] = false,
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 417,
-},
-[54028] = {
-["type"] = "DEBUFF",
-["source"] = "银色盟约防御法师",
+[70893] = {
+["encounterName"] = "萨塔里奥",
+["type"] = "BUFF",
+["source"] = "迅猛龙",
+["encounterID"] = 742,
 ["event"] = "SPELL_AURA_APPLIED",
-["npcID"] = 29254,
+["npcID"] = 26641,
 },
-[37036] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "首席技师塔隆尼库斯",
-["encounterID"] = 733,
+[53401] = {
+["encounterName"] = "萨塔里奥",
+["source"] = "迅猛龙",
 ["isChanneled"] = false,
+["encounterID"] = 742,
 ["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 20063,
-},
-[3600] = {
-["event"] = "SPELL_AURA_APPLIED",
-["type"] = "DEBUFF",
-["source"] = "地缚图腾",
-["npcID"] = 2630,
+["npcID"] = 26641,
 },
 [57723] = {
-["encounterName"] = "凯尔萨斯·逐日者",
+["encounterName"] = "萨塔里奥",
 ["type"] = "DEBUFF",
-["source"] = "镜像",
-["encounterID"] = 733,
+["source"] = "黑锋石像鬼",
+["encounterID"] = 742,
 ["event"] = "SPELL_AURA_APPLIED",
-["npcID"] = 31216,
+["npcID"] = 27829,
 },
-[7804] = {
-["event"] = "SPELL_AURA_APPLIED",
-["type"] = "BUFF",
-["source"] = "未知目标",
-["npcID"] = 416,
-},
-[24529] = {
-["event"] = "SPELL_AURA_APPLIED",
-["type"] = "BUFF",
-["source"] = "未知目标",
-["npcID"] = 28002,
-},
-[52909] = {
-["event"] = "SPELL_AURA_APPLIED",
-["type"] = "BUFF",
-["source"] = "图书馆员盖伦",
-["npcID"] = 25291,
+[59886] = {
+["encounterName"] = "萨塔里奥",
+["source"] = "豹",
+["isChanneled"] = false,
+["encounterID"] = 742,
+["event"] = "SPELL_CAST_SUCCESS",
+["npcID"] = 731,
 },
 [61676] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["source"] = "小浣熊",
-["encounterID"] = 733,
+["encounterName"] = "萨塔里奥",
+["source"] = "狼",
 ["isChanneled"] = false,
+["encounterID"] = 742,
 ["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 178449,
-},
-[27577] = {
-["isChanneled"] = false,
-["source"] = "金队战士",
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 32322,
+["npcID"] = 5286,
 },
 },
 ["profileKeys"] = {
@@ -826,8 +466,8 @@ PlaterDB = {
 [34474] = "术士",
 [34496] = "黑王",
 [34441] = "暗牧",
-[37973] = "火王",
 [34445] = "奶骑",
+[37973] = "火王",
 [34447] = "戒律牧",
 [34449] = "奥法",
 [34451] = "鸟德",
@@ -855,7 +495,7 @@ PlaterDB = {
 ["nameplateRemovalAnimation"] = "[C]: ?\n[C]: in function 'SetCVar'\n[Interface/AddOns/Plater/Plater.lua]:4136: in function 'ForceCVars'\n[Interface/AddOns/Plater/Plater.lua]:4130: in function <Interface/AddOns/Plater/Plater.lua:4130>\n",
 ["nameplateMinAlphaDistance"] = "[C]: ?\n[C]: in function 'SetCVar'\n[Interface/AddOns/Plater/Plater.lua]:4133: in function 'ForceCVars'\n[Interface/AddOns/Plater/Plater.lua]:4130: in function <Interface/AddOns/Plater/Plater.lua:4130>\n",
 ["nameplateShowFriends"] = "[C]: ?\n[C]: in function 'SetCVar'\n[FRIENDNAMEPLATES]:3: in function <[string \"FRIENDNAMEPLATES\"]:1>\n",
-["nameplateMotion"] = "[C]: ?\n[C]: in function 'SetCVar'\n[Interface/AddOns/Plater/Plater.lua]:8435: in function 'RefreshAutoToggle'\n[Interface/AddOns/Plater/Plater.lua]:2293: in function 'func'\n[Interface/AddOns/Plater/Plater.lua]:3901: in function 'EventHandler'\n[Interface/AddOns/Plater/Plater.lua]:3912: in function 'RunFunctionForEvent'\n[Interface/AddOns/Plater/Plater.lua]:2309: in function 'func'\n[Interface/AddOns/Plater/Plater.lua]:3901: in function <Interface/AddOns/Plater/Plater.lua:3897>\n",
+["nameplateMotion"] = "[C]: ?\n[C]: in function 'SetCVar'\n[Interface/AddOns/Plater/Plater.lua]:8435: in function 'RefreshAutoToggle'\n[Interface/AddOns/Plater/Plater.lua]:2293: in function 'func'\n[Interface/AddOns/Plater/Plater.lua]:3901: in function <Interface/AddOns/Plater/Plater.lua:3897>\n",
 ["nameplateShowEnemies"] = "[C]: ?\n[C]: in function 'SetCVar'\n[ALLNAMEPLATES]:4: in function <[string \"ALLNAMEPLATES\"]:1>\n",
 ["nameplateSelectedAlpha"] = "[C]: ?\n[C]: in function 'SetCVar'\n[Interface/AddOns/Plater/Plater.lua]:4134: in function 'ForceCVars'\n[Interface/AddOns/Plater/Plater.lua]:4130: in function <Interface/AddOns/Plater/Plater.lua:4130>\n",
 ["nameplateMaxDistance"] = "[C]: ?\n[C]: in function 'SetCVar'\n[Interface/AddOns/RXPGuides/Targeting.lua]:76: in function 'Setup'\n[Interface/AddOns/RXPGuides/RXPGuides.lua]:1366: in function '?'\n[Interface/AddOns/Accountant_Classic/Libs/CallbackHandler-1.0/CallbackHandler-1.0.lua]:109: in function <...sic/Libs/CallbackHandler-1.0/CallbackHandler-1.0.lua:109>\n[C]: ?\n[Interface/AddOns/Accountant_Classic/Libs/CallbackHandler-1.0/CallbackHandler-1.0.lua]:19: in function <...sic/Libs/CallbackHandler-1.0/CallbackHandler-1.0.lua:15>\n[Interface/AddOns/Accountant_Classic/Libs/CallbackHandler-1.0/CallbackHandler-1.0.lua]:54: in function 'Fire'\n[Interface/AddOns/Accountant_Classic/Libs/AceEvent-3.0/AceEvent-3.0.lua]:120: in function <...ccountant_Classic/Libs/AceEvent-3.0/AceEvent-3.0.lua:119>\n",
@@ -1064,12 +704,28 @@ PlaterDB = {
 154953,
 270343,
 },
-["灵魂光谱仪"] = {
-352186,
-352938,
-352939,
-352940,
-358379,
+["毒蛇钉刺"] = {
+31975,
+35511,
+36984,
+38859,
+38914,
+39182,
+80009,
+87935,
+97153,
+118253,
+125906,
+145656,
+160503,
+162754,
+255556,
+259293,
+259491,
+268423,
+271788,
+282211,
+295311,
 },
 ["冲刷之触"] = {
 356329,
@@ -1180,28 +836,12 @@ PlaterDB = {
 ["法术结界祝福"] = {
 41451,
 },
-["毒蛇钉刺"] = {
-31975,
-35511,
-36984,
-38859,
-38914,
-39182,
-80009,
-87935,
-97153,
-118253,
-125906,
-145656,
-160503,
-162754,
-255556,
-259293,
-259491,
-268423,
-271788,
-282211,
-295311,
+["灵魂光谱仪"] = {
+352186,
+352938,
+352939,
+352940,
+358379,
 },
 ["保护祝福"] = {
 1022,
@@ -1235,852 +875,18 @@ PlaterDB = {
 },
 ["health_cutoff_extra_glow"] = true,
 ["npc_cache"] = {
-[12056] = {
-"迦顿男爵",
-"熔火之心",
-"zhCN",
-},
-[36886] = {
-"恶鬼",
-"萨隆深渊",
-"zhCN",
-},
-[12076] = {
-"熔岩元素",
-"熔火之心",
-"zhCN",
-},
-[36950] = {
-"破天号陆战队员",
-"冰冠堡垒",
-"zhCN",
-},
-[20048] = {
-"炽手百夫长",
-"风暴要塞",
-"zhCN",
-},
-[30276] = {
-"安卡哈织网者",
-"安卡赫特：古代王国",
-"zhCN",
-},
-[36998] = {
-"破天号保护者",
-"冰冠堡垒",
-"zhCN",
-},
-[34459] = {
-"伊林·雾蹄",
-"十字军的试炼",
-},
-[34475] = {
-"索库尔",
-"十字军的试炼",
-"zhCN",
-},
-[36535] = {
-"未知目标",
-"灵魂洪炉",
-"zhCN",
-},
-[36551] = {
-"未知目标",
-"灵魂洪炉",
-"zhCN",
-},
-[29829] = {
-"达卡莱震地者",
-"古达克",
-"zhCN",
-},
-[37126] = {
-"女武神席瓦娜",
-"冰冠堡垒",
-"zhCN",
-},
-[22236] = {
-"未知目标",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[21230] = {
-"暗心虚空法师",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[37813] = {
-"死亡使者萨鲁法尔",
-"冰冠堡垒",
-"zhCN",
-},
-[36807] = {
-"亡语信徒",
-"冰冠堡垒",
-"zhCN",
-},
-[30963] = {
-"未知目标",
-"紫罗兰监狱",
-"zhCN",
-},
-[11669] = {
-"烈焰小鬼",
-"熔火之心",
-"zhCN",
-},
-[36855] = {
-"亡语者女士",
-"冰冠堡垒",
-"zhCN",
-},
-[6112] = {
-"风怒图腾",
-"熔火之心",
-"zhCN",
-},
-[34444] = {
-"萨卡加尔",
-"十字军的试炼",
-},
-[23394] = {
-"巡逻的奥术斥候",
-"黑暗神殿",
-},
-[23953] = {
-"凯雷塞斯王子",
-"乌特加德城堡",
-},
-[37127] = {
-"伊米亚霜缚者",
-"冰冠堡垒",
-"zhCN",
-},
-[12264] = {
-"沙斯拉尔",
-"熔火之心",
-"zhCN",
-},
-[39746] = {
-"萨瑞瑟里安将军",
-"红玉圣殿",
-"zhCN",
-},
-[29630] = {
-"毒牙坑道蛇",
-"古达克",
-"zhCN",
-},
-[30668] = {
-"碧蓝袭击者",
-"紫罗兰监狱",
-"zhCN",
-},
-[36808] = {
-"亡语狂热者",
-"冰冠堡垒",
-"zhCN",
-},
-[28153] = {
-"雪花",
-"魔环",
-"zhCN",
-},
-[27650] = {
-"未知目标",
-"魔环",
-"zhCN",
-},
-[26125] = {
-"根须咬碎者",
-"冰冠堡垒",
-"zhCN",
-},
-[34460] = {
-"卡雯娜·林歌",
-"十字军的试炼",
-"zhCN",
-},
-[260730] = {
-"豪猪",
-"风暴要塞",
-"zhCN",
-},
-[19514] = {
-"奥",
-"风暴要塞",
-"zhCN",
-},
-[205997] = {
-"镜像",
-"魔环",
-"zhCN",
-},
-[38485] = {
-"达尔纳文",
-"冰冠堡垒",
-"zhCN",
-},
-[20049] = {
-"炽手血骑士",
-"风暴要塞",
-"zhCN",
-},
-[30277] = {
-"安卡哈切碎者",
-"安卡赫特：古代王国",
-"zhCN",
-},
-[29774] = {
-"喷毒的眼镜蛇",
-"古达克",
-"zhCN",
-},
-[37016] = {
-"破天号博学者",
-"冰冠堡垒",
-"zhCN",
-},
-[205998] = {
-"镜像",
-"魔环",
-"zhCN",
-},
-[32353] = {
-"阿尔卡冯守卫者",
-"阿尔卡冯的宝库",
-"zhCN",
-},
-[33998] = {
-"风暴爪牙",
-"阿尔卡冯的宝库",
-"zhCN",
-},
-[22140] = {
-"剧毒孢子蝠",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[15438] = {
-"强力火元素",
-"熔火之心",
-"zhCN",
-},
-[29830] = {
-"活体魔精",
-"古达克",
-"zhCN",
-},
-[29838] = {
-"达卡莱犀牛",
-"古达克",
-"zhCN",
-},
-[37144] = {
-"破天号射手",
-"冰冠堡垒",
-"zhCN",
-},
-[20064] = {
-"亵渎者萨拉德雷",
-"风暴要塞",
-"zhCN",
-},
-[11661] = {
-"烈焰行者",
-"熔火之心",
-"zhCN",
-},
-[39747] = {
-"塞维娅娜·怒火",
-"红玉圣殿",
-"zhCN",
-},
-[23235] = {
-"Bonechewer Blade Fury",
-"Black Temple",
-},
-[30164] = {
-"狼",
-"风暴要塞",
-"zhCN",
-},
-[21214] = {
-"深水领主卡拉瑟雷斯",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[21215] = {
-"盲眼者莱欧瑟拉斯",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[20041] = {
-"晶核斥候",
-"风暴要塞",
-"zhCN",
-},
-[37799] = {
-"未知目标",
-"冰冠堡垒",
-"zhCN",
-},
-[20040] = {
-"晶核摧毁者",
-"风暴要塞",
-"zhCN",
-},
-[15977] = {
-"毒性蜘蛛",
-"纳克萨玛斯",
-"zhCN",
-},
-[21965] = {
-"深水卫士泰达维斯",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[37863] = {
-"镇压者",
-"冰冠堡垒",
-"zhCN",
-},
-[21271] = {
-"无尽之刃",
-"风暴要塞",
-"zhCN",
-},
 [25367] = {
 "Sunblade Arch Mage",
 "The Sunwell",
-},
-[10404] = {
-"毒脓恐魔",
-"冰冠堡垒",
-"zhCN",
-},
-[29982] = {
-"达卡莱掠夺者",
-"古达克",
-"zhCN",
-},
-[38454] = {
-"动力炸弹",
-"冰冠堡垒",
-"zhCN",
-},
-[11673] = {
-"上古熔火恶犬",
-"熔火之心",
-"zhCN",
-},
-[21231] = {
-"暗心持盾者",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[36969] = {
-"破天号火枪手",
-"冰冠堡垒",
-"zhCN",
-},
-[36841] = {
-"阵亡的战士",
-"萨隆深渊",
-"zhCN",
-},
-[37544] = {
-"护塔石像鬼",
-"冰冠堡垒",
-"zhCN",
-},
-[37017] = {
-"破天号刺客",
-"冰冠堡垒",
-"zhCN",
-},
-[36522] = {
-"幽魂恐魔",
-"灵魂洪炉",
-"zhCN",
-},
-[36791] = {
-"灼热骷髅",
-"冰冠堡垒",
-"zhCN",
-},
-[205999] = {
-"镜像",
-"魔环",
-"zhCN",
-},
-[34015] = {
-"风暴守卫",
-"阿尔卡冯的宝库",
-"zhCN",
-},
-[21263] = {
-"暗心技师",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[16168] = {
-"岩肤石像鬼",
-"纳克萨玛斯",
-"zhCN",
-},
-[30892] = {
-"传送门守卫者",
-"紫罗兰监狱",
-"zhCN",
-},
-[37973] = {
-"塔达拉姆王子",
-"冰冠堡垒",
-"zhCN",
-},
-[22956] = {
-"Priestess of Torment",
-"Black Temple",
-},
-[36666] = {
-"幽灵守卫",
-"灵魂洪炉",
-"zhCN",
-},
-[11502] = {
-"拉格纳罗斯",
-"熔火之心",
-"zhCN",
-},
-[21958] = {
-"魔化元素",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[21966] = {
-"深水卫士沙克基斯",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[30661] = {
-"碧蓝入侵者",
-"紫罗兰监狱",
-"zhCN",
-},
-[34458] = {
-"戈瑞姆·影斩",
-"十字军的试炼",
-},
-[27651] = {
-"未知目标",
-"魔环",
-"zhCN",
-},
-[37545] = {
-"护塔爪牙",
-"冰冠堡垒",
-"zhCN",
-},
-[16385] = {
-"闪电图腾",
-"纳克萨玛斯",
-"zhCN",
-},
-[27635] = {
-"碧蓝缚法者",
-"魔环",
-"zhCN",
-},
-[29264] = {
-"幽灵狼",
-"熔火之心",
-"zhCN",
-},
-[40419] = {
-"焦鳞突击者",
-"红玉圣殿",
-"zhCN",
-},
-[12057] = {
-"加尔",
-"熔火之心",
-"zhCN",
-},
-[36874] = {
-"被打扰的冰川幽魂",
-"萨隆深渊",
-"zhCN",
-},
-[16505] = {
-"纳克萨玛斯追随者",
-"纳克萨玛斯",
-"zhCN",
-},
-[31260] = {
-"伊米亚唤天者",
-"萨隆深渊",
-"zhCN",
-},
-[34445] = {
-"莉安德拉·唤日者",
-"十字军的试炼",
-},
-[20034] = {
-"星占师",
-"风暴要塞",
-"zhCN",
-},
-[20042] = {
-"风暴要塞铁匠",
-"风暴要塞",
-"zhCN",
-},
-[20050] = {
-"炽手审讯者",
-"风暴要塞",
-"zhCN",
-},
-[30278] = {
-"安卡哈爆法者",
-"安卡赫特：古代王国",
-"zhCN",
-},
-[34447] = {
-"严肃的凯普斯",
-"十字军的试炼",
-},
-[34463] = {
-"Shaabad",
-"Trial of the Crusader",
-},
-[12101] = {
-"熔岩奔腾者",
-"熔火之心",
-"zhCN",
-},
-[31010] = {
-"碧蓝法师杀手",
-"紫罗兰监狱",
-"zhCN",
-},
-[37972] = {
-"凯雷塞斯王子",
-"冰冠堡垒",
-"zhCN",
-},
-[29304] = {
-"斯拉德兰",
-"古达克",
-"zhCN",
-},
-[37098] = {
-"瓦格里传令官",
-"冰冠堡垒",
-"zhCN",
-},
-[21216] = {
-"不稳定的海度斯",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[36619] = {
-"骨针",
-"冰冠堡垒",
-"zhCN",
-},
-[39190] = {
-"卑劣的灵魂",
-"冰冠堡垒",
-"zhCN",
-},
-[38184] = {
-"被腐化的伊米亚人",
-"冰冠堡垒",
-"zhCN",
-},
-[21232] = {
-"暗心隐藏者",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[30893] = {
-"传送门看护者",
-"紫罗兰监狱",
-"zhCN",
-},
-[36853] = {
-"辛达苟萨",
-"冰冠堡垒",
-"zhCN",
-},
-[25799] = {
-"Shadowsword Fury Mage",
-"The Sunwell",
-},
-[18805] = {
-"大星术师索兰莉安",
-"风暴要塞",
-"zhCN",
-},
-[22238] = {
-"毒蛇神殿唤潮者",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[21224] = {
-"踏潮深渊先知",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[30430] = {
-"狼",
-"熔火之心",
-"zhCN",
-},
-[11658] = {
-"熔核巨人",
-"熔火之心",
-"zhCN",
-},
-[11662] = {
-"烈焰行者祭司",
-"熔火之心",
-"zhCN",
-},
-[11666] = {
-"火焰行者",
-"熔火之心",
-"zhCN",
-},
-[34449] = {
-"凋零者吉塞尔",
-"十字军的试炼",
-},
-[21272] = {
-"未知目标",
-"风暴要塞",
-"zhCN",
-},
-[36805] = {
-"亡语仆从",
-"冰冠堡垒",
-"zhCN",
-},
-[36891] = {
-"冰魂始祖龙",
-"萨隆深渊",
-"zhCN",
-},
-[36907] = {
-"怒骨攻城锻造师",
-"萨隆深渊",
-"zhCN",
-},
-[38456] = {
-"未知目标",
-"阿尔卡冯的宝库",
-"zhCN",
-},
-[24059] = {
-"阿曼尼驯兽员",
-"祖阿曼",
-},
-[36844] = {
-"未知目标",
-"冰冠堡垒",
-"zhCN",
-},
-[36892] = {
-"伊米亚死亡使者",
-"萨隆深渊",
-"zhCN",
 },
 [36476] = {
 "伊克",
 "萨隆深渊",
 "zhCN",
 },
-[37003] = {
-"破天号守备官",
-"冰冠堡垒",
-"zhCN",
-},
-[21863] = {
-"毒蛇神殿潜伏者",
+[21339] = {
+"盘牙尖啸者",
 "盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[37546] = {
-"暴怒的憎恶",
-"冰冠堡垒",
-"zhCN",
-},
-[34496] = {
-"黑暗邪使艾蒂丝",
-"十字军的试炼",
-"zhCN",
-},
-[30279] = {
-"深渊爬行者",
-"安卡赫特：古代王国",
-"zhCN",
-},
-[30287] = {
-"恶鬼劫掠者",
-"安卡赫特：古代王国",
-"zhCN",
-},
-[34465] = {
-"Velanaa",
-"Trial of the Crusader",
-},
-[34049] = {
-"未知目标",
-"阿尔卡冯的宝库",
-"zhCN",
-},
-[36620] = {
-"护魂精兵",
-"灵魂洪炉",
-"zhCN",
-},
-[31125] = {
-"岩石看守者阿尔卡冯",
-"阿尔卡冯的宝库",
-"zhCN",
-},
-[32666] = {
-"专家的训练假人",
-"卡利姆多",
-},
-[12265] = {
-"未知目标",
-"熔火之心",
-"zhCN",
-},
-[29305] = {
-"莫拉比",
-"古达克",
-"zhCN",
-},
-[37132] = {
-"伊米亚女武神",
-"冰冠堡垒",
-"zhCN",
-},
-[15974] = {
-"恐惧爬行者",
-"纳克萨玛斯",
-"zhCN",
-},
-[22486] = {
-"强力地缚图腾",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[39814] = {
-"黑岩唤火者",
-"红玉圣殿",
-"zhCN",
-},
-[18925] = {
-"未知目标",
-"风暴要塞",
-"zhCN",
-},
-[37228] = {
-"冰卫战士",
-"冰冠堡垒",
-"zhCN",
-},
-[36494] = {
-"熔炉之主加弗斯特",
-"萨隆深渊",
-"zhCN",
-},
-[27636] = {
-"碧蓝魔网雏龙",
-"魔环",
-"zhCN",
-},
-[27644] = {
-"未知目标",
-"魔环",
-"zhCN",
-},
-[40421] = {
-"焦鳞精英",
-"红玉圣殿",
-"zhCN",
-},
-[37124] = {
-"格隆迪尔上尉",
-"冰冠堡垒",
-"zhCN",
-},
-[36478] = {
-"护魂守卫",
-"灵魂洪炉",
-"zhCN",
-},
-[5913] = {
-"战栗图腾",
-"奥杜尔",
-"zhCN",
-},
-[23596] = {
-"阿曼尼烈焰法师",
-"祖阿曼",
-},
-[19516] = {
-"空灵机甲",
-"风暴要塞",
-"zhCN",
-},
-[20035] = {
-"血警卫典狱长",
-"风暴要塞",
-"zhCN",
-},
-[20043] = {
-"星占师学徒",
-"风暴要塞",
-"zhCN",
-},
-[37994] = {
-"水元素",
-"风暴要塞",
-"zhCN",
-},
-[29768] = {
-"坚韧的巨蟒",
-"古达克",
-"zhCN",
-},
-[37004] = {
-"破天号邪刃者",
-"冰冠堡垒",
-"zhCN",
-},
-[37531] = {
-"冰卫训练师",
-"冰冠堡垒",
-"zhCN",
-},
-[29820] = {
-"达卡莱猎神者",
-"古达克",
-"zhCN",
-},
-[34497] = {
-"光明邪使菲奥拉",
-"十字军的试炼",
-"zhCN",
-},
-[37532] = {
-"霜翼幼龙",
-"冰冠堡垒",
 "zhCN",
 },
 [37595] = {
@@ -2088,18 +894,28 @@ PlaterDB = {
 "冰冠堡垒",
 "zhCN",
 },
-[15439] = {
-"火元素图腾",
-"熔火之心",
+[16360] = {
+"肉用僵尸",
+"纳克萨玛斯",
+"zhCN",
+},
+[27653] = {
+"幻影水元素",
+"魔环",
+"zhCN",
+},
+[36892] = {
+"伊米亚死亡使者",
+"萨隆深渊",
+"zhCN",
+},
+[34015] = {
+"风暴守卫",
+"阿尔卡冯的宝库",
 "zhCN",
 },
 [37116] = {
 "破天号巫师",
-"冰冠堡垒",
-"zhCN",
-},
-[38154] = {
-"战鹰",
 "冰冠堡垒",
 "zhCN",
 },
@@ -2108,19 +924,28 @@ PlaterDB = {
 "冰冠堡垒",
 "zhCN",
 },
-[36948] = {
-"穆拉丁·铜须",
+[27829] = {
+"黑锋石像鬼",
+"熔火之心",
+"zhCN",
+},
+[25799] = {
+"Shadowsword Fury Mage",
+"The Sunwell",
+},
+[31010] = {
+"碧蓝法师杀手",
+"紫罗兰监狱",
+"zhCN",
+},
+[37532] = {
+"霜翼幼龙",
 "冰冠堡垒",
 "zhCN",
 },
-[16142] = {
-"胆汁软泥怪",
+[30083] = {
+"劫掠的恶鬼",
 "纳克萨玛斯",
-"zhCN",
-},
-[39751] = {
-"战争之子巴尔萨鲁斯",
-"红玉圣殿",
 "zhCN",
 },
 [36701] = {
@@ -2128,58 +953,9 @@ PlaterDB = {
 "冰冠堡垒",
 "zhCN",
 },
-[19668] = {
-"暗影魔",
-"熔火之心",
-"zhCN",
-},
-[37533] = {
-"霜牙",
-"冰冠堡垒",
-"zhCN",
-},
-[21217] = {
-"未知目标",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[21225] = {
-"踏潮战士",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[29920] = {
-"废墟居民",
-"古达克",
-"zhCN",
-},
-[39863] = {
-"海里昂",
-"红玉圣殿",
-"zhCN",
-},
-[21920] = {
-"踏潮潜伏者",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
 [36829] = {
 "亡语高阶祭司",
 "冰冠堡垒",
-"zhCN",
-},
-[34441] = {
-"暗语者维维尼",
-"十字军的试炼",
-},
-[21273] = {
-"未知目标",
-"风暴要塞",
-"zhCN",
-},
-[36877] = {
-"怒骨骷髅",
-"萨隆深渊",
 "zhCN",
 },
 [36893] = {
@@ -2187,194 +963,83 @@ PlaterDB = {
 "萨隆深渊",
 "zhCN",
 },
-[16030] = {
-"未知目标",
-"纳克萨玛斯",
-"zhCN",
-},
-[36980] = {
-"未知目标",
-"冰冠堡垒",
-"zhCN",
-},
 [22091] = {
 "溅火图腾",
 "盘牙湖泊：毒蛇神殿",
 "zhCN",
-},
-[260758] = {
-"雄鹰",
-"风暴要塞",
-"zhCN",
-},
-[6498] = {
-"坦格利安",
-"风暴要塞",
-"zhCN",
-},
-[6500] = {
-"魔暴龙",
-"风暴要塞",
-"zhCN",
-},
-[34450] = {
-"德拉克道格",
-"十字军的试炼",
 },
 [37021] = {
 "破天号传教师",
 "冰冠堡垒",
 "zhCN",
 },
-[18806] = {
-"未知目标",
-"风暴要塞",
+[32353] = {
+"阿尔卡冯守卫者",
+"阿尔卡冯的宝库",
 "zhCN",
 },
-[20039] = {
-"凤鹰",
-"风暴要塞",
-"zhCN",
-},
-[11982] = {
-"玛格曼达",
-"熔火之心",
-"zhCN",
-},
-[36830] = {
-"怒骨苦工",
-"萨隆深渊",
-"zhCN",
-},
-[37868] = {
-"复生的大法师",
-"冰冠堡垒",
-"zhCN",
-},
-[20060] = {
-"萨古纳尔男爵",
-"风暴要塞",
-"zhCN",
-},
-[37133] = {
-"伊米亚战争领主",
-"冰冠堡垒",
-"zhCN",
-},
-[23581] = {
-"Amani'shi Medicine Man",
-"Zul'Aman",
-},
-[31134] = {
-"塞安妮苟萨",
+[29316] = {
+"摩拉格",
 "紫罗兰监狱",
 "zhCN",
 },
-[34467] = {
-"阿莱希娅·月行者",
+[21212] = {
+"瓦丝琪",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[21228] = {
+"踏潮水术师",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[30451] = {
+"沙德隆",
+"黑曜石圣殿",
+"zhCN",
+},
+[11661] = {
+"烈焰行者",
+"熔火之心",
+"zhCN",
+},
+[11669] = {
+"烈焰小鬼",
+"熔火之心",
+"zhCN",
+},
+[22347] = {
+"未知目标",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[37533] = {
+"霜牙",
+"冰冠堡垒",
+"zhCN",
+},
+[34496] = {
+"黑暗邪使艾蒂丝",
 "十字军的试炼",
 "zhCN",
 },
-[27656] = {
-"魔网守护者埃雷苟斯",
-"魔环",
-"zhCN",
-},
-[12018] = {
-"管理者埃克索图斯",
-"熔火之心",
-"zhCN",
-},
-[37229] = {
-"冰卫巫师",
-"冰冠堡垒",
-"zhCN",
-},
-[22487] = {
-"大型清毒图腾",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[38369] = {
+[30643] = {
 "未知目标",
-"冰冠堡垒",
+"黑曜石圣殿",
 "zhCN",
 },
-[31190] = {
-"法力之泉图腾 VIII",
-"风暴要塞",
-"zhCN",
-},
-[30176] = {
+[39899] = {
 "未知目标",
-"安卡赫特：古代王国",
-"zhCN",
-},
-[30695] = {
-"未知目标",
-"紫罗兰监狱",
-"zhCN",
-},
-[27640] = {
-"魔环领主召唤师",
-"魔环",
-"zhCN",
-},
-[27645] = {
-"未知目标",
-"魔环",
-"zhCN",
-},
-[40423] = {
-"焦鳞指挥官",
 "红玉圣殿",
 "zhCN",
 },
-[12098] = {
-"萨弗隆先驱者",
-"熔火之心",
+[27654] = {
+"审讯者达库斯",
+"魔环",
 "zhCN",
 },
-[29713] = {
-"未知目标",
-"古达克",
-"zhCN",
-},
-[22056] = {
-"盘牙巡逻者",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[33243] = {
-"远程目标",
-"诺森德",
-},
-[25370] = {
-"炎刃黄昏祭司",
-"太阳之井",
-},
-[20036] = {
-"血警卫侍从",
-"风暴要塞",
-"zhCN",
-},
-[20044] = {
-"星术师学徒",
-"风暴要塞",
-"zhCN",
-},
-[20052] = {
-"晶核机械师",
-"风暴要塞",
-"zhCN",
-},
-[37501] = {
-"尼鲁巴尔猛蛛",
-"冰冠堡垒",
-"zhCN",
-},
-[38028] = {
-"未知目标",
+[37949] = {
+"教派追随者",
 "冰冠堡垒",
 "zhCN",
 },
@@ -2383,147 +1048,39 @@ PlaterDB = {
 "冰冠堡垒",
 "zhCN",
 },
-[37038] = {
-"愤怒的斩肉者",
-"冰冠堡垒",
+[15929] = {
+"斯塔拉格",
+"纳克萨玛斯",
 "zhCN",
 },
-[17899] = {
-"阴暗通灵师",
-"海加尔山之战",
-},
-[28276] = {
-"大型魔网雏龙",
-"魔环",
-"zhCN",
-},
-[29306] = {
-"迦尔达拉",
-"古达克",
-"zhCN",
-},
-[12118] = {
-"鲁西弗隆",
-"熔火之心",
-"zhCN",
-},
-[1138] = {
-"狼",
-"风暴要塞",
-"zhCN",
-},
-[13148] = {
-"拉格纳罗斯之焰",
-"熔火之心",
-"zhCN",
-},
-[37534] = {
-"猎脊冰龙",
-"冰冠堡垒",
-"zhCN",
-},
-[30879] = {
+[34049] = {
 "未知目标",
-"魔环",
+"阿尔卡冯的宝库",
 "zhCN",
 },
-[36724] = {
-"王座仆从",
-"冰冠堡垒",
+[15953] = {
+"黑女巫法琳娜",
+"纳克萨玛斯",
 "zhCN",
 },
-[27829] = {
-"黑锋石像鬼",
-"熔火之心",
+[15977] = {
+"毒性蜘蛛",
+"纳克萨玛斯",
 "zhCN",
 },
-[22352] = {
+[30963] = {
 "未知目标",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[37230] = {
-"护塔冰龙",
-"冰冠堡垒",
-"zhCN",
-},
-[21298] = {
-"盘牙毒蛇守卫",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[21218] = {
-"瓦丝琪的荣誉卫士",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[21226] = {
-"踏潮萨满祭司",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[33430] = {
-"护卫鞭笞者",
-"奥杜尔",
-"zhCN",
-},
-[11659] = {
-"熔核摧毁者",
-"熔火之心",
-"zhCN",
-},
-[11663] = {
-"烈焰行者医师",
-"熔火之心",
-"zhCN",
-},
-[11667] = {
-"烈焰守卫",
-"熔火之心",
-"zhCN",
-},
-[11671] = {
-"熔火恶犬",
-"熔火之心",
-"zhCN",
-},
-[21274] = {
-"瓦解法杖",
-"风暴要塞",
-"zhCN",
-},
-[36879] = {
-"天灾恶灵",
-"萨隆深渊",
-"zhCN",
-},
-[21362] = {
-"凤凰",
-"风暴要塞",
-"zhCN",
-},
-[31007] = {
-"碧蓝束缚者",
 "紫罗兰监狱",
 "zhCN",
 },
-[37949] = {
-"教派追随者",
-"冰冠堡垒",
+[16017] = {
+"缝补傀儡",
+"纳克萨玛斯",
 "zhCN",
 },
-[12259] = {
-"基赫纳斯",
-"熔火之心",
-"zhCN",
-},
-[416] = {
-"基格纳尔",
-"风暴要塞",
-},
-[38508] = {
-"血兽",
-"冰冠堡垒",
+[16025] = {
+"缝合巨人",
+"纳克萨玛斯",
 "zhCN",
 },
 [37502] = {
@@ -2531,49 +1088,24 @@ PlaterDB = {
 "冰冠堡垒",
 "zhCN",
 },
-[37007] = {
-"缚亡守卫",
+[37534] = {
+"猎脊冰龙",
 "冰冠堡垒",
 "zhCN",
 },
-[37023] = {
-"天灾科学家",
-"冰冠堡垒",
+[6498] = {
+"坦格利安",
+"风暴要塞",
 "zhCN",
 },
-[21873] = {
-"盘牙守护者",
-"盘牙湖泊：毒蛇神殿",
+[16065] = {
+"女公爵布劳缪克丝",
+"纳克萨玛斯",
 "zhCN",
 },
-[27642] = {
-"未知目标",
-"魔环",
-"zhCN",
-},
-[37123] = {
-"布兰顿上尉",
-"冰冠堡垒",
-"zhCN",
-},
-[417] = {
-"德罗奈姆",
-"熔火之心",
-"zhCN",
-},
-[38125] = {
-"伊米亚死亡使者",
-"冰冠堡垒",
-"zhCN",
-},
-[36842] = {
-"怒骨冰骸",
-"萨隆深渊",
-"zhCN",
-},
-[36633] = {
-"寒冰之球",
-"冰冠堡垒",
+[30084] = {
+"能量火花",
+"永恒之眼",
 "zhCN",
 },
 [37662] = {
@@ -2581,67 +1113,14 @@ PlaterDB = {
 "冰冠堡垒",
 "zhCN",
 },
-[34448] = {
-"鲁姬卡",
-"十字军的试炼",
-},
-[29832] = {
-"达卡莱魔像",
-"古达克",
-"zhCN",
-},
-[21875] = {
-"莱欧瑟拉斯之影",
+[21964] = {
+"深水卫士卡莉蒂丝",
 "盘牙湖泊：毒蛇神殿",
 "zhCN",
 },
-[10741] = {
-"豹",
+[30164] = {
+"狼",
 "风暴要塞",
-"zhCN",
-},
-[31167] = {
-"熔岩图腾 VII",
-"风暴要塞",
-"zhCN",
-},
-[30664] = {
-"未知目标",
-"紫罗兰监狱",
-"zhCN",
-},
-[37027] = {
-"破天号圣职者",
-"冰冠堡垒",
-"zhCN",
-},
-[37011] = {
-"被诅咒者",
-"冰冠堡垒",
-"zhCN",
-},
-[37901] = {
-"未知目标",
-"冰冠堡垒",
-"zhCN",
-},
-[22009] = {
-"被污染的元素",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[16907] = {
-"血环苦工",
-"外域",
-},
-[29698] = {
-"迅猛龙",
-"风暴要塞",
-"zhCN",
-},
-[27654] = {
-"审讯者达库斯",
-"魔环",
 "zhCN",
 },
 [37886] = {
@@ -2649,34 +1128,617 @@ PlaterDB = {
 "冰冠堡垒",
 "zhCN",
 },
-[36880] = {
-"衰弱的巨像",
+[16145] = {
+"死亡骑士队长",
+"纳克萨玛斯",
+"zhCN",
+},
+[20046] = {
+"星术师领主",
+"风暴要塞",
+"zhCN",
+},
+[20062] = {
+"星术师卡波妮娅",
+"风暴要塞",
+"zhCN",
+},
+[12101] = {
+"熔岩奔腾者",
+"熔火之心",
+"zhCN",
+},
+[13148] = {
+"拉格纳罗斯之焰",
+"熔火之心",
+"zhCN",
+},
+[21213] = {
+"莫洛格里·踏潮者",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[21229] = {
+"暗心唤潮者",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[30452] = {
+"塔尼布隆",
+"黑曜石圣殿",
+"zhCN",
+},
+[38494] = {
+"腐烂的冰霜巨人",
 "冰冠堡垒",
 "zhCN",
 },
-[27638] = {
-"碧蓝魔环卫士",
+[16297] = {
+"变异幼虫",
+"纳克萨玛斯",
+"zhCN",
+},
+[34466] = {
+"安塔尔·缮炉者",
+"十字军的试炼",
+"zhCN",
+},
+[29573] = {
+"未知目标",
+"古达克",
+"zhCN",
+},
+[37663] = {
+"黑暗堕落者贵族",
+"冰冠堡垒",
+"zhCN",
+},
+[37695] = {
+"未知目标",
+"冰冠堡垒",
+"zhCN",
+},
+[29637] = {
+"狡猾的蛇",
+"古达克",
+"zhCN",
+},
+[27639] = {
+"魔环领主巫师",
 "魔环",
 "zhCN",
 },
-[37934] = {
-"脓疮僵尸",
-"冰冠堡垒",
+[27655] = {
+"法师领主伊洛姆",
+"魔环",
 "zhCN",
 },
-[89] = {
-"地狱火爪牙",
-"冰冠堡垒",
-"zhCN",
-},
-[20037] = {
-"风暴驯鹰者",
+[19551] = {
+"未知目标",
 "风暴要塞",
 "zhCN",
 },
-[20045] = {
-"虚空占卜者",
+[29829] = {
+"达卡莱震地者",
+"古达克",
+"zhCN",
+},
+[34467] = {
+"阿莱希娅·月行者",
+"十字军的试炼",
+"zhCN",
+},
+[36609] = {
+"瓦格里暗影戒卫者",
+"冰冠堡垒",
+"zhCN",
+},
+[37664] = {
+"黑暗堕落者大法师",
+"冰冠堡垒",
+"zhCN",
+},
+[22956] = {
+"Priestess of Torment",
+"Black Temple",
+},
+[11502] = {
+"拉格纳罗斯",
+"熔火之心",
+"zhCN",
+},
+[24059] = {
+"阿曼尼驯兽员",
+"祖阿曼",
+},
+[36897] = {
+"未知目标",
+"冰冠堡垒",
+"zhCN",
+},
+[30245] = {
+"未知目标",
+"永恒之眼",
+"zhCN",
+},
+[20031] = {
+"血警卫军团士兵",
 "风暴要塞",
+"zhCN",
+},
+[20047] = {
+"炽手战斗法师",
+"风暴要塞",
+"zhCN",
+},
+[37025] = {
+"大臭",
+"冰冠堡垒",
+"zhCN",
+},
+[260758] = {
+"雄鹰",
+"风暴要塞",
+"zhCN",
+},
+[37217] = {
+"小宝",
+"冰冠堡垒",
+"zhCN",
+},
+[21214] = {
+"深水领主卡拉瑟雷斯",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[21230] = {
+"暗心虚空法师",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[21246] = {
+"毒蛇神殿孢子蝠",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[11662] = {
+"烈焰行者祭司",
+"熔火之心",
+"zhCN",
+},
+[25370] = {
+"炎刃黄昏祭司",
+"太阳之井",
+},
+[34468] = {
+"努兹尔·啸钉",
+"十字军的试炼",
+"zhCN",
+},
+[37665] = {
+"黑暗堕落者将领",
+"冰冠堡垒",
+"zhCN",
+},
+[37697] = {
+"未知目标",
+"冰冠堡垒",
+"zhCN",
+},
+[30661] = {
+"碧蓝入侵者",
+"紫罗兰监狱",
+"zhCN",
+},
+[27640] = {
+"魔环领主召唤师",
+"魔环",
+"zhCN",
+},
+[27656] = {
+"魔网守护者埃雷苟斯",
+"魔环",
+"zhCN",
+},
+[23596] = {
+"阿曼尼烈焰法师",
+"祖阿曼",
+},
+[37026] = {
+"破天号巫师",
+"冰冠堡垒",
+"zhCN",
+},
+[15930] = {
+"费尔根",
+"纳克萨玛斯",
+"zhCN",
+},
+[37122] = {
+"阿纳斯上尉",
+"冰冠堡垒",
+"zhCN",
+},
+[15954] = {
+"药剂师诺斯",
+"纳克萨玛斯",
+"zhCN",
+},
+[15978] = {
+"地穴剥夺者",
+"纳克萨玛斯",
+"zhCN",
+},
+[38369] = {
+"未知目标",
+"冰冠堡垒",
+"zhCN",
+},
+[38433] = {
+"寒冰看守者图拉旺",
+"阿尔卡冯的宝库",
+"zhCN",
+},
+[21806] = {
+"暗心缚法者",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[16034] = {
+"天灾兽",
+"纳克萨玛斯",
+"zhCN",
+},
+[34469] = {
+"麦拉多·深谷游者",
+"十字军的试炼",
+"zhCN",
+},
+[11982] = {
+"玛格曼达",
+"熔火之心",
+"zhCN",
+},
+[37666] = {
+"黑暗堕落者谋士",
+"冰冠堡垒",
+"zhCN",
+},
+[37698] = {
+"蹒跚的血僵尸",
+"冰冠堡垒",
+"zhCN",
+},
+[21966] = {
+"深水卫士沙克基斯",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[37890] = {
+"教派狂热者",
+"冰冠堡垒",
+"zhCN",
+},
+[36899] = {
+"未知目标",
+"冰冠堡垒",
+"zhCN",
+},
+[20032] = {
+"血警卫守备官",
+"风暴要塞",
+"zhCN",
+},
+[30278] = {
+"安卡哈爆法者",
+"安卡赫特：古代王国",
+"zhCN",
+},
+[37027] = {
+"破天号圣职者",
+"冰冠堡垒",
+"zhCN",
+},
+[35013] = {
+"火焰看守者科拉隆",
+"阿尔卡冯的宝库",
+"zhCN",
+},
+[16194] = {
+"邪恶之斧",
+"纳克萨玛斯",
+"zhCN",
+},
+[37123] = {
+"布兰顿上尉",
+"冰冠堡垒",
+"zhCN",
+},
+[12118] = {
+"鲁西弗隆",
+"熔火之心",
+"zhCN",
+},
+[21215] = {
+"盲眼者莱欧瑟拉斯",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[21231] = {
+"暗心持盾者",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[21263] = {
+"暗心技师",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[16290] = {
+"未知目标",
+"纳克萨玛斯",
+"zhCN",
+},
+[34470] = {
+"萨缪尔",
+"十字军的试炼",
+"zhCN",
+},
+[37571] = {
+"黑暗堕落者顾问",
+"冰冠堡垒",
+"zhCN",
+},
+[23421] = {
+"Ashtongue Channeler",
+"Black Temple",
+},
+[25483] = {
+"Shadowsword Manafiend",
+"The Sunwell",
+},
+[27641] = {
+"离心构造体",
+"魔环",
+"zhCN",
+},
+[23581] = {
+"Amani'shi Medicine Man",
+"Zul'Aman",
+},
+[37955] = {
+"鲜血女王兰娜瑟尔",
+"冰冠堡垒",
+"zhCN",
+},
+[37124] = {
+"格隆迪尔上尉",
+"冰冠堡垒",
+"zhCN",
+},
+[25851] = {
+"爆裂魔",
+"太阳之井",
+},
+[34471] = {
+"圣光使者巴尔诺",
+"十字军的试炼",
+"zhCN",
+},
+[30071] = {
+"缝合巨像",
+"纳克萨玛斯",
+"zhCN",
+},
+[39746] = {
+"萨瑞瑟里安将军",
+"红玉圣殿",
+"zhCN",
+},
+[31190] = {
+"法力之泉图腾 VIII",
+"风暴要塞",
+"zhCN",
+},
+[36805] = {
+"亡语仆从",
+"冰冠堡垒",
+"zhCN",
+},
+[28153] = {
+"雪花",
+"魔环",
+"zhCN",
+},
+[20033] = {
+"星术师",
+"风暴要塞",
+"zhCN",
+},
+[30279] = {
+"深渊爬行者",
+"安卡赫特：古代王国",
+"zhCN",
+},
+[29304] = {
+"斯拉德兰",
+"古达克",
+"zhCN",
+},
+[37125] = {
+"鲁伯特上尉",
+"冰冠堡垒",
+"zhCN",
+},
+[35143] = {
+"烈焰守卫",
+"阿尔卡冯的宝库",
+"zhCN",
+},
+[21216] = {
+"不稳定的海度斯",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[21232] = {
+"暗心隐藏者",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[11663] = {
+"烈焰行者医师",
+"熔火之心",
+"zhCN",
+},
+[25372] = {
+"炎刃斥候",
+"太阳之井",
+},
+[17252] = {
+"吉尔利克",
+"冰冠堡垒",
+"zhCN",
+},
+[25484] = {
+"影刃刺客",
+"太阳之井",
+},
+[36678] = {
+"普崔塞德教授",
+"冰冠堡垒",
+"zhCN",
+},
+[30695] = {
+"未知目标",
+"紫罗兰监狱",
+"zhCN",
+},
+[27642] = {
+"未知目标",
+"魔环",
+"zhCN",
+},
+[29768] = {
+"坚韧的巨蟒",
+"古达克",
+"zhCN",
+},
+[33993] = {
+"风暴看守者埃玛尔隆",
+"阿尔卡冯的宝库",
+"zhCN",
+},
+[29832] = {
+"达卡莱魔像",
+"古达克",
+"zhCN",
+},
+[15979] = {
+"墓穴恐惧蛛魔",
+"纳克萨玛斯",
+"zhCN",
+},
+[40419] = {
+"焦鳞突击者",
+"红玉圣殿",
+"zhCN",
+},
+[16011] = {
+"洛欧塞布",
+"纳克萨玛斯",
+"zhCN",
+},
+[34441] = {
+"暗语者维维尼",
+"十字军的试炼",
+},
+[34473] = {
+"布瑞娜·沉夜",
+"十字军的试炼",
+"zhCN",
+},
+[6499] = {
+"菠萝妹妹",
+"风暴要塞",
+"zhCN",
+},
+[21920] = {
+"踏潮潜伏者",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[36807] = {
+"亡语信徒",
+"冰冠堡垒",
+"zhCN",
+},
+[16163] = {
+"死亡骑兵",
+"纳克萨玛斯",
+"zhCN",
+},
+[20050] = {
+"炽手审讯者",
+"风暴要塞",
+"zhCN",
+},
+[29305] = {
+"莫拉比",
+"古达克",
+"zhCN",
+},
+[37127] = {
+"伊米亚霜缚者",
+"冰冠堡垒",
+"zhCN",
+},
+[12119] = {
+"烈焰行者护卫",
+"熔火之心",
+"zhCN",
+},
+[23215] = {
+"Ashtongue Sorcerer",
+"Black Temple",
+},
+[12143] = {
+"未知目标",
+"熔火之心",
+"zhCN",
+},
+[21217] = {
+"未知目标",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[22352] = {
+"未知目标",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[34474] = {
+"塞瑞莎·术轮",
+"十字军的试炼",
+"zhCN",
+},
+[30664] = {
+"未知目标",
+"紫罗兰监狱",
+"zhCN",
+},
+[37799] = {
+"未知目标",
+"冰冠堡垒",
+"zhCN",
+},
+[36808] = {
+"亡语狂热者",
+"冰冠堡垒",
+"zhCN",
+},
+[16390] = {
+"死寒仆从",
+"纳克萨玛斯",
 "zhCN",
 },
 [11320] = {
@@ -2684,23 +1746,217 @@ PlaterDB = {
 "怒焰裂谷",
 "zhCN",
 },
-[34472] = {
-"伊锐丝·影踪",
-"十字军的试炼",
+[89] = {
+"地狱火爪牙",
+"冰冠堡垒",
 "zhCN",
 },
-[34453] = {
-"断钢者纳霍克",
-"十字军的试炼",
-},
-[34469] = {
-"麦拉多·深谷游者",
-"十字军的试炼",
+[40421] = {
+"焦鳞精英",
+"红玉圣殿",
 "zhCN",
 },
-[29826] = {
-"达卡莱医师",
+[21857] = {
+"内心之魔",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[21873] = {
+"盘牙守护者",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[31176] = {
+"石肤图腾 X",
+"冰冠堡垒",
+"zhCN",
+},
+[36841] = {
+"阵亡的战士",
+"萨隆深渊",
+"zhCN",
+},
+[26125] = {
+"根须咬碎者",
+"冰冠堡垒",
+"zhCN",
+},
+[30249] = {
+"未知目标",
+"永恒之眼",
+"zhCN",
+},
+[20035] = {
+"血警卫典狱长",
+"风暴要塞",
+"zhCN",
+},
+[29306] = {
+"迦尔达拉",
 "古达克",
+"zhCN",
+},
+[38184] = {
+"被腐化的伊米亚人",
+"冰冠堡垒",
+"zhCN",
+},
+[21218] = {
+"瓦丝琪的荣誉卫士",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[11664] = {
+"烈焰行者精英",
+"熔火之心",
+"zhCN",
+},
+[11672] = {
+"熔火怒犬",
+"熔火之心",
+"zhCN",
+},
+[21298] = {
+"盘牙毒蛇守卫",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[34444] = {
+"萨卡加尔",
+"十字军的试炼",
+},
+[37545] = {
+"护塔爪牙",
+"冰冠堡垒",
+"zhCN",
+},
+[21362] = {
+"凤凰",
+"风暴要塞",
+"zhCN",
+},
+[39751] = {
+"战争之子巴尔萨鲁斯",
+"红玉圣殿",
+"zhCN",
+},
+[30681] = {
+"黑岩烈焰法师",
+"黑曜石圣殿",
+"zhCN",
+},
+[36842] = {
+"怒骨冰骸",
+"萨隆深渊",
+"zhCN",
+},
+[36874] = {
+"被打扰的冰川幽魂",
+"萨隆深渊",
+"zhCN",
+},
+[15932] = {
+"格拉斯",
+"纳克萨玛斯",
+"zhCN",
+},
+[37098] = {
+"瓦格里传令官",
+"冰冠堡垒",
+"zhCN",
+},
+[29834] = {
+"达卡莱狂鱼",
+"古达克",
+"zhCN",
+},
+[15956] = {
+"阿努布雷坎",
+"纳克萨玛斯",
+"zhCN",
+},
+[28859] = {
+"玛里苟斯",
+"永恒之眼",
+"zhCN",
+},
+[15980] = {
+"纳克萨玛斯信徒",
+"纳克萨玛斯",
+"zhCN",
+},
+[40423] = {
+"焦鳞指挥官",
+"红玉圣殿",
+"zhCN",
+},
+[16020] = {
+"疯狂的科学家",
+"纳克萨玛斯",
+"zhCN",
+},
+[16028] = {
+"帕奇维克",
+"纳克萨玛斯",
+"zhCN",
+},
+[16036] = {
+"狂乱蝙蝠",
+"纳克萨玛斯",
+"zhCN",
+},
+[34445] = {
+"莉安德拉·唤日者",
+"十字军的试炼",
+},
+[37546] = {
+"暴怒的憎恶",
+"冰冠堡垒",
+"zhCN",
+},
+[18805] = {
+"大星术师索兰莉安",
+"风暴要塞",
+"zhCN",
+},
+[36619] = {
+"骨针",
+"冰冠堡垒",
+"zhCN",
+},
+[31129] = {
+"大地之力图腾 VIII",
+"熔火之心",
+"zhCN",
+},
+[16124] = {
+"未知目标",
+"纳克萨玛斯",
+"zhCN",
+},
+[36907] = {
+"怒骨攻城锻造师",
+"萨隆深渊",
+"zhCN",
+},
+[16156] = {
+"黑暗战士",
+"纳克萨玛斯",
+"zhCN",
+},
+[20036] = {
+"血警卫侍从",
+"风暴要塞",
+"zhCN",
+},
+[20052] = {
+"晶核机械师",
+"风暴要塞",
+"zhCN",
+},
+[33998] = {
+"风暴爪牙",
+"阿尔卡冯的宝库",
 "zhCN",
 },
 [29307] = {
@@ -2708,14 +1964,108 @@ PlaterDB = {
 "古达克",
 "zhCN",
 },
-[29315] = {
-"埃雷克姆",
+[38154] = {
+"战鹰",
+"冰冠堡垒",
+"zhCN",
+},
+[16236] = {
+"眼柄",
+"纳克萨玛斯",
+"zhCN",
+},
+[16244] = {
+"感染的食尸鬼",
+"纳克萨玛斯",
+"zhCN",
+},
+[21251] = {
+"幽暗沼泽巨人",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[38410] = {
+"痛苦的精魂",
+"冰冠堡垒",
+"zhCN",
+},
+[21299] = {
+"盘牙深渊女巫",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[6112] = {
+"风怒图腾",
+"熔火之心",
+"zhCN",
+},
+[36620] = {
+"护魂精兵",
+"灵魂洪炉",
+"zhCN",
+},
+[12264] = {
+"沙斯拉尔",
+"熔火之心",
+"zhCN",
+},
+[30666] = {
+"碧蓝上尉",
 "紫罗兰监狱",
 "zhCN",
 },
-[11859] = {
-"末日守卫",
+[30682] = {
+"黑岩上尉",
+"黑曜石圣殿",
+"zhCN",
+},
+[27645] = {
+"未知目标",
+"魔环",
+"zhCN",
+},
+[37004] = {
+"破天号邪刃者",
 "冰冠堡垒",
+"zhCN",
+},
+[11321] = {
+"熔岩元素",
+"怒焰裂谷",
+"zhCN",
+},
+[29819] = {
+"达卡莱长枪手",
+"古达克",
+"zhCN",
+},
+[37132] = {
+"伊米亚女武神",
+"冰冠堡垒",
+"zhCN",
+},
+[30890] = {
+"未知目标",
+"黑曜石圣殿",
+"zhCN",
+},
+[37228] = {
+"冰卫战士",
+"冰冠堡垒",
+"zhCN",
+},
+[29931] = {
+"达卡莱犀牛",
+"古达克",
+"zhCN",
+},
+[34447] = {
+"严肃的凯普斯",
+"十字军的试炼",
+},
+[21875] = {
+"莱欧瑟拉斯之影",
+"盘牙湖泊：毒蛇神殿",
 "zhCN",
 },
 [40681] = {
@@ -2723,8 +2073,115 @@ PlaterDB = {
 "红玉圣殿",
 "zhCN",
 },
-[29834] = {
-"达卡莱狂鱼",
+[23953] = {
+"凯雷塞斯王子",
+"乌特加德城堡",
+},
+[37868] = {
+"复生的大法师",
+"冰冠堡垒",
+"zhCN",
+},
+[22035] = {
+"未知目标",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[20037] = {
+"风暴驯鹰者",
+"风暴要塞",
+"zhCN",
+},
+[38028] = {
+"未知目标",
+"冰冠堡垒",
+"zhCN",
+},
+[29308] = {
+"塔达拉姆王子",
+"安卡赫特：古代王国",
+"zhCN",
+},
+[37133] = {
+"伊米亚战争领主",
+"冰冠堡垒",
+"zhCN",
+},
+[37229] = {
+"冰卫巫师",
+"冰冠堡垒",
+"zhCN",
+},
+[21220] = {
+"盘牙女祭司",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[29452] = {
+"艾斯比娟儿",
+"冰冠堡垒",
+"zhCN",
+},
+[11673] = {
+"上古熔火恶犬",
+"熔火之心",
+"zhCN",
+},
+[38508] = {
+"血兽",
+"冰冠堡垒",
+"zhCN",
+},
+[34448] = {
+"鲁姬卡",
+"十字军的试炼",
+},
+[23394] = {
+"巡逻的奥术斥候",
+"黑暗神殿",
+},
+[21364] = {
+"未知目标",
+"风暴要塞",
+"zhCN",
+},
+[30667] = {
+"碧蓝巫术师",
+"紫罗兰监狱",
+"zhCN",
+},
+[21508] = {
+"盘牙狂鱼",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[37901] = {
+"未知目标",
+"冰冠堡垒",
+"zhCN",
+},
+[16441] = {
+"寒冰皇冠卫士",
+"纳克萨玛斯",
+"zhCN",
+},
+[37038] = {
+"愤怒的斩肉者",
+"冰冠堡垒",
+"zhCN",
+},
+[16505] = {
+"纳克萨玛斯追随者",
+"纳克萨玛斯",
+"zhCN",
+},
+[29820] = {
+"达卡莱猎神者",
+"古达克",
+"zhCN",
+},
+[29836] = {
+"达卡莱作战骑兵",
 "古达克",
 "zhCN",
 },
@@ -2733,28 +2190,155 @@ PlaterDB = {
 "风暴要塞",
 "zhCN",
 },
-[37663] = {
-"黑暗堕落者贵族",
+[37230] = {
+"护塔冰龙",
 "冰冠堡垒",
 "zhCN",
 },
-[23215] = {
-"Ashtongue Sorcerer",
-"Black Temple",
-},
-[37695] = {
-"未知目标",
-"冰冠堡垒",
-"zhCN",
-},
-[15975] = {
-"腐肉织网者",
+[15981] = {
+"纳克萨玛斯侍僧",
 "纳克萨玛斯",
 "zhCN",
 },
-[34134] = {
-"寒冬亡魂",
-"奥杜尔",
+[15989] = {
+"萨菲隆",
+"纳克萨玛斯",
+"zhCN",
+},
+[29932] = {
+"凶残的伊克",
+"古达克",
+"zhCN",
+},
+[16021] = {
+"畸形妖",
+"纳克萨玛斯",
+"zhCN",
+},
+[16029] = {
+"淤泥喷射者",
+"纳克萨玛斯",
+"zhCN",
+},
+[16037] = {
+"疫病蝙蝠",
+"纳克萨玛斯",
+"zhCN",
+},
+[34449] = {
+"凋零者吉塞尔",
+"十字军的试炼",
+},
+[6500] = {
+"魔暴龙",
+"风暴要塞",
+"zhCN",
+},
+[40683] = {
+"未知目标",
+"红玉圣殿",
+"zhCN",
+},
+[16125] = {
+"未知目标",
+"纳克萨玛斯",
+"zhCN",
+},
+[36879] = {
+"天灾恶灵",
+"萨隆深渊",
+"zhCN",
+},
+[37934] = {
+"脓疮僵尸",
+"冰冠堡垒",
+"zhCN",
+},
+[20038] = {
+"凤鹰幼崽",
+"风暴要塞",
+"zhCN",
+},
+[37007] = {
+"缚亡守卫",
+"冰冠堡垒",
+"zhCN",
+},
+[29309] = {
+"纳多克斯长老",
+"安卡赫特：古代王国",
+"zhCN",
+},
+[23235] = {
+"Bonechewer Blade Fury",
+"Black Temple",
+},
+[21221] = {
+"盘牙驯兽师",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[21253] = {
+"被污染的水元素",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[21269] = {
+"未知目标",
+"风暴要塞",
+"zhCN",
+},
+[21301] = {
+"盘牙粉碎者",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[34450] = {
+"德拉克道格",
+"十字军的试炼",
+},
+[416] = {
+"基格纳尔",
+"风暴要塞",
+},
+[12265] = {
+"未知目标",
+"熔火之心",
+"zhCN",
+},
+[30668] = {
+"碧蓝袭击者",
+"紫罗兰监狱",
+"zhCN",
+},
+[417] = {
+"德罗奈姆",
+"熔火之心",
+"zhCN",
+},
+[27647] = {
+"幻影食人魔",
+"魔环",
+"zhCN",
+},
+[36880] = {
+"衰弱的巨像",
+"冰冠堡垒",
+"zhCN",
+},
+[16506] = {
+"纳克萨玛斯膜拜者",
+"纳克萨玛斯",
+"zhCN",
+},
+[15438] = {
+"强力火元素",
+"熔火之心",
+"zhCN",
+},
+[30892] = {
+"传送门守卫者",
+"紫罗兰监狱",
 "zhCN",
 },
 [37232] = {
@@ -2762,9 +2346,1349 @@ PlaterDB = {
 "冰冠堡垒",
 "zhCN",
 },
-[11672] = {
-"熔火怒犬",
+[16698] = {
+"死尸甲虫",
+"纳克萨玛斯",
+"zhCN",
+},
+[36497] = {
+"布隆亚姆",
+"灵魂洪炉",
+"zhCN",
+},
+[31228] = {
+"林地行者",
+"诺森德",
+},
+[213] = {
+"塔尔达林",
+"风暴要塞",
+"zhCN",
+},
+[31260] = {
+"伊米亚唤天者",
+"萨隆深渊",
+"zhCN",
+},
+[20039] = {
+"凤鹰",
+"风暴要塞",
+"zhCN",
+},
+[40142] = {
+"海里昂",
+"红玉圣殿",
+"zhCN",
+},
+[11658] = {
+"熔核巨人",
 "熔火之心",
+"zhCN",
+},
+[11666] = {
+"火焰行者",
+"熔火之心",
+"zhCN",
+},
+[36626] = {
+"烂肠",
+"冰冠堡垒",
+"zhCN",
+},
+[36658] = {
+"天灾领主泰兰努斯",
+"萨隆深渊",
+"zhCN",
+},
+[29630] = {
+"毒牙坑道蛇",
+"古达克",
+"zhCN",
+},
+[27648] = {
+"幻影纳迦",
+"魔环",
+"zhCN",
+},
+[16427] = {
+"冰冻废土的士兵",
+"纳克萨玛斯",
+"zhCN",
+},
+[36978] = {
+"破天号炮兵",
+"冰冠堡垒",
+"zhCN",
+},
+[29774] = {
+"喷毒的眼镜蛇",
+"古达克",
+"zhCN",
+},
+[29822] = {
+"达卡莱织火者",
+"古达克",
+"zhCN",
+},
+[29838] = {
+"达卡莱犀牛",
+"古达克",
+"zhCN",
+},
+[30893] = {
+"传送门看护者",
+"紫罗兰监狱",
+"zhCN",
+},
+[15974] = {
+"恐惧爬行者",
+"纳克萨玛斯",
+"zhCN",
+},
+[15990] = {
+"克尔苏加德",
+"纳克萨玛斯",
+"zhCN",
+},
+[29982] = {
+"达卡莱掠夺者",
+"古达克",
+"zhCN",
+},
+[16030] = {
+"未知目标",
+"纳克萨玛斯",
+"zhCN",
+},
+[36499] = {
+"护魂收割者",
+"灵魂洪炉",
+"zhCN",
+},
+[36627] = {
+"腐面",
+"冰冠堡垒",
+"zhCN",
+},
+[31133] = {
+"火舌图腾 VIII",
+"冰冠堡垒",
+"zhCN",
+},
+[21958] = {
+"魔化元素",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[12018] = {
+"管理者埃克索图斯",
+"熔火之心",
+"zhCN",
+},
+[16126] = {
+"未知目标",
+"纳克萨玛斯",
+"zhCN",
+},
+[16907] = {
+"血环苦工",
+"外域",
+},
+[16142] = {
+"胆汁软泥怪",
+"纳克萨玛斯",
+"zhCN",
+},
+[16150] = {
+"鬼灵骑兵",
+"纳克萨玛斯",
+"zhCN",
+},
+[37970] = {
+"瓦拉纳王子",
+"冰冠堡垒",
+"zhCN",
+},
+[20040] = {
+"晶核摧毁者",
+"风暴要塞",
+"zhCN",
+},
+[37011] = {
+"被诅咒者",
+"冰冠堡垒",
+"zhCN",
+},
+[12098] = {
+"萨弗隆先驱者",
+"熔火之心",
+"zhCN",
+},
+[34134] = {
+"寒冬亡魂",
+"奥杜尔",
+"zhCN",
+},
+[35189] = {
+"一个字猛",
+"风暴要塞",
+"zhCN",
+},
+[30430] = {
+"狼",
+"熔火之心",
+"zhCN",
+},
+[21271] = {
+"无尽之刃",
+"风暴要塞",
+"zhCN",
+},
+[38482] = {
+"寒冰护卫",
+"阿尔卡冯的宝库",
+"zhCN",
+},
+[34454] = {
+"玛兹迪娜",
+"十字军的试炼",
+},
+[36564] = {
+"护魂骨法师",
+"灵魂洪炉",
+"zhCN",
+},
+[36724] = {
+"王座仆从",
+"冰冠堡垒",
+"zhCN",
+},
+[22486] = {
+"强力地缚图腾",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[36788] = {
+"亡语者侍僧",
+"萨隆深渊",
+"zhCN",
+},
+[27633] = {
+"碧蓝审讯者",
+"魔环",
+"zhCN",
+},
+[27649] = {
+"未知目标",
+"魔环",
+"zhCN",
+},
+[37907] = {
+"未知目标",
+"冰冠堡垒",
+"zhCN",
+},
+[36916] = {
+"未知目标",
+"灵魂洪炉",
+"zhCN",
+},
+[36948] = {
+"穆拉丁·铜须",
+"冰冠堡垒",
+"zhCN",
+},
+[36980] = {
+"未知目标",
+"冰冠堡垒",
+"zhCN",
+},
+[37012] = {
+"上古骷髅士兵",
+"冰冠堡垒",
+"zhCN",
+},
+[15439] = {
+"火元素图腾",
+"熔火之心",
+"zhCN",
+},
+[15447] = {
+"空气之怒图腾",
+"冰冠堡垒",
+"zhCN",
+},
+[10404] = {
+"毒脓恐魔",
+"冰冠堡垒",
+"zhCN",
+},
+[34455] = {
+"布罗恩·粗角",
+"十字军的试炼",
+},
+[21863] = {
+"毒蛇神殿潜伏者",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[28860] = {
+"萨塔里奥",
+"黑曜石圣殿",
+"zhCN",
+},
+[36597] = {
+"巫妖王",
+"冰冠堡垒",
+"zhCN",
+},
+[37544] = {
+"护塔石像鬼",
+"冰冠堡垒",
+"zhCN",
+},
+[36661] = {
+"霜牙",
+"萨隆深渊",
+"zhCN",
+},
+[30453] = {
+"黑岩圣殿卫士",
+"黑曜石圣殿",
+"zhCN",
+},
+[36725] = {
+"尼鲁巴尔护巢者",
+"冰冠堡垒",
+"zhCN",
+},
+[22250] = {
+"腐臭的蘑菇",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[17899] = {
+"阴暗通灵师",
+"海加尔山之战",
+},
+[178449] = {
+"小浣熊",
+"风暴要塞",
+"zhCN",
+},
+[36853] = {
+"辛达苟萨",
+"冰冠堡垒",
+"zhCN",
+},
+[34472] = {
+"伊锐丝·影踪",
+"十字军的试炼",
+"zhCN",
+},
+[22055] = {
+"盘牙精英",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[37972] = {
+"凯雷塞斯王子",
+"冰冠堡垒",
+"zhCN",
+},
+[20041] = {
+"晶核斥候",
+"风暴要塞",
+"zhCN",
+},
+[30287] = {
+"恶鬼劫掠者",
+"安卡赫特：古代王国",
+"zhCN",
+},
+[22119] = {
+"深渊潜伏者",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[36840] = {
+"伊米亚愤怒使者",
+"萨隆深渊",
+"zhCN",
+},
+[30680] = {
+"黑岩将军",
+"黑曜石圣殿",
+"zhCN",
+},
+[16286] = {
+"孢子",
+"纳克萨玛斯",
+"zhCN",
+},
+[30338] = {
+"安卡哈群行蛛",
+"安卡赫特：古代王国",
+"zhCN",
+},
+[28276] = {
+"大型魔网雏龙",
+"魔环",
+"zhCN",
+},
+[16983] = {
+"天灾勇士",
+"纳克萨玛斯",
+"zhCN",
+},
+[16984] = {
+"天灾战士",
+"纳克萨玛斯",
+"zhCN",
+},
+[21224] = {
+"踏潮深渊先知",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[16168] = {
+"岩肤石像鬼",
+"纳克萨玛斯",
+"zhCN",
+},
+[11659] = {
+"熔核摧毁者",
+"熔火之心",
+"zhCN",
+},
+[11667] = {
+"烈焰守卫",
+"熔火之心",
+"zhCN",
+},
+[40417] = {
+"焦鳞祈求者",
+"红玉圣殿",
+"zhCN",
+},
+[16243] = {
+"天灾软泥怪",
+"纳克萨玛斯",
+"zhCN",
+},
+[16022] = {
+"外科助手",
+"纳克萨玛斯",
+"zhCN",
+},
+[34456] = {
+"玛里萨斯·辉刃",
+"十字军的试炼",
+},
+[36881] = {
+"骷髅奴隶",
+"萨隆深渊",
+"zhCN",
+},
+[34453] = {
+"断钢者纳霍克",
+"十字军的试炼",
+},
+[30178] = {
+"安卡哈群行蛛",
+"安卡赫特：古代王国",
+"zhCN",
+},
+[30549] = {
+"瑞文戴尔男爵",
+"纳克萨玛斯",
+"zhCN",
+},
+[27638] = {
+"碧蓝魔环卫士",
+"魔环",
+"zhCN",
+},
+[20045] = {
+"虚空占卜者",
+"风暴要塞",
+"zhCN",
+},
+[12056] = {
+"迦顿男爵",
+"熔火之心",
+"zhCN",
+},
+[22487] = {
+"大型清毒图腾",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[37813] = {
+"死亡使者萨鲁法尔",
+"冰冠堡垒",
+"zhCN",
+},
+[29680] = {
+"斯拉德兰毒蛇",
+"古达克",
+"zhCN",
+},
+[27650] = {
+"未知目标",
+"魔环",
+"zhCN",
+},
+[36886] = {
+"恶鬼",
+"萨隆深渊",
+"zhCN",
+},
+[16429] = {
+"织魂者",
+"纳克萨玛斯",
+"zhCN",
+},
+[36950] = {
+"破天号陆战队员",
+"冰冠堡垒",
+"zhCN",
+},
+[16803] = {
+"死亡骑士学员",
+"纳克萨玛斯",
+"zhCN",
+},
+[20049] = {
+"炽手血骑士",
+"风暴要塞",
+"zhCN",
+},
+[38125] = {
+"伊米亚死亡使者",
+"冰冠堡垒",
+"zhCN",
+},
+[37562] = {
+"毒气之云",
+"冰冠堡垒",
+"zhCN",
+},
+[37023] = {
+"天灾科学家",
+"冰冠堡垒",
+"zhCN",
+},
+[11859] = {
+"末日守卫",
+"冰冠堡垒",
+"zhCN",
+},
+[30879] = {
+"未知目标",
+"魔环",
+"zhCN",
+},
+[16573] = {
+"地穴卫士",
+"纳克萨玛斯",
+"zhCN",
+},
+[15975] = {
+"腐肉织网者",
+"纳克萨玛斯",
+"zhCN",
+},
+[36998] = {
+"破天号保护者",
+"冰冠堡垒",
+"zhCN",
+},
+[29920] = {
+"废墟居民",
+"古达克",
+"zhCN",
+},
+[20048] = {
+"炽手百夫长",
+"风暴要塞",
+"zhCN",
+},
+[31009] = {
+"碧蓝破法者",
+"紫罗兰监狱",
+"zhCN",
+},
+[36551] = {
+"未知目标",
+"灵魂洪炉",
+"zhCN",
+},
+[31007] = {
+"碧蓝束缚者",
+"紫罗兰监狱",
+"zhCN",
+},
+[38485] = {
+"达尔纳文",
+"冰冠堡垒",
+"zhCN",
+},
+[34475] = {
+"索库尔",
+"十字军的试炼",
+"zhCN",
+},
+[11671] = {
+"熔火恶犬",
+"熔火之心",
+"zhCN",
+},
+[36535] = {
+"未知目标",
+"灵魂洪炉",
+"zhCN",
+},
+[16063] = {
+"瑟里耶克爵士",
+"纳克萨玛斯",
+"zhCN",
+},
+[33430] = {
+"护卫鞭笞者",
+"奥杜尔",
+"zhCN",
+},
+[12057] = {
+"加尔",
+"熔火之心",
+"zhCN",
+},
+[1138] = {
+"狼",
+"风暴要塞",
+"zhCN",
+},
+[37134] = {
+"伊米亚女猎手",
+"冰冠堡垒",
+"zhCN",
+},
+[31167] = {
+"熔岩图腾 VII",
+"风暴要塞",
+"zhCN",
+},
+[36961] = {
+"破天号军士",
+"冰冠堡垒",
+"zhCN",
+},
+[30176] = {
+"未知目标",
+"安卡赫特：古代王国",
+"zhCN",
+},
+[16127] = {
+"鬼灵学徒",
+"纳克萨玛斯",
+"zhCN",
+},
+[36855] = {
+"亡语者女士",
+"冰冠堡垒",
+"zhCN",
+},
+[16167] = {
+"白骨构造体",
+"纳克萨玛斯",
+"zhCN",
+},
+[22056] = {
+"盘牙巡逻者",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[29826] = {
+"达卡莱医师",
+"古达克",
+"zhCN",
+},
+[20042] = {
+"风暴要塞铁匠",
+"风暴要塞",
+"zhCN",
+},
+[37501] = {
+"尼鲁巴尔猛蛛",
+"冰冠堡垒",
+"zhCN",
+},
+[22120] = {
+"深水孢子蝠",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[12099] = {
+"火誓者",
+"熔火之心",
+"zhCN",
+},
+[16164] = {
+"纳克萨玛斯之影",
+"纳克萨玛斯",
+"zhCN",
+},
+[21268] = {
+"灵弦长弓",
+"风暴要塞",
+"zhCN",
+},
+[16215] = {
+"邪恶法杖",
+"纳克萨玛斯",
+"zhCN",
+},
+[16428] = {
+"势不可挡的憎恶",
+"纳克萨玛斯",
+"zhCN",
+},
+[16486] = {
+"未知目标",
+"纳克萨玛斯",
+"zhCN",
+},
+[34451] = {
+"比莱纳·雷蹄",
+"十字军的试炼",
+},
+[21225] = {
+"踏潮战士",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[33243] = {
+"远程目标",
+"诺森德",
+},
+[30085] = {
+"警卫影魂",
+"纳克萨玛斯",
+"zhCN",
+},
+[21273] = {
+"未知目标",
+"风暴要塞",
+"zhCN",
+},
+[38454] = {
+"动力炸弹",
+"冰冠堡垒",
+"zhCN",
+},
+[21270] = {
+"宇宙灌注者",
+"风暴要塞",
+"zhCN",
+},
+[18806] = {
+"未知目标",
+"风暴要塞",
+"zhCN",
+},
+[34458] = {
+"戈瑞姆·影斩",
+"十字军的试炼",
+},
+[36494] = {
+"熔炉之主加弗斯特",
+"萨隆深渊",
+"zhCN",
+},
+[20064] = {
+"亵渎者萨拉德雷",
+"风暴要塞",
+"zhCN",
+},
+[19514] = {
+"奥",
+"风暴要塞",
+"zhCN",
+},
+[36478] = {
+"护魂守卫",
+"灵魂洪炉",
+"zhCN",
+},
+[39747] = {
+"塞维娅娜·怒火",
+"红玉圣殿",
+"zhCN",
+},
+[12259] = {
+"基赫纳斯",
+"熔火之心",
+"zhCN",
+},
+[30277] = {
+"安卡哈切碎者",
+"安卡赫特：古代王国",
+"zhCN",
+},
+[29830] = {
+"活体魔精",
+"古达克",
+"zhCN",
+},
+[16375] = {
+"污水淤泥怪",
+"纳克萨玛斯",
+"zhCN",
+},
+[27635] = {
+"碧蓝缚法者",
+"魔环",
+"zhCN",
+},
+[27651] = {
+"未知目标",
+"魔环",
+"zhCN",
+},
+[29713] = {
+"未知目标",
+"古达克",
+"zhCN",
+},
+[34497] = {
+"光明邪使菲奥拉",
+"十字军的试炼",
+"zhCN",
+},
+[3527] = {
+"治疗之泉图腾",
+"熔火之心",
+"zhCN",
+},
+[36844] = {
+"未知目标",
+"冰冠堡垒",
+"zhCN",
+},
+[37016] = {
+"破天号博学者",
+"冰冠堡垒",
+"zhCN",
+},
+[36969] = {
+"破天号火枪手",
+"冰冠堡垒",
+"zhCN",
+},
+[27644] = {
+"未知目标",
+"魔环",
+"zhCN",
+},
+[37144] = {
+"破天号射手",
+"冰冠堡垒",
+"zhCN",
+},
+[39190] = {
+"卑劣的灵魂",
+"冰冠堡垒",
+"zhCN",
+},
+[21274] = {
+"瓦解法杖",
+"风暴要塞",
+"zhCN",
+},
+[37863] = {
+"镇压者",
+"冰冠堡垒",
+"zhCN",
+},
+[36791] = {
+"灼热骷髅",
+"冰冠堡垒",
+"zhCN",
+},
+[16149] = {
+"鬼灵战马",
+"纳克萨玛斯",
+"zhCN",
+},
+[31134] = {
+"塞安妮苟萨",
+"紫罗兰监狱",
+"zhCN",
+},
+[36522] = {
+"幽魂恐魔",
+"灵魂洪炉",
+"zhCN",
+},
+[36877] = {
+"怒骨骷髅",
+"萨隆深渊",
+"zhCN",
+},
+[31125] = {
+"岩石看守者阿尔卡冯",
+"阿尔卡冯的宝库",
+"zhCN",
+},
+[31008] = {
+"碧蓝入侵者",
+"紫罗兰监狱",
+"zhCN",
+},
+[22036] = {
+"未知目标",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[34465] = {
+"Velanaa",
+"Trial of the Crusader",
+},
+[34459] = {
+"伊林·雾蹄",
+"十字军的试炼",
+},
+[21865] = {
+"盘牙伏击者",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[37531] = {
+"冰卫训练师",
+"冰冠堡垒",
+"zhCN",
+},
+[37003] = {
+"破天号守备官",
+"冰冠堡垒",
+"zhCN",
+},
+[36633] = {
+"寒冰之球",
+"冰冠堡垒",
+"zhCN",
+},
+[39814] = {
+"黑岩唤火者",
+"红玉圣殿",
+"zhCN",
+},
+[11665] = {
+"熔岩歼灭者",
+"熔火之心",
+"zhCN",
+},
+[32191] = {
+"碧蓝追猎者",
+"紫罗兰监狱",
+"zhCN",
+},
+[29264] = {
+"幽灵狼",
+"熔火之心",
+"zhCN",
+},
+[31216] = {
+"小马君",
+"熔火之心",
+"zhCN",
+},
+[22009] = {
+"被污染的元素",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[34463] = {
+"Shaabad",
+"Trial of the Crusader",
+},
+[32666] = {
+"专家的训练假人",
+"卡利姆多",
+},
+[21272] = {
+"未知目标",
+"风暴要塞",
+"zhCN",
+},
+[5913] = {
+"战栗图腾",
+"奥杜尔",
+"zhCN",
+},
+[20043] = {
+"星占师学徒",
+"风暴要塞",
+"zhCN",
+},
+[37017] = {
+"破天号刺客",
+"冰冠堡垒",
+"zhCN",
+},
+[16193] = {
+"骷髅铁匠",
+"纳克萨玛斯",
+"zhCN",
+},
+[38104] = {
+"被感染的僵尸",
+"冰冠堡垒",
+"zhCN",
+},
+[1964] = {
+"树人",
+"熔火之心",
+"zhCN",
+},
+[20034] = {
+"星占师",
+"风暴要塞",
+"zhCN",
+},
+[16385] = {
+"闪电图腾",
+"纳克萨玛斯",
+"zhCN",
+},
+[37994] = {
+"水元素",
+"风暴要塞",
+"zhCN",
+},
+[36502] = {
+"噬魂者",
+"灵魂洪炉",
+"zhCN",
+},
+[35465] = {
+"扎戈瑞姆",
+"十字军的试炼",
+"zhCN",
+},
+[21226] = {
+"踏潮萨满祭司",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[30449] = {
+"维斯匹隆",
+"黑曜石圣殿",
+"zhCN",
+},
+[36811] = {
+"亡语随从",
+"冰冠堡垒",
+"zhCN",
+},
+[11668] = {
+"火焰之王",
+"熔火之心",
+"zhCN",
+},
+[38456] = {
+"未知目标",
+"阿尔卡冯的宝库",
+"zhCN",
+},
+[20063] = {
+"首席技师塔隆尼库斯",
+"风暴要塞",
+"zhCN",
+},
+[205997] = {
+"镜像",
+"魔环",
+"zhCN",
+},
+[34460] = {
+"卡雯娜·林歌",
+"十字军的试炼",
+"zhCN",
+},
+[36830] = {
+"怒骨苦工",
+"萨隆深渊",
+"zhCN",
+},
+[16146] = {
+"死亡骑士",
+"纳克萨玛斯",
+"zhCN",
+},
+[30688] = {
+"沙德隆的信徒",
+"黑曜石圣殿",
+"zhCN",
+},
+[21965] = {
+"深水卫士泰达维斯",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[36666] = {
+"幽灵守卫",
+"灵魂洪炉",
+"zhCN",
+},
+[19668] = {
+"暗影魔",
+"熔火之心",
+"zhCN",
+},
+[205998] = {
+"镜像",
+"魔环",
+"zhCN",
+},
+[10741] = {
+"豹",
+"风暴要塞",
+"zhCN",
+},
+[39863] = {
+"海里昂",
+"红玉圣殿",
+"zhCN",
+},
+[27636] = {
+"碧蓝魔网雏龙",
+"魔环",
+"zhCN",
+},
+[29698] = {
+"迅猛龙",
+"风暴要塞",
+"zhCN",
+},
+[22140] = {
+"剧毒孢子蝠",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[16165] = {
+"死灵骑士",
+"纳克萨玛斯",
+"zhCN",
+},
+[19516] = {
+"空灵机甲",
+"风暴要塞",
+"zhCN",
+},
+[205999] = {
+"镜像",
+"魔环",
+"zhCN",
+},
+[20044] = {
+"星术师学徒",
+"风暴要塞",
+"zhCN",
+},
+[15928] = {
+"塔迪乌斯",
+"纳克萨玛斯",
+"zhCN",
+},
+[15936] = {
+"肮脏的希尔盖",
+"纳克萨玛斯",
+"zhCN",
+},
+[260730] = {
+"豪猪",
+"风暴要塞",
+"zhCN",
+},
+[15952] = {
+"迈克斯纳",
+"纳克萨玛斯",
+"zhCN",
+},
+[29818] = {
+"未知目标",
+"纳克萨玛斯",
+"zhCN",
+},
+[29874] = {
+"达卡莱煽动者",
+"古达克",
+"zhCN",
+},
+[15976] = {
+"毒性捕猎者",
+"纳克萨玛斯",
+"zhCN",
+},
+[22236] = {
+"未知目标",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[16061] = {
+"教官拉苏维奥斯",
+"纳克萨玛斯",
+"zhCN",
+},
+[30961] = {
+"未知目标",
+"紫罗兰监狱",
+"zhCN",
+},
+[22238] = {
+"毒蛇神殿唤潮者",
+"盘牙湖泊：毒蛇神殿",
+"zhCN",
+},
+[27447] = {
+"瓦尔洛斯·云击",
+"魔环",
+"zhCN",
+},
+[16024] = {
+"腐液软泥怪",
+"纳克萨玛斯",
+"zhCN",
+},
+[37126] = {
+"女武神席瓦娜",
+"冰冠堡垒",
+"zhCN",
+},
+[31041] = {
+"消沉的树人",
+"诺森德",
+},
+[34461] = {
+"泰利乌斯·达斯布雷德",
+"十字军的试炼",
+"zhCN",
+},
+[16056] = {
+"疾病之蛆",
+"纳克萨玛斯",
+"zhCN",
+},
+[16064] = {
+"库尔塔兹领主",
+"纳克萨玛斯",
+"zhCN",
+},
+[30276] = {
+"安卡哈织网者",
+"安卡赫特：古代王国",
+"zhCN",
+},
+[11988] = {
+"焚化者古雷曼格",
+"熔火之心",
+"zhCN",
+},
+[37973] = {
+"塔达拉姆王子",
+"冰冠堡垒",
+"zhCN",
+},
+[10981] = {
+"我不狂谁狂",
+"冰冠堡垒",
+"zhCN",
+},
+[16148] = {
+"鬼灵死亡骑士",
+"纳克萨玛斯",
+"zhCN",
+},
+[31185] = {
+"治疗之泉图腾 IX",
+"冰冠堡垒",
+"zhCN",
+},
+[18925] = {
+"未知目标",
+"风暴要塞",
+"zhCN",
+},
+[16060] = {
+"收割者戈提克",
+"纳克萨玛斯",
+"zhCN",
+},
+[36612] = {
+"玛洛加尔领主",
+"冰冠堡垒",
+"zhCN",
+},
+[36891] = {
+"冰魂始祖龙",
+"萨隆深渊",
+"zhCN",
+},
+[2110] = {
+"未知目标",
+"冰冠堡垒",
+"zhCN",
+},
+[16018] = {
+"胆汁呕吐者",
+"纳克萨玛斯",
+"zhCN",
+},
+[12076] = {
+"熔岩元素",
+"熔火之心",
+"zhCN",
+},
+[20060] = {
+"萨古纳尔男爵",
+"风暴要塞",
+"zhCN",
+},
+[15931] = {
+"格罗布鲁斯",
+"纳克萨玛斯",
+"zhCN",
+},
+[12100] = {
+"熔岩掠夺者",
+"熔火之心",
+"zhCN",
+},
+[29315] = {
+"埃雷克姆",
+"紫罗兰监狱",
+"zhCN",
+},
+[17055] = {
+"未知目标",
+"纳克萨玛斯",
+"zhCN",
+},
+[16216] = {
+"邪恶之剑",
+"纳克萨玛斯",
+"zhCN",
+},
+[36516] = {
+"护魂复生者",
+"灵魂洪炉",
+"zhCN",
+},
+[16057] = {
+"腐烂的蛆虫",
+"纳克萨玛斯",
 "zhCN",
 },
 [29395] = {
@@ -2777,818 +3701,19 @@ PlaterDB = {
 "盘牙湖泊：毒蛇神殿",
 "zhCN",
 },
-[34466] = {
-"安塔尔·缮炉者",
-"十字军的试炼",
+[23561] = {
+"冰冻废土的士兵",
+"纳克萨玛斯",
 "zhCN",
 },
-[30961] = {
-"未知目标",
-"紫罗兰监狱",
+[23562] = {
+"势不可挡的憎恶",
+"纳克萨玛斯",
 "zhCN",
 },
-[21251] = {
-"幽暗沼泽巨人",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[39899] = {
-"未知目标",
-"红玉圣殿",
-"zhCN",
-},
-[37666] = {
-"黑暗堕落者谋士",
-"冰冠堡垒",
-"zhCN",
-},
-[29874] = {
-"达卡莱煽动者",
-"古达克",
-"zhCN",
-},
-[36881] = {
-"骷髅奴隶",
-"萨隆深渊",
-"zhCN",
-},
-[36897] = {
-"未知目标",
-"冰冠堡垒",
-"zhCN",
-},
-[21299] = {
-"盘牙深渊女巫",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[21228] = {
-"踏潮水术师",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[27447] = {
-"瓦尔洛斯·云击",
-"魔环",
-"zhCN",
-},
-[38494] = {
-"腐烂的冰霜巨人",
-"冰冠堡垒",
-"zhCN",
-},
-[31008] = {
-"碧蓝入侵者",
-"紫罗兰监狱",
-"zhCN",
-},
-[21339] = {
-"盘牙尖啸者",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[34454] = {
-"玛兹迪娜",
-"十字军的试炼",
-},
-[34470] = {
-"萨缪尔",
-"十字军的试炼",
-"zhCN",
-},
-[37025] = {
-"大臭",
-"冰冠堡垒",
-"zhCN",
-},
-[36609] = {
-"瓦格里暗影戒卫者",
-"冰冠堡垒",
-"zhCN",
-},
-[37562] = {
-"毒气之云",
-"冰冠堡垒",
-"zhCN",
-},
-[213] = {
-"塔尔达林",
-"风暴要塞",
-"zhCN",
-},
-[25483] = {
-"Shadowsword Manafiend",
-"The Sunwell",
-},
-[10981] = {
-"我不狂谁狂",
-"冰冠堡垒",
-"zhCN",
-},
-[36626] = {
-"烂肠",
-"冰冠堡垒",
-"zhCN",
-},
-[37664] = {
-"黑暗堕落者大法师",
-"冰冠堡垒",
-"zhCN",
-},
-[36658] = {
-"天灾领主泰兰努斯",
-"萨隆深渊",
-"zhCN",
-},
-[25851] = {
-"爆裂魔",
-"太阳之井",
-},
-[36840] = {
-"伊米亚愤怒使者",
-"萨隆深渊",
-"zhCN",
-},
-[37217] = {
-"小宝",
-"冰冠堡垒",
-"zhCN",
-},
-[35189] = {
-"一个字猛",
-"风暴要塞",
-"zhCN",
-},
-[31176] = {
-"石肤图腾 X",
-"冰冠堡垒",
-"zhCN",
-},
-[40683] = {
-"未知目标",
-"红玉圣殿",
-"zhCN",
-},
-[27639] = {
-"魔环领主巫师",
-"魔环",
-"zhCN",
-},
-[30178] = {
-"安卡哈群行蛛",
-"安卡赫特：古代王国",
-"zhCN",
-},
-[29316] = {
-"摩拉格",
-"紫罗兰监狱",
-"zhCN",
-},
-[31216] = {
-"小马君",
-"熔火之心",
-"zhCN",
-},
-[27647] = {
-"幻影食人魔",
-"魔环",
-"zhCN",
-},
-[27655] = {
-"法师领主伊洛姆",
-"魔环",
-"zhCN",
-},
-[29308] = {
-"塔达拉姆王子",
-"安卡赫特：古代王国",
-"zhCN",
-},
-[16429] = {
+[23563] = {
 "织魂者",
 "纳克萨玛斯",
-"zhCN",
-},
-[20062] = {
-"星术师卡波妮娅",
-"风暴要塞",
-"zhCN",
-},
-[36499] = {
-"护魂收割者",
-"灵魂洪炉",
-"zhCN",
-},
-[34471] = {
-"圣光使者巴尔诺",
-"十字军的试炼",
-"zhCN",
-},
-[20038] = {
-"凤鹰幼崽",
-"风暴要塞",
-"zhCN",
-},
-[20046] = {
-"星术师领主",
-"风暴要塞",
-"zhCN",
-},
-[1964] = {
-"树人",
-"熔火之心",
-"zhCN",
-},
-[19551] = {
-"未知目标",
-"风暴要塞",
-"zhCN",
-},
-[34455] = {
-"布罗恩·粗角",
-"十字军的试炼",
-},
-[37026] = {
-"破天号巫师",
-"冰冠堡垒",
-"zhCN",
-},
-[12099] = {
-"火誓者",
-"熔火之心",
-"zhCN",
-},
-[36978] = {
-"破天号炮兵",
-"冰冠堡垒",
-"zhCN",
-},
-[30338] = {
-"安卡哈群行蛛",
-"安卡赫特：古代王国",
-"zhCN",
-},
-[29819] = {
-"达卡莱长枪手",
-"古达克",
-"zhCN",
-},
-[12119] = {
-"烈焰行者护卫",
-"熔火之心",
-"zhCN",
-},
-[37122] = {
-"阿纳斯上尉",
-"冰冠堡垒",
-"zhCN",
-},
-[36627] = {
-"腐面",
-"冰冠堡垒",
-"zhCN",
-},
-[37665] = {
-"黑暗堕落者将领",
-"冰冠堡垒",
-"zhCN",
-},
-[16573] = {
-"地穴卫士",
-"纳克萨玛斯",
-"zhCN",
-},
-[37697] = {
-"未知目标",
-"冰冠堡垒",
-"zhCN",
-},
-[12143] = {
-"未知目标",
-"熔火之心",
-"zhCN",
-},
-[34461] = {
-"泰利乌斯·达斯布雷德",
-"十字军的试炼",
-"zhCN",
-},
-[36961] = {
-"破天号军士",
-"冰冠堡垒",
-"zhCN",
-},
-[21212] = {
-"瓦丝琪",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[21220] = {
-"盘牙女祭司",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[22250] = {
-"腐臭的蘑菇",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[40417] = {
-"焦鳞祈求者",
-"红玉圣殿",
-"zhCN",
-},
-[29931] = {
-"达卡莱犀牛",
-"古达克",
-"zhCN",
-},
-[11664] = {
-"烈焰行者精英",
-"熔火之心",
-"zhCN",
-},
-[11668] = {
-"火焰之王",
-"熔火之心",
-"zhCN",
-},
-[21268] = {
-"灵弦长弓",
-"风暴要塞",
-"zhCN",
-},
-[29452] = {
-"艾斯比娟儿",
-"冰冠堡垒",
-"zhCN",
-},
-[25372] = {
-"炎刃斥候",
-"太阳之井",
-},
-[36899] = {
-"未知目标",
-"冰冠堡垒",
-"zhCN",
-},
-[31009] = {
-"碧蓝破法者",
-"紫罗兰监狱",
-"zhCN",
-},
-[36497] = {
-"布隆亚姆",
-"灵魂洪炉",
-"zhCN",
-},
-[11665] = {
-"熔岩歼灭者",
-"熔火之心",
-"zhCN",
-},
-[29680] = {
-"斯拉德兰毒蛇",
-"古达克",
-"zhCN",
-},
-[31041] = {
-"消沉的树人",
-"诺森德",
-},
-[17252] = {
-"吉尔利克",
-"冰冠堡垒",
-"zhCN",
-},
-[34456] = {
-"玛里萨斯·辉刃",
-"十字军的试炼",
-},
-[36516] = {
-"护魂复生者",
-"灵魂洪炉",
-"zhCN",
-},
-[21364] = {
-"未知目标",
-"风暴要塞",
-"zhCN",
-},
-[33993] = {
-"风暴看守者埃玛尔隆",
-"阿尔卡冯的宝库",
-"zhCN",
-},
-[36564] = {
-"护魂骨法师",
-"灵魂洪炉",
-"zhCN",
-},
-[15956] = {
-"阿努布雷坎",
-"纳克萨玛斯",
-"zhCN",
-},
-[25484] = {
-"影刃刺客",
-"太阳之井",
-},
-[36612] = {
-"玛洛加尔领主",
-"冰冠堡垒",
-"zhCN",
-},
-[27653] = {
-"幻影水元素",
-"魔环",
-"zhCN",
-},
-[31129] = {
-"大地之力图腾 VIII",
-"熔火之心",
-"zhCN",
-},
-[34468] = {
-"努兹尔·啸钉",
-"十字军的试炼",
-"zhCN",
-},
-[37698] = {
-"蹒跚的血僵尸",
-"冰冠堡垒",
-"zhCN",
-},
-[178449] = {
-"小浣熊",
-"风暴要塞",
-"zhCN",
-},
-[21865] = {
-"盘牙伏击者",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[32191] = {
-"碧蓝追猎者",
-"紫罗兰监狱",
-"zhCN",
-},
-[30666] = {
-"碧蓝上尉",
-"紫罗兰监狱",
-"zhCN",
-},
-[31185] = {
-"治疗之泉图腾 IX",
-"冰冠堡垒",
-"zhCN",
-},
-[21857] = {
-"内心之魔",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[36788] = {
-"亡语者侍僧",
-"萨隆深渊",
-"zhCN",
-},
-[37134] = {
-"伊米亚女猎手",
-"冰冠堡垒",
-"zhCN",
-},
-[21508] = {
-"盘牙狂鱼",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[27648] = {
-"幻影纳迦",
-"魔环",
-"zhCN",
-},
-[22035] = {
-"未知目标",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[37890] = {
-"教派狂热者",
-"冰冠堡垒",
-"zhCN",
-},
-[34451] = {
-"比莱纳·雷蹄",
-"十字军的试炼",
-},
-[38433] = {
-"寒冰看守者图拉旺",
-"阿尔卡冯的宝库",
-"zhCN",
-},
-[36916] = {
-"未知目标",
-"灵魂洪炉",
-"zhCN",
-},
-[20031] = {
-"血警卫军团士兵",
-"风暴要塞",
-"zhCN",
-},
-[37970] = {
-"瓦拉纳王子",
-"冰冠堡垒",
-"zhCN",
-},
-[20047] = {
-"炽手战斗法师",
-"风暴要塞",
-"zhCN",
-},
-[11321] = {
-"熔岩元素",
-"怒焰裂谷",
-"zhCN",
-},
-[20063] = {
-"首席技师塔隆尼库斯",
-"风暴要塞",
-"zhCN",
-},
-[37012] = {
-"上古骷髅士兵",
-"冰冠堡垒",
-"zhCN",
-},
-[34473] = {
-"布瑞娜·沉夜",
-"十字军的试炼",
-"zhCN",
-},
-[23421] = {
-"Ashtongue Channeler",
-"Black Temple",
-},
-[37571] = {
-"黑暗堕落者顾问",
-"冰冠堡垒",
-"zhCN",
-},
-[40142] = {
-"海里昂",
-"红玉圣殿",
-"zhCN",
-},
-[29309] = {
-"纳多克斯长老",
-"安卡赫特：古代王国",
-"zhCN",
-},
-[36597] = {
-"巫妖王",
-"冰冠堡垒",
-"zhCN",
-},
-[29836] = {
-"达卡莱作战骑兵",
-"古达克",
-"zhCN",
-},
-[38410] = {
-"痛苦的精魂",
-"冰冠堡垒",
-"zhCN",
-},
-[22120] = {
-"深水孢子蝠",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[36661] = {
-"霜牙",
-"萨隆深渊",
-"zhCN",
-},
-[15447] = {
-"空气之怒图腾",
-"冰冠堡垒",
-"zhCN",
-},
-[15976] = {
-"毒性捕猎者",
-"纳克萨玛斯",
-"zhCN",
-},
-[22119] = {
-"深渊潜伏者",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[36725] = {
-"尼鲁巴尔护巢者",
-"冰冠堡垒",
-"zhCN",
-},
-[21213] = {
-"莫洛格里·踏潮者",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[21221] = {
-"盘牙驯兽师",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[21229] = {
-"暗心唤潮者",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[31133] = {
-"火舌图腾 VIII",
-"冰冠堡垒",
-"zhCN",
-},
-[29932] = {
-"凶残的伊克",
-"古达克",
-"zhCN",
-},
-[21253] = {
-"被污染的水元素",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[22055] = {
-"盘牙精英",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[21269] = {
-"未知目标",
-"风暴要塞",
-"zhCN",
-},
-[36811] = {
-"亡语随从",
-"冰冠堡垒",
-"zhCN",
-},
-[37907] = {
-"未知目标",
-"冰冠堡垒",
-"zhCN",
-},
-[38104] = {
-"被感染的僵尸",
-"冰冠堡垒",
-"zhCN",
-},
-[21301] = {
-"盘牙粉碎者",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[37955] = {
-"鲜血女王兰娜瑟尔",
-"冰冠堡垒",
-"zhCN",
-},
-[38482] = {
-"寒冰护卫",
-"阿尔卡冯的宝库",
-"zhCN",
-},
-[22347] = {
-"未知目标",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[6499] = {
-"菠萝妹妹",
-"风暴要塞",
-"zhCN",
-},
-[31228] = {
-"林地行者",
-"诺森德",
-},
-[36502] = {
-"噬魂者",
-"灵魂洪炉",
-"zhCN",
-},
-[34474] = {
-"塞瑞莎·术轮",
-"十字军的试炼",
-"zhCN",
-},
-[35465] = {
-"扎戈瑞姆",
-"十字军的试炼",
-"zhCN",
-},
-[2110] = {
-"未知目标",
-"冰冠堡垒",
-"zhCN",
-},
-[22036] = {
-"未知目标",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[11988] = {
-"焚化者古雷曼格",
-"熔火之心",
-"zhCN",
-},
-[29573] = {
-"未知目标",
-"古达克",
-"zhCN",
-},
-[37125] = {
-"鲁伯特上尉",
-"冰冠堡垒",
-"zhCN",
-},
-[21246] = {
-"毒蛇神殿孢子蝠",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[12100] = {
-"熔岩掠夺者",
-"熔火之心",
-"zhCN",
-},
-[21806] = {
-"暗心缚法者",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[36678] = {
-"普崔塞德教授",
-"冰冠堡垒",
-"zhCN",
-},
-[29822] = {
-"达卡莱织火者",
-"古达克",
-"zhCN",
-},
-[21964] = {
-"深水卫士卡莉蒂丝",
-"盘牙湖泊：毒蛇神殿",
-"zhCN",
-},
-[29637] = {
-"狡猾的蛇",
-"古达克",
-"zhCN",
-},
-[30667] = {
-"碧蓝巫术师",
-"紫罗兰监狱",
-"zhCN",
-},
-[3527] = {
-"治疗之泉图腾",
-"熔火之心",
-"zhCN",
-},
-[20032] = {
-"血警卫守备官",
-"风暴要塞",
-"zhCN",
-},
-[20033] = {
-"星术师",
-"风暴要塞",
-"zhCN",
-},
-[27633] = {
-"碧蓝审讯者",
-"魔环",
-"zhCN",
-},
-[27641] = {
-"离心构造体",
-"魔环",
-"zhCN",
-},
-[27649] = {
-"未知目标",
-"魔环",
-"zhCN",
-},
-[21270] = {
-"宇宙灌注者",
-"风暴要塞",
 "zhCN",
 },
 },
@@ -3694,8 +3819,8 @@ nil,
 ["Cast - Glowing [P]"] = 10,
 ["Cast - Important Target [P]"] = 2,
 ["Unit - Show Energy"] = 11,
-["Cast - Very Important"] = 15,
 ["Cast - Quick Flash"] = 2,
+["Cast - Very Important"] = 15,
 ["Cast - Alert + Timer [P]"] = 4,
 ["Cast - Shield Interrupt"] = 2,
 ["Cast - Circular Swipe"] = 4,
@@ -3755,10 +3880,10 @@ nil,
 ["Jaina Encounter"] = 6,
 ["Players Targetting Amount"] = 4,
 ["Reorder Nameplate"] = 4,
-["Combo Points"] = 6,
+["Extra Border"] = 2,
 ["Execute Range"] = 1,
 ["Target Color"] = 3,
-["Extra Border"] = 2,
+["Combo Points"] = 6,
 ["Attacking Specific Unit"] = 2,
 },
 ["minor_width_scale"] = 0.99999994039536,
@@ -3810,23 +3935,23 @@ nil,
 ["nameplateSelectedScale"] = "1.1974904537201",
 ["nameplateRemovalAnimation"] = "0",
 ["nameplateLargeTopInset"] = "0.085",
-["nameplateMinAlphaDistance"] = "-158489.31924611",
+["nameplateShowFriends"] = "0",
 ["nameplateMotion"] = "1",
 ["nameplatePersonalShowInCombat"] = "1",
 ["nameplateMinScale"] = "1",
-["nameplateOccludedAlphaMult"] = "0.83097392320633",
+["nameplateSelfAlpha"] = "0.75",
 ["nameplateOtherTopInset"] = "0.085",
 ["nameplateOtherAtBase"] = "0",
 ["nameplateSelfBottomInset"] = "0.2",
-["nameplateSelfAlpha"] = "0.75",
+["nameplateOccludedAlphaMult"] = "0.83097392320633",
 ["nameplateShowFriendlyGuardians"] = "0",
 ["NamePlateHorizontalScale"] = "1",
 ["nameplatePersonalShowAlways"] = "1",
 ["nameplateShowOnlyNames"] = "1",
-["nameplateShowFriends"] = "0",
+["nameplateMinAlphaDistance"] = "-158489.31924611",
 ["nameplatePersonalShowWithTarget"] = "0",
 },
-["login_counter"] = 23328,
+["login_counter"] = 23385,
 ["click_space_friendly"] = {
 122,
 },
@@ -3983,7 +4108,7 @@ nil,
 nil,
 4,
 },
-["percent_text_enabled"] = true,
+["big_actorname_text_font"] = "EUI",
 ["big_actorname_text_size"] = 12,
 ["spellpercent_text_size"] = 11,
 ["percent_show_health"] = true,
@@ -4007,7 +4132,7 @@ nil,
 },
 ["actorname_text_size"] = 11,
 ["power_percent_text_font"] = "Accidental Presidency",
-["big_actorname_text_font"] = "EUI",
+["percent_text_enabled"] = true,
 ["spellpercent_text_enabled"] = true,
 ["level_text_enabled"] = true,
 },
@@ -4064,10 +4189,10 @@ nil,
 1,
 },
 ["actorname_text_size"] = 11,
-["power_percent_text_font"] = "Accidental Presidency",
+["big_actorname_text_font"] = "EUI",
 ["percent_text_size"] = 10,
 ["percent_text_ooc"] = true,
-["percent_show_health"] = true,
+["level_text_alpha"] = 1,
 ["spellpercent_text_enabled"] = true,
 ["big_actortitle_text_size"] = 12,
 ["percent_text_font"] = "Accidental Presidency",
@@ -4084,11 +4209,11 @@ nil,
 13,
 },
 ["percent_text_enabled"] = true,
-["level_text_alpha"] = 1,
-["big_actorname_text_font"] = "EUI",
 ["actorname_text_anchor"] = {
 ["y"] = 0.22999572753906,
 },
+["percent_show_health"] = true,
+["power_percent_text_font"] = "Accidental Presidency",
 ["level_text_enabled"] = true,
 },
 ["global_health_width"] = 106,
@@ -5328,10 +5453,10 @@ false,
 false,
 "magenta",
 },
-[129369] = {
+[36899] = {
 false,
 false,
-"lightsalmon",
+"magenta",
 },
 [131818] = {
 false,
@@ -5463,10 +5588,10 @@ true,
 false,
 "aqua",
 },
-[33243] = {
+[133482] = {
 false,
 false,
-"magenta",
+"maroon",
 },
 [132126] = {
 false,
@@ -5563,10 +5688,10 @@ false,
 false,
 "goldenrod",
 },
-[136295] = {
+[134251] = {
 false,
 false,
-"peru",
+"honeydew",
 },
 [139425] = {
 false,
@@ -5613,10 +5738,10 @@ false,
 false,
 "navajowhite",
 },
-[134251] = {
+[136295] = {
 false,
 false,
-"honeydew",
+"peru",
 },
 [153196] = {
 false,
@@ -5673,10 +5798,10 @@ true,
 false,
 "ROGUE",
 },
-[133482] = {
+[33243] = {
 false,
 false,
-"maroon",
+"magenta",
 },
 [134701] = {
 false,
@@ -5738,10 +5863,10 @@ false,
 false,
 "magenta",
 },
-[36899] = {
+[129369] = {
 false,
 false,
-"magenta",
+"lightsalmon",
 },
 [162718] = {
 false,
@@ -5894,7 +6019,28 @@ false,
 ["HooksTemp"] = {
 },
 ["Author"] = "Izimode-Azralon",
-["PlaterCore"] = 1,
+["LoadConditions"] = {
+["talent"] = {
+},
+["group"] = {
+},
+["affix"] = {
+},
+["map_ids"] = {
+},
+["race"] = {
+},
+["pvptalent"] = {
+},
+["spec"] = {
+},
+["role"] = {
+},
+["encounter_ids"] = {
+},
+["class"] = {
+},
+},
 ["Desc"] = "Hide neutral units, show when selected, see the constructor script for options.",
 ["Hooks"] = {
 ["Leave Combat"] = "function (self, unitId, unitFrame, envTable)\n    if (unitFrame.namePlateUnitReaction == envTable.REACTION_NEUTRAL) then\n        \n        --plater already handle this\n        if (unitFrame.PlayerCannotAttack) then\n            return\n        end    \n        \n        --check if is only open world\n        if (envTable.OnlyInOpenWorld and Plater.ZoneInstanceType ~= \"none\") then\n            return \n        end\n        \n        --check for only in combat\n        if (envTable.ShowInCombat) then\n            envTable.HideNameplate (unitFrame)\n        end\n    end\nend\n\n\n",
@@ -5906,28 +6052,7 @@ false,
 ["Constructor"] = "function (self, unitId, unitFrame, envTable)\n    \n    --settings\n    envTable.OnlyInOpenWorld = true;\n    envTable.ShowInCombat = true;\n    \n    --consts\n    envTable.REACTION_NEUTRAL = 4;\n    \n    --functions to hide and show the healthBar\n    function envTable.HideNameplate (unitFrame)\n        Plater.HideHealthBar (unitFrame)\n        Plater.DisableHighlight (unitFrame)\n        envTable.IsHidden = true\n    end\n    \n    function envTable.ShowNameplate (unitFrame)\n        Plater.ShowHealthBar (unitFrame)\n        Plater.EnableHighlight (unitFrame)\n        envTable.IsHidden = false\n    end\n    \nend\n\n\n\n\n",
 },
 ["Name"] = "Hide Neutral Units [Plater]",
-["LoadConditions"] = {
-["talent"] = {
-},
-["group"] = {
-},
-["affix"] = {
-},
-["map_ids"] = {
-},
-["race"] = {
-},
-["pvptalent"] = {
-},
-["spec"] = {
-},
-["role"] = {
-},
-["encounter_ids"] = {
-},
-["class"] = {
-},
-},
+["PlaterCore"] = 1,
 ["LastHookEdited"] = "Constructor",
 ["Time"] = 1553450458,
 ["Icon"] = 1990989,
@@ -5937,11 +6062,12 @@ false,
 {
 ["Enabled"] = false,
 ["Revision"] = 186,
-["Options"] = {
-},
-["LastHookEdited"] = "",
-["Author"] = "Izimode-Azralon",
 ["OptionsValues"] = {
+},
+["HooksTemp"] = {
+},
+["Author"] = "Izimode-Azralon",
+["Options"] = {
 },
 ["Desc"] = "Show how many raid members are targeting the unit",
 ["Hooks"] = {
@@ -5953,7 +6079,11 @@ false,
 ["Constructor"] = "--all gray text like this are comments and do not run as code\n--build the settings and basic functions for the hook\n\nfunction (self, unitId, unitFrame, envTable)\n    \n    --declare setting variables:\n    local textColor = \"orange\";\n    local textSize = 12;\n    \n    local showInRaid = true;\n    local showInDungeon = true;\n    local showInArena = false;\n    local showInBattleground = false;\n    local showInOpenWorld = true;\n    \n    envTable.UpdateInterval = 2; --each 2 updates in the nameplate it'll update the amount of targets\n    \n    local anchor = {\n        side = 6, --1 = topleft 2 = left 3 = bottomleft 4 = bottom 5 = bottom right 6 = right 7 = topright 8 = top\n        x = 4, --x offset\n        y = 0, --y offset\n    };\n    \n    \n    ---------------------------------------------------------------------------------------------------------------------------------------------\n    \n    \n    --frames:\n    \n    --create the text that will show the amount of people targeting the unit\n    if (not  unitFrame.healthBar.TargetAmount) then\n        envTable.TargetAmount = Plater:CreateLabel (unitFrame.healthBar, \"\", textSize, textColor);\n        Plater.SetAnchor (envTable.TargetAmount, anchor);\n        unitFrame.healthBar.TargetAmount = envTable.TargetAmount\n    end\n    \n    --in case Plater wipes the envTable\n    envTable.TargetAmount = unitFrame.healthBar.TargetAmount\n    \n    ---------------------------------------------------------------------------------------------------------------------------------------------           \n    --private variables (they will be used in the other scripts within this hook)\n    envTable.CanShow = false;\n    envTable.UpdateCooldown = 0;\n    envTable.InRaid = false;\n    envTable.InParty = false;\n    \n    ---------------------------------------------------------------------------------------------------------------------------------------------           \n    --functions\n    \n    --update the InRaid or InParty proprieties\n    function envTable.UpdateGroupType()\n        if (IsInRaid()) then\n            envTable.InRaid = true;\n            envTable.InParty = false;     \n            \n        elseif (IsInGroup()) then\n            envTable.InRaid = false;\n            envTable.InParty = true;   \n            \n        else\n            envTable.InRaid = false;            \n            envTable.InParty = false;\n        end\n    end\n    \n    --this function controls if the amount of targets can show following the settings in the top of this script\n    function envTable.CanShowTargetAmount()\n        \n        local _, instanceType, difficultyID, _, _, _, _, instanceMapID, instanceGroupSize = GetInstanceInfo()\n        \n        if (showInRaid and instanceType == \"raid\") then\n            envTable.UpdateGroupType()\n            return true\n        end\n        \n        if (showInDungeon and instanceType == \"party\") then\n            envTable.UpdateGroupType()\n            return true\n        end\n        \n        if (showInArena and instanceType == \"arena\") then\n            envTable.UpdateGroupType()\n            return true\n        end\n        \n        if (showInBattleground and instanceType == \"pvp\") then\n            envTable.UpdateGroupType()\n            return true\n        end\n        \n        if (showInOpenWorld and instanceType == \"none\") then\n            envTable.UpdateGroupType()\n            if (envTable.InRaid or envTable.InParty) then\n                return true\n            end\n        end\n        \n        return false\n    end\n    \n    --get the amount of player targetting the unit in raid or party\n    function envTable.NumTargetsInRaid (unitFrame)\n        local amount = 0\n        for i = 1, GetNumGroupMembers() do\n            local unit = \"raid\" .. i .. \"target\"\n            if (UnitGUID (unit) == unitFrame.namePlateUnitGUID) then\n                amount = amount + 1\n            end\n        end\n        \n        return amount\n    end\n    \n    function envTable.NumTargetsInParty()\n        local amount = 0\n        for i = 1, GetNumGroupMembers() - 1 do\n            local unit = \"party\" .. i .. \"target\"\n            if (UnitGUID (unit) == unitFrame.namePlateUnitGUID) then\n                amount = amount + 1\n            end\n        end\n        \n        local unit = \"playertarget\"\n        if (UnitGUID (unit) == unitFrame.namePlateUnitGUID) then\n            amount = amount + 1\n        end        \n        \n        return amount\n    end\n    \nend",
 },
 ["Prio"] = 99,
+["Name"] = "Players Targeting a Target [Plater]",
+["PlaterCore"] = 1,
+["LastHookEdited"] = "",
 ["Time"] = 1651483536,
+["Icon"] = 1966587,
 ["LoadConditions"] = {
 ["talent"] = {
 },
@@ -5976,11 +6106,6 @@ false,
 ["affix"] = {
 },
 },
-["HooksTemp"] = {
-},
-["Name"] = "Players Targeting a Target [Plater]",
-["Icon"] = 1966587,
-["PlaterCore"] = 1,
 },
 {
 ["Enabled"] = false,
@@ -5999,11 +6124,6 @@ false,
 ["Constructor"] = "function (self, unitId, unitFrame, envTable)\n    \n    --usage: color name e.g \"red\" \"yellow\"; color table e.g {1, 0, 0} {1, 1, 0}; hex string e.g. \"#FF0000\" \"FFFF00\"\n    \n    envTable.TargetColor = \"purple\"\n    --envTable.TargetColor = \"#FF00FF\"\n    --envTable.TargetColor = {252/255, 0/255, 254/255}\n    \n    function envTable.UpdateColor (unitFrame)\n        --do not change the color of the personal bar\n        if (not unitFrame.IsSelf) then\n            \n            --if this nameplate the current target of the player?\n            if (unitFrame.namePlateIsTarget) then\n                Plater.SetNameplateColor (unitFrame, envTable.TargetColor)  --rgb\n            else\n                --refresh the nameplate color\n                Plater.RefreshNameplateColor (unitFrame)\n            end\n        end\n    end\n    \nend\n\n\n\n\n",
 },
 ["Time"] = 1552354619,
-["PlaterCore"] = 1,
-["Name"] = "Current Target Color [Plater]",
-["OptionsValues"] = {
-},
-["Icon"] = 878211,
 ["LoadConditions"] = {
 ["talent"] = {
 },
@@ -6026,6 +6146,11 @@ false,
 ["race"] = {
 },
 },
+["Name"] = "Current Target Color [Plater]",
+["OptionsValues"] = {
+},
+["Icon"] = 878211,
+["PlaterCore"] = 1,
 },
 {
 ["OptionsValues"] = {
@@ -6101,7 +6226,7 @@ false,
 ["Destructor"] = "function (self, unitId, unitFrame, envTable)\n    \n    envTable.BorderFrame:Hide()\n    \nend\n\n\n",
 ["Constructor"] = "function (self, unitId, unitFrame, envTable)\n    \n    --border color\n    local borderColor = \"yellow\"\n    \n    --size of the border\n    local borderSize = 1\n    \n    --transparency\n    local borderAlpha = 1\n    \n    --enabled (set to false it you only want to use the extra border in other scripts)\n    local isEnabled = true\n    \n    --export border (allow the border to be used by other scripts)\n    --other scripts can use:\n    --unitFrame.healthBar.extraBorder:Show()\n    --unitFrame.healthBar.extraBorder:SetVertexColor (r, g, b)\n    --unitFrame.healthBar.extraBorder:SetBorderSizes (borderSize)\n    local canExportBorder = true\n    \n    --do not add the border to personal bar\n    local noPersonalBar = true\n    \n    --private\n    do\n        \n        local newBorder = CreateFrame (\"frame\", nil, unitFrame.healthBar, \"NamePlateFullBorderTemplate\")\n        envTable.BorderFrame = newBorder\n        \n        newBorder:SetBorderSizes (borderSize, borderSize, borderSize, borderSize)\n        newBorder:UpdateSizes()\n        \n        local r, g, b = DetailsFramework:ParseColors (borderColor)\n        newBorder:SetVertexColor (r, g, b, borderAlpha)\n        \n        envTable.ShowOnPersonalBar = not noPersonalBar\n        \n        if (canExportBorder) then\n            unitFrame.healthBar.extraBorder = newBorder\n        end\n        \n        if (not isEnabled) then\n            envTable.IsEnabled = false\n        else\n            envTable.IsEnabled = true\n        end\n    end\n    \nend\n\n\n",
 },
-["Name"] = "Extra Border [Plater]",
+["Time"] = 1551825335,
 ["PlaterCore"] = 1,
 ["LoadConditions"] = {
 ["talent"] = {
@@ -6128,7 +6253,7 @@ false,
 ["OptionsValues"] = {
 },
 ["Icon"] = 133689,
-["Time"] = 1551825335,
+["Name"] = "Extra Border [Plater]",
 },
 {
 ["OptionsValues"] = {
@@ -6178,11 +6303,12 @@ false,
 {
 ["Enabled"] = false,
 ["Revision"] = 110,
-["Options"] = {
-},
-["LastHookEdited"] = "Constructor",
-["Author"] = "Kastfall-Azralon",
 ["OptionsValues"] = {
+},
+["HooksTemp"] = {
+},
+["Author"] = "Kastfall-Azralon",
+["Options"] = {
 },
 ["Desc"] = "Easy way to change the color of an unit. Open the constructor script and follow the examples.",
 ["Hooks"] = {
@@ -6190,7 +6316,11 @@ false,
 ["Nameplate Updated"] = "function (self, unitId, unitFrame, envTable)\n    \n    --attempt to get the color from the unit color list\n    local color = envTable.NpcColors [unitFrame.namePlateUnitNameLower] or envTable.NpcColors [unitFrame.namePlateUnitName] or envTable.NpcColors [unitFrame.namePlateNpcId]\n    \n    --if the color exists, set the health bar color\n    if (color) then\n        Plater.SetNameplateColor (unitFrame, color)\n    end\n    \nend\n\n\n\n\n\n\n\n\n\n\n\n",
 },
 ["Prio"] = 99,
+["Name"] = "Color Automation [Plater]",
+["PlaterCore"] = 1,
+["LastHookEdited"] = "Constructor",
 ["Time"] = 1592593363,
+["Icon"] = "Interface\\AddOns\\Plater\\images\\color_bar",
 ["LoadConditions"] = {
 ["talent"] = {
 },
@@ -6213,21 +6343,15 @@ false,
 ["class"] = {
 },
 },
-["HooksTemp"] = {
-},
-["Name"] = "Color Automation [Plater]",
-["Icon"] = "Interface\\AddOns\\Plater\\images\\color_bar",
-["PlaterCore"] = 1,
 },
 {
 ["Enabled"] = false,
 ["Revision"] = 143,
-["OptionsValues"] = {
-},
-["HooksTemp"] = {
-},
-["Author"] = "Ahwa-Azralon",
 ["Options"] = {
+},
+["LastHookEdited"] = "",
+["Author"] = "Ahwa-Azralon",
+["OptionsValues"] = {
 },
 ["Desc"] = "Adds extra effects to execute range and allow to setup two execute ranges for classes with execute when the unit has almost full healh. See the constructor script for options.",
 ["Hooks"] = {
@@ -6235,7 +6359,12 @@ false,
 ["Constructor"] = "function (self, unitId, unitFrame, envTable)\n    \n    --execute detection, if true the script will handle the execute percent\n    --while false Plater will automatically trigger the execute range\n    --you only want to set this to true in case of Plater not detecting the execute range correctly\n    envTable.UseCustomExecutePercent = true\n    --execute percent, if not detecting automatic, this is the percent to active the execute range\n    --use from zero to one, 0.20 is equal to 20% of the unit life\n    envTable.ExecutePercent = 0.20\n    \n    --second execute range (UseCustomExecutePercent must be enabled)\n    envTable.SecondRangeStart = 0.999\n    envTable.SecondRangeEnd = 0.8\n    \n    --allow this script to change the nameplate color when the unit is in execute range\n    envTable.CanChangeColor = true\n    --change the health bar color to this color when the unit is in execute range\n    --color can be set as:\n    --color names: \"red\", \"yellow\"\n    --color hex: \"#FF0000\", \"#FFFF00\"\n    --color table: {1, 0, 0}, {1, 1, 0}\n    envTable.ExecuteColor = \"green\"\n    \n    --border color\n    envTable.CanChangeBorderColor = false\n    envTable.BorderColor = \"red\"\n    \n    --hide the default health divisor and the health execute indicator\n    envTable.HideHealthDivisor = false\n    --if not hidden, adjust the health divisor settings and the health execute indicator\n    envTable.HealthDivisorAlpha = 0.5\n    envTable.HealthDivisorColor = \"white\"\n    envTable.HealthExecuteIndicatorAlpha = 0.15\n    envTable.HealthExecuteIndicatorColor = \"darkred\"\n    \n    \n    --private (internal functions)\n    do\n        function envTable.UnitInExecuteRange (unitFrame, divisorPercent)\n            --check if can change the execute color\n            if (envTable.CanChangeColor) then\n                Plater.SetNameplateColor (unitFrame, envTable.ExecuteColor)\n            end\n            \n            if (envTable.CanChangeBorderColor) then\n                Plater.SetBorderColor (unitFrame, envTable.BorderColor)\n            end\n            \n            if (envTable.HideHealthDivisor) then\n                unitFrame.healthBar.healthCutOff:Hide() \n                unitFrame.healthBar.executeRange:Hide()\n                \n            else\n                envTable.UpdateHealthDivisor (unitFrame, divisorPercent)\n                \n            end\n        end\n        \n        function envTable.UpdateHealthDivisor (unitFrame, divisorPercent)\n            local healthBar = unitFrame.healthBar\n            \n            healthBar.healthCutOff:Show()\n            healthBar.healthCutOff:SetVertexColor (DetailsFramework:ParseColors (envTable.HealthDivisorColor))\n            healthBar.healthCutOff:SetAlpha (envTable.HealthDivisorAlpha)\n            \n            healthBar.executeRange:Show()\n            healthBar.executeRange:SetVertexColor (DetailsFramework:ParseColors (envTable.HealthExecuteIndicatorColor))\n            healthBar.executeRange:SetAlpha (envTable.HealthExecuteIndicatorAlpha)\n            \n            if (envTable.UseCustomExecutePercent) then\n                healthBar.healthCutOff:ClearAllPoints()\n                healthBar.executeRange:ClearAllPoints()\n                \n                healthBar.healthCutOff:SetSize (healthBar:GetHeight(), healthBar:GetHeight())\n                healthBar.healthCutOff:SetPoint (\"center\", healthBar, \"left\", healthBar:GetWidth() * divisorPercent, 0)\n                \n                healthBar.executeRange:SetTexCoord (0, envTable.ExecutePercent, 0, 1)\n                healthBar.executeRange:SetHeight (healthBar:GetHeight())\n                healthBar.executeRange:SetPoint (\"left\", healthBar, \"left\", 0, 0)\n                healthBar.executeRange:SetPoint (\"right\", healthBar.healthCutOff, \"center\")\n            end\n            \n        end\n    end\n    \nend",
 },
 ["Prio"] = 99,
+["Time"] = 1651694318,
+["PlaterCore"] = 1,
+["HooksTemp"] = {
+},
 ["Name"] = "Advanced Execute Range",
+["Icon"] = 135358,
 ["LoadConditions"] = {
 ["talent"] = {
 },
@@ -6258,10 +6387,6 @@ false,
 ["class"] = {
 },
 },
-["LastHookEdited"] = "",
-["Time"] = 1651694318,
-["Icon"] = 135358,
-["PlaterCore"] = 1,
 },
 {
 ["OptionsValues"] = {
@@ -6312,11 +6437,12 @@ false,
 {
 ["Enabled"] = false,
 ["Revision"] = 237,
-["OptionsValues"] = {
-},
-["LastHookEdited"] = "",
-["Author"] = "Kastfall-Azralon",
 ["Options"] = {
+},
+["HooksTemp"] = {
+},
+["Author"] = "Kastfall-Azralon",
+["OptionsValues"] = {
 },
 ["Desc"] = "Script for the Jaina encounter on Battle for Dazzar'alor",
 ["Hooks"] = {
@@ -6328,12 +6454,7 @@ false,
 ["Constructor"] = "function (self, unitId, unitFrame, envTable)\n    \n    --nameplate colors for unit\n    envTable.Colors = {}\n    envTable.Colors [148631] = \"orange\" --Unexploded Ordinance\n    envTable.Colors [148522] = \"white\" --Ice Block\n    \n    --increase the nameplate height for these units\n    envTable.IncreaseSize = {}\n    envTable.IncreaseSize [148522] = 4 --Ice Block (increase in 4 pixels)\n    \n    --increase the size of the life percent for the nameplate of the barrel\n    envTable.UnexplodedOrdinanceTextSizeIncrease = 3\n    \n    --increase the castbar size for the unexploded ordinance explosion cast\n    envTable.UnexplodedOrdinanceCast = true\n    envTable.UnexplodedOrdinanceSpellID = 288221 --12058 --(debug)\n    envTable.UnexplodedOrdinanceCastBarHeight = 18\n    envTable.UnexplodedOrdinanceTimerSize = 18\n    \n    --npcIDs\n    envTable.NpcIDs = {}\n    envTable.NpcIDs.UnexplodedOrdinance = 148631\n    envTable.NpcIDs.IceBlock = 148522\nend\n\n--tests 126023 --harbor saurid - dazar'alor harbor\n--tests 3127 venomtail scorpid - durotar\n--tests 12058 dustwind storm witch - durotar\n--Load Condition: EncounterID 2281\n\n\n",
 },
 ["Prio"] = 99,
-["Name"] = "Jaina Encounter [Plater]",
-["PlaterCore"] = 1,
-["HooksTemp"] = {
-},
 ["Time"] = 1615745263,
-["Icon"] = "Interface\\AddOns\\Plater\\images\\encounter_jaina",
 ["LoadConditions"] = {
 ["talent"] = {
 },
@@ -6358,16 +6479,19 @@ false,
 ["spec"] = {
 },
 },
+["LastHookEdited"] = "",
+["Name"] = "Jaina Encounter [Plater]",
+["Icon"] = "Interface\\AddOns\\Plater\\images\\encounter_jaina",
+["PlaterCore"] = 1,
 },
 {
 ["Enabled"] = false,
 ["Revision"] = 84,
-["OptionsValues"] = {
-},
-["HooksTemp"] = {
-},
-["Author"] = "Kastfall-Azralon",
 ["Options"] = {
+},
+["LastHookEdited"] = "",
+["Author"] = "Kastfall-Azralon",
+["OptionsValues"] = {
 },
 ["Desc"] = "Script for Stormwall Blockade encounter on Battle for Dazzar'alor",
 ["Hooks"] = {
@@ -6376,11 +6500,7 @@ false,
 ["Constructor"] = "function (self, unitId, unitFrame, envTable)\n    \n    --nameplate colors for unit\n    envTable.Colors = {}\n    envTable.Colors.TemptingSiren = \"orange\"\n    \n    --npcID\n    envTable.NpcIDs = {}\n    envTable.NpcIDs.TemptingSiren = 146436\n    \n    --nameplate height for each unit\n    envTable.NameplateHeight = {}\n    envTable.NameplateHeight.TemptingSiren = 18\n    \n    \n    \nend\n\n\n",
 },
 ["Prio"] = 99,
-["Name"] = "Stormwall Encounter [Plater]",
-["PlaterCore"] = 1,
-["LastHookEdited"] = "",
 ["Time"] = 1649839645,
-["Icon"] = "Interface\\AddOns\\Plater\\images\\encounter_stormwall_blockade",
 ["LoadConditions"] = {
 ["talent"] = {
 },
@@ -6405,6 +6525,11 @@ false,
 ["race"] = {
 },
 },
+["HooksTemp"] = {
+},
+["Name"] = "Stormwall Encounter [Plater]",
+["Icon"] = "Interface\\AddOns\\Plater\\images\\encounter_stormwall_blockade",
+["PlaterCore"] = 1,
 },
 {
 ["Enabled"] = false,
@@ -6421,7 +6546,7 @@ false,
 ["Target Changed"] = "function (self, unitId, unitFrame, envTable)\n    envTable.UpdateBorder (unitFrame, unitId)\nend\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
 ["Constructor"] = "function (self, unitId, unitFrame, envTable)\n    \n    --settings\n    envTable.BorderThickness = 3\n    envTable.BorderColor = \"black\"\n    \n    --private\n    function envTable.UpdateBorder (unitFrame, unit)\n        local plateFrame = unitFrame:GetParent()\n        \n        if (UnitIsUnit (\"focus\", unit)) then\n            Plater.SetBorderColor (unitFrame, envTable.BorderColor)\n            local borderSize = envTable.BorderThickness\n            unitFrame.healthBar.border:SetBorderSizes (borderSize, borderSize, borderSize, borderSize)\n            unitFrame.healthBar.border:UpdateSizes()        \n            \n        else\n            Plater.SetBorderColor (unitFrame)\n            Plater.UpdatePlateBorderThickness (unitFrame.PlateFrame)\n            unitFrame.healthBar.border:UpdateSizes()\n        end\n    end\nend\n\n\n\n",
 },
-["Name"] = "Focus Target Border",
+["Time"] = 1552962607,
 ["PlaterCore"] = 1,
 ["LoadConditions"] = {
 ["talent"] = {
@@ -6448,7 +6573,7 @@ false,
 ["HooksTemp"] = {
 },
 ["Icon"] = 133006,
-["Time"] = 1552962607,
+["Name"] = "Focus Target Border",
 },
 {
 ["Enabled"] = false,
@@ -6458,13 +6583,13 @@ false,
 ["HooksTemp"] = {
 },
 ["Author"] = "Izimode-Azralon",
-["Name"] = "Don't Have Aura [Plater]",
+["Time"] = 1551825334,
 ["Desc"] = "Change the nameplate color when a nameplate does not have the auras set in the constructor script.",
 ["Hooks"] = {
 ["Nameplate Updated"] = "function (self, unitId, unitFrame, envTable)\n    \n    --do nothing if the player isn't in combat\n    if (not Plater.IsInCombat()) then\n        return \n    end\n    \n    --do nothing if the unit isn't in combat\n    if (not unitFrame.InCombat) then\n        return\n    end\n    \n    --check the auras\n    local hasAura = false\n    \n    for auraName, _ in pairs (envTable.TrackingAuras) do\n        if (Plater.NameplateHasAura (unitFrame, auraName)) then\n            hasAura = true\n            break\n        end\n    end\n    \n    if (not hasAura) then\n        Plater.SetNameplateColor (unitFrame, envTable.NameplateColor)\n    end    \n    \nend\n\n\n\n\n\n\n\n\n\n\n",
 ["Constructor"] = "function (self, unitId, unitFrame, envTable)\n    --Important: lines starting with double dashes are comments and are not part of the script\n    \n    --if the unit does not have any of the following auras, it will be painted with the color listed below\n    --list of spells to track, can be the spell name (case-sensitive) or the spellID\n    envTable.TrackingAuras = {\n        --[\"Nightblade\"] = true, --this is an example using the spell name\n        --[195452] = true, --this is an example using the spellID\n        \n    }\n    \n    --which color the nameplate wil be changed\n    --color can be added as:\n    --color names: \"red\", \"yellow\"\n    --color hex: \"#FF0000\", \"#FFFF00\"\n    --color table: {1, 0, 0}, {1, 1, 0}    \n    --you may also use /plater colors\n    envTable.NameplateColor = \"pink\"\n    \nend\n\n\n",
 },
-["Time"] = 1551825334,
+["Name"] = "Don't Have Aura [Plater]",
 ["PlaterCore"] = 1,
 ["LastHookEdited"] = "Constructor",
 ["LoadConditions"] = {
@@ -6496,11 +6621,12 @@ false,
 {
 ["Enabled"] = false,
 ["Revision"] = 57,
-["OptionsValues"] = {
-},
-["LastHookEdited"] = "",
-["Author"] = "Izimode-Azralon",
 ["Options"] = {
+},
+["HooksTemp"] = {
+},
+["Author"] = "Izimode-Azralon",
+["OptionsValues"] = {
 },
 ["Desc"] = "Tint nameplates of Reaping Soul units (Mythic Dungeon Affix) depending on its target and role of the player",
 ["Hooks"] = {
@@ -6509,7 +6635,11 @@ false,
 ["Constructor"] = "function (self, unitId, unitFrame, envTable)\n    \n    --npcs affected by this script\n    \n    envTable.npcIDs = {\n        [148716] = true, --risen soul\n        [148893] = true, --tormented soul\n        [148894] = true, --lost soul\n        \n        [127278] = true, --skittering feeder (tests and debug, also need to disable the load conditions)\n    }\n    \n    --detect aggro, if true it will see which group member the soul is attacking and override the color\n    envTable.detectAggro = true\n    \n    \nend\n\n\n",
 },
 ["Prio"] = 99,
+["Name"] = "M+ Bwonsamdi Reaping",
+["PlaterCore"] = 1,
+["LastHookEdited"] = "",
 ["Time"] = 1615745259,
+["Icon"] = 2446016,
 ["LoadConditions"] = {
 ["talent"] = {
 },
@@ -6536,20 +6666,16 @@ false,
 ["race"] = {
 },
 },
-["HooksTemp"] = {
-},
-["Name"] = "M+ Bwonsamdi Reaping",
-["Icon"] = 2446016,
-["PlaterCore"] = 1,
 },
 {
 ["Enabled"] = false,
 ["Revision"] = 41,
-["OptionsValues"] = {
-},
-["LastHookEdited"] = "",
-["Author"] = "Kastfall-Azralon",
 ["Options"] = {
+},
+["HooksTemp"] = {
+},
+["Author"] = "Kastfall-Azralon",
+["OptionsValues"] = {
 },
 ["Desc"] = "Show the name of the unit current target ",
 ["Hooks"] = {
@@ -6558,12 +6684,7 @@ false,
 ["Constructor"] = "function (self, unitId, unitFrame, envTable)\n    \n    --max length of the text\n    envTable.TextMaxLength = 100\n    \n    --update the spell name text\n    function envTable.UpdateSpellNameText (unitFrame)\n        \n        local castBar = unitFrame.castBar\n        local textString = castBar.Text\n        local spellName = castBar.SpellName\n        \n        if (unitFrame.targetUnitID) then\n            local targetName = UnitName (unitFrame.targetUnitID)\n            \n            if (targetName) then\n                textString:SetText (spellName .. \" > \" .. targetName) \n                \n                if (envTable.TextMaxLength) then\n                    Plater.LimitTextSize (textString, envTable.TextMaxLength)\n                end\n                \n            else\n                textString:SetText (spellName)\n            end\n        else\n            textString:SetText (spellName)\n        end\n    end\nend",
 },
 ["Prio"] = 99,
-["Name"] = "Cast Target",
-["PlaterCore"] = 1,
-["HooksTemp"] = {
-},
 ["Time"] = 1662190977,
-["Icon"] = 413580,
 ["LoadConditions"] = {
 ["talent"] = {
 },
@@ -6586,6 +6707,10 @@ false,
 ["race"] = {
 },
 },
+["LastHookEdited"] = "",
+["Name"] = "Cast Target",
+["Icon"] = 413580,
+["PlaterCore"] = 1,
 },
 {
 ["Enabled"] = false,
@@ -6595,15 +6720,6 @@ false,
 ["HooksTemp"] = {
 },
 ["Author"] = "Kastfall-Azralon",
-["PlaterCore"] = 1,
-["Desc"] = "Only show nameplates while in combat, see the constructor for more options.",
-["Hooks"] = {
-["Nameplate Created"] = "function (self, unitId, unitFrame, envTable)\n    \n    envTable.CheckIfCanShowNameplate (unitFrame)\n    \nend\n\n\n",
-["Nameplate Added"] = "function (self, unitId, unitFrame, envTable)\n    \n    envTable.CheckIfCanShowNameplate (unitFrame)\n    \nend\n\n\n",
-["Zone Changed"] = "function (self, unitId, unitFrame, envTable)\n    \n    envTable.CheckIfCanShowNameplate (unitFrame)\n    \nend\n\n\n",
-["Constructor"] = "function (self, unitId, unitFrame, envTable)\n    \n    function envTable.CheckIfCanShowNameplate (unitFrame)\n        if (Plater.IsInCombat()) then\n            \n            if (not unitFrame.healthBar:IsShown()) then\n                Plater.ShowHealthBar (unitFrame)\n                Plater.EnableHighlight (unitFrame)\n            end\n            \n        else\n            \n            if (unitFrame.healthBar:IsShown()) then\n                Plater.HideHealthBar (unitFrame)\n                Plater.DisableHighlight (unitFrame)\n            end\n            \n        end        \n    end\n    \nend\n\n\n\n\n\n\n\n\n",
-},
-["Name"] = "Only in Combat",
 ["LoadConditions"] = {
 ["talent"] = {
 },
@@ -6626,6 +6742,15 @@ false,
 ["affix"] = {
 },
 },
+["Desc"] = "Only show nameplates while in combat, see the constructor for more options.",
+["Hooks"] = {
+["Nameplate Created"] = "function (self, unitId, unitFrame, envTable)\n    \n    envTable.CheckIfCanShowNameplate (unitFrame)\n    \nend\n\n\n",
+["Nameplate Added"] = "function (self, unitId, unitFrame, envTable)\n    \n    envTable.CheckIfCanShowNameplate (unitFrame)\n    \nend\n\n\n",
+["Zone Changed"] = "function (self, unitId, unitFrame, envTable)\n    \n    envTable.CheckIfCanShowNameplate (unitFrame)\n    \nend\n\n\n",
+["Constructor"] = "function (self, unitId, unitFrame, envTable)\n    \n    function envTable.CheckIfCanShowNameplate (unitFrame)\n        if (Plater.IsInCombat()) then\n            \n            if (not unitFrame.healthBar:IsShown()) then\n                Plater.ShowHealthBar (unitFrame)\n                Plater.EnableHighlight (unitFrame)\n            end\n            \n        else\n            \n            if (unitFrame.healthBar:IsShown()) then\n                Plater.HideHealthBar (unitFrame)\n                Plater.DisableHighlight (unitFrame)\n            end\n            \n        end        \n    end\n    \nend\n\n\n\n\n\n\n\n\n",
+},
+["Name"] = "Only in Combat",
+["PlaterCore"] = 1,
 ["LastHookEdited"] = "Constructor",
 ["Time"] = 1551825361,
 ["Icon"] = 135473,
@@ -6635,12 +6760,11 @@ false,
 {
 ["Enabled"] = false,
 ["Revision"] = 36,
-["Options"] = {
-},
-["HooksTemp"] = {
-},
-["Author"] = "Izimode-Azralon",
 ["OptionsValues"] = {
+},
+["LastHookEdited"] = "",
+["Author"] = "Izimode-Azralon",
+["Options"] = {
 },
 ["Desc"] = "Add an exclamation icon on units with color set in the Npc Colors tab with the \"Only Script\" box selected.",
 ["Hooks"] = {
@@ -6649,11 +6773,7 @@ false,
 ["Constructor"] = "function (self, unitId, unitFrame, envTable)\n    \n    --settings\n    envTable.IconTexture = [[Interface\\AddOns\\Plater\\media\\exclamation_64]]\n    envTable.Alpha = 0.8\n    \n    --private\n    if (not unitFrame.NpcColorCodeTexture) then\n        unitFrame.NpcColorCodeTexture = unitFrame.healthBar:CreateTexture (nil, \"overlay\")\n        unitFrame.NpcColorCodeTexture:SetTexture (envTable.IconTexture)\n        \n        --texture side | anchor to which frame | frame side | x offset | y offset\n        unitFrame.NpcColorCodeTexture:SetPoint (\"right\", unitFrame.healthBar, \"right\", -2, 0)\n        \n    end\n    \nend\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
 },
 ["Prio"] = 99,
-["Time"] = 1615745256,
-["PlaterCore"] = 1,
-["LastHookEdited"] = "",
 ["Name"] = "Npc Colors Icon",
-["Icon"] = "Interface\\AddOns\\Plater\\media\\exclamation_64",
 ["LoadConditions"] = {
 ["talent"] = {
 },
@@ -6676,6 +6796,11 @@ false,
 ["affix"] = {
 },
 },
+["HooksTemp"] = {
+},
+["Time"] = 1615745256,
+["Icon"] = "Interface\\AddOns\\Plater\\media\\exclamation_64",
+["PlaterCore"] = 1,
 },
 {
 ["Enabled"] = false,
@@ -6684,14 +6809,14 @@ false,
 },
 ["LastHookEdited"] = "Constructor",
 ["Author"] = "Izimode-Azralon",
-["Name"] = "Npc Colors Tag",
+["Time"] = 1553450705,
 ["Desc"] = "Add a color tag on units with color set in the Npc Colors tab with the \"Only Script\" box selected.",
 ["Hooks"] = {
 ["Nameplate Added"] = "function (self, unitId, unitFrame, envTable)\n    \n    envTable.UpdateTexture (unitFrame)\n    \nend\n\n\n",
 ["Nameplate Updated"] = "function (self, unitId, unitFrame, envTable)\n    \n    envTable.UpdateColorTag (unitFrame)   \n    \nend\n\n\n\n\n\n\n\n\n",
 ["Constructor"] = "function (self, unitId, unitFrame, envTable)\n    \n    --settings\n    envTable.Alpha = 0.75\n    \n    envTable.Anchor = {\n        side = 11, --right side inside the nameplate\n        x = -3,\n        y = 0\n    }\n    \n    --private\n    if (not unitFrame.NpcColorCodeTexture) then\n        unitFrame.NpcColorCodeTexture = unitFrame.healthBar:CreateTexture (nil, \"overlay\")\n        unitFrame.NpcColorCodeTexture:SetColorTexture (1, 1, 1, 1)\n        \n    end\n    \n    function  envTable.UpdateColorTag (unitFrame)\n        local npcColor = Plater.GetNpcColor (unitFrame)\n        if (npcColor) then\n            unitFrame.NpcColorCodeTexture:SetVertexColor (DetailsFramework:ParseColors (npcColor))\n            unitFrame.NpcColorCodeTexture:SetAlpha (envTable.Alpha)           \n            unitFrame.NpcColorCodeTexture:Show()        \n        end\n    end\n    \n    function  envTable.UpdateTexture (unitFrame)\n        Plater.SetAnchor (unitFrame.NpcColorCodeTexture, envTable.Anchor)\n        unitFrame.NpcColorCodeTexture:SetSize (unitFrame.healthBar:GetHeight() - 4, unitFrame.healthBar:GetHeight() - 4)\n        unitFrame.NpcColorCodeTexture:Hide()\n        \n        envTable.UpdateColorTag (unitFrame)\n    end\n    \nend\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
 },
-["Time"] = 1553450705,
+["Name"] = "Npc Colors Tag",
 ["PlaterCore"] = 1,
 ["LoadConditions"] = {
 ["talent"] = {
@@ -6724,11 +6849,12 @@ false,
 {
 ["Enabled"] = true,
 ["Revision"] = 56,
-["OptionsValues"] = {
-},
-["LastHookEdited"] = "",
-["Author"] = "Ditador-Azralon",
 ["Options"] = {
+},
+["HooksTemp"] = {
+},
+["Author"] = "Ditador-Azralon",
+["OptionsValues"] = {
 },
 ["Desc"] = "Change the color of the aura timer by it's time left",
 ["Hooks"] = {
@@ -6736,12 +6862,7 @@ false,
 ["Nameplate Updated"] = "function (self, unitId, unitFrame, envTable)\n    \n    local auras = unitFrame.BuffFrame.PlaterBuffList\n    \n    for _, auraIcon in ipairs (auras) do\n        if (auraIcon:IsVisible()) then\n            if (auraIcon.RemainingTime < envTable.Timers.critical) then\n                Plater:SetFontColor (auraIcon.TimerText, envTable.Colors.critical)\n                \n            elseif (auraIcon.RemainingTime < envTable.Timers.warning) then\n                Plater:SetFontColor (auraIcon.TimerText, envTable.Colors.warning)\n                \n            else\n                Plater:SetFontColor (auraIcon.TimerText, envTable.Colors.okay)\n            end \n        end\n        \n    end\nend\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
 },
 ["Prio"] = 99,
-["Time"] = 1719654680,
-["PlaterCore"] = 1,
-["HooksTemp"] = {
-},
 ["Name"] = "Paint Aura Timers",
-["Icon"] = "Interface\\Timer\\Challenges-Logo",
 ["LoadConditions"] = {
 ["talent"] = {
 },
@@ -6764,27 +6885,27 @@ false,
 ["class"] = {
 },
 },
+["LastHookEdited"] = "",
+["Time"] = 1719654680,
+["Icon"] = "Interface\\Timer\\Challenges-Logo",
+["PlaterCore"] = 1,
 },
 {
 ["Enabled"] = false,
 ["Revision"] = 132,
-["OptionsValues"] = {
-},
-["LastHookEdited"] = "",
-["Author"] = "????????-Illidan",
 ["Options"] = {
+},
+["HooksTemp"] = {
+},
+["Author"] = "????????-Illidan",
+["OptionsValues"] = {
 },
 ["Desc"] = "Config aura borders",
 ["Hooks"] = {
 ["Nameplate Updated"] = "function (self, unitId, unitFrame, envTable)\n    \n    --border thickness\n    local size = 1 \n    \n    for index, auraIcon in ipairs (unitFrame.BuffFrame.PlaterBuffList) do\n        if (auraIcon:IsShown()) then\n            \n            if (not auraIcon.PixelPerfectBorder) then\n                auraIcon.PixelPerfectBorder = CreateFrame (\"frame\", nil, auraIcon, \"NamePlateFullBorderTemplate\")\n            end\n            \n            local r, g, b = auraIcon:GetBackdropBorderColor()\n            auraIcon:SetBackdropBorderColor (0, 0, 0, 0)\n            \n            auraIcon.PixelPerfectBorder:SetVertexColor (r, g, b)\n            auraIcon.PixelPerfectBorder:SetBorderSizes (size, size, size, size)\n            auraIcon.PixelPerfectBorder:UpdateSizes()\n            \n            auraIcon.Icon:ClearAllPoints()\n            auraIcon.Icon:SetAllPoints()\n            \n            auraIcon.Border:Hide() --hide plater default border\n        end\n    end\n    \n    for index, auraIcon in ipairs (unitFrame.BuffFrame2.PlaterBuffList) do\n        if (auraIcon:IsShown()) then\n            \n            if (not auraIcon.PixelPerfectBorder) then\n                auraIcon.PixelPerfectBorder = CreateFrame (\"frame\", nil, auraIcon, \"NamePlateFullBorderTemplate\")\n            end\n            \n            local r, g, b = auraIcon:GetBackdropBorderColor()\n            auraIcon:SetBackdropBorderColor (0, 0, 0, 0)\n            \n            auraIcon.PixelPerfectBorder:SetVertexColor (r, g, b)\n            auraIcon.PixelPerfectBorder:SetBorderSizes (size, size, size, size)\n            auraIcon.PixelPerfectBorder:UpdateSizes()            \n            \n            auraIcon.Icon:ClearAllPoints()\n            auraIcon.Icon:SetAllPoints()\n            \n            auraIcon.Border:Hide() --hide plater default border\n        end\n    end    \nend",
 },
 ["Prio"] = 99,
-["Time"] = 1654531158,
-["PlaterCore"] = 1,
-["HooksTemp"] = {
-},
 ["Name"] = "Advanced Debuff Border",
-["Icon"] = 133006,
 ["LoadConditions"] = {
 ["talent"] = {
 },
@@ -6807,16 +6928,19 @@ false,
 ["spec"] = {
 },
 },
+["LastHookEdited"] = "",
+["Time"] = 1654531158,
+["Icon"] = 133006,
+["PlaterCore"] = 1,
 },
 {
 ["Enabled"] = false,
 ["Revision"] = 36,
-["Options"] = {
-},
-["HooksTemp"] = {
-},
-["Author"] = "�r��ne-Kel'thuzad",
 ["OptionsValues"] = {
+},
+["LastHookEdited"] = "",
+["Author"] = "�r��ne-Kel'thuzad",
+["Options"] = {
 },
 ["Desc"] = "Show yellow star for elite; Silver star for rares",
 ["Hooks"] = {
@@ -6825,7 +6949,12 @@ false,
 ["Constructor"] = "function (self, unitId, unitFrame, envTable)\n    \n    function envTable.UpdateIndicator (unitFrame, unitId)\n        local unitClassification = UnitClassification (unitId)\n        local unitName = UnitName (unitId)\n        unitName = unitName or UNKNOWN\n        \n        if (unitClassification == \"rareelite\") then\n            unitFrame.unitName:SetText (\"|TInterface\\\\AddOns\\\\Plater\\\\media\\\\star_full_64:12:12:0:0:64:64:0:64:0:64|t\" .. \"|TInterface\\\\GLUES\\\\CharacterSelect\\\\Glues-AddOn-Icons:12:12:0:0:64:16:48:64:0:16|t \" .. unitName)\n            \n        elseif (unitClassification == \"rare\") then\n            unitFrame.unitName:SetText (\"|TInterface\\\\AddOns\\\\Plater\\\\media\\\\star_full_64:12:12:0:0:64:64:0:64:0:64|t\" .. unitName)\n            \n        elseif (unitClassification == \"elite\") then\n            unitFrame.unitName:SetText (\"|TInterface\\\\GLUES\\\\CharacterSelect\\\\Glues-AddOn-Icons:12:12:0:0:64:16:48:64:0:16|t\" .. unitName)\n            \n        end\n    end\n    \nend\n\n\n\n\n",
 },
 ["Prio"] = 99,
+["Time"] = 1649001883,
+["PlaterCore"] = 1,
+["HooksTemp"] = {
+},
 ["Name"] = "Rarity in the Name",
+["Icon"] = -15658,
 ["LoadConditions"] = {
 ["talent"] = {
 },
@@ -6848,19 +6977,23 @@ false,
 ["spec"] = {
 },
 },
-["LastHookEdited"] = "",
-["Time"] = 1649001883,
-["Icon"] = -15658,
-["PlaterCore"] = 1,
 },
 {
 ["Enabled"] = true,
 ["Revision"] = 80,
-["Options"] = {
-},
-["LastHookEdited"] = "",
-["Author"] = "Cyclopes-Turalyon",
 ["OptionsValues"] = {
+},
+["HooksTemp"] = {
+["Leave Combat"] = "function (self, unitId, unitFrame, envTable)\n    if (unitFrame.ThreatIcon) then\n        unitFrame.ThreatIcon:Hide()\n    end\nend\n\n\n",
+["Nameplate Added"] = "function (self, unitId, unitFrame, envTable)\n    \n    envTable.UpdateIndicator (unitFrame)\n    \nend\n\n\n",
+["Nameplate Updated"] = "function (self, unitId, unitFrame, envTable)\n    \n    envTable.UpdateThreatState (unitFrame, unitId)\n    \nend\n\n\n",
+["Nameplate Removed"] = "function (self, unitId, unitFrame, envTable)\n    if (unitFrame.ThreatIcon) then\n        unitFrame.ThreatIcon:Hide()\n    end\nend\n\n\n",
+["Destructor"] = "function (self, unitId, unitFrame, envTable)\n    if (unitFrame.ThreatIcon) then\n        unitFrame.ThreatIcon:Hide()\n    end    \nend\n\n\n",
+["Enter Combat"] = "function (self, unitId, unitFrame, envTable)\n    \n    envTable.UpdatePlayerRole (unitFrame)\n    \nend\n\n\n",
+["Constructor"] = "function (self, unitId, unitFrame, envTable)\n    \n    --settings\n    envTable.Anchor = {side = 11, x = -2, y = 0}\n    envTable.Texture = \"Interface\\\\AddOns\\\\Plater\\\\media\\\\exclamation2_64\"\n    \n    --it'll only use the icon if the nameplate has a color from the Npc Colors tab and \"Only Scripts\" disabled.\n    envTable.OnlyWhenUsingNpcColor = true --if false, it'll always use the icon\n    \n    --private\n    envTable.PlayerRole = \"NONE\" --automatically changed by the script\n    \n    function envTable.CreateIndicator (unitFrame)\n        if (not unitFrame.ThreatIcon) then\n            unitFrame.ThreatIcon = unitFrame.healthBar:CreateTexture (nil, \"overlay\")\n        end\n    end\n    \n    function envTable.UpdateIndicator (unitFrame)\n        envTable.CreateIndicator (unitFrame)\n        \n        unitFrame.ThreatIcon:SetTexture (envTable.Texture)\n        Plater.SetAnchor (unitFrame.ThreatIcon, envTable.Anchor)\n        unitFrame.ThreatIcon:SetSize (unitFrame.healthBar:GetHeight(), unitFrame.healthBar:GetHeight())\n    end\n    \n    function envTable.UpdateThreatState (unitFrame, unitId)\n        if (not unitFrame.ThreatIcon) then --if there's no icon created yet\n            return\n            \n        elseif (not Plater.IsInCombat()) then --not in combat\n            unitFrame.ThreatIcon:Hide()\n            return\n            \n        elseif (unitFrame.IsSelf) then --personal bar\n            unitFrame.ThreatIcon:Hide()\n            return\n            \n        elseif (envTable.OnlyWhenUsingNpcColor) then --must be using a npc color?\n            if (not unitFrame.UsingCustomColor) then\n                unitFrame.ThreatIcon:Hide()\n                return\n            end\n        end\n        \n        local isTanking, threatStatus, threatpct = UnitDetailedThreatSituation (\"player\", unitId)\n        \n        if (isTanking) then\n            if (envTable.PlayerRole == \"TANK\") then\n                unitFrame.ThreatIcon:Hide()\n            else\n                unitFrame.ThreatIcon:Show()\n                unitFrame.ThreatIcon:SetVertexColor (unpack (envTable.NameplateAggroColor))\n            end\n        else\n            if (envTable.PlayerRole == \"TANK\") then\n                unitFrame.ThreatIcon:Show()\n                unitFrame.ThreatIcon:SetVertexColor (unpack (envTable.NameplateNoAggroColor))                \n            else\n                unitFrame.ThreatIcon:Hide()                \n            end\n        end\n    end\n    \n    function envTable.UpdatePlayerRole (unitFrame)\n        local profile = Plater.db.profile\n        local role = Plater:GetPlayerRole()\n        \n        if (role == \"TANK\") then\n            envTable.PlayerRole = \"TANK\"\n            envTable.NameplateAggroColor = profile.tank.colors.aggro\n            envTable.NameplateNoAggroColor = profile.tank.colors.noaggro\n            \n        else\n            envTable.PlayerRole = \"DAMAGER\"\n            envTable.NameplateAggroColor = profile.dps.colors.aggro\n            envTable.NameplateNoAggroColor = profile.dps.colors.noaggro\n            \n        end        \n    end\n    \n    envTable.UpdatePlayerRole (unitFrame)\n    \nend",
+},
+["Author"] = "Cyclopes-Turalyon",
+["Options"] = {
 },
 ["Desc"] = "Add an icon to indicate an unit has Aggro on you. By default only show for units using a custom color from Npc Colors.",
 ["Hooks"] = {
@@ -6873,19 +7006,7 @@ false,
 ["Constructor"] = "function (self, unitId, unitFrame, envTable)\n    \n    --settings\n    envTable.Anchor = {side = 11, x = -2, y = 0}\n    envTable.Texture = \"Interface\\\\AddOns\\\\Plater\\\\media\\\\exclamation2_64\"\n    \n    --it'll only use the icon if the nameplate has a color from the Npc Colors tab and \"Only Scripts\" disabled.\n    envTable.OnlyWhenUsingNpcColor = true --if false, it'll always use the icon\n    \n    --private\n    envTable.PlayerRole = \"NONE\" --automatically changed by the script\n    \n    function envTable.CreateIndicator (unitFrame)\n        if (not unitFrame.ThreatIcon) then\n            unitFrame.ThreatIcon = unitFrame.healthBar:CreateTexture (nil, \"overlay\")\n        end\n    end\n    \n    function envTable.UpdateIndicator (unitFrame)\n        envTable.CreateIndicator (unitFrame)\n        \n        unitFrame.ThreatIcon:SetTexture (envTable.Texture)\n        Plater.SetAnchor (unitFrame.ThreatIcon, envTable.Anchor)\n        unitFrame.ThreatIcon:SetSize (unitFrame.healthBar:GetHeight(), unitFrame.healthBar:GetHeight())\n    end\n    \n    function envTable.UpdateThreatState (unitFrame, unitId)\n        if (not unitFrame.ThreatIcon) then --if there's no icon created yet\n            return\n            \n        elseif (not Plater.IsInCombat()) then --not in combat\n            unitFrame.ThreatIcon:Hide()\n            return\n            \n        elseif (unitFrame.IsSelf) then --personal bar\n            unitFrame.ThreatIcon:Hide()\n            return\n            \n        elseif (envTable.OnlyWhenUsingNpcColor) then --must be using a npc color?\n            if (not unitFrame.UsingCustomColor) then\n                unitFrame.ThreatIcon:Hide()\n                return\n            end\n        end\n        \n        local isTanking, threatStatus, threatpct = UnitDetailedThreatSituation (\"player\", unitId)\n        \n        if (isTanking) then\n            if (envTable.PlayerRole == \"TANK\") then\n                unitFrame.ThreatIcon:Hide()\n            else\n                unitFrame.ThreatIcon:Show()\n                unitFrame.ThreatIcon:SetVertexColor (unpack (envTable.NameplateAggroColor))\n            end\n        else\n            if (envTable.PlayerRole == \"TANK\") then\n                unitFrame.ThreatIcon:Show()\n                unitFrame.ThreatIcon:SetVertexColor (unpack (envTable.NameplateNoAggroColor))                \n            else\n                unitFrame.ThreatIcon:Hide()                \n            end\n        end\n    end\n    \n    function envTable.UpdatePlayerRole (unitFrame)\n        local profile = Plater.db.profile\n        local role = Plater:GetPlayerRole()\n        \n        if (role == \"TANK\") then\n            envTable.PlayerRole = \"TANK\"\n            envTable.NameplateAggroColor = profile.tank.colors.aggro\n            envTable.NameplateNoAggroColor = profile.tank.colors.noaggro\n            \n        else\n            envTable.PlayerRole = \"DAMAGER\"\n            envTable.NameplateAggroColor = profile.dps.colors.aggro\n            envTable.NameplateNoAggroColor = profile.dps.colors.noaggro\n            \n        end        \n    end\n    \n    envTable.UpdatePlayerRole (unitFrame)\n    \nend",
 },
 ["Prio"] = 99,
-["Time"] = 1763175963,
-["PlaterCore"] = 1,
-["HooksTemp"] = {
-["Leave Combat"] = "function (self, unitId, unitFrame, envTable)\n    if (unitFrame.ThreatIcon) then\n        unitFrame.ThreatIcon:Hide()\n    end\nend\n\n\n",
-["Nameplate Added"] = "function (self, unitId, unitFrame, envTable)\n    \n    envTable.UpdateIndicator (unitFrame)\n    \nend\n\n\n",
-["Nameplate Updated"] = "function (self, unitId, unitFrame, envTable)\n    \n    envTable.UpdateThreatState (unitFrame, unitId)\n    \nend\n\n\n",
-["Nameplate Removed"] = "function (self, unitId, unitFrame, envTable)\n    if (unitFrame.ThreatIcon) then\n        unitFrame.ThreatIcon:Hide()\n    end\nend\n\n\n",
-["Destructor"] = "function (self, unitId, unitFrame, envTable)\n    if (unitFrame.ThreatIcon) then\n        unitFrame.ThreatIcon:Hide()\n    end    \nend\n\n\n",
-["Enter Combat"] = "function (self, unitId, unitFrame, envTable)\n    \n    envTable.UpdatePlayerRole (unitFrame)\n    \nend\n\n\n",
-["Constructor"] = "function (self, unitId, unitFrame, envTable)\n    \n    --settings\n    envTable.Anchor = {side = 11, x = -2, y = 0}\n    envTable.Texture = \"Interface\\\\AddOns\\\\Plater\\\\media\\\\exclamation2_64\"\n    \n    --it'll only use the icon if the nameplate has a color from the Npc Colors tab and \"Only Scripts\" disabled.\n    envTable.OnlyWhenUsingNpcColor = true --if false, it'll always use the icon\n    \n    --private\n    envTable.PlayerRole = \"NONE\" --automatically changed by the script\n    \n    function envTable.CreateIndicator (unitFrame)\n        if (not unitFrame.ThreatIcon) then\n            unitFrame.ThreatIcon = unitFrame.healthBar:CreateTexture (nil, \"overlay\")\n        end\n    end\n    \n    function envTable.UpdateIndicator (unitFrame)\n        envTable.CreateIndicator (unitFrame)\n        \n        unitFrame.ThreatIcon:SetTexture (envTable.Texture)\n        Plater.SetAnchor (unitFrame.ThreatIcon, envTable.Anchor)\n        unitFrame.ThreatIcon:SetSize (unitFrame.healthBar:GetHeight(), unitFrame.healthBar:GetHeight())\n    end\n    \n    function envTable.UpdateThreatState (unitFrame, unitId)\n        if (not unitFrame.ThreatIcon) then --if there's no icon created yet\n            return\n            \n        elseif (not Plater.IsInCombat()) then --not in combat\n            unitFrame.ThreatIcon:Hide()\n            return\n            \n        elseif (unitFrame.IsSelf) then --personal bar\n            unitFrame.ThreatIcon:Hide()\n            return\n            \n        elseif (envTable.OnlyWhenUsingNpcColor) then --must be using a npc color?\n            if (not unitFrame.UsingCustomColor) then\n                unitFrame.ThreatIcon:Hide()\n                return\n            end\n        end\n        \n        local isTanking, threatStatus, threatpct = UnitDetailedThreatSituation (\"player\", unitId)\n        \n        if (isTanking) then\n            if (envTable.PlayerRole == \"TANK\") then\n                unitFrame.ThreatIcon:Hide()\n            else\n                unitFrame.ThreatIcon:Show()\n                unitFrame.ThreatIcon:SetVertexColor (unpack (envTable.NameplateAggroColor))\n            end\n        else\n            if (envTable.PlayerRole == \"TANK\") then\n                unitFrame.ThreatIcon:Show()\n                unitFrame.ThreatIcon:SetVertexColor (unpack (envTable.NameplateNoAggroColor))                \n            else\n                unitFrame.ThreatIcon:Hide()                \n            end\n        end\n    end\n    \n    function envTable.UpdatePlayerRole (unitFrame)\n        local profile = Plater.db.profile\n        local role = Plater:GetPlayerRole()\n        \n        if (role == \"TANK\") then\n            envTable.PlayerRole = \"TANK\"\n            envTable.NameplateAggroColor = profile.tank.colors.aggro\n            envTable.NameplateNoAggroColor = profile.tank.colors.noaggro\n            \n        else\n            envTable.PlayerRole = \"DAMAGER\"\n            envTable.NameplateAggroColor = profile.dps.colors.aggro\n            envTable.NameplateNoAggroColor = profile.dps.colors.noaggro\n            \n        end        \n    end\n    \n    envTable.UpdatePlayerRole (unitFrame)\n    \nend",
-},
 ["Name"] = "Aggro Indicator",
-["Icon"] = 132344,
 ["LoadConditions"] = {
 ["talent"] = {
 },
@@ -6908,6 +7029,10 @@ false,
 ["class"] = {
 },
 },
+["LastHookEdited"] = "",
+["Time"] = 1763175963,
+["Icon"] = 132344,
+["PlaterCore"] = 1,
 },
 {
 ["Enabled"] = false,
@@ -6917,6 +7042,13 @@ false,
 ["HooksTemp"] = {
 },
 ["Author"] = "Izimode-Azralon",
+["PlaterCore"] = 1,
+["Desc"] = "Edit the Constructor script setting the font you want in the FONT = \"\", then /reload.",
+["Hooks"] = {
+["Nameplate Created"] = "function (self, unitId, unitFrame, envTable)\n    \n    --added this event just to run the constructor script\n    \nend\n\n\n",
+["Constructor"] = "function (self, unitId, unitFrame, envTable)\n    \n    --insert here the font you want to change then /reeload\n    --after the reload, check if the font has changed and disable this script\n    \n    local FONT = \"Accidental Presidency\"\n    \n    local profile = Plater.db.profile\n    local actorTables = profile.plate_config\n    \n    for plateType, plateTable in pairs (actorTables) do\n        \n        plateTable.actorname_text_font = FONT\n        plateTable.spellname_text_font = FONT\n        plateTable.spellpercent_text_font = FONT\n        plateTable.level_text_font = FONT\n        plateTable.percent_text_font = FONT\n        plateTable.big_actortitle_text_font = FONT\n        plateTable.big_actorname_text_font = FONT\n        plateTable.power_percent_text_font = FONT\n        \n    end\n    \n    profile.castbar_target_font = FONT\n    profile.aura_timer_text_font = FONT    \n    profile.aura_stack_font = FONT    \n    \nend\n\n\n",
+},
+["Name"] = "Change All Fonts",
 ["LoadConditions"] = {
 ["talent"] = {
 },
@@ -6939,27 +7071,21 @@ false,
 ["spec"] = {
 },
 },
-["Desc"] = "Edit the Constructor script setting the font you want in the FONT = \"\", then /reload.",
-["Hooks"] = {
-["Nameplate Created"] = "function (self, unitId, unitFrame, envTable)\n    \n    --added this event just to run the constructor script\n    \nend\n\n\n",
-["Constructor"] = "function (self, unitId, unitFrame, envTable)\n    \n    --insert here the font you want to change then /reeload\n    --after the reload, check if the font has changed and disable this script\n    \n    local FONT = \"Accidental Presidency\"\n    \n    local profile = Plater.db.profile\n    local actorTables = profile.plate_config\n    \n    for plateType, plateTable in pairs (actorTables) do\n        \n        plateTable.actorname_text_font = FONT\n        plateTable.spellname_text_font = FONT\n        plateTable.spellpercent_text_font = FONT\n        plateTable.level_text_font = FONT\n        plateTable.percent_text_font = FONT\n        plateTable.big_actortitle_text_font = FONT\n        plateTable.big_actorname_text_font = FONT\n        plateTable.power_percent_text_font = FONT\n        \n    end\n    \n    profile.castbar_target_font = FONT\n    profile.aura_timer_text_font = FONT    \n    profile.aura_stack_font = FONT    \n    \nend\n\n\n",
-},
-["Time"] = 1551825316,
-["PlaterCore"] = 1,
 ["LastHookEdited"] = "Constructor",
 ["Options"] = {
 },
 ["Icon"] = 134331,
-["Name"] = "Change All Fonts",
+["Time"] = 1551825316,
 },
 {
 ["Enabled"] = false,
 ["Revision"] = 59,
-["Options"] = {
-},
-["LastHookEdited"] = "",
-["Author"] = "Izimode-Azralon",
 ["OptionsValues"] = {
+},
+["HooksTemp"] = {
+},
+["Author"] = "Izimode-Azralon",
+["Options"] = {
 },
 ["Desc"] = "Show the power bar for specific units",
 ["Hooks"] = {
@@ -6967,7 +7093,11 @@ false,
 ["Constructor"] = "function (self, unitId, unitFrame, envTable)\n    \n    envTable.PowerBarAnchor = {side = 4, x = 0, y = -10}\n    \n    function envTable.UpdatePowerBar (unitFrame)\n        unitFrame.powerBar:SetUnit (unitFrame.unit)\n        Plater.SetAnchor (unitFrame.powerBar, envTable.PowerBarAnchor)\n        \n    end\n    \nend\n\n\n",
 },
 ["Prio"] = 99,
+["Time"] = 1658384957,
+["PlaterCore"] = 1,
+["LastHookEdited"] = "",
 ["Name"] = "Power Bar",
+["Icon"] = 1375677,
 ["LoadConditions"] = {
 ["talent"] = {
 },
@@ -6990,20 +7120,16 @@ false,
 ["race"] = {
 },
 },
-["HooksTemp"] = {
-},
-["Time"] = 1658384957,
-["Icon"] = 1375677,
-["PlaterCore"] = 1,
 },
 {
 ["Enabled"] = false,
 ["Revision"] = 141,
-["OptionsValues"] = {
-},
-["LastHookEdited"] = "",
-["Author"] = "Ditador-Azralon",
 ["Options"] = {
+},
+["HooksTemp"] = {
+},
+["Author"] = "Ditador-Azralon",
+["OptionsValues"] = {
 },
 ["Desc"] = "Move the icon of the spell cast to the left or right side of the nameplate.",
 ["Hooks"] = {
@@ -7012,7 +7138,11 @@ false,
 ["Constructor"] = "function (self, unitId, unitFrame, envTable)\n    \n    --settings:\n    --show cast icon\n    envTable.ShowIcon = true\n    --anchor icon on what side\n    envTable.IconAnchor = \"left\" --accep 'left' 'right'\n    --fine tune the size of the icon\n    envTable.IconSizeOffset = 1\n    \n    --shield for non interruptible casts\n    envTable.ShowShield = false\n    envTable.ShieldTexture = [[Interface\\GROUPFRAME\\UI-GROUP-MAINTANKICON]]\n    envTable.ShieldDesaturated = true\n    envTable.ShieldColor = {1, 1, 1 ,1}\n    envTable.ShieldSize = {10, 12}\n    \n    --private:\n    function envTable.UpdateIconPosition (unitFrame)\n        local castBar = unitFrame.castBar\n        local icon = castBar.Icon\n        local shield = castBar.BorderShield\n        \n        if (envTable.ShowIcon) then\n            icon:ClearAllPoints()\n            \n            if (envTable.IconAnchor == \"left\") then\n                icon:SetPoint (\"topright\", unitFrame.healthBar, \"topleft\", -1, envTable.IconSizeOffset)\n                icon:SetPoint (\"bottomright\", unitFrame.castBar, \"bottomleft\", -1, 0)    \n                \n            elseif (envTable.IconAnchor == \"right\") then\n                icon:SetPoint (\"topleft\", unitFrame.healthBar, \"topright\", 1, envTable.IconSizeOffset)\n                icon:SetPoint (\"bottomleft\", unitFrame.castBar, \"bottomright\", 1, 0)\n                \n            end\n            \n            icon:SetWidth (icon:GetHeight())\n            icon:Show()\n            \n        else\n            icon:Hide()\n            \n        end\n        \n        if (envTable.ShowShield and not castBar.canInterrupt) then\n            shield:Show()\n            shield:SetAlpha (1)\n            shield:SetTexCoord (0, 1, 0, 1)\n            shield:SetVertexColor (1, 1, 1, 1)\n            \n            shield:SetTexture (envTable.ShieldTexture)\n            shield:SetDesaturated (envTable.ShieldDesaturated)\n            \n            if (not envTable.ShieldDesaturated) then\n                shield:SetVertexColor (DetailsFramework:ParseColors (envTable.ShieldColor))\n            end\n            \n            shield:SetSize (unpack (envTable.ShieldSize))\n            \n            shield:ClearAllPoints()\n            shield:SetPoint (\"center\", castBar, \"left\", 0, 0)\n            \n        else\n            shield:Hide()\n            \n        end\n        \n    end\nend",
 },
 ["Prio"] = 99,
+["Time"] = 1651672299,
+["PlaterCore"] = 1,
+["LastHookEdited"] = "",
 ["Name"] = "Cast Icon Anchor",
+["Icon"] = "Interface\\Buttons\\UI-Quickslot2",
 ["LoadConditions"] = {
 ["talent"] = {
 },
@@ -7035,25 +7165,15 @@ false,
 ["class"] = {
 },
 },
-["HooksTemp"] = {
-},
-["Time"] = 1651672299,
-["Icon"] = "Interface\\Buttons\\UI-Quickslot2",
-["PlaterCore"] = 1,
 },
 {
 ["Enabled"] = true,
 ["Revision"] = 80,
-["Options"] = {
-},
-["HooksTemp"] = {
-["Cast Update"] = "function (self, unitId, unitFrame, envTable)\n    \n    envTable.BuildFrames (unitFrame)\n    \nend\n\n\n",
-["Destructor"] = "function (self, unitId, unitFrame, envTable)\n    \n    if (unitFrame.castBar.IconOverlayFrame) then\n        unitFrame.castBar.IconOverlayFrame:Hide()\n    end\n    \nend\n\n\n\n\n",
-["Cast Start"] = "function (self, unitId, unitFrame, envTable)\n    \n    envTable.BuildFrames (unitFrame)\n    \nend\n\n\n",
-["Constructor"] = "function (self, unitId, unitFrame, envTable)\n    \n    --settings\n    envTable.AnchorSide = \"left\"\n    envTable.BorderThickness = 1\n    envTable.BorderColor = \"black\"\n    \n    --private\n    function envTable.BuildFrames (unitFrame)\n        local castBar = unitFrame.castBar\n        \n        local r, g, b, a = DetailsFramework:ParseColors (envTable.BorderColor)\n        castBar.IconBorder:SetVertexColor (r, g, b, a)\n        \n        local size = envTable.BorderThickness\n        castBar.IconBorder:SetBorderSizes (size, size, size, size)\n        castBar.IconBorder:UpdateSizes()\n        \n        local icon = castBar.Icon\n        if (envTable.AnchorSide == \"left\") then\n            icon:ClearAllPoints()\n            icon:SetPoint (\"topright\", unitFrame.healthBar, \"topleft\", -1, 0)\n            icon:SetPoint (\"bottomright\", castBar, \"bottomleft\", -1, 0)\n            icon:SetWidth (icon:GetHeight())\n            \n        elseif (envTable.AnchorSide == \"right\") then\n            icon:ClearAllPoints()\n            icon:SetPoint (\"topleft\", unitFrame.healthBar, \"topright\", 1, 0)\n            icon:SetPoint (\"bottomleft\", castBar, \"bottomright\", 1, 0)\n            icon:SetWidth (icon:GetHeight())\n            \n        end\n        \n        icon:Show()\n        castBar.IconOverlayFrame:Show()\n    end\n    \n    if (not unitFrame.castBar.IconOverlayFrame) then\n        --icon support frame\n        unitFrame.castBar.IconOverlayFrame = CreateFrame (\"frame\", nil, unitFrame.castBar)\n        unitFrame.castBar.IconOverlayFrame:SetPoint (\"topleft\", unitFrame.castBar.Icon, \"topleft\")\n        unitFrame.castBar.IconOverlayFrame:SetPoint (\"bottomright\", unitFrame.castBar.Icon, \"bottomright\")\n        \n        unitFrame.castBar.IconBorder = CreateFrame (\"frame\", nil,  unitFrame.castBar.IconOverlayFrame, \"NamePlateFullBorderTemplate\")\n    end    \n    \nend\n\n\n\n\n",
-},
-["Author"] = "Izimode-Azralon",
 ["OptionsValues"] = {
+},
+["LastHookEdited"] = "",
+["Author"] = "Izimode-Azralon",
+["Options"] = {
 },
 ["Desc"] = "Adds a pixels perfect border around the cast bar spell icon.",
 ["Hooks"] = {
@@ -7063,7 +7183,16 @@ false,
 ["Constructor"] = "function (self, unitId, unitFrame, envTable)\n    \n    --settings\n    envTable.AnchorSide = \"left\"\n    envTable.BorderThickness = 1\n    envTable.BorderColor = \"black\"\n    \n    --private\n    function envTable.BuildFrames (unitFrame)\n        local castBar = unitFrame.castBar\n        \n        local r, g, b, a = DetailsFramework:ParseColors (envTable.BorderColor)\n        castBar.IconBorder:SetVertexColor (r, g, b, a)\n        \n        local size = envTable.BorderThickness\n        castBar.IconBorder:SetBorderSizes (size, size, size, size)\n        castBar.IconBorder:UpdateSizes()\n        \n        local icon = castBar.Icon\n        if (envTable.AnchorSide == \"left\") then\n            icon:ClearAllPoints()\n            icon:SetPoint (\"topright\", unitFrame.healthBar, \"topleft\", -1, 0)\n            icon:SetPoint (\"bottomright\", castBar, \"bottomleft\", -1, 0)\n            icon:SetWidth (icon:GetHeight())\n            \n        elseif (envTable.AnchorSide == \"right\") then\n            icon:ClearAllPoints()\n            icon:SetPoint (\"topleft\", unitFrame.healthBar, \"topright\", 1, 0)\n            icon:SetPoint (\"bottomleft\", castBar, \"bottomright\", 1, 0)\n            icon:SetWidth (icon:GetHeight())\n            \n        end\n        \n        icon:Show()\n        castBar.IconOverlayFrame:Show()\n    end\n    \n    if (not unitFrame.castBar.IconOverlayFrame) then\n        --icon support frame\n        unitFrame.castBar.IconOverlayFrame = CreateFrame (\"frame\", nil, unitFrame.castBar)\n        unitFrame.castBar.IconOverlayFrame:SetPoint (\"topleft\", unitFrame.castBar.Icon, \"topleft\")\n        unitFrame.castBar.IconOverlayFrame:SetPoint (\"bottomright\", unitFrame.castBar.Icon, \"bottomright\")\n        \n        unitFrame.castBar.IconBorder = CreateFrame (\"frame\", nil,  unitFrame.castBar.IconOverlayFrame, \"NamePlateFullBorderTemplate\")\n    end    \n    \nend\n\n\n\n\n",
 },
 ["Prio"] = 99,
+["Time"] = 1763175975,
+["PlaterCore"] = 1,
+["HooksTemp"] = {
+["Cast Update"] = "function (self, unitId, unitFrame, envTable)\n    \n    envTable.BuildFrames (unitFrame)\n    \nend\n\n\n",
+["Destructor"] = "function (self, unitId, unitFrame, envTable)\n    \n    if (unitFrame.castBar.IconOverlayFrame) then\n        unitFrame.castBar.IconOverlayFrame:Hide()\n    end\n    \nend\n\n\n\n\n",
+["Cast Start"] = "function (self, unitId, unitFrame, envTable)\n    \n    envTable.BuildFrames (unitFrame)\n    \nend\n\n\n",
+["Constructor"] = "function (self, unitId, unitFrame, envTable)\n    \n    --settings\n    envTable.AnchorSide = \"left\"\n    envTable.BorderThickness = 1\n    envTable.BorderColor = \"black\"\n    \n    --private\n    function envTable.BuildFrames (unitFrame)\n        local castBar = unitFrame.castBar\n        \n        local r, g, b, a = DetailsFramework:ParseColors (envTable.BorderColor)\n        castBar.IconBorder:SetVertexColor (r, g, b, a)\n        \n        local size = envTable.BorderThickness\n        castBar.IconBorder:SetBorderSizes (size, size, size, size)\n        castBar.IconBorder:UpdateSizes()\n        \n        local icon = castBar.Icon\n        if (envTable.AnchorSide == \"left\") then\n            icon:ClearAllPoints()\n            icon:SetPoint (\"topright\", unitFrame.healthBar, \"topleft\", -1, 0)\n            icon:SetPoint (\"bottomright\", castBar, \"bottomleft\", -1, 0)\n            icon:SetWidth (icon:GetHeight())\n            \n        elseif (envTable.AnchorSide == \"right\") then\n            icon:ClearAllPoints()\n            icon:SetPoint (\"topleft\", unitFrame.healthBar, \"topright\", 1, 0)\n            icon:SetPoint (\"bottomleft\", castBar, \"bottomright\", 1, 0)\n            icon:SetWidth (icon:GetHeight())\n            \n        end\n        \n        icon:Show()\n        castBar.IconOverlayFrame:Show()\n    end\n    \n    if (not unitFrame.castBar.IconOverlayFrame) then\n        --icon support frame\n        unitFrame.castBar.IconOverlayFrame = CreateFrame (\"frame\", nil, unitFrame.castBar)\n        unitFrame.castBar.IconOverlayFrame:SetPoint (\"topleft\", unitFrame.castBar.Icon, \"topleft\")\n        unitFrame.castBar.IconOverlayFrame:SetPoint (\"bottomright\", unitFrame.castBar.Icon, \"bottomright\")\n        \n        unitFrame.castBar.IconBorder = CreateFrame (\"frame\", nil,  unitFrame.castBar.IconOverlayFrame, \"NamePlateFullBorderTemplate\")\n    end    \n    \nend\n\n\n\n\n",
+},
 ["Name"] = "Cast Icon Border",
+["Icon"] = 133004,
 ["LoadConditions"] = {
 ["talent"] = {
 },
@@ -7086,24 +7215,15 @@ false,
 ["spec"] = {
 },
 },
-["LastHookEdited"] = "",
-["Time"] = 1763175975,
-["Icon"] = 133004,
-["PlaterCore"] = 1,
 },
 {
 ["Enabled"] = true,
 ["Revision"] = 107,
-["OptionsValues"] = {
-},
-["HooksTemp"] = {
-["Cast Update"] = "function (self, unitId, unitFrame, envTable)\n    \n    envTable.UpdateBorder (unitFrame)\n    \nend\n\n\n",
-["Destructor"] = "function (self, unitId, unitFrame, envTable)\n    if (unitFrame.castBar.CastBarBorder) then\n        unitFrame.castBar.CastBarBorder:Hide()\n    end    \nend",
-["Cast Start"] = "function (self, unitId, unitFrame, envTable)\n    \n    envTable.UpdateBorder (unitFrame)\n    \nend\n\n\n",
-["Constructor"] = "function (self, unitId, unitFrame, envTable)\n    \n    --settings\n    \n    --hide the icon of the spell, may require /reload after changing\n    envTable.HideIcon = false\n    \n    --border settings\n    envTable.BorderThickness = 1\n    envTable.BorderColor = \"black\"\n    \n    --private\n    --create the border\n    if (not unitFrame.castBar.CastBarBorder) then\n        unitFrame.castBar.CastBarBorder = CreateFrame (\"frame\", nil, unitFrame.castBar, \"NamePlateFullBorderTemplate\")\n    end    \n    \n    --update the border\n    function envTable.UpdateBorder (unitFrame)\n        local castBar = unitFrame.castBar\n        \n        local r, g, b, a = DetailsFramework:ParseColors (envTable.BorderColor)\n        castBar.CastBarBorder:SetVertexColor (r, g, b, a)\n        \n        local size = envTable.BorderThickness\n        castBar.CastBarBorder:SetBorderSizes (size, size, size, size)\n        castBar.CastBarBorder:UpdateSizes()        \n        \n        if (envTable.HideIcon) then\n            castBar.Icon:Hide()\n        end\n        \n        castBar.CastBarBorder:Show()\n    end\n    \nend\n\n\n\n\n",
-},
-["Author"] = "Izimode-Azralon",
 ["Options"] = {
+},
+["LastHookEdited"] = "",
+["Author"] = "Izimode-Azralon",
+["OptionsValues"] = {
 },
 ["Desc"] = "Adds a pixels perfect border around the cast bar.",
 ["Hooks"] = {
@@ -7113,7 +7233,16 @@ false,
 ["Constructor"] = "function (self, unitId, unitFrame, envTable)\n    \n    --settings\n    \n    --hide the icon of the spell, may require /reload after changing\n    envTable.HideIcon = false\n    \n    --border settings\n    envTable.BorderThickness = 1\n    envTable.BorderColor = \"black\"\n    \n    --private\n    --create the border\n    if (not unitFrame.castBar.CastBarBorder) then\n        unitFrame.castBar.CastBarBorder = CreateFrame (\"frame\", nil, unitFrame.castBar, \"NamePlateFullBorderTemplate\")\n    end    \n    \n    --update the border\n    function envTable.UpdateBorder (unitFrame)\n        local castBar = unitFrame.castBar\n        \n        local r, g, b, a = DetailsFramework:ParseColors (envTable.BorderColor)\n        castBar.CastBarBorder:SetVertexColor (r, g, b, a)\n        \n        local size = envTable.BorderThickness\n        castBar.CastBarBorder:SetBorderSizes (size, size, size, size)\n        castBar.CastBarBorder:UpdateSizes()        \n        \n        if (envTable.HideIcon) then\n            castBar.Icon:Hide()\n        end\n        \n        castBar.CastBarBorder:Show()\n    end\n    \nend\n\n\n\n\n",
 },
 ["Prio"] = 99,
+["Time"] = 1763176294,
+["PlaterCore"] = 1,
+["HooksTemp"] = {
+["Cast Update"] = "function (self, unitId, unitFrame, envTable)\n    \n    envTable.UpdateBorder (unitFrame)\n    \nend\n\n\n",
+["Destructor"] = "function (self, unitId, unitFrame, envTable)\n    if (unitFrame.castBar.CastBarBorder) then\n        unitFrame.castBar.CastBarBorder:Hide()\n    end    \nend",
+["Cast Start"] = "function (self, unitId, unitFrame, envTable)\n    \n    envTable.UpdateBorder (unitFrame)\n    \nend\n\n\n",
+["Constructor"] = "function (self, unitId, unitFrame, envTable)\n    \n    --settings\n    \n    --hide the icon of the spell, may require /reload after changing\n    envTable.HideIcon = false\n    \n    --border settings\n    envTable.BorderThickness = 1\n    envTable.BorderColor = \"black\"\n    \n    --private\n    --create the border\n    if (not unitFrame.castBar.CastBarBorder) then\n        unitFrame.castBar.CastBarBorder = CreateFrame (\"frame\", nil, unitFrame.castBar, \"NamePlateFullBorderTemplate\")\n    end    \n    \n    --update the border\n    function envTable.UpdateBorder (unitFrame)\n        local castBar = unitFrame.castBar\n        \n        local r, g, b, a = DetailsFramework:ParseColors (envTable.BorderColor)\n        castBar.CastBarBorder:SetVertexColor (r, g, b, a)\n        \n        local size = envTable.BorderThickness\n        castBar.CastBarBorder:SetBorderSizes (size, size, size, size)\n        castBar.CastBarBorder:UpdateSizes()        \n        \n        if (envTable.HideIcon) then\n            castBar.Icon:Hide()\n        end\n        \n        castBar.CastBarBorder:Show()\n    end\n    \nend\n\n\n\n\n",
+},
 ["Name"] = "Cast Bar Border",
+["Icon"] = 133004,
 ["LoadConditions"] = {
 ["talent"] = {
 },
@@ -7136,19 +7265,16 @@ false,
 ["role"] = {
 },
 },
-["LastHookEdited"] = "",
-["Time"] = 1763176294,
-["Icon"] = 133004,
-["PlaterCore"] = 1,
 },
 {
 ["Enabled"] = false,
 ["Revision"] = 50,
-["Options"] = {
-},
-["LastHookEdited"] = "Constructor",
-["Author"] = "????????-Illidan",
 ["OptionsValues"] = {
+},
+["HooksTemp"] = {
+},
+["Author"] = "????????-Illidan",
+["Options"] = {
 },
 ["Desc"] = "Debuff timer show decimal values",
 ["Hooks"] = {
@@ -7156,12 +7282,7 @@ false,
 ["Constructor"] = "function (self, unitId, unitFrame, envTable)\n    \n    --minimum time left to take effect\n    envTable.MinTime = 9.999\n    \nend",
 },
 ["Prio"] = 99,
-["Name"] = "Decimal Debuff Timer",
-["PlaterCore"] = 1,
-["HooksTemp"] = {
-},
 ["Time"] = 1654531004,
-["Icon"] = 609811,
 ["LoadConditions"] = {
 ["talent"] = {
 },
@@ -7184,24 +7305,32 @@ false,
 ["class"] = {
 },
 },
+["LastHookEdited"] = "Constructor",
+["Name"] = "Decimal Debuff Timer",
+["Icon"] = 609811,
+["PlaterCore"] = 1,
 },
 {
 ["Enabled"] = true,
 ["Revision"] = 94,
-["OptionsValues"] = {
-},
-["HooksTemp"] = {
-["Nameplate Updated"] = "function (self, unitId, unitFrame, envTable)\n    \n    --    if false then return end\n    \n    for _, iconFrame in ipairs (unitFrame.ExtraIconFrame.IconPool) do\n        \n        unitFrame.ExtraIconFrame.options.show_text = true\n        \n        local profile = Plater.db.profile\n        \n        Plater.SetAnchor (iconFrame.CountdownText, profile.aura_timer_text_anchor)\n        Plater:SetFontSize (iconFrame.CountdownText, profile.aura_timer_text_size)\n        Plater:SetFontFace (iconFrame.CountdownText, profile.aura_timer_text_font)\n        \n        Plater.SetFontOutlineAndShadow (iconFrame.CountdownText, profile.aura_timer_text_outline, profile.aura_timer_text_shadow_color, profile.aura_timer_text_shadow_color_offset[1], profile.aura_timer_text_shadow_color_offset[2])\n        \n        iconFrame.Cooldown:SetEdgeTexture (profile.aura_cooldown_edge_texture)\n        iconFrame.Cooldown:SetReverse (profile.aura_cooldown_reverse)\n        iconFrame.Cooldown:SetDrawSwipe (profile.aura_cooldown_show_swipe)        \n        \n    end\n    \nend",
-},
-["Author"] = "?????-Illidan",
 ["Options"] = {
+},
+["LastHookEdited"] = "",
+["Author"] = "?????-Illidan",
+["OptionsValues"] = {
 },
 ["Desc"] = "Format Buff Special icons like the regular aura icons.",
 ["Hooks"] = {
 ["Nameplate Updated"] = "function (self, unitId, unitFrame, envTable)\n    \n    --    if false then return end\n    \n    for _, iconFrame in ipairs (unitFrame.ExtraIconFrame.IconPool) do\n        \n        unitFrame.ExtraIconFrame.options.show_text = true\n        \n        local profile = Plater.db.profile\n        \n        Plater.SetAnchor (iconFrame.CountdownText, profile.aura_timer_text_anchor)\n        Plater:SetFontSize (iconFrame.CountdownText, profile.aura_timer_text_size)\n        Plater:SetFontFace (iconFrame.CountdownText, profile.aura_timer_text_font)\n        \n        Plater.SetFontOutlineAndShadow (iconFrame.CountdownText, profile.aura_timer_text_outline, profile.aura_timer_text_shadow_color, profile.aura_timer_text_shadow_color_offset[1], profile.aura_timer_text_shadow_color_offset[2])\n        \n        iconFrame.Cooldown:SetEdgeTexture (profile.aura_cooldown_edge_texture)\n        iconFrame.Cooldown:SetReverse (profile.aura_cooldown_reverse)\n        iconFrame.Cooldown:SetDrawSwipe (profile.aura_cooldown_show_swipe)        \n        \n    end\n    \nend",
 },
 ["Prio"] = 99,
+["Name"] = "Buff Special Mod",
+["PlaterCore"] = 1,
+["HooksTemp"] = {
+["Nameplate Updated"] = "function (self, unitId, unitFrame, envTable)\n    \n    --    if false then return end\n    \n    for _, iconFrame in ipairs (unitFrame.ExtraIconFrame.IconPool) do\n        \n        unitFrame.ExtraIconFrame.options.show_text = true\n        \n        local profile = Plater.db.profile\n        \n        Plater.SetAnchor (iconFrame.CountdownText, profile.aura_timer_text_anchor)\n        Plater:SetFontSize (iconFrame.CountdownText, profile.aura_timer_text_size)\n        Plater:SetFontFace (iconFrame.CountdownText, profile.aura_timer_text_font)\n        \n        Plater.SetFontOutlineAndShadow (iconFrame.CountdownText, profile.aura_timer_text_outline, profile.aura_timer_text_shadow_color, profile.aura_timer_text_shadow_color_offset[1], profile.aura_timer_text_shadow_color_offset[2])\n        \n        iconFrame.Cooldown:SetEdgeTexture (profile.aura_cooldown_edge_texture)\n        iconFrame.Cooldown:SetReverse (profile.aura_cooldown_reverse)\n        iconFrame.Cooldown:SetDrawSwipe (profile.aura_cooldown_show_swipe)        \n        \n    end\n    \nend",
+},
 ["Time"] = 1763175964,
+["Icon"] = 136139,
 ["LoadConditions"] = {
 ["talent"] = {
 },
@@ -7224,26 +7353,27 @@ false,
 ["class"] = {
 },
 },
-["LastHookEdited"] = "",
-["Name"] = "Buff Special Mod",
-["Icon"] = 136139,
-["PlaterCore"] = 1,
 },
 {
 ["Enabled"] = true,
 ["Revision"] = 42,
-["OptionsValues"] = {
-},
-["LastHookEdited"] = "",
-["Author"] = "Ditador-Azralon",
 ["Options"] = {
+},
+["HooksTemp"] = {
+},
+["Author"] = "Ditador-Azralon",
+["OptionsValues"] = {
 },
 ["Desc"] = "Set the unit name to be above the target shading texture.",
 ["Hooks"] = {
 ["Target Changed"] = "function (self, unitId, unitFrame, envTable)\n    unitFrame.unitName:SetDrawLayer (\"overlay\", 7)\nend\n\n\n\n\n\n\n\n\n",
 },
 ["Prio"] = 99,
+["Name"] = "Unit Name Over Target Shading",
+["PlaterCore"] = 1,
+["LastHookEdited"] = "",
 ["Time"] = 1665508105,
+["Icon"] = 136120,
 ["LoadConditions"] = {
 ["talent"] = {
 },
@@ -7266,21 +7396,15 @@ false,
 ["affix"] = {
 },
 },
-["HooksTemp"] = {
-},
-["Name"] = "Unit Name Over Target Shading",
-["Icon"] = 136120,
-["PlaterCore"] = 1,
 },
 {
 ["Enabled"] = true,
 ["Revision"] = 65,
-["OptionsValues"] = {
-},
-["HooksTemp"] = {
-},
-["Author"] = "Ditador-Azralon",
 ["Options"] = {
+},
+["LastHookEdited"] = "",
+["Author"] = "Ditador-Azralon",
+["OptionsValues"] = {
 },
 ["Desc"] = "Set the spark height to the same size of the cast bar.",
 ["Hooks"] = {
@@ -7288,11 +7412,7 @@ false,
 ["Cast Update"] = "function (self, unitId, unitFrame, envTable)\n    \n    self.Spark:SetHeight (self:GetHeight())\n    \nend\n\n\n",
 },
 ["Prio"] = 99,
-["Time"] = 1706886884,
-["PlaterCore"] = 1,
-["LastHookEdited"] = "",
 ["Name"] = "Adjust Spark Size",
-["Icon"] = 136222,
 ["LoadConditions"] = {
 ["talent"] = {
 },
@@ -7315,16 +7435,20 @@ false,
 ["race"] = {
 },
 },
+["HooksTemp"] = {
+},
+["Time"] = 1706886884,
+["Icon"] = 136222,
+["PlaterCore"] = 1,
 },
 {
 ["Enabled"] = false,
 ["Revision"] = 74,
-["OptionsValues"] = {
-},
-["HooksTemp"] = {
-},
-["Author"] = "Izimode-Azralon",
 ["Options"] = {
+},
+["LastHookEdited"] = "Constructor",
+["Author"] = "Izimode-Azralon",
+["OptionsValues"] = {
 },
 ["Desc"] = "Show power bar for some units.",
 ["Hooks"] = {
@@ -7332,11 +7456,7 @@ false,
 ["Constructor"] = "function (self, unitId, unitFrame, envTable)\n    \n    --power bar options:\n    \n    --for which units it should\n    envTable.ShowForEnemyPlayers = true\n    envTable.ShowForEnemyNpcs = false\n    \n    --specific npcs, can be the npc name or npcId\n    --this list work even if the ShowForEnemyNpcs is false\n    envTable.SpecificNpcs = {\n        [\"the rock\"] = true, --npc name\n        [225] = true, --npcId\n    }\n    \n    --anchor the power bar to\n    envTable.Anchor = {\n        side = 13, --inside the healthbar, bottom side\n        x = 0, \n        y = 0,\n    }\n    \n    --power bar height\n    envTable.Height = 1\n    \n    --power bar percent text\n    envTable.PercentTextEnabled = false\n    envTable.PercentTextAnchor = {\n        side = 7, --top right\n        x = 2, \n        y = 0,\n    }\n    \n    \n    --private\n    function envTable.ShowPowerbar (unitFrame)\n        unitFrame.powerBar:SetUnit (unitFrame.unit)\n        envTable.UpdatePowerbar (unitFrame)\n    end\n    \n    function envTable.UpdatePowerbar (unitFrame)\n        local powerBar = unitFrame.powerBar\n        Plater.SetAnchor (powerBar, envTable.Anchor, unitFrame.healthBar)\n        powerBar:SetSize (unitFrame.healthBar:GetWidth(), envTable.Height)\n        \n        envTable.SavePowerBarSize (unitFrame, envTable.Height)\n        \n        if (envTable.PercentTextEnabled) then\n            powerBar.percentText:Show()\n            --copy the font from the health percent\n            Plater:SetFontFace (powerBar.percentText, Plater.GetConfig (unitFrame).percent_text_font)\n            Plater:SetFontSize (powerBar.percentText, Plater.GetConfig (unitFrame).percent_text_size)\n            Plater.SetAnchor (powerBar.percentText, envTable.PercentTextAnchor)\n        else\n            powerBar.percentText:Hide()\n        end\n    end\n    \n    function envTable.CanShowPowerBarForUnit (unitFrame)\n        --check if the is in the special list to force show\n        local forceShowPowerBar = envTable.SpecificNpcs [unitFrame.namePlateNpcId] or envTable.SpecificNpcs [unitFrame.namePlateUnitName] or envTable.SpecificNpcs [unitFrame.namePlateUnitNameLower]\n        if (forceShowPowerBar) then\n            envTable.ShowPowerbar (unitFrame)\n            \n            --check if the unit is a enemy player\n        elseif (unitFrame.ActorType == \"enemyplayer\") then\n            if (envTable.ShowForEnemyPlayers) then\n                envTable.ShowPowerbar (unitFrame)\n            end\n            \n            --check if the unit is a enemy npc\n        elseif (unitFrame.ActorType == \"enemynpc\") then\n            if (envTable.ShowForEnemyNpcs) then\n                envTable.ShowPowerbar (unitFrame)\n            end\n        end\n    end\n    \n    function envTable.SavePowerBarSize (unitFrame, height)\n        local plateConfigs = Plater.db.profile.plate_config [unitFrame.ActorType]\n        plateConfigs.mana[1] = plateConfigs.health[1]\n        plateConfigs.mana[2] = height\n        plateConfigs.mana_incombat[1] = plateConfigs.health_incombat[1]\n        plateConfigs.mana_incombat[2] = height\n    end\nend\n\n\n\n\n\n",
 },
 ["Prio"] = 99,
-["Time"] = 1654535375,
-["PlaterCore"] = 1,
-["LastHookEdited"] = "Constructor",
 ["Name"] = "Power Bar",
-["Icon"] = "Interface/Addons/Plater/Media/fire_64",
 ["LoadConditions"] = {
 ["talent"] = {
 },
@@ -7359,6 +7479,11 @@ false,
 ["role"] = {
 },
 },
+["HooksTemp"] = {
+},
+["Time"] = 1654535375,
+["Icon"] = "Interface/Addons/Plater/Media/fire_64",
+["PlaterCore"] = 1,
 },
 {
 ["OptionsValues"] = {
@@ -7413,11 +7538,12 @@ false,
 {
 ["Enabled"] = false,
 ["Revision"] = 188,
-["Options"] = {
-},
-["LastHookEdited"] = "Constructor",
-["Author"] = "Viashi-Antonidas",
 ["OptionsValues"] = {
+},
+["HooksTemp"] = {
+},
+["Author"] = "Viashi-Antonidas",
+["Options"] = {
 },
 ["Desc"] = "Color the nameplates of important m+ mobs",
 ["Hooks"] = {
@@ -7425,7 +7551,11 @@ false,
 ["Nameplate Updated"] = "function (self, unitId, unitFrame, envTable)\n    envTable.UpdateColor (unitFrame)\nend",
 },
 ["Prio"] = 99,
+["Time"] = 1632047819,
+["PlaterCore"] = 1,
+["LastHookEdited"] = "Constructor",
 ["Name"] = "M+ Colored Mobs",
+["Icon"] = "Interface\\AddOns\\Plater\\images\\color_bar",
 ["LoadConditions"] = {
 ["talent"] = {
 },
@@ -7448,21 +7578,15 @@ false,
 ["class"] = {
 },
 },
-["HooksTemp"] = {
-},
-["Time"] = 1632047819,
-["Icon"] = "Interface\\AddOns\\Plater\\images\\color_bar",
-["PlaterCore"] = 1,
 },
 {
 ["Enabled"] = false,
 ["Revision"] = 340,
-["Options"] = {
-},
-["HooksTemp"] = {
-},
-["Author"] = "Zargan-Quel'dorei",
 ["OptionsValues"] = {
+},
+["LastHookEdited"] = "",
+["Author"] = "Zargan-Quel'dorei",
+["Options"] = {
 },
 ["Desc"] = "Sets the nameplate alpha based on range and occlusion.",
 ["Hooks"] = {
@@ -7471,7 +7595,12 @@ false,
 ["Constructor"] = "function (self, unitId, unitFrame, envTable)\n    \n    --if setCVars is true, the function will set the namplate alpha CVars\n    local setCVars = true\n    \n    --change these values as desired\n    local defaultOccludedAlphaMult = 0.4 -- default = 0.4\n    local defaultMaxAlpha = 1.0 -- default = 1.0\n    local defaultMinAlpha = 0.6 --defulat = 0.6\n    \n    --nameplates with an alpha less than cvar nameplateOccludedAlphaMult are considered to be occluded\n    envTable.npOccludedAlphaMult = tonumber(GetCVar(\"nameplateOccludedAlphaMult\")) \n    if envTable.npOccludedAlphaMult ~= defaultOccludedAlphaMult and setCVars then  \n        Plater.SafeSetCVar (\"nameplateOccludedAlphaMult\", defaultOccludedAlphaMult)\n        envTable.npOccludedAlphaMult = defaultOccludedAlphaMult\n    end\n    \n    --nameplates that are in range will have their alpha set equal to cvar nameplateMaxAlpha\n    envTable.npMaxAlpha =  tonumber(GetCVar(\"nameplateMaxAlpha\"))\n    if envTable.npMaxAlpha ~= defaultMaxAlpha and setCVars then\n        Plater.SafeSetCVar (\"nameplateMaxAlpha\", defaultMaxAlpha)\n        envTable.npMaxAlpha = defaultMaxAlpha\n    end\n    \n    --set cvar nameplateMinAlpha\n    envTable.npMinAlpha =  tonumber(GetCVar(\"nameplateMinAlpha\"))\n    if envTable.npMinAlpha ~=defaultMinAlpha and setCVars then  \n        Plater.SafeSetCVar (\"nameplateMinAlpha\", defaultMinAlpha) \n        envTable.npMinAlpha = defaultMinAlpha\n    end \n    \n    --get plater profile setting for range check enabled\n    envTable.rangeCheckEnabled = Plater.db.profile.range_check_enabled\n    \n    --get plater profile setting for range check alpha (for nameplates that are out of range)\n    envTable.rangeCheckAlpha = Plater.db.profile.range_check_alpha\n    \nend\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
 },
 ["Prio"] = 99,
+["Time"] = 1632047731,
+["PlaterCore"] = 1,
+["HooksTemp"] = {
+},
 ["Name"] = "Nameplate Alpha",
+["Icon"] = 136243,
 ["LoadConditions"] = {
 ["talent"] = {
 },
@@ -7494,10 +7623,6 @@ false,
 ["race"] = {
 },
 },
-["LastHookEdited"] = "",
-["Time"] = 1632047731,
-["Icon"] = 136243,
-["PlaterCore"] = 1,
 },
 {
 ["OptionsValues"] = {
@@ -8721,26 +8846,34 @@ nil,
 ["range_check_alpha_friendlies"] = 0.79999995231628,
 ["ui_parent_buff_strata"] = "LOW",
 ["widget_bar_scale"] = 0.89999997615814,
-["aura_stack_color"] = {
-nil,
-0.9843137254902,
-0.97254901960784,
-},
+["healthbar_framelevel"] = 0,
 ["profile_name"] = "露露缇娅",
 ["health_statusbar_bgtexture"] = "Solid",
 ["indicator_raidmark_anchor"] = {
 ["y"] = 13.899993896484,
 ["x"] = 30.410003662109,
 },
-["aura_show_enrage"] = true,
+["tank"] = {
+["colors"] = {
+["aggro"] = {
+0.30196078431373,
+0.72156862745098,
+},
+["pulling"] = {
+nil,
+0.91372549019608,
+0.99607843137255,
+},
+},
+},
 ["aura_tracker"] = {
 ["buff_tracked"] = {
 [209859] = false,
 [66092] = true,
 [227931] = true,
-[41450] = true,
-[233210] = true,
 [66129] = true,
+[233210] = true,
+[41450] = true,
 [297133] = true,
 [343502] = false,
 [41451] = true,
@@ -8762,12 +8895,12 @@ nil,
 [353354] = true,
 [196941] = false,
 [356329] = true,
-[17800] = true,
 [314559] = true,
-[344172] = true,
+[17800] = true,
+[281242] = true,
 [68595] = true,
 [360277] = true,
-[281242] = true,
+[344172] = true,
 [48301] = false,
 [46562] = true,
 },
@@ -8790,7 +8923,11 @@ nil,
 ["focus_indicator_enabled"] = false,
 ["tocversion"] = 30404,
 ["indicator_extra_raidmark"] = false,
-["aura_timer_text_size"] = 12,
+["captured_casts"] = {
+[41360] = {
+["npcID"] = 23394,
+},
+},
 ["extra_icon_timer_font"] = "默认",
 ["not_affecting_combat_alpha"] = 0.96721214056015,
 ["target_highlight_alpha"] = 0.84999996423721,
@@ -9003,13 +9140,13 @@ nil,
 },
 ["Author"] = "Izimode-Azralon",
 ["OnShowCode"] = "function (self, unitId, unitFrame, envTable)\n    \nend\n\n\n",
+["Name"] = "Aura - Invalidate Unit [Plater]",
+["Prio"] = 99,
 ["SpellIds"] = {
 261265,
 261266,
 271590,
 },
-["Prio"] = 99,
-["Name"] = "Aura - Invalidate Unit [Plater]",
 ["PlaterCore"] = 1,
 ["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable)\n    \n    --only change the nameplate color in combat\n    if (InCombatLockdown()) then\n        Plater.SetNameplateColor (unitFrame, envTable.NameplateColor)\n    end\n    \nend\n\n\n\n\n\n\n",
 ["NpcNames"] = {
@@ -9034,8 +9171,8 @@ nil,
 ["Author"] = "Tercioo-Sylvanas",
 ["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
 ["Desc"] = "Add the buff name in the trigger box.",
-["Name"] = "Aura - Buff Alert [Plater]",
 ["version"] = -1,
+["Name"] = "Aura - Buff Alert [Plater]",
 ["PlaterCore"] = 1,
 ["SpellIds"] = {
 398151,
@@ -9166,31 +9303,13 @@ nil,
 ["ScriptType"] = 2,
 ["Temp_Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
 ["Time"] = 1706951967,
-["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --create a texture to use for a flash behind the cast bar\n    local backGroundFlashTexture = Plater:CreateImage (self, [[Interface\\ACHIEVEMENTFRAME\\UI-Achievement-Alert-Glow]], self:GetWidth()+40, self:GetHeight()+20, \"background\", {0, 400/512, 0, 170/256})\n    backGroundFlashTexture:SetBlendMode (\"ADD\")\n    backGroundFlashTexture:SetDrawLayer(\"OVERLAY\", 7)\n    backGroundFlashTexture:SetPoint (\"center\", self, \"center\")\n    backGroundFlashTexture:SetVertexColor(Plater:ParseColors(scriptTable.config.flashColor))\n    backGroundFlashTexture:Hide()\n    \n    --create the animation hub to hold the flash animation sequence\n    envTable.BackgroundFlash = envTable.BackgroundFlash or Plater:CreateAnimationHub (backGroundFlashTexture, \n        function()\n            backGroundFlashTexture:Show()\n        end,\n        function()\n            backGroundFlashTexture:Hide()\n        end\n    )\n    \n    --create the flash animation sequence\n    local fadeIn = Plater:CreateAnimation (envTable.BackgroundFlash, \"ALPHA\", 1, scriptTable.config.flashDuration/2, 0, 1)\n    local fadeOut = Plater:CreateAnimation (envTable.BackgroundFlash, \"ALPHA\", 2, scriptTable.config.flashDuration/2, 1, 0)\n    \n    --create a camera shake for the nameplate\n    envTable.FrameShake = Plater:CreateFrameShake (unitFrame, scriptTable.config.shakeDuration, scriptTable.config.shakeAmplitude, scriptTable.config.shakeFrequency, false, false, 0, 1, 0.05, 0.1, Plater.GetPoints (unitFrame))\n    \n    --update the config for the flash here so it wont need a /reload\n    fadeIn:SetDuration (scriptTable.config.flashDuration/2)\n    fadeOut:SetDuration (scriptTable.config.flashDuration/2)\n    \n    --update the config for the skake here so it wont need a /reload\n    envTable.FrameShake.OriginalAmplitude = scriptTable.config.shakeAmplitude\n    envTable.FrameShake.OriginalDuration = scriptTable.config.shakeDuration\n    envTable.FrameShake.OriginalFrequency = scriptTable.config.shakeFrequency\nend",
 ["url"] = "",
+["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --create a texture to use for a flash behind the cast bar\n    local backGroundFlashTexture = Plater:CreateImage (self, [[Interface\\ACHIEVEMENTFRAME\\UI-Achievement-Alert-Glow]], self:GetWidth()+40, self:GetHeight()+20, \"background\", {0, 400/512, 0, 170/256})\n    backGroundFlashTexture:SetBlendMode (\"ADD\")\n    backGroundFlashTexture:SetDrawLayer(\"OVERLAY\", 7)\n    backGroundFlashTexture:SetPoint (\"center\", self, \"center\")\n    backGroundFlashTexture:SetVertexColor(Plater:ParseColors(scriptTable.config.flashColor))\n    backGroundFlashTexture:Hide()\n    \n    --create the animation hub to hold the flash animation sequence\n    envTable.BackgroundFlash = envTable.BackgroundFlash or Plater:CreateAnimationHub (backGroundFlashTexture, \n        function()\n            backGroundFlashTexture:Show()\n        end,\n        function()\n            backGroundFlashTexture:Hide()\n        end\n    )\n    \n    --create the flash animation sequence\n    local fadeIn = Plater:CreateAnimation (envTable.BackgroundFlash, \"ALPHA\", 1, scriptTable.config.flashDuration/2, 0, 1)\n    local fadeOut = Plater:CreateAnimation (envTable.BackgroundFlash, \"ALPHA\", 2, scriptTable.config.flashDuration/2, 1, 0)\n    \n    --create a camera shake for the nameplate\n    envTable.FrameShake = Plater:CreateFrameShake (unitFrame, scriptTable.config.shakeDuration, scriptTable.config.shakeAmplitude, scriptTable.config.shakeFrequency, false, false, 0, 1, 0.05, 0.1, Plater.GetPoints (unitFrame))\n    \n    --update the config for the flash here so it wont need a /reload\n    fadeIn:SetDuration (scriptTable.config.flashDuration/2)\n    fadeOut:SetDuration (scriptTable.config.flashDuration/2)\n    \n    --update the config for the skake here so it wont need a /reload\n    envTable.FrameShake.OriginalAmplitude = scriptTable.config.shakeAmplitude\n    envTable.FrameShake.OriginalDuration = scriptTable.config.shakeDuration\n    envTable.FrameShake.OriginalFrequency = scriptTable.config.shakeFrequency\nend",
 ["NpcNames"] = {
 },
-["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    Plater.StopDotAnimation(unitFrame.castBar, envTable.dotAnimation)    \n    \n    envTable.BackgroundFlash:Stop()\n    \n    unitFrame:StopFrameShake (envTable.FrameShake)    \n    \nend\n\n\n",
 ["Enabled"] = true,
+["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    Plater.StopDotAnimation(unitFrame.castBar, envTable.dotAnimation)    \n    \n    envTable.BackgroundFlash:Stop()\n    \n    unitFrame:StopFrameShake (envTable.FrameShake)    \n    \nend\n\n\n",
 ["Revision"] = 836,
-["semver"] = "",
-["Desc"] = "Highlight a very important cast applying several effects into the Cast Bar. Add spell in the Add Trigger field.",
-["Prio"] = 99,
-["Author"] = "Bombad�o-Azralon",
-["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
-["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    envTable.dotAnimation = Plater.PlayDotAnimation(unitFrame.castBar, 5, scriptTable.config.dotColor, scriptTable.config.xOffset, scriptTable.config.yOffset)\n    \n    envTable.BackgroundFlash:Play()\n    \n    Plater.FlashNameplateBorder (unitFrame, 0.05)   \n    Plater.FlashNameplateBody (unitFrame, \"\", 0.075)\n    \n    unitFrame:PlayFrameShake (envTable.FrameShake)\n    \n    Plater.SetCastBarColorForScript(self, scriptTable.config.useCastbarColor, scriptTable.config.castBarColor, envTable)\n    \n    --Dominator on Shadowmoon Burial Grounds\n    if (envTable._SpellID == 154327) then\n        if (UnitHealth(unitId) == UnitHealthMax(unitId)) then\n            if (envTable._Duration == 604800) then\n                Plater.SetCastBarColorForScript(self, scriptTable.config.useCastbarColor, {1, 0, 0, 1}, envTable)\n            end\n        end\n    end\nend",
-["version"] = -1,
-["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \nend\n\n\n",
-["SpellIds"] = {
-3636,
-45185,
-46161,
-46427,
-253517,
-},
-["PlaterCore"] = 1,
-["Name"] = "Cast - Very Important [Plater]",
-["Icon"] = "Interface\\AddOns\\Plater\\images\\cast_bar_darkorange",
 ["Options"] = {
 {
 ["Type"] = 6,
@@ -9434,6 +9553,24 @@ nil,
 ["Desc"] = "Cast bar color.",
 },
 },
+["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    envTable.dotAnimation = Plater.PlayDotAnimation(unitFrame.castBar, 5, scriptTable.config.dotColor, scriptTable.config.xOffset, scriptTable.config.yOffset)\n    \n    envTable.BackgroundFlash:Play()\n    \n    Plater.FlashNameplateBorder (unitFrame, 0.05)   \n    Plater.FlashNameplateBody (unitFrame, \"\", 0.075)\n    \n    unitFrame:PlayFrameShake (envTable.FrameShake)\n    \n    Plater.SetCastBarColorForScript(self, scriptTable.config.useCastbarColor, scriptTable.config.castBarColor, envTable)\n    \n    --Dominator on Shadowmoon Burial Grounds\n    if (envTable._SpellID == 154327) then\n        if (UnitHealth(unitId) == UnitHealthMax(unitId)) then\n            if (envTable._Duration == 604800) then\n                Plater.SetCastBarColorForScript(self, scriptTable.config.useCastbarColor, {1, 0, 0, 1}, envTable)\n            end\n        end\n    end\nend",
+["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \nend\n\n\n",
+["Author"] = "Bombad�o-Azralon",
+["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
+["Desc"] = "Highlight a very important cast applying several effects into the Cast Bar. Add spell in the Add Trigger field.",
+["version"] = -1,
+["Prio"] = 99,
+["Name"] = "Cast - Very Important [Plater]",
+["PlaterCore"] = 1,
+["SpellIds"] = {
+3636,
+45185,
+46161,
+46427,
+253517,
+},
+["Icon"] = "Interface\\AddOns\\Plater\\images\\cast_bar_darkorange",
+["semver"] = "",
 ["UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \nend\n\n\n",
 },
 {
@@ -9451,12 +9588,12 @@ nil,
 ["semver"] = "",
 ["Author"] = "Tercioo-Sylvanas",
 ["Desc"] = "Add the debuff name in the trigger box.",
+["version"] = -1,
 ["SpellIds"] = {
 337220,
 337253,
 337251,
 },
-["version"] = -1,
 ["PlaterCore"] = 1,
 ["Name"] = "Aura - Debuff Alert [Plater]",
 ["Options"] = {
@@ -9858,8 +9995,6 @@ nil,
 ["ScriptType"] = 3,
 ["Temp_Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
 ["Time"] = 1657090616,
-["Icon"] = "Interface\\AddOns\\Plater\\media\\skullbones_64",
-["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    --settings (you may need /reload if some configs isn't applied immediately)    \n    --change the nameplate color to this if allowed\n    envTable.CanChangeNameplateColor = scriptTable.config.changeNameplateColor --\n    envTable.NameplateColor = scriptTable.config.nameplateColor\n    envTable.NameplateSizeOffset = scriptTable.config.nameplateSizeOffset --\n    \n    unitFrame.UnitImportantSkullTexture = unitFrame.UnitImportantSkullTexture or unitFrame:CreateTexture(nil, \"background\")\n    \n    unitFrame.UnitImportantSkullTexture:SetTexture([[Interface/AddOns/Plater/media/skullbones_128]])\n    unitFrame.UnitImportantSkullTexture:SetPoint(\"center\", unitFrame.healthBar, \"center\", 0, -5)\n    \n    unitFrame.UnitImportantSkullTexture:SetVertexColor(Plater:ParseColors(scriptTable.config.skullColor))\n    unitFrame.UnitImportantSkullTexture:SetAlpha(scriptTable.config.skullAlpha)\n    unitFrame.UnitImportantSkullTexture:SetScale(scriptTable.config.skullScale)\n    \n    unitFrame.UnitImportantSkullTexture:Hide()\nend\n\n--[=[\n\n154564 - debug\n\nUsing spellIDs for multi-language support\n\n164362 - smily morsel - plaguefall\n168882 - fleeting manifestation - sanguine depths\n170234 - oppressive banner - theater of pain\n168988 - overgrowth - Mists of Tirna Scithe\n170452 - essesnce orb - torghast\n\n\n--]=]",
 ["NpcNames"] = {
 "164362",
 "168882",
@@ -9871,22 +10006,11 @@ nil,
 163746,
 152033,
 },
+["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    --settings (you may need /reload if some configs isn't applied immediately)    \n    --change the nameplate color to this if allowed\n    envTable.CanChangeNameplateColor = scriptTable.config.changeNameplateColor --\n    envTable.NameplateColor = scriptTable.config.nameplateColor\n    envTable.NameplateSizeOffset = scriptTable.config.nameplateSizeOffset --\n    \n    unitFrame.UnitImportantSkullTexture = unitFrame.UnitImportantSkullTexture or unitFrame:CreateTexture(nil, \"background\")\n    \n    unitFrame.UnitImportantSkullTexture:SetTexture([[Interface/AddOns/Plater/media/skullbones_128]])\n    unitFrame.UnitImportantSkullTexture:SetPoint(\"center\", unitFrame.healthBar, \"center\", 0, -5)\n    \n    unitFrame.UnitImportantSkullTexture:SetVertexColor(Plater:ParseColors(scriptTable.config.skullColor))\n    unitFrame.UnitImportantSkullTexture:SetAlpha(scriptTable.config.skullAlpha)\n    unitFrame.UnitImportantSkullTexture:SetScale(scriptTable.config.skullScale)\n    \n    unitFrame.UnitImportantSkullTexture:Hide()\nend\n\n--[=[\n\n154564 - debug\n\nUsing spellIDs for multi-language support\n\n164362 - smily morsel - plaguefall\n168882 - fleeting manifestation - sanguine depths\n170234 - oppressive banner - theater of pain\n168988 - overgrowth - Mists of Tirna Scithe\n170452 - essesnce orb - torghast\n\n\n--]=]",
+["Icon"] = "Interface\\AddOns\\Plater\\media\\skullbones_64",
 ["url"] = "",
 ["Enabled"] = false,
 ["Revision"] = 360,
-["semver"] = "",
-["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable)\n    Plater.StopDotAnimation(unitFrame.healthBar, envTable.dotAnimation)   \n    \n    --restore the nameplate size\n    local nameplateHeight = Plater.db.profile.plate_config.enemynpc.health_incombat [2]\n    unitFrame.healthBar:SetHeight (nameplateHeight)    \n    \n    unitFrame.UnitImportantSkullTexture:Hide()\nend\n\n\n",
-["SpellIds"] = {
-},
-["Author"] = "Izimode-Azralon",
-["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
-["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    if (envTable.dotAnimation) then\n        Plater.StopDotAnimation(unitFrame.healthBar, envTable.dotAnimation)\n    end\n    \n    envTable.dotAnimation = Plater.PlayDotAnimation(unitFrame.healthBar, 2, scriptTable.config.dotsColor, 3, 4) \n    \n    --increase the nameplate size\n    local nameplateHeight = Plater.db.profile.plate_config.enemynpc.health_incombat [2]\n    unitFrame.healthBar:SetHeight (nameplateHeight + envTable.NameplateSizeOffset)\n    \n    unitFrame.UnitImportantSkullTexture:Show()\nend\n\n\n\n\n",
-["Name"] = "Unit - Important [Plater]",
-["Prio"] = 99,
-["version"] = -1,
-["PlaterCore"] = 1,
-["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable)\n    \n    --check if can change the nameplate color\n    if (envTable.CanChangeNameplateColor) then\n        Plater.SetNameplateColor (unitFrame, envTable.NameplateColor)\n    end\n    \nend\n\n\n\n\n",
-["Desc"] = "Highlight a nameplate of an important Add. Add the unit name or NpcID into the trigger box to add more.",
 ["Options"] = {
 {
 ["Type"] = 6,
@@ -10017,6 +10141,19 @@ nil,
 ["Fraction"] = true,
 },
 },
+["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable)\n    Plater.StopDotAnimation(unitFrame.healthBar, envTable.dotAnimation)   \n    \n    --restore the nameplate size\n    local nameplateHeight = Plater.db.profile.plate_config.enemynpc.health_incombat [2]\n    unitFrame.healthBar:SetHeight (nameplateHeight)    \n    \n    unitFrame.UnitImportantSkullTexture:Hide()\nend\n\n\n",
+["Name"] = "Unit - Important [Plater]",
+["Author"] = "Izimode-Azralon",
+["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
+["Desc"] = "Highlight a nameplate of an important Add. Add the unit name or NpcID into the trigger box to add more.",
+["SpellIds"] = {
+},
+["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable)\n    \n    --check if can change the nameplate color\n    if (envTable.CanChangeNameplateColor) then\n        Plater.SetNameplateColor (unitFrame, envTable.NameplateColor)\n    end\n    \nend\n\n\n\n\n",
+["version"] = -1,
+["PlaterCore"] = 1,
+["Prio"] = 99,
+["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    if (envTable.dotAnimation) then\n        Plater.StopDotAnimation(unitFrame.healthBar, envTable.dotAnimation)\n    end\n    \n    envTable.dotAnimation = Plater.PlayDotAnimation(unitFrame.healthBar, 2, scriptTable.config.dotsColor, 3, 4) \n    \n    --increase the nameplate size\n    local nameplateHeight = Plater.db.profile.plate_config.enemynpc.health_incombat [2]\n    unitFrame.healthBar:SetHeight (nameplateHeight + envTable.NameplateSizeOffset)\n    \n    unitFrame.UnitImportantSkullTexture:Show()\nend\n\n\n\n\n",
+["semver"] = "",
 ["UpdateCode"] = "function (self, unitId, unitFrame, envTable)\n    \n    --check if can change the nameplate color\n    if (envTable.CanChangeNameplateColor) then\n        Plater.SetNameplateColor (unitFrame, envTable.NameplateColor)\n    end\n    \nend\n\n\n\n\n",
 },
 {
@@ -10035,12 +10172,9 @@ nil,
 ["ScriptType"] = 2,
 ["Temp_Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend",
 ["Time"] = 1706951950,
-["Enabled"] = true,
-["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --castbar color (when can be interrupted)\n    envTable.CastbarColor = scriptTable.config.castbarColor\n    \n    --flash duration\n    local CONFIG_BACKGROUND_FLASH_DURATION = scriptTable.config.flashDuration\n    \n    --add this value to the cast bar height\n    envTable.CastBarHeightAdd = scriptTable.config.castBarHeight\n    \n    --create a fast flash above the cast bar\n    envTable.FullBarFlash = envTable.FullBarFlash or Plater.CreateFlash (self, 0.05, 1, \"white\")\n    \n    --create a camera shake for the nameplate\n    envTable.FrameShake = Plater:CreateFrameShake (unitFrame, scriptTable.config.shakeDuration, scriptTable.config.shakeAmplitude, scriptTable.config.shakeFrequency, false, false, 0, 1, 0.05, 0.1, Plater.GetPoints (unitFrame))\n    \n    --create a texture to use for a flash behind the cast bar\n    local backGroundFlashTexture = Plater:CreateImage (self, [[Interface\\ACHIEVEMENTFRAME\\UI-Achievement-Alert-Glow]], self:GetWidth()+60, self:GetHeight()+50, \"background\", {0, 400/512, 0, 170/256})\n    backGroundFlashTexture:SetBlendMode (\"ADD\", 7)\n    backGroundFlashTexture:SetDrawLayer(\"OVERLAY\", 7)\n    backGroundFlashTexture:SetPoint (\"center\", self, \"center\")\n    backGroundFlashTexture:Hide()\n    \n    --create the animation hub to hold the flash animation sequence\n    envTable.BackgroundFlash = envTable.BackgroundFlash or Plater:CreateAnimationHub (backGroundFlashTexture, \n        function()\n            backGroundFlashTexture:Show()\n        end,\n        function()\n            backGroundFlashTexture:Hide()\n        end\n    )\n    \n    --create the flash animation sequence\n    envTable.BackgroundFlash.fadeIn = envTable.BackgroundFlash.fadeIn or Plater:CreateAnimation (envTable.BackgroundFlash, \"ALPHA\", 1, CONFIG_BACKGROUND_FLASH_DURATION/2, 0, .75)\n    envTable.BackgroundFlash.fadeIn:SetDuration(CONFIG_BACKGROUND_FLASH_DURATION/2)\n    \n    envTable.BackgroundFlash.fadeOut = envTable.BackgroundFlash.fadeOut or Plater:CreateAnimation (envTable.BackgroundFlash, \"ALPHA\", 2, CONFIG_BACKGROUND_FLASH_DURATION/2, 1, 0)    \n    envTable.BackgroundFlash.fadeOut:SetDuration(CONFIG_BACKGROUND_FLASH_DURATION/2)\n    \n    --envTable.BackgroundFlash:Play() --envTable.BackgroundFlash:Stop()    \n    \n    \n    \n    \n    \nend\n\n\n\n\n",
-["Icon"] = "Interface\\AddOns\\Plater\\images\\cast_bar_orange",
-["semver"] = "",
 ["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    if (not Plater.IsShowingCastBarTest) then\n        --don't execute on battlegrounds and arenas\n        if (Plater.ZoneInstanceType == \"arena\" or Plater.ZoneInstanceType == \"pvp\" or Plater.ZoneInstanceType == \"none\") then\n            return\n        end    \n    end\n    \n    unitFrame.castBar:SetHeight (envTable._DefaultHeight)\n    \n    --stop the camera shake\n    unitFrame:StopFrameShake (envTable.FrameShake)\n    \n    envTable.FullBarFlash:Stop()\n    envTable.BackgroundFlash:Stop()\n    \n    unitFrame.castBar.Spark:SetHeight(unitFrame.castBar:GetHeight())\n    \nend\n\n\n\n\n\n\n\n",
-["Revision"] = 1217,
+["url"] = "",
+["Icon"] = "Interface\\AddOns\\Plater\\images\\cast_bar_orange",
 ["Options"] = {
 {
 ["Type"] = 6,
@@ -10159,10 +10293,9 @@ nil,
 ["Name"] = "Shake Frequency",
 },
 },
-["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    --don't execute on battlegrounds and arenas\n    if (not Plater.IsShowingCastBarTest) then\n        if (Plater.ZoneInstanceType == \"arena\" or Plater.ZoneInstanceType == \"pvp\" or Plater.ZoneInstanceType == \"none\") then\n            return\n        end\n    end\n    \n    --play flash animations\n    envTable.FullBarFlash:Play()\n    \n    --envTable.currentHeight = unitFrame.castBar:GetHeight()\n    \n    --restoring the default size (not required since it already restore in the hide script)\n    if (envTable.OriginalHeight) then\n        self:SetHeight (envTable.OriginalHeight)\n    end\n    \n    --increase the cast bar size\n    local height = self:GetHeight()\n    envTable.OriginalHeight = height\n    \n    self:SetHeight (height + envTable.CastBarHeightAdd)\n    \n    Plater.SetCastBarBorderColor (self, 1, .2, .2, 0.4)\n    \n    unitFrame:PlayFrameShake (envTable.FrameShake)\n    \n    --set the color of the cast bar to dark orange (only if can be interrupted)\n    --Plater auto set this color to default when a new cast starts, no need to reset this value at OnHide.    \n    if (envTable._CanInterrupt) then\n        if (scriptTable.config.useCastbarColor) then\n            self:SetStatusBarColor (Plater:ParseColors (envTable.CastbarColor))\n        end\n    end\n    \n    Plater.SetCastBarColorForScript(self, scriptTable.config.useCastbarColor, scriptTable.config.castbarColor, envTable)\n    \n    envTable.BackgroundFlash:Play()\n    \n    unitFrame.castBar.Spark:SetHeight(unitFrame.castBar:GetHeight())\n    \nend\n\n\n\n\n\n\n\n\n\n\n\n\n",
-["version"] = -1,
-["Author"] = "Tercioo-Sylvanas",
-["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend",
+["Enabled"] = true,
+["Revision"] = 1217,
+["semver"] = "",
 ["Desc"] = "Flash, Bounce and Red Color the CastBar border when when an important cast is happening. Add spell in the Add Trigger field.",
 ["SpellIds"] = {
 15245,
@@ -10172,14 +10305,18 @@ nil,
 71020,
 69057,
 },
-["Prio"] = 90,
+["Author"] = "Tercioo-Sylvanas",
+["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend",
+["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    --don't execute on battlegrounds and arenas\n    if (not Plater.IsShowingCastBarTest) then\n        if (Plater.ZoneInstanceType == \"arena\" or Plater.ZoneInstanceType == \"pvp\" or Plater.ZoneInstanceType == \"none\") then\n            return\n        end\n    end\n    \n    --play flash animations\n    envTable.FullBarFlash:Play()\n    \n    --envTable.currentHeight = unitFrame.castBar:GetHeight()\n    \n    --restoring the default size (not required since it already restore in the hide script)\n    if (envTable.OriginalHeight) then\n        self:SetHeight (envTable.OriginalHeight)\n    end\n    \n    --increase the cast bar size\n    local height = self:GetHeight()\n    envTable.OriginalHeight = height\n    \n    self:SetHeight (height + envTable.CastBarHeightAdd)\n    \n    Plater.SetCastBarBorderColor (self, 1, .2, .2, 0.4)\n    \n    unitFrame:PlayFrameShake (envTable.FrameShake)\n    \n    --set the color of the cast bar to dark orange (only if can be interrupted)\n    --Plater auto set this color to default when a new cast starts, no need to reset this value at OnHide.    \n    if (envTable._CanInterrupt) then\n        if (scriptTable.config.useCastbarColor) then\n            self:SetStatusBarColor (Plater:ParseColors (envTable.CastbarColor))\n        end\n    end\n    \n    Plater.SetCastBarColorForScript(self, scriptTable.config.useCastbarColor, scriptTable.config.castbarColor, envTable)\n    \n    envTable.BackgroundFlash:Play()\n    \n    unitFrame.castBar.Spark:SetHeight(unitFrame.castBar:GetHeight())\n    \nend\n\n\n\n\n\n\n\n\n\n\n\n\n",
+["version"] = -1,
+["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \nend\n\n\n",
 ["Name"] = "Cast - Big Alert [Plater]",
 ["PlaterCore"] = 1,
-["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \nend\n\n\n",
+["Prio"] = 90,
 ["NpcNames"] = {
 },
 ["UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \nend\n\n\n",
-["url"] = "",
+["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --castbar color (when can be interrupted)\n    envTable.CastbarColor = scriptTable.config.castbarColor\n    \n    --flash duration\n    local CONFIG_BACKGROUND_FLASH_DURATION = scriptTable.config.flashDuration\n    \n    --add this value to the cast bar height\n    envTable.CastBarHeightAdd = scriptTable.config.castBarHeight\n    \n    --create a fast flash above the cast bar\n    envTable.FullBarFlash = envTable.FullBarFlash or Plater.CreateFlash (self, 0.05, 1, \"white\")\n    \n    --create a camera shake for the nameplate\n    envTable.FrameShake = Plater:CreateFrameShake (unitFrame, scriptTable.config.shakeDuration, scriptTable.config.shakeAmplitude, scriptTable.config.shakeFrequency, false, false, 0, 1, 0.05, 0.1, Plater.GetPoints (unitFrame))\n    \n    --create a texture to use for a flash behind the cast bar\n    local backGroundFlashTexture = Plater:CreateImage (self, [[Interface\\ACHIEVEMENTFRAME\\UI-Achievement-Alert-Glow]], self:GetWidth()+60, self:GetHeight()+50, \"background\", {0, 400/512, 0, 170/256})\n    backGroundFlashTexture:SetBlendMode (\"ADD\", 7)\n    backGroundFlashTexture:SetDrawLayer(\"OVERLAY\", 7)\n    backGroundFlashTexture:SetPoint (\"center\", self, \"center\")\n    backGroundFlashTexture:Hide()\n    \n    --create the animation hub to hold the flash animation sequence\n    envTable.BackgroundFlash = envTable.BackgroundFlash or Plater:CreateAnimationHub (backGroundFlashTexture, \n        function()\n            backGroundFlashTexture:Show()\n        end,\n        function()\n            backGroundFlashTexture:Hide()\n        end\n    )\n    \n    --create the flash animation sequence\n    envTable.BackgroundFlash.fadeIn = envTable.BackgroundFlash.fadeIn or Plater:CreateAnimation (envTable.BackgroundFlash, \"ALPHA\", 1, CONFIG_BACKGROUND_FLASH_DURATION/2, 0, .75)\n    envTable.BackgroundFlash.fadeIn:SetDuration(CONFIG_BACKGROUND_FLASH_DURATION/2)\n    \n    envTable.BackgroundFlash.fadeOut = envTable.BackgroundFlash.fadeOut or Plater:CreateAnimation (envTable.BackgroundFlash, \"ALPHA\", 2, CONFIG_BACKGROUND_FLASH_DURATION/2, 1, 0)    \n    envTable.BackgroundFlash.fadeOut:SetDuration(CONFIG_BACKGROUND_FLASH_DURATION/2)\n    \n    --envTable.BackgroundFlash:Play() --envTable.BackgroundFlash:Stop()    \n    \n    \n    \n    \n    \nend\n\n\n\n\n",
 },
 {
 ["ConstructorCode"] = "function (self, unitId, unitFrame, envTable)\n    \n    --color to set the nameplate\n    envTable.NameplateColor = \"pink\" \n    \nend\n\n\n",
@@ -10198,17 +10335,17 @@ nil,
 },
 ["Author"] = "抹了油的大叔-白银之手",
 ["OnShowCode"] = "function (self, unitId, unitFrame, envTable)\n    \nend\n\n\n",
-["Prio"] = 99,
 ["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable)\n    \n    Plater.SetNameplateColor (unitFrame, envTable.NameplateColor)\n    \nend\n\n\n",
-["Name"] = "NameplaterColor with Special Buff ID",
+["Prio"] = 99,
+["SpellIds"] = {
+277242,
+},
 ["PlaterCore"] = 1,
 ["NpcNames"] = {
 },
 ["Desc"] = "NameplaterColor with Special Buff ID",
 ["Enabled"] = false,
-["SpellIds"] = {
-277242,
-},
+["Name"] = "NameplaterColor with Special Buff ID",
 },
 {
 ["ConstructorCode"] = "function (self, unitId, unitFrame, envTable)\n    \n    --settings:\n    do\n        \n        --change the nameplate color to this color\n        --can use color names: \"red\", \"yellow\"\n        --can use color hex: \"#FF0000\", \"#FFFF00\"\n        --con use color table: {1, 0, 0}, {1, 1, 0}\n        \n        envTable.Color = \"green\"\n        \n        --if true, it'll replace the health info with the unit name\n        envTable.ReplaceHealthWithName = false\n        \n        --use flash when the unit is shown in the screen\n        envTable.FlashNameplate = true\n        \n    end\n    \n    --private:\n    do\n        --create a flash for when the unit if shown\n        envTable.smallFlash = envTable.smallFlash or Plater.CreateFlash (unitFrame.healthBar, 0.15, 1, envTable.Color)\n        \n    end\n    \nend\n\n--[=[\n\nNpc IDS:\n\n141851: Spawn of G'Huun on Mythic Dungeons\n\n\n--]=]\n\n\n\n\n",
@@ -10227,8 +10364,8 @@ nil,
 },
 ["Author"] = "Izimode-Azralon",
 ["Desc"] = "Add a unitID or unit name in 'Add Trigger' entry. See the constructor script for options.",
-["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable)\n    \n    --adjust the nameplate color\n    Plater.SetNameplateColor (unitFrame, envTable.Color)\n    \n    --check if can replace the health amount with the unit name\n    if (envTable.ReplaceHealthWithName) then\n        \n        local healthPercent = format (\"%.1f\", unitFrame.healthBar.CurrentHealth / unitFrame.healthBar.CurrentHealthMax *100)\n        \n        unitFrame.healthBar.lifePercent:SetText (unitFrame.namePlateUnitName .. \"  (\" .. healthPercent  .. \"%)\")\n        \n    end\n    \nend\n\n\n",
 ["Prio"] = 99,
+["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable)\n    \n    --adjust the nameplate color\n    Plater.SetNameplateColor (unitFrame, envTable.Color)\n    \n    --check if can replace the health amount with the unit name\n    if (envTable.ReplaceHealthWithName) then\n        \n        local healthPercent = format (\"%.1f\", unitFrame.healthBar.CurrentHealth / unitFrame.healthBar.CurrentHealthMax *100)\n        \n        unitFrame.healthBar.lifePercent:SetText (unitFrame.namePlateUnitName .. \"  (\" .. healthPercent  .. \"%)\")\n        \n    end\n    \nend\n\n\n",
 ["SpellIds"] = {
 },
 ["PlaterCore"] = 1,
@@ -10256,16 +10393,16 @@ nil,
 },
 ["Author"] = "Izimode-Azralon",
 ["Desc"] = "Add a border to an aura icon. Add the aura into the Add Trigger entry. You can customize the icon color at the constructor script.",
-["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable)\n    \n    --get the custom color added by the user or the default color\n    local color = envTable.CustomBorderColor or envTable.DefaultBorderColor\n    --parse the color since it can be a color name, hex or color table\n    local r, g, b = DetailsFramework:ParseColors (color)\n    \n    --set the border color\n    self:SetBackdropBorderColor (r, g, b, envTable.BorderAlpha)\n    \nend\n\n\n\n\n",
 ["Prio"] = 99,
-["SpellIds"] = {
-},
+["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable)\n    \n    --get the custom color added by the user or the default color\n    local color = envTable.CustomBorderColor or envTable.DefaultBorderColor\n    --parse the color since it can be a color name, hex or color table\n    local r, g, b = DetailsFramework:ParseColors (color)\n    \n    --set the border color\n    self:SetBackdropBorderColor (r, g, b, envTable.BorderAlpha)\n    \nend\n\n\n\n\n",
+["Name"] = "Aura - Border Color [Plater]",
 ["PlaterCore"] = 1,
 ["OnShowCode"] = "function (self, unitId, unitFrame, envTable)\n    \n    --get the aura name in lower case\n    local auraLowerName = string.lower (envTable._SpellName)\n    \n    --attempt to get a custom color added by the user in the constructor script\n    local hasCustomBorderColor = envTable.BorderColorByAura [auraLowerName] or envTable.BorderColorByAura [envTable._SpellName] or envTable.BorderColorByAura [envTable._SpellID]\n    \n    --save the custom color\n    envTable.CustomBorderColor = hasCustomBorderColor\n    \nend\n\n\n",
 ["Enabled"] = false,
 ["NpcNames"] = {
 },
-["Name"] = "Aura - Border Color [Plater]",
+["SpellIds"] = {
+},
 },
 {
 ["ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    --settings (require a /reload after editing any setting)\n    do\n        --blink and glow\n        envTable.BlinkEnabled = scriptTable.config.blinkEnabled\n        envTable.GlowEnabled = scriptTable.config.glowEnabled \n        envTable.ChangeNameplateColor = scriptTable.config.changeNameplateColor;\n        envTable.TimeLeftToBlink = scriptTable.config.timeleftToBlink;\n        envTable.BlinkSpeed = scriptTable.config.blinkSpeed; \n        envTable.BlinkColor = scriptTable.config.blinkColor; \n        envTable.BlinkMaxAlpha = scriptTable.config.blinkMaxAlpha; \n        envTable.NameplateColor = scriptTable.config.nameplateColor; \n        \n        --text color\n        envTable.TimerColorEnabled = scriptTable.config.timerColorEnabled \n        envTable.TimeLeftWarning = scriptTable.config.timeLeftWarning;\n        envTable.TimeLeftCritical = scriptTable.config.timeLeftCritical;\n        envTable.TextColor_Warning = scriptTable.config.warningColor; \n        envTable.TextColor_Critical = scriptTable.config.criticalColor; \n        \n        --list of spellIDs to ignore\n        envTable.IgnoredSpellID = {\n            [12] = true, --use a simple comma here\n            [13] = true,\n        }\n    end\n    \n    \n    --private\n    do\n        --if not envTable.blinkTexture then\n        envTable.blinkTexture = Plater:CreateImage (self, \"\", 1, 1, \"overlay\")\n        envTable.blinkTexture:SetPoint ('center', 0, 0)\n        envTable.blinkTexture:Hide()\n        \n        local onPlay = function()\n            envTable.blinkTexture:Show() \n            envTable.blinkTexture.color = envTable.BlinkColor\n        end\n        local onStop = function()\n            envTable.blinkTexture:Hide()  \n        end\n        envTable.blinkAnimation = Plater:CreateAnimationHub (envTable.blinkTexture, onPlay, onStop)\n        Plater:CreateAnimation (envTable.blinkAnimation, \"ALPHA\", 1, envTable.BlinkSpeed / 2, 0, envTable.BlinkMaxAlpha)\n        Plater:CreateAnimation (envTable.blinkAnimation, \"ALPHA\", 2, envTable.BlinkSpeed / 2, envTable.BlinkMaxAlpha, 0)\n        --end\n        \n        envTable.glowEffect = envTable.glowEffect or self.overlay or Plater.CreateIconGlow (self)\n        --envTable.glowEffect = envTable.glowEffect or Plater.CreateIconGlow (self)\n        --envTable.glowEffect:Show() --envTable.glowEffect:Hide()\n        \n    end\n    \nend\n\n\n\n\n",
@@ -10276,10 +10413,13 @@ nil,
 ["ScriptType"] = 1,
 ["UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    local timeLeft = envTable._RemainingTime\n    \n    --check if the spellID isn't being ignored\n    if (envTable.IgnoredSpellID [envTable._SpellID]) then\n        return\n    end\n    \n    --check the time left and start or stop the blink animation and also check if the time left is > zero\n    if ((envTable.BlinkEnabled or envTable.GlowEnabled) and timeLeft > 0) then\n        if (timeLeft < envTable.TimeLeftToBlink) then\n            --blink effect\n            if (envTable.BlinkEnabled) then\n                if (not envTable.blinkAnimation:IsPlaying()) then\n                    envTable.blinkAnimation:Play()\n                end\n            end\n            --glow effect\n            if (envTable.GlowEnabled) then\n                envTable.glowEffect:Show()\n            end\n            --nameplate color\n            if (envTable.ChangeNameplateColor) then\n                Plater.SetNameplateColor (unitFrame, envTable.NameplateColor)\n            end\n        else\n            --blink effect\n            if (envTable.blinkAnimation:IsPlaying()) then\n                envTable.blinkAnimation:Stop()\n            end\n            --glow effect\n            if (envTable.GlowEnabled and envTable.glowEffect:IsShown()) then\n                envTable.glowEffect:Hide()\n            end\n        end\n    end\n    \n    --timer color\n    if (envTable.TimerColorEnabled and timeLeft > 0) then\n        if (timeLeft < envTable.TimeLeftCritical) then\n            Plater:SetFontColor (self.Cooldown.Timer, envTable.TextColor_Critical)\n        elseif (timeLeft < envTable.TimeLeftWarning) then\n            Plater:SetFontColor (self.Cooldown.Timer, envTable.TextColor_Warning)        \n        else\n            Plater:SetFontColor (self.Cooldown.Timer, Plater.db.profile.aura_timer_text_color)\n        end\n    end\n    \nend",
 ["Time"] = 1663417951,
-["Enabled"] = false,
-["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    --settings (require a /reload after editing any setting)\n    do\n        --blink and glow\n        envTable.BlinkEnabled = scriptTable.config.blinkEnabled\n        envTable.GlowEnabled = scriptTable.config.glowEnabled \n        envTable.ChangeNameplateColor = scriptTable.config.changeNameplateColor;\n        envTable.TimeLeftToBlink = scriptTable.config.timeleftToBlink;\n        envTable.BlinkSpeed = scriptTable.config.blinkSpeed; \n        envTable.BlinkColor = scriptTable.config.blinkColor; \n        envTable.BlinkMaxAlpha = scriptTable.config.blinkMaxAlpha; \n        envTable.NameplateColor = scriptTable.config.nameplateColor; \n        \n        --text color\n        envTable.TimerColorEnabled = scriptTable.config.timerColorEnabled \n        envTable.TimeLeftWarning = scriptTable.config.timeLeftWarning;\n        envTable.TimeLeftCritical = scriptTable.config.timeLeftCritical;\n        envTable.TextColor_Warning = scriptTable.config.warningColor; \n        envTable.TextColor_Critical = scriptTable.config.criticalColor; \n        \n        --list of spellIDs to ignore\n        envTable.IgnoredSpellID = {\n            [12] = true, --use a simple comma here\n            [13] = true,\n        }\n    end\n    \n    \n    --private\n    do\n        --if not envTable.blinkTexture then\n        envTable.blinkTexture = Plater:CreateImage (self, \"\", 1, 1, \"overlay\")\n        envTable.blinkTexture:SetPoint ('center', 0, 0)\n        envTable.blinkTexture:Hide()\n        \n        local onPlay = function()\n            envTable.blinkTexture:Show() \n            envTable.blinkTexture.color = envTable.BlinkColor\n        end\n        local onStop = function()\n            envTable.blinkTexture:Hide()  \n        end\n        envTable.blinkAnimation = Plater:CreateAnimationHub (envTable.blinkTexture, onPlay, onStop)\n        Plater:CreateAnimation (envTable.blinkAnimation, \"ALPHA\", 1, envTable.BlinkSpeed / 2, 0, envTable.BlinkMaxAlpha)\n        Plater:CreateAnimation (envTable.blinkAnimation, \"ALPHA\", 2, envTable.BlinkSpeed / 2, envTable.BlinkMaxAlpha, 0)\n        --end\n        \n        envTable.glowEffect = envTable.glowEffect or self.overlay or Plater.CreateIconGlow (self)\n        --envTable.glowEffect = envTable.glowEffect or Plater.CreateIconGlow (self)\n        --envTable.glowEffect:Show() --envTable.glowEffect:Hide()\n        \n    end\n    \nend\n\n\n\n\n",
+["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    envTable.blinkAnimation:Stop()\n    envTable.blinkTexture:Hide()\n    envTable.blinkAnimation:Stop()\n    envTable.glowEffect:Stop()\n    Plater:SetFontColor (self.Cooldown.Timer, Plater.db.profile.aura_timer_text_color)\nend\n\n\n",
+["url"] = "",
 ["NpcNames"] = {
 },
+["semver"] = "",
+["Enabled"] = false,
+["Revision"] = 387,
 ["Options"] = {
 {
 ["Type"] = 6,
@@ -10453,23 +10593,20 @@ nil,
 ["Desc"] = "color when the time left is critical",
 },
 },
-["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    envTable.blinkAnimation:Stop()\n    envTable.blinkTexture:Hide()\n    envTable.blinkAnimation:Stop()\n    envTable.glowEffect:Stop()\n    Plater:SetFontColor (self.Cooldown.Timer, Plater.db.profile.aura_timer_text_color)\nend\n\n\n",
-["Revision"] = 387,
-["semver"] = "",
-["Name"] = "Aura - Blink by Time Left [Plater]",
-["Prio"] = 99,
-["Author"] = "Izimode-Azralon",
-["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
-["Desc"] = "Blink, change the number and nameplate color. Add the debuffs int he trigger box. Set settings on constructor script.",
 ["version"] = -1,
 ["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    local timeLeft = envTable._RemainingTime\n    \n    --check if the spellID isn't being ignored\n    if (envTable.IgnoredSpellID [envTable._SpellID]) then\n        return\n    end\n    \n    --check the time left and start or stop the blink animation and also check if the time left is > zero\n    if ((envTable.BlinkEnabled or envTable.GlowEnabled) and timeLeft > 0) then\n        if (timeLeft < envTable.TimeLeftToBlink) then\n            --blink effect\n            if (envTable.BlinkEnabled) then\n                if (not envTable.blinkAnimation:IsPlaying()) then\n                    envTable.blinkAnimation:Play()\n                end\n            end\n            --glow effect\n            if (envTable.GlowEnabled) then\n                envTable.glowEffect:Show()\n            end\n            --nameplate color\n            if (envTable.ChangeNameplateColor) then\n                Plater.SetNameplateColor (unitFrame, envTable.NameplateColor)\n            end\n        else\n            --blink effect\n            if (envTable.blinkAnimation:IsPlaying()) then\n                envTable.blinkAnimation:Stop()\n            end\n            --glow effect\n            if (envTable.GlowEnabled and envTable.glowEffect:IsShown()) then\n                envTable.glowEffect:Hide()\n            end\n        end\n    end\n    \n    --timer color\n    if (envTable.TimerColorEnabled and timeLeft > 0) then\n        if (timeLeft < envTable.TimeLeftCritical) then\n            Plater:SetFontColor (self.Cooldown.Timer, envTable.TextColor_Critical)\n        elseif (timeLeft < envTable.TimeLeftWarning) then\n            Plater:SetFontColor (self.Cooldown.Timer, envTable.TextColor_Warning)        \n        else\n            Plater:SetFontColor (self.Cooldown.Timer, Plater.db.profile.aura_timer_text_color)\n        end\n    end\n    \nend",
+["Author"] = "Izimode-Azralon",
+["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
+["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    envTable.blinkTexture:SetSize (self:GetSize())\n    \nend\n\n\n",
+["Name"] = "Aura - Blink by Time Left [Plater]",
+["Prio"] = 99,
 ["SpellIds"] = {
 },
 ["PlaterCore"] = 1,
-["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    envTable.blinkTexture:SetSize (self:GetSize())\n    \nend\n\n\n",
+["Desc"] = "Blink, change the number and nameplate color. Add the debuffs int he trigger box. Set settings on constructor script.",
 ["Temp_Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
 ["Icon"] = "Interface\\AddOns\\Plater\\images\\icon_aura_blink",
-["url"] = "",
+["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    --settings (require a /reload after editing any setting)\n    do\n        --blink and glow\n        envTable.BlinkEnabled = scriptTable.config.blinkEnabled\n        envTable.GlowEnabled = scriptTable.config.glowEnabled \n        envTable.ChangeNameplateColor = scriptTable.config.changeNameplateColor;\n        envTable.TimeLeftToBlink = scriptTable.config.timeleftToBlink;\n        envTable.BlinkSpeed = scriptTable.config.blinkSpeed; \n        envTable.BlinkColor = scriptTable.config.blinkColor; \n        envTable.BlinkMaxAlpha = scriptTable.config.blinkMaxAlpha; \n        envTable.NameplateColor = scriptTable.config.nameplateColor; \n        \n        --text color\n        envTable.TimerColorEnabled = scriptTable.config.timerColorEnabled \n        envTable.TimeLeftWarning = scriptTable.config.timeLeftWarning;\n        envTable.TimeLeftCritical = scriptTable.config.timeLeftCritical;\n        envTable.TextColor_Warning = scriptTable.config.warningColor; \n        envTable.TextColor_Critical = scriptTable.config.criticalColor; \n        \n        --list of spellIDs to ignore\n        envTable.IgnoredSpellID = {\n            [12] = true, --use a simple comma here\n            [13] = true,\n        }\n    end\n    \n    \n    --private\n    do\n        --if not envTable.blinkTexture then\n        envTable.blinkTexture = Plater:CreateImage (self, \"\", 1, 1, \"overlay\")\n        envTable.blinkTexture:SetPoint ('center', 0, 0)\n        envTable.blinkTexture:Hide()\n        \n        local onPlay = function()\n            envTable.blinkTexture:Show() \n            envTable.blinkTexture.color = envTable.BlinkColor\n        end\n        local onStop = function()\n            envTable.blinkTexture:Hide()  \n        end\n        envTable.blinkAnimation = Plater:CreateAnimationHub (envTable.blinkTexture, onPlay, onStop)\n        Plater:CreateAnimation (envTable.blinkAnimation, \"ALPHA\", 1, envTable.BlinkSpeed / 2, 0, envTable.BlinkMaxAlpha)\n        Plater:CreateAnimation (envTable.blinkAnimation, \"ALPHA\", 2, envTable.BlinkSpeed / 2, envTable.BlinkMaxAlpha, 0)\n        --end\n        \n        envTable.glowEffect = envTable.glowEffect or self.overlay or Plater.CreateIconGlow (self)\n        --envTable.glowEffect = envTable.glowEffect or Plater.CreateIconGlow (self)\n        --envTable.glowEffect:Show() --envTable.glowEffect:Hide()\n        \n    end\n    \nend\n\n\n\n\n",
 },
 {
 ["ConstructorCode"] = "function (self, unitId, unitFrame, envTable)\n    \n    envTable.CastbarColor = \"orangered\"\n    \n    --settings (you may need /reload if some configs isn't applied immediately)\n    local CONFIG_BACKGROUND_FLASH_DURATION = 0.8 --0.8\n    local CONFIG_BORDER_GLOW_ALPHA = 0 --0.3\n    local CONFIG_SHAKE_DURATION = 0.2 --0.2\n    local CONFIG_SHAKE_AMPLITUDE = 5 --5\n    \n    envTable.CastBarHeightAdd = 1.5\n    \n    --create a glow effect in the border of the cast bar\n    envTable.glowEffect = envTable.glowEffect or Plater.CreateNameplateGlow (self)\n    envTable.glowEffect:SetOffset (-22, 20, 8, -11)\n    envTable.glowEffect:SetAlpha (CONFIG_BORDER_GLOW_ALPHA)\n    --envTable.glowEffect:Show() --envTable.glowEffect:Hide() \n    \n    --create a texture to use for a flash behind the cast bar\n    local backGroundFlashTexture = Plater:CreateImage (self, [[Interface\\ACHIEVEMENTFRAME\\UI-Achievement-Alert-Glow]], self:GetWidth()+20, self:GetHeight()+30, \"background\", {0, 400/512, 0, 170/256})\n    backGroundFlashTexture:SetBlendMode (\"ADD\")\n    backGroundFlashTexture:SetPoint (\"center\", self, \"center\")\n    backGroundFlashTexture:Hide()\n    \n    --create the animation hub to hold the flash animation sequence\n    envTable.BackgroundFlash = envTable.BackgroundFlash or Plater:CreateAnimationHub (backGroundFlashTexture, \n        function()\n            backGroundFlashTexture:Show()\n        end,\n        function()\n            backGroundFlashTexture:Hide()\n        end\n    )\n    \n    --create the flash animation sequence\n    local fadeIn = Plater:CreateAnimation (envTable.BackgroundFlash, \"ALPHA\", 1, CONFIG_BACKGROUND_FLASH_DURATION/2, 0, 1)\n    local fadeOut = Plater:CreateAnimation (envTable.BackgroundFlash, \"ALPHA\", 2, CONFIG_BACKGROUND_FLASH_DURATION/2, 1, 0)    \n    --envTable.BackgroundFlash:Play() --envTable.BackgroundFlash:Stop()\n    \n    --create a camera shake for the nameplate\n    envTable.FrameShake = Plater:CreateFrameShake (self, CONFIG_SHAKE_DURATION, CONFIG_SHAKE_AMPLITUDE, 35, false, false, 0, 1, 0.05, 0.1, true)    \n    \n    \n    --update the config for the flash here so it wont need a /reload\n    fadeIn:SetDuration (CONFIG_BACKGROUND_FLASH_DURATION/2)\n    fadeOut:SetDuration (CONFIG_BACKGROUND_FLASH_DURATION/2)    \n    \n    --update the config for the skake here so it wont need a /reload\n    envTable.FrameShake.OriginalAmplitude = CONFIG_SHAKE_AMPLITUDE\n    envTable.FrameShake.OriginalDuration = CONFIG_SHAKE_DURATION  \n    \nend",
@@ -10490,12 +10627,6 @@ nil,
 ["OnShowCode"] = "function (self, unitId, unitFrame, envTable)\n    \n    if (Plater.ZoneInstanceType == \"arena\" or Plater.ZoneInstanceType == \"pvp\") then\n        return\n    end\n    \n    envTable.glowEffect:Show()\n    \n    envTable.BackgroundFlash:Play()\n    \n    Plater.FlashNameplateBorder (unitFrame, 0.05)   \n    Plater.FlashNameplateBody (unitFrame, \"\", 0.075)\n    \n    self:PlayFrameShake (envTable.FrameShake)\n    \n    if (envTable._CanInterrupt) then\n        self:SetStatusBarColor (Plater:ParseColors (envTable.CastbarColor))\n    end\n    \n    Plater.SetCastBarBorderColor (self, 1, 0, 0, 0.4)\n    \n    --restoring the default size (not required since it already restore in the hide script)\n    if (envTable.OriginalHeight) then\n        self:SetWidth (envTable.OriginalWidth)\n        self:SetHeight (envTable.OriginalHeight)\n    end\n    \n    \n    --increase the cast bar size\n    envTable.OriginalHeight = self:GetHeight()\n    envTable.OriginalWidth = self:GetWidth()\n    local width = Plater.db.profile.plate_config.enemynpc.cast_incombat[1]\n    local height = Plater.db.profile.plate_config.enemynpc.cast_incombat[2]\n    \n    self:SetWidth (width)\n    self:SetHeight (height * envTable.CastBarHeightAdd)\n    \n    print (envTable.glowEffect:GetAlpha())\n    \nend",
 ["Desc"] = "Flash, Bounce and Red Color the CastBar border when when an important cast is happening. Add spell in the Add Trigger field.",
 ["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable)\n    \nend\n\n\n",
-["Name"] = "M+ Important Spells [Plater]",
-["PlaterCore"] = 1,
-["Enabled"] = false,
-["Prio"] = 99,
-["NpcNames"] = {
-},
 ["SpellIds"] = {
 258153,
 258313,
@@ -10646,6 +10777,12 @@ nil,
 290787,
 72286,
 },
+["PlaterCore"] = 1,
+["Enabled"] = false,
+["Prio"] = 99,
+["NpcNames"] = {
+},
+["Name"] = "M+ Important Spells [Plater]",
 },
 {
 ["ConstructorCode"] = "function (self, unitId, unitFrame, envTable)\n    \n    --custom frames\n    unitFrame.JadeFireGlowEffect = unitFrame.JadeFireGlowEffect or Plater.CreateNameplateGlow (unitFrame.healthBar)\n    unitFrame.JadeFireGlowEffect:SetOffset (-27, 25, 6, -8)\n    unitFrame.JadeFireGlowEffect:Hide()\n    \nend\n\n\n",
@@ -10667,14 +10804,14 @@ nil,
 ["Desc"] = "Alert when the unit has the Fire Shield to be broken.",
 ["Icon"] = 132221,
 ["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable)\n    unitFrame.JadeFireGlowEffect:SetAlpha (.5)\nend\n\n\n",
-["SpellIds"] = {
-286425,
-},
+["Name"] = "Jadefire [BOD] - Fire Shield",
 ["PlaterCore"] = 1,
 ["OnShowCode"] = "function (self, unitId, unitFrame, envTable)\n    unitFrame.JadeFireGlowEffect:Show() \nend\n\n\n",
 ["Prio"] = 99,
 ["Enabled"] = false,
-["Name"] = "Jadefire [BOD] - Fire Shield",
+["SpellIds"] = {
+286425,
+},
 },
 {
 ["ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    --settings\n    envTable.NameplateSizeOffset = scriptTable.config.castBarHeight\n    envTable.ShowArrow = scriptTable.config.showArrow\n    envTable.ArrowAlpha = scriptTable.config.arrowAlpha\n    \n    --creates the spark to show the cast progress inside the health bar\n    envTable.overlaySpark = envTable.overlaySpark or Plater:CreateImage (unitFrame.healthBar)\n    envTable.overlaySpark:SetBlendMode (\"ADD\")\n    envTable.overlaySpark.width = 16\n    envTable.overlaySpark.height = 36\n    envTable.overlaySpark.alpha = .9\n    envTable.overlaySpark.texture = [[Interface\\AddOns\\Plater\\images\\spark3]]\n    \n    envTable.topArrow = envTable.topArrow or Plater:CreateImage (unitFrame.healthBar)\n    envTable.topArrow:SetBlendMode (\"ADD\")\n    envTable.topArrow.width = scriptTable.config.arrowWidth\n    envTable.topArrow.height = scriptTable.config.arrowHeight\n    envTable.topArrow.alpha = envTable.ArrowAlpha\n    envTable.topArrow.texture = [[Interface\\BUTTONS\\Arrow-Down-Up]]\n    \n    --scale animation\n    envTable.smallScaleAnimation = envTable.smallScaleAnimation or Plater:CreateAnimationHub (unitFrame.healthBar)\n    Plater:CreateAnimation (envTable.smallScaleAnimation, \"SCALE\", 1, 0.075, 1, 1, 1.08, 1.08)\n    Plater:CreateAnimation (envTable.smallScaleAnimation, \"SCALE\", 2, 0.075, 1, 1, 0.95, 0.95)    \n    --envTable.smallScaleAnimation:Play() --envTable.smallScaleAnimation:Stop()\n    \n    --create a camera shake for the nameplate\n    envTable.FrameShake = Plater:CreateFrameShake (unitFrame, scriptTable.config.shakeDuration, scriptTable.config.shakeAmplitude, scriptTable.config.shakeFrequency, false, false, 0, 1, 0.05, 0.1, Plater.GetPoints (unitFrame))    \n    \n    --update the config for the skake here so it wont need a /reload\n    envTable.FrameShake.OriginalAmplitude = scriptTable.config.shakeAmplitude\n    envTable.FrameShake.OriginalDuration = scriptTable.config.shakeDuration\n    envTable.FrameShake.OriginalFrequency = scriptTable.config.shakeFrequency\nend\n\n\n\n\n\n\n\n",
@@ -10728,11 +10865,8 @@ nil,
 ["Temp_Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
 ["Time"] = 1706951951,
 ["UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --update the percent\n    envTable.overlaySpark:SetPoint (\"left\", unitFrame.healthBar:GetWidth() * (envTable._CastPercent / 100)-9, 0)\n    \n    envTable.topArrow:SetPoint (\"bottomleft\", unitFrame.healthBar, \"topleft\", unitFrame.healthBar:GetWidth() * (envTable._CastPercent / 100) - 4, 2 )\n    \n    --forces the script to update on a 60Hz base\n    self.ThrottleUpdate = 0\n    \n    if (scriptTable.config.useNameplateColor) then\n        Plater.SetNameplateColor(unitFrame, envTable.NameplateColor)\n    end\n    \nend\n\n\n\n\n",
-["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    --settings\n    envTable.NameplateSizeOffset = scriptTable.config.castBarHeight\n    envTable.ShowArrow = scriptTable.config.showArrow\n    envTable.ArrowAlpha = scriptTable.config.arrowAlpha\n    \n    --creates the spark to show the cast progress inside the health bar\n    envTable.overlaySpark = envTable.overlaySpark or Plater:CreateImage (unitFrame.healthBar)\n    envTable.overlaySpark:SetBlendMode (\"ADD\")\n    envTable.overlaySpark.width = 16\n    envTable.overlaySpark.height = 36\n    envTable.overlaySpark.alpha = .9\n    envTable.overlaySpark.texture = [[Interface\\AddOns\\Plater\\images\\spark3]]\n    \n    envTable.topArrow = envTable.topArrow or Plater:CreateImage (unitFrame.healthBar)\n    envTable.topArrow:SetBlendMode (\"ADD\")\n    envTable.topArrow.width = scriptTable.config.arrowWidth\n    envTable.topArrow.height = scriptTable.config.arrowHeight\n    envTable.topArrow.alpha = envTable.ArrowAlpha\n    envTable.topArrow.texture = [[Interface\\BUTTONS\\Arrow-Down-Up]]\n    \n    --scale animation\n    envTable.smallScaleAnimation = envTable.smallScaleAnimation or Plater:CreateAnimationHub (unitFrame.healthBar)\n    Plater:CreateAnimation (envTable.smallScaleAnimation, \"SCALE\", 1, 0.075, 1, 1, 1.08, 1.08)\n    Plater:CreateAnimation (envTable.smallScaleAnimation, \"SCALE\", 2, 0.075, 1, 1, 0.95, 0.95)    \n    --envTable.smallScaleAnimation:Play() --envTable.smallScaleAnimation:Stop()\n    \n    --create a camera shake for the nameplate\n    envTable.FrameShake = Plater:CreateFrameShake (unitFrame, scriptTable.config.shakeDuration, scriptTable.config.shakeAmplitude, scriptTable.config.shakeFrequency, false, false, 0, 1, 0.05, 0.1, Plater.GetPoints (unitFrame))    \n    \n    --update the config for the skake here so it wont need a /reload\n    envTable.FrameShake.OriginalAmplitude = scriptTable.config.shakeAmplitude\n    envTable.FrameShake.OriginalDuration = scriptTable.config.shakeDuration\n    envTable.FrameShake.OriginalFrequency = scriptTable.config.shakeFrequency\nend\n\n\n\n\n\n\n\n",
+["url"] = "",
 ["Icon"] = "Interface\\AddOns\\Plater\\images\\cast_bar_red",
-["semver"] = "",
-["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    Plater.StopDotAnimation(unitFrame.healthBar, envTable.dotAnimation)\n    \n    envTable.overlaySpark:Hide()\n    envTable.topArrow:Hide()\n    \n    Plater.RefreshNameplateColor (unitFrame)\n    \n    envTable.smallScaleAnimation:Stop()\n    \n    --increase the nameplate size\n    local nameplateHeight = Plater.db.profile.plate_config.enemynpc.health_incombat [2]\n    unitFrame.healthBar:SetHeight (nameplateHeight)\n    \n    Plater.DenyColorChange(unitFrame, false)\nend\n\n\n",
-["Revision"] = 707,
 ["Options"] = {
 {
 ["Type"] = 6,
@@ -10965,16 +11099,17 @@ nil,
 ["Desc"] = "Insert the spellId in the Key, and the color name in the Value",
 },
 },
+["Enabled"] = true,
+["Revision"] = 707,
+["semver"] = "",
 ["NpcNames"] = {
 },
-["Prio"] = 99,
+["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --update the percent\n    envTable.overlaySpark:SetPoint (\"left\", unitFrame.healthBar:GetWidth() * (envTable._CastPercent / 100)-9, 0)\n    \n    envTable.topArrow:SetPoint (\"bottomleft\", unitFrame.healthBar, \"topleft\", unitFrame.healthBar:GetWidth() * (envTable._CastPercent / 100) - 4, 2 )\n    \n    --forces the script to update on a 60Hz base\n    self.ThrottleUpdate = 0\n    \n    if (scriptTable.config.useNameplateColor) then\n        Plater.SetNameplateColor(unitFrame, envTable.NameplateColor)\n    end\n    \nend\n\n\n\n\n",
 ["Author"] = "Bombad�o-Azralon",
 ["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
-["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    envTable.overlaySpark:Show()\n    \n    if (envTable.ShowArrow) then\n        envTable.topArrow:Show()\n    else\n        envTable.topArrow:Hide()\n    end\n    \n    Plater.FlashNameplateBorder (unitFrame, 0.05)   \n    Plater.FlashNameplateBody (unitFrame, \"\", 0.075)\n    \n    envTable.smallScaleAnimation:Play()\n    \n    --increase the nameplate size\n    local nameplateHeight = Plater.db.profile.plate_config.enemynpc.health_incombat [2]\n    unitFrame.healthBar:SetHeight (nameplateHeight + envTable.NameplateSizeOffset)\n    \n    envTable.overlaySpark.height = nameplateHeight + 5\n    \n    envTable.dotAnimation = Plater.PlayDotAnimation(unitFrame.healthBar, 2, scriptTable.config.dotColor, scriptTable.config.xOffset, scriptTable.config.yOffset)\n    \n    local customColor = scriptTable.config.castColor[tostring(envTable._SpellID)]\n    \n    Plater.SetCastBarColorForScript(self, scriptTable.config.useCastbarColor, customColor or scriptTable.config.castBarColor, envTable)\n    \n    if (scriptTable.config.useNameplateColor) then\n        local npcIdString = tostring(envTable._NpcID)\n        envTable.NameplateColor = Plater.GetColorByPriority(unitFrame, scriptTable.config.healthBarColor)        \n        Plater.DenyColorChange(unitFrame, true)            \n    end\n    \nend",
+["Desc"] = "Used on casts that make the mob explode or transform if the cast passes.",
 ["Name"] = "Cast - Ultra Important [P]",
-["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --update the percent\n    envTable.overlaySpark:SetPoint (\"left\", unitFrame.healthBar:GetWidth() * (envTable._CastPercent / 100)-9, 0)\n    \n    envTable.topArrow:SetPoint (\"bottomleft\", unitFrame.healthBar, \"topleft\", unitFrame.healthBar:GetWidth() * (envTable._CastPercent / 100) - 4, 2 )\n    \n    --forces the script to update on a 60Hz base\n    self.ThrottleUpdate = 0\n    \n    if (scriptTable.config.useNameplateColor) then\n        Plater.SetNameplateColor(unitFrame, envTable.NameplateColor)\n    end\n    \nend\n\n\n\n\n",
-["version"] = -1,
-["PlaterCore"] = 1,
+["Prio"] = 99,
 ["SpellIds"] = {
 41360,
 46101,
@@ -10985,9 +11120,11 @@ nil,
 69076,
 253544,
 },
-["Desc"] = "Used on casts that make the mob explode or transform if the cast passes.",
-["Enabled"] = true,
-["url"] = "",
+["PlaterCore"] = 1,
+["version"] = -1,
+["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    envTable.overlaySpark:Show()\n    \n    if (envTable.ShowArrow) then\n        envTable.topArrow:Show()\n    else\n        envTable.topArrow:Hide()\n    end\n    \n    Plater.FlashNameplateBorder (unitFrame, 0.05)   \n    Plater.FlashNameplateBody (unitFrame, \"\", 0.075)\n    \n    envTable.smallScaleAnimation:Play()\n    \n    --increase the nameplate size\n    local nameplateHeight = Plater.db.profile.plate_config.enemynpc.health_incombat [2]\n    unitFrame.healthBar:SetHeight (nameplateHeight + envTable.NameplateSizeOffset)\n    \n    envTable.overlaySpark.height = nameplateHeight + 5\n    \n    envTable.dotAnimation = Plater.PlayDotAnimation(unitFrame.healthBar, 2, scriptTable.config.dotColor, scriptTable.config.xOffset, scriptTable.config.yOffset)\n    \n    local customColor = scriptTable.config.castColor[tostring(envTable._SpellID)]\n    \n    Plater.SetCastBarColorForScript(self, scriptTable.config.useCastbarColor, customColor or scriptTable.config.castBarColor, envTable)\n    \n    if (scriptTable.config.useNameplateColor) then\n        local npcIdString = tostring(envTable._NpcID)\n        envTable.NameplateColor = Plater.GetColorByPriority(unitFrame, scriptTable.config.healthBarColor)        \n        Plater.DenyColorChange(unitFrame, true)            \n    end\n    \nend",
+["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    Plater.StopDotAnimation(unitFrame.healthBar, envTable.dotAnimation)\n    \n    envTable.overlaySpark:Hide()\n    envTable.topArrow:Hide()\n    \n    Plater.RefreshNameplateColor (unitFrame)\n    \n    envTable.smallScaleAnimation:Stop()\n    \n    --increase the nameplate size\n    local nameplateHeight = Plater.db.profile.plate_config.enemynpc.health_incombat [2]\n    unitFrame.healthBar:SetHeight (nameplateHeight)\n    \n    Plater.DenyColorChange(unitFrame, false)\nend\n\n\n",
+["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    --settings\n    envTable.NameplateSizeOffset = scriptTable.config.castBarHeight\n    envTable.ShowArrow = scriptTable.config.showArrow\n    envTable.ArrowAlpha = scriptTable.config.arrowAlpha\n    \n    --creates the spark to show the cast progress inside the health bar\n    envTable.overlaySpark = envTable.overlaySpark or Plater:CreateImage (unitFrame.healthBar)\n    envTable.overlaySpark:SetBlendMode (\"ADD\")\n    envTable.overlaySpark.width = 16\n    envTable.overlaySpark.height = 36\n    envTable.overlaySpark.alpha = .9\n    envTable.overlaySpark.texture = [[Interface\\AddOns\\Plater\\images\\spark3]]\n    \n    envTable.topArrow = envTable.topArrow or Plater:CreateImage (unitFrame.healthBar)\n    envTable.topArrow:SetBlendMode (\"ADD\")\n    envTable.topArrow.width = scriptTable.config.arrowWidth\n    envTable.topArrow.height = scriptTable.config.arrowHeight\n    envTable.topArrow.alpha = envTable.ArrowAlpha\n    envTable.topArrow.texture = [[Interface\\BUTTONS\\Arrow-Down-Up]]\n    \n    --scale animation\n    envTable.smallScaleAnimation = envTable.smallScaleAnimation or Plater:CreateAnimationHub (unitFrame.healthBar)\n    Plater:CreateAnimation (envTable.smallScaleAnimation, \"SCALE\", 1, 0.075, 1, 1, 1.08, 1.08)\n    Plater:CreateAnimation (envTable.smallScaleAnimation, \"SCALE\", 2, 0.075, 1, 1, 0.95, 0.95)    \n    --envTable.smallScaleAnimation:Play() --envTable.smallScaleAnimation:Stop()\n    \n    --create a camera shake for the nameplate\n    envTable.FrameShake = Plater:CreateFrameShake (unitFrame, scriptTable.config.shakeDuration, scriptTable.config.shakeAmplitude, scriptTable.config.shakeFrequency, false, false, 0, 1, 0.05, 0.1, Plater.GetPoints (unitFrame))    \n    \n    --update the config for the skake here so it wont need a /reload\n    envTable.FrameShake.OriginalAmplitude = scriptTable.config.shakeAmplitude\n    envTable.FrameShake.OriginalDuration = scriptTable.config.shakeDuration\n    envTable.FrameShake.OriginalFrequency = scriptTable.config.shakeFrequency\nend\n\n\n\n\n\n\n\n",
 },
 {
 ["ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \n    --check for marks\n    function  envTable.CheckMark (unitId, unitFrame)\n        if (not GetRaidTargetIndex(unitId)) then\n            if (scriptTable.config.onlyInCombat) then\n                if (not UnitAffectingCombat(unitId)) then\n                    return\n                end                \n            end\n            \n            SetRaidTarget(unitId, 8)\n        end       \n    end\nend\n\n\n--163520 - forsworn squad-leader\n--163618 - zolramus necromancer - The Necrotic Wake\n--164506 - anciet captain - theater of pain\n\n\n",
@@ -10999,7 +11136,7 @@ nil,
 ["Temp_Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
 ["Time"] = 1657130332,
 ["UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    envTable.CheckMark (unitId, unitFrame)\nend\n\n\n",
-["url"] = "",
+["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \n    --check for marks\n    function  envTable.CheckMark (unitId, unitFrame)\n        if (not GetRaidTargetIndex(unitId)) then\n            if (scriptTable.config.onlyInCombat) then\n                if (not UnitAffectingCombat(unitId)) then\n                    return\n                end                \n            end\n            \n            SetRaidTarget(unitId, 8)\n        end       \n    end\nend\n\n\n--163520 - forsworn squad-leader\n--163618 - zolramus necromancer - The Necrotic Wake\n--164506 - anciet captain - theater of pain\n\n\n",
 ["NpcNames"] = {
 "163520",
 "163618",
@@ -11008,6 +11145,19 @@ nil,
 ["Icon"] = "Interface\\Worldmap\\GlowSkull_64Grey",
 ["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \nend\n\n\n",
 ["Revision"] = 66,
+["semver"] = "",
+["Name"] = "Auto Set Skull",
+["Prio"] = 99,
+["Author"] = "Aelerolor-Torghast",
+["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
+["Desc"] = "Auto set skull marker",
+["version"] = -1,
+["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    envTable.CheckMark (unitId, unitFrame)\nend\n\n\n",
+["SpellIds"] = {
+},
+["PlaterCore"] = 1,
+["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    envTable.CheckMark (unitId, unitFrame)\nend\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+["Enabled"] = false,
 ["Options"] = {
 {
 ["Type"] = 5,
@@ -11034,20 +11184,7 @@ nil,
 ["Desc"] = "Set the mark only if the unit is in combat.",
 },
 },
-["version"] = -1,
-["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    envTable.CheckMark (unitId, unitFrame)\nend\n\n\n",
-["Author"] = "Aelerolor-Torghast",
-["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
-["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    envTable.CheckMark (unitId, unitFrame)\nend\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
-["Name"] = "Auto Set Skull",
-["Prio"] = 99,
-["SpellIds"] = {
-},
-["PlaterCore"] = 1,
-["Desc"] = "Auto set skull marker",
-["Enabled"] = false,
-["semver"] = "",
-["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \n    --check for marks\n    function  envTable.CheckMark (unitId, unitFrame)\n        if (not GetRaidTargetIndex(unitId)) then\n            if (scriptTable.config.onlyInCombat) then\n                if (not UnitAffectingCombat(unitId)) then\n                    return\n                end                \n            end\n            \n            SetRaidTarget(unitId, 8)\n        end       \n    end\nend\n\n\n--163520 - forsworn squad-leader\n--163618 - zolramus necromancer - The Necrotic Wake\n--164506 - anciet captain - theater of pain\n\n\n",
+["url"] = "",
 },
 {
 ["ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \nend\n\n--[=[\n\n154564 - debug\n\n168098 - empowered coldheart agent\n156212 - coldheart agent\n\n\n\n--]=]",
@@ -11058,29 +11195,16 @@ nil,
 ["ScriptType"] = 3,
 ["Temp_Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
 ["Time"] = 1634306422,
-["Icon"] = "Interface\\AddOns\\Plater\\media\\skullbones_64",
-["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \nend\n\n--[=[\n\n154564 - debug\n\n168098 - empowered coldheart agent\n156212 - coldheart agent\n\n\n\n--]=]",
 ["NpcNames"] = {
 "156212",
 "168098",
 179124,
 },
+["url"] = "",
+["Icon"] = "Interface\\AddOns\\Plater\\media\\skullbones_64",
 ["UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    --check if can change the nameplate color\n    if (scriptTable.config.changeNameplateColor) then\n        Plater.SetNameplateColor (unitFrame, scriptTable.config.nameplateColor)\n    end\n    \nend\n\n\n\n\n",
 ["Enabled"] = false,
 ["Revision"] = 410,
-["semver"] = "",
-["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    Plater.StopDotAnimation(unitFrame.healthBar, unitFrame.healthBar.MainTargetDotAnimation)\n    \n    unitFrame.healthBar.MainTargetDotAnimation = Plater.PlayDotAnimation(unitFrame.healthBar, 2, scriptTable.config.dotsColor, 3, 4) \n    \n    --increase the nameplate size\n    local nameplateHeight = Plater.db.profile.plate_config.enemynpc.health_incombat [2]\n    unitFrame.healthBar:SetHeight (nameplateHeight + scriptTable.config.nameplateSizeOffset)\n    \nend\n\n\n\n\n\n\n\n",
-["Prio"] = 99,
-["Author"] = "Izimode-Azralon",
-["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
-["Desc"] = "Highlight a nameplate of an important Add. Add the unit name or NpcID into the trigger box to add more.",
-["Name"] = "Unit - Main Target [P]",
-["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    --check if can change the nameplate color\n    if (scriptTable.config.changeNameplateColor) then\n        Plater.SetNameplateColor (unitFrame, scriptTable.config.nameplateColor)\n    end\n    \nend\n\n\n\n\n",
-["version"] = -1,
-["PlaterCore"] = 1,
-["SpellIds"] = {
-},
-["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable)\n    Plater.StopDotAnimation(unitFrame.healthBar, unitFrame.healthBar.MainTargetDotAnimation)\n    \n    --restore the nameplate size\n    local nameplateHeight = Plater.db.profile.plate_config.enemynpc.health_incombat [2]\n    unitFrame.healthBar:SetHeight (nameplateHeight)    \n    \nend\n\n\n\n\n",
 ["Options"] = {
 {
 ["Type"] = 6,
@@ -11168,7 +11292,20 @@ nil,
 ["Desc"] = "",
 },
 },
-["url"] = "",
+["Desc"] = "Highlight a nameplate of an important Add. Add the unit name or NpcID into the trigger box to add more.",
+["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    --check if can change the nameplate color\n    if (scriptTable.config.changeNameplateColor) then\n        Plater.SetNameplateColor (unitFrame, scriptTable.config.nameplateColor)\n    end\n    \nend\n\n\n\n\n",
+["Author"] = "Izimode-Azralon",
+["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
+["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    Plater.StopDotAnimation(unitFrame.healthBar, unitFrame.healthBar.MainTargetDotAnimation)\n    \n    unitFrame.healthBar.MainTargetDotAnimation = Plater.PlayDotAnimation(unitFrame.healthBar, 2, scriptTable.config.dotsColor, 3, 4) \n    \n    --increase the nameplate size\n    local nameplateHeight = Plater.db.profile.plate_config.enemynpc.health_incombat [2]\n    unitFrame.healthBar:SetHeight (nameplateHeight + scriptTable.config.nameplateSizeOffset)\n    \nend\n\n\n\n\n\n\n\n",
+["Name"] = "Unit - Main Target [P]",
+["Prio"] = 99,
+["SpellIds"] = {
+},
+["PlaterCore"] = 1,
+["version"] = -1,
+["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable)\n    Plater.StopDotAnimation(unitFrame.healthBar, unitFrame.healthBar.MainTargetDotAnimation)\n    \n    --restore the nameplate size\n    local nameplateHeight = Plater.db.profile.plate_config.enemynpc.health_incombat [2]\n    unitFrame.healthBar:SetHeight (nameplateHeight)    \n    \nend\n\n\n\n\n",
+["semver"] = "",
+["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \nend\n\n--[=[\n\n154564 - debug\n\n168098 - empowered coldheart agent\n156212 - coldheart agent\n\n\n\n--]=]",
 },
 {
 ["ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \n    envTable.npcInfo = {\n        [164427] = {secondCastBar = true, timer = 20, timerId = 321247, altCastId = \"1\", name = \"Boom!\"}, --reanimated warrior - plaguefall\n        \n        [164414] = {secondCastBar = true, timer = 20, timerId = 321247, altCastId = \"2\", name = \"Boom!\"}, --reanimated mage - plaguefall\n        \n        [164185] = {secondCastBar = true, timer = 20, timerId = 319941, altCastId = \"3\", remaining = 5, name = GetSpellInfo(319941)}, --Echelon - Halls of Atonement\n        \n        [164567] = {secondCastBar = true, altCastId = \"dromanswrath\", debuffTimer = 323059, name = GetSpellInfo(323059), spellIcon = 323059}, --Ingra Maloch -- tirna scythe\n        \n        [165408] = {secondCastBar = true, timer = 20, timerId = 322711, altCastId = \"4\", remaining = 5, name = GetSpellInfo(322711)}, --Halkias - Refracted Sinlight - Halls of Atonement\n        \n        \n        --[154564] = {secondCastBar = true, timerId = \"Test Bar\", altCastId = \"debugcast\", remaining = 5, name = GetSpellInfo(319941), spellIcon = 319941}, --debug \"Test (1)\" BW \"Test Bar\" DBM --DEBUG\n        --[154580] = {secondCastBar = true, altCastId = \"debugcast\", debuffTimer = 204242, name = GetSpellInfo(81297), spellIcon = 81297}, --debug \"Test (1)\" BW \"Test Bar\" DBM --DEBUG\n    }\n    \n    --set the castbar config\n    local config = {\n        iconTexture = \"\",\n        iconTexcoord = {0.1, 0.9, 0.1, 0.9},\n        iconAlpha = 1,\n        iconSize = 14,\n        \n        text = \"Boom!\",\n        textSize = 9,\n        \n        texture = [[Interface\\AddOns\\Plater\\images\\bar_background]],\n        color = \"silver\",\n        \n        isChanneling = false,\n        canInterrupt = false,\n        \n        height = 2,\n        width = Plater.db.profile.plate_config.enemynpc.health_incombat[1],\n        \n        spellNameAnchor = {side = 3, x = 0, y = -2},\n        timerAnchor = {side = 5, x = 0, y = -2},\n    }    \n    \n    function envTable.ShowAltCastBar(npcInfo, unitFrame, unitId, customTime, customStart)\n        --show the cast bar\n        if (npcInfo.timerId) then\n            local barObject = Plater.GetBossTimer(npcInfo.timerId)\n            if (barObject) then\n                if (npcInfo.remaining) then\n                    local timeLeft = barObject.timer + barObject.start - GetTime()\n                    if (timeLeft > npcInfo.remaining) then\n                        return\n                    end\n                end\n                \n                config.text = npcInfo.name\n                \n                if (npcInfo.spellIcon) then\n                    local _, _, iconTexture = GetSpellInfo(npcInfo.spellIcon)\n                    config.iconTexture = iconTexture\n                else\n                    config.iconTexture = \"\"\n                end\n                \n                Plater.SetAltCastBar(unitFrame.PlateFrame, config, barObject.timer, customStart or barObject.start, npcInfo.altCastId)\n            end\n        else\n            Plater.SetAltCastBar(unitFrame.PlateFrame, config, customTime or npcInfo.timer, customStart, npcInfo.altCastId)            \n        end\n        \n        DetailsFramework:TruncateText(unitFrame.castBar2.Text, unitFrame.castBar2:GetWidth() - 16)\n    end\nend",
@@ -11179,6 +11316,8 @@ nil,
 ["ScriptType"] = 3,
 ["UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    local npcInfo = envTable.npcInfo[envTable._NpcID]\n    \n    if (npcInfo and npcInfo.secondCastBar) then\n        if (npcInfo.timerId) then\n            local barObject = Plater.GetBossTimer(npcInfo.timerId)\n            if (barObject) then\n                local altCastId = Plater.GetAltCastBarAltId(unitFrame.PlateFrame)\n                if (altCastId ~= npcInfo.altCastId or not unitFrame.castBar2:IsShown()) then\n                    envTable.ShowAltCastBar(npcInfo, unitFrame, unitId)\n                end\n            end \n            \n        elseif (npcInfo.debuffTimer) then\n            if (Plater.NameplateHasAura (unitFrame, npcInfo.debuffTimer)) then\n                \n                --get the debuff timeleft\n                local name = npcInfo.name\n                local _, _, _, _, duration, expirationTime = AuraUtil.FindAuraByName(name, unitId, \"DEBUFF\")\n                local startTime = expirationTime - duration\n                \n                if (not unitFrame.castBar2:IsShown() or unitFrame.castBar2.spellStartTime < startTime) then\n                    envTable.ShowAltCastBar(npcInfo, unitFrame, unitId, duration, startTime)\n                end\n                \n            else \n                if (unitFrame.castBar2:IsShown()) then\n                    local altCastId = Plater.GetAltCastBarAltId(unitFrame.PlateFrame)\n                    if (altCastId == npcInfo.altCastId) then\n                        Plater.ClearAltCastBar(unitFrame.PlateFrame)\n                    end                   \n                end                              \n            end\n        end\n    end\nend\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
 ["Time"] = 1634306563,
+["Icon"] = "Interface\\AddOns\\Plater\\Images\\countdown_bar_icon",
+["url"] = "",
 ["NpcNames"] = {
 "164427",
 "164414",
@@ -11186,26 +11325,24 @@ nil,
 "164567",
 "165408",
 },
-["url"] = "",
-["Icon"] = "Interface\\AddOns\\Plater\\Images\\countdown_bar_icon",
+["semver"] = "",
+["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    Plater.ClearAltCastBar(unitFrame.PlateFrame)\nend",
+["Revision"] = 210,
 ["Options"] = {
 },
-["Enabled"] = false,
-["Revision"] = 210,
-["semver"] = "",
-["Desc"] = "Some units has special events without a clear way to show. This script adds a second cast bar to inform the user about it.",
-["version"] = -1,
-["Author"] = "Aelerolor-Torghast",
-["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
 ["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    local npcInfo = envTable.npcInfo[envTable._NpcID]\n    \n    if (npcInfo and npcInfo.secondCastBar) then\n        if (npcInfo.debuffTimer) then\n            if (Plater.NameplateHasAura (unitFrame, npcInfo.debuffTimer)) then\n                \n                local name = npcInfo.name\n                local _, _, _, _, duration, expirationTime = AuraUtil.FindAuraByName(name, unitId, \"DEBUFF\")\n                \n                envTable.ShowAltCastBar(npcInfo, unitFrame, unitId, duration, expirationTime-duration)\n            else\n                if (unitFrame.castBar2:IsShown()) then\n                    local altCastId = Plater.GetAltCastBarAltId(unitFrame.PlateFrame)\n                    if (altCastId == npcInfo.altCastId) then\n                        Plater.ClearAltCastBar(unitFrame.PlateFrame)\n                    end                   \n                end                              \n            end\n        else\n            envTable.ShowAltCastBar(npcInfo, unitFrame, unitId)\n        end\n    end\nend\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
 ["Name"] = "Countdown",
-["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    local npcInfo = envTable.npcInfo[envTable._NpcID]\n    \n    if (npcInfo and npcInfo.secondCastBar) then\n        if (npcInfo.timerId) then\n            local barObject = Plater.GetBossTimer(npcInfo.timerId)\n            if (barObject) then\n                local altCastId = Plater.GetAltCastBarAltId(unitFrame.PlateFrame)\n                if (altCastId ~= npcInfo.altCastId or not unitFrame.castBar2:IsShown()) then\n                    envTable.ShowAltCastBar(npcInfo, unitFrame, unitId)\n                end\n            end \n            \n        elseif (npcInfo.debuffTimer) then\n            if (Plater.NameplateHasAura (unitFrame, npcInfo.debuffTimer)) then\n                \n                --get the debuff timeleft\n                local name = npcInfo.name\n                local _, _, _, _, duration, expirationTime = AuraUtil.FindAuraByName(name, unitId, \"DEBUFF\")\n                local startTime = expirationTime - duration\n                \n                if (not unitFrame.castBar2:IsShown() or unitFrame.castBar2.spellStartTime < startTime) then\n                    envTable.ShowAltCastBar(npcInfo, unitFrame, unitId, duration, startTime)\n                end\n                \n            else \n                if (unitFrame.castBar2:IsShown()) then\n                    local altCastId = Plater.GetAltCastBarAltId(unitFrame.PlateFrame)\n                    if (altCastId == npcInfo.altCastId) then\n                        Plater.ClearAltCastBar(unitFrame.PlateFrame)\n                    end                   \n                end                              \n            end\n        end\n    end\nend\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+["Author"] = "Aelerolor-Torghast",
+["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
+["Desc"] = "Some units has special events without a clear way to show. This script adds a second cast bar to inform the user about it.",
+["version"] = -1,
+["Prio"] = 99,
 ["SpellIds"] = {
 },
 ["PlaterCore"] = 1,
-["Prio"] = 99,
+["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    local npcInfo = envTable.npcInfo[envTable._NpcID]\n    \n    if (npcInfo and npcInfo.secondCastBar) then\n        if (npcInfo.timerId) then\n            local barObject = Plater.GetBossTimer(npcInfo.timerId)\n            if (barObject) then\n                local altCastId = Plater.GetAltCastBarAltId(unitFrame.PlateFrame)\n                if (altCastId ~= npcInfo.altCastId or not unitFrame.castBar2:IsShown()) then\n                    envTable.ShowAltCastBar(npcInfo, unitFrame, unitId)\n                end\n            end \n            \n        elseif (npcInfo.debuffTimer) then\n            if (Plater.NameplateHasAura (unitFrame, npcInfo.debuffTimer)) then\n                \n                --get the debuff timeleft\n                local name = npcInfo.name\n                local _, _, _, _, duration, expirationTime = AuraUtil.FindAuraByName(name, unitId, \"DEBUFF\")\n                local startTime = expirationTime - duration\n                \n                if (not unitFrame.castBar2:IsShown() or unitFrame.castBar2.spellStartTime < startTime) then\n                    envTable.ShowAltCastBar(npcInfo, unitFrame, unitId, duration, startTime)\n                end\n                \n            else \n                if (unitFrame.castBar2:IsShown()) then\n                    local altCastId = Plater.GetAltCastBarAltId(unitFrame.PlateFrame)\n                    if (altCastId == npcInfo.altCastId) then\n                        Plater.ClearAltCastBar(unitFrame.PlateFrame)\n                    end                   \n                end                              \n            end\n        end\n    end\nend\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
 ["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \n    envTable.npcInfo = {\n        [164427] = {secondCastBar = true, timer = 20, timerId = 321247, altCastId = \"1\", name = \"Boom!\"}, --reanimated warrior - plaguefall\n        \n        [164414] = {secondCastBar = true, timer = 20, timerId = 321247, altCastId = \"2\", name = \"Boom!\"}, --reanimated mage - plaguefall\n        \n        [164185] = {secondCastBar = true, timer = 20, timerId = 319941, altCastId = \"3\", remaining = 5, name = GetSpellInfo(319941)}, --Echelon - Halls of Atonement\n        \n        [164567] = {secondCastBar = true, altCastId = \"dromanswrath\", debuffTimer = 323059, name = GetSpellInfo(323059), spellIcon = 323059}, --Ingra Maloch -- tirna scythe\n        \n        [165408] = {secondCastBar = true, timer = 20, timerId = 322711, altCastId = \"4\", remaining = 5, name = GetSpellInfo(322711)}, --Halkias - Refracted Sinlight - Halls of Atonement\n        \n        \n        --[154564] = {secondCastBar = true, timerId = \"Test Bar\", altCastId = \"debugcast\", remaining = 5, name = GetSpellInfo(319941), spellIcon = 319941}, --debug \"Test (1)\" BW \"Test Bar\" DBM --DEBUG\n        --[154580] = {secondCastBar = true, altCastId = \"debugcast\", debuffTimer = 204242, name = GetSpellInfo(81297), spellIcon = 81297}, --debug \"Test (1)\" BW \"Test Bar\" DBM --DEBUG\n    }\n    \n    --set the castbar config\n    local config = {\n        iconTexture = \"\",\n        iconTexcoord = {0.1, 0.9, 0.1, 0.9},\n        iconAlpha = 1,\n        iconSize = 14,\n        \n        text = \"Boom!\",\n        textSize = 9,\n        \n        texture = [[Interface\\AddOns\\Plater\\images\\bar_background]],\n        color = \"silver\",\n        \n        isChanneling = false,\n        canInterrupt = false,\n        \n        height = 2,\n        width = Plater.db.profile.plate_config.enemynpc.health_incombat[1],\n        \n        spellNameAnchor = {side = 3, x = 0, y = -2},\n        timerAnchor = {side = 5, x = 0, y = -2},\n    }    \n    \n    function envTable.ShowAltCastBar(npcInfo, unitFrame, unitId, customTime, customStart)\n        --show the cast bar\n        if (npcInfo.timerId) then\n            local barObject = Plater.GetBossTimer(npcInfo.timerId)\n            if (barObject) then\n                if (npcInfo.remaining) then\n                    local timeLeft = barObject.timer + barObject.start - GetTime()\n                    if (timeLeft > npcInfo.remaining) then\n                        return\n                    end\n                end\n                \n                config.text = npcInfo.name\n                \n                if (npcInfo.spellIcon) then\n                    local _, _, iconTexture = GetSpellInfo(npcInfo.spellIcon)\n                    config.iconTexture = iconTexture\n                else\n                    config.iconTexture = \"\"\n                end\n                \n                Plater.SetAltCastBar(unitFrame.PlateFrame, config, barObject.timer, customStart or barObject.start, npcInfo.altCastId)\n            end\n        else\n            Plater.SetAltCastBar(unitFrame.PlateFrame, config, customTime or npcInfo.timer, customStart, npcInfo.altCastId)            \n        end\n        \n        DetailsFramework:TruncateText(unitFrame.castBar2.Text, unitFrame.castBar2:GetWidth() - 16)\n    end\nend",
-["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    Plater.ClearAltCastBar(unitFrame.PlateFrame)\nend",
+["Enabled"] = false,
 ["Temp_Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
 },
 {
@@ -11217,8 +11354,8 @@ nil,
 ["ScriptType"] = 3,
 ["UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    envTable.UpdateMarkers(unitFrame)\nend\n\n\n",
 ["Time"] = 1657090609,
-["Enabled"] = false,
-["url"] = "",
+["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    if (unitFrame.healthMarker) then\n        unitFrame.healthMarker:Hide()\n        unitFrame.healthOverlay:Hide()\n    end\nend\n\n\n\n\n",
+["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \n    envTable.lifePercent = {\n        --npcId         percent divisions\n        [154564] = {80, 30},   --debug\n        [164451] = {40}, --dessia the decapirator - theater of pain\n        [164463] = {40}, --Paceran the Virulent - theater of pain\n        [164461] = {40}, -- Sathel the Accursed - theater of pain\n        [165946]= {50}, -- ~mordretha - thather of pain\n        [164501] = {70, 40, 10}, --mistcaller - tina scythe\n        [164218] = {70, 40}, --Lord Chamberlain - Halls of Atonement\n    }\n    \n    function envTable.CreateMarker(unitFrame)\n        unitFrame.healthMarker = unitFrame.healthBar:CreateTexture(nil, \"overlay\")\n        unitFrame.healthMarker:SetColorTexture(1, 1, 1)\n        unitFrame.healthMarker:SetSize(1, unitFrame.healthBar:GetHeight())\n        \n        unitFrame.healthOverlay = unitFrame.healthBar:CreateTexture(nil, \"overlay\")\n        unitFrame.healthOverlay:SetColorTexture(1, 1, 1)\n        unitFrame.healthOverlay:SetSize(1, unitFrame.healthBar:GetHeight())\n    end\n    \n    function envTable.UpdateMarkers(unitFrame)\n        local markersTable = envTable.lifePercent[envTable._NpcID]\n        if (markersTable) then\n            local unitLifePercent = envTable._HealthPercent / 100\n            for i, percent in ipairs(markersTable) do\n                percent = percent / 100\n                if (unitLifePercent > percent) then\n                    if (not unitFrame.healthMarker) then\n                        envTable.CreateMarker(unitFrame)\n                    end\n                    \n                    unitFrame.healthMarker:Show()\n                    local width = unitFrame.healthBar:GetWidth()\n                    unitFrame.healthMarker:SetPoint(\"left\", unitFrame.healthBar, \"left\", width*percent, 0)\n                    \n                    local overlaySize = width * (unitLifePercent - percent)\n                    unitFrame.healthOverlay:SetWidth(overlaySize)\n                    unitFrame.healthOverlay:SetPoint(\"left\", unitFrame.healthMarker, \"right\", 0, 0)\n                    \n                    unitFrame.healthMarker:SetVertexColor(Plater:ParseColors(scriptTable.config.indicatorColor))\n                    unitFrame.healthMarker:SetAlpha(scriptTable.config.indicatorAlpha)\n                    \n                    unitFrame.healthOverlay:SetVertexColor(Plater:ParseColors(scriptTable.config.fillColor))\n                    unitFrame.healthOverlay:SetAlpha(scriptTable.config.fillAlpha)\n                    \n                    return\n                end\n            end --end for\n            \n            if (unitFrame.healthMarker and unitFrame.healthMarker:IsShown()) then\n                unitFrame.healthMarker:Hide()\n                unitFrame.healthOverlay:Hide()\n            end\n        end\n    end\nend      \n\n\n\n\n\n",
 ["NpcNames"] = {
 "164451",
 "164463",
@@ -11227,6 +11364,9 @@ nil,
 "164501",
 "164218",
 },
+["semver"] = "",
+["Enabled"] = false,
+["Revision"] = 116,
 ["Options"] = {
 {
 ["Type"] = 5,
@@ -11301,23 +11441,20 @@ nil,
 ["Fraction"] = true,
 },
 },
-["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    if (unitFrame.healthMarker) then\n        unitFrame.healthMarker:Hide()\n        unitFrame.healthOverlay:Hide()\n    end\nend\n\n\n\n\n",
-["Revision"] = 116,
-["semver"] = "",
-["Name"] = "Unit - Health Markers [P]",
-["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    envTable.UpdateMarkers(unitFrame)\nend\n\n\n",
-["Author"] = "Aelerolor-Torghast",
-["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
-["Desc"] = "Place a marker into the health bar to indicate when the unit will change phase or cast an important spell.",
 ["version"] = -1,
 ["Prio"] = 99,
+["Author"] = "Aelerolor-Torghast",
+["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
+["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    envTable.UpdateMarkers(unitFrame)\nend\n\n\n",
+["Name"] = "Unit - Health Markers [P]",
+["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    envTable.UpdateMarkers(unitFrame)\nend\n\n\n",
 ["SpellIds"] = {
 },
 ["PlaterCore"] = 1,
-["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    envTable.UpdateMarkers(unitFrame)\nend\n\n\n",
+["Desc"] = "Place a marker into the health bar to indicate when the unit will change phase or cast an important spell.",
 ["Temp_Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
 ["Icon"] = "Interface\\AddOns\\Plater\\images\\health_indicator",
-["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \n    envTable.lifePercent = {\n        --npcId         percent divisions\n        [154564] = {80, 30},   --debug\n        [164451] = {40}, --dessia the decapirator - theater of pain\n        [164463] = {40}, --Paceran the Virulent - theater of pain\n        [164461] = {40}, -- Sathel the Accursed - theater of pain\n        [165946]= {50}, -- ~mordretha - thather of pain\n        [164501] = {70, 40, 10}, --mistcaller - tina scythe\n        [164218] = {70, 40}, --Lord Chamberlain - Halls of Atonement\n    }\n    \n    function envTable.CreateMarker(unitFrame)\n        unitFrame.healthMarker = unitFrame.healthBar:CreateTexture(nil, \"overlay\")\n        unitFrame.healthMarker:SetColorTexture(1, 1, 1)\n        unitFrame.healthMarker:SetSize(1, unitFrame.healthBar:GetHeight())\n        \n        unitFrame.healthOverlay = unitFrame.healthBar:CreateTexture(nil, \"overlay\")\n        unitFrame.healthOverlay:SetColorTexture(1, 1, 1)\n        unitFrame.healthOverlay:SetSize(1, unitFrame.healthBar:GetHeight())\n    end\n    \n    function envTable.UpdateMarkers(unitFrame)\n        local markersTable = envTable.lifePercent[envTable._NpcID]\n        if (markersTable) then\n            local unitLifePercent = envTable._HealthPercent / 100\n            for i, percent in ipairs(markersTable) do\n                percent = percent / 100\n                if (unitLifePercent > percent) then\n                    if (not unitFrame.healthMarker) then\n                        envTable.CreateMarker(unitFrame)\n                    end\n                    \n                    unitFrame.healthMarker:Show()\n                    local width = unitFrame.healthBar:GetWidth()\n                    unitFrame.healthMarker:SetPoint(\"left\", unitFrame.healthBar, \"left\", width*percent, 0)\n                    \n                    local overlaySize = width * (unitLifePercent - percent)\n                    unitFrame.healthOverlay:SetWidth(overlaySize)\n                    unitFrame.healthOverlay:SetPoint(\"left\", unitFrame.healthMarker, \"right\", 0, 0)\n                    \n                    unitFrame.healthMarker:SetVertexColor(Plater:ParseColors(scriptTable.config.indicatorColor))\n                    unitFrame.healthMarker:SetAlpha(scriptTable.config.indicatorAlpha)\n                    \n                    unitFrame.healthOverlay:SetVertexColor(Plater:ParseColors(scriptTable.config.fillColor))\n                    unitFrame.healthOverlay:SetAlpha(scriptTable.config.fillAlpha)\n                    \n                    return\n                end\n            end --end for\n            \n            if (unitFrame.healthMarker and unitFrame.healthMarker:IsShown()) then\n                unitFrame.healthMarker:Hide()\n                unitFrame.healthOverlay:Hide()\n            end\n        end\n    end\nend      \n\n\n\n\n\n",
+["url"] = "",
 },
 {
 ["ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --castbar color (when can be interrupted)\n    envTable.CastbarColor = scriptTable.config.castbarColor\n    \n    --flash duration\n    local CONFIG_BACKGROUND_FLASH_DURATION = scriptTable.config.flashDuration\n    \n    --add this value to the cast bar height\n    envTable.CastBarHeightAdd = scriptTable.config.castBarHeight\n    \n    --create a fast flash above the cast bar\n    envTable.FullBarFlash = envTable.FullBarFlash or Plater.CreateFlash (self, 0.05, 1, \"white\")\n    \n    --create a camera shake for the nameplate\n    envTable.FrameShake = Plater:CreateFrameShake (unitFrame, scriptTable.config.shakeDuration, scriptTable.config.shakeAmplitude, scriptTable.config.shakeFrequency, false, false, 0, 1, 0.05, 0.1, Plater.GetPoints (unitFrame))\n    \n    --create a texture to use for a flash behind the cast bar\n    local backGroundFlashTexture = Plater:CreateImage (self, [[Interface\\ACHIEVEMENTFRAME\\UI-Achievement-Alert-Glow]], self:GetWidth()+60, self:GetHeight()+50, \"background\", {0, 400/512, 0, 170/256})\n    backGroundFlashTexture:SetBlendMode (\"ADD\")\n    backGroundFlashTexture:SetDrawLayer(\"OVERLAY\", 7)\n    backGroundFlashTexture:SetPoint (\"center\", self, \"center\")\n    backGroundFlashTexture:Hide()\n    \n    --create the animation hub to hold the flash animation sequence\n    envTable.BackgroundFlash = envTable.BackgroundFlash or Plater:CreateAnimationHub (backGroundFlashTexture, \n        function()\n            backGroundFlashTexture:Show()\n        end,\n        function()\n            backGroundFlashTexture:Hide()\n        end\n    )\n    \n    --create the flash animation sequence\n    envTable.BackgroundFlash.fadeIn = envTable.BackgroundFlash.fadeIn or Plater:CreateAnimation (envTable.BackgroundFlash, \"ALPHA\", 1, CONFIG_BACKGROUND_FLASH_DURATION/2, 0, .75)\n    envTable.BackgroundFlash.fadeIn:SetDuration(CONFIG_BACKGROUND_FLASH_DURATION/2)\n    \n    envTable.BackgroundFlash.fadeOut = envTable.BackgroundFlash.fadeOut or Plater:CreateAnimation (envTable.BackgroundFlash, \"ALPHA\", 2, CONFIG_BACKGROUND_FLASH_DURATION/2, 1, 0)    \n    envTable.BackgroundFlash.fadeOut:SetDuration(CONFIG_BACKGROUND_FLASH_DURATION/2)\n    \n    --envTable.BackgroundFlash:Play() --envTable.BackgroundFlash:Stop()    \n    \n    \n    \n    \n    \nend\n\n\n",
@@ -11329,12 +11466,26 @@ nil,
 ["UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \nend\n\n\n",
 ["Time"] = 1658324225,
 ["Temp_Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend",
-["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --castbar color (when can be interrupted)\n    envTable.CastbarColor = scriptTable.config.castbarColor\n    \n    --flash duration\n    local CONFIG_BACKGROUND_FLASH_DURATION = scriptTable.config.flashDuration\n    \n    --add this value to the cast bar height\n    envTable.CastBarHeightAdd = scriptTable.config.castBarHeight\n    \n    --create a fast flash above the cast bar\n    envTable.FullBarFlash = envTable.FullBarFlash or Plater.CreateFlash (self, 0.05, 1, \"white\")\n    \n    --create a camera shake for the nameplate\n    envTable.FrameShake = Plater:CreateFrameShake (unitFrame, scriptTable.config.shakeDuration, scriptTable.config.shakeAmplitude, scriptTable.config.shakeFrequency, false, false, 0, 1, 0.05, 0.1, Plater.GetPoints (unitFrame))\n    \n    --create a texture to use for a flash behind the cast bar\n    local backGroundFlashTexture = Plater:CreateImage (self, [[Interface\\ACHIEVEMENTFRAME\\UI-Achievement-Alert-Glow]], self:GetWidth()+60, self:GetHeight()+50, \"background\", {0, 400/512, 0, 170/256})\n    backGroundFlashTexture:SetBlendMode (\"ADD\")\n    backGroundFlashTexture:SetDrawLayer(\"OVERLAY\", 7)\n    backGroundFlashTexture:SetPoint (\"center\", self, \"center\")\n    backGroundFlashTexture:Hide()\n    \n    --create the animation hub to hold the flash animation sequence\n    envTable.BackgroundFlash = envTable.BackgroundFlash or Plater:CreateAnimationHub (backGroundFlashTexture, \n        function()\n            backGroundFlashTexture:Show()\n        end,\n        function()\n            backGroundFlashTexture:Hide()\n        end\n    )\n    \n    --create the flash animation sequence\n    envTable.BackgroundFlash.fadeIn = envTable.BackgroundFlash.fadeIn or Plater:CreateAnimation (envTable.BackgroundFlash, \"ALPHA\", 1, CONFIG_BACKGROUND_FLASH_DURATION/2, 0, .75)\n    envTable.BackgroundFlash.fadeIn:SetDuration(CONFIG_BACKGROUND_FLASH_DURATION/2)\n    \n    envTable.BackgroundFlash.fadeOut = envTable.BackgroundFlash.fadeOut or Plater:CreateAnimation (envTable.BackgroundFlash, \"ALPHA\", 2, CONFIG_BACKGROUND_FLASH_DURATION/2, 1, 0)    \n    envTable.BackgroundFlash.fadeOut:SetDuration(CONFIG_BACKGROUND_FLASH_DURATION/2)\n    \n    --envTable.BackgroundFlash:Play() --envTable.BackgroundFlash:Stop()    \n    \n    \n    \n    \n    \nend\n\n\n",
+["url"] = "",
 ["Icon"] = "Interface\\AddOns\\Plater\\images\\cast_bar_tank",
 ["NpcNames"] = {
 },
 ["Enabled"] = false,
 ["Revision"] = 879,
+["semver"] = "",
+["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    if (not Plater.IsPlayerTank()) then\n        return\n    end\n    \n    --don't execute on battlegrounds and arenas\n    if (Plater.ZoneInstanceType == \"arena\" or Plater.ZoneInstanceType == \"pvp\") then\n        return\n    end    \n    \n    unitFrame.castBar:SetHeight (envTable._DefaultHeight)\n    \n    --stop the camera shake\n    unitFrame:StopFrameShake (envTable.FrameShake)\n    \n    envTable.FullBarFlash:Stop()\n    envTable.BackgroundFlash:Stop()\n    \n    unitFrame.castBar.Spark:SetHeight(unitFrame.castBar:GetHeight())\n    \nend\n\n\n\n\n\n",
+["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    if (not Plater.IsPlayerTank()) then\n        return\n    end\n    \n    --don't execute on battlegrounds and arenas\n    if (Plater.ZoneInstanceType == \"arena\" or Plater.ZoneInstanceType == \"pvp\") then\n        return\n    end\n    \n    --play flash animations\n    envTable.FullBarFlash:Play()\n    \n    --envTable.currentHeight = unitFrame.castBar:GetHeight()\n    \n    --restoring the default size (not required since it already restore in the hide script)\n    if (envTable.OriginalHeight) then\n        self:SetHeight (envTable.OriginalHeight)\n    end\n    \n    --increase the cast bar size\n    local height = self:GetHeight()\n    envTable.OriginalHeight = height\n    \n    self:SetHeight (height + envTable.CastBarHeightAdd)\n    \n    Plater.SetCastBarBorderColor (self, 1, .2, .2, 0.4)\n    \n    unitFrame:PlayFrameShake (envTable.FrameShake)\n    \n    --set the color of the cast bar to dark orange (only if can be interrupted)\n    --Plater auto set this color to default when a new cast starts, no need to reset this value at OnHide.    \n    if (envTable._CanInterrupt) then\n        if (scriptTable.config.useCastbarColor) then\n            self:SetStatusBarColor (Plater:ParseColors (envTable.CastbarColor))\n        end\n    end\n    \n    envTable.BackgroundFlash:Play()\n    \n    unitFrame.castBar.Spark:SetHeight(unitFrame.castBar:GetHeight())\n    \nend\n\n\n\n\n\n\n\n\n",
+["Author"] = "Tercioo-Sylvanas",
+["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend",
+["Desc"] = "Cast alert for abilities which only the tank can interrupt.",
+["version"] = -1,
+["Prio"] = 99,
+["SpellIds"] = {
+321828,
+},
+["PlaterCore"] = 1,
+["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \nend\n\n\n",
+["Name"] = "Cast - Tank Interrupt [P]",
 ["Options"] = {
 {
 ["Type"] = 6,
@@ -11453,21 +11604,7 @@ nil,
 ["Name"] = "Shake Frequency",
 },
 },
-["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    if (not Plater.IsPlayerTank()) then\n        return\n    end\n    \n    --don't execute on battlegrounds and arenas\n    if (Plater.ZoneInstanceType == \"arena\" or Plater.ZoneInstanceType == \"pvp\") then\n        return\n    end    \n    \n    unitFrame.castBar:SetHeight (envTable._DefaultHeight)\n    \n    --stop the camera shake\n    unitFrame:StopFrameShake (envTable.FrameShake)\n    \n    envTable.FullBarFlash:Stop()\n    envTable.BackgroundFlash:Stop()\n    \n    unitFrame.castBar.Spark:SetHeight(unitFrame.castBar:GetHeight())\n    \nend\n\n\n\n\n\n",
-["Desc"] = "Cast alert for abilities which only the tank can interrupt.",
-["Author"] = "Tercioo-Sylvanas",
-["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend",
-["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    if (not Plater.IsPlayerTank()) then\n        return\n    end\n    \n    --don't execute on battlegrounds and arenas\n    if (Plater.ZoneInstanceType == \"arena\" or Plater.ZoneInstanceType == \"pvp\") then\n        return\n    end\n    \n    --play flash animations\n    envTable.FullBarFlash:Play()\n    \n    --envTable.currentHeight = unitFrame.castBar:GetHeight()\n    \n    --restoring the default size (not required since it already restore in the hide script)\n    if (envTable.OriginalHeight) then\n        self:SetHeight (envTable.OriginalHeight)\n    end\n    \n    --increase the cast bar size\n    local height = self:GetHeight()\n    envTable.OriginalHeight = height\n    \n    self:SetHeight (height + envTable.CastBarHeightAdd)\n    \n    Plater.SetCastBarBorderColor (self, 1, .2, .2, 0.4)\n    \n    unitFrame:PlayFrameShake (envTable.FrameShake)\n    \n    --set the color of the cast bar to dark orange (only if can be interrupted)\n    --Plater auto set this color to default when a new cast starts, no need to reset this value at OnHide.    \n    if (envTable._CanInterrupt) then\n        if (scriptTable.config.useCastbarColor) then\n            self:SetStatusBarColor (Plater:ParseColors (envTable.CastbarColor))\n        end\n    end\n    \n    envTable.BackgroundFlash:Play()\n    \n    unitFrame.castBar.Spark:SetHeight(unitFrame.castBar:GetHeight())\n    \nend\n\n\n\n\n\n\n\n\n",
-["version"] = -1,
-["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \nend\n\n\n",
-["Name"] = "Cast - Tank Interrupt [P]",
-["PlaterCore"] = 1,
-["Prio"] = 99,
-["SpellIds"] = {
-321828,
-},
-["semver"] = "",
-["url"] = "",
+["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --castbar color (when can be interrupted)\n    envTable.CastbarColor = scriptTable.config.castbarColor\n    \n    --flash duration\n    local CONFIG_BACKGROUND_FLASH_DURATION = scriptTable.config.flashDuration\n    \n    --add this value to the cast bar height\n    envTable.CastBarHeightAdd = scriptTable.config.castBarHeight\n    \n    --create a fast flash above the cast bar\n    envTable.FullBarFlash = envTable.FullBarFlash or Plater.CreateFlash (self, 0.05, 1, \"white\")\n    \n    --create a camera shake for the nameplate\n    envTable.FrameShake = Plater:CreateFrameShake (unitFrame, scriptTable.config.shakeDuration, scriptTable.config.shakeAmplitude, scriptTable.config.shakeFrequency, false, false, 0, 1, 0.05, 0.1, Plater.GetPoints (unitFrame))\n    \n    --create a texture to use for a flash behind the cast bar\n    local backGroundFlashTexture = Plater:CreateImage (self, [[Interface\\ACHIEVEMENTFRAME\\UI-Achievement-Alert-Glow]], self:GetWidth()+60, self:GetHeight()+50, \"background\", {0, 400/512, 0, 170/256})\n    backGroundFlashTexture:SetBlendMode (\"ADD\")\n    backGroundFlashTexture:SetDrawLayer(\"OVERLAY\", 7)\n    backGroundFlashTexture:SetPoint (\"center\", self, \"center\")\n    backGroundFlashTexture:Hide()\n    \n    --create the animation hub to hold the flash animation sequence\n    envTable.BackgroundFlash = envTable.BackgroundFlash or Plater:CreateAnimationHub (backGroundFlashTexture, \n        function()\n            backGroundFlashTexture:Show()\n        end,\n        function()\n            backGroundFlashTexture:Hide()\n        end\n    )\n    \n    --create the flash animation sequence\n    envTable.BackgroundFlash.fadeIn = envTable.BackgroundFlash.fadeIn or Plater:CreateAnimation (envTable.BackgroundFlash, \"ALPHA\", 1, CONFIG_BACKGROUND_FLASH_DURATION/2, 0, .75)\n    envTable.BackgroundFlash.fadeIn:SetDuration(CONFIG_BACKGROUND_FLASH_DURATION/2)\n    \n    envTable.BackgroundFlash.fadeOut = envTable.BackgroundFlash.fadeOut or Plater:CreateAnimation (envTable.BackgroundFlash, \"ALPHA\", 2, CONFIG_BACKGROUND_FLASH_DURATION/2, 1, 0)    \n    envTable.BackgroundFlash.fadeOut:SetDuration(CONFIG_BACKGROUND_FLASH_DURATION/2)\n    \n    --envTable.BackgroundFlash:Play() --envTable.BackgroundFlash:Stop()    \n    \n    \n    \n    \n    \nend\n\n\n",
 },
 {
 ["ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    envTable.EnergyAmount = Plater:CreateLabel (unitFrame, \"\", 16, \"silver\");\n    envTable.EnergyAmount:SetPoint (\"bottom\", unitFrame, \"top\", 0, 18);    \n    \n    envTable.EnergyAmount.fontsize = scriptTable.config.fontSize\n    envTable.EnergyAmount.fontcolor = scriptTable.config.fontColor\n    envTable.EnergyAmount.outline = scriptTable.config.outline\n    \n    \nend\n\n--[=[\n\n164406 = Shriekwing\n164407 = Sludgefist\n162100 = kryxis the voracious\n162099 = general kaal - sanguine depths\n162329 = Xav the Unfallen - threater of pain\n--]=]",
@@ -11479,7 +11616,7 @@ nil,
 ["UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    local currentPower = UnitPower(unitId)\n    \n    if (currentPower and currentPower > 0) then\n        local maxPower = UnitPowerMax (unitId)\n        local percent = floor (currentPower / maxPower * 100)\n        \n        envTable.EnergyAmount.text = \"\" .. percent;\n        \n        if (scriptTable.config.showLater) then\n            local alpha = (percent -80) * 5\n            alpha = alpha / 100\n            alpha = max(0, alpha)\n            envTable.EnergyAmount:SetAlpha(alpha)\n            \n        else\n            envTable.EnergyAmount:SetAlpha(1.0)\n        end\n        \n        \n    else\n        envTable.EnergyAmount.text = \"\"\n    end\nend\n\n\n\n\n\n\n\n\n",
 ["Time"] = 1657090621,
 ["Temp_Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
-["url"] = "",
+["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    envTable.EnergyAmount = Plater:CreateLabel (unitFrame, \"\", 16, \"silver\");\n    envTable.EnergyAmount:SetPoint (\"bottom\", unitFrame, \"top\", 0, 18);    \n    \n    envTable.EnergyAmount.fontsize = scriptTable.config.fontSize\n    envTable.EnergyAmount.fontcolor = scriptTable.config.fontColor\n    envTable.EnergyAmount.outline = scriptTable.config.outline\n    \n    \nend\n\n--[=[\n\n164406 = Shriekwing\n164407 = Sludgefist\n162100 = kryxis the voracious\n162099 = general kaal - sanguine depths\n162329 = Xav the Unfallen - threater of pain\n--]=]",
 ["NpcNames"] = {
 "164406",
 "164407",
@@ -11490,7 +11627,7 @@ nil,
 150159,
 },
 ["Icon"] = 136048,
-["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    envTable.EnergyAmount:Hide()\nend\n\n\n",
+["Enabled"] = false,
 ["Revision"] = 236,
 ["Options"] = {
 {
@@ -11575,19 +11712,19 @@ nil,
 },
 },
 ["semver"] = "",
-["Desc"] = "Show the energy amount above the nameplate.",
+["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    envTable.EnergyAmount:Show()\nend\n\n\n",
 ["Author"] = "Celian-Sylvanas",
 ["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
-["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    envTable.EnergyAmount:Show()\nend\n\n\n",
+["Desc"] = "Show the energy amount above the nameplate.",
 ["SpellIds"] = {
 },
-["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    local currentPower = UnitPower(unitId)\n    \n    if (currentPower and currentPower > 0) then\n        local maxPower = UnitPowerMax (unitId)\n        local percent = floor (currentPower / maxPower * 100)\n        \n        envTable.EnergyAmount.text = \"\" .. percent;\n        \n        if (scriptTable.config.showLater) then\n            local alpha = (percent -80) * 5\n            alpha = alpha / 100\n            alpha = max(0, alpha)\n            envTable.EnergyAmount:SetAlpha(alpha)\n            \n        else\n            envTable.EnergyAmount:SetAlpha(1.0)\n        end\n        \n        \n    else\n        envTable.EnergyAmount.text = \"\"\n    end\nend\n\n\n\n\n\n\n\n\n",
-["Name"] = "Unit - Show Energy [Plater]",
-["PlaterCore"] = 1,
 ["Prio"] = 99,
 ["version"] = -1,
-["Enabled"] = false,
-["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    envTable.EnergyAmount = Plater:CreateLabel (unitFrame, \"\", 16, \"silver\");\n    envTable.EnergyAmount:SetPoint (\"bottom\", unitFrame, \"top\", 0, 18);    \n    \n    envTable.EnergyAmount.fontsize = scriptTable.config.fontSize\n    envTable.EnergyAmount.fontcolor = scriptTable.config.fontColor\n    envTable.EnergyAmount.outline = scriptTable.config.outline\n    \n    \nend\n\n--[=[\n\n164406 = Shriekwing\n164407 = Sludgefist\n162100 = kryxis the voracious\n162099 = general kaal - sanguine depths\n162329 = Xav the Unfallen - threater of pain\n--]=]",
+["PlaterCore"] = 1,
+["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    local currentPower = UnitPower(unitId)\n    \n    if (currentPower and currentPower > 0) then\n        local maxPower = UnitPowerMax (unitId)\n        local percent = floor (currentPower / maxPower * 100)\n        \n        envTable.EnergyAmount.text = \"\" .. percent;\n        \n        if (scriptTable.config.showLater) then\n            local alpha = (percent -80) * 5\n            alpha = alpha / 100\n            alpha = max(0, alpha)\n            envTable.EnergyAmount:SetAlpha(alpha)\n            \n        else\n            envTable.EnergyAmount:SetAlpha(1.0)\n        end\n        \n        \n    else\n        envTable.EnergyAmount.text = \"\"\n    end\nend\n\n\n\n\n\n\n\n\n",
+["Name"] = "Unit - Show Energy [Plater]",
+["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    envTable.EnergyAmount:Hide()\nend\n\n\n",
+["url"] = "",
 },
 {
 ["ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \n    if (not unitFrame.spitefulTexture) then\n        unitFrame.spitefulTexture = unitFrame.healthBar:CreateTexture(nil, \"overlay\", nil, 6)\n        unitFrame.spitefulTexture:SetPoint('right', 0, 0)\n        unitFrame.spitefulTexture:SetSize(27, 14)\n        unitFrame.spitefulTexture:SetColorTexture(.3, .3, 1, .7)\n        \n        unitFrame.spitefulText = unitFrame.healthBar:CreateFontString(nil, \"overlay\", \"GameFontNormal\", 6)\n        DetailsFramework:SetFontFace (unitFrame.spitefulText, \"2002\")\n        unitFrame.spitefulText:SetPoint(\"right\", unitFrame.spitefulTexture, \"right\", -2, 0)\n        unitFrame.spitefulText:SetJustifyH(\"right\")\n        \n        unitFrame.roleIcon = unitFrame:CreateTexture(nil, \"overlay\")\n        unitFrame.roleIcon:SetPoint(\"left\", unitFrame.healthBar, \"left\", 2, 0)\n        unitFrame.targetName = unitFrame:CreateFontString(nil, \"overlay\", \"GameFontNormal\")\n        unitFrame.targetName:SetPoint(\"left\", unitFrame.roleIcon, \"right\", 2, 0)\n        \n        unitFrame.spitefulTexture:Hide()\n        unitFrame.spitefulText:Hide()\n    end\n    \n    function envTable.UpdateSpitefulWidget(unitFrame)\n        \n        local r, g, b, a = Plater:ParseColors(scriptTable.config.bgColor)\n        unitFrame.spitefulTexture:SetColorTexture(r, g, b, a)\n        unitFrame.spitefulTexture:SetSize(scriptTable.config.bgWidth, unitFrame.healthBar:GetHeight())   \n        Plater:SetFontSize(unitFrame.spitefulText, scriptTable.config.textSize)\n        Plater:SetFontColor(unitFrame.spitefulText, scriptTable.config.textColor)\n        \n        local currentHealth = unitFrame.healthBar.CurrentHealth\n        local maxHealth = unitFrame.healthBar.CurrentHealthMax\n        \n        local healthPercent = currentHealth / maxHealth * 100\n        local timeToDie = format(\"%.1fs\", healthPercent / 8)\n        unitFrame.spitefulText:SetText(timeToDie)\n        \n        unitFrame.spitefulText:Show()\n        unitFrame.spitefulTexture:Show()\n        \n        if scriptTable.config.switchTargetName then\n            local plateFrame = unitFrame.PlateFrame\n            \n            local target = UnitName(unitFrame.namePlateUnitToken .. \"target\") or UnitName(unitFrame.namePlateUnitToken)\n            \n            if (target and target ~= \"\") then\n                local _, class = UnitClass(unitFrame.namePlateUnitToken .. \"target\")\n                if (class) then\n                    target = DetailsFramework:AddClassColorToText(target, class)\n                end\n                \n                local role = UnitGroupRolesAssigned(unitFrame.namePlateUnitToken .. \"target\")\n                if (role and role ~= \"NONE\") then\n                    target = DetailsFramework:AddRoleIconToText(target, role)\n                end\n                \n                plateFrame.namePlateUnitName = target\n                Plater.UpdateUnitName(plateFrame)\n            end\n        end\n        \n        if scriptTable.config.useTargetingColor then\n            local targeted = UnitIsUnit(unitFrame.namePlateUnitToken .. \"target\", \"player\")\n            if targeted then\n                Plater.SetNameplateColor (unitFrame, scriptTable.config.targetingColor)\n            else\n                Plater.RefreshNameplateColor(unitFrame)\n            end\n        end\n    end\nend",
@@ -11606,26 +11743,13 @@ nil,
 ["Temp_Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
 ["Time"] = 1658327316,
 ["UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    envTable.UpdateSpitefulWidget(unitFrame)\nend\n\n\n",
-["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \n    if (not unitFrame.spitefulTexture) then\n        unitFrame.spitefulTexture = unitFrame.healthBar:CreateTexture(nil, \"overlay\", nil, 6)\n        unitFrame.spitefulTexture:SetPoint('right', 0, 0)\n        unitFrame.spitefulTexture:SetSize(27, 14)\n        unitFrame.spitefulTexture:SetColorTexture(.3, .3, 1, .7)\n        \n        unitFrame.spitefulText = unitFrame.healthBar:CreateFontString(nil, \"overlay\", \"GameFontNormal\", 6)\n        DetailsFramework:SetFontFace (unitFrame.spitefulText, \"2002\")\n        unitFrame.spitefulText:SetPoint(\"right\", unitFrame.spitefulTexture, \"right\", -2, 0)\n        unitFrame.spitefulText:SetJustifyH(\"right\")\n        \n        unitFrame.roleIcon = unitFrame:CreateTexture(nil, \"overlay\")\n        unitFrame.roleIcon:SetPoint(\"left\", unitFrame.healthBar, \"left\", 2, 0)\n        unitFrame.targetName = unitFrame:CreateFontString(nil, \"overlay\", \"GameFontNormal\")\n        unitFrame.targetName:SetPoint(\"left\", unitFrame.roleIcon, \"right\", 2, 0)\n        \n        unitFrame.spitefulTexture:Hide()\n        unitFrame.spitefulText:Hide()\n    end\n    \n    function envTable.UpdateSpitefulWidget(unitFrame)\n        \n        local r, g, b, a = Plater:ParseColors(scriptTable.config.bgColor)\n        unitFrame.spitefulTexture:SetColorTexture(r, g, b, a)\n        unitFrame.spitefulTexture:SetSize(scriptTable.config.bgWidth, unitFrame.healthBar:GetHeight())   \n        Plater:SetFontSize(unitFrame.spitefulText, scriptTable.config.textSize)\n        Plater:SetFontColor(unitFrame.spitefulText, scriptTable.config.textColor)\n        \n        local currentHealth = unitFrame.healthBar.CurrentHealth\n        local maxHealth = unitFrame.healthBar.CurrentHealthMax\n        \n        local healthPercent = currentHealth / maxHealth * 100\n        local timeToDie = format(\"%.1fs\", healthPercent / 8)\n        unitFrame.spitefulText:SetText(timeToDie)\n        \n        unitFrame.spitefulText:Show()\n        unitFrame.spitefulTexture:Show()\n        \n        if scriptTable.config.switchTargetName then\n            local plateFrame = unitFrame.PlateFrame\n            \n            local target = UnitName(unitFrame.namePlateUnitToken .. \"target\") or UnitName(unitFrame.namePlateUnitToken)\n            \n            if (target and target ~= \"\") then\n                local _, class = UnitClass(unitFrame.namePlateUnitToken .. \"target\")\n                if (class) then\n                    target = DetailsFramework:AddClassColorToText(target, class)\n                end\n                \n                local role = UnitGroupRolesAssigned(unitFrame.namePlateUnitToken .. \"target\")\n                if (role and role ~= \"NONE\") then\n                    target = DetailsFramework:AddRoleIconToText(target, role)\n                end\n                \n                plateFrame.namePlateUnitName = target\n                Plater.UpdateUnitName(plateFrame)\n            end\n        end\n        \n        if scriptTable.config.useTargetingColor then\n            local targeted = UnitIsUnit(unitFrame.namePlateUnitToken .. \"target\", \"player\")\n            if targeted then\n                Plater.SetNameplateColor (unitFrame, scriptTable.config.targetingColor)\n            else\n                Plater.RefreshNameplateColor(unitFrame)\n            end\n        end\n    end\nend",
+["url"] = "",
 ["Icon"] = 135945,
 ["NpcNames"] = {
 "174773",
 },
 ["Enabled"] = false,
 ["Revision"] = 210,
-["semver"] = "",
-["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    envTable.UpdateSpitefulWidget(unitFrame)\nend\n\n\n",
-["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    envTable.UpdateSpitefulWidget(unitFrame)\nend\n\n\n",
-["Author"] = "Symantec-Azralon",
-["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
-["Desc"] = "Time to die Spiteful affix",
-["Name"] = "M+ Spiteful",
-["Prio"] = 99,
-["version"] = -1,
-["PlaterCore"] = 1,
-["SpellIds"] = {
-},
-["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    if (unitFrame.spitefulTexture) then\n        unitFrame.spitefulText:Hide()\n        unitFrame.spitefulTexture:Hide()    \n        unitFrame.roleIcon:Hide()\n        unitFrame.targetName:Hide()\n    end\nend\n\n\n\n\n\n",
 ["Options"] = {
 {
 ["Type"] = 5,
@@ -11737,7 +11861,20 @@ nil,
 ["Desc"] = "",
 },
 },
-["url"] = "",
+["Desc"] = "Time to die Spiteful affix",
+["Prio"] = 99,
+["Author"] = "Symantec-Azralon",
+["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
+["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    envTable.UpdateSpitefulWidget(unitFrame)\nend\n\n\n",
+["Name"] = "M+ Spiteful",
+["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    envTable.UpdateSpitefulWidget(unitFrame)\nend\n\n\n",
+["SpellIds"] = {
+},
+["PlaterCore"] = 1,
+["version"] = -1,
+["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    if (unitFrame.spitefulTexture) then\n        unitFrame.spitefulText:Hide()\n        unitFrame.spitefulTexture:Hide()    \n        unitFrame.roleIcon:Hide()\n        unitFrame.targetName:Hide()\n    end\nend\n\n\n\n\n\n",
+["semver"] = "",
+["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \n    if (not unitFrame.spitefulTexture) then\n        unitFrame.spitefulTexture = unitFrame.healthBar:CreateTexture(nil, \"overlay\", nil, 6)\n        unitFrame.spitefulTexture:SetPoint('right', 0, 0)\n        unitFrame.spitefulTexture:SetSize(27, 14)\n        unitFrame.spitefulTexture:SetColorTexture(.3, .3, 1, .7)\n        \n        unitFrame.spitefulText = unitFrame.healthBar:CreateFontString(nil, \"overlay\", \"GameFontNormal\", 6)\n        DetailsFramework:SetFontFace (unitFrame.spitefulText, \"2002\")\n        unitFrame.spitefulText:SetPoint(\"right\", unitFrame.spitefulTexture, \"right\", -2, 0)\n        unitFrame.spitefulText:SetJustifyH(\"right\")\n        \n        unitFrame.roleIcon = unitFrame:CreateTexture(nil, \"overlay\")\n        unitFrame.roleIcon:SetPoint(\"left\", unitFrame.healthBar, \"left\", 2, 0)\n        unitFrame.targetName = unitFrame:CreateFontString(nil, \"overlay\", \"GameFontNormal\")\n        unitFrame.targetName:SetPoint(\"left\", unitFrame.roleIcon, \"right\", 2, 0)\n        \n        unitFrame.spitefulTexture:Hide()\n        unitFrame.spitefulText:Hide()\n    end\n    \n    function envTable.UpdateSpitefulWidget(unitFrame)\n        \n        local r, g, b, a = Plater:ParseColors(scriptTable.config.bgColor)\n        unitFrame.spitefulTexture:SetColorTexture(r, g, b, a)\n        unitFrame.spitefulTexture:SetSize(scriptTable.config.bgWidth, unitFrame.healthBar:GetHeight())   \n        Plater:SetFontSize(unitFrame.spitefulText, scriptTable.config.textSize)\n        Plater:SetFontColor(unitFrame.spitefulText, scriptTable.config.textColor)\n        \n        local currentHealth = unitFrame.healthBar.CurrentHealth\n        local maxHealth = unitFrame.healthBar.CurrentHealthMax\n        \n        local healthPercent = currentHealth / maxHealth * 100\n        local timeToDie = format(\"%.1fs\", healthPercent / 8)\n        unitFrame.spitefulText:SetText(timeToDie)\n        \n        unitFrame.spitefulText:Show()\n        unitFrame.spitefulTexture:Show()\n        \n        if scriptTable.config.switchTargetName then\n            local plateFrame = unitFrame.PlateFrame\n            \n            local target = UnitName(unitFrame.namePlateUnitToken .. \"target\") or UnitName(unitFrame.namePlateUnitToken)\n            \n            if (target and target ~= \"\") then\n                local _, class = UnitClass(unitFrame.namePlateUnitToken .. \"target\")\n                if (class) then\n                    target = DetailsFramework:AddClassColorToText(target, class)\n                end\n                \n                local role = UnitGroupRolesAssigned(unitFrame.namePlateUnitToken .. \"target\")\n                if (role and role ~= \"NONE\") then\n                    target = DetailsFramework:AddRoleIconToText(target, role)\n                end\n                \n                plateFrame.namePlateUnitName = target\n                Plater.UpdateUnitName(plateFrame)\n            end\n        end\n        \n        if scriptTable.config.useTargetingColor then\n            local targeted = UnitIsUnit(unitFrame.namePlateUnitToken .. \"target\", \"player\")\n            if targeted then\n                Plater.SetNameplateColor (unitFrame, scriptTable.config.targetingColor)\n            else\n                Plater.RefreshNameplateColor(unitFrame)\n            end\n        end\n    end\nend",
 },
 {
 ["ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \n    function envTable.SetCastbarSize(unitFrame, envTable, unitId, scriptTable)\n        local spellId = envTable._SpellID\n        local overridedSize = scriptTable.config.customSize[tostring(spellId)]\n        \n        if (overridedSize) then\n            local width, height = Plater.GetNumbersFromString(overridedSize)\n            Plater.SetCastBarSize(unitFrame, width, height)\n        else\n            local castBarWidth = scriptTable.config.width\n            local castBarHeight = scriptTable.config.height\n            Plater.SetCastBarSize(unitFrame, castBarWidth, castBarHeight)\n        end\n        \n        --update timer text\n        Plater:SetFontSize (unitFrame.castBar.percentText, scriptTable.config.timerFontSize)\n    end\n    \n    --sub divisions\n    \n    unitFrame.CastbarIsTimerVerticalLines = unitFrame.CastbarIsTimerVerticalLines or {}\n    local amountOfLines = 6\n    local animationSpeed = 0.2\n    \n    local onAnimationStop = function(self)\n        self:GetParent():Hide()\n    end\n    \n    if (not unitFrame.CastbarIsTimerVerticalLines[1]) then\n        for i = 1, amountOfLines do\n            local verticalLine = unitFrame.castBar:CreateTexture(nil, \"border\", nil, -3)\n            unitFrame.CastbarIsTimerVerticalLines[i] = verticalLine\n            verticalLine:SetColorTexture(1, 1, 1, 1)\n            \n            local animationHub = Plater:CreateAnimationHub(verticalLine, onPlayFunc, onAnimationStop)       \n            Plater:CreateAnimation (animationHub, \"scale\", 1, animationSpeed, 1, 1, 2.5, 2.5)\n            Plater:CreateAnimation (animationHub, \"alpha\", 1, animationSpeed, 1, 0)\n            Plater:CreateAnimation (animationHub, \"translation\", 1, animationSpeed, -16, 0)\n            verticalLine.anim = animationHub\n        end\n        \n        --make an animation on the spark texture\n        local spark = unitFrame.castBar.Spark\n        local animationHub = Plater:CreateAnimationHub(spark, onPlayFunc, onStopFunc)\n        Plater:CreateAnimation (animationHub, \"scale\", 1, 0.2, 1.2, 1.2, 1, 1)\n        --Plater:CreateAnimation (animationHub, \"scale\", 1, 0.3, 1, 1, 1.2, 1.2)\n        --Plater:CreateAnimation (animationHub, \"scale\", 2, 0.2, 1.2, 1.2, 1, 1)\n        spark.bumpAnimation = animationHub\n        --Plater:CreateAnimation (animationHub, \"alpha\", 1, 0.5, 1, 0)\n        \n    end\n    \n    function envTable.UpdateLinePositions(unitFrame)\n        local lineTable = unitFrame.CastbarIsTimerVerticalLines\n        local castBarWidth = unitFrame.castBar:GetWidth()\n        local castBarHeight = unitFrame.castBar:GetHeight()\n\n        local spaceBetweenLines = castBarWidth / amountOfLines\n        local r, g, b, a = Plater:ParseColors(scriptTable.config.separatorColor)        \n        \n        for i = 1, amountOfLines do\n            local line = lineTable[i]\n            line:ClearAllPoints()\n            local xLocation = spaceBetweenLines * i\n            line:SetPoint(\"left\", unitFrame.castBar, \"left\", xLocation, 0)\n            line:SetSize(scriptTable.config.separatorWidth, castBarHeight)\n            line:SetColorTexture(r, g, b, a)\n            line:Show()\n            line:SetAlpha(1)\n            line:SetScale(1)\n            line.percent = xLocation / castBarWidth * 100\n            line.playedAnim = false\n            \n            if (i == amountOfLines) then\n                line:Hide()\n            end\n        end\n    end\n    \n    function envTable.HideLines(unitFrame)\n        local lineTable = unitFrame.CastbarIsTimerVerticalLines\n        for i = 1, amountOfLines do\n            local line = lineTable[i]\n            line:Hide()\n        end\n    end\nend\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
@@ -11754,27 +11891,13 @@ nil,
 ["ScriptType"] = 2,
 ["UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \n    --override the update frequency to run every tick\n    unitFrame.castBar.ThrottleUpdate = -1\n    \n    \n    local lineTable = unitFrame.CastbarIsTimerVerticalLines\n    for i = 1, #lineTable do\n        local line = lineTable[i]\n        \n        if (not line.playedAnim)  then\n            if (envTable._CastPercent > line.percent) then\n                line.anim:Play()\n                line.playedAnim = true\n                \n                if (unitFrame.castBar.Spark.bumpAnimation:IsPlaying()) then\n                    unitFrame.castBar.Spark.bumpAnimation:Stop()\n                end\n                unitFrame.castBar.Spark.bumpAnimation:Play()                    \n            end\n        end\n    end\nend\n\n\n\n\n\n\n\n\n\n\n\n\n",
 ["Time"] = 1658324226,
-["Icon"] = "Interface\\AddOns\\Plater\\images\\cast_bar_is_timer",
-["url"] = "",
 ["NpcNames"] = {
 },
-["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \n    envTable.HideLines(unitFrame)\n    \nend\n\n\n",
+["url"] = "",
+["Icon"] = "Interface\\AddOns\\Plater\\images\\cast_bar_is_timer",
 ["Enabled"] = false,
+["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \n    envTable.HideLines(unitFrame)\n    \nend\n\n\n",
 ["Revision"] = 306,
-["semver"] = "",
-["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \n    function envTable.SetCastbarSize(unitFrame, envTable, unitId, scriptTable)\n        local spellId = envTable._SpellID\n        local overridedSize = scriptTable.config.customSize[tostring(spellId)]\n        \n        if (overridedSize) then\n            local width, height = Plater.GetNumbersFromString(overridedSize)\n            Plater.SetCastBarSize(unitFrame, width, height)\n        else\n            local castBarWidth = scriptTable.config.width\n            local castBarHeight = scriptTable.config.height\n            Plater.SetCastBarSize(unitFrame, castBarWidth, castBarHeight)\n        end\n        \n        --update timer text\n        Plater:SetFontSize (unitFrame.castBar.percentText, scriptTable.config.timerFontSize)\n    end\n    \n    --sub divisions\n    \n    unitFrame.CastbarIsTimerVerticalLines = unitFrame.CastbarIsTimerVerticalLines or {}\n    local amountOfLines = 6\n    local animationSpeed = 0.2\n    \n    local onAnimationStop = function(self)\n        self:GetParent():Hide()\n    end\n    \n    if (not unitFrame.CastbarIsTimerVerticalLines[1]) then\n        for i = 1, amountOfLines do\n            local verticalLine = unitFrame.castBar:CreateTexture(nil, \"border\", nil, -3)\n            unitFrame.CastbarIsTimerVerticalLines[i] = verticalLine\n            verticalLine:SetColorTexture(1, 1, 1, 1)\n            \n            local animationHub = Plater:CreateAnimationHub(verticalLine, onPlayFunc, onAnimationStop)       \n            Plater:CreateAnimation (animationHub, \"scale\", 1, animationSpeed, 1, 1, 2.5, 2.5)\n            Plater:CreateAnimation (animationHub, \"alpha\", 1, animationSpeed, 1, 0)\n            Plater:CreateAnimation (animationHub, \"translation\", 1, animationSpeed, -16, 0)\n            verticalLine.anim = animationHub\n        end\n        \n        --make an animation on the spark texture\n        local spark = unitFrame.castBar.Spark\n        local animationHub = Plater:CreateAnimationHub(spark, onPlayFunc, onStopFunc)\n        Plater:CreateAnimation (animationHub, \"scale\", 1, 0.2, 1.2, 1.2, 1, 1)\n        --Plater:CreateAnimation (animationHub, \"scale\", 1, 0.3, 1, 1, 1.2, 1.2)\n        --Plater:CreateAnimation (animationHub, \"scale\", 2, 0.2, 1.2, 1.2, 1, 1)\n        spark.bumpAnimation = animationHub\n        --Plater:CreateAnimation (animationHub, \"alpha\", 1, 0.5, 1, 0)\n        \n    end\n    \n    function envTable.UpdateLinePositions(unitFrame)\n        local lineTable = unitFrame.CastbarIsTimerVerticalLines\n        local castBarWidth = unitFrame.castBar:GetWidth()\n        local castBarHeight = unitFrame.castBar:GetHeight()\n\n        local spaceBetweenLines = castBarWidth / amountOfLines\n        local r, g, b, a = Plater:ParseColors(scriptTable.config.separatorColor)        \n        \n        for i = 1, amountOfLines do\n            local line = lineTable[i]\n            line:ClearAllPoints()\n            local xLocation = spaceBetweenLines * i\n            line:SetPoint(\"left\", unitFrame.castBar, \"left\", xLocation, 0)\n            line:SetSize(scriptTable.config.separatorWidth, castBarHeight)\n            line:SetColorTexture(r, g, b, a)\n            line:Show()\n            line:SetAlpha(1)\n            line:SetScale(1)\n            line.percent = xLocation / castBarWidth * 100\n            line.playedAnim = false\n            \n            if (i == amountOfLines) then\n                line:Hide()\n            end\n        end\n    end\n    \n    function envTable.HideLines(unitFrame)\n        local lineTable = unitFrame.CastbarIsTimerVerticalLines\n        for i = 1, amountOfLines do\n            local line = lineTable[i]\n            line:Hide()\n        end\n    end\nend\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
-["SpellIds"] = {
-354080,
-},
-["Author"] = "Ditador-Azralon",
-["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
-["Desc"] = "When a spell resembles more a timer than a spell being cast",
-["version"] = -1,
-["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \n    --override the update frequency to run every tick\n    unitFrame.castBar.ThrottleUpdate = -1\n    \n    \n    local lineTable = unitFrame.CastbarIsTimerVerticalLines\n    for i = 1, #lineTable do\n        local line = lineTable[i]\n        \n        if (not line.playedAnim)  then\n            if (envTable._CastPercent > line.percent) then\n                line.anim:Play()\n                line.playedAnim = true\n                \n                if (unitFrame.castBar.Spark.bumpAnimation:IsPlaying()) then\n                    unitFrame.castBar.Spark.bumpAnimation:Stop()\n                end\n                unitFrame.castBar.Spark.bumpAnimation:Play()                    \n            end\n        end\n    end\nend\n\n\n\n\n\n\n\n\n\n\n\n\n",
-["Name"] = "Cast - Castbar is Timer [P]",
-["PlaterCore"] = 1,
-["Prio"] = 99,
-["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \n    envTable.SetCastbarSize(unitFrame, envTable, unitId, scriptTable)\n    \n    --override the update frequency to run every tick\n    unitFrame.castBar.ThrottleUpdate = -1\n    \n    envTable.UpdateLinePositions(unitFrame) \n    \n    unitFrame.castBar:SetAlpha(1)\nend\n\n\n\n\n",
 ["Options"] = {
 {
 ["Type"] = 7,
@@ -11871,6 +11994,20 @@ nil,
 ["Fraction"] = false,
 },
 },
+["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \n    function envTable.SetCastbarSize(unitFrame, envTable, unitId, scriptTable)\n        local spellId = envTable._SpellID\n        local overridedSize = scriptTable.config.customSize[tostring(spellId)]\n        \n        if (overridedSize) then\n            local width, height = Plater.GetNumbersFromString(overridedSize)\n            Plater.SetCastBarSize(unitFrame, width, height)\n        else\n            local castBarWidth = scriptTable.config.width\n            local castBarHeight = scriptTable.config.height\n            Plater.SetCastBarSize(unitFrame, castBarWidth, castBarHeight)\n        end\n        \n        --update timer text\n        Plater:SetFontSize (unitFrame.castBar.percentText, scriptTable.config.timerFontSize)\n    end\n    \n    --sub divisions\n    \n    unitFrame.CastbarIsTimerVerticalLines = unitFrame.CastbarIsTimerVerticalLines or {}\n    local amountOfLines = 6\n    local animationSpeed = 0.2\n    \n    local onAnimationStop = function(self)\n        self:GetParent():Hide()\n    end\n    \n    if (not unitFrame.CastbarIsTimerVerticalLines[1]) then\n        for i = 1, amountOfLines do\n            local verticalLine = unitFrame.castBar:CreateTexture(nil, \"border\", nil, -3)\n            unitFrame.CastbarIsTimerVerticalLines[i] = verticalLine\n            verticalLine:SetColorTexture(1, 1, 1, 1)\n            \n            local animationHub = Plater:CreateAnimationHub(verticalLine, onPlayFunc, onAnimationStop)       \n            Plater:CreateAnimation (animationHub, \"scale\", 1, animationSpeed, 1, 1, 2.5, 2.5)\n            Plater:CreateAnimation (animationHub, \"alpha\", 1, animationSpeed, 1, 0)\n            Plater:CreateAnimation (animationHub, \"translation\", 1, animationSpeed, -16, 0)\n            verticalLine.anim = animationHub\n        end\n        \n        --make an animation on the spark texture\n        local spark = unitFrame.castBar.Spark\n        local animationHub = Plater:CreateAnimationHub(spark, onPlayFunc, onStopFunc)\n        Plater:CreateAnimation (animationHub, \"scale\", 1, 0.2, 1.2, 1.2, 1, 1)\n        --Plater:CreateAnimation (animationHub, \"scale\", 1, 0.3, 1, 1, 1.2, 1.2)\n        --Plater:CreateAnimation (animationHub, \"scale\", 2, 0.2, 1.2, 1.2, 1, 1)\n        spark.bumpAnimation = animationHub\n        --Plater:CreateAnimation (animationHub, \"alpha\", 1, 0.5, 1, 0)\n        \n    end\n    \n    function envTable.UpdateLinePositions(unitFrame)\n        local lineTable = unitFrame.CastbarIsTimerVerticalLines\n        local castBarWidth = unitFrame.castBar:GetWidth()\n        local castBarHeight = unitFrame.castBar:GetHeight()\n\n        local spaceBetweenLines = castBarWidth / amountOfLines\n        local r, g, b, a = Plater:ParseColors(scriptTable.config.separatorColor)        \n        \n        for i = 1, amountOfLines do\n            local line = lineTable[i]\n            line:ClearAllPoints()\n            local xLocation = spaceBetweenLines * i\n            line:SetPoint(\"left\", unitFrame.castBar, \"left\", xLocation, 0)\n            line:SetSize(scriptTable.config.separatorWidth, castBarHeight)\n            line:SetColorTexture(r, g, b, a)\n            line:Show()\n            line:SetAlpha(1)\n            line:SetScale(1)\n            line.percent = xLocation / castBarWidth * 100\n            line.playedAnim = false\n            \n            if (i == amountOfLines) then\n                line:Hide()\n            end\n        end\n    end\n    \n    function envTable.HideLines(unitFrame)\n        local lineTable = unitFrame.CastbarIsTimerVerticalLines\n        for i = 1, amountOfLines do\n            local line = lineTable[i]\n            line:Hide()\n        end\n    end\nend\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+["version"] = -1,
+["Author"] = "Ditador-Azralon",
+["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
+["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \n    envTable.SetCastbarSize(unitFrame, envTable, unitId, scriptTable)\n    \n    --override the update frequency to run every tick\n    unitFrame.castBar.ThrottleUpdate = -1\n    \n    envTable.UpdateLinePositions(unitFrame) \n    \n    unitFrame.castBar:SetAlpha(1)\nend\n\n\n\n\n",
+["SpellIds"] = {
+354080,
+},
+["Prio"] = 99,
+["Name"] = "Cast - Castbar is Timer [P]",
+["PlaterCore"] = 1,
+["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \n    --override the update frequency to run every tick\n    unitFrame.castBar.ThrottleUpdate = -1\n    \n    \n    local lineTable = unitFrame.CastbarIsTimerVerticalLines\n    for i = 1, #lineTable do\n        local line = lineTable[i]\n        \n        if (not line.playedAnim)  then\n            if (envTable._CastPercent > line.percent) then\n                line.anim:Play()\n                line.playedAnim = true\n                \n                if (unitFrame.castBar.Spark.bumpAnimation:IsPlaying()) then\n                    unitFrame.castBar.Spark.bumpAnimation:Stop()\n                end\n                unitFrame.castBar.Spark.bumpAnimation:Play()                    \n            end\n        end\n    end\nend\n\n\n\n\n\n\n\n\n\n\n\n\n",
+["Desc"] = "When a spell resembles more a timer than a spell being cast",
+["semver"] = "",
 ["Temp_Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
 },
 {
@@ -11890,10 +12027,10 @@ nil,
 ["Author"] = "Bombad�o-Azralon",
 ["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
 ["Desc"] = "Highlight the target name",
+["Name"] = "Cast - Important Target [P]",
 ["SpellIds"] = {
 354173,
 },
-["Name"] = "Cast - Important Target [P]",
 ["PlaterCore"] = 1,
 ["version"] = -1,
 ["Icon"] = "Interface\\AddOns\\Plater\\images\\cast_bar_target",
@@ -12270,9 +12407,7 @@ nil,
 ["Desc"] = "Player an animation when the cast start. Start a timer when the cast finishes. Set the time in the options.",
 ["NpcNames"] = {
 },
-["SpellIds"] = {
-355787,
-},
+["version"] = -1,
 ["PlaterCore"] = 1,
 ["Name"] = "Cast - Alert + Timer [P]",
 ["Options"] = {
@@ -12395,7 +12530,9 @@ nil,
 },
 },
 ["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    --play flash animations\n    envTable.FullBarFlash:Play()\n    \n    --envTable.currentHeight = unitFrame.castBar:GetHeight()\n    \n    --restoring the default size (not required since it already restore in the hide script)\n    if (envTable.OriginalHeight) then\n        self:SetHeight (envTable.OriginalHeight)\n    end\n    \n    --increase the cast bar size\n    local height = self:GetHeight()\n    envTable.OriginalHeight = height\n    \n    self:SetHeight (height + envTable.CastBarHeightAdd)\n    \n    Plater.SetCastBarBorderColor (self, 1, .2, .2, 0.4)\n    \n    unitFrame:PlayFrameShake (envTable.FrameShake)\n    \n    Plater.SetCastBarColorForScript(self, scriptTable.config.useCastbarColor, scriptTable.config.castbarColor, envTable)\n    \n    envTable.BackgroundFlash:Play()\n    \n    unitFrame.castBar.Spark:SetHeight(unitFrame.castBar:GetHeight())\n    \nend\n\n\n\n\n\n\n\n\n\n\n",
-["version"] = -1,
+["SpellIds"] = {
+355787,
+},
 },
 {
 ["ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \nend\n\n\n",
@@ -12441,12 +12578,12 @@ nil,
 ["Author"] = "Ditador-Azralon",
 ["Initialization"] = "		function (scriptTable)\n			--insert code here\n			\n		end\n	",
 ["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \nend\n\n\n",
+["version"] = -1,
 ["SpellIds"] = {
 285388,
 426662,
 426663,
 },
-["version"] = -1,
 ["PlaterCore"] = 1,
 ["Name"] = "Fixate by Unit Buff [P]",
 ["Desc"] = "Alert about a unit fixated on the player by using a buff on the enemy unit.",
@@ -12523,13 +12660,10 @@ nil,
 ["ScriptType"] = 2,
 ["Temp_Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
 ["Time"] = 1706886827,
-["Icon"] = "Interface\\AddOns\\Plater\\images\\cast_bar_glow",
-["url"] = "",
 ["NpcNames"] = {
 },
-["semver"] = "",
-["Enabled"] = false,
-["Revision"] = 548,
+["url"] = "",
+["Icon"] = "Interface\\AddOns\\Plater\\images\\cast_bar_glow",
 ["Options"] = {
 {
 ["Type"] = 2,
@@ -12622,15 +12756,15 @@ nil,
 ["Desc"] = "Insert the Spell ID in the to Key and a color name into the Value",
 },
 },
+["Enabled"] = false,
+["Revision"] = 548,
+["semver"] = "",
 ["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    if (unitFrame.felAnimation and unitFrame.felAnimation.Textures) then\n        for i = 1, scriptTable.config.segmentsAmount  do\n            local texture = unitFrame.felAnimation.Textures[i]\n            if (texture) then\n                texture:Hide()\n            end\n        end\n    end\n    \n    if (unitFrame.felAnimation and unitFrame.felAnimation.textureStretched) then\n        local textureStretched = unitFrame.felAnimation.textureStretched\n        if (textureStretched) then\n            textureStretched:Hide()\n        end\n    end\nend\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
 ["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    local castBar = unitFrame.castBar\n    local castBarPortion = castBar:GetWidth()/scriptTable.config.segmentsAmount\n    local castBarHeight = castBar:GetHeight()\n    \n    unitFrame.felAnimation = unitFrame.felAnimation or {}\n    \n    if (not unitFrame.felAnimation.textureStretched) then\n        unitFrame.felAnimation.textureStretched = castBar:CreateTexture(nil, \"overlay\", nil, 5)\n    end\n    \n    if (not unitFrame.felAnimation.Textures) then\n        unitFrame.felAnimation.Textures = {}\n        \n        for i = 1, 20 do --max amount of segments is 20\n            local texture = castBar:CreateTexture(nil, \"overlay\", nil, 6)\n            unitFrame.felAnimation.Textures[i] = texture            \n            \n            texture.animGroup = texture.animGroup or texture:CreateAnimationGroup()\n            local animationGroup = texture.animGroup\n            animationGroup:SetToFinalAlpha(true)            \n            animationGroup:SetLooping(\"NONE\")\n            \n            texture:SetTexture([[Interface\\COMMON\\XPBarAnim]])\n            texture:SetTexCoord(0.2990, 0.0010, 0.0010, 0.4159)\n            texture:SetBlendMode(\"ADD\")\n            \n            texture.scale = animationGroup:CreateAnimation(\"SCALE\")\n            texture.scale:SetTarget(texture)\n            \n            texture.alpha = animationGroup:CreateAnimation(\"ALPHA\")\n            texture.alpha:SetTarget(texture)\n            \n            texture.alpha2 = animationGroup:CreateAnimation(\"ALPHA\")\n            texture.alpha2:SetTarget(texture)\n        end\n    end\n    \n    \n    \nend\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
 ["Author"] = "Terciob",
 ["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
-["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    if (self.channeling) then\n        return \n    end\n    \n    local castBar = unitFrame.castBar\n    envTable.castBarWidth = castBar:GetWidth()\n    castBar.Spark:SetVertexColor(DetailsFramework:ParseColors(scriptTable.config.sparkColor))\n    \n    local textureStretched = unitFrame.felAnimation.textureStretched\n    textureStretched:Show()\n    textureStretched:SetVertexColor(DetailsFramework:ParseColors(scriptTable.config.glowColor))\n    textureStretched:SetAtlas(\"XPBarAnim-OrangeTrail\")\n    textureStretched:ClearAllPoints()\n    textureStretched:SetPoint(\"right\", castBar.Spark, \"center\", 0, 0)\n    textureStretched:SetHeight(castBar:GetHeight())\n    textureStretched:SetBlendMode(\"ADD\") \n    textureStretched:SetAlpha(0.5)\n    textureStretched:SetDrawLayer(\"overlay\", 7)\n    \n    for i = 1, scriptTable.config.segmentsAmount  do\n        local texture = unitFrame.felAnimation.Textures[i]\n        --texture:SetVertexColor(DetailsFramework:ParseColors(scriptTable.config.trailColor))\n        texture:SetVertexColor(1, 1, 1, 1)\n        texture:SetDesaturated(true)\n        \n        local castBarPortion = castBar:GetWidth()/scriptTable.config.segmentsAmount\n        \n        texture:SetSize(castBarPortion+5, castBar:GetHeight())\n        texture:SetDrawLayer(\"overlay\", 6)\n        \n        texture:ClearAllPoints()\n        if (i == scriptTable.config.segmentsAmount) then\n            texture:SetPoint(\"right\", castBar, \"right\", 0, 0)\n        else\n            texture:SetPoint(\"left\", castBar, \"left\", (i-1)*castBarPortion, 2)\n        end\n        \n        texture:SetAlpha(0)\n        texture:Hide()\n        \n        texture.scale:SetOrder(1)\n        texture.scale:SetDuration(0.5)\n        texture.scale:SetScaleFrom(0.2, 1)\n        texture.scale:SetScaleTo(1, 1.5)\n        texture.scale:SetOrigin(\"right\", 0, 0)\n        \n        local durationTime = DetailsFramework:GetBezierPoint(i / scriptTable.config.segmentsAmount, 0.2, 0.01, 0.6)\n        local duration = abs(durationTime-0.6)\n        \n        texture.alpha:SetOrder(1)\n        texture.alpha:SetDuration(0.05)\n        texture.alpha:SetFromAlpha(0)\n        texture.alpha:SetToAlpha(0.4)\n        \n        texture.alpha2:SetOrder(1)\n        texture.alpha2:SetDuration(duration) --0.6\n        texture.alpha2:SetStartDelay(duration)\n        texture.alpha2:SetFromAlpha(0.5)\n        texture.alpha2:SetToAlpha(0)\n    end\n    \n    envTable.CurrentTexture = 1\n    envTable.NextPercent  = 100  / scriptTable.config.segmentsAmount\n    \n    local customColor = scriptTable.config.castColor[tostring(envTable._SpellID)]\n    Plater.SetCastBarColorForScript(self, true, customColor or scriptTable.config.castBarColor, envTable)\nend\n\n\n\n\n\n\n\n\n\n\n\n\n",
+["Desc"] = "Show a different animation for the cast bar.",
 ["version"] = -1,
-["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    if (self.channeling) then\n        return \n    end\n    \n    if (not envTable.NextPercent) then\n        return\n    end\n    \n    local castBar = unitFrame.castBar\n    \n    local textures = unitFrame.felAnimation.Textures\n    \n    if (envTable._CastPercent > envTable.NextPercent) then --eeror here, compare with nil\n        local nextPercent = 100  / scriptTable.config.segmentsAmount\n        \n        textures[envTable.CurrentTexture]:Show()\n        textures[envTable.CurrentTexture].animGroup:Play()\n        envTable.NextPercent = envTable.NextPercent + nextPercent \n        envTable.CurrentTexture = envTable.CurrentTexture + 1\n        \n        if (envTable.CurrentTexture == #textures) then\n            envTable.NextPercent = 98\n        elseif (envTable.CurrentTexture > #textures) then\n            envTable.NextPercent = 999\n        end\n    end\n    \n    local normalizedPercent = envTable._CastPercent / 100\n    local textureStretched = unitFrame.felAnimation.textureStretched\n    local point = DetailsFramework:GetBezierPoint(normalizedPercent, 0, 0.001, 1)\n    textureStretched:SetPoint(\"left\", castBar, \"left\", point * envTable.castBarWidth, 0)\n    \n    self.ThrottleUpdate = 0\nend",
-["Name"] = "Cast - Glowing [P]",
-["PlaterCore"] = 1,
 ["Prio"] = 99,
 ["SpellIds"] = {
 376644,
@@ -12658,7 +12792,10 @@ nil,
 411002,
 169445,
 },
-["Desc"] = "Show a different animation for the cast bar.",
+["PlaterCore"] = 1,
+["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    if (self.channeling) then\n        return \n    end\n    \n    if (not envTable.NextPercent) then\n        return\n    end\n    \n    local castBar = unitFrame.castBar\n    \n    local textures = unitFrame.felAnimation.Textures\n    \n    if (envTable._CastPercent > envTable.NextPercent) then --eeror here, compare with nil\n        local nextPercent = 100  / scriptTable.config.segmentsAmount\n        \n        textures[envTable.CurrentTexture]:Show()\n        textures[envTable.CurrentTexture].animGroup:Play()\n        envTable.NextPercent = envTable.NextPercent + nextPercent \n        envTable.CurrentTexture = envTable.CurrentTexture + 1\n        \n        if (envTable.CurrentTexture == #textures) then\n            envTable.NextPercent = 98\n        elseif (envTable.CurrentTexture > #textures) then\n            envTable.NextPercent = 999\n        end\n    end\n    \n    local normalizedPercent = envTable._CastPercent / 100\n    local textureStretched = unitFrame.felAnimation.textureStretched\n    local point = DetailsFramework:GetBezierPoint(normalizedPercent, 0, 0.001, 1)\n    textureStretched:SetPoint(\"left\", castBar, \"left\", point * envTable.castBarWidth, 0)\n    \n    self.ThrottleUpdate = 0\nend",
+["Name"] = "Cast - Glowing [P]",
+["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    if (self.channeling) then\n        return \n    end\n    \n    local castBar = unitFrame.castBar\n    envTable.castBarWidth = castBar:GetWidth()\n    castBar.Spark:SetVertexColor(DetailsFramework:ParseColors(scriptTable.config.sparkColor))\n    \n    local textureStretched = unitFrame.felAnimation.textureStretched\n    textureStretched:Show()\n    textureStretched:SetVertexColor(DetailsFramework:ParseColors(scriptTable.config.glowColor))\n    textureStretched:SetAtlas(\"XPBarAnim-OrangeTrail\")\n    textureStretched:ClearAllPoints()\n    textureStretched:SetPoint(\"right\", castBar.Spark, \"center\", 0, 0)\n    textureStretched:SetHeight(castBar:GetHeight())\n    textureStretched:SetBlendMode(\"ADD\") \n    textureStretched:SetAlpha(0.5)\n    textureStretched:SetDrawLayer(\"overlay\", 7)\n    \n    for i = 1, scriptTable.config.segmentsAmount  do\n        local texture = unitFrame.felAnimation.Textures[i]\n        --texture:SetVertexColor(DetailsFramework:ParseColors(scriptTable.config.trailColor))\n        texture:SetVertexColor(1, 1, 1, 1)\n        texture:SetDesaturated(true)\n        \n        local castBarPortion = castBar:GetWidth()/scriptTable.config.segmentsAmount\n        \n        texture:SetSize(castBarPortion+5, castBar:GetHeight())\n        texture:SetDrawLayer(\"overlay\", 6)\n        \n        texture:ClearAllPoints()\n        if (i == scriptTable.config.segmentsAmount) then\n            texture:SetPoint(\"right\", castBar, \"right\", 0, 0)\n        else\n            texture:SetPoint(\"left\", castBar, \"left\", (i-1)*castBarPortion, 2)\n        end\n        \n        texture:SetAlpha(0)\n        texture:Hide()\n        \n        texture.scale:SetOrder(1)\n        texture.scale:SetDuration(0.5)\n        texture.scale:SetScaleFrom(0.2, 1)\n        texture.scale:SetScaleTo(1, 1.5)\n        texture.scale:SetOrigin(\"right\", 0, 0)\n        \n        local durationTime = DetailsFramework:GetBezierPoint(i / scriptTable.config.segmentsAmount, 0.2, 0.01, 0.6)\n        local duration = abs(durationTime-0.6)\n        \n        texture.alpha:SetOrder(1)\n        texture.alpha:SetDuration(0.05)\n        texture.alpha:SetFromAlpha(0)\n        texture.alpha:SetToAlpha(0.4)\n        \n        texture.alpha2:SetOrder(1)\n        texture.alpha2:SetDuration(duration) --0.6\n        texture.alpha2:SetStartDelay(duration)\n        texture.alpha2:SetFromAlpha(0.5)\n        texture.alpha2:SetToAlpha(0)\n    end\n    \n    envTable.CurrentTexture = 1\n    envTable.NextPercent  = 100  / scriptTable.config.segmentsAmount\n    \n    local customColor = scriptTable.config.castColor[tostring(envTable._SpellID)]\n    Plater.SetCastBarColorForScript(self, true, customColor or scriptTable.config.castBarColor, envTable)\nend\n\n\n\n\n\n\n\n\n\n\n\n\n",
 ["UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    if (self.channeling) then\n        return \n    end\n    \n    if (not envTable.NextPercent) then\n        return\n    end\n    \n    local castBar = unitFrame.castBar\n    \n    local textures = unitFrame.felAnimation.Textures\n    \n    if (envTable._CastPercent > envTable.NextPercent) then --eeror here, compare with nil\n        local nextPercent = 100  / scriptTable.config.segmentsAmount\n        \n        textures[envTable.CurrentTexture]:Show()\n        textures[envTable.CurrentTexture].animGroup:Play()\n        envTable.NextPercent = envTable.NextPercent + nextPercent \n        envTable.CurrentTexture = envTable.CurrentTexture + 1\n        \n        if (envTable.CurrentTexture == #textures) then\n            envTable.NextPercent = 98\n        elseif (envTable.CurrentTexture > #textures) then\n            envTable.NextPercent = 999\n        end\n    end\n    \n    local normalizedPercent = envTable._CastPercent / 100\n    local textureStretched = unitFrame.felAnimation.textureStretched\n    local point = DetailsFramework:GetBezierPoint(normalizedPercent, 0, 0.001, 1)\n    textureStretched:SetPoint(\"left\", castBar, \"left\", point * envTable.castBarWidth, 0)\n    \n    self.ThrottleUpdate = 0\nend",
 },
 {
@@ -12670,30 +12807,30 @@ nil,
 ["ScriptType"] = 2,
 ["Temp_Initialization"] = "		function (scriptTable)\n			--insert code here\n			\n		end\n	",
 ["Time"] = 1706886820,
-["Enabled"] = false,
-["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    \n    --set the castbar config\n    envTable.configAltCastBar = {\n        iconTexture = \"\",\n        iconTexcoord = {0.1, 0.9, 0.1, 0.9},\n        iconAlpha = 1,\n        iconSize = 14,\n        \n        text = \"Boom!\",\n        textSize = 9,\n        \n        texture = [[Interface\\AddOns\\Plater\\images\\bar_background]],\n        color = \"silver\",\n        \n        isChanneling = false,\n        canInterrupt = false,\n        \n        height = 2,\n        width = Plater.db.profile.plate_config.enemynpc.health_incombat[1],\n        \n        spellNameAnchor = {side = 3, x = 0, y = -2},\n        timerAnchor = {side = 5, x = 0, y = -2},\n    }    \n    \n    function envTable.ShowAltCastBar(npcInfo, unitFrame, unitId, customTime, customStart)\n        --show the cast bar\n        if (npcInfo.timerId) then\n            local barObject = Plater.GetBossTimer(npcInfo.timerId)\n            if (barObject) then\n                if (npcInfo.remaining) then\n                    local timeLeft = barObject.timer + barObject.start - GetTime()\n                    if (timeLeft > npcInfo.remaining) then\n                        return\n                    end\n                end\n                \n                config.text = npcInfo.name\n                \n                if (npcInfo.spellIcon) then\n                    local _, _, iconTexture = GetSpellInfo(npcInfo.spellIcon)\n                    config.iconTexture = iconTexture\n                else\n                    config.iconTexture = \"\"\n                end\n                \n                Plater.SetAltCastBar(unitFrame.PlateFrame, config, barObject.timer, customStart or barObject.start, npcInfo.altCastId)\n            end\n        else\n            Plater.SetAltCastBar(unitFrame.PlateFrame, config, customTime or npcInfo.timer, customStart, npcInfo.altCastId)            \n        end    \n        \n        \n    end\nend\n\n\n\n\n",
+["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    if (envTable._SpellID == 191284) then\n        Plater.SetAltCastBar(unitFrame.PlateFrame, envTable.configAltCastBar, 4.70, GetTime(), 191284)\n        \n        C_Timer.After(4.75, function()\n                Plater.SetAltCastBar(unitFrame.PlateFrame, envTable.configAltCastBar, 5.30, GetTime(), 191284)\n        end)\n        \n        C_Timer.After(4.75 + 5.30, function()\n                Plater.SetAltCastBar(unitFrame.PlateFrame, envTable.configAltCastBar, 4.30, GetTime(), 191284)\n                C_Timer.After(4.50, function() unitFrame.castBar2:Hide() end)\n        end)\n    end\n    \nend",
+["url"] = "",
 ["NpcNames"] = {
 },
+["semver"] = "",
+["Enabled"] = false,
+["Revision"] = 38,
 ["Options"] = {
 },
-["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    if (envTable._SpellID == 191284) then\n        Plater.SetAltCastBar(unitFrame.PlateFrame, envTable.configAltCastBar, 4.70, GetTime(), 191284)\n        \n        C_Timer.After(4.75, function()\n                Plater.SetAltCastBar(unitFrame.PlateFrame, envTable.configAltCastBar, 5.30, GetTime(), 191284)\n        end)\n        \n        C_Timer.After(4.75 + 5.30, function()\n                Plater.SetAltCastBar(unitFrame.PlateFrame, envTable.configAltCastBar, 4.30, GetTime(), 191284)\n                C_Timer.After(4.50, function() unitFrame.castBar2:Hide() end)\n        end)\n    end\n    \nend",
-["Revision"] = 38,
-["semver"] = "",
 ["Icon"] = 134229,
-["Name"] = "Cast - Effect After Cast [P]",
-["Author"] = "Huugg-Valdrakken",
-["Initialization"] = "		function (scriptTable)\n			--insert code here\n			\n		end\n	",
-["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \nend\n\n\n",
 ["SpellIds"] = {
 191284,
 },
-["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \nend\n\n\n",
+["Author"] = "Huugg-Valdrakken",
+["Initialization"] = "		function (scriptTable)\n			--insert code here\n			\n		end\n	",
+["Desc"] = "Start extra cast bars for effects after the cast is done. Setup the effect on On Hide script.",
+["Name"] = "Cast - Effect After Cast [P]",
+["Prio"] = 99,
 ["version"] = -1,
 ["PlaterCore"] = 1,
-["Prio"] = 99,
-["Desc"] = "Start extra cast bars for effects after the cast is done. Setup the effect on On Hide script.",
+["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \nend\n\n\n",
+["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \nend\n\n\n",
 ["UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \nend\n\n\n",
-["url"] = "",
+["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    \n    --set the castbar config\n    envTable.configAltCastBar = {\n        iconTexture = \"\",\n        iconTexcoord = {0.1, 0.9, 0.1, 0.9},\n        iconAlpha = 1,\n        iconSize = 14,\n        \n        text = \"Boom!\",\n        textSize = 9,\n        \n        texture = [[Interface\\AddOns\\Plater\\images\\bar_background]],\n        color = \"silver\",\n        \n        isChanneling = false,\n        canInterrupt = false,\n        \n        height = 2,\n        width = Plater.db.profile.plate_config.enemynpc.health_incombat[1],\n        \n        spellNameAnchor = {side = 3, x = 0, y = -2},\n        timerAnchor = {side = 5, x = 0, y = -2},\n    }    \n    \n    function envTable.ShowAltCastBar(npcInfo, unitFrame, unitId, customTime, customStart)\n        --show the cast bar\n        if (npcInfo.timerId) then\n            local barObject = Plater.GetBossTimer(npcInfo.timerId)\n            if (barObject) then\n                if (npcInfo.remaining) then\n                    local timeLeft = barObject.timer + barObject.start - GetTime()\n                    if (timeLeft > npcInfo.remaining) then\n                        return\n                    end\n                end\n                \n                config.text = npcInfo.name\n                \n                if (npcInfo.spellIcon) then\n                    local _, _, iconTexture = GetSpellInfo(npcInfo.spellIcon)\n                    config.iconTexture = iconTexture\n                else\n                    config.iconTexture = \"\"\n                end\n                \n                Plater.SetAltCastBar(unitFrame.PlateFrame, config, barObject.timer, customStart or barObject.start, npcInfo.altCastId)\n            end\n        else\n            Plater.SetAltCastBar(unitFrame.PlateFrame, config, customTime or npcInfo.timer, customStart, npcInfo.altCastId)            \n        end    \n        \n        \n    end\nend\n\n\n\n\n",
 },
 {
 ["ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    function envTable.PlaySwipeAnimation(unitFrame)\n        unitFrame.CastSwipeTexture:Show()\n        unitFrame.CastSwipeAnimation:Play()\n        unitFrame.StartSwipeAnimation:Play()\n    end\n    \n    function envTable.StopSwipeAnimation(unitFrame)\n        unitFrame.EndSwipeAnimation:Play()\n        C_Timer.After(0.21, function()\n                unitFrame.CastSwipeAnimation:Stop()\n                unitFrame.CastSwipeTexture:Hide()\n        end)\n    end\n    \n    function envTable.CreateSwipeTextureAndAnimations(unitFrame)\n        if (unitFrame.CastSwipeTexture) then\n            return\n        end\n        \n        local swipeTexture = unitFrame:CreateTexture(nil, \"overlay\")\n        swipeTexture:SetTexture([[Interface\\AddOns\\Plater\\images\\circular_swipe]])\n        swipeTexture:SetPoint(\"center\", 0, 0)\n        swipeTexture:SetSize(64, 64)\n        swipeTexture:Hide()\n        \n        unitFrame.CastSwipeTexture = swipeTexture\n        \n        --rotation animation\n        unitFrame.CastSwipeAnimation = Plater:CreateAnimationHub(swipeTexture)\n        unitFrame.CastSwipeAnimation:SetLooping(\"repeat\")\n        unitFrame.CastSwipeAnimation.Rotation = Plater:CreateAnimation(unitFrame.CastSwipeAnimation, \"rotation\", 1, 1, 360)\n        \n        --starting animation\n        unitFrame.StartSwipeAnimation = Plater:CreateAnimationHub(swipeTexture, function()swipeTexture:Show() end)\n        unitFrame.StartSwipeAnimation.Alpha = Plater:CreateAnimation(unitFrame.StartSwipeAnimation, \"alpha\", 1, 0.2, 0, 1)\n        unitFrame.StartSwipeAnimation.Scale = Plater:CreateAnimation(unitFrame.StartSwipeAnimation, \"scale\", 1, 0.2, 1.3, 1.3, 1, 1)        \n        \n        --finished animation\n        unitFrame.EndSwipeAnimation = Plater:CreateAnimationHub(swipeTexture, nil, function()swipeTexture:Hide() end)\n        unitFrame.EndSwipeAnimation.Alpha = Plater:CreateAnimation(unitFrame.EndSwipeAnimation, \"alpha\", 1, 0.2, 1, 0)\n        unitFrame.EndSwipeAnimation.Scale = Plater:CreateAnimation(unitFrame.EndSwipeAnimation, \"scale\", 1, 0.2, 1, 1, 1.3, 1.3)\n    end\n    \nend\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
@@ -12704,6 +12841,12 @@ nil,
 ["ScriptType"] = 2,
 ["Temp_Initialization"] = "		function (scriptTable)\n			--insert code here\n			\n		end\n	",
 ["Time"] = 1706886816,
+["semver"] = "",
+["url"] = "",
+["Icon"] = "Interface\\AddOns\\Plater\\images\\circular_swipe",
+["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    envTable.CreateSwipeTextureAndAnimations(unitFrame)\n    \n    local options = scriptTable.config\n    \n    local targetScale = scriptTable.config.textureScale\n    \n    --swipe rotation duration    \n    unitFrame.CastSwipeAnimation.Rotation:SetDuration(scriptTable.config.rotationDuration)\n    \n    --swipe texture settings\n    unitFrame.CastSwipeTexture:SetVertexColor(Plater:ParseColors(scriptTable.config.textureColor))\n    unitFrame.CastSwipeTexture:SetScale(targetScale)\n    unitFrame.CastSwipeTexture:SetAlpha(scriptTable.config.textureAlpha)  \n    \n    unitFrame.StartSwipeAnimation.Alpha:SetDuration(scriptTable.config.animStartDuration)\n    unitFrame.StartSwipeAnimation.Alpha:SetFromAlpha(scriptTable.config.textureStartAlpha)\n    unitFrame.StartSwipeAnimation.Alpha:SetToAlpha(scriptTable.config.textureAlpha)\n    \n    unitFrame.StartSwipeAnimation.Scale:SetDuration(scriptTable.config.animStartDuration)\n    unitFrame.StartSwipeAnimation.Scale:SetScaleTo(targetScale, targetScale)\n    \n    unitFrame.EndSwipeAnimation.Scale:SetDuration(0.1)\n    unitFrame.EndSwipeAnimation.Alpha:SetDuration(0.1)\n    \n    --start playing\n    envTable.PlaySwipeAnimation(unitFrame)    \n    \nend\n\n\n",
+["Enabled"] = false,
+["Revision"] = 164,
 ["Options"] = {
 {
 ["Type"] = 2,
@@ -12790,12 +12933,11 @@ nil,
 ["Desc"] = "Texture Color",
 },
 },
-["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    function envTable.PlaySwipeAnimation(unitFrame)\n        unitFrame.CastSwipeTexture:Show()\n        unitFrame.CastSwipeAnimation:Play()\n        unitFrame.StartSwipeAnimation:Play()\n    end\n    \n    function envTable.StopSwipeAnimation(unitFrame)\n        unitFrame.EndSwipeAnimation:Play()\n        C_Timer.After(0.21, function()\n                unitFrame.CastSwipeAnimation:Stop()\n                unitFrame.CastSwipeTexture:Hide()\n        end)\n    end\n    \n    function envTable.CreateSwipeTextureAndAnimations(unitFrame)\n        if (unitFrame.CastSwipeTexture) then\n            return\n        end\n        \n        local swipeTexture = unitFrame:CreateTexture(nil, \"overlay\")\n        swipeTexture:SetTexture([[Interface\\AddOns\\Plater\\images\\circular_swipe]])\n        swipeTexture:SetPoint(\"center\", 0, 0)\n        swipeTexture:SetSize(64, 64)\n        swipeTexture:Hide()\n        \n        unitFrame.CastSwipeTexture = swipeTexture\n        \n        --rotation animation\n        unitFrame.CastSwipeAnimation = Plater:CreateAnimationHub(swipeTexture)\n        unitFrame.CastSwipeAnimation:SetLooping(\"repeat\")\n        unitFrame.CastSwipeAnimation.Rotation = Plater:CreateAnimation(unitFrame.CastSwipeAnimation, \"rotation\", 1, 1, 360)\n        \n        --starting animation\n        unitFrame.StartSwipeAnimation = Plater:CreateAnimationHub(swipeTexture, function()swipeTexture:Show() end)\n        unitFrame.StartSwipeAnimation.Alpha = Plater:CreateAnimation(unitFrame.StartSwipeAnimation, \"alpha\", 1, 0.2, 0, 1)\n        unitFrame.StartSwipeAnimation.Scale = Plater:CreateAnimation(unitFrame.StartSwipeAnimation, \"scale\", 1, 0.2, 1.3, 1.3, 1, 1)        \n        \n        --finished animation\n        unitFrame.EndSwipeAnimation = Plater:CreateAnimationHub(swipeTexture, nil, function()swipeTexture:Hide() end)\n        unitFrame.EndSwipeAnimation.Alpha = Plater:CreateAnimation(unitFrame.EndSwipeAnimation, \"alpha\", 1, 0.2, 1, 0)\n        unitFrame.EndSwipeAnimation.Scale = Plater:CreateAnimation(unitFrame.EndSwipeAnimation, \"scale\", 1, 0.2, 1, 1, 1.3, 1.3)\n    end\n    \nend\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
-["Icon"] = "Interface\\AddOns\\Plater\\images\\circular_swipe",
+["Name"] = "Cast - Circle AoE [P]",
+["Prio"] = 99,
+["Author"] = "Butazzul-Valdrakken",
+["Initialization"] = "		function (scriptTable)\n			--insert code here\n			\n		end\n	",
 ["Desc"] = "Play a animation when the spell effect is an circular AoE around the caster.",
-["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    envTable.StopSwipeAnimation(unitFrame)\nend\n\n\n",
-["Revision"] = 164,
-["semver"] = "",
 ["SpellIds"] = {
 385916,
 386063,
@@ -12836,18 +12978,13 @@ nil,
 412063,
 },
 ["Temp_UpdateCode"] = "		function (self, unitId, unitFrame, envTable, scriptTable)\n			--insert code here\n			\n		end\n	",
-["Author"] = "Butazzul-Valdrakken",
-["Initialization"] = "		function (scriptTable)\n			--insert code here\n			\n		end\n	",
-["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    envTable.CreateSwipeTextureAndAnimations(unitFrame)\n    \n    local options = scriptTable.config\n    \n    local targetScale = scriptTable.config.textureScale\n    \n    --swipe rotation duration    \n    unitFrame.CastSwipeAnimation.Rotation:SetDuration(scriptTable.config.rotationDuration)\n    \n    --swipe texture settings\n    unitFrame.CastSwipeTexture:SetVertexColor(Plater:ParseColors(scriptTable.config.textureColor))\n    unitFrame.CastSwipeTexture:SetScale(targetScale)\n    unitFrame.CastSwipeTexture:SetAlpha(scriptTable.config.textureAlpha)  \n    \n    unitFrame.StartSwipeAnimation.Alpha:SetDuration(scriptTable.config.animStartDuration)\n    unitFrame.StartSwipeAnimation.Alpha:SetFromAlpha(scriptTable.config.textureStartAlpha)\n    unitFrame.StartSwipeAnimation.Alpha:SetToAlpha(scriptTable.config.textureAlpha)\n    \n    unitFrame.StartSwipeAnimation.Scale:SetDuration(scriptTable.config.animStartDuration)\n    unitFrame.StartSwipeAnimation.Scale:SetScaleTo(targetScale, targetScale)\n    \n    unitFrame.EndSwipeAnimation.Scale:SetDuration(0.1)\n    unitFrame.EndSwipeAnimation.Alpha:SetDuration(0.1)\n    \n    --start playing\n    envTable.PlaySwipeAnimation(unitFrame)    \n    \nend\n\n\n",
-["Name"] = "Cast - Circle AoE [P]",
-["Prio"] = 99,
 ["version"] = -1,
 ["PlaterCore"] = 1,
 ["NpcNames"] = {
 },
 ["UpdateCode"] = "		function (self, unitId, unitFrame, envTable, scriptTable)\n			--insert code here\n			\n		end\n	",
-["Enabled"] = false,
-["url"] = "",
+["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    envTable.StopSwipeAnimation(unitFrame)\nend\n\n\n",
+["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    function envTable.PlaySwipeAnimation(unitFrame)\n        unitFrame.CastSwipeTexture:Show()\n        unitFrame.CastSwipeAnimation:Play()\n        unitFrame.StartSwipeAnimation:Play()\n    end\n    \n    function envTable.StopSwipeAnimation(unitFrame)\n        unitFrame.EndSwipeAnimation:Play()\n        C_Timer.After(0.21, function()\n                unitFrame.CastSwipeAnimation:Stop()\n                unitFrame.CastSwipeTexture:Hide()\n        end)\n    end\n    \n    function envTable.CreateSwipeTextureAndAnimations(unitFrame)\n        if (unitFrame.CastSwipeTexture) then\n            return\n        end\n        \n        local swipeTexture = unitFrame:CreateTexture(nil, \"overlay\")\n        swipeTexture:SetTexture([[Interface\\AddOns\\Plater\\images\\circular_swipe]])\n        swipeTexture:SetPoint(\"center\", 0, 0)\n        swipeTexture:SetSize(64, 64)\n        swipeTexture:Hide()\n        \n        unitFrame.CastSwipeTexture = swipeTexture\n        \n        --rotation animation\n        unitFrame.CastSwipeAnimation = Plater:CreateAnimationHub(swipeTexture)\n        unitFrame.CastSwipeAnimation:SetLooping(\"repeat\")\n        unitFrame.CastSwipeAnimation.Rotation = Plater:CreateAnimation(unitFrame.CastSwipeAnimation, \"rotation\", 1, 1, 360)\n        \n        --starting animation\n        unitFrame.StartSwipeAnimation = Plater:CreateAnimationHub(swipeTexture, function()swipeTexture:Show() end)\n        unitFrame.StartSwipeAnimation.Alpha = Plater:CreateAnimation(unitFrame.StartSwipeAnimation, \"alpha\", 1, 0.2, 0, 1)\n        unitFrame.StartSwipeAnimation.Scale = Plater:CreateAnimation(unitFrame.StartSwipeAnimation, \"scale\", 1, 0.2, 1.3, 1.3, 1, 1)        \n        \n        --finished animation\n        unitFrame.EndSwipeAnimation = Plater:CreateAnimationHub(swipeTexture, nil, function()swipeTexture:Hide() end)\n        unitFrame.EndSwipeAnimation.Alpha = Plater:CreateAnimation(unitFrame.EndSwipeAnimation, \"alpha\", 1, 0.2, 1, 0)\n        unitFrame.EndSwipeAnimation.Scale = Plater:CreateAnimation(unitFrame.EndSwipeAnimation, \"scale\", 1, 0.2, 1, 1, 1.3, 1.3)\n    end\n    \nend\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
 },
 {
 ["ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    envTable.lifePercent = { --dragonflight\n        [197697] = {50}, --Flamegullet\n        [59544] = {50}, --The Nodding Tiger\n        [186227] = {20}, --Monstrous Decay\n        [184020] = {40}, -- Hulking Berserker\n        [91005] = {20}, --Naraxas\n    }\n    \n    \n    function envTable.CreateMarker(unitFrame)\n        unitFrame.healthMarker = unitFrame.healthBar:CreateTexture(nil, \"overlay\")\n        unitFrame.healthMarker:SetColorTexture(1, 1, 1)\n        unitFrame.healthMarker:SetSize(1, unitFrame.healthBar:GetHeight())\n        \n        unitFrame.healthOverlay = unitFrame.healthBar:CreateTexture(nil, \"overlay\")\n        unitFrame.healthOverlay:SetColorTexture(1, 1, 1)\n        unitFrame.healthOverlay:SetSize(1, unitFrame.healthBar:GetHeight())\n    end\n    \n    function envTable.UpdateMarkers(unitFrame)\n        local markersTable = envTable.lifePercent[envTable._NpcID]\n        if (markersTable) then\n            local unitLifePercent = envTable._HealthPercent / 100\n            for i, percent in ipairs(markersTable) do\n                percent = percent / 100\n                if (unitLifePercent > percent) then\n                    if (not unitFrame.healthMarker) then\n                        envTable.CreateMarker(unitFrame)\n                    end\n                    \n                    unitFrame.healthMarker:Show()\n                    local width = unitFrame.healthBar:GetWidth()\n                    unitFrame.healthMarker:SetPoint(\"left\", unitFrame.healthBar, \"left\", width*percent, 0)\n                    \n                    local overlaySize = width * (unitLifePercent - percent)\n                    unitFrame.healthOverlay:SetWidth(overlaySize)\n                    unitFrame.healthOverlay:SetPoint(\"left\", unitFrame.healthMarker, \"right\", 0, 0)\n                    \n                    unitFrame.healthMarker:SetVertexColor(Plater:ParseColors(scriptTable.config.indicatorColor))\n                    unitFrame.healthMarker:SetAlpha(scriptTable.config.indicatorAlpha)\n                    \n                    unitFrame.healthOverlay:SetVertexColor(Plater:ParseColors(scriptTable.config.fillColor))\n                    unitFrame.healthOverlay:SetAlpha(scriptTable.config.fillAlpha)\n                    \n                    return\n                end\n            end --end for\n            \n            if (unitFrame.healthMarker and unitFrame.healthMarker:IsShown()) then\n                unitFrame.healthMarker:Hide()\n                unitFrame.healthOverlay:Hide()\n            end\n        end\n    end\nend      \n\n\n\n\n\n\n\n\n\n",
@@ -12859,30 +12996,11 @@ nil,
 ["UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    envTable.UpdateMarkers(unitFrame)\nend\n\n\n",
 ["Time"] = 1706886801,
 ["Temp_Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
-["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    envTable.lifePercent = { --dragonflight\n        [197697] = {50}, --Flamegullet\n        [59544] = {50}, --The Nodding Tiger\n        [186227] = {20}, --Monstrous Decay\n        [184020] = {40}, -- Hulking Berserker\n        [91005] = {20}, --Naraxas\n    }\n    \n    \n    function envTable.CreateMarker(unitFrame)\n        unitFrame.healthMarker = unitFrame.healthBar:CreateTexture(nil, \"overlay\")\n        unitFrame.healthMarker:SetColorTexture(1, 1, 1)\n        unitFrame.healthMarker:SetSize(1, unitFrame.healthBar:GetHeight())\n        \n        unitFrame.healthOverlay = unitFrame.healthBar:CreateTexture(nil, \"overlay\")\n        unitFrame.healthOverlay:SetColorTexture(1, 1, 1)\n        unitFrame.healthOverlay:SetSize(1, unitFrame.healthBar:GetHeight())\n    end\n    \n    function envTable.UpdateMarkers(unitFrame)\n        local markersTable = envTable.lifePercent[envTable._NpcID]\n        if (markersTable) then\n            local unitLifePercent = envTable._HealthPercent / 100\n            for i, percent in ipairs(markersTable) do\n                percent = percent / 100\n                if (unitLifePercent > percent) then\n                    if (not unitFrame.healthMarker) then\n                        envTable.CreateMarker(unitFrame)\n                    end\n                    \n                    unitFrame.healthMarker:Show()\n                    local width = unitFrame.healthBar:GetWidth()\n                    unitFrame.healthMarker:SetPoint(\"left\", unitFrame.healthBar, \"left\", width*percent, 0)\n                    \n                    local overlaySize = width * (unitLifePercent - percent)\n                    unitFrame.healthOverlay:SetWidth(overlaySize)\n                    unitFrame.healthOverlay:SetPoint(\"left\", unitFrame.healthMarker, \"right\", 0, 0)\n                    \n                    unitFrame.healthMarker:SetVertexColor(Plater:ParseColors(scriptTable.config.indicatorColor))\n                    unitFrame.healthMarker:SetAlpha(scriptTable.config.indicatorAlpha)\n                    \n                    unitFrame.healthOverlay:SetVertexColor(Plater:ParseColors(scriptTable.config.fillColor))\n                    unitFrame.healthOverlay:SetAlpha(scriptTable.config.fillAlpha)\n                    \n                    return\n                end\n            end --end for\n            \n            if (unitFrame.healthMarker and unitFrame.healthMarker:IsShown()) then\n                unitFrame.healthMarker:Hide()\n                unitFrame.healthOverlay:Hide()\n            end\n        end\n    end\nend      \n\n\n\n\n\n\n\n\n\n",
+["url"] = "",
 ["Icon"] = "Interface\\AddOns\\Plater\\images\\health_indicator",
-["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    if (unitFrame.healthMarker) then\n        unitFrame.healthMarker:Hide()\n        unitFrame.healthOverlay:Hide()\n    end\nend\n\n\n\n\n",
 ["Enabled"] = false,
+["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    if (unitFrame.healthMarker) then\n        unitFrame.healthMarker:Hide()\n        unitFrame.healthOverlay:Hide()\n    end\nend\n\n\n\n\n",
 ["Revision"] = 147,
-["semver"] = "",
-["NpcNames"] = {
-"197697",
-"59544",
-"186227",
-"184020",
-"91005",
-},
-["Desc"] = "Place a marker into the health bar to indicate when the unit will change phase or cast an important spell.",
-["Author"] = "Aelerolor-Torghast",
-["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
-["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    envTable.UpdateMarkers(unitFrame)\nend\n\n\n",
-["SpellIds"] = {
-},
-["Prio"] = 99,
-["version"] = -1,
-["PlaterCore"] = 1,
-["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    envTable.UpdateMarkers(unitFrame)\nend\n\n\n",
-["Name"] = "Add - Health Markers [P]",
 ["Options"] = {
 {
 ["Type"] = 5,
@@ -12957,7 +13075,26 @@ nil,
 ["Key"] = "fillAlpha",
 },
 },
-["url"] = "",
+["NpcNames"] = {
+"197697",
+"59544",
+"186227",
+"184020",
+"91005",
+},
+["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    envTable.UpdateMarkers(unitFrame)\nend\n\n\n",
+["Author"] = "Aelerolor-Torghast",
+["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
+["Desc"] = "Place a marker into the health bar to indicate when the unit will change phase or cast an important spell.",
+["SpellIds"] = {
+},
+["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    envTable.UpdateMarkers(unitFrame)\nend\n\n\n",
+["Name"] = "Add - Health Markers [P]",
+["PlaterCore"] = 1,
+["Prio"] = 99,
+["version"] = -1,
+["semver"] = "",
+["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    envTable.lifePercent = { --dragonflight\n        [197697] = {50}, --Flamegullet\n        [59544] = {50}, --The Nodding Tiger\n        [186227] = {20}, --Monstrous Decay\n        [184020] = {40}, -- Hulking Berserker\n        [91005] = {20}, --Naraxas\n    }\n    \n    \n    function envTable.CreateMarker(unitFrame)\n        unitFrame.healthMarker = unitFrame.healthBar:CreateTexture(nil, \"overlay\")\n        unitFrame.healthMarker:SetColorTexture(1, 1, 1)\n        unitFrame.healthMarker:SetSize(1, unitFrame.healthBar:GetHeight())\n        \n        unitFrame.healthOverlay = unitFrame.healthBar:CreateTexture(nil, \"overlay\")\n        unitFrame.healthOverlay:SetColorTexture(1, 1, 1)\n        unitFrame.healthOverlay:SetSize(1, unitFrame.healthBar:GetHeight())\n    end\n    \n    function envTable.UpdateMarkers(unitFrame)\n        local markersTable = envTable.lifePercent[envTable._NpcID]\n        if (markersTable) then\n            local unitLifePercent = envTable._HealthPercent / 100\n            for i, percent in ipairs(markersTable) do\n                percent = percent / 100\n                if (unitLifePercent > percent) then\n                    if (not unitFrame.healthMarker) then\n                        envTable.CreateMarker(unitFrame)\n                    end\n                    \n                    unitFrame.healthMarker:Show()\n                    local width = unitFrame.healthBar:GetWidth()\n                    unitFrame.healthMarker:SetPoint(\"left\", unitFrame.healthBar, \"left\", width*percent, 0)\n                    \n                    local overlaySize = width * (unitLifePercent - percent)\n                    unitFrame.healthOverlay:SetWidth(overlaySize)\n                    unitFrame.healthOverlay:SetPoint(\"left\", unitFrame.healthMarker, \"right\", 0, 0)\n                    \n                    unitFrame.healthMarker:SetVertexColor(Plater:ParseColors(scriptTable.config.indicatorColor))\n                    unitFrame.healthMarker:SetAlpha(scriptTable.config.indicatorAlpha)\n                    \n                    unitFrame.healthOverlay:SetVertexColor(Plater:ParseColors(scriptTable.config.fillColor))\n                    unitFrame.healthOverlay:SetAlpha(scriptTable.config.fillAlpha)\n                    \n                    return\n                end\n            end --end for\n            \n            if (unitFrame.healthMarker and unitFrame.healthMarker:IsShown()) then\n                unitFrame.healthMarker:Hide()\n                unitFrame.healthOverlay:Hide()\n            end\n        end\n    end\nend      \n\n\n\n\n\n\n\n\n\n",
 },
 {
 ["ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    envTable.NameplateColor = scriptTable.config.nameplateColor\n    envTable.NameplateSizeOffset = scriptTable.config.nameplateSizeOffset\n    \n    unitFrame.UnitImportantSkullTexture = unitFrame.UnitImportantSkullTexture or unitFrame:CreateTexture(nil, \"background\")\n    \n    unitFrame.UnitImportantSkullTexture:Hide()\nend\n\n--[=[\n\n154564 - debug\n\nUsing spellIDs for multi-language support\n\n196548 = ancient branch (academy dungeon)\n195580, 195821, 195820 = nokhub saboteur\n189886 = blazebound firestorm\n75966 = Defiled Spirit\n102019 = Stormforged Obliterator\n    187159 = Shrieking Whelp\n194897 = stormsurge totem\n104251 = duskwatch sentry\n101326 = honored ancestor\n189669 = binding speakl netharius\n192464 = raging ember neltharius\n--]=]\n\n\n",
@@ -13010,8 +13147,6 @@ nil,
 ["ScriptType"] = 3,
 ["UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    --check if can change the nameplate color\n    if (scriptTable.config.changeNameplateColor) then\n        Plater.SetNameplateColor(unitFrame, envTable.NameplateColor)\n    end\n    \nend\n\n\n\n\n",
 ["Time"] = 1706886804,
-["Icon"] = "Interface\\AddOns\\Plater\\media\\skullbones_64",
-["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    envTable.NameplateColor = scriptTable.config.nameplateColor\n    envTable.NameplateSizeOffset = scriptTable.config.nameplateSizeOffset\n    \n    unitFrame.UnitImportantSkullTexture = unitFrame.UnitImportantSkullTexture or unitFrame:CreateTexture(nil, \"background\")\n    \n    unitFrame.UnitImportantSkullTexture:Hide()\nend\n\n--[=[\n\n154564 - debug\n\nUsing spellIDs for multi-language support\n\n196548 = ancient branch (academy dungeon)\n195580, 195821, 195820 = nokhub saboteur\n189886 = blazebound firestorm\n75966 = Defiled Spirit\n102019 = Stormforged Obliterator\n    187159 = Shrieking Whelp\n194897 = stormsurge totem\n104251 = duskwatch sentry\n101326 = honored ancestor\n189669 = binding speakl netharius\n192464 = raging ember neltharius\n--]=]\n\n\n",
 ["NpcNames"] = {
 "196548",
 "195580",
@@ -13037,21 +13172,23 @@ nil,
 212483,
 101008,
 },
-["Enabled"] = false,
+["url"] = "",
+["Icon"] = "Interface\\AddOns\\Plater\\media\\skullbones_64",
 ["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable)\n    Plater.StopDotAnimation(unitFrame.healthBar, envTable.dotAnimation)   \n    \n    --restore the nameplate size\n    local nameplateHeight = Plater.db.profile.plate_config.enemynpc.health_incombat [2]\n    unitFrame.healthBar:SetHeight (nameplateHeight)    \n    \n    unitFrame.UnitImportantSkullTexture:Hide()\n    Plater.DenyColorChange(unitFrame, false)\nend\n\n\n",
+["Enabled"] = false,
 ["Revision"] = 574,
 ["semver"] = "",
+["Name"] = "Add - Important [P]",
+["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    --check if can change the nameplate color\n    if (scriptTable.config.changeNameplateColor) then\n        Plater.SetNameplateColor(unitFrame, envTable.NameplateColor)\n    end\n    \nend\n\n\n\n\n",
+["Author"] = "Izimode-Azralon",
+["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
+["Desc"] = "Change the color and highlight a nameplate of an important Add. Add the unit name or NpcID into the trigger box to add more.",
 ["SpellIds"] = {
 },
 ["Prio"] = 99,
-["Author"] = "Izimode-Azralon",
-["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
-["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    if (envTable.dotAnimation) then\n        Plater.StopDotAnimation(unitFrame.healthBar, envTable.dotAnimation)\n    end\n    \n    envTable.dotAnimation = Plater.PlayDotAnimation(unitFrame.healthBar, 2, scriptTable.config.dotsColor, 3, 4) \n    \n    --increase the nameplate size\n    local nameplateHeight = Plater.db.profile.plate_config.enemynpc.health_incombat [2]\n    unitFrame.healthBar:SetHeight (nameplateHeight + envTable.NameplateSizeOffset)\n    \n    unitFrame.UnitImportantSkullTexture:Show()\n    \n    --color priority:\n    local npcIdString = tostring(envTable._NpcID)\n    envTable.NameplateColor = Plater.GetColorByPriority(unitFrame, scriptTable.config.npcColor[npcIdString], scriptTable.config.nameplateColor)    \n    \n    if (scriptTable.config.showExtraTexture) then\n        unitFrame.UnitImportantSkullTexture:SetVertexColor(Plater:ParseColors(scriptTable.config.skullColor))\n        unitFrame.UnitImportantSkullTexture:SetAlpha(scriptTable.config.skullAlpha)\n        unitFrame.UnitImportantSkullTexture:SetScale(scriptTable.config.skullScale)\n        unitFrame.UnitImportantSkullTexture:SetTexture([[Interface/AddOns/Plater/media/x_64]])\n        unitFrame.UnitImportantSkullTexture:ClearAllPoints()\n        unitFrame.UnitImportantSkullTexture:SetPoint(\"right\", unitFrame.healthBar, \"left\", -2, 0)\n        unitFrame.UnitImportantSkullTexture:SetSize(28, 28)\n        unitFrame.UnitImportantSkullTexture:Show()\n    else\n        unitFrame.UnitImportantSkullTexture:Hide()\n    end\n    \n    --rules for some npcs\n    if (envTable._NpcID == 194895) then --unstable squall (explode at dying\n        unitFrame.UnitImportantSkullTexture:Hide()\n        Plater.StopDotAnimation(unitFrame.healthBar, envTable.dotAnimation) \n    end\n    \n    if (scriptTable.config.changeNameplateColor) then\n        local npcIdString = tostring(envTable._NpcID)\n        \n        envTable.NameplateColor = Plater.GetColorByPriority(unitFrame, scriptTable.config.npcColor[npcIdString], scriptTable.config.nameplateColor)        \n        \n        Plater.DenyColorChange(unitFrame, true)\n    end\n    \nend\n\n\n\n\n",
-["Name"] = "Add - Important [P]",
-["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    --check if can change the nameplate color\n    if (scriptTable.config.changeNameplateColor) then\n        Plater.SetNameplateColor(unitFrame, envTable.NameplateColor)\n    end\n    \nend\n\n\n\n\n",
 ["version"] = -1,
 ["PlaterCore"] = 1,
-["Desc"] = "Change the color and highlight a nameplate of an important Add. Add the unit name or NpcID into the trigger box to add more.",
+["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    if (envTable.dotAnimation) then\n        Plater.StopDotAnimation(unitFrame.healthBar, envTable.dotAnimation)\n    end\n    \n    envTable.dotAnimation = Plater.PlayDotAnimation(unitFrame.healthBar, 2, scriptTable.config.dotsColor, 3, 4) \n    \n    --increase the nameplate size\n    local nameplateHeight = Plater.db.profile.plate_config.enemynpc.health_incombat [2]\n    unitFrame.healthBar:SetHeight (nameplateHeight + envTable.NameplateSizeOffset)\n    \n    unitFrame.UnitImportantSkullTexture:Show()\n    \n    --color priority:\n    local npcIdString = tostring(envTable._NpcID)\n    envTable.NameplateColor = Plater.GetColorByPriority(unitFrame, scriptTable.config.npcColor[npcIdString], scriptTable.config.nameplateColor)    \n    \n    if (scriptTable.config.showExtraTexture) then\n        unitFrame.UnitImportantSkullTexture:SetVertexColor(Plater:ParseColors(scriptTable.config.skullColor))\n        unitFrame.UnitImportantSkullTexture:SetAlpha(scriptTable.config.skullAlpha)\n        unitFrame.UnitImportantSkullTexture:SetScale(scriptTable.config.skullScale)\n        unitFrame.UnitImportantSkullTexture:SetTexture([[Interface/AddOns/Plater/media/x_64]])\n        unitFrame.UnitImportantSkullTexture:ClearAllPoints()\n        unitFrame.UnitImportantSkullTexture:SetPoint(\"right\", unitFrame.healthBar, \"left\", -2, 0)\n        unitFrame.UnitImportantSkullTexture:SetSize(28, 28)\n        unitFrame.UnitImportantSkullTexture:Show()\n    else\n        unitFrame.UnitImportantSkullTexture:Hide()\n    end\n    \n    --rules for some npcs\n    if (envTable._NpcID == 194895) then --unstable squall (explode at dying\n        unitFrame.UnitImportantSkullTexture:Hide()\n        Plater.StopDotAnimation(unitFrame.healthBar, envTable.dotAnimation) \n    end\n    \n    if (scriptTable.config.changeNameplateColor) then\n        local npcIdString = tostring(envTable._NpcID)\n        \n        envTable.NameplateColor = Plater.GetColorByPriority(unitFrame, scriptTable.config.npcColor[npcIdString], scriptTable.config.nameplateColor)        \n        \n        Plater.DenyColorChange(unitFrame, true)\n    end\n    \nend\n\n\n\n\n",
 ["Options"] = {
 {
 ["Type"] = 6,
@@ -13240,7 +13377,7 @@ nil,
 },
 },
 ["Temp_Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
-["url"] = "",
+["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    envTable.NameplateColor = scriptTable.config.nameplateColor\n    envTable.NameplateSizeOffset = scriptTable.config.nameplateSizeOffset\n    \n    unitFrame.UnitImportantSkullTexture = unitFrame.UnitImportantSkullTexture or unitFrame:CreateTexture(nil, \"background\")\n    \n    unitFrame.UnitImportantSkullTexture:Hide()\nend\n\n--[=[\n\n154564 - debug\n\nUsing spellIDs for multi-language support\n\n196548 = ancient branch (academy dungeon)\n195580, 195821, 195820 = nokhub saboteur\n189886 = blazebound firestorm\n75966 = Defiled Spirit\n102019 = Stormforged Obliterator\n    187159 = Shrieking Whelp\n194897 = stormsurge totem\n104251 = duskwatch sentry\n101326 = honored ancestor\n189669 = binding speakl netharius\n192464 = raging ember neltharius\n--]=]\n\n\n",
 },
 {
 ["ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \nend\n\n\n",
@@ -13282,13 +13419,48 @@ nil,
 ["ScriptType"] = 2,
 ["Temp_Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend",
 ["Time"] = 1706886852,
-["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --castbar color (when can be interrupted)\n    envTable.CastbarColor = scriptTable.config.castbarColor\n    \n    --flash duration\n    local CONFIG_BACKGROUND_FLASH_DURATION = scriptTable.config.flashDuration\n    \n    --add this value to the cast bar height\n    envTable.CastBarHeightAdd = scriptTable.config.castBarHeight\n    \n    --create a fast flash above the cast bar\n    envTable.FullBarFlash = envTable.FullBarFlash or Plater.CreateFlash (self, 0.05, 1, \"white\")\n    \n    --create a camera shake for the nameplate\n    envTable.FrameShake = Plater:CreateFrameShake (unitFrame, scriptTable.config.shakeDuration, scriptTable.config.shakeAmplitude, scriptTable.config.shakeFrequency, false, false, 0, 1, 0.05, 0.1, Plater.GetPoints (unitFrame))\n    \n    --create a texture to use for a flash behind the cast bar\n    local backGroundFlashTexture = Plater:CreateImage (self, [[Interface\\ACHIEVEMENTFRAME\\UI-Achievement-Alert-Glow]], self:GetWidth()+60, self:GetHeight()+50, \"background\", {0, 400/512, 0, 170/256})\n    backGroundFlashTexture:SetBlendMode (\"ADD\")\n    backGroundFlashTexture:SetDrawLayer(\"OVERLAY\", 7)\n    backGroundFlashTexture:SetPoint (\"center\", self, \"center\")\n    backGroundFlashTexture:Hide()\n    \n    --create the animation hub to hold the flash animation sequence\n    envTable.BackgroundFlash = envTable.BackgroundFlash or Plater:CreateAnimationHub (backGroundFlashTexture, \n        function()\n            backGroundFlashTexture:Show()\n        end,\n        function()\n            backGroundFlashTexture:Hide()\n        end\n    )\n    \n    --create the flash animation sequence\n    envTable.BackgroundFlash.fadeIn = envTable.BackgroundFlash.fadeIn or Plater:CreateAnimation (envTable.BackgroundFlash, \"ALPHA\", 1, CONFIG_BACKGROUND_FLASH_DURATION/2, 0, .75)\n    envTable.BackgroundFlash.fadeIn:SetDuration(CONFIG_BACKGROUND_FLASH_DURATION/2)\n    \n    envTable.BackgroundFlash.fadeOut = envTable.BackgroundFlash.fadeOut or Plater:CreateAnimation (envTable.BackgroundFlash, \"ALPHA\", 2, CONFIG_BACKGROUND_FLASH_DURATION/2, 1, 0)    \n    envTable.BackgroundFlash.fadeOut:SetDuration(CONFIG_BACKGROUND_FLASH_DURATION/2)\n    \n    --envTable.BackgroundFlash:Play() --envTable.BackgroundFlash:Stop()    \n    \n    \n    \n    \n    \nend\n\n\n",
 ["url"] = "",
-["NpcNames"] = {
-},
-["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    --don't execute on battlegrounds and arenas\n    if (Plater.ZoneInstanceType == \"arena\" or Plater.ZoneInstanceType == \"pvp\") then\n        return\n    end    \n    \n    unitFrame.castBar:SetHeight (envTable._DefaultHeight)\n    \n    --stop the camera shake\n    unitFrame:StopFrameShake (envTable.FrameShake)\n    \n    envTable.FullBarFlash:Stop()\n    envTable.BackgroundFlash:Stop()\n    \n    unitFrame.castBar.Spark:SetHeight(unitFrame.castBar:GetHeight())\n    \nend\n\n\n\n\n\n",
+["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --castbar color (when can be interrupted)\n    envTable.CastbarColor = scriptTable.config.castbarColor\n    \n    --flash duration\n    local CONFIG_BACKGROUND_FLASH_DURATION = scriptTable.config.flashDuration\n    \n    --add this value to the cast bar height\n    envTable.CastBarHeightAdd = scriptTable.config.castBarHeight\n    \n    --create a fast flash above the cast bar\n    envTable.FullBarFlash = envTable.FullBarFlash or Plater.CreateFlash (self, 0.05, 1, \"white\")\n    \n    --create a camera shake for the nameplate\n    envTable.FrameShake = Plater:CreateFrameShake (unitFrame, scriptTable.config.shakeDuration, scriptTable.config.shakeAmplitude, scriptTable.config.shakeFrequency, false, false, 0, 1, 0.05, 0.1, Plater.GetPoints (unitFrame))\n    \n    --create a texture to use for a flash behind the cast bar\n    local backGroundFlashTexture = Plater:CreateImage (self, [[Interface\\ACHIEVEMENTFRAME\\UI-Achievement-Alert-Glow]], self:GetWidth()+60, self:GetHeight()+50, \"background\", {0, 400/512, 0, 170/256})\n    backGroundFlashTexture:SetBlendMode (\"ADD\")\n    backGroundFlashTexture:SetDrawLayer(\"OVERLAY\", 7)\n    backGroundFlashTexture:SetPoint (\"center\", self, \"center\")\n    backGroundFlashTexture:Hide()\n    \n    --create the animation hub to hold the flash animation sequence\n    envTable.BackgroundFlash = envTable.BackgroundFlash or Plater:CreateAnimationHub (backGroundFlashTexture, \n        function()\n            backGroundFlashTexture:Show()\n        end,\n        function()\n            backGroundFlashTexture:Hide()\n        end\n    )\n    \n    --create the flash animation sequence\n    envTable.BackgroundFlash.fadeIn = envTable.BackgroundFlash.fadeIn or Plater:CreateAnimation (envTable.BackgroundFlash, \"ALPHA\", 1, CONFIG_BACKGROUND_FLASH_DURATION/2, 0, .75)\n    envTable.BackgroundFlash.fadeIn:SetDuration(CONFIG_BACKGROUND_FLASH_DURATION/2)\n    \n    envTable.BackgroundFlash.fadeOut = envTable.BackgroundFlash.fadeOut or Plater:CreateAnimation (envTable.BackgroundFlash, \"ALPHA\", 2, CONFIG_BACKGROUND_FLASH_DURATION/2, 1, 0)    \n    envTable.BackgroundFlash.fadeOut:SetDuration(CONFIG_BACKGROUND_FLASH_DURATION/2)\n    \n    --envTable.BackgroundFlash:Play() --envTable.BackgroundFlash:Stop()    \n    \n    \n    \n    \n    \nend\n\n\n",
+["Icon"] = "Interface\\AddOns\\Plater\\images\\cast_bar_quickflash.tga",
 ["Enabled"] = false,
+["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    --don't execute on battlegrounds and arenas\n    if (Plater.ZoneInstanceType == \"arena\" or Plater.ZoneInstanceType == \"pvp\") then\n        return\n    end    \n    \n    unitFrame.castBar:SetHeight (envTable._DefaultHeight)\n    \n    --stop the camera shake\n    unitFrame:StopFrameShake (envTable.FrameShake)\n    \n    envTable.FullBarFlash:Stop()\n    envTable.BackgroundFlash:Stop()\n    \n    unitFrame.castBar.Spark:SetHeight(unitFrame.castBar:GetHeight())\n    \nend\n\n\n\n\n\n",
 ["Revision"] = 888,
+["semver"] = "",
+["Desc"] = "Play a very fast flash when the cast start",
+["Name"] = "Cast - Quick Flash [P]",
+["Author"] = "Tercioo-Sylvanas",
+["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend",
+["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    --don't execute on battlegrounds and arenas\n    if (Plater.ZoneInstanceType == \"arena\" or Plater.ZoneInstanceType == \"pvp\") then\n        return\n    end\n    \n    --play flash animations\n    envTable.FullBarFlash:Play()\n    \n    --envTable.currentHeight = unitFrame.castBar:GetHeight()\n    \n    --restoring the default size (not required since it already restore in the hide script)\n    if (envTable.OriginalHeight) then\n        self:SetHeight (envTable.OriginalHeight)\n    end\n    \n    --increase the cast bar size\n    local height = self:GetHeight()\n    envTable.OriginalHeight = height\n    \n    self:SetHeight (height + envTable.CastBarHeightAdd)\n    \n    Plater.SetCastBarBorderColor (self, 1, .2, .2, 0.4)\n    \n    unitFrame:PlayFrameShake (envTable.FrameShake)\n    \n    Plater.SetCastBarColorForScript(self, scriptTable.config.useCastbarColor, scriptTable.config.castBarColor, envTable)\n    \n    envTable.BackgroundFlash:Play()\n    \n    unitFrame.castBar.Spark:SetHeight(unitFrame.castBar:GetHeight())\n    \nend\n\n\n\n\n\n\n\n\n\n\n",
+["version"] = -1,
+["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \nend\n\n\n",
+["SpellIds"] = {
+392640,
+397888,
+209033,
+385029,
+374563,
+377341,
+369675,
+369365,
+369411,
+278961,
+202108,
+88186,
+200630,
+255824,
+252781,
+250096,
+200248,
+197797,
+264520,
+418202,
+201839,
+412012,
+411958,
+},
+["PlaterCore"] = 1,
+["Prio"] = 99,
+["UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \nend\n\n\n",
 ["Options"] = {
 {
 ["Type"] = 6,
@@ -13407,43 +13579,8 @@ nil,
 ["Name"] = "Shake Frequency",
 },
 },
-["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    --don't execute on battlegrounds and arenas\n    if (Plater.ZoneInstanceType == \"arena\" or Plater.ZoneInstanceType == \"pvp\") then\n        return\n    end\n    \n    --play flash animations\n    envTable.FullBarFlash:Play()\n    \n    --envTable.currentHeight = unitFrame.castBar:GetHeight()\n    \n    --restoring the default size (not required since it already restore in the hide script)\n    if (envTable.OriginalHeight) then\n        self:SetHeight (envTable.OriginalHeight)\n    end\n    \n    --increase the cast bar size\n    local height = self:GetHeight()\n    envTable.OriginalHeight = height\n    \n    self:SetHeight (height + envTable.CastBarHeightAdd)\n    \n    Plater.SetCastBarBorderColor (self, 1, .2, .2, 0.4)\n    \n    unitFrame:PlayFrameShake (envTable.FrameShake)\n    \n    Plater.SetCastBarColorForScript(self, scriptTable.config.useCastbarColor, scriptTable.config.castBarColor, envTable)\n    \n    envTable.BackgroundFlash:Play()\n    \n    unitFrame.castBar.Spark:SetHeight(unitFrame.castBar:GetHeight())\n    \nend\n\n\n\n\n\n\n\n\n\n\n",
-["version"] = -1,
-["Author"] = "Tercioo-Sylvanas",
-["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend",
-["Desc"] = "Play a very fast flash when the cast start",
-["Name"] = "Cast - Quick Flash [P]",
-["Prio"] = 99,
-["SpellIds"] = {
-392640,
-397888,
-209033,
-385029,
-374563,
-377341,
-369675,
-369365,
-369411,
-278961,
-202108,
-88186,
-200630,
-255824,
-252781,
-250096,
-200248,
-197797,
-264520,
-418202,
-201839,
-412012,
-411958,
+["NpcNames"] = {
 },
-["PlaterCore"] = 1,
-["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \nend\n\n\n",
-["UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \nend\n\n\n",
-["semver"] = "",
-["Icon"] = "Interface\\AddOns\\Plater\\images\\cast_bar_quickflash.tga",
 },
 {
 ["ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \nend\n\n\n--190187 draconic image\n--189893 infused whelp\n--99922 Ebonclaw Packmate\n--104822 flames of woe",
@@ -13476,8 +13613,6 @@ nil,
 ["ScriptType"] = 3,
 ["UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    if (scriptTable.config.useNameplateColor) then\n        Plater.SetNameplateColor(unitFrame, envTable.NameplateColor)\n    end\nend\n\n\n\n\n",
 ["Time"] = 1706886808,
-["Icon"] = "interface/addons/plater/media/exclamation_64",
-["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \nend\n\n\n--190187 draconic image\n--189893 infused whelp\n--99922 Ebonclaw Packmate\n--104822 flames of woe",
 ["NpcNames"] = {
 "190187",
 "189893",
@@ -13491,9 +13626,8 @@ nil,
 98081,
 52019,
 },
-["semver"] = "",
-["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    Plater.DenyColorChange(unitFrame, false)\n    unitFrame.onShowAddToKillFlash:Stop()\n    \nend\n\n\n",
-["Revision"] = 163,
+["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \nend\n\n\n--190187 draconic image\n--189893 infused whelp\n--99922 Ebonclaw Packmate\n--104822 flames of woe",
+["Icon"] = "interface/addons/plater/media/exclamation_64",
 ["Options"] = {
 {
 ["Type"] = 4,
@@ -13562,19 +13696,22 @@ nil,
 ["Desc"] = "If the npc isn't on this list, use the default color set in the Health Bar Color",
 },
 },
-["version"] = -1,
-["Prio"] = 99,
-["Author"] = "Huugg-Valdrakken",
-["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
-["Desc"] = "Change the color of  add",
+["Enabled"] = false,
+["Revision"] = 163,
+["semver"] = "",
 ["Name"] = "Add - Warning [P]",
 ["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    if (scriptTable.config.useNameplateColor) then\n        Plater.SetNameplateColor(unitFrame, envTable.NameplateColor)\n    end\nend\n\n\n\n\n",
+["Author"] = "Huugg-Valdrakken",
+["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
+["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    unitFrame.onShowAddToKillFlash = unitFrame.onShowAddToKillFlash or Plater.CreateFlash (unitFrame.healthBar, 0.25, 1, \"white\")\n    \n    if (scriptTable.config.useFlash) then\n        unitFrame.onShowAddToKillFlash:Play()\n    end\n    \n    if (scriptTable.config.useNameplateColor) then\n        local npcIdString = tostring(envTable._NpcID)\n        envTable.NameplateColor = Plater.GetColorByPriority(unitFrame, scriptTable.config.npcColor[npcIdString], scriptTable.config.healthBarColor)\n        Plater.DenyColorChange(unitFrame, true)\n    end\nend\n\n\n\n\n\n\n\n\n\n",
+["version"] = -1,
+["Prio"] = 99,
 ["SpellIds"] = {
 },
 ["PlaterCore"] = 1,
-["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    unitFrame.onShowAddToKillFlash = unitFrame.onShowAddToKillFlash or Plater.CreateFlash (unitFrame.healthBar, 0.25, 1, \"white\")\n    \n    if (scriptTable.config.useFlash) then\n        unitFrame.onShowAddToKillFlash:Play()\n    end\n    \n    if (scriptTable.config.useNameplateColor) then\n        local npcIdString = tostring(envTable._NpcID)\n        envTable.NameplateColor = Plater.GetColorByPriority(unitFrame, scriptTable.config.npcColor[npcIdString], scriptTable.config.healthBarColor)\n        Plater.DenyColorChange(unitFrame, true)\n    end\nend\n\n\n\n\n\n\n\n\n\n",
+["Desc"] = "Change the color of  add",
 ["url"] = "",
-["Enabled"] = false,
+["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    Plater.DenyColorChange(unitFrame, false)\n    unitFrame.onShowAddToKillFlash:Stop()\n    \nend\n\n\n",
 ["Temp_Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
 },
 {
@@ -13587,11 +13724,11 @@ nil,
 ["UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    --update the percent\n    envTable.overlaySpark:SetPoint (\"left\", unitFrame.healthBar:GetWidth() * (envTable._CastPercent / 100)-9, 0)\n    \n    envTable.topArrow:SetPoint (\"bottomleft\", unitFrame.healthBar, \"topleft\", unitFrame.healthBar:GetWidth() * (envTable._CastPercent / 100) - 4, 2 )\n    \n    --forces the script to run the update as fast as the game framerate\n    self.ThrottleUpdate = 0\n    \n    if (scriptTable.config.useNameplateColor) then\n        Plater.SetNameplateColor(unitFrame, envTable.NameplateColor)\n    end\n    \n    local dotSpeed = abs(envTable._Duration - envTable._RemainingTime) + 1.5\n    envTable.dotAnimation.textureInfo.speedMultiplier = dotSpeed\nend\n\n\n\n\n",
 ["Time"] = 1706886725,
 ["Temp_Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
-["url"] = "",
+["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    --settings\n    envTable.NameplateSizeOffset = scriptTable.config.castBarHeight\n    envTable.ShowArrow = scriptTable.config.showArrow\n    envTable.ArrowAlpha = scriptTable.config.arrowAlpha\n    \n    --creates the spark to show the cast progress inside the health bar\n    envTable.overlaySpark = envTable.overlaySpark or Plater:CreateImage (unitFrame.healthBar)\n    envTable.overlaySpark:SetBlendMode (\"ADD\")\n    envTable.overlaySpark.width = 16\n    envTable.overlaySpark.height = 36\n    envTable.overlaySpark.alpha = .9\n    envTable.overlaySpark.texture = [[Interface\\AddOns\\Plater\\images\\spark3]]\n    \n    envTable.topArrow = envTable.topArrow or Plater:CreateImage (unitFrame.healthBar)\n    envTable.topArrow:SetBlendMode (\"ADD\")\n    envTable.topArrow.width = scriptTable.config.arrowWidth\n    envTable.topArrow.height = scriptTable.config.arrowHeight\n    envTable.topArrow.alpha = envTable.ArrowAlpha\n    envTable.topArrow.texture = [[Interface\\BUTTONS\\Arrow-Down-Up]]\n    \n    --scale animation\n    envTable.smallScaleAnimation = envTable.smallScaleAnimation or Plater:CreateAnimationHub (unitFrame.healthBar)\n    Plater:CreateAnimation (envTable.smallScaleAnimation, \"SCALE\", 1, 0.075, 1, 1, 1.08, 1.08)\n    Plater:CreateAnimation (envTable.smallScaleAnimation, \"SCALE\", 2, 0.075, 1, 1, 0.95, 0.95)    \n    --envTable.smallScaleAnimation:Play() --envTable.smallScaleAnimation:Stop()\n    \nend\n\n\n\n\n\n\n\n",
 ["NpcNames"] = {
 },
-["Enabled"] = false,
 ["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    Plater.StopDotAnimation(unitFrame.healthBar, envTable.dotAnimation)\n    \n    envTable.overlaySpark:Hide()\n    envTable.topArrow:Hide()\n    \n    Plater.RefreshNameplateColor (unitFrame)\n    \n    envTable.smallScaleAnimation:Stop()\n    \n    --increase the nameplate size\n    local nameplateHeight = Plater.db.profile.plate_config.enemynpc.health_incombat [2]\n    unitFrame.healthBar:SetHeight (nameplateHeight)\n    \n    Plater.DenyColorChange(unitFrame, false)\nend\n\n\n",
+["Enabled"] = false,
 ["Revision"] = 534,
 ["semver"] = "",
 ["Icon"] = 2175503,
@@ -13768,11 +13905,8 @@ nil,
 },
 ["Author"] = "Bombad�o-Azralon",
 ["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
-["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    envTable.overlaySpark:Show()\n    \n    if (envTable.ShowArrow) then\n        envTable.topArrow:Show()\n    end\n    \n    Plater.FlashNameplateBorder (unitFrame, 0.05)   \n    Plater.FlashNameplateBody (unitFrame, \"\", 0.075)\n    \n    envTable.smallScaleAnimation:Play()\n    \n    --increase the nameplate size\n    local nameplateHeight = Plater.db.profile.plate_config.enemynpc.health_incombat [2]\n    unitFrame.healthBar:SetHeight (nameplateHeight + envTable.NameplateSizeOffset)\n    \n    envTable.overlaySpark.height = nameplateHeight + 5\n    \n    envTable.dotAnimation = Plater.PlayDotAnimation(unitFrame.healthBar, 2, scriptTable.config.dotColor, scriptTable.config.xOffset, scriptTable.config.yOffset)\n    \n    Plater.SetCastBarColorForScript(self, true, scriptTable.config.castBarColor, envTable)\n    \n    if (scriptTable.config.useNameplateColor) then\n        envTable.NameplateColor = Plater.GetColorByPriority(unitFrame, scriptTable.config.healthBarColor)\n        Plater.DenyColorChange(unitFrame, true)\n    end       \nend\n\n\n\n\n\n\n",
+["Desc"] = "Apply several animations when the explosion orb cast starts on a Mythic Dungeon with Explosion Affix",
 ["Name"] = "Explosion Affix M+ [Plater]",
-["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    --update the percent\n    envTable.overlaySpark:SetPoint (\"left\", unitFrame.healthBar:GetWidth() * (envTable._CastPercent / 100)-9, 0)\n    \n    envTable.topArrow:SetPoint (\"bottomleft\", unitFrame.healthBar, \"topleft\", unitFrame.healthBar:GetWidth() * (envTable._CastPercent / 100) - 4, 2 )\n    \n    --forces the script to run the update as fast as the game framerate\n    self.ThrottleUpdate = 0\n    \n    if (scriptTable.config.useNameplateColor) then\n        Plater.SetNameplateColor(unitFrame, envTable.NameplateColor)\n    end\n    \n    local dotSpeed = abs(envTable._Duration - envTable._RemainingTime) + 1.5\n    envTable.dotAnimation.textureInfo.speedMultiplier = dotSpeed\nend\n\n\n\n\n",
-["version"] = -1,
-["PlaterCore"] = 1,
 ["Prio"] = 99,
 ["SpellIds"] = {
 240446,
@@ -13781,8 +13915,11 @@ nil,
 210261,
 360857,
 },
-["Desc"] = "Apply several animations when the explosion orb cast starts on a Mythic Dungeon with Explosion Affix",
-["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    --settings\n    envTable.NameplateSizeOffset = scriptTable.config.castBarHeight\n    envTable.ShowArrow = scriptTable.config.showArrow\n    envTable.ArrowAlpha = scriptTable.config.arrowAlpha\n    \n    --creates the spark to show the cast progress inside the health bar\n    envTable.overlaySpark = envTable.overlaySpark or Plater:CreateImage (unitFrame.healthBar)\n    envTable.overlaySpark:SetBlendMode (\"ADD\")\n    envTable.overlaySpark.width = 16\n    envTable.overlaySpark.height = 36\n    envTable.overlaySpark.alpha = .9\n    envTable.overlaySpark.texture = [[Interface\\AddOns\\Plater\\images\\spark3]]\n    \n    envTable.topArrow = envTable.topArrow or Plater:CreateImage (unitFrame.healthBar)\n    envTable.topArrow:SetBlendMode (\"ADD\")\n    envTable.topArrow.width = scriptTable.config.arrowWidth\n    envTable.topArrow.height = scriptTable.config.arrowHeight\n    envTable.topArrow.alpha = envTable.ArrowAlpha\n    envTable.topArrow.texture = [[Interface\\BUTTONS\\Arrow-Down-Up]]\n    \n    --scale animation\n    envTable.smallScaleAnimation = envTable.smallScaleAnimation or Plater:CreateAnimationHub (unitFrame.healthBar)\n    Plater:CreateAnimation (envTable.smallScaleAnimation, \"SCALE\", 1, 0.075, 1, 1, 1.08, 1.08)\n    Plater:CreateAnimation (envTable.smallScaleAnimation, \"SCALE\", 2, 0.075, 1, 1, 0.95, 0.95)    \n    --envTable.smallScaleAnimation:Play() --envTable.smallScaleAnimation:Stop()\n    \nend\n\n\n\n\n\n\n\n",
+["PlaterCore"] = 1,
+["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    --update the percent\n    envTable.overlaySpark:SetPoint (\"left\", unitFrame.healthBar:GetWidth() * (envTable._CastPercent / 100)-9, 0)\n    \n    envTable.topArrow:SetPoint (\"bottomleft\", unitFrame.healthBar, \"topleft\", unitFrame.healthBar:GetWidth() * (envTable._CastPercent / 100) - 4, 2 )\n    \n    --forces the script to run the update as fast as the game framerate\n    self.ThrottleUpdate = 0\n    \n    if (scriptTable.config.useNameplateColor) then\n        Plater.SetNameplateColor(unitFrame, envTable.NameplateColor)\n    end\n    \n    local dotSpeed = abs(envTable._Duration - envTable._RemainingTime) + 1.5\n    envTable.dotAnimation.textureInfo.speedMultiplier = dotSpeed\nend\n\n\n\n\n",
+["version"] = -1,
+["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    envTable.overlaySpark:Show()\n    \n    if (envTable.ShowArrow) then\n        envTable.topArrow:Show()\n    end\n    \n    Plater.FlashNameplateBorder (unitFrame, 0.05)   \n    Plater.FlashNameplateBody (unitFrame, \"\", 0.075)\n    \n    envTable.smallScaleAnimation:Play()\n    \n    --increase the nameplate size\n    local nameplateHeight = Plater.db.profile.plate_config.enemynpc.health_incombat [2]\n    unitFrame.healthBar:SetHeight (nameplateHeight + envTable.NameplateSizeOffset)\n    \n    envTable.overlaySpark.height = nameplateHeight + 5\n    \n    envTable.dotAnimation = Plater.PlayDotAnimation(unitFrame.healthBar, 2, scriptTable.config.dotColor, scriptTable.config.xOffset, scriptTable.config.yOffset)\n    \n    Plater.SetCastBarColorForScript(self, true, scriptTable.config.castBarColor, envTable)\n    \n    if (scriptTable.config.useNameplateColor) then\n        envTable.NameplateColor = Plater.GetColorByPriority(unitFrame, scriptTable.config.healthBarColor)\n        Plater.DenyColorChange(unitFrame, true)\n    end       \nend\n\n\n\n\n\n\n",
+["url"] = "",
 },
 {
 ["ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \nend\n\n\n\n--Scorchling 194622\n--Scorchling 190205\n--197398  Hungry Lasher\n--77006 corpse skitterling\n\n\n\n\n\n\n\n\n",
@@ -13793,9 +13930,17 @@ nil,
 ["ScriptType"] = 3,
 ["Temp_Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
 ["Time"] = 1706886805,
-["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \nend\n\n\n\n--Scorchling 194622\n--Scorchling 190205\n--197398  Hungry Lasher\n--77006 corpse skitterling\n\n\n\n\n\n\n\n\n",
 ["url"] = "",
-["Icon"] = "interface/addons/plater/media/duck_64",
+["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \nend\n\n\n\n--Scorchling 194622\n--Scorchling 190205\n--197398  Hungry Lasher\n--77006 corpse skitterling\n\n\n\n\n\n\n\n\n",
+["NpcNames"] = {
+"194622",
+"190205",
+"197398",
+"77006",
+},
+["semver"] = "",
+["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    --restoring and color state and scale even if disabled, maybe the player disabled during the combat\n    Plater.DenyColorChange(unitFrame, false)\n    unitFrame.healthBar:SetScale(unitFrame.healthBar._savedOriginalScale)\n    \nend\n\n\n\n\n",
+["Revision"] = 112,
 ["Options"] = {
 {
 ["Type"] = 4,
@@ -13846,28 +13991,20 @@ nil,
 ["Name"] = "Nameplate Scale",
 },
 },
-["Enabled"] = false,
-["Revision"] = 112,
-["semver"] = "",
-["version"] = -1,
-["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    if (scriptTable.config.useNameplateColor) then\n        Plater.SetNameplateColor (unitFrame, envTable.NameplateColor)\n    end\n    \nend\n\n\n",
-["Author"] = "Huugg-Valdrakken",
-["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
-["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    if (scriptTable.config.useNameplateColor) then\n        envTable.NameplateColor = Plater.GetColorByPriority(unitFrame, scriptTable.config.nameplateColor)\n        Plater.DenyColorChange(unitFrame, true)\n    end    \n    \n    unitFrame.healthBar._savedOriginalScale = unitFrame.healthBar:GetScale()\n    \n    if (scriptTable.config.useNameplateScale) then\n        unitFrame.healthBar:SetScale(scriptTable.config.scale)\n    end\n    \nend\n\n\n\n\n",
 ["SpellIds"] = {
 },
 ["Prio"] = 99,
+["Author"] = "Huugg-Valdrakken",
+["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
+["Desc"] = "",
+["version"] = -1,
+["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    if (scriptTable.config.useNameplateColor) then\n        Plater.SetNameplateColor (unitFrame, envTable.NameplateColor)\n    end\n    \nend\n\n\n",
 ["Name"] = "Add - Non Elite Trash [P]",
 ["PlaterCore"] = 1,
-["Desc"] = "",
+["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    if (scriptTable.config.useNameplateColor) then\n        envTable.NameplateColor = Plater.GetColorByPriority(unitFrame, scriptTable.config.nameplateColor)\n        Plater.DenyColorChange(unitFrame, true)\n    end    \n    \n    unitFrame.healthBar._savedOriginalScale = unitFrame.healthBar:GetScale()\n    \n    if (scriptTable.config.useNameplateScale) then\n        unitFrame.healthBar:SetScale(scriptTable.config.scale)\n    end\n    \nend\n\n\n\n\n",
 ["UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    if (scriptTable.config.useNameplateColor) then\n        Plater.SetNameplateColor (unitFrame, envTable.NameplateColor)\n    end\n    \nend\n\n\n",
-["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    --restoring and color state and scale even if disabled, maybe the player disabled during the combat\n    Plater.DenyColorChange(unitFrame, false)\n    unitFrame.healthBar:SetScale(unitFrame.healthBar._savedOriginalScale)\n    \nend\n\n\n\n\n",
-["NpcNames"] = {
-"194622",
-"190205",
-"197398",
-"77006",
-},
+["Enabled"] = false,
+["Icon"] = "interface/addons/plater/media/duck_64",
 },
 {
 ["ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \n    local healthBar = unitFrame.healthBar\n    \n    if (not healthBar.absorbBar) then\n        healthBar.absorbBar = healthBar.FrameOverlay:CreateTexture(nil, \"overlay\")\n        healthBar.absorbBar:SetTexture([[Interface\\RaidFrame\\Shield-Fill]])\n        healthBar.absorbBar:Hide()\n    end\n    \n    if (not healthBar.absorbSpark) then\n        healthBar.absorbSpark = healthBar.FrameOverlay:CreateTexture(nil, \"overlay\")\n        healthBar.absorbSpark:SetTexture([[Interface\\CastingBar\\UI-CastingBar-Spark]])\n        healthBar.absorbSpark:SetBlendMode(\"ADD\")\n        healthBar.absorbSpark:Hide()\n    end\n    \nend\n\n\n\n\n",
@@ -13878,30 +14015,30 @@ nil,
 ["ScriptType"] = 2,
 ["UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    if (not UnitGetTotalAbsorbs) then\n        return\n    end\n    \n    local healthBar = unitFrame.healthBar\n    \n    healthBar.absorbBar:Show()\n    healthBar.absorbSpark:Show()\n    \n    local maxValue = healthBar.absorbBar.MaxValue\n    local currentValue = UnitGetTotalAbsorbs(unitId) or 0\n    \n    if (currentValue > 0) then\n        local minValue = 0\n        \n        local percent = currentValue / maxValue\n        healthBar.absorbBar:SetTexCoord(0, percent, 0, 1)\n        healthBar.absorbBar:SetWidth(percent * healthBar:GetWidth())\n        \n        healthBar.absorbSpark:SetPoint(\"left\", healthBar, \"left\", percent * healthBar:GetWidth() - 16, 0)\n        \n    else\n        healthBar.absorbBar:Hide()    \n        healthBar.absorbSpark:Hide()\n    end\n    \n    self.ThrottleUpdate = 0\n    \nend\n\n\n\n\n\n\n\n\n\n\n",
 ["Time"] = 1706886853,
+["Icon"] = "interface/addons/plater/images/cast_bar - absorb",
+["url"] = "",
 ["NpcNames"] = {
 },
-["url"] = "",
-["Icon"] = "interface/addons/plater/images/cast_bar - absorb",
-["Enabled"] = false,
 ["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    if (not UnitGetTotalAbsorbs) then\n        return\n    end\n    \n    local healthBar = unitFrame.healthBar\n    \n    healthBar.absorbBar:Hide()    \n    healthBar.absorbSpark:Hide()\n    \nend\n\n\n",
+["Enabled"] = false,
 ["Revision"] = 102,
-["semver"] = "",
+["Options"] = {
+},
 ["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \n    local healthBar = unitFrame.healthBar\n    \n    if (not healthBar.absorbBar) then\n        healthBar.absorbBar = healthBar.FrameOverlay:CreateTexture(nil, \"overlay\")\n        healthBar.absorbBar:SetTexture([[Interface\\RaidFrame\\Shield-Fill]])\n        healthBar.absorbBar:Hide()\n    end\n    \n    if (not healthBar.absorbSpark) then\n        healthBar.absorbSpark = healthBar.FrameOverlay:CreateTexture(nil, \"overlay\")\n        healthBar.absorbSpark:SetTexture([[Interface\\CastingBar\\UI-CastingBar-Spark]])\n        healthBar.absorbSpark:SetBlendMode(\"ADD\")\n        healthBar.absorbSpark:Hide()\n    end\n    \nend\n\n\n\n\n",
-["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    if (not UnitGetTotalAbsorbs) then\n        return\n    end\n    \n    local healthBar = unitFrame.healthBar\n    \n    healthBar.absorbBar:Show()\n    healthBar.absorbSpark:Show()\n    \n    healthBar.absorbBar:SetTexture([[Interface\\RaidFrame\\Shield-Fill]])\n    \n    healthBar.absorbBar:ClearAllPoints()    \n    healthBar.absorbBar:SetPoint(\"topleft\", healthBar, \"topleft\", 0, 0)\n    healthBar.absorbBar:SetPoint(\"bottomleft\", healthBar, \"bottomleft\", 0, 0)\n    \n    healthBar.absorbBar:SetAlpha(1)\n    \n    healthBar.absorbBar.MaxValue = UnitGetTotalAbsorbs(unitId) or 0\n    healthBar.absorbBar.MinValue = 0\nend\n\n\n",
+["Desc"] = "When the caster has a shield and only when the shield is removed the cast can be interrupted",
 ["Author"] = "Huugg-Valdrakken",
 ["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
-["Desc"] = "When the caster has a shield and only when the shield is removed the cast can be interrupted",
+["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    if (not UnitGetTotalAbsorbs) then\n        return\n    end\n    \n    local healthBar = unitFrame.healthBar\n    \n    healthBar.absorbBar:Show()\n    healthBar.absorbSpark:Show()\n    \n    healthBar.absorbBar:SetTexture([[Interface\\RaidFrame\\Shield-Fill]])\n    \n    healthBar.absorbBar:ClearAllPoints()    \n    healthBar.absorbBar:SetPoint(\"topleft\", healthBar, \"topleft\", 0, 0)\n    healthBar.absorbBar:SetPoint(\"bottomleft\", healthBar, \"bottomleft\", 0, 0)\n    \n    healthBar.absorbBar:SetAlpha(1)\n    \n    healthBar.absorbBar.MaxValue = UnitGetTotalAbsorbs(unitId) or 0\n    healthBar.absorbBar.MinValue = 0\nend\n\n\n",
 ["version"] = -1,
+["Prio"] = 99,
+["Name"] = "Cast - Shield Interrupt [P]",
+["PlaterCore"] = 1,
 ["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    if (not UnitGetTotalAbsorbs) then\n        return\n    end\n    \n    local healthBar = unitFrame.healthBar\n    \n    healthBar.absorbBar:Show()\n    healthBar.absorbSpark:Show()\n    \n    local maxValue = healthBar.absorbBar.MaxValue\n    local currentValue = UnitGetTotalAbsorbs(unitId) or 0\n    \n    if (currentValue > 0) then\n        local minValue = 0\n        \n        local percent = currentValue / maxValue\n        healthBar.absorbBar:SetTexCoord(0, percent, 0, 1)\n        healthBar.absorbBar:SetWidth(percent * healthBar:GetWidth())\n        \n        healthBar.absorbSpark:SetPoint(\"left\", healthBar, \"left\", percent * healthBar:GetWidth() - 16, 0)\n        \n    else\n        healthBar.absorbBar:Hide()    \n        healthBar.absorbSpark:Hide()\n    end\n    \n    self.ThrottleUpdate = 0\n    \nend\n\n\n\n\n\n\n\n\n\n\n",
 ["SpellIds"] = {
 373688,
 391050,
 },
-["PlaterCore"] = 1,
-["Prio"] = 99,
-["Name"] = "Cast - Shield Interrupt [P]",
-["Options"] = {
-},
+["semver"] = "",
 ["Temp_Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
 },
 {
@@ -13917,28 +14054,8 @@ nil,
 ["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    local castBar = unitFrame.castBar\n    local castBarPortion = castBar:GetWidth()/scriptTable.config.segmentsAmount\n    local castBarHeight = castBar:GetHeight()\n    \n    unitFrame.felAnimation = unitFrame.felAnimation or {}\n    \n    if (not unitFrame.felAnimation.textureStretched) then\n        unitFrame.felAnimation.textureStretched = castBar:CreateTexture(nil, \"overlay\", nil, 5)\n    end\n    \n    if (not unitFrame.stopCastingX) then\n        unitFrame.stopCastingX = castBar.FrameOverlay:CreateTexture(nil, \"overlay\", nil, 7)\n        unitFrame.stopCastingX:SetPoint(\"center\", unitFrame.castBar.Spark, \"center\", 0, 0)\n        unitFrame.stopCastingX:SetTexture([[Interface\\AddOns\\Plater\\Media\\stop_64]])\n        unitFrame.stopCastingX:SetSize(16, 16)\n        unitFrame.stopCastingX:Hide()\n    end\n    \n    if (not unitFrame.felAnimation.Textures) then\n        unitFrame.felAnimation.Textures = {}\n        \n        for i = 1, 20 do\n            local texture = castBar:CreateTexture(nil, \"overlay\", nil, 6)\n            unitFrame.felAnimation.Textures[i] = texture            \n            \n            texture.animGroup = texture.animGroup or texture:CreateAnimationGroup()\n            local animationGroup = texture.animGroup\n            animationGroup:SetToFinalAlpha(true)            \n            animationGroup:SetLooping(\"NONE\")\n            \n            texture:SetTexture([[Interface\\COMMON\\XPBarAnim]])\n            texture:SetTexCoord(0.2990, 0.0010, 0.0010, 0.4159)\n            texture:SetBlendMode(\"ADD\")\n            \n            texture.scale = animationGroup:CreateAnimation(\"SCALE\")\n            texture.scale:SetTarget(texture)\n            \n            texture.alpha = animationGroup:CreateAnimation(\"ALPHA\")\n            texture.alpha:SetTarget(texture)\n            \n            texture.alpha2 = animationGroup:CreateAnimation(\"ALPHA\")\n            texture.alpha2:SetTarget(texture)\n        end\n    end\n    \n    \n    \nend\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
 ["Icon"] = "Interface\\AddOns\\Plater\\media\\stop_64",
 ["url"] = "",
-["Enabled"] = false,
+["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    for i = 1, scriptTable.config.segmentsAmount  do\n        local texture = unitFrame.felAnimation.Textures[i]\n        texture:Hide()\n    end\n    \n    local textureStretched = unitFrame.felAnimation.textureStretched\n    textureStretched:Hide()    \n    unitFrame.stopCastingX:Hide()\n    \n    self.Text:SetDrawLayer(\"overlay\", 0)\n    self.Spark:SetDrawLayer(\"overlay\", 3)\n    self.Spark:Show()\n    \nend\n\n\n\n\n\n\n",
 ["Revision"] = 507,
-["semver"] = "",
-["NpcNames"] = {
-},
-["Desc"] = "Just stop casting",
-["Author"] = "Terciob",
-["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
-["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    local castBar = unitFrame.castBar\n    envTable.castBarWidth = castBar:GetWidth()\n    castBar.Spark:SetVertexColor(DetailsFramework:ParseColors(scriptTable.config.sparkColor))\n    \n    local textureStretched = unitFrame.felAnimation.textureStretched\n    textureStretched:Show()\n    textureStretched:SetVertexColor(DetailsFramework:ParseColors(scriptTable.config.glowColor))\n    textureStretched:SetAtlas(\"XPBarAnim-OrangeTrail\")\n    textureStretched:ClearAllPoints()\n    textureStretched:SetPoint(\"right\", castBar.Spark, \"center\", 0, 0)\n    textureStretched:SetHeight(castBar:GetHeight())\n    textureStretched:SetBlendMode(\"ADD\") \n    textureStretched:SetAlpha(0.5)\n    textureStretched:SetDrawLayer(\"overlay\", 7)\n    \n    for i = 1, scriptTable.config.segmentsAmount  do\n        local texture = unitFrame.felAnimation.Textures[i]\n        texture:SetVertexColor(1, 1, 1, 1)\n        texture:SetDesaturated(true)\n        \n        local castBarPortion = castBar:GetWidth()/scriptTable.config.segmentsAmount\n        \n        texture:SetSize(castBarPortion+5, castBar:GetHeight())\n        texture:SetDrawLayer(\"overlay\", 6)\n        \n        texture:ClearAllPoints()\n        if (i == scriptTable.config.segmentsAmount) then\n            texture:SetPoint(\"right\", castBar, \"right\", 0, 0)\n        else\n            texture:SetPoint(\"left\", castBar, \"left\", (i-1)*castBarPortion, 2)\n        end\n        \n        texture:SetAlpha(0)\n        texture:Hide()\n        \n        texture.scale:SetOrder(1)\n        texture.scale:SetDuration(0.5)\n        texture.scale:SetScaleFrom(0.2, 1)\n        texture.scale:SetScaleTo(1, 1.5)\n        texture.scale:SetOrigin(\"right\", 0, 0)\n        \n        local durationTime = DetailsFramework:GetBezierPoint(i / scriptTable.config.segmentsAmount, 0.2, 0.01, 0.6)\n        local duration = abs(durationTime-0.6)\n        --local duration = 0.6 --debug\n        \n        texture.alpha:SetOrder(1)\n        texture.alpha:SetDuration(0.05)\n        texture.alpha:SetFromAlpha(0)\n        texture.alpha:SetToAlpha(0.4)\n        \n        texture.alpha2:SetOrder(1)\n        texture.alpha2:SetDuration(duration) --0.6\n        texture.alpha2:SetStartDelay(duration)\n        texture.alpha2:SetFromAlpha(0.5)\n        texture.alpha2:SetToAlpha(0)\n    end\n    \n    unitFrame.stopCastingX:Show()\n    \n    envTable.CurrentTexture = 1\n    envTable.NextPercent  = 100  / scriptTable.config.segmentsAmount\n    \n    self.Text:SetDrawLayer(\"artwork\", 7)\n    self.Spark:SetDrawLayer(\"artwork\", 7)\n    self.Spark:Hide()\nend\n\n\n\n\n\n\n\n\n",
-["SpellIds"] = {
-377004,
-381516,
-196543,
-199726,
-200291,
-268202,
-},
-["Prio"] = 99,
-["Name"] = "Cast - Stop Casting [P]",
-["PlaterCore"] = 1,
-["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    local castBar = unitFrame.castBar\n    local textures = unitFrame.felAnimation.Textures\n    \n    if (envTable._CastPercent > envTable.NextPercent) then\n        local nextPercent = 100 / scriptTable.config.segmentsAmount\n        \n        textures[envTable.CurrentTexture]:Show()\n        textures[envTable.CurrentTexture].animGroup:Play()\n        \n        envTable.NextPercent = envTable.NextPercent + nextPercent \n        envTable.CurrentTexture = envTable.CurrentTexture + 1\n        \n        --print(envTable.NextPercent, envTable.CurrentTexture)\n        \n        if (envTable.CurrentTexture == #textures) then\n            envTable.NextPercent = 98\n        elseif (envTable.CurrentTexture > #textures) then\n            envTable.NextPercent = 999\n        end\n    end\n    \n    local normalizedPercent = envTable._CastPercent / 100\n    local textureStretched = unitFrame.felAnimation.textureStretched\n    local point = DetailsFramework:GetBezierPoint(normalizedPercent, 0, 0.001, 1)\n    textureStretched:SetPoint(\"left\", castBar, \"left\", point * envTable.castBarWidth, 0)\n    \n    self.ThrottleUpdate = 0\nend",
-["version"] = -1,
 ["Options"] = {
 {
 ["Type"] = 2,
@@ -13978,7 +14095,27 @@ nil,
 ["Desc"] = "",
 },
 },
-["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    for i = 1, scriptTable.config.segmentsAmount  do\n        local texture = unitFrame.felAnimation.Textures[i]\n        texture:Hide()\n    end\n    \n    local textureStretched = unitFrame.felAnimation.textureStretched\n    textureStretched:Hide()    \n    unitFrame.stopCastingX:Hide()\n    \n    self.Text:SetDrawLayer(\"overlay\", 0)\n    self.Spark:SetDrawLayer(\"overlay\", 3)\n    self.Spark:Show()\n    \nend\n\n\n\n\n\n\n",
+["NpcNames"] = {
+},
+["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    local castBar = unitFrame.castBar\n    envTable.castBarWidth = castBar:GetWidth()\n    castBar.Spark:SetVertexColor(DetailsFramework:ParseColors(scriptTable.config.sparkColor))\n    \n    local textureStretched = unitFrame.felAnimation.textureStretched\n    textureStretched:Show()\n    textureStretched:SetVertexColor(DetailsFramework:ParseColors(scriptTable.config.glowColor))\n    textureStretched:SetAtlas(\"XPBarAnim-OrangeTrail\")\n    textureStretched:ClearAllPoints()\n    textureStretched:SetPoint(\"right\", castBar.Spark, \"center\", 0, 0)\n    textureStretched:SetHeight(castBar:GetHeight())\n    textureStretched:SetBlendMode(\"ADD\") \n    textureStretched:SetAlpha(0.5)\n    textureStretched:SetDrawLayer(\"overlay\", 7)\n    \n    for i = 1, scriptTable.config.segmentsAmount  do\n        local texture = unitFrame.felAnimation.Textures[i]\n        texture:SetVertexColor(1, 1, 1, 1)\n        texture:SetDesaturated(true)\n        \n        local castBarPortion = castBar:GetWidth()/scriptTable.config.segmentsAmount\n        \n        texture:SetSize(castBarPortion+5, castBar:GetHeight())\n        texture:SetDrawLayer(\"overlay\", 6)\n        \n        texture:ClearAllPoints()\n        if (i == scriptTable.config.segmentsAmount) then\n            texture:SetPoint(\"right\", castBar, \"right\", 0, 0)\n        else\n            texture:SetPoint(\"left\", castBar, \"left\", (i-1)*castBarPortion, 2)\n        end\n        \n        texture:SetAlpha(0)\n        texture:Hide()\n        \n        texture.scale:SetOrder(1)\n        texture.scale:SetDuration(0.5)\n        texture.scale:SetScaleFrom(0.2, 1)\n        texture.scale:SetScaleTo(1, 1.5)\n        texture.scale:SetOrigin(\"right\", 0, 0)\n        \n        local durationTime = DetailsFramework:GetBezierPoint(i / scriptTable.config.segmentsAmount, 0.2, 0.01, 0.6)\n        local duration = abs(durationTime-0.6)\n        --local duration = 0.6 --debug\n        \n        texture.alpha:SetOrder(1)\n        texture.alpha:SetDuration(0.05)\n        texture.alpha:SetFromAlpha(0)\n        texture.alpha:SetToAlpha(0.4)\n        \n        texture.alpha2:SetOrder(1)\n        texture.alpha2:SetDuration(duration) --0.6\n        texture.alpha2:SetStartDelay(duration)\n        texture.alpha2:SetFromAlpha(0.5)\n        texture.alpha2:SetToAlpha(0)\n    end\n    \n    unitFrame.stopCastingX:Show()\n    \n    envTable.CurrentTexture = 1\n    envTable.NextPercent  = 100  / scriptTable.config.segmentsAmount\n    \n    self.Text:SetDrawLayer(\"artwork\", 7)\n    self.Spark:SetDrawLayer(\"artwork\", 7)\n    self.Spark:Hide()\nend\n\n\n\n\n\n\n\n\n",
+["Author"] = "Terciob",
+["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
+["Desc"] = "Just stop casting",
+["SpellIds"] = {
+377004,
+381516,
+196543,
+199726,
+200291,
+268202,
+},
+["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    local castBar = unitFrame.castBar\n    local textures = unitFrame.felAnimation.Textures\n    \n    if (envTable._CastPercent > envTable.NextPercent) then\n        local nextPercent = 100 / scriptTable.config.segmentsAmount\n        \n        textures[envTable.CurrentTexture]:Show()\n        textures[envTable.CurrentTexture].animGroup:Play()\n        \n        envTable.NextPercent = envTable.NextPercent + nextPercent \n        envTable.CurrentTexture = envTable.CurrentTexture + 1\n        \n        --print(envTable.NextPercent, envTable.CurrentTexture)\n        \n        if (envTable.CurrentTexture == #textures) then\n            envTable.NextPercent = 98\n        elseif (envTable.CurrentTexture > #textures) then\n            envTable.NextPercent = 999\n        end\n    end\n    \n    local normalizedPercent = envTable._CastPercent / 100\n    local textureStretched = unitFrame.felAnimation.textureStretched\n    local point = DetailsFramework:GetBezierPoint(normalizedPercent, 0, 0.001, 1)\n    textureStretched:SetPoint(\"left\", castBar, \"left\", point * envTable.castBarWidth, 0)\n    \n    self.ThrottleUpdate = 0\nend",
+["version"] = -1,
+["PlaterCore"] = 1,
+["Prio"] = 99,
+["Name"] = "Cast - Stop Casting [P]",
+["semver"] = "",
+["Enabled"] = false,
 },
 {
 ["ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    function envTable.CreateWidgets()\n        --create a camera shake for the nameplate\n        if (not unitFrame.AddExplosionOnDieShake) then\n            unitFrame.AddExplosionOnDieShake = Plater:CreateFrameShake (unitFrame, scriptTable.config.shakeDuration, scriptTable.config.shakeAmplitude, scriptTable.config.shakeFrequency, false, false, 0, 1, 0.05, 0.1, Plater.GetPoints (unitFrame))\n        end\n        \n        if (not unitFrame.AddExplosionOnDieBackground) then\n            unitFrame.AddExplosionOnDieBackground = unitFrame.healthBar:CreateTexture(nil, \"background\")\n            unitFrame.AddExplosionOnDieBackground:SetAllPoints(unitFrame.healthBar)\n            unitFrame.AddExplosionOnDieBackground:SetColorTexture(1, 0, 0, 1)\n        end\n    end\n    \nend\n\n--194895 = unstable squall\n--105703 = mana wyrm\n--59598 = lesser sha\n--58319 = lesser sha\n\n\n\n\n\n\n\n\n\n\n\n",
@@ -13989,8 +14126,8 @@ nil,
 ["ScriptType"] = 3,
 ["UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    if (envTable._HealthPercent < 50) then\n        local alpha = DetailsFramework:MapRangeClamped(0, 50, 0.5, 0, envTable._HealthPercent)\n        \n        unitFrame.AddExplosionOnDieBackground:SetAlpha(alpha)\n    else\n        unitFrame.AddExplosionOnDieBackground:SetAlpha(0)\n    end\n    \n    if (envTable._HealthPercent < 15 and scriptTable.config.useShake) then\n        local shakeAmpliture = DetailsFramework:MapRangeClamped(0.001, 15, 10, 1, envTable._HealthPercent)\n        \n        unitFrame.AddExplosionOnDieShake.OriginalAmplitude = scriptTable.config.shakeAmplitude * shakeAmpliture\n        unitFrame.AddExplosionOnDieShake.OriginalFrequency = scriptTable.config.shakeFrequency\n        \n        unitFrame:PlayFrameShake (unitFrame.AddExplosionOnDieShake)\n    end\n    \n    \nend\n\n\n\n\n\n\n\n\n\n\n\n\n",
 ["Time"] = 1706886907,
-["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    function envTable.CreateWidgets()\n        --create a camera shake for the nameplate\n        if (not unitFrame.AddExplosionOnDieShake) then\n            unitFrame.AddExplosionOnDieShake = Plater:CreateFrameShake (unitFrame, scriptTable.config.shakeDuration, scriptTable.config.shakeAmplitude, scriptTable.config.shakeFrequency, false, false, 0, 1, 0.05, 0.1, Plater.GetPoints (unitFrame))\n        end\n        \n        if (not unitFrame.AddExplosionOnDieBackground) then\n            unitFrame.AddExplosionOnDieBackground = unitFrame.healthBar:CreateTexture(nil, \"background\")\n            unitFrame.AddExplosionOnDieBackground:SetAllPoints(unitFrame.healthBar)\n            unitFrame.AddExplosionOnDieBackground:SetColorTexture(1, 0, 0, 1)\n        end\n    end\n    \nend\n\n--194895 = unstable squall\n--105703 = mana wyrm\n--59598 = lesser sha\n--58319 = lesser sha\n\n\n\n\n\n\n\n\n\n\n\n",
 ["url"] = "",
+["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    function envTable.CreateWidgets()\n        --create a camera shake for the nameplate\n        if (not unitFrame.AddExplosionOnDieShake) then\n            unitFrame.AddExplosionOnDieShake = Plater:CreateFrameShake (unitFrame, scriptTable.config.shakeDuration, scriptTable.config.shakeAmplitude, scriptTable.config.shakeFrequency, false, false, 0, 1, 0.05, 0.1, Plater.GetPoints (unitFrame))\n        end\n        \n        if (not unitFrame.AddExplosionOnDieBackground) then\n            unitFrame.AddExplosionOnDieBackground = unitFrame.healthBar:CreateTexture(nil, \"background\")\n            unitFrame.AddExplosionOnDieBackground:SetAllPoints(unitFrame.healthBar)\n            unitFrame.AddExplosionOnDieBackground:SetColorTexture(1, 0, 0, 1)\n        end\n    end\n    \nend\n\n--194895 = unstable squall\n--105703 = mana wyrm\n--59598 = lesser sha\n--58319 = lesser sha\n\n\n\n\n\n\n\n\n\n\n\n",
 ["NpcNames"] = {
 "194895",
 "105703",
@@ -14002,21 +14139,8 @@ nil,
 135052,
 },
 ["Icon"] = "interface/addons/plater/media/radio_64",
-["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \n    local healthBar = unitFrame.healthBar\n    healthBar:SetReverseFill(false)\n    \n    if (unitFrame.AddExplosionOnDieShake) then\n        unitFrame:StopFrameShake (unitFrame.AddExplosionOnDieShake)    \n    end\n    \n    if (unitFrame.AddExplosionOnDieBackground) then\n        unitFrame.AddExplosionOnDieBackground:Hide()\n    end\nend\n\n\n\n\n\n\n\n\n",
+["Enabled"] = false,
 ["Revision"] = 110,
-["semver"] = "",
-["Temp_Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
-["Desc"] = "",
-["Author"] = "Huugg-Valdrakken",
-["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
-["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \n    local healthBar = unitFrame.healthBar\n    \n    if (scriptTable.config.useReverse) then\n        healthBar:SetReverseFill(true)\n    end\n    \n    --unitFrame.AddExplosionOnDieShake\n    \n    envTable.CreateWidgets()\n    \n    unitFrame.AddExplosionOnDieShake.OriginalAmplitude = scriptTable.config.shakeAmplitude\n    unitFrame.AddExplosionOnDieShake.OriginalDuration = 0.120\n    unitFrame.AddExplosionOnDieShake.OriginalFrequency = scriptTable.config.shakeFrequency\n    \n    if (scriptTable.config.useBackground) then\n        unitFrame.AddExplosionOnDieBackground:Show()\n        unitFrame.AddExplosionOnDieBackground:SetAlpha(0)\n    else\n        unitFrame.AddExplosionOnDieBackground:Hide()\n    end\nend\n\n\n\n\n\n\n",
-["version"] = -1,
-["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    if (envTable._HealthPercent < 50) then\n        local alpha = DetailsFramework:MapRangeClamped(0, 50, 0.5, 0, envTable._HealthPercent)\n        \n        unitFrame.AddExplosionOnDieBackground:SetAlpha(alpha)\n    else\n        unitFrame.AddExplosionOnDieBackground:SetAlpha(0)\n    end\n    \n    if (envTable._HealthPercent < 15 and scriptTable.config.useShake) then\n        local shakeAmpliture = DetailsFramework:MapRangeClamped(0.001, 15, 10, 1, envTable._HealthPercent)\n        \n        unitFrame.AddExplosionOnDieShake.OriginalAmplitude = scriptTable.config.shakeAmplitude * shakeAmpliture\n        unitFrame.AddExplosionOnDieShake.OriginalFrequency = scriptTable.config.shakeFrequency\n        \n        unitFrame:PlayFrameShake (unitFrame.AddExplosionOnDieShake)\n    end\n    \n    \nend\n\n\n\n\n\n\n\n\n\n\n\n\n",
-["SpellIds"] = {
-},
-["PlaterCore"] = 1,
-["Prio"] = 99,
-["Name"] = "Add - Explode on Die [P]",
 ["Options"] = {
 {
 ["Type"] = 4,
@@ -14081,7 +14205,20 @@ nil,
 ["Desc"] = "Show Red Background",
 },
 },
-["Enabled"] = false,
+["Temp_Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
+["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \n    local healthBar = unitFrame.healthBar\n    \n    if (scriptTable.config.useReverse) then\n        healthBar:SetReverseFill(true)\n    end\n    \n    --unitFrame.AddExplosionOnDieShake\n    \n    envTable.CreateWidgets()\n    \n    unitFrame.AddExplosionOnDieShake.OriginalAmplitude = scriptTable.config.shakeAmplitude\n    unitFrame.AddExplosionOnDieShake.OriginalDuration = 0.120\n    unitFrame.AddExplosionOnDieShake.OriginalFrequency = scriptTable.config.shakeFrequency\n    \n    if (scriptTable.config.useBackground) then\n        unitFrame.AddExplosionOnDieBackground:Show()\n        unitFrame.AddExplosionOnDieBackground:SetAlpha(0)\n    else\n        unitFrame.AddExplosionOnDieBackground:Hide()\n    end\nend\n\n\n\n\n\n\n",
+["Author"] = "Huugg-Valdrakken",
+["Initialization"] = "function (scriptTable)\n    --insert code here\n    \nend\n\n\n",
+["Desc"] = "",
+["version"] = -1,
+["Prio"] = 99,
+["Name"] = "Add - Explode on Die [P]",
+["PlaterCore"] = 1,
+["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    if (envTable._HealthPercent < 50) then\n        local alpha = DetailsFramework:MapRangeClamped(0, 50, 0.5, 0, envTable._HealthPercent)\n        \n        unitFrame.AddExplosionOnDieBackground:SetAlpha(alpha)\n    else\n        unitFrame.AddExplosionOnDieBackground:SetAlpha(0)\n    end\n    \n    if (envTable._HealthPercent < 15 and scriptTable.config.useShake) then\n        local shakeAmpliture = DetailsFramework:MapRangeClamped(0.001, 15, 10, 1, envTable._HealthPercent)\n        \n        unitFrame.AddExplosionOnDieShake.OriginalAmplitude = scriptTable.config.shakeAmplitude * shakeAmpliture\n        unitFrame.AddExplosionOnDieShake.OriginalFrequency = scriptTable.config.shakeFrequency\n        \n        unitFrame:PlayFrameShake (unitFrame.AddExplosionOnDieShake)\n    end\n    \n    \nend\n\n\n\n\n\n\n\n\n\n\n\n\n",
+["SpellIds"] = {
+},
+["semver"] = "",
+["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \n    local healthBar = unitFrame.healthBar\n    healthBar:SetReverseFill(false)\n    \n    if (unitFrame.AddExplosionOnDieShake) then\n        unitFrame:StopFrameShake (unitFrame.AddExplosionOnDieShake)    \n    end\n    \n    if (unitFrame.AddExplosionOnDieBackground) then\n        unitFrame.AddExplosionOnDieBackground:Hide()\n    end\nend\n\n\n\n\n\n\n\n\n",
 },
 {
 ["ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \n    local plateFrame = unitFrame.PlateFrame\n    \n    if (not plateFrame.BWC_RedBackground) then\n        plateFrame.BWC_RedBackground = plateFrame:CreateTexture(nil, \"background\")\n        plateFrame.BWC_RedBackground:SetAllPoints()\n    end\n    \n    plateFrame.BWC_RedBackground:SetTexture([[Interface/AddOns/Plater/masks/mask1]])\n    plateFrame.BWC_RedBackground:Hide()\n    \n    function envTable.ShowBackground(unitFrame)\n        local plateFrame = unitFrame.PlateFrame\n        plateFrame.BWC_RedBackground:SetVertexColor(1, 0, 0, 0.4)\n        plateFrame.BWC_RedBackground:Show()\n    end\n    \n    function envTable.HideBackground(unitFrame)\n        plateFrame.BWC_RedBackground:Hide()\n    end\nend\n\n\n\n\n\n\n",
@@ -14092,32 +14229,32 @@ nil,
 ["ScriptType"] = 1,
 ["UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    if (Plater.UnitIsCasting(unitId)) then\n        envTable.ShowBackground(unitFrame)\n    else\n        envTable.HideBackground(unitFrame)\n    end\n    \nend",
 ["Time"] = 1706886812,
-["Enabled"] = false,
-["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \n    local plateFrame = unitFrame.PlateFrame\n    \n    if (not plateFrame.BWC_RedBackground) then\n        plateFrame.BWC_RedBackground = plateFrame:CreateTexture(nil, \"background\")\n        plateFrame.BWC_RedBackground:SetAllPoints()\n    end\n    \n    plateFrame.BWC_RedBackground:SetTexture([[Interface/AddOns/Plater/masks/mask1]])\n    plateFrame.BWC_RedBackground:Hide()\n    \n    function envTable.ShowBackground(unitFrame)\n        local plateFrame = unitFrame.PlateFrame\n        plateFrame.BWC_RedBackground:SetVertexColor(1, 0, 0, 0.4)\n        plateFrame.BWC_RedBackground:Show()\n    end\n    \n    function envTable.HideBackground(unitFrame)\n        plateFrame.BWC_RedBackground:Hide()\n    end\nend\n\n\n\n\n\n\n",
+["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    envTable.HideBackground(unitFrame)\nend\n\n\n",
+["url"] = "",
 ["Icon"] = 236209,
+["semver"] = "",
+["Enabled"] = false,
+["Revision"] = 19,
 ["Options"] = {
 },
-["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    envTable.HideBackground(unitFrame)\nend\n\n\n",
-["Revision"] = 19,
-["semver"] = "",
-["Name"] = "Aura While Casting [P]",
-["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    if (Plater.UnitIsCasting(unitId)) then\n        envTable.ShowBackground(unitFrame)\n    else\n        envTable.HideBackground(unitFrame)\n    end\n    \nend",
-["Author"] = "Tiranaa-Azralon",
-["Initialization"] = "		function (scriptTable)\n			--insert code here\n			\n		end\n	",
-["Desc"] = "Highlight the nameplate of a unit when has a certain Buff (trigger) and start to cast a spell",
 ["SpellIds"] = {
 372743,
 372749,
 384933,
 },
 ["Prio"] = 99,
+["Author"] = "Tiranaa-Azralon",
+["Initialization"] = "		function (scriptTable)\n			--insert code here\n			\n		end\n	",
+["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \nend\n\n\n",
+["Name"] = "Aura While Casting [P]",
+["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    if (Plater.UnitIsCasting(unitId)) then\n        envTable.ShowBackground(unitFrame)\n    else\n        envTable.HideBackground(unitFrame)\n    end\n    \nend",
 ["version"] = -1,
 ["PlaterCore"] = 1,
-["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \nend\n\n\n",
+["Desc"] = "Highlight the nameplate of a unit when has a certain Buff (trigger) and start to cast a spell",
 ["NpcNames"] = {
 },
 ["Temp_Initialization"] = "		function (scriptTable)\n			--insert code here\n			\n		end\n	",
-["url"] = "",
+["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \n    local plateFrame = unitFrame.PlateFrame\n    \n    if (not plateFrame.BWC_RedBackground) then\n        plateFrame.BWC_RedBackground = plateFrame:CreateTexture(nil, \"background\")\n        plateFrame.BWC_RedBackground:SetAllPoints()\n    end\n    \n    plateFrame.BWC_RedBackground:SetTexture([[Interface/AddOns/Plater/masks/mask1]])\n    plateFrame.BWC_RedBackground:Hide()\n    \n    function envTable.ShowBackground(unitFrame)\n        local plateFrame = unitFrame.PlateFrame\n        plateFrame.BWC_RedBackground:SetVertexColor(1, 0, 0, 0.4)\n        plateFrame.BWC_RedBackground:Show()\n    end\n    \n    function envTable.HideBackground(unitFrame)\n        plateFrame.BWC_RedBackground:Hide()\n    end\nend\n\n\n\n\n\n\n",
 },
 {
 ["ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    --create a flash texture which keep blinking while the cast in going on\n    self.OGC_BlinkTexture = self.OGC_BlinkTexture or self:CreateTexture(nil, \"overlay\")\n    self.OGC_BlinkTexture:SetColorTexture(1, 1, 1)\n    self.OGC_BlinkTexture:SetAlpha(0)\n    \n    --create the animation group for the blinking texture\n    self.OGC_BlinkAnimation = self.OGC_BlinkAnimation or Plater:CreateAnimationHub(self.OGC_BlinkTexture, function() self.OGC_BlinkTexture:Show() end, function() self.OGC_BlinkTexture:Hide() end)\n    \n    self.OGC_BlinkAnimation.In = self.OGC_BlinkAnimation.In or Plater:CreateAnimation(self.OGC_BlinkAnimation, \"alpha\", 1, 0.5, 0.3, 1)\n    \n    self.OGC_BlinkAnimation.Out = self.OGC_BlinkAnimation.Out or Plater:CreateAnimation(self.OGC_BlinkAnimation, \"alpha\", 2, 0.5, 1, 0.2)    \n    \n    \nend\n\n\n",
@@ -14128,29 +14265,13 @@ nil,
 ["ScriptType"] = 2,
 ["UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \nend\n\n\n",
 ["Time"] = 1706886848,
-["Icon"] = 4038101,
-["url"] = "",
 ["NpcNames"] = {
 },
-["Enabled"] = false,
+["url"] = "",
+["Icon"] = 4038101,
 ["Temp_OnHideCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    self.OGC_BlinkAnimation:Stop()\n    \n    Plater.StopDotAnimation(self, envTable.dotAnimation1)    \n    Plater.StopDotAnimation(self, envTable.dotAnimation2)   \n    \nend\n\n\n",
+["Enabled"] = false,
 ["Revision"] = 74,
-["semver"] = "",
-["Desc"] = "The background of the nameplate blinks a red color indicating the cast is being performed. Useful to indicate channeling spells doing damage overtime.",
-["SpellIds"] = {
-388886,
-209676,
-377912,
-},
-["Author"] = "Ditador-Azralon",
-["Initialization"] = "		function (scriptTable)\n			--insert code here\n			\n		end\n	",
-["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    self.OGC_BlinkTexture:ClearAllPoints()\n    self.OGC_BlinkTexture:SetPoint(\"topleft\", self, \"topleft\", 0, 0)\n    self.OGC_BlinkTexture:SetPoint(\"bottomright\", self, \"bottomright\", 0, 0)\n    \n    local red, green, blue = Plater:ParseColors(scriptTable.config.blinkColor)\n    self.OGC_BlinkTexture:SetVertexColor(red, green, blue)\n    \n    local blinkSpeed = scriptTable.config.speed\n    \n    self.OGC_BlinkAnimation.In:SetDuration(blinkSpeed)\n    self.OGC_BlinkAnimation.Out:SetDuration(blinkSpeed)\n    \n    local minBlinkAlpha = scriptTable.config.minAlpha\n    local maxBlinkAlpha = scriptTable.config.maxAlpha\n    \n    self.OGC_BlinkAnimation.In:SetFromAlpha(minBlinkAlpha)\n    self.OGC_BlinkAnimation.In:SetToAlpha(maxBlinkAlpha)\n    self.OGC_BlinkAnimation.Out:SetFromAlpha(maxBlinkAlpha)    \n    self.OGC_BlinkAnimation.Out:SetToAlpha(minBlinkAlpha)\n    \n    self.OGC_BlinkAnimation:SetLooping(\"repeat\")\n    self.OGC_BlinkAnimation:Play()\n    \n    envTable.dotAnimation1 = Plater.PlayDotAnimation(self, 2, scriptTable.config.dotColor, scriptTable.config.xOffset, scriptTable.config.yOffset)\n    envTable.dotAnimation1.textureInfo.speedMultiplier = 0.3\n    \n    envTable.dotAnimation2 = Plater.PlayDotAnimation(self, 2, scriptTable.config.dotColor, scriptTable.config.xOffset, scriptTable.config.yOffset)\n    envTable.dotAnimation2.textureInfo.speedMultiplier = 1\n    \nend",
-["Name"] = "Cast - On Going Cast [P]",
-["Prio"] = 99,
-["version"] = -1,
-["PlaterCore"] = 1,
-["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \nend\n\n\n",
-["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    --create a flash texture which keep blinking while the cast in going on\n    self.OGC_BlinkTexture = self.OGC_BlinkTexture or self:CreateTexture(nil, \"overlay\")\n    self.OGC_BlinkTexture:SetColorTexture(1, 1, 1)\n    self.OGC_BlinkTexture:SetAlpha(0)\n    \n    --create the animation group for the blinking texture\n    self.OGC_BlinkAnimation = self.OGC_BlinkAnimation or Plater:CreateAnimationHub(self.OGC_BlinkTexture, function() self.OGC_BlinkTexture:Show() end, function() self.OGC_BlinkTexture:Hide() end)\n    \n    self.OGC_BlinkAnimation.In = self.OGC_BlinkAnimation.In or Plater:CreateAnimation(self.OGC_BlinkAnimation, \"alpha\", 1, 0.5, 0.3, 1)\n    \n    self.OGC_BlinkAnimation.Out = self.OGC_BlinkAnimation.Out or Plater:CreateAnimation(self.OGC_BlinkAnimation, \"alpha\", 2, 0.5, 1, 0.2)    \n    \n    \nend\n\n\n",
 ["Options"] = {
 {
 ["Type"] = 1,
@@ -14242,6 +14363,22 @@ nil,
 ["Desc"] = "Color of the blinking texture",
 },
 },
+["OnShowCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    self.OGC_BlinkTexture:ClearAllPoints()\n    self.OGC_BlinkTexture:SetPoint(\"topleft\", self, \"topleft\", 0, 0)\n    self.OGC_BlinkTexture:SetPoint(\"bottomright\", self, \"bottomright\", 0, 0)\n    \n    local red, green, blue = Plater:ParseColors(scriptTable.config.blinkColor)\n    self.OGC_BlinkTexture:SetVertexColor(red, green, blue)\n    \n    local blinkSpeed = scriptTable.config.speed\n    \n    self.OGC_BlinkAnimation.In:SetDuration(blinkSpeed)\n    self.OGC_BlinkAnimation.Out:SetDuration(blinkSpeed)\n    \n    local minBlinkAlpha = scriptTable.config.minAlpha\n    local maxBlinkAlpha = scriptTable.config.maxAlpha\n    \n    self.OGC_BlinkAnimation.In:SetFromAlpha(minBlinkAlpha)\n    self.OGC_BlinkAnimation.In:SetToAlpha(maxBlinkAlpha)\n    self.OGC_BlinkAnimation.Out:SetFromAlpha(maxBlinkAlpha)    \n    self.OGC_BlinkAnimation.Out:SetToAlpha(minBlinkAlpha)\n    \n    self.OGC_BlinkAnimation:SetLooping(\"repeat\")\n    self.OGC_BlinkAnimation:Play()\n    \n    envTable.dotAnimation1 = Plater.PlayDotAnimation(self, 2, scriptTable.config.dotColor, scriptTable.config.xOffset, scriptTable.config.yOffset)\n    envTable.dotAnimation1.textureInfo.speedMultiplier = 0.3\n    \n    envTable.dotAnimation2 = Plater.PlayDotAnimation(self, 2, scriptTable.config.dotColor, scriptTable.config.xOffset, scriptTable.config.yOffset)\n    envTable.dotAnimation2.textureInfo.speedMultiplier = 1\n    \nend",
+["Name"] = "Cast - On Going Cast [P]",
+["Author"] = "Ditador-Azralon",
+["Initialization"] = "		function (scriptTable)\n			--insert code here\n			\n		end\n	",
+["Desc"] = "The background of the nameplate blinks a red color indicating the cast is being performed. Useful to indicate channeling spells doing damage overtime.",
+["SpellIds"] = {
+388886,
+209676,
+377912,
+},
+["Temp_UpdateCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    --insert code here\n    \nend\n\n\n",
+["version"] = -1,
+["PlaterCore"] = 1,
+["Prio"] = 99,
+["Temp_ConstructorCode"] = "function (self, unitId, unitFrame, envTable, scriptTable)\n    \n    --create a flash texture which keep blinking while the cast in going on\n    self.OGC_BlinkTexture = self.OGC_BlinkTexture or self:CreateTexture(nil, \"overlay\")\n    self.OGC_BlinkTexture:SetColorTexture(1, 1, 1)\n    self.OGC_BlinkTexture:SetAlpha(0)\n    \n    --create the animation group for the blinking texture\n    self.OGC_BlinkAnimation = self.OGC_BlinkAnimation or Plater:CreateAnimationHub(self.OGC_BlinkTexture, function() self.OGC_BlinkTexture:Show() end, function() self.OGC_BlinkTexture:Hide() end)\n    \n    self.OGC_BlinkAnimation.In = self.OGC_BlinkAnimation.In or Plater:CreateAnimation(self.OGC_BlinkAnimation, \"alpha\", 1, 0.5, 0.3, 1)\n    \n    self.OGC_BlinkAnimation.Out = self.OGC_BlinkAnimation.Out or Plater:CreateAnimation(self.OGC_BlinkAnimation, \"alpha\", 2, 0.5, 1, 0.2)    \n    \n    \nend\n\n\n",
+["semver"] = "",
 ["Temp_Initialization"] = "		function (scriptTable)\n			--insert code here\n			\n		end\n	",
 },
 },
@@ -14254,11 +14391,7 @@ nil,
 ["patch_version"] = 35,
 ["no_spellname_length_limit"] = true,
 ["range_check_in_range_or_target_alpha"] = 1,
-["captured_casts"] = {
-[41360] = {
-["npcID"] = 23394,
-},
-},
+["aura_timer_text_size"] = 12,
 ["health_animation_time_dilatation"] = 2.8499999046326,
 ["number_region_first_run"] = true,
 ["border_color"] = {
@@ -14309,20 +14442,12 @@ nil,
 },
 },
 ["extra_icon_height"] = 20,
-["healthbar_framelevel"] = 0,
-["tank"] = {
-["colors"] = {
-["aggro"] = {
-0.30196078431373,
-0.72156862745098,
-},
-["pulling"] = {
+["aura_stack_color"] = {
 nil,
-0.91372549019608,
-0.99607843137255,
+0.9843137254902,
+0.97254901960784,
 },
-},
-},
+["aura_show_enrage"] = true,
 ["auto_toggle_stacking"] = {
 ["cities"] = true,
 },
@@ -15389,6 +15514,12 @@ nil,
 ["npcID"] = 27483,
 ["encounterID"] = 373,
 },
+[41057] = {
+["isChanneled"] = true,
+["source"] = "邪恶之斧",
+["event"] = "SPELL_CAST_SUCCESS",
+["npcID"] = 16194,
+},
 [49309] = {
 ["npcID"] = 32340,
 },
@@ -16376,6 +16507,12 @@ nil,
 ["encounterID"] = 851,
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 36678,
+},
+[55463] = {
+["isChanneled"] = true,
+["event"] = "SPELL_CAST_SUCCESS",
+["source"] = "邪恶之斧",
+["npcID"] = 16194,
 },
 [37104] = {
 ["npcID"] = 20041,
@@ -17425,11 +17562,50 @@ nil,
 [44475] = {
 ["npcID"] = 24683,
 },
+[49592] = {
+["encounterName"] = "魔网守护者埃雷苟斯",
+["source"] = "琥珀幼龙",
+["encounterID"] = 534,
+["isChanneled"] = true,
+["event"] = "SPELL_CAST_SUCCESS",
+["npcID"] = 27755,
+},
+[54805] = {
+["isChanneled"] = true,
+["source"] = "眼柄",
+["event"] = "SPELL_CAST_SUCCESS",
+["npcID"] = 16236,
+},
+[13901] = {
+["source"] = "暗潮女巫",
+["event"] = "SPELL_CAST_START",
+["npcID"] = 19947,
+},
+[55267] = {
+["isChanneled"] = true,
+["event"] = "SPELL_CAST_SUCCESS",
+["source"] = "黑暗战士",
+["npcID"] = 16156,
+},
 [59252] = {
 ["npcID"] = 26694,
 },
 [31713] = {
 ["npcID"] = 29000,
+},
+[55266] = {
+["isChanneled"] = true,
+["event"] = "SPELL_CAST_SUCCESS",
+["source"] = "黑暗战士",
+["npcID"] = 16156,
+},
+[58827] = {
+["encounterName"] = "塑血者沙尔拉姆",
+["encounterID"] = 294,
+["npcID"] = 26530,
+},
+[52118] = {
+["npcID"] = 27007,
 },
 [63666] = {
 ["encounterName"] = "米米尔隆",
@@ -17438,19 +17614,11 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["encounterID"] = 754,
 },
-[13901] = {
-["source"] = "暗潮女巫",
-["event"] = "SPELL_CAST_START",
-["npcID"] = 19947,
+[33969] = {
+["npcID"] = 18981,
 },
 [41277] = {
 ["npcID"] = 23196,
-},
-[32686] = {
-["isChanneled"] = true,
-["source"] = "末日行者",
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 17711,
 },
 [39082] = {
 ["source"] = "王座卫兵领主",
@@ -17461,54 +17629,6 @@ nil,
 ["source"] = "大型魔能火花",
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 22323,
-},
-[52118] = {
-["npcID"] = 27007,
-},
-[58827] = {
-["encounterName"] = "塑血者沙尔拉姆",
-["encounterID"] = 294,
-["npcID"] = 26530,
-},
-[62131] = {
-["encounterName"] = "托里姆",
-["source"] = "托里姆",
-["encounterID"] = 752,
-["event"] = "SPELL_CAST_START",
-["npcID"] = 32865,
-},
-[53426] = {
-["encounterName"] = "鱼斯拉",
-["source"] = "你看我美吗",
-["npcID"] = 29452,
-["isChanneled"] = true,
-["event"] = "SPELL_CAST_SUCCESS",
-["encounterID"] = 624,
-},
-[39329] = {
-["encounterName"] = "大星术师索兰莉安",
-["source"] = "大星术师索兰莉安",
-["npcID"] = 18805,
-["event"] = "SPELL_CAST_START",
-["encounterID"] = 732,
-},
-[28099] = {
-["encounterName"] = "塔迪乌斯",
-["encounterID"] = 1120,
-["npcID"] = 16218,
-},
-[38264] = {
-["isChanneled"] = true,
-["source"] = "镜像",
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 205998,
-},
-[33387] = {
-["encounterName"] = "大星术师索兰莉安",
-["source"] = "日晷祭司",
-["npcID"] = 18806,
-["event"] = "SPELL_CAST_START",
-["encounterID"] = 732,
 },
 [62601] = {
 ["encounterName"] = "托里姆",
@@ -17522,44 +17642,65 @@ nil,
 ["npcID"] = 27169,
 ["encounterID"] = 618,
 },
-[59994] = {
-["encounterName"] = "传令官沃拉兹",
-["npcID"] = 30622,
-["encounterID"] = 215,
+[38264] = {
+["isChanneled"] = true,
+["source"] = "镜像",
+["event"] = "SPELL_CAST_SUCCESS",
+["npcID"] = 205998,
+},
+[62131] = {
+["encounterName"] = "托里姆",
+["source"] = "托里姆",
+["encounterID"] = 752,
+["event"] = "SPELL_CAST_START",
+["npcID"] = 32865,
+},
+[33387] = {
+["encounterName"] = "大星术师索兰莉安",
+["source"] = "日晷祭司",
+["npcID"] = 18806,
+["event"] = "SPELL_CAST_START",
+["encounterID"] = 732,
+},
+[38295] = {
+["encounterName"] = "瓦丝琪",
+["source"] = "瓦丝琪",
+["npcID"] = 21212,
+["event"] = "SPELL_CAST_START",
+["encounterID"] = 628,
+},
+[28099] = {
+["encounterName"] = "塔迪乌斯",
+["encounterID"] = 1120,
+["npcID"] = 16218,
 },
 [53333] = {
 ["encounterName"] = "看门者克里克希尔",
 ["npcID"] = 29064,
 ["encounterID"] = 216,
 },
-[69906] = {
-["isChanneled"] = true,
-["event"] = "SPELL_CAST_SUCCESS",
-["source"] = "破天号传教师",
-["npcID"] = 37021,
+[39329] = {
+["encounterName"] = "大星术师索兰莉安",
+["source"] = "大星术师索兰莉安",
+["npcID"] = 18805,
+["event"] = "SPELL_CAST_START",
+["encounterID"] = 732,
 },
-[69066] = {
+[71258] = {
 ["isChanneled"] = true,
+["source"] = "伊米亚女武神",
 ["event"] = "SPELL_CAST_SUCCESS",
-["source"] = "护魂精兵",
-["npcID"] = 36620,
+["npcID"] = 37132,
 },
 [40088] = {
 ["npcID"] = 22875,
 },
-[60916] = {
-["npcID"] = 32353,
-},
-[15253] = {
-["npcID"] = 15981,
-},
-[59663] = {
-["npcID"] = 31775,
-},
-[38591] = {
+[38310] = {
+["encounterName"] = "瓦丝琪",
+["source"] = "瓦丝琪",
+["npcID"] = 21212,
 ["event"] = "SPELL_CAST_START",
-["source"] = "盘牙粉碎者",
-["npcID"] = 21301,
+["encounterID"] = 628,
 },
 [71621] = {
 ["encounterName"] = "普崔塞德教授",
@@ -17568,8 +17709,11 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["encounterID"] = 851,
 },
-[44639] = {
-["npcID"] = 24696,
+[69066] = {
+["isChanneled"] = true,
+["event"] = "SPELL_CAST_SUCCESS",
+["source"] = "护魂精兵",
+["npcID"] = 36620,
 },
 [71251] = {
 ["isChanneled"] = true,
@@ -17577,16 +17721,14 @@ nil,
 ["event"] = "SPELL_CAST_SUCCESS",
 ["npcID"] = 37134,
 },
-[68958] = {
-["encounterName"] = "奥妮克希亚",
-["source"] = "奥妮克希亚巢穴守卫",
-["encounterID"] = 1084,
-["event"] = "SPELL_CAST_START",
-["npcID"] = 36561,
+[59663] = {
+["npcID"] = 31775,
 },
-[59381] = {
-["encounterName"] = "魔网守护者埃雷苟斯",
-["npcID"] = 27656,
+[60916] = {
+["npcID"] = 32353,
+},
+[15253] = {
+["npcID"] = 15981,
 },
 [69586] = {
 ["isChanneled"] = true,
@@ -17594,12 +17736,42 @@ nil,
 ["source"] = "伊米亚拥火者",
 ["npcID"] = 36893,
 },
+[38591] = {
+["event"] = "SPELL_CAST_START",
+["source"] = "盘牙粉碎者",
+["npcID"] = 21301,
+},
+[41171] = {
+["npcID"] = 23339,
+},
+[59189] = {
+["source"] = "塔尼布隆",
+["event"] = "SPELL_CAST_START",
+["npcID"] = 30452,
+},
+[11820] = {
+["npcID"] = 26343,
+},
+[61513] = {
+["npcID"] = 27971,
+},
+[59381] = {
+["encounterName"] = "魔网守护者埃雷苟斯",
+["npcID"] = 27656,
+},
 [18500] = {
 ["encounterName"] = "奥妮克希亚",
 ["source"] = "奥妮克希亚",
 ["encounterID"] = 1084,
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 10184,
+},
+[68504] = {
+["encounterName"] = "总冠军",
+["source"] = "安布罗斯·雷钉",
+["encounterID"] = 334,
+["event"] = "SPELL_CAST_START",
+["npcID"] = 34702,
 },
 [41150] = {
 ["npcID"] = 22855,
@@ -17614,13 +17786,10 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["encounterID"] = 756,
 },
-[50344] = {
-["encounterName"] = "魔网守护者埃雷苟斯",
-["source"] = "翡翠幼龙",
-["encounterID"] = 534,
-["isChanneled"] = true,
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 27692,
+[71337] = {
+["source"] = "冰卫训练师",
+["event"] = "SPELL_CAST_START",
+["npcID"] = 37531,
 },
 [70498] = {
 ["encounterName"] = "巫妖王",
@@ -17646,27 +17815,22 @@ nil,
 [28995] = {
 ["npcID"] = 16446,
 },
-[41171] = {
-["npcID"] = 23339,
+[59210] = {
+["npcID"] = 27636,
 },
-[11820] = {
-["npcID"] = 26343,
-},
-[61513] = {
-["npcID"] = 27971,
-},
-[15589] = {
+[66495] = {
+["encounterName"] = "加拉克苏斯大王",
+["source"] = "魔焰地狱火",
+["npcID"] = 34815,
 ["isChanneled"] = true,
 ["event"] = "SPELL_CAST_SUCCESS",
-["source"] = "血警卫典狱长",
-["npcID"] = 20035,
+["encounterID"] = 633,
 },
-[68504] = {
-["encounterName"] = "总冠军",
-["source"] = "安布罗斯·雷钉",
-["encounterID"] = 334,
-["event"] = "SPELL_CAST_START",
-["npcID"] = 34702,
+[71956] = {
+["isChanneled"] = true,
+["source"] = "痛苦的精魂",
+["event"] = "SPELL_CAST_SUCCESS",
+["npcID"] = 38410,
 },
 [62324] = {
 ["encounterName"] = "烈焰巨兽",
@@ -17674,6 +17838,16 @@ nil,
 ["npcID"] = 33109,
 ["event"] = "SPELL_CAST_START",
 ["encounterID"] = 744,
+},
+[11829] = {
+["npcID"] = 16905,
+},
+[66118] = {
+["encounterName"] = "阿努巴拉克",
+["source"] = "阿努巴拉克",
+["npcID"] = 34564,
+["event"] = "SPELL_CAST_START",
+["encounterID"] = 645,
 },
 [71778] = {
 ["event"] = "SPELL_CAST_START",
@@ -17700,29 +17874,8 @@ nil,
 ["npcID"] = 31125,
 ["encounterID"] = 772,
 },
-[66495] = {
-["encounterName"] = "加拉克苏斯大王",
-["source"] = "魔焰地狱火",
-["npcID"] = 34815,
-["isChanneled"] = true,
-["event"] = "SPELL_CAST_SUCCESS",
-["encounterID"] = 633,
-},
-[59210] = {
-["npcID"] = 27636,
-},
-[31664] = {
-["npcID"] = 17906,
-},
-[11829] = {
-["npcID"] = 16905,
-},
-[66118] = {
-["encounterName"] = "阿努巴拉克",
-["source"] = "阿努巴拉克",
-["npcID"] = 34564,
-["event"] = "SPELL_CAST_START",
-["encounterID"] = 645,
+[46608] = {
+["npcID"] = 11949,
 },
 [18435] = {
 ["encounterName"] = "奥妮克希亚",
@@ -17731,19 +17884,44 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 10184,
 },
-[9672] = {
-["npcID"] = 25719,
-},
-[46608] = {
-["npcID"] = 11949,
-},
-[59254] = {
-["npcID"] = 28368,
-},
 [28280] = {
 ["encounterName"] = "阿努布雷坎",
 ["encounterID"] = 1107,
 ["npcID"] = 15931,
+},
+[69963] = {
+["source"] = "破天号传教师",
+["event"] = "SPELL_CAST_START",
+["npcID"] = 37021,
+},
+[70306] = {
+["source"] = "冰霜之刃",
+["event"] = "SPELL_CAST_START",
+["npcID"] = 37670,
+},
+[63149] = {
+["encounterName"] = "弗蕾亚",
+["event"] = "SPELL_CAST_START",
+["source"] = "被腐蚀的仆从",
+["npcID"] = 33354,
+},
+[9672] = {
+["npcID"] = 25719,
+},
+[64647] = {
+["source"] = "寒冬滚石",
+["event"] = "SPELL_CAST_START",
+["npcID"] = 34135,
+},
+[59254] = {
+["npcID"] = 28368,
+},
+[67751] = {
+["encounterName"] = "黑骑士",
+["source"] = "黑骑士",
+["npcID"] = 35451,
+["event"] = "SPELL_CAST_START",
+["encounterID"] = 340,
 },
 [6917] = {
 ["npcID"] = 25445,
@@ -17754,29 +17932,27 @@ nil,
 ["source"] = "幽暗沼泽巨人",
 ["npcID"] = 21251,
 },
-[69963] = {
-["source"] = "破天号传教师",
+[68959] = {
+["encounterName"] = "奥妮克希亚",
+["source"] = "奥妮克希亚巢穴守卫",
+["encounterID"] = 1084,
 ["event"] = "SPELL_CAST_START",
-["npcID"] = 37021,
+["npcID"] = 36561,
 },
 [35010] = {
 ["npcID"] = 27963,
 },
-[59638] = {
-["npcID"] = 31216,
-},
-[70306] = {
-["source"] = "冰霜之刃",
-["event"] = "SPELL_CAST_START",
-["npcID"] = 37670,
-},
-[47484] = {
-["encounterName"] = "迦顿男爵",
-["source"] = "利齿碾压者",
-["npcID"] = 26125,
+[37121] = {
 ["isChanneled"] = true,
 ["event"] = "SPELL_CAST_SUCCESS",
-["encounterID"] = 668,
+["source"] = "晶核机械师",
+["npcID"] = 20052,
+},
+[17435] = {
+["npcID"] = 29109,
+},
+[37249] = {
+["npcID"] = 20032,
 },
 [31970] = {
 ["encounterName"] = "阿克蒙德",
@@ -17788,22 +17964,24 @@ nil,
 ["npcID"] = 22951,
 ["encounterID"] = 608,
 },
-[59727] = {
-["encounterName"] = "悲伤圣女",
-["encounterID"] = 565,
-["npcID"] = 27975,
-},
-[67751] = {
-["encounterName"] = "黑骑士",
-["source"] = "黑骑士",
-["npcID"] = 35451,
+[62344] = {
 ["event"] = "SPELL_CAST_START",
-["encounterID"] = 340,
+["source"] = "石树长老",
+["npcID"] = 32914,
 },
-[64647] = {
-["source"] = "寒冬滚石",
+[65876] = {
+["encounterName"] = "瓦格里双子",
+["source"] = "光明邪使菲奥拉",
+["encounterID"] = 641,
 ["event"] = "SPELL_CAST_START",
-["npcID"] = 34135,
+["npcID"] = 34497,
+},
+[69570] = {
+["encounterName"] = "领主泰兰努斯",
+["source"] = "获释的部落奴隶",
+["npcID"] = 37579,
+["event"] = "SPELL_CAST_START",
+["encounterID"] = 837,
 },
 [71140] = {
 ["source"] = "凋零憎恶",
@@ -17820,27 +17998,23 @@ nil,
 ["npcID"] = 29266,
 ["encounterID"] = 2661,
 },
-[68959] = {
-["encounterName"] = "奥妮克希亚",
-["source"] = "奥妮克希亚巢穴守卫",
-["encounterID"] = 1084,
-["event"] = "SPELL_CAST_START",
-["npcID"] = 36561,
+[59368] = {
+["encounterName"] = "看门者克里克希尔",
+["npcID"] = 28684,
+["encounterID"] = 216,
 },
-[17435] = {
-["npcID"] = 29109,
-},
-[65876] = {
-["encounterName"] = "瓦格里双子",
-["source"] = "光明邪使菲奥拉",
-["encounterID"] = 641,
+[20817] = {
+["source"] = "法力犬",
 ["event"] = "SPELL_CAST_START",
-["npcID"] = 34497,
+["npcID"] = 8718,
 },
-[62344] = {
-["event"] = "SPELL_CAST_START",
-["source"] = "石树长老",
-["npcID"] = 32914,
+[59376] = {
+["encounterName"] = "法师领主伊洛姆",
+["encounterID"] = 532,
+["npcID"] = 27655,
+},
+[52496] = {
+["npcID"] = 27734,
 },
 [64692] = {
 ["source"] = "机械侏儒作战坦克",
@@ -17858,32 +18032,33 @@ nil,
 ["encounterName"] = "哈多诺克斯",
 ["npcID"] = 30276,
 },
-[60009] = {
-["encounterName"] = "传令官沃拉兹",
-["npcID"] = 30621,
-["encounterID"] = 215,
-},
 [20831] = {
 ["npcID"] = 30376,
 },
-[38183] = {
-["npcID"] = 17905,
+[70410] = {
+["source"] = "黑暗堕落者大法师",
+["event"] = "SPELL_CAST_START",
+["npcID"] = 37664,
+},
+[69056] = {
+["event"] = "SPELL_CAST_START",
+["source"] = "护魂守卫",
+["npcID"] = 36478,
 },
 [44606] = {
 ["npcID"] = 24685,
 },
-[20817] = {
-["source"] = "法力犬",
+[70194] = {
+["encounterName"] = "逃离阿尔萨斯",
 ["event"] = "SPELL_CAST_START",
-["npcID"] = 8718,
+["source"] = "希尔瓦娜斯·风行者",
+["npcID"] = 37554,
 },
-[52496] = {
-["npcID"] = 27734,
+[44599] = {
+["npcID"] = 24687,
 },
-[45235] = {
-["encounterName"] = "艾瑞达双子",
-["encounterID"] = 727,
-["npcID"] = 25166,
+[58980] = {
+["npcID"] = 29826,
 },
 [32674] = {
 ["npcID"] = 31043,
@@ -17896,10 +18071,8 @@ nil,
 ["npcID"] = 25214,
 ["encounterID"] = 727,
 },
-[70410] = {
-["source"] = "黑暗堕落者大法师",
-["event"] = "SPELL_CAST_START",
-["npcID"] = 37664,
+[43240] = {
+["npcID"] = 23596,
 },
 [63541] = {
 ["event"] = "SPELL_CAST_START",
@@ -17916,11 +18089,8 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 37970,
 },
-[70194] = {
-["encounterName"] = "逃离阿尔萨斯",
-["event"] = "SPELL_CAST_START",
-["source"] = "希尔瓦娜斯·风行者",
-["npcID"] = 37554,
+[56277] = {
+["npcID"] = 4949,
 },
 [72293] = {
 ["encounterName"] = "死亡使者萨鲁法尔",
@@ -17929,11 +18099,11 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 37813,
 },
-[44599] = {
-["npcID"] = 24687,
+[27794] = {
+["npcID"] = 16017,
 },
-[58980] = {
-["npcID"] = 29826,
+[41056] = {
+["npcID"] = 30666,
 },
 [66536] = {
 ["encounterName"] = "银色勇士",
@@ -17942,8 +18112,10 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 34928,
 },
-[41056] = {
-["npcID"] = 30666,
+[42027] = {
+["encounterName"] = "阿卡玛之影",
+["npcID"] = 23524,
+["encounterID"] = 603,
 },
 [68839] = {
 ["encounterName"] = "布隆亚姆",
@@ -17963,35 +18135,31 @@ nil,
 [51963] = {
 ["npcID"] = 27829,
 },
-[42027] = {
-["encounterName"] = "阿卡玛之影",
-["npcID"] = 23524,
-["encounterID"] = 603,
+[63242] = {
+["event"] = "SPELL_CAST_START",
+["source"] = "红木树人",
+["npcID"] = 33525,
 },
 [54138] = {
 ["encounterName"] = "Xevozz",
 ["npcID"] = 29266,
 ["encounterID"] = 2661,
 },
-[70372] = {
-["encounterName"] = "巫妖王",
-["source"] = "巫妖王",
-["npcID"] = 36597,
-["event"] = "SPELL_CAST_START",
-["encounterID"] = 856,
+[31299] = {
+["encounterName"] = "安纳塞隆",
+["npcID"] = 17808,
+["encounterID"] = 619,
 },
-[33924] = {
-["npcID"] = 19424,
+[60919] = {
+["npcID"] = 32353,
 },
 [71782] = {
 ["source"] = "阿纳斯上尉",
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 37122,
 },
-[31299] = {
-["encounterName"] = "安纳塞隆",
-["npcID"] = 17808,
-["encounterID"] = 619,
+[33924] = {
+["npcID"] = 19424,
 },
 [56505] = {
 ["encounterName"] = "玛里苟斯",
@@ -18003,25 +18171,25 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 38172,
 },
+[60936] = {
+["encounterName"] = "玛里苟斯",
+["encounterID"] = 734,
+["npcID"] = 28859,
+},
+[64966] = {
+["event"] = "SPELL_CAST_START",
+["source"] = "发条机械师",
+["npcID"] = 34184,
+},
+[44479] = {
+["npcID"] = 24684,
+},
 [66537] = {
 ["encounterName"] = "银色勇士",
 ["source"] = "银色神官帕尔崔丝",
 ["npcID"] = 34928,
 ["event"] = "SPELL_CAST_START",
 ["encounterID"] = 338,
-},
-[70759] = {
-["encounterName"] = "踏梦者瓦莉瑟瑞娅",
-["source"] = "复生的大法师",
-["npcID"] = 37868,
-["event"] = "SPELL_CAST_START",
-["encounterID"] = 854,
-},
-[44479] = {
-["npcID"] = 24684,
-},
-[60919] = {
-["npcID"] = 32353,
 },
 [66665] = {
 ["encounterName"] = "火焰看守者科拉隆",
@@ -18030,13 +18198,19 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["encounterID"] = 776,
 },
-[63242] = {
+[70759] = {
+["encounterName"] = "踏梦者瓦莉瑟瑞娅",
+["source"] = "复生的大法师",
+["npcID"] = 37868,
 ["event"] = "SPELL_CAST_START",
-["source"] = "红木树人",
-["npcID"] = 33525,
+["encounterID"] = 854,
 },
-[17290] = {
-["npcID"] = 30111,
+[66902] = {
+["encounterName"] = "诺森德猛兽",
+["source"] = "恐鳞",
+["npcID"] = 34799,
+["event"] = "SPELL_CAST_START",
+["encounterID"] = 629,
 },
 [44799] = {
 ["encounterName"] = "卡雷苟斯",
@@ -18048,23 +18222,19 @@ nil,
 ["npcID"] = 20060,
 ["encounterID"] = 733,
 },
-[66902] = {
-["encounterName"] = "诺森德猛兽",
-["source"] = "恐鳞",
-["npcID"] = 34799,
-["event"] = "SPELL_CAST_START",
-["encounterID"] = 629,
+[15530] = {
+["npcID"] = 19258,
 },
-[16564] = {
-["npcID"] = 31040,
+[17290] = {
+["npcID"] = 30111,
 },
 [31747] = {
 ["npcID"] = 16844,
 },
-[60936] = {
-["encounterName"] = "玛里苟斯",
-["encounterID"] = 734,
-["npcID"] = 28859,
+[51112] = {
+["encounterName"] = "法师领主伊洛姆",
+["encounterID"] = 532,
+["npcID"] = 27655,
 },
 [57465] = {
 ["encounterName"] = "天启四骑士",
@@ -18078,15 +18248,15 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 37970,
 },
-[64966] = {
-["event"] = "SPELL_CAST_START",
-["source"] = "发条机械师",
-["npcID"] = 34184,
-},
 [31739] = {
 ["encounterName"] = "安纳塞隆",
 ["encounterID"] = 619,
 ["npcID"] = 17928,
+},
+[72222] = {
+["event"] = "SPELL_CAST_START",
+["source"] = "受尽折磨的火枪手",
+["npcID"] = 38176,
 },
 [37251] = {
 ["npcID"] = 20032,
@@ -18108,18 +18278,6 @@ nil,
 ["npcID"] = 24244,
 ["encounterID"] = 1193,
 },
-[66794] = {
-["encounterName"] = "诺森德猛兽",
-["source"] = "酸喉",
-["encounterID"] = 629,
-["event"] = "SPELL_CAST_START",
-["npcID"] = 35144,
-},
-[40832] = {
-["encounterName"] = "伊利丹·怒风",
-["npcID"] = 22917,
-["encounterID"] = 609,
-},
 [19785] = {
 ["encounterName"] = "萨弗隆先驱者",
 ["source"] = "萨弗隆先驱者",
@@ -18127,10 +18285,16 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["encounterID"] = 669,
 },
-[51112] = {
-["encounterName"] = "法师领主伊洛姆",
-["encounterID"] = 532,
-["npcID"] = 27655,
+[41372] = {
+["npcID"] = 23400,
+},
+[71350] = {
+["source"] = "霜翼幼龙",
+["event"] = "SPELL_CAST_START",
+["npcID"] = 37532,
+},
+[51808] = {
+["npcID"] = 26828,
 },
 [62327] = {
 ["encounterName"] = "托里姆",
@@ -18139,13 +18303,13 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 32878,
 },
-[51808] = {
-["npcID"] = 26828,
+[12466] = {
+["encounterName"] = "大魔导师泰蕾丝塔",
+["npcID"] = 26727,
+["encounterID"] = 520,
 },
-[72222] = {
-["event"] = "SPELL_CAST_START",
-["source"] = "受尽折磨的火枪手",
-["npcID"] = 38176,
+[59108] = {
+["npcID"] = 30279,
 },
 [54331] = {
 ["npcID"] = 16029,
@@ -18162,23 +18326,27 @@ nil,
 ["encounterID"] = 1894,
 ["npcID"] = 24664,
 },
-[28293] = {
-["npcID"] = 16021,
+[64758] = {
+["encounterName"] = "锋鳞",
+["source"] = "黑暗符文哨兵",
+["encounterID"] = 746,
+["event"] = "SPELL_CAST_START",
+["npcID"] = 33453,
 },
-[41372] = {
-["npcID"] = 23400,
+[51805] = {
+["npcID"] = 27966,
 },
 [56698] = {
 ["encounterName"] = "哈多诺克斯",
 ["npcID"] = 30278,
 },
-[71350] = {
-["source"] = "霜翼幼龙",
-["event"] = "SPELL_CAST_START",
-["npcID"] = 37532,
+[36631] = {
+["npcID"] = 26127,
 },
-[44577] = {
-["npcID"] = 24815,
+[59365] = {
+["encounterName"] = "看门者克里克希尔",
+["npcID"] = 28729,
+["encounterID"] = 216,
 },
 [38659] = {
 ["isChanneled"] = true,
@@ -18197,16 +18365,22 @@ nil,
 [48894] = {
 ["npcID"] = 26639,
 },
-[12466] = {
-["encounterName"] = "大魔导师泰蕾丝塔",
-["npcID"] = 26727,
-["encounterID"] = 520,
+[66104] = {
+["encounterName"] = "阵营冠军",
+["source"] = "安塔尔·缮炉者",
+["encounterID"] = 637,
+["event"] = "SPELL_CAST_START",
+["npcID"] = 34466,
 },
 [32707] = {
 ["npcID"] = 24978,
 },
-[59108] = {
-["npcID"] = 30279,
+[73142] = {
+["encounterName"] = "玛洛加尔领主",
+["source"] = "玛洛加尔领主",
+["npcID"] = 36612,
+["event"] = "SPELL_CAST_START",
+["encounterID"] = 845,
 },
 [63479] = {
 ["encounterName"] = "钢铁议会",
@@ -18215,11 +18389,11 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["encounterID"] = 748,
 },
-[51805] = {
-["npcID"] = 27966,
+[7068] = {
+["npcID"] = 6426,
 },
-[36631] = {
-["npcID"] = 26127,
+[47310] = {
+["npcID"] = 23872,
 },
 [45248] = {
 ["encounterName"] = "艾瑞达双子",
@@ -18231,28 +18405,30 @@ nil,
 ["source"] = "鬼魂法师",
 ["npcID"] = 38172,
 },
-[59365] = {
-["encounterName"] = "看门者克里克希尔",
-["npcID"] = 28729,
-["encounterID"] = 216,
+[57381] = {
+["encounterName"] = "天启四骑士",
+["encounterID"] = 1121,
+["npcID"] = 16065,
 },
-[31330] = {
-["npcID"] = 17852,
+[44196] = {
+["encounterName"] = "凯尔萨斯·逐日者",
+["npcID"] = 24674,
+["encounterID"] = 1894,
 },
 [41410] = {
 ["encounterName"] = "灵魂之匣",
 ["encounterID"] = 606,
 ["npcID"] = 23419,
 },
-[73142] = {
-["encounterName"] = "玛洛加尔领主",
-["source"] = "玛洛加尔领主",
-["npcID"] = 36612,
-["event"] = "SPELL_CAST_START",
-["encounterID"] = 845,
+[54369] = {
+["encounterName"] = "Zuramat",
+["npcID"] = 29314,
+["encounterID"] = 2663,
 },
-[7068] = {
-["npcID"] = 6426,
+[70460] = {
+["event"] = "SPELL_CAST_START",
+["source"] = "冻霜陷阱",
+["npcID"] = 37744,
 },
 [55931] = {
 ["encounterName"] = "塔达拉姆王子",
@@ -18286,8 +18462,10 @@ nil,
 [41986] = {
 ["npcID"] = 23398,
 },
-[47310] = {
-["npcID"] = 23872,
+[64662] = {
+["source"] = "暮光追随者",
+["event"] = "SPELL_CAST_START",
+["npcID"] = 33818,
 },
 [54396] = {
 ["isChanneled"] = true,
@@ -18312,46 +18490,55 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 33293,
 },
-[37361] = {
-["npcID"] = 11838,
+[31627] = {
+["npcID"] = 17899,
 },
 [58849] = {
 ["encounterName"] = "玛尔加尼斯",
 ["npcID"] = 26533,
 ["encounterID"] = 296,
 },
-[70460] = {
-["event"] = "SPELL_CAST_START",
-["source"] = "冻霜陷阱",
-["npcID"] = 37744,
+[59016] = {
+["encounterName"] = "召唤者诺沃斯",
+["npcID"] = 27600,
+["encounterID"] = 371,
 },
 [17195] = {
 ["npcID"] = 30416,
 },
-[20793] = {
-["npcID"] = 25470,
+[49241] = {
+["npcID"] = 27542,
 },
-[64662] = {
-["source"] = "暮光追随者",
-["event"] = "SPELL_CAST_START",
-["npcID"] = 33818,
+[27634] = {
+["encounterName"] = "女祭司德莉希亚",
+["npcID"] = 24555,
+["encounterID"] = 1895,
 },
 [48895] = {
 ["npcID"] = 26639,
 },
-[58972] = {
-["npcID"] = 29822,
+[73650] = {
+["encounterName"] = "巫妖王",
+["source"] = "泰瑞纳斯·米奈希尔",
+["npcID"] = 39217,
+["event"] = "SPELL_CAST_START",
+["encounterID"] = 856,
 },
-[31627] = {
-["npcID"] = 17899,
+[50572] = {
+["isChanneled"] = true,
+["source"] = "碧蓝缚法者",
+["event"] = "SPELL_CAST_SUCCESS",
+["npcID"] = 27635,
 },
 [36805] = {
 ["encounterName"] = "凯尔萨斯·逐日者",
 ["npcID"] = 19622,
 ["encounterID"] = 733,
 },
-[49241] = {
-["npcID"] = 27542,
+[63913] = {
+["source"] = "暮光冰法师",
+["event"] = "SPELL_CAST_START",
+["npcID"] = 33819,
 },
 [71787] = {
 ["source"] = "鲁伯特上尉",
@@ -18363,10 +18550,8 @@ nil,
 ["encounterID"] = 1121,
 ["npcID"] = 16064,
 },
-[59016] = {
-["encounterName"] = "召唤者诺沃斯",
-["npcID"] = 27600,
-["encounterID"] = 371,
+[12471] = {
+["npcID"] = 29231,
 },
 [72171] = {
 ["event"] = "SPELL_CAST_START",
@@ -18378,28 +18563,24 @@ nil,
 ["encounterID"] = 575,
 ["npcID"] = 23954,
 },
-[27634] = {
-["encounterName"] = "女祭司德莉希亚",
-["npcID"] = 24555,
-["encounterID"] = 1895,
+[6979] = {
+["npcID"] = 4281,
 },
-[73650] = {
-["encounterName"] = "巫妖王",
-["source"] = "泰瑞纳斯·米奈希尔",
-["npcID"] = 39217,
-["event"] = "SPELL_CAST_START",
-["encounterID"] = 856,
-},
-[63913] = {
-["source"] = "暮光冰法师",
-["event"] = "SPELL_CAST_START",
-["npcID"] = 33819,
-},
-[50572] = {
+[33031] = {
+["encounterName"] = "大星术师索兰莉安",
+["source"] = "血警卫侍从",
+["npcID"] = 18805,
 ["isChanneled"] = true,
-["source"] = "碧蓝缚法者",
 ["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 27635,
+["encounterID"] = 732,
+},
+[48873] = {
+["encounterName"] = "暴龙之王爵德",
+["npcID"] = 27483,
+["encounterID"] = 373,
+},
+[61515] = {
+["npcID"] = 28580,
 },
 [66798] = {
 ["source"] = "黑骑士",
@@ -18411,42 +18592,42 @@ nil,
 ["source"] = "尼鲁巴尔护巢者",
 ["npcID"] = 36725,
 },
-[12471] = {
-["npcID"] = 29231,
-},
-[6979] = {
-["npcID"] = 4281,
-},
-[69564] = {
-["source"] = "护魂精兵",
-["event"] = "SPELL_CAST_START",
-["npcID"] = 36620,
+[13878] = {
+["npcID"] = 26770,
 },
 [59856] = {
 ["encounterName"] = "召唤者诺沃斯",
 ["encounterID"] = 371,
 ["npcID"] = 26631,
 },
-[38085] = {
-["npcID"] = 27898,
+[54102] = {
+["encounterName"] = "Xevozz",
+["encounterID"] = 2661,
+["npcID"] = 29266,
 },
-[65647] = {
-["encounterName"] = "米米尔隆",
-["source"] = "空中指挥单位",
-["encounterID"] = 754,
+[65492] = {
 ["event"] = "SPELL_CAST_START",
-["npcID"] = 33670,
-},
-[69869] = {
-["event"] = "SPELL_CAST_START",
-["source"] = "破天号巫师",
-["npcID"] = 37026,
+["source"] = "布瑞娜·沉夜",
+["npcID"] = 34473,
 },
 [62649] = {
 ["encounterName"] = "弗蕾亚",
 ["source"] = "风暴鞭笞者",
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 32919,
+},
+[71788] = {
+["source"] = "鲁伯特上尉",
+["event"] = "SPELL_CAST_START",
+["npcID"] = 37125,
+},
+[69869] = {
+["event"] = "SPELL_CAST_START",
+["source"] = "破天号巫师",
+["npcID"] = 37026,
+},
+[38085] = {
+["npcID"] = 27898,
 },
 [28294] = {
 ["npcID"] = 16021,
@@ -18461,14 +18642,18 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["encounterID"] = 833,
 },
-[61515] = {
-["npcID"] = 28580,
+[50455] = {
+["npcID"] = 28006,
 },
-[13878] = {
-["npcID"] = 26770,
+[34347] = {
+["npcID"] = 19527,
 },
-[40066] = {
-["npcID"] = 22877,
+[63631] = {
+["encounterName"] = "米米尔隆",
+["source"] = "巨兽二型",
+["encounterID"] = 754,
+["event"] = "SPELL_CAST_START",
+["npcID"] = 33432,
 },
 [20298] = {
 ["npcID"] = 31096,
@@ -18476,10 +18661,12 @@ nil,
 [52926] = {
 ["npcID"] = 29001,
 },
-[54102] = {
-["encounterName"] = "Xevozz",
-["encounterID"] = 2661,
-["npcID"] = 29266,
+[71405] = {
+["encounterName"] = "鲜血议会",
+["source"] = "凯雷塞斯王子",
+["encounterID"] = 852,
+["event"] = "SPELL_CAST_START",
+["npcID"] = 37972,
 },
 [28614] = {
 ["npcID"] = 15979,
@@ -18487,13 +18674,13 @@ nil,
 [59259] = {
 ["npcID"] = 28579,
 },
-[65492] = {
-["event"] = "SPELL_CAST_START",
-["source"] = "布瑞娜·沉夜",
-["npcID"] = 34473,
+[36486] = {
+["npcID"] = 16946,
 },
-[50455] = {
-["npcID"] = 28006,
+[66112] = {
+["source"] = "维兰纳",
+["event"] = "SPELL_CAST_START",
+["npcID"] = 34465,
 },
 [65648] = {
 ["encounterName"] = "米米尔隆",
@@ -18505,17 +18692,15 @@ nil,
 [61562] = {
 ["npcID"] = 30319,
 },
-[71405] = {
-["encounterName"] = "鲜血议会",
-["source"] = "凯雷塞斯王子",
-["encounterID"] = 852,
-["event"] = "SPELL_CAST_START",
-["npcID"] = 37972,
-},
 [69583] = {
 ["event"] = "SPELL_CAST_START",
 ["source"] = "伊米亚拥火者",
 ["npcID"] = 36893,
+},
+[41472] = {
+["encounterName"] = "伊利达雷议会",
+["npcID"] = 22951,
+["encounterID"] = 608,
 },
 [47425] = {
 ["npcID"] = 26841,
@@ -18528,12 +18713,8 @@ nil,
 ["npcID"] = 28923,
 ["encounterID"] = 561,
 },
-[63631] = {
-["encounterName"] = "米米尔隆",
-["source"] = "巨兽二型",
-["encounterID"] = 754,
-["event"] = "SPELL_CAST_START",
-["npcID"] = 33432,
+[53322] = {
+["npcID"] = 29118,
 },
 [59963] = {
 ["encounterName"] = "先知萨隆亚",
@@ -18550,29 +18731,27 @@ nil,
 ["source"] = "缚亡守卫",
 ["npcID"] = 37007,
 },
-[66112] = {
-["source"] = "维兰纳",
-["event"] = "SPELL_CAST_START",
-["npcID"] = 34465,
-},
 [57464] = {
 ["encounterName"] = "天启四骑士",
 ["npcID"] = 16065,
 ["encounterID"] = 1121,
 },
-[41472] = {
-["encounterName"] = "伊利达雷议会",
-["npcID"] = 22951,
-["encounterID"] = 608,
+[66067] = {
+["encounterName"] = "阵营冠军",
+["source"] = "麦拉多·深谷游者",
+["encounterID"] = 637,
+["event"] = "SPELL_CAST_START",
+["npcID"] = 34469,
 },
-[44163] = {
-["npcID"] = 24558,
+[29317] = {
+["encounterName"] = "收割者戈提克",
+["encounterID"] = 1109,
+["npcID"] = 16060,
 },
-[53322] = {
-["npcID"] = 29118,
-},
-[54334] = {
-["npcID"] = 16021,
+[71323] = {
+["source"] = "冰霜之刃",
+["event"] = "SPELL_CAST_START",
+["npcID"] = 38199,
 },
 [69871] = {
 ["isChanneled"] = true,
@@ -18580,10 +18759,16 @@ nil,
 ["source"] = "愤怒的斩肉者",
 ["npcID"] = 37023,
 },
-[21066] = {
-["source"] = "卡扎克",
+[54334] = {
+["npcID"] = 16021,
+},
+[44163] = {
+["npcID"] = 24558,
+},
+[64825] = {
+["source"] = "大厅监督者",
 ["event"] = "SPELL_CAST_START",
-["npcID"] = 12397,
+["npcID"] = 34197,
 },
 [60667] = {
 ["event"] = "SPELL_CAST_START",
@@ -18593,51 +18778,6 @@ nil,
 [50496] = {
 ["npcID"] = 27655,
 },
-[64825] = {
-["source"] = "大厅监督者",
-["event"] = "SPELL_CAST_START",
-["npcID"] = 34197,
-},
-[69028] = {
-["encounterName"] = "科瑞克",
-["source"] = "科瑞克",
-["npcID"] = 36477,
-["event"] = "SPELL_CAST_START",
-["encounterID"] = 835,
-},
-[60923] = {
-["npcID"] = 32353,
-},
-[29317] = {
-["encounterName"] = "收割者戈提克",
-["encounterID"] = 1109,
-["npcID"] = 16060,
-},
-[6358] = {
-["npcID"] = 1863,
-},
-[71323] = {
-["source"] = "冰霜之刃",
-["event"] = "SPELL_CAST_START",
-["npcID"] = 38199,
-},
-[63226] = {
-["source"] = "生命的卫士",
-["event"] = "SPELL_CAST_START",
-["npcID"] = 33528,
-},
-[62437] = {
-["encounterName"] = "弗蕾亚",
-["source"] = "弗蕾亚",
-["encounterID"] = 753,
-["event"] = "SPELL_CAST_START",
-["npcID"] = 32906,
-},
-[59260] = {
-["encounterName"] = "法师领主伊洛姆",
-["encounterID"] = 532,
-["npcID"] = 27648,
-},
 [61673] = {
 ["npcID"] = 30300,
 },
@@ -18646,6 +18786,9 @@ nil,
 ["encounterID"] = 565,
 ["npcID"] = 27975,
 },
+[60923] = {
+["npcID"] = 32353,
+},
 [71236] = {
 ["encounterName"] = "亡语者女士",
 ["source"] = "教派狂热者",
@@ -18653,44 +18796,33 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["encounterID"] = 846,
 },
-[43140] = {
-["encounterName"] = "加亚莱",
-["encounterID"] = 1191,
-["npcID"] = 23578,
+[6358] = {
+["npcID"] = 1863,
 },
-[63802] = {
-["encounterName"] = "尤格-萨隆",
-["source"] = "萨拉",
-["encounterID"] = 756,
+[62437] = {
+["encounterName"] = "弗蕾亚",
+["source"] = "弗蕾亚",
+["encounterID"] = 753,
 ["event"] = "SPELL_CAST_START",
-["npcID"] = 33134,
+["npcID"] = 32906,
 },
-[70512] = {
-["source"] = "希尔瓦娜斯·风行者",
+[63226] = {
+["source"] = "生命的卫士",
 ["event"] = "SPELL_CAST_START",
-["npcID"] = 36990,
-},
-[59708] = {
-["encounterName"] = "掠夺者因格瓦尔",
-["npcID"] = 23954,
-["encounterID"] = 575,
-},
-[37255] = {
-["npcID"] = 20036,
-},
-[37319] = {
-["npcID"] = 20038,
+["npcID"] = 33528,
 },
 [44189] = {
 ["encounterName"] = "凯尔萨斯·逐日者",
 ["encounterID"] = 1894,
 ["npcID"] = 24664,
 },
-[59257] = {
-["npcID"] = 31009,
+[59260] = {
+["encounterName"] = "法师领主伊洛姆",
+["encounterID"] = 532,
+["npcID"] = 27648,
 },
-[33417] = {
-["npcID"] = 18949,
+[44644] = {
+["npcID"] = 24685,
 },
 [50379] = {
 ["npcID"] = 26626,
@@ -18702,8 +18834,29 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["encounterID"] = 752,
 },
+[43140] = {
+["encounterName"] = "加亚莱",
+["encounterID"] = 1191,
+["npcID"] = 23578,
+},
 [47777] = {
 ["npcID"] = 26802,
+},
+[37319] = {
+["npcID"] = 20038,
+},
+[59708] = {
+["encounterName"] = "掠夺者因格瓦尔",
+["npcID"] = 23954,
+["encounterID"] = 575,
+},
+[37255] = {
+["npcID"] = 20036,
+},
+[70512] = {
+["source"] = "希尔瓦娜斯·风行者",
+["event"] = "SPELL_CAST_START",
+["npcID"] = 36990,
 },
 [68785] = {
 ["encounterName"] = "熔炉之主加弗斯特",
@@ -18712,32 +18865,14 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 36494,
 },
-[62395] = {
-["encounterName"] = "烈焰巨兽",
-["source"] = "烈焰巨兽炮台",
-["npcID"] = 33139,
-["event"] = "SPELL_CAST_START",
-["encounterID"] = 744,
+[51584] = {
+["npcID"] = 26283,
 },
-[64570] = {
-["encounterName"] = "米米尔隆",
-["source"] = "巨兽二型",
-["npcID"] = 33432,
-["event"] = "SPELL_CAST_START",
-["encounterID"] = 754,
+[33417] = {
+["npcID"] = 18949,
 },
-[8986] = {
-["npcID"] = 6427,
-},
-[44164] = {
-["encounterName"] = "女祭司德莉希亚",
-["npcID"] = 24656,
-["encounterID"] = 1895,
-},
-[48258] = {
-["encounterName"] = "席瓦拉·索格蕾",
-["encounterID"] = 577,
-["npcID"] = 26668,
+[59257] = {
+["npcID"] = 31009,
 },
 [66880] = {
 ["encounterName"] = "诺森德猛兽",
@@ -18746,66 +18881,79 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 35144,
 },
-[34121] = {
-["encounterName"] = "奥",
-["npcID"] = 19514,
-},
-[51877] = {
-["npcID"] = 26577,
-},
-[70513] = {
-["event"] = "SPELL_CAST_START",
-["source"] = "希尔瓦娜斯·风行者",
-["npcID"] = 36990,
+[31740] = {
+["encounterName"] = "安纳塞隆",
+["encounterID"] = 619,
+["npcID"] = 17928,
 },
 [71318] = {
 ["source"] = "冰卫巫师",
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 37229,
 },
-[50323] = {
-["npcID"] = 25609,
+[62395] = {
+["encounterName"] = "烈焰巨兽",
+["source"] = "烈焰巨兽炮台",
+["npcID"] = 33139,
+["event"] = "SPELL_CAST_START",
+["encounterID"] = 744,
 },
-[20299] = {
-["npcID"] = 24696,
+[44164] = {
+["encounterName"] = "女祭司德莉希亚",
+["npcID"] = 24656,
+["encounterID"] = 1895,
 },
-[47447] = {
-["npcID"] = 26358,
+[64570] = {
+["encounterName"] = "米米尔隆",
+["source"] = "巨兽二型",
+["npcID"] = 33432,
+["event"] = "SPELL_CAST_START",
+["encounterID"] = 754,
+},
+[48258] = {
+["encounterName"] = "席瓦拉·索格蕾",
+["encounterID"] = 577,
+["npcID"] = 26668,
 },
 [59910] = {
 ["encounterName"] = "召唤者诺沃斯",
 ["npcID"] = 26631,
 ["encounterID"] = 371,
 },
-[72429] = {
-["encounterName"] = "巫妖王",
-["source"] = "泰瑞纳斯·米奈希尔",
-["encounterID"] = 856,
+[67529] = {
+["encounterName"] = "总冠军",
+["source"] = "克罗索斯",
+["npcID"] = 34701,
 ["event"] = "SPELL_CAST_START",
-["npcID"] = 38579,
+["encounterID"] = 334,
 },
-[28615] = {
-["npcID"] = 15979,
+[34121] = {
+["encounterName"] = "奥",
+["npcID"] = 19514,
+},
+[59225] = {
+["encounterName"] = "法师领主伊洛姆",
+["npcID"] = 27651,
+["encounterID"] = 532,
+},
+[70513] = {
+["event"] = "SPELL_CAST_START",
+["source"] = "希尔瓦娜斯·风行者",
+["npcID"] = 36990,
 },
 [59183] = {
 ["npcID"] = 28584,
-},
-[59389] = {
-["encounterName"] = "凯雷塞斯王子",
-["encounterID"] = 571,
-["npcID"] = 23953,
 },
 [58702] = {
 ["encounterName"] = "Moragg",
 ["encounterID"] = 2659,
 ["npcID"] = 31165,
 },
-[70744] = {
-["encounterName"] = "踏梦者瓦莉瑟瑞娅",
-["source"] = "脓疮僵尸",
-["encounterID"] = 854,
-["event"] = "SPELL_CAST_START",
-["npcID"] = 37934,
+[20299] = {
+["npcID"] = 24696,
+},
+[47447] = {
+["npcID"] = 26358,
 },
 [59433] = {
 ["encounterName"] = "阿努巴拉克",
@@ -18819,15 +18967,18 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["encounterID"] = 746,
 },
-[63891] = {
-["encounterName"] = "尤格-萨隆",
-["source"] = "萨拉",
-["npcID"] = 33134,
-["event"] = "SPELL_CAST_START",
-["encounterID"] = 756,
+[28615] = {
+["npcID"] = 15979,
 },
-[53632] = {
-["npcID"] = 29219,
+[69989] = {
+["event"] = "SPELL_CAST_START",
+["source"] = "破天号射手",
+["npcID"] = 37144,
+},
+[59389] = {
+["encounterName"] = "凯雷塞斯王子",
+["encounterID"] = 571,
+["npcID"] = 23953,
 },
 [64396] = {
 ["encounterName"] = "欧尔莉亚",
@@ -18836,17 +18987,16 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 33515,
 },
-[64059] = {
-["encounterName"] = "尤格-萨隆",
-["source"] = "尤格-萨隆的大脑",
-["encounterID"] = 756,
-["event"] = "SPELL_CAST_START",
-["npcID"] = 33890,
+[54095] = {
+["encounterName"] = "黑女巫法琳娜",
+["encounterID"] = 1110,
+["npcID"] = 16506,
 },
-[59965] = {
-["encounterName"] = "先知萨隆亚",
-["encounterID"] = 375,
-["npcID"] = 26632,
+[31758] = {
+["npcID"] = 17934,
+},
+[58537] = {
+["npcID"] = 30893,
 },
 [62623] = {
 ["encounterName"] = "弗蕾亚",
@@ -18854,17 +19004,41 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 32906,
 },
+[53632] = {
+["npcID"] = 29219,
+},
+[64696] = {
+["encounterName"] = "锋鳞",
+["source"] = "黑暗符文哨兵",
+["npcID"] = 33453,
+["event"] = "SPELL_CAST_START",
+["encounterID"] = 746,
+},
+[70080] = {
+["encounterName"] = "逃离阿尔萨斯",
+["event"] = "SPELL_CAST_START",
+["source"] = "复生的巫医",
+["npcID"] = 36941,
+},
+[59965] = {
+["encounterName"] = "先知萨隆亚",
+["encounterID"] = 375,
+["npcID"] = 26632,
+},
+[49113] = {
+["npcID"] = 26925,
+},
 [49922] = {
 ["npcID"] = 25496,
 },
 [56063] = {
 ["npcID"] = 15981,
 },
-[58537] = {
-["npcID"] = 30893,
-},
 [40102] = {
 ["npcID"] = 22883,
+},
+[50506] = {
+["npcID"] = 25707,
 },
 [64443] = {
 ["encounterName"] = "观察者奥尔加隆",
@@ -18873,29 +19047,19 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 32871,
 },
-[74452] = {
-["encounterName"] = "塞维娅娜·怒火",
-["source"] = "塞维娅娜·怒火",
-["npcID"] = 39747,
-["event"] = "SPELL_CAST_START",
-["encounterID"] = 891,
+[25054] = {
+["npcID"] = 27677,
 },
 [35913] = {
 ["npcID"] = 24999,
 },
-[70080] = {
-["encounterName"] = "逃离阿尔萨斯",
-["event"] = "SPELL_CAST_START",
-["source"] = "复生的巫医",
-["npcID"] = 36941,
+[46557] = {
+["npcID"] = 25368,
 },
 [21099] = {
 ["event"] = "SPELL_CAST_START",
 ["source"] = "艾索雷葛斯",
 ["npcID"] = 6109,
-},
-[49113] = {
-["npcID"] = 26925,
 },
 [64599] = {
 ["encounterName"] = "观察者奥尔加隆",
@@ -18904,20 +19068,28 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["encounterID"] = 757,
 },
-[25054] = {
-["npcID"] = 27677,
+[62532] = {
+["encounterName"] = "弗蕾亚",
+["source"] = "远古监护者",
+["event"] = "SPELL_CAST_START",
+["npcID"] = 33203,
 },
-[50506] = {
-["npcID"] = 25707,
+[16001] = {
+["npcID"] = 26638,
+},
+[44547] = {
+["npcID"] = 24697,
 },
 [50690] = {
 ["npcID"] = 27633,
 },
-[46557] = {
-["npcID"] = 25368,
+[39670] = {
+["npcID"] = 22853,
 },
-[59006] = {
-["npcID"] = 26639,
+[65147] = {
+["source"] = "暴风城冠军",
+["event"] = "SPELL_CAST_START",
+["npcID"] = 33747,
 },
 [68980] = {
 ["encounterName"] = "巫妖王",
@@ -18930,13 +19102,15 @@ nil,
 [29575] = {
 ["npcID"] = 16424,
 },
-[65147] = {
-["source"] = "暴风城冠军",
-["event"] = "SPELL_CAST_START",
-["npcID"] = 33747,
-},
 [37154] = {
 ["npcID"] = 20037,
+},
+[68774] = {
+["encounterName"] = "熔炉之主加弗斯特",
+["source"] = "熔炉之主加弗斯特",
+["encounterID"] = 833,
+["event"] = "SPELL_CAST_START",
+["npcID"] = 36494,
 },
 [49091] = {
 ["encounterName"] = "残忍的斯卡迪",
@@ -18951,14 +19125,13 @@ nil,
 ["encounterID"] = 734,
 ["npcID"] = 28859,
 },
-[62532] = {
-["encounterName"] = "弗蕾亚",
-["source"] = "远古监护者",
-["event"] = "SPELL_CAST_START",
-["npcID"] = 33203,
+[59160] = {
+["encounterName"] = "比亚格里将军",
+["npcID"] = 29240,
+["encounterID"] = 555,
 },
-[44547] = {
-["npcID"] = 24697,
+[48530] = {
+["npcID"] = 27162,
 },
 [37257] = {
 ["npcID"] = 20049,
@@ -18966,11 +19139,15 @@ nil,
 [59710] = {
 ["npcID"] = 10181,
 },
-[51586] = {
-["npcID"] = 28410,
+[31942] = {
+["encounterName"] = "女祭司德莉希亚",
+["npcID"] = 24555,
+["encounterID"] = 1895,
 },
-[39670] = {
-["npcID"] = 22853,
+[60030] = {
+["encounterName"] = "耶戈达·觅影者",
+["npcID"] = 29310,
+["encounterID"] = 214,
 },
 [43526] = {
 ["npcID"] = 24179,
@@ -18998,30 +19175,28 @@ nil,
 [49987] = {
 ["npcID"] = 25758,
 },
-[60030] = {
-["encounterName"] = "耶戈达·觅影者",
-["npcID"] = 29310,
-["encounterID"] = 214,
+[61591] = {
+["npcID"] = 30893,
 },
-[68774] = {
-["encounterName"] = "熔炉之主加弗斯特",
-["source"] = "熔炉之主加弗斯特",
-["encounterID"] = 833,
+[65867] = {
 ["event"] = "SPELL_CAST_START",
-["npcID"] = 36494,
+["source"] = "阿莱希娅·月行者",
+["npcID"] = 34467,
 },
 [48132] = {
 ["encounterName"] = "戈托克·苍蹄",
 ["npcID"] = 26685,
 ["encounterID"] = 579,
 },
-[59160] = {
-["encounterName"] = "比亚格里将军",
-["npcID"] = 29240,
-["encounterID"] = 555,
+[70116] = {
+["source"] = "护塔冰龙",
+["event"] = "SPELL_CAST_START",
+["npcID"] = 37230,
 },
-[48530] = {
-["npcID"] = 27162,
+[44202] = {
+["encounterName"] = "凯尔萨斯·逐日者",
+["npcID"] = 24674,
+["encounterID"] = 1894,
 },
 [62653] = {
 ["encounterName"] = "弗蕾亚",
@@ -19029,18 +19204,18 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 33202,
 },
-[44202] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["npcID"] = 24674,
-["encounterID"] = 1894,
-},
 [50092] = {
 ["npcID"] = 27791,
 },
-[65867] = {
+[64537] = {
+["encounterName"] = "米米尔隆",
+["source"] = "VX-001",
+["encounterID"] = 754,
 ["event"] = "SPELL_CAST_START",
-["source"] = "阿莱希娅·月行者",
-["npcID"] = 34467,
+["npcID"] = 33651,
+},
+[55314] = {
+["npcID"] = 16163,
 },
 [68982] = {
 ["encounterName"] = "噬魂者",
@@ -19076,13 +19251,11 @@ nil,
 ["encounterID"] = 1989,
 ["npcID"] = 30258,
 },
-[55334] = {
-["npcID"] = 16163,
+[59020] = {
+["npcID"] = 29774,
 },
-[41032] = {
-["encounterName"] = "伊利丹·怒风",
-["npcID"] = 22917,
-["encounterID"] = 609,
+[57408] = {
+["npcID"] = 29323,
 },
 [40904] = {
 ["encounterName"] = "伊利丹·怒风",
@@ -19092,21 +19265,21 @@ nil,
 [51203] = {
 ["npcID"] = 26360,
 },
-[57408] = {
-["npcID"] = 29323,
+[41032] = {
+["encounterName"] = "伊利丹·怒风",
+["npcID"] = 22917,
+["encounterID"] = 609,
 },
-[64537] = {
-["encounterName"] = "米米尔隆",
-["source"] = "VX-001",
-["encounterID"] = 754,
-["event"] = "SPELL_CAST_START",
-["npcID"] = 33651,
+[20716] = {
+["npcID"] = 26277,
 },
 [49348] = {
 ["npcID"] = 27677,
 },
-[51587] = {
-["npcID"] = 28410,
+[59839] = {
+["encounterName"] = "斯拉德兰",
+["npcID"] = 29304,
+["encounterID"] = 383,
 },
 [43527] = {
 ["npcID"] = 24179,
@@ -19114,8 +19287,10 @@ nil,
 [53634] = {
 ["npcID"] = 29190,
 },
-[20716] = {
-["npcID"] = 26277,
+[39369] = {
+["encounterName"] = "阿克蒙德",
+["npcID"] = 17968,
+["encounterID"] = 622,
 },
 [66552] = {
 ["encounterName"] = "银色勇士",
@@ -19127,8 +19302,10 @@ nil,
 [51779] = {
 ["npcID"] = 26815,
 },
-[33969] = {
-["npcID"] = 18981,
+[66808] = {
+["event"] = "SPELL_CAST_START",
+["source"] = "烈焰守卫",
+["npcID"] = 35143,
 },
 [64189] = {
 ["encounterName"] = "尤格-萨隆",
@@ -19140,15 +19317,8 @@ nil,
 [56065] = {
 ["npcID"] = 15981,
 },
-[55314] = {
-["npcID"] = 16163,
-},
-[37770] = {
-["encounterName"] = "鱼斯拉",
-["source"] = "盘牙伏击者",
-["npcID"] = 21865,
-["event"] = "SPELL_CAST_START",
-["encounterID"] = 624,
+[59013] = {
+["npcID"] = 26636,
 },
 [62334] = {
 ["encounterName"] = "托里姆",
@@ -19156,6 +19326,13 @@ nil,
 ["npcID"] = 33110,
 ["event"] = "SPELL_CAST_START",
 ["encounterID"] = 752,
+},
+[37770] = {
+["encounterName"] = "鱼斯拉",
+["source"] = "盘牙伏击者",
+["npcID"] = 21865,
+["event"] = "SPELL_CAST_START",
+["encounterID"] = 624,
 },
 [39945] = {
 ["encounterName"] = "阿卡玛之影",
@@ -19165,16 +19342,18 @@ nil,
 [46150] = {
 ["npcID"] = 24696,
 },
-[59020] = {
-["npcID"] = 29774,
+[37106] = {
+["npcID"] = 20041,
 },
 [48325] = {
 ["npcID"] = 27003,
 },
-[59004] = {
-["encounterName"] = "召唤者诺沃斯",
-["npcID"] = 26627,
-["encounterID"] = 371,
+[66538] = {
+["encounterName"] = "银色勇士",
+["source"] = "银色神官帕尔崔丝",
+["encounterID"] = 338,
+["event"] = "SPELL_CAST_START",
+["npcID"] = 34928,
 },
 [46406] = {
 ["event"] = "SPELL_CAST_START",
@@ -19189,12 +19368,8 @@ nil,
 [54722] = {
 ["npcID"] = 16168,
 },
-[66538] = {
-["encounterName"] = "银色勇士",
-["source"] = "银色神官帕尔崔丝",
-["encounterID"] = 338,
-["event"] = "SPELL_CAST_START",
-["npcID"] = 34928,
+[39593] = {
+["npcID"] = 22896,
 },
 [63038] = {
 ["encounterName"] = "尤格-萨隆",
@@ -19218,35 +19393,38 @@ nil,
 ["event"] = "SPELL_CAST_SUCCESS",
 ["encounterID"] = 890,
 },
-[59013] = {
-["npcID"] = 26636,
+[56402] = {
+["npcID"] = 29875,
 },
-[37106] = {
-["npcID"] = 20041,
+[70145] = {
+["encounterName"] = "逃离阿尔萨斯",
+["source"] = "复生的巫医",
+["event"] = "SPELL_CAST_START",
+["npcID"] = 36941,
 },
-[59993] = {
-["encounterName"] = "传令官沃拉兹",
-["npcID"] = 30624,
-["encounterID"] = 215,
+[56934] = {
+["encounterName"] = "大魔导师泰蕾丝塔",
+["npcID"] = 26731,
+["encounterID"] = 520,
 },
 [38858] = {
 ["npcID"] = 24938,
 },
-[39593] = {
-["npcID"] = 22896,
+[40078] = {
+["npcID"] = 22884,
 },
-[56402] = {
-["npcID"] = 29875,
+[39349] = {
+["encounterName"] = "阿克蒙德",
+["encounterID"] = 622,
+["npcID"] = 17946,
 },
 [71927] = {
 ["source"] = "痛苦的精魂",
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 38410,
 },
-[56934] = {
-["encounterName"] = "大魔导师泰蕾丝塔",
-["npcID"] = 26731,
-["encounterID"] = 520,
+[56326] = {
+["npcID"] = 29368,
 },
 [66042] = {
 ["encounterName"] = "总冠军",
@@ -19261,12 +19439,6 @@ nil,
 [37259] = {
 ["npcID"] = 20049,
 },
-[70145] = {
-["encounterName"] = "逃离阿尔萨斯",
-["source"] = "复生的巫医",
-["event"] = "SPELL_CAST_START",
-["npcID"] = 36941,
-},
 [19725] = {
 ["npcID"] = 28939,
 },
@@ -19275,21 +19447,32 @@ nil,
 ["npcID"] = 22950,
 ["encounterID"] = 608,
 },
-[40078] = {
-["npcID"] = 22884,
+[64386] = {
+["encounterName"] = "欧尔莉亚",
+["source"] = "欧尔莉亚",
+["encounterID"] = 750,
+["event"] = "SPELL_CAST_START",
+["npcID"] = 33515,
+},
+[59575] = {
+["encounterName"] = "斯卡瓦尔德和达尔隆",
+["npcID"] = 24201,
+["encounterID"] = 573,
 },
 [73079] = {
 ["event"] = "SPELL_CAST_START",
 ["source"] = "天灾科学家",
 ["npcID"] = 37023,
 },
-[39349] = {
-["encounterName"] = "阿克蒙德",
-["encounterID"] = 622,
-["npcID"] = 17946,
+[61965] = {
+["event"] = "SPELL_CAST_START",
+["source"] = "黑暗符文助手",
+["npcID"] = 32886,
 },
-[56326] = {
-["npcID"] = 29368,
+[62335] = {
+["event"] = "SPELL_CAST_START",
+["source"] = "黑暗符文助手",
+["npcID"] = 32886,
 },
 [67322] = {
 ["encounterName"] = "阿努巴拉克",
@@ -19298,17 +19481,14 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["encounterID"] = 645,
 },
-[62335] = {
-["event"] = "SPELL_CAST_START",
-["source"] = "黑暗符文助手",
-["npcID"] = 32886,
+[50364] = {
+["npcID"] = 25622,
 },
-[64386] = {
-["encounterName"] = "欧尔莉亚",
-["source"] = "欧尔莉亚",
-["encounterID"] = 750,
-["event"] = "SPELL_CAST_START",
-["npcID"] = 33515,
+[54339] = {
+["isChanneled"] = true,
+["event"] = "SPELL_CAST_SUCCESS",
+["source"] = "外科助手",
+["npcID"] = 16022,
 },
 [48198] = {
 ["npcID"] = 31282,
@@ -19324,19 +19504,18 @@ nil,
 [28297] = {
 ["npcID"] = 16385,
 },
-[42131] = {
-["npcID"] = 23883,
+[56919] = {
+["npcID"] = 26805,
 },
-[61965] = {
+[64584] = {
+["encounterName"] = "观察者奥尔加隆",
+["source"] = "观察者奥尔加隆",
+["encounterID"] = 757,
 ["event"] = "SPELL_CAST_START",
-["source"] = "黑暗符文助手",
-["npcID"] = 32886,
+["npcID"] = 32871,
 },
 [58817] = {
 ["npcID"] = 28341,
-},
-[56898] = {
-["npcID"] = 30319,
 },
 [66683] = {
 ["encounterName"] = "诺森德猛兽",
@@ -19345,15 +19524,14 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 34797,
 },
+[56898] = {
+["npcID"] = 30319,
+},
 [59009] = {
 ["npcID"] = 26638,
 },
-[64584] = {
-["encounterName"] = "观察者奥尔加隆",
-["source"] = "观察者奥尔加隆",
-["encounterID"] = 757,
-["event"] = "SPELL_CAST_START",
-["npcID"] = 32871,
+[39592] = {
+["npcID"] = 22895,
 },
 [69242] = {
 ["encounterName"] = "巫妖王",
@@ -19370,47 +19548,47 @@ nil,
 [46983] = {
 ["npcID"] = 25040,
 },
-[39592] = {
-["npcID"] = 22895,
+[44137] = {
+["encounterName"] = "女祭司德莉希亚",
+["npcID"] = 24556,
+["encounterID"] = 1895,
 },
-[49350] = {
-["npcID"] = 27611,
+[51336] = {
+["encounterName"] = "审讯者达库斯",
+["encounterID"] = 528,
+["npcID"] = 27654,
 },
 [63551] = {
 ["source"] = "生命的卫士",
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 33528,
 },
-[69882] = {
-["event"] = "SPELL_CAST_START",
-["source"] = "破天号圣职者",
-["npcID"] = 37027,
+[61568] = {
+["npcID"] = 30111,
+},
+[49350] = {
+["npcID"] = 27611,
 },
 [72057] = {
 ["source"] = "黑暗堕落者顾问",
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 37571,
 },
-[12549] = {
-["npcID"] = 29624,
-},
 [59713] = {
 ["npcID"] = 10181,
 },
-[59521] = {
-["encounterName"] = "Ichoron",
-["encounterID"] = 2660,
-["npcID"] = 29313,
+[54850] = {
+["encounterName"] = "达卡莱巨像",
+["npcID"] = 29307,
+["encounterID"] = 385,
 },
 [32103] = {
 ["encounterName"] = "安纳塞隆",
 ["npcID"] = 17921,
 ["encounterID"] = 619,
 },
-[44137] = {
-["encounterName"] = "女祭司德莉希亚",
-["npcID"] = 24556,
-["encounterID"] = 1895,
+[54338] = {
+["npcID"] = 16020,
 },
 [62016] = {
 ["encounterName"] = "托里姆",
@@ -19436,10 +19614,8 @@ nil,
 [56067] = {
 ["npcID"] = 15981,
 },
-[51336] = {
-["encounterName"] = "审讯者达库斯",
-["encounterID"] = 528,
-["npcID"] = 27654,
+[12549] = {
+["npcID"] = 29624,
 },
 [64383] = {
 ["encounterName"] = "米米尔隆",
@@ -19453,20 +19629,18 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 37122,
 },
-[54850] = {
-["encounterName"] = "达卡莱巨像",
-["npcID"] = 29307,
-["encounterID"] = 385,
+[38881] = {
+["npcID"] = 26735,
+},
+[43302] = {
+["encounterName"] = "哈尔拉兹",
+["npcID"] = 23577,
+["encounterID"] = 1192,
 },
 [64639] = {
 ["event"] = "SPELL_CAST_START",
 ["source"] = "霍迪尔的勇士",
 ["npcID"] = 34133,
-},
-[71930] = {
-["source"] = "痛苦的精魂",
-["event"] = "SPELL_CAST_START",
-["npcID"] = 38410,
 },
 [46280] = {
 ["npcID"] = 25597,
@@ -19476,28 +19650,31 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 32865,
 },
-[54338] = {
-["npcID"] = 16020,
+[50198] = {
+["npcID"] = 26728,
+},
+[58948] = {
+["encounterName"] = "萨塔里奥",
+["encounterID"] = 742,
+["npcID"] = 30453,
 },
 [50319] = {
 ["npcID"] = 25465,
 },
-[38881] = {
-["npcID"] = 26735,
+[40508] = {
+["encounterName"] = "古尔图格·血沸",
+["npcID"] = 22948,
+["encounterID"] = 605,
 },
-[43302] = {
-["encounterName"] = "哈尔拉兹",
-["npcID"] = 23577,
-["encounterID"] = 1192,
+[68895] = {
+["event"] = "SPELL_CAST_START",
+["source"] = "怨恨的魂影",
+["npcID"] = 36551,
 },
-[50198] = {
-["npcID"] = 26728,
-},
-[71163] = {
-["isChanneled"] = true,
-["event"] = "SPELL_CAST_SUCCESS",
-["source"] = "愤怒的斩肉者",
-["npcID"] = 37038,
+[57091] = {
+["encounterName"] = "克莉斯塔萨",
+["encounterID"] = 526,
+["npcID"] = 26723,
 },
 [68988] = {
 ["encounterName"] = "布隆亚姆",
@@ -19506,23 +19683,23 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 36497,
 },
-[57091] = {
-["encounterName"] = "克莉斯塔萨",
-["encounterID"] = 526,
-["npcID"] = 26723,
+[65279] = {
+["encounterName"] = "风暴看守者埃玛尔隆",
+["source"] = "风暴看守者埃玛尔隆",
+["encounterID"] = 774,
+["event"] = "SPELL_CAST_START",
+["npcID"] = 33993,
 },
-[58948] = {
-["encounterName"] = "萨塔里奥",
-["encounterID"] = 742,
-["npcID"] = 30453,
-},
-[59266] = {
-["encounterName"] = "法师领主伊洛姆",
-["encounterID"] = 532,
-["npcID"] = 27653,
+[47443] = {
+["npcID"] = 26607,
 },
 [31688] = {
 ["npcID"] = 17907,
+},
+[54249] = {
+["encounterName"] = "Lavanthor",
+["npcID"] = 29312,
+["encounterID"] = 2662,
 },
 [45065] = {
 ["encounterName"] = "布鲁塔卢斯",
@@ -19539,10 +19716,8 @@ nil,
 ["source"] = "痛苦的精魂",
 ["npcID"] = 38410,
 },
-[68895] = {
-["event"] = "SPELL_CAST_START",
-["source"] = "怨恨的魂影",
-["npcID"] = 36551,
+[53765] = {
+["npcID"] = 28471,
 },
 [66046] = {
 ["encounterName"] = "瓦格里双子",
@@ -19551,10 +19726,8 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["encounterID"] = 641,
 },
-[41483] = {
-["encounterName"] = "伊利达雷议会",
-["encounterID"] = 608,
-["npcID"] = 22950,
+[45577] = {
+["npcID"] = 25445,
 },
 [47496] = {
 ["npcID"] = 26125,
@@ -19564,18 +19737,21 @@ nil,
 ["encounterID"] = 383,
 ["npcID"] = 29304,
 },
-[53765] = {
-["npcID"] = 28471,
+[41483] = {
+["encounterName"] = "伊利达雷议会",
+["encounterID"] = 608,
+["npcID"] = 22950,
 },
 [45641] = {
 ["encounterName"] = "基尔加丹",
 ["npcID"] = 25315,
 ["encounterID"] = 729,
 },
-[54021] = {
-["encounterName"] = "阿努布雷坎",
-["encounterID"] = 1107,
-["npcID"] = 15956,
+[71164] = {
+["isChanneled"] = true,
+["event"] = "SPELL_CAST_SUCCESS",
+["source"] = "愤怒的斩肉者",
+["npcID"] = 37038,
 },
 [68989] = {
 ["encounterName"] = "科瑞克",
@@ -19584,14 +19760,15 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["encounterID"] = 835,
 },
-[71164] = {
-["isChanneled"] = true,
-["event"] = "SPELL_CAST_SUCCESS",
-["source"] = "愤怒的斩肉者",
-["npcID"] = 37038,
+[54021] = {
+["encounterName"] = "阿努布雷坎",
+["encounterID"] = 1107,
+["npcID"] = 15956,
 },
-[47443] = {
-["npcID"] = 26607,
+[46026] = {
+["encounterName"] = "女祭司德莉希亚",
+["npcID"] = 24553,
+["encounterID"] = 1895,
 },
 [71420] = {
 ["encounterName"] = "亡语者女士",
@@ -19600,13 +19777,15 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["encounterID"] = 846,
 },
-[54249] = {
-["encounterName"] = "Lavanthor",
-["npcID"] = 29312,
-["encounterID"] = 2662,
+[70123] = {
+["encounterName"] = "辛达苟萨",
+["source"] = "辛达苟萨",
+["encounterID"] = 855,
+["event"] = "SPELL_CAST_START",
+["npcID"] = 36853,
 },
-[40076] = {
-["npcID"] = 22877,
+[60227] = {
+["npcID"] = 23956,
 },
 [62529] = {
 ["encounterName"] = "托里姆",
@@ -19615,45 +19794,23 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 32878,
 },
-[65791] = {
-["encounterName"] = "阵营冠军",
-["source"] = "努兹尔·啸钉",
-["npcID"] = 34468,
-["event"] = "SPELL_CAST_START",
-["encounterID"] = 637,
-},
-[56064] = {
-["npcID"] = 15981,
-},
-[56580] = {
-["encounterName"] = "哈多诺克斯",
-["npcID"] = 30279,
-},
-[70123] = {
-["encounterName"] = "辛达苟萨",
-["source"] = "辛达苟萨",
-["encounterID"] = 855,
-["event"] = "SPELL_CAST_START",
-["npcID"] = 36853,
-},
-[36238] = {
-["npcID"] = 22461,
-},
-[46026] = {
-["encounterName"] = "女祭司德莉希亚",
-["npcID"] = 24553,
-["encounterID"] = 1895,
+[40076] = {
+["npcID"] = 22877,
 },
 [43649] = {
 ["encounterName"] = "斯卡瓦尔德和达尔隆",
 ["npcID"] = 24201,
 ["encounterID"] = 573,
 },
-[60227] = {
-["npcID"] = 23956,
+[56580] = {
+["encounterName"] = "哈多诺克斯",
+["npcID"] = 30279,
 },
 [38556] = {
 ["npcID"] = 25764,
+},
+[36238] = {
+["npcID"] = 22461,
 },
 [12058] = {
 ["npcID"] = 19457,
@@ -19662,6 +19819,28 @@ nil,
 ["source"] = "霍迪尔的勇士",
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 34133,
+},
+[15228] = {
+["npcID"] = 11604,
+},
+[62402] = {
+["encounterName"] = "烈焰巨兽",
+["source"] = "巨兽防御炮台",
+["encounterID"] = 744,
+["event"] = "SPELL_CAST_START",
+["npcID"] = 33142,
+},
+[39309] = {
+["encounterName"] = "盲眼者莱欧瑟拉斯",
+["source"] = "内心之魔",
+["npcID"] = 21857,
+["event"] = "SPELL_CAST_START",
+["encounterID"] = 625,
+},
+[46181] = {
+["encounterName"] = "女祭司德莉希亚",
+["encounterID"] = 1895,
+["npcID"] = 24553,
 },
 [30633] = {
 ["npcID"] = 26792,
@@ -19684,20 +19863,22 @@ nil,
 [53318] = {
 ["npcID"] = 28922,
 },
-[15228] = {
-["npcID"] = 11604,
+[22686] = {
+["encounterName"] = "暴龙之王爵德",
+["npcID"] = 27483,
+["encounterID"] = 373,
 },
 [16496] = {
 ["encounterName"] = "凯尔萨斯·逐日者",
 ["npcID"] = 20063,
 ["encounterID"] = 733,
 },
-[39309] = {
-["encounterName"] = "盲眼者莱欧瑟拉斯",
-["source"] = "内心之魔",
-["npcID"] = 21857,
+[69246] = {
+["encounterName"] = "领主泰兰努斯",
+["source"] = "霜牙",
+["encounterID"] = 837,
 ["event"] = "SPELL_CAST_START",
-["encounterID"] = 625,
+["npcID"] = 36661,
 },
 [63809] = {
 ["encounterName"] = "锋鳞",
@@ -19709,37 +19890,31 @@ nil,
 [37262] = {
 ["npcID"] = 20047,
 },
-[46181] = {
-["encounterName"] = "女祭司德莉希亚",
-["encounterID"] = 1895,
-["npcID"] = 24553,
-},
-[45578] = {
-["npcID"] = 25244,
-},
-[22686] = {
-["encounterName"] = "暴龙之王爵德",
-["npcID"] = 27483,
-["encounterID"] = 373,
-},
-[69246] = {
-["encounterName"] = "领主泰兰努斯",
-["source"] = "霜牙",
-["encounterID"] = 837,
-["event"] = "SPELL_CAST_START",
-["npcID"] = 36661,
-},
 [72268] = {
 ["source"] = "受尽折磨的火枪手",
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 38176,
 },
-[62402] = {
-["encounterName"] = "烈焰巨兽",
-["source"] = "巨兽防御炮台",
-["encounterID"] = 744,
+[45578] = {
+["npcID"] = 25244,
+},
+[56064] = {
+["npcID"] = 15981,
+},
+[64642] = {
+["source"] = "寒冬亡魂",
 ["event"] = "SPELL_CAST_START",
-["npcID"] = 33142,
+["npcID"] = 34134,
+},
+[72143] = {
+["encounterName"] = "巫妖王",
+["source"] = "蹒跚的血僵尸",
+["encounterID"] = 856,
+["event"] = "SPELL_CAST_START",
+["npcID"] = 37698,
+},
+[54333] = {
+["npcID"] = 16385,
 },
 [62274] = {
 ["encounterName"] = "钢铁议会",
@@ -19748,10 +19923,12 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["encounterID"] = 748,
 },
-[64642] = {
-["source"] = "寒冬亡魂",
+[65791] = {
+["encounterName"] = "阵营冠军",
+["source"] = "努兹尔·啸钉",
+["npcID"] = 34468,
 ["event"] = "SPELL_CAST_START",
-["npcID"] = 34134,
+["encounterID"] = 637,
 },
 [69503] = {
 ["isChanneled"] = true,
@@ -19759,8 +19936,8 @@ nil,
 ["source"] = "恶鬼",
 ["npcID"] = 36886,
 },
-[54333] = {
-["npcID"] = 16385,
+[11962] = {
+["npcID"] = 24978,
 },
 [48201] = {
 ["npcID"] = 27248,
@@ -19770,26 +19947,27 @@ nil,
 ["source"] = "痛苦的精魂",
 ["npcID"] = 38410,
 },
-[72143] = {
-["encounterName"] = "巫妖王",
-["source"] = "蹒跚的血僵尸",
-["encounterID"] = 856,
-["event"] = "SPELL_CAST_START",
-["npcID"] = 37698,
-},
 [70053] = {
 ["source"] = "女武神席瓦娜",
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 37126,
 },
+[59266] = {
+["encounterName"] = "法师领主伊洛姆",
+["encounterID"] = 532,
+["npcID"] = 27653,
+},
 [50504] = {
 ["npcID"] = 25721,
 },
-[11962] = {
-["npcID"] = 24978,
+[71163] = {
+["isChanneled"] = true,
+["event"] = "SPELL_CAST_SUCCESS",
+["source"] = "愤怒的斩肉者",
+["npcID"] = 37038,
 },
-[45577] = {
-["npcID"] = 25445,
+[29427] = {
+["npcID"] = 29174,
 },
 [56837] = {
 ["npcID"] = 26727,
@@ -19805,37 +19983,21 @@ nil,
 [25420] = {
 ["npcID"] = 25421,
 },
-[65279] = {
-["encounterName"] = "风暴看守者埃玛尔隆",
-["source"] = "风暴看守者埃玛尔隆",
-["encounterID"] = 774,
+[71930] = {
+["source"] = "痛苦的精魂",
 ["event"] = "SPELL_CAST_START",
-["npcID"] = 33993,
-},
-[40508] = {
-["encounterName"] = "古尔图格·血沸",
-["npcID"] = 22948,
-["encounterID"] = 605,
-},
-[29427] = {
-["npcID"] = 29174,
-},
-[61315] = {
-["npcID"] = 30353,
+["npcID"] = 38410,
 },
 [63789] = {
 ["event"] = "SPELL_CAST_START",
 ["source"] = "暮光炎术师",
 ["npcID"] = 33820,
 },
-[49161] = {
-["npcID"] = 27629,
-},
 [56508] = {
 ["npcID"] = 30301,
 },
-[57477] = {
-["npcID"] = 30575,
+[61315] = {
+["npcID"] = 30353,
 },
 [72040] = {
 ["encounterName"] = "鲜血议会",
@@ -19843,6 +20005,22 @@ nil,
 ["encounterID"] = 852,
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 37973,
+},
+[49161] = {
+["npcID"] = 27629,
+},
+[59521] = {
+["encounterName"] = "Ichoron",
+["encounterID"] = 2660,
+["npcID"] = 29313,
+},
+[57477] = {
+["npcID"] = 30575,
+},
+[69882] = {
+["event"] = "SPELL_CAST_START",
+["source"] = "破天号圣职者",
+["npcID"] = 37027,
 },
 [41229] = {
 ["npcID"] = 23237,
@@ -19856,18 +20034,18 @@ nil,
 ["source"] = "炽手战斗法师",
 ["npcID"] = 20047,
 },
-[61568] = {
-["npcID"] = 30111,
+[55098] = {
+["encounterName"] = "莫拉比",
+["npcID"] = 29305,
+["encounterID"] = 387,
 },
 [55814] = {
 ["encounterName"] = "凶残的伊克",
 ["npcID"] = 29932,
 ["encounterID"] = 1988,
 },
-[55098] = {
-["encounterName"] = "莫拉比",
-["npcID"] = 29305,
-["encounterID"] = 387,
+[42131] = {
+["npcID"] = 23883,
 },
 [66818] = {
 ["encounterName"] = "诺森德猛兽",
@@ -19879,8 +20057,10 @@ nil,
 [58053] = {
 ["npcID"] = 30189,
 },
-[56919] = {
-["npcID"] = 26805,
+[59223] = {
+["encounterName"] = "法师领主伊洛姆",
+["npcID"] = 27645,
+["encounterID"] = 532,
 },
 [71296] = {
 ["source"] = "伊米亚死亡使者",
@@ -19894,38 +20074,25 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["encounterID"] = 752,
 },
-[59223] = {
-["encounterName"] = "法师领主伊洛姆",
-["npcID"] = 27645,
-["encounterID"] = 532,
+[57055] = {
+["encounterName"] = "埃曼尼塔",
+["npcID"] = 30258,
+["encounterID"] = 1989,
 },
 [69633] = {
 ["event"] = "SPELL_CAST_START",
 ["source"] = "幽灵守卫",
 ["npcID"] = 36666,
 },
-[50364] = {
-["npcID"] = 25622,
+[65877] = {
+["source"] = "阿莱希娅·月行者",
+["event"] = "SPELL_CAST_START",
+["npcID"] = 34467,
 },
 [71936] = {
 ["source"] = "痛苦的精魂",
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 38410,
-},
-[59575] = {
-["encounterName"] = "斯卡瓦尔德和达尔隆",
-["npcID"] = 24201,
-["encounterID"] = 573,
-},
-[28299] = {
-["encounterName"] = "塔迪乌斯",
-["npcID"] = 15928,
-["encounterID"] = 1120,
-},
-[57055] = {
-["encounterName"] = "埃曼尼塔",
-["npcID"] = 30258,
-["encounterID"] = 1989,
 },
 [65123] = {
 ["encounterName"] = "霍迪尔",
@@ -19934,10 +20101,23 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 32950,
 },
-[65877] = {
-["source"] = "阿莱希娅·月行者",
-["event"] = "SPELL_CAST_START",
-["npcID"] = 34467,
+[28299] = {
+["encounterName"] = "塔迪乌斯",
+["npcID"] = 15928,
+["encounterID"] = 1120,
+},
+[59993] = {
+["encounterName"] = "传令官沃拉兹",
+["npcID"] = 30624,
+["encounterID"] = 215,
+},
+[22121] = {
+["npcID"] = 13359,
+},
+[40251] = {
+["encounterName"] = "塔隆·血魔",
+["encounterID"] = 604,
+["npcID"] = 22871,
 },
 [65026] = {
 ["encounterName"] = "米米尔隆",
@@ -19946,8 +20126,10 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 34071,
 },
-[22121] = {
-["npcID"] = 13359,
+[59004] = {
+["encounterName"] = "召唤者诺沃斯",
+["npcID"] = 26627,
+["encounterID"] = 371,
 },
 [72960] = {
 ["event"] = "SPELL_CAST_START",
@@ -19960,10 +20142,8 @@ nil,
 [22414] = {
 ["npcID"] = 30418,
 },
-[40251] = {
-["encounterName"] = "塔隆·血魔",
-["encounterID"] = 604,
-["npcID"] = 22871,
+[51587] = {
+["npcID"] = 28410,
 },
 [46987] = {
 ["npcID"] = 11949,
@@ -19978,18 +20158,14 @@ nil,
 [13322] = {
 ["npcID"] = 474,
 },
-[39369] = {
-["encounterName"] = "阿克蒙德",
-["npcID"] = 17968,
-["encounterID"] = 622,
+[55334] = {
+["npcID"] = 16163,
 },
 [32914] = {
 ["npcID"] = 25464,
 },
-[59839] = {
-["encounterName"] = "斯拉德兰",
-["npcID"] = 29304,
-["encounterID"] = 383,
+[40872] = {
+["npcID"] = 23030,
 },
 [18576] = {
 ["encounterName"] = "奥妮克希亚",
@@ -20003,24 +20179,6 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 38175,
 },
-[70116] = {
-["source"] = "护塔冰龙",
-["event"] = "SPELL_CAST_START",
-["npcID"] = 37230,
-},
-[40872] = {
-["npcID"] = 23030,
-},
-[55815] = {
-["encounterName"] = "凶残的伊克",
-["encounterID"] = 1988,
-["npcID"] = 29932,
-},
-[59973] = {
-["encounterName"] = "先知萨隆亚",
-["encounterID"] = 375,
-["npcID"] = 26632,
-},
 [69387] = {
 ["event"] = "SPELL_CAST_START",
 ["source"] = "亡语随从",
@@ -20033,13 +20191,18 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["encounterID"] = 837,
 },
-[61591] = {
-["npcID"] = 30893,
+[55815] = {
+["encounterName"] = "凶残的伊克",
+["encounterID"] = 1988,
+["npcID"] = 29932,
 },
-[71298] = {
-["event"] = "SPELL_CAST_START",
-["source"] = "伊米亚死亡使者",
-["npcID"] = 38125,
+[59973] = {
+["encounterName"] = "先知萨隆亚",
+["encounterID"] = 375,
+["npcID"] = 26632,
+},
+[51586] = {
+["npcID"] = 28410,
 },
 [64607] = {
 ["encounterName"] = "观察者奥尔加隆",
@@ -20048,15 +20211,24 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 33052,
 },
-[31942] = {
-["encounterName"] = "女祭司德莉希亚",
-["npcID"] = 24555,
-["encounterID"] = 1895,
-},
 [28783] = {
 ["encounterName"] = "阿努布雷坎",
 ["encounterID"] = 1107,
 ["npcID"] = 15956,
+},
+[71298] = {
+["event"] = "SPELL_CAST_START",
+["source"] = "伊米亚死亡使者",
+["npcID"] = 38125,
+},
+[15799] = {
+["npcID"] = 25446,
+},
+[59006] = {
+["npcID"] = 26639,
+},
+[39581] = {
+["npcID"] = 22848,
 },
 [58438] = {
 ["source"] = "自由的欺诈者",
@@ -20069,25 +20241,33 @@ nil,
 [9532] = {
 ["npcID"] = 11675,
 },
-[15799] = {
-["npcID"] = 25446,
+[72898] = {
+["npcID"] = 37994,
 },
 [72322] = {
 ["source"] = "幽灵祭司",
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 38175,
 },
-[39581] = {
-["npcID"] = 22848,
+[74452] = {
+["encounterName"] = "塞维娅娜·怒火",
+["source"] = "塞维娅娜·怒火",
+["npcID"] = 39747,
+["event"] = "SPELL_CAST_START",
+["encounterID"] = 891,
 },
 [56775] = {
 ["npcID"] = 26722,
 },
-[72898] = {
-["npcID"] = 37994,
+[56504] = {
+["npcID"] = 30301,
 },
-[16001] = {
-["npcID"] = 26638,
+[64059] = {
+["encounterName"] = "尤格-萨隆",
+["source"] = "尤格-萨隆的大脑",
+["encounterID"] = 756,
+["event"] = "SPELL_CAST_START",
+["npcID"] = 33890,
 },
 [66821] = {
 ["encounterName"] = "诺森德猛兽",
@@ -20099,15 +20279,15 @@ nil,
 [15801] = {
 ["npcID"] = 11600,
 },
-[56504] = {
-["npcID"] = 30301,
+[10277] = {
+["npcID"] = 18970,
 },
-[64696] = {
-["encounterName"] = "锋鳞",
-["source"] = "黑暗符文哨兵",
-["npcID"] = 33453,
+[63891] = {
+["encounterName"] = "尤格-萨隆",
+["source"] = "萨拉",
+["npcID"] = 33134,
 ["event"] = "SPELL_CAST_START",
-["encounterID"] = 746,
+["encounterID"] = 756,
 },
 [46988] = {
 ["npcID"] = 11949,
@@ -20119,34 +20299,38 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 36627,
 },
-[10277] = {
-["npcID"] = 18970,
+[70744] = {
+["encounterName"] = "踏梦者瓦莉瑟瑞娅",
+["source"] = "脓疮僵尸",
+["encounterID"] = 854,
+["event"] = "SPELL_CAST_START",
+["npcID"] = 37934,
 },
 [63556] = {
 ["event"] = "SPELL_CAST_START",
 ["source"] = "红木树人",
 ["npcID"] = 33525,
 },
-[31758] = {
-["npcID"] = 17934,
+[59148] = {
+["npcID"] = 28580,
 },
-[54095] = {
-["encounterName"] = "黑女巫法琳娜",
-["encounterID"] = 1110,
-["npcID"] = 16506,
+[72429] = {
+["encounterName"] = "巫妖王",
+["source"] = "泰瑞纳斯·米奈希尔",
+["encounterID"] = 856,
+["event"] = "SPELL_CAST_START",
+["npcID"] = 38579,
 },
 [66054] = {
 ["event"] = "SPELL_CAST_START",
 ["source"] = "萨缪尔",
 ["npcID"] = 34470,
 },
-[69989] = {
-["event"] = "SPELL_CAST_START",
-["source"] = "破天号射手",
-["npcID"] = 37144,
+[51877] = {
+["npcID"] = 26577,
 },
-[59148] = {
-["npcID"] = 28580,
+[44504] = {
+["npcID"] = 24690,
 },
 [57799] = {
 ["encounterName"] = "传令官沃拉兹",
@@ -20163,23 +20347,19 @@ nil,
 [21807] = {
 ["npcID"] = 29181,
 },
-[44504] = {
-["npcID"] = 24690,
+[8986] = {
+["npcID"] = 6427,
 },
-[59225] = {
-["encounterName"] = "法师领主伊洛姆",
-["npcID"] = 27651,
-["encounterID"] = 532,
+[50323] = {
+["npcID"] = 25609,
 },
 [30091] = {
 ["npcID"] = 16165,
 },
-[67529] = {
-["encounterName"] = "总冠军",
-["source"] = "克罗索斯",
-["npcID"] = 34701,
-["event"] = "SPELL_CAST_START",
-["encounterID"] = 334,
+[43996] = {
+["encounterName"] = "祖尔金",
+["npcID"] = 24529,
+["encounterID"] = 1194,
 },
 [56200] = {
 ["npcID"] = 25237,
@@ -20187,15 +20367,15 @@ nil,
 [46029] = {
 ["npcID"] = 24684,
 },
-[31740] = {
-["encounterName"] = "安纳塞隆",
-["encounterID"] = 619,
-["npcID"] = 17928,
+[63802] = {
+["encounterName"] = "尤格-萨隆",
+["source"] = "萨拉",
+["encounterID"] = 756,
+["event"] = "SPELL_CAST_START",
+["npcID"] = 33134,
 },
-[43996] = {
-["encounterName"] = "祖尔金",
-["npcID"] = 24529,
-["encounterID"] = 1194,
+[40938] = {
+["npcID"] = 22954,
 },
 [32330] = {
 ["npcID"] = 26625,
@@ -20212,18 +20392,6 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 34470,
 },
-[40938] = {
-["npcID"] = 22954,
-},
-[51584] = {
-["npcID"] = 26283,
-},
-[34259] = {
-["npcID"] = 17014,
-},
-[44644] = {
-["npcID"] = 24685,
-},
 [47059] = {
 ["npcID"] = 26448,
 },
@@ -20232,10 +20400,8 @@ nil,
 ["encounterID"] = 577,
 ["npcID"] = 26668,
 },
-[28524] = {
-["encounterName"] = "萨菲隆",
-["encounterID"] = 1119,
-["npcID"] = 15989,
+[34259] = {
+["npcID"] = 17014,
 },
 [68872] = {
 ["encounterName"] = "布隆亚姆",
@@ -20247,15 +20413,37 @@ nil,
 [53717] = {
 ["npcID"] = 28471,
 },
-[59271] = {
-["encounterName"] = "戈托克·苍蹄",
-["encounterID"] = 579,
-["npcID"] = 26685,
+[69028] = {
+["encounterName"] = "科瑞克",
+["source"] = "科瑞克",
+["npcID"] = 36477,
+["event"] = "SPELL_CAST_START",
+["encounterID"] = 835,
+},
+[28524] = {
+["encounterName"] = "萨菲隆",
+["encounterID"] = 1119,
+["npcID"] = 15989,
+},
+[21066] = {
+["source"] = "卡扎克",
+["event"] = "SPELL_CAST_START",
+["npcID"] = 12397,
 },
 [43301] = {
 ["encounterName"] = "哈尔拉兹",
 ["encounterID"] = 1192,
 ["npcID"] = 24224,
+},
+[59271] = {
+["encounterName"] = "戈托克·苍蹄",
+["encounterID"] = 579,
+["npcID"] = 26685,
+},
+[71376] = {
+["event"] = "SPELL_CAST_START",
+["source"] = "霜牙",
+["npcID"] = 37533,
 },
 [63493] = {
 ["encounterName"] = "钢铁议会",
@@ -20272,10 +20460,8 @@ nil,
 [57480] = {
 ["npcID"] = 30184,
 },
-[71376] = {
-["event"] = "SPELL_CAST_START",
-["source"] = "霜牙",
-["npcID"] = 37533,
+[27990] = {
+["npcID"] = 16021,
 },
 [37138] = {
 ["encounterName"] = "鱼斯拉",
@@ -20284,18 +20470,16 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["encounterID"] = 624,
 },
-[66067] = {
-["encounterName"] = "阵营冠军",
-["source"] = "麦拉多·深谷游者",
-["encounterID"] = 637,
-["event"] = "SPELL_CAST_START",
-["npcID"] = 34469,
+[59346] = {
+["npcID"] = 28922,
 },
 [41360] = {
 ["npcID"] = 23394,
 },
-[27990] = {
-["npcID"] = 16021,
+[65868] = {
+["source"] = "阿莱希娅·月行者",
+["event"] = "SPELL_CAST_START",
+["npcID"] = 34467,
 },
 [64005] = {
 ["encounterName"] = "科隆加恩",
@@ -20304,36 +20488,20 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["encounterID"] = 749,
 },
-[59346] = {
-["npcID"] = 28922,
-},
-[36486] = {
-["npcID"] = 16946,
-},
-[65868] = {
-["source"] = "阿莱希娅·月行者",
-["event"] = "SPELL_CAST_START",
-["npcID"] = 34467,
-},
-[34347] = {
-["npcID"] = 19527,
-},
 [44200] = {
 ["encounterName"] = "凯尔萨斯·逐日者",
 ["npcID"] = 24674,
 ["encounterID"] = 1894,
 },
-[64389] = {
-["encounterName"] = "欧尔莉亚",
-["source"] = "欧尔莉亚",
-["npcID"] = 33515,
-["event"] = "SPELL_CAST_START",
-["encounterID"] = 750,
+[40066] = {
+["npcID"] = 22877,
 },
-[71788] = {
-["source"] = "鲁伯特上尉",
+[65647] = {
+["encounterName"] = "米米尔隆",
+["source"] = "空中指挥单位",
+["encounterID"] = 754,
 ["event"] = "SPELL_CAST_START",
-["npcID"] = 37125,
+["npcID"] = 33670,
 },
 [47378] = {
 ["npcID"] = 26654,
@@ -20342,6 +20510,30 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["source"] = "寒冬滚石",
 ["npcID"] = 34135,
+},
+[64389] = {
+["encounterName"] = "欧尔莉亚",
+["source"] = "欧尔莉亚",
+["npcID"] = 33515,
+["event"] = "SPELL_CAST_START",
+["encounterID"] = 750,
+},
+[69564] = {
+["source"] = "护魂精兵",
+["event"] = "SPELL_CAST_START",
+["npcID"] = 36620,
+},
+[62680] = {
+["encounterName"] = "掌炉者伊格尼斯",
+["source"] = "掌炉者伊格尼斯",
+["encounterID"] = 745,
+["event"] = "SPELL_CAST_START",
+["npcID"] = 33118,
+},
+[72163] = {
+["source"] = "鬼魂法师",
+["event"] = "SPELL_CAST_START",
+["npcID"] = 38172,
 },
 [65801] = {
 ["encounterName"] = "阵营冠军",
@@ -20357,30 +20549,6 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["encounterID"] = 755,
 },
-[62680] = {
-["encounterName"] = "掌炉者伊格尼斯",
-["source"] = "掌炉者伊格尼斯",
-["encounterID"] = 745,
-["event"] = "SPELL_CAST_START",
-["npcID"] = 33118,
-},
-[72163] = {
-["source"] = "鬼魂法师",
-["event"] = "SPELL_CAST_START",
-["npcID"] = 38172,
-},
-[66313] = {
-["encounterName"] = "诺森德猛兽",
-["source"] = "雪地狗头人奴隶",
-["encounterID"] = 629,
-["event"] = "SPELL_CAST_START",
-["npcID"] = 34800,
-},
-[48873] = {
-["encounterName"] = "暴龙之王爵德",
-["npcID"] = 27483,
-["encounterID"] = 373,
-},
 [116] = {
 ["npcID"] = 188027,
 },
@@ -20391,16 +20559,29 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["encounterID"] = 751,
 },
+[66313] = {
+["encounterName"] = "诺森德猛兽",
+["source"] = "雪地狗头人奴隶",
+["encounterID"] = 629,
+["event"] = "SPELL_CAST_START",
+["npcID"] = 34800,
+},
+[57648] = {
+["encounterName"] = "传令官沃拉兹",
+["npcID"] = 30622,
+["encounterID"] = 215,
+},
+[58972] = {
+["npcID"] = 29822,
+},
+[20822] = {
+["npcID"] = 28403,
+},
 [56969] = {
 ["npcID"] = 26735,
 },
-[33031] = {
-["encounterName"] = "大星术师索兰莉安",
-["source"] = "血警卫侍从",
-["npcID"] = 18805,
-["isChanneled"] = true,
-["event"] = "SPELL_CAST_SUCCESS",
-["encounterID"] = 732,
+[20793] = {
+["npcID"] = 25470,
 },
 [69128] = {
 ["isChanneled"] = true,
@@ -20413,18 +20594,16 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 38125,
 },
-[57648] = {
-["encounterName"] = "传令官沃拉兹",
-["npcID"] = 30622,
-["encounterID"] = 215,
+[37361] = {
+["npcID"] = 11838,
 },
 [36819] = {
 ["encounterName"] = "凯尔萨斯·逐日者",
 ["npcID"] = 19622,
 ["encounterID"] = 733,
 },
-[20822] = {
-["npcID"] = 28403,
+[31330] = {
+["npcID"] = 17852,
 },
 [71815] = {
 ["encounterName"] = "鲜血议会",
@@ -20448,24 +20627,6 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["encounterID"] = 641,
 },
-[54369] = {
-["encounterName"] = "Zuramat",
-["npcID"] = 29314,
-["encounterID"] = 2663,
-},
-[44196] = {
-["encounterName"] = "凯尔萨斯·逐日者",
-["npcID"] = 24674,
-["encounterID"] = 1894,
-},
-[57801] = {
-["npcID"] = 29503,
-},
-[57381] = {
-["encounterName"] = "天启四骑士",
-["encounterID"] = 1121,
-["npcID"] = 16065,
-},
 [35234] = {
 ["npcID"] = 18137,
 },
@@ -20476,12 +20637,8 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 33670,
 },
-[66104] = {
-["encounterName"] = "阵营冠军",
-["source"] = "安塔尔·缮炉者",
-["encounterID"] = 637,
-["event"] = "SPELL_CAST_START",
-["npcID"] = 34466,
+[57801] = {
+["npcID"] = 29503,
 },
 [49816] = {
 ["npcID"] = 25479,
@@ -20491,6 +20648,20 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 32885,
 },
+[44577] = {
+["npcID"] = 24815,
+},
+[28293] = {
+["npcID"] = 16021,
+},
+[64746] = {
+["event"] = "SPELL_CAST_START",
+["source"] = "岩浆暴怒者",
+["npcID"] = 34086,
+},
+[50476] = {
+["npcID"] = 27655,
+},
 [64390] = {
 ["encounterName"] = "托里姆",
 ["source"] = "托里姆",
@@ -20498,26 +20669,26 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["encounterID"] = 752,
 },
-[64746] = {
-["event"] = "SPELL_CAST_START",
-["source"] = "岩浆暴怒者",
-["npcID"] = 34086,
+[33634] = {
+["npcID"] = 19257,
 },
-[64758] = {
-["encounterName"] = "锋鳞",
-["source"] = "黑暗符文哨兵",
-["encounterID"] = 746,
+[66794] = {
+["encounterName"] = "诺森德猛兽",
+["source"] = "酸喉",
+["encounterID"] = 629,
 ["event"] = "SPELL_CAST_START",
-["npcID"] = 33453,
+["npcID"] = 35144,
 },
-[50476] = {
-["npcID"] = 27655,
+[40832] = {
+["encounterName"] = "伊利丹·怒风",
+["npcID"] = 22917,
+["encounterID"] = 609,
 },
 [40082] = {
 ["npcID"] = 22874,
 },
-[33634] = {
-["npcID"] = 19257,
+[16564] = {
+["npcID"] = 31040,
 },
 [28301] = {
 ["npcID"] = 16020,
@@ -20551,8 +20722,12 @@ nil,
 [59081] = {
 ["npcID"] = 26554,
 },
-[15530] = {
-["npcID"] = 19258,
+[70372] = {
+["encounterName"] = "巫妖王",
+["source"] = "巫妖王",
+["npcID"] = 36597,
+["event"] = "SPELL_CAST_START",
+["encounterID"] = 856,
 },
 [59209] = {
 ["npcID"] = 27633,
@@ -20562,8 +20737,8 @@ nil,
 ["encounterID"] = 579,
 ["npcID"] = 26684,
 },
-[27794] = {
-["npcID"] = 16017,
+[33643] = {
+["npcID"] = 18969,
 },
 [13323] = {
 ["encounterName"] = "女祭司德莉希亚",
@@ -20581,14 +20756,18 @@ nil,
 ["encounterID"] = 557,
 ["npcID"] = 28587,
 },
-[33643] = {
-["npcID"] = 18969,
+[38183] = {
+["npcID"] = 17905,
 },
-[56277] = {
-["npcID"] = 4949,
+[45235] = {
+["encounterName"] = "艾瑞达双子",
+["encounterID"] = 727,
+["npcID"] = 25166,
 },
-[43240] = {
-["npcID"] = 23596,
+[71123] = {
+["source"] = "大臭",
+["event"] = "SPELL_CAST_START",
+["npcID"] = 37025,
 },
 [37268] = {
 ["isChanneled"] = true,
@@ -20604,10 +20783,10 @@ nil,
 [15498] = {
 ["npcID"] = 28939,
 },
-[71123] = {
-["source"] = "大臭",
-["event"] = "SPELL_CAST_START",
-["npcID"] = 37025,
+[60009] = {
+["encounterName"] = "传令官沃拉兹",
+["npcID"] = 30621,
+["encounterID"] = 215,
 },
 [43665] = {
 ["npcID"] = 24071,
@@ -20631,61 +20810,40 @@ nil,
 ["source"] = "库普古普",
 ["npcID"] = 416,
 },
-[69056] = {
-["event"] = "SPELL_CAST_START",
-["source"] = "护魂守卫",
-["npcID"] = 36478,
-},
-[59368] = {
-["encounterName"] = "看门者克里克希尔",
-["npcID"] = 28684,
-["encounterID"] = 216,
-},
-[69570] = {
-["encounterName"] = "领主泰兰努斯",
-["source"] = "获释的部落奴隶",
-["npcID"] = 37579,
-["event"] = "SPELL_CAST_START",
-["encounterID"] = 837,
-},
-[69899] = {
-["source"] = "库卡隆仪祭师",
-["event"] = "SPELL_CAST_START",
-["npcID"] = 37030,
-},
-[59376] = {
-["encounterName"] = "法师领主伊洛姆",
-["encounterID"] = 532,
-["npcID"] = 27655,
-},
-[52493] = {
-["encounterName"] = "看门者克里克希尔",
-["npcID"] = 28731,
-["encounterID"] = 216,
-},
 [16005] = {
 ["isChanneled"] = true,
 ["source"] = "末日守卫指挥官",
 ["event"] = "SPELL_CAST_SUCCESS",
 ["npcID"] = 12396,
 },
-[37249] = {
-["npcID"] = 20032,
-},
-[37121] = {
+[47484] = {
+["encounterName"] = "迦顿男爵",
+["source"] = "利齿碾压者",
+["npcID"] = 26125,
 ["isChanneled"] = true,
 ["event"] = "SPELL_CAST_SUCCESS",
-["source"] = "晶核机械师",
-["npcID"] = 20052,
+["encounterID"] = 668,
 },
-[9613] = {
-["npcID"] = 19411,
+[59638] = {
+["npcID"] = 31216,
 },
-[63149] = {
-["encounterName"] = "弗蕾亚",
+[69899] = {
+["source"] = "库卡隆仪祭师",
 ["event"] = "SPELL_CAST_START",
-["source"] = "被腐蚀的仆从",
-["npcID"] = 33354,
+["npcID"] = 37030,
+},
+[59727] = {
+["encounterName"] = "悲伤圣女",
+["encounterID"] = 565,
+["npcID"] = 27975,
+},
+[52493] = {
+["encounterName"] = "看门者克里克希尔",
+["npcID"] = 28731,
+["encounterID"] = 216,
+},
+[31664] = {
+["npcID"] = 17906,
 },
 [45101] = {
 ["npcID"] = 24979,
@@ -20695,13 +20853,8 @@ nil,
 ["npcID"] = 30681,
 ["encounterID"] = 742,
 },
-[59146] = {
-["npcID"] = 29820,
-},
-[1284201] = {
-["event"] = "SPELL_CAST_START",
-["source"] = "豪猪",
-["npcID"] = 260730,
+[9613] = {
+["npcID"] = 19411,
 },
 [66725] = {
 ["encounterName"] = "火焰看守者科拉隆",
@@ -20710,16 +20863,44 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["encounterID"] = 776,
 },
+[50344] = {
+["encounterName"] = "魔网守护者埃雷苟斯",
+["source"] = "翡翠幼龙",
+["encounterID"] = 534,
+["isChanneled"] = true,
+["event"] = "SPELL_CAST_SUCCESS",
+["npcID"] = 27692,
+},
+[15589] = {
+["isChanneled"] = true,
+["event"] = "SPELL_CAST_SUCCESS",
+["source"] = "血警卫典狱长",
+["npcID"] = 20035,
+},
+[59146] = {
+["npcID"] = 29820,
+},
+[1284201] = {
+["event"] = "SPELL_CAST_START",
+["source"] = "豪猪",
+["npcID"] = 260730,
+},
+[51103] = {
+["encounterName"] = "法师领主伊洛姆",
+["encounterID"] = 532,
+["npcID"] = 27655,
+},
 [69516] = {
 ["event"] = "SPELL_CAST_START",
 ["source"] = "伊米亚死亡使者",
 ["npcID"] = 36892,
 },
-[71956] = {
-["isChanneled"] = true,
-["source"] = "痛苦的精魂",
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 38410,
+[68958] = {
+["encounterName"] = "奥妮克希亚",
+["source"] = "奥妮克希亚巢穴守卫",
+["encounterID"] = 1084,
+["event"] = "SPELL_CAST_START",
+["npcID"] = 36561,
 },
 [59466] = {
 ["encounterName"] = "Lavanthor",
@@ -20737,29 +20918,8 @@ nil,
 ["encounterID"] = 727,
 ["npcID"] = 25165,
 },
-[51103] = {
-["encounterName"] = "法师领主伊洛姆",
-["encounterID"] = 532,
-["npcID"] = 27655,
-},
-[71337] = {
-["source"] = "冰卫训练师",
-["event"] = "SPELL_CAST_START",
-["npcID"] = 37531,
-},
-[61897] = {
-["npcID"] = 31267,
-},
-[49592] = {
-["encounterName"] = "魔网守护者埃雷苟斯",
-["source"] = "琥珀幼龙",
-["encounterID"] = 534,
-["isChanneled"] = true,
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 27755,
-},
-[47696] = {
-["npcID"] = 26737,
+[44639] = {
+["npcID"] = 24696,
 },
 [19712] = {
 ["encounterName"] = "沙斯拉尔",
@@ -20768,8 +20928,8 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["encounterID"] = 667,
 },
-[51918] = {
-["npcID"] = 28534,
+[61897] = {
+["npcID"] = 31267,
 },
 [19775] = {
 ["encounterName"] = "萨弗隆先驱者",
@@ -20777,6 +20937,23 @@ nil,
 ["npcID"] = 11662,
 ["event"] = "SPELL_CAST_START",
 ["encounterID"] = 669,
+},
+[47696] = {
+["npcID"] = 26737,
+},
+[69906] = {
+["isChanneled"] = true,
+["event"] = "SPELL_CAST_SUCCESS",
+["source"] = "破天号传教师",
+["npcID"] = 37021,
+},
+[51918] = {
+["npcID"] = 28534,
+},
+[59994] = {
+["encounterName"] = "传令官沃拉兹",
+["npcID"] = 30622,
+["encounterID"] = 215,
 },
 [17843] = {
 ["encounterName"] = "女祭司德莉希亚",
@@ -20788,12 +20965,13 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["npcID"] = 36807,
 },
-[38310] = {
-["encounterName"] = "瓦丝琪",
-["source"] = "瓦丝琪",
-["npcID"] = 21212,
-["event"] = "SPELL_CAST_START",
-["encounterID"] = 628,
+[53426] = {
+["encounterName"] = "鱼斯拉",
+["source"] = "你看我美吗",
+["npcID"] = 29452,
+["isChanneled"] = true,
+["event"] = "SPELL_CAST_SUCCESS",
+["encounterID"] = 624,
 },
 [52238] = {
 ["encounterName"] = "沃尔坎",
@@ -20812,18 +20990,16 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["encounterID"] = 637,
 },
-[71258] = {
-["isChanneled"] = true,
-["source"] = "伊米亚女武神",
-["event"] = "SPELL_CAST_SUCCESS",
-["npcID"] = 37132,
-},
-[38295] = {
-["encounterName"] = "瓦丝琪",
-["source"] = "瓦丝琪",
-["npcID"] = 21212,
+[37111] = {
 ["event"] = "SPELL_CAST_START",
-["encounterID"] = 628,
+["source"] = "星术师学徒",
+["npcID"] = 20044,
+},
+[32686] = {
+["isChanneled"] = true,
+["source"] = "末日行者",
+["event"] = "SPELL_CAST_SUCCESS",
+["npcID"] = 17711,
 },
 [62793] = {
 ["encounterName"] = "霍迪尔",
@@ -20842,10 +21018,11 @@ nil,
 ["event"] = "SPELL_CAST_START",
 ["encounterID"] = 856,
 },
-[37111] = {
-["event"] = "SPELL_CAST_START",
-["source"] = "星术师学徒",
-["npcID"] = 20044,
+[37276] = {
+["isChanneled"] = true,
+["event"] = "SPELL_CAST_SUCCESS",
+["source"] = "炽手审讯者",
+["npcID"] = 20050,
 },
 [56908] = {
 ["encounterName"] = "萨塔里奥",
@@ -20858,11 +21035,13 @@ nil,
 [59083] = {
 ["npcID"] = 26554,
 },
-[37276] = {
+[55646] = {
+["encounterName"] = "收割者戈提克",
+["source"] = "鬼灵骑兵",
+["npcID"] = 16150,
 ["isChanneled"] = true,
 ["event"] = "SPELL_CAST_SUCCESS",
-["source"] = "炽手审讯者",
-["npcID"] = 20050,
+["encounterID"] = 1109,
 },
 },
 }
@@ -20874,24 +21053,24 @@ PlaterLogs = {
 ["_error_logs"] = {
 },
 ["_general_logs"] = {
+"2026-04-03 21:01:41 | INIT | Plater-v578a-Wrath | Framework v704 | 3.80.0 | zhCN | 京东刘强东",
+"2026-04-03 20:58:57 | INIT | Plater-v578a-Wrath | Framework v704 | 3.80.0 | zhCN | 京东刘强东",
+"2026-04-03 20:55:47 | INIT | Plater-v578a-Wrath | Framework v704 | 3.80.0 | zhCN | 京东刘强东",
+"2026-04-03 20:49:57 | INIT | Plater-v578a-Wrath | Framework v704 | 3.80.0 | zhCN | 京东刘强东",
+"2026-04-03 20:47:03 | INIT | Plater-v578a-Wrath | Framework v704 | 3.80.0 | zhCN | 哔站陈睿",
+"2026-04-03 20:41:24 | INIT | Plater-v578a-Wrath | Framework v704 | 3.80.0 | zhCN | 哔站陈睿",
+"2026-04-03 08:41:05 | INIT | Plater-v578a-Wrath | Framework v704 | 3.80.0 | zhCN | 哔站陈睿",
+"2026-04-02 20:19:45 | INIT | Plater-v578a-Wrath | Framework v704 | 3.80.0 | zhCN | 京东刘强东",
+"2026-04-02 18:13:38 | INIT | Plater-v578a-Wrath | Framework v704 | 3.80.0 | zhCN | 小米军儿",
+"2026-04-02 17:44:53 | INIT | Plater-v578a-Wrath | Framework v704 | 3.80.0 | zhCN | 退休码农",
+"2026-04-02 17:21:30 | INIT | Plater-v578a-Wrath | Framework v704 | 3.80.0 | zhCN | 京东刘强东",
+"2026-04-02 17:07:54 | INIT | Plater-v578a-Wrath | Framework v704 | 3.80.0 | zhCN | 哔站陈睿",
+"2026-04-02 17:05:11 | INIT | Plater-v578a-Wrath | Framework v704 | 3.80.0 | zhCN | 京东刘强东",
+"2026-04-02 16:53:00 | INIT | Plater-v578a-Wrath | Framework v704 | 3.80.0 | zhCN | 三角碑崽儿",
+"2026-04-02 16:51:21 | INIT | Plater-v578a-Wrath | Framework v702 | 3.80.0 | zhCN | 京东刘强东",
+"2026-03-26 21:08:48 | INIT | Plater-v578a-Wrath | Framework v702 | 3.80.0 | zhCN | 于鹏",
+"2026-03-26 21:00:12 | INIT | Plater-v578a-Wrath | Framework v642 | 3.80.0 | zhCN | 于鹏",
+"2026-03-26 20:52:50 | INIT | Plater-v578a-Wrath | Framework v642 | 3.80.0 | zhCN | 于鹏",
 "2026-02-07 23:49:08 | INIT | Plater-v578a-Wrath | Framework v642 | 3.80.0 | zhCN | 京东刘强东",
-"2026-02-07 23:48:18 | INIT | Plater-v578a-Wrath | Framework v642 | 3.80.0 | zhCN | 于鹏",
-"2026-02-07 23:47:37 | INIT | Plater-v578a-Wrath | Framework v642 | 3.80.0 | zhCN | 小米军儿",
-"2026-02-07 23:46:39 | INIT | Plater-v578a-Wrath | Framework v642 | 3.80.0 | zhCN | 退休码农",
-"2026-02-07 19:13:01 | INIT | Plater-v578a-Wrath | Framework v642 | 3.80.0 | zhCN | 三角碑崽儿",
-"2026-02-05 16:17:15 | INIT | Plater-v578a-Wrath | Framework v642 | 3.80.0 | zhCN | 于鹏",
-"2026-02-05 16:16:13 | INIT | Plater-v578a-Wrath | Framework v642 | 3.80.0 | zhCN | 小米军儿",
-"2026-02-05 16:13:57 | INIT | Plater-v578a-Wrath | Framework v642 | 3.80.0 | zhCN | 小米军儿",
-"2026-02-05 16:10:26 | INIT | Plater-v578a-Wrath | Framework v642 | 3.80.0 | zhCN | 美团王兴",
-"2026-02-05 15:26:47 | INIT | Plater-v578a-Wrath | Framework v642 | 3.80.0 | zhCN | 小米军儿",
-"2026-02-05 15:19:39 | INIT | Plater-v578a-Wrath | Framework v642 | 3.80.0 | zhCN | 退休码农",
-"2026-02-05 15:16:39 | INIT | Plater-v578a-Wrath | Framework v642 | 3.80.0 | zhCN | 小米军儿",
-"2026-02-05 14:03:02 | INIT | Plater-v578a-Wrath | Framework v642 | 3.80.0 | zhCN | 小米军儿",
-"2026-02-05 12:49:42 | INIT | Plater-v578a-Wrath | Framework v642 | 3.80.0 | zhCN | 小米军儿",
-"2026-02-05 12:40:42 | INIT | Plater-v578a-Wrath | Framework v642 | 3.80.0 | zhCN | 小米军儿",
-"2026-02-05 12:35:15 | INIT | Plater-v578a-Wrath | Framework v642 | 3.80.0 | zhCN | 退休码农",
-"2026-02-05 12:34:44 | INIT | Plater-v578a-Wrath | Framework v642 | 3.80.0 | zhCN | 小米军儿",
-"2026-02-05 12:22:26 | INIT | Plater-v578a-Wrath | Framework v642 | 3.80.0 | zhCN | 退休码农",
-"2026-02-05 12:07:01 | INIT | Plater-v578a-Wrath | Framework v642 | 3.80.0 | zhCN | 三角碑崽儿",
 },
 }

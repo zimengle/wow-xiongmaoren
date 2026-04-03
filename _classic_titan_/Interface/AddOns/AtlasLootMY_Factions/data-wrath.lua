@@ -353,11 +353,87 @@ data["KnightsoftheEbonBlade"] = {
 		},
 	},
 }
-
+data["TheVioletEye80"] = {
+	FactionID = 967,
+	ContentType = FACTIONS_CONTENT,
+	LoadDifficulty = LOAD_DIFF,
+	Phase=7,
+	items = {
+		{ -- Exalted
+			name = ALIL["Exalted"],
+			[NORMAL_DIFF] = {
+				{ 1, "f967rep8" },
+                { 2, "INV_Jewelry_Ring_62", nil, AL["Path of the Violet Assassin"], nil },
+                { 3, 29283 }, -- Violet Signet of the Master Assassin
+                { 5, "INV_Jewelry_Ring_62", nil, AL["Path of the Violet Mage"], nil },
+                { 6, 29287 }, -- Violet Signet of the Archmage
+                { 17, "INV_Jewelry_Ring_62", nil, AL["Path of the Violet Restorer"], nil },
+                { 18, 29290 }, -- Violet Signet of the Grand Restorer
+                { 20, "INV_Jewelry_Ring_62", nil, AL["Path of the Violet Protector"], nil },
+                { 21, 29279 }, -- Violet Signet of the Great Protector
+                { 23, 33124 }, -- Pattern: Cloak of Darkness
+                { 25, 33165 }, -- Formula: Enchant Weapon - Greater Agility
+			},
+		},
+		{ -- Revered
+			name = ALIL["Revered"],
+			[NORMAL_DIFF] = {
+				{ 1, "f967rep7" },
+                { 2, "INV_Jewelry_Ring_62", nil, AL["Path of the Violet Assassin"], nil },
+                { 3, 29282 }, -- Violet Signet
+                { 5, "INV_Jewelry_Ring_62", nil, AL["Path of the Violet Mage"], nil },
+                { 6, 29286 }, -- Violet Signet
+                { 17, "INV_Jewelry_Ring_62", nil, AL["Path of the Violet Restorer"], nil },
+                { 18, 29291 }, -- Violet Signet
+                { 20, "INV_Jewelry_Ring_62", nil, AL["Path of the Violet Protector"], nil },
+                { 21, 29278 }, -- Violet Signet
+                { 8, 34581 }, -- Mysterious Arrow
+                { 9, 34582 }, -- Mysterious Shell
+                { 23, 31394 }, -- Plans: Iceguard Leggings
+                { 24, 33205 }, -- Pattern: Shadowprowler's Chestguard
+			},
+		},
+		{ -- Honored
+			name = ALIL["Honored"],
+			[NORMAL_DIFF] = {
+				{ 1, "f967rep6" },
+                { 2, "INV_Jewelry_Ring_62", nil, AL["Path of the Violet Assassin"], nil },
+                { 3, 29281 }, -- Violet Signet
+                { 5, "INV_Jewelry_Ring_62", nil, AL["Path of the Violet Mage"], nil },
+                { 6, 29285 }, -- Violet Signet
+                { 17, "INV_Jewelry_Ring_62", nil, AL["Path of the Violet Restorer"], nil },
+                { 18, 29289 }, -- Violet Signet
+                { 20, "INV_Jewelry_Ring_62", nil, AL["Path of the Violet Protector"], nil },
+                { 21, 29277 }, -- Violet Signet
+                { 8, 31113 }, -- Violet Badge
+                { 9, 29187 }, -- Inscription of Endurance
+                { 23, 31395 }, -- Plans: Iceguard Helm
+                { 24, 31393 }, -- Plans: Iceguard Breastplate
+                { 25, 31401 }, -- Design: The Frozen Eye
+                { 26, 33209 }, -- Recipe: Flask of Chromatic Wonder
+			},
+		},
+		{ -- Friendly
+			name = ALIL["Friendly"],
+			[NORMAL_DIFF] = {
+				{ 1, "f967rep5" },
+                { 2, "INV_Jewelry_Ring_62", nil, AL["Path of the Violet Assassin"], nil },
+                { 3, 29280 }, -- Violet Signet
+                { 5, "INV_Jewelry_Ring_62", nil, AL["Path of the Violet Mage"], nil },
+                { 6, 29284 }, -- Violet Signet
+                { 17, "INV_Jewelry_Ring_62", nil, AL["Path of the Violet Restorer"], nil },
+                { 18, 29288 }, -- Violet Signet
+                { 20, "INV_Jewelry_Ring_62", nil, AL["Path of the Violet Protector"], nil },
+                { 21, 29276 }, -- Violet Signet
+			},
+		},
+	},
+}
 data["TheAshenVerdict"] = {
 	FactionID = 1156,
 	ContentType = FACTIONS_CONTENT,
 	LoadDifficulty = LOAD_DIFF,
+	Phase=10,
 	items = {
 		{ -- Exalted 8
 			name = ALIL["Exalted"],
@@ -425,7 +501,122 @@ data["TheAshenVerdict"] = {
 		},
 	},
 }
-
+data["TheScaleOfTheSands80"] = {
+	FactionID = 990,
+	ContentType = FACTIONS_CONTENT,
+	LoadDifficulty = LOAD_DIFF,
+	Phase=11,
+	items = {
+        { -- Exalted
+			name = ALIL["Exalted"],
+			[NORMAL_DIFF] = {
+				{ 1, "f990rep8" },
+                { 2, 29301 }, -- Band of the Eternal Champion
+                { 3, 29297 }, -- Band of the Eternal Defender
+                { 17, 29305 }, -- Band of the Eternal Sage
+                { 18, 29309 }, -- Band of the Eternal Restorer
+			},
+		},
+		{ -- Revered
+			name = ALIL["Revered"],
+			[NORMAL_DIFF] = {
+				{ 1, "f990rep7" },
+                { 2, 29300 }, -- Band of Eternity
+                { 3, 29296 }, -- Band of Eternity
+                { 17, 29304 }, -- Band of Eternity
+                { 18, 29308 }, -- Band of Eternity
+                { 5, 32292 }, -- Design: Rigid Lionseye
+                { 6, 32308 }, -- Design: Wicked Pyrestone
+                { 7, 32309 }, -- Design: Enduring Seaspray Emerald
+                { 8, 32302 }, -- Design: Royal Shadowsong Amethyst
+			},
+		},
+		{ -- Honored
+			name = ALIL["Honored"],
+			[NORMAL_DIFF] = {
+				{ 1, "f990rep6" },
+                { 2, 29299 }, -- Band of Eternity
+                { 3, 29295 }, -- Band of Eternity
+                { 17, 29303 }, -- Band of Eternity
+                { 18, 29306 }, -- Band of Eternity
+                { 5, 31737 }, -- Timeless Arrow
+		        { 20, 31735 }, -- Timeless Shell
+                { 7, 35763 }, -- Design: Quick Lionseye
+                { 8, 32306 }, -- Design: Glinting Pyrestone
+                { 9, 32305 }, -- Design: Luminous Pyrestone
+                { 10, 32304 }, -- Design: Potent Pyrestone
+                { 11, 35762 }, -- Design: Reckless Pyrestone
+                { 12, 32299 }, -- Design: Balanced Shadowsong Amethyst
+                { 13, 32301 }, -- Design: Glowing Shadowsong Amethyst
+                { 22, 32300 }, -- Design: Infused Shadowsong Amethyst
+                { 23, 32311 }, -- Design: Dazzling Seaspray Emerald
+                { 24, 35765 }, -- Design: Forceful Seaspray Emerald
+                { 25, 32312 }, -- Design: Jagged Seaspray Emerald
+                { 26, 32310 }, -- Design: Radiant Seaspray Emerald
+                { 27, 35764 }, -- Design: Steady Seaspray Emerald
+			},
+		},
+	},
+}
+data["AshtongueDeathsworn80"] = {
+	FactionID = 1012,
+	ContentType = FACTIONS_CONTENT,
+	LoadDifficulty = LOAD_DIFF,
+	Phase=11,
+	items = {
+		{ -- Exalted
+			name = ALIL["Exalted"],
+			[NORMAL_DIFF] = {
+				{ 1, "f1012rep8" },
+                { 2, 32486 }, -- Ashtongue Talisman of Equilibrium
+                { 3, 32487 }, -- Ashtongue Talisman of Swiftness
+                { 4, 32488 }, -- Ashtongue Talisman of Insight
+                { 5, 32489 }, -- Ashtongue Talisman of Zeal
+                { 6, 32490 }, -- Ashtongue Talisman of Acumen
+                { 7, 32492 }, -- Ashtongue Talisman of Lethality
+                { 8, 32491 }, -- Ashtongue Talisman of Vision
+                { 9, 32493 }, -- Ashtongue Talisman of Shadows
+                { 10, 32485 }, -- Ashtongue Talisman of Valor
+			},
+		},
+		{ -- Revered
+			name = ALIL["Revered"],
+			[NORMAL_DIFF] = {
+				{ 1, "f1012rep7" },
+                -- empty but keep in, looks better
+			},
+		},
+		{ -- Honored
+			name = ALIL["Honored"],
+			[NORMAL_DIFF] = {
+				{ 1, "f1012rep6" },
+                { 17, 32443 }, -- Plans: Shadesteel Greaves
+                { 18, 32441 }, -- Plans: Shadesteel Sabots
+                { 20, 32433 }, -- Pattern: Redeemed Soul Moccasins
+                { 21, 32434 }, -- Pattern: Redeemed Soul Wristguards
+                { 22, 32431 }, -- Pattern: Greaves of Shackled Souls
+                { 23, 32432 }, -- Pattern: Waistguard of Shackled Souls
+                { 24, 32447 }, -- Pattern: Night's End
+                { 25, 32439 }, -- Pattern: Soulguard Leggings
+                { 26, 32437 }, -- Pattern: Soulguard Slippers
+			},
+		},
+		{ -- Friendly
+			name = ALIL["Friendly"],
+			[NORMAL_DIFF] = {
+				{ 1, "f1012rep5" },
+                { 17, 32444 }, -- Plans: Shadesteel Girdle
+                { 18, 32442 }, -- Plans: Shadesteel Bracers
+                { 20, 32436 }, -- Pattern: Redeemed Soul Cinch
+                { 21, 32435 }, -- Pattern: Redeemed Soul Legguards
+                { 22, 32430 }, -- Pattern: Bracers of Shackled Souls
+                { 23, 32429 }, -- Pattern: Boots of Shackled Souls
+                { 24, 32440 }, -- Pattern: Soulguard Girdle
+                { 25, 32438 }, -- Pattern: Soulguard Bracers
+			},
+		},
+	},
+}
 data["TheKaluak"] = {
 	FactionID = 1073,
 	ContentType = FACTIONS_CONTENT,

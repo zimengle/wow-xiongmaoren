@@ -1,6 +1,8 @@
 
 PawnOptions = {
 ["LastVersion"] = 2.1303,
+["LastPlayerFullName"] = "小米军儿-时光IV - 红色信仰",
+["AutoSelectScales"] = false,
 ["ItemLevels"] = {
 {
 ["ID"] = 257631,
@@ -90,8 +92,6 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:28437:3368:::::::80::::::::::|h[龙拳之锤]|h|r",
 },
 },
-["AutoSelectScales"] = false,
-["LastPlayerFullName"] = "小米军儿-时光IV - 红色信仰",
 }
 PawnMrRobotScaleProviderOptions = nil
 PawnClassicScaleProviderOptions = {
