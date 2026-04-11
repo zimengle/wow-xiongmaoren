@@ -380,7 +380,10 @@ local function HookActionButton_Update(button)
     end
     SAO:UpdateActionButton(button);
 end
-hooksecurefunc("ActionButton_Update", HookActionButton_Update);
+-- 时光服3.80.1已移除ActionButton_Update函数，需要检查是否存在
+if ActionButton_Update then
+	hooksecurefunc("ActionButton_Update", HookActionButton_Update);
+end
 
 -- Grab buttons in the stance bar
 local function HookStanceBar_UpdateState()
@@ -406,7 +409,10 @@ local function HookStanceBar_UpdateState()
         SAO:UpdateActionButton(button);
     end
 end
-hooksecurefunc("StanceBar_UpdateState", HookStanceBar_UpdateState);
+-- 时光服3.80.1已移除StanceBar_UpdateState函数，需要检查是否存在
+if StanceBar_UpdateState then
+	hooksecurefunc("StanceBar_UpdateState", HookStanceBar_UpdateState);
+end
 
 -- Awake dormant buttons associated to a spellID
 function SAO.AwakeButtonsBySpellID(self, spellID)

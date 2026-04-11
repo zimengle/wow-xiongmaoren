@@ -1,24 +1,24 @@
 local E, L, V, P, G = unpack(ElvUI)
 local UF = E:GetModule('UnitFrames')
 local LSM = E.Libs.LSM
+local ElvUF = E.oUF
 
 local _G = _G
 local next = next
 local pairs = pairs
 local tinsert = tinsert
 local strsub = strsub
+
 local CreateFrame = CreateFrame
 local UnitClass = UnitClass
-local UnitExists = UnitExists
 local UnitIsPlayer = UnitIsPlayer
-local UnitIsUnit = UnitIsUnit
 local UnitReaction = UnitReaction
 local UnitInPartyIsAI = UnitInPartyIsAI
 
 function UF:FrameGlow_MouseOnUnit(frame)
-	if frame and frame:IsVisible() and UnitExists('mouseover') then
-		local unit = frame.unit or (frame.isForced and 'player')
-		return unit and UnitIsUnit('mouseover', unit)
+	if frame and frame:IsVisible() and E:UnitExists('mouseover') then
+		local unit = (E:UnitExists(frame.unit) and frame.unit) or (frame.isForced and 'player')
+		return unit and E:UnitIsUnit('mouseover', unit)
 	end
 
 	return false
@@ -218,7 +218,7 @@ function UF:FrameGlow_SetGlowColor(glow, unit, which)
 				end
 			end
 		elseif reaction then
-			local color = _G.FACTION_BAR_COLORS[reaction]
+			local color = ElvUF.colors.reaction[reaction]
 			if color then
 				r, g, b = color.r, color.g, color.b
 			end
@@ -292,10 +292,13 @@ function UF:FrameGlow_CheckUnit(frame, element, setting, color, glowEnabled, fra
 	if not (element and frame:IsVisible()) then return end
 
 	local unit = frame.unit or (frame.isForced and 'player')
-	if (glowEnabled and not frameDisabled) and unit and UnitIsUnit(unit, strsub(setting, 0, -5)) then
+	local source = E:NotSecretValue(unit) and unit
+	local target = source and E:UnitIsUnit(source, strsub(setting, 0, -5))
+	if E:NotSecretValue(target) and target and (glowEnabled and not frameDisabled) then
 		if color then
-			UF:FrameGlow_SetGlowColor(element, unit, setting)
+			UF:FrameGlow_SetGlowColor(element, source, setting)
 		end
+
 		if element.powerGlow then
 			if frame.USE_POWERBAR_OFFSET or frame.USE_MINI_POWERBAR then
 				element.powerGlow:Show()
@@ -303,6 +306,7 @@ function UF:FrameGlow_CheckUnit(frame, element, setting, color, glowEnabled, fra
 				element.powerGlow:Hide()
 			end
 		end
+
 		element:Show()
 	else
 		UF:FrameGlow_HideGlow(element)

@@ -1,0 +1,12 @@
+<Ui xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+    <Include file="Templates.xml"/>
+    <Script file="TabLib.lua"/>
+    <Script file="FloatingFrame.lua"/>
+    <Script file="SettingsFrame.lua"/>
+    <Script file="CreatorFrame.lua"/>
+    <Script file="BrowserFrame.lua"/>
+    <Script file="PlayerSquareFrame.lua"/>
+    <Script file="MyActivityFrame.lua"/>
+    <Script file="MainFrame.lua"/>
+    <Script file="MeetingHornIntegration.lua"/>
+</Ui>

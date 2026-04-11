@@ -73,9 +73,13 @@ function Activity:Update(proto, leader, guid, channelName, lineId)
     local id, modeId, comment, name, mode, members, leaderLevel, raidId
 
     -- MHH 格式解析 (version 4)
-    -- 新格式(10字段): leaderName.comment.memberCount.playerLevel.raidId.modeId.neededRolesStr.leaderClass.membersData.MHH
+    -- 新格式(10字段): leaderName.comment.memberCount.playerLevel.raidId.modeId.neededRolesStr.leaderClass.membersData.broadcastSeq.MHH
     -- 旧格式(9字段):  leaderName.comment.memberCount.playerLevel.raidId.modeId.neededRolesStr.leaderClass.MHH
+    -- MeetingHornHeroic 发消息时带分包前缀 MHH@ / MHH# / MHH& / MHH$，需先剥离
     if version == 4 then
+        -- 剥离 MeetingHornHeroic 分包前缀（MHH@ / MHH# / MHH& / MHH$）
+        body = body:gsub('^MHH[@#&$]', '')
+
         -- 先尝试新格式（9个字段，membersData 在第9位，MHH 已被 pattern 去掉）
         local mhhLeader, mhhComment, mhhMembers, mhhLevel, mhhRaidId, mhhModeId, mhhRolesStr, mhhClass =
             body:match('^([^.]+)%.([^.]+)%.([^.]+)%.([^.]+)%.([^.]+)%.([^.]+)%.([^.]*)%.([^.]*)')
@@ -400,7 +404,12 @@ end
 
 function Activity:SetLeaderGUID(guid)
     self.guid = guid
-    self.leaderClass = guid and select(2, GetPlayerInfoByGUID(guid)) or 'PRIEST'
+    -- 只有标准 WoW GUID 格式（Player-xxx-xxx）才能调用 GetPlayerInfoByGUID
+    if guid and guid:find('^Player%-') then
+        self.leaderClass = select(2, GetPlayerInfoByGUID(guid)) or 'PRIEST'
+    else
+        self.leaderClass = self.leaderClass or 'PRIEST'
+    end
 end
 
 function Activity:SetLeader(leader)
@@ -437,7 +446,7 @@ end
 function Activity:GetLeaderPlayerLocation()
     if C_ChatInfo.IsValidChatLine(self.lineId) then
         return PlayerLocation:CreateFromChatLineID(self.lineId)
-    else
+    elseif self.guid and self.guid:find('^Player%-') then
         return PlayerLocation:CreateFromGUID(self.guid)
     end
 end

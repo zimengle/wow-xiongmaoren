@@ -11,8 +11,6 @@ local PIGSetFont=Create.PIGSetFont
 local Fun=addonTable.Fun
 local GetPIGID=Fun.GetPIGID
 ----------------------------------------
-local fuFrame = PIGOptionsList(L["ABOUT_TABNAME"],"BOT")
-
 --右侧顶部版本
 local Pig_Options=PIG_OptionsUI
 Pig_Options.R.top = PIGFrame(Pig_Options.R)
@@ -49,10 +47,11 @@ function Pig_Options:SetVer_EXT(EXTaddname,ly)
 		Pig_Options.R.top.audioVer[EXTaddname].VersionID=VersionID
 		Pig_Options.R.top.audioVer[EXTaddname].VersionTXT=VersionTXT
 	else
-		local name, title, notes, loadable = PIGGetAddOnInfo(EXTaddname)
 		local ziframe = {Pig_Options.R.top.Ver:GetChildren()}
 		local verF = PIGFrame(Pig_Options.R.top.Ver,nil,{0.0001,20})
 		Pig_Options.R.top.Ver[EXTaddname]=verF
+		verF.VersionTXT=VersionTXT
+		verF.VersionID=VersionID
 		if #ziframe==0 then
 			verF:SetPoint("LEFT", Pig_Options.R.top.Ver, "LEFT", 4, -2)
 		else
@@ -64,24 +63,22 @@ function Pig_Options:SetVer_EXT(EXTaddname,ly)
 		verF.New:SetSize(14,15);
 		verF.New:SetPoint("BOTTOMLEFT", verF.txt, "TOPRIGHT", -6, -11);
 		verF.New:Hide()
-		verF.VersionTXT=VersionTXT
-		verF.VersionID=VersionID
 	end
 end
+local VerTXT = "|cffFFD700%s:|r|cff00FF00%s|r"
 Pig_Options:HookScript("OnShow", function (self)
-	for EXTaddname,v in pairs(L["PIGaddonList"]) do
-		if self.R.top.Ver[EXTaddname] then
-			local verF = Pig_Options.R.top.Ver[EXTaddname]
-			local VerTXT = "|cffFFD700%s:|r|cff00FF00%s|r"
-			if EXTaddname==addonName then
-				verF.txt:SetText(string.format(VerTXT,GAME_VERSION_LABEL,verF.VersionTXT))
+	for i=1,#L.addnames do
+		local EXTverF=self.R.top.Ver[L.addnames[i]]
+		if EXTverF then
+			if L.addnames[i]==addonName then
+				EXTverF.txt:SetText(string.format(VerTXT,GAME_VERSION_LABEL,EXTverF.VersionTXT))
 			else
-				verF.txt:SetText("|cff00FFFF + |r"..string.format(VerTXT,L["PIGaddonList"][EXTaddname],verF.VersionTXT))
+				EXTverF.txt:SetText("|cff00FFFF + |r"..string.format(VerTXT,L.addnames[i],EXTverF.VersionTXT))
 			end
-			if PIGA["Ver"][EXTaddname] and PIGA["VerC"][EXTaddname] then
-				if verF.VersionID<PIGA["Ver"][EXTaddname] and #PIGA["VerC"][EXTaddname].p>4 then
-					verF.New:Show()
-					if EXTaddname==addonName then
+			if PIGA["Ver"][L.addnames[i]] and PIGA["VerC"][L.addnames[i]] then
+				if EXTverF.VersionID<PIGA["Ver"][L.addnames[i]] and #PIGA["VerC"][L.addnames[i]].p>4 then
+					EXTverF.New:Show()
+					if L.addnames[i]==addonName then
 						self.UpdateVer:Show()
 					end
 				end
@@ -91,14 +88,17 @@ Pig_Options:HookScript("OnShow", function (self)
 end);
 
 ------
-local function Add_EditBox(fuUI,Point,biaoti,txt,WWW)
+local fuFrame = PIGOptionsList(L["ABOUT_TABNAME"],"BOT")
+local YY=-10
+local function Add_EditBox(fuUI,biaoti,txt,WWW)
+	YY=YY-30
 	local WWW=WWW or 460
-	local EditButBT = PIGFontString(fuUI,Point,biaoti,"OUTLINE")
+	local EditButBT = PIGFontString(fuUI,{"TOPLEFT",fuFrame,"TOPLEFT",20,YY},biaoti,"OUTLINE")
 	EditButBT:SetTextColor(1, 1, 1, 1)
 	local EditBut = CreateFrame("EditBox", nil, fuUI, "InputBoxInstructionsTemplate");
 	EditBut:SetSize(WWW,30);
 	EditBut:SetPoint("LEFT",EditButBT,"RIGHT",4,0);
-	PIGSetFont(EditBut, 16, "OUTLINE");
+	PIGSetFont(EditBut, 14, "OUTLINE");
 	EditBut:SetTextColor(0, 1, 1, 1)
 	EditBut:SetTextInsets(6, 0, 0, 0)
 	EditBut:SetAutoFocus(false);
@@ -114,30 +114,22 @@ local function Add_EditBox(fuUI,Point,biaoti,txt,WWW)
 	return EditButBT,EditBut
 end
 local Aboutdata={
-	["Mail"] = "xdfxjf1004@hotmail.com",
-	["Media"] = "哔哩哔哩/抖音搜",
-	["Author"] = "geligasi",
-	["Other"]="QQ群|cff00FFFF27397148|r   2群|cff00FFFF117883385|r   YY频道|cff00FFFF113213|r"
+	["Tutorial"] = "哔哩哔哩/抖音搜geligasi",
+	["Disc"]="QQ群27397148,  2群117883385,  YY频道113213",
 }
-local YY=-10
-Add_EditBox(fuFrame,{"TOPLEFT",fuFrame,"TOPLEFT",20,YY-30},L["ABOUT_MAIL"],Aboutdata.Mail)
-Add_EditBox(fuFrame,{"TOPLEFT",fuFrame,"TOPLEFT",20,YY-60},L["ABOUT_MEDIA"]..Aboutdata.Media,Aboutdata.Author,280)
-if GetLocale() == "zhCN" then
-	fuFrame.ShowAuthor = PIGButton(fuFrame,{"TOPLEFT",fuFrame,"TOPLEFT",20,YY-90},{100,22},L["ADDON_AUTHOR"])
-	fuFrame.ShowAuthor:SetScript("OnClick", function (self)
-		local fujiUI=fuFrame:GetParent():GetParent():GetParent():GetParent()
-		fujiUI:ShowAuthor()
-	end);
-	fuFrame.ShowAuthor:Hide()
-	fuFrame.Other = PIGFontString(fuFrame,{"LEFT",fuFrame.ShowAuthor,"RIGHT",20,0},Aboutdata.Other,"OUTLINE")
-	fuFrame.Other:SetTextColor(1, 1, 1, 1)
-	fuFrame.Other:SetJustifyH("LEFT")
+if GetLocale() ~= "zhCN" then
+	Aboutdata.Tutorial = "YouTube@geligasi"
+	Aboutdata.Disc="---"
 end
+Add_EditBox(fuFrame,L["ABOUT_MAIL"],"xdfxjf1004@hotmail.com")
+Add_EditBox(fuFrame,L["ABOUT_TUTORIAL"],Aboutdata.Tutorial)
+Add_EditBox(fuFrame,L["ABOUT_DISC"],Aboutdata.Disc)
+
 local YY=-140
 PIGLine(fuFrame,"TOP",YY)
-Create.add_extLsitAboutFrame("About",fuFrame,YY)
+--Create.add_extLsitAboutFrame("About",fuFrame,YY)
 
---Update===============================
+--检查团队版本
 local Ver_biaotou="!Pig_VER";
 PIG_OptionsUI.Ver_biaotou=Ver_biaotou
 C_ChatInfo.RegisterAddonMessagePrefix(Ver_biaotou)
@@ -151,11 +143,10 @@ PIG_Version:PIGClose()
 PIG_Version:PIGSetMovableNoSave()
 PIG_Version.title = PIGFontString(PIG_Version,{"TOP", PIG_Version, "TOP", 0, -4},GAME_VERSION_LABEL..INFO)
 PIGLine(PIG_Version,"TOP",-topv)
-local addonsdata=L["PIG_ADDON_LIST"]
 local addonspoint={130,210,290,370}
-for i=0,3 do
-	local title = PIGFontString(PIG_Version,{"TOPLEFT", PIG_Version, "TOPLEFT", addonspoint[i+1]+duiwu_jiangeW, -4-topv},addonsdata[i].name)
-	local title1 = PIGFontString(PIG_Version,{"TOPLEFT", PIG_Version, "TOPLEFT", addonspoint[i+1]+player_Width+duiwu_jiangeW*2, -4-topv},addonsdata[i].name)
+for i=1,#L.addnames do
+	local title = PIGFontString(PIG_Version,{"TOPLEFT", PIG_Version, "TOPLEFT", addonspoint[i]+duiwu_jiangeW, -4-topv},L.addnames[i])
+	local title1 = PIGFontString(PIG_Version,{"TOPLEFT", PIG_Version, "TOPLEFT", addonspoint[i]+player_Width+duiwu_jiangeW*2, -4-topv},L.addnames[i])
 end
 PIG_Version.butlist={}
 for p=1,8 do
@@ -273,12 +264,12 @@ function PIG_Version.Update_hang()
 	end
 end
 function PIG_Version.GetExtVer(name)
-	for i=0,3 do
+	for i=1,4 do
 		PIGSendAddonMessage(Ver_biaotou,addonsdata[i].name.."#G","WHISPER",name)
 	end
 end
 --
-fuFrame.OpenVerFBut = PIGButton(fuFrame,{"TOPLEFT",fuFrame,"TOPLEFT",2,-2},{50,20},"查询")
+fuFrame.OpenVerFBut = PIGButton(fuFrame,{"TOPLEFT",fuFrame,"TOPLEFT",2,-2},{60,22},L["ABOUT_QUERY"])
 fuFrame.OpenVerFBut:SetScript("OnClick", function ()
 	if PIG_Version:IsShown() then
 		PIG_Version:Hide()
@@ -287,21 +278,14 @@ fuFrame.OpenVerFBut:SetScript("OnClick", function ()
 		PIG_Version:Show()
 	end
 end)
----提示---------------
-fuFrame.GETVER = PIGButton(fuFrame,{"LEFT",fuFrame.OpenVerFBut,"RIGHT",10,0},{50,20},RESET)
+fuFrame.GETVER = PIGButton(fuFrame,{"LEFT",fuFrame.OpenVerFBut,"RIGHT",10,0},{60,22},RESET)
 fuFrame.GETVER:SetScript("OnClick", function ()
 	PIGA["Ver"]={}
 	PIGA["VerC"]={}
 	PIG_OptionsUI.RLUI:Show()
 end);
------
---local reverse=string.reverse
--- local function quchuerweizhidian(text)--"6.3.8"--"6.38"
--- 	local text =text:reverse()
--- 	local text = gsub(text, "%.", "",1)
--- 	local text =text:reverse()
--- 	return text
--- end
+
+----版本更新
 local function ISchongfuP(name,data)
 	for i=1,#data do
 		if name==data[i] then
@@ -351,7 +335,7 @@ local function GetExtVerInfo(uifff,EXTName,EXTlocalV, arg1, arg2, arg3, arg4, ar
 						-- print("名字+服务器:"..arg4)
 						-- print("名字      :"..arg5)
 						if EXTName==addonName then
-							PIG_print(L["ABOUT_UPDATETIPS"],"R")
+							PIGprint(L["ABOUT_UPDATETIPS"],"R")
 						end
 					end
 				end
@@ -406,7 +390,7 @@ fuFrame:SetScript("OnEvent",function(self, event, arg1, arg2, arg3, arg4, arg5)
 		if PIGA["Ver"][addonName] and PIGA["VerC"][addonName] then
 			if PIGA["Ver"][addonName]>PIG_OptionsUI:GetVer_NUM(addonName) and PIGA["VerC"][addonName] and #PIGA["VerC"][addonName].p>4 then
 				self.yiGenxing=true;
-				PIG_print(L["ABOUT_UPDATETIPS"],"R")
+				PIGprint(L["ABOUT_UPDATETIPS"],"R")
 				return
 			end
 		end

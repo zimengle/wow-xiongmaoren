@@ -2344,3 +2344,47 @@ Change Log:
 5.19.5
 * Updated for patch 11.2.7
 * Added The War Within spells (world)
+
+5.19.6
+* Updated TBC Classic TOC to 2.5.5
+* Updated Mists Classic 5.5.3
+* Added TWW spells for Brawler's Guild
+
+6.0
+* Updated for patch 12.0 with much of its functionality gone :'(
+* Updated TOC for Wrath 3.4.5
+
+6.1
+* Added support for multiple instances/encounters for bosses in multiple places with recycled abilities (Rasha'nan)
+* Fixed TWW spells for Manaforge Omega
+* Fixed TWW spells for Nerub-ar Palace
+* Fixed TWW spells for The Dawnbreaker
+* Fixed TWW spells for Operation: Floodgate
+* Fixed TWW spells for Ara-Kara, City of Echoes
+* Fixed Dragonflight spells for Algeth'ar Academy
+* Fixed SL spells for Halls of Atonement
+* Fixed Legion spells for Seat of the Triumvirate
+* Added Midnight spells (world)
+* Added TWW spells for Manaforge Omega
+* Added TWW spells for The Dawnbreaker
+* Added SL spells for Tazavesh, the Veiled Market
+
+6.1.1
+* Added Midnight spells (world)
+* Added Midnight spells for Magister's Terrace
+* Added Midnight spells for Voidscar Arena
+* Added Midnight spells for Windrunner Spire
+* Added Midnight spells for The Dreamrift
+* Added Midnight spells for The Voidspire
+
+6.2
+* Fixed taint issue when an encounter ends
+
+6.3
+* Support for alerts when AFK
+* Added Midnight spells for Windrunner Spire
+
+6.4
+* Fixed taint issues with encounters starting during combat
+* Added Midnight spells for The Voidspire
+* Added Midnight spells for March on Quel'Danas

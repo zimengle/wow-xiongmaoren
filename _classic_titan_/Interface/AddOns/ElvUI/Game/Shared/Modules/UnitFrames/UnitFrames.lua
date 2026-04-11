@@ -12,19 +12,21 @@ local wipe, type, unpack, assert, tostring = wipe, type, unpack, assert, tostrin
 local huge, strfind, gsub, format, strjoin, strmatch = math.huge, strfind, gsub, format, strjoin, strmatch
 local pcall, min, next, pairs, ipairs, tinsert, strsub = pcall, min, next, pairs, ipairs, tinsert, strsub
 
-local GameTooltip = GameTooltip
+local CreateColor = CreateColor
 local CreateFrame = CreateFrame
+local GameTooltip = GameTooltip
+local GetInstanceInfo = GetInstanceInfo
+local GetInventoryItemLink = GetInventoryItemLink
+local GetInventorySlotInfo = GetInventorySlotInfo
+local IsInInstance = IsInInstance
 local PlaySound = PlaySound
+local RegisterStateDriver = RegisterStateDriver
 local UIParent = UIParent
 local UnitExists = UnitExists
 local UnitGUID = UnitGUID
 local UnitIsEnemy = UnitIsEnemy
 local UnitIsFriend = UnitIsFriend
-local GetInstanceInfo = GetInstanceInfo
-local GetInventorySlotInfo = GetInventorySlotInfo
-local GetInventoryItemLink = GetInventoryItemLink
 local UnregisterStateDriver = UnregisterStateDriver
-local RegisterStateDriver = RegisterStateDriver
 
 local CastingBarFrame_OnLoad = CastingBarFrame_OnLoad
 local CastingBarFrame_SetUnit = CastingBarFrame_SetUnit
@@ -40,6 +42,9 @@ local SELECT_NEUTRAL = SOUNDKIT.IG_CREATURE_NEUTRAL_SELECT
 local SELECT_LOST = SOUNDKIT.INTERFACE_SOUND_LOST_TARGET_UNIT
 
 local POWERTYPE_ALTERNATE = Enum.PowerType.Alternate or 10
+local CURVE_RED = CreateColor(1, 0, 0)
+local CURVE_YELLOW = CreateColor(1, 1, 0)
+local CURVE_HEALTH = {}
 
 -- GLOBALS: Arena_LoadUI
 
@@ -66,6 +71,7 @@ UF.badHeaderPoints = {
 UF.headerFunctions = {}
 UF.classMaxResourceBar = { -- also used by Nameplates
 	DEATHKNIGHT = 6,
+	DEMONHUNTER = 6,
 	SHAMAN = E.Retail and 10 or nil,
 	PALADIN = 5,
 	WARLOCK = 5,
@@ -74,7 +80,8 @@ UF.classMaxResourceBar = { -- also used by Nameplates
 	MAGE = 4,
 	ROGUE = 7,
 	DRUID = 5,
-	PRIEST = 3
+	PRIEST = 3,
+	HUNTER = 3
 }
 
 function UF:GetAuraSortTime(which, a, b)
@@ -264,14 +271,33 @@ function UF:ResetAuraPriority()
 	for unitName, content in pairs(E.db.unitframe.units) do
 		local default = P.unitframe.units[unitName]
 		if default then
-			if content.buffs then
-				content.buffs.priority = default.buffs.priority
+			local buffs = content.buffs
+			if buffs and buffs.filters then
+				buffs.filters.priority = default.buffs.filters.priority
 			end
-			if content.debuffs then
-				content.debuffs.priority = default.debuffs.priority
+
+			local debuffs = content.debuffs
+			if debuffs and debuffs.filters then
+				debuffs.filters.priority = default.debuffs.filters.priority
 			end
-			if content.aurabar then
-				content.aurabar.priority = default.aurabar.priority
+
+			local aurabar = content.aurabar
+			if aurabar then
+				aurabar.priority = default.aurabar.priority
+			end
+
+			for key in next, E.AuraDefaults do
+				if buffs then
+					buffs[key] = default.buffs[key]
+				end
+
+				if debuffs then
+					debuffs[key] = default.debuffs[key]
+				end
+
+				if aurabar then
+					aurabar[key] = default.aurabar[key]
+				end
 			end
 		end
 	end
@@ -354,7 +380,7 @@ function UF:UnitFrame_OnEnter()
 	else
 		_G.GameTooltip_SetDefaultAnchor(GameTooltip, self)
 
-		self.UpdateTooltip = (self.unit and GameTooltip:SetUnit(self.unit) and UF.UnitFrame_OnEnter) or nil
+		self.UpdateTooltip = (E:NotSecretValue(self.unit) and self.unit and GameTooltip:SetUnit(self.unit) and UF.UnitFrame_OnEnter) or nil
 	end
 
 	UF:SetAlpha_MouseTags(self.__mousetags, 1)
@@ -450,7 +476,7 @@ function UF:GetAuraAnchorFrame(frame, attachTo)
 	elseif attachTo == 'POWER' and frame.Power then
 		return frame.Power
 	elseif attachTo == 'TRINKET' and (frame.Trinket or frame.PVPSpecIcon) then
-		local _, instanceType = GetInstanceInfo()
+		local _, instanceType = IsInInstance()
 		return (instanceType == 'arena' and frame.Trinket) or frame.PVPSpecIcon
 	else
 		return frame
@@ -489,6 +515,10 @@ function UF:UpdateColors()
 		ElvUF.colors.happiness[i] = E:SetColorTable(ElvUF.colors.happiness[i], db.happiness[i])
 	end
 
+	for i = 1, 8 do
+		ElvUF.colors.reaction[i] = E:SetColorTable(ElvUF.colors.reaction[i], db.reaction[i])
+	end
+
 	for i = 0, 9 do
 		if i ~= 4 then -- selection doesnt have 4 and skips to 13
 			ElvUF.colors.selection[i] = E:SetColorTable(ElvUF.colors.selection[i], db.selection[i])
@@ -518,9 +548,12 @@ function UF:UpdateColors()
 	ElvUF.colors.ClassBars.PRIEST = E:SetColorTable(ElvUF.colors.ClassBars.PRIEST, db.classResources.PRIEST)
 
 	if not ElvUF.colors.ClassBars.EVOKER then ElvUF.colors.ClassBars.EVOKER = {} end
+	ElvUF.colors.ClassBars.EVOKER.EBON_MIGHT = E:SetColorTable(ElvUF.colors.ClassBars.EVOKER.EBON_MIGHT, db.classResources.EVOKER.EBON_MIGHT)
+
 	if not ElvUF.colors.ClassBars.MONK then ElvUF.colors.ClassBars.MONK = {} end
+	if not ElvUF.colors.ClassBars.EVOKER.ESSENCE then ElvUF.colors.ClassBars.EVOKER.ESSENCE = {} end
 	for i = 1, 6 do
-		ElvUF.colors.ClassBars.EVOKER[i] = E:SetColorTable(ElvUF.colors.ClassBars.EVOKER[i], db.classResources.EVOKER[i])
+		ElvUF.colors.ClassBars.EVOKER.ESSENCE[i] = E:SetColorTable(ElvUF.colors.ClassBars.EVOKER.ESSENCE[i], db.classResources.EVOKER.ESSENCE[i])
 		ElvUF.colors.ClassBars.MONK[i] = E:SetColorTable(ElvUF.colors.ClassBars.MONK[i], db.classResources.MONK[i])
 	end
 
@@ -530,6 +563,11 @@ function UF:UpdateColors()
 	if not ElvUF.colors.ClassBars.MAGE then ElvUF.colors.ClassBars.MAGE = {} end
 	ElvUF.colors.ClassBars.MAGE.FROST_ICICLES = E:SetColorTable(ElvUF.colors.ClassBars.MAGE.FROST_ICICLES, db.classResources.MAGE.FROST_ICICLES)
 	ElvUF.colors.ClassBars.MAGE.ARCANE_CHARGES = E:SetColorTable(ElvUF.colors.ClassBars.MAGE.ARCANE_CHARGES, db.classResources.MAGE.ARCANE_CHARGES)
+	ElvUF.colors.ClassBars.MAGE.FIRE_BLAST = E:SetColorTable(ElvUF.colors.ClassBars.MAGE.FIRE_BLAST, db.classResources.MAGE.FIRE_BLAST)
+
+	if not ElvUF.colors.ClassBars.DEMONHUNTER then ElvUF.colors.ClassBars.DEMONHUNTER = {} end
+	ElvUF.colors.ClassBars.DEMONHUNTER.SOUL_FRAGMENTS = E:SetColorTable(ElvUF.colors.ClassBars.DEMONHUNTER.SOUL_FRAGMENTS, db.classResources.DEMONHUNTER.SOUL_FRAGMENTS)
+	ElvUF.colors.ClassBars.DEMONHUNTER.SOUL_CLEAVE = E:SetColorTable(ElvUF.colors.ClassBars.DEMONHUNTER.SOUL_CLEAVE, db.classResources.DEMONHUNTER.SOUL_CLEAVE)
 
 	if not ElvUF.colors.ClassBars.WARLOCK then ElvUF.colors.ClassBars.WARLOCK = {} end
 	ElvUF.colors.ClassBars.WARLOCK.SOUL_SHARDS = E:SetColorTable(ElvUF.colors.ClassBars.WARLOCK.SOUL_SHARDS, db.classResources.WARLOCK.SOUL_SHARDS)
@@ -550,31 +588,25 @@ function UF:UpdateColors()
 	ElvUF.colors.ClassBars.DRUID[1] = E:SetColorTable(ElvUF.colors.ClassBars.DRUID[1], db.classResources.DRUID[1])
 	ElvUF.colors.ClassBars.DRUID[2] = E:SetColorTable(ElvUF.colors.ClassBars.DRUID[2], db.classResources.DRUID[2])
 
-	-- these are just holders.. to maintain and update tables
-	if not ElvUF.colors.reaction.good then ElvUF.colors.reaction.good = {} end
-	if not ElvUF.colors.reaction.bad then ElvUF.colors.reaction.bad = {} end
-	if not ElvUF.colors.reaction.neutral then ElvUF.colors.reaction.neutral = {} end
-	ElvUF.colors.reaction.good = E:SetColorTable(ElvUF.colors.reaction.good, db.reaction.GOOD)
-	ElvUF.colors.reaction.bad = E:SetColorTable(ElvUF.colors.reaction.bad, db.reaction.BAD)
-	ElvUF.colors.reaction.neutral = E:SetColorTable(ElvUF.colors.reaction.neutral, db.reaction.NEUTRAL)
+	local health = ElvUF.colors.health
+	local smooth = ElvUF.colors.smooth
+	if smooth then
+		smooth[7] = health.r
+		smooth[8] = health.g
+		smooth[9] = health.b
+	elseif not smooth then
+		ElvUF.colors.smooth = { CURVE_RED.r, CURVE_RED.g, CURVE_RED.b, CURVE_YELLOW.r, CURVE_YELLOW.g, CURVE_YELLOW.b, health.r, health.g, health.b }
+	end
 
-	if not ElvUF.colors.smoothHealth then ElvUF.colors.smoothHealth = {} end
-	ElvUF.colors.smoothHealth = E:SetColorTable(ElvUF.colors.smoothHealth, db.health)
+	if health.SetCurve then
+		wipe(CURVE_HEALTH)
 
-	if not ElvUF.colors.smooth then ElvUF.colors.smooth = {1, 0, 0, 1, 1, 0} end
-	-- end
+		CURVE_HEALTH[0.0] = CURVE_RED
+		CURVE_HEALTH[0.5] = CURVE_YELLOW
+		CURVE_HEALTH[1.0] = health
 
-	ElvUF.colors.reaction[1] = ElvUF.colors.reaction.bad
-	ElvUF.colors.reaction[2] = ElvUF.colors.reaction.bad
-	ElvUF.colors.reaction[3] = ElvUF.colors.reaction.bad
-	ElvUF.colors.reaction[4] = ElvUF.colors.reaction.neutral
-	ElvUF.colors.reaction[5] = ElvUF.colors.reaction.good
-	ElvUF.colors.reaction[6] = ElvUF.colors.reaction.good
-	ElvUF.colors.reaction[7] = ElvUF.colors.reaction.good
-	ElvUF.colors.reaction[8] = ElvUF.colors.reaction.good
-	ElvUF.colors.smooth[7] = ElvUF.colors.smoothHealth[1]
-	ElvUF.colors.smooth[8] = ElvUF.colors.smoothHealth[2]
-	ElvUF.colors.smooth[9] = ElvUF.colors.smoothHealth[3]
+		health:SetCurve(CURVE_HEALTH)
+	end
 
 	ElvUF.colors.castColor = E:SetColorTable(ElvUF.colors.castColor, db.castColor)
 	ElvUF.colors.castNoInterrupt = E:SetColorTable(ElvUF.colors.castNoInterrupt, db.castNoInterrupt)
@@ -584,37 +616,30 @@ function UF:UpdateColors()
 	ElvUF.colors.DebuffHighlight.Curse = E:SetColorTable(ElvUF.colors.DebuffHighlight.Curse, db.debuffHighlight.Curse)
 	ElvUF.colors.DebuffHighlight.Disease = E:SetColorTable(ElvUF.colors.DebuffHighlight.Disease, db.debuffHighlight.Disease)
 	ElvUF.colors.DebuffHighlight.Poison = E:SetColorTable(ElvUF.colors.DebuffHighlight.Poison, db.debuffHighlight.Poison)
+	ElvUF.colors.DebuffHighlight.Bleed = E:SetColorTable(ElvUF.colors.DebuffHighlight.Bleed, db.debuffHighlight.Bleed)
 end
 
 function UF:Update_StatusBars(statusbars)
-	local statusBarTexture = LSM:Fetch('statusbar', UF.db.statusbar)
-	for statusbar in pairs(statusbars or UF.statusbars) do
-		if statusbar then
-			local useBlank = statusbar.isTransparent
-			if statusbar.parent then
-				useBlank = statusbar.parent.isTransparent
-			end
-			if statusbar:IsObjectType('StatusBar') then
-				if not useBlank then
-					statusbar:SetStatusBarTexture(statusBarTexture)
-				end
-			elseif statusbar:IsObjectType('Texture') then
-				statusbar:SetTexture(statusBarTexture)
-			end
-
-			UF:Update_StatusBar(statusbar.bg or statusbar.BG, (not useBlank and statusBarTexture) or E.media.blankTex)
-		end
+	for statusBar in pairs(statusbars or UF.statusbars) do
+		UF:Update_StatusBar(statusBar)
+		UF:Update_StatusBar(statusBar.bg)
 	end
 end
 
-function UF:Update_StatusBar(statusbar, texture)
-	if not statusbar then return end
-	if not texture then texture = LSM:Fetch('statusbar', UF.db.statusbar) end
+function UF:Update_StatusBar(statusBar, texture)
+	if not statusBar then return end
 
-	if statusbar:IsObjectType('StatusBar') then
-		statusbar:SetStatusBarTexture(texture)
-	elseif statusbar:IsObjectType('Texture') then
-		statusbar:SetTexture(texture)
+	if not texture then
+		texture = LSM:Fetch('statusbar', UF.db.statusbar)
+	end
+
+	local useBlank = statusBar.parent and statusBar.parent.isTransparent or statusBar.isTransparent
+	local newTexture = (not useBlank and texture) or E.media.blankTex
+
+	if statusBar:IsObjectType('StatusBar') then
+		statusBar:SetStatusBarTexture(newTexture)
+	elseif statusBar:IsObjectType('Texture') then
+		statusBar:SetTexture(newTexture)
 	end
 end
 
@@ -630,24 +655,28 @@ function UF:Update_FontStrings()
 end
 
 function UF:Construct_PrivateAuras(frame)
-	return CreateFrame('Frame', frame.frameName..'PrivateAuras', frame.RaisedElementParent)
+	local element = CreateFrame('Frame', frame.frameName..'PrivateAuras', frame.RaisedElementParent)
+	element.owner = frame
+
+	return element
 end
 
 function UF:Configure_PrivateAuras(frame)
-	if not E.Retail then return end -- dont exist on classic
+	local element = E.Retail and frame.PrivateAuras
+	if not element then return end
 
-	if frame.PrivateAuras then
-		PA:RemoveAuras(frame.PrivateAuras)
-	end
+	PA:RemoveAuras(element)
 
 	local db = frame.db and frame.db.privateAuras
-	if db and db.enable then
-		PA:SetupPrivateAuras(db, frame.PrivateAuras, frame.unit)
+	element.db = db or nil
 
-		frame.PrivateAuras:ClearAllPoints()
-		frame.PrivateAuras:Point(E.InversePoints[db.parent.point], frame, db.parent.point, db.parent.offsetX, db.parent.offsetY)
-		frame.PrivateAuras:Size(db.icon.size)
-		frame.PrivateAuras:SetFrameLevel(frame.RaisedElementParent.PrivateAurasLevel)
+	if db and db.enable then
+		element:SetFrameLevel(frame.RaisedElementParent.PrivateAurasLevel)
+		element:ClearAllPoints()
+		element:Point(E.InversePoints[db.parent.point], frame, db.parent.point, db.parent.offsetX, db.parent.offsetY)
+		element:Size(db.icon.size)
+
+		PA:SetupAuras(element)
 	end
 end
 
@@ -655,7 +684,7 @@ function UF:Construct_Fader()
 	return { UpdateRange = UF.UpdateRange }
 end
 
-do -- IDs maintained in Difficulty Datatext and Nameplate StyleFilters
+do -- IDs maintained in Difficulty Datatext
 	local diffs = {
 		keys = {
 			none = {0},
@@ -721,7 +750,13 @@ do -- IDs maintained in Difficulty Datatext and Nameplate StyleFilters
 			fader.configTimer = E:ScheduleTimer(fader.ForceUpdate, 0.25, fader, true)
 		elseif frame:IsElementEnabled('Fader') then
 			frame:DisableElement('Fader')
-			E:UIFrameFadeIn(frame, 1, frame:GetAlpha(), 1)
+
+			local alpha = frame:GetAlpha()
+			if E:NotSecretValue(alpha) then
+				E:UIFrameFadeIn(frame, 1, alpha, 1)
+			else
+				frame:SetAlpha(1)
+			end
 		end
 	end
 end
@@ -744,6 +779,8 @@ end
 
 function UF:Update_AllFrames()
 	if not E.private.unitframe.enable then return end
+
+	UF.multiplier = UF.db.multiplier
 
 	UF:UpdateColors()
 	UF:Update_FontStrings()
@@ -1100,7 +1137,7 @@ function UF:PLAYER_ENTERING_WORLD(_, initLogin, isReload)
 	UF:RegisterRaidDebuffIndicator()
 	UF:UpdateRangeSpells()
 
-	local _, instanceType = GetInstanceInfo()
+	local _, instanceType = IsInInstance()
 	if instanceType == 'raid' then
 		if initLogin or isReload then
 			UF:ZONE_CHANGED_NEW_AREA()
@@ -1129,7 +1166,7 @@ do
 		attributes.showParty = true
 		attributes.showSolo = true
 
-		local header = ElvUF:SpawnHeader(overrideName, headerTemplate, nil, attributes)
+		local header = ElvUF:SpawnHeader(overrideName, headerTemplate, attributes)
 		header.UpdateHeader = format('Update_%sHeader', parent.isRaidFrame and 'Raid' or E:StringTitle(group))
 		header.UpdateFrames = format('Update_%sFrames', parent.isRaidFrame and 'Raid' or E:StringTitle(group))
 		header.groupName = group
@@ -1265,14 +1302,6 @@ function UF:CreateAndUpdateUF(unit)
 end
 
 do
-	local mouseover = {
-		tank = true,
-		assist = true,
-		party = true,
-		raid = true,
-		raidpet = true
-	}
-
 	-- 1) we need to get some things ready very early on
 	function UF:PrepareFrame(frame, group)
 		-- we use this to move various objects over the base frame
@@ -1293,11 +1322,9 @@ do
 			end
 		end
 
-		-- handle the enter / leave scripts, for ones that need it
-		if not group or mouseover[group] then
-			frame:SetScript('OnEnter', UF.UnitFrame_OnEnter)
-			frame:SetScript('OnLeave', UF.UnitFrame_OnLeave)
-		end
+		-- handle the enter / leave scripts
+		frame:SetScript('OnEnter', UF.UnitFrame_OnEnter)
+		frame:SetScript('OnLeave', UF.UnitFrame_OnLeave)
 	end
 
 	-- 2) after that we need to setup additional things
@@ -1307,26 +1334,7 @@ do
 		frame.customTexts = {}
 	end
 
-	-- various checks to determine the setup
-	local isPet = { partypet = true, pet = true, raidpet = true }
-	local noAuras = { assisttarget = true, partypet = true, partytarget = true, tanktarget = true }
-	local noInfoPanel = { assist = true, assisttarget = true, partypet = true, partytarget = true, raidpet = true, tank = true, tanktarget = true }
-	local noPortrait = { assist = true, assisttarget = true, partypet = true, partytarget = true, tank = true, tanktarget = true }
-	local noPower = { assist = true, assisttarget = true, partypet = true, partytarget = true, raidpet = true, tank = true, tanktarget = true }
-	local noBossArena = { arena = true, boss = true }
-	local noTargets = { arena = true, assisttarget = true, focustarget = true, partytarget = true, pettarget = true, tanktarget = true, targettarget = true, targettargettarget = true }
-
-	-- which elements on what
-	local auraHighlight = { assist = true, boss = true, focus = true, party = true, pet = true, player = true, raid = true, raidpet = true, tank = true, target = true }
-	local castBar = { arena = true, boss = true, focus = true, party = true, pet = true, player = true, target = true }
-	local classBar = { party = true, player = true, raid = true }
-	local iconCombat = { party = true, raid = true, player = true, target = true, focus = true }
-	local iconPhase = { party = true, raid = true, target = true }
-	local iconPVP = { player = true, target = true }
-	local iconRaid = { party = true, player = true, raid = true, target = true }
-	local iconRoles = { party = true, raid = true }
-	local pvpIndicator = { arena = true, party = true, raid = true }
-	local raidDebuffs = { assist = true, party = true, raid = true, raidpet = true, tank = true }
+	local isPet = { pet = true, raidpet = true, partypet = true }
 
 	-- 3) this is used on all the unitframes to configure elements
 	--- the order of these is sometimes very important, try not to change them
@@ -1336,97 +1344,116 @@ do
 	---- assist: 'assist', 'assisttarget'
 	---- tank: 'tank', 'tanktarget'
 	function UF:ConfigureFrame(frame, which, offset)
-		if not noInfoPanel[which] then
+		if frame.InfoPanel then
 			UF:Configure_InfoPanel(frame)
 		end
 
-		UF:Configure_HealthBar(frame)
-		UF:Configure_HealComm(frame)
-		UF:Configure_Cutaway(frame)
-		UF:Configure_Fader(frame)
+		if frame.Health then
+			UF:Configure_HealthBar(frame)
+		end
 
-		if not noBossArena[which] then
+		if frame.HealthPrediction then
+			UF:Configure_HealComm(frame)
+		end
+
+		if frame.Cutaway then
+			UF:Configure_Cutaway(frame)
+		end
+
+		if frame.Fader then
+			UF:Configure_Fader(frame)
+		end
+
+		if frame.ThreatIndicator then
 			UF:Configure_Threat(frame)
 		end
 
-		if not noPower[which] then
+		if frame.Power then
 			UF:Configure_Power(frame)
+		end
+
+		if frame.PowerPrediction then
 			UF:Configure_PowerPrediction(frame)
 		end
 
-		if not noPortrait[which] then
+		if frame.Portrait2D then -- only check for one
 			UF:Configure_Portrait(frame)
 		end
 
-		if not noAuras[which] then
+		if frame.Auras then -- will also update buffs and debuffs
 			UF:EnableDisable_Auras(frame)
 			UF:Configure_AllAuras(frame)
+		end
 
+		if frame.customTexts then
 			UF:Configure_CustomTexts(frame)
 		end
 
-		if not noTargets[which] then
+		if frame.AuraWatch then
 			UF:Configure_AuraWatch(frame, isPet[which])
+		end
+
+		if frame.PrivateAuras then
 			UF:Configure_PrivateAuras(frame)
 		end
 
-		if raidDebuffs[which] then
+		if frame.RaidDebuffs then
 			UF:Configure_RaidDebuffs(frame)
 		end
 
-		if auraHighlight[which] then
+		if frame.AuraHighlight then
 			UF:Configure_AuraHighlight(frame)
 		end
 
-		if castBar[which] then
+		if frame.Castbar then
 			UF:Configure_Castbar(frame)
 		end
 
-		if which ~= 'arena' then
+		if frame.RaidTargetIndicator then
 			UF:Configure_RaidIcon(frame)
 		end
 
-		if iconPhase[which] then
+		if frame.PhaseIndicator then
 			UF:Configure_PhaseIcon(frame)
 		end
 
-		if iconPVP[which] then
+		if frame.PvPIndicator then
 			UF:Configure_PVPIcon(frame)
 		end
 
-		if iconCombat[which] then
+		if frame.CombatIndicator then
 			UF:Configure_CombatIndicator(frame)
 		end
 
-		if iconRaid[which] then
+		if frame.RaidRoleFramesAnchor then
 			UF:Configure_RaidRoleIcons(frame)
-
-			if not E.Classic then
-				UF:Configure_ResurrectionIcon(frame)
-			end
 		end
 
-		if iconRoles[which] then
+		if frame.ResurrectIndicator then
+			UF:Configure_ResurrectionIcon(frame)
+		end
+
+		if frame.ReadyCheckIndicator then
 			UF:Configure_ReadyCheckIcon(frame)
-
-			if E.allowRoles then
-				UF:Configure_RoleIcon(frame)
-			end
-
-			if not E.Classic then
-				UF:Configure_SummonIcon(frame)
-			end
-
-			if E.Retail or E.Mists then
-				UF:Configure_AltPowerBar(frame)
-			end
 		end
 
-		if not E.Classic and pvpIndicator[which] then
+		if frame.GroupRoleIndicator then
+			UF:Configure_RoleIcon(frame)
+		end
+
+		if frame.SummonIndicator then
+			UF:Configure_SummonIcon(frame)
+		end
+
+		if frame.AlternativePower then
+			UF:Configure_AltPowerBar(frame)
+		end
+
+		if frame.PvPClassificationIndicator then
 			UF:Configure_PvPClassificationIndicator(frame)
 		end
 
-		if classBar[which] then
+		if frame.ClassPower then
 			UF:Configure_ClassBar(frame)
 		end
 
@@ -1502,7 +1529,7 @@ function UF:RegisterRaidDebuffIndicator()
 	if ORD then
 		ORD:ResetDebuffData()
 
-		local _, instanceType = GetInstanceInfo()
+		local _, instanceType = IsInInstance()
 		if instanceType == 'party' or instanceType == 'raid' then
 			local instance = E.global.unitframe.raidDebuffIndicator.instanceFilter
 			local instanceSpells = ((E.global.unitframe.aurafilters[instance] and E.global.unitframe.aurafilters[instance].spells) or E.global.unitframe.aurafilters.RaidDebuffs.spells)
@@ -1527,12 +1554,22 @@ end
 
 do
 	local function EventlessUpdate(frame, elapsed)
-		if not frame.unit or not UnitExists(frame.unit) or not frame.__eventless then
-			return
+		local unit = frame.__eventless and frame.unit
+		local ok, guid = pcall(UnitGUID, unit)
+		if not ok or not guid then return end
+
+		if E:IsSecretValue(guid) then
+			local frequency = frame.elapsed or 0
+			if frequency > frame.onUpdateSecrets then
+				frame:UpdateAllElements('OnUpdate')
+
+				frame.elapsed = 0
+			else
+				frame.elapsed = frequency + elapsed
+			end
 		else
 			local frequency = frame.elapsed or 0
 			if frequency > frame.onUpdateElements then
-				local guid = UnitGUID(frame.unit)
 				if frame.lastGUID ~= guid then
 					frame:UpdateAllElements('OnUpdate')
 					frame.lastGUID = guid
@@ -1571,6 +1608,7 @@ do
 	end
 
 	function ElvUF:HandleEventlessUnit(frame)
+		if not frame.onUpdateSecrets then frame.onUpdateSecrets = 0.5 end -- same as oUF
 		if not frame.onUpdateElements then frame.onUpdateElements = 0.2 end
 		if not frame.onUpdatePrediction then frame.onUpdatePrediction = 0.4 end
 		if not frame.onUpdateAuras then frame.onUpdateAuras = 0.6 end
@@ -1584,16 +1622,11 @@ do
 	local SetFrameUp = {}
 	local SetFrameUnit = {}
 	local SetFrameHidden = {}
+	local NameplateHooked = {}
 	local DisabledElements = {}
 	local AllowedFuncs = {
-		[_G.DefaultCompactUnitFrameSetup] = true,
-		[_G.DefaultCompactNamePlateEnemyFrameSetup] = true,
-		[_G.DefaultCompactNamePlateFriendlyFrameSetup] = true
+		[_G.DefaultCompactUnitFrameSetup] = true
 	}
-
-	if E.Retail then
-		AllowedFuncs[_G.DefaultCompactNamePlatePlayerFrameSetup] = true
-	end
 
 	local function FrameShown(frame, shown)
 		if shown then
@@ -1614,7 +1647,7 @@ do
 		if not AllowedFuncs[func] then return end
 
 		local name = (not self.IsForbidden or not self:IsForbidden()) and self:GetDebugName()
-		if not name then return end
+		if E:IsSecretValue(name) or not name then return end
 
 		for _, pattern in next, SetFrameUp do
 			if strmatch(name, pattern) then
@@ -1630,10 +1663,30 @@ do
 		end
 	end
 
-	function UF:DisableBlizzard_DisableFrame(frame)
+	function UF:DisableBlizzard_DisableFrame(frame, isNamePlate)
 		frame:UnregisterAllEvents()
-		pcall(frame.Hide, frame)
 
+		if isNamePlate then
+			local aurasFrame = E.Retail and frame.AurasFrame
+			if aurasFrame then
+				if NP.db.useBlizzardAuras then
+					frame:RegisterUnitEvent('UNIT_AURA', frame.unit)
+				end
+
+				if not NameplateHooked[frame] then
+					NameplateHooked[frame] = true
+
+					hooksecurefunc(aurasFrame, 'RefreshList', NP.BlizzardPlate_RefreshList)
+					hooksecurefunc(aurasFrame, 'RefreshAuras', NP.BlizzardPlate_RefreshAuras)
+				end
+			end
+
+			pcall(frame.SetAlpha, frame, 0)
+		else
+			pcall(frame.Hide, frame)
+		end
+
+		tinsert(DisabledElements, (frame.HealthBarsContainer and frame.HealthBarsContainer.healthBar) or nil)
 		tinsert(DisabledElements, frame.healthBar or frame.healthbar or frame.HealthBar or nil)
 		tinsert(DisabledElements, frame.manabar or frame.ManaBar or nil)
 		tinsert(DisabledElements, frame.castBar or frame.spellbar or nil)
@@ -1641,9 +1694,8 @@ do
 		tinsert(DisabledElements, frame.powerBarAlt or frame.PowerBarAlt or nil)
 		tinsert(DisabledElements, frame.CastingBarFrame or nil)
 		tinsert(DisabledElements, frame.CcRemoverFrame or nil)
-		tinsert(DisabledElements, frame.classPowerBar or nil)
 		tinsert(DisabledElements, frame.DebuffFrame or nil)
-		tinsert(DisabledElements, frame.BuffFrame or nil)
+		tinsert(DisabledElements, frame.BuffFrame or frame.AurasFrame or nil)
 		tinsert(DisabledElements, frame.totFrame or nil)
 
 		for index, element in ipairs(DisabledElements) do
@@ -1669,13 +1721,34 @@ do
 		end
 	end
 
-	function ElvUF:DisableNamePlate(frame)
-		if (not frame or frame:IsForbidden())
-		or (not E.private.nameplates.enable) then return end
+	do
+		local locked -- TODO: remove this hack once we can adjust hitrects ourselves, coming in a later build
+		local function LockedAlpha(blizzPlate)
+			if locked or blizzPlate:IsForbidden() then return end
 
-		local plate = frame.UnitFrame
-		if plate then
-			UF:DisableBlizzard_HideFrame(plate, '^NamePlate%d+%.UnitFrame$')
+			locked = true
+			blizzPlate:SetAlpha(0)
+			locked = false
+		end
+
+		local hooked = {}
+		function ElvUF:DisableBlizzardNamePlate(frame)
+			if (not frame or frame:IsForbidden()) or (not E.private.nameplates.enable) then return end
+
+			local plate = frame.UnitFrame
+			if not plate then return end
+
+			if E.Retail then
+				if not hooked[plate] then
+					hooksecurefunc(plate, 'SetAlpha', LockedAlpha)
+
+					hooked[plate] = true
+				end
+
+				UF:DisableBlizzard_DisableFrame(plate, true)
+			else
+				UF:DisableBlizzard_HideFrame(plate, '^NamePlate%d+%.UnitFrame$')
+			end
 		end
 	end
 
@@ -1738,7 +1811,7 @@ end
 do
 	local MAX_PARTY = _G.MEMBERS_PER_RAID_GROUP or _G.MAX_PARTY_MEMBERS or 5
 	local MAX_ARENA_ENEMIES = _G.MAX_ARENA_ENEMIES or 5
-	local MAX_BOSS_FRAMES = 8
+	local MAX_BOSS_FRAMES = 5
 
 	local handledUnits = {}
 	local lockedFrames = {}
@@ -1781,10 +1854,10 @@ do
 					if not E.Retail then
 						-- For the damn vehicle support:
 						frame:RegisterEvent('PLAYER_ENTERING_WORLD')
-						frame:RegisterEvent('UNIT_ENTERING_VEHICLE')
-						frame:RegisterEvent('UNIT_ENTERED_VEHICLE')
-						frame:RegisterEvent('UNIT_EXITING_VEHICLE')
-						frame:RegisterEvent('UNIT_EXITED_VEHICLE')
+						frame:RegisterUnitEvent('UNIT_ENTERING_VEHICLE', unit)
+						frame:RegisterUnitEvent('UNIT_ENTERED_VEHICLE', unit)
+						frame:RegisterUnitEvent('UNIT_EXITING_VEHICLE', unit)
+						frame:RegisterUnitEvent('UNIT_EXITED_VEHICLE', unit)
 
 						-- User placed frames don't animate
 						frame:SetMovable(true)
@@ -1793,7 +1866,7 @@ do
 					end
 				end
 
-				if E.Retail or E.TBC then
+				if E.Retail or E.TBC or E.Wrath then
 					if disable.castbar then
 						HideFrame(_G.PlayerCastingBarFrame)
 						HideFrame(_G.PetCastingBarFrame)
@@ -1930,21 +2003,7 @@ function UF:ToggleForceShowGroupFrames(group, numGroup)
 end
 
 local Blacklist = {
-	player = {
-		enable = true,
-		aurabars = true,
-		fader = true,
-		buffs = {
-			priority = true,
-			minDuration = true,
-			maxDuration = true,
-		},
-		debuffs = {
-			priority = true,
-			minDuration = true,
-			maxDuration = true,
-		},
-	},
+	player = { enable = true, fader = true, aurabars = true },
 	arena = { enable = true, fader = true },
 	assist = { enable = true, fader = true },
 	boss = { enable = true, fader = true },
@@ -1970,37 +2029,44 @@ function UF:MergeUnitSettings(from, to)
 	UF:Update_AllFrames()
 end
 
-function UF:UpdateBackdropTextureColor(r, g, b, a)
-	local m = 0.35
-	local n = self.isTransparent and (m * 2) or m
+function UF:SetStatusBarColor(bar, r, g, b, custom, overrideAlpha, overrideBackdrop)
+	local clampBackdrop = overrideBackdrop and E:Clamp(overrideBackdrop)
+	local mainR, mainG, mainB, mainA = r, g, b, E:Clamp(bar.isTransparent and (UF.multiplier * 2) or 1)
+	local backR, backG, backB, backA = r, g, b, clampBackdrop or E:Clamp(bar.isTransparent and (UF.multiplier * 0.5) or UF.multiplier)
 
-	if self.invertColors then
-		local nn = n;n=m;m=nn
+	local color = custom or bar.custom_backdrop
+	if color then
+		backR, backG, backB, backA = color.r, color.g, color.b, clampBackdrop or (overrideAlpha and backA) or color.a
 	end
 
-	if self.isTransparent then
-		if self.backdrop then
-			self.backdrop:SetBackdropColor(r * n, g * n, b * n, a or E.media.backdropfadecolor[4])
+	if bar.bg then
+		if bar.invertColors then
+			bar.bg:SetVertexColor(mainR, mainG, mainB, mainA)
 		else
-			local parent = self:GetParent()
-			if parent and parent.template then
-				parent:SetBackdropColor(r * n, g * n, b * n, a or E.media.backdropfadecolor[4])
-			end
+			bar.bg:SetVertexColor(backR, backG, backB, backA)
 		end
 	end
 
-	local bg = self.bg or self.BG
-	if bg and bg:IsObjectType('Texture') and not bg.multiplier then
-		if self.custom_backdrop then
-			bg:SetVertexColor(self.custom_backdrop.r, self.custom_backdrop.g, self.custom_backdrop.b, self.custom_backdrop.a or 1)
-		else
-			bg:SetVertexColor(r * m, g * m, b * m, 1)
-		end
+	if bar.invertColors then
+		bar:GetStatusBarTexture():SetVertexColor(backR, backG, backB, backA)
+	else
+		bar:GetStatusBarTexture():SetVertexColor(mainR, mainG, mainB, mainA)
+	end
+end
+
+function UF:PostUpdateColor(_, color, r, g, b) -- r, g, b would be from from UnitPowerType (alternative color for this power type)
+	if not r and color then -- color would be the standard color for this power type
+		r, g, b = color:GetRGB()
+	end
+
+	if r then
+		UF:SetStatusBarColor(self, r, g, b)
 	end
 end
 
 function UF:SetStatusBarBackdropPoints(statusBar, statusBarTex, backdropTex, statusBarOrientation, reverseFill)
 	backdropTex:ClearAllPoints()
+
 	if statusBarOrientation == 'VERTICAL' then
 		if reverseFill then
 			backdropTex:Point('BOTTOMRIGHT', statusBar, 'BOTTOMRIGHT')
@@ -2024,11 +2090,24 @@ function UF:SetStatusBarBackdropPoints(statusBar, statusBarTex, backdropTex, sta
 	end
 end
 
+function UF:StatusBarBlackBackdrop()
+	self:SetBackdropColor(0, 0, 0, 1)
+end
+
 function UF:HandleStatusBarTemplate(statusBar, parent, isTransparent)
-	if statusBar.backdrop then
-		statusBar.backdrop:SetTemplate(isTransparent and 'Transparent', nil, nil, nil, true)
-	elseif parent.template then
-		parent:SetTemplate(isTransparent and 'Transparent', nil, nil, nil, true)
+	local frame = statusBar.backdrop or (parent.template and parent)
+	if not frame then return end
+
+	frame:SetTemplate(isTransparent and 'Transparent', nil, nil, nil, true)
+
+	-- when we have a background: lock the frames backdrop color
+	if not statusBar.bg then return end
+
+	if isTransparent then
+		frame.callbackBackdropColor = nil
+	else
+		frame.callbackBackdropColor = UF.StatusBarBlackBackdrop
+		frame:SetBackdropColor(0, 0, 0, 1)
 	end
 end
 
@@ -2037,11 +2116,6 @@ function UF:ToggleTransparentStatusBar(isTransparent, statusBar, backdropTex, ad
 	statusBar.invertColors = invertColors
 	statusBar.backdropTex = backdropTex
 
-	if not statusBar.hookedColor then
-		hooksecurefunc(statusBar, 'SetStatusBarColor', UF.UpdateBackdropTextureColor)
-		statusBar.hookedColor = true
-	end
-
 	local orientation = statusBar:GetOrientation()
 	local barTexture = statusBar:GetStatusBarTexture() -- This fixes Center Pixel offset problem (normally this has > 2 points)
 	barTexture:SetInside(nil, 0, 0) -- This also unsnaps the texture
@@ -2049,14 +2123,15 @@ function UF:ToggleTransparentStatusBar(isTransparent, statusBar, backdropTex, ad
 	UF:HandleStatusBarTemplate(statusBar, statusBar:GetParent(), isTransparent)
 
 	if isTransparent then
-		statusBar:SetStatusBarTexture(0, 0, 0, 0)
-		UF:Update_StatusBar(statusBar.bg or statusBar.BG, E.media.blankTex)
+		statusBar:SetStatusBarTexture(E.media.blankTex)
 
+		UF:Update_StatusBar(statusBar.bg, E.media.blankTex)
 		UF:SetStatusBarBackdropPoints(statusBar, barTexture, backdropTex, orientation, reverseFill)
 	else
 		local texture = LSM:Fetch('statusbar', UF.db.statusbar)
 		statusBar:SetStatusBarTexture(texture)
-		UF:Update_StatusBar(statusBar.bg or statusBar.BG, texture)
+
+		UF:Update_StatusBar(statusBar.bg, texture)
 
 		if adjustBackdropPoints then
 			UF:SetStatusBarBackdropPoints(statusBar, barTexture, backdropTex, orientation, reverseFill)
@@ -2145,6 +2220,12 @@ do -- Clique support for registering clicks
 	end
 end
 
+function UF:UpdateAllElements(event)
+	if self.PrivateAuras and (event == 'OnShow' or event == 'PLAYER_ENTERING_WORLD') then
+		UF:Configure_PrivateAuras(self)
+	end
+end
+
 function UF:AfterStyleCallback()
 	-- this will wait until after ouf pushes `EnableElement` onto the newly spawned frames
 	-- calling an update onto assist or tank in the styleFunc is before the `EnableElement`
@@ -2158,6 +2239,10 @@ function UF:AfterStyleCallback()
 	elseif unit == 'assist' or unit == 'assisttarget' then
 		UF:Update_AssistFrames(self, UF.db.units.assist)
 		UF:Update_FontStrings()
+	end
+
+	if self.UpdateAllElements then
+		hooksecurefunc(self, 'UpdateAllElements', UF.UpdateAllElements)
 	end
 end
 
@@ -2176,6 +2261,8 @@ end
 
 function UF:Initialize()
 	UF.thinBorders = UF.db.thinBorders
+	UF.multiplier = UF.db.multiplier or 0.35
+	UF.multiplierPrediction = 1.25
 	UF.maxAllowedGroups = 8
 
 	UF.SPACING = (UF.thinBorders or E.twoPixelsPlease) and 0 or 1
@@ -2196,7 +2283,9 @@ function UF:Initialize()
 	UF:RegisterEvent('SPELLS_CHANGED', 'UpdateRangeSpells')
 	UF:RegisterEvent('CHARACTER_POINTS_CHANGED', 'UpdateRangeSpells')
 
-	if not E.TBC then
+	if E.Retail or E.TBC or E.Wrath then
+		UF:RegisterEvent('LEARNED_SPELL_IN_SKILL_LINE', 'UpdateRangeSpells')
+	else
 		UF:RegisterEvent('LEARNED_SPELL_IN_TAB', 'UpdateRangeSpells')
 	end
 

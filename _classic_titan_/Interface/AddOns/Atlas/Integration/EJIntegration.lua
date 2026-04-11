@@ -35,6 +35,7 @@ local select = _G.select
 local tonumber = _G.tonumber
 -- Libraries
 local GameTooltip, GetBuildInfo = _G.GameTooltip, _G.GetBuildInfo
+local GetAddOnInfo = _G.GetAddOnInfo or (_G.C_AddOns and _G.C_AddOns.GetAddOnInfo)
 
 -- Determine WoW TOC Version
 local WoWClassicEra, WoWClassicTBC, WoWWOTLKC, WoWRetail

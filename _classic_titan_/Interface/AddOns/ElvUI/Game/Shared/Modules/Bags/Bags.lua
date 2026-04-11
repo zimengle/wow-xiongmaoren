@@ -200,32 +200,9 @@ if not E.Classic then
 	tinsert(B.GearFilters, FILTER_FLAG_JUNKSELL)
 end
 
-do
-	local GetBackpackCurrencyInfo = GetBackpackCurrencyInfo or C_CurrencyInfo.GetBackpackCurrencyInfo
-
-	function B:GetBackpackCurrencyInfo(index)
-		if _G.GetBackpackCurrencyInfo then
-			local info = {}
-			info.name, info.quantity, info.iconFileID, info.currencyTypesID = GetBackpackCurrencyInfo(index)
-			return info
-		else
-			return GetBackpackCurrencyInfo(index)
-		end
-	end
-
-	function B:GetContainerItemInfo(containerIndex, slotIndex)
-		return GetContainerItemInfo(containerIndex, slotIndex) or {}
-	end
-
-	function B:GetContainerItemQuestInfo(containerIndex, slotIndex)
-		return GetContainerItemQuestInfo(containerIndex, slotIndex)
-	end
-end
-
 -- GLOBALS: ElvUIBags, ElvUIBagMover, ElvUIBankMover
 
 local BANK_SPACE_OFFSET = E.Retail and 30 or 0
-local MAX_CONTAINER_ITEMS = 38
 local CONTAINER_SPACING = 0
 local CONTAINER_SCALE = 0.75
 local BOTTOM_OFFSET = 8
@@ -314,7 +291,7 @@ local presistentEvents = {
 	BAG_CLOSED = true
 }
 
-if E.Retail or E.TBC then
+if E.Retail or E.TBC or E.Wrath then
 	tinsert(bagEvents, 'BAG_CONTAINER_UPDATE')
 	tinsert(bankEvents, 'BAG_CONTAINER_UPDATE')
 
@@ -337,6 +314,28 @@ end
 
 for bankID = bankOffset + 1, maxBankSlots do
 	tinsert(bankIDs, bankID)
+end
+
+do
+	local GetBackpackCurrencyInfo = GetBackpackCurrencyInfo or C_CurrencyInfo.GetBackpackCurrencyInfo
+
+	function B:GetBackpackCurrencyInfo(index)
+		if _G.GetBackpackCurrencyInfo then
+			local info = {}
+			info.name, info.quantity, info.iconFileID, info.currencyTypesID = GetBackpackCurrencyInfo(index)
+			return info
+		else
+			return GetBackpackCurrencyInfo(index)
+		end
+	end
+
+	function B:GetContainerItemInfo(containerIndex, slotIndex)
+		return GetContainerItemInfo(containerIndex, slotIndex) or {}
+	end
+
+	function B:GetContainerItemQuestInfo(containerIndex, slotIndex)
+		return GetContainerItemQuestInfo(containerIndex, slotIndex)
+	end
 end
 
 function B:GetContainerFrame(arg)
@@ -636,9 +635,11 @@ function B:GetItemQuestInfo(itemLink, bindType, itemClassID)
 				local line = info.lines[i]
 				local text = line and line.leftText
 
-				if not text or text == '' then break end
-				if not isQuestItem and text == _G.ITEM_BIND_QUEST then isQuestItem = true end
-				if not isStarterItem and text == _G.ITEM_STARTS_QUEST then isStarterItem = true end
+				if E:NotSecretValue(text) then
+					if not text or text == '' then break end
+					if not isQuestItem and text == _G.ITEM_BIND_QUEST then isQuestItem = true end
+					if not isStarterItem and text == _G.ITEM_STARTS_QUEST then isStarterItem = true end
+				end
 			end
 		end
 
@@ -898,11 +899,6 @@ function B:Holder_OnLeave()
 	if not GameTooltip:IsForbidden() then
 		GameTooltip:Hide()
 	end
-end
-
-function B:Cooldown_OnHide()
-	self.start = nil
-	self.duration = nil
 end
 
 function B:UpdateCooldown(slot)
@@ -2118,7 +2114,7 @@ function B:ConstructContainerHolder(f, bagID, isBank, name, index)
 		bag.staleSlots = {}
 	end
 
-	for slotID = 1, (E.Retail and isBank and 98) or MAX_CONTAINER_ITEMS do
+	for slotID = 1, (E.Retail and isBank and B.CHARACTERBANK_SIZE) or B.MAX_CONTAINER_ITEMS do
 		bag[slotID] = B:ConstructContainerButton(f, bagID, slotID)
 	end
 
@@ -2208,7 +2204,9 @@ end
 
 function B:WarbandToggle_OnClick()
 	local parent = self:GetParent()
-	B:SelectBankTab(parent, 13)
+	local firstTab = B.WarbandIndexs[1]
+
+	B:SelectBankTab(parent, firstTab)
 end
 
 function B:Container_WithdrawGold()
@@ -2727,7 +2725,6 @@ function B:ConstructContainerButton(f, bagID, slotID)
 
 	slot.Cooldown = _G[slotName..'Cooldown']
 	if slot.Cooldown then
-		slot.Cooldown:HookScript('OnHide', B.Cooldown_OnHide)
 		E:RegisterCooldown(slot.Cooldown, 'bags')
 	end
 
@@ -2772,7 +2769,7 @@ function B:ToggleBag(bagID)
 	local closed = not shown
 
 	if B.BagBar then
-		local justBackpack = B.BagBar.db.justBackpack
+		local justBackpack = E.db.bags.bagBar.justBackpack
 		if closed then -- reset shown
 			local allShown = B:AllBagsShown()
 			B:SetBagsShown(justBackpack)
@@ -2875,7 +2872,7 @@ end
 function B:PositionButtons(f)
 	if not f then return end
 
-	local bagsShown = not B.BagBar or B.BagBar.db.justBackpack
+	local bagsShown = not B.BagBar or E.db.bags.bagBar.justBackpack
 	local bagsAnchor = bagsShown and f.bagsButton or f.sortButton
 
 	f.bagsButton:SetShown(bagsShown)
@@ -3655,44 +3652,42 @@ function B:Initialize()
 	BIND_START, BIND_END = B:GetBindLines()
 
 	B.AssignmentColors = {
-		[0] = { r = .99, g = .23, b = .21 }, -- fallback
-		[FILTER_FLAG_EQUIPMENT] = E:GetColorTable(B.db.colors.assignment.equipment),
-		[FILTER_FLAG_CONSUMABLES] = E:GetColorTable(B.db.colors.assignment.consumables),
-		[FILTER_FLAG_TRADE_GOODS] = E:GetColorTable(B.db.colors.assignment.tradegoods),
-		[FILTER_FLAG_QUEST] = E:GetColorTable(B.db.colors.items.questItem),
-		[FILTER_FLAG_JUNK] = E:GetColorTable(B.db.colors.assignment.junk),
-		[FILTER_FLAG_REAGENTS] = E:GetColorTable(B.db.colors.profession.reagent)
+		[0] = E:NewColorTable(0.99, 0.23, 0.21, 1), -- fallback
+		[FILTER_FLAG_EQUIPMENT] = E:UpdateColorTable({}, B.db.colors.assignment.equipment),
+		[FILTER_FLAG_CONSUMABLES] = E:UpdateColorTable({}, B.db.colors.assignment.consumables),
+		[FILTER_FLAG_TRADE_GOODS] = E:UpdateColorTable({}, B.db.colors.assignment.tradegoods),
+		[FILTER_FLAG_QUEST] = E:UpdateColorTable({}, B.db.colors.items.questItem),
+		[FILTER_FLAG_JUNK] = E:UpdateColorTable({}, B.db.colors.assignment.junk),
+		[FILTER_FLAG_REAGENTS] = E:UpdateColorTable({}, B.db.colors.profession.reagent)
 	}
 
 	B.ProfessionColors = {
-		[0x1]		= E:GetColorTable(B.db.colors.profession.quiver),
-		[0x2]		= E:GetColorTable(B.db.colors.profession.ammoPouch),
-		[0x4]		= E:GetColorTable(B.db.colors.profession.soulBag),
-		[0x8]		= E:GetColorTable(B.db.colors.profession.leatherworking),
-		[0x10]		= E:GetColorTable(B.db.colors.profession.inscription),
-		[0x20]		= E:GetColorTable(B.db.colors.profession.herbs),
-		[0x40]		= E:GetColorTable(B.db.colors.profession.enchanting),
-		[0x80]		= E:GetColorTable(B.db.colors.profession.engineering),
-		[0x100]		= E:GetColorTable(B.db.colors.profession.keyring),
-		[0x200]		= E:GetColorTable(B.db.colors.profession.gems),
-		[0x400]		= E:GetColorTable(B.db.colors.profession.mining),
-		[0x8000]	= E:GetColorTable(B.db.colors.profession.fishing),
-		[0x10000]	= E:GetColorTable(B.db.colors.profession.cooking),
+		[0x1]		= E:UpdateColorTable({}, B.db.colors.profession.quiver),
+		[0x2]		= E:UpdateColorTable({}, B.db.colors.profession.ammoPouch),
+		[0x4]		= E:UpdateColorTable({}, B.db.colors.profession.soulBag),
+		[0x8]		= E:UpdateColorTable({}, B.db.colors.profession.leatherworking),
+		[0x10]		= E:UpdateColorTable({}, B.db.colors.profession.inscription),
+		[0x20]		= E:UpdateColorTable({}, B.db.colors.profession.herbs),
+		[0x40]		= E:UpdateColorTable({}, B.db.colors.profession.enchanting),
+		[0x80]		= E:UpdateColorTable({}, B.db.colors.profession.engineering),
+		[0x100]		= E:UpdateColorTable({}, B.db.colors.profession.keyring),
+		[0x200]		= E:UpdateColorTable({}, B.db.colors.profession.gems),
+		[0x400]		= E:UpdateColorTable({}, B.db.colors.profession.mining),
+		[0x8000]	= E:UpdateColorTable({}, B.db.colors.profession.fishing),
+		[0x10000]	= E:UpdateColorTable({}, B.db.colors.profession.cooking),
 	}
 
 	if E.Retail then
-		B.ProfessionColors[B.BagIndice.reagent] = E:GetColorTable(B.db.colors.profession.reagent)
+		B.ProfessionColors[B.BagIndice.reagent] = E:UpdateColorTable({}, B.db.colors.profession.reagent)
 	end
 
 	B.QuestColors = {
-		questStarter = E:GetColorTable(B.db.colors.items.questStarter),
-		questItem = E:GetColorTable(B.db.colors.items.questItem),
+		questStarter = E:UpdateColorTable({}, B.db.colors.items.questStarter),
+		questItem = E:UpdateColorTable({}, B.db.colors.items.questItem),
 	}
 
 	B:LoadBagBar()
-
-	--Creating vendor grays frame
-	B:CreateSellFrame()
+	B:CreateSellFrame() -- Creating vendor grays frame
 	B:RegisterEvent('MERCHANT_CLOSED')
 
 	--Bag Mover (We want it created even if Bags module is disabled, so we can use it for default bags too)
@@ -3712,8 +3707,11 @@ function B:Initialize()
 
 	B.Initialized = true
 	B.BagFrames = {}
+
+	B.MAX_CONTAINER_ITEMS = 42
 	B.CHARACTERBANK_SIZE = 98
 	B.WARBANDBANK_SIZE = 98
+	B.GUILDBANK_SIZE = 98
 
 	--Bag Mover: Set default anchor point and create mover
 	BagFrameHolder:Point('BOTTOMRIGHT', _G.RightChatPanel, 'BOTTOMRIGHT', 0, 22 + E.Border*4 - E.Spacing*2)

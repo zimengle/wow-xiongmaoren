@@ -829,6 +829,21 @@
 		</Scripts>
 	</Button>
 
+	<Button name = "PallyPowerBlessingsAuraButtonTemplate" inherits = "AuraButtonTemplate" hidden = "true" virtual = "true">
+		<Scripts>
+			<OnLoad>
+				self:Hide();
+				self:EnableMouse(false);
+			</OnLoad>
+			<OnEnter>
+				PallyPowerBlessingsAuraButton_OnEnter(self);
+			</OnEnter>
+			<OnLeave>
+				PallyPowerBlessingsAuraButton_OnLeave();
+			</OnLeave>
+		</Scripts>
+	</Button>
+
 	<Frame name = "AuraGroupTemplate" hidden = "false" virtual = "true">
 		<Size>
 			<AbsDimension x = "84" y = "80"/>
@@ -859,7 +874,7 @@
 					</Anchor>
 				</Anchors>
 			</Button>
-			<Button name = "$parentAuraButton1" inherits = "AuraButtonTemplate">
+			<Button name = "$parentAuraButton1" inherits = "PallyPowerBlessingsAuraButtonTemplate">
 				<Anchors>
 					<Anchor point = "TOPLEFT">
 						<Offset>
@@ -868,7 +883,7 @@
 					</Anchor>
 				</Anchors>
 			</Button>
-			<Button name = "$parentAuraButton2" inherits = "AuraButtonTemplate">
+			<Button name = "$parentAuraButton2" inherits = "PallyPowerBlessingsAuraButtonTemplate">
 				<Anchors>
 					<Anchor point = "TOPLEFT">
 						<Offset>
@@ -877,7 +892,7 @@
 					</Anchor>
 				</Anchors>
 			</Button>
-			<Button name = "$parentAuraButton3" inherits = "AuraButtonTemplate">
+			<Button name = "$parentAuraButton3" inherits = "PallyPowerBlessingsAuraButtonTemplate">
 				<Anchors>
 					<Anchor point = "TOPLEFT">
 						<Offset>
@@ -886,7 +901,7 @@
 					</Anchor>
 				</Anchors>
 			</Button>
-			<Button name = "$parentAuraButton4" inherits = "AuraButtonTemplate">
+			<Button name = "$parentAuraButton4" inherits = "PallyPowerBlessingsAuraButtonTemplate">
 				<Anchors>
 					<Anchor point = "TOPLEFT">
 						<Offset>
@@ -895,7 +910,7 @@
 					</Anchor>
 				</Anchors>
 			</Button>
-			<Button name = "$parentAuraButton5" inherits = "AuraButtonTemplate">
+			<Button name = "$parentAuraButton5" inherits = "PallyPowerBlessingsAuraButtonTemplate">
 				<Anchors>
 					<Anchor point = "TOPLEFT">
 						<Offset>
@@ -904,7 +919,7 @@
 					</Anchor>
 				</Anchors>
 			</Button>
-			<Button name = "$parentAuraButton6" inherits = "AuraButtonTemplate">
+			<Button name = "$parentAuraButton6" inherits = "PallyPowerBlessingsAuraButtonTemplate">
 				<Anchors>
 					<Anchor point = "TOPLEFT">
 						<Offset>
@@ -913,7 +928,7 @@
 					</Anchor>
 				</Anchors>
 			</Button>
-			<Button name = "$parentAuraButton7" inherits = "AuraButtonTemplate">
+			<Button name = "$parentAuraButton7" inherits = "PallyPowerBlessingsAuraButtonTemplate">
 				<Anchors>
 					<Anchor point = "TOPLEFT">
 						<Offset>
@@ -922,7 +937,7 @@
 					</Anchor>
 				</Anchors>
 			</Button>
-			<Button name = "$parentAuraButton8" inherits = "AuraButtonTemplate">
+			<Button name = "$parentAuraButton8" inherits = "PallyPowerBlessingsAuraButtonTemplate">
 				<Anchors>
 					<Anchor point = "TOPLEFT">
 						<Offset>

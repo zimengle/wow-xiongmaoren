@@ -145,15 +145,13 @@ local configTable = {
             end
         },
         disable_tooltip_enhancement = {
-            name = "禁用鼠标BIS增强提示,勾选或者取消都需要重载插件才能使得更改生效",
+            name = "禁用鼠标BIS增强排名提示",
             order = 3,
-            desc = "勾选后完全禁用装备提示框中的BIS排名显示，适合配置较低的电脑。注意：更改此设置后需要使用 /RL 命令重新加载插件才能生效。",
+            desc = "勾选后禁用装备提示框下的装备BIS排名显示。",
             type = "toggle",
             width = "full",
             set = function(info, val)
                 TitanBistooltipAddon.db.char.disable_tooltip_enhancement = val
-                -- 提示用户需要重新加载插件
-                print("|cffffd700[TitanBistooltip]|r 鼠标BIS增强提示设置已更改，请使用 /RL 命令重新加载插件或重新登录游戏以使更改生效。")
             end,
             get = function(info)
                 return TitanBistooltipAddon.db.char.disable_tooltip_enhancement
@@ -417,11 +415,17 @@ local configTable = {
 local function buildFilterSpecOptions()
     -- 构建高亮选项
     local highlight_spec_options = {}
-    for ci, class in ipairs(TitanBistooltip_classes) do
-        for si, spec in ipairs(TitanBistooltip_classes[ci].specs) do
-            local option_val = "|T" .. TitanBistooltip_spec_icons[class.name][spec] .. ":16|t " .. L[class.name] .. " " .. L[spec]
-            local option_key = ci .. ":" .. si
-            highlight_spec_options[option_key] = option_val
+    if TitanBistooltip_classes then
+        for ci, class in ipairs(TitanBistooltip_classes) do
+            if class and class.name and TitanBistooltip_classes[ci].specs then
+                for si, spec in ipairs(TitanBistooltip_classes[ci].specs) do
+                    if spec and TitanBistooltip_spec_icons[class.name] and TitanBistooltip_spec_icons[class.name][spec] then
+                        local option_val = "|T" .. TitanBistooltip_spec_icons[class.name][spec] .. ":16|t " .. (L[class.name] or class.name) .. " " .. (L[spec] or spec)
+                        local option_key = ci .. ":" .. si
+                        highlight_spec_options[option_key] = option_val
+                    end
+                end
+            end
         end
     end
     configTable.args.highlight_spec.values = highlight_spec_options
@@ -521,10 +525,10 @@ end
 
 local function enableSpec(spec_name)
     -- 确保从数据库文件中获取最新的阶段列表
-    TitanBistooltip_bislists = TitanBistooltip_Titan_bislists;
-    TitanBistooltip_items = TitanBistooltip_Titan_items;
-    TitanBistooltip_classes = TitanBistooltip_Titan_classes;
-    TitanBistooltip_phases = TitanBistooltip_Titan_phases;
+    TitanBistooltip_bislists = TitanBistooltip_Titan_bislists or {};
+    TitanBistooltip_items = TitanBistooltip_Titan_items or {};
+    TitanBistooltip_classes = TitanBistooltip_Titan_classes or {};
+    TitanBistooltip_phases = TitanBistooltip_Titan_phases or { "PR" , "P1" , "P2" , "P3" };
     
     -- 重新构建阶段字符串，根据配置过滤掉需要隐藏的阶段
     TitanBistooltip_phases_string = ""
@@ -544,7 +548,7 @@ local function enableSpec(spec_name)
 end
 
 function TitanBistooltipAddon:addMapIcon()
-    if TitanBistooltipAddon.db.char.minimap_icon then
+    if TitanBistooltipAddon.db and TitanBistooltipAddon.db.char and TitanBistooltipAddon.db.char.minimap_icon then
         icon_loaded = true
         local LDB = LibStub("LibDataBroker-1.1", true)
         local LDBIcon = LDB and LibStub("LibDBIcon-1.0", true)
@@ -554,28 +558,28 @@ function TitanBistooltipAddon:addMapIcon()
                 text = icon_name,
                 icon = "Interface\\AddOns\\TitanBistooltip\\Icons\\my_custom_icon.tga",
                 OnClick = function(_, button)
-                    local now = GetTime()
-                    local lastClickTime = TitanBistooltipAddon.lastMinimapClickTime or 0
-                    TitanBistooltipAddon.lastMinimapClickTime = now
-                    
-                    -- 检测双击（间隔小于0.3秒）
-                    if button == "LeftButton" and (now - lastClickTime) < 0.3 then
-                        TitanBistooltipAddon:closeAllPanels()
-                        return
-                    end
-                    
                     if button == "LeftButton" then
-                        TitanBistooltipAddon:createMainFrame()
+                        -- 使用ToggleBisListFrame函数来切换面板状态
+                        if TitanBistooltipAddon.ToggleBisListFrame then
+                            TitanBistooltipAddon:ToggleBisListFrame()
+                        else
+                            -- 备用方案：如果ToggleBisListFrame函数不存在，则使用原来的逻辑
+                            if TitanBistooltipAddon.createMainFrame then
+                                TitanBistooltipAddon:createMainFrame()
+                            end
+                        end
                     end
                     if button == "RightButton" then
-                        TitanBistooltipAddon:openConfigDialog()
+                        if TitanBistooltipAddon.openConfigDialog then
+                            TitanBistooltipAddon:openConfigDialog()
+                        end
                     end
                 end,
                 OnTooltipShow = function(tt)
-                    tt:AddLine(TitanBistooltipAddon.AddonNameAndVersion)
-                    local left_click = "|cffffff00" .. L["Left click"] .. "|r " .. L["Open lists"]
-                    local right_click = "|cffffff00" .. L["Right click"] .. "|r " .. L["Open configuration"]
-                    local command_line = "|cffffff00" .. L["Command"] .. "|r /BIS"
+                    tt:AddLine(TitanBistooltipAddon.AddonNameAndVersion or "TitanBistooltip")
+                    local left_click = "|cffffff00" .. (L["Left click"] or "Left click") .. "|r " .. (L["Open lists"] or "Open lists")
+                    local right_click = "|cffffff00" .. (L["Right click"] or "Right click") .. "|r " .. (L["Open configuration"] or "Open configuration")
+                    local command_line = "|cffffff00" .. (L["Command"] or "Command") .. "|r /BIS"
                     tt:AddLine(left_click)
                     tt:AddLine(right_click)
                     tt:AddLine(command_line)
@@ -589,20 +593,33 @@ function TitanBistooltipAddon:addMapIcon()
 end
 
 function TitanBistooltipAddon:changeSpec(spec_name)
-    TitanBistooltipAddon.db.char.class_index = 1
-    TitanBistooltipAddon.db.char.spec_index = 1
-    -- 保持当前阶段设置，不强制重置
-    enableSpec(spec_name)
-    TitanBistooltipAddon:initBislists()
-    TitanBistooltipAddon:reloadData()
+    if TitanBistooltipAddon.db and TitanBistooltipAddon.db.char then
+        TitanBistooltipAddon.db.char.class_index = 1
+        TitanBistooltipAddon.db.char.spec_index = 1
+        -- 保持当前阶段设置，不强制重置
+        enableSpec(spec_name or "TitanP1P2")
+        if TitanBistooltipAddon.initBislists then
+            TitanBistooltipAddon:initBislists()
+        end
+        if TitanBistooltipAddon.reloadData then
+            TitanBistooltipAddon:reloadData()
+        end
+    end
 end
 
 function TitanBistooltipAddon:initConfig()
     TitanBistooltipAddon.db = LibStub("AceDB-3.0"):New("TitanBistooltipDB", db_defaults, true)
-    LibStub("AceConfig-3.0"):RegisterOptionsTable(TitanBistooltipAddon.AceAddonName, configTable)
-    AceConfigDialog:AddToBlizOptions(TitanBistooltipAddon.AceAddonName, TitanBistooltipAddon.AceAddonName)
-    migrateAddonDB()
+    local addonName = TitanBistooltipAddon.AceAddonName or "TitanBistooltip"
+    LibStub("AceConfig-3.0"):RegisterOptionsTable(addonName, configTable)
+    AceConfigDialog:AddToBlizOptions(addonName, addonName)
+    if migrateAddonDB then
+        migrateAddonDB()
+    end
     TitanBistooltip_bislists = {};
     TitanBistooltip_items = {};
-    enableSpec(TitanBistooltipAddon.db.char["data_source"])
+    if TitanBistooltipAddon.db and TitanBistooltipAddon.db.char then
+        enableSpec(TitanBistooltipAddon.db.char["data_source"] or "TitanP1P2")
+    else
+        enableSpec("TitanP1P2")
+    end
 end

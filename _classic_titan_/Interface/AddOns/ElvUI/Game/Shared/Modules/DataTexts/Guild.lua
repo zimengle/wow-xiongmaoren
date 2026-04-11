@@ -7,17 +7,16 @@ local format, strfind, strjoin, strsplit, strmatch = format, strfind, strjoin, s
 
 local GetGuildInfo = GetGuildInfo
 local GetGuildRosterInfo = GetGuildRosterInfo
-local GetGuildRosterMOTD = GetGuildRosterMOTD
-local MouseIsOver = MouseIsOver
 local GetNumGuildMembers = GetNumGuildMembers
 local GetQuestDifficultyColor = GetQuestDifficultyColor
-local C_GuildInfo_GuildRoster = C_GuildInfo.GuildRoster
+local InCombatLockdown = InCombatLockdown
+local IsAltKeyDown = IsAltKeyDown
 local IsInGuild = IsInGuild
 local IsShiftKeyDown = IsShiftKeyDown
+local MouseIsOver = MouseIsOver
 local ToggleGuildFrame = ToggleGuildFrame
 local UnitInParty = UnitInParty
 local UnitInRaid = UnitInRaid
-local IsAltKeyDown = IsAltKeyDown
 
 local LoadAddOn = C_AddOns.LoadAddOn
 
@@ -26,8 +25,12 @@ local REMOTE_CHAT = REMOTE_CHAT
 local GUILD_MOTD = GUILD_MOTD
 local GUILD = GUILD
 
+local GetGuildRosterMOTD = C_GuildInfo.GetMOTD or GetGuildRosterMOTD
+local C_GuildInfo_GuildRoster = C_GuildInfo.GuildRoster
 local GetGuildFactionData = C_Reputation.GetGuildFactionData
-local GetAndSortMemberInfo = CommunitiesUtil.GetAndSortMemberInfo
+local GetMemberIdsSortedByName = CommunitiesUtil.GetMemberIdsSortedByName
+local SortMemberInfo = CommunitiesUtil.SortMemberInfo
+local GetMemberInfo = CommunitiesUtil.GetMemberInfo
 local GetSubscribedClubs = C_Club.GetSubscribedClubs
 local CLUBTYPE_GUILD = Enum.ClubType.Guild
 
@@ -98,7 +101,7 @@ local function BuildGuildTable()
 	wipe(clubTable)
 
 	local clubs = E.Retail and GetSubscribedClubs()
-	if clubs then -- use this to get the timerunning flag (and other info?)
+	if E:NotSecretValue(clubs) and clubs then -- use this to get the timerunning flag (and other info?)
 		local guildClubID
 		for _, data in next, clubs do
 			if data.clubType == CLUBTYPE_GUILD then
@@ -107,9 +110,12 @@ local function BuildGuildTable()
 			end
 		end
 
-		local members = guildClubID and GetAndSortMemberInfo(guildClubID)
-		if members then
-			for _, data in next, members do
+		-- replicate GetAndSortMemberInfo while protecting secret failure during chat restrictions
+		local members = GetMemberIdsSortedByName(guildClubID)
+		local memberInfo = E:NotSecretValue(members) and GetMemberInfo(guildClubID, members)
+		local membersSorted = memberInfo and SortMemberInfo(guildClubID, memberInfo)
+		if membersSorted then
+			for _, data in next, membersSorted do
 				if data.guid then
 					clubTable[data.guid] = data
 				end
@@ -132,8 +138,8 @@ local function BuildGuildTable()
 				rank = rank,					--2
 				level = level,					--3
 				zone = zone,					--4
-				note = note,					--5
-				officerNote = officerNote,		--6
+				note = E:NotSecretValue(note) and note or '',							--5
+				officerNote = E:NotSecretValue(officerNote) and officerNote or '',		--6
 				online = connected,				--7
 				status = statusInfo,			--8
 				class = className,				--9
@@ -153,7 +159,7 @@ local function BuildGuildTable()
 end
 
 local function UpdateGuildMessage()
-	guildMotD = GetGuildRosterMOTD()
+	guildMotD = not InCombatLockdown() and GetGuildRosterMOTD() or ''
 end
 
 local FRIEND_ONLINE = select(2, strsplit(' ', _G.ERR_FRIEND_ONLINE_SS, 2))
@@ -161,7 +167,9 @@ local resendRequest = false
 local eventHandlers = {
 	PLAYER_GUILD_UPDATE = C_GuildInfo_GuildRoster,
 	CHAT_MSG_SYSTEM = function(_, arg1)
-		if FRIEND_ONLINE ~= nil and arg1 and strfind(arg1, FRIEND_ONLINE) then
+		if not FRIEND_ONLINE or not arg1 then return end
+
+		if E:NotSecretValue(arg1) and strfind(arg1, FRIEND_ONLINE) then
 			resendRequest = true
 		end
 	end,
@@ -181,6 +189,7 @@ local eventHandlers = {
 		else
 			BuildGuildTable()
 			UpdateGuildMessage()
+
 			if MouseIsOver(frame) then
 				frame:GetScript('OnEnter')(frame, nil, true)
 			end
@@ -188,7 +197,7 @@ local eventHandlers = {
 	end,
 	-- our guild message of the day changed
 	GUILD_MOTD = function(_, arg1)
-		guildMotD = arg1
+		guildMotD = E:NotSecretValue(arg1) and arg1 or ''
 	end
 }
 
@@ -236,9 +245,9 @@ local function OnEnter(_, _, noUpdate)
 	DT.tooltip:ClearLines()
 
 	local shiftDown = IsShiftKeyDown()
-	local total, _, online = GetNumGuildMembers()
+	local total, mobile, online = GetNumGuildMembers() -- mobile arg was removed in 10.2
+	if not online then online = mobile or 0 end
 	if not total then total = 0 end
-	if not online then online = 0 end
 
 	if #guildTable == 0 then BuildGuildTable() end
 

@@ -108,6 +108,11 @@ CellCharacterDB = {
 "spell",
 6940,
 },
+{
+"type-`",
+"spell",
+1152,
+},
 },
 ["class"] = "PALADIN",
 ["useCommon"] = true,

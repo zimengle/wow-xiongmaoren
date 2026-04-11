@@ -418,11 +418,13 @@ do
 	local defaults = { enable = false, battleground = false }
 	function DT:GetPanelSettings(name)
 		-- battleground dt
-		if not P.datatexts.battlePanel[name] then
-			P.datatexts.battlePanel[name] = {}
-		end
+		if not E.Retail then
+			if not P.datatexts.battlePanel[name] then
+				P.datatexts.battlePanel[name] = {}
+			end
 
-		DT.db.battlePanel[name] = E:CopyTable(DT.db.battlePanel[name], P.datatexts.battlePanel[name], true)
+			DT.db.battlePanel[name] = E:CopyTable(DT.db.battlePanel[name], P.datatexts.battlePanel[name], true)
+		end
 
 		-- enable / battleground - enable / profile dt
 		if not DT.db.panels[name] then DT.db.panels[name] = {} end
@@ -435,7 +437,7 @@ do
 		-- global number of datatext slots for the profile
 		for i = 1, (E.global.datatexts.customPanels[name].numPoints or 1) do
 			if not panelDB[i] then panelDB[i] = '' end
-			if not DT.db.battlePanel[name][i] then DT.db.battlePanel[name][i] = '' end
+			if not E.Retail and not DT.db.battlePanel[name][i] then DT.db.battlePanel[name][i] = '' end
 		end
 
 		-- pass the table back
@@ -555,7 +557,7 @@ function DT:UpdatePanelInfo(panelName, panel, ...)
 		font, fontSize, fontOutline = LSM:Fetch('font', db.fonts.font), db.fonts.fontSize, db.fonts.fontOutline
 	end
 
-	local battlePanel = info.isInBattle and (not DT.ForceHideBGStats and E.db.datatexts.panels[panelName].battleground)
+	local battlePanel = not E.Retail and info.isInBattle and (not DT.ForceHideBGStats and E.db.datatexts.panels[panelName].battleground)
 	if battlePanel then
 		DT.ShowingBattleStats = info.instanceType
 	elseif DT.ShowingBattleStats then
@@ -605,9 +607,9 @@ function DT:UpdatePanelInfo(panelName, panel, ...)
 		local assigned = DT.AssignedDatatexts[dt]
 
 		dt:SetShown(i <= numPoints)
-		dt:SetSize(width, height)
+		dt:Size(width, height)
 		dt:ClearAllPoints()
-		dt:SetPoint(DT:GetDataPanelPoint(panel, i, numPoints, vertical))
+		dt:Point(DT:GetDataPanelPoint(panel, i, numPoints, vertical))
 		dt:UnregisterAllEvents()
 		dt:EnableMouseWheel(false)
 		dt:SetScript('OnUpdate', nil)
@@ -621,7 +623,7 @@ function DT:UpdatePanelInfo(panelName, panel, ...)
 		dt.pointIndex = i
 		dt.parent = panel
 		dt.parentName = panelName
-		dt.battlePanel = battlePanel
+		dt.battlePanel = not E.Retail and battlePanel
 		dt.db = db
 		dt.watchModKey = nil
 		dt.name = nil
@@ -645,7 +647,7 @@ function DT:UpdatePanelInfo(panelName, panel, ...)
 			assigned.eventFunc(dt, 'ELVUI_REMOVE')
 		end
 
-		local panelDB = battlePanel and DT.db.battlePanel or DT.db.panels
+		local panelDB = (battlePanel and DT.db.battlePanel) or DT.db.panels
 		local data = DT.RegisteredDataTexts[panelDB[panelName][i]]
 		DT.AssignedDatatexts[dt] = data
 		if data then DT:AssignPanelToDataText(dt, data, ...) end
@@ -693,9 +695,9 @@ function DT:PanelSizeChanged()
 	local width, height, vertical, numPoints = DT:GetTextAttributes(self, db)
 
 	for i, dt in ipairs(self.dataPanels) do
-		dt:SetSize(width, height)
+		dt:Size(width, height)
 		dt:ClearAllPoints()
-		dt:SetPoint(DT:GetDataPanelPoint(self, i, numPoints, vertical))
+		dt:Point(DT:GetDataPanelPoint(self, i, numPoints, vertical))
 	end
 end
 
@@ -781,8 +783,8 @@ do
 			if not HasName(QuickList[category].menuList, info.localizedName or name) then
 				tinsert(QuickList[category].menuList, {
 					text = gsub(info.localizedName or name, '^LDB: ', ''),
-					checked = function() return E.EasyMenu.MenuGetItem(DT.SelectedDatatext, name) end,
-					func = function() E.EasyMenu.MenuSetItem(DT.SelectedDatatext, name) end
+					checked = function() return DT:MenuGetItem(DT.SelectedDatatext, name) end,
+					func = function() DT:MenuSetItem(DT.SelectedDatatext, name) end
 				})
 			end
 		end
@@ -790,8 +792,8 @@ do
 		tinsert(QuickList, { order = 99, text = ' ', notCheckable = true, isTitle = true })
 		tinsert(QuickList, {
 			order = 100, text = L["None"],
-			checked = function() return E.EasyMenu.MenuGetItem(DT.SelectedDatatext, '') end,
-			func = function() E.EasyMenu.MenuSetItem(DT.SelectedDatatext, '') end
+			checked = function() return DT:MenuGetItem(DT.SelectedDatatext, '') end,
+			func = function() DT:MenuSetItem(DT.SelectedDatatext, '') end
 		})
 
 		DT:SortMenuList(QuickList)
@@ -968,6 +970,32 @@ function DT:CloseMenus()
 	end
 end
 
+function DT:MenuGetIndex(dt)
+	local panelDB = (dt and dt.battlePanel and DT.db.battlePanel) or DT.db.panels
+	local options = panelDB and panelDB[dt.parentName]
+	if not options then return end
+
+	return dt.pointIndex, options
+end
+
+function DT:MenuSetItem(dt, value)
+	local index, options = DT:MenuGetIndex(dt)
+	if index then
+		options[index] = value
+
+		DT:UpdatePanelInfo(dt.parentName, dt.parent)
+	end
+
+	DT.SelectedDatatext = nil
+
+	DT:CloseMenus()
+end
+
+function DT:MenuGetItem(dt, value)
+	local index, options = DT:MenuGetIndex(dt)
+	return index and options[index] == value
+end
+
 function DT:Initialize()
 	DT.Initialized = true
 
@@ -975,21 +1003,6 @@ function DT:Initialize()
 
 	E.EasyMenu:SetClampedToScreen(true)
 	E.EasyMenu:EnableMouse(true)
-	E.EasyMenu.MenuSetItem = function(dt, value)
-		local panelDB = (dt and dt.battlePanel) and DT.db.battlePanel or DT.db.panels
-		if panelDB then
-			panelDB[dt.parentName][dt.pointIndex] = value
-			DT:UpdatePanelInfo(dt.parentName, dt.parent)
-		end
-
-		DT.SelectedDatatext = nil
-
-		DT:CloseMenus()
-	end
-	E.EasyMenu.MenuGetItem = function(dt, value)
-		local panelDB = (dt and dt.battlePanel) and DT.db.battlePanel or DT.db.panels
-		return dt and (panelDB[dt.parentName] and panelDB[dt.parentName][dt.pointIndex] == value)
-	end
 
 	if E.private.skins.blizzard.enable and E.private.skins.blizzard.tooltip then
 		TT:SetStyle(DT.tooltip)
@@ -1032,7 +1045,10 @@ function DT:Initialize()
 	DT:RegisterLDB() -- LibDataBroker
 	DT:UpdateQuickDT()
 
-	DT:RegisterEvent('UPDATE_BATTLEFIELD_SCORE')
+	if not E.Retail then
+		DT:RegisterEvent('UPDATE_BATTLEFIELD_SCORE') -- function added by the Battlegrounds file.
+	end
+
 	DT:RegisterEvent('MODIFIER_STATE_CHANGED', 'QuickDTMode')
 	DT:RegisterEvent('PLAYER_ENTERING_WORLD')
 end

@@ -2248,15 +2248,19 @@ function PallyPower:ScanClass(classID)
 	end
 end
 
+local function RegisterSecureClicks(button)
+	button:RegisterForClicks("AnyUp", "AnyDown")
+end
+
 function PallyPower:CreateLayout()
 	--self:Debug("CreateLayout()")
 	self.Header = _G["PallyPowerFrame"]
 	self.autoButton = CreateFrame("Button", "PallyPowerAuto", self.Header, "SecureHandlerShowHideTemplate, SecureHandlerEnterLeaveTemplate, SecureHandlerStateTemplate, SecureActionButtonTemplate, PallyPowerAutoButtonTemplate")
-	self.autoButton:RegisterForClicks("LeftButtonDown", "RightButtonDown")
+	RegisterSecureClicks(self.autoButton)
 	self.rfButton = CreateFrame("Button", "PallyPowerRF", self.Header, "PallyPowerRFButtonTemplate")
-	self.rfButton:RegisterForClicks("LeftButtonDown", "RightButtonDown")
+	RegisterSecureClicks(self.rfButton)
 	self.auraButton = CreateFrame("Button", "PallyPowerAura", self.Header, "PallyPowerAuraButtonTemplate")
-	self.auraButton:RegisterForClicks("LeftButtonDown")
+	RegisterSecureClicks(self.auraButton)
 	self.classButtons = {}
 	self.playerButtons = {}
 	self.autoButton:Execute([[childs = table.new()]])
@@ -2293,7 +2297,7 @@ function PallyPower:CreateLayout()
 		cButton:SetAttribute("_onstate-inactive", [[
 			childs[1]:Hide()
 		]])
-		cButton:RegisterForClicks("LeftButtonDown", "RightButtonDown")
+		RegisterSecureClicks(cButton)
 		cButton:EnableMouseWheel(1)
 		self.classButtons[cbNum] = cButton
 		self.playerButtons[cbNum] = {}
@@ -2323,7 +2327,7 @@ function PallyPower:CreateLayout()
 					siblings[#siblings+1] = sibling;
 				]])
 			end
-			pButton:RegisterForClicks("LeftButtonDown", "RightButtonDown")
+			RegisterSecureClicks(pButton)
 			pButton:EnableMouseWheel(1)
 			pButton:Hide()
 			pButtons[pbNum] = pButton
@@ -4213,6 +4217,22 @@ function PallyPowerAuraButton_OnMouseWheel(btn, arg1)
 		PallyPower:PerformAuraCycle(pname)
 	else
 		PallyPower:PerformAuraCycleBackwards(pname)
+	end
+end
+
+function PallyPowerBlessingsAuraButton_OnEnter(self)
+	if self.buttonInfo and GameTooltip and GameTooltip.SetOwner then
+		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+		if self.buttonInfo.unitToken and self.buttonInfo.auraIndex and GameTooltip.SetUnitAura then
+			GameTooltip:SetUnitAura(self.buttonInfo.unitToken, self.buttonInfo.auraIndex, self.buttonInfo.filter)
+			return
+		end
+	end
+end
+
+function PallyPowerBlessingsAuraButton_OnLeave()
+	if GameTooltip then
+		GameTooltip:Hide()
 	end
 end
 

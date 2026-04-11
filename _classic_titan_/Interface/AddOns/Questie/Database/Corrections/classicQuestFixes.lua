@@ -46,6 +46,7 @@ function QuestieQuestFixes:Load()
     local specialFlags = QuestieDB.specialFlags
     local profKeys = QuestieProfessions.professionKeys
     local specKeys = QuestieProfessions.specializationKeys
+    local factionIDs = QuestieDB.factionIDs
 
     return {
         [5] = {
@@ -586,8 +587,8 @@ function QuestieQuestFixes:Load()
             [questKeys.nextQuestInChain] = 860,
             [questKeys.exclusiveTo] = {844}, -- #1109
         },
-        [862] = {
-            [questKeys.requiredSkill] = {185,76}, -- You need to be a Journeyman for this quest -- this needs proper fix
+        [862] = { -- Dig Rat Stew
+            [questKeys.requiredSkill] = {profKeys.COOKING,15},
         },
         [863] = {
             [questKeys.triggerEnd] = {"Escort Wizzlecrank out of the Venture Co. drill site", {[zoneIDs.THE_BARRENS]={{55.36,7.68}}}},
@@ -868,7 +869,7 @@ function QuestieQuestFixes:Load()
             [questKeys.extraObjectives] = {{{[zoneIDs.DARKSHORE]={{35.71,44.68}}}, Questie.ICON_TYPE_NODE_FISH, l10n("Fish for Darkshore Groupers"),}},
         },
         [1144] = {
-            [questKeys.triggerEnd] = {"Help Willix the Importer escape from Razorfen Kraul", {[zoneIDs.THE_BARRENS]={{42.27,89.88}}}},
+            [questKeys.triggerEnd] = {"Help Willix the Importer escape from Razorfen Kraul", {[zoneIDs.RAZORFEN_KRAUL]={{-1,-1}}}},
         },
         [1148] = {
             [questKeys.preQuestSingle] = {1146},
@@ -1072,6 +1073,9 @@ function QuestieQuestFixes:Load()
             [questKeys.requiredSourceItems] = {},
             [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_EVENT, l10n("Summon the Voidwalker"), 0, {{"object", 37097}}}},
         },
+        [1472] = { -- Devourer of Souls
+            [questKeys.questLevel] = -1,
+        },
         [1473] = { -- Creature of the Void
             [questKeys.preQuestSingle] = {},
             [questKeys.breadcrumbs] = {1478},
@@ -1083,6 +1087,7 @@ function QuestieQuestFixes:Load()
         },
         [1476] = { -- Hearts of the Pure
             [questKeys.exclusiveTo] = {1507},
+            [questKeys.questLevel] = -1,
         },
         [1477] = {
             [questKeys.breadcrumbForQuestId] = 1395, -- #1727
@@ -1131,8 +1136,12 @@ function QuestieQuestFixes:Load()
         [1506] = { -- Gan'rul's Summons
             [questKeys.breadcrumbForQuestId] = 1501,
         },
+        [1507] = { -- Devourer of Souls
+            [questKeys.questLevel] = -1,
+        },
         [1508] = { -- Blind Cazul
             [questKeys.exclusiveTo] = {1472},
+            [questKeys.questLevel] = -1,
         },
         [1509] = { -- News of Dogran
             [questKeys.exclusiveTo] = {1472},
@@ -1307,7 +1316,7 @@ function QuestieQuestFixes:Load()
             },
             [questKeys.nextQuestInChain] = 0,
         },
-        [1685] = {
+        [1685] = { -- Gakin's Summons
             [questKeys.breadcrumbForQuestId] = 1688, -- #7095
             [questKeys.exclusiveTo] = {},
         },
@@ -1317,8 +1326,8 @@ function QuestieQuestFixes:Load()
         [1687] = {
             [questKeys.triggerEnd] = {"Go to the Westfall Lighthouse.", {[zoneIDs.WESTFALL]={{30.41,85.61}}}},
         },
-        [1688] = {
-            [questKeys.breadcrumbs] = {1685,1715}, -- #7095
+        [1688] = { -- Surena Caledon
+            [questKeys.breadcrumbs] = {1685}, -- #7095
         },
         [1689] = { -- The Binding
             [questKeys.requiredSourceItems] = {},
@@ -1367,16 +1376,13 @@ function QuestieQuestFixes:Load()
             [questKeys.breadcrumbs] = {1703}, -- #1857
             [questKeys.nextQuestInChain] = 1711,
         },
-        [1715] = {
-            [questKeys.nextQuestInChain] = 1688,
-            [questKeys.breadcrumbForQuestId] = 1688, -- #7095
-            [questKeys.exclusiveTo] = {},
+        [1715] = { -- The Slaughtered Lamb
+            [questKeys.exclusiveTo] = {1688},
         },
-        [1716] = {
+        [1716] = { -- Devourer of Souls
             [questKeys.questLevel] = -1,
-            [questKeys.nextQuestInChain] = 0,
         },
-        [1717] = {
+        [1717] = { -- Gakin's Summons
             [questKeys.exclusiveTo] = {1716},
             [questKeys.nextQuestInChain] = 0,
         },
@@ -1414,7 +1420,8 @@ function QuestieQuestFixes:Load()
         [1796] = {
             [questKeys.breadcrumbs] = {4736,4737,4738,4739},
         },
-        [1798] = {
+        [1798] = { -- Seeking Strahad
+            [questKeys.startedBy] = {{6120,6122}},
             [questKeys.breadcrumbForQuestId] = 1758,
         },
         [1799] = { -- Fragments of the Orb of Orahil
@@ -1947,6 +1954,7 @@ function QuestieQuestFixes:Load()
         [2996] = { -- Seeking Strahad
             [questKeys.nextQuestInChain] = 1801,
             [questKeys.breadcrumbForQuestId] = 1801,
+            [questKeys.exclusiveTo] = {},
         },
         [2997] = { -- Tome of Divinity (Dun Morogh)
             [questKeys.exclusiveTo] = {1646,2999,3000},
@@ -1967,6 +1975,7 @@ function QuestieQuestFixes:Load()
         [3001] = { -- Seeking Strahad
             [questKeys.nextQuestInChain] = 1801,
             [questKeys.breadcrumbForQuestId] = 1801,
+            [questKeys.exclusiveTo] = {},
         },
         [3090] = {
             [questKeys.requiredRaces] = raceIDs.ORC, -- #2399
@@ -2651,6 +2660,9 @@ function QuestieQuestFixes:Load()
         },
         [5149] = {
             [questKeys.preQuestSingle] = {},
+        },
+        [5151] = { -- Hypercapacitor Gizmo
+            [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_INTERACT, l10n("Open the cage"), 0, {{"object", 176195}}}},
         },
         [5156] = {
             [questKeys.triggerEnd] = {"Explore the craters in Shatter Scar Vale", {[zoneIDs.FELWOOD]={{41.03,41.96}}}},
@@ -3589,14 +3601,15 @@ function QuestieQuestFixes:Load()
             [questKeys.objectives] = {nil,{{179544}}},
             [questKeys.objectivesText] = {"Search Dire Maul for Telmius Dreamseeker. Report back to Scholar Runethorn at Feathermoon with whatever information that you may find."},
         },
-        [7483] = {
+        [7483] = { -- Libram of Rapidity
             [questKeys.preQuestSingle] = {7481,7482},
+            [questKeys.reputationReward] = {{factionIDs.SHEN_DRALAR,200}},
         },
-        [7484] = {
+        [7484] = { -- Libram of Focus
             [questKeys.preQuestSingle] = {7481,7482},
             [questKeys.specialFlags] = specialFlags.REPEATABLE,
         },
-        [7485] = {
+        [7485] = { -- Libram of Protection
             [questKeys.preQuestSingle] = {7481,7482},
         },
         [7488] = {
@@ -5375,6 +5388,9 @@ function QuestieQuestFixes:Load()
         [9118] = {
             [questKeys.specialFlags] = specialFlags.REPEATABLE,
         },
+        [9120] = { -- The Fall of Kel'Thuzad
+            [questKeys.preQuestSingle] = {9121,9122,9123},
+        },
         [9121] = {
             [questKeys.requiredMinRep] = {529,0},
         },
@@ -5419,6 +5435,10 @@ function QuestieQuestFixes:Load()
         },
         [9232] = {
             [questKeys.preQuestSingle] = {9033},
+        },
+        [9233] = { -- Omarion's Handbook
+            [questKeys.preQuestSingle] = {9121,9122,9123},
+            [questKeys.requiredMinRep] = {factionIDs.ARGENT_DAWN,21000},
         },
         [9234] = {
             [questKeys.requiredClasses] = classIDs.WARRIOR + classIDs.PALADIN,
@@ -5648,8 +5668,8 @@ function QuestieQuestFixes:Load()
             [questKeys.objectives] = {nil,nil,{{190309}}},
             [questKeys.exclusiveTo] = {},
             [questKeys.zoneOrSort] = sortKeys.WARLOCK,
-            [questKeys.requiredSourceItems] = {190307},
-            [questKeys.extraObjectives] = {{{[zoneIDs.ASHENVALE]={{26.7,22.5}}}, Questie.ICON_TYPE_EVENT, l10n("Light the Unlit Torch near a fire and use the Burning Torch to set the Archaeologist's Cart on fire."),}},
+            [questKeys.requiredSourceItems] = {190307,190308},
+            [questKeys.extraObjectives] = {{nil, Questie.ICON_TYPE_INTERACT, l10n("Light the Unlit Torch near a fire and use the Burning Torch to set the Archaeologist's Cart on fire."), 0, {{"object", 400002}}}},
         },
         [65603] = { -- The Binding
             [questKeys.name] = "The Binding",

@@ -33,6 +33,10 @@ do --英语说明书
 end
 
 do
+    L["我买的"] = "I bought"
+    L["已拍"] = "Bid"
+    L["成功(未交易)"] = "Suc(NotTraded)"
+    L["团长需使用BiaoGeAI插件才能发送站位图。"] = "The raid leader must use the BiaoGeAI AddOn to send position maps."
     L["你的当前表格含有|cffff0000欠款|r，生成表格账单可能会导致欠款金额与欠款人对应不上。\n\n确定继续生成表格账单吗？"] = "Your current table contains |cffff0000outstanding debt|r. Generating the table bill may cause the debt amount to not match the debtor.\n\nAre you sure you want to continue generating the table bill?"
     L["随机本金币惩罚"] = "Random Principal Gold Penalty"
     L["金币惩罚"] = "Gold Penalty"
@@ -2364,6 +2368,7 @@ do
         L["娅尔罗"] = "Arlokk"
         L["妖术师金度"] = "Jin'do the Hexxer"
         L["哈卡"] = "Hakkar"
+        L["血领主"] = "Bloodlord Mandokir"
 
         L["库林纳克斯"] = "Kurinnaxx"
         L["拉贾克斯将军"] = "General Rajaxx"

@@ -1,5 +1,5 @@
 
-local dversion = 704
+local dversion = 707
 local major, minor = "DetailsFramework-1.0", dversion
 local DF, oldminor = LibStub:NewLibrary(major, minor)
 
@@ -38,6 +38,8 @@ local unpack = unpack
 
 local IS_WOW_PROJECT_MAINLINE = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE
 local IS_WOW_PROJECT_NOT_MAINLINE = WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE
+
+DF.IsTBCWow = function() return IS_WOW_PROJECT_NOT_MAINLINE end
 
 local UnitPlayerControlled = UnitPlayerControlled
 local UnitIsTapDenied = UnitIsTapDenied
@@ -484,9 +486,12 @@ end
 
 function DF.GetSpecializationRole(...)
 	if (GetSpecializationRole) then
-		return GetSpecializationRole(...)
+		local success, result = pcall(GetSpecializationRole, ...)
+		if (success) then
+			return result
+		end
 	end
-	return nil
+	return ""
 end
 
 --[=[ dump of C_EncounterJournal
@@ -4251,13 +4256,13 @@ function DF:CreateGlowOverlay(parent, antsColor, glowColor)
 	end
 
 	local glowFrame
-	if (buildInfo >= 110107 or DF.IsTBCWow()) then --24-05-2025: in the 11.1.7 patch, the template used here does not exist anymore, replacement used
-		glowFrame = CreateFrame("frame", frameName, parent, "ActionButtonSpellAlertTemplate")
-	else
-		glowFrame = CreateFrame("frame", frameName, parent, "ActionBarButtonSpellActivationAlert")
-	end
+	--if (buildInfo >= 110107 or DF.IsTBCWow()) then --24-05-2025: in the 11.1.7 patch, the template used here does not exist anymore, replacement used
+	--	glowFrame = CreateFrame("frame", frameName, parent, "ActionButtonSpellAlertTemplate")
+	--else
+	--	glowFrame = CreateFrame("frame", frameName, parent, "ActionBarButtonSpellActivationAlert")
+	--end
 
-	--local glowFrame = CreateFrame("frame", frameName, parent)
+	glowFrame = CreateFrame("frame", frameName, parent)
 	glowFrame:HookScript("OnShow", glow_overlay_onshow)
 	glowFrame:HookScript("OnHide", glow_overlay_onhide)
 

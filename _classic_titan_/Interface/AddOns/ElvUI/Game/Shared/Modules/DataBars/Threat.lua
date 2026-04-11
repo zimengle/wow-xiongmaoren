@@ -10,38 +10,39 @@ local UnitDetailedThreatSituation = UnitDetailedThreatSituation
 local UnitIsPlayer = UnitIsPlayer
 local UnitReaction = UnitReaction
 local UnitExists = UnitExists
-local UnitIsUnit = UnitIsUnit
 local UnitClass = UnitClass
 local UnitName = UnitName
 local UNKNOWN = UNKNOWN
 
-local tankStatus = {[0] = 3, 2, 1, 0}
+local StatusBarInterpolation = Enum.StatusBarInterpolation
 
-function DB:ThreatBar_GetLargestThreatOnList(percent)
+local tankStatus = { [0] = 3, 2, 1, 0 }
+
+function DB:ThreatBar_GetLargestThreatOnList(value)
 	local largestValue, largestUnit = 0, nil
-	for unit, threatPercent in next, DB.StatusBars.Threat.list do
-		if threatPercent > largestValue then
-			largestValue = threatPercent
-			largestUnit = unit
+	for unit, percent in next, DB.StatusBars.Threat.list do
+		if E:NotSecretValue(percent) and (percent > largestValue) then
+			largestValue, largestUnit = percent, unit
 		end
 	end
 
-	return (percent - largestValue), largestUnit
+	return (value - largestValue), largestUnit
 end
 
 function DB:ThreatBar_GetColor(unit)
-	local unitReaction = UnitReaction(unit, 'player')
 	local _, unitClass = UnitClass(unit)
-	if UnitIsPlayer(unit) then
-		local class = E:ClassColor(unitClass)
-		if not class then return 194, 194, 194 end
-		return class.r*255, class.g*255, class.b*255
-	elseif unitReaction then
-		local reaction = ElvUF.colors.reaction[unitReaction]
-		return reaction.r*255, reaction.g*255, reaction.b*255
-	else
-		return 194, 194, 194
+	local classColor = unitClass and UnitIsPlayer(unit) and E:ClassColor(unitClass)
+	if classColor then
+		return classColor.r*255, classColor.g*255, classColor.b*255
 	end
+
+	local unitReaction = UnitReaction(unit, 'player')
+	local reaction = unitReaction and ElvUF.colors.reaction[unitReaction]
+	if reaction then
+		return reaction.r*255, reaction.g*255, reaction.b*255
+	end
+
+	return 194, 194, 194
 end
 
 function DB:ThreatBar_Update()
@@ -51,8 +52,7 @@ function DB:ThreatBar_Update()
 
 	if UnitAffectingCombat('player') and (petExists or E.IsInGroup) then
 		local _, status, percent = UnitDetailedThreatSituation('player', 'target')
-
-		if percent then
+		if E:NotSecretValue(status) and percent then
 			local name, isTank = UnitName('target') or UNKNOWN, E.myrole == 'TANK'
 			bar.showBar = true
 
@@ -62,9 +62,8 @@ function DB:ThreatBar_Update()
 					_, _, bar.list.pet = UnitDetailedThreatSituation('pet', 'target')
 				end
 
-				for guid, role in next, E.GroupRoles do
-					local unit = E.GroupUnitsByRole[role][guid]
-					if unit and not UnitIsUnit(unit, 'player') then
+				for unit in next, E.GroupRoles do
+					if E:UnitNotUnit(unit, 'player') then
 						_, _, bar.list[unit] = UnitDetailedThreatSituation(unit, 'target')
 					end
 				end
@@ -75,10 +74,10 @@ function DB:ThreatBar_Update()
 			if largestUnit and leadPercent > 0 then
 				local r, g, b = DB:ThreatBar_GetColor(largestUnit)
 				bar.text:SetFormattedText(L["ABOVE_THREAT_FORMAT"], name, percent, leadPercent, r, g, b, UnitName(largestUnit) or UNKNOWN)
-				bar:SetValue(isTank and leadPercent or percent)
+				bar:SetValue(isTank and leadPercent or percent, bar.smoothing)
 			else
 				bar.text:SetFormattedText('%s: %.0f%%', name, percent)
-				bar:SetValue(percent)
+				bar:SetValue(percent, bar.smoothing)
 			end
 
 			local r, g, b = E:GetThreatStatusColor(isTank and bar.db.tankStatus and tankStatus[status] or status)
@@ -99,7 +98,11 @@ function DB:ThreatBar_Toggle()
 	local bar = DB.StatusBars.Threat
 	bar.db = DB.db.threat
 
-	E:SetSmoothing(bar, bar.db.smoothbars)
+	if E.Retail then
+		bar.smoothing = (bar.db.smoothbars and StatusBarInterpolation.ExponentialEaseOut) or StatusBarInterpolation.Immediate or nil
+	else
+		E:SetSmoothing(bar, bar.db.smoothbars)
+	end
 
 	if bar.db.enable then
 		E:EnableMover(bar.holder.mover.name)

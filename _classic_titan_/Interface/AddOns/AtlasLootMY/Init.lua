@@ -5,6 +5,27 @@ local _G = getfenv(0)
 local tonumber = _G.tonumber
 local ipairs = _G.ipairs
 
+
+----fix-----
+	GetAddOnMetadata = C_AddOns and C_AddOns.GetAddOnMetadata or GetAddOnMetadata
+	GetCVarInfo = C_CVar.GetCVarInfo;
+	EnableAddOn = C_AddOns.EnableAddOn;
+	DisableAddOn = C_AddOns.DisableAddOn;
+	GetAddOnEnableState = function(character, name) return C_AddOns.GetAddOnEnableState(name, character); end
+	LoadAddOn = C_AddOns.LoadAddOn;
+	IsAddOnLoaded = C_AddOns.IsAddOnLoaded;
+	EnableAllAddOns = C_AddOns.EnableAllAddOns;
+	DisableAllAddOns = C_AddOns.DisableAllAddOns;
+	GetAddOnInfo = C_AddOns.GetAddOnInfo;
+	GetAddOnDependencies = C_AddOns.GetAddOnDependencies;
+	GetAddOnOptionalDependencies = C_AddOns.GetAddOnOptionalDependencies;
+	GetNumAddOns = C_AddOns.GetNumAddOns;
+	SaveAddOns = C_AddOns.SaveAddOns;
+	ResetAddOns = C_AddOns.ResetAddOns;
+	ResetDisabledAddOns = C_AddOns.ResetDisabledAddOns;
+	IsAddonVersionCheckEnabled = C_AddOns.IsAddonVersionCheckEnabled;
+	SetAddonVersionCheck = C_AddOns.SetAddonVersionCheck;
+	IsAddOnLoadOnDemand = C_AddOns.IsAddOnLoadOnDemand;
 -- ----------------------------------------------------------------------------
 -- AddOn namespace.
 -- ----------------------------------------------------------------------------

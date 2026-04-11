@@ -1,7 +1,7 @@
 local _, ns = ...
 local oUF = ns.oUF
 
-if oUF.myclass ~= 'DRUID' then return end
+local pcall = pcall
 
 local UnitPower = UnitPower
 local UnitPowerMax = UnitPowerMax
@@ -12,8 +12,9 @@ local GetEclipseDirection = GetEclipseDirection
 local IsSpellInSpellBook = C_SpellBook.IsSpellInSpellBook or IsSpellKnownOrOverridesKnown
 local GetSpecialization = C_SpecializationInfo.GetSpecialization or GetSpecialization
 
-local SPEC_DRUID_BALANCE = SPEC_DRUID_BALANCE or 1
 local POWERTYPE_BALANCE = Enum.PowerType.Balance
+local SPEC_DRUID_BALANCE = SPEC_DRUID_BALANCE or 1
+
 local TREANT_GLYPH = 114282
 local AQUATIC_FORM = 1066
 
@@ -23,8 +24,11 @@ local function Update(self, event, unit, powerType)
 	local element = self.EclipseBar
 	if(element.PreUpdate) then element:PreUpdate(unit) end
 
-	local CUR = UnitPower('player', POWERTYPE_BALANCE)
-	local MAX = UnitPowerMax('player', POWERTYPE_BALANCE)
+	local okCur, CUR = pcall(UnitPower, 'player', POWERTYPE_BALANCE)
+	local okMax, MAX = pcall(UnitPowerMax, 'player', POWERTYPE_BALANCE)
+
+	if not okCur then CUR = 1 end
+	if not okMax then MAX = 1 end
 
 	if(element.LunarBar) then
 		element.LunarBar:SetMinMaxValues(-MAX, MAX)
@@ -108,7 +112,25 @@ local function ForceUpdate(element)
 	return VisibilityPath(element.__owner, 'ForceUpdate', element.__owner.unit, 'ECLIPSE')
 end
 
+local function Disable(self)
+	local element = self.EclipseBar
+	if(element) then
+		ElementDisable(self)
+
+		self:UnregisterEvent('ECLIPSE_DIRECTION_CHANGE', EclipseDirectionPath)
+		self:UnregisterEvent('UPDATE_SHAPESHIFT_FORM', VisibilityPath)
+
+		self:UnregisterEvent('PLAYER_TALENT_UPDATE', VisibilityPath)
+	end
+end
+
 local function Enable(self, unit)
+	if oUF.myclass ~= 'DRUID' then
+		Disable(self)
+
+		return false
+	end
+
 	local element = self.EclipseBar
 	if(element and unit == 'player') then
 		element.__owner = self
@@ -127,18 +149,6 @@ local function Enable(self, unit)
 		end
 
 		return true
-	end
-end
-
-local function Disable(self)
-	local element = self.EclipseBar
-	if(element) then
-		ElementDisable(self)
-
-		self:UnregisterEvent('ECLIPSE_DIRECTION_CHANGE', EclipseDirectionPath)
-		self:UnregisterEvent('UPDATE_SHAPESHIFT_FORM', VisibilityPath)
-
-		self:UnregisterEvent('PLAYER_TALENT_UPDATE', VisibilityPath)
 	end
 end
 

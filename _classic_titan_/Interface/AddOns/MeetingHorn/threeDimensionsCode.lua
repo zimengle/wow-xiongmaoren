@@ -234,9 +234,9 @@ end
 function ThreeDimensionsCode:initialize()
     -- 查看一共多少插件
     self.enabledAddOns = 0
-    for i = 1, GetNumAddOns() do
-        local name, title, notes, enabled, loadable, reason, security = GetAddOnInfo(i)
-        if enabled and not IsAddOnLoadOnDemand(i) then
+    for i = 1, C_AddOns.GetNumAddOns() do
+        local name, title, notes, enabled, loadable, reason, security = C_AddOns.GetAddOnInfo(i)
+        if enabled and not C_AddOns.IsAddOnLoadOnDemand(i) then
             self.enabledAddOns = self.enabledAddOns + 1
         end
     end

@@ -7,17 +7,15 @@ local ElvUF = E.oUF
 
 local _G = _G
 local setmetatable = setmetatable
-local issecrettable = issecrettable
 local hooksecurefunc = hooksecurefunc
 local type, pairs, unpack, strmatch = type, pairs, unpack, strmatch
 local wipe, max, next, tinsert, date, time = wipe, max, next, tinsert, date, time
-local strlen, tonumber, tostring = strlen, tonumber, tostring
+local pcall, strlen, tonumber, tostring = pcall, strlen, tonumber, tostring
 
 local CopyTable = CopyTable
 local CreateFrame = CreateFrame
 local GetBattlefieldArenaFaction = GetBattlefieldArenaFaction
 local GetGameTime = GetGameTime
-local GetInstanceInfo = GetInstanceInfo
 local GetNumGroupMembers = GetNumGroupMembers
 local GetNumSubgroupMembers = GetNumSubgroupMembers
 local GetPartyAssignment = GetPartyAssignment
@@ -27,6 +25,7 @@ local GetSpecializationInfoForSpecID = C_SpecializationInfo.GetSpecializationInf
 local HideUIPanel = HideUIPanel
 local InCombatLockdown = InCombatLockdown
 local IsInGroup = IsInGroup
+local IsInInstance = IsInInstance
 local IsInRaid = IsInRaid
 local IsLevelAtEffectiveMaxLevel = IsLevelAtEffectiveMaxLevel
 local IsRestrictedAccount = IsRestrictedAccount
@@ -36,22 +35,30 @@ local IsWargame = IsWargame
 local IsXPUserDisabled = IsXPUserDisabled
 local RequestBattlefieldScoreData = RequestBattlefieldScoreData
 local UIParent = UIParent
-local UIParentLoadAddOn = UIParentLoadAddOn
 local UnitExists = UnitExists
+local UnitIsVisible = UnitIsVisible
+local UIParentLoadAddOn = UIParentLoadAddOn
+local UnitClassBase = UnitClassBase
+local UnitClassification = UnitClassification
 local UnitFactionGroup = UnitFactionGroup
 local UnitGroupRolesAssigned = UnitGroupRolesAssigned
-local UnitGUID = UnitGUID
-local UnitThreatSituation = UnitThreatSituation
 local UnitHasVehicleUI = UnitHasVehicleUI
+local UnitIsAFK = UnitIsAFK
+local UnitIsDND = UnitIsDND
 local UnitIsMercenary = UnitIsMercenary
 local UnitIsPlayer = UnitIsPlayer
-local UnitIsVisible = UnitIsVisible
 local UnitSex = UnitSex
+local UnitThreatSituation = UnitThreatSituation
+local UnitSelectionType = UnitSelectionType
 
 local WorldFrame = WorldFrame
 local GetWatchedFactionInfo = GetWatchedFactionInfo
 local GetWatchedFactionData = C_Reputation.GetWatchedFactionData
 
+local GetAddOnRestrictionState = C_RestrictedActions and C_RestrictedActions.GetAddOnRestrictionState
+local CreateDuration = C_DurationUtil and C_DurationUtil.CreateDuration
+local CreateCurve = C_CurveUtil and C_CurveUtil.CreateCurve
+local CreateColorCurve = C_CurveUtil and C_CurveUtil.CreateColorCurve
 local GetColorDataForItemQuality = ColorManager and ColorManager.GetColorDataForItemQuality
 local GetAuraDataByIndex = C_UnitAuras.GetAuraDataByIndex
 
@@ -72,6 +79,9 @@ local C_PvP_IsRatedBattleground = C_PvP.IsRatedBattleground
 local C_Spell_GetSpellCharges = C_Spell.GetSpellCharges
 local C_Spell_GetSpellInfo = C_Spell.GetSpellInfo
 
+local AddOnRestrictionType = Enum.AddOnRestrictionType or {}
+local LuaCurveTypeLinear = Enum.LuaCurveType and Enum.LuaCurveType.Linear
+local LuaCurveTypeStep = Enum.LuaCurveType and Enum.LuaCurveType.Step
 local ERR_NOT_IN_COMBAT = ERR_NOT_IN_COMBAT
 local FACTION_ALLIANCE = FACTION_ALLIANCE
 local FACTION_HORDE = FACTION_HORDE
@@ -80,11 +90,12 @@ local PLAYER_FACTION_GROUP = PLAYER_FACTION_GROUP
 local GameMenuButtonAddons = GameMenuButtonAddons
 local GameMenuButtonLogout = GameMenuButtonLogout
 local GameMenuFrame = GameMenuFrame
-local UIErrorsFrame = UIErrorsFrame
+
 -- GLOBALS: ElvDB
 
 local DebuffColors = E.Libs.Dispel:GetDebuffTypeColor()
 local DispelTypes = E.Libs.Dispel:GetMyDispelTypes()
+local DispelIndexes = ElvUF.Enum.DispelType
 
 E.MountIDs = {}
 E.MountText = {}
@@ -108,7 +119,7 @@ E.ThreatPets = {
 
 E.SpecByClass = {
 	DEATHKNIGHT	= { 250, 251, 252 },
-	DEMONHUNTER	= { 577, 581 },
+	DEMONHUNTER	= { 577, 581, 1480 },
 	DRUID		= { 102, 103, 104, 105 },
 	EVOKER		= { 1467, 1468, 1473},
 	HUNTER		= { 253, 254, 255 },
@@ -146,6 +157,7 @@ E.SpecName = { -- english locale
 	-- Demon Hunter
 	[577]	= 'Havoc',
 	[581]	= 'Vengeance',
+	[1480]	= 'Devourer',
 	-- Druids
 	[102]	= 'Balance',
 	[103]	= 'Feral',
@@ -193,10 +205,23 @@ E.SpecName = { -- english locale
 	[73]	= 'Protection',
 }
 
+do	-- credit: oUF/private.lua
+	local selectionTypes = {[0]=0,[1]=1,[2]=2,[3]=3,[4]=4,[5]=5,[6]=6,[7]=7,[8]=8,[9]=9,[13]=13}
+	-- 10 and 11 are unavailable to players, 12 is inconsistent due to bugs and its reliance on cvars
+
+	function E:UnitSelectionType(unit, considerHostile)
+		if considerHostile and UnitThreatSituation('player', unit) then
+			return 0
+		elseif E.Retail then
+			return selectionTypes[UnitSelectionType(unit, true)]
+		end
+	end
+end
+
 -- the secure header is different on retail because of evokers
 -- if both are registered on non-retail, it will fire on down and up
 function E:RegisterClicks(frame)
-	if E.Retail or E.TBC then
+	if E.Retail or E.TBC or E.Wrath then
 		frame:RegisterForClicks('AnyDown', 'AnyUp')
 	else
 		frame:RegisterForClicks('AnyUp')
@@ -230,7 +255,12 @@ end
 function E:ClassColor(class, usePriestColor)
 	if not class then return end
 
-	local color = (_G.CUSTOM_CLASS_COLORS and _G.CUSTOM_CLASS_COLORS[class]) or _G.RAID_CLASS_COLORS[class]
+	local custom = _G.CUSTOM_CLASS_COLORS and _G.CUSTOM_CLASS_COLORS[class]
+	if custom then -- make sure the custom table is using ColorMixin
+		E:VerifyColorTable(custom, true)
+	end
+
+	local color = custom or _G.RAID_CLASS_COLORS[class]
 	if type(color) ~= 'table' then return end
 
 	if not color.colorStr then
@@ -494,49 +524,19 @@ do
 	end
 end
 
-do -- Spell renaming provided by BigWigs
-	function E:GetSpellRename(spellID)
-		if not spellID then return end
-
-		local API = _G.BigWigsAPI
-		local GetRename = API and API.GetSpellRename
-		if GetRename then
-			return GetRename(spellID)
-		end
-	end
-
-	function E:SetSpellRename(spellID, text)
-		if not spellID then return end
-
-		local API = _G.BigWigsAPI
-		local SetRename = API and API.SetSpellRename
-		if SetRename then
-			SetRename(spellID, text)
-		end
-	end
-end
-
 do
-	function E:UnpackAuraData(data)
-		local name, icon, applications, dispelName, duration, expirationTime, sourceUnit, isStealable, nameplateShowPersonal, spellId, canApplyAura, isBossAura, isFromPlayerOrPlayerPet, nameplateShowAll, timeMod = data.name, data.icon, data.applications, data.dispelName, data.duration, data.expirationTime, data.sourceUnit, data.isStealable, data.nameplateShowPersonal, data.spellId, data.canApplyAura, data.isBossAura, data.isFromPlayerOrPlayerPet, data.nameplateShowAll, data.timeMod
-		if issecrettable and issecrettable(data.points) then
-			return name, icon, applications, dispelName, duration, expirationTime, sourceUnit, isStealable, nameplateShowPersonal, spellId, canApplyAura, isBossAura, isFromPlayerOrPlayerPet, nameplateShowAll, timeMod
-		else
-			return name, icon, applications, dispelName, duration, expirationTime, sourceUnit, isStealable, nameplateShowPersonal, spellId, canApplyAura, isBossAura, isFromPlayerOrPlayerPet, nameplateShowAll, timeMod, unpack(data.points)
-		end
-	end
-
 	function E:GetAuraData(unitToken, index, filter)
-		local data = GetAuraDataByIndex(unitToken, index, filter)
-		if not data then return end
+		local success, data = pcall(GetAuraDataByIndex, unitToken, index, filter)
+		if not success or not data then return end
 
-		return E:UnpackAuraData(data)
+		return ElvUF:UnpackAuraData(data)
 	end
 
 	local function FindAura(key, value, unit, index, filter, ...)
 		local name, _, _, _, _, _, _, _, _, spellID = ...
 
-		if not name then
+		local spell = (E:NotSecretValue(spellID) and E:NotSecretValue(name) and name) or nil
+		if not spell then
 			return
 		elseif key == 'name' and value == name then
 			return ...
@@ -589,19 +589,134 @@ function E:CheckRole()
 	E.myrole = E:GetPlayerRole()
 end
 
+function E:CreateCurve(which)
+	local curve = CreateCurve()
+	curve:SetType(which)
+
+	return curve
+end
+
+function E:CreateColorCurve(which)
+	local curve = CreateColorCurve()
+	curve:SetType(which)
+
+	return curve
+end
+
+do
+	local RED = { r = 1, g = 0.3, b = 0.3, a = 1 }
+	local YELLOW = { r = 1, g = 1, b = 0.3, a = 1 }
+	local GREEN = { r = 0.3, g = 1, b = 0, a = 1 }
+	function E:UpdateCurves() -- this is for the standard curves
+		if not E.Retail then return end -- it does not include all the curves
+
+		local color = E.Curves.Color
+		if color then
+			local default = color.Default
+			if not default then
+				default = E:CreateColorCurve(LuaCurveTypeLinear)
+				default:AddPoint(0.2, RED)
+				default:AddPoint(0.6, YELLOW)
+				default:AddPoint(0.8, GREEN)
+
+				color.Default = default
+			end
+		end
+
+		local duration = E.Curves.Duration
+		if not duration then
+			duration = CreateDuration()
+
+			E.Curves.Duration = duration
+		end
+
+		local float = E.Curves.Float
+		if float then
+			if not float.Alpha then
+				local alpha = E:CreateCurve(LuaCurveTypeStep)
+				alpha:AddPoint(0, 0)
+				alpha:AddPoint(0.001, 1)
+
+				float.Alpha = alpha
+			end
+
+			if not float.Desaturate then
+				local desaturate = E:CreateCurve(LuaCurveTypeStep)
+				desaturate:AddPoint(0, 0)
+				desaturate:AddPoint(1.501, 1) -- > 1.5
+
+				float.Desaturate = desaturate
+			end
+		end
+	end
+end
+
+function E:UpdateAuraCurve(which, data)
+	if not data then return end
+
+	local hl = which == 'highlight'
+	local colors = (hl and ElvUF.colors.DebuffHighlight) or ElvUF.colors.dispel
+	for key, index in next, DispelIndexes do
+		if hl then
+			local color = colors[key]
+			if color then
+				data:AddPoint(index, color)
+			end
+		else
+			data:AddPoint(index, (which == 'debuffs' or key ~= 'None') and colors[key] or E.media.bordercolor)
+		end
+	end
+end
+
+do
+	local fallback = { r = 0, g = 0, b = 0, a = 0 }
+	function E:UpdateDispelCurves()
+		local curves = E.Curves.Color.Dispel
+		if not curves then
+			curves = E:CreateColorCurve(LuaCurveTypeStep)
+
+			E.Curves.Color.Dispel = curves
+		else -- empty the list
+			curves:ClearPoints()
+		end
+
+		local colors = ElvUF.colors.dispel
+		for key, index in next, DispelIndexes do
+			curves:AddPoint(index, E:IsDispellableByMe(key) and colors[key] or fallback)
+		end
+	end
+end
+
+function E:UpdateAuraCurves()
+	if not E.Retail then return end
+
+	local curves = E.Curves.Color.Auras
+	for which, data in next, curves do
+		if not data then
+			data = E:CreateColorCurve(LuaCurveTypeStep)
+
+			curves[which] = data
+		else -- empty the list
+			data:ClearPoints()
+		end
+
+		E:UpdateAuraCurve(which, data)
+	end
+end
+
 function E:IsDispellableByMe(debuffType)
 	return DispelTypes[debuffType]
 end
 
-function E:UpdateDispelColor(debuffType, r, g, b)
+function E:UpdateDispelColor(debuffType, r, g, b, a)
 	local color = DebuffColors[debuffType]
 	if color then
-		color.r, color.g, color.b = r, g, b
+		color.r, color.g, color.b, color.a = r, g, b, a
 	end
 
 	local db = E.db.general.debuffColors[debuffType]
 	if db then
-		db.r, db.g, db.b = r, g, b
+		db.r, db.g, db.b, db.a = r, g, b, a
 	end
 end
 
@@ -611,6 +726,7 @@ function E:UpdateDispelColors()
 		local color = DebuffColors[debuffType]
 		if color then
 			E:UpdateClassColor(db)
+
 			color.r, color.g, color.b = db.r, db.g, db.b
 		end
 	end
@@ -932,7 +1048,7 @@ function E:PLAYER_ENTERING_WORLD(_, initLogin, isReload)
 		E.MediaUpdated = true
 	end
 
-	local _, instanceType = GetInstanceInfo()
+	local _, instanceType = IsInInstance()
 	if instanceType == 'pvp' then
 		E.BGTimer = E:ScheduleRepeatingTimer('RequestBGInfo', 5)
 		E:RequestBGInfo()
@@ -952,7 +1068,7 @@ end
 
 do
 	local function NoCombat()
-		UIErrorsFrame:AddMessage(ERR_NOT_IN_COMBAT, 1.0, 0.2, 0.2, 1.0)
+		_G.UIErrorsFrame:AddMessage(ERR_NOT_IN_COMBAT, 1.0, 0.2, 0.2, 1.0)
 	end
 
 	function E:PLAYER_REGEN_DISABLED()
@@ -1035,12 +1151,12 @@ else
 end
 
 function E:PositionGameMenuButton()
-	if E.Retail or E.TBC then
+	if E.Retail or E.TBC or E.Wrath then
 		if E.private.skins.blizzard.enable and E.private.skins.blizzard.misc then
 			GameMenuFrame.Header.Text:SetTextColor(unpack(E.media.rgbvaluecolor))
 		end
 
-		local offset = E.TBC and 20 or 35
+		local offset = E.Retail and 35 or 20
 		for button in GameMenuFrame.buttonPool:EnumerateActive() do
 			local text = button:GetText()
 
@@ -1093,14 +1209,14 @@ end
 function E:SetupGameMenu()
 	if GameMenuFrame.ElvUI then return end
 
-	if E.Retail or E.TBC then
+	if E.Retail or E.TBC or E.Wrath then
 		local button = CreateFrame('Button', 'ElvUI_GameMenuButton', GameMenuFrame, 'MainMenuFrameButtonTemplate')
 		button:SetScript('OnClick', E.ClickGameMenu)
 
-		if E.TBC then
-			button:Size(144, 21)
-		else
+		if E.Retail then
 			button:Size(200, 35)
+		else
+			button:Size(144, 21)
 		end
 
 		GameMenuFrame.ElvUI = button
@@ -1159,20 +1275,26 @@ function E:GetClassCoords(classFile, crop, get)
 	end
 end
 
-function E:CropRatio(width, height, mult)
+function E:CropRatio(width, height, mult, left, right, top, bottom, factor)
 	if not mult then mult = 0.5 end
 
-	local left, right, top, bottom = E:GetTexCoords()
+	if not (left and right and top and bottom) then
+		left, right, top, bottom = E:GetTexCoords()
+	end
 
 	local ratio = width / height
 	if ratio > 1 then
-		local trimAmount = (1 - (1 / ratio)) * mult
-		top = top + trimAmount
-		bottom = bottom - trimAmount
+		local split = 1 / ratio
+		local range = factor and (right - left) or 1
+		local trim = range * (1 - split) * mult
+
+		top, bottom = top + trim, bottom - trim
 	else
-		local trimAmount = (1 - ratio) * mult
-		left = left + trimAmount
-		right = right - trimAmount
+		local split = 1 - ratio
+		local range = factor and (bottom - top) or 1
+		local trim = range * split * mult
+
+		left, right = left + trim, right - trim
 	end
 
 	return left, right, top, bottom
@@ -1248,20 +1370,10 @@ do -- complicated backwards compatible menu
 end
 
 function E:UnitTankedByGroup(unit)
-	for _, unitToken in next, E.GroupUnitsByRole.TANK do
+	for unitToken in next, E.GroupUnitsByRole.TANK do
 		if E:GetThreatSituation(unit, unitToken) == 3 then
 			return unitToken
 		end
-	end
-end
-
-function E:GetThreatSituation(unit, feedbackUnit)
-	if not unit or not E:UnitExists(unit) then return end
-
-	if feedbackUnit and feedbackUnit ~= unit and E:UnitExists(feedbackUnit) then
-		return UnitThreatSituation(feedbackUnit, unit)
-	else
-		return UnitThreatSituation(unit)
 	end
 end
 
@@ -1275,16 +1387,19 @@ function E:GROUP_ROSTER_UPDATE()
 		wipe(units)
 	end
 
-	if E.IsInGroup then
-		local group = isInRaid and 'raid' or 'party'
-		for i = 1, (isInRaid and GetNumGroupMembers()) or GetNumSubgroupMembers() do
-			local unit = group..i
-			local guid = UnitGUID(unit)
-			local role = guid and (not E.allowRoles and (GetPartyAssignment('MAINTANK', unit) and 'TANK' or 'NONE') or UnitGroupRolesAssigned(unit))
-			if role then
-				E.GroupRoles[guid] = role
-				E.GroupUnitsByRole[role][guid] = unit
+	if not E.IsInGroup then return end
+
+	local group = isInRaid and 'raid' or 'party'
+	for i = 1, (isInRaid and GetNumGroupMembers()) or GetNumSubgroupMembers() do
+		local unit = group..i
+		local role = not E.allowRoles and (GetPartyAssignment('MAINTANK', unit) and 'TANK' or 'NONE') or UnitGroupRolesAssigned(unit)
+		if role then
+			if E:UnitIsUnit(unit, 'player') then
+				unit = 'player'
 			end
+
+			E.GroupRoles[unit] = role
+			E.GroupUnitsByRole[role][unit] = true
 		end
 	end
 end
@@ -1295,8 +1410,63 @@ function E:GROUP_LEFT()
 	wipe(E.GroupRoles)
 end
 
-function E:UnitExists(unit) -- oUF way
+function E:UnitExists(unit)
+	if E:IsSecretUnit(unit) then return end
+
 	return unit and (UnitExists(unit) or UnitIsVisible(unit))
+end
+
+function E:UnitEffectiveLevel(unit)
+	if E.Retail or E.Mists or E.Wrath or E.TBC then
+		return _G.UnitEffectiveLevel(unit)
+	else
+		return _G.UnitLevel(unit)
+	end
+end
+
+function E:GetClassificationType(unit)
+	if UnitIsPlayer(unit) then return end
+
+	local baseClass = UnitClassBase(unit)
+	local _, instanceType = IsInInstance()
+	local classification = UnitClassification(unit)
+	local unitLevel = E:UnitEffectiveLevel(unit)
+	local maxLevel = E.expansionLevelMax
+
+	if instanceType == 'party' and baseClass == 'PALADIN' then
+		return 'caster' -- In dungeons, check caster first so elite casters aren't missed
+	elseif classification == 'worldboss' or classification == 'rareelite' or classification == 'rare' then
+		return classification
+	elseif classification == 'elite' and (unitLevel >= (maxLevel + 2)) then
+		return 'eliteBoss'
+	elseif classification == 'elite' and (unitLevel >= (maxLevel + 1)) then
+		return 'eliteMini'
+	elseif baseClass == 'PALADIN' then
+		return 'caster'
+	end
+end
+
+function E:UnitIsAFK(unit)
+	local afk = UnitIsAFK(unit)
+
+	return E:NotSecretValue(afk) and afk or nil
+end
+
+function E:UnitIsDND(unit)
+	local dnd = UnitIsDND(unit)
+
+	return E:NotSecretValue(dnd) and dnd or nil
+end
+
+function E:CheckRestrictionState(which)
+	local ok, state = pcall(GetAddOnRestrictionState, AddOnRestrictionType[which] or which)
+	if not ok then return 0 end
+
+	return state
+end
+
+function E:IsChatRestricted()
+	return E:CheckRestrictionState('ChallengeMode') > 1 or E:CheckRestrictionState('Encounter') > 1
 end
 
 function E:LoadAPI()

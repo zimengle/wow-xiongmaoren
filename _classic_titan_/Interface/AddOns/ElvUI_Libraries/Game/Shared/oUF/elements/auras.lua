@@ -68,11 +68,10 @@ local CREATED = 2
 local floor, wipe, next = floor, wipe, next
 local pcall, tinsert = pcall, tinsert
 
-local UnitIsUnit = UnitIsUnit
 local CreateFrame = CreateFrame
 local GameTooltip = GameTooltip
-
-local UnpackAuraData = AuraUtil.UnpackAuraData
+local GetAuraDuration = C_UnitAuras.GetAuraDuration
+local GetAuraApplicationDisplayCount = C_UnitAuras.GetAuraApplicationDisplayCount
 
 local function UpdateTooltip(self)
 	if GameTooltip:IsForbidden() then return end
@@ -151,14 +150,14 @@ local function CreateButton(element, index)
 	return button
 end
 
-local function customFilter(element, unit, button, name)
-	if (element.onlyShowPlayer and button.isPlayer) or (not element.onlyShowPlayer and name) then
+local function customFilter(frame, element, unit, button, aura)
+	if (element.onlyShowPlayer and button.isPlayer) or (not element.onlyShowPlayer and aura.auraInstanceID) then
 		return true
 	end
 end
 
 local function updateAura(frame, which, unit, aura, index, offset, filter, visible)
-	local name, icon, applications, dispelName, duration, expirationTime, sourceUnit, isStealable, nameplateShowPersonal, spellId, canApplyAura, isBossAura, isFromPlayerOrPlayerPet, nameplateShowAll, timeMod = UnpackAuraData(aura)
+	local name, icon, applications, dispelName, duration, expirationTime, sourceUnit, isStealable, nameplateShowPersonal, spellId, canApplyAura, isBossAura, isFromPlayerOrPlayerPet, nameplateShowAll, timeMod = oUF:UnpackAuraData(aura)
 
 	local element = frame[which]
 	local forceShow = element.forceShow
@@ -167,7 +166,7 @@ local function updateAura(frame, which, unit, aura, index, offset, filter, visib
 		name, _, icon = oUF:GetSpellInfo(spellId)
 
 		if forceShow then
-			applications, dispelName, duration, expirationTime, sourceUnit = 5, (which == 'Debuffs' and '') or 'Magic', 0, 60, 'player'
+			applications, dispelName, duration, expirationTime, sourceUnit = 5, (which == 'Debuffs' and 'None') or 'Magic', 0, 60, 'player'
 		end
 	end
 
@@ -194,14 +193,15 @@ local function updateAura(frame, which, unit, aura, index, offset, filter, visib
 
 	element.active[position] = button
 
-	local isDebuff = aura and aura.isHarmful or nil
-	local auraInstanceID = aura and aura.auraInstanceID or nil
+	local auraInstanceID = aura and oUF:NotSecretValue(aura.auraInstanceID) and aura.auraInstanceID or nil
+	local isDebuff = aura and (oUF:NotSecretValue(aura.isHarmful) and aura.isHarmful or aura.auraIsHarmful) or nil
 
 	button.aura = aura or nil
 	button.filter = filter or nil
 	button.auraInstanceID = auraInstanceID or nil
+	button.auraDuration = aura and GetAuraDuration and GetAuraDuration(unit, aura.auraInstanceID) or nil
 	button.isDebuff = (forceShow and which ~= 'Buffs') or isDebuff or nil
-	button.isPlayer = (sourceUnit == 'player' or sourceUnit == 'vehicle') or nil
+	button.isPlayer = oUF:NotSecretValue(sourceUnit) and (sourceUnit == 'player' or sourceUnit == 'vehicle') or (aura and aura.auraIsPlayer) or nil
 	button.debuffType = dispelName
 
 	--[[ Override: Auras:CustomFilter(unit, button, ...)
@@ -217,30 +217,36 @@ local function updateAura(frame, which, unit, aura, index, offset, filter, visib
 	* show - indicates whether the aura button should be shown (boolean)
 	--]]
 
+	-- We might want to consider delaying the creation of an actual cooldown
+	-- object to this point, but I think that will just make things needlessly
+	-- complicated. ~haste on Apr 26, 2009 (2d1cf232d1)
+	-- We need this over the filter to allow duration check ~Simpy
+	if(button.Cooldown and not element.disableCooldown) then
+		if button.Cooldown.SetCooldownFromDurationObject then
+			if button.auraDuration then
+				button.Cooldown:SetCooldownFromDurationObject(button.auraDuration)
+			else
+				button.Cooldown:Clear()
+			end
+		elseif(duration and duration > 0) then
+			button.Cooldown:SetCooldown(expirationTime - duration, duration, timeMod)
+		else
+			button.Cooldown:Clear()
+		end
+	end
+
 	local show = not element.forceCreate
 	if not (forceShow or element.forceCreate) then
-		show = (element.CustomFilter or customFilter) (element, unit, button, aura, name, icon,
+		show = (element.CustomFilter or customFilter) (frame, element, unit, button, aura, name, icon,
 			applications, dispelName, duration, expirationTime, sourceUnit, isStealable, nameplateShowPersonal, spellId,
 			canApplyAura, isBossAura, isFromPlayerOrPlayerPet, nameplateShowAll, timeMod)
 	end
 
 	if(show) then
-		-- We might want to consider delaying the creation of an actual cooldown
-		-- object to this point, but I think that will just make things needlessly
-		-- complicated.
-		if(button.Cooldown and not element.disableCooldown) then
-			if(duration and duration > 0) then
-				button.Cooldown:SetCooldown(expirationTime - duration, duration, timeMod)
-				button.Cooldown:Show()
-			else
-				button.Cooldown:Hide()
-			end
-		end
-
 		if button.Overlay then
 			if (isDebuff and element.showDebuffType) or (not isDebuff and element.showBuffType) or element.showType then
 				local colors = element.__owner.colors.debuff
-				local color = colors[dispelName] or colors.none
+				local color = colors[dispelName] or colors.None
 
 				button.Overlay:SetVertexColor(color.r, color.g, color.b)
 				button.Overlay:Show()
@@ -250,11 +256,28 @@ local function updateAura(frame, which, unit, aura, index, offset, filter, visib
 		end
 
 		if button.Stealable then
-			button.Stealable:SetShown(not isDebuff and isStealable and element.showStealableBuffs and not UnitIsUnit('player', unit))
+			local showStealable = element.showStealableBuffs and not isDebuff
+			if showStealable and button.Stealable.SetAlphaFromBoolean then
+				button.Stealable:SetAlphaFromBoolean(isStealable, 1, 0)
+			elseif showStealable then
+				button.Stealable:SetAlpha((isStealable and oUF:UnitNotUnit('player', unit)) and 1 or 0)
+			else
+				button.Stealable:SetAlpha(0)
+			end
 		end
 
 		if button.Icon then button.Icon:SetTexture(icon) end
-		if button.Count then button.Count:SetText(not applications or applications <= 1 and '' or applications) end
+
+		if button.Count then
+			local minCount = element.minCount or 2
+			local maxCount = element.maxCount or 999
+			if oUF:IsSecretValue(applications) then
+				button.Count:SetText(GetAuraApplicationDisplayCount(unit, auraInstanceID, minCount, maxCount))
+			else
+				local hideCount = not applications or (applications < minCount or applications > maxCount)
+				button.Count:SetText(hideCount and '' or applications)
+			end
+		end
 
 		local width = element.width or element.size or 16
 		local height = element.height or element.size or 16
@@ -304,7 +327,7 @@ local function SetPosition(element, from, to)
 	local anchor = element.initialAnchor or 'BOTTOMLEFT'
 	local growthx = (element['growth-x'] == 'LEFT' and -1) or 1
 	local growthy = (element['growth-y'] == 'DOWN' and -1) or 1
-	local cols = floor(element:GetWidth() / sizex + 0.5)
+	local cols = element.maxCols or floor(element:GetWidth() / sizex + 0.5)
 
 	for i = from, to do
 		local button = element.active[i]
@@ -329,7 +352,8 @@ local function filterIcons(frame, which, unit, filter, limit, offset, dontHide)
 	local index = 1
 	local element = frame[which]
 	local forceShow = element.forceShow
-	local unitAuraFiltered = AuraFiltered[filter][unit]
+
+	local unitAuraFiltered = (element.GetBlizzardAuras and element:GetBlizzardAuras(frame)) or AuraFiltered[filter][unit]
 	local auraInstanceID, aura = next(unitAuraFiltered)
 	while (aura or forceShow) and (visible < limit) do
 		local result = updateAura(frame, which, unit, aura, index, offset, filter, visible)
@@ -363,7 +387,11 @@ local function filterIcons(frame, which, unit, filter, limit, offset, dontHide)
 end
 
 local function UpdateAuras(self, event, unit, updateInfo)
-	if oUF:ShouldSkipAuraUpdate(self, event, unit, updateInfo) then return end
+	if self.usingBlizzardAuras then
+		if event == 'UNIT_AURA' then return end -- we send a fake event: FAKE_REFRESH_AURAS
+	elseif oUF:ShouldSkipAuraUpdate(self, event, unit, updateInfo) then
+		return
+	end
 
 	local auras = self.Auras
 	if(auras) then
@@ -467,6 +495,7 @@ local function Enable(self)
 			-- check if there's any anchoring restrictions
 			buffs.__restricted = not pcall(self.GetCenter, self)
 			buffs.ForceUpdate = ForceUpdate
+			buffs.UpdateAuras = UpdateAuras
 			buffs.active = {}
 
 			buffs.createdButtons = buffs.createdButtons or 0
@@ -484,6 +513,7 @@ local function Enable(self)
 			-- check if there's any anchoring restrictions
 			debuffs.__restricted = not pcall(self.GetCenter, self)
 			debuffs.ForceUpdate = ForceUpdate
+			debuffs.UpdateAuras = UpdateAuras
 			debuffs.active = {}
 
 			debuffs.createdButtons = debuffs.createdButtons or 0
@@ -501,6 +531,7 @@ local function Enable(self)
 			-- check if there's any anchoring restrictions
 			auras.__restricted = not pcall(self.GetCenter, self)
 			auras.ForceUpdate = ForceUpdate
+			auras.UpdateAuras = UpdateAuras
 			auras.active = {}
 
 			auras.createdButtons = auras.createdButtons or 0

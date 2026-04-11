@@ -428,47 +428,41 @@ function Browser:OnItemFormatting(button, item, isVoice)
             button.Instance.Diff:Hide()
         end
 
-        --button.SameInstanceBgLeft:SetTexture(format("Interface/AddOns/MeetingHorn/Media/ProgressBg%d", item:GetCertificationBgID())) -- 隐藏背景
-        button.NormalBg:SetShown(not sameInstance)
-        button.SameInstanceBgLeft:SetShown(False)
-        button.QRIcon:SetShown(item:IsOurAddonCreate() and isVoice)
-        button.QRIcon:SetSize(149 * 0.5, 64 * 0.3)
-        button.QRIcon:ClearAllPoints()
-        button.QRIcon:SetPoint("LEFT", button.Members, "RIGHT", -15, 0)
-        button.QRIcon:SetNormalTexture("Interface/AddOns/MeetingHorn/Media/buttonInRoom")
-        local normalTexture = button.QRIcon:GetNormalTexture()
-        normalTexture:SetTexCoord(0, 1, 0, 1)  -- 根据需要调整
-        button.QRIcon:SetHighlightTexture("Interface/AddOns/MeetingHorn/Media/buttonInRoom", "ADD")
-        local highlightTexture = button.QRIcon:GetHighlightTexture()
-        highlightTexture:SetTexCoord(0, 1, 0, 1)  -- 根据需要调整
-        if item:IsOurAddonCreate() then
-            button.QRIcon:SetScript('OnClick', function()
-                self:OpenVoiceRoom(item)
-            end)
-        end
+    -- 设置活动状态
+    button.State:SetShown(state)
+    button.State:SetText(state)
+    button.State:SetTextColor(GREEN_FONT_COLOR:GetRGB())
 
-        --[=[@classic@
-        button.Instance:ClearAllPoints()
-        button.Instance:SetPoint('RIGHT', button, 'LEFT', 155, 0)
-        button.Name:SetPoint('LEFT', 5, 0)
-        --@end-classic@]=]
+    -- 设置报名按钮
+    button.Signup:SetText(L['Whisper'])
+    button.Signup:SetShown(item:IsActivity() and not state)
 
-    -- MHH 活动淡色边框标识
-    if item:IsMHH() then
-        if not button.MHHBorder then
-            button.MHHBorder = CreateFrame('Frame', nil, button, 'BackdropTemplate')
-            button.MHHBorder:SetAllPoints(button)
-            button.MHHBorder:SetBackdrop({
-                edgeFile = 'Interface\\Tooltips\\UI-Tooltip-Border',
-                edgeSize = 12,
-            })
-            button.MHHBorder:SetBackdropBorderColor(0.4, 0.6, 1.0, 0.3)
-            button.MHHBorder:SetFrameLevel(button:GetFrameLevel() + 1)
-        end
-        button.MHHBorder:Show()
-    elseif button.MHHBorder then
-        button.MHHBorder:Hide()
+    -- 设置语音房间相关UI
+    button.NormalBg:SetShown(not sameInstance)
+    button.SameInstanceBgLeft:SetShown(item:IsMHH())
+    button.QRIcon:SetShown(item:IsOurAddonCreate() and isVoice)
+
+    button.QRIcon:SetSize(149 * 0.5, 64 * 0.3)
+    button.QRIcon:ClearAllPoints()
+    button.QRIcon:SetPoint("LEFT", button.Members, "RIGHT", -15, 0)
+    button.QRIcon:SetNormalTexture("Interface/AddOns/MeetingHorn/Media/buttonInRoom")
+    local normalTexture = button.QRIcon:GetNormalTexture()
+    normalTexture:SetTexCoord(0, 1, 0, 1)  -- 根据需要调整
+    button.QRIcon:SetHighlightTexture("Interface/AddOns/MeetingHorn/Media/buttonInRoom", "ADD")
+    local highlightTexture = button.QRIcon:GetHighlightTexture()
+    highlightTexture:SetTexCoord(0, 1, 0, 1)  -- 根据需要调整
+    if item:IsOurAddonCreate() then
+        button.QRIcon:SetScript('OnClick', function()
+            self:OpenVoiceRoom(item)
+        end)
     end
+
+    --[=[@classic@
+    button.Instance:ClearAllPoints()
+    button.Instance:SetPoint('RIGHT', button, 'LEFT', 155, 0)
+    button.Name:SetPoint('LEFT', 5, 0)
+    --@end-classic@]=]
+
 end
 
 function Browser:OnItemSignupClick(button, item, isVoice)

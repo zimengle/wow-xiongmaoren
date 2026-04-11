@@ -1,8 +1,8 @@
 --[[
     This file is part of Decursive.
 
-    Decursive (v 巴尼时光服修复版 v25112401) add-on for World of Warcraft UI
-    Copyright (C) 2006-2025 John Wellesz (Decursive AT 2072productions.com) ( http://www.2072productions.com/to/decursive.php )
+    Decursive (v 2.7.29) add-on for World of Warcraft UI
+    Copyright (C) 2006-2019 John Wellesz (Decursive AT 2072productions.com) ( http://www.2072productions.com/to/decursive.php )
 
     Decursive is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -24,7 +24,7 @@
     Decursive is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY.
 
-    This file was last updated on 2025-03-16T19:58:01Z
+    This file was last updated on 2024-01-26T11:10:51Z
 --]]
 -------------------------------------------------------------------------------
 
@@ -123,7 +123,7 @@ do
 
         if self.profile.ShowDebuffsFrame then
             -- Update the MUFs display in a short moment
-            self.MicroUnitF:Delayed_MFsDisplay_Update();
+            self.MicroUnitF:Delayed_MFsDisplay_Update ();
         elseif not self.profile.HideLiveList then
             D:ScheduleDelayedCall("Dcr_GetUnitArray", self.GetUnitArray, 1.5, self);
         end
@@ -164,20 +164,6 @@ function D:PLAYER_ENTERING_WORLD()
         -- wait 10 seconds and announce Decursive's version
         self:ScheduleDelayedCall("AnnounceVersion", self.AnnounceVersion, 10, self);
     end
-end
-
-function D:PLAYER_LEAVING_WORLD()
-    if not D.Status.createdMacros then
-        return
-    end
-
-    for macroName, toDelete in pairs( D.Status.createdMacros) do
-        local index = GetMacroIndexByName(macroName)
-        if index and toDelete then
-            DeleteMacro(index)
-        end
-    end
-
 end
 
 local OncePetRetry = false;
@@ -595,9 +581,9 @@ function D:HOOK_CastSpellByName (spellName, target)
     end
 end
 
-local GetItemSpell = _G.C_Item and _G.C_Item.GetItemSpell or _G.GetItemSpell;
-local GetItemCount = _G.C_Item and _G.C_Item.GetItemCount or _G.GetItemCount;
-local GetItemInfo  = _G.C_Item and _G.C_Item.GetItemInfo or _G.GetItemInfo;
+local GetItemSpell = _G.GetItemSpell;
+local GetItemCount = _G.GetItemCount;
+local GetItemInfo  = _G.GetItemInfo;
 function D:HOOK_UseItemByName (itemName, target)
     if self.Status.ClickCastingWIP and self.Status.ClickedMF then
         self.Status.ClickedMF.CastingSpell = GetItemSpell(itemName);
@@ -615,7 +601,7 @@ do -- Combat log event handling {{{1
     local bor           = bit.bor;
     local UnitGUID      = _G.UnitGUID;
     local GetTime       = _G.GetTime;
-    local GetSpellInfo  = _G.C_Spell and _G.C_Spell.GetSpellInfo or _G.GetSpellInfo;
+    local GetSpellInfo  = _G.GetSpellInfo; -- XXX to fix for 8
     local time          = _G.time;
 
     --[=[ useless bitfields {{{2
@@ -681,7 +667,7 @@ do -- Combat log event handling {{{1
             timestamp, event, hideCaster, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, spellID, spellNAME, _spellSCHOOL, auraTYPE_failTYPE = CombatLogGetCurrentEventInfo()
         end
                     --[==[@debug@
-                    --if self.debug then self:Debug("COMBAT_LOG_EVENT_UNFILTERED: ", timestamp, event, hideCaster, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, spellID, spellNAME, _spellSCHOOL, auraTYPE_failTYPE); end
+                    if self.debug then self:Debug("COMBAT_LOG_EVENT_UNFILTERED: ", timestamp, event, hideCaster, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, spellID, spellNAME, _spellSCHOOL, auraTYPE_failTYPE); end
                     --@end-debug@]==]
         -- check for exceptions
         if SpecialDebuffs[spellID] and event == SpecialDebuffs[spellID] then
@@ -762,7 +748,7 @@ do -- Combat log event handling {{{1
 
             if event == "SPELL_CAST_SUCCESS" then
 
-                if self.debug then self:Debug(L["SUCCESSCAST"], spellNAME, (select(2, GetSpellInfo(spellID))) or "", self:MakePlayerName(destName)); end -- XXX TWW
+                if self.debug then self:Debug(L["SUCCESSCAST"], spellNAME, (select(2, GetSpellInfo(spellID))) or "", self:MakePlayerName(destName)); end
 
                 --self:Debug("|cFFFF0000XXXXX|r |cFF11FF11Updating color of clicked frame|r");
                 self:ScheduleDelayedCall("Dcr_UpdatePC"..self.Status.ClickedMF.CurrUnit, self.Status.ClickedMF.Update, 1, self.Status.ClickedMF);
@@ -858,34 +844,8 @@ do -- Communication event handling and broadcasting {{{1
 
     T.LastVCheck = 0;
     function D:AskVersion()
-
-        if InCombatLockdown() then
-            -- if we are fighting, postpone the call
-            D:AddDelayedFunctionCall ("AskVersion", self.AskVersion);
-            return false;
-        end
-
-        if GetTime() - T.LastVCheck < 60 then
-            D:Debug("AskVersion(): Too early!");
-            return false;
-        end
-
-        T.LastVCheck = GetTime();
-
-        if UnitExists("target") and (UnitFactionGroup("target")) == (UnitFactionGroup("player")) and UnitIsPlayer("target") then -- the unit exists and is a player of our faction
-            LibStub("AceComm-3.0"):SendCommMessage( "DecursiveVersion", "giveversion", "WHISPER", self:UnitName("target"));
-            D:Debug("Asking version to ", self:UnitName("target"));
-        end
-
-        local Distribution = GetDistributionChanel();
-
-        if Distribution then
-            LibStub("AceComm-3.0"):SendCommMessage( "DecursiveVersion", "giveversion", Distribution);
-        end
-        D:Debug("Asking version on ", Distribution);
-
-        return true;
-
+        -- Version check disabled
+        return false;
     end
 
     T.VersionAnnounceReceived = 0;
@@ -931,14 +891,8 @@ do -- Communication event handling and broadcasting {{{1
                     D:Debug("Version from self, VersionAnnounceReceived counter not incresead", T.VersionAnnounceReceived);
                 end
 
-                if versionTimeStamp > D.db.global.NewerVersionDetected and versionTimeStamp < time() and versionName ~= D.version then
-                    if versionIsAlpha==0 or D.RunningADevVersion then -- if the version received is not an alpha or if we are running one
-                        D.db.global.NewerVersionDetected = versionTimeStamp;
-                        D.db.global.NewerVersionName = versionName;
-                    end
-                elseif versionTimeStamp >= time() then
-                    D:Debug("|cFFFF0000TIME TRAVELER DETECTED!|r");
-                end
+                -- Version comparison disabled
+                do end
 
                 -- delayed call to LibStub("AceConfigRegistry-3.0"):NotifyChange(D.name); plus "spam" prevention system (after receiving version info from someone)
                 -- We don't want to update the thing if the option panel is closed so we update up to 60s after the check version button was used
@@ -1134,9 +1088,9 @@ do
 
         -- if we know that there are unspet talents, it means we can check for
         -- them
-        --[[if _G.GetNumUnspentTalents and GetNumUnspentTalents() then
-            return true;
-        end]]
+        --if _G.GetNumUnspentTalents and GetNumUnspentTalents() then
+        --    return true;
+        --end
 
         if (DC.WOWC) then
             -- local name, iconTexture, tier, column, rank, maxRank, isExceptional, available = GetTalentInfo
@@ -1193,6 +1147,6 @@ do
     end
 end
 
-T._LoadedFiles["Dcr_Events.lua"] = "巴尼时光服修复版 v25112401";
+T._LoadedFiles["Dcr_Events.lua"] = "2.7.29";
 
 -- The Great Below

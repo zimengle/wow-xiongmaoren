@@ -9,14 +9,6 @@ local CreateFrame = CreateFrame
 local UnitHasVehicleUI = UnitHasVehicleUI
 local MAX_COMBO_POINTS = MAX_COMBO_POINTS
 
-function NP:ClassPower_SetBarColor(bar, r, g, b)
-	bar:SetStatusBarColor(r, g, b)
-
-	if bar.bg then
-		bar.bg:SetVertexColor(r * NP.multiplier, g * NP.multiplier, b * NP.multiplier)
-	end
-end
-
 function NP:ClassPower_UpdateColor(powerType, rune)
 	local isRunes = powerType == 'RUNES'
 	local colors, powers, fallback = UF:ClassPower_GetColor(NP.db.colors, powerType)
@@ -24,25 +16,21 @@ function NP:ClassPower_UpdateColor(powerType, rune)
 		NP:Runes_UpdateCharged(self, rune)
 	elseif isRunes and rune and not self.classColor then
 		local color = UF:ClassPower_BarColor(isRunes, rune)
-		NP:ClassPower_SetBarColor(rune, color.r, color.g, color.b)
+		NP:SetStatusBarColor(rune, color.r, color.g, color.b)
 	else
 		for index, bar in ipairs(self) do
 			local color = self.classColor or UF:ClassPower_BarColor(bar, index, colors, powers, isRunes)
 			if not color or not color.r then
-				NP:ClassPower_SetBarColor(bar, fallback.r, fallback.g, fallback.b)
+				NP:SetStatusBarColor(bar, fallback.r, fallback.g, fallback.b)
 			else
-				NP:ClassPower_SetBarColor(bar, color.r, color.g, color.b)
+				NP:SetStatusBarColor(bar, color.r, color.g, color.b)
 			end
 		end
 	end
 end
 
-function NP:ClassPower_PostUpdate(Cur, _, needUpdate, powerType, chargedPoints)
-	if Cur and Cur > 0 then
-		self:Show()
-	else
-		self:Hide()
-	end
+function NP:ClassPower_PostUpdate(current, _, needUpdate, powerType, chargedPoints)
+	self:SetShown(E:IsSecretValue(current) or (current and current > 0))
 
 	if needUpdate then
 		NP:Update_ClassPower(self.__owner)
@@ -53,9 +41,11 @@ function NP:ClassPower_PostUpdate(Cur, _, needUpdate, powerType, chargedPoints)
 
 		if chargedPoints then
 			local color = NP.db.colors.classResources.chargedComboPoint
-			for _, chargedIndex in next, chargedPoints do
-				self[chargedIndex]:SetStatusBarColor(color.r, color.g, color.b)
-				self[chargedIndex].bg:SetVertexColor(color.r * NP.multiplier, color.g * NP.multiplier, color.b * NP.multiplier)
+			for _, index in next, chargedPoints do
+				local charged = self[index]
+				if charged then
+					NP:SetStatusBarColor(charged, color.r, color.g, color.b)
+				end
 			end
 		end
 	end
@@ -66,8 +56,6 @@ function NP:Construct_ClassPower(nameplate)
 	local ClassPower = CreateFrame('Frame', containerName, nameplate)
 	ClassPower:CreateBackdrop('Transparent', nil, nil, nil, nil, true)
 	ClassPower:Hide()
-	ClassPower:SetFrameStrata(nameplate:GetFrameStrata())
-	ClassPower:SetFrameLevel(5)
 
 	local texture = LSM:Fetch('statusbar', NP.db.statusbar)
 	local total = max(UF.classMaxResourceBar[E.myclass] or 0, MAX_COMBO_POINTS)
@@ -76,13 +64,11 @@ function NP:Construct_ClassPower(nameplate)
 		local barName = containerName..i
 		local bar = CreateFrame('StatusBar', barName, ClassPower)
 		bar:SetStatusBarTexture(texture)
-		bar:SetFrameStrata(nameplate:GetFrameStrata())
-		bar:SetFrameLevel(6)
 		NP.StatusBars[bar] = 'classpower'
 
-		bar.bg = ClassPower:CreateTexture(barName..'bg', 'BORDER')
+		bar.bg = ClassPower:CreateTexture(barName..'bg'..i, 'BORDER')
 		bar.bg:SetTexture(texture)
-		bar.bg:SetAllPoints()
+		bar.bg:SetAllPoints(bar)
 
 		if nameplate == NP.TestFrame then
 			local combo = NP.db.colors.classResources.comboPoints[i]
@@ -127,12 +113,17 @@ function NP:Update_ClassPower(nameplate)
 		nameplate.ClassPower:ClearAllPoints()
 		nameplate.ClassPower:Point('CENTER', anchor or nameplate, 'CENTER', db.classpower.xOffset, db.classpower.yOffset)
 		nameplate.ClassPower:Size(db.classpower.width, db.classpower.height)
+		nameplate.ClassPower:SetFrameLevel(5)
 
 		nameplate.ClassPower.classColor = db.classpower.classColor and E.myClassColor
 
 		for i = 1, #nameplate.ClassPower do
-			nameplate.ClassPower[i]:Hide()
-			nameplate.ClassPower[i].bg:Hide()
+			local button = nameplate.ClassPower[i]
+			if button then
+				button:SetFrameLevel(6)
+				button:Hide()
+				button.bg:Hide()
+			end
 		end
 
 		local maxButtons = nameplate.ClassPower.__max
@@ -140,20 +131,22 @@ function NP:Update_ClassPower(nameplate)
 			local Width = db.classpower.width / maxButtons
 			for i = 1, maxButtons do
 				local button = nameplate.ClassPower[i]
-				button:Show()
-				button.bg:Show()
-				button:ClearAllPoints()
+				if button then
+					button:Show()
+					button.bg:Show()
+					button:ClearAllPoints()
 
-				if i == 1 then
-					local width = Width - (maxButtons == 6 and 2 or 0)
-					button:Point('LEFT', nameplate.ClassPower, 'LEFT', 0, 0)
-					button:Size(width, db.classpower.height)
-				else
-					button:Point('LEFT', nameplate.ClassPower[i - 1], 'RIGHT', 1, 0)
-					button:Size(Width - 1, db.classpower.height)
+					if i == 1 then
+						local width = Width - (maxButtons == 6 and 2 or 0)
+						button:Point('LEFT', nameplate.ClassPower, 'LEFT', 0, 0)
+						button:Size(width, db.classpower.height)
+					else
+						button:Point('LEFT', nameplate.ClassPower[i - 1], 'RIGHT', 1, 0)
+						button:Size(Width - 1, db.classpower.height)
 
-					if i == maxButtons then
-						button:Point('RIGHT', nameplate.ClassPower)
+						if i == maxButtons then
+							button:Point('RIGHT', nameplate.ClassPower)
+						end
 					end
 				end
 			end
@@ -172,10 +165,10 @@ function NP:Runes_UpdateCharged(runes, rune)
 	local classColor = (runes and runes.classColor) or (rune and rune.__owner and rune.__owner.classColor)
 
 	if rune then
-		NP:ClassPower_SetBarColor(rune, UF:Runes_GetColor(rune, colors, classColor))
+		NP:SetStatusBarColor(rune, UF:Runes_GetColor(rune, colors, classColor))
 	elseif runes then
 		for _, bar in ipairs(runes) do
-			NP:ClassPower_SetBarColor(bar, UF:Runes_GetColor(bar, colors, classColor))
+			NP:SetStatusBarColor(bar, UF:Runes_GetColor(bar, colors, classColor))
 		end
 	end
 end
@@ -201,8 +194,6 @@ end
 function NP:Construct_Runes(nameplate)
 	local containerName = nameplate.frameName..'Runes'
 	local Runes = CreateFrame('Frame', containerName, nameplate)
-	Runes:SetFrameStrata(nameplate:GetFrameStrata())
-	Runes:SetFrameLevel(5)
 	Runes:CreateBackdrop('Transparent', nil, nil, nil, nil, true)
 	Runes:Hide()
 
@@ -216,16 +207,15 @@ function NP:Construct_Runes(nameplate)
 		local barName = containerName..i
 		local rune = CreateFrame('StatusBar', barName, Runes)
 		rune:SetStatusBarTexture(texture)
-		rune:SetStatusBarColor(color.r, color.g, color.b)
+		NP:SetStatusBarColor(rune, color.r, color.g, color.b)
 		rune.PostUpdateColor = NP.Runes_UpdateChargedColor
 		rune.__owner = Runes
 		NP.StatusBars[rune] = 'runes'
 
-		rune.bg = rune:CreateTexture(barName..'bg', 'BORDER')
-		rune.bg:SetVertexColor(color.r * NP.multiplier, color.g * NP.multiplier, color.b * NP.multiplier)
+		rune.bg = rune:CreateTexture(barName..'bg'..i, 'BORDER')
+		rune.bg:SetVertexColor(color.r, color.g, color.b, NP.multiplier)
 		rune.bg:SetTexture(texture)
-		rune.bg:SetAllPoints()
-		rune.bg.multiplier = 0.35
+		rune.bg:SetAllPoints(rune)
 
 		Runes[i] = rune
 	end
@@ -243,6 +233,7 @@ function NP:Update_Runes(nameplate)
 		end
 
 		local anchor = target and NP:GetClassAnchor()
+		nameplate.Runes:SetFrameLevel(5)
 		nameplate.Runes:ClearAllPoints()
 		nameplate.Runes:Point('CENTER', anchor or nameplate, 'CENTER', db.classpower.xOffset, db.classpower.yOffset)
 		nameplate.Runes:Show()
@@ -281,8 +272,6 @@ end
 
 function NP:Construct_Stagger(nameplate)
 	local Stagger = CreateFrame('StatusBar', nameplate.frameName..'Stagger', nameplate)
-	Stagger:SetFrameStrata(nameplate:GetFrameStrata())
-	Stagger:SetFrameLevel(5)
 	Stagger:SetStatusBarTexture(LSM:Fetch('statusbar', NP.db.statusbar))
 	Stagger:CreateBackdrop('Transparent', nil, nil, nil, nil, true)
 	Stagger:Hide()
@@ -302,6 +291,7 @@ function NP:Update_Stagger(nameplate)
 		end
 
 		local anchor = target and NP:GetClassAnchor()
+		nameplate.Stagger:SetFrameLevel(5)
 		nameplate.Stagger:ClearAllPoints()
 		nameplate.Stagger:Point('CENTER', anchor or nameplate, 'CENTER', db.classpower.xOffset, db.classpower.yOffset)
 

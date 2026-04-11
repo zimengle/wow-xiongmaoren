@@ -70,6 +70,8 @@ function Channel:UnbindChannel(channelName)
 end
 
 function Channel:RestoreAll(event)
+    -- 交易行打开时跳过频道恢复，避免与 EasyAuction 等拍卖行插件的 UI 状态产生竞争
+    if AuctionFrame and AuctionFrame:IsShown() then return end
     for channelName in pairs(ns.GetOurChannels()) do
         self:RestoreChannel(channelName)
     end

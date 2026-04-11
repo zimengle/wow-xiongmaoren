@@ -6,7 +6,10 @@ local ipairs = ipairs
 local strfind = strfind
 
 local CreateFrame = CreateFrame
+local WrapString = C_StringUtil and C_StringUtil.WrapString
+local GetAuraApplicationDisplayCount = C_UnitAuras.GetAuraApplicationDisplayCount
 
+local StatusBarInterpolation = Enum.StatusBarInterpolation
 local DebuffColors = E.Libs.Dispel:GetDebuffTypeColor()
 
 function UF:Construct_AuraBars(bar)
@@ -27,14 +30,20 @@ function UF:Construct_AuraBars(bar)
 	UF.statusbars[bar] = 'aurabars'
 	UF:Update_StatusBar(bar)
 
-	UF:Configure_FontString(bar.timeText)
+	-- we dont wanna format them in the cd module
+	bar.Cooldown:SetDrawSwipe(false)
+	bar.Cooldown:SetDrawBling(false)
+	bar.Cooldown:SetHideCountdownNumbers(true)
+	bar.Cooldown:SetEdgeTexture(E.Media.Textures.Invisible)
+
+	E:RegisterCooldown(bar.Cooldown, 'aurabars')
+
 	UF:Configure_FontString(bar.nameText)
 
 	UF:AuraBars_UpdateBar(bar)
 
 	bar.nameText:SetJustifyH('LEFT')
 	bar.nameText:SetJustifyV('MIDDLE')
-	bar.nameText:Point('RIGHT', bar.timeText, 'LEFT', -4, 0)
 	bar.nameText:SetWordWrap(false)
 
 	bar.bg = bar:CreateTexture(nil, 'BORDER')
@@ -45,10 +54,12 @@ function UF:AuraBars_UpdateBar(bar)
 	local bars = bar:GetParent()
 	bar.db = bars.db
 
-	UF:CleanCache(bar)
-
 	if bars.db then
-		E:SetSmoothing(bar, bars.db.smoothbars)
+		if E.Retail then
+			bar.smoothing = (bar.db.smoothbars and StatusBarInterpolation.ExponentialEaseOut) or StatusBarInterpolation.Immediate or nil
+		else
+			E:SetSmoothing(bar, bars.db.smoothbars)
+		end
 	end
 
 	bar:SetReverseFill(not not bars.reverseFill)
@@ -57,7 +68,8 @@ function UF:AuraBars_UpdateBar(bar)
 	bar.spark:Point('BOTTOM')
 	bar.spark:Point('TOP')
 
-	UF:Update_FontString(bar.timeText)
+	UF:UpdateFilters(bar)
+
 	UF:Update_FontString(bar.nameText)
 end
 
@@ -103,7 +115,7 @@ function UF:Configure_AuraBars(frame)
 		bars.enemyAuraType = db.enemyAuraType
 		bars.disableMouse = db.clickThrough
 		bars.filterList = UF:ConvertFilters(bars, db.priority)
-		bars.auraSort = UF.SortAuraFuncs[db.sortMethod]
+		bars.auraSort = UF.SortAuraFuncs[E.Retail and 'PLAYER' or db.sortMethod]
 		bars.tooltipAnchor = db.tooltipAnchorType
 		bars.tooltipAnchorX = db.tooltipAnchorX
 		bars.tooltipAnchorY = db.tooltipAnchorY
@@ -192,58 +204,71 @@ end
 
 local GOTAK_ID = 86659
 local GOTAK = E:GetSpellInfo(GOTAK_ID)
-function UF:PostUpdateBar_AuraBars(_, bar, _, _, _, _, debuffType) -- unit, bar, index, position, duration, expiration, debuffType, isStealable
-	local spellID, spellName = bar.spellID, bar.spell
-	local colors = E.global.unitframe.AuraBarColors[spellID] and E.global.unitframe.AuraBarColors[spellID].enable and E.global.unitframe.AuraBarColors[spellID].color
+function UF:PostUpdateBar_AuraBars(unit, bar, _, _, _, _, debuffType) -- unit, bar, index, position, duration, expiration, debuffType, isStealable
+	local spellName, color = E:NotSecretValue(bar.spell) and bar.spell or nil
 
-	if E.db.unitframe.colors.auraBarTurtle and (E.global.unitframe.aurafilters.TurtleBuffs.spells[spellID] or E.global.unitframe.aurafilters.TurtleBuffs.spells[spellName]) and not colors and (spellName ~= GOTAK or (spellName == GOTAK and spellID == GOTAK_ID)) then
-		colors = E.db.unitframe.colors.auraBarTurtleColor
-	end
+	if not E.Retail then
+		local spellID = E:NotSecretValue(bar.spellID) and bar.spellID or nil
+		local auraColor = E.global.unitframe.AuraBarColors[spellID]
+		color = auraColor and auraColor.enable and auraColor.color
 
-	if not colors then
-		if UF.db.colors.auraBarByType and bar.filter == 'HARMFUL' then
-			if not debuffType or (debuffType == '' or debuffType == 'none') then
-				colors = UF.db.colors.auraBarDebuff
-			else
-				colors = DebuffColors[debuffType]
+		if not color then
+			local turtle = E.db.unitframe.colors.auraBarTurtle and (E.global.unitframe.aurafilters.TurtleBuffs.spells[spellID] or E.global.unitframe.aurafilters.TurtleBuffs.spells[spellName])
+			local gotak = spellName ~= GOTAK or (spellName == GOTAK and spellID == GOTAK_ID)
+			if turtle and gotak then
+				color = E.db.unitframe.colors.auraBarTurtleColor
 			end
-		elseif bar.filter == 'HARMFUL' then
-			colors = UF.db.colors.auraBarDebuff
-		else
-			colors = UF.db.colors.auraBarBuff
 		end
 	end
 
-	local text = (self.db and self.db.abbrevName and E.TagFunctions.Abbrev(spellName)) or spellName
-	if bar.count > 1 then
-		bar.nameText:SetFormattedText('[%d] %s', bar.count, text)
-	else
-		bar.nameText:SetText(text)
+	local isDebuff, colors = bar.filter == 'HARMFUL', UF.db.colors
+	if not color and colors.auraBarByType and isDebuff then
+		if E.Retail then
+			color = UF:GetAuraCurve(unit, bar, bar.aura)
+		elseif not debuffType or (debuffType == '' or debuffType == 'None') then
+			color = colors.auraBarDebuff -- debuffType is None here when secret
+		else
+			color = DebuffColors[debuffType]
+		end
 	end
 
-	bar.custom_backdrop = UF.db.colors.customaurabarbackdrop and UF.db.colors.aurabar_backdrop
+	if not color then
+		color = (isDebuff and colors.auraBarDebuff) or colors.auraBarBuff
+	end
+
+	local text = self.db and self.db.abbrevName and spellName and E.TagFunctions.Abbrev(spellName)
+	if text then -- this is a copy from oUF we just change the text
+		if E:IsSecretValue(bar.count) then
+			if bar.aura then
+				local minCount, maxCount = 2, 999
+				local count = GetAuraApplicationDisplayCount(bar.unit, bar.aura.auraInstanceID, minCount, maxCount)
+				bar.nameText:SetFormattedText('%s%s', count and WrapString(count, '[', '] ') or '', text)
+			else
+				bar.nameText:SetText(text)
+			end
+		elseif bar.count > 1 then
+			bar.nameText:SetFormattedText('[%d] %s', bar.count, text)
+		else
+			bar.nameText:SetText(text)
+		end
+	end
 
 	if bar.bg then
-		if (UF.db.colors.transparentAurabars and not bar.isTransparent) or (bar.isTransparent and (not UF.db.colors.transparentAurabars or bar.invertColors ~= UF.db.colors.invertAurabars)) then
-			UF:ToggleTransparentStatusBar(UF.db.colors.transparentAurabars, bar, bar.bg, nil, UF.db.colors.invertAurabars)
+		if (bar.invertColors ~= colors.invertAurabars) or ((colors.transparentAurabars and not bar.isTransparent) or (bar.isTransparent and not colors.transparentAurabars)) then
+			UF:ToggleTransparentStatusBar(colors.transparentAurabars, bar, bar.bg, true, colors.invertAurabars)
 		else
-			local sbTexture = bar:GetStatusBarTexture()
 			if not bar.bg:GetTexture() then
-				UF:Update_StatusBar(bar.bg, UF.db.colors.transparentAurabars and E.media.blankTex or LSM:Fetch('statusbar', UF.db.statusbar))
+				UF:Update_StatusBar(bar.bg, colors.transparentAurabars and E.media.blankTex or LSM:Fetch('statusbar', UF.db.statusbar))
 			end
 
-			UF:SetStatusBarBackdropPoints(bar, sbTexture, bar.bg)
+			local orientation = bar:GetOrientation()
+			UF:SetStatusBarBackdropPoints(bar, bar:GetStatusBarTexture(), bar.bg, orientation)
 		end
 	end
 
-	if colors then
-		bar:SetStatusBarColor(colors.r, colors.g, colors.b)
+	bar.custom_backdrop = colors.customaurabarbackdrop and colors.aurabar_backdrop
 
-		if not bar.hookedColor then
-			UF.UpdateBackdropTextureColor(bar, colors.r, colors.g, colors.b)
-		end
-	else
-		local r, g, b = bar:GetStatusBarColor()
-		UF.UpdateBackdropTextureColor(bar, r, g, b)
+	if color then
+		UF:SetStatusBarColor(bar, color.r, color.g, color.b)
 	end
 end

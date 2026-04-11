@@ -24,7 +24,7 @@ PawnCommon = {
 ["LocalizedName"] = "战士: 狂怒",
 ["ClassID"] = 1,
 ["PerCharacterOptions"] = {
-["美团王兴-时光IV"] = {
+["美团王兴-时光IV - 红色信仰"] = {
 ["Visible"] = true,
 },
 ["三角碑崽儿-时光IV - 红色信仰"] = {
@@ -33,7 +33,7 @@ PawnCommon = {
 ["三角碑崽儿-时光IV"] = {
 ["Visible"] = true,
 },
-["美团王兴-时光IV - 红色信仰"] = {
+["美团王兴-时光IV"] = {
 ["Visible"] = true,
 },
 },
@@ -196,7 +196,7 @@ PawnCommon = {
 ["LocalizedName"] = "战士: 防护",
 ["ClassID"] = 1,
 ["PerCharacterOptions"] = {
-["美团王兴-时光IV"] = {
+["美团王兴-时光IV - 红色信仰"] = {
 ["Visible"] = true,
 },
 ["三角碑崽儿-时光IV - 红色信仰"] = {
@@ -205,7 +205,7 @@ PawnCommon = {
 ["三角碑崽儿-时光IV"] = {
 ["Visible"] = true,
 },
-["美团王兴-时光IV - 红色信仰"] = {
+["美团王兴-时光IV"] = {
 ["Visible"] = true,
 },
 },
@@ -440,7 +440,7 @@ PawnCommon = {
 ["LocalizedName"] = "战士: 武器",
 ["ClassID"] = 1,
 ["PerCharacterOptions"] = {
-["美团王兴-时光IV"] = {
+["美团王兴-时光IV - 红色信仰"] = {
 ["Visible"] = true,
 },
 ["三角碑崽儿-时光IV - 红色信仰"] = {
@@ -449,7 +449,7 @@ PawnCommon = {
 ["三角碑崽儿-时光IV"] = {
 ["Visible"] = true,
 },
-["美团王兴-时光IV - 红色信仰"] = {
+["美团王兴-时光IV"] = {
 ["Visible"] = true,
 },
 },

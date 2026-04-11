@@ -1,5 +1,129 @@
 local AceGUI = LibStub("AceGUI-3.0")
 
+-- 消耗品数据
+TitanBistooltip_consumables = {
+    -- 法系消耗品
+    caster = {
+        slot_name = "consumables",
+        [1] = 46376, -- 冰霜巨龙合剂
+        [2] = 40212, -- 狂野魔法药水
+        [3] = 40211, -- 速度药水
+        [4] = 33448, -- 符文法力药水
+        [5] = 43015, -- 龙鳞鱼片
+        [6] = 34767  -- 爆炒红鲑鱼
+    },
+    
+    -- 物理消耗品
+    physical = {
+        slot_name = "consumables",
+        [1] = 46377, -- 无尽怒气合剂
+        [2] = 40211, -- 速度药水
+        [3] = 41119, -- 炸弹
+        [4] = 43015, -- 鱼肉筵席
+        [5] = 43000, -- 龙鳞鱼片
+        [6] = 34766  -- 水煮北地蚌背鱼
+    },
+    
+    -- 坦克消耗品
+    tank = {
+        slot_name = "consumables",
+        [1] = 46379, -- 石血合剂
+        [2] = 40093, -- 不灭药水
+        [3] = 41119, -- 炸弹
+        [4] = 43015, -- 鱼肉宴席
+        [5] = 43000, -- 龙鳞鱼片
+        [6] = 34766  -- 水煮北地蚌背鱼
+    },
+    
+    -- 奶骑消耗品
+    paladinHealer = {
+        slot_name = "consumables",
+        [1] = 44331, -- 闪电疾速药剂
+        [2] = 44332, -- 极效思维药剂
+        [3] = 40211, -- 速度药水
+        [4] = 33448, -- 符文法力药水
+        [5] = 34769, -- 帝王鳐鱼片
+        [6] = 270314  -- 群体复活卷轴
+    },
+    
+    -- DK消耗品
+    deathKnight = {
+        slot_name = "consumables",
+        [1] = 46377, -- 无尽怒气合剂
+        [2] = 40211, -- 速度药水
+        [3] = 41119, -- 炸弹
+        [4] = 43015, -- 鱼肉筵席
+        [5] = 43000, -- 龙鳞鱼片
+        [6] = 43005  -- 香辣小龙虾
+    },
+    
+    -- 猎人消耗品
+    hunter = {
+        slot_name = "consumables",
+        [1] = 46377, -- 无尽怒气合剂
+        [2] = 40211, -- 速度药水
+        [3] = 43015, -- 鱼肉筵席
+        [4] = 42999, -- 熏烤龙鳞鱼
+        [5] = 34766, -- 水煮北地蚌背鱼
+        [6] = 43005  -- 香辣小龙虾
+    },
+    
+    -- 术士消耗品
+    warlock = {
+        slot_name = "consumables",
+        [1] = 46376, -- 冰霜巨龙合剂
+        [2] = 40212, -- 狂野魔法药水
+        [3] = 40211, -- 速度药水
+        [4] = 33448, -- 符文法力药水
+        [5] = 43015, -- 鱼肉宴席
+        [6] = 34767  -- 爆炒鲑鱼
+    },
+    
+    -- 平衡德消耗品
+    balanceDruid = {
+        slot_name = "consumables",
+        [1] = 46376, -- 冰霜巨龙合剂
+        [2] = 40212, -- 狂野魔法药水
+        [3] = 40211, -- 速度药水
+        [4] = 33448, -- 符文法力药水
+        [5] = 43015, -- 鱼肉宴席
+        [6] = 34767  -- 爆炒鲑鱼
+    },
+    
+    -- 增强萨消耗品
+    enhancementShaman = {
+        slot_name = "consumables",
+        [1] = 46377, -- 无尽怒气合剂
+        [2] = 40211, -- 速度药水
+        [3] = 41119, -- 炸弹
+        [4] = 43015, -- 鱼肉筵席
+        [5] = 42999, -- 熏烤龙鳞鱼
+        [6] = 43005  -- 香辣小龙虾
+    },
+    
+    -- 盗贼消耗品
+    rogue = {
+        slot_name = "consumables",
+        [1] = 46377, -- 无尽怒气合剂
+        [2] = 40211, -- 速度药水
+        [3] = 41119, -- 炸弹
+        [4] = 43015, -- 鱼肉筵席
+        [5] = 42999, -- 熏烤龙鳞鱼
+        [6] = 34574  -- 猛犸肉大餐
+    },
+    
+    -- 猫德消耗品
+    feralDruid = {
+        slot_name = "consumables",
+        [1] = 46377, -- 无尽怒气合剂
+        [2] = 40211, -- 速度药水
+        [3] = 41119, -- 炸弹
+        [4] = 43000, -- 龙鳞鱼片
+        [5] = 42999, -- 熏烤龙鳞鱼
+        [6] = 42995  -- 犀牛大餐
+    }
+}
+
 -- 装备信息缓存
 local itemInfoCache = {}
 local L = LibStub("AceLocale-3.0"):GetLocale("TitanBistooltip", false)
@@ -56,7 +180,9 @@ local function clearCaches()
     itemInfoCache = {}
 end
 
-local function createItemFrame(item_id, size, with_checkmark)
+local function createItemFrame(item_id, size, with_checkmark, original_item_id)
+    -- 如果没有提供original_item_id，就用item_id
+    original_item_id = original_item_id or item_id
     if item_id < 0 then
         local f = AceGUI:Create("Label")
         return f
@@ -75,29 +201,29 @@ local function createItemFrame(item_id, size, with_checkmark)
             
             -- 只有当with_checkmark为true时才检查装备是否存在并显示绿色勾
             if with_checkmark == true then
-                -- 检查玩家是否拥有该装备
                 local hasEquipment = false
-                local cacheKey = tostring(item_id)
-                if equipmentCache[cacheKey] == nil then
-                    -- 首先检查物品是否可装备（有装备槽位）
-                    local equipLoc = select(9, GetItemInfo(item_id))
-                    if equipLoc and equipLoc ~= "" then
-                        equipmentCache[cacheKey] = TitanBistooltip_char_equipment[item_id] ~= nil
-                        -- 同时检查玩家装备栏
-                        if not equipmentCache[cacheKey] then
-                            for j = 1, 19 do -- 19个装备栏位
-                                local equippedItem = GetInventoryItemID("player", j)
-                                if equippedItem and equippedItem == item_id then
-                                    equipmentCache[cacheKey] = true
-                                    break
-                                end
-                            end
+                
+                -- 首先检查TitanBistooltip_char_equipment表
+                if TitanBistooltip_char_equipment and TitanBistooltip_char_equipment[original_item_id] ~= nil then
+                    hasEquipment = true
+                end
+                
+                -- 然后检查玩家是否实际拥有该装备
+                -- 通过遍历玩家的装备栏来检查
+                if not hasEquipment then
+                    for j = 1, 19 do -- 19个装备栏位
+                        local equippedItem
+                        if C_PlayerInfo and C_PlayerInfo.GetInventoryItemID then
+                            equippedItem = C_PlayerInfo.GetInventoryItemID("player", j)
+                        else
+                            equippedItem = GetInventoryItemID("player", j)
                         end
-                    else
-                        equipmentCache[cacheKey] = false
+                        if equippedItem and equippedItem == original_item_id then
+                            hasEquipment = true
+                            break
+                        end
                     end
                 end
-                hasEquipment = equipmentCache[cacheKey]
                 
                 if hasEquipment then
                     local checkMark = item_frame.frame:CreateTexture(nil, "OVERLAY")
@@ -115,7 +241,9 @@ local function createItemFrame(item_id, size, with_checkmark)
             if cachedInfo then
                 bindType = cachedInfo.bindType
             else
-                local _, _, _, _, _, _, _, _, _, _, _, _, _, bindTypeVal = GetItemInfo(item_id)
+                local bindTypeVal
+                -- 直接使用 GetItemInfo 获取绑定类型
+                _, _, _, _, _, _, _, _, _, _, _, _, _, bindTypeVal = GetItemInfo(item_id)
                 bindType = bindTypeVal
                 -- 缓存装备信息
                 itemInfoCache[item_id] = { bindType = bindType }
@@ -136,24 +264,36 @@ local function createItemFrame(item_id, size, with_checkmark)
                 if button == "RightButton" then
                     -- 复制物品名称
                     -- 从缓存获取装备名称
-                    local cachedInfo = itemInfoCache[item_id]
-                    local itemName, _, itemRarity
-                    if cachedInfo and cachedInfo.name then
-                        itemName = cachedInfo.name
-                    else
-                        itemName, _, itemRarity = GetItemInfo(item_id)
-                        -- 缓存装备信息
-                        if not itemInfoCache[item_id] then
-                            itemInfoCache[item_id] = {}
-                        end
-                        itemInfoCache[item_id].name = itemName
-                        itemInfoCache[item_id].rarity = itemRarity
-                    end
+                    local itemName = items[item_id]:GetItemName()
                     if itemName then
                         -- 尝试复制到剪贴板
                         local success = TitanBistooltipAddon:CopyTextToClipboard(itemName)
                     else
-                        DEFAULT_CHAT_FRAME:AddMessage("|cffff0000无法获取物品名称|r")
+                        -- 从缓存获取装备名称
+                        local cachedInfo = itemInfoCache[item_id]
+                        if cachedInfo and cachedInfo.name then
+                            itemName = cachedInfo.name
+                        else
+                            if C_Item and C_Item.GetItemInfo then
+                                local itemInfo = C_Item.GetItemInfo(item_id)
+                                if itemInfo then
+                                    itemName = itemInfo.name
+                                end
+                            else
+                                itemName = GetItemInfo(item_id)
+                            end
+                            -- 缓存装备信息
+                            if not itemInfoCache[item_id] then
+                                itemInfoCache[item_id] = {}
+                            end
+                            itemInfoCache[item_id].name = itemName
+                        end
+                        if itemName then
+                            -- 尝试复制到剪贴板
+                            local success = TitanBistooltipAddon:CopyTextToClipboard(itemName)
+                        else
+                            DEFAULT_CHAT_FRAME:AddMessage("|cffff0000无法获取物品名称|r")
+                        end
                     end
                 end
             end)
@@ -485,49 +625,37 @@ local function drawItemSlot(slot, phase)
     local f = AceGUI:Create("Label")
     -- f:SetText(slot.slot_name)
     -- f:SetFont("Fonts\\FRIZQT__.TTF", 14, "")
-    f:SetText(L[slot.slot_name] or slot.slot_name or "Unknown Slot")
+    
+    -- 根据职业和天赋选择不同的武器槽位翻译
+    local slotText = L[slot.slot_name] or slot.slot_name or "Unknown Slot"
+    if (class == "Death knight" and spec == "Unholy") or (class == "Hunter") or (class == "Shaman" and spec == "Enhancement") then
+        if slot.slot_name == "Weapon" then
+            -- 死亡骑士邪恶天赋/猎人/增强萨主手显示为"双手"
+            slotText = "双手"
+        elseif slot.slot_name == "Off hand" then
+            -- 死亡骑士邪恶天赋/猎人/增强萨副手显示为"单手"
+            slotText = "单手"
+        end
+    end
+    
+    f:SetText(slotText)
     spec_frame:AddChild(f)
     spec_frame:AddChild(createEnhancementsFrame(slot.enhs or {}, phase, slot.slot_name or "Unknown"))
-    for i, item_id in ipairs(slot) do
+    for i, original_item_id in ipairs(slot) do
+        -- 保存原始item_id用于装备检查
+        local item_id = original_item_id
+        
         -- 使用缓存来避免重复计算部落/联盟物品映射
-        local cacheKey = item_id
+        local cacheKey = original_item_id
         if isHorde then
             if factionItemCache[cacheKey] == nil then
-                factionItemCache[cacheKey] = TitanBistooltip_horde_to_ali[item_id] or item_id
+                factionItemCache[cacheKey] = TitanBistooltip_horde_to_ali[original_item_id] or original_item_id
             end
             item_id = factionItemCache[cacheKey]
         end
         
-        -- 使用缓存来避免重复检查玩家装备状态
-        local hasEquipment = false
-        if item_id ~= nil then
-            local cacheKeyStr = tostring(item_id)
-            if equipmentCache[cacheKeyStr] == nil then
-                -- 首先检查物品是否可装备（有装备槽位）
-                local equipLoc = select(9, GetItemInfo(item_id))
-                if equipLoc and equipLoc ~= "" then
-                    equipmentCache[cacheKeyStr] = TitanBistooltip_char_equipment[item_id] ~= nil
-                    -- 同时检查玩家装备栏
-                    if not equipmentCache[cacheKeyStr] then
-                        for j = 1, 19 do -- 19个装备栏位
-                            local equippedItem = GetInventoryItemID("player", j)
-                            if equippedItem and equippedItem == item_id then
-                                equipmentCache[cacheKeyStr] = true
-                                break
-                            end
-                        end
-                    end
-                else
-                    equipmentCache[cacheKeyStr] = false
-                end
-            end
-            hasEquipment = equipmentCache[tostring(item_id)]
-        end
-        if hasEquipment then
-            spec_frame:AddChild(createItemFrame(item_id, 40, true))
-        else
-            spec_frame:AddChild(createItemFrame(item_id, 40))
-        end
+        -- 直接调用createItemFrame，传入original_item_id让它自己检查装备
+        spec_frame:AddChild(createItemFrame(item_id, 40, true, original_item_id))
     end
 end
 
@@ -571,6 +699,7 @@ end
 local function drawSpecData()
     clearCheckMarks()
     clearBoeMarks()
+    clearCaches()
     saveData()
     items = {}
     spells = {}
@@ -610,6 +739,131 @@ local function drawSpecData()
                 if currentSlot <= #slots then
                     -- 继续处理下一批
                     C_Timer.After(0.1, processBatch)
+                else
+                    -- 处理完所有常规槽位后，添加消耗品槽位
+                    C_Timer.After(0.1, function()
+                        -- 根据职业和专精类型添加不同的消耗品组
+                        local consumableGroups = {}
+                        
+                        -- 从Consumables.lua加载消耗品数据
+                        local casterConsumables = TitanBistooltip_consumables and TitanBistooltip_consumables.caster
+                        local physicalConsumables = TitanBistooltip_consumables and TitanBistooltip_consumables.physical
+                        local tankConsumables = TitanBistooltip_consumables and TitanBistooltip_consumables.tank
+                        local paladinHealerConsumables = TitanBistooltip_consumables and TitanBistooltip_consumables.paladinHealer
+                        local deathKnightConsumables = TitanBistooltip_consumables and TitanBistooltip_consumables.deathKnight
+                        local hunterConsumables = TitanBistooltip_consumables and TitanBistooltip_consumables.hunter
+                        local warlockConsumables = TitanBistooltip_consumables and TitanBistooltip_consumables.warlock
+                        local balanceDruidConsumables = TitanBistooltip_consumables and TitanBistooltip_consumables.balanceDruid
+                        local enhancementShamanConsumables = TitanBistooltip_consumables and TitanBistooltip_consumables.enhancementShaman
+                        local rogueConsumables = TitanBistooltip_consumables and TitanBistooltip_consumables.rogue
+                        local feralDruidConsumables = TitanBistooltip_consumables and TitanBistooltip_consumables.feralDruid
+                        
+                        -- 根据职业和专精类型添加相应的消耗品组
+                        local isCaster = false
+                        local isPhysical = false
+                        local isTank = false
+                        local isHealer = false
+                        
+                        -- 法系职业天赋
+                        local casterSpecs = {
+                            "Balance", "Elemental", "Arcane", "Fire", "Frost", "Shadow", 
+                            "Affliction", "Demonology", "Destruction", "Holy", "Discipline", "Restoration"
+                        }
+                        
+                        -- 物理职业天赋
+                        local physicalSpecs = {
+                            "Feral dps", "Beast mastery", "Marksmanship", "Survival", 
+                            "Assassination", "Combat", "Subtlety", "Enhancement", 
+                            "Arms", "Fury", "Retribution"
+                        }
+                        
+                        -- 坦克职业天赋
+                        local tankSpecs = {
+                            "Blood tank", "Feral tank", "Protection"
+                        }
+                        
+                        -- 检查当前专精类型
+                        for _, casterSpec in ipairs(casterSpecs) do
+                            if spec == casterSpec then
+                                isCaster = true
+                                break
+                            end
+                        end
+                        
+                        for _, physicalSpec in ipairs(physicalSpecs) do
+                            if spec == physicalSpec then
+                                isPhysical = true
+                                break
+                            end
+                        end
+                        
+                        for _, tankSpec in ipairs(tankSpecs) do
+                            if spec == tankSpec then
+                                isTank = true
+                                break
+                            end
+                        end
+                        
+                        -- 治疗职业天赋
+                        if spec == "Holy" or spec == "Discipline" or spec == "Restoration" then
+                            isHealer = true
+                        end
+                        
+                        -- 根据专精类型添加相应的消耗品组
+                        if class == "Paladin" and spec == "Holy" then
+                            -- 奶骑
+                            table.insert(consumableGroups, paladinHealerConsumables)
+                        elseif class == "Death knight" and spec == "Blood tank" then
+                            -- DK鲜血坦克天赋归类到坦克一组
+                            table.insert(consumableGroups, tankConsumables)
+                        elseif class == "Death knight" then
+                            -- DK其他天赋
+                            table.insert(consumableGroups, deathKnightConsumables)
+                        elseif class == "Hunter" then
+                            -- 猎人
+                            table.insert(consumableGroups, hunterConsumables)
+                        elseif class == "Warlock" then
+                            -- 术士
+                            table.insert(consumableGroups, warlockConsumables)
+                        elseif class == "Druid" and spec == "Balance" then
+                            -- 平衡德
+                            table.insert(consumableGroups, balanceDruidConsumables)
+                        elseif class == "Druid" and spec == "Feral dps" then
+                            -- 野性输出
+                            table.insert(consumableGroups, feralDruidConsumables)
+                        elseif class == "Druid" and spec == "Feral tank" then
+                            -- 野性坦克归类到坦克一组
+                            table.insert(consumableGroups, tankConsumables)
+                        elseif class == "Druid" and spec == "Restoration" then
+                            -- 恢复德归类到法系一组
+                            table.insert(consumableGroups, casterConsumables)
+                        elseif class == "Rogue" then
+                            -- 盗贼
+                            table.insert(consumableGroups, rogueConsumables)
+                        elseif class == "Shaman" and spec == "Enhancement" then
+                            -- 增强萨
+                            table.insert(consumableGroups, enhancementShamanConsumables)
+                        elseif isCaster then
+                            -- 法系
+                            table.insert(consumableGroups, casterConsumables)
+                        elseif isPhysical then
+                            -- 物理
+                            table.insert(consumableGroups, physicalConsumables)
+                        elseif isTank then
+                            -- 坦克
+                            table.insert(consumableGroups, tankConsumables)
+                        else
+                            -- 默认添加所有消耗品组
+                            table.insert(consumableGroups, casterConsumables)
+                            table.insert(consumableGroups, physicalConsumables)
+                            table.insert(consumableGroups, tankConsumables)
+                        end
+                        
+                        -- 显示所有消耗品组
+                        for _, consumablesSlot in ipairs(consumableGroups) do
+                            drawItemSlot(consumablesSlot, phase)
+                        end
+                    end)
                 end
             end
             
@@ -621,50 +875,68 @@ end
 
 local function buildClassDict()
     class_options = {}
-    for ci, class in ipairs(TitanBistooltip_classes) do
-        -- local option_name = "|T" .. TitanBistooltip_spec_icons[class.name].classIcon .. ":14|t " .. class.name
-        local option_name = "|T" .. TitanBistooltip_spec_icons[class.name].classIcon .. ":14|t " .. L[class.name]
-        table.insert(class_options, option_name)
-        class_options_to_class[option_name] = { name = class.name, i = ci }
+    class_options_to_class = {}
+    if TitanBistooltip_classes then
+        for ci, class in ipairs(TitanBistooltip_classes) do
+            if class and class.name then
+                local icon = ""
+                if TitanBistooltip_spec_icons and TitanBistooltip_spec_icons[class.name] and TitanBistooltip_spec_icons[class.name].classIcon then
+                    icon = "|T" .. TitanBistooltip_spec_icons[class.name].classIcon .. ":14|t "
+                end
+                local option_name = icon .. (L[class.name] or class.name)
+                table.insert(class_options, option_name)
+                class_options_to_class[option_name] = { name = class.name, i = ci }
+            end
+        end
     end
 end
 
 local function buildSpecsDict(class_i)
     spec_options = {}
     spec_options_to_spec = {}
-    for si, spec in ipairs(TitanBistooltip_classes[class_i].specs) do
-        -- local option_name = "|T" .. TitanBistooltip_spec_icons[class][spec] .. ":14|t " .. spec
-        local option_name = "|T" .. TitanBistooltip_spec_icons[class][spec] .. ":14|t " .. L[spec]
-        table.insert(spec_options, option_name)
-        spec_options_to_spec[option_name] = spec
+    if TitanBistooltip_classes and TitanBistooltip_classes[class_i] and TitanBistooltip_classes[class_i].specs then
+        local class = TitanBistooltip_classes[class_i].name
+        for si, spec in ipairs(TitanBistooltip_classes[class_i].specs) do
+            if spec and class then
+                local icon = ""
+                if TitanBistooltip_spec_icons and TitanBistooltip_spec_icons[class] and TitanBistooltip_spec_icons[class][spec] then
+                    icon = "|T" .. TitanBistooltip_spec_icons[class][spec] .. ":14|t "
+                end
+                local option_name = icon .. (L[spec] or spec)
+                table.insert(spec_options, option_name)
+                spec_options_to_spec[option_name] = spec
+            end
+        end
     end
 end
 
 local function loadData()
-    class_index = TitanBistooltipAddon.db.char.class_index
-    spec_index = TitanBistooltipAddon.db.char.spec_index
-    -- 从设置中读取默认阶段
-    local defaultPhase = TitanBistooltipAddon.db.char.default_phase
-    -- 找到默认阶段在TitanBistooltip_phases中的索引
-    phase_index = 1
-    if TitanBistooltip_phases then
-        for i, phase in ipairs(TitanBistooltip_phases) do
-            if phase == defaultPhase then
-                phase_index = i
-                break
+    if TitanBistooltipAddon.db and TitanBistooltipAddon.db.char then
+        class_index = TitanBistooltipAddon.db.char.class_index
+        spec_index = TitanBistooltipAddon.db.char.spec_index
+        -- 从设置中读取默认阶段
+        local defaultPhase = TitanBistooltipAddon.db.char.default_phase
+        -- 找到默认阶段在TitanBistooltip_phases中的索引
+        phase_index = 1
+        if TitanBistooltip_phases then
+            for i, phase in ipairs(TitanBistooltip_phases) do
+                if phase == defaultPhase then
+                    phase_index = i
+                    break
+                end
             end
         end
-    end
-    TitanBistooltipAddon.db.char.phase_index = phase_index4
-    if class_index then
-        class = class_options_to_class[class_options[class_index]].name
-        buildSpecsDict(class_index)
-    end
-    if spec_index then
-        spec = spec_options_to_spec[spec_options[spec_index]]
-    end
-    if phase_index then
-        phase = TitanBistooltip_phases[phase_index]
+        TitanBistooltipAddon.db.char.phase_index = phase_index
+        if class_index and class_options and class_options[class_index] and class_options_to_class and class_options_to_class[class_options[class_index]] then
+            class = class_options_to_class[class_options[class_index]].name
+            buildSpecsDict(class_index)
+        end
+        if spec_index and spec_options and spec_options[spec_index] and spec_options_to_spec and spec_options_to_spec[spec_options[spec_index]] then
+            spec = spec_options_to_spec[spec_options[spec_index]]
+        end
+        if phase_index and TitanBistooltip_phases then
+            phase = TitanBistooltip_phases[phase_index]
+        end
     end
 end
 
@@ -876,14 +1148,73 @@ function TitanBistooltipAddon:createMainFrame()
         TitanBistooltipAddon:setMainFrameRef(main_frame)
     end
     
-    -- 设置主面板默认位置：屏幕右边的中间位置
-    local screenWidth = GetScreenWidth()
-    local screenHeight = GetScreenHeight()
-    local frameWidth = 450
-    local frameHeight = 500
-    local rightHalfCenterX = screenWidth * 3/4
-    local centerY = screenHeight / 2
-    main_frame.frame:SetPoint("CENTER", UIParent, "BOTTOMLEFT", rightHalfCenterX, centerY)
+    -- 重置面板位置到默认位置
+    local function resetFramePosition(frame)
+        local screenWidth = GetScreenWidth()
+        local screenHeight = GetScreenHeight()
+        local frameWidth = frame:GetWidth()
+        local frameHeight = frame:GetHeight()
+        local rightHalfCenterX = screenWidth * 3/4
+        local centerY = screenHeight / 2
+        
+        -- 确保默认位置在游戏界面内
+        rightHalfCenterX = math.max(0, math.min(rightHalfCenterX, screenWidth - frameWidth))
+        centerY = math.max(0, math.min(centerY, screenHeight - frameHeight))
+        
+        frame:ClearAllPoints()
+        frame:SetPoint("CENTER", UIParent, "BOTTOMLEFT", rightHalfCenterX, centerY)
+    end
+    
+    -- 重置面板位置
+    resetFramePosition(main_frame.frame)
+    
+    -- 当面板显示时，重置位置
+    main_frame.frame:HookScript("OnShow", function(self)
+        resetFramePosition(self)
+    end)
+    
+    -- 确保面板在游戏界面内
+    local function ensureFrameInBounds(frame)
+        local screenWidth = GetScreenWidth()
+        local screenHeight = GetScreenHeight()
+        local frameWidth = frame:GetWidth()
+        local frameHeight = frame:GetHeight()
+        
+        -- 获取当前位置
+        local point, relativeTo, relativePoint, x, y = frame:GetPoint()
+        
+        -- 计算新的位置，确保框架不会移出游戏界面
+        local newX = x
+        local newY = y
+        
+        -- 限制左右边界
+        if newX < 0 then
+            newX = 0
+        elseif newX > screenWidth - frameWidth then
+            newX = screenWidth - frameWidth
+        end
+        
+        -- 限制上下边界
+        if newY < 0 then
+            newY = 0
+        elseif newY > screenHeight - frameHeight then
+            newY = screenHeight - frameHeight
+        end
+        
+        -- 如果位置有变化，更新位置
+        if newX ~= x or newY ~= y then
+            frame:ClearAllPoints()
+            frame:SetPoint(point, relativeTo, relativePoint, newX, newY)
+        end
+    end
+    
+    -- 确保初始位置在游戏界面内
+    ensureFrameInBounds(main_frame.frame)
+    
+    -- 当面板显示时，确保位置在游戏界面内
+    main_frame.frame:HookScript("OnShow", function(self)
+        ensureFrameInBounds(self)
+    end)
 
     --main_frame.frame:SetScript("OnKeyDown", function(self, key)
     --    if key == "ESCAPE" then
@@ -895,6 +1226,41 @@ function TitanBistooltipAddon:createMainFrame()
     main_frame:SetCallback("OnClose", function(widget)
         -- 当框架关闭时，只隐藏它，不销毁它
         widget.frame:Hide()
+    end)
+    
+    main_frame:SetCallback("OnMove", function(widget)
+        local frame = widget.frame
+        local screenWidth = GetScreenWidth()
+        local screenHeight = GetScreenHeight()
+        local frameWidth = frame:GetWidth()
+        local frameHeight = frame:GetHeight()
+        
+        -- 获取当前位置
+        local point, relativeTo, relativePoint, x, y = frame:GetPoint()
+        
+        -- 计算新的位置，确保框架不会移出游戏界面
+        local newX = x
+        local newY = y
+        
+        -- 限制左右边界
+        if newX < 0 then
+            newX = 0
+        elseif newX > screenWidth - frameWidth then
+            newX = screenWidth - frameWidth
+        end
+        
+        -- 限制上下边界
+        if newY < 0 then
+            newY = 0
+        elseif newY > screenHeight - frameHeight then
+            newY = screenHeight - frameHeight
+        end
+        
+        -- 如果位置有变化，更新位置
+        if newX ~= x or newY ~= y then
+            frame:ClearAllPoints()
+            frame:SetPoint(point, relativeTo, relativePoint, newX, newY)
+        end
     end)
     main_frame:SetLayout("List")
     main_frame:SetTitle(TitanBistooltipAddon.AddonNameAndVersion)
@@ -910,6 +1276,10 @@ function TitanBistooltipAddon:createMainFrame()
     if main_frame.content then
         main_frame.content:SetPoint("BOTTOMRIGHT", -17, 40)
     end
+    
+    local frame = main_frame.frame
+    frame:SetScript("OnMouseDown", nil)
+    frame:SetScript("OnMouseUp", nil)
     
     -- 添加阶段毕业装备按钮
         if main_frame.frame then
@@ -1033,7 +1403,7 @@ function TitanBistooltipAddon:showPhaseBISFrame()
     local frame = AceGUI:Create("Frame")
     frame:SetWidth(500)
     frame:SetHeight(400)
-    frame:SetTitle("阶段毕业装备 - " .. class .. " " .. spec .. " " .. phase)
+    frame:SetTitle("阶段毕业装备 - " .. (class or "Unknown") .. " " .. (spec or "Unknown") .. " " .. (phase or "Unknown"))
     frame:SetLayout("List")
     frame:SetCallback("OnClose", function(widget)
         widget.frame:Hide()

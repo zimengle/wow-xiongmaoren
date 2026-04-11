@@ -9244,9 +9244,20 @@ local title = OptionsPanel.container:CreateFontString(nil, "ARTWORK", "GameFontN
 title:SetText("LoseControl |cff99ddff谷|r|cff88ccee风|r|cff77bbdd修|r|cff66aacc复|r|cff5599bb版|r")
 
 local subText = OptionsPanel.container:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
-local notes = GetAddOnMetadata(addonName, "Notes-" .. GetLocale())
+local function GetAddOnMetadataCompat(addon, key)
+	local r
+	if C_AddOns and C_AddOns.GetAddOnMetadata then
+		r = C_AddOns.GetAddOnMetadata(addon, key)
+	else
+		local fn = _G.GetAddOnMetadata
+		r = fn and fn(addon, key)
+	end
+	if r == "" then return nil end
+	return r
+end
+local notes = GetAddOnMetadataCompat(addonName, "Notes-" .. GetLocale())
 if not notes then
-	notes = GetAddOnMetadata(addonName, "Notes")
+	notes = GetAddOnMetadataCompat(addonName, "Notes")
 end
 subText:SetText(notes)
 

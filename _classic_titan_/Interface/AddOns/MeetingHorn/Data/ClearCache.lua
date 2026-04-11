@@ -1,1 +1,1 @@
-local ns = select(2,...) C_Timer.After(2, function(...) if ns.LFG:IsStarRegimentVersion('20260326_1774576800823') then return end ns.Addon.db.realm.starRegiment.regimentData = {} end)
+local ns = select(2,...) C_Timer.After(2, function(...) if ns.LFG:IsStarRegimentVersion('20260407_1775613600811') then return end ns.Addon.db.realm.starRegiment.regimentData = {} end)

@@ -255,10 +255,6 @@ function M:Minimap_OnMouseDown(btn)
 				button.menu:Point(left and 'TOPRIGHT' or 'TOPLEFT', Minimap, left and 'LEFT' or 'RIGHT', left and -4 or 4, 0)
 			end
 		end
-	elseif E.Retail then
-		Minimap.OnClick(self)
-	else
-		_G.Minimap_OnClick(self)
 	end
 end
 
@@ -697,7 +693,9 @@ end
 
 function M:Initialize()
 	if not E.private.general.minimap.enable then
-		M:SetMinimapMask(false)
+		if not E.Retail then
+			M:SetMinimapMask(false)
+		end
 
 		return
 	else
@@ -752,11 +750,7 @@ function M:Initialize()
 	M.MapHolder = mapHolder
 	M:SetScale(mapHolder, 1)
 
-	if E.TBC then
-		MinimapCluster:KillEditMode()
-	elseif E.Retail then
-		MinimapCluster:KillEditMode()
-
+	if E.Retail then
 		local clusterHolder = CreateFrame('Frame', 'ElvUI_MinimapClusterHolder', MinimapCluster)
 		clusterHolder.savedWidth, clusterHolder.savedHeight = MinimapCluster:GetSize()
 		clusterHolder:Point('TOPRIGHT', E.UIParent, -3, -3)
@@ -777,6 +771,12 @@ function M:Initialize()
 		Minimap:SetQuestBlobRingAlpha(0)
 		Minimap:SetQuestBlobRingScalar(0)
 	end
+
+	local clickHandler = CreateFrame('Frame', 'ElvUI_MinimapClickHandler', Minimap)
+	clickHandler:SetPassThroughButtons('LeftButton')
+	clickHandler:SetPropagateMouseMotion(true)
+	clickHandler:SetAllPoints()
+	M.MinimapClickHandler = clickHandler
 
 	M:ClusterPoint()
 	MinimapCluster:EnableMouse(false)
@@ -808,9 +808,8 @@ function M:Initialize()
 	M:RegisterEvent('ZONE_CHANGED_INDOORS', 'Update_ZoneText')
 	M:RegisterEvent('ZONE_CHANGED', 'Update_ZoneText')
 
-	Minimap:SetScript('OnMouseWheel', M.Minimap_OnMouseWheel)
-	Minimap:SetScript('OnMouseDown', M.Minimap_OnMouseDown)
-	Minimap:SetScript('OnMouseUp', E.noop)
+	clickHandler:SetScript('OnMouseWheel', M.Minimap_OnMouseWheel)
+	clickHandler:SetScript('OnMouseDown', M.Minimap_OnMouseDown)
 
 	Minimap:HookScript('OnShow', M.Minimap_OnShow)
 	Minimap:HookScript('OnHide', M.Minimap_OnHide)
@@ -829,7 +828,7 @@ function M:Initialize()
 		E.Retail and _G.MiniMapTracking or _G.MinimapToggleButton
 	}
 
-	if E.Retail or E.TBC then
+	if E.Retail or E.TBC or E.Wrath then
 		tinsert(killFrames, Minimap.ZoomIn)
 		tinsert(killFrames, Minimap.ZoomOut)
 

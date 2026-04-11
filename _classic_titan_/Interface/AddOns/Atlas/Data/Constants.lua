@@ -39,8 +39,10 @@ private.addon_name = "Atlas"
 local constants = { }
 private.constants = constants
 
+local GetAddOnMetadata = _G.GetAddOnMetadata or (_G.C_AddOns and _G.C_AddOns.GetAddOnMetadata)
+
 -- Initialization
-ATLAS_VERSION = GetAddOnMetadata(private.addon_name, "Version")
+ATLAS_VERSION = (GetAddOnMetadata and GetAddOnMetadata(private.addon_name, "Version")) or "unknown"
 ATLAS_PLAYER_FACTION = UnitFactionGroup("player")
 ATLAS_DROPDOWNS = {}
 ATLAS_INST_ENT_DROPDOWN = {}

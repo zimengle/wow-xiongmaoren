@@ -304,8 +304,6 @@ BG.Init(function()
                 if Hope then
                     BiaoGe[FB]["boss" .. numb]["guanzhu" .. i] = true
                     BG.Frame[FB]["boss" .. numb]["guanzhu" .. i]:Show()
-                    BG.FrameLootMsg:AddMessage(BG.STC_g2(format(L["自动关注心愿装备：%s。团长拍卖此装备时会提醒"],
-                        (AddTexture(Texture) .. link))))
                 end
                 if count == 1 then
                     zb:SetText(link)
@@ -334,10 +332,6 @@ BG.Init(function()
                 end
                 return
             elseif zb and not zbNext then
-                if Hope then
-                    BG.FrameLootMsg:AddMessage(format("|cffDC143C" .. L["自动关注心愿装备失败：%s%s"],
-                        RR, ((AddTexture(Texture) .. link))))
-                end
                 local inSertItem = ""
                 if numb ~= Maxb[FB] - 1 then
                     local has
@@ -665,13 +659,11 @@ BG.Init2(function()
     local function IsTrueLoot(quality, bindType, itemStackCount, typeID, itemLink)
         local itemID = GetItemID(itemLink)
         if itemID then
-            if itemID == cpItemID then
-                return
+            if itemID == cpItemID and cpPlayer then
+                return false
             end
-            for i, _itemID in ipairs(blackList) do
-                if itemID == _itemID then
-                    return
-                end
+            if BG.ValueInTable(blackList, itemID) then
+                return
             end
         end
 
@@ -1071,26 +1063,56 @@ BG.Init2(function()
         local FB = "Worldtitan"
         BG.saveWorldBossLoot = {}
         BG.saveWorldBossLoot.isSave = {}
-        function BG.saveWorldBossLoot:AutoSave()
-            local guid = UnitGUID("target")
-            if not self.isSave[guid] then
-                self.isSave[guid] = true
-                local numb = self.bossIndex
-                BG.ClearBiaoGeByIndex(FB, numb)
-                for li = 1, GetNumLootItems() do
-                    if LootSlotHasItem(li) then
-                        local count = select(3, GetLootSlotInfo(li)) or 1
-                        local itemLink = GetLootSlotLink(li)
-                        if itemLink then
-                            local name, link, quality, level, _, _, _, itemStackCount, _, Texture,
-                            _, typeID, _, bindType = GetItemInfo(itemLink)
-                            local isHope = BG.ItemIsHope(FB, link, Texture, level)
-                            BG.AddLootItem(FB, numb, link, Texture, level, isHope, count, typeID)
+
+        -- 记录到表格
+        do
+            local bt = BG.CreateButton(parent)
+            bt:SetPoint("TOPLEFT", parent, "TOP", 0, 25)
+            bt:SetPoint("BOTTOMRIGHT", parent, "TOPRIGHT", 0, 0)
+            bt:SetText(L["记录到表格"])
+            bt:SetSize(bt:GetFontString():GetWidth() + 10, 25)
+            bt:Hide()
+            BG.saveLootButton = bt
+            bt:SetScript("OnEnter", function(self)
+                GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT", 0, 0)
+                GameTooltip:ClearLines()
+                GameTooltip:AddLine(self:GetText(), 1, 1, 1, true)
+                GameTooltip:AddLine(L["把全部掉落记录到BOSS对应的表格。"], 1, 0.82, 0, true)
+                GameTooltip:AddLine(" ", 1, 0.82, 0, true)
+                GameTooltip:AddLine(L["如果BOSS格子里已有旧记录，则会自动清空旧记录。"], 1, 0.82, 0, true)
+                GameTooltip:Show()
+            end)
+            bt:SetScript("OnLeave", function(self)
+                self.isOnter = false
+                GameTooltip:Hide()
+            end)
+            bt:SetScript("OnClick", function(self)
+                BG.PlaySound(1)
+                wipe(BG.saveWorldBossLoot.isSave)
+                BG.saveWorldBossLoot:AutoSave()
+            end)
+
+            function BG.saveWorldBossLoot:AutoSave()
+                local guid = UnitGUID("target")
+                if not self.isSave[guid] then
+                    self.isSave[guid] = true
+                    local numb = self.bossIndex
+                    BG.ClearBiaoGeByIndex(FB, numb)
+                    for li = 1, GetNumLootItems() do
+                        if LootSlotHasItem(li) then
+                            local count = select(3, GetLootSlotInfo(li)) or 1
+                            local itemLink = GetLootSlotLink(li)
+                            if itemLink then
+                                local name, link, quality, level, _, _, _, itemStackCount, _, Texture,
+                                _, typeID, _, bindType = GetItemInfo(itemLink)
+                                local isHope = BG.ItemIsHope(FB, link, Texture, level)
+                                BG.AddLootItem(FB, numb, link, Texture, level, isHope, count, typeID)
+                            end
                         end
                     end
+                    BG.ClickTabButton(BG.FBMainFrameTabNum)
+                    BG.ClickFBbutton(FB)
                 end
-                BG.ClickTabButton(BG.FBMainFrameTabNum)
-                BG.ClickFBbutton(FB)
             end
         end
 
@@ -1098,9 +1120,14 @@ BG.Init2(function()
             if BG.badManLootFrame then
                 BG.badManLootFrame:Hide()
             end
+            if BG.saveLootButton then
+                BG.saveLootButton:Hide()
+            end
             if BG.LootAuctionLogButton then
                 BG.LootAuctionLogButton:Hide()
             end
+            -- BG.saveLootButton:Show() -- debug
+            -- BG.LootAuctionLogButton:Show() -- debug
             local guid = UnitGUID("target")
             if not IsInInstance() and guid then
                 local npcID = BG.GetNpcID(guid)
@@ -1108,6 +1135,7 @@ BG.Init2(function()
                     if npcID == _npcID then
                         BG.saveWorldBossLoot.bossIndex = index
                         BG.saveWorldBossLoot:AutoSave()
+                        BG.saveLootButton:Show()
                         BG.LootAuctionLogButton:Show()
                         BG.LootAuctionLogFrame:SetShown(BiaoGe.options.showLootAuctionLogFrame == 1)
                         BG.badManLootFrameUpdate()
@@ -1182,8 +1210,8 @@ BG.Init2(function()
 
             BG.LootAuctionLogButton = BG.CreateButton(parent)
             do
-                BG.LootAuctionLogButton:SetPoint("BOTTOM", parent, "TOP", 0, 0)
-                BG.LootAuctionLogButton:SetSize(120, 25)
+                BG.LootAuctionLogButton:SetPoint("TOPLEFT", parent, "TOPLEFT", 0, 25)
+                BG.LootAuctionLogButton:SetPoint("BOTTOMRIGHT", parent, "TOP", 0, 0)
                 BG.LootAuctionLogButton:Hide()
                 BG.LootAuctionLogButton:SetScript("OnClick", function(self)
                     BG.PlaySound(1)
@@ -1494,6 +1522,7 @@ BG.Init2(function()
     -- 橙片
     do
         BG.autoLoot = {}
+        BG.autoLoot.info = {}
         if BG.IsVanilla_60 then
             BG.autoLoot.info = {
                 NAXX = { { itemID = 22726, quest = 9250, maxCount = 40 } },
@@ -1516,7 +1545,8 @@ BG.Init2(function()
 
         function GetInfo()
             if BG.DeBug then
-                return { itemID = testItem, quest = 13622, maxCount = 30, diff = { 3, 5, 175, 193 } }
+                -- return { itemID = testItem, quest = 13622, maxCount = 30, diff = { 3, 5, 175, 193 } }
+                return { itemID = testItem, quest = 13622, maxCount = 40 }
             end
             local info = BG.FB2 and BG.autoLoot.info[BG.FB2]
             if info then
@@ -1630,5 +1660,8 @@ BG.Init2(function()
                 end
             end)
         end)
+
+        -- BG.DeBug = true
+        -- testItem = 5071
     end
 end)

@@ -1,8 +1,10 @@
-## Interface: 11302, 11507, 30403, 30404
-## Title: Inbox Mailbag
-## Version: v2.4 Rurutia fix
+## Interface: 11302, 11507, 30403, 30404, 38000, 38001
+## Title: Inbox Mailbag Rurutia fix
+## Title-zhCN: 邮包 |cffff559a露露修复版|r
+## Version: 2.5 Rurutia fix
 ## Author: Jeremy Parsons
 ## Notes: Turns your inbox into another searchable bag
+## Notes-zhCN: 将收件箱变为可搜索的背包，支持物品品质着色与进阶邮件管理。|n|n代码修复：|cffee5885露露緹婭@Bilibili|r
 ## SavedVariables: MAILBAGDB
 ## OptionalDeps: Ace3
 ## X-Curse-Packaged-Version: v2.4

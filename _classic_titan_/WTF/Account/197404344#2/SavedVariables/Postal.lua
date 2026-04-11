@@ -56,8 +56,8 @@ Postal3DB = {
 ["小米军儿 - 时光IV - 红色信仰"] = {
 ["BlackBook"] = {
 ["recent"] = {
-"京东刘强东|时光IV - 红色信仰|Alliance",
 "退休码农|时光IV - 红色信仰|Alliance",
+"京东刘强东|时光IV - 红色信仰|Alliance",
 "美团王兴|时光IV - 红色信仰|Alliance",
 },
 },

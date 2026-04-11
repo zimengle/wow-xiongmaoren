@@ -360,9 +360,21 @@ function BG.RoleOverviewUI()
             -- { 6948 },                                                            -- 测试
             -- { 42122 },                                                           -- 测试
             -- { 209790 },                                                          -- 测试
-            { 264750, 264779, 264759, 264769, 255103, 260344, 257606, 260346, }, -- 橙脖
-            { 263264, 17203, },                                                  -- [萨弗隆铁锭][萨弗隆战锤]
-            { 257605, },                                                         -- [萨弗拉斯之眼]
+            {
+                264750, 264779, 264759, 264769,
+                255103, 260344, 257606, 260346,
+                264751, 264780, 264770, 264760,
+                264752, 264781, 264761, 264771,
+                264753, 264782, 264762, 264772,
+                264754, 264783, 264763, 264773,
+                264755, 264784, 264764, 264774,
+                264789, 264785, 264765, 264775,
+                264756, 264786, 264766, 264776,
+                264757, 264787, 264767, 264777,
+                264758, 264788, 264768, 264778,
+            },                  -- 橙脖
+            { 263264, 17203, }, -- [萨弗隆铁锭][萨弗隆战锤]
+            { 257605, },        -- [萨弗拉斯之眼]
             { 264749, 264936, 264748, 264935, 264746, 264934, 264746, 264933, 264745, 264932,
                 264744, 264931, 264743, 264930, 264742, 264929, 264741, 264928, 264731, 264927,
                 259908, 264926, },                                                             -- 橙锤
@@ -1436,9 +1448,13 @@ GameTooltip:SetCurrencyByID(697)
                     if not spellID then break end
                     if buffID == spellID then
                         local cooldown = expirationTime - GetTime()
+                        local currentTimestamp = GetServerTime()
+                        local secondsUntilNext7am = BG.GetNextDayTime()
+                        local nextDayEndTime = currentTimestamp + secondsUntilNext7am
                         BiaoGe.buffCD[realmID][player][buffID] = {
                             resettime = cooldown,
-                            endtime = cooldown + GetServerTime(),
+                            endtime = cooldown + currentTimestamp,
+                            nextDayEndTime = nextDayEndTime,
                         }
                         break
                     end
@@ -1464,6 +1480,30 @@ GameTooltip:SetCurrencyByID(697)
             end
         end
 
+        local function UpdateBuffEndTime()
+            local time = GetServerTime()
+            for _, db in pairs({ "BiaoGe", "BiaoGeAccounts" }) do
+                if _G[db] and _G[db].buffCD then
+                    for realmID in pairs(_G[db].buffCD) do
+                        if type(realmID) == "number" and type(_G[db].buffCD[realmID]) == "table" then
+                            for player in pairs(_G[db].buffCD[realmID]) do
+                                local buffIDs = {}
+                                for buffID in pairs(_G[db].buffCD[realmID][player]) do
+                                    tinsert(buffIDs, buffID)
+                                end
+                                for _, buffID in pairs(buffIDs) do
+                                    local v = _G[db].buffCD[realmID][player][buffID]
+                                    if v and v.nextDayEndTime and time > v.nextDayEndTime then
+                                        _G[db].buffCD[realmID][player][buffID] = nil
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        end
+
         BG.RegisterEvent("UNIT_AURA", function(_, _, unit, info)
             if unit == "player" then
                 UpdateBuffRecord()
@@ -1471,6 +1511,7 @@ GameTooltip:SetCurrencyByID(697)
         end)
 
         BG.Init2(function()
+            UpdateBuffEndTime()
             BG.UpdateBuffCD()
             BG.After(5, UpdateBuffRecord)
         end)
@@ -2135,11 +2176,13 @@ GameTooltip:SetCurrencyByID(697)
         local delay
         local f = CreateFrame("Frame")
         f:RegisterEvent("UNIT_INVENTORY_CHANGED")
-        f:RegisterEvent("PLAYER_ENTERING_WORLD")
         f:SetScript("OnEvent", function(self, event, ...)
             if event == "PLAYER_ENTERING_WORLD" then
                 self:UnregisterEvent("PLAYER_ENTERING_WORLD")
                 delay = 5
+                BG.After(delay, function()
+                    self:RegisterEvent("PLAYER_ENTERING_WORLD")
+                end)
             else
                 delay = 1
             end

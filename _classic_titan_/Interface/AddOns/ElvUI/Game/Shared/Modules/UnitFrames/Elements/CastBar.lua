@@ -15,57 +15,61 @@ local UnitName = UnitName
 local UnitReaction = UnitReaction
 local UnitSpellHaste = UnitSpellHaste
 
+local C_ClassColor_GetClassColor = C_ClassColor and C_ClassColor.GetClassColor
 local IsSpellInSpellBook = C_SpellBook.IsSpellInSpellBook or IsSpellKnownOrOverridesKnown
 local IsSpellKnown = C_SpellBook.IsSpellKnown or IsPlayerSpell
+local StatusBarInterpolation = Enum.StatusBarInterpolation
 
 do
-	local pipMapColor = {4, 1, 2, 3, 5}
 	function UF:CastBar_UpdatePip(castbar, pip, stage)
-		if castbar.pipColor then
-			local color = castbar.pipColor[pipMapColor[stage]]
-			pip.texture:SetVertexColor(color.r, color.g, color.b, pip.pipAlpha)
+		local color = castbar.pipColor and castbar.pipColor[stage]
+		if color then
+			pip.texture:SetVertexColor(color.r, color.g, color.b, color.a)
 		end
 	end
 
 	local pipMapAlpha = {2, 3, 4, 1, 5}
 	function UF:UpdatePipStep(stage) -- self is element
+		if not self.Pips then return end
+
 		local onlyThree = (stage == 3 and self.numStages == 3) and 4
 		local pip = self.Pips[pipMapAlpha[onlyThree or stage]]
 		if not pip then return end
 
-		pip.texture:SetAlpha(1)
+		-- pip.texture:SetAlpha(1)
+
 		E:UIFrameFadeOut(pip.texture, pip.pipTimer, pip.pipStart, pip.pipFaded)
 	end
 end
 
-function UF:PostUpdatePip(pip, stage) -- self is element
-	pip.texture:SetAlpha(pip.pipAlpha or 1)
-
-	local pips = self.Pips
-	local numStages = self.numStages
-	local reverse = self:GetReverseFill()
-
-	if stage == numStages then
-		local firstPip = pips[1]
-		local anchor = pips[numStages]
-		if reverse then
-			firstPip.texture:Point('RIGHT', self, 'LEFT', 0, 0)
-			firstPip.texture:Point('LEFT', anchor, 3, 0)
-		else
-			firstPip.texture:Point('LEFT', self, 'RIGHT', 0, 0)
-			firstPip.texture:Point('RIGHT', anchor, -3, 0)
-		end
+function UF:PostUpdatePips(stages)
+	if not self.Pips or not self.setupPips then
+		return -- we only need this once
 	end
 
-	if stage ~= 1 then
-		local anchor = pips[stage - 1]
-		if reverse then
-			pip.texture:Point('RIGHT', -3, 0)
-			pip.texture:Point('LEFT', anchor, 3, 0)
-		else
-			pip.texture:Point('LEFT', 3, 0)
-			pip.texture:Point('RIGHT', anchor, -3, 0)
-		end
+	self.setupPips = nil -- clear this
+
+	for stage in next, stages do
+		local pip = self.Pips[stage]
+		if not pip then break end
+
+		UF.PostUpdatePip(self, pip, stage)
+	end
+end
+
+function UF:PostUpdatePip(pip, stage, stages) -- self is element
+	-- pip.texture:SetAlpha(pip.pipAlpha or 1)
+	-- currently UpdatePipStep is broken: pip.pipAlpha or 1
+
+	local reverse = self:GetReverseFill()
+	local nextPip = self.Pips and self.Pips[stage + 1]
+	local anchor = nextPip or self
+	if reverse then
+		pip.texture:Point('LEFT', anchor, 4, 0)
+		pip.texture:Point('RIGHT', -4, 0)
+	else
+		pip.texture:Point('LEFT', 4, 0)
+		pip.texture:Point('RIGHT', anchor, -4, 0)
 	end
 end
 
@@ -73,7 +77,9 @@ function UF:CreatePip(stage)
 	local pip = CreateFrame('Frame', nil, self, 'CastingBarFrameStagePipTemplate')
 
 	-- clear the original art (the line)
-	pip.BasePip:SetAlpha(0)
+	if pip.BasePip then
+		pip.BasePip:SetAlpha(0)
+	end
 
 	-- create the texture
 	pip.texture = pip:CreateTexture(nil, 'ARTWORK', nil, 2)
@@ -99,7 +105,9 @@ end
 
 function UF:BuildPip(stage)
 	local pip = UF.CreatePip(self, stage)
+
 	UF:Update_StatusBar(pip.texture)
+
 	return pip
 end
 
@@ -115,12 +123,15 @@ function UF:Construct_Castbar(frame, moverName)
 	castbar.PostCastStart = UF.PostCastStart
 	castbar.PostCastStop = UF.PostCastStop
 	castbar.PostCastInterruptible = UF.PostCastInterruptible
+	castbar.PostCastInterrupted = UF.PostCastInterrupted
 	castbar.PostCastFail = UF.PostCastFail
 	castbar.UpdatePipStep = UF.UpdatePipStep
 	castbar.PostUpdatePip = UF.PostUpdatePip
+	castbar.PostUpdatePips = UF.PostUpdatePips
 	castbar.CreatePip = UF.BuildPip
 	castbar.TickLines = {}
 
+	castbar.setupPips = true
 	castbar:SetClampedToScreen(true)
 	castbar:CreateBackdrop(nil, nil, nil, nil, true)
 
@@ -139,21 +150,25 @@ function UF:Construct_Castbar(frame, moverName)
 	castbar.Text:SetWordWrap(false)
 	castbar.Text:FontTemplate()
 
-	castbar.Spark_ = castbar:CreateTexture(nil, 'OVERLAY', nil, 3)
+	castbar.Shield = castbar:CreateTexture(nil, 'OVERLAY', nil, 2)
+	castbar.Shield:SetTexture(E.media.blankTex)
+	castbar.Shield:SetAlpha(0) -- disable is so its hidden on classic
+
+	--Set to castbar.SafeZone
+	castbar.LatencyTexture = castbar:CreateTexture(nil, 'OVERLAY', nil, 3)
+	castbar.LatencyTexture:SetTexture(E.media.blankTex)
+	castbar.LatencyTexture:SetVertexColor(0.69, 0.31, 0.31, 0.75)
+
+	-- ticks are overlay 4 (under spark)
+	castbar.Spark_ = castbar:CreateTexture(nil, 'OVERLAY', nil, 5)
 	castbar.Spark_:SetTexture(E.media.blankTex)
 	castbar.Spark_:SetVertexColor(0.9, 0.9, 0.9, 0.6)
 	castbar.Spark_:SetBlendMode('ADD')
 	castbar.Spark_:Width(2)
 
-	--Set to castbar.SafeZone
-	castbar.LatencyTexture = castbar:CreateTexture(nil, 'OVERLAY', nil, 2)
-	castbar.LatencyTexture:SetTexture(E.media.blankTex)
-	castbar.LatencyTexture:SetVertexColor(0.69, 0.31, 0.31, 0.75)
-
 	castbar.bg = castbar:CreateTexture(nil, 'BORDER')
 	castbar.bg:SetTexture(E.media.blankTex)
 	castbar.bg:SetAllPoints()
-	castbar.bg:Show()
 
 	local button = CreateFrame('Frame', nil, castbar)
 	local holder = CreateFrame('Frame', nil, castbar)
@@ -188,7 +203,11 @@ function UF:Configure_Castbar(frame)
 	local SPACING1 = UF.BORDER + UF.SPACING
 	local SPACING2 = SPACING1 * 2
 
-	E:SetSmoothing(castbar, db.smoothbars)
+	if E.Retail then
+		castbar.smoothing = (db.smoothbars and StatusBarInterpolation.ExponentialEaseOut) or StatusBarInterpolation.Immediate or nil
+	else
+		E:SetSmoothing(castbar, db.smoothbars)
+	end
 
 	castbar.timeToHold = db.timeToHold
 	castbar:SetReverseFill(db.reverse)
@@ -203,8 +222,11 @@ function UF:Configure_Castbar(frame)
 
 	--Empowered
 	castbar.pipColor = UF.db.colors.empoweredCast
-	for stage, pip in next, castbar.Pips do
-		UF:CastBar_UpdatePip(castbar, pip, stage)
+
+	if castbar.Pips then
+		for stage, pip in next, castbar.Pips do
+			UF:CastBar_UpdatePip(castbar, pip, stage)
+		end
 	end
 
 	--Latency
@@ -238,10 +260,19 @@ function UF:Configure_Castbar(frame)
 	castbar.Text:Point('LEFT', castbar, 'LEFT', db.xOffsetText, db.yOffsetText)
 	castbar.Time:Point('RIGHT', castbar, 'RIGHT', db.xOffsetTime, db.yOffsetTime)
 
+	local barTexture = castbar:GetStatusBarTexture()
+	castbar.Shield:ClearAllPoints()
+	castbar.Shield:Point(db.reverse and 'LEFT' or 'RIGHT', barTexture)
+	castbar.Shield:Point(db.reverse and 'RIGHT' or 'LEFT')
+	castbar.Shield:Point('BOTTOM')
+	castbar.Shield:Point('TOP')
+
+	UF:Update_StatusBar(castbar.Shield)
+
 	if db.spark then
 		castbar.Spark = castbar.Spark_
 		castbar.Spark:ClearAllPoints()
-		castbar.Spark:Point(db.reverse and 'LEFT' or 'RIGHT', castbar:GetStatusBarTexture())
+		castbar.Spark:Point(db.reverse and 'LEFT' or 'RIGHT', barTexture)
 		castbar.Spark:Point('BOTTOM')
 		castbar.Spark:Point('TOP')
 	elseif castbar.Spark then
@@ -333,11 +364,21 @@ function UF:Configure_Castbar(frame)
 		E:UpdateClassColor(customColor.colorNoInterrupt)
 		E:UpdateClassColor(customColor.colorInterrupted)
 
+		if E.Retail then
+			castbar.Shield:SetVertexColor(customColor.colorNoInterrupt.r, customColor.colorNoInterrupt.g, customColor.colorNoInterrupt.b, customColor.colorNoInterrupt.a)
+			castbar.Shield.alphaValue = customColor.colorNoInterrupt.a
+		end
+
 		castbar.custom_backdrop = customColor.useCustomBackdrop and E:UpdateClassColor(customColor.colorBackdrop)
 		UF:ToggleTransparentStatusBar(customColor.transparent, castbar, castbar.bg, nil, customColor.invertColors, db.reverse)
 	else
 		castbar.custom_backdrop = UF.db.colors.customcastbarbackdrop and E:UpdateClassColor(UF.db.colors.castbar_backdrop)
 		UF:ToggleTransparentStatusBar(UF.db.colors.transparentCastbar, castbar, castbar.bg, nil, UF.db.colors.invertCastbar, db.reverse)
+
+		if E.Retail then
+			castbar.Shield:SetVertexColor(UF.db.colors.castNoInterrupt.r, UF.db.colors.castNoInterrupt.g, UF.db.colors.castNoInterrupt.b, UF.db.colors.castNoInterrupt.a)
+			castbar.Shield.alphaValue = UF.db.colors.castNoInterrupt.a
+		end
 	end
 
 	if castbar.Holder.mover then
@@ -355,60 +396,89 @@ function UF:Configure_Castbar(frame)
 	end
 end
 
-function UF:CustomCastDelayText(duration)
-	local db = self:GetParent().db
-	if not (db and db.castbar) then return end
-	db = db.castbar.format
+function UF:SetCastDisplayDelay(frame, which, duration, maximum, remain, delay)
+	local text = frame.Time
+	if not text then return end
 
-	if self.channeling then
-		if db == 'CURRENT' then
-			self.Time:SetFormattedText('%.1f |cffaf5050%.1f|r', abs(duration - self.max), self.delay)
-		elseif db == 'CURRENTMAX' then
-			self.Time:SetFormattedText('%.1f / %.1f |cffaf5050%.1f|r', duration, self.max, self.delay)
-		elseif db == 'REMAINING' then
-			self.Time:SetFormattedText('%.1f |cffaf5050%.1f|r', duration, self.delay)
-		elseif db == 'REMAININGMAX' then
-			self.Time:SetFormattedText('%.1f / %.1f |cffaf5050%.1f|r', abs(duration - self.max), self.max, self.delay)
+	if frame.channeling then
+		if which == 'CURRENT' then
+			text:SetFormattedText('%.1f |cffaf5050%.1f|r', remain, delay)
+		elseif which == 'CURRENTMAX' then
+			text:SetFormattedText('%.1f / %.1f |cffaf5050%.1f|r', duration, maximum, delay)
+		elseif which == 'REMAINING' then
+			text:SetFormattedText('%.1f |cffaf5050%.1f|r', duration, delay)
+		elseif which == 'REMAININGMAX' then
+			text:SetFormattedText('%.1f / %.1f |cffaf5050%.1f|r', remain, maximum, delay)
 		end
-	else
-		if db == 'CURRENT' then
-			self.Time:SetFormattedText('%.1f |cffaf5050%s %.1f|r', duration, '+', self.delay)
-		elseif db == 'CURRENTMAX' then
-			self.Time:SetFormattedText('%.1f / %.1f |cffaf5050%s %.1f|r', duration, self.max, '+', self.delay)
-		elseif db == 'REMAINING' then
-			self.Time:SetFormattedText('%.1f |cffaf5050%s %.1f|r', abs(duration - self.max), '+', self.delay)
-		elseif db == 'REMAININGMAX' then
-			self.Time:SetFormattedText('%.1f / %.1f |cffaf5050%s %.1f|r', abs(duration - self.max), self.max, '+', self.delay)
-		end
+	elseif which == 'CURRENT' then
+		text:SetFormattedText('%.1f |cffaf5050%s %.1f|r', duration, '+', delay)
+	elseif which == 'CURRENTMAX' then
+		text:SetFormattedText('%.1f / %.1f |cffaf5050%s %.1f|r', duration, maximum, '+', delay)
+	elseif which == 'REMAINING' then
+		text:SetFormattedText('%.1f |cffaf5050%s %.1f|r', remain, '+', delay)
+	elseif which == 'REMAININGMAX' then
+		text:SetFormattedText('%.1f / %.1f |cffaf5050%s %.1f|r', remain, maximum, '+', delay)
 	end
 end
 
-function UF:CustomTimeText(duration)
+function UF:SetCastDisplayCustom(frame, which, duration, maximum, remain)
+	local text = frame.Time
+	if not text then return end
+
+	if frame.channeling then
+		if which == 'CURRENT' then
+			text:SetFormattedText('%.1f', remain)
+		elseif which == 'CURRENTMAX' then
+			text:SetFormattedText('%.1f / %.1f', remain, maximum)
+		elseif which == 'REMAINING' then
+			text:SetFormattedText('%.1f', duration)
+		elseif which == 'REMAININGMAX' then
+			text:SetFormattedText('%.1f / %.1f', duration, maximum)
+		end
+	elseif which == 'CURRENT' then
+		text:SetFormattedText('%.1f', duration)
+	elseif which == 'CURRENTMAX' then
+		text:SetFormattedText('%.1f / %.1f', duration, maximum)
+	elseif which == 'REMAINING' then
+		text:SetFormattedText('%.1f', remain)
+	elseif which == 'REMAININGMAX' then
+		text:SetFormattedText('%.1f / %.1f', remain, maximum)
+	end
+end
+
+function UF:GetCastDurations(element, duration, durationObject)
+	local remain, maximum
+	if durationObject then
+		remain = durationObject:GetRemainingDuration()
+		maximum = durationObject:GetTotalDuration()
+	elseif duration then
+		maximum = element.max
+		remain = abs(duration - maximum)
+	else -- excuse me?
+		return
+	end
+
+	return remain, maximum
+end
+
+function UF:CustomCastDelayText(duration, durationObject)
+	local remain, maximum = UF:GetCastDurations(self, duration, durationObject)
+	if not remain then return end
+
 	local db = self:GetParent().db
 	if not (db and db.castbar) then return end
-	db = db.castbar.format
 
-	if self.channeling then
-		if db == 'CURRENT' then
-			self.Time:SetFormattedText('%.1f', abs(duration - self.max))
-		elseif db == 'CURRENTMAX' then
-			self.Time:SetFormattedText('%.1f / %.1f', abs(duration - self.max), self.max)
-		elseif db == 'REMAINING' then
-			self.Time:SetFormattedText('%.1f', duration)
-		elseif db == 'REMAININGMAX' then
-			self.Time:SetFormattedText('%.1f / %.1f', duration, self.max)
-		end
-	else
-		if db == 'CURRENT' then
-			self.Time:SetFormattedText('%.1f', duration)
-		elseif db == 'CURRENTMAX' then
-			self.Time:SetFormattedText('%.1f / %.1f', duration, self.max)
-		elseif db == 'REMAINING' then
-			self.Time:SetFormattedText('%.1f', abs(duration - self.max))
-		elseif db == 'REMAININGMAX' then
-			self.Time:SetFormattedText('%.1f / %.1f', abs(duration - self.max), self.max)
-		end
-	end
+	UF:SetCastDisplayDelay(self, db.castbar.format, duration, maximum, remain, self.delay)
+end
+
+function UF:CustomTimeText(duration, durationObject)
+	local remain, maximum = UF:GetCastDurations(self, duration, durationObject)
+	if not remain then return end
+
+	local db = self:GetParent().db
+	if not (db and db.castbar) then return end
+
+	UF:SetCastDisplayCustom(self, db.castbar.format, duration, maximum, remain)
 end
 
 function UF:HideTicks(frame)
@@ -427,7 +497,7 @@ function UF:SetCastTicks(frame, numTicks)
 	for i = 1, numTicks - 1 do
 		local tick = frame.TickLines[i]
 		if not tick then
-			tick = frame:CreateTexture(nil, 'OVERLAY')
+			tick = frame:CreateTexture(nil, 'OVERLAY', nil, 4)
 			tick:SetTexture(E.media.blankTex)
 			tick:Width(frame.tickWidth)
 			frame.TickLines[i] = tick
@@ -447,7 +517,8 @@ function UF:GetInterruptColor(db, unit)
 	local customColor = db and db.castbar and db.castbar.customColor
 	local custom, r, g, b = customColor and customColor.enable and customColor, colors.castColor.r, colors.castColor.g, colors.castColor.b
 
-	if self.notInterruptible and (UnitIsPlayer(unit) or (unit ~= 'player' and UnitCanAttack('player', unit))) then
+	local notInterruptible = E:NotSecretValue(self.notInterruptible) and self.notInterruptible
+	if notInterruptible and (UnitIsPlayer(unit) or (unit ~= 'player' and UnitCanAttack('player', unit))) then
 		if custom and custom.colorNoInterrupt then
 			return custom.colorNoInterrupt.r, custom.colorNoInterrupt.g, custom.colorNoInterrupt.b
 		else
@@ -468,13 +539,26 @@ function UF:GetInterruptColor(db, unit)
 	return r, g, b
 end
 
-function UF:GetCasterColor(unit)
-	if not unit then return end
+function UF:GetCasterColor(targetClass)
+	if E:IsSecretValue(targetClass) then
+		local color = targetClass and C_ClassColor_GetClassColor(targetClass)
+		if color then
+			return color:GenerateHexColor()
+		end
+	else
+		local color = targetClass and E:ClassColor(targetClass)
+		if color then
+			return color.colorStr
+		end
+	end
+end
 
-	local _, className = UnitClass(unit)
-	local classColor = className and E:ClassColor(className)
-	if classColor then
-		return classColor.colorStr
+function UF:SetCastText(castbar, db, changed, spellName, targetName, targetClass)
+	if targetName then
+		local color = db.displayTargetClass and UF:GetCasterColor(targetClass)
+		castbar.Text:SetFormattedText('%s: |c%s%s|r', spellName, color or 'FFdddddd', targetName)
+	elseif changed then -- always true when secret
+		castbar.Text:SetText(spellName)
 	end
 end
 
@@ -487,104 +571,110 @@ function UF:PostCastStart(unit)
 
 	self.unit = unit
 
-	local spellRename = db.castbar.spellRename and E:GetSpellRename(self.spellID)
-	local spellName = spellRename or self.spellName
-	local length = db.castbar.nameLength
-	local name = (length and length > 0 and utf8sub(spellName, 1, length)) or spellName
-	local changed = spellRename or (name ~= spellName)
+	if E:IsSecretValue(self.spellID) then
+		UF:SetCastText(self, db.castbar, true, self.spellName, self.targetCurrent, self.targetClass)
 
-	if db.castbar.displayTarget then -- player or NPCs; if used on other players: the cast target doesn't match their target, can be misleading if they mouseover cast
-		if parent.unitframeType == 'player' then
-			if self.curTarget then
-				local color = db.castbar.displayTargetClass and UF:GetCasterColor(self.curTarget)
-				self.Text:SetFormattedText('%s: |c%s%s|r', name, color or 'FFdddddd', self.curTarget)
-			elseif changed then
-				self.Text:SetText(name)
-			end
-		elseif parent.unitframeType == 'pet' or parent.unitframeType == 'boss' then
-			local target = self.curTarget or UnitName(unit..'target')
-			if target and target ~= '' and target ~= UnitName(unit) then
-				local color = db.castbar.displayTargetClass and UF:GetCasterColor(target)
-				self.Text:SetFormattedText('%s: |c%s%s|r', name, color or 'FFdddddd', target)
-			elseif changed then
-				self.Text:SetText(name)
-			end
+		if self.channeling and db.castbar.ticks and parent.unitframeType == 'player' then
+			UF:HideTicks(self)
 		end
-	elseif changed then
-		self.Text:SetText(name)
-	end
+	else
+		local spellName = self.spellName
+		local length = db.castbar.nameLength
+		local name = (length and length > 0 and utf8sub(spellName, 1, length)) or spellName
+		local changed = name ~= spellName
 
-	if self.channeling and db.castbar.ticks and parent.unitframeType == 'player' then
-		local spellID, global = self.spellID, E.global.unitframe
-		local baseTicks = global.ChannelTicks[spellID]
-
-		-- Separate group, so they can be effected by haste or size if needed
-		local talentTicks = baseTicks and global.TalentChannelTicks[spellID]
-		if talentTicks then
-			for auraID, tickCount in next, talentTicks do
-				if IsSpellInSpellBook(auraID, nil, true) or IsSpellKnown(auraID) then
-					baseTicks = tickCount
-					break -- found one so stop
+		if db.castbar.displayTarget then -- player or NPCs; if used on other players: the cast target doesn't match their target, can be misleading if they mouseover cast
+			if parent.unitframeType == 'player' then
+				UF:SetCastText(self, db.castbar, changed, name, self.targetCurrent, self.targetClass)
+			elseif parent.unitframeType == 'pet' or parent.unitframeType == 'boss' then
+				if self.targetCurrent then
+					UF:SetCastText(self, db.castbar, changed, name, self.targetCurrent, self.targetClass)
+				elseif not E.Retail then
+					local unitName = UnitName(unit)
+					local targetName = UnitName(unit..'target')
+					local _, targetClass = UnitClass(unit..'target')
+					local allowText = E:NotSecretValue(targetName) and (targetName and targetName ~= '') and (E:NotSecretValue(unitName) and (targetName ~= unitName))
+					UF:SetCastText(self, db.castbar, changed, name, allowText and targetName, targetClass)
 				end
 			end
+		elseif changed then
+			self.Text:SetText(name)
 		end
 
-		-- Base ticks upgraded by another aura
-		local auraTicks = baseTicks and global.AuraChannelTicks[spellID]
-		if auraTicks then
-			for auraID, tickCount in next, auraTicks.spells do
-				if E:GetAuraByID(unit, auraID, auraTicks.filter) then
-					baseTicks = tickCount
-					break -- found one so stop
+		if self.channeling and db.castbar.ticks and parent.unitframeType == 'player' then
+			local spellID = E:NotSecretValue(self.spellID) and self.spellID or nil
+
+			local global = E.global.unitframe
+			local baseTicks = global.ChannelTicks[spellID]
+
+			-- Separate group, so they can be effected by haste or size if needed
+			local talentTicks = baseTicks and global.TalentChannelTicks[spellID]
+			if talentTicks then
+				for auraID, tickCount in next, talentTicks do
+					if IsSpellInSpellBook(auraID, nil, true) or IsSpellKnown(auraID) then
+						baseTicks = tickCount
+						break -- found one so stop
+					end
 				end
 			end
-		end
 
-		-- Wait for chain to happen
-		local chainTicks = baseTicks and global.ChainChannelTicks[spellID]
-		if chainTicks then -- requires a window: ChainChannelTime
-			local now = GetTime() -- this will clear old ones too
-			local seconds = global.ChainChannelTime[spellID]
-			local match = seconds and self.chainTime and self.chainTick == spellID
-
-			if match and (now - seconds) < self.chainTime then
-				baseTicks = baseTicks + chainTicks
+			-- Base ticks upgraded by another aura
+			local auraTicks = baseTicks and global.AuraChannelTicks[spellID]
+			if auraTicks then
+				for auraID, tickCount in next, auraTicks.spells do
+					if E:GetAuraByID(unit, auraID, auraTicks.filter) then
+						baseTicks = tickCount
+						break -- found one so stop
+					end
+				end
 			end
 
-			self.chainTime = now
-			self.chainTick = spellID
-		else
-			self.chainTick = nil -- not a chain spell
-			self.chainTime = nil -- clear the time too
-		end
+			-- Wait for chain to happen
+			local chainTicks = baseTicks and global.ChainChannelTicks[spellID]
+			if chainTicks then -- requires a window: ChainChannelTime
+				local now = GetTime() -- this will clear old ones too
+				local seconds = global.ChainChannelTime[spellID]
+				local match = seconds and self.chainTime and self.chainTick == spellID
 
-		local hasteTicks = baseTicks and global.HastedChannelTicks[spellID]
-		if hasteTicks then -- requires tickSize
-			local haste = UnitSpellHaste('player') * 0.01
-			local rate = 1 / baseTicks
-			local first = rate * 0.5
+				if match and (now - seconds) < self.chainTime then
+					baseTicks = baseTicks + chainTicks
+				end
 
-			local bonus = 0
-			if haste >= first then
-				bonus = bonus + 1
+				self.chainTime = now
+				self.chainTick = spellID
+			else
+				self.chainTick = nil -- not a chain spell
+				self.chainTime = nil -- clear the time too
 			end
 
-			local x = E:Round(first + rate, 2)
-			while haste >= x do
-				x = E:Round(first + (rate * bonus), 2)
+			local hasteTicks = baseTicks and global.HastedChannelTicks[spellID]
+			if hasteTicks then -- requires tickSize
+				local haste = UnitSpellHaste('player') * 0.01
+				local rate = 1 / baseTicks
+				local first = rate * 0.5
 
-				if haste >= x then
+				local bonus = 0
+				if haste >= first then
 					bonus = bonus + 1
 				end
-			end
 
-			UF:SetCastTicks(self, baseTicks + bonus)
-			self.hadTicks = true
-		elseif baseTicks then
-			UF:SetCastTicks(self, baseTicks)
-			self.hadTicks = true
-		else
-			UF:HideTicks(self)
+				local x = E:Round(first + rate, 2)
+				while haste >= x do
+					x = E:Round(first + (rate * bonus), 2)
+
+					if haste >= x then
+						bonus = bonus + 1
+					end
+				end
+
+				UF:SetCastTicks(self, baseTicks + bonus)
+				self.hadTicks = true
+			elseif baseTicks then
+				UF:SetCastTicks(self, baseTicks)
+				self.hadTicks = true
+			else
+				UF:HideTicks(self)
+			end
 		end
 	end
 
@@ -592,7 +682,8 @@ function UF:PostCastStart(unit)
 		self.SafeZone:Show()
 	end
 
-	self:SetStatusBarColor(UF.GetInterruptColor(self, db, unit))
+	local r, g, b = UF.GetInterruptColor(self, db, unit)
+	UF:SetStatusBarColor(self, r, g, b)
 end
 
 function UF:PostCastStop(unit)
@@ -608,11 +699,16 @@ function UF:PostCastFail()
 	local db = self:GetParent().db
 	local customColor = db and db.castbar and db.castbar.customColor
 	local color = (customColor and customColor.enable and customColor.colorInterrupted) or UF.db.colors.castInterruptedColor
-	self:SetStatusBarColor(color.r, color.g, color.b)
+
+	UF:SetStatusBarColor(self, color.r, color.g, color.b)
 
 	if self.SafeZone then
 		self.SafeZone:Hide()
 	end
+end
+
+function UF:PostCastInterrupted()
+	UF.PostCastFail(self)
 end
 
 function UF:PostCastInterruptible(unit)
@@ -621,5 +717,6 @@ function UF:PostCastInterruptible(unit)
 	local db = self:GetParent().db
 	if not db or not db.castbar then return end
 
-	self:SetStatusBarColor(UF.GetInterruptColor(self, db, unit))
+	local r, g, b = UF.GetInterruptColor(self, db, unit)
+	UF:SetStatusBarColor(self, r, g, b)
 end

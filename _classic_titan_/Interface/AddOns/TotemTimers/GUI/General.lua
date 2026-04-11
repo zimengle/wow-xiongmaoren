@@ -8,23 +8,24 @@ local L = LibStub("AceLocale-3.0"):GetLocale("TotemTimers_GUI", true)
 
 local LSM = LibStub:GetLibrary("LibSharedMedia-3.0", true)
 
+local metadatafunc = GetAddOnMetadata or C_AddOns.GetAddOnMetadata
 
 TotemTimers.options = {
     type = "group",
     args = {
         general = {
             type = "group",
-            name = "General",
+            name = L["General"],
             args = {
                 version= {
                     order = 0,
                     type ="description",
-                    name = L["Version"]..": "..tostring(GetAddOnMetadata("TotemTimers", "Version"))
+                    name = L["Version"]..": "..tostring(metadatafunc("TotemTimers", "Version"))
                 },
                 info= {
                     order = 1,
                     type = "description",
-                    name = "|c00a6ffffFor more options click the [-] button in the left column.|r",
+                    name = "|c00a6ffff" .. L["For more options click the [-] button in the left column."] .. "|r",
                     fontSize = "medium",
                     image = 136080,
                     imageWidth = 22,
@@ -255,12 +256,11 @@ TotemTimers.options = {
                 h2 = {
                     order = -10,
                     type = "header",
-                    name = "Debug",
+                    name = L["Debug"],
                 },
                 DebugDescription = {
                     type = "description",
-                    name = "If you have any errors, please create an issue at CurseForge, https://www.curseforge.com/wow/addons/totemtimers-classic/issues.|n"
-                        .."If you encoutern a lua error, please include it. Please also include the contents of the TotemTimers debug window.",
+                    name = L["If you have any errors, please create an issue at CurseForge, https://www.curseforge.com/wow/addons/totemtimers-classic/issues.|nIf you encoutern a lua error, please include it. Please also include the contents of the TotemTimers debug window."],
                     order = -3
                 },
                 Debug = {
@@ -275,8 +275,8 @@ TotemTimers.options = {
                 DebugUrl = {
                     order = -2,
                     type = "input",
-                    name = 'Curse-Url for copying',
-                    desc = "Use Ctrl-A, Ctrl-C to copy url",
+                    name = L["Curse-Url for copying"],
+                    desc = L["Use Ctrl-A, Ctrl-C to copy url"],
                     width = "full",
                     set = function() end,
                     get = function() return "https://www.curseforge.com/wow/addons/totemtimers-classic/issues" end
@@ -289,7 +289,7 @@ TotemTimers.options = {
 local ACR =	LibStub("AceConfigRegistry-3.0")
 ACR:RegisterOptionsTable("TotemTimers", TotemTimers.options)
 local ACD = LibStub("AceConfigDialog-3.0")
-local frame, categoryID = ACD:AddToBlizOptions("TotemTimers", "TotemTimers", nil, "general")
+local frame, categoryID = ACD:AddToBlizOptions("TotemTimers", L["TotemTimers"], nil, "general")
 
 function TotemTimers.HookGUIFrame(frame, categoryID)
     frame:SetScript("OnEvent", function(self)

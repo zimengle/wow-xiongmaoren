@@ -1,6 +1,8 @@
 
 PawnOptions = {
 ["LastVersion"] = 2.1308,
+["LastPlayerFullName"] = "三角碑崽儿-时光IV - 红色信仰",
+["AutoSelectScales"] = false,
 ["ItemLevels"] = {
 {
 ["ID"] = 255080,
@@ -19,9 +21,9 @@ PawnOptions = {
 },
 nil,
 {
-["ID"] = 37735,
-["Level"] = 200,
-["Link"] = "|cff0070dd|Hitem:37735:3252:::::::80::::::::::|h[通灵塔烙印护胸]|h|r",
+["ID"] = 40544,
+["Level"] = 226,
+["Link"] = "|cffa335ee|Hitem:40544::::::::80::::::::::|h[无畏胸甲]|h|r",
 },
 {
 ["ID"] = 255078,
@@ -34,9 +36,9 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:30116::::::::80::::::::::|h[毁灭者护腿]|h|r",
 },
 {
-["ID"] = 255116,
-["Level"] = 213,
-["Link"] = "|cffa335ee|Hitem:255116:3232:40014::::::80::::::::::|h[熔火胫甲]|h|r",
+["ID"] = 39717,
+["Level"] = 226,
+["Link"] = "|cffa335ee|Hitem:39717::::::::80::::::::::|h[无情战靴]|h|r",
 },
 {
 ["ID"] = 257602,
@@ -49,16 +51,16 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:30114::::::::80::::::::::|h[毁灭者手甲]|h|r",
 },
 {
-["ID"] = 29294,
-["Level"] = 219,
+["ID"] = 40107,
+["Level"] = 226,
 ["AlsoFitsIn"] = 12,
-["Link"] = "|cffa335ee|Hitem:29294::::::::80::::::::::|h[永恒之戒]|h|r",
+["Link"] = "|cffa335ee|Hitem:40107::::::::80::::::::::|h[沙砾指环]|h|r",
 },
 {
-["ID"] = 29294,
-["Level"] = 219,
+["ID"] = 40107,
+["Level"] = 226,
 ["AlsoFitsIn"] = 11,
-["Link"] = "|cffa335ee|Hitem:29294::40015::::::80::::::::::|h[永恒之戒]|h|r",
+["Link"] = "|cffa335ee|Hitem:40107::40088::::::80::::::::::|h[沙砾指环]|h|r",
 },
 {
 ["ID"] = 30620,
@@ -73,9 +75,9 @@ nil,
 ["Link"] = "|cff0070dd|Hitem:37220::::::::80::::::::::|h[蛛丝精华]|h|r",
 },
 {
-["ID"] = 259906,
-["Level"] = 213,
-["Link"] = "|cffa335ee|Hitem:259906:1099:::::::80::::::::::|h[龙血斗篷]|h|r",
+["ID"] = 40252,
+["Level"] = 232,
+["Link"] = "|cffa335ee|Hitem:40252::::::::80::::::::::|h[蔽日披风]|h|r",
 },
 {
 ["ID"] = 30311,
@@ -94,8 +96,6 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:41168::36767::::::80::::::::::|h[铁甲战斗猎枪]|h|r",
 },
 },
-["AutoSelectScales"] = false,
-["LastPlayerFullName"] = "三角碑崽儿-时光IV - 红色信仰",
 }
 PawnMrRobotScaleProviderOptions = nil
 PawnClassicScaleProviderOptions = {

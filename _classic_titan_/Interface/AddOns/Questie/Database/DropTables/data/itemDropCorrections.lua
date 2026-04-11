@@ -242,6 +242,10 @@ QuestieItemDropCorrections.Era = {
         [3234] = 100,
         [3236] = 100,
     },
+    [190232] = { -- Withered Scarf
+        [3782] = 5, -- super bad drop rate, wowhead shows 3%. it's somewhere between 5-10%
+        [3784] = 5, -- super bad drop rate, wowhead shows 3%. it's somewhere between 5-10%
+    },
 }
 
 QuestieItemDropCorrections.Tbc = {
@@ -355,5 +359,29 @@ QuestieItemDropCorrections.Cata = {
 }
 
 QuestieItemDropCorrections.MoP = {
+    [97530] = { -- Kor'kron Lumber
+        [70997] = 100,
+        [70998] = 100,
+        [70999] = 100,
+        [71001] = 100,
+    },
+    [97543] = { -- Kor'kron Stone
+        [71007] = 100,
+        [71009] = 100,
+        [71187] = 100,
+        [71188] = 100,
+    },
+    [97544] = { -- Kor'kron Oil
+        [71000] = 100,
+        [71002] = 100,
+        [71005] = 100,
+        [71006] = 100,
+    },
+    [97545] = { -- Kor'kron Meat
+        [71010] = 100,
+        [71011] = 100,
+        [71012] = 100,
+        [73590] = 100,
+    },
 
 }

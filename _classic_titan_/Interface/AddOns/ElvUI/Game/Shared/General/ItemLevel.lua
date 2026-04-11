@@ -11,7 +11,6 @@ local GetAverageItemLevel = GetAverageItemLevel
 local GetInspectSpecialization = GetInspectSpecialization
 local GetInventoryItemTexture = GetInventoryItemTexture
 local GetInventoryItemLink = GetInventoryItemLink
-local UnitIsUnit = UnitIsUnit
 local WorldFrame = WorldFrame
 
 local RETRIEVING_ITEM_INFO = RETRIEVING_ITEM_INFO
@@ -24,6 +23,7 @@ local GetItemInfo = C_Item.GetItemInfo
 local GetCVarBool = C_CVar.GetCVarBool
 
 local MATCH_ITEM_LEVEL = ITEM_LEVEL:gsub('%%d', '(%%d+)')
+local MATCH_MIN_LEVEL = ITEM_MIN_LEVEL:gsub('%%d', '(%%d+)')
 local MATCH_ITEM_LEVEL_ALT = ITEM_LEVEL_ALT:gsub('%%d(%s?)%(%%d%)', '%%d+%1%%((%%d+)%%)')
 local MATCH_ENCHANT = ENCHANTED_TOOLTIP_LINE:gsub('%%s', '(.+)')
 
@@ -39,7 +39,7 @@ function E:InspectGearSlot(line, lineText, slotInfo)
 	if not lineText then return end
 
 	-- handle item level
-	local itemLevel = strmatch(lineText, MATCH_ITEM_LEVEL_ALT) or strmatch(lineText, MATCH_ITEM_LEVEL)
+	local itemLevel = strmatch(lineText, MATCH_ITEM_LEVEL_ALT) or (not strmatch(lineText, MATCH_MIN_LEVEL) and strmatch(lineText, MATCH_ITEM_LEVEL))
 	if itemLevel then
 		slotInfo.iLvl = tonumber(itemLevel)
 
@@ -213,7 +213,7 @@ end
 do
 	local iLevelDB, tryAgain = {}, {}
 	function E:GetUnitItemLevel(unit)
-		if UnitIsUnit(unit, 'player') then
+		if E:UnitIsUnit(unit, 'player') then
 			local _, equipped = E:GetPlayerItemLevel()
 			return equipped
 		end

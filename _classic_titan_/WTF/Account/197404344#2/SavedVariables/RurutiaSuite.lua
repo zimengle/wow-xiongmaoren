@@ -24,7 +24,7 @@ RurutiaSuiteDB = {
 ["哔站陈睿 - 时光IV - 红色信仰"] = "Default",
 },
 ["global"] = {
-["lastSeenVersion"] = "2.6.5",
+["lastSeenVersion"] = "2.6.6",
 },
 ["profiles"] = {
 ["Default"] = {

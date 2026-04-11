@@ -360,16 +360,16 @@ BG.Init(function()
                 local _duration = tonumber(BiaoGe.Auction.duration)
                 local duration = _duration and _duration > 0 and _duration
                 if not (money and duration) then return end
-                local t = 0
+                local delay = 0
                 for i, v in ipairs(self.items) do
                     local itemID = v.id
                     local link = v.link
-                    BG.After(t, function()
+                    BG.After(delay, function()
                         local text = "StartAuction," .. GetTime() .. "," .. itemID .. "," ..
                             money .. "," .. duration .. ",," .. mod .. "," .. link
                         C_ChatInfo.SendAddonMessage("BiaoGeAuction", text, "RAID")
                     end)
-                    t = t + 1
+                    delay = delay + 1
                 end
                 if self.callback then
                     self.callback()
@@ -737,7 +737,7 @@ BG.Init(function()
                 bt:SetScript("OnClick", Start_OnClick)
                 bt:SetScript("OnEnter", Start_OnEnter)
                 bt:SetScript("OnLeave", GameTooltip_Hide)
-                if BiaoGe.Auction.mod ~= "roll" and isRightButton and BiaoGeVIP and BiaoGeVIP.auction then
+                if BiaoGe.Auction.mod ~= "roll" and isRightButton and ns.isVIP and BiaoGeVIP and BiaoGeVIP.auction then
                     local _duration = tonumber(BiaoGe.Auction.duration)
                     local duration = _duration and _duration > 0 and _duration
                     if duration then

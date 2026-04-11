@@ -1,7 +1,8 @@
 TitanBistooltipAddon = LibStub("AceAddon-3.0"):NewAddon("TitanBistooltip")
 
 -- 插件版本信息
-TitanBistooltipAddon.AddonNameAndVersion = "|cFF00BFFF[快跑兄弟]|r TitanBistooltip v1.90"
+local version = "1.98"
+TitanBistooltipAddon.AddonNameAndVersion = "|cFF00BFFF[快跑兄弟]|r TitanBistooltip v" .. version
 
 -- 全局函数用于按键绑定
 function TitanBistooltipToggle()
@@ -42,16 +43,30 @@ function TitanBistooltipAddon:showCharacterList()
     local characters = {}
     
     -- 使用默认的API获取角色信息
-    local numCharacters = GetNumCharacters()
-    
-    for i = 1, numCharacters do
-        local name, _, _, _, _, classFileName, _, _, _, _, _, _, _, _, _, _, _, _, isActive = GetCharacterInfo(i)
-        if name and classFileName then
-            table.insert(characters, {
-                name = name,
-                classFileName = classFileName,
-                isActive = isActive
-            })
+    local numCharacters
+    if C_CharacterCache and C_CharacterCache.GetNumCharacters then
+        numCharacters = C_CharacterCache.GetNumCharacters()
+        for i = 1, numCharacters do
+            local charInfo = C_CharacterCache.GetCharacterInfo(i)
+            if charInfo and charInfo.name and charInfo.classFileName then
+                table.insert(characters, {
+                    name = charInfo.name,
+                    classFileName = charInfo.classFileName,
+                    isActive = charInfo.isActive
+                })
+            end
+        end
+    else
+        numCharacters = GetNumCharacters()
+        for i = 1, numCharacters do
+            local name, _, _, _, _, classFileName, _, _, _, _, _, _, _, _, _, _, _, _, isActive = GetCharacterInfo(i)
+            if name and classFileName then
+                table.insert(characters, {
+                    name = name,
+                    classFileName = classFileName,
+                    isActive = isActive
+                })
+            end
         end
     end
     
@@ -205,8 +220,15 @@ function TitanBistooltipAddon:showCharacterEquipment(characterName, classFileNam
                 itemTexture = itemInfoCache[itemId].texture
             else
                 -- 从API获取
-                local itemName, itemLink, itemQuality, itemLevel, itemMinLevel, itemType, itemSubType, itemStackCount, itemEquipLoc, texture = GetItemInfo(itemId)
-                itemTexture = texture
+                if C_Item and C_Item.GetItemInfo then
+                    local itemInfo = C_Item.GetItemInfo(itemId)
+                    if itemInfo then
+                        itemTexture = itemInfo.iconFileID
+                    end
+                else
+                    local itemName, itemLink, itemQuality, itemLevel, itemMinLevel, itemType, itemSubType, itemStackCount, itemEquipLoc, texture = GetItemInfo(itemId)
+                    itemTexture = texture
+                end
                 
                 -- 缓存物品信息
                 if not itemInfoCache[itemId] then
@@ -358,19 +380,45 @@ function scanEquipment()
         local collection = {}
         
         -- 扫描装备栏
-        for i=0,18 do
-            local itemID = GetInventoryItemID("player", i)
-            if itemID ~= nil then
-                collection[itemID] = 2
+        if C_PlayerInfo and C_PlayerInfo.GetInventoryItemID then
+            -- 正式服API使用1-19作为装备栏位
+            for i=1,19 do
+                local itemID = C_PlayerInfo.GetInventoryItemID("player", i)
+                if itemID ~= nil then
+                    collection[itemID] = 2
+                end
+            end
+        elseif GetInventoryItemID then
+            -- 旧API使用0-18
+            for i=0,18 do
+                local itemID = GetInventoryItemID("player", i)
+                if itemID ~= nil then
+                    collection[itemID] = 2
+                end
             end
         end
         
         -- 扫描背包
-        for bag = 0, NUM_BAG_SLOTS do
-            local numSlots = C_Container.GetContainerNumSlots(bag)
-            if numSlots > 0 then
+        if C_Container and C_Container.GetContainerNumSlots and C_Container.GetContainerItemID then
+            -- 正式服API遍历所有背包
+            for bag = 0, 4 do -- 0-4是背包栏位
+                local numSlots = C_Container.GetContainerNumSlots(bag)
                 for slot = 1, numSlots do
                     local itemID = C_Container.GetContainerItemID(bag, slot)
+                    if itemID ~= nil then
+                        -- 只有在装备栏中不存在时才标记为1（背包）
+                        if not collection[itemID] then
+                            collection[itemID] = 1
+                        end
+                    end
+                end
+            end
+        elseif GetContainerNumSlots and GetContainerItemID then
+            -- 使用旧 API
+            for bag = 0, 4 do -- 0-4是背包栏位
+                local numSlots = GetContainerNumSlots(bag)
+                for slot = 1, numSlots do
+                    local itemID = GetContainerItemID(bag, slot)
                     if itemID ~= nil then
                         -- 只有在装备栏中不存在时才标记为1（背包）
                         if not collection[itemID] then
@@ -387,6 +435,10 @@ function scanEquipment()
     -- 如果扫描成功，更新装备数据
     if success and result then
         TitanBistooltip_char_equipment = result
+        -- 清除 equipmentCache 缓存，确保下次打开 BIS 面板时重新检查装备状态
+        if equipmentCache then
+            equipmentCache = {}
+        end
     else
         -- 扫描失败，记录错误
         DEFAULT_CHAT_FRAME:AddMessage("|cffff0000装备扫描失败: " .. tostring(result) .. "|r")
@@ -476,13 +528,48 @@ local function createEquipmentWatcher()
 end
 
 local function getPlayerClassAndSpec()
-    local _, englishClass, classIndex = UnitClass("player")
+    local englishClass, classIndex
+    if C_PlayerInfo and C_PlayerInfo.GetClass then
+        local classInfo
+        -- 尝试使用 PlayerLocation 对象（现代API）
+        if PlayerLocation and PlayerLocation.CreateFromUnit then
+            local playerLocation = PlayerLocation:CreateFromUnit("player")
+            classInfo = C_PlayerInfo.GetClass(playerLocation)
+        end
+        -- 如果现代API失败，尝试使用字符串 "player"（旧API）
+        if not classInfo then
+            classInfo = C_PlayerInfo.GetClass("player")
+        end
+        if classInfo then
+            englishClass = classInfo.classFile
+            classIndex = classInfo.classID
+        end
+    else
+        local _, englishClass_temp, classIndex_temp = UnitClass("player")
+        englishClass = englishClass_temp
+        classIndex = classIndex_temp
+    end
     local specIndex = nil
     local specName = nil
     local specID = nil
     
     -- 检查GetSpecialization函数是否存在
-    if GetSpecialization then
+    if C_PlayerInfo and C_PlayerInfo.GetSpecialization then
+        local specInfo
+        -- 尝试使用 PlayerLocation 对象（现代API）
+        if PlayerLocation and PlayerLocation.CreateFromUnit then
+            local playerLocation = PlayerLocation:CreateFromUnit("player")
+            specInfo = C_PlayerInfo.GetSpecialization(playerLocation)
+        end
+        -- 如果现代API失败，尝试使用字符串 "player"（旧API）
+        if not specInfo then
+            specInfo = C_PlayerInfo.GetSpecialization("player")
+        end
+        if specInfo then
+            specID = specInfo.specID
+            specName = specInfo.name
+        end
+    elseif GetSpecialization then
         specIndex = GetSpecialization()
         if specIndex and GetSpecializationInfo then
             specID, specName = GetSpecializationInfo(specIndex)
@@ -619,102 +706,108 @@ local function updateClassAndSpecIndexes(className, specName)
             TitanBistooltipAddon.db.char.spec_index = foundSpecIndex
         else
             -- 如果没有找到对应的天赋索引，尝试根据GetSpecialization返回的索引来设置
-            if GetSpecialization then
-                local specIndex = GetSpecialization()
-                if specIndex and TitanBistooltip_classes and TitanBistooltip_classes[classIndex] then
-                    -- 根据specIndex设置一个合理的默认值
-                    if className == "Druid" then
-                        -- 对于德鲁伊，1=平衡（鸟德），2=熊德（野性坦克），3=猫德（野性输出），4=恢复（奶德）
-                        if specIndex == 1 then
-                            TitanBistooltipAddon.db.char.spec_index = 1 -- 平衡
-                        elseif specIndex == 2 then
-                            TitanBistooltipAddon.db.char.spec_index = 3 -- 野性坦克
-                        elseif specIndex == 3 then
-                            TitanBistooltipAddon.db.char.spec_index = 2 -- 野性输出
-                        elseif specIndex == 4 then
-                            TitanBistooltipAddon.db.char.spec_index = 4 -- 恢复
-                        end
-                    elseif className == "Death knight" then
-                        -- 对于死亡骑士，1=鲜血，2=冰霜，3=邪恶
-                        if specIndex == 1 then
-                            TitanBistooltipAddon.db.char.spec_index = 1 -- Blood tank
-                        elseif specIndex == 2 then
-                            TitanBistooltipAddon.db.char.spec_index = 2 -- Frost
-                        elseif specIndex == 3 then
-                            TitanBistooltipAddon.db.char.spec_index = 3 -- Unholy
-                        end
-                    elseif className == "Hunter" then
-                        -- 对于猎人，1=野兽控制，2=射击，3=生存
-                        if specIndex == 1 then
-                            TitanBistooltipAddon.db.char.spec_index = 1 -- Beast mastery
-                        elseif specIndex == 2 then
-                            TitanBistooltipAddon.db.char.spec_index = 2 -- Marksmanship
-                        elseif specIndex == 3 then
-                            TitanBistooltipAddon.db.char.spec_index = 3 -- Survival
-                        end
-                    elseif className == "Mage" then
-                        -- 对于法师，1=奥术，2=火焰，3=冰霜
-                        if specIndex == 1 then
-                            TitanBistooltipAddon.db.char.spec_index = 1 -- Arcane
-                        elseif specIndex == 2 then
-                            TitanBistooltipAddon.db.char.spec_index = 2 -- Fire
-                        elseif specIndex == 3 then
-                            TitanBistooltipAddon.db.char.spec_index = 3 -- Frost
-                        end
-                    elseif className == "Paladin" then
-                        -- 对于圣骑士，1=神圣，2=防护，3=惩戒
-                        if specIndex == 1 then
-                            TitanBistooltipAddon.db.char.spec_index = 1 -- Holy
-                        elseif specIndex == 2 then
-                            TitanBistooltipAddon.db.char.spec_index = 2 -- Protection
-                        elseif specIndex == 3 then
-                            TitanBistooltipAddon.db.char.spec_index = 3 -- Retribution
-                        end
-                    elseif className == "Priest" then
-                        -- 对于牧师，1=戒律，2=神圣，3=暗影
-                        if specIndex == 1 then
-                            TitanBistooltipAddon.db.char.spec_index = 1 -- Discipline
-                        elseif specIndex == 2 then
-                            TitanBistooltipAddon.db.char.spec_index = 2 -- Holy
-                        elseif specIndex == 3 then
-                            TitanBistooltipAddon.db.char.spec_index = 3 -- Shadow
-                        end
-                    elseif className == "Rogue" then
-                        -- 对于盗贼，1=刺杀，2=战斗，3=敏锐
-                        if specIndex == 1 then
-                            TitanBistooltipAddon.db.char.spec_index = 1 -- Assassination
-                        elseif specIndex == 2 then
-                            TitanBistooltipAddon.db.char.spec_index = 2 -- Combat
-                        elseif specIndex == 3 then
-                            TitanBistooltipAddon.db.char.spec_index = 3 -- Subtlety
-                        end
-                    elseif className == "Shaman" then
-                        -- 对于萨满，1=元素，2=增强，3=恢复
-                        if specIndex == 1 then
-                            TitanBistooltipAddon.db.char.spec_index = 1 -- Elemental
-                        elseif specIndex == 2 then
-                            TitanBistooltipAddon.db.char.spec_index = 2 -- Enhancement
-                        elseif specIndex == 3 then
-                            TitanBistooltipAddon.db.char.spec_index = 3 -- Restoration
-                        end
-                    elseif className == "Warlock" then
-                        -- 对于术士，1=痛苦，2=恶魔学识，3=毁灭
-                        if specIndex == 1 then
-                            TitanBistooltipAddon.db.char.spec_index = 1 -- Affliction
-                        elseif specIndex == 2 then
-                            TitanBistooltipAddon.db.char.spec_index = 2 -- Demonology
-                        elseif specIndex == 3 then
-                            TitanBistooltipAddon.db.char.spec_index = 3 -- Destruction
-                        end
-                    elseif className == "Warrior" then
-                        -- 对于战士，1=武器，2=狂怒，3=防护
-                        if specIndex == 1 then
-                            TitanBistooltipAddon.db.char.spec_index = 1 -- Arms
-                        elseif specIndex == 2 then
-                            TitanBistooltipAddon.db.char.spec_index = 2 -- Fury
-                        elseif specIndex == 3 then
-                            TitanBistooltipAddon.db.char.spec_index = 3 -- Protection
-                        end
+            local specIndex
+            if C_PlayerInfo and C_PlayerInfo.GetSpecialization then
+                local specInfo = C_PlayerInfo.GetSpecialization("player")
+                if specInfo then
+                    specIndex = specInfo.specIndex
+                end
+            elseif GetSpecialization then
+                specIndex = GetSpecialization()
+            end
+            if specIndex and TitanBistooltip_classes and TitanBistooltip_classes[classIndex] then
+                -- 根据specIndex设置一个合理的默认值
+                if className == "Druid" then
+                    -- 对于德鲁伊，1=平衡（鸟德），2=熊德（野性坦克），3=猫德（野性输出），4=恢复（奶德）
+                    if specIndex == 1 then
+                        TitanBistooltipAddon.db.char.spec_index = 1 -- 平衡
+                    elseif specIndex == 2 then
+                        TitanBistooltipAddon.db.char.spec_index = 3 -- 野性坦克
+                    elseif specIndex == 3 then
+                        TitanBistooltipAddon.db.char.spec_index = 2 -- 野性输出
+                    elseif specIndex == 4 then
+                        TitanBistooltipAddon.db.char.spec_index = 4 -- 恢复
+                    end
+                elseif className == "Death knight" then
+                    -- 对于死亡骑士，1=鲜血，2=冰霜，3=邪恶
+                    if specIndex == 1 then
+                        TitanBistooltipAddon.db.char.spec_index = 1 -- Blood tank
+                    elseif specIndex == 2 then
+                        TitanBistooltipAddon.db.char.spec_index = 2 -- Frost
+                    elseif specIndex == 3 then
+                        TitanBistooltipAddon.db.char.spec_index = 3 -- Unholy
+                    end
+                elseif className == "Hunter" then
+                    -- 对于猎人，1=野兽控制，2=射击，3=生存
+                    if specIndex == 1 then
+                        TitanBistooltipAddon.db.char.spec_index = 1 -- Beast mastery
+                    elseif specIndex == 2 then
+                        TitanBistooltipAddon.db.char.spec_index = 2 -- Marksmanship
+                    elseif specIndex == 3 then
+                        TitanBistooltipAddon.db.char.spec_index = 3 -- Survival
+                    end
+                elseif className == "Mage" then
+                    -- 对于法师，1=奥术，2=火焰，3=冰霜
+                    if specIndex == 1 then
+                        TitanBistooltipAddon.db.char.spec_index = 1 -- Arcane
+                    elseif specIndex == 2 then
+                        TitanBistooltipAddon.db.char.spec_index = 2 -- Fire
+                    elseif specIndex == 3 then
+                        TitanBistooltipAddon.db.char.spec_index = 3 -- Frost
+                    end
+                elseif className == "Paladin" then
+                    -- 对于圣骑士，1=神圣，2=防护，3=惩戒
+                    if specIndex == 1 then
+                        TitanBistooltipAddon.db.char.spec_index = 1 -- Holy
+                    elseif specIndex == 2 then
+                        TitanBistooltipAddon.db.char.spec_index = 2 -- Protection
+                    elseif specIndex == 3 then
+                        TitanBistooltipAddon.db.char.spec_index = 3 -- Retribution
+                    end
+                elseif className == "Priest" then
+                    -- 对于牧师，1=戒律，2=神圣，3=暗影
+                    if specIndex == 1 then
+                        TitanBistooltipAddon.db.char.spec_index = 1 -- Discipline
+                    elseif specIndex == 2 then
+                        TitanBistooltipAddon.db.char.spec_index = 2 -- Holy
+                    elseif specIndex == 3 then
+                        TitanBistooltipAddon.db.char.spec_index = 3 -- Shadow
+                    end
+                elseif className == "Rogue" then
+                    -- 对于盗贼，1=刺杀，2=战斗，3=敏锐
+                    if specIndex == 1 then
+                        TitanBistooltipAddon.db.char.spec_index = 1 -- Assassination
+                    elseif specIndex == 2 then
+                        TitanBistooltipAddon.db.char.spec_index = 2 -- Combat
+                    elseif specIndex == 3 then
+                        TitanBistooltipAddon.db.char.spec_index = 3 -- Subtlety
+                    end
+                elseif className == "Shaman" then
+                    -- 对于萨满，1=元素，2=增强，3=恢复
+                    if specIndex == 1 then
+                        TitanBistooltipAddon.db.char.spec_index = 1 -- Elemental
+                    elseif specIndex == 2 then
+                        TitanBistooltipAddon.db.char.spec_index = 2 -- Enhancement
+                    elseif specIndex == 3 then
+                        TitanBistooltipAddon.db.char.spec_index = 3 -- Restoration
+                    end
+                elseif className == "Warlock" then
+                    -- 对于术士，1=痛苦，2=恶魔学识，3=毁灭
+                    if specIndex == 1 then
+                        TitanBistooltipAddon.db.char.spec_index = 1 -- Affliction
+                    elseif specIndex == 2 then
+                        TitanBistooltipAddon.db.char.spec_index = 2 -- Demonology
+                    elseif specIndex == 3 then
+                        TitanBistooltipAddon.db.char.spec_index = 3 -- Destruction
+                    end
+                elseif className == "Warrior" then
+                    -- 对于战士，1=武器，2=狂怒，3=防护
+                    if specIndex == 1 then
+                        TitanBistooltipAddon.db.char.spec_index = 1 -- Arms
+                    elseif specIndex == 2 then
+                        TitanBistooltipAddon.db.char.spec_index = 2 -- Fury
+                    elseif specIndex == 3 then
+                        TitanBistooltipAddon.db.char.spec_index = 3 -- Protection
                     end
                 end
             end
@@ -1006,5 +1099,21 @@ function TitanBistooltipAddon:OnInitialize()
             end
             autoDetectClassAndSpec()
         end)
+    end)
+end
+
+function TitanBistooltipAddon:OnEnable()
+    -- 插件启用时执行的操作
+    DEFAULT_CHAT_FRAME:AddMessage("|cFF00BFFF[快跑兄弟]|r TitanBistooltip 已启用")
+    
+    -- 确保所有数据都已加载
+    C_Timer.After(1, function()
+        -- 自动识别当前角色职业和天赋
+        autoDetectClassAndSpec()
+        
+        -- 重新加载数据，确保全局变量和界面更新
+        if TitanBistooltipAddon.reloadData then
+            TitanBistooltipAddon:reloadData()
+        end
     end)
 end

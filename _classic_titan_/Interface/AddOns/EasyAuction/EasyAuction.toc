@@ -1,8 +1,8 @@
-## Interface: 38000
+## Interface: 38001
 ## Title: |TInterface/Icons/INV_Misc_Coin_01:16:16:0:0|t |cff00ffffEasyAuction|r - |cff41bee3拍|r|cff4b7be5卖|r|cff4b7be5助|r|cff4b7be5手|r
 ## Notes: 拍卖行增强，允许一键一口价，上架自动填写价格、历史价格查询等功能。
 ## Author: 晓输童
-## Version: 2.8.3
+## Version: 2.8.4
 ## SavedVariables: EasyAuctionDB2, EasyAuctionDB
 embeds.xml
 EasyAuction.xml

@@ -3,9 +3,7 @@ local UF = E:GetModule('UnitFrames')
 local ElvUF = E.oUF
 
 local CreateFrame = CreateFrame
-local MAX_BOSS_FRAMES = 8
-
--- GLOBALS: BossHeaderMover
+local MAX_BOSS_FRAMES = 5
 
 local BossHeader = CreateFrame('Frame', 'BossHeader', E.UIParent)
 function UF:Construct_BossFrames(frame)

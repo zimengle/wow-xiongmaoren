@@ -225,8 +225,8 @@ function BG.SortRoleOverview(newTbl)
                 end
             end
         end
-        if showAllServer then
-            for i, v in ipairs(newTbl) do
+        for i, v in ipairs(newTbl) do
+            if showAllServer or v.realmID == realmID then
                 tinsert(tbl, v)
             end
         end
@@ -840,17 +840,25 @@ function BG.SetFBCD(self, position, click, refresh)
             if v then
                 if id == 0 then  -- 如果是主专业
                     local text = ""
+                    local tbl = {}
                     for _id, info in pairs(v) do
                         if info.isMain and v[_id] then
-                            text = text
-                                .. (text == "" and "" or " ")
-                                .. v[_id].level .. " " .. AddTexture(info.icon)
+                            tinsert(tbl, {
+                                id = _id,
+                                text = v[_id].level .. " " .. AddTexture(info.icon)
+                            })
                         end
                     end
-                    if text == "" then
-                        count = L["未学"]
-                    else
+                    if next(tbl) then
+                        sort(tbl, function(a, b)
+                            return a.id < b.id
+                        end)
+                        for i, v in ipairs(tbl) do
+                            text = text .. (text == "" and "" or " ") .. v.text
+                        end
                         count = text
+                    else
+                        count = L["未学"]
                     end
                 elseif v[id] then
                     count = v[id].level

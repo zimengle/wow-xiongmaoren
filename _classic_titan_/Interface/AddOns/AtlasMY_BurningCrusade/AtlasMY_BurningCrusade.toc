@@ -1,4 +1,4 @@
-## Interface: 38000
+## Interface: 38001
 ## Title: Atlas |r|cFF0099FF[Burning Crusade]|r
 ## Title-zhCN: Atlas |r|cFF0099FF燃烧远征副本地图|r
 ## Title-zhTW: Atlas |r|cFF0099FF燃燒遠征副本地圖|r

@@ -3,14 +3,19 @@ local BL = E:GetModule('Blizzard')
 local LSM = E.Libs.LSM
 
 local _G = _G
+local pcall = pcall
 local floor = floor
 local hooksecurefunc = hooksecurefunc
 
 local UnitPower = UnitPower
 local CreateFrame = CreateFrame
 local UnitPowerMax = UnitPowerMax
+local UnitPowerPercent = UnitPowerPercent
 local GetUnitPowerBarInfo = GetUnitPowerBarInfo
 local GetUnitPowerBarStrings = GetUnitPowerBarStrings
+
+local ScaleTo100 = CurveConstants and CurveConstants.ScaleTo100
+local StatusBarInterpolation = Enum.StatusBarInterpolation
 
 local function UpdateTooltip(self)
 	if _G.GameTooltip:IsForbidden() then return end
@@ -42,17 +47,17 @@ function BL:SetAltPowerBarText(text, name, value, max, percent)
 	elseif textFormat == 'NAME' then
 		text:SetFormattedText('%s', name)
 	elseif textFormat == 'NAMEPERC' then
-		text:SetFormattedText('%s: %s%%', name, percent)
+		text:SetFormattedText('%s: %d%%', name, percent)
 	elseif textFormat == 'NAMECURMAX' then
 		text:SetFormattedText('%s: %s / %s', name, value, max)
 	elseif textFormat == 'NAMECURMAXPERC' then
-		text:SetFormattedText('%s: %s / %s - %s%%', name, value, max, percent)
+		text:SetFormattedText('%s: %s / %s - %d%%', name, value, max, percent)
 	elseif textFormat == 'PERCENT' then
-		text:SetFormattedText('%s%%', percent)
+		text:SetFormattedText('%d%%', percent)
 	elseif textFormat == 'CURMAX' then
 		text:SetFormattedText('%s / %s', value, max)
 	elseif textFormat == 'CURMAXPERC' then
-		text:SetFormattedText('%s / %s - %s%%', value, max, percent)
+		text:SetFormattedText('%s / %s - %d%%', value, max, percent)
 	end
 end
 
@@ -124,7 +129,11 @@ function BL:UpdateAltPowerBarSettings()
 	bar.text:FontTemplate(LSM:Fetch('font', db.font), db.fontSize or 12, db.fontOutline or 'OUTLINE')
 	BL.AltPowerBarHolder:Size(bar.backdrop:GetSize())
 
-	E:SetSmoothing(bar, db.smoothbars)
+	if E.Retail then
+		bar.smoothing = (db.smoothbars and StatusBarInterpolation.ExponentialEaseOut) or StatusBarInterpolation.Immediate or nil
+	else
+		E:SetSmoothing(bar, db.smoothbars)
+	end
 
 	BL:SetAltPowerBarText(bar.text, bar.powerName or '', bar.powerValue or 0, bar.powerMaxValue or 0, bar.powerPercent or 0)
 end
@@ -136,12 +145,21 @@ function BL:UpdateAltPowerBar()
 		bar:Hide()
 	end
 
+	local powerPercent
+	if UnitPowerPercent then
+		local ok, percent = pcall(UnitPowerPercent, 'player', _G.ALTERNATE_POWER_INDEX, true, ScaleTo100)
+		if ok then
+			powerPercent = percent
+		end
+	end
+
+	local power = UnitPower('player', _G.ALTERNATE_POWER_INDEX) or 0
+	local maxPower = UnitPowerMax('player', _G.ALTERNATE_POWER_INDEX) or 0
 	local barInfo = GetUnitPowerBarInfo('player')
 	if barInfo then
+		local allowed = E:NotSecretValue(power) and E:NotSecretValue(maxPower)
 		local powerName, powerTooltip = GetUnitPowerBarStrings('player')
-		local power = UnitPower('player', _G.ALTERNATE_POWER_INDEX) or 0
-		local maxPower = UnitPowerMax('player', _G.ALTERNATE_POWER_INDEX) or 0
-		local perc = (maxPower > 0 and floor(power / maxPower * 100)) or 0
+		local perc = powerPercent or (allowed and (maxPower > 0 and floor(power / maxPower * 100))) or 0
 
 		self.powerMaxValue = maxPower
 		self.powerName = powerName
@@ -151,9 +169,9 @@ function BL:UpdateAltPowerBar()
 
 		self:Show()
 		self:SetMinMaxValues(barInfo.minPower, maxPower)
-		self:SetValue(power)
+		self:SetValue(power, bar.smoothing)
 
-		if E.db.general.altPowerBar.statusBarColorGradient then
+		if allowed and E.db.general.altPowerBar.statusBarColorGradient then
 			local value = (maxPower > 0 and power / maxPower) or 0
 
 			if self.colorGradientValue ~= value then

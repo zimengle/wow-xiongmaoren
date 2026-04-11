@@ -655,60 +655,84 @@ local function GenerateTDPHooks()
 
 
 	local function HandleItem(tooltip, data)
-		local reg = GetRegistry(tooltip)
-		if not reg or reg.hasItem then return end
-		OnCleared(tooltip)
-		local additional = reg.additional
+	local reg = GetRegistry(tooltip)
+	if not reg or reg.hasItem then return end
+	OnCleared(tooltip)
+	local additional = reg.additional
 
-		local info = tooltip:GetPrimaryTooltipInfo()
-		if info then -- ### todo: is it actually possible for this to be nil here?
-			-- getterName has just been called (with getterArgs) and the result is in data
-			-- getterArgs may be a table containing a list of args, or it may be nil
-			-- SurfaceArgs has been called on data
-			-- However none of our gather functions currently need the data table
-			local getterName, getterArgs = info.getterName, info.getterArgs
-			local gather = getterGatherdata[getterName]
-			if gather then
-				gather(reg, getterArgs)
-			end
+	local info = tooltip:GetPrimaryTooltipInfo()
+	if info then -- ### todo: is it actually possible for this to be nil here?
+		-- getterName has just been called (with getterArgs) and the result is in data
+		-- getterArgs may be a table containing a list of args, or it may be nil
+		-- SurfaceArgs has been called on data
+		-- However none of our gather functions currently need the data table
+		local getterName, getterArgs = info.getterName, info.getterArgs
+		local gather = getterGatherdata[getterName]
+		if gather then
+			gather(reg, getterArgs)
 		end
-
-		local truelink = additional.link -- link provided by GetX function. Preferred if it exists
-		local item = truelink or data.hyperlink or (data.guid and GetItemLinkByGUID(data.guid)) or additional.eventLink
-		-- ### todo: previous versions of tooltip:GetItem() could return odd values like "" or other malformed links
-		-- ### the above data operations replaced GetItem - do we still need to check for bad results?
-		if not item then return end
-
-		local name,link,quality,ilvl,minlvl,itype,isubtype,stack,equiploc,texture,sellPrice,classID,subclassID,bindType,expacID,setID,isCraftingReagent = GetItemInfo(item)
-		if not name or name == "" then return end
-		link = truelink or link
-		quality = additional.quality or quality
-		if not quality or quality < 0 then quality = 0 end
-		local quantity = additional.quantity or 1
-
-		additional.item = item
-		additional.quantity = quantity
-		additional.name = name
-		additional.link = link
-		additional.quality = quality
-		additional.itemLevel = ilvl
-		additional.minLevel = minlvl
-		additional.itemType = itype
-		additional.itemSubtype = isubtype
-		additional.stackSize = stack
-		additional.equipLocation = equiploc
-		additional.texture = texture
-		additional.sellPrice = sellPrice
-		additional.classID = classID
-		additional.subclassID = subclassID
-		additional.bindType = bindType
-		additional.expacID = expacID
-		additional.setID = setID
-		additional.isCraftingReagent = isCraftingReagent
-		additional.tooltipData = data
-
-		ProcessItem(tooltip, reg)
 	end
+
+	local truelink = additional.link -- link provided by GetX function. Preferred if it exists
+	local item = truelink or data.hyperlink or (data.guid and GetItemLinkByGUID(data.guid)) or additional.eventLink
+	-- ### todo: previous versions of tooltip:GetItem() could return odd values like "" or other malformed links
+	-- ### the above data operations replaced GetItem - do we still need to check for bad results?
+	if not item then return end
+
+	local name, link, quality, ilvl, minlvl, itype, isubtype, stack, equiploc, texture, sellPrice, classID, subclassID, bindType, expacID, setID, isCraftingReagent
+	local itemInfo = GetItemInfo(item)
+	if type(itemInfo) == "table" then
+		-- C_Item.GetItemInfo 返回表
+		name = itemInfo.name
+		link = itemInfo.itemLink
+		quality = itemInfo.quality
+		ilvl = itemInfo.itemLevel
+		minlvl = itemInfo.requiredLevel
+		itype = itemInfo.itemType
+		isubtype = itemInfo.itemSubType
+		stack = itemInfo.stackCount
+		equiploc = itemInfo.inventoryType
+		texture = itemInfo.iconFileID
+		sellPrice = itemInfo.sellPrice
+		classID = itemInfo.classID
+		subclassID = itemInfo.subclassID
+		bindType = itemInfo.bindType
+		expacID = itemInfo.expacID
+		setID = itemInfo.setID
+		isCraftingReagent = itemInfo.isCraftingReagent
+	else
+		-- 传统 GetItemInfo 返回多个值
+		name,link,quality,ilvl,minlvl,itype,isubtype,stack,equiploc,texture,sellPrice,classID,subclassID,bindType,expacID,setID,isCraftingReagent = GetItemInfo(item)
+	end
+	if not name or name == "" then return end
+	link = truelink or link
+	quality = additional.quality or quality
+	if not quality or quality < 0 then quality = 0 end
+	local quantity = additional.quantity or 1
+
+	additional.item = item
+	additional.quantity = quantity
+	additional.name = name
+	additional.link = link
+	additional.quality = quality
+	additional.itemLevel = ilvl
+	additional.minLevel = minlvl
+	additional.itemType = itype
+	additional.itemSubtype = isubtype
+	additional.stackSize = stack
+	additional.equipLocation = equiploc
+	additional.texture = texture
+	additional.sellPrice = sellPrice
+	additional.classID = classID
+	additional.subclassID = subclassID
+	additional.bindType = bindType
+	additional.expacID = expacID
+	additional.setID = setID
+	additional.isCraftingReagent = isCraftingReagent
+	additional.tooltipData = data
+
+	ProcessItem(tooltip, reg)
+end
 
 	local function HandleSpell(tooltip, data)
 		local reg = GetRegistry(tooltip)

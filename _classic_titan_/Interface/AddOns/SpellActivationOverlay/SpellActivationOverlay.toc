@@ -1,9 +1,9 @@
-## Interface: 38000
+## Interface: 38001
 ## Title: |TInterface/Icons/Spell_Frost_Stun:16:16:0:0:512:512:64:448:64:448|t SpellActivationOverlay |cff99ddff谷|r|cff88ccee风|r|cff77bbdd修|r|cff66aacc复|r|cff5599bb版|r
 ## Notes: Display overlays and glow buttons to improve your gameplay!
 ## Notes-zhCN: 显示覆盖层和高亮按钮以改善您的游戏体验！
 ## Author: Vinny/Ennvina
-## Version: 2.6.5
+## Version: 2.6.7
 ## SavedVariables: SpellActivationOverlayDB
 ## X-SAO-Build: wrath
 

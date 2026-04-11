@@ -121,7 +121,7 @@
             <Layer level="BACKGROUND">
                 <Texture parentKey="NormalBg" setAllPoints="true">
                 </Texture>
-                <Texture parentKey="SameInstanceBgLeft" file="Interface\AddOns\MeetingHorn\Media\ProgressBg">
+                <Texture parentKey="SameInstanceBgLeft" file="Interface\AddOns\MeetingHorn\Media\ProgressBgTB">
                     <Size x="978"/>
                     <Anchors>
                         <Anchor point="TOPLEFT"/>

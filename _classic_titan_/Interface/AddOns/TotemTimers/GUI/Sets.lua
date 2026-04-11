@@ -5,7 +5,7 @@ local L = LibStub("AceLocale-3.0"):GetLocale("TotemTimers_GUI", true)
 
 TotemTimers.options.args.sets = {
     type = "group",
-    name = "Sets",
+    name = L["Sets"],
     args = {},
 }
 
@@ -15,7 +15,7 @@ local SpellNames = TotemTimers.SpellNames
 local ACD = LibStub("AceConfigDialog-3.0")
 local ACR =	LibStub("AceConfigRegistry-3.0")
 
-local frame, categoryID = ACD:AddToBlizOptions("TotemTimers", "Sets", "TotemTimers", "sets")
+local frame, categoryID = ACD:AddToBlizOptions("TotemTimers", L["Sets"], L["TotemTimers"], "sets")
 TotemTimers.HookGUIFrame(frame, categoryID)
 
 frame:HookScript("OnShow", function(self)

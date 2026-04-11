@@ -1,10 +1,10 @@
-## Interface: 38000
+## Interface: 38001
 
 ## Title: Leatrix Maps |cff99ddff谷|r|cff88ccee风|r|cff77bbdd修|r|cff66aacc复|r|cff5599bb版|r
 ## Notes: Enhancements for your maps.
 ## Notes-zhCN: 增强你的地图功能。
 
-## Version: 3.80.01
+## Version: 3.80.10
 ## Author: Leatrix
 ## SavedVariables: LeaMapsDB
 

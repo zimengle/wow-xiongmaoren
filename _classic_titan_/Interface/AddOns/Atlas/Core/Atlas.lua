@@ -38,7 +38,16 @@ local strlen, strgfind = string.len, string.gfind
 local strtrim = strtrim
 local floor, fmod = math.floor, math.fmod
 local getn, tinsert, tsort = table.getn, table.insert, table.sort
-local GetAddOnInfo, GetAddOnEnableState, UnitLevel, GetBuildInfo = _G.GetAddOnInfo, _G.GetAddOnEnableState, _G.UnitLevel, _G.GetBuildInfo
+local GetAddOnInfo = _G.GetAddOnInfo or (_G.C_AddOns and _G.C_AddOns.GetAddOnInfo)
+local GetAddOnMetadata = _G.GetAddOnMetadata or (_G.C_AddOns and _G.C_AddOns.GetAddOnMetadata)
+local function GetAddOnEnableState(character, name)
+	if _G.C_AddOns and _G.C_AddOns.GetAddOnEnableState then
+		return _G.C_AddOns.GetAddOnEnableState(name, character)
+	end
+	return _G.GetAddOnEnableState(character, name)
+end
+local IsAddOnLoaded = _G.IsAddOnLoaded or (_G.C_AddOns and _G.C_AddOns.IsAddOnLoaded)
+local UnitLevel, GetBuildInfo = _G.UnitLevel, _G.GetBuildInfo
 local GetLFGDungeonInfo = _G.GetLFGDungeonInfo
 local hooksecurefunc = hooksecurefunc
 

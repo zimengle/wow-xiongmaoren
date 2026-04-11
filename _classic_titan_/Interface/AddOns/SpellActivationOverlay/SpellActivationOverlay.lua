@@ -69,7 +69,7 @@ function SpellActivationOverlay_OnLoad(self)
 	self:RegisterEvent("PLAYER_REGEN_ENABLED");
 	self:RegisterEvent("PLAYER_REGEN_DISABLED");
 	self:RegisterEvent("SPELLS_CHANGED");
-	self:RegisterEvent("LEARNED_SPELL_IN_TAB");
+	-- self:RegisterEvent("LEARNED_SPELL_IN_TAB"); -- 时光服3.80.1已移除此事件
 	self:RegisterEvent("LOADING_SCREEN_DISABLED");
 	self:RegisterEvent("PLAYER_LOGIN");
 	self:RegisterEvent("ADDON_LOADED");

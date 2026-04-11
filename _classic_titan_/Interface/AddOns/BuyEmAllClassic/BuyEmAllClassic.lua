@@ -3,6 +3,11 @@
 BuyEmAll = {}
 
 local L = BUYEMALL_LOCALS;
+local GetCurrencyInfoCompat = GetCurrencyInfo or function(currencyID)
+    if C_CurrencyInfo and C_CurrencyInfo.GetCurrencyInfo then
+        return C_CurrencyInfo.GetCurrencyInfo(currencyID);
+    end
+end
 
 -- These are used for the text on the Max and Stack buttons. See BuyEmAll.xml.
 BUYEMALL_MAX = L.MAX;
@@ -75,7 +80,7 @@ BEAframe:Hide();
 BEAframe:RegisterEvent("ADDON_LOADED");
 local function eventHandler(self, event, ...)
     local arg1, arg2, arg3, arg4, arg5 = ...;
-    if (event == "ADDON_LOADED") and (arg1 == "BuyEmAll") then
+    if (event == "ADDON_LOADED") and (arg1 == "BuyEmAllClassic") then
         if (BEAConfirmToggle == nil) then
             BEAConfirmToggle = true;
         elseif (BEAConfirmToggle == 0) then
@@ -129,7 +134,7 @@ function BuyEmAll:MerchantItemButton_OnModifiedClick(frame, button)
                 print("|cFFFF0000BuyEmAllClassic: 无效的货币链接: " .. tostring(self.itemLink) .. "|r");
                 return;
             end
-            local info = GetCurrencyInfo(currencyID);
+            local info = GetCurrencyInfoCompat(currencyID);
             if not info or not info.maxQuantity then
                 print("|cFFFF0000BuyEmAllClassic: 无法获取货币信息: " .. tostring(currencyID) .. "|r");
                 return;
@@ -175,12 +180,17 @@ function BuyEmAll:MerchantItemButton_OnModifiedClick(frame, button)
                 return;
             end
             self.stack = self.preset;
-            local maxAmount = select(6, GetCurrencyInfo(currencyID));
+            local info = GetCurrencyInfoCompat(currencyID);
+            if not info then
+                print("|cFFFF0000BuyEmAllClassic: 无法获取货币信息: " .. tostring(currencyID) .. "|r");
+                return;
+            end
+            local maxAmount = info.maxQuantity or 0;
             if (maxAmount == 0) then
                 self.fit = 10000000;
                 self.partialFit = 0;
             end
-            self.partialFit = maxAmount - select(2, GetCurrencyInfo(currencyID));
+            self.partialFit = maxAmount - (info.quantity or 0);
         end
 
         if ((select(8, GetMerchantItemInfo(self.itemIndex)) == true) and (self.price == 0)) then
@@ -243,7 +253,7 @@ function BuyEmAll:AltCurrencyHandling(itemIndex, frame)
                 print("|cFFFF0000BuyEmAllClassic: 无效的货币链接: " .. tostring(Link) .. "|r");
                 return;
             end
-            local info = GetCurrencyInfo(currencyID);
+            local info = GetCurrencyInfoCompat(currencyID);
             if not info then
                 print("|cFFFF0000BuyEmAllClassic: 无法获取货币信息: " .. tostring(currencyID) .. "|r");
                 return;

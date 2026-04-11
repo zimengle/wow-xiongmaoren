@@ -2,17 +2,21 @@ local E, L, V, P, G = unpack(ElvUI)
 local UF = E:GetModule('UnitFrames')
 
 local rad = rad
-local unpack = unpack
 local hooksecurefunc = hooksecurefunc
+
 local CreateFrame = CreateFrame
+local UnitClass = UnitClass
+
+local classIcon = [[Interface\WorldStateFrame\Icons-Classes]]
 
 function UF:ModelAlphaFix(value)
 	local portrait = self.Portrait3D
-	if portrait then
-		local alpha = value * portrait:GetAlpha()
-		portrait:SetModelAlpha(alpha)
-		portrait.backdrop:SetAlpha(alpha)
-	end
+	if not portrait then return end
+
+	local alpha = portrait:GetAlpha()
+	local modelAlpha = value * (E:IsSecretValue(alpha) and 1 or alpha)
+	portrait:SetModelAlpha(modelAlpha)
+	portrait.backdrop:SetAlpha(modelAlpha)
 end
 
 function UF:Construct_Portrait(frame, which)
@@ -26,7 +30,6 @@ function UF:Construct_Portrait(frame, which)
 		backdrop:OffsetFrameLevel(nil, frame)
 		backdrop:SetTemplate(nil, nil, nil, nil, true)
 		portrait.backdrop = backdrop
-		portrait.useClassBase = true
 	else
 		portrait = CreateFrame('PlayerModel', nil, frame)
 		portrait:CreateBackdrop(nil, nil, nil, nil, true)
@@ -53,6 +56,10 @@ function UF:Configure_Portrait(frame)
 		if frame.Portrait then -- previous style, so we hide it
 			frame.Portrait:Hide()
 			frame.Portrait.backdrop:Hide()
+		end
+
+		if frame.Portrait3D then
+			frame.Portrait3D:ClearModel()
 		end
 
 		frame.Portrait = portrait -- then update the new one
@@ -115,18 +122,35 @@ function UF:Configure_Portrait(frame)
 				end
 			end
 		end
+
+		if portrait.db.style == 'Class' then
+			portrait:SetTexture(classIcon)
+			portrait.customTexture = classIcon
+		elseif portrait.db.style == '2D' then
+			local left, right, top, bottom = 0.15, 0.85, 0.15, 0.85
+
+			if not db.portrait.keepSizeRatio then
+				local width, height = portrait:GetSize()
+				if width > 0 then
+					left, right, top, bottom = E:CropRatio(width, height, nil, left, right, top, bottom, true)
+				end
+			end
+
+			portrait:SetTexCoord(left, right, top, bottom)
+			portrait.customTexture = nil
+		end
 	elseif frame:IsElementEnabled('Portrait') then
 		frame:DisableElement('Portrait')
 	end
 end
 
-function UF:PortraitUpdate(unit, hasStateChanged, texCoords)
+function UF:PortraitUpdate(unit, hasStateChanged)
 	if not hasStateChanged then return end
 
-	if self.playerModel then
-		local db = self.db
-		if not db then return end
+	local db = self.db
+	if not db then return end
 
+	if self.playerModel then
 		if self.state then
 			self:SetCamDistanceScale(db.camDistanceScale or 2)
 			self:SetViewTranslation((db.xOffset or 0) * 100, (db.yOffset or 0) * 100)
@@ -135,18 +159,24 @@ function UF:PortraitUpdate(unit, hasStateChanged, texCoords)
 
 		-- mimic ModelAlphaFix, so when the module updates the correct alpha is set
 		local frame = self.__owner
-		local alpha = frame.USE_PORTRAIT_OVERLAY and db.overlayAlpha or 1
-		self:SetModelAlpha(alpha * frame:GetAlpha())
+		local alpha = frame:GetAlpha()
+		local modelAlpha = frame.USE_PORTRAIT_OVERLAY and db.overlayAlpha or 1
+		self:SetModelAlpha(modelAlpha * (E:IsSecretValue(alpha) and 1 or alpha))
 
 		-- handle the other settings
 		self:SetDesaturation(db.desaturation or 0)
 		self:SetPaused(db.paused or false)
-	elseif self.useClassBase then
-		if texCoords then
-			local left, right, top, bottom = unpack(texCoords)
-			self:SetTexCoord(left+0.02, right-0.02, top+0.02, bottom-0.02)
-		else
-			self:SetTexCoords()
+	elseif self.customTexture then
+		local _, className = UnitClass(unit)
+		local left, right, top, bottom = E:GetClassCoords(className, true)
+
+		if not db.keepSizeRatio then
+			local width, height = self:GetSize()
+			if width > 0 then
+				left, right, top, bottom = E:CropRatio(width, height, nil, left, right, top, bottom, true)
+			end
 		end
+
+		self:SetTexCoord(left, right, top, bottom)
 	end
 end

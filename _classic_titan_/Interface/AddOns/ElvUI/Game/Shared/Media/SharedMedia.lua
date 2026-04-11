@@ -110,6 +110,7 @@ for i = 0, 2 do -- resting icons
 end
 
 -- nameplate target arrows
+AddMedia('arrow', 'ArrowBracket')
 AddMedia('arrow', 'ArrowRed')
 for i = 0, 72 do
 	AddMedia('arrow', 'Arrow'..i)
@@ -125,6 +126,7 @@ AddMedia('texture','BagQuestIcon')
 AddMedia('texture','BagUpgradeIcon')
 AddMedia('texture','Black8x8')
 AddMedia('texture','BubbleTex')
+AddMedia('texture','Catalog')
 AddMedia('texture','ChatEmojis')
 AddMedia('texture','ChatLogos')
 AddMedia('texture','ChestPlate')
@@ -133,7 +135,10 @@ AddMedia('texture','Coins')
 AddMedia('texture','Combat')
 AddMedia('texture','Copy')
 AddMedia('texture','Cross')
+AddMedia('texture','Dashboard')
 AddMedia('texture','DPS')
+AddMedia('texture','Edge')
+AddMedia('texture','Edge2')
 AddMedia('texture','ExitVehicle')
 AddMedia('texture','FabricSilk')
 AddMedia('texture','GoldCoins')

@@ -13,7 +13,6 @@ local L = BSYC.L
 local WOW_PROJECT_ID = _G.WOW_PROJECT_ID
 local WOW_PROJECT_MAINLINE = _G.WOW_PROJECT_MAINLINE
 local WOW_PROJECT_CLASSIC = _G.WOW_PROJECT_CLASSIC
---local WOW_PROJECT_BURNING_CRUSADE_CLASSIC = _G.WOW_PROJECT_BURNING_CRUSADE_CLASSIC
 local WOW_PROJECT_WRATH_CLASSIC = _G.WOW_PROJECT_WRATH_CLASSIC
 
 --Get TOC version
@@ -27,7 +26,6 @@ local WOW_PROJECT_WRATH_CLASSIC = _G.WOW_PROJECT_WRATH_CLASSIC
 
 BSYC.IsRetail = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE
 BSYC.IsClassic = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC
---BSYC.IsTBC_C = WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC
 BSYC.IsWLK_C = WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC
 
 BSYC.DEFAULT_FONT_NAME = BSYC.DEFAULT_FONT_NAME or "Friz Quadrata TT"
@@ -115,6 +113,7 @@ BSYC.API.IsAddOnLoaded = (C_AddOns and C_AddOns.IsAddOnLoaded) or IsAddOnLoaded
 BSYC.API.GetItemInfo = (C_Item and C_Item.GetItemInfo) or GetItemInfo
 BSYC.API.GetItemCount = (C_Item and C_Item.GetItemCount) or GetItemCount
 BSYC.API.GetSpellInfo = (C_Spell and C_Spell.GetSpellInfo) or GetSpellInfo
+BSYC.API.GetSpellLink = (C_Spell and C_Spell.GetSpellLink) or GetSpellLink
 BSYC.API.GetRecipeInfo = (C_TradeSkillUI and C_TradeSkillUI.GetRecipeInfo) or nil
 BSYC.API.GetCurrencyInfo = (C_CurrencyInfo and C_CurrencyInfo.GetCurrencyInfo) or GetCurrencyInfo
 BSYC.API.GetCurrencyListSize = (C_CurrencyInfo and C_CurrencyInfo.GetCurrencyListSize) or GetCurrencyListSize
@@ -607,7 +606,7 @@ function BSYC:GetShortItemID(link)
 
   return link:match("item:(%d+):")
       or link:match("^(%d+):")
-      or (select(1, strsplit(";", link)))
+      or (strsplit(";", link))
       or link
 end
 
@@ -863,23 +862,24 @@ function BSYC:CanDoProfessions()
 	return false
 end
 
+local BSYC_FRAME_MODULE_LIST = {
+	"Blacklist",
+	"Whitelist",
+	"Currency",
+	"Professions",
+	"Recipes",
+	"Gold",
+	"Profiles",
+	"Search",
+	"SearchFilters",
+	"SortOrder",
+	"Debug",
+	"Details",
+}
+
 function BSYC:ResetFramePositions()
-	local moduleList = {
-		"Blacklist",
-		"Whitelist",
-		"Currency",
-		"Professions",
-		"Recipes",
-		"Gold",
-		"Profiles",
-		"Search",
-		"SearchFilters",
-		"SortOrder",
-		"Debug",
-		"Details",
-	}
-	for i=1, #moduleList do
-		local mName = moduleList[i]
+	for i=1, #BSYC_FRAME_MODULE_LIST do
+		local mName = BSYC_FRAME_MODULE_LIST[i]
 		if BSYC:GetModule(mName, true) and BSYC:GetModule(mName).frame then
 			BSYC:GetModule(mName).frame:ClearAllPoints()
 			BSYC:GetModule(mName).frame:SetPoint("CENTER",UIParent,"CENTER", 0, 0)
@@ -889,20 +889,7 @@ end
 
 function BSYC:GetBSYC_FrameLevel()
 	local count = 0
-	local moduleList = {
-		"Blacklist",
-		"Whitelist",
-		"Currency",
-		"Professions",
-		"Recipes",
-		"Gold",
-		"Profiles",
-		"Search",
-		"SearchFilters",
-		"SortOrder",
-		"Debug",
-		"Details",
-	}
+	local moduleList = BSYC_FRAME_MODULE_LIST
 	for i=1, #moduleList do
 		local mName = moduleList[i]
 		if BSYC:GetModule(mName, true) and BSYC:GetModule(mName).frame and BSYC:GetModule(mName).frame:IsVisible() then

@@ -35,6 +35,8 @@ local next, tinsert, tremove = next, tinsert, tremove
 
 local CreateFrame = CreateFrame
 local UnitInRange = UnitInRange
+local UnitInParty = UnitInParty
+local UnitInRaid = UnitInRaid
 local UnitIsConnected = UnitIsConnected
 
 local function Update(self, event)
@@ -50,11 +52,15 @@ local function Update(self, event)
 		element:PreUpdate()
 	end
 
-	local inRange, checkedRange
+	local inRange, wasChecked
 	local connected = UnitIsConnected(unit)
-	if(connected) then
-		inRange, checkedRange = UnitInRange(unit)
-		if(checkedRange and not inRange) then
+	local isEligible = connected and (UnitInParty(unit) or UnitInRaid(unit))
+	if(isEligible) then
+		inRange, wasChecked = UnitInRange(unit)
+
+		if oUF.isRetail then
+			self:SetAlphaFromBoolean(inRange, element.insideAlpha, element.outsideAlpha)
+		elseif(wasChecked and not inRange) then
 			self:SetAlpha(element.outsideAlpha)
 		else
 			self:SetAlpha(element.insideAlpha)
@@ -63,17 +69,16 @@ local function Update(self, event)
 		self:SetAlpha(element.insideAlpha)
 	end
 
-	--[[ Callback: Range:PostUpdate(object, inRange, checkedRange, isConnected)
+	--[[ Callback: Range:PostUpdate(object, inRange, isEligible)
 	Called after the element has been updated.
 
-	* self         - the Range element
-	* object       - the parent object
-	* inRange      - indicates if the unit was within 40 yards of the player (boolean)
-	* checkedRange - indicates if the range check was actually performed (boolean)
-	* isConnected  - indicates if the unit is online (boolean)
+	* self       - the Range element
+	* object     - the parent object
+	* inRange    - indicates if the unit is within 40 yards of the player (boolean)
+	* isEligible - indicates if the unit is eligible for the range check (boolean)
 	--]]
 	if(element.PostUpdate) then
-		return element:PostUpdate(self, inRange, checkedRange, connected)
+		return element:PostUpdate(self, inRange, isEligible, connected)
 	end
 end
 
@@ -94,7 +99,7 @@ local function OnRangeUpdate(_, elapsed)
 
 	if(timer >= .20) then
 		for _, object in next, _FRAMES do
-			if(object:IsShown()) then
+			if object:IsVisible() then
 				Path(object, 'OnUpdate')
 			end
 		end
@@ -110,7 +115,7 @@ local function Enable(self)
 		element.insideAlpha = element.insideAlpha or 1
 		element.outsideAlpha = element.outsideAlpha or 0.55
 
-		if oUF.isRetail then
+		if oUF.isRetail or oUF.isTBC then
 			self:RegisterEvent('UNIT_IN_RANGE_UPDATE', Path)
 		else
 			if not OnRangeFrame then
@@ -131,7 +136,7 @@ local function Disable(self)
 	if(element) then
 		self:SetAlpha(element.insideAlpha)
 
-		if oUF.isRetail then
+		if oUF.isRetail or oUF.isTBC then
 			self:UnregisterEvent('UNIT_IN_RANGE_UPDATE', Path)
 		else
 			for index, frame in next, _FRAMES do

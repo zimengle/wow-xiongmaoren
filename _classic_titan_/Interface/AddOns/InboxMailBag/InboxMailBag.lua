@@ -28,6 +28,12 @@ MB_BAGNAME = L["BAGNAME"];
 MB_FRAMENAME = L["FRAMENAME"];
 MB_GROUP_STACKS = L["Group Stacks"];
 
+-- API compatibility shims (3.80.1: C_ namespace migration)
+local GetItemClassInfo = C_Item and C_Item.GetItemClassInfo or GetItemClassInfo
+local LE_ITEM_CLASS_WEAPON = LE_ITEM_CLASS_WEAPON or (Enum and Enum.ItemClass and Enum.ItemClass.Weapon) or 2
+local LE_ITEM_CLASS_ARMOR  = LE_ITEM_CLASS_ARMOR  or (Enum and Enum.ItemClass and Enum.ItemClass.Armor)  or 4
+local LE_ITEM_CLASS_GLYPH  = LE_ITEM_CLASS_GLYPH  or (Enum and Enum.ItemClass and Enum.ItemClass.Glyph)  or 16
+
 -- Drawing in localization info
 local WEAPON = GetItemClassInfo (LE_ITEM_CLASS_WEAPON)
 local ARMOR = GetItemClassInfo (LE_ITEM_CLASS_ARMOR)

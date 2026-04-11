@@ -30,7 +30,7 @@
 			<OnLoad>
 				self:RegisterForClicks("LeftButtonUp", "RightButtonUp");
 			</OnLoad>
-			<OnClick function="InboxMailbagItem_OnClick"/>
+			<OnClick>InboxMailbagItem_OnClick(self, button)</OnClick>
 			<OnEnter>
 				InboxMailbagItem_OnEnter(self, self:GetID());
 			</OnEnter>
@@ -123,15 +123,15 @@
 			</ScrollFrame>
 		</Frames>
 		<Scripts>
-			<OnLoad function="InboxMailbag_OnLoad"/>
-			<OnShow function="InboxMailbag_OnShow"/>
-			<OnHide function="InboxMailbag_OnHide"/>
-			<OnEvent function="InboxMailbag_OnEvent"/>
+			<OnLoad>InboxMailbag_OnLoad(self)</OnLoad>
+			<OnShow>InboxMailbag_OnShow(self)</OnShow>
+			<OnHide>InboxMailbag_OnHide(self)</OnHide>
+			<OnEvent>InboxMailbag_OnEvent(self, event, ...)</OnEvent>
 		</Scripts>
 	</Frame>
 	<Button name="MailFrameTabInboxMailbagTemplate" inherits="FriendsFrameTabTemplate" text="MB_BAGNAME" virtual="true">
 		<Scripts>
-			<OnClick function="InboxMailbagTab_OnClick"/>
+			<OnClick>InboxMailbagTab_OnClick(self, button)</OnClick>
 		</Scripts>
 	</Button>
 </Ui>

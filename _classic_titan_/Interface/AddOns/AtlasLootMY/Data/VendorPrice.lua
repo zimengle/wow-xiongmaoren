@@ -529,8 +529,6 @@ if AtlasLoot:GameVersion_GE(AtlasLoot.WRATH_VERSION_NUM) then
     VENDOR_PRICES_RAW.WRATH = {
         [40612] = "EmblemOfHeroism:80",
         [40615] = "EmblemOfHeroism:60",
-        [40636] = "EmblemOfValor:75",
-        [40639] = "EmblemOfValor:60",
 
         [40717] = "EmblemOfValor:25",
         [40718] = "EmblemOfValor:25",

@@ -1,8 +1,6 @@
 
 PawnOptions = {
-["LastVersion"] = 2.1307,
-["LastPlayerFullName"] = "于鹏-时光IV - 红色信仰",
-["AutoSelectScales"] = false,
+["LastVersion"] = 2.1308,
 ["ItemLevels"] = {
 {
 ["ID"] = 255024,
@@ -21,9 +19,9 @@ PawnOptions = {
 },
 nil,
 {
-["ID"] = 30214,
-["Level"] = 219,
-["Link"] = "|cffa335ee|Hitem:30214:3252:39998:39998:::::80::::::::::|h[腐蚀者长袍]|h|r",
+["ID"] = 40423,
+["Level"] = 226,
+["Link"] = "|cffa335ee|Hitem:40423::::::::80::::::::::|h[天灾之心长袍]|h|r",
 },
 {
 ["ID"] = 40696,
@@ -31,9 +29,9 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:40696::40049::::::80::::::::::|h[古兹巴的毛绒腰带]|h|r",
 },
 {
-["ID"] = 30213,
-["Level"] = 219,
-["Link"] = "|cffa335ee|Hitem:30213:3719:39998:40026:::::80::::::::::|h[腐蚀者护腿]|h|r",
+["ID"] = 40422,
+["Level"] = 226,
+["Link"] = "|cffa335ee|Hitem:40422::::::::80::::::::::|h[天灾之心护腿]|h|r",
 },
 {
 ["ID"] = 30050,
@@ -85,9 +83,9 @@ nil,
 ["Link"] = "|cffff8000|Hitem:30313::::::::80::::::::::|h[瓦解法杖]|h|r",
 },
 {
-["ID"] = 255145,
-["Level"] = 213,
-["Link"] = "|cffa335ee|Hitem:255145::::::::80::::::::::|h[火焰符文魔典]|h|r",
+["ID"] = 39766,
+["Level"] = 226,
+["Link"] = "|cffa335ee|Hitem:39766::::::::80::::::::::|h[雌蛛之子]|h|r",
 },
 {
 ["ID"] = 259900,
@@ -95,6 +93,8 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:259900::::::::80::::::::::|h[赤红震荡者]|h|r",
 },
 },
+["AutoSelectScales"] = false,
+["LastPlayerFullName"] = "于鹏-时光IV - 红色信仰",
 }
 PawnMrRobotScaleProviderOptions = nil
 PawnClassicScaleProviderOptions = {

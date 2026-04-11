@@ -2,9 +2,8 @@ local E, L, V, P, G = unpack(ElvUI)
 local AB = E:GetModule('ActionBars')
 
 local _G = _G
-local format, unpack, tonumber = format, unpack, tonumber
-local next, type, pairs, ipairs, gsub = next, type, pairs, ipairs, gsub
-local strmatch, strsplit, strfind, strsub, strupper = strmatch, strsplit, strfind, strsub, strupper
+local ipairs, pairs, strmatch, next, type, unpack, tonumber = ipairs, pairs, strmatch, next, type, unpack, tonumber
+local format, wipe, gsub, strsplit, strfind, strsub, strupper = format, wipe, gsub, strsplit, strfind, strsub, strupper
 
 local ClearOnBarHighlightMarks = ClearOnBarHighlightMarks
 local ClearOverrideBindings = ClearOverrideBindings
@@ -44,7 +43,6 @@ local VehicleExit = VehicleExit
 local SPELLS_PER_PAGE = SPELLS_PER_PAGE
 local TOOLTIP_UPDATE_TIME = TOOLTIP_UPDATE_TIME
 local NUM_ACTIONBAR_BUTTONS = NUM_ACTIONBAR_BUTTONS
-local COOLDOWN_TYPE_LOSS_OF_CONTROL = COOLDOWN_TYPE_LOSS_OF_CONTROL
 local CLICK_BINDING_NOT_AVAILABLE = CLICK_BINDING_NOT_AVAILABLE
 local BINDING_SET = Enum.BindingSet
 
@@ -52,14 +50,17 @@ local IsHouseEditorActive = C_HouseEditor and C_HouseEditor.IsHouseEditorActive
 local GetNextCastSpell = C_AssistedCombat and C_AssistedCombat.GetNextCastSpell
 local GetSpellBookItemInfo = C_SpellBook.GetSpellBookItemInfo or GetSpellBookItemInfo
 local ClearPetActionHighlightMarks = ClearPetActionHighlightMarks or PetActionBar.ClearPetActionHighlightMarks
+local GetActionCooldownDuration = C_ActionBar.GetActionCooldownDuration
 
-local GetProfessionQuality = C_ActionBar.GetProfessionQuality
+local GetProfessionQualityInfo = C_ActionBar.GetProfessionQualityInfo
 local IsInBattle = C_PetBattles and C_PetBattles.IsInBattle
 local C_PlayerInfo_GetGlidingInfo = C_PlayerInfo.GetGlidingInfo
 local FindSpellBookSlotForSpell = C_SpellBook.FindSpellBookSlotForSpell or SpellBook_GetSpellBookSlot
 local ActionBarController_UpdateAllSpellHighlights = ActionBarController_UpdateAllSpellHighlights
 
 local GetCVarBool = C_CVar.GetCVarBool
+local COOLDOWN_GLOBAL = 61304
+local COOLDOWN_WAND = 5009
 
 local LAB = E.Libs.LAB
 local LSM = E.Libs.LSM
@@ -141,6 +142,32 @@ function AB:HandleBackdropMover(bar, backdropSpacing)
 		bar:SetSize(width - spacing, height - spacing)
 	else
 		bar:SetSize(width, height)
+	end
+end
+
+function AB:HandleButtonAutoCast(bar, button)
+	local db = bar.db
+	if not db then return end
+
+	local buttonWidth = db.buttonSize
+	local buttonHeight = (db.keepSizeRatio and db.buttonSize) or db.buttonHeight
+
+	local autoCast = button.AutoCastOverlay or button.AutoCastable
+	if E.Retail then
+		autoCast:SetOutside(button, 3, 3)
+	elseif (E.TBC or E.Wrath) then
+		autoCast:SetOutside(button, 1, 1)
+	else
+		local autoCastWidth = (buttonWidth * 0.5) - (buttonWidth / 7.5)
+		local autoCastHeight = (buttonHeight * 0.5) - (buttonHeight / 7.5)
+		autoCast:SetOutside(button, autoCastWidth, autoCastHeight)
+	end
+
+	local corners = autoCast.Corners
+	if corners then
+		local cornerWidth = E.Retail and ((buttonWidth * 0.5) - (buttonWidth / 2)) or ((buttonWidth * 0.5) - (buttonWidth / 7.5))
+		local cornerHeight = E.Retail and ((buttonWidth * 0.5) - (buttonWidth / 2)) or ((buttonHeight * 0.5) - (buttonHeight / 7.5))
+		corners:SetOutside(button, cornerWidth, cornerHeight)
 	end
 end
 
@@ -309,6 +336,10 @@ function AB:PositionAndSizeBar(barName)
 	RegisterStateDriver(bar, 'page', page)
 	bar:SetAttribute('page', page)
 
+	local buttonWidth = db.buttonSize
+	local buttonHeight = db.keepSizeRatio and db.buttonSize or db.buttonHeight
+	local maskWidth, maskHeight = buttonWidth * 1.5, buttonHeight * 1.5
+
 	local reticleColor = E:UpdateClassColor(AB.db.targetReticleColor)
 	local pages = enabled and AB:ActivePages(page) or nil
 	for i = 1, NUM_ACTIONBAR_BUTTONS do
@@ -330,11 +361,32 @@ function AB:PositionAndSizeBar(barName)
 			lastShownButton = button
 		end
 
-		local targetReticle = button.TargetReticleAnimFrame
-		if targetReticle then
-			targetReticle.Base:SetVertexColor(reticleColor.r, reticleColor.g, reticleColor.b)
+		local spellCastAnim = button.SpellCastAnimFrame
+		if spellCastAnim then
+			local endBurst = spellCastAnim.EndBurst
+			if endBurst then
+				endBurst.EndMask:Size(maskWidth, maskHeight)
+			end
+
+			local spellCastFill = spellCastAnim.Fill
+			if spellCastFill then
+				spellCastFill.FillMask:Size(maskWidth, maskHeight)
+			end
 		end
 
+		local interruptDisplay = button.InterruptDisplay
+		local interruptHighlight = interruptDisplay and interruptDisplay.Highlight
+		if interruptHighlight then
+			interruptHighlight.Mask:Size(maskWidth, maskHeight)
+		end
+
+		local targetReticle = button.TargetReticleAnimFrame
+		local reticleBase = targetReticle and targetReticle.Base
+		if reticleBase then
+			reticleBase:SetVertexColor(reticleColor.r, reticleColor.g, reticleColor.b)
+		end
+
+		AB:HandleButtonAutoCast(bar, button)
 		AB:HandleButtonState(button, i, vehicleIndex, pages)
 		AB:HandleButton(bar, button, i, lastButton, lastColumnButton)
 		AB:StyleButton(button, nil, bar.MasqueGroup and E.private.actionbar.masque.actionbars)
@@ -390,22 +442,42 @@ function AB:CreateBar(id)
 	for i = 1, 12 do
 		local button = LAB:CreateButton(i, format('%sButton%d', barName, i), bar)
 
-		button.AuraCooldown.targetAura = true
-		E:RegisterCooldown(button.AuraCooldown, 'actionbar')
-
 		if E.Retail then
 			button.ProfessionQualityOverlayFrame = CreateFrame('Frame', nil, button, 'ActionButtonTextureOverlayTemplate')
 		end
 
+		local icon = button.icon or button.Icon
+		local spellCastAnim = button.SpellCastAnimFrame
+		local spellCastFill = spellCastAnim and spellCastAnim.Fill
+		if spellCastFill then
+			spellCastFill.InnerGlowTexture:SetAllPoints(icon)
+			spellCastFill.InnerGlowTexture:SetTexCoords()
+		end
+
+		local interruptDisplay = button.InterruptDisplay
+		local interruptBase = interruptDisplay and interruptDisplay.Base
+		if interruptBase then
+			interruptBase.Base:SetAllPoints(icon)
+			interruptBase.Base:SetTexCoords()
+		end
+
+		local interruptHighlight = interruptDisplay and interruptDisplay.Highlight
+		if interruptHighlight then
+			interruptHighlight.Mask:ClearAllPoints()
+			interruptHighlight.Mask:Point('CENTER')
+		end
+
 		local targetReticle = button.TargetReticleAnimFrame
-		if targetReticle then
-			targetReticle:SetAllPoints()
+		local reticleBase = targetReticle and targetReticle.Base
+		if reticleBase then
+			reticleBase:SetTexCoords()
+			reticleBase:SetTexture(E.Media.Textures.TargetReticle)
+			reticleBase:SetAllPoints(icon)
+		end
 
-			targetReticle.Base:SetTexCoords()
-			targetReticle.Base:SetTexture(E.Media.Textures.TargetReticle)
-			targetReticle.Base:SetInside()
-
-			targetReticle.Highlight:SetInside()
+		local reticleHighlight = targetReticle and targetReticle.Highlight
+		if reticleHighlight then
+			reticleHighlight:SetAllPoints(icon)
 		end
 
 		button.MasqueSkinned = true -- skip LAB styling (we handle it and masque as well)
@@ -515,7 +587,6 @@ function AB:CreateVehicleLeave()
 	-- taints because of EditModeManager, in UpdateBottomActionBarPositions
 	button:SetScript('OnShow', nil)
 	button:SetScript('OnHide', nil)
-	button:KillEditMode()
 
 	if Masque and E.private.actionbar.masque.actionbars then
 		button:StyleButton(true, true, true)
@@ -771,6 +842,11 @@ function AB:StyleButton(button, noBackdrop, useMasque, ignoreNormal)
 
 	if not AB.handledbuttons[button] then
 		E:RegisterCooldown(button.cooldown, 'actionbar')
+
+		if button.AuraCooldown then
+			E:RegisterCooldown(button.AuraCooldown, 'targetaura')
+		end
+
 		AB.handledbuttons[button] = true
 	end
 
@@ -811,8 +887,9 @@ function AB:UpdateProfessionQuality(button)
 	local enable = db and db.enable
 	if enable then
 		local action = button._state_type == 'action' and button._state_action
-		local quality = action and IsItemAction(action) and GetProfessionQuality(action)
-		atlas = quality and format('Professions-Icon-Quality-Tier%d', quality)
+		local info = action and IsItemAction(action) and GetProfessionQualityInfo(action)
+
+		atlas = info and info.iconInventory or nil
 
 		if atlas then
 			button.ProfessionQualityOverlayFrame.Texture:SetAtlas(atlas, true)
@@ -822,35 +899,23 @@ function AB:UpdateProfessionQuality(button)
 	button.ProfessionQualityOverlayFrame:SetShown(enable and not not atlas)
 end
 
-function AB:ColorSwipeTexture(cooldown)
-	if not cooldown then return end
-
-	local color = (cooldown.currentCooldownType == COOLDOWN_TYPE_LOSS_OF_CONTROL and AB.db.colorSwipeLOC) or AB.db.colorSwipeNormal
-	cooldown:SetSwipeColor(color.r, color.g, color.b, color.a)
-end
-
-function AB:FadeBlingTexture(cooldown, alpha)
-	if not cooldown then return end
-	cooldown:SetBlingTexture(alpha > 0.5 and (E.Retail and 131010 or [[interface\cooldown\star4.blp]]) or E.Media.Textures.Invisible)
-end
-
 function AB:FadeBlings(alpha)
-	if AB.db.hideCooldownBling then return end
+	if E.db.cooldown.actionbar.hideBling then return end
 
 	for _, bar in next, { AB.fadeParent:GetChildren() } do
 		if bar.buttons then
 			for _, button in ipairs(bar.buttons) do
-				AB:FadeBlingTexture(button.cooldown, alpha)
+				E:CooldownBling(button.cooldown, alpha)
 			end
 		end
 	end
 end
 
 function AB:FadeBarBlings(bar, alpha)
-	if AB.db.hideCooldownBling then return end
+	if E.db.cooldown.actionbar.hideBling then return end
 
 	for _, button in ipairs(bar.buttons) do
-		AB:FadeBlingTexture(button.cooldown, alpha)
+		E:CooldownBling(button.cooldown, alpha)
 	end
 end
 
@@ -932,7 +997,7 @@ do
 
 		if (E.Retail and (canGlide or CanGlide() or IsPossessBarVisible() or HasOverrideActionBar()))
 		or UnitCastingInfo('player') or UnitChannelInfo('player') or UnitExists('target') or UnitExists('focus')
-		or UnitExists('vehicle') or UnitAffectingCombat('player') or (UnitHealth('player') ~= UnitHealthMax('player')) then
+		or UnitExists('vehicle') or UnitAffectingCombat('player') or (not E.Retail and (UnitHealth('player') ~= UnitHealthMax('player'))) then
 			self.mouseLock = true
 			E:UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
 			AB:FadeBlings(1)
@@ -1145,6 +1210,7 @@ function AB:IconIntroTracker_Skin()
 end
 
 do
+	local modernBars = E.Retail or E.TBC or E.Wrath
 	local untaint = {
 		MultiBar5 = true,
 		MultiBar6 = true,
@@ -1156,11 +1222,11 @@ do
 		MicroButtonAndBagsBar = true,
 		OverrideActionBar = true,
 		MainMenuBar = true,
-		BagsBar = E.TBC or nil,
-		MainActionBar = (E.TBC or E.Retail or E.Midnight) or nil,
-		[(E.TBC or E.Retail) and 'StanceBar' or 'StanceBarFrame'] = true,
-		[(E.TBC or E.Retail) and 'PetActionBar' or 'PetActionBarFrame'] = true,
-		[(E.TBC or E.Retail) and 'PossessActionBar' or 'PossessBarFrame'] = true
+		BagsBar = (E.TBC or E.Wrath) or nil,
+		MainActionBar = modernBars or nil,
+		[modernBars and 'StanceBar' or 'StanceBarFrame'] = true,
+		[modernBars and 'PetActionBar' or 'PetActionBarFrame'] = true,
+		[modernBars and 'PossessActionBar' or 'PossessBarFrame'] = true
 	}
 
 	local untaintButtons = {
@@ -1233,10 +1299,8 @@ do
 				frame:SetParent(E.HiddenFrame)
 				frame:UnregisterAllEvents()
 
-				if not (E.Retail or E.TBC) then
+				if not (E.Retail or E.TBC or E.Wrath) then
 					AB:SetNoopsi(frame)
-				elseif name == 'PetActionBar' then -- EditMode messes with it, be specific otherwise bags taint
-					frame.UpdateVisibility = E.noop
 				end
 			end
 		end
@@ -1259,14 +1323,9 @@ do
 		-- modified to fix a taint when closing the options while in combat
 		_G.SettingsPanel:SetScript('OnHide', AB.SettingsPanel_OnHide)
 
-		if E.Retail or E.TBC then
+		if E.Retail or E.TBC or E.Wrath then
 			_G.StatusTrackingBarManager:Kill()
 			_G.ActionBarController:RegisterEvent('UPDATE_EXTRA_ACTIONBAR') -- this is needed to let the ExtraActionBar show
-
-			if E.Retail then
-				-- take encounter bar out of edit mode
-				_G.EncounterBar:KillEditMode()
-			end
 
 			-- lets only keep ExtraActionButtons in here
 			hooksecurefunc(_G.ActionBarButtonEventsFrame, 'RegisterFrame', AB.ButtonEventsRegisterFrame)
@@ -1315,34 +1374,6 @@ do
 	end
 end
 
-function AB:ToggleCountDownNumbers(bar, button, cd)
-	if cd then -- ref: E:CreateCooldownTimer
-		local b = cd.GetParent and cd:GetParent()
-		if cd.timer and (b and b.config) then
-			-- update the new cooldown timer button config with the new setting
-			b.config.disableCountDownNumbers = not not E:ToggleBlizzardCooldownText(cd, cd.timer, true)
-		end
-	elseif button then -- ref: AB:UpdateButtonConfig
-		if button.cooldown and button.cooldown.timer and (bar and bar.buttonConfig) then
-			-- button.config will get updated from `button:UpdateConfig` in `AB:UpdateButtonConfig`
-			bar.buttonConfig.disableCountDownNumbers = not not E:ToggleBlizzardCooldownText(button.cooldown, button.cooldown.timer, true)
-		end
-	elseif bar then -- ref: E:UpdateCooldownOverride
-		if bar.buttons then
-			for _, btn in ipairs(bar.buttons) do
-				if btn and btn.config and (btn.cooldown and btn.cooldown.timer) then
-					-- update the buttons config
-					btn.config.disableCountDownNumbers = not not E:ToggleBlizzardCooldownText(btn.cooldown, btn.cooldown.timer, true)
-				end
-			end
-			if bar.buttonConfig then
-				-- we can actually clear this variable because it wont get used when this code runs
-				bar.buttonConfig.disableCountDownNumbers = nil
-			end
-		end
-	end
-end
-
 function AB:GetTextJustify(anchor)
 	return (anchor == 'TOPLEFT' or anchor == 'BOTTOMLEFT') and 'LEFT' or (anchor == 'TOP' or anchor == 'BOTTOM') and 'CENTER' or 'RIGHT'
 end
@@ -1350,7 +1381,7 @@ end
 function AB:GetHotkeyConfig(db)
 	local font = LSM:Fetch('font', db and db.hotkeyFont or AB.db.font)
 	local size = db and db.hotkeyFontSize or AB.db.fontSize
-	local flags = db and db.hotkeyFontOutline or AB.db.font
+	local flags = db and db.hotkeyFontOutline or AB.db.fontOutline
 
 	local anchor = db and db.hotkeyTextPosition or 'TOPRIGHT'
 	local offsetX = db and db.hotkeyTextXOffset or 0
@@ -1407,7 +1438,7 @@ function AB:UpdateButtonConfig(barName, buttonName)
 	do -- count text
 		text.count.font.font = LSM:Fetch('font', db and db.countFont or AB.db.font)
 		text.count.font.size = db and db.countFontSize or AB.db.fontSize
-		text.count.font.flags = db and db.countFontOutline or AB.db.font
+		text.count.font.flags = db and db.countFontOutline or AB.db.fontOutline
 		text.count.position.anchor = db and db.countTextPosition or 'BOTTOMRIGHT'
 		text.count.position.relAnchor = false
 		text.count.position.offsetX = db and db.countTextXOffset or 0
@@ -1421,7 +1452,7 @@ function AB:UpdateButtonConfig(barName, buttonName)
 	do -- macro text
 		text.macro.font.font = LSM:Fetch('font', db and db.macroFont or AB.db.font)
 		text.macro.font.size = db and db.macroFontSize or AB.db.fontSize
-		text.macro.font.flags = db and db.macroFontOutline or AB.db.font
+		text.macro.font.flags = db and db.macroFontOutline or AB.db.fontOutline
 		text.macro.position.anchor = db and db.macroTextPosition or 'BOTTOM'
 		text.macro.position.relAnchor = false
 		text.macro.position.offsetX = db and db.macroTextXOffset or 0
@@ -1439,14 +1470,13 @@ function AB:UpdateButtonConfig(barName, buttonName)
 	config.enabled = db.enabled -- only used to keep events off for targetReticle
 	config.showGrid = db.showGrid
 	config.targetReticle = db.targetReticle
+	config.spellCastVFX = db.spellCastVFX
 	config.clickOnDown = GetCVarBool('ActionButtonUseKeyDown')
 	config.outOfRangeColoring = (AB.db.useRangeColorText and 'hotkey') or 'button'
 	config.colors.range = E:SetColorTable(config.colors.range, AB.db.noRangeColor)
 	config.colors.mana = E:SetColorTable(config.colors.mana, AB.db.noPowerColor)
 	config.colors.usable = E:SetColorTable(config.colors.usable, AB.db.usableColor)
 	config.colors.notUsable = E:SetColorTable(config.colors.notUsable, AB.db.notUsableColor)
-	config.useDrawBling = not AB.db.hideCooldownBling
-	config.useDrawSwipeOnCharges = AB.db.useDrawSwipeOnCharges
 	config.handleOverlay = AB.db.handleOverlay
 
 	-- NOTE: Pick Up Action Key will break macros of the same key (secure action code)
@@ -1458,8 +1488,6 @@ function AB:UpdateButtonConfig(barName, buttonName)
 	end
 
 	for i, button in ipairs(bar.buttons) do
-		AB:ToggleCountDownNumbers(bar, button)
-
 		local keyTarget = AB:GetKeyTarget(buttonName, i)
 		config.keyBoundTarget = keyTarget -- for LAB
 		button.keyBoundTarget = keyTarget -- for bind mode
@@ -1683,62 +1711,55 @@ function AB:StyleFlyout(button, arrow)
 	end
 end
 
-function AB:UpdateAuraCooldown(button, duration)
-	local cd = button and button.AuraCooldown
-	if not cd then return end
-
-	local oldstate = cd.hideText
-	cd.hideText = (not E.db.cooldown.targetAura) or (button.chargeCooldown and not button.chargeCooldown.hideText) or (button.cooldown and button.cooldown.currentCooldownType == COOLDOWN_TYPE_LOSS_OF_CONTROL) or (not E.Midnight and duration and duration > 1.5) or nil
-
-	if cd.timer and (oldstate ~= cd.hideText) then
-		E:ToggleBlizzardCooldownText(cd, cd.timer)
-		E:Cooldown_TimerUpdate(cd.timer)
-	end
-end
-
-function AB:UpdateChargeCooldown(button, duration)
-	local cd = button and button.chargeCooldown
-	if not cd then return end
-
-	local oldstate = cd.hideText
-	cd.hideText = (not AB.db.chargeCooldown) or (duration and duration > 1.5) or nil
-	if cd.timer and (oldstate ~= cd.hideText) then
-		E:ToggleBlizzardCooldownText(cd, cd.timer)
-		E:Cooldown_TimerUpdate(cd.timer)
-	end
-end
-
-function AB:SetTargetAuraDuration(value)
-	LAB:SetTargetAuraDuration(value)
-end
-
 function AB:SetTargetAuraCooldowns(enabled)
-	local enable, reverse = E.db.cooldown.enable, E.db.actionbar.cooldown.reverse
-	LAB:SetTargetAuraCooldowns(enabled and (enable and not reverse) or (not enable and reverse))
+	LAB:SetTargetAuraCooldowns(enabled)
 end
 
 function AB:ToggleCooldownOptions()
 	for button in pairs(LAB.actionButtons) do
 		if button._state_type == 'action' then
-			local _, duration = button:GetCooldown()
-			AB:SetButtonDesaturation(button, duration)
-			AB:UpdateChargeCooldown(button, duration)
-			AB:UpdateAuraCooldown(button, duration)
+			local start, duration = button:GetCooldown()
+			AB:SetButtonDesaturation(button, start, duration)
 		end
 	end
 end
 
-function AB:SetButtonDesaturation(button, duration)
+function AB:GetGlobalCooldown()
+	local _, wgcd = E:GetSpellCooldown(COOLDOWN_WAND)
+	if E:NotSecretValue(wgcd) and (wgcd and wgcd > 0) then
+		return wgcd
+	end
+
+	local _, gcd = E:GetSpellCooldown(COOLDOWN_GLOBAL)
+	if E:NotSecretValue(gcd) and (gcd and gcd > 0) then
+		return gcd
+	end
+
+	return 1.5
+end
+
+function AB:SetButtonDesaturation(button, start, duration)
 	if button.LevelLinkLockIcon and button.LevelLinkLockIcon:IsShown() then
 		button.saturationLocked = nil
 		return
 	end
 
-	if AB.db.desaturateOnCooldown and (duration and duration > 1.5) then
-		button.icon:SetDesaturated(true)
+	local allow
+	if E:IsSecretValue(duration) then
+		local action = button._state_type == 'action' and button._state_action
+		local info = action and button:GetCooldownInfo()
+		local cooldown = (info and not info.isOnGCD) and GetActionCooldownDuration(action)
+		allow = cooldown and cooldown:EvaluateRemainingDuration(E.Curves.Float.Desaturate)
+	else
+		local GCD = AB:GetGlobalCooldown()
+		allow = (duration and duration > GCD) and 1 or 0
+	end
+
+	if AB.db.desaturateOnCooldown and allow then
+		button.icon:SetDesaturation(allow)
 		button.saturationLocked = true
 	else
-		button.icon:SetDesaturated(false)
+		button.icon:SetDesaturation(0)
 		button.saturationLocked = nil
 	end
 end
@@ -1796,22 +1817,24 @@ function AB:LAB_ButtonUpdate(button)
 end
 
 function AB:LAB_CooldownDone(button)
-	AB:SetButtonDesaturation(button, 0)
-
-	if button._state_type == 'action' then
-		AB:UpdateAuraCooldown(button)
-	end
+	AB:SetButtonDesaturation(button)
 end
 
-function AB:LAB_CooldownUpdate(button, _, duration)
+function AB:LAB_CooldownUpdate(button, start, duration, _, info)
 	if button._state_type == 'action' then
-		AB:SetButtonDesaturation(button, duration)
-		AB:UpdateChargeCooldown(button, duration)
-		AB:UpdateAuraCooldown(button, duration)
+		if info then
+			AB:SetButtonDesaturation(button, info.startTime, info.duration)
+		else
+			AB:SetButtonDesaturation(button, start, duration)
+		end
 	end
 
 	if button.cooldown then
-		AB:ColorSwipeTexture(button.cooldown)
+		E:CooldownBling(button.cooldown, button.cooldown:GetEffectiveAlpha())
+
+		if not E.Retail then -- Loss of Control Swipe
+			E:CooldownSwipe(button.cooldown)
+		end
 	end
 end
 
@@ -1868,6 +1891,36 @@ do
 				-- EventRegistry:TriggerEvent('AssistedCombatManager.OnAssistedHighlightSpellChange')
 			end
 		end
+	end
+
+	-- a few functions to modify what spells are rotation assisted
+	function AB:RotationUpdate()
+		AB:RotationSpellsAdjust()
+	end
+
+	function AB:RotationSpellsClear()
+		AB:RotationSpellsAdjust(true) -- set them back to true
+		wipe(E.db.general.rotationAssist.spells[E.myclass]) -- clear our table now
+	end
+
+	function AB:RotationSpellsAdjust(value)
+		local rotations = _G.AssistedCombatManager.rotationSpells -- Blizzards table
+		if not next(rotations) then return end
+
+		local spells = E.db.general.rotationAssist.spells[E.myclass] -- our table for toggling
+		for spellID, active in next, spells do
+			if rotations[spellID] ~= nil then
+				if value ~= nil then
+					rotations[spellID] = value
+				else
+					rotations[spellID] = active
+				end
+			else -- remove old ones
+				spells[spellID] = nil
+			end
+		end
+
+		_G.AssistedCombatManager:ForceUpdateAtEndOfFrame()
 	end
 end
 
@@ -1943,16 +1996,15 @@ function AB:Initialize()
 	AB:CreateBarShapeShift()
 	AB:CreateVehicleLeave()
 	AB:UpdateButtonSettings()
-	AB:UpdatePetCooldownSettings()
 	AB:ToggleCooldownOptions()
 	AB:LoadKeyBinder()
+
+	AB:SetTargetAuraCooldowns(E.db.cooldown.targetaura.enable)
 
 	AB:RegisterEvent('ADDON_LOADED')
 	AB:RegisterEvent('PLAYER_ENTERING_WORLD')
 	AB:RegisterEvent('UPDATE_BINDINGS', 'UpdateAllBinds')
 	AB:RegisterEvent('SPELL_UPDATE_COOLDOWN', 'UpdateSpellBookTooltip')
-
-	AB:SetTargetAuraDuration(E.db.cooldown.targetAuraDuration)
 
 	if _G.MacroFrame then
 		AB:ADDON_LOADED(nil, 'Blizzard_MacroUI')
@@ -1988,6 +2040,7 @@ function AB:Initialize()
 
 		AB:AssistedGlowUpdate()
 		hooksecurefunc(_G.AssistedCombatManager, 'UpdateAllAssistedHighlightFramesForSpell', AB.AssistedUpdate)
+		_G.EventRegistry:RegisterCallback('AssistedCombatManager.RotationSpellsUpdated', AB.RotationUpdate)
 		_G.AssistedCombatManager.OnUpdate = AB.AssistedOnUpdate -- use our update function instead
 	end
 

@@ -7,49 +7,58 @@ local ipairs = ipairs
 local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
 
-local POSITION, ANCHOR_POINT, Y_OFFSET, BASE_YOFFSET = 'TOP', 'BOTTOM', -5, 0 -- should match in PostAlertMove
+local POSITION, POINT, X_OFFSET, Y_OFFSET, BASE_YOFFSET = 'TOP', 'BOTTOM', 0, -5, 0 -- should match in PostAlertMove
+
+local function AlertSubSystem_AdjustPosition(alertFrameSubSystem)
+	if alertFrameSubSystem.alertFramePool then --queued alert system
+		alertFrameSubSystem.AdjustAnchors = BL.AdjustQueuedAnchors
+	elseif not alertFrameSubSystem.anchorFrame then --simple alert system
+		alertFrameSubSystem.AdjustAnchors = BL.AdjustAnchors
+	elseif alertFrameSubSystem.anchorFrame then --anchor frame system
+		alertFrameSubSystem.AdjustAnchors = BL.AdjustAnchorsNonAlert
+	end
+end
 
 function E:PostAlertMove()
-	local AlertFrame = _G.AlertFrame
-	local AlertFrameMover = _G.AlertFrameMover
+	local perks, anchor = BL:GetAlertAnchors()
 
-	-- support for the Trading Post
-	local perks = _G.PerksProgramFrame
-	local perksFooter = perks and perks.FooterFrame
-	local perksAnchor = (perksFooter and AlertFrame.baseAnchorFrame == perksFooter.RotateButtonContainer) and perksFooter
-
-	local growUp = perksAnchor
+	local growUp = perks
 	if not growUp then
-		local _, y = AlertFrameMover:GetCenter()
+		local _, y = _G.AlertFrameMover:GetCenter()
 		growUp = y < (E.UIParent:GetTop() * 0.5)
 	end
 
 	if growUp then
-		POSITION, ANCHOR_POINT, Y_OFFSET, BASE_YOFFSET = 'BOTTOM', 'TOP', 5, perksAnchor and 40 or 0
+		POSITION, POINT, X_OFFSET, Y_OFFSET, BASE_YOFFSET = 'BOTTOM', 'TOP', 0, 5, perks and 40 or 0
 	else -- should match above in the cache
-		POSITION, ANCHOR_POINT, Y_OFFSET, BASE_YOFFSET = 'TOP', 'BOTTOM', -5, 0
+		POSITION, POINT, X_OFFSET, Y_OFFSET, BASE_YOFFSET = 'TOP', 'BOTTOM', 0, -5, 0
 	end
 
-	AlertFrameMover:SetFormattedText('%s %s', AlertFrameMover.textString, growUp and '(Grow Up)' or '(Grow Down)')
+	_G.AlertFrameMover:SetFormattedText('%s %s', _G.AlertFrameMover.textString, growUp and '(Grow Up)' or '(Grow Down)')
 
-	local anchor = perksAnchor or (E.private.general.lootRoll and M:UpdateLootRollAnchors(POSITION)) or _G.AlertFrameHolder
-	AlertFrame:ClearAllPoints()
-	AlertFrame:SetAllPoints(anchor)
+	_G.AlertFrame:ClearAllPoints()
+	_G.AlertFrame:SetAllPoints(perks or anchor)
 
-	local GroupLootContainer = _G.GroupLootContainer
-	GroupLootContainer:ClearAllPoints()
-	GroupLootContainer:Point(POSITION, anchor, ANCHOR_POINT, 0, Y_OFFSET)
-
-	if GroupLootContainer:IsShown() then
-		BL.GroupLootContainer_Update(GroupLootContainer)
+	if E.private.general.lootRoll then
+		M:PositionGroupLootContainer()
 	end
+end
+
+function BL:GetAlertAnchors()
+	local perks = _G.PerksProgramFrame -- support for the Trading Post
+	local perksFooter = perks and perks.FooterFrame
+	local perksAnchor = (perksFooter and _G.AlertFrame.baseAnchorFrame == perksFooter.RotateButtonContainer) and perksFooter
+
+	local anchor = (E.private.general.lootRoll and M:UpdateLootRollAnchors(POSITION)) or _G.AlertFrameHolder
+
+	return perksAnchor, anchor, POSITION, POINT, X_OFFSET, Y_OFFSET, BASE_YOFFSET
 end
 
 function BL:AdjustQueuedAnchors(relativeAlert)
 	local base = BASE_YOFFSET -- copy we can clear after the first
 	for alert in self.alertFramePool:EnumerateActive() do
 		alert:ClearAllPoints()
-		alert:Point(POSITION, relativeAlert, ANCHOR_POINT, 0, base + Y_OFFSET)
+		alert:Point(POSITION, relativeAlert, POINT, X_OFFSET, base + Y_OFFSET)
 
 		relativeAlert = alert
 
@@ -65,7 +74,7 @@ function BL:AdjustAnchors(relativeAlert)
 	local alert = self.alertFrame
 	if alert:IsShown() then
 		alert:ClearAllPoints()
-		alert:Point(POSITION, relativeAlert, ANCHOR_POINT, 0, Y_OFFSET)
+		alert:Point(POSITION, relativeAlert, POINT, X_OFFSET, Y_OFFSET)
 
 		return alert
 	end
@@ -77,7 +86,7 @@ function BL:AdjustAnchorsNonAlert(relativeAnchor)
 	local anchor = self.anchorFrame
 	if anchor:IsShown() then
 		anchor:ClearAllPoints()
-		anchor:Point(POSITION, relativeAnchor, ANCHOR_POINT, 0, Y_OFFSET)
+		anchor:Point(POSITION, relativeAnchor, POINT, X_OFFSET, Y_OFFSET)
 
 		return anchor
 	end
@@ -85,41 +94,16 @@ function BL:AdjustAnchorsNonAlert(relativeAnchor)
 	return relativeAnchor
 end
 
-function BL:GroupLootContainer_Update()
-	local lastIdx
+function BL:HandleGroupLootContainer()
+	_G.GroupLootContainer:EnableMouse(false) -- Prevent this weird non-clickable area stuff since 8.1; Monitor this, as it may cause addon compatibility.
 
-	for i = 1, self.maxIndex do
-		local frame = self.rollFrames[i]
-		if frame then
-			frame:ClearAllPoints()
-
-			local prevFrame = self.rollFrames[i-1]
-			if prevFrame and prevFrame ~= frame then
-				frame:Point(POSITION, prevFrame, ANCHOR_POINT, 0, Y_OFFSET)
-			else
-				frame:Point(POSITION, self, POSITION, 0, Y_OFFSET)
-			end
-
-			lastIdx = i
-		end
+	if E.Retail or E.TBC or E.Wrath then
+		_G.GroupLootContainer.ignoreInLayout = true
+	elseif _G.UIPARENT_MANAGED_FRAME_POSITIONS then
+		_G.UIPARENT_MANAGED_FRAME_POSITIONS.GroupLootContainer = nil
 	end
 
-	if lastIdx then
-		self:Height(self.reservedSize * lastIdx)
-		self:Show()
-	else
-		self:Hide()
-	end
-end
-
-local function AlertSubSystem_AdjustPosition(alertFrameSubSystem)
-	if alertFrameSubSystem.alertFramePool then --queued alert system
-		alertFrameSubSystem.AdjustAnchors = BL.AdjustQueuedAnchors
-	elseif not alertFrameSubSystem.anchorFrame then --simple alert system
-		alertFrameSubSystem.AdjustAnchors = BL.AdjustAnchors
-	elseif alertFrameSubSystem.anchorFrame then --anchor frame system
-		alertFrameSubSystem.AdjustAnchors = BL.AdjustAnchorsNonAlert
-	end
+	hooksecurefunc('GroupLootContainer_Update', M.PositionGroupLootContainer)
 end
 
 function BL:AlertMovers()
@@ -129,13 +113,7 @@ function BL:AlertMovers()
 
 	E:CreateMover(AlertFrameHolder, 'AlertFrameMover', L["Loot / Alert Frames"], nil, nil, E.PostAlertMove, nil, nil, 'general,blizzardImprovements')
 
-	_G.GroupLootContainer:EnableMouse(false) -- Prevent this weird non-clickable area stuff since 8.1; Monitor this, as it may cause addon compatibility.
-
-	if E.Retail then
-		_G.GroupLootContainer.ignoreInLayout = true
-	elseif _G.UIPARENT_MANAGED_FRAME_POSITIONS then
-		_G.UIPARENT_MANAGED_FRAME_POSITIONS.GroupLootContainer = nil
-	end
+	BL:HandleGroupLootContainer()
 
 	--Replace AdjustAnchors functions to allow alerts to grow down if needed.
 	--We will need to keep an eye on this in case it taints. It shouldn't, but you never know.
@@ -154,7 +132,6 @@ function BL:AlertMovers()
 	end
 
 	self:SecureHook(_G.AlertFrame, 'UpdateAnchors', E.PostAlertMove)
-	hooksecurefunc('GroupLootContainer_Update', BL.GroupLootContainer_Update)
 
 	--[=[ Code you can use for alert testing
 		--Queued Alerts:
@@ -164,6 +141,7 @@ function BL:AlertMovers()
 		/run LootUpgradeAlertSystem:AddAlert('|cffa335ee|Hitem:18832::::::::::|h[Brutality Blade]|h|r', 1, 1, 1, nil, nil, false)
 		/run MoneyWonAlertSystem:AddAlert(81500)
 		/run NewRecipeLearnedAlertSystem:AddAlert(204)
+		/run SkillLineSpecsUnlockedAlertSystem:AddAlert(2912, 182)
 		/run NewCosmeticAlertFrameSystem:AddAlert(204)
 		/run NewWarbandSceneAlertSystem:AddAlert(1)
 
@@ -181,6 +159,7 @@ function BL:AlertMovers()
 		/run RafRewardDeliveredAlertSystem:AddAlert('', [[Interface\Icons\Ability_pvp_gladiatormedallion]], TRINKET0SLOT, 214)
 		/run DigsiteCompleteAlertSystem:AddAlert('Human')
 		/run HousingItemEarnedAlertFrameSystem:AddAlert({ itemType = Enum.HousingItemToastType.Decor, icon = 7423477, itemName = 'Covered Square Suramar Table' })
+		/run InitiativeTaskCompleteAlertFrameSystem:AddAlert("Test Initiative Task")
 
 		--Bonus Rolls
 		/run BonusRollFrame_CloseBonusRoll()

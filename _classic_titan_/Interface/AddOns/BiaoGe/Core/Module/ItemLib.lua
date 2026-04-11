@@ -1161,64 +1161,11 @@ local function SetItemLib()
                         UIErrorsFrame:AddMessage(L["只能设置团本BOSS正常掉落的装备为心愿"], RED_FONT_COLOR:GetRGB())
                         return
                     end
-
                     local exItemID, exItemLink = GetkExchangeItemInfo(itemID)
                     if exItemID and exItemLink then
-                        for k1, v1 in pairs(BG.Loot[FB]) do
-                            if type(v1) == "table" then
-                                for k2, v2 in pairs(BG.Loot[FB][k1]) do -- BG.Loot.Gno.N
-                                    if type(v2) == "table" and type(k2) == "string" then
-                                        local boss = tonumber(k2:match("^boss(%d+)"))
-                                        if boss then
-                                            for k3, v3 in pairs(BG.Loot[FB][k1][k2]) do -- BG.Loot.Gno.N.boss1
-                                                if v3 == exItemID then
-                                                    for i = 1, HopeMaxi do
-                                                        if BG.HopeFrame[FB]["nandu" .. nandu]["boss" .. boss]["zhuangbei" .. i]:GetText() == "" then
-                                                            BG.HopeFrame[FB]["nandu" .. nandu]["boss" .. boss]["zhuangbei" .. i]:SetText(exItemLink)
-                                                            BiaoGe.Hope[RealmID][player][FB]["nandu" .. nandu]["boss" .. boss]["zhuangbei" .. i] = exItemLink
-                                                            mainFrame.buttons[ii].item.hope:Show()
-                                                            BG.UpdateItemLib_LeftHope_All()
-                                                            BG.SetBiaoGeGuanZhu(exItemID)
-                                                            return
-                                                        end
-                                                    end
-                                                end
-                                            end
-                                        end
-                                    end
-                                end
-                            end
-                        end
+                        if BG.SetHope(exItemLink, FB) then return end
                     else
-                        if boss == Maxb[FB] then
-                            for n = 1, HopeMaxn[FB] do
-                                for b = 1, HopeMaxb[FB] do
-                                    for i = 1, HopeMaxi do
-                                        local hope = BG.HopeFrame[FB]["nandu" .. n]["boss" .. b]["zhuangbei" .. i]
-                                        if hope and hope:GetText() == "" then
-                                            hope:SetText(vv.link)
-                                            BiaoGe.Hope[RealmID][player][FB]["nandu" .. n]["boss" .. b]["zhuangbei" .. i] = vv.link
-                                            mainFrame.buttons[ii].item.hope:Show()
-                                            BG.UpdateItemLib_RightHope_All()
-                                            BG.SetBiaoGeGuanZhu(itemID)
-                                            return
-                                        end
-                                    end
-                                end
-                            end
-                        else
-                            for i = 1, HopeMaxi do
-                                if BG.HopeFrame[FB]["nandu" .. nandu]["boss" .. boss]["zhuangbei" .. i] and
-                                    BG.HopeFrame[FB]["nandu" .. nandu]["boss" .. boss]["zhuangbei" .. i]:GetText() == "" then
-                                    BG.HopeFrame[FB]["nandu" .. nandu]["boss" .. boss]["zhuangbei" .. i]:SetText(vv.link)
-                                    BiaoGe.Hope[RealmID][player][FB]["nandu" .. nandu]["boss" .. boss]["zhuangbei" .. i] = vv.link
-                                    mainFrame.buttons[ii].item.hope:Show()
-                                    BG.UpdateItemLib_RightHope_All()
-                                    BG.SetBiaoGeGuanZhu(itemID)
-                                    return
-                                end
-                            end
-                        end
+                        if BG.SetHope(vv.link, FB) then return end
                     end
                     UIErrorsFrame:AddMessage(L["不能设置为心愿，因为该BOSS的心愿格子已满"], RED_FONT_COLOR:GetRGB())
                 elseif IsControlKeyDown() then
@@ -1325,11 +1272,11 @@ local function SetItemLib()
                 end)
                 frame:SetScript("OnMouseDown", function(self, enter)
                     if enter == "RightButton" then
-                        self:Hide()
-                        local itemID = GetItemInfoInstant(vv.link)
-                        BG.UpdateItemLib_RightHope(itemID, 0)
-                        BG.UpdateHopeFrame_Hope(itemID, 0)
+                        local itemID = GetItemID(vv.link)
+                        local exItemID = GetkExchangeItemInfo(itemID)
+                        BG.DeleteHope(exItemID or itemID, BG.FB1)
                         BG.UpdateItemLib_LeftHope_All()
+                        BG.UpdateItemLib_RightHope_All()
                     end
                 end)
             end
@@ -1532,33 +1479,8 @@ do
         end
     end
 
-    function BG.UpdateHopeFrame_Hope(itemID, ShoworHide) -- 更新心愿清单，ShoworHide：1为添加装备，0为删除装备（该函数用于删除心愿清单）
-        local exItemID, exItemLink = GetkExchangeItemInfo(itemID)
-        if exItemID then
-            itemID = exItemID
-        end
-
-        for _, FB in pairs(BG.phaseFBtable[BG.FB1]) do
-            if ShoworHide == 0 then
-                for n = 1, HopeMaxn[FB] do
-                    for b = 1, HopeMaxb[FB] do
-                        for i = 1, HopeMaxi do
-                            if BG.HopeFrame[FB]["nandu" .. n]["boss" .. b]["zhuangbei" .. i] then
-                                if itemID == GetItemID(BG.HopeFrame[FB]["nandu" .. n]["boss" .. b]["zhuangbei" .. i]:GetText()) then
-                                    BG.HopeFrame[FB]["nandu" .. n]["boss" .. b]["zhuangbei" .. i]:SetText("")
-                                    BiaoGe.Hope[RealmID][player][FB]["nandu" .. n]["boss" .. b]["zhuangbei" .. i] = nil
-                                end
-                            end
-                        end
-                    end
-                end
-            end
-        end
-    end
-
     function BG.UpdateItemLib_LeftHope_All()
         BG.UpdateItemLib_LeftHope_HideAll()
-
         for _, FB in pairs(BG.phaseFBtable[BG.FB1]) do
             for n = HopeMaxn[FB], 1, -1 do
                 for b = HopeMaxb[FB], 1, -1 do
@@ -2416,12 +2338,13 @@ function BG.ItemLibUI()
                     end)
                     edit:SetScript("OnMouseDown", function(self, enter)
                         if enter == "RightButton" then
-                            local itemID = GetItemInfoInstant(self:GetText())
+                            local itemID = GetItemID(self:GetText())
                             if itemID then
-                                BG.UpdateHopeFrame_Hope(itemID, 0)
-                                BG.UpdateItemLib_LeftHope(itemID, 0)
+                                local exItemID = GetkExchangeItemInfo(itemID)
+                                BG.DeleteHope(exItemID or itemID, BG.FB1)
+                                BG.UpdateItemLib_LeftHope_All()
+                                BG.UpdateItemLib_RightHope_All()
                             end
-                            self:SetText("")
                         elseif IsShiftKeyDown() then
                             local itemID = GetItemInfoInstant(self:GetText())
                             if itemID then

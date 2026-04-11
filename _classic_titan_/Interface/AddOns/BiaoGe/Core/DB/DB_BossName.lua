@@ -463,6 +463,26 @@ do
     local FB = "NAXXtitan"
     Addother(boss)
     AddDB(FB, boss)
+
+    local boss = {
+        { name = L["耶克里克"], color = "98FB98" },
+        { name = L["温诺希斯"], color = "98FB98" },
+        { name = L["玛尔里"], color = "EE82EE" },
+        { name = L["血领主"], color = "EE82EE" },
+        { name = L["疯狂之缘"], color = "00BFFF" },
+        { name = L["加兹兰卡"], color = "00BFFF" },
+        { name = L["塞卡尔"], color = "00FF00" },
+        { name = L["娅尔罗"], color = "00FF00" },
+        { name = L["妖术师金度"], color = "FFFF00" },
+        { name = L["哈卡"], color = "FF4500" },
+        { name = L["诺森德猛兽"], color = "32CD32" },
+        { name = L["加拉克苏斯"], color = "CD5C5C" },
+        { name = L["阵营冠军"], color = "FFD700" },
+        { name = L["瓦格里双子"], color = "7B68EE" },
+        { name = L["阿努巴拉克"], color = "00BFFF" },
+    }
+    Addother(boss)
+    AddDB("TOCtitan", boss)
 end
 
 -- CTM

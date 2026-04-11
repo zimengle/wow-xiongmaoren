@@ -1,11 +1,11 @@
-## Interface: 30405, 38000
-## Title: Details! Damage Meter
+## Interface: 38000
+## Title: Details! Damage Meter |cffa488ff夜|r|cff9377ff月|r|cff8866ff修|r|cff7755ff复|r|cff6644ff版|r
 ## Notes: Essential tool to impress that chick in your raid.
-## Notes-ruRU: Анализирует сражение в реальном времени, предоставляя игрокам чистые визуальные данные
+## Notes-zhCN: 强大的战斗数据伤害统计插件，实时显示伤害、治疗、承受伤害等数据，支持自定义界面和多种数据模块。
 ## SavedVariables: _detalhes_global, __details_backup
 ## SavedVariablesPerCharacter: _detalhes_database
 ## OptionalDeps: Ace3, LibSharedMedia-3.0, LibWindow-1.1, LibDBIcon-1.0, NickTag-1.0, LibDataBroker-1.1, LibItemUpgradeInfo-1.0, LibGroupInSpecT-1.1, LibGraph-2.0
-## Version: #Details.20260401.14850.171
+## Version: #Details.20260408.14900.171.1
 ## IconTexture: Interface\AddOns\Details\images\minimap
 
 #@no-lib-strip@

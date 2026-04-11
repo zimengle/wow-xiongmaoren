@@ -52,6 +52,13 @@ local LibStub = _G.LibStub
 local addon = LibStub("AceAddon-3.0"):GetAddon(private.addon_name)
 local L = LibStub("AceLocale-3.0"):GetLocale(private.addon_name);
 
+local function GetAddOnEnableState(character, name)
+	if _G.C_AddOns and _G.C_AddOns.GetAddOnEnableState then
+		return _G.C_AddOns.GetAddOnEnableState(name, character)
+	end
+	return _G.GetAddOnEnableState(character, name)
+end
+
 -- Atlas to AtlasLoot's module mapping
 local modules = {}
 if WoWClassicEra then

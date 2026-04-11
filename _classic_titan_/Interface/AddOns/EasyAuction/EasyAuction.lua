@@ -10,6 +10,15 @@ _G.EasyAuctionDB = _G.EasyAuctionDB or {}
 -- 声明局部变量 EasyAuctionDB，将在初始化时指向当前服务器-阵营的数据库
 local EasyAuctionDB
 
+local function EA_GetAddonMetadata(name, field)
+    if type(GetAddOnMetadata) == "function" then
+        return GetAddOnMetadata(name, field)
+    end
+    if C_AddOns and type(C_AddOns.GetAddOnMetadata) == "function" then
+        return C_AddOns.GetAddOnMetadata(name, field)
+    end
+end
+
 EasyAuction_SearchHistoryDropDown = CreateFrame("Frame", "EasyAuction_SearchHistoryDropDown", UIParent,
     "UIDropDownMenuTemplate")
 
@@ -3061,18 +3070,18 @@ end)
 local function EasyAuction_BackupAddonList()
     if not EasyAuctionDB or EasyAuctionDB.AddonBackup then return end
     EasyAuctionDB.AddonBackup = {}
-    for i = 1, GetNumAddOns() do
-        local name, _, _, _ = GetAddOnInfo(i)
+    for i = 1, C_AddOns.GetNumAddOns() do
+        local name, _, _, _ = C_AddOns.GetAddOnInfo(i)
         if name and not name:find("^Blizzard_") then
-            EasyAuctionDB.AddonBackup[name] = (GetAddOnEnableState(UnitName("player"), name) > 0)
+            EasyAuctionDB.AddonBackup[name] = (C_AddOns.GetAddOnEnableState(UnitName("player"), name) > 0)
         end
     end
     print("|cff00ff00[EasyAuction]|r 已保存当前插件启用状态。")
 end
 
 function EasyAuction_SetMinimalAddon()
-    for i = 1, GetNumAddOns() do
-        local name = GetAddOnInfo(i)
+    for i = 1, C_AddOns.GetNumAddOns() do
+        local name = C_AddOns.GetAddOnInfo(i)
         if name and name ~= "EasyAuction" and not name:find("^Blizzard_") then
             DisableAddOn(name)
         end
@@ -3179,7 +3188,7 @@ legacyShadowFrame:SetScript("OnEvent", function()
             legacyRedirect = true,
             realmKey = realmKey,
             ts = time(),
-            version = tostring(GetAddOnMetadata(addonName, "Version") or "?"),
+            version = tostring(EA_GetAddonMetadata(addonName, "Version") or "?"),
             note = "Use EasyAuctionDB2[realmKey]",
         }
     end

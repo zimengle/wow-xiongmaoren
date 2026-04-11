@@ -1,19 +1,20 @@
-# [5.21.2](https://github.com/WeakAuras/WeakAuras2/tree/5.21.2) (2026-01-30)
+# [5.21.4](https://github.com/WeakAuras/WeakAuras2/tree/5.21.4) (2026-04-06)
 
-[Full Changelog](https://github.com/WeakAuras/WeakAuras2/compare/5.21.1...5.21.2)
+[Full Changelog](https://github.com/WeakAuras/WeakAuras2/compare/5.21.3...5.21.4)
 
 ## Highlights
 
-- Add Titan encounter info
+- regression fixes
 
 ## Commits
 
-InfusOnWoW (2):
+InfusOnWoW (7):
 
-- Update WeakAurasModelPaths from wago.tools
-- Remove retail .toc files and disabled model path update for retail
-
-NoM0Re (1):
-
-- Titan: add next phase encounter list
+- Fix regression in some triggers not hiding
+- Fix regression in TSU helpers for creating/updating states
+- Fix regressin in Spell Cooldown tracking with shared cooldowns
+- And another try to fix the PR build
+- Try again to fix PR build
+- Try fixing PR build bot
+- Item Trigger: Fix lua error on tracking invalid item ids
 

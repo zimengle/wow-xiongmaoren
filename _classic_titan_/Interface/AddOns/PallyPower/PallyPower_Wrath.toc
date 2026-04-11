@@ -1,6 +1,6 @@
-## Interface: 30403, 30800
+## Interface: 30403, 30800, 30801
 ## Author: Aznamir, Dyaxler, Es, gallantron
-## Title: PallyPower 美化版
+## Title: PallyPower 美化版  |cffff99cc爱|r|cffddaaee萝|r|cffbbccff莉|r|cff99eeff修|r|cff77ffff复|r
 ## Version: 3.4.8
 ## Notes: Raid/Party Paladin buffs
 ## Notes-esES: Buffs de Paladín para Grupo/Banda

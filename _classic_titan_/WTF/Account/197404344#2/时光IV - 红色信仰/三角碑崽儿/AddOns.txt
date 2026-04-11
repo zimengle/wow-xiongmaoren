@@ -79,7 +79,7 @@ Myslot: enabled
 OmniCC: enabled
 OmniCC_Config: enabled
 PallyPower: enabled
-Plater: enabled
+Plater: disabled
 Postal: enabled
 Questie: enabled
 RangeDisplay: enabled
@@ -149,3 +149,7 @@ NewBeeBox: enabled
 EasyAuction: enabled
 !Swatter: disabled
 !ImprovedErrorFrame: disabled
+Blizzard_ObjectiveTracker: enabled
+PatchWerk: disabled
+!PatchWerk: disabled
+MeetingHornHeroic: enabled

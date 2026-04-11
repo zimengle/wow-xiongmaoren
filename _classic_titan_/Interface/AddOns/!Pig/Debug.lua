@@ -235,7 +235,7 @@ if GetCVar("scriptProfile")=="1" then
 	GnUI:Show()
 	local masg = "你开启了CPU性能分析，请在测试后关闭此选项"
 	UIErrorsFrame:AddMessage(masg, 1, 1, 0, 1.0);
-	PIG_print(masg)
+	PIGprint(masg)
 end
 
 --获取NPC物品
@@ -248,9 +248,6 @@ fuFrame.GetItem:SetScript("OnClick", function (self,button)
 	if button=="LeftButton" then
 		local itemName,itemLink = GetItemInfo(self.E:GetNumber())
 		print(itemLink)
-		--/--cript DEFAULT_CHAT_FRAME:AddMessage("NFU玩家社区 db.nfuwow.com: ")
-		--//script DEFAULT_CHAT_FRAME:AddMessage("NFU玩家社区 db.nfuwow.com: \124cffa335ee\124Hitem:22425:0:0:0:0:0:0:0\124h[救赎外套]\124h\124r")
-		--/script DEFAULT_CHAT_FRAME:AddMessage("NFU玩家社区 db.nfuwow.com: ")
 		--ChatFrame1:AddMessage("\124cffa335ee\124Hitem:22436:0:0:0:0:0:0:0\124h[地穴追猎者外套]\124h\124r")
 		--print(GetItemInfo(self.E:GetText()))
 		--DevTools_Dump({GetItemInfo(self.E:GetText())})
@@ -296,7 +293,7 @@ function fuFrame.FBdataID:PIGDownMenu_Update_But(level, menuList)
 	end 
 end
 function fuFrame.FBdataID:PIGDownMenu_SetValue(value,arg1,arg2)
-	print(INFO..": "..value,arg1)
+	print(value,arg1)
 	PIGCloseDropDownMenus()
 end
 -----------------
@@ -307,19 +304,21 @@ fuFrame:SetScript("OnShow", function()
 	fuFrame.taintLog:PIGDownMenu_SetText(taintlistmenu[GetCVar("taintLog")])
 end);
 --屏幕网格
-fuFrame.GridLine = PIGButton(fuFrame,{"TOPLEFT",fuFrame,"TOPLEFT",20,-380},{100,24},"网格线")
+fuFrame.GridLine = PIGButton(fuFrame,{"TOPLEFT",fuFrame,"TOPLEFT",20,-380},{100,24},HUD_EDIT_MODE_SHOW_GRID)
 fuFrame.GridLine:SetScript("OnClick", function (self)
 	if not self.addyes then
 		self.addyes=true
-		PIGLine(UIParent,"C",nil,2,{24,0},{1,0,0,1})
-		PIGLine(UIParent,"LR",nil,2,nil,{1,0,0,1})
+		PIGLine(UIParent,"C",nil,2,{24,0},{1,0,0,0.3})
+		PIGLine(UIParent,"LR",nil,2,nil,{1,0,0,0.3})
 		local WowWidth=GetScreenWidth();
-		local Width1=WowWidth*0.05
-		for i=1,10 do
-			PIGLine(UIParent,"C",-Width1*i,2,{24,0},{1,1,0,1})
-			PIGLine(UIParent,"C",Width1*i,2,{24,0},{1,1,0,1})
-			PIGLine(UIParent,"LR",Width1*i,2,nil,{1,1,0,1})
-			PIGLine(UIParent,"LR",-Width1*i,2,nil,{1,1,0,1})
+		local Width1=WowWidth*0.02
+		for i=1,24 do
+			PIGLine(UIParent,"C",-Width1*i,2,{24,0},{1,1,0,0.3})
+			PIGLine(UIParent,"C",Width1*i,2,{24,0},{1,1,0,0.3})
+		end
+		for i=1,13 do
+			PIGLine(UIParent,"LR",Width1*i,2,nil,{1,1,0,0.3})
+			PIGLine(UIParent,"LR",-Width1*i,2,nil,{1,1,0,0.3})
 		end
 	end
 end)

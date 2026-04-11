@@ -14,7 +14,7 @@ local fuFrame = PIGOptionsList(VOICE,"BOT")
 local audioName ={"Bobo","Rurutia","Sakura","Taotao"}
 local audioLsit ={}
 for i=1,#audioName do
-	audioLsit[i]=L.pigname..audioName[i].."Audio"
+	audioLsit[i]=L.addnames[1]..audioName[i].."Audio"
 end
 local LocaleLsit = {
 	[audioLsit[1]]="饽饽语音包",

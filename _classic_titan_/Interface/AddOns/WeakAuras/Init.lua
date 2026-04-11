@@ -72,7 +72,7 @@ Private.frames = {}
 --- @field customActionsFunctions table<auraId, table<string, function?>>
 --- @field DebugLog debugLog
 --- @field dynamic_texts table<string, table>
---- @field EndEvent fun(state: state): boolean?
+--- @field EndEvent fun(states: states, cloneId: string): boolean?
 --- @field EnsureRegion fun(id: auraId, cloneId: string?): WARegion
 --- @field ExecEnv table
 --- @field event_prototypes table<string, prototypeData>
@@ -254,6 +254,7 @@ Private.frames = {}
 --- @class information
 --- @field forceEvents boolean|nil
 --- @field ignoreOptionsEventErrors boolean|nil
+--- @field showNilIsFalse boolean|nil
 --- @field groupOffset boolean|nil
 
 --- @alias dynamicGroupCenterType
@@ -381,8 +382,8 @@ WeakAuras.normalWidth = 1.3
 WeakAuras.halfWidth = WeakAuras.normalWidth / 2
 WeakAuras.doubleWidth = WeakAuras.normalWidth * 2
 local versionStringFromToc = C_AddOns.GetAddOnMetadata("WeakAuras", "Version")
-local versionString = "5.21.2"
-local buildTime = "20260206190858"
+local versionString = "5.21.4"
+local buildTime = "20260406174338"
 
 local flavorFromToc = C_AddOns.GetAddOnMetadata("WeakAuras", "X-Flavor")
 local flavorFromTocToNumber = {
@@ -410,7 +411,7 @@ WeakAuras.buildType = "pr"
 --@end-experimental@]=====]
 
 --[==[@debug@
-if versionStringFromToc == "5.21.2" then
+if versionStringFromToc == "5.21.4" then
   versionStringFromToc = "Dev"
   buildTime = "Dev"
   WeakAuras.buildType = "dev"

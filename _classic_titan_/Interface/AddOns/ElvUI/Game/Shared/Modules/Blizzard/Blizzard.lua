@@ -190,7 +190,7 @@ function BL:Initialize()
 
 	BL:SkinBlizzTimers()
 
-	if not E.Classic and not E.TBC then
+	if E.Mists then
 		BL:PositionVehicleFrame()
 	end
 

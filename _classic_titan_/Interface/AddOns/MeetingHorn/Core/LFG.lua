@@ -255,14 +255,20 @@ function LFG:AddActivity(activity)
         tinsert(self.activities, insertTo, activity)
     end
 
-    self.activities[activity:GetLeaderGUID()] = activity
+    local addGuid = activity:GetLeaderGUID()
+    if addGuid then
+        self.activities[addGuid] = activity
+    end
     self:SendMessage('MEETINGHORN_ACTIVITY_UPDATE')
 end
 
 ---@param activity MeetingHornActivity
 function LFG:RemoveActivity(activity, noEvent)
     tDeleteItem(self.activities, activity)
-    self.activities[activity:GetLeaderGUID()] = nil
+    local removeGuid = activity:GetLeaderGUID()
+    if removeGuid then
+        self.activities[removeGuid] = nil
+    end
     if not noEvent then
         self:SendMessage('MEETINGHORN_ACTIVITY_REMOVED', activity)
     end
@@ -295,6 +301,8 @@ function LFG:OnIdleTimer()
 end
 
 function LFG:OnSendTimer()
+    -- 战斗中跳过广播：SendChatMessage 会被 Blizzard BLOCK，errorBlocker 的 frame 遍历开销极大
+    if InCombatLockdown() then return end
     local channel = self.current:GetChannelId()
     if channel then
         local isAFK = UnitIsAFK('player')
@@ -326,6 +334,8 @@ function LFG:GetCooldown()
 end
 
 function LFG:OnActivityTimer()
+    -- 战斗中跳过广播：SendChatMessage 会被 Blizzard BLOCK，errorBlocker 的 frame 遍历开销极大
+    if InCombatLockdown() then return end
     if UnitIsAFK('player') then
         return
     end
@@ -400,7 +410,10 @@ function LFG:Clean()
         local activity = self.activities[i]
         if activity:IsTimeOut() then
             tremove(self.activities, i)
-            self.activities[activity:GetLeaderGUID()] = nil
+            local cleanGuid = activity:GetLeaderGUID()
+            if cleanGuid then
+                self.activities[cleanGuid] = nil
+            end
             activityChanged = true
         end
     end
@@ -409,7 +422,10 @@ function LFG:Clean()
         local activity = self.chats[i]
         if activity:IsTimeOut() then
             tremove(self.chats, i)
-            self.chats[activity:GetLeaderGUID()] = nil
+            local cleanChatGuid = activity:GetLeaderGUID()
+            if cleanChatGuid then
+                self.chats[cleanChatGuid] = nil
+            end
             activityChanged = true
         end
     end
@@ -679,6 +695,11 @@ end
 ----
 
 function LFG:CHAT_MSG_CHANNEL(event, text, unitName, _, _, _, flag, _, _, channelName, _, lineId, guid)
+    -- guid 为空时（跨服/代理频道常见），用 unitName 作为 fallback key
+    if not guid or guid == '' then
+        guid = unitName
+    end
+
     local baseChannelName = channelName:match('^([^ -]+)')
     if baseChannelName then
         channelName = baseChannelName

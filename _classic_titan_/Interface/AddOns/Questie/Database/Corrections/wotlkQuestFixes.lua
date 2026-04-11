@@ -359,9 +359,6 @@ function QuestieWotlkQuestFixes:Load()
         [6963] = {
             [questKeys.requiredRaces] = raceIDs.ALL_HORDE,
         },
-        [6983] = {
-            [questKeys.requiredRaces] = raceIDs.ALL_HORDE,
-        },
         [7023] = {
             [questKeys.startedBy] = {{13435,23010}},
         },
@@ -427,6 +424,10 @@ function QuestieWotlkQuestFixes:Load()
         },
         [8554] = {
             [questKeys.requiredRaces] = raceIDs.NONE,
+        },
+        [8579] = { -- Mortal Champions
+            [questKeys.startedBy] = {{15503}},
+            [questKeys.finishedBy] = {{15503}},
         },
         [8746] = {
             [questKeys.objectives] = {{{15664,nil,Questie.ICON_TYPE_EVENT}},nil,{{21211}}},
@@ -4464,6 +4465,7 @@ function QuestieWotlkQuestFixes:Load()
         },
         [13350] = {
             [questKeys.preQuestSingle] = {13346},
+            [questKeys.objectives] = {{{32300}}},
             [questKeys.requiredSourceItems] = {44476,44477,44478,44479,44480},
         },
         [13351] = {
@@ -4934,11 +4936,25 @@ function QuestieWotlkQuestFixes:Load()
             [questKeys.finishedBy] = {nil,{194081}},
             [questKeys.requiredRaces] = raceIDs.ALL_HORDE,
         },
+        [13479] = { -- The Great Egg Hunt
+            [questKeys.breadcrumbs] = {13483},
+        },
+        [13480] = { -- The Great Egg Hunt
+            [questKeys.breadcrumbs] = {13484},
+        },
         [13481] = {
             [questKeys.triggerEnd] = {"Escort Father Kamaros to safety", {[zoneIDs.ICECROWN]={{32,57.1}}}},
         },
         [13482] = {
             [questKeys.triggerEnd] = {"Escort Father Kamaros to safety", {[zoneIDs.ICECROWN]={{32,57.1}}}},
+        },
+        [13483] = { -- Spring Collectors
+            [questKeys.breadcrumbForQuestId] = 13479,
+            [questKeys.startedBy] = {{19169,19175,19176,19177,19178,20102}},
+        },
+        [13484] = { -- Spring Collectors
+            [questKeys.breadcrumbForQuestId] = 13480,
+            [questKeys.startedBy] = {{18927,19148,19171,19172,19173,20102}},
         },
         [13485] = {
             [questKeys.startedBy] = {{32801}},
@@ -5104,6 +5120,7 @@ function QuestieWotlkQuestFixes:Load()
             [questKeys.preQuestSingle] = {7722},
             [questKeys.requiredMinRep] = {59,3000},
             [questKeys.requiredMaxRep] = {59,9000},
+            [questKeys.specialFlags] = specialFlags.REPEATABLE,
         },
         [13663] = {
             [questKeys.objectives] = {{{33513,nil,Questie.ICON_TYPE_INTERACT}},nil,{{45121},{45122}}},
@@ -7873,13 +7890,13 @@ function QuestieWotlkQuestFixes:Load()
             [questKeys.reputationReward] = {{factionIDs.KIRIN_TOR,75}},
         },
         [93975] = {
-            [questKeys.name] = "拉格纳罗斯必须死！", -- "Ragnaros Must Die!", only present on chinese servers
-            [questKeys.startedBy] = {},
-            [questKeys.finishedBy] = {},
+            [questKeys.name] = "拉格纳罗斯必须死！", -- "Ragnaros Must Die!", only present on titan reforged
+            [questKeys.startedBy] = {{20735}},
+            [questKeys.finishedBy] = {{20735}},
             [questKeys.requiredLevel] = 80,
             [questKeys.questLevel] = 80,
             [questKeys.requiredRaces] = raceIDs.NONE,
-            [questKeys.objectivesText] = {"团队消灭拉格纳罗斯。"}, -- "Kill Ragnaros.", only present on chinese servers
+            [questKeys.objectivesText] = {"团队消灭拉格纳罗斯。"}, -- "Kill Ragnaros.", only present on titan reforged
             [questKeys.objectives] = {{{11502}}},
             [questKeys.zoneOrSort] = zoneIDs.MOLTEN_CORE,
             [questKeys.specialFlags] = specialFlags.REPEATABLE,
@@ -7887,15 +7904,29 @@ function QuestieWotlkQuestFixes:Load()
             [questKeys.reputationReward] = {{factionIDs.KIRIN_TOR,75}},
         },
         [94577] = {
-            [questKeys.name] = "凯尔萨斯必须死！", -- "Kael'thas Must Die!", only present on chinese servers
-            [questKeys.startedBy] = {},
-            [questKeys.finishedBy] = {},
+            [questKeys.name] = "凯尔萨斯必须死！", -- "Kael'thas Must Die!", only present on titan reforged
+            [questKeys.startedBy] = {{20735}},
+            [questKeys.finishedBy] = {{20735}},
             [questKeys.requiredLevel] = 80,
             [questKeys.questLevel] = 80,
             [questKeys.requiredRaces] = raceIDs.NONE,
-            [questKeys.objectivesText] = {"消灭风暴要塞的凯尔萨斯逐日者。"}, -- "Kill Kael'thas Sunstrider in Tempest Keep." only present on chinese servers
+            [questKeys.objectivesText] = {"消灭风暴要塞的凯尔萨斯逐日者。"}, -- "Kill Kael'thas Sunstrider in Tempest Keep." only present on titan reforged
             [questKeys.objectives] = {{{19622}}},
             [questKeys.zoneOrSort] = zoneIDs.TEMPEST_KEEP,
+            [questKeys.specialFlags] = specialFlags.REPEATABLE,
+            [questKeys.questFlags] = questFlags.WEEKLY,
+            [questKeys.reputationReward] = {{factionIDs.KIRIN_TOR,75}},
+        },
+        [94579] = {
+            [questKeys.name] = "消灭帕奇维克！", -- "Patchwerk Must Die!", only present on titan reforged
+            [questKeys.startedBy] = {{20735}},
+            [questKeys.finishedBy] = {{20735}},
+            [questKeys.requiredLevel] = 80,
+            [questKeys.questLevel] = 80,
+            [questKeys.requiredRaces] = raceIDs.NONE,
+            [questKeys.objectivesText] = {"消灭帕奇维克。"}, -- "Kill Patchwerk." only present on titan reforged
+            [questKeys.objectives] = {{{16028}}},
+            [questKeys.zoneOrSort] = zoneIDs.NAXXRAMAS,
             [questKeys.specialFlags] = specialFlags.REPEATABLE,
             [questKeys.questFlags] = questFlags.WEEKLY,
             [questKeys.reputationReward] = {{factionIDs.KIRIN_TOR,75}},
@@ -7949,4 +7980,8 @@ function _QuestieWotlkQuestFixes:InsertMissingQuestIds()
     -- P4 quests
     QuestieDB.questData[78752] = {} -- Proof of Demise: Titan Rune Protocol Gamma
     QuestieDB.questData[78753] = {} -- Proof of Demise: Threats to Azeroth
+
+    -- Titan reforged P3 weekly quests
+    QuestieDB.questData[94579] = {} -- Patchwerk Must Die!
+
 end

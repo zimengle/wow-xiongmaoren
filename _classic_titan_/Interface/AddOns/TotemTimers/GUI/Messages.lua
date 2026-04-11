@@ -16,7 +16,7 @@ local SpellIDs = TotemTimers.SpellIDs
 
 TotemTimers.options.args.messages = {
     type = "group",
-    name = "Warnings",
+    name = L["Warnings"],
     args = {
         ActivateHiddenTimers = {
             order = 0,
@@ -470,5 +470,5 @@ end
 
 
 local ACD = LibStub("AceConfigDialog-3.0")
-local frame, categoryID = ACD:AddToBlizOptions("TotemTimers", L["Warnings"], "TotemTimers", "messages")
+local frame, categoryID = ACD:AddToBlizOptions("TotemTimers", L["Warnings"], L["TotemTimers"], "messages")
 TotemTimers.HookGUIFrame(frame, categoryID)

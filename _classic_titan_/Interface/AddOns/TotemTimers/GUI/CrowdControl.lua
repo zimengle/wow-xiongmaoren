@@ -8,7 +8,7 @@ local L = LibStub("AceLocale-3.0"):GetLocale("TotemTimers_GUI", true)
 
 TotemTimers.options.args.crowdcontrol = {
     type = "group",
-    name = "crowdcontrol",
+    name = L["Crowd Control"],
     args = {
         enable = {
             order = 0,
@@ -72,5 +72,5 @@ TotemTimers.options.args.crowdcontrol = {
 }
 
 local ACD = LibStub("AceConfigDialog-3.0")
-local frame, categoryID = ACD:AddToBlizOptions("TotemTimers", L["Crowd Control"], "TotemTimers", "crowdcontrol")
+local frame, categoryID = ACD:AddToBlizOptions("TotemTimers", L["Crowd Control"], L["TotemTimers"], "crowdcontrol")
 TotemTimers.HookGUIFrame(frame, categoryID)

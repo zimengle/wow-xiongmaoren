@@ -12,6 +12,61 @@ local AvailableSpells = TotemTimers.AvailableSpells
 local SpellIDs = TotemTimers.SpellIDs
 local SpellTextures = TotemTimers.SpellTextures
 
+local function ClearMultiCastButtonOverlays(button)
+    if not button then
+        return
+    end
+
+    local normalTexture = button.GetNormalTexture and button:GetNormalTexture()
+    if normalTexture then
+        normalTexture:SetTexture(nil)
+        normalTexture:Hide()
+    end
+
+    local pushedTexture = button.GetPushedTexture and button:GetPushedTexture()
+    if pushedTexture then
+        pushedTexture:SetTexture(nil)
+        pushedTexture:Hide()
+    end
+
+    local highlightTexture = button.GetHighlightTexture and button:GetHighlightTexture()
+    if highlightTexture then
+        highlightTexture:SetTexture(nil)
+        highlightTexture:Hide()
+    end
+
+    local checkedTexture = button.GetCheckedTexture and button:GetCheckedTexture()
+    if checkedTexture then
+        checkedTexture:SetTexture(nil)
+        checkedTexture:Hide()
+    end
+
+    for _, suffix in pairs({
+        "Flash",
+        "Border",
+        "SpellHighlightTexture",
+        "NewActionTexture",
+        "FloatingBG",
+        "FlyoutArrow",
+    }) do
+        local region = _G[button:GetName() .. suffix]
+        if region and region.GetObjectType and region:GetObjectType() == "Texture" then
+            region:SetTexture(nil)
+            region:Hide()
+        elseif region and region.Hide then
+            region:Hide()
+        end
+    end
+
+    local regions = {button:GetRegions()}
+    for _, region in ipairs(regions) do
+        if not region:GetName() and region:GetObjectType() == "Texture" then
+            region:SetTexture(nil)
+            region:Hide()
+        end
+    end
+end
+
 function TotemTimers.CreateMultiCastButtons()
     mb = CreateFrame("Button", "TotemTimers_MultiSpell", UIParent, "ActionButtonTemplate, SecureActionButtonTemplate, SecureHandlerEnterLeaveTemplate, SecureHandlerAttributeTemplate")
     XiTimers.AddSpecialActionBarDriver(mb)
@@ -32,6 +87,7 @@ function TotemTimers.CreateMultiCastButtons()
     _G["TotemTimers_MultiSpellNormalTexture"]:SetTexture(nil)
 
     mb.icon:Show()
+    ClearMultiCastButtonOverlays(mb)
 
     for e = 1, 4 do
         mb:SetFrameRef("t" .. e, XiTimers.timers[e].button)
@@ -57,7 +113,9 @@ function TotemTimers.CreateMultiCastButtons()
             local _, _, texture = GetSpellInfo(spell)
             if texture then
                 self.icon:SetTexture(texture)
+                self.icon:Show()
             end
+            ClearMultiCastButtonOverlays(self)
             TotemTimers.ActiveProfile.LastMultiCastSpell = spell
 
             for i = 1, 4 do

@@ -1,4 +1,4 @@
-## Interface: 38000
+## Interface: 38001
 ## Title: Atlas |cff99ddff谷|r|cff88ccee风|r|cff77bbdd修|r|cff66aacc复|r|cff5599bb版|r
 ## Title-esES: Atlas |cff99ddff谷|r|cff88ccee风|r|cff77bbdd修|r|cff66aacc复|r|cff5599bb版|r
 ## Title-zhCN: Atlas |cFF0099FF[主程序]|r |cff99ddff谷|r|cff88ccee风|r|cff77bbdd修|r|cff66aacc复|r|cff5599bb版|r
@@ -8,7 +8,7 @@
 ## Notes-zhCN: |cff00CC33副本地图浏览器|r
 ## Notes-zhTW: |cff00CC33Atlas 地圖集主程式|r
 ## Author: arith
-## Version: v1.52.08
+## Version: v1.53.00
 ## OptionalDeps: LibStub, CallbackHandler-1.0, Ace3, LibBabble-Boss-3.0, LibBabble-SubZone-3.0, LibBabble-Faction-3.0, LibDBIcon-1.0, LibDialog-1.0, LibUIDropDownMenu
 ## X-Category: Map
 ## X-Credits: Dan Gilbert, Lothaer, Dynaletik, dubcat

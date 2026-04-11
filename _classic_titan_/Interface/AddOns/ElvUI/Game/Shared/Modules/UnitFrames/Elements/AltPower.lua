@@ -3,17 +3,25 @@ local UF = E:GetModule('UnitFrames')
 
 local CreateFrame = CreateFrame
 
+local StatusBarInterpolation = Enum.StatusBarInterpolation
+
 function UF:Construct_AltPowerBar(frame)
 	local altpower = CreateFrame('StatusBar', '$parent_AlternativePower', frame)
 	altpower:SetStatusBarTexture(E.media.blankTex)
-	altpower:SetStatusBarColor(.7, .7, .6)
-	altpower:GetStatusBarTexture():SetHorizTile(false)
+
+	local barTexture = altpower:GetStatusBarTexture()
+	barTexture:SetVertexColor(.7, .7, .6)
+	barTexture:SetHorizTile(false)
+
+	altpower.PostUpdateColor = UF.PostUpdateColor
+
 	UF.statusbars[altpower] = 'altpower'
 
 	altpower:CreateBackdrop(nil, nil, nil, nil, true)
-	altpower.BG = altpower:CreateTexture(nil, 'BORDER')
-	altpower.BG:SetAllPoints()
-	altpower.BG:SetTexture(E.media.blankTex)
+
+	altpower.bg = altpower:CreateTexture(nil, 'BORDER')
+	altpower.bg:SetAllPoints()
+	altpower.bg:SetTexture(E.media.blankTex)
 
 	altpower.RaisedElementParent = UF:CreateRaisedElement(altpower)
 
@@ -29,21 +37,24 @@ function UF:Construct_AltPowerBar(frame)
 end
 
 function UF:Configure_AltPowerBar(frame)
-	local db = frame.db.classbar
-
-	if db.enable then
+	local db = (E.Retail or E.Mists) and frame.db.classbar
+	if db and db.enable then
 		if not frame:IsElementEnabled('AlternativePower') then
 			frame:EnableElement('AlternativePower')
 			frame.AlternativePower:Show()
 		end
 
 		frame:Tag(frame.AlternativePower.value, db.altPowerTextFormat)
-		UF:ToggleTransparentStatusBar(false, frame.AlternativePower, frame.AlternativePower.BG)
+		UF:ToggleTransparentStatusBar(false, frame.AlternativePower, frame.AlternativePower.bg)
 
 		local color = db.altPowerColor
-		frame.AlternativePower:SetStatusBarColor(color.r, color.g, color.b)
+		UF:SetStatusBarColor(frame.AlternativePower, color.r, color.g, color.b)
 
-		E:SetSmoothing(frame.AlternativePower, db.smoothbars)
+		if E.Retail then
+			frame.AlternativePower.smoothing = (db.smoothbars and StatusBarInterpolation.ExponentialEaseOut) or StatusBarInterpolation.Immediate or nil
+		else
+			E:SetSmoothing(frame.AlternativePower, db.smoothbars)
+		end
 	elseif frame:IsElementEnabled('AlternativePower') then
 		frame:DisableElement('AlternativePower')
 		frame.AlternativePower:Hide()

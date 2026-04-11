@@ -1,4 +1,4 @@
-## Interface: 120000,120001, 110207, 50503, 40402, 38000, 30403, 20505, 11508
+## Interface: 120000,120001, 110207, 50503, 40402, 38001, 20505, 11508
 ## Title: BlizzMove |cff99ddff谷|r|cff88ccee风|r|cff77bbdd修|r|cff66aacc复|r|cff5599bb版|r
 ## Notes: Makes blizzard frames movable
 ## Author: Kiatra, zaCade, Numy - github.com/Kiatra/BlizzMove/

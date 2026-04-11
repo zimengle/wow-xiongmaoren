@@ -7,7 +7,7 @@ local LibStub = LibStub
 local gui = LibStub("AceGUI-3.0")
 local reg = LibStub("AceConfigRegistry-3.0-ElvUI")
 
-local MAJOR, MINOR = "AceConfigDialog-3.0-ElvUI", 94 -- based off 89
+local MAJOR, MINOR = "AceConfigDialog-3.0-ElvUI", 96 -- based off 92
 local AceConfigDialog, oldminor = LibStub:NewLibrary(MAJOR, MINOR)
 
 if not AceConfigDialog then return end
@@ -30,11 +30,39 @@ local math_min, math_max, math_floor = math.min, math.max, math.floor
 
 local _G = _G
 local geterrorhandler = geterrorhandler
+local C_SettingsUtil = C_SettingsUtil
 local CreateFrame = CreateFrame
 local PlaySound = PlaySound
 local Settings = Settings
 
 local NORMAL_FONT_COLOR = NORMAL_FONT_COLOR
+
+--[[
+	Localization of AceConfigRegistry-3.0-ElvUI
+]]
+
+local L = {}
+
+do
+	local translations = {
+		koKR = { min = "최소값",	max = "최대값",	step = "간격" },
+		zhTW = { min = "最小值",	max = "最大值",	step = "增量" },
+		zhCN = { min = "最小值",	max = "最大值",	step = "步长" },
+		frFR = { min = "Min",		max = "Max",	step = "Pas"  },
+		ruRU = { min = "Мин",		max = "Макс",	step = "Шаг"  },
+		esES = { min = "Mín",		max = "Máx",	step = "Paso" },
+		esMX = { min = "Mín",		max = "Máx",	step = "Paso" },
+		ptBR = { min = "Mín",		max = "Máx",	step = "Passo" },
+		itIT = { min = "Min",		max = "Max",	step = "Passo" }
+	}
+
+	local LOCALE = GetLocale()
+	local data = translations[LOCALE] or {}
+
+	L["min"]	= data.min or "Min"
+	L["max"]	= data.max or "Max"
+	L["step"]	= data.step or "Step"
+end
 
 -- GLOBALS: CloseSpecialWindows
 
@@ -528,21 +556,21 @@ local function OptionOnMouseOver(widget, event)
 	local Min, Max, Step
 
 	if softText then
-		Min = (opt.min and "|cFFCCCCCCMin:|r "..(opt.isPercent and (opt.min*100).."%" or opt.min)) or ""
-		Max = (opt.max and "|cFFCCCCCCMax:|r "..(opt.isPercent and (opt.max*100).."%" or opt.max)) or ""
+		Min = (opt.min and "|cFFCCCCCC"..L["min"]..":|r "..(opt.isPercent and (opt.min*100).."%" or opt.min)) or ""
+		Max = (opt.max and "|cFFCCCCCC"..L["max"]..":|r "..(opt.isPercent and (opt.max*100).."%" or opt.max)) or ""
 		softText = Min ~= "" or Max ~= ""
 	end
 
 	if bigText then
 		local dec = opt.step and format("%f", opt.step):gsub('%.?0-$','')
 		local num = dec and tonumber(dec)
-		Step = (num and num > 0 and "|cFFCCCCCCStep:|r "..dec) or ""
+		Step = (num and num > 0 and "|cFFCCCCCC"..L["step"]..":|r "..dec) or ""
 		bigText = Step ~= ""
 	end
 
 	if opt.dragdrop then
 		tooltip:SetOwner(widget.frame, "ANCHOR_TOPRIGHT")
-		tooltip:SetText(user.title or name, 1, .82, 0, true)
+		tooltip:SetText(user.title or name, 1, .82, 0, 1, true)
 
 		if user.desc then
 			tooltip:AddLine(user.desc, 1, 1, 1, true)
@@ -1133,6 +1161,11 @@ local function InjectInfo(control, options, option, path, rootframe, appName)
 	control:SetCallback("OnRelease", CleanUserData)
 	control:SetCallback("OnLeave", OptionOnMouseLeave)
 	control:SetCallback("OnEnter", OptionOnMouseOver)
+
+	-- forward custom arg data directly
+	if control.SetCustomData and option.arg then
+		safecall(control.SetCustomData, control, option.arg)
+	end
 end
 
 local function CreateControl(userControlType, fallbackControlType)
@@ -1566,12 +1599,15 @@ local function FeedOptions(appName, options,container,rootframe,path,group,inlin
 							control:SetWidth(customWidth)
 						else
 							local width = GetOptionsMemberValue("width",v,options,path,appName)
+							local relWidth = GetOptionsMemberValue("relWidth",v,options,path,appName)
 							if width == "double" then
 								control:SetWidth(width_multiplier * 2)
 							elseif width == "half" then
 								control:SetWidth(width_multiplier / 2)
 							elseif (type(width) == "number") then
 								control:SetWidth(width_multiplier * width)
+							elseif width == "relative" and relWidth then
+								control:SetRelativeWidth(relWidth)
 							elseif width == "full" then
 								control.width = "fill"
 							else
@@ -2071,6 +2107,8 @@ else
 	AceConfigDialog.BlizOptions = AceConfigDialog.BlizOptions or {}
 end
 
+AceConfigDialog.BlizOptionsIDMap = AceConfigDialog.BlizOptionsIDMap or {}
+
 local function FeedToBlizPanel(widget, event)
 	local path = widget:GetUserData("path")
 	AceConfigDialog:Open(widget:GetUserData("appName"), widget, unpack(path or emptyTbl))
@@ -2092,16 +2130,17 @@ end
 -- has to be a head-level note.
 --
 -- This function returns a reference to the container frame registered with the Interface
--- Options. You can use this reference to open the options with the API function
--- `InterfaceOptionsFrame_OpenToCategory`.
+-- Options, as well as the registered ID. You can use the ID to open the options with
+-- the API function `Settings.OpenToCategory`.
 -- @param appName The application name as given to `:RegisterOptionsTable()`
 -- @param name A descriptive name to display in the options tree (defaults to appName)
 -- @param parent The parent to use in the interface options tree.
 -- @param ... The path in the options table to feed into the interface options panel.
 -- @return The reference to the frame registered into the Interface Options.
--- @return The category ID to pass to Settings.OpenToCategory (or InterfaceOptionsFrame_OpenToCategory)
+-- @return The category ID to pass to Settings.OpenToCategory
 function AceConfigDialog:AddToBlizOptions(appName, name, parent, ...)
 	local BlizOptions = AceConfigDialog.BlizOptions
+	local BlizOptionsIDMap = AceConfigDialog.BlizOptionsIDMap
 
 	local key = appName
 	for n = 1, select("#", ...) do
@@ -2127,29 +2166,32 @@ function AceConfigDialog:AddToBlizOptions(appName, name, parent, ...)
 		end
 		group:SetCallback("OnShow", FeedToBlizPanel)
 		group:SetCallback("OnHide", ClearBlizPanel)
-		if Settings and Settings.RegisterCanvasLayoutCategory then
-			local categoryName = name or appName
-			if parent then
-				local category = Settings.GetCategory(parent)
-				if not category then
-					error(("The parent category '%s' was not found"):format(parent), 2)
-				end
-				local subcategory = Settings.RegisterCanvasLayoutSubcategory(category, group.frame, categoryName)
 
-				-- force the generated ID to be used for subcategories, as these can have very simple names like "Profiles"
-				group:SetName(subcategory.ID, parent)
-			else
-				local category = Settings.RegisterCanvasLayoutCategory(group.frame, categoryName)
-				-- using appName here would be cleaner, but would not be 100% compatible
-				-- but for top-level categories it should be fine, as these are typically addon names
-				category.ID = categoryName
-				group:SetName(categoryName, parent)
-				Settings.RegisterAddOnCategory(category)
+		local categoryName = name or appName
+		if parent then
+			local parentID = BlizOptionsIDMap[parent] or parent
+			local category = Settings.GetCategory(parentID)
+			if not category then
+				error(("The parent category '%s' was not found"):format(parent), 2)
 			end
+			local subcategory = Settings.RegisterCanvasLayoutSubcategory(category, group.frame, categoryName)
+			group:SetName(subcategory.ID, parentID)
 		else
-			group:SetName(name or appName, parent)
-			_G.InterfaceOptions_AddCategory(group.frame)
+			if BlizOptionsIDMap[categoryName] then
+				error(("%s has already been added to the Blizzard Options Window with the given name: %s"):format(appName, categoryName), 2)
+			end
+
+			local category = Settings.RegisterCanvasLayoutCategory(group.frame, categoryName)
+			if not (C_SettingsUtil and C_SettingsUtil.OpenSettingsPanel) then
+				-- override the ID so the name can be used in Settings.OpenToCategory
+				-- unfortunately with incoming API changes in 12.0 (and likely classic at some point) this override is no longer possible
+				category.ID = categoryName
+			end
+			group:SetName(category.ID)
+			BlizOptionsIDMap[categoryName] = category.ID
+			Settings.RegisterAddOnCategory(category)
 		end
+
 		return group.frame, group.frame.name
 	else
 		error(("%s has already been added to the Blizzard Options Window with the given path"):format(appName), 2)

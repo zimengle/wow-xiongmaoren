@@ -29,6 +29,8 @@ local player = BG.playerName
 do
     local alpha1 = 0.4
     local alpha2 = 1
+    local ITEM_SOCKET_BONUS = ITEM_SOCKET_BONUS:gsub("%%s", "(.+)")                     -- 镶孔奖励：%s
+    local ITEM_MOD_FERAL_ATTACK_POWER = ITEM_MOD_FERAL_ATTACK_POWER:gsub("%%s", "(.+)") -- 在猎豹、熊等等攻击强度提高%s点
 
     function BG.Tooltip_SetItemByID(itemID)
         BiaoGeTooltip:SetOwner(UIParent, "ANCHOR_NONE")
@@ -44,8 +46,9 @@ do
             local text = _G["BiaoGeTooltipTextLeft" .. ii]:GetText()
             if text and text ~= "" then
                 text = text:gsub("每5秒恢复%d+点法力值", "每5秒回复%d+点法力值")
-                if (not text:find(WARDROBE_SETS)) and
-                    (not text:find(ITEM_MOD_FERAL_ATTACK_POWER:gsub("%%s", "(.+)"))) -- 小德的武器词缀：在猎豹、熊等等攻击强度提高%s点
+                if not text:find(WARDROBE_SETS) and
+                    not text:find(ITEM_SOCKET_BONUS) and
+                    not text:find(ITEM_MOD_FERAL_ATTACK_POWER)
                 then
                     tinsert(tbl, text)
                 end
@@ -600,7 +603,7 @@ do
                     end)
 
                     bt:SetScript("OnEnter", function(self)
-                        if bt.itemID then
+                        if self.link then
                             if BG.ButtonIsInRight(self) then
                                 GameTooltip:SetOwner(self, "ANCHOR_LEFT", 0, 0)
                             else
@@ -1914,6 +1917,12 @@ function BG.GoToItemLib(button)
 end
 
 ------------------获取Auction插件里某个物品的历史价格------------------
+local function GetRealmFactionKey()
+    local realm = GetRealmName() or "Unknown"
+    local _, faction = UnitFactionGroup("player")
+    faction = faction or "Neutral"
+    return realm .. "-" .. faction
+end
 function BG.GetAuctionPrice(itemID, mod)
     local m
     if Auctionator and Auctionator.Database and Auctionator.Database.GetPrice then
@@ -1921,22 +1930,29 @@ function BG.GetAuctionPrice(itemID, mod)
         m = Auctionator.Database:GetPrice(itemID)
     end
     if (not m or m == "") and BG.IsTitan and type(EasyAuction_ItemID_Index) == "table" then
-        itemID = tonumber(itemID)
-        local idHistories = EasyAuction_ItemID_Index[itemID]
-        if idHistories then
-            for i, entry in ipairs(idHistories) do
-                local history = entry.history
-                if type(history) == "table" and #history > 0 then
-                    local latestTime = nil
-                    for _, v in ipairs(history) do
-                        if v.unit and v.t then
-                            if not latestTime then
-                                latestTime = v.t
-                                m = v.unit
-                            end
-                            if v.t > latestTime then
-                                latestTime = v.t
-                                m = v.unit
+        local EasyAuctionDB = EasyAuctionDB2 and EasyAuctionDB2[GetRealmFactionKey()]
+        if EasyAuctionDB then
+            itemID = tonumber(itemID)
+            local idHistories = EasyAuction_ItemID_Index[itemID]
+            if idHistories then
+                local last = idHistories[#idHistories]
+                if type(last) == "table" and last.minUnit then
+                    m = last.minUnit
+                end
+                for i, entry in ipairs(idHistories) do
+                    local history = EasyAuctionDB.PriceHistory and EasyAuctionDB.PriceHistory[entry.key]
+                    if type(history) == "table" and #history > 0 then
+                        local latestTime = nil
+                        for _, v in ipairs(history) do
+                            if v.unit and v.t then
+                                if not latestTime then
+                                    latestTime = v.t
+                                    m = v.unit
+                                end
+                                if v.t > latestTime then
+                                    latestTime = v.t
+                                    m = v.unit
+                                end
                             end
                         end
                     end

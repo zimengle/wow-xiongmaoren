@@ -69,16 +69,14 @@ local _, ns = ...
 local oUF = ns.oUF
 local Private = oUF.Private
 
-local unitExists = Private.unitExists
 local validateEvent = Private.validateEvent
 local validateUnit = Private.validateUnit
 
 local _G = _G
-
+local next, type, unpack = next, type, unpack
 local wipe, rawset, tonumber = wipe, rawset, tonumber
-local format, tinsert, floor = format, tinsert, floor
+local pcall, format, tinsert, floor = pcall, format, tinsert, floor
 local setfenv, getfenv, gsub, max = setfenv, getfenv, gsub, max
-local next, type, pcall, unpack = next, type, pcall, unpack
 local error, assert, loadstring = error, assert, loadstring
 
 local SPEC_MAGE_ARCANE = SPEC_MAGE_ARCANE or 1
@@ -92,10 +90,16 @@ local POWERTYPE_HOLY_POWER = Enum.PowerType.HolyPower or 9
 local POWERTYPE_CHI = Enum.PowerType.Chi or 12
 local POWERTYPE_ARCANE_CHARGES = Enum.PowerType.ArcaneCharges or 16
 
-local CreateFrame = CreateFrame
 local C_Timer_NewTimer = C_Timer.NewTimer
 local GetSpecialization = C_SpecializationInfo.GetSpecialization or GetSpecialization
+local CreateFrame = CreateFrame
 
+local ScaleTo100 = CurveConstants and CurveConstants.ScaleTo100
+local GenerateTextColorCode = C_ColorUtil and C_ColorUtil.GenerateTextColorCode
+local TruncateWhenZero = C_StringUtil and C_StringUtil.TruncateWhenZero
+local WrapString = C_StringUtil and C_StringUtil.WrapString
+
+local IsInRaid = IsInRaid
 local IsResting = IsResting
 local GetArenaOpponentSpec = GetArenaOpponentSpec
 local GetCreatureDifficultyColor = GetCreatureDifficultyColor
@@ -103,7 +107,6 @@ local GetNumGroupMembers = GetNumGroupMembers
 local GetRaidRosterInfo = GetRaidRosterInfo
 local GetRuneCooldown = GetRuneCooldown
 local GetSpecializationInfoByID = GetSpecializationInfoByID
-local GetThreatStatusColor = GetThreatStatusColor
 local UnitBattlePetLevel = UnitBattlePetLevel
 local UnitCanAttack = UnitCanAttack
 local UnitClassification = UnitClassification
@@ -111,6 +114,8 @@ local UnitCreatureFamily = UnitCreatureFamily
 local UnitCreatureType = UnitCreatureType
 local UnitEffectiveLevel = UnitEffectiveLevel
 local UnitHealthMax = UnitHealthMax
+local UnitHealthMissing = UnitHealthMissing
+local UnitHealthPercent = UnitHealthPercent
 local UnitIsBattlePetCompanion = UnitIsBattlePetCompanion
 local UnitIsGroupLeader = UnitIsGroupLeader
 local UnitIsPlayer = UnitIsPlayer
@@ -118,6 +123,8 @@ local UnitIsPVP = UnitIsPVP
 local UnitIsWildBattlePet = UnitIsWildBattlePet
 local UnitLevel = UnitLevel
 local UnitPowerMax = UnitPowerMax
+local UnitPowerMissing = UnitPowerMissing
+local UnitPowerPercent = UnitPowerPercent
 local UnitPowerType = UnitPowerType
 local UnitSex = UnitSex
 local UnitThreatSituation = UnitThreatSituation
@@ -129,24 +136,22 @@ local _PATTERN = '%[..-%]+'
 
 local _ENV = {
 	Hex = function(r, g, b)
-		if(type(r) == 'table') then
-			if(r.r) then
+		if not r or type(r) == 'string' then -- wtf?
+			return '|cffFFFFFF'
+		elseif type(r) == 'table' then
+			if oUF.isRetail then
+				return '|c' .. GenerateTextColorCode(r)
+			elseif(r.r) then
 				r, g, b = r.r, r.g, r.b
 			else
 				r, g, b = unpack(r)
 			end
 		end
 
-		if not r or type(r) == 'string' then -- wtf?
-			return '|cffFFFFFF'
-		end
-
 		return format('|cff%02x%02x%02x', r * 255, g * 255, b * 255)
 	end,
+	ColorMixin = ColorMixin, -- not available in restricted env for some reason
 }
-_ENV.ColorGradient = function(...)
-	return _ENV._FRAME:ColorGradient(...)
-end
 
 local _PROXY = setmetatable(_ENV, {__index = _G})
 
@@ -259,31 +264,19 @@ tagFunctions.dead = function(u)
 	end
 end
 
-tagFunctions['deficit:name'] = function(u)
-	local missinghp = _TAGS.missinghp(u)
-	if(missinghp) then
-		return '-' .. missinghp
-	else
-		return _TAGS.name(u)
-	end
-end
-
 tagFunctions.difficulty = function(u)
-	if UnitCanAttack('player', u) then
+	if(UnitCanAttack('player', u)) then
 		local l = (UnitEffectiveLevel or UnitLevel)(u)
 		return Hex(GetCreatureDifficultyColor((l > 0) and l or 999))
 	end
 end
 
 tagFunctions.group = function(unit)
-	local name, server = UnitName(unit)
-	if(server and server ~= '') then
-		name = format('%s-%s', name, server)
-	end
+	if not IsInRaid() then return end
 
-	for i=1, GetNumGroupMembers() do
-		local raidName, _, group = GetRaidRosterInfo(i)
-		if( raidName == name ) then
+	for index = 1, GetNumGroupMembers() do
+		if oUF:UnitIsUnit(unit, 'raid' .. index) then
+			local _, _, group = GetRaidRosterInfo(index)
 			return group
 		end
 	end
@@ -324,20 +317,31 @@ tagFunctions.level = function(u)
 end
 
 tagFunctions.maxmana = function(unit)
-	return UnitPowerMax(unit, POWERTYPE_MANA)
+	local okMana, maxMana = pcall(UnitPowerMax, unit, POWERTYPE_MANA)
+	if okMana then
+		return maxMana
+	end
 end
 
 tagFunctions.missinghp = function(u)
-	local current = UnitHealthMax(u) - UnitHealth(u)
-	if(current > 0) then
-		return current
+	if oUF.isRetail then
+		return TruncateWhenZero(UnitHealthMissing(u))
+	else
+		local current = UnitHealthMax(u) - UnitHealth(u)
+		if(current > 0) then
+			return current
+		end
 	end
 end
 
 tagFunctions.missingpp = function(u)
-	local current = UnitPowerMax(u) - UnitPower(u)
-	if(current > 0) then
-		return current
+	if oUF.isRetail then
+		return TruncateWhenZero(UnitPowerMissing(u))
+	else
+		local current = UnitPowerMax(u) - UnitPower(u)
+		if(current > 0) then
+			return current
+		end
 	end
 end
 
@@ -352,20 +356,34 @@ tagFunctions.offline = function(u)
 end
 
 tagFunctions.perhp = function(u)
-	local m = UnitHealthMax(u)
-	if(m == 0) then
-		return 0
+	if oUF.isRetail then
+		local ok, precent = pcall(UnitHealthPercent, u, true, ScaleTo100)
+		if ok then
+			return format('%d', precent)
+		end
 	else
-		return floor(UnitHealth(u) / m * 100 + .5)
+		local m = UnitHealthMax(u)
+		if(m == 0) then
+			return 0
+		else
+			return floor(UnitHealth(u) / m * 100 + .5)
+		end
 	end
 end
 
 tagFunctions.perpp = function(u)
-	local m = UnitPowerMax(u)
-	if(m == 0) then
-		return 0
+	if oUF.isRetail then
+		local ok, precent = pcall(UnitPowerPercent, u, nil, true, ScaleTo100)
+		if ok then
+			return format('%d', precent)
+		end
 	else
-		return floor(UnitPower(u) / m * 100 + .5)
+		local m = UnitPowerMax(u)
+		if(m == 0) then
+			return 0
+		else
+			return floor(UnitPower(u) / m * 100 + .5)
+		end
 	end
 end
 
@@ -377,7 +395,7 @@ tagFunctions.plus = function(u)
 end
 
 tagFunctions.powercolor = function(u)
-	local pType, pToken, altR, altG, altB = UnitPowerType(u)
+	local okType, pType, pToken, altR, altG, altB = pcall(UnitPowerType, u)
 	local color = _COLORS.power[pToken]
 
 	if(not color) then
@@ -388,7 +406,7 @@ tagFunctions.powercolor = function(u)
 				return Hex(altR, altG, altB)
 			end
 		else
-			return Hex(_COLORS.power[pType] or _COLORS.power.MANA)
+			return Hex((okType and _COLORS.power[pType]) or _COLORS.power.MANA)
 		end
 	end
 
@@ -521,7 +539,10 @@ tagFunctions.threat = function(u)
 end
 
 tagFunctions.threatcolor = function(u)
-	return Hex(GetThreatStatusColor(UnitThreatSituation(u) or 0))
+	local value = UnitThreatSituation(u) or 0
+	local color = _COLORS.threat[value]
+
+	return Hex(color)
 end
 
 _ENV._TAGS = tagFuncs
@@ -554,7 +575,6 @@ local tagEvents = {
 	['curmana']             = 'UNIT_POWER_FREQUENT UNIT_MAXPOWER',
 	['curpp']               = 'UNIT_POWER_FREQUENT UNIT_MAXPOWER',
 	['dead']                = 'UNIT_HEALTH UNIT_MAXHEALTH UNIT_CONNECTION PLAYER_FLAGS_CHANGED',
-	['deficit:name']        = 'UNIT_HEALTH UNIT_MAXHEALTH UNIT_NAME_UPDATE',
 	['difficulty']          = 'UNIT_FACTION',
 	['faction']             = 'NEUTRAL_FACTION_SELECT_RESULT',
 	['group']               = 'GROUP_ROSTER_UPDATE',
@@ -615,7 +635,7 @@ local function UpdateTimer(frame, elapsed)
 	local total = frame.total
 	if total >= frame.timer then
 		for fs, parent in next, frame.strings do -- isForced prevents spam in ElvUI
-			if not parent.isForced and parent:IsShown() and unitExists(parent.unit) then
+			if not parent.isForced and parent:IsShown() and oUF:UnitExists(parent.unit) then
 				fs:UpdateTag()
 			end
 		end
@@ -670,16 +690,14 @@ local function EscapeSequence(a)
 	return format('|%s', a)
 end
 
-local function CreateDeadTagFunc(bracket)
-	return function()
-		return format('|cFFffffff%s|r', bracket)
-	end
-end
-
 local function CreateTagFunc(tag, prefix, suffix)
 	return function(unit, realUnit, customArgs)
 		local str = tag(unit, realUnit, customArgs)
-		return str and format('%s%s%s', prefix or '', str, suffix or '') or nil
+		if oUF:IsSecretValue(str) then
+			return str and WrapString(str, prefix or '', suffix or '') or nil
+		else
+			return str and format('%s%s%s', prefix or '', str, suffix or '') or nil
+		end
 	end
 end
 
@@ -698,7 +716,7 @@ local function GetTagFunc(tagstr)
 	local func = tagStringFuncs[tagstr]
 	if not func then
 		local frmt, numTags = tagstr:gsub('%%', '%%%%'):gsub(_PATTERN, '%%s')
-		local funcs = {}
+		local data = {}
 
 		for bracket in tagstr:gmatch(_PATTERN) do
 			local tagFunc = bracketFuncs[bracket] or tagFuncs[bracket:sub(2, -2)]
@@ -713,7 +731,7 @@ local function GetTagFunc(tagstr)
 				end
 			end
 
-			tinsert(funcs, tagFunc or CreateDeadTagFunc(bracket))
+			tinsert(data, tagFunc or '')
 		end
 
 		func = function(self)
@@ -725,8 +743,8 @@ local function GetTagFunc(tagstr)
 			_ENV._FRAME = parent
 			_ENV._COLORS = parent.colors
 
-			for i, fnc in next, funcs do
-				tagBuffer[i] = fnc(unit, realUnit, customArgs) or ''
+			for i, fnc in next, data do
+				tagBuffer[i] = type(fnc) == 'function' and fnc(unit, realUnit, customArgs) or ''
 			end
 
 			-- we do 1 to num because buffer is shared by all tags and can hold several unneeded vars.
@@ -760,7 +778,7 @@ local function ShouldUpdateTag(frame, event, unit)
 
 	if unitlessEvents[event] then
 		return true
-	elseif validateUnit(unit) and unitExists(unit) then
+	elseif validateUnit(unit) and oUF:UnitExists(unit) then
 		if frame.unit == unit then
 			return true
 		else

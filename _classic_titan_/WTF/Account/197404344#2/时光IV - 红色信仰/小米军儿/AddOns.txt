@@ -149,3 +149,7 @@ NewBeeBox: enabled
 EasyAuction: enabled
 !Swatter: disabled
 !ImprovedErrorFrame: disabled
+Blizzard_ObjectiveTracker: enabled
+PatchWerk: disabled
+!PatchWerk: disabled
+MeetingHornHeroic: enabled

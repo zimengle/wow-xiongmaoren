@@ -1,108 +1,114 @@
 
 HidingBarDB = {
-["tstmp"] = 1775221143,
+["tstmp"] = 1775734313,
 ["profiles"] = {
 {
 ["isDefault"] = true,
 ["config"] = {
 ["mbtnSettings"] = {
-["LibDBIcon10_RurutiaSuite"] = {
-["tstmp"] = 1775221143,
-},
 ["LibDBIcon10_Accountant_Classic"] = {
-["tstmp"] = 1775221143,
+["tstmp"] = 1775487441,
 },
 ["LibDBIcon10_RXPGuides"] = {
-["tstmp"] = 1775221143,
+["tstmp"] = 1775722187,
 },
-["LibDBIcon10_Plater"] = {
-["tstmp"] = 1775221143,
+["ElvUI_MinimapClickHandler"] = {
+["tstmp"] = 1775734313,
 },
-["BagSyncMinimapButton"] = {
-["tstmp"] = 1770279444,
-},
-["LibDBIcon10_EasyAuction"] = {
-["tstmp"] = 1775221143,
-},
-["LibDBIcon10_alaTradeSkill"] = {
-["tstmp"] = 1775221143,
-},
-["PIG_MiniMapBut"] = {
-["tstmp"] = 1775221143,
-},
-["LibDBIcon10_DBM"] = {
-["tstmp"] = 1775221143,
-},
-["LibDBIcon10_CChatFilter"] = {
-["tstmp"] = 1775221143,
-},
-["LibDBIcon10_DetailsStreamer"] = {
-["tstmp"] = 1775221143,
+["LFGMinimapFrame"] = {
+["tstmp"] = 1775734313,
 },
 ["LibDBIcon10_BiaoGe"] = {
-["tstmp"] = 1775221143,
+["tstmp"] = 1775734313,
 },
 ["LibDBIcon10_BugSack"] = {
-["tstmp"] = 1775221143,
-},
-["LibDBIcon10_TitanBistooltipIcon"] = {
-["tstmp"] = 1775221143,
+["tstmp"] = 1775734313,
 },
 ["LibDBIcon10_Myslot"] = {
-["tstmp"] = 1775221143,
+["tstmp"] = 1775734313,
 },
 ["LibDBIcon10_AtlasLootMY"] = {
-["tstmp"] = 1775221143,
-},
-["LibDBIcon10_MailLogger"] = {
-["tstmp"] = 1775221143,
+["tstmp"] = 1775734313,
 },
 ["LibDBIcon10_HandyNotes_NPCs"] = {
-["tstmp"] = 1775221143,
-},
-["LibDBIcon10_Atlas"] = {
-["tstmp"] = 1775221143,
+["tstmp"] = 1775734313,
 },
 ["LibDBIcon10_PallyPower"] = {
-["tstmp"] = 1775221143,
-},
-["LibDBIcon10_Leatrix_Maps"] = {
-["tstmp"] = 1775221143,
+["tstmp"] = 1775734313,
 },
 ["LibDBIcon10_MethodRaidTools"] = {
-["tstmp"] = 1775221143,
+["tstmp"] = 1775734313,
 },
 ["LibDBIcon10_HidingBar1"] = {
 ["tstmp"] = 0,
 },
-["LibDBIcon10_TalentEmu"] = {
-["tstmp"] = 1775221143,
-},
-["LibDBIcon10_Leatrix_Plus"] = {
-["tstmp"] = 1775221143,
-},
-["LibDBIcon10_Details"] = {
-["tstmp"] = 1775221143,
-},
 ["LibDBIcon10_BagSync"] = {
-["tstmp"] = 1775221143,
+["tstmp"] = 1775734313,
 },
-["LibDBIcon10_WeakAuras"] = {
-["tstmp"] = 1775221143,
-},
-["LibDBIcon10_Questie"] = {
-["tstmp"] = 1775221143,
-},
-["LibDBIcon10_MeetingHorn"] = {
-["tstmp"] = 1775221143,
+["LibDBIcon10_EasyAuction"] = {
+["tstmp"] = 1775734313,
 },
 ["LibDBIcon10_Decursive"] = {
-["tstmp"] = 1775221143,
+["tstmp"] = 1775487441,
+},
+["LibDBIcon10_RurutiaSuite"] = {
+["tstmp"] = 1775734313,
+},
+["BagSyncMinimapButton"] = {
+["tstmp"] = 1770279444,
+},
+["PIG_MiniMapBut"] = {
+["tstmp"] = 1775734313,
+},
+["LibDBIcon10_DBM"] = {
+["tstmp"] = 1775734313,
+},
+["LibDBIcon10_CChatFilter"] = {
+["tstmp"] = 1775734313,
+},
+["LibDBIcon10_Leatrix_Plus"] = {
+["tstmp"] = 1775734313,
+},
+["LibDBIcon10_Atlas"] = {
+["tstmp"] = 1775487441,
+},
+["LibDBIcon10_Leatrix_Maps"] = {
+["tstmp"] = 1775734313,
+},
+["LibDBIcon10_MailLogger"] = {
+["tstmp"] = 1775734313,
+},
+["LibDBIcon10_Details"] = {
+["tstmp"] = 1775734313,
+},
+["LibDBIcon10_TalentEmu"] = {
+["tstmp"] = 1775734313,
+},
+["LibDBIcon10_alaTradeSkill"] = {
+["tstmp"] = 1775734313,
+},
+["LibDBIcon10_TitanBistooltipIcon"] = {
+["tstmp"] = 1775734313,
+},
+["LibDBIcon10_DetailsStreamer"] = {
+["tstmp"] = 1775734313,
+},
+["LibDBIcon10_WeakAuras"] = {
+["tstmp"] = 1775734313,
+},
+["LibDBIcon10_Plater"] = {
+["tstmp"] = 1775722187,
+},
+["LibDBIcon10_Questie"] = {
+["tstmp"] = 1775734313,
+},
+["LibDBIcon10_MeetingHorn"] = {
+["tstmp"] = 1775734313,
 },
 },
 ["btnSettings"] = {
 ["HidingBar"] = {
-["tstmp"] = 1775221143,
+["tstmp"] = 1775734313,
 },
 },
 ["grabMinimap"] = true,

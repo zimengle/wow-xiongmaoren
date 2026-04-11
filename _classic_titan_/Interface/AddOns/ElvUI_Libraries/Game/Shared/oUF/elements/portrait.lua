@@ -39,14 +39,12 @@ the unit.
 local _, ns = ...
 local oUF = ns.oUF
 
--- ElvUI block
 local UnitGUID = UnitGUID
-local UnitIsConnected = UnitIsConnected
-local UnitIsVisible = UnitIsVisible
 local UnitClass = UnitClass
--- end block
-
-local CLASS_ICON_TCOORDS = CLASS_ICON_TCOORDS
+local UnitIsVisible = UnitIsVisible
+local UnitIsConnected = UnitIsConnected
+local SetPortraitTexture = SetPortraitTexture
+local IsUnitModelReadyForUI = IsUnitModelReadyForUI
 
 local function Update(self, event)
 	local element = self.Portrait
@@ -56,11 +54,12 @@ local function Update(self, event)
 	if not unit then return end
 
 	local guid = UnitGUID(unit)
-	local newGUID = element.guid ~= guid
+	local secretGUID = oUF:IsSecretValue(guid)
+	local newGUID = secretGUID or (element.guid ~= guid)
 
 	local nameplate = event == 'NAME_PLATE_UNIT_ADDED'
 	if newGUID then
-		element.guid = guid
+		element.guid = not secretGUID and guid or nil
 	elseif nameplate then
 		return
 	end
@@ -73,24 +72,22 @@ local function Update(self, event)
 	--]]
 	if(element.PreUpdate) then element:PreUpdate(unit) end
 
-	local texCoords
-	local isAvailable = element:IsVisible() and UnitIsConnected(unit) and UnitIsVisible(unit)
+	local isAvailable = element:IsVisible() and IsUnitModelReadyForUI(unit) and UnitIsConnected(unit) and UnitIsVisible(unit)
 	local hasStateChanged = newGUID or (not nameplate or element.state ~= isAvailable)
 	if hasStateChanged then
 		element.playerModel = element:IsObjectType('PlayerModel')
 		element.state = isAvailable
 
 		if element.playerModel then
-			if not isAvailable then
-				element:SetCamDistanceScale(0.25)
-				element:SetPortraitZoom(0)
-				element:SetPosition(0, 0, 0.25)
-				element:SetModel([[Interface\Buttons\TalkToMeQuestionMark.m2]])
-			else
-				element:SetCamDistanceScale(1)
-				element:SetPortraitZoom(1)
-				element:SetPosition(0, 0, 0)
+			element:ClearModel()
+			element:SetCamDistanceScale(isAvailable and 1 or 0.25)
+			element:SetPortraitZoom(isAvailable and 1 or 0)
+			element:SetPosition(0, 0, isAvailable and 0 or 0.25)
+
+			if isAvailable then
 				element:SetUnit(unit)
+			else
+				element:SetModel([[Interface\Buttons\TalkToMeQuestionMark.m2]])
 			end
 		elseif element.useClassBase then
 			-- BUG: UnitClassBase can't be trusted
@@ -98,16 +95,10 @@ local function Update(self, event)
 
 			local _, className = UnitClass(unit)
 			if className then
-				if oUF.isMists and className == 'MONK' then -- currently doesnt work on Mists Classic
-					local coords = CLASS_ICON_TCOORDS[className]
-					if coords then
-						element:SetTexture([[Interface\WorldStateFrame\ICONS-CLASSES]])
-						texCoords = coords
-					end
-				else
-					element:SetAtlas('classicon-' .. className)
-				end
+				element:SetAtlas('classicon-' .. className)
 			end
+		elseif not element.customTexture then
+			SetPortraitTexture(element, unit)
 		end
 	end
 
@@ -119,7 +110,7 @@ local function Update(self, event)
 	* hasStateChanged - indicates whether the state has changed since the last update (boolean)
 	--]]
 	if(element.PostUpdate) then
-		return element:PostUpdate(unit, hasStateChanged, texCoords)
+		return element:PostUpdate(unit, hasStateChanged)
 	end
 end
 
@@ -144,14 +135,18 @@ local function Enable(self, unit)
 		element.__owner = self
 		element.ForceUpdate = ForceUpdate
 
-		self:RegisterEvent('UNIT_MODEL_CHANGED', Path)
-		self:RegisterEvent('UNIT_PORTRAIT_UPDATE', Path)
-		self:RegisterEvent('PORTRAITS_UPDATED', Path, true)
+		local playerModel = element:IsObjectType('PlayerModel')
+		if playerModel then
+			self:RegisterEvent('UNIT_MODEL_CHANGED', Path)
+		else
+			self:RegisterEvent('UNIT_PORTRAIT_UPDATE', Path)
+			self:RegisterEvent('PORTRAITS_UPDATED', Path, true)
+		end
+
 		self:RegisterEvent('UNIT_CONNECTION', Path)
 
-		-- The quest log uses PARTY_MEMBER_{ENABLE,DISABLE} to handle updating of
-		-- party members overlapping quests. This will probably be enough to handle
-		-- model updating.
+		-- The quest log uses PARTY_MEMBER_{ENABLE,DISABLE} to handle updating of party
+		-- members overlapping quests. This will probably be enough to handle model updating.
 		if unit == 'party' or unit == 'target' then
 			self:RegisterEvent('PARTY_MEMBER_ENABLE', Path)
 			self:RegisterEvent('PARTY_MEMBER_DISABLE', Path)
@@ -168,9 +163,16 @@ local function Disable(self)
 	if(element) then
 		element:Hide()
 
-		self:UnregisterEvent('UNIT_MODEL_CHANGED', Path)
-		self:UnregisterEvent('UNIT_PORTRAIT_UPDATE', Path)
-		self:UnregisterEvent('PORTRAITS_UPDATED', Path)
+		local playerModel = element:IsObjectType('PlayerModel')
+		if playerModel then
+			element:ClearModel()
+
+			self:UnregisterEvent('UNIT_MODEL_CHANGED', Path)
+		else
+			self:UnregisterEvent('UNIT_PORTRAIT_UPDATE', Path)
+			self:UnregisterEvent('PORTRAITS_UPDATED', Path)
+		end
+
 		self:UnregisterEvent('PARTY_MEMBER_ENABLE', Path)
 		self:UnregisterEvent('PARTY_MEMBER_DISABLE', Path)
 		self:UnregisterEvent('UNIT_CONNECTION', Path)

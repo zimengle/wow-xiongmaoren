@@ -28,6 +28,7 @@ local _G = getfenv(0)
 local LibStub = _G.LibStub
 local L = LibStub("AceLocale-3.0"):GetLocale("Atlas")
 local format = string.format
+local GetAddOnMetadata = _G.GetAddOnMetadata or (_G.C_AddOns and _G.C_AddOns.GetAddOnMetadata)
 
 local WoWClassicEra, WoWClassicTBC, WoWRetail
 local wowtocversion  = select(4, GetBuildInfo())
@@ -72,7 +73,7 @@ Global Atlas Strings
 --]]
 ATLAS_TITLE			= L["ATLAS_TITLE"]
 
-ATLAS_VERSION_TEXT		= "v"..GetAddOnMetadata("Atlas", "Version");
+ATLAS_VERSION_TEXT		= "v"..((GetAddOnMetadata and GetAddOnMetadata("Atlas", "Version")) or (ATLAS_VERSION or "unknown"));
 
 BINDING_HEADER_ATLAS_TITLE	= L["BINDING_HEADER_ATLAS_TITLE"]
 BINDING_NAME_ATLAS_TOGGLE	= L["BINDING_NAME_ATLAS_TOGGLE"]

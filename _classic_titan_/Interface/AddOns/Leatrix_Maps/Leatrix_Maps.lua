@@ -10,6 +10,8 @@
 
 	-- Create local tables
 	local LeaMapsLC, LeaMapsCB, LeaDropList, LeaConfigList, LeaLockList = {}, {}, {}, {}, {}
+	local IsAddOnLoaded = C_AddOns and C_AddOns.IsAddOnLoaded or IsAddOnLoaded
+	local EnableAddOn = C_AddOns and C_AddOns.EnableAddOn or EnableAddOn
 
 	-- Version
 	LeaMapsLC["AddonVer"] = "3.80.01"
@@ -3817,7 +3819,9 @@
 						if E.private.general.worldMap then
 							Lock("SetMapOpacity", reason, "Maps") -- Set map opacity
 						end
-						EnableAddOn("Leatrix_Maps")
+						if EnableAddOn then
+							EnableAddOn("Leatrix_Maps")
+						end
 					end
 				end
 			end

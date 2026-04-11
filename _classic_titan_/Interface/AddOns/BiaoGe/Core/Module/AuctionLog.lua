@@ -19,7 +19,7 @@ local GetItemID = ns.GetItemID
 local Maxb = ns.Maxb
 
 local pt = print
-local RealmId = GetRealmID()
+local RealmID = GetRealmID()
 local player = BG.playerName
 
 BG.Init(function()
@@ -191,31 +191,30 @@ BG.Init(function()
         do
             local buttons = {}
             local numOptions = {
-                { name = L["全部"], },
-                { name = L["成功"], },
-                { name = L["流拍"], },
-                { name = L["未拍"], },
+                { name = L["全部"], id = 1, row = 1, width = 0, },
+                { name = L["未拍"], id = 4, row = 1, width = 52, },
+                { name = L["我买的"], id = 6, row = 1, width = 104, },
+                { name = L["流拍"], id = 3, row = 2, width = 0, },
+                { name = L["成功"], id = 2, row = 2, width = 52, },
+                { name = L["成功(未交易)"], id = 5, row = 2, width = 104, },
             }
             local buttonGroup = CreateFrame("Frame", nil, f)
-            buttonGroup:SetPoint("TOPLEFT", 7, -40)
+            buttonGroup:SetPoint("TOPLEFT", 7, -38)
             buttonGroup:SetSize(1, 1)
             for i = 1, #numOptions do
+                local v = numOptions[i]
                 local bt = CreateFrame("CheckButton", nil, buttonGroup, "UIRadioButtonTemplate")
-                if i == 4 then
-                    bt:SetPoint("LEFT", (i - 1) * 50 + 10, 0)
-                else
-                    bt:SetPoint("LEFT", (i - 1) * 50, 0)
-                end
+                bt:SetPoint("LEFT", v.width, -(v.row - 1) * 20)
                 bt:SetSize(15, 15)
                 tinsert(buttons, bt)
                 bt.Text = bt:CreateFontString()
                 bt.Text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
                 bt.Text:SetPoint("LEFT", bt, "RIGHT", 0, 0)
-                bt.Text:SetText(numOptions[i].name)
+                bt.Text:SetText(v.name)
                 bt.Text:SetTextColor(1, .82, 0)
                 bt:SetHitRectInsets(0, -bt.Text:GetWidth(), -5, -5)
 
-                if i == BiaoGe.options.auctionLogChoose then
+                if v.id == BiaoGe.options.auctionLogChoose then
                     bt:SetChecked(true)
                     bt.Text:SetTextColor(0, 1, 0)
                 end
@@ -230,7 +229,7 @@ BG.Init(function()
                     end
                     self:SetChecked(true)
                     self.Text:SetTextColor(0, 1, 0)
-                    BiaoGe.options.auctionLogChoose = i
+                    BiaoGe.options.auctionLogChoose = v.id
                     BG.auctionLogFrame.changeFrame:Hide()
                     BG.UpdateAuctionLogFrame()
                     LibBG:CloseDropDownMenus()
@@ -240,13 +239,13 @@ BG.Init(function()
             local l = buttons[1]:CreateLine()
             l:SetColorTexture(RGB("808080", 1))
             l:SetStartPoint("BOTTOMLEFT", 0, -2)
-            l:SetEndPoint("BOTTOMLEFT", 145, -2)
+            l:SetEndPoint("BOTTOMLEFT", 165, -2)
             l:SetThickness(1)
 
             local l = buttons[4]:CreateLine()
             l:SetColorTexture(RGB("808080", 1))
             l:SetStartPoint("BOTTOMLEFT", 0, -2)
-            l:SetEndPoint("BOTTOMLEFT", 45, -2)
+            l:SetEndPoint("BOTTOMLEFT", 205, -2)
             l:SetThickness(1)
         end
 
@@ -259,7 +258,7 @@ BG.Init(function()
             })
             frame:SetBackdropBorderColor(.5, .5, .5, .5)
             frame:SetBackdropColor(0, 0, 0, 0.8)
-            frame:SetPoint("TOPLEFT", 5, -55)
+            frame:SetPoint("TOPLEFT", 5, -73)
             frame:SetPoint("BOTTOMRIGHT", -5, 115)
             frame:EnableMouse(true)
 
@@ -1574,11 +1573,17 @@ BG.Init(function()
         child:SetHeight(scroll:GetHeight())
     end
 
+    local playerInfo = BiaoGe.playerInfo[RealmID]
+    local function IsMyPlayer(player)
+        return playerInfo[player]
+    end
+
     function BG.UpdateAuctionLogFrame(notSetDown, notSetUp)
         if BG.auctionLogFrame:IsVisible() then
             UpdateFrameSize()
             for i, v in ipairs(BG.auctionLogFrame.buttons) do
                 v.frame:Hide()
+                v.frame:SetParent(nil)
             end
             wipe(BG.auctionLogFrame.buttons)
             BG.auctionLogFrame.notText:Hide()
@@ -1628,9 +1633,14 @@ BG.Init(function()
             if tbl then
                 local num = 0
                 for i, v in ipairs(tbl) do
-                    if (BiaoGe.options.auctionLogChoose == 1 or
-                            (v.type == 1 and BiaoGe.options.auctionLogChoose == 2)
-                            or (v.type == 2 and BiaoGe.options.auctionLogChoose == 3))
+                    -- type 1：成功 2：流拍
+                    if (
+                            BiaoGe.options.auctionLogChoose == 1 or
+                            (BiaoGe.options.auctionLogChoose == 2 and v.type == 1)
+                            or (BiaoGe.options.auctionLogChoose == 3 and v.type == 2)
+                            or (BiaoGe.options.auctionLogChoose == 5 and not v.trade and v.type == 1)
+                            or (BiaoGe.options.auctionLogChoose == 6 and v.type == 1 and IsMyPlayer(v.maijia))
+                        )
                         and SearchText(v)
                     then
                         num = num + 1
@@ -1796,7 +1806,7 @@ BG.Init(function()
                 item:ContinueOnItemLoad(function()
                     local name, link, quality, level, _, _, _, _, EquipLoc, Texture,
                     _, typeID, subclassID, bindType = GetItemInfo(zhuangbei)
-                    local FB = BG.FB1
+                    local FB = BG.FB2 or BG.FB1
                     local log
                     if BG.sendMoneyLog and BG.sendMoneyLog[itemID] and next(BG.sendMoneyLog[itemID]) then
                         log = {}

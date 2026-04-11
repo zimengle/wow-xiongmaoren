@@ -2,6 +2,8 @@
 ACP_Data = {
 ["sorter"] = "默认",
 ["NoRecurse"] = true,
+["NoChildren"] = true,
+["scale"] = 0.8530262380167519,
 ["AddonSet"] = {
 {
 "LoseControl",
@@ -345,8 +347,6 @@ ACP_Data = {
 [10] = {
 },
 },
-["scale"] = 0.8530262380167519,
-["NoChildren"] = true,
 ["collapsed"] = {
 },
 ["ProtectedAddons"] = {

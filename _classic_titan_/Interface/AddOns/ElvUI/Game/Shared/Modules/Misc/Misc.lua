@@ -17,7 +17,6 @@ local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
 local CreateFrame = CreateFrame
 local GetCurrentCombatTextEventInfo = GetCurrentCombatTextEventInfo
 local GetGuildBankWithdrawMoney = GetGuildBankWithdrawMoney
-local GetInstanceInfo = GetInstanceInfo
 local GetNumGroupMembers = GetNumGroupMembers
 local GetNumQuestChoices = GetNumQuestChoices
 local GetQuestItemInfo = GetQuestItemInfo
@@ -30,6 +29,7 @@ local IsArenaSkirmish = IsArenaSkirmish
 local IsGuildMember = IsGuildMember
 local IsInGroup = IsInGroup
 local IsInGuild = IsInGuild
+local IsInInstance = IsInInstance
 local IsInRaid = IsInRaid
 local IsPartyLFG = IsPartyLFG
 local IsShiftKeyDown = IsShiftKeyDown
@@ -68,8 +68,8 @@ local BOOST_THANKSFORPLAYING_SMALLER = SOUNDKIT.UI_70_BOOST_THANKSFORPLAYING_SMA
 local INTERRUPT_MSG = L["Interrupted %s's |cff71d5ff|Hspell:%d:0|h[%s]|h|r!"]
 
 local function KillFeedback(frame)
-	local debug = true
-	if debug then return end
+	local allow = true
+	if allow then return end
 
 	frame:Kill()
 
@@ -118,7 +118,7 @@ function M:COMBAT_LOG_EVENT_UNFILTERED()
 	local inRaid, inPartyLFG = IsInRaid(), M:IsRandomGroup()
 
 	--Skirmish/non-rated arenas need to use INSTANCE_CHAT but IsPartyLFG() returns 'false'
-	local _, instanceType = GetInstanceInfo()
+	local _, instanceType = IsInInstance()
 	if not E.Classic and instanceType == 'arena' then
 		local skirmish = IsArenaSkirmish()
 		local _, isRegistered = IsActiveBattlefieldArena()
@@ -160,7 +160,7 @@ do
 		if messagetype ~= 'FACTION' or not E.db.general.autoTrackReputation then return end
 
 		local faction, rep = GetCurrentCombatTextEventInfo()
-		if (faction and faction ~= 'Guild') and (rep and rep > 0) then
+		if E:NotSecretValue(faction) and (faction and faction ~= 'Guild') and (rep and rep > 0) then
 			local data = E:GetWatchedFactionInfo()
 			if not (data and data.name) or faction ~= data.name then
 				ExpandAllFactionHeaders()
@@ -291,7 +291,8 @@ end
 
 function M:PVPMessageEnhancement(_, msg)
 	if not E.db.general.enhancedPvpMessages then return end
-	local _, instanceType = GetInstanceInfo()
+
+	local _, instanceType = IsInInstance()
 	if instanceType == 'pvp' or instanceType == 'arena' then
 		RaidNotice_AddMessage(_G.RaidBossEmoteFrame, msg, _G.ChatTypeInfo.RAID_BOSS_EMOTE)
 	end
@@ -407,13 +408,16 @@ end
 function M:Initialize()
 	M.Initialized = true
 
-	M:LoadRaidMarker()
-	M:LoadLootRoll()
-	M:LoadChatBubbles()
 	M:LoadLoot()
+	M:LoadLootRoll()
+	M:LoadRaidMarker()
+	M:LoadChatBubbles()
 	M:ToggleItemLevelInfo(true)
 	M:ZoneTextToggle()
-	M:ToggleInterrupt()
+
+	if not E.Retail then
+		M:ToggleInterrupt()
+	end
 
 	local vanillaStyle = E.ClassicAnniv or E.TBC
 	if not vanillaStyle then -- it uses Blizzard_GroupFinder_VanillaStyle

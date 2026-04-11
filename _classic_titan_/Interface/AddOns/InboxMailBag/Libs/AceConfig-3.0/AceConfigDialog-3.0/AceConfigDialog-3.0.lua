@@ -1947,7 +1947,13 @@ function AceConfigDialog:AddToBlizOptions(appName, name, parent, ...)
 		end
 		group:SetCallback("OnShow", FeedToBlizPanel)
 		group:SetCallback("OnHide", ClearBlizPanel)
-		InterfaceOptions_AddCategory(group.frame)
+		if InterfaceOptions_AddCategory then
+			InterfaceOptions_AddCategory(group.frame)
+		elseif Settings and Settings.RegisterCanvasLayoutCategory then
+			local category = Settings.RegisterCanvasLayoutCategory(group.frame, group.frame.name)
+			Settings.RegisterAddOnCategory(category)
+			group.frame.category = category
+		end
 		return group.frame
 	else
 		error(("%s has already been added to the Blizzard Options Window with the given path"):format(appName), 2)

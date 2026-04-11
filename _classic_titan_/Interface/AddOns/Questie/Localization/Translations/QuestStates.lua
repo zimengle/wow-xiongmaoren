@@ -61,7 +61,7 @@ local questStateLocales = {
         ["koKR"] = "이벤트",
         ["ptBR"] = "Evento",
         ["ruRU"] = "Игровое событие",
-        ["zhCN"] = "事件",
+        ["zhCN"] = "节日",
         ["zhTW"] = "節慶",
     },
     ["Repeatable"] = {
@@ -267,6 +267,18 @@ local questStateLocales = {
         ["ruRU"] = "Сопровождение",
         ["zhCN"] = "护送",
         ["zhTW"] = "護送",
+    },
+    ["World Event"] = {
+        ["enUS"] = true,
+        ["deDE"] = "Weltereignis",
+        ["esES"] = "Suceso mundial",
+        ["esMX"] = "Evento del mundo",
+        ["frFR"] = "Événement mondial",
+        ["koKR"] = "세계",
+        ["ptBR"] = "Evento Mundial",
+        ["ruRU"] = "Игровое событие",
+        ["zhCN"] = "世界事件",
+        ["zhTW"] = "世界事件",
     },
 }
 

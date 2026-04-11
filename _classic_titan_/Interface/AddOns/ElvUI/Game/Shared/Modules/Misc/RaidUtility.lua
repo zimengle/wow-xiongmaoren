@@ -7,30 +7,30 @@ local unpack, next, mod, floor = unpack, next, mod, floor
 local strsub, format, gsub, type = strsub, format, gsub, type
 local strfind, tinsert, wipe, sort = strfind, tinsert, wipe, sort
 
-local IsInRaid = IsInRaid
 local CreateFrame = CreateFrame
 local DoReadyCheck = DoReadyCheck
 local GameTooltip_Hide = GameTooltip_Hide
-local GetInstanceInfo = GetInstanceInfo
+local GetDungeonDifficultyID = GetDungeonDifficultyID
 local GetNumGroupMembers = GetNumGroupMembers
 local GetRaidRosterInfo = GetRaidRosterInfo
 local GetTexCoordsByGrid = GetTexCoordsByGrid
 local InCombatLockdown = InCombatLockdown
 local InitiateRolePoll = InitiateRolePoll
-local SecureHandlerSetFrameRef = SecureHandlerSetFrameRef
+local IsEveryoneAssistant = IsEveryoneAssistant
+local IsInGroup = IsInGroup
+local IsInInstance = IsInInstance
+local IsInRaid = IsInRaid
+local PlaySound = PlaySound
 local SecureHandler_OnClick = SecureHandler_OnClick
+local SecureHandlerSetFrameRef = SecureHandlerSetFrameRef
+local SetDungeonDifficultyID = SetDungeonDifficultyID
+local SetEveryoneIsAssistant = SetEveryoneIsAssistant
 local ToggleFriendsFrame = ToggleFriendsFrame
+local UnitClass = UnitClass
+local UnitExists = UnitExists
 local UnitGroupRolesAssigned = UnitGroupRolesAssigned
 local UnitIsGroupAssistant = UnitIsGroupAssistant
 local UnitIsGroupLeader = UnitIsGroupLeader
-local IsEveryoneAssistant = IsEveryoneAssistant
-local SetEveryoneIsAssistant = SetEveryoneIsAssistant
-local SetDungeonDifficultyID = SetDungeonDifficultyID
-local GetDungeonDifficultyID = GetDungeonDifficultyID
-local IsInGroup = IsInGroup
-local PlaySound = PlaySound
-local UnitClass = UnitClass
-local UnitExists = UnitExists
 local UnitName = UnitName
 
 local ConvertToRaid = C_PartyInfo.ConvertToRaid
@@ -82,6 +82,10 @@ ShowButton:SetClampedToScreen(true)
 ShowButton:SetClampRectInsets(0, 0, -1, 1)
 ShowButton:Hide()
 
+function RU:InLockdown()
+	return E.Retail and InCombatLockdown()
+end
+
 function RU:SetEnabled(button, enabled, isLeader)
 	if button.SetChecked then
 		button:SetChecked(enabled)
@@ -110,7 +114,7 @@ function RU:CleanButton(button)
 end
 
 function RU:NotInPVP()
-	local _, instanceType = GetInstanceInfo()
+	local _, instanceType = IsInInstance()
 	return instanceType ~= 'pvp' and instanceType ~= 'arena'
 end
 
@@ -328,7 +332,7 @@ do
 	function RU:TargetIcons_Update()
 		for id, button in next, raidMarkers do
 			for _, key in next, keys do -- clear the last ones
-				button:SetAttribute(key..'type*', nil)
+				button:ClearAttribute(key..'type*')
 			end
 
 			RU:TargetIcons_UpdateMacro(button, id)
@@ -339,20 +343,31 @@ do
 		local id = ground[i]
 		local tm = format('%s %d', TM, i)
 
+		button:SetAttribute('isclearbutton', i == 0)
+
 		if E.Classic then
 			button:SetAttribute('type', 'macro')
 			button:SetAttribute('macrotext', tm)
 		else
 			local modType = E.db.general.raidUtility.modifierSwap or 'world'
 			local modifier = keys[E.db.general.raidUtility.modifier] or 'shift-'
-			local wm = format(i == 0 and '%s 0' or '%s %d\n%s %d', CWM, id, WM, id)
 			local world = modType == 'world'
 
-			button:SetAttribute(modifier..'type*', 'macro')
-			button:SetAttribute('macrotext', world and wm or tm)
-			button:SetAttribute('macrotext1', world and tm or wm)
-			button:SetAttribute('macrotext2', world and tm or wm)
-			button:SetAttribute('macrotext3', world and tm or wm)
+			if E.Retail and i == 0 then
+				button:SetAttribute(modifier .. 'type*', world and 'worldmarker' or 'raidtarget')
+				button:SetAttribute(modifier .. 'action*', world and 'clear' or 'clear-all')
+				button:SetAttribute('type1', world and 'raidtarget' or 'worldmarker')
+				button:SetAttribute('type2', world and 'raidtarget' or 'worldmarker')
+				button:SetAttribute('type3', world and 'raidtarget' or 'worldmarker')
+				button:SetAttribute('action', world and 'clear-all' or 'clear')
+			else
+				local wm = format(i == 0 and '%s 0' or '%s %d\n%s %d', CWM, id, WM, id)
+				button:SetAttribute(modifier .. 'type*', 'macro')
+				button:SetAttribute('macrotext', world and wm or tm)
+				button:SetAttribute('macrotext1', world and tm or wm)
+				button:SetAttribute('macrotext2', world and tm or wm)
+				button:SetAttribute('macrotext3', world and tm or wm)
+			end
 		end
 	end
 end
@@ -440,8 +455,9 @@ function RU:TargetIcons_OnEnter()
 	if E.Classic or _G.GameTooltip:IsForbidden() or not E.db.general.raidUtility.showTooltip then return end
 
 	local isTarget = E.db.general.raidUtility.modifierSwap == 'target'
+	local isClearButton = self:GetAttribute('isclearbutton')
 	_G.GameTooltip:SetOwner(self, 'ANCHOR_BOTTOM')
-	_G.GameTooltip:SetText(L["Raid Markers"])
+	_G.GameTooltip:SetText(isClearButton and L["Clear All Markers"] or L["Raid Markers"])
 	_G.GameTooltip:AddLine(' ')
 	_G.GameTooltip:AddDoubleLine(isTarget and _G.TARGET or _G.WORLD, L[E.db.general.raidUtility.modifier or "SHIFT"], 0, 1, 0, 1, 1, 1)
 	_G.GameTooltip:AddDoubleLine(isTarget and _G.WORLD or _G.TARGET, _G.NONE, 0, 1, 0, 1, 1, 1)
@@ -512,7 +528,7 @@ function RU:OnEvent_ReadyCheckButton()
 end
 
 function RU:OnClick_ReadyCheckButton()
-	if self.enabled and RU:InGroup() then
+	if self.enabled and RU:InGroup() and not RU:InLockdown() then
 		DoReadyCheck()
 	end
 end
@@ -528,13 +544,13 @@ function RU:OnClick_RoleCheckButton()
 end
 
 function RU:OnClick_RaidCountdownButton()
-	if RU:InGroup() then
+	if RU:InGroup() and not RU:InLockdown() then
 		C_PartyInfo.DoCountdown(10)
 	end
 end
 
 function RU:OnClick_RaidControlButton()
-	ToggleFriendsFrame(3)
+	ToggleFriendsFrame(not E.Retail and 3 or nil)
 end
 
 function RU:OnEvent_MainTankButton()
@@ -547,8 +563,10 @@ end
 
 function RU:OnClick_EveryoneAssist()
 	if RU:IsLeader() then
-		PlaySound(IG_MAINMENU_OPTION_CHECKBOX_ON)
-		SetEveryoneIsAssistant(self:GetChecked())
+		if not RU:InLockdown() then
+			PlaySound(IG_MAINMENU_OPTION_CHECKBOX_ON)
+			SetEveryoneIsAssistant(self:GetChecked())
+		end
 	else
 		self:SetChecked(IsEveryoneAssistant())
 	end
@@ -564,6 +582,8 @@ do
 	end
 
 	local function SetSelected(restrictEnum)
+		if RU:InLockdown() then return end
+
 		SetRestrictPings(IsSelected(restrictEnum) and RestrictPingsTo.None or restrictEnum)
 	end
 
@@ -615,6 +635,8 @@ do
 	end
 
 	local function SetSelected(isRaid)
+		if RU:InLockdown() then return end
+
 		if isRaid then
 			ConvertToRaid()
 		else

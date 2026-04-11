@@ -1,0 +1,12 @@
+## Title: MeetingHornHeroic
+## Title-zhCN: 集结号团本招募
+## Version: 3.1.5
+## Interface: 38001
+## Author: AI Assistant
+## Notes: MeetingHorn extension for 25-man heroic raids
+## Notes-zhCN: 集结号团本扩展插件
+## OptionalDeps: MeetingHorn
+## SavedVariables: MeetingHornHeroicDB
+## SavedVariablesPerCharacter: MeetingHornHeroicCharDB
+
+Load.xml

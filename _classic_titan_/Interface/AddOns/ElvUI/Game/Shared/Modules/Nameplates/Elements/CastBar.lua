@@ -4,16 +4,19 @@ local UF = E:GetModule('UnitFrames')
 local CH = E:GetModule('Chat')
 local LSM = E.Libs.LSM
 
-local abs = abs
 local next = next
 local strmatch = strmatch
 local utf8sub = string.utf8sub
 
+local UnitName = UnitName
+local UnitClass = UnitClass
 local CreateFrame = CreateFrame
 local UnitCanAttack = UnitCanAttack
-local UnitName = UnitName
-
+local UnitNameFromGUID = UnitNameFromGUID
+local UnitClassFromGUID = UnitClassFromGUID
 local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
+
+local StatusBarInterpolation = Enum.StatusBarInterpolation
 local INTERRUPTED = INTERRUPTED
 
 function NP:Castbar_CheckInterrupt(unit)
@@ -21,14 +24,15 @@ function NP:Castbar_CheckInterrupt(unit)
 		unit = 'player'
 	end
 
-	if self.notInterruptible and UnitCanAttack('player', unit) then
-		self:SetStatusBarColor(NP.db.colors.castNoInterruptColor.r, NP.db.colors.castNoInterruptColor.g, NP.db.colors.castNoInterruptColor.b)
+	local notInterruptible = E:NotSecretValue(self.notInterruptible) and self.notInterruptible
+	if notInterruptible and UnitCanAttack('player', unit) then
+		NP:SetStatusBarColor(self, NP.db.colors.castNoInterruptColor.r, NP.db.colors.castNoInterruptColor.g, NP.db.colors.castNoInterruptColor.b, NP.db.colors.castNoInterruptColor.a)
 
 		if self.Icon and NP.db.colors.castbarDesaturate then
 			self.Icon:SetDesaturated(true)
 		end
 	else
-		self:SetStatusBarColor(NP.db.colors.castColor.r, NP.db.colors.castColor.g, NP.db.colors.castColor.b)
+		NP:SetStatusBarColor(self, NP.db.colors.castColor.r, NP.db.colors.castColor.g, NP.db.colors.castColor.b, NP.db.colors.castColor.a)
 
 		if self.Icon then
 			self.Icon:SetDesaturated(false)
@@ -36,52 +40,54 @@ function NP:Castbar_CheckInterrupt(unit)
 	end
 end
 
-function NP:Castbar_CustomDelayText(duration)
-	if self.channeling then
-		if self.channelTimeFormat == 'CURRENT' then
-			self.Time:SetFormattedText('%.1f |cffaf5050%.1f|r', abs(duration - self.max), self.delay)
-		elseif self.channelTimeFormat == 'CURRENTMAX' then
-			self.Time:SetFormattedText('%.1f / %.1f |cffaf5050%.1f|r', duration, self.max, self.delay)
-		elseif self.channelTimeFormat == 'REMAINING' then
-			self.Time:SetFormattedText('%.1f |cffaf5050%.1f|r', duration, self.delay)
-		elseif self.channelTimeFormat == 'REMAININGMAX' then
-			self.Time:SetFormattedText('%.1f / %.1f |cffaf5050%.1f|r', abs(duration - self.max), self.max, self.delay)
-		end
-	else
-		if self.castTimeFormat == 'CURRENT' then
-			self.Time:SetFormattedText('%.1f |cffaf5050%s %.1f|r', duration, '+', self.delay)
-		elseif self.castTimeFormat == 'CURRENTMAX' then
-			self.Time:SetFormattedText('%.1f / %.1f |cffaf5050%s %.1f|r', duration, self.max, '+', self.delay)
-		elseif self.castTimeFormat == 'REMAINING' then
-			self.Time:SetFormattedText('%.1f |cffaf5050%s %.1f|r', abs(duration - self.max), '+', self.delay)
-		elseif self.castTimeFormat == 'REMAININGMAX' then
-			self.Time:SetFormattedText('%.1f / %.1f |cffaf5050%s %.1f|r', abs(duration - self.max), self.max, '+', self.delay)
-		end
-	end
+function NP:Castbar_CustomDelayText(duration, durationObject)
+	local remain, maximum = UF:GetCastDurations(self, duration, durationObject)
+	if not remain then return end
+
+	UF:SetCastDisplayDelay(self, (self.channeling and self.channelTimeFormat) or self.castTimeFormat, duration, maximum, remain, self.delay)
 end
 
-function NP:Castbar_CustomTimeText(duration)
-	if self.channeling then
-		if self.channelTimeFormat == 'CURRENT' then
-			self.Time:SetFormattedText('%.1f', abs(duration - self.max))
-		elseif self.channelTimeFormat == 'CURRENTMAX' then
-			self.Time:SetFormattedText('%.1f / %.1f', abs(duration - self.max), self.max)
-		elseif self.channelTimeFormat == 'REMAINING' then
-			self.Time:SetFormattedText('%.1f', duration)
-		elseif self.channelTimeFormat == 'REMAININGMAX' then
-			self.Time:SetFormattedText('%.1f / %.1f', duration, self.max)
+function NP:Castbar_CustomTimeText(duration, durationObject)
+	local remain, maximum = UF:GetCastDurations(self, duration, durationObject)
+	if not remain then return end
+
+	UF:SetCastDisplayCustom(self, (self.channeling and self.channelTimeFormat) or self.castTimeFormat, duration, maximum, remain)
+end
+
+function NP:Castbar_SetText(castbar, db, changed, spellName, unit)
+	local targetChanged
+	if db.displayTarget then
+		local plate = castbar.__owner
+		local target, frameType = castbar.targetCurrent, plate.frameType
+
+		local targetClass, _
+		if E.Retail then
+			targetClass = castbar.targetClass
+		elseif not target and (frameType == 'ENEMY_NPC' or frameType == 'FRIENDLY_NPC') then -- player or NPCs; if used on other players:
+			target = UnitName(unit..'target') -- the cast target doesn't match their target, can be misleading if they mouseover cast
+			_, targetClass = UnitClass(unit..'target')
 		end
-	else
-		if self.castTimeFormat == 'CURRENT' then
-			self.Time:SetFormattedText('%.1f', duration)
-		elseif self.castTimeFormat == 'CURRENTMAX' then
-			self.Time:SetFormattedText('%.1f / %.1f', duration, self.max)
-		elseif self.castTimeFormat == 'REMAINING' then
-			self.Time:SetFormattedText('%.1f', abs(duration - self.max))
-		elseif self.castTimeFormat == 'REMAININGMAX' then
-			self.Time:SetFormattedText('%.1f / %.1f', abs(duration - self.max), self.max)
+
+		if target then
+			local color = (db.displayTargetClass and UF:GetCasterColor(targetClass)) or 'FFdddddd'
+			if db.targetStyle == 'SEPARATE' then
+				castbar.TargetText:SetFormattedText('|c%s%s|r', color, target)
+				targetChanged = true
+
+				if changed then
+					castbar.Text:SetText(spellName)
+				end
+			else
+				castbar.Text:SetFormattedText('%s: |c%s%s|r', spellName, color, target)
+			end
+		elseif changed then -- always true when secret
+			castbar.Text:SetText(spellName)
 		end
+	elseif changed then
+		castbar.Text:SetText(spellName)
 	end
+
+	return targetChanged
 end
 
 function NP:Castbar_PostCastStart(unit)
@@ -91,36 +97,17 @@ function NP:Castbar_PostCastStart(unit)
 	local plate = self.__owner
 	local db = NP:PlateDB(plate)
 	if db.castbar and db.castbar.enable and not db.castbar.hideSpellName then
-		local spellRename = db.castbar.spellRename and E:GetSpellRename(self.spellID)
-		local spellName = spellRename or self.spellName
-		local length = db.castbar.nameLength
-		local name = (length and length > 0 and utf8sub(spellName, 1, length)) or spellName
-		local textChanged = spellRename or (name ~= spellName)
+		local spellName = self.spellName
+		if E:IsSecretValue(self.spellID) then
+			targetChanged = NP:Castbar_SetText(self, db.castbar, true, spellName, unit)
+		else
+			local length = db.castbar.nameLength
+			local name = (length and length > 0 and utf8sub(spellName, 1, length)) or spellName
 
-		if db.castbar.displayTarget then
-			local target, frameType = self.curTarget, plate.frameType
-			if not target and (frameType == 'ENEMY_NPC' or frameType == 'FRIENDLY_NPC') then
-				target = UnitName(unit..'target') -- player or NPCs; if used on other players:
-			end -- the cast target doesn't match their target, can be misleading if they mouseover cast
-
-			if target and target ~= '' and target ~= plate.unitName then
-				local color = (db.castbar.displayTargetClass and UF:GetCasterColor(target)) or 'FFdddddd'
-				if db.castbar.targetStyle == 'SEPARATE' then
-					self.TargetText:SetFormattedText('|c%s%s|r', color, target)
-					targetChanged = true
-
-					if textChanged then
-						self.Text:SetText(name)
-					end
-				else
-					self.Text:SetFormattedText('%s: |c%s%s|r', name, color, target)
-				end
-			elseif textChanged then
-				self.Text:SetText(name)
-			end
-		elseif textChanged then
-			self.Text:SetText(name)
+			targetChanged = NP:Castbar_SetText(self, db.castbar, name ~= spellName, spellName, unit)
 		end
+	else
+		self.Text:SetText('')
 	end
 
 	if not targetChanged then
@@ -129,11 +116,32 @@ function NP:Castbar_PostCastStart(unit)
 end
 
 function NP:Castbar_PostCastFail()
-	self:SetStatusBarColor(NP.db.colors.castInterruptedColor.r, NP.db.colors.castInterruptedColor.g, NP.db.colors.castInterruptedColor.b)
+	NP:SetStatusBarColor(self, NP.db.colors.castInterruptedColor.r, NP.db.colors.castInterruptedColor.g, NP.db.colors.castInterruptedColor.b, NP.db.colors.castInterruptedColor.a)
 end
 
 function NP:Castbar_PostCastInterruptible(unit)
 	self:CheckInterrupt(unit)
+end
+
+function NP:Castbar_PostCastInterrupted(unit, spellID, interruptedBy)
+	NP:SetStatusBarColor(self, NP.db.colors.castInterruptedColor.r, NP.db.colors.castInterruptedColor.g, NP.db.colors.castInterruptedColor.b, NP.db.colors.castInterruptedColor.a)
+
+	if not interruptedBy then return end
+
+	local plate = self.__owner
+	local db = NP:PlateDB(plate)
+	if db.castbar and db.castbar.enable and db.castbar.sourceInterrupt and (db.castbar.timeToHold > 0) then
+		local unitName = UnitNameFromGUID(interruptedBy)
+		if not unitName then return end
+
+		if db.castbar.sourceInterruptClassColor then
+			local className = UnitClassFromGUID(interruptedBy)
+			local color = UF:GetCasterColor(className)
+			self.Text:SetFormattedText('%s [|c%s%s|r]', INTERRUPTED, color or 'FFdddddd', unitName)
+		else
+			self.Text:SetFormattedText('%s [%s]', INTERRUPTED, unitName)
+		end
+	end
 end
 
 function NP:Castbar_PostCastStop() end
@@ -145,13 +153,11 @@ function NP:BuildPip(stage)
 end
 
 function NP:Construct_Castbar(nameplate)
-	local castbar = CreateFrame('StatusBar', '$parentCastbar', nameplate)
-	castbar:SetFrameStrata(nameplate:GetFrameStrata())
-	castbar:SetFrameLevel(5)
-	castbar:CreateBackdrop('Transparent', nil, nil, nil, nil, true)
-	castbar:SetStatusBarTexture(LSM:Fetch('statusbar', NP.db.statusbar))
+	local castbarTexture = LSM:Fetch('statusbar', NP.db.statusbar)
 
-	NP:Construct_FlashTexture(nameplate, castbar)
+	local castbar = CreateFrame('StatusBar', '$parentCastbar', nameplate)
+	castbar:CreateBackdrop('Transparent', nil, nil, nil, nil, true)
+	castbar:SetStatusBarTexture(castbarTexture)
 
 	NP.StatusBars[castbar] = 'castbar'
 	castbar.ModuleStatusBars = NP.StatusBars -- not oUF
@@ -178,12 +184,17 @@ function NP:Construct_Castbar(nameplate)
 	castbar.TargetText:FontTemplate(LSM:Fetch('font', NP.db.font), NP.db.fontSize, NP.db.fontOutline)
 	castbar.TargetText:SetJustifyH('LEFT')
 
+	castbar.Shield = castbar:CreateTexture(nil, 'OVERLAY', nil, 2)
+	castbar.Shield:SetTexture(castbarTexture)
+	castbar.Shield:SetAlpha(0) -- disable is so its hidden on classic
+
 	castbar.CheckInterrupt = NP.Castbar_CheckInterrupt
 	castbar.CustomDelayText = NP.Castbar_CustomDelayText
 	castbar.CustomTimeText = NP.Castbar_CustomTimeText
 	castbar.PostCastStart = NP.Castbar_PostCastStart
 	castbar.PostCastFail = NP.Castbar_PostCastFail
 	castbar.PostCastInterruptible = NP.Castbar_PostCastInterruptible
+	castbar.PostCastInterrupted = NP.Castbar_PostCastInterrupted
 	castbar.PostCastStop = NP.Castbar_PostCastStop
 	castbar.UpdatePipStep = UF.UpdatePipStep
 	castbar.PostUpdatePip = UF.PostUpdatePip
@@ -196,7 +207,7 @@ function NP:Construct_Castbar(nameplate)
 		castbar.TargetText:SetText(E.myname)
 		castbar.Time:SetText('3.1')
 		castbar.Icon:SetTexture([[Interface\Icons\Achievement_Character_Pandaren_Female]])
-		castbar:SetStatusBarColor(NP.db.colors.castColor.r, NP.db.colors.castColor.g, NP.db.colors.castColor.b)
+		NP:SetStatusBarColor(castbar, NP.db.colors.castColor.r, NP.db.colors.castColor.g, NP.db.colors.castColor.b, NP.db.colors.castColor.a)
 	end
 
 	return castbar
@@ -244,11 +255,16 @@ function NP:Update_Castbar(nameplate)
 		castbar.channelTimeFormat = db.channelTimeFormat
 		castbar.pipColor = NP.db.colors.empoweredCast
 
+		castbar:SetFrameLevel(5)
 		castbar:ClearAllPoints()
 		castbar:Point(E.InversePoints[db.anchorPoint], nameplate, db.anchorPoint, db.xOffset, db.yOffset)
 		castbar:Size(db.width, db.height)
 
-		E:SetSmoothing(castbar, db.smoothbars)
+		if E.Retail then
+			castbar.smoothing = (db.smoothbars and StatusBarInterpolation.ExponentialEaseOut) or StatusBarInterpolation.Immediate or nil
+		else
+			E:SetSmoothing(castbar, db.smoothbars)
+		end
 
 		for stage, pip in next, castbar.Pips do
 			UF:CastBar_UpdatePip(castbar, pip, stage)
@@ -285,6 +301,18 @@ function NP:Update_Castbar(nameplate)
 		else
 			castbar.Time:Point('RIGHT', castbar, 'RIGHT', db.timeXOffset, db.timeYOffset)
 			castbar.Text:Point('LEFT', castbar, 'LEFT', db.textXOffset, db.textYOffset)
+		end
+
+		local barTexture = castbar:GetStatusBarTexture()
+		castbar.Shield:ClearAllPoints()
+		castbar.Shield:Point('RIGHT', barTexture)
+		castbar.Shield:Point('LEFT')
+		castbar.Shield:Point('BOTTOM')
+		castbar.Shield:Point('TOP')
+
+		if E.Retail then
+			castbar.Shield:SetVertexColor(NP.db.colors.castNoInterruptColor.r, NP.db.colors.castNoInterruptColor.g, NP.db.colors.castNoInterruptColor.b, NP.db.colors.castNoInterruptColor.a)
+			castbar.Shield.alphaValue = NP.db.colors.castNoInterruptColor.a
 		end
 
 		if db.hideTime then

@@ -287,9 +287,17 @@ PallyPower.AuraIcons = PallyPower.isWrath and {
 
 -- XML Aliases
 do
-	local version = string.trim(GetAddOnMetadata("PallyPower", "Version"))
+	local getAddOnMetadata = GetAddOnMetadata
+	if not getAddOnMetadata and C_AddOns and C_AddOns.GetAddOnMetadata then
+		getAddOnMetadata = C_AddOns.GetAddOnMetadata
+	end
+
+	local version = getAddOnMetadata and getAddOnMetadata("PallyPower", "Version") or ""
+	version = version and string.trim(version) or ""
 	if version == ("@project-".."version@") then -- split string so it doesn't get replaced by packager
 		version = "Development version"
+	elseif version == "" then
+		version = "Unknown version"
 	end
 	PALLYPOWER_NAME = "  " .. L["PallyPower Classic"] .. " (" .. version .. ")"
 end

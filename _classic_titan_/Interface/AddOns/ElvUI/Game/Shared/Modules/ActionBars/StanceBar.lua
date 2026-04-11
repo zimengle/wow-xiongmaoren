@@ -19,6 +19,7 @@ local NUM_STANCE_SLOTS = NUM_STANCE_SLOTS or 10
 local Masque = E.Masque
 local MasqueGroup = Masque and Masque:Group('ElvUI', 'Stance Bar')
 local WispSplode = [[Interface\Icons\Spell_Nature_WispSplode]]
+
 local bar = CreateFrame('Frame', 'ElvUI_StanceBar', E.UIParent, 'SecureHandlerStateTemplate')
 bar.MasqueGroup = MasqueGroup
 bar.buttons = {}
@@ -31,7 +32,8 @@ function AB:UPDATE_SHAPESHIFT_COOLDOWN()
 			local start, duration, active = GetShapeshiftFormCooldown(i)
 			if (active and active ~= 0) and start > 0 and duration > 0 then
 				cooldown:SetCooldown(start, duration)
-				cooldown:SetDrawBling(cooldown:GetEffectiveAlpha() > 0.5) --Cooldown Bling Fix
+
+				E:CooldownBling(cooldown, cooldown:GetEffectiveAlpha())
 			else
 				cooldown:Clear()
 			end
@@ -63,7 +65,7 @@ function AB:StyleShapeShift()
 				button.cooldown:SetAlpha(texture and 1 or 0)
 
 				if isActive then
-					if not (E.Retail or E.TBC) then
+					if not (E.Retail or E.TBC or E.Wrath) then
 						_G.StanceBarFrame.lastSelected = button:GetID()
 					end
 
@@ -194,14 +196,16 @@ function AB:AdjustMaxStanceButtons(event)
 		button:Hide()
 	end
 
+	local barName = bar:GetName()
 	local numButtons = GetNumShapeshiftForms()
 	for i = 1, NUM_STANCE_SLOTS do
 		local button = bar.buttons[i]
 		if not button then
-			button = CreateFrame('CheckButton', format(bar:GetName()..'Button%d', i), bar, 'StanceButtonTemplate')
+			button = CreateFrame('CheckButton', format(barName..'Button%d', i), bar, 'StanceButtonTemplate')
 			button:SetID(i)
 
 			button.parentName = 'ElvUI_StanceBar'
+			button.cooldown:SetAllPoints(button.icon)
 
 			AB:HookScript(button, 'OnEnter', 'Button_OnEnter')
 			AB:HookScript(button, 'OnLeave', 'Button_OnLeave')
@@ -234,6 +238,7 @@ function AB:UpdateStanceBindings()
 		if not button then break end
 
 		button.HotKey:SetText(GetBindingKey('SHAPESHIFTBUTTON'..i))
+
 		AB:FixKeybindText(button)
 		AB:FixKeybindColor(button)
 	end

@@ -6,6 +6,8 @@ local select, tonumber, type, unpack, strmatch = select, tonumber, type, unpack,
 local format, strsub, strupper, strlen, gsub, gmatch = format, strsub, strupper, strlen, gsub, gmatch
 local tostring, pairs, utf8sub, utf8len = tostring, pairs, string.utf8sub, string.utf8len
 
+local CreateAbbreviateConfig = CreateAbbreviateConfig
+local AbbreviateNumbers = AbbreviateNumbers
 local BreakUpLargeNumbers = BreakUpLargeNumbers
 local GetPlayerFacing = GetPlayerFacing
 local UnitPosition = UnitPosition
@@ -14,11 +16,11 @@ local C_Timer_After = C_Timer.After
 
 E.ShortPrefixValues = {}
 E.ShortPrefixStyles = {
-	TCHINESE = {{1e8,'億'}, {1e4,'萬'}},
-	CHINESE = {{1e8,'亿'}, {1e4,'万'}},
+	CHINESE = {{1e12,'兆'}, {1e8,'亿'}, {1e4,'万'}},
+	TCHINESE = {{1e12,'兆'}, {1e8,'億'}, {1e4,'萬'}},
+	KOREAN = {{1e12,'조'}, {1e8,'억'}, {1e4,'만'}},
 	ENGLISH = {{1e12,'T'}, {1e9,'B'}, {1e6,'M'}, {1e3,'K'}},
 	GERMAN = {{1e12,'Bio'}, {1e9,'Mrd'}, {1e6,'Mio'}, {1e3,'Tsd'}},
-	KOREAN = {{1e8,'억'}, {1e4,'만'}, {1e3,'천'}},
 	METRIC = {{1e12,'T'}, {1e9,'G'}, {1e6,'M'}, {1e3,'k'}}
 }
 
@@ -30,6 +32,87 @@ E.GetFormattedTextStyles = {
 	PERCENT = '%.1f%%',
 	DEFICIT = '-%s',
 }
+
+do -- Thanks ls-
+	local asianUnits = {
+		CHINESE = E.ShortPrefixStyles.CHINESE,
+		TCHINESE = E.ShortPrefixStyles.TCHINESE,
+		KOREAN = E.ShortPrefixStyles.KOREAN,
+	}
+
+	local westernUnits = {
+		ENGLISH = E.ShortPrefixStyles.ENGLISH,
+		GERMAN = E.ShortPrefixStyles.GERMAN,
+		METRIC = E.ShortPrefixStyles.METRIC
+	}
+
+	local westernDivisors = {
+		[0] = {1e12, 1e9, 1e6, 1e3},
+		{1e11, 1e8, 1e5, 1e2},
+		{1e10, 1e7, 1e4, 1e1},
+		{1e9, 1e6, 1e3, 1e0},
+	}
+
+	local asianDivisors = {
+		1e11, 1e7, 1e3
+	}
+
+	local short = { breakpoints = {} }
+	local long = { long = true }
+
+	E.Abbreviate.short = short
+	E.Abbreviate.long = long
+
+	function E:BuildAbbreviateConfigs()
+		if not E.Retail then return end
+
+		local style = E.db.general.numberPrefixStyle
+		local asian = asianUnits[style]
+		local units = asian or westernUnits[style or 'ENGLISH']
+
+		long.isAsian = asian
+		short.isAsian = asian
+
+		local decimal = E.db.general.decimalLength or 1
+		if decimal > 3 then decimal = 3 end
+
+		local signi = (asian and asianDivisors) or westernDivisors[decimal]
+		local factor = (asian and 10) or (10 ^ decimal)
+
+		for i = 1, (asian and 3) or 4 do
+			local unit = units[i]
+
+			short.breakpoints[i] = {
+				breakpoint = unit[1],
+				abbreviation = unit[2],
+				significandDivisor = signi[i],
+				fractionDivisor = factor,
+				abbreviationIsGlobal = false
+			}
+		end
+
+		if CreateAbbreviateConfig then
+			short.config = CreateAbbreviateConfig(short.breakpoints)
+
+			wipe(short.breakpoints)
+		end
+    end
+
+	function E:AbbreviateNumbers(value, data)
+		if type(value) == 'string' then
+			return value -- we cant continue with strings
+		end
+
+		if data and data.isAsian then
+			return (data.long and value) or AbbreviateNumbers(value, data)
+		else
+			local str = (data and not data.long and AbbreviateNumbers(value, data)) or value
+
+			local num = tonumber(str)
+			return num and BreakUpLargeNumbers(num) or str
+		end
+	end
+end
 
 function E:BuildPrefixValues()
 	if next(E.ShortPrefixValues) then wipe(E.ShortPrefixValues) end
@@ -71,22 +154,6 @@ function E:IsEvenNumber(num)
 	return num % 2 == 0
 end
 
--- https://warcraft.wiki.gg/wiki/ColorGradient
-function E:ColorGradient(perc, ...)
-	local value = select('#', ...)
-	if perc >= 1 then
-		return select(value - 2, ...)
-	elseif perc <= 0 then
-		return ...
-	end
-
-	local num = value / 3
-	local segment, relperc = modf(perc*(num-1))
-	local r1, g1, b1, r2, g2, b2 = select((segment*3)+1, ...)
-
-	return r1+(r2-r1)*relperc, g1+(g2-g1)*relperc, b1+(b2-b1)*relperc
-end
-
 -- Text Gradient by Simpy
 function E:TextGradient(text, ...)
 	local msg, total = '', utf8len(text)
@@ -122,6 +189,20 @@ function E:HexsToRGBs(rgb, ...)
 	end
 
 	return unpack(rgb)
+end
+
+-- clamp a number
+function E:Clamp(value, minimum, maximum)
+	if not minimum then minimum = 0 end
+	if not maximum then maximum = 1 end
+
+	if value > maximum then
+		return maximum
+	elseif value < minimum then
+		return minimum
+	end
+
+	return value
 end
 
 --Return rounded number
@@ -323,58 +404,6 @@ end
 
 function E:StringTitle(str)
 	return gsub(str, '(.)', strupper, 1)
-end
-
-E.TimeColors = {} -- 0:days 1:hours 2:minutes 3:seconds 4:expire 5:mmss 6:hhmm 7:modRate 8:targetAura 9:expiringAura 10-14:targetAura
-E.TimeIndicatorColors = {} -- same color indexes
-E.TimeThreshold = 3
-
-for i = 0, 14 do
-	E.TimeColors[i] = {r = 1, g = 1, b = 1}
-	E.TimeIndicatorColors[i] = '|cFFffffff'
-end
-
-E.TimeFormats = { -- short / indicator color
-	-- special options (3, 4): rounding
-	[0] = {'%dd', '%d%sd|r', '%.0fd', '%.0f%sd|r'},
-	[1] = {'%dh', '%d%sh|r', '%.0fh', '%.0f%sh|r'},
-	[2] = {'%dm', '%d%sm|r', '%.0fm', '%.0f%sm|r'},
-	-- special options (3, 4): show seconds
-	[3] = {'%d', '%d', '%ds', '%d%ss|r'},
-	[4] = {'%.1f', '%.1f', '%.1fs', '%.1f%ss|r'},
-
-	[5] = {'%d:%02d', '%d%s:|r%02d'}, -- mmss
-}
-
-E.TimeFormats[6] = E:CopyTable({}, E.TimeFormats[5]) -- hhmm
-E.TimeFormats[7] = E:CopyTable({}, E.TimeFormats[3]) -- modRate
-
-do
-	local YEAR, DAY, HOUR, MINUTE = 31557600, 86400, 3600, 60
-	function E:GetTimeInfo(sec, threshold, hhmm, mmss, modRate)
-		if sec < MINUTE then
-			if modRate then
-				return sec, 7, 0.5 / modRate
-			elseif sec > threshold then
-				return sec, 3, 0.5
-			else
-				return sec, 4, 0.1
-			end
-		elseif mmss and sec < mmss then
-			return sec / MINUTE, 5, 1, mod(sec, MINUTE)
-		elseif hhmm and sec < (hhmm * MINUTE) then
-			return sec / HOUR, 6, 30, mod(sec, HOUR) / MINUTE
-		elseif sec < HOUR then
-			local mins = mod(sec, HOUR) / MINUTE
-			return mins, 2, mins > 2 and 30 or 1
-		elseif sec < DAY then
-			local hrs = mod(sec, DAY) / HOUR
-			return hrs, 1, hrs > 1 and 60 or 30
-		else
-			local days = mod(sec, YEAR) / DAY
-			return days, 0, days > 1 and 120 or 60
-		end
-	end
 end
 
 function E:GetDistance(unit1, unit2)

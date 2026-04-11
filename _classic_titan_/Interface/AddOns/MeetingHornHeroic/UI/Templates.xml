@@ -1,0 +1,139 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+    
+    <!-- 活动列表项模板 -->
+    <Button name="HeroicActivityItemTemplate" inherits="UIPanelButtonTemplate" virtual="true">
+        <Size x="600" y="60"/>
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture name="$parentBackground" setAllPoints="true">
+                    <Color r="0.1" g="0.1" b="0.1" a="0.8"/>
+                </Texture>
+            </Layer>
+            <Layer level="ARTWORK">
+                <!-- BOSS头像 -->
+                <Texture name="$parentBossImage">
+                    <Size x="64" y="32"/>
+                    <Anchors>
+                        <Anchor point="LEFT" x="8" y="0"/>
+                    </Anchors>
+                </Texture>
+                
+                <!-- 团本名称 -->
+                <FontString name="$parentRaidName" inherits="GameFontNormalLarge" justifyH="LEFT">
+                    <Size x="150" y="20"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeKey="$parentBossImage" relativePoint="TOPRIGHT" x="8" y="6"/>
+                    </Anchors>
+                </FontString>
+                
+                <!-- 活动模式 -->
+                <FontString name="$parentMode" inherits="GameFontNormal" justifyH="LEFT">
+                    <Size x="80" y="16"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeKey="$parentRaidName" relativePoint="TOPRIGHT" x="10" y="0"/>
+                    </Anchors>
+                    <Color r="1" g="0.8" b="0"/>
+                </FontString>
+                
+                <!-- 队长名称 -->
+                <FontString name="$parentLeader" inherits="GameFontNormal" justifyH="LEFT">
+                    <Size x="100" y="16"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeKey="$parentBossImage" relativePoint="TOPRIGHT" x="8" y="-10"/>
+                    </Anchors>
+                    <Color r="0.5" g="1" b="0.5"/>
+                </FontString>
+                
+                <!-- 活动说明 -->
+                <FontString name="$parentComment" inherits="GameFontNormalSmall" justifyH="LEFT">
+                    <Size x="300" y="16"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeKey="$parentBossImage" relativePoint="TOPRIGHT" x="8" y="-26"/>
+                    </Anchors>
+                </FontString>
+                
+                <!-- 时间信息 -->
+                <FontString name="$parentTime" inherits="GameFontNormalSmall" justifyH="RIGHT">
+                    <Size x="100" y="16"/>
+                    <Anchors>
+                        <Anchor point="TOPRIGHT" x="-10" y="6"/>
+                    </Anchors>
+                    <Color r="0.7" g="0.7" b="0.7"/>
+                </FontString>
+                
+                <!-- 成员信息 -->
+                <FontString name="$parentMembers" inherits="GameFontNormalSmall" justifyH="RIGHT">
+                    <Size x="100" y="16"/>
+                    <Anchors>
+                        <Anchor point="TOPRIGHT" x="-10" y="-10"/>
+                    </Anchors>
+                    <Color r="0.8" g="0.8" b="1"/>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Scripts>
+            <OnEnter>
+                GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+                if self.activity then
+                    local activity = self.activity
+                    local raidData = activity:GetRaidData()
+                    local modeData = activity:GetModeData()
+                    
+                    GameTooltip:SetText(raidData.name, 1, 1, 1)
+                    GameTooltip:AddLine("模式: " .. modeData.name, 1, 0.8, 0)
+                    GameTooltip:AddLine("团长: " .. activity.leaderName, 0.5, 1, 0.5)
+                    GameTooltip:AddLine("说明: " .. activity.comment, 1, 1, 1, true)
+                    GameTooltip:AddLine(" ")
+                    
+                    -- 显示需求职业信息
+                    local tankNeed = activity:GetNeededRoleCount("tank")
+                    local healerNeed = activity:GetNeededRoleCount("healer")
+                    local dpsNeed = activity:GetNeededRoleCount("dps")
+                    
+                    if tankNeed &gt; 0 then
+                        GameTooltip:AddLine("需要坦克: " .. tankNeed, 1, 0.2, 0.2)
+                    end
+                    if healerNeed &gt; 0 then
+                        GameTooltip:AddLine("需要治疗: " .. healerNeed, 0.2, 1, 0.2)
+                    end
+                    if dpsNeed &gt; 0 then
+                        GameTooltip:AddLine("需要DPS: " .. dpsNeed, 1, 1, 0.2)
+                    end
+                    
+                    GameTooltip:AddLine(" ")
+                    GameTooltip:AddLine("左键加入活动", 0.5, 0.5, 1)
+                    GameTooltip:AddLine("右键更多选项", 0.5, 0.5, 1)
+                end
+                GameTooltip:Show()
+            </OnEnter>
+            <OnLeave>
+                GameTooltip:Hide()
+            </OnLeave>
+        </Scripts>
+    </Button>
+    
+    <!-- 下拉菜单模板 -->
+    <Frame name="HeroicDropDownMenuTemplate" inherits="UIDropDownMenuTemplate" virtual="true"/>
+    
+    <!-- 编辑框模板 -->
+    <EditBox name="HeroicEditBoxTemplate" inherits="InputBoxTemplate" virtual="true">
+        <Size x="200" y="20"/>
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture setAllPoints="true">
+                    <Color r="0" g="0" b="0" a="0.5"/>
+                </Texture>
+            </Layer>
+        </Layers>
+    </EditBox>
+    
+    <!-- 滚动框架模板 -->
+    <ScrollFrame name="HeroicScrollFrameTemplate" inherits="UIPanelScrollFrameTemplate" virtual="true">
+        <ScrollChild>
+            <Frame name="$parentScrollChild">
+                <Size x="1" y="1"/>
+            </Frame>
+        </ScrollChild>
+    </ScrollFrame>
+    
+</Ui>

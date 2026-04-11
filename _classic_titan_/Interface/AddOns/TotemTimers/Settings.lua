@@ -764,7 +764,7 @@ SettingsFunctions.ReverseBarBindings = SettingsFunctions.BarBindings
         TotemTimers.EarthShieldTracker.actionBar:SetDirection(value, TotemTimers.ActiveProfile.TrackerArrange)
     end
 
-if WOW_PROJECT_ID > WOW_PROJECT_CLASSIC then
+if WOW_PROJECT_ID > WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
     SettingsFunctions.HideBlizzTimers = function(value)
         if value then
             TotemFrame:UnregisterEvent("PLAYER_TOTEM_UPDATE")
@@ -921,7 +921,7 @@ if WOW_PROJECT_ID > WOW_PROJECT_CLASSIC or C_Seasons.GetActiveSeason() == 2 then
         end
     end
 
-    if LE_EXPANSION_LEVEL_CURRENT > LE_EXPANSION_BURNING_CRUSADE then
+    if LE_EXPANSION_LEVEL_CURRENT > LE_EXPANSION_BURNING_CRUSADE and LE_EXPANSION_LEVEL_CURRENT < LE_EXPANSION_MISTS_OF_PANDARIA then
         SettingsFunctions.MultiCast = function(value)
             TotemTimers.MultiSpellActivate()
         end

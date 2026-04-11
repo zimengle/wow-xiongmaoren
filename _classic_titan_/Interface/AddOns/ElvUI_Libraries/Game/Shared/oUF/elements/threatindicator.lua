@@ -30,11 +30,6 @@ A default texture will be applied if the widget is a Texture and doesn't have a 
 
 local _, ns = ...
 local oUF = ns.oUF
-local Private = oUF.Private
-
-local unitExists = Private.unitExists
-
-local UnitThreatSituation = UnitThreatSituation
 
 local function Update(self, event, unit)
 	if(unit ~= self.unit) then return end
@@ -48,26 +43,16 @@ local function Update(self, event, unit)
 	--]]
 	if(element.PreUpdate) then element:PreUpdate(unit) end
 
-	local feedbackUnit = element.feedbackUnit
-	unit = unit or self.unit
+	if not unit then unit = self.unit end
 
-	local status
-	-- BUG: Non-existent '*target' or '*pet' units cause UnitThreatSituation() errors
-	if(unitExists(unit)) then
-		if(feedbackUnit and feedbackUnit ~= unit and unitExists(feedbackUnit)) then
-			status = UnitThreatSituation(feedbackUnit, unit)
-		else
-			status = UnitThreatSituation(unit)
-		end
-	end
+	local status = oUF:GetThreatSituation(unit, element.feedbackUnit)
 
-	local r, g, b
+	local color
 	if(status and status > 0) then
-		local color = self.colors.threat[status]
-		r, g, b = color.r, color.g, color.b
+		color = self.colors.threat[status]
 
-		if(element.SetVertexColor) then
-			element:SetVertexColor(r, g, b)
+		if(element.SetVertexColor and color) then
+			element:SetVertexColor(color:GetRGB())
 		end
 
 		element:Show()
@@ -75,18 +60,16 @@ local function Update(self, event, unit)
 		element:Hide()
 	end
 
-	--[[ Callback: ThreatIndicator:PostUpdate(unit, status, r, g, b)
+	--[[ Callback: ThreatIndicator:PostUpdate(unit, status, color)
 	Called after the element has been updated.
 
 	* self   - the ThreatIndicator element
 	* unit   - the unit for which the update has been triggered (string)
 	* status - the unit's threat status (see [UnitThreatSituation](https://warcraft.wiki.gg/wiki/API_UnitThreatSituation))
-	* r      - the red color component based on the unit's threat status (number?)[0-1]
-	* g      - the green color component based on the unit's threat status (number?)[0-1]
-	* b      - the blue color component based on the unit's threat status (number?)[0-1]
+	* color  - the used ColorMixin-based object (table?)
 	--]]
 	if(element.PostUpdate) then
-		return element:PostUpdate(unit, status, r, g, b)
+		return element:PostUpdate(unit, status, color)
 	end
 end
 

@@ -7,7 +7,6 @@ local floor = floor
 local tostring, pcall = tostring, pcall
 local unpack, strupper = unpack, strupper
 local format, strsub, gsub = format, strsub, gsub
-local issecretvalue = issecretvalue
 
 local CloseAllWindows = CloseAllWindows
 local CreateFrame = CreateFrame
@@ -24,8 +23,8 @@ local RemoveExtraSpaces = RemoveExtraSpaces
 local Screenshot = Screenshot
 local UIParent = UIParent
 local UnitCastingInfo = UnitCastingInfo
-local UnitIsAFK = UnitIsAFK
 
+local GetMobileEmbeddedTexture = (ChatFrameUtil and ChatFrameUtil.GetMobileEmbeddedTexture) or ChatFrame_GetMobileEmbeddedTexture
 local GetChatCategory = (ChatFrameUtil and ChatFrameUtil.GetChatCategory) or Chat_GetChatCategory
 local C_PetBattles_IsInBattle = C_PetBattles and C_PetBattles.IsInBattle
 
@@ -168,7 +167,7 @@ function AFK:OnEvent(event, arg1)
 		return -- Don't activate afk if player is crafting stuff, check back in 30 seconds
 	end
 
-	AFK:SetAFK(UnitIsAFK('player') and not ((E.Retail or E.Mists) and C_PetBattles_IsInBattle()))
+	AFK:SetAFK(E:UnitIsAFK('player') and not ((E.Retail or E.Mists) and C_PetBattles_IsInBattle()))
 end
 
 function AFK:Chat_OnMouseWheel(delta)
@@ -207,7 +206,7 @@ function AFK:Chat_OnEvent(event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8,
 	if chatGroup == 'BN_CONVERSATION' then
 		chatTarget = tostring(arg8)
 	elseif chatGroup == 'WHISPER' or chatGroup == 'BN_WHISPER' then
-		chatTarget = (not issecretvalue or not issecretvalue(arg2)) and strsub(arg2, 1, 2) ~= '|K' and strupper(arg2) or arg2
+		chatTarget = (E:NotSecretValue(arg2) and strsub(arg2, 1, 2) ~= '|K') and strupper(arg2) or arg2
 	end
 
 	local playerLink
@@ -224,7 +223,7 @@ function AFK:Chat_OnEvent(event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8,
 		arg1 = RemoveExtraSpaces(arg1) -- Remove groups of many spaces
 	end
 
-	local isMobile = arg14 and _G.ChatFrame_GetMobileEmbeddedTexture(info.r, info.g, info.b)
+	local isMobile = arg14 and GetMobileEmbeddedTexture(info.r, info.g, info.b)
 	local message = format('%s%s', isMobile or '', arg1)
 
 	local coloredName = (infoType == 'BN_WHISPER' and CH:GetBNFriendColor(arg2, arg13)) or CH:GetColoredName(event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14)

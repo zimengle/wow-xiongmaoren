@@ -892,6 +892,7 @@ function BG.DuiZhangSet(num)
 
     -- 设置打钩/叉叉材质
     BG.After(0, function()
+        local errorItems = {}
         for b = 1, Maxb[FB] + 1 do
             for i = 1, BG.GetMaxi(FB, b) do
                 local zhuangbei = BG.DuiZhangFrame[FB]["boss" .. b]["zhuangbei" .. i]
@@ -913,6 +914,18 @@ function BG.DuiZhangSet(num)
                     elseif (tonumber(mj) or tonumber(oj)) and tonumber(mj) ~= tonumber(oj) then
                         tx:SetTexture("interface/raidframe/readycheck-notready")
                         BG.DuiZhangFrameDs[FB .. 3]["boss" .. b]["ds" .. i]:Show()
+                        if b <= Maxb[FB] - 1 then
+                            local itemID = GetItemID(zhuangbei:GetText())
+                            if itemID then
+                                tinsert(errorItems, {
+                                    itemID = itemID,
+                                    b = b,
+                                    i = i,
+                                    my = tonumber(mj) or 0,
+                                    other = tonumber(oj) or 0,
+                                })
+                            end
+                        end
                     else
                         tx:SetTexture(nil)
                         BG.DuiZhangFrameDs[FB .. 3]["boss" .. b]["ds" .. i]:Hide()
@@ -920,9 +933,34 @@ function BG.DuiZhangSet(num)
                 end
             end
         end
+        if next(errorItems) then
+            local sameItem = {}
+            for i, v in ipairs(errorItems) do
+                sameItem[v.itemID] = sameItem[v.itemID] or { gz = {}, my = 0, other = 0, }
+                tinsert(sameItem[v.itemID].gz, { b = v.b, i = v.i })
+                sameItem[v.itemID].my = sameItem[v.itemID].my + v.my
+                sameItem[v.itemID].other = sameItem[v.itemID].other + v.other
+            end
+            for itemID, v in pairs(sameItem) do
+                if v.my == v.other then
+                    for _, vv in ipairs(v.gz) do
+                        local b = vv.b
+                        local i = vv.i
+                        local tx = BG.DuiZhangFrame[FB]["boss" .. b]["yes" .. i]
+                        tx:SetTexture("interface/raidframe/readycheck-ready")
+                        BG.DuiZhangFrameDs[FB .. 3]["boss" .. b]["ds" .. i]:Hide()
+
+                        BG.DuiZhangFrame[FB]["boss" .. b]["zhuangbei" .. i].sameItem = v.gz
+                        BG.DuiZhangFrame[FB]["boss" .. b]["myjine" .. i].sameItem = v.gz
+                        BG.DuiZhangFrame[FB]["boss" .. b]["otherjine" .. i].sameItem = v.gz
+                    end
+                end
+            end
+        end
+
 
         -- 打包交易的进行合并对账
-        if BiaoGe.duizhang[num].tradeTbl then
+        --[[         if BiaoGe.duizhang[num].tradeTbl then
             BG.After(0, function()
                 for b = 1, Maxb[FB] do
                     for i = 1, BG.GetMaxi(FB, b) do
@@ -950,7 +988,7 @@ function BG.DuiZhangSet(num)
                     end
                 end
             end)
-        end
+        end ]]
     end)
 end
 
@@ -960,12 +998,16 @@ function BG.DuiZhang0()
     for b = 1, Maxb[FB] + 1 do
         for i = 1, BG.GetMaxi(FB, b) do
             local zhuangbei = BG.DuiZhangFrame[FB]["boss" .. b]["zhuangbei" .. i]
+            local myjine = BG.DuiZhangFrame[FB]["boss" .. b]["myjine" .. i]
             local otherjine = BG.DuiZhangFrame[FB]["boss" .. b]["otherjine" .. i]
             local tx = BG.DuiZhangFrame[FB]["boss" .. b]["yes" .. i]
             local ds = BG.DuiZhangFrameDs[FB .. 3]["boss" .. b]["ds" .. i]
             if zhuangbei then
                 otherjine:SetText("")
                 otherjine.tradeTbl = nil
+                zhuangbei.sameItem = nil
+                myjine.sameItem = nil
+                otherjine.sameItem = nil
                 BG.DuiZhangFrame[FB]["boss" .. b]["maijia" .. i] = nil
                 for k, v in pairs(BG.playerClass) do
                     BG.DuiZhangFrame[FB]["boss" .. b][k .. i] = nil

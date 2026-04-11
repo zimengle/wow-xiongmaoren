@@ -36,6 +36,7 @@ local attributeBlacklist = {
 }
 
 local allowTags = {
+	name = true,
 	dead = true,
 	ghost = true,
 	status = true,
@@ -115,7 +116,6 @@ local function CreateConfigEnv()
 		Env = ElvUF.Tags.Env,
 		_VARS = ElvUF.Tags.Vars,
 		_COLORS = ElvUF.colors,
-		ColorGradient = ElvUF.ColorGradient,
 		UnitPower = function(arg1, displayType)
 			local unit, real = EnvUnit(arg1)
 			if real then
@@ -417,12 +417,10 @@ function UF:PLAYER_REGEN_DISABLED()
 		end
 	end
 
-	for i = 1, 8 do
-		if i < 6 then
-			local arena = self['arena'..i]
-			if arena and arena.isForced then
-				self:UnforceShow(arena)
-			end
+	for i = 1, 5 do
+		local arena = self['arena'..i]
+		if arena and arena.isForced then
+			self:UnforceShow(arena)
 		end
 
 		local boss = self['boss'..i]

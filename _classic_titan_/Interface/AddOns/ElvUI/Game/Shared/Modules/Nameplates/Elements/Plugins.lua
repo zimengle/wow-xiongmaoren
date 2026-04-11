@@ -89,7 +89,6 @@ end
 
 function NP:Construct_TargetIndicator(nameplate)
 	local TargetIndicator = CreateFrame('Frame', '$parentTargetIndicator', nameplate)
-	TargetIndicator:SetFrameLevel(0)
 
 	TargetIndicator.Shadow = CreateFrame('Frame', nil, TargetIndicator, 'BackdropTemplate')
 	TargetIndicator.Shadow:Hide()
@@ -118,6 +117,8 @@ function NP:Update_TargetIndicator(nameplate)
 
 	local tdb = NP.db.units.TARGET
 	local indicator = nameplate.TargetIndicator
+	indicator:SetFrameLevel(0)
+
 	indicator.arrow = E.Media.Arrows[NP.db.units.TARGET.arrow] or E.Media.Arrows.Arrow9
 	indicator.lowHealthThreshold = NP.db.lowHealthThreshold
 	indicator.preferGlowColor = NP.db.colors.preferGlowColor
@@ -179,7 +180,7 @@ function NP:Construct_Highlight(nameplate)
 	return Highlight
 end
 
-function NP:Update_Highlight(nameplate, nameOnlySF)
+function NP:Update_Highlight(nameplate)
 	local db = NP:PlateDB(nameplate)
 
 	if NP.db.highlight and db.enable then
@@ -187,9 +188,9 @@ function NP:Update_Highlight(nameplate, nameOnlySF)
 			nameplate:EnableElement('Highlight')
 		end
 
-		if db.health.enable and not (db.nameOnly or nameOnlySF) then
+		if db.health.enable and not db.nameOnly then
 			nameplate.Highlight.texture:SetColorTexture(1, 1, 1, 0.25)
-			nameplate.Highlight.texture:SetAllPoints(nameplate.Health.flashTexture)
+			nameplate.Highlight.texture:SetAllPoints(nameplate.Health)
 			nameplate.Highlight.texture:SetAlpha(0.75)
 		else
 			nameplate.Highlight.texture:SetTexture(E.Media.Textures.Spark)
@@ -282,12 +283,7 @@ function NP:Construct_Cutaway(nameplate)
 end
 
 function NP:Update_Cutaway(nameplate)
-	local eitherEnabled = NP.db.cutaway.health.enabled or NP.db.cutaway.power.enabled
-	if not eitherEnabled then
-		if nameplate:IsElementEnabled('Cutaway') then
-			nameplate:DisableElement('Cutaway')
-		end
-	else
+	if not E.Retail and (NP.db.cutaway.health.enabled or NP.db.cutaway.power.enabled) then
 		if not nameplate:IsElementEnabled('Cutaway') then
 			nameplate:EnableElement('Cutaway')
 		end
@@ -305,28 +301,34 @@ function NP:Update_Cutaway(nameplate)
 		else
 			nameplate.Cutaway.Power:SetTexture(LSM:Fetch('statusbar', NP.db.statusbar))
 		end
+	elseif nameplate:IsElementEnabled('Cutaway') then
+		nameplate:DisableElement('Cutaway')
 	end
 end
 
 function NP:Construct_PrivateAuras(nameplate)
-	return CreateFrame('Frame', nameplate.frameName..'PrivateAuras', nameplate.RaisedElement)
+	local element = CreateFrame('Frame', nameplate.frameName..'PrivateAuras', nameplate.RaisedElement)
+	element.owner = nameplate
+
+	return element
 end
 
 function NP:Update_PrivateAuras(nameplate, disable)
-	if not E.Retail then return end -- dont exist on classic
+	local element = E.Retail and nameplate.PrivateAuras
+	if not element then return end
 
-	if nameplate.PrivateAuras then
-		PA:RemoveAuras(nameplate.PrivateAuras)
-	end
+	PA:RemoveAuras(element)
 
 	local plateDB = not disable and NP:PlateDB(nameplate)
 	local db = plateDB and plateDB.privateAuras
-	if db and db.enable then
-		PA:SetupPrivateAuras(db, nameplate.PrivateAuras, nameplate.unit)
+	element.db = db or nil
 
-		nameplate.PrivateAuras:ClearAllPoints()
-		nameplate.PrivateAuras:Point(E.InversePoints[db.parent.point], nameplate, db.parent.point, db.parent.offsetX, db.parent.offsetY)
-		nameplate.PrivateAuras:Size(db.icon.size)
-		nameplate.PrivateAuras:SetFrameLevel(16)
+	if db and db.enable then
+		element:SetFrameLevel(16)
+		element:ClearAllPoints()
+		element:Point(E.InversePoints[db.parent.point], nameplate, db.parent.point, db.parent.offsetX, db.parent.offsetY)
+		element:Size(db.icon.size)
+
+		PA:SetupAuras(element)
 	end
 end

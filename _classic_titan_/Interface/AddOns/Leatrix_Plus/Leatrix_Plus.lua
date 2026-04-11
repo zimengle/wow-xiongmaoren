@@ -16,6 +16,9 @@
 	local LeaPlusLC, LeaPlusCB, LeaDropList, LeaConfigList, LeaLockList = {}, {}, {}, {}, {}
 	local ClientVersion = GetBuildInfo()
 	local GameLocale = GetLocale()
+	local IsAddOnLoaded = C_AddOns and C_AddOns.IsAddOnLoaded or IsAddOnLoaded
+	local EnableAddOn = C_AddOns and C_AddOns.EnableAddOn or EnableAddOn
+	local DisableAddOn = C_AddOns and C_AddOns.DisableAddOn or DisableAddOn
 	local void
 
 	-- Version
@@ -345,11 +348,11 @@
 				if LeaPlusLC:PlayerInCombat() then
 					return
 				else
-					EnableAddOn("ZygorGuidesViewerClassicTBC")
+					if EnableAddOn then EnableAddOn("ZygorGuidesViewerClassicTBC") end
 					ReloadUI();
 				end
 			else
-				DisableAddOn("ZygorGuidesViewerClassicTBC")
+				if DisableAddOn then DisableAddOn("ZygorGuidesViewerClassicTBC") end
 				ReloadUI();
 			end
 		else
@@ -13246,7 +13249,9 @@
 
 						end
 
-						EnableAddOn("Leatrix_Plus")
+						if EnableAddOn then
+							EnableAddOn("Leatrix_Plus")
+						end
 					end
 
 				end

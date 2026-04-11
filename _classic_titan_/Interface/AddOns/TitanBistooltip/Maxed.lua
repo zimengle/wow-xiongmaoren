@@ -35,7 +35,12 @@ local function checkEquipmentByClass(itemId, currentClassName)
     -- 然后检查玩家是否实际拥有该装备
     -- 通过遍历玩家的装备栏来检查
     for i = 1, 19 do -- 19个装备栏位
-        local item = GetInventoryItemID("player", i)
+        local item
+        if C_PlayerInfo and C_PlayerInfo.GetInventoryItemID then
+            item = C_PlayerInfo.GetInventoryItemID("player", i)
+        else
+            item = GetInventoryItemID("player", i)
+        end
         if item and item == itemId then
             return true
         end
@@ -70,7 +75,15 @@ local function createItemFrame(item_id, size, with_checkmark)
                 table.insert(checkmarks, checkMark)
             end
 
-            local _, _, _, _, _, _, _, _, _, _, _, _, _, bindType = GetItemInfo(item_id)
+            local bindType
+            if C_Item and C_Item.GetItemInfo then
+                local itemInfo = C_Item.GetItemInfo(item_id)
+                if itemInfo then
+                    bindType = itemInfo.bindType
+                end
+            else
+                _, _, _, _, _, _, _, _, _, _, _, _, _, bindType = GetItemInfo(item_id)
+            end
             if bindType == (LE_ITEM_BIND_ON_EQUIP or 2) then
                 local boeMark = item_frame.frame:CreateTexture(nil, "OVERLAY")
                 boeMark:SetWidth(12)
@@ -85,7 +98,15 @@ local function createItemFrame(item_id, size, with_checkmark)
             item_frame.frame:SetScript("OnMouseUp", function(self, button)
                 if button == "RightButton" then
                     -- 复制物品名称
-                    local itemName = GetItemInfo(item_id)
+                    local itemName
+                    if C_Item and C_Item.GetItemInfo then
+                        local itemInfo = C_Item.GetItemInfo(item_id)
+                        if itemInfo then
+                            itemName = itemInfo.name
+                        end
+                    else
+                        itemName = GetItemInfo(item_id)
+                    end
                     if itemName then
                         -- 尝试复制到剪贴板
                         local success = TitanBistooltipAddon:CopyTextToClipboard(itemName)
@@ -207,6 +228,42 @@ function TitanBistooltipAddon:showMaxedFrame()
     frame:SetLayout("List")
     frame:SetCallback("OnClose", function(widget)
         widget.frame:Hide()
+    end)
+    
+    -- 添加OnMove回调，限制框架不能移出游戏界面
+    frame:SetCallback("OnMove", function(widget)
+        local frame = widget.frame
+        local screenWidth = GetScreenWidth()
+        local screenHeight = GetScreenHeight()
+        local frameWidth = frame:GetWidth()
+        local frameHeight = frame:GetHeight()
+        
+        -- 获取当前位置
+        local point, relativeTo, relativePoint, x, y = frame:GetPoint()
+        
+        -- 计算新的位置，确保框架不会移出游戏界面
+        local newX = x
+        local newY = y
+        
+        -- 限制左右边界
+        if newX < 0 then
+            newX = 0
+        elseif newX > screenWidth - frameWidth then
+            newX = screenWidth - frameWidth
+        end
+        
+        -- 限制上下边界
+        if newY < 0 then
+            newY = 0
+        elseif newY > screenHeight - frameHeight then
+            newY = screenHeight - frameHeight
+        end
+        
+        -- 如果位置有变化，更新位置
+        if newX ~= x or newY ~= y then
+            frame:ClearAllPoints()
+            frame:SetPoint(point, relativeTo, relativePoint, newX, newY)
+        end
     end)
     frame:SetStatusText("快跑兄弟推荐配装（仅供参考）")
     
@@ -529,13 +586,48 @@ function TitanBistooltipAddon:showMaxedFrame()
                 slotDataMap[slotName] = slot -- 存储完整的部位数据
             end
             
+            -- 检查主手是否是双手武器（只考虑真正主手槽位的武器）
+            local isTwoHandWeapon = false
+            local weaponItemId = slotItemMap["Weapon"]
+            if weaponItemId and weaponItemId > 0 then
+                local equipLoc
+                -- GetItemInfo 返回顺序：name, link, quality, itemLevel, reqLevel, class, subclass, maxStack, equipLoc, ...
+                equipLoc = select(9, GetItemInfo(weaponItemId))
+                
+                -- 只判断真正属于主手槽位的双手武器类型
+                -- 使用equipLoc（装备位置）判断，这个在所有语言环境下都是英文常量，可靠
+                local twoHandEquipLocs = {
+                    ["INVTYPE_2HWEAPON"] = true,
+                    ["INVTYPE_STAFF"] = true,
+                    ["INVTYPE_POLEARM"] = true,
+                    ["INVTYPE_2HAXE"] = true,
+                    ["INVTYPE_2HSWORD"] = true,
+                    ["INVTYPE_2HMACE"] = true,
+                    ["INVTYPE_WEAPON2H"] = true,
+                    ["INVTYPE_2HWEAPON1"] = true,
+                    ["INVTYPE_2HWEAPON2"] = true
+                }
+                if equipLoc and twoHandEquipLocs[equipLoc] then
+                    isTwoHandWeapon = true
+                end
+            end
+            
+            -- 判断是否是狂暴战
+            local isFuryWarrior = (class == "Warrior" and spec == "Fury")
+            
             -- 动态生成左边列的部位列表，跳过没有装备的部位
+            -- 如果是双手武器且不是狂暴战，则跳过副手
             local leftSlots = {}
             local leftSlotNames = {"Head", "Neck", "Shoulder", "Back", "Chest", "Wrist", "Weapon", "Off hand", "Relic", "Ranged", "Wand"}
             for _, slot in ipairs(leftSlotNames) do
-                local itemId = slotItemMap[slot]
-                if itemId and itemId > 0 then
-                    table.insert(leftSlots, slot)
+                -- 如果是副手、主手是双手武器、且不是狂暴战，则跳过
+                if slot == "Off hand" and isTwoHandWeapon and not isFuryWarrior then
+                    -- 跳过副手
+                else
+                    local itemId = slotItemMap[slot]
+                    if itemId and itemId > 0 then
+                        table.insert(leftSlots, slot)
+                    end
                 end
             end
             
@@ -574,12 +666,25 @@ function TitanBistooltipAddon:showMaxedFrame()
                         -- 使用Item:CreateFromItemID来确保装备信息加载完成
                         local item = Item:CreateFromItemID(itemId)
                         item:ContinueOnItemLoad(function()
-                            local itemName, _, itemRarity = GetItemInfo(itemId)
+                            local itemName, itemRarity
+                            if C_Item and C_Item.GetItemInfoByID then
+                                local itemInfo = C_Item.GetItemInfoByID(itemId)
+                                if itemInfo then
+                                    itemName = itemInfo.name
+                                    itemRarity = itemInfo.quality
+                                end
+                            else
+                                itemName, _, itemRarity = GetItemInfo(itemId)
+                            end
                             if itemName then
                                 -- 设置装备名称，使用装备品质颜色
                                 local rarityColor = ITEM_QUALITY_COLORS[itemRarity]
-                                local coloredName = string.format("|cff%02x%02x%02x%s|r", rarityColor.r * 255, rarityColor.g * 255, rarityColor.b * 255, itemName)
-                                itemInfoLabel:SetText(coloredName)
+                                if rarityColor then
+                                    local coloredName = string.format("|cff%02x%02x%02x%s|r", rarityColor.r * 255, rarityColor.g * 255, rarityColor.b * 255, itemName)
+                                    itemInfoLabel:SetText(coloredName)
+                                else
+                                    itemInfoLabel:SetText(itemName)
+                                end
                             else
                                 itemInfoLabel:SetText("未知装备")
                             end
@@ -641,12 +746,25 @@ function TitanBistooltipAddon:showMaxedFrame()
                         -- 使用Item:CreateFromItemID来确保装备信息加载完成
                         local item = Item:CreateFromItemID(itemId)
                         item:ContinueOnItemLoad(function()
-                            local itemName, _, itemRarity = GetItemInfo(itemId)
+                            local itemName, itemRarity
+                            if C_Item and C_Item.GetItemInfoByID then
+                                local itemInfo = C_Item.GetItemInfoByID(itemId)
+                                if itemInfo then
+                                    itemName = itemInfo.name
+                                    itemRarity = itemInfo.quality
+                                end
+                            else
+                                itemName, _, itemRarity = GetItemInfo(itemId)
+                            end
                             if itemName then
                                 -- 设置装备名称，使用装备品质颜色
                                 local rarityColor = ITEM_QUALITY_COLORS[itemRarity]
-                                local coloredName = string.format("|cff%02x%02x%02x%s|r", rarityColor.r * 255, rarityColor.g * 255, rarityColor.b * 255, itemName)
-                                itemInfoLabel:SetText(coloredName)
+                                if rarityColor then
+                                    local coloredName = string.format("|cff%02x%02x%02x%s|r", rarityColor.r * 255, rarityColor.g * 255, rarityColor.b * 255, itemName)
+                                    itemInfoLabel:SetText(coloredName)
+                                else
+                                    itemInfoLabel:SetText(itemName)
+                                end
                             else
                                 itemInfoLabel:SetText("未知装备")
                             end
@@ -1033,13 +1151,45 @@ function TitanBistooltipAddon:updateMaxedFrame()
                 slotDataMap[slotName] = slot -- 存储完整的部位数据
             end
             
+            -- 检查主手是否是双手武器（只考虑真正主手槽位的武器）
+            local isTwoHandWeapon = false
+            local weaponItemId = slotItemMap["Weapon"]
+            if weaponItemId and weaponItemId > 0 then
+                local equipLoc
+                -- GetItemInfo 返回顺序：name, link, quality, itemLevel, reqLevel, class, subclass, maxStack, equipLoc, ...
+                equipLoc = select(9, GetItemInfo(weaponItemId))
+                
+                -- 只判断真正属于主手槽位的双手武器类型
+                -- 使用equipLoc（装备位置）判断，这个在所有语言环境下都是英文常量，可靠
+                local twoHandEquipLocs = {
+                    ["INVTYPE_2HWEAPON"] = true,
+                    ["INVTYPE_STAFF"] = true,
+                    ["INVTYPE_POLEARM"] = true,
+                    ["INVTYPE_2HAXE"] = true,
+                    ["INVTYPE_2HSWORD"] = true,
+                    ["INVTYPE_2HMACE"] = true
+                }
+                if equipLoc and twoHandEquipLocs[equipLoc] then
+                    isTwoHandWeapon = true
+                end
+            end
+            
+            -- 判断是否是狂暴战
+            local isFuryWarrior = (class == "Warrior" and spec == "Fury")
+            
             -- 动态生成左边列的部位列表，跳过没有装备的部位
+            -- 如果是双手武器且不是狂暴战，则跳过副手
             local leftSlots = {}
             local leftSlotNames = {"Head", "Neck", "Shoulder", "Back", "Chest", "Wrist", "Weapon", "Off hand", "Relic", "Ranged", "Wand"}
             for _, slot in ipairs(leftSlotNames) do
-                local itemId = slotItemMap[slot]
-                if itemId and itemId > 0 then
-                    table.insert(leftSlots, slot)
+                -- 如果是副手、主手是双手武器、且不是狂暴战，则跳过
+                if slot == "Off hand" and isTwoHandWeapon and not isFuryWarrior then
+                    -- 跳过副手
+                else
+                    local itemId = slotItemMap[slot]
+                    if itemId and itemId > 0 then
+                        table.insert(leftSlots, slot)
+                    end
                 end
             end
             
@@ -1078,12 +1228,25 @@ function TitanBistooltipAddon:updateMaxedFrame()
                         -- 使用Item:CreateFromItemID来确保装备信息加载完成
                         local item = Item:CreateFromItemID(itemId)
                         item:ContinueOnItemLoad(function()
-                            local itemName, _, itemRarity = GetItemInfo(itemId)
+                            local itemName, itemRarity
+                            if C_Item and C_Item.GetItemInfoByID then
+                                local itemInfo = C_Item.GetItemInfoByID(itemId)
+                                if itemInfo then
+                                    itemName = itemInfo.name
+                                    itemRarity = itemInfo.quality
+                                end
+                            else
+                                itemName, _, itemRarity = GetItemInfo(itemId)
+                            end
                             if itemName then
                                 -- 设置装备名称，使用装备品质颜色
                                 local rarityColor = ITEM_QUALITY_COLORS[itemRarity]
-                                local coloredName = string.format("|cff%02x%02x%02x%s|r", rarityColor.r * 255, rarityColor.g * 255, rarityColor.b * 255, itemName)
-                                itemInfoLabel:SetText(coloredName)
+                                if rarityColor then
+                                    local coloredName = string.format("|cff%02x%02x%02x%s|r", rarityColor.r * 255, rarityColor.g * 255, rarityColor.b * 255, itemName)
+                                    itemInfoLabel:SetText(coloredName)
+                                else
+                                    itemInfoLabel:SetText(itemName)
+                                end
                             else
                                 itemInfoLabel:SetText("未知装备")
                             end
@@ -1145,12 +1308,25 @@ function TitanBistooltipAddon:updateMaxedFrame()
                         -- 使用Item:CreateFromItemID来确保装备信息加载完成
                         local item = Item:CreateFromItemID(itemId)
                         item:ContinueOnItemLoad(function()
-                            local itemName, _, itemRarity = GetItemInfo(itemId)
+                            local itemName, itemRarity
+                            if C_Item and C_Item.GetItemInfoByID then
+                                local itemInfo = C_Item.GetItemInfoByID(itemId)
+                                if itemInfo then
+                                    itemName = itemInfo.name
+                                    itemRarity = itemInfo.quality
+                                end
+                            else
+                                itemName, _, itemRarity = GetItemInfo(itemId)
+                            end
                             if itemName then
                                 -- 设置装备名称，使用装备品质颜色
                                 local rarityColor = ITEM_QUALITY_COLORS[itemRarity]
-                                local coloredName = string.format("|cff%02x%02x%02x%s|r", rarityColor.r * 255, rarityColor.g * 255, rarityColor.b * 255, itemName)
-                                itemInfoLabel:SetText(coloredName)
+                                if rarityColor then
+                                    local coloredName = string.format("|cff%02x%02x%02x%s|r", rarityColor.r * 255, rarityColor.g * 255, rarityColor.b * 255, itemName)
+                                    itemInfoLabel:SetText(coloredName)
+                                else
+                                    itemInfoLabel:SetText(itemName)
+                                end
                             else
                                 itemInfoLabel:SetText("未知装备")
                             end

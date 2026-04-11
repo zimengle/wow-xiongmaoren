@@ -2,6 +2,12 @@ local LibExtraTip = LibStub:GetLibrary("LibExtraTip-1");
 local eventFrame = CreateFrame("Frame", nil, UIParent)
 local L = LibStub("AceLocale-3.0"):GetLocale("TitanBistooltip", false)
 TitanBistooltip_phases_string = ""
+TitanBistooltip_Titan_items = {}
+
+-- 确保全局变量存在
+Maxed = Maxed or {}
+InterfaceOptionsFrame = InterfaceOptionsFrame or nil
+AceConfigDialog = AceConfigDialog or LibStub("AceConfigDialog-3.0", true)
 
 -- 快捷键绑定定义
 BINDING_HEADER_TITANBISTOOLTIP = "TitanBistooltip"
@@ -94,6 +100,7 @@ local function getDynamicRank(itemId, class_name, spec_name, slot_name)
     -- 根据 TitanBistooltip_bislists 中的数据动态计算排名
     local phases = TitanBistooltip_phases or {}
     local dynamic_ranks = {}
+    local has_rank = false
     
     for phase_index, phase_name in ipairs(phases) do
         -- 检查该阶段是否被过滤
@@ -115,6 +122,7 @@ local function getDynamicRank(itemId, class_name, spec_name, slot_name)
                             for rank = 1, 6 do
                                 if slot[rank] == itemId and slot[rank] ~= -1 then
                                     phase_rank = tostring(rank)
+                                    has_rank = true
                                     break
                                 end
                             end
@@ -126,6 +134,11 @@ local function getDynamicRank(itemId, class_name, spec_name, slot_name)
             
             table.insert(dynamic_ranks, phase_rank)
         end
+    end
+    
+    -- 如果装备在所有可见阶段中都没有排名，返回空表
+    if not has_rank then
+        dynamic_ranks = {}
     end
     
     -- 缓存结果
@@ -226,6 +239,11 @@ local function printClassName(tooltip, class_name)
 end
 
 local function OnGameTooltipSetItem(tooltip)
+    -- 检查是否禁用了鼠标BIS增强提示
+    if TitanBistooltipAddon.db.char.disable_tooltip_enhancement then
+        return
+    end
+    
     if TitanBistooltipAddon.db.char.tooltip_with_ctrl and not IsControlKeyDown() then
         return
     end
@@ -237,7 +255,14 @@ local function OnGameTooltipSetItem(tooltip)
 
     local _, itemId, _, _, _, _, _, _, _, _, _, _, _, _ = strsplit(":", link)
 
+    if not itemId then
+        return;
+    end
+
     itemId = tonumber(itemId);
+    if not itemId then
+        return;
+    end
     currentItemId = itemId; -- 保存到全局变量
     
     -- 使用装备映射表快速获取装备信息
@@ -461,7 +486,17 @@ local function OnGameTooltipSetItem(tooltip)
     
     -- 应用过滤，根据用户设置显示相关专精
     local filtered_item_data = getFilteredItem(dynamic_item_data)
-    if (#filtered_item_data > 0) then
+    
+    -- 过滤掉在所有可见阶段中都没有排名的专精
+    local final_filtered_item_data = {}
+    for _, spec in ipairs(filtered_item_data) do
+        local slot_ranks = getDynamicRank(currentItemId, spec.class_name, spec.spec_name, spec.slot_name)
+        if type(slot_ranks) == "table" and #slot_ranks > 0 then
+            table.insert(final_filtered_item_data, spec)
+        end
+    end
+    
+    if (#final_filtered_item_data > 0) then
         -- 检查是否有可见阶段
         local has_visible_phases = false
         local visible_phases = {}
@@ -486,9 +521,75 @@ local function OnGameTooltipSetItem(tooltip)
         return
     end
     
-    -- 按职业排序，确保同一职业的所有专精都连续出现
+    -- 更新过滤后的数据
+    filtered_item_data = final_filtered_item_data
+    
+    -- 按职业排序，当前角色的职业显示在最上面，其他职业保持固定排序
+    local player_class_en
+    if C_PlayerInfo and C_PlayerInfo.GetClass then
+        local classInfo
+        -- 尝试使用 PlayerLocation 对象（现代API）
+        if PlayerLocation and PlayerLocation.CreateFromUnit then
+            local playerLocation = PlayerLocation:CreateFromUnit("player")
+            classInfo = C_PlayerInfo.GetClass(playerLocation)
+        end
+        -- 如果现代API失败，尝试使用字符串 "player"（旧API）
+        if not classInfo then
+            classInfo = C_PlayerInfo.GetClass("player")
+        end
+        if classInfo then
+            player_class_en = classInfo.classFile
+        end
+    else
+        local _, player_class_en_temp = UnitClass("player")
+        player_class_en = player_class_en_temp
+    end
+    -- 职业名称映射表，将游戏返回的英文职业名映射到数据库中使用的格式
+    local class_name_mapping = {
+        ["DEATHKNIGHT"] = "Death knight",
+        ["DRUID"] = "Druid",
+        ["HUNTER"] = "Hunter",
+        ["MAGE"] = "Mage",
+        ["PALADIN"] = "Paladin",
+        ["PRIEST"] = "Priest",
+        ["ROGUE"] = "Rogue",
+        ["SHAMAN"] = "Shaman",
+        ["WARRIOR"] = "Warrior",
+        ["WARLOCK"] = "Warlock"
+    }
+    local player_class
+    if player_class_en then
+        player_class = class_name_mapping[string.upper(player_class_en)] or player_class_en
+    end
+    
+    local class_order = {
+        ["Death knight"] = 1,
+        ["Druid"] = 2,
+        ["Hunter"] = 3,
+        ["Mage"] = 4,
+        ["Paladin"] = 5,
+        ["Priest"] = 6,
+        ["Rogue"] = 7,
+        ["Shaman"] = 8,
+        ["Warrior"] = 9,
+        ["Warlock"] = 10
+    }
+    
     table.sort(filtered_item_data, function(a, b)
-        return a.class_name < b.class_name
+        -- 当前角色的职业排在最前面
+        if a.class_name == player_class and b.class_name ~= player_class then
+            return true
+        elseif a.class_name ~= player_class and b.class_name == player_class then
+            return false
+        end
+        -- 其他职业按照固定顺序排序
+        local order_a = class_order[a.class_name] or 999
+        local order_b = class_order[b.class_name] or 999
+        if order_a ~= order_b then
+            return order_a < order_b
+        end
+        -- 同一职业的专精按名称排序
+        return a.spec_name < b.spec_name
     end)
     
     local previous_class = nil
@@ -509,7 +610,11 @@ local function OnGameTooltipSetItem(tooltip)
             name = slot_name
         }
         
-        printSpecLine(tooltip, temp_slot, class_name, spec_name)
+        -- 检查该专精在可见阶段中是否有排名
+        local slot_ranks = getDynamicRank(currentItemId, class_name, spec_name, slot_name)
+        if type(slot_ranks) == "table" and #slot_ranks > 0 then
+            printSpecLine(tooltip, temp_slot, class_name, spec_name)
+        end
     end
     if #filtered_item_data > 0 and TitanBistooltip_char_equipment and TitanBistooltip_char_equipment[itemId] ~= nil then
         LibExtraTip:AddLine(tooltip, " ", 1, 1, 0, false)
@@ -529,7 +634,10 @@ end
 
 function TitanBistooltipAddon:initBisTooltip()
     -- 检测 TipTac 及其相关插件是否存在
-    local hasTipTac = IsAddOnLoaded("TipTac") or IsAddOnLoaded("TipTacItemRef") or IsAddOnLoaded("TipTacTalents")
+    local hasTipTac = false
+    if IsAddOnLoaded then
+        hasTipTac = IsAddOnLoaded("TipTac") or IsAddOnLoaded("TipTacItemRef") or IsAddOnLoaded("TipTacTalents")
+    end
     TitanBistooltipAddon.hasTipTac = hasTipTac
     
     -- 检查是否禁用了鼠标BIS增强提示

@@ -1192,3 +1192,124 @@ function BG.HopeDaoChuUI()
         end)
     end
 end
+
+local function GetBossNum(itemID, FB)
+    FB = FB or BG.FB1
+    local diffs = BG.difficultyTable[FB]
+    if not diffs then error(L["表格ID错误"]) end
+    for hardIndex, hard in ipairs(diffs) do
+        if BG.Loot[FB][hard] then
+            local b = 1
+            while BG.Loot[FB][hard]["boss" .. b] do
+                for _, _itemID in ipairs(BG.Loot[FB][hard]["boss" .. b]) do
+                    if _itemID == itemID then
+                        return hardIndex, b
+                    end
+                end
+                b = b + 1
+            end
+        end
+    end
+end
+
+-- 参数1（必选）：link。类型：string
+-- 参数2（可选）：表格ID。不传参数则对当前表格添加心愿。类型：string
+-- 返回：true或false，true代表心愿设置成功了。类型：boolean
+function BG.SetHope(link, FB)
+    if type(link) ~= "string" then error(L["物品链接类型错误，需要string类型。"]) end
+    local itemID = GetItemID(link)
+    if not itemID then error(L["物品链接错误，没有读取到物品ID。"]) end
+
+    FB = FB or BG.FB1
+    local n, b = GetBossNum(itemID, FB)
+    if not n then error(L["该物品链接没有匹配到正确的BOSS序号。"]) end
+
+    for i = 1, HopeMaxi do
+        local hope = BG.HopeFrame[FB]["nandu" .. n]["boss" .. b]["zhuangbei" .. i]
+        if hope and hope:GetText() == "" then
+            hope:SetText(link)
+            BiaoGe.Hope[RealmID][player][FB]["nandu" .. n]["boss" .. b]["zhuangbei" .. i] = link
+            if BG.ItemLibMainFrame:IsVisible() then
+                BG.UpdateItemLib_LeftHope_All()
+                BG.UpdateItemLib_RightHope_All()
+            end
+            BG.SetBiaoGeGuanZhu(itemID)
+            return true
+        end
+    end
+    return false
+end
+
+-- 参数1（必选）：link或itemID。类型：string或number
+-- 参数2（可选）：表格ID。不传参数则历遍全部表格的心愿进行匹配删除。类型：string
+-- 返回：没有返回值
+function BG.DeleteHope(LINKorID, FB)
+    local itemID
+    if type(LINKorID) == "number" then
+        itemID = LINKorID
+    elseif type(LINKorID) == "string" then
+        itemID = GetItemID(LINKorID)
+    end
+    if not itemID then error(L["物品链接错误，没有读取到物品ID。"]) end
+
+    local FBs
+    if FB then
+        FBs = BG.phaseFBtable[FB]
+    else
+        FBs = BG.FBtable
+    end
+    if not FBs then error(L["表格ID错误"]) end
+
+    for _, FB in pairs(FBs) do
+        for n = 1, HopeMaxn[FB] do
+            for b = 1, HopeMaxb[FB] do
+                for i = 1, HopeMaxi do
+                    local hope = BG.HopeFrame[FB]["nandu" .. n]["boss" .. b]["zhuangbei" .. i]
+                    if hope then
+                        if itemID == GetItemID(hope:GetText()) then
+                            hope:SetText("")
+                            BiaoGe.Hope[RealmID][player][FB]["nandu" .. n]["boss" .. b]["zhuangbei" .. i] = nil
+                        end
+                    end
+                end
+            end
+        end
+    end
+end
+
+-- 参数1（必选）：link或itemID。类型：string或number
+-- 参数2（可选）：表格ID。不传参数则历遍全部表格的心愿进行匹配删除。类型：string
+-- 返回：true或false，true代表是心愿。类型：boolean
+function BG.IsHope(LINKorID, FB)
+    local itemID
+    if type(LINKorID) == "number" then
+        itemID = LINKorID
+    elseif type(LINKorID) == "string" then
+        itemID = GetItemID(LINKorID)
+    end
+    if not itemID then error(L["物品链接错误，没有读取到物品ID。"]) end
+
+    local FBs
+    if FB then
+        FBs = BG.phaseFBtable[FB]
+    else
+        FBs = BG.FBtable
+    end
+    if not FBs then error(L["表格ID错误"]) end
+
+    for _, FB in pairs(FBs) do
+        for n = 1, HopeMaxn[FB] do
+            for b = 1, HopeMaxb[FB] do
+                for i = 1, HopeMaxi do
+                    local hope = BG.HopeFrame[FB]["nandu" .. n]["boss" .. b]["zhuangbei" .. i]
+                    if hope then
+                        if itemID == GetItemID(hope:GetText()) then
+                            return true
+                        end
+                    end
+                end
+            end
+        end
+    end
+    return false
+end

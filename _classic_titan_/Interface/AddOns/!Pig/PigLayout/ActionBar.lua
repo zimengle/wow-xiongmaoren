@@ -468,9 +468,21 @@ end)
 --=====
 local HHH=22
 local WWW=HHH*0.84
-local Old_MicroBut = PIGCopyTable(MICRO_BUTTONS)
+local Old_MicroBut = {
+	"CharacterMicroButton",
+	"SpellbookMicroButton",
+	"TalentMicroButton",
+	"AchievementMicroButton",
+	"QuestLogMicroButton",
+	"SocialsMicroButton",
+	"GuildMicroButton",
+	"CollectionsMicroButton",
+	"PVPMicroButton",
+	"LFGMicroButton",
+	"MainMenuMicroButton",
+	"HelpMicroButton",
+}
 local Diy_MicroBut = {"MacroMicroButton","MainMenuBarBackpackButton"}
-
 --重建菜单列表
 local GameMenu = {}
 local PIG_MICRO_BUTTONS = {}
@@ -833,7 +845,7 @@ local MicroButLoad = {
 					GameTooltip_AddNewbieTip(self, self.tooltipText, 1.0, 1.0, 1.0, self.newbieText);
 				end)
 			end)
-		elseif IsAddOnLoaded("MeetingHorn") then
+		elseif PIGIsAddOnLoaded("MeetingHorn") then
 			local bizbut = _G[GameMenu["PIG_LFGMicroButton"]]
 			local LeftClickFun = MeetingHornDataBroker:GetScript("OnClick")
 			bizbut:HookScript("OnMouseUp", function (self,button)

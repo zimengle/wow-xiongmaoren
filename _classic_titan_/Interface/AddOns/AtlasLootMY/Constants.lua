@@ -108,6 +108,7 @@ ALPrivate.PRICE_ICON_REPLACE = {
 	["honorA"] = 136781,
 }
 
+
 ALPrivate.CLASS_BITS = {
     --NONE 			= 0,
     WARRIOR 		= 1,

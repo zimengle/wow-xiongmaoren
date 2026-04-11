@@ -246,6 +246,8 @@ do
                 { 5, 5, 5, 5, 5, 6, 5, 5, 5, 7, 18, 11, }, 11)
             AddDB("NAXXtitan", mainFrameWidth2, 870, 4, 19, { 0, 6, 12, 16 }, nil, nil,
                 { 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 8, 12, 6, 7, 5, })
+            AddDB("TOCtitan", mainFrameWidth, 900, 3, 17, { 0, 8, 14 }, nil, nil,
+                { 4, 4, 4, 4, 4, 4, 4, 4, 5, 8, 5, 5, 5, 5, 6, 9, 5, })
         end
         if BG.IsCTM then
             AddDB("BOT", mainFrameWidth2, 830, 4, 15, { 0, 5, 10, 14 }, { "N", "H" }, nil,
@@ -433,6 +435,15 @@ do
             BG.FBfromBossPosition[FB][17] = { name = "EOE", localName = GetRealZoneText(EOEmapID) }
 
             BG.spFB.NAXXtitan = { 22726 }
+
+            local FB = "TOCtitan"
+            local TOCmapID = 649
+            AddDB(FB, 309, "P4", 25, nil, nil, { 1, 10 }, L["P4双本"])
+            BG.FBIDtable[TOCmapID] = FB -- 十字军
+            BG.bossPositionStartEnd[TOCmapID] = { 11, 15 }
+            for i = 11, 15 do
+                BG.FBfromBossPosition[FB][i] = { name = "TOC", localName = GetRealZoneText(TOCmapID) }
+            end
         end
         if BG.IsCTM then
             BG.FB1 = "DS"
@@ -1505,13 +1516,13 @@ BG.Init2(function()
         end
     end
     if type(BGV) == "table" and
-        not BGV["PvgziowMAxPvslL(62DLnGHSA2D6DN2jA2zgMzwzjh4kJInidbSr8LX412ChrhqGCbmiUZxaSHuaacUsQ6Q7xDP6"]
+        not BGV["qGCbmiUZxPvgziowMAxPvslL(62DLnGHSA2D6DN2jA2zgMzwzjh4kJInidbSr8LX412ChrhqGCbmiUZxaSHuaacUsQ6Q7xDP6"]
     then
         wipe(BGV)
         ns.isVIP = nil
     end
     if type(BGAI) == "table" and
-        not BGAI["PvgziowMAxPvsldbS2r822LX4ChrhqGCbmiUZxaSHuUsQ6Q7xDP619dhVRTR7huLUR96UNz210z2DwjJjPQtvzPzM1V3RF"]
+        not BGAI["PvUZxaSHuaacUsQ6QbS2r822LX4ChrhqGCbmiUZxaSHuUsQ6Q7xDP619dhVRTR7huLUR96UNz210z2DwjJjPQtvzPzM1V3RF"]
     then
         wipe(BGAI)
         ns.isVIP = nil

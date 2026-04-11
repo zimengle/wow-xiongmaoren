@@ -16,7 +16,10 @@ local UnitIsTapDenied = UnitIsTapDenied
 local UnitReaction = UnitReaction
 local UnitClass = UnitClass
 
-local BACKDROP_MULT = 0.35
+local StatusBarInterpolation = Enum.StatusBarInterpolation
+local customBackdrop = Mixin({}, ColorMixin)
+
+local HOSTILE_REACTION = 2
 
 function UF.HealthClipFrame_OnUpdate(clipFrame)
 	UF.HealthClipFrame_HealComm(clipFrame.__frame)
@@ -38,7 +41,6 @@ function UF:Construct_HealthBar(frame, bg, text, textPos)
 		health.bg = health:CreateTexture(nil, 'BORDER')
 		health.bg:SetAllPoints()
 		health.bg:SetTexture(E.media.blankTex)
-		health.bg.multiplier = BACKDROP_MULT
 	end
 
 	if text then
@@ -60,7 +62,12 @@ function UF:Configure_HealthBar(frame, powerUpdate)
 
 	health:SetColorTapping(true)
 	health:SetColorDisconnected(true)
-	E:SetSmoothing(health, db.health and db.health.smoothbars)
+
+	if E.Retail then
+		health.smoothing = (db.health and db.health.smoothbars and StatusBarInterpolation.ExponentialEaseOut) or StatusBarInterpolation.Immediate or nil
+	else
+		E:SetSmoothing(health, db.health and db.health.smoothbars)
+	end
 
 	-- Text
 	if db.health and health.value then
@@ -68,12 +75,6 @@ function UF:Configure_HealthBar(frame, powerUpdate)
 		health.value:ClearAllPoints()
 		health.value:Point(db.health.position or 'RIGHT', attachPoint, db.health.position or 'RIGHT', db.health.xOffset or -2, db.health.yOffset or 0)
 		frame:Tag(health.value, db.health.text_format or '')
-	end
-
-	-- Backdrop Multiplier
-	if health.bg then
-		local colors = E.db.unitframe.colors
-		health.bg.multiplier = (colors.healthMultiplier > 0 and colors.healthMultiplier) or BACKDROP_MULT
 	end
 
 	-- Colors
@@ -225,7 +226,12 @@ function UF:Configure_HealthBar(frame, powerUpdate)
 
 	if powerUpdate then return end -- we dont need to redo this stuff, power updated it
 
-	UF:ToggleTransparentStatusBar(UF.db.colors.transparentHealth, frame.Health, frame.Health.bg, true, nil, db.health and db.health.reverseFill)
+	UF:ToggleTransparentStatusBar(UF.db.colors.transparentHealth, frame.Health, frame.Health.bg, true, UF.db.colors.invertHealth, db.health and db.health.reverseFill)
+
+	if not frame.unit then -- this is a unit token failure case
+		local color = ElvUF.colors.health
+		UF:SetStatusBarColor(health, color.r, color.g, color.b)
+	end
 
 	UF:Configure_FrameGlow(frame)
 
@@ -249,9 +255,7 @@ function UF:GetHealthBottomOffset(frame)
 	return bottomOffset
 end
 
-local HOSTILE_REACTION = 2
-
-function UF:PostUpdateHealthColor(unit, r, g, b)
+function UF:PostUpdateHealthColor(unit, color)
 	local parent = self:GetParent()
 	local colors = E.db.unitframe.colors
 	local env = (parent.isForced and UF.ConfigEnv) or _G
@@ -260,99 +264,104 @@ function UF:PostUpdateHealthColor(unit, r, g, b)
 	local isDeadOrGhost = env.UnitIsDeadOrGhost(unit)
 	local healthBreak = not isTapped and colors.healthBreak
 
-	local color -- main bar
-	if not b then
-		r, g, b = colors.health.r, colors.health.g, colors.health.b
+	local r, g, b, healthColor
+	if color and color.r then
+		r, g, b = color.r, color.g, color.b
 	end
 
 	-- Recheck offline status when forced
-	if parent.isForced and self.colorDisconnected and not env.UnitIsConnected(unit) then
-		color = parent.colors.disconnected
+	if parent.isForced and (self.colorDisconnected and not env.UnitIsConnected(unit)) then
+		healthColor = parent.colors.disconnected
 	end
 
 	-- Charmed player should have hostile color
-	if unit and (strmatch(unit, 'raid%d+') or strmatch(unit, 'party%d+')) then
-		if not isDeadOrGhost and env.UnitIsConnected(unit) and UnitIsCharmed(unit) and UnitIsEnemy('player', unit) then
-			color = parent.colors.reaction[HOSTILE_REACTION]
-		end
+	local grouped = unit and (strmatch(unit, 'raid%d+') or strmatch(unit, 'party%d+'))
+	if grouped and (not isDeadOrGhost and env.UnitIsConnected(unit)) and (UnitIsCharmed(unit) and UnitIsEnemy('player', unit)) then
+		healthColor = parent.colors.reaction[HOSTILE_REACTION]
 	end
 
-	local newr, newg, newb, healthbreakBackdrop
-	if not color then -- dont need to process this when its hostile
-		if not parent.db or parent.db.colorOverride ~= 'ALWAYS' then
-			if ((colors.healthclass and colors.colorhealthbyvalue) or (colors.colorhealthbyvalue and parent.isForced)) and not isTapped then
-				newr, newg, newb = ElvUF:ColorGradient(self.cur, self.max, 1, 0, 0, 1, 1, 0, r, g, b)
-			elseif healthBreak and healthBreak.enabled and (not healthBreak.onlyFriendly or UnitIsFriend('player', unit)) then
-				local breakPoint = self.max > 0 and (self.cur / self.max) or 1
-				local threshold = healthBreak.threshold
+	local minValue, maxValue = self.cur, self.max
+	local healthR, healthG, healthB, healthbreakBackdrop
+	if (not healthColor and not E.Retail) and (not parent.db or parent.db.colorOverride ~= 'ALWAYS') then
+		if r and not isTapped and ((colors.healthclass and colors.colorhealthbyvalue) or (colors.colorhealthbyvalue and parent.isForced)) then
+			healthR, healthG, healthB = E:ColorGradient(maxValue == 0 and 0 or (minValue / maxValue), 1, 0, 0, 1, 1, 0, r, g, b)
+		elseif healthBreak and healthBreak.enabled and (not healthBreak.onlyFriendly or UnitIsFriend('player', unit)) then
+			local breakPoint = self.max > 0 and (self.cur / self.max) or 1
+			local threshold = healthBreak.threshold
 
-				if threshold.bad and (breakPoint <= healthBreak.low) then
-					color = healthBreak.bad
-				elseif threshold.good and (breakPoint >= healthBreak.high and breakPoint ~= 1) then
-					color = healthBreak.good
-				elseif threshold.neutral and (breakPoint >= healthBreak.low and breakPoint < healthBreak.high) then
-					color = colors.healthBreak.neutral
-				end
-
-				healthbreakBackdrop = color and healthBreak.colorBackdrop
+			if threshold.bad and (breakPoint <= healthBreak.low) then
+				healthColor = healthBreak.bad
+			elseif threshold.good and (breakPoint >= healthBreak.high and breakPoint ~= 1) then
+				healthColor = healthBreak.good
+			elseif threshold.neutral and (breakPoint >= healthBreak.low and breakPoint < healthBreak.high) then
+				healthColor = colors.healthBreak.neutral
 			end
-		end
-	end
 
-	if color then
-		self:SetStatusBarColor(color.r, color.g, color.b)
-	elseif newb then
-		self:SetStatusBarColor(newr, newg, newb)
+			healthbreakBackdrop = healthColor and healthBreak.colorBackdrop
+		end
 	end
 
 	local bg, bgc = self.bg
 	if bg then
-		local mult = bg.multiplier or BACKDROP_MULT
 		if colors.useDeadBackdrop and isDeadOrGhost then
-			bgc = colors.health_backdrop_dead
-			mult = 1 -- custom backdrop (dead)
+			local dead = colors.health_backdrop_dead
+			customBackdrop:SetRGB(dead.r, dead.g, dead.b)
+			bgc = customBackdrop
 		elseif healthbreakBackdrop then
-			bgc = color
-			mult = (healthBreak.multiplier > 0 and healthBreak.multiplier) or BACKDROP_MULT
-		elseif colors.healthbackdropbyvalue then
+			customBackdrop:SetRGB(healthColor.r, healthColor.g, healthColor.b)
+			bgc = customBackdrop
+		elseif colors.healthbackdropbyvalue and not E.Retail then
 			if colors.customhealthbackdrop then
-				newr, newg, newb = ElvUF:ColorGradient(self.cur, self.max, 1, 0, 0, 1, 1, 0, colors.health_backdrop.r, colors.health_backdrop.g, colors.health_backdrop.b)
-				mult = 1 -- custom backdrop
-			elseif not newb and not colors.colorhealthbyvalue then
-				newr, newg, newb = ElvUF:ColorGradient(self.cur, self.max, 1, 0, 0, 1, 1, 0, r, g, b)
+				local bgr, bgg, bgb = E:ColorGradient(maxValue == 0 and 0 or (minValue / maxValue), 1, 0, 0, 1, 1, 0, colors.health_backdrop.r, colors.health_backdrop.g, colors.health_backdrop.b)
+				customBackdrop:SetRGB(bgr, bgg, bgb)
+				bgc = customBackdrop
+			elseif not healthR and not colors.colorhealthbyvalue then
+				local bgr, bgg, bgb = E:ColorGradient(maxValue == 0 and 0 or (minValue / maxValue), 1, 0, 0, 1, 1, 0, r, g, b)
+				customBackdrop:SetRGB(bgr, bgg, bgb)
+				bgc = customBackdrop
 			end
 		elseif colors.customhealthbackdrop then
-			bgc = colors.health_backdrop
-			mult = 1 -- custom backdrop
+			local health = colors.health_backdrop
+			customBackdrop:SetRGB(health.r, health.g, health.b)
+			bgc = customBackdrop
 		elseif colors.classbackdrop then
 			if UnitIsPlayer(unit) or (E.Retail and UnitInPartyIsAI(unit)) then
 				local _, unitClass = UnitClass(unit)
-				bgc = parent.colors.class[unitClass]
+				local classColor = parent.colors.class[unitClass]
+				if classColor then
+					customBackdrop:SetRGB(classColor.r, classColor.g, classColor.b)
+					bgc = customBackdrop
+				end
 			end
 
 			local reaction = not bgc and UnitReaction(unit, 'player')
 			if reaction then
-				bgc = parent.colors.reaction[reaction]
+				local reactionColor = parent.colors.reaction[reaction]
+				if reactionColor then
+					customBackdrop:SetRGB(reactionColor.r, reactionColor.g, reactionColor.b)
+					bgc = customBackdrop
+				end
 			end
 		end
+	end
 
-		if bgc then
-			bg:SetVertexColor(bgc.r * mult, bgc.g * mult, bgc.b * mult)
-		elseif newb then
-			bg:SetVertexColor(newr * mult, newg * mult, newb * mult)
-		end
+	local mult = (colors.healthMultiplier > 0) and colors.healthMultiplier
+	if healthColor then
+		UF:SetStatusBarColor(self, healthColor.r, healthColor.g, healthColor.b, bgc, true, mult)
+	elseif healthR then
+		UF:SetStatusBarColor(self, healthR, healthG, healthB, bgc, true, mult)
+	elseif r then
+		UF:SetStatusBarColor(self, r, g, b, bgc, true, mult)
 	end
 end
 
-function UF:PostUpdateHealth(_, cur)
+function UF:PostUpdateHealth()
 	local parent = self:GetParent()
-	if parent.isForced then
-		self.cur = random(1, 100)
-		self.max = 100
+	if not parent.isForced then return end
 
-		self:SetMinMaxValues(0, self.max)
-		self:SetValue(self.cur)
-	elseif parent.ResurrectIndicator then
-		parent.ResurrectIndicator:SetAlpha(cur == 0 and 1 or 0)
-	end
+	self.cur = random(1, 100)
+	self.max = 100
+
+	self:SetMinMaxValues(0, self.max)
+	self:SetValue(self.cur)
 end

@@ -29,6 +29,8 @@
 -- ----------------------------------------------------------------------------
 -- Functions
 local _G = getfenv(0)
+local IsAddOnLoaded = _G.IsAddOnLoaded or (_G.C_AddOns and _G.C_AddOns.IsAddOnLoaded)
+local LoadAddOn = _G.LoadAddOn or (_G.C_AddOns and _G.C_AddOns.LoadAddOn)
 -- Libraries
 local bit, string = _G.bit, _G.string
 local format = string.format

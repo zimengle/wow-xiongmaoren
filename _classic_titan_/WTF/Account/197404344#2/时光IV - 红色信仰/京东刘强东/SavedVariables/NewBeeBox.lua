@@ -2,7 +2,7 @@
 WclBoxCharacter = {
 ["class"] = "PALADIN",
 ["realmID"] = 6383,
-["loginTime"] = 1775221306,
+["loginTime"] = 1775734312,
 ["race"] = "人类",
 ["version"] = "1.0.30",
 ["faction"] = "Alliance",

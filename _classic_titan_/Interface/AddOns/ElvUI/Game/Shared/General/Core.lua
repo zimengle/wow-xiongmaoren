@@ -3,12 +3,14 @@ ElvUI[2] = ElvUI[1].Libs.ACL:GetLocale('ElvUI', ElvUI[1]:GetLocale()) -- Locale 
 local E, L, V, P, G = unpack(ElvUI)
 
 local _G = _G
-local tonumber, pairs, ipairs, error, unpack, tostring = tonumber, pairs, ipairs, error, unpack, tostring
+local tonumber, pairs, ipairs, unpack, tostring = tonumber, pairs, ipairs, unpack, tostring
 local strjoin, wipe, sort, tinsert, tremove, tContains = strjoin, wipe, sort, tinsert, tremove, tContains
 local format, strfind, strrep, strlen, sub, gsub = format, strfind, strrep, strlen, strsub, gsub
 local assert, type, pcall, xpcall, next, print = assert, type, pcall, xpcall, next, print
 local rawget, rawset, setmetatable = rawget, rawset, setmetatable
 
+local Mixin = Mixin
+local ColorMixin = ColorMixin
 local CreateFrame = CreateFrame
 local GetBindingKey = GetBindingKey
 local GetCurrentBindingSet = GetCurrentBindingSet
@@ -65,16 +67,18 @@ E.myname = UnitName('player')
 E.myrealm = GetRealmName()
 E.mynameRealm = format('%s - %s', E.myname, E.myrealm) -- contains spaces/dashes in realm (for profile keys)
 E.expansionLevel = GetExpansionLevel()
+E.expansionLevelMax = GetMaxLevelForExpansionLevel(E.expansionLevel)
 E.wowbuild = tonumber(E.wowbuild)
 E.physicalWidth, E.physicalHeight = GetPhysicalScreenSize()
 E.screenWidth, E.screenHeight = GetScreenWidth(), GetScreenHeight()
 E.resolution = format('%dx%d', E.physicalWidth, E.physicalHeight)
 E.perfect = 768 / E.physicalHeight
-E.allowRoles = E.Retail or E.TBC or E.Mists or E.Wrath or E.ClassicAnniv or E.ClassicAnnivHC or E.ClassicSOD
+E.allowRoles = E.Retail or E.TBC or E.Wrath or E.Mists or E.ClassicAnniv or E.ClassicAnnivHC or E.ClassicSOD
 E.NewSign = [[|TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:14:14|t]]
 E.NewSignNoWhatsNew = [[|TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:14:14:0:0|t]]
 E.TexturePath = [[Interface\AddOns\ElvUI\Media\Textures\]] -- for plugins?
 E.ClearTexture = 0 -- used to clear: Set (Normal, Disabled, Checked, Pushed, Highlight) Texture
+E.Abbreviate = {}
 E.UserList = {}
 
 -- oUF Defines
@@ -131,28 +135,46 @@ E.PriestColors = { r = 0.99, g = 0.99, b = 0.99, colorStr = 'fffcfcfc' }
 
 -- Socket Type info from 11.2.0 (63003): Interface\AddOns\Blizzard_ItemSocketing\Blizzard_ItemSocketingUI.lua
 E.GemTypeInfo = {
-	Yellow			= { r = 0.97, g = 0.82, b = 0.29 },
-	Red				= { r = 1.00, g = 0.47, b = 0.47 },
-	Blue			= { r = 0.47, g = 0.67, b = 1.00 },
-	Hydraulic		= { r = 1.00, g = 1.00, b = 1.00 },
-	Cogwheel		= { r = 1.00, g = 1.00, b = 1.00 },
-	Meta			= { r = 1.00, g = 1.00, b = 1.00 },
-	Prismatic		= { r = 1.00, g = 1.00, b = 1.00 },
-	PunchcardRed	= { r = 1.00, g = 0.47, b = 0.47 },
-	PunchcardYellow	= { r = 0.97, g = 0.82, b = 0.29 },
-	PunchcardBlue	= { r = 0.47, g = 0.67, b = 1.00 },
-	Domination		= { r = 0.24, g = 0.50, b = 0.70 },
-	Cypher			= { r = 1.00, g = 0.80, b = 0.00 },
-	Tinker			= { r = 1.00, g = 0.47, b = 0.47 },
-	Primordial		= { r = 1.00, g = 0.00, b = 1.00 },
-	Fragrance		= { r = 1.00, g = 1.00, b = 1.00 },
-	SingingThunder	= { r = 0.97, g = 0.82, b = 0.29 },
-	SingingSea		= { r = 0.47, g = 0.67, b = 1.00 },
-	SingingWind		= { r = 1.00, g = 0.47, b = 0.47 },
-	Fiber			= { r = 0.90, g = 0.80, b = 0.50 },
+	Yellow			= { r = 0.97, g = 0.82, b = 0.29, a = 1 },
+	Red				= { r = 1.00, g = 0.47, b = 0.47, a = 1 },
+	Blue			= { r = 0.47, g = 0.67, b = 1.00, a = 1 },
+	Hydraulic		= { r = 1.00, g = 1.00, b = 1.00, a = 1 },
+	Cogwheel		= { r = 1.00, g = 1.00, b = 1.00, a = 1 },
+	Meta			= { r = 1.00, g = 1.00, b = 1.00, a = 1 },
+	Prismatic		= { r = 1.00, g = 1.00, b = 1.00, a = 1 },
+	PunchcardRed	= { r = 1.00, g = 0.47, b = 0.47, a = 1 },
+	PunchcardYellow	= { r = 0.97, g = 0.82, b = 0.29, a = 1 },
+	PunchcardBlue	= { r = 0.47, g = 0.67, b = 1.00, a = 1 },
+	Domination		= { r = 0.24, g = 0.50, b = 0.70, a = 1 },
+	Cypher			= { r = 1.00, g = 0.80, b = 0.00, a = 1 },
+	Tinker			= { r = 1.00, g = 0.47, b = 0.47, a = 1 },
+	Primordial		= { r = 1.00, g = 0.00, b = 1.00, a = 1 },
+	Fragrance		= { r = 1.00, g = 1.00, b = 1.00, a = 1 },
+	SingingThunder	= { r = 0.97, g = 0.82, b = 0.29, a = 1 },
+	SingingSea		= { r = 0.47, g = 0.67, b = 1.00, a = 1 },
+	SingingWind		= { r = 1.00, g = 0.47, b = 0.47, a = 1 },
+	Fiber			= { r = 0.90, g = 0.80, b = 0.50, a = 1 },
 }
 
---This frame everything in ElvUI should be anchored to for Eyefinity support.
+E.Curves = { -- Midnight Color Curves (nil values created later)
+	Duration = nil, -- duration object for SetTimeFromStart
+	Float = {
+		Alpha = nil, -- float for hiding at Zero
+		Desaturation = nil, -- float curve for SetDesaturation
+	},
+	Color = {
+		Default = nil, -- simple red, yellow, green curve for various places
+		Dispel = nil, -- color curve for IsDispellableByMe; updated by ListUpdated in LibDispel
+		Auras = { -- color curves created and updated by UpdateAuraCurves
+			auras = false,		-- these all
+			buffs = false,		-- stay false
+			debuffs = false,	-- on classics
+			highlight = false
+		}
+	}
+}
+
+-- This frame everything in ElvUI should be anchored to for Eyefinity support.
 E.UIParent = CreateFrame('Frame', 'ElvUIParent', UIParent)
 E.UIParent:SetFrameLevel(UIParent:GetFrameLevel())
 E.UIParent:SetSize(E.screenWidth, E.screenHeight)
@@ -160,7 +182,7 @@ E.UIParent:SetPoint('BOTTOM')
 E.UIParent.origHeight = E.UIParent:GetHeight()
 E.snapBars[#E.snapBars + 1] = E.UIParent
 
-E.UFParent = _G.ElvUFParent -- created in oUF
+E.UFParent = _G.ElvUF_UFParentFrameHider -- created in oUF
 E.UFParent:SetParent(E.UIParent)
 E.UFParent:SetFrameStrata('LOW')
 
@@ -252,49 +274,50 @@ function E:UpdateClassColor(db)
 	return db
 end
 
-function E:SetColorTable(t, data)
-	if not data.r or not data.g or not data.b then
-		error('SetColorTable: Could not unpack color values.')
+function E:VerifyColorTable(color, shouldMixin, shouldIndex)
+	-- we just need to verify all the values exist or assume they are meant to be one
+	if not color.r or (color.r > 1 or color.r < 0) then color.r = 1 end
+	if not color.g or (color.g > 1 or color.g < 0) then color.g = 1 end
+	if not color.b or (color.b > 1 or color.b < 0) then color.b = 1 end
+	if not color.a or (color.a > 1 or color.a < 0) then color.a = 1 end
+
+	-- this is old compatibility. we should use RGBA instead
+	-- note: several places still unpack the color table
+	if shouldIndex then
+		if color[1] ~= color.r then color[1] = color.r end
+		if color[2] ~= color.g then color[2] = color.g end
+		if color[3] ~= color.b then color[3] = color.b end
+		if color[4] ~= color.a then color[4] = color.a end
 	end
 
-	if t and (type(t) == 'table') then
-		local r, g, b, a = E:UpdateColorTable(data)
-
-		t.r, t.g, t.b, t.a = r, g, b, a
-		t[1], t[2], t[3], t[4] = r, g, b, a
-	else
-		t = E:GetColorTable(data)
+	-- verify if we need the object to be mixed
+	if shouldMixin and not color.GetRGB then
+		Mixin(color, ColorMixin)
 	end
 
-	return t
+	return color
 end
 
-function E:VerifyColorTable(data)
-	if data.r > 1 or data.r < 0 then data.r = 1 end
-	if data.g > 1 or data.g < 0 then data.g = 1 end
-	if data.b > 1 or data.b < 0 then data.b = 1 end
-	if data.a and (data.a > 1 or data.a < 0) then data.a = 1 end
+function E:SetColorTable(color, data) -- this function does update the color to a mixin
+	return E:UpdateColorTable(type(color) == 'table' and color or {}, data)
 end
 
-function E:UpdateColorTable(data)
-	if not data.r or not data.g or not data.b then
-		error('UpdateColorTable: Could not unpack color values.')
-	end
-
-	E:VerifyColorTable(data)
-
-	return data.r, data.g, data.b, data.a
+function E:NewColorTable(r, g, b, a) -- this function doesnt update the color to a mixin
+	return E:VerifyColorTable({ r = r, g = g, b = b, a = a })
 end
 
-function E:GetColorTable(data)
-	if not data.r or not data.g or not data.b then
-		error('GetColorTable: Could not unpack color values.')
+function E:UpdateColorTable(color, data)
+	local r, g, b, a
+
+	if data then
+		r, g, b, a = data.r, data.g, data.b, data.a
 	end
 
-	E:VerifyColorTable(data)
+	if r or g or b or a then
+		color.r, color.g, color.b, color.a = r, g, b, a
+	end
 
-	local r, g, b, a = data.r, data.g, data.b, data.a
-	return { r, g, b, a, r = r, g = g, b = b, a = a }
+	return E:VerifyColorTable(color, true, true)
 end
 
 function E:UpdateMedia(mediaType)
@@ -326,6 +349,20 @@ function E:UpdateMedia(mediaType)
 	local value = E:UpdateClassColor(E.db.general.valuecolor)
 	E.media.rgbvaluecolor = E:SetColorTable(E.media.rgbvaluecolor, value)
 	E.media.hexvaluecolor = E:RGBToHex(value.r, value.g, value.b)
+
+	if E.db.cooldown.enable then
+		for key in next, P.cooldown do
+			local db = E.db.cooldown[key]
+			if type(db) == 'table' and db.colors then
+				E:UpdateClassColor(db.colors.text)
+				E:UpdateClassColor(db.colors.edge)
+				E:UpdateClassColor(db.colors.edgeCharge)
+				E:UpdateClassColor(db.colors.swipe)
+				E:UpdateClassColor(db.colors.swipeCharge)
+				E:UpdateClassColor(db.colors.swipeLOC)
+			end
+		end
+	end
 
 	if E.private.nameplates.enable then
 		-- Colors for Target Indicator
@@ -450,7 +487,7 @@ function E:UpdateBorderColors()
 end
 
 function E:UpdateBackdropColors()
-	local r, g, b = unpack(E.media.backdropcolor)
+	local r, g, b, a = unpack(E.media.backdropcolor)
 	local r2, g2, b2, a2 = unpack(E.media.backdropfadecolor)
 
 	for frame in pairs(E.frames) do
@@ -459,7 +496,7 @@ function E:UpdateBackdropColors()
 				if frame.callbackBackdropColor then
 					frame:callbackBackdropColor()
 				elseif frame.template == 'Default' then
-					frame:SetBackdropColor(r, g, b)
+					frame:SetBackdropColor(r, g, b, frame.customBackdropAlpha or a)
 				elseif frame.template == 'Transparent' then
 					frame:SetBackdropColor(r2, g2, b2, frame.customBackdropAlpha or a2)
 				end
@@ -475,7 +512,7 @@ function E:UpdateBackdropColors()
 				if frame.callbackBackdropColor then
 					frame:callbackBackdropColor()
 				elseif frame.template == 'Default' then
-					frame:SetBackdropColor(r, g, b)
+					frame:SetBackdropColor(r, g, b, frame.customBackdropAlpha or a)
 				elseif frame.template == 'Transparent' then
 					frame:SetBackdropColor(r2, g2, b2, frame.customBackdropAlpha or a2)
 				end
@@ -585,6 +622,14 @@ do
 			'Chattynator',
 			'Glass'
 		},
+		Cooldown = {
+			info = {
+				enabled = function() return E.db.cooldown.enable end,
+				accept = function() E.db.cooldown.enable = false; ReloadUI() end,
+				name = 'ElvUI Cooldown Text'
+			},
+			'OmniCC'
+		},
 		NamePlates = {
 			info = {
 				enabled = function() return E.private.nameplates.enable end,
@@ -596,7 +641,8 @@ do
 			'Healers-Have-To-Die',
 			'Kui_Nameplates',
 			'Plater',
-			'Aloft'
+			'Aloft',
+			'Platynator'
 		},
 		Minimap = {
 			info = {
@@ -803,8 +849,7 @@ do	--The code in this function is from WeakAuras, credit goes to Mirrored and th
 		profile = 'E.db',
 		private = 'E.private',
 		global = 'E.global',
-		filters = 'E.global',
-		styleFilters = 'E.global'
+		filters = 'E.global'
 	}
 
 	local function BuildLineStructure(str) -- str is profileText
@@ -1066,29 +1111,8 @@ do -- BFA Convert, deprecated..
 			end
 		end
 
-		--Remove stale font settings from Cooldown system for top auras
-		if E.db.auras.cooldown.fonts then
-			E.db.auras.cooldown.fonts = nil
-		end
-
-		--Convert Nameplate Aura Duration to new Cooldown system
-		if E.db.nameplates.durationFont then
-			E.db.nameplates.cooldown.fonts.font = E.db.nameplates.durationFont
-			E.db.nameplates.cooldown.fonts.fontSize = E.db.nameplates.durationFontSize
-			E.db.nameplates.cooldown.fonts.fontOutline = E.db.nameplates.durationFontOutline
-
-			E.db.nameplates.durationFont = nil
-			E.db.nameplates.durationFontSize = nil
-			E.db.nameplates.durationFontOutline = nil
-		end
-
 		if E.db.nameplates.lowHealthThreshold > 0.8 then
 			E.db.nameplates.lowHealthThreshold = 0.8
-		end
-
-		if E.db.nameplates.units.TARGET.nonTargetTransparency ~= nil then
-			E.global.nameplates.filters.ElvUI_NonTarget.actions.alpha = E.db.nameplates.units.TARGET.nonTargetTransparency * 100
-			E.db.nameplates.units.TARGET.nonTargetTransparency = nil
 		end
 
 		--Removed additional table in nameplate filters cause it was basically useless
@@ -1105,12 +1129,6 @@ do -- BFA Convert, deprecated..
 				E.db.nameplates.units[unit].debuffs.priority = E.db.nameplates.units[unit].debuffs.filters.priority or P.nameplates.units[unit].debuffs.priority
 				E.db.nameplates.units[unit].debuffs.filters = nil
 			end
-		end
-
-		--Moved target scale to a style filter
-		if E.db.nameplates.units.TARGET.scale ~= nil then
-			E.global.nameplates.filters.ElvUI_Target.actions.scale = E.db.nameplates.units.TARGET.scale
-			E.db.nameplates.units.TARGET.scale = nil
 		end
 
 		--Convert cropIcon to tristate
@@ -1152,17 +1170,6 @@ do -- BFA Convert, deprecated..
 					healPrediction.showOverAbsorbs = nil
 				end
 			end
-		end
-
-		--Health Backdrop Multiplier
-		if E.db.unitframe.colors.healthmultiplier ~= nil then
-			if E.db.unitframe.colors.healthmultiplier > 0.75 then
-				E.db.unitframe.colors.healthMultiplier = 0.75
-			else
-				E.db.unitframe.colors.healthMultiplier = E.db.unitframe.colors.healthmultiplier
-			end
-
-			E.db.unitframe.colors.healthmultiplier = nil
 		end
 
 		--Tooltip FactionColors Setting
@@ -1231,7 +1238,7 @@ do -- BFA Convert, deprecated..
 			end
 
 			if type(info) == 'boolean' then
-				auraBarColors[spell] = { color = { r = 1, g = 1, b = 1 }, enable = info }
+				auraBarColors[spell] = { color = { r = 1, g = 1, b = 1, a = 1 }, enable = info }
 			elseif type(info) == 'table' then
 				if info.r or info.g or info.b then
 					auraBarColors[spell] = { color = { r = info.r or 1, g = info.g or 1, b = info.b or 1 }, enable = true }
@@ -1518,8 +1525,8 @@ function E:UpdateDB()
 	E:SetupDB()
 
 	-- default the non thing pixel border color to 191919, otherwise its 000000
-	if not E.PixelMode then P.general.bordercolor = { r = 0.1, g = 0.1, b = 0.1 } end
-	if not E.db.unitframe.thinBorders then P.unitframe.colors.borderColor = { r = 0.1, g = 0.1, b = 0.1 } end
+	if not E.PixelMode then P.general.bordercolor = { r = 0.1, g = 0.1, b = 0.1, a = 1 } end
+	if not E.db.unitframe.thinBorders then P.unitframe.colors.borderColor = { r = 0.1, g = 0.1, b = 0.1, a = 1 } end
 end
 
 function E:UpdateMoverPositions()
@@ -1542,6 +1549,7 @@ end
 
 function E:UpdateMediaItems(skipCallback)
 	E:UpdateMedia()
+	E:UpdateAuraCurves()
 	E:UpdateDispelColors()
 	E:UpdateCustomClassColors()
 	E:UpdateFrameTemplates()
@@ -1567,7 +1575,6 @@ function E:UpdateActionBars(skipCallback)
 	ActionBars:ToggleCooldownOptions()
 	ActionBars:UpdateButtonSettings()
 	ActionBars:UpdateMicroButtons()
-	ActionBars:UpdatePetCooldownSettings()
 
 	if E.Retail or E.Mists then
 		ActionBars:UpdateExtraButtons()
@@ -1580,7 +1587,6 @@ end
 
 function E:UpdateNamePlates(skipCallback)
 	NamePlates:ConfigureAll()
-	NamePlates:StyleFilterInitialize()
 
 	if not skipCallback then
 		E.callbacks:Fire('StaggeredUpdate')
@@ -1659,8 +1665,6 @@ function E:UpdateMisc(skipCallback)
 end
 
 function E:UpdateEnd()
-	E:UpdateCooldownSettings('all')
-
 	if E.RefreshGUI then
 		E:RefreshGUI()
 	end
@@ -2043,27 +2047,29 @@ function E:Initialize()
 	E:UIScale()
 	E:LoadStaticPopups()
 
+	if not E.Classic or (E.ClassicSOD or E.ClassicAnniv or E.ClassicAnnivHC) then
+		E.Libs.DualSpec:EnhanceDatabase(E.data, 'ElvUI')
+	end
+
 	if E.OtherAddons.Tukui then
 		E:StaticPopup_Show('TUKUI_ELVUI_INCOMPATIBLE')
 	else
+		E:UpdateCurves()
 		E:BuildPrefixValues()
+		E:BuildAbbreviateConfigs()
 		E:LoadAPI()
 		E:LoadCommands()
 		E:InitializeModules()
 		E:LoadMovers()
 		E:UpdateMedia()
+		E:UpdateAuraCurves()
 		E:UpdateDispelColors()
 		E:UpdateCustomClassColors()
-		E:UpdateCooldownSettings('all')
 
 		E.initialized = true
 
 		if E.Retail then
 			E:Tutorials()
-		end
-
-		if E.Retail or E.Wrath or E.Mists or E.TBC or E.ClassicSOD or E.ClassicAnniv or E.ClassicAnnivHC then
-			E.Libs.DualSpec:EnhanceDatabase(E.data, 'ElvUI')
 		end
 
 		if E.db.general.tagUpdateRate and (E.db.general.tagUpdateRate ~= P.general.tagUpdateRate) then
@@ -2083,7 +2089,9 @@ function E:Initialize()
 			E:StaticPopup_Show('UPDATE_REQUEST')
 		end
 
-		if GetCVarBool('scriptProfile') then
+		if GetCVarBool('taintLog') then
+			E:StaticPopup_Show('TAINT_LOG')
+		elseif GetCVarBool('scriptProfile') then
 			E:StaticPopup_Show('SCRIPT_PROFILE')
 		end
 

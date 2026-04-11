@@ -26,8 +26,8 @@ TomTomDB = {
 "CENTER",
 nil,
 "CENTER",
--7.519718170166016,
--153.3710632324219,
+1.36896812915802,
+-204.6530456542969,
 },
 },
 ["block"] = {
@@ -158,9 +158,9 @@ TomTomWaypointsM = {
 ["callbacks"] = {
 ["distance"] = {
 },
-["world"] = {
-},
 ["minimap"] = {
+},
+["world"] = {
 },
 },
 ["minimap"] = true,
@@ -281,6 +281,31 @@ TomTomWaypointsM = {
 ["退休码农 - 时光IV - 红色信仰"] = {
 },
 ["三角碑崽儿 - 时光IV - 红色信仰"] = {
+[115] = {
+["115:613000000:526000000:红玉圣殿"] = {
+115,
+0.613,
+0.526,
+["arrivaldistance"] = 15,
+["crazy"] = true,
+["persistent"] = true,
+["desc"] = "红玉圣殿",
+["silent"] = true,
+["cleardistance"] = 10,
+["title"] = "红玉圣殿",
+["from"] = "?",
+["callbacks"] = {
+["distance"] = {
+},
+["world"] = {
+},
+["minimap"] = {
+},
+},
+["minimap"] = true,
+["world"] = true,
+},
+},
 },
 ["京东刘强东 - 时光IV - 红色信仰"] = {
 },

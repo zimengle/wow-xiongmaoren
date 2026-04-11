@@ -7,7 +7,7 @@ local next = next
 local format = format
 
 local UnitName = UnitName
-local GetInstanceInfo = GetInstanceInfo
+local IsInInstance = IsInInstance
 local GetBattlefieldScore = GetBattlefieldScore
 local GetArenaOpponentSpec = GetArenaOpponentSpec
 local GetNumArenaOpponentSpecs = GetNumArenaOpponentSpecs
@@ -43,16 +43,20 @@ local function Event(_, event, initLogin, isReload)
 
 	if not E.private.nameplates.enable then return end
 
-	local _, instanceType = GetInstanceInfo()
+	local _, instanceType = IsInInstance()
 	if instanceType == 'pvp' or instanceType == 'arena' then
 		local numOpps = GetNumArenaOpponentSpecs()
 		if numOpps >= 1 then
 			for i = 1, numOpps do
-				local name, realm = UnitName(format('arena%d', i))
-				if name and name ~= UNKNOWN then
-					realm = (realm and realm ~= '') and E:ShortenRealm(realm)
-
-					if realm then name = name..'-'..realm end
+				local arenaToken = format('arena%d', i)
+				local name, realm = UnitName(arenaToken)
+				if E:IsSecretValue(name) then
+					break -- bail out
+				elseif name and name ~= UNKNOWN then
+					local shortRealm = (realm and realm ~= '') and E:ShortenRealm(realm)
+					if shortRealm then
+						name = name..'-'..shortRealm
+					end
 
 					local specID = GetArenaOpponentSpec(i)
 					local specInfo = E.SpecInfoBySpecID[specID]
@@ -70,19 +74,20 @@ local function Event(_, event, initLogin, isReload)
 		else
 			for i = 1, GetNumBattlefieldScores() do
 				local name, _, _, _, _, _, _, _, _, _, _, _, _, _, _, specName = GetBattlefieldScore(i)
-				name = name and name ~= UNKNOWN and E:StripMyRealm(name)
-
-				if name then
+				if E:IsSecretValue(name) then
+					break -- bail out
+				elseif name and name ~= UNKNOWN then
+					local playerName = E:StripMyRealm(name)
 					if HealerSpecs[specName] then
-						Healers[name] = specName
+						Healers[playerName] = specName
 					elseif Healers[name] then
-						Healers[name] = nil
+						Healers[playerName] = nil
 					end
 
 					if TankSpecs[specName] then
-						Tanks[name] = specName
-					elseif Tanks[name] then
-						Tanks[name] = nil
+						Tanks[playerName] = specName
+					elseif Tanks[playerName] then
+						Tanks[playerName] = nil
 					end
 				end
 			end
@@ -97,18 +102,22 @@ local function Update(self)
 		element:PreUpdate()
 	end
 
-	local _, instanceType = GetInstanceInfo()
+	local _, instanceType = IsInInstance()
 	if instanceType == 'pvp' or instanceType == 'arena' then
 		local name, realm = UnitName(self.unit)
-		realm = (realm and realm ~= '') and E:ShortenRealm(realm)
-		if realm then name = name..'-'..realm end
+		if E:NotSecretValue(name) then
+			local shortRealm = (realm and realm ~= '') and E:ShortenRealm(realm)
+			if shortRealm then
+				name = name..'-'..shortRealm
+			end
 
-		if Healers[name] and element.ShowHealers then
-			element:SetTexture(element.HealerTexture)
-			isShown = true
-		elseif Tanks[name] and element.ShowTanks then
-			element:SetTexture(element.TankTexture)
-			isShown = true
+			if Healers[name] and element.ShowHealers then
+				element:SetTexture(element.HealerTexture)
+				isShown = true
+			elseif Tanks[name] and element.ShowTanks then
+				element:SetTexture(element.TankTexture)
+				isShown = true
+			end
 		end
 	end
 

@@ -89,7 +89,7 @@ function AB:UpdatePet(event, unit)
 			autoCast:Hide()
 		end
 
-		if E.Retail or E.TBC then
+		if E.Retail or E.TBC or E.Wrath then
 			autoCast:ShowAutoCastEnabled(autoCastEnabled)
 		elseif autoCastEnabled then
 			AutoCastShine_AutoCastStart(button.AutoCastShine)
@@ -121,8 +121,6 @@ function AB:PositionAndSizeBarPet()
 	local db = AB.db.barPet
 	if not db then return end
 
-	local buttonWidth = db.buttonSize
-	local buttonHeight = (db.keepSizeRatio and db.buttonSize) or db.buttonHeight
 	local buttonSpacing = db.buttonSpacing
 	local backdropSpacing = db.backdropSpacing
 	local buttonsPerRow = db.buttonsPerRow
@@ -161,7 +159,6 @@ function AB:PositionAndSizeBarPet()
 	for i, button in ipairs(bar.buttons) do
 		local lastButton = _G['PetActionButton'..i-1]
 		local lastColumnButton = _G['PetActionButton'..i-buttonsPerRow]
-		local autoCast = button.AutoCastOverlay or button.AutoCastable
 
 		button.db = db
 
@@ -180,23 +177,7 @@ function AB:PositionAndSizeBarPet()
 			button.handleBackdrop = true -- keep over HandleButton
 		end
 
-		if E.Retail then
-			autoCast:SetOutside(button, 3, 3)
-		elseif E.TBC then
-			autoCast:SetOutside(button, 1, 1)
-
-			local corners = autoCast.Corners
-			if corners then
-				local cornerWidth = (buttonWidth * 0.5) - (buttonWidth / 7.5)
-				local cornerHeight = (buttonHeight * 0.5) - (buttonHeight / 7.5)
-				corners:SetOutside(button, cornerWidth, cornerHeight)
-			end
-		else
-			local autoCastWidth = (buttonWidth * 0.5) - (buttonWidth / 7.5)
-			local autoCastHeight = (buttonHeight * 0.5) - (buttonHeight / 7.5)
-			autoCast:SetOutside(button, autoCastWidth, autoCastHeight)
-		end
-
+		AB:HandleButtonAutoCast(bar, button)
 		AB:HandleButton(bar, button, i, lastButton, lastColumnButton)
 		AB:StyleButton(button, nil, useMasque, true)
 	end
@@ -209,14 +190,6 @@ function AB:PositionAndSizeBarPet()
 
 	if useMasque then
 		AB:UpdateMasque(bar)
-	end
-end
-
-function AB:UpdatePetCooldownSettings()
-	for _, button in ipairs(bar.buttons) do
-		if button.cooldown then
-			button.cooldown:SetDrawBling(not AB.db.hideCooldownBling)
-		end
 	end
 end
 
@@ -269,8 +242,13 @@ function AB:CreateBarPet()
 
 	for i = 1, _G.NUM_PET_ACTION_SLOTS do
 		local button = _G['PetActionButton'..i]
-		button:Show() -- for some reason they start hidden on DF ?
+		if not button:IsShown() then
+			button:Show() -- for some reason they start hidden on DF ?
+		end
+
 		button.parentName = 'ElvUI_BarPet'
+		button.cooldown:SetAllPoints(button.icon)
+
 		bar.buttons[i] = button
 
 		if not E.Retail then
@@ -302,7 +280,7 @@ function AB:CreateBarPet()
 	bar:SetScript('OnHide', AB.PetBar_OnHide)
 	bar:SetScript('OnShow', AB.PetBar_OnShow)
 
-	if E.Retail or E.TBC then
+	if E.Retail or E.TBC or E.Wrath then
 		AB:RegisterEvent('PET_UI_UPDATE', 'UpdatePet')
 	else
 		PetActionBar_ShowGrid()

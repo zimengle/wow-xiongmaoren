@@ -4,6 +4,15 @@ local AuctionBar = CreateFrame("Frame", "AuctionBarFrame", UIParent)
 -- 声明局部变量，将在 ADDON_LOADED 事件后指向当前服务器-阵营的数据库
 local EasyAuctionDB
 
+local function EA_GetAddonMetadata(name, field)
+    if type(GetAddOnMetadata) == "function" then
+        return GetAddOnMetadata(name, field)
+    end
+    if C_AddOns and type(C_AddOns.GetAddOnMetadata) == "function" then
+        return C_AddOns.GetAddOnMetadata(name, field)
+    end
+end
+
 local function NormalizePositiveInt(value, fallback)
     value = math.floor(tonumber(value) or fallback or 1)
     if value < 1 then
@@ -118,7 +127,7 @@ local function GetAutoFillFlashSellCounts(availableStackCount, availableTotalCou
     return stackCount, numStacks
 end
 
-local version = GetAddOnMetadata(addonName, "Version") or "?"
+local version = EA_GetAddonMetadata(addonName, "Version") or "?"
 
 local ITEM_QUALITY_COLORS = {
     [0] = { r = 0.62, g = 0.62, b = 0.62 },
@@ -2283,10 +2292,10 @@ function CreateAuctionSide()
     end
 
     local function IsMinimalAddonMode()
-        for i = 1, GetNumAddOns() do
-            local name = GetAddOnInfo(i)
+        for i = 1, C_AddOns.GetNumAddOns() do
+            local name = C_AddOns.GetAddOnInfo(i)
             if name and name ~= "EasyAuction" and not name:find("^Blizzard_") then
-                if GetAddOnEnableState(UnitName("player"), name) > 0 then
+                if C_AddOns.GetAddOnEnableState(UnitName("player"), name) > 0 then
                     return false
                 end
             end

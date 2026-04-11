@@ -6,17 +6,19 @@ local unpack = unpack
 E.Filters = {}
 E.Filters.Included = {}
 
-E.Filters.List = function(priority)
+E.Filters.List = function(priority, enable, stackThreshold)
 	return {
-		enable = true,
 		priority = priority or 0,
-		stackThreshold = 0
+		enable = enable == nil or enable,
+		stackThreshold = stackThreshold or 0
 	}
 end
 
-E.Filters.Aura = function(auraID, includeIDs, point, color, anyUnit, onlyShowMissing, displayText, textThreshold, xOffset, yOffset)
+E.Filters.Aura = function(auraID, includeIDs, enabled, point, color, anyUnit, onlyShowMissing, displayText, xOffset, yOffset)
 	local r, g, b = 1, 1, 1
-	if color then r, g, b = unpack(color) end
+	if color then
+		r, g, b = unpack(color)
+	end
 
 	if includeIDs then
 		local included = E.Filters.Included
@@ -28,13 +30,12 @@ E.Filters.Aura = function(auraID, includeIDs, point, color, anyUnit, onlyShowMis
 	return {
 		id = auraID,
 		includeIDs = includeIDs,
-		enabled = true,
+		enabled = enabled,
 		point = point or 'TOPLEFT',
 		color = { r = r, g = g, b = b },
 		anyUnit = anyUnit or false,
 		onlyShowMissing = onlyShowMissing or false,
 		displayText = displayText or false,
-		textThreshold = textThreshold or -1,
 		xOffset = xOffset or 0,
 		yOffset = yOffset or 0,
 		style = 'coloredIcon',

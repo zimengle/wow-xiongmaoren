@@ -106,7 +106,6 @@ end
 function Module:OnEnable()
     self:RegisterEvent("PLAYER_REGEN_ENABLED", "UpdateBar")
     self:RegisterEvent("SPELLS_CHANGED", "UpdateBar")
-    self:RegisterEvent("LEARNED_SPELL_IN_TAB", "UpdateBar")
 
     local _, class = UnitClass("player")
     if class == "MAGE" or self.previewEnabled then

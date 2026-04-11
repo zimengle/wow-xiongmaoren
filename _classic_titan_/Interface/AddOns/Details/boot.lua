@@ -19,6 +19,12 @@
 		local version, build, date, tvs = GetBuildInfo()
 		Details.build_counter = 14850
 		Details.alpha_build_counter = 14850 --if this is higher than the regular counter, use it instead
+		Details.build_counter = 14895
+		Details.alpha_build_counter = 14895 --if this is higher than the regular counter, use it instead
+		Details.build_counter = 14899
+		Details.alpha_build_counter = 14899 --if this is higher than the regular counter, use it instead
+		Details.build_counter = 14900
+		Details.alpha_build_counter = 14900 --if this is higher than the regular counter, use it instead
 		Details.dont_open_news = true
 		Details.game_version = version
 		Details.userversion = version .. " " .. Details.build_counter
@@ -92,6 +98,13 @@
 		Details222.Unknown = _G["UNKNOWN"]
 
 		Details222.IsPTR = function()
+			local _, _, _, a = GetBuildInfo()
+			if a >= 120005 then
+				return true
+			end
+		end
+
+		function Details222.IsPTR1205()
 			local _, _, _, a = GetBuildInfo()
 			if a >= 120005 then
 				return true
@@ -297,8 +310,13 @@
 		---@param attribute number
 		---@return damagemeter_combat_session
 		function Details222.B.GetSegment(type, identifier, attribute)
-			local result = Details.DM[(getSegmentFName .. type)](identifier, attribute)
-			return result
+			if attribute < 0 then
+				local result = Details222.BParser.GetCustomDataForWindow(nil, attribute, type, identifier)
+				return result
+			else
+				local result = Details.DM[(getSegmentFName .. type)](identifier, attribute)
+				return result
+			end
 		end
 
 		---return a spell container
@@ -313,6 +331,10 @@
 			else
 				return Details.DM[(getSpellFname .. type)](identifier, attribute, guid, x)
 			end
+		end
+
+		function Details222.B.GetCombatTime(type)
+			return C_DamageMeter.GetSessionDurationSeconds(type)
 		end
 
 		---usage: local actorList, amountOfActors, totalAmount, combatTime = Details222.B.GetSegmentInfo(segment)
@@ -411,6 +433,10 @@
 
 		function Details222.B.GetCurrentTime(segmentType)
 			return Details222.B.GetSegment("Type", segmentType, 0).durationSeconds
+		end
+
+		function Details222.B.GetOverallTime()
+			return  C_DamageMeter.GetSessionDurationSeconds(0)
 		end
 
 		function Details:BleachFontString(fontString)
@@ -1155,7 +1181,7 @@ do
 		--constants
 
 		if (DetailsFramework.IsWotLKWow()) then
-			--[[global]] DETAILS_HEALTH_POTION_ID = 33447 -- Runic Healing Potion
+			--[[global]] DETAILS_HEALTH_POTION1_ID = 33447 -- Runic Healing Potion
 			--[[global]] DETAILS_HEALTH_POTION2_ID = 41166 -- Runic Healing Injector
 			--[[global]] DETAILS_REJU_POTION_ID = 40087 -- Powerful Rejuvenation Potion
 			--[[global]] DETAILS_REJU_POTION2_ID = 40077 -- Crazy Alchemist's Potion
@@ -1171,7 +1197,7 @@ do
 			--[[global]] DETAILS_STR_POTION_ID = 307164
 			--[[global]] DETAILS_STAMINA_POTION_ID = 40093 --Indestructible Potion
 			--[[global]] DETAILS_HEALTH_POTION_LIST = {
-					[DETAILS_HEALTH_POTION_ID] = true, -- Runic Healing Potion
+					[DETAILS_HEALTH_POTION1_ID] = true, -- Runic Healing Potion
 					[DETAILS_HEALTH_POTION2_ID] = true, -- Runic Healing Injector
 					[DETAILS_HEALTHSTONE_ID] = true, --Warlock's Healthstone
 					[DETAILS_HEALTHSTONE2_ID] = true, --Warlock's Healthstone (1/2 Talent)
@@ -1183,8 +1209,10 @@ do
 				}
 
 		else
-			--[[global]] DETAILS_HEALTH_POTION_ID = 307192 -- spiritual healing potion
-			--[[global]] DETAILS_HEALTH_POTION2_ID = 359867 --cosmic healing potion
+			--[[global]] DETAILS_HEALTH_POTION1_ID = 307192 -- spiritual healing potion
+			--[[global]] DETAILS_HEALTH_POTION2_ID = 1234768 --cosmic healing potion
+			--[[global]] DETAILS_HEALTH_POTION3_ID = 1262857 --Potent Healing Potion
+
 			--[[global]] DETAILS_REJU_POTION_ID = 307194
 			--[[global]] DETAILS_MANA_POTION_ID = 307193
 			--[[global]] DETAILS_FOCUS_POTION_ID = 307161
@@ -1195,7 +1223,7 @@ do
 			--[[global]] DETAILS_STR_POTION_ID = 307164
 			--[[global]] DETAILS_STAMINA_POTION_ID = 307163
 			--[[global]] DETAILS_HEALTH_POTION_LIST = {
-					[DETAILS_HEALTH_POTION_ID] = true, --Healing Potion
+					[DETAILS_HEALTH_POTION1_ID] = true, --Healing Potion
 					[DETAILS_HEALTHSTONE_ID] = true, --Warlock's Healthstone
 					[DETAILS_REJU_POTION_ID] = true, --Rejuvenation Potion
 					[DETAILS_MANA_POTION_ID] = true, --Mana Potion
@@ -1769,6 +1797,31 @@ function Details222.ClassCache.GetClass(value)
 
 	local _, unitClass = UnitClass(value)
 	return unitClass
+end
+
+function Details:SetTooltipBackdrop(border_texture, border_size, border_color)
+	if (not border_texture) then
+		border_texture = Details.tooltip.border_texture
+	end
+	if (not border_size) then
+		border_size = Details.tooltip.border_size
+	end
+	if (not border_color) then
+		border_color = Details.tooltip.border_color
+	end
+
+	Details.tooltip.border_texture = border_texture
+	Details.tooltip.border_size = border_size
+
+	local c = Details.tooltip.border_color
+	local cc = Details.tooltip_border_color
+	c[1], c[2], c[3], c[4] = border_color[1], border_color[2], border_color[3], border_color[4] or 1
+	cc[1], cc[2], cc[3], cc[4] = border_color[1], border_color[2], border_color[3], border_color[4] or 1
+
+	if (SharedMedia) then
+		Details.tooltip_backdrop.edgeFile = SharedMedia:Fetch("border", border_texture)
+		Details.tooltip_backdrop.edgeSize = border_size
+	end
 end
 
 function Details222.ClassCache.MakeCache()

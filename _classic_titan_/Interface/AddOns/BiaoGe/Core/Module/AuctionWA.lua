@@ -2088,9 +2088,11 @@ BG.Init(function()
                         local link = item:GetItemLink()
                         local msg = format(L["{rt1}拍卖开始{rt1} %s 起拍价：%s"],
                             link, money)
-                        local tipsText = GetVIPTipsText(link)
-                        if strlen(msg .. tipsText) < 255 then
-                            msg = msg .. tipsText
+                        local tipsText = securecall(GetVIPTipsText, link)
+                        if tipsText then
+                            if strlen(msg .. tipsText) < 255 then
+                                msg = msg .. tipsText
+                            end
                         end
                         SendChatMessage(msg, "RAID_WARNING")
                     end)

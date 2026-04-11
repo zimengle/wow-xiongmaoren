@@ -36,8 +36,8 @@ local C_DateAndTime_GetSecondsUntilWeeklyReset = C_DateAndTime.GetSecondsUntilWe
 local C_QuestLog_IsQuestFlaggedCompleted = C_QuestLog.IsQuestFlaggedCompleted
 
 local APM = { _G.TIMEMANAGER_PM, _G.TIMEMANAGER_AM }
-local lockoutColorExtended = { r = 0.3, g = 1, b = 0.3 }
-local lockoutColorNormal = { r = .8, g = .8, b = .8 }
+local lockoutColorExtended = { r = 0.3, g = 1, b = 0.3, a = 1 }
+local lockoutColorNormal = { r = .8, g = .8, b = .8, a = 1 }
 local lockoutInfoFormat = '%s%s %s |cffaaaaaa(%s, %s/%s)'
 local lockoutInfoFormatNoEnc = '%s%s %s |cffaaaaaa(%s)'
 local formatBattleGroundInfo = '%s: '
@@ -64,7 +64,7 @@ local WORLD_BOSSES_MIST = {
 	[32518] = 'Nalak'
 }
 
-local ALLOW_ID = { -- also has IDs maintained in Nameplate StyleFilters
+local ALLOW_ID = {
 	[2] = true,		-- heroic
 	[23] = true,	-- mythic
 	[148] = true,	-- ZG/AQ40

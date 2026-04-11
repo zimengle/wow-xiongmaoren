@@ -11,7 +11,7 @@ local Elementss = {
 
 TotemTimers.options.args.totems = {
     type = "group",
-    name = "Totems",
+    name = L["Totems"],
     args = {
         [tostring(EARTH_TOTEM_SLOT)] = {
             order = 0,
@@ -64,5 +64,5 @@ for k,v in pairs(TotemData) do
 end
 
 local ACD = LibStub("AceConfigDialog-3.0")
-local frame, categoryID = ACD:AddToBlizOptions("TotemTimers", "Totems", "TotemTimers", "totems")
+local frame, categoryID = ACD:AddToBlizOptions("TotemTimers", L["Totems"], L["TotemTimers"], "totems")
 TotemTimers.HookGUIFrame(frame, categoryID)

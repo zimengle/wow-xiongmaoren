@@ -1,0 +1,27 @@
+<Ui xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+    <!-- 1. 库文件 - 必须最先加载 -->
+    <Include file="Libs\Libs.xml"/>
+
+    <!-- 2. 基础插件文件 -->
+    <Script file="Addon.lua"/>
+
+    <!-- 3. 本地化 -->
+    <Include file="Localization\Localization.xml"/>
+
+    <!-- 3. 数据配置文件 -->
+    <Script file="Utils.lua"/>
+    <Script file="MeetingHornAPI.lua"/>
+    <Script file="Data.lua"/>
+    <Script file="Activities.lua"/>
+
+    <!-- 4. 核心功能 -->
+    <Script file="Core/Timer.lua"/>
+    <Script file="Core/Activity.lua"/>
+    <Script file="Core/ChatManager.lua"/>
+    <Script file="Core/Channel.lua"/>
+    <Script file="Core/Manager.lua"/>
+    <Script file="Core/PlayerSquareManager.lua"/>
+
+    <!-- 5. UI组件 -->
+    <Include file="UI\UI.xml"/>
+</Ui>
