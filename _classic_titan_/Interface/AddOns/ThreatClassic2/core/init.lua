@@ -10,5 +10,5 @@ ns[3] = {} -- L, Localization
 -- AddOn Info
 -----------------------------
 ns[1].addonName     = parent
-ns[1].version       = GetAddOnMetadata(parent, "Version")
+ns[1].version       = GetAddOnMetadata and GetAddOnMetadata(parent, "Version") or "Unknown"
 ns[1].locale        = GetLocale()

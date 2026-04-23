@@ -92,13 +92,31 @@ function HeroicFloatingFrame:New()
         end
     end
 
-    -- 注册活动更新回调（APPLICANT_ADDED 时触发 Flash）
+    -- 注册活动更新回调（节流 + 事件过滤）
+    -- 只有影响活动数量的事件才触发文字刷新，聊天/成员信息等事件跳过
     if ns.ActivityManager and ns.ActivityManager.RegisterUpdateCallback then
-        ns.ActivityManager:RegisterUpdateCallback(function(_, event)
-            frame:Update()
-            if event == "APPLICANT_ADDED" then
+        local REFRESH_EVENTS = {
+            ACTIVITY_CREATED = true,
+            ACTIVITY_UPDATED = true,
+            ACTIVITY_CLOSED = true,
+            ACTIVITY_EXPIRED = true,
+            ACTIVITY_LOADED = true,
+            ACTIVITIES_REFRESHED = true,
+            ACTIVITIES_CLEANED = true,
+            EXTERNAL_ACTIVITY_RECEIVED = true,
+            MEMBER_JOINED = true,
+            MEMBER_LEFT = true,
+            ACTIVITY_SYNCED = true,
+            FILTER_CHANGED = true,
+        }
+        ns.ActivityManager:RegisterUpdateCallback(function(eventType, data)
+            if eventType == "APPLICANT_ADDED" then
                 frame:StartFlash()
+                frame:Update()  -- 申请者变化立即刷新
+            elseif REFRESH_EVENTS[eventType] then
+                frame:ScheduleUpdate()  -- 节流刷新
             end
+            -- 其他事件（CHAT_RECORD_*, MEMBER_INFO_*, WHISPER_APPLICANT 等）不刷新
         end)
     end
 
@@ -157,9 +175,11 @@ end
 
 function HeroicFloatingFrame:GetActivityCount()
     if not ns.ActivityManager then return 0 end
-    if ns.ActivityManager.GetActivityCount then
-        return ns.ActivityManager:GetActivityCount()
+    -- 优先使用轻量级计数（跳过 Filter/Sort/MeetingHorn 全链路）
+    if ns.ActivityManager.GetRawActivityCount then
+        return ns.ActivityManager:GetRawActivityCount()
     end
+    -- 降级：走完整链路
     if ns.ActivityManager.GetFilteredActivities then
         local list = ns.ActivityManager:GetFilteredActivities()
         return list and #list or 0
@@ -192,6 +212,17 @@ end
 -- 玩家自己发出去的申请数（MeetingHornHeroic 当前暂无此功能，预留）
 function HeroicFloatingFrame:GetApplicationCount()
     return 0
+end
+
+-- ========================================================
+-- 节流刷新（2 秒内多次事件合并为一次 Update）
+-- ========================================================
+function HeroicFloatingFrame:ScheduleUpdate()
+    if self._updateTimer then return end  -- 已有待执行的刷新，跳过
+    self._updateTimer = C_Timer.NewTimer(2, function()
+        self._updateTimer = nil
+        self:Update()
+    end)
 end
 
 -- ========================================================

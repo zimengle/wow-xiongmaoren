@@ -109,7 +109,10 @@ local function createMoneyFrame()
 	
 	f:SetWidth(160)
 	f:SetHeight(21)
-	local point, relativeTo, relativePoint, ofsx, ofsy = unpack(addon.db.profile.MnyFramePoint)
+	local point, relativeTo, relativePoint, ofsx, ofsy
+	if addon.db and addon.db.profile and addon.db.profile.MnyFramePoint then
+		point, relativeTo, relativePoint, ofsx, ofsy = unpack(addon.db.profile.MnyFramePoint)
+	end
 	f:SetPoint(point or "TOPLEFT", UIParent, relativePoint or "TOPLEFT", ofsx or 10, ofsy or -80)
 	f:SetClampedToScreen(true)
 	f:SetMovable(true)
@@ -128,7 +131,9 @@ local function createMoneyFrame()
 end
 
 function MoneyFrame:OnInitialize()
+	if not addon.db then return end
 	profile = addon.db.profile
+	if not profile then return end
 	
 	MoneyFrame.frame = createMoneyFrame()
 end
@@ -136,11 +141,16 @@ end
 function MoneyFrame:OnEnable()
 	self:RegisterEvent("PLAYER_REGEN_ENABLED")
 	self:RegisterEvent("PLAYER_REGEN_DISABLED")
+	if not profile then return end
 	if (profile.showmoneyinfo == true) then
-		self.frame:Show()
-		self:ArrangeMoneyInfoFrame()
+		if self.frame then
+			self.frame:Show()
+			self:ArrangeMoneyInfoFrame()
+		end
 	else
-		self.frame:Hide()
+		if self.frame then
+			self.frame:Hide()
+		end
 	end
 end
 

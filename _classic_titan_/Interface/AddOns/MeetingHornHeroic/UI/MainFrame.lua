@@ -224,16 +224,6 @@ end
 -- 注册主界面类（不立即实例化）
 ns.UI.MainFrame = HeroicMainFrame
 
--- 延迟创建主界面实例的函数
-function ns.CreateMainFrame()
-    if not ns.MainFrame then
-        ns.MainFrame = HeroicMainFrame:New()
-        -- ESC键支持
-        table.insert(UISpecialFrames, "MeetingHornHeroicMainFrame")
-    end
-    return ns.MainFrame
-end
-
 -- 当主框架状态改变时，更新集成按钮状态
 local function UpdateIntegrationButtonState()
     if ns.MeetingHornIntegration then

@@ -241,6 +241,13 @@ AL['Search MYGear on Curseforge for instaling MiaoYingGear Emulator']='网易DD/
 
 
 AL['changelogText']=[[
+|cff00ff00=== v2.1.3 更新日志 ===|r
+• 删除naxx实际并不掉落的几件装备 比如迷离烛台
+|cff00ff00=== v2.1.2 更新日志 ===|r
+• 祖格饰品 项链和套装 调整完毕
+• ZUG声望内容移动到80级版本 在左侧选择声望-赞达拉部族 查看
+|cff00ff00=== v2.1.1 更新日志 ===|r
+• 增加zug DK套装和项链
 |cff00ff00=== v2.1.0 更新日志 ===|r
 • 4月9日新补丁兼容
 |cff00ff00=== v2.0.3 更新日志 ===|r

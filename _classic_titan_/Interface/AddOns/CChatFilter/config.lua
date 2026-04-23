@@ -1,3 +1,14 @@
+local ChatFrame_AddChannel = ChatFrame_AddChannel or function(chatFrame, channelName)
+    if chatFrame and chatFrame.AddChannel then
+        chatFrame:AddChannel(channelName)
+    end
+end
+
+local ChatFrame_RemoveChannel = ChatFrame_RemoveChannel or function(chatFrame, channelName)
+    if chatFrame and chatFrame.RemoveChannel then
+        chatFrame:RemoveChannel(channelName)
+    end
+end
 
 local function whitelist_init()
     if BFWC_Filter_SavedConfigs.whitelist then

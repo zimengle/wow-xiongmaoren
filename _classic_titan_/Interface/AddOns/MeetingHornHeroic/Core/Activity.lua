@@ -32,7 +32,11 @@ function HeroicRaidActivity:New(raidId, modeId, leaderName, comment, itemLevelRe
         leaderGUID = nil, -- 团长GUID
         certificationLevel = nil, -- 认证等级
         isOurAddonCreate = false, -- 是否为本插件创建
-        itemLevelRequirement = itemLevelRequirement or nil -- 装等要求
+        itemLevelRequirement = itemLevelRequirement or nil, -- 装等要求
+        teamBonus = false, -- 是否团双副本
+        subsidyList = {}, -- 职业补助列表 { {class="WARRIOR", amount=5}, ... }，amount单位万金币
+        _memberCount = 0, -- 增量缓存：成员总数
+        _roleCounts = {tank = 0, healer = 0, dps = 0}, -- 增量缓存：按角色计数
     }
 
     setmetatable(activity, self)
@@ -91,10 +95,15 @@ end
 
 -- 设置团长GUID（用于远程活动）
 function HeroicRaidActivity:SetLeaderGUID(guid, leaderName)
-    if guid then
+    if guid and guid ~= "" then
         self.leaderGUID = guid
-        local _, class = GetPlayerInfoByGUID(guid)
-        self.leaderClass = class or 'PRIEST'
+        -- GetPlayerInfoByGUID 要求合法的 GUID 字符串，空值或格式不对会报 Usage 错误
+        local ok, _, class = pcall(GetPlayerInfoByGUID, guid)
+        if ok and class then
+            self.leaderClass = class
+        else
+            self.leaderClass = self.leaderClass or 'PRIEST'
+        end
         if leaderName then
             self.leaderName = leaderName
         end
@@ -128,7 +137,14 @@ function HeroicRaidActivity:AddMember(memberData)
         joinTime = time(),
         status = "joined"
     }
-    
+
+    -- 更新增量缓存
+    self._memberCount = (self._memberCount or 0) + 1
+    local role = memberData.role
+    if role and self._roleCounts and self._roleCounts[role] then
+        self._roleCounts[role] = self._roleCounts[role] + 1
+    end
+
     self:UpdateTimestamp()
     return true, "成功加入队伍"
 end
@@ -137,24 +153,26 @@ function HeroicRaidActivity:RemoveMember(playerName)
     if not self.members[playerName] then
         return false, "玩家不在队伍中"
     end
-    
+
+    -- 更新增量缓存（在删除前读取 role）
+    local removedRole = self.members[playerName].role
     self.members[playerName] = nil
+    self._memberCount = math.max((self._memberCount or 1) - 1, 0)
+    if removedRole and self._roleCounts and self._roleCounts[removedRole] then
+        self._roleCounts[removedRole] = math.max(self._roleCounts[removedRole] - 1, 0)
+    end
+
     self:UpdateTimestamp()
     return true, "成功离开队伍"
 end
 
 function HeroicRaidActivity:GetMemberCount()
-    local count = 0
-    if self.members then
-        for _ in pairs(self.members) do
-            count = count + 1
-        end
-    end
+    local cached = self._memberCount or 0
     -- 远程活动：优先使用协议解析的 memberCount（因为 members 表在远程端可能不完整）
-    if self.memberCount and self.memberCount > count then
+    if self.memberCount and self.memberCount > cached then
         return self.memberCount
     end
-    return count
+    return cached
 end
 
 function HeroicRaidActivity:GetMembersByRole(role)
@@ -175,7 +193,7 @@ function HeroicRaidActivity:SetNeededRoles(tankCount, healerCount, dpsCount)
 end
 
 function HeroicRaidActivity:GetNeededRoleCount(role)
-    local currentCount = #self:GetMembersByRole(role)
+    local currentCount = (self._roleCounts and self._roleCounts[role]) or 0
     local neededCount = self.neededRoles[role] or 0
     return math.max(0, neededCount - currentCount)
 end
@@ -219,8 +237,7 @@ function HeroicRaidActivity:CreateBroadcastMessage()
     local neededInfo = {}
     for role, count in pairs(self.neededRoles) do
         if count > 0 then
-            local currentCount = #self:GetMembersByRole(role)
-            local needed = count - currentCount
+            local needed = self:GetNeededRoleCount(role)
             if needed > 0 then
                 local roleConfig = ns.classConfigs[role]
                 if roleConfig then
@@ -317,9 +334,25 @@ function HeroicRaidActivity:ToProto()
     -- broadcastSeq: 每次 ToProto 递增，确保频道消息不重复（防 WoW 反重复丢弃）
     local broadcastSeq = self.broadcastCount or 0
 
-    return string.format('%s.%s.%s.%s.%s.%s.%s.%s.%s.%s.%s@@',
+    -- 防御性清洗：即使上游未调用 SanitizeComment，也确保 comment 不破坏协议格式
+    local safeComment = ns.SanitizeComment(self.comment or "", 100)
+
+    -- v4 扩展字段: subsidyData~teamBonus
+    local subsidyParts = {}
+    if self.subsidyList and #self.subsidyList > 0 then
+        for _, entry in ipairs(self.subsidyList) do
+            if entry.specId and entry.amount and entry.amount > 0 then
+                table.insert(subsidyParts, entry.specId .. ":" .. math.floor(entry.amount))
+            end
+        end
+    end
+    local subsidyData = #subsidyParts > 0 and table.concat(subsidyParts, ",") or "_"
+    local teamBonusStr = self.teamBonus and "1" or "0"
+    local extData = subsidyData .. "~" .. teamBonusStr
+
+    return string.format('%s.%s.%s.%s.%s.%s.%s.%s.%s.%s.%s.%s@@',
         self.leaderName or "",
-        self.comment or "",
+        safeComment,
         memberCount,
         playerLevel,
         self.raidId or "",
@@ -328,7 +361,8 @@ function HeroicRaidActivity:ToProto()
         self.leaderClass or "",
         membersData,
         broadcastSeq,
-        "MHH"
+        extData,
+        "MHH4"
     )
 end
 
@@ -366,7 +400,9 @@ function HeroicRaidActivity:FromProto(proto)
         neededRoles = {tank = 0, healer = 0, dps = 0},
         maxMembers = 25,
         status = "recruiting",
-        broadcastChannel = ns.channelConfig.defaultChannel
+        broadcastChannel = ns.channelConfig.defaultChannel,
+        teamBonus = false,
+        subsidyList = {},
     }
 
     -- 解析需求职业
@@ -381,18 +417,14 @@ function HeroicRaidActivity:FromProto(proto)
 
     setmetatable(activity, self)
 
-    -- 根据职业推测角色的辅助函数
+    -- 远程活动没有 unit token，无法检测天赋，默认返回 dps
     local function guessRole(classFileName)
-        local tankClasses = {WARRIOR = true, PALADIN = true, DEATHKNIGHT = true}
-        local healerClasses = {PRIEST = true, PALADIN = true, SHAMAN = true, DRUID = true}
-
-        if tankClasses[classFileName] then
-            return "tank"
-        elseif healerClasses[classFileName] then
-            return "healer"
-        else
+        -- 纯 DPS 职业直接返回
+        if ns.PURE_DPS_CLASSES and ns.PURE_DPS_CLASSES[classFileName] then
             return "dps"
         end
+        -- 远程活动无法获取天赋信息，统一默认 dps（不再硬编码坦克/治疗）
+        return "dps"
     end
 
     -- 解析成员列表
@@ -400,7 +432,31 @@ function HeroicRaidActivity:FromProto(proto)
     -- v2格式(10字段): parts[9]=membersData, parts[10]="MHH"
     -- v1格式(9字段):  parts[9]="MHH"
     local membersData = nil
-    if parts[11] == "MHH" then
+    if parts[12] == "MHH4" then
+        -- v4格式：含 extData，成员数据在 parts[9]，parts[10] 为 seq，parts[11] 为 extData
+        membersData = parts[9]
+        -- 解析 v4 扩展字段: subsidyData~teamBonus
+        local extData = parts[11] or ""
+        local extParts = {}
+        for ep in extData:gmatch("([^~]+)") do
+            table.insert(extParts, ep)
+        end
+        -- subsidyData
+        local subsidyStr = extParts[1] or "_"
+        if subsidyStr and subsidyStr ~= "_" then
+            for subsidyEntry in subsidyStr:gmatch("([^,]+)") do
+                local specIdStr, amountStr = subsidyEntry:match("(%d+):(%d+)")
+                if specIdStr and amountStr then
+                    table.insert(activity.subsidyList, {
+                        specId = tonumber(specIdStr),
+                        amount = tonumber(amountStr) or 0
+                    })
+                end
+            end
+        end
+        -- teamBonus
+        activity.teamBonus = (extParts[2] == "1")
+    elseif parts[11] == "MHH" then
         -- v3格式：含 broadcastSeq，成员数据在 parts[9]，parts[10] 为 seq（忽略）
         membersData = parts[9]
     elseif parts[10] == "MHH" then
@@ -448,6 +504,16 @@ function HeroicRaidActivity:FromProto(proto)
         end
     end
 
+    -- 重建增量缓存（FromProto 后 members 表已完整）
+    local mc = 0
+    local rc = {tank = 0, healer = 0, dps = 0}
+    for _, m in pairs(activity.members) do
+        mc = mc + 1
+        if m.role and rc[m.role] then rc[m.role] = rc[m.role] + 1 end
+    end
+    activity._memberCount = mc
+    activity._roleCounts = rc
+
     return activity
 end
 
@@ -475,7 +541,10 @@ function HeroicRaidActivity:ToSaveData()
         broadcastChannel = self.broadcastChannel,
         status = self.status,
         broadcastCount = self.broadcastCount,
-        lastBroadcastTime = self.lastBroadcastTime
+        lastBroadcastTime = self.lastBroadcastTime,
+        itemLevel = self.itemLevel,
+        teamBonus = self.teamBonus,
+        subsidyList = self.subsidyList,
     }
 end
 
@@ -483,6 +552,17 @@ function HeroicRaidActivity:LoadFromData(data)
     for key, value in pairs(data) do
         self[key] = value
     end
+    -- 重建增量缓存
+    local mc = 0
+    local rc = {tank = 0, healer = 0, dps = 0}
+    if self.members then
+        for _, m in pairs(self.members) do
+            mc = mc + 1
+            if m.role and rc[m.role] then rc[m.role] = rc[m.role] + 1 end
+        end
+    end
+    self._memberCount = mc
+    self._roleCounts = rc
 end
 
 -- 认证相关方法

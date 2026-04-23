@@ -10,19 +10,13 @@ local AddonName = ...
 ---@class OptionsPrivate
 local OptionsPrivate = select(2, ...)
 OptionsPrivate.changelog = {
-  versionString = '5.21.4',
-  dateString = '2026-04-06',
-  fullChangeLogUrl = 'https://github.com/WeakAuras/WeakAuras2/compare/5.21.3...5.21.4',
+  versionString = '5.21.6',
+  dateString = '2026-04-17',
+  fullChangeLogUrl = 'https://github.com/WeakAuras/WeakAuras2/compare/5.21.5...5.21.6',
   highlightText = [==[
-- regression fixes]==],  commitText = [==[InfusOnWoW (7):
+]==],  commitText = [==[NoM0Re (1):
 
-- Fix regression in some triggers not hiding
-- Fix regression in TSU helpers for creating/updating states
-- Fix regressin in Spell Cooldown tracking with shared cooldowns
-- And another try to fix the PR build
-- Try again to fix PR build
-- Try fixing PR build bot
-- Item Trigger: Fix lua error on tracking invalid item ids
+- Titan: Update Destruction Warlock talents
 
 ]==]
 }

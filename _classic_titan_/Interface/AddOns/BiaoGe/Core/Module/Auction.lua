@@ -1174,7 +1174,7 @@ BG.Init(function()
     end
 
     -- 拍卖欢呼语
-    do
+    if not BG.IsTitan then
         local tbl = {
             [[<%s>这波操作，直接把竞拍场变成了 "金币战场"，敌方全员溃败！]],
             [[天呐！<%s>的金币像 "冰霜新星"一样冻住了所有竞争者！太强了！]],

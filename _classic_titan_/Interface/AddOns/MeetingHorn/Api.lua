@@ -541,7 +541,7 @@ function ns.GetAddonSource()
                     '\066\105\103\070\111\111\116\058\049\010\033\033\033\049\054\051\085\073\033\033\033\058\050\010\068\117\111\119\097\110\058\052\010\069\108\118\085\073\058\056',
                     '[^\r\n]+') do
         local n, v = line:match('^(.+):(%d+)$')
-        if IsAddOnLoaded(n) then
+        if C_AddOns.IsAddOnLoaded(n) then
             return tonumber(v)
         end
     end

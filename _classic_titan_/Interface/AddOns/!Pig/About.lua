@@ -8,6 +8,8 @@ local PIGButton=Create.PIGButton
 local PIGOptionsList=Create.PIGOptionsList
 local PIGFontString=Create.PIGFontString
 local PIGSetFont=Create.PIGSetFont
+local PIGOptionsList_R=Create.PIGOptionsList_R
+local PIGOptionsList_RF=Create.PIGOptionsList_RF
 local Fun=addonTable.Fun
 local GetPIGID=Fun.GetPIGID
 ----------------------------------------
@@ -89,203 +91,65 @@ end);
 
 ------
 local fuFrame = PIGOptionsList(L["ABOUT_TABNAME"],"BOT")
-local YY=-10
-local function Add_EditBox(fuUI,biaoti,txt,WWW)
-	YY=YY-30
-	local WWW=WWW or 460
-	local EditButBT = PIGFontString(fuUI,{"TOPLEFT",fuFrame,"TOPLEFT",20,YY},biaoti,"OUTLINE")
-	EditButBT:SetTextColor(1, 1, 1, 1)
-	local EditBut = CreateFrame("EditBox", nil, fuUI, "InputBoxInstructionsTemplate");
-	EditBut:SetSize(WWW,30);
-	EditBut:SetPoint("LEFT",EditButBT,"RIGHT",4,0);
-	PIGSetFont(EditBut, 14, "OUTLINE");
-	EditBut:SetTextColor(0, 1, 1, 1)
-	EditBut:SetTextInsets(6, 0, 0, 0)
-	EditBut:SetAutoFocus(false);
-	EditBut:HookScript("OnShow", function(self)
-		self:SetText(txt);
-	end); 
-	function EditBut:SetTextpig()
-		self:SetText(txt);
-	end
-	EditBut:SetScript("OnEditFocusGained", function(self) self:HighlightText() end);
-	EditBut:SetScript("OnEscapePressed", function(self) self:SetTextpig() self:ClearFocus() end);
-	EditBut:SetScript("OnEditFocusLost", function(self) self:SetTextpig() end);
-	return EditButBT,EditBut
-end
+local RTabFrame =Create.PIGOptionsList_RF(fuFrame)
+local aboutF,aboutBut =PIGOptionsList_R(RTabFrame,L["ABOUT_TABNAME"],90)
+aboutF:Show()
+aboutBut:Selected(true)
 local Aboutdata={
+	["Mail"] = "xdfxjf1004@hotmail.com",
 	["Tutorial"] = "哔哩哔哩/抖音搜geligasi",
 	["Disc"]="QQ群27397148,  2群117883385,  YY频道113213",
 }
-if GetLocale() ~= "zhCN" then
+if GetLocale() ~= "zhCN" and GetLocale() ~= "zhTW" then
 	Aboutdata.Tutorial = "YouTube@geligasi"
 	Aboutdata.Disc="---"
 end
-Add_EditBox(fuFrame,L["ABOUT_MAIL"],"xdfxjf1004@hotmail.com")
-Add_EditBox(fuFrame,L["ABOUT_TUTORIAL"],Aboutdata.Tutorial)
-Add_EditBox(fuFrame,L["ABOUT_DISC"],Aboutdata.Disc)
+aboutF:HookScript("OnShow", function (self)
+	if not self.addok then
+		local YY=-10
+		Create.extaddEditBox1(self,{"TOPLEFT",self,"TOPLEFT",20,YY},"xdfxjf1004@hotmail.com",L["ABOUT_MAIL"],nil,480)
+		YY=YY-30
+		Create.extaddEditBox1(self,{"TOPLEFT",self,"TOPLEFT",20,YY},Aboutdata.Tutorial,L["ABOUT_TUTORIAL"],nil,480)
+		YY=YY-30
+		Create.extaddEditBox1(self,{"TOPLEFT",self,"TOPLEFT",20,YY},Aboutdata.Disc,L["ABOUT_DISC"],nil,480)
+		YY=YY-31
+		PIGLine(self,"TOP",YY)
+		self.addok=true
+	end
+end);
 
-local YY=-140
-PIGLine(fuFrame,"TOP",YY)
---Create.add_extLsitAboutFrame("About",fuFrame,YY)
-
---检查团队版本
+--扩展
+local extF,extBut =PIGOptionsList_R(RTabFrame,L["ABOUT_TABNAME2"],90)
+extF:HookScript("OnShow", function (self)
+	if not self.addok then
+		local YY=-10
+		for ExtID=1,#L.addnames do
+			local addname=L.addnames[ExtID]
+			local adddata=L.ExtList[addname]
+			YY=ExtID>1 and YY-100 or YY
+			Create.add_extLsitFrame("error",self,addname,adddata,YY)
+		end
+		self.addok=true
+	end
+end);
+--语音
+local audioF,audioBut =PIGOptionsList_R(RTabFrame,VOICE,90)
+audioF:HookScript("OnShow", function (self)
+	if not self.addok then
+		local YY=-10
+		for ExtID=1,#L.audioName do
+			local addname=L.audioName[ExtID]
+			local adddata=L.AudioList[addname]
+			YY=ExtID>1 and YY-100 or YY
+			Create.add_extLsitFrame("error",self,addname,adddata,YY)
+		end
+		self.addok=true
+	end
+end);
+----版本更新
 local Ver_biaotou="!Pig_VER";
 PIG_OptionsUI.Ver_biaotou=Ver_biaotou
 C_ChatInfo.RegisterAddonMessagePrefix(Ver_biaotou)
----
-local player_Width,player_Height,topv,player_jiangeH=440,20,24,2;
-local duiwu_Width,duiwu_Height,duiwu_jiangeW,duiwu_jiangeH=player_Width,player_Height*5+player_jiangeH*4,10,10;
-
-local PIG_Version=PIGFrame(UIParent,{"CENTER",UIParent,"CENTER",0,0},{(duiwu_Width+duiwu_jiangeW)*2+duiwu_jiangeW,(duiwu_Height+duiwu_jiangeH)*4+topv+20},"PIG_VersionUI",true)
-PIG_Version:PIGSetBackdrop()
-PIG_Version:PIGClose()
-PIG_Version:PIGSetMovableNoSave()
-PIG_Version.title = PIGFontString(PIG_Version,{"TOP", PIG_Version, "TOP", 0, -4},GAME_VERSION_LABEL..INFO)
-PIGLine(PIG_Version,"TOP",-topv)
-local addonspoint={130,210,290,370}
-for i=1,#L.addnames do
-	local title = PIGFontString(PIG_Version,{"TOPLEFT", PIG_Version, "TOPLEFT", addonspoint[i]+duiwu_jiangeW, -4-topv},L.addnames[i])
-	local title1 = PIGFontString(PIG_Version,{"TOPLEFT", PIG_Version, "TOPLEFT", addonspoint[i]+player_Width+duiwu_jiangeW*2, -4-topv},L.addnames[i])
-end
-PIG_Version.butlist={}
-for p=1,8 do
-	local DuiwuF = CreateFrame("Frame", nil, PIG_Version);
-	PIG_Version.butlist[p]=DuiwuF
-	PIG_Version.butlist[p].butlist={}
-	DuiwuF:SetSize(duiwu_Width,duiwu_Height);
-	if p==1 then
-		DuiwuF:SetPoint("TOPLEFT",PIG_Version,"TOPLEFT",10,-topv-24);
-	elseif p==3 then
-		DuiwuF:SetPoint("TOP",PIG_Version.butlist[1],"BOTTOM",0,-duiwu_jiangeH);
-	elseif p==5 then
-		DuiwuF:SetPoint("TOP",PIG_Version.butlist[3],"BOTTOM",0,-duiwu_jiangeH);
-	elseif p==7 then
-		DuiwuF:SetPoint("TOP",PIG_Version.butlist[5],"BOTTOM",0,-duiwu_jiangeH);
-	else
-		DuiwuF:SetPoint("LEFT",PIG_Version.butlist[p-1],"RIGHT",duiwu_jiangeW,0);
-	end
-	for pp=1,5 do
-		local DuiwuF_P = PIGFrame(DuiwuF,nil,{player_Width,player_Height});
-		DuiwuF_P:PIGSetBackdrop()
-		PIG_Version.butlist[p].butlist[pp]=DuiwuF_P
-		DuiwuF_P.verlist={}
-		if pp==1 then
-			DuiwuF_P:SetPoint("TOP",DuiwuF,"TOP",0,0);
-		else
-			DuiwuF_P:SetPoint("TOP",PIG_Version.butlist[p].butlist[pp-1],"BOTTOM",0,-player_jiangeH);
-		end
-		DuiwuF_P.name = PIGFontString(DuiwuF_P,{"LEFT", DuiwuF_P, "LEFT", 2, 0})
-		DuiwuF_P.verlist[0] = PIGFontString(DuiwuF_P,{"LEFT", DuiwuF_P, "LEFT", addonspoint[1]+2, 0})
-		DuiwuF_P.verlist[1] = PIGFontString(DuiwuF_P,{"LEFT", DuiwuF_P, "LEFT", addonspoint[2]+2, 0})
-		DuiwuF_P.verlist[2] = PIGFontString(DuiwuF_P,{"LEFT", DuiwuF_P, "LEFT", addonspoint[3]+2, 0})
-		DuiwuF_P.verlist[3] = PIGFontString(DuiwuF_P,{"LEFT", DuiwuF_P, "LEFT", addonspoint[4]+2, 0})
-	end
-end
-PIG_Version.getinfo = PIGButton(PIG_Version,{"TOPLEFT",PIG_Version,"TOPLEFT",40,-2.4},{80,20},"发起查询")
-PIG_Version.getinfo:SetScript("OnClick", function (self)
-	self:Disable()
-	PIG_Version.UpdateBut:Disable()
-	C_Timer.After(1,function()
-		self:Enable()
-		PIG_Version.UpdateBut:Enable()
-		PIG_Version.Update_hang()
-	end)
-	PIG_Version.infoList={}
-	for p=1,8 do
-		for pp=1,5 do
-			local but=PIG_Version.butlist[p].butlist[pp]
-			but.name:SetText("-")
-			for butid=0,3 do
-				but.verlist[butid]:SetText("-")
-			end
-		end
-	end
-	if IsInRaid() then
-		for id=1,MAX_RAID_MEMBERS do
-			local name, _, subgroup, _, _, fileName = GetRaidRosterInfo(id);
-			if name then
-				local but=PIG_Version.butlist[subgroup].butlist[id]
-				but.name:SetText(name)
-				if UnitIsConnected("raid"..id) then
-					PIG_Version.GetExtVer(name)
-				end
-			end
-		end
-	elseif IsInGroup() then
-		for id = 1, MAX_PARTY_MEMBERS, 1 do
-			local name = GetUnitName("party"..id, true)
-			if name then
-				local but=PIG_Version.butlist[1].butlist[id]
-				but.name:SetText(name)
-				if UnitIsConnected("party"..id) then
-					PIG_Version.GetExtVer(name)
-				end
-			end
-		end
-	end
-end)
-PIG_Version.UpdateBut = PIGButton(PIG_Version,{"LEFT",PIG_Version.getinfo,"RIGHT",20,0},{80,20},"刷新结果")
-PIG_Version.UpdateBut:Disable()
-PIG_Version.UpdateBut:SetScript("OnClick", function (self)
-	PIG_Version.Update_hang()
-end)
-function PIG_Version.Update_hang()
-	if IsInRaid() then
-		for id=1,MAX_RAID_MEMBERS do
-			local name, _, subgroup, _, _, fileName = GetRaidRosterInfo(id);
-			if name then
-				local but=PIG_Version.butlist[subgroup].butlist[id]
-				but.name:SetText(name)
-				if PIG_Version.infoList[name] then
-					for butid=0,3 do
-						if PIG_Version.infoList[name][addonsdata[butid].name] then
-							but.verlist[butid]:SetText(PIG_Version.infoList[name][addonsdata[butid].name])
-						end
-					end
-				end
-			end
-		end
-	elseif IsInGroup() then
-		for id = 1, MAX_PARTY_MEMBERS, 1 do
-			local name = GetUnitName("party"..id, true)
-			if name then
-				local but=PIG_Version.butlist[1].butlist[id]
-				but.name:SetText(name)
-				if PIG_Version.infoList[name] then
-					for butid=0,3 do
-						if PIG_Version.infoList[name][addonsdata[butid].name] then
-							but.verlist[butid]:SetText(PIG_Version.infoList[name][addonsdata[butid].name])
-						end
-					end
-				end
-			end
-		end
-	end
-end
-function PIG_Version.GetExtVer(name)
-	for i=1,4 do
-		PIGSendAddonMessage(Ver_biaotou,addonsdata[i].name.."#G","WHISPER",name)
-	end
-end
---
-fuFrame.OpenVerFBut = PIGButton(fuFrame,{"TOPLEFT",fuFrame,"TOPLEFT",2,-2},{60,22},L["ABOUT_QUERY"])
-fuFrame.OpenVerFBut:SetScript("OnClick", function ()
-	if PIG_Version:IsShown() then
-		PIG_Version:Hide()
-	else
-		PIG_OptionsUI:Hide()
-		PIG_Version:Show()
-	end
-end)
-fuFrame.GETVER = PIGButton(fuFrame,{"LEFT",fuFrame.OpenVerFBut,"RIGHT",10,0},{60,22},RESET)
-fuFrame.GETVER:SetScript("OnClick", function ()
-	PIGA["Ver"]={}
-	PIGA["VerC"]={}
-	PIG_OptionsUI.RLUI:Show()
-end);
-
-----版本更新
 local function ISchongfuP(name,data)
 	for i=1,#data do
 		if name==data[i] then

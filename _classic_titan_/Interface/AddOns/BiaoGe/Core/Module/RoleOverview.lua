@@ -361,9 +361,9 @@ function BG.RoleOverviewUI()
             -- { 42122 },                                                           -- 测试
             -- { 209790 },                                                          -- 测试
             {
-                264750, 264779, 264759, 264769,
                 255103, 260344, 257606, 260346,
-                264751, 264780, 264770, 264760,
+                264750, 264779, 264759, 264769,
+                264751, 264780, 264760, 264770,
                 264752, 264781, 264761, 264771,
                 264753, 264782, 264762, 264772,
                 264754, 264783, 264763, 264773,
@@ -389,9 +389,10 @@ function BG.RoleOverviewUI()
         }
         ids_updateItem = {
             -- 10938, 10939,29223,264272,   -- 测试
-            265340, 265524, -- 橙脖
-            265335, 265523, -- 橙锤
-            265526,         -- 风剑
+            265340, 265524, 267339,  -- 橙脖
+            265335, 265523, 267338,  -- 橙锤
+            265526, 267335,          -- 风剑
+            267340,                  -- 橙杖
         }
     end
 
@@ -592,6 +593,8 @@ function BG.RoleOverviewUI()
             }
         elseif BG.IsTitan then
             BG.FBCDall_table = {
+                { name = "TOCtitan", name2 = L["十字军"], color = "00BFFF", fbId = 649, type = "fb" },
+                { name = "ZUGtitan", name2 = L["祖格"], color = "00BFFF", fbId = 309, type = "fb" },
                 { name = "NAXXtitan", name2 = L["纳克萨玛斯"], color = "00BFFF", fbId = 533, type = "fb" },
                 { name = "OStitan", name2 = L["黑曜石"], color = "00BFFF", fbId = 615, type = "fb" },
                 { name = "EOEtitan", name2 = L["永恒"], color = "00BFFF", fbId = 616, type = "fb" },
@@ -619,11 +622,12 @@ function BG.RoleOverviewUI()
                 { name = "forge_taitanjinggang", name2 = L["泰坦精钢"], color = "ADFF2F", type = "profession" },
                 { name = "tailor_bingchuanbeibao", name2 = L["冰川背包"], color = "ADFF2F", type = "profession" },
             }
-            BG.FBCount = 11
+            BG.FBCount = 13
             BG.dayQuestCount = 6
             BG.skillCount = 7
             -- 声望
             BG.factionTbl = {
+                270,  -- 赞达拉ZUG
                 749,  -- 海达希亚水元素
                 1119, -- 霍迪尔
                 1098, -- 黑锋骑士团
@@ -2174,14 +2178,16 @@ GameTooltip:SetCurrencyByID(697)
         end
 
         local delay
+        local again
         local f = CreateFrame("Frame")
-        f:RegisterEvent("UNIT_INVENTORY_CHANGED")
+        f:RegisterEvent("PLAYER_ENTERING_WORLD")
         f:SetScript("OnEvent", function(self, event, ...)
             if event == "PLAYER_ENTERING_WORLD" then
                 self:UnregisterEvent("PLAYER_ENTERING_WORLD")
-                delay = 5
+                delay = 3
+                again = true
                 BG.After(delay, function()
-                    self:RegisterEvent("PLAYER_ENTERING_WORLD")
+                    self:RegisterEvent("UNIT_INVENTORY_CHANGED")
                 end)
             else
                 delay = 1
@@ -2193,6 +2199,13 @@ GameTooltip:SetCurrencyByID(697)
                     self:SetScript("OnUpdate", nil)
                     BG.GetPlayerEquip()
                     GetPlayerAverageItemLevel()
+                    if again then
+                        again = nil
+                        BG.After(5, function()
+                            BG.GetPlayerEquip()
+                            GetPlayerAverageItemLevel()
+                        end)
+                    end
                 end
             end)
         end)

@@ -2,12 +2,12 @@
 WclBoxCharacter = {
 ["class"] = "PALADIN",
 ["realmID"] = 6383,
-["loginTime"] = 1775734312,
-["race"] = "人类",
-["version"] = "1.0.30",
 ["faction"] = "Alliance",
+["race"] = "人类",
+["name"] = "京东刘强东",
+["loginTime"] = 1776773693,
 ["realmName"] = "时光IV - 红色信仰",
 ["level"] = 80,
-["name"] = "京东刘强东",
+["version"] = "1.0.31",
 ["playerGUID"] = "Player-6383-00247F67",
 }

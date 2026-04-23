@@ -37,7 +37,9 @@ local math = _G.math
 local floor, fmod = math.floor, math.fmod
 -- WoW
 local PanelTemplates_TabResize, PanelTemplates_SetNumTabs, PanelTemplates_SetTab, PanelTemplates_UpdateTabs = PanelTemplates_TabResize, PanelTemplates_SetNumTabs, PanelTemplates_SetTab, PanelTemplates_UpdateTabs
-local GetAddOnInfo, GetAddOnMetadata, GetRealmName, UnitName, UnitFactionGroup, UnitClass, GetBuildInfo = GetAddOnInfo, GetAddOnMetadata, GetRealmName, UnitName, UnitFactionGroup, UnitClass, GetBuildInfo
+local GetAddOnInfo = C_AddOns and C_AddOns.GetAddOnInfo or GetAddOnInfo
+local GetAddOnMetadata = C_AddOns and C_AddOns.GetAddOnMetadata or GetAddOnMetadata
+local GetRealmName, UnitName, UnitFactionGroup, UnitClass, GetBuildInfo = GetRealmName, UnitName, UnitFactionGroup, UnitClass, GetBuildInfo
 local GetBackpackCurrencyInfo = GetBackpackCurrencyInfo or nil
 local GetCurrencyInfo = GetCurrencyInfo or nil
 
@@ -1937,7 +1939,12 @@ function addon:OnEnable()
 
 	self:SecureHook("RepairAllItems")
 	self:SecureHook("CursorHasItem")
-	
+
+	local f = _G["AccountantClassicFrame"]
+	if f and not f:IsEventRegistered("PLAYER_MONEY") then
+		AccountantClassic_RegisterEvents(f)
+	end
+
 	loadData()
 	setLabels()
 

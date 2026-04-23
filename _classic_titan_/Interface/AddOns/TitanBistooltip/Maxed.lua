@@ -122,15 +122,17 @@ local function createItemFrame(item_id, size, with_checkmark)
                     SetItemRef(ilink, ilink, "LeftButton")
                 end
             end)
-            item_frame:SetCallback("OnEnter", function(widget)
+            item_frame:SetCallback("OnEnter", function(widget) 
                 if ilink then
-                    GameTooltip:SetOwner(item_frame.frame)
+                    GameTooltip:ClearLines() -- 清理之前的内容
+                    GameTooltip:SetOwner(item_frame.frame, "ANCHOR_NONE") -- 使用ANCHOR_NONE
                     GameTooltip:SetPoint("TOPRIGHT", item_frame.frame, "TOPRIGHT", 220, -13);
                     GameTooltip:SetHyperlink(ilink)
                 end
             end)
-            item_frame:SetCallback("OnLeave", function(widget)
+            item_frame:SetCallback("OnLeave", function(widget) 
                 GameTooltip:Hide()
+                GameTooltip:ClearLines() -- 清理内容
             end)
         end)
     end
@@ -210,9 +212,9 @@ function TitanBistooltipAddon:showMaxedFrame()
     end
     
     -- 更新全局变量
-    class = currentClass.name
-    spec = currentSpec
-    phase = currentPhase
+    TitanBistooltip_class = currentClass.name
+    TitanBistooltip_spec = currentSpec
+    TitanBistooltip_phase = currentPhase
     
     -- 确保毕业装备数据可用
     if not TitanBistooltip_Maxed_bislists then
@@ -391,14 +393,14 @@ function TitanBistooltipAddon:showMaxedFrame()
     frame.frame:SetScript("OnSizeChanged", updateScrollFrameHeight)
     
     -- 添加每个部位的毕业装备，分成两列显示
-    if TitanBistooltip_Maxed_bislists[class] and TitanBistooltip_Maxed_bislists[class][spec] then
+    if TitanBistooltip_Maxed_bislists[TitanBistooltip_class] and TitanBistooltip_Maxed_bislists[TitanBistooltip_class][TitanBistooltip_spec] then
         -- 获取所有阶段
         local phases = TitanBistooltip_phases
         local currentPhaseIndex = nil
         
         -- 找到当前阶段在phases中的索引
         for i, p in ipairs(phases) do
-            if p == phase then
+            if p == TitanBistooltip_phase then
                 currentPhaseIndex = i
                 break
             end
@@ -406,15 +408,15 @@ function TitanBistooltipAddon:showMaxedFrame()
         
         if currentPhaseIndex then
             -- 尝试获取当前阶段的装备数据，如果不存在则从之前的阶段中查找
-            local slots = TitanBistooltip_Maxed_bislists[class][spec][phase]
+            local slots = TitanBistooltip_Maxed_bislists[TitanBistooltip_class][TitanBistooltip_spec][TitanBistooltip_phase]
             local useBislists = false
             
             -- 如果当前阶段不存在，尝试从之前的阶段中查找
             if not slots then
                 for i = currentPhaseIndex - 1, 1, -1 do
                     local prevPhase = phases[i]
-                    if TitanBistooltip_Maxed_bislists[class][spec][prevPhase] then
-                        slots = TitanBistooltip_Maxed_bislists[class][spec][prevPhase]
+                    if TitanBistooltip_Maxed_bislists[TitanBistooltip_class][TitanBistooltip_spec][prevPhase] then
+                        slots = TitanBistooltip_Maxed_bislists[TitanBistooltip_class][TitanBistooltip_spec][prevPhase]
                         break
                     end
                 end
@@ -422,15 +424,15 @@ function TitanBistooltipAddon:showMaxedFrame()
             
             -- 如果Maxed_bislists中没有数据，尝试从Titan_bislists获取
             if not slots then
-                if TitanBistooltip_Titan_bislists[class] and TitanBistooltip_Titan_bislists[class][spec] and TitanBistooltip_Titan_bislists[class][spec][phase] then
-                    slots = TitanBistooltip_Titan_bislists[class][spec][phase]
+                if TitanBistooltip_Titan_bislists[TitanBistooltip_class] and TitanBistooltip_Titan_bislists[TitanBistooltip_class][TitanBistooltip_spec] and TitanBistooltip_Titan_bislists[TitanBistooltip_class][TitanBistooltip_spec][TitanBistooltip_phase] then
+                    slots = TitanBistooltip_Titan_bislists[TitanBistooltip_class][TitanBistooltip_spec][TitanBistooltip_phase]
                     useBislists = true
                 else
                     -- 尝试从之前的阶段查找
                     for i = currentPhaseIndex - 1, 1, -1 do
                         local prevPhase = phases[i]
-                        if TitanBistooltip_Titan_bislists[class] and TitanBistooltip_Titan_bislists[class][spec] and TitanBistooltip_Titan_bislists[class][spec][prevPhase] then
-                            slots = TitanBistooltip_Titan_bislists[class][spec][prevPhase]
+                        if TitanBistooltip_Titan_bislists[TitanBistooltip_class] and TitanBistooltip_Titan_bislists[TitanBistooltip_class][TitanBistooltip_spec] and TitanBistooltip_Titan_bislists[TitanBistooltip_class][TitanBistooltip_spec][prevPhase] then
+                            slots = TitanBistooltip_Titan_bislists[TitanBistooltip_class][TitanBistooltip_spec][prevPhase]
                             useBislists = true
                             break
                         end
@@ -469,8 +471,8 @@ function TitanBistooltipAddon:showMaxedFrame()
                 
                 -- 1. 首先从TitanBistooltip_Titan_bislists中查找同一阶段的装备
                 if not itemId or itemId <= 0 then
-                    if TitanBistooltip_Titan_bislists[class] and TitanBistooltip_Titan_bislists[class][spec] and TitanBistooltip_Titan_bislists[class][spec][phase] then
-                        local bisSlots = TitanBistooltip_Titan_bislists[class][spec][phase]
+                    if TitanBistooltip_Titan_bislists[TitanBistooltip_class] and TitanBistooltip_Titan_bislists[TitanBistooltip_class][TitanBistooltip_spec] and TitanBistooltip_Titan_bislists[TitanBistooltip_class][TitanBistooltip_spec][TitanBistooltip_phase] then
+                        local bisSlots = TitanBistooltip_Titan_bislists[TitanBistooltip_class][TitanBistooltip_spec][TitanBistooltip_phase]
                         for _, bisSlot in ipairs(bisSlots) do
                             if bisSlot.slot_name == slotName then
                                 itemId = bisSlot[1] -- 取第一件装备
@@ -487,8 +489,8 @@ function TitanBistooltipAddon:showMaxedFrame()
                     for i = currentPhaseIndex - 1, 1, -1 do
                         local prevPhase = phases[i]
                         -- 先从之前阶段的TitanBistooltip_Titan_bislists中查找
-                        if TitanBistooltip_Titan_bislists[class] and TitanBistooltip_Titan_bislists[class][spec] and TitanBistooltip_Titan_bislists[class][spec][prevPhase] then
-                            local bisSlots = TitanBistooltip_Titan_bislists[class][spec][prevPhase]
+                        if TitanBistooltip_Titan_bislists[TitanBistooltip_class] and TitanBistooltip_Titan_bislists[TitanBistooltip_class][TitanBistooltip_spec] and TitanBistooltip_Titan_bislists[TitanBistooltip_class][TitanBistooltip_spec][prevPhase] then
+                            local bisSlots = TitanBistooltip_Titan_bislists[TitanBistooltip_class][TitanBistooltip_spec][prevPhase]
                             for _, bisSlot in ipairs(bisSlots) do
                                 if bisSlot.slot_name == slotName then
                                     itemId = bisSlot[1] -- 取第一件装备
@@ -503,8 +505,8 @@ function TitanBistooltipAddon:showMaxedFrame()
                         end
                         -- 再从之前阶段的TitanBistooltip_Maxed_bislists中查找
                         if not itemId or itemId <= 0 then
-                            if TitanBistooltip_Maxed_bislists[class][spec][prevPhase] then
-                                local prevSlots = TitanBistooltip_Maxed_bislists[class][spec][prevPhase]
+                            if TitanBistooltip_Maxed_bislists[TitanBistooltip_class][TitanBistooltip_spec][prevPhase] then
+                                local prevSlots = TitanBistooltip_Maxed_bislists[TitanBistooltip_class][TitanBistooltip_spec][prevPhase]
                                 for _, prevSlot in ipairs(prevSlots) do
                                     if prevSlot.slot_name == slotName then
                                         itemId = prevSlot[1]
@@ -525,8 +527,8 @@ function TitanBistooltipAddon:showMaxedFrame()
                 if (slotName == "Finger" or slotName == "Trinket") then
                     -- 1. 首先从TitanBistooltip_Titan_bislists中查找同一阶段的装备
                     if not itemId2 or itemId2 <= 0 then
-                        if TitanBistooltip_Titan_bislists[class] and TitanBistooltip_Titan_bislists[class][spec] and TitanBistooltip_Titan_bislists[class][spec][phase] then
-                            local bisSlots = TitanBistooltip_Titan_bislists[class][spec][phase]
+                        if TitanBistooltip_Titan_bislists[TitanBistooltip_class] and TitanBistooltip_Titan_bislists[TitanBistooltip_class][TitanBistooltip_spec] and TitanBistooltip_Titan_bislists[TitanBistooltip_class][TitanBistooltip_spec][TitanBistooltip_phase] then
+                            local bisSlots = TitanBistooltip_Titan_bislists[TitanBistooltip_class][TitanBistooltip_spec][TitanBistooltip_phase]
                             for _, bisSlot in ipairs(bisSlots) do
                                 if bisSlot.slot_name == slotName then
                                     itemId2 = bisSlot[2] -- 取第二件装备
@@ -543,8 +545,8 @@ function TitanBistooltipAddon:showMaxedFrame()
                         for i = currentPhaseIndex - 1, 1, -1 do
                             local prevPhase = phases[i]
                             -- 先从之前阶段的TitanBistooltip_Titan_bislists中查找
-                            if TitanBistooltip_Titan_bislists[class] and TitanBistooltip_Titan_bislists[class][spec] and TitanBistooltip_Titan_bislists[class][spec][prevPhase] then
-                                local bisSlots = TitanBistooltip_Titan_bislists[class][spec][prevPhase]
+                            if TitanBistooltip_Titan_bislists[TitanBistooltip_class] and TitanBistooltip_Titan_bislists[TitanBistooltip_class][TitanBistooltip_spec] and TitanBistooltip_Titan_bislists[TitanBistooltip_class][TitanBistooltip_spec][prevPhase] then
+                                local bisSlots = TitanBistooltip_Titan_bislists[TitanBistooltip_class][TitanBistooltip_spec][prevPhase]
                                 for _, bisSlot in ipairs(bisSlots) do
                                     if bisSlot.slot_name == slotName then
                                         itemId2 = bisSlot[2] -- 取第二件装备
@@ -559,8 +561,8 @@ function TitanBistooltipAddon:showMaxedFrame()
                             end
                             -- 再从之前阶段的TitanBistooltip_Maxed_bislists中查找
                             if not itemId2 or itemId2 <= 0 then
-                                if TitanBistooltip_Maxed_bislists[class][spec][prevPhase] then
-                                    local prevSlots = TitanBistooltip_Maxed_bislists[class][spec][prevPhase]
+                                if TitanBistooltip_Maxed_bislists[TitanBistooltip_class][TitanBistooltip_spec][prevPhase] then
+                                    local prevSlots = TitanBistooltip_Maxed_bislists[TitanBistooltip_class][TitanBistooltip_spec][prevPhase]
                                     for _, prevSlot in ipairs(prevSlots) do
                                         if prevSlot.slot_name == slotName then
                                             itemId2 = prevSlot[2]
@@ -818,8 +820,8 @@ function TitanBistooltipAddon:updateMaxedFrame()
     end
     
     -- 强制刷新当前角色装备
-    if scanEquipment then
-        scanEquipment()
+    if TitanBistooltip_ScanEquipment then
+        TitanBistooltip_ScanEquipment()
     end
     
     if maxedFrame and maxedFrame.frame and maxedFrame.frame.SetResizeBounds then
@@ -863,9 +865,9 @@ function TitanBistooltipAddon:updateMaxedFrame()
     end
     
     -- 更新全局变量
-    class = currentClass.name
-    spec = currentSpec
-    phase = currentPhase
+    TitanBistooltip_class = currentClass.name
+    TitanBistooltip_spec = currentSpec
+    TitanBistooltip_phase = currentPhase
     
     -- 更新标题
     maxedFrame:SetTitle("毕业装备")
@@ -989,14 +991,14 @@ function TitanBistooltipAddon:updateMaxedFrame()
     maxedFrame.frame:SetScript("OnSizeChanged", updateScrollFrameHeight)
     
     -- 添加每个部位的毕业装备，分成两列显示
-    if TitanBistooltip_Maxed_bislists[class] and TitanBistooltip_Maxed_bislists[class][spec] then
+    if TitanBistooltip_Maxed_bislists[TitanBistooltip_class] and TitanBistooltip_Maxed_bislists[TitanBistooltip_class][TitanBistooltip_spec] then
         -- 获取所有阶段
         local phases = TitanBistooltip_phases
         local currentPhaseIndex = nil
         
         -- 找到当前阶段在phases中的索引
         for i, p in ipairs(phases) do
-            if p == phase then
+            if p == TitanBistooltip_phase then
                 currentPhaseIndex = i
                 break
             end
@@ -1004,15 +1006,15 @@ function TitanBistooltipAddon:updateMaxedFrame()
         
         if currentPhaseIndex then
             -- 尝试获取当前阶段的装备数据，如果不存在则从之前的阶段中查找
-            local slots = TitanBistooltip_Maxed_bislists[class][spec][phase]
+            local slots = TitanBistooltip_Maxed_bislists[TitanBistooltip_class][TitanBistooltip_spec][TitanBistooltip_phase]
             local useBislists = false
             
             -- 如果当前阶段不存在，尝试从之前的阶段中查找
             if not slots then
                 for i = currentPhaseIndex - 1, 1, -1 do
                     local prevPhase = phases[i]
-                    if TitanBistooltip_Maxed_bislists[class][spec][prevPhase] then
-                        slots = TitanBistooltip_Maxed_bislists[class][spec][prevPhase]
+                    if TitanBistooltip_Maxed_bislists[TitanBistooltip_class][TitanBistooltip_spec][prevPhase] then
+                        slots = TitanBistooltip_Maxed_bislists[TitanBistooltip_class][TitanBistooltip_spec][prevPhase]
                         break
                     end
                 end
@@ -1020,16 +1022,16 @@ function TitanBistooltipAddon:updateMaxedFrame()
             
             -- 如果Maxed_bislists中没有该天赋数据，从Titan_bislists获取
             if not slots then
-                if TitanBistooltip_Titan_bislists[class] and TitanBistooltip_Titan_bislists[class][spec] then
-                    if TitanBistooltip_Titan_bislists[class][spec][phase] then
-                        slots = TitanBistooltip_Titan_bislists[class][spec][phase]
+                if TitanBistooltip_Titan_bislists[TitanBistooltip_class] and TitanBistooltip_Titan_bislists[TitanBistooltip_class][TitanBistooltip_spec] then
+                    if TitanBistooltip_Titan_bislists[TitanBistooltip_class][TitanBistooltip_spec][TitanBistooltip_phase] then
+                        slots = TitanBistooltip_Titan_bislists[TitanBistooltip_class][TitanBistooltip_spec][TitanBistooltip_phase]
                         useBislists = true
                     else
                         -- 尝试从之前的阶段查找
                         for i = currentPhaseIndex - 1, 1, -1 do
                             local prevPhase = phases[i]
-                            if TitanBistooltip_Titan_bislists[class][spec][prevPhase] then
-                                slots = TitanBistooltip_Titan_bislists[class][spec][prevPhase]
+                            if TitanBistooltip_Titan_bislists[TitanBistooltip_class][TitanBistooltip_spec][prevPhase] then
+                                slots = TitanBistooltip_Titan_bislists[TitanBistooltip_class][TitanBistooltip_spec][prevPhase]
                                 useBislists = true
                                 break
                             end
@@ -1070,8 +1072,8 @@ function TitanBistooltipAddon:updateMaxedFrame()
                 -- 如果当前阶段的装备是-1，首先从TitanBistooltip_Titan_bislists中查找同一阶段的装备
                 if not itemId or itemId <= 0 then
                     -- 1. 首先从TitanBistooltip_Titan_bislists中查找同一阶段的装备
-                    if TitanBistooltip_Titan_bislists[class] and TitanBistooltip_Titan_bislists[class][spec] and TitanBistooltip_Titan_bislists[class][spec][phase] then
-                        local bisSlots = TitanBistooltip_Titan_bislists[class][spec][phase]
+                    if TitanBistooltip_Titan_bislists[TitanBistooltip_class] and TitanBistooltip_Titan_bislists[TitanBistooltip_class][TitanBistooltip_spec] and TitanBistooltip_Titan_bislists[TitanBistooltip_class][TitanBistooltip_spec][TitanBistooltip_phase] then
+                        local bisSlots = TitanBistooltip_Titan_bislists[TitanBistooltip_class][TitanBistooltip_spec][TitanBistooltip_phase]
                         for _, bisSlot in ipairs(bisSlots) do
                             if bisSlot.slot_name == slotName then
                                 itemId = bisSlot[1] -- 取第一件装备
@@ -1086,8 +1088,8 @@ function TitanBistooltipAddon:updateMaxedFrame()
                     if not itemId or itemId <= 0 then
                         for i = currentPhaseIndex - 1, 1, -1 do
                             local prevPhase = phases[i]
-                            if TitanBistooltip_Maxed_bislists[class][spec][prevPhase] then
-                                local prevSlots = TitanBistooltip_Maxed_bislists[class][spec][prevPhase]
+                            if TitanBistooltip_Maxed_bislists[TitanBistooltip_class][TitanBistooltip_spec][prevPhase] then
+                                local prevSlots = TitanBistooltip_Maxed_bislists[TitanBistooltip_class][TitanBistooltip_spec][prevPhase]
                                 for _, prevSlot in ipairs(prevSlots) do
                                     if prevSlot.slot_name == slotName then
                                         itemId = prevSlot[1]
@@ -1108,8 +1110,8 @@ function TitanBistooltipAddon:updateMaxedFrame()
                 if (slotName == "Finger" or slotName == "Trinket") then
                     if not itemId2 or itemId2 <= 0 then
                         -- 1. 首先从TitanBistooltip_Titan_bislists中查找同一阶段的装备
-                        if TitanBistooltip_Titan_bislists[class] and TitanBistooltip_Titan_bislists[class][spec] and TitanBistooltip_Titan_bislists[class][spec][phase] then
-                            local bisSlots = TitanBistooltip_Titan_bislists[class][spec][phase]
+                        if TitanBistooltip_Titan_bislists[TitanBistooltip_class] and TitanBistooltip_Titan_bislists[TitanBistooltip_class][TitanBistooltip_spec] and TitanBistooltip_Titan_bislists[TitanBistooltip_class][TitanBistooltip_spec][TitanBistooltip_phase] then
+                            local bisSlots = TitanBistooltip_Titan_bislists[TitanBistooltip_class][TitanBistooltip_spec][TitanBistooltip_phase]
                             for _, bisSlot in ipairs(bisSlots) do
                                 if bisSlot.slot_name == slotName then
                                     itemId2 = bisSlot[2] -- 取第二件装备
@@ -1124,8 +1126,8 @@ function TitanBistooltipAddon:updateMaxedFrame()
                         if not itemId2 or itemId2 <= 0 then
                             for i = currentPhaseIndex - 1, 1, -1 do
                                 local prevPhase = phases[i]
-                                if TitanBistooltip_Maxed_bislists[class][spec][prevPhase] then
-                                    local prevSlots = TitanBistooltip_Maxed_bislists[class][spec][prevPhase]
+                                if TitanBistooltip_Maxed_bislists[TitanBistooltip_class][TitanBistooltip_spec][prevPhase] then
+                                    local prevSlots = TitanBistooltip_Maxed_bislists[TitanBistooltip_class][TitanBistooltip_spec][prevPhase]
                                     for _, prevSlot in ipairs(prevSlots) do
                                         if prevSlot.slot_name == slotName then
                                             itemId2 = prevSlot[2]

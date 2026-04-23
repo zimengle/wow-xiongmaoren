@@ -4,7 +4,7 @@
 ## Author: 快跑兄弟
 ## IconTexture: Interface\AddOns\TitanBistooltip\Icons\my_custom_icon.tga
 ## Notes-zhCN: 泰坦时光服全职业毕业装数据库。|n左键点击小地图按钮，可以查看所有职业所有阶段的毕业装备列表。|n右键小地图按钮，可以进入设置界面对鼠标提示信息进行设置。|n此版用于泰坦重铸时光服客户端。|n|cFF00BFFF快跑兄弟（时光1部落）|r
-## Version: 1.98
+## Version: 2.09
 ## SavedVariables: TitanBistooltipDB
 ## LoadManagers: AddonLoader
 ## X-LoadOn-Always: delayed

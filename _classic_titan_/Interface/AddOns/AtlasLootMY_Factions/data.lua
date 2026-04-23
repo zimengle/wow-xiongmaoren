@@ -318,6 +318,7 @@ data["ZandalarTribe"] = {
 				{ 17,  20080 }, -- Sheen of Zanza
 				{ 18,  20079 }, -- Spirit of Zanza
 				{ 19,  20081 }, -- Swiftness of Zanza
+				{ 20, 268553}
 			},
 		},
 		{ -- Honored

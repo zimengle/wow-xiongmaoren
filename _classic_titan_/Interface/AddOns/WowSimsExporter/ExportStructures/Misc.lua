@@ -10,8 +10,8 @@ function Env.CreateGlyphEntry()
 
     if Env.IS_CLASSIC_WRATH then
         pcall(function()
-            if not IsAddOnLoaded("Blizzard_TalentUI") then
-                LoadAddOn("Blizzard_TalentUI")
+            if not Env.IsAddOnLoaded("Blizzard_TalentUI") then
+                Env.LoadAddOn("Blizzard_TalentUI")
             end
         end)
     end

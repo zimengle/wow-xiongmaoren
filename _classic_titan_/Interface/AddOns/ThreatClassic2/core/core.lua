@@ -277,7 +277,7 @@ function TC2:UpdateThreatBars()
     local igniteOwner = nil
     local hasActiveIgnite = false
     if C.bar.showIgniteIndicator or C.customBarColors.igniteEnabled then
-        igniteOwner = select(7, FindAuraByName(C_Spell.GetSpellInfo(12848), TC2.playerTarget, "HARMFUL"))
+        igniteOwner = select(7, FindAuraByName(GetSpellInfo(12848), TC2.playerTarget, "HARMFUL"))
     end
     -- update view
     for i = 1, C.bar.count do

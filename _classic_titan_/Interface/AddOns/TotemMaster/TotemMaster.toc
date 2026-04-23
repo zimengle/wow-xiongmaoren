@@ -1,0 +1,16 @@
+## Interface: 38001
+## Title: TotemMaster
+## Notes: 萨满图腾管理插件
+## Notes-enUS: Shaman totem management addon
+## Author: GuFeng
+## Version: 1.0.0
+## SavedVariables: TotemMasterDB
+## OptionalDeps: ElvUI, NDui, NDui_Plus
+## X-LoadOn-Class: Shaman
+
+Config.lua
+Core.lua
+SpellCatalog.lua
+Presets.lua
+CastEngine.lua
+UI.lua

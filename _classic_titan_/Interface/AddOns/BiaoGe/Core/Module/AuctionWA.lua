@@ -1428,6 +1428,9 @@ BG.Init(function()
                     return num
                 end
             end
+            if BG and BG.IsTitan then
+                return 1.5
+            end
             return 0.5
         end
     end

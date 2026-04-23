@@ -276,7 +276,7 @@ function Module:CreateBar()
     for i = 1, maxButtons do
         local btn = CreateFrame("Button", "RurutiaMageBarBtn"..i, f, "SecureActionButtonTemplate, BackdropTemplate")
         btn:SetSize(size, size)
-        btn:RegisterForClicks("AnyUp")
+        btn:RegisterForClicks("AnyDown", "AnyUp")
         btn:Hide()
 
         btn:SetBackdrop({ bgFile = "Interface\\Buttons\\WHITE8X8" })

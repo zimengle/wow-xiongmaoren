@@ -1,7 +1,7 @@
 --[[
     This file is part of Decursive.
 
-    Decursive (v 2.7.29) add-on for World of Warcraft UI
+    Decursive (v 2.7.17) add-on for World of Warcraft UI
     Copyright (C) 2006-2019 John Wellesz (Decursive AT 2072productions.com) ( http://www.2072productions.com/to/decursive.php )
 
     Decursive is free software: you can redistribute it and/or modify
@@ -336,13 +336,14 @@ do
         self.Status.Combat = false;
 
         -- test for debug report
-        if #T._DebugTextTable > 0 and GetTime() - LastDebugReportNotification > 300 * 3 then
-            if LastDebugReportNotification == 0 then
-                T._FatalError(L["DECURSIVE_DEBUG_REPORT_NOTIFY"]);
-            end
-            self:Println(L["DECURSIVE_DEBUG_REPORT_NOTIFY"]);
-            LastDebugReportNotification = GetTime();
-        end
+        -- Commented out to prevent debug report notification
+        -- if #T._DebugTextTable > 0 and GetTime() - LastDebugReportNotification > 300 * 3 then
+        --     if LastDebugReportNotification == 0 then
+        --         T._FatalError(L["DECURSIVE_DEBUG_REPORT_NOTIFY"]);
+        --     end
+        --     self:Println(L["DECURSIVE_DEBUG_REPORT_NOTIFY"]);
+        --     LastDebugReportNotification = GetTime();
+        -- end
     end
 end--}}}
 -- }}}
@@ -844,8 +845,34 @@ do -- Communication event handling and broadcasting {{{1
 
     T.LastVCheck = 0;
     function D:AskVersion()
-        -- Version check disabled
-        return false;
+
+        if InCombatLockdown() then
+            -- if we are fighting, postpone the call
+            D:AddDelayedFunctionCall ("AskVersion", self.AskVersion);
+            return false;
+        end
+
+        if GetTime() - T.LastVCheck < 60 then
+            D:Debug("AskVersion(): Too early!");
+            return false;
+        end
+
+        T.LastVCheck = GetTime();
+
+        if UnitExists("target") and (UnitFactionGroup("target")) == (UnitFactionGroup("player")) and UnitIsPlayer("target") then -- the unit exists and is a player of our faction
+            LibStub("AceComm-3.0"):SendCommMessage( "DecursiveVersion", "giveversion", "WHISPER", self:UnitName("target"));
+            D:Debug("Asking version to ", self:UnitName("target"));
+        end
+
+        local Distribution = GetDistributionChanel();
+
+        if Distribution then
+            LibStub("AceComm-3.0"):SendCommMessage( "DecursiveVersion", "giveversion", Distribution);
+        end
+        D:Debug("Asking version on ", Distribution);
+
+        return true;
+
     end
 
     T.VersionAnnounceReceived = 0;
@@ -891,8 +918,14 @@ do -- Communication event handling and broadcasting {{{1
                     D:Debug("Version from self, VersionAnnounceReceived counter not incresead", T.VersionAnnounceReceived);
                 end
 
-                -- Version comparison disabled
-                do end
+                if versionTimeStamp > D.db.global.NewerVersionDetected and versionTimeStamp < time() and versionName ~= D.version then
+                    if versionIsAlpha==0 or D.RunningADevVersion then -- if the version received is not an alpha or if we are running one
+                        D.db.global.NewerVersionDetected = versionTimeStamp;
+                        D.db.global.NewerVersionName = versionName;
+                    end
+                elseif versionTimeStamp >= time() then
+                    D:Debug("|cFFFF0000TIME TRAVELER DETECTED!|r");
+                end
 
                 -- delayed call to LibStub("AceConfigRegistry-3.0"):NotifyChange(D.name); plus "spam" prevention system (after receiving version info from someone)
                 -- We don't want to update the thing if the option panel is closed so we update up to 60s after the check version button was used
@@ -1147,6 +1180,6 @@ do
     end
 end
 
-T._LoadedFiles["Dcr_Events.lua"] = "2.7.29";
+T._LoadedFiles["Dcr_Events.lua"] = "2.7.17";
 
 -- The Great Below

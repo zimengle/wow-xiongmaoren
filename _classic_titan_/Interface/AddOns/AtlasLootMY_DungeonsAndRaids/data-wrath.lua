@@ -5459,7 +5459,7 @@ data['NaxxramasWrath'] = {
             AtlasMapBossID = '1',
             Level = 999,
             [NORMAL_DIFF] = {
-                {1, 39192}, {2, 39190}, {3, 39761}, {4, 39189}, {5, 39188},  {6, 39146}, {7, 40108},
+                {1, 39192}, {2, 39190}, {3, 39761}, {4, 39189},  {6, 39146}, {7, 40108},
                 {8, 39141}, {9, 39140}, {10, 39712}, {11, 39719}, {12, 39721}, {13, 39720}, {14, 39722}, {16, 22726},
                 {17, 39701}, {18, 39702}, {19, 39704}, {20, 39717}, {21, 39706}, {22, 40065}, {23, 40069}, {24, 40064},
                 {25, 40080}, {26, 40075}, {27, 40107}, {28, 40074}, {29, 39714}, {30, 39716}},
@@ -5472,7 +5472,7 @@ data['NaxxramasWrath'] = {
             AtlasMapBossID = '2',
             Level = 999,
             [NORMAL_DIFF] = {
-                 {1, 39200},{2, 39199}, {3, 39196}, {4, 39217}, {5, 39194}, {6, 39197}, {7, 39195}, 
+                 {1, 39200},{2, 39199}, {3, 39196}, {4, 39217}, {5, 39194}, {7, 39195}, 
                   {8, 39731}, {9, 39733}, {10, 39735}, {11, 39756}, {16, 22726}, {17, 39727},
                 {18, 39734}, {19, 39723}, {20, 39726}, {21, 40065}, {22, 40069}, {23, 40064}, {24, 40080}, {25, 40075},
                 {26, 40107}, {27, 40108}, {28, 40074}, {29, 39730}},
@@ -5485,7 +5485,7 @@ data['NaxxramasWrath'] = {
             AtlasMapBossID = '3',
             Level = 999,
             [NORMAL_DIFF] = {
-                {1, 39225}, {2, 39230}, {3, 39224}, {4, 39228}, {5, 39232}, {6, 39231}, {7, 39229}, {8, 39226},
+               {3, 39224}, {4, 39228}, {5, 39232}, {6, 39231}, {7, 39229}, {8, 39226},
                 {9, 39221}, {10, 39233}, {11, 40250}, {12, 40254}, {13, 40252}, {14, 40251}, {16, 22726}, {17, 40063},
                 {18, 39765}, {19, 39761}, {20, 39762}, {21, 39767}, {22, 39764}, {23, 39759}, {24, 40257}, {25, 40255},
                 {26, 40258}, {27, 40256}, {28, 39766}, {29, 39763}, {30, 39758}},
@@ -5498,8 +5498,8 @@ data['NaxxramasWrath'] = {
             AtlasMapBossID = '1',
             Level = 999,
             [NORMAL_DIFF] = {
-                {1, 39241}, {2, 39242}, {3, 39240}, {4, 39237}, {5, 40190}, {6, 39239}, {7, 39235},
-                {8, 39234}, {9, 39244}, {10, 40189}, {11, 40602}, {12, 40198}, {13, 40186}, {14, 40200}, {16, 22726}, {17, 40193},
+                {1, 39241},  {4, 39237}, {5, 40190}, {6, 39239}, {7, 39235},
+                {9, 39244}, {10, 40189}, {11, 40602}, {12, 40198}, {13, 40186}, {14, 40200}, {16, 22726}, {17, 40193},
                 {18, 40196}, {19, 40184}, {20, 40185}, {21, 40188}, {22, 40187}, {23, 40065}, {24, 40069}, {25, 40064},
                 {26, 40080}, {27, 40075}, {28, 40107}, {29, 40074}, {30, 40192}, },
             EncounterJournalID = 1604
@@ -5549,7 +5549,7 @@ data['NaxxramasWrath'] = {
             AtlasMapBossID = '2',
             Level = 999,
             [NORMAL_DIFF] = {
-                 {1, 39386}, {2, 39391}, {3, 39379}, {4, 39345},  {5, 39392}, {6, 39389},
+                 {1, 39386}, {2, 39391}, {3, 39379}, {4, 39345}, {6, 39389},
                 {7, 39388}, {8, 39344},{9, 40335}, {10, 40250}, {11, 40254}, {12, 40252}, {13, 40251}, {16, 22726}, {17, 40339},
                 {18, 40338}, {19, 40329}, {20, 40340}, {21, 40331}, {22, 40328}, {23, 40334}, {24, 40332}, {25, 40330},
                 {26, 40257}, {27, 40255}, {28, 40258}, {29, 40256}, {30, 40336}, },
@@ -5562,7 +5562,7 @@ data['NaxxramasWrath'] = {
             AtlasMapBossID = '3',
             Level = 999,
             [NORMAL_DIFF] = {
-                {1, 39397}, {2, 39395},  {3, 39394}, {4, 40395}, {5, 40349}, {6, 40344},
+                 {2, 39395} , {4, 40395}, {5, 40349}, {6, 40344},
                 {7, 40352}, {8, 40347}, {9,40350}, {10, 40345}, {11, 40348}, {12, 22691}, {13, 22812} ,{16, 22726},
                 {17, 40626}, {18, 40627}, {19, 40625}},
             EncounterJournalID = 1609
@@ -5585,7 +5585,7 @@ data['NaxxramasWrath'] = {
             AtlasMapBossID = 2,
             Level = 999,
             [NORMAL_DIFF] = {
-                {1, 39284}, {2, 39285},  {3, 39279}, {4, 39278}, {5, 39280}, {6, 39282}, {7, 39277},
+                 {2, 39285},  {3, 39279}, {4, 39278}, {5, 39280}, {7, 39277},
                  {8, 39276}, {9, 23221}, {10, 40250}, {11, 40254}, {12, 40252}, {13, 40251}, {14, 40280}, {15, 40284},{16, 22726},
                 {17, 40286}, {18, 40289}, {19, 40277}, {20, 40288}, {21, 40283}, {22, 40275}, {23, 40279}, {24, 40274},
                 {25, 40278}, {26, 40257}, {27, 40255}, {28, 40258}, {29, 40256}, {30, 40281} },
@@ -5599,7 +5599,7 @@ data['NaxxramasWrath'] = {
             [NORMAL_DIFF] = {
                 { 1, "INV_Box_01", nil, "格拉斯掉落机制为2+2+1"},
                  { 2, "INV_Box_01", nil, "掉落以下列表任意2件"},
-                {3, 39467}, {4, 39472}, {5, 39470}, {6, 39427}, {7, 39468}, {8, 40410}, {9, 40409},
+                {3, 39467},  {5, 39470}, {6, 39427}, {7, 39468}, {8, 40410}, {9, 40409},
                 {10, 40414}, {11, 40408}, {12, 40407}, {13, 40406},{14,39422},
                  { 16, "INV_Box_01", nil, "掉落以下套装任意2件"},
                 {17, 40637}, {18, 40638}, {19, 40639}, {21, 40625},
@@ -5608,26 +5608,7 @@ data['NaxxramasWrath'] = {
             npcID = 15932
         }, 
         
-        -- {
-        --     DisplayIDs = {{16064}},
-        --     name = "未知掉落",
-        --     EncounterJournalID = 1612,
-        --     AtlasMapBossID = 3,
-        --     Level = 999,
-        --     [NORMAL_DIFF] = {
-        --         {1, 39272}, {2, 39284}, {3, 39396}, {4, 39309}, {5, 39237}, {6, 39279}, {7, 39191}, {8, 39215},
-        --         {9, 39294}, {10, 39248}, {11, 39194}, {12, 39251}, {13, 39379}, {14, 39188}, {15, 39345}, {16, 22726},
-        --         {17, 39146}, {18, 39232}, {19, 39193}, {20, 39388}, {21, 39200}, {22, 39344}, {23, 39281}, {24, 39394},
-        --         {26, 40289}, {27, 40602}, {28, 39733}, {29, 40303}, {30, 40326}, {101, 40260}, {102, 40205},
-        --         {103, 40270}, {104, 40193}, {105, 40209}, {106, 40302}, {107, 40242}, {108, 40185}, {109, 40203},
-        --         {110, 40332}, {111, 40188}, {112, 40259}, {113, 39717}, {114, 40206}, {115, 40297}, {116, 40350},
-        --         {117, 40281}, {118, 39714}, {119, 39730}, {120, 40343}, {121, 40239}, {122, 40280}, {123, 39716},
-        --         {124, 40265}, {125, 40637}, {126, 40638}, {127, 40639}, {128, 40625}, {129, 40626}, {130, 40627},
-        --         {201, 40634}, {202, 40635}, {203, 40636}, {301, 39467}, {302, 39472}, {303, 39470}, {304, 39427},
-        --         {305, 39468}, {306, 39473}, {308, 40410}, {309, 40409}, {310, 40414}, {311, 40408}, {312, 40407},
-        --         {313, 40406}},
-        --     npcID = 15932
-        -- },
+        -- 
          {
             DisplayIDs = {{16137}},
             name = AL["Thaddius"],
@@ -5635,7 +5616,7 @@ data['NaxxramasWrath'] = {
             AtlasMapBossID = 4,
             Level = 999,
             [NORMAL_DIFF] = {
-                {1, 39295}, {2, 39294}, {3, 39293}, {4, 39292}, {5, 39291}, {6, 40303}, {7, 40301}, {8, 40304},
+                {1, 39295}, {3, 39293}, {4, 39292}, {5, 39291}, {6, 40303}, {7, 40301}, {8, 40304},
                 {9, 40299}, {10, 40302}, {11, 40298}, {12, 40294}, {13, 40297}, {14, 40300}, {16, 22726}, {17, 40634},
                 {18, 40635}, {19, 40636},{21,265526}},
             npcID = 15928
@@ -5647,7 +5628,7 @@ data['NaxxramasWrath'] = {
             AtlasMapBossID = '1',
             Level = 999,
             [NORMAL_DIFF] = {
-                {1, 39415}, {2, 39404}, {3, 39409}, {4, 39408}, {5, 39399}, {6, 39405}, {7, 39403}, {8, 39398},
+                 {2, 39404}, {3, 39409}, {4, 39408}, {5, 39399}, {6, 39405}, {7, 39403}, 
                 {9, 39401}, {10, 39407}, {11, 40376}, {12, 40362}, {13, 40379}, {14, 40367}, {16, 22726}, {17, 40366},
                 {18, 40377}, {19, 40365}, {20, 40363}, {21, 40374}, {22, 40369}, {23, 40370}, {24, 40371}, {25, 40373},
                 {26, 40372}, {27, 40382}, {28, 40368}, {29, 44577}},
@@ -5666,6 +5647,7 @@ data['NaxxramasWrath'] = {
                 {16, 22726},{17, 40631}, {18, 40632}, {19, 40633},{21, 40384}, {22, 40388}, {23, 40401}, {24, 40400}, {25, 40385}},
             EncounterJournalID = 1615
         }, T7_SET --         WOTLK_NAXXRAMAS_AC_TABLE,
+       
     }
 }
 
@@ -6422,16 +6404,21 @@ data["Zul'Gurub80"] = {
 			DisplayIDs = {{15219}},
 			AtlasMapBossID = 1,
 			[NORMAL_DIFF] = {
+
 				{ 1,  19721 }, -- Primal Hakkari Shawl
-				{ 2,  19724 }, -- Primal Hakkari Aegis
-				{ 3,  19723 }, -- Primal Hakkari Kossack
-				{ 4,  19722 }, -- Primal Hakkari Tabard
-				{ 5,  19717 }, -- Primal Hakkari Armsplint
-				{ 6,  19716 }, -- Primal Hakkari Bindings
-				{ 7,  19718 }, -- Primal Hakkari Stanchion
-				{ 8,  19719 }, -- Primal Hakkari Girdle
-				{ 9,  19720 }, -- Primal Hakkari Sash
-				{ 16, 19918 }, -- Jeklik's Crusher
+				{ 2,  19720 }, -- Primal Hakkari Aegis
+				{ 3,  19717 }, -- Primal Hakkari Kossack
+
+				{ 5,  19722 }, -- Primal Hakkari Tabard
+				{ 6,  19723 }, -- Primal Hakkari Armsplint
+				{ 7,  19716 }, -- Primal Hakkari Bindings
+
+				{ 9,  19724 }, -- Primal Hakkari Stanchion
+				{ 10,  19719 }, -- Primal Hakkari Girdle
+				{ 11,  19718 }, -- Primal Hakkari Sash
+				
+                
+                { 16, 19918 }, -- Jeklik's Crusher
 				{ 18, 19923 }, -- Jeklik's Opaline Talisman
 				{ 19, 19928 }, -- Animist's Spaulders
 				{ 20, 20262 }, -- Seafury Boots
@@ -6447,15 +6434,17 @@ data["Zul'Gurub80"] = {
 			DisplayIDs = {{15217}},
 			AtlasMapBossID = 2,
 			[NORMAL_DIFF] = {
-				{ 1,  19721 }, -- Primal Hakkari Shawl
-				{ 2,  19724 }, -- Primal Hakkari Aegis
-				{ 3,  19723 }, -- Primal Hakkari Kossack
-				{ 4,  19722 }, -- Primal Hakkari Tabard
-				{ 5,  19717 }, -- Primal Hakkari Armsplint
-				{ 6,  19716 }, -- Primal Hakkari Bindings
-				{ 7,  19718 }, -- Primal Hakkari Stanchion
-				{ 8,  19719 }, -- Primal Hakkari Girdle
-				{ 9,  19720 }, -- Primal Hakkari Sash
+			{ 1,  19721 }, -- Primal Hakkari Shawl
+				{ 2,  19720 }, -- Primal Hakkari Aegis
+				{ 3,  19717 }, -- Primal Hakkari Kossack
+
+				{ 5,  19722 }, -- Primal Hakkari Tabard
+				{ 6,  19723 }, -- Primal Hakkari Armsplint
+				{ 7,  19716 }, -- Primal Hakkari Bindings
+
+				{ 9,  19724 }, -- Primal Hakkari Stanchion
+				{ 10,  19719 }, -- Primal Hakkari Girdle
+				{ 11,  19718 }, -- Primal Hakkari Sash
 				{ 16, 19904 }, -- Runed Bloodstained Hauberk
 				{ 17, 19903 }, -- Fang of Venoxis
 				{ 19, 19907 }, -- Zulian Tigerhide Cloak
@@ -6472,14 +6461,16 @@ data["Zul'Gurub80"] = {
 			AtlasMapBossID = 4,
 			[NORMAL_DIFF] = {
 				{ 1,  19721 }, -- Primal Hakkari Shawl
-				{ 2,  19724 }, -- Primal Hakkari Aegis
-				{ 3,  19723 }, -- Primal Hakkari Kossack
-				{ 4,  19722 }, -- Primal Hakkari Tabard
-				{ 5,  19717 }, -- Primal Hakkari Armsplint
-				{ 6,  19716 }, -- Primal Hakkari Bindings
-				{ 7,  19718 }, -- Primal Hakkari Stanchion
-				{ 8,  19719 }, -- Primal Hakkari Girdle
-				{ 9,  19720 }, -- Primal Hakkari Sash
+				{ 2,  19720 }, -- Primal Hakkari Aegis
+				{ 3,  19717 }, -- Primal Hakkari Kossack
+
+				{ 5,  19722 }, -- Primal Hakkari Tabard
+				{ 6,  19723 }, -- Primal Hakkari Armsplint
+				{ 7,  19716 }, -- Primal Hakkari Bindings
+
+				{ 9,  19724 }, -- Primal Hakkari Stanchion
+				{ 10,  19719 }, -- Primal Hakkari Girdle
+				{ 11,  19718 }, -- Primal Hakkari Sash
 				{ 16, 20032 }, -- Flowing Ritual Robes
 				{ 17, 19927 }, -- Mar'li's Touch
 				{ 19, 19871 }, -- Talisman of Protection
@@ -6496,15 +6487,18 @@ data["Zul'Gurub80"] = {
 			AtlasMapBossID = 5,
 			[NORMAL_DIFF] = {
 				{ 1,  19721 }, -- Primal Hakkari Shawl
-				{ 2,  19724 }, -- Primal Hakkari Aegis
-				{ 3,  19723 }, -- Primal Hakkari Kossack
-				{ 4,  19722 }, -- Primal Hakkari Tabard
-				{ 5,  19717 }, -- Primal Hakkari Armsplint
-				{ 6,  19716 }, -- Primal Hakkari Bindings
-				{ 7,  19718 }, -- Primal Hakkari Stanchion
-				{ 8,  19719 }, -- Primal Hakkari Girdle
-				{ 9,  19720 }, -- Primal Hakkari Sash
-				{ 11, 22637 }, -- Primal Hakkari Idol
+				{ 2,  19720 }, -- Primal Hakkari Aegis
+				{ 3,  19717 }, -- Primal Hakkari Kossack
+
+				{ 5,  19722 }, -- Primal Hakkari Tabard
+				{ 6,  19723 }, -- Primal Hakkari Armsplint
+				{ 7,  19716 }, -- Primal Hakkari Bindings
+
+				{ 9,  19724 }, -- Primal Hakkari Stanchion
+				{ 10,  19719 }, -- Primal Hakkari Girdle
+				{ 11,  19718 }, -- Primal Hakkari Sash
+
+				{ 12, 274994 }, -- Primal Hakkari Idol
 				{ 16, 19872 }, -- Swift Razzashi Raptor
 				{ 17, 20038 }, -- Mandokir's Sting
 				{ 18, 19867 }, -- Bloodlord's Defender
@@ -6590,14 +6584,16 @@ data["Zul'Gurub80"] = {
 			AtlasMapBossID = 8,
 			[NORMAL_DIFF] = {
 				{ 1,  19721 }, -- Primal Hakkari Shawl
-				{ 2,  19724 }, -- Primal Hakkari Aegis
-				{ 3,  19723 }, -- Primal Hakkari Kossack
-				{ 4,  19722 }, -- Primal Hakkari Tabard
-				{ 5,  19717 }, -- Primal Hakkari Armsplint
-				{ 6,  19716 }, -- Primal Hakkari Bindings
-				{ 7,  19718 }, -- Primal Hakkari Stanchion
-				{ 8,  19719 }, -- Primal Hakkari Girdle
-				{ 9,  19720 }, -- Primal Hakkari Sash
+				{ 2,  19720 }, -- Primal Hakkari Aegis
+				{ 3,  19717 }, -- Primal Hakkari Kossack
+
+				{ 5,  19722 }, -- Primal Hakkari Tabard
+				{ 6,  19723 }, -- Primal Hakkari Armsplint
+				{ 7,  19716 }, -- Primal Hakkari Bindings
+
+				{ 9,  19724 }, -- Primal Hakkari Stanchion
+				{ 10,  19719 }, -- Primal Hakkari Girdle
+				{ 11,  19718 }, -- Primal Hakkari Sash
 				{ 16, 19902 }, -- Swift Zulian Tiger
 				{ 17, 19897 }, -- Betrayer's Boots
 				{ 18, 19896 }, -- Thekal's Grasp
@@ -6616,14 +6612,16 @@ data["Zul'Gurub80"] = {
 			AtlasMapBossID = 9,
 			[NORMAL_DIFF] = {
 				{ 1,  19721 }, -- Primal Hakkari Shawl
-				{ 2,  19724 }, -- Primal Hakkari Aegis
-				{ 3,  19723 }, -- Primal Hakkari Kossack
-				{ 4,  19722 }, -- Primal Hakkari Tabard
-				{ 5,  19717 }, -- Primal Hakkari Armsplint
-				{ 6,  19716 }, -- Primal Hakkari Bindings
-				{ 7,  19718 }, -- Primal Hakkari Stanchion
-				{ 8,  19719 }, -- Primal Hakkari Girdle
-				{ 9,  19720 }, -- Primal Hakkari Sash
+				{ 2,  19720 }, -- Primal Hakkari Aegis
+				{ 3,  19717 }, -- Primal Hakkari Kossack
+
+				{ 5,  19722 }, -- Primal Hakkari Tabard
+				{ 6,  19723 }, -- Primal Hakkari Armsplint
+				{ 7,  19716 }, -- Primal Hakkari Bindings
+
+				{ 9,  19724 }, -- Primal Hakkari Stanchion
+				{ 10,  19719 }, -- Primal Hakkari Girdle
+				{ 11,  19718 }, -- Primal Hakkari Sash
 				{ 16, 19910 }, -- Arlokk's Grasp
 				{ 17, 19909 }, -- Will of Arlokk
 				{ 19, 19913 }, -- Bloodsoaked Greaves
@@ -6640,15 +6638,19 @@ data["Zul'Gurub80"] = {
 			AtlasMapBossID = 10,
 			[NORMAL_DIFF] = {
 				{ 1,  19721 }, -- Primal Hakkari Shawl
-				{ 2,  19724 }, -- Primal Hakkari Aegis
-				{ 3,  19723 }, -- Primal Hakkari Kossack
-				{ 4,  19722 }, -- Primal Hakkari Tabard
-				{ 5,  19717 }, -- Primal Hakkari Armsplint
-				{ 6,  19716 }, -- Primal Hakkari Bindings
-				{ 7,  19718 }, -- Primal Hakkari Stanchion
-				{ 8,  19719 }, -- Primal Hakkari Girdle
-				{ 9,  19720 }, -- Primal Hakkari Sash
-				{ 11, 22637 }, -- Primal Hakkari Idol
+				{ 2,  19720 }, -- Primal Hakkari Aegis
+				{ 3,  19717 }, -- Primal Hakkari Kossack
+
+				{ 5,  19722 }, -- Primal Hakkari Tabard
+				{ 6,  19723 }, -- Primal Hakkari Armsplint
+				{ 7,  19716 }, -- Primal Hakkari Bindings
+
+				{ 9,  19724 }, -- Primal Hakkari Stanchion
+				{ 10,  19719 }, -- Primal Hakkari Girdle
+				{ 11,  19718 }, -- Primal Hakkari Sash
+                { 13, 267338},
+				{ 14, 274994 }, -- Primal Hakkari Idol
+                
 				{ 16, 19885 }, -- Jin'do's Evil Eye
 				{ 17, 19891 }, -- Jin'do's Bag of Whammies
 				{ 18, 19890 }, -- Jin'do's Hexxer
@@ -6661,6 +6663,7 @@ data["Zul'Gurub80"] = {
 				{ 26, 19889 }, -- Blooddrenched Leggings
 				{ 27, 19887 }, -- Bloodstained Legplates
 				{ 28, 19892 }, -- Animist's Boots
+                
 			},
 		},
 		{ -- ZGHakkar
@@ -6677,6 +6680,7 @@ data["Zul'Gurub80"] = {
 				{ 4,  19876 }, -- Soul Corrupter's Necklace
 				{ 5,  19856 }, -- The Eye of Hakkar
 				{ 7, 19802 }, -- Heart of Hakkar
+                {8, 267339},
 				{ 16,  19861 }, -- Touch of Chaos
 				{ 17,  19853 }, -- Gurubashi Dwarf Destroyer
 				{ 18, 19862 }, -- Aegis of the Blood God
@@ -6686,8 +6690,26 @@ data["Zul'Gurub80"] = {
 				{ 22, 19852 }, -- Ancient Hakkari Manslayer
 				{ 23, 19859 }, -- Fang of the Faceless
 				{ 24, 19854 }, -- Zin'rokh, Destroyer of Worlds
+                { 25,268051},
+                { 26, 268050}
 			},
 		},
+        {
+            name="套装项链",
+            ExtraList = true,
+            [NORMAL_DIFF]={
+                {1,19577},
+                {2,19588},
+                {3,19609},
+                {4,19621},
+                {5,19617},
+                {6,19613},
+                {7,19594},
+                {8,19605},
+                {9,19601},
+                {10,268777}
+            },
+        },
 		{ -- ZGShared
 			name = AL["High Priest Shared loot"],
 			ExtraList = true,
@@ -6742,27 +6764,30 @@ data["Zul'Gurub80"] = {
 			name = AL["Enchants"],
 			ExtraList = true,
 			[NORMAL_DIFF] = {
-				{ 1,  19789 }, -- Prophetic Aura
-				{ 2,  19787 }, -- Presence of Sight
-				{ 3,  19788 }, -- Hoodoo Hex
-				{ 4,  19784 }, -- Death's Embrace
-				{ 5,  19790 }, -- Animist's Caress
-				{ 6,  19785 }, -- Falcon's Call
-				{ 7,  19786 }, -- Vodouisant's Vigilant Embrace
-				{ 8,  19783 }, -- Syncretist's Sigil
-				{ 9,  19782 }, -- Presence of Might
-				{ 16, 20077 }, -- Zandalar Signet of Might
-				{ 17, 20076 }, -- Zandalar Signet of Mojo
-				{ 18, 20078 }, -- Zandalar Signet of Serenity
-				{ 20, 22635 }, -- Savage Guard
-			},
-		},
-		{ -- ZGMuddyChurningWaters
-			name = AL["Muddy Churning Waters"],
-			ExtraList = true,
-			AtlasMapBossID = "1'",
-			[NORMAL_DIFF] = {
-				{ 1,  19975 }, -- Zulian Mudskunk
+                  {1, 268132, }, 
+                  {2,268152},
+
+                  {3,19785},
+                  {4,268151},
+                  {6,19788},
+                  {7,268130},
+                  {8,268129},
+                  {9,268131},
+                  {11,19789},
+                  {12,268155},
+                  {13,268133},
+                  {14,268156},
+
+                  {16,19783},
+                  {17,268153},
+                  {19,268144},
+                  {20,268154},
+                  {22,268143},
+                  {24,20077},
+                  { 25, 20076 }, -- Zandalar Signet of Mojo
+				  { 26, 20078 }, -- Zandalar Signet of Serenity
+                  { 27,268174}
+				
 			},
 		},
 		{ -- ZGJinxedHoodooPile
@@ -6780,6 +6805,15 @@ data["Zul'Gurub80"] = {
 				{ 9,  19817 }, -- Punctured Voodoo Doll
 				{ 10, 19815 }, -- Punctured Voodoo Doll
 				{ 11, 19813 }, -- Punctured Voodoo Doll
+                { 12,268145}
+			},
+		},
+        { -- ZGMuddyChurningWaters
+			name = AL["Muddy Churning Waters"],
+			ExtraList = true,
+			AtlasMapBossID = "1'",
+			[NORMAL_DIFF] = {
+				{ 1,  19975 }, -- Zulian Mudskunk
 			},
 		},
 	},
@@ -6857,6 +6891,7 @@ data["TrialoftheCrusader"] = {
                     { 22, 237087 },	-- Forlorn Barrier
                     { 24, "ac3936" },
                     { 25, "ac3797" },
+                    { 30 ,249820},
                      { 101, 47855 },	-- Icehowl Binding
                     { 102, 47857 },	-- Pauldrons of the Glacial Wilds
                     { 103, 47853 },	-- Acidmaw Treads

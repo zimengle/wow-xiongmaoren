@@ -9,18 +9,19 @@ local icon_name = "TitanBistooltipIcon"
 
 
 local sources = {
-    TitanP1P2 = "TitanP1P2",
+    KPTitan = "KPTitan",
 }
 
 TitanBistooltip_source_to_url = {
-    ["TitanP1P2"] = "快跑兄弟本地数据库",
+    ["KPTitan"] = "快跑兄弟本地数据库",
 }
 
 local db_defaults = {
     char = {
         class_index = 1,
         spec_index = 1,
-        phase_index = 4, -- 默认使用P3阶段
+        phase_index = 4, -- 默认使用P3阶段（PR=1, P1=2, P2=3, P3=4, P4=5）
+        filter_class_names = false, -- 隐藏职业名字
         filter_specs = {
             ["Death knight"] = {
                 ["Blood tank"] = false,
@@ -78,16 +79,24 @@ local db_defaults = {
             }
         },
         filter_phases = {
-            ["PR"] = false,
-            ["P1"] = false,
+            ["PR"] = true,
+            ["P1"] = true,
             ["P2"] = false,
-            ["P3"] = false
+            ["P3"] = false,
+            ["P4"] = false,
+            ["P5"] = true,
+            ["P6"] = true,
+            ["P7"] = true,
+            ["P8"] = true,
+            ["P9"] = true,
+            ["P10"] = true,
+            ["P11"] = true
         },
         highlight_specs = {},
-        data_source = "TitanP1P2",
+        data_source = "KPTitan",
         minimap_icon = true,
         tooltip_with_ctrl = false,
-        tooltip_position = "bottom",
+        tooltip_position = true,
         disable_tooltip_enhancement = false, -- 禁用鼠标BIS增强提示功能
         default_phase = "P3" -- 默认BIS面板打开的阶段
     }
@@ -95,6 +104,7 @@ local db_defaults = {
 
 local configTable = {
     type = "group",
+    name = "TitanBistooltip - 快跑兄弟",
     args = {
 
         minimap_icon = {
@@ -145,9 +155,9 @@ local configTable = {
             end
         },
         disable_tooltip_enhancement = {
-            name = "禁用鼠标BIS增强排名提示",
+            name = L["Disable tooltip enhancement"],
             order = 3,
-            desc = "勾选后禁用装备提示框下的装备BIS排名显示。",
+            desc = L["Disables tooltip enhancement desc"],
             type = "toggle",
             width = "full",
             set = function(info, val)
@@ -157,47 +167,12 @@ local configTable = {
                 return TitanBistooltipAddon.db.char.disable_tooltip_enhancement
             end
         },
-        default_phase = {
-            name = "默认BIS面板打开阶段",
-            order = 4,
-            desc = "设置BIS面板打开后默认显示的阶段",
-            type = "select",
-            style = "dropdown",
-            width = "double",
-            values = function()
-                local options = {}
-                -- 从数据库中获取阶段列表
-                if TitanBistooltip_phases then
-                    for _, phase in ipairs(TitanBistooltip_phases) do
-                        options[phase] = phase
-                    end
-                else
-                    -- 默认为PR, P1, P2, P3
-                    options["PR"] = "PR"
-                    options["P1"] = "P1"
-                    options["P2"] = "P2"
-                    options["P3"] = "P3"
-                end
-                return options
-            end,
-            set = function(info, val)
-                TitanBistooltipAddon.db.char.default_phase = val
-            end,
-            get = function(info)
-                return TitanBistooltipAddon.db.char.default_phase or "P3"
-            end
-        },
         tooltip_position = {
-            name = "鼠标BIS增强框位置设置",
+            name = L["Smart tooltip position"],
             order = 4,
-            desc = "自定义BIS面板鼠标提示框的位置。\n备注：当装备提示框在屏幕左侧时，无论用户如何设置，BIS 提示框都会显示在装备提示框的下方，以避免覆盖某些装备对比插件的比较信息",
-            type = "select",
-            style = "dropdown",
+            desc = L["Smart tooltip position desc"],
+            type = "toggle",
             width = "double",
-            values = {
-                right = "装备提示框右侧",
-                bottom = "装备提示框下侧"
-            },
             set = function(info, val)
                 TitanBistooltipAddon.db.char.tooltip_position = val
             end,
@@ -205,9 +180,45 @@ local configTable = {
                 return TitanBistooltipAddon.db.char.tooltip_position
             end
         },
+        default_phase = {
+            name = L["Default bis panel phase"],
+            order = 5,
+            desc = L["Default bis panel phase desc"],
+            type = "select",
+            style = "dropdown",
+            width = "double",
+            values = function()
+                local options = {}
+                -- 直接使用TitanBistooltip_Titan_phases获取阶段列表
+                local phases = TitanBistooltip_Titan_phases or { "PR" , "P1" , "P2" , "P3" , "P4" , "P5" , "P6" , "P7" , "P8" , "P9" , "P10" , "P11" }
+                for i, phase in ipairs(phases) do
+                    options[i] = phase
+                end
+                return options
+            end,
+            set = function(info, val)
+                -- 将索引转换为阶段名称
+                local phases = TitanBistooltip_Titan_phases or { "PR" , "P1" , "P2" , "P3" , "P4" , "P5" , "P6" , "P7" , "P8" , "P9" , "P10" , "P11" }
+                local phaseName = phases[val]
+                if phaseName then
+                    TitanBistooltipAddon.db.char.default_phase = phaseName
+                end
+            end,
+            get = function(info)
+                -- 将阶段名称转换为索引
+                local defaultPhase = TitanBistooltipAddon.db.char.default_phase or "P3"
+                local phases = TitanBistooltip_Titan_phases or { "PR" , "P1" , "P2" , "P3" , "P4" , "P5" , "P6" , "P7" , "P8" , "P9" , "P10" , "P11" }
+                for i, phase in ipairs(phases) do
+                    if phase == defaultPhase then
+                        return i
+                    end
+                end
+                return 4 -- 默认返回P3的索引
+            end
+        },
         data_source = {
             name = L["Data source"],
-            order = 5,
+            order = 6,
             desc = L["Changes source"],
             type = "select",
             style = "dropdown",
@@ -222,15 +233,15 @@ local configTable = {
             end
         },
         filter_phases = {
-            name = "隐藏鼠标BIS增强提示阶段显示",
-            order = 6,
-            desc = "隐藏装备提示框中的阶段显示",
+            name = L["Hide tooltip phase display"],
+            order = 7,
+            desc = L["Hide tooltip phase display desc"],
             type = "group",
             inline = true,
             args = {
                 pr = {
                     name = "PR",
-                    desc = "P1团本前阶段",
+                    desc = L["Pre raid desc"],
                     type = "toggle",
                     width = "half",
                     order = 1,
@@ -249,7 +260,7 @@ local configTable = {
                 },
                 p1 = {
                     name = "P1",
-                    desc = "熔火之心团本阶段",
+                    desc = L["Molten core desc"],
                     type = "toggle",
                     width = "half",
                     order = 2,
@@ -268,7 +279,7 @@ local configTable = {
                 },
                 p2 = {
                     name = "P2",
-                    desc = "毒蛇神殿风暴要塞阶段",
+                    desc = L["Serpentshrine tempest keep desc"],
                     type = "toggle",
                     width = "half",
                     order = 3,
@@ -287,7 +298,7 @@ local configTable = {
                 },
                 p3 = {
                     name = "P3",
-                    desc = "纳克萨玛斯阶段",
+                    desc = L["Naxxramas eye eternity obsidian desc"],
                     type = "toggle",
                     width = "half",
                     order = 4,
@@ -303,18 +314,170 @@ local configTable = {
                         end
                         return TitanBistooltipAddon.db.char.filter_phases["P3"]
                     end
+                },
+                p4 = {
+                    name = "P4",
+                    desc = L["Zul gurub trial of crusader desc"],
+                    type = "toggle",
+                    width = "half",
+                    order = 5,
+                    set = function(info, val)
+                        TitanBistooltipAddon.db.char.filter_phases["P4"] = val
+                    end,
+                    get = function(info)
+                        if not TitanBistooltipAddon.db.char.filter_phases then
+                            TitanBistooltipAddon.db.char.filter_phases = {}
+                        end
+                        if TitanBistooltipAddon.db.char.filter_phases["P4"] == nil then
+                            TitanBistooltipAddon.db.char.filter_phases["P4"] = false
+                        end
+                        return TitanBistooltipAddon.db.char.filter_phases["P4"]
+                    end
+                },
+                p5 = {
+                    name = "P5",
+                    desc = L["P5 desc"],
+                    type = "toggle",
+                    width = "half",
+                    order = 6,
+                    set = function(info, val)
+                        TitanBistooltipAddon.db.char.filter_phases["P5"] = val
+                    end,
+                    get = function(info)
+                        if not TitanBistooltipAddon.db.char.filter_phases then
+                            TitanBistooltipAddon.db.char.filter_phases = {}
+                        end
+                        if TitanBistooltipAddon.db.char.filter_phases["P5"] == nil then
+                            TitanBistooltipAddon.db.char.filter_phases["P5"] = false
+                        end
+                        return TitanBistooltipAddon.db.char.filter_phases["P5"]
+                    end
+                },
+                p6 = {
+                    name = "P6",
+                    desc = L["P6 desc"],
+                    type = "toggle",
+                    width = "half",
+                    order = 7,
+                    set = function(info, val)
+                        TitanBistooltipAddon.db.char.filter_phases["P6"] = val
+                    end,
+                    get = function(info)
+                        if not TitanBistooltipAddon.db.char.filter_phases then
+                            TitanBistooltipAddon.db.char.filter_phases = {}
+                        end
+                        if TitanBistooltipAddon.db.char.filter_phases["P6"] == nil then
+                            TitanBistooltipAddon.db.char.filter_phases["P6"] = false
+                        end
+                        return TitanBistooltipAddon.db.char.filter_phases["P6"]
+                    end
+                },
+                p7 = {
+                    name = "P7",
+                    desc = L["P7 desc"],
+                    type = "toggle",
+                    width = "half",
+                    order = 8,
+                    set = function(info, val)
+                        TitanBistooltipAddon.db.char.filter_phases["P7"] = val
+                    end,
+                    get = function(info)
+                        if not TitanBistooltipAddon.db.char.filter_phases then
+                            TitanBistooltipAddon.db.char.filter_phases = {}
+                        end
+                        if TitanBistooltipAddon.db.char.filter_phases["P7"] == nil then
+                            TitanBistooltipAddon.db.char.filter_phases["P7"] = false
+                        end
+                        return TitanBistooltipAddon.db.char.filter_phases["P7"]
+                    end
+                },
+                p8 = {
+                    name = "P8",
+                    desc = L["P8 desc"],
+                    type = "toggle",
+                    width = "half",
+                    order = 9,
+                    set = function(info, val)
+                        TitanBistooltipAddon.db.char.filter_phases["P8"] = val
+                    end,
+                    get = function(info)
+                        if not TitanBistooltipAddon.db.char.filter_phases then
+                            TitanBistooltipAddon.db.char.filter_phases = {}
+                        end
+                        if TitanBistooltipAddon.db.char.filter_phases["P8"] == nil then
+                            TitanBistooltipAddon.db.char.filter_phases["P8"] = false
+                        end
+                        return TitanBistooltipAddon.db.char.filter_phases["P8"]
+                    end
+                },
+                p9 = {
+                    name = "P9",
+                    desc = L["P9 desc"],
+                    type = "toggle",
+                    width = "half",
+                    order = 10,
+                    set = function(info, val)
+                        TitanBistooltipAddon.db.char.filter_phases["P9"] = val
+                    end,
+                    get = function(info)
+                        if not TitanBistooltipAddon.db.char.filter_phases then
+                            TitanBistooltipAddon.db.char.filter_phases = {}
+                        end
+                        if TitanBistooltipAddon.db.char.filter_phases["P9"] == nil then
+                            TitanBistooltipAddon.db.char.filter_phases["P9"] = false
+                        end
+                        return TitanBistooltipAddon.db.char.filter_phases["P9"]
+                    end
+                },
+                p10 = {
+                    name = "P10",
+                    desc = L["P10 desc"],
+                    type = "toggle",
+                    width = "half",
+                    order = 11,
+                    set = function(info, val)
+                        TitanBistooltipAddon.db.char.filter_phases["P10"] = val
+                    end,
+                    get = function(info)
+                        if not TitanBistooltipAddon.db.char.filter_phases then
+                            TitanBistooltipAddon.db.char.filter_phases = {}
+                        end
+                        if TitanBistooltipAddon.db.char.filter_phases["P10"] == nil then
+                            TitanBistooltipAddon.db.char.filter_phases["P10"] = false
+                        end
+                        return TitanBistooltipAddon.db.char.filter_phases["P10"]
+                    end
+                },
+                p11 = {
+                    name = "P11",
+                    desc = L["P11 desc"],
+                    type = "toggle",
+                    width = "half",
+                    order = 12,
+                    set = function(info, val)
+                        TitanBistooltipAddon.db.char.filter_phases["P11"] = val
+                    end,
+                    get = function(info)
+                        if not TitanBistooltipAddon.db.char.filter_phases then
+                            TitanBistooltipAddon.db.char.filter_phases = {}
+                        end
+                        if TitanBistooltipAddon.db.char.filter_phases["P11"] == nil then
+                            TitanBistooltipAddon.db.char.filter_phases["P11"] = false
+                        end
+                        return TitanBistooltipAddon.db.char.filter_phases["P11"]
+                    end
                 }
             }
         },
         filter_specs = {
-            name = "隐藏鼠标BIS增强提示职业提醒",
-            order = 7,
-            desc = "隐藏装备提示框中的职业专精显示",
+            name = L["Hide tooltip class reminder"],
+            order = 8,
+            desc = L["Hide tooltip class reminder desc"],
             type = "multiselect",
             values = function()
                 local options = {}
                 -- 首先添加全部职业选项
-                options["all"] = "全部职业"
+                options["all"] = L["All classes"]
                 -- 然后添加其他职业选项
                 for ci, class in ipairs(TitanBistooltip_classes) do
                     for si, spec in ipairs(TitanBistooltip_classes[ci].specs) do
@@ -377,14 +540,14 @@ local configTable = {
             end
         },
         highlight_spec = {
-            name = "高亮鼠标BIS增强提示职业提醒",
-            order = 8,
-            desc = "高亮显示装备提示框中的特定职业专精",
+            name = L["Highlight tooltip class reminder"],
+            order = 9,
+            desc = L["Highlight tooltip class reminder desc"],
             type = "multiselect",
             values = function()
                 local options = {}
                 -- 首先添加全部职业选项
-                options["all"] = "全部职业"
+                options["all"] = L["All classes"]
                 -- 然后添加其他职业选项
                 for ci, class in ipairs(TitanBistooltip_classes) do
                     for si, spec in ipairs(TitanBistooltip_classes[ci].specs) do
@@ -474,10 +637,9 @@ local function migrateAddonDB()
         TitanBistooltipAddon.db.char.filter_specs = {}
         TitanBistooltipAddon.db.char.class_index = 1
         TitanBistooltipAddon.db.char.spec_index = 1
-        TitanBistooltipAddon.db.char.phase_index = 4 -- 默认使用P3阶段
     end
     if TitanBistooltipAddon.db.char["data_source"] == nil then
-        TitanBistooltipAddon.db.char.data_source = sources.TitanP1P2
+        TitanBistooltipAddon.db.char.data_source = sources.KPTitan
         openSourceSelectDialog()
     end
     if TitanBistooltipAddon.db.char.version == 6.1 then
@@ -520,6 +682,11 @@ function TitanBistooltipAddon:openConfigDialog()
         InterfaceOptionsFrame_OpenToCategory(TitanBistooltipAddon.AceAddonName)
     else
         AceConfigDialog:Open(TitanBistooltipAddon.AceAddonName)
+        -- 设置底部状态文本
+        local frame = AceConfigDialog.OpenFrames[TitanBistooltipAddon.AceAddonName]
+        if frame and frame.SetStatusText then
+            frame:SetStatusText("快跑兄弟的泰坦BIS插件设置选项")
+        end
     end
 end
 
@@ -528,7 +695,7 @@ local function enableSpec(spec_name)
     TitanBistooltip_bislists = TitanBistooltip_Titan_bislists or {};
     TitanBistooltip_items = TitanBistooltip_Titan_items or {};
     TitanBistooltip_classes = TitanBistooltip_Titan_classes or {};
-    TitanBistooltip_phases = TitanBistooltip_Titan_phases or { "PR" , "P1" , "P2" , "P3" };
+    TitanBistooltip_phases = TitanBistooltip_Titan_phases or { "PR" , "P1" , "P2" , "P3" , "P4" };
     
     -- 重新构建阶段字符串，根据配置过滤掉需要隐藏的阶段
     TitanBistooltip_phases_string = ""
@@ -597,7 +764,7 @@ function TitanBistooltipAddon:changeSpec(spec_name)
         TitanBistooltipAddon.db.char.class_index = 1
         TitanBistooltipAddon.db.char.spec_index = 1
         -- 保持当前阶段设置，不强制重置
-        enableSpec(spec_name or "TitanP1P2")
+        enableSpec(spec_name or "KPTitan")
         if TitanBistooltipAddon.initBislists then
             TitanBistooltipAddon:initBislists()
         end
@@ -618,8 +785,8 @@ function TitanBistooltipAddon:initConfig()
     TitanBistooltip_bislists = {};
     TitanBistooltip_items = {};
     if TitanBistooltipAddon.db and TitanBistooltipAddon.db.char then
-        enableSpec(TitanBistooltipAddon.db.char["data_source"] or "TitanP1P2")
+        enableSpec(TitanBistooltipAddon.db.char["data_source"] or "KPTitan")
     else
-        enableSpec("TitanP1P2")
+        enableSpec("KPTitan")
     end
 end

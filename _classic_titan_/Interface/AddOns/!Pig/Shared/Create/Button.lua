@@ -5,7 +5,7 @@ local FontUrl=Create.FontUrl
 local PIGSetFont=Create.PIGSetFont
 -------------------
 local BGColor={0.1, 0.1, 0.1, 0.8}
-local BorderColor={0, 0, 0, 1}
+local BorderColor={0.2, 0.2, 0.2, 0.9}
 local BorderColor_OnEnter={0, 0.8, 1, 0.9}
 local TextColor={1, 0.843, 0, 1}
 local dr, dg, db= GRAY_FONT_COLOR:GetRGB()
@@ -384,7 +384,7 @@ function Create.PIGOptionsList(GnName,weizhi,fujiUI)
 		fuUI=PigUI.L.F.ListEXT
 	elseif weizhi=="BOT" then
 		fuUI=PigUI.L.F.ListBOT
-		tabbutWW = 50
+		tabbutWW = 66
 		List_ButH=List_ButH-2
 	end
 	local ziframe = {fuUI:GetChildren()}
@@ -394,7 +394,7 @@ function Create.PIGOptionsList(GnName,weizhi,fujiUI)
 		if zinum==0 then
 			TabBut:SetPoint("LEFT", fuUI, "LEFT", 6, 0);
 		else
-			TabBut:SetPoint("LEFT", fuUI, "LEFT", (zinum*(tabbutWW+10)+6), 0);
+			TabBut:SetPoint("LEFT", fuUI, "LEFT", (zinum*(tabbutWW+10)+10), 0);
 		end
 	else
 		if zinum==0 then

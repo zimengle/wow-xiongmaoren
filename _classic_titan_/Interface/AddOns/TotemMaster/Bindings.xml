@@ -1,0 +1,11 @@
+<Bindings>
+    <Binding name="TOTEMMASTER_CALL_ELEMENTS" header="TOTEMMASTER" category="TotemMaster">
+        if TotemMaster_CallElementsButton then TotemMaster_CallElementsButton:Click("LeftButton") end
+    </Binding>
+    <Binding name="TOTEMMASTER_CALL_ANCESTORS" category="TotemMaster">
+        if TotemMaster_CallAncestorsButton then TotemMaster_CallAncestorsButton:Click("LeftButton") end
+    </Binding>
+    <Binding name="TOTEMMASTER_CALL_SPIRITS" category="TotemMaster">
+        if TotemMaster_CallSpiritsButton then TotemMaster_CallSpiritsButton:Click("LeftButton") end
+    </Binding>
+</Bindings>

@@ -1215,14 +1215,21 @@ end
 -- 参数1（必选）：link。类型：string
 -- 参数2（可选）：表格ID。不传参数则对当前表格添加心愿。类型：string
 -- 返回：true或false，true代表心愿设置成功了。类型：boolean
-function BG.SetHope(link, FB)
+function BG.SetHope(link, FB, isBiaoGe)
     if type(link) ~= "string" then error(L["物品链接类型错误，需要string类型。"]) end
     local itemID = GetItemID(link)
     if not itemID then error(L["物品链接错误，没有读取到物品ID。"]) end
 
     FB = FB or BG.FB1
     local n, b = GetBossNum(itemID, FB)
-    if not n then error(L["该物品链接没有匹配到正确的BOSS序号。"]) end
+    if not n then
+        if isBiaoGe then
+            UIErrorsFrame:AddMessage(L["不能设置为心愿，因为该装备未知由哪个物品兑换"], 1, 0, 0)
+            return false
+        else
+            error(L["该物品链接没有匹配到正确的BOSS序号。"])
+        end
+    end
 
     for i = 1, HopeMaxi do
         local hope = BG.HopeFrame[FB]["nandu" .. n]["boss" .. b]["zhuangbei" .. i]
@@ -1236,6 +1243,9 @@ function BG.SetHope(link, FB)
             BG.SetBiaoGeGuanZhu(itemID)
             return true
         end
+    end
+    if isBiaoGe then
+        UIErrorsFrame:AddMessage(L["不能设置为心愿，因为该BOSS的心愿格子已满"], 1, 0, 0)
     end
     return false
 end

@@ -9,22 +9,22 @@ MJEPersonalSettings = {
 ["compactMountList"] = true,
 ["enableCursorKeys"] = true,
 ["displayStatistics"] = {
-["LearnedDate"] = true,
-["UsedCount"] = true,
 ["TravelTime"] = true,
+["TravelDistance"] = true,
+["LearnedDate"] = true,
 ["Rarity"] = true,
 ["Family"] = true,
 ["CustomizationCount"] = true,
 ["Wowhead"] = true,
-["TravelDistance"] = true,
+["UsedCount"] = true,
 },
 ["slotPosition"] = "top",
 ["showMountspecialButton"] = true,
-["autoRotateModel"] = false,
+["previewButton"] = true,
 ["showResizeEdge"] = true,
 ["showPersonalCount"] = true,
 ["displayBackground"] = "original",
-["previewButton"] = true,
+["autoRotateModel"] = false,
 ["colorizeNameByRarity"] = true,
 ["windowSize"] = {
 0,
@@ -33,9 +33,10 @@ MJEPersonalSettings = {
 ["unlockDisplayCamera"] = true,
 ["displayAnimation"] = "stand",
 },
-["summonPreviousPetAgain"] = true,
-["searchInFamilyName"] = true,
 ["searchInNotes"] = true,
+["hiddenMounts"] = {
+},
+["summonPreviousPetAgain"] = true,
 ["pets"] = {
 ["assignments"] = {
 },
@@ -49,19 +50,6 @@ MJEPersonalSettings = {
 ["favoritesOnTop"] = true,
 ["unusableToBottom"] = false,
 },
-["favorites"] = {
-["assignments"] = {
-},
-["profiles"] = {
-{
-["mounts"] = {
-},
-["name"] = "",
-["autoFavor"] = false,
-},
-},
-},
-["personalHiddenMounts"] = false,
 ["filter"] = {
 ["expansion"] = {
 true,
@@ -102,9 +90,9 @@ true,
 ["Promotion"] = true,
 ["Class"] = true,
 },
+["hiddenIngame"] = false,
 ["color"] = {
 },
-["hiddenIngame"] = false,
 ["notCollected"] = true,
 ["hidden"] = false,
 ["mountType"] = {
@@ -229,7 +217,19 @@ true,
 true,
 },
 },
-["hiddenMounts"] = {
+["personalHiddenMounts"] = false,
+["favorites"] = {
+["assignments"] = {
 },
+["profiles"] = {
+{
+["mounts"] = {
+},
+["name"] = "",
+["autoFavor"] = false,
+},
+},
+},
+["searchInFamilyName"] = true,
 ["searchInDescription"] = true,
 }

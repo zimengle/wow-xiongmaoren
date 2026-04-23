@@ -607,7 +607,9 @@
 				self:SetClampedToScreen(true);
 
 				<!-- Setup -->
-				AccountantClassic_RegisterEvents(self);
+				if AccountantClassic_RegisterEvents then
+					AccountantClassic_RegisterEvents(self);
+				end
 			</OnLoad>
 			<OnShow>
 				AccountantClassic_OnShow(self);

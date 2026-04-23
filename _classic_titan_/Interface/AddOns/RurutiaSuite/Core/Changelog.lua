@@ -39,11 +39,16 @@ end
 local CHANGELOG = {
 -- @StartChangelogData
     ["latest"] = {
-        version = "2.6.6",
-        date = "2026-04-10",
+        version = "2.6.7",
+        date = "2026-04-12",
         content = function()
             local classColor = GetClassColor()
             local text = [[
+%sv2.6.7|r
+%s[法师动作条]|r
+• 修复勾选按下施法后无法点击传送门按钮的问题。
+
+
 %sv2.6.6|r
 %s[问题修复]|r
 • 服务器兼容：修复时光服 3.80.1 版本更新后，打开主界面和加载皮肤引擎时报错的问题。

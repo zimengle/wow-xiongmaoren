@@ -272,7 +272,7 @@ function CreatorFrame:CreateMemberInterface()
     local commentBox = CreateFrame("EditBox", nil, memberBg, "HeroicEditBoxTemplate")
     commentBox:SetSize(500, 20)
     commentBox:SetPoint("TOPLEFT", 20, -155)
-    commentBox:SetMaxLetters(60)
+    commentBox:SetMaxLetters(100)
     commentBox:SetAutoFocus(false)
 
     -- 注册文本变化事件，实时更新按钮状态 + 输入清洗
@@ -280,7 +280,7 @@ function CreatorFrame:CreateMemberInterface()
     commentBox:SetScript("OnTextChanged", function()
         if commentBoxUpdating then return end
         local text = commentBox:GetText()
-        local sanitized = ns.SanitizeComment(text, 50)
+        local sanitized = ns.SanitizeComment(text, 100)
         if sanitized ~= text then
             commentBoxUpdating = true
             commentBox:SetText(sanitized)
@@ -429,7 +429,7 @@ function CreatorFrame:UpdateTeamInfo()
                 local name = UnitName(unit)
                 local class, classFileName = UnitClass(unit)
                 local level = UnitLevel(unit)
-                local role = self:GuessPlayerRole(classFileName)
+                local role = ns.ActivityManager:DetectPlayerRole(unit, classFileName)
                 local isUnitLeader = UnitIsGroupLeader(unit)
 
                 -- 尝试获取装等（对其他玩家可能无法获取）
@@ -460,7 +460,7 @@ function CreatorFrame:UpdateTeamInfo()
             local playerName = UnitName("player")
             local class, classFileName = UnitClass("player")
             local level = UnitLevel("player")
-            local role = self:GuessPlayerRole(classFileName)
+            local role = ns.ActivityManager:DetectPlayerRole("player", classFileName)
             local itemLevel = GetAverageItemLevel() or 0
 
             roleCount[role] = roleCount[role] + 1
@@ -482,19 +482,7 @@ function CreatorFrame:UpdateTeamInfo()
     end
 end
 
-function CreatorFrame:GuessPlayerRole(playerClass)
-    -- 根据职业猜测角色定位
-    local tankClasses = {WARRIOR = true, PALADIN = true, DEATHKNIGHT = true}
-    local healerClasses = {PRIEST = true, PALADIN = true, SHAMAN = true, DRUID = true}
-
-    if tankClasses[playerClass] then
-        return "tank"
-    elseif healerClasses[playerClass] then
-        return "healer"
-    else
-        return "dps"
-    end
-end
+-- GuessPlayerRole 已移除，统一使用 ns.ActivityManager:DetectPlayerRole(unit, classFileName)
 
 
 function CreatorFrame:GetCurrentTeamData()
@@ -507,7 +495,7 @@ function CreatorFrame:GetCurrentTeamData()
         local playerName = UnitName("player")
         local class, classFileName = UnitClass("player")
         local level = UnitLevel("player")
-        local role = self:GuessPlayerRole(classFileName)
+        local role = ns.ActivityManager:DetectPlayerRole("player", classFileName)
 
         table.insert(members, {
             name = playerName,
@@ -526,7 +514,7 @@ function CreatorFrame:GetCurrentTeamData()
                 local name = UnitName(unit)
                 local class, classFileName = UnitClass(unit)
                 local level = UnitLevel(unit)
-                local role = self:GuessPlayerRole(classFileName)
+                local role = ns.ActivityManager:DetectPlayerRole(unit, classFileName)
 
                 table.insert(members, {
                     name = name,
@@ -542,7 +530,7 @@ function CreatorFrame:GetCurrentTeamData()
             local playerName = UnitName("player")
             local class, classFileName = UnitClass("player")
             local level = UnitLevel("player")
-            local role = self:GuessPlayerRole(classFileName)
+            local role = ns.ActivityManager:DetectPlayerRole("player", classFileName)
 
             table.insert(members, {
                 name = playerName,
@@ -775,6 +763,21 @@ function CreatorFrame:CreateConfigurationArea()
     self.itemLevelEditBox:SetNumeric(true)
     self.itemLevelEditBox:SetText("200")
 
+    -- 团双副本勾选框（装等输入框右侧）
+    self.teamBonusCheckbox = CreateFrame("CheckButton", nil, configBg, "UICheckButtonTemplate")
+    self.teamBonusCheckbox:SetSize(24, 24)
+    self.teamBonusCheckbox:SetPoint("LEFT", self.itemLevelEditBox, "RIGHT", 10, 0)
+    self.teamBonusCheckbox:SetChecked(false)
+    self.teamBonus = false
+
+    local teamBonusLabel = configBg:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
+    teamBonusLabel:SetPoint("LEFT", self.teamBonusCheckbox, "RIGHT", 2, 0)
+    teamBonusLabel:SetText("|cffFFD700团双副本|r")
+
+    self.teamBonusCheckbox:SetScript("OnClick", function(cb)
+        self.teamBonus = cb:GetChecked() and true or false
+    end)
+
     -- 监听装等输入框变化，限制数值范围0-999，更新左侧显示并保存到缓存
     self.itemLevelEditBox:SetScript("OnTextChanged", function(editBox, userInput)
         local text = editBox:GetText()
@@ -821,7 +824,7 @@ function CreatorFrame:CreateConfigurationArea()
     self.commentEditBox = CreateFrame("EditBox", nil, configBg, "HeroicEditBoxTemplate")
     self.commentEditBox:SetSize(340, 20)
     self.commentEditBox:SetPoint("TOPLEFT", 20, yPos)
-    self.commentEditBox:SetMaxLetters(60)
+    self.commentEditBox:SetMaxLetters(100)
     self.commentEditBox:SetAutoFocus(false)
 
     yPos = yPos - 40
@@ -848,6 +851,32 @@ function CreatorFrame:CreateConfigurationArea()
         self.roleControls[roleName] = roleFrame
         yPos = yPos - 30
     end
+
+    -- ========================================================
+    -- 职业补助区域（职业配置下方）
+    -- ========================================================
+    yPos = yPos - 10
+
+    local subsidyTitleLabel = configBg:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+    subsidyTitleLabel:SetPoint("TOPLEFT", 20, yPos)
+    subsidyTitleLabel:SetText("|cff00FF00职业补助|r")
+    subsidyTitleLabel:SetTextColor(1, 1, 1, 1)
+    self.subsidyTitleLabel = subsidyTitleLabel
+
+    -- [+] 添加按钮
+    local addSubsidyBtn = CreateFrame("Button", nil, configBg, "UIPanelButtonTemplate")
+    addSubsidyBtn:SetSize(28, 20)
+    addSubsidyBtn:SetPoint("LEFT", subsidyTitleLabel, "RIGHT", 10, 0)
+    addSubsidyBtn:SetText("+")
+    addSubsidyBtn:SetScript("OnClick", function()
+        self:AddSubsidyRow()
+    end)
+    self.addSubsidyBtn = addSubsidyBtn
+
+    -- 补助行容器
+    self.subsidyRows = {}
+    self.subsidyYStart = yPos - 25
+    self.configBaseHeight = math.abs(yPos) + 60 + 15 -- 基于当前 yPos 动态计算
 
     self.configBg = configBg
 end
@@ -1112,6 +1141,17 @@ function CreatorFrame:ResetInterface()
     -- 重置编辑框
     self.commentEditBox:SetText("")
 
+    -- 重置团双勾选框
+    if self.teamBonusCheckbox then
+        self.teamBonusCheckbox:SetChecked(false)
+        self.teamBonus = false
+    end
+
+    -- 清空补助行
+    if self.ClearSubsidyRows then
+        self:ClearSubsidyRows()
+    end
+
     -- 重置职业配置
     for _, control in pairs(self.roleControls) do
         control.SetCount(0)
@@ -1165,6 +1205,27 @@ function CreatorFrame:LoadActivity(activity)
         end
     end
 
+    -- 加载团双勾选框
+    if self.teamBonusCheckbox then
+        local tb = activity.teamBonus and true or false
+        self.teamBonusCheckbox:SetChecked(tb)
+        self.teamBonus = tb
+    end
+
+    -- 加载补助行
+    if self.ClearSubsidyRows then
+        self:ClearSubsidyRows()
+    end
+    if activity.subsidyList and #activity.subsidyList > 0 then
+        for _, entry in ipairs(activity.subsidyList) do
+            self:AddSubsidyRow()
+            local row = self.subsidyRows[#self.subsidyRows]
+            if row then
+                self:SetSubsidyRowSpec(row, entry.specId, entry.amount)
+            end
+        end
+    end
+
     -- 更新按钮
     self.createButton:SetText("更新活动")
     self.closeButton:Enable()
@@ -1202,7 +1263,7 @@ function CreatorFrame:OnShow()
     self.commentEditBox:SetScript("OnTextChanged", function()
         if commentEditBoxUpdating then return end
         local text = self.commentEditBox:GetText()
-        local sanitized = ns.SanitizeComment(text, 50)
+        local sanitized = ns.SanitizeComment(text, 100)
         if sanitized ~= text then
             commentEditBoxUpdating = true
             self.commentEditBox:SetText(sanitized)
@@ -1248,6 +1309,27 @@ function CreatorFrame:LoadActivityToForm(activity)
         for roleName, count in pairs(activity.neededRoles) do
             if self.roleControls[roleName] then
                 self.roleControls[roleName].SetCount(count)
+            end
+        end
+    end
+
+    -- 加载团双勾选框
+    if self.teamBonusCheckbox then
+        local tb = activity.teamBonus and true or false
+        self.teamBonusCheckbox:SetChecked(tb)
+        self.teamBonus = tb
+    end
+
+    -- 加载补助行
+    if self.ClearSubsidyRows then
+        self:ClearSubsidyRows()
+    end
+    if activity.subsidyList and #activity.subsidyList > 0 then
+        for _, entry in ipairs(activity.subsidyList) do
+            self:AddSubsidyRow()
+            local row = self.subsidyRows[#self.subsidyRows]
+            if row then
+                self:SetSubsidyRowSpec(row, entry.specId, entry.amount)
             end
         end
     end
@@ -1692,6 +1774,10 @@ function CreatorFrame:OnCreateClick()
     local currentActivity = ns.ActivityManager and ns.ActivityManager:GetPlayerActivity()
     local activity, isUpdate
 
+    -- 收集团双和补助数据
+    local teamBonus = self.teamBonus or false
+    local subsidyList = self:CollectSubsidyData()
+
     if currentActivity then
         -- 更新现有活动
         activity = ns.ActivityManager:UpdateActivity(
@@ -1699,7 +1785,9 @@ function CreatorFrame:OnCreateClick()
             modeId,
             comment,
             neededRoles,
-            customItemLevel
+            customItemLevel,
+            teamBonus,
+            subsidyList
         )
         isUpdate = true
     else
@@ -1709,7 +1797,9 @@ function CreatorFrame:OnCreateClick()
             modeId,
             comment,
             neededRoles,
-            customItemLevel
+            customItemLevel,
+            teamBonus,
+            subsidyList
         )
         isUpdate = false
     end
@@ -1838,6 +1928,217 @@ function CreatorFrame:LoadItemLevelFromCache()
         -- 更新显示
         self:UpdateRaidItemLevelDisplays()
     end
+end
+
+-- ========================================================
+-- 职业补助行管理（基于专精选择）
+-- ========================================================
+
+-- 获取已被选择的专精 ID 集合（排除指定索引）
+function CreatorFrame:GetUsedSubsidySpecs(excludeIndex)
+    local used = {}
+    for i, row in ipairs(self.subsidyRows) do
+        if i ~= excludeIndex and row.selectedSpecId then
+            used[row.selectedSpecId] = true
+        end
+    end
+    return used
+end
+
+function CreatorFrame:AddSubsidyRow()
+    -- 最多10行（10个职业）
+    if #self.subsidyRows >= 10 then
+        ns.Addon:Print("最多添加10条职业补助")
+        return
+    end
+
+    local index = #self.subsidyRows + 1
+    local row = self:CreateSubsidyRow(index)
+    table.insert(self.subsidyRows, row)
+    self:LayoutSubsidyRows()
+    self:AdjustConfigBgHeight()
+end
+
+function CreatorFrame:CreateSubsidyRow(index)
+    local configBg = self.configBg
+    local row = CreateFrame("Frame", nil, configBg)
+    row:SetSize(340, 24)
+
+    -- 专精下拉菜单（二级：职业→专精，复用 ns.SPEC_DATA）
+    local specDropdown = CreateFrame("Frame", nil, row, "HeroicDropDownMenuTemplate")
+    specDropdown:SetPoint("LEFT", row, "LEFT", -15, 0)
+    UIDropDownMenu_SetWidth(specDropdown, 120)
+    UIDropDownMenu_SetText(specDropdown, "选择专精")
+
+    row.specDropdown = specDropdown
+    row.selectedSpecId = nil
+
+    local selfRef = self
+    local rowRef = row
+    UIDropDownMenu_Initialize(specDropdown, function(dropdown, level)
+        if level == 1 then
+            -- 一级：职业列表
+            local seenClasses = {}
+            for _, spec in ipairs(ns.SPEC_DATA) do
+                if not seenClasses[spec.class] then
+                    seenClasses[spec.class] = true
+                    local info = UIDropDownMenu_CreateInfo()
+                    local className = ns.CLASS_FULL_NAME[spec.class] or spec.class
+                    local classColor = RAID_CLASS_COLORS[spec.class]
+                    if classColor then
+                        info.text = string.format("|cff%02x%02x%02x%s|r",
+                            classColor.r * 255, classColor.g * 255, classColor.b * 255, className)
+                    else
+                        info.text = className
+                    end
+                    info.value = spec.class
+                    info.hasArrow = true
+                    info.notCheckable = true
+                    UIDropDownMenu_AddButton(info, level)
+                end
+            end
+        elseif level == 2 then
+            -- 二级：对应职业的专精列表
+            local selectedClass = UIDROPDOWNMENU_MENU_VALUE
+            local usedSpecs = selfRef:GetUsedSubsidySpecs(index)
+            for _, spec in ipairs(ns.SPEC_DATA) do
+                if spec.class == selectedClass then
+                    local info = UIDropDownMenu_CreateInfo()
+                    info.text = spec.name
+                    info.value = spec.id
+                    info.icon = spec.icon
+                    info.disabled = usedSpecs[spec.id] and true or false
+                    info.func = function()
+                        rowRef.selectedSpecId = spec.id
+                        UIDropDownMenu_SetSelectedValue(specDropdown, spec.id)
+                        -- 显示带职业颜色的 "专精名(职业缩写)"
+                        local cc = RAID_CLASS_COLORS[spec.class]
+                        local classShort = ns.CLASS_SHORT_NAME[spec.class] or ""
+                        local displayText
+                        if cc then
+                            displayText = string.format("|cff%02x%02x%02x%s%s|r",
+                                cc.r * 255, cc.g * 255, cc.b * 255, spec.name, classShort)
+                        else
+                            displayText = spec.name .. classShort
+                        end
+                        UIDropDownMenu_SetText(specDropdown, displayText)
+                        CloseDropDownMenus()
+                    end
+                    UIDropDownMenu_AddButton(info, level)
+                end
+            end
+        end
+    end)
+
+    -- 金额输入框
+    local amountBox = CreateFrame("EditBox", nil, row, "HeroicEditBoxTemplate")
+    amountBox:SetSize(60, 20)
+    amountBox:SetPoint("LEFT", specDropdown, "RIGHT", 30, 0)
+    amountBox:SetMaxLetters(5)
+    amountBox:SetAutoFocus(false)
+    amountBox:SetNumeric(true)
+    amountBox:SetText("0")
+    row.amountBox = amountBox
+
+    -- "万" 标签
+    local unitLabel = row:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
+    unitLabel:SetPoint("LEFT", amountBox, "RIGHT", 4, 0)
+    unitLabel:SetText("|cffFFD700万|r")
+
+    -- [-] 删除按钮
+    local removeBtn = CreateFrame("Button", nil, row, "UIPanelButtonTemplate")
+    removeBtn:SetSize(22, 20)
+    removeBtn:SetPoint("LEFT", unitLabel, "RIGHT", 6, 0)
+    removeBtn:SetText("-")
+    removeBtn:SetScript("OnClick", function()
+        selfRef:RemoveSubsidyRow(index)
+    end)
+    row.removeBtn = removeBtn
+
+    return row
+end
+
+function CreatorFrame:RemoveSubsidyRow(index)
+    if index < 1 or index > #self.subsidyRows then return end
+
+    local row = self.subsidyRows[index]
+    row:Hide()
+    row:SetParent(nil)
+    table.remove(self.subsidyRows, index)
+
+    -- 重建行的索引引用（删除按钮的闭包需要正确索引）
+    for i, r in ipairs(self.subsidyRows) do
+        local selfRef = self
+        local idx = i
+        r.removeBtn:SetScript("OnClick", function()
+            selfRef:RemoveSubsidyRow(idx)
+        end)
+    end
+
+    self:LayoutSubsidyRows()
+    self:AdjustConfigBgHeight()
+end
+
+function CreatorFrame:LayoutSubsidyRows()
+    for i, row in ipairs(self.subsidyRows) do
+        row:ClearAllPoints()
+        local y = self.subsidyYStart - (i - 1) * 28
+        row:SetPoint("TOPLEFT", self.configBg, "TOPLEFT", 20, y)
+        row:Show()
+    end
+end
+
+function CreatorFrame:AdjustConfigBgHeight()
+    local extraRows = #self.subsidyRows
+    local extraHeight = extraRows * 28
+    self.configBg:SetHeight(self.configBaseHeight + extraHeight)
+end
+
+-- 设置补助行的专精数据（用于加载已有活动数据）
+function CreatorFrame:SetSubsidyRowSpec(row, specId, amount)
+    if not specId then return end
+    local spec = ns.SPEC_DATA_MAP[specId]
+    if not spec then return end
+
+    row.selectedSpecId = specId
+    UIDropDownMenu_SetSelectedValue(row.specDropdown, specId)
+
+    local cc = RAID_CLASS_COLORS[spec.class]
+    local classShort = ns.CLASS_SHORT_NAME[spec.class] or ""
+    local displayText
+    if cc then
+        displayText = string.format("|cff%02x%02x%02x%s%s|r",
+            cc.r * 255, cc.g * 255, cc.b * 255, spec.name, classShort)
+    else
+        displayText = spec.name .. classShort
+    end
+    UIDropDownMenu_SetText(row.specDropdown, displayText)
+    row.amountBox:SetText(tostring(amount or 0))
+end
+
+-- 收集补助数据，供创建/更新活动时使用
+-- 输出格式: { {specId = 3, amount = 5}, {specId = 27, amount = 3}, ... }
+function CreatorFrame:CollectSubsidyData()
+    local list = {}
+    for _, row in ipairs(self.subsidyRows) do
+        if row.selectedSpecId then
+            local amount = tonumber(row.amountBox:GetText()) or 0
+            if amount > 0 then
+                table.insert(list, { specId = row.selectedSpecId, amount = amount })
+            end
+        end
+    end
+    return list
+end
+
+-- 清空所有补助行
+function CreatorFrame:ClearSubsidyRows()
+    for _, row in ipairs(self.subsidyRows) do
+        row:Hide()
+        row:SetParent(nil)
+    end
+    wipe(self.subsidyRows)
+    self:AdjustConfigBgHeight()
 end
 
 -- 注册创建活动框架类

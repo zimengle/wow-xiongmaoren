@@ -79,7 +79,7 @@ Myslot: enabled
 OmniCC: enabled
 OmniCC_Config: enabled
 PallyPower: enabled
-Plater: disabled
+Plater: enabled
 Postal: enabled
 Questie: enabled
 RangeDisplay: enabled
@@ -153,3 +153,4 @@ Blizzard_ObjectiveTracker: enabled
 PatchWerk: disabled
 !PatchWerk: disabled
 MeetingHornHeroic: enabled
+TotemMaster: enabled

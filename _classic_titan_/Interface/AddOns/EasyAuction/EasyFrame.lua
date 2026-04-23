@@ -13,6 +13,15 @@ local function EA_GetAddonMetadata(name, field)
     end
 end
 
+local function EA_GetAddonEnableState(name, character)
+    if C_AddOns and type(C_AddOns.GetAddOnEnableState) == "function" then
+        return C_AddOns.GetAddOnEnableState(name, character)
+    end
+    if type(GetAddOnEnableState) == "function" then
+        return GetAddOnEnableState(character, name)
+    end
+end
+
 local function NormalizePositiveInt(value, fallback)
     value = math.floor(tonumber(value) or fallback or 1)
     if value < 1 then
@@ -53,6 +62,12 @@ local function ApplyFrameDBDefaults()
     )
     if EasyAuctionDB.SellPanel == nil then
         EasyAuctionDB.SellPanel = true
+    end
+    if EasyAuctionDB.CategoryOverrides == nil then
+        EasyAuctionDB.CategoryOverrides = {}
+    end
+    if EasyAuctionDB.MinimalModeActive == nil and type(EasyAuctionDB.AddonBackup) ~= "table" then
+        EasyAuctionDB.MinimalModeActive = false
     end
 end
 
@@ -936,7 +951,9 @@ function CreateEasyAuctionConfigFrame(parent)
                         CurrentTodayMin = {},
                         FavoriteItems = {},
                         RecentSearch = {},
+                        CategoryOverrides = {},
                         scanQuickLimit = 100,
+                        MinimalModeActive = false,
                     }
                     _G.EasyAuctionDB = EasyAuctionDB
                     _G.EasyAuctionDB2 = _G.EasyAuctionDB2 or {}
@@ -1664,11 +1681,17 @@ function CreateAuctionSide()
         EasyAuctionFavoriteImportExportFrame.editBox:SetFocus()
     end
 
-    favoriteImportExportBtn:SetScript("OnClick", ShowFavoriteImportExportFrame)
+    favoriteImportExportBtn:SetScript("OnClick", function()
+        if type(EasyAuction_ShowCategoryManager) == "function" then
+            EasyAuction_ShowCategoryManager("常用")
+        else
+            ShowFavoriteImportExportFrame()
+        end
+    end)
     favoriteImportExportBtn:SetScript("OnEnter", function(self)
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-        GameTooltip:SetText("导入/导出常用物品清单", 1, 1, 1)
-        GameTooltip:AddLine("可用于多角色/多账号同步", 0.8, 0.8, 0.8)
+        GameTooltip:SetText("编辑常用物品清单", 1, 1, 1)
+        GameTooltip:AddLine("与价格库中的“常用”分类共用同一份数据", 0.8, 0.8, 0.8)
         GameTooltip:Show()
     end)
     favoriteImportExportBtn:SetScript("OnLeave", GameTooltip_Hide)
@@ -2163,13 +2186,18 @@ function CreateAuctionSide()
     end
     scanBtn:SetPoint("TOPRIGHT", historyBtn, "BOTTOMRIGHT", 0, -4)
     scanBtn:SetScript("OnClick", function()
-        StaticPopup_Show("EASYAUCTION_SCANALL_CONFIRM")
+        if type(EasyAuction_ShowScanModeSelector) == "function" then
+            EasyAuction_ShowScanModeSelector()
+        else
+            StaticPopup_Show("EASYAUCTION_SCANALL_CONFIRM")
+        end
         UpdateScanBtnState()
         UpdateAuctionQueryStatusText()
     end)
     scanBtn:SetScript("OnEnter", function(self)
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-        GameTooltip:SetText("扫描全服拍卖价格", 1, 1, 1)
+        GameTooltip:SetText("选择扫描方式", 1, 1, 1)
+        GameTooltip:AddLine("支持全量扫描和分类扫描", 0.9, 0.9, 0.9)
         GameTooltip:Show()
     end)
     scanBtn:SetScript("OnLeave", function(self)
@@ -2223,22 +2251,22 @@ function CreateAuctionSide()
 
     function UpdateScanBtnState()
         if not scanBtn then return end
-        if IsScanningAll then
+        if IsScanningAll or IsScanningCategory then
             scanBtn:SetText("扫描中...")
             scanBtn:SetEnabled(false)
             return
         end
         local canQuery, canQueryAll = CanSendAuctionQuery()
-        scanBtn:SetText("全量扫描")
-        scanBtn:SetEnabled(canQueryAll)
+        scanBtn:SetText("扫描方式")
+        scanBtn:SetEnabled(canQuery or canQueryAll)
     end
 
     UpdateScanBtnState()
     scanBtn:HookScript("OnEnter", function(self)
         if not self:IsEnabled() then
             GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-            GameTooltip:AddLine("全局扫描需返回角色大厅", 1, 0.82, 0)
-            GameTooltip:AddLine("当前不可用，请到主城或大厅再试。", 1, 1, 1)
+            GameTooltip:AddLine("当前拍卖行扫描不可用", 1, 0.82, 0)
+            GameTooltip:AddLine("请稍后再试，或返回可进行全量扫描的区域。", 1, 1, 1)
             GameTooltip:Show()
         end
     end)
@@ -2292,10 +2320,14 @@ function CreateAuctionSide()
     end
 
     local function IsMinimalAddonMode()
+        if type(EasyAuction_IsMinimalModeActive) == "function" then
+            return EasyAuction_IsMinimalModeActive()
+        end
+        local playerName = UnitName("player")
         for i = 1, C_AddOns.GetNumAddOns() do
             local name = C_AddOns.GetAddOnInfo(i)
-            if name and name ~= "EasyAuction" and not name:find("^Blizzard_") then
-                if C_AddOns.GetAddOnEnableState(UnitName("player"), name) > 0 then
+            if name and name ~= addonName and not name:find("^Blizzard_") then
+                if (EA_GetAddonEnableState(name, playerName) or 0) > 0 then
                     return false
                 end
             end
@@ -3494,6 +3526,7 @@ function CreateAuctionSide()
                     mainFrame.UnitSilver:SetNumber(us)
                     mainFrame.UnitCopper:SetNumber(uc)
                     UpdateStackPrice(mainFrame)
+                    UpdateDepositMoney()
                     MyAH_AutoFillPrice()
                 end
                 if content.lastHighlightRow and content.lastHighlightRow ~= self then
@@ -4090,7 +4123,7 @@ function CreateAuctionSide()
     f:RegisterEvent("AUCTION_OWNED_LIST_UPDATE")
     f:SetScript("OnEvent", function(self, event)
         if event == "AUCTION_ITEM_LIST_UPDATE" or event == "NEW_AUCTION_UPDATE" or event == "AUCTION_HOUSE_SHOW" then
-            if IsScanningAll then return end
+            if IsScanningAll or IsScanningCategory then return end
             self:RefreshBagItemFrame()
             self:RefreshMyAuctionList()
             UpdateScanBtnState()

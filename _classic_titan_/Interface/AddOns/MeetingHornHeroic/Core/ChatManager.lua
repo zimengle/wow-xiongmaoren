@@ -28,6 +28,9 @@ local MHHPS_CLOSE_PATTERN = "^CLOSE%.(.-)%.MHHPS@@$"
 -- 匹配 MHH 关闭消息的 pattern：CLOSE.leaderName.MHH@@
 local MHH_CLOSE_PATTERN = "^CLOSE%.(.-)%.MHH@@$"
 
+-- 内存聊天记录上限（DB 层保留 50 条用于 /reload 恢复，内存保留更多用于 UI 滚动）
+local CHAT_MEMORY_MAX_RECORDS = 200
+
 -- ============================================================
 -- 分包协议（参考 MeetingStone/NetEaseBroadMiddleware）
 -- 使用 MHH 前缀避免与 MeetingHorn 的 @#&$ 控制字符冲突
@@ -242,6 +245,8 @@ function ChatManager:OnChannelMessage(text, unitName, languageName, channelStrin
     if not text or not unitName then
         return
     end
+    -- 某些版本 WoW 在 GUID 不可用时会返回空字符串而非 nil，统一 normalize 为 nil
+    if guid == "" then guid = nil end
 
     -- 快速首字节检查：所有 MHH/MHHPS 协议前缀都以 'M' 开头（ASCII 77）
     -- 跳过大量不相关的频道消息，避免不必要的 sub/匹配开销
@@ -428,7 +433,8 @@ end
 
 function ChatManager:OnWhisperReceived(message, sender, languageName, channelString, playerName2, specialFlags, zoneChannelID, channelIndex, channelBaseName, unused, lineID, guid, bnSenderID, isMobile, isSubtitle, hideSenderInLetterbox, supressRaidIcons)
     -- 处理收到的密语（无条件记录，不再要求有活动或是团长）
-    self:RecordApplicantWhisper(sender, message, "received")
+    -- 透传 guid 供 WHISPER_APPLICANT 回调使用
+    self:RecordApplicantWhisper(sender, message, "received", guid)
 end
 
 function ChatManager:OnWhisperSent(message, receiver, languageName, channelString, playerName2, specialFlags, zoneChannelID, channelIndex, channelBaseName, unused, lineID, guid, bnSenderID, isMobile, isSubtitle, hideSenderInLetterbox, supressRaidIcons)
@@ -451,7 +457,7 @@ function ChatManager:SendWhisperProfile(targetName)
     C_ChatInfo.SendAddonMessage(ADDON_CHAT_PREFIX, PACKET_ONE .. profileData, "WHISPER", targetName)
 end
 
-function ChatManager:RecordApplicantWhisper(playerName, message, direction)
+function ChatManager:RecordApplicantWhisper(playerName, message, direction, guid)
     -- 统一名字格式：去掉服务器后缀，确保与 UnitName() 返回的纯名字一致
     playerName = Ambiguate(playerName, "short")
 
@@ -487,6 +493,10 @@ function ChatManager:RecordApplicantWhisper(playerName, message, direction)
         self.chatRecords = {}
     end
     table.insert(self.chatRecords, record)
+    -- 内存 FIFO 裁剪：超过上限时移除最旧记录
+    if #self.chatRecords > CHAT_MEMORY_MAX_RECORDS then
+        table.remove(self.chatRecords, 1)
+    end
 
     -- 2. 如果有活动，也写入 activity.chatRecords（保持向后兼容）
     if self.currentActivity then
@@ -494,6 +504,10 @@ function ChatManager:RecordApplicantWhisper(playerName, message, direction)
             self.currentActivity.chatRecords = {}
         end
         table.insert(self.currentActivity.chatRecords, record)
+        -- 内存 FIFO 裁剪
+        if #self.currentActivity.chatRecords > CHAT_MEMORY_MAX_RECORDS then
+            table.remove(self.currentActivity.chatRecords, 1)
+        end
     end
 
     -- 延迟批量写入（2s 节流，避免高频密语时每条都全量序列化 DB）
@@ -502,6 +516,11 @@ function ChatManager:RecordApplicantWhisper(playerName, message, direction)
     -- 通知UI更新聊天记录
     self:FireUpdateCallbacks("CHAT_RECORD_ADDED", record)
     self:FireChatUpdateCallbacks("CHAT_RECORD_ADDED", record)
+
+    -- 通知 Manager 处理申请者检测（消除 CHAT_MSG_WHISPER 双重注册）
+    if direction == "received" then
+        self:FireUpdateCallbacks("WHISPER_APPLICANT", {text = message, sender = playerName, guid = guid})
+    end
 end
 
 function ChatManager:GetPlayerInfo(playerName, record)
@@ -548,6 +567,16 @@ end
 
 -- 根据玩家名查找对应的 unit ID
 function ChatManager:GetUnitForPlayer(playerName)
+    -- 优先查持久化缓存（由 RefreshChatRecordsFromGroup 构建）
+    if self._unitLookup and self._unitLookup[playerName] then
+        local cached = self._unitLookup[playerName]
+        if UnitExists(cached) then
+            return cached
+        end
+        -- 缓存失效，清除
+        self._unitLookup[playerName] = nil
+    end
+
     -- 检查是否是自己
     if UnitName("player") == playerName then
         return "player"
@@ -559,24 +588,32 @@ function ChatManager:GetUnitForPlayer(playerName)
     end
 
     -- 在团队中搜索
+    local unit
     if IsInRaid() then
         for i = 1, 40 do
-            local unit = "raid" .. i
-            if UnitExists(unit) and UnitName(unit) == playerName then
-                return unit
+            local u = "raid" .. i
+            if UnitExists(u) and UnitName(u) == playerName then
+                unit = u
+                break
             end
         end
     elseif IsInGroup() then
         -- 在小队中搜索
         for i = 1, 4 do
-            local unit = "party" .. i
-            if UnitExists(unit) and UnitName(unit) == playerName then
-                return unit
+            local u = "party" .. i
+            if UnitExists(u) and UnitName(u) == playerName then
+                unit = u
+                break
             end
         end
     end
 
-    return nil
+    -- 扫描命中后补填缓存
+    if unit then
+        if not self._unitLookup then self._unitLookup = {} end
+        self._unitLookup[playerName] = unit
+    end
+    return unit
 end
 
         -- ========== 聊天记录持久化 ==========
@@ -764,16 +801,16 @@ function ChatManager:RefreshChatRecordsFromGroup()
         return
     end
 
-    -- 构建 name→unit 查找表，避免对每条记录做 raid1~40 线性扫描
-    local unitLookup = {}
+    -- 构建 name→unit 查找表（持久化到 self._unitLookup 供 GetUnitForPlayer 复用）
+    self._unitLookup = {}
     local myName = UnitName("player")
-    if myName then unitLookup[myName] = "player" end
+    if myName then self._unitLookup[myName] = "player" end
     if IsInRaid() then
         for i = 1, 40 do
             local unit = "raid" .. i
             if UnitExists(unit) then
                 local name = UnitName(unit)
-                if name then unitLookup[name] = unit end
+                if name then self._unitLookup[name] = unit end
             end
         end
     elseif IsInGroup() then
@@ -781,7 +818,7 @@ function ChatManager:RefreshChatRecordsFromGroup()
             local unit = "party" .. i
             if UnitExists(unit) then
                 local name = UnitName(unit)
-                if name then unitLookup[name] = unit end
+                if name then self._unitLookup[name] = unit end
             end
         end
     end
@@ -789,7 +826,7 @@ function ChatManager:RefreshChatRecordsFromGroup()
     local updated = false
 
     for _, record in ipairs(self.chatRecords) do
-        local unit = unitLookup[record.playerName]
+        local unit = self._unitLookup[record.playerName]
         if unit then
             -- 玩家在队伍中，更新信息
             local newLevel = UnitLevel(unit)
@@ -1290,7 +1327,9 @@ function ChatManager:ConvertMeetingHornActivity(mhActivity, leader)
     activity._mhActivityName = activityName -- 保存原始活动名称
 
     if leaderGUID then
-        activity:SetLeaderGUID(leaderGUID, leader)
+        -- 直接赋值 GUID（跳过 SetLeaderGUID 中的 GetPlayerInfoByGUID 调用，
+        -- leaderClass 已在上方由 mhActivity:GetLeaderClass() 赋值）
+        activity.leaderGUID = leaderGUID
     end
 
     return activity

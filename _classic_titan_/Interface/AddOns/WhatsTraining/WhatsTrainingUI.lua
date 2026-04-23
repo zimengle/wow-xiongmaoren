@@ -1,4 +1,5 @@
 local _, wt = ...
+local IsAddOnLoaded = C_AddOns and C_AddOns.IsAddOnLoaded or IsAddOnLoaded
 local ignoreStore = LibStub:GetLibrary("FusionIgnoreStore-1.0")
 
 local hasNewSpellbook = WOW_PROJECT_ID >= WOW_PROJECT_CATACLYSM_CLASSIC

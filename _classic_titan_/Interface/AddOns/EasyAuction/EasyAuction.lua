@@ -19,6 +19,33 @@ local function EA_GetAddonMetadata(name, field)
     end
 end
 
+local function EA_GetAddonToggle(funcName)
+    if C_AddOns and type(C_AddOns[funcName]) == "function" then
+        return C_AddOns[funcName]
+    end
+    if type(_G[funcName]) == "function" then
+        return _G[funcName]
+    end
+end
+
+local function EA_GetAddonEnableState(addon, character)
+    if C_AddOns and type(C_AddOns.GetAddOnEnableState) == "function" then
+        return C_AddOns.GetAddOnEnableState(addon, character)
+    end
+    if type(GetAddOnEnableState) == "function" then
+        return GetAddOnEnableState(character, addon)
+    end
+end
+
+local function EA_IsAddonEnabled(addon, character)
+    local state = EA_GetAddonEnableState(addon, character)
+    return type(state) == "number" and state > 0
+end
+
+local function EA_IsManagedAddon(name)
+    return name and name ~= addonName and not name:find("^Blizzard_")
+end
+
 EasyAuction_SearchHistoryDropDown = CreateFrame("Frame", "EasyAuction_SearchHistoryDropDown", UIParent,
     "UIDropDownMenuTemplate")
 
@@ -174,6 +201,9 @@ local function InitEasyAuctionDB()
         EA_AssignIfNil(EasyAuctionDB, "SellPanel", oldDB.SellPanel)
         EA_AssignIfNil(EasyAuctionDB, "minimap", oldDB.minimap)
         EA_AssignIfNil(EasyAuctionDB, "OperationHistory", oldDB.OperationHistory)
+        EA_AssignIfNil(EasyAuctionDB, "CategoryOverrides", oldDB.CategoryOverrides)
+        EA_AssignIfNil(EasyAuctionDB, "AddonBackup", oldDB.AddonBackup)
+        EA_AssignIfNil(EasyAuctionDB, "MinimalModeActive", oldDB.MinimalModeActive)
     end
     
     -- 设置默认值
@@ -200,6 +230,7 @@ local function InitEasyAuctionDB()
     EasyAuctionDB.showSections = EasyAuctionDB.showSections or { items = true, price = true, myauct = true }
     EasyAuctionDB.RecentSearch = EasyAuctionDB.RecentSearch or {}
     EasyAuctionDB.FavoriteItems = EasyAuctionDB.FavoriteItems or {}
+    EasyAuctionDB.CategoryOverrides = EasyAuctionDB.CategoryOverrides or {}
     
     if EasyAuctionDB.ShowPrice == nil then EasyAuctionDB.ShowPrice = true end
     if EasyAuctionDB.enablePrice == nil then EasyAuctionDB.enablePrice = true end
@@ -212,6 +243,9 @@ local function InitEasyAuctionDB()
     if EasyAuctionDB.undercutMode ~= "unit" then EasyAuctionDB.undercutMode = "total" end
     if EasyAuctionDB.hideSellPrice == nil then EasyAuctionDB.hideSellPrice = false end
     if EasyAuctionDB.enableDisenchantProb == nil then EasyAuctionDB.enableDisenchantProb = true end
+    if EasyAuctionDB.MinimalModeActive == nil and type(EasyAuctionDB.AddonBackup) ~= "table" then
+        EasyAuctionDB.MinimalModeActive = false
+    end
     
     EasyAuctionDB.autoFillLastAuction = EasyAuctionDB.autoFillLastAuction == nil and false or EasyAuctionDB.autoFillLastAuction
     EasyAuctionDB.enableAuctionListCopy = EasyAuctionDB.enableAuctionListCopy == nil and true or EasyAuctionDB.enableAuctionListCopy
@@ -231,6 +265,7 @@ local function InitEasyAuctionDB()
 end
 
 IsScanningAll = false
+IsScanningCategory = false
 local EasyAuctionScanProgressFrame = nil
 EasyAuction_ItemID_Index = {}
 local function EA_UpdateItemIDIndexForKey(key, minUnit)
@@ -310,10 +345,12 @@ local function EasyAuction_CreateDefaultDB()
         RecentSearch = {},
         VendorPrice = {},
         OperationHistory = {},
+        CategoryOverrides = {},
         minimap = {},
         autoFillLastAuction = false,
         enableAuctionListCopy = true,
         CustomHistoryPage = 1,
+        MinimalModeActive = false,
     }
 end
 
@@ -364,6 +401,244 @@ function AddFavoriteItem(itemID, name, price, t)
         end
         if oldestID then EasyAuctionDB.FavoriteItems[oldestID] = nil end
     end
+end
+
+local EA_SCAN_CATEGORIES = { "矿石", "草药", "附魔", "珠宝", "布皮", "元素", "药剂", "鱼类", "常用" }
+
+local function EA_TrimText(value)
+    return tostring(value or ""):gsub("^%s+", ""):gsub("%s+$", "")
+end
+
+local function EA_SanitizeCategoryEntry(name, itemID, titan)
+    local cleanName = EA_TrimText(name)
+    local cleanID = tonumber(itemID)
+    local cleanTitan = math.max(0, math.floor(tonumber(titan) or 0))
+    if cleanName == "" or not cleanID or cleanID <= 0 then
+        return nil
+    end
+    return { cleanName, cleanID, cleanTitan }
+end
+
+local function EA_CopyCategoryEntries(entries)
+    local copied = {}
+    for _, info in ipairs(entries or {}) do
+        local entry = EA_SanitizeCategoryEntry(info[1], info[2], info[3])
+        if entry then
+            copied[#copied + 1] = entry
+        end
+    end
+    return copied
+end
+
+local function EA_GetCategoryOverrideStore()
+    if not EasyAuctionDB then
+        return {}
+    end
+    EasyAuctionDB.CategoryOverrides = EasyAuctionDB.CategoryOverrides or {}
+    return EasyAuctionDB.CategoryOverrides
+end
+
+local function EA_GetFavoriteCategoryEntries()
+    local entries = {}
+    for itemID, info in pairs(EasyAuctionDB and EasyAuctionDB.FavoriteItems or {}) do
+        local entry = EA_SanitizeCategoryEntry(info and info.name, itemID, info and info.titan)
+        if entry then
+            entry._time = info and info.time or 0
+            entries[#entries + 1] = entry
+        end
+    end
+    table.sort(entries, function(a, b)
+        return (a._time or 0) > (b._time or 0)
+    end)
+    for _, info in ipairs(entries) do
+        info._time = nil
+    end
+    return entries
+end
+
+local function EA_GetCategoryEntries(cat)
+    if cat == "常用" then
+        return EA_GetFavoriteCategoryEntries()
+    end
+    local overrides = EA_GetCategoryOverrideStore()
+    if type(overrides[cat]) == "table" then
+        return overrides[cat]
+    end
+    return ns.EA_CATEGORY_LIST[cat] or {}
+end
+
+local function EA_SetCategoryEntries(cat, entries)
+    if not EasyAuctionDB then
+        return
+    end
+    if cat == "常用" then
+        local favorites = {}
+        local now = time()
+        for index, info in ipairs(entries or {}) do
+            favorites[info[2]] = {
+                name = info[1],
+                titan = tonumber(info[3]) or 0,
+                time = now - index,
+            }
+        end
+        EasyAuctionDB.FavoriteItems = favorites
+        return
+    end
+    local overrides = EA_GetCategoryOverrideStore()
+    overrides[cat] = EA_CopyCategoryEntries(entries)
+end
+
+local function EA_ResetCategoryEntries(cat)
+    if not EasyAuctionDB then
+        return
+    end
+    if cat == "常用" then
+        EasyAuctionDB.FavoriteItems = {}
+        return
+    end
+    local overrides = EA_GetCategoryOverrideStore()
+    overrides[cat] = nil
+end
+
+local function EA_GetCategoryTitanMap()
+    local itemID2Titan = {}
+    for _, cat in ipairs(EA_SCAN_CATEGORIES) do
+        if cat ~= "常用" then
+            for _, info in ipairs(EA_GetCategoryEntries(cat)) do
+                local itemID = tonumber(info[2])
+                local titan = tonumber(info[3])
+                if itemID then
+                    itemID2Titan[itemID] = titan
+                end
+            end
+        end
+    end
+    return itemID2Titan
+end
+
+local function EA_GetHistoryStats(key)
+    local history = EasyAuctionDB and EasyAuctionDB.PriceHistory and EasyAuctionDB.PriceHistory[key]
+    local minUnit, latestTime, historyMin, snapshotCount = nil, nil, nil, 0
+    if type(history) == "table" then
+        historyMin = tonumber(history.minUnit)
+        for _, rec in ipairs(history) do
+            local unit = tonumber(rec and rec.unit)
+            local count = tonumber(rec and rec.count) or 1
+            local recTime = tonumber(rec and rec.t)
+            if unit and (not minUnit or unit < minUnit) then
+                minUnit = unit
+            end
+            if unit and (not historyMin or unit < historyMin) then
+                historyMin = unit
+            end
+            if recTime and (not latestTime or recTime > latestTime) then
+                latestTime = recTime
+            end
+            snapshotCount = snapshotCount + math.max(1, count)
+        end
+        latestTime = tonumber(history.lastScanT) or latestTime
+        if historyMin and history.minUnit ~= historyMin then
+            history.minUnit = historyMin
+        end
+    end
+
+    local dailyData = EasyAuctionDB and EasyAuctionDB.DailyMinPrice and EasyAuctionDB.DailyMinPrice[key]
+    if type(dailyData) == "table" then
+        local today = date("%Y-%m-%d")
+        for _, record in ipairs(dailyData) do
+            if record[1] == today then
+                snapshotCount = tonumber(record[6]) or snapshotCount
+                break
+            end
+        end
+    end
+
+    return {
+        minUnit = minUnit,
+        latestTime = latestTime,
+        historyMin = historyMin,
+        snapshotCount = snapshotCount,
+        history = history,
+    }
+end
+
+local function EA_SaveAggregatedBuckets(batchData, scanTime)
+    if not EasyAuctionDB then
+        return 0, 0
+    end
+    EasyAuctionDB.PriceHistory = EasyAuctionDB.PriceHistory or {}
+    EasyAuctionDB.HourlyMinPrice = EasyAuctionDB.HourlyMinPrice or {}
+    EasyAuctionDB.DailyMinPrice = EasyAuctionDB.DailyMinPrice or {}
+
+    local keepPerItem = EA_ClampInt(EasyAuctionDB.scanKeepPerItem or 120, 120, 20, 500)
+    local hour = tonumber(date("%H"))
+    local today = date("%Y-%m-%d")
+    local storedAt = tonumber(scanTime) or time()
+    local newCount, updateCount = 0, 0
+
+    for key, bucket in pairs(batchData or {}) do
+        local records = {}
+        for _, rec in pairs(bucket.byUnit or {}) do
+            records[#records + 1] = {
+                unit = rec.unit,
+                count = rec.count,
+                t = tonumber(rec.t) or storedAt,
+            }
+        end
+
+        local compressed = EA_CompressHistoryRecords(records, keepPerItem, nil)
+        if type(compressed) == "table" and #compressed > 0 then
+            if EasyAuctionDB.PriceHistory[key] then
+                updateCount = updateCount + 1
+            else
+                newCount = newCount + 1
+            end
+
+            local minUnit = tonumber(bucket.minUnit) or tonumber(compressed[1] and compressed[1].unit) or 0
+            local maxUnit = tonumber(bucket.maxUnit) or minUnit
+            local minCount = tonumber(bucket.minCount) or 0
+            local totalCount = tonumber(bucket.totalCount) or 0
+
+            EasyAuctionDB.PriceHistory[key] = compressed
+            EasyAuctionDB.PriceHistory[key].minUnit = minUnit
+            EasyAuctionDB.PriceHistory[key].lastScanT = storedAt
+            EA_UpdateItemIDIndexForKey(key, minUnit)
+
+            EasyAuctionDB.HourlyMinPrice[key] = EasyAuctionDB.HourlyMinPrice[key] or {}
+            local foundHourly = false
+            for _, record in ipairs(EasyAuctionDB.HourlyMinPrice[key]) do
+                if record[1] == hour then
+                    record[2] = minUnit
+                    record[3] = minCount
+                    record[4] = totalCount
+                    foundHourly = true
+                    break
+                end
+            end
+            if not foundHourly then
+                table.insert(EasyAuctionDB.HourlyMinPrice[key], { hour, minUnit, minCount, totalCount })
+            end
+
+            EasyAuctionDB.DailyMinPrice[key] = EasyAuctionDB.DailyMinPrice[key] or {}
+            local foundDaily = false
+            for _, daily in ipairs(EasyAuctionDB.DailyMinPrice[key]) do
+                if daily[1] == today then
+                    daily[2] = minUnit
+                    daily[3] = minCount
+                    daily[4] = minUnit
+                    daily[5] = maxUnit
+                    daily[6] = totalCount
+                    foundDaily = true
+                    break
+                end
+            end
+            if not foundDaily then
+                table.insert(EasyAuctionDB.DailyMinPrice[key], { today, minUnit, minCount, minUnit, maxUnit, totalCount })
+            end
+        end
+    end
+
+    return newCount, updateCount
 end
 
 function EasyAuction_ShowDropdownMenu(menuTable, anchor, x, y)
@@ -1303,7 +1578,7 @@ end)
 local eventFrame = CreateFrame("Frame")
 eventFrame:RegisterEvent("AUCTION_ITEM_LIST_UPDATE")
 eventFrame:SetScript("OnEvent", function()
-    if IsScanningAll then return end
+    if IsScanningAll or IsScanningCategory then return end
 
     local DB = EasyAuctionDB or {}
     DB.PriceHistory = DB.PriceHistory or {}
@@ -1396,6 +1671,7 @@ eventFrame:SetScript("OnEvent", function()
         if type(compressed) == "table" and #compressed > 0 then
             DB.PriceHistory[key] = compressed
             DB.PriceHistory[key].minUnit = minUnit or compressed[1].unit or 0
+            DB.PriceHistory[key].lastScanT = nowTs
             EA_UpdateItemIDIndexForKey(key, DB.PriceHistory[key].minUnit)
         else
             DB.PriceHistory[key] = nil
@@ -1526,6 +1802,19 @@ end)
 local closeEvent = CreateFrame("Frame")
 closeEvent:RegisterEvent("AUCTION_HOUSE_CLOSED")
 closeEvent:SetScript("OnEvent", function()
+    if IsScanningAll or IsScanningCategory then
+        IsScanningAll = false
+        IsScanningCategory = false
+        if type(UpdateScanBtnState) == "function" then
+            UpdateScanBtnState()
+        end
+        if type(UpdateAuctionQueryStatusText) == "function" then
+            UpdateAuctionQueryStatusText()
+        end
+        if type(EasyAuction_HideScanProgress) == "function" then
+            EasyAuction_HideScanProgress()
+        end
+    end
     PriceFrame:Hide()
     if EasyAuction_DistributionFrame then EasyAuction_DistributionFrame:Hide() end
     collectgarbage("collect")
@@ -1762,56 +2051,23 @@ local function BuildDBItemList()
     dbItemList = {}
     local filter = (CurrentSearchText or ""):lower()
     local idx = 0
-
-    local itemID2Titan = {}
-    for _, arr in pairs(ns.EA_CATEGORY_LIST) do
-        for _, info in ipairs(arr) do
-            local _, itemid, titan = unpack(info)
-            if itemid then
-                itemID2Titan[tonumber(itemid)] = titan
-            end
-        end
-    end
-
+    local itemID2Titan = EA_GetCategoryTitanMap()
     local uniqueKeys = {}
     for name, data in pairs(EasyAuctionDB.PriceHistory) do
         if filter == "" or tostring(name):lower():find(filter, 1, true) then
             if not uniqueKeys[name] then
                 uniqueKeys[name] = true
-                local min, t
-                local minHistory = nil
-                local foundItemID
-                for _, info in ipairs(data) do
-                    if (not min) or info.unit < min then
-                        min = info.unit
-                        t = info.t
-                    end
-                    if not minHistory or info.unit < minHistory then minHistory = info.unit end
-                end
-
-                local realName, itemID = tostring(name):match("^(.-):(%d+)$")
-                foundItemID = tonumber(itemID)
+                local stats = EA_GetHistoryStats(name)
+                local min = stats.minUnit
+                local t = stats.latestTime
+                local minHistory = stats.historyMin
+                local _, itemID = tostring(name):match("^(.-):(%d+)$")
+                local foundItemID = tonumber(itemID)
 
                 if min and foundItemID then
                     idx = idx + 1
-                    local snapshotCount = 0
-                    local today = date("%Y-%m-%d")
+                    local snapshotCount = stats.snapshotCount or 0
                     local key = name
-                    local dailyData = EasyAuctionDB.DailyMinPrice[key]
-                    if dailyData then
-                        for _, record in ipairs(dailyData) do
-                            if record[1] == today then
-                                snapshotCount = record[6] or 0
-                                break
-                            end
-                        end
-                    end
-                    if snapshotCount == 0 then
-                        for _, v in ipairs(data) do
-                            snapshotCount = snapshotCount + (v.count or 1)
-                        end
-                    end
-
                     local titan, titanValue, titanValueRaw
                     titan = itemID2Titan[foundItemID]
                     if titan and tonumber(titan) > 0 and min > 0 then
@@ -2292,6 +2548,15 @@ function EasyAuction_UpdateCategoryButtonHighlight()
             DBFrame.EA_CategoryReturnBtn:GetFontString():SetTextColor(1, 1, 1, 1)
         end
     end
+    if DBFrame.EA_CategoryManageBtn then
+        local canManage = EA_CategoryMode and EA_CategoryMode ~= "全类"
+        DBFrame.EA_CategoryManageBtn:SetEnabled(canManage and true or false)
+        DBFrame.EA_CategoryManageBtn:SetAlpha(canManage and 1 or 0.6)
+    end
+    if DBFrame.EA_ExportBtn then
+        DBFrame.EA_ExportBtn:SetEnabled(true)
+        DBFrame.EA_ExportBtn:SetAlpha(1)
+    end
 end
 
 DBFrame:HookScript("OnShow", function()
@@ -2344,14 +2609,574 @@ if not DBFrame.EA_CategoryReturnBtn then
 end
 DBFrame.EA_CategoryReturnBtn:Show()
 
+local function EA_BuildCategoryEditorText(cat)
+    local lines = {}
+    for _, info in ipairs(EA_GetCategoryEntries(cat)) do
+        local titan = tonumber(info[3]) or 0
+        if titan > 0 then
+            lines[#lines + 1] = string.format("%d,%s,%d", tonumber(info[2]) or 0, tostring(info[1] or ""), titan)
+        else
+            lines[#lines + 1] = string.format("%d,%s", tonumber(info[2]) or 0, tostring(info[1] or ""))
+        end
+    end
+    return table.concat(lines, "\n")
+end
+
+local function EA_BuildCategoryEditorTextFromEntries(entries)
+    local lines = {}
+    for _, info in ipairs(entries or {}) do
+        local titan = tonumber(info[3]) or 0
+        if titan > 0 then
+            lines[#lines + 1] = string.format("%d,%s,%d", tonumber(info[2]) or 0, tostring(info[1] or ""), titan)
+        else
+            lines[#lines + 1] = string.format("%d,%s", tonumber(info[2]) or 0, tostring(info[1] or ""))
+        end
+    end
+    return table.concat(lines, "\n")
+end
+
+local function EA_ParseCategoryEditorText(text)
+    local entries = {}
+    local indexByID = {}
+    local errorLine = nil
+    text = tostring(text or ""):gsub("，", ",")
+    for line in text:gmatch("[^\r\n]+") do
+        local cleanLine = EA_TrimText(line)
+        if cleanLine ~= "" then
+            local itemID, itemName, titan = cleanLine:match("^(%d+)%s*,%s*([^,]+)%s*,%s*(%-?%d+)%s*$")
+            if not itemID then
+                itemID, itemName = cleanLine:match("^(%d+)%s*,%s*(.+)%s*$")
+            end
+            local entry = EA_SanitizeCategoryEntry(itemName, itemID, titan)
+            if not entry then
+                errorLine = cleanLine
+                break
+            end
+            local itemKey = tonumber(entry[2])
+            if indexByID[itemKey] then
+                entries[indexByID[itemKey]] = entry
+            else
+                indexByID[itemKey] = #entries + 1
+                entries[#entries + 1] = entry
+            end
+        end
+    end
+    return entries, errorLine
+end
+
+local function EA_RefreshCategoryViewsAfterEdit(cat)
+    if EasyAuctionDBFrame and EasyAuctionDBFrame:IsShown() then
+        if cat and EA_CategoryMode == cat then
+            EA_ShowCategory(cat, 1, CurrentSearchText)
+        else
+            RefreshDBFrame()
+        end
+    end
+    if cat == "常用" and type(RefreshFavoriteRows) == "function" then
+        RefreshFavoriteRows()
+    end
+end
+
+function EasyAuction_ShowCategoryManager(cat)
+    cat = cat or EA_CategoryMode
+    if not cat or cat == "全类" then
+        print("|cffff0000[EasyAuction]|r 请先在价格库选择一个具体分类。")
+        return
+    end
+
+    if not EasyAuctionCategoryManagerFrame then
+        local f = CreateFrame("Frame", "EasyAuctionCategoryManagerFrame", UIParent, "BackdropTemplate")
+        f:SetSize(420, 470)
+        f:SetPoint("CENTER")
+        f:SetFrameStrata("FULLSCREEN_DIALOG")
+        f:SetMovable(true)
+        f:EnableMouse(true)
+        f:RegisterForDrag("LeftButton")
+        f:SetScript("OnDragStart", f.StartMoving)
+        f:SetScript("OnDragStop", f.StopMovingOrSizing)
+        f:SetBackdrop({
+            bgFile = "Interface\\ChatFrame\\ChatFrameBackground",
+            edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
+            tile = true,
+            tileSize = 32,
+            edgeSize = 18,
+            insets = { left = 6, right = 6, top = 6, bottom = 6 }
+        })
+        f:SetBackdropColor(0.10, 0.10, 0.13, 0.97)
+        f:SetBackdropBorderColor(0.7, 0.6, 1, 1)
+        tinsert(UISpecialFrames, "EasyAuctionCategoryManagerFrame")
+
+        local title = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+        title:SetPoint("TOP", 0, -18)
+        f.title = title
+
+        local desc = f:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+        desc:SetPoint("TOPLEFT", 20, -46)
+        desc:SetPoint("RIGHT", -20, 0)
+        desc:SetJustifyH("LEFT")
+        desc:SetText("每行格式：物品ID,物品名[,碎片数]。添加可用上方输入，删除可直接删掉对应行后保存。")
+        f.desc = desc
+
+        local idLabel = f:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+        idLabel:SetPoint("TOPLEFT", 20, -76)
+        idLabel:SetText("物品ID")
+
+        local idEdit = CreateFrame("EditBox", nil, f, "InputBoxTemplate")
+        idEdit:SetSize(70, 20)
+        idEdit:SetPoint("LEFT", idLabel, "RIGHT", 6, 0)
+        idEdit:SetAutoFocus(false)
+        idEdit:SetNumeric(true)
+        f.idEdit = idEdit
+
+        local nameLabel = f:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+        nameLabel:SetPoint("LEFT", idEdit, "RIGHT", 10, 0)
+        nameLabel:SetText("物品名")
+
+        local nameEdit = CreateFrame("EditBox", nil, f, "InputBoxTemplate")
+        nameEdit:SetSize(120, 20)
+        nameEdit:SetPoint("LEFT", nameLabel, "RIGHT", 6, 0)
+        nameEdit:SetAutoFocus(false)
+        f.nameEdit = nameEdit
+
+        local titanLabel = f:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+        titanLabel:SetPoint("TOPLEFT", 20, -104)
+        titanLabel:SetText("碎片数")
+
+        local titanEdit = CreateFrame("EditBox", nil, f, "InputBoxTemplate")
+        titanEdit:SetSize(60, 20)
+        titanEdit:SetPoint("LEFT", titanLabel, "RIGHT", 6, 0)
+        titanEdit:SetAutoFocus(false)
+        titanEdit:SetNumeric(true)
+        titanEdit:SetText("0")
+        f.titanEdit = titanEdit
+
+        local addBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+        addBtn:SetSize(72, 22)
+        addBtn:SetPoint("LEFT", titanEdit, "RIGHT", 14, 0)
+        addBtn:SetText("添加/替换")
+        f.addBtn = addBtn
+
+        local contentBG = CreateFrame("Frame", nil, f, "BackdropTemplate")
+        contentBG:SetPoint("TOPLEFT", 20, -132)
+        contentBG:SetPoint("BOTTOMRIGHT", -20, 62)
+        contentBG:SetBackdrop({
+            bgFile = "Interface\\ChatFrame\\ChatFrameBackground",
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            tile = true,
+            tileSize = 16,
+            edgeSize = 12,
+            insets = { left = 3, right = 3, top = 3, bottom = 3 }
+        })
+        contentBG:SetBackdropColor(0.15, 0.14, 0.2, 0.93)
+        contentBG:SetBackdropBorderColor(0.4, 0.32, 0.7, 0.8)
+
+        local scrollFrame = CreateFrame("ScrollFrame", nil, contentBG, "UIPanelScrollFrameTemplate")
+        scrollFrame:SetPoint("TOPLEFT", 8, -8)
+        scrollFrame:SetPoint("BOTTOMRIGHT", -28, 8)
+
+        local editBox = CreateFrame("EditBox", nil, scrollFrame)
+        editBox:SetMultiLine(true)
+        editBox:SetFontObject("ChatFontNormal")
+        editBox:SetAutoFocus(false)
+        editBox:SetWidth(340)
+        editBox:SetHeight(260)
+        scrollFrame:SetScrollChild(editBox)
+        f.editBox = editBox
+
+        local warnBar = f:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+        warnBar:SetPoint("BOTTOMLEFT", 20, 40)
+        warnBar:SetPoint("RIGHT", -20, 0)
+        warnBar:SetJustifyH("LEFT")
+        warnBar:SetText("")
+        warnBar:Hide()
+        f.warnBar = warnBar
+
+        local saveBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+        saveBtn:SetSize(72, 24)
+        saveBtn:SetPoint("BOTTOMRIGHT", -20, 16)
+        saveBtn:SetText("保存")
+
+        local resetBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+        resetBtn:SetSize(72, 24)
+        resetBtn:SetPoint("RIGHT", saveBtn, "LEFT", -8, 0)
+        resetBtn:SetText("重置")
+
+        local closeBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+        closeBtn:SetSize(72, 24)
+        closeBtn:SetPoint("RIGHT", resetBtn, "LEFT", -8, 0)
+        closeBtn:SetText("关闭")
+        closeBtn:SetScript("OnClick", function()
+            f:Hide()
+        end)
+
+        addBtn:SetScript("OnClick", function()
+            local currentEntries, errorLine = EA_ParseCategoryEditorText(editBox:GetText())
+            if errorLine then
+                warnBar:SetText("|cffff4040存在格式错误行，先修正后再添加：|r" .. errorLine)
+                warnBar:Show()
+                return
+            end
+            local entry = EA_SanitizeCategoryEntry(nameEdit:GetText(), idEdit:GetText(), titanEdit:GetText())
+            if not entry then
+                warnBar:SetText("|cffff4040请输入有效的物品ID和物品名。|r")
+                warnBar:Show()
+                return
+            end
+            local replaced = false
+            for index, info in ipairs(currentEntries) do
+                if tonumber(info[2]) == tonumber(entry[2]) then
+                    currentEntries[index] = entry
+                    replaced = true
+                    break
+                end
+            end
+            if not replaced then
+                currentEntries[#currentEntries + 1] = entry
+            end
+            editBox:SetText(EA_BuildCategoryEditorTextFromEntries(currentEntries))
+            nameEdit:SetText("")
+            idEdit:SetText("")
+            titanEdit:SetText("0")
+            warnBar:Hide()
+        end)
+
+        saveBtn:SetScript("OnClick", function()
+            local entries, errorLine = EA_ParseCategoryEditorText(editBox:GetText())
+            if errorLine then
+                warnBar:SetText("|cffff4040保存失败，存在格式错误行：|r" .. errorLine)
+                warnBar:Show()
+                return
+            end
+            EA_SetCategoryEntries(f.category, entries)
+            warnBar:Hide()
+            EA_RefreshCategoryViewsAfterEdit(f.category)
+            print(string.format("|cff00ff00[EasyAuction]|r [%s] 分类列表已保存，共 %d 项。", f.category, #entries))
+            f:Hide()
+        end)
+
+        resetBtn:SetScript("OnClick", function()
+            EA_ResetCategoryEntries(f.category)
+            editBox:SetText(EA_BuildCategoryEditorText(f.category))
+            warnBar:Hide()
+            EA_RefreshCategoryViewsAfterEdit(f.category)
+            if f.category == "常用" then
+                print("|cff00ff00[EasyAuction]|r 常用清单已清空。")
+            else
+                print(string.format("|cff00ff00[EasyAuction]|r [%s] 分类已恢复默认列表。", f.category))
+            end
+        end)
+
+        EasyAuctionCategoryManagerFrame = f
+    end
+
+    local frame = EasyAuctionCategoryManagerFrame
+    frame.category = cat
+    frame.title:SetText(string.format("%s - 分类管理", cat))
+    if cat == "常用" then
+        frame.desc:SetText("常用清单与闪购页共用同一份数据。每行格式：物品ID,物品名[,碎片数]。删除可直接删行后保存，重置会清空当前常用。")
+    else
+        frame.desc:SetText("每行格式：物品ID,物品名[,碎片数]。添加可用上方输入，删除可直接删掉对应行后保存，重置可恢复默认分类。")
+    end
+    frame.editBox:SetText(EA_BuildCategoryEditorText(cat))
+    frame.warnBar:Hide()
+    frame.idEdit:SetText("")
+    frame.nameEdit:SetText("")
+    frame.titanEdit:SetText("0")
+    frame:Show()
+end
+
+local function EA_FormatPricePlain(copper)
+    local value = tonumber(copper)
+    if not value or value <= 0 then
+        return ""
+    end
+    local gold = math.floor(value / 10000)
+    local silver = math.floor((value % 10000) / 100)
+    local copperOnly = value % 100
+    if gold > 0 then
+        return string.format("%dg%02ds%02dc", gold, silver, copperOnly)
+    elseif silver > 0 then
+        return string.format("%ds%02dc", silver, copperOnly)
+    end
+    return string.format("%dc", copperOnly)
+end
+
+local function EA_BuildExportRows(cat)
+    local rows = {}
+    local titanMap = EA_GetCategoryTitanMap()
+
+    local function appendRow(name, itemID, titan)
+        local key = name .. ":" .. tostring(itemID)
+        local stats = EA_GetHistoryStats(key)
+        local titanCount = tonumber(titan) or tonumber(titanMap[itemID]) or 0
+        local titanValue = ""
+        if titanCount > 0 and stats.minUnit and stats.minUnit > 0 then
+            titanValue = EA_FormatPricePlain(math.floor((stats.minUnit / titanCount) + 0.5))
+        end
+        rows[#rows + 1] = {
+            name = name,
+            itemID = tonumber(itemID) or 0,
+            snapshot = stats.snapshotCount or 0,
+            history = stats.historyMin and EA_FormatPricePlain(stats.historyMin) or "",
+            min = stats.minUnit and EA_FormatPricePlain(stats.minUnit) or "",
+            titan = titanCount > 0 and tostring(titanCount) or "",
+            titanValue = titanValue,
+            scanTime = stats.latestTime and date("%Y-%m-%d %H:%M", stats.latestTime) or "",
+        }
+    end
+
+    if not cat or cat == "全库" then
+        for key in pairs(EasyAuctionDB.PriceHistory or {}) do
+            local name, itemID = tostring(key):match("^(.-):(%d+)$")
+            itemID = tonumber(itemID)
+            if name and itemID then
+                appendRow(name, itemID, titanMap[itemID])
+            end
+        end
+    else
+        for _, info in ipairs(EA_GetCategoryEntries(cat)) do
+            appendRow(tostring(info[1] or ""), tonumber(info[2]) or 0, tonumber(info[3]) or 0)
+        end
+    end
+
+    table.sort(rows, function(a, b)
+        return (a.name or "") < (b.name or "")
+    end)
+    return rows
+end
+
+local function EA_GenerateExportText(cat)
+    local rows = EA_BuildExportRows(cat)
+    if #rows == 0 then
+        return nil, 0
+    end
+    local lines = { "物品名\t物品ID\t在售数\t历史最低价\t最新单价\t碎片数\t每碎片价值\t采集时间" }
+    for _, row in ipairs(rows) do
+        lines[#lines + 1] = table.concat({
+            row.name or "",
+            tostring(row.itemID or 0),
+            tostring(row.snapshot or 0),
+            row.history or "",
+            row.min or "",
+            row.titan or "",
+            row.titanValue or "",
+            row.scanTime or "",
+        }, "\t")
+    end
+    return table.concat(lines, "\n"), #rows
+end
+
+function EasyAuction_ShowExportFrame(cat)
+    local exportText, itemCount = EA_GenerateExportText(cat)
+    if not exportText then
+        print("|cffff0000[EasyAuction]|r 当前导出范围没有可用数据。")
+        return
+    end
+
+    if not EasyAuctionExportFrame then
+        local f = CreateFrame("Frame", "EasyAuctionExportFrame", UIParent, "BackdropTemplate")
+        f:SetSize(680, 500)
+        f:SetPoint("CENTER")
+        f:SetFrameStrata("FULLSCREEN_DIALOG")
+        f:SetMovable(true)
+        f:EnableMouse(true)
+        f:RegisterForDrag("LeftButton")
+        f:SetScript("OnDragStart", f.StartMoving)
+        f:SetScript("OnDragStop", f.StopMovingOrSizing)
+        f:SetBackdrop({
+            bgFile = "Interface\\ChatFrame\\ChatFrameBackground",
+            edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
+            tile = true,
+            tileSize = 32,
+            edgeSize = 18,
+            insets = { left = 6, right = 6, top = 6, bottom = 6 }
+        })
+        f:SetBackdropColor(0.10, 0.10, 0.13, 0.97)
+        f:SetBackdropBorderColor(0.7, 0.6, 1, 1)
+        tinsert(UISpecialFrames, "EasyAuctionExportFrame")
+
+        f.title = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+        f.title:SetPoint("TOPLEFT", 18, -16)
+
+        local tip = f:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+        tip:SetPoint("TOPLEFT", 18, -40)
+        tip:SetText("|cffffff00Ctrl+A 全选，Ctrl+C 复制，可直接粘贴到 Excel。|r")
+
+        local scroll = CreateFrame("ScrollFrame", nil, f, "UIPanelScrollFrameTemplate")
+        scroll:SetPoint("TOPLEFT", 16, -62)
+        scroll:SetPoint("BOTTOMRIGHT", -36, 44)
+
+        local editBox = CreateFrame("EditBox", nil, scroll)
+        editBox:SetMultiLine(true)
+        editBox:SetFontObject(ChatFontNormal)
+        editBox:SetAutoFocus(false)
+        editBox:SetWidth(620)
+        editBox:SetHeight(360)
+        scroll:SetScrollChild(editBox)
+        f.editBox = editBox
+
+        local selectBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+        selectBtn:SetSize(80, 24)
+        selectBtn:SetPoint("BOTTOMLEFT", 16, 12)
+        selectBtn:SetText("全选")
+        selectBtn:SetScript("OnClick", function()
+            editBox:SetFocus()
+            editBox:HighlightText()
+        end)
+
+        local closeBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+        closeBtn:SetSize(80, 24)
+        closeBtn:SetPoint("BOTTOMRIGHT", -16, 12)
+        closeBtn:SetText("关闭")
+        closeBtn:SetScript("OnClick", function()
+            f:Hide()
+        end)
+
+        EasyAuctionExportFrame = f
+    end
+
+    local frame = EasyAuctionExportFrame
+    frame.title:SetText(string.format("价格库数据导出 - %s（%d条）", cat or "全库", itemCount))
+    frame.editBox:SetText(exportText)
+    frame:Show()
+end
+
+function EasyAuction_ShowExportSelector()
+    if not EasyAuctionExportSelectorFrame then
+        local f = CreateFrame("Frame", "EasyAuctionExportSelectorFrame", UIParent, "BackdropTemplate")
+        f:SetSize(340, 220)
+        f:SetPoint("CENTER")
+        f:SetFrameStrata("FULLSCREEN_DIALOG")
+        f:SetMovable(true)
+        f:EnableMouse(true)
+        f:RegisterForDrag("LeftButton")
+        f:SetScript("OnDragStart", f.StartMoving)
+        f:SetScript("OnDragStop", f.StopMovingOrSizing)
+        f:SetBackdrop({
+            bgFile = "Interface\\ChatFrame\\ChatFrameBackground",
+            edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
+            tile = true,
+            tileSize = 32,
+            edgeSize = 18,
+            insets = { left = 6, right = 6, top = 6, bottom = 6 }
+        })
+        f:SetBackdropColor(0.10, 0.10, 0.13, 0.97)
+        f:SetBackdropBorderColor(0.7, 0.6, 1, 1)
+        tinsert(UISpecialFrames, "EasyAuctionExportSelectorFrame")
+
+        local title = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+        title:SetPoint("TOP", 0, -18)
+        title:SetText("选择导出范围")
+
+        local allBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+        allBtn:SetSize(80, 22)
+        allBtn:SetPoint("TOP", 0, -50)
+        allBtn:SetText("全库导出")
+        allBtn:SetScript("OnClick", function()
+            f:Hide()
+            EasyAuction_ShowExportFrame("全库")
+        end)
+
+        local buttons = {}
+        for index, cat in ipairs(EA_SCAN_CATEGORIES) do
+            local btn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+            btn:SetSize(58, 22)
+            local row = math.floor((index - 1) / 4)
+            local col = (index - 1) % 4
+            btn:SetPoint("TOPLEFT", f, "TOPLEFT", 24 + col * 72, -92 - row * 28)
+            btn:SetText(cat)
+            btn:SetScript("OnClick", function()
+                f:Hide()
+                EasyAuction_ShowExportFrame(cat)
+            end)
+            buttons[#buttons + 1] = btn
+        end
+
+        local closeBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+        closeBtn:SetSize(72, 24)
+        closeBtn:SetPoint("BOTTOM", 0, 14)
+        closeBtn:SetText("关闭")
+        closeBtn:SetScript("OnClick", function()
+            f:Hide()
+        end)
+
+        EasyAuctionExportSelectorFrame = f
+    end
+
+    EasyAuctionExportSelectorFrame:Show()
+end
+
+if not DBFrame.EA_CategoryManageBtn then
+    DBFrame.EA_CategoryManageBtn = CreateFrame("Button", nil, DBFrame, "UIPanelButtonTemplate")
+    DBFrame.EA_CategoryManageBtn:SetSize(78, 22)
+    DBFrame.EA_CategoryManageBtn:SetPoint("TOPRIGHT", DBFrame, "TOPRIGHT", -20, -12)
+    DBFrame.EA_CategoryManageBtn:SetText("分类管理")
+    DBFrame.EA_CategoryManageBtn:SetScript("OnClick", function()
+        EasyAuction_ShowCategoryManager(EA_CategoryMode)
+    end)
+    DBFrame.EA_CategoryManageBtn:Hide()
+end
+
+if not DBFrame.EA_ExportBtn then
+    DBFrame.EA_ExportBtn = CreateFrame("Button", nil, DBFrame, "UIPanelButtonTemplate")
+    DBFrame.EA_ExportBtn:SetSize(72, 22)
+    DBFrame.EA_ExportBtn:SetPoint("RIGHT", DBFrame.EA_CategoryManageBtn, "LEFT", -6, 0)
+    DBFrame.EA_ExportBtn:SetText("数据导出")
+    DBFrame.EA_ExportBtn:SetScript("OnClick", function()
+        EasyAuction_ShowExportSelector()
+    end)
+    DBFrame.EA_ExportBtn:Hide()
+end
+
+DBFrame:HookScript("OnShow", function()
+    if DBFrame.EA_CategoryManageBtn then DBFrame.EA_CategoryManageBtn:Show() end
+    if DBFrame.EA_ExportBtn then DBFrame.EA_ExportBtn:Show() end
+    EasyAuction_UpdateCategoryButtonHighlight()
+end)
+
+DBFrame:HookScript("OnHide", function()
+    if DBFrame.EA_CategoryManageBtn then DBFrame.EA_CategoryManageBtn:Hide() end
+    if DBFrame.EA_ExportBtn then DBFrame.EA_ExportBtn:Hide() end
+end)
+
+local function EA_AppendCategoryRow(list, categoryKey, name, itemID, titan)
+    local key = name .. ":" .. tostring(itemID)
+    local stats = EA_GetHistoryStats(key)
+    local min = stats.minUnit
+    local t = stats.latestTime
+    local minHistory = stats.historyMin
+    local snapshotCount = stats.snapshotCount or 0
+    local titanValue, titanValueRaw = nil, nil
+    local titanCount = (type(titan) == "number" and titan > 0) and titan or nil
+    if titanCount and min and min > 0 then
+        titanValueRaw = min / titanCount
+        titanValue = FormatGoldIcon(math.floor(titanValueRaw + 0.5))
+    end
+    local entry = {
+        idx = #list + 1,
+        name = name,
+        itemid = tonumber(itemID),
+        titan = titanCount,
+        min = tonumber(min) or nil,
+        t = tonumber(t) or nil,
+        key = key,
+        titanValue = titanValue,
+        titanValueRaw = titanValueRaw,
+        snapshot = snapshotCount,
+        history = minHistory,
+    }
+    if categoryKey == "矿石" then
+        entry.prospectValue = GetProspectValue and GetProspectValue(itemID)
+    elseif categoryKey == "草药" then
+        entry.millValue = GetMillValue and GetMillValue(itemID)
+    end
+    list[#list + 1] = entry
+end
+
 function EA_ShowCategory(cat, page, searchText)
     EA_CategoryMode = cat
 
     local list = {}
-    local today = date("%Y-%m-%d")
-    local snapshotCount = 0
-    local minHistory
-    local titanValue, titanValueRaw = nil, nil
     local headers = {}
     for i, h in ipairs(normalHeaders) do
         headers[i] = {}
@@ -2366,179 +3191,26 @@ function EA_ShowCategory(cat, page, searchText)
     end
 
     if cat == "全类" then
-        local mergeKeys = { "矿石", "草药", "附魔", "珠宝", "布皮", "元素" }
-        for _, key in ipairs(mergeKeys) do
-            for _, info in ipairs(ns.EA_CATEGORY_LIST[key] or {}) do
-                local name, itemid, titan = unpack(info)
-                local keystr = name .. ":" .. tostring(itemid)
-                local history = EasyAuctionDB.PriceHistory and EasyAuctionDB.PriceHistory[keystr]
-                local min, t
-                if history and #history > 0 then
-                    min, t = history[1].unit, history[1].t
-                    for _, v in ipairs(history) do
-                        if v.unit < min then min, t = v.unit, v.t end
-                    end
-                end
-                if titan and titan > 0 and min and min > 0 then
-                    titanValueRaw = min / titan
-                    local roundedValue = math.floor(titanValueRaw + 0.5)
-                    titanValue = FormatGoldIcon(roundedValue)
-                end
-                local dailyData = EasyAuctionDB.DailyMinPrice[keystr]
-                if dailyData then
-                    for _, record in ipairs(dailyData) do
-                        if record[1] == today then
-                            snapshotCount = record[6] or 0 -- record[4] 是 totalCount
-                            break
-                        end
-                    end
-                end
-                if snapshotCount == 0 and history then
-                    for _, v in ipairs(history) do
-                        snapshotCount = snapshotCount + (v.count or 1)
-                    end
-                end
-                if type(history) == "table" then
-                    minHistory = history.minUnit
-                    -- 兼容老数据
-                    if not minHistory then
-                        for _, v in ipairs(history) do
-                            if not minHistory or v.unit < minHistory then
-                                minHistory = v.unit
-                                EasyAuctionDB.PriceHistory[keystr].minUnit = minHistory
-                            end
-                        end
-                    end
-                end
-                table.insert(list, {
-                    idx = #list + 1,
-                    name = name,
-                    itemid = itemid,
-                    titan = (type(titan) == "number" and titan > 0) and titan or nil,
-                    min = tonumber(min) or nil,
-                    t = tonumber(t) or nil,
-                    key = keystr,
-                    titanValue = titanValue,
-                    titanValueRaw = titanValueRaw,
-                    snapshot = snapshotCount,
-                    history = minHistory,
-                })
-            end
-        end
-    elseif cat == "常用" then
-        for itemID, v in pairs(EasyAuctionDB.FavoriteItems or {}) do
-            local name = v.name or ""
-            local key = name .. ":" .. tostring(itemID)
-            local history = EasyAuctionDB.PriceHistory and EasyAuctionDB.PriceHistory[key]
-            local min, t
-            if history and #history > 0 then
-                min, t = history[1].unit, history[1].t
-                for _, info in ipairs(history) do
-                    if info.unit < min then min, t = info.unit, info.t end
-                end
-            end
-            local dailyData = EasyAuctionDB.DailyMinPrice[key]
-            if dailyData then
-                for _, record in ipairs(dailyData) do
-                    if record[1] == today then
-                        snapshotCount = record[6] or 0 -- record[4] 是 totalCount
-                        break
+        local merged = {}
+        for _, key in ipairs(EA_SCAN_CATEGORIES) do
+            if key ~= "常用" then
+                for _, info in ipairs(EA_GetCategoryEntries(key)) do
+                    local name, itemid, titan = unpack(info)
+                    local uniqueKey = tostring(name) .. ":" .. tostring(itemid)
+                    if not merged[uniqueKey] then
+                        merged[uniqueKey] = true
+                        EA_AppendCategoryRow(list, key, name, itemid, titan)
                     end
                 end
             end
-            if snapshotCount == 0 and history then
-                for _, v in ipairs(history) do
-                    snapshotCount = snapshotCount + (v.count or 1)
-                end
-            end
-            if type(history) == "table" then
-                minHistory = history.minUnit
-                -- 兼容老数据
-                if not minHistory then
-                    for _, v in ipairs(history) do
-                        if not minHistory or v.unit < minHistory then
-                            minHistory = v.unit
-                            EasyAuctionDB.PriceHistory[key].minUnit = minHistory
-                        end
-                    end
-                end
-            end
-            table.insert(list, {
-                idx = #list + 1,
-                name = name,
-                itemid = tonumber(itemID),
-                titan = nil,
-                min = tonumber(min) or nil,
-                t = tonumber(t) or nil,
-                key = key,
-                titanValue = nil,
-                titanValueRaw = nil,
-                snapshot = snapshotCount,
-                history = minHistory,
-            })
         end
     else
-        for _, info in ipairs(ns.EA_CATEGORY_LIST[cat] or {}) do
+        for _, info in ipairs(EA_GetCategoryEntries(cat)) do
             local name, itemid, titan = unpack(info)
-            local key = name .. ":" .. tostring(itemid)
-            local history = EasyAuctionDB.PriceHistory and EasyAuctionDB.PriceHistory[key]
-            local min, t
-            if history and #history > 0 then
-                min, t = history[1].unit, history[1].t
-                for _, v in ipairs(history) do
-                    if v.unit < min then min, t = v.unit, v.t end
-                end
+            if cat == "常用" then
+                titan = nil
             end
-            if titan and titan > 0 and min and min > 0 then
-                titanValueRaw = min / titan
-                local roundedValue = math.floor(titanValueRaw + 0.5)
-                titanValue = FormatGoldIcon(roundedValue)
-            end
-            local dailyData = EasyAuctionDB.DailyMinPrice[key]
-            if dailyData then
-                for _, record in ipairs(dailyData) do
-                    if record[1] == today then
-                        snapshotCount = record[6] or 0
-                        break
-                    end
-                end
-            end
-            if snapshotCount == 0 and history then
-                for _, v in ipairs(history) do
-                    snapshotCount = snapshotCount + (v.count or 1)
-                end
-            end
-            if type(history) == "table" then
-                minHistory = history.minUnit
-                -- 兼容老数据
-                if not minHistory then
-                    for _, v in ipairs(history) do
-                        if not minHistory or v.unit < minHistory then
-                            minHistory = v.unit
-                            EasyAuctionDB.PriceHistory[key].minUnit = minHistory
-                        end
-                    end
-                end
-            end
-            local entry = {
-                idx = #list + 1,
-                name = name,
-                itemid = itemid,
-                titan = (type(titan) == "number" and titan > 0) and titan or nil,
-                min = tonumber(min) or nil,
-                t = tonumber(t) or nil,
-                key = key,
-                titanValue = titanValue,
-                titanValueRaw = titanValueRaw,
-                snapshot = snapshotCount,
-                history = minHistory,
-            }
-            if cat == "矿石" then
-                entry.prospectValue = GetProspectValue and GetProspectValue(itemid)
-            elseif cat == "草药" then
-                entry.millValue = GetMillValue and GetMillValue(itemid)
-            end
-            table.insert(list, entry)
+            EA_AppendCategoryRow(list, cat, name, itemid, titan)
         end
     end
 
@@ -3067,23 +3739,66 @@ f:SetScript("OnEvent", function(self, event, addon)
     end
 end)
 
-local function EasyAuction_BackupAddonList()
-    if not EasyAuctionDB or EasyAuctionDB.AddonBackup then return end
-    EasyAuctionDB.AddonBackup = {}
+local function EA_AreManagedAddOnsDisabled()
+    local playerName = UnitName("player")
     for i = 1, C_AddOns.GetNumAddOns() do
-        local name, _, _, _ = C_AddOns.GetAddOnInfo(i)
-        if name and not name:find("^Blizzard_") then
-            EasyAuctionDB.AddonBackup[name] = (C_AddOns.GetAddOnEnableState(UnitName("player"), name) > 0)
+        local name = C_AddOns.GetAddOnInfo(i)
+        if EA_IsManagedAddon(name) and EA_IsAddonEnabled(name, playerName) then
+            return false
         end
     end
-    print("|cff00ff00[EasyAuction]|r 已保存当前插件启用状态。")
+    return true
+end
+
+local function EasyAuction_BackupAddonList()
+    if not EasyAuctionDB then return false end
+    if EasyAuctionDB.MinimalModeActive == nil and type(EasyAuctionDB.AddonBackup) == "table"
+        and next(EasyAuctionDB.AddonBackup) ~= nil then
+        EasyAuctionDB.MinimalModeActive = EA_AreManagedAddOnsDisabled()
+    end
+    if EasyAuctionDB.MinimalModeActive then return false end
+    local playerName = UnitName("player")
+    local backup = {}
+    for i = 1, C_AddOns.GetNumAddOns() do
+        local name, _, _, _ = C_AddOns.GetAddOnInfo(i)
+        if EA_IsManagedAddon(name) then
+            backup[name] = EA_IsAddonEnabled(name, playerName)
+        end
+    end
+    EasyAuctionDB.AddonBackup = backup
+    EasyAuctionDB.MinimalModeActive = false
+    return true
+end
+
+function EasyAuction_IsMinimalModeActive()
+    if not EasyAuctionDB then
+        return false
+    end
+    if EasyAuctionDB.MinimalModeActive ~= nil then
+        return EasyAuctionDB.MinimalModeActive == true
+    end
+    if type(EasyAuctionDB.AddonBackup) ~= "table" or next(EasyAuctionDB.AddonBackup) == nil then
+        return false
+    end
+    return EA_AreManagedAddOnsDisabled()
 end
 
 function EasyAuction_SetMinimalAddon()
+    if not EasyAuctionDB then
+        print("|cffff0000[EasyAuction]|r 插件数据未初始化，无法切换极简模式。")
+        return
+    end
+    local disableAddOn = EA_GetAddonToggle("DisableAddOn")
+    if not disableAddOn then
+        print("|cffff0000[EasyAuction]|r 当前客户端不支持禁用插件接口。")
+        return
+    end
+    EasyAuction_BackupAddonList()
+    EasyAuctionDB.MinimalModeActive = true
     for i = 1, C_AddOns.GetNumAddOns() do
         local name = C_AddOns.GetAddOnInfo(i)
-        if name and name ~= "EasyAuction" and not name:find("^Blizzard_") then
-            DisableAddOn(name)
+        if EA_IsManagedAddon(name) then
+            disableAddOn(name)
         end
     end
     print("|cff00ff00[EasyAuction]|r 极简模式已应用，仅保留EasyAuction")
@@ -3091,17 +3806,24 @@ function EasyAuction_SetMinimalAddon()
 end
 
 function EasyAuction_RestoreAddon()
-    if not EasyAuctionDB or not EasyAuctionDB.AddonBackup then
+    if not EasyAuctionDB or type(EasyAuctionDB.AddonBackup) ~= "table" then
         print("|cffff0000[EasyAuction]|r 没有可恢复的插件配置。")
+        return
+    end
+    local enableAddOn = EA_GetAddonToggle("EnableAddOn")
+    local disableAddOn = EA_GetAddonToggle("DisableAddOn")
+    if not enableAddOn or not disableAddOn then
+        print("|cffff0000[EasyAuction]|r 当前客户端不支持插件恢复接口。")
         return
     end
     for name, state in pairs(EasyAuctionDB.AddonBackup) do
         if state then
-            EnableAddOn(name)
+            enableAddOn(name)
         else
-            DisableAddOn(name)
+            disableAddOn(name)
         end
     end
+    EasyAuctionDB.MinimalModeActive = false
     print("|cff00ff00[EasyAuction]|r 插件配置已恢复。")
     ReloadUI()
 end
@@ -3170,11 +3892,13 @@ minimapLDBInitFrame:SetScript("OnEvent", function(self, event, addon)
                 LDBIcon:Register("EasyAuction", dataobj, DB.minimap)
             end
             print("|cff00ff00[EasyAuction]|r 拍卖行增强插件已加载，输入 |cff00ff00/epah|r 打开插件。")
-            EasyAuction_BackupAddonList()
             CheckShowUpdateNotes()
             BuildItemIDIndex()
             self:UnregisterEvent("ADDON_LOADED")
         end
+    elseif event == "PLAYER_LOGIN" then
+        EasyAuction_BackupAddonList()
+        self:UnregisterEvent("PLAYER_LOGIN")
     end
 end)
 
@@ -3614,9 +4338,280 @@ local function ShowEasyAuctionScanFinishFrame()
     EasyAuctionScanFinishFrame = f
 end
 
+local function EA_AccumulateScanBucket(bucket, unit, count, ts)
+    if not bucket or not unit or unit <= 0 or not count or count <= 0 then
+        return
+    end
+    local unitKey = tostring(unit)
+    bucket.byUnit = bucket.byUnit or {}
+    if bucket.byUnit[unitKey] then
+        bucket.byUnit[unitKey].count = (bucket.byUnit[unitKey].count or 0) + count
+        if ts and ts > (bucket.byUnit[unitKey].t or 0) then
+            bucket.byUnit[unitKey].t = ts
+        end
+    else
+        bucket.byUnit[unitKey] = { unit = unit, count = count, t = ts or time() }
+    end
+    bucket.totalCount = (bucket.totalCount or 0) + count
+    if not bucket.minUnit or unit < bucket.minUnit then
+        bucket.minUnit = unit
+        bucket.minCount = count
+    elseif unit == bucket.minUnit then
+        bucket.minCount = (bucket.minCount or 0) + count
+    end
+    if not bucket.maxUnit or unit > bucket.maxUnit then
+        bucket.maxUnit = unit
+        bucket.maxCount = count
+    elseif unit == bucket.maxUnit then
+        bucket.maxCount = (bucket.maxCount or 0) + count
+    end
+end
+
+function EasyAuction_ScanCategory(cat)
+    local QUERY_RETRY_DELAY = 0.08
+    local NEXT_QUERY_DELAY = 0.05
+    local QUERY_TIMEOUT = 1.8
+
+    if IsScanningAll or IsScanningCategory then
+        print("|cff00ff00[EasyAuction]|r 正在扫描中，请稍候...")
+        return
+    end
+    if not cat or cat == "全类" then
+        print("|cffff0000[EasyAuction]|r 请选择一个具体分类。")
+        return
+    end
+
+    local canQuery = select(1, CanSendAuctionQuery())
+    if not canQuery then
+        print("|cffff0000[EasyAuction]|r 当前拍卖行搜索不可用，请稍后再试。")
+        return
+    end
+
+    local queue, dedupe = {}, {}
+    for _, info in ipairs(EA_GetCategoryEntries(cat)) do
+        local name = EA_TrimText(info[1])
+        local itemID = tonumber(info[2])
+        if name ~= "" and itemID and itemID > 0 and not dedupe[itemID] then
+            dedupe[itemID] = true
+            queue[#queue + 1] = { name = name, itemID = itemID }
+        end
+    end
+
+    if #queue == 0 then
+        print(string.format("|cffff0000[EasyAuction]|r [%s] 分类没有可扫描的物品。", cat))
+        return
+    end
+
+    CleanupOldData()
+    IsScanningCategory = true
+    UpdateScanBtnState()
+    UpdateAuctionQueryStatusText()
+    EasyAuction_ShowScanProgress()
+    EasyAuction_UpdateScanProgress(0, #queue, 0)
+
+    local scanFrame = _G.EasyAuctionCategoryScanFrame or CreateFrame("Frame", "EasyAuctionCategoryScanFrame")
+    local scanStartTime = GetTime()
+    local queueIndex = 0
+    local newCount, updateCount = 0, 0
+    local currentItem = nil
+    local currentPage = 0
+    local currentBucket = nil
+    local currentToken = 0
+    local currentRequestID = 0
+    local dispatchCurrentQuery
+
+    local function finishScan(message)
+        scanFrame:UnregisterAllEvents()
+        IsScanningCategory = false
+        UpdateScanBtnState()
+        UpdateAuctionQueryStatusText()
+        if message then
+            EasyAuction_HideScanProgress()
+            print(message)
+            return
+        end
+        EasyAuction_ShowScanResult(newCount, updateCount, #queue, GetTime() - scanStartTime)
+        EA_RefreshCategoryViewsAfterEdit(cat)
+    end
+
+    local function finishCurrentItem()
+        if not IsScanningCategory or not currentItem then
+            return
+        end
+        local key = currentItem.name .. ":" .. tostring(currentItem.itemID)
+        local storedAt = time()
+        if currentBucket and next(currentBucket.byUnit or {}) then
+            local itemNew, itemUpdate = EA_SaveAggregatedBuckets({ [key] = currentBucket }, storedAt)
+            newCount = newCount + itemNew
+            updateCount = updateCount + itemUpdate
+        elseif EasyAuctionDB.PriceHistory and EasyAuctionDB.PriceHistory[key] then
+            EasyAuctionDB.PriceHistory[key].lastScanT = storedAt
+        end
+        currentItem = nil
+        currentBucket = nil
+        currentPage = 0
+        EasyAuction_UpdateScanProgress(queueIndex, #queue, GetTime() - scanStartTime)
+        if queueIndex >= #queue then
+            finishScan(nil)
+        else
+            C_Timer.After(NEXT_QUERY_DELAY, function()
+                if IsScanningCategory then
+                    currentToken = currentToken + 1
+                    queueIndex = queueIndex + 1
+                    currentItem = queue[queueIndex]
+                    currentBucket = { byUnit = {}, totalCount = 0 }
+                    currentPage = 0
+                    dispatchCurrentQuery()
+                end
+            end)
+        end
+    end
+
+    dispatchCurrentQuery = function()
+        local token = currentToken
+        local function tryQuery()
+            if not IsScanningCategory or token ~= currentToken or not currentItem then
+                return
+            end
+            local searchReady = select(1, CanSendAuctionQuery())
+            if searchReady then
+                currentRequestID = currentRequestID + 1
+                local requestID = currentRequestID
+                scanFrame:RegisterEvent("AUCTION_ITEM_LIST_UPDATE")
+                -- Classic AH uses the legacy signature:
+                -- QueryAuctionItems(name, minLevel, maxLevel, page, isUsable, quality, getAll, exactMatch, filters)
+                QueryAuctionItems(currentItem.name, nil, nil, currentPage, nil, nil, false, true, nil)
+                C_Timer.After(QUERY_TIMEOUT, function()
+                    if IsScanningCategory and token == currentToken and requestID == currentRequestID and currentItem then
+                        scanFrame:UnregisterEvent("AUCTION_ITEM_LIST_UPDATE")
+                        finishCurrentItem()
+                    end
+                end)
+            else
+                C_Timer.After(QUERY_RETRY_DELAY, tryQuery)
+            end
+        end
+        tryQuery()
+    end
+
+    scanFrame:SetScript("OnEvent", function(self, event)
+        if not IsScanningCategory or not currentItem then
+            self:UnregisterAllEvents()
+            return
+        end
+        self:UnregisterEvent("AUCTION_ITEM_LIST_UPDATE")
+        local n = GetNumAuctionItems("list")
+        local nowTs = time()
+        for i = 1, n do
+            local _, _, count, _, _, _, _, _, _, buyout, _, _, _, _, _, _, itemID = GetAuctionItemInfo("list", i)
+            local link = GetAuctionItemLink("list", i)
+            local linkID = tonumber(link and link:match("item:(%d+)")) or tonumber(itemID)
+            if linkID == currentItem.itemID and buyout and buyout > 0 and count and count > 0 then
+                local unit = math.floor((buyout / count) + 0.5)
+                EA_AccumulateScanBucket(currentBucket, unit, count, nowTs)
+            end
+        end
+
+        if n >= 50 then
+            currentPage = currentPage + 1
+            C_Timer.After(NEXT_QUERY_DELAY, dispatchCurrentQuery)
+        else
+            finishCurrentItem()
+        end
+    end)
+
+    queueIndex = 1
+    currentToken = currentToken + 1
+    currentItem = queue[queueIndex]
+    currentBucket = { byUnit = {}, totalCount = 0 }
+    currentPage = 0
+    dispatchCurrentQuery()
+end
+
+function EasyAuction_ShowScanModeSelector()
+    if not EasyAuctionScanModeSelectorFrame then
+        local f = CreateFrame("Frame", "EasyAuctionScanModeSelectorFrame", UIParent, "BackdropTemplate")
+        f:SetSize(320, 260)
+        f:SetPoint("CENTER")
+        f:SetFrameStrata("FULLSCREEN_DIALOG")
+        f:SetMovable(true)
+        f:EnableMouse(true)
+        f:RegisterForDrag("LeftButton")
+        f:SetScript("OnDragStart", f.StartMoving)
+        f:SetScript("OnDragStop", f.StopMovingOrSizing)
+        f:SetBackdrop({
+            bgFile = "Interface\\ChatFrame\\ChatFrameBackground",
+            edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
+            tile = true,
+            tileSize = 32,
+            edgeSize = 18,
+            insets = { left = 6, right = 6, top = 6, bottom = 6 }
+        })
+        f:SetBackdropColor(0.10, 0.10, 0.13, 0.97)
+        f:SetBackdropBorderColor(0.7, 0.6, 1, 1)
+        tinsert(UISpecialFrames, "EasyAuctionScanModeSelectorFrame")
+
+        local title = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+        title:SetPoint("TOP", 0, -18)
+        title:SetText("选择扫描方式")
+
+        local desc = f:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+        desc:SetPoint("TOPLEFT", 20, -46)
+        desc:SetPoint("RIGHT", -20, 0)
+        desc:SetJustifyH("LEFT")
+        desc:SetText("全量扫描会抓取整个拍卖行\n分类扫描只抓取指定分类中的物品\n温馨提示：分类不一定比全量快")
+
+        local fullBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+        fullBtn:SetSize(90, 22)
+        fullBtn:SetPoint("TOP", 0, -95)
+        fullBtn:SetText("全量扫描")
+        fullBtn:SetScript("OnClick", function()
+            f:Hide()
+            StaticPopup_Show("EASYAUCTION_SCANALL_CONFIRM")
+        end)
+        f.fullBtn = fullBtn
+
+        f.categoryBtns = {}
+        for index, cat in ipairs(EA_SCAN_CATEGORIES) do
+            local btn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+            btn:SetSize(58, 22)
+            local row = math.floor((index - 1) / 4)
+            local col = (index - 1) % 4
+            btn:SetPoint("TOPLEFT", f, "TOPLEFT", 24 + col * 72, -124 - row * 28)
+            btn:SetText(cat)
+            btn:SetScript("OnClick", function()
+                f:Hide()
+                EasyAuction_ScanCategory(cat)
+            end)
+            f.categoryBtns[#f.categoryBtns + 1] = btn
+        end
+
+        local closeBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+        closeBtn:SetSize(72, 24)
+        closeBtn:SetPoint("BOTTOM", 0, 14)
+        closeBtn:SetText("关闭")
+        closeBtn:SetScript("OnClick", function()
+            f:Hide()
+        end)
+
+        f:SetScript("OnShow", function(self)
+            local canQuery, canQueryAll = CanSendAuctionQuery()
+            local busy = IsScanningAll or IsScanningCategory
+            self.fullBtn:SetEnabled((not busy) and canQueryAll)
+            for _, btn in ipairs(self.categoryBtns or {}) do
+                btn:SetEnabled((not busy) and canQuery)
+            end
+        end)
+
+        EasyAuctionScanModeSelectorFrame = f
+    end
+
+    EasyAuctionScanModeSelectorFrame:Show()
+end
+
 function EasyAuction_ScanAllAuctionItems()
     EasyAuctionDB.debugPrint = false
-    if IsScanningAll then
+    if IsScanningAll or IsScanningCategory then
         print("|cff00ff00[EasyAuction]|r 正在扫描中，请稍候...")
         return
     end
@@ -3830,6 +4825,7 @@ function EasyAuction_ScanAllAuctionItems()
                                     EasyAuctionDB.PriceHistory[key][i] = v
                                 end
                                 EasyAuctionDB.PriceHistory[key].minUnit = minUnit or 0
+                                EasyAuctionDB.PriceHistory[key].lastScanT = time()
                                 EA_UpdateItemIDIndexForKey(key, EasyAuctionDB.PriceHistory[key].minUnit)
                                 savedCount = savedCount + 1
                                 --print(string.format("|cff00ff00[EasyAuction]|r 已保存: key=%s, items=%d, minUnit=%s", key, #items, tostring(minUnit)))
@@ -4365,7 +5361,7 @@ f:SetScript("OnEvent", function(_, event)
 end)
 
 hooksecurefunc("FauxScrollFrame_Update", function(frame)
-    if IsScanningAll then return end
+    if IsScanningAll or IsScanningCategory then return end
     if frame == _G["BrowseScrollFrame"] then
         EasyAuction_EnsureFlashBuyButtons()
         EasyAuction_RefreshFlashBuyButtons()

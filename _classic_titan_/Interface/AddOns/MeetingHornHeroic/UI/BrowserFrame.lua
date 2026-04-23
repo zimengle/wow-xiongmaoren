@@ -270,6 +270,60 @@ function BrowserFrame:CreateFilterArea()
     dpsLabel:SetText("缺输出")
     dpsLabel:SetTextColor(1, 0.8, 0.8)
 
+    -- 团双筛选 + 职业补助筛选（缺输出右侧同一行）
+    local teamBonusFilter = CreateFrame("CheckButton", nil, filterFrame, "UICheckButtonTemplate")
+    teamBonusFilter:SetPoint("LEFT", dpsLabel, "RIGHT", 20, 0)
+    teamBonusFilter:SetSize(16, 16)
+    teamBonusFilter:SetChecked(ns.Addon.db.profile.filters.teamBonusFilter or false)
+    teamBonusFilter:SetScript("OnClick", function(cb)
+        ns.Addon.db.profile.filters.teamBonusFilter = cb:GetChecked()
+        self:RefreshActivityList()
+    end)
+    teamBonusFilter:SetScript("OnEnter", function()
+        GameTooltip:SetOwner(teamBonusFilter, "ANCHOR_TOP")
+        GameTooltip:SetText("仅显示团双副本", 1, 1, 1)
+        GameTooltip:Show()
+    end)
+    teamBonusFilter:SetScript("OnLeave", function()
+        GameTooltip:Hide()
+    end)
+
+    local teamBonusLabel = filterFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+    teamBonusLabel:SetPoint("LEFT", teamBonusFilter, "RIGHT", 2, 0)
+    teamBonusLabel:SetText("|cffFFD700团双|r")
+
+    -- 个性化补助筛选：读取玩家天赋+职业
+    local specLabel, specColor = ns.GetPlayerSpecLabel()
+    local colorHex = specColor and string.format("%02x%02x%02x", specColor.r * 255, specColor.g * 255, specColor.b * 255) or "ffffff"
+
+    local subsidyFilterLabel = filterFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+    subsidyFilterLabel:SetPoint("LEFT", teamBonusLabel, "RIGHT", 20, 0)
+    subsidyFilterLabel:SetText("|cff" .. colorHex .. specLabel .. "|r补助≥")
+
+    local subsidyFilterBox = CreateFrame("EditBox", nil, filterFrame, "InputBoxTemplate")
+    subsidyFilterBox:SetSize(40, 18)
+    subsidyFilterBox:SetPoint("LEFT", subsidyFilterLabel, "RIGHT", 4, 0)
+    subsidyFilterBox:SetAutoFocus(false)
+    subsidyFilterBox:SetNumeric(true)
+    subsidyFilterBox:SetMaxLetters(5)
+    local savedAmount = ns.Addon.db.profile.filters.minSubsidyAmount or 0
+    if savedAmount > 0 then
+        subsidyFilterBox:SetText(tostring(savedAmount))
+    end
+    subsidyFilterBox:SetScript("OnEnterPressed", function(eb)
+        eb:ClearFocus()
+    end)
+    subsidyFilterBox:SetScript("OnTextChanged", function(eb)
+        local val = tonumber(eb:GetText()) or 0
+        ns.Addon.db.profile.filters.minSubsidyAmount = val
+        self:RefreshActivityList()
+    end)
+
+    local subsidyUnitLabel = filterFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+    subsidyUnitLabel:SetPoint("LEFT", subsidyFilterBox, "RIGHT", 2, 0)
+    subsidyUnitLabel:SetText("万")
+    subsidyUnitLabel:SetTextColor(0.8, 0.8, 0.8)
+
     self.searchBox = searchBox
     self.raidDropdown = raidDropdown
     self.modeDropdown = modeDropdown
@@ -277,6 +331,8 @@ function BrowserFrame:CreateFilterArea()
     self.needTankFilter = needTankFilter
     self.needHealerFilter = needHealerFilter
     self.needDpsFilter = needDpsFilter
+    self.teamBonusFilter = teamBonusFilter
+    self.subsidyFilterBox = subsidyFilterBox
     self.filterFrame = filterFrame
 end
 
@@ -367,8 +423,28 @@ function BrowserFrame:CreateRefreshArea()
         ns.Addon:Print("已刷新活动列表")
     end)
 
+    -- 自动刷新勾选框
+    local autoRefreshCheck = CreateFrame("CheckButton", nil, refreshFrame, "UICheckButtonTemplate")
+    autoRefreshCheck:SetSize(16, 16)
+    autoRefreshCheck:SetPoint("LEFT", refreshButton, "RIGHT", 15, 0)
+    autoRefreshCheck:SetChecked(ns.Addon.db.profile.filters.autoRefresh ~= false)
+    autoRefreshCheck:SetScript("OnClick", function(cb)
+        local checked = cb:GetChecked()
+        ns.Addon.db.profile.filters.autoRefresh = checked
+        if checked then
+            -- 重新勾选时立即补刷一次
+            self:ScheduleRefresh()
+        end
+    end)
+
+    local autoRefreshLabel = refreshFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+    autoRefreshLabel:SetPoint("LEFT", autoRefreshCheck, "RIGHT", 2, 0)
+    autoRefreshLabel:SetText("自动刷新")
+    autoRefreshLabel:SetTextColor(0.8, 0.8, 0.8)
+
     self.refreshButton = refreshButton
     self.refreshFrame = refreshFrame
+    self.autoRefreshCheck = autoRefreshCheck
 end
 
 function BrowserFrame:CreateActivityRow(index)
@@ -638,6 +714,33 @@ function BrowserFrame:FilterActivities(activities)
             end
         end
 
+        -- 团双副本筛选
+        if match and self.teamBonusFilter and self.teamBonusFilter:GetChecked() then
+            if not activity.teamBonus then
+                match = false
+            end
+        end
+
+        -- 职业补助筛选（按玩家自身职业）
+        if match then
+            local minAmount = ns.Addon.db.profile.filters.minSubsidyAmount or 0
+            if minAmount > 0 and activity.subsidyList then
+                local _, playerClassFile = UnitClass("player")
+                local found = false
+                for _, entry in ipairs(activity.subsidyList) do
+                    -- 通过 specId 查找对应的职业，匹配玩家职业
+                    local spec = ns.SPEC_DATA_MAP and ns.SPEC_DATA_MAP[entry.specId]
+                    if spec and spec.class == playerClassFile and entry.amount >= minAmount then
+                        found = true
+                        break
+                    end
+                end
+                if not found then
+                    match = false
+                end
+            end
+        end
+
         -- 关键字过滤（任务 2.1）
         if match then
             local comment = activity.comment or ""
@@ -751,7 +854,15 @@ function BrowserFrame:UpdateActivityButton(button, activity)
         button.modeText:SetText("未知")
         button.modeText:SetTextColor(0.5, 0.5, 0.5, 1)
     else
-        button.modeText:SetText(modeData and modeData.name or "25人模式")
+        -- 模式名 + 团双/补助短标签
+        local modeStr = modeData and modeData.name or "25人模式"
+        if activity.teamBonus then
+            modeStr = modeStr .. " |cffFFD700[双]|r"
+        end
+        if activity.subsidyList and #activity.subsidyList > 0 then
+            modeStr = modeStr .. " |cff00FF00[补]|r"
+        end
+        button.modeText:SetText(modeStr)
         button.modeText:SetTextColor(1, 1, 1, 1)
     end
 
@@ -849,9 +960,12 @@ function BrowserFrame:UpdateActivityButton(button, activity)
     local isPlayerActivity = (activity.leaderName == playerName)
     local isPlayerInActivity = activity.members and activity.members[playerName] ~= nil
 
-    -- 设置认证星标图标
+    -- 设置认证星标图标（优先使用预计算值，避免冗余 DB 查表）
     local leaderFullName = leaderName
-            local currentLevel = ns.MeetingHornAPI:GetPlayerRegimentLevel(leaderFullName)
+    local currentLevel = activity._sortStarLevel
+    if currentLevel == nil then
+        currentLevel = ns.MeetingHornAPI:GetPlayerRegimentLevel(leaderFullName)
+    end
 
     -- 如果有认证等级，显示星标图标
     if currentLevel and currentLevel > 0 then
@@ -1090,9 +1204,12 @@ function BrowserFrame:ShowActivityTooltip(button)
     local leaderName = string.match(fullLeaderName, "([^%-]+)") or fullLeaderName
     local leaderClassFileName = activity:GetLeaderClass()
 
-    -- 检查认证等级
+    -- 检查认证等级（优先使用预计算值）
     local leaderFullName = leaderName
-    local currentLevel = ns.MeetingHornAPI:GetPlayerRegimentLevel(leaderFullName)
+    local currentLevel = activity._sortStarLevel
+    if currentLevel == nil then
+        currentLevel = ns.MeetingHornAPI:GetPlayerRegimentLevel(leaderFullName)
+    end
 
     -- 构建显示文本（包含认证图标）
     local displayLeaderName = leaderName
@@ -1143,6 +1260,28 @@ function BrowserFrame:ShowActivityTooltip(button)
         GameTooltip:AddLine(" ", 1, 1, 1)
         GameTooltip:AddLine("备注:", 0.7, 0.7, 0.7)
         GameTooltip:AddLine(activity.comment, 1, 1, 1, 1)
+    end
+
+    -- 团双 + 专精补助（紧跟备注后面）
+    if activity.teamBonus or (activity.subsidyList and #activity.subsidyList > 0) then
+        GameTooltip:AddLine(" ", 1, 1, 1)
+        if activity.teamBonus then
+            GameTooltip:AddLine("|cffFFD700团双副本|r", 1, 0.84, 0)
+        end
+        if activity.subsidyList and #activity.subsidyList > 0 then
+            GameTooltip:AddLine("专精补助:", 0.7, 0.7, 0.7)
+            for _, entry in ipairs(activity.subsidyList) do
+                local spec = ns.SPEC_DATA_MAP and ns.SPEC_DATA_MAP[entry.specId]
+                local specName = spec and (spec.name .. (ns.CLASS_SHORT_NAME[spec.class] or "")) or tostring(entry.specId)
+                local classColor = spec and RAID_CLASS_COLORS[spec.class]
+                local r, g, b = 1, 1, 1
+                if classColor then
+                    r, g, b = classColor.r, classColor.g, classColor.b
+                end
+                local amountText = ns.FormatGoldAmount(entry.amount)
+                GameTooltip:AddDoubleLine("  " .. specName, amountText, r, g, b, 1, 1, 1)
+            end
+        end
     end
 
     -- 职业需求统计（仅 MeetingHornHeroic 创建的活动才有职业需求）
@@ -1366,68 +1505,93 @@ function BrowserFrame:ShowContextMenu(button)
 end
 
 function BrowserFrame:OnActivityUpdate(eventType, data)
-    -- 智能刷新 - 使用节流机制避免频繁刷新导致卡顿
+    -- 智能刷新 - 只对影响活动列表的事件触发刷新
+    -- CHAT_RECORD_ADDED / CHAT_RECORD_UPDATED / MEMBER_INFO_RECEIVED / APPLICANT_* / WHISPER_APPLICANT
+    -- 等事件不影响活动列表内容，无需触发 RefreshActivityList
 
     -- 记录需要刷新的原因（用于调试）
     self.pendingRefreshReasons = self.pendingRefreshReasons or {}
 
+    local needsRefresh = false
+
     if eventType == "ACTIVITY_CREATED" then
         self.pendingRefreshReasons["created"] = true
+        needsRefresh = true
         if data and data.leaderName then
             ns.Addon:Print(string.format("新活动已创建：%s", data.leaderName))
         end
     elseif eventType == "ACTIVITY_UPDATED" then
         self.pendingRefreshReasons["updated"] = true
+        needsRefresh = true
     elseif eventType == "ACTIVITY_CLOSED" then
         self.pendingRefreshReasons["closed"] = true
+        needsRefresh = true
         if data and data.leaderName then
             ns.Addon:Print(string.format("活动已关闭：%s", data.leaderName))
         end
     elseif eventType == "EXTERNAL_ACTIVITY_RECEIVED" then
         self.pendingRefreshReasons["external"] = true
+        needsRefresh = true
         -- 外部活动接收是最频繁的，不打印消息避免刷屏
     elseif eventType == "MEMBER_JOINED" then
         self.pendingRefreshReasons["member_joined"] = true
+        needsRefresh = true
     elseif eventType == "MEMBER_LEFT" then
         self.pendingRefreshReasons["member_left"] = true
+        needsRefresh = true
     elseif eventType == "ACTIVITY_EXPIRED" then
         self.pendingRefreshReasons["expired"] = true
+        needsRefresh = true
         if data and data.leaderName then
             ns.Addon:Print(string.format("活动已过期：%s", data.leaderName))
         end
     elseif eventType == "ACTIVITIES_CLEANED" then
         self.pendingRefreshReasons["cleaned"] = true
+        needsRefresh = true
         if data and type(data) == "number" and data > 0 then
             ns.Addon:Print(string.format("已清理%d个过期活动", data))
         end
     elseif eventType == "ACTIVITY_SYNCED" then
         self.pendingRefreshReasons["synced"] = true
+        needsRefresh = true
         -- 活动与队伍同步后需要更新列表
     elseif eventType == "ACTIVITY_LIST_UPDATED" then
         self.pendingRefreshReasons["manual"] = true
+        needsRefresh = true
     end
+    -- 其他事件（CHAT_RECORD_ADDED, CHAT_RECORD_UPDATED, MEMBER_INFO_RECEIVED,
+    -- APPLICANT_ADDED, APPLICANT_UPDATED, WHISPER_APPLICANT, TEAM_CHAT_ADDED 等）
+    -- 不触发活动列表刷新
 
-    -- 使用节流刷新
-    self:ScheduleRefresh()
+    -- 使用节流刷新（仅在需要时）
+    if needsRefresh then
+        self:ScheduleRefresh()
+    end
 end
 
 -- 节流刷新机制 - 避免频繁刷新导致游戏卡顿
+-- 采用 throttle 模式：保证至少 500ms 间隔执行一次，期间所有事件合并
 function BrowserFrame:ScheduleRefresh()
+    -- 自动刷新门控：关闭时不触发定时刷新（ForceRefresh 不走此函数）
+    if ns.Addon.db and ns.Addon.db.profile.filters.autoRefresh == false then
+        return
+    end
+
     -- 如果界面没有显示，标记需要刷新，等可见时补刷
     if not self:IsVisible() then
         self._needsRefreshOnShow = true
         return
     end
 
-    -- 如果已经有待处理的刷新，取消它
+    -- throttle：如果已经有待执行的 timer，不取消不重建，等它自然触发即可
     if self.refreshTimer then
-        self.refreshTimer:Cancel()
+        return
     end
 
-    -- 设置延迟刷新，200ms内的多次更新会被合并（从500ms缩短到200ms）
-    self.refreshTimer = C_Timer.NewTimer(0.2, function()
-        self:DoRefresh()
+    -- 首次请求：延迟 500ms 后刷新，期间所有后续请求被忽略
+    self.refreshTimer = C_Timer.NewTimer(0.5, function()
         self.refreshTimer = nil
+        self:DoRefresh()
     end)
 end
 

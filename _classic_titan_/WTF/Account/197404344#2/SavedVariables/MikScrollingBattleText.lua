@@ -40,16 +40,16 @@ MSBTProfiles_SavedVars = {
 ["fontSize"] = false,
 },
 ["MSBT_TRIGGER_LOW_MANA"] = {
-["fontSize"] = false,
 ["soundFile"] = "",
+["fontSize"] = false,
 },
 ["MSBT_TRIGGER_EXECUTE"] = false,
 },
-["abbreviateAbilities"] = true,
+["enableBlizzardDamage"] = true,
 ["hotThrottleDuration"] = 2,
 ["critOutlineIndex"] = 2,
 ["animationSpeed"] = 120,
-["critFontName"] = "默认",
+["normalOutlineIndex"] = 2,
 ["dotThrottleDuration"] = 2,
 ["creationVersion"] = "5.7.138",
 ["critFontSize"] = 28,
@@ -58,11 +58,11 @@ MSBTProfiles_SavedVars = {
 ["stickyDirection"] = "Down",
 ["direction"] = "Up",
 ["offsetX"] = -477,
-["scrollHeight"] = 85,
 ["behavior"] = "MSBT_NORMAL",
+["iconAlign"] = "Right",
 ["offsetY"] = -382,
 ["animationStyle"] = "Static",
-["iconAlign"] = "Right",
+["scrollHeight"] = 85,
 },
 ["Custom2"] = {
 ["stickyTextAlignIndex"] = 3,
@@ -73,29 +73,25 @@ MSBTProfiles_SavedVars = {
 ["scrollHeight"] = 110,
 ["name"] = "有效治疗",
 ["offsetX"] = -236,
-["normalFontName"] = "伤害数字",
 ["offsetY"] = 274,
+["normalFontName"] = "伤害数字",
 ["textAlignIndex"] = 3,
 ["normalFontSize"] = 22,
 },
-["Outgoing"] = {
-["direction"] = "Up",
-["disabled"] = true,
-["normalOutlineIndex"] = 1,
-["behavior"] = "MSBT_NORMAL",
-["scrollHeight"] = 110,
-["offsetX"] = -227,
-["iconAlign"] = "Left",
-["textAlignIndex"] = 3,
+["Notification"] = {
 ["stickyTextAlignIndex"] = 3,
-["critFontName"] = "伤害数字",
-["critOutlineIndex"] = 1,
-["critFontSize"] = 40,
-["stickyDirection"] = "Down",
-["offsetY"] = 179,
-["normalFontName"] = "伤害数字",
-["animationStyle"] = "Straight",
-["normalFontSize"] = 27,
+["normalFontSize"] = 16,
+["animationStyle"] = "Static",
+["direction"] = "Up",
+["critFontSize"] = 18,
+["stickyDirection"] = "Up",
+["scrollWidth"] = 38.6435012817383,
+["offsetX"] = -459,
+["scrollHeight"] = 65,
+["iconAlign"] = "Right",
+["offsetY"] = -208,
+["textAlignIndex"] = 3,
+["stickyAnimationStyle"] = "Static",
 },
 ["Static"] = {
 ["stickyDirection"] = "Down",
@@ -114,20 +110,24 @@ MSBTProfiles_SavedVars = {
 ["animationStyle"] = "Static",
 ["stickyAnimationStyle"] = "Static",
 },
-["Notification"] = {
-["stickyTextAlignIndex"] = 3,
-["stickyAnimationStyle"] = "Static",
-["textAlignIndex"] = 3,
+["Outgoing"] = {
 ["direction"] = "Up",
-["stickyDirection"] = "Up",
-["critFontSize"] = 18,
-["scrollWidth"] = 38.6435012817383,
-["offsetX"] = -459,
-["scrollHeight"] = 65,
-["iconAlign"] = "Right",
-["offsetY"] = -208,
-["animationStyle"] = "Static",
-["normalFontSize"] = 16,
+["disabled"] = true,
+["normalOutlineIndex"] = 1,
+["behavior"] = "MSBT_NORMAL",
+["scrollHeight"] = 110,
+["offsetX"] = -227,
+["iconAlign"] = "Left",
+["textAlignIndex"] = 3,
+["stickyTextAlignIndex"] = 3,
+["critFontName"] = "伤害数字",
+["critOutlineIndex"] = 1,
+["critFontSize"] = 40,
+["stickyDirection"] = "Down",
+["normalFontName"] = "伤害数字",
+["offsetY"] = 179,
+["animationStyle"] = "Straight",
+["normalFontSize"] = 27,
 },
 },
 ["events"] = {
@@ -148,8 +148,8 @@ MSBTProfiles_SavedVars = {
 ["message"] = "%a (%s)*",
 },
 ["OUTGOING_HEAL_CRIT"] = {
-["scrollArea"] = "Custom2",
 ["fontSize"] = false,
+["scrollArea"] = "Custom2",
 },
 ["NOTIFICATION_ALT_POWER_GAIN"] = {
 ["disabled"] = true,
@@ -211,8 +211,8 @@ MSBTProfiles_SavedVars = {
 ["fontSize"] = false,
 },
 ["NOTIFICATION_EXPERIENCE_GAIN"] = {
-["fontSize"] = false,
 ["scrollArea"] = "Notification",
+["fontSize"] = false,
 },
 ["NOTIFICATION_MONSTER_EMOTE"] = {
 ["alwaysSticky"] = true,
@@ -222,9 +222,9 @@ MSBTProfiles_SavedVars = {
 ["message"] = "离开战斗",
 ["colorR"] = 0,
 ["scrollArea"] = "Custom1",
-["fontSize"] = 22,
-["fontAlpha"] = 100,
 ["colorB"] = 0.07058823529411765,
+["fontAlpha"] = 100,
+["fontSize"] = 22,
 },
 ["SELF_HEAL_CRIT"] = {
 ["fontSize"] = false,
@@ -286,7 +286,7 @@ MSBTProfiles_SavedVars = {
 ["NOTIFICATION_CURRENCY"] = {
 ["disabled"] = false,
 },
-["NOTIFICATION_ITEM_BUFF"] = {
+["NOTIFICATION_DEBUFF"] = {
 ["disabled"] = true,
 ["scrollArea"] = "Notification",
 },
@@ -300,12 +300,11 @@ MSBTProfiles_SavedVars = {
 ["disabled"] = true,
 ["scrollArea"] = "Incoming",
 },
-["NOTIFICATION_AC_CHANGE"] = {
-["disabled"] = true,
-["scrollArea"] = "Notification",
+["PET_OUTGOING_SPELL_EVADE"] = {
+["message"] = "闪避! (%s)*",
 },
-["PET_OUTGOING_SPELL_BLOCK"] = {
-["message"] = "格挡! (%s)*",
+["PET_OUTGOING_SPELL_RESIST"] = {
+["message"] = "抵抗! (%s)*",
 },
 ["PET_OUTGOING_SPELL_DOT"] = {
 ["message"] = "%a (%s)*",
@@ -319,31 +318,28 @@ MSBTProfiles_SavedVars = {
 ["fontSize"] = 22,
 ["colorG"] = 0,
 ["scrollArea"] = "Custom1",
-["colorB"] = 0.04705882352941176,
 ["fontAlpha"] = 100,
+["colorB"] = 0.04705882352941176,
 },
-["NOTIFICATION_PC_KILLING_BLOW"] = {
-["fontSize"] = false,
-["scrollArea"] = "Notification",
+["PET_OUTGOING_SPELL_PARRY"] = {
+["message"] = "招架! (%s)*",
 },
-["NOTIFICATION_BUFF_FADE"] = {
-["disabled"] = true,
-["scrollArea"] = "Notification",
+["PET_OUTGOING_SPELL_DODGE"] = {
+["message"] = "躲闪! (%s)*",
 },
 ["INCOMING_HEAL_CRIT"] = {
 ["fontSize"] = false,
 },
-["NOTIFICATION_SKILL_GAIN"] = {
-["disabled"] = true,
-["scrollArea"] = "Notification",
+["PET_OUTGOING_SPELL_MISS"] = {
+["message"] = "未命中! (%s)*",
 },
 ["NOTIFICATION_NPC_KILLING_BLOW"] = {
-["fontSize"] = false,
 ["scrollArea"] = "Notification",
+["fontSize"] = false,
 },
 ["NOTIFICATION_ITEM_COOLDOWN"] = {
-["soundFile"] = "",
 ["fontSize"] = false,
+["soundFile"] = "",
 },
 ["NOTIFICATION_CHI_CHANGE"] = {
 ["disabled"] = true,
@@ -353,12 +349,13 @@ MSBTProfiles_SavedVars = {
 ["disabled"] = true,
 ["scrollArea"] = "Notification",
 },
-["NOTIFICATION_BUFF_STACK"] = {
+["NOTIFICATION_COOLDOWN"] = {
+["soundFile"] = "",
 ["disabled"] = true,
-["scrollArea"] = "Notification",
+["fontSize"] = false,
 },
-["PET_OUTGOING_DODGE"] = {
-["message"] = "躲闪*",
+["PET_OUTGOING_EVADE"] = {
+["message"] = "闪避*",
 },
 ["NOTIFICATION_HOLY_POWER_FULL"] = {
 ["disabled"] = true,
@@ -367,57 +364,60 @@ MSBTProfiles_SavedVars = {
 ["OUTGOING_HOT"] = {
 ["scrollArea"] = "Custom2",
 },
-["NOTIFICATION_POWER_GAIN"] = {
-["scrollArea"] = "Notification",
+["PET_OUTGOING_DEFLECT"] = {
+["message"] = "偏转*",
 },
 ["NOTIFICATION_HOLY_POWER_CHANGE"] = {
 ["disabled"] = true,
 ["scrollArea"] = "Notification",
 },
-["PET_OUTGOING_DEFLECT"] = {
-["message"] = "偏转*",
+["NOTIFICATION_POWER_GAIN"] = {
+["scrollArea"] = "Notification",
 },
-["PET_OUTGOING_EVADE"] = {
-["message"] = "闪避*",
+["PET_OUTGOING_DODGE"] = {
+["message"] = "躲闪*",
 },
-["NOTIFICATION_COOLDOWN"] = {
-["soundFile"] = "",
+["NOTIFICATION_BUFF_STACK"] = {
 ["disabled"] = true,
-["fontSize"] = false,
+["scrollArea"] = "Notification",
 },
 ["NOTIFICATION_EXTRA_ATTACK"] = {
 ["fontSize"] = false,
 ["disabled"] = true,
 ["scrollArea"] = "Notification",
 },
-["PET_OUTGOING_SPELL_MISS"] = {
-["message"] = "未命中! (%s)*",
+["NOTIFICATION_SKILL_GAIN"] = {
+["disabled"] = true,
+["scrollArea"] = "Notification",
 },
-["PET_OUTGOING_SPELL_DODGE"] = {
-["message"] = "躲闪! (%s)*",
+["NOTIFICATION_BUFF_FADE"] = {
+["disabled"] = true,
+["scrollArea"] = "Notification",
 },
-["PET_OUTGOING_SPELL_PARRY"] = {
-["message"] = "招架! (%s)*",
+["NOTIFICATION_PC_KILLING_BLOW"] = {
+["scrollArea"] = "Notification",
+["fontSize"] = false,
 },
 ["PET_OUTGOING_ABSORB"] = {
 ["message"] = "<%a> 吸收*",
 },
-["PET_OUTGOING_SPELL_RESIST"] = {
-["message"] = "抵抗! (%s)*",
+["PET_OUTGOING_SPELL_BLOCK"] = {
+["message"] = "格挡! (%s)*",
 },
-["PET_OUTGOING_SPELL_EVADE"] = {
-["message"] = "闪避! (%s)*",
+["NOTIFICATION_AC_CHANGE"] = {
+["disabled"] = true,
+["scrollArea"] = "Notification",
 },
-["NOTIFICATION_DEBUFF"] = {
+["NOTIFICATION_ITEM_BUFF"] = {
 ["disabled"] = true,
 ["scrollArea"] = "Notification",
 },
 },
-["damageColoringDisabled"] = true,
 ["enableBlizzardHealing"] = false,
+["damageColoringDisabled"] = true,
 ["normalFontName"] = "默认",
-["normalOutlineIndex"] = 2,
-["enableBlizzardDamage"] = true,
+["critFontName"] = "默认",
+["abbreviateAbilities"] = true,
 },
 },
 }

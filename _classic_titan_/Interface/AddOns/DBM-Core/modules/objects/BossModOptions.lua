@@ -137,8 +137,8 @@ function bossModPrototype:AddPrivateAuraSoundOption(auraspellId, default, groupS
 		default = self:GetRoleFlagValue(default)
 	end
 	self.Options["PrivateAuraSound" .. optionId] = (default == nil) or default
-	--Temp hide UI options for private auras that are flagged not private until 12.0.5 because reasons.
 	if not C_UnitAuras.AuraIsPrivate(optionId) then
+		DBM:Debug("Attempting to add private aura sound failed because spell ID " .. optionId .. " is not a private aura. Check spell ID and try again for mod " .. self.id, 1)
 		return
 	end
 	--LuaLS is just stupid here. There is no rule that says self.Options.Variable has to be a bool. Entire SWSound variable scope is always a number
@@ -421,7 +421,7 @@ function bossModPrototype:AddSpeedClearOption(name, default)
 	self.Options["SpeedClearTimer"] = (default == nil) or default
 	if self.noHardcodedOptions then return end
 	self:SetOptionCategory("SpeedClearTimer", "timer")
-	self.localization.options["SpeedClearTimer"] = L.AUTO_SPEEDCLEAR_OPTION_TEXT:format(name)
+	self.localization.options["SpeedClearTimer"] = L.AUTO_SPEEDCLEAR_OPTION_TEXT
 end
 
 -- FIXME: this function does not reset any settings to default if you remove an option in a later revision and a user has selected this option in an earlier revision were it still was available

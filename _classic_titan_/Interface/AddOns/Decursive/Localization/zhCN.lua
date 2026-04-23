@@ -1,7 +1,7 @@
 --[[
     This file is part of Decursive.
 
-    Decursive (v 2.7.29) add-on for World of Warcraft UI
+    Decursive (v 2.7.17) add-on for World of Warcraft UI
     Copyright (C) 2006-2019 John Wellesz (Decursive AT 2072productions.com) ( http://www.2072productions.com/to/decursive.php )
 
     Decursive is free software: you can redistribute it and/or modify
@@ -77,7 +77,7 @@ T._LoadedFiles["zhCN.lua"] = false;
 local L = LibStub("AceLocale-3.0"):NewLocale("Decursive", "zhCN");
 
 if not L then
-    T._LoadedFiles["zhCN.lua"] = "2.7.29";
+    T._LoadedFiles["zhCN.lua"] = "2.7.17";
     return;
 end;
 
@@ -107,7 +107,6 @@ L["BINDING_NAME_DCRSKLIST"] = "显示忽略列表明细条目"
 L["BINDING_NAME_DCRSKSHOW"] = "显示/隐藏忽略列表"
 L["BLACK_LENGTH"] = "黑名单持续时间："
 L["BLACKLISTED"] = "黑名单"
-L["BLEED"] = "流血"
 L["CHARM"] = "魅惑"
 L["CLASS_HUNTER"] = "猎人"
 L["CLEAR_PRIO"] = "C"
@@ -204,8 +203,6 @@ L["OPT_ABOLISHCHECK_DESC"] = "设置是否显示和净化带有“驱毒术”�
 L["OPT_ABOUT"] = "关于"
 L["OPT_ADD_A_CUSTOM_SPELL"] = "添加一个自定义法术/物品"
 L["OPT_ADD_A_CUSTOM_SPELL_DESC"] = "拖动一个法术或可用物品到这里。也可以直接写它们的名称或数字 ID，或者使用Shift+点击。"
-L["OPT_ADD_BLEED_EFFECT_ID"] = "添加流血效果"
-L["OPT_ADD_BLEED_EFFECT_ID_DESC"] = "通过法术ID直接添加流血效果（可在wowhead.com找到）"
 L["OPT_ADDDEBUFF"] = "新增自定义减益"
 L["OPT_ADDDEBUFF_DESC"] = "向列表中新增一个减益。"
 L["OPT_ADDDEBUFF_USAGE"] = "<减益名称>（可以从 WoWHead.com 链接中找到法术 ID）"
@@ -217,29 +214,12 @@ L["OPT_AFFLICTEDBYSKIPPED"] = "%s受到%s的影响，但将被忽略。"
 L["OPT_ALLOWMACROEDIT"] = "允许使用宏编辑"
 L["OPT_ALLOWMACROEDIT_DESC"] = "启用此项以防止 Decursive 更新宏，让你自己编辑你所需的宏。"
 L["OPT_ALWAYSIGNORE"] = "不在战斗状态时也忽略"
-L["OPT_ALWAYSIGNORE_DESC"] = "选中后，即使不在战斗中，此减益也会被忽略。"
+L["OPT_ALWAYSIGNORE_DESC"] = "选中后不在状态时此减益也会被忽略。"
 L["OPT_AMOUNT_AFFLIC_DESC"] = "设置实时列表显示的最大玩家数目"
 L["OPT_ANCHOR_DESC"] = "显示自定义信息框体锚点"
 L["OPT_AUTOHIDEMFS"] = "隐藏微单元框体："
 L["OPT_AUTOHIDEMFS_DESC"] = "选择何时自动隐藏微单元框体。"
 L["OPT_BLACKLENTGH_DESC"] = "设置被暂时加入黑名单的玩家在名单中停留的时间"
-L["OPT_BLEEDCHECK_DESC"] = "选中后你将可以查看和净化受到流血效果影响的单位"
-L["OPT_BLEED_EFFECT_BAD_SPELLID"] = "无效的法术ID，只能输入数字形式的法术ID（可在wowhead.com找到）"
-L["OPT_BLEED_EFFECT_DESCRIPTION"] = "描述（法术ID：|cFF00C000%s|r）"
-L["OPT_BLEED_EFFECT_HOLDER"] = "流血效果管理"
-L["OPT_BLEED_EFFECT_HOLDER_DESC"] = "管理流血效果检测"
-L["OPT_BLEED_EFFECT_IDENTIFIERS"] = "流血效果描述关键词："
-L["OPT_BLEED_EFFECT_IDENTIFIERS_DESC"] = [=[每个关键词应该匹配减益描述中导致目标流血的术语，可用于识别此类效果。
-
-每行一个关键词。
-
-清空字段以重置为默认关键词。
-
-根据你的语言环境，可能需要手动调整这些关键词。
-使用下面预配置的流血效果列表作为指南，以便它们的描述至少包含一个关键词（匹配的关键词在下面每个效果的描述中高亮显示）。
-
-（可以使用Lua模式，每行一个模式）]=]
-L["OPT_BLEED_EFFECT_UNKNOWN_SPELL"] = "未知法术（%s）"
 L["OPT_BORDERTRANSP"] = "边框透明度"
 L["OPT_BORDERTRANSP_DESC"] = "设置边框的透明度"
 L["OPT_CENTERTEXT"] = "中央计数器："
@@ -247,7 +227,7 @@ L["OPT_CENTERTEXT_DESC"] = [=[显示每个微单元中央最上面（根据你�
 
 其中之一：
 - 剩余时间直到结束
-- 自减益生效后经过的时间
+- 过去时间所受到影响的次数
 - 堆叠次数]=]
 L["OPT_CENTERTEXT_DISABLED"] = "已禁用"
 L["OPT_CENTERTEXT_ELAPSED"] = "已用时间"
@@ -333,12 +313,10 @@ L["OPT_DISEASECHECK_DESC"] = "选中后你将可以查看和净化受到疾病�
 L["OPT_DISPLAYOPTIONS"] = "显示选项"
 L["OPT_DONOTBLPRIO_DESC"] = "优先列表中的玩家不会被加入黑名单"
 L["OPT_ENABLE_A_CUSTOM_SPELL"] = "启用"
-L["OPT_ENABLE_BLEED_EFFECTS_DETECTION"] = "流血效果发现"
-L["OPT_ENABLE_BLEED_EFFECTS_DETECTION_DESC"] = "当减益描述包含“流血效果关键词”字段中指示的关键词时，启用Decursive发现新的流血效果"
 L["OPT_ENABLE_LIVELIST"] = "启用实时列表"
 L["OPT_ENABLE_LIVELIST_DESC"] = [=[显示受影响玩家的信息列表。
 
-可以通过 Decursive 条移动此列表（输入 /DCRSHOW 显示此条）。]=]
+可以通过 Decursive 条移动此列表Y（输入 /DCRSHOW 显示此条）。]=]
 L["OPT_ENABLEDEBUG"] = "启用除错"
 L["OPT_ENABLEDEBUG_DESC"] = "启用除错输出"
 L["OPT_ENABLEDECURSIVE"] = "启用 Decursive"
@@ -364,10 +342,6 @@ L["OPT_INPUT_SPELL_BAD_INPUT_DEFAULT_SPELL"] = "Decursive 已经包含此法术�
 L["OPT_INPUT_SPELL_BAD_INPUT_ID"] = "法术 ID 不可用！"
 L["OPT_INPUT_SPELL_BAD_INPUT_NOT_SPELL"] = "不能在技能书中找到法术！"
 L["OPT_ISNOTVALID_SPELLID"] = "不是有效的法术 ID"
-L["OPT_IS_BLEED_EFFECT"] = "是流血效果"
-L["OPT_IS_BLEED_EFFECT_DESC"] = [=[勾选以告诉Decursive将此效果视为“流血”类型。
-可以取消勾选以处理误报...]=]
-L["OPT_KNOWN_BLEED_EFFECTS"] = "已知的流血效果"
 L["OPT_LIVELIST"] = "实时列表"
 L["OPT_LIVELIST_DESC"] = [=[这是显示在 Decursive 条下面受影响目标的相关设置列表。
 
@@ -426,21 +400,12 @@ L["OPT_NOSTARTMESSAGES"] = "禁用欢迎信息"
 L["OPT_NOSTARTMESSAGES_DESC"] = "移除每次登陆时在聊天框体显示的两个 Decursive 信息。"
 L["OPT_OPTIONS_DISABLED_WHILE_IN_COMBAT"] = "此选项战斗中被禁用。"
 L["OPT_PERFOPTIONWARNING"] = "警告：不要更改这些值，除非你确切知道你在做什么。这些设置可以对游戏性能影响很大。大多数用户应当使用0.1和10的默认值。"
-L["OPT_PERIODICRESCAN"] = "减益周期性完整扫描"
-L["OPT_PERIODICRESCAN_DESC"] = [=[设置全局单位周期性重新扫描增益和减益的延迟。
-设置为0以禁用。
-
-注意：自WoW 10.2.5起，此周期性重新扫描会增加Decursive的内存使用。]=]
-L["OPT_PERIODICRESCAN_REPORT"] = "周期性扫描调试报告"
-L["OPT_PERIODICRESCAN_REPORT_DESC"] = "如果周期性扫描发现之前通过事件未检测到的内容，创建调试报告"
 L["OPT_PLAYSOUND_DESC"] = "有玩家受到减益时播放音效"
 L["OPT_POISONCHECK_DESC"] = "选中后你将可以查看和净化受到中毒效果影响的单位"
 L["OPT_PRINT_CUSTOM_DESC"] = "Decursive 提示信息将显示在自定义聊天框体"
 L["OPT_PRINT_ERRORS_DESC"] = "错误信息将被显示"
 L["OPT_PROFILERESET"] = "重置配置文件…"
 L["OPT_RANDOMORDER_DESC"] = "随机显示和净化单位（不推荐使用）"
-L["OPT_READD_DEFAULT_BLEED_EFFECTS"] = "重新添加默认流血效果"
-L["OPT_READD_DEFAULT_BLEED_EFFECTS_DESC"] = "重新将Decursive的默认流血效果添加到列表"
 L["OPT_READDDEFAULTSD"] = "重新加入默认减益"
 L["OPT_READDDEFAULTSD_DESC1"] = [=[向列表中加入所有缺失的 Decursive 默认减益
 你的设置不会更改]=]
@@ -451,8 +416,6 @@ L["OPT_REMOVESKDEBCONF"] = [=[你确定要将
 L["OPT_REMOVETHISDEBUFF"] = "删除此减益"
 L["OPT_REMOVETHISDEBUFF_DESC"] = "从忽略列表中删除“%s”"
 L["OPT_RESETDEBUFF"] = "重置此减益"
-L["OPT_RESET_DEFAULT_BLEED_EFFECTS"] = "清空列表"
-L["OPT_RESET_DEFAULT_BLEED_EFFECTS_DESC"] = "清空列表并重置为默认值，所有添加和检测到的减益将丢失！！"
 L["OPT_RESETDTDCRDEFAULT"] = "将“%s”重置 Decursive 默认"
 L["OPT_RESETMUFMOUSEBUTTONS"] = "重置"
 L["OPT_RESETMUFMOUSEBUTTONS_DESC"] = "重置鼠标按钮指派为默认。"
@@ -542,4 +505,4 @@ L["UNSTABLERELEASE"] = "不稳定版本"
 
 
 
-T._LoadedFiles["zhCN.lua"] = "2.7.29";
+T._LoadedFiles["zhCN.lua"] = "2.7.17";

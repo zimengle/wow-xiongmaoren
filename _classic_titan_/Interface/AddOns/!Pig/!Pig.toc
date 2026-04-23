@@ -13,7 +13,7 @@
 ## AddonCompartmentFuncOnEnter: PIGCompartmentEnter
 ## AddonCompartmentFuncOnLeave: PIGCompartmentLeave
 ## Author: geligasi
-## Version: 9.999999
+## Version: 10.04
 ## SavedVariables: PIGA
 ## SavedVariablesPerCharacter: PIGA_Per
 Localization\Localization.xml
@@ -24,7 +24,6 @@ Config\Default.lua
 OptionsUI.lua
 Ext.lua
 About.lua
-Audio.lua
 Debug.lua
 Common\Common.xml
 Business\Business.xml

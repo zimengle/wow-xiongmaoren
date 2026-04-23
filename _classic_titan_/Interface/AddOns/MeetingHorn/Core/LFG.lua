@@ -24,6 +24,14 @@ local LibDeflate = LibStub:GetLibrary("LibDeflate")
 ---@field private challengeGroup MeetingHornChallengeGroup
 local LFG = ns.Addon:NewModule('LFG', 'AceEvent-3.0', 'AceTimer-3.0', 'AceComm-3.0', 'LibCommSocket-3.0')
 
+-- MHH 分包协议常量（与 MeetingHornHeroic ChatManager 一致）
+local MHH_PACKET_FIRST = 'MHH#' -- 首包
+local MHH_PACKET_NEXT  = 'MHH&' -- 中间包
+local MHH_PACKET_LAST  = 'MHH$' -- 末包
+local MHH_PACKET_ONE   = 'MHH@' -- 单包（无需分割）
+local MHH_PACKET_PREFIX_LEN = 4
+local MHH_PACKET_TIMEOUT = 30   -- 分包缓存超时（秒）
+
 local function isMoreThan24Hours(time1, time2)
     if not time1 or not time2 then
         return true
@@ -48,6 +56,7 @@ function LFG:OnEnable()
     self.inCity = false
     self.voiceList = {}
     self.ServerCQGLIBNames = {}
+    self.mhhPacketCache = {} -- MHH 分包接收缓存 { [unitName] = { parts = {}, startTime = number } }
     C_Timer.NewTicker(60, function() self:SendServerCQGLIB() end)
     self.filters = setmetatable({}, {
         __mode = 'k',
@@ -336,6 +345,17 @@ end
 function LFG:OnActivityTimer()
     -- 战斗中跳过广播：SendChatMessage 会被 Blizzard BLOCK，errorBlocker 的 frame 遍历开销极大
     if InCombatLockdown() then return end
+
+    -- MHH 分包缓存超时清理
+    if self.mhhPacketCache then
+        local now = time()
+        for sender, cache in pairs(self.mhhPacketCache) do
+            if now - cache.startTime > MHH_PACKET_TIMEOUT then
+                self.mhhPacketCache[sender] = nil
+            end
+        end
+    end
+
     if UnitIsAFK('player') then
         return
     end
@@ -367,6 +387,19 @@ end
 
 function LFG:RecvActivity(channelName, guid, unitName, text, lineId)
     local activity = self.activities[guid]
+    -- guid 为空时 fallback 为 unitName，此时需要额外用 unitName 检查是否已存在（防止自己发布的活动重复显示）
+    if not activity and unitName then
+        for _, v in ipairs(self.activities) do
+            if v:GetLeader() == unitName then
+                activity = v
+                -- 补全 guid 索引，避免后续继续 miss
+                if guid and guid ~= '' and guid ~= unitName then
+                    self.activities[guid] = v
+                end
+                break
+            end
+        end
+    end
     if not activity then
         activity = ns.Activity:FromProto(text, unitName, guid, channelName, lineId)
         if activity then
@@ -706,6 +739,35 @@ function LFG:CHAT_MSG_CHANNEL(event, text, unitName, _, _, _, flag, _, _, channe
     end
 
     channelName = ns.Channel:GetUsChannelName(channelName) or channelName
+
+    -- MHH 分包拼接：检查前 4 字节是否为 MHH 分包前缀
+    -- MHH@ (单包) 走原路径不处理，MHH#/&/$ 需要缓存拼接
+    local mhhPrefix = text:sub(1, MHH_PACKET_PREFIX_LEN)
+    if mhhPrefix == MHH_PACKET_FIRST then
+        -- 首包：丢弃旧缓存，开始新缓存
+        self.mhhPacketCache[unitName] = {
+            parts = { text:sub(MHH_PACKET_PREFIX_LEN + 1) },
+            startTime = time(),
+        }
+        return
+    elseif mhhPrefix == MHH_PACKET_NEXT then
+        -- 中间包：追加到缓存（无首包则忽略）
+        local cache = self.mhhPacketCache[unitName]
+        if cache then
+            tinsert(cache.parts, text:sub(MHH_PACKET_PREFIX_LEN + 1))
+        end
+        return
+    elseif mhhPrefix == MHH_PACKET_LAST then
+        -- 末包：追加、拼接、清缓存（无首包则忽略）
+        local cache = self.mhhPacketCache[unitName]
+        if not cache then
+            return
+        end
+        tinsert(cache.parts, text:sub(MHH_PACKET_PREFIX_LEN + 1))
+        text = table.concat(cache.parts)
+        self.mhhPacketCache[unitName] = nil
+        -- 拼接完成，继续走下游解析
+    end
 
     if ns.IsOurChannel(channelName) then
         -- if self:CheckUnit(guid) then

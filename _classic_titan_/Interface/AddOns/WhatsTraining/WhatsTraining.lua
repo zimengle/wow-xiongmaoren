@@ -457,7 +457,7 @@ eventFrame:SetScript("OnEvent", function(self, event, ...)
             rebuildData(UnitLevel("player"))
             wt.CreateFrame()
         end
-    elseif event == "LEARNED_SPELL_IN_TAB" or event == "PLAYER_LEVEL_UP" then
+    elseif event == "LEARNED_SPELL_IN_TAB" or event == "SPELLS_CHANGED" or event == "PLAYER_LEVEL_UP" then
         local isLevelUp = event == "PLAYER_LEVEL_UP"
         rebuildData(isLevelUp and ... or UnitLevel("player"), isLevelUp)
         if (wt.MainFrame and wt.MainFrame:IsVisible()) then
@@ -467,5 +467,5 @@ eventFrame:SetScript("OnEvent", function(self, event, ...)
 end)
 eventFrame:RegisterEvent("ADDON_LOADED")
 eventFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
-eventFrame:RegisterEvent("LEARNED_SPELL_IN_TAB")
+eventFrame:RegisterEvent("SPELLS_CHANGED")
 eventFrame:RegisterEvent("PLAYER_LEVEL_UP")

@@ -7,13 +7,14 @@ local BarTexList = {
 	{TEXTURES_SUBHEADER.."3","interface/targetingframe/ui-statusbar-glow.blp"},
 	{TEXTURES_SUBHEADER.."4","interface/chatframe/chatframebackground.blp"},
 };
+Create.BarTexNum=#BarTexList
 local BorderColorX = {0.65, 0.65, 0.65, 1}
 local BGColorX = {0, 0, 0, 0.4}
 function Create.add_Bar(fuji,ly,Point,WH)
 	local zitix=ChatFontNormal:GetFont()
 	--local zitix=TextStatusBarText:GetFont()
 	local BarHT
-	if ly==4 or ly==6 or ly==11 then
+	if ly==4 or ly==6 or ly==7 or ly==11 then
 		BarHT = CreateFrame("Frame", nil, fuji)
 		BarHT:SetPoint("TOPLEFT",fuji,"TOPLEFT",0,0);
 		BarHT:SetPoint("TOPRIGHT",fuji,"TOPRIGHT",0,0);
@@ -29,11 +30,11 @@ function Create.add_Bar(fuji,ly,Point,WH)
 		end
 		function BarHT:PIGStatusBarTexture(butlist,TexID)
 			for ix=1,#butlist do
-				if ly==4 or ly==11 then
+				if ly==6 then
+					butlist[ix].bar:SetStatusBarTexture(BarTexList[TexID][2])
+				else
 					butlist[ix]:SetBackdrop({bgFile = BarTexList[TexID][2],edgeFile = Create.edgeFile, edgeSize = 8})
 					butlist[ix]:SetBackdropColor(1, 0, 0, 0);
-				elseif ly==6 then
-					butlist[ix].bar:SetStatusBarTexture(BarTexList[TexID][2])
 				end
 			end
 		end
@@ -133,6 +134,5 @@ function Create.add_Bar(fuji,ly,Point,WH)
 			end
 		end
 	end
-	fuji.BarTexNum=#BarTexList
 	return BarHT
 end

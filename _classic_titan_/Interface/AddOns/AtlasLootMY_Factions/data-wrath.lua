@@ -50,7 +50,7 @@ else
     FACTIONS_ALLI_CONTENT = data:AddContentType(FACTION_ALLIANCE, ATLASLOOT_ALLIANCE_COLOR)
     FACTIONS_HORDE_CONTENT = data:AddContentType(FACTION_HORDE, ATLASLOOT_HORDE_COLOR)
 end
-
+local P4_CONTENT =data:AddContentType('P4',ATLASLOOT_FACTION_COLOR)
 --[[
 0 - Unknown
 1 - Hated
@@ -846,6 +846,68 @@ data["TheWyrmrestAccord"] = {
 			[NORMAL_DIFF] = {
 				{ 1, "f1091rep5" },
 				{ 2, 43156 },	-- Tabard of the Wyrmrest Accord
+			},
+		},
+	},
+}
+
+data["ZandalarTribeP3"] = {
+	FactionID = 270,
+	ContentType = P4_CONTENT,
+	LoadDifficulty = LOAD_DIFF,
+	items = {
+		{ -- Exalted
+			name = ALIL["Exalted"],
+			[NORMAL_DIFF] = {
+				{ 1, "f270rep8" },
+				{ 2,  20013 }, -- Recipe: Living Action Potion
+				{ 3,  20077 }, -- Zandalar Signet of Might
+				{ 4,  20076 }, -- Zandalar Signet of Mojo
+				{ 5,  20078 }, -- Zandalar Signet of Serenity
+			},
+		},
+		{ -- Revered
+			name = ALIL["Revered"],
+			[NORMAL_DIFF] = {
+				{ 1, "f270rep7" },
+				{ 2,  19764 }, -- Pattern: Bloodvine Vest
+				{ 3,  19769 }, -- Pattern: Primal Batskin Jerkin
+				{ 4,  19772 }, -- Pattern: Blood Tiger Breastplate
+				{ 5,  19776 }, -- Plans: Bloodsoul Breastplate
+				{ 6,  19779 }, -- Plans: Darksoul Breastplate
+				{ 7,  20011 }, -- Recipe: Mageblood Potion
+				{ 17,  20080 }, -- Sheen of Zanza
+				{ 18,  20079 }, -- Spirit of Zanza
+				{ 19,  20081 }, -- Swiftness of Zanza
+				{ 20, 268553}
+			},
+		},
+		{ -- Honored
+			name = ALIL["Honored"],
+			[NORMAL_DIFF] = {
+				{ 1, "f270rep6" },
+				{ 2,  19765 }, -- Pattern: Bloodvine Leggings
+				{ 3,  20000 }, -- Schematic: Bloodvine Goggles
+				{ 4,  19770 }, -- Pattern: Primal Batskin Gloves
+				{ 5,  19773 }, -- Pattern: Blood Tiger Shoulders
+				{ 6,  19777 }, -- Plans: Bloodsoul Shoulders
+				{ 7,  19780 }, -- Plans: Darksoul Leggings
+				{ 8,  20014 }, -- Recipe: Major Troll's Blood Potion
+				{ 9,  20756 }, -- Formula: Brilliant Wizard Oil
+				{ 10,  20031 }, -- Essence Mango
+			},
+		},
+		{ -- Friendly
+			name = ALIL["Friendly"],
+			[NORMAL_DIFF] = {
+				{ 1, "f270rep5" },
+				{ 2,  19766 }, -- Pattern: Bloodvine Boots
+				{ 3,  19771 }, -- Pattern: Primal Batskin Bracers
+				{ 4,  20001 }, -- Schematic: Bloodvine Lens
+				{ 5,  19778 }, -- Plans: Bloodsoul Gauntlets
+				{ 6,  19781 }, -- Plans: Darksoul Shoulders
+				{ 7,  20012 }, -- Recipe: Greater Dreamless Sleep
+				{ 8,  20757 }, -- Formula: Brilliant Mana Oil
 			},
 		},
 	},

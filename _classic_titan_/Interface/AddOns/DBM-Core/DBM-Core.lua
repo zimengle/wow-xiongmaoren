@@ -77,16 +77,16 @@ local function showRealDate(curseDate)
 	end
 end
 
-DBM.Revision = parseCurseDate("20260407044947")
+DBM.Revision = parseCurseDate("20260422072640")
 DBM.TaintedByTests = false -- Tests may mess with some internal state, you probably don't want to rely on DBM for an important boss fight after running it in test mode
 
 private.fakeBWVersion, private.fakeBWHash = 412, "5f04367"--412.7
 
 -- The string that is shown as version
-DBM.DisplayVersion = "12.0.37"--Core version
+DBM.DisplayVersion = "12.0.41"--Core version
 DBM.classicSubVersion = 0
 DBM.dungeonSubVersion = 0
-DBM.ReleaseRevision = releaseDate(2026, 4, 6) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
+DBM.ReleaseRevision = releaseDate(2026, 4, 22) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
 -- support for github downloads, which doesn't support curse keyword expansion
@@ -310,6 +310,7 @@ DBM.DefaultOptions = {
 	ArrowPosX = 0,
 	ArrowPosY = -150,
 	ArrowPoint = "TOP",
+	GearPosition = {"RIGHT", -150, 0},
 	DurabilityPosition = {"RIGHT", -150, 0},
 	LatencyPosition = {"RIGHT", -150, 0},
 	KeystonesPosition = {"LEFT", 30, 0},
@@ -434,8 +435,8 @@ DBM.DefaultOptions = {
 	PrivateAurasPlayerHeight = 60,
 	PrivateAurasPlayerAnchor = "CENTER",--NYI
 	PrivateAurasPlayerRelativeTo = "CENTER",--NYI
-	PrivateAurasPlayerXOffset = 0,--Partial (drag and drop only, no UI slider/editbox)
-	PrivateAurasPlayerYOffset = 150,--Partial (drag and drop only, no UI slider/editbox)
+	PrivateAurasPlayerXOffset = 185,--Partial (drag and drop only, no UI slider/editbox)
+	PrivateAurasPlayerYOffset = 154,--Partial (drag and drop only, no UI slider/editbox)
 	--Co-Tank
 	PrivateAurasCoTankEnabled = true,
 	PrivateAurasCoTankHideBorder = false,
@@ -449,8 +450,8 @@ DBM.DefaultOptions = {
 	PrivateAurasCoTankHeight = 60,
 	PrivateAurasCoTankAnchor = "CENTER",--NYI
 	PrivateAurasCoTankRelativeTo = "CENTER",--NYI
-	PrivateAurasCoTankXOffset = -150,--Partial (drag and drop only, no UI slider/editbox)
-	PrivateAurasCoTankYOffset = 150,--Partial (drag and drop only, no UI slider/editbox)
+	PrivateAurasCoTankXOffset = -196,--Partial (drag and drop only, no UI slider/editbox)
+	PrivateAurasCoTankYOffset = 154,--Partial (drag and drop only, no UI slider/editbox)
 	PrivateAurasCoTankShowSecond = false,
 	--Player Text Anchor
 	PrivateAurasTextAnchorScale = 1.8,
@@ -5135,9 +5136,9 @@ do
 		if not private.statusGuildDisabled and private.updateNotificationDisplayed == 0 then
 			if thisTime then--Wipe event
 				if wipeHP then
-					private.sendGuildSync(8, "GCE", modId .. "\t1\t" .. thisTime .. "\t" .. difficultyIndex .. "\t" .. difficultyModifier .. "\t" .. name .. "\t" .. lastGroupLeader .. "\t" .. wipeHP)
+					private.sendGuildSync(9, "GCE", modId .. "\t1\t" .. thisTime .. "\t" .. difficultyIndex .. "\t" .. difficultyModifier .. "\t" .. name .. "\t" .. lastGroupLeader .. "\t" .. wipeHP)
 				else
-					private.sendGuildSync(8, "GCE", modId .. "\t0\t" .. thisTime .. "\t" .. difficultyIndex .. "\t" .. difficultyModifier .. "\t" .. name .. "\t" .. lastGroupLeader)
+					private.sendGuildSync(9, "GCE", modId .. "\t1\t" .. thisTime .. "\t" .. difficultyIndex .. "\t" .. difficultyModifier .. "\t" .. name .. "\t" .. lastGroupLeader)
 				end
 			else
 				private.sendGuildSync(4, "GCB", modId .. "\t" .. difficultyIndex .. "\t" .. difficultyModifier .. "\t" .. name .. "\t" .. lastGroupLeader)
@@ -5366,7 +5367,7 @@ do
 						mod:OnLimitedCombatStart(nonZeroDelay, startEvent == "PLAYER_REGEN_DISABLED_AND_MESSAGE" or startEvent == "SPELL_CAST_SUCCESS" or startEvent == "MONSTER_MESSAGE", startEvent == "ENCOUNTER_START")
 					end
 					if self.Options.HideBlizzardTimeline then
-						--Temporary. Will be removed in 12.0.5 when api for supporting sounds works without forcing this
+						--Temporary. Will be removed in a future patch when api for supporting sounds works without forcing this
 						C_CVar.SetCVar("encounterTimelineEnabled", "1")
 						EncounterTimeline.TrackView:SetAlpha(0)
 						EncounterTimeline.TimerView:SetAlpha(0)
@@ -6136,6 +6137,65 @@ do
 			fireEvent("DBM_PlaySound", path)
 		end
 		test:Trace(self, "PlaySound", path)
+	end
+
+	local LSMFontCacheBuilt, sharedMediaFontCache = false, {}
+
+	local function buildLSMFontCache()
+		local LSM = LibStub and LibStub("LibSharedMedia-3.0", true)
+		if LSM then
+			for k in pairs(sharedMediaFontCache) do
+				sharedMediaFontCache[k] = nil
+			end
+			local hashtable = LSM:HashTable("font")
+			local keytable = {}
+			for k in next, hashtable do
+				tinsert(keytable, k)
+			end
+			for i = 1, #keytable do
+				local key = keytable[i]
+				local value = hashtable[key]
+				sharedMediaFontCache[key] = true
+				if type(value) == "string" then
+					sharedMediaFontCache[value] = true
+				end
+			end
+			LSMFontCacheBuilt = true
+		end
+	end
+
+	function DBM:IsFontValid(fontPath, standardFont)
+		-- "standardFont" is always valid (maps to locale-specific standard)
+		if fontPath == "standardFont" then
+			return true
+		end
+		-- Locale resolved standard font path is always valid
+		if standardFont and fontPath == standardFont then
+			return true
+		end
+		-- Built-in WoW fonts are valid even when not registered in LibSharedMedia
+		if type(fontPath) == "string" and fontPath:lower():find("^fonts[\\/]+") then
+			return true
+		end
+		-- Build font cache from LibSharedMedia if needed
+		if not LSMFontCacheBuilt then
+			buildLSMFontCache()
+		end
+		local LSM = LibStub and LibStub("LibSharedMedia-3.0", true)
+		if not LSM then
+			-- If LibSharedMedia not available, assume valid (graceful degradation)
+			return true
+		end
+		-- Check cache for font path
+		if sharedMediaFontCache[fontPath] then
+			return true
+		end
+		-- Cache may be stale if media registered after first build; rebuild once and re-check
+		buildLSMFontCache()
+		if sharedMediaFontCache[fontPath] then
+			return true
+		end
+		return false
 	end
 end
 
@@ -7061,7 +7121,8 @@ do
 	local requiresRecentKill = {
 		[2238] = 2519,--Fyrakk in Amirdrassil
 		[2529] = 3181,--Crown of the Cosmos
-		[1049] = 3181--Crown of the Cosmos
+		[1049] = 3181,--Crown of the Cosmos
+		[1050] = 3183--Midnight Falls
 	}
 	---@param self DBM
 	local function checkOptions(self, id, mapID)
@@ -7334,8 +7395,13 @@ do
 		end
 		if not private.isRetail and not private.isMop then
 			if private.specRoleTable[currentSpecID]["Tank"] then
-				-- 17 defensive stance, 5487 bear form, 9634 dire bear, 25780 righteous fury
+				-- 18 defensive stance, 5487 bear form, 9634 dire bear, 25780 righteous fury
 				if playerIsTank or GetShapeshiftFormID() == 18 or DBM:UnitBuff("player", 5487, 9634) then
+					playerIsTank = true
+					return true
+				end
+				--Flagged as one of main tanks
+				if GetPartyAssignment("MAINTANK", "player", true) then
 					playerIsTank = true
 					return true
 				end
@@ -7352,6 +7418,7 @@ end
 function bossModPrototype:IsDps(uId)
 	if uId then--External unit call.
 		--no SpecID checks because SpecID is only availalbe with DBM/Bigwigs, but both DBM/Bigwigs auto set DAMAGER/HEALER/TANK roles anyways so it'd be redundant
+		--This check is VERY problematic in classic if raid doesn't set main tanks correctly cause it'll also flag tanks as dps without question
 		return (private.isRetail or private.isMop) and UnitGroupRolesAssigned(uId) == "DAMAGER" or not GetPartyAssignment("MAINTANK", uId, true)
 	end
 	if (not currentSpecID or currentSpecID == 0) then
@@ -7421,7 +7488,13 @@ function DBM:IsTanking(playerUnitID, enemyUnitID, isName, onlyRequested, enemyGU
 	--We have both units. No need to find unitID
 	if enemyUnitID then
 		--Check threat first
-		local tanking, status = UnitDetailedThreatSituation(playerUnitID, enemyUnitID)
+		local tanking, status
+		if private.isRetail then
+			--UnitDetailedThreatSituation is secret on retail even if you only read bool value
+			status = UnitThreatSituation(playerUnitID, enemyUnitID)
+		else
+			tanking, status = UnitDetailedThreatSituation(playerUnitID, enemyUnitID)
+		end
 		if (not onlyS3 and tanking) or (status == 3) then
 			return true
 		end
@@ -7450,7 +7523,12 @@ function DBM:IsTanking(playerUnitID, enemyUnitID, isName, onlyRequested, enemyGU
 					--No GUID, any unit having threat returns true, GUID, only specific unit matching guid
 					if not enemyGUID or (guid and guid == enemyGUID) then
 						--Check threat first
-						local tanking, status = UnitDetailedThreatSituation(playerUnitID, unitID)
+						if private.isRetail then
+							--UnitDetailedThreatSituation is secret on retail even if you only read bool value
+							status = UnitThreatSituation(playerUnitID, unitID)
+						else
+							tanking, status = UnitDetailedThreatSituation(playerUnitID, unitID)
+						end
 						if (not onlyS3 and tanking) or (status == 3) then
 							return true
 						end
@@ -8048,7 +8126,7 @@ function bossModPrototype:ReceiveSync(event, sender, revision, ...)
 	end
 end
 
----@param revision number|string Either a number in the format "202101010000" (year, month, day, hour, minute) or string "20260407044947" to be auto set by packager
+---@param revision number|string Either a number in the format "202101010000" (year, month, day, hour, minute) or string "20260422071815" to be auto set by packager
 function bossModPrototype:SetRevision(revision)
 	revision = parseCurseDate(revision or "")
 	if not revision or type(revision) == "string" then

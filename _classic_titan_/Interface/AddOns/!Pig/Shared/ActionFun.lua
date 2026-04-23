@@ -18,20 +18,28 @@ _G.BINDING_HEADER_PIG = addonName
 local ActionFun={}
 ----------
 local suijizuoqi = [=[/run C_MountJournal.SummonByID(0)]=]
-local function UseKeyDownUpdate(button)
+local function UseKeyDownUpdate(button,gn)
 	if PIG_MaxTocversion(120000,true) or (PIG_MaxTocversion(40000) and PIG_MaxTocversion(20000,true)) then
 		local UseKeyDown =GetCVar("ActionButtonUseKeyDown")
-		if UseKeyDown=="0" then
-			button:RegisterForClicks("AnyUp");
-		elseif UseKeyDown=="1" then
-			button:RegisterForClicks("AnyUp", "LeftButtonDown", "RightButtonDown");
-			--button:RegisterForClicks("AnyDown")
+		if button.gn then
+			if UseKeyDown=="0" then
+				button:RegisterForClicks("AnyUp");
+			elseif UseKeyDown=="1" then
+				button:RegisterForClicks("LeftButtonDown", "RightButtonDown")
+			end
+		else
+			if UseKeyDown=="0" then
+				button:RegisterForClicks("AnyUp");
+			elseif UseKeyDown=="1" then
+				button:RegisterForClicks("AnyUp", "LeftButtonDown", "RightButtonDown");
+			end
 		end
 	else	
 		button:RegisterForClicks("AnyUp");
 	end
 end
-function ActionFun.PIGUseKeyDown(button)
+function ActionFun.PIGUseKeyDown(button,gn)
+	button.gn=gn
 	UseKeyDownUpdate(button)
 	button:RegisterEvent("CVAR_UPDATE");
 	button:HookScript("OnEvent", function(self,event,arg1)

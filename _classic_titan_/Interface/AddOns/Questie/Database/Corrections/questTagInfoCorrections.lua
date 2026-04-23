@@ -1138,6 +1138,7 @@ function _QuestieDB.InitializeQuestTagInfoCorrections()
         [9209] = {62, l10n("Raid")}, -- The Savage Guard - Arcanum of Rapidity
         [9210] = {62, l10n("Raid")}, -- The Savage Guard - Arcanum of Focus
         [9215] = {1, l10n("Elite")}, -- Bring Me Kel'gash's Head!
+        [9315] = {1, l10n("Elite")}, -- Anok'suten
         [9229] = {62, l10n("Raid")}, -- The Fate of Ramaladni
         [9230] = {62, l10n("Raid")}, -- Ramaladni's Icy Grasp
         [9232] = {62, l10n("Raid")}, -- The Only Song I Know...
@@ -1161,18 +1162,308 @@ function _QuestieDB.InitializeQuestTagInfoCorrections()
         [9269] = {81, l10n("Dungeon")}, -- Atiesh, Greatstaff of the Guardian
         [9270] = {81, l10n("Dungeon")}, -- Atiesh, Greatstaff of the Guardian
         [9271] = {81, l10n("Dungeon")}, -- Atiesh, Greatstaff of the Guardian
+        [9375] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or {84, l10n("Escort")}, -- The Road to Falcon Watch
         [9419] = {41, l10n("PvP")}, -- Scouring the Desert
         [9422] = {41, l10n("PvP")}, -- Scouring the Desert
+        [9444] = {41, l10n("PvP")}, -- Defiling Uther's Tomb
+        [9446] = {1, l10n("Elite")}, -- Tomb of the Lightbringer
+        [9466] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Wanted: Blacktalon the Savage
+        [9490] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- The Rock Flayer Matriarch
+        [9492] = {81, l10n("Dungeon")}, -- Turning the Tide
+        [9493] = {81, l10n("Dungeon")}, -- Pride of the Fel Horde
+        [9494] = {81, l10n("Dungeon")}, -- Fel Embers
+        [9495] = {81, l10n("Dungeon")}, -- The Will of the Warchief
+        [9496] = {81, l10n("Dungeon")}, -- Pride of the Fel Horde
+        [9521] = {41, l10n("PvP")}, -- Report from the Northern Front
+        [9524] = {85, l10n("Heroic")}, -- Imprisoned in the Citadel
+        [9525] = {85, l10n("Heroic")}, -- Imprisoned in the Citadel
+        [9528] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- A Cry For Help
         [9664] = {41, l10n("PvP")}, -- Establishing New Outposts
         [9665] = {41, l10n("PvP")}, -- Bolstering Our Defenses
-        [11335] = {41, l10n("PvP")}, -- 
-        [11336] = {41, l10n("PvP")}, -- 
-        [11337] = {41, l10n("PvP")}, -- 
-        [11338] = {41, l10n("PvP")}, -- 
-        [11339] = {41, l10n("PvP")}, -- 
-        [11340] = {41, l10n("PvP")}, -- 
-        [11341] = {41, l10n("PvP")}, -- 
-        [11342] = {41, l10n("PvP")}, -- 
+        [9572] = {81, l10n("Dungeon")}, -- Weaken the Ramparts
+        [9575] = {81, l10n("Dungeon")}, -- Weaken the Ramparts
+        [9587] = {81, l10n("Dungeon")}, -- Dark Tidings
+        [9588] = {81, l10n("Dungeon")}, -- Dark Tidings
+        [9589] = {81, l10n("Dungeon")}, -- The Blood is Life
+        [9590] = {81, l10n("Dungeon")}, -- The Blood is Life
+        [9607] = {81, l10n("Dungeon")}, -- Heart of Rage
+        [9608] = {81, l10n("Dungeon")}, -- Heart of Rage
+        [9630] = {62, l10n("Raid")}, -- Medivh's Journal
+        [9637] = {85, l10n("Heroic")}, -- Kalynna's Request
+        [9640] = {62, l10n("Raid")}, -- The Shade of Aran
+        [9644] = {62, l10n("Raid")}, -- Nightbane
+        [9645] = {62, l10n("Raid")}, -- The Master's Terrace
+        [9689] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Razormaw
+        [9692] = {81, l10n("Dungeon")}, -- The Path of the Adept
+        [9706] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Galaen's Journal - The Fate of Vindicator Saruan
+        [9711] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Matis the Cruel
+        [9714] = {81, l10n("Dungeon")}, -- Bring Me Another Shrubbery!
+        [9715] = {81, l10n("Dungeon")}, -- Bring Me A Shrubbery!
+        [9717] = {81, l10n("Dungeon")}, -- Oh, It's On!
+        [9719] = {81, l10n("Dungeon")}, -- Stalk the Stalker
+        [9723] = {81, l10n("Dungeon")}, -- A Gesture of Commitment
+        [9729] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Fhwoor Smash!
+        [9730] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Leader of the Darkcrest
+        [9735] = {1, l10n("Elite")}, -- True Masters of the Light
+        [9737] = {81, l10n("Dungeon")}, -- True Masters of the Light
+        [9738] = {81, l10n("Dungeon")}, -- Lost in Action
+        [9753] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- What We Know...
+        [9756] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- What We Don't Know...
+        [9759] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Ending Their World
+        [9760] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Vindicator's Rest
+        [9761] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Clearing the Way
+        [9763] = {81, l10n("Dungeon")}, -- The Warlord's Hideout
+        [9765] = {81, l10n("Dungeon")}, -- Preparing for War
+        [9817] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Leader of the Bloodscale
+        [9831] = {81, l10n("Dungeon")}, -- Entry Into Karazhan
+        [9832] = {81, l10n("Dungeon")}, -- The Second and Third Fragments
+        [9836] = {81, l10n("Dungeon")}, -- The Master's Touch
+        [9840] = {62, l10n("Raid")}, -- Assessing the Situation
+        [9843] = {62, l10n("Raid")}, -- Keanna's Log
+        [9844] = {62, l10n("Raid")}, -- A Demonic Presence
+        [9851] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Clefthoof Mastery
+        [9852] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- The Ultimate Bloodsport
+        [9853] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Gurok the Usurper
+        [9856] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Windroc Mastery
+        [9859] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Talbuk Mastery
+        [9868] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- The Totem of Kar'dash
+        [9879] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- The Totem of Kar'dash
+        [9894] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Safeguarding the Watchers
+        [9895] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- The Dying Balance
+        [9937] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Wanted: Durn the Hungerer
+        [9938] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Wanted: Durn the Hungerer
+        [9946] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Cho'war the Pillager
+        [9954] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Corki's Ransom
+        [9955] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Cho'war the Pillager
+        [9962] = {1, l10n("Elite")}, -- The Ring of Blood: Brokentoe
+        [9967] = {1, l10n("Elite")}, -- The Ring of Blood: The Blue Brothers
+        [9970] = {1, l10n("Elite")}, -- The Ring of Blood: Rokdar the Sundered Lord
+        [9972] = {1, l10n("Elite")}, -- The Ring of Blood: Skra'gath
+        [9973] = {1, l10n("Elite")}, -- The Ring of Blood: The Warmaul Champion
+        [9977] = {1, l10n("Elite")}, -- The Ring of Blood: The Final Challenge
+        [9982] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- He Called Himself Altruis...
+        [9983] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- He Called Himself Altruis...
+        [9991] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Survey the Land
+        [9999] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Buying Time
+        [10001] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- The Master Planner
+        [10004] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Patience and Understanding
+        [10009] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Crackin' Some Skulls
+        [10010] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- It's Just That Easy?
+        [10011] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Forge Camp: Annihilated
+        [10020] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- A Cure for Zahlia
+        [10035] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Torgos!
+        [10036] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Torgos!
+        [10051] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Escape from Firewing Point!
+        [10052] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Escape from Firewing Point!
+        [10074] = {41, l10n("PvP")}, -- Oshu'gun Crystal Powder
+        [10075] = {41, l10n("PvP")}, -- Oshu'gun Crystal Powder
+        [10076] = {41, l10n("PvP")}, -- Oshu'gun Crystal Powder
+        [10077] = {41, l10n("PvP")}, -- Oshu'gun Crystal Powder
+        [10091] = {81, l10n("Dungeon")}, -- The Soul Devices
+        [10094] = {81, l10n("Dungeon")}, -- The Codex of Blood
+        [10095] = {81, l10n("Dungeon")}, -- Into the Heart of the Labyrinth
+        [10097] = {81, l10n("Dungeon")}, -- Brother Against Brother
+        [10098] = {81, l10n("Dungeon")}, -- Terokk's Legacy
+        [10106] = {41, l10n("PvP")}, -- Hellfire Fortifications
+        [10110] = {41, l10n("PvP")}, -- Hellfire Fortifications
+        [10111] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Bring Me The Egg!
+        [10116] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Wanted: Chieftain Mummaki
+        [10117] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Wanted: Chieftain Mummaki
+        [10132] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Colossal Menace
+        [10134] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Crimson Crystal Clue
+        [10136] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Cruel's Intentions
+        [10164] = {81, l10n("Dungeon")}, -- Everything Will Be Alright
+        [10165] = {81, l10n("Dungeon")}, -- Undercutting the Competition
+        [10167] = {81, l10n("Dungeon")}, -- Auchindoun...
+        [10168] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- What the Soul Sees
+        [10177] = {81, l10n("Dungeon")}, -- Trouble at Auchindoun
+        [10178] = {81, l10n("Dungeon")}, -- Find Spy To'gun
+        [10191] = {1, l10n("Elite")}, -- Mark V is Alive!
+        [10216] = {81, l10n("Dungeon")}, -- Safety Is Job One
+        [10218] = {81, l10n("Dungeon")}, -- Someone Else's Hard Work Pays Off
+        [10231] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- What Book? I Don't See Any Book.
+        [10247] = {1, l10n("Elite")}, -- Doctor Vomisa, Ph.T.
+        [10248] = {1, l10n("Elite")}, -- You, Robot
+        [10252] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Vision of the Dead
+        [10253] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Levixus the Soul Caller
+        [10256] = {1, l10n("Elite")}, -- Finding the Keymaster
+        [10257] = {81, l10n("Dungeon")}, -- Capturing the Keystone
+        [10261] = {1, l10n("Elite")}, -- Wanted: Annihilator Servo!
+        [10274] = {1, l10n("Elite")}, -- Securing the Celestial Ridge
+        [10276] = {1, l10n("Elite")}, -- Full Triangle
+        [10282] = {81, l10n("Dungeon")}, -- Old Hillsbrad
+        [10283] = {81, l10n("Dungeon")}, -- Taretha's Diversion
+        [10284] = {81, l10n("Dungeon")}, -- Escape from Durnholde
+        [10290] = {1, l10n("Elite")}, -- In Search of Farahlite
+        [10293] = {1, l10n("Elite")}, -- Hitting the Motherlode
+        [10296] = {81, l10n("Dungeon")}, -- The Black Morass
+        [10297] = {81, l10n("Dungeon")}, -- The Opening of the Dark Portal
+        [10309] = {1, l10n("Elite")}, -- It's a Fel Reaver, But with Heart
+        [10310] = {1, l10n("Elite")}, -- Sabotage the Warp-Gate!
+        [10320] = {1, l10n("Elite")}, -- Destroy Naberius!
+        [10323] = {1, l10n("Elite")}, -- Shutting Down Manaforge Ara
+        [10337] = {1, l10n("Elite")}, -- When the Cows Come Home
+        [10349] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- The Earthbinder
+        [10351] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Natural Remedies
+        [10365] = {1, l10n("Elite")}, -- Shutting Down Manaforge Ara
+        [10400] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Overlord
+        [10407] = {1, l10n("Elite")}, -- Socrethar's Shadow
+        [10408] = {1, l10n("Elite")}, -- Nexus-King Salhadaar
+        [10409] = {1, l10n("Elite")}, -- Deathblow to the Legion
+        [10439] = {1, l10n("Elite")}, -- Dimensius the All-Devouring
+        [10445] = {62, l10n("Raid")}, -- The Vials of Eternity
+        [10451] = {1, l10n("Elite")}, -- Escape from Coilskar Cistern
+        [10492] = {81, l10n("Dungeon")}, -- An Earnest Proposition
+        [10493] = {81, l10n("Dungeon")}, -- An Earnest Proposition
+        [10494] = {81, l10n("Dungeon")}, -- Just Compensation
+        [10495] = {81, l10n("Dungeon")}, -- Just Compensation
+        [10496] = {81, l10n("Dungeon")}, -- Anthion's Parting Words
+        [10497] = {81, l10n("Dungeon")}, -- Anthion's Parting Words
+        [10498] = {81, l10n("Dungeon")}, -- Saving the Best for Last
+        [10499] = {81, l10n("Dungeon")}, -- Saving the Best for Last
+        [10507] = {1, l10n("Elite")}, -- Turning Point
+        [10508] = {1, l10n("Elite")}, -- A Gift for Voren'thal
+        [10518] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Planting the Banner
+        [10578] = {1, l10n("Elite")}, -- The Cipher of Damnation - Borak's Charge
+        [10588] = {1, l10n("Elite")}, -- The Cipher of Damnation
+        [10593] = {81, l10n("Dungeon")}, -- Ancient Evil
+        [10626] = {1, l10n("Elite")}, -- Capture the Weapons
+        [10627] = {1, l10n("Elite")}, -- Capture the Weapons
+        [10634] = {1, l10n("Elite")}, -- Divination: Gorefiend's Armor
+        [10636] = {1, l10n("Elite")}, -- Divination: Gorefiend's Truncheon
+        [10647] = {1, l10n("Elite")}, -- Wanted: Uvuros, Scourge of Shadowmoon
+        [10648] = {1, l10n("Elite")}, -- Wanted: Uvuros, Scourge of Shadowmoon
+        [10649] = {81, l10n("Dungeon")}, -- The Book of Fel Names
+        [10651] = {1, l10n("Elite")}, -- Varedis Must Be Stopped
+        [10665] = {81, l10n("Dungeon")}, -- Fresh from the Mechanar
+        [10666] = {81, l10n("Dungeon")}, -- The Lexicon Demonica
+        [10667] = {81, l10n("Dungeon")}, -- Underworld Loam
+        [10670] = {81, l10n("Dungeon")}, -- Tear of the Earthmother
+        [10692] = {1, l10n("Elite")}, -- Varedis Must Be Stopped
+        [10701] = {1, l10n("Elite")}, -- Breaking Down Netherock
+        [10704] = {81, l10n("Dungeon")}, -- How to Break Into the Arcatraz
+        [10705] = {81, l10n("Dungeon")}, -- Seer Udalo
+        [10707] = {1, l10n("Elite")}, -- The Ata'mal Terrace
+        [10724] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Prisoner of the Bladespire
+        [10742] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Showdown
+        [10750] = {1, l10n("Elite")}, -- The Path of Conquest
+        [10751] = {1, l10n("Elite")}, -- Breaching the Path
+        [10758] = {1, l10n("Elite")}, -- Hotter than Hell
+        [10764] = {1, l10n("Elite")}, -- Hotter than Hell
+        [10765] = {1, l10n("Elite")}, -- When Worlds Collide...
+        [10768] = {1, l10n("Elite")}, -- Tabards of the Illidari
+        [10769] = {1, l10n("Elite")}, -- Dissension Amongst the Ranks...
+        [10772] = {1, l10n("Elite")}, -- The Path of Conquest
+        [10773] = {1, l10n("Elite")}, -- Breaching the Path
+        [10774] = {1, l10n("Elite")}, -- Blood Elf + Giant = ???
+        [10775] = {1, l10n("Elite")}, -- Tabards of the Illidari
+        [10776] = {1, l10n("Elite")}, -- Dissension Amongst the Ranks...
+        [10781] = {1, l10n("Elite")}, -- Battle of the Crimson Watch
+        [10793] = {1, l10n("Elite")}, -- The Journal of Val'zareq: Portends of War
+        [10805] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Massacre at Gruul's Lair
+        [10806] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Showdown
+        [10821] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- You're Fired!
+        [10834] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Grillok "Darkeye"
+        [10838] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- The Demoniac Scryer
+        [10842] = Expansions.Current == Expansions.Tbc and {1, l10n("Elite")} or nil, -- The Vengeful Harbinger/Vengeful Souls
+        [10858] = {1, l10n("Elite")}, -- Karynaku
+        [10866] = {1, l10n("Elite")}, -- Zuluhed the Whacked
+        [10872] = {1, l10n("Elite")}, -- Zuluhed the Whacked
+        [10876] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- The Foot of the Citadel
+        [10879] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- The Skettis Offensive
+        [10882] = {81, l10n("Dungeon")}, -- Harbinger of Doom
+        [10884] = {85, l10n("Heroic")}, -- Trial of the Naaru: Mercy
+        [10885] = {85, l10n("Heroic")}, -- Trial of the Naaru: Strength
+        [10886] = {85, l10n("Heroic")}, -- Trial of the Naaru: Tenacity
+        [10888] = {62, l10n("Raid")}, -- Trial of the Naaru: Magtheridon
+        [10897] = {81, l10n("Dungeon")}, -- Master of Potions
+        [10898] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Skywing
+        [10900] = {62, l10n("Raid")}, -- The Mark of Vashj
+        [10901] = {62, l10n("Raid")}, -- The Cudgel of Kar'desh
+        [10902] = {81, l10n("Dungeon")}, -- Master of Elixirs
+        [10921] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Terokkarantula
+        [10922] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Digging Through Bones
+        [10923] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Evil Draws Near
+        [10929] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Fumping
+        [10930] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- The Big Bone Worm
+        [10937] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Drill the Drillmaster
+        [10946] = {62, l10n("Raid")}, -- Ruse of the Ashtongue
+        [10947] = {62, l10n("Raid")}, -- An Artifact From the Past
+        [10957] = {62, l10n("Raid")}, -- Redemption of the Ashtongue
+        [10958] = {62, l10n("Raid")}, -- Seek Out the Ashtongue
+        [10959] = {62, l10n("Raid")}, -- The Fall of the Betrayer
+        [10974] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Stasis Chambers of Bash'ir
+        [10975] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Purging the Chambers of Bash'ir
+        [10976] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- The Mark of the Nexus-King
+        [10977] = {85, l10n("Heroic")}, -- Stasis Chambers of the Mana-Tombs
+        [10981] = {85, l10n("Heroic")}, -- Nexus-Prince Shaffar's Personal Chamber
+        [10995] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Grulloc Has Two Skulls
+        [10996] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Maggoc's Treasure Chest
+        [10997] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Even Gronn Have Standards
+        [10998] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Grim(oire) Business
+        [11000] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Into the Soulgrinder
+        [11001] = {85, l10n("Heroic")}, -- Vanquish the Raven God
+        [11041] = {1, l10n("Elite")}, -- A Job Unfinished...
+        [11059] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- Guardian of the Monument
+        [11073] = {1, l10n("Elite")}, -- Terokk's Downfall
+        [11078] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- To Rule The Skies
+        [11079] = Expansions.Current <= Expansions.Wotlk and {1, l10n("Elite")} or nil, -- A Fel Whip For Gahk
+        [11097] = {1, l10n("Elite")}, -- The Deadliest Trap Ever Laid
+        [11101] = {1, l10n("Elite")}, -- The Deadliest Trap Ever Laid
+        [11130] = {62, l10n("Raid")}, -- Oooh, Shinies!
+        [11132] = {62, l10n("Raid")}, -- Promises, Promises...
+        [11164] = {62, l10n("Raid")}, -- Tuskin' Raiders
+        [11165] = {62, l10n("Raid")}, -- A Troll Among Trolls
+        [11166] = {62, l10n("Raid")}, -- X Marks... Your Doom!
+        [11171] = {62, l10n("Raid")}, -- Hex Lord? Hah!
+        [11178] = {62, l10n("Raid")}, -- Blood of the Warlord
+        [11195] = {62, l10n("Raid")}, -- Playin' With Dolls
+        [11196] = Expansions.Current <= Expansions.Wotlk and {62, l10n("Raid")} or {81, l10n("Dungeon")}, -- Warlord of the Amani
+        [11335] = {41, l10n("PvP")}, -- Call to Arms: Arathi Basin
+        [11336] = {41, l10n("PvP")}, -- Call to Arms: Alterac Valley
+        [11337] = {41, l10n("PvP")}, -- Call to Arms: Eye of the Storm
+        [11338] = {41, l10n("PvP")}, -- Call to Arms: Warsong Gulch
+        [11339] = {41, l10n("PvP")}, -- Call to Arms: Arathi Basin
+        [11340] = {41, l10n("PvP")}, -- Call to Arms: Alterac Valley
+        [11341] = {41, l10n("PvP")}, -- Call to Arms: Eye of the Storm
+        [11342] = {41, l10n("PvP")}, -- Call to Arms: Warsong Gulch
+        [11354] = {85, l10n("Heroic")}, -- Wanted: Nazan's Riding Crop
+        [11362] = {85, l10n("Heroic")}, -- Wanted: Keli'dan's Feathered Stave
+        [11363] = {85, l10n("Heroic")}, -- Wanted: Bladefist's Seal
+        [11364] = {81, l10n("Dungeon")}, -- Wanted: Wanted: Shattered Hand Centurions
+        [11368] = {85, l10n("Heroic")}, -- Wanted: The Heart of Quagmirran
+        [11369] = {85, l10n("Heroic")}, -- Wanted: A Black Stalker Egg
+        [11370] = {85, l10n("Heroic")}, -- Wanted: The Warlord's Treatise
+        [11371] = {81, l10n("Dungeon")}, -- Wanted: Coilfang Myrmidons
+        [11372] = {85, l10n("Heroic")}, -- Wanted: The Headfeathers of Ikiss
+        [11373] = {85, l10n("Heroic")}, -- Wanted: Shaffar's Wondrous Pendant
+        [11374] = {85, l10n("Heroic")}, -- Wanted: The Exarch's Soul Gem
+        [11375] = {85, l10n("Heroic")}, -- Wanted: Murmur's Whisper
+        [11376] = {81, l10n("Dungeon")}, -- Wanted: Malicious Instructors
+        [11378] = {85, l10n("Heroic")}, -- Wanted: The Epoch Hunter's Head
+        [11382] = {85, l10n("Heroic")}, -- Wanted: Aeonus's Hourglass
+        [11383] = {81, l10n("Dungeon")}, -- Wanted: Rift Lords
+        [11384] = {85, l10n("Heroic")}, -- Wanted: A Warp Splinter Clipping
+        [11385] = {81, l10n("Dungeon")}, -- Wanted: Sunseeker Channelers
+        [11386] = {85, l10n("Heroic")}, -- Wanted: Pathaleon's Projector
+        [11387] = {81, l10n("Dungeon")}, -- Wanted: Tempest-Forge Destroyers
+        [11388] = {85, l10n("Heroic")}, -- Wanted: The Scroll of Skyriss
+        [11389] = {81, l10n("Dungeon")}, -- Wanted: Arcatraz Sentinels
+        [11401] = {81, l10n("Dungeon")}, -- Call the Headless Horseman
+        [11405] = {81, l10n("Dungeon")}, -- Call the Headless Horseman
+        [11488] = {81, l10n("Dungeon")}, -- Magisters' Terrace
+        [11490] = {81, l10n("Dungeon")}, -- The Scryer's Scryer
+        [11492] = {81, l10n("Dungeon")}, -- Hard to Kill
+        [11499] = {85, l10n("Heroic")}, -- Wanted: The Signet Ring of Prince Kael'thas
+        [11500] = {81, l10n("Dungeon")}, -- Wanted: Sisters of Torment
+        [11502] = {41, l10n("PvP")}, -- In Defense of Halaa
+        [11503] = {41, l10n("PvP")}, -- Enemies, Old and New
+        [11505] = {41, l10n("PvP")}, -- Spirits of Auchindoun
+        [11506] = {41, l10n("PvP")}, -- Spirits of Auchindoun
+        [11691] = {81, l10n("Dungeon")}, -- Summon Ahune
+        [11885] = {1, l10n("Elite")}, -- Adversarial Blood
+        [11955] = {81, l10n("Dungeon")}, -- Ahune, the Frost Lord
+        [12062] = {81, l10n("Dungeon")}, -- Insult Coren Direbrew
         [12170] = {41, l10n("PvP")}, -- 
         [12244] = {41, l10n("PvP")}, -- 
         [12268] = {41, l10n("PvP")}, -- 
@@ -1194,7 +1485,9 @@ function _QuestieDB.InitializeQuestTagInfoCorrections()
         [12437] = {41, l10n("PvP")}, -- 
         [12443] = {41, l10n("PvP")}, -- 
         [12446] = {41, l10n("PvP")}, -- 
-        [13129] = {81, l10n("Dungeon")}, -- 
+        [12513] = {81, l10n("Dungeon")}, -- Nice Hat...
+        [12515] = {81, l10n("Dungeon")}, -- Nice Hat...
+        [13129] = {81, l10n("Dungeon")}, -- Head Games
         [13199] = {41, l10n("PvP")}, -- 
         [13662] = {81, l10n("Dungeon")}, -- Gaining Acceptance
         [26452] = {41, l10n("PvP")}, -- 

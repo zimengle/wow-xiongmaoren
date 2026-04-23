@@ -2,9 +2,10 @@ local _, addonTable = ...;
 local BusinessInfo=addonTable.BusinessInfo
 function BusinessInfo.FastOpen(QuickButUI_index)
 	local L=addonTable.locale
-	local Data=addonTable.Data
 	local Fun=addonTable.Fun
-	local PIGUseKeyDown=Fun.PIGUseKeyDown
+	local Data=addonTable.Data
+	local bagIDMax= Data.bagData["bagIDMax"]
+
 	local Create=addonTable.Create
 	local PIGButton = Create.PIGButton
 	local PIGOptionsList_R=Create.PIGOptionsList_R
@@ -17,13 +18,11 @@ function BusinessInfo.FastOpen(QuickButUI_index)
 	local GetContainerItemID = C_Container.GetContainerItemID
 	local GetContainerItemLink = C_Container.GetContainerItemLink
 	local PickupContainerItem =C_Container.PickupContainerItem
-	-- 
-	local bagIDMax= addonTable.Data.bagData["bagIDMax"]
 	--
 	local GnName,GnUI,GnIcon,FrameLevel = unpack(BusinessInfo.AutoSellBuyData)
-	local _GN,_GNE = "开启","Open"
+	local _GN,_GNE = L["TRADESELLBUY_OPEN2"],"Open"
 	local BindingName = GnUI.."_".._GNE
-	local fujiF,fujiTabBut=PIGOptionsList_R(_G[GnUI].F,"开",50,"Left")
+	local fujiF,fujiTabBut=PIGOptionsList_R(_G[GnUI].F,L["TRADESELLBUY_OPEN1"],50,"Left")
 	BusinessInfo.ADDScroll(fujiF,_GN,_GNE,17,{false,"AutoSellBuy",_GNE.."_List"})
 	------
 	fujiF.Bindings = PIGButton(fujiF,{"TOPLEFT",fujiF,"TOPLEFT",20,-10},{76,20},KEY_BINDING);
@@ -32,9 +31,9 @@ function BusinessInfo.FastOpen(QuickButUI_index)
 	end)
 	local QkButAction=CreateFrame("Button",BindingName,UIParent, "SecureActionButtonTemplate");
 	QkButAction:SetAttribute("type1", "item")
-	PIGUseKeyDown(QkButAction)
+	Fun.PIGUseKeyDown(QkButAction,true)
 	_G["BINDING_NAME_CLICK "..BindingName..":LeftButton"]= "PIG"..GnName.._GN
-	local function zhixingClick(self,button)
+	local function zhixingClick(self,button,ly)
 		if button=="LeftButton" then
 			if InCombatLockdown() then
 				PIG_OptionsUI:ErrorMsg(ERR_NOT_IN_COMBAT)
@@ -56,9 +55,13 @@ function BusinessInfo.FastOpen(QuickButUI_index)
 							end
 						end
 					end
-					PIG_OptionsUI:ErrorMsg("没有需".._GN.."物品")
+					PIG_OptionsUI:ErrorMsg(string.format(L["TRADESELLBUY_TISP6"],_GN))
 				else
-					PIG_OptionsUI:ErrorMsg(_GN.."目录为空,"..KEY_BUTTON2.."设置")
+					if ly==1 then
+						PIG_OptionsUI:ErrorMsg(string.format(L["TRADESELLBUY_TISP4"],_GN)..","..KEY_BUTTON2..SETTINGS);
+					else
+						PIG_OptionsUI:ErrorMsg(string.format(L["TRADESELLBUY_TISP4"],_GN));
+					end
 				end	
 			end
 		end
@@ -68,7 +71,7 @@ function BusinessInfo.FastOpen(QuickButUI_index)
 	end);
 	---
 	local QuickButUI=_G[Data.QuickButUIname]
-	fujiF.QkBut = PIGCheckbutton(fujiF,{"TOPLEFT",fujiF,"TOPLEFT",20,-44},{"添加".._GN.."到"..L["ACTION_TABNAME2"], "在"..L["ACTION_TABNAME2"].."增加一个快捷使用按钮"})
+	fujiF.QkBut = PIGCheckbutton(fujiF,{"TOPLEFT",fujiF,"TOPLEFT",20,-44},{L["ACTION_ADDQUICKBUT"],string.format(L["ACTION_ADDQUICKBUTTIS"],_GN)})
 	fujiF.QkBut:SetScript("OnClick", function (self)
 		if self:GetChecked() then
 			PIGA["AutoSellBuy"][_GNE.."_QkBut"]=true;
@@ -79,7 +82,7 @@ function BusinessInfo.FastOpen(QuickButUI_index)
 			self.RL:Show()
 		end
 	end);
-	fujiF.QkBut.RL = PIGButton(fujiF.QkBut,{"LEFT",fujiF.QkBut.Text,"RIGHT",4,0},{60,20},"重载UI")
+	fujiF.QkBut.RL = PIGButton(fujiF.QkBut,{"LEFT",fujiF.QkBut.Text,"RIGHT",4,0},{80,20},RELOADUI)
 	fujiF.QkBut.RL:Hide()
 	fujiF.QkBut.RL:SetScript("OnClick", function (self)
 		ReloadUI()
@@ -91,12 +94,10 @@ function BusinessInfo.FastOpen(QuickButUI_index)
 		if PIGA["QuickBut"]["Open"] and PIGA["AutoSellBuy"]["Open"] and PIGA["AutoSellBuy"][_GNE.."_QkBut"] then
 			if QuickButUI[_GNE] then return end
 			QuickButUI[_GNE]=true
-			local QuickTooltip = KEY_BUTTON1.."-|cff00FFFF".._GN.."指定物品|r\n"..KEY_BUTTON2.."-|cff00FFFF打开"..GnName.."|r"
-			local QkBut=PIGQuickBut(nil,QuickTooltip,136058,nil,FrameLevel,"SecureActionButtonTemplate")
+			local QkBut=PIGQuickBut(nil,string.format(L["TRADESELLBUY_TISP5"],_GN,GnName),136058,nil,FrameLevel,"SecureActionButtonTemplate")
 			QkBut:SetAttribute("type1", "item")
-			PIGUseKeyDown(QkBut)
 			QkBut:HookScript("PreClick",  function (self,button)
-				zhixingClick(self,button)
+				zhixingClick(self,button,1)
 			end);
 			QkBut:HookScript("OnClick", function(self,button)
 				if button=="RightButton" then

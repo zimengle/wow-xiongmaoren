@@ -5,5 +5,9 @@
 ## Notes: |cff00ff00AtlasMY_WrathoftheLichKing|r
 ## Version: v1.51.02
 ## Author: arith, Dynaletik, dubcat
+## Category: BigFoot_UI
+## Category-zhCN: 大脚整合包
+## Category-zhTW: 大腳整合包
+## Group: AtlasLootMY
 ## Dependencies: AtlasLootMY
 ## X-Revision: BigFoot

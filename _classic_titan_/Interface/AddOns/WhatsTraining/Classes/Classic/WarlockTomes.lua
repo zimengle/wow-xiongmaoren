@@ -1,4 +1,5 @@
 local _, wt = ...
+local IsAddOnLoaded = C_AddOns and C_AddOns.IsAddOnLoaded or IsAddOnLoaded
 if wt.currentClass ~= "WARLOCK" then return end
 
 local LCT

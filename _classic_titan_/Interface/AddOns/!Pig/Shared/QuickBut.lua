@@ -176,7 +176,7 @@ function Create.PIGQuickBut(UIname,Tooltip,Icon,ShowGnUI,FrameLevel,Template)
 	local Children = {nr:GetChildren()};
 	local geshu = #Children;
 	local But = CreateFrame("Button", UIname, nr, Template);
-	But:RegisterForClicks("LeftButtonUp","RightButtonUp")
+	Fun.PIGUseKeyDown(But,true)
 	if type(Icon)=="number" then
 		But:SetNormalTexture(Icon)
 	else
@@ -249,7 +249,7 @@ end
 function Create.PIGModCheckbutton(fuF,text,Point)
 	local But = Create.PIGCheckbutton(fuF,nil,text)
 	But:SetPoint(unpack(Point))
-	local text1 = {string.format(L["ACTION_ADDQUICKBUT"],text[1]),string.format(L["ACTION_ADDQUICKBUTTIS"],text[1])}
+	local text1 = {L["ACTION_ADDQUICKBUT"],string.format(L["ACTION_ADDQUICKBUTTIS"],text[1])}
 	But.QKBut = Create.PIGCheckbutton(But,{"LEFT",But,"RIGHT",220,0},text1)
 	return But
 end

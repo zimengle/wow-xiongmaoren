@@ -52,7 +52,7 @@ end
 ------
 Create.Backdropinfo={bgFile = Create.bgFile, tile = true, tileSize = 0,edgeFile = Create.edgeFile, edgeSize = Create.edgeSize}
 Create.BackdropColor={0.08, 0.08, 0.08, 0.5}
-Create.BackdropBorderColor={0, 0, 0, 1}
+Create.BackdropBorderColor={0.2, 0.2, 0.2, 0.8}
 local function _SetPoint(self,Point,BOTTOMRIGHT)
 	local expp1,expp2,expp3,expp4,expp5=0,0,0,0,false
 	if NDui and self.Ext and self.Ext.NDui and self.Ext.NDui[1] then

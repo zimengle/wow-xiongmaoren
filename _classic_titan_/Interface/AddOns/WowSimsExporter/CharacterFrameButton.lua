@@ -112,7 +112,7 @@ local function CreateCharacterFrameButton()
         return false
     end
     
-    if IsAddOnLoaded("NDui") or IsAddOnLoaded("NDui_Plus") or IsAddOnLoaded("ElvUI") then
+    if Env.IsAddOnLoaded("NDui") or Env.IsAddOnLoaded("NDui_Plus") or Env.IsAddOnLoaded("ElvUI") then
         if not TryApplySkin() then
             C_Timer.After(0.5, function()
                 TryApplySkin()

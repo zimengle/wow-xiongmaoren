@@ -3,11 +3,23 @@
 ..\FrameXML\UI.xsd">
 
 	<!-- Item Row Template -->
-	<Button name="AccountantClassicTabTemplate" inherits="CharacterFrameTabButtonTemplate" mixin="AccountantClassicTabButtonMixin" virtual="true">
+	<Button name="AccountantClassicTabTemplate" inherits="CharacterFrameTabButtonTemplate" virtual="true">
 		<Scripts>
-			<OnEnter method="OnEnter"/>
-			<OnLeave method="OnLeave"/>
-			<OnClick method="OnClick"/>
+			<OnEnter>
+				if AccountantClassicTabButtonMixin then
+					AccountantClassicTabButtonMixin.OnEnter(self)
+				end
+			</OnEnter>
+			<OnLeave>
+				if AccountantClassicTabButtonMixin then
+					AccountantClassicTabButtonMixin.OnLeave(self)
+				end
+			</OnLeave>
+			<OnClick>
+				if AccountantClassicTabButtonMixin then
+					AccountantClassicTabButtonMixin.OnClick(self)
+				end
+			</OnClick>
 		</Scripts>
 	</Button>
 

@@ -13,6 +13,13 @@ X: 0
 Y: 0
 W: 365
 H: 239
+Frame: CharacterFrame
+FrameLevel: 1
+Anchor: TOPLEFT
+X: 0
+Y: -95
+W: 384
+H: 512
 Frame: SpellBookFrame
 FrameLevel: 1
 Anchor: TOPLEFT
@@ -55,10 +62,3 @@ X: 283
 Y: 71
 W: 1
 H: 1
-Frame: CharacterFrame
-FrameLevel: 1
-Anchor: TOPLEFT
-X: 0
-Y: -95
-W: 384
-H: 512

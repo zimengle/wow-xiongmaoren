@@ -211,7 +211,7 @@ end
 -- Faction switch
 -- #############################
 function AtlasLoot:GetRetByFaction(horde, alliance)
-	if AtlasLootMYDB.Debug and type(horde)=='table'and type(horde[1]) =='table' then
+	if false and type(horde)=='table'and type(horde[1]) =='table' then
 		local list={}
 		local idx=1
 		for i, v in ipairs(horde) do

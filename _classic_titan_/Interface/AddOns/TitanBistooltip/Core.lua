@@ -1,8 +1,12 @@
 TitanBistooltipAddon = LibStub("AceAddon-3.0"):NewAddon("TitanBistooltip")
 
 -- 插件版本信息
-local version = "1.98"
-TitanBistooltipAddon.AddonNameAndVersion = "|cFF00BFFF[快跑兄弟]|r TitanBistooltip v" .. version
+local version = GetAddOnMetadata("TitanBistooltip", "Version")
+if version then
+    TitanBistooltipAddon.AddonNameAndVersion = "TitanBistooltip v" .. version
+else
+    TitanBistooltipAddon.AddonNameAndVersion = "TitanBistooltip"
+end
 
 -- 全局函数用于按键绑定
 function TitanBistooltipToggle()
@@ -16,6 +20,15 @@ function TitanBistooltipToggleMaxed()
     if TitanBistooltipAddon and TitanBistooltipAddon.showMaxedFrame then
         TitanBistooltipAddon:showMaxedFrame()
     end
+end
+
+-- 防抖功能
+local tooltip_timer = nil
+local function debounceTooltip(callback, delay)  
+    if tooltip_timer then
+        tooltip_timer:Cancel()
+    end
+    tooltip_timer = C_Timer.NewTimer(delay, callback)
 end
 
 -- 装备扫描优化
@@ -254,7 +267,28 @@ function TitanBistooltipAddon:showCharacterEquipment(characterName, classFileNam
             itemFrame:SetCallback("OnEnter", function(widget)
                 debounceTooltip(function()
                     GameTooltip:SetOwner(widget.frame)
-                    GameTooltip:SetPoint("TOPRIGHT", widget.frame, "TOPRIGHT", 220, -13)
+                    
+                    -- 获取面板位置，自动调整提示框方向
+                    local frame = widget:GetParent()
+                    while frame and not frame:IsForbidden() do
+                        if frame.GetRight then
+                            break
+                        end
+                        frame = frame:GetParent()
+                    end
+                    
+                    local screenWidth = GetScreenWidth()
+                    local frameRight = frame and frame:GetRight() or 0
+                    local smartPosition = TitanBistooltipAddon.db.char.tooltip_position
+                    
+                    if smartPosition and frameRight > screenWidth / 2 then
+                        -- 启用智能调整且面板在屏幕右侧，提示框显示在左侧
+                        GameTooltip:SetPoint("TOPLEFT", widget.frame, "TOPLEFT", -220, -13)
+                    else
+                        -- 未启用智能调整或面板在屏幕左侧，提示框显示在右侧
+                        GameTooltip:SetPoint("TOPRIGHT", widget.frame, "TOPRIGHT", 220, -13)
+                    end
+                    
                     if itemLink then
                         GameTooltip:SetHyperlink(itemLink)
                     else
@@ -289,15 +323,6 @@ TitanBistooltip_char_equipment = {}
 
 -- 排名缓存，用于存储装备排名信息
 local rank_cache = {}
-
--- 防抖功能
-local tooltip_timer = nil
-local function debounceTooltip(callback, delay)  
-    if tooltip_timer then
-        tooltip_timer:Cancel()
-    end
-    tooltip_timer = C_Timer.NewTimer(delay, callback)
-end
 
 -- 保存控件引用，用于复用
 local controlRefs = {
@@ -364,7 +389,7 @@ local function inheritEquipmentFromPreviousPhase()
     end
 end
 
-function scanEquipment()
+function TitanBistooltip_ScanEquipment()
     -- 减少扫描频率，避免频繁扫描导致卡顿
     local current_time = GetTime()
     if current_time - last_scan_time < scan_interval then
@@ -435,9 +460,9 @@ function scanEquipment()
     -- 如果扫描成功，更新装备数据
     if success and result then
         TitanBistooltip_char_equipment = result
-        -- 清除 equipmentCache 缓存，确保下次打开 BIS 面板时重新检查装备状态
-        if equipmentCache then
-            equipmentCache = {}
+        -- 清除 TitanBistooltip_equipmentCache 缓存，确保下次打开 BIS 面板时重新检查装备状态
+        if TitanBistooltip_equipmentCache then
+            TitanBistooltip_equipmentCache = {}
         end
     else
         -- 扫描失败，记录错误
@@ -518,13 +543,13 @@ local function createEquipmentWatcher()
         self:Hide()
         if flag == false then
             flag = true
-            scanEquipment()
+            TitanBistooltip_ScanEquipment()
             flag = false
         end
     end)
     
     -- 立即执行一次装备扫描
-    scanEquipment()
+    TitanBistooltip_ScanEquipment()
 end
 
 local function getPlayerClassAndSpec()
@@ -814,9 +839,21 @@ local function updateClassAndSpecIndexes(className, specName)
         end
     end
     
-    -- 保持当前阶段设置，或者使用配置中的默认值（P2）
+    -- 保持当前阶段设置，或者使用配置中的默认值
     if not TitanBistooltipAddon.db.char.phase_index then
-        TitanBistooltipAddon.db.char.phase_index = 3 -- 默认使用P2阶段
+        -- 从设置中读取默认阶段
+        local defaultPhase = TitanBistooltipAddon.db.char.default_phase or "P3"
+        -- 确保TitanBistooltip_Titan_phases被正确初始化
+        local phases = TitanBistooltip_Titan_phases or { "PR" , "P1" , "P2" , "P3" , "P4" , "P5" , "P6" , "P7" , "P8" , "P9" , "P10" , "P11" }
+        -- 找到默认阶段在阶段列表中的索引
+        local phaseIndex = 1
+        for i, phase in ipairs(phases) do
+            if phase == defaultPhase then
+                phaseIndex = i
+                break
+            end
+        end
+        TitanBistooltipAddon.db.char.phase_index = phaseIndex
     end
 end
 

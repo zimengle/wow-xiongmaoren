@@ -74,9 +74,9 @@ TitanBistooltip_consumables = {
         [1] = 46376, -- 冰霜巨龙合剂
         [2] = 40212, -- 狂野魔法药水
         [3] = 40211, -- 速度药水
-        [4] = 33448, -- 符文法力药水
-        [5] = 43015, -- 鱼肉宴席
-        [6] = 34767  -- 爆炒鲑鱼
+        [4] = 43015, -- 鱼肉筵席
+        [5] = 34767, -- 鱼肉筵席
+        [6] = 43005  -- 香辣小龙虾
     },
     
     -- 平衡德消耗品
@@ -121,6 +121,17 @@ TitanBistooltip_consumables = {
         [4] = 43000, -- 龙鳞鱼片
         [5] = 42999, -- 熏烤龙鳞鱼
         [6] = 42995  -- 犀牛大餐
+    },
+    
+    -- 戒律牧消耗品
+    disciplinePriest = {
+        slot_name = "consumables",
+        [1] = 46376, -- 冰霜巨龙合剂
+        [2] = 40212, -- 狂野魔法药水
+        [3] = 33448, -- 符文法力药水
+        [4] = 43015, -- 鱼肉筵席
+        [5] = 34767, -- 爆炒鲑鱼
+        [6] = 270314  -- 群体复活卷轴
     }
 }
 
@@ -162,8 +173,12 @@ local tooltip_timer = nil
 local function debounceTooltip(callback, delay)  
     if tooltip_timer then
         tooltip_timer:Cancel()
+        tooltip_timer = nil -- 释放定时器对象
     end
-    tooltip_timer = C_Timer.NewTimer(delay, callback)
+    tooltip_timer = C_Timer.NewTimer(delay, function()
+        callback()
+        tooltip_timer = nil -- 回调执行后释放定时器
+    end)
 end
 local boemarks = {}
 
@@ -171,12 +186,12 @@ local isHorde = UnitFactionGroup("player") == "Horde"
 
 local itemCache = {}
 local factionItemCache = {}
-local equipmentCache = {}
+TitanBistooltip_equipmentCache = {}
 
 local function clearCaches()
     itemCache = {}
     factionItemCache = {}
-    equipmentCache = {}
+    TitanBistooltip_equipmentCache = {}
     itemInfoCache = {}
 end
 
@@ -305,28 +320,48 @@ local function createItemFrame(item_id, size, with_checkmark, original_item_id)
                     SetItemRef(ilink, ilink, "LeftButton")
                 end
             end)
-            item_frame:SetCallback("OnEnter", function(widget)
+            item_frame:SetCallback("OnEnter", function(widget) 
                 debounceTooltip(function()
                     local ilink = widget:GetUserData("ilink")
                     local itemId = widget:GetUserData("item_id")
                     if ilink and type(ilink) == "string" and #ilink > 0 then
-                        GameTooltip:SetOwner(widget.frame)
-                        local position = TitanBistooltipAddon.db.char.tooltip_position or "bottom"
-                        if position == "right" then
-                            GameTooltip:SetPoint("TOPRIGHT", widget.frame, "TOPRIGHT", 220, -13);
+                        GameTooltip:ClearLines() -- 清理之前的内容
+                        GameTooltip:SetOwner(widget.frame, "ANCHOR_NONE") -- 使用ANCHOR_NONE
+                        
+                        -- 获取面板位置，自动调整提示框方向
+                        local frame = main_frame and main_frame.frame
+                        local screenWidth = GetScreenWidth()
+                        local frameRight = frame and frame:GetRight() or 0
+                        local smartPosition = TitanBistooltipAddon.db.char.tooltip_position
+                        
+                        if smartPosition and frameRight > screenWidth / 2 then
+                            -- 启用智能调整且面板在屏幕右侧，提示框显示在左侧
+                            GameTooltip:SetPoint("TOPLEFT", widget.frame, "TOPLEFT", -220, -13);
                         else
-                            GameTooltip:SetPoint("BOTTOMLEFT", widget.frame, "TOPRIGHT", 10, -13);
+                            -- 未启用智能调整或面板在屏幕左侧，提示框显示在右侧
+                            GameTooltip:SetPoint("TOPRIGHT", widget.frame, "TOPRIGHT", 220, -13);
                         end
+                        
                         GameTooltip:SetHyperlink(ilink)
                     else
                         -- 物品信息无法获取，显示错误提示
-                        GameTooltip:SetOwner(widget.frame)
-                        local position = TitanBistooltipAddon.db.char.tooltip_position or "bottom"
-                        if position == "right" then
-                            GameTooltip:SetPoint("TOPRIGHT", widget.frame, "TOPRIGHT", 220, -13);
+                        GameTooltip:ClearLines() -- 清理之前的内容
+                        GameTooltip:SetOwner(widget.frame, "ANCHOR_NONE") -- 使用ANCHOR_NONE
+                        
+                        -- 获取面板位置，自动调整提示框方向
+                        local frame = main_frame and main_frame.frame
+                        local screenWidth = GetScreenWidth()
+                        local frameRight = frame and frame:GetRight() or 0
+                        local smartPosition = TitanBistooltipAddon.db.char.tooltip_position
+                        
+                        if smartPosition and frameRight > screenWidth / 2 then
+                            -- 启用智能调整且面板在屏幕右侧，提示框显示在左侧
+                            GameTooltip:SetPoint("TOPLEFT", widget.frame, "TOPLEFT", -220, -13);
                         else
-                            GameTooltip:SetPoint("BOTTOMLEFT", widget.frame, "TOPRIGHT", 10, -13);
+                            -- 未启用智能调整或面板在屏幕左侧，提示框显示在右侧
+                            GameTooltip:SetPoint("TOPRIGHT", widget.frame, "TOPRIGHT", 220, -13);
                         end
+                        
                         local errorMsg = "|cffff0000无效的物品信息|r"
                         if itemId then
                             errorMsg = "|cffff0000无效的物品信息 (ID: " .. itemId .. ")|r"
@@ -336,12 +371,13 @@ local function createItemFrame(item_id, size, with_checkmark, original_item_id)
                     end
                 end, 0.05) -- 50ms延迟
             end)
-            item_frame:SetCallback("OnLeave", function(widget)
+            item_frame:SetCallback("OnLeave", function(widget) 
                 if tooltip_timer then
                     tooltip_timer:Cancel()
                     tooltip_timer = nil
                 end
                 GameTooltip:Hide()
+                GameTooltip:ClearLines() -- 清理内容
             end)
         end)
     else
@@ -349,12 +385,21 @@ local function createItemFrame(item_id, size, with_checkmark, original_item_id)
         item_frame:SetCallback("OnEnter", function(widget)
             debounceTooltip(function()
                 GameTooltip:SetOwner(item_frame.frame)
-                local position = TitanBistooltipAddon.db.char.tooltip_position or "bottom"
-                if position == "right" then
-                    GameTooltip:SetPoint("TOPRIGHT", item_frame.frame, "TOPRIGHT", 220, -13);
+                
+                -- 获取面板位置，自动调整提示框方向
+                local frame = main_frame and main_frame.frame
+                local screenWidth = GetScreenWidth()
+                local frameRight = frame and frame:GetRight() or 0
+                local smartPosition = TitanBistooltipAddon.db.char.tooltip_position
+                
+                if smartPosition and frameRight > screenWidth / 2 then
+                    -- 启用智能调整且面板在屏幕右侧，提示框显示在左侧
+                    GameTooltip:SetPoint("TOPLEFT", item_frame.frame, "TOPLEFT", -220, -13);
                 else
-                    GameTooltip:SetPoint("BOTTOMLEFT", item_frame.frame, "TOPRIGHT", 10, -13);
+                    -- 未启用智能调整或面板在屏幕左侧，提示框显示在右侧
+                    GameTooltip:SetPoint("TOPRIGHT", item_frame.frame, "TOPRIGHT", 220, -13);
                 end
+                
                 GameTooltip:SetText("|cffff0000无效的物品信息 (ID: " .. item_id .. ")|r")
                 GameTooltip:Show()
             end, 0.05) -- 50ms延迟
@@ -384,12 +429,21 @@ local function createSpellFrame(spell_id, size)
         spell_frame:SetCallback("OnEnter", function(widget)
             debounceTooltip(function()
                 GameTooltip:SetOwner(widget.frame, "ANCHOR_NONE")
-                local position = TitanBistooltipAddon.db.char.tooltip_position or "bottom"
-                if position == "right" then
-                    GameTooltip:SetPoint("TOPRIGHT", widget.frame, "TOPRIGHT", 220, -13);
+                
+                -- 获取面板位置，自动调整提示框方向
+                local frame = main_frame and main_frame.frame
+                local screenWidth = GetScreenWidth()
+                local frameRight = frame and frame:GetRight() or 0
+                local smartPosition = TitanBistooltipAddon.db.char.tooltip_position
+                
+                if smartPosition and frameRight > screenWidth / 2 then
+                    -- 启用智能调整且面板在屏幕右侧，提示框显示在左侧
+                    GameTooltip:SetPoint("TOPLEFT", widget.frame, "TOPLEFT", -220, -13);
                 else
-                    GameTooltip:SetPoint("BOTTOMLEFT", widget.frame, "TOPRIGHT", 10, -13);
+                    -- 未启用智能调整或面板在屏幕左侧，提示框显示在右侧
+                    GameTooltip:SetPoint("TOPRIGHT", widget.frame, "TOPRIGHT", 220, -13);
                 end
+                
                 GameTooltip:SetText("|cffff0000Spell API不可用|r")
                 GameTooltip:Show()
             end, 0.05) -- 50ms延迟
@@ -414,12 +468,21 @@ local function createSpellFrame(spell_id, size)
                 spell_frame:SetCallback("OnEnter", function(widget)
                     debounceTooltip(function()
                         GameTooltip:SetOwner(widget.frame, "ANCHOR_NONE")
-                        local position = TitanBistooltipAddon.db.char.tooltip_position or "bottom"
-                        if position == "right" then
-                            GameTooltip:SetPoint("TOPRIGHT", widget.frame, "TOPRIGHT", 220, -13);
+                        
+                        -- 获取面板位置，自动调整提示框方向
+                        local frame = main_frame and main_frame.frame
+                        local screenWidth = GetScreenWidth()
+                        local frameRight = frame and frame:GetRight() or 0
+                        local smartPosition = TitanBistooltipAddon.db.char.tooltip_position
+                        
+                        if smartPosition and frameRight > screenWidth / 2 then
+                            -- 启用智能调整且面板在屏幕右侧，提示框显示在左侧
+                            GameTooltip:SetPoint("TOPLEFT", widget.frame, "TOPLEFT", -220, -13);
                         else
-                            GameTooltip:SetPoint("BOTTOMLEFT", widget.frame, "TOPRIGHT", 10, -13);
+                            -- 未启用智能调整或面板在屏幕左侧，提示框显示在右侧
+                            GameTooltip:SetPoint("TOPRIGHT", widget.frame, "TOPRIGHT", 220, -13);
                         end
+                        
                         GameTooltip:SetText("|cffff0000无效的法术信息 (ID: " .. spell_id .. ")|r")
                         GameTooltip:Show()
                     end, 0.05) -- 50ms延迟
@@ -470,22 +533,40 @@ local function createSpellFrame(spell_id, size)
                     local spellId = widget:GetUserData("spellId")
                     if link and type(link) == "string" and #link > 0 then
                         GameTooltip:SetOwner(widget.frame, "ANCHOR_NONE")
-                        local position = TitanBistooltipAddon.db.char.tooltip_position or "bottom"
-                        if position == "right" then
-                            GameTooltip:SetPoint("TOPRIGHT", widget.frame, "TOPRIGHT", 220, -13);
+                        
+                        -- 获取面板位置，自动调整提示框方向
+                        local frame = main_frame and main_frame.frame
+                        local screenWidth = GetScreenWidth()
+                        local frameRight = frame and frame:GetRight() or 0
+                        local smartPosition = TitanBistooltipAddon.db.char.tooltip_position
+                        
+                        if smartPosition and frameRight > screenWidth / 2 then
+                            -- 启用智能调整且面板在屏幕右侧，提示框显示在左侧
+                            GameTooltip:SetPoint("TOPLEFT", widget.frame, "TOPLEFT", -220, -13);
                         else
-                            GameTooltip:SetPoint("BOTTOMLEFT", widget.frame, "TOPRIGHT", 10, -13);
+                            -- 未启用智能调整或面板在屏幕左侧，提示框显示在右侧
+                            GameTooltip:SetPoint("TOPRIGHT", widget.frame, "TOPRIGHT", 220, -13);
                         end
+                        
                         GameTooltip:SetHyperlink(link)
                     else
                         -- 法术信息无法获取，显示错误提示
                         GameTooltip:SetOwner(widget.frame, "ANCHOR_NONE")
-                        local position = TitanBistooltipAddon.db.char.tooltip_position or "bottom"
-                        if position == "right" then
-                            GameTooltip:SetPoint("TOPRIGHT", widget.frame, "TOPRIGHT", 220, -13);
+                        
+                        -- 获取面板位置，自动调整提示框方向
+                        local frame = main_frame and main_frame.frame
+                        local screenWidth = GetScreenWidth()
+                        local frameRight = frame and frame:GetRight() or 0
+                        local smartPosition = TitanBistooltipAddon.db.char.tooltip_position
+                        
+                        if smartPosition and frameRight > screenWidth / 2 then
+                            -- 启用智能调整且面板在屏幕右侧，提示框显示在左侧
+                            GameTooltip:SetPoint("TOPLEFT", widget.frame, "TOPLEFT", -220, -13);
                         else
-                            GameTooltip:SetPoint("BOTTOMLEFT", widget.frame, "TOPRIGHT", 10, -13);
+                            -- 未启用智能调整或面板在屏幕左侧，提示框显示在右侧
+                            GameTooltip:SetPoint("TOPRIGHT", widget.frame, "TOPRIGHT", 220, -13);
                         end
+                        
                         local errorMsg = "|cffff0000无效的法术信息|r"
                         if spellId then
                             errorMsg = "|cffff0000无效的法术信息 (ID: " .. spellId .. ")|r"
@@ -508,12 +589,21 @@ local function createSpellFrame(spell_id, size)
         spell_frame:SetCallback("OnEnter", function(widget)
             debounceTooltip(function()
                 GameTooltip:SetOwner(widget.frame, "ANCHOR_NONE")
-                local position = TitanBistooltipAddon.db.char.tooltip_position or "bottom"
-                if position == "right" then
-                    GameTooltip:SetPoint("TOPRIGHT", widget.frame, "TOPRIGHT", 220, -13);
+                
+                -- 获取面板位置，自动调整提示框方向
+                local frame = main_frame and main_frame.frame
+                local screenWidth = GetScreenWidth()
+                local frameRight = frame and frame:GetRight() or 0
+                local smartPosition = TitanBistooltipAddon.db.char.tooltip_position
+                
+                if smartPosition and frameRight > screenWidth / 2 then
+                    -- 启用智能调整且面板在屏幕右侧，提示框显示在左侧
+                    GameTooltip:SetPoint("TOPLEFT", widget.frame, "TOPLEFT", -220, -13);
                 else
-                    GameTooltip:SetPoint("BOTTOMLEFT", widget.frame, "TOPRIGHT", 10, -13);
+                    -- 未启用智能调整或面板在屏幕左侧，提示框显示在右侧
+                    GameTooltip:SetPoint("TOPRIGHT", widget.frame, "TOPRIGHT", 220, -13);
                 end
+                
                 GameTooltip:SetText("|cffff0000无效的法术ID: " .. spell_id .. "|r")
                 GameTooltip:Show()
             end, 0.05) -- 50ms延迟
@@ -572,10 +662,7 @@ local function createEnhancementsFrame(enhancements, phase, slot_name)
     })
     
     -- 根据阶段决定宝石的最大显示数量
-    local maxGems = 3 -- 默认最多显示3个宝石
-    if phase == "PR" or phase == "P1" or phase == "P2" or phase == "P3" then
-        maxGems = 2 -- PR/P1/P2/P3阶段最多显示2个宝石
-    end
+    local maxGems = 2 -- 所有阶段最多显示2个宝石
     
     local gemCount = 0
     
@@ -757,6 +844,7 @@ local function drawSpecData()
                         local enhancementShamanConsumables = TitanBistooltip_consumables and TitanBistooltip_consumables.enhancementShaman
                         local rogueConsumables = TitanBistooltip_consumables and TitanBistooltip_consumables.rogue
                         local feralDruidConsumables = TitanBistooltip_consumables and TitanBistooltip_consumables.feralDruid
+                        local disciplinePriestConsumables = TitanBistooltip_consumables and TitanBistooltip_consumables.disciplinePriest
                         
                         -- 根据职业和专精类型添加相应的消耗品组
                         local isCaster = false
@@ -843,6 +931,9 @@ local function drawSpecData()
                         elseif class == "Shaman" and spec == "Enhancement" then
                             -- 增强萨
                             table.insert(consumableGroups, enhancementShamanConsumables)
+                        elseif class == "Priest" and spec == "Discipline" then
+                            -- 戒律牧
+                            table.insert(consumableGroups, disciplinePriestConsumables)
                         elseif isCaster then
                             -- 法系
                             table.insert(consumableGroups, casterConsumables)
@@ -915,16 +1006,24 @@ local function loadData()
         class_index = TitanBistooltipAddon.db.char.class_index
         spec_index = TitanBistooltipAddon.db.char.spec_index
         -- 从设置中读取默认阶段
-        local defaultPhase = TitanBistooltipAddon.db.char.default_phase
+        local defaultPhase = TitanBistooltipAddon.db.char.default_phase or "P3"
+        -- 确保TitanBistooltip_phases被正确初始化
+        if not TitanBistooltip_phases or #TitanBistooltip_phases == 0 then
+            TitanBistooltip_phases = TitanBistooltip_Titan_phases or { "PR" , "P1" , "P2" , "P3" , "P4" }
+        end
         -- 找到默认阶段在TitanBistooltip_phases中的索引
         phase_index = 1
-        if TitanBistooltip_phases then
-            for i, phase in ipairs(TitanBistooltip_phases) do
-                if phase == defaultPhase then
-                    phase_index = i
-                    break
-                end
+        local found = false
+        for i, phase in ipairs(TitanBistooltip_phases) do
+            if phase == defaultPhase then
+                phase_index = i
+                found = true
+                break
             end
+        end
+        -- 如果在过滤后的阶段列表中找不到默认阶段，使用第一个阶段
+        if not found then
+            phase_index = 1
         end
         TitanBistooltipAddon.db.char.phase_index = phase_index
         if class_index and class_options and class_options[class_index] and class_options_to_class and class_options_to_class[class_options[class_index]] then
@@ -934,8 +1033,12 @@ local function loadData()
         if spec_index and spec_options and spec_options[spec_index] and spec_options_to_spec and spec_options_to_spec[spec_options[spec_index]] then
             spec = spec_options_to_spec[spec_options[spec_index]]
         end
-        if phase_index and TitanBistooltip_phases then
+        -- 确保phase变量被正确设置
+        if phase_index and TitanBistooltip_phases and #TitanBistooltip_phases > 0 then
             phase = TitanBistooltip_phases[phase_index]
+        else
+            -- 如果TitanBistooltip_phases还没有被初始化，直接使用默认阶段
+            phase = defaultPhase
         end
     end
 end

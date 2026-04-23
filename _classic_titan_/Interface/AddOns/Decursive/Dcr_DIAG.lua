@@ -1,7 +1,7 @@
 --[[
     This file is part of Decursive.
 
-    Decursive (v 2.7.29) add-on for World of Warcraft UI
+    Decursive (v 2.7.17) add-on for World of Warcraft UI
     Copyright (C) 2006-2019 John Wellesz (Decursive AT 2072productions.com) ( http://www.2072productions.com/to/decursive.php )
 
     Decursive is free software: you can redistribute it and/or modify
@@ -112,7 +112,7 @@ local DebugTextTable    = T._DebugTextTable;
 local Reported          = {};
 
 local UNPACKAGED = "@pro" .. "ject-version@";
-local VERSION = "2.7.29";
+local VERSION = GetAddOnMetadata("Decursive", "Version") or "2.7.17.8";
 
 T._LoadedFiles = {};
 T._LoadedFiles["Dcr_DIAG.lua"] = false; -- here for consistency but useless in this particular file
@@ -241,9 +241,10 @@ function T._AddDebugText(a1, ...) -- {{{
 
     -- if an error is caught while Decursive is being loaded, there is a good chance it will cancel loading alltogether.
     -- So just display what we caught straight away.
-    if not T.Dcr.DcrFullyInitialized then
-        T._ShowDebugReport();
-    end
+    -- Commented out to prevent auto-show of debug report
+    -- if not T.Dcr.DcrFullyInitialized then
+    --     T._ShowDebugReport();
+    -- end
 
 end -- }}}
 
@@ -314,6 +315,8 @@ do
             end
         else
             instructionsHeader = T.Dcr.L and ((T.Dcr.L["DECURSIVE_DEBUG_REPORT_BUT_NEW_VERSION"]):format(T.Dcr.db.global.NewerVersionName)) or HeaderFailOver;
+            -- Clear the old version name to prevent this message from showing again
+            T.Dcr.db.global.NewerVersionName = nil;
             -- disable bug me not since the user _clearly_ took the wrong decision
             T.Dcr.db.global.NewVersionsBugMeNot = false;
         end
@@ -328,7 +331,7 @@ do
         local dbclud = T.Dcr.Status.delayedUnDebuffOccurences
 
 
-        DebugHeader = ("%s\n2.7.29-fixedTry2  %s(%s)  CT: %0.4f D: %s %s %s BDTHFAd: %s nDrE: %d Embeded: %s W: %d (LA: %d TAMU: %d) TA: %d NDRTA: %d BUIE: %d dbc: [d:%d-%d, u:%d-%d] TI: [dc:%d, lc:%d, y:%d, LEBY:%d, LB:%d, TTE:%u] (%s, %s, %s, %s)"):format(instructionsHeader, -- "%s\n
+        DebugHeader = ("%s\n2.7.17-fixedTry2  %s(%s)  CT: %0.4f D: %s %s %s BDTHFAd: %s nDrE: %d Embeded: %s W: %d (LA: %d TAMU: %d) TA: %d NDRTA: %d BUIE: %d dbc: [d:%d-%d, u:%d-%d] TI: [dc:%d, lc:%d, y:%d, LEBY:%d, LB:%d, TTE:%u] (%s, %s, %s, %s)"):format(instructionsHeader, -- "%s\n
         tostring(DC.MyClass), tostring(UnitLevel("player") or "??"), NiceTime(), date(), GetLocale(), -- %s(%s)  CT: %0.4f D: %s %s
         BugGrabber and "BG" .. (T.BugGrabber and "e" or "") or "NBG", -- %s
         tostring(T._BDT_HotFix1_applyed), -- BDTHFAd: %s
@@ -369,9 +372,11 @@ do
             local D = T.Dcr;
             local knownBleedEffectsCount = 0;
 
-            for _ in pairs(D.Status.t_CheckBleedDebuffsActiveIDs) do
-               knownBleedEffectsCount = knownBleedEffectsCount + 1;
-           end
+            if D.Status and D.Status.t_CheckBleedDebuffsActiveIDs then
+                for _ in pairs(D.Status.t_CheckBleedDebuffsActiveIDs) do
+                   knownBleedEffectsCount = knownBleedEffectsCount + 1;
+               end
+            end
 
             return ([=[%d Bleed Effects registered.
 Bleed keywords:
@@ -908,7 +913,8 @@ do
 
         SpellAssignmentsTexts[1] = "\nSpells assignments:";
 
-        for Spell, Prio in pairs(D.Status.CuringSpellsPrio) do
+        if D.Status and D.Status.CuringSpellsPrio then
+            for Spell, Prio in pairs(D.Status.CuringSpellsPrio) do
 
             local SpellCuredTypes = {};
             for typeprio, afflictionType in ipairs(D.Status.ReversedCureOrder) do
@@ -921,6 +927,7 @@ do
             SpellCuredTypes = table.concat (SpellCuredTypes, " - ");
 
             SpellAssignmentsTexts[Prio + 1] = string.format("\n    %s -> %s%s", ("%s - %s - (%s)"):format( ("Prio %d:"):format(Prio), SpellCuredTypes, MouseButtons[Prio]), Spell, (D.Status.FoundSpells[Spell] and D.Status.FoundSpells[Spell][5]) and ("\n        MACRO(%d):(%s)"):format(D.Status.FoundSpells[Spell][5]:len(), D.Status.FoundSpells[Spell][5]) or "");
+            end
         end
         return table.concat(SpellAssignmentsTexts, "\n");
     end -- }}}
@@ -1160,4 +1167,4 @@ do
     end
 end
 
-T._LoadedFiles["Dcr_DIAG.lua"] = "2.7.29";
+T._LoadedFiles["Dcr_DIAG.lua"] = "2.7.17";

@@ -632,7 +632,7 @@ end
 local GetNumTalentGroups=GetNumTalentGroups or PIGGetNumTalentGroups
 local GetActiveTalentGroup=GetActiveTalentGroup or PIGGetActiveTalentGroup
 function TalentData.GetTianfuIcon(guancha,zhiye,unit)
-	local zuidazhi = {"--",132222,0}
+	local zuidazhi = {"--",132222,0,0}
 	local index = GetActiveTalentGroup(guancha,false)
 	if PIG_MaxTocversion(40000) then
 		local numTabs = GetNumTalentTabs(guancha)
@@ -643,7 +643,7 @@ function TalentData.GetTianfuIcon(guancha,zhiye,unit)
 			itemlistTalentmax.name=name
 			itemlistTalentmax.icon=icon
 			if itemlistTalentmax.pointsSpent>zuidazhi[3] then
-				zuidazhi={itemlistTalentmax.name, itemlistTalentmax.icon or tianfuTabIcon[zhiye][ti] or zuidazhi[2], itemlistTalentmax.pointsSpent}
+				zuidazhi={itemlistTalentmax.name, itemlistTalentmax.icon or tianfuTabIcon[zhiye][ti] or zuidazhi[2], itemlistTalentmax.pointsSpent,ti}
 			end
 		end
 	elseif PIG_MaxTocversion(50000) then
@@ -652,6 +652,7 @@ function TalentData.GetTianfuIcon(guancha,zhiye,unit)
 			local _, name, _, icon, pointsSpent, background, previewPointsSpent = GetTalentTabInfo(masteryIndex,guancha,false,index);
 			zuidazhi[1]=name
 			zuidazhi[2]=icon
+			zuidazhi[4]=masteryIndex
 		end
 	else
 		if guancha then
@@ -660,6 +661,7 @@ function TalentData.GetTianfuIcon(guancha,zhiye,unit)
 			if name ~= "" then
 				zuidazhi[1]=name
 				zuidazhi[2]=icon
+				zuidazhi[4]=specID
 			end
 		else
 			local specIndex = GetSpecialization()--当前专精
@@ -667,6 +669,7 @@ function TalentData.GetTianfuIcon(guancha,zhiye,unit)
 			if name ~= "" then
 				zuidazhi[1]=name
 				zuidazhi[2]=icon
+				zuidazhi[4]=specIndex
 			end
 		end
 	end

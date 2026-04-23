@@ -1087,6 +1087,7 @@ local function SetItemLib()
     mainFrame.scroll.ScrollBar:Hide()
     for k, bt in pairs(mainFrame.buttons) do
         bt:Hide()
+        bt:SetParent(nil)
         mainFrame.buttons[k] = nil
     end
 
@@ -1162,12 +1163,7 @@ local function SetItemLib()
                         return
                     end
                     local exItemID, exItemLink = GetkExchangeItemInfo(itemID)
-                    if exItemID and exItemLink then
-                        if BG.SetHope(exItemLink, FB) then return end
-                    else
-                        if BG.SetHope(vv.link, FB) then return end
-                    end
-                    UIErrorsFrame:AddMessage(L["不能设置为心愿，因为该BOSS的心愿格子已满"], RED_FONT_COLOR:GetRGB())
+                    BG.SetHope(exItemID and exItemLink or vv.link, FB, true)
                 elseif IsControlKeyDown() then
                     DressUpItemLink(vv.link)
                 end

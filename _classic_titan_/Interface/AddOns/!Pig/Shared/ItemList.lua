@@ -290,7 +290,7 @@ local function Update_SlotButton(SlotBut,SlotID,zbData)
 						Enchantui:SetAlpha(1)
 						Enchantui.icon:SetDesaturated(true)
 						Enchantui:SetBackdropBorderColor(0.5, 0.5, 0.5, 1);
-						Enchantui.icon:SetTexture(136244)
+						Enchantui.icon:SetTexture(130775)
 						Enchantui:SetScript("OnEnter", function (self)
 							GameTooltip:ClearLines();
 							GameTooltip:SetOwner(self, "ANCHOR_RIGHT",0,0);

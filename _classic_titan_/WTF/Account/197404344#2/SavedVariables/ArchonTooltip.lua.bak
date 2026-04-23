@@ -4,8 +4,8 @@ ArchonTooltipSaved = {
 ["AllowShiftExpansionInCombat"] = false,
 ["ShowTooltipInCombat"] = false,
 ["ShowShiftHint"] = true,
-["ShowAsp"] = false,
+["ShowAsp"] = true,
 ["MenuDropdownIntegration"] = true,
-["ShowRank"] = false,
+["ShowRank"] = true,
 },
 }

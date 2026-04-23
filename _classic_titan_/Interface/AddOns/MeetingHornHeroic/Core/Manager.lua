@@ -132,7 +132,6 @@ function ActivityManager:CleanCachedActivity()
         local currentTime = time()
         if saveData.createdTime and (currentTime - saveData.createdTime) > 21600 then  -- 6小时 = 21600秒
             ns.Addon.db.char.currentActivity = nil
-            self.currentPlayerActivity = nil
         end
     end
 
@@ -156,7 +155,7 @@ function ActivityManager:FireUpdateCallbacks(eventType, activityData)
     end
 end
 
-function ActivityManager:CreateActivity(raidId, modeId, comment, neededRoles, itemLevelRequirement)
+function ActivityManager:CreateActivity(raidId, modeId, comment, neededRoles, itemLevelRequirement, teamBonus, subsidyList)
     local playerName = UnitName("player")
 
     -- 如果玩家已有活动，先关闭它
@@ -176,10 +175,16 @@ function ActivityManager:CreateActivity(raidId, modeId, comment, neededRoles, it
         activity:SetNeededRoles(neededRoles.tank, neededRoles.healer, neededRoles.dps)
     end
 
+    -- 设置团双和补助数据
+    activity.teamBonus = teamBonus and true or false
+    if subsidyList and #subsidyList > 0 then
+        activity.subsidyList = subsidyList
+    end
+
     -- 添加队长自己
     local playerClass, playerClassFileName = UnitClass("player")
     local playerLevel = UnitLevel("player")
-    local playerRole = self:GuessPlayerRole(playerClassFileName)
+    local playerRole = self:DetectPlayerRole("player", playerClassFileName)
 
     activity:AddMember({
         name = playerName,
@@ -209,21 +214,59 @@ function ActivityManager:CreateActivity(raidId, modeId, comment, neededRoles, it
     return activity
 end
 
-function ActivityManager:GuessPlayerRole(playerClass)
-    -- 根据职业猜测角色定位
-    local tankClasses = {WARRIOR = true, PALADIN = true, DEATHKNIGHT = true}
-    local healerClasses = {PRIEST = true, PALADIN = true, SHAMAN = true, DRUID = true}
-
-    if tankClasses[playerClass] then
-        return "tank"
-    elseif healerClasses[playerClass] then
-        return "healer"
-    else
+-- 角色职责判定：三级策略
+-- Level 1: UnitGroupRolesAssigned（玩家手动设置的角色）
+-- Level 2: GetTalentTabInfo 天赋点数推断（点数最多的天赋页）
+-- Level 3: 职业兜底（默认 dps，不再硬编码坦克/治疗）
+function ActivityManager:DetectPlayerRole(unit, classFileName)
+    -- 纯 DPS 职业快速返回
+    if classFileName and ns.PURE_DPS_CLASSES[classFileName] then
         return "dps"
     end
+
+    -- Level 1: UnitGroupRolesAssigned
+    if unit and UnitExists(unit) then
+        local assignedRole = UnitGroupRolesAssigned(unit)
+        if assignedRole == "TANK" then
+            return "tank"
+        elseif assignedRole == "HEALER" then
+            return "healer"
+        elseif assignedRole == "DAMAGER" then
+            return "dps"
+        end
+        -- "NONE" → 继续 Level 2
+    end
+
+    -- Level 2: 天赋点数推断
+    if unit and classFileName and ns.SPEC_ROLE_MAP[classFileName] then
+        local isInspect = (unit ~= "player")
+        local maxPoints = 0
+        local maxTab = 1
+        local hasData = false
+        for tab = 1, 3 do
+            local _, _, rawPoints = GetTalentTabInfo(tab, isInspect, false)
+            local pointsSpent = tonumber(rawPoints) or 0
+            if pointsSpent > 0 then
+                hasData = true
+                if pointsSpent > maxPoints then
+                    maxPoints = pointsSpent
+                    maxTab = tab
+                end
+            end
+        end
+        if hasData then
+            local role = ns.SPEC_ROLE_MAP[classFileName][maxTab]
+            if role then
+                return role
+            end
+        end
+    end
+
+    -- Level 3: 职业兜底 — 默认 dps
+    return "dps"
 end
 
-function ActivityManager:UpdateActivity(raidId, modeId, comment, neededRoles, itemLevelRequirement)
+function ActivityManager:UpdateActivity(raidId, modeId, comment, neededRoles, itemLevelRequirement, teamBonus, subsidyList)
     if not self.currentPlayerActivity then
         return nil, "没有正在进行的活动"
     end
@@ -241,6 +284,10 @@ function ActivityManager:UpdateActivity(raidId, modeId, comment, neededRoles, it
     if neededRoles then
         activity:SetNeededRoles(neededRoles.tank, neededRoles.healer, neededRoles.dps)
     end
+
+    -- 更新团双和补助数据
+    activity.teamBonus = teamBonus and true or false
+    activity.subsidyList = (subsidyList and #subsidyList > 0) and subsidyList or {}
 
     activity:UpdateTimestamp()
 
@@ -426,19 +473,19 @@ function ActivityManager:SortActivities(activities)
             return aIsMHH
         end
 
-        -- 优先级2：按用户选择的排序方式
+        -- 优先级2：按用户选择的排序方式（所有字段 nil 保护，防止异常远程活动导致排序报错）
         if sortOrder == "time" then
-            return a.createdTime > b.createdTime
+            return (a.createdTime or 0) > (b.createdTime or 0)
         elseif sortOrder == "raid" then
             local raidA = ns.GetRaidName(a.raidId)
             local raidB = ns.GetRaidName(b.raidId)
-            return raidA < raidB
+            return (raidA or "") < (raidB or "")
         elseif sortOrder == "mode" then
-            return a.modeId < b.modeId
+            return (a.modeId or 0) < (b.modeId or 0)
         elseif sortOrder == "leader" then
-            return a.leaderName < b.leaderName
+            return (a.leaderName or "") < (b.leaderName or "")
         else
-            return a.createdTime > b.createdTime
+            return (a.createdTime or 0) > (b.createdTime or 0)
         end
     end)
 end
@@ -590,7 +637,69 @@ function ActivityManager:OnChatManagerEvent(eventType, data)
         or eventType == "MEETINGHORN_ACTIVITY_REMOVED" then
         -- MeetingHorn 原生活动列表发生变化，需要刷新 UI
         self:FireUpdateCallbacks("EXTERNAL_ACTIVITY_RECEIVED", data)
+    elseif eventType == "WHISPER_APPLICANT" then
+        -- 密语申请者检测（原 CHAT_MSG_WHISPER 双重注册已统一到 ChatManager 回调）
+        if self.currentPlayerActivity and data then
+            local text = data.text
+            local sender = data.sender
+            local guid = data.guid
+            if text == '1' or text == '组' then
+                local class, race
+                if guid then
+                    class, race = select(2, GetPlayerInfoByGUID(guid))
+                end
+                self:AddApplicant(sender, class, race)
+            end
+        end
     end
+end
+
+-- 轻量级活动计数（跳过 Filter/Sort，但包含所有来源的活动）
+-- 按 leaderName 去重，与 GetFilteredActivities 保持一致
+function ActivityManager:GetRawActivityCount()
+    local count = 0
+    local seenLeaders = {}
+
+    -- 1. 本地活动
+    for _, activity in pairs(self.activities) do
+        if not activity:IsExpired() then
+            count = count + 1
+            if activity.leaderName then
+                seenLeaders[activity.leaderName] = true
+            end
+        end
+    end
+
+    -- 2. MHH 远程活动
+    if self.chatManager and self.chatManager.receivedActivities then
+        for _, activity in pairs(self.chatManager.receivedActivities) do
+            if not activity:IsExpired() then
+                if not activity.leaderName or not seenLeaders[activity.leaderName] then
+                    count = count + 1
+                    if activity.leaderName then
+                        seenLeaders[activity.leaderName] = true
+                    end
+                end
+            end
+        end
+    end
+
+    -- 3. MeetingHorn 原生活动（使用缓存，cache 命中时 O(n) 遍历数组）
+    if self.chatManager and self.chatManager.GetMeetingHornActivities then
+        local mhActivities = self.chatManager:GetMeetingHornActivities()
+        for _, activity in ipairs(mhActivities) do
+            if not activity:IsExpired() then
+                if not activity.leaderName or not seenLeaders[activity.leaderName] then
+                    count = count + 1
+                    if activity.leaderName then
+                        seenLeaders[activity.leaderName] = true
+                    end
+                end
+            end
+        end
+    end
+
+    return count
 end
 
 -- 处理外部活动接收
@@ -619,12 +728,10 @@ function ActivityManager:CreateGroupUpdateFrame()
     frame:RegisterEvent("GROUP_ROSTER_UPDATE")
     frame:RegisterEvent("PARTY_LEADER_CHANGED")
     frame:RegisterEvent("CHAT_MSG_SYSTEM")
-    frame:RegisterEvent("CHAT_MSG_WHISPER")
+    -- CHAT_MSG_WHISPER 已统一到 ChatManager，通过 WHISPER_APPLICANT 回调通知（消除双重注册）
     frame:SetScript("OnEvent", function(self, event, ...)
         if event == "CHAT_MSG_SYSTEM" then
             ns.ActivityManager:OnSystemMessage(...)
-        elseif event == "CHAT_MSG_WHISPER" then
-            ns.ActivityManager:OnWhisperForApplicant(...)
         else
             ns.ActivityManager:OnGroupRosterUpdate()
         end
@@ -726,7 +833,7 @@ function ActivityManager:SyncActivityWithGroup()
         class = UnitClass("player"),
         classFileName = select(2, UnitClass("player")),
         level = UnitLevel("player"),
-        role = self:GuessPlayerRole(select(2, UnitClass("player")))
+        role = self:DetectPlayerRole("player", select(2, UnitClass("player")))
     }
 
     -- 检查是否在团队中
@@ -745,7 +852,7 @@ function ActivityManager:SyncActivityWithGroup()
                         class = class,
                         classFileName = classFileName,
                         level = level,
-                        role = self:GuessPlayerRole(classFileName)
+                        role = self:DetectPlayerRole(unit, classFileName)
                     }
                 end
             end
@@ -766,7 +873,7 @@ function ActivityManager:SyncActivityWithGroup()
                         class = class,
                         classFileName = classFileName,
                         level = level,
-                        role = self:GuessPlayerRole(classFileName)
+                        role = self:DetectPlayerRole(unit, classFileName)
                     }
                 end
             end

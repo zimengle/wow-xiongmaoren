@@ -1,6 +1,6 @@
-## Interface: 30800
+## Interface: 30801
 ## Title: CChatFilter |cffd4af37谷|r|cffdbb850风|r|cffe2c069修|r|cffe9c882复|r|cfff0d09b版|r
-## Version: 3.3
+## Version: 3.4
 ## Notes: CChatFilter
 ## Notes-zhCN: 怀旧服消息过滤插件，Esc-界面-插件中可进行详细设定
 ## SavedVariables: BFWC_Filter_SavedConfigs_G

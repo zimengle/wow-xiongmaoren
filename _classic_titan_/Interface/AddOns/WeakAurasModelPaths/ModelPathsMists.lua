@@ -1518,6 +1518,17 @@ WeakAuras.ModelPaths = {
    {
     children = {
      {
+      fileId = "7651317",
+      text = "batpetrevendreth2_classic.m2",
+      value = "batpetrevendreth2_classic.m2",
+     },
+    },
+    text = "batpetrevendreth2_classic",
+    value = "batpetrevendreth2_classic",
+   },
+   {
+    children = {
+     {
       fileId = "123040",
       text = "bear.m2",
       value = "bear.m2",
@@ -6839,6 +6850,17 @@ WeakAuras.ModelPaths = {
    {
     children = {
      {
+      fileId = "1781898",
+      text = "horsemultisaddle.m2",
+      value = "horsemultisaddle.m2",
+     },
+    },
+    text = "horsemultisaddle",
+    value = "horsemultisaddle",
+   },
+   {
+    children = {
+     {
       fileId = "531342",
       text = "pa_hotairballoon_vehicle.m2",
       value = "pa_hotairballoon_vehicle.m2",
@@ -10342,6 +10364,17 @@ WeakAuras.ModelPaths = {
    {
     children = {
      {
+      fileId = "7792809",
+      text = "palanquinmount_classic.m2",
+      value = "palanquinmount_classic.m2",
+     },
+    },
+    text = "palanquinmount_classic",
+    value = "palanquinmount_classic",
+   },
+   {
+    children = {
+     {
       fileId = "309881",
       text = "jadepandacub.m2",
       value = "jadepandacub.m2",
@@ -12157,6 +12190,17 @@ WeakAuras.ModelPaths = {
    {
     children = {
      {
+      fileId = "7651315",
+      text = "shabeakypet_classic.m2",
+      value = "shabeakypet_classic.m2",
+     },
+    },
+    text = "shabeakypet_classic",
+    value = "shabeakypet_classic",
+   },
+   {
+    children = {
+     {
       fileId = "592048",
       text = "shaboss.m2",
       value = "shaboss.m2",
@@ -12339,6 +12383,17 @@ WeakAuras.ModelPaths = {
    {
     children = {
      {
+      fileId = "7651313",
+      text = "shaowlmount_classic.m2",
+      value = "shaowlmount_classic.m2",
+     },
+    },
+    text = "shaowlmount_classic",
+    value = "shaowlmount_classic",
+   },
+   {
+    children = {
+     {
       fileId = "6243084",
       text = "shapetclassic.m2",
       value = "shapetclassic.m2",
@@ -12384,6 +12439,17 @@ WeakAuras.ModelPaths = {
     },
     text = "shatigermountclassic",
     value = "shatigermountclassic",
+   },
+   {
+    children = {
+     {
+      fileId = "7651311",
+      text = "shawolfmount_classic.m2",
+      value = "shawolfmount_classic.m2",
+     },
+    },
+    text = "shawolfmount_classic",
+    value = "shawolfmount_classic",
    },
    {
     children = {
@@ -99009,9 +99075,48 @@ WeakAuras.ModelPaths = {
       text = "unk_exp11_7454266",
       value = "unk_exp11_7454266",
      },
+     {
+      children = {
+       {
+        fileId = "7507893",
+        text = "7507893.m2",
+        value = "7507893.m2",
+       },
+      },
+      text = "unk_exp11_7507893",
+      value = "unk_exp11_7507893",
+     },
+     {
+      children = {
+       {
+        fileId = "7736414",
+        text = "7736414.m2",
+        value = "7736414.m2",
+       },
+      },
+      text = "unk_exp11_7736414",
+      value = "unk_exp11_7736414",
+     },
     },
     text = "spells",
     value = "spells",
+   },
+   {
+    children = {
+     {
+      children = {
+       {
+        fileId = "7507894",
+        text = "7507894.m2",
+        value = "7507894.m2",
+       },
+      },
+      text = "unk_exp11_7507894",
+      value = "unk_exp11_7507894",
+     },
+    },
+    text = "unknown",
+    value = "unknown",
    },
   },
   text = "models",
@@ -99218,6 +99323,11 @@ WeakAuras.ModelPaths = {
     value = "10fx_rubylifepools_melidrussa_frigidshard_precast.m2",
    },
    {
+    fileId = "6703761",
+    text = "11fx_manaforgeomega_forgeweaveraraz_powermanifested_impact.m2",
+    value = "11fx_manaforgeomega_forgeweaveraraz_powermanifested_impact.m2",
+   },
+   {
     fileId = "7116163",
     text = "11fx_phaseblink_cast.m2",
     value = "11fx_phaseblink_cast.m2",
@@ -99226,6 +99336,11 @@ WeakAuras.ModelPaths = {
     fileId = "5928237",
     text = "11fx_undermineraid_theonearmedbandit_scatteredpayout_cast.m2",
     value = "11fx_undermineraid_theonearmedbandit_scatteredpayout_cast.m2",
+   },
+   {
+    fileId = "2497791",
+    text = "8fx_jaina_novalow_impactworld.m2",
+    value = "8fx_jaina_novalow_impactworld.m2",
    },
    {
     fileId = "3088467",
@@ -100791,6 +100906,11 @@ WeakAuras.ModelPaths = {
     fileId = "1623387",
     text = "cfx_mage_fireprecast_precasthandleft.m2",
     value = "cfx_mage_fireprecast_precasthandleft.m2",
+   },
+   {
+    fileId = "6020264",
+    text = "cfx_mage_massteleport_precast.m2",
+    value = "cfx_mage_massteleport_precast.m2",
    },
    {
     fileId = "1375559",
@@ -102646,6 +102766,11 @@ WeakAuras.ModelPaths = {
     fileId = "165983",
     text = "eagleeye_impact_head.m2",
     value = "eagleeye_impact_head.m2",
+   },
+   {
+    fileId = "1866791",
+    text = "earth_dustcloud_state_low.m2",
+    value = "earth_dustcloud_state_low.m2",
    },
    {
     fileId = "165984",
@@ -104542,6 +104667,16 @@ WeakAuras.ModelPaths = {
     fileId = "877386",
     text = "frostzone.m2",
     value = "frostzone.m2",
+   },
+   {
+    fileId = "6013970",
+    text = "fx_arcanebombardment_cast01.m2",
+    value = "fx_arcanebombardment_cast01.m2",
+   },
+   {
+    fileId = "5054341",
+    text = "fx_destabilize_precast.m2",
+    value = "fx_destabilize_precast.m2",
    },
    {
     fileId = "5928236",

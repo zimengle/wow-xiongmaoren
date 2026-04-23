@@ -452,7 +452,7 @@ function BG.ReceiveUI()
                 text = BiaoGeType .. "-" .. FB .. "-" .. title
                 local fullName = player .. "-" .. server
                 ChatThrottleLib:SendAddonMessage("NORMAL", channel, text, "WHISPER", fullName)
-                BG.SendSystemMessage(format(L["已向%s发送请求。"], SetClassCFF(fullName)))
+                BG.SendSystemMessage(format(L["已向%s发送请求%s。"], SetClassCFF(fullName), BG.IsTitan and L["（需要对方在副本外才能发送表格）"] or ""))
             end
         end
     end)
@@ -696,6 +696,10 @@ function BG.ReceiveUI()
             code = BuildCode(db, FB, DT, title)
         end
         if code then
+            if BG.IsTitan and IsInInstance() then
+                BG.SendSystemMessage(L["|cffff0000由于服务器限流，在副本里无法发送表格，请你出本后再尝试。"])
+                return
+            end
             cd[sender] = true
             BG.After(3, function()
                 cd[sender] = nil

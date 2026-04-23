@@ -1,7 +1,7 @@
 ## Interface: 110205, 110207, 120000
 ## Title: WhisperPop |r|cFF0099FF[密语助手]|r |cff99ddff谷|r|cff88ccee风|r|cff77bbdd修|r|cff66aacc复|r|cff5599bb版|r
 ## Author: Abin
-## Version: 1.0.6
+## Version: 1.0.7
 ## Notes: 密语历史管理插件，保存历史收到密语，并支持弹窗提醒。|n点击聊天框的小喇叭，对已接收的密语进行管理。|n点击齿轮，可以进行更多设置。
 ## IconTexture: 133461
 ## X-Category: Chat/Communication

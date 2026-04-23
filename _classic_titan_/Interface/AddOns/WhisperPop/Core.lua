@@ -21,7 +21,9 @@ local tremove = tremove
 local GetPlayerInfoByGUID = GetPlayerInfoByGUID
 local BNGetNumFriends = BNGetNumFriends
 local GMChatFrame_IsGM = GMChatFrame_IsGM
-local ChatFrame_GetMessageEventFilters = ChatFrame_GetMessageEventFilters
+local C_ChatInfo = C_ChatInfo
+local ChatFrameUtil = ChatFrameUtil
+local ChatFrame_GetMessageEventFilters = ChatFrame_GetMessageEventFilters or C_ChatInfo and (C_ChatInfo.GetMessageEventFilters or C_ChatInfo.GetChatMessageEventFilters)
 local ChatFrame_SendTell = ChatFrame_SendTell
 local ChatFrame_SendBNetTell = ChatFrame_SendBNetTell
 local SendWho = C_FriendList.SendWho
@@ -29,6 +31,22 @@ local InviteUnit = C_PartyInfo and C_PartyInfo.InviteUnit or InviteUnit
 local FriendsFrame_ShowDropdown = FriendsFrame_ShowDropdown
 local FriendsFrame_ShowBNDropdown = FriendsFrame_ShowBNDropdown
 local DEFAULT_CHAT_FRAME = DEFAULT_CHAT_FRAME
+
+local function SendTellCompat(name)
+	if ChatFrame_SendTell then
+		ChatFrame_SendTell(name, SELECTED_DOCK_FRAME)
+	elseif ChatFrameUtil and ChatFrameUtil.SendTell then
+		ChatFrameUtil.SendTell(name)
+	end
+end
+
+local function SendBNetTellCompat(name)
+	if ChatFrame_SendBNetTell then
+		ChatFrame_SendBNetTell(name)
+	elseif ChatFrameUtil and ChatFrameUtil.SendBNetTell then
+		ChatFrameUtil.SendBNetTell(name)
+	end
+end
 
 local function getDeprecatedAccountInfo(accountInfo)
 	if accountInfo then
@@ -250,9 +268,9 @@ function addon:HandleAction(name, action)
 
 	elseif action == "WHISPER" then
 		if bnName then
-			ChatFrame_SendBNetTell(bnName)
+			SendBNetTellCompat(bnName)
 		else
-			ChatFrame_SendTell(name, SELECTED_DOCK_FRAME)
+			SendTellCompat(name)
 		end
 	end
 end
@@ -437,7 +455,7 @@ function addon:CHAT_MSG_WHISPER(...)
 	else
 		-- Spam filters only applied on incoming non-GM whispers, other cases make no sense
 		if self.db.applyFilters then
-			local filtersList = ChatFrame_GetMessageEventFilters("CHAT_MSG_WHISPER")
+			local filtersList = ChatFrame_GetMessageEventFilters and ChatFrame_GetMessageEventFilters("CHAT_MSG_WHISPER")
 			if filtersList then
 				local _, func
 				for _, func in ipairs(filtersList) do
@@ -445,6 +463,8 @@ function addon:CHAT_MSG_WHISPER(...)
 						return
 					end
 				end
+			elseif ChatFrameUtil and type(ChatFrameUtil.ProcessMessageEventFilters) == "function" and ChatFrameUtil.ProcessMessageEventFilters("CHAT_MSG_WHISPER", ...) then
+				return
 			end
 		end
 

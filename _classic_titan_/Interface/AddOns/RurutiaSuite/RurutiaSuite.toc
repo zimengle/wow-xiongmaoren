@@ -4,7 +4,7 @@
 ## Notes: RurutiaSuite, Rurutia's Toolbox.
 ## Notes-zhCN: RurutiaSuite 露露的工具箱。主要功能：可点击的法师传送门、自动标记坦克大饼奶妈星星、快速设置CVar等。|n作者：|cffff559a露露緹婭@Bilibili|r
 ## Author: Rurutia
-## Version: 2.6.6
+## Version: 2.6.7
 ## SavedVariables: RurutiaSuiteDB
 ## OptionalDeps: Ace3
 ## IconTexture: Interface\AddOns\RurutiaSuite\Media\icon.tga

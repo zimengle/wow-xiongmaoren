@@ -49,64 +49,69 @@ local function ClassQuest(classID)
 end
 ns.ClassQuest = ClassQuest
 
-local addonLoadedFuncs = {}
-local f = CreateFrame("Frame")
-f:RegisterEvent("ADDON_LOADED")
-f:SetScript("OnEvent", function(self, event, addonName)
-    if addonName ~= AddonName then return end
-    self:UnregisterEvent("ADDON_LOADED")
-    for _, func in ipairs(addonLoadedFuncs) do
-        func(self, event)
-    end
-end)
-function BG.Init(func)
-    tinsert(addonLoadedFuncs, func)
-end
 
-local enterWorldFuncs = {}
-local f = CreateFrame("Frame")
-f:RegisterEvent("PLAYER_ENTERING_WORLD")
-f:SetScript("OnEvent", function(self, event, ...)
-    self:UnregisterEvent("PLAYER_ENTERING_WORLD")
-    for _, func in ipairs(enterWorldFuncs) do
-        func(self, event, ...)
-    end
-end)
-function BG.Init2(func)
-    tinsert(enterWorldFuncs, func)
-end
-
-local loginFuncs = {}
-local f = CreateFrame("Frame")
-f:RegisterEvent("PLAYER_LOGIN")
-f:SetScript("OnEvent", function(self, event)
-    self:UnregisterEvent("PLAYER_LOGIN")
-    for _, func in ipairs(loginFuncs) do
-        func(self, event)
-    end
-end)
-function BG.Init3(func)
-    tinsert(loginFuncs, func)
-end
-
-local events = {}
-local f = CreateFrame("Frame")
-f:SetScript("OnEvent", function(_, event, ...)
-    for _, func in ipairs(events[event]) do
-        if event == "COMBAT_LOG_EVENT_UNFILTERED" then
-            func(f, event, CombatLogGetCurrentEventInfo())
-        else
-            func(f, event, ...)
+-- 注册事件
+do
+    local addonLoadedFuncs = {}
+    local f = CreateFrame("Frame")
+    f:RegisterEvent("ADDON_LOADED")
+    f:SetScript("OnEvent", function(self, event, addonName)
+        if addonName ~= AddonName then return end
+        self:UnregisterEvent("ADDON_LOADED")
+        for _, func in ipairs(addonLoadedFuncs) do
+            securecall(func)
         end
+    end)
+    function BG.Init(func)
+        tinsert(addonLoadedFuncs, func)
     end
-end)
-function BG.RegisterEvent(event, func)
-    if not events[event] then
-        events[event] = {}
-        f:RegisterEvent(event)
+
+    local enterWorldFuncs = {}
+    local f = CreateFrame("Frame")
+    f:RegisterEvent("PLAYER_ENTERING_WORLD")
+    f:SetScript("OnEvent", function(self, event, ...)
+        self:UnregisterEvent("PLAYER_ENTERING_WORLD")
+        for _, func in ipairs(enterWorldFuncs) do
+            securecall(func)
+        end
+    end)
+    function BG.Init2(func)
+        tinsert(enterWorldFuncs, func)
     end
-    tinsert(events[event], func)
+
+    local loginFuncs = {}
+    local f = CreateFrame("Frame")
+    f:RegisterEvent("PLAYER_LOGIN")
+    f:SetScript("OnEvent", function(self, event)
+        self:UnregisterEvent("PLAYER_LOGIN")
+        for _, func in ipairs(loginFuncs) do
+            securecall(func)
+        end
+    end)
+    function BG.Init3(func)
+        tinsert(loginFuncs, func)
+    end
+
+    local events = {}
+    local f = CreateFrame("Frame")
+    f:SetScript("OnEvent", function(_, event, ...)
+        for _, func in ipairs(events[event]) do
+            if event == "COMBAT_LOG_EVENT_UNFILTERED" then
+                securecall(func, f, event, CombatLogGetCurrentEventInfo())
+            else
+                securecall(func, f, event, ...)
+            end
+        end
+    end)
+    function BG.RegisterEvent(event, func)
+        if not events[event] then
+            events[event] = {}
+            f:RegisterEvent(event)
+        end
+        tinsert(events[event], func)
+    end
 end
+
 
 -- 版本号
 if GetCurrentRegion() ~= 5 then

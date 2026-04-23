@@ -10,6 +10,8 @@ local PIGFontString=Create.PIGFontString
 local FramePlusfun=addonTable.FramePlusfun
 function FramePlusfun.Friends()
 	if not PIGA["FramePlus"]["Friends"] then return end
+	if FramePlusfun.FriendsOK then return end
+	FramePlusfun.FriendsOK=true
 	FriendsFrame:Hide()
 	local www = FriendsFrame:GetWidth()
 	local butWidthall = www*1.64
@@ -724,7 +726,7 @@ function FramePlusfun.Friends()
 			end
 		end
 	end
-	--UIParentLoadAddOn("Blizzard_RaidUI");
+	UIParentLoadAddOn("Blizzard_RaidUI");
 	RaidFrame:UnregisterEvent("UNIT_NAME_UPDATE");
 	RaidFrame:UnregisterEvent("UNIT_PET");
 	Fun.IsAddOnLoaded("Blizzard_RaidUI",PIGRaidUIFrame)

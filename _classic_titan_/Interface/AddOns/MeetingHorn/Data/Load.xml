@@ -13,5 +13,6 @@
     <Script file="AppData11.lua"/>
     <Script file="AppData12.lua"/>
     <Script file="AppData13.lua"/>
+    <Script file="AppData14.lua"/>
     <Script file="SetRegimentVersion.lua"/>
 </Ui>

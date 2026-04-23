@@ -1,8 +1,6 @@
 
 PawnOptions = {
-["LastVersion"] = 2.1308,
-["LastPlayerFullName"] = "哔站陈睿-时光IV - 红色信仰",
-["AutoSelectScales"] = false,
+["LastVersion"] = 2.1309,
 ["ItemLevels"] = {
 {
 ["ID"] = 40510,
@@ -10,20 +8,20 @@ PawnOptions = {
 ["Link"] = "|cffa335ee|Hitem:40510::::::::80::::::::::|h[碎地者头饰]|h|r",
 },
 {
-["ID"] = 238343,
-["Level"] = 213,
-["Link"] = "|cffa335ee|Hitem:238343::::::::80::::::::::|h[爱意之眼]|h|r",
+["ID"] = 44661,
+["Level"] = 232,
+["Link"] = "|cffa335ee|Hitem:44661::40105::::::80::::::::::|h[龙眠强能项链]|h|r",
 },
 {
-["ID"] = 255119,
-["Level"] = 213,
-["Link"] = "|cffa335ee|Hitem:255119:3810:42150::::::80::::::::::|h[狂野肩铠]|h|r",
+["ID"] = 40513,
+["Level"] = 226,
+["Link"] = "|cffa335ee|Hitem:40513::::::::80::::::::::|h[碎地者肩饰]|h|r",
 },
 nil,
 {
-["ID"] = 29921,
-["Level"] = 219,
-["Link"] = "|cffa335ee|Hitem:29921:3252:39998:39998:::::80::::::::::|h[火焰纹章胸铠]|h|r",
+["ID"] = 40508,
+["Level"] = 226,
+["Link"] = "|cffa335ee|Hitem:40508::::::::80::::::::::|h[碎地者外套]|h|r",
 },
 {
 ["ID"] = 255052,
@@ -41,9 +39,9 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:40237::::::::80::::::::::|h[恐惧爆发之靴]|h|r",
 },
 {
-["ID"] = 257667,
-["Level"] = 213,
-["Link"] = "|cffa335ee|Hitem:257667:2332:::::::80::::::::::|h[大地之怒护臂]|h|r",
+["ID"] = 40324,
+["Level"] = 226,
+["Link"] = "|cffa335ee|Hitem:40324::::::::80::::::::::|h[尊重腕甲]|h|r",
 },
 {
 ["ID"] = 29987,
@@ -90,6 +88,8 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:255098:1128:::::::80::::::::::|h[玛利斯达尔防御者]|h|r",
 },
 },
+["AutoSelectScales"] = false,
+["LastPlayerFullName"] = "哔站陈睿-时光IV - 红色信仰",
 }
 PawnMrRobotScaleProviderOptions = nil
 PawnClassicScaleProviderOptions = {

@@ -51,7 +51,7 @@ class MaxedDatabaseUpdater:
             # 法师
             "Arcane": "奥术",
             "Fire": "火焰",
-            "Fire FFB": "火焰法",
+            "Fire FFB": "霜火法",
             "Frost": "冰霜",
             # 圣骑士
             "Holy": "神圣",
@@ -113,7 +113,7 @@ class MaxedDatabaseUpdater:
             "Warrior": ["Arms", "Fury", "Protection"],
             "Warlock": ["Affliction", "Demonology", "Destruction"]
         }
-        self.default_phases = ["PR", "P1", "P2", "P3"]
+        self.default_phases = ["PR", "P1", "P2", "P3", "P4", "P5", "P6", "P7", "P8", "P9", "P10", "P11"]
         self.slots = ["Head", "Neck", "Shoulder", "Back", "Chest", "Wrist", "Hands", "Waist", "Legs", "Feet", "Finger", "Trinket", "Weapon", "Off hand", "Relic"]
         
         # 可穿戴两个的装备

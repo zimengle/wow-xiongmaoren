@@ -1,6 +1,6 @@
 ## Title: MeetingHornHeroic
 ## Title-zhCN: 集结号团本招募
-## Version: 3.1.5
+## Version: 3.1.9
 ## Interface: 38001
 ## Author: AI Assistant
 ## Notes: MeetingHorn extension for 25-man heroic raids

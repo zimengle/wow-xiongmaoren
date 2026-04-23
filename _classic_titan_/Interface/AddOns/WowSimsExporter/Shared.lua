@@ -1,6 +1,32 @@
-local Env = select(2, ...)
+local addonName, Env = ...
 
-Env.VERSION = GetAddOnMetadata(select(1, ...), "Version")
+local cAddOns = C_AddOns
+local getAddOnMetadata = GetAddOnMetadata or (cAddOns and cAddOns.GetAddOnMetadata)
+local isAddOnLoaded = IsAddOnLoaded or (cAddOns and cAddOns.IsAddOnLoaded)
+local loadAddOn = LoadAddOn or (cAddOns and cAddOns.LoadAddOn)
+
+function Env.GetAddOnMetadata(name, field)
+    if type(getAddOnMetadata) ~= "function" then
+        return nil
+    end
+    return getAddOnMetadata(name, field)
+end
+
+function Env.IsAddOnLoaded(name)
+    if type(isAddOnLoaded) ~= "function" then
+        return false
+    end
+    return isAddOnLoaded(name)
+end
+
+function Env.LoadAddOn(name)
+    if type(loadAddOn) ~= "function" then
+        return false
+    end
+    return loadAddOn(name)
+end
+
+Env.VERSION = Env.GetAddOnMetadata(addonName, "Version") or "unknown"
 
 -- 初始化本地化表
 Env.L = Env.L or {}
@@ -124,7 +150,7 @@ function Env.GetEngravedRuneSpell(slotId, bagId)
     -- After first login the whole engraving stuff may not be loaded yet!
     -- GetNumRunesKnown will return 0 for maximum runes available in that case.
     if select(2, C_Engraving.GetNumRunesKnown()) == 0 then
-        LoadAddOn("Blizzard_EngravingUI")
+        Env.LoadAddOn("Blizzard_EngravingUI")
         C_Engraving.RefreshRunesList()
     end
 

@@ -9,58 +9,8 @@ local L = ns.L or {}
 local HeroicPlayerSquareFrame = {}
 
 -- 专精信息（包含所有职业专精）
-local SPEC_DATA = {
-    -- 战士
-    {id = 1, class = "WARRIOR", name = "武器", icon = 132355, role = "tank"},
-    {id = 2, class = "WARRIOR", name = "狂怒", icon = 132347, role = "dps"},
-    {id = 3, class = "WARRIOR", name = "防护", icon = 132341, role = "tank"},
-    
-    -- 圣骑士
-    {id = 4, class = "PALADIN", name = "神圣", icon = 135920, role = "healer"},
-    {id = 5, class = "PALADIN", name = "防护", icon = 135893, role = "tank"},
-    {id = 6, class = "PALADIN", name = "惩戒", icon = 135873, role = "dps"},
-    
-    -- 猎人
-    {id = 7, class = "HUNTER", name = "野兽控制", icon = 132164, role = "dps"},
-    {id = 8, class = "HUNTER", name = "射击", icon = 132222, role = "dps"},
-    {id = 9, class = "HUNTER", name = "生存", icon = 132215, role = "dps"},
-    
-    -- 盗贼
-    {id = 10, class = "ROGUE", name = "刺杀", icon = 132292, role = "dps"},
-    {id = 11, class = "ROGUE", name = "战斗", icon = 132090, role = "dps"},
-    {id = 12, class = "ROGUE", name = "敏锐", icon = 132320, role = "dps"},
-    
-    -- 牧师
-    {id = 13, class = "PRIEST", name = "戒律", icon = 135940, role = "healer"},
-    {id = 14, class = "PRIEST", name = "神圣", icon = 135920, role = "healer"},
-    {id = 15, class = "PRIEST", name = "暗影", icon = 136207, role = "dps"},
-    
-    -- 死亡骑士
-    {id = 16, class = "DEATHKNIGHT", name = "鲜血", icon = 135770, role = "tank"},
-    {id = 17, class = "DEATHKNIGHT", name = "冰霜", icon = 135773, role = "dps"},
-    {id = 18, class = "DEATHKNIGHT", name = "邪恶", icon = 135775, role = "dps"},
-    
-    -- 萨满祭司
-    {id = 19, class = "SHAMAN", name = "元素", icon = 136048, role = "dps"},
-    {id = 20, class = "SHAMAN", name = "增强", icon = 136051, role = "dps"},
-    {id = 21, class = "SHAMAN", name = "恢复", icon = 136052, role = "healer"},
-    
-    -- 法师
-    {id = 22, class = "MAGE", name = "奥术", icon = 135932, role = "dps"},
-    {id = 23, class = "MAGE", name = "火焰", icon = 135810, role = "dps"},
-    {id = 24, class = "MAGE", name = "冰霜", icon = 135846, role = "dps"},
-    
-    -- 术士
-    {id = 25, class = "WARLOCK", name = "痛苦", icon = 136145, role = "dps"},
-    {id = 26, class = "WARLOCK", name = "恶魔学识", icon = 136172, role = "dps"},
-    {id = 27, class = "WARLOCK", name = "毁灭", icon = 136186, role = "dps"},
-    
-    -- 德鲁伊
-    {id = 28, class = "DRUID", name = "平衡", icon = 136096, role = "dps"},
-    {id = 29, class = "DRUID", name = "野性战斗", icon = 132276, role = "dps"},
-    {id = 30, class = "DRUID", name = "野性守护", icon = 132276, role = "tank"},
-    {id = 31, class = "DRUID", name = "恢复", icon = 136041, role = "healer"}
-}
+-- 复用 Data.lua 中的共享数据
+local SPEC_DATA = ns.SPEC_DATA
 
 function HeroicPlayerSquareFrame:New(parent)
     local frame = CreateFrame("Frame", "HeroicPlayerSquareFrame", parent)

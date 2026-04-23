@@ -685,14 +685,6 @@ data["EmblemofHeroismP3"] = {
 				{ 18, 46087 }, -- Platinum Disks of Sorcery
 			}
 		},
-		{ -- LakeWintergrasp5 / 1388
-			name = ALIL["Relic"],
-			[NORMAL_DIFF] = {
-				{ 1, 23006 }, -- Titan-Forged Rune of Accuracy
-				{ 3, 23004 }, -- Titan-Forged Rune of Alacrity
-				{ 5, 23005 }, -- Titan-Forged Rune of Audacity
-			}
-		},
 
 	}
 }
@@ -783,37 +775,8 @@ data["EmblemofHeroismP4"] = {
 	gameVersion = AtlasLoot.WRATH_VERSION_NUM,
 	items = {
 		{
-			name = ALIL["Relic"],
-			[NORMAL_DIFF] = {
-				{ 1, 47671 }, -- Idol of Flaring Growth
-				{ 2, 47670 }, -- Idol of Lunar Fury
-				{ 3, 47668 }, -- Idol of Mutilation
-				{ 5, 47664 }, -- Libram of Defiance
-				{ 6, 47661 }, -- Libram of Valiance
-				{ 7, 47662 }, -- Libram of Veracity
-				{ 9, 47665 }, -- Totem of Calming Tides
-				{ 10, 47666 }, -- Totem of Electrifying Wind
-				{ 11, 47667 }, -- Totem of Quaking Earth
-				{ 13, 47672 }, -- Sigil of Insolence
-				{ 14, 47673 }, -- Sigil of Virulence
-				
-			},
-		},
-	}
-}
-data["EmblemofHeroismP6"] = {
-	name =  AL["'Titan Ember' Vendor"]..' P6',
-	ContentType = VENDOR_CONTENT,
-	Phase=6,
-	TableType = NORMAL_ITTYPE,
-	gameVersion = AtlasLoot.WRATH_VERSION_NUM,
-	items = {
-		{
 			name = ALIL["Armor"].." - "..ALIL["Cloth"],
 			[NORMAL_DIFF] = {
-				{ 1, 45840 }, -- Touch of the Occult
-				{ 3, 45831 }, -- Sash of Potent Incantations
-				{ 4, 45848 }, -- Legwraps of the Master Conjurer
 
 				{ 16, 47695 }, -- Hood of Clouded Sight
 				{ 17, 47692 }, -- Hood of Smoldering Aftermath
@@ -829,12 +792,6 @@ data["EmblemofHeroismP6"] = {
 		{
 			name = ALIL["Armor"].." - "..ALIL["Leather"],
 			[NORMAL_DIFF] = {
-				{ 1, 45838 }, -- Gloves of the Blind Stalker
-				{ 2, 45839 }, -- Grips of the Secret Grove
-				{ 3, 45830 }, -- Belt of the Living Thicket
-				{ 4, 45829 }, -- Belt of the Twilight Assassin
-				{ 5, 45846 }, -- Leggings of Wavering Shadow
-				{ 6, 45847 }, -- Wildstrider Legguards
 
 				{ 16, 47691 }, -- Mask of Abundant Growth
 				{ 17, 47688 }, -- Mask of Lethal Intent
@@ -849,12 +806,6 @@ data["EmblemofHeroismP6"] = {
 		{
 			name = ALIL["Armor"].." - "..ALIL["Mail"],
 			[NORMAL_DIFF] = {
-				{ 1, 45837 }, -- Gloves of Augury
-				{ 2, 45836 }, -- Gloves of Unerring Aim
-				{ 4, 45827 }, -- Belt of the Ardent Marksman
-				{ 5, 45828 }, -- Windchill Binding
-				{ 6, 45844 }, -- Leggings of the Tireless Sentry
-				{ 7, 45845 }, -- Leggings of the Weary Mystic
 				{ 16, 47687 }, -- Headguard of Inner Warmth
 				{ 17, 47684 }, -- Coif of the Brooding Dragon
 				{ 18, 47705 }, -- Pauldrons of the Devourer
@@ -868,17 +819,6 @@ data["EmblemofHeroismP6"] = {
 		{
 			name = ALIL["Armor"].." - "..ALIL["Plate"],
 			[NORMAL_DIFF] = {
-				{ 1, 45833 }, -- Bladebreaker Gauntlets
-				{ 2, 45835 }, -- Gauntlets of Serene Blessing
-				{ 3, 45834 }, -- Gauntlets of the Royal Watch
-				{ 5, 45824 }, -- Belt of the Singing Blade
-				{ 6, 45826 }, -- Girdle of Unyielding Trust
-				{ 7, 45825 }, -- Shieldwarder Girdle
-				{ 8, 45843 }, -- Legguards of the Peaceful Covenant
-				{ 9, 45841 }, -- Legplates of the Violet Champion
-				{ 10, 45842 }, -- Wyrmguard Legplates
-
-
 				{ 16, 47678 }, -- Headplate of the Honorbound
 					{ 17, 47682 }, -- Helm of the Restless Watch
 					{ 18, 47675 }, -- Faceplate of Thunderous Rampage
@@ -891,16 +831,6 @@ data["EmblemofHeroismP6"] = {
 					{ 26, 47702 }, -- Pauldrons of the Cavalier
 					{ 27, 47697 }, -- Pauldrons of Trembling Rage
 					{ 28, 47698 }, -- Shoulderplates of Enduring Order
-			},
-		},
-		{
-			name = ALIL["Neck"],
-			[NORMAL_DIFF] = {
-				{ 1, 45820 }, -- Broach of the Wailing Night
-				{ 2, 45822 }, -- Evoker's Charm
-				{ 3, 45823 }, -- Frozen Tear of Elune
-				{ 4, 45821 }, -- Shard of the Crystal Forest
-				{ 5, 45819 }, -- Spiked Battleguard Choker
 			},
 		},
 		{
@@ -933,53 +863,36 @@ data["EmblemofHeroismP6"] = {
 		{
 			name = ALIL["Relic"],
 			[NORMAL_DIFF] = {
+				{ 1, 47671 }, -- Idol of Flaring Growth
+				{ 2, 47670 }, -- Idol of Lunar Fury
+				{ 3, 47668 }, -- Idol of Mutilation
+				{ 5, 47664 }, -- Libram of Defiance
+				{ 6, 47661 }, -- Libram of Valiance
+				{ 7, 47662 }, -- Libram of Veracity
+				{ 9, 47665 }, -- Totem of Calming Tides
+				{ 10, 47666 }, -- Totem of Electrifying Wind
+				{ 11, 47667 }, -- Totem of Quaking Earth
+				{ 13, 47672 }, -- Sigil of Insolence
+				{ 14, 47673 }, -- Sigil of Virulence
 				
-				{ 16, 45509 }, -- Idol of the Corruptor
-				{ 17, 45270 }, -- Idol of the Crying Wind
-				{ 18, 46138 }, -- Idol of the Flourishing Life
-				{ 20, 45510 }, -- Libram of Discord
-				{ 21, 45436 }, -- Libram of the Resolute
-				{ 22, 45145 }, -- Libram of the Sacred Shield
-
-				{ 24, 45114 }, -- Steamcaller's Totem
-				{ 25, 45255 }, -- Thunderfall Totem
-				{ 26, 45169 }, -- Totem of the Dancing Flame
-				{ 28, 45144 }, -- Sigil of Deflection
-				{ 29, 45254 }, -- Sigil of the Vengeful Heart
-			},
-		},
-		-- {
-		-- 	name = AL["Token"],
-		-- 	[NORMAL_DIFF] = {
-		-- 		{ 1, 45638 }, -- Crown of the Wayward Conqueror
-		-- 		{ 2, 45639 }, -- Crown of the Wayward Protector
-		-- 		{ 3, 45640 }, -- Crown of the Wayward Vanquisher
-		-- 		{ 16, 45632 }, -- Breastplate of the Wayward Conqueror
-		-- 		{ 17, 45633 }, -- Breastplate of the Wayward Protector
-		-- 		{ 18, 45634 }, -- Breastplate of the Wayward Vanquisher
-		-- 	},
-		-- },
-		{
-			name = AL["Misc"],
-			[NORMAL_DIFF] = {
-				{ 1, 45087 }, -- Runed Orb
 			},
 		},
 	}
 }
-data["EmblemofHeroismP7"] = {
-	name = AL["'Titan Ember' Vendor"]..' P7（存疑）',
+
+data["EmblemofHeroismP5"] = {
+	name = AL["'Titan Ember' Vendor"]..' P5',
 	ContentType = VENDOR_CONTENT,
 	TableType = NORMAL_ITTYPE,
 	gameVersion = AtlasLoot.WRATH_VERSION_NUM,
-	Phase=7,
+	Phase=5,
 	items = {
 		{
 			name = ALIL["Armor"].." - "..ALIL["Cloth"],
 			[NORMAL_DIFF] = {
 				{1, 33588 },
 				{2, 33586 },
-				{3, 33291 },
+				
 				{4, 33584 },
 				{6, 33589 },
 				{7, 33587 },
@@ -1052,7 +965,7 @@ data["EmblemofHeroismP7"] = {
 				{13, 33531 },
 				{14, 33386 },
 				{15, 33530 },
-				{16, 33324 },
+				
 				{18, 34932}, -- Heal
 				{19, 34931}, -- heal
 				{20, 34930}, -- Heal
@@ -1070,19 +983,18 @@ data["EmblemofHeroismP7"] = {
 				{1, 33810 },
 				{2, 33514 },
 				{3, 33513 },
-				{4, 33331 },
+				
 				{5, 33512 },
 				{6, 33501 },
 
 				{8, 33520 },
 				{9, 33519 },
 				{10, 33518 },
-				{11, 33207 },
+				
 
 				{12, 33522 },
 				{13, 33516 },
 				{14, 33517 },
-				{15},
 				{16, 33524 },
 				{17, 33515 },
 				{18, 33523 },
@@ -1120,7 +1032,7 @@ data["EmblemofHeroismP7"] = {
 		{
 			name = ALIL["Off Hand"],
 			[NORMAL_DIFF] = {
-				{ 1, 33334 },
+				
 				{ 2, 33325 },
 			},
 		},
@@ -1177,6 +1089,144 @@ data["EmblemofHeroismP7"] = {
 				{ 17, 33506 },
 				{ 18, 33507 },
 				{ 19, 33505 },
+			},
+		},
+	}
+}
+data["EmblemofHeroismP6"] = {
+	name =  AL["'Titan Ember' Vendor"]..' P6',
+	ContentType = VENDOR_CONTENT,
+	Phase=6,
+	TableType = NORMAL_ITTYPE,
+	gameVersion = AtlasLoot.WRATH_VERSION_NUM,
+	items = {
+		{
+			name = ALIL["Armor"].." - "..ALIL["Cloth"],
+			[NORMAL_DIFF] = {
+				{ 1, 45840 }, -- Touch of the Occult
+				{ 3, 45831 }, -- Sash of Potent Incantations
+				{ 4, 45848 }, -- Legwraps of the Master Conjurer
+
+			},
+		},
+		{
+			name = ALIL["Armor"].." - "..ALIL["Leather"],
+			[NORMAL_DIFF] = {
+				{ 1, 45838 }, -- Gloves of the Blind Stalker
+				{ 2, 45839 }, -- Grips of the Secret Grove
+				{ 3, 45830 }, -- Belt of the Living Thicket
+				{ 4, 45829 }, -- Belt of the Twilight Assassin
+				{ 5, 45846 }, -- Leggings of Wavering Shadow
+				{ 6, 45847 }, -- Wildstrider Legguards
+			},
+		},
+		{
+			name = ALIL["Armor"].." - "..ALIL["Mail"],
+			[NORMAL_DIFF] = {
+				{ 1, 45837 }, -- Gloves of Augury
+				{ 2, 45836 }, -- Gloves of Unerring Aim
+				{ 4, 45827 }, -- Belt of the Ardent Marksman
+				{ 5, 45828 }, -- Windchill Binding
+				{ 6, 45844 }, -- Leggings of the Tireless Sentry
+				{ 7, 45845 }, -- Leggings of the Weary Mystic
+			},
+		},
+		{
+			name = ALIL["Armor"].." - "..ALIL["Plate"],
+			[NORMAL_DIFF] = {
+				{ 1, 45833 }, -- Bladebreaker Gauntlets
+				{ 2, 45835 }, -- Gauntlets of Serene Blessing
+				{ 3, 45834 }, -- Gauntlets of the Royal Watch
+				{ 5, 45824 }, -- Belt of the Singing Blade
+				{ 6, 45826 }, -- Girdle of Unyielding Trust
+				{ 7, 45825 }, -- Shieldwarder Girdle
+				{ 8, 45843 }, -- Legguards of the Peaceful Covenant
+				{ 9, 45841 }, -- Legplates of the Violet Champion
+				{ 10, 45842 }, -- Wyrmguard Legplates
+
+
+			},
+		},
+		{
+			name = ALIL["Neck"],
+			[NORMAL_DIFF] = {
+				{ 1, 45820 }, -- Broach of the Wailing Night
+				{ 2, 45822 }, -- Evoker's Charm
+				{ 3, 45823 }, -- Frozen Tear of Elune
+				{ 4, 45821 }, -- Shard of the Crystal Forest
+				{ 5, 45819 }, -- Spiked Battleguard Choker
+			},
+		},
+		
+		
+		-- {
+		-- 	name = AL["Token"],
+		-- 	[NORMAL_DIFF] = {
+		-- 		{ 1, 45638 }, -- Crown of the Wayward Conqueror
+		-- 		{ 2, 45639 }, -- Crown of the Wayward Protector
+		-- 		{ 3, 45640 }, -- Crown of the Wayward Vanquisher
+		-- 		{ 16, 45632 }, -- Breastplate of the Wayward Conqueror
+		-- 		{ 17, 45633 }, -- Breastplate of the Wayward Protector
+		-- 		{ 18, 45634 }, -- Breastplate of the Wayward Vanquisher
+		-- 	},
+		-- },
+		{
+			name = ALIL["Relic"],
+			[NORMAL_DIFF] = {
+				
+				{ 16, 45509 }, -- Idol of the Corruptor
+				{ 17, 45270 }, -- Idol of the Crying Wind
+				{ 18, 46138 }, -- Idol of the Flourishing Life
+				{ 20, 45510 }, -- Libram of Discord
+				{ 21, 45436 }, -- Libram of the Resolute
+				{ 22, 45145 }, -- Libram of the Sacred Shield
+
+				{ 24, 45114 }, -- Steamcaller's Totem
+				{ 25, 45255 }, -- Thunderfall Totem
+				{ 26, 45169 }, -- Totem of the Dancing Flame
+				{ 28, 45144 }, -- Sigil of Deflection
+				{ 29, 45254 }, -- Sigil of the Vengeful Heart
+			},
+		},
+		{
+			name = AL["Misc"],
+			[NORMAL_DIFF] = {
+				{ 1, 45087 }, -- Runed Orb
+			},
+		},
+	}
+}
+
+data["EmblemofHeroismP7"] = {
+	name = AL["'Titan Ember' Vendor"]..' P7',
+	ContentType = VENDOR_CONTENT,
+	TableType = NORMAL_ITTYPE,
+	gameVersion = AtlasLoot.WRATH_VERSION_NUM,
+	Phase=7,
+	items = {
+		{
+			name = ALIL["Armor"].." - "..ALIL["Cloth"],
+			[NORMAL_DIFF] = {
+				{3, 33291 },
+			},
+		},
+		{
+			name = ALIL["Armor"].." - "..ALIL["Mail"],
+			[NORMAL_DIFF] = {
+				{1, 33207 },
+				{2, 33324 },
+			},
+		},
+		{
+			name = ALIL["Armor"].." - "..ALIL["Plate"],
+			[NORMAL_DIFF] = {
+				{4, 33331 },
+			},
+		},
+		{
+			name = ALIL["Off Hand"],
+			[NORMAL_DIFF] = {
+				{ 1, 33334 },
 			},
 		},
 		{

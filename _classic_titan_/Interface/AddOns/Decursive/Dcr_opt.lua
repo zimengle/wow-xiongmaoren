@@ -1,7 +1,7 @@
 --[[
     This file is part of Decursive.
 
-    Decursive (v 2.7.29) add-on for World of Warcraft UI
+    Decursive (v 2.7.17) add-on for World of Warcraft UI
     Copyright (C) 2006-2019 John Wellesz (Decursive AT 2072productions.com) ( http://www.2072productions.com/to/decursive.php )
 
     Decursive is free software: you can redistribute it and/or modify
@@ -325,7 +325,7 @@ function D:GetDefaultsSettings()
             OutputWindow = "DEFAULT_CHAT_FRAME", -- ACEDB CRASHES if we set it directly
 
 
-            MiniMapIcon = {hide=false},
+            MiniMapIcon = {hide=true},
 
             -- Display a warning if no key is mapped.
             NoKeyWarn = false,
@@ -641,7 +641,7 @@ local function GetStaticOptions ()
     return {
         -- {{{
         type = "group",
-        name = GetAddOnMetadata("Decursive", "Title") or D.name,
+        name = D.name,
 
         get = D.GetHandler,
         set = D.SetHandler,
@@ -702,8 +702,8 @@ local function GetStaticOptions ()
                     },
                     newVersion = {
                         type = 'description',
-                        name = "",
-                        hidden = function() return true end,
+                        name = "|cFFEE0022" .. (L["NEW_VERSION_ALERT"]):format(D.db.global.NewerVersionName or "none", date("%Y-%m-%d", D.db.global.NewerVersionDetected)) .. "|r",
+                        hidden = function() return true end, -- Always hide new version alert
                         order = 2,
                     },
                     ShowDebuffsFrame = {
@@ -817,9 +817,11 @@ local function GetStaticOptions ()
                         type = "toggle",
                         name = L["OPT_NEWVERSIONBUGMENOT"],
                         desc = L["OPT_NEWVERSIONBUGMENOT_DESC"],
-                        hidden = function() return true end,
-                        get = function() return false end,
-                        set = function() end,
+                        get = function() return not D.db.global.NewVersionsBugMeNot end,
+                        set = function(info,v)
+                            D.db.global.NewVersionsBugMeNot = v == false and D.VersionTimeStamp or false;
+                        end,
+                        hidden = function() return true end, -- Always hide this option
                         order = 75
                     },
                     report = {
@@ -1939,7 +1941,7 @@ local function GetStaticOptions ()
                                     "\n\n|cFFDDDD00 %s|r:\n   %s"..
                                     "\n\n|cFFDDDD00 %s|r:\n   %s\n\n   %s"
                                 ):format(
-                                    "2.7.29", "GuFeng", ("2025-11-24T00:00:00Z"):sub(1,10),
+                                    "2.7.17", "John Wellesz", ("2024-03-21T03:38:23Z"):sub(1,10),
                                     L["ABOUT_NOTES"],
                                     L["ABOUT_LICENSE"],         GetAddOnMetadata("Decursive", "X-License") or 'All Rights Reserved',
                                     L["ABOUT_SHAREDLIBS"],      GetAddOnMetadata("Decursive", "X-Embeds")  or 'GetAddOnMetadata() failure',
@@ -1960,14 +1962,17 @@ local function GetStaticOptions ()
                         type = "execute",
                         name = L["OPT_CHECKOTHERPLAYERS"],
                         desc = L["OPT_CHECKOTHERPLAYERS_DESC"],
-                        disabled = function () return true; end,
-                        func = function () end,
+                        disabled = function () return InCombatLockdown() or GetTime() - T.LastVCheck < 60; end,
+                        func = function ()
+                            if D:AskVersion() then D.versions = false; end
+                            if GameTooltip:IsShown() then GameTooltip:Hide(); end
+                        end,
                         order = 10,
                     },
                     VersionsDisplay = {
                         type = "description",
-                        name = "",
-                        hidden = function () return true; end,
+                        name = D.ReturnVersions,
+                        hidden = function () return not D.versions; end,
                         order = 30,
                     },
 
@@ -2037,7 +2042,7 @@ function D:ExportOptions ()
 
     -- Don't feed the interface option panel until Blizz fixes the taint issue...
     --[=[
-    LibStub("AceConfigDialog-3.0"):AddToBlizOptions(D.name, GetAddOnMetadata("Decursive", "Title") or D.name, nil, "general");
+    LibStub("AceConfigDialog-3.0"):AddToBlizOptions(D.name, D.name, nil, "general");
 
     local SubGroups_ToBlizzOptions = {
         { D:ColorText(L["OPT_LIVELIST"], "FF22EE33"), "livelistoptions"},
@@ -3745,6 +3750,6 @@ function D:QuickAccess (CallingObject, button) -- {{{
 end -- }}}
 
 
-T._LoadedFiles["Dcr_opt.lua"] = "2.7.29";
+T._LoadedFiles["Dcr_opt.lua"] = "2.7.17";
 
 -- Closer

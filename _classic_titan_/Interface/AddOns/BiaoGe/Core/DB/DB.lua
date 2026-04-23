@@ -22,6 +22,10 @@ BiaoGeTooltip4            = CreateFrame("GameTooltip", "BiaoGeTooltip4", UIParen
 BINDING_HEADER_BIAOGE     = "BiaoGe"
 BINDING_NAME_BIAOGE       = L["打开/关闭表格"]
 BINDING_NAME_RoleOverview = L["打开/关闭角色总览"]
+--[[ 
+/dump GetBindingKey("BINDING_NAME_BIAOGE")
+ GetBinding("MOVEFORWARD")
+]]
 
 local realmID             = GetRealmID()
 local player              = BG.playerName
@@ -951,7 +955,7 @@ do
                     local soundID = v.ID
                     local soundName = v.name
                     if isBiaoGe then
-                        BG["sound_" .. soundID .. author] = Interface .. author .. "\\" .. soundName
+                        BG["sound_" .. soundID .. author] = Interface .. author .. "\\" .. soundID
                     else
                         BG["sound_" .. soundID .. author] = format("Interface\\AddOns\\%s\\sound\\%s", addonName, soundName)
                     end

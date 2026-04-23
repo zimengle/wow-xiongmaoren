@@ -48,7 +48,9 @@ function ns.Addon:OnInitialize()
                     filters = {
                         showMyServer = true,
                         showCrossServer = true,
-                        autoRefresh = true
+                        autoRefresh = true,
+                        teamBonusFilter = false,
+                        minSubsidyAmount = 0,
                     },
                     favorites = {},
                     cache = {

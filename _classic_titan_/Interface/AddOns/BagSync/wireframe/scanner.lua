@@ -59,7 +59,6 @@ local HasKey = _G.HasKey
 local CanUseVoidStorage = _G.CanUseVoidStorage
 local ATTACHMENTS_MAX_RECEIVE = _G.ATTACHMENTS_MAX_RECEIVE
 local ATTACHMENTS_MAX_SEND = _G.ATTACHMENTS_MAX_SEND
-local tInvert = _G.tInvert
 
 local BagIndex = Enum and Enum.BagIndex
 local BankType = Enum and Enum.BankType
@@ -97,17 +96,6 @@ end or function(v)
 	return false
 end
 
-local function InvertArray(list)
-	if not list then return {} end
-	if tInvert then
-		return tInvert(list)
-	end
-	local inverted = {}
-	for k, v in pairs(list) do
-		inverted[v] = k
-	end
-	return inverted
-end
 
 local function PickCurrencyIcon(icon1, icon2)
 	--icon1 is extraCurrencyType on older APIs, but some clients pass iconFileID here.
@@ -521,8 +509,17 @@ local function FetchTooltipBattlePet(typeSlot, arg1, arg2)
 		return
 	end
 
-	local _, speciesID, level, breedQuality, maxHealth, power, speed, name = scannerTooltip:SetInboxItem(arg1)
-	scannerTooltip:Hide()
+	--SetInboxItem can be a protected function, use pcall before attempting to use the scanner tooltip
+	local ok, speciesID, level, breedQuality, maxHealth, power, speed, name = pcall(function()
+		local _, s, l, q, h, p, sp, n = scannerTooltip:SetInboxItem(arg1, arg2)
+		scannerTooltip:Hide()
+		return s, l, q, h, p, sp, n
+	end)
+	if not ok then
+		--SetInboxItem may be restricted; skip silently to avoid taint
+		scannerTooltip:Hide()
+		return
+	end
 	if speciesID and speciesID > 0 then
 		return speciesID, level, breedQuality, maxHealth, power, speed, name
 	end
@@ -1211,7 +1208,7 @@ function Scanner:SaveCurrency(showDebug, skipRetry)
 
 	local player = Unit:GetPlayerInfo(true)
 
-	if showDebug then Debug(BSYC_DL.INFO, "SaveCurrency", BSYC.tracking.currency, player and player.name, skipRetry) end --this function gets spammed like crazy sometimes, so only show debug when requested
+	if showDebug then Debug(BSYC_DL.INFO, "SaveCurrency", BSYC.tracking.currency, player and player.name, skipRetry, player and player.realm) end --this function gets spammed like crazy sometimes, so only show debug when requested
 	if not BSYC.tracking.currency then
 		return false
 	end
@@ -1507,6 +1504,7 @@ end
 local function CollectProfessionRecipes(parentIDSlot, catCheck)
 	Scanner.recipeIDs = Scanner.recipeIDs or {}
 	local recipesByCategory = {}
+	local seenRecipeIDs = {}
 	local recipeCount = 0
 
 	--store the recipes
@@ -1535,8 +1533,8 @@ local function CollectProfessionRecipes(parentIDSlot, catCheck)
 						}
 					end
 
-					if recipeData.recipeID and not recipesByCategory[recipeData.recipeID] then
-						recipesByCategory[recipeData.recipeID] = true
+					if recipeData.recipeID and not seenRecipeIDs[recipeData.recipeID] then
+						seenRecipeIDs[recipeData.recipeID] = true
 
 						local recipeList = recipesByCategory[categoryID]
 						if not recipeList then
@@ -1573,7 +1571,6 @@ function Scanner:SaveProfessionsRetail(playerName)
 		recipeIDs = {}
 	end
 	Scanner.recipeIDs = recipeIDs
-	Scanner.invertedRecipeIDs = InvertArray(Scanner.recipeIDs)
 
 	local parentSkillLineID, parentSkillLineName = GetProfessionInfoWithFallback()
 

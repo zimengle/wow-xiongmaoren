@@ -165,27 +165,6 @@ function Fun.PIGwenbenhua(newtxt)
 	local newtxt=newtxt:gsub("%]","%%]");
 	return newtxt
 end
---格式化时间
-function Fun.disp_time(time)
-	if time then
-		local days = floor(time/86400)
-		local hours = floor(mod(time, 86400)/3600)
-		local minutes = math.ceil(mod(time,3600)/60)
-		if time>86400 then
-			return format("|c00FF0000"..GARRISON_DURATION_DAYS_HOURS.."|r",days,hours)
-		elseif time<86400 and time>3600 then
-			return format("|c00FFA500"..GARRISON_DURATION_HOURS_MINUTES.."|r",hours,minutes)
-		elseif time<3600 and time>60 then
-			return format("|c00FFFF40"..GARRISON_DURATION_MINUTES.."|r",minutes)
-		else
-			return format("|c00FFFF40"..GARRISON_DURATION_SECONDS.."|r",time)
-		end
-	else
-		return TIME_UNKNOWN
-	end
-	-- GARRISON_DURATION_DAYS = "%d天";
-	-- GARRISON_DURATION_HOURS = "%d小时";
-end
 --获取PIG频道
 local ChatpindaoMAX = 5
 Fun.ChatpindaoMAX=ChatpindaoMAX

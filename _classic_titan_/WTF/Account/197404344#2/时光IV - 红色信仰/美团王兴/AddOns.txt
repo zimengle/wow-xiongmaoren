@@ -152,3 +152,4 @@ EasyAuction: enabled
 !ImprovedErrorFrame: disabled
 Blizzard_ObjectiveTracker: enabled
 MeetingHornHeroic: enabled
+TotemMaster: enabled
