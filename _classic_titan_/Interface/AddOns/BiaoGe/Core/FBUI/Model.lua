@@ -426,7 +426,17 @@ function BG.CreateBossModel()
         -- CreateAllTestButton(model)
     end
     if BG.IsRetail then
-        local model = CreateBossModel("NP", 8, 0, -10, 219778, 0.6)
+        local model = CreateBossModel("VS", 6, 15, -50, 244761, 0.45)
+        model:SetPosition(-0, 0, 0) -- Z,X,Y
+        model:SetFacing(0)          -- 左右
+        model:SetPitch(0)           -- 上下
+        model:SetRoll(0)            -- 倾斜
+        local model = CreateBossModel("VS", 7, 10, -50, 256116, 0.5)
+        model:SetPosition(-0, 0, 0)
+        model:SetFacing(-0.2)
+        model:SetPitch(0)
+        model:SetRoll(0)
+        local model = CreateBossModel("VS", 9, -5, -0, 214650, 0.6)
         model:SetPosition(-0, 0, 0) -- Z,X,Y
         model:SetFacing(0)          -- 左右
         model:SetPitch(0)           -- 上下

@@ -1,9 +1,8 @@
 # BagSync
 
-## [v20.23](https://github.com/Xruptor/BagSync/tree/v20.23) (2026-04-15)
-[Full Changelog](https://github.com/Xruptor/BagSync/compare/v20.22...v20.23) [Previous Releases](https://github.com/Xruptor/BagSync/releases)
+## [v20.24](https://github.com/Xruptor/BagSync/tree/v20.24) (2026-04-24)
+[Full Changelog](https://github.com/Xruptor/BagSync/compare/v20.23...v20.24) [Previous Releases](https://github.com/Xruptor/BagSync/releases)
 
-- Reverted the LibDBIcon Update  
-    * Apparently the updated LibDBIcon library was causing issues, so I reverted it back to the older version.  (Fixes #467)  
-- Revert "Fixed Login Stutter Issue  
-    * There was a slight stutter on login if users had a LOT of recipes from across dozens of characters.  To minimize this it's been pushed to only cache the classic professions only.  (Fixes #466)"  
+- Fixed a tooltip bug with Battle Pets  
+    * Fixed a bug in the BagSync Search window where the battle pets where not properly showing the character count tooltip under the battle pet tooltip.  It should now properly show item acounts for that Battle Pet when you hover over one in the BagSync Search Window.  
+    * Added more debugging layers for the future and moved one bypass tooltip debug to another layer.  

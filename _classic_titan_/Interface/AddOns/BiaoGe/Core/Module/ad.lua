@@ -55,10 +55,9 @@ BG.Init(function()
             f:EnableMouse(true)
             f:Hide()
             self.copyFrame = f
-            f.CloseButton = CreateFrame("Button", nil, f, "UIPanelCloseButton")
-            f.CloseButton:SetPoint("RIGHT", f, "RIGHT", 0, 0)
+            BG.CreateCloseButton(f)
 
-            local edit = CreateFrame("EditBox", nil, f, "BiaoGe_InputBoxTemplate")
+            local edit = CreateFrame("EditBox", nil, f, BG.editTemplate)
             edit:SetSize(90, 20)
             edit:SetPoint("LEFT", 10, 0)
             edit:SetScript("OnEscapePressed", function(self)

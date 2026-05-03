@@ -91,6 +91,50 @@ BG.Init(function()
         bt:SetScript("OnLeave", GameTooltip_Hide)
     end
 
+    -- 创建右下角缩放按钮（等比例缩放，不变形）
+    function CreateFrameResizeHandle(parent)
+        local optionName = "mapScale"
+        local isDragging = false
+        local startX, startY, startScale
+        local handle = CreateFrame("Button", nil, parent)
+        handle:SetSize(20, 20)
+        handle:SetPoint("BOTTOMRIGHT")
+        handle:SetNormalTexture("Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Down")
+        handle:SetHighlightTexture("Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Highlight")
+        handle:SetPushedTexture("Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Up")
+        handle:SetScript("OnMouseDown", function(_, btn)
+            if btn == "LeftButton" then
+                isDragging = true
+                startX, startY = GetCursorPosition()
+                startScale = parent:GetScale()
+            elseif btn == "RightButton" then
+                local newScale = BG.options["mapScalereset"]
+                parent:SetScale(newScale)
+                BiaoGe.options[optionName] = newScale
+                BG.options["button" .. optionName]:SetValue(newScale)
+                BG.options["button" .. optionName].edit:SetText(newScale)
+            end
+        end)
+        handle:SetScript("OnMouseUp", function()
+            isDragging = false
+        end)
+        handle:SetScript("OnUpdate", function()
+            if not isDragging then return end
+            local uiScale = UIParent:GetScale()
+            local curX, curY = GetCursorPosition()
+            local deltaX = (curX - startX) / uiScale
+            local newScale = startScale + deltaX * 0.002 -- 灵敏度可调整
+            newScale = format("%.3f", math.max(0.5, math.min(newScale, 1.5)))
+            parent:SetScale(newScale)
+            BiaoGe.options[optionName] = newScale
+            BG.options["button" .. optionName]:SetValue(newScale)
+            BG.options["button" .. optionName].edit:SetText(newScale)
+        end)
+        handle:HookScript("OnEnter", parent:GetScript("OnEnter"))
+        handle:HookScript("OnLeave", parent:GetScript("OnLeave"))
+        return handle
+    end
+
     local frameName = "BG.MapFrame"
     local f = CreateFrame("Frame", frameName, UIParent, "BackdropTemplate")
     do
@@ -144,32 +188,33 @@ BG.Init(function()
         f.t = 0
         f:SetScript("OnUpdate", function(self, t)
             if self.isOnEnter then
-                self.CloseButton:Show()
+                self.optionButton:Show()
                 self.t = 0
             else
                 self.t = self.t + t
                 if self.t >= 0.05 then
                     self.t = 0
                     if not self.isOnEnter then
-                        self.CloseButton:Hide()
+                        self.optionButton:Hide()
                     end
                 end
             end
         end)
 
-        f.CloseButton = CreateFrame("Button", nil, f, "UIPanelCloseButton")
-        f.CloseButton:SetPoint("TOPRIGHT", f, "TOPRIGHT", 2, 2)
+        f.resizeButton = CreateFrameResizeHandle(f)
+
+        BG.CreateCloseButton(f, BG.IsRetail and 0 or 2, BG.IsRetail and 0 or 2)
         f.CloseButton:SetSize(40, 40)
-        f.CloseButton:Hide()
         f.CloseButton:HookScript("OnEnter", BG.MapFrame:GetScript("OnEnter"))
         f.CloseButton:HookScript("OnLeave", BG.MapFrame:GetScript("OnLeave"))
 
-        local bt = CreateFrame("Button", nil, f.CloseButton)
+        local bt = CreateFrame("Button", nil, f)
         bt:SetSize(25, 25)
         bt:SetNormalTexture([[Interface\Buttons\UI-OptionsButton]])
         bt:SetHighlightTexture([[Interface\Buttons\UI-OptionsButton]])
         bt:SetPoint("RIGHT", f.CloseButton, "LEFT", 0, 0)
         bt:RegisterForClicks("AnyUp")
+        f.optionButton=bt
         bt:SetScript("OnClick", function(self)
             ns.InterfaceOptionsFrame_OpenToCategory(BG.optionsName)
             BG.ButtonOptions_map:Click()
@@ -178,7 +223,7 @@ BG.Init(function()
         bt:HookScript("OnLeave", BG.MapFrame:GetScript("OnLeave"))
     end
 
-    local dropDown = LibBG:Create_UIDropDownMenu(nil, f.CloseButton)
+    local dropDown = LibBG:Create_UIDropDownMenu(nil, f.optionButton)
     do
         dropDown:SetPoint("TOPLEFT", f, "TOPLEFT", -14, -1)
         dropDown:SetScale(1.1)

@@ -21,7 +21,7 @@ local step = 2
 local updateFrame = CreateFrame("Frame")
 updateFrame.errorCount = 0
 updateFrame:SetScript("OnEvent", function(self, event, msg)
-    if event == "CHAT_MSG_SYSTEM" and msg == ERR_CHAT_THROTTLED then
+    if event == "CHAT_MSG_SYSTEM" and not BG.IsSecret(msg) and msg == ERR_CHAT_THROTTLED then
         self.errorCount = self.errorCount + 1
         if self.errorCount >= 5 then
             self:SetScript("OnUpdate", nil)
@@ -36,6 +36,7 @@ updateFrame:SetScript("OnEvent", function(self, event, msg)
 end)
 
 function BG.SendMsgToRaid(tbl, dalay, callback)
+    if BG.InBoss() then return end
     if updateFrame.callback then
         updateFrame.callback()
         updateFrame.callback = nil
@@ -502,7 +503,7 @@ local function OnClick(self)
     BG.FrameHide(0)
     if BG.IsErrorSendChannel() then return end
     self:SetEnabled(false)
-    C_Timer.After(2, function()
+    C_Timer.After(3, function()
         self:SetEnabled(true)
     end)
 
@@ -562,7 +563,9 @@ local function OnClick(self)
         tinsert(tbl, 1, { format(L["表格：%s"], BG.FB1) })
         tinsert(tbl, 1, { L["———通报账单———"] })
         tinsert(tbl, { L["—感谢使用BiaoGe插件—"] })
-        BG.SendMsgToRaid(tbl)
+        BG.After(.2,function ()
+            BG.SendMsgToRaid(tbl)
+        end)
     end
     BG.PlaySound(2)
 end
@@ -621,6 +624,7 @@ local f = CreateFrame("Frame")
 f:RegisterEvent("CHAT_MSG_RAID_LEADER")
 f:RegisterEvent("CHAT_MSG_RAID")
 f:SetScript("OnEvent", function(self, event, msg, sender, ...)
+    if BG.IsSecret(msg) then return end
     local sum = tonumber(msg:match("^" .. L["总收入"] .. L["："] .. "(%d+)$"))
     if sum and sum ~= 0 then
         sumMoney = sum

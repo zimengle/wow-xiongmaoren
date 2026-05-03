@@ -36,8 +36,8 @@ ST.defaults = {
     earthShieldTarget = "",
     showCooldownRing = true,
     showIconCooldownNumber = true,
-    timerInnerFormat = "ms",
-    timerOuterFormat = "ms",
+    timerInnerFormat = "unit",
+    timerOuterFormat = "unit",
     showNumericTimer = true,
     showDecimalBelowTen = false,
     timerOffsetX = 0,
@@ -53,8 +53,8 @@ ST.defaults = {
     fontColor = { r = 1, g = 1, b = 1, a = 1 },
     showCooldownRingSecondary = true,
     showIconCooldownNumberSecondary = true,
-    timerInnerFormatSecondary = "ms",
-    timerOuterFormatSecondary = "ms",
+    timerInnerFormatSecondary = "unit",
+    timerOuterFormatSecondary = "unit",
     showNumericTimerSecondary = true,
     timerOffsetXSecondary = 0,
     timerOffsetYSecondary = -2,
@@ -147,7 +147,7 @@ local function applyTrackerFrameState(frame, shouldHide)
     if frame.SetAlpha then
         frame:SetAlpha(shouldHide and 0 or 1)
     end
-    if frame.EnableMouse then
+    if frame.EnableMouse and not (InCombatLockdown and InCombatLockdown()) then
         frame:EnableMouse(shouldHide and false or true)
     end
 end
@@ -216,8 +216,16 @@ local function onAddonLoaded(loadedName)
         return
     end
 
-    TotemMasterDB = copyDefaults(ST.defaults, TotemMasterDB)
-    ST.db = TotemMasterDB
+    local charDBEmpty = type(TotemMasterCharDB) ~= "table" or next(TotemMasterCharDB) == nil
+    if charDBEmpty then
+        TotemMasterCharDB = {}
+        if type(TotemMasterDB) == "table" and next(TotemMasterDB) ~= nil then
+            TotemMasterCharDB = copyDefaults(TotemMasterDB, TotemMasterCharDB)
+            ST:Print("已从账号级旧配置导入一份作为该角色的初始设置，后续修改将仅保存到当前角色。")
+        end
+    end
+    TotemMasterCharDB = copyDefaults(ST.defaults, TotemMasterCharDB)
+    ST.db = TotemMasterCharDB
 
     ST.SpellCatalog:Rebuild()
     ST.Presets:EnsureValid()
@@ -314,7 +322,7 @@ ST.frame:RegisterEvent("GLYPH_ADDED")
 ST.frame:RegisterEvent("GLYPH_REMOVED")
 ST.frame:RegisterEvent("GLYPH_UPDATED")
 
-SLASH_TOTEMMASTER1 = "/tm"
+SLASH_TOTEMMASTER1 = "/ttm"
 SLASH_TOTEMMASTER2 = "/totemmaster"
 SlashCmdList.TOTEMMASTER = function(msg)
     if not ST.UI.mainFrame then

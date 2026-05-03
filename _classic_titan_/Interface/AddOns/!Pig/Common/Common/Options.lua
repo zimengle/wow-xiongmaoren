@@ -229,7 +229,7 @@ fujiF.OtherF:SetPoint("BOTTOMRIGHT", fujiF.xingnengF, "TOPRIGHT", 0, -1);
 fujiF.OtherF:SetHeight(150)
 fujiF.OtherF:PIGSetBackdrop(0,0.6)
 
-fujiF.OtherF.ErrorsHide = PIGCheckbutton_R(fujiF.OtherF,{L["COMMON_HIDEYELLOWINFO"]})
+fujiF.OtherF.ErrorsHide = PIGCheckbutton_R(fujiF.OtherF,{L["COMMON_HIDEREDERROR"]})
 fujiF.OtherF.ErrorsHide:SetScript("OnClick", function (self)
     if self:GetChecked() then
         PIGA["Other"]["ErrorsHide"]=true;
@@ -238,7 +238,7 @@ fujiF.OtherF.ErrorsHide:SetScript("OnClick", function (self)
     end
     CommonInfo.Common_ErrorsHide()
 end)
-fujiF.OtherF.ErrorsHide_Y = PIGCheckbutton_R(fujiF.OtherF,{L["COMMON_HIDEREDERROR"]})
+fujiF.OtherF.ErrorsHide_Y = PIGCheckbutton_R(fujiF.OtherF,{L["COMMON_HIDEYELLOWINFO"]})
 fujiF.OtherF.ErrorsHide_Y:SetScript("OnClick", function (self)
     if self:GetChecked() then
         PIGA["Other"]["ErrorsHide_Y"]=true;

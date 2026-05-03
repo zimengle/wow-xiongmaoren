@@ -46,11 +46,31 @@ function ST.CastEngine:Init()
     self:InitActionMap()
 end
 
+local function getActionSpellID(action)
+    if not action or not GetActionInfo then
+        return nil
+    end
+    local actionType, id = GetActionInfo(action)
+    if actionType == "spell" then
+        return tonumber(id) or 0
+    end
+    if actionType == nil then
+        return 0
+    end
+    return nil
+end
+
 local function writeMulticastSpell(action, spellID, usePickup)
     if not action then
         return
     end
     local spellToWrite = spellID or 0
+    if not usePickup then
+        local current = getActionSpellID(action)
+        if current ~= nil and current == spellToWrite then
+            return
+        end
+    end
     SetMultiCastSpell(action, spellToWrite)
     if spellToWrite ~= 0 and usePickup and PickupSpell and PlaceAction and ClearCursor then
         PickupSpell(spellID)
@@ -94,9 +114,6 @@ function ST.CastEngine:ApplyAllPresets(usePickup)
         if not ok then
             okAll = false
         end
-    end
-    if okAll and MultiCastActionBarFrame and MultiCastActionBarFrame_OnEvent then
-        MultiCastActionBarFrame_OnEvent(MultiCastActionBarFrame, "UPDATE_MULTI_CAST_ACTIONBAR")
     end
     return okAll
 end

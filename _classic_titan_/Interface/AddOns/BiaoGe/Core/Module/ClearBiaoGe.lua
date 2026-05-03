@@ -101,6 +101,8 @@ function BG.ClearBiaoGeUI()
                 else
                     num = BG.GetFBinfo(FB, "maxplayers") or 25
                 end
+            elseif BG.IsRetail then
+                num = BG.GetFBinfo(FB, "maxplayers") or 20
             else
                 num = 25
                 local nanduID = GetRaidDifficultyID()
@@ -414,8 +416,7 @@ function BG.ClearBiaoGeUI()
         end)
         BG.freeClearBiaoGeFrame = f
 
-        f.CloseButton = CreateFrame("Button", nil, f, "UIPanelCloseButton")
-        f.CloseButton:SetPoint("TOPRIGHT", f, "TOPRIGHT", 5, 5)
+        BG.CreateCloseButton(f)
 
         local l = f:CreateLine()
         l:SetColorTexture(1, 1, 1, BG.borderAlpha)

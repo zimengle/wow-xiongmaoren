@@ -127,28 +127,8 @@ local function OnTextChanged(self)
         item:ContinueOnItemLoad(function()
             local name, link, quality, level, _, _, _, _, _, Texture,
             _, typeID, _, bindType = GetItemInfo(itemText)
-            if FB == "ULD" and not itemText:match("H$") then
-                local hard
-                for index, value in ipairs(BG.Loot.ULD.Hard10) do
-                    if itemID == value then
-                        self:SetText(itemText .. "H")
-                        hard = true
-                        break
-                    end
-                end
-                if not hard then
-                    for index, value in ipairs(BG.Loot.ULD.Hard25) do
-                        if itemID == value then
-                            self:SetText(itemText .. "H")
-                            break
-                        end
-                    end
-                end
-            elseif FB == "ICC" and not itemText:match("H$") then
-                if itemID == 52030 or itemID == 52029 or itemID == 52028 then
-                    self:SetText(link .. "H")
-                end
-            end
+            BG.AddHText(FB, itemText, itemID, self)
+            self:SetCursorPosition(0)
             self.icon:SetTexture(Texture)
             BG.BindOnEquip(self, bindType)
             BG.LevelText(self, level, typeID)
@@ -162,7 +142,7 @@ local function OnTextChanged(self)
     end
 end
 function BG.DuiZhangZhuangBeiUI(FB, t, b, bb, i, ii)
-    local bt = CreateFrame("EditBox", nil, BG["DuiZhangFrame" .. FB], "BiaoGe_InputBoxTemplate");
+    local bt = CreateFrame("EditBox", nil, BG["DuiZhangFrame" .. FB], BG.editTemplate);
     bt:SetSize(BG.zhuangbeiWidth, 20)
     bt:SetFrameLevel(110)
     if BG.zaxiang[FB] and BossNum(FB, b, t) == Maxb[FB] - 1 and i == BG.zaxiang[FB].i then
@@ -237,7 +217,7 @@ end
 ------------------我的金额------------------
 function BG.DuiZhangMyJinEUI(FB, t, b, bb, i, ii)
     local b = BossNum(FB, b, t)
-    local bt = CreateFrame("EditBox", nil, BG.DuiZhangFrame[FB]["boss" .. b]["zhuangbei" .. i], "BiaoGe_InputBoxTemplate");
+    local bt = CreateFrame("EditBox", nil, BG.DuiZhangFrame[FB]["boss" .. b]["zhuangbei" .. i], BG.editTemplate);
     bt:SetSize(85, 20)
     bt:SetPoint("TOPLEFT", preWidget, "TOPRIGHT", 5, 0);
     bt:SetFrameLevel(110)
@@ -324,7 +304,7 @@ end
 ------------------别人的金额------------------
 function BG.DuiZhangOtherJinEUI(FB, t, b, bb, i, ii)
     local b = BossNum(FB, b, t)
-    local bt = CreateFrame("EditBox", nil, BG.DuiZhangFrame[FB]["boss" .. b]["zhuangbei" .. i], "BiaoGe_InputBoxTemplate");
+    local bt = CreateFrame("EditBox", nil, BG.DuiZhangFrame[FB]["boss" .. b]["zhuangbei" .. i], BG.editTemplate);
     bt:SetSize(85, 20)
     bt:SetPoint("TOPLEFT", preWidget, "TOPRIGHT", 5, 0);
     bt:SetFrameLevel(110)

@@ -1,12 +1,11 @@
 TitanBistooltipAddon = LibStub("AceAddon-3.0"):NewAddon("TitanBistooltip")
 
 -- 插件版本信息
-local version = GetAddOnMetadata("TitanBistooltip", "Version")
-if version then
-    TitanBistooltipAddon.AddonNameAndVersion = "TitanBistooltip v" .. version
-else
-    TitanBistooltipAddon.AddonNameAndVersion = "TitanBistooltip"
-end
+TitanBistooltipAddon.Version = "2.13" -- 版本号
+TitanBistooltipAddon.AddonNameAndVersion = "TitanBistooltip v" .. TitanBistooltipAddon.Version
+
+-- 确保版本信息在全局可访问
+_G["TitanBistooltipAddon"] = TitanBistooltipAddon
 
 -- 全局函数用于按键绑定
 function TitanBistooltipToggle()
@@ -282,11 +281,11 @@ function TitanBistooltipAddon:showCharacterEquipment(characterName, classFileNam
                     local smartPosition = TitanBistooltipAddon.db.char.tooltip_position
                     
                     if smartPosition and frameRight > screenWidth / 2 then
-                        -- 启用智能调整且面板在屏幕右侧，提示框显示在左侧
-                        GameTooltip:SetPoint("TOPLEFT", widget.frame, "TOPLEFT", -220, -13)
+                        -- 启用智能调整且面板在屏幕右侧，提示框显示在左侧，增加偏移距离避免覆盖
+                        GameTooltip:SetPoint("TOPLEFT", widget.frame, "TOPLEFT", -300, -13)
                     else
-                        -- 未启用智能调整或面板在屏幕左侧，提示框显示在右侧
-                        GameTooltip:SetPoint("TOPRIGHT", widget.frame, "TOPRIGHT", 220, -13)
+                        -- 未启用智能调整或面板在屏幕左侧，提示框显示在右侧，增加偏移距离避免覆盖
+                        GameTooltip:SetPoint("TOPRIGHT", widget.frame, "TOPRIGHT", 300, -13)
                     end
                     
                     if itemLink then
@@ -843,8 +842,8 @@ local function updateClassAndSpecIndexes(className, specName)
     if not TitanBistooltipAddon.db.char.phase_index then
         -- 从设置中读取默认阶段
         local defaultPhase = TitanBistooltipAddon.db.char.default_phase or "P3"
-        -- 确保TitanBistooltip_Titan_phases被正确初始化
-        local phases = TitanBistooltip_Titan_phases or { "PR" , "P1" , "P2" , "P3" , "P4" , "P5" , "P6" , "P7" , "P8" , "P9" , "P10" , "P11" }
+        -- 确保TitanBistooltip_phases被正确初始化
+        local phases = TitanBistooltip_phases or { "PR" , "P1" , "P2" , "P3" , "P4" , "P5" , "P6" , "P7" , "P8" , "P9" , "P10" , "P11" }
         -- 找到默认阶段在阶段列表中的索引
         local phaseIndex = 1
         for i, phase in ipairs(phases) do

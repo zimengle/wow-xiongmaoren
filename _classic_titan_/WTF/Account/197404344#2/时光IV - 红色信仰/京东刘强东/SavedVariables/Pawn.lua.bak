@@ -1,6 +1,6 @@
 
 PawnOptions = {
-["LastVersion"] = 2.1308,
+["LastVersion"] = 2.1309,
 ["ItemLevels"] = {
 {
 ["ID"] = 40298,
@@ -83,9 +83,9 @@ nil,
 ["Link"] = "|cffff8000|Hitem:30317::::::::80::::::::::|h[宇宙灌注者]|h|r",
 },
 {
-["ID"] = 255098,
-["Level"] = 213,
-["Link"] = "|cffa335ee|Hitem:255098::::::::80::::::::::|h[玛利斯达尔防御者]|h|r",
+["ID"] = 39716,
+["Level"] = 232,
+["Link"] = "|cffa335ee|Hitem:39716::::::::80::::::::::|h[消化之盾]|h|r",
 },
 },
 ["AutoSelectScales"] = false,

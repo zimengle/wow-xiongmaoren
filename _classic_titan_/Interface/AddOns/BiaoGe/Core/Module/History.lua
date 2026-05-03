@@ -297,6 +297,7 @@ function BG.HistoryUI()
         updateFrame.timeElapsed = 0
         BG.canSendBiaoGe = false
         bt:SetScript("OnClick", function(self, button)
+            if BG.InBoss() then return end
             BG.canSendBiaoGe = true
             updateFrame.timeElapsed = 0
             updateFrame:SetScript("OnUpdate", function(self, elapsed)
@@ -708,6 +709,7 @@ do
                         for i = 1, BG.GetMaxi(FB, b) do
                             if BG.HistoryFrame[FB]["boss" .. b]["zhuangbei" .. i] then
                                 BG.HistoryFrame[FB]["boss" .. b]["zhuangbei" .. i]:SetText(BiaoGe.History[FB][DT]["boss" .. b]["zhuangbei" .. i] or "")
+                                BG.HistoryFrame[FB]["boss" .. b]["zhuangbei" .. i]:SetCursorPosition(0)
                                 BG.HistoryFrame[FB]["boss" .. b]["maijia" .. i]:SetText(BiaoGe.History[FB][DT]["boss" .. b]["maijia" .. i] or "")
                                 BG.HistoryFrame[FB]["boss" .. b]["maijia" .. i]:SetCursorPosition(0)
                                 if BiaoGe.History[FB][DT]["boss" .. b]["color" .. i] then
@@ -1009,9 +1011,14 @@ do
     -- 鼠标提示装备的历史价格区间
     local function callback(itemID, maxJine, minJine, tooltip)
         lastCallback = nil
-        local name, link = tooltip:GetItem()
-        if not link then return end
-        local _itemID = GetItemID(link)
+        local _itemID
+        if TooltipUtil then
+            _itemID = select(3, TooltipUtil.GetDisplayedItem(tooltip))
+        else
+            local name, link = tooltip:GetItem()
+            if not link then return end
+            _itemID = GetItemID(link)
+        end
         if _itemID ~= itemID then return end
         for i = 1, tooltip:NumLines() do
             local leftt = _G[tooltip:GetName() .. "TextLeft" .. i]
@@ -1088,15 +1095,27 @@ do
         tooltip:Show()
     end
 
-    local function AddInfo(self)
+    local function AddInfo(self, data)
         if BiaoGe.options["mouseHistoryMoney"] == 1 and IsInRaid(1) then
-            local name, link = self:GetItem()
-            if not link then return end
-            local itemID = GetItemID(link)
+            local itemID
+            if TooltipUtil then
+                itemID = select(3, TooltipUtil.GetDisplayedItem(self))
+            else
+                local name, link = self:GetItem()
+                if not link then return end
+                itemID = GetItemID(link)
+            end
             if not itemID then return end
             SetTooltipText(itemID, self)
         end
     end
 
-    GameTooltip:HookScript("OnTooltipSetItem", AddInfo)
+    if BG.IsRetail then
+        TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, AddInfo)
+    else
+        GameTooltip:HookScript("OnTooltipSetItem", AddInfo)
+    end
 end
+
+-- /dump TooltipUtil.GetDisplayedItem(GameTooltip)
+

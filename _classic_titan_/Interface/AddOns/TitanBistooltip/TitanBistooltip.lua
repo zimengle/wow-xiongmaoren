@@ -252,6 +252,48 @@ local function OnGameTooltipSetItem(tooltip)
     if link == nil then
         return ;
     end
+    
+    -- 添加装备等级显示
+    if TitanBistooltipAddon.db.char.show_item_level then
+        -- 检查是否是假的物品链接（item:3299是按ALT键时使用的）
+        if not string.find(link, "item:3299") then
+            -- 获取装备等级和品质
+            local itemLevel = GetDetailedItemLevelInfo(link)
+            if not itemLevel then
+                _, _, itemLevel = GetItemInfo(link)
+            end
+            
+            if itemLevel and itemLevel ~= 1 then
+                -- 获取装备品质颜色
+                local _, _, itemQuality = GetItemInfo(link)
+                local qualityColor = ITEM_QUALITY_COLORS[itemQuality] or ITEM_QUALITY_COLORS[1]
+                
+                -- 获取左行的字号
+                local leftLine = _G[tooltip:GetName() .. "TextLeft1"]
+                local _, fontHeight, _
+                if leftLine then
+                    _, fontHeight, _ = leftLine:GetFont()
+                end
+                
+                -- 修改右行
+                local rightLine = _G[tooltip:GetName() .. "TextRight1"]
+                if rightLine then
+                    -- 设置文本
+                    rightLine:SetText(itemLevel)
+                    -- 设置颜色
+                    rightLine:SetTextColor(qualityColor.r, qualityColor.g, qualityColor.b)
+                    -- 设置右对齐
+                    rightLine:SetJustifyH("RIGHT")
+                    -- 设置字号和左行一致
+                    if fontHeight then
+                        local fontName, _, fontFlags = rightLine:GetFont()
+                        rightLine:SetFont(fontName, fontHeight, fontFlags)
+                    end
+                    rightLine:Show()
+                end
+            end
+        end
+    end
 
     local _, itemId, _, _, _, _, _, _, _, _, _, _, _, _ = strsplit(":", link)
 
@@ -484,6 +526,34 @@ local function OnGameTooltipSetItem(tooltip)
         return
     end
     
+    -- 计算在没有用户专精过滤的情况下，所有相关专精的数据（用于比较）
+    local function getAllSpecsWithoutUserFilter(item_list)
+        local result = {}
+        for _, spec in ipairs(item_list) do
+            local class_name = spec.class_name
+            local spec_name = spec.spec_name
+            
+            -- 临时检查该专精是否被用户过滤（不考虑ALT键）
+            local is_filtered_by_user = false
+            if TitanBistooltipAddon.db.char.filter_specs[class_name] then
+                -- 处理术士的Destruction fire映射到Destruction
+                local actual_spec_name = spec_name
+                if class_name == "Warlock" and spec_name == "Destruction fire" then
+                    actual_spec_name = "Destruction"
+                end
+                is_filtered_by_user = TitanBistooltipAddon.db.char.filter_specs[class_name][actual_spec_name] == true
+            end
+            
+            if not is_filtered_by_user then
+                table.insert(result, spec)
+            end
+        end
+        return result
+    end
+    
+    -- 没有用户专精过滤时的数据
+    local all_data_without_user_filter = getAllSpecsWithoutUserFilter(dynamic_item_data)
+    
     -- 应用过滤，根据用户设置显示相关专精
     local filtered_item_data = getFilteredItem(dynamic_item_data)
     
@@ -493,6 +563,15 @@ local function OnGameTooltipSetItem(tooltip)
         local slot_ranks = getDynamicRank(currentItemId, spec.class_name, spec.spec_name, spec.slot_name)
         if type(slot_ranks) == "table" and #slot_ranks > 0 then
             table.insert(final_filtered_item_data, spec)
+        end
+    end
+    
+    -- 对没有用户专精过滤的数据也应用阶段排名过滤
+    local final_all_data_without_user_filter = {}
+    for _, spec in ipairs(all_data_without_user_filter) do
+        local slot_ranks = getDynamicRank(currentItemId, spec.class_name, spec.spec_name, spec.slot_name)
+        if type(slot_ranks) == "table" and #slot_ranks > 0 then
+            table.insert(final_all_data_without_user_filter, spec)
         end
     end
     
@@ -624,7 +703,8 @@ local function OnGameTooltipSetItem(tooltip)
             LibExtraTip:AddLine(tooltip, L["You have this item"], 0.074, 0.964, 0.129, false)
         end
     end
-    if #filtered_item_data < #dynamic_item_data then
+    -- 只有当有专精被用户显式过滤时才显示提示（不包括阶段排名过滤）
+    if #final_filtered_item_data < #final_all_data_without_user_filter then
         if #filtered_item_data > 0 then
             LibExtraTip:AddLine(tooltip, " ", 1, 1, 0, false)
         end

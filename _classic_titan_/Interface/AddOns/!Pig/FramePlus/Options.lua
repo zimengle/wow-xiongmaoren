@@ -38,7 +38,7 @@ FramePlusF.QuestsEnd:SetScript("OnClick", function (self)
 	else
 		PIGA["Common"]["QuestsEnd"]=false;
 	end
-	CommonInfo.Commonfun.QuestsEnd()
+	FramePlusfun.QuestsEnd()
 end);
 FramePlusF.QuestsEnd.xiala=PIGDownMenu(FramePlusF.QuestsEnd,{"LEFT",FramePlusF.QuestsEnd.Text, "RIGHT", 4,0},{180,24})
 function FramePlusF.QuestsEnd.xiala:PIGDownMenu_Update_But()
@@ -80,16 +80,18 @@ FramePlusF.QuestSellMax:SetScript("OnClick", function (self)
 	end
 end);
 ----
-FramePlusF.BuffTime = PIGCheckbutton_R(FramePlusF,{"优化自身BUFF时间显示","精确显示自身BUFF/DEBUFF时间"},true)
-FramePlusF.BuffTime:SetScript("OnClick", function (self)
-	if self:GetChecked() then
-		PIGA["FramePlus"]["BuffTime"]=true;
-		FramePlusfun.BuffTime()
-	else
-		PIGA["FramePlus"]["BuffTime"]=false
-		PIG_OptionsUI.RLUI:Show()
-	end
-end);
+if PIG_MaxTocversion(120000) then
+	FramePlusF.BuffTime = PIGCheckbutton_R(FramePlusF,{"优化自身BUFF时间显示","精确显示自身BUFF/DEBUFF时间"},true)
+	FramePlusF.BuffTime:SetScript("OnClick", function (self)
+		if self:GetChecked() then
+			PIGA["FramePlus"]["BuffTime"]=true;
+			FramePlusfun.BuffTime()
+		else
+			PIGA["FramePlus"]["BuffTime"]=false
+			PIG_OptionsUI.RLUI:Show()
+		end
+	end);
+end
 ----
 FramePlusF.Skill_QKbut = PIGCheckbutton_R(FramePlusF,{"专业界面快速切换按钮","在专业界面显示便捷切换专业按钮"},true)
 FramePlusF.Skill_QKbut:SetScript("OnClick", function (self)
@@ -169,7 +171,7 @@ end)
 FramePlusF:HookScript("OnShow", function(self)
 	self.wupinLV:SetChecked(PIGA["BagBank"]["wupinLV"])
 	self.wupinRanse:SetChecked(PIGA["BagBank"]["wupinRanse"])
-	self.BuffTime:SetChecked(PIGA["FramePlus"]["BuffTime"])
+	if self.BuffTime then self.BuffTime:SetChecked(PIGA["FramePlus"]["BuffTime"]) end
 	self.Skill_QKbut:SetChecked(PIGA["FramePlus"]["Skill_QKbut"])
 	self.QuestLevel:SetChecked(PIGA["FramePlus"]["QuestLevel"])
 	self.QuestSellMax:SetChecked(PIGA["FramePlus"]["QuestSellMax"])
@@ -446,6 +448,7 @@ end);
 local FrameMovF =PIGOptionsList_R(RTabFrame,"移动/缩放",90)
 local BlizzardUIList={
 	{true,  nil, "CharacterFrame",nil,"角色信息"},
+	{false, nil, "DressUpFrame",nil, "试衣间"},
 	{true,  nil, "SpellBookFrame",nil,"技能书"},
 	{false, nil, "QuestLogFrame",nil,"任务日志"},
 	{false, nil, "FriendsFrame",nil,"社交"},

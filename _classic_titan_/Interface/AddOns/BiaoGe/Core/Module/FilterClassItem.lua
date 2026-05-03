@@ -24,11 +24,12 @@ local HopeMaxi = ns.HopeMaxi
 local pt = print
 
 local F = {}
-local RealmId = GetRealmID()
+local RealmID = GetRealmID()
 local player = BG.playerName
 local _, class = UnitClass("player")
 
 function BG.FilterClassItemUI()
+    local db = BiaoGe.FilterClassItemDB[RealmID][player]
     -- Font
     do
         local color = "Filter_+" -- BG.FontFilter_+
@@ -64,7 +65,7 @@ function BG.FilterClassItemUI()
                 i = i + 1
             end
         end
-        BiaoGe.FilterClassItemDB[RealmId][player].chooseID = num
+        db.chooseID = num
         if num then
             BG.FilterClassItemMainFrame.resetButton:Show()
         else
@@ -73,7 +74,7 @@ function BG.FilterClassItemUI()
 
         for key, _ in pairs(F.buttons) do
             for _, bt in pairs(F.buttons[key]) do
-                if num and BiaoGe.FilterClassItemDB[RealmId][player][num][key][bt.key] == 1 then
+                if num and db[num][key][bt.key] == 1 then
                     bt:SetChecked(true)
                 else
                     bt:SetChecked(false)
@@ -113,21 +114,21 @@ function BG.FilterClassItemUI()
                         notCheckable = true,
                     },
                 }
-                for i, v in ipairs(BiaoGe.FilterClassItemDB[RealmId][player]) do
+                for i, v in ipairs(db) do
                     local a = {
                         text = i,
                         notCheckable = true,
                         func = function()
-                            local valueToMove = BiaoGe.FilterClassItemDB[RealmId][player][num]
-                            local chooseID = BiaoGe.FilterClassItemDB[RealmId][player].chooseID
+                            local valueToMove = db[num]
+                            local chooseID = db.chooseID
                             if chooseID then
-                                BiaoGe.FilterClassItemDB[RealmId][player][chooseID].moving = true
+                                db[chooseID].moving = true
                             end
-                            table.remove(BiaoGe.FilterClassItemDB[RealmId][player], num)
-                            table.insert(BiaoGe.FilterClassItemDB[RealmId][player], i, valueToMove)
+                            table.remove(db, num)
+                            table.insert(db, i, valueToMove)
 
                             if chooseID then
-                                for i, v in ipairs(BiaoGe.FilterClassItemDB[RealmId][player]) do
+                                for i, v in ipairs(db) do
                                     if v.moving then
                                         chooseID = i
                                         v.moving = nil
@@ -147,7 +148,7 @@ function BG.FilterClassItemUI()
                 local channelTypeMenu = {
                     {
                         isTitle = true,
-                        text = BiaoGe.FilterClassItemDB[RealmId][player][num].Name,
+                        text = db[num].Name,
                         notCheckable = true,
                     },
 
@@ -158,12 +159,12 @@ function BG.FilterClassItemUI()
                             BG.FilterClassItemMainFrame:Show()
                             BG.FilterClassItemMainFrame.AddFrame:Hide()
                             BG.FilterClassItemMainFrame.AddFrame:Show()
-                            BG.FilterClassItemMainFrame.AddFrame.tilte:SetText(L["正在修改方案："] .. BiaoGe.FilterClassItemDB[RealmId][player][num].Name)
-                            BG.FilterClassItemMainFrame.AddFrame.edit:SetText(BiaoGe.FilterClassItemDB[RealmId][player][num].Name)
+                            BG.FilterClassItemMainFrame.AddFrame.tilte:SetText(L["正在修改方案："] .. db[num].Name)
+                            BG.FilterClassItemMainFrame.AddFrame.edit:SetText(db[num].Name)
                             BG.FilterClassItemMainFrame.AddFrame.xiugai = num
 
                             for ii, icon in ipairs(BG.FilterClassItemMainFrame.AddFrame.icons) do
-                                if icon.iconpath == BiaoGe.FilterClassItemDB[RealmId][player][num].Icon then
+                                if icon.iconpath == db[num].Icon then
                                     icon.tex:Show()
                                     BG.FilterClassItemMainFrame.AddFrame.icon = icon.iconpath
                                 end
@@ -192,8 +193,8 @@ function BG.FilterClassItemUI()
                         text = L["删除方案"],
                         notCheckable = true,
                         func = function()
-                            tremove(BiaoGe.FilterClassItemDB[RealmId][player], num)
-                            local chooseID = BiaoGe.FilterClassItemDB[RealmId][player].chooseID
+                            tremove(db, num)
+                            local chooseID = db.chooseID
                             if chooseID then
                                 if chooseID == num then
                                     chooseID = nil
@@ -237,7 +238,7 @@ function BG.FilterClassItemUI()
         local width = 0
 
         local i = 1
-        while BiaoGe.FilterClassItemDB[RealmId][player][i] do
+        while db[i] do
             local bt = CreateFrame("Button", nil, parent)
             if i == 1 then
                 bt:SetPoint("LEFT", 0, 0)
@@ -261,10 +262,10 @@ function BG.FilterClassItemUI()
 
             local icon = bt:CreateTexture(nil, "ARTWORK") -- 图标
             icon:SetAllPoints()
-            icon:SetTexture(BiaoGe.FilterClassItemDB[RealmId][player][i].Icon)
+            icon:SetTexture(db[i].Icon)
             icon:SetDesaturated(true)
             bt.icon = icon
-            if BiaoGe.FilterClassItemDB[RealmId][player].chooseID == i then
+            if db.chooseID == i then
                 icon:SetDesaturated(false)
                 tex:Show()
             end
@@ -282,7 +283,7 @@ function BG.FilterClassItemUI()
                     local r, g, b = RGB(BG.g1)
                     GameTooltip:AddLine(L["使用装备过滤方案："], r, g, b, true)
                 end
-                GameTooltip:AddLine(BiaoGe.FilterClassItemDB[RealmId][player][bt.num].Name, 1, 1, 1, true)
+                GameTooltip:AddLine(db[bt.num].Name, 1, 1, 1, true)
                 if type == 1 then
                     GameTooltip:AddLine(AddTexture("LEFT") .. L["使用方案"], 1, .82, 0, true)
                     GameTooltip:AddLine(AddTexture("RIGHT") .. L["修改方案"], 1, .82, 0, true)
@@ -361,23 +362,22 @@ function BG.FilterClassItemUI()
             bt:SetHitRectInsets(0, -bt.Text:GetWrappedWidth(), 0, 0)
             BG.FilterClassItemMainFrame:SetHeight(BG.FilterClassItemMainFrame:GetTop() - bt:GetBottom() + 40)
 
-            local id = BiaoGe.FilterClassItemDB[RealmId][player].chooseID
+            local id = db.chooseID
             if id then
-                if BiaoGe.FilterClassItemDB[RealmId][player][id][type][v.name] == 1 then
-                    bt:SetChecked(true)
-                else
-                    bt:SetChecked(false)
-                end
+                bt:SetChecked(db[id][type][v.name] == 1)
             end
 
-            bt:SetScript("OnClick", function(self)
-                local id = BiaoGe.FilterClassItemDB[RealmId][player].chooseID
+            hooksecurefunc(bt, "SetChecked", function(self, yes)
+                local id = db.chooseID
                 if id then
-                    if self:GetChecked() then
-                        BiaoGe.FilterClassItemDB[RealmId][player][id][type][v.name] = 1
-                    else
-                        BiaoGe.FilterClassItemDB[RealmId][player][id][type][v.name] = nil
-                    end
+                    db[id][type][self.key] = yes and 1 or nil
+                end
+            end)
+
+            bt:SetScript("OnClick", function(self)
+                local id = db.chooseID
+                if id then
+                    db[id][type][v.name] = self:GetChecked() and 1 or nil
                     BG.PlaySound(1)
                 end
                 BG.UpdateAllFilter()
@@ -442,8 +442,7 @@ function BG.FilterClassItemUI()
         t:SetPoint("TOP", 0, -7)
         t:SetTextColor(1, 1, 1)
 
-        local bt = CreateFrame("Button", nil, f, "UIPanelCloseButton")
-        bt:SetPoint("TOPRIGHT", 0, 0)
+        BG.CreateCloseButton(f, 0, 0)
 
         local bt = BG.CreateButton(f)
         bt:SetSize(130, 25)
@@ -548,7 +547,7 @@ function BG.FilterClassItemUI()
         t:SetTextColor(RGB("FFD100"))
         t:SetText(L["名称："])
 
-        local edit = CreateFrame("EditBox", nil, f, "BiaoGe_InputBoxTemplate")
+        local edit = CreateFrame("EditBox", nil, f, BG.editTemplate)
         do
             edit:SetSize(150, 20)
             edit:SetPoint("TOPLEFT", t, "BOTTOMLEFT", 0, -5)
@@ -587,13 +586,13 @@ function BG.FilterClassItemUI()
         local isOther
         for i, iconpath in ipairs(BG.FilterClassItemDB.NewIcon) do
             local bt = CreateFrame("Button", nil, f)
-            if i > othericon then
-                -- if BG.IsRetail then
-                --     break
-                -- else
-                isOther = true
-                -- end
-            end
+            -- if i > othericon then
+            --     -- if BG.IsRetail then
+            --     --     break
+            --     -- else
+            --     isOther = true
+            --     -- end
+            -- end
             if not isOther then
                 if i == 1 then
                     bt:SetPoint("TOPLEFT", t, "BOTTOMLEFT", 0, -8)
@@ -603,17 +602,17 @@ function BG.FilterClassItemUI()
                 elseif (i - 1) % maxicon ~= 0 then
                     bt:SetPoint("LEFT", f.icons[i - 1], "RIGHT", 10, 0)
                 end
-            else
-                local newi = i - othericon
-                if newi == 1 then
-                    bt:SetPoint("TOPLEFT", f.icons[last], "BOTTOMLEFT", 0, -10)
-                    last = i
-                elseif (newi - 1) % maxicon == 0 then
-                    bt:SetPoint("TOPLEFT", f.icons[i - maxicon], "BOTTOMLEFT", 0, -10)
-                    last = i
-                elseif (newi - 1) % maxicon ~= 0 then
-                    bt:SetPoint("LEFT", f.icons[i - 1], "RIGHT", 10, 0)
-                end
+            -- else
+            --     local newi = i - othericon
+            --     if newi == 1 then
+            --         bt:SetPoint("TOPLEFT", f.icons[last], "BOTTOMLEFT", 0, -10)
+            --         last = i
+            --     elseif (newi - 1) % maxicon == 0 then
+            --         bt:SetPoint("TOPLEFT", f.icons[i - maxicon], "BOTTOMLEFT", 0, -10)
+            --         last = i
+            --     elseif (newi - 1) % maxicon ~= 0 then
+            --         bt:SetPoint("LEFT", f.icons[i - 1], "RIGHT", 10, 0)
+            --     end
             end
             bt:SetSize(30, 30)
             bt.num = i
@@ -688,10 +687,10 @@ function BG.FilterClassItemUI()
                     Class = {},
                     Tank = {},
                 }
-                tinsert(BiaoGe.FilterClassItemDB[RealmId][player], a)
+                tinsert(db, a)
             else
-                BiaoGe.FilterClassItemDB[RealmId][player][f.xiugai].Name = edit:GetText()
-                BiaoGe.FilterClassItemDB[RealmId][player][f.xiugai].Icon = f.icon
+                db[f.xiugai].Name = edit:GetText()
+                db[f.xiugai].Icon = f.icon
             end
             f:Hide()
             UpdateAllFilterClassButtons()
@@ -747,7 +746,7 @@ function BG.FilterClassItemUI()
         bt:SetScript("OnEnter", function(self)
             GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT", -3, 2)
             GameTooltip:ClearLines()
-            if #BiaoGe.FilterClassItemDB[RealmId][player] >= 6 then
+            if #db >= 6 then
                 GameTooltip:AddLine(L["方案数量已达上限，不能再新建方案"], 1, 0, 0, true)
             else
                 GameTooltip:AddLine(L["新建过滤方案"], 1, 1, 1, true)
@@ -756,7 +755,7 @@ function BG.FilterClassItemUI()
         end)
         BG.GameTooltip_Hide(bt)
         bt:SetScript("OnClick", function(self)
-            if #BiaoGe.FilterClassItemDB[RealmId][player] >= 6 then return end
+            if #db >= 6 then return end
             if BG.FilterClassItemMainFrame.AddFrame.xiugai then
                 BG.FilterClassItemMainFrame.AddFrame:Hide()
             end
@@ -781,7 +780,7 @@ function BG.FilterClassItemUI()
         bt:SetText(L["重置"])
         bt:RegisterForClicks("LeftButtonUp", "RightButtonUp")
         BG.FilterClassItemMainFrame.resetButton = bt
-        if not BiaoGe.FilterClassItemDB[RealmId][player].chooseID then
+        if not db.chooseID then
             bt:Hide()
         end
         bt:SetScript("OnEnter", function(self)
@@ -803,17 +802,17 @@ function BG.FilterClassItemUI()
                     },
                 }
 
-                for i = 1, BG.MaxFilter[class] do
+                for k, vv in pairs(BG.FilterClassItemInfo[class]) do
                     local a = {
-                        text = BG.FilterClassItemDB.Icon[class .. i].name,
+                        text = vv.name,
                         notCheckable = true,
                         func = function()
                             for type, _ in pairs(F.buttons) do
                                 -- 多选按钮重置
                                 for _, bt in pairs(F.buttons[type]) do
                                     local yes
-                                    for k, v in pairs(BG.FilterClassItem_Default[type][class .. i]) do
-                                        if v == bt.key then
+                                    for _, id in pairs(vv[type]) do
+                                        if id == bt.key then
                                             bt:SetChecked(true)
                                             yes = true
                                             break
@@ -822,13 +821,6 @@ function BG.FilterClassItemUI()
                                     if not yes then
                                         bt:SetChecked(false)
                                     end
-                                end
-
-                                -- 数据库重置
-                                local num = BiaoGe.FilterClassItemDB[RealmId][player].chooseID
-                                BiaoGe.FilterClassItemDB[RealmId][player][num][type] = {}
-                                for k, v in pairs(BG.FilterClassItem_Default[type][class .. i]) do
-                                    BiaoGe.FilterClassItemDB[RealmId][player][num][type][v] = 1
                                 end
                             end
                             BG.UpdateAllFilter()
@@ -854,13 +846,6 @@ function BG.FilterClassItemUI()
                             for _, bt in pairs(F.buttons[type]) do
                                 bt:SetChecked(true)
                             end
-
-                            -- 数据库重置
-                            local num = BiaoGe.FilterClassItemDB[RealmId][player].chooseID
-                            BiaoGe.FilterClassItemDB[RealmId][player][num][type] = {}
-                            for k, v in pairs(BG.FilterClassItemDB[type]) do
-                                BiaoGe.FilterClassItemDB[RealmId][player][num][type][v.name] = 1
-                            end
                         end
                         BG.UpdateAllFilter()
                         BG.UpdateItemLib()
@@ -877,10 +862,6 @@ function BG.FilterClassItemUI()
                             for _, bt in pairs(F.buttons[type]) do
                                 bt:SetChecked(false)
                             end
-
-                            -- 数据库重置
-                            local num = BiaoGe.FilterClassItemDB[RealmId][player].chooseID
-                            BiaoGe.FilterClassItemDB[RealmId][player][num][type] = {}
                         end
                         BG.UpdateAllFilter()
                         BG.UpdateItemLib()
@@ -957,7 +938,12 @@ function BG.FilterClassItemUI()
             local tilte_onenter = format(L["没有%s任一属性的装备会被过滤（武器、饰品、圣物除外）"], STAT_CATEGORY_DEFENSE .. "/" .. STAT_PARRY .. "/" .. STAT_DODGE .. "/" .. STAT_BLOCK)
             F.buttons[type], F.frames[type] = CreateFilterButton(BG.FilterClassItemDB[type], BG.STC_b1(L["坦克专属过滤"]), tilte_onenter, type, "pailie")
         end
-        UpdateAllButton(BiaoGe.FilterClassItemDB[RealmId][player].chooseID)
+        if BG.FilterClassItemDB.MainAttribute then
+            local type = "MainAttribute"
+            local tilte_onenter = L["勾选你的主属性，如果装备里不含该属性，则会被过滤"]
+            F.buttons[type], F.frames[type] = CreateFilterButton(BG.FilterClassItemDB[type], BG.STC_g1(L["主属性"]), tilte_onenter, type)
+        end
+        UpdateAllButton(db.chooseID)
         BG.FilterClassItemMainFrame.resetButton:SetParent(F.frames[type])
         BG.FilterClassItemMainFrame.Buttons2:SetParent(BG.FBMainFrame)
     end

@@ -1,6 +1,6 @@
 
 PawnOptions = {
-["LastVersion"] = 2.1308,
+["LastVersion"] = 2.1309,
 ["LastPlayerFullName"] = "京东刘强东-时光IV - 红色信仰",
 ["AutoSelectScales"] = false,
 ["ItemLevels"] = {
@@ -10,9 +10,9 @@ PawnOptions = {
 ["Link"] = "|cffa335ee|Hitem:40298::::::::80::::::::::|h[屈服者的面甲]|h|r",
 },
 {
-["ID"] = 40681,
-["Level"] = 200,
-["Link"] = "|cffa335ee|Hitem:40681::::::::80::::::::::|h[圣光珠串项链]|h|r",
+["ID"] = 44661,
+["Level"] = 232,
+["Link"] = "|cffa335ee|Hitem:44661::::::::80::::::::::|h[龙眠强能项链]|h|r",
 },
 {
 ["ID"] = 255070,
@@ -85,9 +85,9 @@ nil,
 ["Link"] = "|cffff8000|Hitem:30317::::::::80::::::::::|h[宇宙灌注者]|h|r",
 },
 {
-["ID"] = 255098,
-["Level"] = 213,
-["Link"] = "|cffa335ee|Hitem:255098::::::::80::::::::::|h[玛利斯达尔防御者]|h|r",
+["ID"] = 39716,
+["Level"] = 232,
+["Link"] = "|cffa335ee|Hitem:39716::::::::80::::::::::|h[消化之盾]|h|r",
 },
 },
 }

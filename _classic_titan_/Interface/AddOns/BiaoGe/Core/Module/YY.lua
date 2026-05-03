@@ -122,7 +122,7 @@ BG.Init(function()
         end
         -- YY号
         do
-            local edit = CreateFrame("EditBox", nil, BG.YYMainFrame.new, "BiaoGe_InputBoxTemplate")
+            local edit = CreateFrame("EditBox", nil, BG.YYMainFrame.new, BG.editTemplate)
             edit:SetSize(150, 20)
             edit:SetPoint("TOPLEFT", 110, -15 - height * n)
             edit:SetAutoFocus(false)
@@ -182,7 +182,7 @@ BG.Init(function()
         end
         -- 备注
         do
-            local edit = CreateFrame("EditBox", nil, BG.YYMainFrame.new, "BiaoGe_InputBoxTemplate")
+            local edit = CreateFrame("EditBox", nil, BG.YYMainFrame.new, BG.editTemplate)
             edit:SetSize(150, 20)
             edit:SetPoint("TOPLEFT", 110, -15 - height * n)
             edit:SetAutoFocus(false)
@@ -764,7 +764,7 @@ BG.Init(function()
             f.Text:SetTextColor(1, 1, 1)
             f.Text:SetJustifyH("RIGHT")
             -- YY输入框
-            local edit = CreateFrame("EditBox", nil, BG.YYMainFrame.search, "BiaoGe_InputBoxTemplate")
+            local edit = CreateFrame("EditBox", nil, BG.YYMainFrame.search, BG.editTemplate)
             edit:SetSize(120, 20)
             edit:SetPoint("LEFT", f, "RIGHT", 10, 2)
             edit:SetAutoFocus(false)
@@ -790,6 +790,7 @@ BG.Init(function()
             end)
             -- 查询按钮
             function Y.SearchButtonOnClick()
+                if BG.InBoss() then return end
                 if not BG.YYchannelID then
                     local msg = format(L["查询正在初始化，请稍后再试"])
                     UIErrorsFrame:AddMessage(msg, YELLOW_FONT_COLOR:GetRGB())
@@ -1557,6 +1558,7 @@ BG.Init(function()
         f:RegisterEvent("CHAT_MSG_RAID")
         f:RegisterEvent("CHAT_MSG_WHISPER")
         f:SetScript("OnEvent", function(self, event, msg, playerName, ...)
+            if BG.IsSecret(msg) then return end
             if BiaoGe.YYdb.share ~= 1 then return end
             playerName = BG.GSN(playerName)
             if not Y.IsLeader(playerName) then return end
@@ -1873,7 +1875,7 @@ BG.Init(function()
             end
             -- YY号
             do
-                local edit = CreateFrame("EditBox", nil, BG.EndPJ.new, "BiaoGe_InputBoxTemplate")
+                local edit = CreateFrame("EditBox", nil, BG.EndPJ.new, BG.editTemplate)
                 edit:SetSize(190, 20)
                 edit:SetPoint("TOPLEFT", 100, height_start - height * n)
                 edit:SetAutoFocus(false)
@@ -1928,7 +1930,7 @@ BG.Init(function()
             end
             -- 备注
             do
-                local edit = CreateFrame("EditBox", nil, BG.EndPJ.new, "BiaoGe_InputBoxTemplate")
+                local edit = CreateFrame("EditBox", nil, BG.EndPJ.new, BG.editTemplate)
                 edit:SetSize(190, 20)
                 edit:SetPoint("TOPLEFT", 100, height_start - height * n)
                 edit:SetAutoFocus(false)

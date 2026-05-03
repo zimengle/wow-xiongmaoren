@@ -38,7 +38,8 @@
 		<!-- <FontString inherits="ChatFontNormal"/> -->
 	</EditBox>
 
-	<EditBox name="BiaoGe_InputBoxTemplate" inherits="BiaoGe_InputBoxScriptTemplate, BiaoGe_InputBoxVisualTemplate" virtual="true">
+	<!-- <EditBox name="BiaoGe_InputBoxTemplate" inherits="BiaoGe_InputBoxScriptTemplate, BiaoGe_InputBoxVisualTemplate" virtual="true"> -->
+	<EditBox name="BiaoGe_InputBoxTemplate" inherits="InputBoxScriptTemplate, InputBoxVisualTemplate" virtual="true">
 		<Scripts>
 			<OnLoad function="BiaoGe_InputBoxTemplate_OnLoad"/>
 		</Scripts>

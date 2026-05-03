@@ -127,9 +127,13 @@ if ver >= 30000 then
 end
 if ver >= 40000 then
     BG.verOver4 = true
+else
+    BG.verLess3 = true
 end
 if ver >= 50000 then
     BG.verOver5 = true
+else
+    BG.verLess4 = true
 end
 
 if ver < 20000 then
@@ -238,6 +242,7 @@ end
 
 function BG.SPN(name)
     if not name then return end
+    if BG.IsSecret(name) then return end
     return strsplit("-", name, 2)
 end
 

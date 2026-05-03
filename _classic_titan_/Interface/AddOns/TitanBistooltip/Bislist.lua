@@ -109,7 +109,7 @@ TitanBistooltip_consumables = {
         [3] = 41119, -- 炸弹
         [4] = 43015, -- 鱼肉筵席
         [5] = 42999, -- 熏烤龙鳞鱼
-        [6] = 34574  -- 猛犸肉大餐
+        [6] = 34754  -- 猛犸肉大餐
     },
     
     -- 猫德消耗品
@@ -173,7 +173,7 @@ local tooltip_timer = nil
 local function debounceTooltip(callback, delay)  
     if tooltip_timer then
         tooltip_timer:Cancel()
-        tooltip_timer = nil -- 释放定时器对象
+        tooltip_timer = nil -- 释放定时器对�?
     end
     tooltip_timer = C_Timer.NewTimer(delay, function()
         callback()
@@ -214,7 +214,7 @@ local function createItemFrame(item_id, size, with_checkmark, original_item_id)
             item_frame:SetUserData("ilink", ilink)
             item_frame:SetUserData("item_id", item_id)
             
-            -- 只有当with_checkmark为true时才检查装备是否存在并显示绿色勾
+            -- 只有当with_checkmark为true时才检查装备是否存在并显示绿色勾选
             if with_checkmark == true then
                 local hasEquipment = false
                 
@@ -335,11 +335,11 @@ local function createItemFrame(item_id, size, with_checkmark, original_item_id)
                         local smartPosition = TitanBistooltipAddon.db.char.tooltip_position
                         
                         if smartPosition and frameRight > screenWidth / 2 then
-                            -- 启用智能调整且面板在屏幕右侧，提示框显示在左侧
-                            GameTooltip:SetPoint("TOPLEFT", widget.frame, "TOPLEFT", -220, -13);
+                            -- 启用智能调整且面板在屏幕右侧，提示框显示在左侧，增加偏移距离避免覆盖
+                            GameTooltip:SetPoint("TOPLEFT", widget.frame, "TOPLEFT", -300, -13);
                         else
-                            -- 未启用智能调整或面板在屏幕左侧，提示框显示在右侧
-                            GameTooltip:SetPoint("TOPRIGHT", widget.frame, "TOPRIGHT", 220, -13);
+                            -- 未启用智能调整或面板在屏幕左侧，提示框显示在右侧，增加偏移距离避免覆盖
+                            GameTooltip:SetPoint("TOPRIGHT", widget.frame, "TOPRIGHT", 300, -13);
                         end
                         
                         GameTooltip:SetHyperlink(ilink)
@@ -355,16 +355,16 @@ local function createItemFrame(item_id, size, with_checkmark, original_item_id)
                         local smartPosition = TitanBistooltipAddon.db.char.tooltip_position
                         
                         if smartPosition and frameRight > screenWidth / 2 then
-                            -- 启用智能调整且面板在屏幕右侧，提示框显示在左侧
-                            GameTooltip:SetPoint("TOPLEFT", widget.frame, "TOPLEFT", -220, -13);
+                            -- 启用智能调整且面板在屏幕右侧，提示框显示在左侧，增加偏移距离避免覆盖
+                            GameTooltip:SetPoint("TOPLEFT", widget.frame, "TOPLEFT", -300, -13);
                         else
-                            -- 未启用智能调整或面板在屏幕左侧，提示框显示在右侧
-                            GameTooltip:SetPoint("TOPRIGHT", widget.frame, "TOPRIGHT", 220, -13);
+                            -- 未启用智能调整或面板在屏幕左侧，提示框显示在右侧，增加偏移距离避免覆盖
+                            GameTooltip:SetPoint("TOPRIGHT", widget.frame, "TOPRIGHT", 300, -13);
                         end
                         
                         local errorMsg = "|cffff0000无效的物品信息|r"
                         if itemId then
-                            errorMsg = "|cffff0000无效的物品信息 (ID: " .. itemId .. ")|r"
+                            errorMsg = "|cffff0000无效的物品信息(ID: " .. itemId .. ")|r"
                         end
                         GameTooltip:SetText(errorMsg)
                         GameTooltip:Show()
@@ -393,14 +393,14 @@ local function createItemFrame(item_id, size, with_checkmark, original_item_id)
                 local smartPosition = TitanBistooltipAddon.db.char.tooltip_position
                 
                 if smartPosition and frameRight > screenWidth / 2 then
-                    -- 启用智能调整且面板在屏幕右侧，提示框显示在左侧
-                    GameTooltip:SetPoint("TOPLEFT", item_frame.frame, "TOPLEFT", -220, -13);
+                    -- 启用智能调整且面板在屏幕右侧，提示框显示在左侧，增加偏移距离避免覆盖
+                    GameTooltip:SetPoint("TOPLEFT", item_frame.frame, "TOPLEFT", -300, -13);
                 else
-                    -- 未启用智能调整或面板在屏幕左侧，提示框显示在右侧
-                    GameTooltip:SetPoint("TOPRIGHT", item_frame.frame, "TOPRIGHT", 220, -13);
+                    -- 未启用智能调整或面板在屏幕左侧，提示框显示在右侧，增加偏移距离避免覆盖
+                    GameTooltip:SetPoint("TOPRIGHT", item_frame.frame, "TOPRIGHT", 300, -13);
                 end
                 
-                GameTooltip:SetText("|cffff0000无效的物品信息 (ID: " .. item_id .. ")|r")
+                GameTooltip:SetText("|cffff0000无效的物品信息(ID: " .. item_id .. ")|r")
                 GameTooltip:Show()
             end, 0.05) -- 50ms延迟
         end)
@@ -438,10 +438,10 @@ local function createSpellFrame(spell_id, size)
                 
                 if smartPosition and frameRight > screenWidth / 2 then
                     -- 启用智能调整且面板在屏幕右侧，提示框显示在左侧
-                    GameTooltip:SetPoint("TOPLEFT", widget.frame, "TOPLEFT", -220, -13);
+                    GameTooltip:SetPoint("TOPLEFT", widget.frame, "TOPLEFT", -300, -13);
                 else
                     -- 未启用智能调整或面板在屏幕左侧，提示框显示在右侧
-                    GameTooltip:SetPoint("TOPRIGHT", widget.frame, "TOPRIGHT", 220, -13);
+                    GameTooltip:SetPoint("TOPRIGHT", widget.frame, "TOPRIGHT", 300, -13);
                 end
                 
                 GameTooltip:SetText("|cffff0000Spell API不可用|r")
@@ -477,13 +477,13 @@ local function createSpellFrame(spell_id, size)
                         
                         if smartPosition and frameRight > screenWidth / 2 then
                             -- 启用智能调整且面板在屏幕右侧，提示框显示在左侧
-                            GameTooltip:SetPoint("TOPLEFT", widget.frame, "TOPLEFT", -220, -13);
+                            GameTooltip:SetPoint("TOPLEFT", widget.frame, "TOPLEFT", -300, -13);
                         else
                             -- 未启用智能调整或面板在屏幕左侧，提示框显示在右侧
-                            GameTooltip:SetPoint("TOPRIGHT", widget.frame, "TOPRIGHT", 220, -13);
+                            GameTooltip:SetPoint("TOPRIGHT", widget.frame, "TOPRIGHT", 300, -13);
                         end
                         
-                        GameTooltip:SetText("|cffff0000无效的法术信息 (ID: " .. spell_id .. ")|r")
+                        GameTooltip:SetText("|cffff0000无效的法术信息(ID: " .. spell_id .. ")|r")
                         GameTooltip:Show()
                     end, 0.05) -- 50ms延迟
                 end)
@@ -501,7 +501,7 @@ local function createSpellFrame(spell_id, size)
             if link == nil then
                 link = "\124cffffd000\124Hspell:" .. spell_id .. "\124h[" .. name .. "]\124h\124r"
             end
-            -- 存储link和spellId到userdata，避免闭包问题
+            -- 存储link和spellId到userdata，避免闭包问�?
             spell_frame:SetUserData("link", link)
             spell_frame:SetUserData("name", name)
             spell_frame:SetUserData("spellId", spell_id)
@@ -542,10 +542,10 @@ local function createSpellFrame(spell_id, size)
                         
                         if smartPosition and frameRight > screenWidth / 2 then
                             -- 启用智能调整且面板在屏幕右侧，提示框显示在左侧
-                            GameTooltip:SetPoint("TOPLEFT", widget.frame, "TOPLEFT", -220, -13);
+                            GameTooltip:SetPoint("TOPLEFT", widget.frame, "TOPLEFT", -300, -13);
                         else
                             -- 未启用智能调整或面板在屏幕左侧，提示框显示在右侧
-                            GameTooltip:SetPoint("TOPRIGHT", widget.frame, "TOPRIGHT", 220, -13);
+                            GameTooltip:SetPoint("TOPRIGHT", widget.frame, "TOPRIGHT", 300, -13);
                         end
                         
                         GameTooltip:SetHyperlink(link)
@@ -561,15 +561,15 @@ local function createSpellFrame(spell_id, size)
                         
                         if smartPosition and frameRight > screenWidth / 2 then
                             -- 启用智能调整且面板在屏幕右侧，提示框显示在左侧
-                            GameTooltip:SetPoint("TOPLEFT", widget.frame, "TOPLEFT", -220, -13);
+                            GameTooltip:SetPoint("TOPLEFT", widget.frame, "TOPLEFT", -300, -13);
                         else
                             -- 未启用智能调整或面板在屏幕左侧，提示框显示在右侧
-                            GameTooltip:SetPoint("TOPRIGHT", widget.frame, "TOPRIGHT", 220, -13);
+                            GameTooltip:SetPoint("TOPRIGHT", widget.frame, "TOPRIGHT", 300, -13);
                         end
                         
                         local errorMsg = "|cffff0000无效的法术信息|r"
                         if spellId then
-                            errorMsg = "|cffff0000无效的法术信息 (ID: " .. spellId .. ")|r"
+                            errorMsg = "|cffff0000无效的法术信�?(ID: " .. spellId .. ")|r"
                         end
                         GameTooltip:SetText(errorMsg)
                         GameTooltip:Show()
@@ -585,7 +585,7 @@ local function createSpellFrame(spell_id, size)
             end)
         end)
     else
-        -- 法术ID无效，设置错误提示
+        -- 法术ID无效，设置错误提�?
         spell_frame:SetCallback("OnEnter", function(widget)
             debounceTooltip(function()
                 GameTooltip:SetOwner(widget.frame, "ANCHOR_NONE")
@@ -598,10 +598,10 @@ local function createSpellFrame(spell_id, size)
                 
                 if smartPosition and frameRight > screenWidth / 2 then
                     -- 启用智能调整且面板在屏幕右侧，提示框显示在左侧
-                    GameTooltip:SetPoint("TOPLEFT", widget.frame, "TOPLEFT", -220, -13);
+                    GameTooltip:SetPoint("TOPLEFT", widget.frame, "TOPLEFT", -300, -13);
                 else
                     -- 未启用智能调整或面板在屏幕左侧，提示框显示在右侧
-                    GameTooltip:SetPoint("TOPRIGHT", widget.frame, "TOPRIGHT", 220, -13);
+                    GameTooltip:SetPoint("TOPRIGHT", widget.frame, "TOPRIGHT", 300, -13);
                 end
                 
                 GameTooltip:SetText("|cffff0000无效的法术ID: " .. spell_id .. "|r")
@@ -623,7 +623,7 @@ local function createEnhancementsFrame(enhancements, phase, slot_name)
     local frame = AceGUI:Create("SimpleGroup")
     frame:SetLayout("Table")
     frame:SetFullWidth(true)
-    frame:SetHeight(50) -- 增加高度以容纳3个宝石的垂直排列
+    frame:SetHeight(50) -- 增加高度以容2个宝石的垂直排列
     frame:SetAutoAdjustHeight(false)
     frame:SetUserData("table", {
         columns = {
@@ -669,7 +669,7 @@ local function createEnhancementsFrame(enhancements, phase, slot_name)
     for i, enhancement in ipairs(enhancements) do
         local size = 16
 
-        -- 头部、肩部、胸部、手部、腰部、腿部、脚部、披风、主手武器、副手、盾牌和护腕的第一个增强归类到附魔列
+        -- 头部、肩部、胸部、手部、腰部、腿部、脚部、披风、主手武器、副手、盾牌和护腕的第一个增强归类到附魔容器
         local isEnchantSlot = false
         if (slot_name == "Head" or slot_name == "Shoulder" or slot_name == "Chest" or slot_name == "Hands" or slot_name == "Waist" or slot_name == "Legs" or slot_name == "Feet" or slot_name == "Back" or slot_name == "Weapon" or slot_name == "Off hand" or slot_name == "Ranged" or slot_name == "Wrist") and i == 1 then
             isEnchantSlot = true
@@ -698,9 +698,9 @@ local function createEnhancementsFrame(enhancements, phase, slot_name)
         end
     end
     
-    -- 添加附魔列
+    -- 添加附魔容器
     frame:AddChild(enchantContainer)
-    -- 添加宝石列
+    -- 添加宝石容器
     frame:AddChild(gemsContainer)
     
     return frame
@@ -714,7 +714,7 @@ local function drawItemSlot(slot, phase)
     -- f:SetFont("Fonts\\FRIZQT__.TTF", 14, "")
     
     -- 根据职业和天赋选择不同的武器槽位翻译
-    local slotText = L[slot.slot_name] or slot.slot_name or "Unknown Slot"
+       local slotText = L[slot.slot_name] or slot.slot_name or "Unknown Slot"
     if (class == "Death knight" and spec == "Unholy") or (class == "Hunter") or (class == "Shaman" and spec == "Enhancement") then
         if slot.slot_name == "Weapon" then
             -- 死亡骑士邪恶天赋/猎人/增强萨主手显示为"双手"
@@ -732,7 +732,7 @@ local function drawItemSlot(slot, phase)
         -- 保存原始item_id用于装备检查
         local item_id = original_item_id
         
-        -- 使用缓存来避免重复计算部落/联盟物品映射
+        -- 使用缓存来避免重复计算物品映射
         local cacheKey = original_item_id
         if isHorde then
             if factionItemCache[cacheKey] == nil then
@@ -824,12 +824,12 @@ local function drawSpecData()
                 currentSlot = endSlot + 1
                 
                 if currentSlot <= #slots then
-                    -- 继续处理下一批
+                    -- 继续处理下一批次
                     C_Timer.After(0.1, processBatch)
                 else
                     -- 处理完所有常规槽位后，添加消耗品槽位
                     C_Timer.After(0.1, function()
-                        -- 根据职业和专精类型添加不同的消耗品组
+                        -- 根据职业和专精类型添加不同的消耗品槽位
                         local consumableGroups = {}
                         
                         -- 从Consumables.lua加载消耗品数据
@@ -846,7 +846,7 @@ local function drawSpecData()
                         local feralDruidConsumables = TitanBistooltip_consumables and TitanBistooltip_consumables.feralDruid
                         local disciplinePriestConsumables = TitanBistooltip_consumables and TitanBistooltip_consumables.disciplinePriest
                         
-                        -- 根据职业和专精类型添加相应的消耗品组
+                        -- 根据职业和专精类型添加相应的消耗品槽位
                         local isCaster = false
                         local isPhysical = false
                         local isTank = false
@@ -897,12 +897,12 @@ local function drawSpecData()
                             isHealer = true
                         end
                         
-                        -- 根据专精类型添加相应的消耗品组
+                        -- 根据专精类型添加相应的消耗品槽位
                         if class == "Paladin" and spec == "Holy" then
                             -- 奶骑
                             table.insert(consumableGroups, paladinHealerConsumables)
                         elseif class == "Death knight" and spec == "Blood tank" then
-                            -- DK鲜血坦克天赋归类到坦克一组
+                            -- DK鲜血坦克天赋归类到坦克槽位
                             table.insert(consumableGroups, tankConsumables)
                         elseif class == "Death knight" then
                             -- DK其他天赋
@@ -914,25 +914,25 @@ local function drawSpecData()
                             -- 术士
                             table.insert(consumableGroups, warlockConsumables)
                         elseif class == "Druid" and spec == "Balance" then
-                            -- 平衡德
+                            -- 平衡�?
                             table.insert(consumableGroups, balanceDruidConsumables)
                         elseif class == "Druid" and spec == "Feral dps" then
-                            -- 野性输出
+                            -- 野性输�?
                             table.insert(consumableGroups, feralDruidConsumables)
                         elseif class == "Druid" and spec == "Feral tank" then
-                            -- 野性坦克归类到坦克一组
+                            -- 野性坦克归类到坦克槽位
                             table.insert(consumableGroups, tankConsumables)
                         elseif class == "Druid" and spec == "Restoration" then
-                            -- 恢复德归类到法系一组
+                            -- 恢复德归类到法系槽位
                             table.insert(consumableGroups, casterConsumables)
                         elseif class == "Rogue" then
                             -- 盗贼
                             table.insert(consumableGroups, rogueConsumables)
                         elseif class == "Shaman" and spec == "Enhancement" then
-                            -- 增强萨
+                            -- 增强槽位
                             table.insert(consumableGroups, enhancementShamanConsumables)
                         elseif class == "Priest" and spec == "Discipline" then
-                            -- 戒律牧
+                            -- 戒律槽位
                             table.insert(consumableGroups, disciplinePriestConsumables)
                         elseif isCaster then
                             -- 法系
@@ -944,13 +944,13 @@ local function drawSpecData()
                             -- 坦克
                             table.insert(consumableGroups, tankConsumables)
                         else
-                            -- 默认添加所有消耗品组
+                            -- 默认添加所有消耗品槽位
                             table.insert(consumableGroups, casterConsumables)
                             table.insert(consumableGroups, physicalConsumables)
                             table.insert(consumableGroups, tankConsumables)
                         end
                         
-                        -- 显示所有消耗品组
+                        -- 显示所有消耗品槽位
                         for _, consumablesSlot in ipairs(consumableGroups) do
                             drawItemSlot(consumablesSlot, phase)
                         end
@@ -958,7 +958,7 @@ local function drawSpecData()
                 end
             end
             
-            -- 开始分批处理
+            -- 开始分批处�?
             processBatch()
         end
     end
@@ -1071,7 +1071,7 @@ local function drawDropdowns()
             class_index = key
             class = class_options_to_class[class_options[key]].name
             
-            -- 清除缓存，确保数据正确性
+            -- 清除缓存，确保数据正确加载
             clearCaches()
 
             controlRefs.specDropdown:SetDisabled(false)
@@ -1129,7 +1129,7 @@ local function drawDropdowns()
 end
 
 local function createSpecFrame()
-    -- 复用或创建滚动框架
+    -- 复用或创建滚动框�?
     if not controlRefs.scrollFrame then
         controlRefs.scrollFrame = AceGUI:Create("ScrollFrame")
         controlRefs.scrollFrame:SetLayout("Table")
@@ -1231,7 +1231,7 @@ function TitanBistooltipAddon:createMainFrame()
     if main_frame then
         -- 如果框架已经存在，显示它并重新设置拉伸功能
         main_frame.frame:Show()
-        -- 重新设置拉伸功能，避免偶尔失效
+        -- 重新设置拉伸功能，避免偶尔失
         if main_frame.frame and main_frame.frame.SetResizeBounds then
             main_frame.frame:SetResizeBounds(435, 300, 435, 800)
         end
@@ -1366,10 +1366,12 @@ function TitanBistooltipAddon:createMainFrame()
         end
     end)
     main_frame:SetLayout("List")
-    main_frame:SetTitle(TitanBistooltipAddon.AddonNameAndVersion)
+    -- 使用Core.lua中统一定义的版本信息
+    local addonNameAndVersion = "TitanBistooltip v" .. (TitanBistooltipAddon.Version or "2.11")
+    main_frame:SetTitle(addonNameAndVersion)
     main_frame:SetStatusText(TitanBistooltip_source_to_url[TitanBistooltipAddon.db.char["data_source"]])
     
-    -- 修改状态栏长度，缩短1/3
+    -- 修改状态栏长度，缩放1/3
     if main_frame.statustext and main_frame.statustext:GetParent() then
         local statusbg = main_frame.statustext:GetParent()
         statusbg:SetPoint("BOTTOMRIGHT", -250, 15)
@@ -1408,7 +1410,7 @@ function TitanBistooltipAddon:createMainFrame()
                 bisButton:SetScript("OnClick", function()
                     TitanBistooltipAddon:showMaxedFrame()
                 end)
-                -- 设置按钮透明度
+                -- 设置按钮透明�?
                 if bisButton:GetNormalTexture() then
                     bisButton:GetNormalTexture():SetAlpha(0.5)
                 end

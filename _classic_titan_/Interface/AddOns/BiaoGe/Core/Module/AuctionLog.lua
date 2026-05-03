@@ -151,8 +151,7 @@ BG.Init(function()
                 BG.MainFrame:GetScript("OnMouseDown")(BG.MainFrame)
             end)
 
-            f.CloseButton = CreateFrame("Button", nil, f, "UIPanelCloseButton")
-            f.CloseButton:SetPoint("TOPLEFT", BG.IsRetail and 0 or -4, BG.IsRetail and 0 or 4)
+            BG.CreateCloseButton(f, BG.IsRetail and 0 or -5, nil, "TOPLEFT")
             f.CloseButton:HookScript("OnClick", function(self)
                 BiaoGe.options.showAuctionLogFrame = 0
             end)
@@ -361,7 +360,7 @@ BG.Init(function()
 
         -- 搜索
         do
-            local edit = CreateFrame("EditBox", nil, f, "BiaoGe_SearchBoxTemplate")
+            local edit = CreateFrame("EditBox", nil, f, BG.editSearchTemplate)
             edit:SetSize(f:GetWidth() - 20, 22)
             edit:SetPoint("TOPLEFT", BG.auctionLogFrame.sumText, "BOTTOMLEFT", 7, -5)
             BG.auctionLogFrame.serachEdit = edit
@@ -731,7 +730,7 @@ BG.Init(function()
 
             -- 手动添加装备
             do
-                local edit = CreateFrame("EditBox", nil, f, "BiaoGe_InputBoxTemplate")
+                local edit = CreateFrame("EditBox", nil, f, BG.editTemplate)
                 edit:SetSize(110, 20)
                 edit:SetPoint("LEFT", title, "RIGHT", 10, 0)
                 edit:SetAutoFocus(false)
@@ -807,10 +806,11 @@ BG.Init(function()
             t:SetWidth(60)
             t:SetJustifyH("RIGHT")
             t:SetWordWrap(false)
-            local edit = CreateFrame("EditBox", nil, f, "BiaoGe_InputBoxTemplate")
+            local edit = CreateFrame("EditBox", nil, f, BG.editTemplate)
             edit:SetSize(110, 20)
             edit:SetPoint("LEFT", t, "RIGHT", 10, 0)
             edit:SetAutoFocus(false)
+            BG.SetEditStickyFocus(edit)
             edit.title = t
             f.maijia = edit
             edit:SetScript("OnTextChanged", function(self)
@@ -873,11 +873,12 @@ BG.Init(function()
             t:SetWidth(60)
             t:SetJustifyH("RIGHT")
             t:SetWordWrap(false)
-            local edit = CreateFrame("EditBox", nil, f, "BiaoGe_InputBoxTemplate")
+            local edit = CreateFrame("EditBox", nil, f, BG.editTemplate)
             edit:SetSize(110, 20)
             edit:SetPoint("LEFT", t, "RIGHT", 10, 0)
             edit:SetAutoFocus(false)
             edit:SetNumeric(true)
+            BG.SetEditStickyFocus(edit)
             f.jine = edit
             edit:SetScript("OnTextChanged", function(self)
                 BG.UpdateTwo0(self)
@@ -1037,7 +1038,7 @@ BG.Init(function()
         end
     end
     -- 右键菜单
-    local function CreateMenu(f, index, v, notAuctioned, link, icon, isHistory)
+    local function CreateMenu(f, index, v, noAuctioned, link, icon, isHistory)
         local FB = BG.FB1
         local menu
         local function GetLogTooltipText()
@@ -1096,7 +1097,7 @@ BG.Init(function()
                     },
                 }
             end
-        elseif notAuctioned then
+        elseif noAuctioned then
             menu = {
                 {
                     isTitle = true,
@@ -1220,94 +1221,130 @@ BG.Init(function()
 
                 local num = 2
                 if v.log then
-                    tinsert(menu, num,
-                        {
-                            text = L["出价记录"],
-                            notCheckable = true,
-                            tooltipTitle = L["出价记录"],
-                            tooltipText = GetLogTooltipText(),
-                            tooltipOnButton = true,
-                        }
-                    )
+                    tinsert(menu, num, {
+                        text = L["出价记录"],
+                        notCheckable = true,
+                        tooltipTitle = L["出价记录"],
+                        tooltipText = GetLogTooltipText(),
+                        tooltipOnButton = true,
+                    })
                     num = num + 1
                 end
-                tinsert(menu, num,
-                    {
-                        text = L["设为流拍"],
-                        notCheckable = true,
-                        func = function()
-                            v.type = 2
-                            v.maijia = nil
-                            v.jine = nil
-                            v.trade = nil
-                            for k in pairs(BG.playerClass) do
-                                v[k] = nil
-                            end
-                            BG.UpdateAuctionLogFrame(true, true)
+                tinsert(menu, num, {
+                    text = L["设为流拍"],
+                    notCheckable = true,
+                    func = function()
+                        v.type = 2
+                        v.maijia = nil
+                        v.jine = nil
+                        v.trade = nil
+                        for k in pairs(BG.playerClass) do
+                            v[k] = nil
                         end
-                    }
-                )
+                        BG.UpdateAuctionLogFrame(true, true)
+                    end
+                })
                 num = num + 1
                 if v.trade then
-                    tinsert(menu, num,
-                        {
-                            text = L["设为未交易"],
-                            notCheckable = true,
-                            func = function()
-                                v.trade = nil
-                                BG.UpdateAuctionLogFrame(true, true)
-                            end
-                        }
-                    )
+                    tinsert(menu, num, {
+                        text = L["设为未交易"],
+                        notCheckable = true,
+                        func = function()
+                            v.trade = nil
+                            BG.UpdateAuctionLogFrame(true, true)
+                        end
+                    })
                 else
-                    tinsert(menu, num,
-                        {
-                            text = L["设为已交易"],
-                            notCheckable = true,
-                            tooltipTitle = L["设为已交易"],
-                            tooltipText = L["交易时不再显示该装备的应收/应付金额，团长也不会自动摆放该装备。"],
-                            tooltipOnButton = true,
-                            func = function()
-                                v.trade = true
-                                BG.UpdateAuctionLogFrame(true, true)
-                            end
-                        }
-                    )
+                    tinsert(menu, num, {
+                        text = L["设为已交易"],
+                        notCheckable = true,
+                        tooltipTitle = L["设为已交易"],
+                        tooltipText = L["交易时不再显示该装备的应收/应付金额，团长也不会自动摆放该装备。"],
+                        tooltipOnButton = true,
+                        func = function()
+                            v.trade = true
+                            BG.UpdateAuctionLogFrame(true, true)
+                        end
+                    })
                 end
-
-                tinsert(menu, num + 1,
-                    {
+                tinsert(menu, num + 1, {
+                    isTitle = true,
+                    text = "   ",
+                    notCheckable = true,
+                })
+                if v.maijia ~= player then
+                    num = num + 1
+                    tinsert(menu, num + 1, {
+                        text = TRADE .. PLAYER,
+                        notCheckable = true,
+                        disabled = true,
+                        arg1 = "auctionLogTrade",
+                        arg2 = v.maijia,
+                        func = function()
+                            InitiateTrade(v.maijia)
+                        end
+                    })
+                    num = num + 1
+                    tinsert(menu, num + 1, {
+                        text = FOLLOW .. PLAYER,
+                        notCheckable = true,
+                        disabled = true,
+                        arg1 = "auctionLogFollow",
+                        arg2 = v.maijia,
+                        func = function()
+                            FollowUnit(v.maijia)
+                        end
+                    })
+                    num = num + 1
+                    tinsert(menu, num + 1, {
                         isTitle = true,
                         text = "   ",
                         notCheckable = true,
-                    }
-                )
+                    })
+                end
             elseif v.type == 2 then
                 -- 流拍
                 menu[2].text = L["设为成功拍卖"]
                 menu[2].arg1 = menu[2].text
-                tinsert(menu, 2,
-                    {
-                        text = L["重新拍卖"],
-                        disabled = not BG.IsML,
-                        notCheckable = true,
-                        func = function()
-                            BG.auctionLogFrame.needDeleteLink = link
-                            BG.StartAuction(link, f, true, true, nil, nil, DeleteLiuPaiAuctionLog)
-                        end
-                    }
-                )
-                tinsert(menu, 3,
-                    {
-                        isTitle = true,
-                        text = "   ",
-                        notCheckable = true,
-                    }
-                )
+                tinsert(menu, 2, {
+                    text = L["重新拍卖"],
+                    disabled = not BG.IsML,
+                    notCheckable = true,
+                    func = function()
+                        BG.auctionLogFrame.needDeleteLink = link
+                        BG.StartAuction(link, f, true, true, nil, nil, DeleteLiuPaiAuctionLog)
+                    end
+                })
+                tinsert(menu, 3, {
+                    isTitle = true,
+                    text = "   ",
+                    notCheckable = true,
+                })
             end
         end
         return menu
     end
+    -- 实时刷新交易和跟随按钮状态
+    _G["L_DropDownList1"]:HookScript("OnUpdate", function(self)
+        if L_DropDownList1.dropdown ~= dropDown then return end
+        for i = 1, _G['L_DropDownList1'].numButtons do
+            local button = _G["L_DropDownList1Button" .. i]
+            if button.arg1 == "auctionLogTrade" then
+                if not InCombatLockdown() and CheckInteractDistance(button.arg2, 2) then
+                    button:Enable()
+                else
+                    button:Disable()
+                end
+            elseif button.arg1 == "auctionLogFollow" then
+                if not InCombatLockdown() and CheckInteractDistance(button.arg2, 4) then
+                    button:Enable()
+                else
+                    button:Disable()
+                end
+            end
+        end
+    end)
+
     -- 列表内容
     local function CreateButton(index, v, isHistory, num)
         local bts = {}

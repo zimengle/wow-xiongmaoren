@@ -7,8 +7,6 @@ local pt = print
 
 BG.Loot.encounterID = {}
 
-
-
 -- Sod
 if BG.IsVanilla_Sod then
     BG.Loot.encounterID.BD = {
@@ -373,16 +371,20 @@ if BG.IsTitan then
         { 1107, },
         { 1110, },
         { 1116, },
+
         { 1118, },
         { 1111, },
         { 1108, },
         { 1120, },
+
         { 1113, },
         { 1109, },
         { 1121, },
+
         { 1117, },
         { 1112, },
         { 1115, },
+
         { 1119, },
         { 1114, },
         { 742, 1090, },
@@ -405,6 +407,16 @@ if BG.IsTitan then
         { 641, 1089, },
         { 645, 1085, },
     }
+
+    local t1 = L["提醒：等团长拾取装备后再传送，否则表格无法记录此掉落"]
+    local t2 = L["提醒：等团长拾取装备后再出本，否则表格无法记录此掉落"]
+    BG.notLootBossIDs[1116] = t1
+    BG.notLootBossIDs[1120] = t1
+    BG.notLootBossIDs[1121] = t1
+    BG.notLootBossIDs[1115] = t1
+
+    BG.notLootBossIDs[734] = t2
+    BG.notLootBossIDs[1094] = t1
 end
 
 -- CTM
@@ -486,14 +498,19 @@ end
 
 -- Retail
 if BG.IsRetail then
-    BG.Loot.encounterID.NP = {
-        { 2902, },
-        { 2917, },
-        { 2898, },
-        { 2918, },
-        { 2919, },
-        { 2920, },
-        { 2921, },
-        { 2922, },
+    BG.Loot.encounterID.VS = {
+        { 3176 },
+        { 3177 },
+        { 3179 },
+        { 3178 },
+        { 3180 },
+        { 3181 },
+
+        { 3306 },
+
+        { 3182 },
+        { 3183 },
     }
 end
+
+

@@ -11,12 +11,12 @@ TomTomDB = {
 ["退休码农 - 时光IV - 红色信仰"] = "Default",
 ["三角碑崽儿 - 时光IV - 红色信仰"] = "Default",
 ["京东刘强东 - 时光IV - 红色信仰"] = "Default",
-["哔站陈睿 - 时光IV"] = "Default",
-["小米军儿 - 时光IV"] = "Default",
-["三角碑崽儿 - 时光IV"] = "Default",
-["京东刘强东 - 时光IV"] = "Default",
-["京东董事长 - 时光IV"] = "Default",
 ["于鹏 - 时光IV - 红色信仰"] = "Default",
+["小米军儿 - 时光IV"] = "Default",
+["京东刘强东 - 时光IV"] = "Default",
+["三角碑崽儿 - 时光IV"] = "Default",
+["京东董事长 - 时光IV"] = "Default",
+["哔站陈睿 - 时光IV"] = "Default",
 ["哔站陈睿 - 时光IV - 红色信仰"] = "Default",
 },
 ["profiles"] = {
@@ -55,12 +55,12 @@ TomTomWaypointsM = {
 ["退休码农 - 时光IV - 红色信仰"] = "退休码农 - 时光IV - 红色信仰",
 ["三角碑崽儿 - 时光IV - 红色信仰"] = "三角碑崽儿 - 时光IV - 红色信仰",
 ["京东刘强东 - 时光IV - 红色信仰"] = "京东刘强东 - 时光IV - 红色信仰",
-["哔站陈睿 - 时光IV"] = "哔站陈睿 - 时光IV",
-["小米军儿 - 时光IV"] = "小米军儿 - 时光IV",
-["三角碑崽儿 - 时光IV"] = "三角碑崽儿 - 时光IV",
-["京东刘强东 - 时光IV"] = "京东刘强东 - 时光IV",
-["京东董事长 - 时光IV"] = "京东董事长 - 时光IV",
 ["于鹏 - 时光IV - 红色信仰"] = "于鹏 - 时光IV - 红色信仰",
+["小米军儿 - 时光IV"] = "小米军儿 - 时光IV",
+["京东刘强东 - 时光IV"] = "京东刘强东 - 时光IV",
+["三角碑崽儿 - 时光IV"] = "三角碑崽儿 - 时光IV",
+["京东董事长 - 时光IV"] = "京东董事长 - 时光IV",
+["哔站陈睿 - 时光IV"] = "哔站陈睿 - 时光IV",
 ["哔站陈睿 - 时光IV - 红色信仰"] = "哔站陈睿 - 时光IV - 红色信仰",
 },
 ["profiles"] = {
@@ -81,34 +81,9 @@ TomTomWaypointsM = {
 ["callbacks"] = {
 ["distance"] = {
 },
-["world"] = {
-},
 ["minimap"] = {
 },
-},
-["minimap"] = true,
-["world"] = true,
-},
-},
-[118] = {
-["118:544000000:907000000:映像大厅\n萨隆矿坑\n灵魂洪炉"] = {
-118,
-0.544,
-0.907,
-["arrivaldistance"] = 15,
-["crazy"] = true,
-["persistent"] = true,
-["desc"] = "映像大厅\n萨隆矿坑\n灵魂洪炉",
-["silent"] = true,
-["cleardistance"] = 10,
-["title"] = "映像大厅\n萨隆矿坑\n灵魂洪炉",
-["from"] = "?",
-["callbacks"] = {
-["distance"] = {
-},
 ["world"] = {
-},
-["minimap"] = {
 },
 },
 ["minimap"] = true,
@@ -131,9 +106,34 @@ TomTomWaypointsM = {
 ["callbacks"] = {
 ["distance"] = {
 },
+["minimap"] = {
+},
 ["world"] = {
 },
+},
+["minimap"] = true,
+["world"] = true,
+},
+},
+[118] = {
+["118:544000000:907000000:映像大厅\n萨隆矿坑\n灵魂洪炉"] = {
+118,
+0.544,
+0.907,
+["arrivaldistance"] = 15,
+["crazy"] = true,
+["persistent"] = true,
+["desc"] = "映像大厅\n萨隆矿坑\n灵魂洪炉",
+["silent"] = true,
+["cleardistance"] = 10,
+["title"] = "映像大厅\n萨隆矿坑\n灵魂洪炉",
+["from"] = "?",
+["callbacks"] = {
+["distance"] = {
+},
 ["minimap"] = {
+},
+["world"] = {
 },
 },
 ["minimap"] = true,
@@ -158,9 +158,9 @@ TomTomWaypointsM = {
 ["callbacks"] = {
 ["distance"] = {
 },
-["minimap"] = {
-},
 ["world"] = {
+},
+["minimap"] = {
 },
 },
 ["minimap"] = true,
@@ -193,59 +193,9 @@ TomTomWaypointsM = {
 ["callbacks"] = {
 ["distance"] = {
 },
-["minimap"] = {
-},
 ["world"] = {
 },
-},
-["minimap"] = true,
-["world"] = true,
-},
-},
-[1431] = {
-["1431:754552623.50062:438565138.25764:TomTom 路径点"] = {
-1431,
-0.7545526235006239,
-0.4385651382576383,
-["arrivaldistance"] = 15,
-["crazy"] = true,
-["persistent"] = true,
-["desc"] = "TomTom 路径点",
-["silent"] = true,
-["cleardistance"] = 10,
-["title"] = "TomTom 路径点",
-["from"] = "TomTom/wm",
-["callbacks"] = {
-["distance"] = {
-},
 ["minimap"] = {
-},
-["world"] = {
-},
-},
-["minimap"] = true,
-["world"] = true,
-},
-},
-[1445] = {
-["1445:630946242.94803:515510316.68968:TomTom 路径点"] = {
-1445,
-0.6309462429480285,
-0.5155103166896787,
-["arrivaldistance"] = 15,
-["crazy"] = true,
-["persistent"] = true,
-["desc"] = "TomTom 路径点",
-["silent"] = true,
-["cleardistance"] = 10,
-["title"] = "TomTom 路径点",
-["from"] = "TomTom/wm",
-["callbacks"] = {
-["distance"] = {
-},
-["minimap"] = {
-},
-["world"] = {
 },
 },
 ["minimap"] = true,
@@ -268,9 +218,59 @@ TomTomWaypointsM = {
 ["callbacks"] = {
 ["distance"] = {
 },
+["world"] = {
+},
 ["minimap"] = {
 },
+},
+["minimap"] = true,
+["world"] = true,
+},
+},
+[1445] = {
+["1445:630946242.94803:515510316.68968:TomTom 路径点"] = {
+1445,
+0.6309462429480285,
+0.5155103166896787,
+["arrivaldistance"] = 15,
+["crazy"] = true,
+["persistent"] = true,
+["desc"] = "TomTom 路径点",
+["silent"] = true,
+["cleardistance"] = 10,
+["title"] = "TomTom 路径点",
+["from"] = "TomTom/wm",
+["callbacks"] = {
+["distance"] = {
+},
 ["world"] = {
+},
+["minimap"] = {
+},
+},
+["minimap"] = true,
+["world"] = true,
+},
+},
+[1431] = {
+["1431:754552623.50062:438565138.25764:TomTom 路径点"] = {
+1431,
+0.7545526235006239,
+0.4385651382576383,
+["arrivaldistance"] = 15,
+["crazy"] = true,
+["persistent"] = true,
+["desc"] = "TomTom 路径点",
+["silent"] = true,
+["cleardistance"] = 10,
+["title"] = "TomTom 路径点",
+["from"] = "TomTom/wm",
+["callbacks"] = {
+["distance"] = {
+},
+["world"] = {
+},
+["minimap"] = {
 },
 },
 ["minimap"] = true,
@@ -283,6 +283,47 @@ TomTomWaypointsM = {
 ["三角碑崽儿 - 时光IV - 红色信仰"] = {
 },
 ["京东刘强东 - 时光IV - 红色信仰"] = {
+[114] = {
+["114:306000000:334000000:灵魂医者"] = {
+114,
+0.306,
+0.334,
+["arrivaldistance"] = 15,
+["callbacks"] = {
+["distance"] = {
+[10] = nil --[[ skipped inline function ]],
+[15] = nil --[[ skipped inline function ]],
+},
+["world"] = {
+["onclick"] = nil --[[ skipped inline function ]],
+["tooltip_update"] = nil --[[ skipped inline function ]],
+["tooltip_show"] = nil --[[ skipped inline function ]],
+},
+["minimap"] = {
+["onclick"] = nil --[[ skipped inline function ]],
+["tooltip_update"] = nil --[[ skipped inline function ]],
+["tooltip_show"] = nil --[[ skipped inline function ]],
+},
+},
+["persistent"] = true,
+["minimap"] = true,
+["cleardistance"] = 10,
+["title"] = "灵魂医者",
+["from"] = "?",
+["crazy"] = true,
+["world"] = true,
+},
+},
+},
+["于鹏 - 时光IV - 红色信仰"] = {
+},
+["小米军儿 - 时光IV"] = {
+},
+["京东刘强东 - 时光IV"] = {
+},
+["三角碑崽儿 - 时光IV"] = {
+},
+["京东董事长 - 时光IV"] = {
 },
 ["哔站陈睿 - 时光IV"] = {
 [118] = {
@@ -301,9 +342,9 @@ TomTomWaypointsM = {
 ["callbacks"] = {
 ["distance"] = {
 },
-["world"] = {
-},
 ["minimap"] = {
+},
+["world"] = {
 },
 },
 ["minimap"] = true,
@@ -324,9 +365,9 @@ TomTomWaypointsM = {
 ["callbacks"] = {
 ["distance"] = {
 },
-["world"] = {
-},
 ["minimap"] = {
+},
+["world"] = {
 },
 },
 ["minimap"] = true,
@@ -349,9 +390,9 @@ TomTomWaypointsM = {
 ["callbacks"] = {
 ["distance"] = {
 },
-["world"] = {
-},
 ["minimap"] = {
+},
+["world"] = {
 },
 },
 ["minimap"] = true,
@@ -372,9 +413,9 @@ TomTomWaypointsM = {
 ["callbacks"] = {
 ["distance"] = {
 },
-["world"] = {
-},
 ["minimap"] = {
+},
+["world"] = {
 },
 },
 ["minimap"] = true,
@@ -397,45 +438,12 @@ TomTomWaypointsM = {
 ["callbacks"] = {
 ["distance"] = {
 },
-["world"] = {
-},
 ["minimap"] = {
-},
-},
-["minimap"] = true,
-["world"] = true,
-},
-},
-},
-["小米军儿 - 时光IV"] = {
-},
-["三角碑崽儿 - 时光IV"] = {
-},
-["京东刘强东 - 时光IV"] = {
-},
-["京东董事长 - 时光IV"] = {
-},
-["于鹏 - 时光IV - 红色信仰"] = {
-[114] = {
-["114:306000000:334000000:灵魂医者"] = {
-114,
-0.306,
-0.334,
-["arrivaldistance"] = 15,
-["callbacks"] = {
-["distance"] = {
 },
 ["world"] = {
 },
-["minimap"] = {
 },
-},
-["persistent"] = true,
 ["minimap"] = true,
-["cleardistance"] = 10,
-["title"] = "灵魂医者",
-["from"] = "?",
-["crazy"] = true,
 ["world"] = true,
 },
 },

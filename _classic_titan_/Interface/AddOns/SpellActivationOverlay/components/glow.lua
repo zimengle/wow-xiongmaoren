@@ -345,7 +345,10 @@ end
 
 -- Grab all action button activity that allows us to know which button has which spell
 local LBG = LibStub("LibButtonGlow-1.0", false);
-local function HookActionButton_Update(button)
+local function HookActionButton_Update(button, forceRefresh)
+    if not button then
+        return;
+    end
     if (button:GetParent() == OverrideActionBar) then
         -- Act on all buttons but the ones from OverrideActionBar
 
@@ -378,11 +381,78 @@ local function HookActionButton_Update(button)
             LBG.HideOverlayGlow(button);
         end
     end
-    SAO:UpdateActionButton(button);
+    SAO:UpdateActionButton(button, forceRefresh);
 end
--- 时光服3.80.1已移除ActionButton_Update函数，需要检查是否存在
+
 if ActionButton_Update then
-	hooksecurefunc("ActionButton_Update", HookActionButton_Update);
+    hooksecurefunc("ActionButton_Update", HookActionButton_Update);
+else
+    -- Titan 3.80.1 removed ActionButton_Update; refresh Blizzard bars via events.
+    local defaultActionButtonPrefixes = {
+        "ActionButton",
+        "MultiBarBottomLeftButton",
+        "MultiBarBottomRightButton",
+        "MultiBarRightButton",
+        "MultiBarLeftButton",
+        "BonusActionButton",
+        "MultiBar5Button",
+        "MultiBar6Button",
+        "MultiBar7Button",
+    };
+
+    local function forEachDefaultActionButton(callback)
+        for _, prefix in ipairs(defaultActionButtonPrefixes) do
+            for i = 1, 12 do
+                local button = _G[prefix..i];
+                if button then
+                    callback(button);
+                end
+            end
+        end
+    end
+
+    local fallbackScanner = CreateFrame("Frame", "SpellActivationOverlayDefaultBarScanner");
+    local fallbackScanQueued = false;
+    local fallbackForceRefresh = false;
+
+    local function runDefaultBarScan(forceRefresh)
+        forEachDefaultActionButton(function(button)
+            HookActionButton_Update(button, forceRefresh);
+        end);
+    end
+
+    local function queueDefaultBarScan(forceRefresh)
+        fallbackForceRefresh = fallbackForceRefresh or forceRefresh;
+        if fallbackScanQueued then
+            return;
+        end
+        fallbackScanQueued = true;
+        C_Timer.After(0, function()
+            fallbackScanQueued = false;
+            local mustForce = fallbackForceRefresh and true or false;
+            fallbackForceRefresh = false;
+            runDefaultBarScan(mustForce);
+        end);
+    end
+
+    fallbackScanner:SetScript("OnEvent", function(_, event, slot)
+        if event == "ACTIONBAR_SLOT_CHANGED" then
+            queueDefaultBarScan(slot == 0);
+        elseif event == "SPELLS_CHANGED" then
+            queueDefaultBarScan(true);
+        else
+            queueDefaultBarScan(false);
+        end
+    end);
+    fallbackScanner:RegisterEvent("PLAYER_LOGIN");
+    fallbackScanner:RegisterEvent("PLAYER_ENTERING_WORLD");
+    fallbackScanner:RegisterEvent("ACTIONBAR_SLOT_CHANGED");
+    fallbackScanner:RegisterEvent("ACTIONBAR_PAGE_CHANGED");
+    fallbackScanner:RegisterEvent("UPDATE_BONUS_ACTIONBAR");
+    fallbackScanner:RegisterEvent("UPDATE_MULTI_CAST_ACTIONBAR");
+    fallbackScanner:RegisterEvent("UPDATE_SHAPESHIFT_FORMS");
+    fallbackScanner:RegisterEvent("SPELLS_CHANGED");
+    queueDefaultBarScan(true);
 end
 
 -- Grab buttons in the stance bar
@@ -411,7 +481,7 @@ local function HookStanceBar_UpdateState()
 end
 -- 时光服3.80.1已移除StanceBar_UpdateState函数，需要检查是否存在
 if StanceBar_UpdateState then
-	hooksecurefunc("StanceBar_UpdateState", HookStanceBar_UpdateState);
+    hooksecurefunc("StanceBar_UpdateState", HookStanceBar_UpdateState);
 end
 
 -- Awake dormant buttons associated to a spellID

@@ -810,6 +810,7 @@ end
 -----------------------------
 
 function TC2:OnCommReceived(prefix, message, distribution, sender)
+--[[
     if prefix == "TC2" then
         local cmd, value = strmatch(message, "^(.*)::(.*)$")
         if cmd == "VERSION" then
@@ -824,7 +825,9 @@ function TC2:OnCommReceived(prefix, message, distribution, sender)
             end
         end
     end
+]]
 end
+
 
 function TC2:PublishVersion()
     if IsInGuild() then

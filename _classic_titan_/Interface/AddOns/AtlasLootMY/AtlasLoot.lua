@@ -210,24 +210,36 @@ end
 -- #############################
 -- Faction switch
 -- #############################
-function AtlasLoot:GetRetByFaction(horde, alliance)
-	if false and type(horde)=='table'and type(horde[1]) =='table' then
+function AtlasLoot:GetRetByFaction(horde, alliance,flag)
+	if flag and type(horde)=='table'and type(horde[1]) =='table' then
 		local list={}
 		local idx=1
-		for i, v in ipairs(horde) do
+		local a,b
+		if UnitFactionGroup("player") == "Horde"  then
+			a=horde
+			b=alliance
+		else
+			a=alliance
+			b=horde
+		end
+		for i, v in ipairs(a) do
 			v.ha='h'
 			if type(v[2])=='number' then
-				v[1]=math.floor(idx/30)*100+idx%30
+				v[1]=math.floor((idx - 1) / 30) * 100 + 1 + ((idx - 1) % 30)
 				idx=idx+1
 				tinsert(list,v)
 			end
 		end
-		for i, v in ipairs(alliance) do
+		idx=1
+		for i, v in ipairs(b) do
 			v.ha='a'
 			if type(v[2])=='number' then
-				v[1]=math.floor(idx/30)*100+idx%30
+				v[1]=math.floor((idx - 1) / 30) * 100 + 1 + ((idx - 1) % 30)
+				
+				if list[idx][2] ~=v[2] then 
+					tinsert(list,v)
+				end
 				idx=idx+1
-				tinsert(list,v)
 			end
 		end
 		return list

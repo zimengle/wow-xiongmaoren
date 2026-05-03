@@ -247,6 +247,7 @@ BG.Init(function()
                         NotLootRemind()
                     end
                 end
+                BG.ShowNotLootTips(bossID)
             else
                 numb = Maxb[FB] - 1
                 start = nil
@@ -307,7 +308,9 @@ BG.Init(function()
                 end
                 if count == 1 then
                     zb:SetText(link)
+                    zb:SetCursorPosition(0)
                     duizhangzb:SetText(link)
+                    duizhangzb:SetCursorPosition(0)
                     BiaoGe[FB]["boss" .. numb]["zhuangbei" .. i] = link
                     if BiaoGe.options["autolootNotice"] == 1 then
                         BG.FrameLootMsg:AddMessage(icon .. "|cff00BFFF" ..
@@ -516,8 +519,8 @@ BG.Init(function()
                     break
                 end
             end
-            if BG.verLess2 then
-                if typeID == 9 and quality >= 3 then -- 60服蓝色图纸
+            if BG.verLess2 or BG.IsRetail then
+                if typeID == 9 and quality >= 3 then -- 60服或正式服蓝色图纸
                     Iswhitelist = true
                 end
             end
@@ -525,13 +528,19 @@ BG.Init(function()
                 if quality < BG.lootQuality[FB] then
                     return
                 end
-                -- 不记录牌子、宝石
-                if typeID == 10 or typeID == 3 then
+                -- 不记录牌子、宝石、住宅
+                if typeID == 10 or typeID == 3 or typeID == 20 then
                     return
                 end
                 -- 过滤附魔分解的物品（例如：深渊水晶），subclassID==0 是60年代的附魔材料子分类
                 if typeID == 7 and (subclassID == 12 or subclassID == 0) then
                     return
+                end
+                if BG.IsRetail then
+                    local t = BG.GetTooltipTextLeftAll(itemID)
+                    if t:find(ITEM_BIND_TO_BNETACCOUNT) then
+                        return
+                    end
                 end
             end
         end
@@ -646,10 +655,8 @@ BG.Init(function()
     BG.RegisterEvent("CHAT_MSG_LOOT", LootItem)
 end)
 
-----------一键分配装备给自己----------
+-- 一键拾取
 BG.Init2(function()
-    if BG.IsRetail then return end
-
     local blackList = {
         52019, -- 小宝的丝带
     }
@@ -883,8 +890,7 @@ BG.Init2(function()
             mainFrame:SetClampedToScreen(true)
             mainFrame.buttons = {}
             self.frame = mainFrame
-            mainFrame.CloseButton = CreateFrame("Button", nil, mainFrame, "UIPanelCloseButton")
-            mainFrame.CloseButton:SetPoint("TOPRIGHT", mainFrame, "TOPRIGHT", 2, 2)
+            BG.CreateCloseButton(mainFrame)
             mainFrame:SetScript("OnHide", function(self)
                 self:Hide()
             end)
@@ -1226,6 +1232,7 @@ BG.Init2(function()
                 end
             end
 
+            local w, h = 220, 400
             BG.LootAuctionLogFrame = CreateFrame("Frame", nil, BG.LootAuctionLogButton, "BackdropTemplate")
             do
                 BG.LootAuctionLogFrame:SetBackdrop({
@@ -1235,7 +1242,7 @@ BG.Init2(function()
                 })
                 BG.LootAuctionLogFrame:SetBackdropColor(0, 0, 0, 0.9)
                 BG.LootAuctionLogFrame:SetBackdropBorderColor(r, g, b)
-                BG.LootAuctionLogFrame:SetSize(220, 400)
+                BG.LootAuctionLogFrame:SetSize(w, h)
                 BG.LootAuctionLogFrame:SetPoint("TOPRIGHT", parent, "TOPLEFT", -2, 0)
                 BG.LootAuctionLogFrame:EnableMouse(true)
                 BG.LootAuctionLogFrame:SetScale(1)
@@ -1272,18 +1279,22 @@ BG.Init2(function()
                 frame:SetBackdropBorderColor(.5, .5, .5, .5)
                 frame:SetBackdropColor(0, 0, 0, 0.8)
                 frame:SetPoint("TOPLEFT", 5, -25)
-                frame:SetPoint("BOTTOMRIGHT", -5, 5)
+                frame:SetSize(w - 10, h - 30)
                 frame:EnableMouse(true)
                 BG.LootAuctionLogFrame.frame = frame
 
                 local scroll = CreateFrame("ScrollFrame", nil, frame, "UIPanelScrollFrameTemplate")
-                scroll:SetPoint("TOPLEFT", 5, -5)
-                scroll:SetPoint("BOTTOMRIGHT", -26, 5)
+                scroll:SetWidth(frame:GetWidth() - 31)
+                scroll:SetHeight(frame:GetHeight() - 9)
                 scroll.ScrollBar.scrollStep = BG.scrollStep
                 frame.scroll = scroll
                 BG.CreateSrollBarBackdrop(scroll.ScrollBar)
                 BG.HookScrollBarShowOrHide(scroll)
                 BG.LootAuctionLogFrame.scroll = scroll
+
+                scroll:SetPoint("TOPLEFT", 5, -5)
+                scroll:SetWidth(frame:GetWidth() - 31)
+                scroll:SetHeight(frame:GetHeight() - 9)
 
                 local child = CreateFrame("Frame", nil, scroll)
                 child:SetAllPoints()
@@ -1503,13 +1514,14 @@ BG.Init2(function()
             end)
         end
 
-        hooksecurefunc("LootFrame_Show", OnShow)
-        if ElvLootFrame then
-            ElvLootFrame:HookScript("OnShow", OnShow)
-        end
-        if XLootFrame then
-            XLootFrame:HookScript("OnShow", OnShow)
-        end
+        BG.RegisterEvent("LOOT_OPENED", OnShow)
+        -- hooksecurefunc("LootFrame_Show", OnShow)
+        -- if ElvLootFrame then
+        --     ElvLootFrame:HookScript("OnShow", OnShow)
+        -- end
+        -- if XLootFrame then
+        --     XLootFrame:HookScript("OnShow", OnShow)
+        -- end
 
         -- 当物品被捡走时，刷新鼠标提示工具
         BG.RegisterEvent("LOOT_SLOT_CLEARED", function(self, event)

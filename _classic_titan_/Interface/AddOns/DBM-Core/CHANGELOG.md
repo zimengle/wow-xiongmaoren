@@ -1,38 +1,38 @@
 # DBM - Core
 
-## [12.0.41](https://github.com/DeadlyBossMods/DeadlyBossMods/tree/12.0.41) (2026-04-22)
-[Full Changelog](https://github.com/DeadlyBossMods/DeadlyBossMods/compare/12.0.38...12.0.41) [Previous Releases](https://github.com/DeadlyBossMods/DeadlyBossMods/releases)
+## [12.0.44](https://github.com/DeadlyBossMods/DeadlyBossMods/tree/12.0.44) (2026-04-29)
+[Full Changelog](https://github.com/DeadlyBossMods/DeadlyBossMods/compare/12.0.43...12.0.44) [Previous Releases](https://github.com/DeadlyBossMods/DeadlyBossMods/releases)
 
-- restore 12.0.1 backwards compat for one more day  
-- restore 12.0.1 for CN region for another day  
-- Tagging another update for more SetFont issue resolution for remaining users unable to use DBM due to undocumented 12.0.5 changes  
-- Fixes  
-- Switch to LSM validation  
-- Less aggressive  
-- SUPER strict font validation because over strict 12.0.5 changes  
-- Put extra strict nil guards against corrupt settings for SetFont  
-    remove 12.0.1 toc  
-- fix variable name  
-- fix one more threat check error  
-- fix and close https://github.com/DeadlyBossMods/DeadlyBossMods/issues/2034  
-- bump alpha  
-- missed one setfont, so prepping another new tag  
-- bump version, make it mandatory update, even for classic cause these changes are probably going to appear on the two active classic PTRs as well  
-- blizzard changed how setfont works, it now no longer accepts nil for font flags and must be "" instead. Should fix and close https://github.com/DeadlyBossMods/DeadlyBossMods/issues/2030  
-- Missed one isContainer  
-- Minor typo (#2029)  
-- update debuglog to be more decimal precise for combat time to increase accuracy of data collection.  
-- bump protocol version to block bad syncs  
-- Fix a bug where non boss HP wipe syncs were sending kill status instead of wipe status.  
-- Sound tweak  
-- fix option text  
-- Mist toc bumps for PTR  
-- include devourer demon hunters in spellcaster checks for soundfiles  
-- Push most of the mythic crown hardcode  
-    fix the rare 2 second breath cast from being included with 12 second alternation rules and add it to other difficulties for good measure  
-- apparently i never pushed blizzard bugfix to mythic. push now  
-- Adjust default position of Private aura anchor to be less centered (more left and right)  
-- Add api support for allowing a single ENCOUNTER\_WARNING through as neeeded  
-- Preliminaryy 12.0.5 prep  
-- Fix two timers that blizzard sends incorrect data on by auto correcting them in hardcode on crown stage 1 heroic  
+- prep tag  
+- add missing kr strings (#2038)  
+    Co-authored-by: Adam <MysticalOS@users.noreply.github.com>  
+    Co-authored-by: Artemis <QartemisT@gmail.com>  
+- Align localizations (#2039)  
+- another fix  
+- improve debug  
+    fix a bug  
+- fix two world boss mods not loading (surprised I didn't notice sooner, guess that shows just how insignificant they are)  
+- fix over engineered noise and lua error caused by over engineered noise  
+- Make fallback states be used even in debug mode  
+- more combat oriented debug removed from printing.  
+- fix more in combat debug print spam when in debugmode 3  
+- Fix a regression that caused kills to also be flagged as wipes in DBM core guild syncs  
+- improve readability  
+- IgnoreBlizzAPI should no longer be ignored if in debugmode 3  
+- double number of lines  
+- another small minor tweak  
+- missed some spammy events  
+- disable several spammy debug evens at level 3 level  
+    tweak a few other debug events to be more verbose or enable logging.  
+- improve debug  
+- level up debug log and give it control over whether or not it's basic timeline debuglog or verbose with additional details  
+- combine upheaval warnings  
+    Add stage markers  
+- tweak default timings and add optionto alter them  
+- Simplification  
+- debug readability improvement  
+- Tweak objects and update gloom and convergence warnings to make smart use of ENCOUNTER\_WARNING  
+- Push new objects to simplify using ENCOUNTER\_WARNING ti dispatch both personal warnings and target warnings.  
+    Upgrade dread breath special warning to now include target name, and eliminate redundant non special target warning.  
+- extend debug logging  
 - bump alpha  

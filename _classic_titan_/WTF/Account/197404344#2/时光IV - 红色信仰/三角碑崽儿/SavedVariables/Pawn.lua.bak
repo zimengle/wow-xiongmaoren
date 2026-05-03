@@ -1,8 +1,6 @@
 
 PawnOptions = {
-["LastVersion"] = 2.1308,
-["LastPlayerFullName"] = "三角碑崽儿-时光IV - 红色信仰",
-["AutoSelectScales"] = false,
+["LastVersion"] = 2.1309,
 ["ItemLevels"] = {
 {
 ["ID"] = 255080,
@@ -26,9 +24,9 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:40544::::::::80::::::::::|h[无畏胸甲]|h|r",
 },
 {
-["ID"] = 255078,
-["Level"] = 213,
-["Link"] = "|cffa335ee|Hitem:255078::40014::::::80::::::::::|h[力量腰铠]|h|r",
+["ID"] = 39759,
+["Level"] = 226,
+["Link"] = "|cffa335ee|Hitem:39759::::::::80::::::::::|h[熔蚀几丁质束带]|h|r",
 },
 {
 ["ID"] = 30116,
@@ -41,9 +39,9 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:39717::::::::80::::::::::|h[无情战靴]|h|r",
 },
 {
-["ID"] = 257602,
-["Level"] = 213,
-["Link"] = "|cffa335ee|Hitem:257602:3850:::::::80::::::::::|h[力量护腕]|h|r",
+["ID"] = 39467,
+["Level"] = 226,
+["Link"] = "|cffa335ee|Hitem:39467::::::::80::::::::::|h[爪牙护腕]|h|r",
 },
 {
 ["ID"] = 40545,
@@ -91,11 +89,13 @@ nil,
 ["Link"] = "|cffff8000|Hitem:30314::::::::80::::::::::|h[相位壁垒]|h|r",
 },
 {
-["ID"] = 41168,
-["Level"] = 200,
-["Link"] = "|cffa335ee|Hitem:41168::36767::::::80::::::::::|h[铁甲战斗猎枪]|h|r",
+["ID"] = 40265,
+["Level"] = 226,
+["Link"] = "|cffa335ee|Hitem:40265::::::::80::::::::::|h[飞矢之歌]|h|r",
 },
 },
+["AutoSelectScales"] = false,
+["LastPlayerFullName"] = "三角碑崽儿-时光IV - 红色信仰",
 }
 PawnMrRobotScaleProviderOptions = nil
 PawnClassicScaleProviderOptions = {

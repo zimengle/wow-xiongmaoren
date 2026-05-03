@@ -64,8 +64,7 @@ function BG.ReceiveUI()
             end)
             tinsert(UISpecialFrames, "BG.ReceiveFrame")
 
-            BG.ReceiveMainFrame.CloseButton = CreateFrame("Button", nil, BG.ReceiveMainFrame, "UIPanelCloseButton")
-            BG.ReceiveMainFrame.CloseButton:SetPoint("TOPRIGHT", BG.ReceiveMainFrame, "TOPRIGHT", 0, 0)
+            BG.CreateCloseButton(BG.ReceiveMainFrame)
             BG.ReceiveMainFrame.CloseButton:SetSize(40, 40)
 
             local TitleText = BG.ReceiveMainFrame:CreateFontString()

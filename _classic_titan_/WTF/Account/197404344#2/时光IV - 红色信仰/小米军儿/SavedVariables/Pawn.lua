@@ -1,11 +1,13 @@
 
 PawnOptions = {
-["LastVersion"] = 2.1308,
+["LastVersion"] = 2.1309,
+["LastPlayerFullName"] = "小米军儿-时光IV - 红色信仰",
+["AutoSelectScales"] = false,
 ["ItemLevels"] = {
 {
-["ID"] = 257631,
-["Level"] = 213,
-["Link"] = "|cffa335ee|Hitem:257631:3817:41398:42702:::::80::::::::::|h[北境战盔]|h|r",
+["ID"] = 44006,
+["Level"] = 232,
+["Link"] = "|cffa335ee|Hitem:44006::::::::80::::::::::|h[黑曜石巨盔]|h|r",
 },
 {
 ["ID"] = 30017,
@@ -13,9 +15,9 @@ PawnOptions = {
 ["Link"] = "|cffa335ee|Hitem:30017::39996::::::80::::::::::|h[塔隆尼库斯的伤害坠饰]|h|r",
 },
 {
-["ID"] = 257629,
-["Level"] = 213,
-["Link"] = "|cffa335ee|Hitem:257629:3808:42142::::::80::::::::::|h[北境肩甲]|h|r",
+["ID"] = 40557,
+["Level"] = 226,
+["Link"] = "|cffa335ee|Hitem:40557::::::::80::::::::::|h[天灾苦痛肩甲]|h|r",
 },
 nil,
 {
@@ -24,9 +26,9 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:40550::::::::80::::::::::|h[天灾苦痛战甲]|h|r",
 },
 {
-["ID"] = 255141,
-["Level"] = 219,
-["Link"] = "|cffa335ee|Hitem:255141::42142::::::80::::::::::|h[冲击束带]|h|r",
+["ID"] = 40278,
+["Level"] = 226,
+["Link"] = "|cffa335ee|Hitem:40278::::::::80::::::::::|h[豪气束带]|h|r",
 },
 {
 ["ID"] = 40556,
@@ -49,16 +51,16 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:264438::::::::80::::::::::|h[亵渎者护手]|h|r",
 },
 {
-["ID"] = 29298,
-["Level"] = 219,
+["ID"] = 40075,
+["Level"] = 232,
 ["AlsoFitsIn"] = 12,
-["Link"] = "|cffa335ee|Hitem:29298::::::::80::::::::::|h[永恒之戒]|h|r",
+["Link"] = "|cffa335ee|Hitem:40075::::::::80::::::::::|h[冷酷]|h|r",
 },
 {
-["ID"] = 29298,
-["Level"] = 219,
+["ID"] = 40075,
+["Level"] = 232,
 ["AlsoFitsIn"] = 11,
-["Link"] = "|cffa335ee|Hitem:29298::39996::::::80::::::::::|h[永恒之戒]|h|r",
+["Link"] = "|cffa335ee|Hitem:40075::42142::::::80::::::::::|h[冷酷]|h|r",
 },
 {
 ["ID"] = 265492,
@@ -84,14 +86,12 @@ nil,
 ["Link"] = "|cffff8000|Hitem:30311::::::::80::::::::::|h[迁跃切割者]|h|r",
 },
 {
-["ID"] = 28437,
-["Level"] = 226,
+["ID"] = 39270,
+["Level"] = 232,
 ["AlsoFitsIn"] = 16,
-["Link"] = "|cffa335ee|Hitem:28437:3368:::::::80::::::::::|h[龙拳之锤]|h|r",
+["Link"] = "|cffa335ee|Hitem:39270::::::::80::::::::::|h[格雷希尔，毁灭之黎明]|h|r",
 },
 },
-["AutoSelectScales"] = false,
-["LastPlayerFullName"] = "小米军儿-时光IV - 红色信仰",
 }
 PawnMrRobotScaleProviderOptions = nil
 PawnClassicScaleProviderOptions = {

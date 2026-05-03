@@ -440,7 +440,7 @@ BG.Init(function()
             f:EnableMouse(true)
             f:SetFrameLevel(TradeRecipientMoneyBg:GetFrameLevel() + 10)
 
-            local edit = CreateFrame("EditBox", nil, f, "BiaoGe_InputBoxTemplate")
+            local edit = CreateFrame("EditBox", nil, f, BG.editTemplate)
             edit:SetSize(90, 20)
             edit:SetPoint("RIGHT", -5, 0)
             edit:SetText("")
@@ -1703,6 +1703,7 @@ BG.Init(function()
         f:RegisterEvent("CHAT_MSG_RAID")
         f:SetScript("OnEvent", function(self, event, ...)
             local msg, playerName = ...
+            if BG.IsSecret(msg) then return end
             local ML
             playerName = BG.GSN(playerName)
             if event == "CHAT_MSG_RAID_WARNING" or event == "CHAT_MSG_RAID_LEADER" then
@@ -2157,6 +2158,7 @@ BG.Init(function()
         f:RegisterEvent("CHAT_MSG_RAID_LEADER")
         f:RegisterEvent("CHAT_MSG_RAID")
         f:SetScript("OnEvent", function(self, event, msg, sender, ...)
+            if BG.IsSecret(msg) then return end
             sender = BG.GSN(sender)
             if not BG.IsMLByName(sender) then return end
             local gz = msg:match("^人均工资：(%d+)")
@@ -2658,7 +2660,7 @@ BG.Init(function()
             local tradeName = BG.GN("NPC")
             if not (BG.auctionTrade[tradeName] and next(BG.auctionTrade[tradeName])) then return end
             StartGiveItem(tradeName)
-            BG.After(0.3, function()
+            BG.After(0.5, function()
                 if TradeFrame:IsVisible() and BG.GN("NPC") == tradeName and IsNoItem() then
                     StartGiveItem(tradeName)
                 end

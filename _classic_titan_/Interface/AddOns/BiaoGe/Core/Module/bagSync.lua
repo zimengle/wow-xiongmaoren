@@ -68,6 +68,7 @@ BG.Init(function()
     end
 
     function BG.SaveBank()
+        if BG.IsRetail then return end -- todo
         if not BG.bankIsOpen then return end
         wipe(BiaoGe.bag[realmID][player].bank)
         local startB, endB = GetBagSlots("bank")

@@ -2,11 +2,6 @@
 ElvCharacterDB = {
 ["ConvertKeybindings"] = true,
 ["ChatEditHistory"] = {
-"/cw 菈丶妮-时光IV红色信仰 已经有其他队伍了 开打了",
-"/团队 打几个？",
-"彻底上瘾?",
-"no",
-"你笔记本打的？",
 "我擦",
 "你不去陪床吗",
 "/questie",
@@ -22,6 +17,11 @@ ElvCharacterDB = {
 "/团队 鱼在哪",
 "/cw 図亼亻 暗牧",
 "/cw 枫叶法湿 暗牧",
+"/cw 糯糯的小团子 戒律牧",
+"/团队 回蓝图腾",
+"/团队 急翔如溢",
+"/团队 9",
+"/biaoge",
 },
 ["ChatHistoryLog"] = {
 },

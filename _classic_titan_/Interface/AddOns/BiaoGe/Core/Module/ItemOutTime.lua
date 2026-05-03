@@ -99,8 +99,7 @@ BG.Init(function()
             end)
         end)
 
-        f.CloseButton = CreateFrame("Button", nil, f, "UIPanelCloseButton")
-        f.CloseButton:SetPoint("TOPRIGHT", f, "TOPRIGHT", BG.IsRetail and 0 or 4, BG.IsRetail and 0 or 4)
+        BG.CreateCloseButton(f)
         f.CloseButton:HookScript("OnClick", function(self)
             BiaoGe.options.showGuoQiFrame = 0
         end)
@@ -168,6 +167,106 @@ BG.Init(function()
         -- }
     end
 
+    local function CreateButton(ii, vv)
+        local link, itemID, time, b, i = vv.link, vv.itemID, vv.time, vv.b, vv.i
+
+        local f = CreateFrame("Frame", nil, BG.itemGuoQiFrame, "BackdropTemplate")
+        f:SetSize(BG.itemGuoQiFrame:GetWidth() - 4, 20)
+        if ii == 1 then
+            f:SetPoint("TOPRIGHT", BG.itemGuoQiFrame, "TOPRIGHT", -2, -30)
+        else
+            f:SetPoint("TOPRIGHT", BG.itemGuoQiFrame.buttons[ii - 1], "BOTTOMRIGHT", 0, 0)
+        end
+        f:EnableMouse(true)
+        f:Show()
+        f.link = link
+        f.itemID = itemID
+        f.time = time
+        f.b = b
+        f.i = i
+        tinsert(BG.itemGuoQiFrame.buttons, f)
+        BG.UpdateFilter(f, link)
+
+        local tex = f:CreateTexture(nil, "BACKGROUND")
+        tex:SetAllPoints()
+        if ii % 2 == 0 then
+            tex:SetColorTexture(.5, .5, .5, .15)
+        else
+            tex:SetColorTexture(0, 0, 0, .25)
+        end
+
+        local ds = f:CreateTexture()
+        ds:SetAllPoints()
+        ds:SetColorTexture(.5, .5, .5, .5)
+        ds:Hide()
+
+        f:SetScript("OnMouseDown", function(self, button)
+            if IsShiftKeyDown() then
+                BG.PlaySound(1)
+                BG.InsertLink(link)
+            elseif IsAltKeyDown() then
+                BG.StartAuction(link, f, true, nil, button == "RightButton")
+            end
+        end)
+        f:SetScript("OnEnter", function(self)
+            ds:Show()
+            GameTooltip:SetOwner(self, "ANCHOR_LEFT", 0, 0)
+            GameTooltip:ClearLines()
+            GameTooltip:SetBagItem(b, i)
+            BG.Show_AllHighlight(link, "outtime")
+            BG.SetHistoryMoney(itemID)
+            if IsAltKeyDown() and BG.IsML and BiaoGe.options["autoAuctionStart"] == 1 then
+                SetCursor("interface/cursor/repair")
+            end
+            if BG.IsML then
+                BG.canShowStartAuctionCursor = true
+            end
+        end)
+        f:SetScript("OnLeave", function()
+            ds:Hide()
+            GameTooltip:Hide()
+            BG.Hide_AllHighlight()
+            BG.HideHistoryMoney()
+            SetCursor(nil)
+            BG.canShowStartAuctionCursor = false
+        end)
+
+        local icon = f:CreateTexture(nil, 'ARTWORK')
+        icon:SetPoint('LEFT', 1, 0)
+        icon:SetSize(16, 16)
+        icon:SetTexture(select(5, GetItemInfoInstant(link)))
+
+        local t = f:CreateFontString()
+        t:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
+        t:SetPoint("LEFT", 18, 0)
+        t:SetJustifyH("LEFT")
+        t:SetText(link:gsub("%[", ""):gsub("%]", ""))
+        t:SetWidth(90)
+        t:SetWordWrap(false)
+
+        local sb = CreateFrame("StatusBar", nil, f)
+        sb:SetPoint("LEFT", t, "RIGHT", 2, 0)
+        sb:SetSize(55, 15)
+        sb:SetMinMaxValues(0, 120)
+        sb:SetValue(time)
+        sb:SetStatusBarTexture("Interface\\Buttons\\WHITE8x8")
+        if time >= 30 then
+            sb:SetStatusBarColor(0, 1, 0)
+        else
+            sb:SetStatusBarColor(1, 0, 0)
+        end
+
+        local t = sb:CreateFontString()
+        t:SetFont(BIAOGE_TEXT_FONT, 12, "OUTLINE")
+        t:SetPoint("LEFT", sb:GetWidth() * time / 120, 0)
+        t:SetText(time .. "m")
+        if time >= 30 then
+            t:SetTextColor(0, 1, 0)
+        else
+            t:SetTextColor(1, 0, 0)
+        end
+    end
+
     function BG.UpdateItemGuoQiFrame()
         UpdateTime()
         if not BG.itemGuoQiFrame:IsVisible() then return end
@@ -190,7 +289,9 @@ BG.Init(function()
                 t:SetText("......")
                 return
             end
-            local link, itemID, time, b, i = vv.link, vv.itemID, vv.time, vv.b, vv.i
+            CreateButton(ii, vv)
+
+            --[[   local link, itemID, time, b, i = vv.link, vv.itemID, vv.time, vv.b, vv.i
 
             local f = CreateFrame("Frame", nil, BG.itemGuoQiFrame, "BackdropTemplate")
             f:SetSize(BG.itemGuoQiFrame:GetWidth() - 4, 20)
@@ -276,7 +377,7 @@ BG.Init(function()
                 t:SetTextColor(0, 1, 0)
             else
                 t:SetTextColor(1, 0, 0)
-            end
+            end ]]
         end
         if #BG.itemGuoQiFrame.tbl == 0 then
             local t = BG.itemGuoQiFrame:CreateFontString()

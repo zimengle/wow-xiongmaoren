@@ -1,6 +1,6 @@
 
 PawnOptions = {
-["LastVersion"] = 2.1308,
+["LastVersion"] = 2.1309,
 ["LastPlayerFullName"] = "于鹏-时光IV - 红色信仰",
 ["AutoSelectScales"] = false,
 ["ItemLevels"] = {
@@ -63,21 +63,21 @@ nil,
 ["Link"] = "|cffa335ee|Hitem:33054::39998::::::80::::::::::|h[丹扎拉尔徽记]|h|r",
 },
 {
+["ID"] = 39229,
+["Level"] = 232,
+["AlsoFitsIn"] = 14,
+["Link"] = "|cffa335ee|Hitem:39229::::::::80::::::::::|h[蜘蛛的拥抱]|h|r",
+},
+{
 ["ID"] = 255126,
 ["Level"] = 213,
-["AlsoFitsIn"] = 14,
+["AlsoFitsIn"] = 13,
 ["Link"] = "|cffa335ee|Hitem:255126::::::::80::::::::::|h[短暂能量护符]|h|r",
 },
 {
-["ID"] = 40682,
-["Level"] = 200,
-["AlsoFitsIn"] = 13,
-["Link"] = "|cffa335ee|Hitem:40682::::::::80::::::::::|h[流放者的日晷]|h|r",
-},
-{
-["ID"] = 41610,
-["Level"] = 200,
-["Link"] = "|cffa335ee|Hitem:41610:3831:::::::80::::::::::|h[死寒披风]|h|r",
+["ID"] = 40251,
+["Level"] = 226,
+["Link"] = "|cffa335ee|Hitem:40251::::::::80::::::::::|h[光辉斗篷]|h|r",
 },
 {
 ["ID"] = 30313,

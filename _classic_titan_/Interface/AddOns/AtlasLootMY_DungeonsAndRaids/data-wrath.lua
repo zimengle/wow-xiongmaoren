@@ -5604,7 +5604,9 @@ data['NaxxramasWrath'] = {
                  { 16, "INV_Box_01", nil, "掉落以下套装任意2件"},
                 {17, 40637}, {18, 40638}, {19, 40639}, {21, 40625},
                 {22, 40626}, {23, 40627}, {25, 40634}, {26, 40635}, {27, 40636},
-                 { 28, "INV_Box_01", nil, "掉落其他boss掉落池中的任意1件","冰龙和克尔苏加德除外"}},
+                 { 28, "INV_Box_01", nil, "掉落其他boss掉落池中的任意1件","冰龙和克尔苏加德除外"},
+                 {29,52019}
+                },
             npcID = 15932
         }, 
         
@@ -6694,6 +6696,7 @@ data["Zul'Gurub80"] = {
                 { 26, 268050}
 			},
 		},
+        
         {
             name="套装项链",
             ExtraList = true,
@@ -6820,1051 +6823,437 @@ data["Zul'Gurub80"] = {
 }
 
 -- Trial of the Crusader / T9
+
 data["TrialoftheCrusader"] = {
 	EncounterJournalID = 757,
-	InstanceID = 649,
 	MapID = 4722,
-    name = AL["P4 Trial of the Crusader"],
     AtlasModule = ATLAS_MODULE_NAME,
 	AtlasMapID = "TrialOfTheCrusader",
     AtlasMapFile = "TrialOfTheCrusader",
-    Phase=4,
 	ContentType = RAID_CONTENT,
-    -- LevelRange = {80, 80, 80},
+    LevelRange = {80, 80, 80},
 	items = {
 		{	--TrialoftheCrusader NorthrendBeasts
 			name = AL["The Beasts of Northrend"],
 			EncounterJournalID = 1618,
-            -- [RAID10H_DIFF] = AtlasLoot:GetRetByFaction(
-            --     { -- horde
-            --         { 1,  47994 },	-- Icehowl Binding
-            --         { 2,  47996 },	-- Pauldrons of the Glacial Wilds
-            --         { 3,  47992 },	-- Acidmaw Treads
-            --         { 4,  47999 },	-- Pauldrons of the Spirit Walker
-            --         { 5,  47989 },	-- Bracers of the Northern Stalker
-            --         { 6,  47991 },	-- Dreadscale Bracers
-            --         { 7,  47990 },	-- Gauntlets of Mounting Anger
-            --         { 8,  47998 },	-- Belt of the Impaler
-            --         { 9,  47997 },	-- Girdle of the Frozen Reach
-            --         { 16, 47988 },	-- Collar of Unending Torment
-            --         { 17, 47993 },	-- Gormok's Band
-            --         { 19, 47995 },	-- Scepter of Imprisoned Souls
-            --         { 21, --[[ 47242 ]] },	-- Trophy of the Crusade
-            --         { 23, "ac3936" },
-            --         { 24, "ac3797" },
-            --     },
-            --     { -- alli
-            --         { 1,  47921 },	-- Icehowl Cinch
-            --         { 2,  47923 },	-- Shoulderpads of the Glacial Wilds
-            --         { 3,  47919 },	-- Acidmaw Boots
-            --         { 4,  47926 },	-- Shoulderguards of the Spirit Walker
-            --         { 5,  47916 },	-- Armbands of the Northern Stalker
-            --         { 6,  47918 },	-- Dreadscale Armguards
-            --         { 7,  47917 },	-- Gauntlets of Rising Anger
-            --         { 8,  47924 },	-- Belt of the Frozen Reach
-            --         { 9,  47925 },	-- Girdle of the Impaler
-            --         { 16, 47915 },	-- Collar of Ceaseless Torment
-            --         { 17, 47920 },	-- Carnivorous Band
-            --         { 19, 47922 },	-- Rod of Imprisoned Souls
-            --         { 21, 47242 },	-- Trophy of the Crusade
-            --         { 23, "ac3936" },
-            --         { 24, "ac3797" },
-            --     }
-            -- ),
             [NORMAL_DIFF] = AtlasLoot:GetRetByFaction(
                 { -- horde
-                    { 1,  47257 },	-- Cloak of the Untamed Predator
-                    { 2,  47256 },	-- Drape of the Refreshing Winds
-                    { 3,  47264 },	-- Flowing Robes of Ascent
-                    { 4,  47258 },	-- Belt of the Tenebrous Mist
-                    { 5,  47259 },	-- Legwraps of the Broken Beast
-                    { 6,  47262 },	-- Boots of the Harsh Winter
-                    { 7,  47251 },	-- Cuirass of Cruel Intent
-                    { 8,  237079 },	-- Binding of the Ice Burrower
-                    { 9,  47254 },	-- Hauberk of the Towering Monstrosity
-                    { 10, 47253 },	-- Boneshatter Vambraces
-                    { 11, 47263 },	-- Sabatons of the Courageous
-                    { 16, 47242 },	-- Trophy of the Crusade
-                    { 18, 237071 },	-- Ring of the Violent Temperament
-                    { 20, 237088 },	-- Barb of Tarasque
-                    { 21, 237090 },	-- Stygian Bladebreaker
-                    { 22, 237087 },	-- Forlorn Barrier
-                    { 24, "ac3936" },
-                    { 25, "ac3797" },
-                    { 30 ,249820},
-                     { 101, 47855 },	-- Icehowl Binding
-                    { 102, 47857 },	-- Pauldrons of the Glacial Wilds
-                    { 103, 47853 },	-- Acidmaw Treads
-                    { 104, 47860 },	-- Pauldrons of the Spirit Walker
-                    { 105, 47850 },	-- Bracers of the Northern Stalker
-                    { 106, 47852 },	-- Dreadscale Bracers
-                    { 107, 47851 },	-- Gauntlets of Mounting Anger
-                    { 108, 47859 },	-- Belt of the Impaler
-                    { 109, 47858 },	-- Girdle of the Frozen Reach
-                    { 116, 47849 },	-- Collar of Unending Torment
-                    { 117, 47854 },	-- Gormok's Band
-                    { 119, 47856 },	-- Scepter of Imprisoned Souls
-                    { 124, "ac3936" },
-                    { 125, "ac3797" },
+                    { 1, 47855 },	-- Icehowl Binding
+                    { 2, 47857 },	-- Pauldrons of the Glacial Wilds
+                    { 3, 47853 },	-- Acidmaw Treads
+                    { 4, 47860 },	-- Pauldrons of the Spirit Walker
+                    { 5, 47850 },	-- Bracers of the Northern Stalker
+                    { 6, 47852 },	-- Dreadscale Bracers
+                    { 7, 47851 },	-- Gauntlets of Mounting Anger
+                    { 8, 47858 },	-- Belt of the Impaler
+                    { 9, 47859 },	-- Girdle of the Frozen Reach
+                    { 10, 47849 },	-- Collar of Unending Torment
+                    { 11, 47854 },	-- Gormok's Band
+                    { 12, 47856 },	-- Scepter of Imprisoned Souls
+                    { 13,  47257 },	-- Cloak of the Untamed Predator
+                    { 14,  47256 },	-- Drape of the Refreshing Winds
+                    { 15,  47264 },	-- Flowing Robes of Ascent
+                    { 16,  47242  },	-- Belt of the Tenebrous Mist
+                    { 17,  47259 },	-- Legwraps of the Broken Beast
+                    { 18,  47262 },	-- Boots of the Harsh Winter
+                    { 19,  47251 },	-- Cuirass of Cruel Intent
+                    { 20,  47265 },	-- Binding of the Ice Burrower
+                    { 21,  47254 },	-- Hauberk of the Towering Monstrosity
+                    { 22, 47253 },	-- Boneshatter Vambraces
+                    { 23, 47263 },	-- Sabatons of the Courageous
+                    { 24, 47258 },	-- Trophy of the Crusade
+                    { 25, 47252 },	-- Ring of the Violent Temperament
+                    { 26, 47261 },	-- Barb of Tarasque
+                    { 27, 47255 },	-- Stygian Bladebreaker
+                    { 28, 47260 },	-- Forlorn Barrier
                 },
                 { -- alli
-                    { 1,  46970 },	-- Drape of the Untamed Predator
-                    { 2,  46976 },	-- Shawl of the Refreshing Winds
-                    { 3,  46992 },	-- Flowing Vestments of Ascent
-                    { 4,  46972 },	-- Cord of the Tenebrous Mist
-                    { 5,  46974 },	-- Leggings of the Broken Beast
-                    { 6,  46988 },	-- Boots of the Unrelenting Storm
-                    { 7,  46960 },	-- Breastplate of Cruel Intent
-                    { 8,  237052 },	-- Belt of the Ice Burrower
-                    { 9,  46962 },	-- Chestplate of the Towering Monstrosity
-                    { 10, 46961 },	-- Boneshatter Armplates
-                    { 11, 46985 },	-- Boots of the Courageous
-                    { 16, 47242 },	-- Trophy of the Crusade
-                    { 18, 237044 },	-- Band of the Violent Temperment
-                    { 20, 237062 },	-- Blade of Tarasque
-                    { 21, 237064 },	-- Steel Bladebreaker
-                    { 22, 237061 },	-- Crystal Plated Vanguard
-                    { 24, "ac3936" },
-                    { 25, "ac3797" },
-                     { 101,  47617 },	-- Icehowl Cinch
-                    { 102,  47613 },	-- Shoulderpads of the Glacial Wilds
-                    { 103,  47608 },	-- Acidmaw Boots
-                    { 104,  47616 },	-- Shoulderguards of the Spirit Walker
-                    { 105,  47610 },	-- Armbands of the Northern Stalker
-                    { 106,  47611 },	-- Dreadscale Armguards
-                    { 107,  47609 },	-- Gauntlets of Rising Anger
-                    { 108,  47615 },	-- Belt of the Frozen Reach
-                    { 109,  47614 },	-- Girdle of the Impaler
-                    { 116, 47607 },	-- Collar of Ceaseless Torment
-                    { 117, 47578 },	-- Carnivorous Band
-                    { 119, 47612 },	-- Rod of Imprisoned Souls
-                    { 124, "ac3936" },
-                    { 125, "ac3797" },
-                }
+                    { 1,  47617 },	-- Icehowl Cinch
+                    { 2,  47613 },	-- Shoulderpads of the Glacial Wilds
+                    { 3,  47608 },	-- Acidmaw Boots
+                    { 4,  47616 },	-- Shoulderguards of the Spirit Walker
+                    { 5,  47610 },	-- Armbands of the Northern Stalker
+                    { 6,  47611 },	-- Dreadscale Armguards
+                    { 7,  47609 },	-- Gauntlets of Rising Anger
+                    { 8,  47615 },	-- Belt of the Frozen Reach
+                    { 9,  47614 },	-- Girdle of the Impaler
+                    { 10, 47607 },	-- Collar of Ceaseless Torment
+                    { 11, 47578 },	-- Carnivorous Band
+                    { 12, 47612 },	-- Rod of Imprisoned Souls
+                    { 13,  46970 },	-- Drape of the Untamed Predator
+                    { 14,  46976 },	-- Shawl of the Refreshing Winds
+                    { 15,  46992 },	-- Flowing Vestments of Ascent
+                    { 16,  47242  },	-- Cord of the Tenebrous Mist
+                    { 17,  46974 },	-- Leggings of the Broken Beast
+                    { 18,  46988 },	-- Boots of the Unrelenting Storm
+                    { 19,  46960 },	-- Breastplate of Cruel Intent
+                    { 20,  46990 },	-- Belt of the Ice Burrower
+                    { 21,  46962 },	-- Chestplate of the Towering Monstrosity
+                    { 22, 46961 },	-- Boneshatter Armplates
+                    { 23, 46985 },	-- Boots of the Courageous
+                    { 24,  46972},	-- Trophy of the Crusade
+                    { 25, 46959 },	-- Band of the Violent Temperment
+                    { 26, 46979 },	-- Blade of Tarasque
+                    { 27, 46958 },	-- Steel Bladebreaker
+                    { 28, 46963 },	-- Crystal Plated Vanguard
+                },true
             ),
-			-- [RAID25H_DIFF] = AtlasLoot:GetRetByFaction(
-            --     { -- horde
-            --         { 1,  47418 },	-- Cloak of the Untamed Predator
-            --         { 2,  47417 },	-- Drape of the Refreshing Winds
-            --         { 3,  47425 },	-- Flowing Robes of Ascent
-            --         { 4,  47419 },	-- Belt of the Tenebrous Mist
-            --         { 5,  47420 },	-- Legwraps of the Broken Beast
-            --         { 6,  47423 },	-- Boots of the Harsh Winter
-            --         { 7,  47412 },	-- Cuirass of Cruel Intent
-            --         { 8,  47426 },	-- Binding of the Ice Burrower
-            --         { 9,  47415 },	-- Hauberk of the Towering Monstrosity
-            --         { 10, 47414 },	-- Boneshatter Vambraces
-            --         { 11, 47424 },	-- Sabatons of the Courageous
-            --         { 16, 47413 },	-- Ring of the Violent Temperament
-            --         { 18, 47422 },	-- Barb of Tarasque
-            --         { 19, 47416 },	-- Stygian Bladebreaker
-            --         { 20, 47421 },	-- Forlorn Barrier
-            --         { 22, 47242 },	-- Trophy of the Crusade
-            --         { 23, 47557 }, -- Regalia of the Grand Conqueror
-            --         { 24, 47558 }, -- Regalia of the Grand Protector
-            --         { 25, 47559 }, -- Regalia of the Grand Vanquisher
-            --         { 29, "ac3937" },
-            --         { 30, "ac3813" },
-            --     },
-            --     { -- alli
-            --         { 1,  46971 },	-- Drape of the Untamed Predator
-            --         { 2,  46977 },	-- Shawl of the Refreshing Winds
-            --         { 3,  46993 },	-- Flowing Vestments of Ascent
-            --         { 4,  46973 },	-- Cord of the Tenebrous Mist
-            --         { 5,  46975 },	-- Leggings of the Broken Beast
-            --         { 6,  46989 },	-- Boots of the Unrelenting Storm
-            --         { 7,  46965 },	-- Breastplate of Cruel Intent
-            --         { 8,  46991 },	-- Belt of the Ice Burrower
-            --         { 9,  46968 },	-- Chestplate of the Towering Monstrosity
-            --         { 10, 46967 },	-- Boneshatter Armplates
-            --         { 11, 46986 },	-- Boots of the Courageous
-            --         { 16, 46966  },	-- Band of the Violent Temperment
-            --         { 18, 46980  },	-- Blade of Tarasque
-            --         { 19, 46969  },	-- Steel Bladebreaker
-            --         { 20, 46964  },	-- Crystal Plated Vanguard
-            --         { 22, 47242 },	-- Trophy of the Crusade
-            --         { 23, 47557 }, -- Regalia of the Grand Conqueror
-            --         { 24, 47558 }, -- Regalia of the Grand Protector
-            --         { 25, 47559 }, -- Regalia of the Grand Vanquisher
-            --         { 29, "ac3937" },
-            --         { 30, "ac3813" },
-            --     }
-            -- ),
+
 		},
         {	--TrialoftheCrusader LordJaraxxus
             name = AL["Lord Jaraxxus"],
             EncounterJournalID = 1619,
-            -- [RAID10_DIFF] = AtlasLoot:GetRetByFaction(
-            --     { -- horde
-            --         { 1,  47861 },	-- Felspark Bracers
-            --         { 2,  47865 },	-- Legwraps of the Demonic Messenger
-            --         { 3,  47863 },	-- Belt of the Bloodhoof Emissary
-            --         { 4,  47866 },	-- Darkspear Ritual Binding
-            --         { 5,  49236 },	-- Sabatons of Tortured Space
-            --         { 6,  47867 },	-- Warsong Poacher's Greaves
-            --         { 7,  47869 },	-- Armplates of the Nether Lord
-            --         { 8,  47870 },	-- Belt of the Nether Champion
-            --         { 16, 47872 },	-- Fortitude of the Infernal
-            --         { 17, 47864 },	-- Pendant of Binding Elements
-            --         { 18, 47862 },	-- Firestorm Band
-            --         { 19, 47868 },	-- Planestalker Band
-            --         { 21, 47871 },	-- Orcish Deathblade
-            --         { 23, "ac3996" },
-            --     },
-            --     { -- alli
-            --         { 1,  47663 },	-- Felspark Bindings
-            --         { 2,  47620 },	-- Leggings of the Demonic Messenger
-            --         { 3,  47669 },	-- Belt of the Winter Solstice
-            --         { 4,  47621 },	-- Girdle of the Farseer
-            --         { 5,  49235 },	-- Boots of Tortured Space
-            --         { 6,  47683 },	-- Sentinel Scouting Greaves
-            --         { 7,  47680 },	-- Armguards of the Nether Lord
-            --         { 8,  47711 },	-- Girdle of the Nether Champion
-            --         { 16, 47619 },	-- Amulet of Binding Elements
-            --         { 17, 47679 },	-- Endurance of the Infernal
-            --         { 18, 47618 },	-- Firestorm Ring
-            --         { 19, 47703 },	-- Planestalker Signet
-            --         { 21, 47676 },	-- Dirk of the Night Watch
-            --         { 23, "ac3996" },
-            --     }
-            -- ),
-            -- [RAID10H_DIFF] = AtlasLoot:GetRetByFaction(
-            --     { -- horde
-            --         { 1,  48000 },	-- Felspark Bracers
-            --         { 2,  48004 },	-- Legwraps of the Demonic Messenger
-            --         { 3,  48002 },	-- Belt of the Bloodhoof Emissary
-            --         { 4,  48005 },	-- Darkspear Ritual Binding
-            --         { 5,  49237 },	-- Sabatons of Tortured Space
-            --         { 6,  48006 },	-- Warsong Poacher's Greaves
-            --         { 7,  48008 },	-- Armplates of the Nether Lord
-            --         { 8,  48009 },	-- Belt of the Nether Champion
-            --         { 16, 48011 },	-- Fortitude of the Infernal
-            --         { 17, 48003 },	-- Pendant of Binding Elements
-            --         { 18, 48001 },	-- Firestorm Band
-            --         { 19, 48007 },	-- Planestalker Band
-            --         { 21, 48010 },	-- Orcish Deathblade
-            --         { 23, 47242 },	-- Trophy of the Crusade
-            --         { 25, "ac3996" },
-            --     },
-            --     { -- alli
-            --         { 1,  47927 },	-- Felspark Bindings
-            --         { 2,  47931 },	-- Leggings of the Demonic Messenger
-            --         { 3,  47929 },	-- Belt of the Winter Solstice
-            --         { 4,  47932 },	-- Girdle of the Farseer
-            --         { 5,  49238 },	-- Boots of Tortured Space
-            --         { 6,  47933 },	-- Sentinel Scouting Greaves
-            --         { 7,  47935 },	-- Armguards of the Nether Lord
-            --         { 8,  47937 },	-- Girdle of the Nether Champion
-            --         { 16, 47930 },	-- Amulet of Binding Elements
-            --         { 17, 47939 },	-- Endurance of the Infernal
-            --         { 18, 47928 },	-- Firestorm Ring
-            --         { 19, 47934 },	-- Planestalker Signet
-            --         { 21, 47938 },	-- Dirk of the Night Watch
-            --         { 23, 47242 },	-- Trophy of the Crusade
-            --         { 25, "ac3996" },
-            --     }
-            -- ),
+
             [NORMAL_DIFF] = AtlasLoot:GetRetByFaction(
                 { -- horde
-                    { 1,  47275 },	-- Pride of the Demon Lord
-                    { 2,  47274 },	-- Pants of the Soothing Touch
-                    { 3,  47270 },	-- Vest of Calamitous Fate
-                    { 4,  237083 },	-- Icewalker Treads
-                    { 5,  237076 },	-- Armbands of Dark Determination
-                    { 6,  47277 },	-- Bindings of the Autumn Willow
-                    { 7,  47280 },	-- Wristwraps of Cloudy Omen
-                    { 8,  237078 },	-- Bloodbath Girdle
-                    { 9,  47279 },	-- Leggings of Failing Light
-                    { 10, 47273 },	-- Legplates of Feverish Dedication
-                    { 11, 237081 },	-- Dawnbreaker Sabatons
-                    { 16, 47242 },	-- Trophy of the Crusade
-                    { 18, 47272 },	-- Charge of the Eredar
-                    { 19, 237070 },	-- Circle of the Darkmender
-                    { 20, 47271 },	-- Solace of the Fallen
-                    { 21, 47276 },	-- Talisman of Heedless Sins
-                    { 22, 237073 },	-- Lurid Manifestation
-                    { 24, 47266 },	-- Blood Fury
-                    { 25, 47267 },	-- Death's Head Crossbow
-                    { 27, "ac3997" },
-                     { 101,  47861 },	-- Felspark Bracers
-                    { 102,  47865 },	-- Legwraps of the Demonic Messenger
-                    { 103,  47863 },	-- Belt of the Bloodhoof Emissary
-                    { 104,  47866 },	-- Darkspear Ritual Binding
-                    { 105,  49236 },	-- Sabatons of Tortured Space
-                    { 106,  47867 },	-- Warsong Poacher's Greaves
-                    { 107,  47869 },	-- Armplates of the Nether Lord
-                    { 108,  47870 },	-- Belt of the Nether Champion
-                    { 116, 47872 },	-- Fortitude of the Infernal
-                    { 117, 47864 },	-- Pendant of Binding Elements
-                    { 118, 47862 },	-- Firestorm Band
-                    { 119, 47868 },	-- Planestalker Band
-                    { 121, 47871 },	-- Orcish Deathblade
-                    { 123, "ac3996" },
+                    { 1,  47861 },	-- Felspark Bracers
+                    { 2,  47865 },	-- Legwraps of the Demonic Messenger
+                    { 3,  47863 },	-- Belt of the Bloodhoof Emissary
+                    { 4,  47866 },	-- Darkspear Ritual Binding
+                    { 5,  49236 },	-- Sabatons of Tortured Space
+                    { 6,  47867 },	-- Warsong Poacher's Greaves
+                    { 7,  47869 },	-- Armplates of the Nether Lord
+                    { 8,  47870 },	-- Belt of the Nether Champion
+                    { 9, 47864 },	-- Fortitude of the Infernal
+                    { 10, 47872 },	-- Pendant of Binding Elements
+                    { 11, 47862 },	-- Firestorm Band
+                    { 12, 47868 },	-- Planestalker Band
+                    { 13, 47871 },	-- Orcish Deathblade
+                    { 14, 47275 },	-- Pride of the Demon Lord
+                    { 15, 47274 },	-- Pants of the Soothing Touch
+                    { 16, 47242  },	-- Vest of Calamitous Fate
+                    { 17,272955},
+                   
+                    { 18, 47280 },	-- Wristwraps of Cloudy Omen
+                    { 19, 47268 },	-- Bloodbath Girdle
+                    { 20, 47279 },	-- Leggings of Failing Light
+                    { 21, 47273 },	-- Legplates of Feverish Dedication
+                    { 22, 47269 },	-- Dawnbreaker Sabatons
+                    { 23,  47270},	-- Trophy of the Crusade
+                    { 24, 47272 },	-- Charge of the Eredar
+                    { 25, 47278 },	-- Circle of the Darkmender
+                    { 26, 47271 },	-- Solace of the Fallen
+                    { 27, 47276 },	-- Talisman of Heedless Sins
+                    { 28, 47266 },	-- Blood Fury
+                    { 29, 47267 },	-- Death's Head Crossbow
+                     { 30, 47277 },	-- Bindings of the Autumn Willow
                 },
                 { -- alli
-                    { 1,  47042 },	-- Pride of the Eredar
-                    { 2,  47051 },	-- Leggings of the Soothing Touch
-                    { 3,  47000 },	-- Cuirass of Calamitous Fate
-                    { 4,  237056 },	-- Treads of the Icewalker
-                    { 5,  237049 },	-- Bracers of Dark Determination
-                    { 6,  47055 },	-- Bracers of the Autumn Willow
-                    { 7,  47056 },	-- Bracers of Cloudy Omen
-                    { 8,  237051 },	-- Bloodbath Belt
-                    { 9,  47057 },	-- Legplates of Failing Light
-                    { 10, 47052 },	-- Legguards of Feverish Dedication
-                    { 11, 237054 },	-- Dawnbreaker Greaves
-                    { 16, 47242 },	-- Trophy of the Crusade
-                    { 18, 47043 },	-- Charge of the Demon Lord
-                    { 19, 237043 },	-- Ring of the Darkmender
-                    { 20, 47041 },	-- Solace of the Defeated
-                    { 21, 47053 },	-- Symbol of Transgression
-                    { 22, 237046 },	-- Band of Deplorable Violence
-                    { 24, 46996 },	-- Lionhead Slasher
-                    { 25, 46994 },	-- Talonstrike
-                    { 27, "ac3997" },
-                     { 101,  47663 },	-- Felspark Bindings
-                    { 102,  47620 },	-- Leggings of the Demonic Messenger
-                    { 103,  47669 },	-- Belt of the Winter Solstice
-                    { 104,  47621 },	-- Girdle of the Farseer
-                    { 105,  49235 },	-- Boots of Tortured Space
-                    { 106,  47683 },	-- Sentinel Scouting Greaves
-                    { 107,  47680 },	-- Armguards of the Nether Lord
-                    { 108,  47711 },	-- Girdle of the Nether Champion
-                    { 116, 47619 },	-- Amulet of Binding Elements
-                    { 117, 47679 },	-- Endurance of the Infernal
-                    { 118, 47618 },	-- Firestorm Ring
-                    { 119, 47703 },	-- Planestalker Signet
-                    { 121, 47676 },	-- Dirk of the Night Watch
-                    { 123, "ac3996" },
-                }
+                 { 1,  47663 },	-- Felspark Bindings
+                    { 2,  47620 },	-- Leggings of the Demonic Messenger
+                    { 3,  47669 },	-- Belt of the Winter Solstice
+                    { 4,  47621 },	-- Girdle of the Farseer
+                    { 5,  49235 },	-- Boots of Tortured Space
+                    { 6,  47683 },	-- Sentinel Scouting Greaves
+                    { 7,  47680 },	-- Armguards of the Nether Lord
+                    { 8,  47711 },	-- Girdle of the Nether Champion
+                    { 9, 47619 },	-- Amulet of Binding Elements
+                    { 10, 47679 },	-- Endurance of the Infernal
+                    { 11, 47618 },	-- Firestorm Ring
+                    { 12, 47703 },	-- Planestalker Signet
+                    { 13, 47676 },	-- Dirk of the Night Watch
+                    { 14, 47042 },	-- Pride of the Eredar
+                    { 15, 47051 },	-- Leggings of the Soothing Touch
+                    { 16, 47242  },	-- Cuirass of Calamitous Fate
+                    { 17,272955},
+                   
+                    { 18, 47056 },	-- Bracers of Cloudy Omen
+                    { 19, 46999 },	-- Bloodbath Belt
+                    { 20, 47057 },	-- Legplates of Failing Light
+                    { 21, 47052 },	-- Legguards of Feverish Dedication
+                    { 22, 46997 },	-- Dawnbreaker Greaves
+                    { 23,  47000},	-- Trophy of the Crusade
+                    { 24, 47043 },	-- Charge of the Demon Lord
+                    { 25, 47223 },	-- Ring of the Darkmender
+                    { 26, 47041 },	-- Solace of the Defeated
+                    { 27, 47053 },	-- Symbol of Transgression
+                    { 28, 46996 },	-- Lionhead Slasher
+                    { 29, 46994 },	-- Talonstrike
+                    { 30, 47055 },	-- Bracers of the Autumn Willow
+                },true
             ),
-            -- [RAID25H_DIFF] = AtlasLoot:GetRetByFaction(
-            --     { -- horde
-            --         { 1,  47436 },	-- Pride of the Demon Lord
-            --         { 2,  47435 },	-- Pants of the Soothing Touch
-            --         { 3,  47431 },	-- Vest of Calamitous Fate
-            --         { 4,  47438 },	-- Bindings of the Autumn Willow
-            --         { 5,  47441 },	-- Wristwraps of Cloudy Omen
-            --         { 6,  47429 },	-- Bloodbath Girdle
-            --         { 7,  47440 },	-- Leggings of Failing Light
-            --         { 8,  47434 },	-- Legplates of Feverish Dedication
-            --         { 9,  47430 },	-- Dawnbreaker Sabatons
-            --         { 16, 47433 },	-- Charge of the Eredar
-            --         { 17, 47439 },	-- Circle of the Darkmender
-            --         { 18, 47432 },	-- Solace of the Fallen
-            --         { 19, 47437 },	-- Talisman of Heedless Sins
-            --         { 21, 47427 },	-- Blood Fury
-            --         { 22, 47428 },	-- Death's Head Crossbow
-            --         { 24, 47242 },	-- Trophy of the Crusade
-            --         { 25, 47557 }, -- Regalia of the Grand Conqueror
-            --         { 26, 47558 }, -- Regalia of the Grand Protector
-            --         { 27, 47559 }, -- Regalia of the Grand Vanquisher
-            --         { 30, "ac3997" },
-            --     },
-            --     { -- alli
-            --         { 1,  47063 },	-- Pride of the Eredar
-            --         { 2,  47062 },	-- Leggings of the Soothing Touch
-            --         { 3,  47004 },	-- Cuirass of Calamitous Fate
-            --         { 4,  47066 },	-- Bracers of the Autumn Willow
-            --         { 5,  47068 },	-- Bracers of Cloudy Omen
-            --         { 6,  47002 },	-- Bloodbath Belt
-            --         { 7,  47067 },	-- Legplates of Failing Light
-            --         { 8,  47061 },	-- Legguards of Feverish Dedication
-            --         { 9,  47003 },	-- Dawnbreaker Greaves
-			-- 		{ 12, 47059 },	-- Solace of the Defeated
-            --         { 16, 47060 },	-- Charge of the Demon Lord
-            --         { 17, 47224 },	-- Ring of the Darkmender
-            --         { 19, 47064 },	-- Symbol of Transgression
-            --         { 20, 47001 },	-- Lionhead Slasher
-            --         { 21, 46995 },	-- Talonstrike
-            --         { 23, 47242 },	-- Trophy of the Crusade
-            --         { 24, 47557 }, -- Regalia of the Grand Conqueror
-            --         { 25, 47558 }, -- Regalia of the Grand Protector
-            --         { 26, 47559 }, -- Regalia of the Grand Vanquisher
-            --         { 28, "ac3997" },
-            --     }
-            -- ),
+
         },
         {	--TrialoftheCrusader FactionChampions
             name = AL["Faction Champions"],
-            -- [RAID10_DIFF] = AtlasLoot:GetRetByFaction(
-            --     { -- horde
-            --         { 1,  47873 },	-- Sunreaver Magus' Sandals
-            --         { 2,  47878 },	-- Sunreaver Assassin's Gloves
-            --         { 3,  47875 },	-- Sunreaver Ranger's Helm
-            --         { 4,  47876 },	-- Sunreaver Champion's Faceplate
-            --         { 5,  47877 },	-- Sunreaver Defender's Pauldrons
-            --         { 7,  47880 },	-- Binding Stone
-            --         { 8,  47882 },	-- Eitrigg's Oath
-            --         { 9,  47879 },	-- Fetish of Volatile Power
-            --         { 10, 47881 },	-- Vengeance of the Forsaken
-            --         { 16, 47874 },	-- Sunreaver Disciple's Blade
-            --         { 18, "ac3798" },
-            --     },
-            --     { -- alli
-            --         { 1,  47721 },	-- Sandals of the Silver Magus
-            --         { 2,  47719 },	-- Gloves of the Silver Assassin
-            --         { 3,  47718 },	-- Helm of the Silver Ranger
-            --         { 4,  47717 },	-- Faceplate of the Silver Champion
-            --         { 5,  47720 },	-- Pauldrons of the Silver Defender
-            --         { 7,  47728 },	-- Binding Light
-            --         { 8,  47727 },	-- Fervor of the Frostborn
-            --         { 9,  47726 },	-- Talisman of Volatile Power
-            --         { 10, 47725 },	-- Victor's Call
-            --         { 16, 47724 },	-- Blade of the Silver Disciple
-            --         { 18, "ac3798" },
-            --     }
-            -- ),
-            -- [RAID10H_DIFF] = AtlasLoot:GetRetByFaction(
-            --     { -- horde
-            --         { 1,  48012 },	-- Sunreaver Magus' Sandals
-            --         { 2,  48017 },	-- Sunreaver Assassin's Gloves
-            --         { 3,  48014 },	-- Sunreaver Ranger's Helm
-            --         { 4,  48015 },	-- Sunreaver Champion's Faceplate
-            --         { 5,  48016 },	-- Sunreaver Defender's Pauldrons
-            --         { 7,  48019 },	-- Binding Stone
-            --         { 8,  48021 },	-- Eitrigg's Oath
-            --         { 9,  48018 },	-- Fetish of Volatile Power
-            --         { 10, 48020 },	-- Vengeance of the Forsaken
-            --         { 16, 48013 },	-- Sunreaver Disciple's Blade
-            --         { 18, 47242 },	-- Trophy of the Crusade
-            --         { 20, "ac3798" },
-            --     },
-            --     { -- alli
-            --         { 1,  47940 },	-- Sandals of the Silver Magus
-            --         { 2,  47945 },	-- Gloves of the Silver Assassin
-            --         { 3,  47942 },	-- Helm of the Silver Ranger
-            --         { 4,  47943 },	-- Faceplate of the Silver Champion
-            --         { 5,  47944 },	-- Pauldrons of the Silver Defender
-            --         { 7,  47947 },	-- Binding Light
-            --         { 8,  47949 },	-- Fervor of the Frostborn
-            --         { 9,  47946 },	-- Talisman of Volatile Power
-            --         { 10, 47948 },	-- Victor's Call
-            --         { 16, 47941 },	-- Blade of the Silver Disciple
-            --         { 18, 47242 },	-- Trophy of the Crusade
-            --         { 20, "ac3798" },
-            --     }
-            -- ),
+
             [NORMAL_DIFF] = AtlasLoot:GetRetByFaction(
                 { -- horde
-                    { 1,  47291 },	-- Shroud of Displacement
-                    { 2,  47286 },	-- Belt of Biting Cold
-                    { 3,  47293 },	-- Sandals of the Mourning Widow
-                    { 4,  47292 },	-- Robes of the Shattered Fellowship
-                    { 5,  237083 },	-- Icewalker Treads
-                    { 6,  237075 },	-- Bracers of the Silent Massacre
-                    { 7,  47289 },	-- Leggings of Concealed Hatred
-                    { 8,  47295 },	-- Sabatons of Tremoring Earth
-                    { 9,  47288 },	-- Chestplate of the Frostwolf Hero
-                    { 10, 47294 },	-- Bracers of the Broken Bond
-                    { 11, 237077 },	-- Belt of Bloodied Scars
-                    { 12, 47242 },	-- Trophy of the Crusade
-                    { 13, 237072 },	-- Band of Callous Aggression
-                    { 14, 47290 },	-- Juggernaut's Vitality
-                    { 15, 237091 },	-- Dual-blade Butcher
-                    { 16, 237086 },	-- Bastion of Resolve
-
-                      { 18,  47873 },	-- Sunreaver Magus' Sandals
-                    { 19,  47878 },	-- Sunreaver Assassin's Gloves
-                    { 20,  47875 },	-- Sunreaver Ranger's Helm
-                    { 21,  47876 },	-- Sunreaver Champion's Faceplate
-                    { 21,  47877 },	-- Sunreaver Defender's Pauldrons
-                    { 23,  47880 },	-- Binding Stone
-                    { 24,  47882 },	-- Eitrigg's Oath
-                    { 25,  47879 },	-- Fetish of Volatile Power
-                    { 26, 47881 },	-- Vengeance of the Forsaken
-                    { 27, 47874 },	-- Sunreaver Disciple's Blade
+                    { 1,  47873 },	-- Sunreaver Magus' Sandals
+                    { 2,  47878 },	-- Sunreaver Assassin's Gloves
+                    { 3,  47875 },	-- Sunreaver Ranger's Helm
+                    { 4,  47876 },	-- Sunreaver Champion's Faceplate
+                    { 5,  47877 },	-- Sunreaver Defender's Pauldrons
+                    { 6,  47880 },	-- Binding Stone
+                    { 7,  47882 },	-- Eitrigg's Oath
+                    { 8,  47879 },	-- Fetish of Volatile Power
+                    { 9, 47881 },	-- Vengeance of the Forsaken
+                    { 10, 47874 },	-- Sunreaver Disciple's Blade
+                    { 11,  47291 },	-- Shroud of Displacement
+                    { 12,  47286 },	-- Belt of Biting Cold
+                    { 13,  47293 },	-- Sandals of the Mourning Widow
+                    { 14,  47292 },	-- Robes of the Shattered Fellowship
+                    { 15,  47284 },	-- Icewalker Treads
+                    { 16,  47242  },	-- Bracers of the Silent Massacre
+                    { 17,  47289 },	-- Leggings of Concealed Hatred
+                    { 18,  47295 },	-- Sabatons of Tremoring Earth
+                    { 19,  47288 },	-- Chestplate of the Frostwolf Hero
+                    { 20, 47294 },	-- Bracers of the Broken Bond
+                    { 21, 47283 },	-- Belt of Bloodied Scars
+                    { 22,  47281},	-- Trophy of the Crusade
+                    { 23, 47282 },	-- Band of Callous Aggression
+                    { 24, 47290 },	-- Juggernaut's Vitality
+                    { 25, 47285 },	-- Dual-blade Butcher
+                    { 26, 47287 },	-- Bastion of Resolve
                 },
                 { -- alli
-                    { 1,  47089 },	-- Cloak of Displacement
-                    { 2,  47081 },	-- Cord of Biting Cold
-                    { 3,  47092 },	-- Boots of the Mourning Widow
-                    { 4,  47094 },	-- Vestments of the Shattered Fellowship
-                    { 5,  237056 },	-- Treads of the Icewalker
-                    { 6,  237048 },	-- Bracers of the Untold Massacre
-                    { 7,  47083 },	-- Legguards of Concealed Hatred
-                    { 8,  47090 },	-- Boots of Tremoring Earth
-                    { 9,  47082 },	-- Chestplate of the Frostborn Hero
-                    { 10, 47093 },	-- Vambraces of the Broken Bond
-                    { 11, 237050 },	-- Girdle of Bloodied Scars
-                    { 12, 47242 },	-- Trophy of the Crusade
-                    { 13, 237045 },	-- Ring of Callous Aggression
-                    { 14, 47080 },	-- Satrina's Impeding Scarab
-                    { 15, 237065 },	-- Justicebringer
-                    { 16, 237060 },	-- Bastion of Purity
-                     { 18,  47721 },	-- Sandals of the Silver Magus
-                    { 19,  47719 },	-- Gloves of the Silver Assassin
-                    { 20,  47718 },	-- Helm of the Silver Ranger
-                    { 21,  47717 },	-- Faceplate of the Silver Champion
-                    { 22,  47720 },	-- Pauldrons of the Silver Defender
-                    {23,  47728 },	-- Binding Light
-                    { 24,  47727 },	-- Fervor of the Frostborn
-                    { 25,  47726 },	-- Talisman of Volatile Power
-                    { 26, 47725 },	-- Victor's Call
-                    { 27, 47724 },	-- Blade of the Silver Disciple
-                }
+                    { 1,  47721 },	-- Sandals of the Silver Magus
+                    { 2,  47719 },	-- Gloves of the Silver Assassin
+                    { 3,  47718 },	-- Helm of the Silver Ranger
+                    { 4,  47717 },	-- Faceplate of the Silver Champion
+                    { 5,  47720 },	-- Pauldrons of the Silver Defender
+                    { 6,  47728 },	-- Binding Light
+                    { 7,  47727 },	-- Fervor of the Frostborn
+                    { 8,  47726 },	-- Talisman of Volatile Power
+                    { 9, 47725 },	-- Victor's Call
+                    { 10, 47724 },	-- Blade of the Silver Disciple
+                    { 11,  47089 },	-- Cloak of Displacement
+                    { 12,  47081 },	-- Cord of Biting Cold
+                    { 13,  47092 },	-- Boots of the Mourning Widow
+                    { 14,  47094 },	-- Vestments of the Shattered Fellowship
+                    { 15,  47071 },	-- Treads of the Icewalker
+                    { 16,  47242  },	-- Bracers of the Untold Massacre
+                    { 17,  47083 },	-- Legguards of Concealed Hatred
+                    { 18,  47090 },	-- Boots of Tremoring Earth
+                    { 19,  47082 },	-- Chestplate of the Frostborn Hero
+                    { 20, 47093 },	-- Vambraces of the Broken Bond
+                    { 21, 47072 },	-- Girdle of Bloodied Scars
+                    { 22, 47073 },	-- Trophy of the Crusade
+                    { 23, 47070 },	-- Ring of Callous Aggression
+                    { 24, 47080 },	-- Satrina's Impeding Scarab
+                    { 25, 47069 },	-- Justicebringer
+                    { 26, 47079 },	-- Bastion of Purity
+                    
+                },true
             ),
-            -- [RAID25H_DIFF] = AtlasLoot:GetRetByFaction(
-            --     { -- horde
-            --         { 1,  47452 },	-- Shroud of Displacement
-            --         { 2,  47447 },	-- Belt of Biting Cold
-            --         { 3,  47454 },	-- Sandals of the Mourning Widow
-            --         { 4,  47453 },	-- Robes of the Shattered Fellowship
-            --         { 5,  47445 },	-- Icewalker Treads
-            --         { 6,  47442 },	-- Bracers of the Silent Massacre
-            --         { 7,  47450 },	-- Leggings of Concealed Hatred
-            --         { 8,  47456 },	-- Sabatons of Tremoring Earth
-            --         { 9,  47449 },	-- Chestplate of the Frostwolf Hero
-            --         { 10, 47455 },	-- Bracers of the Broken Bond
-            --         { 11, 47444 },	-- Belt of Bloodied Scars
-            --         { 16, 47443 },	-- Band of Callous Aggression
-            --         { 17, 47451 },	-- Juggernaut's Vitality
-            --         { 19, 47446 },	-- Dual-blade Butcher
-            --         { 20, 47448 },	-- Bastion of Resolve
-            --         { 22, 47242 },	-- Trophy of the Crusade
-            --         { 23, 47557 }, -- Regalia of the Grand Conqueror
-            --         { 24, 47558 }, -- Regalia of the Grand Protector
-            --         { 25, 47559 }, -- Regalia of the Grand Vanquisher
-            --     },
-            --     { -- alli
-            --         { 1,  47095 },	-- Cloak of Displacement
-            --         { 2,  47084 },	-- Cord of Biting Cold
-            --         { 3,  47097 },	-- Boots of the Mourning Widow
-            --         { 4,  47096 },	-- Vestments of the Shattered Fellowship
-            --         { 5,  47077 },	-- Treads of the Icewalker
-            --         { 6,  47074 },	-- Bracers of the Untold Massacre
-            --         { 7,  47087 },	-- Legguards of Concealed Hatred
-            --         { 8,  47099 },	-- Boots of Tremoring Earth
-            --         { 9,  47086 },	-- Chestplate of the Frostborn Hero
-            --         { 10, 47098 },	-- Vambraces of the Broken Bond
-            --         { 11, 47076 },	-- Girdle of Bloodied Scars
-            --         { 13, 47088 },	-- Satrina's Impeding Scarab
-            --         { 16, 47075 },	-- Ring of Callous Aggression
-            --         { 18, 47078 },	-- Justicebringer
-            --         { 19, 47085 },	-- Bastion of Purity
-            --         { 21, 47242 },	-- Trophy of the Crusade
-            --         { 22, 47557 }, -- Regalia of the Grand Conqueror
-            --         { 23, 47558 }, -- Regalia of the Grand Protector
-            --         { 24, 47559 }, -- Regalia of the Grand Vanquisher
-            --     }
-            -- ),
+
         },
         {	--TrialoftheCrusader TwinValkyrs
             name = AL["The Twin Val'kyr"],
             EncounterJournalID = 1622,
-            -- [RAID10_DIFF] = AtlasLoot:GetRetByFaction(
-            --     { -- horde
-            --         { 1,  47889 },	-- Looming Shadow Wraps
-            --         { 2,  49232 },	-- Sandals of the Grieving Soul
-            --         { 3,  47891 },	-- Helm of the High Mesa
-            --         { 4,  47887 },	-- Vest of Shifting Shadows
-            --         { 5,  47893 },	-- Sen'jin Ritualist Gloves
-            --         { 6,  47885 },	-- Greaves of the Lingering Vortex
-            --         { 8,  47890 },	-- Darkbane Amulet
-            --         { 9,  47888 },	-- Band of the Twin Val'kyr
-            --         { 10, 47913 },	-- Lightbane Focus
-            --         { 16, 47886 },	-- Nemesis Blade
-            --         { 17, 47884 },	-- Edge of Agony
-            --         { 18, 47892 },	-- Illumination
-            --         { 19, 47883 },	-- Widebarrel Flintlock
-            --         { 21, "ac3799" },
-            --     },
-            --     { -- alli
-            --         { 1,  47745 },	-- Gloves of Looming Shadow
-            --         { 2,  49231 },	-- Boots of the Grieving Soul
-            --         { 3,  47746 },	-- Helm of the Snowy Grotto
-            --         { 4,  47739 },	-- Armor of Shifting Shadows
-            --         { 5,  47744 },	-- Gloves of the Azure Prophet
-            --         { 6,  47738 },	-- Sabatons of the Lingering Vortex
-            --         { 8,  47747 },	-- Darkbane Pendant
-            --         { 9,  47700 },	-- Loop of the Twin Val'kyr
-            --         { 10, 47742 },	-- Chalice of Benedictus
-            --         { 16, 47736 },	-- Icefall Blade
-            --         { 17, 47737 },	-- Reckoning
-            --         { 18, 47743 },	-- Enlightenment
-            --         { 19, 47740 },	-- The Diplomat
-            --         { 21, "ac3799" },
-            --     }
-            -- ),
-            -- [RAID10H_DIFF] = AtlasLoot:GetRetByFaction(
-            --     { -- horde
-            --         { 1,  48028 },	-- Looming Shadow Wraps
-            --         { 2,  49233 },	-- Sandals of the Grieving Soul
-            --         { 3,  48034 },	-- Helm of the High Mesa
-            --         { 4,  48026 },	-- Vest of Shifting Shadows
-            --         { 5,  48038 },	-- Sen'jin Ritualist Gloves
-            --         { 6,  48024 },	-- Greaves of the Lingering Vortex
-            --         { 8,  48030 },	-- Darkbane Amulet
-            --         { 9,  48027 },	-- Band of the Twin Val'kyr
-            --         { 10, 48032 },	-- Lightbane Focus
-            --         { 12, 48025 },	-- Nemesis Blade
-            --         { 13, 48023 },	-- Edge of Agony
-            --         { 14, 48036 },	-- Illumination
-            --         { 15, 48022 },	-- Widebarrel Flintlock
 
-            --         { 16, 47242 },	-- Trophy of the Crusade
-            --         { 18, 48703 }, --  The Facebreaker
-            --         { 19, 48699 }, --  Blood and Glory
-            --         { 20, 48693 }, --  Heartsmasher
-            --         { 21, 48701 }, --  Spellharvest
-            --         { 22, 48697 }, -- Frenzystrike Longbow
-            --         { 23, 48705 }, -- Attrition
-            --         { 24, 48695 }, -- Mor'kosh
-
-            --         { 26, "ac3799" },
-            --     },
-            --     { -- alli
-            --         { 1,  47956 },	-- Gloves of Looming Shadow
-            --         { 2,  49234 },	-- Boots of the Grieving Soul
-            --         { 3,  47959 },	-- Helm of the Snowy Grotto
-            --         { 4,  47954 },	-- Armor of Shifting Shadows
-            --         { 5,  47961 },	-- Gloves of the Azure Prophet
-            --         { 6,  47952 },	-- Sabatons of the Lingering Vortex
-            --         { 8,  47957 },	-- Darkbane Pendant
-            --         { 9,  47955 },	-- Loop of the Twin Val'kyr
-            --         { 10, 47958 },	-- Chalice of Benedictus
-            --         { 12, 47953 },	-- Icefall Blade
-            --         { 13, 47951 },	-- Reckoning
-            --         { 14, 47960 },	-- Enlightenment
-            --         { 15, 47950 },	-- The Diplomat
-
-            --         { 16, 47242 },	-- Trophy of the Crusade
-            --         { 18, 48712 }, --  The Spinebreaker
-            --         { 19, 48714 }, --  Honor of the Fallen
-            --         { 20, 48709 }, --  Heartcrusher
-            --         { 21, 48708 }, --  Spellstorm Blade
-            --         { 22, 48711 }, -- Rhok'shalla the Shadow's Bane
-            --         { 23, 48710 }, --  Paragon's Breadth
-            --         { 24, 48713 }, --  Lothar's Edge
-
-            --         { 26, "ac3799" },
-            --     }
-            -- ),
             [NORMAL_DIFF] = AtlasLoot:GetRetByFaction(
                 { -- horde
-                    { 1,  47301 },	-- Skyweaver Vestments
-                    { 2,  47306 },	-- Dark Essence Bindings
-                    { 3,  47308 },	-- Belt of Pale Thorns
-                    { 4,  237080 },	-- Belt of the Pitiless Killer
-                    { 5,  237082 },	-- Greaves of Ruthless Judgment
-                    { 6,  47310 },	-- Chestplate of the Frozen Lake
-                    { 7,  237074 },	-- Armguards of the Shieldmaiden
-                    { 8,  47304 },	-- Legplates of Ascension
-                    { 10, 47307 },	-- Cry of the Val'kyr
-                    { 11, 47305 },	-- Legionnaire's Gorget
-                    { 12, 47297 },	-- The Executioner's Vice
-                    { 13, 47303 },	-- Death's Choice
-                    { 14, 47309 },	-- Mystifying Charm
-                    { 15, 47242 },	-- Trophy of the Crusade
-                    { 16, 47300 },	-- Gouge of the Frigid Heart
-                    { 17, 237093 },	-- Twin's Pact
-                    
-                    { 18, 47883 },	-- Widebarrel Flintlock
-                    { 19,  47889 },	-- Looming Shadow Wraps
-                    { 20,  49232 },	-- Sandals of the Grieving Soul
-                    { 21,  47891 },	-- Helm of the High Mesa
-                    { 22,  47887 },	-- Vest of Shifting Shadows
-                    { 23,  47893 },	-- Sen'jin Ritualist Gloves
-                    { 24,  47885 },	-- Greaves of the Lingering Vortex
-                    { 25,  47890 },	-- Darkbane Amulet
-                    { 26,  47888 },	-- Band of the Twin Val'kyr
-                    { 27, 47913 },	-- Lightbane Focus
-                    { 28, 47886 },	-- Nemesis Blade
-                    { 29, 47884 },	-- Edge of Agony
-                    { 30, 47892 },	-- Illumination
-                    
+                    { 1,  47889 },	-- Looming Shadow Wraps
+                    { 2,  49232 },	-- Sandals of the Grieving Soul
+                    { 3,  47891 },	-- Helm of the High Mesa
+                    { 4,  47887 },	-- Vest of Shifting Shadows
+                    { 5,  47893 },	-- Sen'jin Ritualist Gloves
+                    { 6,  47885 },	-- Greaves of the Lingering Vortex
+                    { 7,  47890 },	-- Darkbane Amulet
+                    { 8,  47888 },	-- Band of the Twin Val'kyr
+                    { 9,  47913 },	-- Lightbane Focus
+                    { 10, 47886 },	-- Nemesis Blade
+                    { 11, 47884 },	-- Edge of Agony
+                    { 12, 47892 },	-- Illumination
+                    { 13, 47883 },	-- Widebarrel Flintlock
+                    { 14, 47301 },	-- Skyweaver Vestments
+                    { 15, 47306 },	-- Dark Essence Bindings
+                    { 16, 47242 },	-- Belt of Pale Thorns
+                    { 17, 267335},
+                    { 18, 47296 },	-- Greaves of Ruthless Judgment
+                    { 19, 47310 },	-- Chestplate of the Frozen Lake
+                    { 20, 47298 },	-- Armguards of the Shieldmaiden
+                    { 21, 47304 },	-- Legplates of Ascension
+                    { 22, 47305 },	-- Legionnaire's Gorget
+                    { 23, 47297 },	-- The Executioner's Vice
+                    { 24, 47307 },	-- Cry of the Val'kyr
+                    { 25, 47303 },	-- Death's Choice
+                    { 26, 47309 },	-- Mystifying Charm
+                    { 27, 47299 },	-- Trophy of the Crusade
+                    { 28, 47300 },	-- Gouge of the Frigid Heart
+                    { 29, 47302 },	-- Twin's Pact
+                    { 30, 47308 },	
+                    -- { 30, "ac3815" },
                 },
                 { -- alli
-                    { 1,  47126 },	-- Skyweaver Robes
-                    { 2,  47141 },	-- Bindings of Dark Essence
-                    { 3,  237053 },	-- Belt of the Merciless Killer
-                    { 4,  47140 },	-- Cord of Pale Thorns
-                    { 5,  237055 },	-- Sabatons of Ruthless Judgment
-                    { 6,  47142 },	-- Breastplate of the Frozen Lake
-                    { 7,  237047 },	-- Bracers of the Shieldmaiden
-                    { 8,  47121 },	-- Legguards of Ascension
-                    { 9, 47116 },	-- The Arbiter's Muse
-                    { 10, 47105 },	-- The Executioner's Malice
-                    { 11, 47139 },	-- Wail of the Val'kyr
-                    { 12, 47115 },	-- Death's Verdict
-                    { 13, 47138 },	-- Chalice of Searing Light
-                    { 14, 47242 },	-- Trophy of the Crusade
-                    { 15, 47104 },	-- Twin Spike
-                    { 16, 237067 },	-- Lupine Longstaff
-
-                     { 18,  47745 },	-- Gloves of Looming Shadow
-                    { 19,  49231 },	-- Boots of the Grieving Soul
-                    { 20,  47746 },	-- Helm of the Snowy Grotto
-                    { 21,  47739 },	-- Armor of Shifting Shadows
-                    { 22,  47744 },	-- Gloves of the Azure Prophet
-                    { 23,  47738 },	-- Sabatons of the Lingering Vortex
-                    { 24,  47747 },	-- Darkbane Pendant
-                    { 25,  47700 },	-- Loop of the Twin Val'kyr
-                    { 26, 47742 },	-- Chalice of Benedictus
-                    { 27, 47736 },	-- Icefall Blade
-                    { 28, 47737 },	-- Reckoning
-                    { 29, 47743 },	-- Enlightenment
-                    { 30, 47740 },	-- The Diplomat
-                }
+                    { 1,  47745 },	-- Gloves of Looming Shadow
+                    { 2,  49231 },	-- Boots of the Grieving Soul
+                    { 3,  47746 },	-- Helm of the Snowy Grotto
+                    { 4,  47739 },	-- Armor of Shifting Shadows
+                    { 5,  47744 },	-- Gloves of the Azure Prophet
+                    { 6,  47738 },	-- Sabatons of the Lingering Vortex
+                    { 7,  47747 },	-- Darkbane Pendant
+                    { 8,  47700 },	-- Loop of the Twin Val'kyr
+                    { 9, 47742 },	-- Chalice of Benedictus
+                    { 10, 47736 },	-- Icefall Blade
+                    { 11, 47737 },	-- Reckoning
+                    { 12, 47743 },	-- Enlightenment
+                    { 13, 47740 },	-- The Diplomat
+                    { 14,  47126 },	-- Skyweaver Robes
+                    { 15,  47141 },	-- Bindings of Dark Essence
+                    { 16,  47242  },	-- Belt of the Merciless Killer
+                    { 17, 267335},
+                   
+                    { 18,  47106 },	-- Sabatons of Ruthless Judgment
+                    { 19,  47142 },	-- Breastplate of the Frozen Lake
+                    { 20,  47108 },	-- Bracers of the Shieldmaiden
+                    { 21,  47121 },	-- Legguards of Ascension
+                    { 22, 47116 },	-- The Arbiter's Muse
+                    { 23, 47105 },	-- The Executioner's Malice
+                    { 24, 47139 },	-- Wail of the Val'kyr
+                    { 25, 47115 },	-- Death's Verdict
+                    { 26, 47138 },	-- Chalice of Searing Light
+                    { 27, 47107 },	-- Trophy of the Crusade
+                    { 28, 47104 },	-- Twin Spike
+                    { 29, 47114 },	-- Lupine Longstaff
+                    { 30,  47140 },	-- Cord of Pale Thorns
+                    -- { 30, "ac3815" },
+                },true
             ),
-            -- [RAID25H_DIFF] = AtlasLoot:GetRetByFaction(
-            --     { -- horde
-            --         { 1,  47462 },	-- Skyweaver Vestments
-            --         { 2,  47467 },	-- Dark Essence Bindings
-            --         { 3,  47469 },	-- Belt of Pale Thorns
-            --         { 4,  47460 },	-- Belt of the Pitiless Killer
-            --         { 5,  47457 },	-- Greaves of Ruthless Judgment
-            --         { 6,  47471 },	-- Chestplate of the Frozen Lake
-            --         { 7,  47459 },	-- Armguards of the Shieldmaiden
-            --         { 8,  47465 },	-- Legplates of Ascension
-            --         { 10, 47468 },	-- Cry of the Val'kyr
-            --         { 11, 47466 },	-- Legionnaire's Gorget
-            --         { 12, 47458 },	-- The Executioner's Vice
-            --         { 13, 47464 },	-- Death's Choice
-            --         { 14, 47470 },	-- Mystifying Charm
-            --         { 16, 47461 },	-- Gouge of the Frigid Heart
-            --         { 17, 47463 },	-- Twin's Pact
-            --         { 19, 47242 },	-- Trophy of the Crusade
-            --         { 20, 47557 }, -- Regalia of the Grand Conqueror
-            --         { 21, 47558 }, -- Regalia of the Grand Protector
-            --         { 22, 47559 }, -- Regalia of the Grand Vanquisher
-            --         { 23, 47513 }, -- Orgrim's Deflector
-            --         { 24, 47528 }, -- Cudgel of the Damned
-            --         { 25, 47518 }, -- Mortalis
-            --         { 26, 47520 }, -- Grievance
-            --         { 27, 47523 }, -- Fezzik's Autocannon
-            --         { 28, 47525 }, -- Sufferance
-            --         { 29, 47516 }, -- Fleshrender
-            --         { 30, "ac3815" },
-            --     },
-            --     { -- alli
-            --         { 1,  47129 },	-- Skyweaver Robes
-            --         { 2,  47143 },	-- Bindings of Dark Essence
-            --         { 3,  47112 },	-- Belt of the Merciless Killer
-            --         { 4,  47145 },	-- Cord of Pale Thorns
-            --         { 5,  47109 },	-- Sabatons of Ruthless Judgment
-            --         { 6,  47147 },	-- Breastplate of the Frozen Lake
-            --         { 7,  47111 },	-- Bracers of the Shieldmaiden
-            --         { 8,  47132 },	-- Legguards of Ascension
-            --         { 10, 47133 },	-- The Arbiter's Muse
-            --         { 11, 47110 },	-- The Executioner's Malice
-            --         { 12, 47144 },	-- Wail of the Val'kyr
-            --         { 14, 47131 },	-- Death's Verdict
-            --         { 15, "ac3815" },
-            --         { 16, 47146 },	-- Chalice of Searing Light
-            --         { 17, 47113 },	-- Twin Spike
-            --         { 18, 47130 },	-- Lupine Longstaff
-            --         { 19, 47506 }, -- Silverwing Defender
-            --         { 20, 47526 }, -- Remorseless
-            --         { 21, 47517 }, -- Blade of the Unbroken Covenant
-            --         { 22, 47519 }, -- Catastrophe
-            --         { 23, 47521 }, -- BRK-1000
-            --         { 24, 47524 }, -- Clemency
-            --         { 25, 47515 }, -- Decimation
-            --         { 27, 47242 },	-- Trophy of the Crusade
-            --         { 28, 47557 }, -- Regalia of the Grand Conqueror
-            --         { 29, 47558 }, -- Regalia of the Grand Protector
-            --         { 30, 47559 }, -- Regalia of the Grand Vanquisher
-            --     }
-            -- ),
+
         },
         {	--TrialoftheCrusader Anubarak
             name = AL["Anub'arak"],
             EncounterJournalID = 1623,
-            -- [RAID10_DIFF] = AtlasLoot:GetRetByFaction(
-            --     { -- horde
-            --         { 1,  47906 },	-- Robes of the Sleepless
-            --         { 2,  47909 },	-- Belt of the Eternal
-            --         { 3,  47904 },	-- Shoulderpads of the Snow Bandit
-            --         { 4,  47897 },	-- Helm of the Crypt Lord
-            --         { 5,  47901 },	-- Pauldrons of the Shadow Hunter
-            --         { 6,  47896 },	-- Stoneskin Chestplate
-            --         { 7,  47902 },	-- Legplates of Redeemed Blood
-            --         { 8,  47908 },	-- Sunwalker Legguards
-            --         { 10, 47899 },	-- Ardent Guard
-            --         { 11, 47903 },	-- Forsaken Bonecarver
-            --         { 12, 47898 },	-- Frostblade Hatchet
-            --         { 13, 47894 },	-- Mace of the Earthborn Chieftain
-            --         { 14, 47905 },	-- Blackhorn Bludgeon
-            --         { 16, 47911 },	-- Anguish
-            --         { 17, 47900 },	-- Perdition
-            --         { 18, 47910 },	-- Aegis of the Coliseum
-            --         { 19, 47895 },	-- Pride of the Kor'kron
-            --         { 20, 47907 },	-- Darkmaw Crossbow
-            --         { 24, "ac3917" },
-            --         { 25, "ac3800" },
-            --     },
-            --     { -- alli
-            --         { 1,  47838 },	-- Vestments of the Sleepless
-            --         { 2,  47837 },	-- Cinch of the Undying
-            --         { 3,  47832 },	-- Spaulders of the Snow Bandit
-            --         { 4,  47813 },	-- Helmet of the Crypt Lord
-            --         { 5,  47829 },	-- Pauldrons of the Timeless Hunter
-            --         { 6,  47811 },	-- Chestguard of the Warden
-            --         { 7,  47836 },	-- Legplates of the Immortal Spider
-            --         { 8,  47830 },	-- Legplates of the Silver Hand
-            --         { 10, 47810 },	-- Crusader's Glory
-            --         { 11, 47814 },	-- Westfall Saber
-            --         { 12, 47808 },	-- The Lion's Maw
-            --         { 13, 47809 },	-- Argent Resolve
-            --         { 14, 47816 },	-- The Grinder
-            --         { 16, 47834 },	-- Fordragon Blades
-            --         { 17, 47815 },	-- Cold Convergence
-            --         { 18, 47835 },	-- Bulwark of the Royal Guard
-            --         { 19, 47812 },	-- Vigilant Ward
-            --         { 20, 47741 },	-- Baelgun's Heavy Crossbow
-            --         { 24, "ac3917" },
-            --         { 25, "ac3800" },
-            --     }
-            -- ),
-            -- [RAID10H_DIFF] = AtlasLoot:GetRetByFaction(
-            --     { -- horde
-            --         { 1,  48669 }, -- Cloak of the Triumphant Combatant
-            --         { 2,  48668 }, -- Cloak of Serrated Blades
-            --         { 3,  48670 }, -- Cloak of the Unflinching Guardian
-            --         { 4,  48666 }, -- Drape of the Sunreavers
-            --         { 5,  48667 }, -- Shawl of the Devout Crusader
-            --         { 7,  48051 },	-- Robes of the Sleepless
-            --         { 8,  48054 },	-- Belt of the Eternal
-            --         { 9,  48049 },	-- Shoulderpads of the Snow Bandit
-            --         { 10, 48042 },	-- Helm of the Crypt Lord
-            --         { 11, 48046 },	-- Pauldrons of the Shadow Hunter
-            --         { 12, 48041 },	-- Stoneskin Chestplate
-            --         { 13, 48047 },	-- Legplates of Redeemed Blood
-            --         { 14, 48053 },	-- Sunwalker Legguards
-            --         { 16, 48044 },	-- Ardent Guard
-            --         { 17, 48048 },	-- Forsaken Bonecarver
-            --         { 18, 48043 },	-- Frostblade Hatchet
-            --         { 19, 48039 },	-- Mace of the Earthborn Chieftain
-            --         { 20, 48050 },	-- Blackhorn Bludgeon
-            --         { 22, 48056 },	-- Anguish
-            --         { 23, 48045 },	-- Perdition
-            --         { 24, 48055 },	-- Aegis of the Coliseum
-            --         { 25, 48040 },	-- Pride of the Kor'kron
-            --         { 26, 48052 },	-- Darkmaw Crossbow
-            --         { 28, "ac3917" },
-            --         { 29, "ac3918" },
-            --         { 30, "ac3800" },
-            --     },
-            --     { -- alli
-            --         { 1,  48674 }, -- Cloak of the Victorious Combatant
-            --         { 2,  48673 }, -- Cloak of the Silver Covenant
-            --         { 3,  48675 }, -- Cloak of the Unmoving Guardian
-            --         { 4,  48671 }, -- Drape of Bitter Incantation
-            --         { 5,  48672 }, -- Shawl of Fervent Crusader
-            --         { 7,  47974 },	-- Vestments of the Sleepless
-            --         { 8,  47977 },	-- Cinch of the Undying
-            --         { 9,  47972 },	-- Spaulders of the Snow Bandit
-            --         { 10, 47965 },	-- Headpiece of the Crypt Lord
-            --         { 11, 47969 },	-- Pauldrons of the Timeless Hunter
-            --         { 12, 47964 },	-- Chestguard of the Warden
-            --         { 13, 47976 },	-- Legplates of the Immortal Spider
-            --         { 14, 47970 },	-- Legplates of the Silver Hand
-            --         { 16, 47967 },	-- Crusader's Glory
-            --         { 17, 47971 },	-- Westfall Saber
-            --         { 18, 47966 },	-- The Lion's Maw
-            --         { 19, 47962 },	-- Argent Resolve
-            --         { 20, 47973 },	-- The Grinder
-            --         { 22, 47979 },	-- Fordragon Blades
-            --         { 23, 47968 },	-- Cold Convergence
-            --         { 24, 47978 },	-- Bulwark of the Royal Guard
-            --         { 25, 47963 },	-- Vigilant Ward
-            --         { 26, 47975 },	-- Baelgun's Heavy Crossbow
-            --         { 28, "ac3917" },
-            --         { 29, "ac3918" },
-            --         { 30, "ac3800" },
-            --     }
-            -- ),
+
             [NORMAL_DIFF] = AtlasLoot:GetRetByFaction(
                 { -- horde
-                    { 1,  47328 },	-- Maiden's Adoration
-                    { 2,  47320 },	-- Might of the Nerub
-                    { 3,  48669 }, -- Cloak of the Triumphant Combatant
-                    { 4,  48668 }, -- Cloak of Serrated Blades
-                    { 5,  48670 }, -- Cloak of the Unflinching Guardian
-                    { 6,  48666 }, -- Drape of the Sunreavers
-                    { 7,  48667 }, -- Shawl of the Devout Crusader
-                    { 8,  47324 },	-- Bindings of the Ashen Saint
-                    { 9,  47326 },	-- Handwraps of the Lifeless Touch
-                    { 10, 47317 },	-- Breeches of the Deepening Void
-                    { 11, 47321 },	-- Boots of the Icy Floe
-                    { 12, 47318 },	-- Leggings of the Awakening
-                    { 13, 47325 },	-- Cuirass of Flowing Elements
-                    { 14, 47311 },	-- Waistguard of Deathly Dominion
-                    { 15, 47319 },	-- Leggings of the Lurking Threat
-                    { 16, 47330 },	-- Gauntlets of Bitter Reprisal
-                    { 17, 47323 },	-- Girdle of the Forgotten Martyr
-                    { 18, 47312 },	-- Greaves of the Saronite Citadel
-                    { 20, 47242 },	-- Trophy of the Crusade
-                    { 22, 237069 },	-- Band of the Traitor King
-                    { 23, 47316 },	-- Reign of the Dead
-                    { 25, 237089 },	-- Hellscream Slicer
-                    { 26, 237084 },	-- Suffering's End
-                    { 27, 237092 },	-- Hellion Glaive
-                    { 28, 237085 },	-- Ardent Guard
-                    { 29, "ac3916" },
-                    { 30, "ac3816" },
-                     { 101,  47906 },	-- Robes of the Sleepless
-                    { 102,  47909 },	-- Belt of the Eternal
-                    { 103,  47904 },	-- Shoulderpads of the Snow Bandit
-                    { 104,  47897 },	-- Helm of the Crypt Lord
-                    { 105,  47901 },	-- Pauldrons of the Shadow Hunter
-                    { 106,  47896 },	-- Stoneskin Chestplate
-                    { 107,  47902 },	-- Legplates of Redeemed Blood
-                    { 108,  47908 },	-- Sunwalker Legguards
-                    { 110, 47899 },	-- Ardent Guard
-                    { 111, 47903 },	-- Forsaken Bonecarver
-                    { 112, 47898 },	-- Frostblade Hatchet
-                    { 113, 47894 },	-- Mace of the Earthborn Chieftain
-                    { 114, 47905 },	-- Blackhorn Bludgeon
-                    { 116, 47911 },	-- Anguish
-                    { 117, 47900 },	-- Perdition
-                    { 118, 47910 },	-- Aegis of the Coliseum
-                    { 119, 47895 },	-- Pride of the Kor'kron
-                    { 120, 47907 },	-- Darkmaw Crossbow
+                     { 1,  47906 },	-- Robes of the Sleepless
+                    { 2,  47909 },	-- Belt of the Eternal
+                    { 3,  47904 },	-- Shoulderpads of the Snow Bandit
+                    { 4,  47897 },	-- Helm of the Crypt Lord
+                    { 5,  47901 },	-- Pauldrons of the Shadow Hunter
+                    { 6,  47896 },	-- Stoneskin Chestplate
+                    { 7,  47902 },	-- Legplates of Redeemed Blood
+                    { 8,  47908 },	-- Sunwalker Legguards
+                    { 9, 47899 },	-- Ardent Guard
+                    { 10, 47903 },	-- Forsaken Bonecarver
+                    { 11, 47898 },	-- Frostblade Hatchet
+                    { 12, 47894 },	-- Mace of the Earthborn Chieftain
+                    { 13, 47905 },	-- Blackhorn Bludgeon
+                    { 14, 47911 },	-- Anguish
+                    { 15, 47900 },	-- Perdition
+                    { 16, 47242  },	-- Aegis of the Coliseum
+                    { 17, 267340},
+                    { 18, 47907 },	-- Darkmaw Crossbow
+                    { 19,  47328 },	-- Maiden's Adoration
+                    { 21,  47324 },	-- Bindings of the Ashen Saint
+                    { 22,  47326 },	-- Handwraps of the Lifeless Touch
+                    { 23,  47317 },	-- Breeches of the Deepening Void
+                    { 24,  47321 },	-- Boots of the Icy Floe
+                    { 25,  47313 },	-- Armbands of Dark Determination
+                    { 26,  47318 },	-- Leggings of the Awakening
+                    { 27,  47325 },	-- Cuirass of Flowing Elements
+                    { 28, 47311 },	-- Waistguard of Deathly Dominion
+                    { 29, 47319 },	-- Leggings of the Lurking Threat
+                    { 30, 47330 },	-- Gauntlets of Bitter Reprisal
+                    { 101, 47323 },	-- Girdle of the Forgotten Martyr
+                    { 102, 47312 },	-- Greaves of the Saronite Citadel
+                    { 103,  47910},	-- Trophy of the Crusade
+                    { 104, 47315 },	-- Band of the Traitor King
+                    { 105, 47327 },	-- Lurid Manifestation
+                    { 106, 47316 },	-- Reign of the Dead
+                    { 107, 47314 },	-- Hellscream Slicer
+                    { 108, 47322 },	-- Suffering's End
+                    { 109, 47329 },	-- Hellion Glaive
+                    { 110,  47895 },	-- Cord of Pale Thorns
+                    -- { 110, "ac3916" },
+                    -- { 111, "ac3816" },
                 },
                 { -- alli
-                    { 1,  47225 },	-- Maiden's Favor
-                    { 2,  47183 },	-- Strength of the Nerub
-                    { 3,  48674 }, -- Cloak of the Victorious Combatant
-                    { 4,  48673 }, -- Cloak of the Silver Covenant
-                    { 5,  48675 }, -- Cloak of the Unmoving Guardian
-                    { 6,  48671 }, -- Drape of Bitter Incantation
-                    { 7,  48672 }, -- Shawl of Fervent Crusader
-                    { 8,  47203 },	-- Armbands of the Ashen Saint
-                    { 9,  47235 },	-- Gloves of the Lifeless Touch
-                    { 10, 47187 },	-- Leggings of the Deepening Void
-                    { 11, 47194 },	-- Footpads of the Icy Floe
-                    { 12, 47186 },	-- Legwraps of the Awakening
-                    { 13, 47204 },	-- Chestguard of Flowing Elements
-                    { 14, 47152 },	-- Belt of Deathly Dominion
-                    { 15, 47184 },	-- Legguards of the Lurking Threat
-                    { 16, 47234 },	-- Gloves of Bitter Reprisal
-                    { 17, 47195 },	-- Belt of the Forgotten Martyr
-                    { 18, 47150 },	-- Greaves of the 7th Legion
-                    { 20, 47242 },	-- Trophy of the Crusade
-                    { 22, 237042 },	-- Signet of the Traitor King
-                    { 23, 47182 },	-- Reign of the Unliving
-                    { 25, 237063 },	-- Stormpike Cleaver
-                    { 26, 237059 },	-- Misery's End
-                    { 27, 237066 },	-- Archon Glaive
-                    { 28, 237068 },	-- Crusader's Glory
-                    { 29, "ac3916" },
-                    { 30, "ac3816" },
-                    
-                     { 101,  47838 },	-- Vestments of the Sleepless
-                    { 102,  47837 },	-- Cinch of the Undying
-                    { 103,  47832 },	-- Spaulders of the Snow Bandit
-                    { 104,  47813 },	-- Helmet of the Crypt Lord
-                    { 105,  47829 },	-- Pauldrons of the Timeless Hunter
-                    { 106,  47811 },	-- Chestguard of the Warden
-                    { 107,  47836 },	-- Legplates of the Immortal Spider
-                    { 108,  47830 },	-- Legplates of the Silver Hand
-                    { 110, 47810 },	-- Crusader's Glory
-                    { 111, 47814 },	-- Westfall Saber
-                    { 112, 47808 },	-- The Lion's Maw
-                    { 113, 47809 },	-- Argent Resolve
-                    { 114, 47816 },	-- The Grinder
-                    { 116, 47834 },	-- Fordragon Blades
-                    { 117, 47815 },	-- Cold Convergence
-                    { 118, 47835 },	-- Bulwark of the Royal Guard
-                    { 119, 47812 },	-- Vigilant Ward
-                    { 120, 47741 },	-- Baelgun's Heavy Crossbow
-                    { 124, "ac3917" },
-                    { 125, "ac3800" },
-                }
+                     { 1,  47838 },	-- Vestments of the Sleepless
+                    { 2,  47837 },	-- Cinch of the Undying
+                    { 3,  47832 },	-- Spaulders of the Snow Bandit
+                    { 4,  47813 },	-- Helmet of the Crypt Lord
+                    { 5,  47829 },	-- Pauldrons of the Timeless Hunter
+                    { 6,  47811 },	-- Chestguard of the Warden
+                    { 7,  47836 },	-- Legplates of the Immortal Spider
+                    { 8,  47830 },	-- Legplates of the Silver Hand
+                    { 9,  47810 },	-- Crusader's Glory
+                    { 10, 47814 },	-- Westfall Saber
+                    { 11, 47808 },	-- The Lion's Maw
+                    { 12, 47809 },	-- Argent Resolve
+                    { 13, 47816 },	-- The Grinder
+                    { 14, 47834 },	-- Fordragon Blades
+                    { 15, 47815 },	-- Cold Convergence
+                    { 16, 47242 },	-- Bulwark of the Royal Guard
+                    { 17, 267340},
+                    { 18, 47741 },	-- Baelgun's Heavy Crossbow
+                    { 19,  47225 },	-- Maiden's Favor
+                    { 21,  47203 },	-- Armbands of the Ashen Saint
+                    { 22,  47235 },	-- Gloves of the Lifeless Touch
+                    { 23,  47187 },	-- Leggings of the Deepening Void
+                    { 24,  47194 },	-- Footpads of the Icy Floe
+                    { 25,  47151 },	-- Bracers of Dark Determination
+                    { 26,  47186 },	-- Legwraps of the Awakening
+                    { 27,  47204 },	-- Chestguard of Flowing Elements
+                    { 28, 47152 },	-- Belt of Deathly Dominion
+                    { 29, 47184 },	-- Legguards of the Lurking Threat
+                    { 30, 47234 },	-- Gloves of Bitter Reprisal
+                    { 101, 47195 },	-- Belt of the Forgotten Martyr
+                    { 102, 47150 },	-- Greaves of the 7th Legion
+                    { 103,  47835},	-- Trophy of the Crusade
+                    { 104, 47054 },	-- Band of Deplorable Violence
+                    { 105, 47149 },	-- Signet of the Traitor King
+                    { 106, 47182 },	-- Reign of the Unliving
+                    { 107, 47148 },	-- Stormpike Cleaver
+                    { 108, 47193 },	-- Misery's End
+                    { 109, 47233 },	-- Archon Glaive
+                    { 110, 47812 },	-- Vigilant Ward
+                    -- { 110, "ac3916" },
+                    -- { 111, "ac3816" },
+                },true
             ),
-            -- [RAID25H_DIFF] = AtlasLoot:GetRetByFaction(
-            --     { -- horde
-            --         { 1,  47490 },	-- Maiden's Adoration
-            --         { 2,  47481 },	-- Might of the Nerub
-            --         { 3,  47546 }, -- Sylvanas' Cunning
-            --         { 4,  47550 }, -- Cairne's Endurance
-            --         { 5,  47548 }, -- Garrosh's Rage
-            --         { 6,  47551 }, -- Aethas' Intensity
-            --         { 7,  47554 }, -- Lady Liadrin's Conviction
-            --         { 8,  47485 },	-- Bindings of the Ashen Saint
-            --         { 9,  47487 },	-- Handwraps of the Lifeless Touch
-            --         { 10, 47478 },	-- Breeches of the Deepening Void
-            --         { 11, 47482 },	-- Boots of the Icy Floe
-            --         { 12, 47474 },	-- Armbands of Dark Determination
-            --         { 13, 47479 },	-- Leggings of the Awakening
-            --         { 14, 47486 },	-- Cuirass of Flowing Elements
-            --         { 15, 47472 },	-- Waistguard of Deathly Dominion
-            --         { 16, 47480 },	-- Leggings of the Lurking Threat
-            --         { 17, 47492 },	-- Gauntlets of Bitter Reprisal
-            --         { 18, 47484 },	-- Girdle of the Forgotten Martyr
-            --         { 19, 47473 },	-- Greaves of the Saronite Citadel
-            --         { 20, 47476 },	-- Band of the Traitor King
-            --         { 21, 47489 },	-- Lurid Manifestation
-            --         { 22, 47477 },	-- Reign of the Dead
-            --         { 23, 47475 },	-- Hellscream Slicer
-            --         { 24, 47483 },	-- Suffering's End
-            --         { 25, 47491 },	-- Hellion Glaive
-            --         { 26, 47242 },	-- Trophy of the Crusade
-            --         { 28, "ac3916" },
-            --         { 29, "ac3812" },
-            --         { 30, "ac3816" },
-            --     },
-            --     { -- alli
-            --         { 1,  47238 },	-- Maiden's Favor / Maiden's Adoration
-            --         { 2,  47192 },	-- Strength of the Nerub / Might of the Nerub
-            --         { 3,  47208 },	-- Armbands of the Ashen Saint / Bindings of the Ashen Saint
-            --         { 4,  47236 },	-- Gloves of the Lifeless Touch / Handwraps of the Lifeless Touch
-            --         { 5, 47189 },	-- Leggings of the Deepening Void / Breeches of the Deepening Void
-            --         { 6, 47205 },	-- Footpads of the Icy Floe / Boots of the Icy Floe
-            --         { 7, 47155 },	-- Bracers of Dark Determination / Armbands of Dark Determination
-            --         { 8, 47190 },	-- Legwraps of the Awakening / Leggings of the Awakening
-            --         { 9, 47209 },	-- Chestguard of Flowing Elements / Cuirass of Flowing Elements
-            --         { 10, 47153 },	-- Belt of Deathly Dominion / Waistguard of Deathly Dominion
-            --         { 11, 47191 },	-- Legguards of the Lurking Threat / Leggings of the Lurking Threat
-            --         { 12, 47240 },	-- Gloves of Bitter Reprisal / Gauntlets of Bitter Reprisal
-            --         { 13, 47207 },	-- Belt of the Forgotten Martyr / Girdle of the Forgotten Martyr
-            --         { 14, 47154 },	-- Greaves of the 7th Legion / Greaves of the Saronite Citadel
-            --         { 15, 47242 },	-- Trophy of the Crusade                    
-            --         { 16, 47237 },	-- Band of Deplorable Violence / Band of the Traitor King
-            --         { 17, 47157 },	-- Signet of the Traitor King / Lurid Manifestation
-            --         { 18, 47156 },	-- Stormpike Cleaver / Hellscream Slicer
-            --         { 19, 47206 },	-- Misery's End / Suffering's End
-            --         { 20, 47239 },	-- Archon Glaive / Hellion Glaive
-            --         { 22, 47188 },	-- Reign of the Unliving / Reign of the Dead
-            --         { 23, 47545 },  -- Vereesa's Dexterity
-            --         { 24, 47549 },  -- Magni's Resolution
-            --         { 25, 47547 },  -- Varian's Furor
-            --         { 26, 47552 },  -- Jaina's Radiance
-            --         { 27, 47553 },  -- Bolvar's Devotion
-            --         { 28, "ac3916" },
-            --         { 29, "ac3812" },
-            --         { 30, "ac3816" },
-            --     }
-            -- ),
+        },
+        {
+            name="未知掉落(大概率会实装)",
+            [NORMAL_DIFF]=AtlasLoot:GetRetByFaction(
+                { -- horde
+                    { 1, 47513 }, -- Orgrim's Deflector
+                    { 2, 47528 }, -- Cudgel of the Damned
+                    { 3, 47518 }, -- Mortalis
+                    { 4, 47520 }, -- Grievance
+                    { 5, 47523 }, -- Fezzik's Autocannon
+                    { 6, 47525 }, -- Sufferance
+                    { 7, 47516 }, -- Fleshrender
+                    { 8, 47548 }, -- Garrosh's Rage
+                    { 9, 47546 }, -- Sylvanas' Cunning
+                    { 10, 47550 }, -- Cairne's Endurance
+                    { 11, 47551 }, -- Aethas' Intensity
+                    { 12, 47554 }, -- Lady Liadrin's Conviction
+                },
+                { -- alli
+                    { 1, 47506 }, -- Silverwing Defender
+                    { 2, 47526 }, -- Remorseless
+                    { 3, 47517 }, -- Blade of the Unbroken Covenant
+                    { 4, 47519 }, -- Catastrophe
+                    { 5, 47521 }, -- BRK-1000
+                    { 6, 47524 }, -- Clemency
+                    { 7, 47515 }, -- Decimation
+                    { 8, 47547 }, -- Varian's Furor
+                    { 9, 47545 }, -- Vereesa's Dexterity
+                    { 10, 47549 }, -- Magni's Resolution
+                    { 11, 47552 }, -- Jaina's Radiance
+                    { 12, 47553 }, -- Bolvar's Devotion
+                },true
+            ),
         },
         {	-- Argent Crusade Tribute Chest
             name = format(AL["Argent Crusade Tribute Chest"]),
             --EncounterJournalID = 1623,
-            [RAID10H_DIFF] = AtlasLoot:GetRetByFaction(
+
+            [NORMAL_DIFF] = AtlasLoot:GetRetByFaction(
                 { -- horde
-                    headerLines = {5},
-                    { 5, "INV_Box_01", nil, format(AL["%s Attempts left"], "50"), format(AL["Includes the loot from %s"], "1-49") },
-                    { 6, 49046 }, -- Swift Horde Wolf
+                  
+                    { 1, 49098 }, -- Crusader's Black Warhorse
+                 
                 },
                 { -- alli
-                    headerLines = {5},
-                    { 5, "INV_Box_01", nil, format(AL["%s Attempts left"], "50"), format(AL["Includes the loot from %s"], "1-49") },
-                    { 6, 49044 }, -- Swift Alliance Steed
-                }
-            ),
-            [RAID25H_DIFF] = AtlasLoot:GetRetByFaction(
-                { -- horde
-                    headerLines = {5},
-                    { 5, "INV_Box_01", nil, format(AL["%s Attempts left"], "50"), format(AL["Includes the loot from %s"], "1-49") },
-                    { 6, 49098 }, -- Crusader's Black Warhorse
-                },
-                { -- alli
-                    headerLines = {5},
-                    { 5, "INV_Box_01", nil, format(AL["%s Attempts left"], "50"), format(AL["Includes the loot from %s"], "1-49") },
-                    { 6, 49096 }, -- Crusader's White Warhorse
-                }
+                 
+                    { 1, 49096 }, -- Crusader's White Warhorse
+                   
+                },true
             ),
         },
         {	--TrialoftheCrusader NorthrendBeasts
@@ -7878,18 +7267,18 @@ data["TrialoftheCrusader"] = {
                     { 4,  47643 },	-- Plans: Sunforged Breastplate (p2 450)
                     { 5,  47644 },	-- Plans: Titanium Razorplate (p2 450)
                     { 6,  47645 },	-- Plans: Titanium Spikeguards (p2 450)
-                    { 8,  47646 },	-- Pattern: Black Chitin Bracers (p7 450)
-                    { 9,  47647 },	-- Pattern: Bracers of Swift Death (p7 450)
-                    { 10, 47648 },	-- Pattern: Crusader's Dragonscale Bracers (p7 450)
-                    { 11, 47649 },	-- Pattern: Crusader's Dragonscale Breastplate (p7 450)
-                    { 12, 47650 },	-- Pattern: Ensorcelled Nerubian Breastplate (p7 450)
-                    { 13, 47651 },	-- Pattern: Knightbane Carapace (p7 450)
-                    { 14, 47652 },	-- Pattern: Lunar Eclipse Chestguard (p7 450)
-                    { 15, 47653 },	-- Pattern: Moonshadow Armguards (p7 450)
-                    { 16, 47639 },	-- Pattern: Bejeweled Wizard's Bracers (p8 450)
-                    { 17, 47638 },	-- Pattern: Merlin's Robe (p8 450)
-                    { 18, 47637 },	-- Pattern: Royal Moonshroud Bracers (p8 450)
-                    { 19, 47636 },	-- Pattern: Royal Moonshroud Robe (p8 450)
+                    { 7,  47646 },	-- Pattern: Black Chitin Bracers (p7 450)
+                    { 8,  47647 },	-- Pattern: Bracers of Swift Death (p7 450)
+                    { 9, 47648 },	-- Pattern: Crusader's Dragonscale Bracers (p7 450)
+                    { 10, 47649 },	-- Pattern: Crusader's Dragonscale Breastplate (p7 450)
+                    { 11, 47650 },	-- Pattern: Ensorcelled Nerubian Breastplate (p7 450)
+                    { 12, 47651 },	-- Pattern: Knightbane Carapace (p7 450)
+                    { 13, 47652 },	-- Pattern: Lunar Eclipse Chestguard (p7 450)
+                    { 14, 47653 },	-- Pattern: Moonshadow Armguards (p7 450)
+                    { 15, 47639 },	-- Pattern: Bejeweled Wizard's Bracers (p8 450)
+                    { 16, 47638 },	-- Pattern: Merlin's Robe (p8 450)
+                    { 17, 47637 },	-- Pattern: Royal Moonshroud Bracers (p8 450)
+                    { 18, 47636 },	-- Pattern: Royal Moonshroud Robe (p8 450)
                 },
                 { -- alli
                     { 1,  47622 },	-- Plans: Breastplate of the White Knight (p2 450)
@@ -7898,19 +7287,19 @@ data["TrialoftheCrusader"] = {
                     { 4,  47626 },	-- Plans: Sunforged Breastplate (p2 450)
                     { 5,  47624 },	-- Plans: Titanium Razorplate (p2 450)
                     { 6,  47625 },	-- Plans: Titanium Spikeguards (p2 450)
-                    { 8,  47629 },	-- Pattern: Black Chitin Bracers (p7 450)
-                    { 9,  47635 },	-- Pattern: Bracers of Swift Death (p7 450)
-                    { 10,  47631 },	-- Pattern: Crusader's Dragonscale Bracers (p7 450)
-                    { 11, 47630 },	-- Pattern: Crusader's Dragonscale Breastplate (p7 450)
-                    { 12, 47628 },	-- Pattern: Ensorcelled Nerubian Breastplate (p7 450)
-                    { 13, 47634 },	-- Pattern: Knightbane Carapace (p7 450)
-                    { 14, 47632 },	-- Pattern: Lunar Eclipse Chestguard (p7 450)
-                    { 15, 47633 },	-- Pattern: Moonshadow Armguards (p7 450)
-                    { 16, 47654 },	-- Pattern: Bejeweled Wizard's Bracers (p8 450)
-                    { 17, 47655 },	-- Pattern: Merlin's Robe (p8 450)
-                    { 18, 47656 },	-- Pattern: Royal Moonshroud Bracers (p8 450)
-                    { 19, 47657 },	-- Pattern: Royal Moonshroud Robe (p8 450)
-                }
+                    { 7,  47629 },	-- Pattern: Black Chitin Bracers (p7 450)
+                    { 8,  47635 },	-- Pattern: Bracers of Swift Death (p7 450)
+                    { 9,  47631 },	-- Pattern: Crusader's Dragonscale Bracers (p7 450)
+                    { 10, 47630 },	-- Pattern: Crusader's Dragonscale Breastplate (p7 450)
+                    { 11, 47628 },	-- Pattern: Ensorcelled Nerubian Breastplate (p7 450)
+                    { 12, 47634 },	-- Pattern: Knightbane Carapace (p7 450)
+                    { 13, 47632 },	-- Pattern: Lunar Eclipse Chestguard (p7 450)
+                    { 14, 47633 },	-- Pattern: Moonshadow Armguards (p7 450)
+                    { 15, 47654 },	-- Pattern: Bejeweled Wizard's Bracers (p8 450)
+                    { 16, 47655 },	-- Pattern: Merlin's Robe (p8 450)
+                    { 17, 47656 },	-- Pattern: Royal Moonshroud Bracers (p8 450)
+                    { 18, 47657 },	-- Pattern: Royal Moonshroud Robe (p8 450)
+                },true
             ),
         },
 		T9_SET,

@@ -52,6 +52,12 @@ function BG.RoleOverviewUI()
             BiaoGe.MONEYchoice = nil
         end)
     end
+    if BG.IsRetail then
+        BG.Once("FBCDchoiceDefault", 260425, function()
+            BiaoGe.FBCDchoice = nil
+            BiaoGe.MONEYchoice = nil
+        end)
+    end
     if not BiaoGe.FBCDchoice then
         BiaoGe.FBCDchoice = {}
         if BG.IsVanilla then
@@ -150,19 +156,32 @@ function BG.RoleOverviewUI()
             BiaoGe.FBCDchoice["faction" .. "1387"] = 1
             BiaoGe.FBCDchoice["faction" .. "1388"] = 1
         elseif BG.IsMOP_CN then
-            BiaoGe.FBCDchoice["TES"] = 1
-            BiaoGe.FBCDchoice["HOF"] = 1
-            BiaoGe.FBCDchoice["MSV"] = 1
-            BiaoGe.FBCDchoice["worldBoss2"] = 1
-            BiaoGe.FBCDchoice["worldBoss1"] = 1
+            BiaoGe.FBCDchoice["TOT"] = 1
+            BiaoGe.FBCDchoice["worldBoss4"] = 1
+            BiaoGe.FBCDchoice["worldBoss3"] = 1
             BiaoGe.FBCDchoice["holiday"] = 1
             BiaoGe.FBCDchoice["faction" .. "1359"] = 1
-            BiaoGe.FBCDchoice["faction" .. "1341"] = 1
-            BiaoGe.FBCDchoice["faction" .. "1269"] = 1
-            BiaoGe.FBCDchoice["faction" .. "1270"] = 1
-            BiaoGe.FBCDchoice["faction" .. "1337"] = 1
+            BiaoGe.FBCDchoice["faction" .. "1435"] = 1
+            BiaoGe.FBCDchoice["faction" .. "1387"] = 1
+            BiaoGe.FBCDchoice["faction" .. "1388"] = 1
+            -- BiaoGe.FBCDchoice["TES"] = 1
+            -- BiaoGe.FBCDchoice["HOF"] = 1
+            -- BiaoGe.FBCDchoice["MSV"] = 1
+            -- BiaoGe.FBCDchoice["worldBoss2"] = 1
+            -- BiaoGe.FBCDchoice["worldBoss1"] = 1
+            -- BiaoGe.FBCDchoice["holiday"] = 1
+            -- BiaoGe.FBCDchoice["faction" .. "1359"] = 1
+            -- BiaoGe.FBCDchoice["faction" .. "1341"] = 1
+            -- BiaoGe.FBCDchoice["faction" .. "1269"] = 1
+            -- BiaoGe.FBCDchoice["faction" .. "1270"] = 1
+            -- BiaoGe.FBCDchoice["faction" .. "1337"] = 1
         elseif BG.IsRetail then
-            BiaoGe.FBCDchoice["NP"] = 1
+            BiaoGe.FBCDchoice.VS_M = 1
+            BiaoGe.FBCDchoice.DR_M = 1
+            BiaoGe.FBCDchoice.MQD_M = 1
+            BiaoGe.FBCDchoice.VS_H = 1
+            BiaoGe.FBCDchoice.DR_H = 1
+            BiaoGe.FBCDchoice.MQD_H = 1
         end
     end
     if not BiaoGe.MONEYchoice then
@@ -222,16 +241,19 @@ function BG.RoleOverviewUI()
             BiaoGe.MONEYchoice[256883] = 1
             BiaoGe.MONEYchoice[396] = 1
             BiaoGe.MONEYchoice[395] = 1
-            BiaoGe.MONEYchoice[3350] = 1
-            BiaoGe.MONEYchoice[697] = 1
+            BiaoGe.MONEYchoice[3414] = 1
+            BiaoGe.MONEYchoice[752] = 1
             BiaoGe.MONEYchoice[738] = 1
             BiaoGe.MONEYchoice[390] = 1
             BiaoGe.MONEYchoice[1901] = 1
             BiaoGe.MONEYchoice["money"] = 1
         elseif BG.IsRetail then
-            BiaoGe.MONEYchoice = {
-                ["money"] = 1,
-            }
+            BiaoGe.MONEYchoice[3383] = 1
+            BiaoGe.MONEYchoice[3341] = 1
+            BiaoGe.MONEYchoice[3343] = 1
+            BiaoGe.MONEYchoice[3345] = 1
+            BiaoGe.MONEYchoice[3347] = 1
+            BiaoGe.MONEYchoice["money"] = 1
         end
     end
     if not BiaoGe.SKILLchoice then
@@ -334,6 +356,20 @@ function BG.RoleOverviewUI()
                 BiaoGe.MONEYchoice[3414] = 1
             end)
         elseif BG.IsMOP_CN then
+            BG.Once("FBCDchoice", 260427, function()
+                BiaoGe.FBCDchoice["TOT"] = 1
+                BiaoGe.FBCDchoice["worldBoss4"] = 1
+                BiaoGe.FBCDchoice["worldBoss3"] = 1
+                BiaoGe.FBCDchoice["faction" .. "1435"] = 1
+                BiaoGe.FBCDchoice["faction" .. "1387"] = 1
+                BiaoGe.FBCDchoice["faction" .. "1388"] = 1
+                BiaoGe.FBCDchoice["faction" .. "1341"] = 0
+                BiaoGe.FBCDchoice["faction" .. "1269"] = 0
+                BiaoGe.FBCDchoice["faction" .. "1270"] = 0
+                BiaoGe.FBCDchoice["faction" .. "1337"] = 0
+                BiaoGe.MONEYchoice[3414] = 1
+                BiaoGe.MONEYchoice[752] = 1
+            end)
             BG.Once("FBCDchoice", 260213, function()
                 BiaoGe.FBCDchoice["faction" .. "1376"] = 1
                 BiaoGe.FBCDchoice["faction" .. "1375"] = 1
@@ -389,10 +425,10 @@ function BG.RoleOverviewUI()
         }
         ids_updateItem = {
             -- 10938, 10939,29223,264272,   -- 测试
-            265340, 265524, 267339,  -- 橙脖
-            265335, 265523, 267338,  -- 橙锤
-            265526, 267335,          -- 风剑
-            267340,                  -- 橙杖
+            265340, 265524, 267339, -- 橙脖
+            265335, 265523, 267338, -- 橙锤
+            265526, 267335,         -- 风剑
+            267340,                 -- 橙杖
         }
     end
 
@@ -611,7 +647,7 @@ function BG.RoleOverviewUI()
                 { name = "zhubao", name2 = L["珠宝"], color = "FF8C00", type = "quest" },
                 { name = "cooking", name2 = L["烹饪"], color = "FF8C00", type = "quest" },
                 { name = "fish", name2 = L["钓鱼"], color = "FF8C00", type = "quest" },
-                { name = "dungeonMoney", name2 = L["随机本金币惩罚"], name3 = L["金币惩罚"], id = 1284288, color = "FF8C00", type = "buff" },
+                -- { name = "dungeonMoney", name2 = L["随机本金币惩罚"], name3 = L["金币惩罚"], id = 1284288, color = "FF8C00", type = "buff" },
                 { name = "holiday", name2 = L["节日本"], color = "FF8C00", type = "quest" },
                 -- 专业
                 { name = "alchemy_yanjiu", name2 = L["炼金研究"], color = "ADFF2F", type = "profession" },
@@ -623,7 +659,7 @@ function BG.RoleOverviewUI()
                 { name = "tailor_bingchuanbeibao", name2 = L["冰川背包"], color = "ADFF2F", type = "profession" },
             }
             BG.FBCount = 13
-            BG.dayQuestCount = 6
+            BG.dayQuestCount = 5
             BG.skillCount = 7
             -- 声望
             BG.factionTbl = {
@@ -868,8 +904,8 @@ function BG.RoleOverviewUI()
                 end
             end
             --[[
+/dump C_CurrencyInfo.GetCurrencyInfo(390)
 /dump C_CurrencyInfo.GetCurrencyInfo(697)
-/dump C_CurrencyInfo.GetCurrencyInfo(396)
 GameTooltip:SetCurrencyByID(697)
 ]]
             local name = "showCurrencyTop"
@@ -895,13 +931,60 @@ GameTooltip:SetCurrencyByID(697)
             }
         elseif BG.IsRetail then
             BG.FBCDall_table = {
-                { name = "NP", name2 = L["王宫"], color = "00BFFF", fbId = 2657, num = 20, type = "fb" },
+                { name = "VS_M", name2 = GetRealZoneText(2912), color = "00BFFF", fbId = 2912, diff = 16, type = "fb" },
+                { name = "DR_M", name2 = GetRealZoneText(2939), color = "00BFFF", fbId = 2939, diff = 16, type = "fb" },
+                { name = "MQD_M", name2 = GetRealZoneText(2913), color = "00BFFF", fbId = 2913, diff = 16, type = "fb" },
+                { name = "VS_H", name2 = GetRealZoneText(2912), color = "00BFFF", fbId = 2912, diff = 15, type = "fb" },
+                { name = "DR_H", name2 = GetRealZoneText(2939), color = "00BFFF", fbId = 2939, diff = 15, type = "fb" },
+                { name = "MQD_H", name2 = GetRealZoneText(2913), color = "00BFFF", fbId = 2913, diff = 15, type = "fb" },
+                { name = "VS_N", name2 = GetRealZoneText(2912), color = "00BFFF", fbId = 2912, diff = 14, type = "fb" },
+                { name = "DR_N", name2 = GetRealZoneText(2939), color = "00BFFF", fbId = 2939, diff = 14, type = "fb" },
+                { name = "MQD_N", name2 = GetRealZoneText(2913), color = "00BFFF", fbId = 2913, diff = 14, type = "fb" },
             }
+            BG.FBCount = # BG.FBCDall_table
 
             BG.MONEYall_table = {
-                { name = L["金币"], color = "FFD700", id = "money", tex = 237618, width = 80 }, -- 金币
+                { name = L["金币"], color = "FFD700", type = "money", id = "money", tex = 237618, width = 100 }, -- 金币
             }
+            local currencys = {
+                3319, -- 暮刃徽记
+                3316, -- 虚光泥灰岩
+                3373, -- 垂钓者珍珠
+                3376, -- 敦敦碎片
+                3377, -- 纯粹丰饶之物
+                3379, -- 充盈奥能
+                3385, -- 辉光尘埃
+                3392, -- 苦痛残迹
+                3400, -- 纯净虚空样本
+                3256, -- 炼金匠人活力药剂
+                3257, -- 锻造匠人活力药剂
+                3258, -- 附魔匠人活力药剂
+                3259, -- 工程匠人活力药剂
+                3260, -- 采药匠人活力药剂
+                3261, -- 铭文匠人活力药剂
+                3262, -- 珠宝匠人活力药剂
+                3263, -- 制皮匠人活力药剂
+                3264, -- 采矿匠人活力药剂
+                3265, -- 剥皮匠人活力药剂
+                3266, -- 裁缝匠人活力药剂
+                3028, -- 修复的宝箱钥匙
+                3310, -- 宝箱钥匙碎片
+                3212, -- 光耀星火尘
+                3378, -- 曦光魔力涌动
+                3383, -- 冒险者曦光纹章
+                3341, -- 老兵曦光纹章
+                3343, -- 勇士曦光纹章
+                3345, -- 英雄曦光纹章
+                3347, -- 史诗曦光纹章
+            }
+            for i, id in ipairs(currencys) do
+                tinsert(BG.MONEYall_table, 1, { color = "ffffff", id = id, width = 80 })
+            end
+            tinsert(BG.MONEYall_table, 1,
+                { name = L["双倍经验"], color = "99ff99", type = "xp", id = "xp", tex = 1080931, width = 70 } -- 双倍经验
+            )
         end
+
         for i, v in ipairs(BG.MONEYall_table) do
             if not v.type and type(v.id) == "number" then
                 local info = C_CurrencyInfo.GetCurrencyInfo(v.id)
@@ -913,20 +996,22 @@ GameTooltip:SetCurrencyByID(697)
             end
         end
 
-        local fuc = C_TradeSkillUI.GetTradeSkillDisplayName
-        local color = "ADFF2F"
-        -- local color = "FF99FF"
-        -- local color = "F48CBA"
+        if not BG.IsRetail then
+            local fuc = C_TradeSkillUI.GetTradeSkillDisplayName
+            local color = "ADFF2F"
+            -- local color = "FF99FF"
+            -- local color = "F48CBA"
 
-        BG.SKILLall_table = {
-            { name = "main", id = 0, name2 = L["主专业"], color = color, type = "skill", tex = "", width = 110 }, -- 主专业
-            { name = "fish", id = 356, name2 = fuc(356), color = color, type = "skill", tex = 136245, width = 60 }, -- 钓鱼
-            { name = "cook", id = 185, name2 = fuc(185), color = color, type = "skill", tex = 133971, width = 60 }, -- 烹饪
-            { name = "heal", id = 129, name2 = fuc(129), color = color, type = "skill", tex = 135966, width = 60 }, -- 急救
-        }
-        if BG.verOver4 then
-            tinsert(BG.SKILLall_table, 2,
-                { name = "archaeology", id = 794, name2 = fuc(794), color = color, type = "skill", tex = 441139, width = 60 }) -- 考古
+            BG.SKILLall_table = {
+                { name = "main", id = 0, name2 = L["主专业"], color = color, type = "skill", tex = "", width = 110 }, -- 主专业
+                { name = "fish", id = 356, name2 = fuc(356), color = color, type = "skill", tex = 136245, width = 60 }, -- 钓鱼
+                { name = "cook", id = 185, name2 = fuc(185), color = color, type = "skill", tex = 133971, width = 60 }, -- 烹饪
+                { name = "heal", id = 129, name2 = fuc(129), color = color, type = "skill", tex = 135966, width = 60 }, -- 急救
+            }
+            if BG.verOver4 then
+                tinsert(BG.SKILLall_table, 2,
+                    { name = "archaeology", id = 794, name2 = fuc(794), color = color, type = "skill", tex = 441139, width = 60 }) -- 考古
+            end
         end
     end
 
@@ -947,13 +1032,26 @@ GameTooltip:SetCurrencyByID(697)
                     numEncounters, encounterProgress, extendDisabled, instanceId =
                         GetSavedInstanceInfo(i)
                     if locked then
+                        local killInfo = {}
+                        local killNum = 0
+                        for encounterIndex = 1, numEncounters do
+                            local bossName, fileDataID, isKilled = GetSavedInstanceEncounterInfo(i, encounterIndex)
+                            tinsert(killInfo, { name = bossName, isKilled = isKilled })
+                            if isKilled then
+                                killNum = killNum + 1
+                            end
+                        end
                         local a = {
                             player = player,
                             colorplayer = colorplayer,
                             fbId = instanceId,
                             num = maxPlayers,
                             resettime = resettime,
-                            endtime = resettime + time
+                            endtime = resettime + time,
+                            diff = difficultyId,
+                            bossSum = numEncounters,
+                            killNum = killNum,
+                            killInfo = killInfo,
                         }
                         tinsert(cd, a)
                     end
@@ -1057,7 +1155,7 @@ GameTooltip:SetCurrencyByID(697)
             end
             if event == "PLAYER_ENTERING_WORLD"
                 or (event == "ENCOUNTER_END" and success == 1)
-                or (event == "CHAT_MSG_SYSTEM" and msg == INSTANCE_SAVED) then
+                or (event == "CHAT_MSG_SYSTEM" and not BG.IsSecret(msg) and msg == INSTANCE_SAVED) then
                 if not self.cd then
                     self.cd = true
                     BG.After(0.5, function()
@@ -1526,7 +1624,7 @@ GameTooltip:SetCurrencyByID(697)
     end
 
     -- 专业技能CD
-    do
+    if not BG.IsRetail then
         BiaoGe.tradeSkillCooldown = BiaoGe.tradeSkillCooldown or {}
         BiaoGe.tradeSkillCooldown[realmID] = BiaoGe.tradeSkillCooldown[realmID] or {}
         BiaoGe.tradeSkillCooldown[realmID][player] = BiaoGe.tradeSkillCooldown[realmID][player] or {}
@@ -1634,7 +1732,7 @@ GameTooltip:SetCurrencyByID(697)
                 jewelcrafting_shenlongzhixin = {
                     name = L["神龙之心"],
                     name2 = L["珠宝加工"],
-                    spell = 62242
+                    spell = 140050
                 },
                 leatherworking_hualizhipi = {
                     name = L["华丽制皮"],
@@ -1768,7 +1866,7 @@ GameTooltip:SetCurrencyByID(697)
     end
 
     -- 专业技能点数
-    do
+    if not BG.IsRetail then
         local skillInfo = {
             [L["锻造"]] = { id = 164, icon = 136241, isMain = true },
             [L["工程学"]] = { id = 202, icon = 136243, isMain = true },
@@ -2060,8 +2158,14 @@ GameTooltip:SetCurrencyByID(697)
         end
 
         if not BG.verLess2 then
-            local text1 = LOOT_ITEM_PUSHED_SELF_MULTIPLE:gsub("%%s", "(.+)"):gsub("%%d", "(%%d+)")
-            local text2 = LOOT_ITEM_PUSHED_SELF:gsub("%%s", "(.+)")
+            local text1, text2, text3
+            if BG.IsRetail then
+                text1 = CURRENCY_GAINED_MULTIPLE:gsub("%%s", "(.+)"):gsub("%%d", "(%%d+)")
+                text2 = CURRENCY_GAINED:gsub("%%s", "(.+)")
+            else
+                text1 = LOOT_ITEM_PUSHED_SELF_MULTIPLE:gsub("%%s", "(.+)"):gsub("%%d", "(%%d+)")
+                text2 = LOOT_ITEM_PUSHED_SELF:gsub("%%s", "(.+)")
+            end
             local function func(self, event, msg, player, l, cs, t, flag, channelId, ...)
                 if BiaoGe.options["showCurrencyCount"] ~= 1 then return end
                 local link = strmatch(msg, text1)

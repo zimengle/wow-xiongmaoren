@@ -59,8 +59,7 @@ BG.Init(function()
         BG.MainFrame.Bg = BG.MainFrame:CreateTexture(nil, "BACKGROUND", nil, 0)
         BG.MainFrame.Bg:SetAllPoints()
 
-        BG.MainFrame.CloseButton = CreateFrame("Button", nil, BG.MainFrame, "UIPanelCloseButton")
-        BG.MainFrame.CloseButton:SetPoint("TOPRIGHT", BG.IsRetail and 0 or 5, BG.IsRetail and 0 or 5)
+        BG.CreateCloseButton(BG.MainFrame)
 
         BG.MainFrame:SetScript("OnMouseUp", function(self)
             self:StopMovingOrSizing()
@@ -216,7 +215,7 @@ BG.Init(function()
 
         -- VIP
         BG.Init2(function()
-            if not ns.enUS and not (BGV and BGV.raidVersion) then
+            if not ns.enUS and not BG.IsRetail and not (BGV and BGV.raidVersion) then
                 BG.VIPVerText = CreateFrame("Frame", nil, BG.MainFrame)
                 BG.VIPVerText:SetPoint("LEFT", BG.VerText, "RIGHT", 5, 0)
                 local t = BG.VIPVerText:CreateFontString()
@@ -340,7 +339,7 @@ BG.Init(function()
                     t:SetTextColor(1, .82, 0)
                     tinsert(f.texts, t)
                 end
-                f:SetHeight(f:GetTop() - f.texts[#f.texts]:GetBottom() + 20)
+                f:SetHeight(f:GetTop() - f.texts[#f.texts]:GetBottom() + 0)
             end
         end
         BiaoGe.options.lastVer = BG.ver
@@ -445,8 +444,10 @@ BG.Init(function()
                 BG.FilterClassItemMainFrame:Hide()
                 BG.FilterClassItemMainFrame.Buttons2:UpdatePoint()
 
-                BG.ButtonImportHope:SetParent(self)
-                BG.ButtonExportHope:SetParent(self)
+                if BG.ButtonImportHope then
+                    BG.ButtonImportHope:SetParent(self)
+                    BG.ButtonExportHope:SetParent(self)
+                end
             end)
             -- 左下角文字介绍
             do
@@ -490,8 +491,10 @@ BG.Init(function()
                 BG.FilterClassItemMainFrame.Buttons2:ClearAllPoints()
                 BG.FilterClassItemMainFrame.Buttons2:SetPoint("LEFT", BG.ItemLibMainFrame.filtleText, "RIGHT", 10, 0)
 
-                BG.ButtonImportHope:SetParent(self)
-                BG.ButtonExportHope:SetParent(self)
+                if BG.ButtonImportHope then
+                    BG.ButtonImportHope:SetParent(self)
+                    BG.ButtonExportHope:SetParent(self)
+                end
             end)
 
             -- 左下角文字介绍
@@ -743,7 +746,9 @@ BG.Init(function()
             BG.HopeUI(FB)
         end
         BG.CreateBossModel()
-        BG.HopeDaoChuUI()
+        if not BG.IsRetail then
+            BG.HopeDaoChuUI()
+        end
 
         --通报UI
         BG.Init2(function()
@@ -1105,6 +1110,7 @@ BG.Init(function()
         local f = CreateFrame("Frame")
         f:RegisterEvent("CHAT_MSG_SYSTEM")
         f:SetScript("OnEvent", function(self, event, msg, ...)
+            if BG.IsSecret(msg) then return end
             if string.find(msg, changeRaidDifficulty) then
                 LibBG:UIDropDownMenu_SetText(dropDown, tbl[GetRaidDifficultyID()].name)
             end
@@ -1552,6 +1558,7 @@ BG.Init(function()
         f:RegisterEvent("CHAT_MSG_RAID_WARNING")
         f:RegisterEvent("CHAT_MSG_RAID")
         f:SetScript("OnEvent", function(self, event, msg, playerName, ...)
+            if BG.IsSecret(msg) then return end
             playerName = BG.GSN(playerName)
             if event == "CHAT_MSG_RAID" then
                 if playerName ~= BG.masterLooter then
@@ -1659,6 +1666,7 @@ BG.Init(function()
                     BG.FrameZhuangbeiList:Hide()
                 end
                 BG.lastfocuszhuangbei:SetText(text)
+                BG.lastfocuszhuangbei:SetCursorPosition(0)
                 if BG.lastfocuszhuangbei2 then
                     BG.lastfocuszhuangbei2:SetFocus()
                     if BG.FrameZhuangbeiList then
@@ -1842,6 +1850,7 @@ BG.Init(function()
         end
 
         function BG.StartCountDown(link)
+            if BG.InBoss() then return end
             if BiaoGe.options["countDown"] ~= 1 then return end
             if not link then return end
             if ItemRefTooltip:IsVisible() then
@@ -1912,6 +1921,7 @@ BG.Init(function()
         f:RegisterEvent("CHAT_MSG_RAID_LEADER")
         f:RegisterEvent("CHAT_MSG_RAID")
         f:SetScript("OnEvent", function(self, event, msg)
+            if BG.IsSecret(msg) then return end
             if not (BiaoGe.options["countDown"] == 1 and BiaoGe.options["countDownStop"] == 1) then return end
             if not auctioning then return end
             msg = msg:gsub("%s", "")
@@ -2325,6 +2335,15 @@ BG.Init2(function()
     end
     SLASH_BiaoGeRoleOverview1 = "/bgr"
     SLASH_Baganator2 = nil
+
+    SlashCmdList["BiaoGeRoleOverviewError"] = function()
+        BG.After(0,function ()
+            ChatEdit_ActivateChat(ChatEdit_ChooseBoxForSend())
+            ChatEdit_ChooseBoxForSend():SetText("https://docs.qq.com/doc/DYVFDaU5uR21sanJm")
+            ChatEdit_ChooseBoxForSend():HighlightText()
+        end)
+    end
+    SLASH_BiaoGeRoleOverviewError1 = "/bgre"
 
     -- 站位图
     if BG.IsWLK or BG.IsMOP then

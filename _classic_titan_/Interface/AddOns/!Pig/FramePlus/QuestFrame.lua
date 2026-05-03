@@ -181,10 +181,12 @@ function FramePlusfun.Quest()
 				end
 				QuestLogFrame.allopen = PIGButton(QuestLogFrame,{"TOPLEFT",QuestLogFrame,"TOPLEFT",xxxx,yyyy},{24,23},"+",nil,nil,nil,nil,0);
 				QuestLogFrame.allopen:SetScript("OnClick", function(self)
+					QuestLogFrame.PIGallopen=true
 					ExpandQuestHeader(0)
 				end)
 				QuestLogFrame.allopen.alloff = PIGButton(QuestLogFrame.allopen,{"LEFT",QuestLogFrame.allopen,"RIGHT",6,0},{24,23},"-",nil,nil,nil,nil,0);
 				QuestLogFrame.allopen.alloff:SetScript("OnClick", function(self)
+					QuestLogFrame.PIGallopen=true
 					CollapseQuestHeader(0) 
 				end)
 			end
@@ -204,7 +206,8 @@ local function PIG_PlaySoundAudio(ok,questID)
 end
 local function GetQuestsInfo(event)
 	if PIG_MaxTocversion() then
-		if QuestMapFrame then QuestMapFrame.ignoreQuestLogUpdate = true end
+		if QuestLogFrame.PIGallopen then QuestLogFrame.PIGallopen=nil return end
+		if QuestMapFrame then QuestMapFrame.ignoreQuestLogUpdate = true; end
 		local numShownEntries = GetNumQuestLogEntries()
 		for questIndex=1,numShownEntries do	
 			local title, level, suggestedGroup, isHeader, isCollapsed, isComplete, frequency, questID = GetQuestLogTitle(questIndex)
@@ -225,7 +228,7 @@ local function GetQuestsInfo(event)
 				PIG_PlaySoundAudio(isComplete,questID)
 			end
 		end
-		if QuestMapFrame then QuestMapFrame.ignoreQuestLogUpdate = nil end
+		if QuestMapFrame then QuestMapFrame.ignoreQuestLogUpdate = nil; end
 	else
 		local numShownEntries, numQuests = C_QuestLog.GetNumQuestLogEntries()
 		for i=1,numShownEntries do
@@ -265,6 +268,11 @@ QuestsEndFrameUI:SetScript("OnEvent", function(self,event)
 	end
 end)
 function FramePlusfun.QuestsEnd()
+	if QuestLogCollapseAllButton then
+		QuestLogCollapseAllButton:HookScript("OnClick", function(self)
+			QuestLogFrame.PIGallopen=true
+		end)
+	end
 	PIGA["Common"]["QuestsEndAudio"]=Fun.IsAudioNumMaxV(PIGA["Common"]["QuestsEndAudio"],AudioData)
 	if PIGA["Common"]["QuestsEnd"] then
 		QuestsEndFrameUI:RegisterEvent("PLAYER_ENTERING_WORLD")

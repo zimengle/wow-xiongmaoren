@@ -22,6 +22,7 @@ local db_defaults = {
         spec_index = 1,
         phase_index = 4, -- 默认使用P3阶段（PR=1, P1=2, P2=3, P3=4, P4=5）
         filter_class_names = false, -- 隐藏职业名字
+        minimap_icon = true, -- 默认显示小地图图标
         filter_specs = {
             ["Death knight"] = {
                 ["Blood tank"] = false,
@@ -94,11 +95,11 @@ local db_defaults = {
         },
         highlight_specs = {},
         data_source = "KPTitan",
-        minimap_icon = true,
         tooltip_with_ctrl = false,
         tooltip_position = true,
         disable_tooltip_enhancement = false, -- 禁用鼠标BIS增强提示功能
-        default_phase = "P3" -- 默认BIS面板打开的阶段
+        default_phase = "P3", -- 默认BIS面板打开的阶段
+        show_item_level = true -- 是否显示装备等级
     }
 }
 
@@ -154,9 +155,22 @@ local configTable = {
                 return TitanBistooltipAddon.db.char.tooltip_with_ctrl
             end
         },
+        show_item_level = {
+            name = L["Show item level"],
+            order = 3,
+            desc = L["Show item level desc"],
+            type = "toggle",
+            width = "full",
+            set = function(info, val)
+                TitanBistooltipAddon.db.char.show_item_level = val
+            end,
+            get = function(info)
+                return TitanBistooltipAddon.db.char.show_item_level
+            end
+        },
         disable_tooltip_enhancement = {
             name = L["Disable tooltip enhancement"],
-            order = 3,
+            order = 4,
             desc = L["Disables tooltip enhancement desc"],
             type = "toggle",
             width = "full",
@@ -169,7 +183,7 @@ local configTable = {
         },
         tooltip_position = {
             name = L["Smart tooltip position"],
-            order = 4,
+            order = 5,
             desc = L["Smart tooltip position desc"],
             type = "toggle",
             width = "double",
@@ -182,7 +196,7 @@ local configTable = {
         },
         default_phase = {
             name = L["Default bis panel phase"],
-            order = 5,
+            order = 6,
             desc = L["Default bis panel phase desc"],
             type = "select",
             style = "dropdown",
@@ -214,22 +228,6 @@ local configTable = {
                     end
                 end
                 return 4 -- 默认返回P3的索引
-            end
-        },
-        data_source = {
-            name = L["Data source"],
-            order = 6,
-            desc = L["Changes source"],
-            type = "select",
-            style = "dropdown",
-            width = "double",
-            values = TitanBistooltip_source_to_url,
-            set = function(info, key, val)
-                TitanBistooltipAddon.db.char.data_source = key
-                TitanBistooltipAddon:changeSpec(key)
-            end,
-            get = function(info, key)
-                return TitanBistooltipAddon.db.char.data_source
             end
         },
         filter_phases = {
@@ -469,9 +467,25 @@ local configTable = {
                 }
             }
         },
+        data_source = {
+            name = L["Data source"],
+            order = 8,
+            desc = L["Changes source"],
+            type = "select",
+            style = "dropdown",
+            width = "double",
+            values = TitanBistooltip_source_to_url,
+            set = function(info, key, val)
+                TitanBistooltipAddon.db.char.data_source = key
+                TitanBistooltipAddon:changeSpec(key)
+            end,
+            get = function(info, key)
+                return TitanBistooltipAddon.db.char.data_source
+            end
+        },
         filter_specs = {
             name = L["Hide tooltip class reminder"],
-            order = 8,
+            order = 9,
             desc = L["Hide tooltip class reminder desc"],
             type = "multiselect",
             values = function()
@@ -541,7 +555,7 @@ local configTable = {
         },
         highlight_spec = {
             name = L["Highlight tooltip class reminder"],
-            order = 9,
+            order = 10,
             desc = L["Highlight tooltip class reminder desc"],
             type = "multiselect",
             values = function()
@@ -743,7 +757,9 @@ function TitanBistooltipAddon:addMapIcon()
                     end
                 end,
                 OnTooltipShow = function(tt)
-                    tt:AddLine(TitanBistooltipAddon.AddonNameAndVersion or "TitanBistooltip")
+                    -- 使用全局版本信息
+                    local addonNameAndVersion = "TitanBistooltip v" .. (TitanBistooltipAddon.Version or "2.11")
+                    tt:AddLine(addonNameAndVersion)
                     local left_click = "|cffffff00" .. (L["Left click"] or "Left click") .. "|r " .. (L["Open lists"] or "Open lists")
                     local right_click = "|cffffff00" .. (L["Right click"] or "Right click") .. "|r " .. (L["Open configuration"] or "Open configuration")
                     local command_line = "|cffffff00" .. (L["Command"] or "Command") .. "|r /BIS"

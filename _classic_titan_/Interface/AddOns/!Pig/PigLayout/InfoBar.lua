@@ -468,14 +468,18 @@ local InfoList_L = {
 			ClearScriptList(butui)
 			butui:SetScript("OnUpdate", function ()
 				local currentSpeed, runSpeed, flightSpeed, swimSpeed = GetUnitSpeed("player");
-				local yisuv = currentSpeed/7
-				butui.Text:SetText(Round(yisuv*100)..'%')
-				if yisuv>=1 then
-					butui.Text:SetTextColor(0,1,0,1);
-				elseif yisuv==0 then
-					butui.Text:SetTextColor(0.5,0.5,0.5,1);
+				if PIGisSecret(currentSpeed) then
+					butui.Text:SetText('??%')
 				else
-					butui.Text:SetTextColor(1,0,0,1);
+					local yisuv = Round(currentSpeed/BASE_MOVEMENT_SPEED*100)
+					butui.Text:SetText(yisuv..'%')
+					if yisuv>=100 then
+						butui.Text:SetTextColor(0,1,0,1);
+					elseif yisuv==0 then
+						butui.Text:SetTextColor(0.5,0.5,0.5,1);
+					else
+						butui.Text:SetTextColor(1,0,0,1);
+					end
 				end
 			end)
 		end,	

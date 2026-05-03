@@ -1003,16 +1003,33 @@ setButtonSpell = function(button, spellID, click)
     local usableSpellID = (spellID and spellID ~= 0) and spellID or nil
     button.spellID = usableSpellID or 0
     local spell = usableSpellID and (GetSpellInfo(usableSpellID) or usableSpellID) or nil
-    if spell then
-        button:SetAttribute("type" .. click, "spell")
-        button:SetAttribute("spell" .. click, spell)
-        button:SetAttribute("*type" .. click, "spell")
-        button:SetAttribute("*spell" .. click, spell)
+    local restricted = ST.IsRestricted and ST:IsRestricted()
+    if not restricted then
+        if spell then
+            button:SetAttribute("type" .. click, "spell")
+            button:SetAttribute("spell" .. click, spell)
+            button:SetAttribute("*type" .. click, "spell")
+            button:SetAttribute("*spell" .. click, spell)
+        else
+            button:SetAttribute("type" .. click, nil)
+            button:SetAttribute("spell" .. click, nil)
+            button:SetAttribute("*type" .. click, nil)
+            button:SetAttribute("*spell" .. click, nil)
+        end
     else
-        button:SetAttribute("type" .. click, nil)
-        button:SetAttribute("spell" .. click, nil)
-        button:SetAttribute("*type" .. click, nil)
-        button:SetAttribute("*spell" .. click, nil)
+        button.tmPendingSpellID = spellID
+        button.tmPendingClick = click
+        local taskName = "重写按钮技能:" .. tostring(button:GetName() or button)
+        ST:RunOrQueue(taskName, function()
+            if button.tmPendingSpellID == nil then
+                return
+            end
+            local pendingSpellID = button.tmPendingSpellID
+            local pendingClick = button.tmPendingClick or 1
+            button.tmPendingSpellID = nil
+            button.tmPendingClick = nil
+            setButtonSpell(button, pendingSpellID, pendingClick)
+        end)
     end
     local icon = usableSpellID and select(3, GetSpellInfo(usableSpellID))
     if button.icon and icon then
@@ -1486,43 +1503,36 @@ local function createHiddenSecureButton(name)
 end
 
 local function createTextSecureButton(name, parent, width, height)
-    local b = CreateFrame("Button", name, parent, "SecureActionButtonTemplate")
+    local b = CreateFrame(
+        "Button",
+        name,
+        parent,
+        "SecureActionButtonTemplate,SecureHandlerEnterLeaveTemplate,SecureHandlerAttributeTemplate"
+    )
     b:SetSize(width, height)
     registerSecureClicks(b)
+
     local bg = b:CreateTexture(nil, "BACKGROUND")
     bg:SetAllPoints(b)
-    bg:SetColorTexture(0.08, 0.08, 0.08, 0.85)
+    bg:SetColorTexture(1, 1, 1, 0)
     b.bg = bg
 
-    local border = CreateFrame("Frame", nil, b, "BackdropTemplate")
-    border:SetPoint("TOPLEFT", -3, 2)
-    border:SetPoint("BOTTOMRIGHT", 1, -1)
-    if border.SetBackdrop then
-        border:SetBackdrop({
-            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-            edgeSize = 12,
-            insets = { left = 3, right = 3, top = 3, bottom = 3 },
-        })
-        border:SetBackdropBorderColor(0.45, 0.45, 0.45, 0.9)
-    end
-    b.border = border
-    bg:ClearAllPoints()
-    bg:SetPoint("TOPLEFT", border, "TOPLEFT", 3, -3)
-    bg:SetPoint("BOTTOMRIGHT", border, "BOTTOMRIGHT", -3, 3)
-
     local text = b:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-    text:SetPoint("CENTER", b, "CENTER", 0, 0)
+    text:ClearAllPoints()
+    text:SetPoint("TOPLEFT", b, "TOPLEFT", 2, 0)
+    text:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", -2, 0)
     text:SetJustifyH("CENTER")
+    text:SetJustifyV("MIDDLE")
     b.text = text
 
     b:SetScript("OnEnter", function(self)
         if self.bg then
-            self.bg:SetColorTexture(0.14, 0.14, 0.14, 0.95)
+            self.bg:SetColorTexture(1, 1, 1, 0.12)
         end
     end)
     b:SetScript("OnLeave", function(self)
         if self.bg then
-            self.bg:SetColorTexture(0.08, 0.08, 0.08, 0.85)
+            self.bg:SetColorTexture(1, 1, 1, 0)
         end
     end)
 
@@ -1888,7 +1898,12 @@ function UI:UpdateMenuAutoHide(elapsed)
 end
 
 local function createMenuFrame(name)
-    local f = CreateFrame("Frame", name, UIParent, "SecureHandlerEnterLeaveTemplate,SecureHandlerAttributeTemplate")
+    local f = CreateFrame(
+        "Frame",
+        name,
+        UIParent,
+        "SecureHandlerEnterLeaveTemplate,SecureHandlerAttributeTemplate"
+    )
     f:SetFrameStrata("TOOLTIP")
     f:SetClampedToScreen(true)
     f:EnableMouse(true)
@@ -1902,6 +1917,94 @@ local function createMenuFrame(name)
     f:Hide()
     return f
 end
+
+local function safeWrapScript(header, frame, scriptName, body)
+    if not header or not frame or not header.WrapScript then
+        return false
+    end
+    if header.IsProtected and not header:IsProtected() then
+        return false
+    end
+    local ok = pcall(header.WrapScript, header, frame, scriptName, body)
+    return ok
+end
+
+local MAX_TRACKED_MENUS = 16
+local allKnownMenus = {}
+local allKnownAnchors = {}
+
+local function refreshAnchorOtherMenuRefs(anchor)
+    if not anchor or not anchor.SetFrameRef then
+        return
+    end
+    for i = 1, MAX_TRACKED_MENUS do
+        local m = allKnownMenus[i]
+        if m then
+            pcall(anchor.SetFrameRef, anchor, "tm_all_" .. i, m)
+        end
+    end
+end
+
+local function registerMenuAnchorPair(anchor, menu)
+    if not menu or not anchor then
+        return
+    end
+    local hasMenu = false
+    for _, m in ipairs(allKnownMenus) do
+        if m == menu then
+            hasMenu = true
+            break
+        end
+    end
+    if not hasMenu then
+        allKnownMenus[#allKnownMenus + 1] = menu
+        for _, a in ipairs(allKnownAnchors) do
+            refreshAnchorOtherMenuRefs(a)
+        end
+    end
+    local hasAnchor = false
+    for _, a in ipairs(allKnownAnchors) do
+        if a == anchor then
+            hasAnchor = true
+            break
+        end
+    end
+    if not hasAnchor then
+        allKnownAnchors[#allKnownAnchors + 1] = anchor
+    end
+    refreshAnchorOtherMenuRefs(anchor)
+end
+
+local ANCHOR_ON_ENTER_SNIPPET = [[
+    local menuFrame = self:GetFrameRef("tm_menu")
+    if menuFrame then
+        menuFrame:Show()
+    end
+    for i = 1, 16 do
+        local other = self:GetFrameRef("tm_all_" .. i)
+        if other and other ~= menuFrame then
+            other:Hide()
+        end
+    end
+]]
+
+local ANCHOR_ON_LEAVE_SNIPPET = [[
+    if not self:IsUnderMouse(true) then
+        if PlayerInCombat() then
+            local menuFrame = self:GetFrameRef("tm_menu")
+            if menuFrame then
+                menuFrame:Hide()
+            end
+        end
+    end
+]]
+
+local MENU_ON_LEAVE_SNIPPET = [[
+    local parent = self:GetParent()
+    if not self:IsUnderMouse(true) and (not parent or not parent:IsUnderMouse(true)) then
+        self:Hide()
+    end
+]]
 
 local function bindMenuSecureVisibility(anchorButton, menu)
     if not anchorButton or not menu then
@@ -1920,35 +2023,38 @@ local function bindMenuSecureVisibility(anchorButton, menu)
     local menuName = menu:GetName() or tostring(menu)
     anchorButton:SetFrameRef("tm_menu", menu)
     if not anchorButton.tmMenuSecureWrapInstalled then
-        anchorButton:WrapScript(anchorButton, "OnEnter", [[
-            local menuFrame = self:GetFrameRef("tm_menu")
-            if menuFrame then
-                menuFrame:Show()
-            end
-        ]])
-        anchorButton:WrapScript(anchorButton, "OnLeave", [[
-            if not self:IsUnderMouse(true) then
-                if PlayerInCombat() then
-                    local menuFrame = self:GetFrameRef("tm_menu")
-                    if menuFrame then
-                        menuFrame:Hide()
-                    end
-                end
-            end
-        ]])
-        anchorButton.tmMenuSecureWrapInstalled = true
+        local okEnter = safeWrapScript(anchorButton, anchorButton, "OnEnter", ANCHOR_ON_ENTER_SNIPPET)
+        local okLeave = safeWrapScript(anchorButton, anchorButton, "OnLeave", ANCHOR_ON_LEAVE_SNIPPET)
+        if okEnter and okLeave then
+            anchorButton.tmMenuSecureWrapInstalled = true
+        end
     end
     if not menu.tmMenuSecureWrapInstalled then
-        menu:WrapScript(menu, "OnLeave", [[
-            local parent = self:GetParent()
-            if not self:IsUnderMouse(true) and (not parent or not parent:IsUnderMouse(true)) then
-                self:Hide()
-            end
-        ]])
-        menu.tmMenuSecureWrapInstalled = true
+        local okMenuLeave = safeWrapScript(menu, menu, "OnLeave", MENU_ON_LEAVE_SNIPPET)
+        if okMenuLeave then
+            menu.tmMenuSecureWrapInstalled = true
+        end
     end
     anchorButton.tmBoundMenuName = menuName
+    registerMenuAnchorPair(anchorButton, menu)
     return true
+end
+
+local MENU_ITEM_HIDE_PARENT_SNIPPET = [[
+    if down then return end
+    local parent = self:GetParent()
+    if parent then
+        parent:Hide()
+    end
+]]
+
+local function installMenuItemSecureHide(button)
+    if not button or button.tmMenuItemHideWrapped then
+        return
+    end
+    if safeWrapScript(button, button, "OnClick", MENU_ITEM_HIDE_PARENT_SNIPPET) then
+        button.tmMenuItemHideWrapped = true
+    end
 end
 
 local function buildIconMenuButtons(menu, count, size, gap, popupUp)
@@ -1973,6 +2079,7 @@ local function buildIconMenuButtons(menu, count, size, gap, popupUp)
         else
             b:SetPoint("TOPLEFT", menu, "TOPLEFT", MENU_BUTTON_BASE_X, -MENU_BUTTON_BASE_Y - ((i - 1) * (size + gap)))
         end
+        installMenuItemSecureHide(b)
         b:Show()
     end
 end
@@ -1997,6 +2104,7 @@ local function buildTextMenuButtons(menu, count, width, height, gap, popupUp)
         else
             b:SetPoint("TOPLEFT", menu, "TOPLEFT", MENU_BUTTON_BASE_X, -MENU_BUTTON_BASE_Y - ((i - 1) * (height + gap)))
         end
+        installMenuItemSecureHide(b)
         b:Show()
     end
 end
@@ -2010,6 +2118,18 @@ local function formatRemain(remain, formatMode)
         local m = math.floor(total / 60)
         local s = total % 60
         return string.format("%d:%02d", m, s)
+    end
+    if formatMode == "unit" then
+        if remain >= 60 then
+            return string.format("%dm", math.floor(remain / 60))
+        end
+        if remain >= 10 then
+            return string.format("%ds", math.floor(remain + 0.5))
+        end
+        if ST.db.showDecimalBelowTen ~= false then
+            return string.format("%.1fs", remain)
+        end
+        return string.format("%ds", math.floor(remain + 0.5))
     end
     if remain >= 10 then
         return tostring(math.floor(remain + 0.5))
@@ -2045,6 +2165,18 @@ local function formatIconRemain(remain, formatMode)
         local m = math.floor(total / 60)
         local s = total % 60
         return string.format("%d:%02d", m, s)
+    end
+    if formatMode == "unit" then
+        if remain >= 60 then
+            return string.format("%dm", math.floor(remain / 60))
+        end
+        if remain >= 10 then
+            return string.format("%ds", math.floor(remain + 0.5))
+        end
+        if ST.db.showDecimalBelowTen ~= false then
+            return string.format("%.1fs", remain)
+        end
+        return string.format("%ds", math.floor(remain + 0.5))
     end
     if remain >= 10 then
         return tostring(math.floor(remain + 0.5))
@@ -2227,25 +2359,13 @@ local function setIconVisualSafe(icon, r, g, b, a)
 end
 
 local function tryShowOverlayGlow(button)
-    local showOverlayGlow = _G and _G.ActionButton_ShowOverlayGlow
-    if not button or not showOverlayGlow then
-        return false
-    end
-    local ok = pcall(showOverlayGlow, button)
-    if ok then
-        button.tmUsingOverlayGlow = true
-        return true
-    end
     return false
 end
 
 local function tryHideOverlayGlow(button)
-    local hideOverlayGlow = _G and _G.ActionButton_HideOverlayGlow
-    if not button or not button.tmUsingOverlayGlow or not hideOverlayGlow then
-        return
+    if button then
+        button.tmUsingOverlayGlow = nil
     end
-    pcall(hideOverlayGlow, button)
-    button.tmUsingOverlayGlow = nil
 end
 
 local function ensureReadyFlashTexture(button)
@@ -2345,16 +2465,16 @@ local function getButtonTimerConfig(button)
             showCooldownRing = ST.db.showCooldownRingSecondary ~= false,
             showIconNumber = ST.db.showIconCooldownNumberSecondary == true,
             showOuterNumber = ST.db.showNumericTimerSecondary ~= false,
-            innerFormat = ST.db.timerInnerFormatSecondary or "s",
-            outerFormat = ST.db.timerOuterFormatSecondary or "s",
+            innerFormat = ST.db.timerInnerFormatSecondary or "unit",
+            outerFormat = ST.db.timerOuterFormatSecondary or "unit",
         }
     end
     return {
         showCooldownRing = ST.db.showCooldownRing ~= false,
         showIconNumber = ST.db.showIconCooldownNumber == true,
         showOuterNumber = ST.db.showNumericTimer ~= false,
-        innerFormat = ST.db.timerInnerFormat or "s",
-        outerFormat = ST.db.timerOuterFormat or "s",
+        innerFormat = ST.db.timerInnerFormat or "unit",
+        outerFormat = ST.db.timerOuterFormat or "unit",
     }
 end
 
@@ -2791,18 +2911,22 @@ function UI:UpdateTotemTimers(forceSecondary)
     end
 end
 
-function UI:BuildEarthShieldMacro()
+function UI:BuildEarthShieldMacroFor(targetName)
     local spell = GetSpellInfo(ST.Config.EarthShieldSpellID) or "Earth Shield"
     local lines = {}
     lines[#lines + 1] = "/cast [@focus,help,nodead] " .. spell
-    if ST.db.earthShieldTarget and ST.db.earthShieldTarget ~= "" then
-        lines[#lines + 1] = "/cast [@" .. ST.db.earthShieldTarget .. ",help,nodead] " .. spell
+    if targetName and targetName ~= "" then
+        lines[#lines + 1] = "/cast [@" .. targetName .. ",help,nodead] " .. spell
     end
     lines[#lines + 1] = "/cast [@maintank1,help,nodead] " .. spell
     lines[#lines + 1] = "/cast [@maintank2,help,nodead] " .. spell
     lines[#lines + 1] = "/cast [@target,help,nodead] " .. spell
     lines[#lines + 1] = "/cast [@player] " .. spell
     return table.concat(lines, "\n")
+end
+
+function UI:BuildEarthShieldMacro()
+    return self:BuildEarthShieldMacroFor(ST.db and ST.db.earthShieldTarget or nil)
 end
 
 function UI:HasEarthShieldTarget()
@@ -2835,12 +2959,110 @@ function UI:RefreshEarthShieldMacro()
     if not self.earthShieldButton then
         return
     end
-    local macro = self:BuildEarthShieldMacro()
-    self.earthShieldButton:SetAttribute("type1", "macro")
-    self.earthShieldButton:SetAttribute("macrotext1", macro)
-    self.earthShieldButton:SetAttribute("*type1", "macro")
-    self.earthShieldButton:SetAttribute("*macrotext1", macro)
     self:UpdateEarthShieldTargetText()
+    if ST.IsRestricted and ST:IsRestricted() then
+        ST:RunOrQueue("刷新地盾宏", function()
+            UI:RefreshEarthShieldMacro()
+        end)
+        return
+    end
+    local btn = self.earthShieldButton
+    local savedName = ST.db and ST.db.earthShieldTarget or ""
+    local macro = self:BuildEarthShieldMacroFor(savedName)
+    btn:SetAttribute("type1", "macro")
+    btn:SetAttribute("macrotext1", macro)
+    btn:SetAttribute("*type1", "macro")
+    btn:SetAttribute("*macrotext1", macro)
+    btn:SetAttribute("tmtarget", savedName or "")
+    self:RefreshEarthShieldPerTargetMacros()
+end
+
+function UI:RefreshEarthShieldPerTargetMacros()
+    local btn = self.earthShieldButton
+    if not btn then
+        return
+    end
+    if InCombatLockdown and InCombatLockdown() then
+        return
+    end
+    btn:SetAttribute("tmmacro-", self:BuildEarthShieldMacroFor(nil))
+    local prev = btn.tmEarthMacroNames or {}
+    local nextNames = {}
+    local units = self:GetEarthShieldMenuUnitList() or {}
+    for i = 1, #units do
+        local nm = UnitName(units[i])
+        if nm and nm ~= "" then
+            nextNames[nm] = true
+        end
+    end
+    local savedName = ST.db and ST.db.earthShieldTarget
+    if savedName and savedName ~= "" then
+        nextNames[savedName] = true
+    end
+    for nm in pairs(nextNames) do
+        btn:SetAttribute("tmmacro-" .. nm, self:BuildEarthShieldMacroFor(nm))
+    end
+    for nm in pairs(prev) do
+        if not nextNames[nm] then
+            btn:SetAttribute("tmmacro-" .. nm, nil)
+        end
+    end
+    btn.tmEarthMacroNames = nextNames
+end
+
+local function refreshButtonPerSpellAttributes(button, attrCacheKey, spellList)
+    if not button then
+        return
+    end
+    if InCombatLockdown and InCombatLockdown() then
+        return
+    end
+    local prev = button[attrCacheKey] or {}
+    local nextIDs = {}
+    if spellList then
+        for i = 1, #spellList do
+            local id = tonumber(spellList[i])
+            if id and id > 0 then
+                nextIDs[id] = true
+            end
+        end
+    end
+    for id in pairs(nextIDs) do
+        local name = GetSpellInfo(id)
+        if name and name ~= "" then
+            button:SetAttribute("tmspell-" .. tostring(id), name)
+        end
+    end
+    for id in pairs(prev) do
+        if not nextIDs[id] then
+            button:SetAttribute("tmspell-" .. tostring(id), nil)
+        end
+    end
+    button[attrCacheKey] = nextIDs
+end
+
+function UI:RefreshShieldPerSpellAttributes()
+    local btn = self.shieldButton
+    if not btn then
+        return
+    end
+    local list = (ST.SpellCatalog and ST.SpellCatalog.knownShield) or nil
+    if (not list) or #list == 0 then
+        list = ST.Config and ST.Config.ShieldSpellIDs or nil
+    end
+    refreshButtonPerSpellAttributes(btn, "tmShieldSpellIDs", list)
+end
+
+function UI:RefreshWeaponPerSpellAttributes()
+    local btn = self.weaponButton
+    if not btn then
+        return
+    end
+    local list = (ST.SpellCatalog and ST.SpellCatalog.knownWeapon) or nil
+    if (not list) or #list == 0 then
+        list = ST.Config and ST.Config.WeaponSpellIDs or nil
+    end
+    refreshButtonPerSpellAttributes(btn, "tmWeaponSpellIDs", list)
 end
 
 function UI:GetColoredEarthShieldTargetName(targetName)
@@ -3122,9 +3344,11 @@ function UI:ShowShieldMenu(anchorButton)
         anchorMenuToButton(shieldMenu, anchorButton, menuOffsetY, popupUp)
         buildIconMenuButtons(shieldMenu, count, size, gap, popupUp)
         shieldMenu.tmReadyForCombat = true
+        self:RefreshShieldPerSpellAttributes()
     elseif not shieldMenu.tmReadyForCombat then
         return
     end
+    local mainShield = self.shieldButton
     for i = 1, #list do
         local spellID = list[i]
         local b = shieldMenu.buttons[i]
@@ -3134,6 +3358,23 @@ function UI:ShowShieldMenu(anchorButton)
         b.tmShieldSpellID = spellID
         if not inCombat then
             setButtonSpell(b, spellID, 1)
+            b:SetAttribute("tmshieldid", tostring(spellID))
+            if mainShield then
+                b:SetFrameRef("mainShield", mainShield)
+                if not b.tmShieldSecureWrapBound then
+                    local okWrap = safeWrapScript(b, b, "OnClick", [[
+                        if button == "RightButton" then
+                            local main = self:GetFrameRef("mainShield")
+                            if main then
+                                main:SetAttribute("tmshield", self:GetAttribute("tmshieldid") or "")
+                            end
+                        end
+                    ]])
+                    if okWrap then
+                        b.tmShieldSecureWrapBound = true
+                    end
+                end
+            end
         end
         applySelectableMenuButtonStyle(b, spellID == shieldMenu.tmSelectedSpell)
         if not b.tmShieldMenuScriptBound then
@@ -3142,10 +3383,18 @@ function UI:ShowShieldMenu(anchorButton)
                     return
                 end
                 if mouseButton == "RightButton" then
-                    ST.db.defaultShieldSpell = tonumber(selfButton.tmShieldSpellID) or ST.db.defaultShieldSpell
-                    ST:RunOrQueue("刷新界面(护盾菜单)", function()
-                        UI:RefreshAll()
-                    end)
+                    local newID = tonumber(selfButton.tmShieldSpellID) or ST.db.defaultShieldSpell
+                    ST.db.defaultShieldSpell = newID
+                    if UI.shieldButton then
+                        setButtonSpell(UI.shieldButton, newID, 1)
+                    end
+                    setupSelectableMenuState(shieldMenu, ST.SpellCatalog.knownShield, newID)
+                    for idx = 1, #shieldMenu.buttons do
+                        local mb = shieldMenu.buttons[idx]
+                        if mb then
+                            applySelectableMenuButtonStyle(mb, mb.tmShieldSpellID == newID)
+                        end
+                    end
                 end
                 if mouseButton == "LeftButton" and C_Timer and C_Timer.After then
                     C_Timer.After(0.05, hideMenuNow)
@@ -3183,9 +3432,11 @@ function UI:ShowWeaponMenu(anchorButton)
         anchorMenuToButton(weaponMenu, anchorButton, menuOffsetY, popupUp)
         buildIconMenuButtons(weaponMenu, count, size, gap, popupUp)
         weaponMenu.tmReadyForCombat = true
+        self:RefreshWeaponPerSpellAttributes()
     elseif not weaponMenu.tmReadyForCombat then
         return
     end
+    local mainWeapon = self.weaponButton
     for i = 1, #list do
         local spellID = list[i]
         local b = weaponMenu.buttons[i]
@@ -3195,6 +3446,23 @@ function UI:ShowWeaponMenu(anchorButton)
         b.tmWeaponSpellID = spellID
         if not inCombat then
             setButtonSpell(b, spellID, 1)
+            b:SetAttribute("tmweaponid", tostring(spellID))
+            if mainWeapon then
+                b:SetFrameRef("mainWeapon", mainWeapon)
+                if not b.tmWeaponSecureWrapBound then
+                    local okWrap = safeWrapScript(b, b, "OnClick", [[
+                        if button == "RightButton" then
+                            local main = self:GetFrameRef("mainWeapon")
+                            if main then
+                                main:SetAttribute("tmweapon", self:GetAttribute("tmweaponid") or "")
+                            end
+                        end
+                    ]])
+                    if okWrap then
+                        b.tmWeaponSecureWrapBound = true
+                    end
+                end
+            end
         end
         applySelectableMenuButtonStyle(b, spellID == weaponMenu.tmSelectedSpell)
         if not b.tmWeaponMenuScriptBound then
@@ -3203,10 +3471,18 @@ function UI:ShowWeaponMenu(anchorButton)
                     return
                 end
                 if mouseButton == "RightButton" then
-                    ST.db.defaultWeaponSpell = tonumber(selfButton.tmWeaponSpellID) or ST.db.defaultWeaponSpell
-                    ST:RunOrQueue("刷新界面(武器菜单)", function()
-                        UI:RefreshAll()
-                    end)
+                    local newID = tonumber(selfButton.tmWeaponSpellID) or ST.db.defaultWeaponSpell
+                    ST.db.defaultWeaponSpell = newID
+                    if UI.weaponButton then
+                        setButtonSpell(UI.weaponButton, newID, 1)
+                    end
+                    setupSelectableMenuState(weaponMenu, ST.SpellCatalog.knownWeapon, newID)
+                    for idx = 1, #weaponMenu.buttons do
+                        local mb = weaponMenu.buttons[idx]
+                        if mb then
+                            applySelectableMenuButtonStyle(mb, mb.tmWeaponSpellID == newID)
+                        end
+                    end
                 end
                 if mouseButton == "LeftButton" and C_Timer and C_Timer.After then
                     C_Timer.After(0.05, hideMenuNow)
@@ -3223,6 +3499,22 @@ end
 function UI:ShowEarthTargetMenu(anchorButton)
     if not earthTargetMenu then
         earthTargetMenu = createMenuFrame("TotemMaster_EarthTargetMenu")
+        if not earthTargetMenu.bgPanel then
+            local bgTpl = BackdropTemplateMixin and "BackdropTemplate" or nil
+            local panel = CreateFrame("Frame", nil, earthTargetMenu, bgTpl)
+            panel:SetFrameLevel(math.max(0, earthTargetMenu:GetFrameLevel() - 1))
+            if panel.SetBackdrop then
+                panel:SetBackdrop({
+                    bgFile = "Interface\\Buttons\\WHITE8x8",
+                    edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+                    edgeSize = 12,
+                    insets = { left = 3, right = 3, top = 3, bottom = 3 },
+                })
+                panel:SetBackdropColor(0.05, 0.05, 0.05, 0.92)
+                panel:SetBackdropBorderColor(0.35, 0.35, 0.35, 0.95)
+            end
+            earthTargetMenu.bgPanel = panel
+        end
     end
     if not bindMenuSecureVisibility(anchorButton, earthTargetMenu) and (InCombatLockdown and InCombatLockdown()) then
         return
@@ -3247,11 +3539,50 @@ function UI:ShowEarthTargetMenu(anchorButton)
         local popupUp = shouldMenuPopupUp(true)
         anchorMenuToButton(earthTargetMenu, anchorButton, menuOffsetY, popupUp)
         buildTextMenuButtons(earthTargetMenu, count, width, height, gap, popupUp)
+        if earthTargetMenu.bgPanel then
+            local panel = earthTargetMenu.bgPanel
+            panel:ClearAllPoints()
+            local pad = 4
+            if popupUp then
+                panel:SetPoint(
+                    "BOTTOMLEFT",
+                    earthTargetMenu,
+                    "BOTTOMLEFT",
+                    -pad,
+                    MENU_BUTTON_BASE_Y - pad
+                )
+                panel:SetPoint(
+                    "TOPRIGHT",
+                    earthTargetMenu,
+                    "BOTTOMLEFT",
+                    width + pad,
+                    MENU_BUTTON_BASE_Y + menuHeight + pad
+                )
+            else
+                panel:SetPoint(
+                    "TOPLEFT",
+                    earthTargetMenu,
+                    "TOPLEFT",
+                    -pad,
+                    -MENU_BUTTON_BASE_Y + pad
+                )
+                panel:SetPoint(
+                    "BOTTOMRIGHT",
+                    earthTargetMenu,
+                    "TOPLEFT",
+                    width + pad,
+                    -MENU_BUTTON_BASE_Y - menuHeight - pad
+                )
+            end
+            panel:Show()
+        end
+        self:RefreshEarthShieldPerTargetMacros()
         earthTargetMenu.tmReadyForCombat = true
     elseif not earthTargetMenu.tmReadyForCombat then
         return
     end
     local spellName = GetSpellInfo(ST.Config.EarthShieldSpellID) or "Earth Shield"
+    local mainES = self.earthShieldButton
     for i = 1, #units do
         local unit = units[i]
         local coloredName, plainName = colorizeUnitName(unit)
@@ -3267,17 +3598,32 @@ function UI:ShowEarthTargetMenu(anchorButton)
             b:SetAttribute("macrotext1", macro)
             b:SetAttribute("*type1", "macro")
             b:SetAttribute("*macrotext1", macro)
+            b:SetAttribute("tmtargetname", plainName or "")
+            if mainES then
+                b:SetFrameRef("mainES", mainES)
+                if not b.tmEarthTargetSecureWrapBound then
+                    local okWrap = safeWrapScript(b, b, "OnClick", [[
+                        local main = self:GetFrameRef("mainES")
+                        if main then
+                            main:SetAttribute("tmtarget", self:GetAttribute("tmtargetname") or "")
+                        end
+                    ]])
+                    if okWrap then
+                        b.tmEarthTargetSecureWrapBound = true
+                    end
+                end
+            end
         end
         if not b.tmEarthTargetScriptBound then
             b:SetScript("PostClick", function(selfButton, mouseButton, down)
                 if down then
                     return
                 end
-                if mouseButton == "RightButton" then
-                    ST.db.earthShieldTarget = selfButton.tmEarthTargetName or ST.db.earthShieldTarget
-                    ST:RunOrQueue("刷新地盾宏", function()
-                        UI:RefreshEarthShieldMacro()
-                    end)
+                local pickedName = selfButton.tmEarthTargetName
+                if pickedName and pickedName ~= "" then
+                    ST.db.earthShieldTarget = pickedName
+                    UI:UpdateEarthShieldTargetText()
+                    UI:RefreshEarthShieldMacro()
                 end
                 hideMenuNow()
             end)
@@ -3294,6 +3640,12 @@ function UI:RefreshCallButton()
     local preset = getCurrentPreset()
     local callSpellID = ST.Config.CallSpellByPreset[preset]
     setButtonSpell(self.callButton, callSpellID, 1)
+    if ST.IsRestricted and ST:IsRestricted() then
+        ST:RunOrQueue("刷新主召唤按钮(召回)", function()
+            UI:RefreshCallButton()
+        end)
+        return
+    end
     self.callButton:SetAttribute("type2", "spell")
     self.callButton:SetAttribute("spell2", ST.Config.CallSpellIDs.Recall)
     self.callButton:SetAttribute("*type2", "spell")
@@ -3317,9 +3669,17 @@ end
 function UI:RefreshSecondaryButtons()
     if self.shieldButton and ST.db.defaultShieldSpell then
         setButtonSpell(self.shieldButton, ST.db.defaultShieldSpell, 1)
+        self:RefreshShieldPerSpellAttributes()
+        if not (InCombatLockdown and InCombatLockdown()) then
+            self.shieldButton:SetAttribute("tmshield", tostring(ST.db.defaultShieldSpell))
+        end
     end
     if self.weaponButton and ST.db.defaultWeaponSpell then
         setButtonSpell(self.weaponButton, ST.db.defaultWeaponSpell, 1)
+        self:RefreshWeaponPerSpellAttributes()
+        if not (InCombatLockdown and InCombatLockdown()) then
+            self.weaponButton:SetAttribute("tmweapon", tostring(ST.db.defaultWeaponSpell))
+        end
     end
     if self.reincarnationButton then
         setButtonSpell(self.reincarnationButton, ST.Config.ReincarnationSpellID, 1)
@@ -3636,6 +3996,7 @@ local function createFormatToggle(parent, labelText, x, y, width, getter, setter
     local options = {
         { value = "s", text = "秒" },
         { value = "ms", text = "分:秒" },
+        { value = "unit", text = "带单位" },
     }
     local function getIndex(value)
         for i = 1, #options do
@@ -4802,13 +5163,13 @@ function UI:CreateSettings()
     end)
     local mainFormatRowY = mainOuterSideRowY - CHECK_ROW_H
     createFormatToggle(mainGroup, "内计时格式", left, mainFormatRowY + 2, twoColWidth, function()
-        return ST.db.timerInnerFormat or "s"
+        return ST.db.timerInnerFormat or "unit"
     end, function(v)
         ST.db.timerInnerFormat = v
         UI:ApplySettings()
     end)
     createFormatToggle(mainGroup, "外计时格式", rightColX, mainFormatRowY + 2, twoColWidth, function()
-        return ST.db.timerOuterFormat or "s"
+        return ST.db.timerOuterFormat or "unit"
     end, function(v)
         ST.db.timerOuterFormat = v
         UI:ApplySettings()
@@ -4960,13 +5321,13 @@ function UI:CreateSettings()
     end)
     local secTimerRow3Y = secOuterSideRowY - CHECK_ROW_H
     createFormatToggle(secondaryGroup, "内计时格式", left, secTimerRow3Y + 2, twoColWidth, function()
-        return ST.db.timerInnerFormatSecondary or "s"
+        return ST.db.timerInnerFormatSecondary or "unit"
     end, function(v)
         ST.db.timerInnerFormatSecondary = v
         UI:ApplySettings()
     end)
     createFormatToggle(secondaryGroup, "外计时格式", rightColX, secTimerRow3Y + 2, twoColWidth, function()
-        return ST.db.timerOuterFormatSecondary or "s"
+        return ST.db.timerOuterFormatSecondary or "unit"
     end, function(v)
         ST.db.timerOuterFormatSecondary = v
         UI:ApplySettings()
@@ -5070,9 +5431,9 @@ function UI:CreateSettings()
         guideText:SetWordWrap(true)
     end
     guideText:SetText(table.concat({
-        "|cffffd100打开设置：|r输入 /tm",
-        "|cffffd100锁定/解锁：|r输入 /tm lock",
-        "|cffffd100显示/隐藏主副条：|r输入 /tm bar",
+        "|cffffd100打开设置：|r输入 /ttm",
+        "|cffffd100锁定/解锁：|r输入 /ttm lock",
+        "|cffffd100显示/隐藏主副条：|r输入 /ttm bar",
         "",
         "|cffffd100主召唤按钮：|r左键施放当前预设",
         "|cffffd100主召唤菜单：|r悬停打开，左键临时施放，右键切换预设",
@@ -5375,6 +5736,9 @@ function UI:PrimeCombatMenus()
     if self.weaponButton then
         self:ShowWeaponMenu(self.weaponButton)
     end
+    if self.earthShieldButton then
+        pcall(self.ShowEarthTargetMenu, self, self.earthShieldButton)
+    end
     hideMenuNow()
     self.mainFrame:SetAlpha(mainAlpha or 1)
     if self.secondaryFrame then
@@ -5532,6 +5896,18 @@ function UI:Create()
     local shield = createActionButton("TotemMaster_ShieldButton", secondary, BAR_SIZE)
     shield.tmTimerProfile = "secondary"
     shield.tmDisableCooldownRing = true
+    shield:SetAttribute("_onattributechanged", [[
+        if name == "tmshield" then
+            local key = "tmspell-" .. tostring(value or "")
+            local spellName = self:GetAttribute(key)
+            if spellName and spellName ~= "" then
+                self:SetAttribute("type1", "spell")
+                self:SetAttribute("spell1", spellName)
+                self:SetAttribute("*type1", "spell")
+                self:SetAttribute("*spell1", spellName)
+            end
+        end
+    ]])
     shield.cooldown = CreateFrame("Cooldown", "TotemMaster_ShieldButtonCooldown", shield, "CooldownFrameTemplate")
     shield.cooldown:SetAllPoints(shield)
     if shield.cooldown.SetDrawEdge then
@@ -5562,6 +5938,18 @@ function UI:Create()
 
     local weapon = createActionButton("TotemMaster_WeaponButton", secondary, BAR_SIZE)
     weapon.tmTimerProfile = "secondary"
+    weapon:SetAttribute("_onattributechanged", [[
+        if name == "tmweapon" then
+            local key = "tmspell-" .. tostring(value or "")
+            local spellName = self:GetAttribute(key)
+            if spellName and spellName ~= "" then
+                self:SetAttribute("type1", "spell")
+                self:SetAttribute("spell1", spellName)
+                self:SetAttribute("*type1", "spell")
+                self:SetAttribute("*spell1", spellName)
+            end
+        end
+    ]])
     weapon.cooldown = CreateFrame("Cooldown", "TotemMaster_WeaponButtonCooldown", weapon, "CooldownFrameTemplate")
     weapon.cooldown:SetAllPoints(weapon)
     if weapon.cooldown.SetDrawEdge then
@@ -5617,6 +6005,23 @@ function UI:Create()
     local earth = createActionButton("TotemMaster_EarthShieldButton", secondary, BAR_SIZE)
     earth.tmTimerProfile = "secondary"
     earth.tmDisableCooldownRing = true
+    earth:SetAttribute("_onattributechanged", [[
+        if name == "tmtarget" then
+            local key = "tmmacro-" .. tostring(value or "")
+            local macro = self:GetAttribute(key)
+            if macro and macro ~= "" then
+                self:SetAttribute("type1", "macro")
+                self:SetAttribute("macrotext1", macro)
+                self:SetAttribute("*type1", "macro")
+                self:SetAttribute("*macrotext1", macro)
+            end
+        end
+    ]])
+    safeWrapScript(earth, earth, "OnClick", [[
+        if button == "RightButton" then
+            self:SetAttribute("tmtarget", "")
+        end
+    ]])
     earth.cooldown = CreateFrame("Cooldown", "TotemMaster_EarthShieldButtonCooldown", earth, "CooldownFrameTemplate")
     earth.cooldown:SetAllPoints(earth)
     if earth.cooldown.SetDrawEdge then
@@ -5652,6 +6057,7 @@ function UI:Create()
             end
         elseif mouseButton == "RightButton" then
             ST.db.earthShieldTarget = ""
+            UI:UpdateEarthShieldTargetText()
             UI:RefreshEarthShieldMacro()
             hideMenuNow()
             ST:Print("已清除大地之盾预设目标")

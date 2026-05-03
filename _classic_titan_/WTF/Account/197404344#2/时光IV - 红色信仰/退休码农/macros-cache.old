@@ -1,6 +1,12 @@
 VER 3 0100000000000001 "1" "134400"
 /target 霍格
 END
+VER 3 010000000000000A "boss" "133042"
+/target 教官拉苏维奥斯
+/cast [pet:死亡骑士学员] 盾墙
+/cast [pet:死亡骑士学员] 嘲讽
+/startattack
+END
 VER 3 0100000000000003 "压制" "134400"
 #showtooltip 痛苦压制
 /脚本 local A=GetSpellLink("痛苦压制")s,d,_,t=GetSpellCooldown("痛苦压制")t=s==0 and""..A.."→%t，你已被压制！"or""..A.."还有"..ceil(s+d-GetTime()).."秒冷却"SendChatMessage(t,"whisper",nil,UnitName("target"))

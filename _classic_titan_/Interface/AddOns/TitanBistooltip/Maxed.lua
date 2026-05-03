@@ -52,7 +52,7 @@ end
 
 
 -- 创建物品框体
-local function createItemFrame(item_id, size, with_checkmark)
+local function createItemFrame(item_id, size, with_checkmark, parentFrame)
     if item_id < 0 then
         local f = AceGUI:Create("Label")
         f:SetText("") -- 设置为空文本，避免显示默认值
@@ -126,7 +126,20 @@ local function createItemFrame(item_id, size, with_checkmark)
                 if ilink then
                     GameTooltip:ClearLines() -- 清理之前的内容
                     GameTooltip:SetOwner(item_frame.frame, "ANCHOR_NONE") -- 使用ANCHOR_NONE
-                    GameTooltip:SetPoint("TOPRIGHT", item_frame.frame, "TOPRIGHT", 220, -13);
+                    
+                    -- 智能调整提示框位置，避免覆盖面板
+                    local screenWidth = GetScreenWidth()
+                    local frameRight = parentFrame and parentFrame:GetRight() or 0
+                    local smartPosition = TitanBistooltipAddon.db.char.tooltip_position
+                    
+                    if smartPosition and frameRight > screenWidth / 2 then
+                        -- 启用智能调整且面板在屏幕右侧，提示框显示在左侧，增加偏移距离避免覆盖
+                        GameTooltip:SetPoint("TOPLEFT", item_frame.frame, "TOPLEFT", -300, -13);
+                    else
+                        -- 未启用智能调整或面板在屏幕左侧，提示框显示在右侧，增加偏移距离避免覆盖
+                        GameTooltip:SetPoint("TOPRIGHT", item_frame.frame, "TOPRIGHT", 300, -13);
+                    end
+                    
                     GameTooltip:SetHyperlink(ilink)
                 end
             end)
@@ -268,6 +281,9 @@ function TitanBistooltipAddon:showMaxedFrame()
         end
     end)
     frame:SetStatusText("快跑兄弟推荐配装（仅供参考）")
+    
+    -- 保存框体引用（必须在创建装备之前设置，以便智能提示框位置调整功能正常工作）
+    maxedFrame = frame
     
     -- 在右上角添加X按钮
     local xButton = CreateFrame("Button", nil, frame.frame, "UIPanelCloseButton")
@@ -653,9 +669,9 @@ function TitanBistooltipAddon:showMaxedFrame()
                         local hasEquipment = checkEquipmentByClass(itemId, class)
                         
                         if hasEquipment then
-                            scrollFrame:AddChild(createItemFrame(itemId, 40, true))
+                            scrollFrame:AddChild(createItemFrame(itemId, 40, true, maxedFrame.frame))
                         else
-                            scrollFrame:AddChild(createItemFrame(itemId, 40))
+                            scrollFrame:AddChild(createItemFrame(itemId, 40, nil, maxedFrame.frame))
                         end
                         
                         -- 添加装备名称（左对齐）
@@ -740,9 +756,9 @@ function TitanBistooltipAddon:showMaxedFrame()
                         local hasEquipment = checkEquipmentByClass(itemId, class)
                         
                         if hasEquipment then
-                            scrollFrame:AddChild(createItemFrame(itemId, 40, true))
+                            scrollFrame:AddChild(createItemFrame(itemId, 40, true, maxedFrame.frame))
                         else
-                            scrollFrame:AddChild(createItemFrame(itemId, 40))
+                            scrollFrame:AddChild(createItemFrame(itemId, 40, nil, maxedFrame.frame))
                         end
                         
                         -- 使用Item:CreateFromItemID来确保装备信息加载完成
@@ -1215,9 +1231,9 @@ function TitanBistooltipAddon:updateMaxedFrame()
                         local hasEquipment = checkEquipmentByClass(itemId, class)
                         
                         if hasEquipment then
-                            scrollFrame:AddChild(createItemFrame(itemId, 40, true))
+                            scrollFrame:AddChild(createItemFrame(itemId, 40, true, maxedFrame.frame))
                         else
-                            scrollFrame:AddChild(createItemFrame(itemId, 40))
+                            scrollFrame:AddChild(createItemFrame(itemId, 40, nil, maxedFrame.frame))
                         end
                         
                         -- 添加装备名称（左对齐）
@@ -1302,9 +1318,9 @@ function TitanBistooltipAddon:updateMaxedFrame()
                         local hasEquipment = checkEquipmentByClass(itemId, class)
                         
                         if hasEquipment then
-                            scrollFrame:AddChild(createItemFrame(itemId, 40, true))
+                            scrollFrame:AddChild(createItemFrame(itemId, 40, true, maxedFrame.frame))
                         else
-                            scrollFrame:AddChild(createItemFrame(itemId, 40))
+                            scrollFrame:AddChild(createItemFrame(itemId, 40, nil, maxedFrame.frame))
                         end
                         
                         -- 使用Item:CreateFromItemID来确保装备信息加载完成

@@ -30,18 +30,24 @@ ns.InterfaceOptions_AddCategory         = _G.InterfaceOptions_AddCategory or fun
     if frame.parent then
         local category            = _G.Settings.GetCategory(frame.parent)
         local subcategory, layout = _G.Settings.RegisterCanvasLayoutSubcategory(category, frame, frame.name, frame.name)
-        subcategory.ID            = frame.name
+        if not BG.IsRetail then
+            subcategory.ID = frame.name
+        end
         return subcategory, category
     else
         local category, layout = _G.Settings.RegisterCanvasLayoutCategory(frame, frame.name, frame.name)
-        category.ID            = frame.name
+        if not BG.IsRetail then
+            category.ID = frame.name
+        end
         _G.Settings.RegisterAddOnCategory(category)
         return category
     end
 end
 
 ns.InterfaceOptionsFrame_OpenToCategory = _G.InterfaceOptionsFrame_OpenToCategory or function(categoryIDOrFrame)
-    if type(categoryIDOrFrame) == "table" then
+    if BG.IsRetail then
+        return _G.Settings.OpenToCategory(BG.optionsID);
+    elseif type(categoryIDOrFrame) == "table" then
         local categoryID = categoryIDOrFrame.name;
         return _G.Settings.OpenToCategory(categoryID);
     else
@@ -55,7 +61,10 @@ BG.Init(function()
     do
         main:Hide()
         main.name = BG.optionsName
-        ns.InterfaceOptions_AddCategory(main)
+        local category = ns.InterfaceOptions_AddCategory(main)
+        if BG.IsRetail then
+            BG.optionsID = category:GetID()
+        end
         local t = main:CreateFontString()
         t:SetFont(BIAOGE_TEXT_FONT, 16, "OUTLINE")
         t:SetText("|cff" .. "00BFFF" .. L["<BiaoGe> 金团表格"] .. "|r")
@@ -320,7 +329,7 @@ BG.Init(function()
                 slider.Text:SetTextColor(1, .8, 0)
                 slider.Text:SetSize(slider:GetWidth(), 40)
 
-                slider.edit = CreateFrame("EditBox", nil, slider, "BiaoGe_InputBoxTemplate")
+                slider.edit = CreateFrame("EditBox", nil, slider, BG.editTemplate)
                 slider.edit:SetSize(50, 20)
                 slider.edit:SetPoint("TOP", slider, "BOTTOM")
                 slider.edit:SetJustifyH("CENTER")
@@ -1542,7 +1551,7 @@ BG.Init(function()
 
                 local name2 = "MaxPlayers_Titan"
                 BiaoGe.options[name2] = BiaoGe.options[name2] or 25
-                edit = CreateFrame("EditBox", nil, f, "BiaoGe_InputBoxTemplate")
+                edit = CreateFrame("EditBox", nil, f, BG.editTemplate)
                 edit:SetSize(50, 20)
                 edit:SetPoint("LEFT", f.Text, "RIGHT", 15, 0)
                 edit:SetAutoFocus(false)
@@ -1556,7 +1565,7 @@ BG.Init(function()
                     self:SetText(BiaoGe.options[name2] or 25)
                 end)
             end
-        elseif not BG.onlyOneHard then
+        elseif not BG.onlyOneHard and not BG.IsRetail then
             h = h + 30
             -- 清空表格时根据副本难度设置分钱人数
             do
@@ -1598,7 +1607,7 @@ BG.Init(function()
                 text:SetPoint("TOPLEFT", BG.options.buttonQingKongPeople, "BOTTOMRIGHT", 0, -5)
                 text:SetText(L["|cffFFFFFF10人团本分钱人数：|r"])
 
-                local edit = CreateFrame("EditBox", nil, f, "BiaoGe_InputBoxTemplate")
+                local edit = CreateFrame("EditBox", nil, f, BG.editTemplate)
                 edit:SetSize(50, 20)
                 edit:SetPoint("LEFT", text, "RIGHT", 5, 0)
                 edit:SetJustifyH("CENTER")
@@ -1614,7 +1623,7 @@ BG.Init(function()
                 text:SetPoint("LEFT", edit, "RIGHT", 40, 0)
                 text:SetText(L["|cffFFFFFF25人团本分钱人数：|r"])
 
-                local edit = CreateFrame("EditBox", nil, f, "BiaoGe_InputBoxTemplate")
+                local edit = CreateFrame("EditBox", nil, f, BG.editTemplate)
                 edit:SetSize(50, 20)
                 edit:SetPoint("LEFT", text, "RIGHT", 5, 0)
                 edit:SetJustifyH("CENTER")
@@ -2193,7 +2202,7 @@ BG.Init(function()
             end)
 
             local function CreateEdit(i)
-                local edit = CreateFrame("EditBox", nil, f, "BiaoGe_InputBoxTemplate")
+                local edit = CreateFrame("EditBox", nil, f, BG.editTemplate)
                 edit:SetSize(80, 20)
                 if i == 1 then
                     edit:SetPoint("TOPLEFT", f, "BOTTOMRIGHT", 5, 0)
@@ -2302,7 +2311,7 @@ BG.Init(function()
                 L["自动弹出复制应付金额窗口"],
                 L["交易时，无需点击按钮，复制应付金额的窗口会自动弹出。"],
             }
-            local f = O.CreateCheckButton(name, AddTexture("QUEST") .. L["自动弹出复制应付金额窗口"], autoAuction, 40, height - h, ontext, true)
+            local f = O.CreateCheckButton(name, L["自动弹出复制应付金额窗口"], autoAuction, 40, height - h, ontext, true)
             BG.options["button" .. name] = f
             SetParent(f, "autoAuctionMoney")
             f:HookScript("OnShow", function(self)
@@ -2380,7 +2389,7 @@ BG.Init(function()
                 opName,
                 L["没有使用自动出价时，如果拍卖剩余时间低于10秒时被顶价，语音提醒你\"小心偷家\"。"],
             }
-            local f = O.CreateCheckButton(name, AddTexture("QUEST") .. opName, autoAuction, 15, height - h, ontext, true)
+            local f = O.CreateCheckButton(name, opName, autoAuction, 15, height - h, ontext, true)
             BG.options["button" .. name] = f
         end
         h = h + 30
@@ -2397,11 +2406,24 @@ BG.Init(function()
                 " ",
                 L["注意：如果你是团长或物品分配者，该功能不会生效。团长或物品分配者仍会使用更为可靠的交易记账。"],
             }
-            local f = O.CreateCheckButton(name, AddTexture("QUEST") .. L["自动生成表格账单"], autoAuction, 15, height - h, ontext, true)
+            local f = O.CreateCheckButton(name, L["自动生成表格账单"], autoAuction, 15, height - h, ontext, true)
             BG.options["button" .. name] = f
             f:HookScript("OnClick", function(self)
                 BG.UpdateAutoCreateBillButton()
             end)
+        end
+        h = h + 30
+        -- 被过滤的装备自动折叠
+        do
+            local name = "autoAuctionFold"
+            BG.options[name .. "reset"] = 0
+            BiaoGe.options[name] = BiaoGe.options[name] or BG.options[name .. "reset"]
+            local ontext = {
+                L["被过滤的装备自动折叠"],
+                L["启用装备过滤时，如果拍卖的装备不合适你，自动折叠。"],
+            }
+            local f = O.CreateCheckButton(name, AddTexture("QUEST") .. L["被过滤的装备自动折叠"], autoAuction, 15, height - h, ontext, true)
+            BG.options["button" .. name] = f
         end
         h = h + 30
         -- 拍卖竞价窗口自动往上吸附
@@ -2440,7 +2462,7 @@ BG.Init(function()
                 end
             end)
 
-            edit = CreateFrame("EditBox", nil, f, "BiaoGe_InputBoxTemplate")
+            edit = CreateFrame("EditBox", nil, f, BG.editTemplate)
             edit:SetSize(50, 20)
             edit:SetPoint("LEFT", f.Text, "RIGHT", 0, 0)
             edit:SetAutoFocus(false)
@@ -2547,6 +2569,7 @@ BG.Init(function()
                     local color = BG[tblName][i].color
                     local fbId = BG[tblName][i].fbId
                     local type = BG[tblName][i].type
+                    local diff = BG.GetDiffShortName(BG[tblName][i].diff) or ""
                     local bt = CreateFrame("CheckButton", nil, lastFrame.child2, "ChatConfigCheckButtonTemplate")
                     bt:SetSize(buttonHeight, buttonHeight)
                     bt:SetHitRectInsets(0, -buttonWidth + 45, 0, 0)
@@ -2562,7 +2585,7 @@ BG.Init(function()
                     end
                     right = bt
                     bt.Text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
-                    bt.Text:SetText("|cff" .. color .. (name2 or name):gsub("sod", "") .. RR)
+                    bt.Text:SetText("|cff" .. color .. diff .. (name2 or name):gsub("sod", "") .. RR)
                     bt.Text:SetWidth(buttonWidth - buttonHeight)
                     bt.Text:SetWordWrap(false)
                     if not BiaoGe[dbName][name] or BiaoGe[dbName][name] == 0 then
@@ -2584,7 +2607,7 @@ BG.Init(function()
                         local text
                         if dbName == "FBCDchoice" then
                             local maxplayers = BG[tblName][i].num and (BG[tblName][i].num .. L["人"]) or ""
-                            text = "|cff" .. color .. maxplayers .. (name2 or GetRealZoneText(fbId)) .. RR
+                            text = "|cff" .. color .. maxplayers .. diff .. (name2 or GetRealZoneText(fbId)) .. RR
                             if type ~= "fb" then
                                 text = self.Text:GetText()
                             end
@@ -2847,9 +2870,20 @@ BG.Init(function()
                 startNum = startNum + 1
                 lastFrame = CreateTitle(L["声望"], "FFFF00")
                 CreateFBCDbutton(x[startNum] + 1, x[startNum + 1])
+            elseif BG.IsRetail then
+                local z = { BG.FBCount, }
+                local x = {}
+                for i, v in ipairs(z) do
+                    x[i] = (x[i - 1] or 0) + v
+                end
+                local startNum = 1
+                lastFrame = CreateTitle(L["团本"], "00BFFF")
+                CreateFBCDbutton(1, x[startNum])
             end
-            lastFrame = CreateTitle(L["专业技能点"], BG.SKILLall_table[1].color)
-            CreateFBCDbutton(1, #BG.SKILLall_table, nil, "SKILLall_table", "SKILLchoice")
+            if not BG.IsRetail then
+                lastFrame = CreateTitle(L["专业技能点"], BG.SKILLall_table[1].color)
+                CreateFBCDbutton(1, #BG.SKILLall_table, nil, "SKILLall_table", "SKILLchoice")
+            end
             lastFrame = CreateTitle(L["货币"], "FFFFFF")
             CreateMONEYbutton(1, #BG.MONEYall_table)
         end
@@ -3005,12 +3039,17 @@ BG.Init(function()
         -- 布局
         do
             local name = "roleOverviewLayout"
-            BG.options[name .. "reset"] = "up_down"
+            if BG.IsRetail then
+                BG.options[name .. "reset"] = "new"
+            else
+                BG.options[name .. "reset"] = "up_down"
+            end
             BiaoGe.options[name] = BiaoGe.options[name] or BG.options[name .. "reset"]
 
             local tbl = {
-                { key = "up_down", text = L["上下布局"] },
-                { key = "left_right", text = L["左右布局"] },
+                { key = "up_down", text = L["横向布局1"] },
+                { key = "left_right", text = L["横向布局2"] },
+                { key = "new", text = AddTexture("QUEST") .. L["竖向布局"] },
             }
 
             local frame = CreateFrame("Frame", nil, roleOverview, "BackdropTemplate")
@@ -3074,7 +3113,7 @@ BG.Init(function()
             t:SetTextColor(1, 1, 1)
             t:SetText(L["仅显示高于该等级的角色："])
 
-            local edit = CreateFrame("EditBox", nil, roleOverview, "BiaoGe_InputBoxTemplate")
+            local edit = CreateFrame("EditBox", nil, roleOverview, BG.editTemplate)
             edit:SetSize(50, 20)
             edit:SetPoint("LEFT", t, "RIGHT", 10, 0)
             edit:SetText(BiaoGe.options[name] or 0)
@@ -3102,7 +3141,7 @@ BG.Init(function()
             t:SetTextColor(1, 1, 1)
             t:SetText(L["仅显示高于该装等的角色："])
 
-            local edit = CreateFrame("EditBox", nil, roleOverview, "BiaoGe_InputBoxTemplate")
+            local edit = CreateFrame("EditBox", nil, roleOverview, BG.editTemplate)
             edit:SetSize(50, 20)
             edit:SetPoint("LEFT", t, "RIGHT", 10, 0)
             edit:SetText(BiaoGe.options[name] or 0)
@@ -3112,6 +3151,22 @@ BG.Init(function()
             edit:SetScript("OnTextChanged", function(self)
                 BiaoGe.options[name] = tonumber(self:GetText()) or 0
             end)
+        end
+
+        -- 团本CD显示为BOSS击杀数量
+        do
+            local name = "showRaidCDKillNum"
+            BG.options[name .. "reset"] = BG.IsRetail and 1 or 0
+            BiaoGe.options[name] = BiaoGe.options[name] or BG.options[name .. "reset"]
+            local ontext = {
+                L["团本CD显示为BOSS击杀数量"],
+                L["没全通的副本，现在会显示击杀的BOSS数量，而不是显示一个绿色钩子。"],
+            }
+            local f = O.CreateCheckButton(name, AddTexture("QUEST") .. L["团本CD显示为BOSS击杀数量"], roleOverview, 15, 0, ontext, true)
+            f:ClearAllPoints()
+            f:SetPoint("TOPLEFT", lastFrame, "BOTTOMLEFT", 0, -10)
+            BG.options["button" .. name] = f
+            lastFrame = f
         end
 
         -- 显示牌子总上限
@@ -3154,7 +3209,7 @@ BG.Init(function()
             local miniWidth = 60
             local name2 = "roleOverviewShowNote_width"
             BiaoGe.options[name2] = BiaoGe.options[name2] or 100
-            local edit = CreateFrame("EditBox", nil, f, "BiaoGe_InputBoxTemplate")
+            local edit = CreateFrame("EditBox", nil, f, BG.editTemplate)
             edit:SetSize(100, 20)
             edit:SetPoint("LEFT", t, "RIGHT", 5, 0)
             edit:SetText(BiaoGe.options[name2])
@@ -3688,8 +3743,7 @@ BG.Init(function()
                     bt.frame:SetScript("OnHide", function(self)
                         self:Hide()
                     end)
-                    bt.frame.CloseButton = CreateFrame("Button", nil, bt.frame, "UIPanelCloseButton")
-                    bt.frame.CloseButton:SetPoint("TOPRIGHT", bt.frame, "TOPRIGHT", 2, 2)
+                    BG.CreateCloseButton(bt.frame)
 
                     mainFrame:HookScript("OnHide", function()
                         bt.frame:Hide()
@@ -3745,6 +3799,8 @@ BG.Init(function()
 
         -- 集结号
         BG.Init2(function()
+            local addonName = "MeetingHorn"
+            if not IsAddOnLoaded(addonName) then return end
             local text = others:CreateFontString()
             text:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
             text:SetPoint("TOPLEFT", width, height - h)
@@ -3958,8 +4014,6 @@ BG.Init(function()
             end
 
             -- 在集结号增加设置按钮
-            local addonName = "MeetingHorn"
-            if not IsAddOnLoaded(addonName) then return end
             local MeetingHorn = LibStub("AceAddon-3.0"):GetAddon(addonName)
             local others = MeetingHorn.MainPanel.Options.Options
 
@@ -4222,8 +4276,10 @@ BG.Init(function()
         end
         CreateButton(L["心愿清单"], "configChooseHope")
         CreateButton(L["装备过滤方案"], "configChooseFilter")
-        CreateButton(L["集结号历史搜索记录"], "configChooseMeetingHornHistory")
-        CreateButton(L["集结号密语模板"], "configChooseMeetingHornWhisper")
+        if not BG.IsRetail then
+            CreateButton(L["集结号历史搜索记录"], "configChooseMeetingHornHistory")
+            CreateButton(L["集结号密语模板"], "configChooseMeetingHornWhisper")
+        end
 
         local f = CreateFrame("Frame", nil, config, "BackdropTemplate")
         f:SetBackdrop({
@@ -4306,23 +4362,23 @@ BG.Init(function()
                     local player = BG.playerName
                     if BiaoGe.options.configChooseHope == 1 then
                         if BiaoGe.Hope[choose.realmID][choose.player] then
-                            BiaoGe.Hope[realmID][player] = BiaoGe.Hope[choose.realmID][choose.player]
+                            BiaoGe.Hope[realmID][player] = BG.Copy(BiaoGe.Hope[choose.realmID][choose.player])
                         end
                     end
                     if BiaoGe.options.configChooseFilter == 1 then
                         if BiaoGe.FilterClassItemDB[choose.realmID][choose.player] then
-                            BiaoGe.FilterClassItemDB[realmID][player] = BiaoGe.FilterClassItemDB[choose.realmID][choose.player]
+                            BiaoGe.FilterClassItemDB[realmID][player] = BG.Copy(BiaoGe.FilterClassItemDB[choose.realmID][choose.player])
                             BiaoGe.filterClassNum[realmID][player] = 0
                         end
                     end
                     if BiaoGe.options.configChooseMeetingHornHistory == 1 then
                         if BiaoGe.MeetingHorn[choose.realmID] and BiaoGe.MeetingHorn[choose.realmID][choose.player] then
-                            BiaoGe.MeetingHorn[realmID][player] = BiaoGe.MeetingHorn[choose.realmID][choose.player]
+                            BiaoGe.MeetingHorn[realmID][player] = BG.Copy(BiaoGe.MeetingHorn[choose.realmID][choose.player])
                         end
                     end
                     if BiaoGe.options.configChooseMeetingHornWhisper == 1 then
                         if BiaoGe.MeetingHornWhisper[choose.realmID] and BiaoGe.MeetingHornWhisper[choose.realmID][choose.player] then
-                            BiaoGe.MeetingHornWhisper[realmID][player] = BiaoGe.MeetingHornWhisper[choose.realmID][choose.player]
+                            BiaoGe.MeetingHornWhisper[realmID][player] = BG.Copy(BiaoGe.MeetingHornWhisper[choose.realmID][choose.player])
                         end
                     end
                     ReloadUI()

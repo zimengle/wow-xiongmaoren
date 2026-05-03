@@ -27,23 +27,49 @@ local player = BG.playerName
 
 ------------------过滤装备------------------
 do
-    local alpha1 = 0.4
-    local alpha2 = 1
+    local alpha_ban = 0.4
+    local alpha_yes = 1
     local ITEM_SOCKET_BONUS = ITEM_SOCKET_BONUS:gsub("%%s", "(.+)")                     -- 镶孔奖励：%s
     local ITEM_MOD_FERAL_ATTACK_POWER = ITEM_MOD_FERAL_ATTACK_POWER:gsub("%%s", "(.+)") -- 在猎豹、熊等等攻击强度提高%s点
-
+    local itemAttributeCache = {}
+    local attribute = {
+        ITEM_MOD_STRENGTH_SHORT = "^%+%C-" .. ITEM_MOD_STRENGTH_SHORT,
+        ITEM_MOD_AGILITY_SHORT = "^%+%C-" .. ITEM_MOD_AGILITY_SHORT,
+        ITEM_MOD_INTELLECT_SHORT = "^%+%C-" .. ITEM_MOD_INTELLECT_SHORT,
+    }
+    local db
+    BG.Init(function() db = BiaoGe.FilterClassItemDB[RealmID][player] end)
     function BG.Tooltip_SetItemByID(itemID)
         BiaoGeTooltip:SetOwner(UIParent, "ANCHOR_NONE")
         BiaoGeTooltip:ClearLines()
-        BiaoGeTooltip:SetItemByID(itemID)
+        if type(itemID) == "string" then
+            BiaoGeTooltip:SetHyperlink(itemID)
+        else
+            BiaoGeTooltip:SetItemByID(itemID)
+        end
     end
 
     function BG.GetTooltipTextLeftAll(itemID)
         BG.Tooltip_SetItemByID(itemID)
         local tbl = {}
         local ii = 2
+        if BG.IsRetail and not itemAttributeCache[itemID] then
+            itemAttributeCache[itemID] = {}
+            for ii = 2, BiaoGeTooltip:NumLines() do
+                local leftText = _G["BiaoGeTooltipTextLeft" .. ii]
+                local text = leftText:GetText()
+                if text and text ~= "" then
+                    for name, ab in pairs(attribute) do
+                        if text:find(ab) then
+                            itemAttributeCache[itemID][name] = true
+                        end
+                    end
+                end
+            end
+        end
         while _G["BiaoGeTooltipTextLeft" .. ii] do
-            local text = _G["BiaoGeTooltipTextLeft" .. ii]:GetText()
+            local leftText = _G["BiaoGeTooltipTextLeft" .. ii]
+            local text = leftText:GetText()
             if text and text ~= "" then
                 text = text:gsub("每5秒恢复%d+点法力值", "每5秒回复%d+点法力值")
                 if not text:find(WARDROBE_SETS) and
@@ -59,10 +85,10 @@ do
     end
 
     local function FilterArmor(typeID, EquipLoc, subclassID)
-        local num = BiaoGe.FilterClassItemDB[RealmID][player].chooseID
+        local num = db.chooseID
         if not num then return end
         if typeID == 4 and EquipLoc ~= "INVTYPE_CLOAK" then
-            for id, v in pairs(BiaoGe.FilterClassItemDB[RealmID][player][num].Armor) do
+            for id, v in pairs(db[num].Armor) do
                 if subclassID == tonumber(id) then
                     if subclassID == 0 then
                         if EquipLoc == "INVTYPE_HOLDABLE" then
@@ -76,31 +102,26 @@ do
         end
     end
     local function FilterWeapon(typeID, EquipLoc, subclassID)
-        local num = BiaoGe.FilterClassItemDB[RealmID][player].chooseID
+        local num = db.chooseID
         if not num then return end
         if typeID == 2 then
-            for id, v in pairs(BiaoGe.FilterClassItemDB[RealmID][player][num].Weapon) do
+            for id, v in pairs(db[num].Weapon) do
                 if subclassID == tonumber(id) then
                     return true
                 end
             end
         end
     end
-    local function GetDBShuXingInfo(text)
-        for k, v in pairs(BG.FilterClassItemDB.ShuXing) do
-            if text == v.name then
-                local value = v.value
-                if type(value) ~= "table" then
-                    value = { value }
-                end
-                return value, v.nothave
-            end
+    local function GetDBShuXingInfo(name)
+        local tbl = BG.FilterClassItemDB.ShuXing_filter[name]
+        if tbl then
+            return tbl.value, tbl.nothave
         end
     end
     local function FilterShuXing(TooltipText)
-        local num = BiaoGe.FilterClassItemDB[RealmID][player].chooseID
+        local num = db.chooseID
         if not num then return end
-        for name, _ in pairs(BiaoGe.FilterClassItemDB[RealmID][player][num].ShuXing) do
+        for name in pairs(db[num].ShuXing) do
             local localTextTbl, nothave = GetDBShuXingInfo(name)
             if localTextTbl then
                 local yes
@@ -126,10 +147,10 @@ do
         end
     end
     local function FilterCLASS(TooltipText)
-        local num = BiaoGe.FilterClassItemDB[RealmID][player].chooseID
+        local num = db.chooseID
         if not num then return end
         if strfind(TooltipText, CLASS) then
-            for id, v in pairs(BiaoGe.FilterClassItemDB[RealmID][player][num].Class) do
+            for id, v in pairs(db[num].Class) do
                 if id == "过滤职业限定" then
                     local c = UnitClass("player")
                     if not strfind(TooltipText, c) then
@@ -141,10 +162,10 @@ do
     end
     local function FilterTANK(TooltipText, typeID, EquipLoc)
         if not BG.FilterClassItem_Default.TankKey then return end
-        local num = BiaoGe.FilterClassItemDB[RealmID][player].chooseID
+        local num = db.chooseID
         if not num then return end
         if typeID == 4 and EquipLoc ~= "INVTYPE_TRINKET" and EquipLoc ~= "INVTYPE_RELIC" then
-            for id, v in pairs(BiaoGe.FilterClassItemDB[RealmID][player][num].Tank) do
+            for id, v in pairs(db[num].Tank) do
                 if id == "过滤坦克" then
                     local tank
                     for key, value in pairs(BG.FilterClassItem_Default.TankKey) do
@@ -158,6 +179,22 @@ do
                     end
                 end
             end
+        end
+    end
+    local function FilterAttribute(itemID)
+        local num = db.chooseID
+        if not num then return end
+        if not next(db[num].MainAttribute) then
+            return false
+        end
+        local stats = itemAttributeCache[itemID]
+        if stats and next(stats) then
+            for id, v in pairs(db[num].MainAttribute) do
+                if stats[BG.FilterClassItemDB.MainAttribute_filter[id]] then
+                    return false
+                end
+            end
+            return true
         end
     end
     function BG.FilterAll(itemID, typeID, EquipLoc, subclassID, tooltipText)
@@ -178,28 +215,33 @@ do
         if FilterTANK(TooltipText, typeID, EquipLoc) then
             return true
         end
+        if BG.FilterClassItemDB.MainAttribute then
+            if FilterAttribute(itemID) then
+                return true
+            end
+        end
     end
 
     function BG.FilterItem(bt, link)
         local text = link or bt:GetText()
         local itemID, _, _, EquipLoc, _, typeID, subclassID = GetItemInfoInstant(text)
-        local num = BiaoGe.FilterClassItemDB[RealmID][player].chooseID
+        local num = db.chooseID
 
         if itemID and num then
             if BG.FilterAll(itemID, typeID, EquipLoc, subclassID) then
-                bt:SetAlpha(alpha1)
+                bt:SetAlpha(alpha_ban)
                 return
             end
         end
-        bt:SetAlpha(alpha2)
+        bt:SetAlpha(alpha_yes)
     end
 
     function BG.UpdateFilter(bt, link)
         local link = link or bt:GetText()
         local itemID = GetItemID(link)
-        local num = BiaoGe.FilterClassItemDB[RealmID][player].chooseID
+        local num = db.chooseID
         if not (link:find("item:") and itemID and num) then
-            bt:SetAlpha(alpha2)
+            bt:SetAlpha(alpha_yes)
             return
         end
 
@@ -296,7 +338,7 @@ do
                 f.autoTextButton:SetNormalFontObject(_G.BGA.FontGreen15)
                 f.logTextButton:SetNormalFontObject(_G.BGA.FontGreen15)
 
-                local num = BiaoGe.FilterClassItemDB[RealmID][player].chooseID
+                local num = db.chooseID
                 if num then
                     local name, link, quality, level, _, _, _, _, EquipLoc, Texture, _, typeID, subclassID, bindType = GetItemInfo(f.itemID)
                     if BG.FilterAll(f.itemID, typeID, EquipLoc, subclassID) then
@@ -319,10 +361,10 @@ do
 
     -- 拾取通知
     function BG.LootFilterClassItem(link)
-        local num = BiaoGe.FilterClassItemDB[RealmID][player].chooseID
+        local num = db.chooseID
         if not num then return "" end
 
-        local icon = AddTexture(BiaoGe.FilterClassItemDB[RealmID][player][num].Icon)
+        local icon = AddTexture(db[num].Icon)
         local itemID, _, _, EquipLoc, _, typeID, subclassID = GetItemInfoInstant(link)
 
         if itemID then
@@ -475,22 +517,17 @@ do
         local name, link, quality, level, _, _, _, _, _, Texture, _, typeID, _, bindType = GetItemInfo(self.itemID)
         self.link = link
 
-        local ICCH = "" -- 277套装徽记的H标记
-        if BG.FB1 == "ICC" then
-            if itemID == 52030 or itemID == 52029 or itemID == 52028 then
-                ICCH = "H"
-            end
+        if not BG.AddHText(BG.FB1, link, itemID, self) then
+            self:SetText(link)
         end
-        if typeID == 2 or typeID == 4 then
-            self:SetText(link .. ICCH .. "|cff" .. "808080" .. "(" .. level .. ")")
-        else
-            self:SetText(link .. ICCH)
-        end
+        self:SetCursorPosition(0)
         self:SetTextInsets(14, 0, 0, 0)
         -- 装备图标
         self.icon:SetTexture(Texture)
         -- 装绑图标
         BG.BindOnEquip(self, bindType)
+        -- 装等
+        BG.LevelText(self, level, typeID)
         -- 已拥有图标
         BG.IsHave(self, true)
 
@@ -564,7 +601,7 @@ do
             for i = 1, MaxI do
                 local n = (t - 1) * MaxI + i
 
-                local bt = CreateFrame("EditBox", nil, f, "BiaoGe_InputBoxTemplate")
+                local bt = CreateFrame("EditBox", nil, f, BG.editTemplate)
                 bt:SetSize(btwidth, btheight)
                 bt:SetFrameLevel(125)
                 bt:SetTextInsets(14, 0, 0, 0)
@@ -655,6 +692,7 @@ do
                                 end
                             else
                                 self.owner:SetText(self.link)
+                                self.owner:SetCursorPosition(0)
                                 self.owner:ClearFocus()
                                 if isHope then
                                     BG.SetBiaoGeGuanZhu(itemID)
@@ -917,7 +955,7 @@ function BG.CreateQiankuanButton(bt, _type)
 end
 
 ------------------创建：买家下拉列表------------------    -- focus：0就是要清空光标,zhiye："jianshang"就是只显示骑士、德鲁伊、牧师
-function BG.SetListmaijia(maijia, clearFocus, filter, isAuctionLogFrame)
+function BG.SetListmaijia(maijia, clearFocus, filter, isAuctionLogFrame, onlyName)
     if BG.FrameMaijiaList then BG.FrameMaijiaList:Hide() end
     -- 背景框
     local f = CreateFrame("Frame", nil, BG.MainFrame, "BackdropTemplate")
@@ -941,7 +979,7 @@ function BG.SetListmaijia(maijia, clearFocus, filter, isAuctionLogFrame)
     local raid = BG.SortRaidRosterInfo(filter)
     for t = 1, 4 do
         for i = 1, 10 do
-            local bt = CreateFrame("EditBox", nil, f, "BiaoGe_InputBoxTemplate")
+            local bt = CreateFrame("EditBox", nil, f, BG.editTemplate)
             bt:SetSize(BG.maijiaWidth, 20)
             bt:SetFrameLevel(125)
             bt:SetAutoFocus(false)
@@ -988,17 +1026,21 @@ function BG.SetListmaijia(maijia, clearFocus, filter, isAuctionLogFrame)
                 bt.ds:Hide()
 
                 bt:SetScript("OnMouseDown", function(self, enter)
-                    maijia:SetTextColor(bt:GetTextColor())
-                    maijia:SetText(GetText_T(self))
-                    maijia:SetCursorPosition(0)
-                    if raid[num] or self.class then
-                        for k, v in pairs(BG.playerClass) do
-                            if isAuctionLogFrame then
-                                BG.auctionLogFrame.changeFrame.info[k]
-                                = raid[num] and raid[num][k] or self[k]
-                            else
-                                BiaoGe[maijia.FB]["boss" .. maijia.bossnum][k .. maijia.i]
-                                = raid[num] and raid[num][k] or self[k]
+                    if onlyName then
+                        maijia:SetText(GetText_T(self))
+                    else
+                        maijia:SetTextColor(bt:GetTextColor())
+                        maijia:SetText(GetText_T(self))
+                        maijia:SetCursorPosition(0)
+                        if raid[num] or self.class then
+                            for k, v in pairs(BG.playerClass) do
+                                if isAuctionLogFrame then
+                                    BG.auctionLogFrame.changeFrame.info[k]
+                                    = raid[num] and raid[num][k] or self[k]
+                                else
+                                    BiaoGe[maijia.FB]["boss" .. maijia.bossnum][k .. maijia.i]
+                                    = raid[num] and raid[num][k] or self[k]
+                                end
                             end
                         end
                     end
@@ -1235,7 +1277,7 @@ do
         t:SetWidth(f:GetWidth() - 5)
         t:SetWordWrap(false)
 
-        local edit = CreateFrame("EditBox", nil, f, "BiaoGe_InputBoxTemplate")
+        local edit = CreateFrame("EditBox", nil, f, BG.editTemplate)
         edit:SetSize(f:GetWidth() - 15, 20)
         edit:SetTextColor(1, 0, 0)
         edit:SetPoint("TOP", t, "BOTTOM", 2, -5)
@@ -1534,7 +1576,9 @@ function BG.JiaoHuan(button, FB, b, i, t)
             end
 
             BG.copy1.btzhuangbei:SetText(BG.copy2.zhuangbei or "")
+            BG.copy1.btzhuangbei:SetCursorPosition(0)
             BG.copy1.btmaijia:SetText(BG.copy2.maijia or "")
+            BG.copy1.btmaijia:SetCursorPosition(0)
             BG.copy1.btmaijia:SetTextColor(unpack(BG.copy2.color or { 1, 1, 1 }))
             BG.copy1.btjine:SetText(BG.copy2.jine or "")
 
@@ -2125,10 +2169,12 @@ end
 function BG.auctionLogFrame_InsertLink(text)
     if BG.auctionLogFrame.changeFrame.zhuangbei:HasFocus() then
         BG.auctionLogFrame.changeFrame.zhuangbei:SetText(text:gsub("(|h|r)H", "%1"))
+        BG.auctionLogFrame.changeFrame.zhuangbei:SetCursorPosition(0)
         BG.auctionLogFrame.changeFrame.zhuangbei:ClearFocus()
         return true
     elseif BG.auctionLogFrame.serachEdit:HasFocus() then
         BG.auctionLogFrame.serachEdit:SetText(text:match("%[(.+)%]"))
+        BG.auctionLogFrame.serachEdit:SetCursorPosition(0)
         return true
     end
 end
@@ -2154,7 +2200,8 @@ function BG.InsertLink(text, isZhuangbeiList)
         return
     end
 
-    if not GetCurrentKeyBoardFocus() or isZhuangbeiList then
+    local isMyEdit = GetCurrentKeyBoardFocus()
+    if not isMyEdit or isZhuangbeiList then
         ChatEdit_ActivateChat(ChatEdit_ChooseBoxForSend())
     end
     ChatEdit_InsertLink(text)
@@ -2397,14 +2444,22 @@ function BG.CreateMainFrame()
     f.Bg:SetAllPoints()
     f.Bg:SetColorTexture(.01, .01, .01, .8)
 
-    f.CloseButton = CreateFrame("Button", nil, f, "UIPanelCloseButton")
-    f.CloseButton:SetPoint("TOPRIGHT", BG.IsRetail and 0 or 5, BG.IsRetail and 0 or 5)
+    BG.CreateCloseButton(f)
 
     f.titleText = f:CreateFontString()
     f.titleText:SetPoint("TOP", 0, -4)
     f.titleText:SetFont(BIAOGE_TEXT_FONT, 15, "OUTLINE")
     f.titleText:SetTextColor(RGB("00BFFF"))
     return f
+end
+
+local editMixin = {}
+function editMixin:HasStickyFocus()
+    return true
+end
+
+function BG.SetEditStickyFocus(edit)
+    edit.HasStickyFocus = editMixin.HasStickyFocus
 end
 
 function BG.SetEditBaseClass(edit)
@@ -2428,6 +2483,7 @@ function BG.SetEditBaseClass(edit)
             self:SetEnabled(true)
         end
     end)
+    BG.SetEditStickyFocus(edit)
 end
 
 function BG.PairFBItem(func, bossNum, all, FB)
@@ -2481,8 +2537,7 @@ function BG.CreateExportFrame(title, text)
         end)
         BG.exportFrame = f
 
-        f.CloseButton = CreateFrame("Button", nil, f, "UIPanelCloseButton")
-        f.CloseButton:SetPoint("TOPRIGHT", f, "TOPRIGHT", 5, 5)
+        BG.CreateCloseButton(f)
 
         local l = f:CreateLine()
         l:SetColorTexture(1, 1, 1, BG.borderAlpha)
@@ -2529,7 +2584,7 @@ function BG.ChatEditSetText(text)
 end
 
 function BG.IsBigFB(FB)
-    return BG.IsMOP or BG.IsCTM or BG.IsTitan or FB == "NAXX"
+    return BG.IsMOP or BG.IsCTM or BG.IsTitan or BG.IsRetail or FB == "NAXX"
     -- return FB == "BOT" or FB == "FL" or FB == "DS" or FB == "MSV" or FB == "TOT"
 end
 

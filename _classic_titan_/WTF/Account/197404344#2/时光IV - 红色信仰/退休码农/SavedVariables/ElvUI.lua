@@ -2,9 +2,6 @@
 ElvCharacterDB = {
 ["ConvertKeybindings"] = true,
 ["ChatEditHistory"] = {
-"我擦",
-"你不去陪床吗",
-"/questie",
 "/cw 十字军小妹妹 暗牧",
 "/cw 丶粉茶清欢丶 戒律牧",
 "/cw 心随天地走 戒律",
@@ -22,6 +19,9 @@ ElvCharacterDB = {
 "/团队 急翔如溢",
 "/团队 9",
 "/biaoge",
+"/cw 雷霆珠峰 暗牧",
+"/cw 都护在燕然 暗牧",
+"我擦",
 },
 ["ChatHistoryLog"] = {
 },

@@ -2,6 +2,7 @@ local addonName, addonTable = ...;
 local gsub = _G.string.gsub
 local L ={}
 addonTable.locale=L
+--local locale1 = GetAvailableLocales()
 local function removeColons(s)
 	local s=s:gsub("：", "")
 	local s=s:gsub(":", "")

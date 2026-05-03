@@ -208,6 +208,7 @@ ChatF.jingjian:SetScript("OnClick", function (self)
 	else
 		PIGA["Chat"]["jingjian"]=false;
 	end
+	QuickChatfun.chatONOFF.jingjian=PIGA["Chat"]["jingjian"]
 end);
 ---------------------
 local function JoinPIG(pindaoName)
@@ -251,6 +252,7 @@ local function JoinPIGALL(pindaoName)
 		JoinPIG(LOOK_FOR_GROUP)
 		JoinPIG("PIG")
 		JoinPIG_D("PIG")
+		JoinPIG(CHANNEL_CATEGORY_WORLD)
 	end
 end
 ChatF.JoinPig = PIGCheckbutton_R(ChatF,{L["CHAT_JOINPIG"],L["CHAT_JOINPIGTIPS"]})
@@ -539,6 +541,7 @@ ChatF.extinfoF.ShowZb:SetScript("OnClick", function (self)
 	else
 		PIGA["Chat"]["ShowZb"]=false;
 	end
+	QuickChatfun.chatONOFF.ShowZb=PIGA["Chat"]["ShowZb"]
 end);
 local Copytisp = SHOW_PLAYER_NAMES..SHOW..CALENDAR_COPY_EVENT..EMBLEM_SYMBOL.."\n"..KEY_BUTTON1.."-"..CALENDAR_COPY_EVENT..STATUS_TEXT_TARGET..CALENDAR_PLAYER_NAME.."\n"..KEY_BUTTON2.."-"..CALENDAR_COPY_EVENT..STATUS_TEXT_TARGET..VOICE_TALKING
 ChatF.extinfoF.FastCopy = PIGCheckbutton_R(ChatF.extinfoF,{CALENDAR_COPY_EVENT..EMBLEM_SYMBOL.."("..CALENDAR_COPY_EVENT..CALENDAR_PLAYER_NAME.."/"..CALENDAR_COPY_EVENT..VOICE_TALKING..")",Copytisp})
@@ -548,6 +551,7 @@ ChatF.extinfoF.FastCopy:SetScript("OnClick", function (self)
 	else
 		PIGA["Chat"]["FastCopy"]=false;
 	end
+	QuickChatfun.chatONOFF.FastCopy=PIGA["Chat"]["FastCopy"]
 end);
 --LINK显示装备图标
 ChatF.extinfoF.ShowLinkIcon = PIGCheckbutton_R(ChatF.extinfoF,{"物品链接显示图标","聊天栏发送的物品链接会显示图标"})
@@ -557,6 +561,7 @@ ChatF.extinfoF.ShowLinkIcon:SetScript("OnClick", function (self)
 	else
 		PIGA["Chat"]["ShowLinkIcon"]=false;
 	end
+	QuickChatfun.chatONOFF.ShowLinkIcon=PIGA["Chat"]["ShowLinkIcon"]
 end);
 ChatF.extinfoF.ShowLinkLV = PIGCheckbutton_R(ChatF.extinfoF,{"物品链接显示装等","聊天栏发送的物品链接会显示装等"})
 ChatF.extinfoF.ShowLinkLV:SetScript("OnClick", function (self)
@@ -565,6 +570,7 @@ ChatF.extinfoF.ShowLinkLV:SetScript("OnClick", function (self)
 	else
 		PIGA["Chat"]["ShowLinkLV"]=false;
 	end
+	QuickChatfun.chatONOFF.ShowLinkLV=PIGA["Chat"]["ShowLinkLV"]
 end);
 ChatF.extinfoF.ShowLinkSlots = PIGCheckbutton_R(ChatF.extinfoF,{"物品链接显示部位","聊天栏发送的物品链接会显示部位"})
 ChatF.extinfoF.ShowLinkSlots:SetScript("OnClick", function (self)
@@ -573,6 +579,7 @@ ChatF.extinfoF.ShowLinkSlots:SetScript("OnClick", function (self)
 	else
 		PIGA["Chat"]["ShowLinkSlots"]=false;
 	end
+	QuickChatfun.chatONOFF.ShowLinkSlots=PIGA["Chat"]["ShowLinkSlots"]
 end);
 ChatF.extinfoF.ShowLinkGem = PIGCheckbutton_R(ChatF.extinfoF,{"物品链接显示宝石孔位","聊天栏发送的物品链接会显示宝石孔位"})
 ChatF.extinfoF.ShowLinkGem:SetScript("OnClick", function (self)
@@ -581,6 +588,7 @@ ChatF.extinfoF.ShowLinkGem:SetScript("OnClick", function (self)
 	else
 		PIGA["Chat"]["ShowLinkGem"]=false;
 	end
+	QuickChatfun.chatONOFF.ShowLinkGem=PIGA["Chat"]["ShowLinkGem"]
 end);
 ChatF.extinfoF:HookScript("OnShow", function (self)
 	self.ShowZb:SetChecked(PIGA["Chat"]["ShowZb"])
@@ -591,7 +599,7 @@ ChatF.extinfoF:HookScript("OnShow", function (self)
 	self.ShowLinkGem:SetChecked(PIGA["Chat"]["ShowLinkGem"])
 end);
 
---快捷频道切换按钮=============
+--频道切换按钮=============
 local QuickButF =PIGOptionsList_R(RTabFrame,L["CHAT_QUKBUT"],130)
 local QuickChat_maodianID = {1,2};
 local QuickChat_maodianListCN = {L["CHAT_QUKBUT_UP"],L["CHAT_QUKBUT_DOWN"]};
@@ -622,7 +630,7 @@ function QuickButF.QuickChat.maodian:PIGDownMenu_SetValue(value,arg1,arg2)
 	PIGCloseDropDownMenus()
 end
 ---
-local QuickChat_style = {L["CHAT_QUKBUT_STYLE"].."1",L["CHAT_QUKBUT_STYLE"].."2"};
+local QuickChat_style = {L["CHAT_QUKBUT_STYLE"].."1",L["CHAT_QUKBUT_STYLE"].."2",L["CHAT_QUKBUT_STYLE"].."3"};
 QuickButF.QuickChat.style =PIGDownMenu(QuickButF.QuickChat,{"LEFT",QuickButF.QuickChat.maodian,"RIGHT",20,0},{80,nil})
 function QuickButF.QuickChat.style:PIGDownMenu_Update_But()
 	local info = {}
@@ -1205,6 +1213,7 @@ local function JoinPigChannel()
 end
 --=====================================
 addonTable.Chat = function()
+	QuickChatfun.PIGMessage()
 	C_Timer.After(2.8, JoinPigChannel);
 	ChatFrame_MinMaxB_Open();
 	ChatFrame_AutoFontSize_Open()
@@ -1215,5 +1224,4 @@ addonTable.Chat = function()
 	RemTips_Fun()
 	WhoWhisper_Fun()
 	QuickChatfun.TabBut()
-	QuickChatfun.PIGMessage()
 end

@@ -127,6 +127,7 @@ BG.Init(function()
         L["|cffff0000团长离线，该装备的拍卖结果可能不正确。"] = "|cffff0000團長離線，該裝備的拍賣結果可能不正確。"
         L["心理价格需高于或等于起拍价"] = "心理價格需高於或等於起拍價"
         L["心理价格需高于当前价格"] = "心理價格需高於當前價格"
+        L["|cffFF0000流拍"] = L["|cffFF0000流拍"]
     elseif (Locale == "enUS") then
         L["Alt+点击才能生效"] = "Alt+Click to activate"
         L["只有团长或物品分配者有权限取消拍卖"] = "Only the group leader or loot master has permission to cancel the auction"
@@ -193,6 +194,7 @@ BG.Init(function()
         L["|cffff0000团长离线，该装备的拍卖结果可能不正确。"] = "|cffff0000The group leader is offline. The auction result for this item may be incorrect.|r"
         L["心理价格需高于或等于起拍价"] = "Maximum Bid must be higher than or equal to the Starting Bid"
         L["心理价格需高于当前价格"] = "Maximum Bid must be higher than the Current Price"
+        L["|cffFF0000流拍"] = L["|cffFF0000Failed"]
     end
 
     local realmName = GetRealmName():gsub(" ", ""):gsub("%-", "")
@@ -331,30 +333,30 @@ BG.Init(function()
     end
 
     function aura.SetEditBg(edit)
-        edit.Left = edit:CreateTexture()
-        edit.Left:SetPoint("LEFT", -5, 0)
-        edit.Left:SetSize(8, 20)
-        edit.Left:SetTexture("interface/common/commonsearch")
-        edit.Left:SetTexCoord(.88, .95, .01, .31)
+        -- edit.Left = edit:CreateTexture()
+        -- edit.Left:SetPoint("LEFT", -5, 0)
+        -- edit.Left:SetSize(8, 20)
+        -- edit.Left:SetTexture("interface/common/commonsearch")
+        -- edit.Left:SetTexCoord(.88, .95, .01, .31)
 
-        edit.Right = edit:CreateTexture()
-        edit.Right:SetPoint("RIGHT", 0, 0)
-        edit.Right:SetSize(8, 20)
-        edit.Right:SetTexture("interface/common/commonsearch")
-        edit.Right:SetTexCoord(0, .07, .338, .638)
+        -- edit.Right = edit:CreateTexture()
+        -- edit.Right:SetPoint("RIGHT", 0, 0)
+        -- edit.Right:SetSize(8, 20)
+        -- edit.Right:SetTexture("interface/common/commonsearch")
+        -- edit.Right:SetTexCoord(0, .07, .338, .638)
 
-        edit.Middle = edit:CreateTexture()
-        edit.Middle:SetSize(10, 20)
-        edit.Middle:SetPoint("LEFT", edit.Left, "RIGHT", 0, 0)
-        edit.Middle:SetPoint("RIGHT", edit.Right, "LEFT", 0, 0)
-        edit.Middle:SetTexture("interface/common/commonsearch")
-        edit.Middle:SetTexCoord(0, .8, .01, .31)
-
+        -- edit.Middle = edit:CreateTexture()
+        -- edit.Middle:SetSize(10, 20)
+        -- edit.Middle:SetPoint("LEFT", edit.Left, "RIGHT", 0, 0)
+        -- edit.Middle:SetPoint("RIGHT", edit.Right, "LEFT", 0, 0)
+        -- edit.Middle:SetTexture("interface/common/commonsearch")
+        -- edit.Middle:SetTexCoord(0, .8, .01, .31)
+        
         edit:SetFont(FONT, 14, "OUTLINE")
-        edit:SetScript("OnTabPressed", EditBox_OnTabPressed)
-        edit:SetScript("OnEscapePressed", EditBox_ClearFocus)
-        edit:SetScript("OnEditFocusLost", EditBox_ClearHighlight)
-        edit:SetScript("OnEditFocusGained", EditBox_HighlightText)
+        -- edit:SetScript("OnTabPressed", EditBox_OnTabPressed)
+        -- edit:SetScript("OnEscapePressed", EditBox_ClearFocus)
+        -- edit:SetScript("OnEditFocusLost", EditBox_ClearHighlight)
+        -- edit:SetScript("OnEditFocusGained", EditBox_HighlightText)
     end
 
     function aura.FormatNumber(num)
@@ -448,6 +450,14 @@ BG.Init(function()
         end
     end
 
+    function aura.IsSecret(value)
+        return issecretvalue and issecretvalue(value)
+    end
+
+    function aura.InBoss()
+        return issecretvalue and C_InstanceEncounter.IsEncounterInProgress()
+    end
+
     local lastNum = 0
     function aura.canSend()
         local n
@@ -478,6 +488,7 @@ BG.Init(function()
         local f = self.owner
         if f.IsSmallWindow then
             local function SetBigWindos(f)
+                if not f.hide:IsEnabled() then return end
                 f.IsSmallWindow = false
                 f.hide:SetText(L["折叠"])
 
@@ -497,7 +508,6 @@ BG.Init(function()
                 end
                 f.autoTextButton:Show()
                 f.logTextButton:Show()
-                f.currentMoneyFrame:Show()
                 f.topMoneyFrame:Show()
                 if not f.IsEnd then
                     f.myMoneyEdit:Show()
@@ -519,8 +529,17 @@ BG.Init(function()
                 f.bar:ClearAllPoints()
                 f.bar:SetPoint("TOPLEFT", f.itemFrame.iconFrame, "TOPRIGHT", 0, 0)
                 f.bar:SetPoint("BOTTOMRIGHT", f.itemFrame, "BOTTOMRIGHT", 0, 0)
+
+                f.currentMoneyFrame:ClearAllPoints()
+                f.currentMoneyFrame:SetPoint("TOPLEFT", f.itemFrame, "BOTTOMLEFT", 3, -3)
+                if f.start then
+                    f.currentMoneyText:SetText(L["|cffFFD100起拍价：|r"] .. aura.FormatNumber(f.money))
+                else
+                    f.currentMoneyText:SetText(L["|cffFFD100当前价格：|r"] .. aura.FormatNumber(f.money))
+                end
+                f.currentMoneyText:SetJustifyH("LEFT")
             end
-            if IsAltKeyDown() then
+            if IsAltKeyDown() and not f.notClick then
                 for _, f in pairs(_G.BGA.Frames) do
                     SetBigWindos(f)
                 end
@@ -529,7 +548,7 @@ BG.Init(function()
             end
         else
             local function SetSmallWindos(f)
-                if f.isAuto then return end
+                if not f.hide:IsEnabled() then return end
                 f.IsSmallWindow = true
                 f.hide:SetText(L["展开"])
 
@@ -546,7 +565,6 @@ BG.Init(function()
                 f.cancel:Hide()
                 f.autoTextButton:Hide()
                 f.logTextButton:Hide()
-                f.currentMoneyFrame:Hide()
                 f.topMoneyFrame:Hide()
                 f.myMoneyEdit:Hide()
                 f.itemFrame2:Hide()
@@ -566,8 +584,17 @@ BG.Init(function()
                 f.bar:ClearAllPoints()
                 f.bar:SetPoint("TOPLEFT", f.itemFrame.iconFrame, "TOPRIGHT", 0, 0)
                 f.bar:SetPoint("BOTTOMRIGHT", f.itemFrame, "BOTTOMRIGHT", -aura.edgeSize, aura.edgeSize)
+
+                f.currentMoneyFrame:ClearAllPoints()
+                f.currentMoneyFrame:SetPoint("RIGHT", f.hide, "LEFT", -5, -0)
+                if f.start then
+                    f.currentMoneyText:SetText("")
+                else
+                    f.currentMoneyText:SetText(aura.FormatNumber(f.money))
+                end
+                f.currentMoneyText:SetJustifyH("RIGHT")
             end
-            if IsAltKeyDown() then
+            if IsAltKeyDown() and not f.notClick then
                 for _, f in pairs(_G.BGA.Frames) do
                     SetSmallWindos(f)
                 end
@@ -575,9 +602,11 @@ BG.Init(function()
                 SetSmallWindos(f)
             end
         end
-        aura.UpdateAllOnEnters()
-        aura.UpdateAllFrames()
-        PlaySound(aura.sound1)
+        if not f.notClick then
+            aura.UpdateAllOnEnters()
+            aura.UpdateAllFrames()
+            PlaySound(aura.sound1)
+        end
     end
 
     function aura.Hide_OnEnter(self)
@@ -776,29 +805,17 @@ BG.Init(function()
                 f.myMoneyEdit:Hide()
             end
             if remaining <= -0.5 then
-                f.bar:SetScript("OnUpdate", nil)
-
-                f.remainingTime:Hide()
-                f.bar:Hide()
-                f.IsEnd = true
-                f.cancel:Hide()
-
-                local t = f.itemFrame2:CreateFontString()
-                t:SetFont(FONT, 30, "OUTLINE")
-                t:SetPoint("TOPRIGHT", f.itemFrame, "BOTTOMRIGHT", -10, -5)
-
-                After(aura.HIDEFRAME_TIME, function()
-                    aura.UpdateFrame(f)
-                end)
-
                 local itemID = f.itemID
                 local link = f.link
                 local result
                 if f.player and f.player ~= "" then
                     result = aura.SetClassCFF(f.player) .. f.money
-                    t:SetText(L["拍卖成功"])
-                    t:SetTextColor(0, 1, 0)
-                    f.currentMoneyText:SetText(L["|cff00FF00成交价：|r"] .. aura.FormatNumber(f.money))
+                    aura.SetEndState(f, L["拍卖成功"], 0, 1, 0)
+                    if f.IsSmallWindow then
+                        f.currentMoneyText:SetText("|cff00FF00" .. aura.FormatNumber(f.money))
+                    else
+                        f.currentMoneyText:SetText(L["|cff00FF00成交价：|r"] .. aura.FormatNumber(f.money))
+                    end
                     if f.player == aura.GN() then
                         f.topMoneyText:SetText(L["|cff00FF00买家：|r"] .. "|cff" .. aura.GREEN1 .. L[">> 你 <<"])
                     else
@@ -810,7 +827,9 @@ BG.Init(function()
                     end
                     if aura.IsRaidLeader() then
                         After(.2, function()
-                            SendChatMessage(format(L["{rt6}拍卖成功{rt6} %s %s %s"], f.link, f.player, f.money), "RAID")
+                            if not aura.InBoss() then
+                                SendChatMessage(format(L["{rt6}拍卖成功{rt6} %s %s %s"], f.link, f.player, f.money), "RAID")
+                            end
                         end)
                     end
                     if BG and BG.AuctionWAEnd then
@@ -818,17 +837,26 @@ BG.Init(function()
                     end
                 else
                     result = L["流拍"]
-                    t:SetText(L["流拍"])
-                    t:SetTextColor(1, 0, 0)
-                    f.currentMoneyText:SetText(L["|cffFF0000流拍：|r"] .. aura.FormatNumber(f.money))
+                    aura.SetEndState(f, L["流拍"], 1, 0, 0)
+                    if f.IsSmallWindow then
+                        f.currentMoneyText:SetText(L["|cffFF0000流拍"])
+                    else
+                        f.currentMoneyText:SetText(L["|cffFF0000流拍：|r"] .. aura.FormatNumber(f.money))
+                    end
                     f.topMoneyText:SetText("")
                     if aura.IsRaidLeader() then
-                        SendChatMessage(format(L["{rt7}流拍{rt7} %s"], f.link), "RAID")
+                        if not aura.InBoss() then
+                            SendChatMessage(format(L["{rt7}流拍{rt7} %s"], f.link), "RAID")
+                        end
                     end
                     if BG and BG.AuctionWAEnd then
                         BG.AuctionWAEnd(2, f.link, f.player, f.money)
                     end
                 end
+
+                After(aura.HIDEFRAME_TIME, function()
+                    aura.UpdateFrame(f)
+                end)
 
                 -- After(3, function()
                 --     if not aura.endMsg[itemID] then
@@ -1042,10 +1070,14 @@ BG.Init(function()
         end
 
         f.money = money
-        f.currentMoneyText:SetText(L["|cffFFD100当前价格：|r"] .. aura.FormatNumber(money))
+        if f.IsSmallWindow then
+            f.currentMoneyText:SetText(aura.FormatNumber(money))
+        else
+            f.currentMoneyText:SetText(L["|cffFFD100当前价格：|r"] .. aura.FormatNumber(money))
+            f.myMoneyEdit:Show()
+        end
         f.player = player
         f.colorplayer = aura.SetClassCFF(player)
-        f.myMoneyEdit:Show()
         f.start = false
         if player == aura.GN() then
             f.topMoneyText:SetText(L["|cffFFD100出价最高者：|r"] .. "|cff" .. aura.GREEN1 .. L[">> 你 <<"])
@@ -1169,8 +1201,8 @@ BG.Init(function()
     end
 
     local function CheckAllFrameOverlap()
-        for i = 1, aura.maxNumFrame do
-            local f = _G.BGA.Frames[i]
+        for j = 1, aura.maxNumFrame do
+            local f = _G.BGA.Frames[j]
             if f and not f.animing then
                 local top = f:GetTop()
                 local bottom = f:GetBottom()
@@ -1281,6 +1313,21 @@ BG.Init(function()
                 aura.endMsg[itemID] = nil
             end
         end)
+    end
+
+    function aura.SetEndState(f, text, r, g, b)
+        local t = f.itemFrame2:CreateFontString()
+        t:SetFont(FONT, 30, "OUTLINE")
+        t:SetPoint("TOPRIGHT", f.itemFrame, "BOTTOMRIGHT", -10, -5)
+        t:SetText(text)
+        t:SetTextColor(r, g, b)
+        f.remainingTime:Hide()
+        f.bar:Hide()
+        f.IsEnd = true
+        f.myMoneyEdit:Hide()
+        f.cancel:Hide()
+        f.hide:Disable()
+        return t
     end
 
     -- 自动出价函数
@@ -1613,7 +1660,8 @@ BG.Init(function()
                 AuctionFrame.autoTitleText = t
             end
 
-            local edit = CreateFrame("EditBox", nil, f, "BackdropTemplate")
+            local edit = CreateFrame("EditBox", nil, f, "InputBoxTemplate")
+            -- local edit = CreateFrame("EditBox", nil, f, "BackdropTemplate")
             do
                 aura.SetEditBg(edit)
                 edit:SetSize(f:GetWidth() - 30, 20)
@@ -1857,6 +1905,7 @@ BG.Init(function()
             local f = CreateFrame("Frame", nil, AuctionFrame)
             f:SetSize(textwidth, 20)
             f:SetPoint("TOPLEFT", AuctionFrame.itemFrame, "BOTTOMLEFT", 3, -3)
+            f:SetFrameLevel(f:GetParent():GetFrameLevel() + 11)
             f:SetScript("OnMouseDown", aura.currentMoney_OnMouseDown)
             f:SetScript("OnMouseUp", aura.currentMoney_OnMouseUp)
             f.owner = AuctionFrame
@@ -1871,14 +1920,14 @@ BG.Init(function()
                 t:SetText(L["|cffFFD100起拍价：|r"] .. aura.FormatNumber(money))
                 AuctionFrame.start = true
             end
-            local currentMoneyText = f
+            local currentMoneyFrame = f
             AuctionFrame.currentMoneyFrame = f
             AuctionFrame.currentMoneyText = t
             AuctionFrame.money = money
             -- 出价最高者
-            local f = CreateFrame("Frame", nil, currentMoneyText)
+            local f = CreateFrame("Frame", nil, currentMoneyFrame)
             f:SetSize(textwidth, height)
-            f:SetPoint("TOPLEFT", currentMoneyText, "BOTTOMLEFT", 0, 0)
+            f:SetPoint("TOPLEFT", currentMoneyFrame, "BOTTOMLEFT", 0, 0)
             local t = f:CreateFontString()
             t:SetFont(FONT, 14, "OUTLINE")
             t:SetAllPoints()
@@ -1912,10 +1961,11 @@ BG.Init(function()
             AuctionFrame.topMoneyText = t
 
             -- 输入框
-            local edit = CreateFrame("EditBox", nil, currentMoneyText, "BackdropTemplate")
+            local edit = CreateFrame("EditBox", nil, currentMoneyFrame, "InputBoxTemplate")
+            -- local edit = CreateFrame("EditBox", nil, currentMoneyFrame, "BackdropTemplate")
             aura.SetEditBg(edit)
-            edit:SetSize(AuctionFrame:GetRight() - currentMoneyText:GetRight() - 3, 20)
-            edit:SetPoint("TOPLEFT", currentMoneyText, "TOPRIGHT", 0, 0)
+            edit:SetSize(AuctionFrame:GetRight() - currentMoneyFrame:GetRight() - 3, 20)
+            edit:SetPoint("TOPLEFT", currentMoneyFrame, "TOPRIGHT", 0, 0)
             edit:SetAutoFocus(false)
             edit:SetNumeric(true)
             edit:SetText(money)
@@ -2104,18 +2154,10 @@ BG.Init(function()
                 local auctionID = tonumber(arg2)
                 for _, f in pairs(_G.BGA.Frames) do
                     if f[_auctionID_] == auctionID and not f.IsEnd then
-                        local t = f.itemFrame2:CreateFontString()
-                        t:SetFont(FONT, 30, "OUTLINE")
-                        t:SetPoint("TOPRIGHT", f.itemFrame, "BOTTOMRIGHT", -10, -5)
-                        t:SetText(L["拍卖取消"])
-                        t:SetTextColor(1, 0, 0)
-
-                        f.remainingTime:Hide()
-                        f.bar:Hide()
-                        f.IsEnd = true
-                        f.myMoneyEdit:Hide()
-                        f.cancel:Hide()
-
+                        aura.SetEndState(f, L["拍卖取消"], 1, 0, 0)
+                        if f.IsSmallWindow then
+                            f.currentMoneyText:SetText("|cffFF0000" .. L["拍卖取消"])
+                        end
                         if aura.IsRaidLeader() then
                             SendChatMessage(format(L["{rt7}拍卖取消{rt7} %s"], f.link), "RAID")
                         end
@@ -2181,6 +2223,7 @@ BG.Init(function()
             end
         elseif event == "CHAT_MSG_RAID_LEADER" then
             local msg = ...
+            if aura.IsSecret(msg) then return end
             local zhuangbei, maijia, jine
             zhuangbei, maijia, jine = msg:match("{rt6}拍卖成功{rt6} (.-) (.-) (.+)")
             if not (zhuangbei and maijia and jine) then

@@ -1,0 +1,2 @@
+
+TotemMasterCharDB = nil

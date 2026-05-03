@@ -100,7 +100,7 @@ end
 ------------------装备------------------
 function BG.HistoryZhuangBeiUI(FB, t, b, bb, i, ii, scrollFrame)
     local parent = scrollFrame or BG["HistoryFrame" .. FB]
-    local bt = CreateFrame("EditBox", nil, parent, "BiaoGe_InputBoxTemplate");
+    local bt = CreateFrame("EditBox", nil, parent, BG.editTemplate);
     if BossNum(FB, b, t) <= Maxb[FB] then
         bt:SetSize(BG.zhuangbeiWidth, 20)
     else
@@ -190,7 +190,7 @@ end
 
 ------------------买家------------------
 function BG.HistoryMaiJiaUI(FB, t, b, bb, i, ii)
-    local bt = CreateFrame("EditBox", nil, BG.HistoryFrame[FB]["boss" .. BossNum(FB, b, t)]["zhuangbei" .. i], "BiaoGe_InputBoxTemplate");
+    local bt = CreateFrame("EditBox", nil, BG.HistoryFrame[FB]["boss" .. BossNum(FB, b, t)]["zhuangbei" .. i], BG.editTemplate);
     bt:SetSize(BG.maijiaWidth, 20)
     bt:SetPoint("TOPLEFT", preWidget, "TOPRIGHT", 5, 0);
     bt:SetFrameLevel(110)
@@ -217,7 +217,7 @@ end
 
 ------------------金额------------------
 function BG.HistoryJinEUI(FB, t, b, bb, i, ii)
-    local bt = CreateFrame("EditBox", nil, BG.HistoryFrame[FB]["boss" .. BossNum(FB, b, t)]["zhuangbei" .. i], "BiaoGe_InputBoxTemplate");
+    local bt = CreateFrame("EditBox", nil, BG.HistoryFrame[FB]["boss" .. BossNum(FB, b, t)]["zhuangbei" .. i], BG.editTemplate);
     bt:SetSize(BG.jineWidth, 20)
     bt:SetPoint("TOPLEFT", preWidget, "TOPRIGHT", 5, 0);
     bt:SetFrameLevel(110)

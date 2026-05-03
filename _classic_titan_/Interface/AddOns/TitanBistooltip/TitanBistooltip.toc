@@ -4,7 +4,7 @@
 ## Author: 快跑兄弟
 ## IconTexture: Interface\AddOns\TitanBistooltip\Icons\my_custom_icon.tga
 ## Notes-zhCN: 泰坦时光服全职业毕业装数据库。|n左键点击小地图按钮，可以查看所有职业所有阶段的毕业装备列表。|n右键小地图按钮，可以进入设置界面对鼠标提示信息进行设置。|n此版用于泰坦重铸时光服客户端。|n|cFF00BFFF快跑兄弟（时光1部落）|r
-## Version: 2.09
+## Version: 2.13
 ## SavedVariables: TitanBistooltipDB
 ## LoadManagers: AddonLoader
 ## X-LoadOn-Always: delayed
@@ -42,7 +42,7 @@ data\Druid\Feral dps.lua
 data\Druid\Restoration.lua
 
 # Titan BIS数据文件 - Hunter
-data\Hunter\Beast Mastery.lua
+data\Hunter\Beast mastery.lua
 data\Hunter\Marksmanship.lua
 data\Hunter\Survival.lua
 
@@ -97,7 +97,7 @@ maxed\Druid\Feral dps.lua
 maxed\Druid\Restoration.lua
 
 # Maxed BIS数据文件 - Hunter
-maxed\Hunter\Beast Mastery.lua
+maxed\Hunter\Beast mastery.lua
 maxed\Hunter\Marksmanship.lua
 maxed\Hunter\Survival.lua
 

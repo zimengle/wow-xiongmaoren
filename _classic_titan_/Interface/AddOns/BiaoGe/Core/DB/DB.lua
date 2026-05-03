@@ -7,6 +7,7 @@ local pt = print
 
 local LibBG = LibStub:GetLibrary("LibUIDropDownMenu-4.0") -- 调用库菜单UI
 ns.LibBG = LibBG
+LibBG.UIDropDownMenu_HandleGlobalMouseEvent = function() end
 
 C_ChatInfo.RegisterAddonMessagePrefix("BiaoGe") -- 注册插件通信频道
 C_ChatInfo.RegisterAddonMessagePrefix("BiaoGeVIP")
@@ -22,17 +23,17 @@ BiaoGeTooltip4            = CreateFrame("GameTooltip", "BiaoGeTooltip4", UIParen
 BINDING_HEADER_BIAOGE     = "BiaoGe"
 BINDING_NAME_BIAOGE       = L["打开/关闭表格"]
 BINDING_NAME_RoleOverview = L["打开/关闭角色总览"]
---[[ 
+--[[
 /dump GetBindingKey("BINDING_NAME_BIAOGE")
  GetBinding("MOVEFORWARD")
 ]]
 
-local realmID             = GetRealmID()
-local player              = BG.playerName
-local realmName           = BG.realmName
-local GetAddOnMetadata    = GetAddOnMetadata or C_AddOns.GetAddOnMetadata
-local IsAddOnLoaded       = IsAddOnLoaded or C_AddOns.IsAddOnLoaded
-local LoadAddOn           = LoadAddOn or C_AddOns.LoadAddOn
+local realmID          = GetRealmID()
+local player           = BG.playerName
+local realmName        = BG.realmName
+local GetAddOnMetadata = GetAddOnMetadata or C_AddOns.GetAddOnMetadata
+local IsAddOnLoaded    = IsAddOnLoaded or C_AddOns.IsAddOnLoaded
+local LoadAddOn        = LoadAddOn or C_AddOns.LoadAddOn
 
 -- 全局变量
 do
@@ -65,6 +66,9 @@ do
     BG.jineWidth = 90
     BG.spFB = {}
     BG.fakuanIsFirst = {}
+    BG.editTemplate = "BiaoGe_InputBoxTemplate" or "InputBoxTemplate"
+    BG.editSearchTemplate = "BiaoGe_SearchBoxTemplate" or "SearchBoxTemplate"
+    BG.notLootBossIDs = {}
     if BG.IsRetail then
         BG.CloseButtonOffset = 0
     else
@@ -268,9 +272,9 @@ do
                 { 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 11, 6 })
         end
         if BG.IsRetail then
-            local n = 8
-            AddDB("NP", mainFrameWidth, 950, 3, 10, { 0, 4, 8 }, { "R", "N", "H", "M" }, nil,
-                { n, n, n, n, n, n, n, n, 5, 5, }, 12)
+            local n = 9
+            AddDB("VS", mainFrameWidth, 920, 3, 11, { 0, 4, 8 }, { "N", "H", "M" }, nil,
+                { n, n, n, n, n, n, n, n, n, 7, 5, })
         end
     end
 
@@ -494,10 +498,22 @@ do
             AddDB("TOT", 1098, "P3") -- 雷电王座
         end
         if BG.IsRetail then
-            BG.FB1 = "NP"
-            BG.fullLevel = 80
+            BG.FB1 = "VS"
+            BG.fullLevel = 90
             BG.fullLevel_RoleOverview = 80
-            AddDB("NP", 2657, "P1", 20)
+
+            local FB = "VS"
+            AddDB(FB, 2912, "P1", 20, nil, nil, { 1, 6 }, L["P1三本"])
+            local mapID = 2939 -- 梦境裂隙
+            BG.FBIDtable[mapID] = FB
+            BG.bossPositionStartEnd[mapID] = { 7, 7 }
+            BG.FBfromBossPosition[FB][7] = { name = "DR", localName = GetRealZoneText(mapID) }
+            local mapID = 2913 -- 进军奎尔丹纳斯
+            BG.FBIDtable[mapID] = FB
+            BG.bossPositionStartEnd[mapID] = { 8, 9 }
+            for i = 8, 9 do
+                BG.FBfromBossPosition[FB][i] = { name = "MQD", localName = GetRealZoneText(mapID) }
+            end
         end
     end
 
@@ -582,11 +598,11 @@ do
                 { name = L["团本：史诗难度"], name2 = "raidmyth", },
                 { name = L["团本：英雄难度"], name2 = "raidhero", },
                 { name = L["团本：普通难度"], name2 = "raidnormal", },
-                { name = L["5人本"], name2 = "fb5", },
-                { name = L["牌子/货币"], name2 = "currency", },
-                { name = L["声望"], name2 = "faction", },
-                { name = L["专业"], name2 = "profession", },
-                { name = L["世界掉落"], name2 = "world", },
+                { name = L["大秘境"], name2 = "fb5", },
+                -- { name = L["牌子/货币"], name2 = "currency", },
+                -- { name = L["声望"], name2 = "faction", },
+                -- { name = L["专业"], name2 = "profession", },
+                -- { name = L["世界掉落"], name2 = "world", },
             }
         end
     end
@@ -1169,10 +1185,10 @@ BG.Init(function()
         end)
 
         -- 天赋
-        if not BG.IsRetail then
+        do
             local function GetTalent(_, event)
                 local specIndex
-                if BG.IsMOP then
+                if BG.verOver4 then
                     specIndex = C_SpecializationInfo.GetSpecialization()
                     if specIndex == 0 or specIndex == 5 then
                         specIndex = nil
@@ -1194,7 +1210,7 @@ BG.Init(function()
             local f = CreateFrame("Frame")
             f:RegisterEvent("PLAYER_TALENT_UPDATE")
             f:RegisterEvent("PLAYER_ENTERING_WORLD")
-            if BG.IsMOP then
+            if BG.verOver4 then
                 f:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
             end
             f:SetScript("OnEvent", function(self, event, ...)
@@ -1236,9 +1252,14 @@ BG.Init(function()
                     "Interface\\Icons\\Spell_Holy_AuraOfLight",
                 },
                 WARRIOR = {
-                    "Interface\\Icons\\ability_rogue_eviscerate",
+                    "Interface\\Icons\\ability_warrior_savageblow",
                     "Interface\\Icons\\ability_warrior_innerrage",
                     "Interface\\Icons\\ability_warrior_defensivestance", -- T
+                },
+                EVOKER = {                                               -- 唤魔师
+                    "Interface\\Icons\\ability_evoker_powerswell",
+                    "Interface\\Icons\\ability_evoker_emeraldblossom",
+                    "Interface\\Icons\\ability_evoker_reversion_green",
                 },
                 SHAMAN = {
                     "Interface\\Icons\\spell_nature_lightning",
@@ -1249,6 +1270,11 @@ BG.Init(function()
                     "Interface\\Icons\\Ability_Hunter_BeastTaming",
                     "Interface\\Icons\\Ability_Marksmanship",
                     "Interface\\Icons\\Ability_Hunter_SwiftStrike",
+                },
+                DEMONHUNTER = {
+                    "Interface\\Icons\\ability_demonhunter_specdps",
+                    "Interface\\Icons\\Ability_DemonHunter_SpecTank",
+                    "Interface\\Icons\\classicon_demonhunter_void",
                 },
                 MONK = {
                     "Interface/Icons/spell_monk_brewmaster_spec", -- 酒仙
@@ -1276,7 +1302,7 @@ BG.Init(function()
                     "Interface\\Icons\\spell_shadow_shadowwordpain",
                 },
             }
-            if BG.IsMOP or BG.IsCTM then
+            if BG.verOver4 then
                 BG.talentIcon.DRUID = {
                     "Interface\\Icons\\spell_nature_starfall",     -- 鸟
                     "Interface\\Icons\\ability_druid_catform",     -- 猫

@@ -38,7 +38,7 @@ BG.Init(function()
         local raid = BG.SortRaidRosterInfo()
         for t = 1, 4 do
             for i = 1, 10 do
-                local bt = CreateFrame("EditBox", nil, f, "BiaoGe_InputBoxTemplate")
+                local bt = CreateFrame("EditBox", nil, f, BG.editTemplate)
                 bt:SetSize(BG.maijiaWidth, 20)
                 bt:SetAutoFocus(false)
                 bt:SetEnabled(false)
@@ -338,10 +338,11 @@ BG.Init(function()
 
     -- 金额
     do
-        local edit = CreateFrame("EditBox", nil, BG.ChatAccountingFrame, "BiaoGe_InputBoxTemplate")
+        local edit = CreateFrame("EditBox", nil, BG.ChatAccountingFrame, BG.editTemplate)
         edit:SetSize(120, 20)
         edit:SetPoint("BOTTOMRIGHT", BG.ChatAccountingFrame, "BOTTOM", -10, 60)
         edit:SetAutoFocus(false)
+        BG.SetEditStickyFocus(edit)
         BG.ChatAccountingFrame.jineFrame = edit
         edit:SetScript("OnTextChanged", function(self)
             BG.UpdateTwo0(self)
@@ -395,12 +396,13 @@ BG.Init(function()
 
     -- 欠款
     do
-        local edit = CreateFrame("EditBox", nil, BG.ChatAccountingFrame, "BiaoGe_InputBoxTemplate")
+        local edit = CreateFrame("EditBox", nil, BG.ChatAccountingFrame, BG.editTemplate)
         edit:SetSize(120, 20)
         edit:SetPoint("BOTTOMRIGHT", BG.ChatAccountingFrame, "BOTTOMRIGHT", -40, 60)
         edit:SetAutoFocus(false)
         edit:SetNumeric(true)
         edit:SetTextColor(1, 0, 0)
+        BG.SetEditStickyFocus(edit)
         BG.ChatAccountingFrame.qiankuanFrame = edit
         edit:SetScript("OnTextChanged", function(self)
             BG.UpdateTwo0(self)

@@ -42,13 +42,16 @@ BG.Init(function()
     elseif BG.IsWLK then
         BiaoGe.Auction.money = BiaoGe.Auction.money or 1000
         BiaoGe.Auction.fastMoney = BiaoGe.Auction.fastMoney or { 1000, 2000, 3000, 5000, 10000 }
-    else
+    elseif BG.IsMOP then
         BG.Once("fastMoney", 260110, function()
             BiaoGe.Auction.money = nil
             BiaoGe.Auction.fastMoney = nil
         end)
         BiaoGe.Auction.money = BiaoGe.Auction.money or 10000
         BiaoGe.Auction.fastMoney = BiaoGe.Auction.fastMoney or { 10000, 20000, 30000, 50000, 100000 }
+    else
+        BiaoGe.Auction.money = BiaoGe.Auction.money or 100000
+        BiaoGe.Auction.fastMoney = BiaoGe.Auction.fastMoney or { 10000, 50000, 100000, 200000, 500000 }
     end
 
     local sending = {}
@@ -128,18 +131,22 @@ BG.Init(function()
         GameTooltip:ClearLines()
         GameTooltip:AddLine(self.title, 0, 1, 0)
         if self.isAuciton then
-            GameTooltip:AddLine(L["需全团安装拍卖WA，没安装的人将会看不到拍卖窗口。"], 0.5, 0.5, 0.5, true)
-            local text = ""
-            if not WeakAurasOptions then
-                text = BG.STC_r1(L["（WA面板尚未初始化）"])
-            elseif BG.ButtonRaidAuction.loadProgressNum and BG.ButtonRaidAuction.total then
-                text = BG.STC_y1(format(L["（WA面板正在初始化：%s/%s）"],
-                    BG.ButtonRaidAuction.loadProgressNum, BG.ButtonRaidAuction.total))
+            GameTooltip:AddLine(L["需全团安装%s，没安装的人将会看不到拍卖窗口。"]:format(BG.IsRetail and "BiaoGe插件" or L["拍卖WA"]), 0.5, 0.5, 0.5, true)
+            if not BG.IsRetail then
+                local text = ""
+                if not WeakAurasOptions then
+                    text = BG.STC_r1(L["（WA面板尚未初始化）"])
+                elseif BG.ButtonRaidAuction.loadProgressNum and BG.ButtonRaidAuction.total then
+                    text = BG.STC_y1(format(L["（WA面板正在初始化：%s/%s）"],
+                        BG.ButtonRaidAuction.loadProgressNum, BG.ButtonRaidAuction.total))
+                else
+                    text = BG.STC_g1(L["（WA面板已初始化，可以发送了）"])
+                end
+                GameTooltip:AddLine(L["SHIFT+点击：把WA字符串通过密语发送给没有的团员。"] .. text, 1, 1, 1, true)
+                line = line + 2
             else
-                text = BG.STC_g1(L["（WA面板已初始化，可以发送了）"])
+                line = line + 1
             end
-            GameTooltip:AddLine(L["SHIFT+点击：把WA字符串通过密语发送给没有的团员。"] .. text, 1, 1, 1, true)
-            line = line + 2
         end
         GameTooltip:AddLine(" ")
         local raid = BG.SortRaidRosterInfo()
@@ -528,10 +535,9 @@ BG.Init(function()
                 mainFrame = f
                 BG.StartAucitonFrame = mainFrame
 
-                f.CloseButton = CreateFrame("Button", nil, f, "UIPanelCloseButton")
-                f.CloseButton:SetFrameLevel(f.CloseButton:GetParent():GetFrameLevel() + 50)
-                f.CloseButton:SetPoint("TOPRIGHT", f, 0, 0)
+                BG.CreateCloseButton(f, 0, 0)
                 f.CloseButton:SetSize(35, 35)
+                f.CloseButton:SetFrameLevel(f.CloseButton:GetParent():GetFrameLevel() + 50)
             end
 
             -- 装备显示
@@ -654,7 +660,7 @@ BG.Init(function()
                 t:SetText(L["|cffFFD100拍卖时长(秒)"])
                 mainFrame.Text1 = t
 
-                local edit = CreateFrame("EditBox", nil, mainFrame, "BiaoGe_InputBoxTemplate")
+                local edit = CreateFrame("EditBox", nil, mainFrame, BG.editTemplate)
                 edit:SetSize(width, 20)
                 edit:SetPoint("TOPLEFT", t, "BOTTOMLEFT", 3, 0)
                 edit._type = "duration"
@@ -677,7 +683,7 @@ BG.Init(function()
                 t:SetText(L["|cffFFD100起拍价|r"])
                 mainFrame.Text2 = t
 
-                local edit = CreateFrame("EditBox", nil, mainFrame, "BiaoGe_InputBoxTemplate")
+                local edit = CreateFrame("EditBox", nil, mainFrame, BG.editTemplate)
                 edit:SetSize(width, 20)
                 edit:SetPoint("TOPLEFT", t, "BOTTOMLEFT", 3, 0)
                 edit._type = "money"
@@ -749,7 +755,7 @@ BG.Init(function()
                                 tinsert(tbl, FB)
                             end
                         end
-                        local itemID = items[1].id
+                        local itemID = BG.GetLeiTingItem(items[1].id)
                         for _, FB in ipairs(tbl) do
                             local money = BiaoGeVIP.auction[FB].money[itemID]
                             if money then
@@ -894,7 +900,7 @@ BG.Init(function()
             auction:SetSize(1, 20)
             auction:SetPoint("LEFT", addon, "RIGHT", 0, 0)
             auction:Hide()
-            auction.title = L["拍卖WA版本"]
+            auction.title = BG.IsRetail and L["自动拍卖版本"] or L["拍卖WA版本"]
             auction.title2 = L["拍卖：%s"]
             auction.table = BG.raidAuctionVersion
             auction.table2 = BG.raidBiaoGeVIPVersion
@@ -904,9 +910,11 @@ BG.Init(function()
                 GameTooltip:Hide()
                 self.isOnEnter = false
             end)
-            auction:SetScript("OnMouseUp", function(self)
-                SendWACode()
-            end)
+            if not BG.IsRetail then
+                auction:SetScript("OnMouseUp", function(self)
+                    SendWACode()
+                end)
+            end
             auction.text = auction:CreateFontString()
             auction.text:SetFont(BIAOGE_TEXT_FONT, 13, "OUTLINE")
             auction.text:SetPoint("LEFT")
@@ -970,9 +978,10 @@ BG.Init(function()
                     UpdateGuildFrame(guild)
                 end)
             elseif event == "CHAT_MSG_SYSTEM" then -- 如果团队里有人退出，就删掉
-                local text = ...
+                local msg = ...
+                if BG.IsSecret(msg) then return end
                 local leave = ERR_RAID_MEMBER_REMOVED_S:gsub("%%s", "(.+)")
-                local name = strmatch(text, leave)
+                local name = strmatch(msg, leave)
                 if name then
                     BG.raidBiaoGeVersion[name] = nil
                     BG.raidAuctionVersion[name] = nil
@@ -1035,13 +1044,18 @@ BG.Init(function()
     -- 移除屏蔽
     local CheckIgnore
     do
+        local link = "|cffFFFF00|Hgarrmission:" .. "BiaoGeIgnore:" .. "|h[" .. L["禁用此功能"] .. "]|h|r"
+        local function Send(ignoreName)
+            BG.SendSystemMessage((format(L["已把%s从屏蔽名单中移除，防止你看不到对方的拍卖聊天信息。"],
+                SetClassCFF(ignoreName)) .. link))
+        end
         function CheckIgnore()
             if BiaoGe.options.ignore ~= 1 then return end
             for i = 1, C_FriendList.GetNumIgnores() do
                 local ignoreName = C_FriendList.GetIgnoreName(i)
                 if UnitInRaid(ignoreName) then
                     C_FriendList.DelIgnore(ignoreName)
-                    BG.SendSystemMessage((format(L["已把%s从屏蔽名单中移除，防止你看不到对方的拍卖聊天信息。"], SetClassCFF(ignoreName))))
+                    Send(ignoreName)
                 end
             end
         end
@@ -1049,12 +1063,23 @@ BG.Init(function()
         local str = ERR_IGNORE_ADDED_S:gsub("%%s", "(.+)")
         BG.RegisterEvent("CHAT_MSG_SYSTEM", function(self, event, msg)
             if BiaoGe.options.ignore ~= 1 then return end
+            if BG.IsSecret(msg) then return end
             local ignoreName = msg:match(str)
             if ignoreName and UnitInRaid(ignoreName) then
                 C_FriendList.DelIgnore(ignoreName)
                 BG.After(0, function()
-                    BG.SendSystemMessage((format(L["已把%s从屏蔽名单中移除，防止你看不到对方的拍卖聊天信息。"], SetClassCFF(ignoreName))))
+                    Send(ignoreName)
                 end)
+            end
+        end)
+
+        hooksecurefunc("SetItemRef", function(link, _, button)
+            local arg1, arg2, arg3, arg4 = strsplit(":", link)
+            if arg2 == "BiaoGeIgnore" then
+                local name = "ignore"
+                BiaoGe.options[name] = 0
+                BG.options["button" .. name]:SetChecked(false)
+                BG.SendSystemMessage(L["已禁用自动移除屏蔽对象功能。"])
             end
         end)
     end
@@ -1154,6 +1179,11 @@ BG.Init(function()
                     f.cancel:SetNormalFontObject(_G.BGA.FontDis15)
                     f.autoTextButton:SetNormalFontObject(_G.BGA.FontDis15)
                     f.logTextButton:SetNormalFontObject(_G.BGA.FontDis15)
+                end
+                if not hasGZ and not hasHope and BiaoGe.options.autoAuctionFold == 1 then
+                    f.notClick = true
+                    f.hide:Click()
+                    f.notClick = false
                 end
             end
         end
@@ -1289,6 +1319,8 @@ BG.Init(function()
             BG.autoAuctionHappySay_minMoney = 20000
         elseif BG.IsMOP then
             BG.autoAuctionHappySay_minMoney = 1000000
+        elseif BG.IsRetail then
+            BG.autoAuctionHappySay_minMoney = 5000000
         else
             BG.autoAuctionHappySay_minMoney = 100000
         end
@@ -1411,14 +1443,21 @@ BG.Init(function()
             GameTooltip:SetPoint("TOPLEFT", self, "BOTTOMLEFT")
             GameTooltip:ClearLines()
             GameTooltip:AddLine(self:GetText(), 1, 1, 1, true)
-            GameTooltip:AddLine(AddTexture("LEFT") .. L["一键导入WA字符串"])
-            GameTooltip:AddLine(AddTexture("RIGHT") .. L["复制WA字符串"])
-            GameTooltip:AddLine(" ", 1, 0, 0, true)
-            GameTooltip:AddDoubleLine(L["拍卖WA版本："], BGA.ver)
+            if not BG.IsRetail then
+                GameTooltip:AddLine(AddTexture("LEFT") .. L["一键导入WA字符串"])
+                GameTooltip:AddLine(AddTexture("RIGHT") .. L["复制WA字符串"])
+                GameTooltip:AddLine(" ", 1, 0, 0, true)
+            end
+            GameTooltip:AddDoubleLine(BG.IsRetail and L["拍卖版本："] or L["拍卖WA版本："], BGA.ver)
+            if BG.IsRetail then
+                GameTooltip:AddLine(" ", 1, 0, 0, true)
+            end
             GameTooltip:AddLine(L["全新的拍卖方式，不再通过传统的聊天栏来拍卖装备，而是使用新的UI来拍卖。"], 1, 0.82, 0, true)
             GameTooltip:AddLine(" ", 1, 0, 0, true)
-            GameTooltip:AddLine(L["|cffFFFFFF安装WA：|r此WA是团员端，用于接收团长发出的拍卖消息，没安装的团员显示不了拍卖UI。请团长安装该WA字符串后发给团员安装。如果团员已经安装了BiaoGe插件，可以不用安装该WA。"], 1, 0.82, 0, true)
-            GameTooltip:AddLine(" ", 1, 0, 0, true)
+            if not BG.IsRetail then
+                GameTooltip:AddLine(L["|cffFFFFFF安装WA：|r此WA是团员端，用于接收团长发出的拍卖消息，没安装的团员显示不了拍卖UI。请团长安装该WA字符串后发给团员安装。如果团员已经安装了BiaoGe插件，可以不用安装该WA。"], 1, 0.82, 0, true)
+                GameTooltip:AddLine(" ", 1, 0, 0, true)
+            end
             GameTooltip:AddLine(L["|cffFFFFFF拍卖教程：|r团长/物品分配者ALT+点击表格/背包/聊天框的装备来打开拍卖面板，填写起拍价、拍卖时长、拍卖模式即可开始拍卖。可同时拍卖多件装备。"], 1, 0.82, 0, true)
             GameTooltip:AddLine(" ", 1, 0, 0, true)
             GameTooltip:AddLine(L["更新记录："], 1, 1, 1, true)
@@ -1434,10 +1473,12 @@ BG.Init(function()
         bt:SetDisabledFontObject(BG.FontDis15)
         bt:SetHighlightFontObject(BG.FontWhite15)
         bt:RegisterForClicks("AnyUp")
-        bt:SetText(L["拍卖WA"])
+        bt:SetText(BG.IsRetail and L["拍卖教程"] or L["拍卖WA"])
         bt:SetSize(bt:GetFontString():GetWidth(), 20)
         BG.SetTextHighlightTexture(bt)
-        bt:SetScript("OnClick", OnClick)
+        if not BG.IsRetail then
+            bt:SetScript("OnClick", OnClick)
+        end
         bt:SetScript("OnEnter", OnEnter)
         BG.GameTooltip_Hide(bt)
         BG.ButtonAucitonWA = bt

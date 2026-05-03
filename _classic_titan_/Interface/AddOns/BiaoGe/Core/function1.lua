@@ -754,6 +754,27 @@ function BG.IsSameItem(link1, link2)
     end
 end
 
+local function GetID(link)
+    if type(link) == "number" or tonumber(link) then
+        return link
+    elseif type(link) == "string" then
+        return GetItemID(link)
+    elseif type(link) == "table" then
+        return GetID(link:GetText())
+    end
+end
+function BG.IsSame(link1, link2)
+    return GetID(link1) == GetID(link2)
+end
+
+function BG.OnItemLoad(item)
+    if type(item) == "number" then
+        return Item:CreateFromItemID(item)
+    elseif type(item) == "string" then
+        return Item:CreateFromItemLink(item)
+    end
+end
+
 function BG.ClearColorCode(text)
     return text:gsub("|c........", ""):gsub("|r", "")
 end
@@ -878,9 +899,9 @@ end
 function BG.Split(delimiter, str)
     local result = {}
     local delimiterLen = string.len(delimiter)
-    local startPos = 1     -- 每次切割的起始位置
+    local startPos = 1                                              -- 每次切割的起始位置
     while true do
-        local findPos = string.find(str, delimiter, startPos, true)     -- true表示纯文本匹配（不转义）
+        local findPos = string.find(str, delimiter, startPos, true) -- true表示纯文本匹配（不转义）
         if not findPos then
             local part = string.sub(str, startPos)
             table.insert(result, part)
@@ -903,4 +924,35 @@ function BG.SetMixin(f, mixin)
             end
         end
     end
+end
+
+function BG.CreateCloseButton(f, x, y, point)
+    f.CloseButton = CreateFrame("Button", nil, f, "UIPanelCloseButton")
+    f.CloseButton:SetPoint(point or "TOPRIGHT", x or BG.IsRetail and 0 or 5, y or BG.IsRetail and 0 or 5)
+end
+
+function BG.GetDiffShortName(diff)
+    if diff == 14 then
+        return "|cff00BFFFN|r"
+    elseif diff == 15 then
+        return "|cffFF0000H|r"
+    elseif diff == 16 then
+        return "|cffa335eeM|r"
+    end
+end
+
+function BG.ShowNotLootTips(bossID)
+    local text = BG.notLootBossIDs[bossID]
+    local loot = C_PartyInfo.GetLootMethod()
+    if text and (loot == "master" or loot == 2) and not IsMasterLooter() then
+        BG.FrameLootMsg:AddMessage(BG.STC_y1(text))
+    end
+end
+
+function BG.IsSecret(value)
+    return issecretvalue and issecretvalue(value)
+end
+
+function BG.InBoss()
+    return issecretvalue and C_InstanceEncounter and C_InstanceEncounter.IsEncounterInProgress()
 end

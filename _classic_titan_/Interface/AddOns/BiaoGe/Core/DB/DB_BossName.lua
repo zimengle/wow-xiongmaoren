@@ -580,16 +580,33 @@ end
 
 -- Retail
 do
+    -- local boss = {
+    --     { name = L["噬灭者"], color = "A12987" },
+    --     { name = L["血缚恐魔"], color = "A12987" },
+    --     { name = L["苏雷吉队长"], color = "FFFF00" },
+    --     { name = L["拉夏南"], color = "AAAAAA" },
+    --     { name = L["虫巢扭曲者"], color = "AAAAAA" },
+    --     { name = L["节点女亲王"], color = "853CC9" },
+    --     { name = L["流丝之庭"], color = "853CC9" },
+    --     { name = L["安苏雷克女王"], color = "00BFFF" },
+    -- }
+    -- Addother(boss)
+    -- AddDB("NP", boss)
+
+
     local boss = {
-        { name = L["噬灭者"], color = "A12987" },
-        { name = L["血缚恐魔"], color = "A12987" },
-        { name = L["苏雷吉队长"], color = "FFFF00" },
-        { name = L["拉夏南"], color = "AAAAAA" },
-        { name = L["虫巢扭曲者"], color = "AAAAAA" },
-        { name = L["节点女亲王"], color = "853CC9" },
-        { name = L["流丝之庭"], color = "853CC9" },
-        { name = L["安苏雷克女王"], color = "00BFFF" },
+        { name = L["元首阿福扎恩"], color = "A12987" },
+        { name = L["弗拉希乌斯"], color = "A12987" },
+        { name = L["陨落之王萨哈达尔"], color = "FFFF00" },
+        { name = L["威厄高尔和艾佐拉克"], color = "AAAAAA" },
+        { name = L["光盲先锋军"], color = "AAAAAA" },
+        { name = L["宇宙之冕"], color = "853CC9" },
+
+        { name = L["奇美鲁斯，未梦之神"], color = "853CC9" },
+        
+        { name = L["贝洛朗，奥的子嗣"], color = "853CC9" },
+        { name = L["至暗之夜降临"], color = "853CC9" },
     }
     Addother(boss)
-    AddDB("NP", boss)
+    AddDB("VS", boss)
 end

@@ -280,7 +280,9 @@ do
             GameTooltip:Show()
         end
     end
-    GameTooltip:HookScript("OnTooltipSetUnit", function(self)
+
+    -- 你的单位提示框逻辑（和以前一样用）
+    local function AddUnitInfo(self)
         if BiaoGe.options["mouseFK"] ~= 1 then return end
         local unit = "mouseover"
         if not (UnitIsPlayer(unit) and UnitIsSameServer(unit)) then return end
@@ -288,7 +290,12 @@ do
         CD = true
         BG.After(0, function() CD = false end)
         SetTooltip(unit)
-    end)
+    end
+    if BG.IsRetail then
+        TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, AddUnitInfo)
+    else
+        GameTooltip:HookScript("OnTooltipSetUnit", AddUnitInfo)
+    end
 
     hooksecurefunc(GameTooltip, "SetUnit", function(self, unit)
         if BiaoGe.options["mouseFK"] ~= 1 then return end
@@ -340,6 +347,24 @@ function BG.FBTitleUI(FB, t)
 end
 
 ------------------装备------------------
+function BG.AddHText(FB, itemText, itemID, bt)
+    if FB == "ULD" and not itemText:match("H$") then
+        for _, num in ipairs({ 10, 20 }) do
+            for _, _itemID in ipairs(BG.Loot.ULD["Hard" .. num]) do
+                if itemID == _itemID then
+                    bt:SetText(itemText .. "H")
+                    return true
+                end
+            end
+        end
+    elseif FB == "ICC" and not itemText:match("H$") then
+        if itemID == 52030 or itemID == 52029 or itemID == 52028 then
+            bt:SetText(itemText .. "H")
+            return true
+        end
+    end
+end
+
 local updateFrame = CreateFrame("Frame")
 local function OnTextChanged(self)
     local FB = self.FB
@@ -350,43 +375,21 @@ local function OnTextChanged(self)
     local itemText = self:GetText()
     local itemID = GetItemID(itemText)
     if itemID then
-        local item = Item:CreateFromItemID(itemID)
-        item:ContinueOnItemLoad(function()
+        BG.OnItemLoad(itemText):ContinueOnItemLoad(function()
             local name, link, quality, level, _, _, _, _, _, Texture,
             _, typeID, _, bindType = GetItemInfo(itemText)
-            if FB == "ULD" and not itemText:match("H$") then
-                local hard
-                for index, value in ipairs(BG.Loot.ULD.Hard10) do
-                    if itemID == value then
-                        self:SetText(itemText .. "H")
-                        hard = true
-                        break
-                    end
-                end
-                if not hard then
-                    for index, value in ipairs(BG.Loot.ULD.Hard25) do
-                        if itemID == value then
-                            self:SetText(itemText .. "H")
-                            break
-                        end
-                    end
-                end
-            elseif FB == "ICC" and not itemText:match("H$") then
-                if itemID == 52030 or itemID == 52029 or itemID == 52028 then
-                    self:SetText(link .. "H")
-                end
-            end
+            BG.AddHText(FB, itemText, itemID, self)
             self.icon:SetTexture(Texture)
-            BiaoGe[FB]["boss" .. BossNum(FB, b, t)]["itemLevel" .. i] = level
-            BiaoGe[FB]["boss" .. BossNum(FB, b, t)]["bindOnEquip" .. i] = bindType == 2 and true or nil
+            BiaoGe[FB]["boss" .. bossnum]["itemLevel" .. i] = level
+            BiaoGe[FB]["boss" .. bossnum]["bindOnEquip" .. i] = bindType == 2 and true or nil
             BG.BindOnEquip(self, bindType)
             BG.LevelText(self, level, typeID)
             BG.IsHave(self)
         end)
     else
         self.icon:SetTexture(nil)
-        BiaoGe[FB]["boss" .. BossNum(FB, b, t)]["itemLevel" .. i] = nil
-        BiaoGe[FB]["boss" .. BossNum(FB, b, t)]["bindOnEquip" .. i] = nil
+        BiaoGe[FB]["boss" .. bossnum]["itemLevel" .. i] = nil
+        BiaoGe[FB]["boss" .. bossnum]["bindOnEquip" .. i] = nil
         BG.BindOnEquip(self)
         BG.LevelText(self)
         BG.IsHave(self)
@@ -395,16 +398,17 @@ local function OnTextChanged(self)
     BG.UpdateFilter(self)
 
     if bossnum ~= Maxb[FB] and bossnum ~= Maxb[FB] + 1 and bossnum ~= Maxb[FB] + 2 then
-        BG.DuiZhangFrame[FB]["boss" .. BossNum(FB, b, t)]["zhuangbei" .. i]:SetText(itemText)
+        BG.DuiZhangFrame[FB]["boss" .. bossnum]["zhuangbei" .. i]:SetText(itemText)
+        BG.DuiZhangFrame[FB]["boss" .. bossnum]["zhuangbei" .. i]:SetCursorPosition(0)
     end
 
     if itemText ~= "" then
-        BiaoGe[FB]["boss" .. BossNum(FB, b, t)]["zhuangbei" .. i] = itemText
+        BiaoGe[FB]["boss" .. bossnum]["zhuangbei" .. i] = itemText
     else
-        BiaoGe[FB]["boss" .. BossNum(FB, b, t)]["zhuangbei" .. i] = nil
-        BiaoGe[FB]["boss" .. BossNum(FB, b, t)]["guanzhu" .. i] = nil
-        BG.Frame[FB]["boss" .. BossNum(FB, b, t)]["guanzhu" .. i]:Hide()
-        BiaoGe[FB]["boss" .. BossNum(FB, b, t)]["loot" .. i] = nil
+        BiaoGe[FB]["boss" .. bossnum]["zhuangbei" .. i] = nil
+        BiaoGe[FB]["boss" .. bossnum]["guanzhu" .. i] = nil
+        BG.Frame[FB]["boss" .. bossnum]["guanzhu" .. i]:Hide()
+        BiaoGe[FB]["boss" .. bossnum]["loot" .. i] = nil
     end
 
     -- 支出百分比
@@ -415,7 +419,7 @@ local function OnTextChanged(self)
     end
 
     -- 更新未拍
-    if BiaoGe.options.auctionLogChoose == 4 then
+    if BiaoGe.options.auctionLogChoose == 4 or BiaoGe.options.auctionLogChoose == 7 then
         updateFrame.t = 0
         updateFrame:SetScript("OnUpdate", function(self, t)
             self.t = self.t + t
@@ -428,14 +432,15 @@ local function OnTextChanged(self)
 end
 function BG.FBZhuangBeiUI(FB, t, b, bb, i, ii, scrollFrame)
     local parent = scrollFrame or BG["Frame" .. FB]
-    local bt = CreateFrame("EditBox", nil, parent, "BiaoGe_InputBoxTemplate")
-    if BossNum(FB, b, t) <= Maxb[FB] then
+    local bossnum = BossNum(FB, b, t)
+    local bt = CreateFrame("EditBox", nil, parent, BG.editTemplate)
+    if bossnum <= Maxb[FB] then
         bt:SetSize(BG.zhuangbeiWidth, 20)
     else
         bt:SetSize(BG.zhuangbeiWidth2, 20)
     end
     bt:SetFrameLevel(110)
-    if BG.zaxiang[FB] and BossNum(FB, b, t) == Maxb[FB] - 1 and i == BG.zaxiang[FB].i then
+    if BG.zaxiang[FB] and bossnum == Maxb[FB] - 1 and i == BG.zaxiang[FB].i then
         bt:SetPoint("TOPLEFT", frameright, "TOPLEFT", 170, -18)
     else
         if scrollFrame and i == 1 then
@@ -443,7 +448,7 @@ function BG.FBZhuangBeiUI(FB, t, b, bb, i, ii, scrollFrame)
         elseif b > 1 and i == 1 then
             bt:SetPoint("TOPLEFT", framedown, "BOTTOMLEFT", 0, BG.IsBigFB(FB) and -15 or -20)
         else
-            if BG.zaxiang[FB] and BossNum(FB, b, t) == Maxb[FB] and i == 1 then
+            if BG.zaxiang[FB] and bossnum == Maxb[FB] and i == 1 then
                 bt:SetPoint("TOPLEFT", framedown, "BOTTOMLEFT", 0, BG.IsBigFB(FB) and -15 or -20)
             else
                 bt:SetPoint("TOPLEFT", p["preWidget" .. i - 1], "BOTTOMLEFT", 0, BG.IsBigFB(FB) and 0 or -3)
@@ -451,8 +456,9 @@ function BG.FBZhuangBeiUI(FB, t, b, bb, i, ii, scrollFrame)
         end
     end
     bt:SetAutoFocus(false)
+    BG.SetEditStickyFocus(bt)
     bt.FB = FB
-    bt.bossnum = BossNum(FB, b, t)
+    bt.bossnum = bossnum
     bt.t = t
     bt.b = b
     bt.i = i
@@ -460,20 +466,21 @@ function BG.FBZhuangBeiUI(FB, t, b, bb, i, ii, scrollFrame)
     bt.icon = bt:CreateTexture(nil, 'ARTWORK')
     bt.icon:SetPoint('LEFT', -22, 0)
     bt.icon:SetSize(16, 16)
-    if BiaoGe[FB]["boss" .. BossNum(FB, b, t)]["zhuangbei" .. i] then
-        if BiaoGe[FB]["boss" .. BossNum(FB, b, t)]["zhuangbei" .. i] ~= "" then
-            bt:SetText(BiaoGe[FB]["boss" .. BossNum(FB, b, t)]["zhuangbei" .. i])
+    if BiaoGe[FB]["boss" .. bossnum]["zhuangbei" .. i] then
+        if BiaoGe[FB]["boss" .. bossnum]["zhuangbei" .. i] ~= "" then
+            bt:SetText(BiaoGe[FB]["boss" .. bossnum]["zhuangbei" .. i])
+            bt:SetCursorPosition(0)
         else
-            BiaoGe[FB]["boss" .. BossNum(FB, b, t)]["zhuangbei" .. i] = nil
+            BiaoGe[FB]["boss" .. bossnum]["zhuangbei" .. i] = nil
         end
     end
-    BG.Frame[FB]["boss" .. BossNum(FB, b, t)]["zhuangbei" .. i] = bt
+    BG.Frame[FB]["boss" .. bossnum]["zhuangbei" .. i] = bt
     preWidget = bt
     p["preWidget" .. i] = bt
     framedown = p["preWidget" .. ii]
     --创建关注按钮
     bt.guanzhu = BG.CreateGuanZhuButton(bt, "biaoge")
-    BG.Frame[FB]["boss" .. BossNum(FB, b, t)]["guanzhu" .. i] = bt.guanzhu
+    BG.Frame[FB]["boss" .. bossnum]["guanzhu" .. i] = bt.guanzhu
 
     if bt.bossnum == Maxb[FB] + 1 then
         BG.After(0, function()
@@ -488,7 +495,7 @@ function BG.FBZhuangBeiUI(FB, t, b, bb, i, ii, scrollFrame)
     -- 鼠标按下时
     bt:SetScript("OnMouseDown", function(self, button)
         if button == "RightButton" and not IsAltKeyDown() and self ~= BG.Frame[FB]["boss" .. Maxb[FB] + 2]["zhuangbei" .. i] then
-            UpdateCancelDelete(self, FB, BossNum(FB, b, t), i, self.type)
+            UpdateCancelDelete(self, FB, bossnum, i, self.type)
             self:SetEnabled(false)
             self:SetText("")
             BG.Hide_AllHighlight()
@@ -563,8 +570,8 @@ function BG.FBZhuangBeiUI(FB, t, b, bb, i, ii, scrollFrame)
     -- 鼠标悬停在装备时
     bt:SetScript("OnEnter", function(self)
         self.isEnter = true
-        if BossNum(FB, b, t) ~= Maxb[FB] + 2 or (BossNum(FB, b, t) == Maxb[FB] + 2 and i == 4) then
-            BG.FrameDs[FB .. 1]["boss" .. BossNum(FB, b, t)]["ds" .. i]:Show()
+        if bossnum ~= Maxb[FB] + 2 or (bossnum == Maxb[FB] + 2 and i == 4) then
+            BG.FrameDs[FB .. 1]["boss" .. bossnum]["ds" .. i]:Show()
         end
         if not tonumber(self:GetText()) then
             local link = self:GetText()
@@ -579,11 +586,11 @@ function BG.FBZhuangBeiUI(FB, t, b, bb, i, ii, scrollFrame)
                 GameTooltip:ClearLines()
                 GameTooltip:SetHyperlink(BG.SetSpecIDToLink(link))
 
-                local _r, _g, _b = BG.Frame[FB]["boss" .. BossNum(FB, b, t)]["maijia" .. i]:GetTextColor()
+                local _r, _g, _b = BG.Frame[FB]["boss" .. bossnum]["maijia" .. i]:GetTextColor()
                 BG.SetHistoryMoney(
                     itemID,
-                    BG.Frame[FB]["boss" .. BossNum(FB, b, t)]["jine" .. i]:GetText(),
-                    BG.Frame[FB]["boss" .. BossNum(FB, b, t)]["maijia" .. i]:GetText(),
+                    BG.Frame[FB]["boss" .. bossnum]["jine" .. i]:GetText(),
+                    BG.Frame[FB]["boss" .. bossnum]["maijia" .. i]:GetText(),
                     _r, _g, _b
                 )
 
@@ -616,7 +623,7 @@ function BG.FBZhuangBeiUI(FB, t, b, bb, i, ii, scrollFrame)
     end)
     bt:SetScript("OnLeave", function(self)
         self.isEnter = false
-        BG.FrameDs[FB .. 1]["boss" .. BossNum(FB, b, t)]["ds" .. i]:Hide()
+        BG.FrameDs[FB .. 1]["boss" .. bossnum]["ds" .. i]:Hide()
         GameTooltip:Hide()
         BG.HideHistoryMoney()
         BG.Hide_AllHighlight()
@@ -641,21 +648,21 @@ function BG.FBZhuangBeiUI(FB, t, b, bb, i, ii, scrollFrame)
             BG.SetListzhuangbei(self)
         end
 
-        if BG.Frame[FB]["boss" .. BossNum(FB, b, t)]["zhuangbei" .. i + 1] then
-            BG.lastfocuszhuangbei2 = BG.Frame[FB]["boss" .. BossNum(FB, b, t)]["zhuangbei" .. i + 1]
+        if BG.Frame[FB]["boss" .. bossnum]["zhuangbei" .. i + 1] then
+            BG.lastfocuszhuangbei2 = BG.Frame[FB]["boss" .. bossnum]["zhuangbei" .. i + 1]
         else
             BG.lastfocuszhuangbei2 = nil
         end
-        BG.FrameDs[FB .. 2]["boss" .. BossNum(FB, b, t)]["ds" .. i]:Show()
+        BG.FrameDs[FB .. 2]["boss" .. bossnum]["ds" .. i]:Show()
     end)
     -- 失去光标时
     bt:SetScript("OnEditFocusLost", function(self)
         self:ClearHighlightText()
-        BG.FrameDs[FB .. 2]["boss" .. BossNum(FB, b, t)]["ds" .. i]:Hide()
+        BG.FrameDs[FB .. 2]["boss" .. bossnum]["ds" .. i]:Hide()
     end)
     -- 按TAB跳转右边
     bt:SetScript("OnTabPressed", function(self)
-        local b = BossNum(FB, b, t)
+        local b = bossnum
         if BG.Frame[FB]["boss" .. b]["maijia" .. i]:IsVisible() then
             BG.Frame[FB]["boss" .. b]["maijia" .. i]:SetFocus()
         else
@@ -673,7 +680,7 @@ function BG.FBZhuangBeiUI(FB, t, b, bb, i, ii, scrollFrame)
     bt:SetScript("OnKeyDown", function(self, enter)
         local bb = b
         local tt = t
-        local b = BossNum(FB, b, t)
+        local b = bossnum
         if not IsModifierKeyDown() then
             if enter == "UP" then -- 上↑
                 if BG.Frame[FB]["boss" .. b]["zhuangbei" .. i - 1] then
@@ -783,11 +790,12 @@ end
 
 function BG.FBMaiJiaUI(FB, t, b, bb, i, ii)
     local bt = CreateFrame("EditBox", nil, BG.Frame[FB]["boss" .. BossNum(FB, b, t)]["zhuangbei" .. i],
-        "BiaoGe_InputBoxTemplate")
+        BG.editTemplate)
     bt:SetSize(BG.maijiaWidth, 20)
     bt:SetPoint("TOPLEFT", preWidget, "TOPRIGHT", 5, 0)
     bt:SetFrameLevel(110)
     bt:SetAutoFocus(false)
+    BG.SetEditStickyFocus(bt)
     bt.FB = FB
     bt.bossnum = BossNum(FB, b, t)
     bt.t = t
@@ -1003,6 +1011,7 @@ function moneyMixin:Clear()
         self:SetText("")
     end
 end
+
 function moneyMixin:ClearQK()
     local FB = self.FB
     local b = self.bossnum
@@ -1010,14 +1019,15 @@ function moneyMixin:ClearQK()
     BiaoGe[FB]["boss" .. b]["qiankuan" .. i] = nil
     self.QKButton:Hide()
 end
+
 function BG.FBJinEUI(FB, t, b, bb, i, ii)
     local bt = CreateFrame("EditBox", nil, BG.Frame[FB]["boss" .. BossNum(FB, b, t)]["zhuangbei" .. i],
-        "BiaoGe_InputBoxTemplate")
+        BG.editTemplate)
     bt:SetSize(BG.jineWidth, 20)
     bt:SetPoint("TOPLEFT", preWidget, "TOPRIGHT", 5, 0)
     bt:SetFrameLevel(110)
     bt:SetAutoFocus(false)
-    bt:Show()
+    BG.SetEditStickyFocus(bt)
     bt.FB = FB
     bt.bossnum = BossNum(FB, b, t)
     bt.t = t
@@ -1153,9 +1163,9 @@ function BG.FBJinEUI(FB, t, b, bb, i, ii)
     bt:SetScript("OnEditFocusLost", function(self)
         self:ClearHighlightText()
         BG.FrameDs[FB .. 2]["boss" .. BossNum(FB, b, t)]["ds" .. i]:Hide()
-        if BG.FrameNumFrame then
-            BG.FrameNumFrame:Hide()
-        end
+        -- if BG.FrameNumFrame then
+        --     BG.FrameNumFrame:Hide()
+        -- end
     end)
     -- 按TAB跳转下一行的装备
     bt:SetScript("OnTabPressed", function(self)

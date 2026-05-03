@@ -3,8 +3,9 @@
 ## Notes: 萨满图腾管理插件
 ## Notes-enUS: Shaman totem management addon
 ## Author: GuFeng
-## Version: 1.0.0
+## Version: 2.1.0
 ## SavedVariables: TotemMasterDB
+## SavedVariablesPerCharacter: TotemMasterCharDB
 ## OptionalDeps: ElvUI, NDui, NDui_Plus
 ## X-LoadOn-Class: Shaman
 

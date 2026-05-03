@@ -1,4 +1,4 @@
-## Interface: 50502, 50503
+## Interface: 50503, 50504
 ## X-Min-Interface: 50500
 ## Category: DBM
 
@@ -26,7 +26,7 @@
 ## X-Curse-Project-ID: 43970
 ## X-WoWI-ID: 21522
 ## X-Wago-ID: WqKQg7Nx
-## Version: r347
+## Version: r348
 
 localization.en.lua
 localization.tw.lua

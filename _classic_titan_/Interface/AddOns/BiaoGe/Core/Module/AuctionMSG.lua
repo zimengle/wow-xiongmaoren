@@ -405,6 +405,7 @@ BG.Init(function()
         f:RegisterEvent("CHAT_MSG_RAID")
         f:SetScript("OnEvent", function(self, event, ...)
             local msg, playerName, languageName, channelName, playerName2, specialFlags, zoneChannelID, channelIndex, channelBaseName, languageID, lineID, guid = ...
+            if BG.IsSecret(msg) then return end
             local ML
             playerName = BG.GSN(playerName)
             if event == "CHAT_MSG_RAID_WARNING" or event == "CHAT_MSG_RAID_LEADER" then
@@ -438,6 +439,9 @@ BG.Init(function()
         local function Find(itemID, i, mod)
             if not BG.FrameAuctionMSG.historyBuffer.elements[i] then return end
             local headIndex = BG.FrameAuctionMSG.historyBuffer.headIndex
+            if type(headIndex) == "table" then
+                headIndex = headIndex.value or 0
+            end
             local message = BG.FrameAuctionMSG.historyBuffer.elements[i].message
             if message:find("item:" .. itemID .. ":") then
                 if not mod then
@@ -454,35 +458,15 @@ BG.Init(function()
             end
         end
         local function OnClick(self)
-            --[[
-            ...
-            91
-            92
-            93
-            94
-            95
-            96
-            97
-            98
-            99
-            100
-            1
-            2
-            3
-            4
-            5
-            6
-            7
-            8
-            9
-            10
-            ]]
             BG.PlaySound(1)
             local item = BG.FrameAuctionMSG.item
             local itemID = GetItemID(item)
             if not itemID then return end
             local maxLine = BG.FrameAuctionMSG:GetMaxLines()
             local headIndex = BG.FrameAuctionMSG.historyBuffer.headIndex
+            if type(headIndex) == "table" then
+                headIndex = headIndex.value or 0
+            end
             local offset = BG.FrameAuctionMSG.scrollOffset
             local elements = #BG.FrameAuctionMSG.historyBuffer.elements
             if self.type == "up" then
@@ -518,6 +502,9 @@ BG.Init(function()
             if not itemID then return end
             local maxLine = BG.FrameAuctionMSG:GetMaxLines()
             local headIndex = BG.FrameAuctionMSG.historyBuffer.headIndex
+            if type(headIndex) == "table" then
+                headIndex = headIndex.value or 0
+            end
             local offset = BG.FrameAuctionMSG.scrollOffset
             local elements = #BG.FrameAuctionMSG.historyBuffer.elements
             if BG.FrameAuctionMSG.historyBuffer:IsFull() then
@@ -545,6 +532,9 @@ BG.Init(function()
             if not itemID then return end
             local maxLine = BG.FrameAuctionMSG:GetMaxLines()
             local headIndex = BG.FrameAuctionMSG.historyBuffer.headIndex
+            if type(headIndex) == "table" then
+                headIndex = headIndex.value or 0
+            end
             local offset = BG.FrameAuctionMSG.scrollOffset
             if BG.FrameAuctionMSG.historyBuffer:IsFull() then
                 for offset = offset, 0, -1 do
@@ -570,13 +560,11 @@ BG.Init(function()
             UpdateButtonItemDown()
             local offset = BG.FrameAuctionMSG.scrollOffset
             local headIndex = BG.FrameAuctionMSG.historyBuffer.headIndex
+            if type(headIndex) == "table" then
+                headIndex = headIndex.value or 0
+            end
             local elements = #BG.FrameAuctionMSG.historyBuffer.elements
             local i = (headIndex - offset + maxLine) % maxLine
-            -- local text = "offset:" .. BG.STC_w1(offset) .. NN
-            --     .. "i:" .. BG.STC_w1(i) .. NN
-            --     .. "headIndex:" .. BG.STC_w1(headIndex) .. NN
-            --     .. "elements:" .. BG.STC_w1(elements) .. NN
-            --     .. "maxLine:" .. BG.STC_w1(maxLine) .. NN
             local text = (offset + 1) .. "/" .. elements
             BG.FrameAuctionMSG.lineText:SetText(text)
         end

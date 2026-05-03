@@ -262,8 +262,9 @@ Data.Tardis={["Prefix"]="!Pig_Tardis",
 	["SqMsg"] ={"!ISQINV_","!HSQYQC_","!FSQSC","!LSQHWM_"},
 	["ver"] ={0,0,8.21,8.21},
 }
+local GetMsgNum=#Data.Tardis.GetMsg
 ChatFrame_AddMessageEventFilter("CHAT_MSG_CHANNEL",function(self,event,arg1,...)
-	for i=1,#Data.Tardis.GetMsg do
+	for i=1,GetMsgNum do
 		if arg1:match(Data.Tardis.GetMsg[i]) then
 			return true;
 		end

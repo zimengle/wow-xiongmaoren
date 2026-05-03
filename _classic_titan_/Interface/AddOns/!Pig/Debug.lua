@@ -308,7 +308,7 @@ fuFrame:SetScript("OnShow", function()
 	fuFrame.taintLog:PIGDownMenu_SetText(taintlistmenu[GetCVar("taintLog")])
 end);
 --屏幕网格
-fuFrame.GridLine = PIGButton(fuFrame,{"TOPLEFT",fuFrame,"TOPLEFT",20,-380},{100,24},HUD_EDIT_MODE_SHOW_GRID)
+fuFrame.GridLine = PIGButton(fuFrame,{"TOPLEFT",fuFrame,"TOPLEFT",20,-380},{100,24},L["DEBUG_SHOWGRID"])
 fuFrame.GridLine:SetScript("OnClick", function (self)
 	if not self.addyes then
 		self.addyes=true

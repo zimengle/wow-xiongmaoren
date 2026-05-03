@@ -486,8 +486,7 @@ BG.Init2(function()
                     lastfocus:ClearFocus()
                 end
             end)
-            f.CloseButton = CreateFrame("Button", nil, f, "UIPanelCloseButton")
-            f.CloseButton:SetPoint("TOPRIGHT", BG.CloseButtonOffset, BG.CloseButtonOffset)
+            BG.CreateCloseButton(f)
             f.CloseButton:HookScript("OnClick", function()
                 BiaoGe.MeetingHornWhisper.WhisperFrame = nil
                 BG.PlaySound(1)
@@ -550,7 +549,7 @@ BG.Init2(function()
             AchievementTitleID = t
 
             -- 编辑框
-            local edit = CreateFrame("EditBox", nil, f, "BiaoGe_InputBoxTemplate")
+            local edit = CreateFrame("EditBox", nil, f, BG.editTemplate)
             edit:SetSize(80, 20)
             edit:SetPoint("LEFT", t, "RIGHT", 5, 0)
             edit:SetAutoFocus(false)
@@ -715,7 +714,7 @@ BG.Init2(function()
                 BG.PlaySound(1)
             end)
 
-            local edit = CreateFrame("EditBox", nil, f, "BiaoGe_InputBoxTemplate")
+            local edit = CreateFrame("EditBox", nil, f, BG.editTemplate)
             edit:SetPoint("TOPLEFT", otherCheckButton1, "TOPRIGHT", 5, -2)
             edit:SetSize(BG.MeetingHorn.WhisperFrame.width - 60, 20)
             edit:SetAutoFocus(false)
@@ -772,7 +771,7 @@ BG.Init2(function()
                 BG.PlaySound(1)
             end)
 
-            local edit = CreateFrame("EditBox", nil, f, "BiaoGe_InputBoxTemplate")
+            local edit = CreateFrame("EditBox", nil, f, BG.editTemplate)
             edit:SetPoint("TOPLEFT", otherCheckButton2, "TOPRIGHT", 5, -2)
             edit:SetSize(BG.MeetingHorn.WhisperFrame.width - 60, 20)
             edit:SetAutoFocus(false)
@@ -1144,6 +1143,7 @@ BG.Init2(function()
         -- 鼠标悬停
         local CD
         local function SetTooltip(unit)
+            if BG.InBoss() then return end
             local name = BG.GN(unit)
             local currentLevel = MeetingHorn.db.realm.starRegiment.regimentData[name]
             if not currentLevel then return end

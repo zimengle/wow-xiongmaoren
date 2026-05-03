@@ -362,7 +362,10 @@ toleranceF.SpellQueue = PIGSlider(toleranceF,{"TOPLEFT",toleranceF,"TOPLEFT",20,
 function toleranceF.SpellQueue:PIGOnValueChange(arg1)
 	SetCVar("SpellQueueWindow",arg1)
 end
-toleranceF.wt1 = PIGFontString(toleranceF,{"TOPLEFT",toleranceF.SpellQueue,"BOTTOMLEFT",0,0},"|cff00FF00"..OPTION_TOOLTIP_REDUCED_LAG_TOLERANCE.."|r\n|cffFFFF00Pig作者备注:以上为暴雪官方提示，根据玩家实践建议在你平均世界延迟基础上加上150|r");
+toleranceF.err = PIGFontString(toleranceF,{"LEFT",toleranceF.SpellQueue.RightText,"RIGHT",0,0},"根据职业动态调整");
+toleranceF.err:SetTextColor(1, 0, 0, 1)
+toleranceF.err:Hide()
+toleranceF.wt1 = PIGFontString(toleranceF,{"TOPLEFT",toleranceF.SpellQueue,"BOTTOMLEFT",0,0},"|cff00FF00"..OPTION_TOOLTIP_REDUCED_LAG_TOLERANCE.."|r\n|cffFFFF00Pig作者备注:以上为暴雪官方提示，根据玩家实践建议在你平均世界延迟基础上+150|r");
 toleranceF.wt1:SetWidth(toleranceF:GetWidth()-40)
 toleranceF.wt1:SetJustifyH("LEFT")
 toleranceF.classOpen = PIGCheckbutton(toleranceF,{"TOPLEFT",toleranceF,"TOPLEFT",20,-130},{"根据职业动态调整"})
@@ -372,44 +375,69 @@ toleranceF.classOpen:SetScript("OnClick", function (self)
     else
         PIGA["CVars"]["SpellQueueClass"]=nil;
     end
+    CVarsfun.Update_SpellQueueClass()
 end)
-toleranceF.classOpen:Disable();
 toleranceF.butlist={}
 local jishuxi=0
 for i=1,#Data.cl_Name do
 	local classFile, cl_Name_Role, className, classID = unpack(Data.cl_Name[i])
 	if classFile then
-		local iconx = toleranceF:CreateTexture()
-		iconx:SetTexture("interface/glues/charactercreate/ui-charactercreate-classes.blp")
-		iconx:SetSize(20,20);
+		local hang = CreateFrame("Frame", nil, toleranceF);
+		hang:SetSize(20,20);
 		if jishuxi>10 then
-			iconx:SetPoint("TOPLEFT",toleranceF,"TOPLEFT",340,-160-((jishuxi-11)*30));
+			hang:SetPoint("TOPLEFT",toleranceF,"TOPLEFT",340,-160-((jishuxi-11)*30));
 		else
-			iconx:SetPoint("TOPLEFT",toleranceF,"TOPLEFT",40,-160-(jishuxi*30));
+			hang:SetPoint("TOPLEFT",toleranceF,"TOPLEFT",40,-160-(jishuxi*30));
 		end
-		iconx:SetTexCoord(unpack(CLASS_ICON_TCOORDS[classFile]));
+		hang.classID=classID
 		jishuxi=jishuxi+1
-		local namex  = PIGFontString(toleranceF,{"LEFT",iconx,"RIGHT",2,0});
-		namex:SetText(className);
+		hang.iconx = hang:CreateTexture()
+		hang.iconx:SetTexture("interface/glues/charactercreate/ui-charactercreate-classes.blp")
+		hang.iconx:SetSize(20,20);
+		hang.iconx:SetTexCoord(unpack(CLASS_ICON_TCOORDS[classFile]));
+		hang.iconx:SetPoint("LEFT",hang,"LEFT",0,0);
+		hang.DQ = hang:CreateTexture();
+		hang.DQ:SetTexture("interface/common/indicator-green.blp")
+		hang.DQ:SetPoint("RIGHT", hang.iconx, "LEFT", -1,0);
+		hang.DQ:SetSize(20,20);
+		
+		hang.namex  = PIGFontString(hang,{"LEFT",hang.iconx,"RIGHT",2,0});
+		hang.namex:SetText(className);
 		local color = PIG_CLASS_COLORS[classFile];
-		namex:SetTextColor(color.r, color.g, color.b,1);
-		local setvv  = PIGSlider(toleranceF,{"LEFT",iconx,"RIGHT",70,0},{10,400,1})
-		setvv.classID=classID
-		function toleranceF.SpellQueue:PIGOnValueChange(arg1)
-			--classID
+		hang.namex:SetTextColor(color.r, color.g, color.b,1);
+		hang.setvv  = PIGSlider(hang,{"LEFT",hang.iconx,"RIGHT",70,0},{10,400,1})
+		function hang.setvv:PIGOnValueChange(arg1)
+			PIGA["CVars"]["SpellQueueData"]=PIGA["CVars"]["SpellQueueData"] or {}
+			if arg1==400 then
+				PIGA["CVars"]["SpellQueueData"][classID]=nil
+			else
+				PIGA["CVars"]["SpellQueueData"][classID]=arg1
+			end
+			CVarsfun.Update_SpellQueueClass()
 		end
-		toleranceF.butlist[jishuxi]=setvv
-		setvv:Disable();
+		toleranceF.butlist[jishuxi]=hang
 	end
 end
 toleranceF:HookScript("OnShow", function (self)
 	self.SpellQueue:PIGSetValue(GetCVar("SpellQueueWindow"))
-	local datax=PIGA["CVars"]["SpellQueueData"] or {}
-	for index,but in pairs(toleranceF.butlist) do
-		local vvvv=datax[but.classID] or 400
-		but:PIGSetValue(vvvv)
+	self.classOpen:SetChecked(PIGA["CVars"]["SpellQueueClass"])
+	local datax=PIGA["CVars"]["SpellQueueData"]
+	for index,hang in pairs(toleranceF.butlist) do
+		local vvvv=datax and datax[hang.classID] or 400
+		hang.setvv:PIGSetValue(vvvv)
+		hang.DQ:SetShown(PIG_OptionsUI.ClassData.classId==hang.classID)
 	end
 end);
+function CVarsfun.Update_SpellQueueClass()
+	toleranceF.err:SetShown(PIGA["CVars"]["SpellQueueClass"])
+	toleranceF.SpellQueue:SetEnabled(not PIGA["CVars"]["SpellQueueClass"])
+	if PIGA["CVars"]["SpellQueueClass"] then
+		local datax=PIGA["CVars"]["SpellQueueData"]
+		local vvvv=datax and datax[PIG_OptionsUI.ClassData.classId] or 400
+		SetCVar("SpellQueueWindow",vvvv)
+		toleranceF.SpellQueue:PIGSetValue(GetCVar("SpellQueueWindow"))
+	end
+end
 
 ---浮动战斗信息====================
 local combattextF =PIGOptionsList_R(RTabFrame,FLOATING_COMBATTEXT_LABEL,100)
@@ -678,6 +706,7 @@ gaojiF.CZCVarsSET:SetScript("OnEditFocusLost", function(self) self:SetTextpig() 
 --==============================
 addonTable.CVars = function()
     CVarsfun.EaseUseCVars()
+    CVarsfun.Update_SpellQueueClass()
     CVarsfun.Fast_Loot()
     if CVarsfun.Shaman_Blue then CVarsfun.Shaman_Blue() end
 	if PIGA["CVars"]["MaxZoom"] then

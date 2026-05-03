@@ -94,8 +94,8 @@ end
 local function GetkExchangeItemInfo(itemID) -- 获取兑换物对应物品的ID和Link
     for _, FB in pairs(BG.phaseFBtable[BG.FB1]) do
         for exItemID, v in pairs(BG.Loot[FB].ExchangeItems) do
-            for _, _itemID in pairs(BG.Loot[FB].ExchangeItems[exItemID]) do
-                if itemID == _itemID then
+            for _, _itemID in pairs(v) do
+                if BG.IsSame(itemID, _itemID) then
                     return exItemID, info[FB][exItemID] and info[FB][exItemID].link
                 end
             end
@@ -117,14 +117,14 @@ end
 -- 第一步：先历遍所有来源的装备和兑换物，缓存装备的数据、鼠标提示工具文本
 do
     local function InsertToAllItem(itemID)
-        local _itemID = itemID
-        if type(itemID) == "string" then
-            _itemID = GetItemID(itemID)
-        end
+        -- local _itemID = itemID
+        -- if type(itemID) == "string" then
+        --     _itemID = GetItemID(itemID)
+        -- end
         if isInsert[itemID] then return end
         isInsert[itemID] = true
         tinsert(allItem, itemID)
-        BG.Tooltip_SetItemByID(_itemID)
+        BG.Tooltip_SetItemByID(itemID)
     end
     local function SaveItemInfo()
         local FB = BG.FB1
@@ -144,15 +144,10 @@ do
                 for ii = startI, startI + oneTime - 1 do
                     local itemID = allItem[ii]
                     if itemID then
-                        local _itemID = itemID
-                        if type(itemID) == "string" then
-                            _itemID = GetItemID(itemID)
-                        end
-                        local item = Item:CreateFromItemID(_itemID)
-                        item:ContinueOnItemLoad(function()
+                        BG.OnItemLoad(itemID):ContinueOnItemLoad(function()
                             local name, link, quality, level, _, _, _, _, EquipLoc, Texture,
                             _, typeID, subclassID, bindType, _, setID = GetItemInfo(itemID)
-                            local tooltipText = BG.GetTooltipTextLeftAll(_itemID)
+                            local tooltipText = BG.GetTooltipTextLeftAll(itemID)
                             info[FB][itemID] = {
                                 name = name,
                                 link = link,
@@ -345,7 +340,7 @@ do
         local tooltipText = info[FB][itemID].tooltipText
         return not BG.FilterAll(itemID, typeID, EquipLoc, subclassID, tooltipText)
     end
-    local function InsertItemInfo(FB, itemID, type, hard, ii, other)
+    local function InsertItemInfo(FB, itemID, _type, hard, ii, other)
         if not IsYesItem(itemID) then return end
         local link = info[FB][itemID].link
         local quality = info[FB][itemID].quality
@@ -354,7 +349,8 @@ do
         local bindType = info[FB][itemID].bindType
         local setID = info[FB][itemID].setID
 
-        if type == "raid" then -- 团本掉落
+        if _type == "raid" then -- 团本掉落
+            local hardnum = GetHardNum(hard)
             local color = "|cff" .. "00BFFF"
             if strfind(hard, "10") then
                 color = "|cff" .. "99CCFF"
@@ -362,6 +358,15 @@ do
             if BG.IsCTM or BG.IsMOP then
                 if hard == "N" then
                     color = "|cff" .. "99CCFF"
+                end
+            end
+            if BG.IsRetail then
+                if hard == "N" then
+                    hard = "|cff" .. "00BFFF" .. hard .. "|r"
+                elseif hard == "H" then
+                    hard = "|cff" .. "FF0000" .. hard .. "|r"
+                elseif hard == "M" then
+                    hard = "|cff" .. "a335ee" .. hard .. "|r"
                 end
             end
 
@@ -407,22 +412,7 @@ do
                 players = tonumber(strmatch(hard, "%d+")) -- 副本规模10人/25人
             end
 
-            local hope
-            for n = 1, HopeMaxn[FB] do
-                for b = 1, HopeMaxb[FB] do
-                    for i = 1, HopeMaxi do
-                        if BG.HopeFrame[FB]["nandu" .. n]["boss" .. b]["zhuangbei" .. i] then
-                            local itemID = exItemID or itemID
-                            if itemID == GetItemID(BG.HopeFrame[FB]["nandu" .. n]["boss" .. b]["zhuangbei" .. i]:GetText()) then
-                                hope = true
-                                break
-                            end
-                        end
-                    end
-                    if hope then break end
-                end
-                if hope then break end
-            end
+            local hope = BG.IsHope(exItemID or itemID, FB)
 
             tinsert(db_old, {
                 FB = FB,
@@ -437,14 +427,15 @@ do
                 setID = setID,
                 i = ii,
                 hard = hard,
-                hardnum = GetHardNum(hard),
+                hardnum = hardnum,
                 players = players,
-                type = GetTypeID(type),
+                type = GetTypeID(_type),
                 type2 = FB,
                 hope = hope,
                 haved = CheckHaved(itemID),
+                exItemID = exItemID,
             })
-        elseif type == "quest" then -- 野外任务
+        elseif _type == "quest" then -- 野外任务
             local FBname = other.FBname
             local color = other.color
             local players = other.players
@@ -493,10 +484,10 @@ do
                 setID = setID,
                 i = 0,
                 players = players,
-                type = GetTypeID(type),
+                type = GetTypeID(_type),
                 haved = CheckHaved(itemID)
             })
-        elseif type == "currency" then -- 牌子
+        elseif _type == "currency" then -- 牌子
             local v = other
             local count = v.count
             local currencyID = v.currencyID
@@ -540,11 +531,11 @@ do
                 get = get,
                 bindType = bindType,
                 setID = setID,
-                type = GetTypeID(type),
+                type = GetTypeID(_type),
                 type2 = get,
                 haved = CheckHaved(itemID)
             })
-        elseif type == "faction" then -- 声望
+        elseif _type == "faction" then -- 声望
             local tbl = {
                 FACTION_STANDING_LABEL4,
                 FACTION_STANDING_LABEL5,
@@ -571,11 +562,11 @@ do
                 get = get,
                 bindType = bindType,
                 setID = setID,
-                type = GetTypeID(type),
+                type = GetTypeID(_type),
                 type2 = faction,
                 haved = CheckHaved(itemID)
             })
-        elseif type == "profession" then -- 专业制造
+        elseif _type == "profession" then -- 专业制造
             local icon = ""
             if other == "锻造" then
                 icon = AddTexture(136241, nil, ":100:100:8:92:8:92")
@@ -607,11 +598,11 @@ do
                 get = get,
                 bindType = bindType,
                 setID = setID,
-                type = GetTypeID(type),
+                type = GetTypeID(_type),
                 type2 = other,
                 haved = CheckHaved(itemID)
             })
-        elseif type == "fb5" then -- 5人本
+        elseif _type == "fb5" then -- 5人本
             local FB_5, BossName = strsplit("#", other)
 
             -- 兑换物
@@ -633,11 +624,11 @@ do
                 get = get,
                 bindType = bindType,
                 setID = setID,
-                type = GetTypeID(type),
+                type = GetTypeID(_type),
                 type2 = FB_5,
                 haved = CheckHaved(itemID)
             })
-        elseif type == "world" then -- 世界掉落
+        elseif _type == "world" then -- 世界掉落
             -- 兑换物
             local exText = ""
             local exItemID, exItemLink = GetkExchangeItemInfo(itemID)
@@ -657,10 +648,10 @@ do
                 get = get,
                 bindType = bindType,
                 setID = setID,
-                type = GetTypeID(type),
+                type = GetTypeID(_type),
                 haved = CheckHaved(itemID)
             })
-        elseif type == "worldboss" then -- 世界BOSS
+        elseif _type == "worldboss" then -- 世界BOSS
             -- 兑换物
             local exText = ""
             local exItemID, exItemLink = GetkExchangeItemInfo(itemID)
@@ -681,10 +672,10 @@ do
                 get = get,
                 bindType = bindType,
                 setID = setID,
-                type = GetTypeID(type),
+                type = GetTypeID(_type),
                 haved = CheckHaved(itemID)
             })
-        elseif type == "pvp" then -- PVP
+        elseif _type == "pvp" then -- PVP
             local faction, levelID = strsplit(":", other)
             local tx
             if faction == "Alliance" then
@@ -730,10 +721,10 @@ do
                 get = get,
                 bindType = bindType,
                 setID = setID,
-                type = GetTypeID(type),
+                type = GetTypeID(_type),
                 haved = CheckHaved(itemID)
             })
-        elseif type == "sod_currency" then -- 赛季服货币/牌子
+        elseif _type == "sod_currency" then -- 赛季服货币/牌子
             local _get, count, icon, color, _type = strsplit("-", other)
             local get
             if _type and _type ~= "" then
@@ -754,11 +745,11 @@ do
                 get = get,
                 bindType = bindType,
                 setID = setID,
-                type = GetTypeID(type),
+                type = GetTypeID(_type),
                 type2 = get,
                 haved = CheckHaved(itemID)
             })
-        elseif type == "pvp_currency" then -- 牌子
+        elseif _type == "pvp_currency" then -- 牌子
             local v = other
             local count = v.count
             local currencyID = v.currencyID
@@ -801,10 +792,10 @@ do
                 get = get,
                 bindType = bindType,
                 setID = setID,
-                type = GetTypeID(type),
+                type = GetTypeID(_type),
                 haved = CheckHaved(itemID)
             })
-        elseif type == "shop" then -- 商人
+        elseif _type == "shop" then -- 商人
             local name = L["商人"] .. " " .. GetMoneyString(other)
             local get = "|cff" .. "EE82EE" .. name
 
@@ -817,10 +808,10 @@ do
                 get = get,
                 bindType = bindType,
                 setID = setID,
-                type = GetTypeID(type),
+                type = GetTypeID(_type),
                 haved = CheckHaved(itemID)
             })
-        elseif type == "holiday" then -- 节日
+        elseif _type == "holiday" then -- 节日
             local get = "|cff" .. "FF9900" .. L["节日:"] .. other
 
             tinsert(db_old, {
@@ -832,7 +823,7 @@ do
                 get = get,
                 bindType = bindType,
                 setID = setID,
-                type = GetTypeID(type),
+                type = GetTypeID(_type),
                 haved = CheckHaved(itemID)
             })
         end
@@ -1125,6 +1116,7 @@ local function SetItemLib()
             f.num = ii
             f.itemID = GetItemInfoInstant(vv.link)
             f.itemLink = vv.link
+            f.exItemID = vv.exItemID
             f.Text = f:CreateFontString()
             f.Text:SetFont(BIAOGE_TEXT_FONT, i == 1 and 13 or 15, "OUTLINE")
             f.Text:SetPoint("CENTER")
@@ -1401,12 +1393,7 @@ do
     end
     function BG.UpdateItemLib_RightHope(itemID, ShoworHide) -- 更新心愿汇总，ShoworHide：1为添加装备，0为删除装备
         local FB = BG.FB1
-        local name, link, quality, level, _, _, _, _, EquipLoc, Texture
-        if type(itemID) == "number" then
-            name, link, quality, level, _, _, _, _, EquipLoc, Texture = GetItemInfo(itemID)
-        else
-            name, link, quality, level, _, _, _, _, EquipLoc, Texture = GetItemInfo(itemID)
-        end
+        local name, link, quality, level, _, _, _, _, EquipLoc, Texture = GetItemInfo(itemID)
         local EquipLoc = BG.GetEquipLocName(EquipLoc)
         if not EquipLoc then return end
         -- 只需历遍对应部位的心愿格子
@@ -1432,21 +1419,14 @@ do
         local count = mainFrame.buttoncount
         if count then
             for i = 1, count do
-                if mainFrame.buttons[i] then
-                    local _itemID = mainFrame.buttons[i].itemID
-
-                    local isExItem
-
-                    local exItemID, exItemLink = GetkExchangeItemInfo(_itemID)
-                    if itemID == exItemID then
-                        isExItem = true
-                    end
-
-                    if itemID == _itemID or isExItem then
+                local f = mainFrame.buttons[i]
+                if f then
+                    local _itemID =f.exItemID or f.itemID
+                    if itemID == _itemID then
                         if ShoworHide == 1 then
-                            mainFrame.buttons[i].item.hope:Show()
+                            f.item.hope:Show()
                         else
-                            mainFrame.buttons[i].item.hope:Hide()
+                            f.item.hope:Hide()
                         end
                     end
                 end
@@ -1481,9 +1461,9 @@ do
             for n = HopeMaxn[FB], 1, -1 do
                 for b = HopeMaxb[FB], 1, -1 do
                     for i = 1, HopeMaxi do
-                        local bt = BiaoGe.Hope[RealmID][player][FB]["nandu" .. n]["boss" .. b]["zhuangbei" .. i]
-                        if bt then
-                            local itemID = GetItemID(bt)
+                        local link = BiaoGe.Hope[RealmID][player][FB]["nandu" .. n]["boss" .. b]["zhuangbei" .. i]
+                        if link then
+                            local itemID = GetItemID(link)
                             if itemID then
                                 BG.UpdateItemLib_LeftHope(itemID, 1)
                             end
@@ -2009,8 +1989,7 @@ function BG.ItemLibUI()
             t:SetText(L["获取途径显示"])
             t:SetJustifyH("CENTER")
 
-            f.CloseButton = CreateFrame("Button", nil, f, "UIPanelCloseButton")
-            f.CloseButton:SetPoint("TOPRIGHT", f, "TOPRIGHT", BG.CloseButtonOffset, BG.CloseButtonOffset)
+            BG.CreateCloseButton(f)
 
             local buttons = {}
             for i, v in ipairs(BG.itemLibGetFiter) do
@@ -2150,7 +2129,7 @@ function BG.ItemLibUI()
         t:SetJustifyH("LEFT")
         BG.ItemLibMainFrame.iLevelText = t
 
-        local edit = CreateFrame("EditBox", nil, mainFrame, "BiaoGe_InputBoxTemplate")
+        local edit = CreateFrame("EditBox", nil, mainFrame, BG.editTemplate)
         edit:SetSize(100, 20)
         edit:SetPoint("LEFT", t, "RIGHT", 10, 0)
         edit:SetAutoFocus(false)
@@ -2289,7 +2268,7 @@ function BG.ItemLibUI()
                     bt:SetScript("OnClick", BG.InvOnClick)
                     bt:SetScript("OnMouseWheel", OnMouseWheel)
                 else
-                    local edit = CreateFrame("EditBox", nil, f, "BiaoGe_InputBoxTemplate")
+                    local edit = CreateFrame("EditBox", nil, f, BG.editTemplate)
                     edit:SetSize(title_table[ii].width, BUTTONHEIGHT)
                     edit:SetPoint("LEFT", right, "RIGHT", w_jiange, 0)
                     edit:SetAutoFocus(false)
