@@ -1,0 +1,2 @@
+
+MeetingHornHeroicCharDB = nil

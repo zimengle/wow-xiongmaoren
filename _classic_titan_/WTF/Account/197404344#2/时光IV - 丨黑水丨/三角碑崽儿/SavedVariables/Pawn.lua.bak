@@ -1,0 +1,104 @@
+
+PawnOptions = {
+["LastVersion"] = 2.131,
+["LastPlayerFullName"] = "三角碑崽儿-时光IV - 红色信仰",
+["AutoSelectScales"] = false,
+["ItemLevels"] = {
+{
+["ID"] = 40546,
+["Level"] = 226,
+["Link"] = "|cffa335ee|Hitem:40546::::::::80::::::::::|h[无畏巨盔]|h|r",
+},
+{
+["ID"] = 255084,
+["Level"] = 219,
+["Link"] = "|cffa335ee|Hitem:255084::40014::::::80::::::::::|h[稳固之力勋章]|h|r",
+},
+{
+["ID"] = 255082,
+["Level"] = 213,
+["Link"] = "|cffa335ee|Hitem:255082:3811:39948::::::80::::::::::|h[力量肩铠]|h|r",
+},
+nil,
+{
+["ID"] = 40544,
+["Level"] = 226,
+["Link"] = "|cffa335ee|Hitem:40544::::::::80::::::::::|h[无畏胸甲]|h|r",
+},
+{
+["ID"] = 39759,
+["Level"] = 226,
+["Link"] = "|cffa335ee|Hitem:39759::::::::80::::::::::|h[熔蚀几丁质束带]|h|r",
+},
+{
+["ID"] = 30116,
+["Level"] = 219,
+["Link"] = "|cffa335ee|Hitem:30116::::::::80::::::::::|h[毁灭者护腿]|h|r",
+},
+{
+["ID"] = 39717,
+["Level"] = 226,
+["Link"] = "|cffa335ee|Hitem:39717::::::::80::::::::::|h[无情战靴]|h|r",
+},
+{
+["ID"] = 39467,
+["Level"] = 226,
+["Link"] = "|cffa335ee|Hitem:39467::::::::80::::::::::|h[爪牙护腕]|h|r",
+},
+{
+["ID"] = 40545,
+["Level"] = 226,
+["Link"] = "|cffa335ee|Hitem:40545::::::::80::::::::::|h[无畏手套]|h|r",
+},
+{
+["ID"] = 40107,
+["Level"] = 226,
+["AlsoFitsIn"] = 12,
+["Link"] = "|cffa335ee|Hitem:40107::::::::80::::::::::|h[沙砾指环]|h|r",
+},
+{
+["ID"] = 40107,
+["Level"] = 226,
+["AlsoFitsIn"] = 11,
+["Link"] = "|cffa335ee|Hitem:40107::40088::::::80::::::::::|h[沙砾指环]|h|r",
+},
+{
+["ID"] = 30620,
+["Level"] = 226,
+["AlsoFitsIn"] = 14,
+["Link"] = "|cffa335ee|Hitem:30620::::::::80::::::::::|h[隐秘舰队的望远镜]|h|r",
+},
+{
+["ID"] = 40372,
+["Level"] = 226,
+["AlsoFitsIn"] = 13,
+["Link"] = "|cffa335ee|Hitem:40372::::::::80::::::::::|h[排斥符文]|h|r",
+},
+{
+["ID"] = 40252,
+["Level"] = 232,
+["Link"] = "|cffa335ee|Hitem:40252::::::::80::::::::::|h[蔽日披风]|h|r",
+},
+{
+["ID"] = 30311,
+["Level"] = 298,
+["AlsoFitsIn"] = 17,
+["Link"] = "|cffff8000|Hitem:30311::::::::80::::::::::|h[迁跃切割者]|h|r",
+},
+{
+["ID"] = 30314,
+["Level"] = 298,
+["Link"] = "|cffff8000|Hitem:30314::::::::80::::::::::|h[相位壁垒]|h|r",
+},
+{
+["ID"] = 40265,
+["Level"] = 226,
+["Link"] = "|cffa335ee|Hitem:40265::::::::80::::::::::|h[飞矢之歌]|h|r",
+},
+},
+}
+PawnMrRobotScaleProviderOptions = nil
+PawnClassicScaleProviderOptions = {
+["LastClass"] = "WARRIOR",
+["LastAdded"] = 3,
+}

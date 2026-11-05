@@ -1,0 +1,197 @@
+## Interface: 50504
+## Title: |cffff559aRurutiaSuite|r
+## Title-zhCN: |cffff559a[露露]|r 工具箱 核心
+## Notes: RurutiaSuite 露露的工具箱。一站式轻量工具箱，适配多种主流界面，提供很多便捷功能和额外增强。
+## Notes-zhCN: RurutiaSuite 露露的工具箱。一站式轻量工具箱，适配多种主流界面，提供很多便捷功能和额外增强。
+## Author: Rurutia
+## Version: 4.7.1
+## X-ModUs-UID: 88
+## X-License: All Rights Reserved
+## SavedVariables: RurutiaSuiteDB
+## OptionalDeps: LibSharedMedia-3.0, SharedMedia_Rurutia, ElvUI, NDui, EllesmereUI, EllesmereUIChat, EllesmereUINameplates, EllesmereUIQuestTracker, EllesmereUIAuraBuffReminders, EXBoss, ForeverMapFix
+## IconTexture: Interface\AddOns\RurutiaSuite\Media\icon.tga
+
+# 独立第三方库（不含 Ace3）
+Libs\LibStub\LibStub.lua
+Libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
+Libs\LibSharedMedia-3.0\LibSharedMedia-3.0.lua
+Libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
+Libs\LibDBIcon-1.0\LibDBIcon-1.0.lua
+
+# 唯一命名空间与 Build 描述
+Core\Namespace.lua
+Core\Build.lua
+Builds\ClassicFamily\Common\Capabilities.lua
+Builds\ClassicFamily\Mists\Capabilities.lua
+
+# 自研轻量 Runtime / DB / 装配
+Core\Runtime\Runtime.lua
+Core\Runtime\Events.lua
+Core\Runtime\Scheduler.lua
+Core\Runtime\Hooks.lua
+Core\Database.lua
+Core\Defaults.lua
+Core\Assembly.lua
+Core\Integrations.lua
+Core\Compat.lua
+Builds\ClassicFamily\Common\Integrations\MeetingHorn.lua
+Core\Client.lua
+Core\Async.lua
+Core\Launcher.lua
+Core\MinimapCollectorAdapter.lua
+Core\OptionsPanel.lua
+
+# 自研 UI 库
+UI\Bootstrap.lua
+UI\Theme.lua
+UI\SkinProvider.lua
+UI\Layout.lua
+UI\Components.lua
+UI\TransientSurface.lua
+UI\SettingsPopover.lua
+UI\PageRegistry.lua
+UI\TextDialog.lua
+UI\SettingsBuilder.lua
+UI\MainWindow.lua
+UI\Init.lua
+Core\Extensions.lua
+Core\OptionalAddons.lua
+Builds\ClassicFamily\Common\Integrations\ElvUI\SkinProvider.lua
+Builds\ClassicFamily\Common\Integrations\NDui\SkinProvider.lua
+
+# 展示层：媒体、字体、关于与外观页面
+Core\Presentation\Media.lua
+Core\Presentation\Font.lua
+Core\Presentation\About.lua
+Core\Presentation\Appearance.lua
+Core\Presentation\ChangelogData.lua
+Core\Presentation\ChangelogData_Classic.lua
+Core\Presentation\Changelog.lua
+Core\Presentation\Init.lua
+
+# 共享主界面导航与移动管理；具体差异由 Build provider 注入
+Core\ClassicUI\TabRegistry.lua
+Core\ClassicUI\MoveProviderRegistry.lua
+Core\ClassicUI\ExternalAdapters.lua
+Core\ClassicUI\MoveNudge.lua
+Core\ClassicUI\MoveManager.lua
+Core\ClassicUI\MoveManagerPage.lua
+Builds\ClassicFamily\Common\Integrations\NDui\SettingsCapture.lua
+Core\ClassicUI\Core.lua
+Builds\ClassicFamily\Common\Adapters\MoveManager.lua
+Builds\ClassicFamily\Common\Integrations\MoveManager.lua
+
+# 共享与 Build 功能实现
+Builds\ClassicFamily\Common\Adapters\OutOfDateAddons.lua
+Modules\OutOfDateAddonsGuard\Core.lua
+Core\ShareCodec.lua
+Core\ConfigTransfer.lua
+Core\Presentation\Transfer.lua
+Modules\ChatBar\Data.lua
+Builds\ClassicFamily\Common\Adapters\ChatBar.lua
+Builds\ClassicFamily\Mists\Adapters\ChatBar.lua
+Builds\ClassicFamily\Mists\Adapters\RoleGuard.lua
+Builds\ClassicFamily\Common\Integrations\NDui\ChatBar.lua
+Builds\ClassicFamily\Common\Integrations\ElvUI\ChatBar.lua
+Modules\ChatBar\Definition.lua
+Modules\ChatBar\View.lua
+Modules\ChatBar\Copy.lua
+Modules\ChatBar\Tooltip.lua
+Modules\ChatBar\Emoji.lua
+Modules\ChatBar\PopupMenu.lua
+Modules\ChatBar\Settings.lua
+Modules\ChatBar\Core.lua
+Modules\RaidMarker\Data.lua
+Builds\ClassicFamily\Common\Adapters\RaidMarker.lua
+Modules\RaidMarker\View.lua
+Modules\RaidMarker\Movement.lua
+Modules\RaidMarker\Settings.lua
+Modules\RaidMarker\Core.lua
+Modules\NativeTooltip\Adapter.lua
+Modules\NativeTooltip\View.lua
+Modules\NativeTooltip\Settings.lua
+Modules\NativeTooltip\Core.lua
+Modules\ExtraTools\Data.lua
+Builds\ClassicFamily\Common\Adapters\ExtraTools.lua
+Modules\ExtraTools\Providers.lua
+Builds\ClassicFamily\Common\Integrations\NDui\ExtraTools.lua
+Builds\ClassicFamily\Common\Integrations\ElvUI\ExtraTools.lua
+Builds\ClassicFamily\Common\Integrations\EllesmereUI\ExtraTools.lua
+Builds\ClassicFamily\Common\Integrations\LeatrixPlus\ExtraTools.lua
+Builds\ClassicFamily\Common\Integrations\Pig\ExtraTools.lua
+Builds\ClassicFamily\Infinite\Integrations\AlreadyKnown\ExtraTools.lua
+Modules\ExtraTools\View.lua
+Modules\ExtraTools\Core.lua
+Modules\ExtraTools\Features.lua
+Modules\ExtraTools\FastLoot.lua
+Modules\ExtraTools\BagWindowOption.lua
+Builds\Common\Integrations\WindowDrag.lua
+Modules\ExtraTools\WindowDrag.lua
+Modules\ExtraTools\MerchantExpansion.lua
+Modules\ExtraTools\KnownRecipe.lua
+Modules\ExtraTools\KnownRecipeSurfaces.lua
+Modules\RoleGuard\Section.lua
+Modules\RoleGuard\Core.lua
+Modules\ExtraTools\PanelCleanup.lua
+Modules\ExtraTools\Settings.lua
+Modules\TopBar\Data.lua
+Builds\ClassicFamily\Common\Adapters\TopBar.lua
+Modules\TopBar\Providers.lua
+Builds\ClassicFamily\Common\Integrations\NDui\TopBar.lua
+Modules\TopBar\MicroMenu.lua
+Modules\TopBar\Movement.lua
+Modules\TopBar\FastFocusHub.lua
+Modules\TopBar\View.lua
+Modules\TopBar\Settings.lua
+Modules\TopBar\Core.lua
+Builds\ClassicFamily\Common\Adapters\AutoMark.lua
+Modules\AutoMark\Core.lua
+Modules\ExperienceBar\Data.lua
+Modules\ExperienceBar\NativeBar.lua
+Builds\ClassicFamily\Common\Adapters\ExperienceBar.lua
+Modules\ExperienceBar\View.lua
+Modules\ExperienceBar\Settings.lua
+Modules\ExperienceBar\Core.lua
+Modules\Guide\Data.lua
+Modules\Guide\Window.lua
+Modules\Guide\Core.lua
+Modules\CVarSettings\Data.lua
+Builds\ClassicFamily\Common\Adapters\CVarSettings.lua
+Modules\CVarSettings\Settings.lua
+Modules\CVarSettings\Core.lua
+Modules\MagePortal\Data.lua
+Builds\ClassicFamily\Common\Adapters\MagePortal.lua
+Modules\MagePortal\View.lua
+Modules\MagePortal\Settings.lua
+Modules\MagePortal\Core.lua
+Modules\ConsumableBar\Data\Shared.lua
+Modules\ConsumableBar\Data\Data_Mop.lua
+Modules\ConsumableBar\Data.lua
+Builds\ClassicFamily\Common\Integrations\ConsumableBarAnchors.lua
+Builds\ClassicFamily\Common\Adapters\ConsumableBar.lua
+Builds\ClassicFamily\Mists\Adapters\ConsumableBar.lua
+Modules\ConsumableBar\Definition.lua
+Modules\ConsumableBar\Buttons.lua
+Modules\ConsumableBar\Cooldown.lua
+Modules\ConsumableBar\Buff.lua
+Modules\ConsumableBar\ItemFilter.lua
+Modules\ConsumableBar\Settings.lua
+Modules\ConsumableBar\Core.lua
+
+Modules\VersionDisplay\Core.lua
+
+# 所有定义完成后再启动
+Builds\Retail\Integrations\EllesmereUI\Compat.lua
+Modules\MinimapCollector\Settings.lua
+Modules\MinimapCollector\Core.lua
+
+# 无限服独立目标显示
+Builds\ClassicFamily\Infinite\Adapters\RangeMonitor.lua
+Builds\ClassicFamily\Infinite\Adapters\NameplateTarget.lua
+Builds\ClassicFamily\Infinite\Integrations\NameplateTarget.lua
+Modules\RangeMonitor\Settings.lua
+Modules\RangeMonitor\Core.lua
+Modules\NameplateTarget\Settings.lua
+Modules\NameplateTarget\Core.lua
+
+Core\Bootstrap.lua

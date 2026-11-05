@@ -1,0 +1,54 @@
+VER 3 0100000000000006 "aoe" "134400"
+#showtooltip
+/stopmacro [channeling]
+/cast [nopet] 亡者复生
+/castsequence [@cursor] reset=8/combat 冰冷触摸,暗影打击,传染,!枯萎凋零,冰冷触摸,食尸鬼狂乱,鲜血打击,冰冷触摸,暗影打击,传染,冰冷触摸,暗影打击,血液沸腾,!枯萎凋零,冰冷触摸,暗影打击,鲜血打击
+/cast 爪击
+/startattack
+/petattack
+END
+VER 3 0100000000000008 "丐版天贵" "134400"
+#showtooltip
+/stopmacro [nocombat]
+/施放 狮心(种族特长)
+/cast 召唤石像鬼
+/use 10
+/use 13
+/use 14
+/startattack
+END
+VER 3 0100000000000003 "凋零" "134400"
+#showtooltip 枯萎凋零
+/cast [@player] 枯萎凋零; [mod:alt,@cursor] 枯萎凋零
+END
+VER 3 0100000000000004 "单体" "134400"
+#showtooltip
+/stopmacro [channeling]
+/cast [nopet] 亡者复生
+/castsequence [@cursor] reset=8/combat 冰冷触摸,暗影打击,鲜血打击,!枯萎凋零,冰冷触摸,食尸鬼狂乱,血液沸腾,冰冷触摸,暗影打击,血液沸腾,冰冷触摸,暗影打击,鲜血打击,!枯萎凋零,冰冷触摸,暗影打击,血液沸腾
+/cast 爪击
+/startattack
+/petattack
+END
+VER 3 0100000000000002 "坐骑" "134400"
+/施放 泰坦重铸无敌
+/施放 阿彻鲁斯死亡战马
+END
+VER 3 0100000000000007 "天贵" "134400"
+#showtooltip
+/stopmacro [nocombat]
+/施放 狮心(种族特长)
+/cast 召唤石像鬼
+/use 10
+/use 13
+/use 14
+/use 速度药水
+/startattack
+END
+VER 3 0100000000000001 "自动攻击" "132223"
+/startattack
+END
+VER 3 0100000000000005 "释放" "134400"
+/施放 白骨之盾
+/施放 寒冬号角
+END

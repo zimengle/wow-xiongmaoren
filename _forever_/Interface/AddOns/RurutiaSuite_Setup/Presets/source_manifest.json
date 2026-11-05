@@ -1,0 +1,557 @@
+{
+  "schemaVersion": 1,
+  "legacyRepository": "RurutiaSuite_Retail",
+  "legacyCommit": "3b61ef5417141b81bf8abb347f97068888ce3020",
+  "sources": [
+    {
+      "path": "tools/setup/preset_sources/ability_timeline.txt",
+      "legacyPath": "更新Data/AbilityTimeline字符串.txt",
+      "authority": "legacy-text-input",
+      "sha256": "cf47fcea32110fb5d95da6d356c032b742508580a1ee5ba5b3c9e63b83ac68d3",
+      "bytes": 1293
+    },
+    {
+      "path": "tools/setup/preset_sources/bigwigs/default.txt",
+      "legacyPath": "更新Data/Bigwigs字符串.txt",
+      "authority": "legacy-text-input",
+      "sha256": "cd08f34047da57545ad4c2e10ee3c777ea75f57796c58a74881c3ec7b76d3e82",
+      "bytes": 15084
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldown_aliases.lua",
+      "legacyPath": "RurutiaSuite_Setup/Core/Data.lua#SpecAliases",
+      "authority": "legacy-data-lua",
+      "sha256": "770bfd987582d89f22a5d0a41e0dac710b50a566bb935d85212df28841877dc3",
+      "bytes": 293
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/DEATHKNIGHT/冰霜.txt",
+      "legacyPath": "更新Data/露露_死亡骑士_冰霜.txt",
+      "authority": "legacy-text-input",
+      "sha256": "d718ee5ac9e1aab5071e8ba4d35105e15faa54625ebcefc04c2cc918e2052d2d",
+      "bytes": 446
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/DEATHKNIGHT/邪恶.txt",
+      "legacyPath": "更新Data/露露_死亡骑士_邪恶.txt",
+      "authority": "legacy-text-input",
+      "sha256": "88be6b0ae3db644a0e693712c8dac02f7be9c911e08c135f7dbf098759ef743b",
+      "bytes": 538
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/DEATHKNIGHT/鲜血.txt",
+      "legacyPath": "更新Data/露露_死亡骑士_鲜血.txt",
+      "authority": "legacy-text-input",
+      "sha256": "82ea2d84bb255550021dda15a876da35bd8ac4e52053d2b4982a62e3a95aaa5c",
+      "bytes": 478
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/DEMONHUNTER/噬灭.txt",
+      "legacyPath": "更新Data/露露_恶魔猎手_噬灭.txt",
+      "authority": "legacy-text-input",
+      "sha256": "426442712263d02433c130780f679d54d13ede3c6d5ae4ae3cdce0ea1317117d",
+      "bytes": 338
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/DEMONHUNTER/复仇.txt",
+      "legacyPath": "RurutiaSuite_Setup/Core/Data.lua#Cooldowns/DEMONHUNTER/复仇",
+      "authority": "legacy-data-lua",
+      "sha256": "e2ba8a08cd84a152e48a0ed29fede670d3ad9345313cc2390832fe8d4aea59d8",
+      "bytes": 370
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/DEMONHUNTER/浩劫.txt",
+      "legacyPath": "更新Data/露露_恶魔猎手_浩劫.txt",
+      "authority": "legacy-text-input",
+      "sha256": "c74912413ef17bc0d1556fda324db9786a5a81200de7c71529d08604ef0aaceb",
+      "bytes": 394
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/DRUID/守护.txt",
+      "legacyPath": "RurutiaSuite_Setup/Core/Data.lua#Cooldowns/DRUID/守护",
+      "authority": "legacy-data-lua",
+      "sha256": "74ce6e265668b21505e0c9ab4514b9d3e6e804928006f243e5ecf1b6acc1915b",
+      "bytes": 446
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/DRUID/平衡.txt",
+      "legacyPath": "更新Data/露露_德鲁伊_平衡.txt",
+      "authority": "legacy-text-input",
+      "sha256": "c57f3ede6596bb8c920c69fb4bf928322eb5eef07a0239842b164730c6f06010",
+      "bytes": 494
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/DRUID/猫奶.txt",
+      "legacyPath": "更新Data/露露_德鲁伊_猫奶.txt",
+      "authority": "legacy-text-input",
+      "sha256": "204dab3680fbfc441fffd9922196c13b522bd1a6013854d675734b3f94a5d0c5",
+      "bytes": 506
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/DRUID/野性.txt",
+      "legacyPath": "RurutiaSuite_Setup/Core/Data.lua#Cooldowns/DRUID/野性",
+      "authority": "legacy-data-lua",
+      "sha256": "4317500e669171e52fa5f489bfe6a002d94946b53e883ab9fdcae0f6c77c4291",
+      "bytes": 446
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/EVOKER/增辉.txt",
+      "legacyPath": "更新Data/露露_唤魔师_增辉.txt",
+      "authority": "legacy-text-input",
+      "sha256": "dec584d40a35c485246f8acfda95b0b1701e7cc19efe58558af332314950bb69",
+      "bytes": 446
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/EVOKER/恩护.txt",
+      "legacyPath": "更新Data/露露_唤魔师_恩护.txt",
+      "authority": "legacy-text-input",
+      "sha256": "fad5e10890635725efc934672e43576bced04d9c73f2808de3caa8663853c34d",
+      "bytes": 398
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/EVOKER/湮灭.txt",
+      "legacyPath": "更新Data/露露_唤魔师_湮灭.txt",
+      "authority": "legacy-text-input",
+      "sha256": "9babc0724668c581e4f96855ada827cb487d30a28fecf9cd8fe0e52246cd6bbd",
+      "bytes": 394
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/HUNTER/兽王.txt",
+      "legacyPath": "更新Data/露露_猎人_兽王.txt",
+      "authority": "legacy-text-input",
+      "sha256": "3c165a772d32bb827c97d3902c850a0165cf6ceccf8dcc726063c1b4308d0628",
+      "bytes": 350
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/HUNTER/射击.txt",
+      "legacyPath": "更新Data/露露_猎人_射击.txt",
+      "authority": "legacy-text-input",
+      "sha256": "3fb4f847df3bec33a4f0d85f845dbd6f4836b87294b5a4722c8ae107d31f8831",
+      "bytes": 374
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/HUNTER/生存.txt",
+      "legacyPath": "更新Data/露露_猎人_生存.txt",
+      "authority": "legacy-text-input",
+      "sha256": "d6ad2fccfbe2b68b6216c5fc2893889bbb2abf94c90663a30eceebbd2c17d9a3",
+      "bytes": 378
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/MAGE/冰霜.txt",
+      "legacyPath": "更新Data/露露_法师_冰霜.txt",
+      "authority": "legacy-text-input",
+      "sha256": "be73c5309a902bd2b2328f48816c2a82512fbe61f149fceee79269433d1eaf89",
+      "bytes": 430
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/MAGE/奥术.txt",
+      "legacyPath": "更新Data/露露_法师_奥术.txt",
+      "authority": "legacy-text-input",
+      "sha256": "e50c948ecf386b8610ea181cedd954c07454ab04f201dd8418eaa8888c5db7f6",
+      "bytes": 434
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/MAGE/火焰.txt",
+      "legacyPath": "更新Data/露露_法师_火焰.txt",
+      "authority": "legacy-text-input",
+      "sha256": "5ccdc3343730d63eb60554e3bdb98b2441d497e9b506a136f66e0f143e244dc0",
+      "bytes": 406
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/MONK/织雾.txt",
+      "legacyPath": "更新Data/露露_武僧_织雾.txt",
+      "authority": "legacy-text-input",
+      "sha256": "ebd6af52272e689bf9398f8274906a02e4c3aaa2f394d23ae0a00808d75d91b5",
+      "bytes": 398
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/MONK/踏风.txt",
+      "legacyPath": "更新Data/露露_武僧_踏风.txt",
+      "authority": "legacy-text-input",
+      "sha256": "ca859b3e09a11972235ae08fde3a9850d75058ab466523bcea4373ac327aaf7a",
+      "bytes": 402
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/MONK/酒仙.txt",
+      "legacyPath": "更新Data/露露_武僧_酒仙.txt",
+      "authority": "legacy-text-input",
+      "sha256": "a251c70d8e5e826015bed5d576b7cf2ee6ff164290189431b97a99c6f8a9cd95",
+      "bytes": 454
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/PALADIN/惩戒.txt",
+      "legacyPath": "更新Data/露露_骑士_惩戒.txt",
+      "authority": "legacy-text-input",
+      "sha256": "90f96639b3b3ea1fecab372895420f42ca368659837d1b6732a14244662f6182",
+      "bytes": 450
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/PALADIN/神圣.txt",
+      "legacyPath": "更新Data/露露_骑士_神圣.txt",
+      "authority": "legacy-text-input",
+      "sha256": "5d2296e2dda89a3dca8d4ccafa2dfba744ddda5453460740b476757174569ab9",
+      "bytes": 382
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/PALADIN/防护.txt",
+      "legacyPath": "更新Data/露露_骑士_防护.txt",
+      "authority": "legacy-text-input",
+      "sha256": "aa829c3766e13ee425e4f64e97171845ca3c299672bce19703e10a1f075853d0",
+      "bytes": 446
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/PRIEST/戒律.txt",
+      "legacyPath": "更新Data/露露_牧师_戒律.txt",
+      "authority": "legacy-text-input",
+      "sha256": "c8ee747865c5e0eba01d54b162345d4ac4b52e23d9dab703f42e4bd006d3c383",
+      "bytes": 382
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/PRIEST/暗影.txt",
+      "legacyPath": "更新Data/露露_牧师_暗影.txt",
+      "authority": "legacy-text-input",
+      "sha256": "28da68604c0448eef7b3d9970c02a7dac7157b682157963fb4f61f7a5c6e8e38",
+      "bytes": 418
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/PRIEST/神圣.txt",
+      "legacyPath": "更新Data/露露_牧师_神圣.txt",
+      "authority": "legacy-text-input",
+      "sha256": "82897ea31c9eb6f6106afdc2d7ce1f6d3cea54fadb92b44b230bdbe461b69f2a",
+      "bytes": 386
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/ROGUE/奇袭.txt",
+      "legacyPath": "更新Data/露露_盗贼_奇袭.txt",
+      "authority": "legacy-text-input",
+      "sha256": "a1e4fd32dc526a8107f9ab302a3295e39ddd9c932822f4a3315463dfc0464792",
+      "bytes": 502
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/ROGUE/敏锐.txt",
+      "legacyPath": "更新Data/露露_盗贼_敏锐.txt",
+      "authority": "legacy-text-input",
+      "sha256": "b74753da0f3d89e643ad53e39c4c62de1b442bc809d67914026f0c42c4ef1837",
+      "bytes": 470
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/ROGUE/狂徒.txt",
+      "legacyPath": "更新Data/露露_盗贼_狂徒.txt",
+      "authority": "legacy-text-input",
+      "sha256": "f55710a22a9a26a16098c0ad685df508d403ce58d2ea3bd6236d225e3bc315e8",
+      "bytes": 518
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/SHAMAN/元素.txt",
+      "legacyPath": "更新Data/露露_萨满_元素.txt",
+      "authority": "legacy-text-input",
+      "sha256": "369a5b1ce82eacc242ea3e08e13cbb6a783c15e6e80a3b88856567bd35b091e4",
+      "bytes": 490
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/SHAMAN/增强.txt",
+      "legacyPath": "RurutiaSuite_Setup/Core/Data.lua#Cooldowns/SHAMAN/增强",
+      "authority": "legacy-data-lua",
+      "sha256": "8f0a81a4b63ac245643ee30a19df70b4ec31a0837fe2ed9f557f874d12f77aed",
+      "bytes": 510
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/SHAMAN/恢复.txt",
+      "legacyPath": "RurutiaSuite_Setup/Core/Data.lua#Cooldowns/SHAMAN/恢复",
+      "authority": "legacy-data-lua",
+      "sha256": "8512bfa8c0c052edfe04880bc00f3a6a5b002d10a2f92bc791d1ffa403cc61a5",
+      "bytes": 498
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/WARLOCK/恶魔.txt",
+      "legacyPath": "RurutiaSuite_Setup/Core/Data.lua#Cooldowns/WARLOCK/恶魔",
+      "authority": "legacy-data-lua",
+      "sha256": "4c87b3fd383022899e0cd559a340729d725aaca31a99ab10b8963f6f510ae05f",
+      "bytes": 390
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/WARLOCK/毁灭.txt",
+      "legacyPath": "RurutiaSuite_Setup/Core/Data.lua#Cooldowns/WARLOCK/毁灭",
+      "authority": "legacy-data-lua",
+      "sha256": "053e2cda6009b232dddc5029e8ec627b47636e694e60d37ee1f5a533eaae95e1",
+      "bytes": 402
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/WARLOCK/痛苦.txt",
+      "legacyPath": "RurutiaSuite_Setup/Core/Data.lua#Cooldowns/WARLOCK/痛苦",
+      "authority": "legacy-data-lua",
+      "sha256": "e4bb7da9d3ee779a17af86a0cdad0763e0309eb64a0a95ba740e7d1d541f7c1d",
+      "bytes": 310
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/WARRIOR/武器.txt",
+      "legacyPath": "更新Data/露露_战士_武器.txt",
+      "authority": "legacy-text-input",
+      "sha256": "91ef18d0d1250c47c08fd6ce3bd0d9f62600b7749c1d57cd59056c6700f2c213",
+      "bytes": 482
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/WARRIOR/狂怒.txt",
+      "legacyPath": "RurutiaSuite_Setup/Core/Data.lua#Cooldowns/WARRIOR/狂怒",
+      "authority": "legacy-data-lua",
+      "sha256": "5c1264169cf11d995c258be1dfa3330eca6887eceac9ef78619b45dd4c18d656",
+      "bytes": 438
+    },
+    {
+      "path": "tools/setup/preset_sources/cooldowns/WARRIOR/防护.txt",
+      "legacyPath": "RurutiaSuite_Setup/Core/Data.lua#Cooldowns/WARRIOR/防护",
+      "authority": "legacy-data-lua",
+      "sha256": "ccc212b3e0267af7fabe73c89847973e09d630666865dc6facf1e7c2d9092916",
+      "bytes": 442
+    },
+    {
+      "path": "tools/setup/preset_sources/exwindtools/ExwindToolsData.lua",
+      "legacyPath": "RurutiaSuite_Setup/Core/ExwindToolsData.lua",
+      "authority": "legacy-generated-snapshot",
+      "sha256": "159df7c39ce8497e7963cd276d00d3145578f184a351a05d17bde9013cf8e71a",
+      "bytes": 100872
+    },
+    {
+      "path": "tools/setup/preset_sources/layouts/2k-16x10.txt",
+      "legacyPath": "更新Data/2K16比10.txt",
+      "authority": "legacy-text-input",
+      "sha256": "b6aa486500a2488ea53948b842d96de82379fe53e5ea0070b1da311332bbeef4",
+      "bytes": 2459
+    },
+    {
+      "path": "tools/setup/preset_sources/layouts/2k-16x9-ndui.txt",
+      "legacyPath": null,
+      "authority": "owner-provided-retail-layout",
+      "sha256": "429ad7d456b5a61cdeca27272cae71e7122cee000b335816d09f22139aae00eb",
+      "bytes": 2499
+    },
+    {
+      "path": "tools/setup/preset_sources/layouts/4k-16x9-ellesmere.txt",
+      "legacyPath": null,
+      "authority": "owner-provided-retail-layout",
+      "sha256": "24e3060767386aec4b9ec8afb9d171552ff67bb12e50ae098a55e82806b71a39",
+      "bytes": 2505
+    },
+    {
+      "path": "tools/setup/preset_sources/layouts/4k-16x9.txt",
+      "legacyPath": "更新Data/4K16比9.txt",
+      "authority": "owner-provided-retail-layout",
+      "sha256": "bdae659c818eeba28282a8efabcc7ea59abd2eafa785ebb6c717a15d7b39c737",
+      "bytes": 2506
+    },
+    {
+      "path": "tools/setup/preset_sources/layouts/standard-16x9.txt",
+      "legacyPath": "更新Data/16比9.txt",
+      "authority": "legacy-text-input",
+      "sha256": "104fddaee6543e7630283fd76e5597c0fc74d09757fb1617b2a2d6d55f41f599",
+      "bytes": 2458
+    },
+    {
+      "path": "tools/setup/preset_sources/layouts/ultrawide-21x9.txt",
+      "legacyPath": "更新Data/21比9.txt",
+      "authority": "legacy-text-input",
+      "sha256": "74cb482455aa19fe511ee9a6df28c98e57644d82a99bc676b1bd5394e3d893bb",
+      "bytes": 2460
+    },
+    {
+      "path": "tools/setup/preset_sources/sensei/brewmaster.txt",
+      "legacyPath": "更新Data/Sensei字符串_酒仙.txt",
+      "authority": "legacy-text-input",
+      "sha256": "f280d5da4a6daa3234c688a19b800430c40624d2130df0b80f8aa9b5d65509d4",
+      "bytes": 1809
+    },
+    {
+      "path": "tools/setup/preset_sources/sensei/default.txt",
+      "legacyPath": "更新Data/Sensei字符串.txt",
+      "authority": "legacy-text-input",
+      "sha256": "e75507e56f3f13b4b321e7750b74ff9ebd8bf91182bae3625cbe9ce198e7bd28",
+      "bytes": 1811
+    }
+  ],
+  "infiniteSettingsSource": {
+    "path": "data/blizzard-settings-forever.json",
+    "authority": "curated owner settings; excludes account identity and combat history",
+    "sha256": "5c3db489ab42c446104489dd8ce4f03a1ecbf3cec514d29fc4e46e4347f1d186"
+  },
+  "infiniteSource": {
+    "path": "data/编辑模式代码_无限_16比9.txt",
+    "authority": "user-provided Infinite 16:9 layout",
+    "sha256": "f721332bd5da370f9e89b9a0b65f1715774a42024144df1fa945b63b5f53e15d"
+  },
+  "infinite4KSource": {
+    "path": "data/编辑模式代码_无限_4K16比9.txt",
+    "authority": "owner-provided Infinite 4K 16:9 layout, 2026-10-10",
+    "sha256": "3d5e5c1f2bb807c49eaa383c7a95f86354798af3bc9c1988625b6c642c37dede"
+  },
+  "infiniteUltrawideSources": [
+    {
+      "path": "data/编辑模式代码_无限_21比9_原生UI.txt",
+      "authority": "owner-provided Infinite 21:9 layout, 2026-10-09",
+      "sha256": "8b79155ffefcc46abbc9c91f294d17b08d87b884ffe18244ac44d7c0eed3cc2b"
+    },
+    {
+      "path": "data/编辑模式代码_无限_21比9_EllesmereUI.txt",
+      "authority": "owner-provided Infinite 21:9 layout, 2026-10-09",
+      "sha256": "cf9781d3c69817c2ec514b0537dddcc46c4d3669384de966a70f9a69691e5b08"
+    }
+  ],
+  "infinite4KEllesmereSource": {
+    "path": "data/编辑模式代码_无限_4K_EllesmereUI.txt",
+    "authority": "owner-provided Infinite EllesmereUI 4K layout, 2026-10-10",
+    "sha256": "1f992c0c94a69ad3f20afafe40a6e872cc907cdd85b930dfe27dd7c0928e3012"
+  },
+  "infiniteEditModeSettingsSource": {
+    "path": "data/editmode-account-settings-forever.json",
+    "authority": "owner-confirmed Infinite HUD edit mode account settings",
+    "sha256": "15ac398bde27b2210bcf609bf5cda69ea77b25e92aabd2b52a844bd913c6a1cb"
+  },
+  "provenance": {
+    "path": "tools/setup/preset_sources/provenance.json",
+    "sha256": "c36c5c4cb093980425b4d7e668573206f005bf6fc0fa5e1f06907d7ce4e707a6"
+  },
+  "targets": [
+    {
+      "path": "RurutiaSuite_Setup/Core/BlizzardSettingsPreset_Infinite.lua",
+      "sha256": "d6d7d83e010bcffe6f3b60b6effe751a859d1c1b5d0c2aa96cba44c420c59e71"
+    },
+    {
+      "path": "RurutiaSuite_Setup/Core/EditModePreset.lua",
+      "sha256": "0a136d83f8103a8ebbf392cac088a6e543c9f2613dc04cc97f80231fddbe483d"
+    },
+    {
+      "path": "RurutiaSuite_Setup/Core/EditModePreset_Infinite.lua",
+      "sha256": "5e8e324a9ca7160aa77b9eb12ca9c99d4fbd814bcf2d2c5436c4c47fc83c8fc3"
+    },
+    {
+      "path": "RurutiaSuite_Setup/Modules/LegacyPresetImports/AbilityTimelineData.lua",
+      "sha256": "c1357cc9e87ab5edf9ae13c7ae666ae8c996bb457f32a9d644166ea293f3337c"
+    },
+    {
+      "path": "RurutiaSuite_Setup/Modules/LegacyPresetImports/BigWigsData.lua",
+      "sha256": "d4dc1b4c0fdadd256af3b19ec66e786385bdec04ef29d3e7ae9d29015f9f005d"
+    },
+    {
+      "path": "RurutiaSuite_Setup/Modules/LegacyPresetImports/Data.lua",
+      "sha256": "621855bce0896ddcd2da2b9aff74252fb97fc87c235c5234ef0b1d2e51072ae1"
+    },
+    {
+      "path": "RurutiaSuite_Setup/Modules/LegacyPresetImports/EXBossData.lua",
+      "sha256": "37888a5f9ef34344347013f344b951c7525f5794f488e2d280267e53143be7d6"
+    },
+    {
+      "path": "RurutiaSuite_Setup/Modules/LegacyPresetImports/ExwindToolsData.lua",
+      "sha256": "e1b69552ca4d35a622021041bdf239c2a2fc7038fbb86ea66c20549cbacb403a"
+    }
+  ],
+  "cooldownCoverage": {
+    "generatedEntryCount": 40,
+    "authoritativeInputCount": 40,
+    "verifiedInputCount": 40,
+    "textInputCount": 30,
+    "dataLuaInputCount": 10,
+    "legacyDataOnlyEntryCount": 10,
+    "legacyDataOnlyEntries": [
+      {
+        "class": "DEMONHUNTER",
+        "spec": "复仇",
+        "sha256": "e2ba8a08cd84a152e48a0ed29fede670d3ad9345313cc2390832fe8d4aea59d8",
+        "sourcePath": "tools/setup/preset_sources/cooldowns/DEMONHUNTER/复仇.txt",
+        "legacySource": "RurutiaSuite_Setup/Core/Data.lua#Cooldowns/DEMONHUNTER/复仇"
+      },
+      {
+        "class": "DRUID",
+        "spec": "守护",
+        "sha256": "74ce6e265668b21505e0c9ab4514b9d3e6e804928006f243e5ecf1b6acc1915b",
+        "sourcePath": "tools/setup/preset_sources/cooldowns/DRUID/守护.txt",
+        "legacySource": "RurutiaSuite_Setup/Core/Data.lua#Cooldowns/DRUID/守护"
+      },
+      {
+        "class": "DRUID",
+        "spec": "野性",
+        "sha256": "4317500e669171e52fa5f489bfe6a002d94946b53e883ab9fdcae0f6c77c4291",
+        "sourcePath": "tools/setup/preset_sources/cooldowns/DRUID/野性.txt",
+        "legacySource": "RurutiaSuite_Setup/Core/Data.lua#Cooldowns/DRUID/野性"
+      },
+      {
+        "class": "SHAMAN",
+        "spec": "增强",
+        "sha256": "8f0a81a4b63ac245643ee30a19df70b4ec31a0837fe2ed9f557f874d12f77aed",
+        "sourcePath": "tools/setup/preset_sources/cooldowns/SHAMAN/增强.txt",
+        "legacySource": "RurutiaSuite_Setup/Core/Data.lua#Cooldowns/SHAMAN/增强"
+      },
+      {
+        "class": "SHAMAN",
+        "spec": "恢复",
+        "sha256": "8512bfa8c0c052edfe04880bc00f3a6a5b002d10a2f92bc791d1ffa403cc61a5",
+        "sourcePath": "tools/setup/preset_sources/cooldowns/SHAMAN/恢复.txt",
+        "legacySource": "RurutiaSuite_Setup/Core/Data.lua#Cooldowns/SHAMAN/恢复"
+      },
+      {
+        "class": "WARLOCK",
+        "spec": "恶魔",
+        "sha256": "4c87b3fd383022899e0cd559a340729d725aaca31a99ab10b8963f6f510ae05f",
+        "sourcePath": "tools/setup/preset_sources/cooldowns/WARLOCK/恶魔.txt",
+        "legacySource": "RurutiaSuite_Setup/Core/Data.lua#Cooldowns/WARLOCK/恶魔"
+      },
+      {
+        "class": "WARLOCK",
+        "spec": "毁灭",
+        "sha256": "053e2cda6009b232dddc5029e8ec627b47636e694e60d37ee1f5a533eaae95e1",
+        "sourcePath": "tools/setup/preset_sources/cooldowns/WARLOCK/毁灭.txt",
+        "legacySource": "RurutiaSuite_Setup/Core/Data.lua#Cooldowns/WARLOCK/毁灭"
+      },
+      {
+        "class": "WARLOCK",
+        "spec": "痛苦",
+        "sha256": "e4bb7da9d3ee779a17af86a0cdad0763e0309eb64a0a95ba740e7d1d541f7c1d",
+        "sourcePath": "tools/setup/preset_sources/cooldowns/WARLOCK/痛苦.txt",
+        "legacySource": "RurutiaSuite_Setup/Core/Data.lua#Cooldowns/WARLOCK/痛苦"
+      },
+      {
+        "class": "WARRIOR",
+        "spec": "狂怒",
+        "sha256": "5c1264169cf11d995c258be1dfa3330eca6887eceac9ef78619b45dd4c18d656",
+        "sourcePath": "tools/setup/preset_sources/cooldowns/WARRIOR/狂怒.txt",
+        "legacySource": "RurutiaSuite_Setup/Core/Data.lua#Cooldowns/WARRIOR/狂怒"
+      },
+      {
+        "class": "WARRIOR",
+        "spec": "防护",
+        "sha256": "ccc212b3e0267af7fabe73c89847973e09d630666865dc6facf1e7c2d9092916",
+        "sourcePath": "tools/setup/preset_sources/cooldowns/WARRIOR/防护.txt",
+        "legacySource": "RurutiaSuite_Setup/Core/Data.lua#Cooldowns/WARRIOR/防护"
+      }
+    ]
+  },
+  "maintenanceChain": {
+    "generator": {
+      "path": "工具_02.1_一键更新Data.py",
+      "sha256": "d15432f7d709cd0bc6198a7c3dcdee8c28d181ceb4f27e8c34c8e103683a81ee"
+    },
+    "verifiedTargets": [
+      {
+        "path": "RurutiaSuite_Setup/Core/Data.lua",
+        "sha256": "bbf3a753c1c0ea662e8c5cac7d98ea7b8ca32ef37e2d9e5fcad338fff0643084"
+      }
+    ],
+    "excludedUnreferencedFiles": [
+      "更新Data/Sensei字符串_固定长度.txt",
+      "更新Data/Sensei字符串_固定长度.txt.bak"
+    ]
+  },
+  "retiredInputs": [
+    {
+      "path": "tools/setup/preset_sources/exboss.txt",
+      "legacyDecisionCommit": "aaf9dd66183025d90fbe03609460d8d85c5bc9c2",
+      "reason": "legacy-exboss-payload-invalid-after-provider-refactor"
+    }
+  ],
+  "notes": [
+    "All routine generation reads repository-local authoritative sources; the retired legacy worktree is needed only for explicit one-time provenance import.",
+    "Sensei and AbilityTimeline payloads retain their owner-authored legacy text origins.",
+    "The obsolete EXBoss payload remains retired; runtime import now delegates to the EXBOSS-RURUTIA API v3 silent-variant owner transaction without duplicating provider data.",
+    "BigWigs retains the official four-line export bundle and asks the provider to confirm imports only on explicit user action.",
+    "EXWINDTOOLS retains the validated generated snapshot as a lazy source string; the nested table is decoded only for an explicit import.",
+    "Cooldown authority is 30 text-origin inputs plus 10 inputs recovered from fixed legacy Core/Data.lua; all 40 now have repository-local source files."
+  ]
+}

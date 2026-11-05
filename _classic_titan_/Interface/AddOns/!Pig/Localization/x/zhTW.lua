@@ -1,0 +1,219 @@
+local addonName, addonTable = ...;
+local _, _, _, tocversion = GetBuildInfo()
+local L=addonTable.locale
+if GetLocale() == "zhTW" then
+L["ADDON_NAME"] = "工具箱";
+L["ADDON_AUTHOR"]="聯繫作者";
+--About
+L["ABOUT_TABNAME"] = "關於";
+L["ABOUT_UPDATETIPS"] = "挿件已過期,請在插件關於菜單查看更新方式";
+L["ABOUT_LOAD"] = "載入成功 /pig或小地圖按鈕設置";
+L["ABOUT_REMINDER"]="|cff00FF00(更新方式請見插件關於菜單|r"
+L["ABOUT_UPDATEADD"]="更新: "
+L["ABOUT_MAIL"]="回饋郵箱: "
+L["ABOUT_MEDIA"]="使用教程: "
+--error
+L["ERROR_ERROR1"] = "嚐試調用保護功能";
+L["ERROR_ERROR2"] = "宏嚐試調用保護功能";
+L["ERROR_DEBUGTOOLTIP"] = "發生錯誤時在小地圖按鈕提示（顯示一個紅X）\n並且不會收納BugSack插件的小地圖圖標";
+--lib
+L["LIB_MACROERR"] = "你的宏數量已達最大值120，請删除一些再嘗試";
+L["LIB_TIPS"] = "提示";
+L["LIB_PLUS"] = "額外";
+L["LIB_SIZE"] = "尺寸";
+L["LIB_POINT"] = "位置";
+L["LIB_LAYOUT"] = "佈局";
+L["LIB_WIDTH"]= "寬度"
+L["LIB_HEIGHT"]= "高度"
+--OptionsUI
+L["OPTUI_SET"] = "設定";
+L["OPTUI_RLUI"] = "重載UI";
+L["OPTUI_RLUITIPS"] = "***配寘已更改，請重載UI以應用新配寘***";
+L["OPTUI_ERRORTIPS"] = "***插件加載失敗，請重新嘗試***";
+--Debug
+L["DEBUG_TABNAME"] = "調試";
+L["DEBUG_BUTNAME"] = "記憶體CPU監控";
+L["DEBUG_CPUUSAGE"] = "CPU性能分析";
+L["DEBUG_CPUUSAGETIPS"] = "開啟CPU使用率監控\n請只在需要時候開啟，此功能需要消耗一些系統性能\n"..string.format(ERR_USE_LOCKED_WITH_ITEM_S,RELOADUI);
+L["DEBUG_COLLECT"] = "回收";
+L["DEBUG_COLLECTTIPS"] = "|cff00FFff此功能會導致挿件所有執行都停止，直到收回過程完成\n挿件過多情况下可能超過幾秒，這會令遊戲暫時凍結（卡住）\n除開挿件開發調試，大多數情况不需要手動調用，LUA自動記憶體管理機制會定期運作|r";
+L["DEBUG_ADDNUM"] = "個挿件";
+L["DEBUG_ADD"] = "挿件";
+L["DEBUG_MEMORY"] = "記憶體";
+L["DEBUG_ERRORLOG"] = "錯誤日誌";
+L["DEBUG_OPENERRORLOGCMD"] = "打開日誌指令：";
+
+L["DEBUG_SCRIPTTOOLTIP"] = "打開遊戲自帶的LUA錯誤提示功能，非調試挿件情况下請不要開啟";
+L["DEBUG_TAINTLOG"] = "污染日誌";
+L["DEBUG_TAINT0"] = "不記錄任何內容";
+L["DEBUG_TAINT1"] = "記錄被封鎖的操作";
+L["DEBUG_TAINT2"] = "記錄被封鎖的操作/全域變數";
+L["DEBUG_TAINT11"] = "記錄被封鎖的操作/全域變數/條目(PTR/Beta)";
+L["DEBUG_GETGUIDBUT"] = "獲取目標GUID";
+L["DEBUG_CONFIG"] = "調試配寘";
+L["DEBUG_CONFIGTIPS"] = "此配寘默認關閉所有功能，供調試挿件使用";
+--Config
+L["CONFIG_TABNAME"] = "配寘";
+L["CONFIG_DIYTIPS"] = "把你的"..addonName.."配寘加入到挿件"..CHAT_DEFAULT.."配寘清單，你可以在任何地方載入你的配寘";
+L["CONFIG_LOADTIPS"] = "載入|cff00ff00<%s>|r的設定?\n當前配寘數據將被|cffff0000重置|r,需要重載界面";
+L["CONFIG_ERRTIPS"] = "1、如遇到問題，請在此載入挿件"..CHAT_DEFAULT.."配寘。\n2、如問題仍未解决請通過關於內的迴響管道提交問題。|r";
+L["CONFIG_LOAD"] = "載入";
+L["CONFIG_DAOCHU"] = "匯出";
+L["CONFIG_DAORU"] = "導入";
+L["CONFIG_IMPORT"] = "請在下方輸入要導入的字串，並點擊導入按鈕";
+L["CONFIG_DERIVE"] = "請複製下方字串，粘貼到需要導入位置";
+L["CONFIG_DERIVERL"] = "導入並重載";
+L["CONFIG_DERIVEERROR"] = "導入失敗，無法識別的字串";
+--常用
+L["COMMON_TABNAME2"] = "交互";
+--Chat
+L["CHAT_TABNAME"] = "聊天";
+L["CHAT_FILTERS"] = "過濾";
+L["CHAT_FILTERSTAB"] = "過\n濾";
+L["CHAT_WHISPER"] = "密語";
+L["CHAT_KEYWORD"] = "關鍵字";
+L["CHAT_KEYWORD_TI_1"] = "  用，分隔";
+L["CHAT_KEYWORD_TI"] = "輸入"..L["CHAT_KEYWORD"]..L["CHAT_KEYWORD_TI_1"];
+L["CHAT_BLACK_NAME"] = "黑名單";
+L["CHAT_BLACK_SET0"] = {"高頻發言","短時間高頻發言的後續發言會被過濾"}
+L["CHAT_BLACK_SET1"] = {"重複發言","過濾%d分鐘之內的重複發言(不過濾自身發言)"}
+L["CHAT_BLACK_EITB"] = L["CHAT_KEYWORD"]..L["CHAT_KEYWORD_TI_1"].."\nAA：屏蔽包含AA的信息\nAA#BB：屏蔽同時包含AA和BB的信息"
+L["CHAT_KEYWORD_NAME"] = "關注";
+L["CHAT_KEYWORD_NAME1"] = "提取";
+L["CHAT_KEYWORD_NAMETAB"] = "提\n取";
+L["CHAT_KEYWORD_NAME2"] = L["CHAT_KEYWORD"]..L["CHAT_KEYWORD_TI_1"].."\nAA：提取包含AA的內容\nAA#BB：提取同時包含AA和BB的內容\nAA&CC：提取包含AA但不包含CC的內容"
+L["CHAT_KEYWORD_SET1"] = "提示音";
+L["CHAT_KEYWORD_SET2"] = "輸出到聊天窗口";
+L["CHAT_DAOSHU"] = "開怪倒數";
+L["CHAT_JILUTIME"]={"一周","一月","半年","一年"}
+L["CHAT_JILUTISHI"]="點擊上方頻道標籤瀏覽聊天記錄";
+L["CHAT_JILUTDEL"]="確定要清空%s聊天記錄嗎？";
+L["CHAT_WHISPERTIXING"]="新"..L["CHAT_WHISPER"].."提醒"
+L["CHAT_WHISPERTIXINGTOP"]="收到"..L["CHAT_WHISPER"].."時頻道切換按鈕裡面圖標會閃動"
+L["CHAT_WHISPERAUDIO"]="新"..L["CHAT_WHISPER"].."提示音"
+L["CHAT_WHISPERAUDIOTOP"]="收到"..L["CHAT_WHISPER"].."時會播放指定提示音"
+L["CHAT_TABNAME1"] = GENERAL;
+L["CHAT_QUKBUT"] = "快捷切換頻道按鈕";
+L["CHAT_QUKBUTTIPS"]="在聊天欄增加一排頻道快捷切換按鈕，可快速切換頻道"
+L["CHAT_QUKBUTNAME"] = {"說","喊","隊","會","團","通","戰","綜","交","組","世"};
+L["CHAT_JXNAME"] = {"長","領","導"};
+if tocversion>30000 then L["CHAT_QUKBUTNAME"][7]="副" end
+L["CHAT_BENDIFANGWU"] = "本地防務";
+L["CHAT_WORLDFANGWU"] = "世界防務";
+L["CHAT_QUKBUT_UP"] = "敷著於聊天欄上方";
+L["CHAT_QUKBUT_DOWN"] = "敷著於聊天欄下方";
+L["CHAT_QUKBUT_STYLE"]= "樣式";
+L["CHAT_MINMAXB"]= "顯示放大縮小字體按鈕";
+L["CHAT_MINMAXBTIPS"]= "在聊天欄添加放大縮小字體按鈕";
+L["CHAT_ALTEX"]= "免ALT鍵移動光標/查看輸入記錄";
+L["CHAT_ALTEXTIPS"]= "無需按住ALT鍵即可移動光標，上下翻看輸入記錄，左右移動光標";
+L["CHAT_JIANYIN"]= "關閉聊天欄文字漸隱"
+L["CHAT_JIANYINTIPS"]= "移除聊天欄的文字漸隱效果";
+L["CHAT_LINKSHOW"]= "滑鼠指向鏈接直接預覽物品屬性"
+L["CHAT_ZHIXIANGSHOWTIPS"]= "滑鼠指向聊天欄物品時直接預覽属性，正常需要點擊鏈接";
+L["CHAT_CLASSCOLOR"]= "聊天欄顯示職業顏色";
+L["CHAT_JINGJIAN"]= "精簡頻道名";
+L["CHAT_JINGJIANTIPS"]= L["CHAT_JINGJIAN"].."例：["..LOOK_FOR_GROUP.."]→[組]";
+L["CHAT_JOINPIG"]= "自動加入"..LOOK_FOR_GROUP.."/PIG頻道"
+L["CHAT_JOINPIGTIPS"]= "進入遊戲後自動加入"..LOOK_FOR_GROUP.."/PIG頻道";
+L["CHAT_FONTSIZE"]= "自動設置聊天框字體:"
+L["CHAT_FONTSIZETIPS"]= "開啟後將在每次登陸時恢復聊天框字體大小為設定值，如果需要自定義單獨聊天框字體請關閉此功能";
+L["CHAT_DAORUQITASET"]= "導入其他角色聊天設置";
+L["CHAT_DAYINZIDINGYI"]= "打印自定義頻道所有者";
+L["CHAT_TABNAME2"] = "TAB切換頻道";
+L["CHAT_TABNAME2TIPS"] = L["CHAT_TABNAME2"].."|cff00ff00(激活輸入框時會在下方選中頻道之間切換)|r"
+L["CHAT_BN_WHISPER"] = "戰網密語"
+L["CHAT_TABCKBTIPS"] ="勾選以後TAB鍵將可以切換到【%s】頻道"
+L["CHAT_TABNAME3"] = "頻道粘連";
+L["CHAT_TABNAME3TIPS"] ="粘連回車|cff00ff00(取消粘連回車的頻道，發言後回車不會返回此頻道)|r";
+L["CHAT_ZLCKBTIPS"] ="勾選粘連【%s】頻道到回車，取消勾選解除粘連";
+L["CHAT_RECHATBUT"]= "重置聊天"..L["OPTUI_SET"];
+L["CHAT_TABNAME5"] = "頻道順序";
+L["CHAT_TABNAME5_XULIE"] = "序列";
+L["CHAT_MARGIN"]= "修改系統聊天視窗的邊距限制"
+L["CHAT_MARGINTIPS"]= "修改系統聊天視窗的邊距限制，使之突破移動邊距限制";
+L["CHAT_ZHUNAME"]= "主聊天視窗";
+L["CHAT_ZHUCHATF"]= L["OPTUI_SET"]..L["CHAT_ZHUNAME"]..L["LIB_POINT"]..L["LIB_SIZE"].."\124cff00ff00(邊距受系統限制，可在上方解除系統限制)\124r";
+L["CHAT_LOOTNAME"]= "右邊獨立聊天視窗";
+L["CHAT_LOOTCHATF"]= L["OPTUI_SET"]..L["CHAT_LOOTNAME"]..L["LIB_POINT"]..L["LIB_SIZE"];
+L["CHAT_LOOTFADD"]= "創建"..L["CHAT_LOOTNAME"];
+L["CHAT_LOOTFYES"]= "已創建"..L["CHAT_LOOTNAME"];
+L["CHAT_LOOTFNAME"]="拾取/其他";
+L["CHAT_LOOTFTIPS"]="\124cffffff00創建一個顯示拾取物品信息的單獨聊天窗口\124r\n\124cff00ff00下方選項在創建獨立拾取窗口後方可使用\n不需要獨立拾取窗口時請手動移除\124r";
+L["CHAT_LOOTFNRSET"]="重設窗口顯示內容";
+L["CHAT_LOOTFNRSETTIPS"]="啟用獨立拾取窗口後，建議打開此選項。\n重新設置窗口顯示內容，綜合頻道將取消經驗榮譽以及拾取信息的顯示，拾取窗口添加拾取/經驗/榮譽等的顯示！\n修改"..COMBAT_LOG.."為"..COMBAT_LABEL;
+L["CHAT_LOOTFADDERR1"]="創建失敗，當前屏幕分辨率過小";
+L["CHAT_LOOTFADDERR2"]="創建失敗，系統允許最大聊天窗口數：10，當前："..FCF_GetNumActiveChatFrames();
+--商業
+L["TRADE_TABNAME"] = "商業";
+--动作条
+L["ACTION_TABNAME"] = ACTIONBARS_LABEL;
+L["ACTION_TABNAME1"] = GENERAL;
+L["ACTION_TABNAME2"] = "功能"..ACTIONBARS_LABEL;
+L["ACTION_ADDQUICKBUT"] = L["ACTION_TABNAME2"]..ADD.."<%s>";
+L["ACTION_ADDQUICKBUTTIS"] = L["ACTION_TABNAME2"]..ADD.."<%s>,以便快速打開。\n|cff00FF00注意：此功能需先在"..L["ACTION_TABNAME"].."選單打開"..L["ACTION_TABNAME2"].."|r";
+L["ACTION_TABNAME3"] = L["LIB_PLUS"]..ACTIONBARS_LABEL;
+--背包
+L["BAGBANK_TABNAME"] = "背包/銀行";
+--界面优化
+L["FRAMEP_TABNAME"] = "暴雪介面增强";
+L["FRAMEP_TABNAME2"] = "介面擴展";
+--鼠标提示
+L["TOOLTIP_TABNAME"] = MOUSE_LABEL..L["LIB_TIPS"];
+L["TOOLTIP_TABNAME1"] = L["LIB_PLUS"]..INFO;
+L["TOOLTIP_TABNAME1"] = L["LIB_PLUS"]..INFO;
+--头像框架
+L["UNIT_TABNAME"] = "頭像框架";
+L["UNIT_TABNAME1"] = "自身頭像";
+L["UNIT_TABNAME2"] = "隊友頭像";
+L["UNIT_TABNAME3"] = "目標頭像";
+--战斗辅助
+L["COMBAT_TABNAME"] = "戰鬥輔助";
+L["COMBAT_TABNAME1"] = "標記按鈕";
+L["COMBAT_TABNAME2"] = "戰鬥時間";
+L["COMBAT_TABNAME3"] = "個人資源條";
+L["COMBAT_TABNAME4"] = "新手保姆";
+--地图
+L["MAP_TABNAME"] = "地圖";
+L["MAP_TABNAME1"] = "小地圖";
+L["MAP_NIMIBUT"] = "顯示本挿件小地圖按鈕";
+L["MAP_NIMIBUTTIPS"] = "顯示插件的小地圖按鈕";
+L["MAP_NIMIBUT_BS"] = "允許被收納";
+L["MAP_NIMIBUT_BSTIPS"] = "開啟後小地圖按鈕將可以被其他插件收納|cffFF0000(注意和下方收納小地圖按鈕功能只能選一)|r";
+L["MAP_NIMIBUT_SN"] = "收納其他插件的小地圖按鈕";
+L["MAP_NIMIBUT_SNTIPS"] = "開啟後將收納其他插件的小地圖按鈕到單獨界面，"..KEY_BUTTON1.."點擊本插件小地圖按鈕可查看已收納按鈕|cffFF0000(注意和上方允許被收納只能選一)|r";
+L["MAP_NIMIBUT_HANGNUM"]="每行按鈕數:"
+L["MAP_NIMIBUT_NOSN"]="點擊按鈕切換收納與否"
+L["MAP_NIMIBUT_TIPS1"]=KEY_BUTTON1.."-|cff00FFFF展開小地圖按鈕|r\r"..KEY_BUTTON2.."-|cff00FFFF設定|r\rShift+"..KEY_BUTTON1.."-|cff00FFFF重載界面|r\rCtrl+"..KEY_BUTTON1.."-|cff00FFFF打開錯誤日誌|r"
+L["MAP_NIMIBUT_TIPS2"]=KEY_BUTTON1.."-|cff00FFFF設定|r\rShift+"..KEY_BUTTON1.."-|cff00FFFF重載界面|r\rCtrl+"..KEY_BUTTON1.."-|cff00FFFF打開錯誤日誌|r"
+L["MAP_NIMIBUT_TIPS3"]="|cff00FF00此介面收納其他挿件小地圖按鈕\r|r|cff00FFFF如需關閉"..KEY_BUTTON2.."設定-地圖|r"
+L["MAP_TABNAME2"] = "世界地圖";
+L["MAP_WORDXY"] = "顯示玩家坐標";
+L["MAP_WORDXYTIPS"] = "顯示玩家在地圖的坐標";
+L["MAP_WORDWIND"] = "窗口化世界地圖";
+L["MAP_WORDWINDTIPS"] = "窗口化世界地圖";
+L["MAP_WORDLV"] = "顯示等級範圍";
+L["MAP_WORDLVTIPS"] = "顯示地圖的等級範圍";
+L["MAP_WORDSKILL"] = tocversion<40000 and "顯示釣魚技能點數要求" or "顯示寵物等級範圍";
+L["MAP_WORDSKILLTIPS"] = tocversion<40000 and "顯示地圖的釣魚技能點數最低要求" or "顯示地圖的寵物等級範圍";
+L["MAP_WORDMIWU"] = "去除戰爭迷霧";
+L["MAP_WORDMIWUTIPS"] = "去除世界地圖的戰爭迷霧";
+--Cvar
+L["CVAR_TABNAME"] = "遊戲設定(CVar)";
+L["CVAR_TABNAME0"] = "易用性";
+L["CVAR_TABNAME1"] = GENERAL;
+L["CVAR_TABNAME2"] = "姓名版";
+L["CVAR_TABNAME3"] = "自身高亮";
+L["CVAR_TABNAME4"] = "高級";
+--Invite
+L["TARDIS_TABNAME"] = "匯合石";
+L["TARDIS_CHEDUI"] = "車隊";
+L["TARDIS_CHEDUI_1"] = "找車隊";
+L["TARDIS_CHEDUI_2"] = "找乘客";
+L["TARDIS_FARM"] = "坐車";
+L["TARDIS_PLANE"] = "位麵";
+L["TARDIS_YELL"] = "喊話";
+L["TARDIS_RECEIVEDATA"] = "正在接收數據...";
+L["TARDIS_LFG_JOIN"] = "加入PIG頻道";
+L["TARDIS_LFG_LEAVE"] = "已加入PIG頻道";
+end

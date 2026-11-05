@@ -1,0 +1,15 @@
+## Interface: 120100, 16001, 120105
+## Title: |cffff559aSharedMedia_Rurutia|r
+## Title-zhCN: |cffff559a[露露]|r 语音材质包
+## DefaultState: enabled
+## Author: Rurutia
+## Version: 2.2.9
+## X-ModUs-UID: 88
+## X-License: All Rights Reserved
+## Notes: SharedMedia_Rurutia 露露的副本、职业语音和材质包。|n此项为露露的语音插件和WA正常工作所必须的语音文件。|n作者：|cffff559a露露緹婭@Bilibili|r，抖音：|cffff559a露露缇娅|r。
+## IconTexture: Interface\AddOns\SharedMedia_Rurutia\Icon\Rurutia_Logo_64R.tga
+
+libs\LibStub\LibStub.lua
+libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
+embeds.xml
+MyMedia.lua

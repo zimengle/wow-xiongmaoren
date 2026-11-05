@@ -1,0 +1,66 @@
+## Interface: 30405, 38002
+## Title: |cffff559aRurutiaSuite Setup|r
+## Title-zhCN: |cffff559a[露露]|r 配置安装器
+## Notes: RurutiaSuite configuration installer.
+## Notes-zhCN: 为新 RurutiaSuite 安装并适配露露的整套配置。
+## Author: Rurutia
+## Version: 4.7.1
+## X-ModUs-UID: 88
+## X-License: All Rights Reserved
+## RequiredDeps: RurutiaSuite
+## SavedVariables: RurutiaSuiteSetupDB
+## X-RurutiaSuite-ExtensionAPI: 1
+## IconTexture: Interface\AddOns\RurutiaSuite_Setup\Media\Textures\Rurutia_Logo_64R.tga
+
+Core\Namespace.lua
+Core\ProductManifest.lua
+Core\LayoutPolicy.lua
+Core\Defaults.lua
+Core\Database.lua
+Core\SettingsMigration.lua
+Core\EventHub.lua
+Core\EditModePreset.lua
+Core\EditModePreset_Infinite.lua
+Core\BlizzardSettingsPreset_Infinite.lua
+Core\BlizzardSettingsImporter.lua
+Integrations\RXP.lua
+Core\RXPStyleImporter.lua
+Core\CanvasRouter.lua
+Core\ProfileSwitcher.lua
+Core\EllesmereEdgeGeometry.lua
+Core\EllesmereEdgeAdapter.lua
+Core\EllesmereEdgeCorrection.lua
+Core\EditModeStorage.lua
+Core\EditModeImporter.lua
+# Calibration tooling is maintained outside the deployable AddOn tree.
+Libs\LibDeflate\LibDeflate.lua
+Libs\LibSerialize\LibSerialize.lua
+Modules\LegacyPresetImports\Data.lua
+Modules\LegacyPresetImports\AbilityTimelineData.lua
+Modules\LegacyPresetImports\EXBossData.lua
+Modules\LegacyPresetImports\ExwindToolsData.lua
+Modules\LegacyPresetImports\BigWigsData.lua
+Modules\LegacyPresetImports\Catalog.lua
+Modules\LegacyPresetImports\Cooldown.lua
+Modules\LegacyPresetImports\Sensei.lua
+Integrations\AbilityTimeline.lua
+Modules\LegacyPresetImports\AbilityTimeline.lua
+Modules\LegacyPresetImports\EXBoss.lua
+Modules\LegacyPresetImports\ExwindTools.lua
+Modules\LegacyPresetImports\BigWigs.lua
+Modules\Automation\Sensei.lua
+Modules\Automation\EXBoss.lua
+Modules\Automation\DandersFrames.lua
+Modules\Automation\Coordinator.lua
+Modules\HealthCheck\Core.lua
+Modules\GameMenu\Core.lua
+# The retired ResponsiveLayout experiment is maintained outside the deployable AddOn tree.
+Core\EditModeActivator.lua
+Core\PresetCommandService.lua
+Core\TransferService.lua
+Integrations\Layout.lua
+Core\Commands.lua
+UI\SettingsPage.lua
+UI\TransferPage.lua
+Core\Runtime.lua
+Core\ExtensionEntry.lua

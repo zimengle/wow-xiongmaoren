@@ -1,0 +1,103 @@
+
+PawnOptions = {
+["LastVersion"] = 2.131,
+["ItemLevels"] = {
+{
+["ID"] = 43995,
+["Level"] = 226,
+["Link"] = "|cffa335ee|Hitem:43995::::::::80::::::::::|h[迷恋兜帽]|h|r",
+},
+{
+["ID"] = 44661,
+["Level"] = 232,
+["Link"] = "|cffa335ee|Hitem:44661::::::::80::::::::::|h[龙眠强能项链]|h|r",
+},
+{
+["ID"] = 40424,
+["Level"] = 226,
+["Link"] = "|cffa335ee|Hitem:40424::::::::80::::::::::|h[天灾之心肩垫]|h|r",
+},
+nil,
+{
+["ID"] = 40423,
+["Level"] = 226,
+["Link"] = "|cffa335ee|Hitem:40423::::::::80::::::::::|h[天灾之心长袍]|h|r",
+},
+{
+["ID"] = 40696,
+["Level"] = 200,
+["Link"] = "|cffa335ee|Hitem:40696::40049::::::80::::::::::|h[古兹巴的毛绒腰带]|h|r",
+},
+{
+["ID"] = 40422,
+["Level"] = 226,
+["Link"] = "|cffa335ee|Hitem:40422::::::::80::::::::::|h[天灾之心护腿]|h|r",
+},
+{
+["ID"] = 30050,
+["Level"] = 219,
+["Link"] = "|cffa335ee|Hitem:30050:8640:39998::::::80::::::::::|h[混沌噩梦之靴]|h|r",
+},
+{
+["ID"] = 37361,
+["Level"] = 200,
+["Link"] = "|cffa335ee|Hitem:37361::::::::80::::::::::|h[巨翼护腕]|h|r",
+},
+{
+["ID"] = 40420,
+["Level"] = 226,
+["Link"] = "|cffa335ee|Hitem:40420::::::::80::::::::::|h[天灾之心手套]|h|r",
+},
+{
+["ID"] = 33054,
+["Level"] = 219,
+["AlsoFitsIn"] = 12,
+["Link"] = "|cffa335ee|Hitem:33054::::::::80::::::::::|h[丹扎拉尔徽记]|h|r",
+},
+{
+["ID"] = 33054,
+["Level"] = 219,
+["AlsoFitsIn"] = 11,
+["Link"] = "|cffa335ee|Hitem:33054::39998::::::80::::::::::|h[丹扎拉尔徽记]|h|r",
+},
+{
+["ID"] = 39229,
+["Level"] = 232,
+["AlsoFitsIn"] = 14,
+["Link"] = "|cffa335ee|Hitem:39229::::::::80::::::::::|h[蜘蛛的拥抱]|h|r",
+},
+{
+["ID"] = 255126,
+["Level"] = 213,
+["AlsoFitsIn"] = 13,
+["Link"] = "|cffa335ee|Hitem:255126::::::::80::::::::::|h[短暂能量护符]|h|r",
+},
+{
+["ID"] = 40251,
+["Level"] = 226,
+["Link"] = "|cffa335ee|Hitem:40251::::::::80::::::::::|h[光辉斗篷]|h|r",
+},
+{
+["ID"] = 30313,
+["Level"] = 298,
+["Link"] = "|cffff8000|Hitem:30313::::::::80::::::::::|h[瓦解法杖]|h|r",
+},
+{
+["ID"] = 39766,
+["Level"] = 226,
+["Link"] = "|cffa335ee|Hitem:39766::::::::80::::::::::|h[雌蛛之子]|h|r",
+},
+{
+["ID"] = 40284,
+["Level"] = 226,
+["Link"] = "|cffa335ee|Hitem:40284::::::::80::::::::::|h[疫病点燃器]|h|r",
+},
+},
+["AutoSelectScales"] = false,
+["LastPlayerFullName"] = "于鹏-时光IV - 丨黑水丨",
+}
+PawnMrRobotScaleProviderOptions = nil
+PawnClassicScaleProviderOptions = {
+["LastClass"] = "WARLOCK",
+["LastAdded"] = 3,
+}

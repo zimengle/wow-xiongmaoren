@@ -1,0 +1,5 @@
+VER 3 0000000000000001 "RXPTargeting" "Ability_eyeoftheowl"
+/targetexact 霜鬃猎头者
+/tm !7
+/targetlasttarget [dead]
+END

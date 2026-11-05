@@ -1,0 +1,98 @@
+
+PawnOptions = {
+["LastVersion"] = 2.131,
+["LastPlayerFullName"] = "京东刘强东-时光IV - 丨黑水丨",
+["AutoSelectScales"] = false,
+["ItemLevels"] = {
+{
+["ID"] = 40298,
+["Level"] = 226,
+["Link"] = "|cffa335ee|Hitem:40298::::::::80::::::::::|h[屈服者的面甲]|h|r",
+},
+{
+["ID"] = 44661,
+["Level"] = 232,
+["Link"] = "|cffa335ee|Hitem:44661::::::::80::::::::::|h[龙眠强能项链]|h|r",
+},
+{
+["ID"] = 40573,
+["Level"] = 226,
+["Link"] = "|cffa335ee|Hitem:40573::::::::80::::::::::|h[救赎肩甲]|h|r",
+},
+nil,
+{
+["ID"] = 40453,
+["Level"] = 232,
+["Link"] = "|cffa335ee|Hitem:40453::::::::80::::::::::|h[龙神胸铠]|h|r",
+},
+{
+["ID"] = 40327,
+["Level"] = 226,
+["Link"] = "|cffa335ee|Hitem:40327::::::::80::::::::::|h[复原束带]|h|r",
+},
+{
+["ID"] = 40572,
+["Level"] = 226,
+["Link"] = "|cffa335ee|Hitem:40572::::::::80::::::::::|h[救赎胫甲]|h|r",
+},
+{
+["ID"] = 40237,
+["Level"] = 226,
+["Link"] = "|cffa335ee|Hitem:40237::::::::80::::::::::|h[恐惧爆发之靴]|h|r",
+},
+{
+["ID"] = 40332,
+["Level"] = 226,
+["Link"] = "|cffa335ee|Hitem:40332::::::::80::::::::::|h[煽动护腕]|h|r",
+},
+{
+["ID"] = 30112,
+["Level"] = 219,
+["Link"] = "|cffa335ee|Hitem:30112::::::::80::::::::::|h[波浪荣耀护手]|h|r",
+},
+{
+["ID"] = 39250,
+["Level"] = 226,
+["AlsoFitsIn"] = 12,
+["Link"] = "|cffa335ee|Hitem:39250::::::::80::::::::::|h[神圣净化指环]|h|r",
+},
+{
+["ID"] = 39250,
+["Level"] = 226,
+["AlsoFitsIn"] = 11,
+["Link"] = "|cffa335ee|Hitem:39250::40012::::::80::::::::::|h[神圣净化指环]|h|r",
+},
+{
+["ID"] = 40685,
+["Level"] = 200,
+["AlsoFitsIn"] = 14,
+["Link"] = "|cffa335ee|Hitem:40685::::::::80::::::::::|h[精魄]|h|r",
+},
+{
+["ID"] = 37111,
+["Level"] = 187,
+["AlsoFitsIn"] = 13,
+["Link"] = "|cff0070dd|Hitem:37111::::::::80::::::::::|h[护魂者]|h|r",
+},
+{
+["ID"] = 40723,
+["Level"] = 213,
+["Link"] = "|cffa335ee|Hitem:40723::::::::80::::::::::|h[九尾狐的斗篷]|h|r",
+},
+{
+["ID"] = 30317,
+["Level"] = 298,
+["Link"] = "|cffff8000|Hitem:30317::::::::80::::::::::|h[宇宙灌注者]|h|r",
+},
+{
+["ID"] = 39716,
+["Level"] = 232,
+["Link"] = "|cffa335ee|Hitem:39716::::::::80::::::::::|h[消化之盾]|h|r",
+},
+},
+}
+PawnMrRobotScaleProviderOptions = nil
+PawnClassicScaleProviderOptions = {
+["LastClass"] = "PALADIN",
+["LastAdded"] = 3,
+}

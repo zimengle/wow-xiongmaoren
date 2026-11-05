@@ -1,0 +1,11 @@
+
+DungeonsForeverClassDB = {
+["talentSim"] = {
+["builds"] = {
+},
+},
+["tier"] = {
+["tab"] = "dps",
+["nav"] = "rank",
+},
+}

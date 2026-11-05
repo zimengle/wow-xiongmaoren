@@ -1,0 +1,111 @@
+
+DungeonsForeverProfDB = {
+["prof"] = {
+["lastSlug"] = "enchanting",
+["track"] = {
+["重庆-CN5 Realm 3 PvP"] = {
+["nextID"] = 0,
+["observerSession"] = 15,
+["version"] = 1,
+["active"] = {
+},
+["endedContracts"] = {
+},
+["continuation"] = {
+},
+["preparing"] = {
+},
+["runs"] = {
+},
+},
+},
+["migratedFrom"] = "1.9.32->pr10",
+["lastTab"] = "leveling",
+["follow"] = {
+["露露缇娅-CAMWOW CN1 Realm 2 PvE"] = {
+["t0"] = 1791753029,
+["skill"] = 119,
+["step"] = 9,
+["slug"] = "tailoring",
+["hidden"] = true,
+["rkey"] = "fixed:23:1:2963:300",
+},
+},
+["professionSettings"] = {
+["tailoring"] = {
+["autoScheme"] = "cheapest",
+["autoRoute"] = true,
+},
+["blacksmithing"] = {
+["autoScheme"] = "cheapest",
+["autoRoute"] = true,
+},
+["skinning"] = {
+["autoScheme"] = "cheapest",
+["autoRoute"] = true,
+},
+["camping"] = {
+["autoScheme"] = "cheapest",
+["autoRoute"] = true,
+},
+["alchemy"] = {
+["autoScheme"] = "cheapest",
+["autoRoute"] = true,
+},
+["mining"] = {
+["autoScheme"] = "cheapest",
+["autoRoute"] = true,
+},
+["crates"] = {
+["autoScheme"] = "cheapest",
+["autoRoute"] = true,
+},
+["poisons"] = {
+["autoScheme"] = "cheapest",
+},
+["cooking"] = {
+["autoScheme"] = "cheapest",
+["autoRoute"] = true,
+},
+["comprehension"] = {
+["autoScheme"] = "cheapest",
+["autoRoute"] = true,
+},
+["first-aid"] = {
+["autoScheme"] = "cheapest",
+},
+["fishing"] = {
+["autoScheme"] = "cheapest",
+["autoRoute"] = true,
+},
+["engineering"] = {
+["autoScheme"] = "cheapest",
+["autoRoute"] = true,
+},
+["leatherworking"] = {
+["autoScheme"] = "cheapest",
+["autoRoute"] = true,
+},
+["herbalism"] = {
+["autoScheme"] = "cheapest",
+["autoRoute"] = true,
+},
+["enchanting"] = {
+["autoScheme"] = "cheapest",
+["autoRoute"] = true,
+},
+},
+["economy"] = {
+["重庆-CN5 Realm 3 PvP"] = {
+["learningRequirements"] = {
+},
+["clientInputRevision"] = 69,
+["recipeRosters"] = {
+},
+["recipeBuild"] = "1.60.1:70790",
+["recipes"] = {
+},
+},
+},
+},
+}

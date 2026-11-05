@@ -1,0 +1,2 @@
+
+DungeonsForeverGearDB = nil

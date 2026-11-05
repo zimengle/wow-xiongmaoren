@@ -1,0 +1,2 @@
+
+DungeonsForeverFactionDB = nil

@@ -1,0 +1,37 @@
+## Interface: 16001
+## Title: BugGrabber
+## IconTexture: Interface\AddOns\!BugGrabber\Media\icon-rurutia
+## Version: v12.1.0-fix
+## Notes: Grabs bugs for the bug sack.
+## Notes-deDE: Grabs bugs for the bug sack.
+## Notes-ruRU: Grabs bugs for the bug sack.
+## Notes-zhCN: 无限服错误收集器，配合 BugSack 静音版查看错误。
+## Notes-zhTW: Grabs bugs for the bug sack.
+## Notes-koKR: Grabs bugs for the bug sack.
+## Notes-frFR: Grabs bugs for the bug sack.
+## Notes-esES: Grabs bugs for the bug sack.
+## Notes-esMX: Grabs bugs for the bug sack.
+## Notes-itIT: Grabs bugs for the bug sack.
+## Notes-ptBR: Grabs bugs for the bug sack.
+## Category: Development Tools
+## Category-deDE: Entwicklungstools
+## Category-esES: Herramientas de Desarrollo
+## Category-esMX: Herramientas de Desarrollo
+## Category-frFR: Outils de Développement
+## Category-itIT: Strumenti di sviluppo
+## Category-koKR: Development Tools
+## Category-ptBR: Ferramentas de Desenvolvimento
+## Category-ruRU: Инструменты разработки
+## Category-zhCN: 开发工具
+## Category-zhTW: 開發工具
+## Author: Funkeh
+## X-Maintainer: 露露缇娅 (Rurutia)
+## X-Client-Line: forever
+## X-Game-Version: 1.60.1
+## X-Credits: Rabbit, Rowne, Ramble, kergoth, ckknight, Fritti
+## X-License: All Rights Reserved
+## X-Category: Development Tools
+## LoadSavedVariablesFirst: 1
+## SavedVariables: BugGrabberDB
+
+BugGrabber.lua
