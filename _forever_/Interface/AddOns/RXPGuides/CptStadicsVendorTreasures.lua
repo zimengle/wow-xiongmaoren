@@ -285,7 +285,6 @@ function Frame:InitializeZones()
     Frame:SetZoneNPCData(ZONE_DARNASSUS, L"Turian", 62.6, 65.6, CLASS_GEAR, ALLIANCE, {12247})
     Frame:SetZoneNPCData(ZONE_DARNASSUS, L"Vinasia", 60.8, 72.6, CLASS_GEAR, ALLIANCE, {12256})
 
-
     if build > 20000 then
         Frame:SetZoneNPCData(addon.mapId["Netherstorm"], L"Qiff", 32.648, 66.747, CLASS_GEAR, NEUTRAL, {23782,23784,23786,23787})
         --

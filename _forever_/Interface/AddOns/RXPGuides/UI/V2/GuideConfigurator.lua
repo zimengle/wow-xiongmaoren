@@ -7,7 +7,6 @@ local locale = _G.GetLocale()
 local AceGUI = LibStub("AceGUI-3.0")
 local pairs, type = pairs, type
 local wipe = table.wipe
-local currentGroup
 
 function addon.ui.v2.configurator.IsSupportedClient()
     return addon.game == "CLASSIC" or
@@ -180,8 +179,7 @@ function addon.ui.v2.configurator:RegisterRXPV2GuideConfiguratorCard()
         description:SetJustifyH("CENTER")
         description:SetWordWrap(true)
         description:SetPoint("TOPLEFT", label, "BOTTOMLEFT", 0, -1)
-        description:SetPoint("TOPRIGHT", label, "BOTTOMRIGHT", 0, -1)
-        description:SetHeight(guideFontSize*2-1)
+        description:SetPoint("BOTTOMRIGHT", label, "BOTTOMRIGHT", 0, -9)
 
         pushedHighlight:SetAlpha(0.25)
 
@@ -1127,16 +1125,7 @@ function addon.ui.v2.configurator:CreateGuideConfigurator()
 
     local function refreshDungeonValues()
         for _, check in ipairs(dungeonChecks) do
-            local _,locked = addon.settings.dungeons:GetAllEnabledDungeons(currentGroup)
-            if locked[check.settingkey] == true then
-                check:SetChecked(true)
-                for _, texture in ipairs(check.checkedFill) do texture:Hide() end
-            elseif locked[check.settingkey] == false then
-                check:SetChecked(false)
-                for _, texture in ipairs(check.checkedFill) do texture:Hide() end
-            else
-                check:SetValue(addon.settings.profile.dungeons[check.settingkey])
-            end
+            check:SetValue(addon.settings.profile.dungeons[check.settingkey])
         end
     end
 
@@ -1149,11 +1138,7 @@ function addon.ui.v2.configurator:CreateGuideConfigurator()
         end
 
         if mode == "fastestDungeons" then
-            if addon.game == "FOREVER" then
-                addon.settings.dungeons:SetNone()
-            else
-                addon.settings.dungeons:SetRecommended()
-            end
+            addon.settings.dungeons:SetRecommended()
         elseif mode == "bestUpgradeDungeons" then
             local stats = addon.dungeonStats and addon.dungeonStats[addon.player.faction]
             if stats then
@@ -1252,7 +1237,7 @@ function addon.ui.v2.configurator:CreateGuideConfigurator()
         end
 
         if page.kind == "dungeonSettings" then
-            dungeons = addon.settings.dungeons:GetAllEnabledDungeons(currentGroup)
+            dungeons = addon.settings.dungeons:GetDungeons()
 
             local heading = AceGUI:Create("Heading")
             heading:SetFullWidth(true)
@@ -1442,7 +1427,6 @@ function addon.ui.v2.configurator:CreateGuideConfigurator()
 end
 
 function addon.ui.v2.configurator:Open(login)
-    currentGroup = nil
     if login then
         if RXPCData and RXPCData.currentGuideName and RXPCData.currentGuideName ~= "" then return end
 
@@ -1484,7 +1468,7 @@ function addon.ui.v2.configurator:GetGuideChoices(guideGroup, subgroup, icon, gu
     table.sort(guides, function(first, second) return first.name < second.name end)
 
     if guideGroup == addon.defaultGroup or guideGroup == addon.defaultGroupHC or guideGroup ==
-        L"RestedXP Forever Dungeon Guide (A)" or guideGroup == L"RestedXP Forever Dungeon Guide (H)" then
+        "RestedXP Forever Dungeon Guide (A)" or guideGroup == "RestedXP Forever Dungeon Guide (H)" then
         local playerGuides = {}
         local playerLevel = addon.player.level
         local guideName, minimumLevel, maximumLevel
@@ -1692,8 +1676,8 @@ function addon.ui.v2.configurator:LoadPages(setDungeonMode)
 
         if addon.game == "FOREVER" then
             cards[#cards + 1] = {
-                label = L("Dungeon Guide"),
-                description = L("Mixes open world questing and dungeons"),
+                label = L("Dungeon Cleave Guide"),
+                description = L("Fastest Leveling Experience"),
                 icon = addon.ui.v2:GetTexture("dungeons-icon"),
                 background = addon.ui.v2:GetTexture("dungeon-cleave-card.blp"),
                 backgroundTexCoords = {0.240234375, 0.759765625, 0.138671875, 0.861328125},
@@ -1701,13 +1685,11 @@ function addon.ui.v2.configurator:LoadPages(setDungeonMode)
             }
             cards[#cards + 1] = {
                 label = L("Open World Guide"),
-                description = L("Fastest Solo Leveling Experience"),
+                description = L("Fastest Leveling Experience"),
                 icon = addon.ui.v2:GetTexture("rxp-icon-route"),
                 background = addon.ui.v2:GetTexture("open-world-card.blp"),
                 backgroundTexCoords = {0.3173828125, 0.724609375, 0.171875, 0.73828125},
-                --onClick = function() self:StartFlow("foreverOpenWorldRoute") end
-                --TODO: Add discovery guide options
-                onClick = function() self:StartFlow("foreverOpenWorldOptions") end
+                onClick = function() self:StartFlow("foreverOpenWorldRoute") end
             }
         else
             if addon.GroupHasGuides(addon.defaultGroup) then
@@ -1818,7 +1800,7 @@ function addon.ui.v2.configurator:LoadPages(setDungeonMode)
             icon = addon.ui.v2:GetTexture("dungeons-icon"),
             label = L("Enable Dungeons"),
             tooltip = L("Adds Dungeon Quests to your route. This is helpful to avoid longer grinding sessions."),
-            hidden = function() return not next(addon.settings.dungeons:GetAllEnabledDungeons(currentGroup)) end,
+            hidden = function() return not next(addon.settings.dungeons:GetDungeons()) end,
             setting = "enableDungeons",
             callback = function()
                 local page = self.pages[self.currentPage]
@@ -1896,7 +1878,7 @@ function addon.ui.v2.configurator:LoadPages(setDungeonMode)
             options = commonSettings,
             next = function()
                 if addon.game ~= "FOREVER" and addon.settings.profile.enableDungeons and
-                    next(addon.settings.dungeons:GetAllEnabledDungeons(currentGroup)) then
+                    next(addon.settings.dungeons:GetDungeons()) then
                     return "dungeonOptions"
                 end
                 return "speedrunGuides"
@@ -1910,7 +1892,7 @@ function addon.ui.v2.configurator:LoadPages(setDungeonMode)
             options = commonSettings,
             next = function()
                 if addon.game ~= "FOREVER" and addon.settings.profile.enableDungeons and
-                    next(addon.settings.dungeons:GetAllEnabledDungeons(currentGroup)) then
+                    next(addon.settings.dungeons:GetDungeons()) then
                     return "survivalDungeonOptions"
                 end
                 return "survivalGuides"
@@ -1989,7 +1971,7 @@ function addon.ui.v2.configurator:LoadPages(setDungeonMode)
                 end
             }
         }
-        local foreverDungeonOptions = {auctionHouseOption, sharedOptions.groupQuests,sharedOptions.skipLowLevelQuests}
+        local foreverDungeonOptions = {auctionHouseOption, sharedOptions.showUnusedGuides}
 
         pages.foreverOpenWorldRoute = {
             kind = "choices",
@@ -2004,41 +1986,27 @@ function addon.ui.v2.configurator:LoadPages(setDungeonMode)
             description = L(
                 "Select your preferred features to customize the guide. The leveling route automatically adapts to your choices."),
             options = {
-                auctionHouseOption, sharedOptions.groupQuests, sharedOptions.skipLowLevelQuests
+                auctionHouseOption, sharedOptions.groupQuests, sharedOptions.skipLowLevelQuests,
+                sharedOptions.showUnusedGuides
             }
         }
         pages.foreverDungeonOptions = {
             kind = "settings",
-            title = L("Dungeon Guide Configuration"),
+            title = L("Dungeon Cleave Guide Configuration"),
             description = L(
                 "Select your preferred features to customize the guide. The leveling route automatically adapts to your choices."),
             options = foreverDungeonOptions,
             nextLabel = L("Next step"),
-            next = function()
-                if addon.player.faction == "Horde" then
-                    currentGroup = L"RestedXP Forever Dungeon Guide (H)"
-                elseif addon.player.faction == "Alliance" then
-                    currentGroup = L"RestedXP Forever Dungeon Guide (A)"
-                end
-                return "foreverDungeonOptions2"
-            end
-        }
-        pages.foreverDungeonOptions2 = {
-            kind = "dungeonSettings",
-            title = L("Dungeon Configuration"),
-            description = L(
-                "Add dungeons to your journey. The guide will adjust to your selection accordingly and include dungeon quests to your route."),
-            options = dungeonOptions,
             next = function() return "foreverDungeonGuides" end
         }
         pages.foreverDungeonGuides = {
             kind = "choices",
-            title = L("Dungeon Guide"),
+            title = L("Dungeon Cleave Guide"),
             description = L("Select your preferred guide."),
             options = function()
                 return self:GetGuideChoices(addon.player.faction == "Horde" and
-                                                L"RestedXP Forever Dungeon Guide (H)" or
-                                                L"RestedXP Forever Dungeon Guide (A)", nil,
+                                                "RestedXP Forever Dungeon Guide (H)" or
+                                                "RestedXP Forever Dungeon Guide (A)", nil,
                                             addon.ui.v2:GetTexture("dungeons-icon"))
             end
         }

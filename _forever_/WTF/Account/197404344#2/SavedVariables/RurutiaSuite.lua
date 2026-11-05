@@ -7,20 +7,33 @@ RurutiaSuiteDB = {
 ["lastSeenVersion"] = "4.7.1",
 },
 ["namespaces"] = {
-["VersionDisplay"] = {
+["QuestAutomation"] = {
 ["profiles"] = {
 ["Default"] = {
-["text"] = "Rurutia 10.22.1-E Forever 露露緹婭@BiliBili",
+["enabled"] = false,
 },
 },
 },
 ["ExperienceBar"] = {
 ["char"] = {
-["露露缇娅 - 喵呜"] = {
+["重庆 - 智能体"] = {
 ["session"] = {
-["lastXP"] = 25176,
-["lastXPMax"] = 27300,
-["startTime"] = 1792641253,
+["lastXP"] = 7522,
+["gainedXP"] = 1550,
+["startTime"] = 1793876127,
+["levelPlayed"] = 1421,
+["lastXPMax"] = 12900,
+["totalPlayed"] = 24829,
+["playedAt"] = 1793876128,
+},
+},
+["露露缇娅 - 嗷呜"] = {
+["session"] = {
+["lastXP"] = 33,
+["gainedXP"] = 67,
+["playedAt"] = 1791934064,
+["startTime"] = 1791934038,
+["lastXPMax"] = 2800,
 },
 },
 ["露露缇娅 - 啾啾"] = {
@@ -32,24 +45,22 @@ RurutiaSuiteDB = {
 ["startTime"] = 1791925009,
 },
 },
-["重庆 - 智能体"] = {
+["露露缇娅 - 喵呜"] = {
 ["session"] = {
-["lastXP"] = 4676,
-["gainedXP"] = 119,
-["levelPlayed"] = 1238,
-["playedAt"] = 1793849918,
-["lastXPMax"] = 6500,
-["totalPlayed"] = 11124,
-["startTime"] = 1793849917,
+["lastXP"] = 25176,
+["lastXPMax"] = 27300,
+["startTime"] = 1792641253,
 },
 },
-["露露缇娅 - 嗷呜"] = {
+["仓库 - 存放"] = {
 ["session"] = {
-["lastXP"] = 33,
-["gainedXP"] = 67,
-["playedAt"] = 1791934064,
-["startTime"] = 1791934038,
-["lastXPMax"] = 2800,
+["lastXP"] = 55,
+["gainedXP"] = 55,
+["playedAt"] = 1793861765,
+["levelPlayed"] = 1,
+["lastXPMax"] = 400,
+["totalPlayed"] = 1,
+["startTime"] = 1793861764,
 },
 },
 },
@@ -90,6 +101,22 @@ RurutiaSuiteDB = {
 },
 },
 },
+["CombatReminder"] = {
+["profiles"] = {
+["Default"] = {
+["timer"] = {
+["positionVersion"] = 1,
+},
+},
+},
+},
+["VersionDisplay"] = {
+["profiles"] = {
+["Default"] = {
+["text"] = "Rurutia 10.22.1-E Forever 露露緹婭@BiliBili",
+},
+},
+},
 ["ExtraTools"] = {
 ["profiles"] = {
 ["Default"] = {
@@ -104,15 +131,6 @@ RurutiaSuiteDB = {
 ["LootTools"] = true,
 ["CelestialBar"] = true,
 ["LFGTools"] = true,
-},
-},
-},
-},
-["CombatReminder"] = {
-["profiles"] = {
-["Default"] = {
-["timer"] = {
-["positionVersion"] = 1,
 },
 },
 },
@@ -132,6 +150,7 @@ RurutiaSuiteDB = {
 ["露露缇娅 - 喵呜"] = "Default",
 ["露露缇娅 - 啾啾"] = "Default",
 ["Rurumage Minazuki - Classic Beta PvE"] = "Default",
+["仓库 - 存放"] = "Default",
 },
 ["profiles"] = {
 ["Default"] = {

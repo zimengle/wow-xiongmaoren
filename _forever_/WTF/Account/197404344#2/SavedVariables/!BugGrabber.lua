@@ -1,6 +1,6 @@
 
 BugGrabberDB = {
-["session"] = 16,
+["session"] = 26,
 ["lastSanitation"] = 3,
 ["errors"] = {
 {
@@ -90,6 +90,30 @@ BugGrabberDB = {
 ["stack"] = "[Interface/AddOns/EllesmereUIDamageMeters/EUI_DamageMeters_Window.lua]:1831: in function <.../EllesmereUIDamageMeters/EUI_DamageMeters_Window.lua:1721>\n[Interface/AddOns/EllesmereUIDamageMeters/EUI_DamageMeters_Window.lua]:2056: in function 'Refresh'\n[Interface/AddOns/EllesmereUIDamageMeters/EUI_DamageMeters_Lifecycle.lua]:140: in function <...lesmereUIDamageMeters/EUI_DamageMeters_Lifecycle.lua:108>\n",
 ["session"] = 16,
 ["counter"] = 2279,
+},
+{
+["message"] = "[ADDON_ACTION_BLOCKED] 插件 'Questie' 尝试调用保护功能 'Button:SetPassThroughButtons()'。",
+["time"] = 1793862187,
+["locals"] = "self=<table>\nevent=\"ADDON_ACTION_BLOCKED\"\naddonName=\"Questie\"\naddonFunc=\"Button:SetPassThroughButtons()\"\nname=\"Questie\"\nbadAddons=<table>{\n Questie=true\n}\nL=<table>{\n NO_DISPLAY_2=\"|cffffff00标准的错误显示插件名叫 BugSack，可以在找到 !BugGrabber 的网站上找到它。|r\"\n ERROR_DETECTED=\"%s |cffffff00已抓取，点击链接获取更多信息。|r\"\n BUGGRABBER_STOPPED=\"|cffffff00用户界面有太多的错误。所以，游戏体验会被降低。如不想再看到此信息请禁用或升级失效插件。|r\"\n USAGE=\"|cffffff00用法：/buggrabber <1-%d>。|r\"\n STOP_NAG=\"|cffffff00!BugGrabber 将不再提示缺失错误显示插件信息知道下个版本发布。|r\"\n NO_DISPLAY_STOP=\"|cffffff00如果你不希望再次被提醒，请输入 /stopnag。|r\"\n NO_DISPLAY_1=\"|cffffff00似乎没有与 !BugGrabber 一起运行的错误显示插件。虽然斜线命令访问错误报告，但错误显示插件可以以更快捷的方式帮助您管理这些错误。|r\"\n ERROR_UNABLE=\"|cffffff00!BugGrabber 本身无法检索其他玩家的错误。请安装 BugSack 或类似的错误显示插件，可能会包含这些功能。|r\"\n ADDON_CALL_PROTECTED=\"[%s] 插件 '%s' 尝试调用保护功能 '%s'。\"\n}\n",
+["stack"] = "[Interface/AddOns/!BugGrabber/BugGrabber.lua]:554: in function '?'\n[Interface/AddOns/!BugGrabber/BugGrabber.lua]:538: in function <Interface/AddOns/!BugGrabber/BugGrabber.lua:538>\n[C]: in function 'SetPassThroughButtons'\n[Interface/AddOns/Blizzard_MapCanvas/MapCanvas_DataProviderBase.lua]:290: in function 'CheckMouseButtonPassthrough'\n[Interface/AddOns/Blizzard_MapCanvas/Blizzard_MapCanvas.lua]:331: in function 'AcquirePin'\n[Interface/AddOns/Blizzard_SharedMapDataProviders/QuestDataProvider.lua]:194: in function 'AddQuest'\n[Interface/AddOns/Blizzard_SharedMapDataProviders/QuestDataProvider.lua]:134: in function 'CheckAddQuest'\n[Interface/AddOns/Blizzard_SharedMapDataProviders/QuestDataProvider.lua]:141: in function 'RefreshAllData'\n[Interface/AddOns/Blizzard_MapCanvas/Blizzard_MapCanvas.lua]:670: in function <...ace/AddOns/Blizzard_MapCanvas/Blizzard_MapCanvas.lua:669>\n[C]: in function 'secureexecuterange'\n[Interface/AddOns/Blizzard_MapCanvas/Blizzard_MapCanvas.lua]:674: in function 'RefreshAllDataProviders'\n[Interface/AddOns/Blizzard_MapCanvas/Blizzard_MapCanvas.lua]:702: in function <...ace/AddOns/Blizzard_MapCanvas/Blizzard_MapCanvas.lua:699>\n...[Interface/AddOns/Blizzard_UIParentPanelManager/Shared/UIParentPanelManager.lua]:335: in function 'ShowUIPanel'\n[Interface/AddOns/Blizzard_UIParentPanelManager/Shared/UIParentPanelManager.lua]:129: in function <...UIParentPanelManager/Shared/UIParentPanelManager.lua:124>\n[C]: in function 'SetAttribute'\n[Interface/AddOns/Blizzard_UIParentPanelManager/Shared/UIParentPanelManager.lua]:900: in function <...UIParentPanelManager/Shared/UIParentPanelManager.lua:871>\n[C]: in function 'ShowUIPanel'\n[Interface/AddOns/Blizzard_WorldMap/QuestLogOwnerMixin.lua]:115: in function 'SetDisplayState'\n[Interface/AddOns/Blizzard_WorldMap/QuestLogOwnerMixin.lua]:51: in function 'HandleUserActionToggleSelf'\n[Interface/AddOns/Blizzard_WorldMap/Blizzard_WorldMap.lua]:1410: in function <...rface/AddOns/Blizzard_WorldMap/Blizzard_WorldMap.lua:1405>\n[C]: in function 'ToggleWorldMap'\n[TOGGLEWORLDMAP]:1: in function <[string \"TOGGLEWORLDMAP\"]:1>\n",
+["session"] = 20,
+["counter"] = 1,
+},
+{
+["message"] = "GetAuraDataByIndex(): Auras cannot be accessed when secret while tainted by 'Questie'\nLua Taint: Questie",
+["time"] = 1793863138,
+["locals"] = "",
+["stack"] = "[Interface/AddOns/Blizzard_MawBuffs/Blizzard_MawBuffs.lua]:4: in function 'ShouldShowMawBuffs'\n[Interface/AddOns/Blizzard_ObjectiveTracker/Blizzard_ScenarioObjectiveTracker.lua]:187: in function 'LayoutContents'\n[Interface/AddOns/Blizzard_ObjectiveTracker/Blizzard_ObjectiveTrackerModule.lua]:147: in function <...ObjectiveTracker/Blizzard_ObjectiveTrackerModule.lua:126>\n[C]: in function 'Update'\n[Interface/AddOns/Blizzard_ObjectiveTracker/Blizzard_ObjectiveTrackerContainer.lua]:82: in function 'Update'\n[Interface/AddOns/Blizzard_ObjectiveTracker/Blizzard_ObjectiveTracker.lua]:70: in function <...zzard_ObjectiveTracker/Blizzard_ObjectiveTracker.lua:62>\n[tail call]: ?\n[Interface/AddOns/Blizzard_SharedXML/MixinUtil.lua]:341: in function <Interface/AddOns/Blizzard_SharedXML/MixinUtil.lua:340>\n",
+["session"] = 20,
+["counter"] = 1,
+},
+{
+["message"] = "...d_RestrictedAddOnEnvironment/RestrictedExecution.lua:428: Call failed: [string \"self:Show(); control:SetTimer(1)\"]:1: attempt to call a nil value",
+["time"] = 1793870833,
+["locals"] = "pcallFlag=false\nLOCAL_execution_count=0\nLOCAL_references_frames=<table>\n",
+["stack"] = "[Interface/AddOns/Blizzard_RestrictedAddOnEnvironment/RestrictedExecution.lua]:428: in function <...d_RestrictedAddOnEnvironment/RestrictedExecution.lua:417>\n[tail call]: ?\n[tail call]: ?\n[Interface/AddOns/Blizzard_RestrictedAddOnEnvironment/SecureHandlers.lua]:82: in function 'SecureHandler_OnSimpleEvent'\n[*SecureHandlerTemplates.xml:92_OnEnter]:3: in function <[string \"*SecureHandlerTemplates.xml:92_OnEnter\"]:1>\n",
+["session"] = 24,
+["counter"] = 1,
 },
 },
 }

@@ -22,7 +22,7 @@ addon.tracker.ui = {}
 addon.tracker._commPrefix = "RXPLTComms"
 addon.tracker.fonts = {["splits"] = "Fonts\\ARIALN.ttf"}
 
-local playerName = addon.player.name
+local playerName = UnitName("player")
 
 -- Silence our /played yellow text
 local ReportPlayedTimeToChat = false

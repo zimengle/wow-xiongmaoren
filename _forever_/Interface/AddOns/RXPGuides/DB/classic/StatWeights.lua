@@ -7264,4 +7264,3 @@ addon.statWeights = {
         ['STAT_SPELLDAMAGE_SHADOW'] = 0.00,
     },
 }
-

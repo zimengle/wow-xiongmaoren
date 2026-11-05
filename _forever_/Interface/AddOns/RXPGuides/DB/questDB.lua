@@ -189,7 +189,6 @@ local function IsQuestAvailable(quest,id,skipRepCheck,nested)
         end
     end
 
-
     local repCheck = true
     if type(quest.repfaction) == "number" then
         repCheck = ProcessRep(quest.reputation,quest.repfaction)
@@ -292,7 +291,6 @@ function addon.GetBestQuests(refreshQuestDB,output,silent)
                 --print(123,gc1,gc2,groupCount[g2])
             end
         end
-
 
         if q1 and not q2 then
             return false
@@ -906,7 +904,6 @@ function CreatePanel()
     addon.settings.gui.quest = LibStub("AceConfigDialog-3.0"):AddToBlizOptions(
                                     addon.title .. "/" .. PREPGUIDE_HEADER, PREPGUIDE_HEADER, addon.title)
 
-
     local questPrioTable = {
         type = "group",
         name = L"RestedXP Preparation Guide: Quest Priority",
@@ -1139,9 +1136,7 @@ function CreatePanel()
     addon.settings.gui.quest = LibStub("AceConfigDialog-3.0"):AddToBlizOptions(
                                     addon.title .. "/" .. TURNIN_ROUTE, TURNIN_ROUTE, addon.title)
 
-
 end
-
 
 addon.separators.setquestdb = function(t,args)
     table.insert(t,args)
@@ -1547,7 +1542,6 @@ function addon.functions.showtotalxp(self,text,flags)
 
 end
 
-
 function addon.CalculateTotalXP(flags,refresh)
     preReqCache = {}
     if not refresh then
@@ -1750,8 +1744,7 @@ end
 
 local SendChatMessage = C_ChatInfo and C_ChatInfo.SendChatMessage or _G.SendChatMessage
 function addon.CompleteStep()
-    local ptr = select(2,GetBuildInfo()) == "70532"
-    if _G.C_SettingsUtil and not ptr then
+    if _G.C_SettingsUtil then
         return
     end
     for i,step in pairs(addon.RXPFrame.activeSteps) do
@@ -1774,12 +1767,10 @@ function addon.CompleteStep()
     end
 end
 
-
 local cs
 local mobData = {}
 function addon.Goto()
-    local ptr = select(2,GetBuildInfo()) == "70532"
-    if _G.C_SettingsUtil and not ptr then
+    if _G.C_SettingsUtil then
         return
     end
     local currentStep = addon.GetGuideProgress()
@@ -1795,30 +1786,23 @@ function addon.Goto()
         end
     end
 
-    if not ptr then
-        for index,name in ipairs(targetList) do
-            if not mobData[name] then
-                local p = '.go cr "%s"'
-                if name:find("\"") then
-                    p = ".go cr '%s'"
-                end
-                mobData[name] = true
-                SendChatMessage(format(p,name), "WHISPER", nil, addon.player.name)
-                print(name)
-                return
+    for index,name in ipairs(targetList) do
+        if not mobData[name] then
+            local p = '.go c "%s"'
+            if name:find("\"") then
+                p = ".go c '%s'"
             end
-        end
-        local element = addon.arrowFrame.element
-        if element then
-            SendChatMessage(format(".go xy %.3f %.3f %d",element.wy,element.wx,element.instance), "WHISPER", nil, addon.player.name)
+            mobData[name] = true
+            SendChatMessage(format(p,name), "WHISPER", nil, addon.player.name)
+            print(name)
             return
         end
-    else
-        local element = addon.arrowFrame.element
-        if element then
-            SendChatMessage(format(".go xy %.3f %.3f",element.wy,element.wx,element.instance), "WHISPER", nil, addon.player.name)
-            return
-        end
+    end
+
+    local element = addon.arrowFrame.element
+    if element then
+        SendChatMessage(format(".go xy %.3f %.3f %d",element.wy,element.wx,element.instance), "WHISPER", nil, addon.player.name)
+        return
     end
 
 end

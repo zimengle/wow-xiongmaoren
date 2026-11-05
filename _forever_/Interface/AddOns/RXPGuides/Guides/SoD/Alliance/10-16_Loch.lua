@@ -1,21 +1,22 @@
-
-local L = GetLocale() if L and RXP.enabledLocale[L] then return end
 RXPGuides.RegisterGuide([[
+#groupweight 500
+#groupdisplayname RestedXP 经典旧世 1-60（联盟）
 #classic
 #version 1
 #season 2
 << Alliance
 #group RestedXP Alliance 1-20
+#subgroupdisplayname 1-20 << tbc
+#subgroupdisplayname 1-20
 #groupid RXP-SRGCE-A1
 #name 12-13 Dun Morogh SoD
-#displayname 12-13 Dun Morogh
 #next 13-16 Loch Modan SoD
 #defaultfor !NightElf
-
+#displayname 12-13 丹莫罗
 step << Warrior
     #season 2
-    >>|cRXP_WARN_Look for the|r |cRXP_FRIENDLY_Wandering Swordsman|r. |cRXP_WARN_He can be anywhere in the small area marked on your map|r
-    >>Find him and challenge him to a duel. After beating him he will spanw a small chest which will award you with the rune of |T132334:0|t[|cRXP_FRIENDLY_Blood Frenzy|r]
+    >>|cRXP_WARN_寻找|r |cRXP_FRIENDLY_漫游的剑士|r。|cRXP_WARN_他可能出现在地图标示的小范围内的任何位置|r
+    >>找到他并向他发起决斗。击败他后会出现一个小宝箱，打开即可获得符文：|T132334:0|t[|cRXP_FRIENDLY_血之狂暴符文|r]
     .goto Dun Morogh,52.6,45.0
     .goto Dun Morogh,52.4,47.4,0
     .goto Dun Morogh,52.6,48.8,0
@@ -23,41 +24,41 @@ step << Warrior
     .goto Dun Morogh,53.0,46.2,0
     .goto Dun Morogh,55.0,46.6,0
     .collect 204441,1 --Rune of Blood Frenzy (1)
-    .unitscan Wandering Swordsman
-    .train 412507,1
+    .unitscan 漫游的剑士
+    .train 403474,1
 step << Warrior
     #season 2
     #optional
     #completewith next
-    .train 403474 >>|cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Blood Frenzy|r] |cRXP_WARN_to train|r |T136012:0|t[Blood Frenzy]
+    .train 403474 >>|cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_血之狂暴符文|r] |cRXP_WARN_来学习|r |T136012:0|t[血之狂暴]
     .use 204441
     .itemcount 204441,1
 step
     #completewith Rudra
     #label Dirt
     .goto Dun Morogh,59.84,49.56,40,0
-    .goto Dun Morogh,61.36,47.07,40 >>Go up the dirt path
+    .goto Dun Morogh,61.36,47.07,40 >>沿土路上行
     .isQuestAvailable 314
 step
     #completewith next
     #requires Dirt
-    +|cRXP_WARN_Kite |cRXP_ENEMY_Vagash|r down to|r |cRXP_FRIENDLY_Rudra|r
-    .link https://youtu.be/70PX093soq4?si=-cIoU8WWdbC0IdHZ&t=3193 >>|cRXP_WARN_CLICK HERE If you're struggling|r << Mage
-    .link https://www.youtube.com/watch?v=ZJX6sCkm5JY >> |cRXP_WARN_Click here for video reference|r << !Mage
-    .mob Vagash
+    +|cRXP_WARN_将|cRXP_ENEMY_瓦加什|r风筝到|r |cRXP_FRIENDLY_鲁德拉|r身边
+    .link https://youtu.be/70PX093soq4?si=-cIoU8WWdbC0IdHZ&t=3193 >>|cRXP_WARN_如果打不过，请点击这里|r << Mage
+    .link https://www.youtube.com/watch?v=ZJX6sCkm5JY >> |cRXP_WARN_点击这里查看视频演示|r << !Mage
+    .mob 瓦加什
 step
     #label Rudra
     .goto Dun Morogh,63.082,49.851
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Rudra Amberstill|r
-    .accept 314 >> Accept Protecting the Herd
-    .target Rudra Amberstill
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_鲁德拉·冻石|r交谈
+    .accept 314 >> 接受任务：保护牲畜
+    .target 鲁德拉·冻石
 step << Warrior/Mage
     #season 2
     #sticky
     #optional
     #label rune1
-    >>Kill |cRXP_ENEMY_Vagash|r. Loot him for the |T134419:0|t|cRXP_LOOT_[Rune of Furious Thunder]|r << Warrior
-    >>Kill |cRXP_ENEMY_Vagash|r. Loot him for the |T134939:0|t|cRXP_LOOT_[Spell Notes: RING SEFF OSTROF]|r << Mage
+    >>击杀 |cRXP_ENEMY_瓦加什|r，拾取他的 |T134419:0|t|cRXP_LOOT_[狂怒雷霆符文]|r << Warrior
+    >>击杀 |cRXP_ENEMY_瓦加什|r，拾取他的 |T134939:0|t|cRXP_LOOT_[法术笔记：IGBHNHZNAI]|r << Mage
     .collect 204809,1 << Warrior -- Rune of Furious Thunder (1)
     .collect 203753,1 << Mage -- Spell Notes: RING SEFF OSTROF (1)
     .train 403476,1 << Warrior
@@ -66,63 +67,68 @@ step
     .goto 1426,62.094,47.154,40,0
     .goto 1426,62.434,48.989,40,0
     .goto 1426,62.538,46.195
-    >>Kill |cRXP_ENEMY_Vagash|r. Loot him for his |cRXP_LOOT_Fang|r
-    >>|cRXP_WARN_Kite him to the guard south of the ranch. Make sure you do 51%+ damage to him|r
-    >>|cRXP_WARN_Watch the video below before you attempt to kill |cRXP_ENEMY_Vagash|r. It can be soloed on any class|r
-    .link https://youtu.be/70PX093soq4?si=-cIoU8WWdbC0IdHZ&t=3193 >> |cRXP_WARN_Click here for video reference|r << Mage
-    .link https://www.youtube.com/watch?v=ZJX6sCkm5JY >> |cRXP_WARN_Click here for video reference|r << !Mage
+    >>击杀|cRXP_ENEMY_瓦加什|r，拾取他的|cRXP_LOOT_牙齿|r
+    >>|cRXP_WARN_将他风筝到牧场南边的卫兵处。确保你对他造成51%+的伤害|r
+    >>|cRXP_WARN_尝试击杀|cRXP_ENEMY_瓦加什|r前，请先观看下方视频。任何职业都可以单独击杀他|r
+    .link https://youtu.be/70PX093soq4?si=-cIoU8WWdbC0IdHZ&t=3193 >> |cRXP_WARN_点击这里查看视频演示|r << Mage
+    .link https://www.youtube.com/watch?v=ZJX6sCkm5JY >> |cRXP_WARN_点击这里查看视频演示|r << !Mage
     .complete 314,1 --Collect Fang of Vagash (1)
-    .mob Vagash
+    .mob 瓦加什
 step << Warrior
     #season 2
     #optional
     #requires rune1
-    .train 403476 >>|cRXP_WARN_Use the|r |T134419:0|t|cRXP_LOOT_[Rune of Furious Thunder]|r |cRXP_WARN_to train|r |T136048:0|t[Furious Thunder]
+    .train 403476 >>|cRXP_WARN_使用|r |T134419:0|t|cRXP_LOOT_[狂怒雷霆符文]|r |cRXP_WARN_来学习|r |T136048:0|t[狂怒雷霆]
     .use 204809
     .itemcount 204809,1
 step << Mage
     #optional
     #season 2
     #requires rune1
-    #completewith GolBolarQuarry
-    .collect 211779,1 >>You need a |T135933:0|t[Comprehension Charm] from a |cRXP_FRIENDLY_Reagent Vendor|r to use |T134939:0|t[|cRXP_FRIENDLY_Spell Notes: RING SEFF OSTROF|r]
+    #completewith QuarryStart
+    .collect 211779,1 >>你需要一份|T135933:0|t[理解魔符]（由|cRXP_FRIENDLY_施法材料商人|r出售），才能使用|T134939:0|t[|cRXP_FRIENDLY_法术笔记：IGBHNHZNAI|r]
     .disablecheckbox
-    .train 401765 >>|cRXP_WARN_Use the|r |T134939:0|t|cRXP_LOOT_[Spell Notes: RING SEFF OSTROF]|r |cRXP_WARN_to train|r |T236227:0|t[Fingers of Frost]
+    .train 401765 >>|cRXP_WARN_使用|r |T134939:0|t[|cRXP_LOOT_法术笔记：IGBHNHZNAI|r] |cRXP_WARN_来学习|r |T236227:0|t[寒冰指]
     .use 203753
 step
     .goto Dun Morogh,63.082,49.851
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Rudra Amberstill|r
-    .turnin 314 >> Turn in Protecting the Herd
-    .target Rudra Amberstill
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_鲁德拉·冻石|r交谈
+    .turnin 314 >> 交任务：保护牲畜
+    .target 鲁德拉·冻石
 step
     #optional
     #completewith next
-    .goto Dun Morogh,68.379,54.492,60 >> Travel to Gol'Bolar Quarry
+    .goto Dun Morogh,68.379,54.492,60 >> 前往古博拉采掘场
     .subzoneskip 134
 step << !Hunter
     #optional
     #completewith next
     .goto Dun Morogh,68.6,54.7
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kazan Mogosh|r
-    .vendor 1237 >> |cRXP_BUY_Buy up to 10|r |T133968:0|t[Freshly Baked Bread] |cRXP_BUY_from him if needed|r << Warrior/Rogue
-    .vendor 1237 >> |cRXP_BUY_Buy up to 5|r |T133968:0|t[Freshly Baked Bread] |cRXP_BUY_and|r |T132815:0|t[Ice Cold Milk] |cRXP_BUY_from him if needed|r << !Warrior !Rogue
-    .target Kazan Mogosh
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_卡杉·莫格什|r交谈
+    .vendor 1237 >> |cRXP_BUY_如有需要，从他那里购买至多10份|r |T133968:0|t[刚出炉的面包] |cRXP_BUY_作为补给|r << Warrior/Rogue
+    .vendor 1237 >> |cRXP_BUY_如有需要，从他那里购买至多5份|r |T133968:0|t[刚出炉的面包] |cRXP_BUY_和|r |T132815:0|t[冰镇牛奶] |cRXP_BUY_作为补给|r << !Warrior !Rogue
+    .target 卡杉·莫格什
 --XX Mud slappers instead
 step << Human Warrior/Paladin/Rogue
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dank Drizzlecut|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_丹克·利刃|r交谈
     .goto Dun Morogh,69.3,55.5
-    .train 2581 >>Train Mining, cast Find Minerals
-    .target Dank Drizzlecut
+    .train 2575 >>学习采矿
+    .target 丹克·利刃
     .skill mining,1
+step << Human Warrior/Paladin/Rogue
+    #completewith next
+    .skill mining,<1,1
+    .usespell 2580
+    .cast 2580 >>施放寻找矿物
 step
     #label QuarryStart
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Senator Mehr Stonehallow|r and |cRXP_FRIENDLY_Foreman Stonebrow|r
-    .accept 433 >> Accept The Public Servant
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_参议员梅尔·圣石|r和|cRXP_FRIENDLY_工头乔尼·石眉|r交谈
+    .accept 433 >> 接受任务：公众之仆
     .goto Dun Morogh,68.671,55.969
-    .accept 432 >> Accept Those Blasted Troggs!
+    .accept 432 >> 接受任务：该死的石腭怪！
     .goto Dun Morogh,69.084,56.330
-    .target Senator Mehr Stonehallow
-    .target Foreman Stonebrow
+    .target 参议员梅尔·圣石
+    .target 工头乔尼·石眉
     .xp >12,1,QuarryEnd
 step << !Human Rogue
     #season 2
@@ -136,43 +142,43 @@ step << !Human Rogue
     .waypoint 1426,67.687,60.059,45,0
     .waypoint 1426,68.958,59.357,45,0
     .waypoint 1426,70.475,59.420,45,0
-    >>|T133644:0|t[Pick Pocket] the |cRXP_ENEMY_Rockjaw Skullthumpers|r and |cRXP_ENEMY_Rockjaw Bonesnappers|r. Loot them for the |T134327:0|t[|cRXP_LOOT_Top-Left Map Piece]|r
-    >>|cRXP_WARN_You must be in|r |T132320:0|t[Stealth] |cRXP_WARN_to use|r |T133644:0|t[Pick Pocket]
+    >>使用|T133644:0|t[搜索]，从|cRXP_ENEMY_石腭击颅者|r和|cRXP_ENEMY_石腭断骨者|r身上获取|T134327:0|t[|cRXP_LOOT_左上角地图碎片]|r
+    >>|cRXP_WARN_你必须先处于|r |T132320:0|t[潜行] |cRXP_WARN_状态，才能使用|r |T133644:0|t[搜索]
     .collect 208215,1 -- Top-Left Map Piece (1)
-    .mob Rockjaw Skullthumper
-    .mob Rockjaw Bonesnapper
-    .train 398196,1
+    .mob 石腭击颅者
+    .mob 石腭断骨者
+    .train 400095,1
 step << !Human Rogue
     #season 2
     .goto Dun Morogh,77.86,61.66
-    >>|T133644:0|t[Pick Pocket] |cRXP_ENEMY_Dark Iron Spies|r. Loot them for |T134331:0|t[Blackrat's Note] and the |T134327:0|t[|cRXP_LOOT_Bottom-Left Map Piece]|r
-    >>|cRXP_WARN_You must be in|r |T132320:0|t[Stealth] |cRXP_WARN_to use|r |T133644:0|t[Pick Pocket]
+    >>使用|T133644:0|t[搜索]，从|cRXP_ENEMY_黑铁间谍|r身上获取|T134331:0|t[黑鼠的笔记]和|T134327:0|t[|cRXP_LOOT_左下角地图碎片]|r
+    >>|cRXP_WARN_你必须先处于|r |T132320:0|t[潜行] |cRXP_WARN_状态，才能使用|r |T133644:0|t[搜索]
     .collect 208205,1 --Blackrat's Note (1)
     .collect 208219,1 -- Bottom-Left Map Piece (1)
-    .mob Dark Iron Spy
+    .mob 黑铁间谍
     .train 400094,1
-    .train 398196,1
-step <<< !Human Rogue
+    .train 400095,1
+step << !Human Rogue
     #season 2
     #optional
     .goto Dun Morogh,77.86,61.66
-    >>|T133644:0|t[Pick Pocket] |cRXP_ENEMY_Dark Iron Spies|r. Loot them for |T134331:0|t[Blackrat's Note]
-    >>|cRXP_WARN_You must be in|r |T132320:0|t[Stealth] |cRXP_WARN_to use|r |T133644:0|t[Pick Pocket]
+    >>使用|T133644:0|t[搜索]，从|cRXP_ENEMY_黑铁间谍|r身上获取|T134331:0|t[黑鼠的笔记]
+    >>|cRXP_WARN_你必须先处于|r |T132320:0|t[潜行] |cRXP_WARN_状态，才能使用|r |T133644:0|t[搜索]
     .collect 208205,1
-    .mob Dark Iron Spy
+    .mob 黑铁间谍
     .train 400094,1
-step <<< !Human Rogue
+step << !Human Rogue
     #season 2
     #optional
     .goto Dun Morogh,77.86,61.66
-    >>|T133644:0|t[Pick Pocket] |cRXP_ENEMY_Dark Iron Spies|r. Loot them for the |T134327:0|t[|cRXP_LOOT_Bottom-Left Map Piece]|r
-    >>|cRXP_WARN_You must be in|r |T132320:0|t[Stealth] |cRXP_WARN_to use|r |T133644:0|t[Pick Pocket]
+    >>使用|T133644:0|t[搜索]，从|cRXP_ENEMY_黑铁间谍|r身上获取|T134327:0|t[|cRXP_LOOT_左下角地图碎片]|r
+    >>|cRXP_WARN_你必须先处于|r |T132320:0|t[潜行] |cRXP_WARN_状态，才能使用|r |T133644:0|t[搜索]
     .collect 208219,1 -- Bottom-Left Map Piece (1)
-    .mob Dark Iron Spy
-    .train 398196,1
-step <<< !Human Rogue
+    .mob 黑铁间谍
+    .train 400095,1
+step << !Human Rogue
     #season 2
-    .cast 418600 >>|cRXP_WARN_Use any of the|r |T134327:0|t[|cRXP_LOOT_Map Pieces]|r |cRXP_WARN_to combine them into the|r |T134269:0|t[|cRXP_LOOT_Dun Morogh Treasure Map|r]
+    .cast 418600 >>|cRXP_WARN_使用任意一块|r |T134327:0|t[|cRXP_LOOT_地图碎片]|r |cRXP_WARN_，将碎片合成为|r |T134269:0|t[|cRXP_LOOT_丹莫罗藏宝图|r]
     .collect 208220,1
     .itemcount 208219,1
     .itemcount 208213,1
@@ -182,43 +188,43 @@ step <<< !Human Rogue
     .use 208213
     .use 208215
     .use 208218
-    .train 398196,1
+    .train 400095,1
 step << !Human Rogue
     #season 2
     #softcore
     #optional
     #completewith next
-    .deathskip >> Die and respawn at the |cRXP_FRIENDLY_Spirit Healer|r
-    .target Spirit Healer
-    .train 398196,1
-step <<< !Human Rogue
+    .deathskip >> 死亡后在|cRXP_FRIENDLY_灵魂医者|r处复活
+    .target 灵魂医者
+    .train 400095,1
+step << !Human Rogue
     #season 2
     #completewith next
     .goto Dun Morogh,46.985,43.632
-    .cast 418599 >>|cRXP_WARN_Use the|r |T134269:0|t[|cRXP_LOOT_Dun Morogh Treasure Map|r] |cRXP_WARN_under the small bridge. This will cause a |cRXP_PICK_Buried Treasure|r to pop up|r
+    .cast 418599 >>|cRXP_WARN_在小桥下使用|r |T134269:0|t[|cRXP_LOOT_丹莫罗藏宝图|r] |cRXP_WARN_，使|cRXP_PICK_埋藏的宝藏|r出现|r
     .use 208220
     .itemcount 208220,1
-    .train 398196,1
-step <<< !Human Rogue
-    #season 2
-    >>Open the |cRXP_PICK_Buried Treasure|r. Loot it for the |T134419:0|t[|cRXP_FRIENDLY_Rune of Quick Draw|r]
-    .collect 203991,1 -- Rune of Quick Draw (1)
-    .train 398196,1
+    .train 400095,1
 step << !Human Rogue
     #season 2
-    .train 400095 >> |cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Quick Draw|r] |cRXP_WARN_to train|r |T134536:0|t[Quick Draw]
+    >>打开|cRXP_PICK_埋藏的宝藏|r，拾取其中的|T134419:0|t[|cRXP_FRIENDLY_速射符文|r]
+    .collect 203991,1 -- Rune of Quick Draw (1)
+    .train 400095,1
+step << !Human Rogue
+    #season 2
+    .train 400095 >> |cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_速射符文|r] |cRXP_WARN_来学习|r |T134536:0|t[速射]
     .use 203991
     .itemcount 203991,1
 step << !Human Rogue
     #season 2
     .goto Dun Morogh,57.256,45.227
-    >>Talk to |cRXP_FRIENDLY_Blackrat|r to receive the |T134419:0|t[|cRXP_FRIENDLY_Rune of Mutilation|r]
+    >>与|cRXP_FRIENDLY_黑鼠|r交谈，领取|T134419:0|t[|cRXP_FRIENDLY_毁伤符文|r]
     .collect 203990,1
     .skipgossip
     .train 400094,1
 step << !Human Rogue
     #season 2
-    .cast 402265 >> |cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Mutilation|r]
+    .cast 402265 >> |cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_毁伤符文|r]
     .use 203990 -- Rune of Mutilation (1)
     .train 400094,1
 step << Dwarf Paladin
@@ -237,11 +243,11 @@ step << Dwarf Paladin
     .waypoint 1426,67.687,60.059,45,0
     .waypoint 1426,68.958,59.357,45,0
     .waypoint 1426,70.475,59.420,45,0
-    >>Kill |cRXP_ENEMY_Rockjaw Skullthumpers|r and |cRXP_ENEMY_Rockjaw Bonesnappers|r. Loot them for their |T132889:0|t[Linen Cloth] << Dwarf Paladin
-    >>|cRXP_WARN_Save the|r |T132889:0|t[Linen Cloth] |cRXP_WARN_for a quest later|r << Dwarf Paladin
+    >>击杀|cRXP_ENEMY_石腭击颅者|r和|cRXP_ENEMY_石腭断骨者|r，拾取他们的|T132889:0|t[亚麻布] << Dwarf Paladin
+    >>|cRXP_WARN_保留|r |T132889:0|t[亚麻布] |cRXP_WARN_用于后续任务|r << Dwarf Paladin
     .collect 2589,10,1648,1 --Linen Cloth (10)
-    .mob Rockjaw Skullthumper
-    .mob Rockjaw Bonesnapper
+    .mob 石腭击颅者
+    .mob 石腭断骨者
 step
     #sticky
     #label Skullthumpers
@@ -255,13 +261,13 @@ step
     .waypoint 1426,67.687,60.059,45,0
     .waypoint 1426,68.958,59.357,45,0
     .waypoint 1426,70.475,59.420,45,0
-    >>Kill |cRXP_ENEMY_Rockjaw Skullthumpers|r in or outside the mine
+    >>击杀矿洞内外的|cRXP_ENEMY_石腭击颅者|r
     .complete 432,1 --Kill Rockjaw Skullthumper (x6)
-    .mob Rockjaw Skullthumper
+    .mob 石腭击颅者
 step
     #optional
     #completewith next
-    .goto 1426,70.750,56.219,20 >>Enter the Gol'Bolar Quarry Mine
+    .goto 1426,70.750,56.219,20 >>进入古博拉采掘场的矿洞
     .isOnQuest 433
 step
     #loop
@@ -279,19 +285,20 @@ step
     .goto 1426,72.570,53.488,30,0
     .goto 1426,71.790,52.278,30,0
     .goto 1426,71.591,51.831,30,0
-    >>Kill |cRXP_ENEMY_Rockjaw Bonesnappers|r inside the mine
+    >>击杀矿洞内的|cRXP_ENEMY_石腭断骨者|r
     .complete 433,1 --Kill Rockjaw Bonesnapper (x10)
-    .mob Rockjaw Bonesnapper
+    .mob 石腭断骨者
 step << Mage
+    >>单人使用活体烈焰的方法需要先学会该符文；尚未学会时，请寻找其他法师或术士协助
     .goto 1426,69.369,58.311
-    >>|cRXP_WARN_Look for other Mages or Warlocks near the |cRXP_ENEMY_Frozen Trogg|r or in General Chat (Type /1 into chat). You can still solo this if no one is there|r
-    >>|cRXP_WARN_Cast|r |T135812:0|t[Fireball] |cRXP_WARN_on the |cRXP_ENEMY_Frozen Trogg|r to apply a stack of|r |T135805:0|t[Applying Heat]|cRXP_WARN_. Apply 5 stacks at once together to kill the |cRXP_ENEMY_Frozen Trogg|r. Loot it for the|r |T134939:0|t|cRXP_FRIENDLY_[Spell Notes: Burnout]|r
-    >>|cRXP_WARN_If there is no one there to help you, walk into melee range of the Trogg and use|r |T135820:0|t[Living Flame] |cRXP_WARN_on him. Stay in melee range to keep yourself in combat and keep using|r |T135820:0|t[Living Flame] |cRXP_WARN_on cooldown. It will kill the trogg after 5-6 casts.|r
+    >>|cRXP_WARN_在|cRXP_ENEMY_冰冻穴居人|r附近或综合频道（在聊天框输入/1）寻找其他法师或术士。如果没有其他人，你也可以独自完成|r
+    >>|cRXP_WARN_施放|r |T135812:0|t[火球术] |cRXP_WARN_，为|cRXP_ENEMY_冰冻穴居人|r叠加一层|r |T135805:0|t[加热]|cRXP_WARN_。与其他人一起使其同时拥有5层效果，即可击杀|cRXP_ENEMY_冰冻穴居人|r。拾取它掉落的|r |T134939:0|t|cRXP_FRIENDLY_[法术笔记：燃尽]|r
+    >>|cRXP_WARN_如果无人帮忙，进入石腭怪的近战范围，对它施放|r |T135820:0|t[活体烈焰] |cRXP_WARN_。留在近战范围内保持战斗状态，并在冷却结束时继续施放|r |T135820:0|t[活体烈焰] |cRXP_WARN_。施放5-6次后即可击杀石腭怪。|r
     .collect 203748,1 --Spell Notes: Burnout (1)
     .train 401759,1
-    .mob Frozen Trogg
+    .mob 208752
 step << Mage
-    .train 401759 >>|cRXP_WARN_Use the|r |T134939:0|t|cRXP_FRIENDLY_[Spell Notes: Burnout]|r |cRXP_WARN_to learn|r |T132686:0|t[Engrave Chest - Burnout]
+    .train 401759 >>|cRXP_WARN_使用|r |T134939:0|t[|cRXP_FRIENDLY_法术笔记：燃尽|r] |cRXP_WARN_来学习|r |T132686:0|t[铭刻胸甲 - 燃尽]
     .use 203748
     .itemcount 203748,1 --Spell Notes: Burnout (1)
 step << Dwarf Paladin
@@ -301,100 +308,100 @@ step << Dwarf Paladin
 step
     #label RockjawEnd << !Paladin
     #requires Skullthumpers
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Foreman Stonebrow|r and |cRXP_FRIENDLY_Senator Mehr Stonehallow|r
-    .turnin 432 >> Turn in Those Blasted Troggs!
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_工头乔尼·石眉|r和|cRXP_FRIENDLY_参议员梅尔·圣石|r交谈
+    .turnin 432 >> 交任务：该死的石腭怪！
     .goto Dun Morogh,69.084,56.330
-    .turnin 433 >> Turn in The Public Servant
+    .turnin 433 >> 交任务：公众之仆
     .goto Dun Morogh,68.671,55.969
-    .target Senator Mehr Stonehallow
-    .target Foreman Stonebrow
+    .target 参议员梅尔·圣石
+    .target 工头乔尼·石眉
 step
     #optional
     #completewith next
     #label QuarryEnd
     .goto 1426,77.189,48.816,50,0
     .goto 1426,81.252,42.650,50,0
-    .goto Dun Morogh,83.892,39.188,20 >> Travel toward |cRXP_FRIENDLY_Pilot Hammerfoot|r
+    .goto Dun Morogh,83.892,39.188,20 >> 前往|cRXP_FRIENDLY_驾驶员塞克·锤足|r处
 step
     .goto Dun Morogh,83.892,39.188
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Pilot Hammerfoot|r
-    .accept 419 >> Accept The Lost Pilot
-    .target Pilot Hammerfoot
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_驾驶员塞克·锤足|r交谈
+    .accept 419 >> 接受任务：失踪的驾驶员
+    .target 驾驶员塞克·锤足
 step
     .goto Dun Morogh,79.672,36.171
-    >>Click the |cRXP_PICK_Dwarven Corpse|r on the ground
-    .turnin 419 >> Turn in The Lost Pilot
-    .accept 417 >> Accept A Pilot's Revenge
+    >>点击地上的|cRXP_PICK_矮人的尸体|r
+    .turnin 419 >> 交任务：失踪的驾驶员
+    .accept 417 >> 接受任务：驾驶员的复仇
 step << Warrior/Mage
     #season 2
     #optional
     #completewith next
-    >>Kill |cRXP_ENEMY_Mangeclaw|r. Loot him for the |T134419:0|t|cRXP_LOOT_[Rune of Furious Thunder]|r << Warrior
-    >>Kill |cRXP_ENEMY_Mangeclaw|r. Loot him for the |T134939:0|t|cRXP_LOOT_[Spell Notes: RING SEFF OSTROF]|r << Mage
+    >>击杀|cRXP_ENEMY_癞爪|r，拾取它掉落的|T134419:0|t|cRXP_LOOT_[狂怒雷霆符文]|r << Warrior
+    >>击杀|cRXP_ENEMY_癞爪|r，拾取它掉落的|T134939:0|t|cRXP_LOOT_[法术笔记：IGBHNHZNAI]|r << Mage
     .collect 204809,1 << Warrior -- Rune of Furious Thunder (1)
     .collect 203753,1 << Mage -- Spell Notes: RING SEFF OSTROF (1)
     .train 403476,1 << Warrior
     .train 401765,1 << Mage
 step
     .goto Dun Morogh,78.97,37.14
-    >>Kill |cRXP_ENEMY_Mangeclaw|r. Loot him for his |cRXP_LOOT_Mangy Claw|r
+    >>击杀|cRXP_ENEMY_癞爪|r，拾取它的|cRXP_LOOT_肮脏的爪子|r
     .complete 417,1 --Collect Mangy Claw (x1)
-    .mob Mangeclaw
+    .mob 癞爪
 step << Warrior
     #season 2
-    .train 403476 >>|cRXP_WARN_Use the|r |T134419:0|t|cRXP_LOOT_[Rune of Furious Thunder]|r |cRXP_WARN_to train|r |T136048:0|t[Furious Thunder]
+    .train 403476 >>|cRXP_WARN_使用|r |T134419:0|t|cRXP_LOOT_[狂怒雷霆符文]|r |cRXP_WARN_来学习|r |T136048:0|t[狂怒雷霆]
     .use 204809
     .itemcount 204809,1
 step << Mage
     #season 2
     #completewith next
-    .collect 211779,1 >>You need a |T135933:0|t[Comprehension Charm] from a |cRXP_FRIENDLY_Reagent Vendor|r to use |T134939:0|t[|cRXP_FRIENDLY_Spell Notes: RING SEFF OSTROF|r]
+    .collect 211779,1 >>你需要一份|T135933:0|t[理解魔符]（由|cRXP_FRIENDLY_施法材料商人|r出售），才能使用|T134939:0|t[|cRXP_FRIENDLY_法术笔记：IGBHNHZNAI|r]
     .disablecheckbox
-    .train 401765 >>|cRXP_WARN_Use the|r |T134939:0|t|cRXP_LOOT_[Spell Notes: RING SEFF OSTROF]|r |cRXP_WARN_to train|r |T236227:0|t[Fingers of Frost]
+    .train 401765 >>|cRXP_WARN_使用|r |T134939:0|t[|cRXP_LOOT_法术笔记：IGBHNHZNAI|r] |cRXP_WARN_来学习|r |T236227:0|t[寒冰指]
     .use 203753
 step
     #xprate <1.49 << Rogue
     .goto Dun Morogh,83.892,39.188
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Pilot Hammerfoot|r
-    >>|cRXP_WARN_Choose the|r |T135641:0|t[Craftsman's Dagger]|cRXP_WARN_. Save it for later|r << Rogue
-    .turnin 417 >> Turn in A Pilot's Revenge << !Rogue
-    .turnin 417,1 >> Turn in A Pilot's Revenge << Rogue
-    .target Pilot Hammerfoot
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_驾驶员塞克·锤足|r交谈
+    >>|cRXP_WARN_选择|r |T135641:0|t[工匠匕首]|cRXP_WARN_，留待以后使用|r << Rogue
+    .turnin 417 >> 交任务：驾驶员的复仇 << !Rogue
+    .turnin 417,1 >> 交任务：驾驶员的复仇 << Rogue
+    .target 驾驶员塞克·锤足
 step << Rogue
     #xprate >1.49
     .goto Dun Morogh,83.892,39.188
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Pilot Hammerfoot|r
-    >>|cRXP_WARN_Choose the|r |T135641:0|t[Craftsman's Dagger]
-    .turnin 417,1 >> Turn in A Pilot's Revenge
-    .target Pilot Hammerfoot
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_驾驶员塞克·锤足|r交谈
+    >>|cRXP_WARN_选择|r |T135641:0|t[工匠匕首]
+    .turnin 417,1 >> 交任务：驾驶员的复仇
+    .target 驾驶员塞克·锤足
 step << Rogue
     #xprate >1.49
-    #completewith ShimmerStoutEnd
-    +|cRXP_WARN_Equip the|r |T135641:0|t[Craftsman's Dagger] |cRXP_WARN_in your mainhand|r
+    #completewith enterloch
+    +|cRXP_WARN_将|r |T135641:0|t[工匠匕首] |cRXP_WARN_装备在主手|r
     .use 2218
     .itemcount 2218,1
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<6.7
 step
     #label enterloch
     #completewith next
-    .goto Dun Morogh,84.4,31.1,25 >>Go through the tunnel to Loch Modan
+    .goto Dun Morogh,84.4,31.1,25 >>穿过隧道前往洛克莫丹
     .zoneskip Loch Modan
 step
     #optional
     #completewith lochstart1
-    >>Kill |cRXP_ENEMY_Elder Black Bears|r. Loot them for their |cRXP_LOOT_Bear Meat|r
-    >>Kill |cRXP_ENEMY_Mountain Boars|r. Loot them for their |cRXP_LOOT_Boar Intestines|r
-    >>Kill |cRXP_ENEMY_Forest Lurkers|r. Loot them for their |cRXP_LOOT_Spider Ichor|r
-    >>Save any |cRXP_LOOT_Crisp Spider Meat|r you find for a quest later
-    .collect 1081,5,92,1
+    >>击杀|cRXP_ENEMY_老黑熊|r，拾取它们的|cRXP_LOOT_熊肉|r
+    >>击杀|cRXP_ENEMY_山猪|r，拾取它们的|cRXP_LOOT_猪大肠|r
+    >>击杀|cRXP_ENEMY_森林潜伏者|r，拾取它们的|cRXP_LOOT_蜘蛛的毒液|r
+    >>保留所有拾取到的|cRXP_LOOT_香脆蜘蛛肉|r，后面的任务需要用到
+    .collect 1081,5,92,0x7
     .disablecheckbox
-    .collect 3172,3,418,1 --Collect Boar Intestines (x3)
-    .mob +Mountain Boar
-    .collect 3173,3,418,1 --Collect Bear Meat (x3)
-    .mob +Elder Black Bear
-    .collect 3174,3,418,1 --Collect Spider Ichor (x3)
-    .mob +Forest Lurker
-    >>|cRXP_WARN_Save any|r |T133970:0|t|cRXP_LOOT_[Chunks of Boar Meat]|r |cRXP_WARN_to use for leveling|r |T133971:0|t[Cooking] |cRXP_WARN_later|r
+    .collect 3172,3,418,0x7 --Collect Boar Intestines (x3)
+    .mob +山猪
+    .collect 3173,3,418,0x7 --Collect Bear Meat (x3)
+    .mob +老黑熊
+    .collect 3174,3,418,0x7 --Collect Spider Ichor (x3)
+    .mob +森林潜伏者
+    >>|cRXP_WARN_保留所有|r |T133970:0|t|cRXP_LOOT_[大块野猪肉]|r |cRXP_WARN_，以后用来提升|r |T133971:0|t[烹饪] |cRXP_WARN_技能|r
 step << Warlock
     .line Loch Modan,22.87,70.89,24.69,68.20,28.02,65.41,29.47,59.92,31.56,56.66,32.36,50.09,34.94,47.10,32.36,50.09,31.36,47.60,31.54,44.72,32.29,42.34,32.25,41.14,31.08,38.57,30.04,31.45,27.96,25.37,26.73,23.07,26.04,19.16,25.95,15.13,25.53,11.66
     .goto Loch Modan,22.87,70.89,50,0
@@ -416,17 +423,17 @@ step << Warlock
     .goto Loch Modan,26.04,19.16,50,0
     .goto Loch Modan,25.95,15.13,50,0
     .goto Loch Modan,25.53,11.66
-    >>|cRXP_WARN_Look for |cRXP_FRIENDLY_Greishan Ironstove|r patroling on the road through Loch Modan. His patrol path is marked on your map|r
-    >>|cRXP_BUY_Buy a|r |T237359:0|t[Malevolent Pie] |cRXP_BUY_from him|r
+    >>|cRXP_WARN_在贯穿洛克莫丹的道路上寻找巡逻的|cRXP_FRIENDLY_格雷珊·铁炉|r。他的巡逻路线已标示在地图上|r
+    >>|cRXP_BUY_从他那里购买一个|r |T237359:0|t[怨毒馅饼] |cRXP_BUY_。|r
     .collect 208833,1
-    .unitscan Greishan Ironstove
+    .unitscan 格雷珊·铁炉
     .train 403932,1
 step << Warlock
-    .use 208833 >>|cRXP_WARN_Use the|r |T237359:0|t[Malevolent Pie] |cRXP_WARN_to eat it. Once the|r |T132108:0|t[Hellish Indigestion] |cRXP_WARN_debuff drops off you, you will receive the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Channeling|r]
+    .use 208833 >>|cRXP_WARN_使用|r |T237359:0|t[怨毒馅饼] |cRXP_WARN_将其吃下。身上的|r |T132108:0|t[凶恶反胃] |cRXP_WARN_减益效果结束后，你会获得|r |T134419:0|t[|cRXP_FRIENDLY_引导符文|r]
     .collect 208750,1 -- Rune of Channeling (1)
     .train 403932,1
 step << Warlock
-    .train 403932 >>|cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Channeling|r] |cRXP_WARN_to train|r |T136168:0|t[Master Channeler]
+    .train 403932 >>|cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_引导符文|r] |cRXP_WARN_来学习|r |T136168:0|t[引导大师]
     .use 208750
     .itemcount 208750,1
 step << Dwarf Paladin
@@ -435,48 +442,49 @@ step
     #label lochstart1
     #optional
     .goto 1432,34.405,48.276
-    .subzone 144 >> Travel to Thelsamar
+    .subzone 144 >> 前往塞尔萨玛
 step
     #completewith lochpatrol3
-    .abandon 1338 >> Abandon the quest |cRXP_FRIENDLY_Stormpike's Task|r if you have it, otherwise you won't be able to accept a quest later
+    .abandon 1338 >> 如果接到了|cRXP_FRIENDLY_卡尔·雷矛的订单|r，请将其放弃，否则稍后将无法接受另一个任务
 step
     #label lochpatrol1
     #completewith lochpatrol2
     .line Loch Modan,36.72,41.97,37.24,43.19,37.33,45.63,36.77,46.20,35.19,46.88,32.67,49.71,35.19,46.88,36.77,46.20,37.33,45.63,37.24,43.19,36.72,41.97
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mountaineer Kadrell|r
-    >>|cRXP_FRIENDLY_Mountaineer Kadrell|r |cRXP_WARN_patrols the road through Thelsamar|r
-    .accept 416 >> Accept Rat Catching
-    .accept 1339 >> Accept Mountaineer Stormpike's Task
-    .target Mountaineer Kadrell
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_巡山人卡德雷尔|r交谈
+    >>|cRXP_FRIENDLY_巡山人卡德雷尔|r |cRXP_WARN_沿着穿过塞尔萨玛的道路巡逻|r
+    .accept 416 >> 接受任务：狗头人的耳朵
+    .accept 1339 >> 接受任务：巡山人卡尔·雷矛的任务
+    .target 巡山人卡德雷尔
 step
     #optional
     #completewith next
     .goto 1432,35.273,47.750,10,0
-    .goto 1432,35.433,48.243,12 >> Enter the Stoutlager Inn
+    .goto 1432,35.433,48.243,12 >> 进入烈酒旅店
     .subzoneskip 2101
 step
     .goto Loch Modan,34.828,49.283
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Vidra Hearthstove|r inside
-    .accept 418 >> Accept Thelsamar Blood Sausages
-    .target Vidra Hearthstove
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与里面的|cRXP_FRIENDLY_维德拉·壁炉|r交谈
+    .accept 418 >> 接受任务：塞尔萨玛血肠
+    .target 维德拉·壁炉
 step << Human
     .goto Loch Modan,34.8,48.6
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Yanni Stoutheart|r inside
-    .vendor >> |cRXP_BUY_Vendor trash, buy up to four|r |T133634:0|t[Small Brown Pouches] |cRXP_BUY_if you still need|r
-    .target Yanni Stoutheart
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与里面的|cRXP_FRIENDLY_雅尼·铁心|r交谈
+    .vendor >> |cRXP_BUY_出售杂物，如仍有需要，购买至多四个|r |T133634:0|t[棕色小包] |cRXP_BUY_作为背包|r
+    .target 雅尼·铁心
 step << Dwarf/Gnome
+    .bind 144
     #label ThelsaHS
     .goto Loch Modan,35.534,48.404
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Innkeeper Hearthstove|r inside
-    .home >> Set your Hearthstone to Thelsamar
-    .target Innkeeper Hearthstove
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与里面的|cRXP_FRIENDLY_旅店老板纳克罗·壁炉|r交谈
+    .home >> 将炉石绑定到塞尔萨玛
+    .target 旅店老板纳克罗·壁炉
 step << Dwarf/Gnome
     #label HonorStudents
     .goto Loch Modan,37.17,47.94,8,0
     .goto Loch Modan,37.019,47.806
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Brock Stoneseeker|r
-    .accept 6387 >> Accept Honor Students
-    .target Brock Stoneseeker
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_布洛克·寻石者|r交谈
+    .accept 6387 >> 接受任务：荣誉学员
+    .target 布洛克·寻石者
 step
     #optional
     #label lochpatrol2
@@ -490,45 +498,44 @@ step
     .goto Loch Modan,35.19,46.88,15,0
     .goto Loch Modan,32.67,49.71,20,0
     .goto Loch Modan,36.77,46.20
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mountaineer Kadrell|r
-    >>|cRXP_FRIENDLY_Mountaineer Kadrell|r |cRXP_WARN_patrols the road through Thelsamar|r
-    .accept 416 >> Accept Rat Catching
-    .accept 1339 >> Accept Mountaineer Stormpike's Task
-    .target Mountaineer Kadrell
-
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_巡山人卡德雷尔|r交谈
+    >>|cRXP_FRIENDLY_巡山人卡德雷尔|r |cRXP_WARN_沿着穿过塞尔萨玛的道路巡逻|r
+    .accept 416 >> 接受任务：狗头人的耳朵
+    .accept 1339 >> 接受任务：巡山人卡尔·雷矛的任务
+    .target 巡山人卡德雷尔
 step << Dwarf/Gnome
     .goto Loch Modan,33.938,50.954
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Thorgrum Borrelson|r
-    .turnin 6387 >> Turn in Honor Students
-    .accept 6391 >> Accept Ride to Ironforge
-    .target Thorgrum Borrelson
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_索格拉姆·伯雷森|r交谈
+    .turnin 6387 >> 交任务：荣誉学员
+    .accept 6391 >> 接受任务：飞往铁炉堡
+    .target 索格拉姆·伯雷森
 step << Hunter
     #sticky
 	.goto Loch Modan,33.9,54.0
     .goto Loch Modan,36.6,53.2,0
     .goto Loch Modan,30.0,53.5,0
-    .train 172551 >> Tame a Forest Lurker
-    >>|cRXP_WARN_It's the highest DPS pet easily available to dwarven hunters, you will eventually aim to replace it with a raptor from Wetlands|r
-    .unitscan Forest Lurker
+    .tame 1195 >> 驯服一只森林潜伏者
+    >>|cRXP_WARN_这是矮人猎人容易获得的宠物中伤害输出最高的，以后应换成湿地的迅猛龙|r
+    .unitscan 森林潜伏者
 step << Human
     .goto Loch Modan,33.938,50.954
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Thorgrum Borrelson|r
-    .fp Thelsamar >> Get the Thelsamar Flight Path
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_索格拉姆·伯雷森|r交谈
+    .fp Thelsamar >> 开通塞尔萨玛的飞行点
 step << Dwarf/Gnome
     #label flyIF
     .goto Loch Modan,33.938,50.954
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Thorgrum Borrelson|r
-    .fly Ironforge >> Fly to Ironforge
-    .target Thorgrum Borrelson
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_索格拉姆·伯雷森|r交谈
+    .fly Ironforge >> 飞往铁炉堡
+    .target 索格拉姆·伯雷森
     .zoneskip Ironforge
 step << Priest Dwarf
     #season 2
     #completewith end
-    .train 402852 >> |cRXP_WARN_Use the|r |T135975:0|t[|cRXP_FRIENDLY_Prophecy of a Desecrated Citadel|r]
-    >>|cRXP_WARN_You must have 2|r |T135934:0|t|T136057:0|t[Meditation] |cRXP_WARN_buffs by typing /pray next to an Altar of Light at the Stormwind Cathedral, Loch Modan or the Mystic Ward in Ironforge|r
-    >>|cRXP_WARN_The |T136057:0|t|cRXP_PICK_Meditation on Elune|r buff has to come from another priest player, by using the /pray emote on you while you are kneeling down with /kneel, if you see another priest with another meditation buff, ask them for it|r
+    .train 402852 >> |cRXP_WARN_使用|r |T135975:0|t[|cRXP_FRIENDLY_遭渎城堡的预言|r]
+    >>|cRXP_WARN_你需要两种不同的|r |T135934:0|t|T136057:0|t[冥想] |cRXP_WARN_增益效果：先在暴风城大教堂、洛克莫丹或铁炉堡秘法区的圣光祭坛旁输入/kneel获得其中一种，再按下方说明向其他牧师获取另一种|r
+    >>|cRXP_WARN_|T136057:0|t|cRXP_PICK_艾露恩之思|r增益效果必须由另一位牧师玩家提供：你使用/kneel跪下后，请对方对你使用/pray表情。如果看到拥有其他冥想增益效果的牧师，就请对方帮忙|r
     --.use 205947
-    .target Altar of Light
+    .target 圣光祭坛
     .itemcount 205947,1
 step << Rogue !Human
     #optional
@@ -541,24 +548,24 @@ step << Rogue !Human
     .goto 1455,59.236,14.974,30,0
     .goto 1455,52.941,12.466,12,0
     .goto 1455,51.919,14.468,12,0
-    .goto 1455,51.438,16.000,10 >>Travel toward |cRXP_FRIENDLY_Hulfdan Blackbeard|r inside downstairs
+    .goto 1455,51.438,16.000,10 >>前往室内楼下的|cRXP_FRIENDLY_霍夫丹·黑须|r处
 step << Rogue !Human
     .goto Ironforge,51.958,14.838
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Hulfdan Blackbeard|r downstairs
-    .turnin 2218 >> Turn in Road to Salvation
-    .target Hulfdan Blackbeard
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与楼下的|cRXP_FRIENDLY_霍夫丹·黑须|r交谈
+    .turnin 2218 >> 交任务：救赎之路
+    .target 霍夫丹·黑须
 step << Rogue !Human
     #season 2
     .goto Ironforge,51.913,13.383
-    >>Open the |cRXP_PICK_Dusty Chest|r outside. Loot it for the |T134419:0|t[|cRXP_FRIENDLY_Rune of Precision|r]
-    >>|cRXP_WARN_Doing this will spawn two level 10 |cRXP_ENEMY_Cut-throat Muggers|r which will attack you|r
+    >>打开外面的|cRXP_PICK_布满灰尘的箱子|r，拾取其中的|T134419:0|t[|cRXP_FRIENDLY_精准符文|r]
+    >>|cRXP_WARN_此举会使两名10级的|cRXP_ENEMY_劫匪::202116|r出现并攻击你|r
     .collect 204174,1 -- Rune of Precision (1)
-    .mob Cut-throat Mugger
+    .mob 202116;208876
     .train 400081,1
     .zoneskip Ironforge,1
 step << Rogue !Human
     #season 2
-    .train 400081 >>|cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Precision|r] |cRXP_WARN_to train|r |T135610:0|t[Between the Eyes]
+    .train 400081 >>|cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_精准符文|r] |cRXP_WARN_来学习|r |T135610:0|t[正中眉心]
     .use 204174
     .itemcount 204174,1
 ---------pt1
@@ -566,46 +573,46 @@ step << Dwarf/Gnome
     #optional
     #completewith next
     .goto 1455,44.029,50.074,20,0
-    .goto Ironforge,39.550,57.490,12 >>Travel toward |cRXP_FRIENDLY_Senator Barin Redstone|r
+    .goto Ironforge,39.550,57.490,12 >>前往|cRXP_FRIENDLY_参议员巴林·红石|r处
 step << Dwarf/Gnome
     .goto Ironforge,39.550,57.490
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Senator Barin Redstone|r
-    .turnin 291 >> Turn in The Reports
-    .target Senator Barin Redstone
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_参议员巴林·红石|r交谈
+    .turnin 291 >> 交任务：森内尔的报告
+    .target 参议员巴林·红石
 step << !Human Rogue
     .goto Ironforge,62.375,88.679
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Brenwyn Wintersteel|r down stairs
-    >>|cRXP_BUY_Buy a|r |135640:0|t[Jambiya] |cRXP_BUY_from her|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与楼下的|cRXP_FRIENDLY_布雷文·寒钢|r交谈
+    >>|cRXP_BUY_从她那里购买|r |T135640:0|t[双刃弯刀] |cRXP_BUY_作为武器|r
     .collect 2207,1 --Jambiya
-    .target Brenwyn Wintersteel
+    .target 布雷文·寒钢
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<7.0
 step << Dwarf/Gnome
     #label Ride
     .goto Ironforge,51.521,26.311
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Golnir Bouldertoe|r inside
-    .turnin 6391 >> Turn in Ride to Ironforge
-    .accept 6388 >> Accept Gryth Thurden
-    .target Golnir Bouldertoe
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与里面的|cRXP_FRIENDLY_高尼尔·石趾|r交谈
+    .turnin 6391 >> 交任务：飞往铁炉堡
+    .accept 6388 >> 接受任务：格莱斯·瑟登
+    .target 高尼尔·石趾
 step << Dwarf/Gnome
     .goto Ironforge,55.501,47.742
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gryth Thurden|r
-    >>|cRXP_WARN_Do NOT fly anywhere|r
-    .turnin 6388 >> Turn in Gryth Thurden
-    .accept 6392 >> Accept Return to Brock
-    .target Gryth Thurden
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_格莱斯·瑟登|r交谈
+    >>|cRXP_WARN_不要乘坐任何航线|r
+    .turnin 6388 >> 交任务：格莱斯·瑟登
+    .accept 6392 >> 接受任务：向布洛克回复
+    .target 格莱斯·瑟登
 step << Dwarf Paladin
     #optional
     #completewith next
     .goto 1455,44.403,49.020,20,0
     .goto 1455,35.239,32.789,20,0
     .goto 1455,27.208,12.552,20,0
-    .goto Ironforge,24.2,6.8,12 >>Travel toward |cRXP_FRIENDLY_Brandur Ironhammer|r
+    .goto Ironforge,24.2,6.8,12 >>前往 |cRXP_FRIENDLY_布兰度尔·铁锤|r
 step << Dwarf Paladin
     .goto Ironforge,23.131,6.143
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Brandur Ironhammer|r
-    .accept 2999 >>Accept Tome of Divinity
-    .trainer >> Train your class spells
-    .target Brandur Ironhammer
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_布兰度尔·铁锤|r交谈
+    .accept 2999 >>接受任务：圣洁之书
+    .trainer >> 学习职业技能
+    .target 布兰度尔·铁锤
 step << Dwarf Paladin
     #optional
     #completewith next
@@ -614,25 +621,25 @@ step << Dwarf Paladin
     .goto 1455,22.014,4.533,10,0
     .goto 1455,21.831,7.651,10,0
     .goto 1455,23.766,11.636,10,0
-    .goto 1455,27.622,12.177,12 >> Travel toward |cRXP_FRIENDLY_Tiza Battleforge|r upstairs
+    .goto 1455,27.622,12.177,12 >> 前往楼上的|cRXP_FRIENDLY_蒂萨·热炉|r处
 step << Dwarf Paladin
     .goto 1455,27.622,12.177
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Tiza Battleforge|r upstairs
-    .turnin 2999 >>Turn in Tome of Divinity
-    .accept 1645 >>Accept The Tome of Divinity
-    .turnin 1645 >>Turn in The Tome of Divinity
-    .target Tiza Battleforge
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与楼上的|cRXP_FRIENDLY_蒂萨·热炉|r交谈
+    .turnin 2999 >>交任务：圣洁之书
+    .accept 1645 >>接受任务：圣洁之书
+    .turnin 1645 >>交任务：圣洁之书
+    .target 蒂萨·热炉
 step << Dwarf Paladin
     .goto 1455,27.622,12.177
-    >>|cRXP_WARN_Use the |T133739:0|t|cRXP_LOOT_[The Tome of Divinity]|r to start the quest|r
-    .accept 1646 >>Accept The Tome of Divinity
+    >>|cRXP_WARN_使用|T133739:0|t|cRXP_LOOT_[圣洁之书]|r来开始任务|r
+    .accept 1646 >>接受任务：圣洁之书
     .use 6916
 step << Dwarf Paladin
     .goto 1455,27.622,12.177
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Tiza Battleforge|r upstairs
-    .turnin 1646 >>Turn in The Tome of Divinity
-    .accept 1647 >>Accept The Tome of Divinity
-    .target Tiza Battleforge
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与楼上的|cRXP_FRIENDLY_蒂萨·热炉|r交谈
+    .turnin 1646 >>交任务：圣洁之书
+    .accept 1647 >>接受任务：圣洁之书
+    .target 蒂萨·热炉
 step << Dwarf Paladin
     #loop
     .line Ironforge,21.750,51.733,22.015,54.945,23.328,61.865,23.723,63.824,26.021,68.382,27.495,71.320,31.352,77.807,32.405,78.563,37.256,82.159,39.204,83.202,42.944,84.113
@@ -650,66 +657,66 @@ step << Dwarf Paladin
     .goto 1455,37.256,82.159,20,0
     .goto 1455,39.204,83.202,20,0
     .goto 1455,42.944,84.113,20,0
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_John Turner|r
-    >>|cRXP_FRIENDLY_John Turner|r |cRXP_WARN_patrols along the outer ring of Ironforge between just past the Stonefire Tavern and just past the Visitor's Center|r
-    .turnin 1647 >>Turn in The Tome of Divinity
-    .accept 1648 >>Accept The Tome of Divinity
-    .turnin 1648 >>Turn in The Tome of Divinity
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_约翰·特纳|r交谈
+    >>|cRXP_FRIENDLY_约翰·特纳|r |cRXP_WARN_沿铁炉堡外环巡逻，范围从石火旅店外延伸至访客中心外。|r
+    .turnin 1647 >>交任务：圣洁之书
+    .accept 1648 >>接受任务：圣洁之书
+    .turnin 1648 >>交任务：圣洁之书
     --.accept 1778 >>Accept The Tome of Divinity
-    .unitscan John Turner
+    .unitscan 约翰·特纳
 step << Gnome Mage
     .goto Ironforge,27.0,8.2
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Bink|r
-    .trainer >> Train your class spells
-    .target Bink
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_彬克|r交谈
+    .trainer >> 学习职业技能
+    .target 彬克
 step << Gnome Mage
     #season 2
     .goto Ironforge,19.197,56.094
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Barim Jurgenstaad|r
-    >>|cRXP_BUY_Buy at least 2|r |T135933:0|t[Comprehension Charms] |cRXP_BUY_from him|r
-    >>|cRXP_WARN_These are needed for learning runes|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_巴瑞姆·贾根斯塔德|r交谈
+    >>|cRXP_BUY_从他那里至少购买2个|r |T135933:0|t[理解魔符] |cRXP_BUY_，用于学习符文。|r
+    >>|cRXP_WARN_学习符文需要用到它们|r
     .collect 211779,2
-    .target Barim Jurgenstaad
+    .target 巴瑞姆·贾根斯塔德
 step << Dwarf/Gnome
     #ah
     #optional
     .goto Ironforge,25.800,75.500,-1
     .goto Ironforge,24.200,74.600,-1
     .goto Ironforge,23.800,71.800,-1
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to an |cRXP_FRIENDLY_Ironforge Auctioneer|r
-    >>|cRXP_WARN_If you don't want to or can't do this, skip this step|r
-    >>|cRXP_BUY_Buy the following items for a faster turn in at Loch Modan shortly:|r
-    >>|T134342:0|t[Boar Intestines]
-    >>|T134027:0|t[Bear Meat]
-    >>|T134437:0|t[Spider Ichor]
-    .collect 3172,3,418,1 -- Boar Intestines (3)
-    .collect 3173,3,418,1 -- Bear Meat (3)
-    .collect 3174,3,418,1 -- Spider Ichor (3)
-    .target Auctioneer Lympkin
-    .target Auctioneer Redmuse
-    .target Auctioneer Buckler
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与一位|cRXP_FRIENDLY_铁炉堡拍卖师|r交谈
+    >>|cRXP_WARN_如果不想或无法购买，可以跳过此步骤|r
+    >>|cRXP_BUY_购买以下物品，以便稍后在洛克莫丹更快交任务：|r
+    >>|T134342:0|t[猪大肠]
+    >>|T134027:0|t[熊肉]
+    >>|T134437:0|t[蜘蛛的毒液]
+    .collect 3172,3,418,0x7 -- Boar Intestines (3)
+    .collect 3173,3,418,0x7 -- Bear Meat (3)
+    .collect 3174,3,418,0x7 -- Spider Ichor (3)
+    .target 拍卖师林姆克
+    .target 拍卖师雷姆斯
+    .target 拍卖师巴克尔
     .zoneskip Dun Morogh
     .isQuestAvailable 418
 step << Warrior
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Bixi Wobblebonk|r and |cRXP_FRIENDLY_Buliwyf Stonehand|r
-    >>Train Thrown and 2h Maces if you didn't earlier
-    .train 2567 >> Train Thrown
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_比克斯|r和|cRXP_FRIENDLY_布里维夫·石手|r交谈
+    >>如果之前没有学过，请学习投掷和双手锤（2h）
+    .train 2567 >> 学习投掷
     .goto Ironforge,62.237,89.628
-    .train 199 >> Train 2h Maces
+    .train 199 >> 学习双手锤（2h）
     .goto Ironforge,61.177,89.508
-    .target Bixi Wobblebonk
-    .target Buliwyf Stonehand
+    .target 比克斯
+    .target 布里维夫·石手
 step << Warrior !Human
     .goto 1455,62.378,88.671
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Brenwyn Wintersteel|r downstairs
-    >>|cRXP_BUY_Buy the|r |T135425:0|t[Keen Throwing Knives] |cRXP_BUY_from her|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与楼下的|cRXP_FRIENDLY_布雷文·寒钢|r交谈
+    >>|cRXP_BUY_从她那里购买|r |T135425:0|t[锋利的飞刀] |cRXP_BUY_。|r
     .collect 3107,1 --Collect Keen Throwing Knife (200)
-    .target Brenwyn Wintersteel
+    .target 布雷文·寒钢
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<6.3
 step << Warrior !Human
     #optional
-    #completewith Dirt
-    +|cRXP_WARN_Equip the|r |T135425:0|t[Keen Throwing Knives]
+    #completewith DRT
+    +|cRXP_WARN_装备|r |T135425:0|t[锋利的飞刀]
     .use 3107
     .itemcount 3107,1
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<6.3
@@ -719,13 +726,13 @@ step << Warrior !Human
     #optional
     #completewith next
     .goto Ironforge,71.54,73.46,10,0
-    .goto Ironforge,72.53,76.94,10 >>Travel toward |cRXP_FRIENDLY_Bruuk Barleybeard|r inside the Inn
+    .goto Ironforge,72.53,76.94,10 >>前往旅店内的|cRXP_FRIENDLY_布鲁克·麦须|r处
     .train 425447,1
 step << Warrior !Human
     #season 2
     .goto Ironforge,72.53,76.94
-    .gossipoption 110791 >>Talk to |cRXP_FRIENDLY_Bruuk Barleybeard|r inside
-    .target Bruuk Barleybeard
+    .gossipoption 110791 >>与里面的|cRXP_FRIENDLY_布鲁克·麦须|r交谈
+    .target 布鲁克·麦须
     .skipgossip 5570,1,1
     .train 425447,1
 --XX 110793 "How's business?"
@@ -733,11 +740,11 @@ step << Warrior !Human
 step << Warrior !Human
     #season 2
     .goto Ironforge,72.40,73.63
-    .gossipoption 109084 >>Talk to |cRXP_FRIENDLY_Bruart|r to start a fight
-    >>Defeat |cRXP_ENEMY_Bruart|r
-    >>|cRXP_WARN_Be careful as he casts|r |T132939:0|t[Backhand] |cRXP_WARN_(stuns you for 2 seconds)|r
-    >>|cRXP_WARN_Kite him upstairs to the balcony, then drop down outside the inn and use|r |T133688:0|t[Bandages] |cRXP_WARN_if you have them/if needed|r
-    .mob Bruart
+    .gossipoption 109084 >>与|cRXP_FRIENDLY_布鲁阿特|r交谈，开始战斗
+    >>击败 |cRXP_ENEMY_布鲁阿特|r
+    >>|cRXP_WARN_小心，他会施放|r |T132939:0|t[反手一击] |cRXP_WARN_，使你昏迷2秒。|r
+    >>|cRXP_WARN_把他风筝到楼上的阳台，再跳到旅店外；持有且需要时使用|r |T133688:0|t[绷带] |cRXP_WARN_回血。|r
+    .mob 布鲁阿特
     .skipgossip 209004,1
     .train 425447,1
 --XX 109084 "Seems you've had a few too many"
@@ -746,50 +753,50 @@ step << Warrior !Human
     #season 2
     .goto Ironforge,72.40,73.63,-1
     .goto Ironforge,72.53,76.94,-1
-    >>Defeat |cRXP_ENEMY_Bruart|r
-    >>|cRXP_WARN_Be careful as he casts|r |T132939:0|t[Backhand] |cRXP_WARN_(stuns you for 2 seconds)|r
-    >>|cRXP_WARN_Kite him upstairs to the balcony, then drop down outside the inn and use|r |T133688:0|t[Bandages] |cRXP_WARN_if you have them/if needed|r
-    >>|cRXP_WARN_After defeating |cRXP_ENEMY_Bruart|r:|r
-    >>Talk to |cRXP_FRIENDLY_Bruuk Barleybeard|r again to receive the |T134419:0|t[Rune of Frenzied Assault]
-    >>|cRXP_WARN_If he doesn't give you the|r |T134419:0|t[Rune of Frenzied Assault]|cRXP_WARN_, you may need to fight |cRXP_ENEMY_Bruart|r again|r
-    >>|cRXP_WARN_NOTE: This can be difficult to solo. You may need to look for help, otherwise you can do this again later in the guide|r
+    >>击败 |cRXP_ENEMY_布鲁阿特|r
+    >>|cRXP_WARN_小心，他会施放|r |T132939:0|t[反手一击] |cRXP_WARN_，使你昏迷2秒。|r
+    >>|cRXP_WARN_把他风筝到楼上的阳台，再跳到旅店外；持有且需要时使用|r |T133688:0|t[绷带] |cRXP_WARN_回血。|r
+    >>|cRXP_WARN_击败|cRXP_ENEMY_布鲁阿特|r后：|r
+    >>再次与|cRXP_FRIENDLY_布鲁克·麦须|r交谈，领取|T134419:0|t[狂乱攻击符文]
+    >>|cRXP_WARN_如果他没有给你|r |T134419:0|t[狂乱攻击符文]|cRXP_WARN_，可能需要再次与|cRXP_ENEMY_布鲁阿特|r战斗|r
+    >>|cRXP_WARN_注意：单独完成可能较难。你可能需要找人帮忙，也可以等指南后续再回来完成|r
     .collect 204716,1 --Rune of Frenzied Assault (1)
-    .target Bruuk Barleybeard
+    .target 布鲁克·麦须
     .skipgossip 5570,2,1
     .skipgossip 209004,1
     .train 425447,1
 --XX 109539 "I've taken care of Stuart. He shouldn't be a problem anymore."
 step << Warrior !Human
     #season 2
-    .train 425447 >>|cRXP_WARN_Use the|r |T134419:0|t[Rune of Frenzied Assault] |cRXP_WARN_to learn|r |T134596:0|t[Engrave Pants - Frenzied Assault]
+    .train 425447 >>|cRXP_WARN_使用|r |T134419:0|t[狂乱攻击符文] |cRXP_WARN_学习|r |T134596:0|t[铭刻裤子 - 狂乱攻击]
     .use 204716
     .itemcount 204716,1 --Rune of Frenzied Assault (1)
 step << Warrior !Human
     #season 2
     #completewith DRT
-    .engrave 7 >>|cRXP_WARN_Engrave your|r |T134596:0|t|cRXP_LOOT_[Pants]|r |cRXP_WARN_with|r |T134596:0|t[Engrave Pants - Frenzied Assault]
+    .engrave 7 >>|cRXP_WARN_在|r |T134596:0|t|cRXP_LOOT_[裤子]|r |cRXP_WARN_上铭刻|r |T134596:0|t[铭刻裤子 - 狂乱攻击]
     .train 425447,3
 step << Hunter
     #optional
     #completewith next
     .goto 1455,66.847,83.366,15,0
-    .goto Ironforge,70.86,85.83,15 >>Travel toward |cRXP_FRIENDLY_Belia Thundergranite|r
+    .goto Ironforge,70.86,85.83,15 >>前往 |cRXP_FRIENDLY_贝莉亚·雷岩|r
 step << Hunter
     .goto Ironforge,70.86,85.83
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Belia Thundergranite|r
-    .turnin 6086 >> Turn in Training the Beast
-    .target Belia Thundergranite
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_贝莉亚·雷岩|r交谈
+    .turnin 6086 >> 交任务：训练野兽
+    .target 贝莉亚·雷岩
 step << Paladin Dwarf
     #season 2
     #completewith next
     .goto Ironforge,71.54,73.46,10,0
-    .goto Ironforge,72.53,76.94,10 >>Travel toward |cRXP_FRIENDLY_Bruuk Barleybeard|r inside the Inn
+    .goto Ironforge,72.53,76.94,10 >>前往旅店内的|cRXP_FRIENDLY_布鲁克·麦须|r处
     .train 425621,1
 step << Paladin Dwarf
     #season 2
     .goto Ironforge,72.53,76.94
-    .gossipoption 110791 >>Talk to |cRXP_FRIENDLY_Bruuk Barleybeard|r inside
-    .target Bruuk Barleybeard
+    .gossipoption 110791 >>与里面的|cRXP_FRIENDLY_布鲁克·麦须|r交谈
+    .target 布鲁克·麦须
     .skipgossip 5570,1,1
     .train 425621,1
 --XX 110793 "How's business?"
@@ -797,13 +804,13 @@ step << Paladin Dwarf
 step << Paladin Dwarf
     #season 2
     .goto Ironforge,72.40,73.63
-    .gossipoption 109084 >>Talk to |cRXP_FRIENDLY_Bruart|r to start a fight
-    >>Defeat |cRXP_ENEMY_Bruart|r
-    >>|cRXP_WARN_Be careful as he casts|r |T132939:0|t[Backhand] |cRXP_WARN_(stuns you for 2 seconds)|r
-    >>|cRXP_WARN_Remember to pre-cast|r |T135924:0|t[Seal of the Crusader] |cRXP_WARN_on him|r
-    >>|cRXP_WARN_DO NOT accidentally cast|r |T135906:0|t[Blessing of Might] |cRXP_WARN_on him|r
-    >>|cRXP_WARN_Kite him upstairs to the balcony, then drop down outside the inn cast|r |T135920:0|t[Holy Light] |cRXP_WARN_if needed|r
-    .mob Bruart
+    .gossipoption 109084 >>与|cRXP_FRIENDLY_布鲁阿特|r交谈，开始战斗
+    >>击败 |cRXP_ENEMY_布鲁阿特|r
+    >>|cRXP_WARN_小心他施放|r |T132939:0|t[反手一击] |cRXP_WARN_（击晕你2秒）|r
+    >>|cRXP_WARN_记得提前施放|r |T135924:0|t[十字军圣印] |cRXP_WARN_，目标选择他|r
+    >>|cRXP_WARN_千万不要误将|r |T135906:0|t[力量祝福] |cRXP_WARN_施放给他|r
+    >>|cRXP_WARN_将他风筝到楼上的阳台，然后跳到旅店外，必要时施放|r |T135920:0|t[圣光术] |cRXP_WARN_治疗|r
+    .mob 布鲁阿特
     .skipgossip 209004,1
     .train 425621,1
 --XX 109084 "Seems you've had a few too many"
@@ -812,31 +819,31 @@ step << Paladin Dwarf
     #season 2
     .goto Ironforge,72.40,73.63,-1
     .goto Ironforge,72.53,76.94,-1
-    >>Defeat |cRXP_ENEMY_Bruart|r
-    >>|cRXP_WARN_Be careful as he casts|r |T132939:0|t[Backhand] |cRXP_WARN_(stuns you for 2 seconds)|r
-    >>|cRXP_WARN_Remember to pre-cast|r |T135924:0|t[Seal of the Crusader] |cRXP_WARN_on him|r
-    >>|cRXP_WARN_DO NOT accidentally cast|r |T135906:0|t[Blessing of Might] |cRXP_WARN_on him|r
-    >>|cRXP_WARN_Kite him upstairs to the balcony, then drop down outside the inn cast|r |T135920:0|t[Holy Light] |cRXP_WARN_if needed|r
-    >>|cRXP_WARN_After defeating |cRXP_ENEMY_Bruart|r:|r
-    >>Talk to |cRXP_FRIENDLY_Bruuk Barleybeard|r again to receive the |T134419:0|t[Rune of Rebuke]
-    >>|cRXP_WARN_If he doesn't give you the|r |T134419:0|t[Rune of Rebuke]|cRXP_WARN_, you may need to fight |cRXP_ENEMY_Bruart|r again|r
+    >>击败 |cRXP_ENEMY_布鲁阿特|r
+    >>|cRXP_WARN_小心，他会施放|r |T132939:0|t[反手一击] |cRXP_WARN_，使你昏迷2秒。|r
+    >>|cRXP_WARN_记得提前施放|r |T135924:0|t[十字军圣印] |cRXP_WARN_，目标选择他|r
+    >>|cRXP_WARN_千万不要误将|r |T135906:0|t[力量祝福] |cRXP_WARN_施放给他|r
+    >>|cRXP_WARN_将他风筝到楼上的阳台，然后跳到旅店外，必要时施放|r |T135920:0|t[圣光术] |cRXP_WARN_治疗|r
+    >>|cRXP_WARN_击败|cRXP_ENEMY_布鲁阿特|r后：|r
+    >>再次与|cRXP_FRIENDLY_布鲁克·麦须|r交谈，领取|T134419:0|t[责难符文]
+    >>|cRXP_WARN_如果他没有给你|r |T134419:0|t[责难符文]|cRXP_WARN_，可能需要再次与|cRXP_ENEMY_布鲁阿特|r战斗|r
     .collect 205683,1 --Rune of Rebuke (1)
-    .target Bruuk Barleybeard
+    .target 布鲁克·麦须
     .skipgossip 5570,2,1
     .skipgossip 209004,1
     .train 425621,1
 --XX 109539 "I've taken care of Stuart. He shouldn't be a problem anymore."
 step << Paladin Dwarf
     #season 2
-    .cast 402265 >>|cRXP_WARN_Use the|r |T134419:0|t[Rune of Rebuke] |cRXP_WARN_to learn|r |T134596:0|t[Engrave Pants - Rebuke]
+    .cast 402265 >>|cRXP_WARN_使用|r |T134419:0|t[责难符文] |cRXP_WARN_学习|r |T134596:0|t[铭刻裤子 - 责难]
     .use 205683
     .itemcount 205683,1 --Rune of Rebuke (1)
     .train 425621,1
 step << Paladin Dwarf
     #season 2
     #completewith DRT
-    .engrave 7 >>|cRXP_WARN_Engrave your|r |T134596:0|t|cRXP_LOOT_[Pants]|r with|r |T134596:0|t[Engrave Pants - Rebuke]
-    >>|cRXP_WARN_Remember to put|r |T134919:0|t[Rebuke] |cRXP_WARN_onto your action bars|r
+    .engrave 7 >>|cRXP_WARN_在|r |T134596:0|t|cRXP_LOOT_[裤子]|r上铭刻|r |T134596:0|t[铭刻裤子 - 责难]
+    >>|cRXP_WARN_记得把|r |T134919:0|t[责难] |cRXP_WARN_放到动作条上。|r
     .train 425621,3
 -- step << Dwarf/Gnome
 --     #label Ride
@@ -844,240 +851,258 @@ step << Paladin Dwarf
 --     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Golnir Bouldertoe|r inside
 --     .fly Loch >> Fly to Loch modan
 --     .target Golnir Bouldertoe
-step << Dwarf/Gnome
+step
+    #optional
     #label DRT
+step << Dwarf/Gnome
     #completewith TramEnd
     .goto Ironforge,78.00,51.40
-    .subzone 2257 >>Enter the Deeprun Tram
+    .subzone 2257 >>进入矿道地铁
 step << Dwarf/Gnome
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Monty|r on the middle platform in the Deeprun Tram
-    .accept 6661 >> Accept Deeprun Rat Roundup
-    .target Monty
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与矿道地铁中央站台上的|cRXP_FRIENDLY_蒙提|r交谈
+    .accept 6661 >> 接受任务：捕捉矿道老鼠
+    .target 蒙提
 step << Dwarf/Gnome
-    >>Use the |T133942:0|t[Rat Catcher's Flute] on |cRXP_FRIENDLY_Deeprun Rats|r in the Deeprun Tram
+    >>在矿道地铁中使用|T133942:0|t[捕鼠者之笛]，目标选择|cRXP_FRIENDLY_矿道老鼠|r
     .complete 6661,1 --Rats Captured (x5)
     .use 17117
-    .mob Deeprun Rat
+    .mob 矿道老鼠
 step << Dwarf/Gnome
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Monty|r on the middle platform in the Deeprun Tram
-    >>He will roleplay for a couple seconds after turning in the first quest. |cRXP_WARN_Skip the follow-up if waiting would make you miss the tram|r
-    .turnin 6661 >> Turn in Deeprun Rat Roundup
-    .timer 11,Deeprun Rat Roundup RP
-    .accept 6662 >> Accept Me Brother, Nipsy
-    .target Monty
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与矿道地铁中央站台上的|cRXP_FRIENDLY_蒙提|r交谈
+    >>交完第一个任务后，他会进行几秒钟的剧情演出。|cRXP_WARN_如果等待会让你错过地铁，就跳过后续任务|r
+    .turnin 6661 >> 交任务：捕捉矿道老鼠
+    .timer 11,捕捉矿道老鼠剧情
+    .accept 6662 >> 接受任务：我的兄弟，尼普希
+    .target 蒙提
 step << Dwarf/Gnome
     #label TramEnd
-    >>|cRXP_WARN_Take the Deeprun Tram to the Stormwind side|r
-    >>|cRXP_WARN_Level your|r |T135966:0|t[First Aid] |cRXP_WARN_while waiting for the Tram to Stormwind City if needed|r << Rogue/Warrior/Paladin
-    >>|cRXP_WARN_You will need your|r |T135966:0|t[First Aid] |cRXP_WARN_to be 80 for a quest at level 24|r << Rogue !Dwarf
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Nipsy|r on the middle platform on the Stormwind side of the Deeprun Tram
-    .turnin 6662 >> Turn in Me Brother, Nipsy
+    >>|cRXP_WARN_乘坐矿道地铁前往暴风城一侧|r
+    >>|cRXP_WARN_如有需要，等待前往暴风城的地铁时，可以提升|r |T135966:0|t[急救] |cRXP_WARN_技能|r << Rogue/Warrior/Paladin
+    >>|cRXP_WARN_你在24级时需要完成一个要求|r |T135966:0|t[急救] |cRXP_WARN_达到80的任务|r << Rogue !Dwarf
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与矿道地铁暴风城一侧中央站台上的|cRXP_FRIENDLY_尼普希|r交谈
+    .turnin 6662 >> 交任务：我的兄弟，尼普希
     .isOnQuest 6662
-    .target Nipsy
+    .target 尼普希
     .subzoneskip 2257,1 --Deeprun Tram
 step << Dwarf/Gnome
     #optional
-    #completewith Order
-    .zone Stormwind City >> Enter Stormwind
-    .isOnQuest 1338
+    #completewith next
+    .zone Stormwind City >> 乘地铁到暴风城一侧，出站进入暴风城
 step << !Human
     .goto StormwindClassic,51.757,12.091
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Grimand Elmore|r
-    .accept 353 >> Accept Stormpike's Delivery
-    .target Grimand Elmore
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_格瑞曼德·艾尔默|r交谈
+    .accept 353 >> 接受任务：雷矛的包裹
+    .target 格瑞曼德·艾尔默
 step << Dwarf Priest
     #optional
     #completewith next
-    .goto StormwindClassic,42.51,33.51,20 >> Travel to the Stormwind Cathedral
+    .goto StormwindClassic,42.51,33.51,20 >> 前往暴风城大教堂
 step << Priest Dwarf
     .goto StormwindClassic,38.54,26.86
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_High Priestess Laurena|r
-    .trainer >> Train your class spells
-    .turnin 5634 >> Turn in Desperate Prayer
-    .target High Priestess Laurena
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_高阶牧师劳瑞娜|r交谈
+    .trainer >> 学习职业技能
+    .turnin 5634 >> 交任务：绝望祷言
+    .target 高阶牧师劳瑞娜
 step << Priest Dwarf
     .goto StormwindClassic,38.62,26.10
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_High Priestess Laurena|r
-    .train 13908 >> Train Desperate Prayer
-    .target High Priestess Laurena
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_高阶牧师劳瑞娜|r交谈
+    .train 13908 >> 学习绝望祷言
+    .target 高阶牧师劳瑞娜
 step << Warrior !Human
     .goto StormwindClassic,76.08,50.14,15,0
     .goto StormwindClassic,80.22,45.37,15,0
 	.goto StormwindClassic,78.503,45.712
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ilsa Corbin|r
-    .trainer >> Train your class spells
-    .accept 1638 >> Accept A Warrior's Training
-    .target Ilsa Corbin
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_伊尔萨·考宾|r交谈
+    .trainer >> 学习职业技能
+    .accept 1638 >> 接受任务：战士的训练
+    .target 伊尔萨·考宾
 step << Warrior !Human
     #optional
     #completewith next
     .goto StormwindClassic,72.878,51.582,17,0
-    .goto StormwindClassic,71.7,39.9,12 >> Enter the Tavern
+    .goto StormwindClassic,71.7,39.9,12 >> 进入酒馆
 step << Warrior !Human
     .goto StormwindClassic,74.249,37.244
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Harry Burlguard|r
-    .turnin 1638 >> Turn in A Warrior's Training
-    .accept 1639 >> Accept Bartleby the Drunk
-    .target Harry Burlguard
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_哈里·伯加德|r交谈
+    .turnin 1638 >> 交任务：战士的训练
+    .accept 1639 >> 接受任务：醉鬼巴特莱比
+    .target 哈里·伯加德
 step << Warrior !Human
     .goto StormwindClassic,73.787,36.323
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Bartleby|r
-    .turnin 1639 >> Turn in Bartleby the Drunk
-    .accept 1640 >> Accept Beat Bartleby
-    .target Bartleby
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_巴特莱比|r交谈
+    .turnin 1639 >> 交任务：醉鬼巴特莱比
+    .accept 1640 >> 接受任务：击败巴特莱比
+    .target 巴特莱比
 step << Warrior !Human
     .goto StormwindClassic,73.787,36.323
-    >>Defeat |cRXP_ENEMY_Bartleby|r
+    >>击败|cRXP_ENEMY_巴特莱比|r
     .complete 1640,1 --Beat Bartleby
-    .mob Bartleby
+    .mob 巴特莱比
 step << Warrior !Human
     .goto StormwindClassic,73.787,36.323
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Bartleby|r
-    .turnin 1640 >> Turn in Beat Bartleby
-    .accept 1665 >> Accept Bartleby's Mug
-    .target Bartleby
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_巴特莱比|r交谈
+    .turnin 1640 >> 交任务：击败巴特莱比
+    .accept 1665 >> 接受任务：巴特莱比的酒杯
+    .target 巴特莱比
 step << Warrior !Human
     .goto StormwindClassic,74.249,37.244
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Harry Burlguard|r
-    .turnin 1665 >> Turn in Bartleby's Mug
-    .target Harry Burlguard
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_哈里·伯加德|r交谈
+    .turnin 1665 >> 交任务：巴特莱比的酒杯
+    .target 哈里·伯加德
 step << Warlock !Human
     #optional
     #completewith next
     .goto StormwindClassic,29.2,74.0,20,0
-    .goto StormwindClassic,27.2,78.1,15 >> Travel to The Slaughtered Lamb and go downstairs
+    .goto StormwindClassic,27.2,78.1,15 >> 前往屠羊酒馆，然后下楼
 step << Warlock !Human
     .goto StormwindClassic,26.117,77.225
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ursula Deline|r
-    .trainer >> Train your class spells
-    .target Ursula Deline
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_厄苏拉·德林|r交谈
+    .trainer >> 学习职业技能
+    .target 厄苏拉·德林
 step << Warlock !Human
     .goto StormwindClassic,25.25,78.59
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gakin the Darkbinder|r
-    .accept 1688 >> Accept Surena Caledon
-    .target Gakin the Darkbinder
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_黑暗缚灵者加科因|r交谈
+    .accept 1688 >> 接受任务：苏伦娜·凯尔东
+    .target 黑暗缚灵者加科因
 step << Warlock !Human
     #softcore
-    .deathskip >> Die and respawn at the Spirit Healer by using |T136126:0|t[Life Tap] and standing on the Bonfire next to you
-    .target Spirit Healer
+    .deathskip >> 使用|T136126:0|t[生命分流]并站在身旁的篝火上，死亡后在灵魂医者处复活
+    .target 灵魂医者
     .isOnQuest 1688
 step << Warlock !Human
     .goto Elwynn Forest,42.105,65.927
-    .zone Elwynn Forest >> Travel to Elwynn Forest
+    .zone Elwynn Forest >> 前往艾尔文森林
     .isOnQuest 1688
 step << Warlock !Human
     #label SChoker
     .goto Elwynn Forest,71.10,80.66
-    >>Kill |cRXP_ENEMY_Surena Caledon|r. Loot her for her |cRXP_LOOT_Choker|r
-    >>|cRXP_WARN_Focus on killing |cRXP_ENEMY_Surena Caledon|r very quickly|r
-    >>|cRXP_WARN_Cast|r |T136183:0|t[Fear] |cRXP_WARN_on |cRXP_ENEMY_Morgan the Collector|r continously|r
+    >>击杀|cRXP_ENEMY_苏伦娜·凯尔东|r，拾取她的|cRXP_LOOT_项圈|r
+    >>|cRXP_WARN_集中火力，迅速击杀|cRXP_ENEMY_苏伦娜·凯尔东|r
+    >>|cRXP_WARN_持续施放|r |T136183:0|t[恐惧术] |cRXP_WARN_来控制|cRXP_ENEMY_收货人莫根|r
     .complete 1688,1 --Surena's Choker (1)
-    .mob Surena Caledon
+    .mob 苏伦娜·凯尔东
 step << Warlock !Human
     #optional
     #label WlockRedridge
     #completewith next
     .goto Redridge Mountains,17.4,69.6
-    .zone Redridge Mountains >> Travel to Redridge Mountains
+    .zone Redridge Mountains >> 前往赤脊山
 step << Warlock !Human
     .goto Redridge Mountains,17.4,69.6
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Guard Parker|r
-    .accept 244 >> Accept Encroaching Gnolls
-    .target Guard Parker
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_卫兵帕克|r交谈
+    .accept 244 >> 接受任务：豺狼人的入侵
+    .target 卫兵帕克
 step << Warlock !Human
     .goto Redridge Mountains,30.733,59.996
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Deputy Feldon|r
-    >>|cRXP_WARN_Be careful of high level mobs en route|r
-    .turnin 244 >> Turn in Encroaching Gnolls
-    .target Deputy Feldon
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_菲尔顿副队长|r交谈
+    >>|cRXP_WARN_小心沿途的高级怪物|r
+    .turnin 244 >> 交任务：豺狼人的入侵
+    .target 菲尔顿副队长
 step << Warlock !Human
     .goto Redridge Mountains,30.590,59.410
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ariena Stormfeather|r
-    .fp Redridge Mountains >> Get the Redridge Mountains flight path
-    .target Ariena Stormfeather
-step << !Human
-    .hs >> Hearth to Loch Modan
-    .cooldown item,6948,>0,1 << !Warlock
-step << !Warlock !Human
-    #label end
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gryth Thurden|r
-    .goto Ironforge,55.501,47.742
-    .fly Loch Modan >> Fly to Loch Modan
-    .target Gryth Thurden
-    .zoneskip Loch Modan
-    .zoneskip Dun Morogh
-    .zoneskip Wetlands
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_艾蕾娜·斯托姆法瑟|r交谈
+    .fp Redridge Mountains >> 开通赤脊山的飞行点
+    .target 艾蕾娜·斯托姆法瑟
 step << Dwarf Paladin/Dwarf Hunter
+    .train 407798,1 << Paladin
+    .train 409580,1 << Hunter
     .goto Stormwind City,74.182,7.465
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Milton Sheaf|r
-    >>Buy the |T133745:0|t|cRXP_LOOT_[Testament of Martyrdom]|r from him, use it to train |T135961:0|t[Seal of Martyrdom] << Paladin
-    >>Buy the |T133739:0|t|cRXP_LOOT_[Treatise on the Heart of the Lion]|r from him, use it to train |T132185:0|t[Heart of the Lion] << Hunter
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_米尔顿·西弗|r交谈
+    >>从米尔顿那里购买|T133745:0|t[|cRXP_LOOT_论述：殉道|r]，使用后学习|T135961:0|t[殉道圣印] << Paladin
+    >>从他那里购买|T133739:0|t[|cRXP_LOOT_论述：雄狮之心|r]，使用后学习|T132185:0|t[雄狮之心] << Hunter
     .collect 226401,1 << Hunter
     .collect 226398,1 << Paladin
 step << Dwarf Paladin/Dwarf Hunter
+    .use 226398 << Paladin
+    .use 226401 << Hunter
+    .train 407798 >>使用论述：殉道，学习殉道圣印 << Paladin
+    .train 409580 >>使用论述：雄狮之心，学习雄狮之心 << Hunter
+step << Dwarf Paladin/Dwarf Hunter
+    #optional
     .goto Stormwind City,74.182,7.465
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Milton Sheaf|r
-    >>If you have a lot of spare money you can buy the other two Testaments from milton for later use << Paladin
-    >>If you have a lot of spare money buy the |T133739:0|t|cRXP_LOOT_[Treatise on Aspect of the Viper]|r from him as well << Hunter
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_米尔顿·西弗|r交谈
+    >>如果手头宽裕，可以从米尔顿那里再购买另外两份“论述”，留待以后使用。 << Paladin
+    >>如果手头宽裕，也可以从他那里购买|T133739:0|t[|cRXP_LOOT_论述：蝰蛇守护|r]。 << Hunter
     .collect 216768,1 << Paladin -- Testament of Enhanced Blessings
     .collect 226400,1 << Paladin -- Testament of the Exorcist
     .collect 216770,1 << Hunter -- Treatise on Aspect of the Viper
     .money <5
 step << !Human
+    .use 6948
+    .bind 144,1
+    .hs >> 使用炉石返回洛克莫丹
+    .cooldown item,6948,>0,1 << !Warlock
+step << !Human !Warlock
+    .zoneskip Loch Modan
+    .zoneskip Dun Morogh
+    .zoneskip Wetlands
+    .goto StormwindClassic,63.9,8.3,25,0
+    .zone Ironforge >>若未使用炉石，进入矿道地铁并乘车返回铁炉堡，再乘狮鹫前往洛克莫丹
+step << !Warlock !Human
+    #label end
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_格莱斯·瑟登|r交谈
+    .goto Ironforge,55.501,47.742
+    .fly Loch Modan >> 飞往洛克莫丹
+    .target 格莱斯·瑟登
+    .zoneskip Loch Modan
+    .zoneskip Dun Morogh
+    .zoneskip Wetlands
+step << !Human
     .goto Loch Modan,34.8,48.6
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Yanni Stoutheart|r inside
-    .vendor >> |cRXP_BUY_Vendor trash, buy up to four|r |T133634:0|t[Small Brown Pouches] |cRXP_BUY_if you still need|r
-    .target Yanni Stoutheart
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与里面的|cRXP_FRIENDLY_雅尼·铁心|r交谈
+    .vendor >> |cRXP_BUY_出售杂物，如仍有需要，购买至多四个|r |T133634:0|t[棕色小包] |cRXP_BUY_作为背包|r
+    .target 雅尼·铁心
 ]])
-
 RXPGuides.RegisterGuide([[
+#groupweight 500
+#groupdisplayname RestedXP 经典旧世 1-60（联盟）
 #classic
 #version 1
 #season 2
 << Alliance
 #group RestedXP Alliance 1-20
+#subgroupdisplayname 1-20 << tbc
+#subgroupdisplayname 1-20
 #groupid RXP-SRGCE-A1
 #name 13-16 Loch Modan SoD
-#displayname 13-16 Loch Modan
 #next 16-17 Westfall SoD
 #defaultfor !NightElf
-
+#displayname 13-16 洛克莫丹
 step << Hunter
 #optional
     .goto Loch Modan,35.828,43.457
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Vrok Blunderblast|r
-    >>|cRXP_BUY_Buy a|r |T135613:0|t[Hunter's Boomstick] |cRXP_BUY_if you can afford it|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_维罗克·乱枪|r交谈
+    >>|cRXP_BUY_如果买得起，可购买|r |T135613:0|t[猎人火枪]|cRXP_BUY_。|r
     .collect 2511,1
     .money <0.1300
-    .target Vrok Blunderblast
+    .target 维罗克·乱枪
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<5.00
 step << Dwarf/Gnome
     .goto Loch Modan,37.17,47.94,8,0
     .goto Loch Modan,37.019,47.806
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Brock Stoneseeker|r
-    .turnin 6392 >> Turn in Return to Brock
-    .target Brock Stoneseeker
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_布洛克·寻石者|r交谈
+    .turnin 6392 >> 交任务：向布洛克回复
+    .target 布洛克·寻石者
 step
     .goto Loch Modan,22.071,73.127
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mountaineer Cobbleflint|r
-    .accept 224 >> Accept In Defense of the King's Lands
-    .target Mountaineer Cobbleflint
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_巡山人库伯弗林特|r交谈
+    .accept 224 >> 接任务：保卫国王的领土
+    .target 巡山人库伯弗林特
 step
     #optional
     #completewith next
     .goto Loch Modan,23.27,75.65,12,0
     .goto Loch Modan,23.62,75.42,12,0
-    .goto Loch Modan,23.12,73.93,12 >> Enter the Bunker. Go to the top floor
+    .goto Loch Modan,23.12,73.93,12 >> 进入地堡，前往顶层
 step
     .goto Loch Modan,23.233,73.675
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Captain Rugelfuss|r inside the bunker
-    .accept 267 >> Accept The Trogg Threat
-    .target Captain Rugelfuss
-
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与地堡内的|cRXP_FRIENDLY_拉格弗斯上尉|r交谈
+    .accept 267 >> 接任务：穴居人的威胁
+    .target 拉格弗斯上尉
 step
 #completewith next
     .goto Loch Modan,30.0,68.4,0
-    .goto Loch Modan,30.0,68.4,30,0 >> Head to Stonesplinter Valley
+    .goto Loch Modan,30.0,68.4,30,0 >> 前往碎石裂谷
     .subzoneskip 923
 step << Warrior
     #season 2
@@ -1093,29 +1118,30 @@ step << Warrior
     .waypoint Loch Modan,33.35,71.59,50,0
     .waypoint Loch Modan,31.54,74.96,50,0
     .waypoint Loch Modan,33.88,76.58,50,0
-    >>Kill |cRXP_ENEMY_Troggs|r. Loot them for a |cRXP_LOOT_Skull-Shaped Geode|r
+    >>击杀 |cRXP_ENEMY_穴居人|r, 搜刮 |cRXP_LOOT_头骨形晶簇|r
     .collect 208847,1 -- Skull-Shaped Geode (1)
-    .mob Stonesplinter Scout
-    .mob Stonesplinter Trogg
+    .mob 碎石怪斥候
+    .mob 碎石穴居人
     .train 425443,1
 step << Warrior
     #season 2
     #sticky
     #label geode2
     #requires Geode
-    .goto Loch Modan,33.2,73.8,0,0
-    >>Attack a |cRXP_ENEMY_Stonesplinter Skullthumper|r
-    >>|cRXP_WARN_During combat it'll hit you, turning the |cRXP_LOOT_Skull-Shaped Geode|r into a|r |T236489:0|t[|cRXP_LOOT_Cracked Skull-Shaped Geode|r]
+    .goto Loch Modan,36.11,83.55,0,0
+    >>攻击一名 |cRXP_ENEMY_碎石怪击颅者|r
+    >>|cRXP_WARN_战斗中让它击中你，将|cRXP_LOOT_头骨形晶簇|r变成|r |T236489:0|t[|cRXP_LOOT_开裂的头骨形晶簇|r]
     .collect 208848,1 -- Cracked Skull-Shaped Geode (1)
-    .mob Stonesplinter Skullthumper
+    .mob 碎石怪击颅者
     .train 425443,1
 step << Warrior
-    .goto Loch Modan,33.2,73.8,0,0
     #season 2
     #sticky
     #requires geode2
-    .use 208848 >>|cRXP_WARN_Use the|r |T236489:0|t[|cRXP_LOOT_Cracked Skull-Shaped Geode|r] |cRXP_WARN_to receive the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Quick Strike|r]
+    .use 208848 >>|cRXP_WARN_使用|r |T236489:0|t[|cRXP_LOOT_开裂的头骨形晶簇|r] |cRXP_WARN_获得|r |T134419:0|t[|cRXP_FRIENDLY_迅捷打击符文|r]
     .collect 208778,1 -- Rune of Quick Strike (1)
+    .train 425443 >>使用|T134419:0|t[|cRXP_FRIENDLY_迅捷打击符文|r]学习|T132394:0|t[迅捷打击]
+    .use 208778
     .train 425443,1
 step << Mage
     #sticky
@@ -1129,13 +1155,13 @@ step << Mage
     .goto Loch Modan,30.0,72.4,50,0
     .goto Loch Modan,34.7,71.6,50,0
     .goto Loch Modan,30.9,81.1,50,0
-    >>Kill |cRXP_ENEMY_Stonesplinter Troggs|r and |cRXP_ENEMY_Stonesplinter Scouts|r. Loot them for their |cRXP_LOOT_Trogg Stone Teeth|r
-    >>|cRXP_WARN_Be careful as |cRXP_ENEMY_Stonesplinter Scouts|r cast|r |T132222:0|t[Shoot] |cRXP_WARN_(Ranged Cast: Deals 14-20 damage)|r
+    >>击杀 |cRXP_ENEMY_碎石穴居人|r 和 |cRXP_ENEMY_碎石怪斥候|r, 搜刮 |cRXP_LOOT_穴居人的石牙|r
+    >>|cRXP_WARN_小心，|cRXP_ENEMY_碎石怪斥候|r会施放|r |T132222:0|t[射击] |cRXP_WARN_（远程施法：造成14-20点伤害）|r
     .complete 224,1 --Kill Stonesplinter Trogg (x10)
     .complete 224,2 --Kill Stonesplinter Scout (x10)
     .complete 267,1 --Collect Trogg Stone Tooth (x8)
-    .mob Stonesplinter Trogg
-    .mob Stonesplinter Scout
+    .mob 碎石穴居人
+    .mob 碎石怪斥候
 step << Mage
     #season 2
     .goto Loch Modan,29.2,81.2,15,0
@@ -1147,13 +1173,13 @@ step << Mage
     .goto Loch Modan,36.6,81.2,15,0
     .goto Loch Modan,36.6,79.6,15,0
     .train 415936,1
-    >>Kill |cRXP_ENEMY_Stonesplinter Seers|r and loot them for |cRXP_LOOT_|T134939:0|t[Chewed Spell Notes]|r
+    >>击杀 |cRXP_ENEMY_碎石怪先知|r 并搜刮 |cRXP_LOOT_|T134939:0|t[嚼过的法术笔记]|r
     .collect 208854,1
-    .mob Stonesplinter Seer
+    .mob 碎石怪先知
 step << Mage
     #season 2
-    .collect 211779,1 >>You need a |T135933:0|t[Comprehension Charm] from a |cRXP_FRIENDLY_Reagent Vendor|r to use the item.
-    .train 415936 >>|T134939:0|t[|cRXP_FRIENDLY_Chewed Spell Notes|r] to learn |T236220:0|t[Living Bomb]
+    .collect 211779,1 >>使用该物品前，需要先购买|T135933:0|t[理解魔符]，出售者为|cRXP_FRIENDLY_施法材料商|r。
+    .train 415936 >>使用|T134939:0|t[|cRXP_FRIENDLY_嚼过的法术笔记|r]学习|T236220:0|t[活动炸弹]
     .train 415936,1
     .use 208854
 step
@@ -1168,47 +1194,48 @@ step
     .goto Loch Modan,30.0,72.4,50,0
     .goto Loch Modan,34.7,71.6,50,0
     .goto Loch Modan,30.9,81.1,50,0
-    >>Kill |cRXP_ENEMY_Stonesplinter Troggs|r and |cRXP_ENEMY_Stonesplinter Scouts|r. Loot them for their |cRXP_LOOT_Trogg Stone Teeth|r
-    >>|cRXP_WARN_Be careful as |cRXP_ENEMY_Stonesplinter Scouts|r cast|r |T132222:0|t[Shoot] |cRXP_WARN_(Ranged Cast: Deals 14-20 damage)|r
+    >>击杀 |cRXP_ENEMY_碎石穴居人|r 和 |cRXP_ENEMY_碎石怪斥候|r, 搜刮 |cRXP_LOOT_穴居人的石牙|r
+    >>|cRXP_WARN_小心，|cRXP_ENEMY_碎石怪斥候|r会施放|r |T132222:0|t[射击] |cRXP_WARN_（远程施法：造成14-20点伤害）|r
     .complete 224,1 --Kill Stonesplinter Trogg (x10)
     .complete 224,2 --Kill Stonesplinter Scout (x10)
     .complete 267,1 --Collect Trogg Stone Tooth (x8)
-    .mob Stonesplinter Trogg
-    .mob Stonesplinter Scout
+    .mob 碎石穴居人
+    .mob 碎石怪斥候
 step
     #requires geode2 << Warrior
     .goto Loch Modan,23.233,73.675
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Captain Rugelfuss|r inside the bunker
-    .turnin 267 >> Turn in The Trogg Threat
-    .target Captain Rugelfuss
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与地堡内的|cRXP_FRIENDLY_拉格弗斯上尉|r交谈
+    .turnin 267 >> 交任务：穴居人的威胁
+    .target 拉格弗斯上尉
 step
     .goto Loch Modan,22.071,73.127
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mountaineer Cobbleflint|r
-    .turnin 224 >> Turn in In Defense of the King's Lands
-    .target Mountaineer Cobbleflint
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_巡山人库伯弗林特|r交谈
+    .turnin 224 >> 交任务：保卫国王的领土
+    .target 巡山人库伯弗林特
 step << !Human
+    .use 6948
+    .bind 144,1
     #completewith Algaz
-    .hs >> Hearth to Thelsamar
+    .hs >> 炉石返回塞尔萨玛
     .cooldown item,6948,>0
     .subzoneskip 924,1--valley of kings
-
 step
     #optional
     #completewith Algaz2
-    >>Kill |cRXP_ENEMY_Elder Black Bears|r. Loot them for their |cRXP_LOOT_Bear Meat|r
-    >>Kill |cRXP_ENEMY_Mountain Boars|r. Loot them for their |cRXP_LOOT_Boar Intestines|r
-    >>Kill |cRXP_ENEMY_Forest Lurkers|r. Loot them for their |cRXP_LOOT_Spider Ichor|r
-    >>Save any |cRXP_LOOT_Crisp Spider Meat|r you find for a quest later
-    .collect 1081,5,92,1
+    >>击杀 |cRXP_ENEMY_老黑熊|r, 搜刮 |cRXP_LOOT_熊肉|r
+    >>击杀 |cRXP_ENEMY_山猪|r, 搜刮 |cRXP_LOOT_猪大肠|r
+    >>击杀 |cRXP_ENEMY_森林潜伏者|r, 搜刮 |cRXP_LOOT_蜘蛛的毒液|r
+    >>保存找到的 |cRXP_LOOT_香脆蜘蛛肉|r, 留着以后做任务用
+    .collect 1081,5,92,0x7
     .disablecheckbox
-    .collect 3172,3,418,1 --Collect Boar Intestines (x3)
-    .mob +Mountain Boar
-    .collect 3173,3,418,1 --Collect Bear Meat (x3)
-    .mob +Elder Black Bear
-    .collect 3174,3,418,1 --Collect Spider Ichor (x3)
-    .mob +Forest Lurker
-    >>|cRXP_WARN_Save any|r |T133970:0|t|cRXP_LOOT_[Chunks of Boar Meat]|r |cRXP_WARN_to use for leveling |T133971:0|t[Cooking] |cRXP_WARN_later|r
-    >>|cRXP_WARN_Don't go out of your way to complete this right now. You'll come back to Loch Modan soon|r
+    .collect 3172,3,418,0x7 --Collect Boar Intestines (x3)
+    .mob +山猪
+    .collect 3173,3,418,0x7 --Collect Bear Meat (x3)
+    .mob +老黑熊
+    .collect 3174,3,418,0x7 --Collect Spider Ichor (x3)
+    .mob +森林潜伏者
+    >>|cRXP_WARN_保留找到的|r |T133970:0|t|cRXP_LOOT_[大块野猪肉]|r |cRXP_WARN_，留待稍后提升 |T133971:0|t[烹饪] |cRXP_WARN_技能时使用|r
+    >>|cRXP_WARN_现在不必特意去完成这个任务. 你很快就会回到洛克莫丹|r
     .isOnQuest 418
     .subzoneskip 925 --Algaz Station
 step
@@ -1216,60 +1243,60 @@ step
     #label Algaz
     #completewith Stormpike1
     .goto 1432,23.490,18.008
-    .subzone 925 >>Travel to Algaz Station
+    .subzone 925 >>前往奥加兹岗哨
 step
     #optional
     #requires Algaz
     #completewith Stormpike1
     .goto 1432,23.490,18.008,15,0
-    .goto 1432,24.279,17.959,12 >> Enter the Bunker. Go to the top floor
+    .goto 1432,24.279,17.959,12 >> 进入地堡，前往顶层
 step
     #label Stormpike1
     .goto Loch Modan,24.77,18.40
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mountaineer Stormpike|r inside the bunker
-    .turnin -353 >> Turn in Stormpike's Delivery
-    .turnin 1339 >> Turn in Mountaineer Stormpike's Task
-    .accept 1338 >> Accept Stormpike's Order
-    .accept 307 >> Accept Filthy Paws
-    .target Mountaineer Stormpike
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与地堡内的|cRXP_FRIENDLY_巡山人卡尔·雷矛|r交谈
+    .turnin -353 >> 交任务：雷矛的包裹
+    .turnin 1339 >> 交任务：巡山人卡尔·雷矛的任务
+    .accept 1338 >> 接任务：卡尔·雷矛的订单
+    .accept 307 >> 接任务：肮脏的爪子
+    .target 巡山人卡尔·雷矛
 step
     #label Algaz2
     #completewith next
-    .goto Loch Modan,35.50,18.97,20 >> Enter the Silver Stream Mine
+    .goto Loch Modan,35.50,18.97,20 >> 进入银泉矿洞
 step
     .goto Loch Modan,35.93,22.55
-    >>Open the |cRXP_PICK_Miners' League Crates|r. Loot them for the |cRXP_LOOT_Miners' Gear|r
-    >>|cRXP_WARN_The |cRXP_PICK_Miners' League Crates|r can be found all throughout the Mine|r
-    >>Kill |cRXP_ENEMY_Tunnel Rats|r. Loot them for their |cRXP_LOOT_Ears|r
+    >>打开 |cRXP_PICK_矿工联盟的储物箱|r, 搜刮 |cRXP_LOOT_矿工装备|r
+    >>|cRXP_WARN_整个矿洞内都能找到|cRXP_PICK_矿工联盟的储物箱|r|r
+    >>击杀 |cRXP_ENEMY_坑道鼠|r, 搜刮 |cRXP_LOOT_耳朵|r
     .complete 416,1 --Collect Tunnel Rat Ear (x12)
     .disablecheckbox
     .complete 307,1 -- Miners' Gear (4)
-    .mob Tunnel Rat Scout
-    .mob Tunnel Rat Vermin
-    .mob Tunnel Rat Forager
-    .mob Tunnel Rat Geomancer
-    .mob Tunnel Rat Digger
-    .mob Tunnel Rat Surveyor
+    .mob 坑道鼠斥候
+    .mob 坑道鼠歹徒
+    .mob 坑道鼠征粮官
+    .mob 坑道鼠地卜师
+    .mob 坑道鼠掘地工
+    .mob 坑道鼠勘探员
 step
     #optional
     #completewith RatEar
-    >>Kill |cRXP_ENEMY_Elder Black Bears|r. Loot them for their |cRXP_LOOT_Bear Meat|r
-    >>Kill |cRXP_ENEMY_Mountain Boars|r. Loot them for their |cRXP_LOOT_Boar Intestines|r
-    >>Kill |cRXP_ENEMY_Forest Lurkers|r. Loot them for their |cRXP_LOOT_Ichor|r
-    >>Save any |cRXP_LOOT_Crisp Spider Meat|r you find for a quest later
-    .collect 1081,5,92,1
+    >>击杀 |cRXP_ENEMY_老黑熊|r, 搜刮 |cRXP_LOOT_熊肉|r
+    >>击杀 |cRXP_ENEMY_山猪|r, 搜刮 |cRXP_LOOT_猪大肠|r
+    >>击杀 |cRXP_ENEMY_森林潜伏者|r, 搜刮 |cRXP_LOOT_蜘蛛的毒液|r
+    >>保存找到的 |cRXP_LOOT_香脆蜘蛛肉|r, 留着以后做任务用
+    .collect 1081,5,92,0x7
     .disablecheckbox
-    .collect 3172,3,418,1 --Collect Boar Intestines (x3)
-    .mob +Mountain Boar
-    .collect 3173,3,418,1 --Collect Bear Meat (x3)
-    .mob +Elder Black Bear
-    .collect 3174,3,418,1 --Collect Spider Ichor (x3)
-    .mob +Forest Lurker
+    .collect 3172,3,418,0x7 --Collect Boar Intestines (x3)
+    .mob +山猪
+    .collect 3173,3,418,0x7 --Collect Bear Meat (x3)
+    .mob +老黑熊
+    .collect 3174,3,418,0x7 --Collect Spider Ichor (x3)
+    .mob +森林潜伏者
 step
     .goto Loch Modan,24.77,18.40
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mountaineer Stormpike|r
-    .turnin 307 >> Turn in Filthy Paws
-    .target Mountaineer Stormpike
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_巡山人卡尔·雷矛|r交谈
+    .turnin 307 >> 交任务：肮脏的爪子
+    .target 巡山人卡尔·雷矛
 step << Mage
     #season 2
     #sticky
@@ -1282,36 +1309,36 @@ step << Mage
     .goto Loch Modan,25.05,30.19,0
     .goto Loch Modan,26.06,43.44,0
     .goto Loch Modan,37.71,16.84,0
-    >>Kill |cRXP_ENEMY_Tunnel Rats|r. Loot them for their |cRXP_LOOT_Ears|r
-    >>|cRXP_ENEMY_Tunnel Rats|r |cRXP_WARN_can spawn throughout Loch Modan. Check your World Map for their locations|r
+    >>击杀 |cRXP_ENEMY_坑道鼠|r, 搜刮 |cRXP_LOOT_耳朵|r
+    >>|cRXP_ENEMY_坑道鼠|r |cRXP_WARN_会在洛克莫丹各处刷新；可查看世界地图上的位置。|r
     .complete 416,1 --Collect Tunnel Rat Ear (x12)
-    .mob Tunnel Rat Scout
-    .mob Tunnel Rat Vermin
-    .mob Tunnel Rat Forager
-    .mob Tunnel Rat Geomancer
-    .mob Tunnel Rat Digger
-    .mob Tunnel Rat Surveyor
+    .mob 坑道鼠斥候
+    .mob 坑道鼠歹徒
+    .mob 坑道鼠征粮官
+    .mob 坑道鼠地卜师
+    .mob 坑道鼠掘地工
+    .mob 坑道鼠勘探员
 step << Mage
     #season 2
     #label Loch1
-    .goto Loch Modan,50.7,23.9,200 >>Travel to the island on the northern part of the Loch
+    .goto Loch Modan,50.7,23.9,200 >>前往洛赫湖北部的岛屿
     .train 401767,1
 step << Mage
     #season 2
     #optional
     #completewith next
-    .goto 1432,54.33,26.82,5 >> Enter the tent on the east side of the island
+    .goto 1432,54.33,26.82,5 >> 进入岛屿东侧的帐篷
     .train 401767,1
 step << Mage
     #season 2
     .goto 1432,54.33,26.82,5,0
     .goto 1432,54.17,27.03
-    >>Open the |cRXP_PICK_Pile of Stolen Books|r inside. Loot them for the |T134939:0|t[|cRXP_FRIENDLY_Spell Notes: TENGI RONEERA|r]
+    >>打开|cRXP_PICK_被盗的书堆|r，拾取|T134939:0|t[|cRXP_FRIENDLY_法术笔记：NIZHGAES|r]
     .collect 208754,1 --Spell Notes: TENGI RONEERA (1)
     .train 401767,1
 step << Mage
     #season 2
-    .train 401767 >>|cRXP_WARN_Use the|r |T134939:0|t[|cRXP_FRIENDLY_Spell Notes: TENGI RONEERA|r] |cRXP_WARN_to learn|r |T133815:0|t[Engrave Chest - Regeneration]
+    .train 401767 >>|cRXP_WARN_使用|r |T134939:0|t[|cRXP_FRIENDLY_法术笔记：NIZHGAES|r] |cRXP_WARN_学习|r |T133815:0|t[铭刻胸甲 - 再生]
     .use 208754
     .itemcount 208754,1 --Spell Notes: TENGI RONEERA (1)
 step << Paladin/Warrior
@@ -1319,14 +1346,14 @@ step << Paladin/Warrior
     #optional
     #completewith RatEar
     .goto Loch Modan,42.867,9.885
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Nillen Andemar|r
-    >>|cRXP_BUY_Buy the|r |T133476:0|t[Heavy Spiked Mace] |cRXP_BUY_from him (if it's up)|r
-    >>|cRXP_WARN_DON'T BUY THE|r |T133053:0|t[Ironwood Maul] |cRXP_WARN_if|r |T133476:0|t[Heavy Spiked Mace] |cRXP_WARN_is not there. You'll get a better weapon in stormwind shortly|r
-    >>|cRXP_WARN_If you can't afford this, but you're not far off then grind money from the nearby |cRXP_ENEMY_Tunnel Rats|r until you have enough|r
-    >>|cRXP_WARN_Do this quickly as another player may purchase it before you do|r
-    >>|cRXP_WARN_If you don't wish to do this, skip this step|r
-    .collect 4778,1,307,1 --Heavy Spiked Mace (1)
-    .target Nillen Andemar
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_尼尔伦·安德玛|r交谈
+    >>|cRXP_BUY_从他处购买|r |T133476:0|t[重型尖刺钉锤] |cRXP_BUY_（如果有货的话）|r
+    >>|cRXP_WARN_不要买|r |T133053:0|t[铁木槌]；|cRXP_WARN_若|r |T133476:0|t[重型尖刺钉锤] |cRXP_WARN_不在货架上，就跳过购买，因为你很快会在暴风城拿到更好的武器。|r
+    >>|cRXP_WARN_如果买不起但只差一点钱，就击杀附近的|cRXP_ENEMY_坑道鼠|r刷钱，直到攒够为止|r
+    >>|cRXP_WARN_尽快操作, 以防被其他玩家抢先买走|r
+    >>|cRXP_WARN_如果你不想做这些,就跳过此步骤|r
+    .collect 4778,1 --Heavy Spiked Mace (1)
+    .target 尼尔伦·安德玛
     .itemcount 4778,<1 --Heavy Spiked Mace (<1)
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<12.5
 step
@@ -1340,21 +1367,21 @@ step
     .goto Loch Modan,26.06,43.44,50,0
     .goto Loch Modan,37.71,16.84,50,0
     .goto Loch Modan,35.48,16.82
-    >>Kill |cRXP_ENEMY_Tunnel Rats|r. Loot them for their |cRXP_LOOT_Ears|r
-    >>|cRXP_ENEMY_Tunnel Rats|r |cRXP_WARN_can spawn throughout Loch Modan. Check your World Map for their locations|r
+    >>击杀 |cRXP_ENEMY_坑道鼠|r, 搜刮 |cRXP_LOOT_耳朵|r
+    >>|cRXP_ENEMY_坑道鼠|r |cRXP_WARN_会在洛克莫丹各处刷新；可查看世界地图上的位置。|r
     .complete 416,1 --Collect Tunnel Rat Ear (x12)
-    .mob Tunnel Rat Scout
-    .mob Tunnel Rat Vermin
-    .mob Tunnel Rat Forager
-    .mob Tunnel Rat Geomancer
-    .mob Tunnel Rat Digger
-    .mob Tunnel Rat Surveyor
+    .mob 坑道鼠斥候
+    .mob 坑道鼠歹徒
+    .mob 坑道鼠征粮官
+    .mob 坑道鼠地卜师
+    .mob 坑道鼠掘地工
+    .mob 坑道鼠勘探员
 step
-    >>Kill |cRXP_ENEMY_Elder Black Bears|r. Loot them for their |cRXP_LOOT_Bear Meat|r
-    >>Kill |cRXP_ENEMY_Mountain Boars|r. Loot them for their |cRXP_LOOT_Boar Intestines|r
-    >>Kill |cRXP_ENEMY_Forest Lurkers|r. Loot them for their |cRXP_LOOT_Ichor|r
-    .collect 3173,3,418,1 --Bear Meat (3)
-    .mob +Elder Black Bear
+    >>击杀 |cRXP_ENEMY_老黑熊|r, 搜刮 |cRXP_LOOT_熊肉|r
+    >>击杀 |cRXP_ENEMY_山猪|r, 搜刮 |cRXP_LOOT_猪大肠|r
+    >>击杀 |cRXP_ENEMY_森林潜伏者|r，拾取它们的 |cRXP_LOOT_毒液|r
+    .collect 3173,3,418,0x7 --Bear Meat (3)
+    .mob +老黑熊
     .goto Loch Modan,26.9,10.7,90,0
     .goto Loch Modan,30.9,10.6,90,0
     .goto Loch Modan,28.6,15.4,90,0
@@ -1368,8 +1395,8 @@ step
     .goto Loch Modan,33.4,30.3,90,0
     .goto Loch Modan,39.4,33.3,90,0
     .goto Loch Modan,26.9,10.7
-    .collect 3172,3,418,1 --Boar Intestines (3)
-    .mob +Mountain Boar
+    .collect 3172,3,418,0x7 --Boar Intestines (3)
+    .mob +山猪
     .goto Loch Modan,38.0,34.9,90,0
     .goto Loch Modan,37.1,39.8,90,0
     .goto Loch Modan,29.8,35.9,90,0
@@ -1381,7 +1408,7 @@ step
     .goto Loch Modan,27.7,25.3,90,0
     .goto Loch Modan,28.6,22.6,90,0
     .goto Loch Modan,38.0,34.9
-    .collect 3174,3,418,1 --Spider Ichor (3)
+    .collect 3174,3,418,0x7 --Spider Ichor (3)
     .goto Loch Modan,31.9,16.4,90,0
     .goto Loch Modan,28.0,20.6,90,0
     .goto Loch Modan,33.8,40.5,90,0
@@ -1393,14 +1420,14 @@ step
     .goto Loch Modan,36.2,30.9,90,0
     .goto Loch Modan,39.0,32.1,90,0
     .goto Loch Modan,31.9,16.4
-    .mob +Forest Lurker
+    .mob +森林潜伏者
 step
     #season 2
     .xp 16-4650
 step
     #completewith next
-    .deathskip >> Die and respawn at the Spirit Healer
-    .target Spirit Healer
+    .deathskip >> 死亡后在灵魂医者处复活
+    .target 灵魂医者
 step
     #label ratcatching
     #sticky
@@ -1413,44 +1440,49 @@ step
     .waypoint Loch Modan,35.19,46.88,15,0
     .waypoint Loch Modan,32.67,49.71,20,0
     .waypoint Loch Modan,36.77,46.20,15,0
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mountaineer Kadrell|r
-    >>|cRXP_FRIENDLY_Mountaineer Kadrell|r |cRXP_WARN_patrols the road through Thelsamar|r
-    .target Mountaineer Kadrell
-    .turnin 416 >> Turn in Rat Catching
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_巡山人卡德雷尔|r交谈
+    >>|cRXP_FRIENDLY_巡山人卡德雷尔|r |cRXP_WARN_沿塞尔萨玛的道路巡逻|r
+    .target 巡山人卡德雷尔
+    .turnin 416 >> 交任务：狗头人的耳朵
 step
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Vidra Hearthstove|r
-    .target Vidra Hearthstove
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_维德拉·壁炉|r交谈
+    .target 维德拉·壁炉
     .goto Loch Modan,34.828,49.283
-    .turnin 418 >> Turn in Thelsamar Blood Sausages
+    .turnin 418 >> 交任务：塞尔萨玛血肠
 step << Human
+    .use 6948
+    .bind 1519,1
     #requires ratcatching
-    .hs >> Hearth to Stormwind
+    .hs >> 炉石返回暴风城
 step << !Human
     #requires ratcatching
     .goto Loch Modan,33.938,50.954
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Thorgrum|r
-    .fly Ironforge >> Fly to Ironforge
-    .target Thorgrum Borrelson
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_索格拉姆|r交谈
+    .fly Ironforge >> 飞往铁炉堡
+    .target 索格拉姆·伯雷森
 step << Warrior/Hunter
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Regnus Thundergranite|r << Hunter
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Bilban Tosslespanner|r << Warrior
+    .goto StormwindClassic,78.503,45.712 << Warrior Human
+    >>与暴风城的伊尔萨·考宾交谈，学习16级职业技能 << Warrior Human
+    .target 伊尔萨·考宾 << Warrior Human
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_雷格努斯·雷石|r交谈 << Hunter
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_比尔班·飞钳|r交谈 << Warrior !Human
     .goto Ironforge,69.872,82.890 << Hunter
-    .goto Ironforge,65.905,88.405 << Warrior
-    .trainer >> Train your class spells
-    .target Regnus Thundergranite << Hunter
-    .target Bilban Tosslespanner << Warrior
+    .goto Ironforge,65.905,88.405 << Warrior !Human
+    .trainer >> 学习职业技能
+    .target 雷格努斯·雷石 << Hunter
+    .target 比尔班·飞钳 << Warrior !Human
 step << Warrior !Human
     #season 2
     #optional
     #completewith next
     .goto Ironforge,71.54,73.46,10,0
-    .goto Ironforge,72.53,76.94,10 >>Travel toward |cRXP_FRIENDLY_Bruuk Barleybeard|r inside the Inn
+    .goto Ironforge,72.53,76.94,10 >>前往旅店内的 |cRXP_FRIENDLY_布鲁克·麦须|r
     .train 425447,1
 step << Warrior !Human
     #season 2
     .goto Ironforge,72.53,76.94
-    .gossipoption 110791 >>Talk to |cRXP_FRIENDLY_Bruuk Barleybeard|r inside
-    .target Bruuk Barleybeard
+    .gossipoption 110791 >>与屋内的 |cRXP_FRIENDLY_布鲁克·麦须|r交谈
+    .target 布鲁克·麦须
     .skipgossip 5570,1,1
     .train 425447,1
 --XX 110793 "How's business?"
@@ -1458,11 +1490,11 @@ step << Warrior !Human
 step << Warrior !Human
     #season 2
     .goto Ironforge,72.40,73.63
-    .gossipoption 109084 >>Talk to |cRXP_FRIENDLY_Bruart|r to start a fight
-    >>Defeat |cRXP_ENEMY_Bruart|r
-    >>|cRXP_WARN_Be careful as he casts|r |T132939:0|t[Backhand] |cRXP_WARN_(stuns you for 2 seconds)|r
-    >>|cRXP_WARN_Kite him upstairs to the balcony, then drop down outside the inn and use|r |T133688:0|t[Bandages] |cRXP_WARN_if you have them/if needed|r
-    .mob Bruart
+    .gossipoption 109084 >>与 |cRXP_FRIENDLY_布鲁阿特|r 对话以开始战斗
+    >>击败 |cRXP_ENEMY_布鲁阿特|r
+    >>|cRXP_WARN_小心，他会施放|r |T132939:0|t[反手一击] |cRXP_WARN_，使你昏迷2秒。|r
+    >>|cRXP_WARN_把他风筝到楼上的阳台，再跳到旅店外；持有且需要时使用|r |T133688:0|t[绷带] |cRXP_WARN_回血。|r
+    .mob 布鲁阿特
     .skipgossip 209004,1
     .train 425447,1
 --XX 109084 "Seems you've had a few too many"
@@ -1472,42 +1504,45 @@ step << Warrior !Human
     #optional
     .goto Ironforge,72.40,73.63,-1
     .goto Ironforge,72.53,76.94,-1
-    >>Defeat |cRXP_ENEMY_Bruart|r
-    >>|cRXP_WARN_Be careful as he casts|r |T132939:0|t[Backhand] |cRXP_WARN_(stuns you for 2 seconds)|r
-    >>|cRXP_WARN_Kite him upstairs to the balcony, then drop down outside the inn and use|r |T133688:0|t[Bandages] |cRXP_WARN_if you have them/if needed|r
-    >>|cRXP_WARN_After defeating |cRXP_ENEMY_Bruart|r:|r
-    >>Talk to |cRXP_FRIENDLY_Bruuk Barleybeard|r again to receive the |T134419:0|t[Rune of Frenzied Assault]
-    >>|cRXP_WARN_If he doesn't give you the|r |T134419:0|t[Rune of Frenzied Assault]|cRXP_WARN_, you may need to fight |cRXP_ENEMY_Bruart|r again|r
-    >>|cRXP_WARN_NOTE: This can be difficult to solo. You may need to look for help, otherwise you can do this again later in the guide|r
+    >>击败 |cRXP_ENEMY_布鲁阿特|r
+    >>|cRXP_WARN_小心，他会施放|r |T132939:0|t[反手一击] |cRXP_WARN_，使你昏迷2秒。|r
+    >>|cRXP_WARN_把他风筝到楼上的阳台，再跳到旅店外；持有且需要时使用|r |T133688:0|t[绷带] |cRXP_WARN_回血。|r
+    >>|cRXP_WARN_击败|cRXP_ENEMY_布鲁阿特|r后：|r
+    >>再次与|cRXP_FRIENDLY_布鲁克·麦须|r交谈，领取|T134419:0|t[狂乱攻击符文]
+    >>|cRXP_WARN_如果他没有给你|r |T134419:0|t[狂乱攻击符文]|cRXP_WARN_，可能需要再次与|cRXP_ENEMY_布鲁阿特|r战斗|r
+    >>|cRXP_WARN_注意: 此任务可能很难独自完成, 建议寻求帮助;若不想现在完成, 可稍后在指南中再次尝试|r
     .collect 204716,1 --Rune of Frenzied Assault (1)
-    .target Bruuk Barleybeard
+    .target 布鲁克·麦须
     .skipgossip 5570,2,1
     .skipgossip 209004,1
     .train 425447,1
 --XX 109539 "I've taken care of Stuart. He shouldn't be a problem anymore."
 step << Warrior !Human
     #season 2
-    .train 425447 >>|cRXP_WARN_Use the|r |T134419:0|t[Rune of Frenzied Assault] |cRXP_WARN_to learn|r |T134596:0|t[Engrave Pants - Frenzied Assault]
+    .train 425447 >>|cRXP_WARN_使用|r |T134419:0|t[狂乱攻击符文] |cRXP_WARN_学习|r |T134596:0|t[铭刻裤子 - 狂乱攻击]
     .use 204716
     .itemcount 204716,1 --Rune of Frenzied Assault (1)
 step << Warrior !Human
     #season 2
     #completewith DRT
-    .engrave 7 >>|cRXP_WARN_Engrave your|r |T134596:0|t|cRXP_LOOT_[Pants]|r |cRXP_WARN_with|r |T134596:0|t[Engrave Pants - Frenzied Assault]
+    .engrave 7 >>|cRXP_WARN_在|r |T134596:0|t|cRXP_LOOT_[裤子]|r |cRXP_WARN_上铭刻|r |T134596:0|t[铭刻裤子 - 狂乱攻击]。
     .train 425447,3
 step << !Human
+    #label DRT
     .goto Ironforge,78.00,51.40
-    .zone Stormwind City >>Enter the Deeprun Tram and take the Tram to Stormwind
+    .zone Stormwind City >>进入矿道地铁，乘车前往暴风城
     .isQuestTurnedIn 6662
 step << !Human
-    .goto Ironforge,78.00,51.40
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Monty|r on the Ironforge side of the tram and then |cRXP_FRIENDLY_Nipsy|r on the Stormwind side
-    .zone Stormwind City >>Enter the Deeprun Tram and take the Tram to Stormwind
-    .accept 6662 >> Accept Me Brother, Nipsy
-    >>before taking the tram
-    .turnin 6662 >> Turn in Me Brother, Nipsy
-    >>after taking the tram
     .isQuestAvailable 6662
-    .target Monty
-    .target Nipsy
+    .goto Ironforge,78.00,51.40,25,0
+    .subzone 2257 >>进入矿道地铁，在铁炉堡一侧找到蒙提
+    .accept 6662 >>接任务：我的兄弟，尼普希
+    .target 蒙提
+step << !Human
+    .isOnQuest 6662
+    >>乘地铁抵达暴风城一侧，与中央站台上的尼普希交谈
+    .turnin 6662 >>交任务：我的兄弟，尼普希
+    .target 尼普希
+step << !Human
+    .zone Stormwind City >>出站进入暴风城
 ]])

@@ -11,6 +11,8 @@ RurutiaSuiteSetupDB = {
 },
 ["Rurumage Minazuki - Classic Beta PvE"] = {
 },
+["仓库 - 存放"] = {
+},
 },
 ["profileKeys"] = {
 ["重庆 - 智能体"] = "Default",
@@ -18,6 +20,7 @@ RurutiaSuiteSetupDB = {
 ["露露缇娅 - 啾啾"] = "Default",
 ["露露缇娅 - 喵呜"] = "Default",
 ["Rurumage Minazuki - Classic Beta PvE"] = "Default",
+["仓库 - 存放"] = "Default",
 },
 ["namespaces"] = {
 },

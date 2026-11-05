@@ -179,7 +179,6 @@ function addon.StartTimer(duration,label,options)
     return bar
 end
 
-
 local flightInfo = {}
 addon.flightInfo = flightInfo
 local nodeHash = {}

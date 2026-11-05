@@ -30,15 +30,13 @@ if class == "HUNTER" then
 end
 ]]
 
-local L = addon.locale.Get
 if faction == "Horde" then
-    addon.defaultGroup = L"RestedXP Forever Guide (H)"
-    addon.defaultGroupHC = L"RestedXP Forever Guide (H)"
+    addon.defaultGroup = "RestedXP Forever Guide (H)"
+    addon.defaultGroupHC = "RestedXP Forever Guide (H)"
 elseif faction == "Alliance" then
-    addon.defaultGroup = L"RestedXP Forever Guide (A)"
-    addon.defaultGroupHC = L"RestedXP Forever Guide (A)"
+    addon.defaultGroup = "RestedXP Forever Guide (A)"
+    addon.defaultGroupHC = "RestedXP Forever Guide (A)"
 end
-
 
 addon.questConversion = {
 }
@@ -456,7 +454,6 @@ function addon.functions.xpto60alliance(self,...) --PLAYER_XP_UPDATE,QUEST_LOG_U
                 questXP = floor(questXP + (7050)*xpMod)
             end
         end
-
 
         questXP = questXP - 50*(xpMod - 1)
     end

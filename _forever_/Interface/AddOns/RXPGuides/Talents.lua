@@ -68,6 +68,10 @@ function GetTableLength(T)
     return count
 end
 
+local function getGuideDisplayName(guide)
+    return guide.displayname or guide.name
+end
+
 local function buildTalentGuidesMenu()
     local menu = {}
 
@@ -92,7 +96,7 @@ local function buildTalentGuidesMenu()
 
             if guide.pet == GetPetTalentTree() then
                 tinsert(menu, {
-                    text = guide.name,
+                    text = getGuideDisplayName(guide),
                     tooltipTitle = fmt("%s: %s", _G.LEVEL_RANGE, guide.levelRange),
                     notCheckable = 1,
                     disabled = disabled,
@@ -124,7 +128,7 @@ local function buildTalentGuidesMenu()
             end
 
             menuData = {
-                text = guide.name,
+                text = getGuideDisplayName(guide),
                 tooltipTitle = fmt("%s: %s", _G.LEVEL_RANGE, guide.levelRange),
                 notCheckable = 1,
                 disabled = disabled,
@@ -295,7 +299,7 @@ function addon.talents:UpdateTalentsButton()
 
             local guide = addon.talents:GetCurrentGuide()
             if guide then
-                GameTooltip:AddLine(guide.name)
+                GameTooltip:AddLine(getGuideDisplayName(guide))
                 GameTooltip:AddLine(L("Left click to apply talents"), 0, 1, 0)
                 GameTooltip:AddLine(fmt("%s: %d - %d", _G.LEVEL_RANGE, guide.minLevel, guide.maxLevel), 1, 1, 1)
             else
@@ -452,7 +456,7 @@ function addon.talents:ParseGuide(text)
     guide.maxLevel = tonumber(guide.maxLevel) or addon.talents.maxLevel
     guide.levelRange = fmt("%d-%d", guide.minLevel, guide.maxLevel)
     guide.description = guide.description or fmt("%s - %s (%s)", addon.player.localeClass, guide.name, guide.levelRange)
-    guide.displayname = guide.displayname or guide.description
+    guide.displayname = guide.displayname or guide.name
     guide.key = guide.key or fmt("%s - %s", addon.player.class, guide.name)
     guide.nextKey = guide.next and fmt("%s - %s", addon.player.class, guide.next)
 
@@ -588,7 +592,7 @@ function addon.talents:Audit()
 
         if auditFailed then
             addon.comms:PopupNotification("RXPTalentsAuditFailed",
-                                          fmt("%s - %s\n\n%s\n%s %s - %s", addon.title, _G.TALENTS, guide.name,
+                                          fmt("%s - %s\n\n%s\n%s %s - %s", addon.title, _G.TALENTS, getGuideDisplayName(guide),
                                               _G.TALENTS, strlower(_G.ADDON_INCOMPATIBLE), strlower(_G.RESET_TO_DEFAULT)))
 
             guide.audit = false
@@ -959,7 +963,7 @@ function addon.talents:DrawTalents()
                         activeIndices[talentIndex] = talentData.tab
 
                         talentTooltips.data[talentIndex] = talentTooltips.data[talentIndex] or
-                                                               fmt("\n%s - %s", addon.title, guide.name)
+                                                               fmt("\n%s - %s", addon.title, getGuideDisplayName(guide))
 
                         talentTooltips.data[talentIndex] = fmt("%s\n%s%s: %s %d|r", talentTooltips.data[talentIndex],
                                                                addon.colors.tooltip, tooltipPrefix, _G.LEVEL,
@@ -1349,7 +1353,7 @@ function addon.talents.cata:DrawTalents(guide)
                         talentInfo = {
                             levels = {},
                             talentData = talentData,
-                            tooltipTextHeader = fmt("%s - %s", addon.title, guide.name)
+                            tooltipTextHeader = fmt("%s - %s", addon.title, getGuideDisplayName(guide))
                         }
 
                         talentTooltips.cataPlan[talentData.tab][talentIndex] = talentInfo

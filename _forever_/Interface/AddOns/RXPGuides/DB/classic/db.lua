@@ -27,15 +27,14 @@ if class == "HUNTER" then
     addon.defaultGuideList["Dun Morogh"] = "RestedXP Alliance 1-20\\1-6 Coldridge Valley (Hunter)"
 end
 ]]
-local L = addon.locale.Get
-if faction == "Horde" then
-    addon.defaultGroup = L"RestedXP Speedrun Guide (H)"
-    addon.defaultGroupHC = L"RestedXP Survival Guide (H)"
-elseif faction == "Alliance" then
-    addon.defaultGroup = L"RestedXP Speedrun Guide (A)"
-    addon.defaultGroupHC = L"RestedXP Survival Guide (A)"
-end
 
+if faction == "Horde" then
+    addon.defaultGroup = "RestedXP Speedrun Guide (H)"
+    addon.defaultGroupHC = "RestedXP Survival Guide (H)"
+elseif faction == "Alliance" then
+    addon.defaultGroup = "RestedXP Speedrun Guide (A)"
+    addon.defaultGroupHC = "RestedXP Survival Guide (A)"
+end
 
 addon.questConversion = {
 }
@@ -437,7 +436,6 @@ function addon.functions.xpto60alliance(self,...) --PLAYER_XP_UPDATE,QUEST_LOG_U
                 questXP = floor(questXP + (7050)*xpMod)
             end
         end
-
 
         questXP = questXP - 50*(xpMod - 1)
     end

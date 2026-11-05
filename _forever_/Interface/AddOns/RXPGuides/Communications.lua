@@ -27,12 +27,12 @@ local function announceLevelUp(message)
     if not message then return end
 
     if GetNumGroupMembers() > 0 then
-        if addon.settings.profile.enableLevelUpAnnounceGroup then SendChatMessage(message, "PARTY", nil) end
+        SendChatMessage(message, "PARTY", nil)
     else
-        if addon.settings.profile.enableLevelUpAnnounceSolo then SendChatMessage(message, "EMOTE", nil) end
+        SendChatMessage(message, "EMOTE", nil)
     end
 
-    if addon.settings.profile.enableLevelUpAnnounceGuild and IsInGuild() then SendChatMessage(message, "GUILD", nil) end
+    if IsInGuild() then SendChatMessage(message, "GUILD", nil) end
 end
 
 function addon.comms:Setup()
@@ -566,8 +566,6 @@ function addon.comms.OpenBugReport(stepNumber)
     local errorFlags = ""
     if addon.lastEvent then errorFlags = "\nError Flags: " .. addon.lastCall .. addon.lastEvent end
     local content = fmt([[%s
-
-
 
 %s
 ```

@@ -6,7 +6,6 @@ local HBD = LibStub("HereBeDragons-2.0")
 local HBDPins_Lib = LibStub("HereBeDragons-Pins-2.0")
 local HBDPins = {}
 
-
 addon.activeWaypoints = {}
 addon.linePoints = {}
 
@@ -149,21 +148,21 @@ function addon.DrawArrow(self)
     if dist ~= self.distance then
         self.distance = dist
         local step = element.step
-        local title = step and (step.arrowtext or step.title or step.index and (L"Step "..step.index))
+        local title = step and (step.arrowtext or step.title or step.index and string.format(L("Step %d"), step.index))
         if element.title then
             for RXP_ in string.gmatch(element.title, "RXP_[A-Z]+_") do
                 element.title = element.title:gsub(RXP_, addon.guideTextColors[RXP_] or
                                                 addon.guideTextColors.default["error"])
             end
             --self.text:SetText(string.format("%s\n(%dyd)",element.title, dist))
-            self.text:SetText(string.format("%s\n(%dyd)",element.title, dist))
+            self.text:SetText(string.format(L("%s\n(%dyd)"),element.title, dist))
         elseif title then
             for RXP_ in string.gmatch(title, "RXP_[A-Z]+_") do
                 title = title:gsub(RXP_, addon.guideTextColors[RXP_] or addon.guideTextColors.default["error"])
             end
-            self.text:SetText(string.format("%s\n(%dyd)", title, dist))
+            self.text:SetText(string.format(L("%s\n(%dyd)"), title, dist))
         else
-            self.text:SetText(string.format("(%dyd)", dist))
+            self.text:SetText(string.format(L("(%dyd)"), dist))
         end
     end
 
@@ -212,7 +211,7 @@ local function PinOnEnter(self)
                 hiddentext = false
             end
             text = parent.mapTooltip or parent.tooltipText or hiddentext or parent.text or ""
-            local title = step.mapTooltip or step.title or step.index and (L"Step " .. step.index) or step.tip and L"Tip"
+            local title = step.mapTooltip or step.title or step.index and string.format(L("Step %d"), step.index) or step.tip and L"Tip"
             if title and title ~= lastStep then
                 _G.GameTooltip:AddLine(addon.ReplaceNpcIds(icon..title),unpack(addon.colors.mapPins))
                 lastStep = title
@@ -225,7 +224,7 @@ local function PinOnEnter(self)
                 hiddentext = false
             end
             text = element.mapTooltip or element.tooltipText or hiddentext or step.text or ""
-            local title = step.mapTooltip or step.title or step.index and (L"Step " .. step.index) or step.tip and L"Tip"
+            local title = step.mapTooltip or step.title or step.index and string.format(L("Step %d"), step.index) or step.tip and L"Tip"
             if title and step ~= lastStep then
                 _G.GameTooltip:AddLine(addon.ReplaceNpcIds(icon..title),unpack(addon.colors.mapPins))
                 lastStep = title
@@ -449,8 +448,6 @@ MapPinPool.resetterFunc = function(framePool, frame)
     frame:EnableMouse(0)
     frame.currentPin = nil
 end
-
-
 
 MapLinePool.create = function()
     local framePool = CreateFramePool(MapLinePool)
@@ -1145,7 +1142,6 @@ local function updateArrowData()
     af:Hide()
 end
 
-
 function addon.ResetArrowPosition()
     addon.settings.profile.disableArrow = false
     if not addon.settings.profile.showEnabled then
@@ -1492,7 +1488,6 @@ local p2 = 	{
     ["yb"] = 82.47040384981797,
     ["xb"] = 77.70637435364208,
 }
-
 
 addon.classicToWrathSW = GetMapCoefficients(p1.x,p1.y,p1.xb,p1.yb,p2.x,p2.y,p2.xb,p2.yb)
 addon.wrathToClassicSW = GetMapCoefficients(p1.xb,p1.yb,p1.x,p1.y,p2.xb,p2.yb,p2.x,p2.y)

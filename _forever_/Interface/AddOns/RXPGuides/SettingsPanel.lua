@@ -126,6 +126,7 @@ end
 
 local settingsDBDefaults = {
     profile = {
+        enableBetaFeatures = true,
         enableTracker = true,
         enableLevelUpAnnounceSolo = false,
         enableLevelUpAnnounceGroup = false,
@@ -154,9 +155,9 @@ local settingsDBDefaults = {
         showFlightTimers = true,
 
         -- Sliders
-        arrowScale = 1,
-        arrowText = 9,
-        windowScale = 1,
+        arrowScale = 1.25,
+        arrowText = 12,
+        windowScale = 1.25,
         numMapPins = 7,
         worldMapPinScale = 1,
         vendorTreasurePinScale = 0.8,
@@ -166,8 +167,8 @@ local settingsDBDefaults = {
         updateFrequency = 75,
         phase = 6,
         xprate = 1,
-        guideFontSize = 9,
-        activeItemsScale = 1,
+        guideFontSize = 12,
+        activeItemsScale = 1.25,
         questLogSize = addon.game == "CLASSIC" and 20 or addon.game == "FOREVER" and 40 or 25,
 
         showEnabled = true,
@@ -251,7 +252,7 @@ local settingsDBDefaults = {
         enableV2ActivePartyStepsFrame = true,
 
         -- V2 UI
-        enableV2Interface = false,
+        enableV2Interface = true,
         enableV2MenuTheme = true,
         activeStepsV2RenderQuestName = true,
     }
@@ -390,7 +391,6 @@ function addon.settings:MigrateLegacySettings()
         db.showUnusedGuides = not RXPData.hideUnusedGuides
         RXPData.hideUnusedGuides = nil
     end
-
 
     if RXPCData.disableArrow ~= nil then
         n("disableArrow", RXPCData.disableArrow)
@@ -534,7 +534,6 @@ local function SetProfileOption(info, value)
     addon.settings.profile[info[#info]] = value
 end
 
-
 if GetLocale() ~= "enUS" then
     addon.locale.AddGenericTranslation("Enable Group Settings",fmt("%s %s", _G.ENABLE, _G.COMMUNITIES_SETTINGS_LABEL))
     addon.locale.AddGenericTranslation("Interface Version 2 (Beta)",fmt("%s %s %d", _G.INTERFACE_LABEL or "", _G.GAME_VERSION_LABEL or "", 2) .. L(" (Beta)"))
@@ -593,11 +592,12 @@ function addon.settings:CreateAceOptionsPanel()
         args = {
             discordButton = {
                 order = 1.0,
-                name = L("Join Discord"), -- TODO locale
+                name = GetLocale() == "zhCN" and L("NGA Community") or L("Join Discord"), -- TODO locale
                 type = "execute",
                 width = "normal",
                 func = function()
-                    addon.url = "https://discord.gg/restedxp"
+                    addon.url = GetLocale() == "zhCN" and "https://nga.178.com/read.php?tid=33619184" or
+                                    "https://discord.gg/restedxp"
                     _G.StaticPopup_Show("RXP_Link")
                     addon.url = nil
                 end
@@ -3886,7 +3886,6 @@ function addon.settings:DetectXPRate(softUpdate)
         end
         if season == addon.settings.profile.season then return end
 
-
         addon.settings.profile.season = season
 
         if addon.currentGuide and addon.currentGuide.name then
@@ -4094,31 +4093,6 @@ function addon.settings:DisableTextColors()
     self:RefreshTextColors()
 end
 
-local zhCN = GetLocale() == "zhCN"
-local missingTranslationWarning
-
-local AnnounceMissingTranslation = function()
-    local message = missingTranslationWarning
-    if not message then return end
-    addon.comms.PrettyPrint(message)
-end
-
-addon:RegisterMessage("RXP_STEP_ACTIVATED",function(self,step)
-    if step.missingTranslation then
-        missingTranslationWarning =
-            fmt(L"Missing translation for step %d (Coming soon)", step.index)
-        addon.ScheduleTask(1.5, AnnounceMissingTranslation)
-    end
-end)
-
-local function FindUnicodeCharacter(text)
-    for i = 1,#text do
-        if string.byte(text:sub(i,i)) > 127 then
-            return true
-        end
-    end
-end
-
 function addon.settings.ReplaceColors(element)
     -- Replace text placeholders
     local function replace(textLine)
@@ -4146,9 +4120,6 @@ function addon.settings.ReplaceColors(element)
                 element[field] = replace(element.textReplaced[i])
             else
                 fieldString = element[field]
-                if zhCN and fieldString and element.step and not FindUnicodeCharacter(fieldString) then
-                    element.step.missingTranslation = true
-                end
                 element.textReplaced[i] = fieldString
                 element[field] = replace(fieldString)
             end
@@ -4523,25 +4494,4 @@ function addon.settings.dungeons:SetNone()
     for key, name in pairs(self:GetDungeons()) do
         addon.settings.profile.dungeons[key] = false
     end
-end
-
-function addon.settings.dungeons:GetAllEnabledDungeons(group)
-    group = group or (addon.currentGuide and addon.currentGuide.group)
-    local active = {}
-    local locked = {}
-    if group and addon.dungeonOverride[group] then
-        for dungeon,enabled in pairs(addon.dungeonOverride[group]) do
-            if enabled then
-                local name = addon.GetDungeonName(dungeon)
-                active[dungeon] = name
-                locked[dungeon] = true
-            end
-        end
-    end
-    for dungeon,name in pairs(addon.settings.dungeons:GetDungeons()) do
-        if not active[dungeon] then
-            active[dungeon] = name
-        end
-    end
-    return active,locked
 end

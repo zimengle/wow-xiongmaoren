@@ -734,12 +734,11 @@ function addon.v2:BuildGuideStepsSnapshot(includeRows)
     end
 
     local guideName = addon.GetGuideName(guide) or ""
-    local title = guide.title or guide.subgroup or guideName
-    local subtitle = not guide.title and guide.subgroup and guideName or ""
+    local groupName = addon.GetGuideGroupName(guide)
 
     return {
-        title = title,
-        subtitle = subtitle,
+        title = groupName or guideName,
+        subtitle = groupName and guideName or "",
         rows = rows
     }
 end
@@ -1389,7 +1388,7 @@ function addon.ui.v2:RegisterRXPV2GuideWindow()
         footerText:SetPoint("CENTER")
         footerText:SetFont(theme.font, addon.settings.profile.guideFontSize - 1, "")
         footerText:SetTextColor(0.65, 0.65, 0.7)
-        footerText:SetText("RestedXP Guides " .. (addon.release or ""))
+        footerText:SetText(addon.title .. " " .. (addon.release or ""))
 
         local sizer = CreateFrame("Button", nil, guideStepsFrame)
         sizer:SetFrameLevel(footer:GetFrameLevel() + 2)
@@ -2509,6 +2508,7 @@ function addon.ui.v2:RegisterRXPV2ActiveStepItem()
         if _G.GameTooltip:GetOwner() == row then _G.GameTooltip:Hide() end
 
         row.text:SetText("")
+        row.rxpText = nil
         row.rxpQuestLink = nil
         row.hoverFrame:Hide()
         row.element = nil
@@ -2560,6 +2560,22 @@ function addon.ui.v2:RegisterRXPV2ActiveStepItem()
             row.text:SetPoint("TOPLEFT", row, "TOPLEFT", textLeft, textTop)
             row.text:SetPoint("TOPRIGHT", row, "TOPRIGHT", 0, textTop)
             row.text:SetWidth(textAvailable)
+
+            local _, fontSize = row.text:GetFont()
+            if hasIcon then
+                row.icon:ClearAllPoints()
+                row.icon:SetPoint("LEFT", row.text, "TOPLEFT", -15, -fontSize / 2)
+            end
+
+            -- Keep inline icons in the text flow; adjust only their vertical offset.
+            if row.rxpText then
+                row.text:SetText((row.rxpText:gsub("^([ \t]*|T[^:|]+):(%d+)|t", function(texture, size)
+                    local iconHeight = tonumber(size)
+                    if iconHeight > 0 and iconHeight <= 32 then
+                        return format("%s:%s:%s:0:%g|t", texture, size, size, (fontSize - iconHeight) / 2)
+                    end
+                end)))
+            end
 
             textWidth = min(row.text:GetStringWidth(), textAvailable)
             textHeight = row.text:GetStringHeight()
@@ -2691,11 +2707,10 @@ function addon.ui.v2:RegisterRXPV2ActiveStepItem()
 
             if questAction and element.title and element.title ~= "" and hasQuestData then
                 row.rxpQuestLink = format("quest:%d", element.questId)
-                row.text:SetText(
-                    format("%s |cffffff00|Hquest:%d|h[%s]|h|r", questAction, element.questId, element.title))
-            else
-                row.text:SetText(addon.ReplaceNpcIds(L(element.text)))
             end
+
+            -- Keep the guide's wording and colors; the quest link only supplies the tooltip.
+            row.text:SetText(addon.ReplaceNpcIds(L(element.text)))
         elseif element.tooltipText and element.tooltipText ~= "" then
             local text = element.tooltipText
             local icon = element.icon or addon.icons[element.tag]
@@ -2709,7 +2724,11 @@ function addon.ui.v2:RegisterRXPV2ActiveStepItem()
             row.text:SetText("")
         elseif resetPending then
             row.text:SetText(" ")
+        else
+            return
         end
+
+        row.rxpText = row.text:GetText()
     end
 
     local function createElementRow(this)

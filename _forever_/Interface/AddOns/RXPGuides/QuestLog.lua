@@ -495,7 +495,6 @@ function addon.GetOrphanedQuests()
     return invertedList
 end
 
-
 local SetAbandonQuest = C_QuestLog.SetAbandonQuest or _G.SetAbandonQuest
 local AbandonQuest = C_QuestLog.AbandonQuest or _G.AbandonQuest
 
@@ -889,7 +888,6 @@ do
         end
     end)
 end
-
 
 --[[ no longer necessary
 -- Classic / Cata

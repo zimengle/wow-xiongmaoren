@@ -1,0 +1,5 @@
+VER 3 0100000000000001 "地震" "136026"
+#showtooltip 地震术
+/startattack
+/cast 地震术
+END

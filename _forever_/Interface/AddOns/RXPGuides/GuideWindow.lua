@@ -105,7 +105,6 @@ function addon.RenderFrame(themeUpdate,isLoading)
     end
 end
 
-
 RXPFrame.backdrop = {}
 
 RXPFrame.defaultBackground = {
@@ -160,7 +159,7 @@ function addon.SetupGuideWindow()
     GuideName.text:SetTextColor(unpack(addon.activeTheme.textColor))
 
     Footer.text:SetFont(addon.font, 9, "")
-    if addon.player.beta then
+    if addon.player.beta or addon.game == "FOREVER" then
         Footer.text:SetText(fmt("%s %s", addon.title, addon.release))
     else
         Footer.text:SetText(fmt("RXP Beta %s %d/%d", addon.release, addon.minGuideVersion ,addon.maxGuideVersion))
@@ -490,7 +489,6 @@ local CheckStepCompletion = function(self,initialCheck)
     self.completed = stepCompleted
 end
 
-
 local hiddenFramePool = {}
 
 function addon.RegisterGeneratedSteps()
@@ -718,7 +716,6 @@ function addon.UpdateStepCompletion()
                 end
             end
         end
-
 
         if step.tip then
             c = c or RXPCData.hideTipWindow
@@ -1558,6 +1555,28 @@ function addon.GetGuideName(guide)
     end
 end
 
+function addon.GetGuideGroupName(guide)
+    guide = guide or addon.currentGuide
+    if not guide then return end
+    local name = guide.groupdisplayname or guide.group
+    if not name or name == "" then return end
+    if addon.GuideNames and addon.GuideNames[name] then
+        name = addon.GuideNames[name]
+    end
+    return L(name) or name
+end
+
+function addon.GetGuideSubgroupName(guide)
+    guide = guide or addon.currentGuide
+    if not guide then return end
+    local name = guide.subgroupdisplayname or guide.subgroup
+    if not name then return end
+    if addon.GuideNames and addon.GuideNames[name] then
+        name = addon.GuideNames[name]
+    end
+    return L(name) or name
+end
+
 RXPFrame.bottomMenu = {
     {
         notCheckable = 1,
@@ -1596,7 +1615,7 @@ addon.emptyGuide = {
 }
 
 function addon.BetaVersionCheck()
-    if GetCurrentRegion() < 20 then--PTR Region 72?
+    if GetCurrentRegion() < 20 or addon.game == "FOREVER" then--PTR Region 72?
         Footer.text:SetText(fmt("%s %s", addon.title, addon.release))
     else
         Footer.text:SetText(fmt("RXP Beta %s %d/%d", addon.release, addon.minGuideVersion ,addon.maxGuideVersion))
@@ -1939,10 +1958,10 @@ function addon:LoadGuide(guide, OnLoad)
 
         if guideWindow then
             local guideName = addon.GetGuideName(guide) or ""
-            local title = guide.title or guide.subgroup or guideName
+            local groupName = addon.GetGuideGroupName(guide)
 
-            guideWindow.title:SetText(title)
-            guideWindow.subtitle:SetText(not guide.title and guide.subgroup and guideName or "")
+            guideWindow.title:SetText(groupName or guideName)
+            guideWindow.subtitle:SetText(groupName and guideName or "")
             guideWindow:UpdateResizeBounds(guideWindow.guideSteps.frame:IsShown(), false)
         end
     end
@@ -1951,7 +1970,7 @@ function addon:LoadGuide(guide, OnLoad)
         local guidename = guide.title or addon.GetGuideName(guide)
 
         if guide.subgroup and not guide.title then
-            GuideName.text:SetText(guidename .. "\n" .. guide.subgroup)
+            GuideName.text:SetText(guidename .. "\n" .. addon.GetGuideSubgroupName(guide))
         else
             GuideName.text:SetText(guidename:gsub("\\n","\n"))
         end
@@ -2540,7 +2559,7 @@ function RXPFrame:GenerateMenuTable(menu)
                 local subtable = item.subtable[subgroup]
                 if not subtable then
                     subtable = {
-                        text = SwapNames(subgroup),
+                        text = addon.GetGuideSubgroupName(guide),
                         notCheckable = 1,
                         hasArrow = true,
                         menuList = {}
@@ -3024,7 +3043,6 @@ function addon.v2:GetActiveStepsFrame(player)
 
     self.state.player[player].childContainer = childContainer
 
-
     if player ~= addon.player.name then
         stepFrame:UpdateTheme({
             hideBackground = addon.settings.profile.activePartyStepsV2HideBackground,
@@ -3054,7 +3072,6 @@ function addon.v2:SetActiveStepsFrameAnchor(stepFrame)
     local frameInset = theme.layout and theme.layout.activeStepFrameInset or {}
     local leftInset = frameInset.left or 0
     local rightInset = frameInset.right or 0
-
 
     local guideWindow = self:GetGuideWindowAnchorFrame()
     if addon.settings.profile.anchorOrientation == "bottom" then

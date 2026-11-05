@@ -68,33 +68,33 @@ RurutiaSuiteDB = {
 },
 },
 },
+["CombatReminder"] = {
+["profiles"] = {
+["Default"] = {
+["timer"] = {
+["positionVersion"] = 1,
+},
+},
+},
+},
+["QuestAutomation"] = {
+["profiles"] = {
+["Default"] = {
+["enabled"] = false,
+},
+},
+},
 ["ExperienceBar"] = {
 ["char"] = {
-["露露缇娅 - 喵呜"] = {
-["session"] = {
-["lastXP"] = 25176,
-["lastXPMax"] = 27300,
-["startTime"] = 1792641253,
-},
-},
-["露露缇娅 - 啾啾"] = {
-["session"] = {
-["lastXP"] = 114,
-["gainedXP"] = 375,
-["playedAt"] = 1791925235,
-["lastXPMax"] = 2100,
-["startTime"] = 1791925009,
-},
-},
 ["重庆 - 智能体"] = {
 ["session"] = {
-["lastXP"] = 4557,
-["gainedXP"] = 7060,
-["lastXPMax"] = 6500,
-["playedAt"] = 1793849246,
-["startTime"] = 1793847413,
-["totalPlayed"] = 10452,
-["levelPlayed"] = 566,
+["lastXP"] = 5972,
+["gainedXP"] = 1250,
+["levelPlayed"] = 958,
+["playedAt"] = 1793871894,
+["lastXPMax"] = 12900,
+["totalPlayed"] = 24366,
+["startTime"] = 1793871892,
 },
 },
 ["露露缇娅 - 嗷呜"] = {
@@ -106,13 +106,31 @@ RurutiaSuiteDB = {
 ["lastXPMax"] = 2800,
 },
 },
+["露露缇娅 - 啾啾"] = {
+["session"] = {
+["lastXP"] = 114,
+["gainedXP"] = 375,
+["playedAt"] = 1791925235,
+["lastXPMax"] = 2100,
+["startTime"] = 1791925009,
 },
 },
-["CombatReminder"] = {
-["profiles"] = {
-["Default"] = {
-["timer"] = {
-["positionVersion"] = 1,
+["露露缇娅 - 喵呜"] = {
+["session"] = {
+["lastXP"] = 25176,
+["lastXPMax"] = 27300,
+["startTime"] = 1792641253,
+},
+},
+["仓库 - 存放"] = {
+["session"] = {
+["lastXP"] = 55,
+["gainedXP"] = 55,
+["lastXPMax"] = 400,
+["levelPlayed"] = 1,
+["startTime"] = 1793861764,
+["totalPlayed"] = 1,
+["playedAt"] = 1793861765,
 },
 },
 },
@@ -130,8 +148,9 @@ RurutiaSuiteDB = {
 ["重庆 - 智能体"] = "Default",
 ["露露缇娅 - 嗷呜"] = "Default",
 ["露露缇娅 - 喵呜"] = "Default",
-["Rurumage Minazuki - Classic Beta PvE"] = "Default",
 ["露露缇娅 - 啾啾"] = "Default",
+["Rurumage Minazuki - Classic Beta PvE"] = "Default",
+["仓库 - 存放"] = "Default",
 },
 ["profiles"] = {
 ["Default"] = {

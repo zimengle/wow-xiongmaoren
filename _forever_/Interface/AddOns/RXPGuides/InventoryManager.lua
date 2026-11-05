@@ -685,11 +685,6 @@ end
 
 function addon.inventoryManager:HideJunkIcon(frame) if frame.RXPJunkIcon then frame.RXPJunkIcon:Hide() end end
 
---Prevents redudant junk icon from showing up
-local disableBagIcon = {
-    ["Baganator"] = true
-}
-
 function addon.inventoryManager:UpdateBagButton(button, bag, slot)
     if not self:IsFeatureEnabled() then return end
 
@@ -697,8 +692,7 @@ function addon.inventoryManager:UpdateBagButton(button, bag, slot)
 
     local isJunk = self:IsJunk(id, bag, slot)
     -- print(bag,slot,isJunk)
-    local bagMod = self.hookedFrames[button] or 0
-    if isJunk and not disableBagIcon[bagMod] then
+    if isJunk then
         self:ShowJunkIcon(button)
     else
         self:HideJunkIcon(button)
@@ -891,13 +885,14 @@ function addon.inventoryManager:OnClickHook(button, mouseButton, ...)
 
         self:ToggleJunk(id, bag, slot)
 
-        if _G.Baganator and _G.Baganator.API and _G.Baganator.API.RequestItemButtonsRefresh then
-            _G.Baganator.API.RequestItemButtonsRefresh()
-        elseif button.JunkIcon and self.hookedFrames[button] ~= "ElvUI" then
+        if button.JunkIcon and self.hookedFrames[button] ~= "ElvUI" then
             button.JunkIcon:SetShown(addon.settings.profile.showJunkIcon and id and self:IsJunk(id, bag, slot) and
                                          button:IsShown())
         end
 
+        if _G.Baganator and _G.Baganator.API and _G.Baganator.API.RequestItemButtonsRefresh then
+            _G.Baganator.API.RequestItemButtonsRefresh()
+        end
     end
 end
 

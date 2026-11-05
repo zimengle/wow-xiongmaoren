@@ -1,36 +1,58 @@
 local addonName, addon = ...
 
 local L = LibStub("AceLocale-3.0"):NewLocale(addonName, "zhCN", false)
-if not L then return end
+if not L then
+    return
+end
 
-_G["BINDING_NAME_" .. "CLICK RXPItemFrameButton1:LeftButton"] =
-    "激活物品1"
-_G["BINDING_NAME_" .. "CLICK RXPItemFrameButton2:LeftButton"] =
-    "激活物品2"
-_G["BINDING_NAME_" .. "CLICK RXPItemFrameButton3:LeftButton"] =
-    "激活物品3"
-_G["BINDING_NAME_" .. "CLICK RXPItemFrameButton4:LeftButton"] =
-    "激活物品4"
+_G["BINDING_NAME_" .. "CLICK RXPItemFrameButton1:LeftButton"] = "激活物品1"
+_G["BINDING_NAME_" .. "CLICK RXPItemFrameButton2:LeftButton"] = "激活物品2"
+_G["BINDING_NAME_" .. "CLICK RXPItemFrameButton3:LeftButton"] = "激活物品3"
+_G["BINDING_NAME_" .. "CLICK RXPItemFrameButton4:LeftButton"] = "激活物品4"
 
-_G["BINDING_NAME_" .. "CLICK RXPTargetFrame_FriendlyButton1:LeftButton"] =
-    "激活友方目标1"
-_G["BINDING_NAME_" .. "CLICK RXPTargetFrame_FriendlyButton2:LeftButton"] =
-    "激活友方目标2"
-_G["BINDING_NAME_" .. "CLICK RXPTargetFrame_FriendlyButton3:LeftButton"] =
-    "激活友方目标3"
-_G["BINDING_NAME_" .. "CLICK RXPTargetFrame_FriendlyButton4:LeftButton"] =
-    "激活友方目标4"
+_G["BINDING_NAME_" .. "CLICK RXPTargetFrame_FriendlyButton1:LeftButton"] = "激活友方目标1"
+_G["BINDING_NAME_" .. "CLICK RXPTargetFrame_FriendlyButton2:LeftButton"] = "激活友方目标2"
+_G["BINDING_NAME_" .. "CLICK RXPTargetFrame_FriendlyButton3:LeftButton"] = "激活友方目标3"
+_G["BINDING_NAME_" .. "CLICK RXPTargetFrame_FriendlyButton4:LeftButton"] = "激活友方目标4"
 
-_G["BINDING_NAME_" .. "CLICK RXPTargetFrame_EnemyButton1:LeftButton"] =
-    "激活敌方目标1"
-_G["BINDING_NAME_" .. "CLICK RXPTargetFrame_EnemyButton2:LeftButton"] =
-    "激活敌方目标2"
-_G["BINDING_NAME_" .. "CLICK RXPTargetFrame_EnemyButton3:LeftButton"] =
-    "激活敌方目标3"
-_G["BINDING_NAME_" .. "CLICK RXPTargetFrame_EnemyButton4:LeftButton"] =
-    "激活敌方目标4"
+_G["BINDING_NAME_" .. "CLICK RXPTargetFrame_EnemyButton1:LeftButton"] = "激活敌方目标1"
+_G["BINDING_NAME_" .. "CLICK RXPTargetFrame_EnemyButton2:LeftButton"] = "激活敌方目标2"
+_G["BINDING_NAME_" .. "CLICK RXPTargetFrame_EnemyButton3:LeftButton"] = "激活敌方目标3"
+_G["BINDING_NAME_" .. "CLICK RXPTargetFrame_EnemyButton4:LeftButton"] = "激活敌方目标4"
 
-L.words = {["Accept"] = _G.ACCEPT, ["Kill"] = "击杀"}
+L.words = { ["Accept"] = _G.ACCEPT, ["Kill"] = "击杀" }
+
+-- Guide subgroup display names
+L["Feralheart Set Guide"] = "狂野之心套装指南"
+L["Beastmaster Set Guide"] = "兽王套装指南"
+L["Sorcerer's Set Guide"] = "巫师套装指南"
+L["Soulforge Set Guide"] = "魂铸套装指南"
+L["Darkmantle Set Guide"] = "暗幕套装指南"
+L["The Five Thunders Set Guide"] = "五雷套装指南"
+L["Deathmist Set Guide"] = "死雾套装指南"
+L["Heroism Set Guide"] = "英勇套装指南"
+L["Virtuous Set Guide"] = "坚贞套装指南"
+L["Attunements"] = "副本门任务"
+L["Keys"] = "钥匙"
+L["RXP Speedrun Guide 20-30"] = "RestedXP 竞速指南 20–30"
+L["RXP TBC Survival Guide 1-30"] = "RestedXP 燃烧的远征生存指南 1–30"
+L["RXP Survival Guide 1-20"] = "RestedXP 生存指南 1–20"
+L["Faction Daily Quests"] = "阵营日常任务"
+L["Gloves"] = "手套"
+L["Chest"] = "胸甲"
+L["Legs"] = "腿部"
+L["Belt"] = "腰带"
+L["Helmet"] = "头盔"
+L["Boots"] = "靴子"
+L["Bracers"] = "护腕"
+L["Bracers(Balefire Bolt)"] = "护腕（熵能之箭）"
+L["Cloak"] = "披风"
+L["RestedXP Speedrun Guide (A)"] = "RestedXP 经典旧世 1-60（联盟）"
+L["RestedXP Speedrun Guide (H)"] = "RestedXP 经典旧世 1-60（部落）"
+L["RestedXP Alliance 1-20"] = "联盟 1–20"
+L["RestedXP Alliance 20-30"] = "联盟 20–30"
+L["RestedXP Horde 1-22"] = "部落 1–22"
+L["TBC Survival Guide 1-30"] = "燃烧的远征生存指南 1–30"
 
 -- ActiveItemFrame.lua
 L["Active Items"] = "当前道具"
@@ -46,7 +68,8 @@ L["Flying to %s ETA %s"] = "正在飞往 %s 预计到达时间于 %s"
 L["Describe your issue:"] = "请描述你的问题："
 L["Do not edit below this line"] = "请勿编辑此行以下内容"
 L["RestedXP Feedback Form"] = "RestedXP 反馈表单"
-L["Join our support discord at discord.gg/RestedXP and copy paste this form into #bug-report"] = "加入我们的 Discord 支持服务器: discord.gg/RestedXP 并将此表单粘贴到 #bug-report 频道"
+L["Join our support discord at discord.gg/RestedXP and copy paste this form into #bug-report"] =
+    "加入我们的 Discord 支持服务器: discord.gg/RestedXP 并将此表单粘贴到 #bug-report 频道"
 L["day"] = "天"
 L["days"] = "天"
 L["hour"] = "小时"
@@ -62,7 +85,8 @@ L["Error parsing guide"] = "读取指南时失败"
 L["Objective Complete"] = "目标完成"
 L["Missing pre-requisites"] = "缺少前置条件"
 L["Retrieving quest data"] = "正在检索任务数据"
-L["Step skipped: This step requires a quest available that is already complete"] = "步骤已跳过：此步骤需要的任务已完成"
+L["Step skipped: This step requires a quest available that is already complete"] =
+    "步骤已跳过：此步骤需要的任务已完成"
 L["Go to"] = "前往"
 L["Set your Hearthstone to "] = "将你的炉石设为 "
 L["Get the %s flight path"] = "获取 %s 飞行路线"
@@ -76,8 +100,10 @@ L["Grind until you are %.0f%% into level %s"] = "一直刷怪，直到你积累�
 L["Grind to level "] = "刷怪升至等级 "
 L["Level requirements not met - Skip to step %d"] = "等级要求未满足—跳到第 %d 步"
 L["Step skipped: XP requirements are not met"] = "该步骤已被自动跳过：经验要求未满足"
-L["Step skipped: You already have the required item for this step"] = "该步骤已被自动跳过：你已拥有该步骤的所需物品"
-L["Step skipped: You don't have the required item for this step"] = "该步骤已被自动跳过：你没有该步骤所需要的物品"
+L["Step skipped: You already have the required item for this step"] =
+    "该步骤已被自动跳过：你已拥有该步骤的所需物品"
+L["Step skipped: You don't have the required item for this step"] =
+    "该步骤已被自动跳过：你没有该步骤所需要的物品"
 L["Grind until you are %d away from %s with %s"] = "刷怪直到你距离 %d 到达 %s，还差 %s"
 L["Grind until you are %s into %s with %s"] = "刷怪直到你在 %s 达到 %s 经验值,使用 %s"
 L["Grind until you are %.0f%% into %s with %s"] = "刷怪直到你达到 %.0f%% 的 %s，使用 %s"
@@ -86,9 +112,12 @@ L["Step skipped: Reputation condition not met"] = "该步骤已被自动跳过�
 L["Sell junk/resupply"] = "出售垃圾物品/补充物资"
 L["Train skills"] = "学习技能"
 L["Stable your pet"] = "把你的宠物放入兽栏"
-L["Step skipped: You don't have the required spell or ability (%s)"] = "该步骤已被自动跳过：你没有所需要的法术或技能 (%s)"
-L["Step skipped: You already have the required spell or ability (%s)"] = "该步骤已被自动跳过：你已拥有所需的法术或技能 (%s)"
-L["Step skipped: Your pet family can't learn this spell"] = "该步骤已被自动跳过：你的宠物家族无法学习此法术"
+L["Step skipped: You don't have the required spell or ability (%s)"] =
+    "该步骤已被自动跳过：你没有所需要的法术或技能 (%s)"
+L["Step skipped: You already have the required spell or ability (%s)"] =
+    "该步骤已被自动跳过：你已拥有所需的法术或技能 (%s)"
+L["Step skipped: Your pet family can't learn this spell"] =
+    "该步骤已被自动跳过：你的宠物家族无法学习此法术"
 L["Step skipped: Quest unavailable today"] = "该步骤已被自动跳过：今日无法接取任务"
 L["Step skipped: Missing pre-requisites"] = "该步骤已被自动跳过：未满足前置条件"
 L["Step skipped: Quest already turned in"] = "该步骤已被自动跳过：任务已提交"
@@ -108,7 +137,8 @@ L["Attempting to withdraw"] = "正在尝试取出"
 L[" or event == "] = " 或 事件 == "
 L["Skip to step %d if you are level %d or above"] = "请直接跳到第 %d 步，如果你的等级是 %d 级或以上"
 L["(Skip this step if you are level %d or above)"] = "(如果你已是 %d 级或以上请跳过此步)"
-L["Do NOT attempt this quest unless you are in a group of at least %d"] = "除非你至少有 %d 人组队，否则不要尝试该任务"
+L["Do NOT attempt this quest unless you are in a group of at least %d"] =
+    "除非你至少有 %d 人组队，否则不要尝试该任务"
 L["This step is meant to be completed as a group, be careful"] = "此步骤需要组队完成，请小心哦"
 
 -- GuideLoader.lua
@@ -120,7 +150,8 @@ L["Step skipped: Quest is not being offered"] = "该步骤已被自动跳过：�
 
 -- GuideLoader.lua
 L["Failed to ReadCacheData"] = "读取缓存数据失败"
-L["Account mismatch, import string does not apply to current account"] = "账号不符合，导入字符串不适合用于当前账号"
+L["Account mismatch, import string does not apply to current account"] =
+    "账号不符合，导入字符串不适合用于当前账号"
 L["Error: Guide has no contents"] = "错误。指南中没有内容"
 L["Incomplete or invalid encoded string"] = "编码字符串不完整或无效"
 L["Incompatible guide game %d version vs %d"] = "指南游戏版本不兼容 (%d vs %d)"
@@ -135,7 +166,8 @@ L["Guide has no name"] = "指南没有名称"
 L["Classic"] = "怀旧服"
 
 -- GuideWindow.lua
-L["Welcome to RestedXP Guides\nRight click to pick a guide"] = "欢迎使用 RestedXP 指南\n右键点击并可选择指南"
+L["Welcome to RestedXP Guides\nRight click to pick a guide"] =
+    "欢迎使用 RestedXP 指南\n右键点击并可选择指南"
 L["Hide tips"] = "隐藏提示"
 L["Step %d"] = "第 %d 步"
 L["Go to step"] = "跳到步骤"
@@ -157,17 +189,23 @@ L["Open Feedback Form"] = "打开反馈表单"
 
 -- Help.lua
 L["I'm missing a lot of exp, why?"] = "我缺了很多经验，为什么？"
-L["\nYou should be grinding mobs between quests, not just moving from objective to objective.\nThis guide is based on speed - which means less quests to turn in. Grinding from quest to quest makes up for the lost xp.\n"] = "\n你应该在做任务的途中刷怪，而不仅仅是在任务目标之间跑来跑去。\n本指南基于速度优化——这意味着提交的任务会比较少。在任务之间刷怪可以弥补损失的经验值。\n"
+L["\nYou should be grinding mobs between quests, not just moving from objective to objective.\nThis guide is based on speed - which means less quests to turn in. Grinding from quest to quest makes up for the lost xp.\n"] =
+    "\n你应该在做任务的途中刷怪，而不仅仅是在任务目标之间跑来跑去。\n本指南基于速度优化——这意味着提交的任务会比较少。在任务之间刷怪可以弥补损失的经验值。\n"
 L["Why is my guide missing levels?"] = "为什么指南跳过了一些等级？"
-L["\nThe level ranges on our guides are intended for standard exp rates, do not worry about following the leveling brackets while on 20% or 50% exp.\nJust follow the guide the best you can.\n"] = "\n我们指南中的等级范围是针对标准经验倍率设计的，如果你拥有 20% 或 50% 的经验加成，请勿纠结于是否完全符合练级区间。\n只要尽你所能跟随指南即可。\n"
+L["\nThe level ranges on our guides are intended for standard exp rates, do not worry about following the leveling brackets while on 20% or 50% exp.\nJust follow the guide the best you can.\n"] =
+    "\n我们指南中的等级范围是针对标准经验倍率设计的，如果你拥有 20% 或 50% 的经验加成，请勿纠结于是否完全符合练级区间。\n只要尽你所能跟随指南即可。\n"
 L["Why is my guide skipping lots of steps or zones?"] = "为什么指南跳过了很多步骤或区域？"
-L["\nThese are inefficient areas that we skip if you are missing quest chains or if you are ahead in levels compared to the guide.\n"] = "\n这些属于低效率区域。如果你缺少任务链，或者你的等级高于指南当前进度，我们会跳过这些内容。\n"
+L["\nThese are inefficient areas that we skip if you are missing quest chains or if you are ahead in levels compared to the guide.\n"] =
+    "\n这些属于低效率区域。如果你缺少任务链，或者你的等级高于指南当前进度，我们会跳过这些内容。\n"
 L["What are command the line options?"] = "有哪些命令行指令？"
-L["\n|cff909090/rxp|r - Open general addon settings\n|cff909090/rxp import|r - Open Import Guide interface\n|cff909090/rxp debug|r - enable debugging output\n|cff909090/rxp splits|r - Toggle Level Splits on or off, if enabled\n|cff909090/rxp show||hide||toggle|r - Toggle all enabled frames on or off\n|cff909090/rxp bug||feedback|r - Open Feedback Form\n|cff909090/rxp help|r - This output\n"] = "\n|cff909090/rxp|r - 打开插件通用设置\n|cff909090/rxp import|r - 打开指南导入界面\n|cff909090/rxp debug|r - 启用调试输出\n|cff909090/rxp splits|r - 切换等级分段记录的开启/关闭状态（如果已启用）\n|cff909090/rxp show||hide||toggle|r - 开启或关闭所有已启用的框架\n|cff909090/rxp bug||feedback|r - 打开反馈表单\n|cff909090/rxp help|r - 显示此帮助信息\n"
+L["\n|cff909090/rxp|r - Open general addon settings\n|cff909090/rxp import|r - Open Import Guide interface\n|cff909090/rxp debug|r - enable debugging output\n|cff909090/rxp splits|r - Toggle Level Splits on or off, if enabled\n|cff909090/rxp show||hide||toggle|r - Toggle all enabled frames on or off\n|cff909090/rxp bug||feedback|r - Open Feedback Form\n|cff909090/rxp help|r - This output\n"] =
+    "\n|cff909090/rxp|r - 打开插件通用设置\n|cff909090/rxp import|r - 打开指南导入界面\n|cff909090/rxp debug|r - 启用调试输出\n|cff909090/rxp splits|r - 切换等级分段记录的开启/关闭状态（如果已启用）\n|cff909090/rxp show||hide||toggle|r - 开启或关闭所有已启用的框架\n|cff909090/rxp bug||feedback|r - 打开反馈表单\n|cff909090/rxp help|r - 显示此帮助信息\n"
 L["has known incompatibilities with the Waypoint Arrow."] = "已知与导航箭头存在不兼容问题。"
 L["Disable it if you're experiencing navigation issues."] = "如果遇到导航问题，请禁用它。"
-L["has known incompatibilities with Proximity targeting TargetUnit() calls."] = "已知与近距离目标宏的TargetUnit()调用存在不兼容问题。"
-L["Install BugSack or disable Targeting -> 'Only show when in range'."] = "请安装 BugSack 插件，或禁用 目标 -> '仅在范围内显示'。"
+L["has known incompatibilities with Proximity targeting TargetUnit() calls."] =
+    "已知与近距离目标宏的TargetUnit()调用存在不兼容问题。"
+L["Install BugSack or disable Targeting -> 'Only show when in range'."] =
+    "请安装 BugSack 插件，或禁用 目标 -> '仅在范围内显示'。"
 
 -- InventoryManager.lua
 L["|c%sSorting arrows/bullets|r"] = "|c%s正在整理箭矢/弹药|r"
@@ -220,7 +258,8 @@ L["Level Splits"] = "等级分段"
 L["Temporarily hide, use '/rxp splits' to show again"] = "暂时隐藏,使用 '/rxp splits' 再次显示"
 L["Export"] = "导出"
 L["Export Level Splits"] = "导出等级分段数据"
-L["Export string for Importing into another character's comparison data"] = "导出字符串，以便导入到另一个角色的对比数据中"
+L["Export string for Importing into another character's comparison data"] =
+    "导出字符串，以便导入到另一个角色的对比数据中"
 L["Import"] = "导入"
 L["Import Level Splits"] = "导入等级分段数据"
 L["Import string from another character"] = "导入来自其他角色的字符串"
@@ -247,12 +286,14 @@ L["Quest is not part of any guide"] = "该任务不属于任何指南"
 L["Item used in guide:\n"] = "指南中使用的物品：\n"
 L["Abandoning %s"] = "放弃 %s"
 L["Cleanup Orphaned Quests"] = "清理孤立任务"
-L["Abandons quests that aren't referenced by your current RestedXP guide."] = "放弃当前RestedXP指南中没有提到的任务。"
+L["Abandons quests that aren't referenced by your current RestedXP guide."] =
+    "放弃当前RestedXP指南中没有提到的任务。"
 L["Unknown"] = "未知"
 L[" (level %d)"] = " (等级 %d)"
 L["Cleanup: no orphaned quests to abandon."] = "清理：没有需要放弃的废弃任务。"
 L["Cleanup: abandoning %d orphaned quest(s)..."] = "清理：正在放弃 %d 个废弃任务..."
-L["Cleanup: Settings handler did not complete; using fallback."] = "清理：设置处理程序未完成；正在使用备用方案。"
+L["Cleanup: Settings handler did not complete; using fallback."] =
+    "清理：设置处理程序未完成；正在使用备用方案。"
 L["Cleanup: completed via Settings handler."] = "清理：已通过设置处理程序完成。"
 L["Cleanup: no active guide detected."] = "清理：未检测到激活的指南。"
 L["Cleanup: no orphaned quests found."] = "清理：未发现废弃任务。"
@@ -269,7 +310,8 @@ L["Character profile (%s) already migrated"] = "角色配置文件 (%s) 已迁�
 L["Please restart your game client and try again"] = "请重新启动游戏客户端并重试"
 L["Failed to Import Guides: Invalid Import String"] = "导入指南失败:无效的导入字符串"
 L["none"] = "无"
-L["Press Ctrl+V to paste a piece of the string (%d)\nPress ESC to cancel\n\nThis process is slow and should only be used if your operating system have clipboard length restrictions"] = "按 Ctrl+V 粘贴字符串片段 (%d)\n按 ESC 取消\n\n此过程较慢，仅在你的操作系统有剪贴板长度限制时使用"
+L["Press Ctrl+V to paste a piece of the string (%d)\nPress ESC to cancel\n\nThis process is slow and should only be used if your operating system have clipboard length restrictions"] =
+    "按 Ctrl+V 粘贴字符串片段 (%d)\n按 ESC 取消\n\n此过程较慢，仅在你的操作系统有剪贴板长度限制时使用"
 L["Import Error - Invalid String Header"] = "导入错误 - 无效的字符串头"
 L["Guide Import"] = "指南导入"
 L["Paste encoded strings"] = "粘贴编码字符串"
@@ -278,10 +320,12 @@ L["Currently loaded imported guides"] = "当前加载的导入指南"
 L["Delete imported guide"] = "删除导入的指南"
 L["Remove"] = "移除"
 L["Purge All Data"] = "清除所有数据"
-L["This action will remove ALL guides from the database\nAre you sure?"] = "此操作将从数据库中移除所有指南\n你确定吗？"
+L["This action will remove ALL guides from the database\nAre you sure?"] =
+    "此操作将从数据库中移除所有指南\n你确定吗？"
 L["Reload guides and UI"] = "重新加载指南和界面"
 L["Import Spliced String"] = "导入拼接字符串"
-L["Battle.net unreachable, please exit your client, restart Battle.net, and try again"] = "无法连接 Battle.net,请退出客户端,重启 Battle.net,然后重试"
+L["Battle.net unreachable, please exit your client, restart Battle.net, and try again"] =
+    "无法连接 Battle.net,请退出客户端,重启 Battle.net,然后重试"
 L["Loaded %d characters into import buffer, %d shown"] = "已将 %d 个字符加载到导入缓冲区,显示 %d 个"
 L["Loaded %d characters into import buffer"] = "已将 %d 个字符加载到导入缓冲区"
 L["This requires a reload to take effect, continue?"] = "这需要重新加载才能生效,是否继续？"
@@ -290,9 +334,11 @@ L["Run Guide Configurator"] = "运行指南配置器"
 L["Show all Enabled Frames"] = "显示所有已启用的框架"
 L["Toggles all addon frames on or off"] = "开关所有插件框架"
 L["Lock Frames"] = "锁定框架"
-L["Disable dragging/resizing, use alt+left click on the main window to resize it"] = "禁用拖动/调整大小,使用 alt+左键点击 主窗口来调整其大小"
+L["Disable dragging/resizing, use alt+left click on the main window to resize it"] =
+    "禁用拖动/调整大小,使用 alt+左键点击 主窗口来调整其大小"
 L["Autohide in Raids"] = "在团队中自动隐藏"
-L["Automatically hide when in a raid, and unhide when you leave a raid"] = "在团队中自动隐藏,离开团队时自动取消隐藏"
+L["Automatically hide when in a raid, and unhide when you leave a raid"] =
+    "在团队中自动隐藏,离开团队时自动取消隐藏"
 L["Enable Minimap Button"] = "启用小地图按钮"
 L["Add main options menu to minimap"] = "将主选项菜单添加到小地图"
 L["Enable World Map Button"] = "启用世界地图按钮"
@@ -306,7 +352,8 @@ L["Enable embedded Cpt. Stadics' Vendor Treasures"] = "启用嵌入的 Cpt. Stad
 L["Show Flight Timers"] = "显示飞行计时器"
 L["Automation"] = "自动化"
 L["Quest auto accept/turn in"] = "任务自动接受/交付"
-L["Holding the Control key modifier also toggles the quest auto accept feature on and off"] = "按住 Ctrl 键也可以开关任务自动接受功能"
+L["Holding the Control key modifier also toggles the quest auto accept feature on and off"] =
+    "按住 Ctrl 键也可以开关任务自动接受功能"
 L["Quest auto rewards"] = "自动选取任务奖励"
 L["Allows guides to choose quest rewards automatically"] = "允许指南自动选择任务奖励"
 L["Trainer automation"] = "训练师自动化"
@@ -318,16 +365,21 @@ L["Allows the guide to automatically set your home at an Innkeeper"] = "允许�
 L["Skip Gossip"] = "跳过闲聊"
 L["Allows the guide to automatically skip gossip for NPCs"] = "允许指南自动跳过 NPC 对话"
 L["Show junk item indicator"] = "显示垃圾物品指示器"
-L["Any items marked as junk will display a gold coin icon on the top left corner of the item icon within your bags"] = "任何标记为垃圾的物品在背包中都会在物品图标的左上角显示一个金币图标"
+L["Any items marked as junk will display a gold coin icon on the top left corner of the item icon within your bags"] =
+    "任何标记为垃圾的物品在背包中都会在物品图标的左上角显示一个金币图标"
 L["Discard junk items if bag is full"] = "如果背包已满则丢弃垃圾物品"
-L["Automatically attempts to discard the cheapest junk item from your bags if your inventory is full"] = "如果背包已满,自动尝试丢弃最便宜的垃圾物品"
+L["Automatically attempts to discard the cheapest junk item from your bags if your inventory is full"] =
+    "如果背包已满,自动尝试丢弃最便宜的垃圾物品"
 L["Toggle junk with modified right click"] = "使用修改的右键点击切换垃圾"
-L["Allows you to toggle items as junk by clicking on it with CTRL+RightClick or ALT+RightClick"] = "允许你通过 CTRL+右键点击 或 ALT+右键点击 将物品标记为垃圾"
+L["Allows you to toggle items as junk by clicking on it with CTRL+RightClick or ALT+RightClick"] =
+    "允许你通过 CTRL+右键点击 或 ALT+右键点击 将物品标记为垃圾"
 L["Right Click Modifier"] = "右键点击修饰键"
 L["Auto Sell Junk"] = "自动出售垃圾"
-L["Automatically sell all gray items and all other items that you set as junk"] = "自动出售所有灰色物品和所有你设置为垃圾的其他物品"
+L["Automatically sell all gray items and all other items that you set as junk"] =
+    "自动出售所有灰色物品和所有你设置为垃圾的其他物品"
 L["Soul Shard Maximum"] = "灵魂碎片上限"
-L["Automatically set Soul Shard as junk if you have more than the amount specified"] = "当灵魂碎片数量超过指定数量时，自动将其标记为垃圾"
+L["Automatically set Soul Shard as junk if you have more than the amount specified"] =
+    "当灵魂碎片数量超过指定数量时，自动将其标记为垃圾"
 L["You must input an integer number"] = "你必须输入一个整数"
 L["Delete Cheapest Junk Item Keybind"] = "删除最便宜垃圾物品快捷键"
 L["Click to set a keybind"] = "点击设置快捷键"
@@ -344,22 +396,28 @@ L["Auto detects seasonal buffs and adjust the routes accordingly"] = "自动检�
 L["Checks for heirlooms and experience buffs"] = "检查传家宝和经验增益"
 L["Experience rates"] = "经验值倍率"
 L["Adjusts the guide routes to match increased xp rate bonuses"] = "调整指南路线以匹配增加的经验值加成"
-L["Notice: Changing experience rates beyond 1x may cause some chapters to become hidden and certain steps may automatically skip as you out level them"] = "注意:将经验值倍率调整到 1 倍以上可能会导致某些章节被隐藏,并且某些步骤可能会因为你超出等级而自动跳过"
+L["Notice: Changing experience rates beyond 1x may cause some chapters to become hidden and certain steps may automatically skip as you out level them"] =
+    "注意:将经验值倍率调整到 1 倍以上可能会导致某些章节被隐藏,并且某些步骤可能会因为你超出等级而自动跳过"
 L["Skip overleveled steps"] = "跳过超出等级的步骤"
 L["Skip steps you're overleveled for"] = "跳过你等级过高的步骤"
-L["Warning: Changing this setting mid-guide may cause quest pre-requisite failures.\nGuides were optimized for experience, disabling this option will result in a disjointed guide steps."] = "警告:在指南中途更改此设置可能导致任务前置条件失败。\n指南已为经验优化,禁用此选项将导致指南步骤不连贯。"
+L["Warning: Changing this setting mid-guide may cause quest pre-requisite failures.\nGuides were optimized for experience, disabling this option will result in a disjointed guide steps."] =
+    "警告:在指南中途更改此设置可能导致任务前置条件失败。\n指南已为经验优化,禁用此选项将导致指南步骤不连贯。"
 L["Show Group Quests"] = "显示小组任务"
 L["Guides that support this feature:\n"] = "支持此功能的指南：\n"
 L["Solo Self Found Mode"] = "单人模式 无交易拍卖行邮箱"
-L["If this option is enabled, it disables all steps involving trading or Auction House"] = "如果启用此选项,将禁用所有涉及交易或拍卖行的步骤"
+L["If this option is enabled, it disables all steps involving trading or Auction House"] =
+    "如果启用此选项,将禁用所有涉及交易或拍卖行的步骤"
 L["Northrend Loremaster"] = "诺森德博学者"
-L["Adjust the routes to include almost every quest in the Northrend zones"] = "调整路线以包含诺森德区域的几乎所有任务"
+L["Adjust the routes to include almost every quest in the Northrend zones"] =
+    "调整路线以包含诺森德区域的几乎所有任务"
 L["Loremaster Mode"] = "博学者模式"
 L["Adjust the routes to include more quests"] = "调整路线以包含更多任务"
 L["Show Chromie Time Guides"] = "显示时光漫游指南"
-L["Enables or disables the chromie time guides. Note that freshly created accounts without a level 60 character cannot access chromie time"] = "启用或禁用时光漫游指南。请注意,新创建的账号如果没有60级角色将无法使用时光漫游"
+L["Enables or disables the chromie time guides. Note that freshly created accounts without a level 60 character cannot access chromie time"] =
+    "启用或禁用时光漫游指南。请注意,新创建的账号如果没有60级角色将无法使用时光漫游"
 L["Content phase"] = "内容阶段"
-L["Adjusts the guide routes to match the content phase\nPhase 2: Dire Maul quests\nPhase 3: 100% quest XP (SoM)\nPhase 4: ZG/Silithus quests\nPhase 5: AQ quests\nPhase 6: Eastern Plaguelands quests"] = "根据内容阶段调整指南路线\n阶段 2：厄运之槌任务\n阶段 3：100% 任务经验(SoM赛季服)\n阶段 4：祖尔格拉布 / 希利苏斯任务\n阶段 5：安其拉任务\n阶段 6：东瘟疫之地任务"
+L["Adjusts the guide routes to match the content phase\nPhase 2: Dire Maul quests\nPhase 3: 100% quest XP (SoM)\nPhase 4: ZG/Silithus quests\nPhase 5: AQ quests\nPhase 6: Eastern Plaguelands quests"] =
+    "根据内容阶段调整指南路线\n阶段 2：厄运之槌任务\n阶段 3：100% 任务经验(SoM赛季服)\n阶段 4：祖尔格拉布 / 希利苏斯任务\n阶段 5：安其拉任务\n阶段 6：东瘟疫之地任务"
 L["Hardcore mode"] = "硬核模式"
 L["Adjust the leveling routes to the deathless ruleset"] = "调整升级路线以适应无死亡规则"
 L["Season"] = "赛季"
@@ -368,25 +426,30 @@ L["None"] = "无"
 L["Season of Mastery"] = "SoM赛季"
 L["Season of Discovery"] = "探索赛季"
 L["Multibox mode"] = "多开模式"
-L["Removes sections that require attention from all clients\nGuides that support this feature:\n"] = "移除所有客户端中需要特别注意的步骤\n支持此功能的指南：\n"
+L["Removes sections that require attention from all clients\nGuides that support this feature:\n"] =
+    "移除所有客户端中需要特别注意的步骤\n支持此功能的指南：\n"
 L["Select Recommended Dungeons"] = "选择推荐的5人本"
 L["Factor only the high impact dungeons into the route"] = "只将高影响的 5 人副本纳入路线计算"
 L["Select all Dungeons"] = "选择所有 5 人副本"
-L["Routes in quests for the selected dungeon\nGuides that support this feature:\n"] = "规划所选地下城的任务路线\n支持此功能的指南：\n"
+L["Routes in quests for the selected dungeon\nGuides that support this feature:\n"] =
+    "规划所选地下城的任务路线\n支持此功能的指南：\n"
 L["Professions"] = "专业"
-L["Level professions along with the guide\nGuides that support this feature:\n"] = "跟随指南同步升级专业技能\n支持此功能的指南：\n"
+L["Level professions along with the guide\nGuides that support this feature:\n"] =
+    "跟随指南同步升级专业技能\n支持此功能的指南：\n"
 L["Quest Cleanup"] = "任务清理"
 L["Cleanup obsolete or leftover quests"] = "清理过时或遗留的任务"
 L["Abandon the following quests?"] = "放弃以下任务？"
 L["Create Active Targets frame"] = "创建当前目标框体"
 L["Maximize Nameplate Distance"] = "最大化姓名版距离"
-L["Automatically maximize nameplate visibility distance for better target detection (Requires reload)"] = "自动最大化姓名版可见距离以更好地检测目标 (需要重新加载)"
+L["Automatically maximize nameplate visibility distance for better target detection (Requires reload)"] =
+    "自动最大化姓名版可见距离以更好地检测目标 (需要重新加载)"
 L["Mark Enemy Targets"] = "标记敌对目标"
 L["Mark special enemy targets with moon"] = "用月亮标记特殊敌对目标"
 L["Mark Enemy Mobs"] = "标记敌对怪物"
 L["Mark enemy mobs with skull, cross, and square"] = "用骷髅、红叉和方块标记敌对怪物"
 L["Mark Friendly Targets"] = "标记友好目标"
-L["Mark friendly targets with star, circle, diamond, and triangle"] = "用星星、大饼、紫菱和三角标记友好目标"
+L["Mark friendly targets with star, circle, diamond, and triangle"] =
+    "用星星、大饼、紫菱和三角标记友好目标"
 L["Targeting Macro"] = "目标宏"
 L["Macro capacity reached"] = "宏容量已达上限"
 L["Create Targeting Macro"] = "创建目标宏"
@@ -394,7 +457,8 @@ L["Automatically create a targeting macro"] = "自动创建目标宏"
 L["Notify on new target"] = "新目标通知"
 L["Notify when a new target is loaded"] = "加载新目标时通知"
 L["Only show when in range"] = "仅在范围内显示"
-L["Check if targets are nearby\nWarning: This relies on ADDON_ACTION_FORBIDDEN errors from TargetUnit() to function."] = "检查目标是否在附近\n警告:这依赖于 TargetUnit() 的 ADDON_ACTION_FORBIDDEN 错误才能工作。"
+L["Check if targets are nearby\nWarning: This relies on ADDON_ACTION_FORBIDDEN errors from TargetUnit() to function."] =
+    "检查目标是否在附近\n警告:这依赖于 TargetUnit() 的 ADDON_ACTION_FORBIDDEN 错误才能工作。"
 L["Scan Enemy Targets"] = "扫描敌方目标"
 L["Scan for enemy targets"] = "扫描敌方目标"
 L["Scan Friendly Targets"] = "扫描友方目标"
@@ -426,7 +490,8 @@ L["Sound Channel"] = "声音频道"
 L["Leveling Tracker"] = "升级追踪器"
 L["Enable Leveling Tracker"] = "启用升级追踪器"
 L["Always Open Leveling Report With Character Panel"] = "始终在打开角色面板时显示升级报告"
-L["Enables the RestedXP Leveling Report when you open your character panel"] = "打开角色面板时启用 RestedXP 升级报告"
+L["Enables the RestedXP Leveling Report when you open your character panel"] =
+    "打开角色面板时启用 RestedXP 升级报告"
 L["Enable Level Splits"] = "启用等级分段"
 L["Compare Next Level"] = "比较下一级"
 L["When comparing, show next level's time"] = "比较时显示下一级的时间"
@@ -440,7 +505,8 @@ L["Level Splits Opacity"] = "等级分段不透明度"
 L["Lower number to make Level Splits more transparent"] = "降低数值使等级分段更透明"
 L["Communications"] = "通讯"
 L["Enable Addon Version Checks"] = "启用插件版本检查"
-L["Advertises and compares addon versions with all RXP users in party"] = "与队伍中所有 RXP 用户广告和比较插件版本"
+L["Advertises and compares addon versions with all RXP users in party"] =
+    "与队伍中所有 RXP 用户广告和比较插件版本"
 L["Announcements"] = "通告"
 L["Announce Level Ups (Emote)"] = "通告升级 (表情)"
 L["Make a public emote when you level up"] = "升级时发送公开表情"
@@ -449,17 +515,23 @@ L["Announce in party chat when you level up"] = "在队伍聊天中通告你的�
 L["Announce Level Ups (Guild Chat)"] = "通告升级 (公会聊天)"
 L["Announce in guild chat when you level up"] = "在公会聊天中通告你的升级"
 L["Announce Step completion"] = "通告任务步骤完成"
-L["Announce in party chat when you complete certain quests (.complete)"] = "当你完成某些任务时在队伍聊天中通告 (.complete)"
+L["Announce in party chat when you complete certain quests (.complete)"] =
+    "当你完成某些任务时在队伍聊天中通告 (.complete)"
 L["Announce Step collection"] = "通告所有步骤物品已收集"
-L["Announce in party chat when you collect all the items relevant to a quest (.collect)"] = "当你收集到所有与任务相关的物品时在队伍聊天中通告 (.collect)"
+L["Announce in party chat when you collect all the items relevant to a quest (.collect)"] =
+    "当你收集到所有与任务相关的物品时在队伍聊天中通告 (.collect)"
 L["Announce Step flying timers"] = "通告飞行步骤计时器"
-L["Announce in party chat where you're flying and how long until you arrive"] = "在队伍聊天中通告你正在飞往何处以及预计到达时间"
+L["Announce in party chat where you're flying and how long until you arrive"] =
+    "在队伍聊天中通告你正在飞往何处以及预计到达时间"
 L["Ignore Questie announcements"] = "忽略 Questie 通告"
-L["Send quest and collect step announcements even if Questie is enabled"] = "即使启用了 Questie 也发送任务和收集步骤通告"
+L["Send quest and collect step announcements even if Questie is enabled"] =
+    "即使启用了 Questie 也发送任务和收集步骤通告"
 L["Send announcements without another RXP user in group"] = "在小组中没有其他 RXP 用户时也发送通告"
-L["Without this checked we will only send announcements if another RestedXP User is in your group"] = "如果不勾选此项,我们只会在你的小组中有其他 RestedXP 用户时发送通告"
+L["Without this checked we will only send announcements if another RestedXP User is in your group"] =
+    "如果不勾选此项,我们只会在你的小组中有其他 RestedXP 用户时发送通告"
 L["Automatic quest sharing"] = "自动任务分享"
-L["Whenever you accept a quest in the guide, the addon tries to share it with your group"] = "每当你在指南中接受任务时,插件会尝试与你的小组分享"
+L["Whenever you accept a quest in the guide, the addon tries to share it with your group"] =
+    "每当你在指南中接受任务时,插件会尝试与你的小组分享"
 L["Tips"] = "提示"
 L["Enable Tips"] = "启用提示"
 L["Enable Tips Frame"] = "启用提示框架"
@@ -477,12 +549,15 @@ L["Rare Tracker"] = "稀有追踪器"
 L["Track Mobs on Map"] = "在地图上追踪怪物"
 L["Displays dangerous mobs and patrols on your map (WIP)"] = "在地图上显示危险怪物和巡逻怪 (开发中)"
 L["Scan for dangerous mobs"] = "扫描危险怪物"
-L["Displays dangerous mobs and patrols on the targeting window (WIP)"] = "在目标窗口显示危险怪物和巡逻怪 (开发中)"
+L["Displays dangerous mobs and patrols on the targeting window (WIP)"] =
+    "在目标窗口显示危险怪物和巡逻怪 (开发中)"
 L["Track Rare Mobs"] = "追踪稀有怪"
 L["Skip mobs already killed"] = "跳过已击杀怪物"
-L["Don't show on the map rare mobs you already killed for their respective achievement"] = "不在地图上显示你已经为对应成就击杀过的稀有怪物"
+L["Don't show on the map rare mobs you already killed for their respective achievement"] =
+    "不在地图上显示你已经为对应成就击杀过的稀有怪物"
 L["Track Treasures"] = "追踪宝藏"
-L["Calculates item upgrades with Tactics' effective power weights"] = "使用 Tactics 的有效能力权重计算物品升级"
+L["Calculates item upgrades with Tactics' effective power weights"] =
+    "使用 Tactics 的有效能力权重计算物品升级"
 L["Choose active theme"] = "选择活动主题"
 L["Always Show Total EP"] = "总是显示总的权重系统"
 L["Quest Reward Recommendation"] = "任务奖励推荐"
@@ -505,24 +580,29 @@ L["Text Color"] = "文字颜色"
 L["Requires Reload to take effect"] = "需要重新加载才能生效"
 L["Preview Changes"] = "预览更改"
 L["Preview theme changes"] = "预览主题更改"
-L["This action will reload your current guide when toggled off.\nAre you sure?"] = "关闭此选项将重新加载你当前的指南。\n确定要这样做吗？"
+L["This action will reload your current guide when toggled off.\nAre you sure?"] =
+    "关闭此选项将重新加载你当前的指南。\n确定要这样做吗？"
 L["Warning"] = "警告"
 L["Pick Up"] = "拾取"
 L["Buy"] = "购买"
 L["Disable Colors"] = "禁用颜色"
 L["Guide Window"] = "指南窗口"
 L["Window Scale"] = "窗口缩放"
-L["Scale of the Main Window, use alt+left click on the main window to resize it"] = "主窗口缩放,使用 alt+左键点击 主窗口来调整其大小"
+L["Scale of the Main Window, use alt+left click on the main window to resize it"] =
+    "主窗口缩放,使用 alt+左键点击 主窗口来调整其大小"
 L["Guide Font Size"] = "指南字体大小"
 L["Change font size of the Guide Window"] = "更改指南窗口的字体大小"
 L["Current step frame anchor"] = "当前步骤框架锚点"
-L["Sets the current step frame to grow from bottom to top or top to bottom"] = "设置当前步骤框架从下到上或从上到下增长"
+L["Sets the current step frame to grow from bottom to top or top to bottom"] =
+    "设置当前步骤框架从下到上或从上到下增长"
 L["Show step list"] = "显示步骤列表"
-L["Show/Hide the bottom frame listing all the steps of the current guide"] = "显示/隐藏底部框架,列出当前指南的所有步骤"
+L["Show/Hide the bottom frame listing all the steps of the current guide"] =
+    "显示/隐藏底部框架,列出当前指南的所有步骤"
 L["Hide completed steps"] = "隐藏已完成步骤"
 L["Only shows current and future steps on the step list window"] = "步骤列表窗口仅显示当前和未来的步骤"
 L["Show unused guides"] = "显示未使用的指南"
-L["Displays guides that are not applicable for your class/race such as starting zones for other races"] = "显示不适用于你的职业/种族的指南,如其他种族的起始区域"
+L["Displays guides that are not applicable for your class/race such as starting zones for other races"] =
+    "显示不适用于你的职业/种族的指南,如其他种族的起始区域"
 L["Waypoint Arrow"] = "路径点箭头"
 L["Arrow Scale"] = "箭头缩放"
 L["Scale of the Waypoint Arrow"] = "路径点箭头缩放"
@@ -540,7 +620,8 @@ L["Number of map pins shown on the world map"] = "世界地图上显示的地图
 L["Map Pin Scale"] = "地图图钉缩放"
 L["Adjusts the size of the world map pins"] = "调整世界地图图钉的大小"
 L["Distance Between Pins"] = "图钉之间的距离"
-L["If two or more steps are very close together, this addon will group them into a single pin on the map. Adjust this range to determine how close together two steps must be to form a group."] = "如果两个或多个步骤非常接近,此插件会将它们分组到地图上的单个图钉。调整此范围以确定两个步骤必须多近才能形成一个组。"
+L["If two or more steps are very close together, this addon will group them into a single pin on the map. Adjust this range to determine how close together two steps must be to form a group."] =
+    "如果两个或多个步骤非常接近,此插件会将它们分组到地图上的单个图钉。调整此范围以确定两个步骤必须多近才能形成一个组。"
 L["Map Pin Background Opacity"] = "地图图钉背景不透明度"
 L["The opacity of the black circles on the map and mini map"] = "地图和小地图上黑色圆圈的不透明度"
 L["Advanced Settings"] = "高级设置"
@@ -553,26 +634,34 @@ L["Disable step skips"] = "禁止跳过步骤"
 L["Ignores any kind of condition that causes a step to auto skip"] = "忽略所有会导致步骤自动跳过的条件"
 L["Import Completed Quests"] = "导入已完成的任务"
 L["Hearthstone batching"] = "炉石批处理"
-L["Enables the automation of the innkeeper prompt, where you can set your home location in the same server tick you're teleporting away"] = "启用旅店老板提示自动化,你可以在传送离开的同一个服务器刻度中设置你的炉石位置"
+L["Enables the automation of the innkeeper prompt, where you can set your home location in the same server tick you're teleporting away"] =
+    "启用旅店老板提示自动化,你可以在传送离开的同一个服务器刻度中设置你的炉石位置"
 L["Batching window size (ms)"] = "批处理窗口大小 (毫秒)"
-L["Adjusts the batching window tolerance, used for hearthstone batching. Increase this value if you're experiencing framerate drops when using your Hearthstone"] = "调整批处理窗口容差,用于炉石批处理。如果在使用炉石时遇到帧率下降,请增加此值"
+L["Adjusts the batching window tolerance, used for hearthstone batching. Increase this value if you're experiencing framerate drops when using your Hearthstone"] =
+    "调整批处理窗口容差,用于炉石批处理。如果在使用炉石时遇到帧率下降,请增加此值"
 L["Update Frequency (ms)"] = "更新频率(毫秒)"
-L["Defines how often the addon updates in milliseconds, increase this if you're having performance issues"] = "定义插件以毫秒为单位的更新频率，如果你遇到性能问题可以调高此数值"
+L["Defines how often the addon updates in milliseconds, increase this if you're having performance issues"] =
+    "定义插件以毫秒为单位的更新频率，如果你遇到性能问题可以调高此数值"
 L["Pre load all data"] = "预加载所有数据"
-L["Loads all addon data upfront, instead of loading the data slowly over time. This increases loading screen times, only enable this option if you are experiencing frame rate drops"] = "一次性加载所有插件数据，而不是随时间逐步加载。这会增加加载界面时间，仅在你遇到帧率下降时才启用此选项"
+L["Loads all addon data upfront, instead of loading the data slowly over time. This increases loading screen times, only enable this option if you are experiencing frame rate drops"] =
+    "一次性加载所有插件数据，而不是随时间逐步加载。这会增加加载界面时间，仅在你遇到帧率下降时才启用此选项"
 L["Check for Addon Incompatibility"] = "检查插件不兼容性"
-L["Check loaded addons for known compatibility issues with RXP"] = "检查已加载的插件是否与 RXP 存在已知的兼容性问题"
+L["Check loaded addons for known compatibility issues with RXP"] =
+    "检查已加载的插件是否与 RXP 存在已知的兼容性问题"
 L["Skip quests with missing pre-requisites"] = "跳过缺少前置条件的任务"
-L["Automatically skip tasks in which you don't have the required quest pre-requisites\n(Requires Questie)"] = "自动跳过你不符合任务前置条件的任务\n(需要 Questie)"
+L["Automatically skip tasks in which you don't have the required quest pre-requisites\n(Requires Questie)"] =
+    "自动跳过你不符合任务前置条件的任务\n(需要 Questie)"
 L["Set current profile as default"] = "将当前配置设为默认"
 L["|cff909090Left Click: |cffffcc00Toggle Guide|r"] = "|cff909090左键点击：|cffffcc00切换指南|r"
 L["|cff909090Right Click: |cffffcc00Show Menu|r"] = "|cff909090右键点击：|cffffcc00显示菜单|r"
-L["Experience rate change detected, reloading guide for %.2fx"] = "检测到经验值倍率变化,正在为 %.2fx 重新加载指南"
+L["Experience rate change detected, reloading guide for %.2fx"] =
+    "检测到经验值倍率变化,正在为 %.2fx 重新加载指南"
 L["Profile changed, Reload UI for settings to take effect"] = "配置已更改,重新加载界面以使设置生效"
 L["Preview"] = "预览"
 
 -- Talents.lua
-L["Talented detected, please disable for talent guide functionality"] = "检测到天赋,请禁用以使用天赋指南功能"
+L["Talented detected, please disable for talent guide functionality"] =
+    "检测到天赋,请禁用以使用天赋指南功能"
 L["Left click to apply talents"] = "左键点击应用天赋"
 L["Too low for %s"] = "等级过低无法使用 %s"
 L["Too high for %s"] = "等级过高无法使用 %s"
@@ -582,7 +671,8 @@ L["Loaded next guide, %s"] = "已加载下一个指南,%s"
 -- Targeting.lua
 L["Targeting macro updated with:%s"] = "目标宏已更新:%s"
 L["current step has no configured targets"] = "当前步骤没有配置目标"
-L["A macro has been automatically built to aid in leveling. Please move %s to your action bars."] = "已自动创建一个宏来辅助升级。请将 %s 移动到你的动作条。"
+L["A macro has been automatically built to aid in leveling. Please move %s to your action bars."] =
+    "已自动创建一个宏来辅助升级。请将 %s 移动到你的动作条。"
 L["Rare Found! %s is nearby."] = "发现稀有怪!%s 在附近。"
 L["Active Targets"] = "当前目标"
 
@@ -594,7 +684,8 @@ L["%s does not apply to current mode, importing anyway"] = "%s 不适用于当�
 L["Addon Tips"] = "插件小贴士"
 
 -- DB\questDB.lua
-L["Showing expected Quest Log, scroll down to view backup quests"] = "正在显示预期的任务日志，向下滚动以查看备用任务"
+L["Showing expected Quest Log, scroll down to view backup quests"] =
+    "正在显示预期的任务日志，向下滚动以查看备用任务"
 L["Quest Priority"] = "任务优先级"
 L["Turn-in Route"] = "任务提交路线"
 L["Preparation Guide"] = "准备指南"
@@ -616,7 +707,8 @@ L["Gnomish Engineering"] = "侏儒工程学"
 L["Goblin Engineering"] = "地精工程学"
 L["Mage Portals"] = "法师传送门"
 L["Wrath of the Blue Flight Teleport"] = "“蓝龙之怒”传送"
-L["If you have this quest available you get a free teleport from Winterspring to Western Plaguelands"] = "如果你可以接取此任务，就能免费从冬泉谷传送至西瘟疫之地"
+L["If you have this quest available you get a free teleport from Winterspring to Western Plaguelands"] =
+    "如果你可以接取此任务，就能免费从冬泉谷传送至西瘟疫之地"
 L["Silithus Start"] = "希利苏斯起始点"
 L["Burning Steppes Start"] = "燃烧平原起始点"
 L["Step skipped: This is part of a quest you don't have"] = "步骤已跳过：这是你未接取的任务的一部分"
@@ -657,14 +749,20 @@ L["Active Enemy Target Button %d"] = "当前敌方目标按钮 %d"
 -- UI\V2\GuideConfigurator.lua
 L["Welcome, select a guide."] = "欢迎，选择一个指南。"
 L["Select Speedrun Guide"] = "选择竞速向指南"
-L["This guide delivers the fastest path from level 1 to %s for every class and zone. Optimized for minimal downtime, it includes the best quest routes, grinding spots, and dungeon segments to reach max level quickly and efficiently."] = "本指南为所有职业和区域提供从 1 级到 %s 级的最快升级路线。通过最小化空档时间进行优化，包含最佳任务路线、刷怪点以及地下城流程，帮助你快速高效地达到满级。"
+L["This guide delivers the fastest path from level 1 to %s for every class and zone. Optimized for minimal downtime, it includes the best quest routes, grinding spots, and dungeon segments to reach max level quickly and efficiently."] =
+    "本指南为所有职业和区域提供从 1 级到 %s 级的最快升级路线。通过最小化空档时间进行优化，包含最佳任务路线、刷怪点以及地下城流程，帮助你快速高效地达到满级。"
 L["Select Survival Guide"] = "选择生存向指南"
-L["This guide delivers the safest path from level 1 to %s for every class and zone. Optimized for maximum survivability it includes the best quest routes, grinding spots, and dungeon segments to reach max level safely and efficiently."] = "本指南为所有职业和区域提供从 1 级到 %s 级的最安全升级路线。以最大生存能力为优化目标，包含最佳任务路线、刷怪点以及地下城流程，帮助你安全且高效地达到满级。"
-L["Select your preferred features to customize the guide. The leveling route automatically adapts to your choices."] = "选择你偏好的功能来自定义指南。练级路线将根据你的选择自动调整。"
-L["Add dungeons to your journey. The guide will adjust to your selection accordingly and include dungeon quests to your route."] = "在旅途中加入地下城。指南会根据你的选择自动调整，并将地下城任务纳入你的路线规划中。"
-L["Show elite quests and routes difficult quests early in the guide. Leave unchecked, if you prefer a solo experience."] = "在指南中提前显示精英任务和高难度任务路线。如果你更偏好单人体验，请不要勾选此项。"
+L["This guide delivers the safest path from level 1 to %s for every class and zone. Optimized for maximum survivability it includes the best quest routes, grinding spots, and dungeon segments to reach max level safely and efficiently."] =
+    "本指南为所有职业和区域提供从 1 级到 %s 级的最安全升级路线。以最大生存能力为优化目标，包含最佳任务路线、刷怪点以及地下城流程，帮助你安全且高效地达到满级。"
+L["Select your preferred features to customize the guide. The leveling route automatically adapts to your choices."] =
+    "选择你偏好的功能来自定义指南。练级路线将根据你的选择自动调整。"
+L["Add dungeons to your journey. The guide will adjust to your selection accordingly and include dungeon quests to your route."] =
+    "在旅途中加入地下城。指南会根据你的选择自动调整，并将地下城任务纳入你的路线规划中。"
+L["Show elite quests and routes difficult quests early in the guide. Leave unchecked, if you prefer a solo experience."] =
+    "在指南中提前显示精英任务和高难度任务路线。如果你更偏好单人体验，请不要勾选此项。"
 L["Enable Dungeons"] = "启用5人副本"
-L["Adds Dungeon Quests to your route. This is helpful to avoid longer grinding sessions."] = "将地下城任务加入你的路线。这有助于避免较长时间的刷怪。"
+L["Adds Dungeon Quests to your route. This is helpful to avoid longer grinding sessions."] =
+    "将地下城任务加入你的路线。这有助于避免较长时间的刷怪。"
 L["Configure your guide."] = "配置你的指南。"
 -- Missing strings
 L["Set your Hearthstone to"] = "将你的炉石设置到"
@@ -676,15 +774,20 @@ L["Dungeons"] = "副本"
 L["Enable Active Targets"] = "启用活动目标"
 
 -- AceConfigCmd-3.0
-L["'%s' '%s' - expected 'on' or 'off', or no argument to toggle."] = "'%s' '%s' - 需要 'on' 或 'off',或无参数来切换。"
-L["'%s' '%s' - expected 'on', 'off' or 'default', or no argument to toggle."] = "'%s' '%s' - 需要 'on'、'off' 或 'default',或无参数来切换。"
+L["'%s' '%s' - expected 'on' or 'off', or no argument to toggle."] =
+    "'%s' '%s' - 需要 'on' 或 'off',或无参数来切换。"
+L["'%s' '%s' - expected 'on', 'off' or 'default', or no argument to toggle."] =
+    "'%s' '%s' - 需要 'on'、'off' 或 'default',或无参数来切换。"
 L["'%s' - Invalid Keybinding."] = "'%s' - 无效的快捷键绑定。"
 L["'%s' - expected 'RRGGBB' or 'r g b'."] = "'%s' - 需要 'RRGGBB' 或 'r g b'。"
 L["'%s' - expected 'RRGGBBAA' or 'r g b a'."] = "'%s' - 需要 'RRGGBBAA' 或 'r g b a'。"
 L["'%s' - expected 'on' or 'off', or no argument to toggle."] = "'%s' - 需要 'on' 或 'off',或无参数来切换。"
-L["'%s' - expected 'on', 'off' or 'default', or no argument to toggle."] = "'%s' - 需要 'on'、'off' 或 'default',或无参数来切换。"
-L["'%s' - values must all be either in the range 0-1 or 0-255."] = "'%s' - 所有值必须在 0-1 或 0-255 范围内。"
-L["'%s' - values must all be either in the range 0..1 or 0..255."] = "'%s' - 所有值必须在 0..1 或 0..255 范围内。"
+L["'%s' - expected 'on', 'off' or 'default', or no argument to toggle."] =
+    "'%s' - 需要 'on'、'off' 或 'default',或无参数来切换。"
+L["'%s' - values must all be either in the range 0-1 or 0-255."] =
+    "'%s' - 所有值必须在 0-1 或 0-255 范围内。"
+L["'%s' - values must all be either in the range 0..1 or 0..255."] =
+    "'%s' - 所有值必须在 0..1 或 0..255 范围内。"
 L["default"] = "默认"
 L["expected number"] = "需要数字"
 L["invalid input"] = "无效输入"
@@ -695,10 +798,234 @@ L["on"] = "开启"
 L["unknown argument"] = "未知参数"
 L["unknown selection"] = "未知选择"
 
-L["Guide import is temporarily disabled on Hardcore servers, please switch to a normal server to import a guide"] = "硬核模式服务器暂时禁用了指南导入功能，请切换到普通服务器进行导入。"
-L["On patch 1.15.9, the allowed execution time for lua code was severely reduced on Hardcore servers only, addon processing time is a very scarce resource, so in order to be able to import a guide without any errors or crashes, this process has to be done on a non Hardcore server"] = "在 1.15.9 版本中，暴雪大幅缩短了硬核服务器上LUA代码的允许执行时间。由于插件的处理时间变得非常吃紧，为了确保导入指南时不会出现任何报错或游戏卡死，您必须在非硬核服务器上完成导入过程。"
+L["Guide import is temporarily disabled on Hardcore servers, please switch to a normal server to import a guide"] =
+    "硬核模式服务器暂时禁用了指南导入功能，请切换到普通服务器进行导入。"
+L["On patch 1.15.9, the allowed execution time for lua code was severely reduced on Hardcore servers only, addon processing time is a very scarce resource, so in order to be able to import a guide without any errors or crashes, this process has to be done on a non Hardcore server"] =
+    "在 1.15.9 版本中，暴雪大幅缩短了硬核服务器上LUA代码的允许执行时间。由于插件的处理时间变得非常吃紧，为了确保导入指南时不会出现任何报错或游戏卡死，您必须在非硬核服务器上完成导入过程。"
 
-L["RestedXP Forever Guide (A)"] = "RestedXP无限服指南（联盟）"
-L["RestedXP Forever Guide (H)"] = "RestedXP 无限指南 (部落)"
-L["RestedXP Forever Dungeon Guide (A)"] = "RestedXP 无限 地下城指南 (联盟)"
-L["RestedXP Forever Dungeon Guide (H)"] = "RestedXP无限服地下城指南（部落）"
+L["Welcome to RestedXP"] = "欢迎使用 RestedXP"
+
+L["Select a guide:"] = "选择指南："
+
+L["Browse Guides"] = "浏览指南"
+
+L["Open Settings"] = "打开设置"
+
+L["NEW FEATURE"] = "新功能"
+
+L["Check out the new Ultimate Hardcore Surivival Guide,\nspecifically crafted to level your character as safe as\n possible. |cff228B22Including new features.|r"] =
+    "体验全新的硬核生存指南，\n专为尽可能安全地提升角色等级而设计。\n|cff228B22包含全新功能。|r"
+
+L["Experience the fastest and most efficient Leveling Routes.\nHand-crafted and maintained by the best Speedrunners in\nthe Classic WoW Community."] =
+    "体验快速高效的升级路线。\n由魔兽世界怀旧服社区的顶尖竞速玩家\n精心编写并持续维护。"
+
+L["WELCOME\nADVENTURER"] = "欢迎你，\n冒险者"
+
+L["Select your desired features to configure your Guide.\nLet's Go!"] =
+    "选择所需功能，配置你的指南。\n出发吧！"
+
+L[" (Beta)"] = "（测试版）"
+
+L["Display Quest Link"] = "显示任务链接"
+
+L["Display quest tooltips on steps"] = "在步骤中显示任务鼠标提示"
+
+L["Enable V2 Interface"] = "启用 V2 界面"
+
+L["Replace the legacy guide window with the V2 interface"] = "使用 V2 界面替换旧版指南窗口"
+
+L["Brand Menus"] = "使用 RestedXP 风格菜单"
+
+L["Apply the V2 style to RestedXP menus"] = "将 V2 样式应用到 RestedXP 菜单"
+
+L["Share your Active Step with party members"] = "向队伍成员分享当前步骤"
+
+L["Guide import failed due to a Lua error."] = "发生 Lua 错误，指南导入失败。"
+
+L["Show imported guides"] = "显示已导入的指南"
+
+L["Delete"] = "删除"
+
+L["Purge"] = "清空"
+
+L["Reload"] = "重新加载"
+
+L["Enable Standby Mode"] = "启用待机模式"
+
+L["Pause guide processing when addon is hidden."] = "隐藏插件时暂停处理指南。"
+
+L["Enable Inventory Manager"] = "启用背包管理器"
+
+L["Guide progress was saved by another character. Reset it?"] = "此指南进度由其他角色保存。是否重置？"
+
+L["Reset Guide Progress"] = "重置指南进度"
+
+L["Clear guide progress for current character"] = "清除当前角色的指南进度"
+
+L["Skip step"] = "跳过步骤"
+
+L["Import Guides"] = "导入指南"
+
+L["Speedrun Guide"] = "竞速指南"
+
+L["Survival Guide"] = "生存指南"
+
+L["Fastest Leveling Experience"] = "追求最快升级速度"
+
+L["Safest Leveling Experience"] = "追求最安全的升级体验"
+
+L["Endgame Guides"] = "满级指南"
+
+L["Attunements, Keys And More"] = "开门任务、钥匙及更多内容"
+
+L["Profession Guides"] = "专业指南"
+
+L["Level any Profession Effortlessly"] = "轻松提升各项专业技能"
+
+L["Gold Assistant"] = "金币助手"
+
+L["Easy gold making guides"] = "轻松赚取金币的指南"
+
+L["Hostile Enemy Warning"] = "危险敌人警告"
+
+L["Auction House Usage"] = "使用拍卖行"
+
+L["Enable Group Quests"] = "启用组队任务"
+
+L["Profession Leveling"] = "提升专业技能"
+
+L["Skip Low Level Quests"] = "跳过低等级任务"
+
+L["Speedrun Guide Configuration"] = "竞速指南设置"
+
+L["Survival Guide Configuration"] = "生存指南设置"
+
+L["Dungeon Configuration"] = "地下城设置"
+
+L["Fastest Leveling Speed"] = "最快升级速度"
+
+L["Best Item Upgrades"] = "最佳装备提升"
+
+L["Select All Dungeons"] = "选择所有地下城"
+
+L["Customize Dungeons"] = "自选地下城"
+
+L["Next step"] = "下一步"
+
+L["Dungeon List"] = "地下城列表"
+
+L["Clear All"] = "全部清除"
+
+L["Recommended"] = "推荐"
+
+L["Alerts when a dangerous entity is nearby and shows patrolling elites on the world map."] =
+    "附近出现危险目标时发出警告，并在世界地图上显示巡逻精英。"
+
+L["Considers quests that require items that are obtained through trading with other players."] =
+    "将需要与其他玩家交易获取物品的任务纳入路线。"
+
+L["Level professions along with the guide"] = "跟随指南同时提升专业技能"
+
+L["Factor all of your available Dungeons to your levelling route"] = "将所有可进入的地下城纳入升级路线"
+
+L["Prioritize dungeons with the strongest upgrades for your class."] =
+    "优先选择最能提升当前职业装备的地下城。"
+
+L["Choose the individual dungeons included in your route."] = "自行选择要纳入路线的地下城。"
+
+L["Select your preferred guide."] = "选择你想使用的指南。"
+
+L["No guides available."] = "没有可用的指南。"
+
+L["Set Guide"] = "选用指南"
+
+L["RestedXP Endgame Guides"] = "RestedXP 满级指南"
+
+L["Open World Guide"] = "野外升级指南"
+
+L["Dungeon Cleave Guide"] = "地下城速刷指南"
+
+L["Open World Guide Configuration"] = "野外升级指南设置"
+
+L["Dungeon Cleave Guide Configuration"] = "地下城速刷指南设置"
+
+L["Fastest Leveling Route"] = "最快升级路线"
+
+L["Discovery Route (Slower)"] = "探索路线（较慢）"
+
+L["Prioritizes the fastest route and skips low-level quests."] =
+    "优先采用最快路线，并跳过低等级任务。"
+
+L["Includes more quests for a slower route."] = "包含更多任务，升级速度相对较慢。"
+
+-- Core interface translations migrated from vault-all.
+L["Learn dual spec"] = "学习双天赋专精"
+L["RestedXP Alliance Mage"] = "RestedXP 联盟法师"
+L["RestedXP Horde Mage AoE"] = "RestedXP 部落法师 AoE"
+L["RestedXP 终局指南"] = "RestedXP 满级指南"
+L["Show Active Party Steps"] = "显示队伍当前步骤"
+L["Show Background"] = "显示背景"
+L["Disable Active Party Steps"] = "禁用队伍当前步骤"
+L["Hide"] = "隐藏"
+L["You should be grinding mobs between quests, not just moving from objective to objective.\n\nThis guide is based on speed - which means less quests to turn in. Grinding from quest to quest makes up for the lost xp.\n"] =
+    "你应该在做任务的途中刷怪，而不仅仅是在任务目标之间跑来跑去。\n\n本指南以升级速度为目标，因此交付的任务较少。在任务之间刷怪可以弥补这部分经验。\n"
+L["The level ranges on our guides are intended for standard exp rates, do not worry about following the leveling brackets while on 20% or 50% exp.\n\nJust follow the guide the best you can.\n"] =
+    "指南中的等级范围按标准经验倍率设计。获得 20% 或 50% 经验加成时，不必纠结于是否完全符合这些等级区间。\n\n尽量跟随指南即可。\n"
+L["These are inefficient areas that we skip if you are missing quest chains or if you are ahead in levels compared to the guide.\n"] =
+    "这些区域的效率较低。如果你缺少相应任务链，或者等级高于指南当前进度，指南就会跳过这些区域。\n"
+L["|cff909090/rxp|r - Open general addon settings\n|cff909090/rxp import|r - Open Import Guide interface\n|cff909090/rxp debug|r - enable debugging output\n|cff909090/rxp splits|r - Toggle Level Splits on or off, if enabled\n|cff909090/rxp show||hide||toggle|r - Toggle all enabled frames on or off\n|cff909090/rxp bug||feedback|r - Open Feedback Form\n|cff909090/rxp help|r - This output\n"] =
+    "|cff909090/rxp|r - 打开插件通用设置\n|cff909090/rxp import|r - 打开指南导入界面\n|cff909090/rxp debug|r - 启用调试输出\n|cff909090/rxp splits|r - 开启或关闭等级分段记录（如果已启用）\n|cff909090/rxp show||hide||toggle|r - 开启或关闭所有已启用的框架\n|cff909090/rxp bug||feedback|r - 打开反馈表单\n|cff909090/rxp help|r - 显示此帮助信息\n"
+L["Enable Group Settings"] = "启用组队设置"
+L["Interface Version 2 (Beta)"] = "v2 界面（测试版）"
+L["Reset Junk List"] = "重置垃圾物品列表"
+L["Click to reset the discard list for this character"] = "点击重置当前角色的垃圾物品丢弃列表"
+L["This action will unmark all junk items.\nAre you sure?"] =
+    "此操作会取消所有物品的垃圾标记。\n你确定吗？"
+L["Removes sections that require attention from all clients\nGuides that support this feature:"] =
+    "移除需要在所有客户端上分别操作的部分\n支持此功能的指南："
+L["Enable Targeting"] = "启用目标功能"
+L["Enable Target Markers (Group)"] = "启用目标标记（组队）"
+L["You are not a group leader. Enable Target Markers"] = "不是队长时也启用目标标记"
+L["Follow Party Leader Macro"] = "跟随队长宏"
+L["Enable follow party leader macro"] = "启用跟随队长宏"
+L["Active Target Frame"] = "当前目标框架"
+L["Enable Active Target Frame"] = "启用当前目标框架"
+L["Show Enemy Target"] = "显示敌方目标"
+L["Show Friendly Target"] = "显示友方目标"
+L["Follow Party Leader Target"] = "跟随队长的目标"
+L["Show party leader target"] = "显示队长的目标"
+L["Active Party Step v2 (Beta)"] = "队伍当前步骤 v2（测试版）"
+L["Enable Active Party Step v2"] = "启用队伍当前步骤 v2"
+L["Hide Party Background"] = "隐藏队伍步骤背景"
+L["Share Active Step "] = "共享当前步骤 "
+L["Enable Item Upgrade"] = "启用装备升级推荐"
+L["Disable Tooltips"] = "禁用鼠标提示"
+L["Auction Item Search"] = "拍卖行物品搜索"
+L["%s Frame Positions"] = "%s框架位置"
+L["Bottom"] = "底部"
+L["Disable Map Pins"] = "禁用地图图钉"
+L["Quest Log Size"] = "任务日志容量"
+L["Low Quality Settings"] = "低质量设置"
+L['Paste your guide string into the text field and click "Import".'] =
+    "将指南字符串粘贴到文本框中，然后点击“导入”。"
+L["Progress"] = "进度"
+L["No guides apply to this game version or character."] = "没有适用于当前游戏版本或角色的指南。"
+L["RXP Blue"] = "RestedXP 蓝色"
+L["RXP Red"] = "RestedXP 红色"
+L["RXP Gold"] = "RestedXP 金色"
+L["RXP Green"] = "RestedXP 绿色"
+L["DarkMode"] = "深色模式"
+L["Southshore"] = "南海镇"
+L["Darnassus"] = "达纳苏斯"
+L["Cenarion Hold"] = "塞纳里奥要塞"
+L["Everlook"] = "永望镇"
+L["Grom'gol Base Camp"] = "格罗姆高营地"
+L["Orgrimmar"] = "奥格瑞玛"
+L["Set your Hearthstone to |cRXP_WARN_%s|r"] = "将你的炉石设为 |cRXP_WARN_%s|r"
+
+-- Localized display formats for the current interface.
+L["%s\n(%dyd)"] = "%s\n(%d码)"
+L["(%dyd)"] = "(%d码)"
+L["RXP Blue V2"] = "RestedXP 蓝色 V2"
+L["%s by %s"] = "%s（作者：%s）"
+L["NGA Community"] = "NGA 社区"

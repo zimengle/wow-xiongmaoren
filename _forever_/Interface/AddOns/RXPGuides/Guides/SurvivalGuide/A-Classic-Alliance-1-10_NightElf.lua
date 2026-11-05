@@ -1,8 +1,8 @@
 local faction = UnitFactionGroup("player")
 if faction == "Horde" then return end
 
-local L = GetLocale() if L and RXP.enabledLocale[L] then return end
 RXPGuides.RegisterGuide([[
+#groupdisplayname RestedXP 生存指南（联盟）
 #hardcore
 #classic
 #tbc
@@ -11,127 +11,129 @@ RXPGuides.RegisterGuide([[
 #version 1
 #group RestedXP Survival Guide (A)
 #subgroup RXP Survival Guide 1-20
+#subgroupdisplayname 1-20
 #defaultfor NightElf
 #next 6-11 Teldrassil
+#displayname 1-6 幽影谷
 step << !NightElf
     #sticky
     #completewith next
-    +You have selected a guide meant for Night Elves. You should choose the same starter zone that you start in
+    +你选择了暗夜精灵专用指南。请选择与你角色出生地相符的新手区域指南
 step
     .goto Teldrassil,58.695,44.266
-    .target Conservator Ilthalaine
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Conservator Ilthalaine|r
-    .accept 456 >> Accept The Balance of Nature
+    .target 管理员伊尔萨莱恩
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_管理员伊尔萨莱恩|r交谈
+    .accept 456 >> 接任务：自然的平衡
 step
     #sticky
     #label balance1
-    >>Kill |cRXP_ENEMY_Young Nightsabers|r and |cRXP_ENEMY_Young Thistle Boars|r
+    >>击杀|cRXP_ENEMY_夜刃豹幼崽|r和|cRXP_ENEMY_草刺野猪幼崽|r
     .goto Teldrassil,62.0,42.6
     .complete 456,1 --Kill Young Nightsaber (x7)
-    .mob +Young Nightsaber
+    .mob +夜刃豹幼崽
     .complete 456,2 --Kill Young Thistle Boar (x4)
-    .mob +Young Thistle Boar
+    .mob +草刺野猪幼崽
 step
     .xp 2
 step
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dirania Silvershine|r and |cRXP_FRIENDLY_Melithar Staghelm|r
-    .accept 4495 >> Accept A Good Friend
-    .target +Dirania Silvershine
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_迪兰妮亚·月光|r和|cRXP_FRIENDLY_麦利萨尔·鹿盔|r交谈
+    .accept 4495 >> 接任务：好朋友
+    .target +迪兰妮亚·月光
     .goto Teldrassil,60.899,41.961
-    .accept 458 >> Accept The Woodland Protector
+    .accept 458 >> 接任务：森林守护者
 	.goto Teldrassil,59.924,42.474
-    .target +Melithar Staghelm
+    .target +麦利萨尔·鹿盔
 step << Hunter
     #era
     .goto Teldrassil,59.8,34.1
-    .xp 4-610 >> Grind until you are 610xp away from level 4 (790/1400)
+    .xp 4-610 >> 刷怪至还差610点经验升到4级（790/1400）
 step << Hunter
     #som--xpgate
     .goto Teldrassil,59.8,34.1
-    .xp 4-755 >> Grind until you are 755xp away from level 4 (645/1400)
+    .xp 4-755 >> 刷怪至还差755点经验升到4级（645/1400）
 step << Hunter
     .goto Teldrassil,54.593,32.992
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Iverron|r
-    .turnin 4495 >> Turn in A Good Friend
-    .target Iverron
-    .accept 3519 >> Accept A Friend in Need
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_埃沃隆|r交谈
+    .turnin 4495 >> 交任务：好朋友
+    .target 埃沃隆
+    .accept 3519 >> 接任务：需要帮助的朋友
 step << Hunter
     #completewith next
-    .hs >> Hearth to Shadowglen
+    .hs >> 炉石回幽影谷
 step << Hunter
     .goto Teldrassil,57.9,45.1
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Tarindrella|r
-    .turnin 458 >> Turn in The Woodland Protector
-    .target Tarindrella
-    .accept 459 >> Accept The Woodland Protector
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_塔琳德拉|r交谈
+    .turnin 458 >> 交任务：森林守护者
+    .target 塔琳德拉
+    .accept 459 >> 接任务：森林守护者
 step
     #requires balance1
 	.goto Teldrassil,58.695,44.266
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Conservator Ilthalaine|r
-    .turnin 456,1 >> Turn in The Balance of Nature << Hunter
-    .turnin 456 >> Turn in The Balance of Nature << !Hunter
-    .target Conservator Ilthalaine
-    .accept 457 >> Accept The Balance of Nature
-	.accept 3116 >> Accept Simple Sigil << Warrior
-	.accept 3117 >> Accept Etched Sigil << Hunter
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_管理员伊尔萨莱恩|r交谈
+    .turnin 456,1 >> 交任务：自然的平衡 << Hunter
+    .turnin 456 >> 交任务：自然的平衡 << !Hunter
+    .target 管理员伊尔萨莱恩
+    .accept 457 >> 接任务：自然的平衡
+	.accept 3116 >> 接任务：简易符记 << Warrior
+	.accept 3117 >> 接任务：风化符记 << Hunter
 --	.accept 3118 >> Accept Encrypted Sigil << Rogue
-	.accept 3119 >> Accept Hallowed Sigil << Priest
-	.accept 3120 >> Accept Verdant Sigil << Druid
+	.accept 3119 >> 接任务：神圣符记 << Priest
+	.accept 3120 >> 接任务：绿色符记 << Druid
 step << Warrior
     .goto Teldrassil,59.306,41.091
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Keina|r
-	.vendor >> |cRXP_WARN_Vendor trash|r
-    .target Keina
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_奇娜|r交谈
+	.vendor >> |cRXP_WARN_卖掉杂物|r
+    .target 奇娜
 step << Warrior
 	.goto Teldrassil,59.637,38.442
-    .target Alyissia
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Alyissia|r
-	.turnin 3116 >> Turn in Simple Sigil
-    .trainer >> Train your class spells
+    .target 奥莉希亚
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_奥莉希亚|r交谈
+	.turnin 3116 >> 交任务：简易符记
+    .trainer >> 学习职业技能
 step << !Hunter
     .goto Teldrassil,59.8,34.1
-    >>Kill |cRXP_ENEMY_Mangy Nightsabers|r and |cRXP_ENEMY_Thistle Boars|r
+    >>击杀|cRXP_ENEMY_癞皮夜刃豹|r和|cRXP_ENEMY_草刺野猪|r
     .complete 457,1 --Kill Mangy Nightsaber (x7)
-    .mob +Mangy Nightsaber
+    .mob +癞皮夜刃豹
     .complete 457,2 --Kill Thistle Boar (x7)
-    .mob +Thistle Boar
+    .mob +草刺野猪
 step << !Hunter
     .goto Teldrassil,54.593,32.992
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Iverron|r
-    .turnin 4495 >> Turn in A Good Friend
-    .target Iverron
-    .accept 3519 >> Accept A Friend in Need
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_埃沃隆|r交谈
+    .turnin 4495 >> 交任务：好朋友
+    .target 埃沃隆
+    .accept 3519 >> 接任务：需要帮助的朋友
 step << !Hunter
     #completewith next
-    .hs >> Hearth to Shadowglen
+    .hs >> 炉石回幽影谷
 step << !Hunter
     .goto Teldrassil,57.9,45.1
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Tarindrella|r
-    .turnin 458 >> Turn in The Woodland Protector
-    .target Tarindrella
-    .accept 459 >> Accept The Woodland Protector
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_塔琳德拉|r交谈
+    .turnin 458 >> 交任务：森林守护者
+    .target 塔琳德拉
+    .accept 459 >> 接任务：森林守护者
 step << !Hunter
     .goto Teldrassil,58.6,44.3
-    .target Conservator Ilthalaine
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Conservator Ilthalaine|r
-    .turnin 457 >> Turn in The Balance of Nature
+    .target 管理员伊尔萨莱恩
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_管理员伊尔萨莱恩|r交谈
+    .turnin 457 >> 交任务：自然的平衡
 step
     .goto Teldrassil,60.899,41.961
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dirania Silvershine|r
-    .turnin 3519 >> Turn in A Friend in Need
-    .target Dirania Silvershine
-    .accept 3521 >> Accept Iverron's Antidote
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_迪兰妮亚·月光|r交谈
+    .turnin 3519 >> 交任务：需要帮助的朋友
+    .target 迪兰妮亚·月光
+    .accept 3521 >> 接任务：埃沃隆的解药
 step << Hunter
     #completewith htraining
     .goto Teldrassil,59.306,41.091
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Keina|r
-	.vendor >> |cRXP_BUY_Buy 3 stacks of|r |T132382:0|t[Rough Arrows]
-    .target Keina
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_奇娜|r交谈
+	.vendor >> |cRXP_BUY_购买3组|r|T132382:0|t[劣质箭]
+    .target 奇娜
 step
     .goto Teldrassil,57.807,41.653
-    .target Gilshalan Windwalker
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gilshalan Windwalker|r
-    .accept 916 >> Accept Webwood Venom
+    .target 基尔沙兰·风行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_基尔沙兰·风行者|r交谈
+    .accept 916 >> 接任务：树林蜘蛛的毒囊
 step << Hunter
     #era
     .xp 4-40
@@ -139,165 +141,166 @@ step << Hunter
     #som--xpgate
     .xp 4-50
 step << Hunter
+    #label htraining
     .goto Teldrassil,57.80,40.97,25,0
     .goto Teldrassil,58.659,40.449
-    >>Ascend the Aldrassil Tree
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ayanna Everstride|r
-    .turnin 3117 >> Turn in Etched Sigil
-    .train 1978 >>Train Serpent Sting
-    .target Ayanna Everstride
+    >>爬上奥达希尔大树
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_阿亚娜·远途|r交谈
+    .turnin 3117 >> 交任务：风化符记
+    .train 1978 >>学习 [毒蛇钉刺]
+    .target 阿亚娜·远途
 step
     .goto Teldrassil,57.95,38.20,10,0
     .goto Teldrassil,57.76,37.27,10,0
     .goto Teldrassil,58.21,36.40,10,0
     .goto Teldrassil,58.81,37.83,10,0
     .goto Teldrassil,57.95,38.20
-    >>Loot the |cRXP_LOOT_Moonpetal Lilies|r on the ground
+    >>拾取地上的|cRXP_LOOT_月牙百合花|r
     .complete 3521,2 --Collect Moonpetal Lily (x4)
 step
     .goto Teldrassil,56.8,31.7
-    >>Kill |cRXP_ENEMY_Webwood Spiders|r. Loot them for their |cRXP_LOOT_Ichor|r and |cRXP_LOOT_Venom Sacs|r
+    >>击杀|cRXP_ENEMY_树林蜘蛛|r，拾取它们的|cRXP_LOOT_脓液|r和|cRXP_LOOT_毒囊|r
     .complete 3521,3 --Collect Webwood Ichor (x1)
     .complete 916,1 --Collect Webwood Venom Sac (x10)
-    .mob Webwood Spider
+    .mob 树林蜘蛛
 step
     .goto Teldrassil,55.0,43.7
-    >>Kill |cRXP_ENEMY_Grell|r and |cRXP_ENEMY_Grellkin|r. Loot them for their |cRXP_LOOT_Mushrooms|r and |cRXP_LOOT_Fel Moss|r
+    >>击杀|cRXP_ENEMY_小劣魔|r和|cRXP_ENEMY_劣魔|r，拾取它们掉落的|cRXP_LOOT_蘑菇|r和|cRXP_LOOT_恶魔之苔|r
     .complete 3521,1 --Collect Hyacinth Mushroom (x7)
     .complete 459,1 --Collect Fel Moss (x8)
-    .mob Grell
-    .mob Grellkin
+    .mob 小劣魔
+    .mob 劣魔
 step
     .goto Teldrassil,57.8,45.1
-    .target Tarindrella
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Tarindrella|r
-    .turnin 459 >> Turn in The Woodland Protector
+    .target 塔琳德拉
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_塔琳德拉|r交谈
+    .turnin 459 >> 交任务：森林守护者
 step
     .goto Teldrassil,60.899,41.961
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dirania Silvershine|r
-    .turnin 3521 >> Turn in Iverron's Antidote
-    .target Dirania Silvershine
-    .accept 3522 >> Accept Iverron's Antidote
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_迪兰妮亚·月光|r交谈
+    .turnin 3521 >> 交任务：埃沃隆的解药
+    .target 迪兰妮亚·月光
+    .accept 3522 >> 接任务：埃沃隆的解药
 step << !Priest
     #completewith next
     .goto Teldrassil,59.306,41.091
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Keina|r
-	.vendor >> |cRXP_WARN_Vendor trash|r << !Hunter
-	.vendor >> |cRXP_BUY_Buy 3 or 4 stacks of|r |T132382:0|t[Rough Arrows] << Hunter
-    .target Keina
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_奇娜|r交谈
+	.vendor >> |cRXP_WARN_卖掉杂物|r << !Hunter
+	.vendor >> |cRXP_BUY_购买3或4组|r|T132382:0|t[劣质箭] << Hunter
+    .target 奇娜
 step << Warrior
     .goto Teldrassil,59.637,38.442
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Alyissia|r
-	.trainer >> Train your class spells
-    .target Alyissia
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_奥莉希亚|r交谈
+	.trainer >> 学习职业技能
+    .target 奥莉希亚
 step << Priest
     #completewith next
     .goto Teldrassil,59.456,41.050
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Janna Brightmoon|r up stairs
-	.vendor >> |cRXP_WARN_Vendor trash|r
-    .target Janna Brightmoon
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_简娜·明月|r交谈（在楼上）
+	.vendor >> |cRXP_WARN_卖掉杂物|r
+    .target 简娜·明月
 step << Priest
 	.goto Teldrassil,59.174,40.442
-    .target Shanda
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Shanda|r up stairs
-	.turnin 3119 >> Turn in Hallowed Sigil
-	.trainer >> Train your class spells
+    .target 珊达
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_珊达|r交谈（在楼上）
+	.turnin 3119 >> 交任务：神圣符记
+	.trainer >> 学习职业技能
 step
     .goto Teldrassil,57.807,41.653
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gilshalan Windwalker|r
-    .turnin 916 >> Turn in Webwood Venom
-    .target Gilshalan Windwalker
-    .accept 917 >> Accept Webwood Egg
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_基尔沙兰·风行者|r交谈
+    .turnin 916 >> 交任务：树林蜘蛛的毒囊
+    .target 基尔沙兰·风行者
+    .accept 917 >> 接任务：树林蜘蛛的卵
 step << Druid
     .goto Teldrassil,57.80,40.97,25,0
     .goto Teldrassil,58.626,40.287
-    >>Ascend the Aldrassil Tree
-    .target Mardant Strongoak
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mardant Strongoak|r
-	.turnin 3120 >> Turn in Verdant Sigil
-	.train 8921 >>Train Moonfire
+    >>爬上奥达希尔大树
+    .target 玛丹特·硬木
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_玛丹特·硬木|r交谈
+	.turnin 3120 >> 交任务：绿色符记
+	.train 8921 >>学习 [月火术]
 step
     .goto Teldrassil,54.593,32.992
-    .target Iverron
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Iverron|r
-    .turnin 3522 >> Turn in Iverron's Antidote
+    .target 埃沃隆
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_埃沃隆|r交谈
+    .turnin 3522 >> 交任务：埃沃隆的解药
 step
     #completewith next
-    .goto Teldrassil,56.73,31.17,25 >> Enter the Shadowthread Cave
+    .goto Teldrassil,56.73,31.17,25 >> 进入黑丝洞
 step
     .goto Teldrassil,57.0,26.4
-    >>Loot a |cRXP_LOOT_Webwood Egg|r on the ground at the back of the Cave
+    >>拾取洞穴深处地上的一枚|cRXP_LOOT_树林蜘蛛的卵|r
     .complete 917,1 --Collect Webwood Egg (x1)
 step
 	#softcore
 	#completewith next
-    .deathskip >> Die and respawn at the |cRXP_FRIENDLY_Spirit Healer|r
+    .deathskip >> 死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处复活
 step << skip --logout skip
 	#hardcore
 	#completewith next
-	+|cRXP_WARN_Logout skip on the ledge behind the |cRXP_LOOT_Webwood Eggs|r. Move your character until it looks like they're floating, then log out, and back in|r
-	>>|cRXP_WARN_If you fall down, just run out the cave normally to the quest turn in|r
-	.link https://www.youtube.com/watch?v=TTZZT3jpv1s >>|cRXP_WARN_Click here for a video guide|r
+	+|cRXP_WARN_在|cRXP_LOOT_树林蜘蛛的卵|r后方的凸台上使用登出跳跃。移动角色，直到看起来悬在空中，然后登出并重新登录|r
+	>>|cRXP_WARN_如果掉下去，就正常跑出洞穴，前去交还任务|r
+	.link https://www.youtube.com/watch?v=TTZZT3jpv1s >>|cRXP_WARN_点击此处查看视频指南|r
 step
 	.goto Teldrassil,57.807,41.653
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gilshalan Windwalker|r
-    .turnin 917 >> Turn in Webwood Egg
-    .target Gilshalan Windwalker
-    .accept 920 >> Accept Tenaron's Summons
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_基尔沙兰·风行者|r交谈
+    .turnin 917 >> 交任务：树林蜘蛛的卵
+    .target 基尔沙兰·风行者
+    .accept 920 >> 接任务：特纳隆的召唤
 step
     .goto Teldrassil,57.80,40.97,25,0
     .goto Teldrassil,59.062,39.448
-    >>Ascend the Aldrassil Tree
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Tenaron Stormgrip|r
-    .turnin 920 >> Turn in Tenaron's Summons
-    .target Tenaron Stormgrip
-    .accept 921 >> Accept Crown of the Earth
+    >>爬上奥达希尔大树
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_特纳隆·雷拳|r交谈
+    .turnin 920 >> 交任务：特纳隆的召唤
+    .target 特纳隆·雷拳
+    .accept 921 >> 接任务：大地之冠
 step
     #sticky
     #label vial1
     .goto Teldrassil,59.9,33.0
-	.use 5185 >> |cRXP_WARN_Use the|r |T134776:0|t[Crystal Phial] |cRXP_WARN_at the Moonwell|r
+	.use 5185 >> |cRXP_WARN_使用|r |T134776:0|t[水晶瓶] |cRXP_WARN_在月亮井取水|r
     .complete 921,1 --Collect Filled Crystal Phial (x1)
 step << Hunter
     .goto Teldrassil,59.8,34.1
-    >>Kill |cRXP_ENEMY_Mangy Nightsabers|r and |cRXP_ENEMY_Thistle Boars|r
+    >>击杀|cRXP_ENEMY_癞皮夜刃豹|r和|cRXP_ENEMY_草刺野猪|r
     .complete 457,1 --Kill Mangy Nightsaber (x7)
-    .mob +Mangy Nightsaber
+    .mob +癞皮夜刃豹
     .complete 457,2 --Kill Thistle Boar (x7)
-    .mob +Thistle Boar
+    .mob +草刺野猪
 step
     #requires vial1
     #completewith next
-    .deathskip >> Die and respawn at the |cRXP_FRIENDLY_Spirit Healer|r
+    .deathskip >> 死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处复活
 step << Hunter
     #requires vial1
     .goto Teldrassil,58.6,44.3
-    .target Conservator Ilthalaine
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Conservator Ilthalaine|r
-    .turnin 457,2 >> Turn in The Balance of Nature
+    .target 管理员伊尔萨莱恩
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_管理员伊尔萨莱恩|r交谈
+    .turnin 457,2 >> 交任务：自然的平衡
 step << Priest
     #requires vial1
     .goto Teldrassil,59.2,40.5
-    .target Shanda
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Shanda|r
-    .accept 5622 >> Accept In Favor of Elune
+    .target 珊达
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_珊达|r交谈
+    .accept 5622 >> 接任务：月神的恩赐
 step
     #requires vial1
     .goto Teldrassil,57.80,40.97,25,0
     .goto Teldrassil,59.062,39.448
-    >>Ascend the Aldrassil Tree
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Tenaron Stormgrip|r
-    .turnin 921 >> Turn in Crown of the Earth
-    .target Tenaron Stormgrip
-    .accept 928 >> Accept Crown of the Earth
+    >>爬上奥达希尔大树
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_特纳隆·雷拳|r交谈
+    .turnin 921 >> 交任务：大地之冠
+    .target 特纳隆·雷拳
+    .accept 928 >> 接任务：大地之冠
 step
     .goto Teldrassil,61.159,47.644
-    .target Porthannius
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Porthannius|r
-    .accept 2159 >> Accept Dolanaar Delivery
+    .target 伯萨努斯
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_伯萨努斯|r交谈
+    .accept 2159 >> 接任务：多兰纳尔的货物
 ]])
-
 RXPGuides.RegisterGuide([[
+#groupdisplayname RestedXP 生存指南（联盟）
 #hardcore
 #classic
 #tbc
@@ -306,151 +309,153 @@ RXPGuides.RegisterGuide([[
 #version 1
 #group RestedXP Survival Guide (A)
 #subgroup RXP Survival Guide 1-20
+#subgroupdisplayname 1-20
 #defaultfor NightElf
 #next 11-13 Darkshore (Night Elf)
+#displayname 6-11 泰达希尔
 step
     .goto Teldrassil,60.5,56.3
-    .target Zenn Foulhoof
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Zenn Foulhoof|r
-    .accept 488 >> Accept Zenn's Bidding
+    .target 赛恩·腐蹄
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_赛恩·腐蹄|r 对话
+    .accept 488 >> 接任务：赛恩的要求
 step
     #sticky
     #completewith zenn
-    >>Kill |cRXP_ENEMY_Nightsabers|r. Loot them for their |cRXP_LOOT_Fangs|r
-    >>Kill |cRXP_ENEMY_Strigid Owls|r. Loot them for their |cRXP_LOOT_Feathers|r
-    >>Kill |cRXP_ENEMY_Webwood Lurkers|r. Loot them for their |cRXP_LOOT_Silk|r
+    >>击杀 |cRXP_ENEMY_夜刃豹|r, 拾取 |cRXP_LOOT_獠牙|r
+    >>击杀 |cRXP_ENEMY_巨翼枭|r, 拾取 |cRXP_LOOT_羽毛|r
+    >>击杀 |cRXP_ENEMY_树林潜伏者|r, 拾取 |cRXP_LOOT_丝线|r
     .complete 488,1 --Collect Nightsaber Fang (x3)
-    .mob +Nightsaber
+    .mob +夜刃豹
     .complete 488,2 --Collect Strigid Owl Feather (x3)
-    .mob +Strigid Owl
+    .mob +巨翼枭
     .complete 488,3 --Collect Webwood Spider Silk (x3)
-    .mob +Webwood Lurker
+    .mob +树林潜伏者
 step
     #sticky
 	#completewith spiderLegs
-    >>Kill |cRXP_ENEMY_Webwood Lurkers|r and |cRXP_ENEMY_Webwood Venomfangs|r. Loot them for their |cRXP_LOOT_Small Spider Legs|r
-    >>|cRXP_WARN_You need these for a later quest|r
+    >>击杀 |cRXP_ENEMY_树林潜伏者|r 和 |cRXP_ENEMY_树林毒蜘蛛|r, 拾取 |cRXP_LOOT_小蜘蛛腿|r
+    >>|cRXP_WARN_后续任务会用到这些|r
     .collect 5465,7,4161,1 --Collect Small Spider Leg (x7)
-    .mob Webwood Lurker
-    .mob Webwood Venomfang
+    .mob 树林潜伏者
+    .mob 树林毒蜘蛛
 step
     .goto Teldrassil,56.08,57.72
-    .target Syral Bladeleaf
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Syral Bladeleaf|r
-    .accept 997 >> Accept Denalan's Earth
+    .target 塞拉尔·刃叶
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_塞拉尔·刃叶|r 对话
+    .accept 997 >> 接任务：德纳兰的泥土
 step
     .goto Teldrassil,55.954,57.272
-    .target Athridas Bearmantle
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Athridas Bearmantle|r
-    .accept 475 >> Accept A Troubling Breeze
+    .target 阿斯瑞达斯·熊皮
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_阿斯瑞达斯·熊皮|r 对话
+    .accept 475 >> 接任务：烦恼之风
 step << Priest
     .goto Teldrassil,55.564,56.746
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Laurna Morninglight|r
-    .turnin 5622 >> Turn in In Favor of Elune
-    .target Laurna Morninglight
-    .accept 5621 >> Accept Garments of the Moon
-	.trainer >> Train your class spells
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_劳尔娜·晨光|r 对话
+    .turnin 5622 >> 交任务：月神的恩赐
+    .target 劳尔娜·晨光
+    .accept 5621 >> 接任务：月光之衣
+	.trainer >> 学习职业技能
 step << Rogue
     .goto Teldrassil,55.508,57.145
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Aldia|r up stairs
-    .vendor >> |cRXP_BUY_Buy and equip a|r |T135426:0|t[Small Throwing Knife]
-    .target Aldia
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与楼上的 |cRXP_FRIENDLY_奥蒂亚|r 对话
+    .vendor >> |cRXP_BUY_购买并装备|r |T135426:0|t[小飞刀]
+    .target 奥蒂亚
 step
     #era
     .goto Teldrassil,55.574,56.948
-    .target Tallonkai Swiftroot
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Tallonkai Swiftroot|r atop the Tree
-    .accept 932 >> Accept Twisted Hatred
-    .accept 2438 >> Accept The Emerald Dreamcatcher
+    .target 塔隆凯·捷根
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t在树顶上与 |cRXP_FRIENDLY_塔隆凯·捷根|r 对话
+    .accept 932 >> 接任务：扭曲的仇恨
+    .accept 2438 >> 接任务：翡翠摄梦符
 step
     #som
     .goto Teldrassil,55.574,56.948
-    .target Tallonkai Swiftroot
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Tallonkai Swiftroot|r atop the Tree
-    .accept 932 >> Accept Twisted Hatred << !Hunter
-    .accept 2438 >> Accept The Emerald Dreamcatcher
+    .target 塔隆凯·捷根
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t在树顶上与 |cRXP_FRIENDLY_塔隆凯·捷根|r 对话
+    .accept 932 >> 接任务：扭曲的仇恨 << !Hunter
+    .accept 2438 >> 接任务：翡翠摄梦符
 step << Hunter
     .goto Teldrassil,55.890,59.205
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Jeena Featherbow|r
-    >>|cRXP_BUY_Buy and equip a|r |T135499:0|t[Hornwood Recurve Bow] |cRXP_BUY_if you can afford it (2s 85c), if not skip this step|r
-    >>|cRXP_BUY_Buy|r |T132382:0|t[Rough Arrows] |cRXP_BUY_until your Quiver is full|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_吉娜·羽弓|r 交谈
+    >>|cRXP_BUY_购买并装备|r |T135499:0|t[角木弯弓] |cRXP_BUY_，价格为2银85铜；若买不起则跳过此步骤|r
+    >>|cRXP_BUY_购买|r |T132382:0|t[劣质箭] |cRXP_BUY_，直到箭袋装满|r
     .collect 2506,1 --Collect Hornwood Recurve Bow
-    .target Jeena Featherbow
+    .target 吉娜·羽弓
 step << Warrior
     .goto Teldrassil,56.221,59.198
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kyra Windblade|r
-	.trainer >> Train your class spells
-    .target Kyra Windblade
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_凯拉·风刃|r 对话
+	.trainer >> 学习职业技能
+    .target 凯拉·风刃
 step << Rogue
     .goto Teldrassil,56.381,60.139
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Jannok Breezesong|r
-	.trainer >> Train your class spells
-    .target Jannok Breezesong
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_詹诺克·柔歌|r 对话
+	.trainer >> 学习职业技能
+    .target 詹诺克·柔歌
 step << Warrior
     .goto Teldrassil,56.308,59.488
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Shalomon|r
-    >>|cRXP_BUY_Buy and equip a|r |T135321:0|t[Gladius] |cRXP_BUY_if you can afford it (5s 36c), if not skip this step|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_沙洛蒙|r 交谈
+    >>|cRXP_BUY_购买并装备|r |T135321:0|t[步兵剑] |cRXP_BUY_，价格为5银36铜；若买不起则跳过此步骤|r
     .collect 2488,1 --Collect Gladius
-    .target Shalomon
+    .target 沙洛蒙
 step << Rogue
     .goto Teldrassil,56.308,59.488
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Shalomon|r
-    >>|cRXP_BUY_Buy and equip a|r |T135641:0|t[Stiletto] |cRXP_BUY_if you can afford it (4s 1c), if not skip this step|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_沙洛蒙|r 交谈
+    >>|cRXP_BUY_购买并装备|r |T135641:0|t[卷刃的剑] |cRXP_BUY_，价格为4银1铜；若买不起则跳过此步骤|r
     .collect 2494,1 --Stiletto (1)
-    .target Shalomon
+    .target 沙洛蒙
 step << Druid
     .goto Teldrassil,56.308,59.488
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Shalomon|r
-    >>|cRXP_BUY_Buy and equip a|r |T135145:0|t[Walking Stick] |cRXP_BUY_if you can afford it (5s 4c), if not skip this step|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_沙洛蒙|r 交谈
+    >>|cRXP_BUY_购买并装备|r |T135145:0|t[学徒短杖] |cRXP_BUY_，价格为5银4铜；若买不起则跳过此步骤|r
     .collect 2495,1 --Walking Stick (1)
-    .target Shalomon
+    .target 沙洛蒙
 step
     .goto Teldrassil,55.619,59.788
-    .target Innkeeper Keldamyr
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Innkeeper Keldamyr|r
-    .turnin 2159,2 >> Turn in Dolanaar Delivery << Hunter
-    .turnin 2159 >> Turn in Dolanaar Delivery << !Hunter
-    .home >> Set your Hearthstone to Dolanaar
+    .target 旅店老板凯达米尔
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_旅店老板凯达米尔|r 对话
+    .turnin 2159,2 >> 交任务：多兰纳尔的货物 << Hunter
+    .turnin 2159 >> 交任务：多兰纳尔的货物 << !Hunter
+    .home >> 将炉石绑定在多兰纳尔
 step << Hunter
     .goto Teldrassil,56.676,59.489
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dazalar|r
-	.train 3044>> Train Arcane Shot
-    .target Dazalar
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_达扎拉|r 对话
+	.train 3044>> 学习奥术射击
+    .target 达扎拉
 step << Druid
     .goto Teldrassil,55.945,61.566
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kal|r
-	.trainer >> Train your class spells
-    .target Kal
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_卡尔|r 对话
+	.trainer >> 学习职业技能
+    .target 卡尔
 step
     .goto Teldrassil,56.142,61.714
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Corithras Moonrage|r
-    .turnin 928 >> Turn in Crown of the Earth
-    .target Corithras Moonrage
-    .accept 929 >> Accept Crown of the Earth
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_科瑞萨斯·月怒|r 对话
+    .turnin 928 >> 交任务：大地之冠
+    .target 科瑞萨斯·月怒
+    .accept 929 >> 接任务：大地之冠
 step << Druid
     .goto Teldrassil,57.721,60.641
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Malorne Bladeleaf|r
-    .train 2366 >> Train |T136065:0|t[Herbalism]
-    >>|T136065:0|t[Herbalism] |cRXP_WARN_is required to gather 5|r |T134187:0|t[Earthroot] |cRXP_WARN_for a level 15 quest later. You can unlearn it afterwards|r
-    .target Malorne Bladeleaf
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_玛洛尼·刃叶|r 对话
+    .train 2366 >> 学习|T136065:0|t[草药学]
+    >>|T136065:0|t[草药学] |cRXP_WARN_用于采集5株|r |T134187:0|t[地根草] |cRXP_WARN_，后续15级任务需要。采集完成后可以遗忘该专业|r
+    .target 玛洛尼·刃叶
 step << Druid
     #completewith end
-    >>|cRXP_WARN_Level|r |T136065:0|t[Herbalism] |cRXP_WARN_to 15|r
-    >>|cRXP_WARN_Pick 5 Earthroot off the ground for a level 15 quest later|r
+    >>|cRXP_WARN_将|r |T136065:0|t[草药学] |cRXP_WARN_提升至15点|r
+    >>|cRXP_WARN_在地面采集5株地根草，留给后续15级任务使用|r
     .collect 2449,5
 step << Priest
     .goto Teldrassil,57.242,63.511
-    >>Target |cRXP_FRIENDLY_Sentinel Shaya|r
-    >>|cRXP_WARN_Cast|r |T135929:0|t[Lesser Heal (Rank 2)] |cRXP_WARN_and|r |T135987:0|t[Power Word: Fortitude] |cRXP_WARN_on|r |cRXP_FRIENDLY_Sentinel Shaya|r
+    >>目标锁定 |cRXP_FRIENDLY_哨兵莎恩雅|r
+    >>|cRXP_WARN_施放|r |T135929:0|t[次级治疗术（等级2）] |cRXP_WARN_和|r |T135987:0|t[真言术：韧] |cRXP_WARN_，目标为|r |cRXP_FRIENDLY_哨兵莎恩雅|r
     .complete 5621,1 --Heal and fortify Sentinel Shaya
-    .target Sentinel Shaya
+    .target 哨兵莎恩雅
 step
     .goto Teldrassil,60.900,68.489
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Denalan|r
-    .turnin 997 >> Turn in Denalan's Earth
-    .target Denalan
-    .accept 918 >> Accept Timberling Seeds
-    .accept 919 >> Accept Timberling Sprouts
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_德纳兰|r 对话
+    .turnin 997 >> 交任务：德纳兰的泥土
+    .target 德纳兰
+    .accept 918 >> 接任务：林精的种子
+    .accept 919 >> 接任务：林精的新芽
 step
     .goto Teldrassil,61.63,68.89,55,0
     .goto Teldrassil,60.52,70.47,55,0
@@ -459,48 +464,48 @@ step
     .goto Teldrassil,55.33,67.22,55,0
     .goto Teldrassil,57.89,64.84,55,0
     .goto Teldrassil,61.21,66.28
-    >>Kill |cRXP_ENEMY_Timberlings|r. Loot them for their |cRXP_LOOT_Seeds|r
-    >>Loot the |cRXP_LOOT_Timberling Sprouts|r on the ground
+    >>击杀 |cRXP_ENEMY_林精|r, 拾取 |cRXP_LOOT_种子|r
+    >>拾取地面上的 |cRXP_LOOT_林精的新芽|r
     .complete 918,1 --Collect Timberling Seed (x8)
     .complete 919,1 --Collect Timberling Sprout (x12)
-    .mob Timberling
+    .mob 林精
 step
     .goto Teldrassil,60.900,68.489
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Denalan|r
-    .turnin 918 >> Turn in Timberling Seeds
-    .target Denalan
-    .accept 922 >> Accept Rellian Greenspyre
-    .turnin 919 >> Turn in Timberling Sprouts
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_德纳兰|r 对话
+    .turnin 918 >> 交任务：林精的种子
+    .target 德纳兰
+    .accept 922 >> 接任务：雷利亚·绿树
+    .turnin 919 >> 交任务：林精的新芽
 step
     #completewith next
-    .goto Teldrassil,68.02,59.66,120 >> Travel to Starbreeze Village
+    .goto Teldrassil,68.02,59.66,120 >> 前往 星风村
 step
     .goto Teldrassil,68.02,59.66
-    >>Open |cRXP_PICK_Tallonkai's Dresser|r. Loot it for the |cRXP_LOOT_Emerald Dreamcatcher|r
+    >>打开 |cRXP_PICK_塔隆凯的衣柜|r, 拾取 |cRXP_LOOT_翡翠摄梦符|r
     .complete 2438,1 --Collect Emerald Dreamcatcher (x1)
 step
     .goto Teldrassil,66.26,58.52
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gaerolas Talvethren|r up stairs
-    .turnin 475 >> Turn in A Troubling Breeze
-    .target Gaerolas Talvethren
-    .accept 476 >> Accept Gnarlpine Corruption
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与楼上的 |cRXP_FRIENDLY_盖洛拉斯·塔文斯伦|r 对话
+    .turnin 475 >> 交任务：烦恼之风
+    .target 盖洛拉斯·塔文斯伦
+    .accept 476 >> 接任务：瘤背熊怪的堕落
 step
     #label zenn
     .goto Teldrassil,63.38,58.10
-    >>|cRXP_WARN_Use the|r |T134721:0|t[Jade Phial] |cRXP_WARN_at the Starbreeze Village Moonwell|r
+    >>|cRXP_WARN_使用|r |T134721:0|t[翡翠瓶] |cRXP_WARN_在星风村的月亮井装水|r
     .complete 929,1 --Collect Filled Jade Phial (x1)
 step
-    >>Kill |cRXP_ENEMY_Nightsabers|r. Loot them for their |cRXP_LOOT_Fangs|r
-    >>Kill |cRXP_ENEMY_Strigid Owls|r. Loot them for their |cRXP_LOOT_Feathers|r
-    >>Kill |cRXP_ENEMY_Webwood Lurkers|r. Loot them for their |cRXP_LOOT_Silk|r
-    >>|cRXP_WARN_Save any|r |T132832:0|t[Small Eggs] |cRXP_WARN_and|r |T134321:0|t[Small Spider Legs] |cRXP_WARN_to use for leveling |T133971:0|t[Cooking] |cRXP_WARN_later|r
+    >>击杀 |cRXP_ENEMY_夜刃豹|r, 拾取 |cRXP_LOOT_獠牙|r
+    >>击杀 |cRXP_ENEMY_巨翼枭|r, 拾取 |cRXP_LOOT_羽毛|r
+    >>击杀 |cRXP_ENEMY_树林潜伏者|r, 拾取 |cRXP_LOOT_丝线|r
+    >>|cRXP_WARN_保留捡到的|r |T132832:0|t[小蛋] |cRXP_WARN_和|r |T134321:0|t[小蜘蛛腿] |cRXP_WARN_，之后会用于提升 |T133971:0|t[烹饪]技能|r
     .complete 488,1 --Collect Nightsaber Fang (x3)
-    .mob +Nightsaber
+    .mob +夜刃豹
     .goto Teldrassil,66.10,52.43,60,0
     .goto Teldrassil,61.95,61.07,50,0
     .goto Teldrassil,59.14,60.91
     .complete 488,2 --Collect Strigid Owl Feather (x3)
-    .mob +Strigid Owl
+    .mob +巨翼枭
     .goto Teldrassil,66.10,52.43,60,0
     .goto Teldrassil,63.39,64.22,50,0
     .goto Teldrassil,59.14,60.91
@@ -508,337 +513,337 @@ step
     .goto Teldrassil,61.06,54.66,50,0
     .goto Teldrassil,60.17,59.62,50,0
     .goto Teldrassil,58.22,56.32
-    .mob +Webwood Lurker
+    .mob +树林潜伏者
 step
     #era
     .goto Teldrassil,60.7,54.4
-	.xp 7+3500 >> Grind to level 7 +3500xp
+	.xp 7+3500 >> 刷怪至 7 级 +3500 经验值
 step
     #som--xpgate
     .goto Teldrassil,60.7,54.4
-	.xp 7+2900 >> Grind to level 7 +2900xp
+	.xp 7+2900 >> 刷怪至 7 级 +2900 经验值
 step
     .goto Teldrassil,60.5,56.3
-    .target Zenn Foulhoof
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Zenn Foulhoof|r
-    .turnin 488 >> Turn in Zenn's Bidding
+    .target 赛恩·腐蹄
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_赛恩·腐蹄|r 对话
+    .turnin 488 >> 交任务：赛恩的要求
 step
 	.goto Teldrassil,56.078,57.723
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Syral Bladeleaf|r
-    .accept 489 >> Accept Seek Redemption!
-    .target Syral Bladeleaf
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_塞拉尔·刃叶|r 对话
+    .accept 489 >> 接任务：寻求救赎！
+    .target 塞拉尔·刃叶
 step
     .goto Teldrassil,55.954,57.272
-    .target Athridas Bearmantle
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Athridas Bearmantle|r
-    .turnin 476 >> Turn in Gnarlpine Corruption
+    .target 阿斯瑞达斯·熊皮
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_阿斯瑞达斯·熊皮|r 对话
+    .turnin 476 >> 交任务：瘤背熊怪的堕落
 step << Priest
     .goto Teldrassil,55.564,56.746
-    .target Laurna Morninglight
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Laurna Morninglight|r
-    .turnin 5621 >> Turn in Garments of the Moon
-	.trainer >> Train your class spells
+    .target 劳尔娜·晨光
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_劳尔娜·晨光|r 对话
+    .turnin 5621 >> 交任务：月光之衣
+	.trainer >> 学习职业技能
 step
     .goto Teldrassil,55.574,56.948
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Tallonkai Swiftroot|r atop the Tree
-    .turnin 2438 >> Turn in The Emerald Dreamcatcher
-    .target Tallonkai Swiftroot
-    .accept 2459 >> Accept Ferocitas the Dream Eater
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t在树顶上与 |cRXP_FRIENDLY_塔隆凯·捷根|r 对话
+    .turnin 2438 >> 交任务：翡翠摄梦符
+    .target 塔隆凯·捷根
+    .accept 2459 >> 接任务：噬梦者菲罗斯塔
 step << Hunter
     .goto Teldrassil,55.890,59.205
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Jeena Featherbow|r
-    >>|cRXP_BUY_Buy and equip a|r |T135499:0|t[Hornwood Recurve Bow] |cRXP_BUY_if you can afford it (2s 85c), if not skip this step|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_吉娜·羽弓|r 交谈
+    >>|cRXP_BUY_购买并装备|r |T135499:0|t[角木弯弓] |cRXP_BUY_，价格为2银85铜；若买不起则跳过此步骤|r
     .collect 2506,1 --Collect Hornwood Recurve Bow
-    .target Jeena Featherbow
+    .target 吉娜·羽弓
 step << Hunter
     .goto Teldrassil,55.890,59.205
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Jeena Featherbow|r
-	.vendor >>|cRXP_BUY_Buy up to 800|r |T132382:0|t[Rough Arrows]
-    .target Jeena Featherbow
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_吉娜·羽弓|r 交谈
+	.vendor >>|cRXP_BUY_购买，数量补足至800支|r |T132382:0|t[劣质箭]
+    .target 吉娜·羽弓
 step << Hunter
     .goto Teldrassil,56.676,59.489
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dazalar|r
-	.trainer >> Train your class spells
-    .target Dazalar
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_达扎拉|r 对话
+	.trainer >> 学习职业技能
+    .target 达扎拉
 step << Warrior
     .goto Teldrassil,56.221,59.198
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kyra Windblade|r
-	.trainer >> Train your class spells
-    .target Kyra Windblade
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_凯拉·风刃|r 对话
+	.trainer >> 学习职业技能
+    .target 凯拉·风刃
 step << Rogue
     .goto Teldrassil,56.381,60.139
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Jannok Breezesong|r
-	.trainer >> Train your class spells
-    .target Jannok Breezesong
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_詹诺克·柔歌|r 对话
+	.trainer >> 学习职业技能
+    .target 詹诺克·柔歌
 step << Warrior
     .goto Teldrassil,56.308,59.488
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Shalomon|r
-    >>|cRXP_BUY_Buy and equip a|r |T135321:0|t[Gladius] |cRXP_BUY_if you can afford it (5s 36c), if not skip this step|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_沙洛蒙|r 交谈
+    >>|cRXP_BUY_购买并装备|r |T135321:0|t[步兵剑] |cRXP_BUY_，价格为5银36铜；若买不起则跳过此步骤|r
     .collect 2488,1 --Collect Gladius
-    .target Shalomon
+    .target 沙洛蒙
 step << Rogue
     .goto Teldrassil,56.308,59.488
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Shalomon|r
-    >>|cRXP_BUY_Buy and equip a|r |T135641:0|t[Stiletto] |cRXP_BUY_if you can afford it (4s 1c), if not skip this step|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_沙洛蒙|r 交谈
+    >>|cRXP_BUY_购买并装备|r |T135641:0|t[卷刃的剑] |cRXP_BUY_，价格为4银1铜；若买不起则跳过此步骤|r
     .collect 2494,1 --Stiletto (1)
-    .target Shalomon
+    .target 沙洛蒙
 step << Druid
     .goto Teldrassil,56.308,59.488
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Shalomon|r
-    >>|cRXP_BUY_Buy and equip a|r |T135145:0|t[Walking Stick] |cRXP_BUY_if you can afford it (5s 4c), if not skip this step|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_沙洛蒙|r 交谈
+    >>|cRXP_BUY_购买并装备|r |T135145:0|t[学徒短杖] |cRXP_BUY_，价格为5银4铜；若买不起则跳过此步骤|r
     .collect 2495,1 --Walking Stick (1)
-    .target Shalomon
+    .target 沙洛蒙
 step << Druid
     .goto Teldrassil,56.142,61.714
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Corithras Moonrage|r
-    .turnin 929 >> Turn in Crown of the Earth
-    .target Corithras Moonrage
-    .accept 933 >> Accept Crown of the Earth
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_科瑞萨斯·月怒|r 对话
+    .turnin 929 >> 交任务：大地之冠
+    .target 科瑞萨斯·月怒
+    .accept 933 >> 接任务：大地之冠
 step << Druid
     .goto Teldrassil,55.945,61.566
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kal|r
-	.trainer >> Train your class spells
-    .target Kal
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_卡尔|r 对话
+	.trainer >> 学习职业技能
+    .target 卡尔
 step
 	#completewith jewel
-    >>Loot the |cRXP_LOOT_Fel Cones|r on the ground
-    >>|cRXP_WARN_They are usually located next to tree trunks|r
+    >>拾取地上的 |cRXP_LOOT_魔锥果|r
+    >>|cRXP_WARN_它们通常位于树干旁边|r
     .complete 489,1 --Collect Fel Cone (x3)
 step
     #completewith next
-    >>Kill |cRXP_ENEMY_Gnarlpine Mystics|r
-    >>|cRXP_WARN_If there aren't many |cRXP_ENEMY_Gnarlpine Mystics|r you may have to kill |cRXP_ENEMY_Gnarlpine Warriors|r to make them spawn|r
+    >>击杀 |cRXP_ENEMY_瘤背秘法师|r
+    >>|cRXP_WARN_如果|cRXP_ENEMY_瘤背秘法师|r数量不多，可能需要击杀|cRXP_ENEMY_瘤背战士|r来促使它们刷新|r
     .complete 2459,1 --Kill Gnarlpine Mystic (x7)
-    .mob Gnarlpine Mystic
+    .mob 瘤背秘法师
 step
 	.goto Teldrassil,69.37,53.41
-	>>Kill |cRXP_ENEMY_Ferocitas the Dream Eater|r. Loot him for the |T133288:0|t[|cRXP_LOOT_Gnarlpine Necklace|r]
-    .use 8049 >>|cRXP_WARN_Use the |T133288:0|t[|cRXP_LOOT_Gnarlpine Necklace|r] to loot|r |cRXP_LOOT_Tallonkai's Jewel|r
+	>>击杀 |cRXP_ENEMY_噬梦者菲罗斯塔|r, 拾取 |T133288:0|t[|cRXP_LOOT_瘤背熊怪的项链|r]
+    .use 8049 >>|cRXP_WARN_使用 |T133288:0|t[|cRXP_LOOT_瘤背熊怪的项链|r]来取出|r |cRXP_LOOT_塔隆凯的珠宝|r
     .complete 2459,2 --Collect Tallonkai's Jewel (x1)
-    .mob Ferocitas the Dream Eater
+    .mob 噬梦者菲罗斯塔
 step
     #label jewel
     .goto Teldrassil,68.38,52.06,30,0
     .goto Teldrassil,69.37,53.41
-    >>Kill |cRXP_ENEMY_Gnarlpine Mystics|r
-    >>|cRXP_WARN_If there aren't many |cRXP_ENEMY_Gnarlpine Mystics|r you may have to kill |cRXP_ENEMY_Gnarlpine Warriors|r to make them spawn|r
+    >>击杀 |cRXP_ENEMY_瘤背秘法师|r
+    >>|cRXP_WARN_如果|cRXP_ENEMY_瘤背秘法师|r数量不多，可能需要击杀|cRXP_ENEMY_瘤背战士|r来促使它们刷新|r
     .complete 2459,1 --Kill Gnarlpine Mystic (x7)
-    .mob Gnarlpine Mystic
+    .mob 瘤背秘法师
 step
     .goto Teldrassil,59.0,56.1,50,0
     .goto Teldrassil,56.5,65.5,50,0
     .goto Teldrassil,53.0,59.5,50,0
     .goto Teldrassil,63.6,62.3,50,0
     .goto Teldrassil,58.7,55.7
-    >>Loot the |cRXP_LOOT_Fel Cones|r on the ground
-    >>|cRXP_WARN_They are usually located next to tree trunks|r
+    >>拾取地上的 |cRXP_LOOT_魔锥果|r
+    >>|cRXP_WARN_它们通常位于树干旁边|r
     .complete 489,1 --Collect Fel Cone (x3)
 step
     .goto Teldrassil,60.4,56.4
-    .target Zenn Foulhoof
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Zenn Foulhoof|r
-    .turnin 489 >> Turn in Seek Redemption!
+    .target 赛恩·腐蹄
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_赛恩·腐蹄|r 对话
+    .turnin 489 >> 交任务：寻求救赎！
 step
     #completewith next
     .goto Teldrassil,54.68,52.84,20,0
-    .goto Teldrassil,54.42,51.19,15 >> Travel to Fel Rock
+    .goto Teldrassil,54.42,51.19,15 >> 前往地狱石
 step << Hunter
     #era
     .goto Teldrassil,51.2,50.6
-    >>Kill |cRXP_ENEMY_Lord Melenas|r. Loot him for his |cRXP_LOOT_Head|r
-    >>|cRXP_ENEMY_Lord Melenas|r may be located in many different spawn locations throughout Fel Rock
+    >>击杀 |cRXP_ENEMY_迈雷纳斯|r, 获取 |cRXP_LOOT_头颅|r
+    >>|cRXP_ENEMY_迈雷纳斯|r 可能出现在地狱石内的多个刷新点
     .complete 932,1 --Collect Melenas' Head (x1)
-    .unitscan Lord Melenas
+    .unitscan 迈雷纳斯
 step << !Hunter
     .goto Teldrassil,51.2,50.6
-    >>Kill |cRXP_ENEMY_Lord Melenas|r. Loot him for his |cRXP_LOOT_Head|r
-    >>|cRXP_ENEMY_Lord Melenas|r may be located in many different spawn locations throughout Fel Rock
+    >>击杀 |cRXP_ENEMY_迈雷纳斯|r, 获取 |cRXP_LOOT_头颅|r
+    >>|cRXP_ENEMY_迈雷纳斯|r 可能出现在地狱石内的多个刷新点
     .complete 932,1 --Collect Melenas' Head (x1)
-    .unitscan Lord Melenas
+    .unitscan 迈雷纳斯
 step
     #softcore
     #completewith next
-    .deathskip >> Die and respawn at the |cRXP_FRIENDLY_Spirit Healer|r
+    .deathskip >> 死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处复活
 step << !Druid
     .goto Teldrassil,56.142,61.714
-    .target Corithras Moonrage
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Corithras Moonrage|r
-    .turnin 929 >> Turn in Crown of the Earth
+    .target 科瑞萨斯·月怒
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_科瑞萨斯·月怒|r 对话
+    .turnin 929 >> 交任务：大地之冠
 step
 	#era/som
     .goto Teldrassil,56.142,61.714
-    .target Corithras Moonrage
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Corithras Moonrage|r
-    .accept 933 >> Accept Crown of the Earth
+    .target 科瑞萨斯·月怒
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_科瑞萨斯·月怒|r 对话
+    .accept 933 >> 接任务：大地之冠
 step
     #completewith next
-    .goto Teldrassil,42.61,76.18,50 >> Travel to southwestern Teldrassil
+    .goto Teldrassil,42.61,76.18,50 >> 前往泰达希尔西南部
 step
 	#era/som
 	.goto Teldrassil,42.61,76.18
-	>>Click the |cRXP_PICK_Strange Fruited Plant|r
-	.accept 930 >> Accept The Glowing Fruit
+	>>点击|cRXP_PICK_奇怪的果树|r
+	.accept 930 >> 接任务：发光的水果
 step
     #completewith next
-    .goto Teldrassil,42.41,67.07,50 >> Travel to the Pools of Arlithrien
+    .goto Teldrassil,42.41,67.07,50 >> 前往 阿里斯瑞恩之池
 step
 	#era/som
 	#label spiderLegs
 	.goto Teldrassil,42.41,67.07
-    .use 5621 >>|cRXP_WARN_Use the|r |T134765:0|t[Tourmaline Phial] |cRXP_WARN_at the Pools of Arlithrien moonwell|r
+    .use 5621 >>|cRXP_WARN_使用|r |T134765:0|t[红玉瓶] |cRXP_WARN_在阿里斯瑞恩之池的月亮井装水|r
 	.complete 933,1
 step
 	#era/som
     .goto Teldrassil,44.69,70.52,40,0
     .goto Teldrassil,44.88,73.83
-    >>Kill |cRXP_ENEMY_Webwood Lurkers|r and |cRXP_ENEMY_Webwood Venomfangs|r. Loot them for their |cRXP_LOOT_Small Spider Legs|r
+    >>击杀 |cRXP_ENEMY_树林潜伏者|r 和 |cRXP_ENEMY_树林毒蜘蛛|r, 拾取 |cRXP_LOOT_小蜘蛛腿|r
     .collect 5465,7,4161,1 --Collect Small Spider Leg (x7)
-    .mob Webwood Lurker
-    .mob Webwood Venomfang
+    .mob 树林潜伏者
+    .mob 树林毒蜘蛛
 step
     #completewith next
-    .goto Teldrassil,56.142,61.714,90 >> Travel to Dolanaar
+    .goto Teldrassil,56.142,61.714,90 >> 前往多兰纳尔
 step
 	#era/som
     .goto Teldrassil,56.142,61.714
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Corithras Moonrage|r
-    .turnin 933 >> Turn in Crown of the Earth
-    .target Corithras Moonrage
-    .accept 7383 >> Accept Crown of the Earth
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_科瑞萨斯·月怒|r 对话
+    .turnin 933 >> 交任务：大地之冠
+    .target 科瑞萨斯·月怒
+    .accept 7383 >> 接任务：大地之冠
 step
 	#era/som
     .goto Teldrassil,57.121,61.296
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Zarrin|r
-    .train 2550 >>Train Cooking
-    .accept 4161 >> Accept Recipe of the Kaldorei
-    .turnin 4161 >> Turn in Recipe of the Kaldorei
-    .target Zarrin
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_扎瑞恩|r 对话
+    .train 2550 >>学习烹饪
+    .accept 4161 >> 接任务：卡多雷的菜谱
+    .turnin 4161 >> 交任务：卡多雷的菜谱
+    .target 扎瑞恩
 step
     .goto Teldrassil,55.29,56.82
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Byancie|r
-    .train 3273 >> Train |T135966:0|t[First Aid]
-    .target Byancie
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_拜恩希|r 对话
+    .train 3273 >> 学习|T135966:0|t[急救]
+    .target 拜恩希
 step
     #som
     .goto Teldrassil,55.574,56.948
-    .target Tallonkai Swiftroot
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Tallonkai Swiftroot|r atop the Tree
-    .turnin 932 >> Turn in Twisted Hatred << !Hunter
-    .turnin 2459 >> Turn in Ferocitas the Dream Eater
+    .target 塔隆凯·捷根
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t在树顶上与 |cRXP_FRIENDLY_塔隆凯·捷根|r 对话
+    .turnin 932 >> 交任务：扭曲的仇恨 << !Hunter
+    .turnin 2459 >> 交任务：噬梦者菲罗斯塔
 step
     #era
     .goto Teldrassil,55.574,56.948
-    .target Tallonkai Swiftroot
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Tallonkai Swiftroot|r atop the Tree
-    .turnin 932 >> Turn in Twisted Hatred
-    .turnin 2459 >> Turn in Ferocitas the Dream Eater
+    .target 塔隆凯·捷根
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t在树顶上与 |cRXP_FRIENDLY_塔隆凯·捷根|r 对话
+    .turnin 932 >> 交任务：扭曲的仇恨
+    .turnin 2459 >> 交任务：噬梦者菲罗斯塔
 step
     .goto Teldrassil,55.83,58.31,40,0
     .goto Teldrassil,50.22,53.83
     .goto Teldrassil,55.83,58.31,0
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Moon Priestess Amara|r
-    >>|cRXP_FRIENDLY_Moon Priestess Amara|r |cRXP_WARN_patrols the road west of Dolanaar|r
-    .accept 487 >> Accept The Road to Darnassus
-    .target Moon Priestess Amara
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_哨兵阿玛拉·夜行者|r 对话
+    >>|cRXP_FRIENDLY_哨兵阿玛拉·夜行者|r |cRXP_WARN_在多兰纳尔西边的路上巡逻|r
+    .accept 487 >> 接任务：达纳苏斯之路
+    .target 哨兵阿玛拉·夜行者
 step
     .goto Teldrassil,46.6,53.0
-    >>Kill |cRXP_ENEMY_Gnarlpine Ambushers|r
+    >>击杀 |cRXP_ENEMY_瘤背伏击者|r
     .complete 487,1 --Kill Gnarlpine Ambusher (x6)
-    .mob Gnarlpine Ambusher
+    .mob 瘤背伏击者
 step << Druid
     .goto Teldrassil,55.83,58.31,40,0
     .goto Teldrassil,50.22,53.83
     .goto Teldrassil,55.83,58.31,0
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Moon Priestess Amara|r
-    >>|cRXP_FRIENDLY_Moon Priestess Amara|r |cRXP_WARN_patrols the road west of Dolanaar|r
-    .turnin 487 >> Turn in The Road to Darnassus
-    .target Moon Priestess Amara
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_哨兵阿玛拉·夜行者|r 对话
+    >>|cRXP_FRIENDLY_哨兵阿玛拉·夜行者|r |cRXP_WARN_在多兰纳尔西边的路上巡逻|r
+    .turnin 487 >> 交任务：达纳苏斯之路
+    .target 哨兵阿玛拉·夜行者
 step
     #completewith next
-    .goto Teldrassil,38.32,34.36,50 >> Travel to The Oracle Glade
+    .goto Teldrassil,38.32,34.36,50 >> 前往 神谕林地
 step
 	#era/som
     .goto Teldrassil,38.32,34.36
-    .target Sentinel Arynia Cloudsbreak
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Sentinel Arynia Cloudsbreak|r
-    .accept 937 >> Accept The Enchanted Glade
+    .target 哨兵阿瑞尼亚·碎云
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_哨兵阿瑞尼亚·碎云|r 对话
+    .accept 937 >> 接任务：神谕林地
 step
 	#era/som
     .goto Teldrassil,38.43,34.03
-    .use 18152 >>|cRXP_WARN_Use the|r |T134798:0|t[Amethyst Phial] |cRXP_WARN_at The Oracle Glade moonwell|r
+    .use 18152 >>|cRXP_WARN_使用|r |T134798:0|t[紫水晶瓶] |cRXP_WARN_在神谕林地的月亮井装水|r
     .complete 7383,1 --Collect Filled Amethyst Phial (x1)
 step
 	#era/som
     #completewith xp10
 	#label harpies
-    >>Kill |cRXP_ENEMY_Bloodfeather Harpies|r. Loot them for their |cRXP_LOOT_Belts|r
-    >>|cRXP_ENEMY_Bloodfeather Matriarchs|r |cRXP_WARN_cast|r |T136052:0|t[Healing Wave] |cRXP_WARN_and|r |T136048:0|t[Lightning Bolt] |cRXP_WARN_which does a lot of damage. Try to burst them fast|r
+    >>击杀 |cRXP_ENEMY_血羽鹰身人|r，拾取 |cRXP_LOOT_腰带|r
+    >>|cRXP_ENEMY_血羽女族长|r |cRXP_WARN_会施放|r |T136052:0|t[治疗波] |cRXP_WARN_和|r |T136048:0|t[闪电箭] |cRXP_WARN_，伤害很高，尽快击杀|r
     .complete 937,1 --Collect Bloodfeather Belt (x6)
-    .mob Bloodfeather Harpy
-    .mob Bloodfeather Rogue
-    .mob Bloodfeather Sorceress
-    .mob Bloodfeather Fury
-    .mob Bloodfeather Wind Witch
-    .mob Bloodfeather Matriarch
+    .mob 血羽鹰身人
+    .mob 血羽游荡者
+    .mob 血羽女巫
+    .mob 血羽复仇者
+    .mob 血羽风巫
+    .mob 血羽女族长
 step
 	#era/som
     .goto Teldrassil,34.61,28.79
-    >>Click the |cRXP_PICK_Strange Fronded Plant|r
-    .accept 931 >> Accept The Shimmering Frond
+    >>点击 |cRXP_PICK_奇怪的树木|r
+    .accept 931 >> 接任务：发光的树叶
 step << Hunter
 	#era/som
     #completewith xp10
     #label mist1
     .goto Teldrassil,31.54,31.62
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mist|r
-    >>|cRXP_WARN_This will start an escort quest|r
-    .accept 938 >> Accept Mist
-    .target Mist
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_密斯特|r 对话
+    >>|cRXP_WARN_这将开始一个护送任务|r
+    .accept 938 >> 接任务：密斯特
+    .target 密斯特
 step << Hunter
     #era
     #sticky
     #label xp10
-    .xp 10-2670 >> Grind until you are 2670 xp off level 10 (3830/6500)
-    >>|cRXP_WARN_Once you reach this xp breakpoint, skip the harpy/escort quest and go straight to Darnassus. You will have another opportunity to finish those quests later|r
+    .xp 10-2670 >> 刷怪，直到还差2670点经验升至10级（3830/6500）
+    >>|cRXP_WARN_一旦你达到这个经验值临界点，就跳过鹰身人任务和护送任务，直接前往达纳苏斯。你稍后还会有机会来完成这些任务|r
 step << Hunter skip
     #era/som--xpgate
     #sticky
     #label xp10
-    .xp 10-3330 >> Grind until you are 3330 xp off level 10 (3170/6500)
-    >>|cRXP_WARN_Once you reach this xp breakpoint, skip the harpy/escort quest and go straight to Darnassus. You will have another opportunity to finish those quests later|r
+    .xp 10-3330 >> 刷怪，直到还差3330点经验升至10级（3170/6500）
+    >>|cRXP_WARN_一旦你达到这个经验值临界点，就跳过鹰身人任务和护送任务，直接前往达纳苏斯。你稍后还会有机会来完成这些任务|r
 step << Hunter
 	#era/som
     #completewith xp10
     #requires mist1
     .goto Teldrassil,38.32,34.36
-    .target Sentinel Arynia Cloudsbreak
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Sentinel Arynia Cloudsbreak|r
-    .turnin 938 >> Turn in Mist
+    .target 哨兵阿瑞尼亚·碎云
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_哨兵阿瑞尼亚·碎云|r 对话
+    .turnin 938 >> 交任务：密斯特
 step << Hunter
 	#era/som
     #completewith xp10
 	#requires harpies
     .goto Teldrassil,38.32,34.36
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Sentinel Arynia Cloudsbreak|r
-    .turnin 937 >> Turn in The Enchanted Glade
-    .target Sentinel Arynia Cloudsbreak
-    .accept 940 >> Accept Teldrassil
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_哨兵阿瑞尼亚·碎云|r 对话
+    .turnin 937 >> 交任务：神谕林地
+    .target 哨兵阿瑞尼亚·碎云
+    .accept 940 >> 接任务：泰达希尔
 step << !Hunter
 	#era/som
     #label mist1
     .goto Teldrassil,31.54,31.62
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mist|r
-    >>|cRXP_WARN_This will start an escort quest|r
-    .accept 938 >> Accept Mist
-    .target Mist
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_密斯特|r 对话
+    >>|cRXP_WARN_这将开始一个护送任务|r
+    .accept 938 >> 接任务：密斯特
+    .target 密斯特
 step << !Hunter
 	#era/som
     .goto Teldrassil,38.32,34.36
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Sentinel Arynia Cloudsbreak|r
-    .turnin 937 >> Turn in The Enchanted Glade
-    .target Sentinel Arynia Cloudsbreak
-    .accept 940 >> Accept Teldrassil
-    .turnin 938 >> Turn in Mist
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_哨兵阿瑞尼亚·碎云|r 对话
+    .turnin 937 >> 交任务：神谕林地
+    .target 哨兵阿瑞尼亚·碎云
+    .accept 940 >> 接任务：泰达希尔
+    .turnin 938 >> 交任务：密斯特
 step << !Hunter
     #era
     #label xp10
@@ -854,7 +859,7 @@ step
 	#som--xpgate
     #phase 3-6
 	.goto Teldrassil,38.6,58.0
-	>>Finish off collecting 7 Small Spider Legs
+	>>收集齐 7 条小蜘蛛腿
     .collect 5465,7,4161,1 --Collect Small Spider Leg (x7)
 step << Druid
 	#som--xpgate
@@ -862,7 +867,7 @@ step << Druid
 	#label xp10
 	.xp 10-640
     .goto Teldrassil,38.3,34.4
-	>>If you're still behind on xp do the harpy quest north
+	>>如果你的经验还落后, 就去北方做鹰身人任务
 step << !Druid
 	#som--xpgate
 	#phase 3-6
@@ -871,287 +876,290 @@ step << !Druid
 step << !Rogue
     #requires xp10
     #completewith next
-    .goto Darnassus,82.01,36.70,100 >> Travel to Darnassus
+    .goto Darnassus,82.01,36.70,100 >> 前往达纳苏斯
 step << !Rogue
     #requires xp10
     .goto Darnassus,38.18,21.64
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Rellian Greenspyre|r
-    .turnin 922 >> Turn in Rellian Greenspyre
-    .target Rellian Greenspyre
-    .accept 923 >> Accept Tumors
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_雷利亚·绿树|r 对话
+    .turnin 922 >> 交任务：雷利亚·绿树
+    .target 雷利亚·绿树
+    .accept 923 >> 接任务：青苔之瘤
 step << !Hunter !Rogue
 	#era/som
     .goto Darnassus,34.96,9.01
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Arch Druid Fandral Staghelm|r atop the Tree
-    .turnin 940 >> Turn in Teldrassil
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t在树顶上与|cRXP_FRIENDLY_大德鲁伊范达尔·鹿盔|r 对话
+    .turnin 940 >> 交任务：泰达希尔
 	.isOnQuest 940
-    .target Arch Druid Fandral Staghelm
+    .target 大德鲁伊范达尔·鹿盔
 step << Druid
     .goto Darnassus,35.38,8.40
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mathrengyl Bearwalker|r on the middle level
-    .accept 5921 >> Accept Moonglade
-	.trainer >> Train your class spells
-    .target Mathrengyl Bearwalker
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与中层的 |cRXP_FRIENDLY_玛斯雷·驭熊者|r 对话
+    .accept 5921 >> 接任务：月光林地
+	.trainer >> 学习职业技能
+    .target 玛斯雷·驭熊者
 step << !Rogue
     .goto Darnassus,39.72,92.68,10,0
     .goto Darnassus,36.65,85.93
-    .target Priestess A'moora
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Priestess A'moora|r
-    .accept 2518 >> Accept Tears of the Moon
+    .target 女祭司艾茉拉
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_女祭司艾茉拉|r 对话
+    .accept 2518 >> 接任务：月神的泪水
 step << Druid
 	#completewith next
-	.cast 18960 >> Cast Teleport: Moonglade
-    >>|cRXP_WARN_It will be in your spellbook|r
+	.cast 18960 >> 施放传送：月光林地
+    >>|cRXP_WARN_它会在你的法术书中|r
 	.zoneskip Moonglade
 step << Druid
     .goto Moonglade,56.21,30.64
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dendrite Starblaze|r up stairs
-    .turnin 5921 >> Turn in Moonglade
-    .target Dendrite Starblaze
-    .accept 5929 >> Accept Great Bear Spirit
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与楼上的 |cRXP_FRIENDLY_德迪利特·星焰|r 对话
+    .turnin 5921 >> 交任务：月光林地
+    .target 德迪利特·星焰
+    .accept 5929 >> 接任务：巨熊之灵
 step << Druid
     .goto Moonglade,45.12,26.78,15,0
     .goto Moonglade,39.17,27.42
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to the |cRXP_FRIENDLY_Great Bear Spirit|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_巨熊之灵|r 交谈
     .complete 5929,1 --Seek out the Great Bear Spirit and learn what it has to share with you about the nature of the bear.
     .skipgossip
-    .target Great Bear Spirit
+    .target 巨熊之灵
 step << Druid
 	#completewith next
-	.cast 18960 >> Cast Teleport: Moonglade
-    >>|cRXP_WARN_This will make you return faster|r
+	.cast 18960 >> 施放传送：月光林地
+    >>|cRXP_WARN_这样可以让你更快返回|r
 step << Druid
     .goto Moonglade,56.21,30.64
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dendrite Starblaze|r up stairs
-    .turnin 5929 >> Turn in Great Bear Spirit
-    .target Dendrite Starblaze
-    .accept 5931 >> Accept Back to Darnassus
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与楼上的 |cRXP_FRIENDLY_德迪利特·星焰|r 对话
+    .turnin 5929 >> 交任务：巨熊之灵
+    .target 德迪利特·星焰
+    .accept 5931 >> 接任务：返回达纳苏斯
 step
     #requires xp10 << Rogue
     #completewith next << !Rogue
-    .hs >> Hearth to Dolanaar
+    .hs >> 炉石回多兰纳尔
 step << Hunter
     .goto Teldrassil,55.890,59.205
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Jeena Featherbow|r
-	.vendor >> |cRXP_BUY_Buy 4 stacks of|r |T132382:0|t[Sharp Arrows]|cRXP_BUY_. Equip them as soon as you reach level 10|r
-    .target Jeena Featherbow
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_吉娜·羽弓|r 交谈
+	.vendor >> |cRXP_BUY_购买4组|r |T132382:0|t[锋利的箭]|cRXP_BUY_，达到10级后立即装备|r
+    .target 吉娜·羽弓
 step
 	#som
 	#phase 3-6
     .goto Teldrassil,57.121,61.296
-    .train 2550 >>Train Cooking
-    .target Zarrin
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Zarrin|r
-    .accept 4161 >> Accept Recipe of the Kaldorei
-    .turnin 4161 >> Turn in Recipe of the Kaldorei
+    .train 2550 >>学习烹饪
+    .target 扎瑞恩
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_扎瑞恩|r 对话
+    .accept 4161 >> 接任务：卡多雷的菜谱
+    .turnin 4161 >> 交任务：卡多雷的菜谱
 step
 	#som
 	#phase 3-6
     .goto Teldrassil,51.9,56.4
-    >>Find Moon Priestess Amara, she patrols the road west of Dolanaar
-    .target Moon Priestess Amara
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Moon Priestess Amara|r
-    .turnin 487 >> Turn in The Road to Darnassus
+    >>寻找哨兵阿玛拉·夜行者，她在多兰纳尔西边的道路上巡逻
+    .target 哨兵阿玛拉·夜行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_哨兵阿玛拉·夜行者|r 对话
+    .turnin 487 >> 交任务：达纳苏斯之路
 	.maxlevel 9
 step << Hunter
     #completewith L10
     #level 10
     #label beast1
     .goto Teldrassil,56.676,59.489
-    .target Dazalar
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dazalar|r
-    .accept 6063 >> Accept Taming the Beast
-	.train 13165 >> Train your level 10 spells
+    .target 达扎拉
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_达扎拉|r 对话
+    .accept 6063 >> 接任务：驯服野兽
+	.train 13165 >> 学习10级职业技能
 step << Hunter
     #completewith L10
     #level 10
     #requires beast1
     #label beast2
     .goto Teldrassil,59.9,58.8
-    .use 15921 >>|cRXP_WARN_Use the|r |T132164:0|t[Taming Rod] |cRXP_WARN_on a|r |cRXP_ENEMY_Webwood Lurker|r
+    .use 15921 >>|cRXP_WARN_使用|r |T132164:0|t[驯兽棒] |cRXP_WARN_驯服一只|r |cRXP_ENEMY_树林潜伏者|r
     .complete 6063,1 --Tame a Webwood Lurker
-    .mob Webwood Lurker
+    .mob 树林潜伏者
 step << Hunter
     #completewith L10
     #level 10
     #requires beast2
     .goto Teldrassil,56.676,59.489
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dazalar|r
-    .turnin 6063 >> Turn in Taming the Beast
-    .target Dazalar
-    .accept 6101 >> Accept Taming the Beast
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_达扎拉|r 对话
+    .turnin 6063 >> 交任务：驯服野兽
+    .target 达扎拉
+    .accept 6101 >> 接任务：驯服野兽
 step
 	#era/som
     .goto Teldrassil,56.142,61.714
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Corithras Moonrage|r
-    .turnin 7383 >> Turn in Crown of the Earth
-    .target Corithras Moonrage
-    .accept 935 >> Accept Crown of the Earth
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_科瑞萨斯·月怒|r 对话
+    .turnin 7383 >> 交任务：大地之冠
+    .target 科瑞萨斯·月怒
+    .accept 935 >> 接任务：大地之冠
 step
 	#era/som
 	.goto Teldrassil,60.900,68.489
-    .target Denalan
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Denalan|r
-    .turnin 931 >> Turn in The Shimmering Frond
-    .turnin 930 >> Turn in The Glowing Fruit
+    .target 德纳兰
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_德纳兰|r 对话
+    .turnin 931 >> 交任务：发光的树叶
+    .turnin 930 >> 交任务：发光的水果
 step
 	#era/som
 	.goto Teldrassil,60.900,68.489
-    .target Denalan
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Denalan|r
-	.turnin 927 >> Turn in The Moss-twined Heart
+    .target 德纳兰
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_德纳兰|r 对话
+	.turnin 927 >> 交任务：布满苔藓的心脏
     .isOnQuest 927
 step
 	#era/som
+    .goto Teldrassil,60.900,68.489
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_德纳兰|r交谈
+    .accept 941 >> 接任务：培养心脏
 	.goto Teldrassil,60.78,68.59
-	>>Click on |cRXP_LOOT_Denalans Planter|r
-	.turnin 941 >> Turn in Planting the Heart
+	>>点击 |cRXP_LOOT_德纳兰的培养皿|r
+	.turnin 941 >> 交任务：培养心脏
 	.isQuestTurnedIn 927
 step << Hunter
 	#era/som
     .goto Teldrassil,62.6,72.2
-    .use 15922 >>|cRXP_WARN_Use the|r |T132164:0|t[Taming Rod] |cRXP_WARN_on a|r |cRXP_ENEMY_Nightsaber Stalker|r
-    >>|cRXP_WARN_You must right click your Pet Frame and Dismiss your pet before you can tame another one|r
+    .use 15922 >>|cRXP_WARN_使用|r |T132164:0|t[驯兽棒] |cRXP_WARN_驯服一只|r |cRXP_ENEMY_夜刃捕食者|r
+    >>|cRXP_WARN_在驯服下一只宠物之前,你必须右键点击宠物框并解散你的宠物|r
     .complete 6101,1 --Tame a Nightsaber Stalker
 	.isOnQuest 6101
-    .mob Nightsaber Stalker
+    .mob 夜刃捕食者
 step
     #label L10
     .xp 10
 step << Priest
     .goto Teldrassil,55.564,56.746
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Laurna Morninglight|r
-	.trainer >> Train your class spells
-    .target Laurna Morninglight
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_劳尔娜·晨光|r 对话
+	.trainer >> 学习职业技能
+    .target 劳尔娜·晨光
 step << Warrior
     .goto Teldrassil,56.221,59.198
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kyra Windblade|r
-	.trainer >> Train your class spells
-    .target Kyra Windblade
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_凯拉·风刃|r 对话
+	.trainer >> 学习职业技能
+    .target 凯拉·风刃
 step << Rogue
     .goto Teldrassil,56.381,60.139
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Jannok Breezesong|r
-	.trainer >> Train your class spells
-    .target Jannok Breezesong
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_詹诺克·柔歌|r 对话
+	.trainer >> 学习职业技能
+    .target 詹诺克·柔歌
 step << Hunter
     .goto Teldrassil,56.676,59.489
-    .target Dazalar
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dazalar|r
-    .accept 6063 >> Accept Taming the Beast
-	.trainer >> Train your class spells
+    .target 达扎拉
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_达扎拉|r 对话
+    .accept 6063 >> 接任务：驯服野兽
+	.trainer >> 学习职业技能
 step << Hunter
     .goto Teldrassil,59.9,58.8
-    .use 15921 >>|cRXP_WARN_Use the|r |T132164:0|t[Taming Rod] |cRXP_WARN_on a|r |cRXP_ENEMY_Webwood Lurker|r
+    .use 15921 >>|cRXP_WARN_使用|r |T132164:0|t[驯兽棒] |cRXP_WARN_驯服一只|r |cRXP_ENEMY_树林潜伏者|r
     .complete 6063,1 --Tame a Webwood Lurker
-    .mob Webwood Lurker
+    .mob 树林潜伏者
 step << Hunter
     .goto Teldrassil,56.676,59.489
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dazalar|r
-    .turnin 6063 >> Turn in Taming the Beast
-    .target Dazalar
-    .accept 6101 >> Accept Taming the Beast
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_达扎拉|r 对话
+    .turnin 6063 >> 交任务：驯服野兽
+    .target 达扎拉
+    .accept 6101 >> 接任务：驯服野兽
 step << Hunter
     .goto Teldrassil,62.6,72.2
-    .use 15922 >>|cRXP_WARN_Use the|r |T132164:0|t[Taming Rod] |cRXP_WARN_on a|r |cRXP_ENEMY_Nightsaber Stalker|r
-    >>|cRXP_WARN_You must right click your Pet Frame and Dismiss your pet before you can tame another one|r
+    .use 15922 >>|cRXP_WARN_使用|r |T132164:0|t[驯兽棒] |cRXP_WARN_驯服一只|r |cRXP_ENEMY_夜刃捕食者|r
+    >>|cRXP_WARN_在驯服下一只宠物之前,你必须右键点击宠物框并解散你的宠物|r
     .complete 6101,1 --Tame a Nightsaber Stalker
-    .mob Nightsaber Stalker
+    .mob 夜刃捕食者
 step << Hunter
     .goto Teldrassil,56.676,59.489
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dazalar|r
-    .turnin 6101 >> Turn in Taming the Beast
-    .target Dazalar
-    .accept 6102 >> Accept Taming the Beast
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_达扎拉|r 对话
+    .turnin 6101 >> 交任务：驯服野兽
+    .target 达扎拉
+    .accept 6102 >> 接任务：驯服野兽
 step << Hunter
     .goto Teldrassil,64.7,66.7
-    .use 15923 >>|cRXP_WARN_Use the|r |T132164:0|t[Taming Rod] |cRXP_WARN_on a|r |cRXP_ENEMY_Strigid Screecher|r
-    >>|cRXP_WARN_You must right click your Pet Frame and Dismiss your pet before you can tame another one|r
+    .use 15923 >>|cRXP_WARN_使用|r |T132164:0|t[驯兽棒] |cRXP_WARN_驯服一只|r |cRXP_ENEMY_巨翼恶枭|r
+    >>|cRXP_WARN_在驯服下一只宠物之前,你必须右键点击宠物框并解散你的宠物|r
     .complete 6102,1 --Tame a Strigid Screecher
-    .mob Strigid Screecher
+    .mob 巨翼恶枭
 step << Hunter
     .goto Teldrassil,56.676,59.489
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dazalar|r
-    .turnin 6102 >> Turn in Taming the Beast
-    .target Dazalar
-    .accept 6103 >> Accept Training the Beast
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_达扎拉|r 对话
+    .turnin 6102 >> 交任务：驯服野兽
+    .target 达扎拉
+    .accept 6103 >> 接任务：训练野兽
 step << Warrior
     .goto Teldrassil,55.83,58.31,40,0
     .goto Teldrassil,50.22,53.83
     .goto Teldrassil,55.83,58.31,0
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Moon Priestess Amara|r
-    >>|cRXP_FRIENDLY_Moon Priestess Amara|r |cRXP_WARN_patrols the road west of Dolanaar|r
-    .accept 1684 >> Accept Elanaria
-    .target Moon Priestess Amara
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_哨兵阿玛拉·夜行者|r 对话
+    >>|cRXP_FRIENDLY_哨兵阿玛拉·夜行者|r |cRXP_WARN_在多兰纳尔西边的路上巡逻|r
+    .accept 1684 >> 接任务：艾兰娜瑞
+    .target 哨兵阿玛拉·夜行者
 step << Rogue
     .goto Teldrassil,56.381,60.139
-    .target Jannok Breezesong
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Jannok Breezesong|r
-    .accept 2241 >> Accept The Apple Falls
+    .target 詹诺克·柔歌
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_詹诺克·柔歌|r 对话
+    .accept 2241 >> 接任务：詹诺克的花
 step << Hunter
     .goto Teldrassil,56.308,59.488
     .money <0.0504
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Shalomon|r
-    >>|cRXP_BUY_Buy a|r |T135145:0|t[Walking Stick]
-    >>|cRXP_WARN_You will equip this later. Skip this step if you happened to find a different staff|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_沙洛蒙|r 交谈
+    >>|cRXP_BUY_购买|r |T135145:0|t[学徒短杖]
+    >>|cRXP_WARN_稍后会装备这个. 如果恰好找到了另一根法杖, 请跳过此步骤|r
     .collect 2495,1 -- Walking Stick (1)
-    .target Shalomon
+    .target 沙洛蒙
 step << !Druid
     .goto Teldrassil,55.83,58.31,40,0
     .goto Teldrassil,50.22,53.83
     .goto Teldrassil,55.83,58.31,0
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Moon Priestess Amara|r
-    >>|cRXP_FRIENDLY_Moon Priestess Amara|r |cRXP_WARN_patrols the road west of Dolanaar|r
-    .turnin 487 >> Turn in The Road to Darnassus
-    .target Moon Priestess Amara
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_哨兵阿玛拉·夜行者|r 对话
+    >>|cRXP_FRIENDLY_哨兵阿玛拉·夜行者|r |cRXP_WARN_在多兰纳尔西边的路上巡逻|r
+    .turnin 487 >> 交任务：达纳苏斯之路
+    .target 哨兵阿玛拉·夜行者
 step << Rogue
     #completewith next
-    .goto Darnassus,82.01,36.70,100 >> Travel to Darnassus
+    .goto Darnassus,82.01,36.70,100 >> 前往达纳苏斯
 step << Rogue
     .goto Darnassus,38.18,21.64
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Rellian Greenspyre|r
-    .turnin 922 >> Turn in Rellian Greenspyre
-    .target Rellian Greenspyre
-    .accept 923 >> Accept Tumors
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_雷利亚·绿树|r 对话
+    .turnin 922 >> 交任务：雷利亚·绿树
+    .target 雷利亚·绿树
+    .accept 923 >> 接任务：青苔之瘤
 step << Rogue
     .goto Darnassus,34.96,9.01
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Arch Druid Fandral Staghelm|r atop the Tree
-    .turnin 935 >> Turn in Crown of the Earth
-    .turnin 940 >> Turn in Teldrassil
-    .target Arch Druid Fandral Staghelm
-    .accept 952 >> Accept Grove of the Ancients
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t在树顶上与|cRXP_FRIENDLY_大德鲁伊范达尔·鹿盔|r 对话
+    .turnin 935 >> 交任务：大地之冠
+    .turnin 940 >> 交任务：泰达希尔
+    .target 大德鲁伊范达尔·鹿盔
+    .accept 952 >> 接任务：古树之林
 step << Rogue
     .goto Darnassus,31.21,17.72,8,0
     .goto Darnassus,36.99,21.91
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Syurna|r
-    .turnin 2241 >> Turn in The Apple Falls
-    .target Syurna
-    .accept 2242 >> Accept Destiny Calls
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_塞尤娜|r 对话
+    .turnin 2241 >> 交任务：詹诺克的花
+    .target 塞尤娜
+    .accept 2242 >> 接任务：命运的召唤
 step << Rogue
     .goto Darnassus,39.72,92.68,10,0
     .goto Darnassus,36.65,85.93
-    .target Priestess A'moora
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Priestess A'moora|r
-    .accept 2518 >> Accept Tears of the Moon
+    .target 女祭司艾茉拉
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_女祭司艾茉拉|r 对话
+    .accept 2518 >> 接任务：月神的泪水
 step << Hunter
     #sticky
 	.goto Teldrassil,41.2,44.4,0
 	.goto Teldrassil,44.2,39.8,0
 	.goto Teldrassil,45.6,31.4,0
 	.goto Teldrassil,37.6,28.8,0
-    >>|cRXP_WARN_Cast|r |T132164:0|t[Tame Beast] |cRXP_WARN_on a |cRXP_ENEMY_Strigid Hunter|r to tame it|r -- .tame 1997
-    .train 2981 >> |cRXP_WARN_Attack mobs with it to learn|r |T132140:0|t[Claw (Rank 2)]
-    .link https://www.wow-petopia.com/classic/training.php >> |cRXP_WARN_Click here for more info about pet training|r
-	.unitscan Strigid Hunter
+    >>|cRXP_WARN_施放|r |T132164:0|t[驯服野兽] |cRXP_WARN_，目标为|cRXP_ENEMY_巨翼猎枭|r，以驯服它|r -- .tame 1997
+    .train 2981 >> |cRXP_WARN_让它攻击怪物以学习|r |T132140:0|t[爪击（等级2）]
+    .link https://www.wow-petopia.com/classic/training.php >> |cRXP_WARN_点击此处查看更多宠物训练信息|r
+	.unitscan 巨翼猎枭
 step
     .goto Teldrassil,43.2,42.8,55,0
     .goto Teldrassil,43.2,32.8,55,0
     .goto Teldrassil,43.6,26.0,55,0
     .goto Teldrassil,43.2,42.8
-	>>Kill |cRXP_ENEMY_Timberling Tramplers|r, |cRXP_ENEMY_Timberling Mire Beasts|r and |cRXP_ENEMY_Elder Timberlings|r. Loot them for their |cRXP_LOOT_Tumors|r
+	>>击杀 |cRXP_ENEMY_林精践踏者|r、|cRXP_ENEMY_林精泥泞兽|r 和 |cRXP_ENEMY_林精长老|r，拾取 |cRXP_LOOT_青苔之瘤|r
     .complete 923,1 --Collect Mossy Tumor (x5)
-    .mob Elder Timberling
-    .mob Timberling Trampler
-    .mob Timberling Mire Beast
+    .mob 林精长老
+    .mob 林精践踏者
+    .mob 林精泥泞兽
 step
     #label Spinnerets
 	.goto Teldrassil,47.3,26.0,0
@@ -1159,227 +1167,227 @@ step
     .goto Teldrassil,47.3,26.0,30,0
     .goto Teldrassil,37.9,25.1,30,0
     .goto Teldrassil,40.7,25.4
-    >>Kill |cRXP_ENEMY_Lady Sathrah|r. Loot it for its |cRXP_LOOT_Spinnerets|r
-    >>|cRXP_ENEMY_Lady Sathrah|r |cRXP_WARN_can spawn in 3 different locations|r
+    >>击杀 |cRXP_ENEMY_萨丝拉|r, 拾取 |cRXP_LOOT_吐丝器|r
+    >>|cRXP_ENEMY_萨丝拉|r |cRXP_WARN_可能会在3个不同的位置刷新|r
     .complete 2518,1 --Collect Silvery Spinnerets (x1)
-    .mob Lady Sathrah
+    .mob 萨丝拉
 step << Rogue
     .goto Teldrassil,38.0,25.2
-    >>|cRXP_WARN_Cast|r |T133644:0|t[Pick Pocket] on |cRXP_ENEMY_Sethir the Ancient|r
-    >>|cRXP_WARN_You must be in|r |T132320:0|t[Stealth] |cRXP_WARN_to use|r |T133644:0|t[Pick Pocket]
-    >>|cRXP_ENEMY_Sethir the Ancient|r |cRXP_WARN_walks along the big tree branch|r
-    >>|cRXP_WARN_Avoid fighting |cRXP_ENEMY_Sethir the Ancient|r. Let him walk passed you, then|r |T132320:0|t[Stealth] |cRXP_WARN_and|r |T133644:0|t[Pick Pocket] |cRXP_WARN_when you're behind him|r
+    >>|cRXP_WARN_施放|r |T133644:0|t[搜索]，目标为|cRXP_ENEMY_远古的塞希尔|r
+    >>|cRXP_WARN_你必须处于|r |T132320:0|t[潜行] |cRXP_WARN_状态才能使用|r |T133644:0|t[搜索]
+    >>|cRXP_ENEMY_远古的塞希尔|r |cRXP_WARN_沿着大树枝行走|r
+    >>|cRXP_WARN_避免与|cRXP_ENEMY_远古的塞希尔|r交战。让他从身边走过，然后|r |T132320:0|t[潜行] |cRXP_WARN_并在他身后施放|r |T133644:0|t[搜索] |cRXP_WARN_技能|r
     .complete 2242,1
-    .mob Sethir the Ancient
+    .mob 远古的塞希尔
 step
 	#som << !Hunter
 	#phase 3-6 << !Hunter
     .goto Teldrassil,38.3,34.3
-    .target Sentinel Arynia Cloudsbreak
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Sentinel Arynia Cloudsbreak|r
-    .accept 937 >> Accept The Enchanted Glade
+    .target 哨兵阿瑞尼亚·碎云
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_哨兵阿瑞尼亚·碎云|r 对话
+    .accept 937 >> 接任务：神谕林地
 step
 	#som << !Hunter
 	#phase 3-6 << !Hunter
     #sticky
 	#label harpies2
     .goto Teldrassil,33.619,29.819
-    >>Kill |cRXP_ENEMY_Bloodfeather Harpies|r. Loot them for their |cRXP_LOOT_Belts|r
-    >>|cRXP_ENEMY_Bloodfeather Matriarchs|r |cRXP_WARN_cast|r |T136052:0|t[Healing Wave] |cRXP_WARN_and|r |T136048:0|t[Lightning Bolt] |cRXP_WARN_which does a lot of damage. Try to burst them fast|r
+    >>击杀 |cRXP_ENEMY_血羽鹰身人|r，拾取 |cRXP_LOOT_腰带|r
+    >>|cRXP_ENEMY_血羽女族长|r |cRXP_WARN_会施放|r |T136052:0|t[治疗波] |cRXP_WARN_和|r |T136048:0|t[闪电箭] |cRXP_WARN_，伤害很高，尽快击杀|r
     .complete 937,1 --Collect Bloodfeather Belt (x6)
-    .mob Bloodfeather Harpy
-    .mob Bloodfeather Rogue
-    .mob Bloodfeather Sorceress
-    .mob Bloodfeather Fury
-    .mob Bloodfeather Wind Witch
-    .mob Bloodfeather Matriarch
+    .mob 血羽鹰身人
+    .mob 血羽游荡者
+    .mob 血羽女巫
+    .mob 血羽复仇者
+    .mob 血羽风巫
+    .mob 血羽女族长
 step
 	#som << !Hunter
 	#phase 3-6 << !Hunter
     .goto Teldrassil,31.54,31.62
-    .target Mist
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mist|r
-    >>|cRXP_WARN_This will start an escort quest|r
-    .accept 938 >> Accept Mist
+    .target 密斯特
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_密斯特|r 对话
+    >>|cRXP_WARN_这将开始一个护送任务|r
+    .accept 938 >> 接任务：密斯特
 step
 	#som << !Hunter
 	#phase 3-6 << !Hunter
     .goto Teldrassil,38.3,34.4
-    .target Sentinel Arynia Cloudsbreak
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Sentinel Arynia Cloudsbreak|r
-    .turnin 938 >> Turn in Mist
+    .target 哨兵阿瑞尼亚·碎云
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_哨兵阿瑞尼亚·碎云|r 对话
+    .turnin 938 >> 交任务：密斯特
 step
 	#som << !Hunter
 	#phase 3-6 << !Hunter
     #requires harpies2
     .goto Teldrassil,38.3,34.4
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Sentinel Arynia Cloudsbreak|r
-    .turnin 937 >> Turn in The Enchanted Glade
-    .target Sentinel Arynia Cloudsbreak
-    .accept 940 >> Accept Teldrassil
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_哨兵阿瑞尼亚·碎云|r 对话
+    .turnin 937 >> 交任务：神谕林地
+    .target 哨兵阿瑞尼亚·碎云
+    .accept 940 >> 接任务：泰达希尔
 step
     #completewith NessaShadowsong
-    .goto Darnassus,82.01,36.70,100 >> Travel to Darnassus
+    .goto Darnassus,82.01,36.70,100 >> 前往达纳苏斯
 step
     #ah
     .goto Darnassus,56.245,54.039,-1
     .goto Darnassus,56.374,51.820,-1
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to a |cRXP_FRIENDLY_Darnassus Auctioneer|r
-    >>Buy the following items for a instant turn ins at Darkshore shortly. Skip this step if you wish to not buy any
-    >>|T133972:0|t[Strider Meat]
-    >>|T133912:0|t[Darkshore Grouper]
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_达纳苏斯拍卖商|r交谈
+    >>购买以下物品，稍后到达黑海岸可直接交任务, 不想购买可跳过此步骤
+    >>|T133972:0|t[陆行鸟肉]
+    >>|T133912:0|t[黑海岸石斑鱼]
     .collect 5469,5,2178,1 -- Strider Meat (5)
     .collect 12238,6,1141,1 -- Darkshore Grouper (6)
-    .target Auctioneer Tolon
-    .target Auctioneer Golothas
+    .target 拍卖师图尔伦
+    .target 拍卖师戈洛萨斯
 step
     #label NessaShadowsong
     .goto Darnassus,70.679,45.379
-    .target Mydrannul
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mydrannul|r
-    .accept 6344 >> Accept Nessa Shadowsong
+    .target 迈德兰努尔
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_迈德兰努尔|r 对话
+    .accept 6344 >> 接任务：尼莎·影歌
 step
-	.abandon 927 >> Abandon The Moss-twined Heart
+	.abandon 927 >> 放弃任务: 布满苔藓的心脏
 step << Warrior
     .goto Darnassus,57.305,34.606
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Elanaria|r
-    .turnin 1684 >> Turn in Elanaria
-    .target Elanaria
-    .accept 1683 >> Accept Vorlus Vilehoof
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_艾兰娜瑞|r 对话
+    .turnin 1684 >> 交任务：艾兰娜瑞
+    .target 艾兰娜瑞
+    .accept 1683 >> 接任务：沃鲁斯·邪蹄
 step << Warrior
     #sticky
     #completewith next
-    .goto Teldrassil,48.7,62.2,18 >> Travel toward |cRXP_ENEMY_Vorlus Vilehoof|r
+    .goto Teldrassil,48.7,62.2,18 >> 向 |cRXP_ENEMY_沃鲁斯·邪蹄|r 移动
 step << Warrior
     .goto Teldrassil,47.2,63.7
-    >>Kill |cRXP_ENEMY_Vorlus Vilehoof|r. Loot him for his |cRXP_LOOT_Horn|r
+    >>击杀 |cRXP_ENEMY_沃鲁斯·邪蹄|r, 拾取 |cRXP_LOOT_角|r
     .complete 1683,1 --Collect Horn of Vorlus (x1)
-    .mob Vorlus Vilehoof
+    .mob 沃鲁斯·邪蹄
 step << Warrior
     #completewith next
-    .goto Darnassus,82.01,36.70,100 >> Travel to Darnassus
+    .goto Darnassus,82.01,36.70,100 >> 前往达纳苏斯
 step << Warrior
     .goto Darnassus,57.305,34.606
-    .target Elanaria
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Elanaria|r
-    .turnin 1683 >> Turn in Vorlus Vilehoof
+    .target 艾兰娜瑞
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_艾兰娜瑞|r 对话
+    .turnin 1683 >> 交任务：沃鲁斯·邪蹄
 --	.accept 1686 >> Accept The Shade of Elura
 step << Druid
     .goto Darnassus,35.38,8.40
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mathrengyl Bearwalker|r on the middle level
-    .turnin 5931 >> Turn in Back to Darnassus
-    .target Mathrengyl Bearwalker
-    .accept 6001 >> Accept Body and Heart
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与中层的 |cRXP_FRIENDLY_玛斯雷·驭熊者|r 对话
+    .turnin 5931 >> 交任务：返回达纳苏斯
+    .target 玛斯雷·驭熊者
+    .accept 6001 >> 接任务：身心之力
 step
     .goto Darnassus,34.814,9.255
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Arch Druid Fandral Staghelm|r
-    .turnin 935 >> Turn in Crown of the Earth
-    .turnin 940 >> Turn in Teldrassil << Hunter
-    .target Arch Druid Fandral Staghelm
-    .accept 952 >> Accept Grove of the Ancients
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_大德鲁伊范达尔·鹿盔|r 对话
+    .turnin 935 >> 交任务：大地之冠
+    .turnin 940 >> 交任务：泰达希尔 << Hunter
+    .target 大德鲁伊范达尔·鹿盔
+    .accept 952 >> 接任务：古树之林
 step << Hunter
     .goto Darnassus,40.377,8.545
-    .target Jocaste
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Jocaste|r
-    .turnin 6103 >> Turn in Training the Beast
+    .target 祖卡斯特
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_祖卡斯特|r 对话
+    .turnin 6103 >> 交任务：训练野兽
 step << Rogue
     .goto Darnassus,31.21,17.72,8,0
     .goto Darnassus,36.99,21.91
-    .target Syurna
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Syurna|r
-    .turnin 2242 >> Turn in Destiny Calls
+    .target 塞尤娜
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_塞尤娜|r 对话
+    .turnin 2242 >> 交任务：命运的召唤
 step
     .goto Darnassus,38.184,21.639
-    .target Rellian Greenspyre
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Rellian Greenspyre|r
-    .turnin 923 >> Turn in Tumors
+    .target 雷利亚·绿树
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_雷利亚·绿树|r 对话
+    .turnin 923 >> 交任务：青苔之瘤
 step << Rogue
     #completewith next
-    .goto Darnassus,62.68,65.58,30 >> Travel toward |cRXP_FRIENDLY_Turian|r
+    .goto Darnassus,62.68,65.58,30 >> 前往 |cRXP_FRIENDLY_图里安|r
 step << Rogue
     .goto Darnassus,62.68,65.58
-	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Rellian Greenspyre|r on the second floor
-    >>|cRXP_BUY_Buy a|r |T135641:0|t[Balanced Throwing Dagger]
+	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与二楼的|cRXP_FRIENDLY_图里安|r交谈
+    >>|cRXP_BUY_购买|r |T135641:0|t[平衡飞刀]
     .collect 2946,1 -- Balanced Throwing Dagger
-    .target Turian
+    .target 图里安
 step
     .goto Darnassus,39.72,92.68,10,0
     .goto Darnassus,36.65,85.93
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Priestess A'moora|r
-    .turnin 2518 >> Turn in Tears of the Moon
-    .target Priestess A'moora
-    .accept 2520 >> Accept Sathrah's Sacrifice
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_女祭司艾茉拉|r 对话
+    .turnin 2518 >> 交任务：月神的泪水
+    .target 女祭司艾茉拉
+    .accept 2520 >> 接任务：萨丝拉的祭品
 step
     .goto Darnassus,39.7,85.8
-	.use 8155 >>|cRXP_WARN_Use|r |T135652:0|t[Sathrah's Sacrifice] |cRXP_WARN_at the fountain|r
+	.use 8155 >>|cRXP_WARN_使用|r |T135652:0|t[萨丝拉的祭品] |cRXP_WARN_在喷泉处献祭|r
     .complete 2520,1 --Offer the sacrifice at the fountain
 step
     #label end
     .goto Darnassus,39.72,92.68,10,0
     .goto Darnassus,36.65,85.93
-    .target Priestess A'moora
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Priestess A'moora|r
-    .turnin 2520 >> Turn in Sathrah's Sacrifice
+    .target 女祭司艾茉拉
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_女祭司艾茉拉|r 对话
+    .turnin 2520 >> 交任务：萨丝拉的祭品
 step << Druid
     .goto Darnassus,47.95,68.03
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Firodren Mooncaller|r
-    .train 2366 >> Train |T136065:0|t[Herbalism]
-    >>|T136065:0|t[Herbalism] |cRXP_WARN_is required to gather 5|r |T134187:0|t[Earthroot] |cRXP_WARN_for a level 15 quest later. You can unlearn it afterwards|r
-    .target Firodren Mooncaller
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t 与 |cRXP_FRIENDLY_菲罗迪恩·唤月|r 对话
+    .train 2366 >> 学习|T136065:0|t[草药学]
+    >>|T136065:0|t[草药学] |cRXP_WARN_用于采集5株|r |T134187:0|t[地根草] |cRXP_WARN_，后续15级任务需要。采集完成后可以遗忘该专业|r
+    .target 菲罗迪恩·唤月
 step << Hunter/Warrior/Priest
     .goto Darnassus,57.56,46.73
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ilyenia Moonfire|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_伊琳尼雅·月火|r 对话
     .skipgossip 11866,1
-    .train 227 >>Train Staves
-    >>If you have a Staff in your bags, equip it << Hunter
-    .target Ilyenia Moonfire
+    .train 227 >>学习 [法杖]
+    >>如果你包里有法杖,请装备它 << Hunter
+    .target 伊琳尼雅·月火
 step << Hunter
     #completewith FlyDS
-    +|cRXP_WARN_Equip the|r |T135145:0|t[Walking Stick]
+    +|cRXP_WARN_装备|r |T135145:0|t[学徒短杖]
     .use 2495
     .itemcount 2495,1
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.19
 step << Hunter
     .goto Darnassus,58.76,44.48
 	.money <0.1751
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ariyell Skyshadow|r
-	>>|cRXP_BUY_Buy and equip a|r |T135489:0|t[Laminated Recurve Bow]
-    >>|cRXP_BUY_Buy|r |T132382:0|t[Sharp Arrows]
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_阿瑞耶尔·天影|r 对话
+	>>|cRXP_BUY_购买并装备|r |T135489:0|t[多层弯弓]
+    >>|cRXP_BUY_购买|r |T132382:0|t[锋利的箭]
 	.collect 2507,1
-    .target Ariyell Skyshadow
+    .target 阿瑞耶尔·天影
 step << Warrior
     .goto Darnassus,58.76,44.48
     .money <0.3022
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ariyell Skyshadow|r
-    >>|cRXP_BUY_Buy a|r |T135154:0|t[Quarter Staff]|cRXP_BUY_. Equip it at level 11|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_阿瑞耶尔·天影|r 对话
+    >>|cRXP_BUY_购买|r |T135154:0|t[短杖]|cRXP_BUY_，在11级时装备|r
 	.collect 854,1
-    .target Ariyell Skyshadow
+    .target 阿瑞耶尔·天影
 step << Warrior
     .goto Darnassus,58.76,44.48
     .money <0.2023
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ariyell Skyshadow|r
-	>>|cRXP_BUY_Buy and equip a|r |T135346:0|t[Cutlass] |cRXP_BUY_if you can't afford a|r |T135154:0|t[Quarter Staff]
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_阿瑞耶尔·天影|r 对话
+	>>|cRXP_BUY_购买并装备|r |T135346:0|t[斗士短剑] |cRXP_BUY_，如果买不起|r |T135154:0|t[短杖]
 	.collect 851,1
-    .target Ariyell Skyshadow
+    .target 阿瑞耶尔·天影
 step
     #completewith next
-    .goto Darnassus,30.00,41.43,10 >> Travel through the purple portal to Rut'theran Village
+    .goto Darnassus,30.00,41.43,10 >> 通过紫色传送门前往鲁瑟兰村
 step
     .goto Teldrassil,56.25,92.44
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Nessa Shadowsong|r
-    .turnin 6344 >> Turn in Nessa Shadowsong
-    .target Nessa Shadowsong
-    .accept 6341 >> Accept The Bounty of Teldrassil
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_尼莎·影歌|r 对话
+    .turnin 6344 >> 交任务：尼莎·影歌
+    .target 尼莎·影歌
+    .accept 6341 >> 接任务：泰达希尔的渔业
 step
     .goto Teldrassil,58.399,94.016
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Vesprystus|r
-    .turnin 6341 >> Turn in The Bounty of Teldrassil
-    .target Vesprystus
-    .accept 6342 >> Accept Flight to Auberdine
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_维斯派塔斯|r 对话
+    .turnin 6341 >> 交任务：泰达希尔的渔业
+    .target 维斯派塔斯
+    .accept 6342 >> 接任务：飞往奥伯丁
 step
     #label FlyDS
     .goto Teldrassil,58.399,94.016
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Vesprystus|r
-    .fly Darkshore >> Fly to Darkshore
-    .target Vesprystus
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_维斯派塔斯|r 对话
+    .fly Darkshore >> 飞往黑海岸
+    .target 维斯派塔斯
 ]])

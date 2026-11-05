@@ -135,7 +135,6 @@ else
     events.deathskip = {"CONFIRM_XP_LOSS","GOSSIP_SHOW"}
 end
 
-
 events.xp = {"PLAYER_XP_UPDATE", "PLAYER_LEVEL_UP"}
 events.reputation = "UPDATE_FACTION"
 events.vendor = {"MERCHANT_SHOW", "MERCHANT_CLOSED"}
@@ -350,7 +349,6 @@ if C_GossipInfo and C_GossipInfo.SelectOptionByIndex then
     end
 end
 
-
 local SetRecentTurnIn = function(id)
     addon.recentTurnIn[id] = GetTime()
 end
@@ -483,7 +481,6 @@ local function GetQuestId(src,guide,checkMirror)
     return id
 end
 addon.GetQuestId = GetQuestId
-
 
 local timer = GetTime()
 local nrequests = 0
@@ -1673,7 +1670,6 @@ function addon.UpdateQuestCompletionData(self)
         objtext = t
     end
 
-
     if step.active and db and type(db.QueryQuest) == "function" and element.obj and
         not isQuestComplete and not addon.skipPreReq[id] then
 
@@ -2383,7 +2379,6 @@ function addon.functions.ingamewaypoint(self, ...)
     end
 end
 
-
 events.treasure = {"QUEST_LOG_UPDATE", UNIT_QUEST_LOG_CHANGED}
 function addon.functions.treasure(self, text, zone, x, y, id)
     if type(self) == "string" then
@@ -2615,7 +2610,6 @@ function addon.functions.hsbatching(self,...)
     end
     return element
 end
-
 
 local homeText = strupper(_G.HOME or "%")
 function addon.SelectGossipType(gossipType,noOp)
@@ -3071,13 +3065,13 @@ if objFlags is omitted or set to 0, element will complete if you have the quest 
     local name = addon.GetItemName(id)
     local step = element.step
     local numRequired = element.qty
-    local event,msg,arg2,arg3,arg4,arg5 = ...
+    local event,msg = ...
     local isComplete
 
     if UNIT_QUEST_LOG_CHANGED and event == UNIT_QUEST_LOG_CHANGED and msg ~= "player" then
         return
     end
-    if event == "CHAT_MSG_LOOT" and C_Item and C_Item.GetItemInfo and arg5 == addon.player.name then
+    if event == "CHAT_MSG_LOOT" and C_Item and C_Item.GetItemInfo then
         local lootId = tonumber(msg:match("item:(%d+):"))
         if lootId == id then
             local itemType = select(6,C_Item.GetItemInfo(lootId))
@@ -3899,13 +3893,14 @@ function addon.functions.next(skip, guide, arg1)
             --print(1,next,guideSkip)
             guideSkip = addon.GetGuideTable(group, next)
             if not guideSkip then
-                parentGroup = addon.condenseGroups[group]
+                local parentGroup = addon.condenseGroups[group] or addon.condenseGroups["*" .. group]
                 if parentGroup then
                     for currentGroup, displayName in pairs(addon.condenseGroups) do
                         if displayName == parentGroup then
-                            guideSkip = addon.GetGuideTable(currentGroup, next)
+                            local lookupGroup = currentGroup:gsub("^%*", "")
+                            guideSkip = addon.GetGuideTable(lookupGroup, next)
                             if guideSkip then
-                                group = currentGroup
+                                group = lookupGroup
                                 break
                             end
                         end
@@ -4405,7 +4400,6 @@ function addon.functions.isOnQuest(self, text, ...)
             onQuest = true
         end
     end
-
 
     if event ~= "WindowUpdate" and not addon.settings.profile.disableAutoSkip and (not onQuest) == not element.reverse and not addon.isHidden then
         element.tooltipText = L"Step skipped: Missing pre-requisites"
@@ -6693,7 +6687,6 @@ end
 --Usage: .waypoint zone,xx.xx,yy.yy,args,callback,event1,event2,...,eventN
 --args is a string that can be referenced by self.args
 
-
 function addon.functions.ironchain()
     local id
     local UnitAura = _G.UnitAura
@@ -6850,7 +6843,6 @@ function addon.functions.holiday(self, text, eventId, reverse)
     end
 end
 
-
 events.pvp = "WAR_MODE_STATUS_UPDATE"
 events.pve = events.pvp
 function addon.functions.pvp(self, ...)
@@ -6969,7 +6961,6 @@ function addon.functions.flyable(self, text, zone, skill)
         addon.updateSteps = true
     end
 end
-
 
 events.skyriding = "ZONE_CHANGED"
 function addon.functions.skyriding(self, text, label)
@@ -7565,7 +7556,6 @@ function addon.functions.singleboxtext(self,text)
     end
 end
 
-
 function addon.functions.multibox(self)
     if type(self) == "string" then
         local guide = addon.guide or addon.currentGuide
@@ -7597,7 +7587,6 @@ function addon.functions.singlebox(self)
         addon.updateSteps = true
     end
 end
-
 
 addon.dungeons = {}
 function addon.functions.dungeon(self, text, instance)
@@ -7975,7 +7964,6 @@ function addon.functions.equip(self, ...)
         end
     end
 end
-
 
 events.engrave = {"PLAYER_EQUIPMENT_CHANGED","RUNE_UPDATED"}
 function addon.functions.engrave(self, ...)
@@ -8435,7 +8423,6 @@ function addon.functions.chromietime(self,text,id)
         end
     end
 end
-
 
 local function ScrapItems(ids)
     --PLAYER_INTERACTION_MANAGER_FRAME_SHOW 40
