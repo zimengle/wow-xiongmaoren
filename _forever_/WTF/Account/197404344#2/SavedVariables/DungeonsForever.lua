@@ -6,6 +6,8 @@ DungeonsForeverDB = {
 },
 ["colorTheme"] = "green",
 },
+["chipCalib"] = {
+},
 ["ui"] = {
 ["tip"] = {
 ["bis"] = false,
@@ -437,26 +439,14 @@ DungeonsForeverDB = {
 },
 },
 },
+["gear"] = {
+["fold"] = {
+["SETS"] = true,
+},
+["foldInit"] = true,
+},
 ["profMoved"] = true,
 ["DungeonsForeverExploreDBMoved"] = true,
-["bis"] = {
-["plans"] = {
-["warrior"] = {
-},
-["mage"] = {
-},
-["paladin"] = {
-},
-["rogue"] = {
-},
-},
-["migVol"] = true,
-},
-["iconRingMode"] = "glow",
-["raid"] = {
-["tab"] = "timeline",
-["setFilter"] = "MAGE",
-},
 ["dungeon"] = {
 ["dungeonView"] = "list",
 ["dungeonTab"] = "quest",
@@ -476,15 +466,28 @@ DungeonsForeverDB = {
 },
 ["subTab"] = "Dungeons",
 },
+["iconRingMode"] = "glow",
+["dfRevealLog"] = "85/85 15ms",
+["bis"] = {
+["plans"] = {
+["warrior"] = {
+},
+["mage"] = {
+},
+["paladin"] = {
+},
+["rogue"] = {
+},
+},
+["migVol"] = true,
+},
 ["vendorPrices"] = {
 },
-["svVersion"] = 3,
+["raid"] = {
+["tab"] = "timeline",
+["setFilter"] = "MAGE",
+},
 ["wishlist"] = {
 },
-["gear"] = {
-["fold"] = {
-["SETS"] = true,
-},
-["foldInit"] = true,
-},
+["svVersion"] = 3,
 }

@@ -6,6 +6,25 @@ DungeonsForeverDB = {
 },
 ["colorTheme"] = "green",
 },
+["dungeon"] = {
+["lootView"] = "list",
+["dungeonTab"] = "quest",
+["dungeonView"] = "list",
+["mapQuestPinsCfg"] = {
+["scope"] = {
+["enter"] = true,
+["reco"] = true,
+["grey"] = true,
+["all"] = false,
+["lv"] = true,
+},
+["world"] = false,
+["size"] = 32,
+},
+["dungeonLootFold"] = {
+},
+["subTab"] = "Dungeons",
+},
 ["ui"] = {
 ["tip"] = {
 ["bis"] = false,
@@ -437,29 +456,10 @@ DungeonsForeverDB = {
 ["hide"] = false,
 },
 },
+["chipCalib"] = {
+},
 ["profMoved"] = true,
 ["DungeonsForeverExploreDBMoved"] = true,
-["dungeon"] = {
-["lootView"] = "list",
-["dungeonTab"] = "quest",
-["dungeonView"] = "list",
-["mapQuestPinsCfg"] = {
-["scope"] = {
-["enter"] = true,
-["reco"] = true,
-["grey"] = true,
-["all"] = false,
-["lv"] = true,
-},
-["world"] = false,
-["size"] = 32,
-},
-["dungeonLootFold"] = {
-},
-["subTab"] = "Dungeons",
-},
-["iconRingMode"] = "glow",
-["svVersion"] = 3,
 ["bis"] = {
 ["plans"] = {
 ["warrior"] = {
@@ -473,6 +473,9 @@ DungeonsForeverDB = {
 },
 ["migVol"] = true,
 },
+["iconRingMode"] = "glow",
+["dfRevealLog"] = "89/89 15ms",
+["svVersion"] = 3,
 ["vendorPrices"] = {
 },
 ["raid"] = {

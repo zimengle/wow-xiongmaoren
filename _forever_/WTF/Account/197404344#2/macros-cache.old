@@ -1,5 +1,5 @@
 VER 3 0000000000000001 "RXPTargeting" "Ability_eyeoftheowl"
-/targetexact 卡拉·深水
+/targetexact 哨兵瑞尔
 /tm !7
 /targetlasttarget [dead]
 END

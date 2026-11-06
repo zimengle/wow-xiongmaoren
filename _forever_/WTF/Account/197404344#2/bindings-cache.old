@@ -21,3 +21,4 @@ bind ALT-1 CLICK RXPTargetFrame_EnemyButton1:LeftButton
 bind ALT-2 CLICK RXPTargetFrame_EnemyButton2:LeftButton
 bind ALT-3 CLICK RXPTargetFrame_EnemyButton3:LeftButton
 bind CTRL-C TOGGLECHARACTER0
+bind ' INTERACTTARGET
