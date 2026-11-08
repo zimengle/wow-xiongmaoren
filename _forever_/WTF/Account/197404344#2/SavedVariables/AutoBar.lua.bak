@@ -447,13 +447,13 @@ AutoBarDB2 = {
 ["buttonKey"] = "AutoBarButtonInterrupt",
 ["defaultButtonIndex"] = 12,
 },
-["AutoBarButtonCharge"] = {
+["AutoBarButtonTrap"] = {
 ["barKey"] = "AutoBarClassBarHunter",
-["buttonClass"] = "AutoBarButtonCharge",
+["buttonClass"] = "AutoBarButtonTrap",
 ["square_popups"] = true,
 ["enabled"] = true,
-["buttonKey"] = "AutoBarButtonCharge",
-["defaultButtonIndex"] = 2,
+["buttonKey"] = "AutoBarButtonTrap",
+["defaultButtonIndex"] = 4,
 },
 ["AutoBarButtonClassPets3"] = {
 ["barKey"] = "AutoBarClassBarHunter",
@@ -479,13 +479,13 @@ AutoBarDB2 = {
 ["buttonKey"] = "AutoBarButtonClassPets2",
 ["defaultButtonIndex"] = 8,
 },
-["AutoBarButtonTrap"] = {
+["AutoBarButtonCharge"] = {
 ["barKey"] = "AutoBarClassBarHunter",
-["buttonClass"] = "AutoBarButtonTrap",
+["buttonClass"] = "AutoBarButtonCharge",
 ["square_popups"] = true,
 ["enabled"] = true,
-["buttonKey"] = "AutoBarButtonTrap",
-["defaultButtonIndex"] = 4,
+["buttonKey"] = "AutoBarButtonCharge",
+["defaultButtonIndex"] = 2,
 },
 },
 },

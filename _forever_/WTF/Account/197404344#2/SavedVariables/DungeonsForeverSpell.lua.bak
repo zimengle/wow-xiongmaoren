@@ -1,0 +1,2 @@
+
+DungeonsForeverSpellDB = nil

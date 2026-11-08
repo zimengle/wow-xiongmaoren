@@ -9,10 +9,10 @@ local function Copy(value)
     return copy
 end
 
-local function IsEllesmereLoaded()
+local function IsAddOnLoaded(name)
     local api = _G.C_AddOns and _G.C_AddOns.IsAddOnLoaded or _G.IsAddOnLoaded
     if type(api) ~= "function" then return false end
-    local ok, loaded = pcall(api, "EllesmereUI")
+    local ok, loaded = pcall(api, name)
     return ok and loaded == true
 end
 
@@ -56,7 +56,7 @@ function Importer:Import()
     if not ns.ProductManifest:Check("infinitePreset") then return false, "unsupported-on-current-build" end
     if type(_G.InCombatLockdown) == "function" and _G.InCombatLockdown() then return false, "IN_COMBAT" end
     local preset, meter, api = ns.BlizzardSettingsPreset, _G.DamageMeter, _G.C_CVar
-    local nativeMeter = not IsEllesmereLoaded()
+    local nativeMeter = not IsAddOnLoaded("EllesmereUI")
     if type(preset) ~= "table" or (nativeMeter and type(meter) ~= "table") or type(api) ~= "table"
         or type(api.SetCVar) ~= "function" or type(api.GetCVar) ~= "function" then
         return false, "blizzard-settings-not-ready"
@@ -69,6 +69,13 @@ function Importer:Import()
     -- Resolve only for this explicit import; never mutate the shared preset.
     local cvars = Copy(preset.cvars)
     if not nativeMeter then cvars.damageMeterEnabled = "0" end
+    -- OpenMap 接管地图坐标及淡出，并在 CVAR_UPDATE 时重新应用；不要与其争写。
+    -- 仅影响本次显式导入，不改共享预设，也不把这些设置交给宿主持久覆盖。
+    if IsAddOnLoaded("OpenMap") then
+        cvars.worldMapShowPlayerCoords = nil
+        cvars.worldMapShowCursorCoords = nil
+        cvars.mapFade = nil
+    end
     local oldCVars = {}
     for name in pairs(cvars) do
         oldCVars[name] = api.GetCVar(name)

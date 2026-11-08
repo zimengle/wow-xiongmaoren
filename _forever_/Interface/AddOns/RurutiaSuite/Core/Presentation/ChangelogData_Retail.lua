@@ -7,14 +7,23 @@ RS.Presentation.ChangelogData = RS.Presentation.ChangelogData or {}
 if buildID == "retail" then
     RS.Presentation.ChangelogData.retail = {
         viewId = "retail",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:7e760644ea130c5fd9bf05fb2741e76d3f56ff3a78efc50b53f73b6bd20b4c77",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:fcc5191ac3428d85c1e2cd737abc5dcd2b8fb0f4ce7669d08a8976c6d72fd79b",
         historySourceId = "retail:b109960e82a2b3db460e2ae597ea8870276d1479:RurutiaSuite/Changelog.md",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.7.1",
-            date = "2026-11-04",
-            noticeKey = "4.7.1:b813ac81ecebed2c123c",
-            content = [=[%sv4.7.1（2026-11-04）|r
+            version = "4.7.4",
+            date = "2026-11-06",
+            noticeKey = "4.7.4:40ba70f3d653badb63e8",
+            content = [=[%sv4.7.4（2026-11-06）|r
+
+%s[任务自动交接]|r
+• 修复切回原生追踪后交接按钮消失的问题。
+• 追踪按钮，文字精简为「交接」，保留原生样式与位置。
+
+%s[插件加载方案]|r
+• 内置方案，补充荔枝组队引导组件。
+
+%sv4.7.1（2026-11-04）|r
 
 %s[小地图收纳]|r
 • 修复展开收纳后NDui小地图右键追踪失效的问题。

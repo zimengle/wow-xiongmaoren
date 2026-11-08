@@ -52,6 +52,12 @@ function Merchant:Hook(module, paint)
 end
 
 function Merchant:Paint(service)
+    local grid = ns.ExtraToolsMerchantExpansion
+    if grid and (grid.applied or (grid.results and grid.results:IsShown())) then
+        grid:OnMerchantUpdate()
+        if grid.applied then return end
+    end
+    if grid and grid:LayoutOwned() then return end
     for slot = 1, tonumber(_G.MERCHANT_ITEMS_PER_PAGE) or 10 do
         local holder = _G["MerchantItem" .. slot]
         local button = _G["MerchantItem" .. slot .. "ItemButton"]
@@ -65,6 +71,12 @@ function Merchant:Paint(service)
 end
 
 function Merchant:Restore()
+    local grid = ns.ExtraToolsMerchantExpansion
+    if grid and (grid.applied or (grid.results and grid.results:IsShown())) then
+        self.dirty = nil
+        grid:OnMerchantUpdate()
+        if grid.applied then return end
+    end
     if not self.dirty then return end
     self.dirty = nil
     if self:Shown() and type(_G.MerchantFrame_Update) == "function" then _G.MerchantFrame_Update() end
@@ -153,3 +165,5 @@ function GuildBank:Restore() Restore(self.tinted, Shade) end
 Service:RegisterSurface(Merchant)
 Service:RegisterSurface(AuctionHouse)
 Service:RegisterSurface(GuildBank)
+
+if ns.EllesMerchantRecipeSurface then Service:RegisterSurface(ns.EllesMerchantRecipeSurface) end

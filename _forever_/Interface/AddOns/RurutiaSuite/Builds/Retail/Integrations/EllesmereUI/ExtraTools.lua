@@ -221,6 +221,72 @@ if type(Registry) == "table" then
         local ok, loaded = pcall(probe, "EllesmereUIBlizzardSkin")
         return ok and loaded and true or false
     end
+    -- Elles repaints icon vertex colors after the item-quality callback, including
+    -- on its private page flips. Keep our tint on a separate, mouse-free texture.
+    if ns.Build.GetID and ns.Build.GetID() == "classic-infinite" then
+        local surface = { overlays = {} }
+        ns.EllesMerchantRecipeSurface = surface
+
+        function surface:Ready()
+            return SkinLoaded() and type(_G.MerchantFrameItem_UpdateQuality) == "function"
+        end
+        function surface:Shown()
+            local frame = _G.MerchantFrame
+            return frame and frame:IsShown() and frame.selectedTab ~= 2
+        end
+        local function GridIcon(button)
+            return button.Icon or button.icon or _G[button:GetName() .. "IconTexture"]
+        end
+        function surface:PaintRow(service, row, link, icon)
+            local tint = self.overlays[row]
+            if not icon or not icon:GetTexture() or not service:IsKnown(link) then
+                if tint then tint:Hide() end
+                return
+            end
+            if not tint then
+                tint = row.ItemButton:CreateTexture(nil, "ARTWORK", nil, 7)
+                tint:SetAllPoints(icon)
+                -- Match the vendor's red channel multiplier on the green channel.
+                local intensity = icon == row.SlotTexture and 1 or 0.9
+                tint:SetVertexColor(0, intensity, 0, 1)
+                self.overlays[row] = tint
+            end
+            tint:SetTexture(icon:GetTexture())
+            tint:SetTexCoord(icon:GetTexCoord())
+            tint:Show()
+        end
+        function surface:Hook(module)
+            return module:HookSecureFunction("MerchantFrameItem_UpdateQuality", function(_, row, link)
+                local name = row and row.GetName and row:GetName()
+                if not name then return end
+                local icon
+                if name:match("^EUI_MerchantPage%d+$") then icon = GridIcon(row.ItemButton)
+                elseif name:match("^EUI_MerchantItem%d+$") then icon = row.SlotTexture
+                else return end
+                self:PaintRow(ns.ExtraToolsKnownRecipe, row, self:Shown() and link, icon)
+            end, "elles-known-recipe")
+        end
+        function surface:Paint(service)
+            if not self:Shown() then return end
+            local scroll = _G.MerchantFrame.wSkinScrollFrame
+            if scroll and scroll:IsVisible() then
+                for _, row in ipairs(scroll.rows or {}) do
+                    if row:IsVisible() then self:PaintRow(service, row, row.ItemButton.link, row.SlotTexture) end
+                end
+            else
+                local i = 1
+                local row = _G["EUI_MerchantPage1"]
+                while row and row:IsVisible() do
+                    self:PaintRow(service, row, row.ItemButton.link, GridIcon(row.ItemButton))
+                    i = i + 1
+                    row = _G["EUI_MerchantPage" .. i]
+                end
+            end
+        end
+        function surface:Restore()
+            for _, tint in pairs(self.overlays) do tint:Hide() end
+        end
+    end
     Registry:Register({
         id = "ellesmereui-merchant",
         priority = 20,
@@ -228,7 +294,17 @@ if type(Registry) == "table" then
         OwnsMerchantLayout = function()
             if not SkinLoaded() then return false end
             local saved = _G.EllesmereUIDB
-            return type(saved) == "table" and saved.merchantShowAsList == true
+            local elles = _G.EllesmereUI
+            if saved and saved.reskinMerchant == false then return false end
+            if elles and elles.GetBlizzWindowStyle and elles.GetBlizzWindowStyle("merchant") == "off" then return false end
+            if type(saved) == "table" and saved.merchantShowAsList == true then return true end
+            if not elles or type(elles._Merchant_ExpandActive) ~= "function" then return false end
+            local frame = _G.MerchantFrame
+            if frame and (frame.selectedTab or 1) == 1 then return elles._Merchant_ExpandActive() == true end
+            -- The settings page can open before the vendor UI or on its buyback tab.
+            -- Report the configured sell layout there; Elles uses 2 x 5 as stock.
+            return saved and saved.merchantExpand == true and
+                (math.floor(tonumber(saved.merchantCols) or 2) > 2 or math.floor(tonumber(saved.merchantRows) or 5) > 5)
         end,
         -- EllesmereUI skins MerchantItem1-12 only; tiles added by the merchant
         -- expansion are painted through its public third-party skin API.

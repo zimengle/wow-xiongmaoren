@@ -41,14 +41,6 @@ regen:SetScript("OnEvent", function()
     applyMap(id)
 end)
 
-local EUIS
-local function euiBtn(bt)
-    if not (bt and EUIS) then return end
-    pcall(EUIS.Button, bt)
-    if EUIS.WhiteButtonLabel then pcall(EUIS.WhiteButtonLabel, bt) end
-end
-W.EuiBtn = euiBtn
-
 local function fontPath()
     return ns.FONT or STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF"
 end
@@ -95,6 +87,17 @@ local function makeNativeBtn(parent, text, w, h)
     local bt = CreateFrame("Button", nil, parent, "UIPanelButtonTemplate")
     bt:SetSize(w, h)
     if text then bt:SetText(text) end
+    return bt
+end
+
+local function ndBtn(bt)
+    if not bt or not ns.NDuiOn or not ns.NDuiOn() then return bt end
+    ns.NDuiReskin(bt)
+    local fs = bt.GetFontString and bt:GetFontString()
+    if fs then
+        local ok, fn, size = pcall(fs.GetFont, fs)
+        if ok and fn and size then pcall(fs.SetFont, fs, fn, size, "") end
+    end
     return bt
 end
 
@@ -160,14 +163,6 @@ local function setPicked(bt, on)
     if not bt then return end
     local fs = bt:GetFontString()
     if not fs then return end
-    if EUIS then
-        if on then
-            fs:SetTextColor(0.55, 0.55, 0.55)
-        else
-            fs:SetTextColor(1, 1, 1)
-        end
-        return
-    end
     if on then
         fs:SetTextColor(0.62, 0.62, 0.62)
     else
@@ -673,7 +668,8 @@ local function pinList(id, floor)
             local p = list[i]
             local k = p.kind or "boss"
             local hide = (M.hideBossPins and (k == "boss" or k == "rare"))
-                or (M.hideQuestPins and (k == "quest" or k == "icon"))
+                or (M.hideQuestPins and (k == "icon"
+                    or (k == "quest" and DG.QuestState(p.id) == "todo")))
                 or (M.hideNotePins and k == "note")
             if not hide then keep[#keep + 1] = p end
         end
@@ -720,12 +716,14 @@ local function syncPins(view, id, floor, cw, ch)
             bt.__kind, bt.__p = kind, p
             bt.__en, bt.__zh = p.en, p.zh
             if bt.entry then bt.entry:Hide() end
+            if bt.rim then bt.rim:Hide() end
+            if bt.sym then bt.sym:Hide() end
             if kind == "note" or kind == "quest" or kind == "icon" then
                 bt:SetFrameLevel(view.pins:GetFrameLevel() + 2)
             else
                 bt:SetFrameLevel(view.pins:GetFrameLevel())
             end
-            bt.__qState, bt.__qPre, bt.__qPreOf = nil, nil, nil
+            bt.__qState, bt.__qPre, bt.__qPreOf, bt.__qNeedLv = nil, nil, nil, nil
             M.PinPoint(bt, p, cw, ch)
             local nm, cr, cg, cb
             if kind == "boss" then
@@ -749,24 +747,31 @@ local function syncPins(view, id, floor, cw, ch)
             end
             if kind == "quest" then
                 local st = DG.QuestState(p.id)
+                local qrow = DG.QuestRowByID and DG.QuestRowByID(p.id)
+                local needLv = (type(qrow) == "table") and qrow[3] or nil
+                bt.__qNeedLv = needLv
                 bt.__av:Hide()
-                if st ~= "todo" then
-                    skip = true
-                elseif preBlock[p.id] then
-                    bt.dot:SetShown(true)
-                    bt.dot:SetTexture(M.PIN_QUEST_PRE_TEX)
-                    bt.dot:SetVertexColor(1, 1, 1)
-                    bt.__qState, bt.__qPreOf = "pre", preBlock[p.id]
-                elseif lockedPre[p.id] then
-                    bt.dot:SetShown(true)
-                    bt.dot:SetTexture(M.PIN_QUEST_LOCKED_TEX)
-                    bt.dot:SetVertexColor(1, 1, 1)
-                    bt.__qState, bt.__qPre = "locked", lockedPre[p.id]
+                if st == "todo" then
+                    if needLv and (UnitLevel("player") or 0) < needLv then
+                        M.PaintQuestPin(bt, "lv", 1)
+                        bt.__qState = "lv"
+                    elseif lockedPre[p.id] then
+                        M.PaintQuestPin(bt, "locked", 1)
+                        bt.__qState, bt.__qPre = "locked", lockedPre[p.id]
+                    elseif preBlock[p.id] then
+                        M.PaintQuestPin(bt, "pre", 1)
+                        bt.__qState, bt.__qPreOf = "pre", preBlock[p.id]
+                    else
+                        M.PaintQuestPin(bt, "avail", 1)
+                        bt.__qState = "avail"
+                    end
                 else
-                    bt.dot:SetShown(true)
-                    bt.dot:SetTexture(M.PIN_QUEST_READY_TEX)
-                    bt.dot:SetVertexColor(1, 1, 1)
-                    bt.__qState = "ready"
+                    if M.hideOtherPins then
+                        skip = true
+                    else
+                        M.PaintQuestPin(bt, st, (st == "done" or st == "active") and 0.45 or 1)
+                        bt.__qState = st
+                    end
                 end
             elseif kind == "entrance" then
                 bt.dot:Hide()
@@ -778,9 +783,7 @@ local function syncPins(view, id, floor, cw, ch)
                 bt.dot:SetVertexColor(1, 1, 1)
                 bt.__av:Hide()
             elseif kind == "icon" then
-                bt.dot:SetShown(true)
-                bt.dot:SetTexture(M.PIN_QUEST_READY_TEX)
-                bt.dot:SetVertexColor(1, 1, 1)
+                M.PaintQuestPin(bt, "avail", 1)
                 bt.__av:Hide()
             elseif kind == "prev" or kind == "next" then
                 bt.dot:SetShown(true)
@@ -832,6 +835,8 @@ local function syncPins(view, id, floor, cw, ch)
                 dsz = M.NOTE_SIZE
             elseif kind == "prev" or kind == "next" then
                 dsz = M.STAIR_SIZE
+            elseif kind == "quest" or kind == "icon" then
+                dsz = M.PIN_QUEST_SIZE
             else
                 dsz = sel and M.PIN_SIZE or M.PIN_MIN
             end
@@ -908,8 +913,9 @@ local function syncButtons(view, id)
     local any = M.HasKindPins(id, "boss") or M.HasKindPins(id, "quest")
         or M.HasKindPins(id, "note") or M.HasKindPins(id, "stairs")
     local dim = (M.hideBossPins and M.HasKindPins(id, "boss"))
-        or (M.hideQuestPins and M.HasKindPins(id, "quest"))
-        or (M.hideNotePins and M.HasKindPins(id, "note")) or false
+        or (M.hideQuestPins and M.HasHiddenQuestPins(id))
+        or (M.hideNotePins and M.HasKindPins(id, "note"))
+        or (M.hideOtherPins and (M.HasStatePins(id, "done") or M.HasStatePins(id, "active"))) or false
     pb:SetText(L["图钉显示"])
     setPicked(pb, dim)
     pb:SetShown(any and true or false)
@@ -943,7 +949,7 @@ local function ensureAreaBtn()
     if not nav then return nil end
     local areaBtn = makeNativeBtn(nav, L["复活区域"], BTN_W, BTN_H)
     areaBtn:SetFrameLevel(nav:GetFrameLevel() + 8)
-    euiBtn(areaBtn)
+    ndBtn(areaBtn)
     areaBtn:SetScript("OnClick", function(self)
         local on
         if ns.ExploreAreaToggle then on = ns.ExploreAreaToggle() end
@@ -959,7 +965,7 @@ local function ensureAreaBtn()
         GameTooltip:Show()
     end)
     areaBtn:SetScript("OnLeave", function() GameTooltip:Hide() end)
-    setPicked(areaBtn, ns.ExploreAreaOn and ns.ExploreAreaOn() or false)
+    setPicked(areaBtn, not (ns.ExploreAreaOn and ns.ExploreAreaOn()))
     W.areaBtn = areaBtn
     return areaBtn
 end
@@ -967,7 +973,11 @@ end
 local function syncAreaBtn()
     local ab = ensureAreaBtn()
     if not ab then return end
-    setPicked(ab, ns.ExploreAreaOn and ns.ExploreAreaOn() or false)
+    setPicked(ab, not (ns.ExploreAreaOn and ns.ExploreAreaOn()))
+    if not (ns.ExploreGraveOn and ns.ExploreGraveOn()) then
+        if ab:IsShown() then ab:Hide() end
+        return
+    end
     if W.Active() then
         if ab:IsShown() then ab:Hide() end
         return
@@ -994,7 +1004,40 @@ local function syncAreaBtn()
     ab:SetPoint("TOPLEFT", wmf, "TOPLEFT", dx, -dy)
 end
 
+local CRUMB_X = 0
+local CRUMB_PAD = 60
+
+local function padFogBtn(box)
+    local wm = _G.WorldMapFrame
+    local bf = wm and wm.BorderFrame
+    local tc = bf and bf.TitleContainer
+    if not tc then return end
+    for _, ch in ipairs({ tc:GetChildren() }) do
+        if ch and ch.GetObjectType and ch:GetObjectType() == "CheckButton" then
+            if not ch.__dfPad then
+                ch.__dfPad = true
+                ch:ClearAllPoints()
+                ch:SetPoint("BOTTOMLEFT", box, "TOPLEFT", CRUMB_PAD, 0)
+            end
+        end
+    end
+end
+
+local function shiftCrumb()
+    local hb = _G.WorldMapFrameHomeButton
+    if not hb then return end
+    local box = hb:GetParent()
+    if not (box and box.GetPoint and box.SetPoint) then return end
+    local anchor, rel, relPoint, x, y = box:GetPoint(1)
+    if anchor ~= "TOPLEFT" or type(x) ~= "number" then return end
+    if x > CRUMB_X then
+        pcall(box.SetPoint, box, anchor, rel, relPoint, CRUMB_X, y)
+    end
+    padFogBtn(box)
+end
+
 local function layout(view)
+    shiftCrumb()
     local aw, ah = mapAreaSize()
     if aw <= 0 or ah <= 0 then return end
     local cw, ch, cx, cy = M.FitBox(aw, ah)
@@ -1606,7 +1649,7 @@ function W.EnsureNav()
     bt:Hide()
     W.navBtn = bt
     styleNavBtn(bt)
-    euiBtn(bt)
+    if ns.NDuiNavButton then ns.NDuiNavButton(bt) end
     return bt
 end
 
@@ -1854,10 +1897,11 @@ end
 
 function Provider:RefreshAllData()
     self:RemoveAllData()
+    self.groups = nil
+    if not (ns.MapEntryOn and ns.MapEntryOn()) then return end
     local map, mapID = CurMap(self)
     local rows = StitchedRows(mapID) or (mapID and W.EntriesIn(mapID))
     if ns.OpenMapBridge then rows = ns.OpenMapBridge.Keep(rows) end
-    self.groups = nil
     if not (rows and #rows > 0) then return end
     local canvas = map and map.GetCanvas and map:GetCanvas()
     if not canvas or (canvas:GetWidth() or 0) <= 1 then return end
@@ -1955,6 +1999,15 @@ end
 
 W.RefreshPins = driveEntryPins
 
+function W.ApplyEntryToggle()
+    epSig = nil
+    if entryProvider then
+        entryProvider:RemoveAllData()
+        entryProvider.groups = nil
+    end
+    driveEntryPins()
+end
+
 local function buildPinPool(view)
     local pins = view.pins
     local pinText = CreateFrame("Frame", nil, pins)
@@ -1975,6 +2028,14 @@ local function buildPinPool(view)
         bt.dot:SetTexture(M.PIN_BOSS_TEX)
         bt.dot:SetVertexColor(1, 0.82, 0)
         if ns.hui and ns.hui.RoundIcon then ns.hui.RoundIcon(bt.dot) end
+        bt.rim = bt:CreateTexture(nil, "OVERLAY", nil, 1)
+        bt.rim:SetAllPoints(bt.dot)
+        bt.rim:SetTexture(M.PIN_QUEST_RIM_TEX)
+        bt.rim:SetVertexColor(M.PIN_QUEST_RIM_RGB[1], M.PIN_QUEST_RIM_RGB[2], M.PIN_QUEST_RIM_RGB[3])
+        bt.rim:Hide()
+        bt.sym = bt:CreateTexture(nil, "OVERLAY", nil, 2)
+        bt.sym:SetAllPoints(bt.dot)
+        bt.sym:Hide()
         bt.entry = bt:CreateTexture(nil, "ARTWORK", nil, 2)
         bt.entry:SetPoint("CENTER", bt, "CENTER", 0, 0)
         bt.entry:SetSize(M.PIN_SIZE * 0.62, M.PIN_SIZE * 0.62)
@@ -2073,11 +2134,7 @@ function W.Build()
     cover:RegisterForClicks("LeftButtonUp", "RightButtonUp")
     local chl = cover:CreateTexture(nil, "OVERLAY")
     chl:SetAllPoints()
-    if EUIS then
-        chl:SetColorTexture(1, 1, 1, 0.10)
-    else
-        chl:SetColorTexture(1, 0.82, 0.42, 0.14)
-    end
+    chl:SetColorTexture(1, 1, 1, 0.10)
     chl:Hide()
     cover.hl = chl
     cover:SetScript("OnClick", function()
@@ -2148,7 +2205,7 @@ function W.Build()
     routeBtn:RegisterForClicks("LeftButtonUp", "RightButtonUp")
     routeBtn:SetScript("OnClick", routeToggle)
     routeBtn:Hide()
-    euiBtn(routeBtn)
+    ndBtn(routeBtn)
     view.routeBtn = routeBtn
 
     local pinBtn = makeNativeBtn(UIParent, L["图钉显示"], BTN_W, BTN_H)
@@ -2156,7 +2213,7 @@ function W.Build()
     pinBtn:SetFrameLevel(950)
     pinBtn:SetScript("OnClick", function(self) M.ShowPinMenu(self) end)
     pinBtn:Hide()
-    euiBtn(pinBtn)
+    ndBtn(pinBtn)
     view.pinBtn = pinBtn
 
     ensureAreaBtn()
@@ -2185,7 +2242,11 @@ function W.Build()
     taskBtn:SetSize(60, cbH)
     taskBtn:SetFrameStrata("TOOLTIP")
     taskBtn:SetFrameLevel(100)
-    if not skinCloseStyle(taskBtn) then
+    local curFlags = FLAGS
+    if ns.NDuiOn and ns.NDuiOn() then
+        curFlags = ""
+        ns.NDuiReskin(taskBtn)
+    elseif not skinCloseStyle(taskBtn) then
         taskBtn:SetBackdrop({
             bgFile = "Interface\\Buttons\\WHITE8X8",
             edgeFile = "Interface\\Buttons\\WHITE8X8",
@@ -2195,7 +2256,7 @@ function W.Build()
         taskBtn:SetBackdropBorderColor(0.55, 0.45, 0.2, 1)
     end
     local tfs = taskBtn:CreateFontString(nil, "OVERLAY")
-    tfs:SetFont(fontPath(), 13, FLAGS)
+    tfs:SetFont(fontPath(), 13, curFlags)
     tfs:SetTextColor(1, 0.82, 0)
     tfs:SetPoint("CENTER", taskBtn, "CENTER", 0, 0)
     taskBtn:SetFontString(tfs)
@@ -2210,7 +2271,6 @@ function W.Build()
     end)
     taskBtn:SetScript("OnLeave", function() GameTooltip:Hide() end)
     taskBtn:Hide()
-    euiBtn(taskBtn)
     view.taskBtn = taskBtn
 
     local btns = {}
@@ -2241,6 +2301,7 @@ local function signature(id)
     return table.concat({
         tostring(id), tostring(M.curLayer), tostring(M.detailEn),
         tostring(M.hideBossPins), tostring(M.hideQuestPins), tostring(M.hideNotePins),
+        tostring(M.hideOtherPins),
         tostring(M.routeThin), tostring(M.routePalette),
         tostring(vis), tostring(tot),
     }, "|")
@@ -2408,21 +2469,3 @@ local function tryHook()
 end
 
 tryHook()
-
-if EllesmereUI and EllesmereUI.RegisterSkin then
-    EllesmereUI.RegisterSkin("DungeonsForever", function(S)
-        if S.IsEnabled and not S.IsEnabled() then return end
-        EUIS = S
-        W.euiSkin = true
-        euiBtn(W.navBtn)
-        local v = W.view
-        if v then
-            euiBtn(v.routeBtn)
-            euiBtn(v.pinBtn)
-            euiBtn(v.taskBtn)
-            if v.crumbCover and v.crumbCover.hl then
-                v.crumbCover.hl:SetColorTexture(1, 1, 1, 0.10)
-            end
-        end
-    end)
-end

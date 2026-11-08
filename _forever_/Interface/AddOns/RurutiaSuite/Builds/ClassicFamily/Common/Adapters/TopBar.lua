@@ -261,7 +261,8 @@ function Adapter:RunMenuAction(item, mouseButton)
             or action == "professions" or action == "collections" or action == "classic-pvp" then
             return false
         end
-        if self:IsInCombat() then
+        -- Bags use the ordinary ToggleAllBags route, also during combat.
+        if action ~= "bags" and self:IsInCombat() then
             return false, "战斗中请使用原生快捷键打开。", "combat-lockdown"
         end
     end

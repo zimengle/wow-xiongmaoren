@@ -21,6 +21,7 @@ Data.DetectionIgnoredPrefixes = { "ThisWeeksAuras" }
 Data.DetectionIgnoredAddons.MeetingStone = true
 Data.DetectionIgnoredAddons.LycheeGroup = true
 Data.DetectionIgnoredAddons.LycheeGroup_Group = true
+Data.DetectionIgnoredAddons.LycheeGroup_Guide = true
 Data.DetectionIgnoredAddons.LycheeGroup_Notes = true
 Data.DetectionIgnoredAddons.LycheeGroup_UI = true
 Data.LegacyProfileIdMap = { full = "full_n", mythic = "mythic_n", raid_lite = "raid_lite_n" }
@@ -201,7 +202,7 @@ Data.BaseProfiles = {
             "LittleWigs_BattleForAzeroth", "LittleWigs_BurningCrusade", "LittleWigs_Cataclysm", "LittleWigs_Classic",
             "LittleWigs_Dragonflight", "LittleWigs_Legion", "LittleWigs_MistsOfPandaria", "LittleWigs_Shadowlands",
             "LittleWigs_TheWarWithin", "LittleWigs_WarlordsOfDraenor", "LittleWigs_WrathOfTheLichKing", "LycheeGroup",
-            "LycheeGroup_Group", "LycheeGroup_Notes", "LycheeGroup_UI", "Myslot",
+            "LycheeGroup_Group", "LycheeGroup_Guide", "LycheeGroup_Notes", "LycheeGroup_UI", "Myslot",
             "MythicDungeonTools", "MythicDungeonTools_UI", "Plumber", "Postal",
             "RurutiaSA_Class", "RurutiaSA_Combat", "RurutiaSA_Trinkets", "RurutiaSuite",
             "RurutiaSuite_Setup", "Rurutia_AHCart", "Rurutia_PowerBar", "Rurutia_SimpleCursor",
@@ -524,7 +525,7 @@ function Data:BuildDefaults()
             if entry.whitelist[index] == "MeetingStone" then table.remove(entry.whitelist, index) end
         end
         entry.whitelist = MergeUniqueLists(entry.whitelist, {
-            "LycheeGroup", "LycheeGroup_Group", "LycheeGroup_Notes", "LycheeGroup_UI",
+            "LycheeGroup", "LycheeGroup_Group", "LycheeGroup_Guide", "LycheeGroup_Notes", "LycheeGroup_UI",
         })
     end
     return defaults

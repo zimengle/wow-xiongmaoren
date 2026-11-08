@@ -1,5 +1,11 @@
 VER 3 0000000000000001 "RXPTargeting" "Ability_eyeoftheowl"
-/targetexact 哨兵瑞尔
+/targetexact 暗皮杀手
+/targetexact 暗皮巫师
+/targetexact 暗皮战士
+/targetexact 暗皮刺客
+/targetexact 暗皮豺狼人
+/targetexact 疯狂的暗皮豺狼人
+/targetexact 范高雷中尉
 /tm !7
 /targetlasttarget [dead]
 END

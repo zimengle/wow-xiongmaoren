@@ -145,7 +145,11 @@ function Definition:GetBlizzardUIDB()
     if Adapter.features.minimapEventButton then NormalizeBoolean(profile.blizzardUI, "hideMinimapEventButton", true) end
     if Adapter.features.lootSparkles then NormalizeBoolean(profile.blizzardUI, "lootSparkles", true) end
     if Adapter.features.windowDrag then NormalizeBoolean(profile.blizzardUI, "unlockWindowDrag", true) end
-    if Adapter.features.merchantExpansion then NormalizeBoolean(profile.blizzardUI, "merchantExpansion", true) end
+    if Adapter.features.merchantExpansion then
+        NormalizeBoolean(profile.blizzardUI, "merchantExpansion", true)
+        -- Preserve the previous combined setting on the first read only.
+        NormalizeBoolean(profile.blizzardUI, "merchantSearch", profile.blizzardUI.merchantExpansion)
+    end
     if Adapter.features.knownRecipeTint then NormalizeBoolean(profile.blizzardUI, "knownRecipeTint", true) end
     return profile.blizzardUI
 end

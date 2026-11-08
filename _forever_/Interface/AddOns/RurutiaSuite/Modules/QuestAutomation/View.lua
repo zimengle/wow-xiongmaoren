@@ -10,6 +10,10 @@ local function RefreshTrackerVisibility(module)
 end
 
 local function VisibleHeader(module)
+    local integration = ns.QuestAutomationTrackerIntegration
+    local external = integration and integration:GetHeader(module)
+    -- Bind both trackers even while Questie owns the button: native OnShow may
+    -- arrive after Questie's OnHide, with no further addon/update event.
     local selected
     for _, name in ipairs(TRACKERS) do
         local tracker = _G[name]
@@ -21,9 +25,10 @@ local function VisibleHeader(module)
             module:HookFrameScript(tracker, "OnHide", RefreshTrackerVisibility)
             module:HookFrameScript(header, "OnShow", RefreshTrackerVisibility)
             module:HookFrameScript(header, "OnHide", RefreshTrackerVisibility)
-            if not selected and tracker:IsShown() and header:IsShown() then selected = header end
+            if not selected and tracker:IsVisible() and header:IsVisible() then selected = header end
         end
     end
+    if external then return external, integration end
     return selected
 end
 
@@ -34,7 +39,8 @@ end
 
 function View:RefreshTracker(module, state)
     local supported = module.runtimeActive and (state.owner == "native" or state.owner == "eui")
-    local header = supported and VisibleHeader(module)
+    local header, integration
+    if supported then header, integration = VisibleHeader(module) end
     if not header then
         if self.trackerButton then self.trackerButton:Hide() end
         return
@@ -48,7 +54,7 @@ function View:RefreshTracker(module, state)
         button:SetFrameLevel(header:GetFrameLevel() + 2)
         button.text = button:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
         button.text:SetPoint("LEFT", button, "RIGHT", 1, 0)
-        button.text:SetText("自动交接")
+        button.text:SetText("交接")
         button.mixed = button:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
         button.mixed:SetPoint("CENTER", button, "CENTER", 0, 1)
         button.mixed:SetText("—")
@@ -80,8 +86,11 @@ function View:RefreshTracker(module, state)
         button:SetParent(header)
         button:ClearAllPoints()
         -- Reserve the rightmost area for the native collapse button.
-        button:SetPoint("RIGHT", header, "RIGHT", -96, 0)
+        if integration then integration:Place(button, header)
+        else button:SetPoint("RIGHT", header, "RIGHT", -96, 0) end
         button:SetFrameLevel(header:GetFrameLevel() + 2)
+        button.text:SetText(integration and integration.buttonText or "交接")
+        button:SetHitRectInsets(0, -(integration and integration.textHitWidth or 64), 0, 0)
         self.trackerHeader = header
     end
     button:SetChecked(state.enabled == true)

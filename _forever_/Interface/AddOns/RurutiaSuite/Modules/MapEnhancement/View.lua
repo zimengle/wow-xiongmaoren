@@ -46,6 +46,10 @@ function Controller:SetAttribute(key, value)
 end
 
 function Controller:RestoreNative()
+    return Adapter:WithWindowControl(self.map, self.RestoreNativeGeometry, self)
+end
+
+function Controller:RestoreNativeGeometry()
     if not self.original then return end
     for _, key in ipairs(FIELDS) do
         local applied = self.applied[key]
@@ -60,6 +64,10 @@ function Controller:RestoreNative()
 end
 
 function Controller:Place(x, y, scale, centered)
+    return Adapter:WithWindowControl(self.map, self.PlaceGeometry, self, x, y, scale, centered)
+end
+
+function Controller:PlaceGeometry(x, y, scale, centered)
     local map = self.map
     -- Account for a non-default parent scale as well as UI scale.
     local box = PlacementBox(map)

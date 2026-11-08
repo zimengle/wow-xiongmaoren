@@ -6,8 +6,7 @@ DungeonsForeverDB = {
 },
 ["colorTheme"] = "green",
 },
-["chipCalib"] = {
-},
+["DungeonsForeverGearDBMoved"] = true,
 ["ui"] = {
 ["tip"] = {
 ["bis"] = false,
@@ -55,8 +54,8 @@ DungeonsForeverDB = {
 ["books"] = true,
 ["bag"] = true,
 },
-["on"] = true,
 ["profMode"] = "learned",
+["on"] = true,
 },
 ["lootFilter"] = {
 ["ver"] = 3,
@@ -439,13 +438,9 @@ DungeonsForeverDB = {
 },
 },
 },
-["gear"] = {
-["fold"] = {
-["SETS"] = true,
-},
-["foldInit"] = true,
-},
 ["profMoved"] = true,
+["chipCalib"] = {
+},
 ["DungeonsForeverExploreDBMoved"] = true,
 ["dungeon"] = {
 ["dungeonView"] = "list",
@@ -461,33 +456,19 @@ DungeonsForeverDB = {
 ["lv"] = true,
 ["all"] = false,
 },
-["size"] = 32,
+["sizeVer"] = 2,
+["size"] = 18,
 ["world"] = false,
 },
-["subTab"] = "Dungeons",
+["subTab"] = "Bis",
 },
 ["iconRingMode"] = "glow",
-["dfRevealLog"] = "85/85 15ms",
-["bis"] = {
-["plans"] = {
-["warrior"] = {
-},
-["mage"] = {
-},
-["paladin"] = {
-},
-["rogue"] = {
-},
-},
-["migVol"] = true,
-},
+["dfRevealLog"] = "89/89 14ms",
 ["vendorPrices"] = {
 },
 ["raid"] = {
 ["tab"] = "timeline",
 ["setFilter"] = "MAGE",
-},
-["wishlist"] = {
 },
 ["svVersion"] = 3,
 }

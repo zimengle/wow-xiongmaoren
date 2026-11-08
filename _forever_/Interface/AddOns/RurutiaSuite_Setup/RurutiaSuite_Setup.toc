@@ -4,7 +4,7 @@
 ## Notes: RurutiaSuite configuration installer.
 ## Notes-zhCN: 为新 RurutiaSuite 安装并适配露露的整套配置。
 ## Author: Rurutia
-## Version: 4.7.1
+## Version: 4.7.7
 ## X-ModUs-UID: 88
 ## X-License: All Rights Reserved
 ## RequiredDeps: RurutiaSuite

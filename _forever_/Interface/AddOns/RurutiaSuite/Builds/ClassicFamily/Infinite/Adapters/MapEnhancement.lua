@@ -149,8 +149,62 @@ local function RestoreInputs(records)
     end
 end
 
+-- Elles Shifter has no per-window disable API. Keep only the map records
+-- leased in our profile across reloads; never reset the other windows.
+local function EllesState(map)
+    local ui, db = _G.EllesmereUI, _G.EllesmereUIDB
+    if type(ui) ~= "table" or type(ui._GetFFD) ~= "function"
+        or type(db) ~= "table" or not db.shifterEnabled then return end
+    local ok, state = pcall(ui._GetFFD, map)
+    if ok and type(state) == "table" then return state, db end
+end
+
+function Adapter:AcquireEllesWindow(profile, map)
+    local state, db = EllesState(map)
+    if not state then return end
+    for _, field in ipairs({ "shifterPositions", "shifterScales" }) do
+        local records = db[field]
+        if type(records) == "table" and records.WorldMapFrame ~= nil then
+            profile.ellesMapLease = profile.ellesMapLease or {}
+            -- Retain the latest explicit Elles adjustment for release.
+            profile.ellesMapLease[field] = records.WorldMapFrame
+            records.WorldMapFrame = nil
+        end
+    end
+    -- Without a saved target, Shifter otherwise restores its original scale
+    -- once on the next OnShow, possibly after our OnShow handler.
+    state._shScaled = nil
+end
+
+function Adapter:ReleaseEllesWindow(profile)
+    local lease = profile and profile.ellesMapLease
+    local db = _G.EllesmereUIDB
+    if not lease or type(db) ~= "table" then return end
+    for field, value in pairs(lease) do
+        if db[field] == nil then db[field] = {} end
+        if type(db[field]) == "table" and db[field].WorldMapFrame == nil then
+            db[field].WorldMapFrame = value
+        end
+    end
+    profile.ellesMapLease = nil
+end
+
+-- Use Shifter's existing recursion guards only during our synchronous writes.
+-- This also bypasses its private temporary Ctrl-wheel scale/position, without
+-- touching those closures or adding hooks, timers, frames or per-frame polling.
+function Adapter:WithWindowControl(map, callback, ...)
+    local state = EllesState(map)
+    if not state then return callback(...) end
+    local point, scale = state._shIgnoreSP, state._shIgnoreSS
+    state._shIgnoreSP, state._shIgnoreSS = true, true
+    local ok, err = pcall(callback, ...)
+    state._shIgnoreSP, state._shIgnoreSS = point, scale
+    if not ok then error(err, 0) end
+end
+
 function Adapter:AcquireWindow(profile, map)
     if self:IsInCombat() or FindLoaded(REVEAL_CONFLICTS) then return false end
+    self:AcquireEllesWindow(profile, map)
     if not FindLoaded(WINDOW_PROVIDER) then return true end
     local api = _G.BlizzMoveAPI
     if type(api) ~= "table" or type(api.IsFrameDisabled) ~= "function"
@@ -174,6 +228,8 @@ function Adapter:AcquireWindow(profile, map)
 end
 
 function Adapter:ReleaseWindow(profile)
+    if self:IsInCombat() then return end
+    self:ReleaseEllesWindow(profile)
     if not profile or not profile.blizzMoveMapOwned or self:IsInCombat() then return end
     local api = _G.BlizzMoveAPI
     if type(api) ~= "table" or type(api.SetFrameDisabled) ~= "function"

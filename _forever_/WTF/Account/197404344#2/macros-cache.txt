@@ -1,5 +1,10 @@
 VER 3 0000000000000001 "RXPTargeting" "Ability_eyeoftheowl"
-/targetexact 葛瑞森船长
+/targetexact 龙喉白骨守卫
+/targetexact 龙喉百夫长
+/targetexact 龙喉暗影守卫
+/targetexact 龙喉军官
+/targetexact 龙喉沼泽行者
+/targetexact 龙喉袭击者
 /tm !7
 /targetlasttarget [dead]
 END

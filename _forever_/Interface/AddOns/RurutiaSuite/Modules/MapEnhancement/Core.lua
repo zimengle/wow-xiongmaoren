@@ -157,7 +157,7 @@ end
 function Definition:OnWorldEvent(event, name)
     if event == "ADDON_LOADED" and name ~= "Blizzard_WorldMap"
         and name ~= "Mapster" and name ~= "BlizzMove" and name ~= "Leatrix_Maps"
-        and name ~= "NDui" and name ~= "ElvUI" then return end
+        and name ~= "NDui" and name ~= "ElvUI" and name ~= "EllesmereUIQoL" then return end
     if event == "PLAYER_REGEN_DISABLED" then self.controller:StopGesture(true) end
     self.controller:Refresh()
     ns.MapEnhancementReveal:Sync()

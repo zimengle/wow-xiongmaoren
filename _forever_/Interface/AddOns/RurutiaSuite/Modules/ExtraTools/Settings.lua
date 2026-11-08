@@ -371,16 +371,32 @@ local function BuildBlizzard(page, module, features)
         })
     end
     if features.merchantExpansion then
-        page:Section("商人界面"):QuadRow():Checkbox("merchantExpansion", {
-            text = "界面拓展",
-            tooltip = "把商人窗口加宽成四列，每页多显示几件货物，顶部带搜索框，默认开启。"
-                .. "界面已经改成整页列表时保持列表，不再改宽度。",
-            value = module:GetBlizzardUIDB().merchantExpansion,
-            getValue = function() return module:GetBlizzardUIDB().merchantExpansion end,
-            onChange = function(_, value)
-                SetSectionBoolean(module, "blizzardUI", "merchantExpansion", value)
-            end,
-        })
+        local merchant = page:Section("商人界面")
+        local row = merchant:QuadRow()
+        local function addOption(key, label, tooltip)
+            row:Checkbox(key, {
+                text = label, tooltip = tooltip,
+                getValue = function() return module:GetBlizzardUIDB()[key] end,
+                onChange = function(_, value)
+                    SetSectionBoolean(module, "blizzardUI", key, value)
+                    page:Refresh("merchant-options")
+                end,
+                onEnter = function() page:Refresh("merchant-options") end,
+            })
+        end
+        addOption("merchantExpansion", "界面拓展", "将商人窗口扩为四列。Elles 使用扩展网格或列表时，自动交由 Elles 管理。")
+        addOption("merchantSearch", "商品搜索", "按商品名称或物品ID搜索，可搭配原生、RS 四列或 Elles 商人布局使用。")
+        merchant:Description(function()
+            local db = module:GetBlizzardUIDB()
+            local enabled = module:IsEnabled()
+            local providers = ns.ExtraToolsProviderRegistry
+            local owned = providers and providers:OwnsMerchantLayout()
+            local layoutOn = enabled and db.merchantExpansion and not owned
+            local status = layoutOn and "|cff00ff00开启|r" or "|cffff0000关闭|r"
+            local reason = owned and "Elles 已接管商人布局" or (layoutOn and "RS 四列布局" or "RS 界面拓展已关闭")
+            local search = enabled and db.merchantSearch and "商品搜索已开启" or "商品搜索已关闭"
+            return "当前状态：" .. status .. " · " .. reason .. " · " .. search
+        end)
     end
     if features.knownRecipeTint then
         page:Section("配方提示"):QuadRow():Checkbox("knownRecipeTint", {

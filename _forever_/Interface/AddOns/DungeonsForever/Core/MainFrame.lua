@@ -1031,6 +1031,7 @@ ns.PaintAppearance = PaintAppearance
 local enhCard
 local spellToggle
 local talentToggle
+local mapToggle
 
 local function SpellBlocked()
     return (ns.SpellTabsTaken and ns.SpellTabsTaken()) and true or false
@@ -1049,6 +1050,9 @@ local function SyncEnhCard()
     end
     if talentToggle then
         talentToggle:SetChecked((ns.TalentEnhOn and ns.TalentEnhOn()) and true or false)
+    end
+    if mapToggle then
+        mapToggle:SetChecked((ns.MapEntryOn and ns.MapEntryOn()) and true or false)
     end
 end
 
@@ -1114,7 +1118,7 @@ function BuildEnhCard()
     end
     enhCard = card
     AnchorEnhCard()
-    card:SetHeight(80)
+    card:SetHeight(108)
 
     local hd = card:CreateFontString(nil, "OVERLAY")
     hd:SetFont(ns.FONT, 14, "")
@@ -1129,6 +1133,7 @@ function BuildEnhCard()
                      L["两个插件不能同时往技能书里加页；关掉对方的技能页增强并重载后，这里会自动恢复。"] }
         end)
     talentToggle = EnhRow(card, -58, L["天赋页增强"], L["在原生天赋界面增加天赋模拟页与加点序号"])
+    mapToggle = EnhRow(card, -86, L["地图副本入口"], L["在世界地图上标出各副本的入口位置"])
 
     spellToggle:SetScript("OnClick", function(self)
         if SpellBlocked() then return end
@@ -1143,6 +1148,13 @@ function BuildEnhCard()
         local nv = not (ns.TalentEnhOn and ns.TalentEnhOn())
         self:SetChecked(nv)
         if ns.SetTalentEnh then ns.SetTalentEnh(nv) end
+        SyncEnhCard()
+    end)
+    mapToggle:SetScript("OnClick", function(self)
+        ns.PlaySound(1)
+        local nv = not (ns.MapEntryOn and ns.MapEntryOn())
+        self:SetChecked(nv)
+        if ns.SetMapEntry then ns.SetMapEntry(nv) end
         SyncEnhCard()
     end)
     SyncEnhCard()
@@ -1952,6 +1964,30 @@ SlashCmdList["DUNGEONSFOREVER"] = function(msg)
         ns.OpenChipCalib()
         return
     end
+    if cmd == "rank" or cmd == "动作条" or cmd == "法術" then
+        if ns.SpellRankUI then
+            ns.SpellRankUI.Toggle()
+        else
+            print("|cff46bf72[" .. L["无限副本手册"] .. "]|r " .. L["技能书模块未启用"])
+        end
+        return
+    end
+    if cmd == "rankcheck" then
+        if ns.SpellRank and ns.SpellRank.ReportDiagnose then
+            ns.SpellRank.ReportDiagnose()
+        else
+            print("|cff46bf72[" .. L["无限副本手册"] .. "]|r " .. L["技能书模块未启用"])
+        end
+        return
+    end
+    if cmd == "rankdebug" then
+        if ns.SpellRankUI and ns.SpellRankUI.Debug then
+            ns.SpellRankUI.Debug()
+        else
+            print("|cff46bf72[" .. L["无限副本手册"] .. "]|r " .. L["技能书模块未启用"])
+        end
+        return
+    end
     local key = PAGE_ALIASES[cmd:lower()]
     if key then
         if not ns.IsForever and key ~= "Dungeons" and key ~= "Raids" then
@@ -1962,7 +1998,7 @@ SlashCmdList["DUNGEONSFOREVER"] = function(msg)
         return
     end
     print("|cff46bf72[" .. L["无限副本手册"] .. "]|r " .. L["用法：/df 或 /fbsc 打开或关闭界面。"])
-    print("  /df fb|副本 · tb|团本 · zy|专业 · ts|探索 · hp|藏品 · wm|声望 · bis|配装 · zn|指南 — " .. L["直达对应页"])
+    print("  /df fb|副本 · tb|团本 · zy|专业 · ts|探索 · hp|藏品 · wm|声望 · bis|配装 · zn|指南 · rank|动作条 — " .. L["直达对应页"])
     print("  /dfspeed — " .. L["载入速度"]
           .. "（" .. L["省电"] .. " / " .. L["标准"] .. " / " .. L["激进"] .. "）")
     print("  /dfgate — " .. L["进度条"] .. "（demo / off）")

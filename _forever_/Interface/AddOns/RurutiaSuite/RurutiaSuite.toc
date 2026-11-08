@@ -4,7 +4,7 @@
 ## Notes: RurutiaSuite 露露的工具箱。一站式轻量工具箱，适配多种主流界面，提供很多便捷功能和额外增强。
 ## Notes-zhCN: RurutiaSuite 露露的工具箱。一站式轻量工具箱，适配多种主流界面，提供很多便捷功能和额外增强。
 ## Author: Rurutia
-## Version: 4.7.1
+## Version: 4.7.7
 ## X-ModUs-UID: 88
 ## X-License: All Rights Reserved
 ## SavedVariables: RurutiaSuiteDB
@@ -290,6 +290,7 @@ Builds\Retail\Integrations\EllesmereUI\Compat.lua
 Builds\Retail\Integrations\EllesmereUI\QuestAutomation.lua
 Builds\Retail\Integrations\NDui\QuestAutomation.lua
 Builds\ClassicFamily\Infinite\Integrations\NDui\QuestAutomation.lua
+Builds\ClassicFamily\Infinite\Integrations\Questie\QuestAutomation.lua
 Modules\QuestAutomation\View.lua
 Modules\QuestAutomation\Data.lua
 Builds\Retail\Adapters\QuestAutomation.lua

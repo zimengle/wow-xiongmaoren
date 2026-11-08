@@ -302,6 +302,8 @@ function Definition:OnQuestEvent(event)
 end
 
 function Definition:BindProvider()
+    local tracker = ns.QuestAutomationTrackerIntegration
+    if tracker then tracker:Bind(self) end
     if not ns.EllesmereQuestAutomationIntegration then return end
     local provider = _G.EllesmereUIQuestTracker
     if Loaded("EllesmereUIQuestTracker") and type(provider) == "table"
@@ -312,8 +314,9 @@ function Definition:BindProvider()
 end
 
 function Definition:ADDON_LOADED(_, name)
+    local tracker = ns.QuestAutomationTrackerIntegration
     if name == "NDui" or name == "EllesmereUIQuestTracker" or name == "Blizzard_WorldMap"
-        or name == "Blizzard_ObjectiveTracker" then
+        or name == "Blizzard_ObjectiveTracker" or (tracker and name == tracker.addonName) then
         self:BindProvider()
         self:Refresh()
     end
