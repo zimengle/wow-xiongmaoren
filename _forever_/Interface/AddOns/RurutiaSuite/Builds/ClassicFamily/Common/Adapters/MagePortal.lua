@@ -34,6 +34,11 @@ local Adapter = {
     },
 }
 
+if ns.Build.GetID() == "classic-infinite" then
+    Adapter.layout.x = -75.7999267578125
+    Adapter.layout.y = -207.1998901367188
+end
+
 function Adapter:GetPlayerClass()
     if type(_G.UnitClass) ~= "function" then return nil end
     local _, class = _G.UnitClass("player")
@@ -135,7 +140,8 @@ function Adapter:IsSpellKnown(spellID)
 end
 
 function Adapter:GetItemCount(itemID)
-    return type(_G.GetItemCount) == "function" and (_G.GetItemCount(itemID) or 0) or 0
+    local getCount = _G.C_Item and _G.C_Item.GetItemCount or _G.GetItemCount
+    return type(getCount) == "function" and (getCount(itemID, false) or 0) or 0
 end
 
 function Adapter:IsMouseOver(frame)

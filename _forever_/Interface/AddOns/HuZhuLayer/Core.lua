@@ -4,7 +4,7 @@ local H = HuZhuLayer
 
 H.ADDON_NAME = "HuZhuLayer"
 H.PREFIX = "HZL"
-H.VERSION = "1.1.263"
+H.VERSION = "1.1.328"
 H.LIST_VISIBLE_ROWS = 10 -- 列表最多同时显示行数，超出可滚动
 H.LOAD_TICK = 0.1 -- 所有加载：进入的数据和画界面都按这个间隔摊开
 H.LOAD_IN_MAX = 6 -- 每个间隔最多收几条上报
@@ -21,7 +21,7 @@ H.HZL_CHANNEL = "互助切位面"
 H.HZL_CHANNEL_FOREVER = "大脚世界频道" -- 旧发现频，仅作对照，不再当发现主路
 H.HZL_CHANNEL_LEGACY = { "HuZhuLayer", "huzhulayer" }
 H.PEER_TTL = 600 -- 软新鲜（剪枝/可帮判断）；真正求切前会再核实
-H.PEER_LIVE_TTL = 20 -- PING 后须在此秒数内回 HELLO，才算「在线已核实」
+H.PEER_LIVE_TTL = 120 -- 公会心跳约 90 秒，两分钟内报过位面才当在线
 H.PEER_UI_TTL = 15 * 60 -- 列表只显示近 15 分钟内报过线的人（勿再拉到 99 分钟）
 H.PING_PROBE_WAIT = 2.0 -- 求切前等待 PING 回复
 H.LAYER_TTL = 900
@@ -169,9 +169,16 @@ function H:IsClassicEra()
   return self:ClientKind() == "classic_era"
 end
 
--- 只有经典60跟 NWB 排成位面一、二。其余版本按无限，直接显示位面编号。
+-- 装了轻歌花 3.49 的版本，位面一、二跟它当前这个世界的层号走。
+-- 经典怀旧没有轻歌花时仍按原来的办法排。无限服不读轻歌花。
 function H:UsesNwbLayerRank()
-  return self:IsClassicEra()
+  if self:IsForeverClient() then
+    return false
+  end
+  if self:IsClassicEra() then
+    return true
+  end
+  return type(_G.NWB_GetLayerData) == "function"
 end
 
 function H:IsTbcClient()
@@ -199,9 +206,9 @@ function H:UsesVisibleChannelHello()
   return true
 end
 
--- 是否把发现频道挂进聊天框。一律不挂：在频、聊天框看不见、不退出。
+-- 互助切位面已停用，不再挂回聊天窗口。
 function H:ShowsDiscoveryChannel()
-  return false
+  return not self:IsForeverClient()
 end
 
 -- 发现用的频道短名。各版本都是互助切位面。
@@ -209,9 +216,9 @@ function H:GetDiscoveryChannelName()
   return self.HZL_CHANNEL or "互助切位面"
 end
 
--- 组队切位面：必须同一张图。跨图进队不会把你拉过去（燃烧暴风城求艾尔文已实测）
+-- 同公会即可求切。同一张图的人先问、先显示；别的图排后面，不因此拒绝。
 function H:RequiresSameMapForHop()
-  return true
+  return not self:IsForeverClient()
 end
 
 -- 怀旧系 + 正式服：裸名/名-服；无限：名 姓
@@ -280,6 +287,105 @@ function H:IsReadableValue(v)
     return access
   end
   return type(v) == "string" and v ~= ""
+end
+
+-- 聊天框事件里的发言人：自己发言常是 string；别人发言在无限上可能不是 string，
+-- 但 tostring 能取出和聊天框一样的「名 姓」。认人必须走这里，禁止只认 type==string。
+-- 日记已证：DiaryBit 能印「人恶魔 法爷」，旧逻辑却写「不是招呼」——就是只认 string。
+function H:CoerceChatPersonName(v)
+  if v == nil then
+    return nil
+  end
+  local secret = false
+  pcall(function()
+    if issecretvalue and issecretvalue(v) then
+      secret = true
+    end
+  end)
+  if secret then
+    -- 与 IsReadableValue 一致：没有 canaccessvalue 时默认当作可读，禁止误判成空
+    local access = true
+    pcall(function()
+      if canaccessvalue then
+        access = canaccessvalue(v) and true or false
+      end
+    end)
+    if not access then
+      return nil
+    end
+  end
+  if type(v) == "string" then
+    return v ~= "" and v or nil
+  end
+  local ok, s = pcall(tostring, v)
+  if not ok or type(s) ~= "string" or s == "" or s == "nil" then
+    return nil
+  end
+  if s == "userdata" or s == "table" or s == "function" or s == "boolean" or s == "true" or s == "false" then
+    return nil
+  end
+  -- 日记能印出的字（非「空/锁/读失败」）一律当人名；禁止再「看得见却不是招呼」
+  if s == "空" or s == "锁" or s == "读失败" then
+    return nil
+  end
+  return s
+end
+
+-- 无限：名字是两段（姓、名），中间一个空格，两段都要留下。其它版本仍是一整段。
+-- 返回可密语、可进花名册的名字；战利品整句、只剩一段的，返回空。
+function H:ChatPersonName(name)
+  if name ~= nil and type(name) ~= "string" then
+    name = self:CoerceChatPersonName(name)
+  end
+  if type(name) ~= "string" or name == "" or #name > 48 then
+    return nil
+  end
+  name = name:gsub("^%s+", ""):gsub("%s+$", "")
+  if self.StripFakeRealmSuffix then
+    name = self:StripFakeRealmSuffix(name) or name
+  end
+  if self.StripOwnRealm then
+    name = self:StripOwnRealm(name) or name
+  end
+  local forever = self.IsForeverClient and self:IsForeverClient()
+  if forever and not name:find(" ", 1, true) and name:find(":", 1, true) then
+    local a, b, rest = name:match("^([^:]+):([^:]+):?(.*)$")
+    if a and b and a ~= "" and b ~= "" and not b:match("^%d+$") and (rest == nil or rest == "" or rest:match("^%d+$")) then
+      name = a .. " " .. b
+    end
+  end
+  if name:find("|", 1, true) or name:find("：", 1, true) then
+    return nil
+  end
+  if name:find("获得", 1, true) or name:find("物品", 1, true) or name:find("cnIQ", 1, true) then
+    return nil
+  end
+  if name:find("[", 1, true) or name:find("]", 1, true) or name:find("。", 1, true) then
+    return nil
+  end
+  if forever then
+    name = name:gsub(":%d+$", "")
+    local a, b = name:match("^(%S+)%s+(%S+)$")
+    if not a or not b or a:find(":", 1, true) or b:find(":", 1, true) then
+      return nil
+    end
+    return a .. " " .. b
+  end
+  if name:find(":", 1, true) or name:find("  ", 1, true) then
+    return nil
+  end
+  local spaces = 0
+  for _ in name:gmatch(" ") do
+    spaces = spaces + 1
+  end
+  if spaces > 1 then
+    return nil
+  end
+  return name
+end
+
+function H:IsChatPersonName(name)
+  return self:ChatPersonName(name) ~= nil
 end
 
 function H:IsReadableGuid(guid)
@@ -572,6 +678,9 @@ function H:ShortName(name)
   if not name then
     return "?"
   end
+  if self.IsForeverClient and self:IsForeverClient() and self.ChatPersonName then
+    return self:ChatPersonName(name) or self:BareCharacterName(name) or name
+  end
   name = self:ReplyName(name) or name
   local base = name:match("^([^-]+)") or name
   if Ambiguate then
@@ -857,6 +966,16 @@ function H:MyMapId()
   return id
 end
 
+function H:InstanceMapId()
+  if not self:IsInInstance() then
+    return 0
+  end
+  if C_Map and C_Map.GetBestMapForUnit then
+    return tonumber(C_Map.GetBestMapForUnit("player")) or 0
+  end
+  return 0
+end
+
 -- 可切位面的大地图：客栈/街道收到「地区」（暴风城、艾尔文），不到大陆。
 function H:CanonMapId(mapId)
   mapId = tonumber(mapId) or 0
@@ -872,7 +991,8 @@ function H:CanonMapId(mapId)
     self._canonCache[mapId] = v
     return v
   end
-  if self:IsDungeonMap(mapId) or self:IsOrphanMap(mapId) then
+  local forever = self.IsForeverClient and self:IsForeverClient()
+  if (self:IsDungeonMap(mapId) or self:IsOrphanMap(mapId)) and not forever then
     return remember(0)
   end
   if self.CapitalMapIds and self:CapitalMapIds()[mapId] then
@@ -904,17 +1024,24 @@ function H:CanonMapId(mapId)
     if mt and mt <= continent then
       break
     end
-    if self:IsDungeonMap(cur) or self:IsOrphanMap(cur) then
-      return remember(0)
-    end
     local parent = tonumber(info.parentMapID) or 0
-    if parent <= 0 then
-      if mt and mt > continent then
+    if self:IsDungeonMap(cur) or self:IsOrphanMap(cur) then
+      if not forever then
+        return remember(0)
+      end
+      if parent <= 0 then
         return remember(cur)
       end
-      break
+      cur = parent
+    else
+      if parent <= 0 then
+        if mt and mt > continent then
+          return remember(cur)
+        end
+        break
+      end
+      cur = parent
     end
-    cur = parent
   end
   return remember(0)
 end
@@ -1071,6 +1198,112 @@ function H:IsPeerUnavailable(peer)
   return false
 end
 
+-- 这一行有人、但不能求切时，按钮位置上写的短状态。
+function H:PeerBlockLabel(name, peer)
+  if not peer then
+    return nil
+  end
+  if peer.paused then
+    return "暂停"
+  end
+  if peer.inst or self:IsDungeonMap(peer.map) or self:IsOrphanMap(peer.map) then
+    local placeId = (tonumber(peer.imap) or 0) > 0 and peer.imap or peer.map
+    local place = self.MapPlaceName and self:MapPlaceName(placeId)
+    if place and place ~= "" and (peer.inst or self:IsDungeonMap(placeId) or self:IsOrphanMap(placeId)) then
+      return place
+    end
+    return "副本"
+  end
+  if peer.grouped then
+    return "在队"
+  end
+  if peer.queued then
+    return "排队"
+  end
+  if not peer.map or tonumber(peer.map) == 0 then
+    return "未知"
+  end
+  if (peer.busyUntil or 0) > self:WallNow() then
+    return "忙碌"
+  end
+  if name and self:IsSkipped(name) then
+    return "跳过"
+  end
+  if not self:PeerIsFresh(peer) then
+    return "离开"
+  end
+  if peer.pig and not peer.pigAuto then
+    return "不接"
+  end
+  return nil
+end
+
+function H:MapPlaceName(mapId)
+  mapId = tonumber(mapId) or 0
+  if mapId <= 0 or not C_Map or not C_Map.GetMapInfo then
+    return nil
+  end
+  local info = C_Map.GetMapInfo(mapId)
+  local name = info and info.name
+  if type(name) == "string" and name ~= "" then
+    return name
+  end
+  return nil
+end
+
+function H:ClassColorCode(classFile)
+  if type(classFile) ~= "string" or classFile == "" or not RAID_CLASS_COLORS then
+    return nil
+  end
+  local c = RAID_CLASS_COLORS[string.upper(classFile)]
+  if not c then
+    return nil
+  end
+  if type(c.colorStr) == "string" and #c.colorStr >= 6 then
+    local hex = c.colorStr
+    if #hex == 8 then
+      hex = hex:sub(3)
+    end
+    return "|cff" .. hex
+  end
+  if c.r and c.g and c.b then
+    return string.format("|cff%02x%02x%02x", c.r * 255, c.g * 255, c.b * 255)
+  end
+  return nil
+end
+
+function H:PeerClassFile(name)
+  if not name or name == "" then
+    return nil
+  end
+  local key = self.NormalizeName and self:NormalizeName(name) or name
+  local peer = key and self.db and self.db.peers and self.db.peers[key]
+  if peer and type(peer.classFile) == "string" and peer.classFile ~= "" then
+    return peer.classFile
+  end
+  local found
+  if IsInGuild() and GetNumGuildMembers and GetGuildRosterInfo then
+    local n = GetNumGuildMembers() or 0
+    for i = 1, n do
+      local gname, _, _, _, _, _, _, _, _, _, classFile = GetGuildRosterInfo(i)
+      if gname and type(classFile) == "string" and classFile ~= "" and self:IsSamePlayer(gname, name) then
+        found = string.upper(classFile)
+        break
+      end
+    end
+  end
+  if not found then
+    local _, mine = UnitClass("player")
+    if mine and self:IsSelfName(name) then
+      found = string.upper(mine)
+    end
+  end
+  if found and peer then
+    peer.classFile = found
+  end
+  return found
+end
+
 -- 软新鲜：近期报过心跳（列表用）
 function H:PeerIsFresh(peer)
   if not peer or not self:IsWallStamp(peer.last) then
@@ -1137,9 +1370,21 @@ function H:PeerCanHost(name, peer, opts)
   if self:IsPeerUnavailable(peer) then
     return false
   end
-  -- 不同地图组队切不过去：不当帮助方。同图里再按求助次数轮流。
+  -- 不同地图组队切不过去：不当帮助方。求切带了「那张图」时按那张图认，不按我当前图挡。
   if self:RequiresSameMapForHop() then
-    if self:MapRelation(self:MyMapId(), peer.map) ~= 0 then
+    local base = self:MyMapId()
+    local allow = tonumber(self._hopAllowMap) or 0
+    if allow <= 0 and opts then
+      allow = tonumber(opts.hopMap) or 0
+    end
+    if allow > 0 then
+      base = allow
+    end
+    if self.SameHoppableMap then
+      if not self:SameHoppableMap(base, peer.map) then
+        return false
+      end
+    elseif self:MapRelation(base, peer.map) ~= 0 then
       return false
     end
   end
@@ -1547,9 +1792,20 @@ frame:SetScript("OnEvent", function(_, event, ...)
     HuZhuLayerDB.hosting = nil
     H:CopyDefaults(HuZhuLayerDB, defaults)
     H.db = HuZhuLayerDB
+    if H.LOG_ON == false then
+      H.db.hopLog = nil
+      if collectgarbage then
+        collectgarbage("collect")
+      end
+    end
     if H.MigratePeersToInstallBook then
       pcall(function()
         H:MigratePeersToInstallBook()
+      end)
+    end
+    if H.MergeBundledInstallBook then
+      pcall(function()
+        H:MergeBundledInstallBook()
       end)
     end
     -- 强制：始终帮助其他玩家（去掉设置开关后覆盖旧存档）
@@ -1578,6 +1834,9 @@ frame:SetScript("OnEvent", function(_, event, ...)
       H:EnsureMinimap()
       H:RegisterInviteEvents()
       H:HookLeavePartyForThanks() -- 离队前先队聊感谢
+      if H.HookNwbLayerUpdated then
+        H:HookNwbLayerUpdated()
+      end
       -- 登录只报一行版本，不刷操作说明。认层不靠定时扫。
       if H.NwbCopySyncBook then
         H:NwbCopySyncBook()
@@ -1619,6 +1878,9 @@ frame:SetScript("OnEvent", function(_, event, ...)
     end)
     C_Timer.After(1, function()
       pcall(function()
+        if H.HookNwbLayerUpdated then
+          H:HookNwbLayerUpdated()
+        end
         H:EnsureDiscoveryChannel()
         if H.EnsurePigChannel then
           H:EnsurePigChannel()
@@ -1635,7 +1897,7 @@ frame:SetScript("OnEvent", function(_, event, ...)
         H:BroadcastHello("full")
       end)
     end)
-    -- 不再挂「点一下发试」；旧存档 channelProbeDone 也当已完成
+    -- 不再加入互助切位面，也不再发「试」
     if H.db and H.RunChannelProbe then
       pcall(function()
         H:RunChannelProbe()
@@ -1741,66 +2003,59 @@ frame:SetScript("OnEvent", function(_, event, ...)
       H:Trace("收试验 " .. event .. " " .. H:DiaryBit(text, 24))
     end
   elseif event == "CHAT_MSG_CHANNEL" then
-    -- 与时空之门一致：回信用 arg5；arg2 作备用。每一句互助频道都写日记。
-    local text, playerName, _, channelString, playerName2, _, _, _, channelBaseName = ...
-    local ok, err = pcall(function()
+    -- 参数可能是锁住的字。先整段包进保护里再读，避免一碰就中断、日记也写不出。
+    local ok, err = pcall(function(text, playerName, _, channelString, playerName2, _, _, channelIndex, channelBaseName)
       local function locked(v)
         return issecretvalue and issecretvalue(v)
       end
       local function readable(v)
         return type(v) == "string" and not locked(v)
       end
-      local ours = (readable(channelBaseName) and H:IsHzlChannelName(channelBaseName))
-        or (readable(channelString) and H:IsHzlChannelName(channelString))
-      local nameLocked = locked(channelBaseName) or locked(channelString)
-      local knownOther = (readable(channelBaseName) and not H:IsHzlChannelName(channelBaseName))
-        or (readable(channelString) and not H:IsHzlChannelName(channelString))
+      -- 按频道编号分开记心跳，避免大脚把互助的「有事件」挤掉
+      if H.IsForeverClient and H:IsForeverClient() and H.TraceIfChanged then
+        local idxKey = "ch-any-" .. H:DiaryBit(channelIndex, 8)
+        H:TraceIfChanged(
+          idxKey,
+          string.format(
+            "频道事件有 编号%s 名%s",
+            H:DiaryBit(channelIndex, 8),
+            H:DiaryBit(channelString or channelBaseName, 24)
+          )
+        )
+      end
       if H._probeUntil and H.Now and H:Now() < H._probeUntil and H.Trace then
         H:Trace(string.format(
-          "收试验 频道%s 短名%s 正文%s",
+          "收试验 频道%s 短名%s 编号%s 正文%s",
           H:DiaryBit(channelString, 30),
           H:DiaryBit(channelBaseName, 24),
+          H:DiaryBit(channelIndex, 8),
           H:DiaryBit(text, 24)
         ))
       end
-      local function note(how)
-        if H.Trace then
+      local handled = false
+      if H.HandleDiscoveryChannelChat then
+        handled = H:HandleDiscoveryChannelChat(
+          text,
+          playerName,
+          playerName2,
+          channelString,
+          channelBaseName,
+          channelIndex
+        )
+      end
+      if not handled then
+        local nameLocked = locked(channelBaseName) or locked(channelString)
+        local knownOther = (readable(channelBaseName) and not H:IsHzlChannelName(channelBaseName))
+          or (readable(channelString) and not H:IsHzlChannelName(channelString))
+        if nameLocked and not knownOther and H.Trace then
           H:Trace(string.format(
-            "收互助 频道%s 短名%s 正文%s 人%s 人2%s %s",
+            "收互助 频道%s 短名%s 正文%s 人%s 人2%s 认不出",
             H:DiaryBit(channelString, 30),
             H:DiaryBit(channelBaseName, 24),
             H:DiaryBit(text, 48),
             H:DiaryBit(playerName, 24),
-            H:DiaryBit(playerName2, 24),
-            how
+            H:DiaryBit(playerName2, 24)
           ))
-        end
-      end
-      if not ours and nameLocked and not knownOther then
-        note("认不出")
-      elseif ours and (locked(text) or locked(playerName) or locked(playerName2)) then
-        note("锁住不记")
-      elseif ours and readable(text) then
-        local speaker = (readable(playerName) and playerName) or (readable(playerName2) and playerName2)
-        -- 花名册：谁在互助频道说话就记下名字（再密语问位面）；短码仍走下面记同伴
-        if speaker and H.NoteChannelSpeaker and not (H.IsSelfName and H:IsSelfName(speaker)) then
-          H:NoteChannelSpeaker(speaker)
-        end
-        local addonMsg = nil
-        if text:sub(1, 6) == "HELLO|" then
-          addonMsg = text
-        elseif H.VisibleHelloToAddonMsg then
-          addonMsg = H:VisibleHelloToAddonMsg(text)
-        end
-        if not addonMsg then
-          note(speaker and "说话已记名" or "不是招呼")
-        elseif not speaker then
-          note("没说话人")
-        elseif H.IsSelfName and H:IsSelfName(speaker) then
-          note("自己不记")
-        else
-          note("交给记人")
-          H:OnAddonMessage(H.PREFIX, addonMsg, "CHANNEL", speaker)
         end
       end
       if H.OnPigChannelMessage
@@ -1808,7 +2063,7 @@ frame:SetScript("OnEvent", function(_, event, ...)
         and not locked(playerName2) and not locked(channelBaseName) then
         H:OnPigChannelMessage(text, playerName2 or playerName, channelBaseName)
       end
-    end)
+    end, ...)
     if not ok and H.Trace then
       H:Trace("收互助出错 " .. H:DiaryBit(err, 180))
     end
@@ -1847,22 +2102,16 @@ frame:SetScript("OnEvent", function(_, event, ...)
       end
     end)
   elseif event == "CHANNEL_UI_UPDATE" then
-    -- 房间已去掉。各版本都把「互助切位面」留在聊天窗口。掉线才补进。
+    -- 互助切位面不再使用。窗口刷新时再摘一次，避免又被勾回去。
     if H.RoomsEnabled and H:RoomsEnabled() then
       return
     end
+    if not (H.IsForeverClient and H:IsForeverClient()) then
+      return
+    end
     local function keepOrHide()
-      if not H:GetDiscoveryChannelId() then
-        H:EnsureDiscoveryChannel()
-        return
-      end
-      if H.ShowsDiscoveryChannel and H:ShowsDiscoveryChannel() then
-        H:ShowDiscoveryChannel()
-        if H.ClearDiscoveryChatSticky then
-          H:ClearDiscoveryChatSticky()
-        end
-      else
-        H:HideDiscoveryChannel()
+      if H.DropDiscoveryChannel then
+        H:DropDiscoveryChannel()
       end
     end
     pcall(keepOrHide)
@@ -1900,10 +2149,23 @@ frame:SetScript("OnEvent", function(_, event, ...)
     -- 闭包里不能写 ...，否则整文件加载失败、图标全没
     local prefix, msg, channel, sender = ...
     local ok, err = pcall(function()
-      local function locked(v)
-        return issecretvalue and issecretvalue(v)
+      local function take(v)
+        if type(v) == "string" and v ~= "" then
+          return v
+        end
+        if H.CoerceChatPersonName then
+          local s = H:CoerceChatPersonName(v)
+          if type(s) == "string" and s ~= "" then
+            return s
+          end
+        end
+        return nil
       end
-      if locked(prefix) or locked(msg) or locked(sender) then
+      local prefixS = take(prefix)
+      local msgS = (type(msg) == "string" and msg ~= "") and msg or take(msg)
+      local who = take(sender)
+      local channelS = (type(channel) == "string" and channel ~= "") and channel or take(channel)
+      if not prefixS or not msgS then
         if H.Trace then
           H:Trace(string.format(
             "收插件 前缀%s 正文%s 来路%s 谁%s 锁住",
@@ -1915,10 +2177,23 @@ frame:SetScript("OnEvent", function(_, event, ...)
         end
         return
       end
-      if prefix == H.PREFIX then
-        H:OnAddonMessage(prefix, msg, channel, sender)
-      elseif H.PIG_PREFIX and prefix == H.PIG_PREFIX and H.OnPigAddonMessage then
-        H:OnPigAddonMessage(msg, channel, sender)
+      if prefixS == H.PREFIX then
+        if not who or (H.IsChatPersonName and not H:IsChatPersonName(who)) then
+          if H.Trace then
+            H:Trace("收密文位面 人名认不出 " .. H:DiaryBit(who or sender, 40))
+          end
+          return
+        end
+        if H.Trace and channelS == "CHANNEL" and type(msgS) == "string" and msgS:sub(1, 6) == "HELLO|" then
+          H:Trace(string.format(
+            "收密文位面 来路CHANNEL 谁%s 正文%s",
+            H:DiaryBit(who, 24),
+            H:DiaryBit(msgS, 48)
+          ))
+        end
+        H:OnAddonMessage(prefixS, msgS, channelS or channel, who)
+      elseif H.PIG_PREFIX and prefixS == H.PIG_PREFIX and H.OnPigAddonMessage then
+        H:OnPigAddonMessage(msgS, channelS or channel, who or sender)
       end
     end)
     if not ok and H.Trace then

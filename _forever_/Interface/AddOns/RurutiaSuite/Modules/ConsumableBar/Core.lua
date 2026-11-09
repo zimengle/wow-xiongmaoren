@@ -30,12 +30,21 @@ local itemTooltip
 local TOOLTIP_BACKGROUND = { bgFile = "Interface\\Buttons\\WHITE8X8" }
 local TOOLTIP_BORDER = { 0, 0, 0, 1 }
 
+local function GetTooltipFont(region, fallback)
+    local path, size, flags = Call(region, "GetFont")
+    if path and size then return path, size, flags end
+    return Call(fallback, "GetFont")
+end
+
 local function StyleItemTooltip(tooltip)
     -- GameTooltipTemplate does not guarantee the standalone frame's strata.
     -- Explicitly stay above unit frames, including third-party player frames.
     Call(tooltip, "SetFrameStrata", "TOOLTIP")
     -- Read presentation only; never run public tooltip hooks or change its data.
-    Call(tooltip, "SetScale", Call(_G.GameTooltip, "GetScale") or 1)
+    local effectiveScale = Call(_G.GameTooltip, "GetEffectiveScale")
+    local parentScale = Call(Call(tooltip, "GetParent"), "GetEffectiveScale")
+    local scale = effectiveScale and parentScale and parentScale > 0 and effectiveScale / parentScale
+    Call(tooltip, "SetScale", scale or Call(_G.GameTooltip, "GetScale") or 1)
     Call(tooltip.NineSlice, "Hide")
     Call(tooltip, "SetBackdrop", TOOLTIP_BACKGROUND)
     Call(tooltip, "SetBackdropColor", 0, 0, 0, 0.95)
@@ -44,8 +53,8 @@ local function StyleItemTooltip(tooltip)
         tooltip.rsPixelBorder = tooltip.rsPixelBorder or border:Ensure(tooltip)
         border:Update(tooltip.rsPixelBorder, TOOLTIP_BORDER, true)
     end
-    local bodyFont, bodySize, bodyFlags = Call(_G.GameTooltipText, "GetFont")
-    local titleFont, titleSize, titleFlags = Call(_G.GameTooltipHeaderText, "GetFont")
+    local bodyFont, bodySize, bodyFlags = GetTooltipFont(_G.GameTooltipTextLeft2, _G.GameTooltipText)
+    local titleFont, titleSize, titleFlags = GetTooltipFont(_G.GameTooltipTextLeft1, _G.GameTooltipHeaderText)
     local customFont = ns.Font and ns.Font.GetName and ns.Font:GetName("tooltip") ~= "默认"
         and ns.Font:GetPath("tooltip") or nil
     bodyFont = customFont or bodyFont or Adapter:GetSystemFontPath()
@@ -450,7 +459,7 @@ function Definition:UpdateBar()
     end
     self.needsSecureRefresh = false
     self:CreateGroups()
-    local liveEnabled = self:ShouldRunLive() or (self.isUnlocked and not self.previewMode)
+    local liveEnabled = self:ShouldRunLive()
     for _, group in ipairs(Data.groups or {}) do
         local frame = self.groupFrames[group.key]
         if frame then
@@ -460,12 +469,12 @@ function Definition:UpdateBar()
                 HideFrame(frame.dragOverlay)
             else
                 local items = self.emptyItems
-                if liveEnabled and (self:IsGroupEnabled(group) or self.isUnlocked) then
+                if liveEnabled and self:IsGroupEnabled(group) then
                     items = self:GetVisibleItems(group, false)
                 end
                 self:LayoutGroup(frame, group, items)
                 self:ApplyGroupPosition(frame, group)
-                if #items > 0 then Call(frame, "Show") else HideFrame(frame) end
+                if #items > 0 or self.isUnlocked then Call(frame, "Show") else HideFrame(frame) end
                 if frame.preview then
                     HideFrame(frame.preview)
                     HideFrame(frame.preview.dragOverlay)
@@ -517,7 +526,7 @@ function Definition:RefreshVisuals()
                     and count > 0 and tostring(count) or "")
 
                 local owned = self:HasOwnedItem(info)
-                local visualOwned = info.kind == "categoryMenu" or (self.isUnlocked and not self.previewMode) or owned
+                local visualOwned = info.kind == "categoryMenu" or owned
                 local start, duration, _, cooldownActive =
                     self:GetSharedCooldown(info, self.sharedCooldownCache, generation)
                 if cooldownActive then
@@ -573,45 +582,36 @@ function Definition:ShowTooltip(button, previewContent)
     local info = button and button.customInfo
     if not info then return false end
     if button.isPreview and not previewContent then
-        local left, right = info.clicks and info.clicks.left, info.clicks and info.clicks.right
-        if left and right and left.type == "item" and right.type == "item" and left.id ~= right.id then
-            local shown = self:ShowTooltip(button, true)
-            if shown then
-                local tooltip = Adapter:GetTooltip()
-                Call(tooltip, "AddLine", "仅预览，不可使用", 0.6, 0.8, 1)
-                Adapter:PresentTooltip(tooltip)
+        local displayed
+        if info.poisonFamily or info.kind == "equipment" then
+            displayed = Adapter:ShowItemTooltip(button, info, self:GetDisplayItemID(info))
+            if displayed and info.poisonFamily then
+                Call(Adapter:GetTooltip(), "AddLine", "|cffffffff左：|r|cff00ff00主手|r")
+                Call(Adapter:GetTooltip(), "AddLine", "|cffffffff右：|r|cff00ff00副手|r")
             end
-            return shown
         end
-        local shown, tooltip
-        if info.kind ~= "categoryMenu" then
-            shown, tooltip = Adapter:ShowItemTooltip(button, info, self:GetDisplayItemID(info))
-        end
-        if shown then
-            if info.poisonFamily then Call(tooltip, "AddLine", "实际使用：左键主手，右键副手", 0.6, 0.8, 1) end
+        if not displayed then displayed = self:ShowTooltip(button, true) end
+        if displayed then
+            local tooltip = Adapter:GetTooltip()
             Call(tooltip, "AddLine", "仅预览，不可使用", 0.6, 0.8, 1)
             Adapter:PresentTooltip(tooltip)
-            return true
         end
-        local name = info.name or self:GetClickFallbackName(info, "left") or "消耗品"
-        return Adapter:ShowTooltip(button, "|cff" .. Adapter:GetClassColorHex() .. name .. (info.kind == "categoryMenu" and "类" or "") .. "|r"
-            .. "\n仅预览，不可使用")
+        return displayed
     end
     if info.kind == "categoryMenu" then
-        return Adapter:ShowTooltip(button, "|cff" .. Adapter:GetClassColorHex() .. info.name .. "类|r")
+        return Adapter:ShowTooltip(button, "|cff00ff00" .. info.name .. "类|r")
     elseif info.poisonFamily then
-        return Adapter:ShowTooltip(button, (info.name or "毒药")
-            .. "\n左：主手\n右：副手", self:GetDisplayItemID(info))
+        return Adapter:ShowTooltip(button, "|cffffffff" .. (info.name or "毒药") .. "|r"
+            .. "\n|cffffffff左：|r|cff00ff00主手|r\n|cffffffff右：|r|cff00ff00副手|r")
     end
     local left, right = info.clicks and info.clicks.left, info.clicks and info.clicks.right
-    if button.isCategoryItem or (not info.conjureSpellID and left and left.type == "item"
-        and (not right or (right.type == "item" and right.id == left.id))) then
+    if not info.splitActionTooltip and (button.isCategoryItem or (not info.conjureSpellID and left and left.type == "item"
+        and (not right or (right.type == "item" and right.id == left.id)))) then
         return (Adapter:ShowItemTooltip(button, info, self:GetDisplayItemID(info)))
     end
     local text = ""
     if info.kind == "equipment" then
-        return Adapter:ShowTooltip(button, "|cff" .. Adapter:GetClassColorHex() .. (info.name or "") .. "|r",
-            Adapter:GetInventoryItemID(info.slot))
+        return Adapter:ShowTooltip(button, "|cff00ff00" .. (info.name or "") .. "|r")
     end
     local leftName = self:GetClickName(
         info.clicks and info.clicks.left,
@@ -624,14 +624,11 @@ function Definition:ShowTooltip(button, previewContent)
     if info.conjureSpellID then rightName = "制造" .. info.name end
     local leftColor = info.clickColors and info.clickColors.left or info.color or "04f192"
     local rightColor = info.clickColors and info.clickColors.right or info.color or "04f192"
-    if leftName then text = "|cffffffff左键 · |r|cff" .. leftColor .. leftName .. "|r" end
+    if leftName then text = "|cffffffff左：|r|cff" .. leftColor .. leftName .. "|r" end
     if rightName and (rightName ~= leftName or (left and right and left.id ~= right.id)) then
-        text = text .. (text ~= "" and "\n" or "") .. "|cffffffff右键 · |r|cff" .. rightColor .. rightName .. "|r"
+        text = text .. (text ~= "" and "\n" or "") .. "|cffffffff右：|r|cff" .. rightColor .. rightName .. "|r"
     end
-    local itemIDs = {}
-    if left and left.type == "item" then itemIDs[#itemIDs + 1] = left.id end
-    if right and right.type == "item" and not info.conjureSpellID then itemIDs[#itemIDs + 1] = right.id end
-    return Adapter:ShowTooltip(button, text, itemIDs)
+    return Adapter:ShowTooltip(button, text)
 end
 
 ns.RegisterModule("ConsumableBar", Definition)

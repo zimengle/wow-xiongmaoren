@@ -44,3 +44,10 @@ Blizzard_ObjectiveTracker: enabled
 Blizzard_CompactRaidFrames: enabled
 !Swatter: disabled
 !ImprovedErrorFrame: disabled
+ConsolePort_Config: enabled
+ConsolePort_Rings: enabled
+ConsolePort_Menu: enabled
+ConsolePort_Target: enabled
+ConsolePort_World: enabled
+ConsolePort_Cursor: enabled
+ConsolePort_Bar: disabled

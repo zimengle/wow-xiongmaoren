@@ -332,7 +332,7 @@ function Definition:GetCategoryItems(group, preview)
     ClearArray(items)
     for _, category in ipairs(self.CATEGORIES) do
         local choices = buckets[category.key]
-        if (choices and #choices > 0) or preview or (self.isUnlocked and not self.previewMode) then
+        if (choices and #choices > 0) or preview then
             -- Empty bags need no category objects; allocate only categories actually shown.
             if not choices then choices = {}; buckets[category.key] = choices end
             local descriptor = cache.descriptors[category.key]
@@ -363,11 +363,10 @@ function Definition:GetVisibleItems(group, preview)
     local items = self[field][group.key]
     if not items then items = {}; self[field][group.key] = items end
     ClearArray(items)
-    local editing = preview or (self.isUnlocked and not self.previewMode)
     local healthIndex, healthstone
     local bandageIndex, bandage, bandageFallback
     local ownedOnly = self:GetProfile().ownedOnly
-    local firstAidRank = not editing and self.DATA.hasBandages and Adapter:GetFirstAidRank() or 0
+    local firstAidRank = not preview and self.DATA.hasBandages and Adapter:GetFirstAidRank() or 0
     for _, key in ipairs(group.items or {}) do
         local info = self.catalog[key]
         if info and self:IsItemEnabled(key) then
@@ -381,11 +380,11 @@ function Definition:GetVisibleItems(group, preview)
                 if not bandageFallback or info.bandageRank < bandageFallback.bandageRank then
                     bandageFallback = info
                 end
-                if (editing or (info.requiredSkillRank <= firstAidRank and self:HasOwnedItem(info)))
+                if (preview or (info.requiredSkillRank <= firstAidRank and self:HasOwnedItem(info)))
                     and (not bandage or info.bandageRank > bandage.bandageRank) then
                     bandage = info
                 end
-            elseif editing and info.kind == "healthstone" then
+            elseif preview and info.kind == "healthstone" then
                 if not healthIndex then
                     healthIndex = #items + 1
                     items[healthIndex] = info
@@ -394,7 +393,7 @@ function Definition:GetVisibleItems(group, preview)
                     healthstone = info
                     items[healthIndex] = info
                 end
-            elseif editing or not self:GetProfile().ownedOnly or self:HasOwnedItem(info) or self:CanConjure(info) then
+            elseif preview or not ownedOnly or self:HasOwnedItem(info) or self:CanConjure(info) then
                 items[#items + 1] = info
             end
         end

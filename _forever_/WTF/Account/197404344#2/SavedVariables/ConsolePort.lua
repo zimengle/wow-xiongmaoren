@@ -1,0 +1,825 @@
+
+ConsolePortSettings = {
+["moduleStateVersion"] = 1,
+["mvmtStrafeAngleTravel"] = 115,
+["mvmtStrafeAngleCombat"] = 115,
+["mvmtAnalog"] = true,
+["tutorialState"] = 14,
+}
+ConsolePortDevices = {
+["Xbox"] = {
+["Version"] = 3,
+["Active"] = true,
+["Generator"] = {
+["Center"] = {
+["PADFORWARD"] = {
+[""] = "TOGGLEGAMEMENU",
+["SHIFT-"] = "CLICK ConsolePortRaidCursorToggle:LeftButton",
+["CTRL-"] = "CAMERAZOOMOUT",
+["CTRL-SHIFT-"] = "CAMERAZOOMIN",
+},
+["PADBACK"] = {
+[""] = "OPENALLBAGS",
+["SHIFT-"] = "TOGGLECHARACTER0",
+["CTRL-"] = "TOGGLEWORLDMAP",
+["CTRL-SHIFT-"] = "TOGGLEAUTORUN",
+},
+},
+["Face"] = {
+["PADDDOWN"] = {
+[""] = "ACTIONBUTTON12",
+["SHIFT-"] = "MULTIACTIONBAR2BUTTON4",
+["CTRL-"] = "MULTIACTIONBAR2BUTTON8",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR2BUTTON12",
+},
+["PADDRIGHT"] = {
+[""] = "ACTIONBUTTON11",
+["SHIFT-"] = "MULTIACTIONBAR2BUTTON3",
+["CTRL-"] = "MULTIACTIONBAR2BUTTON7",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR2BUTTON11",
+},
+["PAD4"] = {
+[""] = "ACTIONBUTTON4",
+["SHIFT-"] = "ACTIONBUTTON7",
+["CTRL-"] = "MULTIACTIONBAR1BUTTON4",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR1BUTTON7",
+},
+["PAD2"] = {
+[""] = "ACTIONBUTTON5",
+["SHIFT-"] = "ACTIONBUTTON8",
+["CTRL-"] = "MULTIACTIONBAR1BUTTON5",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR1BUTTON8",
+},
+["PAD1"] = {
+[""] = "JUMP",
+["SHIFT-"] = "MULTIACTIONBAR1BUTTON9",
+["CTRL-"] = "CLICK ConsolePortQuickMenu:LeftButton",
+["CTRL-SHIFT-"] = "CLICK ConsolePortUtilityToggle:LeftButton",
+},
+["PAD3"] = {
+[""] = "ACTIONBUTTON3",
+["SHIFT-"] = "ACTIONBUTTON6",
+["CTRL-"] = "MULTIACTIONBAR1BUTTON3",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR1BUTTON6",
+},
+["PADDLEFT"] = {
+[""] = "ACTIONBUTTON9",
+["SHIFT-"] = "MULTIACTIONBAR2BUTTON1",
+["CTRL-"] = "MULTIACTIONBAR2BUTTON5",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR2BUTTON9",
+},
+["PADDUP"] = {
+[""] = "ACTIONBUTTON10",
+["SHIFT-"] = "MULTIACTIONBAR2BUTTON2",
+["CTRL-"] = "MULTIACTIONBAR2BUTTON6",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR2BUTTON10",
+},
+},
+["LeftHand"] = {
+["PADRTRIGGER"] = {
+[""] = "ACTIONBUTTON2",
+["SHIFT-"] = "MULTIACTIONBAR1BUTTON2",
+["CTRL-"] = "MULTIACTIONBAR1BUTTON10",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR1BUTTON12",
+},
+["PADLTRIGGER"] = {
+[""] = "TARGETNEARESTENEMY",
+["SHIFT-"] = "TARGETNEARESTFRIEND",
+},
+["PADRSHOULDER"] = {
+[""] = "ACTIONBUTTON1",
+["SHIFT-"] = "TARGETSCANENEMY",
+["CTRL-"] = "MULTIACTIONBAR1BUTTON1",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR1BUTTON11",
+},
+["PADLSHOULDER"] = {
+[""] = "INTERACTTARGET",
+["CTRL-"] = "TARGETPREVIOUSFRIEND",
+},
+},
+["Triggers"] = {
+["PADRTRIGGER"] = {
+[""] = "TARGETNEARESTENEMY",
+["SHIFT-"] = "TARGETNEARESTFRIEND",
+},
+["PADLSHOULDER"] = {
+[""] = "ACTIONBUTTON2",
+["SHIFT-"] = "MULTIACTIONBAR1BUTTON2",
+["CTRL-"] = "MULTIACTIONBAR1BUTTON10",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR1BUTTON12",
+},
+["PADRSHOULDER"] = {
+[""] = "ACTIONBUTTON1",
+["SHIFT-"] = "TARGETSCANENEMY",
+["CTRL-"] = "MULTIACTIONBAR1BUTTON1",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR1BUTTON11",
+},
+["PADLTRIGGER"] = {
+[""] = "INTERACTTARGET",
+["CTRL-"] = "TARGETPREVIOUSFRIEND",
+},
+},
+},
+["Name"] = "Xbox",
+},
+["PlayStation 4"] = {
+["Version"] = 5,
+["Generator"] = {
+["Center"] = {
+["PADFORWARD"] = {
+[""] = "TOGGLEWORLDMAP",
+["SHIFT-"] = "CAMERAZOOMOUT",
+["CTRL-"] = "CAMERAZOOMIN",
+},
+["PADSYSTEM"] = {
+[""] = "TOGGLEGAMEMENU",
+["SHIFT-"] = "CLICK ConsolePortRaidCursorToggle:LeftButton",
+["CTRL-"] = "TOGGLEAUTORUN",
+["CTRL-SHIFT-"] = "OPENCHAT",
+},
+["PADSOCIAL"] = {
+[""] = "OPENALLBAGS",
+["SHIFT-"] = "TOGGLECHARACTER0",
+["CTRL-"] = "TOGGLESPELLBOOK",
+["CTRL-SHIFT-"] = "TOGGLETALENTS",
+},
+},
+["Face"] = {
+["PADDDOWN"] = {
+[""] = "ACTIONBUTTON12",
+["SHIFT-"] = "MULTIACTIONBAR2BUTTON4",
+["CTRL-"] = "MULTIACTIONBAR2BUTTON8",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR2BUTTON12",
+},
+["PADDUP"] = {
+[""] = "ACTIONBUTTON10",
+["SHIFT-"] = "MULTIACTIONBAR2BUTTON2",
+["CTRL-"] = "MULTIACTIONBAR2BUTTON6",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR2BUTTON10",
+},
+["PAD4"] = {
+[""] = "ACTIONBUTTON4",
+["SHIFT-"] = "ACTIONBUTTON7",
+["CTRL-"] = "MULTIACTIONBAR1BUTTON4",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR1BUTTON7",
+},
+["PAD2"] = {
+[""] = "ACTIONBUTTON5",
+["SHIFT-"] = "ACTIONBUTTON8",
+["CTRL-"] = "MULTIACTIONBAR1BUTTON5",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR1BUTTON8",
+},
+["PAD1"] = {
+[""] = "JUMP",
+["SHIFT-"] = "MULTIACTIONBAR1BUTTON1",
+["CTRL-"] = "CLICK ConsolePortQuickMenu:LeftButton",
+["CTRL-SHIFT-"] = "CLICK ConsolePortUtilityToggle:LeftButton",
+},
+["PAD3"] = {
+[""] = "ACTIONBUTTON3",
+["SHIFT-"] = "ACTIONBUTTON6",
+["CTRL-"] = "MULTIACTIONBAR1BUTTON3",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR1BUTTON6",
+},
+["PADDRIGHT"] = {
+[""] = "ACTIONBUTTON11",
+["SHIFT-"] = "MULTIACTIONBAR2BUTTON3",
+["CTRL-"] = "MULTIACTIONBAR2BUTTON7",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR2BUTTON11",
+},
+["PADDLEFT"] = {
+[""] = "ACTIONBUTTON9",
+["SHIFT-"] = "MULTIACTIONBAR2BUTTON1",
+["CTRL-"] = "MULTIACTIONBAR2BUTTON5",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR2BUTTON9",
+},
+},
+["LeftHand"] = {
+["PADRTRIGGER"] = {
+[""] = "ACTIONBUTTON2",
+["SHIFT-"] = "MULTIACTIONBAR1BUTTON2",
+["CTRL-"] = "MULTIACTIONBAR1BUTTON10",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR1BUTTON12",
+},
+["PADLTRIGGER"] = {
+[""] = "TARGETNEARESTENEMY",
+["SHIFT-"] = "TARGETPREVIOUSFRIEND",
+},
+["PADRSHOULDER"] = {
+[""] = "ACTIONBUTTON1",
+["SHIFT-"] = "TARGETSCANENEMY",
+["CTRL-"] = "MULTIACTIONBAR1BUTTON9",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR1BUTTON11",
+},
+["PADLSHOULDER"] = {
+[""] = "INTERACTTARGET",
+["CTRL-"] = "TARGETNEARESTFRIEND",
+},
+},
+["Triggers"] = {
+["PADRTRIGGER"] = {
+[""] = "TARGETNEARESTENEMY",
+["SHIFT-"] = "TARGETNEARESTFRIEND",
+},
+["PADLSHOULDER"] = {
+[""] = "ACTIONBUTTON2",
+["SHIFT-"] = "MULTIACTIONBAR1BUTTON2",
+["CTRL-"] = "MULTIACTIONBAR1BUTTON10",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR1BUTTON12",
+},
+["PADRSHOULDER"] = {
+[""] = "ACTIONBUTTON1",
+["SHIFT-"] = "TARGETSCANENEMY",
+["CTRL-"] = "MULTIACTIONBAR1BUTTON9",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR1BUTTON11",
+},
+["PADLTRIGGER"] = {
+[""] = "INTERACTTARGET",
+["CTRL-"] = "TARGETPREVIOUSFRIEND",
+},
+},
+},
+["Name"] = "PlayStation 4",
+},
+["Steam Deck"] = {
+["Name"] = "Steam Deck",
+["Environment"] = {
+["Settings"] = {
+["emulatePADPADDLE1"] = "F1",
+["gameMenuFontSize"] = 16,
+["emulatePADPADDLE4"] = "F4",
+["keyboardAlwaysShow"] = true,
+["gameMenuScale"] = 0.75,
+["emulatePADPADDLE3"] = "F3",
+["emulatePADPADDLE2"] = "F2",
+},
+["Console"] = {
+["synchronizeBindings"] = 0,
+["HardwareCursor"] = 0,
+["synchronizeConfig"] = 0,
+},
+},
+["Generator"] = {
+["Center"] = {
+["PADFORWARD"] = {
+[""] = "TOGGLEGAMEMENU",
+["SHIFT-"] = "CLICK ConsolePortRaidCursorToggle:LeftButton",
+["CTRL-"] = "CAMERAZOOMOUT",
+["CTRL-SHIFT-"] = "CAMERAZOOMIN",
+},
+["PADBACK"] = {
+["CTRL-"] = "TOGGLEWORLDMAP",
+["SHIFT-"] = "OPENALLBAGS",
+["CTRL-SHIFT-"] = "TOGGLEAUTORUN",
+},
+},
+["Face"] = {
+["PADDDOWN"] = {
+[""] = "ACTIONBUTTON12",
+["SHIFT-"] = "MULTIACTIONBAR2BUTTON4",
+["CTRL-"] = "MULTIACTIONBAR2BUTTON8",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR2BUTTON12",
+},
+["PADDRIGHT"] = {
+[""] = "ACTIONBUTTON11",
+["SHIFT-"] = "MULTIACTIONBAR2BUTTON3",
+["CTRL-"] = "MULTIACTIONBAR2BUTTON7",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR2BUTTON11",
+},
+["PAD4"] = {
+[""] = "ACTIONBUTTON4",
+["SHIFT-"] = "ACTIONBUTTON7",
+["CTRL-"] = "MULTIACTIONBAR1BUTTON4",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR1BUTTON7",
+},
+["PAD2"] = {
+[""] = "ACTIONBUTTON5",
+["SHIFT-"] = "ACTIONBUTTON8",
+["CTRL-"] = "MULTIACTIONBAR1BUTTON5",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR1BUTTON8",
+},
+["PAD1"] = {
+[""] = "JUMP",
+["SHIFT-"] = "MULTIACTIONBAR1BUTTON9",
+["CTRL-"] = "CLICK ConsolePortQuickMenu:LeftButton",
+["CTRL-SHIFT-"] = "CLICK ConsolePortUtilityToggle:LeftButton",
+},
+["PAD3"] = {
+[""] = "ACTIONBUTTON3",
+["SHIFT-"] = "ACTIONBUTTON6",
+["CTRL-"] = "MULTIACTIONBAR1BUTTON3",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR1BUTTON6",
+},
+["PADDLEFT"] = {
+[""] = "ACTIONBUTTON9",
+["SHIFT-"] = "MULTIACTIONBAR2BUTTON1",
+["CTRL-"] = "MULTIACTIONBAR2BUTTON5",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR2BUTTON9",
+},
+["PADDUP"] = {
+[""] = "ACTIONBUTTON10",
+["SHIFT-"] = "MULTIACTIONBAR2BUTTON2",
+["CTRL-"] = "MULTIACTIONBAR2BUTTON6",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR2BUTTON10",
+},
+},
+["LeftHand"] = {
+["PADRTRIGGER"] = {
+[""] = "ACTIONBUTTON2",
+["SHIFT-"] = "MULTIACTIONBAR1BUTTON2",
+["CTRL-"] = "MULTIACTIONBAR1BUTTON10",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR1BUTTON12",
+},
+["PADLTRIGGER"] = {
+[""] = "TARGETNEARESTENEMY",
+["SHIFT-"] = "TARGETNEARESTFRIEND",
+},
+["PADRSHOULDER"] = {
+[""] = "ACTIONBUTTON1",
+["SHIFT-"] = "TARGETSCANENEMY",
+["CTRL-"] = "MULTIACTIONBAR1BUTTON1",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR1BUTTON11",
+},
+["PADLSHOULDER"] = {
+[""] = "INTERACTTARGET",
+["CTRL-"] = "TARGETPREVIOUSFRIEND",
+},
+},
+["Triggers"] = {
+["PADRTRIGGER"] = {
+[""] = "TARGETNEARESTENEMY",
+["SHIFT-"] = "TARGETNEARESTFRIEND",
+},
+["PADLSHOULDER"] = {
+[""] = "ACTIONBUTTON2",
+["SHIFT-"] = "MULTIACTIONBAR1BUTTON2",
+["CTRL-"] = "MULTIACTIONBAR1BUTTON10",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR1BUTTON12",
+},
+["PADRSHOULDER"] = {
+[""] = "ACTIONBUTTON1",
+["SHIFT-"] = "TARGETSCANENEMY",
+["CTRL-"] = "MULTIACTIONBAR1BUTTON1",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR1BUTTON11",
+},
+["PADLTRIGGER"] = {
+[""] = "INTERACTTARGET",
+["CTRL-"] = "TARGETPREVIOUSFRIEND",
+},
+},
+},
+["Version"] = 1,
+},
+["PlayStation 5"] = {
+["Version"] = 5,
+["Generator"] = {
+["Center"] = {
+["PADFORWARD"] = {
+[""] = "TOGGLEWORLDMAP",
+["SHIFT-"] = "CAMERAZOOMOUT",
+["CTRL-"] = "CAMERAZOOMIN",
+},
+["PADSYSTEM"] = {
+[""] = "TOGGLEGAMEMENU",
+["SHIFT-"] = "CLICK ConsolePortRaidCursorToggle:LeftButton",
+["CTRL-"] = "TOGGLEAUTORUN",
+["CTRL-SHIFT-"] = "OPENCHAT",
+},
+["PADSOCIAL"] = {
+[""] = "OPENALLBAGS",
+["SHIFT-"] = "TOGGLECHARACTER0",
+["CTRL-"] = "TOGGLESPELLBOOK",
+["CTRL-SHIFT-"] = "TOGGLETALENTS",
+},
+},
+["Face"] = {
+["PADDDOWN"] = {
+[""] = "ACTIONBUTTON12",
+["SHIFT-"] = "MULTIACTIONBAR2BUTTON4",
+["CTRL-"] = "MULTIACTIONBAR2BUTTON8",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR2BUTTON12",
+},
+["PADDUP"] = {
+[""] = "ACTIONBUTTON10",
+["SHIFT-"] = "MULTIACTIONBAR2BUTTON2",
+["CTRL-"] = "MULTIACTIONBAR2BUTTON6",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR2BUTTON10",
+},
+["PAD4"] = {
+[""] = "ACTIONBUTTON4",
+["SHIFT-"] = "ACTIONBUTTON7",
+["CTRL-"] = "MULTIACTIONBAR1BUTTON4",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR1BUTTON7",
+},
+["PAD2"] = {
+[""] = "ACTIONBUTTON5",
+["SHIFT-"] = "ACTIONBUTTON8",
+["CTRL-"] = "MULTIACTIONBAR1BUTTON5",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR1BUTTON8",
+},
+["PAD1"] = {
+[""] = "JUMP",
+["SHIFT-"] = "MULTIACTIONBAR1BUTTON1",
+["CTRL-"] = "CLICK ConsolePortQuickMenu:LeftButton",
+["CTRL-SHIFT-"] = "CLICK ConsolePortUtilityToggle:LeftButton",
+},
+["PAD3"] = {
+[""] = "ACTIONBUTTON3",
+["SHIFT-"] = "ACTIONBUTTON6",
+["CTRL-"] = "MULTIACTIONBAR1BUTTON3",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR1BUTTON6",
+},
+["PADDRIGHT"] = {
+[""] = "ACTIONBUTTON11",
+["SHIFT-"] = "MULTIACTIONBAR2BUTTON3",
+["CTRL-"] = "MULTIACTIONBAR2BUTTON7",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR2BUTTON11",
+},
+["PADDLEFT"] = {
+[""] = "ACTIONBUTTON9",
+["SHIFT-"] = "MULTIACTIONBAR2BUTTON1",
+["CTRL-"] = "MULTIACTIONBAR2BUTTON5",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR2BUTTON9",
+},
+},
+["LeftHand"] = {
+["PADRTRIGGER"] = {
+[""] = "ACTIONBUTTON2",
+["SHIFT-"] = "MULTIACTIONBAR1BUTTON2",
+["CTRL-"] = "MULTIACTIONBAR1BUTTON10",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR1BUTTON12",
+},
+["PADLTRIGGER"] = {
+[""] = "TARGETNEARESTENEMY",
+["SHIFT-"] = "TARGETPREVIOUSFRIEND",
+},
+["PADRSHOULDER"] = {
+[""] = "ACTIONBUTTON1",
+["SHIFT-"] = "TARGETSCANENEMY",
+["CTRL-"] = "MULTIACTIONBAR1BUTTON9",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR1BUTTON11",
+},
+["PADLSHOULDER"] = {
+[""] = "INTERACTTARGET",
+["CTRL-"] = "TARGETNEARESTFRIEND",
+},
+},
+["Triggers"] = {
+["PADRTRIGGER"] = {
+[""] = "TARGETNEARESTENEMY",
+["SHIFT-"] = "TARGETNEARESTFRIEND",
+},
+["PADLSHOULDER"] = {
+[""] = "ACTIONBUTTON2",
+["SHIFT-"] = "MULTIACTIONBAR1BUTTON2",
+["CTRL-"] = "MULTIACTIONBAR1BUTTON10",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR1BUTTON12",
+},
+["PADRSHOULDER"] = {
+[""] = "ACTIONBUTTON1",
+["SHIFT-"] = "TARGETSCANENEMY",
+["CTRL-"] = "MULTIACTIONBAR1BUTTON9",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR1BUTTON11",
+},
+["PADLTRIGGER"] = {
+[""] = "INTERACTTARGET",
+["CTRL-"] = "TARGETPREVIOUSFRIEND",
+},
+},
+},
+["Name"] = "PlayStation 5",
+},
+["Nintendo Switch Pro"] = {
+["Version"] = 1,
+["Generator"] = {
+["Center"] = {
+["PADSOCIAL"] = {
+[""] = "CLICK ConsolePortRaidCursorToggle:LeftButton",
+["SHIFT-"] = "CLICK ConsolePortUnit:player",
+["CTRL-"] = "CLICK ConsolePortUnit:target",
+["CTRL-SHIFT-"] = "OPENCHAT",
+},
+["PADFORWARD"] = {
+[""] = "TOGGLEGAMEMENU",
+["SHIFT-"] = "TOGGLESPELLBOOK",
+["CTRL-"] = "CAMERAZOOMIN",
+["CTRL-SHIFT-"] = "MINIMAPZOOMIN",
+},
+["PADSYSTEM"] = {
+[""] = "TOGGLETALENTS",
+["SHIFT-"] = "TOGGLECHARACTER0",
+["CTRL-"] = "TOGGLEAUTORUN",
+["CTRL-SHIFT-"] = "FLIPCAMERAYAW",
+},
+["PADBACK"] = {
+[""] = "TOGGLEWORLDMAP",
+["SHIFT-"] = "OPENALLBAGS",
+["CTRL-"] = "CAMERAZOOMOUT",
+["CTRL-SHIFT-"] = "MINIMAPZOOMOUT",
+},
+},
+["Face"] = {
+["PADDDOWN"] = {
+[""] = "ACTIONBUTTON12",
+["SHIFT-"] = "MULTIACTIONBAR2BUTTON4",
+["CTRL-"] = "MULTIACTIONBAR2BUTTON8",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR2BUTTON12",
+},
+["PADDRIGHT"] = {
+[""] = "ACTIONBUTTON11",
+["SHIFT-"] = "MULTIACTIONBAR2BUTTON3",
+["CTRL-"] = "MULTIACTIONBAR2BUTTON7",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR2BUTTON11",
+},
+["PAD4"] = {
+[""] = "ACTIONBUTTON4",
+["SHIFT-"] = "ACTIONBUTTON7",
+["CTRL-"] = "MULTIACTIONBAR1BUTTON4",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR1BUTTON7",
+},
+["PAD2"] = {
+[""] = "ACTIONBUTTON5",
+["SHIFT-"] = "ACTIONBUTTON8",
+["CTRL-"] = "MULTIACTIONBAR1BUTTON5",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR1BUTTON8",
+},
+["PAD1"] = {
+[""] = "JUMP",
+["SHIFT-"] = "MULTIACTIONBAR1BUTTON9",
+["CTRL-"] = "CLICK ConsolePortQuickMenu:LeftButton",
+["CTRL-SHIFT-"] = "CLICK ConsolePortUtilityToggle:LeftButton",
+},
+["PAD3"] = {
+[""] = "ACTIONBUTTON3",
+["SHIFT-"] = "ACTIONBUTTON6",
+["CTRL-"] = "MULTIACTIONBAR1BUTTON3",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR1BUTTON6",
+},
+["PADDLEFT"] = {
+[""] = "ACTIONBUTTON9",
+["SHIFT-"] = "MULTIACTIONBAR2BUTTON1",
+["CTRL-"] = "MULTIACTIONBAR2BUTTON5",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR2BUTTON9",
+},
+["PADDUP"] = {
+[""] = "ACTIONBUTTON10",
+["SHIFT-"] = "MULTIACTIONBAR2BUTTON2",
+["CTRL-"] = "MULTIACTIONBAR2BUTTON6",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR2BUTTON10",
+},
+},
+["LeftHand"] = {
+["PADRTRIGGER"] = {
+[""] = "ACTIONBUTTON2",
+["SHIFT-"] = "MULTIACTIONBAR1BUTTON2",
+["CTRL-"] = "MULTIACTIONBAR1BUTTON10",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR1BUTTON12",
+},
+["PADLTRIGGER"] = {
+[""] = "TARGETNEARESTENEMY",
+["SHIFT-"] = "TARGETNEARESTFRIEND",
+},
+["PADRSHOULDER"] = {
+[""] = "ACTIONBUTTON1",
+["SHIFT-"] = "TARGETSCANENEMY",
+["CTRL-"] = "MULTIACTIONBAR1BUTTON1",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR1BUTTON11",
+},
+["PADLSHOULDER"] = {
+[""] = "INTERACTTARGET",
+["CTRL-"] = "TARGETPREVIOUSFRIEND",
+},
+},
+["Triggers"] = {
+["PADRTRIGGER"] = {
+[""] = "TARGETNEARESTENEMY",
+["SHIFT-"] = "TARGETNEARESTFRIEND",
+},
+["PADLSHOULDER"] = {
+[""] = "ACTIONBUTTON2",
+["SHIFT-"] = "MULTIACTIONBAR1BUTTON2",
+["CTRL-"] = "MULTIACTIONBAR1BUTTON10",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR1BUTTON12",
+},
+["PADRSHOULDER"] = {
+[""] = "ACTIONBUTTON1",
+["SHIFT-"] = "TARGETSCANENEMY",
+["CTRL-"] = "MULTIACTIONBAR1BUTTON1",
+["CTRL-SHIFT-"] = "MULTIACTIONBAR1BUTTON11",
+},
+["PADLTRIGGER"] = {
+[""] = "INTERACTTARGET",
+["CTRL-"] = "TARGETPREVIOUSFRIEND",
+},
+},
+},
+["Name"] = "Nintendo Switch Pro",
+},
+}
+ConsolePortShared = {
+["重庆 智能体 (萨满祭司) CN5 Realm 3 PvP"] = {
+["Meta"] = {
+["Type"] = "Xbox",
+["Name"] = "重庆 智能体",
+["Class"] = "SHAMAN",
+["Icon"] = 7,
+["Spec"] = 7,
+},
+["Bindings"] = {
+["PADLSTICKDOWN"] = {
+["CTRL-"] = "",
+["SHIFT-"] = "",
+[""] = "",
+["CTRL-SHIFT-"] = "",
+},
+["PADLSTICKUP"] = {
+["CTRL-"] = "",
+["SHIFT-"] = "",
+[""] = "",
+["CTRL-SHIFT-"] = "",
+},
+["PADPADDLE1"] = {
+["CTRL-"] = "",
+["SHIFT-"] = "",
+[""] = "",
+["CTRL-SHIFT-"] = "",
+},
+["PADSYSTEM"] = {
+["CTRL-"] = "",
+["SHIFT-"] = "",
+[""] = "",
+["CTRL-SHIFT-"] = "",
+},
+["PADRTRIGGER"] = {
+["CTRL-"] = "",
+["SHIFT-"] = "",
+[""] = "",
+["CTRL-SHIFT-"] = "",
+},
+["PADFORWARD"] = {
+["CTRL-"] = "",
+["SHIFT-"] = "",
+[""] = "INTERACTTARGET",
+["CTRL-SHIFT-"] = "",
+},
+["PADRSTICKUP"] = {
+["CTRL-"] = "",
+["SHIFT-"] = "",
+[""] = "",
+["CTRL-SHIFT-"] = "",
+},
+["PADLTRIGGER"] = {
+["CTRL-"] = "",
+["SHIFT-"] = "",
+[""] = "",
+["CTRL-SHIFT-"] = "",
+},
+["PADDDOWN"] = {
+["CTRL-"] = "",
+["SHIFT-"] = "",
+[""] = "",
+["CTRL-SHIFT-"] = "",
+},
+["PADRSTICKRIGHT"] = {
+["CTRL-"] = "",
+["SHIFT-"] = "",
+[""] = "",
+["CTRL-SHIFT-"] = "",
+},
+["PAD4"] = {
+["CTRL-"] = "",
+["SHIFT-"] = "ACTIONBUTTON2",
+[""] = "",
+["CTRL-SHIFT-"] = "",
+},
+["PADSOCIAL"] = {
+["CTRL-"] = "",
+["SHIFT-"] = "",
+[""] = "",
+["CTRL-SHIFT-"] = "",
+},
+["PADDRIGHT"] = {
+["CTRL-"] = "",
+["SHIFT-"] = "",
+[""] = "",
+["CTRL-SHIFT-"] = "",
+},
+["PADDLEFT"] = {
+["CTRL-"] = "",
+["SHIFT-"] = "",
+[""] = "",
+["CTRL-SHIFT-"] = "",
+},
+["PADLSTICKLEFT"] = {
+["CTRL-"] = "",
+["SHIFT-"] = "",
+[""] = "",
+["CTRL-SHIFT-"] = "",
+},
+["PADBACK"] = {
+["CTRL-"] = "",
+["SHIFT-"] = "",
+[""] = "TOGGLEWORLDMAP",
+["CTRL-SHIFT-"] = "",
+},
+["PADLSTICK"] = {
+["CTRL-"] = "",
+["SHIFT-"] = "",
+[""] = "TOGGLEAUTORUN",
+["CTRL-SHIFT-"] = "",
+},
+["PADRSTICK"] = {
+["CTRL-"] = "",
+["SHIFT-"] = "",
+[""] = "MULTIACTIONBAR1BUTTON12",
+["CTRL-SHIFT-"] = "",
+},
+["PADPADDLE3"] = {
+["CTRL-"] = "",
+["SHIFT-"] = "",
+[""] = "",
+["CTRL-SHIFT-"] = "",
+},
+["PAD5"] = {
+["CTRL-"] = "",
+["SHIFT-"] = "",
+[""] = "",
+["CTRL-SHIFT-"] = "",
+},
+["PAD1"] = {
+["CTRL-"] = "",
+["SHIFT-"] = "ACTIONBUTTON4",
+[""] = "JUMP",
+["CTRL-SHIFT-"] = "",
+},
+["PADPADDLE2"] = {
+["CTRL-"] = "",
+["SHIFT-"] = "",
+[""] = "",
+["CTRL-SHIFT-"] = "",
+},
+["PADPADDLE4"] = {
+["CTRL-"] = "",
+["SHIFT-"] = "",
+[""] = "",
+["CTRL-SHIFT-"] = "",
+},
+["PADRSTICKLEFT"] = {
+["CTRL-"] = "",
+["SHIFT-"] = "",
+[""] = "",
+["CTRL-SHIFT-"] = "",
+},
+["PADDUP"] = {
+["CTRL-"] = "",
+["SHIFT-"] = "",
+[""] = "",
+["CTRL-SHIFT-"] = "",
+},
+["PADRSTICKDOWN"] = {
+["CTRL-"] = "",
+["SHIFT-"] = "",
+[""] = "",
+["CTRL-SHIFT-"] = "",
+},
+["PADRSHOULDER"] = {
+["CTRL-"] = "",
+["SHIFT-"] = "",
+[""] = "",
+["CTRL-SHIFT-"] = "",
+},
+["PADLSHOULDER"] = {
+["CTRL-"] = "",
+["SHIFT-"] = "",
+[""] = "TARGETNEARESTENEMY",
+["CTRL-SHIFT-"] = "",
+},
+["PAD6"] = {
+["CTRL-"] = "",
+["SHIFT-"] = "",
+[""] = "",
+["CTRL-SHIFT-"] = "",
+},
+["PAD3"] = {
+["CTRL-"] = "",
+["SHIFT-"] = "ACTIONBUTTON1",
+[""] = "MULTIACTIONBAR1BUTTON11",
+["CTRL-SHIFT-"] = "",
+},
+["PAD2"] = {
+["CTRL-"] = "",
+["SHIFT-"] = "ACTIONBUTTON3",
+[""] = "",
+["CTRL-SHIFT-"] = "",
+},
+["PADLSTICKRIGHT"] = {
+["CTRL-"] = "",
+["SHIFT-"] = "",
+[""] = "",
+["CTRL-SHIFT-"] = "",
+},
+},
+},
+}
+ConsolePortBindingIcons = {
+}

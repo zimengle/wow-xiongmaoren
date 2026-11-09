@@ -7,14 +7,42 @@ RS.Presentation.ChangelogData = RS.Presentation.ChangelogData or {}
 if buildID == "classic-infinite" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-infinite",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:fcc5191ac3428d85c1e2cd737abc5dcd2b8fb0f4ce7669d08a8976c6d72fd79b",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:feaec25b6fb2f916250b216a33c9ea59f8468d64e341c09de6b103103ebf964d",
         historySourceId = "none:forever-product-starts-at-4.x",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.7.7",
-            date = "2026-11-07",
-            noticeKey = "4.7.7:37e58d1a6fb7fd65174d",
-            content = [=[%sv4.7.7（2026-11-07）|r
+            version = "4.7.9",
+            date = "2026-11-08",
+            noticeKey = "4.7.9:8bd7391ae2b7fdeb3856",
+            content = [=[%sv4.7.9（2026-11-08）|r
+
+%s[Elles 聊天框]|r
+• 加深输入框背景，修复其他聊天窗口缺少背景的问题。
+
+%s[消耗品动作条]|r
+• 解锁移动时保留实际布局，空组显示可拖动的占位框。
+• 提示字号跟随界面，移除额外的背包数量和物品 ID。
+• 消耗品与法师传送门统一用「左」「右」标注操作。
+• 缩小药水组的默认按钮尺寸。
+• 法力宝石按左、右两行显示物品与制造操作。
+
+%s[法师传送门]|r
+• 传送按钮的默认位置向右上方微调。
+
+%s[职业提醒]|r
+• 新增牧师耐力和德鲁伊爪子的缺失提醒。
+• 法师新增独立奥冲图标，层数和倒计时使用露露字体。
+• 输入 /rsm 可预览和移动奥冲图标，默认与玩家框体左侧对齐。
+
+%sv4.7.8（2026-11-07）|r
+
+%s[消耗品动作条]|r
+• 卷轴组，新增八种法师卷轴，包括武器注入、变形术和魔宠卷轴。
+
+%s[法师传送]|r
+• 主图标显示传送门符文数量，提示分别显示两种符文的背包数量。
+
+%sv4.7.7（2026-11-07）|r
 
 %s[暴雪界面增强]|r
 • 商人界面，拓展与搜索可独立开关，支持 Elles 接管布局。
@@ -804,14 +832,29 @@ end
 if buildID == "classic-era" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-era",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:fcc5191ac3428d85c1e2cd737abc5dcd2b8fb0f4ce7669d08a8976c6d72fd79b",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:feaec25b6fb2f916250b216a33c9ea59f8468d64e341c09de6b103103ebf964d",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.7.0",
-            date = "2026-10-29",
-            noticeKey = "4.7.0:b4924d22ae2042ca84be",
-            content = [=[%sv4.7.0（2026-10-29）|r
+            version = "4.7.9",
+            date = "2026-11-08",
+            noticeKey = "4.7.9:78248254aff300a68e2d",
+            content = [=[%sv4.7.9（2026-11-08）|r
+
+%s[Elles 聊天框]|r
+• 加深输入框背景，修复其他聊天窗口缺少背景的问题。
+
+%s[消耗品动作条]|r
+• 解锁移动时保留实际布局，空组显示可拖动的占位框。
+• 提示字号跟随界面，移除额外的背包数量和物品 ID。
+• 消耗品与法师传送门统一用「左」「右」标注操作。
+
+%sv4.7.8（2026-11-07）|r
+
+%s[法师传送]|r
+• 主图标显示传送门符文数量，提示分别显示两种符文的背包数量。
+
+%sv4.7.0（2026-10-29）|r
 
 %s[小地图收纳]|r
 • 修复战斗中无法展开、进入战斗自动收起的问题。
@@ -1367,14 +1410,24 @@ end
 if buildID == "classic-anniversary" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-anniversary",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:fcc5191ac3428d85c1e2cd737abc5dcd2b8fb0f4ce7669d08a8976c6d72fd79b",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:feaec25b6fb2f916250b216a33c9ea59f8468d64e341c09de6b103103ebf964d",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.7.0",
-            date = "2026-10-29",
-            noticeKey = "4.7.0:b4924d22ae2042ca84be",
-            content = [=[%sv4.7.0（2026-10-29）|r
+            version = "4.7.9",
+            date = "2026-11-08",
+            noticeKey = "4.7.9:78248254aff300a68e2d",
+            content = [=[%sv4.7.9（2026-11-08）|r
+
+%s[Elles 聊天框]|r
+• 加深输入框背景，修复其他聊天窗口缺少背景的问题。
+
+%s[消耗品动作条]|r
+• 解锁移动时保留实际布局，空组显示可拖动的占位框。
+• 提示字号跟随界面，移除额外的背包数量和物品 ID。
+• 消耗品与法师传送门统一用「左」「右」标注操作。
+
+%sv4.7.0（2026-10-29）|r
 
 %s[小地图收纳]|r
 • 修复战斗中无法展开、进入战斗自动收起的问题。
@@ -1935,14 +1988,29 @@ end
 if buildID == "classic-wrath-legacy" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-wrath-legacy",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:fcc5191ac3428d85c1e2cd737abc5dcd2b8fb0f4ce7669d08a8976c6d72fd79b",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:feaec25b6fb2f916250b216a33c9ea59f8468d64e341c09de6b103103ebf964d",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.7.0",
-            date = "2026-10-29",
-            noticeKey = "4.7.0:b4924d22ae2042ca84be",
-            content = [=[%sv4.7.0（2026-10-29）|r
+            version = "4.7.9",
+            date = "2026-11-08",
+            noticeKey = "4.7.9:78248254aff300a68e2d",
+            content = [=[%sv4.7.9（2026-11-08）|r
+
+%s[Elles 聊天框]|r
+• 加深输入框背景，修复其他聊天窗口缺少背景的问题。
+
+%s[消耗品动作条]|r
+• 解锁移动时保留实际布局，空组显示可拖动的占位框。
+• 提示字号跟随界面，移除额外的背包数量和物品 ID。
+• 消耗品与法师传送门统一用「左」「右」标注操作。
+
+%sv4.7.8（2026-11-07）|r
+
+%s[法师传送]|r
+• 主图标显示传送门符文数量，提示分别显示两种符文的背包数量。
+
+%sv4.7.0（2026-10-29）|r
 
 %s[小地图收纳]|r
 • 修复战斗中无法展开、进入战斗自动收起的问题。
@@ -2487,14 +2555,24 @@ end
 if buildID == "classic-cata-legacy" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-cata-legacy",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:fcc5191ac3428d85c1e2cd737abc5dcd2b8fb0f4ce7669d08a8976c6d72fd79b",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:feaec25b6fb2f916250b216a33c9ea59f8468d64e341c09de6b103103ebf964d",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.7.0",
-            date = "2026-10-29",
-            noticeKey = "4.7.0:b4924d22ae2042ca84be",
-            content = [=[%sv4.7.0（2026-10-29）|r
+            version = "4.7.9",
+            date = "2026-11-08",
+            noticeKey = "4.7.9:78248254aff300a68e2d",
+            content = [=[%sv4.7.9（2026-11-08）|r
+
+%s[Elles 聊天框]|r
+• 加深输入框背景，修复其他聊天窗口缺少背景的问题。
+
+%s[消耗品动作条]|r
+• 解锁移动时保留实际布局，空组显示可拖动的占位框。
+• 提示字号跟随界面，移除额外的背包数量和物品 ID。
+• 消耗品与法师传送门统一用「左」「右」标注操作。
+
+%sv4.7.0（2026-10-29）|r
 
 %s[小地图收纳]|r
 • 修复战斗中无法展开、进入战斗自动收起的问题。
@@ -3049,14 +3127,24 @@ end
 if buildID == "classic-mists" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-mists",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:fcc5191ac3428d85c1e2cd737abc5dcd2b8fb0f4ce7669d08a8976c6d72fd79b",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:feaec25b6fb2f916250b216a33c9ea59f8468d64e341c09de6b103103ebf964d",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.7.0",
-            date = "2026-10-29",
-            noticeKey = "4.7.0:b4924d22ae2042ca84be",
-            content = [=[%sv4.7.0（2026-10-29）|r
+            version = "4.7.9",
+            date = "2026-11-08",
+            noticeKey = "4.7.9:78248254aff300a68e2d",
+            content = [=[%sv4.7.9（2026-11-08）|r
+
+%s[Elles 聊天框]|r
+• 加深输入框背景，修复其他聊天窗口缺少背景的问题。
+
+%s[消耗品动作条]|r
+• 解锁移动时保留实际布局，空组显示可拖动的占位框。
+• 提示字号跟随界面，移除额外的背包数量和物品 ID。
+• 消耗品与法师传送门统一用「左」「右」标注操作。
+
+%sv4.7.0（2026-10-29）|r
 
 %s[小地图收纳]|r
 • 修复战斗中无法展开、进入战斗自动收起的问题。
@@ -3622,14 +3710,29 @@ end
 if buildID == "classic-titan" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-titan",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:fcc5191ac3428d85c1e2cd737abc5dcd2b8fb0f4ce7669d08a8976c6d72fd79b",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:feaec25b6fb2f916250b216a33c9ea59f8468d64e341c09de6b103103ebf964d",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.7.0",
-            date = "2026-10-29",
-            noticeKey = "4.7.0:b4924d22ae2042ca84be",
-            content = [=[%sv4.7.0（2026-10-29）|r
+            version = "4.7.9",
+            date = "2026-11-08",
+            noticeKey = "4.7.9:78248254aff300a68e2d",
+            content = [=[%sv4.7.9（2026-11-08）|r
+
+%s[Elles 聊天框]|r
+• 加深输入框背景，修复其他聊天窗口缺少背景的问题。
+
+%s[消耗品动作条]|r
+• 解锁移动时保留实际布局，空组显示可拖动的占位框。
+• 提示字号跟随界面，移除额外的背包数量和物品 ID。
+• 消耗品与法师传送门统一用「左」「右」标注操作。
+
+%sv4.7.8（2026-11-07）|r
+
+%s[法师传送]|r
+• 主图标显示传送门符文数量，提示分别显示两种符文的背包数量。
+
+%sv4.7.0（2026-10-29）|r
 
 %s[小地图收纳]|r
 • 修复战斗中无法展开、进入战斗自动收起的问题。

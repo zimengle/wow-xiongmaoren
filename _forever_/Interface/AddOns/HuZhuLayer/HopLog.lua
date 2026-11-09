@@ -1,6 +1,7 @@
 local H = HuZhuLayer
 
--- 求切/换线详细日记：本机 SavedVariables，供复盘位面规则
+-- 2026-11-08 Tyler：日志关闭。除非他再次明确要求开启，不要改回 true。
+H.LOG_ON = false
 H.HOP_LOG_MAX = 8000
 
 function H:HopLogZoneText()
@@ -26,7 +27,7 @@ function H:BeginHopLogSession(targetRaw)
 end
 
 function H:HopLog(ev, fields)
-  if not self.db then
+  if not self.LOG_ON or not self.db then
     return
   end
   fields = fields or {}
@@ -71,7 +72,7 @@ function H:HopLog(ev, fields)
 end
 
 function H:Trace(why, fields)
-  if not why then
+  if not self.LOG_ON or not why then
     return
   end
   fields = fields or {}
@@ -99,7 +100,7 @@ function H:DiaryBit(v, limit)
 end
 
 function H:TraceIfChanged(key, why)
-  if not key or not why then
+  if not self.LOG_ON or not key or not why then
     return
   end
   self._traceLast = self._traceLast or {}

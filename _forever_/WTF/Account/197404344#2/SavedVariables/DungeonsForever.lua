@@ -8,6 +8,36 @@ DungeonsForeverDB = {
 },
 ["DungeonsForeverGearDBMoved"] = true,
 ["ui"] = {
+["zoneHint"] = {
+["bag"] = true,
+["voice"] = false,
+["blacklist"] = {
+},
+["orb"] = {
+["rp"] = "RIGHT",
+["p"] = "RIGHT",
+["x"] = -574.48291015625,
+["y"] = 263.6017150878906,
+},
+["mode"] = "auto",
+["quest"] = true,
+["spell"] = true,
+["dur"] = 12,
+["food"] = true,
+["turnin"] = true,
+["onlyTodo"] = false,
+["on"] = true,
+["book"] = true,
+["ignore"] = {
+},
+["voiceInit"] = true,
+["foodVoice"] = true,
+["icon"] = 32,
+["torch"] = true,
+["banner"] = true,
+["rested"] = true,
+["restedVoice"] = true,
+},
 ["tip"] = {
 ["bis"] = false,
 ["src"] = false,
@@ -26,10 +56,10 @@ DungeonsForeverDB = {
 },
 ["scale"] = 115,
 ["window"] = {
-["y"] = 36.65214538574219,
+["y"] = 49.97885131835938,
 ["relPoint"] = "CENTER",
 ["point"] = "CENTER",
-["x"] = -67.6962661743164,
+["x"] = -94.34968566894531,
 },
 ["quick"] = {
 ["ver"] = 1,
@@ -54,8 +84,8 @@ DungeonsForeverDB = {
 ["books"] = true,
 ["bag"] = true,
 },
-["profMode"] = "learned",
 ["on"] = true,
+["profMode"] = "learned",
 },
 ["lootFilter"] = {
 ["ver"] = 3,
@@ -460,15 +490,15 @@ DungeonsForeverDB = {
 ["size"] = 18,
 ["world"] = false,
 },
-["subTab"] = "Bis",
+["subTab"] = "Dungeons",
 },
 ["iconRingMode"] = "glow",
-["dfRevealLog"] = "89/89 14ms",
+["dfRevealLog"] = "91/91 11ms",
 ["vendorPrices"] = {
 },
+["svVersion"] = 3,
 ["raid"] = {
 ["tab"] = "timeline",
 ["setFilter"] = "MAGE",
 },
-["svVersion"] = 3,
 }

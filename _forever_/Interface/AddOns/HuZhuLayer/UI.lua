@@ -395,7 +395,9 @@ function H:InitUI()
   -- 小节标题金色，人名白字
   local thanksGold = "|cffffd100"
   local thanksReset = "|r"
-  thanksBody:SetText(table.concat({
+  local foreverUi = H.IsForeverClient and H:IsForeverClient()
+  local explain = foreverUi and "因暴雪限制，本插件目前仅支持 同公会 玩家互相帮忙切换位面，同公会使用本插件的人越多，可切换的位面也就越多，作者会持续关注政策限制，祝您游戏愉快。\n\n" or ""
+  thanksBody:SetText(explain .. table.concat({
     thanksGold .. "参与测试：" .. thanksReset,
     "爱吃小丸子",
     "桀少不单飞",
@@ -432,7 +434,7 @@ function H:InitUI()
   settings:SetScript("OnMouseWheel", thanksWheel)
   f.thanksScroll = thanksScroll
 
-  local thanksBtn = NewHeaderTextBtn(f, "感谢", function()
+  local thanksBtn = NewHeaderTextBtn(f, (H.IsForeverClient and H:IsForeverClient()) and "说明" or "感谢", function()
     if settings:IsShown() then
       settings:Hide()
     else
@@ -703,6 +705,10 @@ function H:ApplyPanelInbound(job)
     local peer = self.db.peers and self.db.peers[d.sender]
     if peer then
       peer.hzl = true
+      if d.imap ~= nil then
+        local imap = tonumber(d.imap) or 0
+        peer.imap = imap > 0 and imap or nil
+      end
     end
     if self.TraceHelloKept then
       self:TraceHelloKept(d.channel, d.sender, d.raw, d.map, isNew)
@@ -827,6 +833,25 @@ function H:EnsureLayerRow(i)
   curFs:Hide()
   row.curFs = curFs
 
+  row:EnableMouse(true)
+  row:SetScript("OnEnter", function(self)
+    local tip = self.tipNames
+    if not tip or tip == "" or not GameTooltip then
+      return
+    end
+    GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+    GameTooltip:ClearLines()
+    for line in string.gmatch(tip, "[^\n]+") do
+      GameTooltip:AddLine(line, nil, nil, nil, true)
+    end
+    GameTooltip:Show()
+  end)
+  row:SetScript("OnLeave", function()
+    if GameTooltip then
+      GameTooltip:Hide()
+    end
+  end)
+
   local div = row:CreateTexture(nil, "BORDER")
   div:SetHeight(1)
   div:SetPoint("BOTTOMLEFT", 0, 0)
@@ -872,7 +897,66 @@ function H:FillLayerRow(row, item)
   else
     row.sameMap = nil
   end
-  row.canHop = not (nCan < 1 and (item.headCount or 0) < 1)
+  -- 求切：这一行地图上有可帮的人就出钮；点下去去那张图问人
+  local nCanN = tonumber(nCan) or 0
+  row.canHop = nCanN >= 1
+  local foreverRow = self.IsForeverClient and self:IsForeverClient()
+  local tipLines = {}
+  local seenTip = {}
+  local function tipStatus(p)
+    if p.mine then
+      return "当前"
+    end
+    if p.name and self.PeerBlockLabel and self.db and self.db.peers then
+      local lab = self:PeerBlockLabel(p.name, self.db.peers[p.name])
+      if lab then
+        return lab
+      end
+    end
+    return "可切"
+  end
+  if foreverRow then
+    local named = {}
+    for _, p in ipairs(people) do
+      local who = (p.short and p.short ~= "" and p.short) or p.name
+      if who and who ~= "" and not seenTip[who] then
+        seenTip[who] = true
+        named[#named + 1] = { who = who, p = p }
+      end
+    end
+    local many = #named > 1
+    for _, one in ipairs(named) do
+      local who = one.who
+      local color = self.ClassColorCode and self:ClassColorCode(self:PeerClassFile(one.p.mine and UnitName("player") or one.p.name))
+      if color then
+        who = color .. who .. "|r"
+      end
+      local st = tipStatus(one.p)
+      if many or (st and #st > 6) then
+        tipLines[#tipLines + 1] = st .. " " .. who
+      else
+        tipLines[#tipLines + 1] = who
+      end
+    end
+  end
+  row.tipNames = table.concat(tipLines, "\n")
+  local blockLabel
+  if foreverRow and nCanN < 1 then
+    local seenLab = {}
+    local labs = {}
+    for _, p in ipairs(people) do
+      if not p.mine and p.name and H.PeerBlockLabel and H.db and H.db.peers then
+        local lab = H:PeerBlockLabel(p.name, H.db.peers[p.name])
+        if lab and not seenLab[lab] then
+          seenLab[lab] = true
+          labs[#labs + 1] = lab
+        end
+      end
+    end
+    if labs[1] then
+      blockLabel = (#labs == 1) and labs[1] or (labs[1] .. "等")
+    end
+  end
   row.statusFs:SetText(status)
   if item.mine or (status and status:find("你在此位面", 1, true)) then
     row.statusFs:SetTextColor(C.green[1], C.green[2], C.green[3], 1)
@@ -899,19 +983,26 @@ function H:FillLayerRow(row, item)
       row.curFs:SetTextColor(C.text[1], C.text[2], C.text[3], 1)
       row.curFs:Show()
       row.cooldownRaw = item.raw
-    elseif nCan < 1 and (item.headCount or 0) < 1 then
+    elseif nCanN < 1 then
       row.req:Hide()
-      row.curFs:Hide()
+      if blockLabel then
+        if row.curFs.SetFontObject then
+          row.curFs:SetFontObject((#blockLabel > 6) and GameFontHighlightSmall or GameFontHighlight)
+        end
+        row.curFs:SetText(blockLabel)
+        row.curFs:SetTextColor(C.text[1], C.text[2], C.text[3], 1)
+        row.curFs:Show()
+      else
+        row.curFs:Hide()
+      end
     else
       row.curFs:Hide()
       row.req:Show()
       row.req:Enable()
       row.req:SetText("求切位面")
-      local hopCol
-      if item.sameMap ~= nil then
-        hopCol = item.sameMap and C.green or C.text
-      else
-        hopCol = (H.LayerHasSameMapHost and H:LayerHasSameMapHost(item.raw)) and C.green or C.text
+      local hopCol = C.green
+      if item.sameMap == false or item.onMyMap == false then
+        hopCol = C.text
       end
       row.req.text:SetTextColor(hopCol[1], hopCol[2], hopCol[3], 1)
       self:BindRowHopClick(row, item.raw, item.mapId)

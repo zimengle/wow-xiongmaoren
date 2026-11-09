@@ -129,6 +129,59 @@ local function nwbSortedLayerKeys(layers)
   return keys
 end
 
+local function nwbIsLayerRecord(v)
+  return type(v) == "table"
+    and (type(v.layerMap) == "table" or v.GUID or v.lastSeenNPC or v.created or v.spawn or v.npcID)
+end
+
+local function nwbCurrentWorldMap()
+  if type(_G.NWB_GetCurrentWorldMapID) ~= "function" then
+    return nil
+  end
+  local ok, id = pcall(_G.NWB_GetCurrentWorldMapID)
+  if not ok then
+    return nil
+  end
+  return tonumber(id)
+end
+
+-- 3.49 起层表先按世界分柜：世界 → 层号 → 记录。摊成旧形状（层号 → 记录）后面才能排成位面一、二。
+-- 旧的扁表（层号上直接有记录）原样返回。人在艾泽拉斯就只用艾泽拉斯那一柜，外域、诺森德、潘达利亚各用各的。
+local function nwbFlattenLayers(layers)
+  if type(layers) ~= "table" then
+    return nil
+  end
+  for _, v in pairs(layers) do
+    if nwbIsLayerRecord(v) then
+      return layers
+    end
+  end
+  local want = nwbCurrentWorldMap()
+  local exact, exactN = nil, 0
+  local loose, looseN = nil, 0
+  for _, storage in pairs(layers) do
+    if type(storage) == "table" then
+      local flat, n, world = {}, 0, nil
+      for layer, rec in pairs(storage) do
+        local id = tonumber(layer)
+        if id and nwbIsLayerRecord(rec) then
+          flat[id] = rec
+          n = n + 1
+          world = tonumber(rec.worldMapID) or world
+        end
+      end
+      if n > 0 then
+        if want and world == want and n > exactN then
+          exact, exactN = flat, n
+        elseif (not want or not world) and n > looseN then
+          loose, looseN = flat, n
+        end
+      end
+    end
+  end
+  return exact or loose
+end
+
 -- Nova World Buffs 运行时对象（AceAddon）；可能没有全局 _G.NWB
 function H:GetNWB()
   local nwb = _G.NWB
@@ -150,19 +203,32 @@ function H:GetNWB()
   return nil
 end
 
--- 从 Ace / 存档收集一份非空 layers（不做缓存）
+-- 从轻歌花公开口 / 存档收集一份非空 layers（不做缓存）。
+-- 3.49 用 NWB_GetLayerData()，内部对象已经拿不到。
 function H:BuildNWBLayersTable()
   local best, bestN = nil, 0
   local function consider(layers)
-    if not nwbTableNonEmpty(layers) then
+    local flat = nwbFlattenLayers(layers)
+    if not nwbTableNonEmpty(flat) then
       return
     end
     local n = 0
-    for _ in pairs(layers) do
+    for _ in pairs(flat) do
       n = n + 1
     end
     if n > bestN then
-      best, bestN = layers, n
+      best, bestN = flat, n
+    end
+  end
+
+  if not (self.IsForeverClient and self:IsForeverClient())
+    and type(_G.NWB_GetLayerData) == "function" then
+    local ok, data = pcall(_G.NWB_GetLayerData)
+    if ok then
+      consider(data)
+      if best then
+        return best
+      end
     end
   end
 
@@ -239,9 +305,10 @@ end
 
 -- 短缓存：刷新名单时同一帧会查几百次，不能每次扫整份存档
 function H:GetNwbLayerCache()
+  local world = nwbCurrentWorldMap() or 0
   local c = self._nwbLayerCache
   local now = GetTime()
-  if c and (now - (c.builtAt or 0)) < 3 then
+  if c and c.world == world and (now - (c.builtAt or 0)) < 3 then
     return c
   end
   local layers = self:BuildNWBLayersTable()
@@ -262,6 +329,7 @@ function H:GetNwbLayerCache()
   end
   c = {
     builtAt = now,
+    world = world,
     layers = layers,
     keys = keys,
     rawToNum = rawToNum,
@@ -310,6 +378,10 @@ function H:NwbLayerNumDirect(raw)
   if (not cur or cur < 1) and nwb then
     cur = tonumber(nwb.currentLayer) or tonumber(nwb.lastKnownLayer)
   end
+  if cur and cur > 0 and tonumber(_G.NWB_CurrentLayerZoneID) == raw then
+    c.rawToNum[raw] = cur
+    return cur
+  end
   if cur and cur > 0 and nwb then
     if tonumber(nwb.lastKnownLayerID) == raw
       or tonumber(nwb.lastKnownLayerMapID) == raw
@@ -320,8 +392,8 @@ function H:NwbLayerNumDirect(raw)
     end
   end
 
-  -- 轻歌花这张表没有这个号：按它的方法自己画（主城指定怪起层，野外挂上去）
-  if self.NwbCopyGetLayerNum then
+  -- 轻歌花 3.49 在的时候，只认它的表。不要再用我们自己抄的那套去补号。
+  if type(_G.NWB_GetLayerData) ~= "function" and self.NwbCopyGetLayerNum then
     local cn = self:NwbCopyGetLayerNum(raw)
     if cn and cn > 0 then
       return cn
@@ -499,19 +571,24 @@ function H:PeerMatchesHopTarget(peer, targetRaw)
   if not targetRaw or not raw then
     return false
   end
+  local base = self:MyMapId()
+  local allow = tonumber(self._hopAllowMap)
+  if allow and allow > 0 then
+    base = allow
+  end
   if self.RequiresSameMapForHop and self:RequiresSameMapForHop() then
-    local base = self:MyMapId()
-    local allow = tonumber(self._hopAllowMap)
-    if allow and allow > 0 then
-      base = allow
-    end
     if not (self.SameHoppableMap and self:SameHoppableMap(base, peer.map)) then
       return false
     end
   end
-  local set = self:LayerRawsForMap(targetRaw, self:MyMapId())
+  local set = self:LayerRawsForMap(targetRaw, base)
   if set and next(set) then
-    return set[raw] == true
+    if set[raw] then
+      return true
+    end
+    if self.RequiresSameMapForHop and self:RequiresSameMapForHop() then
+      return false
+    end
   end
   return self:SameNwbLayer(raw, targetRaw)
 end
@@ -795,8 +872,17 @@ function H:MyLayerStatusText(raw)
   return "你" .. tostring(mins) .. "分钟前"
 end
 
--- 小地图正在显示的层（NWB 的 Layer 序号）对应的代表号。没有对照表就当没读到。
+-- 小地图正在显示的层。3.48 起轻歌花不再让别的插件翻它内部的表，
+-- 只留 NWB_CurrentLayer（第几层）和 NWB_CurrentLayerZoneID（这一层在本地图的编号）。
+-- 轻歌花只在怀旧服。无限服认层不读它。
 function H:NwbLiveZoneId()
+  if self.IsForeverClient and self:IsForeverClient() then
+    return nil
+  end
+  local zid = tonumber(_G.NWB_CurrentLayerZoneID)
+  if zid and zid > 0 then
+    return zid
+  end
   local nwb = self:GetNWB()
   local num = tonumber(_G.NWB_CurrentLayer)
   if (not num or num < 1) and nwb then
@@ -810,6 +896,27 @@ function H:NwbLiveZoneId()
     return tonumber(keys[num])
   end
   return nil
+end
+
+function H:HookNwbLayerUpdated()
+  if self.IsForeverClient and self:IsForeverClient() then
+    return
+  end
+  if self._nwbLayerHooked or type(_G.NWB_LayerUpdated) ~= "function" then
+    return
+  end
+  self._nwbLayerHooked = true
+  local prev = _G.NWB_LayerUpdated
+  _G.NWB_LayerUpdated = function()
+    if type(prev) == "function" then
+      pcall(prev)
+    end
+    H._nwbLayerCache = nil
+    local zid = tonumber(_G.NWB_CurrentLayerZoneID)
+    if zid and zid > 0 and H.SetCurrentLayer then
+      H:SetCurrentLayer(zid)
+    end
+  end
 end
 
 -- 接别人的求切之前用：不拿上次报出去的号。
@@ -924,7 +1031,11 @@ function H:SetCurrentLayer(raw)
         self.helpPrompt = nil
         self._inviteExpect = nil
         if not prompt.pig and prompt.replyAs then
-          self:SendAddon("SKIP|BUSY", "WHISPER", prompt.replyAs)
+          if self:IsForeverClient() then
+            self:SendAddon("GSKIP|BUSY", "GUILD")
+          else
+            self:SendAddon("SKIP|BUSY", "WHISPER", prompt.replyAs)
+          end
         end
         if self.UpdateHelpButton then
           self:UpdateHelpButton()
@@ -1667,24 +1778,19 @@ function H:PlayersOnLayer(raw)
     table.insert(list, { name = me, short = "你", mine = true, canHost = false })
   end
   for name, peer in pairs(self.db.peers or {}) do
-    -- 列表人数：记得曾报在该线的人；点求切时再 PING 核实是否在线可帮
-    -- 有 NWB 时：主城号与野外长号算同一位面
+    -- 列表人数：任何渠道记到的人，按其所在位面显示（不限当前位面/当前大图）。
+    -- 点求切：去点的那一行地图问人（GetFairHosts + hopMap）。
     if self:SameNwbLayer(peer.raw, raw) and not self:IsSelfName(name)
       and self:IsWallStamp(peer.last) and (now - (peer.last or 0)) <= mem then
-      if self.RequiresSameMapForHop and self:RequiresSameMapForHop()
-        and not (self.SameHoppableMap and self:SameHoppableMap(self:MyMapId(), peer.map)) then
-        -- 别的大图切不过去，不当这层的人
-      else
-        local showAs = peer.replyAs or name
-        table.insert(list, {
-          name = name,
-          short = self:ShortName(showAs),
-          mine = false,
-          skip = self:IsSkipped(name),
-          canHost = self:PeerCanHost(name, peer),
-          ageText = self:PeerAgeOnLayerText(peer.last),
-        })
-      end
+      local showAs = peer.replyAs or name
+      table.insert(list, {
+        name = name,
+        short = self:ShortName(showAs),
+        mine = false,
+        skip = self:IsSkipped(name),
+        canHost = self:PeerCanHost(name, peer),
+        ageText = self:PeerAgeOnLayerText(peer.last),
+      })
     end
   end
   table.sort(list, function(a, b)
@@ -1862,10 +1968,7 @@ function H:BuildPaintPeerBuckets()
   for name, peer in pairs(self.db.peers or {}) do
     if peer and not self:IsSelfName(name)
       and self:IsWallStamp(peer.last) and (now - (peer.last or 0)) <= mem then
-      if self.RequiresSameMapForHop and self:RequiresSameMapForHop()
-        and not (self.SameHoppableMap and self:SameHoppableMap(myMap, peer.map)) then
-        -- 只数这张大图
-      else
+      -- 名单展示：所有位面的人都计入；同图只影响 sameMap/可求切染色
       local raw = tonumber(peer.raw)
       if raw then
         local canon = self:NwbCanonicalRaw(raw) or raw
@@ -1875,6 +1978,7 @@ function H:BuildPaintPeerBuckets()
           buckets[canon] = b
         end
         b.nPeople = b.nPeople + 1
+        local sameMapPeer = self:MapRelation(myMap, peer.map) == 0
         local set = hopSet(canon)
         local onTarget
         if set then
@@ -1882,14 +1986,12 @@ function H:BuildPaintPeerBuckets()
         else
           onTarget = self:SameNwbLayer(raw, canon)
         end
-        if onTarget then
+        if onTarget and self:PeerCanHost(name, peer) then
           b.nCan = b.nCan + 1
         end
-        if not b.sameMap and self:MapRelation(myMap, peer.map) == 0
-          and self:PeerCanHost(name, peer) then
+        if not b.sameMap and sameMapPeer and self:PeerCanHost(name, peer) then
           b.sameMap = true
         end
-      end
       end
     end
   end
@@ -1923,16 +2025,21 @@ function H:GetPaintSnapshot()
   if snap and (now - (snap.at or 0)) < 0.4 then
     return snap
   end
-  local buckets = self:BuildPaintPeerBuckets()
-  local layers = self:ListKnownLayers(true)
-  self:AttachPaintStats(layers, buckets)
+  local skipNames = not (self.IsForeverClient and self:IsForeverClient())
+  local layers = self:ListKnownLayers(skipNames)
+  -- 无限 ListForeverRows 已按「各图|各位面」把人凑进行；再 Attach 会按当前大图把别位人数清掉
+  if not (self.IsForeverClient and self:IsForeverClient()) then
+    local buckets = self:BuildPaintPeerBuckets()
+    self:AttachPaintStats(layers, buckets)
+  end
   snap = { at = now, layers = layers }
   self._paintSnap = snap
   return snap
 end
 
--- 求切找人：只要目标位面里、自己这张图的那些小位面号上的人。
--- 同图里：互助的人排在时空之门前面；刚报过位面且仍符合的再往前；同批里再轮流。
+-- 求切找人（点「求切」专用，与名单展示分开）：
+-- 去「那张图」问人：opts.hopMap / _hopAllowMap 指点的那一行地图。
+-- 图内优先级：互助 > 时空之门 → 刚报过线 → 更少被问过。
 -- opts.live=true 表示刚核实过在线。
 function H:GetFairHosts(targetRaw, opts)
   targetRaw = tonumber(targetRaw)
@@ -1940,24 +2047,47 @@ function H:GetFairHosts(targetRaw, opts)
   if not targetRaw then
     return {}
   end
+  local askMap = tonumber(opts.hopMap) or tonumber(self._hopAllowMap) or 0
   local myMap = self:MyMapId()
+  if askMap > 0 then
+    myMap = askMap
+  elseif self.IsForeverClient and self:IsForeverClient() and self.HomeCanonMap then
+    local home = self:HomeCanonMap()
+    if type(home) == "number" and home > 0 then
+      myMap = home
+    end
+  end
   local sameMap, otherMap = {}, {}
   local mustSame = self.RequiresSameMapForHop and self:RequiresSameMapForHop()
+  local hostOpts = opts
+  if askMap > 0 and not opts.hopMap then
+    hostOpts = {}
+    for k, v in pairs(opts) do
+      hostOpts[k] = v
+    end
+    hostOpts.hopMap = askMap
+  end
   for name, peer in pairs(self.db.peers or {}) do
-    if self:PeerMatchesHopTarget(peer, targetRaw) and self:PeerCanHost(name, peer, opts) then
+    if self:PeerMatchesHopTarget(peer, targetRaw) and self:PeerCanHost(name, peer, hostOpts) then
       local st = self:GetAskStat(name)
       local lastSeen = 0
       if self:IsWallStamp(peer.last) then
         lastSeen = tonumber(peer.last) or 0
       end
+      local onAsk
+      if self.SameHoppableMap then
+        onAsk = self:SameHoppableMap(myMap, peer.map) and true or false
+      else
+        onAsk = self:MapRelation(myMap, peer.map) == 0
+      end
       local row = {
         name = name,
         lastAsk = st.lastAsk or 0,
         lastSeen = lastSeen,
-        rel = self:MapRelation(myMap, peer.map),
+        rel = onAsk and 0 or 1,
         ours = self:PeerIsHzl(peer),
       }
-      if row.rel == 0 then
+      if onAsk then
         table.insert(sameMap, row)
       elseif not mustSame then
         table.insert(otherMap, row)
@@ -1979,6 +2109,7 @@ function H:GetFairHosts(targetRaw, opts)
     end
     return byFreshThenAsk(a, b)
   end
+  -- 先那张图上的人；图内再按互助→新近→少问过
   table.sort(sameMap, byOursThenFresh)
   table.sort(otherMap, function(a, b)
     if a.ours ~= b.ours then

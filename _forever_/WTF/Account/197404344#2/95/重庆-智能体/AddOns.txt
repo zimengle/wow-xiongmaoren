@@ -47,3 +47,10 @@ DungeonsForeverExplore: enabled
 DungeonsForeverFaction: enabled
 DungeonsForeverPvP: enabled
 DungeonsForeverSpell: enabled
+ConsolePort_Config: enabled
+ConsolePort_Rings: enabled
+ConsolePort_Menu: enabled
+ConsolePort_Target: enabled
+ConsolePort_World: enabled
+ConsolePort_Cursor: enabled
+ConsolePort_Bar: disabled

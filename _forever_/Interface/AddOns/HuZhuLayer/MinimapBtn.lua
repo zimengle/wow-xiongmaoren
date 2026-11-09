@@ -59,16 +59,58 @@ local function KillLegacyMinimap()
     old:SetParent(nil)
     _G.HuZhuLayerMinimapButton = nil
   end
-  local ldb = _G.LibDBIcon10_HuZhuLayer
-  if ldb then
-    ldb:Hide()
+end
+
+function H:RegisterLauncherIcon()
+  if self._launcherRegistered then
+    return
   end
-  pcall(function()
-    local iconLib = LibStub and LibStub("LibDBIcon-1.0", true)
-    if iconLib and iconLib:IsRegistered("HuZhuLayer") then
-      iconLib:Hide("HuZhuLayer")
-    end
-  end)
+  local ldb = LibStub and LibStub("LibDataBroker-1.1", true)
+  local icon = LibStub and LibStub("LibDBIcon-1.0", true)
+  if not ldb or not icon then
+    return
+  end
+  self.db.minimap = self.db.minimap or {}
+  if self.db.minimap.minimapPos == nil then
+    self.db.minimap.minimapPos = 220
+  end
+  local obj = ldb:NewDataObject("HuZhuLayer", {
+    type = "launcher",
+    text = "互助切位面",
+    icon = ICON,
+    OnClick = function(_, button)
+      if button ~= "LeftButton" then
+        return
+      end
+      if H.RunPlayerClick then
+        H:RunPlayerClick(function()
+          H:TogglePanel()
+        end)
+      else
+        H:TogglePanel()
+      end
+    end,
+    OnTooltipShow = function(tt)
+      tt:AddLine("互助切位面", 0.4, 0.8, 1)
+      if H.LayerUnreliable and H:LayerUnreliable() then
+        tt:AddLine("当前：?", 1, 1, 1)
+      elseif H.currentRawLayer and H.LabelForRaw then
+        tt:AddLine("当前：" .. H:LabelForRaw(H.currentRawLayer), 0.4, 0.9, 0.5)
+      else
+        tt:AddLine("当前：?", 1, 1, 1)
+      end
+      tt:AddLine("点击：打开列表", 1, 1, 1)
+    end,
+  })
+  if icon.IsRegistered and icon:IsRegistered("HuZhuLayer") then
+    icon:Refresh("HuZhuLayer", self.db.minimap)
+  else
+    icon:Register("HuZhuLayer", obj, self.db.minimap)
+  end
+  if icon.Show then
+    icon:Show("HuZhuLayer")
+  end
+  self._launcherRegistered = true
 end
 
 -- 离屏幕左边一点点空隙（别贴死、也别离太远）
@@ -106,6 +148,7 @@ function H:EnsureMinimap()
   end
   self:RegisterCompartment()
   KillLegacyMinimap()
+  self:RegisterLauncherIcon()
 
   self.db.minimap = self.db.minimap or {}
 

@@ -1,0 +1,8 @@
+## Interface: 16001
+## Title: 帐篷助手
+## Notes: 选中帐篷或左键点帐篷唤出窗口，一键密语求组 / 一键邀请进队；小地图图标 + 可开关的自动接受
+## Version: 1.0
+## SavedVariables: TentWhisperDB
+## DefaultState: enabled
+## OptionalDeps: WoWBridge
+TentWhisper.lua

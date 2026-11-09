@@ -915,6 +915,18 @@ ns.DungeonLoot = {
         } },
     },
     ["the_drowned_city"] = {
+        { "Zul'Alai", "Zul'Alai", "", "270882", {} },
+        { "Var'Taka", "Var'Taka", "", "270883", {} },
+        { "Captain Dreadrise", "Captain Dreadrise", "", "270884", {} },
+        { "Deathless Marrow", "Deathless Marrow", "", "270885", {} },
+        { "Primeval Elemental", "Primeval Elemental", "", "270887", {} },
+        { "Gill", "Gill", "", "270888", {} },
+        { "Min'loth the Serpent", "Min'loth the Serpent", "", "270886", {} },
+        { "Umbra", "Umbra", "", "264172", {} },
+        { "Zin'aka", "Zin'aka", "", "263742", {} },
+        { "Pyromancer Braxton", "Pyromancer Braxton", "Rare", "260468", {
+            { 286651, 100, true },
+        } },
     },
     ["sm_armory"] = {
         { "Herod", "Herod", "", "3975", {
@@ -1053,6 +1065,11 @@ ns.DungeonLoot = {
         } },
     },
     ["kroldok_stronghold"] = {
+        { "Slavecrusher Grox", "Slavecrusher Grox", "", "258966", {} },
+        { "Twilight Commander Zarmok", "Twilight Commander Zarmok", "", "258972", {} },
+        { "War Handler Ashka", "War Handler Ashka", "", "259281", {} },
+        { "Nar'gurk", "Nar'gurk", "", "258964", {} },
+        { "Overlord Mugg", "Overlord Mugg", "", "258968", {} },
     },
     ["uldaman"] = {
         { "Eric \"The Swift\"", "Eric", "", "6907", {
@@ -1287,6 +1304,11 @@ ns.DungeonLoot = {
         } },
     },
     ["alcaz_prison"] = {
+        { "Overseer Wrex", "Overseer Wrex", "", "", {} },
+        { "Tidemistress Ca'zass", "Tidemistress Ca'zass", "", "255997", {} },
+        { "Katerina the Cleaner", "Katerina the Cleaner", "", "257016", {} },
+        { "The Questioner", "The Questioner", "", "256236", {} },
+        { "Blazeroar", "Blazeroar", "", "255702", {} },
     },
     ["sunken_temple"] = {
         { "Loro", "Loro", "", "5714", {
@@ -1744,6 +1766,13 @@ ns.DungeonLoot = {
         } },
     },
     ["blackmaw_hold"] = {
+        { "Withermaw", "Withermaw", "", "247195", {} },
+        { "Impaan the Imprisoner", "Impaan the Imprisoner", "", "247206", {} },
+        { "Elder Shaman Bloodmane", "Elder Shaman Bloodmane", "", "247209", {} },
+        { "Bonesnout the Unbroken", "Bonesnout the Unbroken", "", "247198", {} },
+        { "Varrox Bleakhoof", "Varrox Bleakhoof", "", "247234", {} },
+        { "Blackmaw Behemoth", "Blackmaw Behemoth", "", "247207", {} },
+        { "Unbound Spirit", "Unbound Spirit", "", "247231", {} },
     },
     ["lower_blackrock_spire"] = {
         { "Burning Felguard", "Burning Felguard", "Rare", "5047", {
@@ -2438,6 +2467,17 @@ ns.DungeonLoot = {
         } },
     },
     ["shapers_terrace"] = {
+        { "Titanosaur", "Titanosaur", "", "253201", {} },
+        { "Ravasaur Hunters", "Ravasaur Hunters", "", "", {} },
+        { "Thunderhoof", "Thunderhoof", "", "261812", {} },
+        { "Venomridge", "Venomridge", "", "261813", {} },
+        { "Direhorn Matriarch", "Direhorn Matriarch", "", "262127", {} },
+        { "Cinder", "Cinder", "", "261974", {} },
+        { "King Op", "King Op", "", "261993", {} },
+        { "Snowtalon", "Snowtalon", "", "262297", {} },
+        { "Bolt", "Bolt", "", "262081", {} },
+        { "Vitrix", "Vitrix", "", "272561", {} },
+        { "Nanaya", "Nanaya", "", "261809", {} },
     },
     ["stratholme_main"] = {
         { "Skul", "Shriek", "Rare · Lv 58", "2606", {

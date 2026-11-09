@@ -21,8 +21,15 @@ end
 
 function H:CapitalMapIds()
   -- 经典怀旧到巫妖王是暴风城 1453、奥格瑞玛 1454；大地的裂变往后是 84、85。
-  -- 两边都认，避免某个版本用错号就永远认不出主城。
-  return { [1453] = true, [1454] = true, [84] = true, [85] = true }
+  -- 无限还要认铁炉堡、雷霆崖、达纳苏斯、幽暗城，人在城里也要显示。
+  local ids = { [1453] = true, [1454] = true, [84] = true, [85] = true }
+  if self.IsForeverClient and self:IsForeverClient() then
+    ids[1455] = true
+    ids[1456] = true
+    ids[1457] = true
+    ids[1458] = true
+  end
+  return ids
 end
 
 function H:LayerBook()
@@ -1039,7 +1046,7 @@ function H:SweepMeshChannels()
 end
 
 function H:MeshLogOnce(key, why, gap)
-  if not key or not why or not self.HopLog then
+  if not self.LOG_ON or not key or not why or not self.HopLog then
     return
   end
   self._meshLogAt = self._meshLogAt or {}
@@ -1516,10 +1523,7 @@ end
 
 function H:ChannelLeaveBlocked(nameOrId)
   if not self:RoomsEnabled() then
-    if type(nameOrId) == "number" then
-      return self:IsOurDiscoveryChannel(nameOrId) and true or false
-    end
-    return self:IsHzlChannelName(nameOrId) and true or false
+    return false
   end
   if type(nameOrId) == "number" then
     local home = self._homeName and (GetChannelName(self._homeName) or 0) or 0
@@ -2474,7 +2478,7 @@ local function meshInstall()
     if not self:LayerMeshOn() then
       return msg
     end
-    return msg .. "|" .. (self:HasLiveNwb() and "1" or "0")
+    return msg .. "|" .. (self:HasLiveNwb() and "1" or "0") .. "|" .. tostring(self:InstanceMapId() or 0)
   end
 
   local coreAddon = H.OnAddonMessage
@@ -2691,7 +2695,8 @@ local function meshInstall()
     end
     local function group(mapId, raw)
       raw = tonumber(raw) or 0
-      if raw <= 0 then
+      local forever = self.IsForeverClient and self:IsForeverClient()
+      if raw <= 0 and not forever then
         return nil
       end
       mapId = canonOf(mapId)
@@ -2702,10 +2707,9 @@ local function meshInstall()
         g = {
           raw = raw,
           mapId = mapId,
-          label = self:LabelForRaw(raw),
+          label = (raw > 0 and self:LabelForRaw(raw)) or "未认出",
           players = {},
           onMyMap = onMy,
-          -- 按钮绿/白跟本行地图走，不按同号别图宿主染绿
           sameMap = onMy,
           mine = false,
           headCount = 0,
@@ -2728,26 +2732,38 @@ local function meshInstall()
       end
     end
     for name, peer in pairs((self.db and self.db.peers) or {}) do
-      if peer and tonumber(peer.raw) and not self:IsSelfName(name)
+      local rawN = peer and tonumber(peer.raw)
+      local forever = self.IsForeverClient and self:IsForeverClient()
+      if peer and (rawN or forever) and not self:IsSelfName(name)
         and self:IsWallStamp(peer.last) and (now - (peer.last or 0)) <= mem then
-        local g = group(peer.map, peer.raw)
+        local g = group(peer.map, rawN or 0)
         if g then
           g.headCount = g.headCount + 1
-          if g.onMyMap then
-            g.nCan = nil
-          end
           if not skipPlayers then
             local showAs = peer.replyAs or name
+            -- 可帮按「这一行的图」认，点求切会带 hopMap 去那张图问
+            local can = self.PeerCanHost
+              and self:PeerCanHost(name, peer, { hopMap = g.mapId }) or false
             g.players[#g.players + 1] = {
               name = name,
               short = self:ShortName(showAs),
               mine = false,
-              canHost = self.PeerCanHost and self:PeerCanHost(name, peer) or false,
+              canHost = can,
             }
+            if can then
+              g.nCan = (g.nCan or 0) + 1
+            end
+          elseif self.PeerCanHost and self:PeerCanHost(name, peer, { hopMap = g.mapId }) then
+            g.nCan = (g.nCan or 0) + 1
           end
         end
       end
     end
+    for _, g in ipairs(order) do
+      g.nCan = tonumber(g.nCan) or 0
+      g.sameMap = g.onMyMap and true or false
+    end
+    -- 所有位面都显示；同地图的行排前面
     table.sort(order, function(a, b)
       if a.onMyMap ~= b.onMyMap then
         return a.onMyMap
@@ -2801,21 +2817,21 @@ local function meshInstall()
     if not self:RoomsEnabled() then
       return self:_StartPollCore(targetRaw, opts)
     end
+    local hopMap = opts and tonumber(opts.hopMap) or 0
+    local myMap = 0
     if self:IsForeverClient() then
-      local hopMap = opts and tonumber(opts.hopMap)
-      local myMap = self.HomeCanonMap and self:HomeCanonMap() or 0
-      if hopMap and hopMap > 0 and myMap > 0
-        and not (self.SameHoppableMap and self:SameHoppableMap(myMap, hopMap)) then
-        if self._lookBusy then
-          self:Print("正在确认该位面玩家是否可帮，请稍候")
-          return
-        end
+      myMap = self.HomeCanonMap and self:HomeCanonMap() or 0
+      if myMap <= 0 then
+        myMap = self:MyMapId()
+      end
+      if hopMap > 0 then
+        -- 点的哪一行，就去哪张图问人
         self._hopAllowMap = hopMap
         self._hopLookMap = hopMap
-        return self:BeginLook(tonumber(targetRaw))
+      else
+        self._hopAllowMap = nil
+        self._hopLookMap = nil
       end
-      self._hopAllowMap = nil
-      self._hopLookMap = nil
     end
     if opts and opts.skipLoudPig then
       return self:_StartPollCore(targetRaw, opts)
@@ -2829,9 +2845,13 @@ local function meshInstall()
       self:Print("这个位面还要等 " .. self:FormatHopCooldown(coolLeft))
       return
     end
-    local hosts = self:GetFairHosts(tonumber(targetRaw)) or {}
+    local hosts = self:GetFairHosts(tonumber(targetRaw), { hopMap = hopMap > 0 and hopMap or nil }) or {}
     if #hosts > 0 then
       return self:_StartPollCore(targetRaw, opts)
+    end
+    if self:IsForeverClient() and hopMap > 0 and myMap > 0
+      and not (self.SameHoppableMap and self:SameHoppableMap(myMap, hopMap)) then
+      return self:BeginLook(tonumber(targetRaw))
     end
     self:BeginLook(tonumber(targetRaw))
   end

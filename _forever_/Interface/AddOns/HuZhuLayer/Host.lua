@@ -34,7 +34,11 @@ function H:OnHelpRequest(sender, targetRaw, replyAs, opts)
     if opts.pig then
       return
     end
-    self:SendAddon("SKIP|BUSY", "WHISPER", whisperTo)
+    if self:IsForeverClient() then
+      self:SendAddon("GSKIP|BUSY", "GUILD")
+    else
+      self:SendAddon("SKIP|BUSY", "WHISPER", whisperTo)
+    end
   end
 
   if self:IsPaused() then
@@ -157,7 +161,11 @@ function H:OnHelpRequest(sender, targetRaw, replyAs, opts)
     if not prompt.clicked then
       -- 没邀出去：BUSY 让对方继续轮询。自动帮忙不因没点按钮罚自己冷却。
       if not prompt.pig then
-        H:SendAddon("SKIP|BUSY", "WHISPER", prompt.replyAs or H:WhisperTarget(prompt.requester) or prompt.requester)
+        if H:IsForeverClient() then
+          H:SendAddon("GSKIP|BUSY", "GUILD")
+        else
+          H:SendAddon("SKIP|BUSY", "WHISPER", prompt.replyAs or H:WhisperTarget(prompt.requester) or prompt.requester)
+        end
       end
     end
     -- _inviteExpect.name 存的是原名 replyAs，不是内部键

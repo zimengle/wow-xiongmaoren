@@ -1,6 +1,17 @@
 local _, ns = ...
 
 ns.BossPos = {
+    ["the_drowned_city"] = {
+        ["Zul'Alai"] = { { 72.7, 51.6 } },
+        ["Captain Dreadrise"] = { { 51, 26.3 } },
+        ["Var'Taka"] = { { 47.8, 71.7 } },
+        ["Min'loth the Serpent"] = { { 9.2, 50 } },
+        ["Deathless Marrow"] = { { 27.3, 49.8 } },
+        ["Zin'aka"] = { { 50.4, 49.4 } },
+        ["Umbra"] = { { 52, 85.2 } },
+        ["Primeval Elemental"] = { { 84.6, 75.9 } },
+        ["Pyromancer Braxton"] = { { 48.5, 20.4 } },
+    },
     ["upper_blackrock_spire"] = {
         ["Pyroguard Emberseer"] = { { 30.5, 27, 2 } },
         ["Solakar Flamewreath"] = { { 38.1, 37.7, 2 } },
@@ -53,11 +64,11 @@ ns.BossPos = {
     },
     ["blackfathom_deeps"] = {
         ["Aku'mai"] = { { 85.6, 86.6, 2 } },
-        ["Baron Aquanis"] = { { 41.5, 75.4, 2 } },
+        ["Baron Aquanis"] = { { 44.2, 72.7, 2 } },
         ["Gelihast"] = { { 52.3, 55.1 } },
         ["Ghamoo-ra"] = { { 32.9, 60.2 } },
-        ["Lady Sarevess"] = { { 10.1, 36 } },
-        ["Lorgus Jett"] = { { 38.8, 20, 2 }, { 44.1, 23.4, 2 }, { 35.4, 48.3, 2 }, { 33.8, 72.3, 2 } },
+        ["Lady Sarevess"] = { { 11.4, 39.8 } },
+        ["Lorgus Jett"] = { { 38.8, 20, 2 }, { 44.1, 23.4, 2 } },
         ["Old Serra'kis"] = { { 60.6, 31.2, 3 } },
         ["Twilight Lord Kelris"] = { { 51.9, 81.6, 2 } },
     },
@@ -114,7 +125,7 @@ ns.BossPos = {
         ["Unstable Sentinel"] = { { 58.3, 34 } },
     },
     ["excavation_wetlands"] = {
-        ["Highland Horror"] = { { 26.3, 56.2 } },
+        ["Highland Horror"] = { { 25.6, 47.5 } },
         ["Relic Guardian"] = { { 46.6, 74.1 } },
         ["Saltspine"] = { { 62, 47.1 } },
         ["Shadetooth"] = { { 44.5, 63 } },

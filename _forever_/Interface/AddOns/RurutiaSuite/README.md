@@ -1,6 +1,6 @@
 # RurutiaSuite
 
-**Version:** 4.7.4
+**Version:** 4.7.9
 
 露露的多客户端魔兽世界工具箱。一个插件包同时覆盖 Retail 与 TOC 中列出的 Classic 客户端，并按客户端能力装配对应模块。
 

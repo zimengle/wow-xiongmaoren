@@ -1,11 +1,8 @@
--- 无限服法师增益：低频解析已学技能，按本地化名称匹配光环；不持有事件或计时器。
+-- 无限服职业增益：低频解析已学技能，按本地化名称匹配光环；不持有事件或计时器。
 local _, ns = ...
 if not ns.Build.Is("classic-infinite") or not ns.Build.HasModule("ClassReminders") then return end
 local Adapter = {}
-Adapter.settingOptions = {
-    {"intellect", "奥术智慧"}, {"frostArmor", "护甲提醒"}, {"hideResting", "休息时不提醒"},
-}
-Adapter.description = "脱战检测法师智慧与护甲增益，缺失时显示中央文字；战斗中与休息时不提醒。"
+Adapter.description = "脱战检测本职业已学的常驻增益，缺失时显示中央文字；战斗中与休息时不提醒。"
 local AURA_SCAN_LIMIT = 80
 local function IsSecret(value) return issecretvalue and issecretvalue(value) end
 local function Number(value) return not IsSecret(value) and type(value) == "number" end
@@ -42,7 +39,7 @@ local function SelectKnown(state, id, level)
     end
 end
 
--- 只在启用、重新进入世界或技能变化后调用。固定两组、最多六个名称；技能书最多遍历一次。
+-- 只在启用、重新进入世界或技能变化后调用。仅解析当前职业的提醒组；技能书最多遍历一次。
 function Adapter:BuildStates(rows)
     local states, names = {}, {}
     for i, spec in ipairs(rows) do
@@ -136,7 +133,7 @@ function Adapter:ReadAuras(states)
     -- 无名称读取能力时保持未知；基础ID不代表该系列全部等级。
 end
 function Adapter:IsInCombat() return InCombatLockdown() end
-function Adapter:IsMage() local _, class = UnitClass("player"); return class == "MAGE" end
+function Adapter:PlayerClass() local _, class = UnitClass("player"); return class end
 function Adapter:IsResting()
     if type(IsResting) ~= "function" then return true end
     local ok, resting = pcall(IsResting)

@@ -2,7 +2,7 @@ local ns = _G.DF_NS or {}
 if not ns.LoadForeverPages then return end
 local E=ns.ProfEconomy
 local S={}; ns.ProfRouteSolver=S
-S.ProcurementPolicyVersion=9
+S.ProcurementPolicyVersion=10
 S.FailureDiagnosticVersion=1
 local floor,ceil,min,max=math.floor,math.ceil,math.min,math.max
 local stockFields={"unlimited","limited","stock","maxStock","stockUnknown","stockStatus"}
@@ -222,11 +222,12 @@ local function stampReserve(job,result,status)
 end
 local function finishResult(job,result,state,status)
     stampReserve(job,result,status)
+    local tick=coroutine.running()==job.co and job.tick or nil
     if job.snap and job.snap.auctionPriceInputs then
-        result.auctionPriceInputs=E.Copy(job.snap.auctionPriceInputs)
+        result.auctionPriceInputs=E.Copy(job.snap.auctionPriceInputs,tick)
     end
-    stampFreshResult(result,job.snap,coroutine.running()==job.co and job.tick or nil)
-    E.SummarizeAuctionSupply(result,job.snap)
+    stampFreshResult(result,job.snap,tick)
+    E.SummarizeAuctionSupply(result,job.snap,tick)
     local essence=ns.ProfEssences
     if job.snap and job.snap.essenceConversions and essence and essence.MissingQuotes then
         local bought={}
@@ -245,7 +246,7 @@ function S.Result(job,state,status)
     local partial=not state and prefix and (prefix.skill[job.slug]>(job.opts.start or 1) or completedGoals(prefix)>0)
     if partial then state=prefix; partial=not goalsComplete(job,state) end
     local finalStatus = status or job.status
-    if state and state == job.best and not job.rebatchFinalized
+    if state and (state == job.best or state == prefix) and not job.rebatchFinalized
         and (finalStatus == "complete" or finalStatus == "incomplete")
         and job.rebatchFinal and coroutine.running()==job.co then
         job.rebatchFinalized = true
@@ -254,8 +255,9 @@ function S.Result(job,state,status)
         local candidate = job.rebatchFinal(state)
         job.phase=previousPhase;job.finalizing=finalizing
         if candidate and candidate ~= state then
+            if state == job.best then job.best = candidate else job.preview = candidate end
             state = candidate
-            job.best = candidate
+            if partial then partial=not goalsComplete(job,state) end
             job.resultState = nil
             job.resultCache = nil
         end
@@ -326,6 +328,7 @@ function S.Result(job,state,status)
     end
     local entry=state.log
     while entry do
+        resultTick(job)
         local action=entry.action
         if action.type=="craft" then
             local key=action.profession..":"..action.spell
@@ -626,7 +629,7 @@ local function rebatchSameKeys(a, b)
     return true
 end
 
-local function rebatchEquivalent(a, b)
+local function rebatchEquivalent(a, b, progressGoals)
     if not a or not b or math.abs((a.money or 0) - (b.money or 0)) > 1e-7 then return false end
     if (b.greenLevelCrafts or 0)>(a.greenLevelCrafts or 0) then return false end
     if a.rebatchGreenCrafts~=nil and (b.rebatchGreenCrafts or 0)>a.rebatchGreenCrafts then return false end
@@ -640,7 +643,8 @@ local function rebatchEquivalent(a, b)
         local newSkill = b.skill[profession]
         if type(oldSkill) ~= "number" or type(newSkill) ~= "number"
             or newSkill < oldSkill then return false end
-        if newSkill == oldSkill and (b.progress and b.progress[profession] or 0) + 1e-7
+        if newSkill == oldSkill and oldSkill < (progressGoals and progressGoals[profession] or 300)
+            and (b.progress and b.progress[profession] or 0) + 1e-7
             < (a.progress and a.progress[profession] or 0) then return false end
     end
     return rebatchSameKeys(a.diagnostics, b.diagnostics)
@@ -824,7 +828,7 @@ local function rebatchGrayOrder(list,lo,hi,recipes,checkpoint)
     return out
 end
 
-function S.RebatchChronological(original, replay, tick, cpuTime, recipes, grayMaterials)
+function S.RebatchChronological(original, replay, tick, cpuTime, recipes, grayMaterials, progressGoals)
     if not original or type(replay) ~= "function" then return original end
     local list = actions(original)
     if #list < 3 or #list > 1600 then return original end
@@ -877,7 +881,7 @@ function S.RebatchChronological(original, replay, tick, cpuTime, recipes, grayMa
         attempts=attempts+1
         if tick then tick() end
         local candidate=replay(candidateOrder)
-        if rebatchEquivalent(best,candidate) then
+        if rebatchEquivalent(best,candidate,progressGoals) then
             local score=rebatchSwitches(actions(candidate))
             if score<currentScore then best,order,currentScore=candidate,candidateOrder,score;return end
         end
@@ -914,6 +918,15 @@ function S.NewJob(slug,opts)
     end
     local function tick()
         ops=ops+1
+        if j.tickClockStride then
+            j.tickClockCountdown=(j.tickClockCountdown or 0)-1
+            if j.tickClockCountdown>0 and ops<1000 then return end
+            j.tickClockCountdown=j.tickClockStride
+            local now=clock()
+            if j.seedDeadline and j.cpuUsed+max(0,now-(j.sliceStart or now))>=j.seedDeadline then j.seedAborted=true end
+            if ops>=1000 or (j.deadline and now>=j.deadline) then ops=0;coroutine.yield("work") end
+            return
+        end
         if j.seedDeadline and cpuTime()>=j.seedDeadline then j.seedAborted=true end
         if ops>=1000 or (j.deadline and clock()>=j.deadline) then ops=0; coroutine.yield("work") end
     end
@@ -995,6 +1008,9 @@ function S.NewJob(slug,opts)
         return lower>j.best.money+1e-7 or (math.abs(lower-j.best.money)<1e-7 and (s.switches or 0)>=(j.best.switches or 0))
     end
     local function allowed(r,s,reason)
+        if slug~="__purchase" and r.profession~=slug and not opts.allowSecondaryLeveling then
+            fail("secondaryDisabled",r);return false
+        end
         local p=E.Policy(j.opts.exclusions,r)
         if p=="ban" or (p=="level" and reason~="material") then fail("excluded",r,r.item); return false end
         local skill=s.skill[r.profession]
@@ -1210,8 +1226,9 @@ function S.NewJob(slug,opts)
         log(t,{type="formula",item=f.id,count=f.bundleSize or 1,cost=f.cost or 0,source=f.source,owner=r.key,unpriced=f.unpriced,formula=E.Copy(f)})
         return t
     end
-    local function prepare(r,s,reason,path,emit)
-        local usable,learning=allowed(r,s,reason)
+    local function prepare(r,s,reason,path,emit,selectedLearning)
+        local usable,learning=true,selectedLearning
+        if not learning then usable,learning=allowed(r,s,reason) end
         if not usable then return end
         local skill=s.skill[r.profession]
         if not skill then fail("professionMissing",r); return end
@@ -1253,7 +1270,7 @@ function S.NewJob(slug,opts)
         local t=clone(s); t.cap[p]=nextCap
         return t
     end
-    craft=function(s,r,n,reason,path,emit)
+    craft=function(s,r,n,reason,path,emit,learning)
         tick(); if j.seedAborted or pruned(s) then return end
         prepare(r,s,reason,path,function(base)
             local function reagents(t,i)
@@ -1293,7 +1310,7 @@ function S.NewJob(slug,opts)
                 if not pruned(t) then emit(t) end
             end
             reagents(base,1)
-        end)
+        end,learning)
     end
     acquire=function(s,id,need,reason,path,emit,used)
         tick()
@@ -1380,13 +1397,14 @@ function S.NewJob(slug,opts)
                     if j.seedAborted or trials>=3 then break end
                     if selected and not uncertain and candidate.estimate>=selected.money-s.money-1e-7 then break end
                     local r=candidate.recipe
-                    if allowed(r,s,"material") then
+                    local usable,learning=allowed(r,s,"material")
+                    if usable then
                         local u=E.Copy(used);u[r.key]=true
                         trials=trials+1
                         j.workCounters.seedCraftComparisons=j.workCounters.seedCraftComparisons+1
                         craft(s,r,candidate.count,"material",pth,function(t)
                             if available(t,id)>=need and better(t,selected) then selected=t end
-                        end)
+                        end,learning)
                     end
                     tick()
                 end
@@ -1455,13 +1473,15 @@ function S.NewJob(slug,opts)
                 local materialProfession=opts.materialProfession or slug
                 local own=path.ownProfessionOnly and r.profession==path.ownProfessionOnly
                     or not path.ownProfessionOnly and (j.purchasePriced[id] or r.profession==materialProfession or materialProfession=="__purchase")
-                if own and not used[r.key] and allowed(r,s,"material") then
+                local usable,learning
+                if own and not used[r.key] then usable,learning=allowed(r,s,"material") end
+                if usable then
                     had=true; local u=E.Copy(used); u[r.key]=true
                     local limit=ceil(missing/r.count)
                     for n=1,limit do
                         if j.seedAborted then return end
                         if (not j.directSeed or n==limit) and (not j.seeding or n==1 or n==limit) then
-                        craft(s,r,n,"material",pth,function(t) acquire(t,id,need,reason,path,emit,u) end)
+                        craft(s,r,n,"material",pth,function(t) acquire(t,id,need,reason,path,emit,u) end,learning)
                         if j.directSeed and localBest then finalEmit(localBest); return end
                         tick()
                         end
@@ -1662,7 +1682,9 @@ function S.NewJob(slug,opts)
             end
             for _,r in ipairs(levelRecipes(p,s.skill[p])) do
                 local sk=s.skill[p]
-                if r.learn<=sk and sk<r.grey and allowed(r,s,"level")
+                local usable,learning
+                if r.learn<=sk and sk<r.grey then usable,learning=allowed(r,s,"level") end
+                if usable
                     and (not j.referenceSeed or not j.referenceRecipes[r.key] or s.lastRecipe==r.key) then
                     any=true
                     local n=(opts.specializationRecipeScore or j.smoothSeed) and 1
@@ -1684,12 +1706,12 @@ function S.NewJob(slug,opts)
                         end
                         rate=value/max(.000001,E.Gain(r,sk))
                     end
-                    candidates[#candidates+1]={recipe=r,count=n,estimate=estimate,rate=rate}
+                    candidates[#candidates+1]={recipe=r,count=n,estimate=estimate,rate=rate,learning=p==slug and learning or nil}
                     if j.hasFiniteSupply and n>1 then
                         local partialCost=0
                         if f and not f.known and not s.formulaPaid[f.id or r.key] then partialCost=f.cost or 0 end
                         for _,m in ipairs(r.mats) do partialCost=partialCost+quote(m[1],m[2]) end
-                        candidates[#candidates+1]={recipe=r,count=1,estimate=partialCost*n}
+                        candidates[#candidates+1]={recipe=r,count=1,estimate=partialCost*n,learning=p==slug and learning or nil}
                     end
                 end
                 tick()
@@ -1720,7 +1742,7 @@ function S.NewJob(slug,opts)
                     craft(s,candidate.recipe,candidate.count,p==slug and "level" or "secondary",path,function(t)
                         if (t.skill[p]>s.skill[p] or t.skill[p]==s.skill[p] and (t.progress[p] or 0)>(s.progress[p] or 0))
                             and better(t,winner) then winner=t end
-                    end)
+                    end,candidate.learning)
                     local score=winner and opts.specializationRecipeScore and opts.specializationRecipeScore(candidate.recipe,s,j.snap,winner.money-s.money)
                     if winner and (score and (not selectedScore or score<selectedScore-1e-7
                         or math.abs(score-selectedScore)<1e-7 and better(winner,selected))
@@ -1734,11 +1756,13 @@ function S.NewJob(slug,opts)
         end
         for _,r in ipairs(levelRecipes(p,s.skill[p])) do
             local sk=s.skill[p]
-            if r.learn<=sk and sk<r.grey and allowed(r,s,"level") then
+            local usable,learning
+            if r.learn<=sk and sk<r.grey then usable,learning=allowed(r,s,"level") end
+            if usable then
                 any=true
                 local g=E.Gain(r,sk)
                 local n=greedy and max(1,ceil((1-(s.progress[p] or 0))/max(.000001,g)-1e-7)) or 1
-                craft(s,r,n,p==slug and "level" or "secondary",path,emit)
+                craft(s,r,n,p==slug and "level" or "secondary",path,emit,p==slug and learning or nil)
             end
             tick()
         end
@@ -1765,14 +1789,14 @@ function S.NewJob(slug,opts)
             return raw
         end
         j.workCounters.batchedPlans=j.workCounters.batchedPlans+1
-        local original=actions(raw)
+        local original=actions(raw,tick)
         local function replay(list,start)
             j.workCounters.replayCalls=j.workCounters.replayCalls+1
-            local t=start or initial(j.snap,slug,opts)
+            local t=start or initial(j.snap,slug,opts,tick)
             local greenCrafts=t.rebatchGreenCrafts or 0
             t.diagnostics={}
             local active={}
-            for _,a in ipairs(list) do if a.type=="craft" then active[a.profession..":"..a.spell]=true end end
+            for _,a in ipairs(list) do if a.type=="craft" then active[a.profession..":"..a.spell]=true end;tick() end
             for _,a in ipairs(list) do
                 if a.type=="buy" then
                     local bundle=a.bundleSize or 1
@@ -1820,10 +1844,12 @@ function S.NewJob(slug,opts)
                     t=finishGoal(t,goal)
                 elseif a.type=="craft" then
                     local r=j.snap.byKey[a.profession..":"..a.spell]
-                    if not r or not allowed(r,t,a.reason) or (t.skill[r.profession] or 0)<r.learn then return end
+                    if not r then return end
+                    local usable,learning=allowed(r,t,a.reason)
+                    if not usable or (t.skill[r.profession] or 0)<r.learn then return end
                     local n=a.count;local from=t.skill[r.profession];local progressFrom=t.progress[r.profession] or 0
                     for _,m in ipairs(r.mats) do if available(t,m[1])<m[2]*n then return end end
-                    t=learnFormula(t,r);if not t then return end
+                    t=learnFormula(t,r,nil,learning);if not t then return end
                     local inputs={}
                     for _,m in ipairs(r.mats) do inputs[#inputs+1]={m[1],m[2]*n};consume(t,m[1],m[2]*n) end
                     local gainSum=0
@@ -1852,9 +1878,22 @@ function S.NewJob(slug,opts)
             t.rebatchGreenCrafts=greenCrafts
             return t
         end
+        local function preservesProgress(candidate,t)
+            local complete=goalsComplete(j,candidate)
+            if not t or not complete and t.skill[slug]~=candidate.skill[slug] then return false end
+            for p,skill in pairs(candidate.skill) do
+                local progressGoal=p==slug and complete and j.target or 300
+                if (t.skill[p] or 0)<skill or skill<progressGoal and t.skill[p]==skill
+                    and (t.progress[p] or 0)+1e-7<(candidate.progress[p] or 0) then return false end
+            end
+            for _,field in ipairs({"completedSpecializationGoals","completedToolGoals"}) do
+                for id in pairs(candidate[field]) do if not t[field][id] then return false end end
+            end
+            return true
+        end
         local function rebuildBatches(candidate,advance)
             local list=actions(candidate)
-            local current=initial(j.snap,slug,opts)
+            local current=initial(j.snap,slug,opts,tick)
             if advance then
                 local useful
                 for _,a in ipairs(list) do
@@ -1991,7 +2030,7 @@ function S.NewJob(slug,opts)
                 tick()
             end
             local verified=replay(actions(current))
-            if not verified or not goalsComplete(j,verified) or uncertainty(verified)>uncertainty(candidate) then return end
+            if not preservesProgress(candidate,verified) or uncertainty(verified)>uncertainty(candidate) then return end
             if advance and not next(advanced) then return end
             local retry
             for key,n in pairs(advanced) do
@@ -2017,7 +2056,12 @@ function S.NewJob(slug,opts)
                 j.failures, j.collectFailures = {}, nil
                 local seeding,direct,aborted=j.seeding,j.directSeed,j.seedAborted
                 j.seeding=true;j.directSeed=true;j.seedAborted=false
+                local function replayFinal(list)
+                    local t=replay(list)
+                    if preservesProgress(candidate,t) then return t end
+                end
                 local rebuilt=rebuildBatches(candidate)
+                if rebuilt and not better(rebuilt,candidate) then rebuilt=nil end
                 local limits={}
                 for _=1,3 do
                     local advanced,retry=rebuildBatches(candidate,limits)
@@ -2026,9 +2070,10 @@ function S.NewJob(slug,opts)
                     tick()
                 end
                 j.batchRecipes=nil;j.seeding,j.directSeed,j.seedAborted=seeding,direct,aborted
-                local baseline=candidate.rebatchGreenCrafts~=nil and candidate or replay(actions(candidate))
-                local result = rebuilt or baseline and rebatchEquivalent(candidate,baseline)
-                    and S.RebatchChronological(baseline, replay, tick, cpuTime, j.snap.byKey)
+                local baseline=candidate.rebatchGreenCrafts~=nil and candidate or replayFinal(actions(candidate))
+                local progressGoals=goalsComplete(j,candidate) and {[slug]=j.target} or nil
+                local result = rebuilt or baseline and rebatchEquivalent(candidate,baseline,progressGoals)
+                    and S.RebatchChronological(baseline, replayFinal, tick, cpuTime, j.snap.byKey, nil, progressGoals)
                 if result then
                     local seen,last,split={},nil,false
                     for _,a in ipairs(actions(result)) do
@@ -2041,7 +2086,7 @@ function S.NewJob(slug,opts)
                             last=key
                         end
                     end
-                    if split then result=S.RebatchChronological(result,replay,tick,cpuTime,j.snap.byKey,true) end
+                    if split then result=S.RebatchChronological(result,replayFinal,tick,cpuTime,j.snap.byKey,true,progressGoals) end
                 end
                 j.failures, j.collectFailures = failures, collected
                 j.restricted, j.restrictedReason = restricted, restriction
@@ -2049,7 +2094,7 @@ function S.NewJob(slug,opts)
                 return result or candidate
             end
         end
-        local trace=actions(first);local need,keep,quantities,owners,needOwner={},{},{},{},{}
+        local trace=actions(first,tick);local need,keep,quantities,owners,needOwner={},{},{},{},{}
         local changed=false
         for i=#trace,1,-1 do
             local a=trace[i]
@@ -2090,15 +2135,22 @@ function S.NewJob(slug,opts)
                     if n~=a.count then changed=true end
                 else changed=true end
             elseif a.type=="formula" or a.type=="gather" then keep[i]=true end
+            tick()
         end
-        local selected={}
-        for i,a in ipairs(trace) do if keep[i] then
-            local event=E.Copy(a)
-            if quantities[i] then event.cost=event.cost*quantities[i]/event.count;event.count=quantities[i] end
-            if owners[i] then event.owner=owners[i] end
-            selected[#selected+1]=event
-        end end
-        local t=replay(selected)
+        local selected,identical={},true
+        for i,a in ipairs(trace) do
+            if keep[i] then
+                local event=a
+                if quantities[i] and quantities[i]~=a.count or owners[i] and owners[i]~=a.owner then
+                    event=E.Copy(a,tick);identical=false
+                    if quantities[i] then event.cost=event.cost*quantities[i]/event.count;event.count=quantities[i] end
+                    if owners[i] then event.owner=owners[i] end
+                end
+                selected[#selected+1]=event
+            else identical=false end
+            tick()
+        end
+        local t=identical and first or replay(selected)
         if not t or (requireGoal and not goalsComplete(j,t)) then fail("executionInvalid");return end
         if changed then restrict(j,"chronological_replay_reduction") end
         local purchases,formulaStock={},{}
@@ -2117,7 +2169,7 @@ function S.NewJob(slug,opts)
             if entry.skip or entry.events<2 or #materialVendorOffers(id)==0 then purchases[id]=nil end
         end
         if not next(purchases) then t.batched=true;return t end
-        local base=initial(j.snap,slug,opts)
+        local base=initial(j.snap,slug,opts,tick)
         local balance,demand={},{}
         for id in pairs(purchases) do balance[id]=available(base,id);demand[id]=0 end
         for _,a in ipairs(selected) do
@@ -2172,8 +2224,14 @@ function S.NewJob(slug,opts)
     end
     local function rebuildSkeleton(first)
         local skel=opts.routeSkeleton
-        if E.StepsHaveNIP(skel.steps) then
-            fail("catalogueFiltered")
+        local blocked=E.StepsHaveNIP(skel.steps) and "catalogueFiltered" or nil
+        if not opts.allowSecondaryLeveling then
+            for _,step in ipairs(skel.steps) do
+                if step.profession and step.profession~=slug then blocked="secondaryDisabled";break end
+            end
+        end
+        if blocked then
+            fail(blocked)
             j.status="recalculate_required";j.searchTermination="skeleton_rejected";j.exhausted=true
             j.result=S.Result(j,nil,j.status);j.finished=true
             return
@@ -2716,7 +2774,7 @@ function S.NewJob(slug,opts)
             if reference then publishPrefix(reference) end
             j.referenceSeed=false
             if j.preview and goalsComplete(j,j.preview) and uncertainty(j.preview)==0 then
-                j.best=j.preview; j.initialTotal=j.preview.money; j.initialObjective=objective(j.preview,j.recovery and j.snap or nil)
+                current=j.preview;j.best=current; j.initialTotal=j.preview.money; j.initialObjective=objective(j.preview,j.recovery and j.snap or nil)
                 j.initialNetTotal=j.preview.money-(j.recovery and ns.ProfRecovery.StateRevenue(j.preview,j.snap) or 0)
                 j.result=S.Result(j,j.best,"searching"); coroutine.yield("publish")
             end
@@ -2759,8 +2817,10 @@ function S.NewJob(slug,opts)
                 and (old.money<t.money-1e-7 or math.abs(old.money-t.money)<1e-7 and old.switches<=t.switches)) then return end
             if #heap>=j.frontierLimit then j.budgetLimited=true;j.searchTermination="frontier_limit";return end
             if not old then j.memoStates=(j.memoStates or 0)+1 end
-            memo[key]={cost=cost,money=t.money,switches=t.switches}
+            memo[key]={cost=cost,money=t.money,switches=t.switches,
+                token=j.tickClockStride and (serial+1) or nil}
             serial=serial+1; local entry={state=t,score=bound(t),serial=serial,key=key}; local i=#heap+1
+            if j.tickClockStride then entry.memoToken=serial end
             while i>1 do local parent=floor(i/2); if not less(entry,heap[parent]) then break end; heap[i]=heap[parent]; i=parent end
             heap[i]=entry;j.frontierStates=#heap
         end
@@ -2786,8 +2846,15 @@ function S.NewJob(slug,opts)
                 if batched and better(batched,j.best) then j.best=batched; j.improvements=(j.improvements or 0)+1; j.result=S.Result(j,batched,"searching"); coroutine.yield("publish") end
             elseif not pruned(t,true) then
                 local known=memo[entry.key]
-                local cost=objective(t,j.recovery and j.snap or nil)
-                if known and math.abs(cost-known.cost)<1e-7 and math.abs(t.money-known.money)<1e-7 and t.switches==known.switches then
+                local currentMemo
+                if j.tickClockStride and entry.memoToken then
+                    currentMemo=known and known.token==entry.memoToken
+                else
+                    local cost=objective(t,j.recovery and j.snap or nil)
+                    currentMemo=known and math.abs(cost-known.cost)<1e-7
+                        and math.abs(t.money-known.money)<1e-7 and t.switches==known.switches
+                end
+                if currentMemo then
                     local emitted=false
                     local collect=t.skill[slug]>=(j.blockedSkill or first.skill[slug])
                     if collect then j.collectFailures={} end
@@ -2839,12 +2906,6 @@ end
 local function finalize(j,status)
     j.status=status
     j.phase="finalize"
-    local rebatchPending = j.best and j.rebatchFinal and not j.rebatchFinalized
-        and (status=="complete" or status=="incomplete")
-    if j.best and j.resultState==j.best and j.resultCache and not rebatchPending then
-        j.result=S.Result(j,j.best,status);j.finished=true
-        return
-    end
     j.finalizing=true
     j.co=coroutine.create(function()
         j.result=S.Result(j,j.best,status)
@@ -2852,39 +2913,25 @@ local function finalize(j,status)
         return "done"
     end)
 end
-function S.Run(j,budget)
-    if j.finished or j.status=="stopped" or coroutine.status(j.co)=="dead" then
+function S.Run(j,budget,deferStatus)
+    if j.finished or j.cancelled or j.status=="stopped" and not j.finalizing or coroutine.status(j.co)=="dead" then
         S.RefreshStatus(j);return true
     end
     local start=clock();j.sliceStart=start;j.deadline=start+(budget or 2)
+    j.tickClockCountdown=0
     local phase=j.phase or (j.finalizing and "finalize" or not j.snap and "capture" or "initial_seed")
     local before=j.cpuUsed
     if not j.finalizing and qualityBudgetDue(j) then
         j.budgetLimited=true;j.searchTermination="quality_budget"
         finalize(j,uncertainty(j.best)==0 and "complete" or "incomplete")
-        if j.finished then
-            local delta=max(0,clock()-start)
-            j.phaseCpuMs[phase]=(j.phaseCpuMs[phase] or 0)+delta
-            j.cpuUsed=max(before,j.cpuUsed)+delta;j.sliceStart=nil
-            if j.result then j.result.phaseCpuMs=E.Copy(j.phaseCpuMs) end
-            j.progressVersion=(j.progressVersion or 0)+1
-            S.RefreshStatus(j)
-            return true
-        end
     end
     if not j.finalizing and j.cpuUsed>=j.cpuLimitMs then
         j.budgetLimited=true;j.searchTermination="cpu_limit"
         finalize(j,j.best and (uncertainty(j.best)==0 and "complete" or "incomplete") or "incomplete")
-        if j.finished then
-            local delta=max(0,clock()-start)
-            j.phaseCpuMs[phase]=(j.phaseCpuMs[phase] or 0)+delta
-            j.cpuUsed=max(before,j.cpuUsed)+delta;j.sliceStart=nil
-            if j.result then j.result.phaseCpuMs=E.Copy(j.phaseCpuMs) end
-            j.progressVersion=(j.progressVersion or 0)+1;S.RefreshStatus(j);return true
-        end
     end
     local ok,why=coroutine.resume(j.co)
     local elapsed=max(0,clock()-start)
+    if ok and j.status~="searching" and coroutine.status(j.co)~="dead" then j.finalizing=true end
     if not ok then
         j.status="error";j.searchTermination="error";j.failures.error={code="solverError",detail=tostring(why)}
         j.error=why
@@ -2902,10 +2949,11 @@ function S.Run(j,budget)
     j.phaseCpuMs[phase]=(j.phaseCpuMs[phase] or 0)+delta
     j.cpuUsed=max(before,j.cpuUsed)+delta;j.sliceStart=nil
     local done=j.finished or coroutine.status(j.co)=="dead"
+    if done then j.finalizing=nil end
     if done and j.result then j.result.phaseCpuMs=E.Copy(j.phaseCpuMs) end    if done or not j.progressAt or clock()-j.progressAt>=200 then
         j.progressAt=clock();j.progressVersion=(j.progressVersion or 0)+1
     end
-    S.RefreshStatus(j)
+    if done or not deferStatus then S.RefreshStatus(j) end
     return done
 end
 function S.Compute(slug,opts)
@@ -2914,9 +2962,8 @@ function S.Compute(slug,opts)
     return j.result or S.Result(j,j.best,j.status),j
 end
 function S.NewProcurementJob(snapshot,demands,opts)
-    opts=E.Copy(opts or {}); opts.snapshot=E.Copy(snapshot); opts.snapshot.recipes={}
-    opts.snapshot.specializationGoals={}
-    opts.snapshot.toolGoals={}
+    opts=E.Copy(opts or {},nil,{snapshot=false})
+    opts.snapshot=E.Copy(snapshot,nil,{recipes={},specializationGoals={},toolGoals={},professions={},known={},byKey={},byItem={},byProfession={}})
     if opts.referenceFallback==nil then opts.referenceFallback=false end
     for _,r in ipairs(snapshot.recipes or {}) do opts.snapshot.recipes[#opts.snapshot.recipes+1]=r end
     local totals={}

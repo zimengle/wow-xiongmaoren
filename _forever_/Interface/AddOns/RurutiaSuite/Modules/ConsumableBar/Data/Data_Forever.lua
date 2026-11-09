@@ -27,6 +27,15 @@ DATASETS[H.EXP_FOREVER] = {
         Entry({ key = "forever_item_213564", name = "次级唤醒卷轴", kind = "scroll", itemID = 213564, requiredLevel = 0 }),
         Entry({ key = "forever_item_215257", name = "理解卷轴", kind = "scroll", itemID = 215257, requiredLevel = 0 }),
         Entry({ key = "forever_item_275069", name = "老鼠魔宠卷轴", kind = "scroll", itemID = 275069, requiredLevel = 5 }),
+        -- Level 16 mage scrolls confirmed by in-game item tooltips.
+        Entry({ key = "forever_item_277488", name = "寒冰之刃注入卷轴", kind = "scroll", itemID = 277488, requiredLevel = 16 }),
+        Entry({ key = "forever_item_277484", name = "困惑野兽卷轴", kind = "scroll", itemID = 277484, requiredLevel = 16 }),
+        Entry({ key = "forever_item_277485", name = "冰霜注入卷轴", kind = "scroll", itemID = 277485, requiredLevel = 16 }),
+        Entry({ key = "forever_item_277486", name = "打击注入卷轴", kind = "scroll", itemID = 277486, requiredLevel = 16 }),
+        Entry({ key = "forever_item_277489", name = "火花注入卷轴", kind = "scroll", itemID = 277489, requiredLevel = 16 }),
+        Entry({ key = "forever_item_213550", name = "变形术卷轴：怪异甜瓜", kind = "scroll", itemID = 213550, requiredLevel = 16 }),
+        Entry({ key = "forever_item_277483", name = "青蛙魔宠卷轴", kind = "scroll", itemID = 277483, requiredLevel = 16 }),
+        Entry({ key = "forever_item_217495", name = "霜爆术卷轴", kind = "scroll", itemID = 217495, requiredLevel = 16 }),
         Entry({ key = "forever_item_12662", name = "恶魔符文", kind = "rune", itemID = 12662, requiredLevel = 0 }),
         Entry({ key = "forever_item_20520", name = "黑暗符文", kind = "rune", itemID = 20520, requiredLevel = 0 }),
         Entry({ key = "era_limited_invulnerability_potion", name = "有限无敌药水", kind = "potion", itemID = 3387, buffID = 3169, color = "ffff00", clickColors = { left = "ffff00", right = "ffff00" } }),
@@ -85,10 +94,10 @@ DATASETS[H.EXP_FOREVER] = {
         Entry({ key = "era_item_19011", name = "强效治疗石", kind = "healthstone", itemID = 19011, previewRank = 12, color = "00ff00", clickColors = { left = "00ff00", right = "00ff00" } }),
         Entry({ key = "era_item_19012", name = "特效治疗石", kind = "healthstone", itemID = 19012, previewRank = 14, color = "00ff00", clickColors = { left = "00ff00", right = "00ff00" } }),
         Entry({ key = "era_item_19013", name = "特效治疗石", kind = "healthstone", itemID = 19013, previewRank = 15, color = "00ff00", clickColors = { left = "00ff00", right = "00ff00" } }),
-        Entry({ key = "era_item_5514", name = "法力玛瑙", kind = "manaGem", itemID = 5514, conjureSpellID = 759, color = "00ffff", clickColors = { left = "00ffff", right = "00ffff" } }),
-        Entry({ key = "era_item_5513", name = "法力翡翠", kind = "manaGem", itemID = 5513, conjureSpellID = 3552, color = "00ffff", clickColors = { left = "00ffff", right = "00ffff" } }),
-        Entry({ key = "era_item_8007", name = "法力黄水晶", kind = "manaGem", itemID = 8007, conjureSpellID = 10053, color = "00ffff", clickColors = { left = "00ffff", right = "00ffff" } }),
-        Entry({ key = "era_item_8008", name = "法力红宝石", kind = "manaGem", itemID = 8008, conjureSpellID = 10054, color = "00ffff", clickColors = { left = "00ffff", right = "00ffff" } }),
+        Entry({ key = "era_item_5514", name = "法力玛瑙", kind = "manaGem", splitActionTooltip = true, itemID = 5514, conjureSpellID = 759, color = "00ffff", clickColors = { left = "00ffff", right = "00ffff" } }),
+        Entry({ key = "era_item_5513", name = "法力翡翠", kind = "manaGem", splitActionTooltip = true, itemID = 5513, conjureSpellID = 3552, color = "00ffff", clickColors = { left = "00ffff", right = "00ffff" } }),
+        Entry({ key = "era_item_8007", name = "法力黄水晶", kind = "manaGem", splitActionTooltip = true, itemID = 8007, conjureSpellID = 10053, color = "00ffff", clickColors = { left = "00ffff", right = "00ffff" } }),
+        Entry({ key = "era_item_8008", name = "法力红宝石", kind = "manaGem", splitActionTooltip = true, itemID = 8008, conjureSpellID = 10054, color = "00ffff", clickColors = { left = "00ffff", right = "00ffff" } }),
         Entry({ key = "era_item_10310", name = "力量卷轴 IV", kind = "scroll", defaultEnabled = false, itemID = 10310, buffID = 12179, color = "ff9600", clickColors = { left = "ff9600", right = "ff9600" } }),
         Entry({ key = "era_item_10309", name = "敏捷卷轴 IV", kind = "scroll", defaultEnabled = false, itemID = 10309, buffID = 12174, color = "00ff00", clickColors = { left = "00ff00", right = "00ff00" } }),
         Entry({ key = "era_item_10308", name = "智力卷轴 IV", kind = "scroll", defaultEnabled = false, itemID = 10308, buffID = 12176, color = "ff00ff", clickColors = { left = "ff00ff", right = "ff00ff" } }),
@@ -546,6 +555,14 @@ DATASETS[H.EXP_FOREVER] = {
         }),
         PreMopOtherGroup({
             "forever_item_275067",
+            "forever_item_277488",
+            "forever_item_277484",
+            "forever_item_277485",
+            "forever_item_277486",
+            "forever_item_277489",
+            "forever_item_213550",
+            "forever_item_277483",
+            "forever_item_217495",
             "forever_item_274947",
             "forever_item_213564",
             "forever_item_215257",
@@ -828,6 +845,9 @@ DATASETS[H.EXP_FOREVER] = {
         }),
     },
 }
+local potionGroup = DATASETS[H.EXP_FOREVER].groups[1]
+potionGroup.buttonWidth = 29
+potionGroup.buttonHeight = 27
 DATASETS[H.EXP_FOREVER].groups[2].categoryMenus = true
 DATASETS[H.EXP_FOREVER].groups[2].itemsPerGroup = 8
 DATASETS[H.EXP_FOREVER].groups[2].foodMinLevel = 0

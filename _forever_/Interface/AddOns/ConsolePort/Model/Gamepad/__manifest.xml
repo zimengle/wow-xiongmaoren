@@ -1,0 +1,13 @@
+<Ui>
+	<!-- Interface -->
+	<Script file="Gamepad.lua"/>
+	<Script file="Mapper.lua"/>
+	<!-- Assets -->
+	<Script file="Atlas.lua"/>
+	<!-- Controller presets -->
+	<Script file="Xbox.lua"/>
+	<Script file="PlayStation4.lua"/>
+	<Script file="PlayStation5.lua"/>
+	<Script file="Deck.lua"/>
+	<Script file="Switch.lua"/>
+</Ui>

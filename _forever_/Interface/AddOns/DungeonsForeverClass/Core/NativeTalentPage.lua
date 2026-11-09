@@ -115,6 +115,7 @@ local function Skinnable(b)
 end
 
 local function DB()
+    if ns.TalentBuildStore then return ns.TalentBuildStore() end
     local t = ns.ClassDB().talentSim
     if not t then
         t = {}
@@ -157,7 +158,7 @@ end
 
 local function SaveSim()
     if not NP.cls or not NP.pts then return end
-    local sig = SimSig()
+    local sig = SimSig() .. '|' .. tostring(NP.planIdx) .. '|' .. tostring(NP.viewMode)
     if NP.simSig == sig then return end
     NP.simSig = sig
     local pts = { {}, {}, {} }
@@ -167,15 +168,31 @@ local function SaveSim()
             if n > 0 then pts[t][i] = n end
         end
     end
-    DB().sim = { cls = NP.cls, pts = pts, pi = NP.planIdx, view = NP.viewMode }
+    DB().sim = { cls = NP.cls, pts = pts, view = NP.viewMode }
+end
+
+local function AllocSame(a, b)
+    for t = 1, 3 do
+        local x, y = a[t] or {}, b[t] or {}
+        for i, v in pairs(x) do if (y[i] or 0) ~= v then return false end end
+        for i, v in pairs(y) do if (x[i] or 0) ~= v then return false end end
+    end
+    return true
 end
 
 local function RestoreSim()
     local s = DB().sim
     if type(s) ~= 'table' or s.cls ~= NP.cls then return false end
-    if s.pi then
+    if s.pi and DB().cur == nil then
         local pl = Plans() or {}
-        if pl[s.pi] then NP.plan = pl[s.pi] end
+        local hit = nil
+        if type(s.pts) == 'table' then
+            for i = 2, #pl do
+                if AllocSame(s.pts, pl[i].alloc or {}) then hit = i break end
+            end
+        end
+        if not hit then return false end
+        DB().cur = hit
     end
     if s.view then NP.viewMode = s.view end
     if type(s.pts) ~= 'table' then return false end
@@ -279,6 +296,7 @@ local function NodeOf(t, i)
 end
 
 local Refresh
+local ShowPlanMenu, SaveBuild
 
 local function NewText(parent, size, r, g, b, anchor)
     local fs = parent:CreateFontString(nil, 'OVERLAY', 'GameFontNormal')
@@ -480,14 +498,22 @@ local function BuildNode(t, i, nd)
 end
 
 local nodeStates = { {}, {}, {} }
-local edgeLayer, edgeObjs, edgeList, edgeIn
+local edgeLayer, edgeObjs, edgeList, edgeIn, preOf
 
 local function SyncEdges()
     edgeList, edgeIn = {}, { {}, {}, {} }
+    preOf = { {}, {}, {} }
     NP.edgeList, NP.edgeIn = edgeList, edgeIn
     if type(CT) ~= 'table' or type(Traits) ~= 'table' then return end
     local d = Data()
     if not d then return end
+    for t = 1, 3 do
+        local nl = d.trees[t] and d.trees[t].nodes or {}
+        for i = 1, #nl do
+            local nd = nl[i]
+            if nd.req and nl[nd.req] then preOf[t][i] = nd.req end
+        end
+    end
     local ok, cfg = pcall(CT.GetActiveConfigID)
     if not ok or not cfg then return end
     local ok2, ci = pcall(Traits.GetConfigInfo, cfg)
@@ -526,13 +552,17 @@ local function SyncEdges()
                 for _, e in ipairs(info.visibleEdges) do
                     local b = byName[nameOf(e.targetNode) or '']
                     if b and b.t == a.t then
-                        edgeList[#edgeList + 1] = { t = a.t, from = a.i, to = b.i }
-                        local ins = edgeIn[a.t][b.i]
-                        if not ins then
-                            ins = {}
-                            edgeIn[a.t][b.i] = ins
+                        local na = d.trees[a.t] and d.trees[a.t].nodes[a.i]
+                        local nb = d.trees[b.t] and d.trees[b.t].nodes[b.i]
+                        if na and nb and (nb.row or 0) >= (na.row or 0) then
+                            edgeList[#edgeList + 1] = { t = a.t, from = a.i, to = b.i }
+                            local ins = edgeIn[a.t][b.i]
+                            if not ins then
+                                ins = {}
+                                edgeIn[a.t][b.i] = ins
+                            end
+                            ins[#ins + 1] = a.i
                         end
-                        ins[#ins + 1] = a.i
                     end
                 end
             end
@@ -602,28 +632,18 @@ local function DrawEdges()
 end
 
 LinkOK = function(t, i)
-    local ins = edgeIn and edgeIn[t] and edgeIn[t][i]
-    if not ins then return true end
-    local d = Data()
-    local list = d and d.trees[t] and d.trees[t].nodes
-    if not list then return true end
-    for k = 1, #ins do
-        local nd = list[ins[k]]
-        if nd and ((NP.pts[t] or {})[ins[k]] or 0) < nd.max then return false end
-    end
-    return true
+    local r = preOf and preOf[t] and preOf[t][i]
+    if not r then return true end
+    local nd = NodeOf(t, r)
+    if not nd then return true end
+    return ((NP.pts[t] or {})[r] or 0) >= nd.max
 end
 
 LinkBlockName = function(t, i)
-    local ins = edgeIn and edgeIn[t] and edgeIn[t][i]
-    if not ins then return nil end
-    local d = Data()
-    local list = d and d.trees[t] and d.trees[t].nodes
-    if not list then return nil end
-    for k = 1, #ins do
-        local nd = list[ins[k]]
-        if nd and ((NP.pts[t] or {})[ins[k]] or 0) < nd.max then return nd.n end
-    end
+    local r = preOf and preOf[t] and preOf[t][i]
+    if not r then return nil end
+    local nd = NodeOf(t, r)
+    if nd and ((NP.pts[t] or {})[r] or 0) < nd.max then return nd.n end
     return nil
 end
 
@@ -698,7 +718,8 @@ end
 
 local function PlanName()
     local p = NP.plan
-    if p and p.name and p.name ~= '' then return p.name end
+    if not p then return L['未选择方案'] end
+    if p.name and p.name ~= '' then return p.name end
     return string.format(L['方案%d'], NP.planIdx or 1)
 end
 
@@ -770,7 +791,7 @@ local function PlanList()
     end
     local bl = DB().builds[NP.cls] or {}
     for i = 1, #bl do
-        out[#out + 1] = { label = bl[i].name, alloc = bl[i].alloc, idx = #plans + i }
+        out[#out + 1] = { label = bl[i].name, alloc = bl[i].alloc, idx = #plans + i, blIdx = i }
     end
     return out
 end
@@ -788,6 +809,28 @@ local function ApplyAlloc(alloc)
             end
         end
     end
+end
+
+local function PtsAlloc()
+    local a = { {}, {}, {} }
+    for t = 1, 3 do
+        for i, v in pairs(NP.pts[t] or {}) do a[t][i] = v end
+    end
+    return a
+end
+
+local function SyncCur()
+    local c = DB().cur
+    if c == NP.curSeen then return end
+    NP.curSeen = c
+    local pl = (type(c) == 'number') and (Plans() or {})[c] or nil
+    if pl then
+        NP.plan, NP.planIdx = pl, c
+        ApplyAlloc(pl.alloc)
+    else
+        NP.plan, NP.planIdx = nil, nil
+    end
+    NP.seqFor, NP.seqCache = nil, nil
 end
 
 local function Encode()
@@ -883,11 +926,7 @@ local function SeqOf(plan)
             return s
         end
     end
-    local plans = Plans() or {}
-    local first = plans[1]
-    if not first then return nil end
-    if first.seq then return first.seq end
-    return SeqFromAlloc(first.alloc)
+    return nil
 end
 
 local function PendingSeq(base)
@@ -1061,13 +1100,13 @@ local function NativeSpellName(btn)
     return nil
 end
 
-local function BuildSeqMap()
+local function BuildSeqMap(pending)
     if NP.seqOn == nil then NP.seqOn = DB().seqOn ~= false end
-    if not NP.seqOn or not NP.cls then
+    if not NP.seqOn or not NP.cls or not NP.plan then
         NP.seqMap = nil
         return nil
     end
-    NP.seqMap = SeqMap(PendingSeq({ all = true }))
+    NP.seqMap = SeqMap(pending or PendingSeq())
     return NP.seqMap
 end
 
@@ -1115,7 +1154,6 @@ local function RefreshNativeSeq()
     local byName = NP.byName
     if not (map and byName) then return end
     local nos = NP.seqMap
-    if not nos then nos = BuildSeqMap() end
     local L = SeqLayer()
     if L then
         local T = NP.frame
@@ -1155,7 +1193,7 @@ local function HookNativeTalents()
     local TF = PF and PF.TalentsFrame
     if TF and not TF.__dfSeqHook then
         TF.__dfSeqHook = true
-        TF:HookScript('OnShow', function() RefreshNativeSeq() end)
+        TF:HookScript('OnShow', function() if NP.SyncPlan then NP.SyncPlan() end end)
     end
     RefreshNativeSeq()
     return TF and TF.__dfSeqHook and true or false
@@ -1247,9 +1285,9 @@ local function SpellAvail()
     return list
 end
 
-local function UpdateLists()
+local function UpdateLists(pending)
     local base = LiveBase()
-    local pending = PendingSeq(base)
+    if not pending then pending = PendingSeq(base) end
     local oop = base and OutOfPlan() or {}
     local shownRows = 0
     for i = 1, #oop do
@@ -1292,14 +1330,14 @@ local function UpdateLists()
         end
         row:Show()
     end
-    if shownRows == 0 and NP.viewMode ~= 'plan' then
+    if shownRows == 0 and (not NP.plan or NP.viewMode ~= 'plan') then
         local row = planRows[1]
         if row.seq then row.seq:SetText('') end
         row.ic:SetTexture('')
         row.ic:SetDesaturated(false)
         row.lv:SetText('')
         row.nm:SetTextColor(0.55, 0.58, 0.62)
-        row.nm:SetText(L['与当前方案一致'])
+        row.nm:SetText(NP.plan and L['与当前方案一致'] or L['未选择方案'])
         row.rk:SetTextColor(0.55, 0.58, 0.62)
         row.rk:SetText('')
         row:Show()
@@ -1335,14 +1373,24 @@ local function UpdateLists()
     if skillTitle then
         skillTitle:SetText(#avail > 0 and L['可学习的技能'] or L['暂无可学习的技能'])
     end
-    RefreshNativeSeq()
+end
+
+function NP.SyncPlan()
+    if not body then return end
+    NP.liveCache = nil
+    NP.liveBaseCache = nil
+    local pending = PendingSeq(LiveBase())
+    BuildSeqMap(pending)
+    UpdateLists(pending)
+    HookNativeTalents()
 end
 
 Refresh = function()
     if not body then return end
+    SyncCur()
+    NP.SyncPlan()
     local unspent = MaxPoints() - TotalSpent()
-    local pending = PendingSeq()
-    local smap = BuildSeqMap()
+    local smap = NP.seqMap
     for t = 1, 3 do
         local d = Data()
         local tree = d and d.trees[t]
@@ -1405,10 +1453,8 @@ Refresh = function()
         end
     end
     UpdateEdgeStates()
-    UpdateLists()
     CurrencyCard(true)
     SaveSim()
-    HookNativeTalents()
 end
 local function LiveRead()
     if type(CT) ~= 'table' or type(Traits) ~= 'table' then return nil end
@@ -1572,12 +1618,13 @@ function NP.ApplyLive()
     StaticPopup_Show('DF_TALENT_SIM_APPLY')
 end
 
-local function ShowPlanMenu(anchor)
+ShowPlanMenu = function(anchor)
     local menu = MenuUtil and MenuUtil.CreateContextMenu and nil
     local rows = PlanList()
+    NP.planMenuAnchor = anchor
     if NP.planMenu then NP.planMenu:Hide() end
     local f = CreateFrame('Frame', 'DungeonsForeverTalentPlanMenu', UIParent, 'BackdropTemplate')
-    f:SetSize(352, math.max(24, #rows * 24) + 12)
+    f:SetSize(352, (#rows + 1) * 24 + 12)
     f:SetPoint('TOPLEFT', anchor, 'BOTTOMLEFT', 0, -2)
     f:SetFrameStrata('FULLSCREEN_DIALOG')
     f:SetFrameLevel(200)
@@ -1633,14 +1680,116 @@ local function ShowPlanMenu(anchor)
         local lv = NewText(r, 14, 0.62, 0.68, 0.78, 'RIGHT')
         lv:SetPoint('RIGHT', r, 'RIGHT', -2, 0)
         lv:SetText(string.format(L['需要等级 %d'], total + StartLv() - 1))
+        if rows[i].blIdx then
+            local bi = rows[i].blIdx
+            local ren = CreateFrame('Button', nil, r)
+            ren:SetSize(18, 18)
+            ren:SetPoint('TOPLEFT', r, 'TOPLEFT', 80, -3)
+            ren:SetText('改')
+            local rt = ren:GetFontString()
+            if rt then
+                rt:SetFont(ns.FONT, 11, '')
+                rt:SetTextColor(0.6, 0.8, 1, 1)
+            end
+            ren:SetHighlightTexture(WHITE, 'ADD')
+            local rhl = ren:GetHighlightTexture()
+            if rhl then rhl:SetVertexColor(1, 1, 1, 0.12) end
+            ren:SetScript('OnClick', function()
+                StaticPopupDialogs['DF_TALENT_SIM_REN'] = {
+                    text = L['输入新的方案名'],
+                    button1 = L['确定'],
+                    button2 = L['取消'],
+                    hasEditBox = true,
+                    editBoxWidth = 260,
+                    maxLetters = 24,
+                    OnShow = function(self)
+                        if ns.SkinPopupFont then ns.SkinPopupFont(self) end
+                        local e = self.EditBox or self.editBox
+                        if e then
+                            e:SetText(rows[i].label)
+                            e:HighlightText()
+                            e:SetFocus()
+                        end
+                    end,
+                    OnAccept = function(self)
+                        local e = self.EditBox or self.editBox
+                        local nm = e and e:GetText() or ''
+                        nm = nm and nm:gsub('^%s+', ''):gsub('%s+$', '') or ''
+                        if nm ~= '' then
+                            local list = DB().builds[NP.cls]
+                            if list and list[bi] then list[bi].name = nm end
+                            if NP.planMenu and NP.planMenuAnchor then ShowPlanMenu(NP.planMenuAnchor) end
+                        end
+                    end,
+                    EditBoxOnEnterPressed = function(self)
+                        local p = self:GetParent()
+                        if p.button1 then p.button1:Click() end
+                    end,
+                    EditBoxOnEscapePressed = function(self) self:GetParent():Hide() end,
+                    timeout = 0,
+                    whileDead = true,
+                    hideOnEscape = true,
+                    preferredIndex = 3,
+                }
+                StaticPopup_Show('DF_TALENT_SIM_REN')
+            end)
+            local del = CreateFrame('Button', nil, r)
+            del:SetSize(18, 18)
+            del:SetPoint('TOPLEFT', r, 'TOPLEFT', 98, -3)
+            del:SetText('X')
+            local dt = del:GetFontString()
+            if dt then
+                dt:SetFont(ns.FONT, 11, '')
+                dt:SetTextColor(1, 0.4, 0.35, 1)
+            end
+            del:SetHighlightTexture(WHITE, 'ADD')
+            local dhl = del:GetHighlightTexture()
+            if dhl then dhl:SetVertexColor(1, 1, 1, 0.12) end
+            del:SetScript('OnClick', function()
+                StaticPopupDialogs['DF_TALENT_SIM_DEL'] = {
+                    text = string.format(L['删除方案「%s」？'], rows[i].label),
+                    button1 = L['确定'],
+                    button2 = L['取消'],
+                    OnShow = function(self)
+                        if ns.SkinPopupFont then ns.SkinPopupFont(self) end
+                    end,
+                    OnAccept = function()
+                        local list = DB().builds[NP.cls]
+                        if list and list[bi] then table.remove(list, bi) end
+                        if NP.planMenu and NP.planMenuAnchor then ShowPlanMenu(NP.planMenuAnchor) end
+                        Refresh()
+                    end,
+                    timeout = 0,
+                    whileDead = true,
+                    hideOnEscape = true,
+                    preferredIndex = 3,
+                }
+                StaticPopup_Show('DF_TALENT_SIM_DEL')
+            end)
+        end
         r:SetScript('OnClick', function()
             NP.plan = rows[i].plan or { name = rows[i].label, alloc = alloc }
             NP.planIdx = rows[i].idx
+            DB().cur = rows[i].plan and rows[i].idx or nil
+            NP.curSeen = DB().cur
             ApplyAlloc(alloc)
             f:Hide()
             Refresh()
         end)
     end
+    local add = CreateFrame('Button', nil, f)
+    add:SetSize(340, 24)
+    add:SetPoint('TOPLEFT', f, 'TOPLEFT', 6, -(6 + #rows * 24))
+    add:SetHighlightTexture(WHITE, 'ADD')
+    local ahl = add:GetHighlightTexture()
+    if ahl then ahl:SetVertexColor(1, 1, 1, 0.1) end
+    local afs = NewText(add, 14, 1, 0.82, 0, 'LEFT')
+    afs:SetPoint('LEFT', add, 'LEFT', 3, 0)
+    afs:SetText('+ ' .. L['保存当前加点为新方案'])
+    add:SetScript('OnClick', function()
+        f:Hide()
+        SaveBuild()
+    end)
     f:EnableMouse(true)
     f:SetScript('OnHide', function()
         catcher:Hide()
@@ -1675,7 +1824,10 @@ local function ImportDialog()
             local str = e and e:GetText() or ''
             if str ~= '' then
                 ApplyAlloc(Decode(str))
-                NP.plan = { name = L['导入方案'] }
+                NP.plan = { name = L['导入方案'], alloc = PtsAlloc() }
+                NP.planIdx = nil
+                DB().cur = nil
+                NP.curSeen = nil
                 Refresh()
             end
         end,
@@ -1707,7 +1859,7 @@ local function ExportBox()
     StaticPopup_Show('DF_TALENT_SIM_EXPORT')
 end
 
-local function SaveBuild()
+SaveBuild = function()
     StaticPopupDialogs['DF_TALENT_SIM_SAVE'] = {
         text = L['输入方案名'],
         button1 = L['确定'],
@@ -1729,12 +1881,9 @@ local function SaveBuild()
             local db = DB()
             db.builds[cls] = db.builds[cls] or {}
             local list = db.builds[cls]
-            local alloc = { {}, {}, {} }
-            for t = 1, 3 do
-                for i, v in pairs(NP.pts[t]) do alloc[t][i] = v end
-            end
-            list[#list + 1] = { name = name, alloc = alloc }
+            list[#list + 1] = { name = name, alloc = PtsAlloc() }
             print('|cff46bf72[天赋]|r ' .. string.format(L['已保存方案「%s」'], name))
+            if NP.planMenu and NP.planMenuAnchor then ShowPlanMenu(NP.planMenuAnchor) end
         end,
     }
     StaticPopup_Show('DF_TALENT_SIM_SAVE')
@@ -1762,6 +1911,10 @@ local function BuildStrip()
     bGet:SetScript('OnClick', function()
         if NP.SyncFromLive() then
             NP.seeded = true
+            NP.plan = { name = L['当前天赋'], alloc = PtsAlloc() }
+            NP.planIdx = nil
+            DB().cur = nil
+            NP.curSeen = nil
             Refresh()
             print('|cff46bf72[天赋]|r ' .. L['已读取角色当前天赋'])
         else
@@ -1881,9 +2034,11 @@ function NP.Build(T)
     NP.cls = ClassKey()
     if not NP.cls or not Data() then return end
     NP.pts = { {}, {}, {} }
-    NP.plan = (Plans() or {})[1]
-    NP.planIdx = 1
+    NP.plan = nil
+    NP.planIdx = nil
+    NP.curSeen = nil
     if RestoreSim() then NP.seeded = true end
+    SyncCur()
 
     body = CreateFrame('Frame', 'DungeonsForeverTalentPage', T)
     body:SetSize(BODY_W, BODY_H)
@@ -1923,15 +2078,25 @@ function NP.Build(T)
         g:RegisterEvent('PLAYER_TALENT_UPDATE')
         g:RegisterEvent('TRAIT_CONFIG_UPDATED')
         g:RegisterEvent('TRAIT_CONFIG_CREATED')
+        g:RegisterEvent('CHARACTER_POINTS_CHANGED')
         g:RegisterEvent('SPELLS_CHANGED')
         g:RegisterEvent('PLAYER_LEVEL_UP')
         g:SetScript('OnEvent', function()
-            NP.seqMap = nil
-            if NP.frame and body and NP.frame:GetTab() == NP.tabID then
+            if not body then return end
+            SyncCur()
+            if NP.frame and NP.frame:GetTab() == NP.tabID then
                 ApplyState(true)
                 Refresh()
+            else
+                NP.SyncPlan()
             end
-            HookNativeTalents()
+            if C_Timer and C_Timer.After and not NP.planDefer then
+                NP.planDefer = true
+                C_Timer.After(0.25, function()
+                    NP.planDefer = nil
+                    if body then NP.SyncPlan() end
+                end)
+            end
         end)
         NP.guard = g
         if hooksecurefunc then
@@ -1967,8 +2132,7 @@ function NP.Build(T)
     end
 
     NP.SyncShow()
-    BuildSeqMap()
-    HookNativeTalents()
+    if NP.frame:GetTab() ~= NP.tabID then NP.SyncPlan() end
     NativeSeqWatch()
 end
 

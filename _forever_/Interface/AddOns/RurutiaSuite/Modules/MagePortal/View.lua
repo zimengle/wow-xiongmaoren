@@ -193,8 +193,8 @@ function View:ShowTooltip(button)
     local leftCount = showCount and (" (" .. self.adapter:GetItemCount(info.itemPortal) .. ")") or ""
     local rightCount = showCount and (" (" .. self.adapter:GetItemCount(info.itemTeleport) .. ")") or ""
     Call(tooltip, "SetText",
-        "|cffffffff左键：|r|cff00ff00" .. info.spellLeft .. leftCount .. "|r\n"
-        .. "|cffffffff右键：|r|cff00ff00" .. info.spellRight .. rightCount .. "|r")
+        "|cffffffff左：|r|cff00ff00" .. info.spellLeft .. leftCount .. "|r\n"
+        .. "|cffffffff右：|r|cff00ff00" .. info.spellRight .. rightCount .. "|r")
     if info.isKnown == false and not self.module.previewEnabled then
         Call(tooltip, "AddLine", " ")
         Call(tooltip, "AddLine", "|cffff0000(未学会)|r")
@@ -254,7 +254,7 @@ function View:Refresh(spells, profile, preview, unlocked)
             Call(button.icon, "SetDesaturated", false)
             Call(button.icon, "SetVertexColor", 1, 1, 1)
             if not self.adapter:IsReagentFree() and index == 1 then
-                SetText(button.textTop, tostring(self.adapter:GetItemCount(info.itemTeleport)))
+                SetText(button.textTop, tostring(self.adapter:GetItemCount(info.itemPortal)))
             end
             SetText(button.textBottom, info.overlayText or "")
             Call(button, "SetAttribute", "type1", "spell")
@@ -282,7 +282,7 @@ function View:UpdateReagentCount()
     if self.adapter:IsReagentFree() or not info then
         SetText(self.buttons[1].textTop, "")
     else
-        SetText(self.buttons[1].textTop, tostring(self.adapter:GetItemCount(info.itemTeleport)))
+        SetText(self.buttons[1].textTop, tostring(self.adapter:GetItemCount(info.itemPortal)))
     end
     return true
 end

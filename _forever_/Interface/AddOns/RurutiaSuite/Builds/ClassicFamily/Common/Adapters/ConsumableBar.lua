@@ -253,36 +253,13 @@ function Base:PresentTooltip(tooltip)
     tooltip:Show()
 end
 
-local function AddItemDetails(adapter, tooltip, itemID)
-    if not itemID then return end
-    if type(itemID) == "table" then
-        local counts, ids, seen = {}, {}, {}
-        for _, id in ipairs(itemID) do
-            if id and not seen[id] then
-                seen[id] = true
-                counts[#counts + 1] = tostring(adapter:GetItemCount(id, false))
-                ids[#ids + 1] = tostring(id)
-            end
-        end
-        if #ids == 0 then return end
-        tooltip:AddLine(" ")
-        tooltip:AddDoubleLine("背包：", table.concat(counts, " / "), 1, 0.82, 0, 0.6, 0.8, 1)
-        tooltip:AddDoubleLine("物品ID：", table.concat(ids, " / "), 0.7, 0.7, 0.7, 0.7, 0.7, 0.7)
-        return
-    end
-    tooltip:AddLine(" ")
-    tooltip:AddDoubleLine("背包:", tostring(adapter:GetItemCount(itemID, false)), 1, 0.82, 0, 0.6, 0.8, 1)
-    tooltip:AddDoubleLine("物品ID:", tostring(itemID), 1, 0.82, 0, 0.6, 0.8, 1)
-end
-
-function Base:ShowTooltip(owner, text, itemID)
+function Base:ShowTooltip(owner, text)
     local tooltip = self:GetTooltip()
     if not tooltip then return false end
     tooltip:Hide()
     if type(tooltip.SetOwner) == "function" then tooltip:SetOwner(owner, "ANCHOR_RIGHT") end
     if type(tooltip.ClearLines) == "function" then tooltip:ClearLines() end
     if type(tooltip.SetText) == "function" then tooltip:SetText(text) end
-    AddItemDetails(self, tooltip, itemID)
     self:PresentTooltip(tooltip)
     return true
 end
@@ -304,13 +281,11 @@ function Base:ShowItemTooltip(owner, info, itemID)
     if type(tooltip.ClearLines) == "function" then tooltip:ClearLines() end
     if info and info.slot and type(tooltip.SetInventoryItem) == "function" then
         tooltip:SetInventoryItem("player", info.slot)
-        itemID = self:GetInventoryItemID(info.slot)
     elseif itemID and type(tooltip.SetHyperlink) == "function" then
         tooltip:SetHyperlink("item:" .. itemID)
     else
         return false
     end
-    AddItemDetails(self, tooltip, itemID)
     self:PresentTooltip(tooltip)
     return true, tooltip
 end

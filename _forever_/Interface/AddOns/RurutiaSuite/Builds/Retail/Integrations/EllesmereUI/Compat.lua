@@ -4,7 +4,7 @@ if not (ns.Build and ns.Build.HasModule("EllesmereCompat")) then return end
 -- Chat input styling is shared; nameplate hooks remain Retail-only.
 local retailNameplates = ns.Build.Is("retail") and ns.Build.GetInterfaceVersion() >= 120000
 
-local chatInputBackground
+local chatInputBackgrounds = {}
 local friendlyOutlineWriteGuard = false
 local FOLLOWER_FRIENDLY_VISIBILITY_COMPAT_ENABLED = false
 
@@ -40,22 +40,24 @@ end
 
 local function SetupChatInputBackground(module)
     if not IsAddOnLoaded("EllesmereUIChat") then return end
-    local editBox, registry = _G.ChatFrame1EditBox, _G.EventRegistry
-    if not editBox or type(editBox.CreateTexture) ~= "function" or not registry
-        or type(registry.RegisterCallback) ~= "function"
+    local registry = _G.EventRegistry
+    if not registry or type(registry.RegisterCallback) ~= "function"
         or type(registry.UnregisterCallback) ~= "function" then return end
-    if not chatInputBackground then
-        chatInputBackground = editBox:CreateTexture(nil, "BACKGROUND", nil, -8)
-        chatInputBackground:SetAllPoints(editBox)
-        chatInputBackground:SetColorTexture(0, 0, 0, 0.55)
+    local function Sync(_, editBox)
+        if not editBox or type(editBox.CreateTexture) ~= "function" then return end
+        local background = chatInputBackgrounds[editBox]
+        if not background then
+            background = editBox:CreateTexture(nil, "BACKGROUND", nil, -8)
+            background:SetAllPoints(editBox)
+            background:SetColorTexture(0, 0, 0, 0.65)
+            chatInputBackgrounds[editBox] = background
+        end
+        if editBox:IsShown() and editBox:HasFocus() then background:Show()
+        else background:Hide() end
     end
-    local function Sync(_, target)
-        if target ~= editBox then return end
-        if editBox:IsShown() and editBox:HasFocus() then chatInputBackground:Show()
-        else chatInputBackground:Hide() end
-    end
-    local function Hide(_, target)
-        if target == editBox then chatInputBackground:Hide() end
+    local function Hide(_, editBox)
+        local background = chatInputBackgrounds[editBox]
+        if background then background:Hide() end
     end
     local callbacks = {
         ["ChatFrame.OnEditBoxFocusGained"] = Sync,
@@ -67,10 +69,11 @@ local function SetupChatInputBackground(module)
     -- OwnQueue supplies lifecycle cleanup only, with no scheduled work.
     module:OwnQueue("chat-input-background", function()
         for event in pairs(callbacks) do registry:UnregisterCallback(event, module) end
-        chatInputBackground:Hide()
     end, function() return 0 end, "chat input callbacks")
     for event, callback in pairs(callbacks) do registry:RegisterCallback(event, callback, module) end
-    Sync(module, editBox)
+    local chat = _G.ChatFrameUtil
+    local active = chat and chat.GetActiveWindow and chat.GetActiveWindow()
+    Sync(module, active or _G.ChatFrame1EditBox)
 end
 
 local function ApplyFriendlyNameOutline(fontObject)
@@ -161,7 +164,7 @@ function Definition:Enable()
 end
 
 function Definition:Disable()
-    if chatInputBackground then chatInputBackground:Hide() end
+    for _, background in pairs(chatInputBackgrounds) do background:Hide() end
 end
 
 local Adapter = {

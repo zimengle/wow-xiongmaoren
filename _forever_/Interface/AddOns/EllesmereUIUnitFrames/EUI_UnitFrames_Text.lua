@@ -231,7 +231,10 @@ end
 -- classes (Druid, Monk) the decision MUST follow the displayed power, not UnitPowerType --
 -- a Balance druid's UnitPowerType is Astral Power even while the bar shows Mana, so the
 -- mana number would render raw instead of percent otherwise.
+-- WoW Forever offers no Smart Text (it chooses by spec, and Forever has no specs):
+-- a "smart" saved there reads as the value (EllesmereUI.PowerTextFormat).
 local function EUI_IsSmartPowerPercent(displayedPowerType)
+    if EllesmereUI.IS_FOREVER then return false end
     local _, cls = UnitClass("player")
     if not cls then return false end
     -- Druid/Monk shift displayed power with form/spec: percent only while the bar shows
@@ -399,8 +402,8 @@ do
     return function(unit)
       if not unit or not UnitExists(unit) then return "" end
       if status then
-        if not UnitIsConnected(unit) then return "OFFLINE" end
-        if UnitIsDeadOrGhost(unit) then return "DEAD" end
+        if not UnitIsConnected(unit) then return EllesmereUI.L("OFFLINE") end
+        if UnitIsDeadOrGhost(unit) then return EllesmereUI.L("DEAD") end
       end
       local hp = getHP(unit) or 0
       if shortHealth then return ns.AbbreviateShortHealth(hp) end
@@ -446,8 +449,8 @@ do
   TagFns.perhp = PercentHP
   TagFns.perhpnosign = function(unit)
     if not unit or not UnitExists(unit) then return "" end
-    if not UnitIsConnected(unit) then return "OFFLINE" end
-    if UnitIsDeadOrGhost(unit) then return "DEAD" end
+    if not UnitIsConnected(unit) then return EllesmereUI.L("OFFLINE") end
+    if UnitIsDeadOrGhost(unit) then return EllesmereUI.L("DEAD") end
     return PercentHP(unit)
   end
 end
@@ -945,8 +948,8 @@ do
     -- curhpshort does.
     P.curhp = function(u)
         if not u or not UnitExists(u) then return "" end
-        if not UnitIsConnected(u) then return "OFFLINE" end
-        if UnitIsDeadOrGhost(u) then return "DEAD" end
+        if not UnitIsConnected(u) then return EllesmereUI.L("OFFLINE") end
+        if UnitIsDeadOrGhost(u) then return EllesmereUI.L("DEAD") end
         return sf("%d", UnitHealth(u) or 0)
     end
     P.maxhp = function(u)
@@ -1105,15 +1108,23 @@ do
         [P.name] = "id", [P.level] = "id", [P.levelcol] = "id", [P.levelcolall] = "id",
     }
     -- The tags' Name Format modifiers ([name:abbr]): they shape the plain name,
-    -- whatever the slot's own Name Format says.
-    local function Shaped(piece, mode)
+    -- whatever the slot's own Name Format says. [name:last] and [target:last]
+    -- show nothing for your own unit while your name is your first name alone
+    -- (OwnSurnameHidden: WoW Forever, Blizzard's My Surname off).
+    local function Shaped(piece, mode, ofTarget)
+        if mode ~= "last" then
+            return function(unit)
+                return EllesmereUI.ShortName(piece(unit), mode)
+            end
+        end
         return function(unit)
+            if EllesmereUI.OwnSurnameHidden(ofTarget and unit and (unit .. "target") or unit) then return "" end
             return EllesmereUI.ShortName(piece(unit), mode)
         end
     end
     for _, mode in ipairs({ "first", "last", "abbr" }) do
         P["name" .. mode] = Shaped(P.name, mode)
-        P["tgt" .. mode] = Shaped(P.tgtname, mode)
+        P["tgt" .. mode] = Shaped(P.tgtname, mode, true)
         PIECE_READS[P["name" .. mode]] = "id"
     end
 

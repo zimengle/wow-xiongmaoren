@@ -302,6 +302,7 @@ PD.SETTING_DEF.autoScheme = "cheapest"
 PD.SETTING_DEF.autoSecondaryLeveling = false
 PD.SETTING_DEF.autoResidualMass = false
 PD.SETTING_DEF.autoReserveMode = "standard"
+PD.SETTING_DEF.computationSpeed = "fast"
 PD.SETTING_DEF.recoveryEnabled = false
 PD.SETTING_DEF.recoveryFeePercent = 5
 PD.SETTING_DEF.autoCraftTools = true
@@ -408,6 +409,20 @@ function PD.SetRouteScheme(key)
     if PD.scroll then PD.scroll:SetVerticalScroll(0) end
     ns.PlaySound(1)
 end
+function PD.CycleComputationSpeed()
+    local current = PD.SettingRaw("computationSpeed")
+    local mode = current == "fast" and "turbo" or current == "turbo" and "normal" or "fast"
+    PD.SetSettingRaw("computationSpeed", mode)
+    PD.__turboPlanPaint = nil
+    PD.RequestRender()
+    ns.PlaySound(1)
+end
+
+function PD.ComputationSpeedLabel()
+    local mode = PD.SettingRaw("computationSpeed")
+    return mode == "fast" and L["快速（默认）"] or mode == "turbo" and L["极速"] or L["流畅"]
+end
+
 function PD.CycleReserveMode()
     local current=PD.SettingRaw("autoReserveMode")
     local mode=current=="off" and "standard" or current=="standard" and "ample" or "off"
@@ -3699,6 +3714,19 @@ local function TrRngLow(rng)
     return tonumber(rng:match("^(%d+)")) or 0
 end
 
+local function TrRankFor(d, rng)
+    local ranks = d and d.ranks or {}
+    local hi, lo = tonumber(rng:match("(%d+)$")), TrRngLow(rng)
+    for i, r in ipairs(ranks) do
+        if tonumber(r.cap) == hi then
+            local prev = ranks[i - 1]
+            local pcap = prev and tonumber(prev.cap)
+            if pcap and lo < pcap then return r, prev end
+            return r
+        end
+    end
+end
+
 local function TrNameOf(t)
     local loc = (GetLocale() == "zhTW") and t.tw or t.zh
     return (loc and loc ~= "") and loc or t.en
@@ -3760,7 +3788,7 @@ function PD.FillTrainerBoard()
     local maxH = 0
     for ci, rng in ipairs(rngs) do
         local x0 = (ci - 1) * (COL_W + GAP)
-        local rk = d.ranks and d.ranks[ci]
+        local rk, rkLo = TrRankFor(d, rng)
         local rc = TR_RANK_COLOR[ci] or TR_RANK_COLOR[#TR_RANK_COLOR]
         fsN = fsN + 1
         local h1 = root.__fs[fsN]
@@ -3768,6 +3796,10 @@ function PD.FillTrainerBoard()
         h1:ClearAllPoints()
         h1:SetPoint("TOPLEFT", root, "TOPLEFT", x0, 0)
         local rkName = rk and (GetLocale() == "zhTW" and rk.tw or rk.zh) or nil
+        if rkLo then
+            local loName = GetLocale() == "zhTW" and rkLo.tw or rkLo.zh
+            if loName and loName ~= "" then rkName = loName .. "/" .. (rkName or "") end
+        end
         h1:SetText((rkName and (rkName .. " ") or "") .. rng)
         h1:Show()
         fsN = fsN + 1
@@ -5769,7 +5801,111 @@ function PD.PaintTool(list, handler, yoff)
     return (rows > 0) and (rows * (PD.TOOL_H + PD.TOOL_GAP) + PD.TOOL_BODY_GAP) or 0
 end
 
+function PD.UpdateCalculationNotice()
+    local notice = PD.__calculationNotice
+    local speed = PD.SettingRaw("computationSpeed")
+    local SR = ns.ProfSolverRun
+    local active = PD.built and PD.page and ns.PageVisible(PD.page)
+        and PD.tab == "leveling" and not PD.setOpen and PD.cur and PD.cur ~= "__index"
+        and (speed == "fast" or speed == "turbo") and SR and SR.Active and SR.Active(PD.cur)
+    local job = active and active.job
+    if not job or job.finished or job.cancelled or job.invalid or job.status == "stopped" or job.status == "error" then
+        if notice then notice:Hide(); notice.slug = nil end
+        return false
+    end
+    if not notice then
+        local hui = ns.hui
+        local LR = hui and hui.layer
+        notice = CreateFrame("Frame", nil, PD.page, "BackdropTemplate")
+        notice:SetAllPoints(PD.scroll or PD.page)
+        local level = PD.page:GetFrameLevel()
+        notice:SetFrameLevel((type(level) == "number" and level or 0) + 150)
+        local scrim = (LR and LR.L0) or { 0.04, 0.05, 0.06, 1 }
+        notice:SetBackdrop({ bgFile = "Interface\\Buttons\\WHITE8x8" })
+        notice:SetBackdropColor(scrim[1], scrim[2], scrim[3], 0.62)
+        notice:EnableMouse(true)
+        notice:EnableMouseWheel(true)
+        notice:SetScript("OnMouseWheel", function() end)
+        local panel = CreateFrame("Frame", nil, notice, "BackdropTemplate")
+        panel:SetSize(440, 220)
+        panel:SetPoint("CENTER", notice, "CENTER", 0, 0)
+        if hui and hui.SkinPopup and LR then
+            hui.SkinPopup(panel, 8, "both", LR.L1)
+            if hui.SkinShadow then hui.SkinShadow(panel, nil, nil, 8) end
+        else
+            panel:SetBackdrop({ bgFile = "Interface\\Buttons\\WHITE8x8",
+                edgeFile = "Interface\\Buttons\\WHITE8x8", edgeSize = 1 })
+            panel:SetBackdropColor(0x10 / 255, 0x13 / 255, 0x1A / 255, 1)
+            panel:SetBackdropBorderColor(1, 1, 1, 0.1)
+        end
+        notice.panel = panel
+        local headInk = (hui and hui.TEXT and hui.TEXT[1]) or C_WHITE
+        local title = MakeFS(panel, 16, headInk, "LEFT")
+        title:SetPoint("TOPLEFT", panel, "TOPLEFT", 16, -16)
+        title:SetWidth(408)
+        title:SetText(L["正在计算，请暂时不要操作"])
+        notice.title = title
+        local message = MakeFS(panel, 14, C_TEXT, "LEFT")
+        message:SetPoint("TOPLEFT", panel, "TOPLEFT", 16, -44)
+        message:SetSize(408, 64)
+        message:SetWordWrap(true)
+        message:SetJustifyV("TOP")
+        message:SetText(L["计算期间可能掉帧或短暂卡顿，路线内容会稍后刷新。计算完成后此提示自动关闭。"])
+        notice.message = message
+        local status = MakeFS(panel, 14, C_WHITE, "LEFT")
+        status:SetPoint("TOPLEFT", panel, "TOPLEFT", 16, -116)
+        status:SetWidth(408)
+        notice.status = status
+        local bar = CreateFrame("Frame", nil, panel)
+        bar:SetSize(408, 6)
+        bar:SetPoint("TOPLEFT", panel, "TOPLEFT", 16, -140)
+        local track = bar:CreateTexture(nil, "BACKGROUND")
+        track:SetAllPoints()
+        local fill = bar:CreateTexture(nil, "ARTWORK")
+        fill:SetPoint("LEFT", bar, "LEFT", 1, 0)
+        notice.fill = fill
+        local function paintBar()
+            local tk = (LR and LR.L0) or { 0.04, 0.05, 0.06, 1 }
+            track:SetColorTexture(tk[1], tk[2], tk[3], 1)
+            local ac = PD.PCAccent()
+            fill:SetColorTexture(ac[1], ac[2], ac[3], 1)
+        end
+        paintBar()
+        if hui and hui.AddRepaint then hui.AddRepaint(notice, paintBar) end
+        notice.stop = NewButton(panel, L["停止计算"], 144, 24, 14)
+        notice.stop:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -16, 16)
+        notice.stop:SetScript("OnClick", function()
+            local slug = notice.slug
+            if not slug or slug ~= PD.cur then return end
+            PD.StopSolverRoute(slug)
+            PD.UpdateCalculationNotice()
+            PD.RequestRender()
+        end)
+        notice.smooth = NewButton(panel, L["切回流畅"], 144, 24, 14)
+        notice.smooth:SetPoint("RIGHT", notice.stop, "LEFT", -8, 0)
+        notice.smooth:SetScript("OnClick", function()
+            PD.SetSettingRaw("computationSpeed", "normal")
+            PD.__turboPlanPaint = nil
+            PD.UpdateCalculationNotice()
+            PD.RequestRender()
+            ns.PlaySound(1)
+        end)
+        PD.__calculationNotice = notice
+        PD.page:HookScript("OnHide", function() notice:Hide(); notice.slug = nil end)
+        PD.page:HookScript("OnShow", function() PD.UpdateCalculationNotice() end)
+    end
+    notice.slug = PD.cur
+    local text = PD.SolverText() or L["正在准备数据"]
+    if notice.__status ~= text then notice.status:SetText(text); notice.__status = text end
+    local fraction = math.max(0, math.min(1, tonumber(PD.solverFrac) or 0))
+    local width = math.max(1, math.floor(406 * fraction + 0.5))
+    if notice.__fillWidth ~= width then notice.fill:SetSize(width, 4); notice.__fillWidth = width end
+    if not notice:IsShown() then notice:Show() end
+    return true
+end
+
 function PD.PaintToolProgress(text, frac)
+    PD.UpdateCalculationNotice()
     local rf = PD.__progFs
     if not rf then
         local holder = CreateFrame("Frame", nil, PD.page)
@@ -5809,11 +5945,17 @@ function PD.PaintToolBar(frac)
         bar:SetPoint("RIGHT", PD.__progFs, "LEFT", -8, 0)
         local bg = bar:CreateTexture(nil, "BACKGROUND")
         bg:SetAllPoints()
-        bg:SetColorTexture(0, 0, 0, 0.72)
         local fill = bar:CreateTexture(nil, "ARTWORK")
         fill:SetPoint("LEFT", bar, "LEFT", 1, 0)
         fill:SetSize(1, 4)
-        fill:SetColorTexture(0.93, 0.76, 0.32, 1)
+        local function paintBar()
+            local tk = (ns.hui and ns.hui.layer and ns.hui.layer.L0) or { 0.04, 0.05, 0.06, 1 }
+            bg:SetColorTexture(tk[1], tk[2], tk[3], 1)
+            local ac = PD.PCAccent()
+            fill:SetColorTexture(ac[1], ac[2], ac[3], 1)
+        end
+        paintBar()
+        if ns.hui and ns.hui.AddRepaint then ns.hui.AddRepaint(bar, paintBar) end
         PD.__progBar = bar
         PD.__progFill = fill
     end
@@ -6032,7 +6174,7 @@ function PD.PaintLvTiles()
     if not (tiles and tiles.mode) then return 0 end
     if PD.IsGatherRoute() then return PD.PaintGatherTiles() end
     if PD.tab ~= "leveling" or PD.setOpen then
-        for _, k in ipairs({ "mode", "scheme", "excl", "target" }) do
+        for _, k in ipairs({ "mode", "scheme", "excl", "target", "spec" }) do
             tiles[k].__use = false
             tiles[k]:Hide()
         end
@@ -6041,6 +6183,8 @@ function PD.PaintLvTiles()
         return 0
     end
     for _, k in ipairs({ "mode", "scheme", "excl", "target" }) do tiles[k].__use = true end
+    tiles.spec.__use = false
+    tiles.spec:SetScript("OnClick", nil)
     local s = PD.lvSummary or {}
     local _,scanBlocked=PD.ReplicateScanWarning()
     local scanNotice=PD.ScanSnapshotText()
@@ -11039,16 +11183,24 @@ end
 
 function PD.PlanStatusParts(plan)
     if not plan then return L["正在计算升级路线…"] end
+    local hasProgress=PD.PlanHasSteps(plan) or (tonumber(plan.plannedTo) or 0)>(tonumber(plan.start) or 1)
     if plan.referenceOnly then return L["固定攻略参考；逐配方资料待补全。"] end
     if plan.diagnosticPolicyChanged then return L["路线规则已更新，请重新计算。"] end
     if plan.learningBlockReason=="learningPolicyChanged" then return L["学习资料已更新，请重新计算；执行记录与进度已保留。"] end
     if PD.PlanLearningBlocked(plan) then
-        if PD.PlanHasSteps(plan) then return format(L["已计算至%d"],plan.plannedTo or plan.start or 1),L["后续学习资料缺失，暂时无法到达目标。"] end
+        if hasProgress then return format(L["%d后续资料缺失，暂时无路线"],plan.plannedTo or plan.start or 1) end
         return L["学习资料不足，当前无法到达目标。"]
     end
-    if plan.feasible==false then
+    if plan.feasible==false or plan.partial and not plan.targetReached then
         local blockers=plan.blockingDiagnostics
-        local diagnostics=blockers and #blockers>0 and blockers or plan.diagnostics or {}
+        local diagnostics=blockers or plan.diagnostics or {}
+        for _,diagnostic in ipairs(diagnostics) do
+            if diagnostic.code=="auctionSupplyLimited" and not plan.targetReached then
+                local message=format(L["当前拍卖行材料不足以升到%d级。"],plan.target or 300)
+                if hasProgress then return format(L["已计算至%d"],plan.plannedTo or plan.start or 1),message end
+                return message
+            end
+        end
         for _,diagnostic in ipairs(diagnostics) do
             if (diagnostic.code=="auctionSupplyLimited" or diagnostic.code=="materialUnavailable")
                 and ns.ProfEconomy and ns.ProfEconomy.DiagnosticText then
@@ -11065,7 +11217,7 @@ function PD.PlanStatusParts(plan)
             end
             local scanText=PD.ReplicateScanMessage(diagnostic.code)
             if scanText then return scanText end
-            if diagnostic.code=="learningPolicyChanged" and ns.ProfEconomy and ns.ProfEconomy.DiagnosticText then
+            if (diagnostic.code=="learningPolicyChanged" or diagnostic.code=="secondaryDisabled") and ns.ProfEconomy and ns.ProfEconomy.DiagnosticText then
                 return ns.ProfEconomy.DiagnosticText(diagnostic)
             end
         end
@@ -12054,21 +12206,6 @@ function PD.PlanDiagnostics(emit, plan)
     end
 end
 
-function PD.RowsLearningBlockers(rows,plan)
-    if not PD.PlanLearningBlocked(plan) or plan.diagnosticPolicyChanged then return end
-    local gaps=PD.BlockingLearningGaps(plan)
-    if #gaps==0 then return end
-    PushGap(rows,6)
-    for i=1,math.min(3,#gaps) do
-        PushText(rows,PD.LearningGapText(gaps[i]),12,{0.95,0.75,0.4})
-    end
-    if #gaps>3 then
-        PushText(rows,format(L["另有 %d 项学习资料缺口；可在配方目录查看具体原因。"],#gaps-3),11,C_GREY)
-    end
-    PushGap(rows,4)
-    PushText(rows,L["已学配方请打开专业窗口刷新；训练师配方请打开对应训练师窗口记录学习条件和费用。"],11,C_GREY)
-end
-
 function PD.SolverText()
     local SR = ns.ProfSolverRun
     if PD.tab ~= "leveling" or PD.setOpen or not SR or not SR.Running(PD.cur) then
@@ -12093,11 +12230,11 @@ function PD.WindowShown()
     return (mf and mf.IsShown and mf:IsShown()) and true or false
 end
 
-function PD.StopSolverRoute()
+function PD.StopSolverRoute(slug)
     local SR = ns.ProfSolverRun
-    local aborting = (SR and SR.Running and SR.Running() and not PD.solverDone) and true or false
+    local aborting = (SR and SR.Running and SR.Running(slug) and not PD.solverDone) and true or false
     if aborting then PD.autoExact = nil end
-    if SR then SR.Stop() end
+    if SR then SR.Stop(slug) end
     PD.solverRunSerial = (PD.solverRunSerial or 0) + 1
     PD.solverSlug = nil
     PD.solverKey = nil
@@ -12241,6 +12378,14 @@ function PD.PlanRes(slug, opts)
     return PD.__planShown
 end
 
+function PD.AutoRouteEnabled(slug)
+    slug = slug or PD.cur
+    if not slug or PD.FixedOnly(slug) or PD.GATHER_SLUGS[slug] then return false end
+    if PD.CookingFishingMode(slug) or PD.Setting("autoRoute",slug) then return true end
+    local context = PD.RoutePairContext(slug)
+    return context and context.requiresPartner or false
+end
+
 function PD.BuildLvOpts(slug, current)
     if RA and RA.OptionsFor then return RA.OptionsFor(slug, current) end
     local fish = PD.CookingFishingMode(slug)
@@ -12282,13 +12427,12 @@ function PD.RevertPlan()
     PD.autoSnapshot, PD.autoSnapshotSlug = e, slug
     PD.autoExact = true
     PD.autoKey = PD.PlanKeyOf(slug, opts)
-    PD.forceExact = nil
     PD.exactFailed = {}
     return true
 end
 
-function PD.ClearPlanCache()
-    PD.StopSolverRoute()
+function PD.ClearPlanCache(slug)
+    PD.StopSolverRoute(slug)
     PD.autoSnapshot, PD.autoSnapshotSlug = nil, nil
     PD.autoKey, PD.autoExact = nil, nil
     if PD.exactFailed then
@@ -12303,7 +12447,6 @@ function PD.RecalcNeeded()
     local slug = PD.cur
     if not slug or slug == "__index" or PD.FixedOnly(slug) then return false end
     if PD.GATHER_SLUGS and PD.GATHER_SLUGS[slug] then return false end
-    if PD.forceExact then return false end
     local SR = ns.ProfSolverRun
     if SR and SR.Running and SR.Running(PD.cur) then return false end
     if not PD.Setting("autoRoute") and not PD.autoSnapshot then return false end
@@ -12914,9 +13057,7 @@ function PD.RowsLeveling(rows)
     local scheme = fishRoute and "fishing" or PD.SettingRaw("autoScheme")
     local pairContext = (not fishRoute) and PD.RoutePairContext() or nil
     local needPartner = (pairContext and pairContext.requiresPartner) and true or false
-    local smeltRoute = (PD.cur == "mining") and PD.GatherMode("mining") == "smelt"
-    local autoOn = (not PD.FixedOnly()) and (not smeltRoute) and (needPartner or (PD.WindowShown()
-                    and (fishRoute or PD.Setting("autoRoute")) and RA and true or false))
+    local autoOn = PD.AutoRouteEnabled() and (needPartner or PD.WindowShown()) and RA and true or false
     local target = PD.LvTarget()
     if PD.autoPage == nil or PD.autoPage == "route" then
         PD.RowsRankReminder(rows, target)
@@ -12936,11 +13077,7 @@ function PD.RowsLeveling(rows)
         opts.target = target
         PD.lvOpts = opts
         planKey = PD.PlanKeyOf(PD.cur, opts)
-        if PD.forceExact then
-            PD.forceExact=nil
-            opts.cpuLimitMs=8000
-            res=RA.Recalculate(PD.cur,opts)
-        else res=RA.Get(PD.cur,opts) end
+        res=RA.Get(PD.cur,opts)
         if res and res.slug and res.slug~=PD.cur then res=nil end
         if res and res.planVersion==2 then res.exact=true end
         if res and res.planVersion ~= 2 and not res.priced and scheme ~= "optim" then res = nil end
@@ -12965,7 +13102,6 @@ function PD.RowsLeveling(rows)
         if statusText ~= scanWarning then
             PushText(rows, statusText, 12, {0.95, 0.75, 0.4})
         end
-        PD.RowsLearningBlockers(rows,res)
         return
     end
     if PD.exclusionsOpen and autoOn then
@@ -12984,7 +13120,6 @@ function PD.RowsLeveling(rows)
                         total = res and res.total, priced = res and res.total ~= nil}
         PD.CopyPlanSummary(res)
         PushHead(rows, res and PD.PlanStatusText(res) or L["正在计算升级路线…"])
-        PD.RowsLearningBlockers(rows,res)
         if PD.PlanNoUpgradeNeeded(res) then
             PushText(rows,L["如需查看全程路线，可在设置中关闭「从当前技能开始计算」。"],12,C_GREY)
         end
@@ -13081,7 +13216,6 @@ function PD.RowsLeveling(rows)
     PD.CopyPlanSummary(res)
     local shownSum = auto and res or fixedSum
     notes.plan = shownSum
-    PD.RowsLearningBlockers(rows,shownSum)
     if shownSum and shownSum.scheme=="stable" then
         if (shownSum.greenLevelCrafts or 0)>0 then
             warning(format(L["当前路线仍含 %d 次绿色冲点；可检查其他配方和材料来源后重算。"],shownSum.greenLevelCrafts),0.95,0.75,0.4)
@@ -14326,6 +14460,7 @@ function PD.RouteSupplyNeedsRescan(plan)
 end
 
 function PD.LevelTool()
+    local routeSlug = PD.cur
     local fishRoute = PD.CookingFishingMode and PD.CookingFishingMode() or false
     local onLog = PD.autoPage == "log"
     local onRec = PD.autoPage == "recovery"
@@ -14396,12 +14531,17 @@ function PD.LevelTool()
         end
     end
     if not PD.FixedOnly() then
+        local automatic = PD.AutoRouteEnabled()
         local need = PD.RecalcNeeded()
-        local rec = { key = "recalc", align = "right", primary = true, glow = need, text = L["重新计算"] }
-        if PD.policyDirty and PD.policyDirty[PD.cur] then
+        local rec = { key = "recalc", align = "right", primary = true, glow = need,
+                      text = automatic and L["重新计算"] or L["刷新费用"] }
+        if automatic and PD.policyDirty and PD.policyDirty[PD.cur] then
             rec.text = L["重新计算（应用排除）"]
         end
-        if need then
+        if not automatic then
+            rec.tip = { { rec.text, 1, 0.82, 0 },
+                { L["按最新报价刷新固定参考路线的采购费用，配方顺序不变。"], 0.85, 0.85, 0.85 } }
+        elseif need then
             local why = L["按当前价格与设置重新计算，后台计算预算为 8 秒；结果不保证最优。"]
             rec.tip = { { rec.text, 1, 0.82, 0 }, { why, 0.85, 0.85, 0.85 } }
         end
@@ -14441,22 +14581,36 @@ function PD.LevelTool()
             if pf and pf.ImportShoppingList then pcall(pf.ImportShoppingList, PD.cur, name) end
             ns.PlaySound(1)
         elseif k == "recalc" then
+            if PD.cur ~= routeSlug then return end
+            local slug = routeSlug
             local follow = ns.ProfFollow
-            if follow and follow.SuspendAutoTrack then follow.SuspendAutoTrack(PD.cur, "recalculate") end
+            if follow and follow.SuspendAutoTrack then follow.SuspendAutoTrack(slug, "recalculate") end
             if RA and RA.EndExecution then
-                RA.EndExecution(PD.cur)
+                RA.EndExecution(slug)
             else
                 local T = ns.ProfExecution
-                if T and T.End then T.End(PD.cur, "ended") end
+                if T and T.End then T.End(slug, "ended") end
             end
             PD.exclusionsOpen = false
-            PD.ClearPlanCache()
+            PD.ClearPlanCache(slug)
             PD.exactFailed = {}
             local E = ns.ProfEconomy
-            if E and E.ApplyPolicies then E.ApplyPolicies(PD.cur) end
+            if E and E.ApplyPolicies then E.ApplyPolicies(slug) end
             if RA and RA.Invalidate then RA.Invalidate() end
-            if PD.policyDirty then PD.policyDirty[PD.cur] = nil end
-            PD.forceExact = true
+            if PD.policyDirty then PD.policyDirty[slug] = nil end
+            PD.autoPage = "route"
+            local learned = PD.ProfLearned and PD.ProfLearned() or {}
+            local opts = PD.BuildLvOpts(slug, learned[slug] and learned[slug].cur)
+            opts.target = PD.LvTarget(slug)
+            local result
+            if PD.AutoRouteEnabled(slug) then
+                if RA and RA.Recalculate then result = RA.Recalculate(slug, opts) end
+            elseif RA and RA.FixedPlan then result = RA.FixedPlan(slug, opts) end
+            if result then
+                PD.autoSnapshot, PD.autoSnapshotSlug = result, slug
+                PD.autoKey = PD.PlanKeyOf(slug, opts)
+                PD.autoExact = result.planVersion == 2
+            end
             PD.RequestRender()
             ns.PlaySound(1)
         elseif k == "exclusions" then
@@ -14538,7 +14692,7 @@ PD.SET_MORE = ">"
 PD.SET_GRP_COLOR = { 0.60, 0.66, 0.76 }
 PD.SET_GROUPS = {
     { L["显示"], { "greyPassed", "hlCurrent" }, 1 },
-    { L["路线"], { "autoRoute", "autoFromCurrent", "autoSecondaryLeveling" }, 1 },
+    { L["路线"], { "autoRoute", "autoFromCurrent", "autoSecondaryLeveling", "computationSpeed" }, 1 },
     { L["采购与配方"], { "reserveMode", "autoOnlyAH", "autoConsiderAuctionSupply", "autoBuyLimitedFormulas", "autoAllowBindOnPickupFormulas", "autoAllowCurrencyFormulas" }, 2 },
     { L["收益与工具"], { "recoveryEnabled", "recoveryFee", "autoResidualMass", "autoCraftTools" }, 2 },
 }
@@ -14587,8 +14741,8 @@ function PD.RowsSettings(rows)
           d1 = L["开启：适合练级中途打开手册直接照着做。"],
           d2 = L["关闭：查看从零开始的最优路线与总花费。"] },
         { k = "autoSecondaryLeveling", name = L["允许联合升级另一主专业"],
-          desc = L["总支出更低时，将另一主专业升到制作所需材料的最低等级。"],
-          d1 = L["默认关闭：仍可使用另一主专业当前能制作的材料。"],
+          desc = L["允许另一主专业参与材料制作和升级，以降低总支出。"],
+          d1 = L["默认关闭：只规划当前专业，其他专业制作的材料改为采购。"],
           d2 = L["开启后计入另一专业所需的材料费用，最高 300；查看未学专业时需先选择搭配主专业。"] },
         { k = "recoveryEnabled", name = L["回血模式"],
           desc = L["把「搓完卖掉能收回多少」计入路线决策，比较采购支出减去剩余产物预计收入。"],
@@ -14648,6 +14802,16 @@ function PD.RowsSettings(rows)
             local kk = key
             if kk == "recoveryFee" then
                 items[#items + 1] = pushFee
+            elseif kk=="computationSpeed" and not PD.FixedOnly() then
+                items[#items + 1] = function(col)
+                    rows[#rows + 1] = { kind = "row", h = PD.SET_ROW_H, col = col, fcol = col, fs = 14,
+                        text = L["计算速度"], right = PD.ComputationSpeedLabel(),
+                        act = PD.CycleComputationSpeed, help = { { L["计算速度"] },
+                            { L["点击切换：流畅 / 快速（默认） / 极速。"], 0.7, 0.7, 0.7 },
+                            { L["默认快速；如遇卡顿，可在提示框中点击「切回流畅」。"], 0.7, 0.7, 0.7 },
+                            { L["快速每帧投入更多时间；极速进一步加速，可能明显掉帧或短暂卡顿。"], 0.7, 0.7, 0.7 },
+                            { L["全部专业共用；切换立即作用于进行中的计算，保留当前结果和制作进度。"], 0.7, 0.7, 0.7 } } }
+                end
             elseif kk=="reserveMode" and not PD.FixedOnly() then
                 items[#items+1]=function(col)
                     rows[#rows+1]={kind="row",h=PD.SET_ROW_H,col=col,fcol=col,fs=14,
@@ -15462,6 +15626,9 @@ end
 
 local _warmTok = 0
 local PD_WARM_PER_FRAME = 96
+local function turboCalculationRunning()
+    return PD.SettingRaw("computationSpeed") == "turbo" and RA and RA.HasWork and RA.HasWork(PD.cur)
+end
 function PD.WarmId(id)
     if not id then return end
     local _, got = PD.ItemName(id)
@@ -15473,6 +15640,7 @@ function PD.WarmId(id)
     if type(gi) == "function" then pcall(gi, id) end
 end
 function PD.WarmNames()
+    if turboCalculationRunning() then _warmTok = _warmTok + 1; return end
     local d = RGet(PD.cur)
     local all = d and d.rows
     if type(all) ~= "table" or #all == 0 then return end
@@ -15481,7 +15649,7 @@ function PD.WarmNames()
     local tok = _warmTok
     local i, n = 0, math.min(#all, PD.ROW_CAP)
     local function feed()
-        if tok ~= _warmTok then return end
+        if tok ~= _warmTok or turboCalculationRunning() then return end
         if DG.stepping then C_Timer.After(0, feed) return end
         local ok = pcall(function()
             local budget = PD_WARM_PER_FRAME
@@ -15609,6 +15777,7 @@ end
 
 local RD_MIN_MS = 350
 function PD.RequestRender()
+    PD.UpdateCalculationNotice()
     HookTrack()
     if not PD.built then
         PD.wantOpen = true
@@ -16464,11 +16633,32 @@ if RA and RA.OnPlanChanged then
             PD.autoSnapshot = frozen or plan
             PD.autoSnapshotSlug = slug
         end
-        if PD.built and ns.PageVisible(PD.page)
-           and (slug == nil or slug == PD.cur) then PD.RequestRender() end
+        PD.UpdateCalculationNotice()
+        local visible = PD.built and ns.PageVisible(PD.page)
+        if visible and (slug == nil or slug == PD.cur) then
+            local intermediate = PD.SettingRaw("computationSpeed") == "turbo" and plan and plan.planID
+                and plan.status == "searching" and not plan.finalizing
+            local at = intermediate and debugprofilestop and debugprofilestop()
+            if intermediate and type(at) == "number" then
+                local hadSteps = #(plan.executionSteps or {}) > 0 or #(plan.steps or {}) > 0
+                local reached = plan.targetReached == true
+                local last = PD.__turboPlanPaint
+                if last and last.slug == slug and last.planID == plan.planID
+                   and (not hadSteps or last.hadSteps) and (not reached or last.reached)
+                   and at >= last.at and at - last.at < 750 then return end
+                PD.__turboPlanPaint = { slug = slug, planID = plan.planID, at = at,
+                                        hadSteps = hadSteps, reached = reached }
+            else
+                PD.__turboPlanPaint = nil
+            end
+            PD.RequestRender()
+        elseif not visible then
+            PD.__turboPlanPaint = nil
+        end
     end)
     if RA.OnProgress then RA.OnProgress(function(slug)
         if slug==PD.cur and PD.built and ns.PageVisible(PD.page) then
+            PD.UpdateCalculationNotice()
             local text = PD.SolverText()
             PD.PaintToolProgress(text, PD.solverFrac)
         end

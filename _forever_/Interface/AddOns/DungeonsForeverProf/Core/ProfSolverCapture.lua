@@ -25,7 +25,7 @@ local function MaybeYield()
     end
 end
 
-local function copy(value, tick, seen)
+local function copy(value, tick, seen, overrides)
     if type(value) ~= "table" then return value end
     seen = seen or {}
     if seen[value] then return seen[value] end
@@ -37,6 +37,15 @@ local function copy(value, tick, seen)
     local out, count = {}, 0
     seen[original] = out
     if value~=original then seen[value]=out end
+    if overrides then
+        for k,v in pairs(value) do
+            if overrides[k]==nil then out[k]=copy(v,tick,seen) end
+            count=count+1
+            if tick and count%64==0 then tick() end
+        end
+        for k,v in pairs(overrides) do out[k]=v end
+        return out
+    end
     for k, v in pairs(value) do
         out[k] = copy(v, tick, seen)
         count = count + 1
@@ -44,7 +53,7 @@ local function copy(value, tick, seen)
     end
     return out
 end
-E.Copy = function(value, tick) return type(value)=="table" and copy(value, tick) or {} end
+E.Copy = function(value, tick, overrides) return type(value)=="table" and copy(value, tick, nil, overrides) or {} end
 
 function E.CharacterKey()
     return ((UnitName and UnitName("player")) or "?") .. "-" .. ((GetRealmName and GetRealmName()) or "?")
@@ -100,6 +109,7 @@ local DIAG_TEXT = {
     professionMissing = L["角色尚未学习所需专业。"],
     skillRequired = L["另一专业技能不足，可开启联合升级或购买材料。"],
     secondaryRequired = L["请先选择联合升级的另一个专业。"],
+    secondaryDisabled = L["联合升级已关闭，请重新计算当前专业路线。"],
     pairingChanged = L["搭配专业已更改，点击重新计算应用。"],
     professionChanged = L["专业学习状态或旧路线规则已变化，请重新计算路线。"],
     formulaUnavailable = L["未学配方的图纸没有可靠的购买报价；任务图纸需先学会或取得拍卖行报价。"],
@@ -322,7 +332,7 @@ function E.RouteProfessions(slug, opts, professions)
     professions = professions or (opts.snapshot and opts.snapshot.professions) or E.Professions()
     local context = E.RouteContext(slug, opts, professions)
     if slug == "__purchase" then return professions, context end
-    if not context.unlearned then return professions, context end
+    if not context.unlearned and opts.allowSecondaryLeveling then return professions, context end
     local cap = learnedCap(professions)
     local selected = {}
     local target = professions[slug]
@@ -331,7 +341,7 @@ function E.RouteProfessions(slug, opts, professions)
     else
         selected[slug] = { cur = tonumber(opts.start) or 1, max = cap, primary = true }
     end
-    selected[slug].unlearned = true
+    if context.unlearned then selected[slug].unlearned = true end
     if context.requiresPartner and context.partnerValid then
         local partner = professions[context.partner]
         if partner and not partner.unlearned then
@@ -805,7 +815,7 @@ function E.AuctionSupplyChanged(result)
     end
     return false
 end
-function E.SummarizeFormulaSupply(result,context)
+function E.SummarizeFormulaSupply(result,context,tick)
     context=formulaContext(context)
     local inputs={}
     local needed={}
@@ -815,6 +825,7 @@ function E.SummarizeFormulaSupply(result,context)
                 local id=entry.id or entry[1]
                 if id then needed[id]=(needed[id] or 0)+(entry.count or entry[2] or 1) end
             end
+            if tick then tick() end
         end
     end
     local function candidate(id)
@@ -825,12 +836,15 @@ function E.SummarizeFormulaSupply(result,context)
     for _,recipe in ipairs(context.recipes or {}) do
         if not (context.known or {})[recipe.key] then
             candidate(recipe.formula or recipe.formulaID)
-            for _,route in ipairs(recipe.learningInfo and recipe.learningInfo.routes or {}) do
-                if route.kind=="item" then
-                    candidate(route.teachingItemID or route.itemID)
+            for _,routes in ipairs({recipe.learningRoutes or {},recipe.learningInfo and recipe.learningInfo.routes or {}}) do
+                for _,route in ipairs(routes) do
+                    if route.kind=="item" then
+                        candidate(route.teachingItemID or route.itemID)
+                    end
                 end
             end
         end
+        if tick then tick() end
     end
     for _,entry in ipairs(result.formulas or {}) do
         if not entry.known then
@@ -849,20 +863,22 @@ function E.SummarizeFormulaSupply(result,context)
                 entry.supplyMethod=supply and supply.method
             end
         end
+        if tick then tick() end
     end
     result.formulaAuctionSupplyInputs=inputs
     return result
 end
-function E.SummarizeAuctionSupply(result,context)
-    E.SummarizeFormulaSupply(result,context)
+function E.SummarizeAuctionSupply(result,context,tick)
+    E.SummarizeFormulaSupply(result,context,tick)
     result.considerAuctionSupply=E.ConsiderAuctionSupply(context)
     if not result.considerAuctionSupply then
         result.auctionSupplyUnknown=nil;result.auctionSupplyObserved=nil;result.supplyComplete=nil
         result.auctionSupplyInputs={};result.auctionSupplyCandidates={};result.auctionSupplyShortages={}
         result.purchaseVerified=false;result.auctionSupplyRevision=3
-        for _,entry in ipairs(result.mats or {}) do entry.considerAuctionSupply=false end
+        for _,entry in ipairs(result.mats or {}) do entry.considerAuctionSupply=false;if tick then tick() end end
         for _,entry in ipairs(result.formulas or {}) do
             entry.considerAuctionSupply=(entry.source=="ah" or entry.source=="auction") and not entry.known
+            if tick then tick() end
         end
         return result
     end
@@ -881,12 +897,15 @@ function E.SummarizeAuctionSupply(result,context)
     for _,r in ipairs(context and context.recipes or {}) do
         for _,m in ipairs(r.mats or {}) do candidate(m[1]) end
         if r.formula and not (context.known or {})[r.key] then candidate(r.formula) end
+        if tick then tick() end
     end
     for id in pairs(context and context.prices or {}) do
         result.auctionSupplyInputs[id]=supplyIdentity(E.AuctionSupplyOf(context,id))
+        if tick then tick() end
     end
     for id in pairs(context and context.auctionSupply or {}) do
-        result.auctionSupplyInputs[id]=supplyIdentity(E.AuctionSupplyOf(context,id))
+        if result.auctionSupplyInputs[id]==nil then result.auctionSupplyInputs[id]=supplyIdentity(E.AuctionSupplyOf(context,id)) end
+        if tick then tick() end
     end
     for _,list in ipairs({result.mats or {},result.formulas or {}}) do
         for _,entry in ipairs(list) do
@@ -926,6 +945,7 @@ function E.SummarizeAuctionSupply(result,context)
                 end
                 seen[id]=true
             end
+            if tick then tick() end
         end
     end
     for _,list in ipairs({result.mats or {},result.formulas or {}}) do
@@ -935,6 +955,7 @@ function E.SummarizeAuctionSupply(result,context)
                 entry.supplyRequired=needed[id]
                 entry.supplyLimited=needed[id]>(entry.availableCount or 0) or nil
             end
+            if tick then tick() end
         end
     end
     local shortages={}
@@ -944,8 +965,8 @@ function E.SummarizeAuctionSupply(result,context)
         end
     end
     if result.targetReached~=true then
-        for _,d in ipairs(result.blockingDiagnostics or {}) do shortage(d) end
-        if result.feasible==false then for _,d in ipairs(result.diagnostics or {}) do shortage(d) end end
+        for _,d in ipairs(result.blockingDiagnostics or {}) do shortage(d);if tick then tick() end end
+        if result.feasible==false then for _,d in ipairs(result.diagnostics or {}) do shortage(d);if tick then tick() end end end
     end
     result.supplyComplete=result.supplyComplete and #result.auctionSupplyShortages==0
     result.purchaseVerified=result.targetReached==true and result.supplyComplete and result.costComplete~=false
@@ -1141,11 +1162,13 @@ function E.Index(s, tick)
         if not (s.known or {})[recipe.key] then
             local item=recipe.formula or recipe.formulaID
             if positiveInteger(item) then s.formulaItems[item]=true end
-            for _,route in ipairs(recipe.learningInfo and recipe.learningInfo.routes or {}) do
-                item=tonumber(route.teachingItemID or route.itemID)
-                if route.kind=="item" and positiveInteger(item) then
-                    s.formulaItems[item]=true
-                    if route.acquisition and route.acquisition.nonAuctionable==true then s.nonAuctionable[item]=true end
+            for _,routes in ipairs({recipe.learningRoutes or {},recipe.learningInfo and recipe.learningInfo.routes or {}}) do
+                for _,route in ipairs(routes) do
+                    item=tonumber(route.teachingItemID or route.itemID)
+                    if route.kind=="item" and positiveInteger(item) then
+                        s.formulaItems[item]=true
+                        if route.acquisition and route.acquisition.nonAuctionable==true then s.nonAuctionable[item]=true end
+                    end
                 end
             end
         end
@@ -1224,6 +1247,14 @@ function E.Capture(slug, opts, tick)
         s.noFormula,s.learnedOnly,s.allowUnknownLearning=nil,nil,nil
         s.stamp=s.stamp or (time and time())
         s.professions, s.routeContext = E.RouteProfessions(slug, opts, opts.professions or s.professions or {})
+        if slug ~= "__purchase" and not opts.allowSecondaryLeveling then
+            local recipes = {}
+            for _, recipe in ipairs(s.recipes or {}) do
+                if recipe.profession == slug then recipes[#recipes + 1] = recipe end
+                tick()
+            end
+            s.recipes = recipes
+        end
         s.allowLimitedFormulas = E.AllowLimitedFormulas(opts)
         s.allowBindOnPickupFormulas=E.AllowBindOnPickupFormulas(opts)
         s.allowCurrencyFormulas=formulaPermission(opts,"allowCurrencyFormulas","autoAllowCurrencyFormulas")
@@ -1291,11 +1322,13 @@ function E.Capture(slug, opts, tick)
             items[r.formula]=true;s.formulaItems[r.formula]=true
         end
         if not s.known[r.key] then
-            for _,route in ipairs(r.learningInfo and r.learningInfo.routes or {}) do
-                local item=tonumber(route.teachingItemID or route.itemID)
-                if route.kind=="item" and item and item>0 then
-                    items[item]=true;s.formulaItems[item]=true
-                    if route.acquisition and route.acquisition.nonAuctionable==true then s.nonAuctionable[item]=true end
+            for _,routes in ipairs({r.learningRoutes or {},r.learningInfo and r.learningInfo.routes or {}}) do
+                for _,route in ipairs(routes) do
+                    local item=tonumber(route.teachingItemID or route.itemID)
+                    if route.kind=="item" and item and item>0 then
+                        items[item]=true;s.formulaItems[item]=true
+                        if route.acquisition and route.acquisition.nonAuctionable==true then s.nonAuctionable[item]=true end
+                    end
                 end
             end
         end
@@ -1333,14 +1366,16 @@ function E.Capture(slug, opts, tick)
             s.formulaOffers[r.formula] = copy(offers or {})
         end
         if not s.known[r.key] then
-            for _,route in ipairs(r.learningInfo and r.learningInfo.routes or {}) do
-                local item=tonumber(route.teachingItemID or route.itemID)
-                if route.kind=="item" and item and item>0 and not s.formulaOffers[item] then
-                    local offers=vdb and vdb.GetFormulaOffers and vdb.GetFormulaOffers(item,vendorContext,r.source)
-                    if not (vdb and vdb.GetFormulaOffers) then
-                        offers=ns.ProfSupply and ns.ProfSupply.FormulaList and ns.ProfSupply.FormulaList(item) or {}
+            for _,routes in ipairs({r.learningRoutes or {},r.learningInfo and r.learningInfo.routes or {}}) do
+                for _,route in ipairs(routes) do
+                    local item=tonumber(route.teachingItemID or route.itemID)
+                    if route.kind=="item" and item and item>0 and not s.formulaOffers[item] then
+                        local offers=vdb and vdb.GetFormulaOffers and vdb.GetFormulaOffers(item,vendorContext,r.source)
+                        if not (vdb and vdb.GetFormulaOffers) then
+                            offers=ns.ProfSupply and ns.ProfSupply.FormulaList and ns.ProfSupply.FormulaList(item) or {}
+                        end
+                        s.formulaOffers[item]=copy(offers or {})
                     end
-                    s.formulaOffers[item]=copy(offers or {})
                 end
             end
         end

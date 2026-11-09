@@ -7,14 +7,19 @@ RS.Presentation.ChangelogData = RS.Presentation.ChangelogData or {}
 if buildID == "retail" then
     RS.Presentation.ChangelogData.retail = {
         viewId = "retail",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:fcc5191ac3428d85c1e2cd737abc5dcd2b8fb0f4ce7669d08a8976c6d72fd79b",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:feaec25b6fb2f916250b216a33c9ea59f8468d64e341c09de6b103103ebf964d",
         historySourceId = "retail:b109960e82a2b3db460e2ae597ea8870276d1479:RurutiaSuite/Changelog.md",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.7.4",
-            date = "2026-11-06",
-            noticeKey = "4.7.4:40ba70f3d653badb63e8",
-            content = [=[%sv4.7.4（2026-11-06）|r
+            version = "4.7.9",
+            date = "2026-11-08",
+            noticeKey = "4.7.9:0b754c6df075bd01b456",
+            content = [=[%sv4.7.9（2026-11-08）|r
+
+%s[Elles 聊天框]|r
+• 加深输入框背景，修复其他聊天窗口缺少背景的问题。
+
+%sv4.7.4（2026-11-06）|r
 
 %s[任务自动交接]|r
 • 修复切回原生追踪后交接按钮消失的问题。
