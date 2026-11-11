@@ -7,14 +7,51 @@ RS.Presentation.ChangelogData = RS.Presentation.ChangelogData or {}
 if buildID == "classic-infinite" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-infinite",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:feaec25b6fb2f916250b216a33c9ea59f8468d64e341c09de6b103103ebf964d",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:eb1fd90a543812173a3e36a7b9b1ad81e9185978f88491a5dbf53b012743334b",
         historySourceId = "none:forever-product-starts-at-4.x",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.7.9",
-            date = "2026-11-08",
-            noticeKey = "4.7.9:8bd7391ae2b7fdeb3856",
-            content = [=[%sv4.7.9（2026-11-08）|r
+            version = "4.8.3",
+            date = "2026-11-10",
+            noticeKey = "4.8.3:7276db988db88f7051c8",
+            content = [=[%sv4.8.3（2026-11-10）|r
+
+%s[EllesmereUI 增强]|r
+• 训练师「全部学习」按钮，点击会出现二次弹窗，并显示总金额。
+• 全部学习按钮，现在显示为中文，并适配皮肤美化，
+
+%sv4.8.2（2026-11-10）|r
+
+%s[插件增强]|r
+• 修复新版 Elles 下人物和宠物属性字号设置失效的问题。
+
+%s[预设安装器]|r
+• RXP 预设加入在团队中自动隐藏，离队后恢复显示。
+
+%sv4.8.1（2026-11-09）|r
+
+%s[职业提醒]|r
+• 死亡和跑尸时隐藏增益提醒，复活后再提示缺失的增益。
+
+%s[插件增强]|r
+• Elles 增强集中显示属性字号、小地图音量和背包反向整理。
+• 属性字号支持人物和宠物共用，并可跟随 Elles。
+
+%s[微型菜单栏]|r
+• 可在本页设置启用时隐藏暴雪菜单，关闭电源时恢复。
+
+%s[消耗品动作条]|r
+• 药水组在法力药水旁显示潜行者和德鲁伊的蓟叶茶。
+
+%s[鼠标提示]|r
+• 装备名称下方补充物品等级，可在「显示编号」中关闭。
+
+%sv4.8.0（2026-11-09）|r
+
+%s[任务自动交接]|r
+• 总开关改为默认关闭，可在大地图手动开启。
+
+%sv4.7.9（2026-11-08）|r
 
 %s[Elles 聊天框]|r
 • 加深输入框背景，修复其他聊天窗口缺少背景的问题。
@@ -832,7 +869,7 @@ end
 if buildID == "classic-era" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-era",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:feaec25b6fb2f916250b216a33c9ea59f8468d64e341c09de6b103103ebf964d",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:eb1fd90a543812173a3e36a7b9b1ad81e9185978f88491a5dbf53b012743334b",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
@@ -1410,7 +1447,7 @@ end
 if buildID == "classic-anniversary" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-anniversary",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:feaec25b6fb2f916250b216a33c9ea59f8468d64e341c09de6b103103ebf964d",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:eb1fd90a543812173a3e36a7b9b1ad81e9185978f88491a5dbf53b012743334b",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
@@ -1988,7 +2025,7 @@ end
 if buildID == "classic-wrath-legacy" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-wrath-legacy",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:feaec25b6fb2f916250b216a33c9ea59f8468d64e341c09de6b103103ebf964d",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:eb1fd90a543812173a3e36a7b9b1ad81e9185978f88491a5dbf53b012743334b",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
@@ -2555,7 +2592,7 @@ end
 if buildID == "classic-cata-legacy" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-cata-legacy",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:feaec25b6fb2f916250b216a33c9ea59f8468d64e341c09de6b103103ebf964d",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:eb1fd90a543812173a3e36a7b9b1ad81e9185978f88491a5dbf53b012743334b",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
@@ -3127,7 +3164,7 @@ end
 if buildID == "classic-mists" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-mists",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:feaec25b6fb2f916250b216a33c9ea59f8468d64e341c09de6b103103ebf964d",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:eb1fd90a543812173a3e36a7b9b1ad81e9185978f88491a5dbf53b012743334b",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
@@ -3710,7 +3747,7 @@ end
 if buildID == "classic-titan" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-titan",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:feaec25b6fb2f916250b216a33c9ea59f8468d64e341c09de6b103103ebf964d",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:eb1fd90a543812173a3e36a7b9b1ad81e9185978f88491a5dbf53b012743334b",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {

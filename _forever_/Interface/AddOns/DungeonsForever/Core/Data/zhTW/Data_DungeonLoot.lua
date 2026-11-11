@@ -920,9 +920,9 @@ ns.DungeonLoot = {
         { "Captain Dreadrise", "德雷德萊斯船長", "", "270884", {} },
         { "Deathless Marrow", "不死骨髓", "", "270885", {} },
         { "Primeval Elemental", "原始元素", "", "270887", {} },
-        { "Gill", "吉爾", "", "270888", {} },
+        { "Gill", "吉爾", "稀有", "270888", {} },
         { "Min'loth the Serpent", "毒蛇明洛斯", "", "270886", {} },
-        { "Umbra", "烏姆布拉", "", "264172", {} },
+        { "Umbra", "烏姆布拉", "稀有", "264172", {} },
         { "Zin'aka", "辛阿卡", "", "263742", {} },
         { "Pyromancer Braxton", "\"炎術師\"布拉克斯頓", "稀有", "260468", {
             { 286651, 100, true },
@@ -1069,7 +1069,7 @@ ns.DungeonLoot = {
         { "Twilight Commander Zarmok", "暮光指揮官扎爾莫克", "", "258972", {} },
         { "War Handler Ashka", "馴獸師阿什卡", "", "259281", {} },
         { "Nar'gurk", "納古克", "", "258964", {} },
-        { "Overlord Mugg", "監工莫格", "", "258968", {} },
+        { "Overlord Mugg", "霸主莫格", "", "258968", {} },
     },
     ["uldaman"] = {
         { "Eric \"The Swift\"", "埃瑞克", "", "6907", {

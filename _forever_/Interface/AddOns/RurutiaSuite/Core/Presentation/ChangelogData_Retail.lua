@@ -7,14 +7,19 @@ RS.Presentation.ChangelogData = RS.Presentation.ChangelogData or {}
 if buildID == "retail" then
     RS.Presentation.ChangelogData.retail = {
         viewId = "retail",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:feaec25b6fb2f916250b216a33c9ea59f8468d64e341c09de6b103103ebf964d",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:eb1fd90a543812173a3e36a7b9b1ad81e9185978f88491a5dbf53b012743334b",
         historySourceId = "retail:b109960e82a2b3db460e2ae597ea8870276d1479:RurutiaSuite/Changelog.md",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.7.9",
-            date = "2026-11-08",
-            noticeKey = "4.7.9:0b754c6df075bd01b456",
-            content = [=[%sv4.7.9（2026-11-08）|r
+            version = "4.8.0",
+            date = "2026-11-09",
+            noticeKey = "4.8.0:3e5bf98e4810d603e290",
+            content = [=[%sv4.8.0（2026-11-09）|r
+
+%s[任务自动交接]|r
+• 总开关改为默认关闭，可在大地图手动开启。
+
+%sv4.7.9（2026-11-08）|r
 
 %s[Elles 聊天框]|r
 • 加深输入框背景，修复其他聊天窗口缺少背景的问题。

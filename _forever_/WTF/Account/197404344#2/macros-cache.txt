@@ -1,10 +1,8 @@
 VER 3 0000000000000001 "RXPTargeting" "Ability_eyeoftheowl"
-/targetexact 玛格拉姆驯犬者
-/targetexact 玛格拉姆前锋
-/targetexact 玛格拉姆虐待者
-/targetexact 玛格拉姆掠夺者
-/targetexact 荒土鞭尾蝎
-/targetexact 荒土巨钳蝎
+/targetexact 赞吉尔纳迦
+/targetexact 赞吉尔猎人
+/targetexact 赞吉尔僵尸
+/targetexact 赞吉尔巫医
 /tm !7
 /targetlasttarget [dead]
 END

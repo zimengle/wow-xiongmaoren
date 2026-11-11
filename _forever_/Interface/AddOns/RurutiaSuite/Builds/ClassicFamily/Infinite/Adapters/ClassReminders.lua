@@ -134,6 +134,10 @@ function Adapter:ReadAuras(states)
 end
 function Adapter:IsInCombat() return InCombatLockdown() end
 function Adapter:PlayerClass() local _, class = UnitClass("player"); return class end
+function Adapter:IsPlayerDeadOrGhost()
+    return type(UnitIsDeadOrGhost) == "function" and UnitIsDeadOrGhost("player")
+end
+
 function Adapter:IsResting()
     if type(IsResting) ~= "function" then return true end
     local ok, resting = pcall(IsResting)

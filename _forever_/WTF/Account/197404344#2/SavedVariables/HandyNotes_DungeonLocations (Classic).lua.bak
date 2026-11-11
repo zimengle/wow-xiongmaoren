@@ -3,8 +3,8 @@ HandyNotes_DungeonLocationsClassicDB = {
 ["profileKeys"] = {
 ["露露缇娅 喵呜"] = "Default",
 ["重庆 智能体"] = "Default",
-["仓库 存放"] = "Default",
 ["露露缇娅 嗷呜"] = "Default",
+["仓库 存放"] = "Default",
 ["露露缇娅 啾啾"] = "Default",
 },
 ["profiles"] = {

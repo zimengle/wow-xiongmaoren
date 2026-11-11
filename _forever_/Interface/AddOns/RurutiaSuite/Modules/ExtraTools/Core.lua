@@ -19,6 +19,7 @@ end
 
 -- Register effective per-build defaults so exact matches are stripped on save.
 local defaults = Data.CreateDefaults(Adapter.family)
+if Adapter.buildId == "classic-infinite" then defaults.profile.ellesmereStatFont = "14" end
 if Adapter.family == "classic" then
     local p, features = defaults.profile, Adapter.features
     if features.minimapVolume then p.ellesmereMinimapVolume = true end
@@ -385,9 +386,11 @@ end
 function Definition:ShouldHideBlizzardMicroMenu()
     local db = self:GetBlizzardUIDB()
     return db and db.hideMicroMenu == true
+        and (Adapter.buildId ~= "classic-infinite" or self:IsRSMicroMenuEnabled())
 end
 
 function Definition:ShouldForceShowBlizzardMicroMenu()
+    if Adapter.buildId == "classic-infinite" then return false end
     local db = self:GetBlizzardUIDB()
     if Adapter.family == "classic" and Adapter.buildId ~= "classic-infinite" then
         return db and db.hideMicroMenu ~= true

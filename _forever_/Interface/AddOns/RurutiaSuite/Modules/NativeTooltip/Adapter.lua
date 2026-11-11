@@ -46,7 +46,6 @@ function Adapter:GetBlocker()
     end
 end
 
--- Ellesmere owns all presentation; RS only supplements unit text colours.
 function Adapter:IsColorOnly()
     local loaded = _G.C_AddOns and _G.C_AddOns.IsAddOnLoaded or _G.IsAddOnLoaded
     for _, name in ipairs({ "EllesmereUI", "EllesmereUIBlizzardSkin" }) do
@@ -436,6 +435,38 @@ end
 -- One physical callback, no subscribers and no work after release.
 local subscriber, installed
 local colorSubscriber, colorInstalled
+Adapter.supportsItemLevel = _G.WOW_PROJECT_CAMELOT ~= nil and _G.WOW_PROJECT_ID == _G.WOW_PROJECT_CAMELOT
+local itemLevelInstalled
+function Adapter:InstallItemLevel()
+    if not self.supportsItemLevel or itemLevelInstalled then return end
+    local kinds = Enum.TooltipDataLineType
+    local function AfterHeader(tooltip, line)
+        local owner = subscriber or colorSubscriber
+        if not owner or not owner.runtimeActive or not owner:IsEnabled() or not owner:GetProfile().showItemLevel then return end
+        if not Adapter:IsUsable(tooltip) then return end
+        local info = tooltip:GetProcessingTooltipInfo()
+        local data = info and info.tooltipData
+        if not Adapter:Accessible(data) or Adapter:Safe(data.type) ~= Enum.TooltipDataType.Item then return end
+        if not Adapter:Accessible(data.lines) then return end
+        for _, entry in ipairs(data.lines) do
+            if not Adapter:Accessible(entry) then return end
+            local kind = Adapter:Safe(entry.type)
+            if kind == kinds.ItemLevel then return end
+            if kind == kinds.ItemQuality and line.type == kinds.ItemName then return end
+        end
+        local item = Adapter:Safe(data.hyperlink)
+        local guid = Adapter:Safe(data.guid)
+        if not item and guid then item = Adapter:Safe(C_Item.GetItemLinkByGUID(guid)) end
+        item = item or Adapter:Safe(data.id)
+        if not item or not C_Item.IsEquippableItem(item) then return end
+        local level = Adapter:Safe(C_Item.GetDetailedItemLevelInfo(item))
+        if level and level > 0 then tooltip:AddLine(string.format(ITEM_LEVEL, level), 1, 0.82, 0) end
+    end
+    TooltipDataProcessor.AddLinePostCall(kinds.ItemName, AfterHeader)
+    TooltipDataProcessor.AddLinePostCall(kinds.ItemQuality, AfterHeader)
+    itemLevelInstalled = true
+end
+
 function Adapter:Subscribe(owner)
     local processor = _G.TooltipDataProcessor
     local unitType = _G.Enum and _G.Enum.TooltipDataType and _G.Enum.TooltipDataType.Unit

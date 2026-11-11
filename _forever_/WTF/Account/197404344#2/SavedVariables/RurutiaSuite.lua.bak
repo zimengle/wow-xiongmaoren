@@ -2,9 +2,9 @@
 RurutiaSuiteDB = {
 ["global"] = {
 ["lastSeenChangelogViews"] = {
-["classic-infinite"] = "4.7.9:8bd7391ae2b7fdeb3856",
+["classic-infinite"] = "4.8.3:7276db988db88f7051c8",
 },
-["lastSeenVersion"] = "4.7.9",
+["lastSeenVersion"] = "4.8.3",
 },
 ["namespaces"] = {
 ["VersionDisplay"] = {
@@ -14,88 +14,17 @@ RurutiaSuiteDB = {
 },
 },
 },
-["ExtraTools"] = {
-["profiles"] = {
-["Default"] = {
-["blizzardUI"] = {
-["infiniteDefaultsV2"] = true,
-["merchantExpansion"] = true,
-["merchantSearch"] = true,
-["knownRecipeTint"] = true,
-},
-["featureOwnersV1"] = {
-["BlizzardEnhancements"] = true,
-["PluginEnhancements"] = true,
-["LootTools"] = true,
-["LFGTools"] = true,
-["CelestialBar"] = true,
-},
-},
-},
-},
-["ConsumableBar"] = {
-["profiles"] = {
-["Default"] = {
-["positionLayoutVersion"] = 8,
-["layoutSettingsVersion"] = 2,
-},
-},
-},
-["TopBar"] = {
-["profiles"] = {
-["Default"] = {
-["independentMenuV1"] = true,
-},
-},
-},
-["ClassReminders"] = {
-["profiles"] = {
-["Default"] = {
-["pageSwitchesV1"] = true,
-},
-},
-},
-["CVarSettings"] = {
-["profiles"] = {
-["Default"] = {
-["nameOnlyNameFontSize"] = 18,
-},
-},
-},
-["CenterTextGroup"] = {
-["profiles"] = {
-["Default"] = {
-["positionMigrated"] = true,
-},
-},
-},
-["CombatReminder"] = {
-["profiles"] = {
-["Default"] = {
-["timer"] = {
-["positionVersion"] = 1,
-},
-},
-},
-},
-["QuestAutomation"] = {
-["profiles"] = {
-["Default"] = {
-["enabled"] = false,
-},
-},
-},
 ["ExperienceBar"] = {
 ["char"] = {
 ["重庆 - 智能体"] = {
 ["session"] = {
-["lastXP"] = 25721,
-["gainedXP"] = 6579,
-["levelPlayed"] = 2158,
-["playedAt"] = 1794215493,
-["lastXPMax"] = 76100,
-["totalPlayed"] = 153113,
-["startTime"] = 1794215492,
+["lastXP"] = 54136,
+["gainedXP"] = 8768,
+["startTime"] = 1794386618,
+["playedAt"] = 1794387296,
+["lastXPMax"] = 106300,
+["totalPlayed"] = 213630,
+["levelPlayed"] = 4864,
 },
 },
 ["露露缇娅 - 嗷呜"] = {
@@ -127,11 +56,75 @@ RurutiaSuiteDB = {
 ["session"] = {
 ["lastXP"] = 55,
 ["gainedXP"] = 55,
-["lastXPMax"] = 400,
-["levelPlayed"] = 1,
-["startTime"] = 1793861764,
-["totalPlayed"] = 1,
 ["playedAt"] = 1793861765,
+["levelPlayed"] = 1,
+["lastXPMax"] = 400,
+["totalPlayed"] = 1,
+["startTime"] = 1793861764,
+},
+},
+},
+},
+["ConsumableBar"] = {
+["profiles"] = {
+["Default"] = {
+["layoutSettingsVersion"] = 2,
+["positionLayoutVersion"] = 8,
+},
+},
+},
+["TopBar"] = {
+["profiles"] = {
+["Default"] = {
+["independentMenuV1"] = true,
+},
+},
+},
+["ClassReminders"] = {
+["profiles"] = {
+["Default"] = {
+["pageSwitchesV1"] = true,
+},
+},
+},
+["CVarSettings"] = {
+["profiles"] = {
+["Default"] = {
+["nameOnlyNameFontSize"] = 18,
+},
+},
+},
+["CenterTextGroup"] = {
+["profiles"] = {
+["Default"] = {
+["positionMigrated"] = true,
+},
+},
+},
+["ExtraTools"] = {
+["profiles"] = {
+["Default"] = {
+["blizzardUI"] = {
+["infiniteDefaultsV2"] = true,
+["merchantExpansion"] = true,
+["merchantSearch"] = true,
+["knownRecipeTint"] = true,
+},
+["featureOwnersV1"] = {
+["BlizzardEnhancements"] = true,
+["PluginEnhancements"] = true,
+["LootTools"] = true,
+["CelestialBar"] = true,
+["LFGTools"] = true,
+},
+},
+},
+},
+["CombatReminder"] = {
+["profiles"] = {
+["Default"] = {
+["timer"] = {
+["positionVersion"] = 1,
 },
 },
 },
@@ -140,9 +133,11 @@ RurutiaSuiteDB = {
 ["profiles"] = {
 ["Default"] = {
 ["presetVersion"] = 2,
+["scale"] = 1,
 ["revealDefaultVersion"] = 1,
-["x"] = 485.7617941544516,
-["y"] = 222.2189400384216,
+["centerHorizontal"] = false,
+["y"] = 222.2191162109375,
+["x"] = 659.5116577148438,
 },
 },
 },

@@ -350,6 +350,10 @@ function BuildAbout()
             { t = L["/副本手册"], cmd = L["/副本手册"] },
             { t = " — " .. L["开关窗口"] },
         } },
+        { key = L["语言"], parts = {
+            { t = "/dfcn", cmd = "/dfcn" },
+            { t = " — " .. L["切换至中文"] },
+        } },
         { key = L["页面"], parts = {
             { t = "/df fb", cmd = "/df fb" }, { t = " " .. L["副本"] }, { t = " · " },
             { t = "/df tb", cmd = "/df tb" }, { t = " " .. L["团本"] }, { t = " · " },
@@ -438,6 +442,14 @@ function BuildAbout()
         if type(vh) ~= "number" or vh <= 0 then vh = 14 end
         ly = ly - math.max(28, vh + 10)
     end
+
+    local foot = left:CreateFontString(nil, "OVERLAY")
+    foot:SetFont(ns.FONT, 13, "")
+    foot:SetJustifyH("CENTER")
+    foot:SetWidth(AB_INNER_W)
+    foot:SetText(L["如遇到 bug 或数据错误，请到 QQ 群内反馈，谢谢。"])
+    foot:SetTextColor(C_AB_DIM[1], C_AB_DIM[2], C_AB_DIM[3])
+    foot:SetPoint("BOTTOM", left, "BOTTOM", 0, 22)
 
     local card = CreateFrame("Frame", nil, about, "BackdropTemplate")
     card:SetSize(AB_CARD_W, AB_CARD_H)
@@ -836,10 +848,13 @@ settingsBtn:SetScript("OnClick", function()
     SyncSettingsGlyph()
 end)
 
+local ENH_CARD_H = 110
+local ENH_CARD_GROW = ENH_CARD_H - 86
+
 settingsPop = CreateFrame("Frame", nil, f, "BackdropTemplate")
 settingsPop:SetFrameLevel(512)
 settingsPop:SetPoint("TOPLEFT", f, "TOPRIGHT", 4, 0)
-settingsPop:SetPoint("BOTTOMLEFT", f, "BOTTOMRIGHT", 4, 0)
+settingsPop:SetPoint("BOTTOMLEFT", f, "BOTTOMRIGHT", 4, -ENH_CARD_GROW)
 settingsPop:SetWidth(220)
 settingsPop:EnableMouse(true)
 settingsPop:SetScript("OnMouseWheel", function() end)
@@ -1032,7 +1047,9 @@ local enhCard
 local spellToggle
 local talentToggle
 local mapToggle
+local instanceMapToggle
 local zoneToggle
+local legacyToggle
 
 local function SpellBlocked()
     return (ns.SpellTabsTaken and ns.SpellTabsTaken()) and true or false
@@ -1055,9 +1072,15 @@ local function SyncEnhCard()
     if mapToggle then
         mapToggle:SetChecked((ns.MapEntryOn and ns.MapEntryOn()) and true or false)
     end
+    if instanceMapToggle then
+        instanceMapToggle:SetChecked((ns.InstanceMapOn and ns.InstanceMapOn()) and true or false)
+    end
     if zoneToggle then
         local c = ns.ZoneHint and ns.ZoneHint.CFG and ns.ZoneHint.CFG()
         zoneToggle:SetChecked((c and c.on) and true or false)
+    end
+    if legacyToggle then
+        legacyToggle:SetChecked((ns.LegacyEnhOn and ns.LegacyEnhOn()) and true or false)
     end
 end
 
@@ -1123,7 +1146,7 @@ function BuildEnhCard()
     end
     enhCard = card
     AnchorEnhCard()
-    card:SetHeight(86)
+    card:SetHeight(ENH_CARD_H)
 
     local hd = card:CreateFontString(nil, "OVERLAY")
     hd:SetFont(ns.FONT, 14, "")
@@ -1138,8 +1161,10 @@ function BuildEnhCard()
                      L["两个插件不能同时往技能书里加页；关掉对方的技能页增强并重载后，这里会自动恢复。"] }
         end)
     talentToggle = EnhCell(card, 113, -34, L["天赋页增强"], L["在原生天赋界面增加天赋模拟页与加点序号"])
-    mapToggle = EnhCell(card, 2, -58, L["地图副本入口"], L["在世界地图上标出各副本的入口位置"])
+    mapToggle = EnhCell(card, 2, -58, L["地图增强"], L["在世界地图上标出各副本入口，并在副本内用手册地图替换原生副本地图"])
     zoneToggle = EnhCell(card, 113, -58, L["地图待办"], L["进入地图时在屏幕左侧显示待办角标"])
+    legacyToggle = EnhCell(card, 2, -82, L["传承点增强"], L["在原生传承界面增加推荐加点卡片与方案页"])
+    instanceMapToggle = EnhCell(card, 113, -82, L["副本内地图"], L["进入副本后用手册地图替换原生副本地图，关闭则保留原生副本地图"])
 
     spellToggle:SetScript("OnClick", function(self)
         if SpellBlocked() then return end
@@ -1163,6 +1188,13 @@ function BuildEnhCard()
         if ns.SetMapEntry then ns.SetMapEntry(nv) end
         SyncEnhCard()
     end)
+    instanceMapToggle:SetScript("OnClick", function(self)
+        ns.PlaySound(1)
+        local nv = not (ns.InstanceMapOn and ns.InstanceMapOn())
+        self:SetChecked(nv)
+        if ns.SetInstanceMap then ns.SetInstanceMap(nv) end
+        SyncEnhCard()
+    end)
     zoneToggle:SetScript("OnClick", function(self)
         ns.PlaySound(1)
         local c = ns.ZoneHint and ns.ZoneHint.CFG and ns.ZoneHint.CFG()
@@ -1170,6 +1202,13 @@ function BuildEnhCard()
         c.on = self:GetChecked() and true or false
         SyncEnhCard()
         if ns.ZoneHint then ns.ZoneHint.CheckNow("manual") end
+    end)
+    legacyToggle:SetScript("OnClick", function(self)
+        ns.PlaySound(1)
+        local nv = not (ns.LegacyEnhOn and ns.LegacyEnhOn())
+        self:SetChecked(nv)
+        if ns.SetLegacyEnh then ns.SetLegacyEnh(nv) end
+        SyncEnhCard()
     end)
     SyncEnhCard()
 end
@@ -1836,14 +1875,28 @@ SlashCmdList["DUNGEONSFOREVERLANG"] = function()
         print(tag .. L["当前客户端已是简体中文，无需切换"])
         return
     end
-    DungeonsForeverDB = DungeonsForeverDB or {}
-    local on = DungeonsForeverDB.langCN ~= true
-    DungeonsForeverDB.langCN = on
+    if not ns.AddonLoaded("DF_CNLocale") then
+        print(tag .. L["语言开关插件未加载，请在插件列表中启用 DF_CNLocale 后重试"])
+        return
+    end
+    local on = rawget(_G, "DF_CN_FORCE") ~= true
+    DF_CN_FORCE = on
     if ns.ConfirmReload then
         ns.ConfirmReload(on and L["已切换为简体中文界面，重载界面后生效"]
             or L["已恢复跟随客户端语言，重载界面后生效"])
     end
 end
+
+ns.Init(function()
+    local db = ns.DB()
+    if type(db) ~= "table" or db.langCN ~= true then return end
+    db.langCN = nil
+    if type(GetLocale) ~= "function" or GetLocale() == "zhCN" then return end
+    if not ns.AddonLoaded("DF_CNLocale") then return end
+    if rawget(_G, "DF_CN_FORCE") == true then return end
+    DF_CN_FORCE = true
+    if ns.ConfirmReload then ns.ConfirmReload(L["已切换为简体中文界面，重载界面后生效"]) end
+end)
 
 local PAGE_ALIASES = {
     fb = "Dungeons",    ["副本"] = "Dungeons",

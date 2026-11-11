@@ -142,6 +142,8 @@ Register("PluginEnhancements", {
             if self._meetingStonePending then self:ApplyMeetingStoneChoice() end
         else self:ApplyExternalUpdateBlockers() end
         if Adapter.features.minimapVolume then self:ApplyMinimapVolumeState() end
+        if ns.EllesmereStatFonts then ns.EllesmereStatFonts:Sync(self) end
+        if ns.EllesmereTrainAll then ns.EllesmereTrainAll:Sync(self) end
         if ns.EllesmereTimerIntegration then ns.EllesmereTimerIntegration:Apply(self) end
     end,
     PLAYER_LOGOUT = function(self)
@@ -157,6 +159,9 @@ Register("PluginEnhancements", {
         self.runtimeActive = true
         local p = self:GetProfile()
         if Adapter.family == "retail" and not self._loginApplied then self:RegisterEvent("PLAYER_LOGIN", self.PLAYER_LOGIN) end
+        if ns.EllesmereTrainAll then
+            self:RegisterEvent("TRAINER_SHOW", function(owner) ns.EllesmereTrainAll:Sync(owner) end)
+        end
         if ns.EllesmereTimerIntegration and p.ellesmereTimerCompact ~= false then self:RegisterEvent("PLAYER_LOGOUT", self.PLAYER_LOGOUT) end
         local wanted = Adapter.family == "retail" and
             (p.tinyInspectYellowSpamFix or p.detailsNumberFix or p.bwHideDungeonNames or p.ellesmereMinimapVolume or p.ellesmereTimerCompact)
@@ -165,6 +170,8 @@ Register("PluginEnhancements", {
         if wanted then
             self:RegisterEvent("ADDON_LOADED", self.Apply)
             self:RegisterEvent("PLAYER_ENTERING_WORLD", self.Apply)
+        elseif ns.EllesmereStatFonts and p.ellesmereStatFont ~= "follow" then
+            self:RegisterEvent("PLAYER_ENTERING_WORLD", self.Apply)
         end
         if Adapter.features.tinyInspect and p.tinyInspectYellowSpamFix then
             self:RegisterEvent("GROUP_ROSTER_UPDATE", self.UpdateTinyInspectYellowSpamFix)
@@ -172,8 +179,10 @@ Register("PluginEnhancements", {
         self:Apply()
     end,
     Disable = function(self)
-        self.runtimeActive, self._meetingStonePending = false, nil
+        self.runtimeActive, self._meetingStonePending, self._bagSortPending = false, nil, nil
         self:CancelMinimapVolumeRetry()
+        if ns.EllesmereStatFonts then ns.EllesmereStatFonts:Detach(self) end
+        if ns.EllesmereTrainAll then ns.EllesmereTrainAll:Detach(self) end
         if ns.EllesmereTimerIntegration then ns.EllesmereTimerIntegration:Detach(self) end
         if Adapter.features.minimapVolume then Adapter:DeactivateMinimapVolume(self) end
         self:RestoreDetailsNumberFix()

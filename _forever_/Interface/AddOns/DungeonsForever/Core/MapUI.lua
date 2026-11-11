@@ -237,7 +237,7 @@ M.BOSS_MODEL_UP = 66
 M.MAX_PINS = 48
 M.LOGO_TEX = "Interface\\AddOns\\DungeonsForever\\Media\\Brand\\DungeonsForever.blp"
 M.LOGO_SIZE = 20
-M.LOGO_LIFT = 2.5
+M.LOGO_LIFT = 0
 M.PIN_BOSS_TEX = "Interface\\AddOns\\DungeonsForever\\Media\\Pins\\BossSkull"
 M.PIN_QUEST_DISC_TEX = "Interface\\AddOns\\DungeonsForever\\Media\\Common\\CheckDisc"
 M.PIN_QUEST_SYM = {
@@ -291,6 +291,7 @@ M.PIN_GLOW_GAIN = 0.85
 M.PIN_RING_TEX = "Interface\\AddOns\\DungeonsForever\\Media\\Pins\\PinRing"
 M.PIN_RING_K = 2.5
 M.PIN_RING_RGB = { 1.00, 0.78, 0.22 }
+M.PIN_HL_RING_RGB = { 0x46 / 255, 0xbf / 255, 0x72 / 255 }
 M.PIN_RING_SECS = 6
 M.PIN_LINK_TOL = 2.5
 M.PIN_SIZE = 48
@@ -299,6 +300,7 @@ M.NOTE_SIZE = 21
 M.STAIR_SIZE = 26
 M.ROUTE_STEP, M.ROUTE_DOT, M.ROUTE_DOT_EDGE = 1.6, 4.2, 8.0
 M.ROUTE_THIN_DOT, M.ROUTE_THIN_EDGE = 2.6, 5.0
+M.ROUTE_FINE_DOT, M.ROUTE_FINE_EDGE = 1.8, 3.6
 M.ROUTE_DASH_ON, M.ROUTE_DASH_OFF = 13, 9
 M.ROUTE_DOT_TEX = "Interface\\AddOns\\DungeonsForever\\Media\\textures\\route_dot"
 M.MAX_ROUTE_DOTS = 2400
@@ -454,6 +456,7 @@ M.BOSS_PALETTE = {
 }
 M.MAX_LOOT = 30
 M.MAX_SKILL = 8
+M.MAX_QLIST = 20
 M.LIST_H = 38
 M.LIST_GAP = 8
 
@@ -545,9 +548,6 @@ M.ZONE_AREA = {
               "Shadowforge City", "Blackrock Spire", "Forgewright's Tomb",
               "The Grinding Quarry", "The Mason's Quarter" },
       mark = { "黑石", "Blackrock" } },
-    { id = "wailing_caverns", zone = { "贫瘠之地", "The Barrens", "哀嚎洞穴", "Wailing Caverns" },
-      sub = { "哀嚎洞穴", "哀嚎洞穴入口", "Wailing Caverns" },
-      mark = { "哀嚎洞穴", "Wailing Caverns" } },
 }
 
 M.ZONE_MENU = {
@@ -612,6 +612,9 @@ local CUSTOM = {
     excavation_wetlands = "Interface\\AddOns\\DungeonsForever\\Media\\Maps\\ExcavationSite",
     the_drowned_city    = "Interface\\AddOns\\DungeonsForever\\Media\\Maps\\TheDrownedCity",
     kroldok_stronghold  = "Interface\\AddOns\\DungeonsForever\\Media\\Maps\\KroldokStronghold",
+    alcaz_prison        = "Interface\\AddOns\\DungeonsForever\\Media\\Maps\\AlcazPrison",
+    blackmaw_hold       = "Interface\\AddOns\\DungeonsForever\\Media\\Maps\\BlackmawHold",
+    shapers_terrace     = "Interface\\AddOns\\DungeonsForever\\Media\\Maps\\ShapersTerrace",
     the_drowned_city    = "Interface\\AddOns\\DungeonsForever\\Media\\Maps\\TheDrownedCity",
 }
 M.CUSTOM = CUSTOM
@@ -1516,14 +1519,13 @@ local function BuildPins()
     frame.pinBtns = pinBtns
 end
 
-local function BuildListRows()
-    local frame = M.SideHost or M.frame
+local function BuildListRows(host)
+    local frame = host or M.SideHost or M.frame
     if not frame or frame.__listReady then return end
     frame.__listReady = true
     local listChild, innerW = frame.listChild, frame.innerW
     local listRows = {}
-    for i = 1, M.MAX_LIST do
-        local r = CreateFrame("Button", nil, listChild)
+    for i = 1, M.MAX_LIST do        local r = CreateFrame("Button", nil, listChild)
         r:SetSize(innerW, M.LIST_H)
         r.__av = CreateFrame("Frame", nil, r)
         r.__av:SetSize(32, 32)
@@ -1548,6 +1550,7 @@ local function BuildListRows()
             PiecesSetShown(r.__hl, false)
         end
         r.__idx = i
+        r.__frame = frame
         r:SetScript("OnClick", function(self) M.Select(self.__en) end)
         r:SetScript("OnEnter", function(self)
             U.dungeonMapHover = self
@@ -1560,11 +1563,32 @@ local function BuildListRows()
         r:Hide()
         listRows[i] = r
     end
+    if frame.qToggleOK then
+        local qToggle = Host.NewButton(listChild, L["任务"], 96, 20, 14)
+        qToggle:SetPoint("TOPRIGHT", listChild, "TOPRIGHT", 0, 0)
+        qToggle:SetScript("OnEnter", function(self)
+            GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+            GameTooltip:ClearLines()
+            GameTooltip:AddLine(L["查看已接取的本副本任务"], 1, 1, 1, true)
+            GameTooltip:Show()
+        end)
+        qToggle:SetScript("OnLeave", function()
+            GameTooltip:Hide()
+        end)
+        qToggle:SetScript("OnClick", function()
+            if not frame then return end
+            frame.sideQuests = true
+            M.detailEn = nil
+            ns.PlaySound(1)
+            M.SyncSide(frame)
+        end)
+        frame.qToggle = qToggle
+    end
     frame.listRows = listRows
 end
 
-local function BuildBlocks()
-    local frame = M.SideHost or M.frame
+local function BuildBlocks(host)
+    local frame = host or M.SideHost or M.frame
     if not frame or frame.__blocksReady then return end
     frame.__blocksReady = true
     local detChild, innerW = frame.detChild, frame.innerW
@@ -1636,8 +1660,8 @@ local function BuildBlocks()
     frame.detGdTtl, frame.detGd = detGdTtl, detGd
 end
 
-local function BuildSideRows()
-    local frame = M.SideHost or M.frame
+local function BuildSideRows(host)
+    local frame = host or M.SideHost or M.frame
     if not frame or frame.__rowsReady then return end
     frame.__rowsReady = true
     local innerW = frame.innerW
@@ -1711,16 +1735,93 @@ local function BuildSideRows()
     frame.lootRows, frame.skillRows = lootRows, skillRows
 end
 
+local function BuildQuestRows(host)
+    local frame = host or M.SideHost or M.frame
+    if not frame or frame.__questsReady then return end
+    frame.__questsReady = true
+    local listChild, innerW = frame.listChild, frame.innerW
+    local qBack = Host.NewButton(listChild, L["全部首领"], 96, 20, 14)
+    qBack:SetScript("OnClick", function()
+        frame.sideQuests = nil
+        M.ShowList()
+    end)
+    qBack:SetPoint("TOPRIGHT", listChild, "TOPRIGHT", 0, 0)
+    local qNote = MakeFS(listChild, 14, C_GREY, "LEFT")
+    qNote:SetPoint("TOPLEFT", listChild, "TOPLEFT", 2, -26)
+    qNote:SetWidth(innerW - 4)
+    qNote:SetWordWrap(true)
+    qNote:SetText(L["尚未接取与这个副本相关的任务"])
+    qNote:Hide()
+    local rows = {}
+    for i = 1, M.MAX_QLIST do
+        local r = CreateFrame("Button", nil, listChild)
+        r:SetSize(innerW, 40)
+        r:RegisterForClicks("LeftButtonUp")
+        if ns.hui and ns.hui.BuildRoundedBG then
+            ns.hui.BuildRoundedBG(r, M.ROW_RADIUS, { 1, 1, 1, M.BLK_BG }, "both", true, 1)
+        end
+        r.ic = r:CreateTexture(nil, "ARTWORK")
+        r.ic:SetSize(20, 20)
+        r.ic:SetPoint("LEFT", r, "LEFT", 10, 0)
+        r.ic:Hide()
+        r.icg = r:CreateTexture(nil, "OVERLAY")
+        r.icg:SetSize(20, 20)
+        r.icg:SetPoint("LEFT", r.ic, "LEFT", 0, 0)
+        r.icg:Hide()
+        r.name = MakeFS(r, 14, C_TEXT, "LEFT")
+        r.name:SetPoint("TOPLEFT", r, "TOPLEFT", 38, -8)
+        r.name:SetWordWrap(false)
+        r.name:SetWidth(innerW - 58)
+        r.st = MakeFS(r, 12, C_GREY, "RIGHT")
+        r.st:SetPoint("TOPRIGHT", r, "TOPRIGHT", -10, -9)
+        r.st:SetWordWrap(false)
+        r.st:Hide()
+        r.obj = MakeFS(r, 13, C_GREY, "LEFT")
+        r.obj:SetPoint("TOPLEFT", r.name, "BOTTOMLEFT", 0, -2)
+        r.obj:SetWidth(innerW - 58)
+        r.obj:SetWordWrap(true)
+        r.obj:Hide()
+        if ns.hui and ns.hui.BuildRoundedBG then
+            r.__hl = FlattenPieces(ns.hui.BuildRoundedBG(r, M.ROW_RADIUS,
+                { 1, 1, 1, DG.LOOT_CARD_BG_HOVER }, "both", true, 1, true))
+            PiecesSetShown(r.__hl, false)
+        end
+        r:SetScript("OnEnter", function(self)
+            PiecesSetShown(self.__hl, true)
+            M.QuestPinHint(self.__qid, true)
+            GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+            GameTooltip:ClearLines()
+            GameTooltip:AddLine(L["点击查看任务详情"], 0.7, 0.7, 0.7, true)
+            GameTooltip:Show()
+        end)
+        r:SetScript("OnLeave", function(self)
+            PiecesSetShown(self.__hl, false)
+            M.QuestPinHint(nil, false)
+            GameTooltip:Hide()
+        end)
+        r:SetScript("OnClick", function(self)
+            if self.__qid and M.GotoQuest then M.GotoQuest(self.__qid, true) end
+        end)
+        r:Hide()
+        rows[i] = r
+    end
+    frame.qBack = qBack
+    frame.qNote = qNote
+    frame.questRows = rows
+end
+
 local function BuildFinal()
     local frame = M.frame
     if not frame or frame.__poolsReady then return end
     frame.__poolsReady = true
     if frame:IsShown() then M.Paint(M.curD) end
+    if M.SyncSide then pcall(M.SyncSide, frame) end
 end
 M.EnsurePins = BuildPins
 M.EnsureListRows = BuildListRows
 M.EnsureBlocks = BuildBlocks
 M.EnsureSideRows = BuildSideRows
+M.EnsureQuestRows = BuildQuestRows
 M.EnsureFinal = BuildFinal
 
 local function MakeSideBar(side, scroll, child)
@@ -1755,22 +1856,25 @@ local function MakeSideBar(side, scroll, child)
     return bar
 end
 
-function M.BuildSide(f, w, h, withBar, bgLayer)
+function M.BuildSide(f, w, h, withBar, bgLayer, noCard, qOK)
     if not f then return end
+    f.qToggleOK = qOK and true or nil
     local side = CreateFrame("Frame", nil, f, "BackdropTemplate")
     side:SetSize(w, h)
     side:EnableMouse(true)
     side:EnableMouseWheel(true)
-    if ns.hui and ns.hui.BuildRoundedBG then
-        ns.hui.BuildRoundedBG(side, M.BLK_RADIUS, bgLayer or ns.hui.layer.L2, "both", true, 1)
-    else
-        side:SetBackdrop({
-            bgFile = "Interface\\Buttons\\WHITE8X8",
-            edgeFile = "Interface\\Buttons\\WHITE8X8",
-            edgeSize = 1,
-        })
-        side:SetBackdropColor(1, 1, 1, 0.03)
-        side:SetBackdropBorderColor(1, 1, 1, 0.10)
+    if not noCard then
+        if ns.hui and ns.hui.BuildRoundedBG then
+            ns.hui.BuildRoundedBG(side, M.BLK_RADIUS, bgLayer or ns.hui.layer.L2, "both", true, 1)
+        else
+            side:SetBackdrop({
+                bgFile = "Interface\\Buttons\\WHITE8X8",
+                edgeFile = "Interface\\Buttons\\WHITE8X8",
+                edgeSize = 1,
+            })
+            side:SetBackdropColor(1, 1, 1, 0.03)
+            side:SetBackdropBorderColor(1, 1, 1, 0.10)
+        end
     end
     side:Hide()
 
@@ -1793,7 +1897,7 @@ function M.BuildSide(f, w, h, withBar, bgLayer)
     hdrLogo:SetPoint("TOPLEFT", listChild, "TOPLEFT", 0, M.LOGO_LIFT)
 
     local listHdr = MakeFS(listChild, 14, C_GOLD, "LEFT")
-    listHdr:SetPoint("TOPLEFT", listChild, "TOPLEFT", M.LOGO_SIZE + 6, 0)
+    listHdr:SetPoint("TOPLEFT", listChild, "TOPLEFT", M.LOGO_SIZE + 6, -3)
     listHdr:SetText(L["首领"])
 
     local listNote = MakeFS(listChild, 14, C_GREY, "LEFT")
@@ -2003,9 +2107,9 @@ function M.Build(detail, hero)
     local queued = (type(DG) == "table" and type(DG.PushStep) == "function")
     if queued then
         DG.PushStep(BuildPins)
-        DG.PushStep(BuildListRows)
-        DG.PushStep(BuildBlocks)
-        DG.PushStep(BuildSideRows)
+        DG.PushStep(function() BuildListRows(frame) end)
+        DG.PushStep(function() BuildBlocks(frame) end)
+        DG.PushStep(function() BuildSideRows(frame) end)
         DG.PushStep(BuildFinal)
         DG.RunSteps()
     else
@@ -2226,32 +2330,44 @@ function M.CurFloorNum()
     return 1
 end
 
+local PIN_PULSE_K = M.PIN_SIZE * M.PIN_RING_K / (M.PIN_MIN + 8)
+
 local function pulseDrv()
     if M.pulseDriver then return M.pulseDriver end
     local d = CreateFrame("Frame")
     d:SetSize(1, 1)
     d:Hide()
-    d:SetScript("OnUpdate", function(self)
+    d:SetScript("OnUpdate", function(self, dt)
+        self.__acc = (self.__acc or 0) + (dt or 0)
+        if self.__acc < 0.033 then return end
+        self.__acc = 0
         local t = GetTime()
         local btn = M.pulseBtn
         local untilT = M.pulseUntil or 0
-        if not (btn and btn.__ring and btn:IsShown()) or t >= untilT then
+        if t >= untilT then
             if btn and btn.__ring then
                 btn.__ring:SetAlpha(1)
+                btn.__ring:SetScale(1)
                 btn.__ring:Hide()
             end
+            M.pulseBtn = nil
+            M.pulseSpec = nil
+            self:Hide()
+            return
+        end
+        if not (btn and btn.__ring and btn:IsShown()) then
+            if M.pulseSpec then return end
             M.pulseBtn = nil
             self:Hide()
             return
         end
         local ph = ((t - (M.pulseStart or t)) % 1.4) / 1.4
-        local base = M.PIN_SIZE * M.PIN_RING_K
-        local sz = base * (1 + 0.06 * math.sin(ph * 6.2832))
+        local s = math.sin(ph * 6.2832)
         local a = 0.88 + 0.12 * math.sin(ph * 6.2832 + 1.5708)
         local left = untilT - t
         if left < 0.7 then a = a * (left / 0.7) end
-        btn.__ring:SetSize(sz, sz)
         btn.__ring:SetAlpha(a)
+        btn.__ring:SetScale(1 + 0.05 * s)
     end)
     M.pulseDriver = d
     return d
@@ -2262,8 +2378,10 @@ function M.HighlightPin(btn, secs)
     if M.pulseBtn and M.pulseBtn ~= btn and M.pulseBtn.__ring then
         M.pulseBtn.__ring:Hide()
     end
-    btn.__ring:SetSize(M.PIN_SIZE * M.PIN_RING_K, M.PIN_SIZE * M.PIN_RING_K)
+    local base = (btn:GetWidth() or M.PIN_SIZE) * PIN_PULSE_K
+    btn.__ring:SetSize(base, base)
     btn.__ring:SetAlpha(1)
+    btn.__ring:SetScale(1)
     btn.__ring:Show()
     M.pulseBtn = btn
     M.pulseStart = GetTime()
@@ -2272,9 +2390,15 @@ function M.HighlightPin(btn, secs)
     return true
 end
 
-function M.ArriveAt(fromFloor, kind, tox, toy, host, skip)
-    local frame = host or M.frame
-    if not (frame and frame.pinBtns and fromFloor) then return false end
+function M.StartPinPulse(fromFloor, kind, tox, toy)
+    M.pulseSpec = { from = fromFloor, kind = kind, tox = tox, toy = toy }
+    M.pulseStart = GetTime()
+    M.pulseUntil = M.pulseStart + M.PIN_RING_SECS
+    pulseDrv():Show()
+end
+
+function M.PickArriveBtn(frame, fromFloor, kind, tox, toy, skip)
+    if not (frame and frame.pinBtns and fromFloor) then return nil end
     local want = (kind == "next" and "prev") or (kind == "prev" and "next") or nil
     local paired, exact, stair, anyTo, anyKind
     local tol = M.PIN_LINK_TOL
@@ -2301,9 +2425,48 @@ function M.ArriveAt(fromFloor, kind, tox, toy, host, skip)
             end
         end
     end
-    local pick = paired or exact or stair or anyTo or anyKind
-    if pick then return M.HighlightPin(pick) end
+    return paired or exact or stair or anyTo or anyKind
+end
+
+function M.ArriveAt(fromFloor, kind, tox, toy, host, skip)
+    local frame = host or M.frame
+    local pick = M.PickArriveBtn(frame, fromFloor, kind, tox, toy, skip)
+    if pick then
+        M.pendingArrive = nil
+        return M.HighlightPin(pick)
+    end
     return false
+end
+
+function M.RefreshPulse(host)
+    local sp = M.pulseSpec
+    if not sp then return end
+    if (M.pulseUntil or 0) <= GetTime() then
+        M.pulseSpec = nil
+        return
+    end
+    local pick = M.PickArriveBtn(host, sp.from, sp.kind, sp.tox, sp.toy)
+    M.pulseBtn = pick
+    if pick and pick.__ring then
+        local base = (pick:GetWidth() or M.PIN_SIZE) * PIN_PULSE_K
+        if math.abs((pick.__ring:GetWidth() or 0) - base) > 0.5 then
+            pick.__ring:SetSize(base, base)
+        end
+        pick.__ring:Show()
+    end
+end
+
+function M.ResolvePendingArrive(host)
+    local pa = M.pendingArrive
+    if not pa then return end
+    if (GetTime() - (pa.at or 0)) > 2 then
+        M.pendingArrive = nil
+        return
+    end
+    local want = pa.host or M.frame
+    if want ~= host then return end
+    M.pendingArrive = nil
+    M.ArriveAt(pa.from, pa.kind, pa.tox, pa.toy, host)
 end
 
 local SEQ_OK = {}
@@ -2391,9 +2554,14 @@ function M.SaveMapFlags()
     s.mapQuestHidden = M.hideQuestPins or nil
     s.mapNoteHidden = M.hideNotePins or nil
     s.mapOtherHidden = M.hideOtherPins or nil
-    s.mapRouteThin = M.routeThin and nil or false
+    if M.routeThin then
+        s.mapRouteThin = nil
+    else
+        s.mapRouteThin = false
+    end
     s.mapRoutePal = M.routePalette
     s.mapRouteOff = M.routeOff or nil
+    s.mapNoSize = ns.RouteNoSize
 end
 
 function M.SaveSegHidden(id, floor)
@@ -2444,6 +2612,8 @@ function M.LoadMapState()
     M.hideOtherPins = s.mapOtherHidden and true or false
     M.routeThin = not (s.mapRouteThin == false)
     M.routeOff = s.mapRouteOff and true or false
+    local nos = tonumber(s.mapNoSize)
+    if nos and nos >= 10 and nos <= 44 then ns.RouteNoSize = nos end
     local pal = s.mapRoutePal
     if type(pal) == "string" and M.ROUTE_PAL_NAMES[pal] then M.routePalette = pal end
     local all = s.mapSegHidden
@@ -2551,8 +2721,8 @@ local function routeTex(host, i)
 end
 
 local function routeDot(e, host, x, y, cr, cg, cb, si)
-    local edge = M.routeThin and M.ROUTE_THIN_EDGE or M.ROUTE_DOT_EDGE
-    local core = M.routeThin and M.ROUTE_THIN_DOT or M.ROUTE_DOT
+    local edge = M.routeThin and M.ROUTE_FINE_EDGE or M.ROUTE_THIN_EDGE
+    local core = M.routeThin and M.ROUTE_FINE_DOT or M.ROUTE_THIN_DOT
     e.si = si
     e.bx, e.by = x, y
     e.br, e.bg, e.bb = cr, cg, cb
@@ -2754,6 +2924,41 @@ function M.HoverFromPin(bt)
     end
 end
 
+local function eachPinHost(fn)
+    local seen = {}
+    local function one(h)
+        if h and h.pinBtns and not seen[h] then
+            seen[h] = true
+            fn(h)
+        end
+    end
+    one(M.frame)
+    one(M.SideHost)
+    local Wm = ns.MapWorldModule
+    one(Wm and Wm.view)
+end
+
+function M.QuestPinHint(qid, on)
+    M.hoverQuestId = (on and qid) or nil
+    eachPinHost(function(host)
+        local btns = host.pinBtns
+        for i = 1, #btns do
+            local bt = btns[i]
+            if bt and bt.__ring and bt.__kind == "quest" and bt.__p then
+                local hit = M.hoverQuestId and bt.__p.id == M.hoverQuestId
+                    and bt:IsShown()
+                if hit then
+                    local c = M.PIN_HL_RING_RGB
+                    bt.__ring:SetVertexColor(c[1], c[2], c[3])
+                    bt.__ring:Show()
+                else
+                    bt.__ring:Hide()
+                end
+            end
+        end
+    end)
+end
+
 function M.SyncRoute(id, floor, cw, ch)
     local frame = M.frame
     local host = frame and frame.route
@@ -2903,12 +3108,12 @@ local function noBadge(p)
     return e
 end
 
-function M.SyncNoBadges(host, tag, cw, ch, items)
+function M.SyncNoBadges(host, tag, cw, ch, items, uk)
     if not host then return 0 end
     local p = noPoolFor(host, tag)
     local used = p.n
     p.n = 0
-    local d = noD() * M.PinScale()
+    local d = noD() * M.PinScale() * (uk or 1)
     local di = d * 0.7
     local dy = 0
     if items and cw and ch and cw > 0 and ch > 0 then
@@ -3069,13 +3274,65 @@ function M.ShowRouteMenu(owner)
         end,
     }
     items[#items + 1] = {
-        text = format(L["路线粗细：%s"], M.routeThin and L["细"] or L["粗"]),
+        text = M.routeThin and L["路线改为粗线"] or L["路线改为细线"],
         color = "|cffe0c060",
         func = function()
             M.routeThin = not M.routeThin
             M.SaveMapFlags()
             M.SyncRoute(id, floor, M.frame and M.frame.pinW, M.frame and M.frame.pinH)
             M.ShowRouteMenu(owner)
+        end,
+    }
+    ns.hui.ShowMenu(items, { owner = owner, anchor = owner })
+end
+
+local ROUTE_NO_SIZES = { 14, 20, 26, 34 }
+
+local function resyncRouteAll()
+    local id, floor = M.curId, M.FloorNumAt(M.curId or 0, M.curLayer or 1)
+    if id and floor and M.RouteOn(id) then
+        M.SyncRoute(id, floor, M.frame and M.frame.pinW, M.frame and M.frame.pinH)
+    end
+    local MWm = ns.MapWindowModule
+    if MWm and MWm.Sync then pcall(MWm.Sync) end
+end
+
+function M.ShowRouteSetMenu(owner)
+    if not (ns.hui and ns.hui.ShowMenu) then return end
+    local cur = tonumber(ns.RouteNoSize) or 20
+    local items = {}
+    items[#items + 1] = {
+        text = format(L["配色：%s"], M.ROUTE_PAL_NAMES[M.routePalette] or M.routePalette),
+        color = "|cffe0c060",
+        func = function()
+            M.CycleRoutePalette()
+            M.SaveMapFlags()
+            resyncRouteAll()
+            M.ShowRouteSetMenu(owner)
+        end,
+    }
+    items[#items + 1] = {
+        text = M.routeThin and L["路线改为粗线"] or L["路线改为细线"],
+        color = "|cffe0c060",
+        func = function()
+            M.routeThin = not M.routeThin
+            M.SaveMapFlags()
+            resyncRouteAll()
+            M.ShowRouteSetMenu(owner)
+        end,
+    }
+    items[#items + 1] = {
+        text = format(L["路线序号大小：%d"], cur),
+        color = "|cffe0c060",
+        func = function()
+            local nxt = ROUTE_NO_SIZES[1]
+            for i = 1, #ROUTE_NO_SIZES do
+                if ROUTE_NO_SIZES[i] == cur then nxt = ROUTE_NO_SIZES[i % #ROUTE_NO_SIZES + 1] break end
+            end
+            ns.RouteNoSize = nxt
+            M.SaveMapFlags()
+            resyncRouteAll()
+            M.ShowRouteSetMenu(owner)
         end,
     }
     ns.hui.ShowMenu(items, { owner = owner, anchor = owner })
@@ -3270,7 +3527,17 @@ function M.SyncPins()
                 bt.__glow:SetVertexColor(cr * g, cg * g, cb * g)
                 bt.__glow:SetShown(sel)
             end
-            if bt.__ring then bt.__ring:Hide() end
+            if bt.__ring then
+                if M.hoverQuestId and kind == "quest" and p and p.id == M.hoverQuestId then
+                    local c = M.PIN_HL_RING_RGB
+                    bt.__ring:SetVertexColor(c[1], c[2], c[3])
+                    bt.__ring:Show()
+                elseif bt == M.pulseBtn and (M.pulseUntil or 0) > GetTime() then
+                    bt.__ring:Show()
+                else
+                    bt.__ring:Hide()
+                end
+            end
             bt.nm:ClearAllPoints()
             bt.nm:SetPoint("TOP", bt.dot, "BOTTOM", 0, -2)
             bt.nm:SetJustifyH("CENTER")
@@ -3315,6 +3582,8 @@ function M.SyncPins()
         end
     end
     frame.pins:SetShown(show)
+    M.RefreshPulse(frame)
+    M.ResolvePendingArrive(frame)
     M.SyncPinBtns()
 end
 
@@ -3329,14 +3598,16 @@ function M.PinOnClick(self, inWorld)
         if M.StepFloor((kind == "next") and 1 or -1, p and p.to) then
             ns.PlaySound(1)
             M.PinOnLeave()
-            M.ArriveAt(from, kind, p and p.tox, p and p.toy, nil, self)
+            M.StartPinPulse(from, kind, p and p.tox, p and p.toy)
+            M.ArriveAt(from, kind, p and p.tox, p and p.toy, self.__dfView, self)
         end
     elseif kind == "entrance" and p and p.to then
         local from = M.CurFloorNum()
         if M.StepFloor(nil, p.to) then
             ns.PlaySound(1)
             M.PinOnLeave()
-            M.ArriveAt(from, "entrance", p.tox, p.toy, nil, self)
+            M.StartPinPulse(from, "entrance", p.tox, p.toy)
+            M.ArriveAt(from, "entrance", p.tox, p.toy, self.__dfView, self)
         end
     elseif kind == "dungeon" and p and p.id then
         M.GotoDungeon(p.id, inWorld)
@@ -3346,7 +3617,8 @@ end
 function M.GotoDungeon(id, inWorld)
     if not (id and M.DungeonPinName) then return end
     local MW = ns.MapWorldModule
-    if MW and MW.OpenDungeon and (inWorld or (MW.Active and MW.Active())) then
+    if MW and MW.OpenDungeon and (MW.On and MW.On())
+        and (inWorld or (MW.Active and MW.Active())) then
         MW.OpenDungeon(id)
         return
     end
@@ -3603,11 +3875,21 @@ end
 
 function M.OnQuestData(id)
     local owner = GameTooltip and GameTooltip.GetOwner and GameTooltip:GetOwner()
-    if not (owner and owner.__kind == "quest" and owner.__p) then return end
-    if GameTooltip.IsShown and not GameTooltip:IsShown() then return end
-    local p = owner.__p
-    if p.id == id or owner.__qPre == id or owner.__qPreOf == id then
-        M.PinOnEnter(owner)
+    if owner and owner.__kind == "quest" and owner.__p then
+        if GameTooltip.IsShown and GameTooltip:IsShown() then
+            local p = owner.__p
+            if p.id == id or owner.__qPre == id or owner.__qPreOf == id then
+                M.PinOnEnter(owner)
+            end
+        end
+    end
+    local f = M.frame
+    if f and f.sideQuests and f:IsShown() and not M.__qListT then
+        M.__qListT = C_Timer.After(0.25, function()
+            M.__qListT = nil
+            local ff = M.frame
+            if ff and ff.sideQuests and ff:IsShown() then M.SyncSide() end
+        end)
     end
 end
 
@@ -3796,6 +4078,7 @@ function M.HideBossModel()
 end
 
 function M.SyncBossModel()
+    if type(InCombatLockdown) == "function" and InCombatLockdown() then return end
     local frame = M.frame
     if not (frame and frame.bossModel) then return end
     local npc, disp
@@ -3827,8 +4110,8 @@ function M.SyncBossModel()
     end
 end
 
-function M.SyncSide()
-    local frame = M.SideHost
+function M.SyncSide(forceFrame)
+    local frame = forceFrame or M.SideHost
     if not (frame and frame:IsShown()) then frame = M.frame end
     if not frame then return end
     M.SyncBossModel()
@@ -3837,7 +4120,86 @@ function M.SyncSide()
     local bosses = M.BossesFor(id)
     local MW = ns.MapWorldModule
     local inTask = M.sideTask and (MW and MW.view == frame)
-    frame.side:SetShown(not inTask)
+    if inTask then
+        frame.side:Hide()
+    else
+        frame.side:SetShown((frame.sideAvail or 999) >= 120)
+    end
+
+    if frame.sideQuests and frame.qToggleOK then
+        frame.detScroll:Hide()
+        frame.listScroll:Show()
+        M.EnsureQuestRows(frame)
+        frame.listHdr:SetText(L["任务"])
+        frame.qBack:Show()
+        if frame.qToggle then frame.qToggle:Hide() end
+        for i = 1, M.MAX_LIST do frame.listRows[i]:Hide() end
+        frame.listNote:Hide()
+        local d = M.curD
+        local okRows, rows = pcall(DG.QuestRows, d)
+        local n = 0
+        local y = -26
+        local QMARK_INK = {
+            active = { 0.227, 0.165, 0 },
+            ready = { 0.020, 0.180, 0.172 },
+        }
+        local QMARK_STATE = {
+            active = { "Interface\\AddOns\\DungeonsForever\\Media\\icon\\QUEST\\QMarkAsk", DG.Q_OV_ACT, L["已接取"] },
+            ready = { "Interface\\AddOns\\DungeonsForever\\Media\\icon\\QUEST\\QMarkTurnIn", DG.Q_OV_READY, L["完成未上交"] },
+        }
+        if okRows and rows then
+            for i = 1, #rows do
+                local qid = type(rows[i]) == "table" and rows[i][1] or nil
+                local st = qid and DG.QuestState(qid) or nil
+                if (st == "active" or st == "ready") and n < M.MAX_QLIST then
+                    n = n + 1
+                    local r = frame.questRows[n]
+                    local nm = DG.QuestName(qid)
+                    r.name:SetText(format("《%s》", nm or tostring(qid)))
+                    local mk = QMARK_STATE[st]
+                    if mk then
+                        r.ic:SetTexture("Interface\\AddOns\\DungeonsForever\\Media\\Common\\CheckDisc")
+                        r.ic:SetVertexColor(mk[2][1], mk[2][2], mk[2][3], 1)
+                        r.icg:SetTexture(mk[1])
+                        local ink = QMARK_INK[st]
+                        r.icg:SetVertexColor(ink[1], ink[2], ink[3], 1)
+                        r.ic:Show()
+                        r.icg:Show()
+                        r.st:SetText(mk[3])
+                        r.st:SetTextColor(mk[2][1], mk[2][2], mk[2][3], 1)
+                        r.st:Show()
+                    end
+                    local okOb, ob = pcall(DG.QuestObjectives, qid)
+                    ob = (okOb and type(ob) == "string") and ob or ""
+                    r.obj:SetShown(ob ~= "")
+                    r.obj:SetText(ob)
+                    r.__qid = qid
+                    r.__row = rows[i]
+                    local nw = r.st:IsShown() and ((r.st:GetStringWidth() or 0) + 16) or 0
+                    r.name:SetWidth(frame.innerW - 58 - nw)
+                    local oh = r.obj:IsShown() and (r.obj:GetStringHeight() or 0) or 0
+                    local nh = r.name:GetStringHeight() or 16
+                    local h = math.max(36, 8 + nh + 2 + oh + 8)
+                    r:ClearAllPoints()
+                    r:SetPoint("TOPLEFT", frame.listChild, "TOPLEFT", 0, y)
+                    r:SetHeight(h)
+                    r:Show()
+                    y = y - h - M.ROW_GAP
+                end
+            end
+        end
+        for i = n + 1, M.MAX_QLIST do frame.questRows[i]:Hide() end
+        frame.qNote:SetShown(n == 0)
+        frame.listChild:SetHeight(math.max(30, -y + 8))
+        local listSig = "q|" .. tostring(M.curId) .. "|" .. tostring(n)
+        if frame.__listSig ~= listSig then
+            frame.__listSig = listSig
+            frame.listScroll:SetVerticalScroll(0)
+        end
+        if frame.detBar then frame.detBar:Hide() end
+        M.SyncScrollBar(frame.listScroll)
+        return
+    end
 
     if M.detailEn then
         local zh, items
@@ -4007,6 +4369,14 @@ function M.SyncSide()
 
     frame.detScroll:Hide()
     frame.listScroll:Show()
+    if frame.qBack then frame.qBack:Hide() end
+    if frame.qToggle then frame.qToggle:Show() end
+    if frame.questRows then
+        for i = 1, M.MAX_QLIST do frame.questRows[i]:Hide() end
+    end
+    if frame.qNote then frame.qNote:Hide() end
+    if M.hoverQuestId then M.QuestPinHint(nil, false) end
+    frame.listHdr:SetText(L["首领"])
     local n = 0
     local y = -26
     for i = 1, #(bosses or {}) do
@@ -4052,7 +4422,11 @@ function M.SyncSide()
     local det = M.DetailOf(id)
     frame.listNote:SetShown(n == 0 and not (det and det.noList))
     frame.listChild:SetHeight(math.max(30, -y + 8))
-    frame.listScroll:SetVerticalScroll(0)
+    local listSig = tostring(id) .. "|" .. tostring(n) .. "|" .. tostring(M.curLayer or 1)
+    if frame.__listSig ~= listSig then
+        frame.__listSig = listSig
+        frame.listScroll:SetVerticalScroll(0)
+    end
     if frame.detBar then frame.detBar:Hide() end
     M.SyncScrollBar(frame.listScroll)
 end
@@ -4153,6 +4527,7 @@ function M.Paint(d)
 
     if M.curId ~= id then
         M.curId, M.curLayer, M.detailEn = id, M.EntryLayer(id) or 1, nil
+        frame.sideQuests = nil
         ZM.Reset()
     end
 
@@ -4252,7 +4627,6 @@ end
 
 local wpins, wpinPool = {}, {}
 local wpStaticRows
-local provider
 
 local function wpRelease()
     for i = #wpins, 1, -1 do
@@ -4720,23 +5094,8 @@ function M.SyncWorldQuestPins()
     end
 end
 
-local Provider = {}
-function Provider:RemoveAllData() wpRelease() end
-function Provider:RefreshAllData() M.SyncWorldQuestPins() end
-function Provider:OnHide() wpRelease() end
-function Provider:OnCanvasScaleChanged() M.SyncWorldQuestPins() end
-function Provider:OnCanvasSizeChanged() M.SyncWorldQuestPins() end
-
 local function wpInit()
     if not WorldMapFrame then return end
-    if WorldMapFrame.AddDataProvider and MapCanvasDataProviderMixin and not provider then
-        local okP = pcall(function()
-            provider = CreateFromMixins(MapCanvasDataProviderMixin, Provider)
-            WorldMapFrame:AddDataProvider(provider)
-        end)
-        if okP and provider then return end
-        provider = nil
-    end
     if hooksecurefunc then
         pcall(hooksecurefunc, WorldMapFrame, "OnMapChanged", M.SyncWorldQuestPins)
         if WorldMapFrame.OnCanvasScaleChanged then
@@ -4759,6 +5118,14 @@ pcall(wpEv.RegisterEvent, wpEv, "QUEST_LOG_UPDATE")
 wpEv:SetScript("OnEvent", function()
     if WorldMapFrame and WorldMapFrame.IsShown and WorldMapFrame:IsShown() then
         M.SyncWorldQuestPins()
+    end
+    local f = M.frame
+    if f and f.sideQuests and f:IsShown() and not M.__qLogT then
+        M.__qLogT = C_Timer.After(0.3, function()
+            M.__qLogT = nil
+            local ff = M.frame
+            if ff and ff.sideQuests and ff:IsShown() then M.SyncSide() end
+        end)
     end
 end)
 

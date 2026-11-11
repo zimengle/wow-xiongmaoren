@@ -4,7 +4,7 @@
 ## Notes: RurutiaSuite 露露的工具箱。一站式轻量工具箱，适配多种主流界面，提供很多便捷功能和额外增强。
 ## Notes-zhCN: RurutiaSuite 露露的工具箱。一站式轻量工具箱，适配多种主流界面，提供很多便捷功能和额外增强。
 ## Author: Rurutia
-## Version: 4.7.9
+## Version: 4.8.3
 ## X-ModUs-UID: 88
 ## X-License: All Rights Reserved
 ## SavedVariables: RurutiaSuiteDB
@@ -164,6 +164,8 @@ Builds\ClassicFamily\Common\Integrations\EllesmereUI\ExtraTools.lua
 Builds\ClassicFamily\Common\Integrations\LeatrixPlus\ExtraTools.lua
 Builds\ClassicFamily\Common\Integrations\Pig\ExtraTools.lua
 Builds\ClassicFamily\Infinite\Integrations\AlreadyKnown\ExtraTools.lua
+Builds\ClassicFamily\Infinite\Integrations\EllesmereUI\StatFonts.lua
+Builds\ClassicFamily\Infinite\Integrations\EllesmereUI\TrainAll.lua
 Modules\ExtraTools\View.lua
 Modules\ExtraTools\Core.lua
 Modules\ExtraTools\Features.lua

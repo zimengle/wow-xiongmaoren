@@ -323,11 +323,50 @@ end
 EG.NECK_AT, EG.RING_AT, EG.CHOICE_AT = 10, 20, 25
 EG.SWEEP_AT = { 0.5, 1.5, 3, 5, 8 }
 
+local function CharKey()
+    local n = UnitName("player") or "?"
+    local realm
+    if UnitFullName then
+        local _, r = UnitFullName("player")
+        realm = r
+    end
+    if realm == nil or realm == "" then
+        if GetNormalizedRealmName then realm = GetNormalizedRealmName() end
+        if realm == nil or realm == "" then
+            realm = GetRealmName and GetRealmName() or "?"
+        end
+    end
+    return n .. "-" .. realm
+end
+
 local function Found()
     local db = ns.ExploreDB()
     db.explore = db.explore or {}
-    db.explore.found = db.explore.found or {}
-    return db.explore.found
+    local cf = db.explore.charFound
+    if type(cf) ~= "table" then
+        cf = {}
+        db.explore.charFound = cf
+    end
+    local key = CharKey()
+    local mine = cf[key]
+    if type(mine) ~= "table" then
+        mine = {}
+        cf[key] = mine
+    end
+    return mine
+end
+
+function EG.LegacyFound()
+    local db = ns.ExploreDB()
+    local f = db.explore and db.explore.found
+    if type(f) ~= "table" then return nil end
+    return f
+end
+
+local function FoundOf(id)
+    local m = EG.found and EG.found[id]
+    if m == nil then m = EG.seed and EG.seed[id] end
+    return m
 end
 
 local function Comma(n)
@@ -421,6 +460,7 @@ local function CurSub()
     if db.explore.subPage == "torch" then return "torch" end
     if db.explore.subPage == "banner" then return "banner" end
     if db.explore.subPage == "routes" then return "routes" end
+    if db.explore.subPage == "dm" then return "dm" end
     return "books"
 end
 
@@ -444,7 +484,7 @@ function EG.CountInBags(id)
         if ok and type(c) == "number" and c > 0 then return c end
     end
     if type(C_Item) == "table" and type(C_Item.GetItemCount) == "function" then
-        local ok, c = pcall(C_Item.GetItemCount, id)
+        local ok, c = pcall(C_Item.GetItemCount, id, true, false, true)
         if ok and type(c) == "number" and c > 0 then return c end
     end
     local numSlots, itemLink
@@ -455,14 +495,18 @@ function EG.CountInBags(id)
     numSlots = numSlots or GetContainerNumSlots
     itemLink = itemLink or GetContainerItemLink
     if type(numSlots) ~= "function" or type(itemLink) ~= "function" then return 0 end
+    local last = (type(NUM_BAG_SLOTS) == "number" and NUM_BAG_SLOTS) or 4
+    local bags = { 0, last, -1 }
+    for b = last + 1, last + 7 do bags[#bags + 1] = b end
     local n = 0
-    for bag = 0, 4 do
+    for i = 1, #bags do
+        local bag = bags[i]
         local okS, slots = pcall(numSlots, bag)
         if okS and type(slots) == "number" and slots > 0 then
             for slot = 1, slots do
                 local okL, link = pcall(itemLink, bag, slot)
                 if okL and type(link) == "string" then
-                    local iid = tonumber(link:match("^item%:(%d+)"))
+                    local iid = tonumber(link:match("item%:(%d+)"))
                     if iid == id then n = n + 1 end
                 end
             end
@@ -485,14 +529,16 @@ function EG.ScanAuto()
     if GetItemCount or C_Item or C_Container or GetContainerItemLink then
         for _, rec in ipairs(B) do
             local ok, n = pcall(EG.CountInBags, rec[1])
-            if ok and (n or 0) > 0 and not t[rec[1]] then t[rec[1]] = "bag" end
+            if ok and (n or 0) > 0 and t[rec[1]] ~= "quest" then t[rec[1]] = "bag" end
         end
     end
     EG._auto = t
 end
 
 local function IsFound(id)
-    return (EG.found and EG.found[id]) or (EG._auto and EG._auto[id]) or false
+    local m = FoundOf(id)
+    if m then return m end
+    return (EG._auto and EG._auto[id]) or false
 end
 
 function EG.IsBookFound(id)
@@ -657,7 +703,9 @@ local function Row(i)
         local id = self:GetParent().__it
         if not id then return end
         local found = Found()
-        found[id] = (not found[id]) or nil
+        local cur = found[id]
+        if cur == nil then cur = EG.seed and EG.seed[id] end
+        if cur then found[id] = false else found[id] = true end
         EG.RequestRender()
         ns.PlaySound(1)
     end)
@@ -704,12 +752,13 @@ local function Row(i)
             if loc then
                 if type(loc[4]) == "string" then
                     local W, M = ns.MapWorldModule, ns.MapModule
-                    if W and W.OpenDungeon then
+                    local can = (W and W.On and W.On() and (W.OpenDungeon or W.Show)) and true or false
+                    if can and W.OpenDungeon then
                         W.OpenDungeon(loc[4])
-                    elseif W and W.Show then
+                    elseif can then
                         W.Show(loc[4], "explore")
                     end
-                    if W and (W.OpenDungeon or W.Show) then
+                    if can then
                         if M and type(loc[5]) == "number" and M.curLayer ~= loc[5] then
                             M.curLayer = loc[5]
                             if W.Sync then W.Sync() end
@@ -984,7 +1033,7 @@ local function PaintRow(r, idx, y, rec, zebra)
         r.unStrike:Hide()
     end
 
-    local manual = EG.found and EG.found[id] or nil
+    local manual = FoundOf(id)
     local autoSt = EG._auto and EG._auto[id] or nil
     local done = (manual or autoSt == "quest") and true or false
     local inbag = (autoSt == "bag") and true or false
@@ -2129,6 +2178,7 @@ function RtGo(mapID, x, y)
     end
     ns.PlaySound(1)
 end
+EG.RtGo = RtGo
 
 function RtTip(self, on, x, y)
     if not on then
@@ -3600,6 +3650,7 @@ function EG.Render()
     if not EG.built then return end
     EG.EnsureSub()
     EG.found = Found()
+    EG.seed = EG.LegacyFound()
     EG.view = View()
     EG.ScanAuto()
     EG.PickFilter()
@@ -3612,8 +3663,9 @@ function EG.Render()
     local isTorch = sub == "torch"
     local isBanner = sub == "banner"
     local isRoutes = sub == "routes"
+    local isDm = sub == "dm"
     local isCard = isPets or isTorch or isBanner
-    local isFull = isRw or isBag or isBm or isCard or isRoutes
+    local isFull = isRw or isBag or isBm or isCard or isRoutes or isDm
     if EG.listCard then EG.listCard:SetShown(not isRoutes) end
     EG.scroll:SetShown(not isFull)
     if EG.UpdateVScroll then EG.UpdateVScroll() end
@@ -3627,6 +3679,11 @@ function EG.Render()
     if EG.pinBtn then EG.pinBtn:SetShown(booksVis) end
     if EG.routeBtn then EG.routeBtn:SetShown(booksVis) end
     if EG.mapSetBtn then EG.mapSetBtn:SetShown(booksVis) end
+    if EG.rwFrame then EG.rwFrame:SetShown(isRw) end
+    if EG.bagFrame then EG.bagFrame:SetShown(isBag) end
+    if EG.bmFrame then EG.bmFrame:SetShown(isBm) end
+    if EG.petFrame then EG.petFrame:SetShown(isCard) end
+    if EG.dmFrame then EG.dmFrame:SetShown(isDm) end
     if EG.routeFrame then EG.routeFrame:SetShown(isRoutes) end
     PaintNav()
     if EG.rwBtn then PaintRwBtn() end
@@ -3659,6 +3716,16 @@ function EG.Render()
         if isPets then PaintPets(PETS, false) return end
         if isTorch then PaintPets(TOYS, true) return end
         if isBanner then PaintPets(BANNER, true, true) return end
+    end
+    if EG.dmFrame then
+        EG.dmFrame:SetShown(isDm)
+        if isDm then
+            if EG.bagFrame then EG.bagFrame:Hide() end
+            if EG.bmFrame then EG.bmFrame:Hide() end
+            if EG.petFrame then EG.petFrame:Hide() end
+            if EG.routeFrame then EG.routeFrame:Hide() end
+            return
+        end
     end
     if EG.routeFrame then
         EG.routeFrame:SetShown(isRoutes)
@@ -3766,6 +3833,7 @@ function EG.Build(page)
     ns.ExplorePhased(53, coroutine.create(function()
     if EG.built then return end
     EG.found = Found()
+    EG.seed = EG.LegacyFound()
     EG.view = View()
 
     EG.navBtns = {}
@@ -3948,11 +4016,39 @@ function EG.Build(page)
         navY = navY + EG.NAV_ITEM_H + EG.NAV_GAP
     end
 
+    do
+        local glab = MakeFS(labelHost, 16, C_GREY, "LEFT")
+        glab:SetPoint("TOPLEFT", page, "TOPLEFT", EG.NAV_X + EG.NAV_PAD + 2, -(EG.NAV_TOP + navY))
+        coroutine.yield()
+        glab:SetText(L["活动"])
+        navY = navY + EG.NAV_GROUP_H
+    end
+    do
+        local bt = NewButton(page, L["暗月马戏团"], EG.NAV_W, EG.NAV_ITEM_H, 16)
+        bt:SetPoint("TOPLEFT", page, "TOPLEFT", EG.NAV_X + EG.NAV_PAD, -(EG.NAV_TOP + navY))
+        local fs = bt:GetFontString()
+        fs:ClearAllPoints()
+        fs:SetPoint("LEFT", bt, "LEFT", 5 + EG.NAV_ICON + 5, 0)
+        fs:SetJustifyH("LEFT")
+        bt.__huiKeepTextColor = true
+        bt.__icon = bt:CreateTexture(nil, "ARTWORK")
+        bt.__icon:SetSize(EG.NAV_ICON, EG.NAV_ICON)
+        bt.__icon:SetPoint("LEFT", bt, "LEFT", 5, 0)
+        bt.__icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
+        if ns.hui and ns.hui.RoundIcon then ns.hui.RoundIcon(bt.__icon) end
+        bt.__icon:SetTexture("Interface\\Icons\\inv_misc_ticket_darkmoon_01")
+        bt:SetScript("OnClick", function() SetSub("dm") end)
+        EG.navBtns["dm"] = bt
+        coroutine.yield()
+        EG.navDm = bt
+        navY = navY + EG.NAV_ITEM_H + EG.NAV_GAP
+    end
+
     EG.prog = MakeFS(labelHost, 14, C_TEXT, "RIGHT")
     EG.prog:SetPoint("TOPRIGHT", page, "TOPRIGHT", -(EG.EDGE + EG.LIST_PAD), -EG.TICK_Y)
     EG.note = MakeFS(labelHost, 14, { 0.55, 0.75, 0.55 }, "LEFT")
     EG.note:SetPoint("TOPLEFT", page, "TOPLEFT", EG.X0 + EG.LIST_PAD, -EG.NOTE_Y)
-    EG.note:SetText(L["自动识别：金格 = 已上交；绿格 = 背包有书未上交"])
+    EG.note:SetText(L["自动识别：金格 = 已上交；绿格 = 已有这本书、未上交"])
 
     local bar = CreateFrame("Frame", nil, page)
     bar:SetSize(EG.BAR_W, EG.BAR_H)
@@ -6055,6 +6151,14 @@ Y()
     if curSub == "routes" then
         EG.__subBuild.routes = nil
         buildRoutes()
+    end
+
+    EG.__subBuild.dm = function()
+        if ns.ExploreDarkmoonBuild then ns.ExploreDarkmoonBuild(EG, page) end
+    end
+    if curSub == "dm" then
+        EG.__subBuild.dm = function() end
+        if ns.ExploreDarkmoonBuild then ns.ExploreDarkmoonBuild(EG, page) end
     end
 
     EG.page = page

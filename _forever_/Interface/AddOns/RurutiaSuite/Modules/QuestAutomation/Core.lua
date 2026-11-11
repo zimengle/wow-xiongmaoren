@@ -4,7 +4,7 @@ if not ns.Build.HasModule("QuestAutomation") then return end
 local Definition = {
     activationGate = "LootTools",
     databaseName = "QuestAutomation",
-    defaults = { profile = { enabled = true, autoAccept = true, autoTurnIn = true,
+    defaults = { profile = { enabled = false, autoAccept = true, autoTurnIn = true,
         completionSound = "work", completionCooldown = 10 } },
 }
 local Data, Sound = ns.QuestAutomationData, ns.QuestAutomationSoundAdapter

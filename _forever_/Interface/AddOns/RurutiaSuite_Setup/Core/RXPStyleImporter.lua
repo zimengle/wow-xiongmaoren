@@ -11,6 +11,7 @@ local OPTIONS = {
     enableTracker = false, enableLevelUpAnnounceSolo = true,
     enableLevelUpAnnounceGroup = true, enableGossipAutomation = false,
     enableBindAutomation = false, enableQuestAutomation = false,
+    hideInRaid = true,
 }
 local FRAMES = {
     { name="RXPFrame", point="TOPLEFT", x=0, y=-25, width=280, height=150 },

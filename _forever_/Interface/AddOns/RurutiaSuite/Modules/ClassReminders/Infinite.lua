@@ -252,7 +252,7 @@ end
 
 function Definition:IsWatching()
     return self.active == true and ns.CenterTextGroup.active == true
-        and not Adapter:IsInCombat()
+        and not Adapter:IsInCombat() and not Adapter:IsPlayerDeadOrGhost()
         and not (self.db.profile.hideResting and Adapter:IsResting())
 end
 
@@ -297,6 +297,7 @@ function Definition:Refresh()
 end
 
 function Definition:OnContextChanged(event)
+    if event == "PLAYER_DEAD" and self.blastStacks then self:ClearBlast() end
     if self.blastUnlocked and event == "PLAYER_REGEN_DISABLED" then self:SetUnlocked(false) end
     if event == "SPELLS_CHANGED" or event == "PLAYER_ENTERING_WORLD" then self.states = nil end
     self:Refresh()
@@ -313,7 +314,11 @@ function Definition:StartWork()
     if not self.active then return end
     if watchBlast then
         self:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED", self.OnBlastCast)
-        self:RegisterEvent("PLAYER_DEAD", self.ClearBlast)
+    end
+    self:RegisterEvent("PLAYER_DEAD", self.OnContextChanged)
+    if self.watchBuffs then
+        self:RegisterEvent("PLAYER_ALIVE", self.OnContextChanged)
+        self:RegisterEvent("PLAYER_UNGHOST", self.OnContextChanged)
     end
     self.states = nil
     for _, event in ipairs({"PLAYER_ENTERING_WORLD", "SPELLS_CHANGED", "PLAYER_REGEN_DISABLED",

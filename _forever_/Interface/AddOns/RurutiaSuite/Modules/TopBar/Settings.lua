@@ -155,6 +155,22 @@ local function BuildPage(context, module, microOnly)
                 end,
             })
         end
+        local owner = ns.BlizzardEnhancements
+        if module.adapter.buildId == "classic-infinite" and owner then
+            micro:QuadRow():Checkbox("hideMicroMenu", {
+                text = "启用时隐藏暴雪菜单",
+                tooltip = "关闭微型菜单栏时恢复暴雪菜单；其他插件接管时跟随其设置。",
+                getValue = function() return owner:GetBlizzardUIDB().hideMicroMenu end,
+                getEnabled = function()
+                    return owner:IsEnabled() and module:GetProfile().micromenu.enabled and not module.adapter:IsInCombat()
+                end,
+                onChange = function(control, value)
+                    if not owner:SetBoolean("blizzardUI", "hideMicroMenu", value) then
+                        control:SetValue(owner:GetBlizzardUIDB().hideMicroMenu, true)
+                    end
+                end,
+            })
+        end
     end
     if not microOnly then
         local keys = module.adapter.family == "retail"
@@ -365,9 +381,9 @@ function Settings:Register(module)
     if self.registered then
         self.microRegistered = system:RegisterPage("micro-menu", {
             title = "微型菜单栏",
-            description = "配置微型菜单栏的显示、外观与兼容选项。",
+            description = "",
             group = "top", navigationOrder = 60,
-            searchKeywords = { "顶部组件", "微型菜单", "微型菜单栏", "菜单栏", "MicroMenu" },
+            searchKeywords = { "顶部组件", "微型菜单", "微型菜单栏", "菜单栏", "暴雪菜单", "隐藏暴雪菜单", "原生菜单", "MicroMenu" },
             showInNavigation = true,
             visible = function() return module.available end,
             navigationSwitch = {

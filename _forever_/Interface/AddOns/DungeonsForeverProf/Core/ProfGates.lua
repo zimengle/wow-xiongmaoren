@@ -319,7 +319,7 @@ end
 
 function G.SpecGoal(slug, target)
     if slug ~= "engineering" then return nil end
-    local target0 = tonumber(target) or 300
+    local target0 = tonumber(target) or (ns.ProfModule and ns.ProfModule.LV_DEF) or 285
     local source = ns.ProfSpecializationQuests
     if not source then return nil end
     local actual = G.EngineeringChoice()
@@ -337,7 +337,7 @@ end
 function G.ToolGoals(slug, target)
     local data = ns.ProfTools
     if not data then return {} end
-    local target0 = tonumber(target) or 300
+    local target0 = tonumber(target) or (ns.ProfModule and ns.ProfModule.LV_DEF) or 285
     local out = {}
     for _, tool in ipairs(data[slug] or {}) do
         if target0 > (tool.minSkill or 300) then
@@ -351,7 +351,7 @@ function G.ToolGoals(slug, target)
     return out
 end
 
-function G.ToolOwned(itemID)
+local function toolItemOwned(itemID)
     if type(C_Item) == "table" and type(C_Item.GetItemCount) == "function" then
         local ok, n = pcall(C_Item.GetItemCount, itemID, true)
         if ok and type(n) == "number" and n > 0 then return true end
@@ -359,6 +359,19 @@ function G.ToolOwned(itemID)
     if type(GetItemCount) == "function" then
         local ok, n = pcall(GetItemCount, itemID, true)
         if ok and type(n) == "number" and n > 0 then return true end
+    end
+    return false
+end
+
+function G.ToolOwned(itemID)
+    if toolItemOwned(itemID) then return true end
+    local rods=ns.ProfTools and ns.ProfTools.enchanting or {}
+    local tier
+    for _,tool in ipairs(rods) do if tool.item==itemID then tier=tool.tier;break end end
+    if tier then
+        for _,tool in ipairs(rods) do
+            if (tool.tier or 0)>tier and toolItemOwned(tool.item) then return true end
+        end
     end
     return false
 end

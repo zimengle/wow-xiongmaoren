@@ -9,83 +9,58 @@ DungeonsForeverDB = {
 ["DungeonsForeverGearDBMoved"] = true,
 ["ui"] = {
 ["zoneHint"] = {
+["renew"] = true,
 ["bag"] = true,
+["restedVoice"] = true,
 ["voice"] = false,
 ["blacklist"] = {
+["阿拉希高地"] = {
+["seq"] = 1,
+["name"] = "阿拉希高地",
+["kinds"] = "all",
 },
+},
+["seq"] = 1,
+["camp"] = true,
+["rested"] = true,
+["banner"] = true,
 ["orb"] = {
 ["rp"] = "RIGHT",
 ["p"] = "RIGHT",
-["x"] = -574.48291015625,
 ["y"] = 263.6017150878906,
+["x"] = -574.48291015625,
 },
 ["mode"] = "auto",
 ["quest"] = true,
+["ignore"] = {
+},
+["asked"] = {
+},
 ["spell"] = true,
 ["dur"] = 12,
 ["food"] = true,
-["turnin"] = true,
-["onlyTodo"] = false,
-["on"] = true,
-["book"] = true,
-["ignore"] = {
-},
-["voiceInit"] = true,
 ["foodVoice"] = true,
+["tentText"] = 1,
+["on"] = true,
+["tentOwn"] = true,
+["preferFood"] = 0,
 ["icon"] = 32,
 ["torch"] = true,
-["banner"] = true,
-["rested"] = true,
-["restedVoice"] = true,
+["book"] = true,
+["voiceInit"] = 2,
+["tent"] = true,
+["onlyTodo"] = false,
+["turnin"] = true,
 },
 ["tip"] = {
 ["bis"] = false,
 ["src"] = false,
 ["ilvl"] = true,
 ["bisScore"] = false,
-["ver"] = 1,
+["global"] = false,
 ["wish"] = false,
 ["quest"] = false,
-["global"] = false,
-},
-["minimap"] = {
-["minimapPos"] = 315,
-["hide"] = false,
-},
-["mapCards"] = {
-},
-["scale"] = 115,
-["window"] = {
-["y"] = 49.97885131835938,
-["relPoint"] = "CENTER",
-["point"] = "CENTER",
-["x"] = -94.34968566894531,
-},
-["quick"] = {
 ["ver"] = 1,
-["groups"] = {
-["prof"] = true,
-["explore"] = true,
-["dungeon"] = true,
-},
-["tabs"] = {
-["Collections"] = true,
-["Dungeons"] = true,
-["Bis"] = true,
-["Raids"] = true,
-["Professions"] = true,
-["Tier"] = true,
-["Gear"] = true,
-["PvP"] = true,
-["Explore"] = true,
-["Factions"] = true,
-},
-["expl"] = {
-["books"] = true,
-["bag"] = true,
-},
-["on"] = true,
-["profMode"] = "learned",
 },
 ["lootFilter"] = {
 ["ver"] = 3,
@@ -112,39 +87,6 @@ DungeonsForeverDB = {
 ["特定法术强度"] = 1,
 ["命中"] = 1,
 ["精神"] = 1,
-},
-["Icon"] = "Interface\\Icons\\Spell_Frost_Frostbolt02",
-["Weapon"] = {
-["19"] = 1,
-["15"] = 1,
-["7"] = 1,
-["10"] = 1,
-},
-},
-},
-},
-["CAMWOW CN5 Realm 1 PvP"] = {
-["露露缇娅"] = {
-{
-["Tank"] = {
-},
-["ShuXing"] = {
-["法术强度"] = 1,
-["智力"] = 1,
-["特定法术强度"] = 1,
-["命中"] = 1,
-["精神"] = 1,
-},
-["Name"] = "法师",
-["BnetAccount"] = {
-["忽略战网绑定"] = 1,
-},
-["Armor"] = {
-["1"] = 1,
-["0"] = 1,
-},
-["Class"] = {
-["过滤职业限定"] = 1,
 },
 ["Icon"] = "Interface\\Icons\\Spell_Frost_Frostbolt02",
 ["Weapon"] = {
@@ -207,11 +149,11 @@ DungeonsForeverDB = {
 ["力量"] = 1,
 ["武器技能"] = 1,
 ["攻击强度"] = 1,
-["敏捷"] = 1,
+["法术强度"] = 1,
 ["击中时可能"] = 1,
 ["命中"] = 1,
 ["智力"] = 1,
-["法术强度"] = 1,
+["敏捷"] = 1,
 },
 ["Class"] = {
 ["过滤职业限定"] = 1,
@@ -280,8 +222,8 @@ DungeonsForeverDB = {
 ["法术强度"] = 1,
 ["智力"] = 1,
 ["5回法力值"] = 1,
-["治疗强度"] = 1,
 ["精神"] = 1,
+["治疗强度"] = 1,
 },
 ["Class"] = {
 ["过滤职业限定"] = 1,
@@ -318,8 +260,8 @@ DungeonsForeverDB = {
 ["攻击强度"] = 1,
 ["击中时可能"] = 1,
 ["命中"] = 1,
-["武器技能"] = 1,
 ["智力"] = 1,
+["武器技能"] = 1,
 },
 ["Class"] = {
 ["过滤职业限定"] = 1,
@@ -356,8 +298,8 @@ DungeonsForeverDB = {
 ["攻击强度"] = 1,
 ["击中时可能"] = 1,
 ["命中"] = 1,
-["武器技能"] = 1,
 ["智力"] = 1,
+["武器技能"] = 1,
 },
 ["Class"] = {
 ["过滤职业限定"] = 1,
@@ -394,8 +336,8 @@ DungeonsForeverDB = {
 ["攻击强度"] = 1,
 ["击中时可能"] = 1,
 ["命中"] = 1,
-["武器技能"] = 1,
 ["智力"] = 1,
+["武器技能"] = 1,
 },
 ["Class"] = {
 ["过滤职业限定"] = 1,
@@ -432,8 +374,8 @@ DungeonsForeverDB = {
 ["攻击强度"] = 1,
 ["击中时可能"] = 1,
 ["命中"] = 1,
-["武器技能"] = 1,
 ["智力"] = 1,
+["武器技能"] = 1,
 },
 ["Class"] = {
 ["过滤职业限定"] = 1,
@@ -466,39 +408,111 @@ DungeonsForeverDB = {
 },
 },
 },
+["CAMWOW CN5 Realm 1 PvP"] = {
+["露露缇娅"] = {
+{
+["ShuXing"] = {
+["法术强度"] = 1,
+["智力"] = 1,
+["特定法术强度"] = 1,
+["命中"] = 1,
+["精神"] = 1,
+},
+["Tank"] = {
+},
+["Name"] = "法师",
+["BnetAccount"] = {
+["忽略战网绑定"] = 1,
+},
+["Armor"] = {
+["1"] = 1,
+["0"] = 1,
+},
+["Class"] = {
+["过滤职业限定"] = 1,
+},
+["Icon"] = "Interface\\Icons\\Spell_Frost_Frostbolt02",
+["Weapon"] = {
+["19"] = 1,
+["15"] = 1,
+["7"] = 1,
+["10"] = 1,
 },
 },
-["profMoved"] = true,
+},
+},
+},
+["mapCards"] = {
+},
+["scale"] = 115,
+["window"] = {
+["y"] = 49.97885131835938,
+["relPoint"] = "CENTER",
+["point"] = "CENTER",
+["x"] = -94.34968566894531,
+},
+["quick"] = {
+["ver"] = 1,
+["groups"] = {
+["prof"] = true,
+["explore"] = true,
+["dungeon"] = true,
+},
+["profMode"] = "learned",
+["on"] = true,
+["expl"] = {
+["books"] = true,
+["bag"] = true,
+},
+["tabs"] = {
+["Collections"] = true,
+["Dungeons"] = true,
+["Bis"] = true,
+["Raids"] = true,
+["Gear"] = true,
+["Tier"] = true,
+["Professions"] = true,
+["PvP"] = true,
+["Explore"] = true,
+["Factions"] = true,
+},
+},
+["minimap"] = {
+["minimapPos"] = 315,
+["hide"] = false,
+},
+},
 ["chipCalib"] = {
 },
+["profMoved"] = true,
 ["DungeonsForeverExploreDBMoved"] = true,
 ["dungeon"] = {
-["dungeonView"] = "list",
-["dungeonTab"] = "quest",
 ["lootView"] = "list",
-["dungeonLootFold"] = {
-},
+["dungeonTab"] = "quest",
+["dungeonView"] = "list",
 ["mapQuestPinsCfg"] = {
 ["scope"] = {
 ["enter"] = true,
 ["reco"] = true,
 ["grey"] = true,
-["lv"] = true,
 ["all"] = false,
+["lv"] = true,
 },
 ["sizeVer"] = 2,
-["size"] = 18,
 ["world"] = false,
+["size"] = 18,
+},
+["dungeonLootFold"] = {
 },
 ["subTab"] = "Dungeons",
 },
 ["iconRingMode"] = "glow",
-["dfRevealLog"] = "91/91 11ms",
+["dfRevealLog"] = "93/93 15ms",
 ["vendorPrices"] = {
 },
-["svVersion"] = 3,
 ["raid"] = {
 ["tab"] = "timeline",
 ["setFilter"] = "MAGE",
 },
+["svVersion"] = 3,
 }

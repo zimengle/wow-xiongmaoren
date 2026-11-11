@@ -43,10 +43,11 @@ local CD = ns.CratesData
 if CD and D.pro and not D.pro.crates then
     D.order[#D.order + 1] = "crates"
     D.pro.crates = {
-        name = L["板条箱"],
+        name = L["板条箱/工匠文书"],
         icon = "Interface\\AddOns\\DungeonsForever\\Media\\icon\\NAV\\CrateNav",
         kind = "crates",
         section = "crates",
+        navFs = 12,
     }
 end
 
@@ -892,19 +893,22 @@ function PD.IsGatherRoute()
     return PD.GATHER_SLUGS[PD.cur] and not (PD.cur == "mining" and PD.GatherMode("mining") == "smelt")
 end
 
+PD.LV_CAP = 300
+PD.LV_DEF = 285
+
 function PD.GatherHUDSteps(slug,target)
     local routes=ns.ProfGatheringRoutes
     if not (routes and routes.HasRoute(slug)) then return nil end
-    return routes.Steps(slug,target or 300,{mode=PD.GatherMode(slug)})
+    return routes.Steps(slug,target or PD.LV_DEF,{mode=PD.GatherMode(slug)})
 end
 
 function PD.LvTarget(slug)
     slug=slug or PD.cur
-    if not slug then return 300 end
+    if not slug then return PD.LV_DEF end
     local db = ProfDB()
     local v = tonumber(db.lvTarget and db.lvTarget[slug])
-    if not v then return 300 end
-    return math.max(1, math.min(300, math.floor(v)))
+    if not v then return PD.LV_DEF end
+    return math.max(1, math.min(PD.LV_CAP, math.floor(v)))
 end
 
 PD.LIST_PAD = 8
@@ -1042,6 +1046,7 @@ PD.LV_STEP_X, PD.LV_STEP_W, PD.LV_RNG_X = 6, 34, 52
 PD.LV_ICON_X = PD.LV_RNG_X + 90 + PD.TBL_RNG_GAP
 PD.LV_NAME_X = PD.LV_ICON_X + PD.TBL_ICON + PD.TBL_NAME_GAP
 PD.LV_CNT_W = 78
+PD.LV_CNT_SUB_FS, PD.LV_CNT_DY = 12, 8
 PD.LV_COST_W, PD.LV_COST_R = 88, 6
 PD.LV_COUNT_R = 110
 PD.LV_MAT_X = 0
@@ -1052,6 +1057,7 @@ PD.LV_COL_GAP = 16
 PD.LV_NAME_W = PD.TBL_NAME_MIN
 PD.REC_COST_W = 88
 PD.REC_AH_W = 88
+PD.REC_GAP_W = 88
 
 PD.GR_LV_X = 6
 PD.GR_LOC_X = 88
@@ -2347,8 +2353,14 @@ function PD.PaintRows(rows)
         if PD.sideCards then
             for i = 1, #PD.sideCards do PD.sideCards[i]:Hide() end
         end
+        if PD.sidePlainCards then
+            for i = 1, #PD.sidePlainCards do PD.sidePlainCards[i]:Hide() end
+        end
     end
     if PD.hasSecs and not PD.noSecCard then
+        local sideColX = PD.lvSplit
+            and (PD.GRID_X + (PD.splitLW or PD.COL_LW) + PD.OV_GUT - 2)
+            or (PD.GRID_X + PD.GRID_LW + PD.COL_GAP - 2)
         local ciP, ciG = 0, 0
         local ciS = 0
         for s = 1, (PD.secCount or 0) do
@@ -2369,8 +2381,11 @@ function PD.PaintRows(rows)
                 else
                     ciP = ciP + 1
                     idx = ciP
-                    pool = PD.secCards
-                    holder = PD.child
+                    if sideFix and PD.sidePlainCards and b.x0 >= sideColX then
+                        pool, holder = PD.sidePlainCards, PD.side
+                    else
+                        pool, holder = PD.secCards, PD.child
+                    end
                 end
                 local c = pool and pool[idx]
                 if c then
@@ -2454,6 +2469,10 @@ function PD.BindRow(r, spec, h)
     for _, fs in ipairs({r.a,r.b,r.c,r.c2,r.d,r.e,r.f}) do
         fs:SetWidth(0)
     end
+    r.a:SetHeight(0)
+    r.a:SetWordWrap(false)
+    r.a:SetNonSpaceWrap(false)
+    r.a:SetJustifyV("MIDDLE")
     r.e:SetJustifyH("LEFT")
     if r.__costZone then r.__costZone:Hide() end
     r.__spec = spec
@@ -2512,7 +2531,7 @@ function PD.BindRow(r, spec, h)
         for k = 1, #r.__subLinks do r.__subLinks[k]:Hide() end
     end
     r.icon4:Hide()
-    for i = 1, 3 do
+    for i = 1, 4 do
         local s = r["__ha" .. i]
         if s then s[1]:Hide(); s[2]:Hide() end
     end
@@ -2548,6 +2567,7 @@ function PD.BindRow(r, spec, h)
     end
     if r.__pct then r.__pct:Hide() end
     if r.__costWhy then r.__costWhy:Hide() end
+    if r.__cntSub then r.__cntSub:SetText(""); r.__cntSub:Hide() end
     if r.blk then
         for _, b in ipairs(r.blk) do if b.tag then b.tag:Hide() end end
     end
@@ -2692,7 +2712,13 @@ function PD.BindRow(r, spec, h)
         r.h5:ClearAllPoints()
         r.h5:SetPoint("RIGHT", r, "RIGHT", -6, 0)
         r.h5:Show()
+        r.h6:SetText(L["差价"])
+        r.h6:SetJustifyH("RIGHT")
+        r.h6:ClearAllPoints()
+        r.h6:SetPoint("RIGHT", r, "RIGHT", -(6 + PD.DiffBarW() + PD.REC_COST_W + PD.REC_AH_W), 0)
+        r.h6:Show()
         local X_ahR = -(6 + PD.DiffBarW() + PD.REC_COST_W)
+        local X_gapR = X_ahR - PD.REC_AH_W
         local function _act(col)
             return function()
                 if PD.recipeSort ~= col then
@@ -2713,6 +2739,7 @@ function PD.BindRow(r, spec, h)
         local u1, d1 = PD.HeadArrow(r, 1)
         local u2, d2 = PD.HeadArrow(r, 2)
         local u3, d3 = PD.HeadArrow(r, 3)
+        local u4, d4 = PD.HeadArrow(r, 4)
         PD.PaintHeadArrow(u1, d1, onAh, PD.recipeSortDesc)
         PD.LayoutHeaderArrow(u1, d1, r.h3)
         _hc(r.h3, onAh)
@@ -2742,6 +2769,16 @@ function PD.BindRow(r, spec, h)
         r.hsCraft:SetWidth(40)
         r.hsCraft.__act = _act("diff")
         r.hsCraft:Show()
+        local onGap = PD.recipeSort == "gap"
+        PD.PaintHeadArrow(u4, d4, onGap, PD.recipeSortDesc)
+        PD.LayoutHeaderArrow(u4, d4, r.h6)
+        _hc(r.h6, onGap)
+        r.hsGap:ClearAllPoints()
+        r.hsGap:SetPoint("TOPRIGHT", r, "TOPRIGHT", X_gapR, 0)
+        r.hsGap:SetPoint("BOTTOMRIGHT", r, "BOTTOMRIGHT", X_gapR, 0)
+        r.hsGap:SetWidth(48)
+        r.hsGap.__act = _act("gap")
+        r.hsGap:Show()
         r.b:SetText(""); r.c:SetText(""); r.c2:SetText(""); r.d:SetText(""); r.e:SetText(""); r.f:SetText(""); r.dv:SetText(""); r.dv:Hide()
         r.sep:Hide()
         return
@@ -2789,6 +2826,13 @@ function PD.BindRow(r, spec, h)
 
     if spec.kind == "colhead" then
         PD.RegHeadRepaint(r)
+        if spec.priceCols then
+            PD.PaintCrateColumns(r, spec, h)
+            r.dv:Hide()
+            PD.HideSkillBar(r)
+            PD.PaintCard(r, nil)
+            return
+        end
         r.a:SetTextColor(Unpack(C_GREY))
         r.a:SetText(spec.text or "")
         r.a:ClearAllPoints()
@@ -2876,7 +2920,7 @@ function PD.BindRow(r, spec, h)
     if spec.kind == "vs" then
         local vs = PD.VsBlock(r)
         local W = tonumber(spec.vw) or tonumber(PD.splitRW) or 160
-        local cw = math.max(40, math.floor((W - 8) / 2))
+        local cw = math.floor((W - PD.VS_GAP) / 2)
         for k = 1, 2 do
             local d = spec.cards and spec.cards[k] or nil
             local c, z = vs.cards[k], vs.zones[k]
@@ -2887,14 +2931,19 @@ function PD.BindRow(r, spec, h)
                 else
                     c:SetPoint("TOPRIGHT", r, "TOPRIGHT", 0, 0)
                 end
-                c:SetSize(cw, h)
+                c:SetSize(cw, PD.VS_CARD_H)
                 c.lab:SetText(d.lab or "")
                 c.lab:SetTextColor(Unpack(d.win and C_WHITE or C_GREY))
                 local pc = d.win and { 0.42, 0.94, 0.62 } or (d.priceOk and C_TEXT or C_GREY)
                 c.price:SetTextColor(Unpack(pc))
                 c.price:SetText(d.price or "—")
+                c.price:SetWidth(math.max(1, cw - 16))
                 c.nm:SetTextColor(Unpack(d.dim and C_GREY or C_TEXT))
                 c.nm:SetText(d.name or "")
+                local nx = d.it and 35 or 8
+                c.nm:ClearAllPoints()
+                c.nm:SetPoint("LEFT", c.host, "BOTTOMLEFT", nx, 17)
+                c.nm:SetWidth(math.max(1, cw - nx - 8))
                 if d.it then
                     c.ic:SetSize(22, 22)
                     SetIcon(c.ic, DG.ItemIcon(d.it))
@@ -2909,10 +2958,12 @@ function PD.BindRow(r, spec, h)
                 end
                 if d.win then
                     c.badgeFs:SetText(L["最省"])
+                    c.badge:SetWidth(math.max(32, math.ceil(FSW(c.badgeFs)) + 10))
                     c.badge:Show()
                 else
                     c.badge:Hide()
                 end
+                c.lab:SetWidth(math.max(1, cw - 16))
                 c:Show()
                 z:ClearAllPoints()
                 z:SetPoint("TOPLEFT", c, "TOPLEFT", 0, 0)
@@ -3086,7 +3137,25 @@ function PD.BindRow(r, spec, h)
             whyFs:Hide()
         end
         r.c:ClearAllPoints()
-        r.c:SetPoint("RIGHT", r, "RIGHT", -PD.LV_COUNT_R, 0)
+        r.c:SetPoint("RIGHT", r, "RIGHT", -PD.LV_COUNT_R, spec.cntSub and PD.LV_CNT_DY or 0)
+        local subFs = r.__cntSub
+        if spec.cntSub then
+            if not subFs then
+                subFs = r:CreateFontString(nil, "OVERLAY")
+                subFs:SetFont(ns.FONT, PD.LV_CNT_SUB_FS,
+                              ns.hui and ns.hui.FontFlags and ns.hui.FontFlags("OUTLINE") or "OUTLINE")
+                subFs:SetJustifyH("RIGHT")
+                subFs:SetWordWrap(false)
+                r.__cntSub = subFs
+            end
+            subFs:SetText(spec.cntSub)
+            subFs:SetTextColor(Unpack(spec.passed and C_DIM or C_GREY))
+            subFs:ClearAllPoints()
+            subFs:SetPoint("RIGHT", r, "RIGHT", -PD.LV_COUNT_R, -PD.LV_CNT_DY)
+            subFs:Show()
+        elseif subFs then
+            subFs:Hide()
+        end
         local nw = math.min(FSW(r.e), PD.LV_NAME_W)
         local chipX = PD.LV_NAME_X + nw
         local function placeChip(key, item, startX)
@@ -3283,7 +3352,7 @@ function PD.BindRow(r, spec, h)
             if spec.matSegs then
                 local budget = spec.recipeCols
                     and math.max(0, (r:GetWidth() or PD.MAT_ROW_W)
-                        - (6 + PD.DiffBarW() + PD.REC_COST_W + PD.REC_AH_W) - PD.MAT_X - 8)
+                        - (6 + PD.DiffBarW() + PD.REC_GAP_W + PD.REC_COST_W + PD.REC_AH_W) - PD.MAT_X - 8)
                     or PD.MAT_W
                 PD.PaintMatSegs(r, spec.matSegs, spec.matColor, budget)
             end
@@ -3305,12 +3374,20 @@ function PD.BindRow(r, spec, h)
             r.c2:SetPoint("TOPRIGHT", r, "TOPRIGHT", -(6 + PD.DiffBarW() + PD.REC_COST_W), -4)
             r.c2:SetWordWrap(false)
         end
+        if spec.recipe and spec.gapStr then
+            r.f:SetText(spec.gapStr)
+            r.f:SetTextColor(Unpack(spec.gapColor or C_GREY))
+            r.f:ClearAllPoints()
+            r.f:SetPoint("TOPRIGHT", r, "TOPRIGHT", -(6 + PD.DiffBarW() + PD.REC_COST_W + PD.REC_AH_W), -4)
+            r.f:SetWordWrap(false)
+        end
         if spec.pct then
             local chip = PD.PctChip(r)
             chip.fs:SetText(spec.pct.text)
             chip.fs:SetTextColor(Unpack(spec.pct.color))
             chip:ClearAllPoints()
-            chip:SetPoint("TOPRIGHT", r.c2, "BOTTOMRIGHT", 0, -1)
+            local pctBase = (spec.recipe and spec.gapStr) and r.f or r.c2
+            chip:SetPoint("TOPRIGHT", pctBase, "BOTTOMRIGHT", 0, -1)
             chip:SetHeight(15)
             chip:SetWidth(FSW(chip.fs) + 8)
             chip:SetFrameLevel(r:GetFrameLevel() + 2)
@@ -3440,7 +3517,7 @@ function PD.BindRow(r, spec, h)
                 x = x + lw + (lk.chip and 12 or 14)
             end
         end
-        if h > PD.ROW_H1 then
+        if h > PD.ROW_H1 and not spec.priceCols then
             local rightW = 0
             if spec.right2 and spec.right2 ~= "" then
                 rightW = FSW(r.d) + 10
@@ -3457,6 +3534,7 @@ function PD.BindRow(r, spec, h)
         end
     end
     if spec.recipeCols then PD.BoundRecipeColumns(r,spec,padL) end
+    if spec.priceCols then PD.PaintCrateColumns(r,spec,h,padL) end
 end
 
 PD.BT_COL1 = 88
@@ -4555,8 +4633,8 @@ function PD.Build(page)
 
     PD.nav = {}
     local navY = 0
-    local function navEntry(key, text, icon)
-        local bt = NewButton(page, text, PD.NAV_W, PD.NAV_ITEM_H, PD.NAV_FS)
+    local function navEntry(key, text, icon, fsSize)
+        local bt = NewButton(page, text, PD.NAV_W, PD.NAV_ITEM_H, fsSize or PD.NAV_FS)
         bt:SetPoint("TOPLEFT", page, "TOPLEFT", PD.NAV_X, -(PD.NAV_TOP + navY))
         local fs = bt:GetFontString()
         fs:ClearAllPoints()
@@ -4599,7 +4677,7 @@ function PD.Build(page)
             navY = navY + PD.NAV_GROUP_H
             for _, slug in ipairs(list) do
                 local p = D.pro[slug]
-                navEntry(slug, p.name or slug, p.icon)
+                navEntry(slug, p.name or slug, p.icon, p.navFs)
                 PD.navOrder[#PD.navOrder + 1] = slug
             end
         end
@@ -4918,14 +4996,14 @@ function PD.Build(page)
         end
         local function ApplyTarget()
             if not PD.cur or not PD.tgtEditing then CloseTarget() return end
-            local v = tonumber(eb:GetText()) or 300
-            v = math.max(1, math.min(300, math.floor(v)))
+            local v = tonumber(eb:GetText()) or PD.LvTarget()
+            v = math.max(1, math.min(PD.LV_CAP, math.floor(v)))
             local db = ProfDB()
             db.lvTarget = db.lvTarget or {}
-            local old = tonumber(db.lvTarget[PD.cur]) or 300
+            local old = tonumber(db.lvTarget[PD.cur]) or PD.LV_DEF
             CloseTarget()
             if old == v then return end
-            if v >= 300 then db.lvTarget[PD.cur] = nil else db.lvTarget[PD.cur] = v end
+            if v == PD.LV_DEF then db.lvTarget[PD.cur] = nil else db.lvTarget[PD.cur] = v end
             if RA then RA.Invalidate() end
             local _pf = ns.ProfFollow
             if _pf and _pf.RefreshRoute then pcall(_pf.RefreshRoute, PD.cur) end
@@ -4945,7 +5023,7 @@ function PD.Build(page)
         tf:SetScript("OnClick", function()
             if PD.tgtEditing then return end
             local v = PD.LvTarget()
-            eb:SetText(v >= 300 and "" or tostring(v))
+            eb:SetText(tostring(v))
             PD.tgtEditing = true
             tf.val:Hide()
             eb:Show()
@@ -5297,6 +5375,14 @@ function PD.Build(page)
         PD.sideCards[i] = c
     end
     coroutine.yield()
+    PD.sidePlainCards = {}
+    for i = 1, PD.SEC_CARD_MAX do
+        local c = CreateFrame("Frame", nil, PD.side)
+        ns.hui.BuildRoundedBG(c, 6, ns.hui.layer.L2, "both", true, 1)
+        c:Hide()
+        PD.sidePlainCards[i] = c
+    end
+    coroutine.yield()
 
     PD.built = true
     PD.building = false
@@ -5436,6 +5522,7 @@ function PD.PickTabs()
         end
         if on then shown = shown + 1 end
     end
+    PD.subTabEndX = shown * PD.SUB_STEP
     if PD.revertBt then
         local ron = (PD.tab == "leveling") and PD.HasPlanPrev(PD.cur)
         if PD.revertBt.__shown ~= ron then
@@ -5524,6 +5611,10 @@ function PD.PaintTool(list, handler, yoff)
     local _AD = PD.__pfAdd
     local n = math.min(#list, PD.TOOL_MAX)
     local wid, txt, rxs = {}, {}, {}
+    local subCount = 0
+    for i = 1, n do
+        if list[i].subRow then subCount = subCount + 1 end
+    end
     for i = 1, n do
         local def = list[i]
         if def.icon then
@@ -5564,6 +5655,8 @@ function PD.PaintTool(list, handler, yoff)
             local bx, brow
             if rxs[i] then
                 bx, brow = rxs[i], 0
+            elseif def.subRow then
+                bx, brow = def.subRow, -1
             else
                 if x > 0 and x + w > leftLim then row = row + 1; x = 0 end
                 bx, brow = x, row
@@ -5572,6 +5665,7 @@ function PD.PaintTool(list, handler, yoff)
                         .. tostring(def.on) .. "|" .. tostring(def.primary) .. "|"
                         .. tostring(def.tone) .. "|" .. text .. "|" .. tostring(def.right)
                         .. "|" .. tostring(def.icon) .. "|" .. tostring(def.glow)
+                        .. "|" .. tostring(def.subRow)
             bt.__tipLines = def.tip
             if def.tip and not bt.__tipHooked then
                 bt.__tipHooked = true
@@ -5599,8 +5693,9 @@ function PD.PaintTool(list, handler, yoff)
                 if _MK then _MK("闸-尺寸", _m0) end
                 _m0 = _T0 and _T0()
                 bt:ClearAllPoints()
-                bt:SetPoint("TOPLEFT", PD.page, "TOPLEFT", PD.RIGHT_X + bx,
-                            -(PD.BODY_TOP + yoff + brow * (PD.TOOL_H + PD.TOOL_GAP)))
+                local by = def.subRow and PD.SUB_Y
+                    or (PD.BODY_TOP + yoff + brow * (PD.TOOL_H + PD.TOOL_GAP))
+                bt:SetPoint("TOPLEFT", PD.page, "TOPLEFT", PD.RIGHT_X + bx, -by)
                 if _MK then _MK("闸-锚点", _m0) end
                 _m0 = _T0 and _T0()
                 bt:SetText(text)
@@ -5725,7 +5820,7 @@ function PD.PaintTool(list, handler, yoff)
             elseif bt.__warn then
                 bt.__warn:Hide(); bt.__warn.__tipLines = nil
             end
-            if not rxs[i] then
+            if not rxs[i] and not def.subRow then
                 x = x + w + (def.gap or PD.TOOL_GAP)
                 leftEnds[row] = x
             end
@@ -5795,7 +5890,7 @@ function PD.PaintTool(list, handler, yoff)
             PD.actDiv:Hide()
         end
     end
-    local rows = (n > 0) and (row + 1) or 0
+    local rows = (n > subCount) and (row + 1) or 0
     if placedCount > 0 then rows = math.max(rows, actRow + 1) end
     PD.toolRows = rows
     return (rows > 0) and (rows * (PD.TOOL_H + PD.TOOL_GAP) + PD.TOOL_BODY_GAP) or 0
@@ -6347,7 +6442,7 @@ function PD.PaintLvTiles()
     tiles.target.label:SetText(L["目标等级"])
     tiles.target.val:SetText(v >= 300 and L["全程"] or tostring(v))
     tiles.target.val:SetTextColor(Unpack(C_WHITE))
-    TipOn(tiles.target, { { L["每专业独立记忆；300 = 全程。点击修改"], 0.7, 0.7, 0.7 } })
+    TipOn(tiles.target, { { L["每专业独立记忆；默认 285，300 = 全程。点击修改"], 0.7, 0.7, 0.7 } })
     local engG = ns.ProfGates
     if PD.cur == "engineering" and engG and engG.GetChoiceSetting then
         local engSet = engG.GetChoiceSetting()
@@ -7289,10 +7384,12 @@ function PD.PaintHeadRow(r)
         PD.PaintHeadArrow(u1, d1, PD.recipeSort == "ah", PD.recipeSortDesc)
         PD.PaintHeadArrow(u2, d2, PD.recipeSort == "cost", PD.recipeSortDesc)
         PD.PaintHeadArrow(u3, d3, PD.recipeSort == "diff", PD.recipeSortDesc)
+        if r.__ha4 then PD.PaintHeadArrow(r.__ha4[1], r.__ha4[2], PD.recipeSort == "gap", PD.recipeSortDesc) end
     elseif spec.kind == "colhead" then
         if spec.act then PD.PaintHeadArrow(r.__ha1[1], r.__ha1[2], spec.sortOn, false) end
         if spec.ownAct then PD.PaintHeadArrow(r.__ha2[1], r.__ha2[2], spec.ownOn, false) end
         if spec.craftAct then PD.PaintHeadArrow(r.__ha3[1], r.__ha3[2], spec.craftOn, false) end
+        if spec.unitAct and r.__ha4 then PD.PaintHeadArrow(r.__ha4[1], r.__ha4[2], spec.unitOn, false) end
     end
 end
 
@@ -7308,9 +7405,11 @@ function PD.RestoreHeaderArrows(r)
     local u1, d1 = PD.HeadArrow(r, 1)
     local u2, d2 = PD.HeadArrow(r, 2)
     local u3, d3 = PD.HeadArrow(r, 3)
+    local u4, d4 = PD.HeadArrow(r, 4)
     PD.LayoutHeaderArrow(u1, d1, r.h3)
     PD.LayoutHeaderArrow(u2, d2, r.h4)
     PD.LayoutHeaderArrow(u3, d3, r.h5)
+    PD.LayoutHeaderArrow(u4, d4, r.h6)
 end
 
 function PD.HideRowChips(r)
@@ -7557,6 +7656,12 @@ function PD.PaintTag(r, tag)
     chip:SetSize(math.max(FSW(fs) + pad * 2, minw), ns.hui and ns.hui.ChipH and ns.hui.ChipH(13) or 15)
     chip:ClearAllPoints()
     chip:SetPoint("LEFT", r.a, "LEFT", FSW(r.a) + 8, (ns.hui and ns.hui.ChipDY and ns.hui.ChipDY(13)) or -0.8)
+    if r.__spec and r.__spec.kind == "head" and r.__spec.col == 2 then
+        chip:ClearAllPoints()
+        chip:SetPoint("RIGHT", r, "RIGHT", -6, 0)
+        r.a:SetWidth(math.max(1, (r:GetWidth() or 0) - (chip:GetWidth() or 0) - 52))
+        r.a:SetWordWrap(false)
+    end
     chip:Show()
     fs:Show()
 end
@@ -7626,6 +7731,10 @@ function PD.SubLink(r)
     return PD.SubLinkAt(r, 1)
 end
 
+PD.VS_CARD_H, PD.VS_GAP = 96, 8
+function PD.VsHeight(w)
+    return PD.VS_CARD_H
+end
 function PD.VsBlock(r)
     if r.__vs then return r.__vs end
     local base = tonumber(r.GetFrameLevel and r:GetFrameLevel()) or 0
@@ -7639,7 +7748,8 @@ function PD.VsBlock(r)
         host:SetPoint("TOPLEFT", c, "TOPLEFT", 0, 0)
         host:SetPoint("BOTTOMRIGHT", c, "BOTTOMRIGHT", 0, 0)
         local lab = MakeFS(host, 12, C_GREY, "LEFT")
-        lab:SetPoint("TOPLEFT", host, "TOPLEFT", 8, -4)
+        lab:SetPoint("TOPLEFT", host, "TOPLEFT", 8, -6)
+        lab:SetWordWrap(false)
         local ic = host:CreateTexture(nil, "OVERLAY", nil, 2)
         ic:SetSize(22, 22)
         ic:SetPoint("BOTTOMLEFT", host, "BOTTOMLEFT", 8, 6)
@@ -7647,10 +7757,9 @@ function PD.VsBlock(r)
         ic:Hide()
         local nm = MakeFS(host, 12, C_TEXT, "LEFT")
         nm:SetWordWrap(false)
-        nm:SetPoint("LEFT", ic, "RIGHT", 5, 0)
-        nm:SetPoint("RIGHT", host, "RIGHT", -8, 0)
         local price = MakeFS(host, 14, C_GOLD, "RIGHT")
-        price:SetPoint("TOPRIGHT", host, "TOPRIGHT", -8, -8)
+        price:SetPoint("TOPRIGHT", host, "TOPRIGHT", -8, -44)
+        price:SetWordWrap(false)
         c.lab, c.ic, c.nm, c.price, c.host = lab, ic, nm, price, host
         local bd = CreateFrame("Frame", nil, host)
         bd:SetFrameLevel(base + 5)
@@ -7658,7 +7767,7 @@ function PD.VsBlock(r)
         local bdFs = MakeFS(bd, 10, { 0.42, 0.94, 0.62 }, "CENTER")
         bdFs:SetPoint("CENTER", bd, "CENTER", 0, 0)
         bd:SetSize(32, 14)
-        bd:SetPoint("TOPRIGHT", host, "TOPRIGHT", -4, 9)
+        bd:SetPoint("TOPRIGHT", host, "TOPRIGHT", -6, -24)
         bd:Hide()
         c.badge, c.badgeFs = bd, bdFs
         cards[k] = c
@@ -8404,6 +8513,7 @@ function PD.ClearMats(r)
         if ns.hui and ns.hui.SetIconRing then ns.hui.SetIconRing(b.ic, nil) end
         b.nm:Hide()
         b.ct:Hide()
+        if b.tag then b.tag:Hide() end
         if b.zone then b.zone:Hide() end
     end
 end
@@ -8417,11 +8527,12 @@ function PD.WipeRow(r, keepShown)
     PD.HideRowChips(r)
     if r.__pcOk then PD.PCWipe(r) end
     if r.__costWhy then r.__costWhy:Hide() end
+    if r.__cntSub then r.__cntSub:SetText(""); r.__cntSub:Hide() end
     if r.__toolBadge then r.__toolBadge:Hide() end
     if r.__roleBadge then r.__roleBadge:Hide() end
     if r.icon4 then r.icon4:Hide() end
     for i = 1, 6 do local fs = r["h" .. i]; if fs then fs:Hide() end end
-    for i = 1, 3 do
+    for i = 1, 4 do
         local arrows = r["__ha" .. i]
         if arrows then arrows[1]:Hide(); arrows[2]:Hide() end
     end
@@ -8544,6 +8655,7 @@ function PD.PaintMats(r, blocks, cut, grey, rightX)
     for k = n + (cut and 1 or 0) + 1, #r.blk do
         local b = r.blk[k]
         b.ic:Hide(); b.nm:Hide(); b.ct:Hide(); b.zone:Hide()
+        if b.tag then b.tag:Hide() end
         if ns.hui and ns.hui.SetIconRing then ns.hui.SetIconRing(b.ic, nil) end
     end
 end
@@ -9342,7 +9454,7 @@ end
 function PD.FitRecipeCols(list, maxW)
     PD.RECIPE_NAME_W = PD.REC_NAME_W
     PD.MAT_X = 172
-    PD.MAT_W = PD.MAT_ROW_W - (6 + PD.DiffBarW() + PD.REC_AH_W + PD.REC_COST_W) - PD.MAT_X - 8
+    PD.MAT_W = PD.MAT_ROW_W - (6 + PD.DiffBarW() + PD.REC_GAP_W + PD.REC_AH_W + PD.REC_COST_W) - PD.MAT_X - 8
     PD.SyncRows()
     for _, s in ipairs(list) do
         s.recipeCols=true
@@ -9367,10 +9479,11 @@ function PD.BoundRecipeColumns(r,spec,padL)
     if subX>=PD.MAT_X-8 then r.b:SetText("") end
     r.e:SetWidth(math.max(1,PD.REC_COST_W-8));r.e:SetJustifyH("RIGHT")
     r.c2:SetWidth(math.max(1,PD.REC_AH_W-8))
-    local sourceWidth=math.max(1,PD.DiffBarW()+PD.REC_COST_W-8)
+    local sourceWidth=math.max(1,PD.DiffBarW()+PD.REC_COST_W+(spec.recipe and PD.REC_AH_W or 0)-8)
     if spec.dval then
         local prefix=math.min(FSW(r.d),math.floor(sourceWidth*0.45))
-        r.d:SetWidth(math.max(1,prefix));r.dv:SetWidth(math.max(1,sourceWidth-prefix))
+        local nameW=math.min(FSW(r.dv),math.max(1,sourceWidth-prefix))
+        r.d:SetWidth(math.max(1,prefix));r.dv:SetWidth(math.max(1,nameW))
     else r.d:SetWidth(sourceWidth) end
 end
 
@@ -9860,6 +9973,12 @@ function PD.RecipeSpec(r)
         ah = RA.AHPriceOf(r[2])
         ahStr = ah and RA.MoneyStr(ah, "copper") or "—"
     end
+    local gapStr, gapColor
+    if ah and total and total > 0 then
+        local diff = ah - total
+        gapStr = ((unpriced and unpriced > 0) and "≈" or "") .. (diff < 0 and "-" or "+") .. RA.MoneyStr(math.abs(diff), "copper")
+        if diff > 0 then gapColor = AH_PCT_RED elseif diff < 0 then gapColor = AH_PCT_GREEN else gapColor = { 0.75, 0.75, 0.75 } end
+    end
     return {
         kind = "row", is_new = r[11], it = { r[2] }, qItem = r[2], row = r, _mats = r[12],
         spell = tonumber(resolved.spell),
@@ -9897,6 +10016,8 @@ function PD.RecipeSpec(r)
         costVal = total,
         diffVal = tonumber(r[7]),
         gapVal = (ah and total) and (ah - total) or nil,
+        gapStr = gapStr,
+        gapColor = gapColor,
         sbdiff = (r[7] or r[8] or r[9] or r[10]) and { r[7], r[8], r[9], r[10] } or nil,
         mkLines = function()
             local lines = {}
@@ -10219,6 +10340,28 @@ local function RecipeCounts(list, spellIndex, groupIndex)
     return n, groups
 end
 
+PD.__writTargets = nil
+
+function PD.WritTargetMap()
+    if PD.__writTargets == nil then
+        local m = {}
+        for _, w in ipairs(CD.writs or {}) do
+            if w.target then m[w.target] = true end
+        end
+        PD.__writTargets = m
+    end
+    return PD.__writTargets
+end
+
+function PD.RowKeyOK(r, fk)
+    if not fk then return true end
+    if fk == "__writ" then
+        local t = PD.WritTargetMap()
+        return t[r[2]] and true or false
+    end
+    return r[4] == fk
+end
+
 function PD.RecipeTypeItems(d)
     local items = {}
     if not d then return items end
@@ -10253,6 +10396,16 @@ function PD.RecipeTypeItems(d)
     local craftedN = RecipeCounts(d.crafted, 1, 4)
     if craftedN > 0 then
         items[#items + 1] = { v = "__crafted", text = format(L["可制造 %d"], craftedN) }
+    end
+    if rowsN > 0 then
+        local wt = PD.WritTargetMap()
+        local wn = 0
+        for _, r in ipairs(d.rows or {}) do
+            if (not r.nip) and not (ns.ProfRecipeNIP and ns.ProfRecipeNIP[r[1]]) and wt[r[2]] then
+                wn = wn + 1
+            end
+        end
+        if wn > 0 then items[#items + 1] = { v = "__writ", text = format(L["工匠文书 %d"], wn) } end
     end
     if #items > PD.TOOL_MAX then
         local keep = PD.TOOL_MAX - 1
@@ -10492,7 +10645,7 @@ function PD.RecipeList(limit, q)
     local __tGate = debugprofilestop and debugprofilestop() or 0
     for _, r in ipairs(d.rows or {}) do
         __ri = __ri + 1
-        if (not r.nip) and ((not fk) or r[4] == fk) then
+        if (not r.nip) and PD.RowKeyOK(r, fk) then
             if PD.RawHit(r, q) then
                 out[#out + 1] = PD.RecipeSpec(r)
                 if #out >= cap then break end
@@ -10531,6 +10684,13 @@ end
 function PD.EffKeyFilter(d)
     local key = PD.toolKey
     if not key or key == "all" then return nil end
+    if key == "__writ" then
+        local t = PD.WritTargetMap()
+        for _, r in ipairs(d.rows or {}) do
+            if t[r[2]] then return key end
+        end
+        return nil
+    end
     for _, r in ipairs(d.rows or {}) do
         if r[4] == key then return key end
     end
@@ -10563,7 +10723,7 @@ function PD.ScanRecipe()
 
     local n, maxW = 0, 0
     for _, r in ipairs(d.rows or {}) do
-        if (not r.nip) and ((not fk) or r[4] == fk) then
+        if (not r.nip) and PD.RowKeyOK(r, fk) then
             if PD.RawHit(r, q) then
                 n = n + 1
                 if n <= PD.ROW_CAP then
@@ -10610,7 +10770,7 @@ function PD.RowsRecipe(rows)
         realN, maxW = #list, nil
     end
     if PD.recipeSort then
-        local kf = ({ ah = "ahVal", cost = "costVal", diff = "diffVal" })[PD.recipeSort]
+        local kf = ({ ah = "ahVal", cost = "costVal", diff = "diffVal", gap = "gapVal" })[PD.recipeSort]
         if kf then
             local desc = PD.recipeSortDesc
             table.sort(list, function(a, b)
@@ -11196,7 +11356,7 @@ function PD.PlanStatusParts(plan)
         local diagnostics=blockers or plan.diagnostics or {}
         for _,diagnostic in ipairs(diagnostics) do
             if diagnostic.code=="auctionSupplyLimited" and not plan.targetReached then
-                local message=format(L["当前拍卖行材料不足以升到%d级。"],plan.target or 300)
+                local message=format(L["当前拍卖行材料不足以升到%d级。"],plan.target or PD.LV_DEF)
                 if hasProgress then return format(L["已计算至%d"],plan.plannedTo or plan.start or 1),message end
                 return message
             end
@@ -11228,7 +11388,7 @@ function PD.PlanStatusParts(plan)
     if plan.staleReason=="supply" then return PD.PlanCacheText(plan) end
     if plan.stale then return L["已保存路线；数据或设置已变化，点击重新计算更新。"] end
     if PD.PlanNoUpgradeNeeded(plan) then
-        return format(L["已达到目标等级 %d，无需继续升级。"],plan.target or 300)
+        return format(L["已达到目标等级 %d，无需继续升级。"],plan.target or PD.LV_DEF)
     end
     if plan.scheme == "fishing" and not plan.partial and plan.status == "complete" then return L["纯钓鱼路线已生成"] end
     if plan.inputModelOptimal and plan.catalogueCoverageComplete == false then return L["已知输入模型内最优；配方覆盖未确认"] end
@@ -12215,7 +12375,7 @@ function PD.SolverText()
     local st = SR.State(PD.cur)
     PD.solverFrac = st.fraction or 0
     if st.phase == "seed" then
-        return format(L["正在推演 %d/%d"], st.seedSkill or 1, st.target or 300)
+        return format(L["正在推演 %d/%d"], st.seedSkill or 1, st.target or PD.LV_DEF)
     elseif st.phase == "search" then
         local pct = math.min(100, math.floor((st.cpuUsed or 0) * 100 / math.max(1, st.cpuLimitMs or 8000) + 0.5))
         return format(L["正在优化 %d%%"], pct)
@@ -13254,7 +13414,7 @@ function PD.RowsLeveling(rows)
                 tostring(goal.questName or ""), tostring(goal.zone or "")), 0.95, 0.75, 0.4)
         end
     end
-    local cntOf, costOf, cardOf, whyOf, whyLong, chipOf, roleChipOf = {}, {}, {}, {}, {}, {}, {}
+    local cntOf, cntSubOf, costOf, cardOf, whyOf, whyLong, chipOf, roleChipOf = {}, {}, {}, {}, {}, {}, {}, {}
     local rngW = PD.TextW(L["等级范围"], PD.LV_FS)
     local cntW = PD.TextW(L["制作次数"], PD.LV_FS)
     local costW = PD.TextW(L["成本"], PD.LV_FS)
@@ -13327,17 +13487,21 @@ function PD.RowsLeveling(rows)
                 end
             end
         end
-        if clipped and st._clip then count = count .. format(L[" · 按目标 %d 折算"], target) end
-        if st.kind == "specialization_quest" then count, cost = L["专精任务"], ""
-        elseif st.kind == "essence_conversion" or st.kind == "conversion" then count = L["手动转换"]
-        elseif st.checkpoint or st[3] == 0 then count, cost = L["实地采矿"], "" end
+        local sub
+        if clipped and st._clip then
+            sub = (format(L[" · 按目标 %d 折算"], target)):gsub("^%s*·%s*", "", 1)
+        end
+        if st.kind == "specialization_quest" then count, cost, sub = L["专精任务"], "", nil
+        elseif st.kind == "essence_conversion" or st.kind == "conversion" then count, sub = L["手动转换"], nil
+        elseif st.checkpoint or st[3] == 0 then count, cost, sub = L["实地采矿"], "", nil end
         local tp = trackAll and trackAll.steps[index]
         if tp and tp.casts > 0 and not (st.checkpoint or st[3] == 0 or st.kind == "specialization_quest") then
-            count = format("%d/%d", tp.casts, st[4] or 0)
+            count, sub = format("%d/%d", tp.casts, st[4] or 0), nil
         end
-        cntOf[st], costOf[st] = count, cost
+        cntOf[st], costOf[st], cntSubOf[st] = count, cost, sub
         rngW = math.max(rngW, PD.TextW(rngText(st), PD.LV_FS))
-        cntW = math.max(cntW, PD.TextW(count, PD.LV_FS))
+        cntW = math.max(cntW, PD.TextW(count, PD.LV_FS),
+                        sub and PD.TextW(sub, PD.LV_CNT_SUB_FS) or 0)
         costW = math.max(costW, PD.TextW(cost, PD.LV_FS))
         stepW = math.max(stepW, PD.TextW(tostring(st.stepIndex or st.index or index), PD.LV_FS))
         local cd = PD.CardOf(RawRow(st.profession or PD.cur, st[3]) or rec,
@@ -13553,6 +13717,7 @@ function PD.RowsLeveling(rows)
                 text = FitName(nm),
                 src = src,
                 cnt = cntOf[st] or format(L["~%s 次制作"], tostring(st[4])),
+                cntSub = cntSubOf[st],
                 cost = costOf[st] or "",
                 costWhy = whyLong[st] or (((tonumber(st.cost) or 0) <= 0 and (st[4] or 0) > 0)
                     and L["本步材料来自背包库存或前面步骤自制的中间产物，因此没有新增采购支出。"] or nil),
@@ -14231,7 +14396,7 @@ function PD.RowsAutoShop(rows, data)
     if mode == "auto" then
         title = L["购物清单（自动路线）"]
     else
-        title = format(L["购物清单（固定路线 1–%d）"], data.target or 300)
+        title = format(L["购物清单（固定路线 1–%d）"], data.target or PD.LV_DEF)
     end
     PushHead(rows, title, 1)
     rows[#rows].noHover = true
@@ -14884,10 +15049,103 @@ function PD.OwnR()
     local lw = tonumber(PD.splitLW) or tonumber(PD.COL_LW) or 0
     return PD.CRATE_OWN_R + math.floor(lw * PD.OWN_SHIFT)
 end
+function PD.CrateColumns(writ)
+    local cols = {
+        { fs = "c2", value = "rightOwn", text = L["自身价格"], zone = "hsOwn", act = "ownAct", on = "ownOn", arrow = 2 },
+        { fs = "c", value = "right", text = writ and L["拍卖总价"] or L["总价格"], zone = "hsTot", act = "act", on = "sortOn", arrow = 1 },
+    }
+    if writ then cols[#cols + 1] = { fs = "d", value = "right2", text = L["制造总价"], zone = "hsCraft", act = "craftAct", on = "craftOn", arrow = 3 } end
+    cols[#cols + 1] = { fs = "e", value = "rightUnit", text = writ and L["每点声望"] or L["每点青睐"], zone = "hsGap", act = "unitAct", on = "unitOn", arrow = 4 }
+    if not PD.crateMeasure then PD.crateMeasure = MakeFS(UIParent, 12, C_GREY, "RIGHT"); PD.crateMeasure:Hide() end
+    local measure = PD.crateMeasure
+    measure:SetFont(ns.FONT, 12, ns.hui and ns.hui.FontFlags and ns.hui.FontFlags("OUTLINE") or "OUTLINE")
+    measure:SetWidth(0)
+    measure:SetWordWrap(false)
+    local right = 6
+    for i = #cols, 1, -1 do
+        local c = cols[i]
+        measure:SetText(c.text)
+        c.textW = math.ceil(FSW(measure, PD.TextW(c.text, 12)))
+        c.w, c.r = math.max(88, c.textW + 24), right
+        right = right + c.w
+    end
+    cols.nameR = right + 6
+    local avail = PD.GRID_W - PD.OV_GUT
+    PD.splitLW = math.max(math.floor(avail * PD.CRATE_SPLIT), math.min(avail - 180, cols.nameR + 132))
+    PD.splitRW = avail - PD.splitLW
+    return cols
+end
+function PD.CrateRowHeight(text, cols)
+    local fs = PD.crateMeasure
+    fs:SetFont(ns.FONT, 13, ns.hui and ns.hui.FontFlags and ns.hui.FontFlags("OUTLINE") or "OUTLINE")
+    fs:SetWidth(math.max(1, PD.splitLW - cols.nameR - 32))
+    fs:SetWordWrap(true)
+    fs:SetNonSpaceWrap(true)
+    fs:SetText(text)
+    return math.max(44, math.ceil(fs:GetStringHeight() or 0) + 24)
+end
+function PD.PaintCrateColumns(r, spec, h, padL)
+    local head = spec.kind == "colhead"
+    if head then
+        r.a:SetText(spec.text or "")
+        r.a:SetTextColor(Unpack(C_GREY))
+        r.a:ClearAllPoints()
+        r.a:SetPoint("LEFT", r, "LEFT", 6, 0)
+        r.b:SetText(""); r.d:SetText(""); r.e:SetText(""); r.f:SetText("")
+    end
+    local nameW = math.max(0, (r:GetWidth() or 0) - spec.priceCols.nameR - (padL or 6))
+    r.a:SetWidth(nameW)
+    r.a:SetWordWrap(not head)
+    r.b:SetWidth(nameW)
+    if not head then
+        r.a:ClearAllPoints()
+        r.a:SetPoint("TOPLEFT", r, "TOPLEFT", padL or 6, -4)
+        r.a:SetHeight(math.max(1, r.a:GetStringHeight() or 0))
+        r.a:SetNonSpaceWrap(true)
+        r.a:SetJustifyV("TOP")
+        r.b:SetFont(ns.FONT, 11, ns.hui and ns.hui.FontFlags and ns.hui.FontFlags("OUTLINE") or "OUTLINE")
+        r.b:ClearAllPoints()
+        r.b:SetPoint("TOPLEFT", r.a, "BOTTOMLEFT", 0, -2)
+        if spec.tag and r.tagChip:IsShown() then
+            local chipW = r.tagChip:GetWidth() or 0
+            local chipX = math.max(0, nameW - chipW)
+            local subTxt = r.b:GetText() or ""
+            if PD.TextW(subTxt, 11) > chipX then
+                r.b:SetText(PD.Fit(subTxt, 11, chipX))
+            end
+            r.tagChip:ClearAllPoints()
+            r.tagChip:SetPoint("LEFT", r.b, "LEFT", chipX, 0)
+            r.b:SetWidth(nameW)
+        end
+    end
+    r.b:SetWordWrap(false)
+    for _, c in ipairs(spec.priceCols) do
+        local fs = r[c.fs]
+        fs:SetFont(ns.FONT, 12, ns.hui and ns.hui.FontFlags and ns.hui.FontFlags("OUTLINE") or "OUTLINE")
+        fs:SetText(head and c.text or spec[c.value] or "")
+        fs:SetTextColor(Unpack(head and C_GREY or c.value == "rightOwn" and C_TEXT or C_GOLD))
+        fs:SetJustifyH("RIGHT")
+        fs:SetWordWrap(false)
+        fs:ClearAllPoints()
+        fs:SetPoint("RIGHT", r, "RIGHT", -c.r, 0)
+        fs:SetWidth(head and c.textW or c.w - 12)
+        if head then
+            local up, dn = PD.HeadArrow(r, c.arrow)
+            PD.PaintHeadArrow(up, dn, spec[c.on], false)
+            PD.LayoutHeaderArrow(up, dn, fs, -4)
+            local z = r[c.zone]
+            z:ClearAllPoints()
+            z:SetPoint("RIGHT", r, "RIGHT", -c.r, 0)
+            z:SetSize(c.w - 4, h)
+            z.__act = spec[c.act]
+            z:Show()
+        end
+    end
+end
 PD.crateSel = nil
 PD.writSel = nil
-PD.crateSort = "total"
-PD.writSort = "total"
+PD.crateSort = "favor"
+PD.writSort = "rep"
 PD.plunderSel = nil
 PD.plunderSort = "cost"
 PD.recipeSort = nil
@@ -14939,9 +15197,32 @@ end
 
 function PD.CrateRows(rows)
     local list = CD.crates or {}
+    local q = PD.CrateQuery()
+    if q then
+        local f = {}
+        for _, c in ipairs(list) do
+            local hit = PD.CrateNameHit(c.id, q)
+            if not hit then
+                hit = string.find(string.lower(CRATE_TIERS[c.tier] or ""), q, 1, true) and true or false
+            end
+            if not hit then
+                for _, o in ipairs(c.opts or {}) do
+                    if PD.CrateNameHit(o[1], q) or PD.CrateProfProduct(o[1]) then hit = true break end
+                end
+            end
+            if hit then f[#f + 1] = c end
+        end
+        list = f
+        local valid
+        for _, c in ipairs(list) do
+            if c.id == PD.crateSel then valid = true break end
+        end
+        if not valid then PD.crateSel = list[1] and list[1].id end
+    end
+    local cols = PD.CrateColumns(false)
     if not PD.crateSel and list[1] then PD.crateSel = list[1].id end
     local sel = PD.crateSel
-    local owns, bests = {}, {}
+    local owns, bests, units = {}, {}, {}
     for i, c in ipairs(list) do
         local own = RA.AHPriceOf and RA.AHPriceOf(c.id) or nil
         local mat
@@ -14951,22 +15232,30 @@ function PD.CrateRows(rows)
         end
         owns[i] = own
         bests[i] = (own and mat) and (own + mat) or nil
+        units[i] = (bests[i] and (c.favor or 0) > 0) and (bests[i] / c.favor) or nil
     end
     local mode = PD.crateSort
     local order = {}
     for i = 1, #list do order[i] = i end
     if mode then
-        local key = (mode == "own") and owns or bests
+        local key = (mode == "favor") and units or (mode == "own") and owns or bests
         table.sort(order, function(a, b)
             local ca, cb = key[a], key[b]
-            if ca and cb then return ca < cb end
-            if ca or cb then return ca ~= nil end
+            if ca ~= cb then
+                if ca and cb then return ca < cb end
+                return ca ~= nil
+            end
             return (list[a].id or 0) < (list[b].id or 0)
         end)
     end
-    rows[#rows + 1] = { kind = "colhead", col = 1, h = PD.TEXT_H,
+    rows[#rows + 1] = { kind = "colhead", col = 1, h = PD.TEXT_H, priceCols = cols,
                         text = L["名称"], right = L["总价格"], ownRight = L["自身价格"],
                         sortOn = (mode == "total"), ownOn = (mode == "own"),
+                        unitText = L["每点青睐"], unitOn = (mode == "favor"),
+                        unitAct = function()
+                            PD.crateSort = (mode ~= "favor") and "favor" or nil
+                            PD.RequestRender()
+                        end,
                         act = function()
                             PD.crateSort = (mode ~= "total") and "total" or nil
                             PD.RequestRender()
@@ -14975,15 +15264,21 @@ function PD.CrateRows(rows)
                             PD.crateSort = (mode ~= "own") and "own" or nil
                             PD.RequestRender()
                         end }
+    if q and #list == 0 then
+        PushText(rows, L["没有匹配的条目"], 12, C_GREY, 1)
+        return
+    end
     for _, i in ipairs(order) do
         local c = list[i]
+        local name = PD.ItemName(c.id)
         rows[#rows + 1] = {
-            kind = "row", col = 1, h = PD.ROW_H,
+            kind = "row", col = 1, h = PD.CrateRowHeight(name, cols), priceCols = cols,
             it = { c.id }, qItem = c.id,
-            text = PD.ItemName(c.id),
+            text = name,
             sub = CRATE_TIERS[c.tier] or "?",
             right = bests[i] and RA.MoneyStr(bests[i]) or "",
             rightOwn = owns[i] and RA.MoneyStr(owns[i]) or "",
+            rightUnit = units[i] and RA.MoneyStr(units[i]) or "—",
             rightOwnColor = C_TEXT,
             cur = (c.id == sel),
             act = function()
@@ -15051,7 +15346,7 @@ function PD.CrateRows(rows)
     local total = (own and cheapest) and (own + cheapest) or nil
     CrateMetaRow(rows, L["合计"], total, total, 14)
     if total and (sc.favor or 0) > 0 then
-        CrateMetaRow(rows, L["每点青睐的最低成本"], total / sc.favor, true, 14)
+        CrateMetaRow(rows, L["每点青睐"], total / sc.favor, true, 14)
     end
     MarkSec(rows, secS, #rows, 3)
     PD.hasSecs = true
@@ -15066,11 +15361,15 @@ local function CraftMapSlug(map, slug)
         local resolved = PD.RecipeData(rec, "rows", slug)
         local iid = resolved.item
         if not resolved.clientUnavailable and type(iid) == "number" and resolved.count and type(resolved.mats) == "table" and #resolved.mats > 0
-           and not map[iid] then
+           and (not map[iid] or map[iid].slug ~= slug and not (map[iid].alternatives and map[iid].alternatives[slug])) then
             local live = {}
             for k, v in pairs(rec) do live[k] = v end
             live[2], live[3], live[12] = iid, resolved.count, resolved.mats
-            map[iid] = { rec = live, slug = slug }
+            local entry = { rec = live, slug = slug }
+            if map[iid] then
+                map[iid].alternatives = map[iid].alternatives or {}
+                map[iid].alternatives[slug] = entry
+            else map[iid] = entry end
         end
     end
 end
@@ -15132,11 +15431,122 @@ local function WritBadge(cinfo, learned)
     return { text = p and p.name or cinfo.slug, color = { 0.55, 0.57, 0.62 } }
 end
 
+function PD.WritTool()
+    return {{ key = "writ_professions", text = L["仅显示本角色专业"], on = PD.Setting("writOwnProfessionsOnly"),
+        subRow = (PD.subTabEndX or (2 * PD.SUB_STEP)) + 6,
+        tip = {{L["按本角色已学专业筛选文书，不要求已学会对应配方。"], 0.85, 0.85, 0.85}} }}, function(k)
+        if k ~= "writ_professions" then return end
+        PD.SetSettingRaw("writOwnProfessionsOnly", not PD.Setting("writOwnProfessionsOnly"))
+        PD.__scrollV = 0
+        if PD.scroll then PD.scroll:SetVerticalScroll(0) end
+        PD.RequestRender()
+    end
+end
+
+local function CrateProfPrepare(q)
+    if not (D.pro and D.order) then
+        PD.__crateProfProducts = nil
+        return
+    end
+    local hit
+    for _, slug in ipairs(D.order) do
+        local p = D.pro[slug]
+        local nm = p and string.lower(tostring(p.name or "")) or ""
+        if (nm ~= "" and string.find(nm, q, 1, true))
+            or string.find(string.lower(slug), q, 1, true) then
+            hit = hit or {}
+            hit[slug] = true
+        end
+    end
+    if not hit then
+        PD.__crateProfProducts = nil
+        PD.__crateProfQ, PD.__crateProfN, PD.__crateProfFull = nil, 0, nil
+        return
+    end
+    local map = CraftAllMap()
+    local n = 0
+    for _ in pairs(map) do n = n + 1 end
+    if PD.__crateProfProducts and PD.__crateProfQ == q and PD.__crateProfN == n
+        and PD.__crateProfFull == PD.craftAllFull then return end
+    local items = {}
+    for iid, ci in pairs(map) do
+        if hit[ci.slug] then items[iid] = true end
+        for alt in pairs(ci.alternatives or {}) do
+            if hit[alt] then items[iid] = true break end
+        end
+    end
+    PD.__crateProfProducts = items
+    PD.__crateProfQ, PD.__crateProfN, PD.__crateProfFull = q, n, PD.craftAllFull
+end
+
+function PD.CrateQuery()
+    local q = PD.searchQ
+    if not q or q == "" then
+        PD.__crateProfProducts = nil
+        PD.__crateProfQ = nil
+        return nil
+    end
+    CrateProfPrepare(q)
+    return q
+end
+
+function PD.CrateNameHit(id, q)
+    local nm = string.lower(PD.ItemName(id) or "")
+    return nm ~= "" and string.find(nm, q, 1, true) and true or false
+end
+
+function PD.CrateProfProduct(id)
+    local set = PD.__crateProfProducts
+    return (set and set[id]) and true or false
+end
+
 function PD.WritRows(rows)
     PD.secPadL = 0
     local list = CD.writs or {}
-    local order, owns, priced, craftT, pcts = {}, {}, {}, {}, {}
+    local cols = PD.CrateColumns(true)
+    local order, owns, priced, craftT, pcts, units = {}, {}, {}, {}, {}, {}
     local craftMap = CraftAllMap()
+    local learned = PD.ProfLearned()
+    local ownOnly = PD.Setting("writOwnProfessionsOnly")
+    if ownOnly then
+        local filtered, ownMap = {}, {}
+        for _, w in ipairs(list) do
+            local craft = craftMap[w.target]
+            if craft and not learned[craft.slug] then
+                local match
+                for slug, entry in pairs(craft.alternatives or {}) do
+                    if learned[slug] then match = entry; break end
+                end
+                craft = match
+            end
+            if craft then filtered[#filtered + 1] = w; ownMap[w.target] = craft end
+        end
+        list, craftMap = filtered, ownMap
+    end
+    local q = PD.CrateQuery()
+    if q then
+        local f = {}
+        local byProf = PD.__crateProfProducts and true or false
+        for _, w in ipairs(list) do
+            local hit
+            if byProf then
+                hit = PD.CrateProfProduct(w.target)
+            else
+                hit = PD.CrateNameHit(w.item or w.target, q)
+                if not hit and w.item and w.target and w.item ~= w.target then
+                    hit = PD.CrateNameHit(w.target, q)
+                end
+                if not hit then
+                    local ci = craftMap[w.target]
+                    for _, m in ipairs(ci and ci.rec and ci.rec[12] or {}) do
+                        if PD.CrateNameHit(m[1], q) then hit = true break end
+                    end
+                end
+            end
+            if hit then f[#f + 1] = w end
+        end
+        list = f
+    end
     for i = 1, #list do
         order[i] = i
         local wid = list[i].item or list[i].target
@@ -15153,7 +15563,9 @@ function PD.WritRows(rows)
                 if p then csum = csum + p * (m[2] or 1) else ok = false end
             end
         end
-        craftT[i] = (own and ok) and math.floor(own + csum * (list[i].qty or 1) / (ci.rec[3] or 1) + 0.5) or nil
+        craftT[i] = (own and ok) and (own + math.floor(csum * math.ceil((list[i].qty or 1) / (ci.rec[3] or 1)) + 0.5)) or nil
+        local lowest = priced[i] and craftT[i] and math.min(priced[i], craftT[i]) or priced[i] or craftT[i]
+        units[i] = (lowest and (list[i].rep or 0) > 0) and (lowest / list[i].rep) or nil
         if craftT[i] and priced[i] and priced[i] > 0 then
             local d = math.floor((craftT[i] - priced[i]) / priced[i] * 100 + 0.5)
             if d > 0 then
@@ -15165,16 +15577,17 @@ function PD.WritRows(rows)
             end
         end
     end
-    local learned = PD.ProfLearned()
     local mode = PD.writSort
     table.sort(order, function(a, b)
         local wa, wb = list[a], list[b]
         if mode then
             local key = priced
-            if mode == "own" then key = owns elseif mode == "craft" then key = craftT end
+            if mode == "own" then key = owns elseif mode == "craft" then key = craftT elseif mode == "rep" then key = units end
             local ca, cb = key[a], key[b]
-            if ca and cb then return ca < cb end
-            if ca or cb then return ca ~= nil end
+            if ca ~= cb then
+                if ca and cb then return ca < cb end
+                return ca ~= nil
+            end
             return (wa.target or 0) < (wb.target or 0)
         end
         if (wa.rep or 0) ~= (wb.rep or 0) then return (wa.rep or 0) > (wb.rep or 0) end
@@ -15183,14 +15596,22 @@ function PD.WritRows(rows)
         if ca or cb then return ca ~= nil end
         return (wa.target or 0) < (wb.target or 0)
     end)
-    if not PD.writSel and list[order[1]] then
-        PD.writSel = list[order[1]].quest or list[order[1]].target
+    local sel
+    for _, i in ipairs(order) do
+        local key = list[i].quest or list[i].target
+        if key == PD.writSel then sel = key; break end
     end
-    local sel = PD.writSel
-    rows[#rows + 1] = { kind = "colhead", col = 1, h = PD.ROW_H,
-                        text = L["工匠文书"], right = L["拍卖总价"], craftRight = L["制造总价"],
+    if not sel and list[order[1]] then sel = list[order[1]].quest or list[order[1]].target end
+    PD.writSel = sel
+    rows[#rows + 1] = { kind = "colhead", col = 1, h = PD.TEXT_H, priceCols = cols,
+                        text = L["名称"], right = L["拍卖总价"], craftRight = L["制造总价"],
                         ownRight = L["自身价格"],
                         sortOn = (mode == "total"), craftOn = (mode == "craft"), ownOn = (mode == "own"),
+                        unitText = L["每点声望"], unitOn = (mode == "rep"),
+                        unitAct = function()
+                            PD.writSort = (mode ~= "rep") and "rep" or nil
+                            PD.RequestRender()
+                        end,
                         act = function()
                             PD.writSort = (mode ~= "total") and "total" or nil
                             PD.RequestRender()
@@ -15203,15 +15624,24 @@ function PD.WritRows(rows)
                             PD.writSort = (mode ~= "own") and "own" or nil
                             PD.RequestRender()
                         end }
+    if ownOnly and #order == 0 then
+        PushText(rows, not PD.craftAllFull and L["正在读取专业配方…"] or L["没有符合本角色专业的工匠文书。"], 12, C_GREY, 1)
+        return
+    end
+    if q and #order == 0 then
+        PushText(rows, L["没有匹配的条目"], 12, C_GREY, 1)
+        return
+    end
     for _, i in ipairs(order) do
         local w = list[i]
         local wid = w.item or w.target
         local craft = craftMap[w.target]
         local tag = craft and WritBadge(craft, learned) or nil
+        local name = PD.ItemName(wid)
         rows[#rows + 1] = {
-            kind = "row", col = 1, h = PD.ROW_H,
+            kind = "row", col = 1, h = PD.CrateRowHeight(name, cols), priceCols = cols,
             it = { wid }, qItem = wid,
-            text = PD.ItemName(wid),
+            text = name,
             sub = format(L["声望 +%d"], w.rep or 0),
             tag = tag,
             right = priced[i] and RA.MoneyStr(priced[i]) or "",
@@ -15219,6 +15649,7 @@ function PD.WritRows(rows)
             right2Color = C_GOLD,
             pct = pcts[i],
             rightOwn = owns[i] and RA.MoneyStr(owns[i]) or "",
+            rightUnit = units[i] and RA.MoneyStr(units[i]) or "—",
             rightOwnColor = C_TEXT,
             cur = ((w.quest or w.target) == sel),
             act = function()
@@ -15283,7 +15714,7 @@ function PD.WritRows(rows)
             cards[1].win = true
         end
     end
-    rows[#rows + 1] = { kind = "vs", col = 2, h = 52, vw = PD.splitRW, cards = cards }
+    rows[#rows + 1] = { kind = "vs", col = 2, h = PD.VsHeight(PD.splitRW), vw = PD.splitRW, cards = cards }
     if craft and #craft[12] > 0 then
         PushGap(rows, PD.SEC_GAP + 2, 2)
         local secA = #rows + 1
@@ -15352,7 +15783,7 @@ function PD.WritRows(rows)
             rightColor = { 0.42, 0.94, 0.62 },
         }
     end
-    CrateMetaRow(rows, L["每点声望最低成本"], repUnit, repUnit, 14)
+    CrateMetaRow(rows, L["每点声望"], repUnit, repUnit, 14)
     MarkSec(rows, secC, #rows, 4)
     PD.hasSecs = true
     PD.secCount = 4
@@ -15459,6 +15890,14 @@ function PD.Render()
     PD.lvRouteHead = nil
     PD.PickNav()
     PD.PickTabs()
+    local crateTab = (PD.tab == "crate" or PD.tab == "writ")
+    if not crateTab and PD.tab ~= "recipe" and (PD.searchQ or "") ~= "" then
+        PD.searchQ = ""
+        if PD.searchBox then
+            PD.searchBox.eb:SetText("")
+            PD.searchBox.eb:ClearFocus()
+        end
+    end
     RememberLast()
 
     local rows = {}
@@ -15520,6 +15959,8 @@ function PD.Render()
         tool, handler = PD.RecipeTool(RGet(PD.cur))
         PD.RowsRecipe(rows)
     elseif PD.tab == "crate" or PD.tab == "plunder" or PD.tab == "writ" then
+        if PD.tab == "writ" then tool, handler = PD.WritTool() end
+        PD.sideFixed = (PD.tab == "crate" or PD.tab == "writ")
         PD.RowsCrates(rows)
     elseif PD.tab == "gather" then
         PD.gridSplit = (PD.cur == "fishing")
@@ -15588,13 +16029,26 @@ function PD.Render()
     layoutTools()
 
     if PD.searchBox then
-        if PD.tab == "recipe" and not PD.setOpen then
-            PD.searchBox:ClearAllPoints()
-            PD.searchBox:SetPoint("TOPRIGHT", PD.page, "TOPRIGHT",
-                                  -(PD.CARD_INSET + PD.LIST_PAD), -(PD.BODY_TOP))
-            PD.searchBox:Show()
+        local sBox = PD.searchBox
+        if crateTab and not PD.setOpen then
+            sBox:ClearAllPoints()
+            sBox:SetPoint("TOPRIGHT", PD.page, "TOPRIGHT",
+                          -(PD.CARD_INSET + PD.LIST_PAD), -(PD.SUB_Y))
+            sBox.label:Hide()
+            sBox.eb.ph:SetText(L["搜索"])
+            sBox:Show()
+            local has = (sBox.eb:GetText() or "") ~= ""
+            if not has and not sBox.eb:HasFocus() then sBox.eb.ph:Show() else sBox.eb.ph:Hide() end
+            sBox.eb.clear:SetShown(has)
+        elseif PD.tab == "recipe" and not PD.setOpen then
+            sBox:ClearAllPoints()
+            sBox:SetPoint("TOPRIGHT", PD.page, "TOPRIGHT",
+                          -(PD.CARD_INSET + PD.LIST_PAD), -(PD.BODY_TOP))
+            sBox.label:Show()
+            sBox.eb.ph:SetText(L["配方名 / 材料名"])
+            sBox:Show()
         else
-            PD.searchBox:Hide()
+            sBox:Hide()
         end
     end
 
@@ -15726,6 +16180,20 @@ end
 function PD.SetTab(key)
     PD.setOpen = false
     if not (PD.avail and PD.avail[key]) then return end
+    local wasCrate = (PD.tab == "crate" or PD.tab == "writ")
+    local nowCrate = (key == "crate" or key == "writ")
+    if wasCrate ~= nowCrate and (PD.searchQ or "") ~= "" then
+        PD.searchQ = ""
+        if PD.searchBox then
+            PD.searchBox.eb:SetText("")
+            PD.searchBox.eb:ClearFocus()
+        end
+    end
+    if key == "crate" then
+        PD.crateSort = "favor"
+    elseif key == "writ" then
+        PD.writSort = "rep"
+    end
     PD.tab = key
     PD.RequestRender()
 end
@@ -16617,6 +17085,14 @@ if type(SlashCmdList) == "table" then
 end
 
 local function HookRoutePlans()
+if not PD.writSkillWatch then
+    local frame = CreateFrame("Frame")
+    frame:RegisterEvent("SKILL_LINES_CHANGED")
+    frame:SetScript("OnEvent", function()
+        if PD.built and PD.tab == "writ" and PD.Setting("writOwnProfessionsOnly") and ns.PageVisible(PD.page) then PD.RequestRender() end
+    end)
+    PD.writSkillWatch = frame
+end
 local bridge=ns.AuctionBridge
 if bridge and bridge.OnChanged then bridge.OnChanged(function(_,reason)
     if (reason=="supply" or reason=="scan-status") and PD.built and ns.PageVisible(PD.page) then PD.RequestRender() end

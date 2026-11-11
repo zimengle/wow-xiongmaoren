@@ -120,9 +120,75 @@ local function BuildQuestAutomation(container, page, module)
     end
 end
 
+local function BagSortBlocked(module)
+    if not module:IsEnabled() then return "请先启用本页功能。" end
+    if module._bagSortPending then return "正在等待客户端更新整理方向。" end
+end
+
+local function FinishBagSort(page, module, ok, reason, verify)
+    if not ok then
+        if reason then module:Notify(reason) end
+    elseif verify then
+        local pending = {}
+        module._bagSortPending = pending
+        module:Schedule(1, function()
+            if module._bagSortPending ~= pending then return end
+            module._bagSortPending = nil
+            local verified, message = verify()
+            if not verified and message then module:Notify(message) end
+            page:Refresh("bag-sort-settled")
+        end, "Bag sort preference readback")
+    end
+    page:Refresh("bag-sort-change")
+end
+
+local function BuildProviderBagSort(row, page, module, label)
+    local bagSort = ns.ExtraToolsBagSortIntegration
+    if bagSort then
+        row:Checkbox("providerBagSort", {
+            text = label,
+            getValue = function() return bagSort:GetState() end,
+            getEnabled = function() local _, mutable = bagSort:GetState(); return mutable and not BagSortBlocked(module) end,
+            tooltip = function()
+                local _, _, description = bagSort:GetState()
+                return (BagSortBlocked(module) or description) .. "|n开启后物品靠底部、空格留在顶部，不反转物品自身顺序。"
+            end,
+            onEnter = function() page:Refresh("bag-sort-hover") end,
+            onChange = function(_, value)
+                if BagSortBlocked(module) then return end
+                FinishBagSort(page, module, bagSort:SetEnabled(value))
+            end,
+        })
+    end
+end
+
 local function BuildPluginsEllesmere(page, module)
     local profile = module:GetProfile()
     local ellesmere = page:Section("EllesmereUI")
+    local fonts = ns.EllesmereStatFonts
+    if fonts then
+        local options, order = { follow = "跟随 Elles" }, { "follow" }
+        for size = 11, 18 do
+            local key = tostring(size)
+            options[key] = key
+            order[#order + 1] = key
+        end
+        ellesmere:FieldRow():Dropdown("ellesmereStatFont", {
+            text = "角色属性字号", options = options, order = order,
+            tooltip = "人物和宠物共用正文字号，分组标题大一号。选择「跟随 Elles」恢复原字号。",
+            getValue = function() return fonts:GetChoice(module) end,
+            getEnabled = function() return not module.adapter:IsInCombat() end,
+            onChange = function(control, value)
+                if module.adapter:IsInCombat() or not options[value] then
+                    control:SetValue(fonts:GetChoice(module), true)
+                    return
+                end
+                module:GetProfile().ellesmereStatFont = value
+                fonts:Sync(module)
+            end,
+        })
+    end
+
     local ellesmereOptions = ellesmere:QuadRow()
     ellesmereOptions:Checkbox("ellesmereMinimapVolume", {
         text = "小地图音量",
@@ -131,6 +197,10 @@ local function BuildPluginsEllesmere(page, module)
         getValue = function() return module:GetProfile().ellesmereMinimapVolume end,
         onChange = function(_, value) SetRootBoolean(module, "ellesmereMinimapVolume", value) end,
     })
+
+    if module.adapter.buildId == "classic-infinite" then
+        BuildProviderBagSort(ellesmereOptions, page, module, "背包反向整理")
+    end
 
     if ns.EllesmereTimerIntegration then
         ellesmereOptions:Checkbox("ellesmereTimerCompact", {
@@ -269,28 +339,6 @@ local function BuildCelestial(page, module, tab, actions, visible)
 
 end
 
-local function BagSortBlocked(module)
-    if not module:IsEnabled() then return "请先启用暴雪界面增强。" end
-    if module._bagSortPending then return "正在等待客户端更新整理方向。" end
-end
-
-local function FinishBagSort(page, module, ok, reason, verify)
-    if not ok then
-        if reason then module:Notify(reason) end
-    elseif verify then
-        local pending = {}
-        module._bagSortPending = pending
-        module:Schedule(1, function()
-            if module._bagSortPending ~= pending then return end
-            module._bagSortPending = nil
-            local verified, message = verify()
-            if not verified and message then module:Notify(message) end
-            page:Refresh("bag-sort-settled")
-        end, "Bag sort preference readback")
-    end
-    page:Refresh("bag-sort-change")
-end
-
 local function BuildBags(page, module)
     local row = page:Section("背包"):QuadRow()
     local adapter = module.adapter
@@ -324,22 +372,8 @@ local function BuildBags(page, module)
     if nativeFrame and nativeFrame.SetMotionScriptsWhileDisabled then
         nativeFrame:SetMotionScriptsWhileDisabled(true)
     end
-    local bagSort = ns.ExtraToolsBagSortIntegration
-    if bagSort then
-        row:Checkbox("providerBagSort", {
-            text = "Elles反向整理",
-            getValue = function() return bagSort:GetState() end,
-            getEnabled = function() local _, mutable = bagSort:GetState(); return mutable and not BagSortBlocked(module) end,
-            tooltip = function()
-                local _, _, description = bagSort:GetState()
-                return (BagSortBlocked(module) or description) .. "|n开启后物品靠底部、空格留在顶部，不反转物品自身顺序。"
-            end,
-            onEnter = function() page:Refresh("bag-sort-hover") end,
-            onChange = function(_, value)
-                if BagSortBlocked(module) then return end
-                FinishBagSort(page, module, bagSort:SetEnabled(value))
-            end,
-        })
+    if module.adapter.buildId ~= "classic-infinite" then
+        BuildProviderBagSort(row, page, module, "Elles反向整理")
     end
 end
 
@@ -420,16 +454,18 @@ local function BuildBlizzard(page, module, features)
         return options
     end
 
-    optionRow():Checkbox("hideMicroMenu", {
-        text = "隐藏微型菜单",
-        tooltip = module.adapter.family == "classic" and module.adapter.buildId ~= "classic-infinite"
-            and "默认在已加载的 NDui、ElvUI 或 EllesmereUI 启用动作条时隐藏；手动选择优先。关闭隐藏时恢复显示原生菜单。"
-            or "独立控制暴雪原生微型菜单，不与 RS 微型菜单栏联动。",
-        value = blizzard.hideMicroMenu,
-        getValue = function() return module:GetBlizzardUIDB().hideMicroMenu end,
-        getEnabled = function() return true end,
-        onChange = function(_, value) SetSectionBoolean(module, "blizzardUI", "hideMicroMenu", value) end,
-    })
+    if module.adapter.buildId ~= "classic-infinite" then
+        optionRow():Checkbox("hideMicroMenu", {
+            text = "隐藏微型菜单",
+            tooltip = module.adapter.family == "classic" and module.adapter.buildId ~= "classic-infinite"
+                and "默认在已加载的 NDui、ElvUI 或 EllesmereUI 启用动作条时隐藏；手动选择优先。关闭隐藏时恢复显示原生菜单。"
+                or "独立控制暴雪原生微型菜单，不与 RS 微型菜单栏联动。",
+            value = blizzard.hideMicroMenu,
+            getValue = function() return module:GetBlizzardUIDB().hideMicroMenu end,
+            getEnabled = function() return true end,
+            onChange = function(_, value) SetSectionBoolean(module, "blizzardUI", "hideMicroMenu", value) end,
+        })
+    end
     if features.backpack then
         local function ExternalMenuHidden()
             return type(module.IsExternalMicroMenuAutoHidden) == "function"
@@ -593,16 +629,15 @@ end
 
 local function BuildPluginsClassic(page, module)
     AddModuleStatus(page, module)
+    if module.adapter.features.minimapVolume then BuildPluginsEllesmere(page, module) end
     local blocker = module:GetUpdateBlockerDB()
-    page:Section("ElvUI 更新屏蔽"):QuadRow():Checkbox("elvuiUpdateBlocker", {
+    page:Section(module.adapter.buildId == "classic-infinite" and "ElvUI" or "ElvUI 更新屏蔽"):QuadRow():Checkbox("elvuiUpdateBlocker", {
         text = "屏蔽 ElvUI 更新提醒", value = blocker.enabled,
         getValue = function() return module:GetUpdateBlockerDB().enabled end,
         tooltip = "阻止 ElvUI 显示版本更新提醒。",
         onChange = function(_, value) SetSectionBoolean(module, "elvuiUpdateBlocker", "enabled", value) end,
     })
-    if module.adapter.features.minimapVolume then
-        BuildPluginsEllesmere(page, module)
-    else
+    if not module.adapter.features.minimapVolume then
         page:Section("说明"):Description("其他第三方插件专属增强仅在正式服或无限服提供。")
     end
 end
@@ -689,9 +724,11 @@ function Settings:Register(module, features)
             order = 70,
             description = "隐藏暴雪原生界面元素，并管理平砍计时与编辑模式导入辅助。",
             searchKeywords = {
-                "暴雪界面增强", "暴雪窗口移动解锁", "解锁拖动", "商人界面", "界面拓展", "隐藏", "微型菜单", "背包", "狮鹫", "暴雪",
+                "暴雪界面增强", "暴雪窗口移动解锁", "解锁拖动", "商人界面", "界面拓展", "隐藏", "背包", "狮鹫", "暴雪",
                 "平砍", "Swing Timer", "插件收纳栏", "编辑模式", "导入提示", "复制按钮",
-                "界面增强", "原生反向整理", "背包反序", "从底部开始排列", "Elles反向整理",
+                "界面增强", "原生反向整理", "背包反序", "从底部开始排列",
+                module.adapter.buildId ~= "classic-infinite" and "微型菜单" or nil,
+                module.adapter.buildId ~= "classic-infinite" and "Elles反向整理" or nil,
             },
             builder = function(page, module, currentFeatures)
                 BuildBlizzard(page, module, currentFeatures)
@@ -763,11 +800,11 @@ function Settings:Register(module, features)
             title = "插件增强",
             group = "qol",
             order = 50,
-            description = "配置第三方插件的专属增强。",
+            description = "",
             searchKeywords = {
                 "管理工具", "插件增强", "EllesmereUI", "ElvUI", "BigWigs",
                 "Details", "TinyInspect", "集合石", "国服符文兼容",
-                "小地图音量", "面板位置清理", "更新屏蔽",
+                "小地图音量", "角色属性字号", "背包反向整理", "Elles反向整理", "面板位置清理", "更新屏蔽",
             },
             builder = function(page, module)
                 if module.adapter.family == "retail" then

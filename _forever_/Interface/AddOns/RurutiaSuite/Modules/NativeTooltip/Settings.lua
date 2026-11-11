@@ -56,9 +56,15 @@ local function BuildPage(context, module)
         item.kind, item.key = "checkbox", spec[1]
         idRows[#idRows + 1] = item
     end
-    appearance:Row():Popover("idDetails", { title = "显示编号", button = { text = "显示编号", getEnabled = Available }, rows = idRows })
+    if ns.NativeTooltipAdapter.supportsItemLevel then
+        local item = Option("showItemLevel", "物品等级", "在装备名称下方补充物品等级。", CanColor)
+        item.kind, item.key = "checkbox", "showItemLevel"
+        idRows[#idRows + 1] = item
+    end
+    appearance:Row():Popover("idDetails", { title = "显示编号", button = { text = "显示编号", getEnabled = ns.NativeTooltipAdapter.supportsItemLevel and CanColor or Available }, rows = idRows })
     page:Description(function()
         if module.blocker then return "检测到 " .. module.blocker .. "，鼠标提示增强已暂停。" end
+        if module.colorOnly and ns.NativeTooltipAdapter.supportsItemLevel then return "|cff00ff00EllesmereUI 管理提示框，RS 可补充信息着色与物品等级。|r" end
         if module.colorOnly then return "|cff00ff00EllesmereUI 正在接管提示框，RS 仅提供信息着色。|r" end
         return module.runtimeActive and "" or "鼠标提示增强已关闭。"
     end, { hideWhenEmpty = true })

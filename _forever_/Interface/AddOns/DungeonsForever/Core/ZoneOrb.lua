@@ -20,19 +20,21 @@ local SIDE_S = 29
 local FOOD_CUE = "Interface\\AddOns\\DungeonsForever\\Media\\Voice\\todo_food.ogg"
 local RESTED_CUE = "Interface\\AddOns\\DungeonsForever\\Media\\Voice\\todo_rested.ogg"
 local ON_CUE = "Interface\\AddOns\\DungeonsForever\\Media\\Voice\\prof_voice_on.ogg"
+local OFF_CUE = "Interface\\AddOns\\DungeonsForever\\Media\\Voice\\todo_voice_off.ogg"
 local MANAGE_S = 23
-local BTN_GAP = 4
-local BTN_GAP_MC = -2
 local GLYPH = 0xA0 / 255
 local TOP_Y = -48
 local TEXT = { 0.95, 0.96, 0.98 }
 local DIM = { 0.63, 0.65, 0.68 }
 local FAINT = { 0.50, 0.51, 0.53 }
 local ACC = (ns.hui and ns.hui.ACCENT) or { 0x46 / 255, 0xbf / 255, 0x72 / 255 }
+local GRAY = (ns.hui and ns.hui.TEXT and ns.hui.TEXT[3]) or DIM
 
 local orb, panel, badge, badgeText, tweener, icon, disc, ring, voiceBtn
 local cards, heads, subRows, row, btnOpen, btnSkip, btnBlock, manage, moreText
+local Tip, HideTip
 local closeBtn, gear, opts, optCbs
+local foodMenu, foodRows, foodCatch, FoodMenuClose = nil, {}, nil, nil
 local orbMenu, menuOpenedAt = nil, 0
 local job = nil
 local current = nil
@@ -45,6 +47,70 @@ local pulseFrame, pulseT = nil, 0
 
 local function Cfg()
     return ns.ZoneHint and ns.ZoneHint.CFG and ns.ZoneHint.CFG() or {}
+end
+
+local VOICE_SEC = {
+    ["todo_food.ogg"] = 1.45,
+    ["todo_rested.ogg"] = 1.45,
+    ["prof_voice_on.ogg"] = 1.05,
+    ["todo_voice_off.ogg"] = 0.95,
+    ["prof_next_item.ogg"] = 1.35,
+    ["prof_not_learned.ogg"] = 1.12,
+    ["prof_skill_cap.ogg"] = 1.40,
+}
+
+local vq, vUntil, vTimer, vHandle = {}, 0, nil, nil
+
+local function Now()
+    return (GetTime and GetTime()) or 0
+end
+
+local vBootHold = Now() + 30
+
+local function VoiceDrain()
+    if #vq == 0 then return end
+    local hold = (vUntil > vBootHold) and vUntil or vBootHold
+    if Now() < hold then
+        if not vTimer and type(C_Timer) == "table" and type(C_Timer.After) == "function" then
+            vTimer = true
+            C_Timer.After(hold - Now() + 0.04, function()
+                vTimer = nil
+                VoiceDrain()
+            end)
+        end
+        return
+    end
+    local it = table.remove(vq, 1)
+    if not it.force and Cfg().voice ~= true then
+        vq = {}
+        return
+    end
+    if type(PlaySoundFile) ~= "function" then
+        vq = {}
+        return
+    end
+    local ok, _, h = pcall(PlaySoundFile, it.path, "Master")
+    vHandle = (ok and h) or nil
+    local f = string.match(it.path, "([^\\]+)$") or ""
+    vUntil = Now() + (VOICE_SEC[f] or 1.5) + 0.05
+    if #vq > 0 then VoiceDrain() end
+end
+
+function O.SayVoice(path, urgent)
+    if type(path) ~= "string" then return end
+    if urgent == true then
+        if vHandle and type(StopSound) == "function" then pcall(StopSound, vHandle) end
+        vHandle, vUntil, vBootHold = nil, 0, 0
+        vq = {}
+    else
+        if Cfg().voice ~= true then return end
+        for i = 1, #vq do
+            if vq[i].path == path then return end
+        end
+        if #vq >= 4 then return end
+    end
+    vq[#vq + 1] = { path = path, force = (urgent == true) }
+    VoiceDrain()
 end
 
 local function ApplyOrbSize()
@@ -78,11 +144,11 @@ end
 local function PaintVoiceBtn()
     if not (voiceBtn and voiceBtn.tex) then return end
     local muted = Cfg().voice ~= true
-    if voiceBtn.hover then
-        voiceBtn.tex:SetVertexColor(1, 1, 1, 1)
-    elseif muted then
+    if muted then
+        voiceBtn.tex:SetTexture("Interface\\AddOns\\DungeonsForever\\Media\\Prof\\prof_mute.tga")
         voiceBtn.tex:SetVertexColor(0.95, 0.32, 0.32, 0.98)
     else
+        voiceBtn.tex:SetTexture("Interface\\AddOns\\DungeonsForever\\Media\\Prof\\prof_voice_on.tga")
         voiceBtn.tex:SetVertexColor(GLYPH, GLYPH, GLYPH, 1)
     end
 end
@@ -141,6 +207,7 @@ end
 
 local function Close()
     if not panel or not panel:IsShown() then return end
+    if FoodMenuClose then FoodMenuClose() end
     hideToken = hideToken + 1
     StartTween(0.12, function(e)
         panel:SetAlpha(1 - e)
@@ -150,14 +217,15 @@ local function Close()
     end)
 end
 
-local function StartHideTimer()
+local function StartHideTimer(keep)
     hideToken = hideToken + 1
     local my = hideToken
-    local d = tonumber(Cfg().dur) or 12
+    local d = keep and 40 or (tonumber(Cfg().dur) or 12)
     if d <= 0 then return end
     if type(C_Timer) ~= "table" or type(C_Timer.After) ~= "function" then return end
     C_Timer.After(d, function()
         if my ~= hideToken then return end
+        if foodMenu and foodMenu:IsShown() then return end
         if opts and opts:IsShown() then return end
         if panel and panel:IsShown() and not hovered then Close() end
     end)
@@ -174,6 +242,44 @@ local function SubText(s)
     return table.concat(parts, " · ")
 end
 
+local function FitBtn(bt, text, fixedW)
+    if not (bt and text and text ~= "") then return end
+    bt:SetText(text)
+    if fixedW then
+        bt:SetWidth(fixedW)
+        return
+    end
+    local fs = bt:GetFontString()
+    local w = 0
+    if fs then
+        fs:SetText(text)
+        w = fs:GetStringWidth() or 0
+    end
+    w = math.floor(w + 24)
+    if w < 60 then w = 60 end
+    bt:SetWidth(w)
+end
+
+local function BtnTextW(bt, text)
+    if not (bt and text and text ~= "") then return 0 end
+    local fs = bt:GetFontString()
+    if not fs then return 0 end
+    fs:SetText(text)
+    return fs:GetStringWidth() or 0
+end
+
+local function UniformW(bt, a, b, c)
+    local m = BtnTextW(bt, a)
+    local w = BtnTextW(bt, b)
+    if w > m then m = w end
+    w = BtnTextW(bt, c)
+    if w > m then m = w end
+    m = math.floor(m + 16)
+    if m < 62 then m = 62 end
+    if m > 78 then m = 78 end
+    return m
+end
+
 local function MakeCard(i)
     local card = cards[i]
     if card then return card end
@@ -181,21 +287,76 @@ local function MakeCard(i)
     if ns.hui and ns.hui.SkinPopup and ns.hui.layer then
         ns.hui.SkinPopup(card, 8, "both", ns.hui.layer.L1)
     end
+    card.icon = card:CreateTexture(nil, "ARTWORK")
+    card.icon:SetSize(32, 32)
+    card.icon:SetPoint("TOPLEFT", card, "TOPLEFT", 10, -10)
+    card.icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
+    card.icon:Hide()
     card.title = card:CreateFontString(nil, "OVERLAY")
     card.title:SetFont(ns.FONT, 14, "")
-    card.title:SetPoint("TOPLEFT", card, "TOPLEFT", 10, -10)
+    card.title:SetPoint("TOPLEFT", card, "TOPLEFT", 50, -9)
+    card.title:SetJustifyH("LEFT")
+    card.title:SetWidth(PANEL_W - PAD * 2 - 60)
+    card.title:SetWordWrap(false)
     card.title:SetTextColor(TEXT[1], TEXT[2], TEXT[3])
+    card.name = card:CreateFontString(nil, "OVERLAY")
+    card.name:SetFont(ns.FONT, 12, "")
+    card.name:SetPoint("LEFT", card.title, "RIGHT", 6, -1)
+    card.name:SetJustifyH("LEFT")
+    card.name:SetWordWrap(false)
+    card.name:SetTextColor(GRAY[1], GRAY[2], GRAY[3])
     card.text = card:CreateFontString(nil, "OVERLAY")
     card.text:SetFont(ns.FONT, 12, "")
-    card.text:SetPoint("TOPLEFT", card, "TOPLEFT", 10, -30)
+    card.text:SetPoint("TOPLEFT", card, "TOPLEFT", 50, -27)
     card.text:SetJustifyH("LEFT")
     card.text:SetTextColor(DIM[1], DIM[2], DIM[3])
-    card.text:SetWidth(PANEL_W - PAD * 2 - 56)
+    card.text:SetWidth(PANEL_W - PAD * 2 - 60)
     card.text:SetWordWrap(false)
     if ns.hui and ns.hui.MakeSolidChip then
         card.chip = ns.hui.MakeSolidChip(card, panel:GetFrameLevel() + 3)
         card.chip:SetPoint("TOPRIGHT", card, "TOPRIGHT", -8, -7)
     end
+    card.act = ns.CreateButton(card)
+    card.act:SetSize(74, 22)
+    card.act:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", -8, 8)
+    card.act:SetScript("OnClick", function()
+        ns.PlaySound(1)
+        if card.onAct then card.onAct() end
+        if O.Refresh then O.Refresh() end
+    end)
+    card.act:SetScript("OnEnter", function()
+        if card.hint then Tip(card.act, card.hint, nil) end
+    end)
+    card.act:SetScript("OnLeave", HideTip)
+    card.act:Hide()
+    card.act2 = ns.CreateButton(card)
+    card.act2:SetSize(74, 22)
+    card.act2:SetPoint("BOTTOMRIGHT", card.act, "BOTTOMLEFT", -6, 0)
+    card.act2:SetScript("OnClick", function()
+        ns.PlaySound(1)
+        if card.onAct2 then card.onAct2() end
+        if O.Refresh then O.Refresh() end
+    end)
+    card.act2:SetScript("OnEnter", function()
+        if card.hint2 then Tip(card.act2, card.hint2, nil) end
+    end)
+    card.act2:SetScript("OnLeave", HideTip)
+    card.act2:Hide()
+    card.act3 = ns.CreateButton(card)
+    card.act3:SetSize(74, 22)
+    card.act3:SetScript("OnEnter", function()
+        if card.hint3 then Tip(card.act3, card.hint3, nil) end
+    end)
+    card.act3:SetScript("OnLeave", HideTip)
+    card.act3:Hide()
+    card.stat = card:CreateFontString(nil, "OVERLAY")
+    card.stat:SetFont(ns.FONT, 12, "")
+    card.stat:SetPoint("RIGHT", card.act, "LEFT", -8, 0)
+    card.stat:SetJustifyH("RIGHT")
+    card.stat:SetWordWrap(false)
+    card.stat:SetWidth(150)
+    card.stat:SetTextColor(FAINT[1], FAINT[2], FAINT[3])
+    card.stat:Hide()
     cards[i] = card
     return card
 end
@@ -216,7 +377,7 @@ local function MakeHead(i)
     return h
 end
 
-local function HideTip()
+HideTip = function()
     if GameTooltip then GameTooltip:Hide() end
 end
 
@@ -232,7 +393,7 @@ local function AddAccent(text)
     end
 end
 
-local function Tip(owner, title, desc, foot)
+Tip = function(owner, title, desc, foot)
     if not (GameTooltip and owner) then return end
     GameTooltip:SetOwner(owner, "ANCHOR_RIGHT")
     GameTooltip:ClearLines()
@@ -274,6 +435,29 @@ local function SpellTip(owner, id, name, sub, foot)
     AddGray(sub)
     AddAccent(foot)
     GameTooltip:Show()
+end
+
+local function OpenQuestPage(qid, slug)
+    if not qid then return false end
+    local U = ns.DungeonUI
+    if not U then return false end
+    if slug and ns.ShowDungeonDetail then
+        if not pcall(ns.ShowDungeonDetail, slug) then return false end
+    elseif ns.Open then
+        pcall(ns.Open)
+    end
+    U.dungeonQView = "list"
+    U.dungeonQFlow = nil
+    U.dungeonQuestSel = qid
+    U.dungeonQListKey = nil
+    U.dungeonQDetKey = nil
+    local DG = ns.DungeonDG or (ns.ProfHost and ns.ProfHost.DG)
+    local row = (DG and DG.QuestRowByID) and DG.QuestRowByID(qid) or nil
+    local qsd = (type(row) == "table") and row[2] or nil
+    if (qsd == "A" or qsd == "H") and U.dungeonQSide ~= qsd then U.dungeonQSide = qsd end
+    if U.SetDungeonTab then pcall(U.SetDungeonTab, U, "quest") end
+    if ns.MapModule and ns.MapModule.QuestScrollTo then pcall(ns.MapModule.QuestScrollTo, qid) end
+    return true
 end
 
 local function MarkOnMap(it)
@@ -335,6 +519,7 @@ local function MakeRow(i)
     r.btn = CreateFrame("Button", nil, r)
     r.btn:SetSize(24, 24)
     r.btn:SetPoint("RIGHT", r, "RIGHT", -6, 0)
+    r.btn:SetFrameLevel(r:GetFrameLevel() + 6)
     r.xt = r.btn:CreateFontString(nil, "OVERLAY")
     r.xt:SetFont(ns.FONT, 18, "")
     r.xt:SetPoint("CENTER", r.btn, "CENTER", 0, 0)
@@ -355,9 +540,15 @@ local function MakeRow(i)
         end
         O.Refresh()
     end)
-    r:SetScript("OnClick", function()
+    r:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+    r:SetScript("OnClick", function(_, btn)
         if not r.jump then return end
         if ns.ZoneHint and ns.ZoneHint.IsSim and ns.ZoneHint.IsSim() then return end
+        if btn == "RightButton" then
+            if r.ikind ~= "quest" then return end
+            if OpenQuestPage(r.qid or r.iid, r.slug) then Close() end
+            return
+        end
         ns.PlaySound(1)
         Close()
         r.jump()
@@ -375,7 +566,7 @@ local function MakeRow(i)
             end
             ItemTip(r, r.iid, r.ilabel, desc, L["点击在地图标出位置"])
         elseif r.ikind == "quest" then
-            Tip(r, r.ilabel, r.idesc or sub, L["点击在地图上定位"])
+            Tip(r, r.ilabel, r.idesc or sub, L["左键在地图上定位，右键查看任务详情"])
         else
             SpellTip(r, r.itipid or r.iid, r.ilabel, sub)
         end
@@ -387,6 +578,226 @@ local function MakeRow(i)
     end)
     subRows[i] = r
     return r
+end
+
+local function ActBtn(host, key)
+    if not host.actBtns then host.actBtns = {} end
+    local b = host.actBtns[key]
+    if b then return b end
+    if InCombatLockdown() then return nil end
+    local okc, btn = pcall(CreateFrame, "Button", "DFZoneOrbAct_" .. key, host, "SecureActionButtonTemplate")
+    if not okc or not btn then return nil end
+    btn:RegisterForClicks("AnyUp", "AnyDown")
+    btn:SetAttribute("useOnKeyDown", (GetCVarBool and GetCVarBool("ActionButtonUseKeyDown")) or false)
+    btn:SetScript("PreClick", function(self, mouse)
+        if mouse == "LeftButton" then
+            if self.actKind == "item" then
+                self:SetAttribute("type", "item")
+                self:SetAttribute("macrotext", nil)
+                self:SetAttribute("item", self.actValue)
+            elseif self.actKind == "macro" then
+                self:SetAttribute("type", "macro")
+                self:SetAttribute("item", nil)
+                self:SetAttribute("macrotext", self.actValue)
+            end
+        elseif self:GetAttribute("type") then
+            self:SetAttribute("type", nil)
+        end
+    end)
+    btn:SetScript("OnEnter", function(self)
+        if self.tipText then Tip(self, self.tipText, nil) end
+    end)
+    btn:SetScript("OnLeave", function() HideTip() end)
+    btn:HookScript("OnClick", function(self, mouse, down)
+        if down then return end
+        if mouse == "RightButton" and self.onRight then self.onRight() end
+    end)
+    host.actBtns[key] = btn
+    return btn
+end
+
+local function ActPlace(btn, target, tipText, kind, value, h, inset, onRight)
+    if not (btn and target) or InCombatLockdown() then return false end
+    btn.tipText = tipText
+    btn.onRight = onRight
+    btn:SetAttribute("type1", nil)
+    btn:SetAttribute("item1", nil)
+    btn:SetAttribute("macrotext1", nil)
+    if value then
+        if kind == "item" then
+            btn.actKind, btn.actValue = "item", value
+            btn:SetAttribute("type", "item")
+            btn:SetAttribute("macrotext", nil)
+            btn:SetAttribute("item", value)
+        else
+            btn.actKind, btn.actValue = "macro", value
+            btn:SetAttribute("type", "macro")
+            btn:SetAttribute("item", nil)
+            btn:SetAttribute("macrotext", value)
+        end
+    else
+        btn.actKind, btn.actValue = nil, nil
+        btn:SetAttribute("type", nil)
+        btn:SetAttribute("item", nil)
+        btn:SetAttribute("macrotext", nil)
+    end
+    local d = inset or 0
+    btn:ClearAllPoints()
+    btn:SetPoint("TOPLEFT", target, "TOPLEFT", d, -d)
+    btn:SetPoint("TOPRIGHT", target, "TOPRIGHT", -d, -d)
+    btn:SetHeight(h or (target:GetHeight() - d * 2))
+    btn:SetFrameLevel(target:GetFrameLevel() + 3)
+    btn:Show()
+    btn.usedNow = true
+    return true
+end
+
+FoodMenuClose = function()
+    if foodMenu then foodMenu:Hide() end
+    if foodCatch then foodCatch:Hide() end
+    _G.DFFoodMenuUp = nil
+end
+
+local function PickFood(self)
+    if not self or not self.foodID then return end
+    if not foodMenu then return end
+    _G.DFMenuLog = "pick:" .. tostring(self.foodID) .. ":" .. tostring(self.tok)
+    if foodMenu.tok == nil or self.tok ~= foodMenu.tok then return end
+    foodMenu.tok = -1
+    local c = ns.ZoneHint and ns.ZoneHint.CFG and ns.ZoneHint.CFG()
+    if c then c.preferFood = self.foodID end
+    if ns.PlaySound then ns.PlaySound(1) end
+    FoodMenuClose()
+    local res = O.Refresh and O.Refresh()
+    _G.DFMenuLog = _G.DFMenuLog .. "/pref=" .. tostring(c and c.preferFood) .. "/panel=" .. tostring(panel and panel:IsShown())
+    if panel and not panel:IsShown() then
+        if res then O.ForceOpen(res) elseif current then O.ForceOpen(current) end
+    end
+end
+
+local function FoodMenuRow(i)
+    local r = foodRows[i]
+    if r then return r end
+    r = CreateFrame("Button", nil, foodMenu, "BackdropTemplate")
+    r:SetBackdrop({ edgeFile = "Interface/ChatFrame/ChatFrameBackground", edgeSize = 1 })
+    r:SetBackdropBorderColor(0, 0, 0, 1)
+    r.tex = r:CreateTexture(nil, "ARTWORK")
+    r.tex:SetSize(16, 16)
+    r.tex:SetPoint("LEFT", r, "LEFT", 6, 0)
+    r.tex:SetTexCoord(0.07, 0.93, 0.07, 0.93)
+    r.lab = r:CreateFontString(nil, "OVERLAY")
+    r.lab:SetFont(ns.FONT, 12, "")
+    r.lab:SetPoint("LEFT", r.tex, "RIGHT", 6, 0)
+    r.lab:SetPoint("RIGHT", r, "RIGHT", -8, 0)
+    r.lab:SetJustifyH("LEFT")
+    r.lab:SetWordWrap(false)
+    r.lab:SetTextColor(TEXT[1], TEXT[2], TEXT[3])
+    r.hi = r:CreateTexture(nil, "HIGHLIGHT")
+    r.hi:SetAllPoints()
+    r.hi:SetColorTexture(ACC[1], ACC[2], ACC[3], 0.18)
+    r:SetScript("OnEnter", function(self)
+        if self.foodName then Tip(self, self.foodName, nil) end
+    end)
+    r:SetScript("OnLeave", function() HideTip() end)
+    r:SetScript("OnMouseDown", function(self, mouse)
+        if mouse == "LeftButton" then
+            _G.DFMenuRowDown = "row:" .. tostring(self.foodID) .. ":" .. tostring(self.tok) .. ":" .. tostring(foodMenu.tok)
+            PickFood(self)
+        end
+    end)
+    r:SetScript("OnMouseUp", function(self, mouse)
+        if mouse == "LeftButton" then PickFood(self) end
+    end)
+    r:SetScript("OnClick", function(self) PickFood(self) end)
+    foodRows[i] = r
+    return r
+end
+
+function O.FoodMenu()
+    if foodMenu and foodMenu:IsShown() then FoodMenuClose() return end
+    local list = (ns.ZoneHint and ns.ZoneHint.FoodList and ns.ZoneHint.FoodList()) or {}
+    if #list == 0 then return end
+    if not panel then return end
+    if not foodCatch then
+        foodCatch = CreateFrame("Frame", "DFZoneOrbFoodCatch", UIParent)
+        foodCatch:SetAllPoints(UIParent)
+        foodCatch:SetFrameStrata("FULLSCREEN_DIALOG")
+        foodCatch:EnableMouse(true)
+        foodCatch:SetScript("OnMouseDown", function()
+            _G.DFMenuCatch = tostring((GetTime and GetTime()) or 0)
+            FoodMenuClose()
+        end)
+        foodCatch:Hide()
+    end
+    if not foodMenu then
+        foodMenu = CreateFrame("Frame", "DFZoneOrbFoodMenu", UIParent, "BackdropTemplate")
+        foodMenu:SetFrameStrata("FULLSCREEN_DIALOG")
+        foodMenu:SetFrameLevel(200)
+        if ns.hui and ns.hui.SkinPopup and ns.hui.layer then
+            ns.hui.SkinPopup(foodMenu, 8, "both", ns.hui.layer.L2)
+        end
+        foodMenu:EnableMouse(true)
+        foodMenu:SetScript("OnMouseDown", function() end)
+        foodMenu:SetScript("OnMouseUp", function() end)
+        foodMenu.title = foodMenu:CreateFontString(nil, "OVERLAY")
+        foodMenu.title:SetFont(ns.FONT, 12, "")
+        foodMenu.title:SetPoint("TOPLEFT", foodMenu, "TOPLEFT", 10, -8)
+        foodMenu.title:SetTextColor(GRAY[1], GRAY[2], GRAY[3])
+        foodMenu.title:SetText(L["选择食物"])
+    end
+    local shown = #list > 8 and 8 or #list
+    local tok = (tonumber(foodMenu.tok) or 0) + 1
+    if tok < 1 then tok = 1 end
+    foodMenu.tok = tok
+    local y = -26
+    for i = 1, shown do
+        local e = list[i]
+        local r = FoodMenuRow(i)
+        r.foodID, r.foodName = e.id, e.name
+        r.tok = tok
+        r.tex:SetTexture(e.icon)
+        r.lab:SetText(string.format("%s ×%d", e.name, e.count))
+        r:ClearAllPoints()
+        r:SetPoint("TOPLEFT", foodMenu, "TOPLEFT", 6, y)
+        r:SetPoint("TOPRIGHT", foodMenu, "TOPRIGHT", -6, y)
+        r:SetHeight(22)
+        r:SetFrameLevel(foodMenu:GetFrameLevel() + 2)
+        r:Show()
+        y = y - 23
+    end
+    for i = shown + 1, #foodRows do foodRows[i]:Hide() end
+    local w = 150
+    if not foodMenu.meas then
+        foodMenu.meas = foodMenu:CreateFontString(nil, "OVERLAY")
+        foodMenu.meas:SetFont(ns.FONT, 12, "")
+        foodMenu.meas:SetWordWrap(false)
+        foodMenu.meas:Hide()
+    end
+    for i = 1, shown do
+        foodMenu.meas:SetText(foodRows[i].lab:GetText() or "")
+        local tw = TextW(foodMenu.meas, 100) + 52
+        if tw > w then w = tw end
+    end
+    if w > 320 then w = 320 end
+    foodMenu:SetSize(w, -y + 4)
+    foodMenu:ClearAllPoints()
+    local uiW = (UIParent and UIParent:GetWidth()) or 1920
+    local rx = (panel:GetRight() or 0)
+    if rx > 0 and rx + 8 + w > uiW - 10 then
+        foodMenu:SetPoint("RIGHT", panel, "LEFT", -8, 0)
+    else
+        foodMenu:SetPoint("LEFT", panel, "RIGHT", 8, 0)
+    end
+    foodMenu.shownAt = (GetTime and GetTime()) or 0
+    foodCatch:SetFrameLevel(foodMenu:GetFrameLevel() - 1)
+    foodCatch:Show()
+    foodMenu:Show()
+    _G.DFFoodMenuUp = true
+    _G.DFMenuOpen = string.format("%s/%.0f,%.0f %.0fx%.0f/lvl%s/rows%d",
+        tostring(foodMenu:GetParent() and foodMenu:GetParent():GetName() or "?"),
+        foodMenu:GetLeft() or -1, foodMenu:GetBottom() or -1,
+        foodMenu:GetWidth() or -1, foodMenu:GetHeight() or -1,
+        tostring(foodMenu:GetFrameLevel()), shown)
 end
 
 local function Layout(res)
@@ -418,7 +829,9 @@ local function Layout(res)
                 h = h + HEAD_H + 2 + shown * (rowH + ROW_GAP)
                 if c > shown then h = h + 18 end
             else
-                h = h + CARD_H + GAP
+                local cardH = CARD_H
+                if list[i] and list[i].btn then cardH = CARD_H + 26 end
+                h = h + cardH + GAP
             end
         end
         return h
@@ -473,6 +886,8 @@ local function Layout(res)
                     r.icon:SetTexture(s.icon or "Interface\\Icons\\INV_Misc_QuestionMark")
                 end
                 r.icon:SetSize(iconSz, iconSz)
+                local actID = s.foodID or s.useItem
+                local actMacro = (not actID) and s.useMacro or nil
                 r.name:ClearAllPoints()
                 r.name:SetPoint("TOPLEFT", r, "TOPLEFT", textLeft, -6)
                 r.name:SetWidth(textW)
@@ -481,6 +896,29 @@ local function Layout(res)
                 r.sub:SetWidth(textW)
                 r.name:SetText(s.name or "")
                 r.sub:SetText(s.sub or SubText(s))
+                local nameW = TextW(r.name, 14)
+                if nameW > textW - 30 then nameW = textW - 30 end
+                local tailX = textLeft + nameW
+                if s.note then
+                    if not r.note then
+                        r.note = r:CreateFontString(nil, "OVERLAY")
+                        r.note:SetFont(ns.FONT, 12, "")
+                        r.note:SetTextColor(DIM[1], DIM[2], DIM[3])
+                        r.note:SetWordWrap(false)
+                        r.note:SetJustifyH("LEFT")
+                    end
+                    r.note:SetText(string.format(L["（%s）"], s.note))
+                    r.note:ClearAllPoints()
+                    r.note:SetPoint("LEFT", r.name, "LEFT", nameW + 3, 0)
+                    r.note:Show()
+                    tailX = tailX + 3 + TextW(r.note, 12)
+                elseif r.note then
+                    r.note:Hide()
+                end
+                r.btn:ClearAllPoints()
+                r.btn:SetPoint("RIGHT", r, "RIGHT", -6, 0)
+                r.btn:SetFrameLevel(r:GetFrameLevel() + 6)
+                r.btn:Show()
                 do
                     local DG = ns.DungeonDG or (ns.ProfHost and ns.ProfHost.DG)
                     if s.badge and DG and DG.MakeBadge and DG.BadgeTint then
@@ -501,13 +939,37 @@ local function Layout(res)
                         r.badge:Hide()
                     end
                 end
+                if (actID or actMacro) and ns.hui and ns.hui.MakeSolidChip and ns.hui.PaintSolidChip then
+                    if not r.actChip then r.actChip = ns.hui.MakeSolidChip(r, r:GetFrameLevel() + 2, 20) end
+                    ns.hui.PaintSolidChip(r.actChip, s.actLabel or L["使用"], ns.hui.ACCENT, nil, 12)
+                    local cw = r.actChip:GetWidth() or 44
+                    local chipX = tailX + 6
+                    local chipMax = (PANEL_W - PAD * 2) - 40 - cw
+                    if chipX > chipMax then chipX = chipMax end
+                    if chipX < textLeft then chipX = textLeft end
+                    r.actChip:ClearAllPoints()
+                    r.actChip:SetPoint("LEFT", r, "TOPLEFT", chipX, -14)
+                    r.actChip:Show()
+                    if actID then
+                        ActPlace(ActBtn(panel, "row" .. ri), r, s.actTip, "item", "item:" .. actID,
+                            rowH, nil, s.foodID and function() O.FoodMenu() end or nil)
+                    else
+                        ActPlace(ActBtn(panel, "row" .. ri), r, s.actTip, "macro", actMacro, rowH, nil, nil)
+                    end
+                else
+                    if r.actChip then r.actChip:Hide() end
+                end
                 r.ikey = s.ikey
                 r.ikind = s.ikind or it.kind
                 r.iid = s.base or s.id
                 r.itipid = s.id
+                r.qid = s.qid
+                r.slug = s.slug
                 r.idesc = s.desc
                 r.ilabel = s.name
-                if s.areaID or s.qid or (s.mapID and s.x and s.y) then
+                if s.jump then
+                    r.jump = s.jump
+                elseif s.areaID or s.qid or (s.mapID and s.x and s.y) then
                     r.jump = function() return MarkOnMap(s) end
                 else
                     r.jump = nil
@@ -533,21 +995,168 @@ local function Layout(res)
             local card = MakeCard(ci)
             card.title:SetText(it.title or "")
             card.text:SetText(it.text or "")
+            local textH = 14
+            if it.btn then
+                card.text:SetWordWrap(true)
+                card.text:SetWidth(PANEL_W - PAD * 2 - 60)
+                textH = card.text:GetStringHeight() or 14
+                if textH < 14 then textH = 14 end
+            else
+                card.text:SetWordWrap(false)
+                card.text:SetWidth(PANEL_W - PAD * 2 - 60)
+            end
+            if it.icon then
+                card.icon:SetTexture(it.icon)
+                card.icon:ClearAllPoints()
+                card.icon:SetPoint("TOPLEFT", card, "TOPLEFT", 10, -(9 + (18 + textH) / 2 - 16))
+                card.icon:Show()
+            else
+                card.icon:Hide()
+            end
+            if it.name and it.name ~= "" then
+                card.name:SetText(it.name)
+                local tw = (card.title:GetStringWidth() or 40) + 6
+                local nx = 50 + tw
+                local nw = PANEL_W - PAD * 2 - nx - 10
+                if nw < 40 then nw = 40 end
+                card.name:ClearAllPoints()
+                card.name:SetPoint("TOPLEFT", card, "TOPLEFT", nx, -10)
+                card.name:SetWidth(nw)
+                card.name:Show()
+            else
+                card.name:SetText("")
+                card.name:Hide()
+            end
             if card.chip and ns.hui and ns.hui.PaintSolidChip then
-                ns.hui.PaintSolidChip(card.chip, tostring(it.n or 0), ns.hui.ACCENT, 32)
+                local chip = tostring(it.n or 0)
+                if it.noChip then chip = "" end
+                ns.hui.PaintSolidChip(card.chip, chip, ns.hui.ACCENT, 32)
+            end
+            local ch = CARD_H
+            if it.btn then
+                ch = 27 + textH + 6 + 22 + 8
+                local has2 = it.btn2 and it.btn2 ~= ""
+                local has3 = it.btn3 and it.btn3 ~= ""
+                local bw
+                if has2 or has3 then
+                    bw = UniformW(card.act, it.btn, it.btn2, it.btn3)
+                    FitBtn(card.act, it.btn, bw)
+                else
+                    FitBtn(card.act, it.btn)
+                end
+                card.onAct = it.onClick
+                card.hint = it.hint
+                card.act:Show()
+                if has2 then
+                    FitBtn(card.act2, it.btn2, bw)
+                    card.onAct2 = it.onClick2
+                    card.hint2 = it.hint2
+                    card.act2:ClearAllPoints()
+                    card.act2:SetPoint("BOTTOM", card, "BOTTOM", 0, 8)
+                    card.act2:Show()
+                else
+                    card.onAct2 = nil
+                    card.hint2 = nil
+                    card.act2:Hide()
+                end
+                if has3 then
+                    FitBtn(card.act3, it.btn3, bw)
+                    card.hint3 = it.hint3
+                    card.act3:ClearAllPoints()
+                    card.act3:SetPoint("BOTTOMLEFT", card, "BOTTOMLEFT", 8, 8)
+                    card.act3:Show()
+                    local scc = (ns.CampWatch and ns.CampWatch.SitCmd and ns.CampWatch.SitCmd()) or "/sit"
+                    local sb = ActBtn(panel, "card" .. ci .. "sit")
+                    if sb then
+                        sb.actKind, sb.actValue = "macro", scc
+                        sb:SetAttribute("type", "macro")
+                        sb:SetAttribute("macrotext", scc)
+                        sb.tipText = it.hint3
+                        sb:ClearAllPoints()
+                        sb:SetPoint("BOTTOMLEFT", card.act3, "BOTTOMLEFT", 0, 0)
+                        sb:SetPoint("TOPRIGHT", card.act3, "TOPRIGHT", 0, 0)
+                        sb:SetHeight(22)
+                        sb:SetFrameLevel(card:GetFrameLevel() + 6)
+                        sb:Show()
+                        sb.usedNow = true
+                    end
+                else
+                    card.hint3 = nil
+                    card.act3:Hide()
+                end
+                if it.stat and it.stat ~= "" then
+                    local sc = it.statOn and ACC or DIM
+                    card.stat:SetText(it.stat)
+                    card.stat:SetTextColor(sc[1], sc[2], sc[3])
+                    card.stat:ClearAllPoints()
+                    card.stat:SetPoint("RIGHT", card.act, "LEFT", -8, 0)
+                    card.stat:SetJustifyH("RIGHT")
+                    card.stat:SetWidth(150)
+                    card.stat:Show()
+                else
+                    card.stat:Hide()
+                end
+            else
+                card.onAct = nil
+                card.hint = nil
+                card.onAct2 = nil
+                card.hint2 = nil
+                card.hint3 = nil
+                card.act:Hide()
+                card.act2:Hide()
+                card.act3:Hide()
+                card.stat:Hide()
+            end
+            local cardAct = it.onCard or it.useMacro or it.useItem
+            card:SetScript("OnMouseUp", nil)
+            if cardAct then
+                card:EnableMouse(true)
+                card.cardHint = it.cardHint
+                card:SetScript("OnEnter", function()
+                    if card.cardHint then Tip(card, card.cardHint, nil) end
+                end)
+                card:SetScript("OnLeave", function()
+                    HideTip()
+                end)
+            else
+                card:EnableMouse(false)
+                card.cardHint = nil
+                card:SetScript("OnEnter", nil)
+                card:SetScript("OnLeave", nil)
+            end
+            if it.onCard then
+                local cmd = (ns.CampWatch and ns.CampWatch.SitCmd and ns.CampWatch.SitCmd()) or "/sit"
+                ActPlace(ActBtn(panel, "card" .. ci), card, it.cardHint, "macro", cmd,
+                    ch - (it.btn and 30 or 0) - 1, 1)
+            elseif cardAct then
+                ActPlace(ActBtn(panel, "card" .. ci), card, it.cardHint,
+                    it.useItem and "item" or "macro",
+                    it.useItem and ("item:" .. it.useItem) or it.useMacro,
+                    ch - (it.btn and 30 or 0) - 1, 1)
             end
             card:ClearAllPoints()
             card:SetPoint("TOPLEFT", panel, "TOPLEFT", PAD, y)
             card:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -PAD, y)
-            card:SetHeight(CARD_H)
+            card:SetHeight(ch)
             card:Show()
-            contentBottom = y - CARD_H
-            y = y - (CARD_H + GAP)
+            contentBottom = y - ch
+            y = y - (ch + GAP)
         end
     end
     for i = ci + 1, #cards do cards[i]:Hide() end
+    if panel.actBtns then
+        for _, b in pairs(panel.actBtns) do
+            if b.usedNow then
+                b.usedNow = nil
+            elseif not InCombatLockdown() then
+                b:Hide()
+            end
+        end
+    end
     for i = hi + 1, #heads do heads[i]:Hide() end
-    for i = ri + 1, #subRows do subRows[i]:Hide() end
+    if not InCombatLockdown() then
+        for i = ri + 1, #subRows do subRows[i]:Hide() end
+    end
 
     local btY = (contentBottom or (TOP_Y + 4)) - GAP
     row:ClearAllPoints()
@@ -555,12 +1164,19 @@ local function Layout(res)
     row:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -PAD, btY)
     row:SetHeight(24)
     row:Show()
-    panel:SetHeight(-btY + 24 + PAD)
+    if not (InCombatLockdown and InCombatLockdown()) then
+        panel:SetHeight(-btY + 24 + PAD)
+    end
 end
 
-local function Open()
+local function Open(keep)
     if not panel or panel:IsShown() then return end
+    if InCombatLockdown and InCombatLockdown() then return end
     if opts then opts:Hide() end
+    do
+        local MWm = ns.MapWindowModule
+        if MWm and MWm.MinioCardWanted and MWm.MinioCardWanted() then O.Refresh() end
+    end
     Layout(current)
     panel:SetAlpha(0)
     local function apply(e)
@@ -572,12 +1188,27 @@ local function Open()
     panel:Show()
     openedAt = (GetTime and GetTime()) or 0
     StartTween(0.18, apply)
-    StartHideTimer()
+    StartHideTimer(keep)
+end
+
+local function CbTipBody()
+    local parts = {}
+    local items = current and current.items
+    if type(items) == "table" then
+        for _, it in ipairs(items) do
+            if #parts >= 8 then break end
+            local s = it.name
+            if type(s) == "string" and s ~= "" then parts[#parts + 1] = "· " .. s end
+        end
+    end
+    return table.concat(parts, "\n")
 end
 
 local function Toggle()
     if panel and panel:IsShown() then
         Close()
+    elseif InCombatLockdown and InCombatLockdown() then
+        O.CbPreviewToggle()
     else
         Open()
     end
@@ -590,6 +1221,20 @@ local function Pulse()
 end
 
 function O.Update(res)
+    do
+        local MWm = ns.MapWindowModule
+        if MWm and MWm.MinioCardWanted and MWm.MinioCardWanted() and MWm.TodoCard then
+            local g = MWm.TodoCard()
+            if g and g.list then
+                res = res or {}
+                res.items = res.items or {}
+                if not res.__dfMapCard then
+                    table.insert(res.items, 1, g)
+                    res.__dfMapCard = true
+                end
+            end
+        end
+    end
     current = res
     if not badge then return end
     local onc = Cfg()
@@ -633,10 +1278,10 @@ function O.Update(res)
     end
     if onc.on ~= false then
         if sawFood and not lastFood and onc.voice == true and onc.foodVoice ~= false then
-            pcall(PlaySoundFile, FOOD_CUE, "Master")
+            O.SayVoice(FOOD_CUE)
         end
         if sawRested and not lastRested and onc.voice == true and onc.restedVoice ~= false then
-            pcall(PlaySoundFile, RESTED_CUE, "Master")
+            O.SayVoice(RESTED_CUE)
         end
     end
     lastFood, lastRested = sawFood, sawRested
@@ -647,7 +1292,11 @@ function O.Reveal(res, reason)
     O.Update(res)
     local mode = Cfg().mode or "auto"
     if mode == "silent" or mode == "badge" then return end
-    if reason == "login" or reason == "zone" or reason == "manual" then Open() end
+    if reason == "tent" then
+        if panel and panel:IsShown() then StartHideTimer(true) else Open(true) end
+    elseif reason == "login" or reason == "zone" or reason == "manual" then
+        Open()
+    end
 end
 
 function O.IsShown()
@@ -662,30 +1311,28 @@ end
 local function InitVoiceBtn()
     voiceBtn = CreateFrame("Button", nil, panel)
     voiceBtn:SetSize(SIDE_S, SIDE_S)
-    voiceBtn:SetPoint("RIGHT", gear, "LEFT", -BTN_GAP, 0)
+    voiceBtn:SetPoint("CENTER", panel, "TOPRIGHT", -100, -22)
     voiceBtn:SetFrameLevel(panel:GetFrameLevel() + 4)
     voiceBtn.hover = false
     voiceBtn.tex = voiceBtn:CreateTexture(nil, "ARTWORK")
-    voiceBtn.tex:SetSize(13, 13)
+    voiceBtn.tex:SetSize(19, 19)
     voiceBtn.tex:SetPoint("CENTER", voiceBtn, "CENTER", 0, 0)
     voiceBtn.tex:SetTexture("Interface\\AddOns\\DungeonsForever\\Media\\Prof\\prof_mute.tga")
     voiceBtn:SetScript("OnClick", function()
         ns.PlaySound(1)
-        voiceBtn.hover = false
         local c = Cfg()
-        c.voice = (c.voice == true) and false or true
+        c.voice = not (c.voice == true)
         PaintVoiceBtn()
-        if c.voice == true then pcall(PlaySoundFile, ON_CUE, "Master") end
+        O.SayVoice((c.voice == true) and ON_CUE or OFF_CUE, true)
+        if voiceBtn:IsMouseOver() then
+            Tip(voiceBtn, L["语音"], (c.voice == true) and L["语音提示：开启（点击静音）"] or L["语音提示：已静音（点击恢复）"])
+        end
     end)
     voiceBtn:SetScript("OnEnter", function()
-        voiceBtn.hover = true
-        PaintVoiceBtn()
         local c = Cfg()
         Tip(voiceBtn, L["语音"], (c.voice ~= true) and L["语音提示：已静音（点击恢复）"] or L["语音提示：开启（点击静音）"])
     end)
     voiceBtn:SetScript("OnLeave", function()
-        voiceBtn.hover = false
-        PaintVoiceBtn()
         HideTip()
     end)
     PaintVoiceBtn()
@@ -797,13 +1444,13 @@ function O.Init()
 
     closeBtn = CreateFrame("Button", nil, panel, "BackdropTemplate")
     closeBtn:SetSize(CLOSE_S, CLOSE_S)
-    closeBtn:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -4, -4)
+    closeBtn:SetPoint("CENTER", panel, "TOPRIGHT", -22, -22)
     closeBtn:SetFrameLevel(panel:GetFrameLevel() + 4)
     if ns.hui and ns.hui.SkinButton then ns.hui.SkinButton(closeBtn, { noFrame = true }) end
     local ct = closeBtn:CreateTexture(nil, "ARTWORK")
     ct:SetTexture("Interface\\AddOns\\DungeonsForever\\Media\\textures\\YY_close")
-    ct:SetSize(26, 26)
-    ct:SetPoint("CENTER")
+    ct:SetSize(32, 32)
+    ct:SetPoint("CENTER", closeBtn, "CENTER", 0, 0.4)
     ct:SetVertexColor(GLYPH, GLYPH, GLYPH)
     closeBtn:SetScript("OnClick", function() Close() end)
     closeBtn:SetScript("OnEnter", function()
@@ -847,7 +1494,7 @@ function O.Init()
 
     manage = CreateFrame("Button", nil, panel)
     manage:SetSize(MANAGE_S, MANAGE_S)
-    manage:SetPoint("RIGHT", closeBtn, "LEFT", -BTN_GAP_MC, 0)
+    manage:SetPoint("CENTER", panel, "TOPRIGHT", -48, -22)
     manage:SetFrameLevel(panel:GetFrameLevel() + 4)
     manage.tex = {}
     local function paintManage(v)
@@ -856,16 +1503,16 @@ function O.Init()
     do
         local g = GLYPH
         for i = 1, 3 do
-            local yy = 5.6 - (i - 1) * 5.6
+            local yy = 6.3 - (i - 1) * 6.3
             local dot = manage:CreateTexture(nil, "ARTWORK")
             dot:SetColorTexture(g, g, g, 1)
-            dot:SetSize(2.4, 2.4)
-            dot:SetPoint("CENTER", manage, "CENTER", -5.6, yy)
+            dot:SetSize(2.7, 2.7)
+            dot:SetPoint("CENTER", manage, "CENTER", -6.3, yy)
             manage.tex[#manage.tex + 1] = dot
             local bar = manage:CreateTexture(nil, "ARTWORK")
             bar:SetColorTexture(g, g, g, 1)
-            bar:SetSize(8.8, 1.6)
-            bar:SetPoint("CENTER", manage, "CENTER", 0.8, yy)
+            bar:SetSize(10, 1.8)
+            bar:SetPoint("CENTER", manage, "CENTER", 0.9, yy)
             manage.tex[#manage.tex + 1] = bar
         end
     end
@@ -885,7 +1532,7 @@ function O.Init()
 
     gear = CreateFrame("Button", "DFZoneOrbGear", panel)
     gear:SetSize(SIDE_S, SIDE_S)
-    gear:SetPoint("RIGHT", manage, "LEFT", -BTN_GAP, 0)
+    gear:SetPoint("CENTER", panel, "TOPRIGHT", -74, -22)
     gear:SetFrameLevel(panel:GetFrameLevel() + 4)
     local gt = gear:CreateTexture(nil, "ARTWORK")
     gt:SetTexture("Interface\\AddOns\\DungeonsForever\\Media\\textures\\DF_Settings")
@@ -895,7 +1542,7 @@ function O.Init()
 
     InitVoiceBtn()
     opts = CreateFrame("Frame", nil, panel, "BackdropTemplate")
-    opts:SetSize(184, 312)
+    opts:SetSize(184, 422)
     opts:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -8, -40)
     opts:SetFrameLevel(panel:GetFrameLevel() + 8)
     if ns.hui and ns.hui.SkinPopup and ns.hui.layer then
@@ -924,46 +1571,44 @@ function O.Init()
     local function OptRow(y, label, key, tip, vkey)
         local t = opts:CreateFontString(nil, "OVERLAY")
         t:SetFont(ns.FONT, 14, "")
-        t:SetPoint("TOPLEFT", opts, "TOPLEFT", 10, y)
+        t:SetPoint("TOPLEFT", opts, "TOPLEFT", 10, y - 4)
         t:SetText(label)
         t:SetTextColor(TEXT[1], TEXT[2], TEXT[3])
         if vkey then
             local vb = CreateFrame("Button", nil, opts)
-            vb:SetSize(24, 20)
-            vb:SetPoint("TOPRIGHT", opts, "TOPRIGHT", -54, y + 1)
-            vb.hover = false
+            vb:SetSize(28, 22)
+            vb:SetPoint("TOPRIGHT", opts, "TOPRIGHT", -56, y + 1)
             vb.tex = vb:CreateTexture(nil, "ARTWORK")
-            vb.tex:SetSize(16, 16)
+            vb.tex:SetSize(21, 21)
             vb.tex:SetPoint("CENTER", vb, "CENTER", 0, 0)
             vb.tex:SetTexture("Interface\\AddOns\\DungeonsForever\\Media\\Prof\\prof_mute.tga")
             local cue = (vkey == "foodVoice") and FOOD_CUE or RESTED_CUE
             local function paint()
                 local c = ns.ZoneHint and ns.ZoneHint.CFG and ns.ZoneHint.CFG() or {}
-                if vb.hover then
-                    vb.tex:SetVertexColor(1, 1, 1, 1)
-                elseif c[vkey] == false then
+                if c[vkey] == false then
+                    vb.tex:SetTexture("Interface\\AddOns\\DungeonsForever\\Media\\Prof\\prof_mute.tga")
                     vb.tex:SetVertexColor(0xC6 / 255, 0xCB / 255, 0xD4 / 255, 1)
                 else
+                    vb.tex:SetTexture("Interface\\AddOns\\DungeonsForever\\Media\\Prof\\prof_voice_on.tga")
                     vb.tex:SetVertexColor(ACC[1], ACC[2], ACC[3], 1)
                 end
             end
             vb.PaintVoice = paint
             vb:SetScript("OnClick", function()
                 ns.PlaySound(1)
-                vb.hover = false
                 local c = ns.ZoneHint and ns.ZoneHint.CFG and ns.ZoneHint.CFG()
                 if c then c[vkey] = (c[vkey] == false) and true or false end
                 paint()
-                if c and c[vkey] ~= false then pcall(PlaySoundFile, cue, "Master") end
+                O.SayVoice(((c and c[vkey] ~= false) and cue) or OFF_CUE, true)
+                if vb:IsMouseOver() then
+                    Tip(vb, L["语音"], (c and c[vkey] == false) and L["语音提示：已静音（点击恢复）"] or L["语音提示：开启（点击静音）"])
+                end
             end)
             vb:SetScript("OnEnter", function()
-                vb.hover = true
-                paint()
-                Tip(vb, L["语音"], L["提醒时播放语音"])
+                local c = ns.ZoneHint and ns.ZoneHint.CFG and ns.ZoneHint.CFG() or {}
+                Tip(vb, L["语音"], (c[vkey] == false) and L["语音提示：已静音（点击恢复）"] or L["语音提示：开启（点击静音）"])
             end)
             vb:SetScript("OnLeave", function()
-                vb.hover = false
-                paint()
                 HideTip()
             end)
             paint()
@@ -1001,31 +1646,98 @@ function O.Init()
     OptRow(-54, L["探索-书籍上交提醒"], "turnin", L["在幽暗城且背包有可上交的书时提示"])
     OptRow(-76, L["探索-睡袋提醒"], "bag", L["本图有睡袋任务链的一步时提示"])
     OptRow(-98, L["探索-火炬提醒"], "torch", L["本图有守夜人火炬可拾取时提示"])
-    OptRow(-120, L["探索-旗帜提醒"], "banner", L["本图有血色旗帜可拾取时提示"])
+    OptRow(-120, L["探索-旗帜提醒"], "banner", L["进入血色修道院副本后，有未拾取的血色旗帜时提示"])
     OptRow(-142, L["副本-任务提醒"], "quest", L["本图有可接的副本任务时提示"])
     OptRow(-164, L["职业-技能提醒"], "spell", L["主城有训练师且技能可学时提示"])
     OptRow(-186, L["增益-食物提醒"], "food", L["没吃食物、缺少经验加成时提示"], "foodVoice")
     OptRow(-208, L["增益-睡袋提醒"], "rested", L["背包有睡袋且未休息或 buff 快到期时提示"], "restedVoice")
+    OptRow(-230, L["增益-露营提醒"], "camp", L["在营火旁且没有强化休息时提示"])
+    OptRow(-252, L["增益-到期提醒"], "renew", L["强化休息快到期时提示回营地续一次"])
+    OptRow(-274, L["增益-蹭帐篷卡片"], "tent", L["找到营地玩家且自己还没有强化休息时，在待办里弹出卡片"])
+    OptRow(-296, L["有帐篷时不提示"], "tentOwn", L["自己已有帐篷时，不再在待办里弹出蹭帐篷卡片"])
+
+    local ttLabel = opts:CreateFontString(nil, "OVERLAY")
+    ttLabel:SetFont(ns.FONT, 14, "")
+    ttLabel:SetPoint("TOPLEFT", opts, "TOPLEFT", 10, -322)
+    ttLabel:SetText(L["蹭帐篷密语"])
+    ttLabel:SetTextColor(TEXT[1], TEXT[2], TEXT[3])
+
+    local ttBtn = CreateFrame("Button", nil, opts, "BackdropTemplate")
+    ttBtn:SetSize(56, 20)
+    ttBtn:SetPoint("TOPRIGHT", opts, "TOPRIGHT", -8, -319)
+    if ns.hui and ns.hui.BuildRoundedBG and ns.hui.layer then
+        ns.hui.BuildRoundedBG(ttBtn, 6, ns.hui.layer.L2, "both", true, 1)
+    end
+    local ttText = ttBtn:CreateFontString(nil, "OVERLAY")
+    ttText:SetFont(ns.FONT, 13, "")
+    ttText:SetPoint("CENTER", ttBtn, "CENTER", 0, 0)
+    ttText:SetTextColor(ACC[1], ACC[2], ACC[3])
+
+    local function CampTexts()
+        local CW = ns.CampWatch
+        if CW and CW.Texts then
+            local ok, v = pcall(CW.Texts)
+            if ok and type(v) == "table" then return v end
+        end
+        return {}
+    end
+
+    local function SyncTentText()
+        local c = ns.ZoneHint and ns.ZoneHint.CFG and ns.ZoneHint.CFG() or {}
+        local i = tonumber(c.tentText) or 1
+        ttText:SetText(string.format(L["第 %d 句"], i))
+    end
+
+    ttBtn:SetScript("OnClick", function()
+        ns.PlaySound(1)
+        local texts = CampTexts()
+        if #texts == 0 then return end
+        local c0 = ns.ZoneHint and ns.ZoneHint.CFG and ns.ZoneHint.CFG() or {}
+        local cur = tonumber(c0.tentText) or 1
+        local items = {}
+        for i = 1, #texts do
+            items[i] = {
+                text = texts[i],
+                checked = (i == cur),
+                func = function()
+                    local c2 = ns.ZoneHint and ns.ZoneHint.CFG and ns.ZoneHint.CFG()
+                    if c2 then c2.tentText = i end
+                    SyncTentText()
+                    O.Refresh()
+                    if ns.MainFrame and ns.MainFrame.SyncZoneHintCard then ns.MainFrame.SyncZoneHintCard() end
+                end,
+            }
+        end
+        if ns.hui and ns.hui.ShowMenu then ns.hui.ShowMenu(items, { anchor = ttBtn, up = true }) end
+    end)
+    ttBtn:SetScript("OnEnter", function()
+        local texts = CampTexts()
+        local c0 = ns.ZoneHint and ns.ZoneHint.CFG and ns.ZoneHint.CFG() or {}
+        local i = tonumber(c0.tentText) or 1
+        Tip(ttBtn, L["蹭帐篷密语"], (texts[i] or "") .. "\n" .. L["点击选择另外两句"])
+    end)
+    ttBtn:SetScript("OnLeave", HideTip)
+    SyncTentText()
 
     local oph2 = opts:CreateFontString(nil, "OVERLAY")
     oph2:SetFont(ns.FONT, 14, "")
-    oph2:SetPoint("TOPLEFT", opts, "TOPLEFT", 10, -232)
+    oph2:SetPoint("TOPLEFT", opts, "TOPLEFT", 10, -346)
     oph2:SetText(L["窗口设置"])
     oph2:SetTextColor(FAINT[1], FAINT[2], FAINT[3])
 
-    OptRow(-256, L["仅有待办时显示"], "onlyTodo", L["没有待办时隐藏圆形按钮"])
+    OptRow(-366, L["仅有待办时显示"], "onlyTodo", L["没有待办时隐藏圆形按钮"])
 
     local SIZES = { 24, 28, 32, 36, 40 }
 
     local szLabel = opts:CreateFontString(nil, "OVERLAY")
     szLabel:SetFont(ns.FONT, 14, "")
-    szLabel:SetPoint("TOPLEFT", opts, "TOPLEFT", 10, -280)
+    szLabel:SetPoint("TOPLEFT", opts, "TOPLEFT", 10, -394)
     szLabel:SetText(L["待办图标大小"])
     szLabel:SetTextColor(TEXT[1], TEXT[2], TEXT[3])
 
     local szBtn = CreateFrame("Button", nil, opts, "BackdropTemplate")
     szBtn:SetSize(36, 20)
-    szBtn:SetPoint("TOPRIGHT", opts, "TOPRIGHT", -8, -279)
+    szBtn:SetPoint("TOPRIGHT", opts, "TOPRIGHT", -8, -389)
     if ns.hui and ns.hui.BuildRoundedBG and ns.hui.layer then
         ns.hui.BuildRoundedBG(szBtn, 6, ns.hui.layer.L2, "both", true, 1)
     end
@@ -1073,6 +1785,7 @@ function O.Init()
                 elseif cb.PaintVoice then cb:PaintVoice() end
             end
             SyncSize()
+            SyncTentText()
             local rx = (panel.GetRight and panel:GetRight() or 0) - 8
             local ty = (panel.GetTop and panel:GetTop() or 0) - 40
             opts:ClearAllPoints()
@@ -1241,10 +1954,9 @@ function O.Init()
             O.ArmGhost()
         end
         if icon then icon:SetVertexColor(0.92, 0.93, 0.95, 1) end
-        HideTip()
+        if not O.CbTipHold() then HideTip() end
         if panel and panel:IsShown() then StartHideTimer() end
     end)
-
     orb:SetScript("OnDragStart", function()
         if type(InCombatLockdown) == "function" and InCombatLockdown() then return end
         orb:StartMoving()
@@ -1281,6 +1993,7 @@ function O.Init()
         end
         if not panel or not panel:IsShown() then return end
         if now - openedAt < 0.2 then return end
+        if _G.DFFoodMenuUp then return end
         if panel:IsMouseOver() then return end
         if opts and opts:IsShown() and opts:IsMouseOver() then return end
         if orb:IsMouseOver() then return end
@@ -1294,7 +2007,10 @@ function O.Init()
         end
         if not found then table.insert(UISpecialFrames, "DFZoneOrbPanel") end
     end
-    panel:HookScript("OnHide", function() O.ArmGhost() end)
+    panel:HookScript("OnHide", function()
+        if FoodMenuClose then FoodMenuClose() end
+        O.ArmGhost()
+    end)
 
     if panel.title then panel.title:SetText("") end
     cards, heads, subRows = {}, {}, {}
@@ -1336,6 +2052,79 @@ end
 
 local baseLayout = Layout
 Layout = function(res)
+    if InCombatLockdown and InCombatLockdown() then return end
     baseLayout(res)
     O.SetHeader(res)
 end
+
+local cbPanel = nil
+
+function O.CbTipHold()
+    return cbPanel ~= nil and cbPanel:IsShown()
+end
+
+function O.CbPreviewToggle()
+    if not orb then return end
+    if not cbPanel then
+        local f = CreateFrame("Frame", nil, orb, "BackdropTemplate")
+        f:SetWidth(248)
+        f:SetBackdrop({
+            bgFile = "Interface\\Tooltips\\TooltipBackground",
+            edgeFile = "Interface\\Tooltips\\TooltipBorder",
+            edgeSize = 12,
+            insets = { left = 4, right = 4, top = 4, bottom = 4 },
+        })
+        f:SetBackdropColor(0.06, 0.07, 0.09, 0.96)
+        f:SetBackdropBorderColor(0.25, 0.27, 0.31, 1)
+        f:SetPoint("LEFT", orb, "RIGHT", 8, 0)
+        f:SetFrameLevel(orb:GetFrameLevel() + 10)
+        f.title = f:CreateFontString(nil, "OVERLAY")
+        f.title:SetFont(ns.FONT, 14, "")
+        f.title:SetPoint("TOPLEFT", f, "TOPLEFT", 12, -10)
+        f.title:SetTextColor(1, 1, 1)
+        f.title:SetJustifyH("LEFT")
+        f.count = f:CreateFontString(nil, "OVERLAY")
+        f.count:SetFont(ns.FONT, 12, "")
+        f.count:SetPoint("TOPRIGHT", f, "TOPRIGHT", -12, -11)
+        f.count:SetTextColor(ACC[1], ACC[2], ACC[3])
+        f.count:SetJustifyH("RIGHT")
+        f.body = f:CreateFontString(nil, "OVERLAY")
+        f.body:SetFont(ns.FONT, 12, "")
+        f.body:SetPoint("TOPLEFT", f, "TOPLEFT", 12, -32)
+        f.body:SetTextColor(0.85, 0.88, 0.92)
+        f.body:SetWidth(224)
+        f.body:SetJustifyH("LEFT")
+        f.body:SetJustifyV("TOP")
+        cbPanel = f
+    end
+    if cbPanel:IsShown() then
+        cbPanel:Hide()
+        return
+    end
+    local ctx = current and current.ctx
+    local zone = (ctx and ctx.zone) or ""
+    if zone == "" then zone = L["当前地图"] end
+    local n = (current and current.total) or 0
+    cbPanel.title:SetText(zone)
+    cbPanel.count:SetText(string.format(L["本图待办 %d"], n))
+    local body = CbTipBody()
+    if body == "" then body = L["本图暂无待办"] end
+    cbPanel.body:SetText(body)
+    local lines = select(2, body:gsub("\n", "")) + 1
+    cbPanel:SetHeight(46 + lines * 17)
+    cbPanel:Show()
+end
+
+local regenWatch = CreateFrame("Frame")
+regenWatch:RegisterEvent("PLAYER_REGEN_ENABLED")
+regenWatch:RegisterEvent("PLAYER_REGEN_DISABLED")
+regenWatch:SetScript("OnEvent", function(_, event)
+    if event == "PLAYER_REGEN_DISABLED" then
+        if cbPanel and cbPanel:IsShown() then cbPanel:Hide() end
+        if panel and panel:IsShown() then Close() end
+        if orbMenu and orbMenu:IsShown() then orbMenu:Hide() end
+        return
+    end
+    if cbPanel and cbPanel:IsShown() then cbPanel:Hide() end
+    if panel and panel:IsShown() and current then Layout(current) end
+end)

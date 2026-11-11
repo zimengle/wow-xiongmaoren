@@ -1,6 +1,7 @@
 # Auctionator
 
-## [343](https://github.com/TheMouseNest/Auctionator/tree/343) (2026-11-08)
-[Full Changelog](https://github.com/TheMouseNest/Auctionator/compare/342...343) 
+## [345](https://github.com/TheMouseNest/Auctionator/tree/345) (2026-11-10)
+[Full Changelog](https://github.com/TheMouseNest/Auctionator/compare/344...345) 
 
-- Properly segment RPPvP auction house  
+- Forever: Crafting: Fix profit  
+- Fix undercut % losing item price  

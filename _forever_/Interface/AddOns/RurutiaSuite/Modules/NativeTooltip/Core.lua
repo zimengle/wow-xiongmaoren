@@ -5,6 +5,7 @@ local defaults = { combatVisibility = "ctrl", follow = true, direction = "top", 
     opacity = 0.86, color = true, health = true,
     showSpellID = true, showItemID = true, showIconID = true, showNPCID = true,
     showAuraSource = true }
+if Adapter and Adapter.supportsItemLevel then defaults.showItemLevel = true end
 local Definition = { defaultEnabled = true, defaults = { profile = defaults } }
 
 function Definition:GetProfile() return self.db.profile end
@@ -36,6 +37,7 @@ end
 
 function Definition:GetStatusText()
     if self.blocker then return "检测到 " .. self.blocker .. "，鼠标提示增强已暂停。" end
+    if self.runtimeActive and self.colorOnly and Adapter.supportsItemLevel then return "EllesmereUI 管理提示框；RS 可补充信息着色与物品等级。" end
     if self.runtimeActive and self.colorOnly then return "EllesmereUI 管理提示框；RS 仅补充信息着色。" end
     return self.runtimeActive and "仅在原生界面生效；关闭跟随后使用原生 HUD 位置。" or "鼠标提示增强已关闭。"
 end
@@ -260,6 +262,7 @@ function Definition:Reconcile()
         self:UnregisterAllEvents()
     elseif not self.runtimeActive and Adapter:CanAttach() then
         self.runtimeActive = true
+        Adapter:InstallItemLevel()
         if self.colorOnly then
             Adapter:AttachColorOnly(self)
         else

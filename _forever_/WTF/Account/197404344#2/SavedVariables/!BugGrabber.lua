@@ -1,7 +1,7 @@
 
 BugGrabberDB = {
-["session"] = 54,
 ["lastSanitation"] = 3,
+["session"] = 67,
 ["errors"] = {
 {
 ["message"] = "...erface/AddOns/Questie/Database/QuestXP/QuestieXP.lua:14: attempt to index global 'LibQuestieDB' (a nil value)",
@@ -164,12 +164,44 @@ BugGrabberDB = {
 ["counter"] = 2,
 },
 {
+["message"] = "...nterface/AddOns/Blizzard_StaticPopup/StaticPopup.lua:324: Dialog INVITE_COMMUNITY_MEMBER_WITH_INVITE_LINK cannot be shown from a tainted context",
+["time"] = 1794232802,
+["locals"] = "which=\"INVITE_COMMUNITY_MEMBER_WITH_INVITE_LINK\"\ntext_arg1=nil\ntext_arg2=nil\ndata=<table>{\n clubId=900991415\n streamId=1\n}\ninsertedFrame=nil\ncustomOnHideScript=nil\ndialogInfo=<table>{\n whileDead=1\n exclusive=1\n subText=\"输入战网昵称。\"\n maxLetters=32\n editBoxSecureText=true\n autoCompleteArgs=<table>\n hasEditBox=1\n button2=\"取消\"\n timeout=0\n button1=\"发送\"\n text=\"邀请成员\"\n hideOnEscape=1\n extraButton=\"邀请链接\"\n editBoxWidth=250\n}\natGlues=false\nshowConditions=<table>\nshownDialogFrames=<table>\ndialogFrames=<table>{\n 1=StaticPopup1 <GameDialog.xml:348>\n 2=StaticPopup2 <GameDialog.xml:353>\n 3=StaticPopup3 <GameDialog.xml:358>\n 4=StaticPopup4 <GameDialog.xml:363>\n}\n",
+["stack"] = "[Interface/AddOns/Blizzard_StaticPopup/StaticPopup.lua]:324: in function <...nterface/AddOns/Blizzard_StaticPopup/StaticPopup.lua:309>\n[C]: in function 'StaticPopup_Show'\n[Interface/AddOns/Blizzard_FrameXMLUtil/CommunitiesUtil.lua]:254: in function 'OpenInviteDialog'\n[Interface/AddOns/Blizzard_Communities/CommunitiesInvitationFrame.lua]:115: in function <.../Blizzard_Communities/CommunitiesInvitationFrame.lua:111>\n",
+["session"] = 55,
+["counter"] = 16,
+},
+{
+["message"] = "[ADDON_ACTION_BLOCKED] 插件 'HuZhuLayer' 尝试调用保护功能 'SetAvatarTexture()'。",
+["time"] = 1794232799,
+["locals"] = "self=<table>\nevent=\"ADDON_ACTION_BLOCKED\"\naddonName=\"HuZhuLayer\"\naddonFunc=\"SetAvatarTexture()\"\nname=\"HuZhuLayer\"\nbadAddons=<table>{\n HuZhuLayer=true\n}\nL=<table>{\n NO_DISPLAY_2=\"|cffffff00标准的错误显示插件名叫 BugSack，可以在找到 !BugGrabber 的网站上找到它。|r\"\n ERROR_DETECTED=\"%s |cffffff00已抓取，点击链接获取更多信息。|r\"\n BUGGRABBER_STOPPED=\"|cffffff00用户界面有太多的错误。所以，游戏体验会被降低。如不想再看到此信息请禁用或升级失效插件。|r\"\n USAGE=\"|cffffff00用法：/buggrabber <1-%d>。|r\"\n STOP_NAG=\"|cffffff00!BugGrabber 将不再提示缺失错误显示插件信息知道下个版本发布。|r\"\n NO_DISPLAY_STOP=\"|cffffff00如果你不希望再次被提醒，请输入 /stopnag。|r\"\n NO_DISPLAY_1=\"|cffffff00似乎没有与 !BugGrabber 一起运行的错误显示插件。虽然斜线命令访问错误报告，但错误显示插件可以以更快捷的方式帮助您管理这些错误。|r\"\n ERROR_UNABLE=\"|cffffff00!BugGrabber 本身无法检索其他玩家的错误。请安装 BugSack 或类似的错误显示插件，可能会包含这些功能。|r\"\n ADDON_CALL_PROTECTED=\"[%s] 插件 '%s' 尝试调用保护功能 '%s'。\"\n}\n",
+["stack"] = "[Interface/AddOns/!BugGrabber/BugGrabber.lua]:554: in function '?'\n[Interface/AddOns/!BugGrabber/BugGrabber.lua]:538: in function <Interface/AddOns/!BugGrabber/BugGrabber.lua:538>\n[C]: in function 'SetAvatarTexture'\n[Interface/AddOns/Blizzard_Communities/CommunitiesList.lua]:523: in function 'Init'\n[Interface/AddOns/Blizzard_Communities/CommunitiesList.lua]:269: in function 'initializer'\n[Interface/AddOns/Blizzard_SharedXML/Shared/Scroll/ScrollBoxListView.lua]:400: in function 'InvokeInitializer'\n[Interface/AddOns/Blizzard_SharedXML/Shared/Scroll/ScrollBoxListView.lua]:418: in function <...izzard_SharedXML/Shared/Scroll/ScrollBoxListView.lua:417>\n[C]: in function 'secureexecuterange'\n[Interface/AddOns/Blizzard_SharedXML/Shared/Scroll/ScrollBoxListView.lua]:421: in function 'InvokeInitializers'\n[Interface/AddOns/Blizzard_SharedXML/Shared/Scroll/ScrollBox.lua]:790: in function <...ddOns/Blizzard_SharedXML/Shared/Scroll/ScrollBox.lua:762>\n[C]: in function 'Update'\n[Interface/AddOns/Blizzard_SharedXML/Shared/Scroll/ScrollBox.lua]:317: in function 'SetScrollPercentageInternal'\n...[Interface/AddOns/Blizzard_SharedXML/Shared/Scroll/ScrollBox.lua]:725: in function <...ddOns/Blizzard_SharedXML/Shared/Scroll/ScrollBox.lua:724>\n[C]: ?\n[Interface/AddOns/Blizzard_SharedXMLBase/CallbackRegistry.lua]:210: in function <...e/AddOns/Blizzard_SharedXMLBase/CallbackRegistry.lua:209>\n[C]: ?\n[Interface/AddOns/Blizzard_SharedXMLBase/CallbackRegistry.lua]:213: in function 'TriggerEvent'\n[Interface/AddOns/Blizzard_SharedXML/Shared/Scroll/ScrollBoxListView.lua]:350: in function 'SignalDataChangeEvent'\n[Interface/AddOns/Blizzard_SharedXML/Shared/Scroll/ScrollBoxListView.lua]:320: in function 'SetDataProvider'\n[Interface/AddOns/Blizzard_SharedXML/Shared/Scroll/ScrollBox.lua]:709: in function 'SetDataProvider'\n[Interface/AddOns/Blizzard_Communities/CommunitiesList.lua]:244: in function 'Update'\n[Interface/AddOns/Blizzard_Communities/CommunitiesList.lua]:50: in function <...face/AddOns/Blizzard_Communities/CommunitiesList.lua:24>\n",
+["session"] = 55,
+["counter"] = 1,
+},
+{
+["message"] = "[ADDON_ACTION_BLOCKED] 插件 'DungeonsForever' 尝试调用保护功能 'PlayerSpellsFrame:SetWidth()'。",
+["time"] = 1794360858,
+["locals"] = "self=<table>\nevent=\"ADDON_ACTION_BLOCKED\"\naddonName=\"DungeonsForever\"\naddonFunc=\"PlayerSpellsFrame:SetWidth()\"\nname=\"DungeonsForever\"\nbadAddons=<table>{\n RXPGuides=true\n DungeonsForever=true\n}\nL=<table>{\n NO_DISPLAY_2=\"|cffffff00标准的错误显示插件名叫 BugSack，可以在找到 !BugGrabber 的网站上找到它。|r\"\n ERROR_DETECTED=\"%s |cffffff00已抓取，点击链接获取更多信息。|r\"\n BUGGRABBER_STOPPED=\"|cffffff00用户界面有太多的错误。所以，游戏体验会被降低。如不想再看到此信息请禁用或升级失效插件。|r\"\n USAGE=\"|cffffff00用法：/buggrabber <1-%d>。|r\"\n STOP_NAG=\"|cffffff00!BugGrabber 将不再提示缺失错误显示插件信息知道下个版本发布。|r\"\n NO_DISPLAY_STOP=\"|cffffff00如果你不希望再次被提醒，请输入 /stopnag。|r\"\n NO_DISPLAY_1=\"|cffffff00似乎没有与 !BugGrabber 一起运行的错误显示插件。虽然斜线命令访问错误报告，但错误显示插件可以以更快捷的方式帮助您管理这些错误。|r\"\n ERROR_UNABLE=\"|cffffff00!BugGrabber 本身无法检索其他玩家的错误。请安装 BugSack 或类似的错误显示插件，可能会包含这些功能。|r\"\n ADDON_CALL_PROTECTED=\"[%s] 插件 '%s' 尝试调用保护功能 '%s'。\"\n}\n",
+["stack"] = "[Interface/AddOns/!BugGrabber/BugGrabber.lua]:554: in function '?'\n[Interface/AddOns/!BugGrabber/BugGrabber.lua]:538: in function <Interface/AddOns/!BugGrabber/BugGrabber.lua:538>\n[C]: in function 'SetWidth'\n[Interface/AddOns/Blizzard_PlayerSpells/Blizzard_PlayerSpellsFrame.lua]:440: in function 'UpdateSize'\n[Interface/AddOns/Blizzard_PlayerSpells/Camelot/ClassTalents/Blizzard_ClassTalentsFrame.lua]:47: in function <.../Camelot/ClassTalents/Blizzard_ClassTalentsFrame.lua:43>\n[C]: ?\n[C]: in function 'Show'\n[Interface/AddOns/Blizzard_UIParentPanelManager/Shared/UIParentPanelManager.lua]:498: in function 'SetUIPanel'\n[Interface/AddOns/Blizzard_UIParentPanelManager/Shared/UIParentPanelManager.lua]:294: in function 'ShowUIPanel'\n[Interface/AddOns/Blizzard_UIParentPanelManager/Shared/UIParentPanelManager.lua]:129: in function <...UIParentPanelManager/Shared/UIParentPanelManager.lua:124>\n[C]: in function 'SetAttribute'\n[Interface/AddOns/Blizzard_UIParentPanelManager/Shared/UIParentPanelManager.lua]:900: in function <...UIParentPanelManager/Shared/UIParentPanelManager.lua:871>\n[C]: ?\n[C]: in function 'ShowUIPanel'\n[Interface/AddOns/Blizzard_FrameXMLUtil/Mainline/PlayerSpellsUtil.lua]:131: in function 'TogglePlayerSpellsFrame'\n[Interface/AddOns/Blizzard_FrameXMLUtil/Mainline/PlayerSpellsUtil.lua]:166: in function 'ToggleClassTalentOrSpecFrame'\n[TOGGLETALENTS]:1: in function <[string \"TOGGLETALENTS\"]:1>\n",
+["session"] = 62,
+["counter"] = 1,
+},
+{
 ["message"] = "[ADDON_ACTION_BLOCKED] 插件 'RXPGuides' 尝试调用保护功能 'UNKNOWN()'。",
-["time"] = 1794213002,
+["time"] = 1794373822,
 ["locals"] = "self=<table>\nevent=\"ADDON_ACTION_BLOCKED\"\naddonName=\"RXPGuides\"\naddonFunc=\"UNKNOWN()\"\nname=\"RXPGuides\"\nbadAddons=<table>{\n RXPGuides=true\n}\nL=<table>{\n NO_DISPLAY_2=\"|cffffff00标准的错误显示插件名叫 BugSack，可以在找到 !BugGrabber 的网站上找到它。|r\"\n ERROR_DETECTED=\"%s |cffffff00已抓取，点击链接获取更多信息。|r\"\n BUGGRABBER_STOPPED=\"|cffffff00用户界面有太多的错误。所以，游戏体验会被降低。如不想再看到此信息请禁用或升级失效插件。|r\"\n USAGE=\"|cffffff00用法：/buggrabber <1-%d>。|r\"\n STOP_NAG=\"|cffffff00!BugGrabber 将不再提示缺失错误显示插件信息知道下个版本发布。|r\"\n NO_DISPLAY_STOP=\"|cffffff00如果你不希望再次被提醒，请输入 /stopnag。|r\"\n NO_DISPLAY_1=\"|cffffff00似乎没有与 !BugGrabber 一起运行的错误显示插件。虽然斜线命令访问错误报告，但错误显示插件可以以更快捷的方式帮助您管理这些错误。|r\"\n ERROR_UNABLE=\"|cffffff00!BugGrabber 本身无法检索其他玩家的错误。请安装 BugSack 或类似的错误显示插件，可能会包含这些功能。|r\"\n ADDON_CALL_PROTECTED=\"[%s] 插件 '%s' 尝试调用保护功能 '%s'。\"\n}\n",
 ["stack"] = "[Interface/AddOns/!BugGrabber/BugGrabber.lua]:554: in function '?'\n[Interface/AddOns/!BugGrabber/BugGrabber.lua]:538: in function <Interface/AddOns/!BugGrabber/BugGrabber.lua:538>\n[C]: ?\n[C]: ?\n[C]: ?\n[Interface/AddOns/RXPGuides/Communications.lua]:32: in function <Interface/AddOns/RXPGuides/Communications.lua:26>\n[Interface/AddOns/RXPGuides/Communications.lua]:181: in function <Interface/AddOns/RXPGuides/Communications.lua:170>\n",
-["session"] = 52,
-["counter"] = 11,
+["session"] = 65,
+["counter"] = 13,
+},
+{
+["message"] = "[ADDON_ACTION_BLOCKED] 插件 'DungeonsForever' 尝试调用保护功能 'DFZoneOrbPanel:Hide()'。",
+["time"] = 1794374888,
+["locals"] = "self=<table>\nevent=\"ADDON_ACTION_BLOCKED\"\naddonName=\"DungeonsForever\"\naddonFunc=\"DFZoneOrbPanel:Hide()\"\nname=\"DungeonsForever\"\nbadAddons=<table>{\n RXPGuides=true\n DungeonsForever=true\n}\nL=<table>{\n NO_DISPLAY_2=\"|cffffff00标准的错误显示插件名叫 BugSack，可以在找到 !BugGrabber 的网站上找到它。|r\"\n ERROR_DETECTED=\"%s |cffffff00已抓取，点击链接获取更多信息。|r\"\n BUGGRABBER_STOPPED=\"|cffffff00用户界面有太多的错误。所以，游戏体验会被降低。如不想再看到此信息请禁用或升级失效插件。|r\"\n USAGE=\"|cffffff00用法：/buggrabber <1-%d>。|r\"\n STOP_NAG=\"|cffffff00!BugGrabber 将不再提示缺失错误显示插件信息知道下个版本发布。|r\"\n NO_DISPLAY_STOP=\"|cffffff00如果你不希望再次被提醒，请输入 /stopnag。|r\"\n NO_DISPLAY_1=\"|cffffff00似乎没有与 !BugGrabber 一起运行的错误显示插件。虽然斜线命令访问错误报告，但错误显示插件可以以更快捷的方式帮助您管理这些错误。|r\"\n ERROR_UNABLE=\"|cffffff00!BugGrabber 本身无法检索其他玩家的错误。请安装 BugSack 或类似的错误显示插件，可能会包含这些功能。|r\"\n ADDON_CALL_PROTECTED=\"[%s] 插件 '%s' 尝试调用保护功能 '%s'。\"\n}\n",
+["stack"] = "[Interface/AddOns/!BugGrabber/BugGrabber.lua]:554: in function '?'\n[Interface/AddOns/!BugGrabber/BugGrabber.lua]:538: in function <Interface/AddOns/!BugGrabber/BugGrabber.lua:538>\n[C]: in function 'Hide'\n[Interface/AddOns/DungeonsForever/Core/ZoneOrb.lua]:215: in function 'done'\n[Interface/AddOns/DungeonsForever/Core/ZoneOrb.lua]:1414: in function <Interface/AddOns/DungeonsForever/Core/ZoneOrb.lua:1400>\n",
+["session"] = 65,
+["counter"] = 1,
 },
 },
 }

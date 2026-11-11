@@ -286,7 +286,9 @@ end
 local function SetRoundIcon(btn, round)
     if (btn._lvRound or false) == round then return end
     btn._lvRound = round
+    local slotMask = btn._textOverlay._fvIconMask
     if round then
+        if slotMask then btn._lvIcon:RemoveMaskTexture(slotMask) end
         if not btn._lvMask then
             btn._lvMask = btn:CreateMaskTexture()
             btn._lvMask:SetTexture(ROUND_MASK, "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
@@ -296,6 +298,7 @@ local function SetRoundIcon(btn, round)
         if btn.Cooldown then btn.Cooldown:SetSwipeTexture(ROUND_MASK) end
     else
         btn._lvIcon:RemoveMaskTexture(btn._lvMask)
+        if slotMask then btn._lvIcon:AddMaskTexture(slotMask) end
         if btn.Cooldown then btn.Cooldown:SetSwipeTexture("Interface\\Buttons\\WHITE8X8") end
     end
 end
@@ -303,18 +306,26 @@ end
 -- Collapsed sections, keyed by category _defaultName, "junk", or
 -- "<section key>/<subtype>" for sub-sections. Saved in the profile.
 -- Shift-click on a top-level section collapses or expands all of them.
+-- A virtual category's ("Virtual:...") state lasts the session: nothing of it is saved.
+local _virtualCollapsed = {}
+local function IsCollapsed(key)
+    return _virtualCollapsed[key] or (BP().bagListCollapsed or _emptyP)[key] == true
+end
+local function SetCollapsed(set, key, v)
+    if key:find("^Virtual:") then _virtualCollapsed[key] = v else set[key] = v end
+end
 local function ToggleCollapsed(self)
     local p = BP()
     local set = p.bagListCollapsed
     if not set then set = {}; p.bagListCollapsed = set end
     if IsShiftKeyDown() and not self._sub then
-        local collapse = not set[self._key] or nil
+        local collapse = not IsCollapsed(self._key) or nil
         for i = 1, _sectionsUsed do
             local s = _sections[i]
-            if not s._sub then set[s._key] = collapse end
+            if not s._sub then SetCollapsed(set, s._key, collapse) end
         end
     else
-        set[self._key] = not set[self._key] or nil
+        SetCollapsed(set, self._key, not IsCollapsed(self._key) or nil)
     end
     Refresh()
 end
@@ -750,13 +761,15 @@ local function RenderRow(btn, data, cols, rowW, x, y, stripe, dim)
             end
             icon:Show()
             -- Quality Item Border: square icons only
-            if not round and BP().bagQualityBorder ~= false then
-                local ov = btn._textOverlay
-                if not ov._brdT then ns.CreateInsetBorder(ov) end
+            local ov = btn._textOverlay
+            if not round and (BP().bagQualityBorder ~= false or ns.BagsForever()) then
+                if not (ov._brdT or ov._fvSlotBorder) then ns.CreateInsetBorder(ov, true, icon) end
                 local r, g, b = ns.QualityBorderColor(q)
                 ns.SetInsetBorderColor(ov, r, g, b, 1)
-            elseif btn._textOverlay._brdT then
-                ns.SetInsetBorderColor(btn._textOverlay, 0, 0, 0, 0)
+                if ov._fvSlotBorder then ns.SetForeverSlotQuestBorder(ov, data._isQuest, data._isQuestStarter) end
+            elseif ov._brdT or ov._fvSlotBorder then
+                ns.SetInsetBorderColor(ov, 0, 0, 0, 0)
+                if ov._fvQuestBorder then ov._fvQuestBorder:Hide() end
             end
         else
             local fs = GetCell(btn, id)
@@ -871,7 +884,7 @@ local function PlaceSection(key, label, count, x, y, w, sub)
     s._label:SetText(label)
     s._count:SetText(count)
     s._key, s._sub = key, sub
-    local collapsed = (BP().bagListCollapsed or _emptyP)[key] == true
+    local collapsed = IsCollapsed(key) and true or false
     -- Arrow points right when collapsed, down when open
     s._arrow:SetRotation(collapsed and math.pi or math.pi / 2)
     if s._clearBtn then
@@ -984,8 +997,9 @@ function ns.RenderListView(items, opts)
             sl[#sl + 1] = d
         end
     end
-    -- Pinned first, category (or bag) order, Junk last
-    local RANK = { pinned = -2, recent = -1, main = 0, junk = math.huge }
+    -- Pinned first, category (or bag) order, Junk after the last saved category
+    -- (virtual categories follow it, as in the grid and the sidebar)
+    local RANK = { pinned = -2, recent = -1, main = 0, junk = EUI_CategoryManager:GetSavedCount() + 0.5 }
     table.sort(order, function(a, b)
         return (RANK[a.key] or a.key) < (RANK[b.key] or b.key)
     end)

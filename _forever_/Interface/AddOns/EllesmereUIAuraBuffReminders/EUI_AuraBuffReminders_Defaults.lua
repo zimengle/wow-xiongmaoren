@@ -117,6 +117,8 @@ local defaults = {
         raidBuffs = {
             enabled = {
                 motw=true, bshout=true, fort=true, ai=true, bronze=true, sky=true, hmark=true,
+                -- WoW Forever's Divine Spirit (no key on retail).
+                spirit = EABR.FOREVER or nil,
             },
             -- Per-section "Where to Show". Stores only unchecked buckets
             -- (value false); an absent bucket = shown. Open world defaults
@@ -193,6 +195,7 @@ local defaults = {
 if EABR.FOREVER then
     defaults.profile.forever = {
         camp = false,       -- Camp Benefits reminder; opt-in, it shows whenever the buff is missing
+        sleepingBag = false, -- Sleeping Bag reminder; opt-in, below max level with a Cozy Sleeping Bag in the bags
         gather = false,     -- gathering tracking reminder; opt-in, it shows while no tracker is up
         gatherClassTrack = true,  -- an active class tracking also hides it
         treasure = false,   -- Find Treasure reminder (Dwarf); opt-in, it shows while it is off
@@ -203,6 +206,11 @@ if EABR.FOREVER then
         weaponHideNoItem = true,
         weaponShowBelow = 1,
         weaponHands = {},
+        -- Action Picker: right-clicking a spell group or class buff reminder
+        -- with more than one spell picks the spell its click casts, and the
+        -- wheel over a spell picks its rank; opt-in.
+        pickerEnabled = false,
+        classBuffActions = {},  -- class buff key -> { castSpellID, castRanks = { spell ID -> pinned rank } }
         classBuffPicks = {},  -- class buff key -> ticked (unset: the buff's own default)
         whereToShow = {},   -- section "Where to Show" (an absent bucket = shown)
         customIDs = {},     -- spell IDs the user tracks, in the order added
