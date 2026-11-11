@@ -23,7 +23,7 @@ DungeonsForeverDB = {
 ["onlyTodo"] = false,
 ["camp"] = true,
 ["tent"] = true,
-["dur"] = 12,
+["voiceInit"] = 2,
 ["orb"] = {
 ["rp"] = "RIGHT",
 ["p"] = "RIGHT",
@@ -32,21 +32,21 @@ DungeonsForeverDB = {
 },
 ["mode"] = "auto",
 ["quest"] = true,
-["tentOwn"] = true,
+["book"] = true,
 ["asked"] = {
 },
 ["spell"] = true,
-["voiceInit"] = 2,
+["dur"] = 12,
 ["food"] = true,
 ["torch"] = true,
 ["tentText"] = 1,
 ["on"] = true,
-["book"] = true,
+["ignore"] = {
+},
 ["preferFood"] = 0,
 ["icon"] = 32,
 ["foodVoice"] = true,
-["ignore"] = {
-},
+["tentOwn"] = true,
 ["banner"] = true,
 ["rested"] = true,
 ["seq"] = 1,
@@ -98,8 +98,8 @@ DungeonsForeverDB = {
 ["books"] = true,
 ["bag"] = true,
 },
-["on"] = true,
 ["profMode"] = "learned",
+["on"] = true,
 },
 ["lootFilter"] = {
 ["ver"] = 3,
@@ -482,9 +482,9 @@ DungeonsForeverDB = {
 },
 },
 },
+["profMoved"] = true,
 ["chipCalib"] = {
 },
-["profMoved"] = true,
 ["DungeonsForeverExploreDBMoved"] = true,
 ["dungeon"] = {
 ["dungeonView"] = "list",
@@ -510,9 +510,9 @@ DungeonsForeverDB = {
 ["dfRevealLog"] = "93/93 15ms",
 ["vendorPrices"] = {
 },
+["svVersion"] = 3,
 ["raid"] = {
 ["tab"] = "timeline",
 ["setFilter"] = "MAGE",
 },
-["svVersion"] = 3,
 }

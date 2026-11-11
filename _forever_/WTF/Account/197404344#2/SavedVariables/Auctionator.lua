@@ -74,8 +74,8 @@ AUCTIONATOR_CONFIG = {
 },
 ["autoscan_2"] = false,
 ["save_last_duration_as_default"] = false,
-["auction_mean_tooltips"] = false,
 ["crafting_info_show_cost"] = true,
+["auction_mean_tooltips"] = false,
 ["columns_cancelling"] = {
 ["Âá∫‰ª∑ËÄÖ"] = true,
 ["Ââ©‰ΩôÊó∂Èó¥"] = false,
@@ -83,11 +83,15 @@ AUCTIONATOR_CONFIG = {
 ["Âçï‰ª∑"] = false,
 ["Âéã‰ª∑Âêé‰ª∑Ê†º"] = true,
 ["Êï∞Èáè"] = false,
-["ÂâçÊñπÁâ©ÂìÅÊï∞"] = false,
-["ÊòØÂê¶Âéã‰ª∑Ôºü"] = false,
 ["Ëµ∑Êãç‰ª∑"] = true,
+["ÊòØÂê¶Âéã‰ª∑Ôºü"] = false,
+["ÂâçÊñπÁâ©ÂìÅÊï∞"] = false,
 },
-["show_selling_bid_price"] = false,
+["columns_shopping_buy_commodity"] = {
+["ÂèØÂîÆÊï∞Èáè"] = false,
+["‰ª∑Ê†º"] = false,
+["ÂçñÂÆ∂"] = true,
+},
 ["default_quantities"] = {
 0,
 1,
@@ -119,11 +123,7 @@ nil,
 ["mailbox_tooltips"] = true,
 ["auction_mean_days_limit"] = 21,
 ["selling_bag_collapsed"] = false,
-["columns_shopping_buy_commodity"] = {
-["ÂèØÂîÆÊï∞Èáè"] = false,
-["‰ª∑Ê†º"] = false,
-["ÂçñÂÆ∂"] = true,
-},
+["show_selling_bid_price"] = false,
 ["selling_auto_select_next"] = false,
 ["auction_sales_preference"] = "percentage",
 ["autoscan_interval"] = 15,
@@ -146,7 +146,7 @@ AUCTIONATOR_SHOPPING_LISTS = {
 }
 AUCTIONATOR_PRICE_DATABASE = {
 ["__dbversion"] = 8,
-["PvP"] = "∏aD1521§Aa°D2506AlÄAmõxAh°D2506õxC873§Aa°D2506AlÄAm\000X¿Ah°D2506\000X¿D7282§Aa°D2500$AlÄAm‹Ah°D2500‹E15261§Aa°D2506AlÄAm9–Ah°D25069–E15270§Aa°D2506\rAlÄAmaDAh°D2506aDD4596§Aa°D2506VAlÄAh°D2506<Am<D2750§Aa°D2506√AlÄAm‚Ah°D2506‚D7278§Aa°D2500‹AlÄAmdAh°D2500dE15262§Aa°D2506AlÄAml¸Ah°D2506l¸D2728§Aa°D2506nAlÄAmÙAh°D2506ÙF277715§Aa°D2500AlÄAm∏Ah°D2500∏F247239§Aa°D2506aAlÄAh°D2506WAmWF247242§Aa°D2506ÉAlÄAh°D2506\rHAm\rHF279981§Aa°D2506ûAlÄAh°D2506KAmKD1720§Aa°D2506AlÄAm√PAh°D2506√PD4306§AaÄAlÄAm¡Ah°D2505¡D6327§Aa°D2506AlÄAm\000ì‡Ah°D2506\000ì‡D2745§Aa°D2506nAlÄAméAh°D2506éF250608§Aa°D2506AlÄAmA†Ah°D2506A†D2934§Aa°D2500e⁄AlÄAmAh°D2500D2732§Aa°D2506˘AlÄAmÑAh°D2506ÑD2735§Aa°D2506AlÄAm∞Ah°D2506∞D1710§Aa°D25061AlÄAh°D2506{Am{D2742§Aa°D2506_AlÄAmlAh°D2506lD2997§Aa°D2503}Al°D2503dAmñAh°D2503ñD4865§Aa°D2500mAlÄAmUAh°D2500UF248710§AaÄAlÄAmZAh°D2505ZD7281§Aa°D2500‘AlÄAmêAh°D2500êD2868§Aa°D2506‘AlÄAh°D2506XAmXC929§Aa°D2506SAlÄAh°D2506dAmdE15251§Aa°D2506+AlÄAmUAh°D2506UC769§Aa°D2503ÿAlÄAmVAh°D2503VF248708§AaÄAlÄAm(Ah°D2505(D1986§Aa°D2506	AlÄAmI‘Ah°D2506I‘D1640§Aa°D2506AlÄAm@tAh°D2506@tC858§Aa°D2506ºAlÄAh°D2506AmD2749§Aa°D2506ŒAlÄAmWAh°D2506WD3854§Aa°D2506AlÄAmMºAh°D2506MºD2744§Aa°D2506rAlÄAmöAh°D2506öF287005§Aa°D2506AlÄAm\000\rﬂêAh°D2506\000\rﬂêD1680§Aa°D2506AlÄAmkAh°D2506kF264057§Aa°D2506AlÄAh°D2506'Am'D4024§Aa°D2506AlÄAm9–Ah°D25069–D2748§Aa°D2506ÚAlÄAm–Ah°D2506–D8199§Aa°D2506AlÄAmu0Ah°D2506u0D4389§Aa°D2506ÏAlÄAh°D2506 Am D1206§Aa°D2503ΩAlÄAm˘Ah°D2503˘D1664§Aa°D2506AlÄAmaDAh°D2506aDD3853§Aa°D2505AlÄAmYÿAh°D2505YÿC118§Aa°D2506:AlÄAh°D2506	Am	D2842§Aa°D2503tAlÄAm£Ah°D2503£D1604§Aa°D2506AlÄAm\000\rè‡Ah°D2506\000\rè‡D3719§Aa°D25032AlÄAmAh°D2503D9383§Aa°D2506AlÄAm\000Ó¿Ah°D2506\000Ó¿GversionD6147§Aa°D2500AlÄAmAh°D2500D6370§Aa°D2505AlÄAm“Ah°D2505“F282003§Aa°D2506AlÄAmYAh°D2506YD1625§Aa°D2506AlÄAm:4Ah°D2506:4E13054§Aa°D2506AlÄAmtÃAh°D2506tÃD2533§Aa°D2506AlÄAm\000(Ah°D2506\000(D3928§Aa°D2506~AlÄAh°D2506QAmQF287015§Aa°D2506	AlÄAm\000˘∏Ah°D2506\000˘∏F211855§AaÄAlÄAm»Ah°D2502»D2730§Aa°D2506£AlÄAm∞Ah°D2506∞E13017§Aa°D2506AlÄAmÀ Ah°D2506À C814§Aa°D2501AAlÄAmAh°D2501F247240§Aa°D2506;AlÄAh°D2506«Am«F255723§Aa°D2506YAlÄAh°D2506XAmXD1722§Aa°D2506AlÄAm√PAh°D2506√PD6037§Aa°D2503VAlÄAmAh°D2503D2740§Aa°D2506ûAlÄAmΩAh°D2506ΩE13042§Aa°D2506AlÄAmÍ`Ah°D2506Í`D9423§Aa°D2506AlÄAm\000Ê0Ah°D2506\000Ê0D2738§Aa°D2506”AlÄAm∏Ah°D2506∏C870§Aa°D2506AlÄAm\000>XAh°D2506\000>XE17058§Aa°D2505áAlÄAmAh°D2505D1613§Aa°D2506\rAlÄAmL,Ah°D2506L,D3860§Aa°D2503	AlÄAm&Ah°D2503&D4278§Aa°D2503◊AlÄAm–Ah°D2503–D2734§Aa°D2506¯AlÄAm—Ah°D2506—E13058§Aa°D2506	AlÄAmà∏Ah°D2506à∏F247241§Aa°D2506¯AlÄAh°D2506rAmrF264073§Aa°D2505.AlÄAmxAh°D2505xF254432§AaÄAlÄAm»Ah°D2505»F255725§Aa°D25066AlÄAh°D2506$Am$D1982§Aa°D2506AlÄAm\000	'¿Ah°D2506\000	'¿E13051§Aa°D2506AlÄAmà∏Ah°D2506à∏D3823§Aa°D2506ùAlÄAh°D2506§Am§E13423§Aa°D2505@AlÄAmáAh°D2505áD2725§Aa°D2506¶AlÄAméAh°D2506éD4611§Aa°D25062AlÄAh°D2506\n÷Am\n÷D3829§Aa°D2506%AlÄAh°D2506&Am&D2751§Aa°D2506˜AlÄAm¬Ah°D2506¬C866§Aa°D2506AlÄAmFPAh°D2506FPD2318§Aa°D2500¬AlÄAmAh°D2500E13446§Aa°D2506FAlÄAh°D2506\nÓAm\nÓ",
+["PvP"] = "∏aD1521§Aa°D2506AlÄAmõxAh°D2506õxC873§Aa°D2506AlÄAm\000X¿Ah°D2506\000X¿D7282§Aa°D2500$AlÄAm‹Ah°D2500‹E15261§Aa°D2506AlÄAm9–Ah°D25069–E15270§Aa°D2506\rAlÄAmaDAh°D2506aDD4596§Aa°D2506VAlÄAh°D2506<Am<D2750§Aa°D2506√AlÄAm‚Ah°D2506‚D7278§Aa°D2500‹AlÄAmdAh°D2500dE15262§Aa°D2506AlÄAml¸Ah°D2506l¸D2728§Aa°D2506nAlÄAmÙAh°D2506ÙF277715§Aa°D2500AlÄAm∏Ah°D2500∏F247239§Aa°D2506aAlÄAh°D2506WAmWF247242§Aa°D2506ÉAlÄAh°D2506\rHAm\rHF279981§Aa°D2506ûAlÄAh°D2506KAmKD1720§Aa°D2506AlÄAm√PAh°D2506√PD4306§AaÄAlÄAm¡Ah°D2505¡D6327§Aa°D2506AlÄAm\000ì‡Ah°D2506\000ì‡D2745§Aa°D2506nAlÄAméAh°D2506éF250608§Aa°D2506AlÄAmA†Ah°D2506A†D2934§Aa°D2500e⁄AlÄAmAh°D2500D2732§Aa°D2506˘AlÄAmÑAh°D2506ÑD2735§Aa°D2506AlÄAm∞Ah°D2506∞D1710§Aa°D25061AlÄAh°D2506{Am{D2742§Aa°D2506_AlÄAmlAh°D2506lD2997§Aa°D2503}Al°D2503dAmñAh°D2503ñD4865§Aa°D2500mAlÄAmUAh°D2500UF248710§AaÄAlÄAmZAh°D2505ZD7281§Aa°D2500‘AlÄAmêAh°D2500êD2868§Aa°D2506‘AlÄAh°D2506XAmXC929§Aa°D2506SAlÄAh°D2506dAmdE15251§Aa°D2506+AlÄAmUAh°D2506UC769§Aa°D2503ÿAlÄAmVAh°D2503VF248708§AaÄAlÄAm(Ah°D2505(D1986§Aa°D2506	AlÄAmI‘Ah°D2506I‘D1640§Aa°D2506AlÄAm@tAh°D2506@tC858§Aa°D2506ºAlÄAh°D2506AmD2749§Aa°D2506ŒAlÄAmWAh°D2506WD3854§Aa°D2506AlÄAmMºAh°D2506MºD2744§Aa°D2506rAlÄAmöAh°D2506öF287005§Aa°D2506AlÄAm\000\rﬂêAh°D2506\000\rﬂêD1680§Aa°D2506AlÄAmkAh°D2506kD2748§Aa°D2506ÚAlÄAm–Ah°D2506–D4024§Aa°D2506AlÄAm9–Ah°D25069–D8199§Aa°D2506AlÄAmu0Ah°D2506u0D1206§Aa°D2503ΩAlÄAm˘Ah°D2503˘D4389§Aa°D2506ÏAlÄAh°D2506 Am F264057§Aa°D2506AlÄAh°D2506'Am'D1604§Aa°D2506AlÄAm\000\rè‡Ah°D2506\000\rè‡E13051§Aa°D2506AlÄAmà∏Ah°D2506à∏C118§Aa°D2506:AlÄAh°D2506	Am	D2842§Aa°D2503tAlÄAm£Ah°D2503£D6370§Aa°D2505AlÄAm“Ah°D2505“D3719§Aa°D25032AlÄAmAh°D2503D9383§Aa°D2506AlÄAm\000Ó¿Ah°D2506\000Ó¿F254432§AaÄAlÄAm»Ah°D2505»D6147§Aa°D2500AlÄAmAh°D2500D3853§Aa°D2505AlÄAmYÿAh°D2505YÿF282003§Aa°D2506AlÄAmYAh°D2506YE13054§Aa°D2506AlÄAmtÃAh°D2506tÃGversionF247241§Aa°D2506¯AlÄAh°D2506rAmrD3928§Aa°D2506~AlÄAh°D2506QAmQD2740§Aa°D2506ûAlÄAmΩAh°D2506ΩD4611§Aa°D25062AlÄAh°D2506\n÷Am\n÷D2730§Aa°D2506£AlÄAm∞Ah°D2506∞D9423§Aa°D2506AlÄAm\000Ê0Ah°D2506\000Ê0E13058§Aa°D2506	AlÄAmà∏Ah°D2506à∏E13017§Aa°D2506AlÄAmÀ Ah°D2506À F255723§Aa°D2506YAlÄAh°D2506XAmXD1722§Aa°D2506AlÄAm√PAh°D2506√PD6037§Aa°D2503VAlÄAmAh°D2503F287015§Aa°D2506	AlÄAm\000˘∏Ah°D2506\000˘∏E13042§Aa°D2506AlÄAmÍ`Ah°D2506Í`F247240§Aa°D2506;AlÄAh°D2506«Am«D2738§Aa°D2506”AlÄAm∏Ah°D2506∏C870§Aa°D2506AlÄAm\000>XAh°D2506\000>XD1613§Aa°D2506\rAlÄAmL,Ah°D2506L,E17058§Aa°D2505áAlÄAmAh°D2505D3860§Aa°D2503	AlÄAm&Ah°D2503&D4278§Aa°D2503◊AlÄAm–Ah°D2503–D2734§Aa°D2506¯AlÄAm—Ah°D2506—C814§Aa°D2501AAlÄAmAh°D2501D2533§Aa°D2506AlÄAm\000(Ah°D2506\000(F264073§Aa°D2505.AlÄAmxAh°D2505xF211855§AaÄAlÄAm»Ah°D2502»F255725§Aa°D25066AlÄAh°D2506$Am$D1982§Aa°D2506AlÄAm\000	'¿Ah°D2506\000	'¿D1625§Aa°D2506AlÄAm:4Ah°D2506:4D3823§Aa°D2506ùAlÄAh°D2506§Am§E13423§Aa°D2505@AlÄAmáAh°D2505áD1664§Aa°D2506AlÄAmaDAh°D2506aDD2725§Aa°D2506¶AlÄAméAh°D2506éD3829§Aa°D2506%AlÄAh°D2506&Am&D2751§Aa°D2506˜AlÄAm¬Ah°D2506¬C866§Aa°D2506AlÄAmFPAh°D2506FPD2318§Aa°D2500¬AlÄAmAh°D2500E13446§Aa°D2506FAlÄAh°D2506\nÓAm\nÓ",
 ["PvE"] = "∏D4562§AaÄAlÄAm,Ah°D2475,C730§Aa°D2475»AlÄAmAh°D2475D3680§Aa°D2475AlÄAmÙAh°D2475ÙD3382§AaÄAlÄAmPAh°D2475PD3663§Aa°D2475AlÄAm»Ah°D2475»D2996§AaÄAlÄAm6Ah°D24756E10940§AaÄAlÄAmuAh°D2475uC723§Aa°D2475\"AlÄAmüAh°D2475üD2304§AaÄAlÄAmAh°D2475C118§AaÄAlÄAmAh°D2475D1251§AaÄAlÄAm\nAh°D2475\nF255007§Aa°D2475ÉAlÄAmEAh°D2475EC732§Aa°D2475AlÄAmAh°D2475C729§Aa°D2475AlÄAmdAh°D2475dF250344§AaÄAlÄAm»Ah°D2475»D4240§AaÄAlÄAh°D2476ÑAmÑD5784§Aa°D2475YAlÄAmNAh°D2475NC731§Aa°D2475mAlÄAmAh°D2475GversionD5781§Aa°D2475AlÄAm0Ah°D24750D5780§Aa°D2475\rAlÄAmAh°D2475D1468§Aa°D2475eAlÄAmEAh°D2475ED2318§AaÄAlÄAmAh°D2475E11288§Aa°D2476MAlÄAh°D2476êAmê",
 }
 AUCTIONATOR_POSTING_HISTORY = {
@@ -190,12 +190,12 @@ AUCTIONATOR_VENDOR_PRICE_CACHE = {
 ["5173"] = 100,
 ["3713"] = 144,
 ["3137"] = 6834,
-["159"] = 5,
+["159"] = 4.6,
 ["851"] = 1821,
 ["6328"] = 400,
 ["2901"] = 10,
 ["4497"] = 18000,
-["1708"] = 200,
+["1708"] = 180,
 ["2616"] = 2659,
 ["17032"] = 1800,
 ["4607"] = 180,
@@ -273,7 +273,7 @@ AUCTIONATOR_VENDOR_PRICE_CACHE = {
 ["4342"] = 2500,
 ["5787"] = 600,
 ["4601"] = 360,
-["1205"] = 100,
+["1205"] = 90,
 ["6326"] = 40,
 ["925"] = 7018,
 ["3592"] = 2104,
@@ -290,6 +290,7 @@ AUCTIONATOR_VENDOR_PRICE_CACHE = {
 ["2156"] = 3077,
 ["4606"] = 90,
 ["4605"] = 22.6,
+["21033"] = 720,
 ["2605"] = 100,
 ["3600"] = 24,
 ["4600"] = 340,
@@ -342,16 +343,24 @@ AUCTIONATOR_VENDOR_PRICE_CACHE = {
 ["2384"] = 37,
 ["922"] = 10835,
 ["2070"] = 5,
+["6532"] = 225,
+["16167"] = 22.6,
+["2593"] = 150,
+["21031"] = 720,
+["16166"] = 4.6,
+["3890"] = 10201,
 ["2025"] = 4774,
+["16168"] = 360,
 ["2131"] = 54,
 ["3131"] = 299,
+["21030"] = 360,
 ["2612"] = 163,
 ["274022"] = 50000,
 ["274745"] = 11042,
 ["274021"] = 20000,
 ["21219"] = 4500,
 ["12231"] = 2700,
-["1179"] = 25,
+["1179"] = 22.6,
 ["10648"] = 500,
 ["2432"] = 7690,
 ["4595"] = 300,
@@ -361,7 +370,7 @@ AUCTIONATOR_VENDOR_PRICE_CACHE = {
 ["2380"] = 37,
 ["274746"] = 14775,
 ["13308"] = 1800,
-["2593"] = 150,
+["16169"] = 180,
 ["3593"] = 5477,
 ["5788"] = 650,
 ["20752"] = 3000,
@@ -388,7 +397,7 @@ AUCTIONATOR_VENDOR_PRICE_CACHE = {
 ["2490"] = 540,
 ["854"] = 2720,
 ["11291"] = 4050,
-["1645"] = 400,
+["1645"] = 360,
 ["2143"] = 3944,
 ["2208"] = 3285,
 ["926"] = 8806,
@@ -419,7 +428,7 @@ AUCTIONATOR_VENDOR_PRICE_CACHE = {
 ["2489"] = 342,
 ["2438"] = 20996,
 ["277114"] = 25,
-["3587"] = 14314,
+["2596"] = 120,
 ["2519"] = 0.225,
 ["2495"] = 504,
 ["18567"] = 150000,
@@ -433,7 +442,7 @@ AUCTIONATOR_VENDOR_PRICE_CACHE = {
 ["3599"] = 24,
 ["4599"] = 400,
 ["6369"] = 2200,
-["2207"] = 2151,
+["6529"] = 50,
 ["2463"] = 13695,
 ["17020"] = 900,
 ["2129"] = 77,
@@ -461,10 +470,9 @@ AUCTIONATOR_VENDOR_PRICE_CACHE = {
 ["2101"] = 4,
 ["1197"] = 2400,
 ["2480"] = 72,
-["6532"] = 225,
 ["4340"] = 350,
 ["2469"] = 6334,
-["8766"] = 800,
+["8766"] = 720,
 ["2141"] = 5223,
 ["17029"] = 900,
 ["3107"] = 1647,
@@ -479,13 +487,13 @@ AUCTIONATOR_VENDOR_PRICE_CACHE = {
 ["2029"] = 3978,
 ["5956"] = 18,
 ["2027"] = 3434,
-["6529"] = 50,
+["2207"] = 2151,
 ["15811"] = 24419,
 ["7005"] = 9,
 ["1707"] = 200,
 ["3857"] = 500,
 ["3108"] = 6834,
-["2596"] = 120,
+["3587"] = 14314,
 ["17037"] = 1260,
 ["6057"] = 2000,
 ["3135"] = 1647,
@@ -529,7 +537,7 @@ AUCTIONATOR_VENDOR_PRICE_CACHE = {
 ["8925"] = 450,
 ["2420"] = 10744,
 ["2417"] = 14106,
-["3890"] = 10201,
+["16170"] = 90,
 ["17189"] = 10839,
 ["2429"] = 10138,
 }

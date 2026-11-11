@@ -14,13 +14,18 @@ DungeonsForeverDB = {
 ["restedVoice"] = true,
 ["voice"] = false,
 ["blacklist"] = {
+["塔纳利斯"] = {
+["seq"] = 2,
+["name"] = "塔纳利斯",
+["kinds"] = "all",
+},
 ["阿拉希高地"] = {
 ["seq"] = 1,
 ["name"] = "阿拉希高地",
 ["kinds"] = "all",
 },
 },
-["seq"] = 1,
+["seq"] = 2,
 ["camp"] = true,
 ["rested"] = true,
 ["banner"] = true,
@@ -32,22 +37,22 @@ DungeonsForeverDB = {
 },
 ["mode"] = "auto",
 ["quest"] = true,
-["ignore"] = {
-},
+["tentOwn"] = true,
 ["asked"] = {
 },
 ["spell"] = true,
-["dur"] = 12,
+["voiceInit"] = 2,
 ["food"] = true,
 ["foodVoice"] = true,
 ["tentText"] = 1,
 ["on"] = true,
-["tentOwn"] = true,
+["book"] = true,
 ["preferFood"] = 0,
 ["icon"] = 32,
 ["torch"] = true,
-["book"] = true,
-["voiceInit"] = 2,
+["ignore"] = {
+},
+["dur"] = 12,
 ["tent"] = true,
 ["onlyTodo"] = false,
 ["turnin"] = true,
@@ -458,8 +463,8 @@ DungeonsForeverDB = {
 ["explore"] = true,
 ["dungeon"] = true,
 },
-["profMode"] = "learned",
 ["on"] = true,
+["profMode"] = "learned",
 ["expl"] = {
 ["books"] = true,
 ["bag"] = true,
@@ -482,9 +487,9 @@ DungeonsForeverDB = {
 ["hide"] = false,
 },
 },
+["profMoved"] = true,
 ["chipCalib"] = {
 },
-["profMoved"] = true,
 ["DungeonsForeverExploreDBMoved"] = true,
 ["dungeon"] = {
 ["lootView"] = "list",
@@ -507,12 +512,12 @@ DungeonsForeverDB = {
 ["subTab"] = "Dungeons",
 },
 ["iconRingMode"] = "glow",
-["dfRevealLog"] = "93/93 15ms",
+["dfRevealLog"] = "93/93 13ms",
 ["vendorPrices"] = {
 },
+["svVersion"] = 3,
 ["raid"] = {
 ["tab"] = "timeline",
 ["setFilter"] = "MAGE",
 },
-["svVersion"] = 3,
 }

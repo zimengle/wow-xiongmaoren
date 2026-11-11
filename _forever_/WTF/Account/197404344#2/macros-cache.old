@@ -1,8 +1,10 @@
 VER 3 0000000000000001 "RXPTargeting" "Ability_eyeoftheowl"
-/targetexact 血帆术士
-/targetexact 血帆袭击者
-/targetexact 血帆法师
-/targetexact 血帆流氓
+/targetexact 巨型淤泥蟹
+/targetexact 淤泥蟹
+/targetexact 泥沼之王
+/targetexact 纠缠恐兽
+/targetexact 沼泽漫步者长老
+/targetexact 沼泽漫步者
 /tm !7
 /targetlasttarget [dead]
 END

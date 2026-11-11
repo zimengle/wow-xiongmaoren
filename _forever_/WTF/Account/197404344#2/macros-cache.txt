@@ -1,8 +1,7 @@
 VER 3 0000000000000001 "RXPTargeting" "Ability_eyeoftheowl"
-/targetexact 赞吉尔纳迦
-/targetexact 赞吉尔猎人
-/targetexact 赞吉尔僵尸
-/targetexact 赞吉尔巫医
+/targetexact 憎世侍从
+/targetexact 憎世毒蛇守卫
+/targetexact 憎世巫师
 /tm !7
 /targetlasttarget [dead]
 END

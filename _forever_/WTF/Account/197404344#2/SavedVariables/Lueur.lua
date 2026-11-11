@@ -2,8 +2,9 @@
 LueurDB = {
 ["exclusive"] = true,
 ["questObjects"] = {
-["血帆海图"] = "血帆海盗",
 ["血帆计划书"] = "血帆海盗",
+["血帆海图"] = "血帆海盗",
+["晒干的流木"] = "晒干的流木",
 },
 ["followAlpha"] = false,
 ["categorySettings"] = {
@@ -20,13 +21,29 @@ LueurDB = {
 ["schema"] = 8,
 ["nodeNames"] = {
 ["zhCN"] = {
-["秘银矿脉"] = {
-["id"] = 2040,
-["kind"] = "ore",
+["盲目草"] = {
+["id"] = 142143,
+["kind"] = "herb",
 },
 ["枯叶草"] = {
 ["id"] = 2042,
 ["kind"] = "herb",
+},
+["活根草"] = {
+["id"] = 2041,
+["kind"] = "herb",
+},
+["紫莲花"] = {
+["id"] = 142140,
+["kind"] = "herb",
+},
+["金棘草"] = {
+["id"] = 2046,
+["kind"] = "herb",
+},
+["秘银矿脉"] = {
+["id"] = 2040,
+["kind"] = "ore",
 },
 ["火焰花"] = {
 ["id"] = 2866,
@@ -38,14 +55,6 @@ LueurDB = {
 },
 ["皇血草"] = {
 ["id"] = 1624,
-["kind"] = "herb",
-},
-["紫莲花"] = {
-["id"] = 142140,
-["kind"] = "herb",
-},
-["金棘草"] = {
-["id"] = 2046,
 ["kind"] = "herb",
 },
 },
@@ -75,7 +84,7 @@ LueurDB = {
 },
 ["cvarsReturned"] = true,
 ["range"] = 15,
-["showName"] = true,
+["hideLocked"] = true,
 ["colors"] = {
 ["chest"] = {
 0.45,
@@ -115,8 +124,9 @@ LueurDB = {
 [2554] = true,
 [2086] = true,
 [2087] = true,
+[24798] = true,
 [4149] = true,
 },
-["hideLocked"] = true,
+["showName"] = true,
 ["nodeOre"] = true,
 }

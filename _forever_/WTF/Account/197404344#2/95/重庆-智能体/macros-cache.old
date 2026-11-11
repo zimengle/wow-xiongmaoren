@@ -1,7 +1,8 @@
 VER 3 0100000000000002 "sos" "134400"
 /y 帮我杀一下 求救
 END
-VER 3 0100000000000001 "地震" "136026"
-#showtooltip 地震术
+VER 3 0100000000000001 "地震" "134400"
+#showtooltip 风暴打击
 /startattack
+/cast 风暴打击
 END

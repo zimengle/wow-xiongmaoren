@@ -2,8 +2,9 @@
 LueurDB = {
 ["exclusive"] = true,
 ["questObjects"] = {
-["血帆海图"] = "血帆海盗",
 ["血帆计划书"] = "血帆海盗",
+["晒干的流木"] = "晒干的流木",
+["血帆海图"] = "血帆海盗",
 },
 ["followAlpha"] = false,
 ["categorySettings"] = {
@@ -20,8 +21,24 @@ LueurDB = {
 ["schema"] = 8,
 ["nodeNames"] = {
 ["zhCN"] = {
+["盲目草"] = {
+["id"] = 142143,
+["kind"] = "herb",
+},
 ["枯叶草"] = {
 ["id"] = 2042,
+["kind"] = "herb",
+},
+["活根草"] = {
+["id"] = 2041,
+["kind"] = "herb",
+},
+["紫莲花"] = {
+["id"] = 142140,
+["kind"] = "herb",
+},
+["金棘草"] = {
+["id"] = 2046,
 ["kind"] = "herb",
 },
 ["秘银矿脉"] = {
@@ -40,14 +57,6 @@ LueurDB = {
 ["id"] = 1624,
 ["kind"] = "herb",
 },
-["紫莲花"] = {
-["id"] = 142140,
-["kind"] = "herb",
-},
-["金棘草"] = {
-["id"] = 2046,
-["kind"] = "herb",
-},
 },
 },
 ["ignored"] = {
@@ -62,10 +71,10 @@ LueurDB = {
 ["textFont"] = "game",
 ["intensity"] = 100,
 ["silhouette"] = true,
-["showName"] = true,
-["cvarsReturned"] = true,
 ["nodeOre"] = true,
+["cvarsReturned"] = true,
 ["hideLocked"] = true,
+["showName"] = true,
 ["colors"] = {
 ["chest"] = {
 0.45,
@@ -105,6 +114,7 @@ LueurDB = {
 [2554] = true,
 [2086] = true,
 [2087] = true,
+[24798] = true,
 [4149] = true,
 },
 ["range"] = 15,
