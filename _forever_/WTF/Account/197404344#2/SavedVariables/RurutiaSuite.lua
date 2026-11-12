@@ -73,13 +73,13 @@ RurutiaSuiteDB = {
 ["char"] = {
 ["重庆 - 智能体"] = {
 ["session"] = {
-["lastXP"] = 80118,
-["gainedXP"] = 29949,
-["playedAt"] = 1794406992,
-["levelPlayed"] = 2296,
-["lastXPMax"] = 111800,
-["totalPlayed"] = 222690,
-["startTime"] = 1794406992,
+["lastXP"] = 70731,
+["gainedXP"] = 109963,
+["playedAt"] = 1794472691,
+["levelPlayed"] = 2355,
+["lastXPMax"] = 129100,
+["totalPlayed"] = 254207,
+["startTime"] = 1794466853,
 },
 },
 ["露露缇娅 - 嗷呜"] = {

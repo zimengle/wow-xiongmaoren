@@ -170,15 +170,15 @@ addon.gameVersion = gameVersion
 local maxLevel
 addon.enabledLocale = {
     ["enUS"] = false,
-    -- ["deDE"] = true,
-    -- ["esES"] = true,
-    -- ["esMX"] = true,
-    -- ["frFR"] = true,
+    ["deDE"] = true,
+    ["esES"] = true,
+    ["esMX"] = true,
+    ["frFR"] = true,
     -- ["itIT"] = true,
     -- ["koKR"] = true,
-    -- ["ptBR"] = true,
+    ["ptBR"] = true,
     -- ["ruRU"] = true,
-    -- ["zhCN"] = true,
+    ["zhCN"] = true,
     -- ["zhTW"] = true
 }
 
@@ -243,7 +243,6 @@ addon.player = {
     race = select(2, UnitRace("player")),
     faction = select(1,UnitFactionGroup("player")),
     guid = UnitGUID("player"),
-    name = UnitName("player"),
     level = UnitLevel("player"),
     maxlevel = maxLevel,
     season = addon.GetSeason(),
@@ -251,6 +250,12 @@ addon.player = {
     lang = GetLocale():sub(1,2),
     hardcore = C_GameRules and C_GameRules.IsHardcoreActive and C_GameRules.IsHardcoreActive(),
 }
+if addon.game == "FOREVER" then
+    local firstName, lastName = UnitName("player")
+    addon.player.name = fmt("%s %s", firstName, lastName)
+else
+    addon.player.name = UnitName("player")
+end
 addon.player.neutral = addon.player.faction == "Neutral"
 
 addon.generatedSteps = {}
@@ -509,6 +514,8 @@ function addon.GetSkillLevel(skill, useMaxValue)
         end
     end
 end
+
+
 
 local function ChangeStep(srcGuide,srcStep,destGuide,destStep,func)
     local function stepindex(guide,refresh)
@@ -1047,6 +1054,7 @@ function addon.DisplayQuestLogRewards(questLogIndex)
         return
     end
 
+
     -- options third return only used for handleQuestComplete
     local bestSellOption, bestRatioOption, _ = evaluateQuestChoices(questID, numChoices, nil, GetQuestLogItemLink, GetQuestLogChoiceInfo)
 
@@ -1459,6 +1467,7 @@ function addon.GetGuideProgress(guide)
     return 1, stepId
 end
 
+
 function addon.ResetGuideProgress()
     if not RXPCData then return end
 
@@ -1477,6 +1486,7 @@ function addon.ResetGuideProgress()
 
     addon.ReloadGuide()
 end
+
 
 function addon:OnInitialize()
     local saveLocally = false
@@ -1508,6 +1518,7 @@ function addon:OnInitialize()
     RXPData.realmData[realm] = realmData
     addon.realmData = realmData
 
+
     RXPData.questNames = RXPData.questNames or {}
     RXPCData.questNameCache = RXPCData.questNameCache or {}
     if locale ~= RXPData.questNames['locale'] then
@@ -1530,6 +1541,7 @@ function addon:OnInitialize()
     RXPCData.guideProgress = RXPCData.guideProgress or {}
     addon.CreateMetaDataTable()
     addon.settings:InitializeSettings()
+
 
     -- Retail has enough helpers and massive UI differences
     if addon.gameVersion < 40000 then

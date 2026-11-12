@@ -16,9 +16,9 @@ ConsolePortRings = {
 },
 {
 ["type"] = "item",
-["questID"] = 3520,
+["questID"] = 2944,
 ["autoassigned"] = true,
-["item"] = "|cnIQ1:|Hitem:10699::::::::44:1489::11:::::::|h[叶基亚的树枝]|h|r",
+["item"] = "|cnIQ1:|Hitem:9328::::::::47:1489::11:::::::|h[超级摄影器FX]|h|r",
 },
 [0] = {
 },

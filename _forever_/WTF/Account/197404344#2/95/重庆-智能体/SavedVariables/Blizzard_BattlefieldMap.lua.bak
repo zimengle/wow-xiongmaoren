@@ -1,6 +1,10 @@
 
 BattlefieldMapOptions = {
-["locked"] = true,
-["opacity"] = 0.7,
+["locked"] = false,
+["opacity"] = 0,
+["position"] = {
+["y"] = 1272.092163085938,
+["x"] = 81.1878662109375,
+},
 ["showPlayers"] = true,
 }

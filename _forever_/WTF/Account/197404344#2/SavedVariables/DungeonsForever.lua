@@ -37,7 +37,8 @@ DungeonsForeverDB = {
 },
 ["mode"] = "auto",
 ["quest"] = true,
-["tentOwn"] = true,
+["ignore"] = {
+},
 ["asked"] = {
 },
 ["spell"] = true,
@@ -46,12 +47,11 @@ DungeonsForeverDB = {
 ["foodVoice"] = true,
 ["tentText"] = 1,
 ["on"] = true,
-["book"] = true,
+["tentOwn"] = true,
 ["preferFood"] = 0,
 ["icon"] = 32,
 ["torch"] = true,
-["ignore"] = {
-},
+["book"] = true,
 ["dur"] = 12,
 ["tent"] = true,
 ["onlyTodo"] = false,
@@ -451,10 +451,10 @@ DungeonsForeverDB = {
 },
 ["scale"] = 115,
 ["window"] = {
-["y"] = 49.97885131835938,
+["y"] = -55.03525924682617,
 ["relPoint"] = "CENTER",
 ["point"] = "CENTER",
-["x"] = -94.34968566894531,
+["x"] = -160.4697875976563,
 },
 ["quick"] = {
 ["ver"] = 1,
@@ -487,14 +487,15 @@ DungeonsForeverDB = {
 ["hide"] = false,
 },
 },
-["profMoved"] = true,
 ["chipCalib"] = {
 },
+["profMoved"] = true,
 ["DungeonsForeverExploreDBMoved"] = true,
 ["dungeon"] = {
-["lootView"] = "list",
-["dungeonTab"] = "quest",
-["dungeonView"] = "list",
+["miniPos"] = {
+3,
+1309,
+},
 ["mapQuestPinsCfg"] = {
 ["scope"] = {
 ["enter"] = true,
@@ -507,17 +508,20 @@ DungeonsForeverDB = {
 ["world"] = false,
 ["size"] = 18,
 },
+["dungeonTab"] = "quest",
+["lootView"] = "list",
+["dungeonView"] = "list",
 ["dungeonLootFold"] = {
 },
 ["subTab"] = "Dungeons",
 },
 ["iconRingMode"] = "glow",
-["dfRevealLog"] = "93/93 13ms",
+["dfRevealLog"] = "91/91 18ms",
 ["vendorPrices"] = {
 },
-["svVersion"] = 3,
 ["raid"] = {
 ["tab"] = "timeline",
 ["setFilter"] = "MAGE",
 },
+["svVersion"] = 3,
 }

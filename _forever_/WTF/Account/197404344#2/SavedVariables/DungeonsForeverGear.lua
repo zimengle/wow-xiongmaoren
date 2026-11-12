@@ -5,9 +5,9 @@ DungeonsForeverGearDB = {
 {
 ["items"] = {
 ["waist"] = 20117,
-["legs"] = 13114,
+["finger2"] = 285190,
 ["finger"] = 285190,
-["neck"] = 19537,
+["legs"] = 13114,
 ["trinket"] = 271904,
 ["two-hand"] = 280604,
 ["back"] = 13108,
@@ -18,7 +18,7 @@ DungeonsForeverGearDB = {
 ["hands"] = 270072,
 ["wrist"] = 270091,
 ["shoulder"] = 7755,
-["finger2"] = 285190,
+["neck"] = 19537,
 },
 ["t"] = 1794152346,
 ["sig"] = "2.1.40|6|shaman|pve|enh|known|33|1|0|a",

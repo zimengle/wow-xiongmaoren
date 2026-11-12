@@ -1,8 +1,8 @@
 local faction = UnitFactionGroup("player")
 if faction == "Alliance" then return end
 
+local L = GetLocale() if L and RXP.enabledLocale[L] then return end
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 无限 竞速指南（部落）
 #forever
 #disabledungeons
 << Horde
@@ -10,70 +10,66 @@ RXPGuides.RegisterGuide([[
 #version 11
 #group RestedXP Forever Guide (H)
 #subgroup Speedrun Guide 1-22
-#subgroupdisplayname 1-22
 --#groupid RXP-SRGCE-H1
 #defaultfor Troll/Orc
 #next 6-10 Durotar
-#displayname 1-6 杜隆塔尔
+
 step << !Orc !Troll
     #completewith next
-    +|cRXP_WARN_你选择的指南适用于兽人和巨魔。请选择与你实际出生地相同的起始区域指南|r
+    +|cRXP_WARN_You have selected a guide meant for Orcs and Trolls. You should choose the same starter zone that you start in|r
 step
     .goto 1411/1,-4251.46,-607.35
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_卡尔图克|r交谈
-    .accept 4641 >>接任务：起点
-    .target 卡尔图克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kaltunk|r
+    .accept 4641 >>Accept Your Place In The World
+    .target Kaltunk
 step << Warrior/Shaman/Warlock/Mage/Priest
     #completewith next
-    +|cRXP_WARN_击杀 |r|cRXP_ENEMY_杂斑野猪|r|cRXP_WARN_，拾取掉落，直到可出售物品（包括你的护甲）的总价值达到35铜币|r << Warlock
-    +|cRXP_WARN_击杀 |r|cRXP_ENEMY_杂斑野猪|r|cRXP_WARN_，拾取掉落，直到可出售物品（包括你的护甲）的总价值达到60铜币|r << Mage
-    +|cRXP_WARN_击杀|r|cRXP_ENEMY_杂斑野猪|r|cRXP_WARN_，刷到可出售物品（包括你的护甲）价值达 50 铜|r << Priest
-    +|cRXP_WARN_击杀 |r|cRXP_ENEMY_杂斑野猪|r|cRXP_WARN_，拾取掉落，直到可出售物品（包括你的护甲）的总价值达到10铜币|r << Warrior/Shaman
+    +|cRXP_WARN_Kill |cRXP_ENEMY_Mottled Boars|r. Loot them until you have 35 copper worth of vendor items (including your armor)|r << Warlock
+    +|cRXP_WARN_Kill |cRXP_ENEMY_Mottled Boars|r. Loot them until you have 60 copper worth of vendor items (including your armor)|r << Maget
+    +|cRXP_WARN_Kill |cRXP_ENEMY_Mottled Boars|r. Loot them until you have 50 copper worth of vendor items (including your armor)|r << Priest
+    +|cRXP_WARN_Kill |cRXP_ENEMY_Mottled Boars|r. Loot them until you have 10 copper worth of vendor items (including your armor)|r << Warrior/Shaman
     .goto 1411/1,-4281.07,-720.15,30,0 << Warlock/Mage/Priest
     .goto 1411/1,-4299.05,-494.9,30,0 << Warrior/Shaman
-    .mob 杂斑野猪
-    .money >0.0035 << Warlock
-    .money >0.0060 << Mage
-    .money >0.0050 << Priest
-    .money >0.0010 << Warrior/Shaman
+    .mob Mottled Boar
+    .money >0.01
 step << Warlock
-    .goto 1411/1,-4214.45,-623.92
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_鲁赞|r交谈
-    .accept 1485 >>接任务：邪灵劣魔
-    .target 鲁赞
+    .goto 1411/1,-4214.45,-623.92.00
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ruzan|r
+    .accept 1485 >>Accept Vile Familiars
+    .target Ruzan
 step << Warrior/Shaman
     .goto 1411/1,-4214.45,-565.75
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_多克纳|r交谈
-    .vendor >> 出售杂物
-    .target 多克纳
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Duokna|r
+    .vendor >> Vendor Trash
+    .target Duokna
     .money >0.01
 step
     .goto 1411/1,-4198.05,-605.59,12,0 << !Warrior !Shaman
     .goto 1411/1,-4198.58,-602.41,12,0 << Warrior/Shaman
     .goto 1411/1,-4186.42,-599.95
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_高内克|r交谈
-    .turnin 4641 >>交任务：起点
-    .accept 788 >>接任务：小试身手
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gornek|r
+    .turnin 4641 >>Turn in Your Place In The World
+    .accept 788 >>Accept Cutting Teeth
     --.accept 97279 >>Accept Wayward Weapons
-    .target 高内克
+    .target Gornek
     --97279 not worth doing, bad xp loot quest, no followup
 step << Warrior/Shaman
     .goto 1411/1,-4198.05,-605.59,10,0
     .goto 1411/1,-4230.31,-639.43 << Warrior
     .goto 1411/1,-4203.87,-623.92 << Shaman
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_弗朗恩|r交谈 << Warrior
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_史克里克|r交谈 << Shaman
-    .train 6673 >>学习 |T132333:0|t[战斗怒吼] << Warrior
-    .train 8017 >>学习 |T136086:0|t[石化武器] << Shaman
-    .target 弗朗恩 << Warrior
-    .target 史克里克 << Shaman
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Frang|r << Warrior
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Shikrik|r << Shaman
+    .train 6673 >>Train |T132333:0|t[Battle Shout] << Warrior
+    .train 8017 >>Train |T136086:0|t[Rockbiter Weapon] << Shaman
+    .target Frang << Warrior
+    .target Shikrik << Shaman
 step << Warlock
     #softcore
     #completewith Nartok
     .goto 1411/1,-4157.87,-601.36,12,0
     .goto 1411/1,-4143.06,-594.31,12,0
     .goto 1411/1,-4120.86,-589.72,12,0
-    .goto 1411/1,-4111.87,-607.00,12 >>前往 |cRXP_FRIENDLY_纳托克|r处
+    .goto 1411/1,-4111.87,-607.00,12 >>Travel toward |cRXP_FRIENDLY_Nartok|r
     .money <0.01
 step << Warlock
     #softcore
@@ -81,7 +77,7 @@ step << Warlock
     .goto 1411/1,-4157.87,-601.36,12,0
     .goto 1411/1,-4143.06,-594.31,12,0
     .goto 1411/1,-4120.86,-589.72,12,0
-    .goto 1411/1,-4107.11,-604.18,12 >>前往 |cRXP_FRIENDLY_赫劳格|r处
+    .goto 1411/1,-4107.11,-604.18,12 >>Travel toward |cRXP_FRIENDLY_Hraug|r
     .money >0.01
 step << Warlock
     #hardcore
@@ -89,56 +85,56 @@ step << Warlock
     .goto 1411/1,-4157.87,-601.36,12,0
     .goto 1411/1,-4143.06,-594.31,12,0
     .goto 1411/1,-4120.86,-589.72,12,0
-    .goto 1411/1,-4107.11,-604.18,12 >>前往 |cRXP_FRIENDLY_赫劳格|r处
+    .goto 1411/1,-4107.11,-604.18,12 >>Travel toward |cRXP_FRIENDLY_Hraug|r
 step << Warlock
     #softcore
     .goto 1411/1,-4107.11,-604.18
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_赫劳格|r交谈
-    .vendor >>出售杂物
-    .target 赫劳格
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Hraug|r
+    .vendor >>Vendor Trash
+    .target Hraug
     .money >0.01
 step << Warlock
     #hardcore
     .goto 1411/1,-4107.11,-604.18
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_赫劳格|r交谈
-    .vendor >>出售杂物
-    .target 赫劳格
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Hraug|r
+    .vendor >>Vendor Trash
+    .target Hraug
 step << Warlock
     #label Nartok
     .goto 1411/1,-4111.87,-607.00
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_纳托克|r交谈
-    .train 348 >>学习 |T135817:0|t[献祭]
-    .target 纳托克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Nartok|r
+    .train 348 >>Train |T135817:0|t[Immolate]
+    .target Nartok
 step << Hunter/Mage/Priest
     .goto 1411/1,-4214.45,-565.40
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_多克纳|r交谈
-    >>|cRXP_BUY_向她购买|r |T132794:0|t[清凉的泉水] |cRXP_BUY_备用|r << !Hunter
-    >>|cRXP_BUY_向她购买|r |T132382:0|t[劣质箭] |cRXP_BUY_备用|r << Hunter
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Duokna|r
+    >>|cRXP_BUY_Buy|r |T132794:0|t[Refreshing Spring Water] |cRXP_BUY_from her|r << !Hunter
+    >>|cRXP_BUY_Buy|r |T132382:0|t[Rough Arrows] |cRXP_BUY_from her|r << Hunter
     .collect 159,10,6394,1 << !Hunter --Refreshing Spring Water (10)
     .collect 2512,1000,6394,1 << Hunter --Rough Arrow (1000)
-    .target 多克纳
+    .target Duokna
     .money <0.005 << !Hunter
     .money <0.0040 << Hunter
 step << Warlock
     .goto 1411/1,-4214.45,-565.40
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_多克纳|r交谈
-    >>|cRXP_BUY_向她购买|r |T132794:0|t[清凉的泉水] |cRXP_BUY_备用|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Duokna|r
+    >>|cRXP_BUY_Buy|r |T132794:0|t[Refreshing Spring Water] |cRXP_BUY_from her|r
     .collect 159,5,6394,1 --Refreshing Spring Water (5)
-    .target 多克纳
+    .target Duokna
     .money <0.0025
 step << skip
     #completewith Boars
-    >>拾取地上的 |cRXP_PICK_遗弃的训练武器|r
+    >>Loot |cRXP_PICK_Abandoned Training Weapons|r on the ground
     .complete 97279,1 --|6/6 Abandoned Training Weapon
 step << Warlock
     #completewith next
     .goto 1411/1,-4266.26,-563.29,25,0
-    >>前往火刃集会所途中击杀 |cRXP_ENEMY_杂斑野猪|r
-    >>|cRXP_WARN_尽量在抵达之前升到2级|r
+    >>Kill |cRXP_ENEMY_Mottled Boars|r en route to the Burning Blade Coven
+    >>|cRXP_WARN_Try to get to level 2 before getting there|r
     .complete 788,1 --Mottled Boar (10)
-    .mob 杂斑野猪
+    .mob Mottled Boar
 step << Warlock
-    .goto 1411/1,-4357.74,-180.47,100 >> 前往火刃集会所
+    .goto 1411/1,-4357.74,-180.47,100 >> Travel toward the Burning Blade Coven
     .isOnQuest 1485
 step << Warlock
     #loop
@@ -158,33 +154,33 @@ step << Warlock
     .goto 1411/1,-4319.67,-169.190,40,0
     .goto 1411/1,-4303.28,-186.46,40,0
     .goto 1411/1,-4281.07,-148.75,40,0
-    >>击杀 |cRXP_ENEMY_邪灵劣魔|r，拾取 |cRXP_LOOT_邪灵劣魔的头颅|r
+    >>Kill |cRXP_ENEMY_Vile Familiars|r. Loot them for |cRXP_LOOT_Vile Familiar Heads|r
     .complete 1485,1 --Vile Familiar Head (6)
-    .mob 邪灵劣魔
+    .mob Vile Familiar
 step
     #completewith Sarkoth
     .goto 1411/1,-4266.26,-563.29,35,0 << !Warlock
     .goto 1411/1,-4283.18,-512.53,45,0 << !Warlock
-    >>击杀 |cRXP_ENEMY_杂斑野猪|r
+    >>Kill |cRXP_ENEMY_Mottled Boars|r
     .complete 788,1 --Mottled Boar (10)
-    .mob 杂斑野猪
+    .mob Mottled Boar
 step
     .goto 1411/1,-4108.70,-397.96
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_哈纳祖|r交谈
-    .accept 790 >>接任务：萨科斯
-    .target 哈纳祖
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Hana'zua|r
+    .accept 790 >>Accept Sarkoth
+    .target Hana'zua
 step
     #label Sarkoth
     .goto 1411/1,-4109.22,-546.370
-    >>击杀 |cRXP_ENEMY_萨科斯|r，拾取 |cRXP_LOOT_萨科斯的爪子|r
+    >>Kill |cRXP_ENEMY_Sarkoth|r. Loot him for |cRXP_LOOT_Sarkoth's Mangled Claw|r
     .complete 790,1 --Sarkoth's Mangled Claw (1)
-    .mob 萨科斯
+    .mob Sarkoth
 step
     .goto 1411/1,-4108.70,-397.96
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_哈纳祖|r交谈
-    .turnin 790 >>交任务：萨科斯
-    .accept 804 >>接任务：萨科斯
-    .target 哈纳祖
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Hana'zua|r
+    .turnin 790 >>Turn in Sarkoth
+    .accept 804 >>Accept Sarkoth
+    .target Hana'zua
 step
     #loop
     .goto 1411/1,-4146.24,-483.97,0
@@ -210,9 +206,9 @@ step
     .goto 1411/1,-4184.31,-382.45,40,0
     .goto 1411/1,-4183.25,-409.6,40,0
     .goto 1411/1,-4182.72,-448.72,40,0
-    >>击杀 |cRXP_ENEMY_杂斑野猪|r
+    >>Kill |cRXP_ENEMY_Mottled Boars|r
     .complete 788,1 --Mottled Boar (10)
-    .mob 杂斑野猪
+    .mob Mottled Boar
 step << Warlock
     #loop
 	.goto 1411/1,-4146.24,-483.97,0
@@ -238,209 +234,209 @@ step << Warlock
     .goto 1411/1,-4184.31,-382.45,40,0
     .goto 1411/1,-4183.25,-409.6,40,0
     .goto 1411/1,-4182.72,-448.72,40,0
-    .xp 3+685 >> 刷怪至685+/1400经验值
-    .mob 杂斑野猪
+    .xp 3+685 >> Grind to 685+/1400xp
+    .mob Mottled Boar
 step
     #optional
     #label Boars
 step << skip
     .goto 1411/1,-4260.000,-404.200
-    >>拾取地上的 |cRXP_PICK_遗弃的训练武器|r
+    >>Loot |cRXP_PICK_Abandoned Training Weapons|r on the ground
     .complete 97279,1 --|6/6 Abandoned Training Weapon
 step << Warlock
     #completewith Ruzan2
-	>>|cRXP_WARN_刷 |r|cRXP_ENEMY_杂斑野猪|r|cRXP_WARN_，拾取掉落，直到可出售物品的总价值达到1银币|r
-    .mob 杂斑野猪
+	>>|cRXP_WARN_Grind |cRXP_ENEMY_Mottled Boars|r. Loot them until you have 1 silver worth of vendor items|r
+    .mob Mottled Boar
 	.money >0.01
 step << Rogue
     #label Duokna2
     .goto 1411/1,-4214.45,-565.40
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_多克纳|r交谈
-    .vendor >> 出售杂物
-    .target 多克纳
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Duokna|r
+    .vendor >> Vendor Trash
+    .target Duokna
 step << Warlock
     #label Ruzan2
     .goto 1411/1,-4214.400,-624.000
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_鲁赞|r交谈
-    .turnin 1485 >>交任务：邪灵劣魔
-    .accept 1499 >>接任务：邪灵劣魔
-    .target 鲁赞
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ruzan|r
+    .turnin 1485 >>Turn in Vile Familiars
+    .accept 1499 >>Accept Vile Familiars
+    .target Ruzan
 step << Warlock
     #completewith Gornek2
-    .cast 688 >>|cRXP_WARN_施放|r |T136218:0|t[召唤小鬼]
+    .cast 688 >>|cRXP_WARN_Cast|r |T136218:0|t[Summon Imp]
 step << Warlock
 	.goto 1411/1,-4228.19,-629.20
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_祖雷萨|r交谈
-    .turnin 1499 >>交任务：邪灵劣魔
-    .accept 794 >>接任务：火刃奖章
-    .target 祖雷萨
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Zureetha|r
+    .turnin 1499 >>Turn in Vile Familiars
+    .accept 794 >>Accept Burning Blade Medallion
+    .target Zureetha Fargaze
 step
     #label Gornek2
     .goto 1411/1,-4198.05,-605.59,12,0 << Warlock
     .goto 1411/1,-4198.58,-602.41,12,0 << !Warlock
     .goto 1411/1,-4186.42,-599.95
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_高内克|r交谈
-    .turnin 788,2 >>交任务：小试身手 << Shaman
-    .turnin 788 >>交任务：小试身手 << !Shaman
-    .accept 789 >>接任务：工蝎的尾巴
-    .accept 2383 >>接任务：简易羊皮纸 << Orc Warrior
-    .accept 3065 >>接任务：普通石板 << Troll Warrior
-    .accept 3082 >>接任务：风蚀石板 << Troll Hunter
-    .accept 3083 >>接任务：密文石板 << Troll Rogue
-    .accept 3084 >>接任务：符文石板 << Troll Shaman
-    .accept 3085 >>接任务：神圣石板 << Troll Priest
-    .accept 3086 >>接任务：雕文石板 << Troll Mage
-    .accept 98575 >>接任务：被污染的石板 << Troll Warlock
-    .accept 3087 >>接任务：风蚀羊皮纸 << Orc Hunter
-    .accept 3088 >>接任务：密文羊皮纸 << Orc Rogue
-    .accept 3089 >>接任务：符文羊皮纸 << Orc Shaman
-    .accept 3090 >>接任务：被污染的羊皮纸 << Orc Warlock
-    .accept 98576 >>接任务：雕文羊皮纸 << Orc Mage
-    .turnin 804,1 >>交任务：萨科斯 << Shaman
-    .turnin 804 >>交任务：萨科斯 << !Shaman
-    .target 高内克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gornek|r
+    .turnin 788,2 >>Turn in Cutting Teeth << Shaman
+    .turnin 788 >>Turn in Cutting Teeth << !Shaman
+    .accept 789 >>Accept Sting of the Scorpid
+    .accept 2383 >>Accept Simple Parchment << Orc Warrior
+    .accept 3065 >>Accept Simple Tablet << Troll Warrior
+    .accept 3082 >>Accept Etched Tablet << Troll Hunter
+    .accept 3083 >>Accept Encrypted Tablet << Troll Rogue
+    .accept 3084 >>Accept Rune-Inscribed Tablet << Troll Shaman
+    .accept 3085 >>Accept Hallowed Tablet << Troll Priest
+    .accept 3086 >>Accept Glyphic Tablet << Troll Mage
+    .accept 98575 >>Accept Tainted Tablet << Troll Warlock
+    .accept 3087 >>Accept Etched Parchment << Orc Hunter
+    .accept 3088 >>Accept Encrypted Parchment << Orc Rogue
+    .accept 3089 >>Accept Rune-Inscribed Parchment << Orc Shaman
+    .accept 3090 >>Accept Tainted Parchment << Orc Warlock
+    .accept 98576 >>Accept Glyphic Parchment << Orc Mage
+    .turnin 804,1 >>Turn in Sarkoth << Shaman
+    .turnin 804 >>Turn in Sarkoth << !Shaman
+    .target Gornek
 step << Rogue
     #completewith Rwag
     .goto 1411/1,-4157.87,-601.36,12,0
-    .goto 1411/1,-4144.65,-588.67,12 >>前往 |cRXP_FRIENDLY_鲁瓦格|r处
+    .goto 1411/1,-4144.65,-588.67,12 >>Travel toward |cRXP_FRIENDLY_Rwag|r
 step << Rogue
     .goto 1411/1,-4144.65,-588.67
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_鲁瓦格|r交谈
-    .turnin 3083 >>交任务：密文石板 << Troll Rogue
-    .turnin 3088 >>交任务：密文羊皮纸 << Orc Rogue
-    .train 53 >> 学习 |T132090:0|t[背刺]
-    .target 鲁瓦格
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Rwag|r
+    .turnin 3083 >>Turn in Encrypted Tablet << Troll Rogue
+    .turnin 3088 >>Turn in Encrypted Parchment << Orc Rogue
+    .train 53 >> Train |T132090:0|t[Backstab]
+    .target Rwag
     .money <0.04
     .xp <4,1
 step << Rogue
     #label Rwag
     .goto 1411/1,-4144.65,-588.67
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_鲁瓦格|r交谈
-    .turnin 3083 >>交任务：密文石板 << Troll Rogue
-    .turnin 3088 >>交任务：密文羊皮纸 << Orc Rogue
-    .target 鲁瓦格
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Rwag|r
+    .turnin 3083 >>Turn in Encrypted Tablet << Troll Rogue
+    .turnin 3088 >>Turn in Encrypted Parchment << Orc Rogue
+    .target Rwag
 step
     #optional
     .goto 1411/1,-4102.400,-588.900
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与洞穴深处的 |cRXP_FRIENDLY_克赞·荆条|r交谈
-    .turnin 97279 >>交任务：遗失的武器
-    .target 克赞·荆条
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kzan Thornslash|r in the back of the cave
+    .turnin 97279 >>Turn in Wayward Weapons
+    .target Kzan Thornslash
     .isQuestComplete 97279
 step
     #optional
-    .abandon 97279 >>放弃任务：遗失的武器
+    .abandon 97279 >>Abandon Wayward Weapons
 step << Shaman
     .goto 1411/1,-4102.600,-588.800
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_克赞·荆条|r交谈
-    .vendor >> 出售杂物。如果卖掉武器后能凑够购买 |T135139:0|t[学徒法杖]的钱（97铜币），就把武器也卖掉
-    .target 克赞·荆条
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kzan|r
+    .vendor >> Vendor trash. Sell your weapon if it gives you enough money for a |T135139:0|t[Short Staff] (97c)
+    .target Kzan Thornslash
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<1.9
 step << Shaman
     .goto 1411/1,-4102.600,-588.800
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_克赞·荆条|r交谈
-    >>|cRXP_BUY_向他购买|r |T135139:0|t[学徒法杖] |cRXP_BUY_备用|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kzan|r
+    >>|cRXP_BUY_Buy a|r |T135139:0|t[Short Staff] |cRXP_BUY_from him|r
     .collect 2132,1,5441,1 --Collect Short Staff (1)
     .money <0.0097
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<1.9
-    .target 克赞·荆条
+    .target Kzan Thornslash
 step << Rogue/Warrior
     .goto 1411/1,-4106.000,-593.400
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_诺兹什|r交谈
-    >>|cRXP_BUY_向他购买一把|r |T134708:0|t[矿工锄]
-    .train 2575 >> 学习 |T136248:0|t[采矿]
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Norzsh|r
+    >>|cRXP_BUY_Buy a|r |T134708:0|t[Mining Pick] |cRXP_BUY_from|r |cRXP_BUY_him|r
+    .train 2575 >> Train |T136248:0|t[Mining]
     .collect 2901,1,792,1 --Mining Pick (1)
-    >>|cRXP_WARN_这样就能从矿点采集到|r |T135232:0|t|cRXP_LOOT_[劣质的石头]|r |cRXP_WARN_，用于制作|r |T135248:0|t[磨刀石] |cRXP_WARN_（武器伤害+2，持续30分钟）|r
-    .target 诺兹什
+    >>|cRXP_WARN_This will allow you to find|r |T135232:0|t|cRXP_LOOT_[Rough Stones]|r |cRXP_WARN_from nodes in order to craft|r |T135248:0|t[Sharpening Stones] |cRXP_WARN_(+2 Weapon Damage for 30 minutes)|r
+    .target Norzsh
 step << Warlock
     .goto 1411/1,-4107.11,-604.18
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_赫劳格|r交谈
-    .vendor >>出售杂物
-    .target 赫劳格
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Hraug|r
+    .vendor >>Vendor Trash
+    .target Hraug
     .money >0.01
 step << Warlock
     #label Nartok2
     .goto 1411/1,-4111.87,-607.00
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_纳托克|r交谈
-    .turnin 3090 >>交任务：被污染的羊皮纸 << Orc Warlock
-    .turnin 98575 >>交任务：被污染的石板 << Troll Warlock
-    .train 172 >> 学习 |T136118:0|t[腐蚀术]
-    .target 纳托克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Nartok|r
+    .turnin 3090 >>Turn in Tainted Parchment << Orc Warlock
+    .turnin 98575 >>Turn in Tainted Tablet << Troll Warlock
+    .train 172 >> Train |T136118:0|t[Corruption]
+    .target Nartok
 step
     #label Galgar
     .goto 1411/1,-4221.85,-561.52,0,0
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_戈加尔|r交谈
-    .accept 4402 >>接任务：戈加尔的清凉果
-    .target 戈加尔
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Galgar|r
+    .accept 4402 >>Accept Galgar's Cactus Apple Surprise
+    .target Galgar
 step << !Rogue !Shaman
     .goto 1411/1,-4214.45,-565.40
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_多克纳|r交谈
-    >>|cRXP_BUY_向她购买|r |T132794:0|t[清凉的泉水] |cRXP_BUY_备用|r << !Rogue !Warrior !Hunter !Shaman
-    >>|cRXP_BUY_向她购买|r |T132382:0|t[劣质箭] |cRXP_BUY_备用|r << Hunter
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Duokna|r
+    >>|cRXP_BUY_Buy|r |T132794:0|t[Refreshing Spring Water] |cRXP_BUY_from her|r << !Rogue !Warrior !Hunter !Shaman
+    >>|cRXP_BUY_Buy|r |T132382:0|t[Rough Arrows] |cRXP_BUY_from her|r << Hunter
     .collect 159,15,6394,1 << !Rogue !Warrior !Hunter !Shaman --Refreshing Spring Water (15)
     .collect 2512,1000,6394,1 << Hunter --Rough Arrow (1000)
-    .vendor >> 出售杂物
-    .target 多克纳
+    .vendor >> Vendor Trash
+    .target Duokna
     .money >0.1 << Rogue/Warrior
     .itemcount 159,<15 << !Rogue !Warrior !Hunter !Shaman
 step << Shaman
     #requires Galgar
     .goto 1411/1,-4203.87,-623.92
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_史克里克|r交谈
-    .turnin 3084 >>交任务：符文石板 << Troll
-    .turnin 3089 >>交任务：符文羊皮纸 << Orc
-    .target 史克里克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Shikrik|r
+    .turnin 3084 >>Turn in Rune-Inscribed Tablet << Troll
+    .turnin 3089 >>Turn in Rune-Inscribed Parchment << Orc
+    .target Shikrik
 step << Mage
     #requires Galgar
     .goto 1411/1,-4210.22,-625.33
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_迈安|r交谈
-    .turnin 3086 >>交任务：雕文石板 << Troll Mage
-    .turnin 98576 >>交任务：雕文羊皮纸 << Orc Mage
-    .train 1459 >> 学习 |T135932:0|t[奥术智慧]
-    .target 迈安
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mai'ah|r
+    .turnin 3086 >>Turn in Glyphic Tablet << Troll Mage
+    .turnin 98576 >>Turn in Glyphic Parchment << Orc Mage
+    .train 1459 >> Train |T135932:0|t[Arcane Intellect]
+    .target Mai'ah
 step << !Warlock
     #requires Galgar
 	.goto 1411/1,-4228.19,-629.20
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_祖雷萨|r交谈
-    .accept 792 >>接任务：邪灵劣魔
-    .target 祖雷萨
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Zureetha|r
+    .accept 792 >>Accept Vile Familiars
+    .target Zureetha Fargaze
 step << Hunter
     .goto 1411/1,-4227.66,-635.20
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_基沙|r交谈
-    .turnin 3082 >>交任务：风蚀石板 << Troll
-    .turnin 3087 >>交任务：风蚀羊皮纸 << Orc
-    .target 基沙
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Jen'shan|r
+    .turnin 3082 >>Turn in Etched Tablet << Troll
+    .turnin 3087 >>Turn in Etched Parchment << Orc
+    .target Jen'shan
 step << Warrior
     .goto 1411/1,-4230.31,-639.43
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_弗朗恩|r交谈
-    .turnin 2383 >>交任务：简易羊皮纸 << Orc
-    .turnin 3065 >>交任务：普通石板 << Troll
-    .target 弗朗恩
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Frang|r
+    .turnin 2383 >>Turn in Simple Parchment << Orc
+    .turnin 3065 >>Turn in Simple Tablet << Troll
+    .target Frang
 step
     #requires Galgar << Warlock
     .goto 1411/1,-4322.31,-611.58
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_工头塔兹利尔|r交谈
-    .accept 5441 >>接任务：懒惰的苦工
-    .target 工头塔兹利尔
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Thazz'ril|r
+    .accept 5441 >>Accept Lazy Peons
+    .target Foreman Thazz'ril
 step
     #completewith Sting
-    >>拾取仙人掌旁的 |cRXP_LOOT_仙人掌果|r
+    >>Loot the |cRXP_LOOT_Cactus Apples|r near the Cacti
     .complete 4402,1 --Cactus Apple (10)
 step
     #completewith Tails
     .goto 1411/1,-4340.82,-628.50,20,0
     .goto 1411/1,-4375.71,-507.590,45,0
     .goto 1411/1,-4467.19,-506.53,45,0
-    >>|cRXP_WARN_使用|r |T133486:0|t[工头的木棒] |cRXP_WARN_敲醒熟睡的|r|cRXP_FRIENDLY_懒惰的苦工|r
+    >>|cRXP_WARN_Use the|r |T133486:0|t[Foreman's Blackjack] |cRXP_WARN_on sleeping |r|cRXP_FRIENDLY_Lazy Peons|r
     .complete 5441,1 --Peons Awoken (5)
-    .target 懒惰的苦工
+    .target Lazy Peon
     .use 16114
 step << !Warlock
     #completewith Imps
-    >>击杀 |cRXP_ENEMY_蝎子|r，拾取 |cRXP_LOOT_工蝎的尾巴|r
+    >>Kill |cRXP_ENEMY_Scorpid Workers|r. Loot them for |cRXP_LOOT_Scorpid Worker Tails|r
     .complete 789,1 --Scorpid Worker Tail (10)
-    .mob 蝎子
+    .mob Scorpid Worker
 step << !Warlock
     #label Imps
     #loop
@@ -460,9 +456,9 @@ step << !Warlock
     .goto 1411/1,-4319.67,-169.190,40,0
     .goto 1411/1,-4303.28,-186.46,40,0
     .goto 1411/1,-4281.07,-148.75,40,0
-    >>击杀 |cRXP_ENEMY_邪灵劣魔|r
+    >>Kill |cRXP_ENEMY_Vile Familiars|r
     .complete 792,1 --Vile Familiar (12)
-    .mob 邪灵劣魔
+    .mob Vile Familiar
 step
     #label Tails
     #loop
@@ -514,9 +510,9 @@ step
     .goto 1411/1,-4384.70,-281.990,40,0
     .goto 1411/1,-4349.81,-287.63,40,0
     .goto 1411/1,-4284.24,-283.05,40,0
-    >>击杀 |cRXP_ENEMY_蝎子|r，拾取 |cRXP_LOOT_工蝎的尾巴|r
+    >>Kill |cRXP_ENEMY_Scorpid Workers|r. Loot them for |cRXP_LOOT_Scorpid Worker Tails|r
     .complete 789,1 --Scorpid Worker Tail (10)
-    .mob 蝎子
+    .mob Scorpid Worker
 step
     #loop
 	.goto 1411/1,-4340.82,-628.50,0
@@ -530,9 +526,9 @@ step
 	.goto 1411/1,-4144.65,-269.65,25,0
 	.goto 1411/1,-4125.62,-321.12,25,0
 	.goto 1411/1,-4015.64,-371.53,25,0
-    >>|cRXP_WARN_使用|r |T133486:0|t[工头的木棒] |cRXP_WARN_敲醒熟睡的|r|cRXP_FRIENDLY_懒惰的苦工|r
+    >>|cRXP_WARN_Use the|r |T133486:0|t[Foreman's Blackjack] |cRXP_WARN_on sleeping |r|cRXP_FRIENDLY_Lazy Peons|r
     .complete 5441,1 --Peons Awoken (5)
-    .target 懒惰的苦工
+    .target Lazy Peon
     .use 16114
 step
     #loop
@@ -559,25 +555,25 @@ step
     .goto 1411/1,-4184.31,-382.45,40,0
     .goto 1411/1,-4183.25,-409.6,40,0
     .goto 1411/1,-4182.72,-448.72,40,0
-    .xp 4 >> 刷怪到4级
-    .mob 杂斑野猪
-    .mob 蝎子
-    .mob 邪灵劣魔
+    .xp 4 >> Grind to level 4
+    .mob Mottled Boar
+    .mob Scorpid Worker
+    .mob Vile Familiar
 step
     .goto 1411/1,-4221.85,-561.52
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_戈加尔|r交谈
-    .turnin 4402 >>交任务：戈加尔的清凉果
-    .target 戈加尔
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Galgar|r
+    .turnin 4402 >>Turn in Galgar's Cactus Apple Surprise
+    .target Galgar
     .isQuestComplete 4402
 step
     .goto 1411/1,-4214.45,-565.40
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_多克纳|r交谈
-    >>|cRXP_BUY_向她购买|r |T132794:0|t[清凉的泉水] |cRXP_BUY_备用|r << !Rogue !Warrior !Hunter !Shaman
-    >>|cRXP_BUY_向她购买|r |T132382:0|t[劣质箭] |cRXP_BUY_备用|r << Hunter
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Duokna|r
+    >>|cRXP_BUY_Buy|r |T132794:0|t[Refreshing Spring Water] |cRXP_BUY_from her|r << !Rogue !Warrior !Hunter !Shaman
+    >>|cRXP_BUY_Buy|r |T132382:0|t[Rough Arrows] |cRXP_BUY_from her|r << Hunter
     .collect 159,5,6394,1 << !Rogue !Warrior !Hunter !Shaman --Refreshing Spring Water (5)
     .collect 2512,1000,6394,1 << Hunter --Rough Arrow (1000)
-    .vendor >> 出售杂物
-    .target 多克纳
+    .vendor >> Vendor Trash
+    .target Duokna
     .money >0.1 << Rogue/Warrior
     .itemcount 159,<5 << !Rogue !Warrior !Hunter !Shaman
     .itemcount 2512,<600 << Hunter
@@ -585,102 +581,102 @@ step
     #label Sting
     .goto 1411/1,-4198.58,-602.41,12,0
     .goto 1411/1,-4186.42,-599.95
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_高内克|r交谈
-    .turnin 789,2 >>交任务：工蝎的尾巴 << Shaman
-    .turnin 789 >>交任务：工蝎的尾巴 << !Shaman
-    .target 高内克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gornek|r
+    .turnin 789,2 >>Turn in Sting of the Scorpid << Shaman
+    .turnin 789 >>Turn in Sting of the Scorpid << !Shaman
+    .target Gornek
 step << Shaman
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_史克里克|r和|cRXP_FRIENDLY_坎纳甘·地鸣|r交谈
-    .train 8042 >> 学习 |T136026:0|t[地震术]
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Shikrik|r and |cRXP_FRIENDLY_Canaga|r
+    .train 8042 >> Train |T136026:0|t[Earth Shock]
     .goto 1411/1,-4203.87,-623.92
-    .accept 1516 >>接任务：大地的召唤
+    .accept 1516 >>Accept Call of Earth
     .goto 1411/1,-4204.4,-629.91
-    .target 史克里克
-    .target 坎纳甘·地鸣
+    .target Shikrik
+    .target Canaga Earthcaller
 step << Mage
     .goto 1411/1,-4210.22,-625.33
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_迈安|r交谈
-    .train 116 >> 学习 |T135846:0|t[寒冰箭]
-    .target 迈安
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mai'ah|r
+    .train 116 >> Train |T135846:0|t[Frostbolt]
+    .target Mai'ah
 step << Priest
     .goto 1411/1,-4202.28,-617.22
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_肯杰|r交谈
-    .train 1243 >> 学习 |T135987:0|t[真言术：韧]
-    .train 589 >> 学习 |T136207:0|t[暗言术：痛]
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ken'jai|r
+    .train 1243 >> Train |T135987:0|t[Power Word: Fortitude]
+    .train 589 >> Train |T136207:0|t[Shadow Word: Pain]
     .money <0.011
-    .target 肯杰
+    .target Ken'jai
 step << Priest
     .goto 1411/1,-4202.28,-617.22
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_肯杰|r交谈
-    .train 589 >> 学习 |T136207:0|t[暗言术：痛]
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ken'jai|r
+    .train 589 >> Train |T136207:0|t[Shadow Word: Pain]
     .money <0.01
-    .target 肯杰
+    .target Ken'jai
 step << Priest
     .goto 1411/1,-4202.28,-617.22
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_肯杰|r交谈
-    .train 589 >> 学习职业技能
-    .turnin 3085 >>交任务：神圣石板
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ken'jai|r
+    .train 589 >> Train your class spells
+    .turnin 3085 >>Turn in Hallowed Tablet
     .money <0.021
-    .target 肯杰
+    .target Ken'jai
 step << Priest
     .goto 1411/1,-4202.28,-617.22
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_肯杰|r交谈
-    .train 1243 >> 学习 |T135987:0|t[真言术：韧]
-    .train 589 >> 学习 |T136207:0|t[暗言术：痛]
-    .turnin 3085 >>交任务：神圣石板
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ken'jai|r
+    .train 1243 >> Train |T135987:0|t[Power Word: Fortitude]
+    .train 589 >> Train |T136207:0|t[Shadow Word: Pain]
+    .turnin 3085 >>Turn in Hallowed Tablet
     .money <0.011
-    .target 肯杰
+    .target Ken'jai
 step << Priest
     .goto 1411/1,-4202.28,-617.22
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_肯杰|r交谈
-    .train 589 >> 学习 |T136207:0|t[暗言术：痛]
-    .turnin 3085 >>交任务：神圣石板
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ken'jai|r
+    .train 589 >> Train |T136207:0|t[Shadow Word: Pain]
+    .turnin 3085 >>Turn in Hallowed Tablet
     .money <0.01
-    .target 肯杰
+    .target Ken'jai
 step << !Warlock
 	.goto 1411/1,-4228.19,-629.20
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_祖雷萨|r交谈
-    .turnin 792 >>交任务：邪灵劣魔
-    .accept 794 >>接任务：火刃奖章
-    .target 祖雷萨
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Zureetha|r
+    .turnin 792 >>Turn in Vile Familiars
+    .accept 794 >>Accept Burning Blade Medallion
+    .target Zureetha Fargaze
 step << Hunter
     .goto 1411/1,-4227.66,-635.20
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_基沙|r交谈
-    .train 1978 >> 学习 |T132204:0|t[毒蛇钉刺]
-    .target 基沙
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Jen'shan|r
+    .train 1978 >> Train |T132204:0|t[Serpent Sting]
+    .target Jen'shan
     .xp <4,1
     .money <0.01
 step << Warrior
     .goto 1411/1,-4230.31,-639.43
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_弗朗恩|r交谈
-    .train 100 >> 学习 |T132337:0|t[冲锋]
-    .train 772 >> 学习 |T132155:0|t[撕裂]
-    .target 弗朗恩
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Frang|r
+    .train 100 >> Train |T132337:0|t[Charge]
+    .train 772 >> Train |T132155:0|t[Rend]
+    .target Frang
     .money <0.02
     .train 772,1
 step << Warrior
     .goto 1411/1,-4230.31,-639.43
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_弗朗恩|r交谈
-    .train 772 >> 学习 |T132155:0|t[撕裂]
-    .target 弗朗恩
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Frang|r
+    .train 772 >> Train |T132155:0|t[Rend]
+    .target Frang
 step << Warrior
     .goto 1411/1,-4230.31,-639.43
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_弗朗恩|r交谈
-    .train 100 >> 学习 |T132337:0|t[冲锋]
-    .target 弗朗恩
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Frang|r
+    .train 100 >> Train |T132337:0|t[Charge]
+    .target Frang
     .money <0.01
 step
     .goto 1411/1,-4322.31,-611.58
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_工头塔兹利尔|r交谈
-    .turnin 5441 >>交任务：懒惰的苦工
-    .accept 6394 >>接任务：塔兹利尔的镐
-    .target 工头塔兹利尔
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Thazz'ril|r
+    .turnin 5441 >>Turn in Lazy Peons
+    .accept 6394 >>Accept Thazz'ril's Pick
+    .target Foreman Thazz'ril
 step
     #completewith next
-    .xp 4+1720 >> 刷怪至1720+/2100经验值
-    .mob 杂斑野猪
-    .mob 蝎子
-    .mob 邪灵劣魔
+    .xp 4+1720 >> Grind to 1720+/2100xp
+    .mob Mottled Boar
+    .mob Scorpid Worker
+    .mob Vile Familiar
     .isOnQuest 4402
 step
     #loop
@@ -696,7 +692,7 @@ step
 	.goto 1411/1,-4462.43,-405.370,25,0
 	.goto 1411/1,-4398.98,-411.71,25,0
 	.goto 1411/1,-4324.43,-480.10,25,0
-    >>拾取仙人掌旁的 |cRXP_LOOT_仙人掌果|r
+    >>Loot the |cRXP_LOOT_Cactus Apples|r near the Cacti
     .complete 4402,1 --Cactus Apple (10)
 step << !Warrior !Rogue !Shaman
     #optional
@@ -717,8 +713,8 @@ step << !Warrior !Rogue !Shaman
     .goto 1411/1,-4319.67,-169.190,40,0
     .goto 1411/1,-4303.28,-186.46,40,0
     .goto 1411/1,-4281.07,-148.75,40,0
-    .xp 4+1720 >> 刷怪至1720+/2100经验值
-    .mob 邪灵劣魔
+    .xp 4+1720 >> Grind to 1720+/2100xp
+    .mob Vile Familiar
     .isOnQuest 4402
 step << !Warrior !Rogue !Shaman
     #optional
@@ -738,38 +734,38 @@ step << !Warrior !Rogue !Shaman
     .goto 1411/1,-4319.67,-169.190,40,0
     .goto 1411/1,-4303.28,-186.46,40,0
     .goto 1411/1,-4281.07,-148.75,40,0
-    .xp 5 >> 刷怪到5级
-    .mob 邪灵劣魔
+    .xp 5 >> Grind to level 5
+    .mob Vile Familiar
     .isQuestTurnedIn 4402
 step
 	#completewith Thazz
     #label Cave
-    .goto 1411/1,-4360.38,-175.18,30 >>进入洞穴
+    .goto 1411/1,-4360.38,-175.18,30 >>Enter the cave
     .isOnQuest 6394
 step
 	#completewith Thazz
     #requires Cave
     .goto 1411/1,-4361.44,-144.16,15,0
     .goto 1411/1,-4311.74,-113.14,15,0
-    .goto 1411/1,-4274.19,-87.76,10 >>前往 |cRXP_LOOT_塔兹利尔的镐|r处
+    .goto 1411/1,-4274.19,-87.76,10 >>Travel toward |cRXP_LOOT_Thazz'ril's Pick|r
     .isOnQuest 6394
 step << Shaman
     #completewith Yarrog
     #requires Cave
-    >>击杀 |cRXP_ENEMY_地狱捕猎者|r，拾取 |cRXP_LOOT_地狱捕猎者的蹄子|r
+    >>Kill |cRXP_ENEMY_Felstalkers|r. Loot them for |cRXP_LOOT_Felstalker Hooves|r
     .complete 1516,1 --Felstalker Hoof (2)
-    .mob 地狱捕猎者
+    .mob Felstalker
 step
     #label Thazz
     .goto 1411/1,-4274.19,-87.76
-    >>拾取靠墙放着的 |cRXP_LOOT_塔兹利尔的镐|r
+    >>Loot |cRXP_LOOT_Thazz'ril's Pick|r against the wall
     .complete 6394,1 --Thazz'ril's Pick (1)
 step
     #label Yarrog
     .goto 1411/1,-4220.26,-59.56
-    >>击杀 |cRXP_ENEMY_亚罗格·刺影|r，拾取 |cRXP_LOOT_火刃奖章|r
+    >>Kill |cRXP_ENEMY_Yarrog Baneshadow|r. Loot him for the |cRXP_LOOT_Burning Blade Medallion|r
     .complete 794,1 --Burning Blade Medallion (1)
-	.mob 亚罗格·刺影
+	.mob Yarrog Baneshadow
 step << Shaman
     #loop
 	.goto 1411/1,-4220.26,-59.56,0
@@ -793,9 +789,9 @@ step << Shaman
 	.goto 1411/1,-4203.34,-102.92,25,0
 	.goto 1411/1,-4211.27,-76.84,25,0
 	.goto 1411/1,-4250.40,-88.82,25,0
-    >>击杀 |cRXP_ENEMY_地狱捕猎者|r，拾取 |cRXP_LOOT_地狱捕猎者的蹄子|r
+    >>Kill |cRXP_ENEMY_Felstalkers|r. Loot them for |cRXP_LOOT_Felstalker Hooves|r
     .complete 1516,1 --Felstalker Hoof (2)
-    .mob 地狱捕猎者
+    .mob Felstalker
 step
     #optional
     #loop
@@ -819,8 +815,8 @@ step
 	.goto 1411/1,-4203.34,-102.92,25,0
 	.goto 1411/1,-4211.27,-76.84,25,0
 	.goto 1411/1,-4250.40,-88.82,25,0
-    .xp 5+1680 >> 刷怪至1680+/2800经验值 << !Shaman
-    .xp 5+690 >> 刷怪至690+/2800经验值 << Shaman
+    .xp 5+1680 >> Grind to 1680+/2800xp << !Shaman
+    .xp 5+690 >> Grind to 690+/2800xp << Shaman
     .isQuestTurnedIn 4402
 step
     #optional
@@ -845,34 +841,34 @@ step
 	.goto 1411/1,-4203.34,-102.92,25,0
 	.goto 1411/1,-4211.27,-76.84,25,0
 	.goto 1411/1,-4250.40,-88.82,25,0
-    .xp 5+1300 >> 刷怪至1300+/2800经验值 << !Shaman
-    .xp 5+310 >> 刷怪至310+/2800经验值 << Shaman
+    .xp 5+1300 >> Grind to 1300+/2800xp << !Shaman
+    .xp 5+310 >> Grind to 310+/2800xp << Shaman
     .isOnQuest 4402
 step << skip
 	#completewith next
     .goto 1411/1,-4326.01,-41.23
-    .goto 1411/1,-4793.96,233.36,30 >>|cRXP_WARN_站在岩石边缘，直到角色看起来悬在空中，然后登出再登录，完成登出跳跃|r
-	.link https://www.youtube.com/watch?v=7vmnvdjbUnM >> 点击此处查看示例
+    .goto 1411/1,-4793.96,233.36,30 >>|cRXP_WARN_Perform a Logout Skip by positioning your character on the edge of the rock until it looks like they're floating, then logging out and back in|r
+	.link https://www.youtube.com/watch?v=7vmnvdjbUnM >> CLICK HERE for an example
 step
     #softcore
     #completewith RazorHill1
     .goto 1411/1,-4326.01,-41.23
-    .deathskip >> |cRXP_WARN_死亡后，在箭头附近的 |r|cRXP_FRIENDLY_灵魂医者|r|cRXP_WARN_处复活|r
-    .target 灵魂医者
+    .deathskip >> |cRXP_WARN_Die and respawn at the |cRXP_FRIENDLY_Spirit Healer|r near the arrow|r
+    .target Spirit Healer
 step
     #softcore
     #label Betrayers
     .goto 1411/1,-4709.36,274.960
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_加索克|r交谈
-    >>|cRXP_WARN_可以在地堡外或地堡顶部与他交谈|r
-    .accept 784 >>接任务：背信弃义的人类
-    .target 加索克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gar'thok|r
+    >>|cRXP_WARN_You can talk to him from outside or on top of the bunker|r
+    .accept 784 >>Accept Vanquish the Betrayers
+    .target Gar'thok
 step
     #softcore
     .goto 1411/1,-4665.400,311.900
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_厨师托尔卡|r交谈
-    .accept 96825 >>接任务：这果子会咬人
-    .target 厨师托尔卡
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Cook Torka|r
+    .accept 96825 >>Accept This Fruit Could Bite Back
+    .target Cook Torka
 step
     #softcore
     #completewith next
@@ -880,7 +876,7 @@ step
     .goto 1411/1,-4611.01,293.64,8,0
     .goto 1411/1,-4616.82,317.26,12,0
     .goto 1411/1,-4604.13,364.49,12,0
-    .goto 1411/1,-4588.80,383.53,10 >>前往高塔
+    .goto 1411/1,-4588.80,383.53,10 >>Travel toward the tower
 step
     #softcore
     #completewith next
@@ -890,145 +886,144 @@ step
     .goto 1411/1,-4589.33,387.760,6,0
     .goto 1411/1,-4594.62,386.35,6,0
     .goto 1411/1,-4595.15,399.74,6,0
-    .goto 1411/1,-4585.1,396.92,8 >>上塔前往弗恩处
+    .goto 1411/1,-4585.1,396.92,8 >>Travel up the tower toward Furl
 step
     #softcore
     .goto 1411/1,-4600.43,384.59
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_弗恩·凝眉|r交谈
-    .accept 791 >>接任务：新的背包
-    .target 弗恩·凝眉
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Furl|r
+    .accept 791 >>Accept Carry Your Weight
+    .target Furl Scornbrow
 step << Warrior/Rogue
     #softcore
     .goto 1411/1,-4701.95,366.96
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_克鲁恩|r交谈
-    .train 2575 >> 学习 |T136248:0|t[采矿]
-    >>|cRXP_WARN_这样就能从矿点采集到|r |T135232:0|t|cRXP_LOOT_[劣质的石头]|r |cRXP_WARN_，用于制作|r |T135248:0|t[磨刀石] |cRXP_WARN_（武器伤害+2，持续30分钟）|r
-    .target 克鲁恩
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Krunn|r
+    .train 2575 >> Train |T136248:0|t[Mining]
+    >>|cRXP_WARN_This will allow you to find|r |T135232:0|t|cRXP_LOOT_[Rough Stones]|r |cRXP_WARN_from nodes in order to craft|r |T135248:0|t[Sharpening Stones] |cRXP_WARN_(+2 Weapon Damage for 30 minutes)|r
+    .target Krunn
 step << Warrior/Rogue
     #softcore
     .goto 1411/1,-4706.71,358.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_沃克|r交谈
-    >>|cRXP_BUY_购买一把|r |T134708:0|t[矿工锄] |cRXP_BUY_，找|r |cRXP_BUY_他购买|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Wuark|r
+    >>|cRXP_BUY_Buy a|r |T134708:0|t[Mining Pick] |cRXP_BUY_from|r |cRXP_BUY_him|r
     .collect 2901,1,784,1 --Mining Pick (1)
-    .target 沃克
+    .target Wuark
 step << Warrior/Rogue
     #softcore
     .goto 1411/1,-4714.64,372.60
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_杜克|r交谈
-    .train 2018 >> 学习 |T136241:0|t[锻造]
-    .target 杜克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dwukk|r
+    .train 2018 >> Train |T136241:0|t[Blacksmithing]
+    .target Dwukk
     .skill blacksmithing,1,1
 step -- (Barracks)
     #softcore
     #label RazorHill1
     .goto 1411/1,-4815.200,306.800
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_图罗克|r交谈
-    .accept 96822 >>接任务：为了荣耀！
-    .target 图罗克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Turroc|r
+    .accept 96822 >>Accept For Honor
+    .target Turroc
 step
     #completewith next
-    .hs >>炉石返回试炼谷
+    .hs >>Hearth to the Valley of Trials
     .use 6948
 step
     .goto 1411/1,-4322.31,-611.58
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_工头塔兹利尔|r交谈
-    .turnin 6394 >>交任务：塔兹利尔的镐
-    .target 工头塔兹利尔
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Thazz'ril|r
+    .turnin 6394 >>Turn in Thazz'ril's Pick
+    .target Foreman Thazz'ril
 step
     .goto 1411/1,-4221.85,-561.52
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_戈加尔|r交谈
-    .turnin 4402 >>交任务：戈加尔的清凉果
-    .target 戈加尔
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Galgar|r
+    .turnin 4402 >>Turn in Galgar's Cactus Apple Surprise
+    .target Galgar
 step
     .goto 1411/1,-4214.45,-565.40
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_多克纳|r交谈
-    .vendor >> 出售杂物
-    .target 多克纳
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Duokna|r
+    .vendor >> Vendor Trash
+    .target Duokna
     .isOnQuest 794
 step << Shaman
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_史克里克|r和|cRXP_FRIENDLY_坎纳甘·地鸣|r交谈
-    .train 332 >>学习 |T136052:0|t[治疗波]
-    .target +史克里克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Shikrik|r and |cRXP_FRIENDLY_Canaga|r
+    .train 332 >>Train |T136052:0|t[Healing Wave]
+    .target +Shikrik
     .goto 1411/1,-4203.87,-623.92
-    .turnin 1516 >>交任务：大地的召唤
-    .accept 1517 >>接任务：大地的召唤
-    .target +坎纳甘·地鸣
+    .turnin 1516 >>Turn in Call of Earth
+    .accept 1517 >>Accept Call of Earth
+    .target +Canaga Earthcaller
     .goto 1411/1,-4204.4,-629.91
     .xp <6,1
 step << Shaman
     .goto 1411/1,-4204.4,-629.91
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_坎纳甘·地鸣|r交谈
-    .turnin 1516 >>交任务：大地的召唤
-    .accept 1517 >>接任务：大地的召唤
-    .target 坎纳甘·地鸣
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Canaga|r
+    .turnin 1516 >>Turn in Call of Earth
+    .accept 1517 >>Accept Call of Earth
+    .target Canaga Earthcaller
 step
     .goto 1411/1,-4228.19,-629.20
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_祖雷萨|r交谈
-    .turnin 794 >>交任务：火刃奖章
-    .accept 805 >>接任务：去森金村报到
-    .target 祖雷萨
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Zureetha|r
+    .turnin 794 >>Turn in Burning Blade Medallion
+    .accept 805 >>Accept Report to Sen'jin Village
+    .target Zureetha Fargaze
 step
     .goto 1411/1,-4223.800,-631.000
-    >>点击桶顶的|cRXP_PICK_遗失的日记|r
-    .accept 96652 >>接任务：冒险者
+    >>Click the |cRXP_PICK_Lost Journal|r on top of the barrel
+    .accept 96652 >>Accept The Adventurer
     .isQuestTurnedIn 794
 step << Priest
     .goto 1411/1,-4202.28,-617.22
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_肯杰|r交谈
-    .turnin 3085 >>交任务：神圣石板
-	.accept 5649 >> 接任务：部族的传统
-	.train 591 >>学习 |T135924:0|t[惩击]
-    .train 17 >>学习 |T135940:0|t[真言术：盾]
-    .target 肯杰
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ken'jai|r
+	.accept 5649 >> Accept In Favor of Spirituality
+	.train 591 >>Train |T135924:0|t[Smite]
+    .train 17 >>Train |T135940:0|t[Power Word: Shield]
+    .target Ken'jai
 step << Mage
     .goto 1411/1,-4210.22,-625.33
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_迈安|r交谈
-    .train 143 >> 学习 |T135812:0|t[火球术]
-    .train 2136 >>学习 |T135807:0|t[火焰冲击]
-    .target 迈安
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mai'ah|r
+    .train 143 >> Train |T135812:0|t[Fireball]
+    .train 2136 >>Train |T135807:0|t[Fire Blast]
+    .target Mai'ah
 step << Hunter
     .goto 1411/1,-4227.66,-635.20
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_基沙|r交谈
-    .train 1130 >>学习 |T132212:0|t[猎人印记]
-    .train 3044 >>学习 |T132218:0|t[奥术射击]
-    .target 基沙
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Jen'shan|r
+    .train 1130 >>Train |T132212:0|t[Hunter's Mark]
+    .train 3044 >>Train |T132218:0|t[Arcane Shot]
+    .target Jen'shan
     .money <0.02
 step << Hunter
     .goto 1411/1,-4227.66,-635.20
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_基沙|r交谈
-    .train 3044 >>学习 |T132218:0|t[奥术射击]
-    .target 基沙
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Jen'shan|r
+    .train 3044 >>Train |T132218:0|t[Arcane Shot]
+    .target Jen'shan
 step << Warrior
     .goto 1411/1,-4230.31,-639.43
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_弗朗恩|r交谈
-    .train 3127 >>学习 |T132269:0|t[招架]
-    .train 6343 >>学习 |T136105:0|t[雷霆一击]
-    .target 弗朗恩
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Frang|r
+    .train 3127 >>Train |T132269:0|t[Parry]
+    .train 6343 >>Train |T136105:0|t[Thunder Clap]
+    .target Frang
     .money <0.02
 step << Warrior
     .goto 1411/1,-4230.31,-639.43
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_弗朗恩|r交谈
-    .train 3127 >>学习 |T132269:0|t[招架]
-    .target 弗朗恩
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Frang|r
+    .train 3127 >>Train |T132269:0|t[Parry]
+    .target Frang
 step << Rogue
     #completewith RogueTraining
     .goto 1411/1,-4190.12,-603.12,15,0
     .goto 1411/1,-4157.87,-601.36,12,0
-    .goto 1411/1,-4144.65,-588.67,12 >>前往 |cRXP_FRIENDLY_鲁瓦格|r处
+    .goto 1411/1,-4144.65,-588.67,12 >>Travel toward |cRXP_FRIENDLY_Rwag|r
 step << Rogue
     .goto 1411/1,-4144.65,-588.67
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_鲁瓦格|r交谈
-    .train 1757 >> 学习 |T136189:0|t[邪恶攻击]
-    .train 1776 >> 学习 |T132155:0|t[凿击]
-    .target 鲁瓦格
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Rwag|r
+    .train 1757 >> Train |T136189:0|t[Sinister Strike]
+    .train 1776 >> Train |T132155:0|t[Gouge]
+    .target Rwag
     .money <0.02
     .xp <6,1
 step << Rogue
     #label RogueTraining
     .goto 1411/1,-4144.65,-588.67
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_鲁瓦格|r交谈
-    .train 1757 >> 学习 |T136189:0|t[邪恶攻击]
-    .target 鲁瓦格
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Rwag|r
+    .train 1757 >> Train |T136189:0|t[Sinister Strike]
+    .target Rwag
     .xp <6,1
 step << Warlock
     #completewith Hraug3
@@ -1036,30 +1031,30 @@ step << Warlock
     .goto 1411/1,-4157.87,-601.36,12,0
     .goto 1411/1,-4143.06,-594.31,12,0
     .goto 1411/1,-4120.86,-589.72,12,0
-    .goto 1411/1,-4107.11,-604.18,12 >>前往 |cRXP_FRIENDLY_赫劳格|r处
+    .goto 1411/1,-4107.11,-604.18,12 >>Travel toward |cRXP_FRIENDLY_Hraug|r
 step << Warlock
     #label Hraug3
     .goto 1411/1,-4107.11,-604.18
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_赫劳格|r交谈
-    >>|cRXP_BUY_向他购买|r |T133738:0|t[魔典：血契] |cRXP_BUY_备用|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Hraug|r
+    >>|cRXP_BUY_Buy the|r |T133738:0|t[Grimoire of Blood Pact] |cRXP_BUY_from him|r
     .collect 16321,1,817,1 --Grimoire of Blood Pact
-    .vendor >>出售杂物
-    .target 赫劳格
+    .vendor >>Vendor Trash
+    .target Hraug
     .money <0.03
     .train 6307,1 --Blood Pact (Rank 1)
 step << Warlock
     .goto 1411/1,-4111.87,-607.00
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_纳托克|r交谈
-    .train 695 >> 学习 |T136197:0|t[暗影箭]
-    .train 1454 >> 学习 |T136126:0|t[生命分流]
-    .target 纳托克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Nartok|r
+    .train 695 >> Train |T136197:0|t[Shadow Bolt]
+    .train 1454 >> Train |T136126:0|t[Life Tap]
+    .target Nartok
     .money <0.02
 step << Warlock
     #optional
     .goto 1411/1,-4111.87,-607.00
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_纳托克|r交谈
-    .train 695 >> 学习 |T136197:0|t[暗影箭]
-    .target 纳托克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Nartok|r
+    .train 695 >> Train |T136197:0|t[Shadow Bolt]
+    .target Nartok
 step << Shaman
     #completewith CallOE1
     #label Shrine
@@ -1069,39 +1064,39 @@ step << Shaman
     .goto 1411/1,-4120.86,-813.21,8,0
     .goto 1411/1,-4220.79,-841.76,10,0
     .goto 1411/1,-4266.26,-853.39,15,0
-    .goto 1411/1,-4295.87,-883.36,25 >>前往 |cRXP_PICK_萨满祭坛|r
+    .goto 1411/1,-4295.87,-883.36,25 >>Travel toward the |cRXP_PICK_Shaman Shrine|r
     .isOnQuest 1517
 step << Shaman
     #completewith next
     #requires Shrine
-    .cast 8202 >>|cRXP_WARN_使用|r |T134743:0|t[大地灵契]
+    .cast 8202 >>|cRXP_WARN_Use the|r |T134743:0|t[Earth Sapta]
     .use 6635
 step << Shaman
     #label CallOE1
     .goto 1411/1,-4290.59,-878.07
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_大地之魂|r交谈
-    .turnin 1517 >>交任务：大地的召唤
-    .accept 1518 >>接任务：大地的召唤
-    .target 大地之魂
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to the |cRXP_FRIENDLY_Manifestation|r
+    .turnin 1517 >>Turn in Call of Earth
+    .accept 1518 >>Accept Call of Earth
+    .target Minor Manifestation of Earth
 step << Shaman
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_坎纳甘·地鸣|r交谈
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Canaga|r
     .goto 1411/1,-4204.4,-629.91
-    .turnin 1518 >>交任务：大地的召唤
-    .target 坎纳甘·地鸣
+    .turnin 1518 >>Turn in Call of Earth
+    .target Canaga Earthcaller
 step << Shaman
     .goto 1411/1,-4203.87,-623.92
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_史克里克|r交谈
-    .train 332 >>学习 |T136052:0|t[治疗波]
-    .target 史克里克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Shikrik|r
+    .train 332 >>Train |T136052:0|t[Healing Wave]
+    .target Shikrik
 step
     #label Leave
     .goto 1411/1,-4452.38,-631.32,25,0
     .goto 1411/1,-4554.43,-628.50,20,0
-    .goto 1411/1,-4600.96,-603.82,25 >>离开试炼谷
+    .goto 1411/1,-4600.96,-603.82,25 >>Exit the Valley of Trials
     .isOnQuest 805
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 无限 竞速指南（部落）
 #forever
 #disabledungeons
 << Horde
@@ -1109,155 +1104,154 @@ RXPGuides.RegisterGuide([[
 #version 11
 #group RestedXP Forever Guide (H)
 #subgroup Speedrun Guide 1-22
-#subgroupdisplayname 1-22
 --#groupid RXP-SRGCE-H1
 #defaultfor Troll/Orc
 #next 10-12 Durotar
-#displayname 6-10 杜隆塔尔
+
 step
     .goto 1411/1,-4715.17,-599.240
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_乌克尔|r交谈
-    .accept 2161 >>接任务：苦工的重担
-    .target 乌克尔
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ukor|r
+    .accept 2161 >>Accept A Peon's Burden
+    .target Ukor
 step
     #completewith next
-    .subzone 367 >>前往森金村
+    .subzone 367 >>Travel to Sen'Jin Village
 step
     #loop
     .goto 1411/1,-4828.32,-777.61,0
     .goto 1411/1,-4822.51,-881.59,25,0
     .goto 1411/1,-4845.24,-829.42,25,0
     .goto 1411/1,-4828.32,-777.61,25,0
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_拉尔·猎齿|r交谈
-    >>|cRXP_WARN_他会在附近稍作巡逻|r
-    .accept 786 >>接任务：科卡尔半人马的进攻
-    .target 拉尔·猎齿
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Lar|r
+    >>|cRXP_WARN_He patrols a little|r
+    .accept 786 >>Accept Thwarting Kolkar Aggression
+    .target Lar Prowltusk
 step
     .goto 1411/1,-4885.200,-852.500
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_克萨尔迪|r交谈
-    .accept 97223 >>接任务：血爪族母
-    .target 克萨尔迪
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Xar'Ti|r
+    .accept 97223 >>Accept Bloodtalon Matriarch
+    .target Xar'Ti
 step
     #label SenjinPickups
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_维尔林·长牙|r、|cRXP_FRIENDLY_沃纳尔大师|r和|cRXP_FRIENDLY_加德林大师|r交谈
-    .accept 817 >>接任务：生活所需的虎皮
-    .accept 96821 >>接任务：拔腿就跑
-    .target +维尔林·长牙
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Vel'rin|r, |cRXP_FRIENDLY_Vornal|r and |cRXP_FRIENDLY_Gadrin|r
+    .accept 817 >>Accept Practical Prey
+    .accept 96821 >>Accept Legging It
+    .target +Vel'rin Fang
     .goto 1411/1,-4920.86,-797.70
-    .accept 818 >>接任务：沃纳尔大师
-    .accept 97225 >>接任务：被遗忘的洛阿神像
-    .target +沃纳尔大师
+    .accept 818 >>Accept A Solvent Spirit
+    .accept 97225 >>Accept Forgotten Loa Idols
+    .target +Master Vornal
     .goto 1411/1,-4920.33,-814.270
-    .turnin 805 >>交任务：去森金村报到
-    .accept 808 >>接任务：明希纳的颅骨
-    .accept 826 >>接任务：扎拉赞恩
-    .accept 823 >>接任务：向奥戈尼尔报告
-    .target +加德林大师
+    .turnin 805 >>Turn in Report to Sen'jin Village
+    .accept 808 >>Accept Minshina's Skull
+    .accept 826 >>Accept Zalazane
+    .accept 823 >>Accept Report to Orgnil
+    .target +Master Gadrin
     .goto 1411/1,-4920.33,-825.55
 step
     #completewith next
     .goto 1411/1,-4931.96,-815.32,8,0
-    .goto 1411/1,-4939.89,-793.12,8 >> 进入大屋
+    .goto 1411/1,-4939.89,-793.12,8 >> Enter the big hut
 step << !Rogue !Warrior
     .goto 1411/1,-4960.000,-791.300
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_帕祖拉|r交谈
-    >>|cRXP_WARN_这会解锁一个任务。如果已有2个专业，就跳过此步骤|r
-    .train 7411 >> 学习 |T136244:0|t[附魔]
-    .target 帕祖拉
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Pa'zula|r
+    >>|cRXP_WARN_This will unlock a quest. Skip this step if you already have 2 professions|r
+    .train 7411 >> Train |T136244:0|t[Enchanting]
+    .target Pa'zula
 step << !Rogue !Warrior
     .goto 1411/1,-4960.000,-791.300
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_帕祖拉|r交谈
-    .accept 96873 >>接任务：脖子上的麻烦
-    .target 帕祖拉
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Pa'zula|r
+    .accept 96873 >>Accept A Pain in the Neck
+    .target Pa'zula
     .skill enchanting,<1,1
 step << Rogue
     .goto 1411/1,-4938.83,-779.37
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r |cRXP_FRIENDLY_克瓦埃|r|cRXP_BUY_交谈，购买|r |T132414:0|t[增重飞斧] |cRXP_BUY_备用|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_K'waii|r|cRXP_BUY_. Buy |r |T132414:0|t[Weighted Throwing Axe] |cRXP_BUY_from her|r
     .collect 3131,1,786,1 --Weighted Throwing Axe (200)
-    .target 克瓦埃
+    .target K'waii
     .itemStat 18,QUALITY,<7
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<2.9
     .money <0.07
 step << Warlock/Mage/Priest
     .goto 1411/1,-4938.83,-779.37
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_交谈对象：|r |cRXP_FRIENDLY_克瓦埃|r
-    >>|cRXP_BUY_向她购买|r |T132794:0|t[清凉的泉水] |cRXP_BUY_备用|r --Refreshing Spring Water (20)
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_K'waii|r
+    >>|cRXP_BUY_Buy|r |T132794:0|t[Refreshing Spring Water] |cRXP_BUY_from her|r --Refreshing Spring Water (20)
     .collect 159,20,786,1
-    .target 克瓦埃
+    .target K'waii
     .money <0.010
 step << Warlock/Mage/Priest
     .goto 1411/1,-4938.83,-779.37
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_交谈对象：|r |cRXP_FRIENDLY_克瓦埃|r
-    >>|cRXP_BUY_向她购买|r |T132794:0|t[清凉的泉水] |cRXP_BUY_备用|r --Refreshing Spring Water (10)
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_K'waii|r
+    >>|cRXP_BUY_Buy|r |T132794:0|t[Refreshing Spring Water] |cRXP_BUY_from her|r --Refreshing Spring Water (10)
     .collect 159,10,786,1
-    .target 克瓦埃
+    .target K'waii
     .money <0.0050
 step << Shaman
     .goto 1411/1,-4948.35,-769.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_特莱耶克|r交谈
-    .vendor >> 出售杂物。如果卖掉武器后能凑够购买 |T135145:0|t[学徒短杖]的钱（4 银 79 铜），就把武器也卖掉。暂时不够时，稍后再来
-    .target 特莱耶克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Trayexir|r
+    .vendor >> Vendor trash. Sell your weapon if it gives you enough money for a |T135145:0|t[Walking Stick] (4s 79c). You'll come back later if you don't have enough yet
+    .target Trayexir
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.2
 step << Shaman
     .goto 1411/1,-4948.35,-769.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r |cRXP_FRIENDLY_特莱耶克|r|cRXP_BUY_交谈，购买一把|r |T135145:0|t[学徒短杖] |cRXP_BUY_备用|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Trayexir|r|cRXP_BUY_. Buy a|r |T135145:0|t[Walking Stick] |cRXP_BUY_from him|r
     .collect 2495,1,786,1 --Collect Walking Stick (1)
     .money <0.0479
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.2
 step << Rogue
     .goto 1411/1,-4948.35,-769.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_特莱耶克|r交谈
-    .vendor >> 出售杂物。如果卖掉武器后能凑够购买 |T135641:0|t[卷刃的剑]的钱（3 银 81 铜），就把武器也卖掉。暂时不够时，稍后再来
-    .target 特莱耶克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Trayexir|r
+    .vendor >> Vendor trash. Sell your weapon if it gives you enough money for a |T135641:0|t[Stiletto] (3s 81c). You'll come back later if you don't have enough yet
+    .target Trayexir
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<3.3
 step << Rogue
     .goto 1411/1,-4948.35,-769.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r |cRXP_FRIENDLY_特莱耶克|r|cRXP_BUY_交谈，购买一把|r |T135641:0|t[卷刃的剑] |cRXP_BUY_备用|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Trayexir|r|cRXP_BUY_. Buy a|r |T135641:0|t[Stiletto] |cRXP_BUY_from him|r
     .collect 2494,1,786,1 --Collect Stiletto (1)
     .money <0.0381
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<3.3
 step << Orc Warrior
     .goto 1411/1,-4948.35,-769.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_特莱耶克|r交谈
-    .vendor >> 出售杂物。如果卖掉现用武器后能凑够购买 |T132401:0|t[双刃战斧]的费用（4 银 60 铜），就卖掉它；若仍不够，稍后再回来购买。
-    .target 特莱耶克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Trayexir|r
+    .vendor >> Vendor trash. Sell your weapon if it gives you enough money for a |T132401:0|t[Large Axe] (4s 60c). You'll come back later if you don't have enough yet
+    .target Trayexir
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.2
 step << Orc Warrior
     .goto 1411/1,-4948.35,-769.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r|cRXP_FRIENDLY_特莱耶克|r|cRXP_BUY_交谈，向他购买一把|r |T132401:0|t[双刃战斧]|cRXP_BUY_。|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Trayexir|r|cRXP_BUY_. Buy a|r |T132401:0|t[Large Axe] |cRXP_BUY_from him|r
     .collect 2491,1,786,1 --Collect Large Axe (1)
     .money <0.0460
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.2
 step << Troll Warrior
     .goto 1411/1,-4948.35,-769.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_特莱耶克|r交谈
-    .vendor >> 出售杂物。如果卖掉武器后能凑够购买 |T135421:0|t[小手斧]的钱（5 银 13 铜），就把武器也卖掉。暂时不够时，稍后再来
-    .target 特莱耶克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Trayexir|r
+    .vendor >> Vendor trash. Sell your weapon if it gives you enough money for a |T135421:0|t[Tomahawk] (5s 13c). You'll come back later if you don't have enough yet
+    .target Trayexir
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<3.8
 step << Troll Warrior
     .goto 1411/1,-4948.35,-769.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r |cRXP_FRIENDLY_特莱耶克|r|cRXP_BUY_交谈，购买一把|r |T135421:0|t[小手斧] |cRXP_BUY_备用|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Trayexir|r|cRXP_BUY_. Buy a|r |T135421:0|t[Tomahawk] |cRXP_BUY_from him|r
     .collect 2490,1,786,1 --Collect Tomahawk (1)
     .money <0.0513
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<3.8
 step << Hunter
     .goto 1411/1,-4948.35,-769.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_特莱耶克|r交谈
-    .vendor >> 出售杂物。如果卖掉武器后能凑够购买 |T135499:0|t[角木弯弓]的费用（2 银 71 铜），就卖掉它；若仍不够，稍后再回来购买。
-    .target 特莱耶克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Trayexir|r
+    .vendor >> Vendor trash. Sell your weapon if it gives you enough money for a |T135499:0|t[Hornwood Recurve Bow] (2s 71c). You'll come back later if you don't have enough yet
+    .target Trayexir
     .itemStat 18,QUALITY,<7
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<2.3
 step << Hunter
     .goto 1411/1,-4948.35,-769.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r |cRXP_FRIENDLY_特莱耶克|r|cRXP_BUY_交谈，购买|r |T135499:0|t[角木弯弓] |cRXP_BUY_备用|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Trayexir|r|cRXP_BUY_. Buy a|r |T135499:0|t[Hornwood Recurve Bow] |cRXP_BUY_from him|r
     .collect 2506,1,786,1 --Collect Hornwood Recurve Bow (1)
     .money <0.0271
     .itemStat 18,QUALITY,<7
@@ -1265,7 +1259,7 @@ step << Hunter
 step << Rogue
     #optional
     #completewith Bonfire
-    +|cRXP_WARN_装备|r |T132414:0|t[增重飞斧]
+    +|cRXP_WARN_Equip the|r |T132414:0|t[Weighted Throwing Axe]
     .use 3131
     .itemcount 3131,1
     .itemStat 18,QUALITY,<7
@@ -1273,7 +1267,7 @@ step << Rogue
 step << Shaman
     #optional
     #completewith Bonfire
-    +|cRXP_WARN_装备|r |T135145:0|t[学徒短杖]
+    +|cRXP_WARN_Equip the|r |T135145:0|t[Walking Stick]
     .use 2495
     .itemcount 2495,1
     .itemStat 16,QUALITY,<7
@@ -1281,7 +1275,7 @@ step << Shaman
 step << Rogue
     #optional
     #completewith Bonfire
-    +|cRXP_WARN_装备|r |T135641:0|t[卷刃的剑]
+    +|cRXP_WARN_Equip the|r |T135641:0|t[Stiletto]
     .use 2494
     .itemcount 2494,1
     .itemStat 16,QUALITY,<7
@@ -1289,7 +1283,7 @@ step << Rogue
 step << Orc Warrior
     #optional
     #completewith Bonfire
-    +|cRXP_WARN_装备|r |T132401:0|t[双刃战斧]
+    +|cRXP_WARN_Equip the|r |T132401:0|t[large Axe]
     .use 2491
     .itemcount 2491,1
     .itemStat 16,QUALITY,<7
@@ -1297,7 +1291,7 @@ step << Orc Warrior
 step << Troll Warrior
     #optional
     #completewith Bonfire
-    +|cRXP_WARN_装备|r |T135421:0|t[小手斧]
+    +|cRXP_WARN_Equip the|r |T135421:0|t[Tomahawk]
     .use 2490
     .itemcount 2490,1
     .itemStat 16,QUALITY,<7
@@ -1305,21 +1299,21 @@ step << Troll Warrior
 step << Hunter
     #optional
     #completewith Bonfire
-    +|cRXP_WARN_装备|r |T135499:0|t[角木弯弓]
+    +|cRXP_WARN_Equip the|r |T135499:0|t[Hornwood Recurve Bow]
     .use 2506
     .itemcount 2506,1
     .itemStat 18,QUALITY,<7
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<2.3
 step << Mage
     .goto 1411/1,-4939.36,-838.941
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_安苏瓦|r交谈
-    .train 143 >> 学习 |T135812:0|t[火球术]
-    .train 2136 >>学习 |T135807:0|t[火焰冲击]
-    .target 安苏瓦
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Un'Thuwa|r
+    .train 143 >> Train |T135812:0|t[Fireball]
+    .train 2136 >>Train |T135807:0|t[Fire Blast]
+    .target Un'Thuwa
 step << Warrior/Rogue
     #softcore
     #completewith TravelToTiragarde
-    +|cRXP_WARN_施放|r |T136025:0|t[寻找矿物] |cRXP_WARN_，开采沿途铜矿，收集|r |T135232:0|t|cRXP_LOOT_[劣质的石头]|r|cRXP_WARN_，然后制作|r |T135248:0|t[磨刀石] |cRXP_WARN_备用|r
+    +|cRXP_WARN_Cast|r |T136025:0|t[Find Minerals] |cRXP_WARN_and mine any Copper Vein you find for|r |T135232:0|t|cRXP_LOOT_[Rough Stones]|r|cRXP_WARN_. Make|r |T135248:0|t[Sharpening Stones] |cRXP_WARN_from them|r
     .collect 2862,1,786,1
     .skill blacksmithing,<1,1
     .train 2575,3 --Mining Trained
@@ -1330,88 +1324,91 @@ step
     .goto 1411/1,-4908.69,-998.27,40,0
     .goto 1411/1,-4829.91,-1091.33,40,0
     .goto 1411/1,-4722.57,-1117.42,40,0
-    >>沿海滩往下跑，击杀 |cRXP_ENEMY_螃蟹|r和|cRXP_ENEMY_龙虾人|r，拾取它们的 |cRXP_LOOT_粘液|r和|cRXP_LOOT_眼球|r。不必在此完成这一步。
+    >>Run down the beach. Kill |cRXP_ENEMY_Crawlers|r and |cRXP_ENEMY_Makruras|r. Loot them for their |cRXP_LOOT_Mucus|r and |cRXP_LOOT_Eyes|r. You do not have to finish this step here.
     .complete 818,2 --Crawler Mucus (8)
-    .mob +小海浪蟹
-    .mob +海浪蟹
+    .mob +Pygmy Surf Crawler
+    .mob +Surf Crawler
     .complete 818,1 --Intact Makrura Eye (4)
-    .mob +厚壳龙虾人
-    .mob +巨钳龙虾人
+    .mob +Makrura Shellhide
+    .mob +Makrura Clacker
 step
-    .goto 1411/1,-4722.57,-1117.42,75 >> 跑到海滩尽头
+    .goto 1411/1,-4722.57,-1117.42,75 >> Reach the end of the beach
     .isOnQuest 818
 step
     #completewith Bonfire
-    >>击杀 |cRXP_ENEMY_科卡尔苦工|r和|cRXP_ENEMY_科卡尔前锋|r，拾取 |cRXP_LOOT_帆布碎片|r
+    >>Kill |cRXP_ENEMY_Kolkar Drudges|r and |cRXP_ENEMY_Kolkar Outrunners|r. Loot them for their |cRXP_LOOT_Canvas Scraps|r
 --   >>|cRXP_WARN_Do not focus on completing this|r
     .complete 791,1 --Canvas Scraps (8)
     .isOnQuest 791
 step
-    .goto 1411/1,-4653.84,-983.47,30 >>进入科卡尔营地
+    .goto 1411/1,-4653.84,-983.47,30 >>Enter the Kolkar base
     .isOnQuest 786
 step << Priest
     #sticky
     #softcore
     #label Linen
-    >>|cRXP_WARN_在杜隆塔尔做任务时，开始收集3组|r |T132889:0|t[亚麻布] |cRXP_WARN_，之后用来制作魔杖|r
-    >>|cRXP_WARN_如果已经买到魔杖，或能从拍卖行便宜买到，就跳过此步骤|r
+    #completewith HorrorsandSpirits
+    >>|cRXP_WARN_Start collecting 3 stacks of|r |T132889:0|t[Linen Cloth] |cRXP_WARN_as you quest throughout Durotar. This will be used to make your wand later|r
+    >>|cRXP_WARN_Skip this step if you've already bought a wand or can get one cheap from the AH.|r
     .collect 2589,60 --Linen Cloth (60)
 step << Priest
     #sticky
     #hardcore
     #label Linen
-    >>|cRXP_WARN_在杜隆塔尔做任务时，开始收集3组|r |T132889:0|t[亚麻布] |cRXP_WARN_，之后用来制作魔杖|r
+    #completewith HorrorsandSpirits
+    >>|cRXP_WARN_Start collecting 3 stacks of|r |T132889:0|t[Linen Cloth] |cRXP_WARN_as you quest throughout Durotar. This will be used to make your wand later|r
     .collect 2589,60 --Linen Cloth (60)
 step
     #sticky
     #completewith Bonfire
-    +|cRXP_WARN_如果|r |cRXP_ENEMY_科卡尼斯|r |cRXP_WARN_刷新了，务必小心，他是9级稀有怪。如果有|r |T134829:0|t[初级治疗药水] |cRXP_WARN_，必要时使用|r
-    .unitscan 科卡尼斯
+    +|cRXP_WARN_Be careful if|r |cRXP_ENEMY_Kolkanis|r |cRXP_WARN_is up, he is a level 9 rare. You may have to use a |r |T134829:0|t[Minor Healing Potion] |cRXP_WARN_if you have it|r
+    .unitscan Warlord Kolkanis
 step
     .goto 1411/1,-4596.20,-1057.14
-    >>烧毁帐篷内地上的 |cRXP_PICK_攻击计划|r
+    >>Burn the |cRXP_PICK_Attack Plan|r inside the tent on the ground
     .complete 786,1 --Attack Plan: Valley of Trials destroyed (1)
 step
-    >>烧毁地上的 |cRXP_PICK_攻击计划|r
+    >>Burn the |cRXP_PICK_Attack Plan|r on the ground
     .goto 1411/1,-4482.52,-917.90
     .complete 786,2 --Attack Plan: Sen'jin Village destroyed (1)
 step
     #label Bonfire
-    >>烧毁地上的 |cRXP_PICK_攻击计划|r
+    >>Burn the |cRXP_PICK_Attack Plan|r on the ground
     .goto 1411/1,-4406.91,-974.30
     .complete 786,3 --Attack Plan: Orgrimmar destroyed (1)
 step
     #softcore
     .goto 1411/1,-4410.400,-963.500
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_帕尔朱::275811|r交谈
-    >>|cRXP_WARN_这会开始一个护送任务|r
-    >>|cRXP_WARN_如果 |r|cRXP_FRIENDLY_帕尔朱::275811|r|cRXP_WARN_不在，就跳过这一步，在篝火处死亡并返回森金村复活|r
-    .accept 99123,1 >>接任务：迷失暗影
-    .target 帕尔朱::275811
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Pal'juh|r
+    >>|cRXP_WARN_This starts an escort quest|r
+    >>|cRXP_WARN_If |cRXP_FRIENDLY_Pal'juh|r is not there, feel free to skip this step and deathskip back to Sen'jin Village at the Bonfire|r
+    .accept 99123,1 >>Accept Lost in the Shadows
+    .target Pal'juh
 step
     #hardcore
     .goto 1411/1,-4410.400,-963.500
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_帕尔朱::275811|r交谈
-    >>|cRXP_WARN_这会开始一个护送任务|r
-    >>|cRXP_WARN_如果 |r|cRXP_FRIENDLY_帕尔朱::275811|r|cRXP_WARN_不在，就跳过这一步|r
-    .accept 99123,1 >>接任务：迷失暗影
-    .target 帕尔朱::275811
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Pal'juh|r
+    >>|cRXP_WARN_This starts an escort quest|r
+    >>|cRXP_WARN_If |cRXP_FRIENDLY_Pal'juh|r is not there, feel free to skip this step|r
+    .accept 99123,1 >>Accept Lost in the Shadows
+    .target Pal'juh
 step
+    #softcore
     .goto 1411/1,-4681.300,-986.800
-    >>护送 |cRXP_FRIENDLY_帕尔朱::275811|r离开科卡尔峭壁
+    >>Escort |cRXP_FRIENDLY_Pal'juh|r out of Kolkar Crag
     .complete 99123,1 --
-    .target 帕尔朱::275811
+    .target Pal'juh
     .isOnQuest 99123
 step << skip
     #softcore
     .goto 1411/1,-4417.49,-985.23,-1
     .goto 1411/1,-5002.81,-774.08,-1
-    .deathskip >> 在篝火处死亡，然后在 |cRXP_FRIENDLY_灵魂医者|r处复活
+    .deathskip >> Die at the Bonfire and respawn at the |cRXP_FRIENDLY_Spirit Healer|r
     .isQuestComplete 786
 step << skip
     #hardcore
     #completewith next
-    .goto 1411/1,-4656.48,-981.35,30 >>离开科卡尔营地
+    .goto 1411/1,-4656.48,-981.35,30 >>Leave the Kolkar base
     .isQuestComplete 786
 step
     #loop
@@ -1419,84 +1416,84 @@ step
     .goto 1411/1,-4822.51,-881.59,25,0
     .goto 1411/1,-4845.24,-829.42,25,0
     .goto 1411/1,-4828.32,-777.61,25,0
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_拉尔·猎齿|r交谈
-    >>|cRXP_WARN_他会在附近稍作巡逻|r
-    .turnin 786,1 >>交任务：科卡尔半人马的进攻 << Shaman
-    .turnin 786 >>交任务：科卡尔半人马的进攻 << !Shaman
-    .target 拉尔·猎齿
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Lar|r
+    >>|cRXP_WARN_He patrols a little|r
+    .turnin 786,1 >>Turn in Thwarting Kolkar Aggression << Shaman
+    .turnin 786 >>Turn in Thwarting Kolkar Aggression << !Shaman
+    .target Lar Prowltusk
     .isQuestComplete 786
 step
     .goto 1411/1,-4920.900,-814.000
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_沃纳尔大师|r交谈
-    .turnin 99123 >>交任务：迷失暗影
-    .target 沃纳尔大师
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Master Vornal|r
+    .turnin 99123 >>Turn in Lost in the Shadows
+    .target Master Vornal
     .isQuestComplete 99123
 step << Shaman
     .goto 1411/1,-4948.35,-769.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_特莱耶克|r交谈
-    .vendor >> 出售杂物。如果卖掉武器后能凑够购买 |T135145:0|t[学徒短杖]的钱（4 银 79 铜），就把武器也卖掉。暂时不够时，稍后再来
-    .target 特莱耶克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Trayexir|r
+    .vendor >> Vendor trash. Sell your weapon if it gives you enough money for a |T135145:0|t[Walking Stick] (4s 79c). You'll come back later if you don't have enough yet
+    .target Trayexir
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.2
 step << Shaman
     .goto 1411/1,-4948.35,-769.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r |cRXP_FRIENDLY_特莱耶克|r|cRXP_BUY_交谈，购买一把|r |T135145:0|t[学徒短杖] |cRXP_BUY_备用|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Trayexir|r|cRXP_BUY_. Buy a|r |T135145:0|t[Walking Stick] |cRXP_BUY_from him|r
     .collect 2495,1,823,1 --Collect Walking Stick (1)
     .money <0.0479
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.2
 step << Rogue
     .goto 1411/1,-4948.35,-769.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_特莱耶克|r交谈
-    .vendor >> 出售杂物。如果卖掉武器后能凑够购买 |T135641:0|t[卷刃的剑]的钱（3 银 81 铜），就把武器也卖掉。暂时不够时，稍后再来
-    .target 特莱耶克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Trayexir|r
+    .vendor >> Vendor trash. Sell your weapon if it gives you enough money for a |T135641:0|t[Stiletto] (3s 81c). You'll come back later if you don't have enough yet
+    .target Trayexir
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<3.3
 step << Rogue
     .goto 1411/1,-4948.35,-769.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r |cRXP_FRIENDLY_特莱耶克|r|cRXP_BUY_交谈，购买一把|r |T135641:0|t[卷刃的剑] |cRXP_BUY_备用|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Trayexir|r|cRXP_BUY_. Buy a|r |T135641:0|t[Stiletto] |cRXP_BUY_from him|r
     .collect 2494,1,823,1 --Collect Stiletto (1)
     .money <0.0381
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<3.3
 step << Orc Warrior
     .goto 1411/1,-4948.35,-769.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_特莱耶克|r交谈
-    .vendor >> 出售杂物。如果卖掉武器后能凑够购买 |T132401:0|t[双刃战斧]的钱（4 银 60 铜），就把武器也卖掉。暂时不够时，稍后再来
-    .target 特莱耶克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Trayexir|r
+    .vendor >> Vendor trash. Sell your weapon if it gives you enough money for a |T132401:0|t[Large Axe] (4s 60). You'll come back later if you don't have enough yet
+    .target Trayexir
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.2
 step << Orc Warrior
     .goto 1411/1,-4948.35,-769.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r |cRXP_FRIENDLY_特莱耶克|r|cRXP_BUY_交谈，购买一把|r |T132401:0|t[双刃战斧] |cRXP_BUY_备用|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Trayexir|r|cRXP_BUY_. Buy a|r |T132401:0|t[large Axe] |cRXP_BUY_from him|r
     .collect 2491,1,823,1 --Collect Large Axe (1)
     .money <0.0460
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.2
 step << Troll Warrior
     .goto 1411/1,-4948.35,-769.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_特莱耶克|r交谈
-    .vendor >> 出售杂物。如果卖掉武器后能凑够购买 |T135421:0|t[小手斧]的钱（5 银 13 铜），就把武器也卖掉。暂时不够时，稍后再来
-    .target 特莱耶克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Trayexir|r
+    .vendor >> Vendor trash. Sell your weapon if it gives you enough money for a |T135421:0|t[Tomahawk] (5s 13c). You'll come back later if you don't have enough yet
+    .target Trayexir
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<3.8
 step << Troll Warrior
     .goto 1411/1,-4948.35,-769.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r |cRXP_FRIENDLY_特莱耶克|r|cRXP_BUY_交谈，购买一把|r |T135421:0|t[小手斧] |cRXP_BUY_备用|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Trayexir|r|cRXP_BUY_. Buy a|r |T135421:0|t[Tomahawk] |cRXP_BUY_from him|r
     .collect 2490,1,823,1 --Collect Tomahawk (1)
     .money <0.0513
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<3.8
 step << Hunter
     .goto 1411/1,-4948.35,-769.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_特莱耶克|r交谈
-    .vendor >> 出售杂物。如果卖掉武器后能凑够购买 |T135499:0|t[角木弯弓]的费用（2 银 71 铜），就卖掉它；若仍不够，稍后再回来购买。
-    .target 特莱耶克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Trayexir|r
+    .vendor >> Vendor trash. Sell your weapon if it gives you enough money for a |T135499:0|t[Hornwood Recurve Bow] (2s 71c). You'll come back later if you don't have enough yet
+    .target Trayexir
     .itemStat 18,QUALITY,<7
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<2.3
 step << Hunter
     .goto 1411/1,-4948.35,-769.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r |cRXP_FRIENDLY_特莱耶克|r|cRXP_BUY_交谈，购买|r |T135499:0|t[角木弯弓] |cRXP_BUY_备用|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Trayexir|r|cRXP_BUY_. Buy a|r |T135499:0|t[Hornwood Recurve Bow] |cRXP_BUY_from him|r
     .collect 2506,1,823,1 --Collect Hornwood Recurve Bow (1)
     .money <0.0271
     .itemStat 18,QUALITY,<7
@@ -1504,7 +1501,7 @@ step << Hunter
 step << Rogue
     #optional
     #completewith TravelToTiragarde
-    +|cRXP_WARN_装备|r |T132414:0|t[增重飞斧]
+    +|cRXP_WARN_Equip the|r |T132414:0|t[Weighted Throwing Axe]
     .use 3131
     .itemcount 3131,1
     .itemStat 18,QUALITY,<7
@@ -1512,7 +1509,7 @@ step << Rogue
 step << Shaman
     #optional
     #completewith TravelToTiragarde
-    +|cRXP_WARN_装备|r |T135145:0|t[学徒短杖]
+    +|cRXP_WARN_Equip the|r |T135145:0|t[Walking Stick]
     .use 2495
     .itemcount 2495,1
     .itemStat 16,QUALITY,<7
@@ -1520,7 +1517,7 @@ step << Shaman
 step << Rogue
     #optional
     #completewith TravelToTiragarde
-    +|cRXP_WARN_装备|r |T135641:0|t[卷刃的剑]
+    +|cRXP_WARN_Equip the|r |T135641:0|t[Stiletto]
     .use 2494
     .itemcount 2494,1
     .itemStat 16,QUALITY,<7
@@ -1528,7 +1525,7 @@ step << Rogue
 step << Orc Warrior
     #optional
     #completewith TravelToTiragarde
-    +|cRXP_WARN_装备|r |T132401:0|t[双刃战斧]
+    +|cRXP_WARN_Equip the|r |T132401:0|t[large Axe]
     .use 2491
     .itemcount 2491,1
     .itemStat 16,QUALITY,<7
@@ -1536,7 +1533,7 @@ step << Orc Warrior
 step << Troll Warrior
     #optional
     #completewith TravelToTiragarde
-    +|cRXP_WARN_装备|r |T135421:0|t[小手斧]
+    +|cRXP_WARN_Equip the|r |T135421:0|t[Tomahawk]
     .use 2490
     .itemcount 2490,1
     .itemStat 16,QUALITY,<7
@@ -1544,7 +1541,7 @@ step << Troll Warrior
 step << Hunter
     #optional
     #completewith TravelToTiragarde
-    +|cRXP_WARN_装备|r |T135499:0|t[角木弯弓]
+    +|cRXP_WARN_Equip the|r |T135499:0|t[Hornwood Recurve Bow]
     .use 2506
     .itemcount 2506,1
     .itemStat 18,QUALITY,<7
@@ -1552,23 +1549,23 @@ step << Hunter
 step
     #optional
     .goto 1411/1,-4920.86,-813.91
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_沃纳尔大师|r交谈
-    .turnin 818 >>交任务：沃纳尔大师
-    .target 沃纳尔大师
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Vornal|r
+    .turnin 818 >>Turn in A Solvent Spirit
+    .target Master Vornal
     .isQuestComplete 818
 step << Warlock/Mage/Priest
     .goto 1411/1,-4938.83,-779.37
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_交谈对象：|r |cRXP_FRIENDLY_克瓦埃|r
-    >>|cRXP_BUY_向她购买|r |T132794:0|t[清凉的泉水] |cRXP_BUY_备用|r --Refreshing Spring Water (20)
-    .vendor >> 出售杂物
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_K'waii|r
+    >>|cRXP_BUY_Buy|r |T132794:0|t[Refreshing Spring Water] |cRXP_BUY_from her|r --Refreshing Spring Water (20)
+    .vendor >> Vendor trash
     .collect 159,20,784,1
-    .target 克瓦埃
+    .target K'waii
 step << !Warlock !Mage !Priest
     .goto 1411/1,-4903.41,-786.42
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_海赞|r交谈
-    >>|cRXP_BUY_购买|r |T133974:0|t[肉排]|cRXP_BUY_，由他出售；前提是你买得起|r << Warrior/Rogue
-    .vendor >> 出售杂物
-    .target 海赞
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Hai'zan|r
+    >>|cRXP_BUY_Buy|r |T133974:0|t[Haunch of Meat] |cRXP_BUY_from him if you can afford it|r << Warrior/Rogue
+    .vendor >> Vendor trash
+    .target Hai'zan
 step
     #softcore
     #loop
@@ -1576,96 +1573,96 @@ step
     .goto 1411/1,-4822.51,-881.59,25,0
     .goto 1411/1,-4845.24,-829.42,25,0
     .goto 1411/1,-4828.32,-777.61,25,0
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_拉尔·猎齿|r交谈
-    >>|cRXP_WARN_他会在附近稍作巡逻|r
-    .turnin 786,1 >>交任务：科卡尔半人马的进攻 << Shaman
-    .turnin 786 >>交任务：科卡尔半人马的进攻 << !Shaman
-    .target 拉尔·猎齿
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Lar|r
+    >>|cRXP_WARN_He patrols a little|r
+    .turnin 786,1 >>Turn in Thwarting Kolkar Aggression << Shaman
+    .turnin 786 >>Turn in Thwarting Kolkar Aggression << !Shaman
+    .target Lar Prowltusk
 step
     #completewith next
-    >>击杀 |cRXP_ENEMY_脊影潜伏者|r和|cRXP_ENEMY_脊影爬行者|r
+    >>Kill |cRXP_ENEMY_Ridgeshade Lurkers|r and |cRXP_ENEMY_Ridgeshade Creepers|r
     .complete 96821,2 --|6/6 Ridgeshade Lurker slain
-    .mob +脊影潜伏者
+    .mob +Ridgeshade Lurker
     .complete 96821,1 --|6/6 Ridgeshade Creeper slain
-    .mob +脊影爬行者
+    .mob +Ridgeshade Creeper
 step
     .goto 1411/1,-4565.700,-192.300
-    >>击杀|cRXP_ENEMY_乌科斯之灾|r（精英），拾取 |T133628:0|t[|cRXP_LOOT_乌克尔遗失的背包|r]
-    >>|cRXP_WARN_这个敌人很难对付！尽量组队；如果无法击杀，请跳过此步骤|r
+    >>Kill |cRXP_ENEMY_Ukorsbane|r (elite). Loot him for |T133628:0|t[|cRXP_LOOT_Ukor's Lost Pack|r]
+    >>|cRXP_WARN_This is hard! Group up if possible. Skip this step if you can't kill it|r
     .collect 275722,1,96876 --Ukor's Lost Pack (x1)
-    .accept 96876 >>接任务：乌克尔遗失的背包
-    .mob 乌科斯之灾
+    .accept 96876 >>Accept Ukor's Lost Pack
+    .mob Ukorsbane
 step
     .goto 1411/1,-4710.400,-209.400
-    >>击杀 |cRXP_ENEMY_脊影潜伏者|r和|cRXP_ENEMY_脊影爬行者|r
+    >>Kill |cRXP_ENEMY_Ridgeshade Lurkers|r and |cRXP_ENEMY_Ridgeshade Creepers|r
     .complete 96821,2 --|6/6 Ridgeshade Lurker slain
-    .mob +脊影潜伏者
+    .mob +Ridgeshade Lurker
     .complete 96821,1 --|6/6 Ridgeshade Creeper slain
-    .mob +脊影爬行者
+    .mob +Ridgeshade Creeper
 step --camp quest
     #hardcore
     .goto 1411/1,-4713.000,140.600
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_布拉克|r交谈
-    .turnin 96652 >>交任务：冒险者
-    .accept 96604 >>接任务：广阔天地
-    .target 布拉克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Brakk|r
+    .turnin 96652 >>Turn in The Adventurer
+    .accept 96604 >>Accept The Great Outdoors
+    .target Brakk
     .isOnQuest 96652
 step --camp quest
     #hardcore
     #optional
     .goto 1411/1,-4713.000,140.600
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_布拉克|r交谈
-    .accept 96604 >>接任务：广阔天地
-    .target 布拉克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Brakk|r
+    .accept 96604 >>Accept The Great Outdoors
+    .target Brakk
 step
     #hardcore
     .goto 1411/1,-4715.200,140.100
-    >>|cRXP_WARN_在营火旁输入 /sit，等一分钟，直到获得“强化休息”Buff|r
+    >>|cRXP_WARN_Type /sit at the campfire and wait for one minute until you get the "Camp Benefits" buff|r
     .complete 96604,1 --|1/1 Use the /sit emote near the campfire
-    .macro 坐下,134400 >>/sit
-    .timer 59, 剧情演出
+    .macro Sit,134400 >>/sit
+    .timer 59, RP
     .complete 96604,2 --|Gain the Boosted Rest buff
 step
     #hardcore
     .goto 1411/1,-4713.000,140.600
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_布拉克|r交谈
-    .turnin 96604 >>交任务：广阔天地
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Brakk|r
+    .turnin 96604 >>Turn in The Great Outdoors
     --.accept 97900 >>Accept Camping 101: Blacksmithing
-    .accept 96655 >>接任务：露营入门：烹饪
+    .accept 96655 >>Accept Camping 101: Cooking
     --.accept 97907 >>Accept Camping 101: Mining
-    .target 布拉克
+    .target Brakk
 step
     #hardcore
     #completewith next
-    .subzone 362 >>前往剃刀岭
+    .subzone 362 >>Travel to Razor Hill
 step
     #hardcore
     #label Betrayers
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_奥戈尼尔·魂痕|r、|cRXP_FRIENDLY_加索克|r和|cRXP_FRIENDLY_厨师托尔卡|r交谈
-    .turnin 823 >>交任务：向奥戈尼尔报告
-    .accept 806 >>接任务：黑暗风暴
-    .target +奥戈尼尔·魂痕
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to|r |cRXP_FRIENDLY_Orgnil|r, |cRXP_FRIENDLY_Gar'Thok|r and |cRXP_FRIENDLY_Torka|r
+    .turnin 823 >>Turn in Report to Orgnil
+    .accept 806 >>Accept Dark Storms
+    .target +Orgnil Soulscar
     .goto 1411/1,-4724.69,287.30
-    .accept 784 >>接任务：背信弃义的人类
-    .accept 837 >>接任务：野猪人的进犯
-    .target +加索克
+    .accept 784 >>Accept Vanquish the Betrayers
+    .accept 837 >>Accept Encroachment
+    .target +Gar'Thok
     .goto 1411/1,-4709.36,274.960
-    .accept 815 >>接任务：恐龙蛋大餐
-    .target +厨师托尔卡
+    .accept 815 >>Accept Break a Few Eggs
+    .target +Cook Torka
     .goto 1411/1,-4663.88,310.56
 step
     #hardcore
     .goto 1411/1,-4663.88,310.56
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t交谈对象： |cRXP_FRIENDLY_厨师托尔卡|r
-    .train 2550 >>学习烹饪
-    .turnin 96655 >>交任务：露营入门：烹饪
-    .target 厨师托尔卡
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to|r |cRXP_FRIENDLY_Torka|r
+    .train 2550 >>Train Cooking
+    .turnin 96655 >>Turn in Camping 101: Cooking
+    .target Cook Torka
 step
     #hardcore
     .goto 1411/1,-4665.400,311.900
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_厨师托尔卡|r交谈
-    .accept 96825 >>接任务：这果子会咬人
-    .target 厨师托尔卡
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Cook Torka|r
+    .accept 96825 >>Accept This Fruit Could Bite Back
+    .target Cook Torka
 step
     #hardcore
     #completewith next
@@ -1673,7 +1670,7 @@ step
     .goto 1411/1,-4611.01,293.64,8,0
     .goto 1411/1,-4616.82,317.26,12,0
     .goto 1411/1,-4604.13,364.49,12,0
-    .goto 1411/1,-4588.80,383.53,10 >>前往高塔
+    .goto 1411/1,-4588.80,383.53,10 >>Travel toward the tower
 step
     #hardcore
     #completewith next
@@ -1683,45 +1680,45 @@ step
     .goto 1411/1,-4589.33,387.760,6,0
     .goto 1411/1,-4594.62,386.35,6,0
     .goto 1411/1,-4595.15,399.74,6,0
-    .goto 1411/1,-4585.1,396.92,8 >>上塔前往弗恩处
+    .goto 1411/1,-4585.1,396.92,8 >>Travel up the tower toward Furl
 step
     #hardcore
     .goto 1411/1,-4600.43,384.59
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_弗恩·凝眉|r交谈
-    .accept 791 >>接任务：新的背包
-    .target 弗恩·凝眉
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Furl|r
+    .accept 791 >>Accept Carry Your Weight
+    .target Furl Scornbrow
 step << Warrior/Rogue
     #hardcore
     .goto 1411/1,-4701.95,366.96
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_克鲁恩|r交谈
-    .train 2575 >> 学习 |T136248:0|t[采矿]
-    >>|cRXP_WARN_这样就能从矿点采集到|r |T135232:0|t|cRXP_LOOT_[劣质的石头]|r |cRXP_WARN_，用于制作|r |T135248:0|t[磨刀石] |cRXP_WARN_（武器伤害+2，持续30分钟）|r
-    .target 克鲁恩
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Krunn|r
+    .train 2575 >> Train |T136248:0|t[Mining]
+    >>|cRXP_WARN_This will allow you to find|r |T135232:0|t|cRXP_LOOT_[Rough Stones]|r |cRXP_WARN_from nodes in order to craft|r |T135248:0|t[Sharpening Stones] |cRXP_WARN_(+2 Weapon Damage for 30 minutes)|r
+    .target Krunn
 step << Warrior/Rogue
     #hardcore
     .goto 1411/1,-4706.71,358.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_沃克|r交谈
-    >>|cRXP_BUY_购买一把|r |T134708:0|t[矿工锄] |cRXP_BUY_，找|r |cRXP_BUY_他购买|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Wuark|r
+    >>|cRXP_BUY_Buy a|r |T134708:0|t[Mining Pick] |cRXP_BUY_from|r |cRXP_BUY_him|r
     .collect 2901,1,784,1 --Mining Pick (1)
-    .target 沃克
+    .target Wuark
 step << Warrior/Rogue
     #hardcore
     .goto 1411/1,-4714.64,372.60
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_杜克|r交谈
-    .train 2018 >> 学习 |T136241:0|t[锻造]
-    .target 杜克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dwukk|r
+    .train 2018 >> Train |T136241:0|t[Blacksmithing]
+    .target Dwukk
     .skill blacksmithing,1,1
 step -- (Barracks)
     #hardcore
     #label RazorHill1
     .goto 1411/1,-4815.200,306.800
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_图罗克|r交谈
-    .accept 96822 >>接任务：为了荣耀！
-    .target 图罗克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Turroc|r
+    .accept 96822 >>Accept For Honor
+    .target Turroc
 step << Warrior/Rogue
     #hardcore
     #completewith TravelToTiragarde
-    +|cRXP_WARN_施放|r |T136025:0|t[寻找矿物] |cRXP_WARN_，开采沿途铜矿，收集|r |T135232:0|t|cRXP_LOOT_[劣质的石头]|r|cRXP_WARN_，然后制作|r |T135248:0|t[磨刀石] |cRXP_WARN_备用|r
+    +|cRXP_WARN_Cast|r |T136025:0|t[Find Minerals] |cRXP_WARN_and mine any Copper Vein you find for|r |T135232:0|t|cRXP_LOOT_[Rough Stones]|r|cRXP_WARN_. Make|r |T135248:0|t[Sharpening Stones] |cRXP_WARN_from them|r
     .collect 2862,1,786,1
     .skill blacksmithing,<1,1
     .train 2575,3 --Mining Trained
@@ -1729,58 +1726,58 @@ step
     #softcore
     #label TravelToTiragarde
     .goto 1411/1,-4979.200,-232.800
-    .subzone 372 >> 前往提拉加德城堡
+    .subzone 372 >> Travel to Tiragarde Keep
     -->>|cRXP_WARN_Grind mobs on the way|r
     .isOnQuest 784
 step
     #hardcore
     #label TravelToTiragarde
     .goto 1411/1,-4979.200,-232.800
-    .subzone 372 >> 前往提拉加德城堡
+    .subzone 372 >> Travel to Tiragarde Keep
     -->>|cRXP_WARN_Grind mobs on the way|r
     .isOnQuest 784
 step
     #completewith AgedEnvelope
-    >>击杀 |cRXP_ENEMY_库尔提拉斯水手|r和|cRXP_ENEMY_库尔提拉斯水兵|r，拾取 |cRXP_LOOT_帆布碎片|r
+    >>Kill |cRXP_ENEMY_Kul Tiras Sailors|r and |cRXP_ENEMY_Kul Tiras Marines|r. Loot them for their |cRXP_LOOT_Canvas Scraps|r
     .complete 784,1 --Kul Tiras Sailor (10)
-    .mob +库尔提拉斯水手
+    .mob +Kul Tiras Sailor
     .complete 784,2 --Kul Tiras Marine (8)
-    .mob +库尔提拉斯水兵
+    .mob +Kul Tiras Marine
     .complete 791,1 --Canvas Scraps (8)
-    .mob +库尔提拉斯水兵
-    .mob +库尔提拉斯水手
+    .mob +Kul Tiras Marine
+    .mob +Kul Tiras Sailor
 step --south/west of keep
     #completewith next
     .goto 1411/1,-4992.700,-234.400,0
     .goto 1411/1,-5101.700,-178.500,0
     .goto 1411/1,-4992.700,-234.400,25,0
     .goto 1411/1,-5101.700,-178.500,25,0
-    >>拾取地上的 |cRXP_PICK_袭击者之弓|r
-    >>|cRXP_WARN_有两个不同的刷新位置|r
+    >>Loot the |cRXP_PICK_Raider's Bow|r on the ground
+    >>|cRXP_WARN_It has two different spawn locations|r
     .complete 96822,1 --|1/1 Raider's Bow
 step --center in keep
     .goto 1411/1,-4994.900,-182.300
-    >>拾取地上的 |cRXP_PICK_袭击者战斧|r
+    >>Loot the |cRXP_PICK_Raider's Battleaxe|r on the ground
     .complete 96822,2 --|1/1 Raider's Battleaxe
 step
     #sticky
     #completewith AgedEnvelope
-    +|cRXP_WARN_如果|r |cRXP_ENEMY_指挥官萨拉菲尔|r |cRXP_WARN_刷新了，务必小心，他是9级稀有怪。如果有|r |T134829:0|t[初级治疗药水] |cRXP_WARN_，必要时使用|r
-    .unitscan 指挥官萨拉菲尔
+    +|cRXP_WARN_Be careful if|r |cRXP_ENEMY_Watch Commander Zalaphil|r |cRXP_WARN_is up, as he is a level 9 rare. You may have to use a|r |T134829:0|t[Minor Healing Potion] |cRXP_WARN_if you have one|r
+    .unitscan Watch Commander Zalaphil
 step
     #completewith Benedict
     #requires TravelToTiragarde
     .goto 1411/1,-5124.95,-243.92,8,0
     .goto 1411/1,-5115.96,-251.68,8,0
     .goto 1411/1,-5111.21,-232.29,8,0
-    .goto 1411/1,-5097.46,-232.29,8 >> 前往要塞二楼
+    .goto 1411/1,-5097.46,-232.29,8 >> Move toward the second floor of the keep
 step
     #label Benedict
     .goto 1411/1,-5121.78,-245.68
-    >>击杀 |cRXP_ENEMY_本尼迪克上尉|r，拾取他的 |cRXP_LOOT_钥匙|r
+    >>Kill |cRXP_ENEMY_Lieutenant Benedict|r. Loot him for his |cRXP_LOOT_Key|r
     .complete 784,3 --Lieutenant Benedict (1)
     .collect 4882,1,830,1 --Collect Benedict's Key (1)
-    .mob 本尼迪克上尉
+    .mob Lieutenant Benedict
 step
     .goto 1411/1,-5128.13,-231.58,5,0
     .goto 1411/1,-5126.01,-221.36,5,0
@@ -1788,11 +1785,11 @@ step
     .goto 1411/1,-5131.83,-229.82,5,0
     .goto 1411/1,-5131.83,-222.42,5,0
     .goto 1411/1,-5096.40,-223.83
-    >>|cRXP_WARN_走上城堡楼上|r
-    >>打开 |cRXP_PICK_本尼迪克的箱子|r，拾取 |T133471:0|t[|cRXP_LOOT_旧信封|r]
-    >>使用 |T133471:0|t[|cRXP_LOOT_旧信封|r] 接受任务
+    >>|cRXP_WARN_Go upstairs in the keep|r
+    >>Open |cRXP_PICK_Benedict's Chest|r. Loot it for the |T133471:0|t[|cRXP_LOOT_Aged Envelope|r]
+    >>Use the |T133471:0|t[|cRXP_LOOT_Aged Envelope|r] to start the quest
     .collect 4881,1,830 --Collect Aged Envelope (1)
-    .accept 830 >>接任务：将军的命令
+    .accept 830 >>Accept The Admiral's Orders
     .use 4881
 step --south/west of keep
     #loop
@@ -1800,13 +1797,13 @@ step --south/west of keep
     .goto 1411/1,-5101.700,-178.500,0
     .goto 1411/1,-5101.700,-178.500,25,0
     .goto 1411/1,-4992.700,-234.400,25,0
-    >>拾取地上的 |cRXP_PICK_袭击者之弓|r
-    >>|cRXP_WARN_有两个不同的刷新位置|r
+    >>Loot the |cRXP_PICK_Raider's Bow|r on the ground
+    >>|cRXP_WARN_It has two different spawn locations|r
     .complete 96822,1 --|1/1 Raider's Bow
 step  --northern tower
     #label AgedEnvelope
     .goto 1411/1,-4951.500,-59.600
-    >>拾取地上的 |cRXP_PICK_袭击者之盾|r
+    >>Loot the |cRXP_PICK_Raider's Shield|r on the ground
     .complete 96822,3 --|1/1 Raider's Shield
 step
     #loop
@@ -1818,14 +1815,14 @@ step
     .goto 1411/1,-4952.05,-113.50,30,0
     .goto 1411/1,-4943.06,-248.50,30,0
     .goto 1411/1,-5081.60,-246.740,30,0
-    >>击杀 |cRXP_ENEMY_库尔提拉斯水手|r和|cRXP_ENEMY_库尔提拉斯水兵|r，拾取 |cRXP_LOOT_帆布碎片|r
+    >>Kill |cRXP_ENEMY_Kul Tiras Sailors|r and |cRXP_ENEMY_Kul Tiras Marines|r. Loot them for their |cRXP_LOOT_Canvas Scraps|r
     .complete 784,1 --Kul Tiras Sailor (10)
-    .mob +库尔提拉斯水手
+    .mob +Kul Tiras Sailor
     .complete 784,2 --Kul Tiras Marine (8)
-    .mob +库尔提拉斯水兵
+    .mob +Kul Tiras Marine
     .complete 791,1 --Canvas Scraps (8)
-    .mob +库尔提拉斯水兵
-    .mob +库尔提拉斯水手
+    .mob +Kul Tiras Marine
+    .mob +Kul Tiras Sailor
     .itemcount 4870,<8 --Canvas Scraps (<8)
 step
     #optional
@@ -1838,11 +1835,11 @@ step
     .goto 1411/1,-4952.05,-113.50,30,0
     .goto 1411/1,-4943.06,-248.50,30,0
     .goto 1411/1,-5081.60,-246.740,30,0
-    >>击杀 |cRXP_ENEMY_库尔提拉斯水手|r和|cRXP_ENEMY_库尔提拉斯水兵|r
+    >>Kill |cRXP_ENEMY_Kul Tiras Sailors|r and |cRXP_ENEMY_Kul Tiras Marines|r
     .complete 784,1 --Kul Tiras Sailor (10)
-    .mob +库尔提拉斯水手
+    .mob +Kul Tiras Sailor
     .complete 784,2 --Kul Tiras Marine (8)
-    .mob +库尔提拉斯水兵
+    .mob +Kul Tiras Marine
 step
     #optional
     #label ScrapsFinished
@@ -1855,10 +1852,10 @@ step
     .goto 1411/1,-4952.05,-113.50,30,0
     .goto 1411/1,-4943.06,-248.50,30,0
     .goto 1411/1,-5081.60,-246.740,30,0
-    >>击杀 |cRXP_ENEMY_库尔提拉斯水手|r和|cRXP_ENEMY_库尔提拉斯水兵|r，拾取 |cRXP_LOOT_帆布碎片|r
+    >>Kill |cRXP_ENEMY_Kul Tiras Sailors|r and |cRXP_ENEMY_Kul Tiras Marines|r. Loot them for their |cRXP_LOOT_Canvas Scraps|r
     .complete 791,1 --Canvas Scraps (8)
-    .mob 库尔提拉斯水手
-    .mob 库尔提拉斯水兵
+    .mob Kul Tiras Sailor
+    .mob Kul Tiras Marine
 step << !Priest !Mage
     #optional
     #loop
@@ -1868,7 +1865,7 @@ step << !Priest !Mage
     .goto 1411/1,-5027.13,311.62,50,0
     .goto 1411/1,-4948.35,276.72,50,0
     .goto 1411/1,-4897.06,82.14,50,0
-    .xp 7+2520 >> 刷怪至2520+/4500经验值
+    .xp 7+2520 >> Grind to 2520+/4500xp
     .isNotOnQuest 823
 step << !Priest !Mage
     #optional
@@ -1879,7 +1876,7 @@ step << !Priest !Mage
     .goto 1411/1,-5027.13,311.62,50,0
     .goto 1411/1,-4948.35,276.72,50,0
     .goto 1411/1,-4897.06,82.14,50,0
-    .xp 7+2200 >> 刷怪至2200+/4500经验值
+    .xp 7+2200 >> Grind to 2200+/4500xp
     .isOnQuest 823
 step << Priest
     #optional
@@ -1890,7 +1887,7 @@ step << Priest
     .goto 1411/1,-5027.13,311.62,50,0
     .goto 1411/1,-4948.35,276.72,50,0
     .goto 1411/1,-4897.06,82.14,50,0
-    .xp 7+2070 >> 刷怪至2070+/4500经验值
+    .xp 7+2070 >> Grind to 2070+/4500xp
     .isNotOnQuest 823
 step << Priest
     #optional
@@ -1901,99 +1898,99 @@ step << Priest
     .goto 1411/1,-5027.13,311.62,50,0
     .goto 1411/1,-4948.35,276.72,50,0
     .goto 1411/1,-4897.06,82.14,50,0
-    .xp 7+1750 >> 刷怪至1750+/4500经验值
+    .xp 7+1750 >> Grind to 1750+/4500xp
     .isOnQuest 823
 step << skip
     #softcore
     #completewith RazorTurnins1
     .goto 1411/1,-4992.24,-77.54,120,0
-    .deathskip >> 在提拉加德城堡外的北塔处死亡，然后在 |cRXP_FRIENDLY_灵魂医者|r处复活
+    .deathskip >> Die at the northern tower outside of Tiragarde Keep and respawn at the |cRXP_FRIENDLY_Spirit Healer|r
 step --camp quest
     #softcore
     .goto 1411/1,-4713.000,140.600
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_布拉克|r交谈
-    .turnin 96652 >>交任务：冒险者
-    .accept 96604 >>接任务：广阔天地
-    .target 布拉克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Brakk|r
+    .turnin 96652 >>Turn in The Adventurer
+    .accept 96604 >>Accept The Great Outdoors
+    .target Brakk
     .isOnQuest 96652
 step --camp quest
     #softcore
     #optional
     .goto 1411/1,-4713.000,140.600
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_布拉克|r交谈
-    .accept 96604 >>接任务：广阔天地
-    .target 布拉克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Brakk|r
+    .accept 96604 >>Accept The Great Outdoors
+    .target Brakk
 step
     #softcore
     .goto 1411/1,-4715.200,140.100
-    >>|cRXP_WARN_在营火旁输入 /sit，等一分钟，直到获得“强化休息”Buff|r
+    >>|cRXP_WARN_Type /sit at the campfire and wait for one minute until you get the "Camp Benefits" buff|r
     .complete 96604,1 --|1/1 Use the /sit emote near the campfire
-    .macro 坐下,134400 >>/sit
-    .timer 59, 剧情演出
+    .macro Sit,134400 >>/sit
+    .timer 59, RP
     .complete 96604,2 --|Gain the Boosted Rest buff
 step
     #softcore
     .goto 1411/1,-4713.000,140.600
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_布拉克|r交谈
-    .turnin 96604 >>交任务：广阔天地
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Brakk|r
+    .turnin 96604 >>Turn in The Great Outdoors
     --.accept 97900 >>Accept Camping 101: Blacksmithing
-    .accept 96655 >>接任务：露营入门：烹饪
+    .accept 96655 >>Accept Camping 101: Cooking
     --.accept 97907 >>Accept Camping 101: Mining
-    .target 布拉克
+    .target Brakk
 step
     #completewith next
-    .subzone 362 >>前往剃刀岭
+    .subzone 362 >>Travel to Razor Hill
 step
     #softcore
     #label RazorTurnins1
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_奥戈尼尔·魂痕|r、|cRXP_FRIENDLY_加索克|r和|cRXP_FRIENDLY_厨师托尔卡|r交谈
-    .turnin 823 >>交任务：向奥戈尼尔报告
-    .accept 806 >>接任务：黑暗风暴
-    .target +奥戈尼尔·魂痕
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to|r |cRXP_FRIENDLY_Orgnil|r, |cRXP_FRIENDLY_Gar'Thok|r and |cRXP_FRIENDLY_Torka|r
+    .turnin 823 >>Turn in Report to Orgnil
+    .accept 806 >>Accept Dark Storms
+    .target +Orgnil Soulscar
     .goto 1411/1,-4724.69,287.30
-    .turnin 784 >>交任务：背信弃义的人类
-    .turnin 830 >>交任务：将军的命令
-    .turnin 96821 >>交任务：拔腿就跑
-    .accept 825 >>接任务：海底沉船
-    .accept 831 >>接任务：将军的命令
-    .accept 837 >>接任务：野猪人的进犯
-    .target +加索克
+    .turnin 784 >>Turn in Vanquish the Betrayers
+    .turnin 830 >>Turn in The Admiral's Orders
+    .turnin 96821 >>Turn in Legging It
+    .accept 825 >>Accept From The Wreckage....
+    .accept 831 >>Accept The Admiral's Orders
+    .accept 837 >>Accept Encroachment
+    .target +Gar'Thok
     .goto 1411/1,-4709.36,274.960
-    .accept 815 >>接任务：恐龙蛋大餐
-    .target +厨师托尔卡
+    .accept 815 >>Accept Break a Few Eggs
+    .target +Cook Torka
     .goto 1411/1,-4663.88,310.56
 step
     #hardcore
     #label RazorTurnins1
     .goto 1411/1,-4709.36,274.960
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t交谈对象： |cRXP_FRIENDLY_加索克|r
-    .turnin 784 >>交任务：背信弃义的人类
-    .turnin 830 >>交任务：将军的命令
-    .turnin 96821 >>交任务：拔腿就跑
-    .accept 825 >>接任务：海底沉船
-    .accept 831 >>接任务：将军的命令
-    .target +加索克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to|r |cRXP_FRIENDLY_Gar'Thok|r
+    .turnin 784 >>Turn in Vanquish the Betrayers
+    .turnin 830 >>Turn in The Admiral's Orders
+    .turnin 96821 >>Turn in Legging It
+    .accept 825 >>Accept From The Wreckage....
+    .accept 831 >>Accept The Admiral's Orders
+    .target +Gar'Thok
 step
     #optional
     .goto 1411/1,-4724.900,287.300
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_奥戈尼尔·魂痕|r交谈
-    .accept 99048 >>接任务：失踪的帮手
-    .target 奥戈尼尔·魂痕
-    .xp <9,1
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Orgnil|r
+    .accept 99048 >>Accept A Missing Hand
+    .target Orgnil Soulscar
+    .xp <8,1
 step
     #softcore
     .goto 1411/1,-4663.88,310.56
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t交谈对象： |cRXP_FRIENDLY_厨师托尔卡|r
-    .train 2550 >>学习烹饪
-    .turnin 96655 >>交任务：露营入门：烹饪
-    .target 厨师托尔卡
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to|r |cRXP_FRIENDLY_Torka|r
+    .train 2550 >>Train Cooking
+    .turnin 96655 >>Turn in Camping 101: Cooking
+    .target Cook Torka
 step
     #completewith next
     .goto 1411/1,-4617.88,290.47,12,0
     .goto 1411/1,-4611.01,293.64,8,0
     .goto 1411/1,-4616.82,317.26,12,0
     .goto 1411/1,-4604.13,364.49,12,0
-    .goto 1411/1,-4588.80,383.53,10 >>前往高塔
+    .goto 1411/1,-4588.80,383.53,10 >>Travel toward the tower
 step
     #completewith next
     .goto 1411/1,-4593.03,384.94,6,0
@@ -2002,82 +1999,82 @@ step
     .goto 1411/1,-4589.33,387.760,6,0
     .goto 1411/1,-4594.62,386.35,6,0
     .goto 1411/1,-4595.15,399.74,6,0
-    .goto 1411/1,-4585.1,396.92,8 >>上塔前往弗恩处
+    .goto 1411/1,-4585.1,396.92,8 >>Travel up the tower toward Furl
 step
     .goto 1411/1,-4600.43,384.59
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_弗恩·凝眉|r交谈
-    .turnin 791 >>交任务：新的背包
-    .target 弗恩·凝眉
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Furl|r
+    .turnin 791 >>Turn in Carry Your Weight
+    .target Furl Scornbrow
 step << Warrior/Rogue
     .goto 1411/1,-4701.95,366.96
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_克鲁恩|r交谈
-    .train 2575 >> 学习 |T136248:0|t[采矿]
-    >>|cRXP_WARN_这样就能从矿点采集到|r |T135232:0|t|cRXP_LOOT_[劣质的石头]|r |cRXP_WARN_，用于制作|r |T135248:0|t[磨刀石] |cRXP_WARN_（武器伤害+2，持续30分钟）|r
-    .target 克鲁恩
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Krunn|r
+    .train 2575 >> Train |T136248:0|t[Mining]
+    >>|cRXP_WARN_This will allow you to find|r |T135232:0|t|cRXP_LOOT_[Rough Stones]|r |cRXP_WARN_from nodes in order to craft|r |T135248:0|t[Sharpening Stones] |cRXP_WARN_(+2 Weapon Damage for 30 minutes)|r
+    .target Krunn
 step << Warrior/Rogue
     .goto 1411/1,-4706.71,358.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_沃克|r交谈
-    >>|cRXP_BUY_购买一把|r |T134708:0|t[矿工锄] |cRXP_BUY_，出售者是|r |cRXP_FRIENDLY_沃克|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Wuark|r
+    >>|cRXP_BUY_Buy a|r |T134708:0|t[Mining Pick] |cRXP_BUY_from|r |cRXP_FRIENDLY_Wuark|r
     .collect 2901,1,825,1 --Mining Pick (1)
-    .target 沃克
+    .target Wuark
 step << Warrior/Rogue
     .goto 1411/1,-4714.64,372.60
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_杜克|r交谈
-    .train 2018 >> 学习 |T136241:0|t[锻造]
-    .target 杜克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dwukk|r
+    .train 2018 >> Train |T136241:0|t[Blacksmithing]
+    .target Dwukk
     .skill blacksmithing,1,1
 step << Shaman
     .goto 1411/1,-4713.06,382.12
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_尤加尔|r交谈
-    .vendor >> 出售杂物。如果卖掉武器后能凑够购买 |T135145:0|t[学徒短杖]的钱（4 银 79 铜），就把武器也卖掉。暂时不够时，稍后再来
-    .target 尤加尔
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Uhgar|r
+    .vendor >> Vendor trash. Sell your weapon if it gives you enough money for a |T135145:0|t[Walking Stick] (4s 79c). You'll come back later if you don't have enough yet
+    .target Uhgar
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.2
 step << Shaman
     .goto 1411/1,-4713.06,382.12
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r |cRXP_FRIENDLY_尤加尔|r|cRXP_BUY_交谈，购买一把|r |T135145:0|t[学徒短杖] |cRXP_BUY_备用|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Uhgar|r|cRXP_BUY_. Buy a|r |T135145:0|t[Walking Stick] |cRXP_BUY_from him|r
     .collect 2495,1,825,1 --Collect Walking Stick (1)
     .money <0.0479
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.2
 step << Rogue
     .goto 1411/1,-4713.06,382.12
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_尤加尔|r交谈
-    .vendor >> 出售杂物。如果卖掉武器后能凑够购买 |T135641:0|t[卷刃的剑]的钱（3 银 81 铜），就把武器也卖掉。暂时不够时，稍后再来
-    .target 尤加尔
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Uhgar|r
+    .vendor >> Vendor trash. Sell your weapon if it gives you enough money for a |T135641:0|t[Stiletto] (3s 81c). You'll come back later if you don't have enough yet
+    .target Uhgar
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<3.3
 step << Rogue
     .goto 1411/1,-4713.06,382.12
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r |cRXP_FRIENDLY_尤加尔|r|cRXP_BUY_交谈，购买一把|r |T135641:0|t[卷刃的剑] |cRXP_BUY_备用|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Uhgar|r|cRXP_BUY_. Buy a|r |T135641:0|t[Stiletto] |cRXP_BUY_from him|r
     .collect 2494,1,825,1 --Collect Stiletto (1)
     .money <0.0381
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<3.3
 step << Orc Warrior
     .goto 1411/1,-4713.06,382.12
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_尤加尔|r交谈
-    .vendor >> 出售杂物。如果卖掉现用武器后能凑够购买 |T132401:0|t[双刃战斧]的费用（4 银 60 铜），就卖掉它；若仍不够，稍后再回来购买。
-    .target 尤加尔
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Uhgar|r
+    .vendor >> Vendor trash. Sell your weapon if it gives you enough money for a |T132401:0|t[Large Axe] (4s 60c). You'll come back later if you don't have enough yet
+    .target Uhgar
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.2
 step << Orc Warrior
     .goto 1411/1,-4713.06,382.12
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r |cRXP_FRIENDLY_尤加尔|r|cRXP_BUY_交谈，购买一把|r |T132401:0|t[双刃战斧] |cRXP_BUY_备用|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Uhgar|r|cRXP_BUY_. Buy a|r |T132401:0|t[large Axe] |cRXP_BUY_from him|r
     .collect 2491,1,825,1 --Collect Large Axe (1)
     .money <0.0460
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.2
 step << Troll Warrior
     .goto 1411/1,-4713.06,382.12
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_尤加尔|r交谈
-    .vendor >> 出售杂物。如果卖掉武器后能凑够购买 |T135421:0|t[小手斧]的钱（5 银 13 铜），就把武器也卖掉。暂时不够时，稍后再来
-    .target 尤加尔
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Uhgar|r
+    .vendor >> Vendor trash. Sell your weapon if it gives you enough money for a |T135421:0|t[Tomahawk] (5s 13c). You'll come back later if you don't have enough yet
+    .target Uhgar
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<3.8
 step << Troll Warrior
     .goto 1411/1,-4713.06,382.12
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r |cRXP_FRIENDLY_尤加尔|r|cRXP_BUY_交谈，购买一把|r |T135421:0|t[小手斧] |cRXP_BUY_备用|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Uhgar|r|cRXP_BUY_. Buy a|r |T135421:0|t[Tomahawk] |cRXP_BUY_from him|r
     .collect 2490,1,825,1 --Collect Tomahawk (1)
     .money <0.0513
     .itemStat 16,QUALITY,<7
@@ -2085,7 +2082,7 @@ step << Troll Warrior
 step << Rogue
     #optional
     #completewith Toolboxes
-    +|cRXP_WARN_装备|r |T132414:0|t[增重飞斧]
+    +|cRXP_WARN_Equip the|r |T132414:0|t[Weighted Throwing Axe]
     .use 3131
     .itemcount 3131,1
     .itemStat 18,QUALITY,<7
@@ -2093,7 +2090,7 @@ step << Rogue
 step << Shaman
     #optional
     #completewith Toolboxes
-    +|cRXP_WARN_装备|r |T135145:0|t[学徒短杖]
+    +|cRXP_WARN_Equip the|r |T135145:0|t[Walking Stick]
     .use 2495
     .itemcount 2495,1
     .itemStat 16,QUALITY,<7
@@ -2101,7 +2098,7 @@ step << Shaman
 step << Rogue
     #optional
     #completewith Toolboxes
-    +|cRXP_WARN_装备|r |T135641:0|t[卷刃的剑]
+    +|cRXP_WARN_Equip the|r |T135641:0|t[Stiletto]
     .use 2494
     .itemcount 2494,1
     .itemStat 16,QUALITY,<7
@@ -2109,7 +2106,7 @@ step << Rogue
 step << Orc Warrior
     #optional
     #completewith Toolboxes
-    +|cRXP_WARN_装备|r |T132401:0|t[双刃战斧]
+    +|cRXP_WARN_Equip the|r |T132401:0|t[large Axe]
     .use 2491
     .itemcount 2491,1
     .itemStat 16,QUALITY,<7
@@ -2117,21 +2114,21 @@ step << Orc Warrior
 step << Troll Warrior
     #optional
     #completewith Toolboxes
-    +|cRXP_WARN_装备|r |T135421:0|t[小手斧]
+    +|cRXP_WARN_Equip the|r |T135421:0|t[Tomahawk]
     .use 2490
     .itemcount 2490,1
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<3.8
 step << Hunter
     .goto 1411/1,-4763.29,361.67
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_格劳特|r交谈
-    .vendor >> 出售杂物。如果卖掉武器后能凑够购买 |T135499:0|t[角木弯弓]的费用（2银83铜），就卖掉它；若仍不够，稍后再回来购买。
-    .target 格劳特
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ghrawt|r
+    .vendor >> Vendor trash. Sell your weapon if it gives you enough money for a |T135499:0|t[Hornwood Recurve Bow] (2s 83c). You'll come back later if you don't have enough yet
+    .target Ghrawt
     .itemStat 18,QUALITY,<7
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<2.3
 step << Hunter
     .goto 1411/1,-4763.29,361.67
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r |cRXP_FRIENDLY_格劳特|r|cRXP_BUY_交谈，购买|r |T135499:0|t[角木弯弓] |cRXP_BUY_备用|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Ghrawt|r|cRXP_BUY_. Buy a|r |T135499:0|t[Hornwood Recurve Bow] |cRXP_BUY_from him|r
     .collect 2506,1,818,1 --Collect Hornwood Recurve Bow (1)
     .money <0.0283
     .itemStat 18,QUALITY,<7
@@ -2139,33 +2136,33 @@ step << Hunter
 step << Hunter
     #optional
     #completewith Toolboxes
-    +|cRXP_WARN_装备|r |T135499:0|t[角木弯弓]
+    +|cRXP_WARN_Equip the|r |T135499:0|t[Hornwood Recurve Bow]
     .use 2506
     .itemcount 2506,1
     .itemStat 18,QUALITY,<7
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<2.3
 step << Hunter
     .goto 1411/1,-4763.29,361.67
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与 |r|cRXP_FRIENDLY_格劳特|r|cRXP_BUY_交谈，购买|r |T132382:0|t[劣质箭] |cRXP_BUY_备用|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to |cRXP_FRIENDLY_Ghrawt|r. Buy|r |T132382:0|t[Rough Arrows] |cRXP_BUY_from him|r
     .collect 2512,1000,825,1 << Hunter --Rough Arrow (1000)
-    .target 格劳特
+    .target Ghrawt
     .itemcount 2512,<800 << Hunter
 step
     .goto 1411/1,-4686.09,340.52
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_旅店老板格罗斯克|r交谈
-    .home >> 将炉石设在剃刀岭
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Innkeeper Grosk|r
+    .home >> Set your Hearthstone to Razor Hill
     .bindlocation 362
-    .target 旅店老板格罗斯克
+    .target Innkeeper Grosk
 step
     .goto 1411/1,-4686.09,340.52
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_旅店老板格罗斯克|r交谈
-    >>|cRXP_BUY_向他购买|r |T132815:0|t[冰镇牛奶] |cRXP_BUY_备用|r << Mage/Warlock/Priest/Shaman/Druid
-    >>|cRXP_BUY_向他购买|r |T133974:0|t[肉排] |cRXP_BUY_备用|r << Rogue/Warrior
-    >>|cRXP_WARN_留下4银币学习职业技能！|r << Rogue/Warrior/Shaman/Warlock
-    >>|cRXP_WARN_留下2银币学习职业技能！|r << Priest
-    .vendor >> 出售杂物
-    .turnin 2161 >>交任务：苦工的重担
-    .target 旅店老板格罗斯克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Innkeeper Grosk|r
+    >>|cRXP_BUY_Buy|r |T132815:0|t[Ice Cold Milk] |cRXP_BUY_from him|r << Mage/Warlock/Priest/Shaman/Druid
+    >>|cRXP_BUY_Buy|r |T133974:0|t[Haunch of Meat] |cRXP_BUY_from him|r << Rogue/Warrior
+    >>|cRXP_WARN_Save 4 silver for your class spells!|r << Rogue/Warrior/Shaman/Warlock
+    >>|cRXP_WARN_Save 2 silver for your class spells!|r << Priest
+    .vendor >> Vendor Trash
+    .turnin 2161 >>Turn in A Peon's Burden
+    .target Innkeeper Grosk
     .train 6760,1 << Rogue
     .train 139,1 << Priest
     .train 980,1 << Warlock
@@ -2174,12 +2171,12 @@ step
 step << !Mage !Hunter !Druid
     #optional
     .goto 1411/1,-4686.09,340.52
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_旅店老板格罗斯克|r交谈
-    >>|cRXP_BUY_向他购买|r |T132815:0|t[冰镇牛奶] |cRXP_BUY_备用|r << Mage/Warlock/Priest/Shaman/Druid
-    >>|cRXP_BUY_向他购买|r |T133974:0|t[肉排] |cRXP_BUY_备用|r << Rogue/Warrior
-    .vendor >> 出售杂物
-    .turnin 2161 >>交任务：苦工的重担
-    .target 旅店老板格罗斯克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Innkeeper Grosk|r
+    >>|cRXP_BUY_Buy|r |T132815:0|t[Ice Cold Milk] |cRXP_BUY_from him|r << Mage/Warlock/Priest/Shaman/Druid
+    >>|cRXP_BUY_Buy|r |T133974:0|t[Haunch of Meat] |cRXP_BUY_from him|r << Rogue/Warrior
+    .vendor >> Vendor Trash
+    .turnin 2161 >>Turn in A Peon's Burden
+    .target Innkeeper Grosk
     .train 6760,3 << Rogue
     .train 139,3 << Priest
     .train 980,3 << Warlock
@@ -2187,119 +2184,109 @@ step << !Mage !Hunter !Druid
     .train 284,3 << Warrior
 step
     .goto 1411/1,-4815.400,306.500
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_图罗克|r交谈
-    .turnin 96822 >>交任务：为了荣耀！
-    .target 图罗克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Turroc|r
+    .turnin 96822 >>Turn in For Honor
+    .target Turroc
 step << Warrior
     .goto 1411/1,-4827.27,311.62
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_塔绍尔·锯痕|r交谈
-    .train 284 >> 学习职业技能
-    .target 塔绍尔·锯痕
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Tarshaw|r
+    .train 284 >> Train your class spells
+    .target Tarshaw Jaggedscar
 step << Shaman
     .goto 1411/1,-4839.96,307.04
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_斯瓦特|r交谈
-    .train 8044 >> 学习职业技能
-    .target 斯瓦特
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Swart|r
+    .train 8044 >> Train your class spells
+    .target Swart
 step << Warlock
     .goto 1411/1,-4837.31,356.030
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_杜格鲁·血怒|r交谈
-    .train 980 >> 学习职业技能
-    .target 杜格鲁·血怒
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dhugru|r
+    .train 1120 >> Train your class spells
+    .target Dhugru Gorelust
 step << Warlock
     .goto 1411/1,-4854.76,345.81
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_基萨|r交谈，购买 |T133738:0|t[火焰箭（等级2）]
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kitha|r and buy |T133738:0|t[Firebolt Rank 2]
     .collect 16302,1,825,1 --Grimoire of Firebolt (Rank 2) (1)
-    .target 基萨
+    .target Kitha
     .money <0.01
     .train 7799,1
 step << Hunter
     .goto 1411/1,-4704.07,275.31
-    >>进入地堡
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与里面的 |cRXP_FRIENDLY_索塔尔|r交谈
-    .train 5116 >> 学习职业技能
-    .target 索塔尔
-step << Rogue
-    .goto 1411/1,-4710.94,268.26
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_卡普拉克|r交谈
-    .train 6760 >> 学习职业技能
-    .target 卡普拉克
+    >>Go inside the bunker
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Thotar|r inside
+    .train 5116 >> Train your class spells
+    .target Thotar
 step << Priest
     .goto 1411/1,-4831.5,295.05
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_泰金|r交谈
-    .turnin 5649 >> 交任务：部族的传统
-    .accept 5648 >> 接任务：灵魂之衣
-    .train 2052 >> 学习 |T135929:0|t[次级治疗术（等级2）]
-    .target 泰金
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Tai'jin|r
+    .turnin 5649 >> Turn in In Favor of Spirituality
+    .accept 5648 >> Accept Garments of Spirituality
+    .train 2052 >> Train |T135929:0|t[Lesser Heal Rank 2]
+    .target Tai'jin
 step << Priest
     .goto 1411/1,-4770.16,170.62
-    >>施放 |T135929:0|t[次级治疗术] 和 |T135987:0|t[真言术：韧]，目标为 |cRXP_FRIENDLY_步兵科雅|r
+    >>Cast |T135929:0|t[Lesser Heal] and |T135987:0|t[Power Word: Fortitude] on |cRXP_FRIENDLY_Kor'ja|r
     .complete 5648,1 --Heal and fortify Grunt Kor'ja
-    .target 步兵科雅
+    .target Grunt Kor'ja
 step << Priest
     .goto 1411/1,-4831.5,295.05
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_泰金|r交谈
-    .turnin 5648 >>交任务：灵魂之衣
-    .trainer >> 学习职业技能
-    .target 泰金
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Tai'jin|r
+    .turnin 5648 >>Turn in Garments of Spirituality
+    .trainer >> Train your class spells
+    .target Tai'jin
 step << Rogue/Warrior
     .goto 1411/1,-4826.74,330.30
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_拉乌克|r交谈
-    .train 3273 >>学习 |T135966:0|t[急救]
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Rawrk|r
+    .train 3273 >>Train |T135966:0|t[First Aid]
     .money <0.01
-    .target 拉乌克
+    .target Rawrk
 step
     .goto 1411/1,-4838.37,321.49
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_加尔克|r交谈
-    >>|cRXP_BUY_购买一个|r |T133634:0|t[棕色小包] |cRXP_BUY_，找|r |cRXP_BUY_他购买|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Jark|r
+    >>|cRXP_BUY_Buy a|r |T133634:0|t[Small Brown Pouch] |cRXP_BUY_from|r |cRXP_BUY_him|r
     .collect 4496,1,825,1 --Small Brown Pouch (1)
-    .target 加尔克
-    .money <0.05
+    .target Jark
+    .money <0.09
+step << Rogue
+    .goto 1411/1,-4710.94,268.26
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kaplak|r
+    .train 6760 >> Train your class spells
+    .target Kaplak
 step
     .goto 1411/1,-4724.900,287.300
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_奥戈尼尔·魂痕|r交谈
-    .xp <9,1
-    .accept 99048 >>接任务：失踪的帮手
-    .target 奥戈尼尔·魂痕
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Orgnil|r
+    .accept 99048 >>Accept A Missing Hand
+    .target Orgnil Soulscar
 step
-    .isOnQuest 99048
     .goto 1411/1,-5061.700,201.700
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t查看|cRXP_FRIENDLY_赫格兰·影眼::275657|r的遗体
-    .turnin 99048 >>交任务：失踪的帮手
-    .target 赫格兰·影眼::275657
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Heglan Shadeeye|r
+    .turnin 99048 >>Turn in A Missing Hand
+    .accept 99049 >>Accept Threat from Below
+    .target Heglan Shadeeye
 step
-    .isQuestTurnedIn 99048
-    .goto 1411/1,-5061.700,201.700
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t查看|cRXP_FRIENDLY_赫格兰·影眼::275657|r的遗体
-    .accept 99049 >>接任务：深处的威胁
-    .target 赫格兰·影眼::275657
-step
-    .isOnQuest 99049
     .goto 1411/1,-5073.900,244.700
-    >>拾取地面上的|cRXP_PICK_遗弃的匕首|r
+    >>Loot the |cRXP_PICK_Abandoned Dagger|r on the ground
     .complete 99049,1 --|1/1 Orcish Dagger
 step
-    .isOnQuest 99049
     .goto 1411/1,-5140.800,229.100
-    >>拾取地面上的|cRXP_PICK_武器碎片|r
+    >>Loot the |cRXP_PICK_Weapon Piece|r on the ground
     .complete 99049,3 --|1/1 Broken Bone Trident
 step
-    .isOnQuest 99049
     .goto 1411/1,-5138.000,314.100
-    >>拾取地面上的|cRXP_PICK_奇怪的碎片|r
+    >>Loot the |cRXP_PICK_Strange Debris|r on the ground
     .complete 99049,2 --|1/1 Banner Scrap
 step
     #completewith next
-    >>击杀 |cRXP_ENEMY_小海浪蟹|r和|cRXP_ENEMY_海浪蟹|r，拾取它们的 |cRXP_LOOT_粘液|r
-    >>击杀 |cRXP_ENEMY_厚壳龙虾人|r和|cRXP_ENEMY_巨钳龙虾人|r，拾取它们的 |cRXP_LOOT_眼球|r
+    >>Kill |cRXP_ENEMY_Pygmy Surf Crawlers|r and |cRXP_ENEMY_Surf Crawlers|r. Loot them for their |cRXP_LOOT_Mucus|r
+    >>Kill |cRXP_ENEMY_Makrura Shellhides|r and |cRXP_ENEMY_Makrura Clackers|r. Loot them for their |cRXP_LOOT_Eyes|r
     -->>This does not need to be finished now
     .complete 818,2 --Crawler Mucus (8)
-    .mob +小海浪蟹
-    .mob +海浪蟹
+    .mob +Pygmy Surf Crawler
+    .mob +Surf Crawler
     .complete 818,1 --Intact Makrura Eye (4)
-    .mob +厚壳龙虾人
-    .mob +巨钳龙虾人
+    .mob +Makrura Shellhide
+    .mob +Makrura Clacker
 step
-    #label Toolboxes
+    #label Tools
     #loop
     .goto 1411/1,-5238.63,-146.63,0
     .goto 1411/1,-5238.63,-146.63,20,0
@@ -2309,96 +2296,96 @@ step
     .goto 1411/1,-5267.72,-326.41,20,0
     .goto 1411/1,-5306.31,-239.690,20,0
     .goto 1411/1,-5253.97,-177.65,20,0
-    >>拾取船内及船周围的 |cRXP_PICK_侏儒工具箱|r
+    >>Loot the |cRXP_PICK_Gnomish Toolboxes|r inside and around the boats
     .complete 825,1 --Gnomish Tools (3)
 step
     #completewith MartEgg
-    .goto 1411/1,-5510.41,-634.14,100 >> 游到岛上
+    .goto 1411/1,-5510.41,-634.14,100 >> Swim to the Island
 step
     #completewith TigerFur
-    >>拾取地上的 |cRXP_PICK_鞭尾龙的蛋|r
-    >>|cRXP_WARN_它们通常由一只|r |cRXP_ENEMY_血爪鞭尾龙|r守着
+    >>Loot the |cRXP_PICK_Taillasher Eggs|r on the ground
+    >>|cRXP_WARN_They're usually guarded by a|r |cRXP_ENEMY_Bloodtalon Taillasher|r
     .complete 815,1 --Taillasher Egg (3)
-    .mob 血爪鞭尾龙
+    .mob Bloodtalon Taillasher
 step
     #completewith MinshinasSkull
-    >>击杀 |cRXP_ENEMY_杜隆塔尔猛虎|r，拾取 |cRXP_LOOT_毛皮|r
+    >>Kill |cRXP_ENEMY_Durotar Tigers|r. Loot them for their |cRXP_LOOT_Fur|r
     .complete 817,1 --Durotar Tiger Fur (4)
-    .mob 杜隆塔尔猛虎
+    .mob Durotar Tiger
 step
     #optional
     #completewith MainIsland
-    >>击杀 |cRXP_ENEMY_小海浪蟹|r和|cRXP_ENEMY_海浪蟹|r，拾取它们的 |cRXP_LOOT_粘液|r
-    >>击杀 |cRXP_ENEMY_厚壳龙虾人|r和|cRXP_ENEMY_巨钳龙虾人|r，拾取它们的 |cRXP_LOOT_眼球|r
+    >>Kill |cRXP_ENEMY_Pygmy Surf Crawlers|r and |cRXP_ENEMY_Surf Crawlers|r. Loot them for their |cRXP_LOOT_Mucus|r
+    >>Kill |cRXP_ENEMY_Makrura Shellhides|r and |cRXP_ENEMY_Makrura Clackers|r. Loot them for their |cRXP_LOOT_Eyes|r
     .complete 818,2 --Crawler Mucus (8)
-    .mob +小海浪蟹
-    .mob +海浪蟹
+    .mob +Pygmy Surf Crawler
+    .mob +Surf Crawler
     .complete 818,1 --Intact Makrura Eye (4)
-    .mob +厚壳龙虾人
-    .mob +巨钳龙虾人
+    .mob +Makrura Shellhide
+    .mob +Makrura Clacker
 step --center of first small island
     #label MartEgg
     .goto 1411/1,-5599.500,-716.700
-    >>击杀 |cRXP_ENEMY_血爪族母|r，拾取 |cRXP_LOOT_血爪族母的蛋|r
+    >>Kill the |cRXP_ENEMY_Bloodtalon Matriarch|r. Loot it for the |cRXP_LOOT_Bloodtalon Matriarch Eggs|r
     .complete 97223,1 --|1/1 Bloodtalon Matriarch Eggs
-    .mob 血爪族母
+    .mob Bloodtalon Matriarch
 step
     #label MainIsland
-    .goto 1411/1,-5501.95,-1167.12,150 >>游到主岛上
+    .goto 1411/1,-5501.95,-1167.12,150 >>Swim to the main island
     .isOnQuest 826
 step
     #completewith ZalazaneKill
-    >>击杀|cRXP_ENEMY_妖术巨魔|r和|cRXP_ENEMY_巫毒巨魔|r，拾取|cRXP_LOOT_被诅咒的坠饰|r
-    >>|cRXP_WARN_使用|r |T135952:0|t[分解]|cRXP_WARN_，目标为|r|cRXP_LOOT_被诅咒的坠饰|r|cRXP_WARN_，以获得|r |T1500915:0|t[|cRXP_LOOT_发光的残渣|r]
+    >>Kill |cRXP_ENEMY_Hexed Trolls|r and |cRXP_ENEMY_Voodoo Trolls|r. Loot them for |cRXP_LOOT_Hexed Pendants|r
+    >>|cRXP_WARN_Use|r |T135952:0|t[Disenchant] |cRXP_WARN_on the|r |cRXP_LOOT_Hexed Pendants|r |cRXP_WARN_to obtain|r |T1500915:0|t[|cRXP_LOOT_Luminous Residue|r]
     .complete 826,1 --Hexed Troll (8)
-    .mob +妖术巨魔
+    .mob +Hexed Troll
     .complete 826,2 --Voodoo Troll (8)
-    .mob +巫毒巨魔
+    .mob +Voodoo Troll
     .complete 96873,1 --Luminous Residue (x3)
     .collect 275724,3,96873,7,3 --Hexed Pendant (x3)
-    .mob +妖术巨魔
-    .mob +巫毒巨魔
+    .mob +Hexed Troll
+    .mob +Voodoo Troll
     .isOnQuest 96873
     .skill enchanting,<1,1
 step
     #completewith ZalazaneKill
-    >>击杀 |cRXP_ENEMY_妖术巨魔|r和|cRXP_ENEMY_巫毒巨魔|r
+    >>Kill |cRXP_ENEMY_Hexed Trolls|r and |cRXP_ENEMY_Voodoo Trolls|r
     .complete 826,1 --Hexed Troll (8)
-    .mob +妖术巨魔
+    .mob +Hexed Troll
     .complete 826,2 --Voodoo Troll (8)
-    .mob +巫毒巨魔
+    .mob +Voodoo Troll
     .isNotOnQuest 96873
 step
     #completewith VooHexTrolls
-    >>拾取地上的 |cRXP_PICK_洛阿神像|r
-    >>|cRXP_WARN_它们主要分布在这片区域的石墙附近|r
+    >>Loot the |cRXP_PICK_Loa Idols|r on the ground
+    >>|cRXP_WARN_They are mainly found near the stone walls in the area|r
     .complete 97225,1 --Forgotten Loa Idols (x8)
 step
     #optional
     #completewith next
-    >>击杀 |cRXP_ENEMY_扎拉赞恩|r，拾取他的 |cRXP_LOOT_头颅|r
-    >>|cRXP_WARN_留着|r |T136026:0|t[地震术] |cRXP_WARN_，等他施放|r |T136052:0|t[治疗波]时再用 << Shaman
-    >>|cRXP_WARN_留着|r |T132155:0|t[凿击] |cRXP_WARN_，等他施放|r |T136052:0|t[治疗波]时再用 << Rogue
+    >>Kill |cRXP_ENEMY_Zalazane|r. Loot him for his |cRXP_LOOT_Head|r
+    >>|cRXP_WARN_Save your|r |T136026:0|t[Earth Shock] |cRXP_WARN_for when he casts|r |T136052:0|t[Healing Wave] << Shaman
+    >>|cRXP_WARN_Save your|r |T132155:0|t[Gouge] |cRXP_WARN_for when he casts|r |T136052:0|t[Healing Wave] << Rogue
     .complete 826,3 --Zalazane's Head (1)
-    .mob 扎拉赞恩
+    .mob Zalazane
 step
     #label MinshinasSkull
     .goto 1411/1,-5526.27,-1286.62
-    >>拾取地上的一颗 |cRXP_LOOT_颅骨|r
+    >>Loot one of the |cRXP_LOOT_Skulls|r on the ground
     .complete 808,1 --Minshina's Skull (1)
 step
     #label ZalazaneKill
     .goto 1411/1,-5526.27,-1286.62
-    >>击杀 |cRXP_ENEMY_扎拉赞恩|r，拾取他的 |cRXP_LOOT_头颅|r
-    >>|cRXP_WARN_留着|r |T136026:0|t[地震术] |cRXP_WARN_，等他施放|r |T136052:0|t[治疗波]时再用 << Shaman
-    >>|cRXP_WARN_留着|r |T132155:0|t[凿击] |cRXP_WARN_，等他施放|r |T136052:0|t[治疗波]时再用 << Rogue
+    >>Kill |cRXP_ENEMY_Zalazane|r. Loot him for his |cRXP_LOOT_Head|r
+    >>|cRXP_WARN_Save your|r |T136026:0|t[Earth Shock] |cRXP_WARN_for when he casts|r |T136052:0|t[Healing Wave] << Shaman
+    >>|cRXP_WARN_Save your|r |T132155:0|t[Gouge] |cRXP_WARN_for when he casts|r |T136052:0|t[Healing Wave] << Rogue
     .complete 826,3 --Zalazane's Head (1)
-    .mob 扎拉赞恩
+    .mob Zalazane
 step
     #completewith VooHexTrolls
-    >>击杀 |cRXP_ENEMY_杜隆塔尔猛虎|r，拾取 |cRXP_LOOT_毛皮|r
+    >>Kill |cRXP_ENEMY_Durotar Tigers|r. Loot them for their |cRXP_LOOT_Fur|r
     .complete 817,1 --Durotar Tiger Fur (4)
-    .mob 杜隆塔尔猛虎
+    .mob Durotar Tiger
 step
     #loop
     .goto 1411/1,-5517.29,-1320.46,0
@@ -2412,16 +2399,16 @@ step
     .goto 1411/1,-5584.44,-1163.95,40,0
     .goto 1411/1,-5582.85,-1250.31,40,0
     .goto 1411/1,-5517.29,-1293.67,40,0
-    >>击杀|cRXP_ENEMY_妖术巨魔|r和|cRXP_ENEMY_巫毒巨魔|r，拾取|cRXP_LOOT_被诅咒的坠饰|r
-    >>|cRXP_WARN_使用|r |T135952:0|t[分解]|cRXP_WARN_，目标为|r|cRXP_LOOT_被诅咒的坠饰|r|cRXP_WARN_，以获得|r |T1500915:0|t[|cRXP_LOOT_发光的残渣|r]
+    >>Kill |cRXP_ENEMY_Hexed Trolls|r and |cRXP_ENEMY_Voodoo Trolls|r. Loot them for |cRXP_LOOT_Hexed Pendants|r
+    >>|cRXP_WARN_Use|r |T135952:0|t[Disenchant] |cRXP_WARN_on the|r |cRXP_LOOT_Hexed Pendants|r |cRXP_WARN_to obtain|r |T1500915:0|t[|cRXP_LOOT_Luminous Residue|r]
     .complete 826,1 --Hexed Troll (8)
-    .mob +妖术巨魔
+    .mob +Hexed Troll
     .complete 826,2 --Voodoo Troll (8)
-    .mob +巫毒巨魔
+    .mob +Voodoo Troll
     .complete 96873,1 --Luminous Residue (x3)
     .collect 275724,3,96873,7,3 --Hexed Pendant (x3)
-    .mob +妖术巨魔
-    .mob +巫毒巨魔
+    .mob +Hexed Troll
+    .mob +Voodoo Troll
     .isOnQuest 96873
     .skill enchanting,<1,1
 step
@@ -2437,11 +2424,11 @@ step
     .goto 1411/1,-5584.44,-1163.95,40,0
     .goto 1411/1,-5582.85,-1250.31,40,0
     .goto 1411/1,-5517.29,-1293.67,40,0
-    >>击杀 |cRXP_ENEMY_妖术巨魔|r和|cRXP_ENEMY_巫毒巨魔|r
+    >>Kill |cRXP_ENEMY_Hexed Trolls|r and |cRXP_ENEMY_Voodoo Trolls|r
     .complete 826,1 --Hexed Troll (8)
-    .mob +妖术巨魔
+    .mob +Hexed Troll
     .complete 826,2 --Voodoo Troll (8)
-    .mob +巫毒巨魔
+    .mob +Voodoo Troll
     .isNotOnQuest 96873
 step
     #label VooHexTrolls
@@ -2453,20 +2440,20 @@ step
     .goto 1411/1,-5501.500,-1123.600,30,0
     .goto 1411/1,-5587.600,-1212.000,30,0
     .goto 1411/1,-5479.000,-1212.000,30,0
-    >>拾取地上的 |cRXP_PICK_洛阿神像|r
-    >>|cRXP_WARN_它们主要分布在这片区域的石墙附近|r
+    >>Loot the |cRXP_PICK_Loa Idols|r on the ground
+    >>|cRXP_WARN_They are mainly found near the stone walls in the area|r
     .complete 97225,1 --Forgotten Loa Idols (x8)
 step
     #completewith TaillasherEggs
-    >>击杀 |cRXP_ENEMY_小海浪蟹|r和|cRXP_ENEMY_海浪蟹|r，拾取它们的 |cRXP_LOOT_粘液|r
-    >>击杀 |cRXP_ENEMY_厚壳龙虾人|r和|cRXP_ENEMY_巨钳龙虾人|r，拾取它们的 |cRXP_LOOT_眼球|r
+    >>Kill |cRXP_ENEMY_Pygmy Surf Crawlers|r and |cRXP_ENEMY_Surf Crawlers|r. Loot them for their |cRXP_LOOT_Mucus|r
+    >>Kill |cRXP_ENEMY_Makrura Shellhides|r and |cRXP_ENEMY_Makrura Clackers|r. Loot them for their |cRXP_LOOT_Eyes|r
     -->>This does not need to be finished now
     .complete 818,2 --Crawler Mucus (8)
-    .mob +小海浪蟹
-    .mob +海浪蟹
+    .mob +Pygmy Surf Crawler
+    .mob +Surf Crawler
     .complete 818,1 --Intact Makrura Eye (4)
-    .mob +厚壳龙虾人
-    .mob +巨钳龙虾人
+    .mob +Makrura Shellhide
+    .mob +Makrura Clacker
 step
     #label TigerFur
     #loop
@@ -2487,9 +2474,9 @@ step
     .goto 1411/1,-5154.56,-1412.11,50,0
     .goto 1411/1,-5084.24,-1382.14,50,0
     .goto 1411/1,-5123.90,-1132.93,50,0
-    >>击杀 |cRXP_ENEMY_杜隆塔尔猛虎|r，拾取 |cRXP_LOOT_毛皮|r
+    >>Kill |cRXP_ENEMY_Durotar Tigers|r. Loot them for their |cRXP_LOOT_Fur|r
     .complete 817,1 --Durotar Tiger Fur (4)
-    .mob 杜隆塔尔猛虎
+    .mob Durotar Tiger
 step
     #label TaillasherEggs
     #loop
@@ -2509,10 +2496,10 @@ step
     .goto 1411/1,-5154.56,-1412.11,50,0
     .goto 1411/1,-5084.24,-1382.14,50,0
     .goto 1411/1,-5123.90,-1132.93,50,0
-    >>拾取地上的 |cRXP_PICK_鞭尾龙的蛋|r
-    >>|cRXP_WARN_它们通常由一只|r |cRXP_ENEMY_血爪鞭尾龙|r守着
+    >>Loot the |cRXP_PICK_Taillasher Eggs|r on the ground
+    >>|cRXP_WARN_They're usually guarded by a|r |cRXP_ENEMY_Bloodtalon Taillasher|r
     .complete 815,1 --Taillasher Egg (3)
-    .mob 血爪鞭尾龙
+    .mob Bloodtalon Taillasher
 step
     #loop
     .goto 1411/1,-5115.96,-794.53,0
@@ -2521,75 +2508,75 @@ step
     .goto 1411/1,-4990.65,-989.81,60,0
     .goto 1411/1,-4905.52,-1028.23,60,0
     .goto 1411/1,-4807.17,-1122.35,60,0
-    >>击杀 |cRXP_ENEMY_小海浪蟹|r和|cRXP_ENEMY_海浪蟹|r，拾取它们的 |cRXP_LOOT_粘液|r
-    >>击杀 |cRXP_ENEMY_厚壳龙虾人|r和|cRXP_ENEMY_巨钳龙虾人|r，拾取它们的 |cRXP_LOOT_眼球|r
+    >>Kill |cRXP_ENEMY_Pygmy Surf Crawlers|r and |cRXP_ENEMY_Surf Crawlers|r. Loot them for their |cRXP_LOOT_Mucus|r
+    >>Kill |cRXP_ENEMY_Makrura Shellhides|r and |cRXP_ENEMY_Makrura Clackers|r. Loot them for their |cRXP_LOOT_Eyes|r
     -->>This does not need to be finished now
     .complete 818,2 --Crawler Mucus (8)
-    .mob +小海浪蟹
-    .mob +海浪蟹
+    .mob +Pygmy Surf Crawler
+    .mob +Surf Crawler
     .complete 818,1 --Intact Makrura Eye (4)
-    .mob +厚壳龙虾人
-    .mob +巨钳龙虾人
+    .mob +Makrura Shellhide
+    .mob +Makrura Clacker
 step
     #softcore
     #completewith next
     .goto 1411/1,-5002.81,-774.08,50,0
-    .deathskip >> 死亡后在 |cRXP_FRIENDLY_灵魂医者|r处复活，或直接跑回去
+    .deathskip >> Die and respawn at the |cRXP_FRIENDLY_Spirit Healer|r, or run back
 step
     #hardcore
     #completewith Zalazaneturnin
-    .subzone 367 >>前往森金村
+    .subzone 367 >>Travel to Sen'Jin Village
 step
     .goto 1411/1,-4948.88,-768.79
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_特莱耶克|r交谈
-    >>|cRXP_WARN_跳进小屋|r
-    .vendor >> 出售杂物并修理装备
-    .target 特莱耶克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Trayexir|r
+    >>|cRXP_WARN_Jump into the hut|r
+    .vendor >> Vendor trash and repair
+    .target Trayexir
     .isOnQuest 808
 step
     .goto 1411/1,-4960.100,-791.400
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_帕祖拉|r交谈
-    .turnin 96873 >>交任务：脖子上的麻烦
-    .target 帕祖拉
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Pa'zula|r
+    .turnin 96873 >>Turn in A Pain in the Neck
+    .target Pa'zula
     .isQuestComplete 96873
     .skill enchanting,<1,1
 step << Mage
     .goto 1411/1,-4939.36,-838.94
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_安苏瓦|r交谈
-    .train 118 >> 学习职业技能
-    .target 安苏瓦
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Un'Thuwa|r
+    .train 118 >> Train your class spells
+    .target Un'Thuwa
 step
     #label Zalazaneturnin
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_加德林大师|r、|cRXP_FRIENDLY_沃纳尔大师|r和|cRXP_FRIENDLY_维尔林·长牙|r交谈
-    .turnin 808 >>交任务：明希纳的颅骨
-    .turnin 826,2 >>交任务：扎拉赞恩 << Shaman
-    .turnin 826 >>交任务：扎拉赞恩 << !Shaman
-    .turnin 97225 >>交任务：被遗忘的洛阿神像
-    .target +加德林大师
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gadrin|r, |cRXP_FRIENDLY_Vornal|r and |cRXP_FRIENDLY_Vel'rin|r
+    .turnin 808 >>Turn in Minshina's Skull
+    .turnin 826,2 >>Turn in Zalazane << Shaman
+    .turnin 826 >>Turn in Zalazane << !Shaman
+    .turnin 97225 >>Turn in Forgotten Loa Idols
+    .target +Master Gadrin
     .goto 1411/1,-4920.86,-825.90
-    .turnin 818 >>交任务：沃纳尔大师
-    .target +沃纳尔大师
+    .turnin 818 >>Turn in A Solvent Spirit
+    .target +Master Vornal
     .goto 1411/1,-4920.86,-813.91
-    .turnin 817 >>交任务：生活所需的虎皮
-    .target +维尔林·长牙
+    .turnin 817 >>Turn in Practical Prey
+    .target +Vel'rin Fang
     .goto 1411/1,-4920.86,-797.70
 step
     .goto 1411/1,-4885.400,-852.400
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_克萨尔迪|r交谈
-    .turnin 97223 >>交任务：血爪族母
-    .target 克萨尔迪
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Xar'Ti|r
+    .turnin 97223 >>Turn in Bloodtalon Matriarch
+    .target Xar'Ti
 step
     #completewith QuilboarsScouts
-    +|cRXP_WARN_将|r |T133728:0|t[微光颅骨] |cRXP_WARN_和|r |T134712:0|t[强力胶水]|cRXP_WARN_绑定快捷键，留作紧急情况使用|r
+    +|cRXP_WARN_Bind your|r |T133728:0|t[Faintly Glowing Skull] |cRXP_WARN_and|r |T134712:0|t[Really Sticky Glue]|cRXP_WARN_. Save them for emergency situations|r
 step
     .goto 1411/1,-4715.100,-599.500
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_乌克尔|r交谈
-    .turnin 96876 >>交任务：乌克尔遗失的背包
-    .target 乌克尔
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ukor|r
+    .turnin 96876 >>Turn in Ukor's Lost Pack
+    .target Ukor
     .isOnQuest 96876
 step --at low lvl razormanes
     #completewith QuilboarsScouts
-    >>拾取地上的 |cRXP_PICK_仙人掌果|r
+    >>Loot the |cRXP_PICK_Prickly Pear Fruit|r on the ground
     .complete 96825,1 --|8/8 Prickly Pear Fruit
 step
     #label QuilboarsScouts
@@ -2605,17 +2592,17 @@ step
     .goto 1411/1,-4450.80,62.40,30,0
     .goto 1411/1,-4442.34,112.46,30,0
     .goto 1411/1,-4565.01,82.49,30,0
-    >>击杀 |cRXP_ENEMY_钢鬃野猪人|r和|cRXP_ENEMY_钢鬃斥候|r
+    >>Kill |cRXP_ENEMY_Razormane Quilboars|r and |cRXP_ENEMY_Razormane Scouts|r
     .complete 837,1 --Razormane Quilboar (4)
-    .mob +钢鬃野猪人
+    .mob +Razormane Quilboar
     .complete 837,2 --Razormane Scout (4)
-    .mob +钢鬃斥候
+    .mob +Razormane Scout
 step --at low lvl razormanes
     #loop
     .goto 1411/1,-4543.300,82.500,0
     .goto 1411/1,-4543.300,82.500,40,0
     .goto 1411/1,-4459.000,66.300,40,0
-    >>拾取地上的 |cRXP_PICK_仙人掌果|r
+    >>Loot the |cRXP_PICK_Prickly Pear Fruit|r on the ground
     .complete 96825,1 --|8/8 Prickly Pear Fruit
 step << Hunter
     #loop
@@ -2627,11 +2614,11 @@ step << Hunter
     .goto 1411/1,-4164.21,459.32,50,0
     .goto 1411/1,-4180.08,382.12,50,0
     .goto 1411/1,-4251.99,384.23,50,0
-    >>击杀 |cRXP_ENEMY_钢鬃传令兵|r和|cRXP_ENEMY_钢鬃卫兵|r
+    >>Kill |cRXP_ENEMY_Razormane Dustrunners|r and |cRXP_ENEMY_Razormane Battleguards|r
     .complete 837,3 --Razormane Dustrunner (4)
-    .mob +钢鬃传令兵
+    .mob +Razormane Dustrunner
     .complete 837,4 --Razormane Battleguard (4)
-    .mob +钢鬃卫兵
+    .mob +Razormane Battleguard
 step << Hunter
     #optional
     #loop
@@ -2644,45 +2631,44 @@ step << Hunter
 	.goto 1411/1,-4208.1,98.71,50,0
 	.goto 1411/1,-4300.1,57.11,50,0
 	.goto 1411/1,-4456.61,65.57,50,0
-    .xp 9+4960 >> 刷怪至4960+/6500经验值
+    .xp 9+4960 >> Grind to 4960+/6500xp
 step
     .goto 1411/1,-4709.36,274.960
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t交谈对象： |cRXP_FRIENDLY_加索克|r
-    .turnin 825 >>交任务：海底沉船
-    .turnin 837 >>交任务：野猪人的进犯 << Hunter
-    .target 加索克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to|r |cRXP_FRIENDLY_Gar'Thok|r
+    .turnin 825 >>Turn in From The Wreckage....
+    .turnin 837 >>Turn in Encroachment << Hunter
+    .target Gar'Thok
 step
-    .isOnQuest 99049
     .goto 1411/1,-4725.000,287.200
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_奥戈尼尔·魂痕|r交谈
-    .turnin 99049 >>交任务：深处的威胁
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Orgnil Soulscar|r
+    .turnin 99049 >>Turn in Threat from Below
     --.accept 99051 >>Accept Threat from Below
-    .target 奥戈尼尔·魂痕
+    .target Orgnil Soulscar
 step
     .goto 1411/1,-4665.47,311.62
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t交谈对象： |cRXP_FRIENDLY_厨师托尔卡|r
-    .turnin 815 >>交任务：恐龙蛋大餐
-    .turnin 96825 >>交任务：这果子会咬人
-    .target 厨师托尔卡
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to|r |cRXP_FRIENDLY_Torka|r
+    .turnin 815 >>Turn in Break a Few Eggs
+    .turnin 96825 >>Turn in This Fruit Could Bite Back
+    .target Cook Torka
 step << Hunter
     .goto 1411/1,-4704.07,275.31
-    >>进入地堡
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与里面的 |cRXP_FRIENDLY_索塔尔|r交谈
-    .accept 6062 >>接任务：驯服野兽
-    .trainer >> 学习职业技能
-    .target 索塔尔
+    >>Go inside the bunker
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Thotar|r inside
+    .accept 6062 >>Accept Taming the Beast
+    .trainer >> Train your class spells
+    .target Thotar
 step << Hunter
     .goto 1411/1,-4763.29,361.67
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与 |r|cRXP_FRIENDLY_格劳特|r|cRXP_BUY_交谈，购买|r |T132382:0|t[锋利的箭] |cRXP_BUY_和|r |T134410:0|t[中型箭袋] |cRXP_BUY_备用|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to |cRXP_FRIENDLY_Ghrawt|r. Buy|r |T132382:0|t[Sharp Arrows] |cRXP_BUY_and a|r |T134410:0|t[Medium Quiver] |cRXP_BUY_from him|r
     .collect 2515,1200,6082,1 --Sharp Arrow (1200)
     --.collect 11362,1,6082,1 --Medium Quiver (1)
-    .target 格劳特
+    .target Ghrawt
     --.money <0.1300
 step << Hunter
     .goto 1411/1,-4763.29,361.67
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与 |r|cRXP_FRIENDLY_格劳特|r|cRXP_BUY_交谈，购买|r |T132382:0|t[锋利的箭] |cRXP_BUY_备用|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to |cRXP_FRIENDLY_Ghrawt|r. Buy|r |T132382:0|t[Sharp Arrows] |cRXP_BUY_from him|r
     .collect 2515,1200,6082,1 --Sharp Arrow (1200)
-    .target 格劳特
+    .target Ghrawt
     .itemcount 2515,<600 --Sharp Arrow (600)
 step << Hunter
     #loop
@@ -2692,50 +2678,50 @@ step << Hunter
     .goto 1411/1,-4693.49,-1.4,40,0
     .goto 1411/1,-4701.42,-66.26,40,0
     .goto 1411/1,-4649.61,-82.83,40,0
-    .use 15917 >> |cRXP_WARN_使用|r |T132164:0|t[驯兽棒] |cRXP_WARN_，对|r |cRXP_ENEMY_可怕的杂斑野猪|r |cRXP_WARN_在最大距离施放|r
+    .use 15917 >> |cRXP_WARN_Use your|r |T132164:0|t[Taming Rod] |cRXP_WARN_on a|r |cRXP_ENEMY_Dire Mottled Boar|r |cRXP_WARN_at max range|r
     .complete 6062,1 --Tame a Dire Mottled Boar
-    .mob 可怕的杂斑野猪
+    .mob Dire Mottled Boar
     .isOnQuest 6062
 step << Hunter
     .goto 1411/1,-4704.07,275.31
-    >>进入地堡
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与里面的 |cRXP_FRIENDLY_索塔尔|r交谈
-    .turnin 6062 >>交任务：驯服野兽
-    .accept 6083 >>接任务：驯服野兽
-    .target 索塔尔
+    >>Go inside the bunker
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Thotar|r inside
+    .turnin 6062 >>Turn in Taming the Beast
+    .accept 6083 >>Accept Taming the Beast
+    .target Thotar
     .isQuestComplete 6062
 step << Hunter
     .goto 1411/1,-4704.07,275.31
-    >>进入地堡
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与里面的 |cRXP_FRIENDLY_索塔尔|r交谈
-    .accept 6083 >>接任务：驯服野兽
-    .target 索塔尔
+    >>Go inside the bunker
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Thotar|r inside
+    .accept 6083 >>Accept Taming the Beast
+    .target Thotar
     .isQuestTurnedIn 6062
 step << Hunter
     #completewith next
-    +|cRXP_WARN_右键点击 |r|cRXP_ENEMY_可怕的杂斑野猪|r|cRXP_WARN_的头像并选择解散，否则无法驯服|r |cRXP_ENEMY_海浪蟹|r
+    +|cRXP_WARN_Dismiss your |cRXP_ENEMY_Dire Mottled Boar|r by right clicking its unit frame and clicking dismiss, otherwise you'll be unable to tame a|r |cRXP_ENEMY_Surf Crawler|r
 step << Hunter
     #loop
     .goto 1411/1,-5115.44,984.19,0
     .goto 1411/1,-5091.64,809.0,40,0
     .goto 1411/1,-5129.18,877.03,40,0
     .goto 1411/1,-5137.11,934.49,40,0
-    >>|cRXP_WARN_不要击杀看到的|r |cRXP_ENEMY_硬甲蝎|r |cRXP_WARN_，之后会用到|r
-    .use 15919 >> |cRXP_WARN_使用|r |T132164:0|t[驯兽棒] |cRXP_WARN_，对|r |cRXP_ENEMY_海浪蟹|r |cRXP_WARN_在最大距离施放|r
+    >>|cRXP_WARN_Don't kill the|r |cRXP_ENEMY_Armored Scorpids|r |cRXP_WARN_you see. You'll need them later|r
+    .use 15919 >> |cRXP_WARN_Use your|r |T132164:0|t[Taming Rod] |cRXP_WARN_on a|r |cRXP_ENEMY_Surf Crawler|r |cRXP_WARN_at max range|r
     .complete 6083,1 --Tame a Surf Crawler
-    .mob 海浪蟹
+    .mob Surf Crawler
     .isQuestTurnedIn 6062
 step << Hunter
     .goto 1411/1,-4704.07,275.31
-    >>进入地堡
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与里面的 |cRXP_FRIENDLY_索塔尔|r交谈
-    .turnin 6083 >>交任务：驯服野兽
-    .accept 6082 >>接任务：驯服野兽
-    .target 索塔尔
+    >>Go inside the bunker
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Thotar|r inside
+    .turnin 6083 >>Turn in Taming the Beast
+    .accept 6082 >>Accept Taming the Beast
+    .target Thotar
     .isQuestTurnedIn 6062
 step << Hunter
     #completewith next
-    +|cRXP_WARN_右键点击 |r|cRXP_ENEMY_海浪蟹|r|cRXP_WARN_的头像并选择解散，否则无法驯服|r |cRXP_ENEMY_硬甲蝎|r
+    +|cRXP_WARN_Dismiss your |cRXP_ENEMY_Surf Crawler|r by right clicking its unit frame and clicking dismiss, otherwise you'll be unable to tame an|r |cRXP_ENEMY_Armored Scorpid|r
 step << Hunter
     #loop
     .goto 1411/1,-4862.16,506.2,0
@@ -2746,90 +2732,90 @@ step << Hunter
     .goto 1411/1,-4933.55,776.21,40,0
     .goto 1411/1,-4973.73,846.71,40,0
     .goto 1411/1,-4984.31,906.29,40,0
-    .use 15920 >> |cRXP_WARN_使用|r |T132164:0|t[驯兽棒] |cRXP_WARN_，对|r |cRXP_ENEMY_硬甲蝎|r |cRXP_WARN_在最大距离施放|r
+    .use 15920 >> |cRXP_WARN_Use your|r |T132164:0|t[Taming Rod] |cRXP_WARN_on an|r |cRXP_ENEMY_Armored Scorpid|r |cRXP_WARN_at max range|r
     .complete 6082,1 --Tame an Armored Scorpid
-    .mob 硬甲蝎
+    .mob Armored Scorpid
     .isQuestTurnedIn 6062
 step << Hunter
     .goto 1411/1,-4704.07,275.31
-    >>进入地堡
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与里面的 |cRXP_FRIENDLY_索塔尔|r交谈
-    .turnin 6082 >>交任务：驯服野兽
-    .accept 6081 >>接任务：训练野兽
-    .target 索塔尔
+    >>Go inside the bunker
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Thotar|r inside
+    .turnin 6082 >>Turn in Taming the Beast
+    .accept 6081 >>Accept Training the Beast
+    .target Thotar
     .isQuestTurnedIn 6062
 step << Hunter
     #completewith Rezlak1
-    +|cRXP_WARN_将|r |T132164:0|t[驯服野兽]|cRXP_WARN_、|r |T136095:0|t[解散野兽]|cRXP_WARN_和|r |T132161:0|t[召唤宠物] |cRXP_WARN_放到动作条上|r
+    +|cRXP_WARN_Put|r |T132164:0|t[Tame Beast]|cRXP_WARN_,|r |T136095:0|t[Dismiss Pet]|cRXP_WARN_, and|r |T132161:0|t[Call Pet] |cRXP_WARN_onto your Action Bars|r
 step << Hunter
     .goto 1411/1,-4666.0,305.63
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_格瑞姆塔克|r交谈
-    >>|cRXP_BUY_向他购买|r |T133972:0|t[硬肉干] |cRXP_BUY_备用|r。|cRXP_BUY_稍后用来喂养宠物|r
-    .vendor >> 出售杂物
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Grimtak|r
+    >>|cRXP_BUY_Buy|r |T133972:0|t[Tough Jerky] |cRXP_BUY_from him|r. |cRXP_BUY_You will use this to feed your pet later|r
+    .vendor >> Vendor Trash
     .collect 117,5,828,1 --Tough Jerky (5)
-    .target 格瑞姆塔克
+    .target Grimtak
     .isQuestTurnedIn 6062
     .isQuestAvailable 834 --Winds in the Desert
 step << Hunter
     #optional
     .goto 1411/1,-4648.55,271.43
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_塔克林·寻路者|r交谈
-    .accept 840 >>接任务：部落的新兵
-    .target 塔克林·寻路者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Takrin|r
+    .accept 840 >>Accept Conscript of the Horde
+    .target Takrin Pathseeker
     .xp <10,1
 step << Hunter/Shaman
     .goto 1411/1,-4241.94,742.37
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_米莎·托克伦|r交谈
-    .accept 816 >>接任务：丢失的孩子
-    .target 米莎·托克伦
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Misha|r
+    .accept 816 >>Accept Lost But Not Forgotten
+    .target Misha Tor'kren
 step << Warrior
     .goto 1411/1,-4827.27,311.62
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_塔绍尔·锯痕|r交谈
-    .train 6546 >> 学习职业技能
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Tarshaw|r
+    .train 6546 >> Train your class spells
     --.accept 1505 >>Accept Veteran Uzzek
-    .target 塔绍尔·锯痕
+    .target Tarshaw Jaggedscar
     .xp <10,1
 step << Shaman
     .goto 1411/1,-4839.96,307.04
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_斯瓦特|r交谈
-    .train 8050 >> 学习职业技能
-    .accept 2983 >>接任务：火焰的召唤
-    .target 斯瓦特
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Swart|r
+    .train 8050 >> Train your class spells
+    .accept 2983 >>Accept Call of Fire
+    .target Swart
     .isNotOnQuest 1522
     .xp <10,1
 step << Shaman
     .goto 1411/1,-4839.96,307.04
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_斯瓦特|r交谈
-    .train 8050 >> 学习职业技能
-    .target 斯瓦特
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Swart|r
+    .train 8050 >> Train your class spells
+    .target Swart
     .xp <10,1
 step << Warlock
     .goto 1411/1,-4837.31,356.030
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_杜格鲁·血怒|r交谈
-    .train 1120 >> 学习职业技能
-    .target 杜格鲁·血怒
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dhugru|r
+    .train 1120 >> Train your class spells
+    .target Dhugru Gorelust
     .xp <10,1
 step << Warlock
     .goto 1411/1,-4854.76,345.81
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_基萨|r交谈，购买 |T133738:0|t[火焰箭（等级2）]
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kitha|r and buy |T133738:0|t[Firebolt Rank 2]
     .collect 16302,1,837,1 --Grimoire of Firebolt (Rank 2) (1)
-    .target 基萨
+    .target Kitha
     .money <0.01
     .train 7799,1
     .xp <10,1
 step << Priest
     .goto 1411/1,-4831.5,295.05
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_泰金|r交谈
-    .accept 5654 >> 接任务：虚弱妖术 << Troll
-    .accept 5660 >> 接任务：虚弱之触 << Undead
-    .trainer >> 学习职业技能
-    .target 泰金
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Tai'jin|r
+    .accept 5654 >> Accept Hex of Weakness << Troll
+    .accept 5660 >> Accept Touch of Weakness << Undead
+    .trainer >> Train your class spells
+    .target Tai'jin
     .xp <10,1
 step << Rogue
     .goto 1411/1,-4710.94,268.26
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_卡普拉克|r交谈
-    .train 674 >> 学习职业技能
-    .target 卡普拉克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kaplak|r
+    .train 674 >> Train your class spells
+    .target Kaplak
     .xp <10,1
 step << !Hunter
     #loop
@@ -2841,20 +2827,20 @@ step << !Hunter
     .goto 1411/1,-4164.21,459.32,50,0
     .goto 1411/1,-4180.08,382.12,50,0
     .goto 1411/1,-4251.99,384.23,50,0
-    >>击杀 |cRXP_ENEMY_钢鬃传令兵|r和|cRXP_ENEMY_钢鬃卫兵|r
+    >>Kill |cRXP_ENEMY_Razormane Dustrunners|r and |cRXP_ENEMY_Razormane Battleguards|r
     .complete 837,3 --Razormane Dustrunner (4)
-    .mob +钢鬃传令兵
+    .mob +Razormane Dustrunner
     .complete 837,4 --Razormane Battleguard (4)
-    .mob +钢鬃卫兵
+    .mob +Razormane Battleguard
 step
     #completewith next
-    .goto 1411/1,-4414.31,999.70,50 >> 前往雷兹拉克
+    .goto 1411/1,-4414.31,999.70,50 >> Travel to Rezlak
 step
     #label Rezlak1
     .goto 1411/1,-4414.31,999.70
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_雷兹拉克|r交谈
-    .accept 834 >>接任务：沙漠之风
-    .target 雷兹拉克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Rezlak|r
+    .accept 834 >>Accept Winds in the Desert
+    .target Rezlak
 step
     #loop
     .goto 1411/1,-4590.39,1036.36,0
@@ -2869,77 +2855,77 @@ step
     .goto 1411/1,-4466.13,630.980,40,0
     .goto 1411/1,-4526.41,679.98,40,0
     .goto 1411/1,-4457.67,720.17,40,0
-    >>拾取地面上的|cRXP_PICK_被盗的补给袋|r
+    >>Loot the |cRXP_PICK_Stolen Supply Sacks|r on the ground
     .complete 834,1 --Sack of Supplies (5)
 step
     .goto 1411/1,-4414.31,999.70
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_雷兹拉克|r交谈
-    .turnin 834 >>交任务：沙漠之风
-    .accept 835 >>接任务：保卫商路
-    .target 雷兹拉克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Rezlak|r
+    .turnin 834 >>Turn in Winds in the Desert
+    .accept 835 >>Accept Securing the Lines
+    .target Rezlak
 step
     #completewith next
     .goto 1411/1,-4327.07,932.02,40,0
     .goto 1411/1,-4198.05,911.22,30,0
-    .goto 1411/1,-4165.27,903.11,20 >>跳进雷霆山 << !Hunter !Warlock
-    .goto 1411/1,-4165.27,903.11,20 >>|cRXP_WARN_右键点击|r |T136218:0|t[小鬼] |cRXP_WARN_头像并选择解散|r << Warlock
-    .cast 2641 >>|cRXP_WARN_施放|r |T136095:0|t[解散野兽] |cRXP_WARN_，然后跳进雷霆山|r << Hunter
+    .goto 1411/1,-4165.27,903.11,20 >>Jump into Thunder Ridge << !Hunter !Warlock
+    .goto 1411/1,-4165.27,903.11,20 >>|cRXP_WARN_Dismiss your|r |T136218:0|t[Imp] |cRXP_WARN_by right clicking its unit frame and clicking dismiss|r << Warlock
+    .cast 2641 >>|cRXP_WARN_Cast|r |T136095:0|t[Dismiss Pet] |cRXP_WARN_and then jump into Thunder Ridge|r << Hunter
 step
     #softcore
     .goto 1411/1,-4190.12,868.22
-    >>击杀 |cRXP_ENEMY_费索·暗雷|r，拾取他的 |cRXP_LOOT_爪子|r
-    >>|cRXP_WARN_小心。在引他之前，先击杀巡逻的|r |cRXP_ENEMY_火刃狂热者|r |cRXP_WARN_以及后面的|r |cRXP_ENEMY_闪电蜥蜴|r |cRXP_WARN_，清出安全区域|r
-    >>|cRXP_WARN_将他向后引到刚才击杀|r |cRXP_ENEMY_闪电蜥蜴|r |cRXP_WARN_的位置，否则可能靠近而引到更多火刃怪物|r
-    >>|cRXP_WARN_为了拿到 |r|cRXP_LOOT_爪子|r|cRXP_WARN_可以冒险死亡，之后本就要在 |r|cRXP_FRIENDLY_灵魂医者|r|cRXP_WARN_处复活|r
-    >>|cRXP_WARN_先击杀小鬼，使用|r |T132155:0|t[凿击] |cRXP_WARN_打断他施放的|r |T136169:0|t[灵魂虹吸] << Rogue
-    >>|cRXP_WARN_先击杀小鬼，留着|r |T136026:0|t[地震术] |cRXP_WARN_等他施放|r |T136169:0|t[灵魂虹吸]时再用 << Shaman
-    >>|cRXP_WARN_可以施放|r |T136071:0|t[变形术] |cRXP_WARN_控制|r |cRXP_ENEMY_费索|r |cRXP_WARN_，然后先击杀|r |cRXP_ENEMY_小鬼|r |cRXP_WARN_再处理他|r << Mage
-    >>|cRXP_WARN_先击杀小鬼|r << Warrior/Warlock/Priest
-    >>|cRXP_WARN_如果有，就使用|r |T134829:0|t[初级治疗药水] |cRXP_WARN_，必要时再用|r |T133728:0|t[微光颅骨] |cRXP_WARN_应急|r << !Warlock
-    >>|cRXP_WARN_如果有，就使用|r |T134829:0|t[初级治疗药水]、|T133728:0|t[初级治疗石] |cRXP_WARN_，必要时再用|r |T133728:0|t[微光颅骨] |cRXP_WARN_应急|r << Warlock
+    >>Kill |cRXP_ENEMY_Fizzle Darkstorm|r and loot him for his |cRXP_LOOT_Claw|r
+    >>|cRXP_WARN_Be careful. Kill the patrolling|r |cRXP_ENEMY_Burning Blade Fanatic|r |cRXP_WARN_and the|r |cRXP_ENEMY_Lightning Hides|r |cRXP_WARN_in the back before you pull him|r
+    >>|cRXP_WARN_Pull him backwards towards the|r |cRXP_ENEMY_Lightning Hides|r |cRXP_WARN_you just killed. Otherwise you may bodypull additional Burning Blade mobs|r
+    >>|cRXP_WARN_Don't be afraid to die for the |cRXP_LOOT_Claw|r as you will be respawning at the |cRXP_FRIENDLY_Spirit Healer|r after|r
+    >>|cRXP_WARN_Kill the imp first. Use|r |T132155:0|t[Gouge] |cRXP_WARN_when he casts|r |T136169:0|t[Soul Siphon] << Rogue
+    >>|cRXP_WARN_Kill the imp first. Use|r |T136026:0|t[Earth Shock] |cRXP_WARN_when he casts|r |T136169:0|t[Soul Siphon] << Shaman
+    >>|cRXP_WARN_You can cast|r |T136071:0|t[Polymorph] |cRXP_WARN_on|r |cRXP_ENEMY_Fizzle|r |cRXP_WARN_and kill the|r |cRXP_ENEMY_Imp|r |cRXP_WARN_first|r << Mage
+    >>|cRXP_WARN_Kill the imp first|r << Warrior/Warlock/Priest
+    >>|cRXP_WARN_Use a|r |T134829:0|t[Minor Healing Potion] |cRXP_WARN_if you have it and your|r |T133728:0|t[Faintly Glowing Skull] |cRXP_WARN_if needed|r << !Warlock
+    >>|cRXP_WARN_Use a|r |T134829:0|t[Minor Healing Potion], |T133728:0|t[Minor Healthstone] |cRXP_WARN_if you have it and your|r |T133728:0|t[Faintly Glowing Skull] |cRXP_WARN_if needed|r << Warlock
     .complete 806,1 --Fizzle's Claw (1)
-    .mob 费索·暗雷
-    .mob 小鬼爪牙
-    .mob 火刃狂热者
-    .mob 闪电蜥蜴
+    .mob Fizzle Darkstorm
+    .mob Imp Minion
+    .mob Burning Blade Fanatic
+    .mob Lightning Hide
 step
     #hardcore
     .goto 1411/1,-4190.12,868.22
-    >>击杀 |cRXP_ENEMY_费索·暗雷|r，拾取他的 |cRXP_LOOT_爪子|r
-    >>|cRXP_WARN_小心。在引他之前，先击杀巡逻的|r |cRXP_ENEMY_火刃狂热者|r |cRXP_WARN_以及后面的|r |cRXP_ENEMY_闪电蜥蜴|r |cRXP_WARN_，清出安全区域|r
-    >>|cRXP_WARN_将他向后引到刚才击杀|r |cRXP_ENEMY_闪电蜥蜴|r |cRXP_WARN_的位置，否则可能靠近而引到更多火刃怪物|r
-    >>|cRXP_WARN_先击杀小鬼，使用|r |T132155:0|t[凿击] |cRXP_WARN_打断他施放的|r |T136169:0|t[灵魂虹吸] << Rogue
-    >>|cRXP_WARN_先击杀小鬼，留着|r |T136026:0|t[地震术] |cRXP_WARN_等他施放|r |T136169:0|t[灵魂虹吸]时再用 << Shaman
-    >>|cRXP_WARN_可以施放|r |T136071:0|t[变形术] |cRXP_WARN_控制|r |cRXP_ENEMY_费索|r |cRXP_WARN_，然后先击杀|r |cRXP_ENEMY_小鬼|r |cRXP_WARN_再处理他|r << Mage
-    >>|cRXP_WARN_先击杀小鬼|r << Warrior/Warlock/Priest
-    >>|cRXP_WARN_如果有，就使用|r |T134829:0|t[初级治疗药水] |cRXP_WARN_，必要时再用|r |T133728:0|t[微光颅骨] |cRXP_WARN_应急|r << !Warlock
-    >>|cRXP_WARN_如果有，就使用|r |T134829:0|t[初级治疗药水]、|T133728:0|t[初级治疗石] |cRXP_WARN_，必要时再用|r |T133728:0|t[微光颅骨] |cRXP_WARN_应急|r << Warlock
+    >>Kill |cRXP_ENEMY_Fizzle Darkstorm|r and loot him for his |cRXP_LOOT_Claw|r
+    >>|cRXP_WARN_Be careful. Kill the patrolling|r |cRXP_ENEMY_Burning Blade Fanatic|r |cRXP_WARN_and the|r |cRXP_ENEMY_Lightning Hides|r |cRXP_WARN_in the back before you pull him|r
+    >>|cRXP_WARN_Pull him backwards towards the|r |cRXP_ENEMY_Lightning Hides|r |cRXP_WARN_you just killed. Otherwise you may bodypull additional Burning Blade mobs|r
+    >>|cRXP_WARN_Kill the imp first. Use|r |T132155:0|t[Gouge] |cRXP_WARN_when he casts|r |T136169:0|t[Soul Siphon] << Rogue
+    >>|cRXP_WARN_Kill the imp first. Use|r |T136026:0|t[Earth Shock] |cRXP_WARN_when he casts|r |T136169:0|t[Soul Siphon] << Shaman
+    >>|cRXP_WARN_You can cast|r |T136071:0|t[Polymorph] |cRXP_WARN_on|r |cRXP_ENEMY_Fizzle|r |cRXP_WARN_and kill the|r |cRXP_ENEMY_Imp|r |cRXP_WARN_first|r << Mage
+    >>|cRXP_WARN_Kill the imp first|r << Warrior/Warlock/Priest
+    >>|cRXP_WARN_Use a|r |T134829:0|t[Minor Healing Potion] |cRXP_WARN_if you have it and your|r |T133728:0|t[Faintly Glowing Skull] |cRXP_WARN_if needed|r << !Warlock
+    >>|cRXP_WARN_Use a|r |T134829:0|t[Minor Healing Potion], |T133728:0|t[Minor Healthstone] |cRXP_WARN_if you have it and your|r |T133728:0|t[Faintly Glowing Skull] |cRXP_WARN_if needed|r << Warlock
     .complete 806,1 --Fizzle's Claw (1)
-    .mob 费索·暗雷
-    .mob 小鬼爪牙
-    .mob 火刃狂热者
-    .mob 闪电蜥蜴
+    .mob Fizzle Darkstorm
+    .mob Imp Minion
+    .mob Burning Blade Fanatic
+    .mob Lightning Hide
 step << Hunter/Shaman
     #softcore
     .goto 1411/1,-4449.74,1188.64
-    .deathskip >> 死亡后，在 |cRXP_FRIENDLY_灵魂医者|r处复活
+    .deathskip >> Die and respawn at the |cRXP_FRIENDLY_Spirit Healer|r
     .isQuestComplete 806
     .xp >10,1
 step << Hunter/Shaman
     #softcore
-    .goto 1411/1,-4035.2,679.63,60 >> 一路战斗，离开雷霆山
+    .goto 1411/1,-4035.2,679.63,60 >> Fight your way out of Thunder Ridge
     .isQuestComplete 806
     .xp <10,1
 step << Hunter/Shaman
     #hardcore
-    .goto 1411/1,-4035.2,679.63,60 >> 一路战斗，离开雷霆山
+    .goto 1411/1,-4035.2,679.63,60 >> Fight your way out of Thunder Ridge
     .isQuestComplete 806
 step << Hunter/Shaman
     .goto 1411/1,-4158.93,1153.04
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_林纳格|r交谈
-    >>|cRXP_WARN_任务会开始45分钟倒计时，接下来的5分钟不要离开游戏或登出|r
-    .accept 812 >>接任务：救命如救火
-    .target 林纳格
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Rhinag|r
+    >>|cRXP_WARN_This will start a 45 minute timer for the quest. Do NOT go AFK or log out for the next 5 minutes|r
+    .accept 812 >>Accept Need for a Cure
+    .target Rhinag
 step << Shaman
     #optional
     #loop
@@ -2947,7 +2933,7 @@ step << Shaman
     .goto 1411/1,-4297.46,1131.89,60,0--c:Durotar,44.16,19.19
     .goto 1411/1,-4295.87,1208.38,60,0--c:Durotar,44.13,17.02
     .goto 1411/1,-4265.73,1276.76,60,0--c:Durotar,43.56,15.08
-    .xp 9+2520 >>刷怪，直到 9 级经验达到 2520+/6500
+    .xp 9+2520 >>Grind to 2520+/6500 into level 9
 step << Shaman
     #optional
     #loop
@@ -2955,43 +2941,43 @@ step << Shaman
     .goto 1411/1,-4297.46,1131.89,60,0--c:Durotar,44.16,19.19
     .goto 1411/1,-4295.87,1208.38,60,0--c:Durotar,44.13,17.02
     .goto 1411/1,-4265.73,1276.76,60,0--c:Durotar,43.56,15.08
-    +继续刷怪，直到炉石冷却时间<5分钟
-    .cooldown item,6948,<5m
+    +Grind until your hearthstone cooldown is <5 minutes
+    .cooldown item,6948,<0
 step << Hunter/Shaman
     #label EnterOrg
     #completewith next
     .goto 1454/1,-4367.46,1405.44,50,0
-    .zone Orgrimmar >> 进入奥格瑞玛
+    .zone Orgrimmar >> Enter Orgrimmar
 step << Hunter/Shaman
     .goto 1454/1,-4460.600,1584.300,10,0
     .goto 1454/1,-4460.000,1598.600
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_萨托格|r交谈
-    >>|cRXP_WARN_他在建筑的楼上|r
-    .accept 97246 >>接任务：午餐诱惑
-    .target 萨托格
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Thatog|r
+    >>|cRXP_WARN_He is upstairs in the building|r
+    .accept 97246 >>Accept Meal Appeal
+    .target Thatog
 step << Hunter/Shaman
     .goto 1454/1,-4482.600,1775.000
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_博斯坦|r交谈
-    .turnin 97246 >>交任务：午餐诱惑
-    .accept 97249 >>接任务：最爱的食物
-    .target 博斯坦
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Borstan|r
+    .turnin 97246 >>Turn in Meal Appeal
+    .accept 97249 >>Accept Favorite Food
+    .target Borstan
 step << Hunter/Shaman
     .goto 1454/1,-4568.100,1855.200
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_卡玛瑞|r交谈
-    .turnin 96877 >>交任务：哈利科尔的蹄子
-    .target 卡玛瑞
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kamari|r
+    .turnin 96877 >>Turn in Halikor's Hoof
+    .target Kamari
     .isOnQuest 96877
 step << Hunter/Shaman
     .goto 1454/1,-4466.800,1954.800
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_考吉尔德|r交谈
-    .accept 97242 >>接任务：耶尔玛克的混合配方
-    .target 考吉尔德
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kor'geld|r
+    .accept 97242 >>Accept Yelmak's Medley
+    .target Kor'geld
 step << Hunter/Shaman
     #completewith next
     .goto 1454/1,-4560.000,1908.500,15,0
     .goto 1454/1,-4587.000,1918.300,15,0
     .goto 1454/1,-4608.000,1897.400,15,0
-    .goto 1454/1,-4632.300,1911.600,15 >>前往荣誉谷
+    .goto 1454/1,-4632.300,1911.600,15 >>Travel to the Valley of Honor
 step << Hunter/Shaman
     #loop
     .goto 1454/1,-4653.900,1950.300,0
@@ -3000,35 +2986,35 @@ step << Hunter/Shaman
     .goto 1454/1,-4667.400,1997.000,20,0
     .goto 1454/1,-4609.800,2013.500,20,0
     .goto 1454/1,-4630.600,1968.100,20,0
-    >>拾取水中的 |cRXP_PICK_一把香蒲|r和|cRXP_PICK_矛草插条|r
+    >>Loot the |cRXP_PICK_Handful of Cattails|r and |cRXP_PICK_Speargrass Cuttings|r in the water
     .complete 97242,1 --|2/2 Handful of Cattails
     .complete 97242,2 --|4/4 Speargrass Cuttings
 step << Hunter
     .goto 1454/1,-4607.02,2100.64
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_奥玛克|r交谈
-    .turnin 6081 >>交任务：训练野兽
-    .target 奥玛克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ormak|r
+    .turnin 6081 >>Turn in Training the Beast
+    .target Ormak Grimshot
 step << Hunter
     .goto 1454/1,-4611.09,2135.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_肖祖|r交谈
-    .trainer 10088 >>学习宠物技能
-    .target 肖祖
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Xao'tsu|r
+    .train 24547 >>Train your pet spells
+    .target Xao'tsu
 step << Hunter
     #completewith FindAntidote
-    +|cRXP_WARN_将|r |T132162:0|t[训练野兽]|cRXP_WARN_（常规标签下）、|r |T132163:0|t[复活宠物]|cRXP_WARN_和|r |T132165:0|t[喂养宠物] |cRXP_WARN_放到动作条上|r
-    >>|cRXP_WARN_宠物获得训练点数后，记得使用|r |T132162:0|t[训练野兽]进行训练
+    +|cRXP_WARN_Put|r |T132162:0|t[Beast Training]|cRXP_WARN_(under the General tab),|r |T132163:0|t[Revive Pet]|cRXP_WARN_, and|r |T132165:0|t[Feed Pet] |cRXP_WARN_onto your Action Bars|r
+    >>|cRXP_WARN_Remember to train your pet whenever they get Training Points for|r |T132162:0|t[Beast Training]
 step << Hunter
     .goto 1454/1,-4819.1,2099.05
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r |cRXP_FRIENDLY_森度吉安|r|cRXP_BUY_交谈，购买|r |T135499:0|t[多层弯弓] |cRXP_BUY_备用|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Zendo'jian|r|cRXP_BUY_. Buy a|r |T135499:0|t[Laminated Recurve Bow] |cRXP_BUY_from him|r
     .collect 2507,1,835,1 --Collect Laminated Recurve Bow (1)
     .money <0.1751
     .itemStat 18,QUALITY,<7
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<5.7
-    .target 森度吉安
+    .target Zendo'jian
 step << Hunter
     #optional
     #completewith FindAntidote
-    +|cRXP_WARN_装备|r |T135499:0|t[多层弯弓] |cRXP_WARN_，需要达到11级|r
+    +|cRXP_WARN_Equip the|r |T135499:0|t[Laminated Recurve Bow] |cRXP_WARN_when you are level 11|r
     .use 2507
     .itemcount 2507,1
     .itemStat 18,QUALITY,<7
@@ -3037,7 +3023,7 @@ step << Hunter
 step << Hunter
     #optional
     #completewith FindAntidote
-    +|cRXP_WARN_装备|r |T135499:0|t[多层弯弓]
+    +|cRXP_WARN_Equip the|r |T135499:0|t[Laminated Recurve Bow]
     .use 2507
     .itemcount 2507,1
     .itemStat 18,QUALITY,<7
@@ -3045,64 +3031,64 @@ step << Hunter
     .xp >11,1
 step << Hunter/Shaman
     .goto 1454/1,-4466.900,1954.500
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_考吉尔德|r交谈
-    .turnin 97242 >>交任务：耶尔玛克的混合配方
-    .target 考吉尔德
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kor'geld|r
+    .turnin 97242 >>Turn in Yelmak's Medley
+    .target Kor'geld
 step << Hunter/Shaman
     .goto 1454/1,-4477.900,1964.800
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_耶尔玛克|r交谈
-    >>|cRXP_WARN_可能需要等待约 10 秒才能接取此任务|r
-    .accept 97275 >>接任务：伍特急什么
-    .target 耶尔玛克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Yelmak|r
+    >>|cRXP_WARN_You may have to wait about 10 seconds before you can accept this quest|r
+    .accept 97275 >>Accept Whuut's the Rush
+    .target Yelmak
 step << Hunter/Shaman
     .goto 1454/1,-4463.000,1966.200
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_伍特|r交谈
-    .turnin 97275 >>交任务：伍特急什么
-    .target 伍特
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Whuut|r
+    .turnin 97275 >>Turn in Whuut's the Rush
+    .target Whuut
 step << Hunter/Shaman
     .goto 1454/1,-4193.400,2001.800
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_米吉|r交谈
-    .turnin 97249 >>交任务：最爱的食物
-    .target 米吉
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Migi|r
+    .turnin 97249 >>Turn in Favorite Food
+    .target Migi
 step << Hunter/Shaman
     .goto 1454/1,-4205.800,2007.800
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_斯拉|r交谈
-    .accept 97326 >>接任务：以石为座
-    .target 斯拉
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Thra|r
+    .accept 97326 >>Accept Rocks to Rests
+    .target Thra
 step << Hunter/Shaman
     .goto 1454/1,-4293.600,1949.900
-    >>拾取地上的橙色|cRXP_PICK_石块|r
-    >>|cRXP_WARN_如果争抢的人很多，请跳过此任务！|r|cRXP_PICK_石块|r|cRXP_WARN_数量不多，刷新也不快|r
+    >>Loot the orange |cRXP_PICK_Rocks|r on the ground
+    >>|cRXP_WARN_Skip this quest if there is a lot of competition! There aren't that many |cRXP_PICK_Rocks|r and they do not respawn quickly|r
     .complete 97326,1 --|8/8 Smooth Boulder
     .isOnQuest 97326
 step << Hunter/Shaman
     .goto 1454/1,-4205.900,2007.800
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_斯拉|r交谈
-    .turnin 97326 >>交任务：以石为座
-    .target 斯拉
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Thra|r
+    .turnin 97326 >>Turn in Rocks to Rests
+    .target Thra
     .isQuestComplete 97326
 step << Hunter/Shaman
     .goto 1454/1,-4133.36,1939.000
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_纳兹格雷尔|r交谈
-    .turnin 831 >>交任务：将军的命令
-    .target 纳兹格雷尔
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Nazgrel|r
+    .turnin 831 >>Turn in The Admiral's Orders
+    .target Nazgrel
 step << Hunter/Shaman
     .goto 1454/1,-4125.79,1920.10
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_萨尔|r交谈
-    .accept 5726 >>接任务：隐藏的敌人
-    .target 萨尔
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Thrall|r
+    .accept 5726 >>Accept Hidden Enemies
+    .target Thrall
 step << Hunter/Shaman
     #label FindAntidote
     .goto 1454/1,-4343.19,1772.68
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与暗影裂口的 |cRXP_FRIENDLY_考格汉|r交谈
-    .accept 813 >>接任务：寻找解毒剂
-    .target 考格汉
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kor'ghan|r in the Cleft of Shadow
+    .accept 813 >>Accept Finding the Antidote
+    .target Kor'ghan
     .isOnQuest 812
 step << Hunter/Shaman
     #completewith RazorTurnins2
     #label NeedACure
-    >>|cRXP_WARN_放弃“救命如救火”。这样可移除任务计时，但仍能继续完成任务链|r
-    .abandon 812 >>放弃任务：救命如救火
+    >>|cRXP_WARN_Abandon Need for a Cure. This will remove the timer on the quest but you will still be able to do it|r
+    .abandon 812 >>Abandon Need for a Cure
     .isOnQuest 812
 step << Priest
     #optional
@@ -3111,10 +3097,10 @@ step << Priest
     .goto 1411/1,-4073.80,953.87,40,0--c:Durotar,39.93,24.24
     .goto 1411/1,-4026.21,866.10,40,0--c:Durotar,39.03,26.73
     .goto 1411/1,-4035.20,687.38--c:Durotar,39.20,31.80
-    .xp 9+3150 >>刷怪，直到 9 级经验达到 3150+/6500
+    .xp 9+3150 >>Grind to 3150+/6500 into level 9
 step
     #completewith RazorTurnins2
-    .hs >> 炉石返回剃刀岭
+    .hs >> Hearth to Razor Hill
     .isQuestComplete 806
     .use 6948
     .subzoneskip 362
@@ -3122,82 +3108,80 @@ step
     .cooldown item,6948,>0,1
 step
     #completewith RazorTurnins2
-    .subzone 362 >>前往剃刀岭
+    .subzone 362 >>Travel to Razor Hill
     .isQuestComplete 806
     .cooldown item,6948,<0
 step
-    #requires NeedACure << Hunter/Shaman
+    #requires NeedACure
     .goto 1411/1,-4686.09,340.52
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_旅店老板格罗斯克|r交谈
-    .vendor >> 出售杂物
-    >>|cRXP_BUY_向他购买|r |T132815:0|t[冰镇牛奶] |cRXP_BUY_备用|r << Mage/Warlock/Priest/Shaman
-    >>|cRXP_BUY_向他购买|r |T133974:0|t[肉排] |cRXP_BUY_备用|r << Rogue/Warrior
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Innkeeper Grosk|r
+    .vendor >> Vendor Trash
+    >>|cRXP_BUY_Buy|r |T132815:0|t[Ice Cold Milk] |cRXP_BUY_from him|r << Mage/Warlock/Priest/Shaman
+    >>|cRXP_BUY_Buy|r |T133974:0|t[Haunch of Meat] |cRXP_BUY_from him|r << Rogue/Warrior
     .collect 1179,15,828,1 << Mage/Warlock/Priest/Shaman --Ice Cold Milk (15)
     .collect 2287,15,828,1 << Rogue/Warrior --Haunch of Meat (15)
-    .target 旅店老板格罗斯克
+    .target Innkeeper Grosk
     .money <0.0375
 step
-#label RazorTurnins2
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_奥戈尼尔·魂痕|r和|cRXP_FRIENDLY_加索克|r交谈
-    .turnin 806 >>交任务：黑暗风暴
-    .accept 828 >>接任务：玛高兹
-    .target +奥戈尼尔·魂痕
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to|r |cRXP_FRIENDLY_Orgnil|r and |cRXP_FRIENDLY_Gar'Thok|r
+    .turnin 806 >>Turn in Dark Storms
+    .accept 828 >>Accept Margoz
+    .target +Orgnil Soulscar
     .goto 1411/1,-4724.69,287.30
-    .turnin 837 >>交任务：野猪人的进犯
-    .target +加索克
+    .turnin 837 >>Turn in Encroachment
+    .target +Gar'Thok
     .goto 1411/1,-4709.36,274.960
 step << Warrior
     .goto 1411/1,-4827.27,311.62
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_塔绍尔·锯痕|r交谈
-    .train 6546 >> 学习职业技能
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Tarshaw|r
+    .train 6546 >> Train your class spells
     --.accept 1505 >>Accept Veteran Uzzek
-    .target 塔绍尔·锯痕
+    .target Tarshaw Jaggedscar
 step << Shaman
     .goto 1411/1,-4839.96,307.04
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_斯瓦特|r交谈
-    .train 8050 >> 学习职业技能
-    .accept 2983 >>接任务：火焰的召唤
-    .target 斯瓦特
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Swart|r
+    .train 8050 >> Train your class spells
+    .accept 2983 >>Accept Call of Fire
+    .target Swart
     .isNotOnQuest 1522
 step << Shaman
     .goto 1411/1,-4839.96,307.04
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_斯瓦特|r交谈
-    .train 8050 >> 学习职业技能
-    .target 斯瓦特
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Swart|r
+    .train 8050 >> Train your class spells
+    .target Swart
 step << Warlock
     .goto 1411/1,-4837.31,356.030
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_杜格鲁·血怒|r交谈
-    .train 1120 >> 学习职业技能
-    .target 杜格鲁·血怒
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dhugru|r
+    .train 1120 >> Train your class spells
+    .target Dhugru Gorelust
 step << Warlock
     .goto 1411/1,-4854.76,345.81
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_基萨|r交谈，购买 |T133738:0|t[火焰箭（等级2）]
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kitha|r and buy |T133738:0|t[Firebolt Rank 2]
     .collect 16302,1,837,1 --Grimoire of Firebolt (Rank 2) (1)
-    .target 基萨
+    .target Kitha
     .money <0.01
     .train 7799,1
 step << Priest
     .goto 1411/1,-4831.5,295.05
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_泰金|r交谈
-    .accept 5654 >> 接任务：虚弱妖术 << Troll
-    .accept 5660 >> 接任务：虚弱之触 << Undead
-    .trainer >> 学习职业技能
-    .target 泰金
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Tai'jin|r
+    .accept 5654 >> Accept Hex of Weakness << Troll
+    .accept 5660 >> Accept Touch of Weakness << Undead
+    .trainer >> Train your class spells
+    .target Tai'jin
 step << Hunter
     .goto 1411/1,-4704.07,275.31
-    >>进入地堡
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与里面的 |cRXP_FRIENDLY_索塔尔|r交谈
-    .train 13549 >> 学习职业技能
-    .target 索塔尔
+    >>Go inside the bunker
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Thotar|r inside
+    .train 13549 >> Train your class spells
+    .target Thotar
 step << Rogue
     .goto 1411/1,-4710.94,268.26
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_卡普拉克|r交谈
-    .train 674 >> 学习职业技能
-    .target 卡普拉克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kaplak|r
+    .train 674 >> Train your class spells
+    .target Kaplak
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 无限 竞速指南（部落）
-#subgroupdisplayname 1-22
 #forever
 #disabledungeons
 << Horde
@@ -3209,40 +3193,35 @@ RXPGuides.RegisterGuide([[
 #defaultfor Troll/Orc
 #next 10-12 Tirisfal (Orc/Troll) << !Hunter !Shaman !Tauren !Skyborne
 #next 12-17 The Barrens << Orc Hunter/Troll Hunter/Orc Shaman/Troll Shaman
-#displayname 10-12 杜隆塔尔
+
 
 step << Shaman/Hunter
     .goto 1411/1,-4648.55,271.43
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_塔克林|r交谈
-    .accept 840 >>接任务：部落的新兵
-    .target 塔克林·寻路者
-
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Takrin|r
+    .accept 840 >>Accept Conscript of the Horde
+    .target Takrin Pathseeker
 step << Shaman
     #label FarWatchPost
-    .goto 1413/1,-3686.10,303.14,40 >> 前往前沿哨所
+    .goto 1413/1,-3686.10,303.14,40 >> Travel to Far Watch Post
     .zoneskip The Barrens
     .isOnQuest 840,2983,1522,2984,1523
-
 step << Shaman
     .goto 1413/1,-3687.11,303.14
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_卡加尔|r交谈
-    .turnin 840 >>交任务：部落的新兵
-    .accept 842 >>接任务：十字路口征兵
-    .target 卡加尔·战痕
-
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kargal|r
+    .turnin 840 >>Turn in Conscript of the Horde
+    .accept 842 >>Accept Crossroads Conscription
+    .target Kargal Battlescar
 step << Shaman
     .goto 1413/1,-3037.56,264.63
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_卡纳尔|r交谈
-    .turnin 2983 >>交任务：火焰的召唤
-    .accept 1524 >>接任务：火焰的召唤
-    .target 卡纳尔·菲斯
-
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kranal|r
+    .turnin 2983 >>Turn in Call of Fire
+    .accept 1524 >>Accept Call of Fire
+    .target Kranal Fiss
 step << Shaman
     #completewith next
-    >>沿途击杀|cRXP_ENEMY_巨齿鳄鱼|r，拾取|cRXP_LOOT_克鲁恩的护身符|r
+    >>Kill |cRXP_ENEMY_Dreadmaw Crocolisks|r on the way. Loot them for |cRXP_LOOT_Kron's Amulet|r
     .complete 816,1 --Kron's Amulet (1)
-    .mob 巨齿鳄鱼
-
+    .mob Dreadmaw Crocolisk
 step << Shaman
     #completewith next
     .goto 1411/1,-3905.13,-228.41,10,0
@@ -3255,31 +3234,26 @@ step << Shaman
     .goto 1411/1,-3974.39,-228.76,8,0
     .goto 1411/1,-4020.92,-219.95,8,0
     .goto 1411/1,-4034.67,-232.64,8,0
-    .goto 1411/1,-4033.08,-255.91,10 >> 沿山路上行，前往|cRXP_FRIENDLY_泰尔夫|r处
-    >>|cRXP_WARN_山路非常狭窄，小心不要坠崖，摔下去可能会死亡|r
-
+    .goto 1411/1,-4033.08,-255.91,10 >> Travel the path up the mountain toward |cRXP_FRIENDLY_Telf|r
+    >>|cRXP_WARN_Be careful to not fall of the mountain, the path is very narrow. You could die if you fall|r
 step << Shaman
     #label CallofFire3
     .goto 1411/1,-3999.24,-268.95
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_泰尔夫|r交谈
-    .turnin 1524 >>交任务：火焰的召唤
-    .accept 1525 >>接任务：火焰的召唤
-    .target 泰尔夫·祖拉姆
-
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Telf|r
+    .turnin 1524 >>Turn in Call of Fire
+    .accept 1525 >>Accept Call of Fire
+    .target Telf Joolam
 step << skip --Shaman
     #completewith MargozTurnIn
-    .deathskip >> 死亡后在|cRXP_FRIENDLY_灵魂医者|r处复活
-
+    .deathskip >> Die and respawn at the |cRXP_FRIENDLY_Spirit Healer|r
 step << Hunter
     #completewith MargozTurnIn
-    +驯服一只|cRXP_ENEMY_毒尾蝎|r
-    .mob 毒尾蝎
+    +Tame a |cRXP_ENEMY_Venomtail Scorpid|r
+    .mob Venomtail Scorpid
     .train 16828,1 --Claw rank 2
-
 step << Shaman
     #completewith next
-    .subzone 371 >>前往尘风洞穴
-
+    .subzone 371 >>Travel toward Dustwind Cave
 step << Shaman
     #loop
     .goto 1411/1,-4774.39,780.80,0
@@ -3290,32 +3264,28 @@ step << Shaman
     .goto 1411/1,-4756.41,863.630,12,0
     .goto 1411/1,-4715.70,861.87,12,0
     .goto 1411/1,-4706.71,902.41,12,0
-    >>击杀|cRXP_ENEMY_火刃祭司|r，拾取|cRXP_LOOT_试剂袋|r
+    >>Kill |cRXP_ENEMY_Burning Blade Cultists|r. Loot them for a |cRXP_LOOT_Reagent Pouch|r
     .complete 1525,2 --Reagent Pouch (1)
-    .mob 火刃祭司
-
+    .mob Burning Blade Cultist
 step << !Shaman !Hunter
     #completewith next
     .goto 1411/1,-4939.36,824.51,80,0
-    .goto 1411/1,-4945.18,1101.92,50 >> 前往|cRXP_FRIENDLY_玛高兹|r处
+    .goto 1411/1,-4945.18,1101.92,50 >> Travel to |cRXP_FRIENDLY_Margoz|r
     .isQuestTurnedIn 806
-
 step << !Shaman !Hunter
     #label MargozTurnIn
     .goto 1411/1,-4945.18,1101.92
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_玛高兹|r交谈
-    .turnin 828 >>交任务：玛高兹
-    .accept 827 >>接任务：骷髅石
-    .target 玛高兹
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Margoz|r
+    .turnin 828 >>Turn in Margoz
+    .accept 827 >>Accept Skull Rock
+    .target Margoz
     .isQuestTurnedIn 806
-
 step << !Shaman !Hunter
     #completewith next
     .goto 1411/1,-4949.41,925.67,50,0
     .goto 1411/1,-4929.32,823.45,50,0
-    .goto 1411/1,-4774.39,780.80,50 >> 前往尘风洞穴
+    .goto 1411/1,-4774.39,780.80,50 >> Travel toward Dustwind Cave
     .isQuestTurnedIn 828
-
 step << !Shaman !Hunter
     #loop
     .goto 1411/1,-4774.39,780.80,0
@@ -3326,18 +3296,16 @@ step << !Shaman !Hunter
     .goto 1411/1,-4756.41,863.630,12,0
     .goto 1411/1,-4715.70,861.87,12,0
     .goto 1411/1,-4749.01,822.39,12,0
-    >>击杀|cRXP_ENEMY_火刃兽人|r，拾取它们的|cRXP_LOOT_灼热项圈|r
+    >>Kill |cRXP_ENEMY_Burning Blade Orcs|r. Loot them for their |cRXP_LOOT_Collars|r
     .complete 827,1 --Searing Collar (6)
-    .mob 火刃暴徒
-    .mob 火刃新兵
-    .mob 火刃祭司
+    .mob Burning Blade Thug
+    .mob Burning Blade Neophyte
+    .mob Burning Blade Cultist
     .isQuestTurnedIn 828
-
 step
     #label Ravine
     #completewith next
-    .subzone 370 >> 跳下进入枯水谷
-
+    .subzone 370 >> Drop down into Drygulch Ravine
 step
     #loop
     .goto 1411/1,-4816.69,972.910,0
@@ -3348,36 +3316,32 @@ step
     .goto 1411/1,-4718.87,1076.19,40,0
     .goto 1411/1,-4672.87,1131.89,40,0
     .goto 1411/1,-4816.69,972.910,40,0
-    >>击杀|cRXP_ENEMY_尘风暴徒|r和|cRXP_ENEMY_尘风雷巫|r
-    .use 277661 >>从|cRXP_ENEMY_尘风雷巫|r身上拾取|T134336:0|t[|cRXP_LOOT_黯淡的风暴宝珠|r]，使用它接取任务
+    >>Kill |cRXP_ENEMY_Dustwind Savages|r and |cRXP_ENEMY_Dustwind Storm Witches|r
+    .use 277661 >>Loot |cRXP_ENEMY_Dustwind Storm Witches|r for a |T134336:0|t[|cRXP_LOOT_Dull Storm Orb|r]. Use it to accept the quest
     .complete 835,1 --Dustwind Savage (12)
-    .mob +尘风暴徒
+    .mob +Dustwind Savage
     .complete 835,2 --Dustwind Storm Witch (8)
-    .mob +尘风雷巫
+    .mob +Dustwind Storm Witch
     .collect 277661,1,97281 --Dull Storm Orb (x1)
-    .accept 97281 >>接任务：酝酿中的风暴
-
+    .accept 97281 >>Accept A Simmering Storm
 step << skip
     #softcore
     #completewith SecuringLinesTurnIn
-    .deathskip >> 死亡后在|cRXP_FRIENDLY_灵魂医者|r处复活
-
+    .deathskip >> Die and respawn at the |cRXP_FRIENDLY_Spirit Healer|r
 step
     #hardcore
     #completewith next
     .goto 1411/1,-4804.53,830.5,60,0
     .goto 1411/1,-4698.78,842.48,60,0
-    .goto 1411/1,-4414.31,999.70,60 >> 穿过洞穴，前往|cRXP_FRIENDLY_雷兹拉克|r处
-
+    .goto 1411/1,-4414.31,999.70,60 >> Travel through the cave toward |cRXP_FRIENDLY_Rezlak|r
 step
     #label SecuringLinesTurnIn
     .goto 1411/1,-4414.31,999.70
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_雷兹拉克|r交谈
-    .turnin 835 >>交任务：保卫商路
-    .turnin 97281 >>交任务：酝酿中的风暴
-    .accept 97282 >>接任务：风暴潜能
-    .target 雷兹拉克
-
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Rezlak|r
+    .turnin 835 >>Turn in Securing the Lines
+    .turnin 97281 >>Turn in A Simmering Storm
+    .accept 97282 >>Accept Stormy Potential
+    .target Rezlak
 step << Shaman/Hunter
     #loop
     .goto 1411/1,-4010.35,1031.42,0
@@ -3386,74 +3350,64 @@ step << Shaman/Hunter
     .goto 1411/1,-4108.7,1229.88,60,0
     .goto 1411/1,-4013.52,1209.08,60,0
     .goto 1411/1,-4010.35,1031.42,60,0
-    >>继续击杀|cRXP_ENEMY_毒尾蝎|r，拾取|cRXP_LOOT_毒囊|r，完成任务
+    >>Finish killing |cRXP_ENEMY_Venomtail Scorpids|r. Loot them for their |cRXP_LOOT_Poison Sacs|r
     .complete 813,1 --Venomtail Poison Sac (4)
-    .mob 毒尾蝎
+    .mob Venomtail Scorpid
     .itemcount 4904,<1 --Venomtail Antidote
-
 step
     #completewith next
-    >>击杀|cRXP_ENEMY_雷霆蜥蜴|r和|cRXP_ENEMY_闪电蜥蜴|r，拾取|cRXP_LOOT_带电的雷霆蜥蜴器官|r
+    >>Kill |cRXP_ENEMY_Thunder Lizards|r and |cRXP_ENEMY_Lightning Hides|r. Loot them for their |cRXP_LOOT_Charged Thunder Lizard Organs|r
     .complete 97282,1 --|5/5 Charged Thunder Lizard Organ
-    .mob 闪电蜥蜴
-    .mob 雷霆蜥蜴
-
+    .mob Lightning Hide
+    .mob Charged Thunder Lizard Organ
 step
     #loop
     .goto 1411/1,-4248.400,972.300,0
     .goto 1411/1,-4117.500,747.200,0
     .goto 1411/1,-4248.400,972.300,40,0
     .goto 1411/1,-4117.500,747.200,40,0
-    >>击杀精英|cRXP_ENEMY_哈利科尔|r，拾取|T134061:0|t[|cRXP_LOOT_哈利科尔的蹄子|r]
-    >>|cRXP_WARN_这场战斗很难！尽量组队。他有800点生命值，但伤害尚可应付。如果无法击杀，就跳过这一步|r
-    >>|cRXP_WARN_他在雷霆山内至少有两处不同的刷新点|r
+    >>Kill |cRXP_ENEMY_Halikor|r (elite). Loot him for |T134061:0|t[|cRXP_LOOT_Halikor's Hoof|r]
+    >>|cRXP_WARN_This is hard! Group up if possible. It has 800 health but his damage is manageable. Skip this step if you can't kill it|r
+    >>|cRXP_WARN_He has at least two different spawn locations inside Thunder Ridge|r
     .collect 275723,1,96877 --Halikor's Hoof (x1)
-    .accept 96877 >>接任务：哈利科尔的蹄子
-    .mob 哈利科尔
-
+    .accept 96877 >>Accept Halikor's Hoof
+    .mob Halikor
 step
     .goto 1411/1,-4047.300,918.400
-    >>击杀|cRXP_ENEMY_雷霆蜥蜴|r和|cRXP_ENEMY_闪电蜥蜴|r，拾取|cRXP_LOOT_带电的雷霆蜥蜴器官|r
+    >>Kill |cRXP_ENEMY_Thunder Lizards|r and |cRXP_ENEMY_Lightning Hides|r. Loot them for their |cRXP_LOOT_Charged Thunder Lizard Organs|r
     .complete 97282,1 --|5/5 Charged Thunder Lizard Organ
-    .mob 闪电蜥蜴
-    .mob 雷霆蜥蜴
-
+    .mob Lightning Hide
+    .mob Charged Thunder Lizard Organ
 step << skip
     #softcore
     #completewith next
-    .deathskip >> 死亡后在|cRXP_FRIENDLY_灵魂医者|r处复活
-
+    .deathskip >> Die and respawn at the |cRXP_FRIENDLY_Spirit Healer|r
 step
     .goto 1411/1,-4414.500,999.800
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_雷兹拉克|r交谈
-    .turnin 97282 >>交任务：风暴潜能
-    .target 雷兹拉克
-
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Rezlak|r
+    .turnin 97282 >>Turn in Stormy Potential
+    .target Rezlak
 step << Shaman/Hunter
     #completewith next
-    .goto 1411/1,-4945.18,1101.92,50 >> 前往|cRXP_FRIENDLY_玛高兹|r处
+    .goto 1411/1,-4945.18,1101.92,50 >> Travel to |cRXP_FRIENDLY_Margoz|r
     .isQuestTurnedIn 806
-
 step << Shaman/Hunter
     #label MargozTurnIn
     .goto 1411/1,-4945.18,1101.92
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_玛高兹|r交谈
-    .turnin 828 >>交任务：玛高兹
-    .accept 827 >>接任务：骷髅石
-    .target 玛高兹
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Margoz|r
+    .turnin 828 >>Turn in Margoz
+    .accept 827 >>Accept Skull Rock
+    .target Margoz
     .isQuestTurnedIn 806
-
 step << Shaman/Hunter
     #completewith Gazzuz
-    .goto 1411/1,-4876.97,1452.310,60 >> 前往骷髅石
-
+    .goto 1411/1,-4876.97,1452.310,60 >> Travel toward Skull Rock
 step << Shaman/Hunter
     #completewith Gazzuz
-    >>击杀|cRXP_ENEMY_毒尾蝎|r，拾取它们的|cRXP_LOOT_毒囊|r
+    >>Kill |cRXP_ENEMY_Venomtail Scorpids|r. Loot them for their |cRXP_LOOT_Poison Sacs|r
     .complete 813,1 --Venomtail Poison Sac (4)
-    .mob 毒尾蝎
+    .mob Venomtail Scorpid
     .itemcount 4904,<1 --Venomtail Antidote
-
 step << Shaman/Hunter
     #completewith Gazzuz
     .goto 1411/1,-4855.82,1498.84,15,0
@@ -3465,25 +3419,23 @@ step << Shaman/Hunter
     .goto 1411/1,-4693.49,1519.64,15,0
     .goto 1411/1,-4679.75,1501.31,15,0
     .goto 1411/1,-4684.50,1466.06,15,0
-    >>击杀|cRXP_ENEMY_火刃兽人|r，拾取它们的|cRXP_LOOT_灼热项圈|r和|cRXP_LOOT_军官的徽章|r
+    >>Kill |cRXP_ENEMY_Burning Blade Orcs|r. Loot them for their |cRXP_LOOT_Collars|r and for a |cRXP_LOOT_Lieutenant's Insignia|r
     .complete 827,1 --Searing Collar (6)
     .complete 5726,1 --Lieutenant's Insignia (1)
-    .mob 火刃狂热者
-    .mob 火刃学徒
-
+    .mob Burning Blade Fanatic
+    .mob Burning Blade Apprentice
 step << Shaman/Hunter
     #label Gazzuz
     .goto 1411/1,-4701.42,1455.83
-    >>击杀|cRXP_ENEMY_加祖兹|r，拾取|T134085:0|t[|cRXP_LOOT_燃影之眼|r]
-    >>|cRXP_WARN_使用|T134085:0|t[|r|cRXP_LOOT_燃影之眼|r|cRXP_WARN_]接取任务|r
-    >>|cRXP_WARN_使用|r|T134712:0|t[强力胶水]|cRXP_WARN_黏住|r|cRXP_ENEMY_虚空行者|r|cRXP_WARN_以免被攻击，并使用|r|T134829:0|t[治疗药水]|cRXP_WARN_恢复生命值。利用视野遮挡躲避|r|cRXP_ENEMY_加祖兹|r|cRXP_WARN_的暗影箭|r
-    >>|cRXP_WARN_利用洞内的水域可以甩掉|r|cRXP_ENEMY_虚空行者|r|cRXP_WARN_，但要先击杀|r|cRXP_ENEMY_加祖兹|r
-    >>|cRXP_WARN_小心，他非常难对付。必要时可以跳过这个任务|r
+    >>Kill |cRXP_ENEMY_Gazz'uz|r. Loot him for his |T134085:0|t[|cRXP_LOOT_Eye of Burning Shadow|r]
+    >>|cRXP_WARN_Use the |T134085:0|t[|cRXP_LOOT_Eye of Burning Shadow|r] to start the quest|r
+    >>|cRXP_WARN_Use your|r |T134712:0|t[Really Sticky Glue] |cRXP_WARN_on the|r |cRXP_ENEMY_Voidwalker|r |cRXP_WARN_to avoid being hit, and|r |T134829:0|t[Healing Potions] |cRXP_WARN_to restore health. Use LoS (line of sight) to avoid|r |cRXP_ENEMY_Gazz'uz|r |cRXP_WARN_his Shadow Bolts|r
+    >>|cRXP_WARN_You can run to bodies of water found within the cave to evade the|r |cRXP_ENEMY_Voidwalker|r |cRXP_WARN_after killing|r |cRXP_ENEMY_Gazz'uz|r
+    >>|cRXP_WARN_Be careful as he is VERY difficult. You can skip this quest if you need|r
     .collect 4903,1,832,1 --Collect Eye of Burning Shadow
-    .accept 832 >>接任务：燃影之眼
+    .accept 832 >>Accept Burning Shadows
     .use 4903
-    .unitscan 加祖兹
-
+	.unitscan Gazz'uz
 step << Shaman/Hunter
     #loop
     .goto 1411/1,-4805.59,1495.67,0
@@ -3497,128 +3449,112 @@ step << Shaman/Hunter
     .goto 1411/1,-4679.75,1501.31,15,0
     .goto 1411/1,-4684.50,1466.06,15,0
     .goto 1411/1,-4805.59,1495.67,15,0
-    >>击杀|cRXP_ENEMY_火刃兽人|r，拾取它们的|cRXP_LOOT_灼热项圈|r和|cRXP_LOOT_军官的徽章|r
-    >>|cRXP_WARN_若迟迟不掉落，就跳过|r|cRXP_LOOT_军官的徽章|r|cRXP_WARN_的收集|r
+    >>Kill |cRXP_ENEMY_Burning Blade Orcs|r. Loot them for their |cRXP_LOOT_Collars|r and for a |cRXP_LOOT_Lieutenant's Insignia|r
+    >>|cRXP_WARN_Skip the|r |cRXP_LOOT_Lieutenant's Insignia|r |cRXP_WARN_if you're unlucky with the drop|r
     .complete 827,1 --Searing Collar (6)
     .complete 5726,1 --Lieutenant's Insignia (1)
-    .mob 火刃狂热者
-    .mob 火刃学徒
-
+    .mob Burning Blade Fanatic
+    .mob Burning Blade Apprentice
 step << Shaman/Hunter
-    #completewith next
-    >>击杀|cRXP_ENEMY_毒尾蝎|r，拾取它们的|cRXP_LOOT_毒囊|r
+    #completewith Ravine
+    >>Kill |cRXP_ENEMY_Venomtail Scorpids|r. Loot them for their |cRXP_LOOT_Poison Sacs|r
     .complete 813,1 --Venomtail Poison Sac (4)
-    .mob 毒尾蝎
+    .mob Venomtail Scorpid
     .itemcount 4904,<1 --Venomtail Antidote
-
 step
     .goto 1411/1,-4945.18,1101.92
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_玛高兹|r交谈
-    .turnin 827 >>交任务：骷髅石
-    .accept 829 >>接任务：尼尔鲁·火刃
-    .target 玛高兹
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Margoz|r
+    .turnin 827 >>Turn in Skull Rock
+    .accept 829 >>Accept Neeru Fireblade
+    .target Margoz
     .isQuestTurnedIn 806
-
 step
     #completewith Admiralorders1 << !Warrior !Shaman !Hunter
     #completewith NeeruFireblade << Warrior/Shaman/Hunter
     .goto 1454/1,-4367.46,1405.44,50,0
-    .zone Orgrimmar >> 进入奥格瑞玛
-
-step << !Rogue
+    .zone Orgrimmar >> Enter Orgrimmar
+step --<< !Rogue
     .goto 1454/1,-4355.53,1520.68
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_特拉克根|r交谈
-    .vendor >> 出售杂物
-    .target 特拉克根
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Trak'gen|r
+    .vendor >> Vendor your trash
+    .target Trak'gen
     .isQuestAvailable 97246
-
-step << Rogue
+step << skip --Rogue
     .goto 1454/1,-4355.53,1520.68
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r|cRXP_FRIENDLY_特拉克根|r|cRXP_BUY_交谈，向他购买|r|T135419:0|t[锋利的飞斧]|cRXP_BUY_。|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Trak'gen|r|cRXP_BUY_. Buy |r |T135419:0|t[Sharp Throwing Axe] |cRXP_BUY_from him|r
     .collect 3135,1,354,1 --Sharp Throwing Axe (200)
-    .vendor >> 出售杂物
-    .target 特拉克根
+    .vendor >> Vendor your trash
+    .target Trak'gen
     .itemStat 18,QUALITY,<7
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<6.3
     .money <0.03
-
-step << Rogue
+step << skip --Rogue
     #optional
     #completewith ZeptoUC1
-    +|cRXP_WARN_装备|r|T135421:0|t[锋利的飞斧]|cRXP_WARN_（11级时）|r
+    +|cRXP_WARN_Equip the|r |T135421:0|t[Sharp Throwing Axe] |cRXP_WARN_when you are level 11|r
     .use 3135
     .itemcount 3135,1
     .itemStat 18,QUALITY,<7
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<6.3
-
 step << Troll Priest
     .goto 1454/1,-4179.79,1452.580
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_乌尔库|r交谈
-    .turnin 5654 >> 交任务：虚弱妖术
-    .trainer >> 学习职业技能
-    .target 乌尔库
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to|r |cRXP_FRIENDLY_Ur'kyo|r
+    .turnin 5654 >> Turn in Hex of Weakness
+    .trainer >> Train your class spells
+    .target Ur'kyo
     .isOnQuest 5654
-
 step << Troll Priest
     .goto 1454/1,-4179.79,1452.580
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_乌尔库|r交谈
-    .turnin 5652 >> 交任务：虚弱妖术
-    .trainer >> 学习职业技能
-    .target 乌尔库
-
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to|r |cRXP_FRIENDLY_Ur'kyo|r
+    .turnin 5652 >> Turn in Hex of Weakness
+    .trainer >> Train your class spells
+    .target Ur'kyo
 step
     .goto 1454/1,-4460.000,1598.600
     .goto 1454/1,-4460.600,1584.300,10,0
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_萨托格|r交谈
-    >>|cRXP_WARN_他在楼上|r
-    .accept 97246 >>接任务：午餐诱惑
-    .target 萨托格
-
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Thatog|r
+    >>|cRXP_WARN_He is upstairs in the building|r
+    .accept 97246 >>Accept Meal Appeal
+    .target Thatog
 step << Shaman
     .goto 1454/1,-4347.54,1634.33
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r|cRXP_FRIENDLY_乌萨罗|r|cRXP_BUY_交谈，向他购买|r|T135154:0|t[短杖]|cRXP_BUY_。|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Urtharo|r|cRXP_BUY_. Buy a|r |T135154:0|t[Quarter Staff] |cRXP_BUY_from him|r
     .collect 854,1,924,1 --Collect Quarter Staff (1)
     .money <0.2871
-    .target 乌萨罗
+    .target Benijah Fenner
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<9.0
-
 step << Shaman
     #optional
     #completewith NeeruFireblade
-    +|cRXP_WARN_装备|r|T135154:0|t[短杖]
+    +|cRXP_WARN_Equip the|r |T135154:0|t[Quarter Staff]
     .use 854
     .itemcount 854,1
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<9.0
-
 step
     .goto 1454/1,-4482.600,1775.000
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_博斯坦|r交谈
-    .turnin 97246 >>交任务：午餐诱惑
-    .accept 97249 >>接任务：最爱的食物
-    .target 博斯坦
-
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Borstan|r
+    .turnin 97246 >>Turn in Meal Appeal
+    .accept 97249 >>Accept Favorite Food
+    .target Borstan
 step
     .goto 1454/1,-4568.100,1855.200
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_卡玛瑞|r交谈
-    .turnin 96877 >>交任务：哈利科尔的蹄子
-    .target 卡玛瑞
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kamari|r
+    .turnin 96877 >>Turn in Halikor's Hoof
+    .target Kamari
     .isOnQuest 96877
-
 step
     .goto 1454/1,-4466.800,1954.800
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_考吉尔德|r交谈
-    .accept 97242 >>接任务：耶尔玛克的混合配方
-    .target 考吉尔德
-
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kor'geld|r
+    .accept 97242 >>Accept Yelmak's Medley
+    .target Kor'geld
 step
     #completewith next
     .goto 1454/1,-4560.000,1908.500,15,0
     .goto 1454/1,-4587.000,1918.300,15,0
     .goto 1454/1,-4608.000,1897.400,15,0
-    .goto 1454/1,-4632.300,1911.600,15 >>前往荣誉谷
-
+    .goto 1454/1,-4632.300,1911.600,15 >>Travel to the Valley of Honor
 step
     #loop
     .goto 1454/1,-4653.900,1950.300,0
@@ -3627,263 +3563,227 @@ step
     .goto 1454/1,-4667.400,1997.000,20,0
     .goto 1454/1,-4609.800,2013.500,20,0
     .goto 1454/1,-4630.600,1968.100,20,0
-    >>拾取水中的|cRXP_PICK_一把香蒲|r和|cRXP_PICK_矛草插条|r
+    >>Loot the |cRXP_PICK_Handful of Cattails|r and |cRXP_PICK_Speargrass Cuttings|r in the water
     .complete 97242,1 --|2/2 Handful of Cattails
     .complete 97242,2 --|4/4 Speargrass Cuttings
-
 step << Hunter
     .goto 1454/1,-4607.02,2100.64
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_奥玛克|r交谈
-    .train 14281 >> 学习职业技能
-    .target 奥玛克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ormak|r
+    .train 14281 >> Train your class spells
+    .target Ormak Grimshot
     .xp <12,1
-
 step << Hunter
     .goto 1454/1,-4611.09,2135.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_肖祖|r交谈
-    .trainer 10088 >> 训练宠物技能
-    .target 肖祖
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Xao'tsu|r
+    .train 24556 >> Train your pet spells
+    .target Xao'tsu
     .xp <12,1
-
 step
     .goto 1454/1,-4466.900,1954.500
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_考吉尔德|r交谈
-    .turnin 97242 >>交任务：耶尔玛克的混合配方
-    .target 考吉尔德
-
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kor'geld|r
+    .turnin 97242 >>Turn in Yelmak's Medley
+    .target Kor'geld
 step
     .goto 1454/1,-4477.900,1964.800
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_耶尔玛克|r交谈
-    >>|cRXP_WARN_你可能需要等待约10秒才能接取这个任务|r
-    .accept 97275 >>接任务：伍特急什么
-    .target 耶尔玛克
-
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Yelmak|r
+    >>|cRXP_WARN_You may have to wait about 10 seconds before you can accept this quest|r
+    .accept 97275 >>Accept Whuut's the Rush
+    .target Yelmak
 step
     .goto 1454/1,-4463.000,1966.200
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_伍特|r交谈
-    .turnin 97275 >>交任务：伍特急什么
-    .target 伍特
-
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Whuut|r
+    .turnin 97275 >>Turn in Whuut's the Rush
+    .target Whuut
 step
     .goto 1454/1,-4193.400,2001.800
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_米吉|r交谈
-    .turnin 97249 >>交任务：最爱的食物
-    .target 米吉
-
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Migi|r
+    .turnin 97249 >>Turn in Favorite Food
+    .target Migi
 step
     .goto 1454/1,-4205.800,2007.800
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_斯拉|r交谈
-    .accept 97326 >>接任务：以石为座
-    .target 斯拉
-
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Thra|r
+    .accept 97326 >>Accept Rocks to Rests
+    .target Thra
 step
     .goto 1454/1,-4293.600,1949.900
-    >>拾取地上橙色的|cRXP_PICK_石块|r
+    >>Loot the orange |cRXP_PICK_Rocks|r on the ground
     .complete 97326,1 --|8/8 Smooth Boulder
     .isOnQuest 97326
-
 step
     .goto 1454/1,-4205.900,2007.800
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_斯拉|r交谈
-    .turnin 97326 >>交任务：以石为座
-    .target 斯拉
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Thra|r
+    .turnin 97326 >>Turn in Rocks to Rests
+    .target Thra
     .isQuestComplete 97326
-
 step << !Shaman !Hunter
     #label Admiralorders1
     .goto 1454/1,-4133.36,1939.000
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_纳兹格雷尔|r交谈
-    .turnin 831 >>交任务：将军的命令
-    .target 纳兹格雷尔
-
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Nazgrel|r
+    .turnin 831 >>Turn in The Admiral's Orders
+    .target Nazgrel
 step << !Shaman !Hunter
     .goto 1454/1,-4125.79,1920.10
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_萨尔|r交谈
-    .accept 5726 >>接任务：隐藏的敌人
-    .target 萨尔
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Thrall|r
+    .accept 5726 >>Accept Hidden Enemies
+    .target Thrall
     .dungeon RFC
-
 step << Shaman/Hunter
     .goto 1454/1,-4125.79,1920.10
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_萨尔|r交谈
-    .turnin 5726 >>交任务：隐藏的敌人
-    .accept 5727 >>接任务：隐藏的敌人
-    .target 萨尔
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Thrall|r
+    .turnin 5726 >>Turn in Hidden Enemies
+    .accept 5727 >>Accept Hidden Enemies
+    .target Thrall
     .isQuestComplete 5726
     .dungeon RFC
-
 step << Shaman/Hunter
     .goto 1454/1,-4125.79,1920.10
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_萨尔|r交谈
-    .turnin 5726 >>交任务：隐藏的敌人
-    .target 萨尔
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Thrall|r
+    .turnin 5726 >>Turn in Hidden Enemies
+    .target Thrall
     .isQuestComplete 5726
     .dungeon !RFC
-
 step << Shaman
     .goto 1454/1,-4225.09,1933.29
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_卡德里斯|r交谈
-    .train 8050 >> 学习职业技能
-    .target 卡德里斯
-
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kardris|r
+    .train 8050 >> Train your class spells
+    .target Kardris Dreamseeker
 step
     .goto 1454/1,-4320.700,1750.300
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_卡雷斯|r交谈
-    .vendor >>修理装备
-    .target 卡雷斯
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kareth|r
+    .vendor >>Repair your gear
+    .target Kareth
     .isOnQuest 829
-
 step << Rogue
     .goto 1454/1,-4280.21,1773.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_瑟祖克|r交谈
-    .accept 1963 >> 接任务：碎手氏族 << Orc Rogue/Troll Rogue
-    .target 瑟祖克
-
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Therzok|r
+	.accept 1963 >> Accept The Shattered Hand << Orc Rogue/Troll Rogue
+    .target Therzok
 step << Shaman/Hunter
     .goto 1454/1,-4343.19,1772.68
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_考格汉|r交谈
-    .turnin 813 >>交任务：寻找解毒剂
-    .target 考格汉
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to|r |cRXP_FRIENDLY_Kor'ghan|r
+    .turnin 813 >>Turn in Finding the Antidote
+    .target Kor'ghan
     .itemcount 4904,<1 --Venomtail Antidote
-
 step << Warlock
     .goto 1454/1,-4362.13,1834.51
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_米尔科特|r交谈
-    .train 1120 >> 学习职业技能
-    .target 米尔科特
-
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mirket|r
+    .train 1120 >> Train your class spells
+    .target Mirket
 step << Shaman/Hunter
     .goto 1454/1,-4374.75,1800.93
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_尼尔鲁|r交谈
-    .turnin 829 >>交任务：尼尔鲁·火刃
-    .turnin 832 >>交任务：燃影之眼
-    .accept 809 >>接任务：雅克塞罗斯
-    .target 尼尔鲁·火刃
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Neeru|r
+    .turnin 829 >>Turn in Neeru Fireblade
+    .turnin 832 >>Turn in Burning Shadows
+    .accept 809 >>Accept Ak'Zeloth
+    .target Neeru Fireblade
     .isQuestTurnedIn 827
     .isOnQuest 832
-
 step
     #label NeeruFireblade
     .goto 1454/1,-4374.75,1800.93
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_尼尔鲁|r交谈
-    .turnin 829 >>交任务：尼尔鲁·火刃
-    .accept 809 >>接任务：雅克塞罗斯
-    .target 尼尔鲁·火刃
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Neeru|r
+    .turnin 829 >>Turn in Neeru Fireblade
+    .accept 809 >>Accept Ak'Zeloth
+    .target Neeru Fireblade
     .isQuestTurnedIn 827
-
 step << skip --!Shaman !Hunter
     #softcore
     #completewith ZeptoUC1
     .goto 1454/1,-4424.40,1817.58
-    .subzone 2437 >> 进入怒焰裂谷
-
+    .subzone 2437 >> Enter Ragefire Chasm
 step << skip --!Shaman !Hunter
     #softcore
     #completewith ZeptoUC1
     .goto 1411/1,-4450.27,1188.64
-    .deathskip >> 死亡后在|cRXP_FRIENDLY_灵魂医者|r处复活
-
+    .deathskip >> Die and Respawn at the |cRXP_FRIENDLY_Spirit Healer|r
 step << !Shaman !Hunter
     --#hardcore
     #completewith ZeptoUC1
-    .zone Durotar >> 离开奥格瑞玛
+    .zone Durotar >> Leave Orgrimmar
     .zoneskip Durotar
-
 step << skip --Shaman/Hunter
     #softcore
     #completewith FoundtheCure
     .goto 1454/1,-4424.40,1817.58
-    .subzone 2437 >> 进入怒焰裂谷
-
+    .subzone 2437 >> Enter Ragefire Chasm
 step << skip --Shaman/Hunter
     #softcore
     #completewith FoundtheCure
     .goto 1411/1,-4450.27,1188.64
-    .deathskip >> 死亡后在|cRXP_FRIENDLY_灵魂医者|r处复活
-
+    .deathskip >> Die and Respawn at the |cRXP_FRIENDLY_Spirit Healer|r
 step << Shaman/Hunter
     --#hardcore
     #completewith FoundtheCure
-    .zone Durotar >> 离开奥格瑞玛
+    .zone Durotar >> Leave Orgrimmar
     .zoneskip Durotar
-
 step << Shaman/Hunter
     #label FoundtheCure
     .goto 1411/1,-4158.93,1153.04
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_林纳格|r交谈
-    .accept 812 >>接任务：救命如救火
-    .turnin 812 >>交任务：救命如救火
-    .target 林纳格
-
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Rhinag|r
+    .accept 812 >>Accept Need for a Cure
+    .turnin 812 >>Turn in Need for a Cure
+    .target Rhinag
 step << Shaman/Hunter
     .goto 1411/1,-3802.55,650.72,50,0
     .goto 1411/1,-3803.08,503.38,50,0
     .goto 1411/1,-3783.51,238.65,50,0
     .goto 1411/1,-3774.53,150.88,50,0
     .goto 1411/1,-3797.79,317.260
-    >>沿河向南前往前沿哨所
-    >>沿途击杀|cRXP_ENEMY_巨齿鳄鱼|r，拾取|cRXP_LOOT_克鲁恩的护身符|r
-    >>|cRXP_WARN_若迟迟不掉落，就跳过并放弃这个任务|r
+    >>Travel south alongside the river toward Far Watch Post
+    >>Kill |cRXP_ENEMY_Dreadmaw Crocolisks|r on the way. Loot them for |cRXP_LOOT_Kron's Amulet|r
+    >>|cRXP_WARN_Skip and abandon this quest if it won't drop|r
     .complete 816,1 --Kron's Amulet (1)
-    .mob 巨齿鳄鱼
-
+    .mob Dreadmaw Crocolisk
 step << Shaman/Hunter
     .goto 1411/1,-4241.94,742.37
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_米莎|r交谈
-    .turnin 816 >>交任务：丢失的孩子
-    .target 米莎·托克伦
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Misha|r
+    .turnin 816 >>Turn in Lost But Not Forgotten
+    .target Misha Tor'kren
     .isQuestComplete 816
-
 step << Shaman/Hunter
     #label FarWatchPost
-    .goto 1413/1,-3686.10,303.14,40 >> 前往前沿哨所
+    .goto 1413/1,-3686.10,303.14,40 >> Travel to Far Watch Post
     .zoneskip The Barrens
-
 step << Hunter
     .goto 1413/1,-3687.11,303.14
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_卡加尔|r交谈
-    .turnin 840 >>交任务：部落的新兵
-    .accept 842 >>接任务：十字路口征兵
-    .target 卡加尔·战痕
-
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kargal|r
+    .turnin 840 >>Turn in Conscript of the Horde
+    .accept 842 >>Accept Crossroads Conscription
+    .target Kargal Battlescar
 step << Shaman/Hunter
     #label Akzeloth
     .goto 1413/1,-3694.2,256.52
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_雅克塞罗斯|r交谈
-    .turnin 809 >>交任务：雅克塞罗斯
-    .accept 924 >>接任务：恶魔之种
-    .target 雅克塞罗斯
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ak'Zeloth|r
+    .turnin 809 >>Turn in Ak'Zeloth
+    .accept 924 >>Accept The Demon Seed
+    .target Ak'Zeloth
     .isQuestTurnedIn 829
-
 step << Shaman/Hunter
     .goto 1413/1,-3694.2,259.22
-    >>|cRXP_WARN_拾取|r|T134095:0|t[有瑕疵的能量石]|cRXP_WARN_，就在|r|cRXP_FRIENDLY_雅克塞罗斯|r|cRXP_WARN_旁边。该物品仅能保留30分钟，务必抓紧时间|r
-    .turnin 926 >>交任务：有瑕疵的能量石
+    >>|cRXP_WARN_Loot the|r |T134095:0|t[Flawed Power Stone] |cRXP_WARN_next to|r |cRXP_FRIENDLY_Ak'Zeloth|r|cRXP_WARN_. This item has a 30 minute timer, so be sure to be quick|r
+    .turnin 926 >>Turn in Flawed Power Stone
     .isOnQuest 924
-
 step << !Shaman !Hunter
     #completewith Gazzuz
-    >>击杀|cRXP_ENEMY_火刃兽人|r，拾取|cRXP_LOOT_军官的徽章|r
-    >> |cRXP_WARN_这是怒焰裂谷的前置任务，任务物品掉率较低。|r
+    >>Kill |cRXP_ENEMY_Burning Blade Orcs|r. Loot them for a |cRXP_LOOT_Lieutenant's Insignia|r
+    >>|cRXP_WARN_This is a pre-quest for RFC. It has a low droprate|r
     .complete 5726,1 --Lieutenant's Insignia (1)
-    .mob 火刃狂热者
-    .mob 火刃学徒
+    .mob Burning Blade Fanatic
+    .mob Burning Blade Apprentice
     .dungeon RFC
-
 step << !Shaman !Hunter
     #label Gazzuz
     .goto 1411/1,-4701.42,1455.83
-    >>击杀|cRXP_ENEMY_加祖兹|r，拾取|T134085:0|t[|cRXP_LOOT_燃影之眼|r]
-    >> |cRXP_WARN_小心，他非常难打；如果无法组队或单独击败，可以跳过这个任务。|r
-    >>|cRXP_WARN_使用|T134085:0|t[|r|cRXP_LOOT_燃影之眼|r|cRXP_WARN_]接取任务|r
-    >> |cRXP_WARN_利用障碍物卡视野，躲避|cRXP_ENEMY_加祖兹|r的暗影箭。|r
-    >>|cRXP_WARN_利用洞内的水域可以甩掉|r|cRXP_ENEMY_虚空行者|r|cRXP_WARN_，但要先击杀|r|cRXP_ENEMY_加祖兹|r
+    >>Kill |cRXP_ENEMY_Gazz'uz|r. Loot him for his |T134085:0|t[|cRXP_LOOT_Eye of Burning Shadow|r]
+    >>|cRXP_WARN_Be careful as he is VERY difficult. Feel free to skip this quest if you can't group up or solo him|r
+    >>|cRXP_WARN_Use the |T134085:0|t[|cRXP_LOOT_Eye of Burning Shadow|r] to start the quest|r
+    >>|cRXP_WARN_Use LoS (line of sight) to avoid |cRXP_ENEMY_Gazz'uz|r his Shadow Bolts|r
+    >>|cRXP_WARN_You can run to bodies of water found within the cave to evade the|r |cRXP_ENEMY_Voidwalker|r |cRXP_WARN_after killing|r |cRXP_ENEMY_Gazz'uz|r
     .collect 4903,1,832,1 --Collect Eye of Burning Shadow
-    .accept 832 >>接任务：燃影之眼
+    .accept 832 >>Accept Burning Shadows
     .use 4903
-    .unitscan 加祖兹
+	.unitscan Gazz'uz
     .dungeon RFC
-
 step << !Shaman !Hunter
     #loop
     .goto 1411/1,-4805.59,1495.67,0
@@ -3897,27 +3797,25 @@ step << !Shaman !Hunter
     .goto 1411/1,-4679.75,1501.31,15,0
     .goto 1411/1,-4684.50,1466.06,15,0
     .goto 1411/1,-4805.59,1495.67,15,0
-    >>击杀|cRXP_ENEMY_火刃兽人|r，拾取|cRXP_LOOT_军官的徽章|r
-    >> |cRXP_WARN_这是怒焰裂谷的前置任务，任务物品掉率较低。|r
+    >>Kill |cRXP_ENEMY_Burning Blade Orcs|r. Loot them for a |cRXP_LOOT_Lieutenant's Insignia|r
+    >>|cRXP_WARN_This is a pre-quest for RFC. It has a low droprate|r
     .complete 5726,1 --Lieutenant's Insignia (1)
-    .mob 火刃狂热者
-    .mob 火刃学徒
+    .mob Burning Blade Fanatic
+    .mob Burning Blade Apprentice
     .dungeon RFC
-
 step << !Shaman !Hunter
     #label ZeptoUC1
-    .goto 1411/1,-4648.55,1321.88,40 >>登上飞艇塔
-    .zone Tirisfal Glades >>乘飞艇前往提瑞斯法林地
-    >>|cRXP_WARN_等待时制造饮水|r << Mage
+    .goto 1411/1,-4648.55,1321.88,40 >>Go up the Zeppelin Tower
+    .zone Tirisfal Glades >>Take the Zeppelin to Tirisfal Glades
+    >>|cRXP_WARN_Conjure water while waiting|r << Mage
     .zoneskip Tirisfal Glades
-
 step
     #optional
-    .abandon 816 >>放弃任务：丢失的孩子
+    .abandon 816 >>Abandon Lost But Not Forgotten
 ]])
+
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 无限 竞速指南（部落）
-#subgroupdisplayname 1-22
 #forever
 #disabledungeons
 << Horde
@@ -3928,222 +3826,228 @@ RXPGuides.RegisterGuide([[
 --#groupid RXP-SRGCE-H1
 #defaultfor !Hunter !Shaman !Tauren !Skyborne !Undead
 #next 12-14 Silverpine Forest << !Hunter !Shaman !Tauren !Skyborne !Undead
-#displayname 10-12 提瑞斯法林地（兽人/巨魔）
 
 step
     #completewith DeliverytoSPF
-    .goto 1420/0,253.4,2234.85,80 >> 前往布瑞尔
-
+    .goto 1420/0,253.4,2234.85,80 >> Travel to Brill
 step
     .goto 1420/0,254.600,2225.800
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_亡灵卫兵特伦斯|r 交谈。
-    .accept 96895 >>接任务：银色使者
-    .target 亡灵卫兵特伦斯
-
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Deathguard Terrence|r
+    .accept 96895 >>Accept The Argent Emissary
+    .target Deathguard Terrence
 step << Warrior
     #optional
-    .abandon 1505 >>放弃任务：老兵犹塞克
+    .abandon 1505 >>Abandon Veteran Uzzek
     .isOnQuest 1505
-
 step << Warrior
     #optional
-    .abandon 1498 >>放弃任务：防御之道
+    .abandon 1498 >>Abandon Path of Defense
     .isOnQuest 1498
-
 step << Warrior
     .goto 1420/0,238.49,2254.43
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_奥斯蒂尔|r 交谈。
-    .accept 1818 >> 接任务：迪林格尔
-    .target 奥斯蒂尔·德·蒙
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Austil|r
+    .accept 1818 >> Accept Speak with Dillinger
+    .target Austil de Mon
     .isQuestAvailable 1498
-
 step << Warlock
     .goto 1420/0,248.88,2251.12
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与旅店内的 |cRXP_FRIENDLY_埃格隆|r 交谈。
-    .accept 1478 >> 接任务：哈加尔的召唤
-    .target 埃格隆·卡加尔
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ageron|r inside the inn
+    .accept 1478 >> Accept Halgar's Summons
+    .target Ageron Kargal
     .isQuestAvailable 1504
-
 step << Undead Rogue
     .goto 1420/0,243.01,2270.70
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与旅店内的 |cRXP_FRIENDLY_马里恩|r 交谈。
-    .accept 1885 >>接任务：米奈特·卡加德
-    .target 马里恩·考尔
-
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Marion|r inside the inn
+    .accept 1885 >>Accept Mennet Carkad
+    .target Marion Call
 step << Warrior
     .goto 1420/0,403.87,2287.87
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_迪林格尔|r 交谈。
-    .turnin 1818 >> 交任务：迪林格尔
-    .accept 1819 >> 接任务：切割者奥拉格
-    .target 亡灵卫兵迪林格尔
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dillinger|r
+    .turnin 1818 >> Turn in Speak with Dillinger
+    .accept 1819 >> Accept Ulag the Cleaver
+    .target Deathguard Dillinger
     .isQuestAvailable 1498
-
 step << Warrior
     .goto 1420/0,360.04,2376.14
-    >>|cRXP_WARN_点击地上的|r |cRXP_WARN_陵墓机关|r，|cRXP_WARN_这会召唤出|r |cRXP_ENEMY_奥拉格。|r |cRXP_WARN_击杀他。|r
+    >>|cRXP_WARN_Click the|r |cRXP_WARN_Mausoleum Trigger|r |cRXP_WARN_on the ground. This will summon|r |cRXP_ENEMY_Ulag.|r |cRXP_WARN_Kill him|r
     .complete 1819,1 --Ulag the Cleaver (1)
-    .mob 切割者奥拉格
+    .mob Ulag the Cleaver
     .isQuestAvailable 1498
-
 step << Warrior
     .goto 1420/0,403.87,2287.87
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_迪林格尔|r 交谈。
-    .turnin 1819 >> 交任务：切割者奥拉格
-    .accept 1820 >> 接任务：库勒曼
-    .target 亡灵卫兵迪林格尔
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dillinger|r
+    .turnin 1819 >> Turn in Ulag the Cleaver
+    .accept 1820 >> Accept Speak with Coleman
+    .target Deathguard Dillinger
     .isQuestAvailable 1498
-
 step
     #label DeliverytoSPF
     .goto 1420/0,346.94,2258.950
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_乔汉|r 交谈。
-    .accept 445 >>接任务：给银松森林送信
-    .target 药剂师乔汉
-
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Johaan|r
+    .accept 445 >>Accept Delivery to Silverpine Forest
+    .target Apothecary Johaan
 step << Warrior
     .goto 1420/0,244.36,2262.26
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_库勒曼|r 交谈。
-    .turnin 1820 >>交任务：库勒曼
-    .target 库勒曼·法席恩
-
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Coleman|r
+    .turnin 1820 >>Turn in Speak with Coleman
+    .target Coleman Farthing
 step << Priest
     .goto 1420/0,251.14,2265.28
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与二楼的 |cRXP_FRIENDLY_贝里尔|r 交谈。
-    .train 588 >>学习 |T135926:0|t[心灵之火]
-    .target 黑暗牧师贝里尔
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Beryl|r on the second floor
+	.train 588 >>Train |T135926:0|t[Inner Fire]
+    .target Dark Cleric Beryl
     .xp <12,1
-
 step << Mage
     .goto 1420/0,233.06,2256.84
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与二楼的 |cRXP_FRIENDLY_凯恩|r 交谈。
-    .train 145 >> 学习 |T135812:0|t[火球术 等级3]
-    .target 凯恩·火歌
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Cain|r on the second floor
+    .train 145 >> Train |T135812:0|t[Fireball Rank 3]
+    .target Cain Firesong
     .xp <12,1
-
 step << Warrior
     .goto 1420/0,238.49,2255.03
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_奥斯蒂尔|r 交谈。
-    .train 7384 >>学习 |T132223:0|t[压制]
-    .target 奥斯蒂尔·德·蒙
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Austil|r
+    .train 7384 >>Train |T132223:0|t[Overpower]
+    .target Austil de Mon
     .xp <12,1
-
 step << Rogue
     .goto 1420/0,243.01,2271.00
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与二楼的 |cRXP_FRIENDLY_马里恩|r 交谈。
-    .train 1766 >> 学习 |T132219:0|t[脚踢]
-    .target 马里恩·考尔
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Marion|r on the second floor
+    .train 1766 >> Train |T132219:0|t[Kick]
+    .target Marion Call
     .money <0.08
     .xp <12,1
-
 step << Warlock
     .goto 1420/0,250.24,2259.25
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_鲁伯特|r 交谈。
-    .train 755 >> 学习 |T136168:0|t[生命通道]
-    .target 鲁伯特·鲍什
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Rupert|r
+    .train 755 >> Train |T136168:0|t[Health Funnel]
+    .target Rupert Boch
     .xp <12,1
-
 step << !Mage
     .goto 1420/0,244.81,2269.19
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_旅店老板瑞尼|r 交谈。
-    >>|cRXP_BUY_向她购买|r |T132815:0|t[冰镇牛奶] |cRXP_BUY_。|r << Mage/Priest/Shaman
-    >>|cRXP_BUY_向她购买|r |T134532:0|t[红斑蘑菇] |cRXP_BUY_。|r << Warrior/Rogue
-    >>|cRXP_BUY_向她购买|r |T132815:0|t[冰镇牛奶] |cRXP_BUY_和|r |T134532:0|t[红斑蘑菇] |cRXP_BUY_。|r << Warlock/Hunter
-    .vendor >> 出售垃圾物品
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Innkeeper Renee|r
+    >>|cRXP_BUY_Buy|r |T132815:0|t[Ice Cold Milk] |cRXP_BUY_from her|r << Mage/Priest/Shaman
+    >>|cRXP_BUY_Buy|r |T134532:0|t[Red-speckled Mushroom] |cRXP_BUY_from her|r << Warrior/Rogue
+    >>|cRXP_BUY_Buy|r |T132815:0|t[Ice Cold Milk] |cRXP_BUY_and|r |T134532:0|t[Red-speckled Mushroom] |cRXP_BUY_from her|r << Warlock/Hunter
+    .vendor >> Vendor Trash
     .collect 1179,20,96897,1 << Mage/Priest/Shaman --Ice Cold Milk (20)
     .collect 4605,20,96897,1 << Rogue/Warrior --Red-speckled Mushroom (20)
     .collect 1179,15,96897,1 << Warlock/Hunter --Ice Cold Milk (15)
     .collect 4605,15,96897,1 << Warlock/Hunter --Red-speckled Mushroom (15)
     .money <0.050 << !Warlock !Hunter
     .money <0.075 << Warlock/Hunter
-    .target 旅店老板瑞尼
-
+    .target Innkeeper Renee
 step
     .goto 1420/0,74.00,2022.47
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_林奈|r 交谈。
-    .accept 356 >>接任务：巡查后方
-    .target 亡灵卫兵林奈
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Linnea|r
+    .accept 356 >>Accept Rear Guard Patrol
+    .target Deathguard Linnea
     .maxlevel 11
-
+    .dungeon !ROL
+step
+    .goto 1420/0,74.00,2022.47
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Linnea|r
+    .accept 356 >>Accept Rear Guard Patrol
+    .target Deathguard Linnea
+    .dungeon ROL
 step
     .goto 1420/0,54.600,1996.600
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_哈德里克·哈尔森|r 交谈。
-    .turnin 96895 >>交任务：银色使者
-    .accept 96897 >>接任务：诅咒教派
-    .accept 96898 >>接任务：战争残迹
-    .target 哈德里克·哈尔森
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Hadric Harlson|r
+    .turnin 96895 >>Turn in The Argent Emissary
+    .accept 96897 >>Accept The Cult of the Damned
+    .accept 96898 >>Accept Remnants of War
+    .target Hadric Harlson
     .maxlevel 11
-
 step
     .goto 1420/0,-130.500,1907.800
-    >>击杀 |cRXP_ENEMY_黑暗执行者|r 和 |cRXP_ENEMY_黑暗新兵|r，拾取它们掉落的 |cRXP_LOOT_死灵水晶碎片|r。
-    >>|cRXP_LOOT_死灵水晶碎片|r |cRXP_WARN_也可在地上拾取。|r
-    >>|cRXP_WARN_小心！这些怪物伤害很高。|r|cRXP_ENEMY_黑暗执行者|r|cRXP_WARN_ 还有造成50-70点伤害的瞬发技能。|r
+    >>Kill |cRXP_ENEMY_Dark Enforcers|r and |cRXP_ENEMY_Dark Neophytes|r. Loot them for |cRXP_LOOT_Necrotic Crystal Fragments|r
+    >>|cRXP_LOOT_Necrotic Crystal Fragments|r |cRXP_WARN_can also be looted on the ground|r
+    >>|cRXP_WARN_Be careful! These mobs hit hard. |cRXP_ENEMY_Dark Enforcers|r also have an instant cast 50-70 damage ability|r
     .complete 96897,2 --|8/8 Dark Enforcer slain
-    .mob +黑暗执行者
+    .mob +Dark Enforcer
     .complete 96897,1 --|8/8 Dark Neophyte slain
-    .mob +黑暗新兵
+    .mob +Dark Neophyte
     .complete 96898,1 --|12/12 Necrotic Crystal Fragment
     .isOnQuest 96897,96898
-
 step
     #label HorrorsandSpirits
     #loop
-    .goto 1420/0,-324.55,2000.48,0
-    .goto 1420/0,-324.55,2000.48,50,0
-    .goto 1420/0,-330.88,2040.84,50,0
-    .goto 1420/0,-359.34,2073.38,50,0
-    .goto 1420/0,-421.25,2070.07,50,0
-    .goto 1420/0,-464.63,2070.37,50,0
-    .goto 1420/0,-516.14,2017.05,50,0
-    .goto 1420/0,-466.44,1986.02,50,0
-    .goto 1420/0,-436.61,1951.670,50,0
-    .goto 1420/0,-355.28,1970.35,50,0
-    >>击杀 |cRXP_ENEMY_可怕的血僵尸|r 和 |cRXP_ENEMY_游荡的幽灵|r。
+	.goto 1420/0,-324.55,2000.48,0
+	.goto 1420/0,-324.55,2000.48,50,0
+	.goto 1420/0,-330.88,2040.84,50,0
+	.goto 1420/0,-359.34,2073.38,50,0
+	.goto 1420/0,-421.25,2070.07,50,0
+	.goto 1420/0,-464.63,2070.37,50,0
+	.goto 1420/0,-516.14,2017.05,50,0
+	.goto 1420/0,-466.44,1986.02,50,0
+	.goto 1420/0,-436.61,1951.670,50,0
+	.goto 1420/0,-355.28,1970.35,50,0
+    >>Kill |cRXP_ENEMY_Bleeding Horrors|r and |cRXP_ENEMY_Wandering Spirits|r
     .complete 356,1 --Bleeding Horror (8)
-    .mob +可怕的血僵尸
+    .mob +Bleeding Horror
     .complete 356,2 --Wandering Spirit (8)
-    .mob +游荡的幽灵
+    .mob +Wandering Spirit
     .isOnQuest 356
-
 step
     .goto 1420/0,54.500,1996.400
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_哈德里克·哈尔森|r 交谈。
-    .turnin 96897 >>交任务：诅咒教派
-    .turnin 96898 >>交任务：战争残迹
-    .target 哈德里克·哈尔森
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Hadric Harlson|r
+    .turnin 96897 >>Turn in The Cult of the Damned
+    .turnin 96898 >>Turn in Remnants of War
+    .target Hadric Harlson
     .isQuestComplete 96897
     .isQuestComplete 96898
-
+    .dungeon !ROL
 step
     #optional
     .goto 1420/0,54.500,1996.400
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_哈德里克·哈尔森|r 交谈。
-    .turnin 96897 >>交任务：诅咒教派
-    .target 哈德里克·哈尔森
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Hadric Harlson|r
+    .turnin 96897 >>Turn in The Cult of the Damned
+    .target Hadric Harlson
     .isQuestComplete 96897
-
+    .dungeon !ROL
 step
     #optional
     .goto 1420/0,54.500,1996.400
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_哈德里克·哈尔森|r 交谈。
-    .turnin 96898 >>交任务：战争残迹
-    .target 哈德里克·哈尔森
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Hadric Harlson|r
+    .turnin 96898 >>Turn in Remnants of War
+    .target Hadric Harlson
     .isQuestComplete 96898
-
+    .dungeon !ROL
 step
     #label LinneaTurnin
     .goto 1420/0,74.00,2022.47
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_林奈|r 交谈。
-    .turnin 356 >>交任务：巡查后方
-    .target 亡灵卫兵林奈
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Linnea|r
+    .turnin 356 >>Turn in Rear Guard Patrol
+    .target Deathguard Linnea
     .isQuestComplete 356
-
+    .dungeon !ROL
+step
+    #label LinneaTurnin
+    .goto 1420/0,73.800,2022.300
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Deathguard Linnea::1495|r
+    >>|cRXP_WARN_This is a pre-quest for "The Wrath of Rath'mael"|r
+    .turnin 356 >>Turn in Rear Guard Patrol
+    .target Deathguard Linnea::1495
+    .accept 99156 >>Accept Rear Guard Patrol
+    .dungeon ROL
+step
+    .goto 1420/0,-765.200,2518.700
+    >>Kill |cRXP_ENEMY_Riptear|r |cRXP_WARN_(level 13 elite)|r. Loot him for |T134339:0|t[|cRXP_LOOT_Riptear's Heart|r]
+    >>|cRXP_WARN_This is a pre-quest for "The Wrath of Rath'mael"|r
+    .complete 99156,1 --|1/1 Riptear's Heart
+    .mob Riptear
+    .dungeon ROL
+step
+    .goto 1420/0,74.200,2022.400
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Deathguard Linnea::1495|r
+    >>|cRXP_WARN_This is a pre-quest for "The Wrath of Rath'mael"|r
+    .turnin 99156 >>Turn in Rear Guard Patrol
+    .target Deathguard Linnea::1495
+    .dungeon ROL
 step
     #completewith UCflightpath1
     .goto 1420/0,240.75,1877.57,20,0
-    .zone Undercity >> 进入幽暗城
+    .zone Undercity >> Enter Undercity
     .zoneskip Undercity
-
 step
     #completewith UCflightpath1
     .goto 1458/0,239.14,1749.54,35,0
@@ -4151,105 +4055,94 @@ step
     .goto 1458/0,240.68,1706.97,10,0
     .goto 1458/0,241.06,1660.12,10,0
     .goto 1458/0,257.08,1623.38,10,0
-    .goto 1458/0,244.51,1598.73,15 >> 乘电梯下到幽暗城
-
-step
+    .goto 1458/0,244.51,1598.73,15 >> Take the lift down to the Undercity
+step << !Undead
     #label UCflightpath1
     .goto 1458/0,266.39,1567.11
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_迈克尔|r 交谈。
-    .fp Undercity >> 获取幽暗城飞行点
-    .target 迈克尔·加勒特
-
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Michael|r
+    .fp Undercity >> Get the Undercity flight path
+    .target Michael Garrett
 step << Orc Rogue/Troll Rogue
     #ssf
     #optional
     #label RogueCutlass3
     .goto 1458/0,286.53,1616.21
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与贸易区的 |cRXP_FRIENDLY_刘易斯·瓦伦|r 交谈。
-    >>|cRXP_BUY_向他购买|r |T135346:0|t[斗士短剑] |cRXP_BUY_。|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Louis Warren|r in the Trade Quarter
+    >>|cRXP_BUY_Buy a|r |T135346:0|t[Cutlass] |cRXP_BUY_from him|r
     .collect 851,1 --Collect Cutlass (1)
     .money <0.2023
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<6.8
-    .target 刘易斯·瓦伦
+    .target Louis Warren
     .zoneskip Undercity,1
-
 step << Orc Rogue/Troll Rogue
     #ah
     #optional
     #label RogueCutlass3
     .goto 1458/0,286.53,1616.21
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与贸易区的 |cRXP_FRIENDLY_刘易斯·瓦伦|r 交谈。
-    >>|cRXP_BUY_向他购买|r |T135346:0|t[斗士短剑] |cRXP_BUY_。|r
-    >>|cRXP_WARN_也可去拍卖行看看有没有更好或更便宜的武器。|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Louis Warren|r in the Trade Quarter
+    >>|cRXP_BUY_Buy a|r |T135346:0|t[Cutlass] |cRXP_BUY_from him|r
+    >>|cRXP_WARN_Alternatively, check the Auction House for something better or cheaper|r
     .collect 851,1 --Collect Cutlass (1)
     .money <0.2023
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<6.8
-    .target 刘易斯·瓦伦
+    .target Louis Warren
     .zoneskip Undercity,1
-
 step << Undead Rogue
     .goto 1458/0,71.92,1435.70
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_米奈特|r 交谈。
-    .turnin 1885 >>交任务：米奈特·卡加德
-    .accept 1886 >>接任务：亡灵哨兵
-    .target 米奈特·卡加德
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mennet|r
+    .turnin 1885 >>Turn in Mennet Carkad
+    .accept 1886 >>Accept The Deathstalkers
+    .target Mennet Carkad
     .isOnQuest 1885
-
 step << Rogue
     #label Swordtraining3
     .goto 1458/0,323.57,1668.50
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r |cRXP_FRIENDLY_阿基巴德|r 在军事区交谈。
-    .train 201 >>学习单手剑（1h）
-    .target 阿基巴德
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Archibald|r in the War Quarter
+    .train 201 >>Train 1h Swords
+    .target Archibald
     .money <0.1
-
 step << Rogue
     #optional
     #completewith Entersilverpine
-    +|cRXP_WARN_装备|r |T135346:0|t[斗士短剑]
+    +|cRXP_WARN_Equip the|r |T135346:0|t[Cutlass]
     .use 851
     .itemcount 851,1
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<6.8
-    .train 201,3
-
+    .train 201,1
 step << Troll Warrior/Undead Warrior/Tauren Shaman/Troll Shaman/Orc Shaman
     .goto 1458/0,308.89,1667.80
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r |cRXP_FRIENDLY_本尼亚|r|cRXP_BUY_交谈，向他购买|r |T135154:0|t[短杖] |cRXP_BUY_。|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Benijah|r|cRXP_BUY_. Buy a|r |T135154:0|t[Quarter Staff] |cRXP_BUY_from him|r
     .collect 854,1,435,1 --Collect Quarter Staff (1)
     .money <0.3022
-    .target 本尼亚·芬奈尔
+    .target Benijah Fenner
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<9.0
-
 step << Troll Warrior/Undead Warrior/Tauren Shaman/Troll Shaman/Orc Shaman
     #optional
     #completewith Entersilverpine
-    +|cRXP_WARN_装备|r |T135154:0|t[短杖]
+    +|cRXP_WARN_Equip the|r |T135154:0|t[Quarter Staff]
     .use 854
     .itemcount 854,1
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<9.0
-
 step
     #ah
     .goto 1458/0,224.300,1648.200
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_拍卖师凯恩|r 交谈。
-    >>|cRXP_BUY_在拍卖行购买三只|r |T133884:0|t[鱼人的眼球] |cRXP_BUY_。|r
-    >>|cRXP_WARN_可以跳过此步，这只会节省少量时间。|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Auctioneer Cain|r
+    >>|cRXP_BUY_Buy Three|r |T133884:0|t[Murloc Eyes] |cRXP_BUY_from the Auction House|r
+    >>|cRXP_WARN_Skip this if you want, it's only a small time saver|r
     .collect 730,3,91920,1 --Collect Murloc Eyes (x3)
-    .target 拍卖师凯恩
+    .target Auctioneer Cain
     .zoneskip Undercity,1
-
 step << Warlock
     .goto 1458/0,57.05,1711.77
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与魔法区的 |cRXP_FRIENDLY_凯伦丁|r 交谈。
-    .turnin 1478 >> 交任务：哈加尔的召唤
-    .accept 1473 >> 接任务：虚空中的生物
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Carendin|r in the Magic Quarter
+    .turnin 1478 >> Turn in Halgar's Summons
+    .accept 1473 >> Accept Creature of the Void
     .isQuestAvailable 1504
-
 step << Warlock
     .goto 1458/0,419.89,1627.54,50,0
     .goto 1458/0,428.52,1597.20,10,0
@@ -4260,23 +4153,20 @@ step << Warlock
     .goto 1458/0,610.42,1684.44,35,0
     .goto 1458/0,663.19,1600.46,35,0
     .goto 1420/0,724.25,1682.66,50,0
-    .zone Tirisfal Glades >> 从下水道离开幽暗城
+    .zone Tirisfal Glades >> Leave Undercity through the Sewers
     .zoneskip Tirisfal Glades
-
 step << Warlock
     #optional
     #completewith next
     .goto 1420/0,726.06,1801.95
-    >>打开 |cRXP_PICK_派瑞恩的箱子|r，拾取 |T133733:0|t[埃加林的魔典]。
+    >>Loot |cRXP_PICK_Perrine's Chest|r for |T133733:0|t[Egalin's Grimoire]
     .complete 1473,1 --Egalin's Grimoire (1)
     .isQuestAvailable 1504
-
 step << Warlock
     .goto 1420/0,726.06,1801.95
-    >>打开地上的 |cRXP_PICK_派瑞恩的箱子|r，拾取 |T133733:0|t[埃加林的魔典]。
+    >>Loot |cRXP_PICK_Perrine's Chest|r on the ground for |T133733:0|t[Egalin's Grimoire]
     .complete 1473,1 --Egalin's Grimoire (1)
     .isQuestAvailable 1504
-
 step << Warlock
     #completewith next
     .goto 1458/0,714.8,1604.24,35,0
@@ -4287,174 +4177,150 @@ step << Warlock
     .goto 1458/0,476.49,1632.15,10,0
     .goto 1458/0,439.08,1627.02,10,0
     .goto 1458/0,435.05,1598.86,10,0
-    .zone Undercity >> 从下水道返回幽暗城
-
+    .zone Undercity >> Travel back into the Undercity through the sewers
 step << Warlock
     .goto 1458/0,57.05,1711.77
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与魔法区的 |cRXP_FRIENDLY_凯伦丁|r 交谈。
-    .turnin 1473 >> 交任务：虚空中的生物
-    .accept 1471 >> 接任务：誓缚
-    .target 凯伦丁·哈加尔
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Carendin|r in the Magic Quarter
+    .turnin 1473 >> Turn in Creature of the Void
+    .accept 1471 >> Accept The Binding
+    .target Carendin Halgar
     .isQuestAvailable 1504
-
 step << Warlock
     #completewith next
     .goto 1458/0,41.99,1704.480
-    .cast 9221 >>|cRXP_WARN_在召唤法阵使用|r |T134416:0|t[召唤符文] |cRXP_WARN_。|r
+    .cast 9221 >>|cRXP_WARN_Use the|r |T134416:0|t[Runes of Summoning] |cRXP_WARN_at the Summoning Circle|r
     .use 6284
-
 step << Warlock
     .goto 1458/0,41.99,1704.480
-    >>击杀 |cRXP_ENEMY_虚空行者|r。
+    >>Kill the |cRXP_ENEMY_Summoned Voidwalker|r
     .complete 1471,1 --Kill Summoned Voidwalker (1)
-    .mob 虚空行者
+    .mob Summoned Voidwalker
     .use 6284
     .isQuestAvailable 1504
-
 step << Warlock
     .goto 1458/0,57.34,1711.71
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_凯伦丁|r 交谈。
-    .turnin 1471 >>交任务：誓缚
-    .target 凯伦丁·哈加尔
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Carendin|r
+    .turnin 1471 >>Turn in The Binding
+    .target Carendin Halgar
     .isQuestAvailable 1504
-
 step << Priest
     .goto 1458/0,273.87,1482.360
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_拉文尼亚|r 交谈。
-    .train 7411 >> 学习 |T136244:0|t[附魔]
-    .target 拉文尼亚·克洛文
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Lavinia|r
+    .train 7411 >> Train |T136244:0|t[Enchanting]
+    .target Lavinia Crowe
     .itemStat 18,QUALITY,<7
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<11.3
-
 step << Priest
     .goto 1458/0,194.24,1681.50
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_乔瑟夫|r 交谈。
-    .train 3908 >> 学习 |T136249:0|t[裁缝]
-    .target 乔瑟夫·格里高利
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Josef|r
+    .train 3908 >> Train |T136249:0|t[Tailoring]
+    .target Josef Gregorian
     .itemStat 18,QUALITY,<7
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<11.3
-
 step << Priest
     .goto 1458/0,194.34,1681.63
-    >>|cRXP_WARN_将所有|r |T132889:0|t[亚麻布] |cRXP_WARN_制成|r |T132890:0|t[亚麻布卷]
+    >>|cRXP_WARN_Turn all your|r |T132889:0|t[Linen Cloth] |cRXP_WARN_into|r |T132890:0|t[Bolt of Linen Cloth]
     .collect 2996,30,435,1 --Bolt of Linen Cloth (30)
     .itemStat 18,QUALITY,<7
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<11.3
-
 step << Priest
     .goto 1458/0,194.34,1681.63
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_乔瑟夫|r 交谈。
-    .train 7623 >> 学习制作 |T132662:0|t[棕色亚麻长袍]
-    .target 乔瑟夫·格里高利
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Josef|r
+    .train 7623 >> Train |T132662:0|t[Brown Linen Robe]
+    .target Josef Gregorian
     .itemStat 18,QUALITY,<7
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<11.3
-
 step << Priest
     .goto 1458/0,196.16,1684.83
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_米利尔|r 交谈。
-    >>|cRXP_BUY_向她购买|r |T132891:0|t[粗线] |cRXP_BUY_。|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Millie|r
+    >>|cRXP_BUY_Buy|r |T132891:0|t[Coarse Thread] |cRXP_BUY_from her|r
     .collect 2320,30,435,1 --Coarse Thread (30)
-    .target 米利尔·格里高利
+    .target Millie Gregorian
     .itemStat 18,QUALITY,<7
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<11.3
-
 step << Priest
-    >>|cRXP_WARN_尽可能多地制作|r |T132662:0|t[棕色亚麻长袍] |cRXP_WARN_。|r
+    >>|cRXP_WARN_Create as many|r |T132662:0|t[Brown Linen Robes] |cRXP_WARN_as you can|r
     .collect 6238,9,398,1 --Brown Linen Robe(9)
     .itemStat 18,QUALITY,<7
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<11.3
-
 step << Priest
     .goto 1458/0,275.02,1487.55
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r |cRXP_FRIENDLY_萨德乌斯|r|cRXP_BUY_交谈，向他购买|r |T133942:0|t[铜棒] |cRXP_BUY_和|r |T135435:0|t[普通木柴] |cRXP_BUY_。|r
-    >>|cRXP_WARN_分解所有制作好的|r |T132662:0|t[棕色亚麻长袍] |cRXP_WARN_，并制作一根|r |T135225:0|t[符文铜棒]
-    >>|cRXP_WARN_如果没有获得|r |T132867:0|t[次级魔法精华] |cRXP_WARN_，就向|r |cRXP_FRIENDLY_萨德乌斯|r |cRXP_WARN_购买一份（若有货）；否则稍后再完成此步。|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Thaddeus|r|cRXP_BUY_. Buy a|r |T133942:0|t[Copper Rod] |cRXP_BUY_and|r |T135435:0|t[Simple Wood] |cRXP_BUY_from him|r
+    >>|cRXP_WARN_Disenchant all the|r |T132662:0|t[Brown Linen Robes] |cRXP_WARN_that you made and create a|r |T135225:0|t[Runed Copper Rod]
+    >>|cRXP_WARN_If you did not get a|r |T132867:0|t[Lesser Magic Essence] |cRXP_WARN_then buy one from|r |cRXP_FRIENDLY_Thaddeus|r |cRXP_WARN_if there is one available. Otherwise finish this step later|r
     .collect 6218,1,435,1 --Runed Copper Rod (1)
     .collect 4470,1,435,1 --Simple Wood (1)
-    .target 萨德乌斯·韦伯
+    .target Thaddeus Webb
     .itemStat 18,QUALITY,<7
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<11.3
-
 step << Priest
     .goto 1458/0,273.2,1491.71
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_玛考布|r 交谈。
-    .train 14293 >> 学习制作 |T135139:0|t[次级魔法杖]
-    .target 玛考布·维恩
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Malcomb|r
+    .train 14293 >> Train |T135139:0|t[Lesser Magic Wand]
+    .target Malcomb Wynn
     .itemStat 18,QUALITY,<7
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<11.3
-
 step << Priest
-    >>|cRXP_WARN_制作一根|r |T135139:0|t[次级魔法杖]
-    >>|cRXP_WARN_如果没有获得|r |T132867:0|t[次级魔法精华] |cRXP_WARN_，就向|r |cRXP_FRIENDLY_萨德乌斯|r |cRXP_WARN_购买一份（若有货）；否则稍后再完成此步。|r
+    >>|cRXP_WARN_Create a|r |T135139:0|t[Lesser Magic Wand]
+    >>|cRXP_WARN_If you did not get a|r |T132867:0|t[Lesser Magic Essence] |cRXP_WARN_then buy one from|r |cRXP_FRIENDLY_Thaddeus|r |cRXP_WARN_if there is one available. Otherwise finish this step later|r
     .collect 11287,1,435,1 --Lesser Magic Wand (1)
     .itemStat 18,QUALITY,<7
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<11.3
-
 step << Priest
     #optional
     #completewith Entersilverpine
-    +|cRXP_WARN_装备|r |T135139:0|t[次级魔法杖]
+    +|cRXP_WARN_Equip the|r |T135139:0|t[Lesser Magic Wand]
     .use 11287
     .itemcount 11287,1
     .itemStat 18,QUALITY,<7
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<11.3
-
 step << Rogue
     .goto 1458/0,68.66,1416.69
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_卡罗琳|r 交谈。
-    .train 1766 >> 学习 |T132219:0|t[脚踢]
-    .target 卡罗琳·瓦德
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Carolyn|r
+    .train 1766 >> Train |T132219:0|t[Kick]
+    .target Carolyn Ward
     .xp <12,1
     .money <0.08
-
 step << Mage
     .goto 1458/0,56.38,1813.81
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_安娜斯塔西娅|r 交谈。
-    .train 145 >> 学习 |T135812:0|t[火球术 等级3]
-    .target 安娜斯塔西娅·哈特威尔
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Anastasia|r
+    .train 145 >> Train |T135812:0|t[Fireball Rank 3]
+    .target Anastasia Hartwell
     .xp <12,1
     .money <0.08
-
 step << Warlock
     .goto 1458/0,20.02,1776.42
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_理查德|r 交谈。
-    .train 755 >> 学习 |T136168:0|t[生命通道]
-    .target 理查德·科尔文
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Richard|r
+    .train 755 >> Train |T136168:0|t[Health Funnel]
+    .target Richard Kerwin
     .xp <12,1
     .money <0.08
-
 step << Priest
     .goto 1458/0,416.91,1757.03
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_拉扎鲁斯|r 交谈。
-    .train 588 >>学习 |T135926:0|t[心灵之火]
-    .target 拉扎鲁斯神父
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Lazarus|r
+	.train 588 >>Train |T135926:0|t[Inner Fire]
+    .target Father Lazarus
     .xp <12,1
     .money <0.08
-
 step << Warrior
     .goto 1458/0,418.35,1767.02
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_巴尔图斯·弗勒|r 交谈。
-    .train 7384 >>学习 |T132223:0|t[压制]
-    .target 巴尔图斯·弗勒
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Baltus Fowler|r
+    .train 7384 >>Train |T132223:0|t[Overpower]
+    .target Baltus Fowler
     .xp <12,1
     .money <0.08
-
 step
     #optional
-    .abandon 806 >> 放弃任务：黑暗风暴
-
+    .abandon 806 >> Abandon Dark Storms
 step
     #optional
-    .abandon 408 >> 放弃任务：家族墓穴
-
+    .abandon 408 >> Abandon The Family Crypt
 step << Warrior
     #optional
-    .abandon 1821 >> 放弃任务：阿加曼德家传武器
-
+    .abandon 1821 >> Abandon Agamand Heirlooms
 step
     #optional
-    .abandon 375 >>放弃任务：死亡之寒
-
+    .abandon 375 >>Abandon The Chill of Death
 step
     #label LeaveUndercity3
     .goto 1458/0,419.89,1627.54,50,0
@@ -4466,12 +4332,11 @@ step
     .goto 1458/0,610.42,1684.44,35,0
     .goto 1458/0,663.19,1600.46,35,0
     .goto 1420/0,724.25,1682.66,50,0
-    .zone Tirisfal Glades >> 从下水道离开幽暗城
+    .zone Tirisfal Glades >> Leave Undercity through the Sewers
     .zoneskip Silverpine Forest
-
 step
     #label Entersilverpine
     .goto 1420/0,629.36,1553.42
-    .zone Silverpine Forest >> 前往银松森林
+    .zone Silverpine Forest >> Travel to Silverpine Forest
     .zoneskip Silverpine Forest
 ]])

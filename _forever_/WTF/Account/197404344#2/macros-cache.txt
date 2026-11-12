@@ -1,7 +1,10 @@
 VER 3 0000000000000001 "RXPTargeting" "Ability_eyeoftheowl"
-/targetexact 憎世侍从
-/targetexact 憎世毒蛇守卫
-/targetexact 憎世巫师
+/targetexact Silithid Swarm
+/targetexact Centipaar Wasp
+/targetexact Centipaar Tunneler
+/targetexact Centipaar Stinger
+/targetexact Centipaar Swarmer
+/targetexact Centipaar Sandreaver
 /tm !7
 /targetlasttarget [dead]
 END

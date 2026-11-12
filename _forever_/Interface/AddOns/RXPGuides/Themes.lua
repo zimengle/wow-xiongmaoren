@@ -111,7 +111,11 @@ addon.customThemeBase = CopyTable(themes['RXP Blue'])
 addon.customThemeBase.name = "Custom"
 addon.customThemeBase.displayName = _G.CUSTOM
 addon.customThemeBase.applicable = true
-addon.customThemeBase.author = UnitName("player") or L "Unknown"
+local name,lastName = UnitName("player")
+if lastName and lastName ~= "" then
+    name = format("%s %s", name, lastName)
+end
+addon.customThemeBase.author = name or L "Unknown"
 addon.customThemeBase.bgTextures.guideName = "Interface/BUTTONS/WHITE8X8"
 
 addon.guideTextColors = {}
@@ -264,7 +268,7 @@ function addon:GetThemeOptions()
             if k == 'Custom' then
                 themeOptions[k] = t.displayName
             else
-                themeOptions[k] = fmt(L("%s by %s"), t.displayName, t.author)
+                themeOptions[k] = fmt("%s by %s", t.displayName, t.author)
             end
         end
     end
@@ -326,7 +330,7 @@ addon.v2.themes = {}
 
 addon.v2.themes['RXP Blue V2'] = {
     author = "RestedXP",
-    displayName = L("RXP Blue V2"),
+    displayName = "RXP Blue V2",
     name = 'RXP Blue',
     version = 2,
     applicable = function() return addon.v2:IsGuideWindowEnabled() end,

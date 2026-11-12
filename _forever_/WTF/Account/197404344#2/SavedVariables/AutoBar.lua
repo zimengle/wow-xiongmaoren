@@ -146,6 +146,7 @@ AutoBarDB2 = {
 ["AutoBarButtonMount"] = {
 ["barKey"] = "AutoBarClassBarExtras",
 ["mount_reverse_sort"] = false,
+["enabled"] = true,
 ["buttonKey"] = "AutoBarButtonMount",
 ["square_popups"] = true,
 ["arrangeOnUse"] = true,
@@ -153,7 +154,7 @@ AutoBarDB2 = {
 ["mount_show_class"] = true,
 ["defaultButtonIndex"] = "*",
 ["mount_show_favourites"] = true,
-["enabled"] = true,
+["is_dirty"] = true,
 ["mount_show_rng_fave"] = false,
 ["mount_show_nonfavourites"] = false,
 },

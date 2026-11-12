@@ -1,75 +1,73 @@
 local faction = UnitFactionGroup("player")
 if faction == "Alliance" then return end
 
+
+local L = GetLocale() if L and RXP.enabledLocale[L] then return end
 RXPGuides.RegisterGuide([[
-#groupweight 500
-#groupdisplayname RestedXP 经典旧世 1-60（部落）
 #classic
 #tbc
 #xprate <1.99
---h
+#era/som--h
 << Horde
 #name 1-6 Mulgore
-#title 莫高雷
 #version 11
 #group RestedXP Horde 1-22
-#subgroupdisplayname 1-22 << tbc
-#subgroupdisplayname 1-22
 #groupid RXP-SRGCE-H1
 #defaultfor Tauren
-#next 6-12 Mulgore
-#displayname 1-6 莫高雷
+#next 6-12 Mulgore;6-13 Mulgore
+
+
 step << !Tauren
     #completewith next
     .goto Mulgore,44.92,77.12
-    +|cRXP_WARN_你选择了牛头人专用指南。本区域有一条主要任务线仅限牛头人，其他种族无法接取，因此不适合在此练级。建议选择自己出生地区的指南|r
+    +|cRXP_WARN_You have selected a guide meant for Tauren. This zone will NOT work well for you due to missing one of the main questlines that are gated for Tauren only. It is recommended you choose the same starter zone that you start in|r
 step
     .goto Mulgore,44.92,77.12
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_格鲁尔|r交谈
-    .accept 747 >>接受任务 开始狩猎
-    .target 格鲁尔·鹰风
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Grull|r
+    .accept 747 >>Accept The Hunt Begins
+    .target Grull Hawkwind
 step
     .goto Mulgore,44.18,76.07
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_鹰风酋长|r交谈
-    .accept 752 >>接受任务 一件琐事
-    .target 鹰风酋长
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Chief Hawkwind|r
+    .accept 752 >>Accept A Humble Task
+    .target Chief Hawkwind
 step << Warrior/Shaman
     #completewith next
     .goto Mulgore,46.05,75.32,30,0
-    +|cRXP_WARN_击杀|cRXP_ENEMY_平原陆行鸟|r并拾取掉落物，直到可出售的物品（包括身上的护甲）总价值达到10铜币|r << Warrior/Shaman
-    .mob 平原陆行鸟
-    .money >0.001
+    +|cRXP_WARN_Kill |cRXP_ENEMY_Plainstriders|r. Loot them until you have 10 copper worth of vendor items (including your armor)|r << Warrior/Shaman
+    .mob Plainstrider
+    .money >0.01
 step << Warrior/Shaman
     .goto Mulgore,45.30,76.52
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_卡文尼|r交谈
-    .vendor >> 出售垃圾物品
-    .target 卡文尼·柔风
-    .money >0.001
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kawnie|r
+    .vendor >> Vendor Trash
+    .target Kawnie Softbreeze
+    .money >0.01
 step << Warrior
     .goto Mulgore,44.02,76.14
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_哈鲁特·雷角|r交谈
-    .train 6673 >>学习 |T132333:0|t[战斗怒吼]
-    .target 哈鲁特·雷角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Harutt|r
+    .train 6673 >>Train |T132333:0|t[Battle Shout]
+    .target Harutt Thunderhorn
 step << Shaman
     .goto Mulgore,45.01,75.95
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_米拉·晨行者|r交谈
-    .train 8017 >>学习 |T136086:0|t[石化武器]
-    .target 米拉·晨行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Meela|r
+    .train 8017 >>Train |T136086:0|t[Rockbiter Weapon]
+    .target Meela Dawnstrider
 step
     #completewith next
-    >>击杀|cRXP_ENEMY_平原陆行鸟|r，拾取它们的|cRXP_LOOT_肉|r和|cRXP_LOOT_羽毛|r
+    >>Kill |cRXP_ENEMY_Plainstriders|r. Loot them for their |cRXP_LOOT_Meat|r and |cRXP_LOOT_Feathers|r
     .complete 747,1 --Plainstrider Meat (7)
     .complete 747,2 --Plainstrider Feather (7)
-    .mob 平原陆行鸟
+    .mob Plainstrider
 step
     .goto Mulgore,50.03,81.16
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_鹰风酋长的母亲|r交谈
-    .turnin 752 >>交任务 一件琐事
-    .accept 753 >>接受任务 一件琐事
-    .target 鹰风酋长的母亲
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Greatmother Hawkwind|r
+    .turnin 752 >>Turn in A Humble Task
+    .accept 753 >>Accept A Humble Task
+    .target Greatmother Hawkwind
 step
     .goto Mulgore,50.22,81.37
-    >>拾取|cRXP_LOOT_水罐|r，水井在|cRXP_FRIENDLY_鹰风酋长的母亲|r身后
+    >>Loot the |cRXP_LOOT_Water Pitcher|r on the well behind |cRXP_FRIENDLY_Hawkwind|r
     .complete 753,1 --Water Pitcher (1)
 step
     #loop
@@ -82,63 +80,63 @@ step
     .goto Mulgore,45.77,80.39,50,0
     .goto Mulgore,45.56,82.39,50,0
     .goto Mulgore,47.36,83.05,50,0
-    >>击杀|cRXP_ENEMY_平原陆行鸟|r，拾取它们的|cRXP_LOOT_肉|r和|cRXP_LOOT_羽毛|r
+    >>Kill |cRXP_ENEMY_Plainstriders|r. Loot them for their |cRXP_LOOT_Meat|r and |cRXP_LOOT_Feathers|r
     .complete 747,1 --Plainstrider Meat (7)
     .complete 747,2 --Plainstrider Feather (7)
-    .mob 平原陆行鸟
+    .mob Plainstrider
 step
     .goto Mulgore,44.92,77.12
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_格鲁尔|r交谈
-    .turnin 747,1 >>交任务 开始狩猎 << Druid
-    .turnin 747 >>交任务 开始狩猎 << !Druid
-    .accept 3091 >>接受任务 简易便笺 << Warrior
-    .accept 3092 >>接受任务 风化便笺 << Hunter
-    .accept 3093 >>接受任务 符文便笺 << Shaman
-    .accept 3094 >>接受任务 绿色便笺 << Druid
-    .accept 750 >>接受任务 继续狩猎
-    .target 格鲁尔·鹰风
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Grull|r
+    .turnin 747,1 >>Turn in The Hunt Begins << Druid
+    .turnin 747 >>Turn in The Hunt Begins << !Druid
+    .accept 3091 >>Accept Simple Note << Warrior
+    .accept 3092 >>Accept Etched Note << Hunter
+    .accept 3093 >>Accept Rune-Inscribed Note << Shaman
+    .accept 3094 >>Accept Verdant Note << Druid
+    .accept 750 >>Accept The Hunt Continues
+    .target Grull Hawkwind
 step
     .goto Mulgore,45.30,76.52
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_卡文尼|r交谈
-    >>|cRXP_BUY_购买|r |T132384:0|t[轻弹丸] |cRXP_BUY_（向她购买）|r << Hunter
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kawnie|r
+    >>|cRXP_BUY_Buy|r |T132384:0|t[Light Shots] |cRXP_BUY_from her|r << Hunter
     .collect 2516,1000,750,1 << Hunter --Light Shot (1000)
-    .vendor >> 出售垃圾物品
-    .target 卡文尼·柔风
+    .vendor >> Vendor Trash
+    .target Kawnie Softbreeze
 step
     .goto Mulgore,44.18,76.07
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_鹰风酋长|r交谈
-    .turnin 753 >>交任务 一件琐事
-    .accept 755 >>接受任务 大地之母仪祭
-    .target 鹰风酋长
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Chief Hawkwind|r
+    .turnin 753 >>Turn in A Humble Task
+    .accept 755 >>Accept Rites of the Earthmother
+    .target Chief Hawkwind
 step << Shaman
     .goto Mulgore,44.07,77.47
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r |cRXP_FRIENDLY_马沙克|r|cRXP_BUY_交谈，购买一根|r |T135139:0|t[学徒法杖] |cRXP_BUY_（向他购买）|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Marjak|r|cRXP_BUY_. Buy a|r |T135139:0|t[Short Staff] |cRXP_BUY_from him|r
     .collect 2132,1,750,1 --Collect Short Staff (1)
     .money <0.0102
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<1.9
-    .target 马沙克·利刃
+    .target Marjak Keenblade
 step << Shaman
     #optional
     #completewith RitesoftheEarthmother
-    +|cRXP_WARN_装备|r |T135139:0|t[学徒法杖]
+    +|cRXP_WARN_Equip the|r |T135139:0|t[Short Staff]
     .use 2132
     .itemcount 2132,1
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<1.9
 step
     #completewith next
-    >>击杀|cRXP_ENEMY_山狮|r，拾取它们的|cRXP_LOOT_毛皮|r
+    >>Kill |cRXP_ENEMY_Mountain Cougars|r. Loot them for their |cRXP_LOOT_Pelts|r
     .complete 750,1 --Mountain Cougar Pelt (10)
-    .mob 山狮
+    .mob Mountain Cougar
 step
     #label RitesoftheEarthmother
     .goto Mulgore,42.58,92.18
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_灰舌先知|r交谈
-    >>|cRXP_WARN_沿途刷怪|r
-    .turnin 755 >>交任务 大地之母仪祭
-    .accept 757 >>接受任务 力量仪祭
-    .target 灰舌先知
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Seer Graytongue|r
+    >>|cRXP_WARN_Grind mobs on the way|r
+    .turnin 755 >>Turn in Rites of the Earthmother
+    .accept 757 >>Accept Rite of Strength
+    .target Seer Graytongue
 step
     #loop
     .goto Mulgore,44.60,90.86,0
@@ -153,9 +151,9 @@ step
     .goto Mulgore,47.06,88.64,50,0
     .goto Mulgore,45.06,89.89,50,0
     .goto Mulgore,44.60,90.86,50,0
-    >>击杀|cRXP_ENEMY_山狮|r，拾取它们的|cRXP_LOOT_毛皮|r
+    >>Kill |cRXP_ENEMY_Mountain Cougars|r. Loot them for their |cRXP_LOOT_Pelts|r
     .complete 750,1 --Mountain Cougar Pelt (10)
-    .mob 山狮
+    .mob Mountain Cougar
 step
     #xprate <1.5
     #loop
@@ -176,8 +174,8 @@ step
 	.goto Mulgore,45.03,82.15,40,0
 	.goto Mulgore,44.09,83.89,40,0
 	.goto Mulgore,43.90,86.08,40,0
-    .xp 3+1150 >> 刷怪至3级至少1150/1400点经验
-    .mob 平原陆行鸟
+    .xp 3+1150 >> Grind to 1150+/1400xp
+    .mob Plainstrider
 step
     #xprate >1.49
     #loop
@@ -198,119 +196,118 @@ step
 	.goto Mulgore,45.03,82.15,40,0
 	.goto Mulgore,44.09,83.89,40,0
 	.goto Mulgore,43.90,86.08,40,0
-    .xp 3+1025 >> 刷怪至3级至少1025/1400点经验
-    .mob 平原陆行鸟
+    .xp 3+1025 >> Grind to 1025+/1400xp
+    .mob Plainstrider
 step << Warrior/Druid
     #completewith GrullTurnin2
-    +|cRXP_WARN_击杀|cRXP_ENEMY_平原陆行鸟|r并拾取可售物品，直到总价值达到2银币|r
-    .mob 平原陆行鸟
+    +|cRXP_WARN_Grind |cRXP_ENEMY_Plainstriders|r. Loot them until you have 2 silver worth of vendor items|r
+    .mob Plainstrider
 	.money >0.02
 step << !Warrior !Druid
     #completewith next
-    +|cRXP_WARN_击杀|cRXP_ENEMY_平原陆行鸟|r并拾取可售物品，直到总价值达到1银币|r
-    .mob 平原陆行鸟
+    +|cRXP_WARN_Grind |cRXP_ENEMY_Plainstriders|r. Loot them until you have 1 silver worth of vendor items|r
+    .mob Plainstrider
     .money >0.01
 step
     #label GrullTurnin2
     .goto Mulgore,44.92,77.12
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_格鲁尔|r交谈
-    .turnin 750 >>交任务 继续狩猎
-    .accept 780 >>接受任务 斗猪
-    .target 格鲁尔·鹰风
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Grull|r
+    .turnin 750 >>Turn in The Hunt Continues
+    .accept 780 >>Accept The Battleboars
+    .target Grull Hawkwind
 step
     .goto Mulgore,45.30,76.52
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_卡文尼|r交谈
-    .vendor >> 出售垃圾物品
-    .target 卡文尼·柔风
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kawnie|r
+    .vendor >> Vendor Trash
+    .target Kawnie Softbreeze
 step
     .goto Mulgore,44.67,76.68
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_卫兵维萨罗·风羽|r交谈
-    .accept 3376 >>接受任务 刺鬃酋长
-    .target 卫兵维萨罗·风羽
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Brave|r
+    .accept 3376 >>Accept Break Sharptusk!
+    .target Brave Windfeather
 step << Warrior
     #season 2
     .goto Mulgore,44.02,76.14
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_哈鲁特·雷角|r交谈
-    .turnin 3091 >>交任务：简易便笺
-    .accept 77651 >>接任务：深入荆棘
-    .train 100 >> 学习 |T132337:0|t[冲锋]
-    .train 772 >> 学习 |T132155:0|t[撕裂]
-    .target 哈鲁特·雷角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Harutt|r
+    .turnin 3091 >>Turn in Simple Note
+    .accept 77651 >>Accept Into the Brambles
+    .train 100 >> Train |T132337:0|t[Charge]
+    .train 772 >> Train |T132155:0|t[Rend]
+    .target Harutt Thunderhorn
     .money <0.02
 step << Warrior
     #season 2
     .goto Mulgore,44.02,76.14
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_哈鲁特·雷角|r交谈
-    .turnin 3091 >>交任务：简易便笺
-    .accept 77651 >>接任务：深入荆棘
-    .train 772 >> 学习 |T132155:0|t[撕裂]
-    .target 哈鲁特·雷角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Harutt|r
+    .turnin 3091 >>Turn in Simple Note
+    .accept 77651 >>Accept Into the Brambles
+    .train 772 >> Train |T132155:0|t[Rend]
+    .target Harutt Thunderhorn
 step << Warrior
-    #season 0,1
+    #season 0
     .goto Mulgore,44.02,76.14
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_哈鲁特·雷角|r交谈
-    .turnin 3091 >>交任务：简易便笺
-    .train 100 >> 学习 |T132337:0|t[冲锋]
-    .train 772 >> 学习 |T132155:0|t[撕裂]
-    .target 哈鲁特·雷角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Harutt|r
+    .turnin 3091 >>Turn in Simple Note
+    .train 100 >> Train |T132337:0|t[Charge]
+    .train 772 >> Train |T132155:0|t[Rend]
+    .target Harutt Thunderhorn
     .money <0.02
 step << Warrior
-    #season 0,1
+    #season 0
     .goto Mulgore,44.02,76.14
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_哈鲁特·雷角|r交谈
-    .turnin 3091 >>交任务：简易便笺
-    .train 772 >> 学习 |T132155:0|t[撕裂]
-    .target 哈鲁特·雷角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Harutt|r
+    .turnin 3091 >>Turn in Simple Note
+    .train 772 >> Train |T132155:0|t[Rend]
+    .target Harutt Thunderhorn
 step << Hunter
     #season 2
     .goto Mulgore,44.26,75.70
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_兰卡|r交谈
-    .turnin 3092 >>交任务：风化便笺
-    .accept 77649 >>接任务：猎人的力量
-    .train 1978 >> 学习 |T132204:0|t[毒蛇钉刺]
-    .target 兰卡·远箭
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Lanka|r
+    .turnin 3092 >>Turn in Etched Note
+    .accept 77649 >>Accept A Hunter's Strength
+    .train 1978 >> Train |T132204:0|t[Serpent Sting]
+    .target Lanka Farshot
 step << Hunter
-    #season 0,1
+    #season 0
     .goto Mulgore,44.26,75.70
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_兰卡|r交谈
-    .turnin 3092 >>交任务：风化便笺
-    .train 1978 >> 学习 |T132204:0|t[毒蛇钉刺]
-    .target 兰卡·远箭
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Lanka|r
+    .turnin 3092 >>Turn in Etched Note
+    .train 1978 >> Train |T132204:0|t[Serpent Sting]
+    .target Lanka Farshot
 step << Druid
     #season 2
     .goto Mulgore,45.09,75.93
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_加尔特|r交谈
-    .turnin 3094 >>交任务：绿色便笺
-    .accept 77648 >>接任务：牛头人的圣物
-    .train 8921 >> 学习 |T136096:0|t[月火术]
-    .target 加尔特·迷雾行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gart|r
+    .turnin 3094 >>Turn in Verdant Note
+    .accept 77648 >>Accept Relics of the Tauren
+    .train 8921 >> Train |T136096:0|t[Moonfire]
+    .target Gart Mistrunner
 step << Druid
-    #season 0,1
+    #season 0
     .goto Mulgore,45.09,75.93
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_加尔特|r交谈
-    .turnin 3094 >>交任务：绿色便笺
-    .train 8921 >> 学习 |T136096:0|t[月火术]
-    .target 加尔特·迷雾行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gart|r
+    .turnin 3094 >>Turn in Verdant Note
+    .train 8921 >> Train |T136096:0|t[Moonfire]
+    .target Gart Mistrunner
 step << Shaman
     .goto Mulgore,44.73,76.18
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_鸦羽|r交谈
-    .accept 1519 >>接受任务 大地的召唤
-    .target 鸦羽先知
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ravenfeather|r
+    .accept 1519 >>Accept Call of Earth
+    .target Seer Ravenfeather
 step << Shaman
     #season 2
     .goto Mulgore,45.01,75.95
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_米拉·晨行者|r交谈
-    .turnin 3093 >>交任务 符文便笺
-    .accept 77652 >>接任务：力量圣像
-    .train 8042 >>学习|T136026:0|t[地震术]
-    .target 米拉·晨行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Meela|r
+    .turnin 3093 >>Turn in Rune-Inscribed Note
+    .train 8042 >>Train |T136026:0|t[Earth Shock]
+    .target Meela Dawnstrider
 step << Shaman
-    #season 0,1
+    #season 0
     .goto Mulgore,45.01,75.95
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_米拉·晨行者|r交谈
-    .turnin 3093 >>交任务 符文便笺
-    .train 8042 >>学习|T136026:0|t[地震术]
-    .target 米拉·晨行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Meela|r
+    .turnin 3093 >>Turn in Rune-Inscribed Note
+    .train 8042 >>Train |T136026:0|t[Earth Shock]
+    .target Meela Dawnstrider
 step
     #loop
     .goto Mulgore,55.99,85.46,0
@@ -326,123 +323,46 @@ step
     .goto Mulgore,57.69,86.77,50,0
     .goto Mulgore,57.31,85.39,50,0
     .goto Mulgore,55.99,85.46,50,0
-    >>击杀|cRXP_ENEMY_斗猪|r，拾取它们的|cRXP_LOOT_肋排|r和|cRXP_LOOT_鼻子|r
+    >>Kill |cRXP_ENEMY_Battleboars|r. Loot them for their |cRXP_LOOT_Flanks|r and |cRXP_LOOT_Snouts|r
     .complete 780,2 --Battleboar Flank (8)
     .complete 780,1 --Battleboar Snout (8)
-    .mob 斗猪
+    .mob Battleboar
 step
     #completewith BristlebackBelts
-    .goto Mulgore,59.67,83.33,30 >>穿过洞穴
+    .goto Mulgore,59.67,83.33,30 >>Travel through the cave
 step
     #completewith DirtyMap
-    >>击杀|cRXP_ENEMY_刺背野猪人|r，拾取它们的|cRXP_LOOT_腰带|r
+    >>Kill |cRXP_ENEMY_Bristleback Quilboars|r. Loot them for their |cRXP_LOOT_Belts|r
     .complete 757,1 --Bristleback Belt (12)
-    .mob 刺背野猪人
+    .mob Bristleback Quilboar
 step << Shaman
     #completewith DirtyMap
-    >>击杀|cRXP_ENEMY_刺背萨满祭司|r，拾取它们的|cRXP_LOOT_药膏|r
+    >>Kill |cRXP_ENEMY_Bristleback Shamans|r. Loot them for their |cRXP_LOOT_Salves|r
     .complete 1519,1 --Ritual Salve (2)
-    .mob 刺背萨满祭司
+    .mob Bristleback Shaman
 step
     .goto Mulgore,60.54,81.04,35,0
     .goto Mulgore,62.35,81.27,35,0
     .goto Mulgore,62.49,78.78,35,0
     .goto Mulgore,64.71,77.67
-    >>击杀大屋内的|cRXP_ENEMY_刺鬃酋长|r，拾取他的|cRXP_LOOT_头颅|r
+    >>Kill |cRXP_ENEMY_Chief Sharptusk Thornmantle|r inside the big hut. Loot him for his |cRXP_LOOT_Head|r
     .complete 3376,1 --Chief Sharptusk Thornmantle's Head (1)
-    .mob 刺鬃酋长
-step << Warrior
-    #season 2
-    .isOnQuest 77651
-    .goto Mulgore,61.62,76.04
-    >>拾取 |cRXP_PICK_刺背野猪人的宝箱|r，获得 |T134419:0|t[|cRXP_LOOT_乘胜追击符文|r]
-    .collect 204806,1,77651,1,4
-    .train 403470,1
-step << Warrior
-    #season 2
-    .isOnQuest 77651
-    .use 204806 >>使用 |T134419:0|t[|cRXP_LOOT_乘胜追击符文|r]，学习 |cRXP_WARN_铭刻手套 - 乘胜追击|r
-    .complete 77651,1
-    .train 403470,1
-step << Hunter
-    #season 2
-    .isOnQuest 77649
-    .goto Mulgore,63.81,76.65,40,0
-    .goto Mulgore,62.92,76.91,40,0
-    .goto Mulgore,61.31,77.22,40,0
-    .goto Mulgore,63.93,78.34
-    >>击杀 |cRXP_ENEMY_刺背斗猪|r，拾取 |T134419:0|t[|cRXP_LOOT_奇美拉符文|r]
-    .collect 206168,1,77649,1,4
-    .train 410121,1
-    .mob 刺背斗猪
-step << Hunter
-    #season 2
-    .isOnQuest 77649
-    .use 206168 >>使用 |T134419:0|t[|cRXP_LOOT_奇美拉符文|r]，学习 |cRXP_WARN_铭刻手套 - 奇美拉射击|r
-    .complete 77649,1
-    .train 410121,1
-step << Druid
-    #season 2
-    .isOnQuest 77648
-    .goto Mulgore,61.62,76.04
-    >>拾取 |cRXP_PICK_刺背野猪人的宝箱|r，获得 |T134903:0|t[|cRXP_LOOT_月光神像|r]
-    .collect 208414,1,77648,1,4
-    .train 410061,1
-step << Druid
-    #season 2
-    .isOnQuest 77648
-    .equip 18,208414 >>装备 |T134903:0|t[|cRXP_LOOT_月光神像|r]
-    .use 208414
-    .train 410061,1
-step << Druid
-    #season 2
-    #completewith BristlebackBelts
-    .isOnQuest 77648
-    >>装备神像后，击杀6只受到你的 |T136096:0|t[月火术] 影响的敌人
-    .use 208414 >>获得 |cRXP_WARN_灵感勃发|r 后，再次使用 |T134903:0|t[|cRXP_LOOT_月光神像|r]，学习 |cRXP_WARN_铭刻胸甲 - 怒风之怒|r
-    .complete 77648,1
-    .train 410061,1
-step << Shaman
-    #season 2
-    .isOnQuest 77652
-    .goto Mulgore,63.74,81.18,40,0
-    .goto Mulgore,65.00,78.60,40,0
-    .goto Mulgore,63.86,80.14
-    >>击杀 |cRXP_ENEMY_刺背萨满祭司|r，拾取 |T134918:0|t[|cRXP_LOOT_二价圣像|r]
-    .collect 206381,1,77652,1,4
-    .train 410094,1
-    .mob 刺背萨满祭司
-step << Shaman
-    #season 2
-    .isOnQuest 77652
-    .equip 18,206381 >>装备 |T134918:0|t[|cRXP_LOOT_二价圣像|r]
-    .use 206381
-    .train 410094,1
-step << Shaman
-    #season 2
-    #completewith BristlebackBelts
-    .isOnQuest 77652
-    >>装备圣像后，承受10次自然伤害；可让 |cRXP_ENEMY_刺背萨满祭司|r 对你施放 |T136048:0|t[闪电箭]
-    .use 206381 >>获得 |cRXP_WARN_灵感勃发|r 后，再次使用 |T134918:0|t[|cRXP_LOOT_二价圣像|r]，学习 |cRXP_WARN_铭刻胸甲 - 过载|r
-    .complete 77652,1
-    .train 410094,1
-    .mob 刺背萨满祭司
-
+    .mob Chief Sharptusk Thornmantle
 step
     #completewith next
-    .goto Mulgore,63.24,82.70,40 >>进入洞穴
+    .goto Mulgore,63.24,82.70,40 >>Enter the Cave
 step
     #label DirtyMap
     .goto Mulgore,63.24,82.70
-    >>拾取地上的|T134269:0|t[|cRXP_LOOT_沾满泥土的地图|r]，使用它接取任务
+    >>Loot the |T134269:0|t[|cRXP_LOOT_Dirt-stained Map|r] on the ground. Use it to start the quest
     .collect 4851,1,781 --Collect Dirt-Stained Map
-    .accept 781 >>接受任务 纳拉其营地的危机
+    .accept 781 >>Accept Attack on Camp Narache
     .use 4851
 step << Shaman
     #completewith next
-    >>击杀|cRXP_ENEMY_刺背萨满祭司|r，拾取它们的|cRXP_LOOT_药膏|r
+    >>Kill |cRXP_ENEMY_Bristleback Shamans|r. Loot them for their |cRXP_LOOT_Salves|r
     .complete 1519,1 --Ritual Salve (2)
-    .mob 刺背萨满祭司
+    .mob Bristleback Shaman
 step
     #label BristlebackBelts
     #loop
@@ -455,9 +375,9 @@ step
     .goto Mulgore,64.20,79.01,40,0
     .goto Mulgore,65.82,78.13,40,0
     .goto Mulgore,63.93,78.34,40,0
-    >>击杀|cRXP_ENEMY_刺背野猪人|r，拾取它们的|cRXP_LOOT_腰带|r
+    >>Kill |cRXP_ENEMY_Bristleback Quilboars|r. Loot them for their |cRXP_LOOT_Belts|r
     .complete 757,1 --Bristleback Belt (12)
-    .mob 刺背野猪人
+    .mob Bristleback Quilboar
 step << Shaman
     #loop
     .goto Mulgore,63.86,80.14,0
@@ -468,27 +388,9 @@ step << Shaman
     .goto Mulgore,65.93,77.10,40,0
     .goto Mulgore,63.57,76.25,40,0
     .goto Mulgore,63.86,80.14,40,0
-    >>击杀|cRXP_ENEMY_刺背萨满祭司|r，拾取它们的|cRXP_LOOT_药膏|r
+    >>Kill |cRXP_ENEMY_Bristleback Shamans|r. Loot them for their |cRXP_LOOT_Salves|r
     .complete 1519,1 --Ritual Salve (2)
-    .mob 刺背萨满祭司
-step << Druid
-    #season 2
-    .isOnQuest 77648
-    .goto Mulgore,63.93,78.34
-    >>若尚未学会符文，继续击杀受到你的 |T136096:0|t[月火术] 影响的敌人，累计6次
-    .use 208414 >>获得 |cRXP_WARN_灵感勃发|r 后，使用已装备的 |T134903:0|t[|cRXP_LOOT_月光神像|r]
-    .complete 77648,1
-    .train 410061,1
-step << Shaman
-    #season 2
-    .isOnQuest 77652
-    .goto Mulgore,63.86,80.14
-    >>若尚未学会符文，继续让 |cRXP_ENEMY_刺背萨满祭司|r 对你施放 |T136048:0|t[闪电箭]，承受的自然伤害累计达到10次
-    .use 206381 >>获得 |cRXP_WARN_灵感勃发|r 后，使用已装备的 |T134918:0|t[|cRXP_LOOT_二价圣像|r]
-    .complete 77652,1
-    .train 410094,1
-    .mob 刺背萨满祭司
-
+    .mob Bristleback Shaman
 step
     #xprate <1.5
     #loop
@@ -503,8 +405,8 @@ step
     .goto Mulgore,60.08,81.93,40,0
     .goto Mulgore,61.03,82.32,40,0
     .goto Mulgore,62.27,82.03,40,0
-    .xp 5+880 >> 刷怪至5级至少880/2800点经验 << !Shaman
-    .xp 5 >> 刷怪升至5级 << Shaman
+    .xp 5+880 >> Grind to 880+/2800xp << !Shaman
+    .xp 5 >> Grind to level 5 << Shaman
 step
     #xprate >1.49
     #loop
@@ -519,284 +421,276 @@ step
     .goto Mulgore,60.08,81.93,40,0
     .goto Mulgore,61.03,82.32,40,0
     .goto Mulgore,62.27,82.03,40,0
-    .xp 5 >> 刷怪升至5级 << !Shaman
-    .xp 4+700 >> 刷怪至4级700/2100点经验 << Shaman
+    .xp 5 >> Grind to level 5 << !Shaman
+    .xp 4+700 >> Grind to 700/2100xp << Shaman
 step
     #completewith next
-    .hs >> 使用炉石返回纳拉其营地
+    .hs >> Hearth to Camp Narache
     .use 6948
 step
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_格鲁尔|r、|cRXP_FRIENDLY_卫兵维萨罗·风羽|r和|cRXP_FRIENDLY_鹰风|r交谈 << !Shaman
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_格鲁尔|r、|cRXP_FRIENDLY_卫兵维萨罗·风羽|r、|cRXP_FRIENDLY_先知|r和|cRXP_FRIENDLY_鹰风|r交谈 << Shaman
-    .turnin 780 >>交任务 斗猪
-    .target +格鲁尔·鹰风
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Grull|r, |cRXP_FRIENDLY_Brave|r and |cRXP_FRIENDLY_Hawkwind|r << !Shaman
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Grull|r, |cRXP_FRIENDLY_Brave|r, |cRXP_FRIENDLY_Seer|r and |cRXP_FRIENDLY_Hawkwind|r << Shaman
+    .turnin 780 >>Turn in The Battleboars
+    .target +Grull Hawkwind
     .goto Mulgore,44.92,77.12
-    .turnin 3376 >>交任务 刺鬃酋长
-    .target +卫兵维萨罗·风羽
+    .turnin 3376 >>Turn in Break Sharptusk!
+    .target +Brave Windfeather
     .goto Mulgore,44.67,76.68
-    .turnin 1519 >>交任务 大地的召唤 << Shaman
-    .accept 1520 >>接受任务 大地的召唤 << Shaman
-    .target +鸦羽先知 << Shaman
+    .turnin 1519 >>Turn in Call of Earth << Shaman
+    .accept 1520 >>Accept Call of Earth << Shaman
+    .target +Seer Ravenfeather << Shaman
     .goto Mulgore,44.73,76.18 << Shaman
-    .turnin 781 >>交任务 纳拉其营地的危机
-    .turnin 757 >>交任务 力量仪祭
-    .accept 763 >>接受任务 大地之母仪祭
-    .target +鹰风酋长
+    .turnin 781 >>Turn in Attack on Camp Narache
+    .turnin 757 >>Turn in Rite of Strength
+    .accept 763 >>Accept Rites of the Earthmother
+    .target +Chief Hawkwind
     .goto Mulgore,44.18,76.07
 step << Shaman
-    .isOnQuest 1520
     #completewith CallofEarth
     #label Rock
-    .goto Mulgore,53.74,80.15,30 >> 前往岩石方向
+    .goto Mulgore,53.74,80.15,30 >> Travel toward the rock
 step << Shaman
-    .isOnQuest 1520
     #completewith next
     #requires Rock
-    .cast 8202 >>|cRXP_WARN_使用|r |T134743:0|t[大地灵契]
+    .cast 8202 >>|cRXP_WARN_Use the|r |T134743:0|t[Earth Sapta]
     .use 6635
 step << Shaman
-    #label CallofEarth
     .goto Mulgore,53.74,80.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_大地之魂|r交谈
-    .turnin 1520 >>交任务 大地的召唤
-    .accept 1521 >>接受任务 大地的召唤
-    .target 大地之魂
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to the |cRXP_FRIENDLY_Manifestation|r
+    .turnin 1520 >>Turn in Call of Earth
+    .accept 1521 >>Accept Call of Earth
+    .target Minor Manifestation of Earth
 step << Shaman
     .goto Mulgore,44.73,76.18
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_鸦羽|r交谈
-    .turnin 1521 >>交任务 大地的召唤
-    .target 鸦羽先知
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ravenfeather|r
+    .turnin 1521 >>Turn in Call of Earth
+    .target Seer Ravenfeather
 step << Shaman
     #season 2
     .goto Mulgore,45.01,75.95
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_米拉·晨行者|r交谈
-    .turnin 77652 >>交任务 力量圣像
-    .train 332 >>学习 |T136052:0|t[治疗波]
-    .target 米拉·晨行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Meela|r
+    .turnin 77652 >>Turn in Icons of Power
+    .train 332 >>Train |T136052:0|t[Healing Wave]
+    .target Shikrik
+    .target Meela Dawnstrider
 step << Shaman
-    #season 0,1
+    #season 0
     .goto Mulgore,45.01,75.95
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_米拉·晨行者|r交谈
-    .train 332 >>学习 |T136052:0|t[治疗波]
-    .target 米拉·晨行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Meela|r
+    .train 332 >>Train |T136052:0|t[Healing Wave]
+    .target Shikrik
+    .target Meela Dawnstrider
 step << Hunter
     #season 2
     .goto Mulgore,44.26,75.70
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_兰卡|r交谈
-    .train 1130 >>学习 |T132212:0|t[猎人印记]
-    .train 3044 >>学习 |T132218:0|t[奥术射击]
-    .turnin 77649 >>交任务 猎人的力量
-    .target 兰卡·远箭
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Lanka|r
+    .train 1130 >>Train |T132212:0|t[Hunter's Mark]
+    .train 3044 >>Train |T132218:0|t[Arcane Shot]
+    .turnin 77649 >>Turn in A Hunter's Strength
+    .target Lanka Farshot
     .money <0.02
 step << Hunter
     #season 2
     .goto Mulgore,44.26,75.70
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_兰卡|r交谈
-    .train 3044 >>学习 |T132218:0|t[奥术射击]
-    .turnin 77649 >>交任务 猎人的力量
-    .target 兰卡·远箭
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Lanka|r
+    .train 3044 >>Train |T132218:0|t[Arcane Shot]
+    .turnin 77649 >>Turn in A Hunter's Strength
+    .target Lanka Farshot
 step << Hunter
-    #season 0,1
+    #season 0
     .goto Mulgore,44.26,75.70
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_兰卡|r交谈
-    .train 1130 >>学习 |T132212:0|t[猎人印记]
-    .train 3044 >>学习 |T132218:0|t[奥术射击]
-    .target 兰卡·远箭
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Lanka|r
+    .train 1130 >>Train |T132212:0|t[Hunter's Mark]
+    .train 3044 >>Train |T132218:0|t[Arcane Shot]
+    .target Lanka Farshot
     .money <0.02
 step << Hunter
-    #season 0,1
+    #season 0
     .goto Mulgore,44.26,75.70
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_兰卡|r交谈
-    .train 3044 >>学习 |T132218:0|t[奥术射击]
-    .target 兰卡·远箭
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Lanka|r
+    .train 3044 >>Train |T132218:0|t[Arcane Shot]
+    .target Lanka Farshot
 step << Druid
     #season 2
     .goto Mulgore,45.09,75.93
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_加尔特|r交谈
-    .train 467 >>学习 |T136104:0|t[荆棘术]
-    .train 5177 >>学习 |T136006:0|t[愤怒]
-    .turnin 77648 >>交任务 牛头人的圣物
-    .target 加尔特·迷雾行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gart|r
+    .train 467 >>Train |T136104:0|t[Thorns]
+    .train 5177 >>Train |T136006:0|t[Wrath]
+    .turnin 77648 >>Turn in Relics of the Tauren
+    .target Gart Mistrunner
     .money <0.02
 step << Druid
     #season 2
     .goto Mulgore,45.09,75.93
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_加尔特|r交谈
-    .train 5177 >>学习 |T136006:0|t[愤怒]
-    .turnin 77648 >>交任务 牛头人的圣物
-    .target 加尔特·迷雾行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gart|r
+    .train 5177 >>Train |T136006:0|t[Wrath]
+    .turnin 77648 >>Turn in Relics of the Tauren
+    .target Gart Mistrunner
 step << Druid
-    #season 0,1
+    #season 0
     .goto Mulgore,45.09,75.93
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_加尔特|r交谈
-    .train 467 >>学习 |T136104:0|t[荆棘术]
-    .train 5177 >>学习 |T136006:0|t[愤怒]
-    .target 加尔特·迷雾行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gart|r
+    .train 467 >>Train |T136104:0|t[Thorns]
+    .train 5177 >>Train |T136006:0|t[Wrath]
+    .target Gart Mistrunner
     .money <0.02
 step << Druid
-    #season 0,1
+    #season 0
     .goto Mulgore,45.09,75.93
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_加尔特|r交谈
-    .train 5177 >>学习 |T136006:0|t[愤怒]
-    .target 加尔特·迷雾行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gart|r
+    .train 5177 >>Train |T136006:0|t[Wrath]
+    .target Gart Mistrunner
 step << Warrior
     #season 2
     .goto Mulgore,44.02,76.14
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_哈鲁特·雷角|r交谈
-    .train 3127 >>学习 |T132269:0|t[招架]
-    .train 6343 >>学习 |T136105:0|t[雷霆一击]
-    .turnin 77651 >>交任务 深入荆棘
-    .target 哈鲁特·雷角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Harutt|r
+    .train 3127 >>Train |T132269:0|t[Parry]
+    .train 6343 >>Train |T136105:0|t[Thunder Clap]
+    .turnin 77651 >>Turn in Into the Brambles
+    .target Harutt Thunderhorn
     .money <0.02
 step << Warrior
     #season 2
     .goto Mulgore,44.02,76.14
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_哈鲁特·雷角|r交谈
-    .train 3127 >>学习 |T132269:0|t[招架]
-    .turnin 77651 >>交任务 深入荆棘
-    .target 哈鲁特·雷角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Harutt|r
+    .train 3127 >>Train |T132269:0|t[Parry]
+    .turnin 77651 >>Turn in Into the Brambles
+    .target Harutt Thunderhorn
 step << Warrior
-    #season 0,1
+    #season 0
     .goto Mulgore,44.02,76.14
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_哈鲁特·雷角|r交谈
-    .train 3127 >>学习 |T132269:0|t[招架]
-    .train 6343 >>学习 |T136105:0|t[雷霆一击]
-    .target 哈鲁特·雷角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Harutt|r
+    .train 3127 >>Train |T132269:0|t[Parry]
+    .train 6343 >>Train |T136105:0|t[Thunder Clap]
+    .target Harutt Thunderhorn
     .money <0.02
 step << Warrior
-    #season 0,1
+    #season 0
     .goto Mulgore,44.02,76.14
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_哈鲁特·雷角|r交谈
-    .train 3127 >>学习 |T132269:0|t[招架]
-    .target 哈鲁特·雷角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Harutt|r
+    .train 3127 >>Train |T132269:0|t[Parry]
+    .target Harutt Thunderhorn
 step
     .goto Mulgore,38.51,81.54
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_安图尔·荒野|r交谈
-    .accept 1656 >>接受任务 未完的任务
-    .target 安图尔·荒野
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Antur|r
+    .accept 1656 >>Accept A Task Unfinished
+    .target Antur Fallow
 ]])
+
+
 RXPGuides.RegisterGuide([[
-#groupweight 500
-#groupdisplayname RestedXP 经典旧世 1-60（部落）
 #classic
 #tbc
 #xprate <1.99
 << Horde
 #name 6-12 Mulgore
-#title 莫高雷
 #version 11
 #group RestedXP Horde 1-22
-#subgroupdisplayname 1-22 << tbc
-#subgroupdisplayname 1-22
 #groupid RXP-SRGCE-H1
 #defaultfor Tauren
 #next 12-17 The Barrens
-#displayname 6-12 莫高雷
+
+
 step << Druid
     #season 2
     .goto Mulgore,35.72,69.57
-    >>|cRXP_WARN_施放|r |T136096:0|t[月火术] |cRXP_WARN_，目标是三块|r |cRXP_ENEMY_月亮石|r|cRXP_WARN_。石头之间会出现一个宝箱|r
-    >>打开 |cRXP_PICK_月亮宝箱|r，拾取 |T134419:0|t[|cRXP_FRIENDLY_日灼符文|r]
+    >>|cRXP_WARN_Cast|r |T136096:0|t[Moonfire] |cRXP_WARN_on the three|r |cRXP_ENEMY_Lunar Stones|r|cRXP_WARN_. A chest will appear in between the stones|r
+    >>Open the |cRXP_PICK_Lunar Chest|r for |T134419:0|t[|cRXP_FRIENDLY_Rune of the Sun|r]
     .collect 206989,1 --Rune of the Sun (1)
-    .mob 月亮石
+    .mob Lunar Stone
     .train 416044,1
 step << Druid
     #season 2
-    .train 416044 >> |cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_日灼符文|r] |cRXP_WARN_学习|r |T236216:0|t[阳炎术]
+    .train 416044 >> |cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of the Sun|r] |cRXP_WARN_to train|r |T236216:0|t[Sunfire]
     .use 206989
     .itemcount 206989,1
 step
 	#completewith BloodhoofHome
 	#softcore
-    .deathskip >> 死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处复活
+    .deathskip >> Die and respawn at the |cRXP_FRIENDLY_Spirit Healer|r
 step
 	#hardcore
 	#completewith BloodhoofHome
-    .goto Mulgore,47.35,60.70,120 >> 跑到血蹄村
+    .goto Mulgore,47.35,60.70,120 >> Run to Bloodhoof Village
     .subzoneskip 222
 step
     #softcore
     .goto Mulgore,46.97,57.07
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_茂尔|r 交谈
-    .accept 766 >>接任务：马兹拉纳其
-    .target 茂尔·祈雨
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Maur|r
+    .accept 766 >>Accept Mazzranache
+    .target Maur Raincaller
 step
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_卢尔·鹰爪|r 和 |cRXP_FRIENDLY_贝恩·血蹄|r 交谈
-    .accept 743 >>接任务：风怒鹰身人
-    .target +卢尔·鹰爪
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ruul|r and |cRXP_FRIENDLY_Baine|r
+    .accept 743 >>Accept Dangers of the Windfury
+    .target +Ruul Eagletalon
     .goto Mulgore,47.36,62.01
-    .turnin -763 >>交任务：大地之母仪祭
-    .accept 745 >>接任务：土地之争
-    .accept 767 >>接任务：幻象仪祭
-    .accept 746 >>接任务：矮人的挖掘场
-    .target +贝恩·血蹄
+    .turnin 763 >>Turn in Rites of the Earthmother
+    .accept 745 >>Accept Sharing the Land
+    .accept 767 >>Accept Rite of Vision
+    .accept 746 >>Accept Dwarven Digging
+    .target +Baine Bloodhoof
     .goto Mulgore,47.51,60.16
 step
     #label BloodhoofHome
     .goto Mulgore,46.63,61.09
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_旅店老板考乌斯|r 交谈
-    .turnin -1656 >>交任务：未完的任务
-    .target 旅店老板考乌斯
-step
-    .goto Mulgore,46.63,61.09
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_旅店老板考乌斯|r 交谈
-    .home 222 >>将炉石绑定到血蹄村
-    .target 旅店老板考乌斯
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Innkeeper Kauth|r
+    .turnin 1656 >>Turn in A Task Unfinished
+    .home >>Set your Hearthstone to Bloodhoof Village
+    .target Innkeeper Kauth
     .bindlocation 222
     .subzoneskip 222,1
-
 step << Shaman/Druid
     .goto Mulgore,45.66,58.60
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_玛诺特|r 交谈
-    .vendor >> 出售垃圾物品。如果卖掉武器后就有足够的钱购买 |T135145:0|t[学徒短杖]（5银04铜），就卖掉武器。如果钱还不够，稍后再来
-    .target 玛诺特·深痕
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mahnott|r
+    .vendor >> Vendor trash. Sell your weapon if it gives you enough money for a |T135145:0|t[Walking Stick] (5s 04c). You'll come back later if you don't have enough yet
+    .target Mahnott Roughwound
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.2
 step << Shaman/Druid
     .goto Mulgore,45.66,58.60
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r |cRXP_FRIENDLY_玛诺特|r|cRXP_BUY_交谈，向其购买|r |T135145:0|t[学徒短杖] |cRXP_BUY_。|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Mahnott|r|cRXP_BUY_. Buy a|r |T135145:0|t[Walking Stick] |cRXP_BUY_from him|r
     .collect 2495,1,761,1 --Collect Walking Stick (1)
     .money <0.0504
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.2
 step << Warrior
     .goto Mulgore,45.66,58.60
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_玛诺特|r 交谈
-    .vendor >> 出售垃圾物品。如果卖掉武器后就有足够的钱购买 |T133053:0|t[木槌棒]（7银1铜），就卖掉武器。如果钱还不够，稍后再来
-    .target 玛诺特·深痕
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mahnott|r
+    .vendor >> Vendor trash. Sell your weapon if it gives you enough money for a |T133053:0|t[Wooden Mallet] (7s 1c). You'll come back later if you don't have enough yet
+    .target Mahnott Roughwound
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.9
 step << Warrior
     .goto Mulgore,45.66,58.60
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r |cRXP_FRIENDLY_玛诺特|r|cRXP_BUY_交谈，再向他购买|r |T133053:0|t[木槌棒]|cRXP_BUY_。|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Mahnott|r|cRXP_BUY_. Buy a|r |T133053:0|t[Wooden Mallet] |cRXP_BUY_from him|r
     .collect 2493,1,761,1 --Collect Wooden Mallet (1)
     .money <0.0701
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.9
 step << Hunter
     .goto Mulgore,45.50,58.47
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_肯纳|r 交谈
-    .vendor >> 出售垃圾物品。如果卖掉武器后就有足够的钱购买 |T135611:0|t[精制短枪]（4银14铜），就卖掉武器。如果钱还不够，稍后再来
-    .target 肯纳·鹰眼
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kennah|r
+    .vendor >> Vendor trash. Sell your weapon if it gives you enough money for a |T135611:0|t[Ornate Blunderbuss] (4s 14c). You'll come back later if you don't have enough yet
+    .target Kennah Hawkseye
     .itemStat 18,QUALITY,<7
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<3.0
 step << Hunter
     .goto Mulgore,45.50,58.47
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r |cRXP_FRIENDLY_肯纳·鹰眼|r|cRXP_BUY_交谈，再向她购买|r |T135611:0|t[精制短枪]|cRXP_BUY_。|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Kennah|r|cRXP_BUY_. Buy a|r |T135611:0|t[Ornate Blunderbuss] |cRXP_BUY_from him|r
     .collect 2509,1,761,1 --Collect Ornate Blunderbuss (1)
     .money <0.0414
     .itemStat 18,QUALITY,<7
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<3.0
 step << Hunter
     .goto Mulgore,45.50,58.47
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r |cRXP_FRIENDLY_肯纳|r 交谈
-    >>|cRXP_BUY_购买|r |T132384:0|t[轻弹丸] |cRXP_BUY_。|r << Hunter
-    .collect 2516,1000,761,1 << Hunter --Light Shot (1000)
-    .target 肯纳·鹰眼
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Kennah|r
+    >>|cRXP_BUY_Buy|r |T132384:0|t[Light Shots] |cRXP_BUY_from him|r << Hunter
+    .collect 2516,1000,750,1 << Hunter --Light Shot (1000)
+    .target Kennah Hawkseye
 step << Shaman/Druid
     #optional
     #completewith Well
-    +|cRXP_WARN_装备|r |T135145:0|t[学徒短杖]
+    +|cRXP_WARN_Equip the|r |T135145:0|t[Walking Stick]
     .use 2495
     .itemcount 2495,1
     .itemStat 16,QUALITY,<7
@@ -804,7 +698,7 @@ step << Shaman/Druid
 step << Warrior
     #optional
     #completewith Well
-    +|cRXP_WARN_装备|r |T133053:0|t[木槌棒]
+    +|cRXP_WARN_Equip the|r |T133053:0|t[Wooden Mallet]
     .use 2493
     .itemcount 2493,1
     .itemStat 16,QUALITY,<7
@@ -812,65 +706,65 @@ step << Warrior
 step << Hunter
     #optional
     #completewith Well
-    +|cRXP_WARN_装备|r |T135611:0|t[精制短枪]
+    +|cRXP_WARN_Equip the|r |T135611:0|t[Ornate Blunderbuss]
     .use 2509
     .itemcount 2509,1
     .itemStat 18,QUALITY,<7
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<3.0
 step << Tauren
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_茂尔|r、|cRXP_FRIENDLY_扎尔曼·双月|r、|cRXP_FRIENDLY_哈肯·风之图腾|r 和 |cRXP_FRIENDLY_穆尔|r 交谈
-    .accept 766 >>接任务：马兹拉纳其
-    .target +茂尔·祈雨
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Maur|r, |cRXP_FRIENDLY_Zarlman|r, |cRXP_FRIENDLY_Harken|r and |cRXP_FRIENDLY_Mull|r
+    .accept 766 >>Accept Mazzranache
+    .target +Maur Raincaller
     .goto Mulgore,46.97,57.07
-    .turnin 767 >>交任务：幻象仪祭
-    .accept 771 >>接任务：幻象仪祭
-    .target +扎尔曼·双月
+    .turnin 767 >>Turn in Rite of Vision
+    .accept 771 >>Accept Rite of Vision
+    .target +Zarlman Two-Moons
     .goto Mulgore,47.76,57.53
-    .accept 761 >>接任务：猎捕猛鹫
-    .target +哈肯·风之图腾
+    .accept 761 >>Accept Swoop Hunting
+    .target +Harken Windtotem
     .goto Mulgore,48.71,59.32
-    .accept 748 >>接任务：毒水
-    .target +穆尔·雷角
+    .accept 748 >>Accept Poison Water
+    .target +Mull Thunderhorn
     .goto Mulgore,48.53,60.40
 step << !Tauren
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_茂尔|r、|cRXP_FRIENDLY_扎尔曼·双月|r 和 |cRXP_FRIENDLY_哈肯·风之图腾|r 交谈
-    .accept 766 >>接任务：马兹拉纳其
-    .target +茂尔·祈雨
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Maur|r, |cRXP_FRIENDLY_Zarlman|r and |cRXP_FRIENDLY_Harken|r
+    .accept 766 >>Accept Mazzranache
+    .target +Maur Raincaller
     .goto Mulgore,46.97,57.07
-    .turnin 767 >>交任务：幻象仪祭
-    .accept 771 >>接任务：幻象仪祭
-    .target +扎尔曼·双月
+    .turnin 767 >>Turn in Rite of Vision
+    .accept 771 >>Accept Rite of Vision
+    .target +Zarlman Two-Moons
     .goto Mulgore,47.76,57.53
-    .accept 761 >>接任务：猎捕猛鹫
-    .target +哈肯·风之图腾
+    .accept 761 >>Accept Swoop Hunting
+    .target +Harken Windtotem
     .goto Mulgore,48.71,59.32
 step
     #sticky
     #completewith Well
-    >>|cRXP_WARN_在这片区域做任务时顺手收集马兹拉纳其所需的物品|r
+    >>|cRXP_WARN_Get the items for Mazzranache as you quest throughout the zone|r
     .complete 766,1 --Prairie Wolf Heart (1)
     .complete 766,2 --Flatland Cougar Femur (1)
     .complete 766,3 --Plainstrider Scale (1)
     .complete 766,4 --Swoop Gizzard (1)
 step << Tauren
     #completewith Ambercorns
-    >>击杀 |cRXP_ENEMY_草原狼|r 和 |cRXP_ENEMY_成年平原陆行鸟|r，拾取它们的 |cRXP_LOOT_狼爪|r 和 |cRXP_LOOT_利爪|r
+    >>Kill |cRXP_ENEMY_Prairie Wolves|r and |cRXP_ENEMY_Adult Plainstriders|r. Loot them for their |cRXP_LOOT_Paws|r and |cRXP_LOOT_Talons|r
     .complete 748,1 --Prairie Wolf Paw (6)
-    .mob +草原狼
+    .mob +Prairie Wolf
     .complete 748,2 --Plainstrider Talon (4)
-    .mob +成年平原陆行鸟
+    .mob +Adult Plainstrider
 step << Hunter
     #season 2
     .goto Mulgore,59.02,54.36
-    >>施放 |T132212:0|t[猎人印记]，目标是 |cRXP_ENEMY_沙沙响的草丛|r
-    >>击杀出现的 |cRXP_ENEMY_风险投资公司偷猎者|r，拾取 |T134419:0|t[|cRXP_FRIENDLY_神射手符文|r]
+    >>Cast |T132212:0|t[Hunter's Mark] on the |cRXP_ENEMY_Rustling Bush|r
+    >>Kill the |cRXP_ENEMY_Venture Co. Poacher|r that spawns. Loot him for |T134419:0|t[|cRXP_FRIENDLY_Rune of Marksmanship|r]
     .collect 206155,1 --Rune of Marksmanship (1)
-    .mob 沙沙响的草丛
-    .mob 风险投资公司偷猎者
+    .mob Rustling Bush
+    .mob Venture Co. Poacher
     .train 410113,1
 step << Hunter
     #season 2
-    .train 410113 >>使用 |T134419:0|t[|cRXP_FRIENDLY_神射手符文|r]
+    .train 410113 >>Use the |T134419:0|t[|cRXP_FRIENDLY_Rune of Marksmanship|r]
     .use 206155
     .itemcount 206155,1
 step
@@ -882,14 +776,14 @@ step
     .goto Mulgore,51.92,63.85,15,0
     .goto Mulgore,51.13,71.06,15,0
     .goto Mulgore,50.36,66.49,15,0
-    >>收集 |cRXP_PICK_琥珀颗粒|r，可以在树下的地面上找到
+    >>Collect the |cRXP_PICK_Ambercorns|r. They can be found under the trees on the ground
     .complete 771,2 --Ambercorn (2)
 step
 	#completewith next
-	>>在莫高雷击杀各处的 |cRXP_ENEMY_猛鹫|r, 搜刮 |cRXP_LOOT_羽毛|r
+	>>Kill |cRXP_ENEMY_Swoops|r throughout Mulgore. Loot them for their |cRXP_LOOT_Quills|r
     .complete 761,1 --Trophy Swoop Quill (8)
-    .mob 消瘦的猛鹫
-    .mob 猛鹫
+    .mob Wiry Swoop
+    .mob Swoop
 step << Tauren
     #loop
 	.goto Mulgore,50.82,66.66,0
@@ -906,30 +800,27 @@ step << Tauren
 	.goto Mulgore,48.60,69.43,50,0
 	.goto Mulgore,45.98,69.70,50,0
 	.goto Mulgore,48.58,67.37,50,0
-    >>击杀 |cRXP_ENEMY_草原狼|r 和 |cRXP_ENEMY_成年平原陆行鸟|r，拾取它们的 |cRXP_LOOT_狼爪|r 和 |cRXP_LOOT_利爪|r
+    >>Kill |cRXP_ENEMY_Prairie Wolves|r and |cRXP_ENEMY_Adult Plainstriders|r. Loot them for their |cRXP_LOOT_Paws|r and |cRXP_LOOT_Talons|r
     .complete 748,1 --Prairie Wolf Paw (6)
-    .mob +草原狼
+    .mob +Prairie Wolf
     .complete 748,2 --Plainstrider Talon (4)
-    .mob +成年平原陆行鸟
+    .mob +Adult Plainstrider
 step << Tauren
     .goto Mulgore,48.53,60.40
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_穆尔|r 交谈
-    .turnin 748 >>交任务：毒水
-    .timer 8,毒水剧情演出
-    .accept 754 >>接任务：净化冰蹄之井
-    .target 穆尔·雷角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mull|r
+    .turnin 748 >>Turn in Poison Water
+    .timer 8,Poison Water RP
+    .accept 754 >>Accept Winterhoof Cleansing
+    .target Mull Thunderhorn
 step << Tauren
     #completewith next
-    >>收集水井周围的 |cRXP_PICK_水井石|r
+    >>Collect the |cRXP_PICK_Well Stones|r around the Well
     .complete 771,1 --Well Stone (2)
 step << Tauren
-    .goto Mulgore,53.68,66.28
-    >>|cRXP_WARN_使用|r |T135139:0|t[冰蹄之井净化图腾] |cRXP_WARN_，在水井处使用|r
-    .complete 754,1 --Cleanse the Winterhoof Water Well (1)
-step
-    #optional
     #label Well
-
+    .goto Mulgore,53.68,66.28
+    >>|cRXP_WARN_Use the|r |T135139:0|t[Winterhoof Cleansing Totem] |cRXP_WARN_at the Well|r
+    .complete 754,1 --Cleanse the Winterhoof Water Well (1)
 step
     #label Stones
     #loop
@@ -938,34 +829,32 @@ step
     .goto Mulgore,53.70,65.59,10,0
     .goto Mulgore,53.98,65.94,10,0
     .goto Mulgore,54.06,66.40,10,0
-    >>收集水井周围的 |cRXP_PICK_水井石|r
+    >>Collect the |cRXP_PICK_Well Stones|r around the Well
     .complete 771,1 --Well Stone (2)
 step
     #completewith Gnolls
-    >>|cRXP_WARN_在这片区域做任务时顺手收集马兹拉纳其所需的物品|r
+    >>|cRXP_WARN_Get the items for Mazzranache as you quest throughout the zone|r
     .complete 766,1 --Prairie Wolf Heart (1)
     .complete 766,2 --Flatland Cougar Femur (1)
     .complete 766,3 --Plainstrider Scale (1)
     .complete 766,4 --Swoop Gizzard (1)
 step << Warrior
     #season 2
-    .itemcount 204690,<1
-    .itemcount 204703,<1
     #loop
     .goto Mulgore,53.5,73.0,0
     .goto Mulgore,48.3,72.0,0
     .goto Mulgore,53.5,73.0,90,0
     .goto Mulgore,48.3,72.0,90,0
-    >>在两个营地间来回清理。击杀 |cRXP_ENEMY_白鬃制革工|r、|cRXP_ENEMY_白鬃剥皮工|r 和 |cRXP_ENEMY_白鬃偷猎者|r，拾取 |cRXP_LOOT_被砍下的豺狼人的头|r
-    >>|cRXP_WARN_小心|r |cRXP_ENEMY_断矛|r|cRXP_WARN_（9级稀有怪），它的难度太高，不宜击杀|r
+    >>Go back and forth between the two camps. Kill |cRXP_ENEMY_Palemane Tanners|r, |cRXP_ENEMY_Palemane Skinners|r and |cRXP_ENEMY_Palemane Poachers|r. Loot them for a |cRXP_LOOT_Severed Gnoll Head|r
+    >>|cRXP_WARN_Be careful of|r |cRXP_ENEMY_Snagglespear|r |cRXP_WARN_(Level 9 rare). He's too difficult to kill.|r
     .complete 745,1 --Palemane Tanner (10)
-    .mob +白鬃制革工
+    .mob +Palemane Tanner
     .complete 745,2 --Palemane Skinner (8)
-    .mob +白鬃剥皮工
+    .mob +Palemane Skinner
     .complete 745,3 --Palemane Poacher (5)
-    .mob +白鬃偷猎者
+    .mob +Palemane Poacher
     .collect 204478,1 --Severed Gnoll Head (1)
-    .unitscan 断矛
+    .unitscan Snagglespear
     .train 403475,1
 step
     #label Gnolls
@@ -974,83 +863,83 @@ step
     .goto Mulgore,48.3,72.0,0
     .goto Mulgore,53.5,73.0,90,0
     .goto Mulgore,48.3,72.0,90,0
-    >>在两个营地之间来回穿梭, 击杀 |cRXP_ENEMY_白鬃制革工|r、|cRXP_ENEMY_白鬃剥皮工|r 和 |cRXP_ENEMY_白鬃偷猎者|r
-    >>|cRXP_WARN_小心|r |cRXP_ENEMY_断矛|r|cRXP_WARN_（9级稀有怪），它的难度太高，不宜击杀|r
+    >>Go back and forth between the two camps. Kill |cRXP_ENEMY_Palemane Tanners|r, |cRXP_ENEMY_Palemane Skinners|r and |cRXP_ENEMY_Palemane Poachers|r
+    >>|cRXP_WARN_Be careful of|r |cRXP_ENEMY_Snagglespear|r |cRXP_WARN_(Level 9 rare). He's too difficult to kill.|r
     .complete 745,1 --Palemane Tanner (10)
-    .mob +白鬃制革工
+    .mob +Palemane Tanner
     .complete 745,2 --Palemane Skinner (8)
-    .mob +白鬃剥皮工
+    .mob +Palemane Skinner
     .complete 745,3 --Palemane Poacher (5)
-    .mob +白鬃偷猎者
-    .unitscan 断矛
+    .mob +Palemane Poacher
+    .unitscan Snagglespear
 step
     .goto Mulgore,47.63,61.49
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_加纳|r 交谈
-    >>|cRXP_BUY_购买|r |T132815:0|t[冰镇牛奶] |cRXP_BUY_。|r << Shaman/Druid
-    >>|cRXP_BUY_购买|r |T133968:0|t[刚出炉的面包] |cRXP_BUY_。|r << Warrior
-    .vendor >> 出售垃圾物品
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Jhawna|r
+    >>|cRXP_BUY_Buy|r |T132815:0|t[Ice Cold Milk] |cRXP_BUY_from her|r << Shaman/Druid
+    >>|cRXP_BUY_Buy|r |T133968:0|t[Freshly Baked Bread] |cRXP_BUY_from her|r << Warrior
+    .vendor >> Vendor trash
     .collect 1179,10,746,1 << Shaman/Druid --Ice Cold Milk (10)
     .collect 4541,10,746,1 << Warrior --Freshly Baked Bread (10)
-    .target 加纳·麦风
+    .target Jhawna Oatwind
     .money <0.025
 step << Tauren
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_穆尔|r 和 |cRXP_FRIENDLY_贝恩·血蹄|r 交谈
-    .turnin 754 >>交任务：净化冰蹄之井
-    .accept 756 >>接任务：雷角图腾
-    .target +穆尔·雷角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mull|r and |cRXP_FRIENDLY_Baine|r
+    .turnin 754 >>Turn in Winterhoof Cleansing
+    .accept 756 >>Accept Thunderhorn Totem
+    .target +Mull Thunderhorn
     .goto Mulgore,48.53,60.40
-    .turnin 745 >>交任务：土地之争
-    .target +贝恩·血蹄
+    .turnin 745 >>Turn in Sharing the Land
+    .target +Baine Bloodhoof
     .goto Mulgore,47.51,60.16
 step << !Tauren
     .goto Mulgore,47.51,60.16
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_贝恩·血蹄|r 交谈
-    .turnin 745 >>交任务：土地之争
-    .target 贝恩·血蹄
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mull|r and |cRXP_FRIENDLY_Baine|r
+    .turnin 745 >>Turn in Sharing the Land
+    .target Baine Bloodhoof
 step << Warrior
     .goto Mulgore,46.80,60.85
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_维尔拉|r 交谈
-    .train 3273 >>学习 |T135966:0|t[急救]
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Vira|r
+    .train 3273 >>Train |T135966:0|t[First Aid]
     .money <0.01
-    .target 维尔拉·幼蹄
+    .target Vira Younghoof
 step << Shaman/Druid
     .goto Mulgore,45.66,58.60
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_玛诺特|r 交谈
-    .vendor >> 出售垃圾物品。如果卖掉武器后就有足够的钱购买 |T135145:0|t[学徒短杖]（5银04铜），就卖掉武器。如果钱还不够，稍后再来
-    .target 玛诺特·深痕
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mahnott|r
+    .vendor >> Vendor trash. Sell your weapon if it gives you enough money for a |T135145:0|t[Walking Stick] (5s 04c). You'll come back later if you don't have enough yet
+    .target Mahnott Roughwound
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.2
 step << Shaman/Druid
     .goto Mulgore,45.66,58.60
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r |cRXP_FRIENDLY_玛诺特|r|cRXP_BUY_交谈，再向他购买|r |T135145:0|t[学徒短杖]|cRXP_BUY_。|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Mahnott|r|cRXP_BUY_. Buy a|r |T135145:0|t[Walking Stick] |cRXP_BUY_from him|r
     .collect 2495,1,749,1 --Collect Walking Stick (1)
     .money <0.0504
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.2
 step << Warrior
     .goto Mulgore,45.66,58.60
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_玛诺特|r 交谈
-    .vendor >> 出售垃圾物品。如果卖掉武器后就有足够的钱购买 |T133053:0|t[木槌棒]（7银1铜），就卖掉武器。如果钱还不够，稍后再来
-    .target 玛诺特·深痕
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mahnott|r
+    .vendor >> Vendor trash. Sell your weapon if it gives you enough money for a |T133053:0|t[Wooden Mallet] (7s 1c). You'll come back later if you don't have enough yet
+    .target Mahnott Roughwound
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.9
 step << Warrior
     .goto Mulgore,45.66,58.60
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r |cRXP_FRIENDLY_玛诺特|r|cRXP_BUY_交谈，再向他购买|r |T133053:0|t[木槌棒]|cRXP_BUY_。|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Mahnott|r|cRXP_BUY_. Buy a|r |T133053:0|t[Wooden Mallet] |cRXP_BUY_from him|r
     .collect 2493,1,749,1 --Collect Wooden Mallet (1)
     .money <0.0701
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.9
 step << Hunter
     .goto Mulgore,45.50,58.47
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_肯纳|r 交谈
-    .vendor >> 出售垃圾物品。如果卖掉武器后就有足够的钱购买 |T135611:0|t[精制短枪]（4银14铜），就卖掉武器。如果钱还不够，稍后再来
-    .target 肯纳·鹰眼
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kennah|r
+    .vendor >> Vendor trash. Sell your weapon if it gives you enough money for a |T135611:0|t[Ornate Blunderbuss] (4s 14c). You'll come back later if you don't have enough yet
+    .target Kennah Hawkseye
     .itemStat 18,QUALITY,<7
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<3.0
 step << Hunter
     .goto Mulgore,45.50,58.47
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r |cRXP_FRIENDLY_肯纳·鹰眼|r|cRXP_BUY_交谈，再向她购买|r |T135611:0|t[精制短枪]|cRXP_BUY_。|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Kennah|r|cRXP_BUY_. Buy a|r |T135611:0|t[Ornate Blunderbuss] |cRXP_BUY_from him|r
     .collect 2509,1,749,1 --Collect Ornate Blunderbuss (1)
     .money <0.0414
     .itemStat 18,QUALITY,<7
@@ -1058,7 +947,7 @@ step << Hunter
 step << Shaman/Druid
     #optional
     #completewith Clawsx
-    +|cRXP_WARN_装备|r |T135145:0|t[学徒短杖]
+    +|cRXP_WARN_Equip the|r |T135145:0|t[Walking Stick]
     .use 2495
     .itemcount 2495,1
     .itemStat 16,QUALITY,<7
@@ -1066,7 +955,7 @@ step << Shaman/Druid
 step << Warrior
     #optional
     #completewith Clawsx
-    +|cRXP_WARN_装备|r |T133053:0|t[木槌棒]
+    +|cRXP_WARN_Equip the|r |T133053:0|t[Wooden Mallet]
     .use 2493
     .itemcount 2493,1
     .itemStat 16,QUALITY,<7
@@ -1074,7 +963,7 @@ step << Warrior
 step << Hunter
     #optional
     #completewith Clawsx
-    +|cRXP_WARN_装备|r |T135611:0|t[精制短枪]
+    +|cRXP_WARN_Equip the|r |T135611:0|t[Ornate Blunderbuss]
     .use 2509
     .itemcount 2509,1
     .itemStat 18,QUALITY,<7
@@ -1082,34 +971,34 @@ step << Hunter
 step
     #label Vision
     .goto Mulgore,47.76,57.53
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_扎尔曼·双月|r 交谈
-    >>|cRXP_WARN_刷出的狼不要跟随|r
-    .turnin 771 >>交任务：幻象仪祭
-    .accept 772 >>接任务：幻象仪祭
-    .target 扎尔曼·双月
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Zarlman|r
+    >>|cRXP_WARN_Do not follow the wolf that spawns|r
+    .turnin 771 >>Turn in Rite of Vision
+    .accept 772 >>Accept Rite of Vision
+    .target Zarlman Two-Moons
 step << Hunter
     .goto Mulgore,47.81,55.69
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_雅文|r 交谈
-    .train 5116 >> 训练职业技能
-    .target 雅文·刺鬃
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Yaw|r
+    .train 5116 >> Train your class spells
+    .target Yaw Sharpmane
     .xp <8,1
 step << Druid
     .goto Mulgore,48.48,59.64
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_根妮亚·符文图腾|r 交谈
-    .train 5186 >>学习职业技能
-    .target 根妮亚·符文图腾
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gennia|r
+    .train 5186 >>Train your class spells
+    .target Gennia Runetotem
     .xp <8,1
 step << Warrior
     .goto Mulgore,49.52,60.58
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_克朗|r 交谈
-    .train 284 >> 训练职业技能
-    .target 克朗·石蹄
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Krang|r
+    .train 284 >> Train your class spells
+    .target Krang Stonehoof
     .xp <8,1
 step << Shaman
     .goto Mulgore,48.38,59.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_纳姆|r 交谈
-    .train 8044 >> 训练职业技能
-    .target 纳姆·逐星
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Narm|r
+    .train 8044 >> Train your class spells
+    .target Narm Skychaser
     .xp <8,1
 step
     #loop
@@ -1121,124 +1010,124 @@ step
     .goto Mulgore,59.65,62.40,50,0
     .goto Mulgore,55.14,60.65,50,0
     .line Mulgore,51.50,59.23,53.00,60.24,55.14,60.65,57.47,61.26,59.65,62.40
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_摩林·云行者|r 交谈
-    >>|cRXP_WARN_他在东侧道路上巡逻|r
-    .accept 749 >>接任务：被破坏的货车
-	.unitscan 摩林·云行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Morin|r
+    >>|cRXP_WARN_He patrols along the eastern road|r
+    .accept 749 >>Accept The Ravaged Caravan
+	.unitscan Morin Cloudstalker
 step
     #completewith Clawsx
-    >>|cRXP_WARN_在这片区域做任务时顺手收集马兹拉纳其所需的物品|r
+    >>|cRXP_WARN_Get the items for Mazzranache as you quest throughout the zone|r
     .complete 766,1 --Prairie Wolf Heart (1)
     .complete 766,2 --Flatland Cougar Femur (1)
     .complete 766,3 --Plainstrider Scale (1)
     .complete 766,4 --Swoop Gizzard (1)
 step << Tauren
     #completewith RavagedCaravan1
-    >>击杀 |cRXP_ENEMY_草原捕食者|r 和 |cRXP_ENEMY_平原狮|r，拾取它们的 |cRXP_LOOT_爪子|r
+    >>Kill |cRXP_ENEMY_Stalkers|r and |cRXP_ENEMY_Cougars|r. Loot them for their |cRXP_LOOT_Claws|r
     .complete 756,1 --Stalker Claws (6)
-    .mob +草原捕食者
+    .mob +Prairie Stalker
     .complete 756,2 --Cougar Claws (6)
-    .mob +平原狮
+    .mob +Flatland Cougar
 step
 	#completewith Clawsx
-	>>在莫高雷击杀各处的 |cRXP_ENEMY_猛鹫|r, 搜刮 |cRXP_LOOT_羽毛|r
+	>>Kill |cRXP_ENEMY_Swoops|r throughout Mulgore. Loot them for their |cRXP_LOOT_Quills|r
     .complete 761,1 --Trophy Swoop Quill (8)
-    .mob 消瘦的猛鹫
-    .mob 猛鹫
+    .mob Wiry Swoop
+    .mob Swoop
 step
     #label RavagedCaravan1
     .goto Mulgore,53.74,48.17
-    >>点击 |cRXP_PICK_密封的补给箱|r
-    .turnin 749 >>交任务：被破坏的货车
-    .accept 751 >>接任务：被破坏的货车
+    >>Click the |cRXP_PICK_Sealed Supply Crate|r
+    .turnin 749 >>Turn in The Ravaged Caravan
+    .accept 751 >>Accept The Ravaged Caravan
 step << Tauren
     #loop
     .goto Mulgore,58.1,48.6,0
     .goto Mulgore,58.1,48.6,60,0
     .goto Mulgore,54.5,40.1,60,0
     .goto Mulgore,46.4,50.7,60,0
-    >>击杀 |cRXP_ENEMY_草原捕食者|r 和 |cRXP_ENEMY_平原狮|r，拾取它们的 |cRXP_LOOT_爪子|r
+    >>Kill |cRXP_ENEMY_Stalkers|r and |cRXP_ENEMY_Cougars|r. Loot them for their |cRXP_LOOT_Claws|r
     .complete 756,1 --Stalker Claws (6)
-    .mob +草原捕食者
+    .mob +Prairie Stalker
     .complete 756,2 --Cougar Claws (6)
-    .mob +平原狮
+    .mob +Flatland Cougar
 step
     #optional
     #label Clawsx
 step
     #softcore
 	#completewith Thunderhorn
-    .deathskip >> 死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处复活
+    .deathskip >> Die and respawn at the |cRXP_FRIENDLY_Spirit Healer|r
 step
     #hardcore
     #completewith Thunderhorn
-    .goto Mulgore,46.5,55.5,150 >> 返回血蹄村
+    .goto Mulgore,46.5,55.5,150 >> Travel back to Bloodhoof Village
     .subzoneskip 222
 step << Hunter
     .goto Mulgore,47.81,55.69
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_雅文|r 交谈
-    .train 5116 >> 训练职业技能
-    .target 雅文·刺鬃
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Yaw|r
+    .train 5116 >> Train your class spells
+    .target Yaw Sharpmane
     .xp <8,1
 step
     #label Mazzturnin
     .goto Mulgore,46.97,57.07
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_茂尔|r 交谈
-    .turnin 766 >>交任务：马兹拉纳其
-    .target 茂尔·祈雨
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Maur|r
+    .turnin 766 >>Turn in Mazzranache
+    .target Maur Raincaller
     .isQuestComplete 766
 step << Shaman/Druid
     .goto Mulgore,45.66,58.60
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_玛诺特|r 交谈
-    .vendor >> 出售垃圾物品。如果卖掉武器后就有足够的钱购买 |T135145:0|t[学徒短杖]（5银04铜），就卖掉武器。如果钱还不够，稍后再来
-    .target 玛诺特·深痕
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mahnott|r
+    .vendor >> Vendor trash. Sell your weapon if it gives you enough money for a |T135145:0|t[Walking Stick] (5s 04c). You'll come back later if you don't have enough yet
+    .target Mahnott Roughwound
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.2
 step << Shaman/Druid
     .goto Mulgore,45.66,58.60
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r |cRXP_FRIENDLY_玛诺特|r|cRXP_BUY_交谈，再向他购买|r |T135145:0|t[学徒短杖]|cRXP_BUY_。|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Mahnott|r|cRXP_BUY_. Buy a|r |T135145:0|t[Walking Stick] |cRXP_BUY_from him|r
     .collect 2495,1,743,1 --Collect Walking Stick (1)
     .money <0.0504
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.2
 step << Warrior
     .goto Mulgore,45.66,58.60
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_玛诺特|r 交谈
-    .vendor >> 出售垃圾物品。如果卖掉武器后就有足够的钱购买 |T133053:0|t[木槌棒]（7银1铜），就卖掉武器。如果钱还不够，稍后再来
-    .target 玛诺特·深痕
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mahnott|r
+    .vendor >> Vendor trash. Sell your weapon if it gives you enough money for a |T133053:0|t[Wooden Mallet] (7s 1c). You'll come back later if you don't have enough yet
+    .target Mahnott Roughwound
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.9
 step << Warrior
     .goto Mulgore,45.66,58.60
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r |cRXP_FRIENDLY_玛诺特|r|cRXP_BUY_交谈，再向他购买|r |T133053:0|t[木槌棒]|cRXP_BUY_。|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Mahnott|r|cRXP_BUY_. Buy a|r |T133053:0|t[Wooden Mallet] |cRXP_BUY_from him|r
     .collect 2493,1,743,1 --Collect Wooden Mallet (1)
     .money <0.0701
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.9
 step << Hunter
     .goto Mulgore,45.50,58.47
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_肯纳|r 交谈
-    .vendor >> 出售垃圾物品。如果卖掉武器后就有足够的钱购买 |T135611:0|t[精制短枪]（4银14铜），就卖掉武器。如果钱还不够，稍后再来
-    .target 肯纳·鹰眼
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kennah|r
+    .vendor >> Vendor trash. Sell your weapon if it gives you enough money for a |T135611:0|t[Ornate Blunderbuss] (4s 14c). You'll come back later if you don't have enough yet
+    .target Kennah Hawkseye
     .itemStat 18,QUALITY,<7
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<3.0
 step << Hunter
     .goto Mulgore,45.50,58.47
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r |cRXP_FRIENDLY_肯纳·鹰眼|r|cRXP_BUY_交谈，再向她购买|r |T135611:0|t[精制短枪]|cRXP_BUY_。|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Kennah|r|cRXP_BUY_. Buy a|r |T135611:0|t[Ornate Blunderbuss] |cRXP_BUY_from him|r
     .collect 2509,1,743,1 --Collect Ornate Blunderbuss (1)
     .money <0.0414
     .itemStat 18,QUALITY,<7
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<3.0
 step << Hunter
     .goto Mulgore,45.86,57.67
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r |cRXP_FRIENDLY_姆拉特|r 交谈
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Moorat|r
     .collect 2516,1000,743,1 << Hunter --Light Shot (1000)
-    .target 姆拉特·远行
-    .itemcount 2516,<800 << Hunter
+    .target Moorat Longstride
+    .itemcount 2512,<800 << Hunter
 step << Shaman/Druid
     #optional
     #completewith ThunderhornCleanse
-    +|cRXP_WARN_装备|r |T135145:0|t[学徒短杖]
+    +|cRXP_WARN_Equip the|r |T135145:0|t[Walking Stick]
     .use 2495
     .itemcount 2495,1
     .itemStat 16,QUALITY,<7
@@ -1246,7 +1135,7 @@ step << Shaman/Druid
 step << Warrior
     #optional
     #completewith ThunderhornCleanse
-    +|cRXP_WARN_装备|r |T133053:0|t[木槌棒]
+    +|cRXP_WARN_Equip the|r |T133053:0|t[Wooden Mallet]
     .use 2493
     .itemcount 2493,1
     .itemStat 16,QUALITY,<7
@@ -1254,7 +1143,7 @@ step << Warrior
 step << Hunter
     #optional
     #completewith ThunderhornCleanse
-    +|cRXP_WARN_装备|r |T135611:0|t[精制短枪]
+    +|cRXP_WARN_Equip the|r |T135611:0|t[Ornate Blunderbuss]
     .use 2509
     .itemcount 2509,1
     .itemStat 18,QUALITY,<7
@@ -1262,101 +1151,97 @@ step << Hunter
 step
     #completewith Thunderhorn
     .goto Mulgore,45.90,58.73
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_哈兰特|r 交谈
-    .vendor >> 出售垃圾物品并修理装备
-    .target 哈兰特·铁枝
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Harant|r
+    .vendor >> Vendor trash and repair
+    .target Harant Ironbrace
 step
     .goto Mulgore,48.71,59.32
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_哈肯·风之图腾|r 交谈
-    .turnin 761 >>交任务：猎捕猛鹫
-    .target 哈肯·风之图腾
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Harken|r
+    .turnin 761 >>Turn in Swoop Hunting
+    .target Harken Windtotem
     .isQuestComplete 761
 step << Tauren
     .goto Mulgore,48.53,60.40
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_穆尔|r 交谈
-    .turnin 756 >>交任务：雷角图腾
-    .timer 8,雷角图腾剧情演出
-    .accept 758 >>接任务：净化雷角之井
-    .target 穆尔·雷角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mull|r
+    .turnin 756 >>Turn in Thunderhorn Totem
+    .timer 8,Thunderhorn Totem RP
+    .accept 758 >>Accept Thunderhorn Cleansing
+    .target Mull Thunderhorn
 step
     #optional
     #label Thunderhorn
 step << Shaman
     .goto Mulgore,48.38,59.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_纳姆|r 交谈
-    .train 8044 >> 训练职业技能
-    .target 纳姆·逐星
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Narm|r
+    .train 8044 >> Train your class spells
+    .target Narm Skychaser
     .xp <8,1
 step << Druid
     .goto Mulgore,48.48,59.64
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_根妮亚·符文图腾|r 交谈
-    .train 5186 >>学习职业技能
-    .target 根妮亚·符文图腾
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gennia|r
+    .train 5186 >>Train your class spells
+    .target Gennia Runetotem
     .xp <8,1
 step << Warrior
     .goto Mulgore,49.52,60.58
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_克朗|r 交谈
-    .train 284 >> 训练职业技能
-    .target 克朗·石蹄
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Krang|r
+    .train 284 >> Train your class spells
+    .target Krang Stonehoof
     .xp <8,1
 step << Hunter
     .goto Mulgore,47.81,55.69
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_雅文|r 交谈
-    .train 5116 >> 训练职业技能
-    .target 雅文·刺鬃
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Yaw|r
+    .train 5116 >> Train your class spells
+    .target Yaw Sharpmane
     .xp <8,1
 step
     .goto Mulgore,46.63,61.08
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_旅店老板考乌斯|r 交谈
-    >>|cRXP_BUY_购买|r |T132815:0|t[冰镇牛奶] |cRXP_BUY_，向他购买|r << Shaman/Druid
-    >>|cRXP_BUY_购买|r |T133968:0|t[刚出炉的面包] |cRXP_BUY_，向他购买|r << Warrior
-    .vendor >> 出售垃圾物品 << !Hunter
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Innkeeper Kauth|r
+    >>|cRXP_BUY_Buy|r |T132815:0|t[Ice Cold Milk] |cRXP_BUY_from him|r << Shaman/Druid
+    >>|cRXP_BUY_Buy|r |T133968:0|t[Freshly Baked Bread] |cRXP_BUY_from him|r << Warrior
+    .vendor >> Vendor Trash << !Hunter
     .collect 1179,10,746,1 << Shaman/Druid --Ice Cold Milk (10)
     .collect 4541,10,746,1 << Warrior --Freshly Baked Bread (10)
-    .target 旅店老板考乌斯
+    .target Innkeeper Kauth
     .money <0.025
 step
     #completewith Burial
-    >>|cRXP_WARN_收集齐马兹拉纳其所需的物品|r
+    >>|cRXP_WARN_Finish getting the items for Mazzranache|r
     .complete 766,1 --Prairie Wolf Heart (1)
     .complete 766,2 --Flatland Cougar Femur (1)
     .complete 766,3 --Plainstrider Scale (1)
     .complete 766,4 --Swoop Gizzard (1)
 step
 	#completewith Burial
-	>>在莫高雷击杀各处的 |cRXP_ENEMY_猛鹫|r, 搜刮 |cRXP_LOOT_羽毛|r
+	>>Kill |cRXP_ENEMY_Swoops|r throughout Mulgore. Loot them for their |cRXP_LOOT_Quills|r
     .complete 761,1 --Trophy Swoop Quill (8)
-    .mob 消瘦的猛鹫
-    .mob 猛鹫
+    .mob Wiry Swoop
+    .mob Swoop
 step << Tauren
-    .goto Mulgore,44.49,45.36
-    >>|cRXP_WARN_使用|r |T135139:0|t[雷角之井净化图腾] |cRXP_WARN_，在水井处使用|r
-    .complete 758,1 --Cleanse the Thunderhorn Water Well (1)
-step
-    #optional
+    #era/som
     #label ThunderhornCleanse
-
+    .goto Mulgore,44.49,45.36
+    >>|cRXP_WARN_Use the|r |T135139:0|t[Thunderhorn Cleansing Totem] |cRXP_WARN_at the Well|r
+    .complete 758,1 --Cleanse the Thunderhorn Water Well (1)
 step << Shaman
     #season 2
-    .itemcount 206388,<1
     #completewith next
-    >>击杀 |cRXP_ENEMY_巴尔丹掘地工|r 和 |cRXP_ENEMY_巴尔丹鉴定官|r，拾取 |cRXP_LOOT_神器仓库钥匙|r
+    >>Kill |cRXP_ENEMY_Bael'dun Diggers|r and |cRXP_ENEMY_Bael'dun Appraisers|r. Loot them for the |cRXP_LOOT_Artifact Storage Key|r
     .collect 206975,1 --Artifact Storage Key (1)
-    .mob 巴尔丹掘地工
-    .mob 巴尔丹鉴定官
+    .mob Bael'dun Digger
+    .mob Bael'dun Appraiser
     .train 425344,1
     .xp <3,1
 step
     .goto Mulgore,31.27,49.87
-    >>击杀 |cRXP_ENEMY_巴尔丹掘地工|r 和 |cRXP_ENEMY_巴尔丹鉴定官|r，拾取它们的 |cRXP_LOOT_勘察员的锄头|r
-    .use 4702 >> |cRXP_WARN_砸碎|r |T134707:0|t[勘察员的锄头] |cRXP_WARN_，在熔炉处操作|r
-    >>|cRXP_WARN_小心，|cRXP_ENEMY_巴尔丹鉴定官|r 会施放|r |T135929:0|t[次级治疗术] |cRXP_WARN_（远程施法：为自身或附近生命值低于50%的怪物恢复约75点生命值）|r
+    >>Kill |cRXP_ENEMY_Bael'dun Diggers|r and |cRXP_ENEMY_Bael'dun Appraisers|r. Loot them for their |cRXP_LOOT_Prospector's Picks|r
+    .use 4702 >> |cRXP_WARN_Smash the|r |T134707:0|t[Picks] |cRXP_WARN_at the Forge|r
+    >>|cRXP_WARN_Be careful as |cRXP_ENEMY_Bael'dun Appraisers|r cast|r |T135929:0|t[Lesser Heal] |cRXP_WARN_(Ranged Cast: Heals themselves or a nearby mob below 50% health for about 75 health)|r
     .complete 746,1 --Broken Tools (5)
-    .mob 巴尔丹掘地工
-    .mob 巴尔丹鉴定官
+    .mob Bael'dun Digger
+    .mob Bael'dun Appraiser
 step << Shaman
     #season 2
-    .itemcount 206388,<1
     #loop
     .goto Mulgore,34.33,47.54,0
     .goto Mulgore,34.33,47.54,40,0
@@ -1367,23 +1252,23 @@ step << Shaman
     .goto Mulgore,30.98,48.24,40,0
     .goto Mulgore,31.59,48.19,40,0
     .goto Mulgore,33.10,47.69,40,0
-    >>击杀 |cRXP_ENEMY_巴尔丹掘地工|r 和 |cRXP_ENEMY_巴尔丹鉴定官|r，拾取 |cRXP_LOOT_神器仓库钥匙|r
-    >>|cRXP_WARN_小心，|cRXP_ENEMY_巴尔丹鉴定官|r 会施放|r |T135929:0|t[次级治疗术] |cRXP_WARN_（远程施法：为自身或附近生命值低于50%的怪物恢复约75点生命值）|r
+    >>Kill |cRXP_ENEMY_Bael'dun Diggers|r and |cRXP_ENEMY_Bael'dun Appraisers|r. Loot them for the |cRXP_LOOT_Artifact Storage Key|r
+    >>|cRXP_WARN_Be careful as |cRXP_ENEMY_Bael'dun Appraisers|r cast|r |T135929:0|t[Lesser Heal] |cRXP_WARN_(Ranged Cast: Heals themselves or a nearby mob below 50% health for about 75 health)|r
     .collect 206975,1 --Artifact Storage Key (1)
-    .mob 巴尔丹掘地工
-    .mob 巴尔丹鉴定官
+    .mob Bael'dun Digger
+    .mob Bael'dun Appraiser
     .train 425344,1
     .xp <3,1
 step << Shaman
     #season 2
     .goto Mulgore,31.56,49.54
-    >>打开 |cRXP_PICK_神器仓库宝箱|r，拾取 |T134918:0|t[|cRXP_LOOT_硫息圣像|r]
+    >>Open the |cRXP_PICK_Artifact Storage|r chest. Loot it for the |T134918:0|t|cRXP_LOOT_[Sulfurous Icon]|r
     .collect 206388,1 --Sulfurous Icon (1)
     .train 425344,1
     .xp <3,1
 step << Shaman
     #season 2
-    .equip 18,206388 >> |cRXP_WARN_装备|r |T134918:0|t[|cRXP_LOOT_硫息圣像|r]
+    .equip 18,206388 >> |cRXP_WARN_Equip the|r |T134918:0|t|cRXP_LOOT_[Sulfurous Icon]|r
     .use 206388
     .itemcount 206388,1 --Sulfurous Icon (1)
     .train 425344,1
@@ -1392,17 +1277,15 @@ step << Shaman
     #season 2
     #label MoltenBlast
     #completewith Burial
-    .aura 408828 >>|cRXP_WARN_至少对敌人施放一次|r |T136026:0|t[地震术] |cRXP_WARN_再将其击杀。重复10次以获得|r |T136116:0|t[灵感勃发] |cRXP_WARN_增益效果|r
-    >>|cRXP_WARN_注意: 必须对能提供经验的敌人使用才能叠加层数|r
-    .mob 巴尔丹掘地工
-    .mob 巴尔丹鉴定官
+    .aura 408828 >>|cRXP_WARN_Kill enemies having dealt damage using|r |T136026:0|t[Earth Shock] |cRXP_WARN_on them at least once. Do this 10 times to gain the|r |T136116:0|t[Inspired] |cRXP_WARN_buff|r
+    >>|cRXP_WARN_NOTE: You must do this on enemies that can provide experience to gain stacks|r
+    .mob Bael'dun Digger
+    .mob Bael'dun Appraiser
     .train 425344,1
     .xp <3,1
     .xp >13,1
 step << Warrior
     #season 2
-    .itemcount 204689,<1
-    .itemcount 204703,<1
     #loop
 	.goto Mulgore,31.74,40.31,0
 	.goto Mulgore,34.08,43.71,50,0
@@ -1416,11 +1299,11 @@ step << Warrior
 	.goto Mulgore,33.82,40.26,50,0
 	.goto Mulgore,34.48,41.21,50,0
 	.goto Mulgore,34.50,42.29,50,0
-    >>击杀 |cRXP_ENEMY_风怒唤风者|r 和 |cRXP_ENEMY_风怒鹰身人|r，拾取它们的 |cRXP_LOOT_利爪|r 和 |cRXP_LOOT_被砍下的鹰身人的头|r
+    >>Kill |cRXP_ENEMY_Windfury Wind Witches|r and |cRXP_ENEMY_Windfury Harpies|r. Loot them for their |cRXP_LOOT_Talons|r and a |cRXP_LOOT_Severed Harpy Head|r
     .complete 743,1 --Windfury Talon (8)
     .collect 206995,1 ---Severed Harpy Head (1)
-    .mob 风怒唤风者
-    .mob 风怒鹰身人
+    .mob Windfury Wind Witch
+    .mob Windfury Harpy
     .train 403475,1
 step
     #loop
@@ -1436,84 +1319,81 @@ step
 	.goto Mulgore,33.82,40.26,50,0
 	.goto Mulgore,34.48,41.21,50,0
 	.goto Mulgore,34.50,42.29,50,0
-    >>击杀 |cRXP_ENEMY_风怒唤风者|r 和 |cRXP_ENEMY_风怒鹰身人|r，拾取它们的 |cRXP_LOOT_利爪|r
+    >>Kill |cRXP_ENEMY_Windfury Wind Witches|r and |cRXP_ENEMY_Windfury Harpies|r. Loot them for their |cRXP_LOOT_Talons|r
     .complete 743,1 --Windfury Talon (8)
-    .mob 风怒唤风者
-    .mob 风怒鹰身人
+    .mob Windfury Wind Witch
+    .mob Windfury Harpy
 step
     #completewith next
-    .goto Mulgore,33.37,36.52,50 >> 进入风怒鹰身人北面的洞穴
+    .goto Mulgore,33.37,36.52,50 >> Enter the cave just north of the Windfury Harpies
 step
 	#label Burial
     .goto Mulgore,32.72,36.09
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_先知奥萨迪·智慧行者|r 交谈
-    .turnin 772 >>交任务：幻象仪祭
-    .accept 773 >>接任务：智慧仪祭
-    .target 先知奥萨迪·智慧行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Wiserunner|r
+    .turnin 772 >>Turn in Rite of Vision
+    .accept 773 >>Accept Rite of Wisdom
+    .target Seer Wiserunner
 step << Shaman
     #season 2
     #requires MoltenBlast
-    >>若尚未获得 |cRXP_WARN_灵感勃发|r，装备圣像，继续击杀受过你的 |T136026:0|t[地震术] 伤害且能提供经验的敌人，累计10次
-    .train 425344 >>|cRXP_WARN_使用|r |T134918:0|t|cRXP_LOOT_[硫息圣像]|r |cRXP_WARN_学习|r |T133816:0|t[铭刻手套 - 熔火爆裂]
+    .cast 402265 >>|cRXP_WARN_Use the|r |T134918:0|t|cRXP_LOOT_[Sulfurous Icon]|r |cRXP_WARN_to learn|r |T133816:0|t[Engrave Gloves: Molten Blast]
     .use 206388
+    .aura -408828
+    .itemStat 18,QUALITY,2
     .train 425344,1
     .xp <3,1
 step
     #completewith SacredBurial
-    .destroy 4823 >> |cRXP_WARN_可以从背包中摧毁|r |T134712:0|t[先知之水]|cRXP_WARN_，之后不再需要它|r
+    .destroy 4823 >> |cRXP_WARN_You can delete|r |T134712:0|t[Water of the Seers] |cRXP_WARN_from your bags, as it's no longer needed|r
 step
     #completewith SacredBurial
-    >>|cRXP_WARN_收集齐马兹拉纳其所需的物品|r
+    >>|cRXP_WARN_Finish getting the items for Mazzranache|r
     .complete 766,1 --Prairie Wolf Heart (1)
     .complete 766,2 --Flatland Cougar Femur (1)
     .complete 766,3 --Plainstrider Scale (1)
     .complete 766,4 --Swoop Gizzard (1)
 step
     #completewith SacredBurial
-    >>留意 |cRXP_ENEMY_鬼嚎|r，击杀后拾取它的 |T134358:0|t[|cRXP_LOOT_恶魔之伤|r]，使用它接取任务
-    >>|cRXP_WARN_小心，|cRXP_ENEMY_鬼嚎|r 是12级怪物，很难对付|r
+    >>Keep an eye out for |cRXP_ENEMY_Ghost Howl|r. Loot him for his |T134358:0|t[|cRXP_LOOT_Demon Scarred Cloak|r]. Use it to start the quest
+    >>|cRXP_WARN_Be careful as |cRXP_ENEMY_Ghost Howl|r is difficult due to being level 12|r
     .collect 4854,1,770 --Collect Demon Scarred Cloak
-    .accept 770 >>接任务：恶魔之伤
+    .accept 770 >>Accept The Demon Scarred Cloak
     .use 4854
-    .unitscan 鬼嚎
+    .unitscan Ghost Howl
 step
 	#completewith next
-	>>在莫高雷击杀各处的 |cRXP_ENEMY_猛鹫|r, 搜刮 |cRXP_LOOT_羽毛|r
+	>>Kill |cRXP_ENEMY_Swoops|r throughout Mulgore. Loot them for their |cRXP_LOOT_Quills|r
     .complete 761,1 --Trophy Swoop Quill (8)
-    .mob 消瘦的猛鹫
-    .mob 猛鹫
-    .mob 长爪猛鹫
+    .mob Wiry Swoop
+    .mob Swoop
+    .mob Taloned Swoop
 step
     #label SacredBurial
     .goto Mulgore,59.85,25.62
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_博学者诺拉·暴雨图腾|r 交谈
-    .accept 833 >>接任务：神圣的墓地
-    .target 博学者诺拉·暴雨图腾
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Raintotem|r
+    .accept 833 >>Accept A Sacred Burial
+    .target Lorekeeper Raintotem
 step << Warrior
     #season 2
-    .itemcount 204688,<1
-    .itemcount 204703,<1
     #completewith RiteofWisdom
-    >>击杀 |cRXP_ENEMY_刺背干涉者|r，拾取 |cRXP_LOOT_被砍下的野猪人的头|r
+    >>Kill |cRXP_ENEMY_Bristleback Interlopers|r. Loot them for a |cRXP_LOOT_Severed Quilboar Head|r
     .collect 206994,1 ---Severed Quilboar Head (1)
-    .mob 刺背干涉者
+    .mob Bristleback Interloper
     .train 403475,1
 step
     #completewith next
-    >>击杀 |cRXP_ENEMY_刺背干涉者|r
+    >>Kill |cRXP_ENEMY_Bristleback Interlopers|r
     .complete 833,1 --Bristleback Interloper (8)
-    .mob 刺背干涉者
+    .mob Bristleback Interloper
 step
     #label RiteofWisdom
     .goto Mulgore,61.45,21.01
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_先祖之魂|r 交谈
-    .turnin 773 >>交任务：智慧仪祭
-    .accept 775 >>接任务：雷霆崖之旅
-    .target 先祖之魂
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to the |cRXP_FRIENDLY_Ancestral Spirit|r
+    .turnin 773 >>Turn in Rite of Wisdom
+    .accept 775 >>Accept Journey into Thunder Bluff
+    .target Ancestral Spirit
 step << Warrior
     #season 2
-    .itemcount 204688,<1
-    .itemcount 204703,<1
     #loop
 	.goto Mulgore,59.85,25.62,0
 	.goto Mulgore,59.85,25.62,25,0
@@ -1526,10 +1406,10 @@ step << Warrior
 	.goto Mulgore,60.16,21.06,25,0
 	.goto Mulgore,60.41,21.96,25,0
 	.goto Mulgore,61.12,22.88,25,0
-    >>击杀 |cRXP_ENEMY_刺背干涉者|r，拾取 |cRXP_LOOT_被砍下的野猪人的头|r
+    >>Kill |cRXP_ENEMY_Bristleback Interlopers|r. Loot them for a |cRXP_LOOT_Severed Quilboar Head|r
     .complete 833,1 --Bristleback Interloper (8)
     .collect 206994,1 ---Severed Quilboar Head (1)
-    .mob 刺背干涉者
+    .mob Bristleback Interloper
     .train 403475,1
 step
     #loop
@@ -1544,17 +1424,17 @@ step
 	.goto Mulgore,60.16,21.06,25,0
 	.goto Mulgore,60.41,21.96,25,0
 	.goto Mulgore,61.12,22.88,25,0
-    >>击杀 |cRXP_ENEMY_刺背干涉者|r
+    >>Kill |cRXP_ENEMY_Bristleback Interlopers|r
     .complete 833,1 --Bristleback Interloper (8)
-    .mob 刺背干涉者
+    .mob Bristleback Interloper
 step
     .goto Mulgore,59.85,25.62
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_博学者诺拉·暴雨图腾|r 交谈
-    .turnin 833 >>交任务：神圣的墓地
-    .target 博学者诺拉·暴雨图腾
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Raintotem|r
+    .turnin 833 >>Turn in A Sacred Burial
+    .target Lorekeeper Raintotem
 step
     #completewith next
-    >>|cRXP_WARN_收集齐马兹拉纳其所需的物品|r
+    >>|cRXP_WARN_Finish getting the items for Mazzranache|r
     .complete 766,1 --Prairie Wolf Heart (1)
     .complete 766,2 --Flatland Cougar Femur (1)
     .complete 766,3 --Plainstrider Scale (1)
@@ -1579,11 +1459,11 @@ step
 	.goto Mulgore,58.79,28.52,60,0
 	.goto Mulgore,60.56,25.88,60,0
 	.goto Mulgore,59.52,23.36,60,0
-	>>击杀 |cRXP_ENEMY_猛鹫|r, 获取 |cRXP_LOOT_羽毛|r
+	>>Kill |cRXP_ENEMY_Swoops|r. Loot them for their |cRXP_LOOT_Quills|r
     .complete 761,1 --Trophy Swoop Quill (8)
-    .mob 消瘦的猛鹫
-    .mob 猛鹫
-    .mob 长爪猛鹫
+    .mob Wiry Swoop
+    .mob Swoop
+    .mob Taloned Swoop
 step
     #loop
     .goto Mulgore,55.06,32.48,0
@@ -1594,20 +1474,20 @@ step
     .goto Mulgore,59.04,52.79,60,0
     .goto Mulgore,59.12,58.09,60,0
     .goto Mulgore,48.67,44.84,60,0
-    >>|cRXP_WARN_收集齐马兹拉纳其所需的物品|r
+    >>|cRXP_WARN_Finish getting the items for Mazzranache|r
     .complete 766,1 --Prairie Wolf Heart (1)
-    .mob +草原狼前锋
-    .mob +草原捕食者
-    .mob +草原狼前锋
+    .mob +Prairie Wolf Alpha
+    .mob +Prairie Stalker
+    .mob +Prairie Wolf Alpha
     .complete 766,2 --Flatland Cougar Femur (1)
-    .mob +平原狮
+    .mob +Flatland Cougar
     .complete 766,3 --Plainstrider Scale (1)
-    .mob +老平原陆行鸟
-    .mob +成年平原陆行鸟
+    .mob +Elder Plainstrider
+    .mob +Adult Plainstrider
     .complete 766,4 --Swoop Gizzard (1)
-    .mob +长爪猛鹫
-    .mob +猛鹫
-    .mob +消瘦的猛鹫
+    .mob +Taloned Swoop
+    .mob +Swoop
+    .mob +Wiry Swoop
 step
     #xprate <1.5
     #optional
@@ -1629,7 +1509,7 @@ step
 	.goto Mulgore,58.79,28.52,60,0
 	.goto Mulgore,60.56,25.88,60,0
 	.goto Mulgore,59.52,23.36,60,0
-    .xp 9+3020 >>刷怪至9级至少3020/6500点经验
+    .xp 9+3020 >> Grind to 3020+/6500xp
     .isQuestComplete 761
     .isQuestComplete 766
 step
@@ -1653,9 +1533,8 @@ step
 	.goto Mulgore,58.79,28.52,60,0
 	.goto Mulgore,60.56,25.88,60,0
 	.goto Mulgore,59.52,23.36,60,0
-    .xp 9+3720 >>刷怪至9级至少3720/6500点经验
+    .xp 9+3720 >> Grind to 3720+/6500xp
     .isQuestComplete 761
-    .isQuestNotComplete 766
 step
     #xprate <1.5
     #optional
@@ -1677,12 +1556,9 @@ step
 	.goto Mulgore,58.79,28.52,60,0
 	.goto Mulgore,60.56,25.88,60,0
 	.goto Mulgore,59.52,23.36,60,0
-    .xp 9+3700 >>刷怪至9级至少3700/6500点经验
+    .xp 9+3700 >> Grind to 3700+/6500xp
     .isQuestComplete 766
-    .isQuestNotComplete 761
 step
-    .isQuestNotComplete 761
-    .isQuestNotComplete 766
     #xprate <1.5
     #optional
     #loop
@@ -1703,7 +1579,7 @@ step
 	.goto Mulgore,58.79,28.52,60,0
 	.goto Mulgore,60.56,25.88,60,0
 	.goto Mulgore,59.52,23.36,60,0
-    .xp 9+4400 >>刷怪至9级至少4400/6500点经验
+    .xp 9+4400 >> Grind to 4400+/6500xp
 step
     #xprate >1.49
     #optional
@@ -1725,7 +1601,7 @@ step
 	.goto Mulgore,58.79,28.52,60,0
 	.goto Mulgore,60.56,25.88,60,0
 	.goto Mulgore,59.52,23.36,60,0
-    .xp 9+1280 >>刷怪至9级至少1280/6500点经验
+    .xp 9+1280 >> Grind to 1280+/6500xp
     .isQuestComplete 761
     .isQuestComplete 766
 step
@@ -1749,9 +1625,8 @@ step
 	.goto Mulgore,58.79,28.52,60,0
 	.goto Mulgore,60.56,25.88,60,0
 	.goto Mulgore,59.52,23.36,60,0
-    .xp 9+2330 >>刷怪至9级至少2330/6500点经验
+    .xp 9+2330 >> Grind to 2330+/6500xp
     .isQuestComplete 761
-    .isQuestNotComplete 766
 step
     #xprate >1.49
     #optional
@@ -1773,12 +1648,9 @@ step
 	.goto Mulgore,58.79,28.52,60,0
 	.goto Mulgore,60.56,25.88,60,0
 	.goto Mulgore,59.52,23.36,60,0
-    .xp 9+2300 >>刷怪至9级至少2300/6500点经验
+    .xp 9+2300 >> Grind to 2300+/6500xp
     .isQuestComplete 766
-    .isQuestNotComplete 761
 step
-    .isQuestNotComplete 761
-    .isQuestNotComplete 766
     #xprate >1.49
     #optional
     #loop
@@ -1799,216 +1671,215 @@ step
 	.goto Mulgore,58.79,28.52,60,0
 	.goto Mulgore,60.56,25.88,60,0
 	.goto Mulgore,59.52,23.36,60,0
-    .xp 9+3350 >>刷怪至9级至少3350/6500点经验
+    .xp 9+3350 >> Grind to 3350+/6500xp
 step << !Druid
     #completewith Bloodhoofturnins1
-    .hs >>使用炉石返回血蹄村
+    .hs >>Hearth to Bloodhoof Village
     .use 6948
     .bindlocation 222,1
     .subzoneskip 222
 step << Druid
-    #softcore
+    #sofcore
     #completewith Bloodhoofturnins1
-    .deathskip >> 死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处复活
+    .deathskip >> Die and respawn at the |cRXP_FRIENDLY_Spirit Healer|r
 step << Druid
     #hardcore
     #completewith Bloodhoofturnins1
-    .goto Mulgore,47.33,57.17,120 >> 返回血蹄村
+    .goto Mulgore,47.33,57.17,120 >> Travel back to Bloodhoof Village
     .subzoneskip 222
 step
     .goto Mulgore,46.62,61.08
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_旅店老板考乌斯|r 交谈
-    .vendor >> 出售垃圾物品
-    .target 旅店老板考乌斯
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Innkeeper Kauth|r
+    .vendor >> Vendor trash
+    .target Innkeeper Kauth
     .isQuestAvailable 870
 step
     .goto Mulgore,46.75,60.24
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_斯考恩·白云|r 交谈
-    .turnin 770 >>交任务：恶魔之伤
-    .target 斯考恩·白云
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Skorn|r
+    .turnin 770 >>Turn in The Demon Scarred Cloak
+    .target Skorn Whitecloud
     .isOnQuest 770
 step << Warrior
     #season 2
-    .itemcount 204703,<1
     .goto Mulgore,46.29,61.76
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与血蹄村的 |cRXP_FRIENDLY_瓦泰亚·森蹄|r 交谈
-    >>用收集到的 |cRXP_LOOT_头颅|r 兑换 |T134455:0|t[符文碎片]
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Vateya|r in Bloodhoof Village
+    >>Turn in the |cRXP_LOOT_Heads|r you've collected in exchange for |T134455:0|t[Rune Fragments]
     .collect 204688,1 --Monster Hunter's First Rune Fragment (1)
     .collect 204689,1 --Monster Hunter's Second Rune Fragment (1)
     .collect 204690,1 --Monster Hunter's Third Rune Fragment (1)
-    .target 瓦泰亚·森蹄
+    .target Vateya Timberhoof
     .train 403475,1
 step << Warrior
     #season 2
-    .use 204688 >>使用 |T134455:0|t[符文碎片] 制作 |T134419:0|t[|cRXP_FRIENDLY_毁灭打击符文|r]
+    .use 204688 >>Use the |T134455:0|t[Rune Fragments] to create |T134419:0|t[|cRXP_FRIENDLY_Rune of Devastate|r]
     .collect 204703,1 --Rune of Devastate (1)
     .train 403475,1
 step << Warrior
     #season 2
-    .train 403475 >>使用 |T134419:0|t[|cRXP_FRIENDLY_毁灭打击符文|r]
+    .train 403475 >>Use the |T134419:0|t[|cRXP_FRIENDLY_Rune of Devastate|r]
     .use 204703
     .itemcount 204703,1
 step << Tauren
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_贝恩·血蹄|r、|cRXP_FRIENDLY_卢尔·鹰爪|r、|cRXP_FRIENDLY_穆尔|r 和 |cRXP_FRIENDLY_哈肯|r 交谈
-    .turnin 746 >>交任务：矮人的挖掘场
-    .target +贝恩·血蹄
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Baine|r, |cRXP_FRIENDLY_Ruul|r, |cRXP_FRIENDLY_Mull|r and |cRXP_FRIENDLY_Harken|r
+    .turnin 746 >>Turn in Dwarven Digging
+    .target +Baine Bloodhoof
     .goto Mulgore,47.51,60.16
-    .turnin 743 >>交任务：风怒鹰身人
-    .target +卢尔·鹰爪
+    .turnin 743 >>Turn in Dangers of the Windfury
+    .target +Ruul Eagletalon
     .goto Mulgore,47.35,62.02
-    .turnin 758 >>交任务：净化雷角之井
-    .timer 8,净化雷角之井剧情演出
-    .accept 759 >>接任务：蛮鬃图腾
-    .target +穆尔·雷角
+    .turnin 758 >>Turn in Thunderhorn Cleansing
+    .timer 8,Thunderhorn Cleansing RP
+    .accept 759 >>Accept Wildmane Totem
+    .target +Mull Thunderhorn
     .goto Mulgore,48.54,60.38
-    .turnin 761 >>交任务：猎捕猛鹫
-    .target +哈肯·风之图腾
+    .turnin 761 >>Turn in Swoop Hunting
+    .target +Harken Windtotem
     .goto Mulgore,48.71,59.32
     .isQuestComplete 761
 step << Tauren
     #label Bloodhoofturnins1
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_贝恩·血蹄|r、|cRXP_FRIENDLY_卢尔·鹰爪|r 和 |cRXP_FRIENDLY_穆尔|r 交谈
-    .turnin 746 >>交任务：矮人的挖掘场
-    .target +贝恩·血蹄
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Baine|r, |cRXP_FRIENDLY_Ruul|r, and |cRXP_FRIENDLY_Mull|r
+    .turnin 746 >>Turn in Dwarven Digging
+    .target +Baine Bloodhoof
     .goto Mulgore,47.51,60.16
-    .turnin 743 >>交任务：风怒鹰身人
-    .target +卢尔·鹰爪
+    .turnin 743 >>Turn in Dangers of the Windfury
+    .target +Ruul Eagletalon
     .goto Mulgore,47.35,62.02
-    .turnin 758 >>交任务：净化雷角之井
-    .timer 8,净化雷角之井剧情演出
-    .accept 759 >>接任务：蛮鬃图腾
-    .target +穆尔·雷角
+    .turnin 758 >>Turn in Thunderhorn Cleansing
+    .timer 8,Thunderhorn Cleansing RP
+    .accept 759 >>Accept Wildmane Totem
+    .target +Mull Thunderhorn
     .goto Mulgore,48.54,60.38
 step << !Tauren
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_贝恩·血蹄|r、|cRXP_FRIENDLY_卢尔·鹰爪|r 和 |cRXP_FRIENDLY_哈肯·风之图腾|r 交谈
-    .turnin 746 >>交任务：矮人的挖掘场
-    .target +贝恩·血蹄
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Baine|r, |cRXP_FRIENDLY_Ruul|r and |cRXP_FRIENDLY_Harken|r
+    .turnin 746 >>Turn in Dwarven Digging
+    .target +Baine Bloodhoof
     .goto Mulgore,47.51,60.16
-    .turnin 743 >>交任务：风怒鹰身人
-    .target +卢尔·鹰爪
+    .turnin 743 >>Turn in Dangers of the Windfury
+    .target +Ruul Eagletalon
     .goto Mulgore,47.35,62.02
-    .turnin 761 >>交任务：猎捕猛鹫
-    .target +哈肯·风之图腾
+    .turnin 761 >>Turn in Swoop Hunting
+    .target +Harken Windtotem
     .goto Mulgore,48.71,59.32
     .isQuestComplete 761
 step << !Tauren
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_贝恩·血蹄|r 和 |cRXP_FRIENDLY_卢尔·鹰爪|r 交谈
-    .turnin 746 >>交任务：矮人的挖掘场
-    .target +贝恩·血蹄
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Baine|r and |cRXP_FRIENDLY_Ruul|r
+    .turnin 746 >>Turn in Dwarven Digging
+    .target +Baine Bloodhoof
     .goto Mulgore,47.51,60.16
-    .turnin 743 >>交任务：风怒鹰身人
-    .target +卢尔·鹰爪
+    .turnin 743 >>Turn in Dangers of the Windfury
+    .target +Ruul Eagletalon
     .goto Mulgore,47.35,62.02
 step
     #optional
     #label Bloodhoofturnins1
 step
     #completewith AlphaTeeth
-    .destroy 4702 >> |cRXP_WARN_可以从背包中摧毁|r |T134707:0|t[勘察员的锄头]|cRXP_WARN_，之后不再需要它们|r
+    .destroy 4702 >> |cRXP_WARN_You can delete|r |T134707:0|t[Prospector's Picks] |cRXP_WARN_from your bags, as they're no longer needed|r
 step << Hunter
     .goto Mulgore,45.50,58.47
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r |cRXP_FRIENDLY_肯纳|r 交谈
-    >>|cRXP_BUY_购买|r |T132384:0|t[重弹丸] |cRXP_BUY_。|r << Hunter
-    .collect 2519,1000 << Hunter --Heavy Shot (1000)
-    .target 肯纳·鹰眼
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Kennah|r
+    >>|cRXP_BUY_Buy|r |T132384:0|t[Heavy Shots] |cRXP_BUY_from him|r << Hunter
+    .collect 2519,1000,6061,1 << Hunter --Heavy Shot (1000)
+    .target Kennah Hawkseye
 step
     .goto Mulgore,46.97,57.07
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_茂尔|r 交谈
-    .turnin 766 >>交任务：马兹拉纳其
-    .target 茂尔·祈雨
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Maur|r
+    .turnin 766 >>Turn in Mazzranache
+    .target Maur Raincaller
     .isQuestComplete 766
 step << Warrior
     .goto Mulgore,49.52,60.58
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_克朗|r 交谈
-    .trainer >> 训练职业技能
-    .accept 1505 >>接任务：老兵犹塞克
-    .target 克朗·石蹄
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Krang|r
+    .trainer >> Train your class spells
+    .accept 1505 >>Accept Veteran Uzzek
+    .target Krang Stonehoof
 step << Shaman
     .goto Mulgore,48.38,59.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_纳姆|r 交谈
-    .accept 2984 >>接任务：火焰的召唤
-    .trainer >> 训练职业技能
-    .target 纳姆·逐星
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Narm|r
+    .accept 2984 >>Accept Call of Fire
+    .trainer >> Train your class spells
+    .target Narm Skychaser
 step << Hunter
     .goto Mulgore,47.81,55.69
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_雅文|r 交谈
-    .accept 6061 >>接任务：驯服野兽 << Tauren
-    >>|cRXP_WARN_其他种族的猎人若尚未学会驯服野兽，需要先完成自己出生地区的猎人职业任务|r << !Tauren
-    .trainer >> 训练职业技能
-    .target 雅文·刺鬃
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Yaw|r
+    .accept 6061 >>Accept Taming the Beast
+    .trainer >> Train your class spells
+    .target Yaw Sharpmane
 step << Druid
     .goto Mulgore,48.48,59.64
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_根妮亚·符文图腾|r 交谈
-    .trainer >> 训练职业技能
-    .accept 5928 >> 接任务：响应召唤
-    .target 根妮亚·符文图腾
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gennia|r
+    .trainer >> Train your class spells
+    .accept 5928 >> Accept Heeding the Call
+    .target Gennia Runetotem
     .isQuestAvailable 5928
 step << Druid
     .goto Mulgore,48.48,59.64
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_根妮亚·符文图腾|r 交谈
-    .train 8924 >> 训练职业技能
-    .target 根妮亚·符文图腾
-step << Hunter Tauren
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gennia|r
+    .train 8924 >> Train your class spells
+    .target Gennia Runetotem
+step << Hunter
     #loop
     .goto Mulgore,39.38,57.43,0
     .goto Mulgore,42.87,54.88,50,0
     .goto Mulgore,40.73,55.60,50,0
     .goto Mulgore,39.38,57.43,50,0
-    .use 15914 >> |cRXP_WARN_使用|r |T132164:0|t[驯兽棒]|cRXP_WARN_，目标是|r |cRXP_ENEMY_成年平原陆行鸟|r|cRXP_WARN_，站在最远施法距离。|r
+    .use 15914 >> |cRXP_WARN_Use your|r |T132164:0|t[Taming Rod] |cRXP_WARN_on an|r |cRXP_ENEMY_Adult Plainstrider|r |cRXP_WARN_at max range|r
     .complete 6061,1 --Tame an Adult Plainstrider (1)
-    .mob 成年平原陆行鸟
-step << Hunter Tauren
+    .mob Adult Plainstrider
+step << Hunter
     .goto Mulgore,47.81,55.69
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_雅文|r 交谈
-    .turnin 6061 >>交任务：驯服野兽
-    .accept 6087 >>接任务：驯服野兽
-    .target 雅文·刺鬃
-step << Hunter Tauren
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Yaw|r
+    .turnin 6061 >>Turn in Taming the Beast
+    .accept 6087 >>Accept Taming the Beast
+    .target Yaw Sharpmane
+step << Hunter
     #loop
     .goto Mulgore,49.49,42.27,0
     .goto Mulgore,47.18,50.15,50,0
     .goto Mulgore,46.65,47.22,50,0
     .goto Mulgore,48.18,45.27,50,0
     .goto Mulgore,49.49,42.27,50,0
-    .use 15915 >> |cRXP_WARN_使用|r |T132164:0|t[驯兽棒]|cRXP_WARN_，目标是|r |cRXP_ENEMY_草原捕食者|r|cRXP_WARN_，站在最远施法距离。|r
+    .use 15915 >> |cRXP_WARN_Use your|r |T132164:0|t[Taming Rod] |cRXP_WARN_on a|r |cRXP_ENEMY_Prairie Stalker|r |cRXP_WARN_at max range|r
     .complete 6087,1 --Tame a Prairie Stalker (1)
-    .mob 草原捕食者
-step << Hunter Tauren
+    .mob Prairie Stalker
+step << Hunter
     .goto Mulgore,47.81,55.69
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_雅文|r 交谈
-    .turnin 6087 >>交任务：驯服野兽
-    .accept 6088 >>接任务：驯服野兽
-    .target 雅文·刺鬃
-step << Hunter Tauren
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Yaw|r
+    .turnin 6087 >>Turn in Taming the Beast
+    .accept 6088 >>Accept Taming the Beast
+    .target Yaw Sharpmane
+step << Hunter
     #loop
     .goto Mulgore,47.25,41.33,0
     .goto Mulgore,47.25,41.33,80,0
     .goto Mulgore,45.41,40.29,80,0
     .goto Mulgore,51.57,44.40,80,0
-    .use 15916 >> |cRXP_WARN_使用|r |T132164:0|t[驯兽棒] |cRXP_WARN_，目标是|r |cRXP_ENEMY_猛鹫|r |cRXP_WARN_，站在最远施法距离。如果它将你击倒，立即重新施放|r
-    >>|cRXP_WARN_如果驯服失败且驯兽棒的使用次数耗尽，就放弃任务，重新接取后再回来|r
+    .use 15916 >> |cRXP_WARN_Use your|r |T132164:0|t[Taming Rod] |cRXP_WARN_on a|r |cRXP_ENEMY_Swoop|r |cRXP_WARN_at max range and re-cast it immediately if they knock you down|r
+    >>|cRXP_WARN_If you fail and run out of Taming Rod Charges, abandon the quest, then pick it up again and come back|r
     .complete 6088,1 --Tame a Swoop (1)
-    .mob 猛鹫
-step << Hunter Tauren
+    .mob Swoop
+step << Hunter
     .goto Mulgore,47.81,55.69
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_雅文|r 交谈
-    .turnin 6088 >>交任务：驯服野兽
-    .accept 6089 >>接任务：训练野兽
-    .target 雅文·刺鬃
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Yaw|r
+    .turnin 6088 >>Turn in Taming the Beast
+    .accept 6089 >>Accept Training the Beast
+    .target Yaw Sharpmane
 step
     .goto Mulgore,47.63,61.49
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_加纳|r 交谈
-    >>|cRXP_BUY_购买|r |T132815:0|t[冰镇牛奶] |cRXP_BUY_。|r << Shaman/Druid
-    >>|cRXP_BUY_购买|r |T133968:0|t[刚出炉的面包] |cRXP_BUY_。|r << Warrior
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Jhawna|r
+    >>|cRXP_BUY_Buy|r |T132815:0|t[Ice Cold Milk] |cRXP_BUY_from her|r << Shaman/Druid
+    >>|cRXP_BUY_Buy|r |T133968:0|t[Freshly Baked Bread] |cRXP_BUY_from her|r << Warrior
     .collect 1179,20,818,1 << Shaman/Druid --Ice Cold Milk (20)
     .collect 4541,20,818,1 << Warrior --Freshly Baked Bread (20)
+    .target Innkeeper Grosk
     .money <0.05
-    .target 加纳·麦风
+    .target Jhawna Oatwind
 step
     .goto Mulgore,46.75,60.24
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_斯考恩·白云|r 交谈
-    .accept 861 >>接任务：猎人之道
-    .target 斯考恩·白云
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Skorn|r
+    .accept 861 >>Accept The Hunter's Way
+    .target Skorn Whitecloud
 step
     #loop
     .goto Mulgore,55.14,60.65,0
@@ -2019,24 +1890,24 @@ step
     .goto Mulgore,59.65,62.40,50,0
     .goto Mulgore,55.14,60.65,50,0
     .line Mulgore,51.50,59.23,53.00,60.24,55.14,60.65,57.47,61.26,59.65,62.40
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_摩林·云行者|r 交谈
-    >>|cRXP_WARN_他在东侧道路上巡逻|r
-    .turnin 751 >> 交任务：被破坏的货车
-    .accept 764 >> 接任务：风险投资公司
-    .accept 765 >> 接任务：菲兹普罗克主管
-	.unitscan 摩林·云行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Morin|r
+    >>|cRXP_WARN_He patrols along the eastern road|r
+    .turnin 751 >> Turn in The Ravaged Caravan
+    .accept 764 >> Accept The Venture Co
+    .accept 765 >> Accept Supervisor Fizsprocket
+	.unitscan Morin Cloudstalker
 step
     #completewith AlphaTeeth
-    >>击杀 |cRXP_ENEMY_平原徘徊者|r，拾取它们的 |cRXP_LOOT_爪子|r
+    >>Kill |cRXP_ENEMY_Flatland Prowlers|r. Loot them for their |cRXP_LOOT_Claws|r
     .complete 861,1 --Flatland Prowler Claw (4)
-    .mob 平原徘徊者
+    .mob Flatland Prowler
 step << Hunter
-    .spellmissing 1515
     #completewith next
-    .cast 1515 >>驯服一只 |cRXP_ENEMY_草原狼前锋|r
-    >>|cRXP_WARN_这样就能训练|r |T132278:0|t[撕咬（等级2）]
-    .mob 草原狼前锋
+    .cast 1515 >>Tame a |cRXP_ENEMY_Prairie Wolf Alpha|r
+    >>|cRXP_WARN_This will allow you to train|r |T132278:0|t[Bite Rank 2]
+    .mob Prairie Wolf Alpha
 step << Tauren
+    #label AlphaTeeth
     #loop
     .goto Mulgore,66.34,67.01,0
     .goto Mulgore,67.19,63.78,50,0
@@ -2047,104 +1918,102 @@ step << Tauren
     .goto Mulgore,63.58,60.51,50,0
     .goto Mulgore,65.56,59.37,50,0
     .goto Mulgore,67.62,59.06,50,0
-    >>击杀该区域的 |cRXP_ENEMY_草原狼前锋|r, 搜刮 |cRXP_LOOT_牙齿|r
+    >>Kill |cRXP_ENEMY_Prairie Wolf Alphas|r in the area. Loot them for their |cRXP_LOOT_Teeth|r
     .complete 759,1 --Prairie Alpha Tooth (8)
-    .mob 草原狼前锋
-step
-    #optional
-    #label AlphaTeeth
-
+    .mob Prairie Wolf Alpha
 step << Tauren
     #softcore
 	#completewith Thunderhorn2
-    .deathskip >> 死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处复活
+    .deathskip >> Die and respawn at the |cRXP_FRIENDLY_Spirit Healer|r
 step << Tauren
     #hardcore
     #completewith Thunderhorn2
-    .goto Mulgore,46.5,55.5,150 >> 返回血蹄村
+    .goto Mulgore,46.5,55.5,150 >> Travel back to Bloodhoof Village
     .subzoneskip 222
 step << Tauren
     #label Thunderhorn2
     .goto Mulgore,48.53,60.40
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_穆尔|r 交谈
-    .turnin 759 >>交任务：蛮鬃图腾
-    .accept 760 >>接任务：净化蛮鬃之井
-    .target 穆尔·雷角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mull|r
+    .turnin 759 >>Turn in Wildmane Totem
+    .accept 760 >>Accept Wildmane Cleansing
+    .target Mull Thunderhorn
 step
     #completewith CampTFP
     .goto Mulgore,69.6,60.4,100,0
-    .zone The Barrens >> 前往贫瘠之地
+    .zone The Barrens >> Travel to The Barrens
 step << !Druid
     .goto The Barrens,44.45,59.15
-	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_欧姆萨·雷角|r 交谈
-    .fp Camp Taurajo >> 开通陶拉祖营地的飞行点
-	.target 欧姆萨·雷角
+	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Omusa|r
+    .fp Camp Taurajo >> Get the Camp Taurajo flight path
+	.target Omusa Thunderhorn
     .isQuestAvailable 848
 step << Druid
     .goto The Barrens,44.45,59.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_欧姆萨·雷角|r 交谈
-    .fp Camp Taurajo >> 开通陶拉祖营地的飞行点
-    .fly Thunder Bluff >>飞往雷霆崖
-    .target 欧姆萨·雷角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Omusa|r
+    .fp Camp Taurajo >> Get the Camp Taurajo flight path
+    .fly Thunder Bluff >>Fly to Thunder Bluff
+    .target Omusa Thunderhorn
     .isQuestAvailable 848
 step
     #optional
     #label CampTFP
 step << Druid
     .goto Thunder Bluff,45.83,64.74
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_旅店老板帕拉|r交谈
-    .home >>将你的炉石设置为雷霆崖
-    .target 旅店老板帕拉
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Innkeeper Pala|r
+    .home >>Set your Hearthstone to Thunder Bluff
+    .target Innkeeper Pala
     .bindlocation 1638
     .isQuestAvailable 5932
 step << Druid
     .goto Thunder Bluff,78.1,28.6
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_哈缪尔·符文图腾|r 交谈
-    .accept 886 >>接任务：贫瘠之地的绿洲
-    .target 大德鲁伊哈缪尔·符文图腾
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Hamuul Runetotem|r
+    .accept 886 >>Accept The Barrens Oases
+    .target Arch Druid Hamuul Runetotem
 step << Druid
     #completewith next
-    .goto Thunder Bluff,71.60,30.15,80 >>前往长者高地
+    .goto Thunder Bluff,71.60,30.15,80 >>Travel to the Elder Rise
 step << Druid
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_图拉克|r交谈
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Turak|r
     .goto Thunder Bluff,76.7,27.3
-    .turnin 5928 >>交任务：响应召唤
-    .accept 5922 >>接任务：月光林地
-    .target 图拉克·符文图腾
+    .turnin 5928 >>Turn in Heeding the Call
+    .accept 5922 >>Accept Moonglade
+    .target Arch Druid Hamuul Runetotem
+    .target Turak Runetotem
     .isOnQuest 5928
 step << Druid
     .goto Thunder Bluff,76.7,27.3
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_图拉克|r交谈
-    .accept 5922 >>接任务：月光林地
-    .target 图拉克·符文图腾
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Turak|r
+    .accept 5922 >>Accept Moonglade
+    .target Arch Druid Hamuul Runetotem
+    .target Turak Runetotem
 step << Druid
     #completewith next
-    .cast 18960 >>|cRXP_WARN_施放|r |T135758:0|t[传送:月光林地]
+    .cast 18960 >>|cRXP_WARN_Cast |r|T135758:0|t[Teleport: Moonglade]
     .zoneskip Moonglade
 step << Druid
     .goto Moonglade,56.21,30.64
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_德迪利特|r 交谈
-    .turnin 5922 >>交任务：月光林地
-    .accept 5930 >>接任务：巨熊之灵
-    .target 德迪利特·星焰
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dendrite|r
+    .turnin 5922 >>Turn in Moonglade
+    .accept 5930 >>Accept Great Bear Spirit
+    .target Dendrite Starblaze
 step << Druid
     .goto Moonglade,39.2,27.5
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t对话 |cRXP_FRIENDLY_巨熊之灵|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to the |cRXP_FRIENDLY_Great Bear Spirit|r
     .complete 5930,1 --Seek out the Great Bear Spirit and learn what it has to share with you about the nature of the bear. (1)
-    .target 巨熊之灵
+    .target Great Bear Spirit
     .skipgossip
 step << Druid
     #completewith next
-    .cast 18960 >>|cRXP_WARN_施放|r |T135758:0|t[传送: 月光林地]
+    .cast 18960 >>|cRXP_WARN_Cast|r |T135758:0|t[Teleport: Moonglade]
 step << Druid
     .goto Moonglade,56.21,30.64
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_德迪利特|r 交谈
-    .turnin 5930 >>交任务：巨熊之灵
-    .accept 5932 >>接任务：返回雷霆崖
-    .target 德迪利特·星焰
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dendrite|r
+    .turnin 5930 >>Turn in Great Bear Spirit
+    .accept 5932 >>Accept Back to Thunder Bluff
+    .target Dendrite Starblaze
 step << Druid
     #completewith DruidBearForm
-    .hs >> 使用炉石返回雷霆崖
+    .hs >> Hearth to Thunder Bluff
     .bindlocation 1638,1
     .zoneskip Thunder Bluff
     .cooldown item,6948,>0
@@ -2152,79 +2021,79 @@ step << Druid
 step << Druid
     #completewith next
     .goto Moonglade,44.29,45.87
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_布瑟恩|r 交谈
-    .fly Thunder Bluff >> 飞往雷霆崖
-    .target 布瑟恩·草风
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Bunthen|r
+    .fly Thunder Bluff >> Fly to Thunder Bluff
+    .target Bunthen Plainswind
     .zoneskip Thunder Bluff
     .cooldown item,6948,<0
 step << Druid
     #label DruidBearForm
     .goto Thunder Bluff,76.7,27.3
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_图拉克|r交谈
-    .turnin 5932 >>交任务：返回雷霆崖
-    .accept 6002 >>接任务：身心之力
-    .target 图拉克·符文图腾
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Turak|r
+    .turnin 5932 >>Turn in Back to Thunder Bluff
+    .accept 6002 >>Accept Body and Heart
+    .target Turak Runetotem
 step << Druid
     #completewith next
     .goto Thunder Bluff,47.00,49.82
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_塔尔|r 交谈
-    .fly Camp Taurajo >>飞往陶拉祖营地
-    .target 塔尔
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Tal|r
+    .fly Camp Taurajo >>Fly to Camp Taurajo
+    .target Tal
     .zoneskip The Barrens
 step << Druid
     .goto The Barrens,42.00,60.86
-    .use 15710 >>|cRXP_WARN_使用|r |T132857:0|t[赛纳里奥银尘] |cRXP_WARN_，在|r |cRXP_PICK_枭兽石|r 处使用
-    >>击杀刷新出现的 |cRXP_ENEMY_月爪枭兽|r，然后与 |cRXP_FRIENDLY_月爪枭兽的灵魂|r 交谈
-    >>|cRXP_WARN_小心！|cRXP_ENEMY_月爪枭兽|r 会施放|r |T132152:0|t[痛击] |cRXP_WARN_（获得2次额外攻击，每10秒一次）|r
-    >>|cRXP_WARN_避开该区域的|r |cRXP_ENEMY_电角蜥蜴|r |cRXP_WARN_，不要靠近它们|r
+    .use 15710 >>|cRXP_WARN_Use|r |T132857:0|t[Cenarion Lunardust] |cRXP_WARN_at the|r |cRXP_PICK_Moonkin Stone|r
+    >>Kill |cRXP_ENEMY_Lunaclaw|r as he spawns. Talk to the |cRXP_FRIENDLY_Lunaclaw Spirit|r afterwards
+    >>|cRXP_WARN_Be careful! |cRXP_ENEMY_Lunaclaw|r casts|r |T132152:0|t[Thrash] |cRXP_WARN_(Charges 2 extra attacks every 10 seconds)|r
+    >>|cRXP_WARN_Steer clear of the|r |cRXP_ENEMY_Thunderheads|r |cRXP_WARN_in the area|r
     .complete 6002,1 --Face Lunaclaw and earn the strength of body and heart it possesses. (1)
-    .mob 月爪枭兽
-    .target 月爪枭兽的灵魂
+    .mob Lunaclaw
+    .target Lunaclaw Spirit
     .skipgossip
 step << Tauren
     .goto The Barrens,44.9,58.6
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_基尔格·锐角|r 交谈
-    .accept 854 >>接任务：十字路口之旅
-    .target 基尔格·锐角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kirge Sternhorn|r
+    .accept 854 >>Accept Journey to the Crossroads
+    .target Kirge Sternhorn
 step
     #completewith next
-    .subzone 380 >>向北前往十字路口
+    .subzone 380 >>Travel north toward The Crossroads
 step
     .goto The Barrens,52.26,31.93
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_图加|r 交谈
-    .turnin 886 >>交任务：贫瘠之地的绿洲 << Druid
-    .accept 870 >>接任务：遗忘之池
-    .target 图加·符文图腾
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Tonga|r
+    .turnin 886 >>Turn in The Barrens Oases << Druid
+    .accept 870 >>Accept The Forgotten Pools
+    .target Tonga Runetotem
 step << Tauren
     .goto The Barrens,51.5,30.8
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_索克|r 交谈
-    .turnin 854 >>交任务：十字路口之旅
-    .target 索克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Thork|r
+    .turnin 854 >>Turn in Journey to the Crossroads
+    .target Thork
 step
     .goto The Barrens,51.44,30.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_赫布瑞姆|r 交谈
-    .accept 848 >>接任务：菌类孢子
-    .target 药剂师赫布瑞姆
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Helbrim|r
+    .accept 848 >>Accept Fungal Spores
+    .target Apothecary Helbrim
 step
     .goto The Barrens,51.50,30.34
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_迪弗拉克|r 交谈
-    .fp The Crossroads >> 开通十字路口的飞行点
-    .target 迪弗拉克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Devrak|r
+    .fp The Crossroads >> Get the The Crossroads flight path
+    .target Devrak
     .isQuestAvailable 848
-step << Tauren
+step
     .goto The Barrens,51.21,29.05
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_加翰·鹰翼|r 交谈
-    .accept 6361 >>接任务：一捆兽皮
-    .target 加翰·鹰翼
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Jahan|r
+    .accept 6361 >>Accept A Bundle of Hides
+    .target Jahan Hawkwing
 step
     #completewith next
-    >>在遗忘之池周围采集 |cRXP_LOOT_饱满的蘑菇|r
-    >>|cRXP_WARN_采集蘑菇时，尽量远离 |cRXP_ENEMY_科卡尔半人马|r |cRXP_WARN_。它们是12-14级|r
-    >>|cRXP_WARN_此任务的后续奖励是强力武器 |cRXP_FRIENDLY_锅炉搅拌器|r |cRXP_WARN_。如果不打算使用它，可以暂时跳过此任务|r
+    >>Collect |cRXP_LOOT_Laden Mushrooms|r around The Forgotten Pools
+    >>|cRXP_WARN_Keep maximum distance from |cRXP_ENEMY_Kolkar|r |cRXP_WARN_as you loot the mushrooms. They are level 12-14|r
+    >>|cRXP_WARN_The follow-up of this quest has the powerful |cRXP_FRIENDLY_Cauldron Stirrer|r |cRXP_WARN_as a reward. You can skip this quest for now if you do not intend to use it|r
     .complete 848,1 --Collect Fungal Spores (x4)
 step
     .goto The Barrens,45.06,22.54
-    >>潜入水下，前往 |cRXP_PICK_气泡裂隙|r
+    >>Dive underwater to the |cRXP_PICK_Bubbling Fissure|r
     .complete 870,1 --Explore the waters of the Forgotten Pools
 step
     #loop
@@ -2233,152 +2102,149 @@ step
     .goto The Barrens,45.2,22.0,40,0
     .goto The Barrens,44.6,22.5,40,0
     .goto The Barrens,43.9,24.4,40,0
-    >>在遗忘之池周围采集 |cRXP_LOOT_饱满的蘑菇|r
-    >>|cRXP_WARN_尽量远离该区域的 |cRXP_ENEMY_科卡尔半人马|r |cRXP_WARN_。它们是12-14级|r
-    >>|cRXP_WARN_此任务的后续奖励是强力武器 |cRXP_FRIENDLY_锅炉搅拌器|r |cRXP_WARN_。如果不打算使用它，可以暂时跳过此任务|r
+    >>Collect |cRXP_LOOT_Laden Mushrooms|r around The Forgotten Pools
+    >>|cRXP_WARN_Keep maximum distance from |cRXP_ENEMY_Kolkar|r |cRXP_WARN_in the area. They are level 12-14|r
+    >>|cRXP_WARN_The follow-up of this quest has the powerful |cRXP_FRIENDLY_Cauldron Stirrer|r |cRXP_WARN_as a reward. You can skip this quest for now if you do not intend to use it|r
     .complete 848,1 --Collect Fungal Spores (x4)
 step
     #softcore
 	#completewith ZamahPickup
-    .deathskip >> 死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处复活
+    .deathskip >> Die and respawn at the |cRXP_FRIENDLY_Spirit Healer|r
 step
     #hardcore
     #completewith ZamahPickup
-    .subzone 380 >> 返回十字路口
+    .subzone 380 >> Travel back to the Crossroads
 step
     .goto The Barrens,52.26,31.93
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_图加|r 交谈
-    .turnin 870 >>交任务：遗忘之池
-    .accept 877 >>接任务：死水绿洲
-    .target 图加·符文图腾
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Tonga|r
+    .turnin 870 >>Turn in The Forgotten Pools
+    .accept 877 >>Accept The Stagnant Oasis
+    .target Tonga Runetotem
     .isQuestComplete 870
 step
     #optional
     .goto The Barrens,52.26,31.93
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_图加|r 交谈
-    .accept 877 >>接任务：死水绿洲
-    .target 图加·符文图腾
-    .isQuestTurnedIn 870
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Tonga|r
+    .accept 877 >>Accept The Stagnant Oasis
+    .target Tonga Runetotem
+    .isQuestTurnedIn 877
 step
     .goto The Barrens,51.99,29.89
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_旅店老板伯兰德|r 交谈
-    .home >>将炉石绑定到十字路口
-    .target 旅店老板伯兰德·草风
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Innkeeper Boorand|r
+    .home >>Set your Hearthstone to Crossroads
+    .target Innkeeper Boorand Plainswind
     .bindlocation 380
     .isQuestAvailable 853
 step
     .goto The Barrens,51.44,30.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_赫布瑞姆|r 交谈
-    >>|cRXP_WARN_等待剧情演出结束|r
-    >>|cRXP_WARN_接取后会开启45分钟限时任务|r
-    .turnin 848 >>交任务：菌类孢子
-    .timer 7,菌类孢子剧情演出
-    .accept 853 >>接任务：药剂师扎玛
-    .target 药剂师赫布瑞姆
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Helbrim|r
+    >>|cRXP_WARN_Wait for the RP to finish|r
+    >>|cRXP_WARN_This starts a 45-minute timed quest|r
+    .turnin 848 >>Turn in Fungal Spores
+    .timer 7,Fungal Spores RP
+    .accept 853 >>Accept Apothecary Zamah
+    .target Apothecary Helbrim
     .isQuestComplete 848
 step
     #optional
     #label ZamahPickup
     .goto The Barrens,51.44,30.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_赫布瑞姆|r 交谈
-    >>|cRXP_WARN_接取后会开启45分钟限时任务|r
-    .accept 853 >>接任务：药剂师扎玛
-    .target 药剂师赫布瑞姆
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Helbrim|r
+    >>|cRXP_WARN_This starts a 45-minute timed quest|r
+    .accept 853 >>Accept Apothecary Zamah
+    .target Apothecary Helbrim
     .isQuestTurnedIn 848
-step << Tauren
+step
     .goto The Barrens,51.50,30.34
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_迪弗拉克|r 交谈
-    .turnin 6361 >>交任务：一捆兽皮
-    .accept 6362 >>接任务：飞往雷霆崖
-    .target 迪弗拉克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Devrak|r
+    .turnin 6361 >>Turn in A Bundle of Hides
+    .accept 6362 >>Accept Ride to Thunder Bluff
+    .target Devrak
 step
     #completewith RideToTB
     .goto The Barrens,51.50,30.34
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_迪弗拉克|r 交谈
-    .fly Thunder Bluff >>飞往雷霆崖
-    .target 迪弗拉克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Devrak|r
+    .fly Thunder Bluff >>Fly to Thunder Bluff
+    .target Devrak
     .zoneskip Thunder Bluff
 step
     #sticky
     #completewith CauldronStirrer
-    +|cRXP_WARN_这是限时任务，请勿挂机；按本指南路线，预计会在接取后约5–10分钟交任务|r
+    +|cRXP_WARN_You are on a timed quest, don't go afk. It will get turned in around 5-10 minutes after pick-up|r
     .isOnQuest 853
 step
     #label RideToTB
     .goto Thunder Bluff,45.6,55.9
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_安哈努|r 交谈 << Tauren
-    .turnin 6362 >>交任务：飞往雷霆崖 << Tauren
-    .accept 6363 >>接任务：双足飞龙管理员塔尔 << Tauren
-    .target 安哈努 << Tauren
-    .goto Thunder Bluff,45.60,55.90,15 >>抵达雷霆崖 << !Tauren
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ahanu|r
+    .turnin 6362 >>Turn in Ride to Thunder Bluff
+    .accept 6363 >>Accept Tal the Wind Rider Master
+    .target Ahanu
 step << Hunter
     .goto Thunder Bluff,61.3,80.9
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_梅洛·石蹄|r 交谈
-    .turnin 861 >>交任务：猎人之道
-    .accept 860 >>接任务：瑟格拉·黑棘
-    .target 梅洛·石蹄
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Melor|r
+    .turnin 861 >>Turn in The Hunter's Way
+    .accept 860 >>Accept Sergra Darkthorn
+    .target Melor Stonehoof
     .isQuestComplete 861
 step << Hunter
     .goto Thunder Bluff,61.3,80.9
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_梅洛·石蹄|r 交谈
-    .accept 860 >>接任务：瑟格拉·黑棘
-    .target 梅洛·石蹄
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Melor|r
+    .accept 860 >>Accept Sergra Darkthorn
+    .target Melor Stonehoof
     .isQuestTurnedIn 861
-step << Hunter Tauren
+step << Hunter
 	.goto Thunder Bluff,57.4,89.4
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_浩特|r 交谈
-	.turnin 6089 >> 交任务：训练野兽
-    .target 浩特·雷角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Holt|r
+	.turnin 6089 >> Turn in Training the Beast
+    .target Holt Thunderhorn
 step << Hunter
-    .spellmissing 1515
     .goto Thunder Bluff,54.08,84.08
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_赫苏瓦|r 交谈
-    .train 24547 >>训练宠物技能
-    .target 赫苏瓦·雷角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Hesuwa|r
+    .train 24547 >>Train your pet spells
+    .target Hesuwa Thunderhorn
 step << Hunter
-    .spellmissing 1515
     #completewith CauldronStirrer
-    +|cRXP_WARN_将|r |T132162:0|t[野兽训练] |cRXP_WARN_拖到动作条上，再为宠物传授技能|r
+    +|cRXP_WARN_Drag|r |T132162:0|t[Beast Training] |cRXP_WARN_onto your Action Bars. Teach skills to your pet|r
 step << Druid
     .goto Thunder Bluff,40.93,62.73
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_安塞瓦|r 交谈
-    .train 199 >>学习双手锤
-    .target 安塞瓦
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ansekhwa|r
+    .train 199 >>Train Two-Handed Maces
+    .target Ansekhwa
     .money <0.1154
 step << Warrior/Hunter
     .goto Thunder Bluff,40.93,62.73
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_安塞瓦|r 交谈
-    .train 227 >>学习法杖
-    .target 安塞瓦
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ansekhwa|r
+    .train 227 >>Train Staves
+    .target Ansekhwa
 step
     .goto Thunder Bluff,37.8,59.4
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_伊恩|r 交谈
-    .accept 744 >>接任务：准备典礼
-    .target 伊恩·鹰爪
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Eyahn|r
+    .accept 744 >>Accept Preparation for Ceremony
+    .target Eyahn Eagletalon
 step << Shaman
     #season 2
     .goto Thunder Bluff,39.45,65.86
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_巴通·阴影图腾|r 交谈
-    >>|cRXP_WARN_他|r |T132320:0|t[潜行中]
-    .accept 76156 >>接任务：大地母亲与匿同在
-    .target 巴通·阴影图腾
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Boarton Shadetotem|r
+    >>|cRXP_WARN_He is|r |T132320:0|t[Stealthed]
+    .accept 76156 >>Accept Stalk With The Earthmother
+    .target Boarton Shadetotem
     .train 410104,1
     .xp <4,1
 step
     #completewith next
     .goto Thunder Bluff,28.14,32.97,40,0
-    .goto Thunder Bluff,28.51,28.95,10 >> 前往灵魂高地，进入幻视之池
+    .goto Thunder Bluff,28.51,28.95,10 >> Travel to the Spirit Rise and enter the pools of vision
 step
     #label CauldronStirrer
     .goto Thunder Bluff,22.82,20.88
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_药剂师扎玛|r 交谈
-    .turnin 853 >>交任务：药剂师扎玛
-    .target 药剂师扎玛
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Zamah|r
+    .turnin 853 >>Turn in Apothecary Zamah
+    .target Apothecary Zamah
     .isOnQuest 853
 step
     #optional
     #completewith ReturntoJahan
-    +|cRXP_WARN_装备|r |T135145:0|t[锅炉搅拌器]
+    +|cRXP_WARN_Equip the|r |T135145:0|t[Cauldron Stirrer]
     .use 5340
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<10.1
     .itemcount 5340,1
@@ -2387,89 +2253,88 @@ step << Warrior
     #completewith next
     .goto Thunder Bluff,28.73,18.00,-1
     .goto Thunder Bluff,26.19,18.65,-1
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_奈塔里·傲翼|r 和 |cRXP_FRIENDLY_穆阿特|r 在灵魂高地交谈
-    +等 |cRXP_FRIENDLY_穆阿特|r 变为敌对后将其击杀
-    .target 奈塔里·傲翼
-    .target 穆阿特
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Netali|r and |cRXP_FRIENDLY_Mooart|r on the Spirit Rise
+    +Kill |cRXP_FRIENDLY_Mooart|r when he becomes hostile
+    .target Netali Proudwind
+    .target Mooart
     .skipgossip
     --Gossipoption
 step << Warrior
     #season 2
     .goto Thunder Bluff,28.73,18.00
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_奈塔里·傲翼|r 交谈
-    >>从她那里获得 |T134419:0|t[|cRXP_FRIENDLY_狂乱攻击符文|r]
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Netali|r
+    >>Receive the |T134419:0|t[|cRXP_FRIENDLY_Rune of Frenzied Assault|r] from her
     .collect 204716,1 --Rune of Frenzied Assault (1)
-    .target 奈塔里·傲翼
+    .target Netali
     .train 425447,1
     .skipgossip
 step << Warrior
     #season 2
-    .train 425447 >>使用 |T134419:0|t[|cRXP_FRIENDLY_狂乱攻击符文|r]
+    .train 425447 >>Use the |T134419:0|t[|cRXP_FRIENDLY_Rune of Frenzied Assault|r]
     .use 204716
     .itemcount 204716,1
 step
     #label ReturntoJahan
     .goto Thunder Bluff,47.00,49.82
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_塔尔|r 交谈
-    .turnin 6363 >>交任务：双足飞龙管理员塔尔 << Tauren
-    .accept 6364 >>接任务：向加翰回复 << Tauren
-    .target 塔尔
-    .fp Thunder Bluff >>开通雷霆崖的飞行点 << !Tauren
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Tal|r
+    .turnin 6363 >>Turn in Tal the Wind Rider Master
+    .accept 6364 >>Accept Return to Jahan
+    .target Tal
 step
     .goto Thunder Bluff,60.0,51.7
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_凯恩·血蹄|r 交谈
-    .turnin 775 >>交任务：雷霆崖之旅
-    .accept 776 >>接任务：大地之母仪祭
-    .target 凯恩·血蹄
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Cairne|r
+    .turnin 775 >>Turn in Journey into Thunder Bluff
+    .accept 776 >>Accept Rites of the Earthmother
+    .target Cairne Bloodhoof
 step << Druid
     #completewith next
-    .goto Thunder Bluff,71.60,30.15,80 >>前往长者高地
+    .goto Thunder Bluff,71.60,30.15,80 >>Travel to the Elder Rise
 step << Druid
     .goto Thunder Bluff,76.477,27.221
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_图拉克|r交谈
-    .turnin 6002 >>交任务：身心之力
-    .target 图拉克·符文图腾
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Turak|r
+    .turnin 6002 >>Turn in Body and Heart
+    .target Turak Runetotem
 step
     #ah
     .goto Thunder Bluff,44.43,43.19
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_莫兰塔|r 交谈
-    >>|cRXP_WARN_这会解锁一个简单的任务。如果已经有2个专业，就跳过此步骤|r
-    .train 8613 >>学习 |T134366:0|t[剥皮]
-    .target 莫兰塔
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mooranta|r
+    >>|cRXP_WARN_This will unlock an easy quest. If you already have 2 professions, skip this step|r
+    .train 8613 >>Train |T134366:0|t[Skinning]
+    .target Mooranta
 step
     #ah
     .goto Thunder Bluff,44.39,44.72
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_维尔伦|r 交谈
-    .accept 768 >> 接任务：收集皮革
-    .target 维尔伦·陆行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Veren|r
+    .accept 768 >> Accept Gathering Leather
+    .target Veren Tallstrider
     .skill skinning,<1,1
 step
     #ah
     .goto Thunder Bluff,40.39,51.77
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_拍卖师斯塔比|r 交谈
-    >>|cRXP_BUY_购买十二张|r |T134252:0|t[轻皮] |cRXP_BUY_，从拍卖行购买|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Auctioneer Stampi|r
+    >>|cRXP_BUY_Buy Twelve|r |T134252:0|t[Light Leather] |cRXP_BUY_from the Auction House|r
     .collect 2318,12,768,1 --Light Leather (12)
-    .target 拍卖师斯塔比
+    .target Auctioneer Stampi
     .skill skinning,<1,1
 step
     #ah
     .goto Thunder Bluff,44.39,44.72
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_维尔伦|r 交谈
-    .turnin 768 >> 交任务：收集皮革
-    .target 维尔伦·陆行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Veren|r
+    .turnin 768 >> Turn in Gathering Leather
+    .target Veren Tallstrider
     .skill skinning,<1,1
 step << Hunter
     .goto Thunder Bluff,52.32,47.79
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_卡加|r 交谈
-    >>|cRXP_BUY_从她那里购买|r |T133972:0|t[硬肉干] |cRXP_BUY_喂给宠物|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kaga|r
+    >>|cRXP_BUY_Buy|r |T133972:0|t[Tough Jerky] |cRXP_BUY_from her to feed your pet|r
     .collect 117,5,744,1 --Tough Jerky (5)
-    .target 卡加·迷雾行者
+    .target Kaga Mistrunner
 step << Shaman
     #season 2
     #loop
     #completewith VentureCoKills
-    >>打开矿洞内及另一侧外面的 |cRXP_PICK_冲击补给品货车|r，拾取 |cRXP_LOOT_爆盐采矿炸弹|r
-    >>|cRXP_WARN_尽量待在洞穴上层|r
+    >>Open the |cRXP_PICK_Blasting Supplies|r inside the mine and outside on the other side. Loot them for the |cRXP_LOOT_Seaforium Mining Charges|r
+    >>|cRXP_WARN_Stay on the upper levels of the cave if possible|r
     .complete 76156,1 --Seaforium Mining Charge (5)
     .train 410104,1
     .xp <4,1
@@ -2477,23 +2342,23 @@ step << Shaman
     #season 2
 	#era/som
     #completewith Fizsprocket1
-    .goto Mulgore,61.51,47.29,20 >> 前往风险投资公司矿井
+    .goto Mulgore,61.51,47.29,20 >> Travel to The Venture Co. Mine
 step << Shaman
     #season 2
     #completewith next
-    >>击杀 |cRXP_ENEMY_风险投资公司工人|r 和 |cRXP_ENEMY_风险投资公司主官|r
+    >>Kill |cRXP_ENEMY_Venture Co. Workers|r and |cRXP_ENEMY_Venture Co. Supervisors|r
     .complete 764,1 --Venture Co. Worker (14)
-    .mob +风险投资公司工人
+    .mob +Venture Co. Worker
     .complete 764,2 --Venture Co. Supervisor (6)
-    .mob +风险投资公司主官
+    .mob +Venture Co. Supervisor
 step << Shaman
     #season 2
     #label Fizsprocket1
     .goto Mulgore,64.95,43.33
-    >>击杀 |cRXP_ENEMY_菲兹普罗克主管|r，拾取 |cRXP_LOOT_记录板|r
-    >>|cRXP_WARN_跑进矿洞，沿右侧（东侧）前进即可找到他|r
+    >>Kill |cRXP_ENEMY_Supervisor Fizsprocket|r. Loot him for his |cRXP_LOOT_Clipboard|r
+    >>|cRXP_WARN_Run into the mine and hug the right/east side to reach him|r
     .complete 765,1 --Fizsprocket's Clipboard (1)
-    .mob 菲兹普罗克主管
+    .mob Supervisor Fizsprocket
 step << Shaman
     #season 2
     #label VentureCoKills
@@ -2506,11 +2371,11 @@ step << Shaman
 	.goto Mulgore,60.14,49.14,25,0
 	.goto Mulgore,62.01,48.74,25,0
 	.goto Mulgore,61.89,47.84,25,0
-    >>击杀 |cRXP_ENEMY_风险投资公司工人|r 和 |cRXP_ENEMY_风险投资公司主官|r
+    >>Kill |cRXP_ENEMY_Venture Co. Workers|r and |cRXP_ENEMY_Venture Co. Supervisors|r
     .complete 764,1 --Venture Co. Worker (14)
-    .mob +风险投资公司工人
+    .mob +Venture Co. Worker
     .complete 764,2 --Venture Co. Supervisor (6)
-    .mob +风险投资公司主官
+    .mob +Venture Co. Supervisor
 step << Shaman
     #season 2
     #loop
@@ -2524,58 +2389,58 @@ step << Shaman
     .goto Mulgore,60.99,37.00,15,0
     .goto Mulgore,59.64,36.05,15,0 --Outside
     .goto Mulgore,61.72,35.15,15,0 --Outside
-    >>打开矿洞内及另一侧外面的 |cRXP_PICK_冲击补给品货车|r，拾取 |cRXP_LOOT_爆盐采矿炸弹|r
-    >>|cRXP_WARN_尽量待在洞穴上层|r
+    >>Open the |cRXP_PICK_Blasting Supplies|r inside the mine and outside on the other side. Loot them for the |cRXP_LOOT_Seaforium Mining Charges|r
+    >>|cRXP_WARN_Stay on the upper levels of the cave if possible|r
     .complete 76156,1 --Seaforium Mining Charge (5)
     .train 410104,1
     .xp <4,1
 step << Shaman
     #season 2
     #completewith next
-    .zone Thunder Bluff >> 前往雷霆崖
+    .zone Thunder Bluff >> Travel to Thunder Bluff
     .train 410104,1
     .xp <4,1
 step << Shaman
     #season 2
     .goto Thunder Bluff,39.45,65.86
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_巴通·阴影图腾|r 交谈
-    >>|cRXP_WARN_他|r |T132320:0|t[潜行中]
-    .turnin 76156 >>交任务：大地母亲与匿同在
-    .accept 76160 >>接任务：大地母亲与匿同在
-    .target 巴通·阴影图腾
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Boarton Shadetotem|r
+    >>|cRXP_WARN_He is|r |T132320:0|t[Stealthed]
+    .turnin 76156 >>Turn in Stalk With The Earthmother
+    .accept 76160 >>Accept Stalk With The Earthmother
+    .target Boarton Shadetotem
     .train 410104,1
     .xp <4,1
 step
     #sticky
     #completewith ThunderBluff
-    >>留意 |cRXP_ENEMY_鬼嚎|r，击杀后拾取它的 |T134358:0|t[|cRXP_LOOT_恶魔之伤|r]，使用它接取任务
-    >>|cRXP_WARN_如果找不到它，就跳过此步骤|r
+    >>Keep an eye out for |cRXP_ENEMY_Ghost Howl|r. Loot him for his |T134358:0|t[|cRXP_LOOT_Demon Scarred Cloak|r]. Use it to start the quest
+    >>|cRXP_WARN_Skip this step if you're unable to find him|r
     .collect 4854,1,770 --Collect Demon Scarred Cloak
-    .accept 770 >>接任务：恶魔之伤
+    .accept 770 >>Accept The Demon Scarred Cloak
     .use 4854
-    .unitscan 鬼嚎
+    .unitscan Ghost Howl
 step << Druid
     #season 2
     #completewith ProwlerClaws
-    >>击杀 |cRXP_ENEMY_平原徘徊者|r 和 |cRXP_ENEMY_草原狼前锋|r，拾取 |T134903:0|t[|cRXP_FRIENDLY_怒熊神像|r]
+    >>Kill |cRXP_ENEMY_Flatland Prowlers|r and |cRXP_ENEMY_Prairie Wolf Alphas|r. Loot them for |T134903:0|t[|cRXP_FRIENDLY_Idol of Ursine Rage|r]
     .collect 206954,1 --Idol of Ursine Rage (1)
-    .mob 平原徘徊者
-    .mob 草原狼前锋
+    .mob Flatland Prowler
+    .mob Prairie Wolf Alpha
     .train 410025,1
 step
     #completewith Arrachea
-    >>击杀 |cRXP_ENEMY_平原徘徊者|r，拾取它们的 |cRXP_LOOT_爪子|r
+    >>Kill |cRXP_ENEMY_Flatland Prowlers|r. Loot them for their |cRXP_LOOT_Claws|r
     .complete 861,1 --Flatland Prowler Claw (4)
-    .mob 平原徘徊者
+    .mob Flatland Prowler
 step << Shaman
     #season 2
     #completewith next
-    >>击杀 |cRXP_ENEMY_风怒女巫|r，拾取它们的 |cRXP_LOOT_碧蓝色的羽毛|r
-    >>击杀 |cRXP_ENEMY_风怒女族长|r，拾取它们的 |cRXP_LOOT_古铜色的羽毛|r
+    >>Kill |cRXP_ENEMY_Windfury Sorceresses|r. Loot them for their |cRXP_LOOT_Azure Feathers|r
+    >>Kill |cRXP_ENEMY_Windfury Matriarchs|r. Loot them for their |cRXP_LOOT_Bronze Feathers|r
     .complete 744,1 --Azure Feather (6)
-    .mob +风怒女巫
+    .mob +Windfury Sorceress
     .complete 744,2 --Bronze Feather (6)
-    .mob +风怒女族长
+    .mob +Windfury Matriarch
     .train 410104,1
 step << Shaman
     #season 2
@@ -2594,33 +2459,24 @@ step << Shaman
     .goto Mulgore,36.55,12.84,10,0
     .goto Mulgore,36.65,13.26,10,0
     .goto Mulgore,37.18,12.36,10,0
-    >>拾取地上的 |cRXP_LOOT_风怒球果|r
+    >>Loot |cRXP_LOOT_Windfury Cones|r on the ground
     .collect 206170,8,76160,1 --Windfury Cone (8)
     .train 410104,1
-step << Shaman
-    #season 2
-    .isOnQuest 76160
-    >>使用 |T134535:0|t[研钵和捣杵] 研磨8个 |cRXP_LOOT_风怒球果|r，制作 |cRXP_LOOT_松树药膏|r
-    .use 206176
-    .complete 76160,1
-    .train 410104,1
-    .xp <4,1
-
 step
     #loop
     .goto Mulgore,31.7,28.2,0
     .goto Mulgore,30.2,19.5,0
     .goto Mulgore,31.7,28.2,40,0
     .goto Mulgore,30.2,19.5,40,0
-    >>击杀 |cRXP_ENEMY_风怒女巫|r，拾取它们的 |cRXP_LOOT_碧蓝色的羽毛|r
-    >>击杀 |cRXP_ENEMY_风怒女族长|r，拾取它们的 |cRXP_LOOT_古铜色的羽毛|r
+    >>Kill |cRXP_ENEMY_Windfury Sorceresses|r. Loot them for their |cRXP_LOOT_Azure Feathers|r
+    >>Kill |cRXP_ENEMY_Windfury Matriarchs|r. Loot them for their |cRXP_LOOT_Bronze Feathers|r
     .complete 744,1 --Azure Feather (6)
-    .mob +风怒女巫
+    .mob +Windfury Sorceress
     .complete 744,2 --Bronze Feather (6)
-    .mob +风怒女族长
+    .mob +Windfury Matriarch
 step << Tauren
     .goto Mulgore,42.5,13.8
-    .use 5416 >>|cRXP_WARN_使用|r |T135139:0|t[蛮鬃之井净化图腾] |cRXP_WARN_，在水井处使用|r
+    .use 5416 >>|cRXP_WARN_Use the|r |T135139:0|t[Wildmane Cleansing Totem] |cRXP_WARN_at the Well|r
     .complete 760,1 --Cleanse the Wildmane Well (1)
 step << Warrior/Hunter
     #season 2
@@ -2630,25 +2486,25 @@ step << Warrior/Hunter
     .goto Mulgore,48.6,16.1,90,0
     .goto Mulgore,51.8,33.8,90,0
     .goto Mulgore,56.2,32.9,90,0
-    >>击杀 |cRXP_ENEMY_阿兰其亚|r（大型黑色科多兽），拾取 |cRXP_LOOT_科多兽角|r << !Warrior !Hunter
-    >>击杀 |cRXP_ENEMY_阿兰其亚|r（大型黑色科多兽），拾取 |cRXP_LOOT_科多兽角|r 和 |T134419:0|t[|cRXP_FRIENDLY_狂怒雷霆符文|r] << Warrior
-    >>击杀 |cRXP_ENEMY_阿兰其亚|r（大型黑色科多兽），拾取 |cRXP_LOOT_科多兽角|r 和 |T134419:0|t[|cRXP_FRIENDLY_爆炸射击符文|r] << Hunter
-    >>|cRXP_WARN_它会沿莫高雷北部顺时针巡逻|r
+    >>Kill |cRXP_ENEMY_Arra'Chea|r (Big black kodo). Kill and loot him for his |cRXP_LOOT_Horn|r << !Warrior !Hunter
+    >>Kill |cRXP_ENEMY_Arra'Chea|r (Big black kodo). Kill and loot him for his |cRXP_LOOT_Horn|r and |T134419:0|t[|cRXP_FRIENDLY_Rune of Furious Thunder|r] << Warrior
+    >>Kill |cRXP_ENEMY_Arra'Chea|r (Big black kodo). Kill and loot him for his |cRXP_LOOT_Horn|r and |T134419:0|t[|cRXP_FRIENDLY_Rune of Explosive Shot|r] << Hunter
+    >>|cRXP_WARN_He patrols clockwise around Northern Mulgore|r
     .complete 776,1 --Horn of Arra'chea (1)
     .collect 204809,1 << Warrior --Rune of Furious Thunder(1)
     .collect 206169,1 << Hunter --Rune of Explosive Shot (1)
-    .unitscan 阿兰其亚
+    .unitscan Arra'chea
     .train 403476,1 << Warrior
     .train 410123,1 << Hunter
     --VV .line
 step << Warrior
     #season 2
-    .train 403476 >>使用 |T134419:0|t[|cRXP_FRIENDLY_狂怒雷霆符文|r]
+    .train 403476 >>Use the |T134419:0|t[|cRXP_FRIENDLY_Rune of Furious Thunder|r]
     .use 204809
     .itemcount 204809,1
 step << Hunter
     #season 2
-    .train 410123 >>使用 |T134419:0|t[|cRXP_FRIENDLY_爆炸射击符文|r]
+    .train 410123 >>Use the |T134419:0|t[|cRXP_FRIENDLY_Rune of Explosive Shot|r]
     .use 206169
     .itemcount 206169,1
 step
@@ -2659,10 +2515,10 @@ step
     .goto Mulgore,48.6,16.1,90,0
     .goto Mulgore,51.8,33.8,90,0
     .goto Mulgore,56.2,32.9,90,0
-    >>击杀 |cRXP_ENEMY_阿兰其亚|r（大型黑色科多兽），拾取 |cRXP_LOOT_科多兽角|r
-    >>|cRXP_WARN_它会沿莫高雷北部顺时针巡逻|r
+    >>Kill |cRXP_ENEMY_Arra'Chea|r (Big black kodo). Kill and loot him for his |cRXP_LOOT_Horn|r
+    >>|cRXP_WARN_He patrols clockwise around Northern Mulgore|r
     .complete 776,1 --Horn of Arra'chea (1)
-    .unitscan 阿兰其亚
+    .unitscan Arra'chea
     --VV .line
 step
     #label ProwlerClaws
@@ -2673,9 +2529,9 @@ step
     .goto Mulgore,37.12,16.84,90,0
     .goto Mulgore,44.57,17.39,90,0
     .goto Mulgore,48.70,20.85,90,0
-    >>击杀 |cRXP_ENEMY_平原徘徊者|r，拾取它们的 |cRXP_LOOT_爪子|r
+    >>Kill |cRXP_ENEMY_Flatland Prowlers|r. Loot them for their |cRXP_LOOT_Claws|r
     .complete 861,1 --Flatland Prowler Claw (4)
-    .mob 平原徘徊者
+    .mob Flatland Prowler
 step << Druid
     #season 2
     #loop
@@ -2685,56 +2541,55 @@ step << Druid
     .goto Mulgore,37.12,16.84,90,0
     .goto Mulgore,44.57,17.39,90,0
     .goto Mulgore,48.70,20.85,90,0
-    >>击杀 |cRXP_ENEMY_平原徘徊者|r 和 |cRXP_ENEMY_草原狼前锋|r，拾取 |T134903:0|t[|cRXP_FRIENDLY_怒熊神像|r]
+    >>Kill |cRXP_ENEMY_Flatland Prowlers|r and |cRXP_ENEMY_Prairie Wolf Alphas|r. Loot them for |T134903:0|t[|cRXP_FRIENDLY_Idol of Ursine Rage|r]
     .collect 206954,1 --Idol of Ursine Rage (1)
-    .mob 平原徘徊者
-    .mob 草原狼前锋
+    .mob Flatland Prowler
+    .mob Prairie Wolf Alpha
     .train 410025,1
 step << Druid
     #season 2
-    .equip 18,206954 >> |cRXP_WARN_装备|r |T134903:0|t[|cRXP_FRIENDLY_怒熊神像|r]
+    .equip 18,206954 >> |cRXP_WARN_Equip the|r |T134903:0|t[|cRXP_FRIENDLY_Idol of Ursine Rage|r]
     .use 206954
     .train 410025,1
 step << Druid
     #season 2
     #completewith next
-    +|cRXP_WARN_将怒气保持在50点或以上，持续至少60秒，才能学习|r |T132135:0|t[割碎]
+    +|cRXP_WARN_Maintain 50+ rage for at least 60 seconds to be able to learn|r |T132135:0|t[Mangle]
 step << Druid
     #season 2
-    .train 410025 >> |cRXP_WARN_使用|r |T134903:0|t[|cRXP_FRIENDLY_怒熊神像|r] |cRXP_WARN_学习|r |T132135:0|t[割碎]
+    .train 410025 >> |cRXP_WARN_Use the|r |T134903:0|t[|cRXP_FRIENDLY_Idol of Ursine Rage|r] |cRXP_WARN_to train|r |T132135:0|t[Mangle]
     .use 206954
     .itemcount 206954,1
 step
-    #label ThunderBluff
     #completewith next
-    .zone Thunder Bluff >> 返回雷霆崖
+    .zone Thunder Bluff >> Travel back to Thunder Bluff
 step
     #label RFCPickups1
     .goto Thunder Bluff,70.4,29.6
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_拉哈罗|r 交谈
-    .accept 5722 >> 接任务：寻找背包
-    .accept 5723 >> 接任务：试探敌人
-    .target 拉哈罗
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Rahauro|r
+    .accept 5722 >> Accept Searching for the Lost Satchel
+    .accept 5723 >> Accept Testing an Enemy's Strength
+    .target Rahauro
     .dungeon RFC
 step
     .goto Thunder Bluff,60.0,51.7
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_凯恩·血蹄|r 交谈
-    .turnin 776 >>交任务：大地之母仪祭
-    .target 凯恩·血蹄
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Cairne|r
+    .turnin 776 >>Turn in Rites of the Earthmother
+    .target Cairne Bloodhoof
     .isQuestComplete 776
 step
     .goto Thunder Bluff,37.8,59.4
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_伊恩|r 交谈
-    .turnin 744 >>交任务：准备典礼
-    .target 伊恩·鹰爪
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Eyahn|r
+    .turnin 744 >>Turn in Preparation for Ceremony
+    .target Eyahn Eagletalon
 step << Shaman
     #season 2
     .goto Thunder Bluff,39.45,65.86
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_巴通·阴影图腾|r 交谈
-    >>|cRXP_WARN_他|r |T132320:0|t[潜行中]
-    .turnin 76160 >>交任务：大地母亲与匿同在
-    .accept 76240 >>接任务：大地母亲与匿同在
-    .target 巴通·阴影图腾
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Boarton Shadetotem|r
+    >>|cRXP_WARN_He is|r |T132320:0|t[Stealthed]
+    .turnin 76160 >>Turn in Stalk With The Earthmother
+    .accept 76240 >>Accept Stalk With The Earthmother
+    .target Boarton Shadetotem
     .train 410104,1
     .xp <4,1
 step << Shaman
@@ -2742,10 +2597,10 @@ step << Shaman
     #ah
     .goto Thunder Bluff,45.23,59.40,0
     .goto Thunder Bluff,40.41,51.78
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_拍卖师斯塔比|r 交谈
-    >>|cRXP_BUY_从拍卖行购买|r |T133894:0|t[新鲜的美味小鱼]|cRXP_BUY_。|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Auctioneer Stampi|r
+    >>|cRXP_BUY_Buy a|r |T133894:0|t[Raw Brilliant Smallfish] |cRXP_BUY_from the Auction House|r
     .collect 6291,1,76240,1 --Raw Brilliant Smallfish (1)
-    .target 拍卖师斯塔比
+    .target Auctioneer Stampi
     .train 410104,1
     .xp <4,1
 step << Shaman
@@ -2757,7 +2612,7 @@ step << Shaman
     .goto Thunder Bluff,46.49,49.16,4,0
     .goto Thunder Bluff,46.05,49.74,4,0
     .goto Thunder Bluff,46.34,50.50,4,0
-    .goto Thunder Bluff,55.78,47.02,15 >>前往 |cRXP_FRIENDLY_苏瓦·迷雾行者|r 处
+    .goto Thunder Bluff,55.78,47.02,15 >>Travel toward |cRXP_FRIENDLY_Sewa Mistrunner|r
     .train 410104,1
     .xp <4,1
 step << Shaman
@@ -2766,9 +2621,9 @@ step << Shaman
     #sticky
     #label Kah
     .goto Thunder Bluff,56.13,46.39,-1
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_卡尔·迷雾行者|r 交谈
-    .train 7734 >>学习 |T136245:0|t[钓鱼]
-    .target 卡尔·迷雾行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kah Mistrunner|r
+    .train 7734 >>Train |T136245:0|t[Fishing]
+    .target Kah Mistrunner
     .train 410104,1
     .xp <4,1
 step << Shaman
@@ -2776,11 +2631,11 @@ step << Shaman
     #ssf
     #label Sewa
     .goto Thunder Bluff,55.78,47.02,-1
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_苏瓦·迷雾行者|r 交谈
-    >>|cRXP_BUY_向她购买|r |T132932:0|t[鱼竿] |cRXP_BUY_和|r |T134335:0|t[闪光的小珠] |cRXP_BUY_。|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Sewa Mistrunner|r
+    >>|cRXP_BUY_Buy a|r |T132932:0|t[Fishing Pole] |cRXP_BUY_and|r |T134335:0|t[Shiny Bauble] |cRXP_BUY_from her|r
     .collect 6256,1 --Fishing Pole (1)
     .collect 6529,1 --Shiny Bauble (1)
-    .target 苏瓦·迷雾行者
+    .target Sewa Mistrunner
     .train 410104,1
     .xp <4,1
 step << Shaman
@@ -2789,7 +2644,7 @@ step << Shaman
     #completewith Fish
     #requires Kah
     #label Pole
-    .equip 16,6256 >> |cRXP_WARN_装备|r |T132932:0|t[鱼竿]
+    .equip 16,6256 >> |cRXP_WARN_Equip the|r |T132932:0|t[Fishing Pole]
     .use 6256
     .train 410104,1
     .xp <4,1
@@ -2798,7 +2653,7 @@ step << Shaman
     #ssf
     #completewith Fish
     #requires Pole
-    .cast 8087 >> |cRXP_WARN_将|r |T134335:0|t[闪光的小珠] |cRXP_WARN_挂到|r |T132932:0|t[鱼竿]
+    .aura 8087 >> |cRXP_WARN_Attach the|r |T134335:0|t[Shiny Bauble] |cRXP_WARN_to your|r |T132932:0|t[Fishing Pole]
     .use 6529
     .train 410104,1
     .xp <4,1
@@ -2808,15 +2663,13 @@ step << Shaman
     #label Fish
     #requires Kah
     .goto Thunder Bluff,40.42,58.55
-    >>在池塘钓鱼，直到钓到 |T133894:0|t[|cRXP_LOOT_新鲜的美味小鱼|r]
-    >>钓到鱼后，换回作战武器
+    >>Fish in the pond until you get a |T133894:0|t[|cRXP_LOOT_Raw Brilliant Smallfish|r]
     .collect 6291,1,76240,1 --Raw Brilliant Smallfish (1)
     .train 410104,1
     .xp <4,1
 step << Shaman
     #season 2
-    .goto Thunder Bluff,39.45,65.86
-    >>在 |cRXP_FRIENDLY_巴通·阴影图腾|r 面前，使用 |T132147:0|t[一套匕首] 制作 |T134007:0|t[鱼块]
+    >>Use the |T132147:0|t[Knife Set] to create |T134007:0|t[Fish Chunks]
     .complete 76240,1 --Fish Chunks (1)
     .use 206344
     .train 410104,1
@@ -2824,77 +2677,77 @@ step << Shaman
 step << Shaman
     #season 2
     .goto Thunder Bluff,39.45,65.86
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_巴通·阴影图腾|r 交谈
-    >>|cRXP_WARN_他|r |T132320:0|t[潜行中]
-    .turnin 76240 >>交任务：大地母亲与匿同在
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Boarton Shadetotem|r
+    >>|cRXP_WARN_He is|r |T132320:0|t[Stealthed]
+    .turnin 76240 >>Turn in Stalk With The Earthmother
 -- .train 410104 >>|cRXP_WARN_You will train|r |T236289:0|t[Lava Lash] |cRXP_WARN_and|r |T132147:0|t[Dual Wield] |cRXP_WARN_upon turnin|r
-    .target 巴通·阴影图腾
+    .target Boarton Shadetotem
     .train 410104,1
     .xp <4,1
 step
     .goto Thunder Bluff,61.3,80.9
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_梅洛·石蹄|r 交谈
-    .turnin 861 >>交任务：猎人之道
-    .accept 860 >>接任务：瑟格拉·黑棘
-    .target 梅洛·石蹄
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Melor|r
+    .turnin 861 >>Turn in The Hunter's Way
+    .accept 860 >>Accept Sergra Darkthorn
+    .target Melor Stonehoof
 step
     #completewith WildManeTurnIn
-    .subzone 222 >>前往血蹄村
+    .subzone 222 >>Travel to Bloodhoof Village
 step
     .goto Mulgore,46.75,60.24
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_斯考恩·白云|r 交谈
-    .turnin 770 >>交任务：恶魔之伤
-    .target 斯考恩·白云
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Skorn|r
+    .turnin 770 >>Turn in The Demon Scarred Cloak
+    .target Skorn Whitecloud
     .isOnQuest 770
 step << Tauren
     .goto Mulgore,48.53,60.40
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_穆尔|r 交谈
-    .turnin 760 >>交任务：净化蛮鬃之井
-    .target 穆尔·雷角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mull|r
+    .turnin 760 >>Turn in Wildmane Cleansing
+    .target Mull Thunderhorn
 step << Shaman
     .goto Mulgore,48.38,59.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_纳姆|r 交谈
-    .train 547 >> 训练职业技能
-    .target 纳姆·逐星
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Narm|r
+    .train 547 >> Train your class spells
+    .target Narm Skychaser
     .xp <12,1
 step << Druid
     .goto Mulgore,48.48,59.64
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_根妮亚·符文图腾|r 交谈
-    .train 8936 >>学习职业技能
-    .target 根妮亚·符文图腾
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gennia|r
+    .train 8936 >>Train your class spells
+    .target Gennia Runetotem
     .xp <12,1
 step << Warrior
     .goto Mulgore,49.52,60.58
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_克朗|r 交谈
-    .train 7384 >> 训练职业技能
-    .target 克朗·石蹄
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Krang|r
+    .train 7384 >> Train your class spells
+    .target Krang Stonehoof
     .xp <12,1
 step << Hunter
     .goto Mulgore,47.81,55.69
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_雅文|r 交谈
-    .train 14281 >> 训练职业技能
-    .target 雅文·刺鬃
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Yaw|r
+    .train 14281 >> Train your class spells
+    .target Yaw Sharpmane
     .xp <12,1
 step
     #optional
     #label WildManeTurnIn
 step
     #completewith Fizsprocket
-    .goto Mulgore,61.51,47.29,20 >> 前往风险投资公司矿井
+    .goto Mulgore,61.51,47.29,20 >> Travel to The Venture Co. Mine
 step
     #completewith next
-    >>击杀 |cRXP_ENEMY_风险投资公司工人|r 和 |cRXP_ENEMY_风险投资公司主官|r
+    >>Kill |cRXP_ENEMY_Venture Co. Workers|r and |cRXP_ENEMY_Venture Co. Supervisors|r
     .complete 764,1 --Venture Co. Worker (14)
-    .mob +风险投资公司工人
+    .mob +Venture Co. Worker
     .complete 764,2 --Venture Co. Supervisor (6)
-    .mob +风险投资公司主官
+    .mob +Venture Co. Supervisor
 step
     #label Fizsprocket
     .goto Mulgore,64.95,43.33
-    >>击杀 |cRXP_ENEMY_菲兹普罗克主管|r，拾取 |cRXP_LOOT_记录板|r
-    >>|cRXP_WARN_跑进矿洞，沿右侧（东侧）前进即可找到他|r
+    >>Kill |cRXP_ENEMY_Supervisor Fizsprocket|r. Loot him for his |cRXP_LOOT_Clipboard|r
+    >>|cRXP_WARN_Run into the mine and hug the right/east side to reach him|r
     .complete 765,1 --Fizsprocket's Clipboard (1)
-    .mob 菲兹普罗克主管
+    .mob Supervisor Fizsprocket
 step
     #loop
 	.goto Mulgore,61.35,47.55,0
@@ -2905,11 +2758,11 @@ step
 	.goto Mulgore,60.14,49.14,25,0
 	.goto Mulgore,62.01,48.74,25,0
 	.goto Mulgore,61.89,47.84,25,0
-    >>击杀 |cRXP_ENEMY_风险投资公司工人|r 和 |cRXP_ENEMY_风险投资公司主官|r
+    >>Kill |cRXP_ENEMY_Venture Co. Workers|r and |cRXP_ENEMY_Venture Co. Supervisors|r
     .complete 764,1 --Venture Co. Worker (14)
-    .mob +风险投资公司工人
+    .mob +Venture Co. Worker
     .complete 764,2 --Venture Co. Supervisor (6)
-    .mob +风险投资公司主官
+    .mob +Venture Co. Supervisor
 step
     #xprate <1.5
     #loop
@@ -2920,7 +2773,7 @@ step
 	.goto Mulgore,60.14,49.14,25,0
 	.goto Mulgore,62.01,48.74,25,0
 	.goto Mulgore,61.89,47.84,25,0
-    .xp 11+7150 >>刷怪至11级至少7150/8700点经验
+    .xp 11+7150 >> Grind to 7150+/8700xp
 step
     #xprate >1.49
     #loop
@@ -2931,7 +2784,7 @@ step
 	.goto Mulgore,60.14,49.14,25,0
 	.goto Mulgore,62.01,48.74,25,0
 	.goto Mulgore,61.89,47.84,25,0
-    .xp 11+6375 >>刷怪至11级至少6375/8700点经验
+    .xp 11+6375 >> Grind to 6375+/8700xp
 step
     #loop
     .goto Mulgore,55.14,60.65,0
@@ -2942,100 +2795,99 @@ step
     .goto Mulgore,59.65,62.40,50,0
     .goto Mulgore,55.14,60.65,50,0
     .line Mulgore,51.50,59.23,53.00,60.24,55.14,60.65,57.47,61.26,59.65,62.40
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_摩林·云行者|r 交谈
-    >>|cRXP_WARN_他在东侧道路上巡逻|r
-    .turnin 764 >>交任务：风险投资公司
-    .turnin 765 >>交任务：菲兹普罗克主管
-	.unitscan 摩林·云行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Morin|r
+    >>|cRXP_WARN_He patrols along the eastern road|r
+    .turnin 764 >>Turn in The Venture Co.
+    .turnin 765 >>Turn in Supervisor Fizsprocket
+	.unitscan Morin Cloudstalker
 step << Shaman
     .goto Mulgore,48.38,59.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_纳姆|r 交谈
-    .train 547 >> 训练职业技能
-    .target 纳姆·逐星
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Narm|r
+    .train 547 >> Train your class spells
+    .target Narm Skychaser
     .xp <12,1
 step << Druid
     .goto Mulgore,48.48,59.64
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_根妮亚·符文图腾|r 交谈
-    .train 8936 >>学习职业技能
-    .target 根妮亚·符文图腾
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gennia|r
+    .train 8936 >>Train your class spells
+    .target Gennia Runetotem
     .xp <12,1
 step << Warrior
     .goto Mulgore,49.52,60.58
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_克朗|r 交谈
-    .train 5242 >> 训练职业技能
-    .target 克朗·石蹄
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Krang|r
+    .train 5242 >> Train your class spells
+    .target Krang Stonehoof
     .xp <12,1
 step << Hunter
     .goto Mulgore,47.81,55.69
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_雅文|r 交谈
-    .train 14281 >> 训练职业技能
-    .target 雅文·刺鬃
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Yaw|r
+    .train 14281 >> Train your class spells
+    .target Yaw Sharpmane
     .xp <12,1
 step
     #completewith HidesTurnIn
-    .hs >> 使用炉石返回十字路口
+    .hs >> Hearth to The Crossroads
     .use 6948
     .bindlocation 380,1
     .subzoneskip 380
     .cooldown item,6948,>0
 step
     #completewith next
-    .subzone 378 >> 前往陶拉祖营地
+    .subzone 378 >> Travel to Camp Taurajo
     .cooldown item,6948,<0,1
 step
     .goto The Barrens,44.45,59.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_欧姆萨·雷角|r 交谈
-    .fly Crossroads >>飞往十字路口
-    .target 欧姆萨·雷角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Omusa|r
+    .fly Crossroads >>Fly to The Crossroads
+    .target Omusa Thunderhorn
     .cooldown item,6948,<0,1
 step
     #label HidesTurnIn
     .goto The Barrens,51.21,29.05
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_加翰·鹰翼|r 交谈 << Tauren
-    .turnin 6364 >>交任务：向加翰回复 << Tauren
-    .target 加翰·鹰翼 << Tauren
-    .goto The Barrens,51.21,29.05,20 >>抵达十字路口 << !Tauren
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Jahan|r
+    .turnin 6364 >>Turn in Return to Jahan
+    .target Jahan Hawkwing
 step
     .goto The Barrens,51.44,30.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_赫布瑞姆|r 交谈
-    .accept 1492 >>接任务：码头管理员迪兹维格
-    .target 药剂师赫布瑞姆
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Helbrim|r
+    .accept 1492 >>Accept Wharfmaster Dizzywig
+    .target Apothecary Helbrim
 step
     .goto The Barrens,51.50,30.87
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_索克|r 交谈
-    .accept 871 >>接任务：野猪人的袭击
-    .accept 5041 >>接任务：十字路口的补给品
-    .target 索克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Thork|r
+    .accept 871 >>Accept Disrupt the Attacks
+    .accept 5041 >>Accept Supplies for the Crossroads
+    .target Thork
 step
     .goto The Barrens,51.62,30.90
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_达索克|r 交谈
-    >>|cRXP_WARN_他在塔顶|r
-    .accept 867 >>接任务：鹰身强盗
-    .target 达索克·快刀
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Darsok|r
+    >>|cRXP_WARN_He is at the top of the tower|r
+    .accept 867 >>Accept Harpy Raiders
+    .target Darsok Swiftdagger
 step
     .goto The Barrens,52.23,31.00
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_瑟格拉|r 交谈
-    .turnin 860 >>交任务：瑟格拉·黑棘
-    .accept 844 >>接任务：平原陆行鸟的威胁
-    .target 瑟格拉·黑棘
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Sergra|r
+    .turnin 860 >>Turn in Sergra Darkthorn
+    .accept 844 >>Accept Plainstrider Menace
+    .target Sergra Darkthorn
 step
     .goto The Barrens,51.93,30.32
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_加兹罗格|r 交谈
-    .accept 869 >>接任务：偷钱的迅猛龙
-    .target 加兹罗格
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gazrog|r
+    .accept 869 >>Accept Raptor Thieves
+    .target Gazrog
 step << Shaman
     #completewith next
-    >>查看是否有 |cRXP_PICK_老陈的空酒桶|r，就在 |cRXP_FRIENDLY_卡纳尔|r 身旁。拾取并使用它接取任务
-    >>|cRXP_WARN_如果那里没有酒桶，可以稍后再来拿|r
+    >>Check for |cRXP_PICK_Chen's Empty Keg|r next to |cRXP_FRIENDLY_Kranal|r. Loot it and start the quest
+    >>|cRXP_WARN_You can get it later if it's not there|r
     .collect 4926,1,819 --Collect Chen's Empty Keg
-    .accept 819 >> 接任务：老陈的空酒桶
+    .accept 819 >> Accept Chen's Empty Keg
     .use 4926
 step << Shaman
     .goto The Barrens,55.86,19.95
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_卡纳尔|r 交谈
-    .turnin 2984 >>交任务：火焰的召唤
-    .accept 1524 >>接任务：火焰的召唤
-    .target 卡纳尔·菲斯
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kranal|r
+    .turnin 2984 >>Turn in Call of Fire
+    .accept 1524 >>Accept Call of Fire
+    .target Kranal Fiss
 step << Shaman
     #completewith next
     .goto Durotar,36.74,57.78,10,0
@@ -3048,21 +2900,21 @@ step << Shaman
     .goto Durotar,38.05,57.79,8,0
     .goto Durotar,38.93,57.54,8,0
     .goto Durotar,39.19,57.90,8,0
-    .goto Durotar,39.16,58.56,10 >> 沿山路向上前往 |cRXP_FRIENDLY_泰尔夫|r 处
-    >>|cRXP_WARN_小心别从山上掉下去，山路很窄。坠落可能会致命|r
+    .goto Durotar,39.16,58.56,10 >> Travel the path up the mountain to |cRXP_FRIENDLY_Telf|r
+    >>|cRXP_WARN_Be careful to not fall of the mountain, the path is very narrow. You could die if you fall|r
 step << Shaman
     #label CallofFire2
     .goto Durotar,38.52,58.93
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_泰尔夫|r 交谈
-    .turnin 1524 >>交任务：火焰的召唤
-    .accept 1525 >>接任务：火焰的召唤
-    .target 泰尔夫·祖拉姆
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Telf|r
+    .turnin 1524 >>Turn in Call of Fire
+    .accept 1525 >>Accept Call of Fire
+    .target Telf Joolam
 step << Warrior
     .goto The Barrens,61.4,21.1
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_犹塞克|r 交谈
-    .turnin 1505 >>交任务：老兵犹塞克
-    .accept 1498 >>接任务：防御之道
-    .target 犹塞克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Uzzek|r
+    .turnin 1505 >>Turn in Veteran Uzzek
+    .accept 1498 >>Accept Path of Defense
+    .target Uzzek
 step << Warrior
     #loop
     .goto Durotar,39.34,28.25,0
@@ -3073,54 +2925,55 @@ step << Warrior
     .goto Durotar,40.00,24.06,40,0
     .goto Durotar,42.51,24.29,40,0
     .goto Durotar,39.34,28.25,40,0
-    >>击杀 |cRXP_ENEMY_闪电蜥蜴|r，拾取它们的 |cRXP_ENEMY_鳞片|r
+    >>Kill |cRXP_ENEMY_Lightning Hides|r. Loot them for their |cRXP_ENEMY_Scales|r
     .complete 1498,1 --Singed Scale (5)
-    .mob 闪电蜥蜴
+    .mob Lightning Hide
 step << Warrior
     .goto The Barrens,61.4,21.1
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_犹塞克|r 交谈
-    .turnin 1498 >>交任务：防御之道
-    .accept 1502 >>接任务：索恩格瑞姆·火眼
-    .target 犹塞克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Uzzek|r
+    .turnin 1498 >>Turn in Path of Defense
+    .accept 1502 >>Accept Thun'grim Firegaze
+    .target Uzzek
+
 ]])
+
+
 local faction = UnitFactionGroup("player")
 if faction == "Alliance" then return end
+
+
 RXPGuides.RegisterGuide([[
-#groupweight 500
-#groupdisplayname RestedXP 经典旧世 1-60（部落）
 #classic
 #tbc
 << Horde
 #xprate >1.99
 #version 1
 #group RestedXP Horde 1-22
-#subgroupdisplayname 1-22 << tbc
-#subgroupdisplayname 1-22
 #groupid RXP-SRGCE-H1
 #name 1-7 Mulgore
-#title 莫高雷
 #next 7-13 Mulgore
 #defaultfor Tauren
-#displayname 1-7 莫高雷
+
+
 step << !Tauren
     #completewith next
     .goto Mulgore,44.92,77.12
-    +|cRXP_WARN_你选择的是牛头人专用指南。由于其中一条主要任务线仅限牛头人接取，其他种族不适合在此区域升级。建议选择你出生地对应的新手区域|r
+    +|cRXP_WARN_You have selected a guide meant for Tauren. This zone will NOT work well for you due to missing one of the main questlines that are gated for Tauren only. It is recommended you choose the same starter zone that you start in|r
 step
     .goto Mulgore,44.92,77.12
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_格鲁尔|r交谈
-    .accept 747 >>接受任务 开始狩猎
-    .target 格鲁尔·鹰风
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Grull|r
+    .accept 747 >>Accept The Hunt Begins
+    .target Grull Hawkwind
 step
     #season 2
     .goto Mulgore,44.35,76.68
-    >> |Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_符文贩子|r 交谈
-    >> |cRXP_WARN_千万不要把可装备的物品卖给商人|r
-    >> |cRXP_BUY_出售你的|r |T135005:0|t[衬衫] |cRXP_BUY_和一份|r |T133964:0|t[大块面包] |cRXP_WARN_（按住 Shift 点击可拆分堆叠）|r |cRXP_BUY_并向他购买 |T134419:0|t[|cRXP_FRIENDLY_狂乱攻击符文|r] 和 |T134419:0|t[|cRXP_FRIENDLY_乘胜追击符文|r]|r << Warrior
-    >> |cRXP_BUY_出售你的|r |T135005:0|t[衬衫] |cRXP_BUY_和一份|r |T134534:0|t[蘑菇菌盖] |cRXP_WARN_（按住 Shift 点击可拆分堆叠）|r |cRXP_BUY_并向他购买 |T134920:0|t[|cRXP_FRIENDLY_卡亚圣像|r] |cRXP_BUY_和|r |T134918:0|t[|cRXP_FRIENDLY_二价圣像|r] |cRXP_BUY_。|r << Shaman
-    >> |cRXP_BUY_出售你的|r |T135005:0|t[衬衫] |cRXP_BUY_和|r |T132794:0|t[饮水] |cRXP_BUY_并向他购买以下符文：|r  << Hunter
-    >> |cRXP_BUY_出售你的|r |T133975:0|t[苹果] |cRXP_BUY_并向他购买以下符文：|r << Druid
-    >> |cRXP_BUY_出售杂物并购买以下全部符文：|r << Shaman
+    >> |Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to the |cRXP_FRIENDLY_Rune Broker|r
+    >> |cRXP_WARN_MAKE SURE NOT TO VENDOR GEAR THAT CAN BE EQUIPPED|r
+    >> |cRXP_BUY_Sell your|r |T135005:0|t[Shirt] |cRXP_BUY_and one of your|r |T133964:0|t[Hunks of Bread] |cRXP_WARN_(they can be split by shift-clicking)|r |cRXP_BUY_and buy the |T134419:0|t[|cRXP_FRIENDLY_Rune of Frenzied Assault|r] and |T134419:0|t[|cRXP_FRIENDLY_Rune of Victory Rush|r] from him|r << Warrior
+    >> |cRXP_BUY_Sell your|r |T135005:0|t[Shirt] |cRXP_BUY_and one of your|r |T134534:0|t[Mushroom Caps] |cRXP_WARN_(they can be split by shift-clicking)|r |cRXP_BUY_and buy the |T134920:0|t[|cRXP_FRIENDLY_Kajaric Icon|r] |cRXP_BUY_and|r |T134918:0|t[|cRXP_FRIENDLY_Dyadic Icon|r] |cRXP_BUY_from him|r << Shaman
+    >> |cRXP_BUY_Sell your|r |T135005:0|t[Shirt] |cRXP_BUY_and|r |T132794:0|t[Water] |cRXP_BUY_and buy the following runes:|r  << Hunter
+    >> |cRXP_BUY_Sell your|r |T133975:0|t[Apples] |cRXP_BUY_and buy the following runes:|r << Druid
+    >> |cRXP_BUY_Vendor trash and buy all of the following runes:|r << Shaman
     .collect 204716,1 << Warrior --Rune of Frenzied Assault
     .collect 204806,1 << Warrior --Rune of Victory Rush
     .collect 209852,1 << Hunter --Rune of Kill Command
@@ -3133,8 +2986,8 @@ step
     .collect 210500,1 << Druid --Rune of the Stars
     .collect 206989,1 << Druid --Rune of the Sun
     .collect 227749,1 << Druid --Rune of the Falling Star
-    >>你很快就会获得其余符文
-    .target 符文贩子
+    >>You will get the rest of your runes very soon
+    .target Rune Broker
     .skipgossip
 step
     #season 2
@@ -3151,211 +3004,201 @@ step
     .use 210500 << Druid --Rune of the Stars
     .use 206989 << Druid --Rune of the Sun
     .use 227749 << Druid --Rune of the Falling Star
-    .equip 18,206387 >> 装备 |T134920:0|t[|cRXP_FRIENDLY_卡亚圣像|r], 30 秒后使用学习 |T237582:0|t[熔岩爆裂] << Shaman
-    .equip 18,208414 >> 装备 |T134903:0|t[|cRXP_FRIENDLY_月光神像|r], 30 秒后使用学习 |T237472:0|t[怒风之怒] << Druid
-    .train 425447 >> 使用 |T134419:0|t[|cRXP_FRIENDLY_狂乱攻击符文|r] << Warrior
-    .train 403470 >> 使用 |T134419:0|t[|cRXP_FRIENDLY_乘胜追击符文|r] 学习 |T132342:0|t[乘胜追击], 稍后刻印 << Warrior
-    .train 410111 >> 使用 |T134419:0|t[|cRXP_FRIENDLY_杀戮命令符文|r] 学习 |T236174:0|t[夺命射击] << Hunter
-    .train 410121 >> 使用 |T134419:0|t[|cRXP_FRIENDLY_奇美拉符文|r] 学习 |T236176:0|t[奇美拉射击] << Hunter
-    .train 409580 >> 使用 |T133739:0|t[|cRXP_FRIENDLY_论述：雄狮之心|r] 学习 |T132185:0|t[雄狮之心] << Hunter
-    .train 415423 >> 使用 |T133739:0|t[|cRXP_FRIENDLY_论述：蝰蛇守护|r] 学习 |T132160:0|t[蝰蛇守护] << Hunter
-    .train 424718 >> 使用 |T134419:0|t[|cRXP_FRIENDLY_星辰符文|r] 学习 |T135730:0|t[星涌术] << Druid
-    .train 416044 >> 使用 |T134419:0|t[|cRXP_FRIENDLY_日灼符文|r] 学习 |T236216:0|t[阳炎术] << Druid
-    .train 439770 >> 使用 |T134419:0|t[|cRXP_FRIENDLY_坠落星辰符文|r] 学习 |T236168:0|t[星辰坠落] << Druid
-    .engrave 7 >> 在裤子上铭刻|T236174:0|t[夺命射击] << Hunter
-    .engrave 7 >> 在裤子上铭刻|T236317:0|t[狂乱攻击] << Warrior
-    .engrave 7 >> 在裤子上铭刻|T135730:0|t[星涌术] << Druid
+    .equip 18 >> Equip the |T134920:0|t[|cRXP_FRIENDLY_Kajaric Icon|r], you can use it after 30 seconds to train |T237582:0|t[Lava Burst] << Shaman
+    .equip 18 >> Equip the |T134903:0|t[|cRXP_FRIENDLY_Lunar Idol|r], you can use it after 30 seconds to train |T237472:0|t[Fury of Stormrage] << Druid
+    .train 425447 >> Use the |T134419:0|t[|cRXP_FRIENDLY_Rune of Frenzied Assault|r] << Warrior
+    .train 403470 >> Use the |T134419:0|t[|cRXP_FRIENDLY_Rune of Victory Rush|r] to train |T132342:0|t[Victory Rush], you will engrave it soon << Warrior
+    .train 410111 >> Use the |T134419:0|t[|cRXP_FRIENDLY_Rune of Kill Command|r] to train |T236174:0|t[Kill Shot] << Hunter
+    .train 410121 >> Use the |T134419:0|t[|cRXP_FRIENDLY_Rune of the Chimera|r] to train |T236176:0|t[Chimera Shot] << Hunter
+    .train 409580 >> Use the |T133739:0|t[|cRXP_FRIENDLY_Treatise on the Heart of the Lion|r] to train |T132185:0|t[Heart of the Lion] << Hunter
+    .train 415423 >> Use the |T133739:0|t[|cRXP_FRIENDLY_Treatise on Aspect of the Viper|r] to train |T132160:0|t[Heart of the Viper] << Hunter
+    .train 424718 >> Use the |T134419:0|t[|cRXP_FRIENDLY_Rune of the Stars|r] to train |T135730:0|t[Starsurge] << Druid
+    .train 416044 >> Use the |T134419:0|t[|cRXP_FRIENDLY_Rune of the Sun|r] to train |T236216:0|t[Sunfire] << Druid
+    .train 439770 >> Use the |T134419:0|t[|cRXP_FRIENDLY_Rune of the Falling Star|r] to train |T236168:0|t[Starfall] << Druid
+    .engrave 7 >> Engrave |T236174:0|t[Kill Shot] on your pants << Hunter
+    .engrave 7 >> Engrave |T236317:0|t[Frenzied Assault] on your pants << Warrior
+    .engrave 7 >> Engrave |T135730:0|t[Starsurge] on your pants << Druid
 step << Hunter
     #season 2
     #optional
     #sticky
-    .aura 409583 >> 记得激活 |T132185:0|t[雄狮之心]
+    .aura 409583 >> Remember to activate your |T132185:0|t[Heart of the Lion]
 step << Shaman
     #season 2
     #optional
     #label LavaBurst
     #sticky
-    .use 206387
-    .train 410095 >> 从角色面板使用 |T134920:0|t[|cRXP_FRIENDLY_卡亚圣像|r] 学习 |T237582:0|t[熔岩爆裂]
+    .train 410095 >> Use the |T134920:0|t[|cRXP_FRIENDLY_Kajaric Icon|r] from your character panel to train |T237582:0|t[Lava Burst]
 step << Druid
     #season 2
     #optional
     #sticky
-    .use 208414
-    .train 410061 >> 从角色面板使用 |T134903:0|t[|cRXP_FRIENDLY_月光神像|r] 学习 |T237472:0|t[怒风之怒]
-    .engrave 5 >> 在胸甲上铭刻|T237472:0|t[怒风之怒]
+    .train 410061 >> Use the |T134903:0|t[|cRXP_FRIENDLY_Lunar Idol|r] from your character panel to train |T237472:0|t[Fury of Stormrage]
+    .engrave 5 >> Engrave your chest with |T237472:0|t[Fury of Stormrage]
 step << Shaman
     #season 2
     #optional
     #requires LavaBurst
     #label Overload
     #sticky
-    .equip 18,206381 >> 装备 |T134918:0|t[|cRXP_FRIENDLY_二价圣像|r]
-    .train 410094 >> 30秒后使用它来学习 |T136050:0|t[过载]
+    .equip 18,206381 >> Equip the |T134918:0|t[|cRXP_FRIENDLY_Dyadic Icon|r]
+    .train 410094 >> Use it after 30 seconds to train |T136050:0|t[Overload]
     .use 206381
 step
     .goto Mulgore,44.18,76.07
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_鹰风酋长|r 交谈
-    .accept 752 >>接受任务 一件琐事
-    .target 鹰风酋长
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Chief Hawkwind|r
+    .accept 752 >>Accept A Humble Task
+    .target Chief Hawkwind
 step << Warrior/Shaman
-    #season 0,1
+    #season 0
     #completewith next
     .goto Mulgore,46.05,75.32,30,0
-    +|cRXP_WARN_击杀 |cRXP_ENEMY_平原陆行鸟|r 并拾取物品，直到可出售的物品（包括身上的护甲）总价值达到10铜币|r << Warrior/Shaman
-    .mob 平原陆行鸟
-    .money >0.001
+    +|cRXP_WARN_Kill |cRXP_ENEMY_Plainstriders|r. Loot them until you have 10 copper worth of vendor items (including your armor)|r << Warrior/Shaman
+    .mob Plainstrider
+    .money >0.01
 step
     #season 2
     .goto Mulgore,46.05,75.32
-    .xp 2 >>|cRXP_WARN_击杀4只|cRXP_ENEMY_平原陆行鸟|r升到2级，并拾取可售物品，直到总价值达到10铜币|r << !Shaman !Druid
-    .xp 2 >>|cRXP_WARN_击杀4只|cRXP_ENEMY_平原陆行鸟|r升到2级，并拾取可售物品，直到总价值达到42铜币|r << Shaman
-    .xp 2 >>|cRXP_WARN_击杀4只|cRXP_ENEMY_平原陆行鸟|r升到2级，并拾取可售物品，直到总价值达到20铜币|r << Druid
-    .mob 平原陆行鸟
+    .xp 2 >>|cRXP_WARN_Kill 4 |cRXP_ENEMY_Plainstriders|r to reach level 2. Loot them until you have 10 copper worth of vendor items|r << !Shaman !Druid
+    .xp 2 >>|cRXP_WARN_Kill 4 |cRXP_ENEMY_Plainstriders|r to reach level 2. Loot them until you have 42 copper worth of vendor items|r << Shaman
+    .xp 2 >>|cRXP_WARN_Kill 4 |cRXP_ENEMY_Plainstriders|r to reach level 2. Loot them until you have 20 copper worth of vendor items|r << Druid
+    .mob Plainstrider
 step << Shaman/Druid
     #season 2
     .goto Mulgore,46.36,75.89,50,0
     #completewith next
-    +|cRXP_WARN_继续击杀|cRXP_ENEMY_平原陆行鸟|r，直到可售物品总价值达到42铜币|r << Shaman
-    +|cRXP_WARN_继续击杀|cRXP_ENEMY_平原陆行鸟|r，直到可售物品总价值达到20铜币|r << Druid
+    +|cRXP_WARN_Keep killing |cRXP_ENEMY_Plainstriders|r until you have 42 copper worth of vendor items|r << Shaman
+    +|cRXP_WARN_Keep killing |cRXP_ENEMY_Plainstriders|r until you have 20 copper worth of vendor items|r << Druid
     .money >0.0042 << Shaman
     .money >0.002 << Druid
 step << Druid
     #season 2
     .goto Mulgore,45.08,75.94
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_加尔特|r交谈
-    .accept 77648 >>接受任务 牛头人的圣物
-    .complete 77648,1 >>学会怒风之怒后，交付教学任务
-    .turnin 77648 >>交任务 牛头人的圣物
-    .target 加尔特·迷雾行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gart|r
+    .accept 77648 >>Accept Relics of the Tauren
+    .turnin 77648 >>Turn in Relics of the Tauren
+    .target Gart Mistrunner
 step << Warrior/Shaman
-    #season 0,1
+    #season 0
     .goto Mulgore,45.30,76.52
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_卡文尼|r 交谈
-    .vendor >> 出售杂物
-    .target 卡文尼·柔风
-    .money >0.001
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kawnie|r
+    .vendor >> Vendor Trash
+    .target Kawnie Softbreeze
+    .money >0.01
 step << Warrior/Shaman
     #season 2
     .goto Mulgore,45.30,76.52
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_卡文尼|r 交谈
-    >>|cRXP_WARN_不要将可装备的物品卖给商人|r
-    .vendor >> 出售杂物
-    .target 卡文尼·柔风
-    .money >0.001 << Warrior
-    .money >0.0042 << Shaman
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kawnie|r
+    >>|cRXP_WARN_MAKE SURE NOT TO VENDOR GEAR THAT CAN BE EQUIPPED|r
+    .vendor >> Vendor Trash
+    .target Kawnie Softbreeze
+    .money >0.01
 step << Warrior
-    #season 0,1
+    #season 0
     .goto Mulgore,44.02,76.14
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_哈鲁特·雷角|r交谈
-    .train 6673 >>学习 |T132333:0|t[战斗怒吼]
-    .target 哈鲁特·雷角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Harutt|r
+    .train 6673 >>Train |T132333:0|t[Battle Shout]
+    .target Harutt Thunderhorn
 step << Warrior
     #season 2
     .goto Mulgore,44.02,76.14
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_哈鲁特·雷角|r交谈
-    .train 6673 >>学习 |T132333:0|t[战斗怒吼]
-    .accept 77651 >>接受任务 深入荆棘
-    .complete 77651,1 >>学会乘胜追击后，交付教学任务
-    .turnin 77651 >>交任务 深入荆棘
-    .target 哈鲁特·雷角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Harutt|r
+    .train 6673 >>Train |T132333:0|t[Battle Shout]
+    .accept 77651 >>Accept Into the Brambles
+    .turnin 77651 >>Turn in Into the Brambles
+    .target Harutt Thunderhorn
 step << Shaman
-    #season 0,1
+    #season 0
     .goto Mulgore,45.01,75.95
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_米拉·晨行者|r交谈
-    .train 8017 >>学习 |T136086:0|t[石化武器]
-    .target 米拉·晨行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Meela|r
+    .train 8017 >>Train |T136086:0|t[Rockbiter Weapon]
+    .target Meela Dawnstrider
 step << Shaman
     #season 2
     .goto Mulgore,45.01,75.95
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_米拉·晨行者|r交谈
-    .train 8017 >>学习 |T136086:0|t[石化武器]
-    .accept 77652 >>接受任务 力量圣像
-    .complete 77652,1 >>学会过载后，交付教学任务
-    .turnin 77652 >>交任务 力量圣像
-    .target 米拉·晨行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Meela|r
+    .train 8017 >>Train |T136086:0|t[Rockbiter Weapon]
+    .accept 77652 >>Accept Icons of Power
+    .turnin 77652 >>Turn in Icons of Power
+    .target Meela Dawnstrider
 step << Shaman/Druid
     #season 2
     .goto Mulgore,44.15,77.25
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_瓦利亚|r交谈
-    >>|cRXP_BUY_出售杂物|r。|cRXP_WARN_千万不要出售可以装备的物品|r << Druid
-    >>|cRXP_BUY_购买一副|r |T132952:0|t[肮脏的皮手套]，|cRXP_BUY_用于铭刻符文|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Varia|r
+    >>|cRXP_BUY_Vendor trash|r |cRXP_WARN_MAKE SURE NOT TO VENDOR GEAR THAT CAN BE EQUIPPED|r << Druid
+    >>|cRXP_BUY_Buy a pair of|r |T132952:0|t[Dirty Leather Gloves] |cRXP_BUY_to engrave a rune on|r
     .collect 714,1 -- Dirty Leather Gloves
-    .target 瓦利亚·韧皮
+    .target Varia Hardhide
 step << Hunter
     #season 2
     .goto Mulgore,44.26,75.70
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_兰卡|r交谈
-    .accept 77649 >>接受任务 猎人的力量
-    .complete 77649,1 >>学会奇美拉射击后，交付教学任务
-    .turnin 77649 >>交任务 猎人的力量
-    .target 兰卡·远箭
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Lanka|r
+    .accept 77649 >>Accept A Hunter's Strength
+    .turnin 77649 >>Turn in A Hunter's Strength
+    .target Lanka Farshot
 step << Warrior/Shaman/Druid
     #season 2
-    .equip 10,2385 >> 装备 |T132938:0|t[无光泽的链甲手套] << Warrior
-    .equip 10,714 >> 装备 |T132952:0|t[肮脏的皮手套] << Shaman/Druid
-    .engrave 10 >> 在手套上铭刻|T132342:0|t[乘胜追击] << Warrior
-    .equip 5,2127 >> 装备 |T135010:0|t[破损的皮外衣] << Shaman
-    .engrave 5 >> 在胸甲上铭刻|T136050:0|t[过载] << Shaman
-    .engrave 10 >> 在手套上铭刻|T237582:0|t[熔岩爆裂] << Shaman
-    .engrave 10 >> 在手套上铭刻|T236216:0|t[阳炎术] << Druid
+    .equip 10 >> Equip the |T132938:0|t[Tarnished Chain Gloves] << Warrior
+    .equip 10 >> Equip the |T132952:0|t[Dirty Leather Gloves] << Shaman/Druid
+    .engrave 10 >> Engrave |T132342:0|t[Victory Rush] on your gloves << Warrior
+    .equip 5 >> Equip the |T135010:0|t[Cracked Leather Vest] << Shaman
+    .engrave 5 >> Engrave |T136050:0|t[Overload] on your chest << Shaman
+    .engrave 10 >> Engrave |T237582:0|t[Lava Burst] on your gloves << Shaman
+    .engrave 10 >> Engrave |T236216:0|t[Sunfire] on your gloves << Druid
     .use 2127 << Shaman/Druid --Cracked Leather Vest
     .use 2385 << Warrior -- Tarnished Chain Gloves
-    .use 714 << Shaman/Druid --Dirty Leather Gloves
+    .use 714 << Shaman --Dirty Leather Gloves
 step << Hunter
     #season 2
     .goto Mulgore,44.35,76.68
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_符文贩子|r 交谈
-    >>|cRXP_WARN_千万不要出售可以装备的物品|r
-    .vendor >>|cRXP_BUY_出售杂物，并购买以下全部符文：|r << Hunter
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to the |cRXP_FRIENDLY_Rune Broker|r
+    >>|cRXP_WARN_MAKE SURE NOT TO VENDOR GEAR THAT CAN BE EQUIPPED|r
+    .vendor >>|cRXP_BUY_Vendor trash and buy all of the following runes:|r << Hunter
     .collect 210818,1 << Hunter --Rune of Lone Wolf
     .collect 213124,1 << Hunter --Rune of Close Combat
     .collect 226252,1 << Hunter --Rune of the Guerrilla
-    >>|cRXP_WARN_你稍后会获得其余符文|r
-    .target 符文贩子
+    >>|cRXP_WARN_You will get the rest of your runes later|r
+    .target Rune Broker
     .skipgossip
 step << Hunter
     #season 2
-    .train 410122 >> 使用 |T134419:0|t[|cRXP_FRIENDLY_独来独往符文|r] 学习 |T132266:0|t[独来独往] << Hunter
-    .train 416086 >> 使用 |T134419:0|t[|cRXP_FRIENDLY_短兵相接符文|r] 学习 |T132394:0|t[近战专家] << Hunter
-    .train 440563 >> 使用 |T134419:0|t[|cRXP_FRIENDLY_游击符文|r] 学习 |T132171:0|t[一击脱离] << Hunter
+    .train 410122 >> Use the |T134419:0|t[|cRXP_FRIENDLY_Rune of Lone Wolf|r] to train |T132266:0|t[Lone Wolf] << Hunter
+    .train 416086 >> Use the |T134419:0|t[|cRXP_FRIENDLY_Rune of Close Combat|r] to train |T132394:0|t[Melee Specialist] << Hunter
+    .train 440563 >> Use the |T134419:0|t[|cRXP_FRIENDLY_Rune of Guerrilla|r] to train |T132171:0|t[Hit and Run] << Hunter
     .use 210818 << Hunter --Rune of Lone Wolf
     .use 213124 << Hunter --Rune of Close Combat
     .use 226252 << Hunter --Rune of the Guerrilla
 step << Hunter
-    #season 2
-    .equip 10,2125 >> 装备 |T132952:0|t[破损的皮手套]
-    .engrave 10 >> 在手套上铭刻|T236176:0|t[奇美拉射击]
+    .equip 10 >> Equip the |T132952:0|t[Cracked Leather Gloves]
+    .engrave 10 >> Engrave |T236176:0|t[Chimera Shot] on your gloves
     .use 2125 --Cracked Leather Gloves
 step << Hunter
-    #season 2
     #sticky
     #optional
-    >> |cRXP_WARN_留意掉落的|r胸甲/腰带/披风|cRXP_WARN_。|r|cRXP_WARN_装备它们，并刻印相应符文。|r
-    .engrave 5 >> 将 |T132266:0|t[独来独往] 铭刻到你的 |T132724:0|t[胸甲]上
-    .engrave 6 >> 将|T132394:0|t[近战专家]铭刻到|T132513:0|t[腰带]上
-    .engrave 15 >> 将 |T132171:0|t[一击脱离] 铭刻到你的 |T133771:0|t[披风]上
+    >> |cRXP_WARN_Be on the lookout for any|r Chest/Belt/Cloak |cRXP_WARN_drops|r|cRXP_WARN_. Equip them and engrave the respective runes|r
+    .engrave 5 >> Engrave |T132266:0|t[Lone Wolf] on your |T132724:0|t[Chest]
+    .engrave 6 >> Engrave |T132394:0|t[Melee Specialist] on your |T132513:0|t[Belt]
+    .engrave 15 >> Engrave |T132171:0|t[Hit and Run] on your |T133771:0|t[Cloak]
 step << Druid
-    #season 2
     #sticky
     #optional
-    >> |cRXP_WARN_留意掉落的|r披风|cRXP_WARN_。|r|cRXP_WARN_装备它，并将|r |T236168:0|t[星辰坠落]|cRXP_WARN_刻印到披风上。|r
-    .engrave 15 >> 将 |T236168:0|t[星辰坠落] 铭刻到你的 |T133771:0|t[披风]上
+    >> |cRXP_WARN_Be on the lookout for any|r Cloak |cRXP_WARN_drops|r|cRXP_WARN_. Equip it and engrave|r |T236168:0|t[Starfall] |cRXP_WARN_on it|r
+    .engrave 15 >> Engrave |T236168:0|t[Starfall] on your |T133771:0|t[Cloak]
 step
     #completewith next
-    >>击杀 |cRXP_ENEMY_平原陆行鸟|r，拾取它们的 |cRXP_LOOT_肉|r 和 |cRXP_LOOT_羽毛|r
+    >>Kill |cRXP_ENEMY_Plainstriders|r. Loot them for their |cRXP_LOOT_Meat|r and |cRXP_LOOT_Feathers|r
     .complete 747,1 --Plainstrider Meat (7)
     .complete 747,2 --Plainstrider Feather (7)
-    .mob 平原陆行鸟
+    .mob Plainstrider
 step
     .goto Mulgore,50.03,81.16
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_鹰风酋长的母亲|r 交谈
-    .turnin 752 >>交任务 一件琐事
-    .accept 753 >>接受任务 一件琐事
-    .target 鹰风酋长的母亲
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Greatmother Hawkwind|r
+    .turnin 752 >>Turn in A Humble Task
+    .accept 753 >>Accept A Humble Task
+    .target Greatmother Hawkwind
 step
     .goto Mulgore,50.22,81.37
-    >>拾取 |cRXP_LOOT_水罐|r，它在 |cRXP_FRIENDLY_鹰风酋长的母亲|r 身后的井上
+    >>Loot the |cRXP_LOOT_Water Pitcher|r on the well behind |cRXP_FRIENDLY_Hawkwind|r
     .complete 753,1 --Water Pitcher (1)
 step
     #loop
@@ -3368,63 +3211,63 @@ step
     .goto Mulgore,45.77,80.39,50,0
     .goto Mulgore,45.56,82.39,50,0
     .goto Mulgore,47.36,83.05,50,0
-    >>击杀 |cRXP_ENEMY_平原陆行鸟|r，拾取它们的 |cRXP_LOOT_肉|r 和 |cRXP_LOOT_羽毛|r
+    >>Kill |cRXP_ENEMY_Plainstriders|r. Loot them for their |cRXP_LOOT_Meat|r and |cRXP_LOOT_Feathers|r
     .complete 747,1 --Plainstrider Meat (7)
     .complete 747,2 --Plainstrider Feather (7)
-    .mob 平原陆行鸟
+    .mob Plainstrider
 step
     .goto Mulgore,44.92,77.12
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_格鲁尔|r交谈
-    .turnin 747,1 >>交任务 开始狩猎 << Druid
-    .turnin 747 >>交任务 开始狩猎 << !Druid
-    .accept 3091 >>接受任务 简易便笺 << Warrior
-    .accept 3092 >>接受任务 风化便笺 << Hunter
-    .accept 3093 >>接受任务 符文便笺 << Shaman
-    .accept 3094 >>接受任务 绿色便笺 << Druid
-    .accept 750 >>接受任务 继续狩猎
-    .target 格鲁尔·鹰风
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Grull|r
+    .turnin 747,1 >>Turn in The Hunt Begins << Druid
+    .turnin 747 >>Turn in The Hunt Begins << !Druid
+    .accept 3091 >>Accept Simple Note << Warrior
+    .accept 3092 >>Accept Etched Note << Hunter
+    .accept 3093 >>Accept Rune-Inscribed Note << Shaman
+    .accept 3094 >>Accept Verdant Note << Druid
+    .accept 750 >>Accept The Hunt Continues
+    .target Grull Hawkwind
 step
     .goto Mulgore,45.30,76.52
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_卡文尼|r 交谈
-    >>|cRXP_BUY_向她购买|r |T132384:0|t[轻弹丸] |cRXP_BUY_。|r << Hunter
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kawnie|r
+    >>|cRXP_BUY_Buy|r |T132384:0|t[Light Shots] |cRXP_BUY_from her|r << Hunter
     .collect 2516,1000,750,1 << Hunter --Light Shot (1000)
-    .vendor >> 出售杂物
-    .target 卡文尼·柔风
+    .vendor >> Vendor Trash
+    .target Kawnie Softbreeze
 step
     .goto Mulgore,44.18,76.07
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_鹰风酋长|r 交谈
-    .turnin 753 >>交任务 一件琐事
-    .accept 755 >>接受任务 大地之母仪祭
-    .target 鹰风酋长
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Chief Hawkwind|r
+    .turnin 753 >>Turn in A Humble Task
+    .accept 755 >>Accept Rites of the Earthmother
+    .target Chief Hawkwind
 step << Shaman
     .goto Mulgore,44.07,77.47
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r |cRXP_FRIENDLY_马沙克|r|cRXP_BUY_交谈，并购买一根|r |T135139:0|t[学徒法杖] |cRXP_BUY_（向他购买）|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Marjak|r|cRXP_BUY_. Buy a|r |T135139:0|t[Short Staff] |cRXP_BUY_from him|r
     .collect 2132,1,750,1 --Collect Short Staff (1)
     .money <0.0102
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<1.9
-    .target 马沙克·利刃
+    .target Marjak Keenblade
 step << Shaman
     #optional
     #completewith RitesoftheEarthmother
-    +|cRXP_WARN_装备|r |T135139:0|t[学徒法杖]
+    +|cRXP_WARN_Equip the|r |T135139:0|t[Short Staff]
     .use 2132
     .itemcount 2132,1
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<1.9
 step
     #completewith next
-    >>击杀 |cRXP_ENEMY_山狮|r，拾取它们的 |cRXP_LOOT_毛皮|r
+    >>Kill |cRXP_ENEMY_Mountain Cougars|r. Loot them for their |cRXP_LOOT_Pelts|r
     .complete 750,1 --Mountain Cougar Pelt (10)
-    .mob 山狮
+    .mob Mountain Cougar
 step
     #label RitesoftheEarthmother
     .goto Mulgore,42.58,92.18
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_灰舌先知|r交谈
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Seer Graytongue|r
     -->>|cRXP_WARN_Grind mobs on the way|r
-    .turnin 755 >>交任务 大地之母仪祭
-    .accept 757 >>接受任务 力量仪祭
-    .target 灰舌先知
+    .turnin 755 >>Turn in Rites of the Earthmother
+    .accept 757 >>Accept Rite of Strength
+    .target Seer Graytongue
 step
     #loop
     .goto Mulgore,44.60,90.86,0
@@ -3439,9 +3282,9 @@ step
     .goto Mulgore,47.06,88.64,50,0
     .goto Mulgore,45.06,89.89,50,0
     .goto Mulgore,44.60,90.86,50,0
-    >>击杀 |cRXP_ENEMY_山狮|r，拾取它们的 |cRXP_LOOT_毛皮|r
+    >>Kill |cRXP_ENEMY_Mountain Cougars|r. Loot them for their |cRXP_LOOT_Pelts|r
     .complete 750,1 --Mountain Cougar Pelt (10)
-    .mob 山狮
+    .mob Mountain Cougar
 step
     #optional
     #loop
@@ -3462,114 +3305,114 @@ step
 	.goto Mulgore,45.03,82.15,40,0
 	.goto Mulgore,44.09,83.89,40,0
 	.goto Mulgore,43.90,86.08,40,0
-    .xp 3+850 >> 刷怪至3级至少850/1400点经验
-    .mob 平原陆行鸟
+    .xp 3+850 >> Grind to 850+/1400xp
+    .mob Plainstrider
 step << Warrior/Druid
     #completewith GrullTurnin2
-    +|cRXP_WARN_击杀|cRXP_ENEMY_平原陆行鸟|r并拾取可售物品，直到总价值达到2银币|r
-    .mob 平原陆行鸟
+    +|cRXP_WARN_Grind |cRXP_ENEMY_Plainstriders|r. Loot them until you have 2 silver worth of vendor items|r
+    .mob Plainstrider
 	.money >0.02
 step << !Warrior !Druid
     #completewith next
-    +|cRXP_WARN_击杀|cRXP_ENEMY_平原陆行鸟|r并拾取可售物品，直到总价值达到1银币|r
-    .mob 平原陆行鸟
+    +|cRXP_WARN_Grind |cRXP_ENEMY_Plainstriders|r. Loot them until you have 1 silver worth of vendor items|r
+    .mob Plainstrider
     .money >0.01
 step
     #label GrullTurnin2
     .goto Mulgore,44.92,77.12
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_格鲁尔|r交谈
-    .turnin 750 >>交任务 继续狩猎
-    .accept 780 >>接受任务 斗猪
-    .target 格鲁尔·鹰风
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Grull|r
+    .turnin 750 >>Turn in The Hunt Continues
+    .accept 780 >>Accept The Battleboars
+    .target Grull Hawkwind
 step
     .goto Mulgore,45.30,76.52
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_卡文尼|r 交谈
-    .vendor >> 出售杂物
-    .target 卡文尼·柔风
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kawnie|r
+    .vendor >> Vendor Trash
+    .target Kawnie Softbreeze
 step
     .goto Mulgore,44.67,76.68
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_卫兵维萨罗·风羽|r交谈
-    .accept 3376 >>接受任务 刺鬃酋长
-    .target 卫兵维萨罗·风羽
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Brave|r
+    .accept 3376 >>Accept Break Sharptusk!
+    .target Brave Windfeather
 step << Warrior
     #season 2
     .goto Mulgore,44.02,76.14
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_哈鲁特·雷角|r交谈
-    .turnin 3091 >>交任务：简易便笺
-    .train 100 >> 学习 |T132337:0|t[冲锋]
-    .train 772 >> 学习 |T132155:0|t[撕裂]
-    .target 哈鲁特·雷角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Harutt|r
+    .turnin 3091 >>Turn in Simple Note
+    .train 100 >> Train |T132337:0|t[Charge]
+    .train 772 >> Train |T132155:0|t[Rend]
+    .target Harutt Thunderhorn
     .money <0.02
 step << Warrior
     #season 2
     .goto Mulgore,44.02,76.14
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_哈鲁特·雷角|r交谈
-    .turnin 3091 >>交任务：简易便笺
-    .train 772 >> 学习 |T132155:0|t[撕裂]
-    .target 哈鲁特·雷角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Harutt|r
+    .turnin 3091 >>Turn in Simple Note
+    .train 772 >> Train |T132155:0|t[Rend]
+    .target Harutt Thunderhorn
 step << Warrior
-    #season 0,1
+    #season 0
     .goto Mulgore,44.02,76.14
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_哈鲁特·雷角|r交谈
-    .turnin 3091 >>交任务：简易便笺
-    .train 100 >> 学习 |T132337:0|t[冲锋]
-    .train 772 >> 学习 |T132155:0|t[撕裂]
-    .target 哈鲁特·雷角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Harutt|r
+    .turnin 3091 >>Turn in Simple Note
+    .train 100 >> Train |T132337:0|t[Charge]
+    .train 772 >> Train |T132155:0|t[Rend]
+    .target Harutt Thunderhorn
     .money <0.02
 step << Warrior
-    #season 0,1
+    #season 0
     .goto Mulgore,44.02,76.14
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_哈鲁特·雷角|r交谈
-    .turnin 3091 >>交任务：简易便笺
-    .train 772 >> 学习 |T132155:0|t[撕裂]
-    .target 哈鲁特·雷角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Harutt|r
+    .turnin 3091 >>Turn in Simple Note
+    .train 772 >> Train |T132155:0|t[Rend]
+    .target Harutt Thunderhorn
 step << Hunter
     #season 2
     .goto Mulgore,44.26,75.70
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_兰卡|r交谈
-    .turnin 3092 >>交任务：风化便笺
-    .train 1978 >> 学习 |T132204:0|t[毒蛇钉刺]
-    .target 兰卡·远箭
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Lanka|r
+    .turnin 3092 >>Turn in Etched Note
+    .train 1978 >> Train |T132204:0|t[Serpent Sting]
+    .target Lanka Farshot
 step << Hunter
-    #season 0,1
+    #season 0
     .goto Mulgore,44.26,75.70
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_兰卡|r交谈
-    .turnin 3092 >>交任务：风化便笺
-    .train 1978 >> 学习 |T132204:0|t[毒蛇钉刺]
-    .target 兰卡·远箭
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Lanka|r
+    .turnin 3092 >>Turn in Etched Note
+    .train 1978 >> Train |T132204:0|t[Serpent Sting]
+    .target Lanka Farshot
 step << Druid
     #season 2
     .goto Mulgore,45.09,75.93
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_加尔特|r交谈
-    .turnin 3094 >>交任务：绿色便笺
-    .train 8921 >> 学习 |T136096:0|t[月火术]
-    .target 加尔特·迷雾行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gart|r
+    .turnin 3094 >>Turn in Verdant Note
+    .train 8921 >> Train |T136096:0|t[Moonfire]
+    .target Gart Mistrunner
 step << Druid
-    #season 0,1
+    #season 0
     .goto Mulgore,45.09,75.93
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_加尔特|r交谈
-    .turnin 3094 >>交任务：绿色便笺
-    .train 8921 >> 学习 |T136096:0|t[月火术]
-    .target 加尔特·迷雾行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gart|r
+    .turnin 3094 >>Turn in Verdant Note
+    .train 8921 >> Train |T136096:0|t[Moonfire]
+    .target Gart Mistrunner
 step << Shaman
     .goto Mulgore,44.73,76.18
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_鸦羽|r交谈
-    .accept 1519 >>接受任务 大地的召唤
-    .target 鸦羽先知
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ravenfeather|r
+    .accept 1519 >>Accept Call of Earth
+    .target Seer Ravenfeather
 step << Shaman
     #season 2
     .goto Mulgore,45.01,75.95
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_米拉·晨行者|r交谈
-    .turnin 3093 >>交任务 符文便笺
-    .train 8042 >>学习 |T136026:0|t[地震术]
-    .target 米拉·晨行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Meela|r
+    .turnin 3093 >>Turn in Rune-Inscribed Note
+    .train 8042 >>Train |T136026:0|t[Earth Shock]
+    .target Meela Dawnstrider
 step << Shaman
-    #season 0,1
+    #season 0
     .goto Mulgore,45.01,75.95
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_米拉·晨行者|r交谈
-    .turnin 3093 >>交任务 符文便笺
-    .train 8042 >>学习 |T136026:0|t[地震术]
-    .target 米拉·晨行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Meela|r
+    .turnin 3093 >>Turn in Rune-Inscribed Note
+    .train 8042 >>Train |T136026:0|t[Earth Shock]
+    .target Meela Dawnstrider
 step
     #loop
     .goto Mulgore,55.99,85.46,0
@@ -3585,46 +3428,46 @@ step
     .goto Mulgore,57.69,86.77,50,0
     .goto Mulgore,57.31,85.39,50,0
     .goto Mulgore,55.99,85.46,50,0
-    >>击杀 |cRXP_ENEMY_斗猪|r，拾取它们的 |cRXP_LOOT_肋排|r 和 |cRXP_LOOT_头|r
+    >>Kill |cRXP_ENEMY_Battleboars|r. Loot them for their |cRXP_LOOT_Flanks|r and |cRXP_LOOT_Snouts|r
     .complete 780,2 --Battleboar Flank (8)
     .complete 780,1 --Battleboar Snout (8)
-    .mob 斗猪
+    .mob Battleboar
 step
     #completewith BristlebackBelts
-    .goto Mulgore,59.67,83.33,30 >>穿过洞穴
+    .goto Mulgore,59.67,83.33,30 >>Travel through the cave
 step
     #completewith DirtyMap
-    >>击杀 |cRXP_ENEMY_刺背野猪人|r，拾取它们的 |cRXP_LOOT_腰带|r
+    >>Kill |cRXP_ENEMY_Bristleback Quilboars|r. Loot them for their |cRXP_LOOT_Belts|r
     .complete 757,1 --Bristleback Belt (12)
-    .mob 刺背野猪人
+    .mob Bristleback Quilboar
 step << Shaman
     #completewith DirtyMap
-    >>击杀 |cRXP_ENEMY_刺背萨满祭司|r，拾取它们的 |cRXP_LOOT_仪式药膏|r
+    >>Kill |cRXP_ENEMY_Bristleback Shamans|r. Loot them for their |cRXP_LOOT_Salves|r
     .complete 1519,1 --Ritual Salve (2)
-    .mob 刺背萨满祭司
+    .mob Bristleback Shaman
 step
     .goto Mulgore,60.54,81.04,35,0
     .goto Mulgore,62.35,81.27,35,0
     .goto Mulgore,62.49,78.78,35,0
     .goto Mulgore,64.71,77.67
-    >>击杀大屋内的 |cRXP_ENEMY_刺鬃酋长|r，拾取他的 |cRXP_LOOT_头颅|r
+    >>Kill |cRXP_ENEMY_Chief Sharptusk Thornmantle|r inside the big hut. Loot him for his |cRXP_LOOT_Head|r
     .complete 3376,1 --Chief Sharptusk Thornmantle's Head (1)
-    .mob 刺鬃酋长
+    .mob Chief Sharptusk Thornmantle
 step
     #completewith next
-    .goto Mulgore,63.24,82.70,40 >>进入洞穴
+    .goto Mulgore,63.24,82.70,40 >>Enter the Cave
 step
     #label DirtyMap
     .goto Mulgore,63.24,82.70
-    >>拾取地上的 |T134269:0|t[|cRXP_LOOT_沾满泥土的地图|r]，使用它接取任务
+    >>Loot the |T134269:0|t[|cRXP_LOOT_Dirt-stained Map|r] on the ground. Use it to start the quest
     .collect 4851,1,781 --Collect Dirt-Stained Map
-    .accept 781 >>接受任务 纳拉其营地的危机
+    .accept 781 >>Accept Attack on Camp Narache
     .use 4851
 step << Shaman
     #completewith next
-    >>击杀 |cRXP_ENEMY_刺背萨满祭司|r，拾取它们的 |cRXP_LOOT_仪式药膏|r
+    >>Kill |cRXP_ENEMY_Bristleback Shamans|r. Loot them for their |cRXP_LOOT_Salves|r
     .complete 1519,1 --Ritual Salve (2)
-    .mob 刺背萨满祭司
+    .mob Bristleback Shaman
 step
     #label BristlebackBelts
     #loop
@@ -3637,9 +3480,9 @@ step
     .goto Mulgore,64.20,79.01,40,0
     .goto Mulgore,65.82,78.13,40,0
     .goto Mulgore,63.93,78.34,40,0
-    >>击杀 |cRXP_ENEMY_刺背野猪人|r，拾取它们的 |cRXP_LOOT_腰带|r
+    >>Kill |cRXP_ENEMY_Bristleback Quilboars|r. Loot them for their |cRXP_LOOT_Belts|r
     .complete 757,1 --Bristleback Belt (12)
-    .mob 刺背野猪人
+    .mob Bristleback Quilboar
 step << Shaman
     #loop
     .goto Mulgore,63.86,80.14,0
@@ -3650,286 +3493,278 @@ step << Shaman
     .goto Mulgore,65.93,77.10,40,0
     .goto Mulgore,63.57,76.25,40,0
     .goto Mulgore,63.86,80.14,40,0
-    >>击杀 |cRXP_ENEMY_刺背萨满祭司|r，拾取它们的 |cRXP_LOOT_仪式药膏|r
+    >>Kill |cRXP_ENEMY_Bristleback Shamans|r. Loot them for their |cRXP_LOOT_Salves|r
     .complete 1519,1 --Ritual Salve (2)
-    .mob 刺背萨满祭司
+    .mob Bristleback Shaman
 step
     #completewith next
-    .hs >> 使用炉石返回纳拉其营地
+    .hs >> Hearth to Camp Narache
     .use 6948
 step
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_格鲁尔|r、|cRXP_FRIENDLY_卫兵维萨罗·风羽|r和|cRXP_FRIENDLY_鹰风酋长|r交谈 << !Shaman
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_格鲁尔|r、|cRXP_FRIENDLY_卫兵维萨罗·风羽|r、|cRXP_FRIENDLY_鸦羽先知|r和|cRXP_FRIENDLY_鹰风酋长|r交谈 << Shaman
-    .turnin 780 >>交任务 斗猪
-    .target +格鲁尔·鹰风
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Grull|r, |cRXP_FRIENDLY_Brave|r and |cRXP_FRIENDLY_Hawkwind|r << !Shaman
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Grull|r, |cRXP_FRIENDLY_Brave|r, |cRXP_FRIENDLY_Seer|r and |cRXP_FRIENDLY_Hawkwind|r << Shaman
+    .turnin 780 >>Turn in The Battleboars
+    .target +Grull Hawkwind
     .goto Mulgore,44.92,77.12
-    .turnin 3376 >>交任务 刺鬃酋长
-    .target +卫兵维萨罗·风羽
+    .turnin 3376 >>Turn in Break Sharptusk!
+    .target +Brave Windfeather
     .goto Mulgore,44.67,76.68
-    .turnin 1519 >>交任务 大地的召唤 << Shaman
-    .accept 1520 >>接受任务 大地的召唤 << Shaman
-    .target +鸦羽先知 << Shaman
+    .turnin 1519 >>Turn in Call of Earth << Shaman
+    .accept 1520 >>Accept Call of Earth << Shaman
+    .target +Seer Ravenfeather << Shaman
     .goto Mulgore,44.73,76.18 << Shaman
-    .turnin 781 >>交任务 纳拉其营地的危机
-    .turnin 757 >>交任务 力量仪祭
-    .accept 763 >>接受任务 大地之母仪祭
-    .target +鹰风酋长
+    .turnin 781 >>Turn in Attack on Camp Narache
+    .turnin 757 >>Turn in Rite of Strength
+    .accept 763 >>Accept Rites of the Earthmother
+    .target +Chief Hawkwind
     .goto Mulgore,44.18,76.07
 step << Shaman
-    .isOnQuest 1520
     #completewith CallofEarth
     #label Rock
-    .goto Mulgore,53.74,80.15,30 >> 前往岩石方向
+    .goto Mulgore,53.74,80.15,30 >> Travel toward the rock
 step << Shaman
-    .isOnQuest 1520
     #completewith next
     #requires Rock
-    .cast 8202 >>|cRXP_WARN_使用|r |T134743:0|t[大地灵契]
+    .cast 8202 >>|cRXP_WARN_Use the|r |T134743:0|t[Earth Sapta]
     .use 6635
 step << Shaman
-    #label CallofEarth
     .goto Mulgore,53.74,80.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_大地之魂|r交谈
-    .turnin 1520 >>交任务 大地的召唤
-    .accept 1521 >>接受任务 大地的召唤
-    .target 大地之魂
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to the |cRXP_FRIENDLY_Manifestation|r
+    .turnin 1520 >>Turn in Call of Earth
+    .accept 1521 >>Accept Call of Earth
+    .target Minor Manifestation of Earth
 step << Shaman
     .goto Mulgore,44.73,76.18
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_鸦羽|r交谈
-    .turnin 1521 >>交任务 大地的召唤
-    .target 鸦羽先知
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ravenfeather|r
+    .turnin 1521 >>Turn in Call of Earth
+    .target Seer Ravenfeather
 step << Shaman
     #season 2
     .goto Mulgore,45.01,75.95
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_米拉·晨行者|r交谈
-    .turnin 77652 >>交任务 力量圣像
-    .train 332 >>学习 |T136052:0|t[治疗波]
-    .target 米拉·晨行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Meela|r
+    .turnin 77652 >>Turn in Icons of Power
+    .train 332 >>Train |T136052:0|t[Healing Wave]
+    .target Shikrik
+    .target Meela Dawnstrider
 step << Shaman
-    #season 0,1
+    #season 0
     .goto Mulgore,45.01,75.95
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_米拉·晨行者|r交谈
-    .train 332 >>学习 |T136052:0|t[治疗波]
-    .target 米拉·晨行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Meela|r
+    .train 332 >>Train |T136052:0|t[Healing Wave]
+    .target Shikrik
+    .target Meela Dawnstrider
 step << Hunter
     #season 2
     .goto Mulgore,44.26,75.70
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_兰卡|r交谈
-    .train 1130 >>学习 |T132212:0|t[猎人印记]
-    .target 兰卡·远箭
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Lanka|r
+    .train 1130 >>Train |T132212:0|t[Hunter's Mark]
+    .target Lanka Farshot
     .money <0.02
 step << Hunter
-    #season 0,1
+    #season 0
     .goto Mulgore,44.26,75.70
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_兰卡|r交谈
-    .train 1130 >>学习 |T132212:0|t[猎人印记]
-    .train 3044 >>学习 |T132218:0|t[奥术射击]
-    .target 兰卡·远箭
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Lanka|r
+    .train 1130 >>Train |T132212:0|t[Hunter's Mark]
+    .train 3044 >>Train |T132218:0|t[Arcane Shot]
+    .target Lanka Farshot
     .money <0.02
 step << Hunter
-    #season 0,1
+    #season 0
     .goto Mulgore,44.26,75.70
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_兰卡|r交谈
-    .train 3044 >>学习 |T132218:0|t[奥术射击]
-    .target 兰卡·远箭
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Lanka|r
+    .train 3044 >>Train |T132218:0|t[Arcane Shot]
+    .target Lanka Farshot
 step << Druid
     #season 2
     .goto Mulgore,45.09,75.93
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_加尔特|r交谈
-    .train 467 >>学习 |T136104:0|t[荆棘术]
-    .train 5177 >>学习 |T136006:0|t[愤怒]
-    .target 加尔特·迷雾行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gart|r
+    .train 467 >>Train |T136104:0|t[Thorns]
+    .train 5177 >>Train |T136006:0|t[Wrath]
+    .target Gart Mistrunner
     .money <0.02
 step << Druid
-    #season 0,1
+    #season 0
     .goto Mulgore,45.09,75.93
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_加尔特|r交谈
-    .train 467 >>学习 |T136104:0|t[荆棘术]
-    .train 5177 >>学习 |T136006:0|t[愤怒]
-    .target 加尔特·迷雾行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gart|r
+    .train 467 >>Train |T136104:0|t[Thorns]
+    .train 5177 >>Train |T136006:0|t[Wrath]
+    .target Gart Mistrunner
     .money <0.02
 step << Druid
-    #season 0,1
+    #season 0
     .goto Mulgore,45.09,75.93
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_加尔特|r交谈
-    .train 5177 >>学习 |T136006:0|t[愤怒]
-    .target 加尔特·迷雾行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gart|r
+    .train 5177 >>Train |T136006:0|t[Wrath]
+    .target Gart Mistrunner
 step << Warrior
     #season 2
     .goto Mulgore,44.02,76.14
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_哈鲁特·雷角|r交谈
-    .train 3127 >>学习 |T132269:0|t[招架]
-    .train 6343 >>学习 |T136105:0|t[雷霆一击]
-    .target 哈鲁特·雷角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Harutt|r
+    .train 3127 >>Train |T132269:0|t[Parry]
+    .train 6343 >>Train |T136105:0|t[Thunder Clap]
+    .target Harutt Thunderhorn
     .money <0.02
 step << Warrior
     #season 2
     .goto Mulgore,44.02,76.14
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_哈鲁特·雷角|r交谈
-    .train 3127 >>学习 |T132269:0|t[招架]
-    .target 哈鲁特·雷角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Harutt|r
+    .train 3127 >>Train |T132269:0|t[Parry]
+    .target Harutt Thunderhorn
 step << Warrior
-    #season 0,1
+    #season 0
     .goto Mulgore,44.02,76.14
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_哈鲁特·雷角|r交谈
-    .train 3127 >>学习 |T132269:0|t[招架]
-    .train 6343 >>学习 |T136105:0|t[雷霆一击]
-    .target 哈鲁特·雷角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Harutt|r
+    .train 3127 >>Train |T132269:0|t[Parry]
+    .train 6343 >>Train |T136105:0|t[Thunder Clap]
+    .target Harutt Thunderhorn
     .money <0.02
 step << Warrior
-    #season 0,1
+    #season 0
     .goto Mulgore,44.02,76.14
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_哈鲁特·雷角|r交谈
-    .train 3127 >>学习 |T132269:0|t[招架]
-    .target 哈鲁特·雷角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Harutt|r
+    .train 3127 >>Train |T132269:0|t[Parry]
+    .target Harutt Thunderhorn
 step
     #season 2
     .goto Mulgore,44.35,76.68
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_符文贩子|r 交谈
-    >>|cRXP_WARN_不要将可装备的物品卖给商人|r
-    .vendor >> |cRXP_BUY_出售杂物，并向他购买你需要的全部 |T134419:0|t|cRXP_WARN_[符文]|r。|r
-    .target 符文贩子
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to the |cRXP_FRIENDLY_Rune Broker|r
+    >>|cRXP_WARN_MAKE SURE NOT TO VENDOR GEAR THAT CAN BE EQUIPPED|r
+    .vendor >> |cRXP_BUY_Vendor trash and buy all the |T134419:0|t|cRXP_WARN_[Runes]|r that you need from him|r
+    .target Rune Broker
     .skipgossip
 step
     .goto Mulgore,38.51,81.54
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_安图尔·荒野|r交谈
-    .accept 1656 >>接受任务 未完的任务
-    .target 安图尔·荒野
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Antur|r
+    .accept 1656 >>Accept A Task Unfinished
+    .target Antur Fallow
 ]])
+
+
 RXPGuides.RegisterGuide([[
-#groupweight 500
-#groupdisplayname RestedXP 经典旧世 1-60（部落）
 #classic
 #tbc
 << Horde
 #xprate >1.99
 #version 1
 #group RestedXP Horde 1-22
-#subgroupdisplayname 1-22 << tbc
-#subgroupdisplayname 1-22
 #groupid RXP-SRGCE-H1
 #name 7-13 Mulgore
-#title 莫高雷
 #next 13-20 The Barrens
 #defaultfor Tauren
-#displayname 7-13 莫高雷
+
+
 step << Druid
     #season 2
     .goto Mulgore,35.72,69.57
-    >>|cRXP_WARN_施放|r |T136096:0|t[月火术] |cRXP_WARN_，目标分别为三个|r |cRXP_ENEMY_月亮石|r|cRXP_WARN_。石头之间会出现一个宝箱|r
-    >>打开|cRXP_PICK_月光宝箱|r，拾取 |T134419:0|t[|cRXP_FRIENDLY_日灼符文|r]
+    >>|cRXP_WARN_Cast|r |T136096:0|t[Moonfire] |cRXP_WARN_on the three|r |cRXP_ENEMY_Lunar Stones|r|cRXP_WARN_. A chest will appear in between the stones|r
+    >>Open the |cRXP_PICK_Lunar Chest|r for |T134419:0|t[|cRXP_FRIENDLY_Rune of the Sun|r]
     .collect 206989,1 --Rune of the Sun (1)
-    .mob 月亮石
+    .mob Lunar Stone
     .train 416044,1
 step << Druid
     #season 2
-    .train 416044 >> |cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_日灼符文|r] |cRXP_WARN_学习|r |T236216:0|t[阳炎术]
+    .train 416044 >> |cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of the Sun|r] |cRXP_WARN_to train|r |T236216:0|t[Sunfire]
     .use 206989
     .itemcount 206989,1
 step
 	#completewith BloodhoofHome
 	#softcore
-    .deathskip >> 死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处复活
+    .deathskip >> Die and respawn at the |cRXP_FRIENDLY_Spirit Healer|r
 step
 	#hardcore
 	#completewith BloodhoofHome
-    .goto Mulgore,47.35,60.70,120 >> 跑到血蹄村
+    .goto Mulgore,47.35,60.70,120 >> Run to Bloodhoof Village
     .subzoneskip 222
 step
     #softcore
     .goto Mulgore,46.97,57.07
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_茂尔|r交谈
-    .accept 766 >>接任务：马兹拉纳其
-    .target 茂尔·祈雨
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Maur|r
+    .accept 766 >>Accept Mazzranache
+    .target Maur Raincaller
 step
     #xprate <2.1
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_卢尔·鹰爪|r和|cRXP_FRIENDLY_贝恩·血蹄|r交谈
-    .accept 743 >>接任务：风怒鹰身人
-    .target +卢尔·鹰爪
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ruul|r and |cRXP_FRIENDLY_Baine|r
+    .accept 743 >>Accept Dangers of the Windfury
+    .target +Ruul Eagletalon
     .goto Mulgore,47.36,62.01
-    .turnin -763 >>交任务 大地之母仪祭
-    .accept 745 >>接受任务 土地之争
-    .accept 767 >>接任务：幻象仪祭
-    .accept 746 >>接任务：矮人的挖掘场
-    .target +贝恩·血蹄
+    .turnin 763 >>Turn in Rites of the Earthmother
+    .accept 745 >>Accept Sharing the Land
+    .accept 767 >>Accept Rite of Vision
+    .accept 746 >>Accept Dwarven Digging
+    .target +Baine Bloodhoof
     .goto Mulgore,47.51,60.16
 step
     #xprate >2.09
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_卢尔·鹰爪|r和|cRXP_FRIENDLY_贝恩·血蹄|r交谈
-    .accept 743 >>接任务：风怒鹰身人
-    .target +卢尔·鹰爪
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ruul|r and |cRXP_FRIENDLY_Baine|r
+    .accept 743 >>Accept Dangers of the Windfury
+    .target +Ruul Eagletalon
     .goto Mulgore,47.36,62.01
-    .turnin -763 >>交任务 大地之母仪祭
-    .accept 767 >>接任务：幻象仪祭
-    .accept 746 >>接任务：矮人的挖掘场
-    .target +贝恩·血蹄
+    .turnin 763 >>Turn in Rites of the Earthmother
+    .accept 767 >>Accept Rite of Vision
+    .accept 746 >>Accept Dwarven Digging
+    .target +Baine Bloodhoof
     .goto Mulgore,47.51,60.16
 step
     #label BloodhoofHome
     .goto Mulgore,46.63,61.09
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_旅店老板考乌斯|r交谈
-    .turnin -1656 >>交任务 未完的任务
-    .target 旅店老板考乌斯
-step
-    .goto Mulgore,46.63,61.09
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_旅店老板考乌斯|r 交谈
-    .home 222 >>将炉石绑定在血蹄村
-    .target 旅店老板考乌斯
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Innkeeper Kauth|r
+    .turnin 1656 >>Turn in A Task Unfinished
+    .home >>Set your Hearthstone to Bloodhoof Village
+    .target Innkeeper Kauth
     .bindlocation 222
     .subzoneskip 222,1
-
 step << Shaman/Druid
     .goto Mulgore,45.66,58.60
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_玛诺特·深痕|r 交谈
-    .vendor >> 卖掉杂物。如果卖掉现有武器后足够购买 |T135145:0|t[学徒短杖]（5银 04铜），就卖掉它。若钱仍不够，稍后再回来
-    .target 玛诺特·深痕
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mahnott|r
+    .vendor >> Vendor trash. Sell your weapon if it gives you enough money for a |T135145:0|t[Walking Stick] (5s 04c). You'll come back later if you don't have enough yet
+    .target Mahnott Roughwound
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.2
 step << Shaman/Druid
     .goto Mulgore,45.66,58.60
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r|cRXP_FRIENDLY_玛诺特|r|cRXP_BUY_交谈，再向他购买|r |T135145:0|t[学徒短杖]|cRXP_BUY_。|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Mahnott|r|cRXP_BUY_. Buy a|r |T135145:0|t[Walking Stick] |cRXP_BUY_from him|r
     .collect 2495,1,761,1 --Collect Walking Stick (1)
     .money <0.0504
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.2
 step << Warrior
     .goto Mulgore,45.66,58.60
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_玛诺特·深痕|r 交谈
-    .vendor >> 卖掉杂物。如果卖掉现有武器后足够购买 |T133053:0|t[木槌棒]（7银 1铜），就卖掉它。若钱仍不够，稍后再回来
-    .target 玛诺特·深痕
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mahnott|r
+    .vendor >> Vendor trash. Sell your weapon if it gives you enough money for a |T133053:0|t[Wooden Mallet] (7s 1c). You'll come back later if you don't have enough yet
+    .target Mahnott Roughwound
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.9
 step << Warrior
     .goto Mulgore,45.66,58.60
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r|cRXP_FRIENDLY_玛诺特|r|cRXP_BUY_交谈，再向他购买|r |T133053:0|t[木槌棒]|cRXP_BUY_。|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Mahnott|r|cRXP_BUY_. Buy a|r |T133053:0|t[Wooden Mallet] |cRXP_BUY_from him|r
     .collect 2493,1,761,1 --Collect Wooden Mallet (1)
     .money <0.0701
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.9
 step << Hunter
     .goto Mulgore,45.50,58.47
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_肯纳·鹰眼|r 交谈
-    .vendor >> 卖掉杂物。如果卖掉现有武器后足够购买 |T135611:0|t[精制短枪]（4银 14铜），就卖掉它。若钱仍不够，稍后再回来
-    .target 肯纳·鹰眼
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kennah|r
+    .vendor >> Vendor trash. Sell your weapon if it gives you enough money for a |T135611:0|t[Ornate Blunderbuss] (4s 14c). You'll come back later if you don't have enough yet
+    .target Kennah Hawkseye
     .itemStat 18,QUALITY,<7
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<3.0
 step << Hunter
     .goto Mulgore,45.50,58.47
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r|cRXP_FRIENDLY_肯纳·鹰眼|r|cRXP_BUY_交谈，再向她购买|r |T135611:0|t[精制短枪]|cRXP_BUY_。|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Kennah|r|cRXP_BUY_. Buy a|r |T135611:0|t[Ornate Blunderbuss] |cRXP_BUY_from him|r
     .collect 2509,1,761,1 --Collect Ornate Blunderbuss (1)
     .money <0.0414
     .itemStat 18,QUALITY,<7
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<3.0
 step << Hunter
     .goto Mulgore,45.50,58.47
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r |cRXP_FRIENDLY_肯纳·鹰眼|r 交谈
-    >>|cRXP_BUY_购买|r |T132384:0|t[轻弹丸]|cRXP_BUY_。|r << Hunter
-    .collect 2516,1000,761,1 << Hunter --Light Shot (1000)
-    .target 肯纳·鹰眼
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Kennah|r
+    >>|cRXP_BUY_Buy|r |T132384:0|t[Light Shots] |cRXP_BUY_from him|r << Hunter
+    .collect 2516,1000,750,1 << Hunter --Light Shot (1000)
+    .target Kennah Hawkseye
 step << Shaman/Druid
     #optional
     #completewith Well
-    +|cRXP_WARN_装备|r |T135145:0|t[学徒短杖]
+    +|cRXP_WARN_Equip the|r |T135145:0|t[Walking Stick]
     .use 2495
     .itemcount 2495,1
     .itemStat 16,QUALITY,<7
@@ -3937,7 +3772,7 @@ step << Shaman/Druid
 step << Warrior
     #optional
     #completewith Well
-    +|cRXP_WARN_装备|r |T133053:0|t[木槌棒]
+    +|cRXP_WARN_Equip the|r |T133053:0|t[Wooden Mallet]
     .use 2493
     .itemcount 2493,1
     .itemStat 16,QUALITY,<7
@@ -3945,65 +3780,65 @@ step << Warrior
 step << Hunter
     #optional
     #completewith Well
-    +|cRXP_WARN_装备|r |T135611:0|t[精制短枪]
+    +|cRXP_WARN_Equip the|r |T135611:0|t[Ornate Blunderbuss]
     .use 2509
     .itemcount 2509,1
     .itemStat 18,QUALITY,<7
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<3.0
 step << Tauren
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_茂尔|r、|cRXP_FRIENDLY_扎尔曼·双月|r、|cRXP_FRIENDLY_哈肯·风之图腾|r和|cRXP_FRIENDLY_穆尔|r交谈
-    .accept 766 >>接任务：马兹拉纳其
-    .target +茂尔·祈雨
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Maur|r, |cRXP_FRIENDLY_Zarlman|r, |cRXP_FRIENDLY_Harken|r and |cRXP_FRIENDLY_Mull|r
+    .accept 766 >>Accept Mazzranache
+    .target +Maur Raincaller
     .goto Mulgore,46.97,57.07
-    .turnin 767 >>交任务：幻象仪祭
-    .accept 771 >>接任务：幻象仪祭
-    .target +扎尔曼·双月
+    .turnin 767 >>Turn in Rite of Vision
+    .accept 771 >>Accept Rite of Vision
+    .target +Zarlman Two-Moons
     .goto Mulgore,47.76,57.53
-    .accept 761 >>接任务：猎捕猛鹫
-    .target +哈肯·风之图腾
+    .accept 761 >>Accept Swoop Hunting
+    .target +Harken Windtotem
     .goto Mulgore,48.71,59.32
-    .accept 748 >>接受任务 毒水
-    .target +穆尔·雷角
+    .accept 748 >>Accept Poison Water
+    .target +Mull Thunderhorn
     .goto Mulgore,48.53,60.40
 step << !Tauren
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_茂尔|r、|cRXP_FRIENDLY_扎尔曼·双月|r和|cRXP_FRIENDLY_哈肯·风之图腾|r交谈
-    .accept 766 >>接任务：马兹拉纳其
-    .target +茂尔·祈雨
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Maur|r, |cRXP_FRIENDLY_Zarlman|r and |cRXP_FRIENDLY_Harken|r
+    .accept 766 >>Accept Mazzranache
+    .target +Maur Raincaller
     .goto Mulgore,46.97,57.07
-    .turnin 767 >>交任务：幻象仪祭
-    .accept 771 >>接任务：幻象仪祭
-    .target +扎尔曼·双月
+    .turnin 767 >>Turn in Rite of Vision
+    .accept 771 >>Accept Rite of Vision
+    .target +Zarlman Two-Moons
     .goto Mulgore,47.76,57.53
-    .accept 761 >>接任务：猎捕猛鹫
-    .target +哈肯·风之图腾
+    .accept 761 >>Accept Swoop Hunting
+    .target +Harken Windtotem
     .goto Mulgore,48.71,59.32
 step
     #sticky
     #completewith Well
-    >>|cRXP_WARN_在这片区域做任务时顺手收集马兹拉纳其所需的物品|r
+    >>|cRXP_WARN_Get the items for Mazzranache as you quest throughout the zone|r
     .complete 766,1 --Prairie Wolf Heart (1)
     .complete 766,2 --Flatland Cougar Femur (1)
     .complete 766,3 --Plainstrider Scale (1)
     .complete 766,4 --Swoop Gizzard (1)
 step << Tauren
     #completewith Ambercorns
-    >>击杀|cRXP_ENEMY_草原狼|r和|cRXP_ENEMY_成年平原陆行鸟|r，拾取掉落的|cRXP_LOOT_爪子|r和|cRXP_LOOT_利爪|r
+    >>Kill |cRXP_ENEMY_Prairie Wolves|r and |cRXP_ENEMY_Adult Plainstriders|r. Loot them for their |cRXP_LOOT_Paws|r and |cRXP_LOOT_Talons|r
     .complete 748,1 --Prairie Wolf Paw (6)
-    .mob +草原狼
+    .mob +Prairie Wolf
     .complete 748,2 --Plainstrider Talon (4)
-    .mob +成年平原陆行鸟
+    .mob +Adult Plainstrider
 step << Hunter
     #season 2
     .goto Mulgore,59.02,54.36
-    >>施放 |T132212:0|t[猎人印记]，目标为 |cRXP_ENEMY_沙沙响的草丛|r
-    >>击杀出现的|cRXP_ENEMY_风险投资公司偷猎者|r，拾取 |T134419:0|t[|cRXP_FRIENDLY_神射手符文|r]
+    >>Cast |T132212:0|t[Hunter's Mark] on the |cRXP_ENEMY_Rustling Bush|r
+    >>Kill the |cRXP_ENEMY_Venture Co. Poacher|r that spawns. Loot him for |T134419:0|t[|cRXP_FRIENDLY_Rune of Marksmanship|r]
     .collect 206155,1 --Rune of Marksmanship (1)
-    .mob 沙沙响的草丛
-    .mob 风险投资公司偷猎者
+    .mob Rustling Bush
+    .mob Venture Co. Poacher
     .train 410113,1
 step << Hunter
     #season 2
-    .train 410113 >>使用 |T134419:0|t[|cRXP_FRIENDLY_神射手符文|r]
+    .train 410113 >>Use the |T134419:0|t[|cRXP_FRIENDLY_Rune of Marksmanship|r]
     .use 206155
     .itemcount 206155,1
 step
@@ -4015,14 +3850,14 @@ step
     .goto Mulgore,51.92,63.85,15,0
     .goto Mulgore,51.13,71.06,15,0
     .goto Mulgore,50.36,66.49,15,0
-    >>收集|cRXP_PICK_琥珀颗粒|r。它们散落在树下
+    >>Collect the |cRXP_PICK_Ambercorns|r. They can be found under the trees on the ground
     .complete 771,2 --Ambercorn (2)
 step
 	#completewith next
-	>>在莫高雷各处击杀|cRXP_ENEMY_猛鹫|r，拾取掉落的|cRXP_LOOT_羽毛|r
+	>>Kill |cRXP_ENEMY_Swoops|r throughout Mulgore. Loot them for their |cRXP_LOOT_Quills|r
     .complete 761,1 --Trophy Swoop Quill (8)
-    .mob 消瘦的猛鹫
-    .mob 猛鹫
+    .mob Wiry Swoop
+    .mob Swoop
 step << Tauren
     #loop
 	.goto Mulgore,50.82,66.66,0
@@ -4039,30 +3874,27 @@ step << Tauren
 	.goto Mulgore,48.60,69.43,50,0
 	.goto Mulgore,45.98,69.70,50,0
 	.goto Mulgore,48.58,67.37,50,0
-    >>击杀|cRXP_ENEMY_草原狼|r和|cRXP_ENEMY_成年平原陆行鸟|r，拾取掉落的|cRXP_LOOT_爪子|r和|cRXP_LOOT_利爪|r
+    >>Kill |cRXP_ENEMY_Prairie Wolves|r and |cRXP_ENEMY_Adult Plainstriders|r. Loot them for their |cRXP_LOOT_Paws|r and |cRXP_LOOT_Talons|r
     .complete 748,1 --Prairie Wolf Paw (6)
-    .mob +草原狼
+    .mob +Prairie Wolf
     .complete 748,2 --Plainstrider Talon (4)
-    .mob +成年平原陆行鸟
+    .mob +Adult Plainstrider
 step << Tauren
     .goto Mulgore,48.53,60.40
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_穆尔|r交谈
-    .turnin 748 >>交任务：毒水
-    .timer 8,毒水剧情演出
-    .accept 754 >>接受任务 净化冰蹄之井
-    .target 穆尔·雷角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mull|r
+    .turnin 748 >>Turn in Poison Water
+    .timer 8,Poison Water RP
+    .accept 754 >>Accept Winterhoof Cleansing
+    .target Mull Thunderhorn
 step << Tauren
     #completewith next
-    >>收集水井周围的|cRXP_PICK_水井石|r
+    >>Collect the |cRXP_PICK_Well Stones|r around the Well
     .complete 771,1 --Well Stone (2)
 step << Tauren
-    .goto Mulgore,53.68,66.28
-    >>|cRXP_WARN_在井边使用|r |T135139:0|t[冰蹄之井净化图腾]|cRXP_WARN_净化水井|r
-    .complete 754,1 --Cleanse the Winterhoof Water Well (1)
-step
-    #optional
     #label Well
-
+    .goto Mulgore,53.68,66.28
+    >>|cRXP_WARN_Use the|r |T135139:0|t[Winterhoof Cleansing Totem] |cRXP_WARN_at the Well|r
+    .complete 754,1 --Cleanse the Winterhoof Water Well (1)
 step
     #label Stones
     #loop
@@ -4071,12 +3903,12 @@ step
     .goto Mulgore,53.70,65.59,10,0
     .goto Mulgore,53.98,65.94,10,0
     .goto Mulgore,54.06,66.40,10,0
-    >>收集水井周围的|cRXP_PICK_水井石|r
+    >>Collect the |cRXP_PICK_Well Stones|r around the Well
     .complete 771,1 --Well Stone (2)
 step
     #xprate <2.1
     #completewith Gnolls
-    >>|cRXP_WARN_在这片区域做任务时顺手收集马兹拉纳其所需的物品|r
+    >>|cRXP_WARN_Get the items for Mazzranache as you quest throughout the zone|r
     .complete 766,1 --Prairie Wolf Heart (1)
     .complete 766,2 --Flatland Cougar Femur (1)
     .complete 766,3 --Plainstrider Scale (1)
@@ -4084,23 +3916,21 @@ step
 step << Warrior
     #xprate <2.1
     #season 2
-    .itemcount 204690,<1
-    .itemcount 204703,<1
     #loop
     .goto Mulgore,53.5,73.0,0
     .goto Mulgore,48.3,72.0,0
     .goto Mulgore,53.5,73.0,90,0
     .goto Mulgore,48.3,72.0,90,0
-    >>在两个营地之间来回清理。击杀|cRXP_ENEMY_白鬃制革工|r、|cRXP_ENEMY_白鬃剥皮工|r和|cRXP_ENEMY_白鬃偷猎者|r，拾取|cRXP_LOOT_被砍下的豺狼人的头|r
-    >>|cRXP_WARN_小心|r|cRXP_ENEMY_断矛|r|cRXP_WARN_（9级稀有怪），它的难度太高，不宜击杀|r
+    >>Go back and forth between the two camps. Kill |cRXP_ENEMY_Palemane Tanners|r, |cRXP_ENEMY_Palemane Skinners|r and |cRXP_ENEMY_Palemane Poachers|r. Loot them for a |cRXP_LOOT_Severed Gnoll Head|r
+    >>|cRXP_WARN_Be careful of|r |cRXP_ENEMY_Snagglespear|r |cRXP_WARN_(Level 9 rare). He's too difficult to kill.|r
     .complete 745,1 --Palemane Tanner (10)
-    .mob +白鬃制革工
+    .mob +Palemane Tanner
     .complete 745,2 --Palemane Skinner (8)
-    .mob +白鬃剥皮工
+    .mob +Palemane Skinner
     .complete 745,3 --Palemane Poacher (5)
-    .mob +白鬃偷猎者
+    .mob +Palemane Poacher
     .collect 204478,1 --Severed Gnoll Head (1)
-    .unitscan 断矛
+    .unitscan Snagglespear
     .train 403475,1
 step
     #xprate <2.1
@@ -4110,91 +3940,91 @@ step
     .goto Mulgore,48.3,72.0,0
     .goto Mulgore,53.5,73.0,90,0
     .goto Mulgore,48.3,72.0,90,0
-    >>在两个营地之间来回清理。击杀|cRXP_ENEMY_白鬃制革工|r、|cRXP_ENEMY_白鬃剥皮工|r和|cRXP_ENEMY_白鬃偷猎者|r
-    >>|cRXP_WARN_小心|r|cRXP_ENEMY_断矛|r|cRXP_WARN_（9级稀有怪），它的难度太高，不宜击杀|r
+    >>Go back and forth between the two camps. Kill |cRXP_ENEMY_Palemane Tanners|r, |cRXP_ENEMY_Palemane Skinners|r and |cRXP_ENEMY_Palemane Poachers|r
+    >>|cRXP_WARN_Be careful of|r |cRXP_ENEMY_Snagglespear|r |cRXP_WARN_(Level 9 rare). He's too difficult to kill.|r
     .complete 745,1 --Palemane Tanner (10)
-    .mob +白鬃制革工
+    .mob +Palemane Tanner
     .complete 745,2 --Palemane Skinner (8)
-    .mob +白鬃剥皮工
+    .mob +Palemane Skinner
     .complete 745,3 --Palemane Poacher (5)
-    .mob +白鬃偷猎者
-    .unitscan 断矛
+    .mob +Palemane Poacher
+    .unitscan Snagglespear
 step
     .goto Mulgore,47.63,61.49
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_加纳|r 交谈
-    >>|cRXP_BUY_向她购买|r |T132815:0|t[冰镇牛奶] |cRXP_BUY_。|r << Shaman/Druid
-    >>|cRXP_BUY_向她购买|r |T133968:0|t[刚出炉的面包] |cRXP_BUY_。|r << Warrior
-    .vendor >> 卖掉杂物
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Jhawna|r
+    >>|cRXP_BUY_Buy|r |T132815:0|t[Ice Cold Milk] |cRXP_BUY_from her|r << Shaman/Druid
+    >>|cRXP_BUY_Buy|r |T133968:0|t[Freshly Baked Bread] |cRXP_BUY_from her|r << Warrior
+    .vendor >> Vendor trash
     .collect 1179,10,746,1 << Shaman/Druid --Ice Cold Milk (10)
     .collect 4541,10,746,1 << Warrior --Freshly Baked Bread (10)
-    .target 加纳·麦风
+    .target Jhawna Oatwind
     .money <0.025
 step << Tauren
     #xprate <2.1
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_穆尔|r和|cRXP_FRIENDLY_贝恩·血蹄|r交谈
-    .turnin 754 >>交任务：净化冰蹄之井
-    .accept 756 >>接受任务 雷角图腾
-    .target +穆尔·雷角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mull|r and |cRXP_FRIENDLY_Baine|r
+    .turnin 754 >>Turn in Winterhoof Cleansing
+    .accept 756 >>Accept Thunderhorn Totem
+    .target +Mull Thunderhorn
     .goto Mulgore,48.53,60.40
-    .turnin 745 >>交任务：土地之争
-    .target +贝恩·血蹄
+    .turnin 745 >>Turn in Sharing the Land
+    .target +Baine Bloodhoof
     .goto Mulgore,47.51,60.16
 step << !Tauren
     #xprate <2.1
     .goto Mulgore,47.51,60.16
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_贝恩·血蹄|r交谈
-    .turnin 745 >>交任务：土地之争
-    .target 贝恩·血蹄
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mull|r and |cRXP_FRIENDLY_Baine|r
+    .turnin 745 >>Turn in Sharing the Land
+    .target Baine Bloodhoof
 step << Tauren
     #xprate >2.09
     .goto Mulgore,48.53,60.40
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_穆尔|r交谈
-    .turnin 754 >>交任务：净化冰蹄之井
-    .target 穆尔·雷角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mull|r
+    .turnin 754 >>Turn in Winterhoof Cleansing
+    .target Mull Thunderhorn
 step << Warrior
     .goto Mulgore,46.80,60.85
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_维尔拉|r交谈
-    .train 3273 >>学习 |T135966:0|t[急救]
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Vira|r
+    .train 3273 >>Train |T135966:0|t[First Aid]
     .money <0.01
-    .target 维尔拉·幼蹄
+    .target Vira Younghoof
 step << Shaman/Druid
     .goto Mulgore,45.66,58.60
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_玛诺特·深痕|r 交谈
-    .vendor >> 卖掉杂物。如果卖掉现有武器后足够购买 |T135145:0|t[学徒短杖]（5银 04铜），就卖掉它。若钱仍不够，稍后再回来
-    .target 玛诺特·深痕
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mahnott|r
+    .vendor >> Vendor trash. Sell your weapon if it gives you enough money for a |T135145:0|t[Walking Stick] (5s 04c). You'll come back later if you don't have enough yet
+    .target Mahnott Roughwound
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.2
 step << Shaman/Druid
     .goto Mulgore,45.66,58.60
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r|cRXP_FRIENDLY_玛诺特|r|cRXP_BUY_交谈，再向他购买|r |T135145:0|t[学徒短杖]|cRXP_BUY_。|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Mahnott|r|cRXP_BUY_. Buy a|r |T135145:0|t[Walking Stick] |cRXP_BUY_from him|r
     .collect 2495,1,749,1 --Collect Walking Stick (1)
     .money <0.0504
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.2
 step << Warrior
     .goto Mulgore,45.66,58.60
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_玛诺特·深痕|r 交谈
-    .vendor >> 卖掉杂物。如果卖掉现有武器后足够购买 |T133053:0|t[木槌棒]（7银 1铜），就卖掉它。若钱仍不够，稍后再回来
-    .target 玛诺特·深痕
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mahnott|r
+    .vendor >> Vendor trash. Sell your weapon if it gives you enough money for a |T133053:0|t[Wooden Mallet] (7s 1c). You'll come back later if you don't have enough yet
+    .target Mahnott Roughwound
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.9
 step << Warrior
     .goto Mulgore,45.66,58.60
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r|cRXP_FRIENDLY_玛诺特|r|cRXP_BUY_交谈，再向他购买|r |T133053:0|t[木槌棒]|cRXP_BUY_。|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Mahnott|r|cRXP_BUY_. Buy a|r |T133053:0|t[Wooden Mallet] |cRXP_BUY_from him|r
     .collect 2493,1,749,1 --Collect Wooden Mallet (1)
     .money <0.0701
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.9
 step << Hunter
     .goto Mulgore,45.50,58.47
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_肯纳·鹰眼|r 交谈
-    .vendor >> 卖掉杂物。如果卖掉现有武器后足够购买 |T135611:0|t[精制短枪]（4银 14铜），就卖掉它。若钱仍不够，稍后再回来
-    .target 肯纳·鹰眼
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kennah|r
+    .vendor >> Vendor trash. Sell your weapon if it gives you enough money for a |T135611:0|t[Ornate Blunderbuss] (4s 14c). You'll come back later if you don't have enough yet
+    .target Kennah Hawkseye
     .itemStat 18,QUALITY,<7
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<3.0
 step << Hunter
     .goto Mulgore,45.50,58.47
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r|cRXP_FRIENDLY_肯纳·鹰眼|r|cRXP_BUY_交谈，再向她购买|r |T135611:0|t[精制短枪]|cRXP_BUY_。|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Kennah|r|cRXP_BUY_. Buy a|r |T135611:0|t[Ornate Blunderbuss] |cRXP_BUY_from him|r
     .collect 2509,1,749,1 --Collect Ornate Blunderbuss (1)
     .money <0.0414
     .itemStat 18,QUALITY,<7
@@ -4202,7 +4032,7 @@ step << Hunter
 step << Shaman/Druid
     #optional
     #completewith Clawsx
-    +|cRXP_WARN_装备|r |T135145:0|t[学徒短杖]
+    +|cRXP_WARN_Equip the|r |T135145:0|t[Walking Stick]
     .use 2495
     .itemcount 2495,1
     .itemStat 16,QUALITY,<7
@@ -4210,7 +4040,7 @@ step << Shaman/Druid
 step << Warrior
     #optional
     #completewith Clawsx
-    +|cRXP_WARN_装备|r |T133053:0|t[木槌棒]
+    +|cRXP_WARN_Equip the|r |T133053:0|t[Wooden Mallet]
     .use 2493
     .itemcount 2493,1
     .itemStat 16,QUALITY,<7
@@ -4218,7 +4048,7 @@ step << Warrior
 step << Hunter
     #optional
     #completewith Clawsx
-    +|cRXP_WARN_装备|r |T135611:0|t[精制短枪]
+    +|cRXP_WARN_Equip the|r |T135611:0|t[Ornate Blunderbuss]
     .use 2509
     .itemcount 2509,1
     .itemStat 18,QUALITY,<7
@@ -4226,38 +4056,38 @@ step << Hunter
 step
     #label Vision
     .goto Mulgore,47.76,57.53
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_扎尔曼·双月|r交谈
-    >>|cRXP_WARN_刷出的狼不要跟随|r
-    .turnin 771 >>交任务：幻象仪祭
-    .accept 772 >>接任务：幻象仪祭
-    .target 扎尔曼·双月
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Zarlman|r
+    >>|cRXP_WARN_Do not follow the wolf that spawns|r
+    .turnin 771 >>Turn in Rite of Vision
+    .accept 772 >>Accept Rite of Vision
+    .target Zarlman Two-Moons
 step << Hunter
     #xprate <2.1
     .goto Mulgore,47.81,55.69
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_雅文·刺鬃|r 交谈
-    .train 5116 >> 学习职业技能
-    .target 雅文·刺鬃
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Yaw|r
+    .train 5116 >> Train your class spells
+    .target Yaw Sharpmane
     .xp <8,1
 step << Druid
     #xprate <2.1
     .goto Mulgore,48.48,59.64
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_根妮亚·符文图腾|r交谈
-    .train 5186 >>学习职业技能
-    .target 根妮亚·符文图腾
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gennia|r
+    .train 5186 >>Train your class spells
+    .target Gennia Runetotem
     .xp <8,1
 step << Warrior
     #xprate <2.1
     .goto Mulgore,49.52,60.58
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_克朗·石蹄|r 交谈
-    .train 284 >> 学习职业技能
-    .target 克朗·石蹄
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Krang|r
+    .train 284 >> Train your class spells
+    .target Krang Stonehoof
     .xp <8,1
 step << Shaman
     #xprate <2.1
     .goto Mulgore,48.38,59.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_纳姆|r 交谈
-    .train 8044 >> 学习职业技能
-    .target 纳姆·逐星
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Narm|r
+    .train 8044 >> Train your class spells
+    .target Narm Skychaser
     .xp <8,1
 step
     #xprate <2.1
@@ -4270,14 +4100,14 @@ step
     .goto Mulgore,59.65,62.40,50,0
     .goto Mulgore,55.14,60.65,50,0
     .line Mulgore,51.50,59.23,53.00,60.24,55.14,60.65,57.47,61.26,59.65,62.40
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_摩林·云行者|r交谈
-    >>|cRXP_WARN_他在东侧道路上巡逻|r
-    .accept 749 >>接任务：被破坏的货车
-	.unitscan 摩林·云行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Morin|r
+    >>|cRXP_WARN_He patrols along the eastern road|r
+    .accept 749 >>Accept The Ravaged Caravan
+	.unitscan Morin Cloudstalker
 step
     #xprate <2.1
     #completewith Clawsx
-    >>|cRXP_WARN_在这片区域做任务时顺手收集马兹拉纳其所需的物品|r
+    >>|cRXP_WARN_Get the items for Mazzranache as you quest throughout the zone|r
     .complete 766,1 --Prairie Wolf Heart (1)
     .complete 766,2 --Flatland Cougar Femur (1)
     .complete 766,3 --Plainstrider Scale (1)
@@ -4285,78 +4115,75 @@ step
 step
     #xprate <2.1
 	#completewith Clawsx
-	>>在莫高雷各处击杀|cRXP_ENEMY_猛鹫|r，拾取掉落的|cRXP_LOOT_羽毛|r
+	>>Kill |cRXP_ENEMY_Swoops|r throughout Mulgore. Loot them for their |cRXP_LOOT_Quills|r
     .complete 761,1 --Trophy Swoop Quill (8)
-    .mob 消瘦的猛鹫
-    .mob 猛鹫
+    .mob Wiry Swoop
+    .mob Swoop
 step << Tauren
     #xprate <2.1
     #completewith next
-    >>击杀|cRXP_ENEMY_草原捕食者|r和|cRXP_ENEMY_平原狮|r，拾取掉落的|cRXP_LOOT_爪子|r
+    >>Kill |cRXP_ENEMY_Stalkers|r and |cRXP_ENEMY_Cougars|r. Loot them for their |cRXP_LOOT_Claws|r
     .complete 756,1 --Stalker Claws (6)
-    .mob +草原捕食者
+    .mob +Prairie Stalker
     .complete 756,2 --Cougar Claws (6)
-    .mob +平原狮
+    .mob +Flatland Cougar
 step
     #xprate <2.1
     .goto Mulgore,53.74,48.17
-    >>点击|cRXP_PICK_密封的补给箱|r
-    .turnin 749 >>交任务：被破坏的货车
-    .accept 751 >>接任务：被破坏的货车
+    >>Click the |cRXP_PICK_Sealed Supply Crate|r
+    .turnin 749 >>Turn in The Ravaged Caravan
+    .accept 751 >>Accept The Ravaged Caravan
 step << Tauren
     #xprate <2.1
+	#label Clawsx
     #loop
     .goto Mulgore,58.1,48.6,0
     .goto Mulgore,58.1,48.6,60,0
     .goto Mulgore,54.5,40.1,60,0
     .goto Mulgore,46.4,50.7,60,0
-    >>击杀|cRXP_ENEMY_草原捕食者|r和|cRXP_ENEMY_平原狮|r，拾取掉落的|cRXP_LOOT_爪子|r
+    >>Kill |cRXP_ENEMY_Stalkers|r and |cRXP_ENEMY_Cougars|r. Loot them for their |cRXP_LOOT_Claws|r
     .complete 756,1 --Stalker Claws (6)
-    .mob +草原捕食者
+    .mob +Prairie Stalker
     .complete 756,2 --Cougar Claws (6)
-    .mob +平原狮
-step
-    #optional
-    #label Clawsx
-
+    .mob +Flatland Cougar
 step
     #xprate <2.1
     #softcore
 	#completewith Thunderhorn
-    .deathskip >> 死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处复活
+    .deathskip >> Die and respawn at the |cRXP_FRIENDLY_Spirit Healer|r
 step
     #xprate <2.1
     #hardcore
     #completewith Thunderhorn
-    .goto Mulgore,46.5,55.5,150 >> 返回血蹄村
+    .goto Mulgore,46.5,55.5,150 >> Travel back to Bloodhoof Village
     .subzoneskip 222
 step << Hunter
     #xprate <2.1
     .goto Mulgore,47.81,55.69
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_雅文·刺鬃|r 交谈
-    .train 5116 >> 学习职业技能
-    .target 雅文·刺鬃
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Yaw|r
+    .train 5116 >> Train your class spells
+    .target Yaw Sharpmane
     .xp <8,1
 step
     #xprate <2.1
     #label Mazzturnin
     .goto Mulgore,46.97,57.07
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_茂尔|r交谈
-    .turnin 766 >>交任务：马兹拉纳其
-    .target 茂尔·祈雨
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Maur|r
+    .turnin 766 >>Turn in Mazzranache
+    .target Maur Raincaller
     .isQuestComplete 766
 step << Shaman/Druid
     #xprate <2.1
     .goto Mulgore,45.66,58.60
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_玛诺特·深痕|r 交谈
-    .vendor >> 卖掉杂物。如果卖掉现有武器后足够购买 |T135145:0|t[学徒短杖]（5银 04铜），就卖掉它。若钱仍不够，稍后再回来
-    .target 玛诺特·深痕
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mahnott|r
+    .vendor >> Vendor trash. Sell your weapon if it gives you enough money for a |T135145:0|t[Walking Stick] (5s 04c). You'll come back later if you don't have enough yet
+    .target Mahnott Roughwound
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.2
 step << Shaman/Druid
     #xprate <2.1
     .goto Mulgore,45.66,58.60
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r|cRXP_FRIENDLY_玛诺特|r|cRXP_BUY_交谈，再向他购买|r |T135145:0|t[学徒短杖]|cRXP_BUY_。|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Mahnott|r|cRXP_BUY_. Buy a|r |T135145:0|t[Walking Stick] |cRXP_BUY_from him|r
     .collect 2495,1,743,1 --Collect Walking Stick (1)
     .money <0.0504
     .itemStat 16,QUALITY,<7
@@ -4364,15 +4191,15 @@ step << Shaman/Druid
 step << Warrior
     #xprate <2.1
     .goto Mulgore,45.66,58.60
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_玛诺特·深痕|r 交谈
-    .vendor >> 卖掉杂物。如果卖掉现有武器后足够购买 |T133053:0|t[木槌棒]（7银 1铜），就卖掉它。若钱仍不够，稍后再回来
-    .target 玛诺特·深痕
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mahnott|r
+    .vendor >> Vendor trash. Sell your weapon if it gives you enough money for a |T133053:0|t[Wooden Mallet] (7s 1c). You'll come back later if you don't have enough yet
+    .target Mahnott Roughwound
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.9
 step << Warrior
     #xprate <2.1
     .goto Mulgore,45.66,58.60
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r|cRXP_FRIENDLY_玛诺特|r|cRXP_BUY_交谈，再向他购买|r |T133053:0|t[木槌棒]|cRXP_BUY_。|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Mahnott|r|cRXP_BUY_. Buy a|r |T133053:0|t[Wooden Mallet] |cRXP_BUY_from him|r
     .collect 2493,1,743,1 --Collect Wooden Mallet (1)
     .money <0.0701
     .itemStat 16,QUALITY,<7
@@ -4380,15 +4207,15 @@ step << Warrior
 step << Hunter
     #xprate <2.1
     .goto Mulgore,45.50,58.47
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_肯纳·鹰眼|r 交谈
-    .vendor >> 卖掉杂物。如果卖掉现有武器后足够购买 |T135611:0|t[精制短枪]（4银 14铜），就卖掉它。若钱仍不够，稍后再回来
-    .target 肯纳·鹰眼
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kennah|r
+    .vendor >> Vendor trash. Sell your weapon if it gives you enough money for a |T135611:0|t[Ornate Blunderbuss] (4s 14c). You'll come back later if you don't have enough yet
+    .target Kennah Hawkseye
     .itemStat 18,QUALITY,<7
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<3.0
 step << Hunter
     #xprate <2.1
     .goto Mulgore,45.50,58.47
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r|cRXP_FRIENDLY_肯纳·鹰眼|r|cRXP_BUY_交谈，再向她购买|r |T135611:0|t[精制短枪]|cRXP_BUY_。|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Kennah|r|cRXP_BUY_. Buy a|r |T135611:0|t[Ornate Blunderbuss] |cRXP_BUY_from him|r
     .collect 2509,1,743,1 --Collect Ornate Blunderbuss (1)
     .money <0.0414
     .itemStat 18,QUALITY,<7
@@ -4396,15 +4223,15 @@ step << Hunter
 step << Hunter
     #xprate <2.1
     .goto Mulgore,45.86,57.67
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r |cRXP_FRIENDLY_姆拉特·远行|r交谈
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Moorat|r
     .collect 2516,1000,743,1 << Hunter --Light Shot (1000)
-    .target 姆拉特·远行
-    .itemcount 2516,<800 << Hunter
+    .target Moorat Longstride
+    .itemcount 2512,<800 << Hunter
 step << Shaman/Druid
     #xprate <2.1
     #optional
     #completewith ThunderhornCleanse
-    +|cRXP_WARN_装备|r |T135145:0|t[学徒短杖]
+    +|cRXP_WARN_Equip the|r |T135145:0|t[Walking Stick]
     .use 2495
     .itemcount 2495,1
     .itemStat 16,QUALITY,<7
@@ -4413,7 +4240,7 @@ step << Warrior
     #xprate <2.1
     #optional
     #completewith ThunderhornCleanse
-    +|cRXP_WARN_装备|r |T133053:0|t[木槌棒]
+    +|cRXP_WARN_Equip the|r |T133053:0|t[Wooden Mallet]
     .use 2493
     .itemcount 2493,1
     .itemStat 16,QUALITY,<7
@@ -4422,7 +4249,7 @@ step << Hunter
     #xprate <2.1
     #optional
     #completewith ThunderhornCleanse
-    +|cRXP_WARN_装备|r |T135611:0|t[精制短枪]
+    +|cRXP_WARN_Equip the|r |T135611:0|t[Ornate Blunderbuss]
     .use 2509
     .itemcount 2509,1
     .itemStat 18,QUALITY,<7
@@ -4431,115 +4258,115 @@ step
     #xprate <2.1
     #completewith Thunderhorn
     .goto Mulgore,45.90,58.73
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_哈兰特·铁枝|r 交谈
-    .vendor >> 卖掉杂物并修理装备
-    .target 哈兰特·铁枝
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Harant|r
+    .vendor >> Vendor trash and repair
+    .target Harant Ironbrace
 step
     #xprate <2.1
     .goto Mulgore,48.71,59.32
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_哈肯·风之图腾|r交谈
-    .turnin 761 >>交任务：猎捕猛鹫
-    .target 哈肯·风之图腾
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Harken|r
+    .turnin 761 >>Turn in Swoop Hunting
+    .target Harken Windtotem
     .isQuestComplete 761
 step << Tauren
     #xprate <2.1
     .goto Mulgore,48.53,60.40
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_穆尔|r交谈
-    .turnin 756 >>交任务：雷角图腾
-    .timer 8,雷角图腾剧情演出
-    .accept 758 >>接受任务 净化雷角之井
-    .target 穆尔·雷角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mull|r
+    .turnin 756 >>Turn in Thunderhorn Totem
+    .timer 8,Thunderhorn Totem RP
+    .accept 758 >>Accept Thunderhorn Cleansing
+    .target Mull Thunderhorn
 step
     #optional
     #label Thunderhorn
 step << Shaman
     .goto Mulgore,48.38,59.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_纳姆|r 交谈
-    .train 8044 >> 学习职业技能
-    .target 纳姆·逐星
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Narm|r
+    .train 8044 >> Train your class spells
+    .target Narm Skychaser
     .xp <8,1
     .xp >10,1
 step << Shaman
     #optional
     .goto Mulgore,48.38,59.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_纳姆|r 交谈
-    .accept 2984 >>接任务：火焰的召唤
-    .trainer >> 学习职业技能
-    .target 纳姆·逐星
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Narm|r
+    .accept 2984 >>Accept Call of Fire
+    .trainer >> Train your class spells
+    .target Narm Skychaser
     .xp <10,1
 step << Druid
     .goto Mulgore,48.48,59.64
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_根妮亚·符文图腾|r交谈
-    .train 5186 >>学习职业技能
-    .target 根妮亚·符文图腾
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gennia|r
+    .train 5186 >>Train your class spells
+    .target Gennia Runetotem
     .xp <8,1
     .xp >10,1
 step << Druid
     #optional
     .goto Mulgore,48.48,59.64
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_根妮亚·符文图腾|r 交谈
-    .trainer >> 学习职业技能
-    .accept 5928 >> 接受任务 响应召唤
-    .target 根妮亚·符文图腾
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gennia|r
+    .trainer >> Train your class spells
+    .accept 5928 >> Accept Heeding the Call
+    .target Gennia Runetotem
     .isQuestAvailable 5928
     .xp <10,1
 step << Warrior
     .goto Mulgore,49.52,60.58
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_克朗·石蹄|r 交谈
-    .train 284 >> 学习职业技能
-    .target 克朗·石蹄
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Krang|r
+    .train 284 >> Train your class spells
+    .target Krang Stonehoof
     .xp <8,1
     .xp >10,1
 step << Warrior
     #optional
     .goto Mulgore,49.52,60.58
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_克朗·石蹄|r 交谈
-    .trainer >> 学习职业技能
-    .accept 1505 >>接受任务: 老兵犹塞克
-    .target 克朗·石蹄
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Krang|r
+    .trainer >> Train your class spells
+    .accept 1505 >>Accept Veteran Uzzek
+    .target Krang Stonehoof
     .xp <10,1
 step << Hunter
     .goto Mulgore,47.81,55.69
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_雅文·刺鬃|r 交谈
-    .train 5116 >> 学习职业技能
-    .target 雅文·刺鬃
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Yaw|r
+    .train 5116 >> Train your class spells
+    .target Yaw Sharpmane
     .xp <8,1
     .xp >10,1
 step << Hunter
     #optional
     .goto Mulgore,47.81,55.69
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_雅文·刺鬃|r 交谈
-    .accept 6061 >>接任务：驯服野兽 << Tauren
-    .trainer >> 学习职业技能
-    .target 雅文·刺鬃
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Yaw|r
+    .accept 6061 >>Accept Taming the Beast
+    .trainer >> Train your class spells
+    .target Yaw Sharpmane
     .xp <10,1
-step << Hunter Tauren
+step << Hunter
     #optional
     #loop
     .goto Mulgore,39.38,57.43,0
     .goto Mulgore,42.87,54.88,50,0
     .goto Mulgore,40.73,55.60,50,0
     .goto Mulgore,39.38,57.43,50,0
-    .use 15914 >> |cRXP_WARN_使用|r |T132164:0|t[驯兽棒]|cRXP_WARN_，目标是|r |cRXP_ENEMY_成年平原陆行鸟|r|cRXP_WARN_，站在最远施法距离。|r
+    .use 15914 >> |cRXP_WARN_Use your|r |T132164:0|t[Taming Rod] |cRXP_WARN_on an|r |cRXP_ENEMY_Adult Plainstrider|r |cRXP_WARN_at max range|r
     .complete 6061,1 --Tame an Adult Plainstrider (1)
-    .mob 成年平原陆行鸟
+    .mob Adult Plainstrider
     .isOnQuest 6061
-step << Hunter Tauren
+step << Hunter
     #optional
     .goto Mulgore,47.81,55.69
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_雅文·刺鬃|r交谈
-    .turnin 6061 >>交任务：驯服野兽
-    .accept 6087 >>接任务：驯服野兽
-    .target 雅文·刺鬃
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Yaw|r
+    .turnin 6061 >>Turn in Taming the Beast
+    .accept 6087 >>Accept Taming the Beast
+    .target Yaw Sharpmane
     .isQuestComplete 6061
-step << Hunter Tauren
+step << Hunter
     #optional
     .goto Mulgore,47.81,55.69
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_雅文·刺鬃|r交谈
-    .accept 6087 >>接任务：驯服野兽
-    .target 雅文·刺鬃
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Yaw|r
+    .accept 6087 >>Accept Taming the Beast
+    .target Yaw Sharpmane
     .isQuestTurnedIn 6061
-step << Hunter Tauren
+step << Hunter
     #optional
     #loop
     .goto Mulgore,49.49,42.27,0
@@ -4547,90 +4374,85 @@ step << Hunter Tauren
     .goto Mulgore,46.65,47.22,50,0
     .goto Mulgore,48.18,45.27,50,0
     .goto Mulgore,49.49,42.27,50,0
-    .use 15915 >> |cRXP_WARN_使用|r |T132164:0|t[驯兽棒]|cRXP_WARN_，目标是|r |cRXP_ENEMY_草原捕食者|r|cRXP_WARN_，站在最远施法距离。|r
+    .use 15915 >> |cRXP_WARN_Use your|r |T132164:0|t[Taming Rod] |cRXP_WARN_on a|r |cRXP_ENEMY_Prairie Stalker|r |cRXP_WARN_at max range|r
     .complete 6087,1 --Tame a Prairie Stalker (1)
-    .mob 草原捕食者
+    .mob Prairie Stalker
     .isQuestTurnedIn 6061
-step << Hunter Tauren
+step << Hunter
     #optional
     .goto Mulgore,47.81,55.69
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_雅文·刺鬃|r交谈
-    .turnin 6087 >>交任务：驯服野兽
-    .accept 6088 >>接任务：驯服野兽
-    .target 雅文·刺鬃
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Yaw|r
+    .turnin 6087 >>Turn in Taming the Beast
+    .accept 6088 >>Accept Taming the Beast
+    .target Yaw Sharpmane
     .isQuestTurnedIn 6061
-step << Hunter Tauren
+step << Hunter
     #optional
     #loop
     .goto Mulgore,47.25,41.33,0
     .goto Mulgore,47.25,41.33,80,0
     .goto Mulgore,45.41,40.29,80,0
     .goto Mulgore,51.57,44.40,80,0
-    .use 15916 >> |cRXP_WARN_使用|r |T132164:0|t[驯兽棒] |cRXP_WARN_，目标为|r |cRXP_ENEMY_猛鹫|r |cRXP_WARN_，站在最远施法距离；若被击倒，立刻再次施放|r
-    >>|cRXP_WARN_如果驯服失败且驯兽棒使用次数耗尽，就放弃任务，再重新接取并返回这里|r
+    .use 15916 >> |cRXP_WARN_Use your|r |T132164:0|t[Taming Rod] |cRXP_WARN_on a|r |cRXP_ENEMY_Swoop|r |cRXP_WARN_at max range and re-cast it immediately if they knock you down|r
+    >>|cRXP_WARN_If you fail and run out of Taming Rod Charges, abandon the quest, then pick it up again and come back|r
     .complete 6088,1 --Tame a Swoop (1)
-    .mob 猛鹫
+    .mob Swoop
     .isQuestTurnedIn 6061
-step << Hunter Tauren
+step << Hunter
     #optional
     .goto Mulgore,47.81,55.69
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_雅文·刺鬃|r交谈
-    .turnin 6088 >>交任务：驯服野兽
-    .accept 6089 >>接任务：训练野兽
-    .target 雅文·刺鬃
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Yaw|r
+    .turnin 6088 >>Turn in Taming the Beast
+    .accept 6089 >>Accept Training the Beast
+    .target Yaw Sharpmane
     .isQuestTurnedIn 6061
 step
     .goto Mulgore,46.63,61.08
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_旅店老板考乌斯|r 交谈
-    >>|cRXP_BUY_向他购买|r |T132815:0|t[冰镇牛奶] |cRXP_BUY_。|r << Shaman/Druid
-    >>|cRXP_BUY_向他购买|r |T133968:0|t[刚出炉的面包] |cRXP_BUY_。|r << Warrior
-    .vendor >> 卖掉杂物 << !Hunter
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Innkeeper Kauth|r
+    >>|cRXP_BUY_Buy|r |T132815:0|t[Ice Cold Milk] |cRXP_BUY_from him|r << Shaman/Druid
+    >>|cRXP_BUY_Buy|r |T133968:0|t[Freshly Baked Bread] |cRXP_BUY_from him|r << Warrior
+    .vendor >> Vendor Trash << !Hunter
     .collect 1179,10,746,1 << Shaman/Druid --Ice Cold Milk (10)
     .collect 4541,10,746,1 << Warrior --Freshly Baked Bread (10)
-    .target 旅店老板考乌斯
+    .target Innkeeper Kauth
     .money <0.025
 step
     #completewith Burial
-    >>|cRXP_WARN_收集齐马兹拉纳其所需的物品|r
+    >>|cRXP_WARN_Finish getting the items for Mazzranache|r
     .complete 766,1 --Prairie Wolf Heart (1)
     .complete 766,2 --Flatland Cougar Femur (1)
     .complete 766,3 --Plainstrider Scale (1)
     .complete 766,4 --Swoop Gizzard (1)
 step
 	#completewith Burial
-	>>在莫高雷各处击杀|cRXP_ENEMY_猛鹫|r，拾取掉落的|cRXP_LOOT_羽毛|r
+	>>Kill |cRXP_ENEMY_Swoops|r throughout Mulgore. Loot them for their |cRXP_LOOT_Quills|r
     .complete 761,1 --Trophy Swoop Quill (8)
-    .mob 消瘦的猛鹫
-    .mob 猛鹫
+    .mob Wiry Swoop
+    .mob Swoop
 step << Tauren
     #xprate <2.1
-    .goto Mulgore,44.49,45.36
-    >>|cRXP_WARN_在雷角之井使用|r |T135139:0|t[雷角之井净化图腾]|cRXP_WARN_。|r
-    .complete 758,1 --Cleanse the Thunderhorn Water Well (1)
-step
-    #optional
     #label ThunderhornCleanse
-
+    .goto Mulgore,44.49,45.36
+    >>|cRXP_WARN_Use the|r |T135139:0|t[Thunderhorn Cleansing Totem] |cRXP_WARN_at the Well|r
+    .complete 758,1 --Cleanse the Thunderhorn Water Well (1)
 step << Shaman
     #season 2
-    .itemcount 206388,<1
     #completewith next
-    >>击杀|cRXP_ENEMY_巴尔丹掘地工|r和|cRXP_ENEMY_巴尔丹鉴定官|r，拾取|cRXP_LOOT_神器仓库钥匙|r
+    >>Kill |cRXP_ENEMY_Bael'dun Diggers|r and |cRXP_ENEMY_Bael'dun Appraisers|r. Loot them for the |cRXP_LOOT_Artifact Storage Key|r
     .collect 206975,1 --Artifact Storage Key (1)
-    .mob 巴尔丹掘地工
-    .mob 巴尔丹鉴定官
+    .mob Bael'dun Digger
+    .mob Bael'dun Appraiser
     .train 425344,1
 step
     .goto Mulgore,31.27,49.87
-    >>击杀 |cRXP_ENEMY_巴尔丹掘地工|r 和 |cRXP_ENEMY_巴尔丹鉴定官|r，拾取其 |cRXP_LOOT_勘察员的锄头|r
-    >>|cRXP_WARN_当心 |cRXP_ENEMY_巴尔丹鉴定官|r 会施放|r |T135929:0|t[次级治疗术] |cRXP_WARN_(远程施法: 为自身或附近血量低于 50% 的敌人回复约 75 点生命)|r
-    .use 4702 >> 在熔炉旁砸碎 |T134707:0|t[勘察员的锄头]
+    >>Kill |cRXP_ENEMY_Bael'dun Diggers|r and |cRXP_ENEMY_Bael'dun Appraisers|r. Loot them for their |cRXP_LOOT_Prospector's Picks|r
+    >>|cRXP_WARN_Be careful as |cRXP_ENEMY_Bael'dun Appraisers|r cast|r |T135929:0|t[Lesser Heal] |cRXP_WARN_(Ranged Cast: Heals themselves or a nearby mob below 50% health for about 75 health)|r
+    .use 4702 >> Smash the |T134707:0|t[Picks] at the Forge
     .complete 746,1 --Broken Tools (5)
-    .mob 巴尔丹掘地工
-    .mob 巴尔丹鉴定官
+    .mob Bael'dun Digger
+    .mob Bael'dun Appraiser
 step << Shaman
     #season 2
-    .itemcount 206388,<1
     #loop
     .goto Mulgore,34.33,47.54,0
     .goto Mulgore,34.33,47.54,40,0
@@ -4641,21 +4463,21 @@ step << Shaman
     .goto Mulgore,30.98,48.24,40,0
     .goto Mulgore,31.59,48.19,40,0
     .goto Mulgore,33.10,47.69,40,0
-    >>击杀|cRXP_ENEMY_巴尔丹掘地工|r和|cRXP_ENEMY_巴尔丹鉴定官|r，拾取|cRXP_LOOT_神器仓库钥匙|r
-    >>|cRXP_WARN_当心 |cRXP_ENEMY_巴尔丹鉴定官|r 会施放|r |T135929:0|t[次级治疗术] |cRXP_WARN_(远程施法: 为自身或附近血量低于 50% 的敌人回复约 75 点生命)|r
+    >>Kill |cRXP_ENEMY_Bael'dun Diggers|r and |cRXP_ENEMY_Bael'dun Appraisers|r. Loot them for the |cRXP_LOOT_Artifact Storage Key|r
+    >>|cRXP_WARN_Be careful as |cRXP_ENEMY_Bael'dun Appraisers|r cast|r |T135929:0|t[Lesser Heal] |cRXP_WARN_(Ranged Cast: Heals themselves or a nearby mob below 50% health for about 75 health)|r
     .collect 206975,1 --Artifact Storage Key (1)
-    .mob 巴尔丹掘地工
-    .mob 巴尔丹鉴定官
+    .mob Bael'dun Digger
+    .mob Bael'dun Appraiser
     .train 425344,1
 step << Shaman
     #season 2
     .goto Mulgore,31.56,49.54
-    >>打开|cRXP_PICK_神器仓库宝箱|r，拾取 |T134918:0|t|cRXP_LOOT_[硫息圣像]|r
+    >>Open the |cRXP_PICK_Artifact Storage|r chest. Loot it for the |T134918:0|t|cRXP_LOOT_[Sulfurous Icon]|r
     .collect 206388,1 --Sulfurous Icon (1)
     .train 425344,1
 step << Shaman
     #season 2
-    .equip 18,206388 >> |cRXP_WARN_装备|r |T134918:0|t|cRXP_LOOT_[硫息圣像]|r
+    .equip 18,206388 >> |cRXP_WARN_Equip the|r |T134918:0|t|cRXP_LOOT_[Sulfurous Icon]|r
     .use 206388
     .itemcount 206388,1 --Sulfurous Icon (1)
     .train 425344,1
@@ -4663,16 +4485,14 @@ step << Shaman
     #season 2
     #label MoltenBlast
     #completewith Burial
-    .aura 408828 >>|cRXP_WARN_至少用|r |T136026:0|t[地震术]|cRXP_WARN_对敌人造成一次伤害，再将其击杀。重复10次，获得|r |T136116:0|t[灵感勃发]|cRXP_WARN_增益效果|r
-    >>|cRXP_WARN_注意：只有能提供经验值的敌人才会计入层数|r
-    .mob 巴尔丹掘地工
-    .mob 巴尔丹鉴定官
+    .aura 408828 >>|cRXP_WARN_Kill enemies having dealt damage using|r |T136026:0|t[Earth Shock] |cRXP_WARN_on them at least once. Do this 10 times to gain the|r |T136116:0|t[Inspired] |cRXP_WARN_buff|r
+    >>|cRXP_WARN_NOTE: You must do this on enemies that can provide experience to gain stacks|r
+    .mob Bael'dun Digger
+    .mob Bael'dun Appraiser
     .train 425344,1
 step << Warrior
     #xprate <2.1
     #season 2
-    .itemcount 204689,<1
-    .itemcount 204703,<1
     #loop
 	.goto Mulgore,31.74,40.31,0
 	.goto Mulgore,34.08,43.71,50,0
@@ -4686,11 +4506,11 @@ step << Warrior
 	.goto Mulgore,33.82,40.26,50,0
 	.goto Mulgore,34.48,41.21,50,0
 	.goto Mulgore,34.50,42.29,50,0
-    >>击杀|cRXP_ENEMY_风怒唤风者|r和|cRXP_ENEMY_风怒鹰身人|r，拾取掉落的|cRXP_LOOT_利爪|r和|cRXP_LOOT_被砍下的鹰身人的头|r
+    >>Kill |cRXP_ENEMY_Windfury Wind Witches|r and |cRXP_ENEMY_Windfury Harpies|r. Loot them for their |cRXP_LOOT_Talons|r and a |cRXP_LOOT_Severed Harpy Head|r
     .complete 743,1 --Windfury Talon (8)
     .collect 206995,1 ---Severed Harpy Head (1)
-    .mob 风怒唤风者
-    .mob 风怒鹰身人
+    .mob Windfury Wind Witch
+    .mob Windfury Harpy
     .train 403475,1
 step
     #loop
@@ -4706,179 +4526,173 @@ step
 	.goto Mulgore,33.82,40.26,50,0
 	.goto Mulgore,34.48,41.21,50,0
 	.goto Mulgore,34.50,42.29,50,0
-    >>击杀|cRXP_ENEMY_风怒唤风者|r和|cRXP_ENEMY_风怒鹰身人|r，拾取掉落的|cRXP_LOOT_利爪|r
+    >>Kill |cRXP_ENEMY_Windfury Wind Witches|r and |cRXP_ENEMY_Windfury Harpies|r. Loot them for their |cRXP_LOOT_Talons|r
     .complete 743,1 --Windfury Talon (8)
-    .mob 风怒唤风者
-    .mob 风怒鹰身人
+    .mob Windfury Wind Witch
+    .mob Windfury Harpy
 step
     #completewith next
-    .goto Mulgore,33.37,36.52,50 >> 进入风怒鹰身人北面的洞穴
+    .goto Mulgore,33.37,36.52,50 >> Enter the cave just North of the Windfury Harpies
 step
     #xprate <2.1
 	#label Burial
     .goto Mulgore,32.72,36.09
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_先知奥萨迪·智慧行者|r交谈
-    .turnin 772 >>交任务：幻象仪祭
-    .accept 773 >>接任务：智慧仪祭
-    .target 先知奥萨迪·智慧行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Wiserunner|r
+    .turnin 772 >>Turn in Rite of Vision
+    .accept 773 >>Accept Rite of Wisdom
+    .target Seer Wiserunner
 step
     #xprate >2.09
 	#label Burial
     .goto Mulgore,32.72,36.09
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_先知奥萨迪·智慧行者|r交谈
-    .turnin 772 >>交任务：幻象仪祭
-    .target 先知奥萨迪·智慧行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Wiserunner|r
+    .turnin 772 >>Turn in Rite of Vision
+    .target Seer Wiserunner
 step << Shaman
     #season 2
     #requires MoltenBlast
-    >>若尚未获得 |cRXP_WARN_灵感勃发|r，装备圣像，继续击杀受过你的 |T136026:0|t[地震术] 伤害且能提供经验的敌人，累计10次
-    .train 425344 >>|cRXP_WARN_使用|r |T134918:0|t|cRXP_LOOT_[硫息圣像]|r|cRXP_WARN_学习|r |T133816:0|t[铭刻手套：熔火爆裂]
+    .cast 402265 >>|cRXP_WARN_Use the|r |T134918:0|t|cRXP_LOOT_[Sulfurous Icon]|r |cRXP_WARN_to learn|r |T133816:0|t[Engrave Gloves: Molten Blast]
     .use 206388
+    .aura -408828
+    .itemStat 18,QUALITY,2
     .train 425344,1
     .xp <3,1
 step
     #completewith SacredBurial
-    .destroy 4823 >> |cRXP_WARN_可以从背包中摧毁|r |T134712:0|t[先知之水] |cRXP_WARN_，之后不再需要|r
+    .destroy 4823 >> |cRXP_WARN_You can delete|r |T134712:0|t[Water of the Seers] |cRXP_WARN_from your bags, as it's no longer needed|r
 step << Druid/Hunter/Shaman
     #completewith next
     .goto Thunder Bluff,32.00,66.69
-    .zone Thunder Bluff >>前往雷霆崖
+    .zone Thunder Bluff >>Travel to Thunder Bluff
     .isOnQuest 6089 << Hunter
     .xp <10,1 << Druid
 step << Shaman
     #season 2
     .goto Thunder Bluff,39.45,65.86
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_巴通·阴影图腾|r交谈
-    >>|cRXP_WARN_他处于|r |T132320:0|t[潜行中]
-    .accept 76156 >>接任务：大地母亲与匿同在
-    .target 巴通·阴影图腾
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Boarton Shadetotem|r
+    >>|cRXP_WARN_He is|r |T132320:0|t[Stealthed]
+    .accept 76156 >>Accept Stalk With The Earthmother
+    .target Boarton Shadetotem
     .train 410104,1
 step << Druid
     .goto Thunder Bluff,45.83,64.74
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_旅店老板帕拉|r交谈
-    .home >>将炉石绑定在雷霆崖
-    .target 旅店老板帕拉
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Innkeeper Pala|r
+    .home >>Set your Hearthstone to Thunder Bluff
+    .target Innkeeper Pala
     .bindlocation 1638
     .isQuestAvailable 5932
     .xp <10,1
 step << Druid
     .goto Thunder Bluff,78.1,28.6
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_哈缪尔·符文图腾|r交谈
-    .accept 886 >>接任务：贫瘠之地的绿洲
-    .target 大德鲁伊哈缪尔·符文图腾
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Hamuul Runetotem|r
+    .accept 886 >>Accept The Barrens Oases
+    .target Arch Druid Hamuul Runetotem
     .xp <10,1
 step << Druid
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_图拉克|r交谈
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Turak|r
     .goto Thunder Bluff,76.7,27.3
-    .turnin 5928 >>交任务：响应召唤
-    .accept 5922 >>接任务：月光林地
-    .target 图拉克·符文图腾
+    .turnin 5928 >>Turn in Heeding the Call
+    .accept 5922 >>Accept Moonglade
+    .target Turak Runetotem
     .isOnQuest 5928
 step << Druid
     .goto Thunder Bluff,76.7,27.3
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_图拉克|r交谈
-    .accept 5922 >>接任务：月光林地
-    .target 图拉克·符文图腾
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Turak|r
+    .accept 5922 >>Accept Moonglade
+    .target Turak Runetotem
     .xp <10,1
 step << Druid
-    .isOnQuest 5922,5930
     #completewith GreatBearS
-    .cast 18960 >>施放 |T135758:0|t[传送：月光林地]
+    .cast 18960 >>Cast |T135758:0|t[Teleport: Moonglade]
     .zoneskip Moonglade
 step << Druid
     .goto Moonglade,56.21,30.64
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_德迪利特·星焰|r交谈
-    .turnin 5922 >>交任务：月光林地
-    .accept 5930 >>接任务：巨熊之灵
-    .target 德迪利特·星焰
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dendrite|r
+    .turnin 5922 >>Turn in Moonglade
+    .accept 5930 >>Accept Great Bear Spirit
+    .target Dendrite Starblaze
     .isOnQuest 5922
 step << Druid
     #label GreatBearS
     .goto Moonglade,56.21,30.64
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_德迪利特·星焰|r交谈
-    .accept 5930 >>接任务：巨熊之灵
-    .target 德迪利特·星焰
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dendrite|r
+    .accept 5930 >>Accept Great Bear Spirit
+    .target Dendrite Starblaze
     .isQuestTurnedIn 5922
 step << Druid
     .goto Moonglade,39.2,27.5
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_巨熊之灵|r交谈
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to the |cRXP_FRIENDLY_Great Bear Spirit|r
     .complete 5930,1 --Seek out the Great Bear Spirit and learn what it has to share with you about the nature of the bear. (1)
-    .target 巨熊之灵
+    .target Great Bear Spirit
     .skipgossip
     .isQuestTurnedIn 5922
 step << Druid
-    .isOnQuest 5930
     #completewith next
-    .cast 18960 >>施放 |T135758:0|t[传送：月光林地]
+    .cast 18960 >>Cast |T135758:0|t[Teleport: Moonglade]
 step << Druid
     .goto Moonglade,56.21,30.64
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_德迪利特·星焰|r交谈
-    .turnin 5930 >>交任务：巨熊之灵
-    .accept 5932 >>接任务：返回雷霆崖
-    .target 德迪利特·星焰
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dendrite|r
+    .turnin 5930 >>Turn in Great Bear Spirit
+    .accept 5932 >>Accept Back to Thunder Bluff
+    .target Dendrite Starblaze
     .isQuestTurnedIn 5922
 step << Druid
-    .isOnQuest 5932
     #completewith DruidBearForm
-    .hs >> 使用炉石返回雷霆崖
+    .hs >> Hearth to Thunder Bluff
     .cooldown item,6948,>0
     .use 6948
     .bindlocation 1638,1
     .zoneskip Thunder Bluff
     .isQuestTurnedIn 5922
 step << Druid
-    .isOnQuest 5932
     #completewith next
     .goto Moonglade,44.29,45.87
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_布瑟恩·草风|r 交谈
-    .fly Thunder Bluff >> 飞往雷霆崖
-    .target 布瑟恩·草风
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Bunthen|r
+    .fly Thunder Bluff >> Fly to Thunder Bluff
+    .target Bunthen Plainswind
     .cooldown item,6948,<0
 step << Druid
     #label DruidBearForm
     .goto Thunder Bluff,76.7,27.3
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_图拉克|r交谈
-    .turnin 5932 >>交任务：返回雷霆崖
-    .accept 6002 >>接任务：身心之力
-    .target 图拉克·符文图腾
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Turak|r
+    .turnin 5932 >>Turn in Back to Thunder Bluff
+    .accept 6002 >>Accept Body and Heart
+    .target Turak Runetotem
     .isQuestTurnedIn 5922
-step << Hunter Tauren
+step << Hunter
 	.goto Thunder Bluff,57.4,89.4
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_浩特·雷角|r 交谈
-	.turnin 6089 >> 交任务：训练野兽
-    .target 浩特·雷角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Holt|r
+	.turnin 6089 >> Turn in Training the Beast
+    .target Holt Thunderhorn
     .isOnQuest 6089
 step << Hunter
-    .spellmissing 1515
     .goto Thunder Bluff,54.08,84.08
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_赫苏瓦·雷角|r交谈
-    .train 24547 >>学习宠物技能
-    .target 赫苏瓦·雷角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Hesuwa|r
+    .train 24547 >>Train your pet spells
+    .target Hesuwa Thunderhorn
     .isQuestTurnedIn 6089
 step << Hunter
-    .spellmissing 1515
     #completewith SacredBurial
-    +|cRXP_WARN_将|r |T132162:0|t[训练野兽]|cRXP_WARN_拖到动作条上，再教宠物学习技能|r
+    +|cRXP_WARN_Drag|r |T132162:0|t[Beast Training] |cRXP_WARN_onto your Action Bars. Teach skills to your pet|r
     .isQuestTurnedIn 6089
 step << Druid/Hunter/Shaman
     #xprate <2.1
     .goto Thunder Bluff,53.81,27.82,30,0
     .goto Mulgore,59.85,25.62
-    .zone Mulgore >>乘坐北侧升降梯离开雷霆崖，前往莫高雷
+    .zone Mulgore >>Exit Thunder Bluff by the Northern lift
     .zoneskip Thunder Bluff,1
     .isQuestTurnedIn 6089 << Hunter
     .isQuestTurnedIn 5932 << Druid
 step << Hunter
-    .spellmissing 1515
     #xprate <2.1
     #completewith SacredBurial
-    .cast 1515 >>驯服一只 |cRXP_ENEMY_草原狼前锋|r
-    >>|cRXP_WARN_这样就能学习|r |T132278:0|t[撕咬（等级2）]
-    .mob 草原狼前锋
+    .cast 1515 >>Tame a |cRXP_ENEMY_Prairie Wolf Alpha|r
+    >>|cRXP_WARN_This will allow you to train|r |T132278:0|t[Bite Rank 2]
+    .mob Prairie Wolf Alpha
 step
     #xprate <2.1
     #completewith SacredBurial
-    >>|cRXP_WARN_收集齐马兹拉纳其所需的物品|r
+    >>|cRXP_WARN_Finish getting the items for Mazzranache|r
     .complete 766,1 --Prairie Wolf Heart (1)
     .complete 766,2 --Flatland Cougar Femur (1)
     .complete 766,3 --Plainstrider Scale (1)
@@ -4886,58 +4700,54 @@ step
 step
     #xprate <2.1
     #completewith SacredBurial
-    >>留意 |cRXP_ENEMY_鬼嚎|r。击败它并拾取掉落的 |T134358:0|t[|cRXP_LOOT_恶魔之伤|r]，可使用该物品接取任务。
-    >>|cRXP_WARN_小心，|cRXP_ENEMY_鬼嚎|r 是 12 级怪，难度较高|r
+    >>Keep an eye out for |cRXP_ENEMY_Ghost Howl|r. Loot him for his |T134358:0|t[|cRXP_LOOT_Demon Scarred Cloak|r]. Use it to start the quest
+    >>|cRXP_WARN_Be careful as |cRXP_ENEMY_Ghost Howl|r is difficult due to being level 12|r
     .collect 4854,1,770 --Collect Demon Scarred Cloak
-    .accept 770 >>接受任务: 恶魔之伤
+    .accept 770 >>Accept The Demon Scarred Cloak
     .use 4854
-    .unitscan 鬼嚎
+    .unitscan Ghost Howl
 step
     #xprate <2.1
 	#completewith next
-	>>在莫高雷各处击杀|cRXP_ENEMY_猛鹫|r，拾取掉落的|cRXP_LOOT_羽毛|r
+	>>Kill |cRXP_ENEMY_Swoops|r throughout Mulgore. Loot them for their |cRXP_LOOT_Quills|r
     .complete 761,1 --Trophy Swoop Quill (8)
-    .mob 消瘦的猛鹫
-    .mob 猛鹫
-    .mob 长爪猛鹫
+    .mob Wiry Swoop
+    .mob Swoop
+    .mob Taloned Swoop
 step
     #xprate <2.1
     .goto Mulgore,59.85,25.62
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_博学者诺拉·暴雨图腾|r交谈
-    .accept 833 >>接任务：神圣的墓地
-    .target 博学者诺拉·暴雨图腾
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Raintotem|r
+    .accept 833 >>Accept A Sacred Burial
+    .target Lorekeeper Raintotem
 step
     #optional
     #label SacredBurial
 step << Warrior
     #xprate <2.1
     #season 2
-    .itemcount 204688,<1
-    .itemcount 204703,<1
     #completewith RiteofWisdom
-    >>击杀|cRXP_ENEMY_刺背干涉者|r，拾取|cRXP_LOOT_被砍下的野猪人的头|r
+    >>Kill |cRXP_ENEMY_Bristleback Interlopers|r. Loot them for a |cRXP_LOOT_Severed Quilboar Head|r
     .collect 206994,1 ---Severed Quilboar Head (1)
-    .mob 刺背干涉者
+    .mob Bristleback Interloper
     .train 403475,1
 step
     #xprate <2.1
     #completewith next
-    >>击杀|cRXP_ENEMY_刺背干涉者|r
+    >>Kill |cRXP_ENEMY_Bristleback Interlopers|r
     .complete 833,1 --Bristleback Interloper (8)
-    .mob 刺背干涉者
+    .mob Bristleback Interloper
 step
     #xprate <2.1
     #label RiteofWisdom
     .goto Mulgore,61.45,21.01
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_先祖之魂|r交谈
-    .turnin 773 >>交任务：智慧仪祭
-    .accept 775 >>接受任务 雷霆崖之旅
-    .target 先祖之魂
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to the |cRXP_FRIENDLY_Ancestral Spirit|r
+    .turnin 773 >>Turn in Rite of Wisdom
+    .accept 775 >>Accept Journey into Thunder Bluff
+    .target Ancestral Spirit
 step << Warrior
     #xprate <2.1
     #season 2
-    .itemcount 204688,<1
-    .itemcount 204703,<1
     #loop
 	.goto Mulgore,59.85,25.62,0
 	.goto Mulgore,59.85,25.62,25,0
@@ -4950,10 +4760,10 @@ step << Warrior
 	.goto Mulgore,60.16,21.06,25,0
 	.goto Mulgore,60.41,21.96,25,0
 	.goto Mulgore,61.12,22.88,25,0
-    >>击杀|cRXP_ENEMY_刺背干涉者|r，拾取|cRXP_LOOT_被砍下的野猪人的头|r
+    >>Kill |cRXP_ENEMY_Bristleback Interlopers|r. Loot them for a |cRXP_LOOT_Severed Quilboar Head|r
     .complete 833,1 --Bristleback Interloper (8)
     .collect 206994,1 ---Severed Quilboar Head (1)
-    .mob 刺背干涉者
+    .mob Bristleback Interloper
     .train 403475,1
 step
     #xprate <2.1
@@ -4969,19 +4779,19 @@ step
 	.goto Mulgore,60.16,21.06,25,0
 	.goto Mulgore,60.41,21.96,25,0
 	.goto Mulgore,61.12,22.88,25,0
-    >>击杀|cRXP_ENEMY_刺背干涉者|r
+    >>Kill |cRXP_ENEMY_Bristleback Interlopers|r
     .complete 833,1 --Bristleback Interloper (8)
-    .mob 刺背干涉者
+    .mob Bristleback Interloper
 step
     #xprate <2.1
     .goto Mulgore,59.85,25.62
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_博学者诺拉·暴雨图腾|r交谈
-    .turnin 833 >>交任务：神圣的墓地
-    .target 博学者诺拉·暴雨图腾
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Raintotem|r
+    .turnin 833 >>Turn in A Sacred Burial
+    .target Lorekeeper Raintotem
 step
     #xprate <2.1
     #completewith next
-    >>|cRXP_WARN_收集齐马兹拉纳其所需的物品|r
+    >>|cRXP_WARN_Finish getting the items for Mazzranache|r
     .complete 766,1 --Prairie Wolf Heart (1)
     .complete 766,2 --Flatland Cougar Femur (1)
     .complete 766,3 --Plainstrider Scale (1)
@@ -5007,11 +4817,11 @@ step
 	.goto Mulgore,58.79,28.52,60,0
 	.goto Mulgore,60.56,25.88,60,0
 	.goto Mulgore,59.52,23.36,60,0
-	>>击杀|cRXP_ENEMY_猛鹫|r，拾取掉落的|cRXP_LOOT_羽毛|r
+	>>Kill |cRXP_ENEMY_Swoops|r. Loot them for their |cRXP_LOOT_Quills|r
     .complete 761,1 --Trophy Swoop Quill (8)
-    .mob 消瘦的猛鹫
-    .mob 猛鹫
-    .mob 长爪猛鹫
+    .mob Wiry Swoop
+    .mob Swoop
+    .mob Taloned Swoop
 step
     #xprate <2.1
     #loop
@@ -5023,284 +4833,282 @@ step
     .goto Mulgore,59.04,52.79,60,0
     .goto Mulgore,59.12,58.09,60,0
     .goto Mulgore,48.67,44.84,60,0
-    >>|cRXP_WARN_收集齐马兹拉纳其所需的物品|r
+    >>|cRXP_WARN_Finish getting the items for Mazzranache|r
     .complete 766,1 --Prairie Wolf Heart (1)
-    .mob +草原狼前锋
-    .mob +草原捕食者
-    .mob +草原狼前锋
+    .mob +Prairie Wolf Alpha
+    .mob +Prairie Stalker
+    .mob +Prairie Wolf Alpha
     .complete 766,2 --Flatland Cougar Femur (1)
-    .mob +平原狮
+    .mob +Flatland Cougar
     .complete 766,3 --Plainstrider Scale (1)
-    .mob +老平原陆行鸟
-    .mob +成年平原陆行鸟
+    .mob +Elder Plainstrider
+    .mob +Adult Plainstrider
     .complete 766,4 --Swoop Gizzard (1)
-    .mob +长爪猛鹫
-    .mob +猛鹫
-    .mob +消瘦的猛鹫
+    .mob +Taloned Swoop
+    .mob +Swoop
+    .mob +Wiry Swoop
 step << skip --Cannon removed from game
     #season 2
     #softcore
     #completewith Bloodhoofturnins1
     .goto Thunder Bluff,41.17,67.66
-    +点击|cRXP_PICK_超级大炮|r，把自己发射回血蹄村
-    >>|cRXP_WARN_抵达时你会死亡，但可以立即复活|r
-    >>|cRXP_WARN_移除|r |T135992:0|t[魔法之翼] |cRXP_WARN_增益，需在剩余 2 秒时移除，尝试落入河中以免死亡
+    +Click the |cRXP_PICK_Ultra Cannon|r to blast yourself back to Bloodhoof Village
+    >>|cRXP_WARN_You will die upon arrival but can respawn instantly|r
+    >>|cRXP_WARN_Remove your|r |T135992:0|t[Magic Wings] |cRXP_WARN_buff when it has 2 seconds remaining to try and land in the river to avoid death
     .zoneskip Thunder Bluff,1
 step
     #completewith Bloodhoofturnins1
-    .zone Mulgore >>离开雷霆崖
+    .zone Mulgore >>Exit Thunder Bluff
     .zoneskip Thunder Bluff,1
 step
     #softcore
     #completewith Bloodhoofturnins1
     .goto Mulgore,48.22,38.85
-    .deathskip >> 死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处复活
-    >>|cRXP_WARN_确保在路线箭头位置或更南边的位置死亡|r
+    .deathskip >> Die and respawn at the |cRXP_FRIENDLY_Spirit Healer|r
+    >>|cRXP_WARN_Make sure you die at the waypoint arrow or further south of it|r
     .zoneskip Thunder Bluff
 step
     #hardcore
     #completewith Bloodhoofturnins1
-    .goto Mulgore,47.33,57.17,120 >> 返回血蹄村
+    .goto Mulgore,47.33,57.17,120 >> Travel back to Bloodhoof Village
     .subzoneskip 222
 step
     .goto Mulgore,46.97,57.07
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_茂尔|r交谈
-    .turnin 766 >>交任务：马兹拉纳其
-    .target 茂尔·祈雨
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Maur|r
+    .turnin 766 >>Turn in Mazzranache
+    .target Maur Raincaller
     .isQuestComplete 766
 step
     .goto Mulgore,46.75,60.24
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_斯考恩·白云|r交谈
-    .turnin 770 >>交任务: 恶魔之伤
-    .target 斯考恩·白云
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Skorn|r
+    .turnin 770 >>Turn in The Demon Scarred Cloak
+    .target Skorn Whitecloud
     .isOnQuest 770
 step << Warrior
     #xprate <2.1
     #season 2
-    .itemcount 204703,<1
     .goto Mulgore,46.29,61.76
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与血蹄村的|cRXP_FRIENDLY_瓦泰亚·森蹄|r交谈
-    >>交出收集到的|cRXP_LOOT_头颅|r，换取 |T134455:0|t[符文碎片]
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Vateya|r in Bloodhoof Village
+    >>Turn in the |cRXP_LOOT_Heads|r you've collected in exchange for |T134455:0|t[Rune Fragments]
     .collect 204688,1 --Monster Hunter's First Rune Fragment (1)
     .collect 204689,1 --Monster Hunter's Second Rune Fragment (1)
     .collect 204690,1 --Monster Hunter's Third Rune Fragment (1)
-    .target 瓦泰亚·森蹄
+    .target Vateya Timberhoof
     .train 403475,1
 step << Warrior
     #xprate <2.1
     #season 2
-    .use 204688 >>使用 |T134455:0|t[符文碎片] 合成 |T134419:0|t[|cRXP_FRIENDLY_毁灭打击符文|r]
+    .use 204688 >>Use the |T134455:0|t[Rune Fragments] to create |T134419:0|t[|cRXP_FRIENDLY_Rune of Devastate|r]
     .collect 204703,1 --Rune of Devastate (1)
     .train 403475,1
 step << Warrior
     #xprate <2.1
     #season 2
-    .train 403475 >>使用 |T134419:0|t[|cRXP_FRIENDLY_毁灭打击符文|r]
+    .train 403475 >>Use the |T134419:0|t[|cRXP_FRIENDLY_Rune of Devastate|r]
     .use 204703
     .itemcount 204703,1
 step << Tauren
     #xprate <2.1
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_贝恩·血蹄|r、|cRXP_FRIENDLY_卢尔·鹰爪|r、|cRXP_FRIENDLY_穆尔|r和|cRXP_FRIENDLY_哈肯·风之图腾|r交谈
-    .turnin 746 >>交任务：矮人的挖掘场
-    .target +贝恩·血蹄
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Baine|r, |cRXP_FRIENDLY_Ruul|r, |cRXP_FRIENDLY_Mull|r and |cRXP_FRIENDLY_Harken|r
+    .turnin 746 >>Turn in Dwarven Digging
+    .target +Baine Bloodhoof
     .goto Mulgore,47.51,60.16
-    .turnin 743 >>交任务：风怒鹰身人
-    .target +卢尔·鹰爪
+    .turnin 743 >>Turn in Dangers of the Windfury
+    .target +Ruul Eagletalon
     .goto Mulgore,47.35,62.02
-    .turnin 758 >>交任务：净化雷角之井
+    .turnin 758 >>Turn in Thunderhorn Cleansing
     --.accept 759 >>Accept Wildmane Totem
-    .target +穆尔·雷角
+    .target +Mull Thunderhorn
     .goto Mulgore,48.54,60.38
-    .turnin 761 >>交任务：猎捕猛鹫
-    .target +哈肯·风之图腾
+    .turnin 761 >>Turn in Swoop Hunting
+    .target +Harken Windtotem
     .goto Mulgore,48.71,59.32
     .isQuestComplete 761
 step << !Tauren
     #xprate <2.1
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_贝恩·血蹄|r、|cRXP_FRIENDLY_卢尔·鹰爪|r和|cRXP_FRIENDLY_哈肯·风之图腾|r交谈
-    .turnin 746 >>交任务：矮人的挖掘场
-    .target +贝恩·血蹄
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Baine|r, |cRXP_FRIENDLY_Ruul|r and |cRXP_FRIENDLY_Harken|r
+    .turnin 746 >>Turn in Dwarven Digging
+    .target +Baine Bloodhoof
     .goto Mulgore,47.51,60.16
-    .turnin 743 >>交任务：风怒鹰身人
-    .target +卢尔·鹰爪
+    .turnin 743 >>Turn in Dangers of the Windfury
+    .target +Ruul Eagletalon
     .goto Mulgore,47.35,62.02
-    .turnin 761 >>交任务：猎捕猛鹫
-    .target +哈肯·风之图腾
+    .turnin 761 >>Turn in Swoop Hunting
+    .target +Harken Windtotem
     .goto Mulgore,48.71,59.32
     .isQuestComplete 761
 step << Tauren
     #xprate <2.1
     #label Bloodhoofturnins1
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_贝恩·血蹄|r、|cRXP_FRIENDLY_卢尔·鹰爪|r和|cRXP_FRIENDLY_穆尔·雷角|r交谈
-    .turnin 746 >>交任务：矮人的挖掘场
-    .target +贝恩·血蹄
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Baine|r and |cRXP_FRIENDLY_Ruul|r
+    .turnin 746 >>Turn in Dwarven Digging
+    .target +Baine Bloodhoof
     .goto Mulgore,47.51,60.16
-    .turnin 743 >>交任务：风怒鹰身人
-    .target +卢尔·鹰爪
+    .turnin 743 >>Turn in Dangers of the Windfury
+    .target +Ruul Eagletalon
     .goto Mulgore,47.35,62.02
-    .turnin 758 >>交任务：净化雷角之井
+    .turnin 758 >>Turn in Thunderhorn Cleansing
     --.accept 759 >>Accept Wildmane Totem
-    .target +穆尔·雷角
+    .target +Mull Thunderhorn
     .goto Mulgore,48.54,60.38
 step << !Tauren
     #xprate <2.1
     #label Bloodhoofturnins1
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_贝恩·血蹄|r和|cRXP_FRIENDLY_卢尔·鹰爪|r交谈
-    .turnin 746 >>交任务：矮人的挖掘场
-    .target +贝恩·血蹄
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Baine|r and |cRXP_FRIENDLY_Ruul|r
+    .turnin 746 >>Turn in Dwarven Digging
+    .target +Baine Bloodhoof
     .goto Mulgore,47.51,60.16
-    .turnin 743 >>交任务：风怒鹰身人
-    .target +卢尔·鹰爪
+    .turnin 743 >>Turn in Dangers of the Windfury
+    .target +Ruul Eagletalon
     .goto Mulgore,47.35,62.02
 step
     #xprate >2.09
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_贝恩·血蹄|r、|cRXP_FRIENDLY_卢尔·鹰爪|r和|cRXP_FRIENDLY_哈肯·风之图腾|r交谈
-    .turnin 746 >>交任务：矮人的挖掘场
-    .target +贝恩·血蹄
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Baine|r, |cRXP_FRIENDLY_Ruul|r and |cRXP_FRIENDLY_Harken|r
+    .turnin 746 >>Turn in Dwarven Digging
+    .target +Baine Bloodhoof
     .goto Mulgore,47.51,60.16
-    .turnin 743 >>交任务：风怒鹰身人
-    .target +卢尔·鹰爪
+    .turnin 743 >>Turn in Dangers of the Windfury
+    .target +Ruul Eagletalon
     .goto Mulgore,47.35,62.02
-    .turnin 761 >>交任务：猎捕猛鹫
-    .target +哈肯·风之图腾
+    .turnin 761 >>Turn in Swoop Hunting
+    .target +Harken Windtotem
     .goto Mulgore,48.71,59.32
     .isQuestComplete 761
 step
     #xprate >2.09
     #label Bloodhoofturnins1
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_贝恩·血蹄|r和|cRXP_FRIENDLY_卢尔·鹰爪|r交谈
-    .turnin 746 >>交任务：矮人的挖掘场
-    .target +贝恩·血蹄
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Baine|r and |cRXP_FRIENDLY_Ruul|r
+    .turnin 746 >>Turn in Dwarven Digging
+    .target +Baine Bloodhoof
     .goto Mulgore,47.51,60.16
-    .turnin 743 >>交任务：风怒鹰身人
-    .target +卢尔·鹰爪
+    .turnin 743 >>Turn in Dangers of the Windfury
+    .target +Ruul Eagletalon
     .goto Mulgore,47.35,62.02
 step
     #completewith AlphaTeeth
-    .destroy 4702 >> |cRXP_WARN_可以从背包中摧毁|r |T134707:0|t[勘察员的锄头] |cRXP_WARN_，之后不再需要|r
+    .destroy 4702 >> |cRXP_WARN_You can delete|r |T134707:0|t[Prospector's Picks] |cRXP_WARN_from your bags, as they're no longer needed|r
 step << Hunter
     .goto Mulgore,45.50,58.47
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r|cRXP_FRIENDLY_肯纳·鹰眼|r交谈
-    >>|cRXP_BUY_购买|r |T132384:0|t[重弹丸]|cRXP_BUY_。|r << Hunter
-    .collect 2519,1000 << Hunter --Heavy Shot (1000)
-    .target 肯纳·鹰眼
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Kennah|r
+    >>|cRXP_BUY_Buy|r |T132384:0|t[Heavy Shots] |cRXP_BUY_from him|r << Hunter
+    .collect 2519,1000,6061,1 << Hunter --Heavy Shot (1000)
+    .target Kennah Hawkseye
 step << Warrior
     .goto Mulgore,49.52,60.58
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_克朗·石蹄|r交谈
-    .train 2687 >>学习职业技能
-    .accept 1505 >>接受任务: 老兵犹塞克
-    .target 克朗·石蹄
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Krang|r
+    .train 2687 >>Train your class spells
+    .accept 1505 >>Accept Veteran Uzzek
+    .target Krang Stonehoof
 step << Warrior
     #optional
     .goto Mulgore,49.52,60.58
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_克朗·石蹄|r交谈
-    .train 7384 >>学习职业技能
-    .target 克朗·石蹄
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Krang|r
+    .train 7384 >>Train your class spells
+    .target Krang Stonehoof
     .xp <12,1
 step << Shaman
     .goto Mulgore,48.38,59.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_纳姆|r交谈
-    .train 8050 >>学习职业技能
-    .accept 2984 >>接任务：火焰的召唤
-    .target 纳姆·逐星
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Narm|r
+    .train 8050 >>Train your class spells
+    .accept 2984 >>Accept Call of Fire
+    .target Narm Skychaser
 step << Shaman
     #optional
     .goto Mulgore,48.38,59.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_纳姆|r交谈
-    .train 547 >>学习职业技能
-    .target 纳姆·逐星
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Narm|r
+    .train 547 >>Train your class spells
+    .target Narm Skychaser
     .xp <12,1
 step << Hunter
     .goto Mulgore,47.81,55.69
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_雅文·刺鬃|r交谈
-    .accept 6061 >>接任务：驯服野兽 << Tauren
-    >>|cRXP_WARN_其他种族的猎人若尚未学会驯服野兽，需要先完成自己出生地区的猎人职业任务|r << !Tauren
-    .train 13165 >>学习职业技能
-    .target 雅文·刺鬃
-    .isQuestAvailable 6061 << Tauren
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Yaw|r
+    .accept 6061 >>Accept Taming the Beast
+    .train 13165 >>Train your class spells
+    .target Yaw Sharpmane
+    .isQuestAvailable 6061
 step << Hunter
     #optional
     .goto Mulgore,47.81,55.69
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_雅文·刺鬃|r 交谈
-    .train 14281 >> 学习职业技能
-    .target 雅文·刺鬃
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Yaw|r
+    .train 14281 >> Train your class spells
+    .target Yaw Sharpmane
     .xp <12,1
 step << Druid
     .goto Mulgore,48.48,59.64
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_根妮亚·符文图腾|r 交谈
-    .train 8924 >> 学习职业技能
-    .accept 5928 >> 接受任务 响应召唤
-    .target 根妮亚·符文图腾
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gennia|r
+    .train 8924 >> Train your class spells
+    .accept 5928 >> Accept Heeding the Call
+    .target Gennia Runetotem
     .isQuestAvailable 5928
 step << Druid
     #optional
     .goto Mulgore,48.48,59.64
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_根妮亚·符文图腾|r 交谈
-    .train 8936 >> 学习职业技能
-    .target 根妮亚·符文图腾
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gennia|r
+    .train 8936 >> Train your class spells
+    .target Gennia Runetotem
     .xp <12,1
-step << Hunter Tauren
+step << Hunter
     #loop
     .goto Mulgore,39.38,57.43,0
     .goto Mulgore,42.87,54.88,50,0
     .goto Mulgore,40.73,55.60,50,0
     .goto Mulgore,39.38,57.43,50,0
-    .use 15914 >> |cRXP_WARN_使用|r |T132164:0|t[驯兽棒]|cRXP_WARN_，目标是|r |cRXP_ENEMY_成年平原陆行鸟|r|cRXP_WARN_，站在最远施法距离。|r
+    .use 15914 >> |cRXP_WARN_Use your|r |T132164:0|t[Taming Rod] |cRXP_WARN_on an|r |cRXP_ENEMY_Adult Plainstrider|r |cRXP_WARN_at max range|r
     .complete 6061,1 --Tame an Adult Plainstrider (1)
-    .mob 成年平原陆行鸟
-step << Hunter Tauren
+    .mob Adult Plainstrider
+step << Hunter
     .goto Mulgore,47.81,55.69
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_雅文·刺鬃|r交谈
-    .turnin 6061 >>交任务：驯服野兽
-    .accept 6087 >>接任务：驯服野兽
-    .target 雅文·刺鬃
-step << Hunter Tauren
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Yaw|r
+    .turnin 6061 >>Turn in Taming the Beast
+    .accept 6087 >>Accept Taming the Beast
+    .target Yaw Sharpmane
+step << Hunter
     #loop
     .goto Mulgore,49.49,42.27,0
     .goto Mulgore,47.18,50.15,50,0
     .goto Mulgore,46.65,47.22,50,0
     .goto Mulgore,48.18,45.27,50,0
     .goto Mulgore,49.49,42.27,50,0
-    .use 15915 >> |cRXP_WARN_使用|r |T132164:0|t[驯兽棒]|cRXP_WARN_，目标是|r |cRXP_ENEMY_草原捕食者|r|cRXP_WARN_，站在最远施法距离。|r
+    .use 15915 >> |cRXP_WARN_Use your|r |T132164:0|t[Taming Rod] |cRXP_WARN_on a|r |cRXP_ENEMY_Prairie Stalker|r |cRXP_WARN_at max range|r
     .complete 6087,1 --Tame a Prairie Stalker (1)
-    .mob 草原捕食者
-step << Hunter Tauren
+    .mob Prairie Stalker
+step << Hunter
     .goto Mulgore,47.81,55.69
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_雅文·刺鬃|r交谈
-    .turnin 6087 >>交任务：驯服野兽
-    .accept 6088 >>接任务：驯服野兽
-    .target 雅文·刺鬃
-step << Hunter Tauren
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Yaw|r
+    .turnin 6087 >>Turn in Taming the Beast
+    .accept 6088 >>Accept Taming the Beast
+    .target Yaw Sharpmane
+step << Hunter
     #loop
     .goto Mulgore,47.25,41.33,0
     .goto Mulgore,47.25,41.33,80,0
     .goto Mulgore,45.41,40.29,80,0
     .goto Mulgore,51.57,44.40,80,0
-    .use 15916 >> |cRXP_WARN_使用|r |T132164:0|t[驯兽棒] |cRXP_WARN_，目标为|r |cRXP_ENEMY_猛鹫|r |cRXP_WARN_，站在最远施法距离；若被击倒，立刻再次施放|r
-    >>|cRXP_WARN_如果驯服失败且驯兽棒使用次数耗尽，就放弃任务，再重新接取并返回这里|r
+    .use 15916 >> |cRXP_WARN_Use your|r |T132164:0|t[Taming Rod] |cRXP_WARN_on a|r |cRXP_ENEMY_Swoop|r |cRXP_WARN_at max range and re-cast it immediately if they knock you down|r
+    >>|cRXP_WARN_If you fail and run out of Taming Rod Charges, abandon the quest, then pick it up again and come back|r
     .complete 6088,1 --Tame a Swoop (1)
-    .mob 猛鹫
-step << Hunter Tauren
+    .mob Swoop
+step << Hunter
     .goto Mulgore,47.81,55.69
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_雅文·刺鬃|r交谈
-    .turnin 6088 >>交任务：驯服野兽
-    .accept 6089 >>接任务：训练野兽
-    .target 雅文·刺鬃
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Yaw|r
+    .turnin 6088 >>Turn in Taming the Beast
+    .accept 6089 >>Accept Training the Beast
+    .target Yaw Sharpmane
 step
     .goto Mulgore,47.63,61.49
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_加纳|r交谈
-    >>|cRXP_BUY_向她购买|r |T132815:0|t[冰镇牛奶]|cRXP_BUY_。|r << Shaman/Druid
-    >>|cRXP_BUY_向她购买|r |T133968:0|t[刚出炉的面包]|cRXP_BUY_。|r << Warrior
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Jhawna|r
+    >>|cRXP_BUY_Buy|r |T132815:0|t[Ice Cold Milk] |cRXP_BUY_from her|r << Shaman/Druid
+    >>|cRXP_BUY_Buy|r |T133968:0|t[Freshly Baked Bread] |cRXP_BUY_from her|r << Warrior
     .collect 1179,20,818,1 << Shaman/Druid --Ice Cold Milk (20)
     .collect 4541,20,818,1 << Warrior --Freshly Baked Bread (20)
-
+    .target Innkeeper Grosk
     .money <0.05
-    .target 加纳·麦风
+    .target Jhawna Oatwind
 step << skip
     .goto Mulgore,46.75,60.24
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_斯考恩·白云|r交谈
-    .accept 861 >>接任务：猎人之道
-    .target 斯考恩·白云
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Skorn|r
+    .accept 861 >>Accept The Hunter's Way
+    .target Skorn Whitecloud
 step
     #xprate >2.09
     #loop
@@ -5312,12 +5120,11 @@ step
     .goto Mulgore,59.65,62.40,50,0
     .goto Mulgore,55.14,60.65,50,0
     .line Mulgore,51.50,59.23,53.00,60.24,55.14,60.65,57.47,61.26,59.65,62.40
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_摩林·云行者|r交谈
-    >>|cRXP_WARN_他在东侧道路上巡逻|r
-    .accept 749 >>接任务：被破坏的货车
-	.unitscan 摩林·云行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Morin|r
+    >>|cRXP_WARN_He patrols along the eastern road|r
+    .accept 749 >>Accept The Ravaged Caravan
+	.unitscan Morin Cloudstalker
 step << Hunter
-    .spellmissing 1515
     #xprate >2.09
     #loop
     .goto Mulgore,67.19,63.78,0
@@ -5330,15 +5137,15 @@ step << Hunter
     .goto Mulgore,65.56,59.37,50,0
     .goto Mulgore,67.62,59.06,50,0
     .goto Mulgore,66.34,67.01,50,0
-    .train 17255 >>|cRXP_WARN_施放|r |T132164:0|t[驯服野兽] |cRXP_WARN_，目标为|r |cRXP_ENEMY_草原狼前锋|r|cRXP_WARN_。让它攻击怪物，学会|r |T132278:0|t[撕咬（等级 2）]
-    .link https://www.wow-petopia.com/classic/training.php >> |cRXP_WARN_点击这里查看宠物训练的更多信息|r
-    .mob 草原狼前锋
+    .train 16828 >>|cRXP_WARN_Cast|r |T132164:0|t[Tame Beast] |cRXP_WARN_on a |cRXP_ENEMY_Prairie Wolf Alpha|r. Attack mobs with it to learn|r |T132140:0|t[Claw (Rank 3)]
+    .link https://www.wow-petopia.com/classic/training.php >> |cRXP_WARN_Click here for more info about pet training|r
+    .mob Prairie Wolf Alpha
 step
     #xprate >2.09
     .goto Mulgore,53.74,48.17
-    >>点击|cRXP_PICK_密封的补给箱|r
-    .turnin 749 >>交任务：被破坏的货车
-    .accept 751 >>接任务：被破坏的货车
+    >>Click the |cRXP_PICK_Sealed Supply Crate|r
+    .turnin 749 >>Turn in The Ravaged Caravan
+    .accept 751 >>Accept The Ravaged Caravan
 step
     #loop
     .goto Mulgore,55.14,60.65,0
@@ -5349,37 +5156,37 @@ step
     .goto Mulgore,59.65,62.40,50,0
     .goto Mulgore,55.14,60.65,50,0
     .line Mulgore,51.50,59.23,53.00,60.24,55.14,60.65,57.47,61.26,59.65,62.40
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_摩林·云行者|r 交谈
-    >>|cRXP_WARN_他在东侧道路上巡逻|r
-    .turnin 751 >> 交任务：被破坏的货车
-    .accept 764 >> 接任务：风险投资公司
-    .accept 765 >> 接任务：菲兹普罗克主管
-	.unitscan 摩林·云行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Morin|r
+    >>|cRXP_WARN_He patrols along the eastern road|r
+    .turnin 751 >> Turn in The Ravaged Caravan
+    .accept 764 >> Accept The Venture Co
+    .accept 765 >> Accept Supervisor Fizsprocket
+	.unitscan Morin Cloudstalker
 step
     #season 2
     #completewith Fizsprocket1
-    .goto Mulgore,61.51,47.29,20 >> 前往风险投资公司矿洞
+    .goto Mulgore,61.51,47.29,20 >> Travel to The Venture Co. Mine
 step << Shaman
     #season 2
     #completewith VentureCoKills
-    >>打开矿洞内和矿洞另一侧外面的|cRXP_PICK_冲击补给品货车|r，拾取|cRXP_LOOT_爆盐采矿炸弹|r
-    >>|cRXP_WARN_尽量待在洞穴上层|r
+    >>Open the |cRXP_PICK_Blasting Supplies|r inside the mine and outside on the other side. Loot them for the |cRXP_LOOT_Seaforium Mining Charges|r
+    >>|cRXP_WARN_Stay on the upper levels of the cave if possible|r
     .complete 76156,1 --Seaforium Mining Charge (5)
     .train 410104,1
 step
     #completewith next
-    >>击杀|cRXP_ENEMY_风险投资公司工人|r和|cRXP_ENEMY_风险投资公司主官|r
+    >>Kill |cRXP_ENEMY_Venture Co. Workers|r and |cRXP_ENEMY_Venture Co. Supervisors|r
     .complete 764,1 --Venture Co. Worker (14)
-    .mob +风险投资公司工人
+    .mob +Venture Co. Worker
     .complete 764,2 --Venture Co. Supervisor (6)
-    .mob +风险投资公司主官
+    .mob +Venture Co. Supervisor
 step
     #label Fizsprocket1
     .goto Mulgore,64.95,43.33
-    >>击杀|cRXP_ENEMY_菲兹普罗克主管|r，拾取掉落的|cRXP_LOOT_菲兹普罗克的笔记板|r
-    >>|cRXP_WARN_进入矿洞后沿右侧（东侧）前进即可找到他|r
+    >>Kill |cRXP_ENEMY_Supervisor Fizsprocket|r. Loot him for his |cRXP_LOOT_Clipboard|r
+    >>|cRXP_WARN_Run into the mine and hug the right/east side to reach him|r
     .complete 765,1 --Fizsprocket's Clipboard (1)
-    .mob 菲兹普罗克主管
+    .mob Supervisor Fizsprocket
 step
     #label VentureCoKills
     #loop
@@ -5391,11 +5198,11 @@ step
 	.goto Mulgore,60.14,49.14,25,0
 	.goto Mulgore,62.01,48.74,25,0
 	.goto Mulgore,61.89,47.84,25,0
-    >>击杀|cRXP_ENEMY_风险投资公司工人|r和|cRXP_ENEMY_风险投资公司主官|r
+    >>Kill |cRXP_ENEMY_Venture Co. Workers|r and |cRXP_ENEMY_Venture Co. Supervisors|r
     .complete 764,1 --Venture Co. Worker (14)
-    .mob +风险投资公司工人
+    .mob +Venture Co. Worker
     .complete 764,2 --Venture Co. Supervisor (6)
-    .mob +风险投资公司主官
+    .mob +Venture Co. Supervisor
 step << Shaman
     #season 2
     #loop
@@ -5409,8 +5216,8 @@ step << Shaman
     .goto Mulgore,60.99,37.00,15,0
     .goto Mulgore,59.64,36.05,15,0 --Outside
     .goto Mulgore,61.72,35.15,15,0 --Outside
-    >>打开矿洞内以及矿洞另一侧外面的|cRXP_PICK_冲击补给品货车|r，拾取|cRXP_LOOT_爆盐采矿炸弹|r
-    >>|cRXP_WARN_尽量待在洞穴上层|r
+    >>Open the |cRXP_PICK_Blasting Supplies|r inside the mine and outside on the other side. Loot them for the |cRXP_LOOT_Seaforium Mining Charges|r
+    >>|cRXP_WARN_Stay on the upper levels of the cave if possible|r
     .complete 76156,1 --Seaforium Mining Charge (5)
     .train 410104,1
 step
@@ -5423,11 +5230,11 @@ step
     .goto Mulgore,59.65,62.40,50,0
     .goto Mulgore,55.14,60.65,50,0
     .line Mulgore,51.50,59.23,53.00,60.24,55.14,60.65,57.47,61.26,59.65,62.40
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_摩林·云行者|r交谈
-    >>|cRXP_WARN_他在东侧道路上巡逻|r
-    .turnin 764 >>交任务：风险投资公司
-    .turnin 765 >>交任务：菲兹普罗克主管
-	.unitscan 摩林·云行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Morin|r
+    >>|cRXP_WARN_He patrols along the eastern road|r
+    .turnin 764 >>Turn in The Venture Co.
+    .turnin 765 >>Turn in Supervisor Fizsprocket
+	.unitscan Morin Cloudstalker
 step << Druid
     #season 2
     #loop
@@ -5440,16 +5247,25 @@ step << Druid
     .goto Mulgore,63.58,60.51,50,0
     .goto Mulgore,65.56,59.37,50,0
     .goto Mulgore,67.62,59.06,50,0
-    >>击杀|cRXP_ENEMY_平原徘徊者|r和|cRXP_ENEMY_草原狼前锋|r，拾取 |T134903:0|t[|cRXP_FRIENDLY_怒熊神像|r]
+    >>Kill |cRXP_ENEMY_Flatland Prowlers|r and |cRXP_ENEMY_Prairie Wolf Alphas|r. Loot them for |T134903:0|t[|cRXP_FRIENDLY_Idol of Ursine Rage|r]
     .collect 206954,1 --Idol of Ursine Rage (1)
-    .mob 平原徘徊者
-    .mob 草原狼前锋
+    .mob Flatland Prowler
+    .mob Prairie Wolf Alpha
     .train 410025,1
 step << Druid
     #season 2
-    .equip 18,206954 >> |cRXP_WARN_装备|r |T134903:0|t[|cRXP_FRIENDLY_怒熊神像|r]
+    .equip 18,206954 >> |cRXP_WARN_Equip the|r |T134903:0|t[|cRXP_FRIENDLY_Idol of Ursine Rage|r]
     .use 206954
     .train 410025,1
+    .itemcount 206954,1
+step << Druid
+    #season 2
+    #completewith next
+    +|cRXP_WARN_Maintain 50+ rage for at least 60 seconds to be able to learn|r |T132135:0|t[Mangle]
+step << Druid
+    #season 2
+    .train 410025 >> |cRXP_WARN_Use the|r |T134903:0|t[|cRXP_FRIENDLY_Idol of Ursine Rage|r] |cRXP_WARN_to train|r |T132135:0|t[Mangle]
+    .use 206954
     .itemcount 206954,1
 step << skip
     #label AlphaTeeth
@@ -5462,194 +5278,178 @@ step << skip
     .goto Mulgore,65.56,59.37,50,0
     .goto Mulgore,67.62,59.06,50,0
     .goto Mulgore,66.34,67.01
-    >>击杀该区域的|cRXP_ENEMY_草原狼前锋|r，拾取掉落的|cRXP_LOOT_牙齿|r
+    >>Kill |cRXP_ENEMY_Prairie Wolf Alphas|r in the area. Loot them for their |cRXP_LOOT_Teeth|r
     .complete 759,1 --Prairie Alpha Tooth (8)
-    .mob 草原狼前锋
-step
-    #optional
-    #label AlphaTeeth
-
+    .mob Prairie Wolf Alpha
 step << skip
     #softcore
 	#completewith Thunderhorn2
-    .deathskip >> 死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处复活
+    .deathskip >> Die and respawn at the |cRXP_FRIENDLY_Spirit Healer|r
 step << skip
     #hardcore
     #completewith Thunderhorn2
-    .goto Mulgore,46.5,55.5,150 >> 返回血蹄村
+    .goto Mulgore,46.5,55.5,150 >> Travel back to Bloodhoof Village
 step << skip
     #label Thunderhorn2
     .goto Mulgore,48.53,60.40
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_穆尔|r交谈
-    .turnin 759 >>交任务：蛮鬃图腾
-    .accept 760 >>接任务：净化蛮鬃之井
-    .target 穆尔·雷角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mull|r
+    .turnin 759 >>Turn in Wildmane Totem
+    .accept 760 >>Accept Wildmane Cleansing
+    .target Mull Thunderhorn
 step
     .goto Mulgore,69.6,60.4,100,0
-    .zone The Barrens >> 前往贫瘠之地
+    .zone The Barrens >> Travel to The Barrens
+    .isQuestAvailable 5922
 step << Druid
     .goto The Barrens,44.45,59.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_欧姆萨·雷角|r 交谈
-    .fp Camp Taurajo >>开通陶拉祖营地飞行点
-    .target 欧姆萨·雷角
-
-step << Druid
-    .goto The Barrens,44.45,59.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_欧姆萨·雷角|r 交谈
-    .fp Camp Taurajo >> 开通陶拉祖营地飞行点
-    .fly Thunder Bluff >>飞往雷霆崖
-    .target 欧姆萨·雷角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Omusa|r
+    .fp Camp Taurajo >> Get the Camp Taurajo flight path
+    .fly Thunder Bluff >>Fly to Thunder Bluff
+    .target Omusa Thunderhorn
     .isQuestAvailable 5922
 step << Druid
     .goto Thunder Bluff,45.83,64.74
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_旅店老板帕拉|r交谈
-    .home >>将炉石绑定在雷霆崖
-    .target 旅店老板帕拉
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Innkeeper Pala|r
+    .home >>Set your Hearthstone to Thunder Bluff
+    .target Innkeeper Pala
     .bindlocation 1638
     .isQuestAvailable 5922
 step << Druid
     .goto Thunder Bluff,78.1,28.6
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_哈缪尔·符文图腾|r交谈
-    .accept 886 >>接任务：贫瘠之地的绿洲
-    .target 大德鲁伊哈缪尔·符文图腾
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Hamuul Runetotem|r
+    .accept 886 >>Accept The Barrens Oases
+    .target Arch Druid Hamuul Runetotem
     .isQuestAvailable 5922
 step << Druid
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_图拉克|r交谈
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Turak|r
     .goto Thunder Bluff,76.7,27.3
-    .turnin 5928 >>交任务：响应召唤
-    .accept 5922 >>接任务：月光林地
-    .target 图拉克·符文图腾
+    .turnin 5928 >>Turn in Heeding the Call
+    .accept 5922 >>Accept Moonglade
+    .target Arch Druid Hamuul Runetotem
+    .target Turak Runetotem
     .isOnQuest 5928
 step << Druid
     .goto Thunder Bluff,76.7,27.3
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_图拉克|r交谈
-    .accept 5922 >>接任务：月光林地
-    .target 图拉克·符文图腾
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Turak|r
+    .accept 5922 >>Accept Moonglade
+    .target Arch Druid Hamuul Runetotem
+    .target Turak Runetotem
 step << Druid
-    .isOnQuest 5922
     #completewith next
-    .cast 18960 >>施放 |T135758:0|t[传送：月光林地]
+    .cast 18960 >>Cast |T135758:0|t[Teleport: Moonglade]
     .zoneskip Moonglade
 step << Druid
     .goto Moonglade,56.21,30.64
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_德迪利特·星焰|r交谈
-    .turnin 5922 >>交任务：月光林地
-    .accept 5930 >>接任务：巨熊之灵
-    .target 德迪利特·星焰
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dendrite|r
+    .turnin 5922 >>Turn in Moonglade
+    .accept 5930 >>Accept Great Bear Spirit
+    .target Dendrite Starblaze
 step << Druid
     .goto Moonglade,39.2,27.5
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_巨熊之灵|r交谈
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to the |cRXP_FRIENDLY_Great Bear Spirit|r
     .complete 5930,1 --Seek out the Great Bear Spirit and learn what it has to share with you about the nature of the bear. (1)
-    .target 巨熊之灵
+    .target Great Bear Spirit
     .skipgossip
 step << Druid
-    .isOnQuest 5930
     #completewith next
-    .cast 18960 >>施放 |T135758:0|t[传送：月光林地]
+    .cast 18960 >>Cast |T135758:0|t[Teleport: Moonglade]
 step << Druid
     .goto Moonglade,56.21,30.64
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_德迪利特·星焰|r交谈
-    .turnin 5930 >>交任务：巨熊之灵
-    .accept 5932 >>接任务：返回雷霆崖
-    .target 德迪利特·星焰
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Dendrite|r
+    .turnin 5930 >>Turn in Great Bear Spirit
+    .accept 5932 >>Accept Back to Thunder Bluff
+    .target Dendrite Starblaze
 step << Druid
-    .isOnQuest 5932
     #completewith DruidBearForm
-    .hs >> 使用炉石返回雷霆崖
+    .hs >> Hearth to Thunder Bluff
     .cooldown item,6948,>0
     .use 6948
     .bindlocation 1638,1
     .zoneskip Thunder Bluff
 step << Druid
-    .isOnQuest 5932
     #completewith next
     .goto Moonglade,44.29,45.87
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_布瑟恩·草风|r 交谈
-    .fly Thunder Bluff >> 飞往雷霆崖
-    .target 布瑟恩·草风
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Bunthen|r
+    .fly Thunder Bluff >> Fly to Thunder Bluff
+    .target Bunthen Plainswind
     .zoneskip Thunder Bluff
     .cooldown item,6948,<0
 step << Druid
     #label DruidBearForm
     .goto Thunder Bluff,76.7,27.3
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_图拉克|r交谈
-    .turnin 5932 >>交任务：返回雷霆崖
-    .accept 6002 >>接任务：身心之力
-    .target 图拉克·符文图腾
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Turak|r
+    .turnin 5932 >>Turn in Back to Thunder Bluff
+    .accept 6002 >>Accept Body and Heart
+    .target Turak Runetotem
 step << Druid
-    .isOnQuest 6002
-    .isQuestNotComplete 6002
     #completewith next
     .goto Thunder Bluff,47.00,49.82
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_塔尔|r交谈
-    .fly Camp Taurajo >>飞往陶拉祖营地
-    .target 塔尔
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Tal|r
+    .fly Camp Taurajo >>Fly to Camp Taurajo
+    .target Tal
     .zoneskip Thunder Bluff,1
 step << Druid
     .goto The Barrens,42.00,60.86
-    .use 15710 >>前往月夜枭兽之石，使用 |T132857:0|t[赛纳里奥银尘]，然后击杀 |cRXP_ENEMY_月爪枭兽|r
-    >>击杀后与 |cRXP_FRIENDLY_月爪枭兽的灵魂|r 交谈，完成考验
-    .target 月爪枭兽的灵魂
-    .skipgossip
-    >>|cRXP_WARN_避开该区域的|r |cRXP_ENEMY_电角蜥蜴|r|cRXP_WARN_。|r
+    .use 15710 >>Run to the Moonkin Stone and use the |T132857:0|t[Cenarion Lunardust]. Kill |cRXP_ENEMY_Lunaclaw|r
+    >>|cRXP_WARN_Steer clear of the|r |cRXP_ENEMY_Thunderheads|r |cRXP_WARN_in the area|r
     .complete 6002,1 --Face Lunaclaw and earn the strength of body and heart it possesses. (1)
     .use 15710
-    .mob 月爪枭兽
+    .mob Lunaclaw
 step << !Druid
     .goto The Barrens,44.45,59.15
-	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_欧姆萨·雷角|r 交谈
-    .fp Camp Taurajo >> 开通陶拉祖营地飞行点
-	.target 欧姆萨·雷角
+	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Omusa|r
+    .fp Camp Taurajo >> Get the Camp Taurajo flight path
+	.target Omusa Thunderhorn
     .isQuestAvailable 5922
 step << Tauren
     .goto The Barrens,44.9,58.6
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_基尔格·锐角|r交谈
-    .accept 854 >>接任务：十字路口之旅
-    .target 基尔格·锐角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kirge Sternhorn|r
+    .accept 854 >>Accept Journey to the Crossroads
+    .target Kirge Sternhorn
 step
     #completewith next
-    .subzone 380 >>向北前往十字路口
+    .subzone 380 >>Travel north toward The Crossroads
 step
     .goto The Barrens,52.26,31.93
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_图加·符文图腾|r交谈
-    .turnin 886 >>交任务：贫瘠之地的绿洲 << Druid
-    .accept 870 >>接任务：遗忘之池
-    .target 图加·符文图腾
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Tonga|r
+    .turnin 886 >>Turn in The Barrens Oases << Druid
+    .accept 870 >>Accept The Forgotten Pools
+    .target Tonga Runetotem
 step
     .goto The Barrens,51.99,29.89
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_旅店老板伯兰德·草风|r交谈
-    .home 380 >>将炉石绑定在十字路口
-    .target 旅店老板伯兰德·草风
-    .bindlocation 380
-    .subzoneskip 380,1
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Innkeeper Boorand|r
+    .home >>Set your Hearthstone to Crossroads
+    .target Innkeeper Boorand Plainswind
+    .bindlocation 380,1
+    .subzoneskip 380
 step << Tauren
     .goto The Barrens,51.5,30.8
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_索克|r交谈
-    .turnin 854 >>交任务：十字路口之旅
-    .target 索克
-step << Tauren
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Thork|r
+    .turnin 854 >>Turn in Journey to the Crossroads
+    .target Thork
+step
     .goto The Barrens,51.21,29.05
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_加翰·鹰翼|r交谈
-    .accept 6361 >>接任务：一捆兽皮
-    .target 加翰·鹰翼
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Jahan|r
+    .accept 6361 >>Accept A Bundle of Hides
+    .target Jahan Hawkwing
 step
     #xprate <2.1
     .goto The Barrens,51.44,30.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_药剂师赫布瑞姆|r交谈
-    .accept 848 >>接任务：菌类孢子
-    .accept 1492 >>接任务：码头管理员迪兹维格
-    .target 药剂师赫布瑞姆
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Helbrim|r
+    .accept 848 >>Accept Fungal Spores
+    .accept 1492 >>Accept Wharfmaster Dizzywig
+    .target Apothecary Helbrim
 step
     #xprate <2.1
     #completewith next
-    >>在遗忘之池周围收集|cRXP_LOOT_丰满的蘑菇|r
-    >>|cRXP_WARN_采集蘑菇时, 请与 |cRXP_ENEMY_科卡尔|r |cRXP_WARN_保持最大距离. 它们的等级为 12-14 级|r
-    >>|cRXP_WARN_此任务后续奖励为强力的 |cRXP_FRIENDLY_锅炉搅拌器|r |cRXP_WARN_。如果你暂时不打算使用它，可以先跳过此任务|r
+    >>Collect |cRXP_LOOT_Laden Mushrooms|r around The Forgotten Pools
+    >>|cRXP_WARN_Keep maximum distance from |cRXP_ENEMY_Kolkar|r |cRXP_WARN_as you loot the mushrooms. They are level 12-14|r
+    >>|cRXP_WARN_The follow-up of this quest has the powerful |cRXP_FRIENDLY_Cauldron Stirrer|r |cRXP_WARN_as a reward. You can skip this quest for now if you do not intend to use it|r
     .complete 848,1 --Collect Fungal Spores (x4)
 step
     #xprate <2.1
     .goto The Barrens,45.06,22.54
-    >>潜入水下，前往|cRXP_PICK_冒泡的裂隙|r
+    >>Dive underwater to the |cRXP_PICK_Bubbling Fissure|r
     .complete 870,1 --Explore the waters of the Forgotten Pools
 step
     #xprate <2.1
@@ -5659,285 +5459,280 @@ step
     .goto The Barrens,45.2,22.0,40,0
     .goto The Barrens,44.6,22.5,40,0
     .goto The Barrens,43.9,24.4,40,0
-    >>在遗忘之池周围收集|cRXP_LOOT_丰满的蘑菇|r
-    >>|cRXP_WARN_与该区域内的 |cRXP_ENEMY_科卡尔|r |cRXP_WARN_保持最大距离. 它们等级为 12-14 级|r
-    >>|cRXP_WARN_此任务后续奖励为强力的 |cRXP_FRIENDLY_锅炉搅拌器|r |cRXP_WARN_。如果你暂时不打算使用它，可以先跳过此任务|r
+    >>Collect |cRXP_LOOT_Laden Mushrooms|r around The Forgotten Pools
+    >>|cRXP_WARN_Keep maximum distance from |cRXP_ENEMY_Kolkar|r |cRXP_WARN_in the area. They are level 12-14|r
+    >>|cRXP_WARN_The follow-up of this quest has the powerful |cRXP_FRIENDLY_Cauldron Stirrer|r |cRXP_WARN_as a reward. You can skip this quest for now if you do not intend to use it|r
     .complete 848,1 --Collect Fungal Spores (x4)
 step
     #xprate <2.1
     #softcore
 	#completewith ZamahPickup
-    .deathskip >> 死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处复活
+    .deathskip >> Die and respawn at the |cRXP_FRIENDLY_Spirit Healer|r
 step
     #xprate <2.1
     #hardcore
     #completewith ZamahPickup
-    .subzone 380 >> 返回十字路口
+    .subzone 380 >> Travel back to the Crossroads
 step
     #xprate <2.1
     .goto The Barrens,52.26,31.93
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_图加·符文图腾|r交谈
-    .turnin 870 >>交任务  遗忘之池
-    .accept 877 >>接受任务死水绿洲
-    .target 图加·符文图腾
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Tonga|r
+    .turnin 870 >>Turn in The Forgotten Pools
+    .accept 877 >>Accept The Stagnant Oasis
+    .target Tonga Runetotem
     .isQuestComplete 870
 step
     #xprate <2.1
     #optional
     .goto The Barrens,52.26,31.93
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_图加·符文图腾|r交谈
-    .turnin 870 >>交任务  遗忘之池
-    .accept 877 >>接受任务死水绿洲
-    .target 图加·符文图腾
-    .isQuestTurnedIn 870
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Tonga|r
+    .turnin 870 >>Turn in The Forgotten Pools
+    .accept 877 >>Accept The Stagnant Oasis
+    .target Tonga Runetotem
+    .isQuestTurnedIn 877
 step
     #xprate <2.1
     .goto The Barrens,51.44,30.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_药剂师赫布瑞姆|r交谈
-    >>|cRXP_WARN_等待剧情演出结束|r
-    >>|cRXP_WARN_接取后会开启45分钟限时任务|r
-    .turnin 848 >>交任务 菌类孢子
-    .timer 7,菌类孢子剧情演出
-    .accept 853 >>接受任务药剂师扎玛
-    .target 药剂师赫布瑞姆
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Helbrim|r
+    >>|cRXP_WARN_Wait for the RP to finish|r
+    >>|cRXP_WARN_This starts a 45-minute timed quest|r
+    .turnin 848 >>Turn in Fungal Spores
+    .timer 7,Fungal Spores RP
+    .accept 853 >>Accept Apothecary Zamah
+    .target Apothecary Helbrim
     .isQuestComplete 848
 step
     #xprate <2.1
     #optional
     #label ZamahPickup
     .goto The Barrens,51.44,30.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_药剂师赫布瑞姆|r交谈
-    >>|cRXP_WARN_接取后将开启 45 分钟限时任务|r
-    .accept 853 >>接受任务药剂师扎玛
-    .target 药剂师赫布瑞姆
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Helbrim|r
+    >>|cRXP_WARN_This starts a 45-minute timed quest|r
+    .accept 853 >>Accept Apothecary Zamah
+    .target Apothecary Helbrim
     .isQuestTurnedIn 848
 step
     #xprate <2.1
     #sticky
     #completewith CauldronStirrer
-    +|cRXP_WARN_这是限时任务，不要挂机；按本指南路线，预计会在接取后约5–10分钟交任务|r
+    +|cRXP_WARN_You are on a timed quest, don't go afk. It will get turned in around 5-10 minutes after pick-up|r
     .isOnQuest 853
-step << Tauren
-    .goto The Barrens,51.50,30.34
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_迪弗拉克|r交谈
-    .turnin 6361 >>交任务：一捆兽皮
-    .accept 6362 >>接任务：飞往雷霆崖
-    .target 迪弗拉克
 step
-    #completewith RideToTB
     .goto The Barrens,51.50,30.34
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_迪弗拉克|r交谈
-    .fly Thunder Bluff >>飞往雷霆崖
-    .target 迪弗拉克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Devrak|r
+    .turnin 6361 >>Turn in A Bundle of Hides
+    .accept 6362 >>Accept Ride to Thunder Bluff
+    .target Devrak
+step
+    #completewith CauldronStirrer
+    .goto The Barrens,51.50,30.34
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Devrak|r
+    .fly Thunder Bluff >>Fly to Thunder Bluff
+    .target Devrak
     .zoneskip Thunder Bluff
 step
-    #label RideToTB
     .goto Thunder Bluff,45.6,55.9
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_安哈努|r交谈 << Tauren
-    .turnin 6362 >>交任务：飞往雷霆崖 << Tauren
-    .accept 6363 >>接受任务：双足飞龙管理员塔尔 << Tauren
-    .target 安哈努 << Tauren
-    .goto Thunder Bluff,45.60,55.90,15 >>抵达雷霆崖 << !Tauren
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ahanu|r
+    .turnin 6362 >>Turn in Ride to Thunder Bluff
+    .accept 6363 >>Accept Tal the Wind Rider Master
+    .target Ahanu
 step
     .goto Thunder Bluff,61.3,80.9
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_梅洛·石蹄|r交谈
-    .turnin 861 >>交任务：猎人之道
-    .accept 860 >>接任务：瑟格拉·黑棘
-    .target 梅洛·石蹄
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Melor|r
+    .turnin 861 >>Turn in The Hunter's Way
+    .accept 860 >>Accept Sergra Darkthorn
+    .target Melor Stonehoof
     .isQuestComplete 861
 step
     .goto Thunder Bluff,61.3,80.9
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_梅洛·石蹄|r交谈
-    .accept 860 >>接任务：瑟格拉·黑棘
-    .target 梅洛·石蹄
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Melor|r
+    .accept 860 >>Accept Sergra Darkthorn
+    .target Melor Stonehoof
     .isQuestTurnedIn 861
-step << Hunter Tauren
+step << Hunter
 	.goto Thunder Bluff,57.4,89.4
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_浩特·雷角|r 交谈
-	.turnin 6089 >> 交任务：训练野兽
-    .target 浩特·雷角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Holt|r
+	.turnin 6089 >> Turn in Training the Beast
+    .target Holt Thunderhorn
 step << Hunter
     #optional
 	.goto Thunder Bluff,57.4,89.4
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_浩特·雷角|r 交谈
-    .train 14281 >> 学习职业技能
-    .target 浩特·雷角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Holt|r
+    .train 14281 >> Train your class spells
+    .target Holt Thunderhorn
     .xp <12,1
 step << Hunter
-    .spellmissing 1515
     .goto Thunder Bluff,54.08,84.08
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_赫苏瓦·雷角|r交谈
-    >>|cRXP_WARN_将|r |T132162:0|t[训练野兽]|cRXP_WARN_拖到动作栏上，再教宠物学习技能|r
-    .train 24547 >>学习宠物技能
-    .target 赫苏瓦·雷角
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Hesuwa|r
+    >>|cRXP_WARN_Drag|r |T132162:0|t[Beast Training] |cRXP_WARN_onto your Action Bars. Teach skills to your pet|r
+    .train 24547 >>Train your pet spells
+    .target Hesuwa Thunderhorn
 step << Warrior
     #optional
     .goto Thunder Bluff,57.59,85.50
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_科尔·狂暴图腾|r 交谈
-    .train 7384 >> 学习职业技能
-    .target 科尔·狂暴图腾
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ker|r
+    .train 7384 >> Train your class spells
+    .target Ker Ragetotem
     .xp <12,1
 step << Druid
     .goto Thunder Bluff,40.93,62.73
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_安塞瓦|r交谈
-    .train 199 >>学习双手锤
-    .target 安塞瓦
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ansekhwa|r
+    .train 199 >>Train Two-Handed Maces
+    .target Ansekhwa
     .money <0.1154
 step << Warrior/Hunter
     .goto Thunder Bluff,40.93,62.73
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_安塞瓦|r交谈
-    .train 227 >>学习使用法杖
-    .target 安塞瓦
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ansekhwa|r
+    .train 227 >>Train Staves
+    .target Ansekhwa
 step << Shaman
     #season 2
     .goto Thunder Bluff,37.8,59.4
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_伊恩·鹰爪|r交谈
-    .accept 744 >>接受任务: 准备典礼
-    .target 伊恩·鹰爪
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Eyahn|r
+    .accept 744 >>Accept Preparation for Ceremony
+    .target Eyahn Eagletalon
 step << Shaman
     #season 2
     .goto Thunder Bluff,39.45,65.86
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_巴通·阴影图腾|r交谈
-    >>|cRXP_WARN_他处于|r |T132320:0|t[潜行中]
-    .turnin 76156 >>交任务：大地母亲与匿同在
-    .accept 76160 >>接任务：大地母亲与匿同在
-    .target 巴通·阴影图腾
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Boarton Shadetotem|r
+    >>|cRXP_WARN_He is|r |T132320:0|t[Stealthed]
+    .turnin 76156 >>Turn in Stalk With The Earthmother
+    .accept 76160 >>Accept Stalk With The Earthmother
+    .target Boarton Shadetotem
     .train 410104,1
 step
     #xprate <2.1
     #completewith next
     .goto Thunder Bluff,28.14,32.97,40,0
-    .goto Thunder Bluff,28.51,28.95,10 >> 前往灵魂高地，进入预见之池
+    .goto Thunder Bluff,28.51,28.95,10 >> Travel to the Spirit Rise and enter the pools of vision
 step
     #xprate <2.1
     #label CauldronStirrer
     .goto Thunder Bluff,22.82,20.88
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_扎玛|r交谈
-    .turnin 853 >>交任务：药剂师扎玛
-    .target 药剂师扎玛
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Zamah|r
+    .turnin 853 >>Turn in Apothecary Zamah
+    .target Apothecary Zamah
     .isOnQuest 853
 step
     #xprate <2.1
     #optional
     #completewith ReturntoJahan
-    +|cRXP_WARN_装备|r |T135145:0|t[锅炉搅拌器]
+    +|cRXP_WARN_Equip the|r |T135145:0|t[Cauldron Stirrer]
     .use 5340
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<10.1
     .itemcount 5340,1
 step << Shaman
     #optional
     .goto Thunder Bluff,23.64,18.74
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_提戈尔·逐星|r 交谈
-    .train 547 >> 学习职业技能
-    .target 提戈尔·逐星
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Tigor|r
+    .train 547 >> Train your class spells
+    .target Tigor Skychaser
     .xp <12,1
 step << Warrior
     #season 2
     #completewith next
     .goto Thunder Bluff,28.73,18.00,-1
     .goto Thunder Bluff,26.19,18.65,-1
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与灵魂高地上的|cRXP_FRIENDLY_奈塔里·傲翼|r和|cRXP_FRIENDLY_穆阿特|r交谈
-    +等|cRXP_FRIENDLY_穆阿特|r变为敌对后将其击杀
-    .target 奈塔里·傲翼
-    .target 穆阿特
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Netali|r and |cRXP_FRIENDLY_Mooart|r on the Spirit Rise
+    +Kill |cRXP_FRIENDLY_Mooart|r when he becomes hostile
+    .target Netali Proudwind
+    .target Mooart
     .skipgossip
     --Gossipoption
 step << Warrior
     #season 2
     .goto Thunder Bluff,28.73,18.00
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_奈塔里·傲翼|r交谈
-    >>从她那里获得 |T134419:0|t[|cRXP_FRIENDLY_狂乱攻击符文|r]
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Netali|r
+    >>Receive the |T134419:0|t[|cRXP_FRIENDLY_Rune of Frenzied Assault|r] from her
     .collect 204716,1 --Rune of Frenzied Assault (1)
-    .target 奈塔里·傲翼
+    .target Netali
     .train 425447,1
     .skipgossip
 step << Warrior
     #season 2
-    .train 425447 >>使用 |T134419:0|t[|cRXP_FRIENDLY_狂乱攻击符文|r]
+    .train 425447 >>Use the |T134419:0|t[|cRXP_FRIENDLY_Rune of Frenzied Assault|r]
     .use 204716
     .itemcount 204716,1
 step
     #label ReturntoJahan
     .goto Thunder Bluff,47.00,49.82
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_塔尔|r交谈
-    .turnin 6363 >>交任务：双足飞龙管理员塔尔 << Tauren
-    .accept 6364 >>接受任务：向加翰回复 << Tauren
-    .target 塔尔
-    .fp Thunder Bluff >>开通雷霆崖飞行点 << !Tauren
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Tal|r
+    .turnin 6363 >>Turn in Tal the Wind Rider Master
+    .accept 6364 >>Accept Return to Jahan
+    .target Tal
 step
     #xprate <2.1
     .goto Thunder Bluff,60.0,51.7
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_凯恩·血蹄|r交谈
-    .turnin 775 >>交任务：雷霆崖之旅
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Cairne|r
+    .turnin 775 >>Turn in Journey into Thunder Bluff
     --.accept 776 >>Accept Rites of the Earthmother
-    .target 凯恩·血蹄
+    .target Cairne Bloodhoof
 step << Druid
     .goto Thunder Bluff,76.477,27.221
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_图拉克|r交谈
-    .turnin 6002 >>交任务：身心之力
-    .target 图拉克·符文图腾
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Turak|r
+    .turnin 6002 >>Turn in Body and Heart
+    .target Turak Runetotem
 step << Druid
     #optional
     .goto Thunder Bluff,76.477,27.221
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_图拉克|r 交谈
-    .train 8936 >> 学习职业技能
-    .target 图拉克·符文图腾
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Turak|r
+    .train 8936 >> Train your class spells
+    .target Turak Runetotem
     .xp <12,1
 step
     .goto Thunder Bluff,70.4,29.6
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_拉哈罗|r 交谈
-    .accept 5722 >> 接任务：寻找背包
-    .accept 5723 >> 接任务：试探敌人
-    .target 拉哈罗
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Rahauro|r
+    .accept 5722 >> Accept Searching for the Lost Satchel
+    .accept 5723 >> Accept Testing an Enemy's Strength
+    .target Rahauro
     .dungeon RFC
 step
     #ah
     .goto Thunder Bluff,44.43,43.19
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_莫兰塔|r交谈
-    >>|cRXP_WARN_这会解锁一个简单任务。如果已经学了 2 个专业，就跳过此步骤|r
-    .train 8613 >>学习专业技能：|T134366:0|t[剥皮]
-    .target 莫兰塔
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Mooranta|r
+    >>|cRXP_WARN_This will unlock an easy quest. If you already have 2 professions, skip this step|r
+    .train 8613 >>Train |T134366:0|t[Skinning]
+    .target Mooranta
 step
     #optional
     #ah
     .goto Thunder Bluff,44.39,44.72
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_维尔伦·陆行者|r 交谈
-    .accept 768 >> 接任务：收集皮革
-    .target 维尔伦·陆行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Veren|r
+    .accept 768 >> Accept Gathering Leather
+    .target Veren Tallstrider
     .skill skinning,<1,1
 step
     #optional
     #ah
     .goto Thunder Bluff,40.39,51.77
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_拍卖师斯塔比|r交谈
-    >>|cRXP_BUY_从拍卖行购买十二张|r |T134252:0|t[轻皮] |cRXP_BUY_。|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Auctioneer Stampi|r
+    >>|cRXP_BUY_Buy Twelve|r |T134252:0|t[Light Leather] |cRXP_BUY_from the Auction House|r
     .collect 2318,12,768,1 --Light Leather (12)
-    .target 拍卖师斯塔比
+    .target Auctioneer Stampi
     .skill skinning,<1,1
 step
     #optional
     #ah
     .goto Thunder Bluff,44.39,44.72
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_维尔伦·陆行者|r 交谈
-    .turnin 768 >> 交任务：收集皮革
-    .target 维尔伦·陆行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Veren|r
+    .turnin 768 >> Turn in Gathering Leather
+    .target Veren Tallstrider
     .skill skinning,<1,1
 step << Hunter
-    .spellmissing 1515
     .goto Thunder Bluff,52.32,47.79
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_卡加|r交谈
-    >>|cRXP_BUY_向她购买|r |T133972:0|t[硬肉干]|cRXP_BUY_，用来喂宠物|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kaga|r
+    >>|cRXP_BUY_Buy|r |T133972:0|t[Tough Jerky] |cRXP_BUY_from her to feed your pet|r
     .collect 117,5,744,1 --Tough Jerky (5)
-    .target 卡加·迷雾行者
+    .target Kaga Mistrunner
 step << Shaman
     #season 2
     #completewith next
-    >>击杀|cRXP_ENEMY_风怒女巫|r，拾取掉落的|cRXP_LOOT_碧蓝色的羽毛|r
-    >>击杀|cRXP_ENEMY_风怒女族长|r，拾取掉落的|cRXP_LOOT_古铜色的羽毛|r
+    >>Kill |cRXP_ENEMY_Windfury Sorceresses|r. Loot them for their |cRXP_LOOT_Azure Feather|r
+    >>Kill |cRXP_ENEMY_Windfury Matriarchs|r. Loot them for their |cRXP_LOOT_Bronze Feathers|r
     .complete 744,1 --Azure Feather (6)
-    .mob +风怒女巫
+    .mob +Windfury Sorceress
     .complete 744,2 --Bronze Feather (6)
-    .mob +风怒女族长
+    .mob +Windfury Matriarch
     .train 410104,1
 step << Shaman
     #season 2
@@ -5956,17 +5751,9 @@ step << Shaman
     .goto Mulgore,36.55,12.84,10,0
     .goto Mulgore,36.65,13.26,10,0
     .goto Mulgore,37.18,12.36,10,0
-    >>拾取地面上的|cRXP_LOOT_风怒球果|r
+    >>Loot |cRXP_LOOT_Windfury Cones|r on the ground
     .collect 206170,8,76160,1 --Windfury Cone (8)
     .train 410104,1
-step << Shaman
-    #season 2
-    .isOnQuest 76160
-    >>使用 |T134535:0|t[研钵和捣杵] 研磨8个 |cRXP_LOOT_风怒球果|r，制作 |cRXP_LOOT_松树药膏|r
-    .use 206176
-    .complete 76160,1
-    .train 410104,1
-
 step << Shaman
     #season 2
     #loop
@@ -5974,40 +5761,40 @@ step << Shaman
     .goto Mulgore,30.2,19.5,0
     .goto Mulgore,31.7,28.2,40,0
     .goto Mulgore,30.2,19.5,40,0
-    >>击杀|cRXP_ENEMY_风怒女巫|r，拾取掉落的|cRXP_LOOT_碧蓝色的羽毛|r
-    >>击杀|cRXP_ENEMY_风怒女族长|r，拾取掉落的|cRXP_LOOT_古铜色的羽毛|r
+    >>Kill |cRXP_ENEMY_Windfury Sorceresses|r. Loot them for their |cRXP_LOOT_Azure Feathers|r
+    >>Kill |cRXP_ENEMY_Windfury Matriarchs|r. Loot them for their |cRXP_LOOT_Bronze Feathers|r
     .complete 744,1 --Azure Feather (6)
-    .mob +风怒女巫
+    .mob +Windfury Sorceress
     .complete 744,2 --Bronze Feather (6)
-    .mob +风怒女族长
+    .mob +Windfury Matriarch
 step << Shaman
     #season 2
     #completewith next
-    .zone Thunder Bluff >> 返回雷霆崖
+    .zone Thunder Bluff >> Travel back to Thunder Bluff
 step << Shaman
     #season 2
     .goto Thunder Bluff,37.8,59.4
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_伊恩·鹰爪|r交谈
-    .turnin 744 >>交任务: 准备典礼
-    .target 伊恩·鹰爪
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Eyahn|r
+    .turnin 744 >>Turn in Preparation for Ceremony
+    .target Eyahn Eagletalon
 step << Shaman
     #season 2
     .goto Thunder Bluff,39.45,65.86
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_巴通·阴影图腾|r交谈
-    >>|cRXP_WARN_他处于|r |T132320:0|t[潜行中]
-    .turnin 76160 >>交任务：大地母亲与匿同在
-    .accept 76240 >>接任务：大地母亲与匿同在
-    .target 巴通·阴影图腾
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Boarton Shadetotem|r
+    >>|cRXP_WARN_He is|r |T132320:0|t[Stealthed]
+    .turnin 76160 >>Turn in Stalk With The Earthmother
+    .accept 76240 >>Accept Stalk With The Earthmother
+    .target Boarton Shadetotem
     .train 410104,1
 step << Shaman
     #season 2
     #ah
     .goto Thunder Bluff,45.23,59.40,0
     .goto Thunder Bluff,40.41,51.78
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_拍卖师斯塔比|r交谈
-    >>|cRXP_BUY_从拍卖行购买|r |T133894:0|t[新鲜的美味小鱼] |cRXP_BUY_|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Auctioneer Stampi|r
+    >>|cRXP_BUY_Buy a|r |T133894:0|t[Raw Brilliant Smallfish] |cRXP_BUY_from the Auction House|r
     .collect 6291,1,76240,1 --Raw Brilliant Smallfish (1)
-    .target 拍卖师斯塔比
+    .target Auctioneer Stampi
     .train 410104,1
 step << Shaman
     #season 2
@@ -6018,7 +5805,7 @@ step << Shaman
     .goto Thunder Bluff,46.49,49.16,4,0
     .goto Thunder Bluff,46.05,49.74,4,0
     .goto Thunder Bluff,46.34,50.50,4,0
-    .goto Thunder Bluff,55.78,47.02,15 >>前往 |cRXP_FRIENDLY_苏瓦·迷雾行者|r 所在处
+    .goto Thunder Bluff,55.78,47.02,15 >>Travel toward |cRXP_FRIENDLY_Sewa Mistrunner|r
     .train 410104,1
 step << Shaman
     #season 2
@@ -6026,20 +5813,20 @@ step << Shaman
     #sticky
     #label Kah
     .goto Thunder Bluff,56.13,46.39,-1
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_卡尔·迷雾行者|r交谈
-    .train 7734 >>学习专业技能：|T136245:0|t[钓鱼]
-    .target 卡尔·迷雾行者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kah Mistrunner|r
+    .train 7734 >>Train |T136245:0|t[Fishing]
+    .target Kah Mistrunner
     .train 410104,1
 step << Shaman
     #season 2
     #ssf
     #label Sewa
     .goto Thunder Bluff,55.78,47.02,-1
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_苏瓦·迷雾行者|r交谈
-    >>|cRXP_BUY_向她购买|r |T132932:0|t[鱼竿]|cRXP_BUY_和|r |T134335:0|t[闪光的小珠] |cRXP_BUY_|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Sewa Mistrunner|r
+    >>|cRXP_BUY_Buy a|r |T132932:0|t[Fishing Pole] |cRXP_BUY_and|r |T134335:0|t[Shiny Bauble] |cRXP_BUY_from her|r
     .collect 6256,1 --Fishing Pole (1)
     .collect 6529,1 --Shiny Bauble (1)
-    .target 苏瓦·迷雾行者
+    .target Sewa Mistrunner
     .train 410104,1
 step << Shaman
     #season 2
@@ -6047,7 +5834,7 @@ step << Shaman
     #completewith Fish
     #requires Kah
     #label Pole
-    .equip 16,6256 >> |cRXP_WARN_装备|r |T132932:0|t[鱼竿]
+    .equip 16,6256 >> |cRXP_WARN_Equip the|r |T132932:0|t[Fishing Pole]
     .use 6256
     .train 410104,1
 step << Shaman
@@ -6055,7 +5842,7 @@ step << Shaman
     #ssf
     #completewith Fish
     #requires Pole
-    .cast 8087 >> |cRXP_WARN_使用|r |T134335:0|t[闪光的小珠] |cRXP_WARN_，将其附在|r |T132932:0|t[鱼竿]上
+    .aura 8087 >> |cRXP_WARN_Attach the|r |T134335:0|t[Shiny Bauble] |cRXP_WARN_to your|r |T132932:0|t[Fishing Pole]
     .use 6529
     .train 410104,1
 step << Shaman
@@ -6064,29 +5851,27 @@ step << Shaman
     #label Fish
     #requires Kah
     .goto Thunder Bluff,40.42,58.55
-    >>在池塘钓鱼，直到钓到 |T133894:0|t[|cRXP_LOOT_新鲜的美味小鱼|r]
-    >>钓到鱼后，换回作战武器
+    >>Fish in the pond until you get a |T133894:0|t[|cRXP_LOOT_Raw Brilliant Smallfish|r]
     .collect 6291,1,76240,1 --Raw Brilliant Smallfish (1)
     .train 410104,1
 step << Shaman
     #season 2
-    .goto Thunder Bluff,39.45,65.86
-    >>在 |cRXP_FRIENDLY_巴通·阴影图腾|r 面前，使用 |T132147:0|t[一套匕首]制作 |T134007:0|t[鱼块]
+    >>Use the |T132147:0|t[Knife Set] to create |T134007:0|t[Fish Chunks]
     .complete 76240,1 --Fish Chunks (1)
     .use 206344
     .train 410104,1
 step << Shaman
     #season 2
     .goto Thunder Bluff,39.45,65.86
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_巴通·阴影图腾|r交谈
-    >>|cRXP_WARN_他处于|r |T132320:0|t[潜行中]
-    .turnin 76240 >>交任务：大地母亲与匿同在
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Boarton Shadetotem|r
+    >>|cRXP_WARN_He is|r |T132320:0|t[Stealthed]
+    .turnin 76240 >>Turn in Stalk With The Earthmother
 -- .train 410104 >>|cRXP_WARN_You will train|r |T236289:0|t[Lava Lash] |cRXP_WARN_and|r |T132147:0|t[Dual Wield] |cRXP_WARN_upon turnin|r
-    .target 巴通·阴影图腾
+    .target Boarton Shadetotem
     .train 410104,1
 step
     #completewith HidesTurnIn
-    .hs >> 使用炉石回到 [十字路口]
+    .hs >> Hearth to The Crossroads
     .cooldown item,6948,>0
     .use 6948
     .bindlocation 380,1
@@ -6094,93 +5879,82 @@ step
 step
     #completewith next
     .goto Thunder Bluff,47.00,49.82
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_塔尔|r交谈
-    .fly Crossroads >>飞往十字路口
-    .target 塔尔
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Tal|r
+    .fly Crossroads >>Fly to Crossroads
+    .target Tal
     .zoneskip The Barrens
     .cooldown item,6948,<0
 step
     #label HidesTurnIn
     .goto The Barrens,51.21,29.05
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_加翰·鹰翼|r交谈 << Tauren
-    .turnin 6364 >>交任务：向加翰回复 << Tauren
-    .target 加翰·鹰翼 << Tauren
-    .goto The Barrens,51.21,29.05,20 >>抵达十字路口 << !Tauren
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Jahan|r
+    .turnin 6364 >>Turn in Return to Jahan
+    .target Jahan Hawkwing
 step
     .goto The Barrens,51.44,30.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_药剂师赫布瑞姆|r交谈
-    .accept 1492 >>接任务：码头管理员迪兹维格
-    .target 药剂师赫布瑞姆
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Helbrim|r
+    .accept 1492 >>Accept Wharfmaster Dizzywig
+    .target Apothecary Helbrim
 step
     .goto The Barrens,51.50,30.87
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_索克|r交谈
-    .accept 871 >>接任务：野猪人的袭击
-    .accept 5041 >>接任务：十字路口的补给品
-    .target 索克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Thork|r
+    .accept 871 >>Accept Disrupt the Attacks
+    .accept 5041 >>Accept Supplies for the Crossroads
+    .target Thork
 step
     #xprate <2.1
     .goto The Barrens,51.62,30.90
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_达索克·快刀|r交谈
-    >>|cRXP_WARN_他在塔顶|r
-    .accept 867 >>接受任务 鹰身强盗
-    .target 达索克·快刀
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Darsok|r
+    >>|cRXP_WARN_He is at the top of the tower|r
+    .accept 867 >>Accept Harpy Raiders
+    .target Darsok Swiftdagger
 step
     #optional
     .goto The Barrens,52.23,31.00
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_瑟格拉·黑棘|r交谈
-    .turnin 860 >>交任务：瑟格拉·黑棘
-    .accept 844 >>接任务：平原陆行鸟的威胁
-    .target 瑟格拉·黑棘
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Sergra|r
+    .turnin 860 >>Turn in Sergra Darkthorn
+    .accept 844 >>Accept Plainstrider Menace
+    .target Sergra Darkthorn
     .isOnQuest 860
 step
     .goto The Barrens,52.23,31.00
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_瑟格拉·黑棘|r交谈
-    .accept 844 >>接任务：平原陆行鸟的威胁
-    .target 瑟格拉·黑棘
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Sergra|r
+    .accept 844 >>Accept Plainstrider Menace
+    .target Sergra Darkthorn
 step
     .goto The Barrens,51.93,30.32
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_加兹罗格|r交谈
-    .accept 869 >>接任务：偷钱的迅猛龙
-    .target 加兹罗格
-step << Druid
-    #season 2
-    .train 410025,1
-    #completewith next
-    +|cRXP_WARN_前往十字路口外，变为熊形态与敌人作战。将怒气保持在50点或以上，持续至少60秒，才能学会|r |T132135:0|t[割碎]
-step << Druid
-    #season 2
-    .train 410025 >> |cRXP_WARN_使用|r |T134903:0|t[|cRXP_FRIENDLY_怒熊神像|r] |cRXP_WARN_学习|r |T132135:0|t[割碎]
-    .use 206954
-    .itemcount 206954,1
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gazrog|r
+    .accept 869 >>Accept Raptor Thieves
+    .target Gazrog
 step << Tauren Hunter
     .goto The Barrens,51.11,29.07
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r|cRXP_FRIENDLY_阿瑟罗克|r|cRXP_BUY_交谈，并向他购买|r |T135613:0|t[猎人火枪]|cRXP_BUY_|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Uthrok|r|cRXP_BUY_. Buy a|r |T135613:0|t[Hunter's Boomstick] |cRXP_BUY_from him|r
     .collect 2511,1,871,1 --Collect Hunter's Boomstick (1)
     .money <0.1324
     .itemStat 18,QUALITY,<7
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.9
-    .target 阿瑟罗克
+    .target Uthrok
 step << Tauren Hunter
     #optional
-    #completewith next
-    +|cRXP_WARN_装备|r |T135613:0|t[猎人火枪]
+    #completewith DisruptTheAttacks
+    +|cRXP_WARN_Equip the|r |T135613:0|t[Hunter's Boomstick]
     .use 2511
     .itemcount 2511,1
     .itemStat 18,QUALITY,<7
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.9
 step << Shaman
     #completewith next
-    >>检查 |cRXP_PICK_老陈的空酒桶|r 是否在 |cRXP_FRIENDLY_卡纳尔·菲斯|r 旁边。拾取并使用它接取任务
-    >>|cRXP_WARN_如果没有找到，可以稍后再来拿|r
+    >>Check for |cRXP_PICK_Chen's Empty Keg|r next to |cRXP_FRIENDLY_Kranal|r. Loot it and start the quest
+    >>|cRXP_WARN_You can get it later if it's not there|r
     .collect 4926,1,819 --Collect Chen's Empty Keg
-    .accept 819 >> 接受任务 老陈的空酒桶
+    .accept 819 >> Accept Chen's Empty Keg
     .use 4926
 step << Shaman
     .goto The Barrens,55.86,19.95
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_卡纳尔·菲斯|r交谈
-    .turnin 2984 >>交任务：火焰的召唤
-    .accept 1524 >>接任务：火焰的召唤
-    .target 卡纳尔·菲斯
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kranal|r
+    .turnin 2984 >>Turn in Call of Fire
+    .accept 1524 >>Accept Call of Fire
+    .target Kranal Fiss
 step << Shaman
     #completewith next
     .goto Durotar,36.74,57.78,10,0
@@ -6193,24 +5967,24 @@ step << Shaman
     .goto Durotar,38.05,57.79,8,0
     .goto Durotar,38.93,57.54,8,0
     .goto Durotar,39.19,57.90,8,0
-    .goto Durotar,39.16,58.56,10 >> 沿山路向上前往 |cRXP_FRIENDLY_泰尔夫·祖拉姆|r 所在处
-    >>|cRXP_WARN_小心不要掉下山，山路很窄。掉下去可能会死亡|r
+    .goto Durotar,39.16,58.56,10 >> Travel the path up the mountain to |cRXP_FRIENDLY_Telf|r
+    >>|cRXP_WARN_Be careful to not fall of the mountain, the path is very narrow. You could die if you fall|r
 step << Shaman
     #label CallofFire2
     .goto Durotar,38.52,58.93
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_泰尔夫·祖拉姆|r交谈
-    .turnin 1524 >>交任务：火焰的召唤
-    .accept 1525 >>接任务：火焰的召唤
-    .target 泰尔夫·祖拉姆
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Telf|r
+    .turnin 1524 >>Turn in Call of Fire
+    .accept 1525 >>Accept Call of Fire
+    .target Telf Joolam
 step << Shaman
     .goto Durotar,50.8,43.6
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_塔克林|r交谈
-    .accept 840 >>接任务：部落的新兵
-    .target 塔克林·寻路者
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Takrin|r
+    .accept 840 >>Accept Conscript of the Horde
+    .target Takrin Pathseeker
 step << Shaman
     #completewith next
     .goto Durotar,54.31,39.44,30,0
-    .goto Durotar,52.8,28.7,20 >> 进入尘风洞窟
+    .goto Durotar,52.8,28.7,20 >> Go into Dustwind Cave
 step << Shaman
     #loop
     .goto Durotar,53.18,29.15,0
@@ -6221,21 +5995,21 @@ step << Shaman
     .goto Durotar,52.84,26.80,12,0
     .goto Durotar,52.07,26.85,12,0
     .goto Durotar,51.90,25.70,12,0
-    >>击杀|cRXP_ENEMY_火刃祭司|r，拾取掉落的|cRXP_LOOT_试剂袋|r
+    >>Kill |cRXP_ENEMY_Cultists|r. Loot them for a |cRXP_LOOT_Reagent Pouch|r
     .complete 1525,2 --Reagent Pouch (1)
-    .mob 火刃祭司
+    .mob Burning Blade Cultist
 step << Shaman
     .goto The Barrens,62.27,19.38
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_卡加尔·战痕|r交谈
-    .turnin 840 >>交任务：部落的新兵
-    .accept 842 >>接任务：十字路口征兵
-    .target 卡加尔·战痕
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Kargal|r
+    .turnin 840 >>Turn in Conscript of the Horde
+    .accept 842 >>Accept Crossroads Conscription
+    .target Kargal Battlescar
 step << Warrior
     .goto The Barrens,61.4,21.1
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_犹塞克|r交谈
-    .turnin 1505 >>交任务：老兵犹塞克
-    .accept 1498 >>接任务：防御之道
-    .target 犹塞克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Uzzek|r
+    .turnin 1505 >>Turn in Veteran Uzzek
+    .accept 1498 >>Accept Path of Defense
+    .target Uzzek
 step << Warrior
     #loop
     .goto Durotar,39.34,28.25,0
@@ -6246,19 +6020,19 @@ step << Warrior
     .goto Durotar,40.00,24.06,40,0
     .goto Durotar,42.51,24.29,40,0
     .goto Durotar,39.34,28.25,40,0
-    >>击杀 |cRXP_ENEMY_闪电蜥蜴|r，拾取其 |cRXP_ENEMY_鳞片|r
+    >>Kill |cRXP_ENEMY_Lightning Hides|r. Loot them for their |cRXP_ENEMY_Scales|r
     .complete 1498,1 --Singed Scale (5)
-    .mob 闪电蜥蜴
+    .mob Lightning Hide
 step << Warrior
     .goto The Barrens,61.4,21.1
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_犹塞克|r交谈
-    .turnin 1498 >>交任务：防御之道
-    .accept 1502 >>接任务：索恩格瑞姆·火眼
-    .target 犹塞克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Uzzek|r
+    .turnin 1498 >>Turn in Path of Defense
+    .accept 1502 >>Accept Thun'grim Firegaze
+    .target Uzzek
 step
     #optional
-    .abandon 761 >>放弃任务：猎捕猛鹫
+    .abandon 761 >>Abandon Swoop Hunting
 step
     #optional
-    .abandon 766 >>放弃任务 [马兹拉纳其]
+    .abandon 766 >>Abandon Mazzranache
 ]])

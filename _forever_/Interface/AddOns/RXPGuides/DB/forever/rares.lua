@@ -215,6 +215,7 @@ if locale == "enUS" or locale == "enGB" then
         }
     }
 
+
 elseif locale == "deDE" then
 
     addon.rares = {

@@ -1,128 +1,123 @@
+local L = GetLocale() if L and RXP.enabledLocale[L] then return end
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Alliance Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Gloves
-#subgroupdisplayname 手套
 #name Shadowstrike - 3 (Elwynn Forest)
-#title 暗影打击
-#displayname 暗影打击 - 3（艾尔文森林）
+#title Shadowstrike
+
 step << Rogue
     #season 2
     .goto Elwynn Forest,52.544,51.922
-    >>|cRXP_WARN_打开地上的|r|cRXP_PICK_迪菲亚储藏箱|r|cRXP_WARN_，拾取其中的|r|T134419:0|t|cRXP_LOOT_[暗影打击符文]|r
+    >>|cRXP_WARN_Open the |cRXP_PICK_Defias Stashbox|r on the ground. Loot it for the|r |T134419:0|t|cRXP_LOOT_[Rune of Shadowstrike]|r
     .collect 204795,1 -- Rune of Shadowstrike (1)
     .train 400105,1
 step << Rogue
     #season 2
-    .train 400105 >>|cRXP_WARN_使用|r |T134419:0|t|cRXP_LOOT_[暗影打击符文]|r |cRXP_WARN_学习|r |T132291:0|t[暗影打击]
+    .train 400105 >>|cRXP_WARN_Use the|r |T134419:0|t|cRXP_LOOT_[Rune of Shadowstrike]|r |cRXP_WARN_to learn|r |T132291:0|t[Shadowstrike]
     .use 204795
     .itemcount 204795,1
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Alliance Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Gloves
-#subgroupdisplayname 手套
 #name Shadowstrike - 3 (Dun Morogh)
-#title 暗影打击
-#displayname 暗影打击 - 3（丹莫罗）
+#title Shadowstrike
+
 step
     #optional
     #label FrostMCave1
     #completewith Rune
-    .goto 1426,27.098,80.707,20 >> 进入霜鬃洞穴
+    .goto 1426,27.098,80.707,20 >> Enter the Frostmane Cave
 step
     #optional
     #requires FrostMCave1
     #completewith Rune
     .goto 1426,28.298,79.836,15,0
     .goto 1426,29.252,79.043,15,0
-    .goto 1426,30.489,80.165,50 >> 进入洞穴寻找 |cRXP_PICK_霜鬃战利品箱|r
+    .goto 1426,30.489,80.165,50 >> Travel towards the |cRXP_PICK_Frostmane Loot Cache|r inside
 step
-    #label Rune
     .goto Dun Morogh,30.773,80.063
-    >>打开洞穴内地上的|cRXP_PICK_霜鬃战利品箱|r，从中拾取|T134419:0|t|cRXP_LOOT_[暗影打击符文]|r
+    >>Open the |cRXP_PICK_Frostmane Loot Cache|r on the ground inside. Loot it for the |T134419:0|t|cRXP_LOOT_[Rune of Shadowstrike]|r
     .collect 204795,1 --Rune of Shadowstrike (1)
     .train 400105,1
 step
-    .train 400105 >>|cRXP_WARN_使用|r |T134419:0|t|cRXP_LOOT_[暗影打击符文]|r |cRXP_WARN_学习|r |T133816:0|t[铭刻手套 - 暗影打击]
+    .train 400105 >>|cRXP_WARN_Use the|r |T134419:0|t|cRXP_LOOT_[Rune of Shadowstrike]|r |cRXP_WARN_to learn|r |T133816:0|t[Engrave Gloves - Shadowstrike]
     .use 204795
     .itemcount 204795,1 --Rune of Shadowstrike (1)
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Alliance Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Gloves
-#subgroupdisplayname 手套
 #name Shadowstrike - 3 (Shadowglen)
-#title 暗影打击
-#displayname 暗影打击 - 3（幽影谷）
+#title Shadowstrike
+
 step << Rogue
     #season 2
     .goto Teldrassil,57.922,40.687,25,0
     .goto Teldrassil,58.709,38.782,10,0
     .goto Teldrassil,59.15,40.66,20,0
     .goto Teldrassil,59.674,42.613
-    >>|cRXP_WARN_沿着奥达希尔树上的坡道上去,然后跳到屋顶上|r
-    >>|cRXP_PICK_神像|r|cRXP_WARN_ 在屋顶上|r
-    >>打开 |cRXP_PICK_神像|r, 拾取 |T134419:0|t|cRXP_LOOT_[暗影打击符文]|r
-    >>|cRXP_WARN_如果你难以上屋顶,可以在顺着坡道跑下时尝试跳过栏杆|r
+    >>|cRXP_WARN_Make your way up the ramp on the Aldrassil tree, and jump onto the rooftop|r
+    >>|cRXP_WARN_The |cRXP_PICK_Idol|r is found on top of the roof|r
+    >>Open the |cRXP_PICK_Idol|r. Loot it for the |T134419:0|t|cRXP_LOOT_[Rune of Shadowstrike]|r
+    >>|cRXP_WARN_If you are having difficulty jumping onto the roof, attempt to jump over the railing while running down the ramp you are on|r
     .collect 204795,1 -- Rune of Shadowstrike (1)
     .train 400105,1
 step << Rogue
     #season 2
-    .train 400105 >>|cRXP_WARN_使用|r |T134419:0|t|cRXP_LOOT_[暗影打击符文]|r |cRXP_WARN_学习|r |T133816:0|t[铭刻手套 - 暗影打击]
+    .train 400105 >>|cRXP_WARN_Use the|r |T134419:0|t|cRXP_LOOT_[Rune of Shadowstrike]|r |cRXP_WARN_to learn|r |T133816:0|t[Engrave Gloves - Shadowstrike]
     .use 204795
     .itemcount 204795,1 --Rune of Shadowstrike (1)
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Alliance Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Chest
-#subgroupdisplayname 胸甲
 #name Quick Draw - 8 (Elwynn Forest)
-#title 速射
-#displayname 速射 - 8（艾尔文森林）
+#title Quick Draw
+
 step << Rogue
     #season 2
     .goto Elwynn Forest,27.0,86.7,70,0
     .goto Elwynn Forest,26.1,89.9,70,0
     .goto Elwynn Forest,25.2,92.7,70,0
     .goto Elwynn Forest,27.0,93.9
-    >>|T133644:0|t[搜索]|cRXP_ENEMY_河爪豺狼人前锋|r和|cRXP_ENEMY_矮小的河爪豺狼人|r，取得|T134327:0|t[|cRXP_LOOT_左下角地图碎片]|r
-    >>|cRXP_WARN_你必须处于|r |T132320:0|t[潜行] |cRXP_WARN_状态下才能使用|r |T133644:0|t[搜索]
+    >>|T133644:0|t[Pick Pocket] |cRXP_ENEMY_Riverpaw Outrunners|r and |cRXP_ENEMY_Riverpaw Runts|r. Loot them for the |T134327:0|t[|cRXP_LOOT_Bottom-Left Map Piece]|r
+    >>|cRXP_WARN_You must be in|r |T132320:0|t[Stealth] |cRXP_WARN_to use|r |T133644:0|t[Pick Pocket]
     .collect 203787,1 -- Bottom-Left Map Piece (1)
-    .mob 河爪豺狼人前锋
-    .mob 矮小的河爪豺狼人
+    .mob Riverpaw Outrunner
+    .mob Riverpaw Runt
     .train 398196,1
 step << Rogue
     #season 2
     .goto Elwynn Forest,40.5,82.3,25,0
     .goto Elwynn Forest,37.71,83.76
-    >>|T133644:0|t[搜索]|cRXP_ENEMY_狗头人矿工|r和|cRXP_ENEMY_狗头人隧道工|r，取得|T134327:0|t[|cRXP_LOOT_右上角地图碎片]|r
-    >>|cRXP_WARN_你必须处于|r |T132320:0|t[潜行] |cRXP_WARN_状态下才能使用|r |T133644:0|t[搜索]
+    >>|T133644:0|t[Pick Pocket] |cRXP_ENEMY_Kobold Miners|r and |cRXP_ENEMY_Kobold Tunnelers|r. Loot them for the |T134327:0|t[|cRXP_LOOT_Top-Right Map Piece]|r
+    >>|cRXP_WARN_You must be in|r |T132320:0|t[Stealth] |cRXP_WARN_to use|r |T133644:0|t[Pick Pocket]
     .collect 203784,1 -- Top-Right Map Piece (1)
-    .mob 狗头人矿工
-    .mob 狗头人隧道工
+    .mob Kobold Miner
+    .mob Kobold Tunneler
     .train 398196,1
 step << Rogue
     #season 2
     .goto Elwynn Forest,67.4,78.6,60,0
     .goto Elwynn Forest,70.8,79.8,60,0
     .goto Elwynn Forest,89.2,78.8
-    >>|T133644:0|t[搜索]|cRXP_ENEMY_迪菲亚|r成员，取得|T134327:0|t[|cRXP_LOOT_左上角地图碎片]|r
-    >>|cRXP_WARN_你必须处于|r |T132320:0|t[潜行] |cRXP_WARN_状态下才能使用|r |T133644:0|t[搜索]
-    >>|cRXP_WARN_注意：此物品也可从艾尔文森林的其他|r|cRXP_ENEMY_迪菲亚|r|cRXP_WARN_成员处获得|r
+    >>|T133644:0|t[Pick Pocket] the |cRXP_ENEMY_Defias|r. Loot them for the |T134327:0|t[|cRXP_LOOT_Top-Left Map Piece]|r
+    >>|cRXP_WARN_You must be in|r |T132320:0|t[Stealth] |cRXP_WARN_to use|r |T133644:0|t[Pick Pocket]
+    >>|cRXP_WARN_Note: This can also come from any other |cRXP_ENEMY_Defias|r member in Elwynn Forest|r
     .collect 203785,1 -- Top-Left Map Piece (1)
-    .mob 迪菲亚强盗
+    .mob Defias Bandit
     .train 398196,1
 step << Rogue
     #season 2
@@ -130,18 +125,18 @@ step << Rogue
     .goto Elwynn Forest,77.8,82.2,60,0
     .goto Elwynn Forest,83.2,87.0,60,0
     .goto Elwynn Forest,75.4,82.4
-    >>|T133644:0|t[搜索]|cRXP_ENEMY_鱼人强盗|r和|cRXP_ENEMY_鱼人潜伏者|r，取得|T134269:0|t[|cRXP_LOOT_右下角地图碎片]|r
-    >>|cRXP_WARN_你必须处于|r |T132320:0|t[潜行] |cRXP_WARN_状态下才能使用|r |T133644:0|t[搜索]
-    >>|cRXP_WARN_注意：此物品也可从艾尔文森林的其他|r|cRXP_ENEMY_鱼人|r|cRXP_WARN_身上获得|r
+    >>|T133644:0|t[Pick Pocket] |cRXP_ENEMY_Murloc Foragers|r and |cRXP_ENEMY_Murloc Lurkers|r. Loot them for the |T134269:0|t[|cRXP_LOOT_Bottom-Right Map Piece]|r
+    >>|cRXP_WARN_You must be in|r |T132320:0|t[Stealth] |cRXP_WARN_to use|r |T133644:0|t[Pick Pocket]
+    >>|cRXP_WARN_Note: This can also come from any other |cRXP_ENEMY_Murloc|r in Elwynn Forest|r
     .collect 203786,1 -- Bottom-Right Map Piece (1)
-    .mob 鱼人强盗
-    .mob 鱼人潜伏者
-    .mob 鱼人士兵
-    .mob 鱼人
+    .mob Murloc Forager
+    .mob Murloc Lurker
+    .mob Murloc Streamrunner
+    .mob Murloc
     .train 398196,1
 step << Rogue
     #season 2
-    .cast 401847 >>|cRXP_WARN_使用任意|r |T134327:0|t[|cRXP_LOOT_地图碎片]|r |cRXP_WARN_将其组合成|r |T134269:0|t[|cRXP_LOOT_艾尔文藏宝图|r]
+    .cast 401847 >>|cRXP_WARN_Use any of the|r |T134327:0|t[|cRXP_LOOT_Map Pieces]|r |cRXP_WARN_to combine them into the|r |T134269:0|t[|cRXP_LOOT_Elwynn Treasure Map|r]
     .collect 203750,1
     .itemcount 203787,1
     .itemcount 203784,1
@@ -156,69 +151,68 @@ step << Rogue
     #season 2
     #completewith next
     .goto Elwynn Forest,80.365,79.134
-    .cast 401617 >>|cRXP_WARN_在箭头位置使用|r |T134269:0|t[|cRXP_LOOT_艾尔文藏宝图|r] |cRXP_WARN_。这会触发一个|r|cRXP_PICK_埋藏的宝藏|r|cRXP_WARN_出现|r
+    .cast 401617 >>|cRXP_WARN_Use the|r |T134269:0|t[|cRXP_LOOT_Elwynn Treasure Map|r] |cRXP_WARN_at the arrow location. This will cause a |cRXP_PICK_Buried Treasure|r to pop up|r
     .use 203750
     .itemcount 203750,1
     .train 398196,1
 step << Rogue
     #season 2
-    >>打开|cRXP_PICK_埋藏的宝藏|r，拾取其中的|T134419:0|t[|cRXP_FRIENDLY_速射符文|r]
+    >>Open the |cRXP_PICK_Buried Treasure|r. Loot it for the |T134419:0|t[|cRXP_FRIENDLY_Rune of Quick Draw|r]
     .collect 203991,1 -- Rune of Quick Draw (1)
     .train 398196,1
 step << Rogue
     #season 2
-    .train 400095 >> |cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_速射符文|r] |cRXP_WARN_学习|r |T134536:0|t[速射]
+    .train 400095 >> |cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Quick Draw|r] |cRXP_WARN_to train|r |T134536:0|t[Quick Draw]
     .use 203991
     .itemcount 203991,1
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Alliance Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Chest
-#subgroupdisplayname 胸甲
 #name Quick Draw - 8 (Dun Morogh)
-#title 速射
-#displayname 速射 - 8（丹莫罗）
+#title Quick Draw
+
 step << Rogue
     #season 2
     .goto Dun Morogh,77.86,61.66
-    >>|T133644:0|t[搜索] |cRXP_ENEMY_黑铁间谍|r。从他们身上拾取|T134327:0|t[|cRXP_LOOT_左下角地图碎片]|r
-    >>|cRXP_WARN_你必须处于|r |T132320:0|t[潜行] |cRXP_WARN_状态下才能使用|r |T133644:0|t[搜索]
+    >>|T133644:0|t[Pick Pocket] |cRXP_ENEMY_Dark Iron Spies|r. Loot them for the |T134327:0|t[|cRXP_LOOT_Bottom-Left Map Piece]|r
+    >>|cRXP_WARN_You must be in|r |T132320:0|t[Stealth] |cRXP_WARN_to use|r |T133644:0|t[Pick Pocket]
     .collect 208219,1 -- Bottom-Left Map Piece (1)
-    .mob 黑铁间谍
+    .mob Dark Iron Spy
     .train 398196,1
 step << Rogue
     #season 2
     .goto Dun Morogh,25.4,50.8
-    >>|T133644:0|t[搜索]|cRXP_ENEMY_霜鬃巨魔|r。从他们身上拾取|T134327:0|t[|cRXP_LOOT_右上角地图碎片]|r
-    >>|cRXP_WARN_你必须处于|r |T132320:0|t[潜行] |cRXP_WARN_状态下才能使用|r |T133644:0|t[搜索]
+    >>|T133644:0|t[Pick Pocket] |cRXP_ENEMY_Frostmane Trolls|r. Loot them for the |T134327:0|t[|cRXP_LOOT_Top-Right Map Piece]|r
+    >>|cRXP_WARN_You must be in|r |T132320:0|t[Stealth] |cRXP_WARN_to use|r |T133644:0|t[Pick Pocket]
     .collect 208213,1 -- Top-Right Map Piece (1)
-    .mob 霜鬃猎头者
-    .mob 霜鬃剥皮者
-    .mob 霜鬃暗法师
+    .mob Frostmane Headhunter
+    .mob Frostmane Hideskinner
+    .mob Frostmane Shadowcaster
     .train 398196,1
 step << Rogue
     #season 2
     .goto Dun Morogh,70.8,56.0
-    >>|T133644:0|t[搜索] |cRXP_ENEMY_石腭击颅者|r和|cRXP_ENEMY_石腭断骨者|r。拾取它们身上的|T134327:0|t[|cRXP_LOOT_左上角地图碎片]|r
-    >>|cRXP_WARN_你必须处于|r |T132320:0|t[潜行] |cRXP_WARN_状态下才能使用|r |T133644:0|t[搜索]
+    >>|T133644:0|t[Pick Pocket] the |cRXP_ENEMY_Rockjaw Skullthumpers|r and |cRXP_ENEMY_Rockjaw Bonesnappers|r. Loot them for the |T134327:0|t[|cRXP_LOOT_Top-Left Map Piece]|r
+    >>|cRXP_WARN_You must be in|r |T132320:0|t[Stealth] |cRXP_WARN_to use|r |T133644:0|t[Pick Pocket]
     .collect 208215,1 -- Top-Left Map Piece (1)
-    .mob 石腭击颅者
-    .mob 石腭断骨者
+    .mob Rockjaw Skullthumper
+    .mob Rockjaw Bonesnapper
     .train 398196,1
 step << Rogue
     #season 2
     .goto Dun Morogh,26.0,41.8
-    >>|T133644:0|t[搜索]|cRXP_ENEMY_麻疯侏儒|r。从他们身上拾取|T134269:0|t[|cRXP_LOOT_右下角地图碎片]|r
-    >>|cRXP_WARN_你必须处于|r |T132320:0|t[潜行] |cRXP_WARN_状态下才能使用|r |T133644:0|t[搜索]
+    >>|T133644:0|t[Pick Pocket] |cRXP_ENEMY_Leper Gnomes|r. Loot them for the |T134269:0|t[|cRXP_LOOT_Bottom-Right Map Piece]|r
+    >>|cRXP_WARN_You must be in|r |T132320:0|t[Stealth] |cRXP_WARN_to use|r |T133644:0|t[Pick Pocket]
     .collect 208218,1 -- Bottom-Right Map Piece (1)
-    .mob 麻疯侏儒
+    .mob Leper Gnome
     .train 398196,1
 step << Rogue
     #season 2
-    .cast 418600 >>|cRXP_WARN_使用任意|r |T134327:0|t[|cRXP_LOOT_地图碎片]|r |cRXP_WARN_将它们合成为|r |T134269:0|t[|cRXP_LOOT_丹莫罗藏宝图|r]
+    .cast 418600 >>|cRXP_WARN_Use any of the|r |T134327:0|t[|cRXP_LOOT_Map Pieces]|r |cRXP_WARN_to combine them into the|r |T134269:0|t[|cRXP_LOOT_Dun Morogh Treasure Map|r]
     .collect 208220,1
     .itemcount 208219,1
     .itemcount 208213,1
@@ -233,66 +227,65 @@ step << Rogue
     #season 2
     #completewith next
     .goto Dun Morogh,46.985,43.632
-    .cast 418599 >>|cRXP_WARN_在小桥下使用|r |T134269:0|t[|cRXP_LOOT_丹莫罗藏宝图|r] |cRXP_WARN_，这将触发一个|r|cRXP_PICK_埋藏的宝藏|r|cRXP_WARN_出现|r
+    .cast 418599 >>|cRXP_WARN_Use the|r |T134269:0|t[|cRXP_LOOT_Dun Morogh Treasure Map|r] |cRXP_WARN_under the small bridge. This will cause a |cRXP_PICK_Buried Treasure|r to pop up|r
     .use 208220
     .itemcount 208220,1
     .train 398196,1
 step << Rogue
     #season 2
-    >>打开|cRXP_PICK_埋藏的宝藏|r，拾取其中的|T134419:0|t[|cRXP_FRIENDLY_速射符文|r]
+    >>Open the |cRXP_PICK_Buried Treasure|r. Loot it for the |T134419:0|t[|cRXP_FRIENDLY_Rune of Quick Draw|r]
     .collect 203991,1 -- Rune of Quick Draw (1)
     .train 398196,1
 step << Rogue
     #season 2
-    .train 400095 >> |cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_速射符文|r] |cRXP_WARN_学习|r |T134536:0|t[速射]
+    .train 400095 >> |cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Quick Draw|r] |cRXP_WARN_to train|r |T134536:0|t[Quick Draw]
     .use 203991
     .itemcount 203991,1
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Alliance Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Chest
-#subgroupdisplayname 胸甲
 #name Quick Draw - 8 (Teldrassil)
-#title 速射
-#displayname 速射 - 8（泰达希尔）
+#title Quick Draw
+
 step << Rogue
     #season 2
     #completewith next
     .goto Teldrassil,54.68,52.84,20,0
-    .goto Teldrassil,54.42,51.19,15 >> 前往地狱石洞穴
+    .goto Teldrassil,54.42,51.19,15 >> Travel to Fel Rock
     .train 398196,1
 step << Rogue
     #season 2
-    .goto Teldrassil,54.04,51.17
-    >>击杀|cRXP_ENEMY_邪恶劣魔|r、|cRXP_ENEMY_恶灵劣魔|r和|cRXP_ENEMY_影魂劣魔|r，拾取其掉落的|T134327:0|t[|cRXP_LOOT_左下角地图碎片]|r
+    .goto Teldrassil,77.86,61.66
+    >>Kill |cRXP_ENEMY_Vicious Grell|r, |cRXP_ENEMY_Rascal Sprites|r and |cRXP_ENEMY_Shadow Sprites|r. Loot them for the |T134327:0|t[|cRXP_LOOT_Bottom-Left Map Piece]|r
     .collect 208604,1 -- Bottom-Left Map Piece (1)
-    .mob 邪恶劣魔
-    .mob 恶灵劣魔
-    .mob 影魂劣魔
+    .mob Vicious Grell
+    .mob Rascal Sprite
+    .mob Shadow Sprite
     .train 398196,1
 step << Rogue
     #season 2
     .goto Teldrassil,61.2,67.0
-    >>击杀|cRXP_ENEMY_林精|r，拾取其掉落的|T134327:0|t[|cRXP_LOOT_右上角地图碎片]|r
+    >>Kill |cRXP_ENEMY_Timberlings|r. Loot them for the |T134327:0|t[|cRXP_LOOT_Top-Right Map Piece]|r
     .collect 208601,1 -- Top-Right Map Piece (1)
-    .mob 林精
-    .mob 林精碎木者
-    .mob 林精践踏者
+    .mob Timberling
+    .mob Timberling Bark Ripper
+    .mob Timberling Trampler
     .train 398196,1
 step << Rogue
     #season 2
     .goto Teldrassil,46.8,54.6,60,0
     .goto Teldrassil,44.2,59.2
-    >>击杀或|T133644:0|t[搜索]|cRXP_ENEMY_瘤背熊怪|r，拾取|T134327:0|t[|cRXP_LOOT_左上角地图碎片]|r
-    >>|cRXP_WARN_你必须处于|r |T132320:0|t[潜行] |cRXP_WARN_状态下才能使用|r |T133644:0|t[搜索]
+    >>Kill or |T133644:0|t[Pick Pocket] |cRXP_ENEMY_Gnarlpine Furbolgs|r. Loot them for the |T134327:0|t[|cRXP_LOOT_Top-Left Map Piece]|r
+    >>|cRXP_WARN_You must be in|r |T132320:0|t[Stealth] |cRXP_WARN_to use|r |T133644:0|t[Pick Pocket]
     .collect 208602,1 -- Top-Left Map Piece (1)
-    .mob 瘤背伏击者
-    .mob 瘤背萨满祭司
-    .mob 瘤背防御者
-    .mob 瘤背占卜师
+    .mob Gnarlpine Ambusher
+    .mob Gnarlpine Shaman
+    .mob Gnarlpine Defender
+    .mob Gnarlpine Augur
     .train 398196,1
 step << Rogue
     #season 2
@@ -300,19 +293,19 @@ step << Rogue
     .goto Teldrassil,36.0,34.4,60,0
     .goto Teldrassil,34.6,28.8,60,0
     .goto Teldrassil,37.8,43.0
-    >>击杀或|T133644:0|t[搜索]|cRXP_ENEMY_血羽鹰身人|r，拾取|T134327:0|t[|cRXP_LOOT_右下角地图碎片]|r
-    >>|cRXP_WARN_你必须处于|r |T132320:0|t[潜行] |cRXP_WARN_状态下才能使用|r |T133644:0|t[搜索]
+    >>Kill or |T133644:0|t[Pick Pocket] |cRXP_ENEMY_Bloodfeather Harpies|r. Loot them for the |T134327:0|t[|cRXP_LOOT_Top-Left Map Piece]|r
+    >>|cRXP_WARN_You must be in|r |T132320:0|t[Stealth] |cRXP_WARN_to use|r |T133644:0|t[Pick Pocket]
     .collect 208603,1 -- Bottom-Right Map Piece (1)
-    .mob 血羽鹰身人
-    .mob 血羽游荡者
-    .mob 血羽女巫
-    .mob 血羽复仇者
-    .mob 血羽风巫
-    .mob 血羽女族长
+    .mob Bloodfeather Harpy
+    .mob Bloodfeather Rogue
+    .mob Bloodfeather Sorceress
+    .mob Bloodfeather Fury
+    .mob Bloodfeather Wind Witch
+    .mob Bloodfeather Matriarch
     .train 398196,1
 step << Rogue
     #season 2
-    .cast 421425 >>|cRXP_WARN_使用任意|r |T134327:0|t[|cRXP_LOOT_地图碎片]|r |cRXP_WARN_将其组合成|r |T134269:0|t[|cRXP_LOOT_泰达希尔藏宝图|r]
+    .cast 418600 >>|cRXP_WARN_Use any of the|r |T134327:0|t[|cRXP_LOOT_Map Pieces]|r |cRXP_WARN_to combine them into the|r |T134269:0|t[|cRXP_LOOT_Teldrassil Treasure Map|r]
     .collect 208605,1
     .itemcount 208604,1
     .itemcount 208601,1
@@ -327,188 +320,182 @@ step << Rogue
     #season 2
     #completewith next
     .goto Darnassus,29.466,41.405
-    .zone Teldrassil >> 穿过紫色传送门前往鲁瑟兰村
+    .zone Teldrassil >> Take the purple portal to Rut'theran Village
     .train 398196,1
 step << Rogue
     #season 2
     #completewith next
     .goto Teldrassil,55.339,90.818
-    .cast 421424 >>|cRXP_WARN_在鲁瑟兰村的树干内使用|r |T134269:0|t[|cRXP_LOOT_泰达希尔藏宝图|r]|cRXP_WARN_，这将触发一个|r|cRXP_PICK_埋藏的宝物|r|cRXP_WARN_出现|r
+    .cast 421424 >>|cRXP_WARN_Use the|r |T134269:0|t[|cRXP_LOOT_Teldrassil Treasure Map|r] |cRXP_WARN_inside the tree trunk at Rut'theran Village. This will cause a |cRXP_PICK_Buried Treasure|r to pop up|r
     .use 208605
     .itemcount 208605,1
     .train 398196,1
 step << Rogue
     #season 2
-    >>打开|cRXP_PICK_埋藏的宝物|r，拾取其中的|T134419:0|t[|cRXP_FRIENDLY_速射符文|r]
+    >>Open the |cRXP_PICK_Buried Treasure|r. Loot it for the |T134419:0|t[|cRXP_FRIENDLY_Rune of Quick Draw|r]
     .collect 203991,1 -- Rune of Quick Draw (1)
     .train 398196,1
 step << Rogue
     #season 2
-    .train 400095 >> |cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_速射符文|r] |cRXP_WARN_学习|r |T134536:0|t[速射]
+    .train 400095 >> |cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Quick Draw|r] |cRXP_WARN_to train|r |T134536:0|t[Quick Draw]
     .use 203991
     .itemcount 203991,1
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Alliance Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Chest
-#subgroupdisplayname 胸甲
 #name Slaughter from the Shadows - 1 (Elwynn Forest)
-#title 暗影杀手
-#displayname 暗影杀手 - 1（艾尔文森林）
+#title Slaughter from the Shadows
+
 step << Rogue
     #season 2
     .goto Elwynn Forest,46.122,62.937,5,0
     .goto Elwynn Forest,46.175,62.124
-    >>|cRXP_WARN_利用屋外的箱子跳上屋顶，然后跑到烟囱后面|r
-    >>打开|cRXP_PICK_生锈的宝箱|r，拾取|T134419:0|t[|cRXP_FRIENDLY_杀手符文|r]
+    >>|cRXP_WARN_Using the crates outside of the house, jump up on to the roof and run up behind the chimney|r
+    >>Open the |cRXP_PICK_Rusty Lockbox|r. Loot it for the |T134419:0|t[|cRXP_FRIENDLY_Rune of Slaughter|r]
     .collect 203993,1 -- Rune of Slaughter (1)
     .train 424992,1
 step << Rogue
     #season 2
-    .train 424992 >>|cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_杀手符文|r] |cRXP_WARN_学习|r |T236280:0|t[暗影杀手]
+    .train 424992 >>|cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Slaughter|r] |cRXP_WARN_to train|r |T236280:0|t[Slaughter from the Shadows]
     .use 203993
     .itemcount 203993,1
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Alliance Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Chest
-#subgroupdisplayname 胸甲
 #name Slaughter from the Shadows - 1 (Dun Morogh)
-#title 暗影杀手
-#displayname 暗影杀手 - 1（丹莫罗）
+#title Slaughter from the Shadows
+
 step << Rogue
     #season 2
     .goto Dun Morogh,47.658,51.706,5,0
     .goto Dun Morogh,47.160,52.335,5,0
     .goto Dun Morogh,46.917,51.995
-    >>|cRXP_WARN_爬上卡拉诺斯旅店的屋顶，再跳上巨大的酒桶。跟随箭头前进|r
-    >>打开|cRXP_PICK_生锈的宝箱|r，拾取|T134419:0|t[|cRXP_FRIENDLY_杀手符文|r]
+    >>|cRXP_WARN_Get onto the roof of the Kharanos Inn, then jump on top of the massive keg. Follow the arrow|r
+    >>Open the |cRXP_PICK_Rusty Lockbox|r. Loot it for the |T134419:0|t[|cRXP_FRIENDLY_Rune of Slaughter|r]
     .collect 203993,1 -- Rune of Slaughter (1)
     .train 424992,1
 step << Rogue
     #season 2
-    .train 424992 >>|cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_杀手符文|r] |cRXP_WARN_学习|r |T236280:0|t[暗影杀手]
+    .train 424992 >>|cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Slaughter|r] |cRXP_WARN_to train|r |T236280:0|t[Slaughter from the Shadows]
     .use 203993
     .itemcount 203993,1
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Alliance Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Legs
-#subgroupdisplayname 腿部
 #name Between the Eyes - 8 (Stormwind)
-#title 正中眉心
-#displayname 正中眉心 - 8（暴风城）
+#title Between the Eyes
+
 step << Rogue
     #season 2
     #completewith next
     .goto Stormwind City,56.93,29.54,8,0
-    .goto Stormwind City,58.65,27.56,10 >> 前往暴风城矮人区的割喉小巷
+    .goto Stormwind City,58.65,27.56,10 >> Enter the Cut-Throat Alley in Stormwind City at the Dwarven District
     .train 400081,1
 step << Rogue
     #season 2
     .goto Stormwind City,63.201,29.491,5,0
     .goto Stormwind City,61.728,29.190
-    >>|cRXP_WARN_进入屋内并上楼|r
-    >>打开|cRXP_PICK_布满灰尘的箱子|r，拾取|T134419:0|t[|cRXP_FRIENDLY_精准符文|r]
-    >>|cRXP_WARN_这样会召出两名10级的|r|cRXP_ENEMY_割喉劫匪|r|cRXP_WARN_，他们会攻击你|r
+    >>|cRXP_WARN_Head upstairs into the house|r
+    >>Open the |cRXP_PICK_Dusty Chest|r. Loot it for the |T134419:0|t[|cRXP_FRIENDLY_Rune of Precision|r]
+    >>|cRXP_WARN_Doing this will spawn two level 10 |cRXP_ENEMY_Cut-throat Muggers|r which will attack you|r
     .collect 204174,1 -- Rune of Precision (1)
-    .mob 割喉劫匪
+    .mob Cut-throat Mugger
     .train 400081,1
 step << Rogue
     #season 2
-    .train 400081 >>|cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_精准符文|r] |cRXP_WARN_学习|r |T135610:0|t[正中眉心]
+    .train 400081 >>|cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Precision|r] |cRXP_WARN_to train|r |T135610:0|t[Between the Eyes]
     .use 204174
     .itemcount 204174,1
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Alliance Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Legs
-#subgroupdisplayname 腿部
 #name Between the Eyes - 8 (Ironforge)
-#title 正中眉心
-#displayname 正中眉心 - 8（铁炉堡）
+#title Between the Eyes
+
 step << Rogue
     #season 2
     .goto Ironforge,51.913,13.383
-    >>打开|cRXP_PICK_积灰的箱子|r，拾取|T134419:0|t[|cRXP_FRIENDLY_精准符文|r]
-    >>|cRXP_WARN_这样会刷出两名10级的|r|cRXP_ENEMY_割喉劫匪|r|cRXP_WARN_，他们会攻击你|r
+    >>Open the |cRXP_PICK_Dusty Chest|r. Loot it for the |T134419:0|t[|cRXP_FRIENDLY_Rune of Precision|r]
+    >>|cRXP_WARN_Doing this will spawn two level 10 |cRXP_ENEMY_Cut-throat Muggers|r which will attack you|r
     .collect 204174,1 -- Rune of Precision (1)
-    .mob 割喉劫匪
+    .mob Cut-throat Mugger
     .train 400081,1
 step << Rogue
     #season 2
-    .train 400081 >>|cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_精准符文|r] |cRXP_WARN_学习|r |T135610:0|t[正中眉心]
+    .train 400081 >>|cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Precision|r] |cRXP_WARN_to train|r |T135610:0|t[Between the Eyes]
     .use 204174
     .itemcount 204174,1
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Alliance Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Legs
-#subgroupdisplayname 腿部
 #name Between the Eyes - 8 (Teldrassil)
-#title 正中眉心
-#displayname 正中眉心 - 8（泰达希尔）
+#title Between the Eyes
+
 step << Rogue
     #season 2
     .goto Teldrassil,38.92,79.93
-    >>击杀或用|T133644:0|t[搜索]偷窃|cRXP_ENEMY_瘤背探险者|r和|cRXP_ENEMY_瘤背复仇者|r，获取|T134241:0|t[|cRXP_LOOT_瘤背藏品钥匙]|r
+    >>Kill or |T133644:0|t[Pick Pocket] |cRXP_ENEMY_Gnarlpine Pathfinders|r and |cRXP_ENEMY_Gnarlpine Avengers|r. Loot them for a |T134241:0|t[|cRXP_LOOT_Gnarlpine Stash Key]|r
     .collect 208749,1 -- Gnarlpine Stash Key (1)
-    .mob 瘤背探险者
-    .mob 瘤背复仇者
+    .mob Gnarlpine Pathfinder
+    .mob Gnarlpine Avenger
     .train 400081,1
 step << Rogue
     #season 2
     .goto Teldrassil,37.836,82.588
-    >>打开|cRXP_PICK_瘤背储物箱|r，拾取|T134419:0|t[|cRXP_FRIENDLY_精准符文|r]
+    >>Open the |cRXP_PICK_Gnarlpine Stash|r. Loot it for the |T134419:0|t[|cRXP_FRIENDLY_Rune of Precision|r]
     .collect 204174 -- Rune of Precision (1)
     .itemcount 208749,1
     .train 400081,1
 step << Rogue
     #season 2
-    .train 400081 >>|cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_精准符文|r] |cRXP_WARN_学习|r |T135610:0|t[正中眉心]
+    .train 400081 >>|cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Precision|r] |cRXP_WARN_to train|r |T135610:0|t[Between the Eyes]
     .use 204174
     .itemcount 204174,1
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Alliance Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Legs
-#subgroupdisplayname 腿部
 #name Blade Dance - 10 (Westfall)
-#title 刃舞
-#displayname 刃舞 - 10（西部荒野）
+#title Blade Dance
+
 step << Rogue
     #season 2
     .goto Westfall,48.27,46.91,60,0
     .goto Westfall,46.39,37.38,60,0
     .goto Westfall,48.27,46.91
-    >>|T133644:0|t[搜索] 遍布西部荒野的 |cRXP_ENEMY_迪菲亚成员|r。拾取它们的 |T133463:0|t[|cRXP_LOOT_不起眼的信封|r]
-    >>|cRXP_WARN_你必须处于|r |T132320:0|t[潜行] |cRXP_WARN_状态下才能使用|r |T133644:0|t[搜索]
+    >>|T133644:0|t[Pick Pocket] the |cRXP_ENEMY_Defias|r throughout Westfall. Loot them for a |T133463:0|t[|cRXP_LOOT_Discreet Envelope]|r
+    >>|cRXP_WARN_You must be in|r |T132320:0|t[Stealth] |cRXP_WARN_to use|r |T133644:0|t[Pick Pocket]
     .collect 209031,1 -- Discreet Envelope (1)
-    .mob 迪菲亚捕兽者
-    .mob 迪菲亚走私者
-    .mob 迪菲亚强夺者
+    .mob Defias Trapper
+    .mob Defias Smuggler
+    .mob Defias Looter
     .train 400099,1
 step << Rogue
     #season 2
-    >>打开 |cRXP_PICK_不起眼的信封|r，取出 |T134237:0|t[|cRXP_LOOT_装备贮藏钥匙|r]
+    >>Open the |cRXP_PICK_Discreet Envelope|r. Loot it for the |T134237:0|t[|cRXP_LOOT_Equipment Stash Key]|r
     .collect 209030,1 -- Equipment Stash Key (1)
     .use 209031
     .itemcount 209031,1
@@ -517,291 +504,285 @@ step << Rogue
     #season 2
     #map Westfall
     .goto 1415,40.805,80.235
-    >>前往死亡矿井的后门
-    >>打开 |cRXP_PICK_装备贮藏|r，取出 |T134419:0|t[|cRXP_FRIENDLY_刃舞符文|r]
+    >>Head to the back entrance of the Deadmines
+    >>Open the |cRXP_PICK_Equipment Stash|r. Loot it for the |T134419:0|t[|cRXP_FRIENDLY_Rune of Blade Dance|r]
     .collect 208771,1 -- Rune of Blade Dance (1)
     .train 400099,1
 step << Rogue
     #season 2
-    .train 400099 >>|cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_刃舞符文|r] |cRXP_WARN_学习|r |T132350:0|t[刃舞]
+    .train 400099 >>|cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Blade Dance|r] |cRXP_WARN_to train|r |T132350:0|t[Blade Dance]
     .use 208771
     .itemcount 208771,1
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Alliance Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Legs
-#subgroupdisplayname 腿部
 #name Blade Dance - 16 (Dun Morogh)
-#title 刃舞
-#displayname 刃舞 - 16（丹莫罗）
+#title Blade Dance
+
 step << Rogue
     #season 2
     .goto Dun Morogh,77.86,61.66
-    >>使用|T133644:0|t[搜索]偷窃|cRXP_ENEMY_黑铁间谍|r，拾取|T133875:0|t[|cRXP_LOOT_黑铁宝箱]|r
-    >>|cRXP_WARN_你必须处于|r |T132320:0|t[潜行] |cRXP_WARN_状态下才能使用|r |T133644:0|t[搜索]
+    >>|T133644:0|t[Pick Pocket] |cRXP_ENEMY_Dark Iron Spies|r. Loot them for a |T133875:0|t[|cRXP_LOOT_Dark Iron Lockbox]|r
+    >>|cRXP_WARN_You must be in|r |T132320:0|t[Stealth] |cRXP_WARN_to use|r |T133644:0|t[Pick Pocket]
     .collect 208838,1 -- Dark Iron Lockbox (1)
-    .mob 黑铁间谍
+    .mob Dark Iron Spy
     .train 400099,1
 step << Rogue
     #season 2
-    >>打开|T133875:0|t[|cRXP_LOOT_黑铁宝箱]|r，拾取|T134419:0|t[|cRXP_FRIENDLY_刃舞符文|r]
-    >>|cRXP_WARN_注意：必须先向训练师学会|r |T136058:0|t[开锁] |cRXP_WARN_才能打开它|r
+    >>Open the |T133875:0|t[|cRXP_LOOT_Dark Iron Lockbox]|r. Loot it for the |T134419:0|t[|cRXP_FRIENDLY_Rune of Blade Dance|r]
+    >>|cRXP_WARN_Note: You must have|r |T136058:0|t[Lockpicking] |cRXP_WARN_from your trainer to open it|r
     .collect 208771,1 -- Rune of Blade Dance (1)
     .itemcount 208838,1
     .train 400099,1
 step << Rogue
     #season 2
-    .train 400099 >>|cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_刃舞符文|r] |cRXP_WARN_学习|r |T132350:0|t[刃舞]
+    .train 400099 >>|cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Blade Dance|r] |cRXP_WARN_to train|r |T132350:0|t[Blade Dance]
     .use 208771
     .itemcount 208771,1
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Alliance Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Legs
-#subgroupdisplayname 腿部
 #name Blade Dance - 16 (Darkshore)
-#title 刃舞
-#displayname 刃舞 - 16（黑海岸）
+#title Blade Dance
+
 step << Rogue
     #season 2
     #completewith learnBD
-    .goto Darkshore,55.106,33.621,30 >> 进入壁泉河娜迦洞穴
+    .goto Darkshore,55.106,33.621,30 >> Enter the Cliffspring Naga cave
     .train 400099,1
 step << Rogue
     #season 2
     .goto Darkshore,56.253,34.877
-    >>击杀 |cRXP_ENEMY_雷鳞海妖|r 和 |cRXP_ENEMY_雷鳞御浪者|r, 拾取 |T134242:0|t[|cRXP_LOOT_壁泉钥匙|r]
+    >>Kill |cRXP_ENEMY_Stormscale Sirens|r and |cRXP_ENEMY_Stormscale Wave Rider|r. Loot them for a |T134242:0|t[|cRXP_LOOT_Cliffspring Key]|r
     .collect 211471,1 -- Cliffspring Key (1)
-    .mob 雷鳞御浪者
-    .mob 雷鳞海妖
+    .mob Stormscale Wave Rider
+    .mob Stormscale Siren
     .train 400099,1
 step << Rogue
     .goto Darkshore,56.253,34.877
-    >>打开洞穴内的 |cRXP_PICK_壁泉宝箱|r，取出 |T134419:0|t[|cRXP_FRIENDLY_刃舞符文|r]
+    >>Open the |cRXP_PICK_Clliffspring Chest|r inside of the cave. Loot it for the |T134419:0|t[|cRXP_FRIENDLY_Rune of Blade Dance|r]
     .collect 208771,1 -- Rune of Blade Dance (1)
     .itemcount 211471,1
     .train 400099,1
 step << Rogue
     #season 2
-    #label learnBD
-    .train 400099 >>|cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_刃舞符文|r] |cRXP_WARN_学习|r |T132350:0|t[刃舞]
+    .train 400099 >>|cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Blade Dance|r] |cRXP_WARN_to train|r |T132350:0|t[Blade Dance]
     .use 208771
     .itemcount 208771,1
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Alliance Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Gloves
-#subgroupdisplayname 手套
 #name Mutilate - 5 (Elwynn Forest)
-#title 毁伤
-#displayname 毁伤 - 5（艾尔文森林）
+#title Mutilate
+
 step << Rogue
     #season 2
     .goto Elwynn Forest,57.5,48.2
-    >>|T133644:0|t[搜索]|cRXP_ENEMY_加瑞克·帕德弗特|r获取|T134331:0|t[阿刨的便条]
-    >>|cRXP_WARN_你必须处于|r |T132320:0|t[潜行] |cRXP_WARN_状态下才能使用|r |T133644:0|t[搜索]
+    >>|T133644:0|t[Pick Pocket] |cRXP_ENEMY_Garrick Padfoot|r for |T134331:0|t[Cutty's Note]
+    >>|cRXP_WARN_You must be in|r |T132320:0|t[Stealth] |cRXP_WARN_to use|r |T133644:0|t[Pick Pocket]
     .collect 203723,1 -- Cutty's Note (1)
-    .mob 加瑞克·帕德弗特
+    .mob Garrick Padfoot
     .train 400094,1
 step << Rogue
     #season 2
     .goto Elwynn Forest,49.983,52.012
-    >>与北郡山谷围墙正南侧的|cRXP_FRIENDLY_阿刨|r交谈
-    >>他会给你 |T134419:0|t[|cRXP_FRIENDLY_毁伤符文|r]
+    >>Talk to |cRXP_FRIENDLY_Cutty|r just south of the Northshire Valley wall
+    >>He will give you the |T134419:0|t[|cRXP_FRIENDLY_Rune of Mutilation|r]
     .collect 203990,1 -- Rune of Mutilation (1)
     .skipgossip
-    .target 阿刨
+    .target Cutty
     .train 400094,1
 step << Rogue
     #season 2
-    .cast 402265 >> |cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_毁伤符文|r]
+    .cast 402265 >> |cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Mutilation|r]
     .use 203990 -- Rune of Mutilation (1)
-    .target 阿刨
+    .target Cutty
     .train 400094,1
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Alliance Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Gloves
-#subgroupdisplayname 手套
 #name Mutilate - 8 (Dun Morogh)
-#title 毁伤
-#displayname 毁伤 - 8（丹莫罗）
+#title Mutilate
+
 step << Rogue
     #season 2
     .goto Dun Morogh,77.86,61.66
-    >>|T133644:0|t[搜索]|cRXP_ENEMY_黑铁间谍|r，拾取|T134331:0|t[黑鼠的笔记]
-    >>|cRXP_WARN_你必须处于|r |T132320:0|t[潜行] |cRXP_WARN_状态下才能使用|r |T133644:0|t[搜索]
+    >>|T133644:0|t[Pick Pocket] |cRXP_ENEMY_Dark Iron Spies|r. Loot them for |T134331:0|t[Blackrat's Note]
+    >>|cRXP_WARN_You must be in|r |T132320:0|t[Stealth] |cRXP_WARN_to use|r |T133644:0|t[Pick Pocket]
     .collect 208205,1 --Blackrat's Note (1)
-    .mob 黑铁间谍
+    .mob Dark Iron Spy
     .train 400094,1
 step << Rogue
     #season 2
     .goto Dun Morogh,57.256,45.227
-    >>与|cRXP_FRIENDLY_黑鼠|r交谈，获得|T134419:0|t[|cRXP_FRIENDLY_毁伤符文|r]
+    >>Talk to |cRXP_FRIENDLY_Blackrat|r to receive the |T134419:0|t[|cRXP_FRIENDLY_Rune of Mutilation|r]
     .collect 203990,1
     .skipgossip
     .train 400094,1
 step << Rogue
     #season 2
-    .cast 402265 >> |cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_毁伤符文|r]
+    .cast 402265 >> |cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Mutilation|r]
     .use 203990 -- Rune of Mutilation (1)
     .train 400094,1
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Alliance Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Gloves
-#subgroupdisplayname 手套
 #name Saber Slash - 12 (Westfall)
-#title 军刀猛刺
-#displayname 军刀猛刺 - 12（西部荒野）
+#title Saber Slash
+
 step << Rogue
     #season 2
     .goto Westfall,51.540,55.361,30,0
     .goto Westfall,51.093,54.642,30,0
     .goto Westfall,50.81,47.15,50,0
     .goto Westfall,51.093,54.642
-    >>|T133644:0|t搜索|cRXP_ENEMY_迪菲亚斥候|r获取|T134419:0|t[|cRXP_FRIENDLY_军刀猛刺符文|r]
-    >>|cRXP_WARN_你必须处于|r |T132320:0|t[潜行] |cRXP_WARN_状态下才能使用|r |T133644:0|t[搜索]
+    >>|T133644:0|t[Pick Pocket] the |cRXP_ENEMY_Defias Scout|r for the |T134419:0|t[|cRXP_FRIENDLY_Rune of Saber Slash|r]
+    >>|cRXP_WARN_You must be in|r |T132320:0|t[Stealth] |cRXP_WARN_to use|r |T133644:0|t[Pick Pocket]
     .collect 208772,1 -- Rune of Saber Slash (1)
-    .mob 迪菲亚斥候
+    .mob Defias Scout
     .train 424785,1
 step << Rogue
     #season 2
-    .cast 402265 >> |cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_军刀猛刺符文|r]
+    .cast 402265 >> |cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Saber Slash|r]
     .use 208772 -- Rune of Saber Slash (1)
     .train 424785,1
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Alliance Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Gloves
-#subgroupdisplayname 手套
 #name Saber Slash - 12 (Loch Modan)
-#title 军刀猛刺
-#displayname 军刀猛刺 - 12（洛克莫丹）
+#title Saber Slash
+
 step << Rogue
     #season 2
     #completewith next
     .goto Loch Modan,41.01,12.60,50,0
     .goto Loch Modan,42.86,10.36,60,0
-    .goto Loch Modan,46.20,13.15,10 >> |cRXP_WARN_前往洛克莫丹大坝坝墙，小心向下跳到大坝中央的突出平台，跟随箭头指示|r
+    .goto Loch Modan,46.20,13.15,10 >> |cRXP_WARN_Make your way onto the Loch Modan dam wall and carefully drop down onto the ledge in the center of the dam. Follow the arrow|r
     .train 424785,1
 step << Rogue
     #season 2
     .goto Loch Modan,46.373,12.666
-    >>打开平台边缘的|cRXP_PICK_石工工具箱|r，拾取|T134419:0|t[|cRXP_FRIENDLY_军刀猛刺符文|r]
+    >>Open the |cRXP_PICK_Stonemason's Toolbox|r on the ledge. Loot it for the |T134419:0|t[|cRXP_FRIENDLY_Rune of Saber Slash|r]
     .collect 208772,1 -- Rune of Saber Slash (1)
     .train 424785,1
 step << Rogue
     #season 2
-    .cast 402265 >> |cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_军刀猛刺符文|r]
+    .cast 402265 >> |cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Saber Slash|r]
     .use 208772 -- Rune of Saber Slash (1)
     .train 424785,1
 step << Rogue
     #season 2
     .goto Loch Modan,45.823,12.652
-    .cast 6477 >> 点击 |cRXP_PICK_逃生绳|r 返回顶部
+    .cast 6477 >> Click the |cRXP_PICK_Escape Rope|r to return to the top
     .subzoneskip 146,1
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Alliance Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Gloves
-#subgroupdisplayname 手套
 #name Saber Slash - 1 (Darkshore)
-#title 军刀猛刺
-#displayname 军刀猛刺 - 1（黑海岸）
+#title Saber Slash
+
 step << Rogue
     #season 2
     #completewith next
-    .goto Darkshore,32.80,37.72,20 >> 游到有灯塔的小岛
+    .goto Darkshore,32.80,37.72,20 >> Swim to the small island with the Lighthouse on it
     .train 424785,1
 step << Rogue
     #season 2
     .goto Darkshore,32.729,37.093
-    >>打开树干中的|cRXP_PICK_灯塔藏匿物|r，拾取|T134419:0|t[|cRXP_FRIENDLY_军刀猛刺符文|r]
+    >>Open the |cRXP_PICK_Lighthouse Stash|r inside the tree trunk. Loot it for the |T134419:0|t[|cRXP_FRIENDLY_Rune of Saber Slash|r]
     .collect 208772,1 -- Rune of Saber Slash (1)
     .train 424785,1
 step << Rogue
     #season 2
-    .cast 402265 >> |cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_军刀猛刺符文|r]
+    .cast 402265 >> |cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Saber Slash|r]
     .use 208772 -- Rune of Saber Slash (1)
     .train 424785,1
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Horde Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Gloves
-#subgroupdisplayname 手套
 #name Shadowstrike - 2 (Durotar)
-#title 暗影打击
+#title Shadowstrike
+
+
     --Rune of Shadowstrike
-#displayname 暗影打击 - 2（杜隆塔尔）
+
 step << Troll/Orc
     #season 2
     .goto Durotar,41.27,68.00
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_鲁瓦格|r交谈
-    .accept 77592 >>接任务：悬崖之上 << Troll
-    .accept 77583 >>接任务：悬崖之上 << Orc
-    .target 鲁瓦格
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Rwag|r
+    .accept 77592 >>Accept Atop the Cliffs << Troll
+    .accept 77583 >>Accept Atop the Cliffs << Orc
+    .target Rwag
 step
     #season 2
     .goto Durotar,43.27,69.51
-    >>打开|cRXP_PICK_隐秘的宝箱|r，拾取|T134419:0|t|cRXP_LOOT_[暗影打击符文]|r
-    >>|cRXP_WARN_绕过|r |cRXP_ENEMY_萨科斯|r |cRXP_WARN_，跳下去到达宝箱处|r
+    >>Open the |cRXP_PICK_Hidden Cache|r. Loot it for the |T134419:0|t|cRXP_LOOT_[Rune of Shadowstrike]|r
+    >>|cRXP_WARN_Walk around past|r |cRXP_ENEMY_Sarkoth|r |cRXP_WARN_and jump down to reach the chest|r
     .collect 204795,1 --Rune of Shadowstrike (1)
     .train 400105,1
 step
     #season 2
-    .train 400105 >>|cRXP_WARN_使用|r |T134419:0|t|cRXP_LOOT_[暗影打击符文]|r |cRXP_WARN_学习|r |T133816:0|t[铭刻手套 - 暗影打击]
+    .train 400105 >>|cRXP_WARN_Use the|r |T134419:0|t|cRXP_LOOT_[Rune of Shadowstrike]|r |cRXP_WARN_to learn|r |T133816:0|t[Engrave Gloves - Shadowstrike]
     .use 204795
     .itemcount 204795,1 --Rune of Shadowstrike (1)
 step << Troll/Orc
     #season 2
     .goto Durotar,41.27,68.00
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_鲁瓦格|r交谈
-    .turnin 77592 >>交任务：悬崖之上 << Troll
-    .turnin 77583 >>交任务：悬崖之上 << Orc
-    .target 鲁瓦格
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Rwag|r
+    .turnin 77592 >>Turn in Atop the Cliffs << Troll
+    .turnin 77583 >>Turn in Atop the Cliffs << Orc
+    .target Rwag
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Horde Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Gloves
-#subgroupdisplayname 手套
 #name Shadowstrike - 2 (Tirisfal)
-#title 暗影打击
+#title Shadowstrike
+
+
     --Rune of Shadowstrike
-#displayname 暗影打击 - 2（提瑞斯法林地）
+
 step << Undead
     #season 2
     .goto Tirisfal Glades,32.53,65.65
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_大卫·提亚斯|r交谈
-    .accept 77669 >>接任务：血色符文
-    .target 大卫·提亚斯
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_David|r
+    .accept 77669 >>Accept The Scarlet Rune
+    .target David Trias
 step
     #season 2
 #loop
@@ -824,159 +805,161 @@ step
 	.goto Tirisfal Glades,37.45,67.95,25,0
 	.goto Tirisfal Glades,36.93,68.16,25,0
 	.goto Tirisfal Glades,36.13,68.74,25,0
-    >>击杀|cRXP_ENEMY_血色信徒|r或对其使用搜索，获取|T134419:0|t|cRXP_LOOT_[暗影打击符文]|r
+    >>Kill or pickpocket |cRXP_ENEMY_Scarlet Converts|r. Loot them for the |T134419:0|t|cRXP_LOOT_[Rune of Shadowstrike]|r
     .collect 204795,1 --Rune of Shadowstrike (1)
-    .mob 血色信徒
+    .mob Scarlet Convert
     .train 400105,1
 step
     #season 2
-    .train 400105 >>|cRXP_WARN_使用|r |T134419:0|t|cRXP_LOOT_[暗影打击符文]|r |cRXP_WARN_学习|r |T133816:0|t[铭刻手套 - 暗影打击]
+    .train 400105 >>|cRXP_WARN_Use the|r |T134419:0|t|cRXP_LOOT_[Rune of Shadowstrike]|r |cRXP_WARN_to learn|r |T133816:0|t[Engrave Gloves - Shadowstrike]
     .use 204795
     .itemcount 204795,1 --Rune of Shadowstrike (1)
 step << Undead
     #season 2
     .goto Tirisfal Glades,32.53,65.65
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_大卫·提亚斯|r交谈
-    .turnin 77669 >>交任务：血色符文
-    .target 大卫·提亚斯
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_David|r
+    .turnin 77669 >>Turn in The Scarlet Rune
+    .target David Trias
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Chest
-#subgroupdisplayname 胸甲
 #name Deadly Brew - 25 (Silverpine Forest)
-#title 致命阴谋
+#title Deadly Brew
+
+
     --Rune of Deadly Brew
-#displayname 致命阴谋 - 25（银松森林）
+
 step
     #season 2
     .goto Silverpine Forest,47.12,71.01
-    >>点击银松森林的|cRXP_PICK_秘密投放点|r
-    .accept 78261 >> 接任务：谢尔索斯号角
+    >>Click the |cRXP_PICK_Dead Drop|r in Silverpine Forest
+    .accept 78261 >> Accept The Horn of Xelthos
 step
     #season 2
     #completewith next
-    .zone 209 >> 进入影牙城堡
-    >>|cRXP_WARN_接下来的部分必须独自完成！组队会使你无法获得所需的钥匙|r
+    .zone 209 >> Enter Shadowfang Keep
+    >>|cRXP_WARN_You have to do the next part solo! Grouping up will prevent you from obtaining the keys you need|r
 step << Horde
     #season 2
-    .gossipoption 96495,1 >>潜行绕过|cRXP_ENEMY_雷希戈尔|r，与|cRXP_FRIENDLY_亡灵哨兵阿达曼特|r交谈，随后使用|T132331:0|t[消失]。他会为你开门
-    .target 亡灵哨兵阿达曼特
+    .gossipoption 96495,1 >>Stealth past |cRXP_ENEMY_Rethilgore|r, talk to |cRXP_FRIENDLY_Deathstalker Adamant|r and |T132331:0|t[Vanish] aftwards. He will open the door for you
+    .target Deathstalker Adamant
     .train 400080,1
 step << Alliance
     #season 2
-    .gossipoption 96494 >>潜行绕过|cRXP_ENEMY_雷希戈尔|r，与|cRXP_FRIENDLY_巫师阿克鲁比|r交谈，随后使用|T132331:0|t[消失]。他会为你开门
-    .target 巫师阿克鲁比
+    .gossipoption 96494 >>Stealth past |cRXP_ENEMY_Rethilgore|r, talk to |cRXP_FRIENDLY_Sorcerer Ashcrombe|r and |T132331:0|t[Vanish] aftwards. He will open the door for you
+    .target Sorcerer Ashcrombe
     .train 400080,1
 step
     #season 2
     #completewith next
-    >>使用 |T133644:0|t[搜索] 从 |cRXP_ENEMY_戈梅拉|r 身上取得 |T134243:0|t[|cRXP_LOOT_妹妹的半把钥匙|r]
-    >>|cRXP_WARN_她在底层餐厅内|r
+    >>Use |T133644:0|t[Pick Pocket] on |cRXP_ENEMY_Gemela|r for |T134243:0|t[|cRXP_LOOT_Sister's Half-Key|r]
+    >>|cRXP_WARN_She is located in the dining hall on the bottom floor|r
     .collect 210213,1 --Sister's Half-Key (1)
-    .mob 戈梅拉
+    .mob Gemela
 step
     #season 2
-    >>使用 |T133644:0|t[搜索] 从 |cRXP_ENEMY_戈菲尔|r 身上取得 |T134244:0|t[|cRXP_LOOT_哥哥的半把钥匙|r]
-    >>|cRXP_WARN_他在餐厅上方的二楼|r
+    >>Use |T133644:0|t[Pick Pocket] on |cRXP_ENEMY_Gefell|r for |T134244:0|t[|cRXP_LOOT_Brother's Half-Key|r]
+    >>|cRXP_WARN_He is located above the dining hall on the second floor|r
     .collect 210212,1 --Brother's Half-Key (1)
-    .mob 戈菲尔
+    .mob Gefell
     .train 400080,1
 step
     #season 2
-    >>使用 |T133644:0|t[搜索] 从 |cRXP_ENEMY_戈梅拉|r 身上取得 |T134243:0|t[|cRXP_LOOT_妹妹的半把钥匙|r]
-    >>|cRXP_WARN_她在底层餐厅内|r
+    >>Use |T133644:0|t[Pick Pocket] on |cRXP_ENEMY_Gemela|r for |T134243:0|t[|cRXP_LOOT_Sister's Half-Key|r]
+    >>|cRXP_WARN_She is located in the dining hall on the bottom floor|r
     .collect 210213,1 --Sister's Half-Key (1)
-    .mob 戈梅拉
+    .mob Gemela
     .train 400080,1
 step
     #season 2
-    .use 210212 >>返回外面的庭院, 进入马厩. 将两把钥匙合成 |T237379:0|t[|cRXP_LOOT_双子钥匙|r]
+    .use 210212 >>Return to the courtyard outside and enter the Stables. Combine the two keys for the |T237379:0|t[|cRXP_LOOT_Twin Key|r]
     .collect 210209,1 --Twin Key (1)
     .train 400080,1
 step
     #season 2
-    >>打开马厩内的|cRXP_PICK_装饰箱|r，获取|cRXP_LOOT_谢尔索斯号角|r
+    >>Open the |cRXP_PICK_Ornamented Chest|r in the stables for the |cRXP_LOOT_Horn of Xelthos|r
     .complete 78261,1 --Horn of Xelthos (1)
 step
     #season 2
     .goto Silverpine Forest,47.114,70.974
-    >>点击银松森林的|cRXP_PICK_秘密投放点|r
-    .turnin 78261 >> 交任务：谢尔索斯号角
+    >>Click the |cRXP_PICK_Dead Drop|r in Silverpine Forest
+    .turnin 78261 >> Turn in The Horn of Xelthos
 step
     #season 2
     #completewith next
-    +|cRXP_WARN_现在需要进入一座主城，才能收到来自 *C* 的邮件|r
+    +|cRXP_WARN_You now need to enter a capital city to receive mail from *C*|r
     .train 400080,1
 step << Horde
     #season 2
     .goto Silverpine Forest,45.62,42.58
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_卡洛斯|r交谈
-    .fly Undercity >> 飞往幽暗城
-    .target 卡洛斯·拉佐克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Karos|r
+    .fly Undercity >> Fly to the Undercity
+    .target Karos Razok
     .zoneskip Undercity
     .train 400080,1
 step << Alliance
-    >>跑到南海镇
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_达尔拉·哈瑞斯|r交谈
+    >>Run to Southshore
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Darla Harris|r
     .goto Hillsbrad Foothills,49.338,52.272
-    .fly Ironforge >> 飞往铁炉堡
-    .target 达尔拉·哈瑞斯
+    .fly Ironforge >> Fly to Ironforge
+    .target Darla Harris
     .train 400080,1
 step
-    .goto Undercity,68.290,38.043,5 >> |cRXP_WARN_进入幽暗城。检查你的邮箱，查看来自*C*的信件|r << Horde
-    .goto Ironforge,71.485,72.280,5 >> |cRXP_WARN_进入铁炉堡。检查你的邮箱中来自 *C* 的信件。如果你在另一个主城执行，跳过此步骤|r << Alliance
+    .goto Undercity,68.290,38.043,5 >> |cRXP_WARN_Enter Undercity. Check your mailbox for the letter from *C*|r << Horde
+    .goto Ironforge,71.485,72.280,5 >> |cRXP_WARN_Enter Ironforge. Check your mailbox for the letter from *C*. Skip this step if you're doing it in another major city|r << Alliance
     .train 400080,1
 step
     #season 2
     #completewith next
-    +|cRXP_WARN_来自 *C* 的邮件送达后，打开邮箱查阅。准备好后飞回银松森林|r << Horde
-    +|cRXP_WARN_来自 *C* 的邮件送达后，打开邮箱查阅。准备好后飞回南海镇，再前往银松森林|r << Alliance
+    +|cRXP_WARN_Open your mailbox to read the mail from *C* once it has arrived. Fly back to Silverpine when you're ready|r << Horde
+    +|cRXP_WARN_Open your mailbox to read the mail from *C* once it has arrived. Fly back to Southshore then make your way to Silverpine when you're ready|r << Alliance
 step << Horde
     #season 2
     .goto Undercity,63.27,48.55
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_迈克尔|r交谈
-    .fly The Sepulcher>> 飞往瑟伯切尔
-    .target 迈克尔·加勒特
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Michael|r
+    .fly The Sepulcher>> Fly to The Sepulcher
+    .target Michael Garrett
     .zoneskip Silverpine Forest
     .train 400080,1
 step << Alliance
     .goto Ironforge,55.501,47.742
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_格莱斯·瑟登|r交谈
-    .fly Southshore >> 飞往南海镇
-    .target 格莱斯·瑟登
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gryth Thurden|r
+    .fly Southshore >> Fly to Southshore
+    .target Gryth Thurden
     .zoneskip Silverpine Forest
     .train 400080,1
 step << Alliance
     #completewith next
-    .zone Silverpine Forest >> 前往银松森林
+    .zone Silverpine Forest >> Travel to Silverpine Forest
     .train 400080,1
 step
     #season 2
     .goto Silverpine Forest,47.114,70.974
-    >>在银松森林点击 |cRXP_PICK_秘密投放点|r 以获得 |T134419:0|t[|cRXP_FRIENDLY_致命阴谋符文|r]
+    >>Click the |cRXP_PICK_Dead Drop|r in Silverpine Forest for |T134419:0|t[|cRXP_FRIENDLY_Rune of Deadly Brew|r]
     .collect 203994,1 --Rune of Deadly Brew (1)
     .train 400080,1
 step
     #season 2
-    .train 400080 >>使用 |T134419:0|t[|cRXP_FRIENDLY_致命阴谋符文|r]
-    .use 203994
-    .itemcount 203994,1
+    .train 400080 >>Use the |T134419:0|t[|cRXP_FRIENDLY_Rune of Deadly Brew|r]
+    .use 204795
+    .itemcount 204795,1
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Horde Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Chest
-#subgroupdisplayname 胸甲
 #name Quick Draw - 10 (Durotar)
-#title 速射
+#title Quick Draw
+
+
     --Rune of Quick Draw
-#displayname 速射 - 10（杜隆塔尔）
+
 step
     #season 2
     .goto Durotar,57.65,58.52,30,0
@@ -986,10 +969,10 @@ step
     .goto Durotar,56.54,54.52,30,0
     .goto Durotar,56.37,58.35,30,0
     .goto Durotar,58.99,58.30
-    >>击杀或使用|T133644:0|t[搜索]偷窃|cRXP_ENEMY_库尔提拉斯水手|r和|cRXP_ENEMY_库尔提拉斯水兵|r，拾取|T134327:0|t[|cRXP_LOOT_右上地图碎片|r]
+    >>Kill or use |T133644:0|t[Pick Pocket] on |cRXP_ENEMY_Kul Tiras Sailors|r and |cRXP_ENEMY_Kul Tiras Marines|r. Loot them for |T134327:0|t[|cRXP_LOOT_Top-Right Map Piece|r]
     .collect 207109,1 --Top-Right Map Piece (1)
-    .mob 库尔提拉斯水手
-    .mob 库尔提拉斯水兵
+    .mob Kul Tiras Sailor
+    .mob Kul Tiras Marine
     .train 400095,1
 step
     #season 2
@@ -1003,10 +986,10 @@ step
     .goto Durotar,47.06,49.53,30,0
     .goto Durotar,46.90,48.11,30,0
     .goto Durotar,49.22,48.96
-    >>击杀或使用|T133644:0|t[搜索]偷窃|cRXP_ENEMY_钢鬃野猪人|r和|cRXP_ENEMY_钢鬃斥候|r，拾取|T134327:0|t[|cRXP_LOOT_右下地图碎片|r]
+    >>Kill or use |T133644:0|t[Pick Pocket] on |cRXP_ENEMY_Razormane Quilboars|r and |cRXP_ENEMY_Razormane Scouts|r.  Loot them for |T134327:0|t[|cRXP_LOOT_Bottom-Right Map Piece|r]
     .collect 207107,1 --Bottom-Right Map Piece (1)
-    .mob 钢鬃野猪人
-    .mob 钢鬃斥候
+    .mob Razormane Quilboar
+    .mob Razormane Scout
     .train 400095,1
 step
     #season 2
@@ -1022,14 +1005,14 @@ step
 	.goto Durotar,68.50,84.32,25,0
 	.goto Durotar,68.47,86.77,25,0
 	.goto Durotar,67.23,88.00,25,0
-    >>击杀或使用|T133644:0|t[搜索]偷窃|cRXP_ENEMY_妖术巨魔|r和|cRXP_ENEMY_巫毒巨魔|r，拾取|T134327:0|t[|cRXP_LOOT_左下地图碎片|r]
+    >>Kill or use |T133644:0|t[Pick Pocket] on |cRXP_ENEMY_Hexed Trolls|r and |cRXP_ENEMY_Voodoo Trolls|r. Loot them for |T134327:0|t[|cRXP_LOOT_Bottom-Left Map Piece|r]
     .collect 207106,1 --Bottom-Left Map Piece (1)
-    .mob 妖术巨魔
-    .mob 巫毒巨魔
+    .mob Hexed Troll
+    .mob Voodoo Troll
     .train 400095,1
 step
     #completewith next
-    .goto Durotar,55.12,10.10,60 >> 前往 [骷髅石]
+    .goto Durotar,55.12,10.10,60 >> Travel toward Skull Rock
 step
     #season 2
     .goto Durotar,54.72,8.78,15,0
@@ -1042,41 +1025,43 @@ step
     .goto Durotar,51.39,8.71,15,0
     .goto Durotar,51.48,9.71,15,0
     .goto Durotar,53.77,8.87
-    >>击杀或使用|T133644:0|t[搜索]偷窃|cRXP_ENEMY_火刃兽人|r，拾取|T134327:0|t[|cRXP_LOOT_左上地图碎片|r]
+    >>Kill or use |T133644:0|t[Pick Pocket] on |cRXP_ENEMY_Burning Blade Orcs|r. Loot them for |T134327:0|t[|cRXP_LOOT_Top-Left Map Piece|r]
     .collect 207108,1 --Top-Left Map Piece (1)
-    .mob 火刃暴徒
-    .mob 火刃狂热者
-    .mob 火刃学徒
+    .mob Burning Blade Thug
+    .mob Burning Blade Fanatic
+    .mob Burning Blade Apprentice
     .train 400095,1
 step
     #season 2
-    .use 207108 >>使用|T134327:0|t[|cRXP_LOOT_地图碎片|r]制作|T134269:0|t[|cRXP_LOOT_杜隆塔尔藏宝图|r]
+    .use 207108 >>Use the |T134327:0|t[|cRXP_LOOT_Map Pieces|r] to create |T134269:0|t[|cRXP_LOOT_Durotar Treasure Map|r]
     .collect 207110,1 --Durotar Treasure Map (1)
     .train 400095,1
 step
     #season 2
     .goto Durotar,62.14,94.66
-    .use 207110 >>在最南端的回音岛上使用|T134269:0|t[|cRXP_LOOT_杜隆塔尔藏宝图|r]
-    >>打开刷新的|cRXP_PICK_埋藏的宝物|r宝箱，获取|T134419:0|t[|cRXP_FRIENDLY_速射符文|r]
+    .use 207110 >>Use the |T134269:0|t[|cRXP_LOOT_Durotar Treasure Map|r] on the southernmost Echo Island
+    >>Loot the |cRXP_PICK_Buried Treasure|r chest that spawns for |T134419:0|t[|cRXP_FRIENDLY_Rune of Quick Draw|r]
     .collect 203991,1 --Rune of Quick Draw (1s)
     .train 400095,1
 step
     #season 2
-    .train 400095 >>|cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_速射符文|r] |cRXP_WARN_学习|r |T134536:0|t[速射]
+    .train 400095 >>|cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Quick Draw|r] |cRXP_WARN_to train|r |T134536:0|t[Quick Draw]
     .use 203991
     .itemcount 203991,1
+
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Horde Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Chest
-#subgroupdisplayname 胸甲
 #name Quick Draw - 10 (Tirisfal)
-#title 速射
+#title Quick Draw
+
+
     --Rune of Quick Draw
-#displayname 速射 - 10（提瑞斯法林地）
+
 step
     #season 2
     .goto Tirisfal Glades,37.20,52.17,50,0
@@ -1086,10 +1071,10 @@ step
     .goto Tirisfal Glades,35.30,50.91,50,0
     .goto Tirisfal Glades,34.57,51.58,50,0
     .goto Tirisfal Glades,36.63,50.09
-    >>击杀或使用|T133644:0|t[搜索]偷取|cRXP_ENEMY_提瑞斯法农夫|r和|cRXP_ENEMY_提瑞斯法雇农|r，获取|T134327:0|t[|cRXP_LOOT_左上地图碎片|r]
+    >>Kill or use |T133644:0|t[Pick Pocket] on |cRXP_ENEMY_Tirisfal Farmers|r and |cRXP_ENEMY_Tirisfal Farmhands|r. Loot them for |T134327:0|t[|cRXP_LOOT_Top-Left Map Piece|r]
     .collect 208036,1 --Top-Left Map Piece (1)
-    .mob 提瑞斯法农夫
-    .mob 提瑞斯法雇农
+    .mob Tirisfal Farmer
+    .mob Tirisfal Farmhand
     .train 400095,1
 step
     #season 2
@@ -1106,10 +1091,10 @@ step
     .goto Tirisfal Glades,33.73,45.29,50,0
     .goto Tirisfal Glades,34.10,47.88,50,0
     .goto Tirisfal Glades,33.73,49.34,50,0
-    >>击杀或使用|T133644:0|t[搜索]偷取|cRXP_ENEMY_血色战士|r，获取|T134327:0|t[|cRXP_LOOT_右上地图碎片|r]
-    >>|cRXP_WARN_提瑞斯法的所有血色人型生物都有可能掉落地图碎片|r
+    >>Kill or use |T133644:0|t[Pick Pocket] on |cRXP_ENEMY_Scarlet Warriors|r. Loot them for |T134327:0|t[|cRXP_LOOT_Top-Right Map Piece|r]
+    >>|cRXP_WARN_Any of the Scarlet Humanoids in Tirisfal can drop the Map Piece|r
     .collect 208035,1 --Top-Right Map Piece (1)
-    .mob 血色战士
+    .mob Scarlet Warrior
     .train 400095,1
 step
     #season 2
@@ -1119,11 +1104,11 @@ step
     .goto Tirisfal Glades,55.24,42.54,40,0
     .goto Tirisfal Glades,56.43,43.92,40,0
     .goto Tirisfal Glades,55.24,42.54
-    >>击杀或使用|T133644:0|t[搜索]偷取|cRXP_ENEMY_腐皮豺狼人|r，获取|T134327:0|t[|cRXP_LOOT_左下地图碎片|r]
+    >>Kill or use |T133644:0|t[Pick Pocket] on |cRXP_ENEMY_Rot Hide Gnolls|r. Loot them for |T134327:0|t[|cRXP_LOOT_Bottom-Left Map Piece|r]
     .collect 208038,1 --Bottom-Left Map Piece (1)
-    .mob 混血腐皮豺狼人
-    .mob 腐皮盗墓贼
-    .mob 腐皮豺狼人
+    .mob Rot Hide Mongrel
+    .mob Rot Hide Graverobber
+    .mob Rot Hide Gnoll
     .train 400095,1
 step
     #season 2
@@ -1136,74 +1121,79 @@ step
     .goto Tirisfal Glades,67.48,28.97,50,0
     .goto Tirisfal Glades,68.22,26.46,50,0
     .goto Tirisfal Glades,59.54,27.86
-    >>击杀或使用|T133644:0|t[搜索]偷取|cRXP_ENEMY_鱼人|r，获取|T134327:0|t[|cRXP_LOOT_右下地图碎片|r]
+    >>Kill or use |T133644:0|t[Pick Pocket] on |cRXP_ENEMY_Murlocs|r. Loot them for |T134327:0|t[|cRXP_LOOT_Bottom-Right Map Piece|r]
     .collect 208037,1 --Bottom-Right Map Piece (1)
-    .mob 邪鳍污水鱼人
-    .mob 邪鳍先知
-    .mob 邪鳍泥浆鱼人
+    .mob Vile Fin Puddlejumper
+    .mob Vile Fin Minor Oracle
+    .mob Vile Fin Muckdweller
     .train 400095,1
 step
     #season 2
-    .use 208036 >>使用 |T134327:0|t[|cRXP_LOOT_地图碎片|r]，合成 |T134269:0|t[|cRXP_LOOT_提瑞斯法藏宝图|r]
+    .use 208036 >>Use the |T134327:0|t[|cRXP_LOOT_Map Pieces|r] to create |T134269:0|t[|cRXP_LOOT_Tirisfal Treasure Map|r]
     .collect 208034,1 --Tirisfal Treasure Map (1)
     .train 400095,1
 step
     #season 2
     .goto Tirisfal Glades,52.89,54.03
-    .use 208034 >>在桥下使用|T134269:0|t[|cRXP_LOOT_提瑞斯法藏宝图|r]
-    >>打开刷新的|cRXP_PICK_埋藏的宝物|r宝箱，获取|T134419:0|t[|cRXP_FRIENDLY_速射符文|r]
+    .use 208034 >>Use the |T134269:0|t[|cRXP_LOOT_Tirisfal Treasure Map|r] below the bridge
+    >>Loot the |cRXP_PICK_Buried Treasure|r chest that spawns for |T134419:0|t[|cRXP_FRIENDLY_Rune of Quick Draw|r]
     .collect 203991,1 --Rune of Quick Draw (1s)
     .train 400095,1
 step
     #season 2
-    .train 400095 >>|cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_速射符文|r] |cRXP_WARN_学习|r |T134536:0|t[速射]
+    .train 400095 >>|cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Quick Draw|r] |cRXP_WARN_to train|r |T134536:0|t[Quick Draw]
     .use 203991
     .itemcount 203991,1
+
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Horde Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Chest
-#subgroupdisplayname 胸甲
 #name Slaughter from the Shadows - 10 (Durotar)
-#title 暗影杀手
+#title Slaughter from the Shadows
+
+
     --Rune of Slaughter from the Shadows
-#displayname 暗影杀手 - 10（杜隆塔尔）
+
 step
     #completewith next
-    .goto Durotar,54.25,27.64,40 >>前往尘风洞穴东侧的跳跃位置
+    .goto Durotar,54.25,27.64,40 >>Travel to the jump spot just east of Dustwind Cave
 step
     #season 2
     .goto Durotar,54.25,27.64,40,0
     .goto Durotar,53.74,27.14
-    >>打开|cRXP_PICK_生锈的宝箱|r，拾取|T134419:0|t[|cRXP_FRIENDLY_杀手符文|r]
-    >>|cRXP_WARN_你需要稍微跳一下才能够到宝箱|r
+    >>Loot the |cRXP_PICK_Rusty Lockbox|r for |T134419:0|t[|cRXP_FRIENDLY_Rune of Slaughter|r]
+    >>|cRXP_WARN_You'll have to make a small jump to be able to reach the chest|r
     .collect 203993,1 --Rune of Slaughter (1)
-    .train 424992,1
+    .train 42992,1
 step
     #season 2
-    .train 424992 >>|cRXP_WARN_使用|r|T134419:0|t[|cRXP_FRIENDLY_杀手符文|r]|cRXP_WARN_学习|r|T236280:0|t[暗影杀手]
+    .train 42992 >>|cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Slaughter|r] |cRXP_WARN_to train|r |T236280:0|t[Slaughter from the Shadows]
     .use 203993
     .itemcount 203993,1
+
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Horde Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Chest
-#subgroupdisplayname 胸甲
 #name Slaughter from the Shadows - 10 (Tirisfal)
-#title 暗影杀手
+#title Slaughter from the Shadows
+
+
     --Rune of Slaughter from the Shadows
-#displayname 暗影杀手 - 10（提瑞斯法林地）
+
+
 step
     #season 2
     .goto Tirisfal Glades,47.39,43.64,150,0
     .goto Tirisfal Glades,52.23,26.91,20,0
-    .goto Tirisfal Glades,52.29,26.40,8 >> 前往 [阿加曼德磨坊] 的墓穴
+    .goto Tirisfal Glades,52.29,26.40,8 >> Travel to the crypt in Agamand Mills
 step
     #season 2
 #loop
@@ -1212,81 +1202,86 @@ step
 	.goto Tirisfal Glades,52.61,25.85,15,0
 	.goto Tirisfal Glades,52.60,26.88,15,0
 	.goto Tirisfal Glades,51.90,26.87,15,0
-    >>击杀|cRXP_ENEMY_哀嚎的鬼魂|r和|cRXP_ENEMY_腐烂的古尸|r，拾取|T134245:0|t[|cRXP_LOOT_阿加曼德遗物匣钥匙|r]
-    >>|cRXP_WARN_小心！这座墓穴里的怪物会动态刷新！|r
+    >>Kill |cRXP_ENEMY_Wailing Ancestors|r and |cRXP_ENEMY_Rotting Ancestors|r. Loot them for an |T134245:0|t[|cRXP_LOOT_Agamand Relic Coffer Key|r]
+    >>|cRXP_WARN_Be careful! The mobs in this crypt respawn dynamically!|r
     .collect 208005,1 --Agamand Relic Coffer Key (1)
-    .mob 哀嚎的鬼魂
-    .mob 腐烂的古尸
-    .train 424992,1
+    .mob Wailing Ancestor
+    .mob Rotting Ancestor
+    .train 42992,1
 step
     #season 2
     .goto Tirisfal Glades,52.53,26.91
-    >>打开|cRXP_PICK_遗物匣|r，获取|T134419:0|t[|cRXP_FRIENDLY_杀手符文|r]
+    >>Open the |cRXP_PICK_Relic Coffer|r for |T134419:0|t[|cRXP_FRIENDLY_Rune of Slaughter|r]
     .collect 203993,1 --Rune of Slaughter (1)
-    .train 424992,1
+    .train 42992,1
 step
     #season 2
-    .train 424992 >>|cRXP_WARN_使用|r|T134419:0|t[|cRXP_FRIENDLY_杀手符文|r]|cRXP_WARN_学习|r|T236280:0|t[暗影杀手]
+    .train 42992 >>|cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Slaughter|r] |cRXP_WARN_to train|r |T236280:0|t[Slaughter from the Shadows]
     .use 203993
     .itemcount 203993,1
+
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Horde Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Gloves
-#subgroupdisplayname 手套
 #name Mutilate - 8 (Tirisfal)
-#title 毁伤
+#title Mutilate
+
+
     --Rune of Mutilate
-#displayname 毁伤 - 8（提瑞斯法林地）
+
 step
     #season 2
     .goto Tirisfal Glades,51.17,67.81
-    >>使用 |T133644:0|t[搜索] 从 |cRXP_ENEMY_派瑞恩队长|r 身上取得 |T133385:0|t[|cRXP_LOOT_血色军官玺戒|r]
+    >>Use |T133644:0|t[Pick Pocket] on |cRXP_ENEMY_Captain Perrine|r for a |T133385:0|t[|cRXP_LOOT_Scarlet Lieutenant Signet Ring|r]
     .collect 208085,1 --Scarlet Lieutenant Signet Ring (1)
-    .mob 派瑞恩队长
+    .mob Captain Perrine
     .train 400094,1
 step
     #season 2
     #completewith next
-    .goto Tirisfal Glades,60.90,51.49,10 >>前往布瑞尔的城镇大厅
+    .goto Tirisfal Glades,60.90,51.49,10 >>Travel to the Brill Town Hall
 step
     #season 2
     .goto Tirisfal Glades,60.73,50.60
-    .use 208085 >>使用 |T133385:0|t[|cRXP_LOOT_血色军官玺戒|r] 制作 |T134328:0|t[|cRXP_LOOT_伪造的血色备忘录|r]
+    .use 208085 >>Use the |T133385:0|t[|cRXP_LOOT_Scarlet Lieutenant Signet Ring|r] to create |T134328:0|t[|cRXP_LOOT_Forged Scarlet Memorandum|r]
     .collect 208086,1 --Forged Scarlet Memorandum (1)
     .train 400094,1
 step
     #season 2
     .goto Tirisfal Glades,60.73,50.60
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_加米尔·诺瑞|r 对话，从她那获得 |T134419:0|t[|cRXP_FRIENDLY_毁伤符文|r]
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Jamie Nore|r to receive |T134419:0|t[|cRXP_FRIENDLY_Rune of Mutilation|r] from her
     .collect 203990,1 --Rune of Mutilation (1)
-    .target 加米尔·诺瑞
+    .target Jamie Nore
     .skipgossip
     .train 400094,1
 step
     #season 2
-    .train 400094 >>|cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_毁伤符文|r] |cRXP_WARN_来学习|r |T132304:0|t[毁伤]
+    .train 400094 >>|cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Mutilation|r] |cRXP_WARN_to train|r |T132304:0|t[Mutilate]
     .use 203990
     .itemcount 203990,1
+
+
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Horde Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Gloves
-#subgroupdisplayname 手套
 #name Mutilate - 10 (Durotar)
-#title 毁伤
+#title Mutilate
+
+
     --Rune of Mutilate
-#displayname 毁伤 - 10（杜隆塔尔）
+
 step
     #season 2
     #completewith next
-    .goto Durotar,53.18,29.15,50 >> 前往 [尘风洞穴]
+    .goto Durotar,53.18,29.15,50 >> Travel toward Dustwind Cave
 step
     #season 2
     .goto Durotar,53.18,29.15,20,0
@@ -1296,35 +1291,37 @@ step
     .goto Durotar,52.84,26.80,12,0
     .goto Durotar,52.07,26.85,12,0
     .goto Durotar,52.70,27.97
-    >>使用 |T133644:0|t[搜索] 从 |cRXP_ENEMY_火刃暴徒|r 身上取得 |T134331:0|t[|cRXP_LOOT_巴索的便条|r]
+    >>Use |T133644:0|t[Pick Pocket] on |cRXP_ENEMY_Burning Blade Thugs|r for |T134331:0|t[|cRXP_LOOT_Note from Ba'so|r]
     .collect 207098,1 --Note from Ba'so (1)
-    .mob 火刃暴徒
+    .mob Burning Blade Thug
     .train 400094,1
 step
     .goto Durotar,51.82,58.67
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_巴索|r交谈，获得|T134419:0|t[|cRXP_FRIENDLY_毁伤符文|r]
-    >>|cRXP_WARN_他处于潜行状态！|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Ba'so|r to receive |T134419:0|t[|cRXP_FRIENDLY_Rune of Mutilation|r]
+    >>|cRXP_WARN_He is stealthed!|r
     .collect 203990,1 --Rune of Mutilation (1)
-    .target 巴索
+    .target Ba'so
     .skipgossip
     .train 400094,1
 step
     #season 2
-    .train 400094 >>|cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_毁伤符文|r] |cRXP_WARN_来学习|r |T132304:0|t[毁伤]
+    .train 400094 >>|cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Mutilation|r] |cRXP_WARN_to train|r |T132304:0|t[Mutilate]
     .use 203990
     .itemcount 203990,1
+
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Horde Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Legs
-#subgroupdisplayname 腿部
 #name Between the Eyes - 8 (Tirisfal)
-#title 正中眉心
+#title Between the Eyes
+
+
     --Rune of Between the Eyes
-#displayname 正中眉心 - 8（提瑞斯法林地）
+
 step
     #season 2
     .goto Tirisfal Glades,59.38,29.05,50,0
@@ -1336,482 +1333,486 @@ step
     .goto Tirisfal Glades,67.48,28.97,50,0
     .goto Tirisfal Glades,68.22,26.46,50,0
     .goto Tirisfal Glades,59.54,27.86
-    >>使用 |T133644:0|t[搜索] 从 |cRXP_ENEMY_邪鳍鱼人|r 身上取得 |T134241:0|t[|cRXP_LOOT_船只残骸宝箱钥匙|r]
+    >>Use |T133644:0|t[Pick Pocket] on |cRXP_ENEMY_Vile Fin Murlocs|r for |T134241:0|t[|cRXP_LOOT_Shipwreck Cache Key|r]
     .collect 208007,1 --Shipwreck Cache Key (1)
-    .mob 邪鳍污水鱼人
-    .mob 邪鳍先知
-    .mob 邪鳍泥浆鱼人
+    .mob Vile Fin Puddlejumper
+    .mob Vile Fin Minor Oracle
+    .mob Vile Fin Muckdweller
     .train 400081,1
 step
     #season 2
     .goto Tirisfal Glades,66.66,24.41
-    >>打开|cRXP_PICK_沉船储藏箱|r以获得|T134419:0|t[|cRXP_FRIENDLY_精准符文|r]
+    >>Loot the |cRXP_PICK_Shipwreck Cache|r for |T134419:0|t[|cRXP_FRIENDLY_Rune of Precision|r]
     .collect 204174,1 --Rune of Precision (1)
     .train 400081,1
 step
     #season 2
-    .train 400081 >>|cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_精准符文|r] |cRXP_WARN_学习|r |T135610:0|t[正中眉心]
+    .train 400081 >>|cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Precision|r] |cRXP_WARN_to train|r |T135610:0|t[Between the Eyes]
     .use 204174
     .itemcount 204174,1
+
+
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Horde Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Legs
-#subgroupdisplayname 腿部
 #name Between the Eyes - 8 (Orgrimmar)
-#title 正中眉心
+#title Between the Eyes
+
+
     --Rune of Between the Eyes
-#displayname 正中眉心 - 8（奥格瑞玛）
+
 step
     #season 2
     .goto Orgrimmar,55.87,44.89
-    >>打开|cRXP_PICK_布满灰尘的箱子|r获取|T134419:0|t[|cRXP_FRIENDLY_精准符文|r]
-    >>|cRXP_WARN_箱子位于暗巷区的楼上|r
+    >>Loot the |cRXP_PICK_Dusty Chest|r for |T134419:0|t[|cRXP_FRIENDLY_Rune of Precision|r]
+    >>|cRXP_WARN_It's located in The Drag on the upper floor|r
     .collect 204174,1 --Rune of Precision (1)
     .train 400081,1
 step
     #season 2
-    .train 400081 >>|cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_精准符文|r] |cRXP_WARN_学习|r |T135610:0|t[正中眉心]
+    .train 400081 >>|cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Precision|r] |cRXP_WARN_to train|r |T135610:0|t[Between the Eyes]
     .use 204174
     .itemcount 204174,1
+
+
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Horde Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Legs
-#subgroupdisplayname 腿部
 #name Blade Dance - 15 (The Barrens)
-#title 刃舞
+#title Blade Dance
+
+
     --Rune of Blade Dance
-#displayname 刃舞 - 15（贫瘠之地）
+
 step
     #season 2
     .goto The Barrens,64.40,44.09,50,0
     .goto The Barrens,63.62,46.26,50,0
     .goto The Barrens,64.23,47.10
-    >>使用 |T133644:0|t[搜索] 从 |cRXP_ENEMY_南海歹徒|r 身上取得 |T132761:0|t[|cRXP_LOOT_海盗的火柴盒|r]
+    >>Use |T133644:0|t[Pick Pocket] on |cRXP_ENEMY_Southsea Brigands|r for |T132761:0|t[|cRXP_LOOT_Buccaneer's Matchbox|r]
     .collect 208768,1 --Buccaneer's Matchbox (1)
-    .mob 南海歹徒
+    .mob Southsea Brigand
     .train 400099,1
 step
     #season 2
     .goto The Barrens,61.82,45.80
-    >>点击火药桶。从出现的|cRXP_PICK_南海战利品藏匿处|r中拾取|T134419:0|t[|cRXP_FRIENDLY_刃舞符文|r]
+    >>Click the Powder Keg. Loot the |cRXP_PICK_Southsea Loot Stash|r that spawns for |T134419:0|t[|cRXP_FRIENDLY_Rune of Blade Dance|r]
     .collect 208771,1 --Rune of Blade Dance (1)
     .train 400099,1
 step
     #season 2
-    .train 400099 >>|cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_刃舞符文|r] |cRXP_WARN_学习|r |T132350:0|t[刃舞]
+    .train 400099 >>|cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Blade Dance|r] |cRXP_WARN_to train|r |T132350:0|t[Blade Dance]
     .use 208771
     .itemcount 208771,1
+
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Horde Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Gloves
-#subgroupdisplayname 手套
 #name Saber Slash - 15 (The Barrens)
-#title 军刀猛刺
+#title Saber Slash
+
+
     --Rune of Saber Slash
-#displayname 军刀猛刺 - 16（贫瘠之地）
+
 step
     #season 2
     #completewith next
-    +|cRXP_WARN_你的开锁技能必须至少达到80才能获取此符文！|r
-    .skill lockpicking,>80,1
+    +|cRXP_WARN_Your lockpicking skill must be at least 80 to obtain this rune!|r
+    .skill pick lock,>80,1
 step
     #season 2
     .goto The Barrens,62.31,54.22
-    >>打开马厩顶部的|cRXP_PICK_马夫的箱子|r，获得|T134419:0|t[|cRXP_FRIENDLY_军刀猛刺符文|r]
-    >>|cRXP_WARN_跑上山坡，跳到城墙顶部，再从那里跳到马厩顶部|r
+    >>Loot the |cRXP_PICK_Stable Hand's Trunk|r on top of the stable for |T134419:0|t[|cRXP_FRIENDLY_Rune of Saber Slash|r]
+    >>|cRXP_WARN_Run upward the hill and jump on top of the castle wall. From there you can jump on top of the stable|r
     .collect 208772,1 --Rune of Saber Slash (1)
     .train 424984,1
 step
     #season 2
-    .train 424984 >>|cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_军刀猛刺符文|r] |cRXP_WARN_学习|r |T132375:0|t[军刀猛刺]
+    .train 424984 >>|cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Saber Slash|r] |cRXP_WARN_to train|r |T132375:0|t[Saber Slash]
     .use 208772
     .itemcount 208772,1
+
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Horde Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Gloves
-#subgroupdisplayname 手套
 #name Saber Slash - 15 (Silverpine)
-#title 军刀猛刺
+#title Saber Slash
+
     --Rune of Saber Slash
-#displayname 军刀猛刺 - 15（银松森林）
+
 step
     #season 2
     .goto Silverpine Forest,45.25,68.06,20,0
     .goto Silverpine Forest,45.26,67.21
-    >>打开影牙城堡入口旁的|cRXP_PICK_生锈的宝箱|r，获取|T134419:0|t[|cRXP_FRIENDLY_军刀猛刺符文|r]
-    >>|cRXP_WARN_使用|r |T132307:0|t[疾跑] |cRXP_WARN_，然后从桥上跳向宝箱|r
+    >>Loot the |cRXP_PICK_Rusty Chest|r next to the Shadowfang Keep entrance for |T134419:0|t[|cRXP_FRIENDLY_Rune of Saber Slash|r]
+    >>|cRXP_WARN_Use|r |T132307:0|t[Sprint] |cRXP_WARN_and then jump from the bridge toward the chest|r
     .collect 208772,1 --Rune of Saber Slash (1)
     .train 424984,1
 step
     #season 2
-    .train 424984 >>|cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_军刀猛刺符文|r] |cRXP_WARN_学习|r |T132375:0|t[军刀猛刺]
+    .train 424984 >>|cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Saber Slash|r] |cRXP_WARN_to train|r |T132375:0|t[Saber Slash]
     .use 208772
     .itemcount 208772,1
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Belt
-#subgroupdisplayname 腰带
-#title 暗影步
+#title Shadowstep
 #name Shadowstep - 30 (Silverpine Forest)
-#displayname 暗影步 - 30（银松森林）
+
 step
     #completewith next
-    .zone Silverpine Forest >>前往银松森林
+    .zone Silverpine Forest >>Travel to Silverpine Forest
 step
     .train 400101,1
-    >>点击地面上的|cRXP_PICK_秘密交接箱|r
+    >>Click the |cRXP_PICK_Dead Drop|r chest on the ground
     .goto Silverpine Forest,47.114,70.974
-    .accept 78676 >>接任务：波斯卡之眼
+    .accept 78676 >>Accept The Eye of Bhossca
 step
     #completewith next
-    .zone Tirisfal Glades >>前往提瑞斯法林地的血色修道院
+    .zone Tirisfal Glades >>Travel to Tirisfal Glades to the Scarlet Monastery
 step
-    >>|cRXP_WARN_打开马厩内的|r|cRXP_PICK_补给柜|r，|cRXP_WARN_取得|r|T132665:0|t[血色新兵的制服]
+    >>|cRXP_WARN_Open the|r |cRXP_PICK_Supply Locker|r |cRXP_WARN_inside the stable to get the|r |T132665:0|t[Scarlet Initiate's Uniform]
     .goto Tirisfal Glades,81.2,32.12
     .collect 210955,1
     .train 400101,1
 step
     #completewith next
     .goto Eastern Kingdoms,47.44,19.69,10,0
-    .goto Eastern Kingdoms,47.73,19.39,5 >> |cRXP_WARN_单人|r 进入血色修道院: |cRXP_WARN_墓地|r 地下城
+    .goto Eastern Kingdoms,47.73,19.39,5 >> Enter the Scarlet Monastery: |cRXP_WARN_Graveyard|r dungeon |cRXP_WARN_ALONE|r
 step
-    >>对目标使用 |T133644:0|t[搜索]，从 |cRXP_ENEMY_血色占卜师|r 身上获得 |T134241:0|t[占卜师的秘钥]
-    >>|cRXP_WARN_利用|r |T132289:0|t[扰乱] |cRXP_WARN_来避免被发现|r
+    >>Use |T133644:0|t[Pick Pocket] on a |cRXP_ENEMY_Scarlet Scryer|r to get |T134241:0|t[Scryer's Key]
+    >>|cRXP_WARN_Make use of|r |T132289:0|t[Distract] |cRXP_WARN_to avoid being detected|r
     .goto Eastern Kingdoms,47.73,19.39
     .collect 210963,1
-    .mob 血色占卜师
+    .mob Scarlet Scryer
     .train 400101,1
 step
     #completewith next
-    .goto Eastern Kingdoms,47.79,19.59,5 >> |cRXP_WARN_单人|r 进入血色修道院: |cRXP_WARN_图书馆|r 地下城
+    .goto Eastern Kingdoms,47.79,19.59,5 >> Enter the Scarlet Monastery: |cRXP_WARN_Library|r dungeon |cRXP_WARN_ALONE|r
 step
     #completewith next
-    +|cRXP_WARN_前往最终首领前方的走廊|r
+    +|cRXP_WARN_Run to the hallway before the last boss|r
 step
-    >>打开左侧的|cRXP_PICK_私人信箱|r，取得|T134331:0|t[|cRXP_LOOT_机密信息|r]
-    .use 210955 >>|cRXP_WARN_使用|r |T132665:0|t[血色新兵的制服] |cRXP_WARN_来使NPC中立|r
+    >>Loot the |cRXP_PICK_Personal Letterbox|r on the left for the |T134331:0|t[|cRXP_LOOT_Confidential Message|r]
+    .use 210955 >>|cRXP_WARN_Use the|r |T132665:0|t[Scarlet Initiate's Uniform] |cRXP_WARN_to make the NPCs neutral|r
     .goto Eastern Kingdoms,47.79,19.59
     .collect 210967,1
     .train 400101,1
 step
     #completewith next
-    .goto Eastern Kingdoms,47.73,19.39,5 >> |cRXP_WARN_单人|r 进入血色修道院: |cRXP_WARN_墓地|r 地下城
+    .goto Eastern Kingdoms,47.73,19.39,5 >> Enter the Scarlet Monastery: |cRXP_WARN_Graveyard|r dungeon |cRXP_WARN_ALONE|r
 step
-    >>|cRXP_WARN_前往副本内的露天区域，在左右两侧墙边各寻找两尊雕像之间的长椅|r
-    *在|cRXP_WARN_两侧|r的长椅上分别使用 /sit（潜行时也可操作），直到聊天框出现|cRXP_WARN_“你听到了石头移动的声音”|r的提示。
-    *随后前往|cRXP_WARN_右侧墙边|r的墓室，打开|cRXP_PICK_石箱|r，取得|T134242:0|t[遗物匣钥匙]
-    .goto Eastern Kingdoms,47.73,19.39
+    >>|cRXP_WARN_Go to the outside area inside the dungeon and look for a bench between two statues on the right and left walls|r
+    *|cRXP_WARN_On both sides|r use /sit (doable while in stealth) on the benches until the emote |cRXP_WARN_"You hear the sound of stone moving"|r appears in chat.
+    *Afterwards go to the Tomb next to |cRXP_WARN_the right wall|r and open the |cRXP_PICK_Stone Coffer|r for the |T134242:0|t[Reliquary Key]
+    .goto Eastern Kingdoms,47.79,19.59
     .collect 210968,1
     .train 400101,1
 step
     #completewith next
-    .goto Eastern Kingdoms,47.79,19.59,5 >> |cRXP_WARN_单人|r 进入血色修道院: |cRXP_WARN_图书馆|r 地下城
+    .goto Eastern Kingdoms,47.79,19.59,5 >> Enter the Scarlet Monastery: |cRXP_WARN_Library|r dungeon |cRXP_WARN_ALONE|r
 step
     #completewith next
-    +|cRXP_WARN_前往图书馆内陈列珍宝的走廊|r
+    +|cRXP_WARN_Run to the "Gallery of Treasures"|r
 step
-    >>从左侧第一个房间内的 |cRXP_PICK_上锁的圣物箱|r 中拾取 |T134331:0|t[|cRXP_LOOT_波斯卡之眼|r]
-    .use 210955 >>|cRXP_WARN_使用|r |T132665:0|t[血色新兵的制服] |cRXP_WARN_来使NPC中立|r
+    >>Loot the |cRXP_PICK_Padlocked Reliquary|r in the first room on the left for the |T134331:0|t[|cRXP_LOOT_Eye of Bhossca|r]
+    .use 210955 >>|cRXP_WARN_Use the|r |T132665:0|t[Scarlet Initiate's Uniform] |cRXP_WARN_to make the NPCs neutral|r
     .goto Eastern Kingdoms,47.79,19.59
     .complete 78676,1 --1/1 Eye of Bhossca
     .train 400101,1
 step
     #completewith next
-    .zone Silverpine Forest >>前往银松森林
+    .zone Silverpine Forest >>Travel to Silverpine Forest
 step
     .train 400101,1
-    >>点击地面上的|cRXP_PICK_秘密交接箱|r
+    >>Click the |cRXP_PICK_Dead Drop|r chest on the ground
     .goto Silverpine Forest,47.1,71.1
-    .turnin 78676 >>交任务：波斯卡之眼
+    .turnin 78676 >>Turn in The Eye of Bhossca
 step
     #completewith next
-    +|cRXP_WARN_现在需要进入一座主城，以收到*C*寄来的邮件|r
+    +|cRXP_WARN_You now need to enter a capital city to receive mail from *C*|r
     .train 400101,1
 step << Horde
     .goto Silverpine Forest,45.62,42.58
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_卡洛斯·拉佐克|r 交谈
-    .fly Undercity >> 飞往幽暗城
-    .target 卡洛斯·拉佐克
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Karos|r
+    .fly Undercity >> Fly to the Undercity
+    .target Karos Razok
     .zoneskip Undercity
     .train 400101,1
 step << Alliance
-    >>跑到南海镇
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_达尔拉·哈瑞斯|r 交谈
+    >>Run to Southshore
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Darla Harris|r
     .goto Hillsbrad Foothills,49.338,52.272
-    .fly Ironforge >> 飞往铁炉堡
-    .target 达尔拉·哈瑞斯
+    .fly Ironforge >> Fly to Ironforge
+    .target Darla Harris
     .train 400101,1
 step
-    .goto Undercity,68.290,38.043,5 >> |cRXP_WARN_进入幽暗城，检查你的邮箱，查看来自*C*的信件|r << Horde
-    .goto Ironforge,71.485,72.280,5 >> |cRXP_WARN_进入铁炉堡。检查你的邮箱中来自 *C* 的信件。如果你在另一个主城执行，跳过此步骤|r << Alliance
+    .goto Undercity,68.290,38.043,5 >> |cRXP_WARN_Enter Undercity. Check your mailbox for the letter from *C*|r << Horde
+    .goto Ironforge,71.485,72.280,5 >> |cRXP_WARN_Enter Ironforge. Check your mailbox for the letter from *C*. Skip this step if you're doing it in another major city|r << Alliance
     .train 400101,1
 step
     #completewith next
-    +|cRXP_WARN_*C*的邮件到达后，打开邮箱阅读。准备好后飞回银松森林|r << Horde
-    +|cRXP_WARN_*C*的邮件到达后，打开邮箱阅读。准备好后飞回南海镇，再前往银松森林|r << Alliance
+    +|cRXP_WARN_Open your mailbox to read the mail from *C* once it has arrived. Fly back to Silverpine when you're ready|r << Horde
+    +|cRXP_WARN_Open your mailbox to read the mail from *C* once it has arrived. Fly back to Southshore then make your way to Silverpine when you're ready|r << Alliance
 step << Horde
     .goto Undercity,63.27,48.55
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_迈克尔·加勒特|r 交谈
-    .fly The Sepulcher>> 飞往瑟伯切尔
-    .target 迈克尔·加勒特
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Michael|r
+    .fly The Sepulcher>> Fly to The Sepulcher
+    .target Michael Garrett
     .zoneskip Silverpine Forest
     .train 400101,1
 step << Alliance
     .goto Ironforge,55.501,47.742
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_格莱斯·瑟登|r 交谈
-    .fly Southshore >> 飞往南海镇
-    .target 格莱斯·瑟登
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Gryth Thurden|r
+    .fly Southshore >> Fly to Southshore
+    .target Gryth Thurden
     .zoneskip Silverpine Forest
     .train 400101,1
 step << Alliance
     #completewith next
-    .zone Silverpine Forest >> 前往银松森林
+    .zone Silverpine Forest >> Travel to Silverpine Forest
     .train 400101,1
 step
     .goto Silverpine Forest,47.114,70.974
-    >>点击|cRXP_PICK_秘密交接箱|r，取得|T134419:0|t[|cRXP_FRIENDLY_暗影步符文|r]
+    >>Click the |cRXP_PICK_Dead Drop|r chest for |T134419:0|t[|cRXP_FRIENDLY_Rune of Shadowstep|r]
     .collect 210979,1 --Rune of Shadowstep (1)
     .train 400101,1
 step
-    .train 400101 >>|cRXP_WARN_使用|r|T134419:0|t[|cRXP_FRIENDLY_暗影步符文|r]|cRXP_WARN_学习|r|T132303:0|t[暗影步]
+    .train 400101 >>|cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Shadowstep|r] |cRXP_WARN_to learn|r |T132303:0|t[Shadowstep]
     .use 210979
     .itemcount 210979,1
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Belt
-#subgroupdisplayname 腰带
 #name Shuriken Toss - 30 (Swamp of Sorrows)
-#title 飞镖投掷
-#displayname 飞镖投掷 - 30（悲伤沼泽）
+#title Shuriken Toss
+
 step
     .train 400096,1
-    .train 1842 >>|cRXP_WARN_必须先学会|r |T136162:0|t[解除陷阱] |cRXP_WARN_才能获得|r |T134419:0|t[|cRXP_FRIENDLY_刺客符文|r]
-    .collect 5060,1 >>|cRXP_WARN_还需要|r |T134065:0|t[潜行者工具]
+    .train 1842 >>|cRXP_WARN_You have to learn|r |T136162:0|t[Disarm Trap] |cRXP_WARN_before you can obtain|r |T134419:0|t[|cRXP_FRIENDLY_Rune of the Assassin|r]
+    .collect 5060,1 >>|cRXP_WARN_You also need|r |T134065:0|t[Thieves' Tools]
 step
     #completewith next
-    .zone Swamp of Sorrows >>前往悲伤沼泽
+    .zone Swamp of Sorrows >>Travel to Swamp of Sorrows
 step
     .goto Swamp of Sorrows,41.48,29.97
     .train 400096,1
-    .cast 1842 >>|cRXP_WARN_施放|r |T136162:0|t[解除陷阱] |cRXP_WARN_解除|r |cRXP_PICK_飞镖陷阱|r |cRXP_WARN_（位于树上）|r
+    .cast 1842 >>|cRXP_WARN_Cast|r |T136162:0|t[Disarm Trap] |cRXP_WARN_on the|r |cRXP_PICK_Dart Trap|r |cRXP_WARN_on the tree|r
 step
     .goto Swamp of Sorrows,42.76,30.77
-    >>打开出现的 |cRXP_PICK_显眼的箱子|r，拾取 |T134419:0|t[|cRXP_FRIENDLY_刺客符文|r]
+    >>Loot the |cRXP_PICK_Conspicuous Cache|r that spawned for |T134419:0|t[|cRXP_FRIENDLY_Rune of the Assassin|r]
     .collect 213139,1
 step
     .itemcount 213139,1
     .use 213139
-    .train 400096 >>|cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_刺客符文|r] |cRXP_WARN_学习|r |T132330:0|t[飞镖投掷]
+    .train 400096 >>|cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of the Assassin|r] |cRXP_WARN_to learn|r |T132330:0|t[Shuriken Toss]
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Boots
-#subgroupdisplayname 靴子
 #name Master of Subtlety - 34 (Stranglethorn Vale)
-#title 敏锐大师
-#displayname 敏锐大师 - 34（荆棘谷）
+#title Master of Subtlety
+
 step
     .train 425103,1
-    .skill lockpicking,125 >>|cRXP_WARN_需将|r |T136058:0|t[开锁] |cRXP_WARN_技能提升至至少125点，才能获得|r |T132299:0|t[敏锐大师] |cRXP_WARN_符文|r
+    .skill lockpicking,125 >>|cRXP_WARN_You must level your|r |T136058:0|t[Lockpicking] |cRXP_WARN_to at least 125 to obtain the|r |T132299:0|t[Master of Subtlety] |cRXP_WARN_rune|r
 step
     .train 425103,1
     #completewith next
-    .zone Stranglethorn Vale >>前往荆棘谷
+    .zone Stranglethorn Vale >>Travel to Stranglethorn Vale
 step
     .train 425103,1
     #completewith Uniform
-    .goto Stranglethorn Vale,46.30,7.61,30 >> 进入储藏室 (库尔森的洞穴)
+    .goto Stranglethorn Vale,46.30,7.61,30 >> Enter The Stockpile (Kurzen's Cave)
 step
     .train 425103,1
     #completewith next
-    >>使用 |T133644:0|t[搜索]，从 |cRXP_ENEMY_库尔森精英|r 和 |cRXP_ENEMY_库尔森副首领|r 身上取得 |cRXP_LOOT_营地囚笼钥匙|r
+    >>Cast |T133644:0|t[Pick Pocket] on |cRXP_ENEMY_Kurzen Elites|r and |cRXP_ENEMY_Kurzen Subchiefs|r for the |cRXP_LOOT_Compound Cage Key|r
     .collect 216616,1
-    .mob 库尔森精英
-    .mob 库尔森副首领
+    .mob Kurzen Elite
+    .mob Kurzen Subchief
 step
     #label Uniform
     .train 425103,1
     .goto Stranglethorn Vale,49.616,7.743
-    >>打开 |cRXP_PICK_库尔森补给箱|r, 搜刮 |cRXP_LOOT_库尔森斗士制服|r
+    >>Open the |cRXP_PICK_Kurzen Supply Crate|r. Loot it for the |cRXP_LOOT_Kurzen Fighter's Uniform|r
     .collect 216617,1
 step
     .train 425103,1
     .goto Stranglethorn Vale,49.943,3.953,40,0
     .goto Stranglethorn Vale,49.617,7.562,40,0
     .goto Stranglethorn Vale,49.25,6.18
-    >>使用 |T133644:0|t[搜索]，从 |cRXP_ENEMY_库尔森精英|r 和 |cRXP_ENEMY_库尔森副首领|r 身上取得 |cRXP_LOOT_营地囚笼钥匙|r
+    >>|T133644:0|t[Pick Pocket] |cRXP_ENEMY_Kurzen Elites|r and |cRXP_ENEMY_Kurzen Subchiefs|r for the |cRXP_LOOT_Compound Cage Key|r
     .collect 216616,1
-    .mob 库尔森精英
-    .mob 库尔森副首领
+    .mob Kurzen Elite
+    .mob Kurzen Subchief
 step
     .train 425103,1
     #completewith next
-    .goto Stranglethorn Vale,44.261,7.908,60 >> 离开洞穴, 前往外面塔楼中的 |cRXP_FRIENDLY_温德尔·玛瑟斯|r
+    .goto Stranglethorn Vale,44.261,7.908,60 >> Exit the cave. Travel toward |cRXP_FRIENDLY_Wendel Mathers|r in the tower outside
 step
     .train 425103,1
     .goto Stranglethorn Vale,44.261,7.908
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与塔楼中的|cRXP_FRIENDLY_温德尔·玛瑟斯|r交谈
-    >>|cRXP_WARN_刷新时间约 3 分钟|r
-    .destroy 216616 >> 将 |cRXP_LOOT_营地囚笼钥匙|r 交给他
-    .destroy 216617 >> 将 |cRXP_LOOT_库尔森斗士制服|r 交给他
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Wendel Mathers|r in the tower
+    >>|cRXP_WARN_He has a respawn timer of around 3 minutes|r
+    .destroy 216616 >> Hand the |cRXP_LOOT_Compound Cage Key|r to him
+    .destroy 216617 >> Hand the |cRXP_LOOT_Kurzen Fighter's Uniform|r to him
     .skipgossip 218230,1
-    .target 温德尔·玛瑟斯
+    .target Wendel Mathers
 step
     .train 425103,1
     #completewith next
-    .subzone 35 >>前往藏宝海湾
+    .subzone 35 >>Travel to Booty Bay
 step
     .train 425103,1
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_阿兰萨斯船长|r交谈
-    >>她会给你 |T133640:0|t[|cRXP_LOOT_阿兰萨斯船长的奖赏|r]
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Captain Aransas|r
+    >>She will give you |T133640:0|t[|cRXP_LOOT_Captain Aransas' Reward|r]
     .goto Stranglethorn Vale,27.681,76.648
     .skipgossip
     .collect 216618,1
-    .target 阿兰萨斯船长
+    .target Captain Aransas
 step
     .train 425103,1
-    .use 216618 >>打开 |T133640:0|t[|cRXP_LOOT_阿兰萨斯船长的奖赏|r] 获得 |T134419:0|t[|cRXP_FRIENDLY_敏锐者符文|r] 和 |T338666:0|t[|cRXP_FRIENDLY_加尼的护符|r]
-    >>|cRXP_WARN_请勿摧毁|r |T338666:0|t[|cRXP_FRIENDLY_加尼的护符|r] |cRXP_WARN_，后续收集符文时会用到|r
+    .use 216618 >>Open |T133640:0|t[|cRXP_LOOT_Captain Aransas' Reward|r] to receive the |T134419:0|t[|cRXP_FRIENDLY_Rune of Subtlety|r] and |T338666:0|t[|cRXP_FRIENDLY_Jani's Charm|r]
+    >>|cRXP_WARN_Do NOT destroy|r |T338666:0|t[|cRXP_FRIENDLY_Jani's Charm|r] |cRXP_WARN_as it is used for gather future runes|r
     .collect 213136,1
 step
     .itemcount 213136,1
     .use 213136
-    .train 425103 >>|cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_敏锐者符文|r] |cRXP_WARN_学习|r |T132299:0|t[敏锐大师]
+    .train 425103 >>|cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Subtlety|r] |cRXP_WARN_to train|r |T132299:0|t[Master of Subtlety]
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Boots
-#subgroupdisplayname 靴子
-#title 闪转腾挪
+#title Rolling with the Punches
 #name Rolling with the Punches - 27 (Thousand Needles)
-#displayname 闪转腾挪 - 27（千针石林）
+
+
 step
     #optional
     .train 400093,1
-    .skill lockpicking,45 >>|cRXP_WARN_需将|r |T136058:0|t[开锁] |cRXP_WARN_技能提升至至少45点，才能获得|r |T134919:0|t[闪转腾挪] |cRXP_WARN_符文|r
+    .skill lockpicking,45 >>|cRXP_WARN_You must level your|r |T136058:0|t[Lockpicking] |cRXP_WARN_to at least 45 to obtain the|r |T134919:0|t[Rolling with the Punches] |cRXP_WARN_rune|r
 step
     .train 400093,1
     #completewith next
-    .zone Thousand Needles >>前往|cFFfa9602千针石林|r
+    .zone Thousand Needles >>Travel to |cFFfa9602Thousand Needles|r
 step
     .train 400093,1
     #completewith next
-    .goto Thousand Needles,18.44,21.58,10 >> 进入伊索克营地的大帐篷
+    .goto Thousand Needles,18.44,21.58,10 >> Enter the large tent at Camp E'thok
 step
     .train 400093,1
     .goto Thousand Needles,18.686,21.126
-    >>打开|cRXP_PICK_失窃的巨大保险箱|r，拾取|T132597:0|t[|cRXP_LOOT_大型保险箱|r]
+    >>Open the |cRXP_PICK_Sizable Stolen Strongbox|r. Loot it for the |T132597:0|t[|cRXP_LOOT_Large Strongbox|r]
     .collect 215451,1
 step
     .train 400093,1
-    .cast 1804 >>|cRXP_WARN_施放|r |T136058:0|t[开锁] |cRXP_WARN_，为|r |T132597:0|t[|cRXP_LOOT_大型保险箱|r] |cRXP_WARN_解锁|r
+    .cast 1804 >>|cRXP_WARN_Cast|r |T136058:0|t[Pick Lock] |cRXP_WARN_on the|r |T132597:0|t[|cRXP_LOOT_Large Strongbox|r] |cRXP_WARN_to unlock it|r
     .usespell 1804
     .use 215451
 step
     .train 400093,1
-    .use 215451 >> 打开 |T132597:0|t[|cRXP_LOOT_大型保险箱|r], 搜刮 |T132597:0|t[|cRXP_LOOT_中型保险箱|r]
+    .use 215451 >> Open the |T132597:0|t[|cRXP_LOOT_Large Strongbox|r]. Loot it for the |T132597:0|t[|cRXP_LOOT_Medium Strongbox|r]
     .collect 215452,1
 step
     .train 400093,1
-    .cast 1804 >>|cRXP_WARN_施放|r |T136058:0|t[开锁] |cRXP_WARN_，为|r |T132597:0|t[|cRXP_LOOT_中型保险箱|r] |cRXP_WARN_解锁|r
+    .cast 1804 >>|cRXP_WARN_Cast|r |T136058:0|t[Pick Lock] |cRXP_WARN_on the|r |T132597:0|t[|cRXP_LOOT_Medium Strongbox|r] |cRXP_WARN_to unlock it|r
     .usespell 1804
     .use 215452
 step
     .train 400093,1
-    .use 215452 >> 打开 |T132597:0|t[|cRXP_LOOT_中型保险箱|r], 搜刮 |T132597:0|t[|cRXP_LOOT_小型保险箱|r]
+    .use 215452 >> Open the |T132597:0|t[|cRXP_LOOT_Medium Strongbox|r]. Loot it for the |T132597:0|t[|cRXP_LOOT_Small Strongbox|r]
     .collect 215453,1
 step
     .train 400093,1
-    .cast 1804 >>|cRXP_WARN_施放|r |T136058:0|t[开锁] |cRXP_WARN_，为|r |T132597:0|t[|cRXP_LOOT_小型保险箱|r] |cRXP_WARN_解锁|r
+    .cast 1804 >>|cRXP_WARN_Cast|r |T136058:0|t[Pick Lock] |cRXP_WARN_on the|r |T132597:0|t[|cRXP_LOOT_Small Strongbox|r] |cRXP_WARN_to unlock it|r
     .usespell 1804
     .use 215453
 step
     .train 400093,1
-    .use 215453 >> 打开 |T132597:0|t[|cRXP_LOOT_小型保险箱|r], 搜刮 |T134419:0|t[|cRXP_FRIENDLY_左拳符文|r]
+    .use 215453 >> Open the |T132597:0|t[|cRXP_LOOT_Small Strongbox|r]. Loot it for the |T134419:0|t[|cRXP_FRIENDLY_Rune of the Southpaw|r]
     .collect 213138,1
 step
     .itemcount 213138,1
     .use 213138
-    .train 400093 >>|cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_左拳符文|r] |cRXP_WARN_学习|r |T134919:0|t[闪转腾挪]
+    .train 400093 >>|cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of the Southpaw|r] |cRXP_WARN_to train|r |T134919:0|t[Rolling with the Punches]
 ]])
+
  RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
  #classic
  << Rogue SoD
  #group RestedXP Rune & Books Guide
-#subgroup Helmet
-#subgroupdisplayname 头盔
-#title 专注攻击
-#name Focused Attacks - 34 (Hinterlands)
-#displayname 专注攻击 - 34（辛特兰）
+ #subgroup Helmet
+ #title Focused Attacks
+ #name Focused Attacks - 34 (Hinterlands)
+
  step
-    >>|cRXP_WARN_需要|r|T136175:0|t[致盲]|cRXP_WARN_和|r|T133587:0|t[致盲粉]|cRXP_WARN_才能获取|r|T236274:0|t[专注攻击]|cRXP_WARN_符文|r
-    .train 2094 >>学习 |T136175:0|t[致盲]
+    >>|cRXP_WARN_You will need|r |T136175:0|t[Blind] |cRXP_WARN_and|r |T133587:0|t[Blinding Powder] |cRXP_WARN_to obtain the|r |T236274:0|t[Focused Attacks] |cRXP_WARN_rune|r
+    .train 2094 >>Train |T136175:0|t[Blind]
     .collect 5530,1 -- Blinding Powder 1/1
     .train 432291,1
 step
     #completewith next
-    .zone The Hinterlands >>前往|cFFfa9602辛特兰|r
+    .zone The Hinterlands >>Travel to |cFFfa9602The Hinterlands|r
 step
     .goto The Hinterlands,72.76,52.91
-    >>施放 |T136175:0|t[致盲] 使 |cRXP_ENEMY_邪枝面具|r 失明，然后打开 |cRXP_PICK_蝙蝠的宝藏|r 宝箱，取得 |T134419:0|t[|cRXP_FRIENDLY_聚焦符文|r]
+    >>Cast |T136175:0|t[Blind] on the |cRXP_ENEMY_Vilebranch Mask|r, then loot the |cRXP_PICK_Treasure of the Bat|r chest for |T134419:0|t[|cRXP_FRIENDLY_Rune of Focus|r]
     .collect 221433,1 -- rune of focus
-    .mob 邪枝面具
+    .mob Vilebranch Mask
     .train 432291,1
 step
     .itemcount 221433,1
     .use 221433
-    .train 432291 >>|cRXP_WARN_使用|r|T134419:0|t[|cRXP_FRIENDLY_聚焦符文|r]|cRXP_WARN_学习|r|T236274:0|t[专注攻击]
+    .train 432291 >>|cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Focus|r] |cRXP_WARN_to train|r |T236274:0|t[Focused Attacks]
  ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Bracers
-#subgroupdisplayname 护腕
-#title 压倒优势
+#title Unfair Advantage
 #name Unfair Advantage - 40 (Tanaris)
-#displayname 压倒优势 - 40（塔纳利斯）
+
 step
-    .train 921 >>|cRXP_WARN_必须先学习|r|T133644:0|t[搜索]|cRXP_WARN_才能获取|r|T236285:0|t[压倒优势]|cRXP_WARN_符文|r
+    .train 921 >>|cRXP_WARN_You need to train|r |T133644:0|t[Pick Pocket] |cRXP_WARN_to obtain the|r |T236285:0|t[Unfair Advantage] |cRXP_WARN_rune|r
     .train 432301,1
 step
     #completewith CoinPurse
-    .zone Tanaris >>|cRXP_WARN_前往|r|cFFfa9602塔纳利斯|r
+    .zone Tanaris >>|cRXP_WARN_Travel to|r |cFFfa9602Tanaris|r
 step
     #completewith next
-    .subzone 1336 >>前往落帆海湾
+    .subzone 1336 >>Travel to Lost Rigger Cove
 step
     #label CoinPurse
 	.line Tanaris,70.94,42.85,72.22,44.35,72.58,45.30,71.07,46.03,71.25,47.98,72.39,48.23,72.59,47.10,73.27,47.99,74.25,47.27,73.68,45.89,72.58,45.30,72.22,44.35,70.94,42.85
@@ -1828,390 +1829,383 @@ step
 	.goto Tanaris,72.58,45.30,50,0
 	.goto Tanaris,72.22,44.35,50,0
 	.goto Tanaris,70.94,42.85,50,0
-    >>|cRXP_WARN_使用|r|T133644:0|t[搜索]|cRXP_WARN_偷窃|r|cRXP_ENEMY_南海海盗|r|cRXP_WARN_和|r|cRXP_ENEMY_南海劫掠者|r|cRXP_WARN_，持续偷窃直到获得|r|T133639:0|t|cRXP_LOOT_绑匪的钱包|r
-    .collect 221371,1 -- Kidnapper's Coin Purse 1/1
-    .mob 南海海盗
-    .mob 南海劫掠者
+    >>|cRXP_WARN_Cast|r |T133644:0|t[Pick Pocket] |cRXP_WARN_on|r |cRXP_ENEMY_Southsea Pirates|r |cRXP_WARN_and|r |cRXP_ENEMY_Southsea Freebooters|r |cRXP_WARN_until you receive a|r |T133639:0|t|cRXP_LOOT_Kidnapper's Coin Purse|r
+    .collect 221371,1 - Kidnapper's Coin Purse 1/1
+    .mob Southsea Pirate
+    .mob Southsea Freebooter
     .train 432301,1
 step
-    >>打开|T133639:0|t|cRXP_LOOT_绑匪的钱包|r，拾取里面的|T133302:0|t|cRXP_LOOT_珍贵奖章|r
+    >>Open the |T133639:0|t|cRXP_LOOT_Kidnapper's Coin Purse|r and loot it for a |T133302:0|t|cRXP_LOOT_Precious Medallion|r
     .collect 221370,1 -- Precious Medallion 1/1
     .use 221371
     .train 432301,1
 step << Rogue
     .goto Tanaris,67,22
-    .gossipoption 122303 >>与|cRXP_FRIENDLY_加贝|r交谈，获得|T134419:0|t[|cRXP_FRIENDLY_犯禁符文|r]
+    .gossipoption 122303 >>Talk to |cRXP_FRIENDLY_Jabbey|r to receive the |T134419:0|t[|cRXP_FRIENDLY_Rune of Foul Play|r]
     .collect 221428,1 -- Rune of Foul Play
-    .target 加贝
+    .target Jabbey
     .train 432301,1
     .itemcount 221370,1
 step << Rogue
     .itemcount 221428,1
     .use 221428
-    .train 432301 >>|cRXP_WARN_使用|r|T134419:0|t[|cRXP_FRIENDLY_犯禁符文|r]|cRXP_WARN_学习|r|T236285:0|t[压倒优势]
+    .train 432301 >>|cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Foul Play|r] |cRXP_WARN_to train|r |T236285:0|t[Unfair Advantage]
+
 ]])
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Bracers
-#subgroupdisplayname 护腕
-#title 诛灭
+#title Carnage
 #name Carnage - 45 (Blasted Lands)
-#displayname 诛灭 - 45（诅咒之地）
+
 step
     #optional
-    .skill lockpicking,225 >>|cRXP_WARN_需将|r |T136058:0|t[开锁] |cRXP_WARN_技能提升至至少225点，才能获得|r |T236268:0|t[诛灭] |cRXP_WARN_符文|r
+    .skill lockpicking,225 >>|cRXP_WARN_You must level your|r |T136058:0|t[Lockpicking] |cRXP_WARN_to at least 225 to obtain the|r |T236268:0|t[Carnage] |cRXP_WARN_rune|r
 step
     #completewith next
-    .zone Blasted Lands >>前往|cFFfa9602诅咒之地|r
+    .zone Blasted Lands >>Travel to |cFFfa9602Blasted Lands|r
 step
     #completewith next
-    .goto Blasted Lands,45.27,16.52,10 >>前往巨槌要塞前方的塔顶
+    .goto Blasted Lands,45.27,16.52,10 >>Travel to the top of the tower in front of Dreadmaul Hold
 step
     .goto Blasted Lands,45.27,16.52
-    >>打开|cRXP_PICK_被遗弃的容器|r，击杀出现的|cRXP_ENEMY_残忍的失落者|r（46级）
-    >>拾取|T134419:0|t[|cRXP_FRIENDLY_疾戮符文|r]
+    >>Open the |cRXP_PICK_Abandoned Cache|r. Kill the |cRXP_ENEMY_Murderous Lost One|r (level 46) that spawns
+    >>Loot it for the |T134419:0|t[|cRXP_FRIENDLY_Rune of Carnage|r]
     .collect 221461,1 -- Rune of Carnage 1/1
-    .unitscan 残忍的失落者
+    .unitscan Murderous Lost One
     .train 432299,1
 step
     .use 221461
     .itemcount 221461,1
-    .train 432299 >>|cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_疾戮符文|r] |cRXP_WARN_学习|r |T236268:0|t[诛灭]
+    .train 432299 >>|cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Carnage|r] |cRXP_WARN_to train|r |T236268:0|t[Carnage]
+
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Helmet
-#subgroupdisplayname 头盔
-#title 盗贼的尊严
+#title Honor Among Thieves
 #name Honor Among Thieves - 45 (Azeroth)
-#displayname 盗贼的尊严 - 45（艾泽拉斯）
+
 step
     #optional
-    .xp 45 >>|cRXP_WARN_需要达到 45 级才能获得此符文|r
+    .xp 45 >>|cRXP_WARN_You need to reach level 45 in order to obtain this rune|r
 step
     #optional
-    +|cRXP_WARN_必须先完成|r |T132303:0|t[暗影步] |cRXP_WARN_任务线并交付“波斯卡之眼”，才能开启此符文任务；仅向符文经纪人学习符文不满足此前置|r
-    .isQuestAvailable 78676
+    .train 400101 >>|cRXP_WARN_You must have trained|r |T132303:0|t[Shadowstep] |cRXP_WARN_in order to obtain this rune|r
 step
     #optional
-    +|cRXP_WARN_必须先完成|r |T236270:0|t[致命阴谋] |cRXP_WARN_任务线并交付“谢尔索斯号角”，才能开启此符文任务；仅向符文经纪人学习符文不满足此前置|r
-    .isQuestAvailable 78261
+    .train 400080,1 >>|cRXP_WARN_You must have trained|r |T236270:0|t[Deadly Brew] |cRXP_WARN_in order to obtain this rune|r
 step
     #optional
     #completewith letterC
-    >>|cRXP_WARN_要开启此符文的任务，必须先完成介绍拉文霍德阵营的“拉文霍德庄园”任务。请前往暴风城，与|r |cRXP_FRIENDLY_夜行者奥斯伯|r |cRXP_WARN_交谈以接取这项前置任务|r << Alliance
-    +|cRXP_WARN_要开启此符文的任务，必须先完成介绍拉文霍德阵营的“拉文霍德庄园”任务。请前往奥格瑞玛，与|r |cRXP_FRIENDLY_奥莫克|r |cRXP_WARN_交谈以接取这项前置任务|r << Horde
-    .accept 6681 >>接受任务：拉文霍德庄园 << Alliance
+    >>|cRXP_WARN_In order to start the quest for this rune you need to have completed "The Manor, Ravenholdt" quest introducing you to the Ravenholdt rogue faction. In order to receive it talk to|r |cRXP_FRIENDLY_Osborne the Night Man|r |cRXP_WARN_in Stormwind|r << Alliance
+    +|cRXP_WARN_In order to start the quest for this rune you need to have completed "The Manor, Ravenholdt" quest introducing you to the Ravenholdt rogue faction. In order to receive it talk to|r |cRXP_FRIENDLY_Ormok|r |cRXP_WARN_in Orgrimmar|r << Horde
+    .accept 6681 >>Accept The Manor, Ravenholdt << Alliance
     .isQuestAvailable 6681
 step << Horde
     .goto Orgrimmar,43.91,54.69
-    .gossipoption 96925 >>与 |cRXP_FRIENDLY_奥莫克|r 交谈, 获得 |T133460:0|t[|cRXP_LOOT_优美的信件|r], 使用它接受任务
+    .gossipoption 96925 >>Talk to |cRXP_FRIENDLY_Ormok|r to receive an |T133460:0|t[|cRXP_LOOT_Elegant Letter|r]. Use it to accept the quest
     .disablecheckbox
     .collect 17126,1,6681
-    .accept 6681 >>接受任务：拉文霍德庄园
-    .target 奥莫克
+    .accept 6681 >>Accept The Manor, Ravenholdt
+    .target Ormok
     .isQuestAvailable 6681
 step
     #completewith next
-    .zone Hillsbrad Foothills >>前往|cFFfa9602希尔斯布莱德丘陵|r
+    .zone Hillsbrad Foothills >>Travel to |cFFfa9602Hillsbrad Foothills|r
     .isOnQuest 6681
 step
     #completewith next
     .goto Hillsbrad Foothills,75.27,23.66,15,0
     .goto Hillsbrad Foothills,75.66,20.30,15,0
     .goto Hillsbrad Foothills,77.24,21.98,15,0
-    .goto Hillsbrad Foothills,78.62,17.96,20 >>进入拉文霍德庄园
+    .goto Hillsbrad Foothills,78.62,17.96,20 >>Enter Ravenholdt Manor
     .isOnQuest 6681
 step
     .goto Hillsbrad Foothills,78.62,17.96
-    >>前往 |cRXP_PICK_箱子|r 附近
+    >>Move toward the |cRXP_PICK_Chest|r
     .complete 6681,1 --Rite of Cunning: 1/1
     .isOnQuest 6681
 step
     .goto Alterac Mountains,85.51,79.41,10,0
     .goto Alterac Mountains,86.11,80.22,10,0
     .goto Alterac Mountains,84.45,80.32
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与楼上的 |cRXP_FRIENDLY_法拉德|r 交谈
-    .turnin 6681 >> 交任务：拉文霍德庄园
-    .target 法拉德
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Fahrad|r upstairs
+    .turnin 6681 >> Turn in The Manor, Ravenholdt
+    .target Fahrad
     .isOnQuest 6681
 step << Alliance
-    +|cRXP_WARN_前往任意主城|r
-    >>达纳苏斯
-    >>铁炉堡
-    >>暴风城
+    +|cRXP_WARN_Travel to any Major City|r
+    >>Darnassus
+    >>Ironforge
+    >>Stormwind City
     .zoneskip Darnassus
     .zoneskip Ironforge
     .zoneskip Stormwind City
     .train 432295,1
 step << Horde
-    +|cRXP_WARN_前往任意主城|r
-    >>幽暗城
-    >>雷霆崖
-    >>奥格瑞玛
+    +|cRXP_WARN_Travel to any Major City|r
+    >>Undercity
+    >>Thunder Bluff
+    >>Orgrimmar
     .zoneskip Undercity
     .zoneskip Thunder Bluff
     .zoneskip Orgrimmar
     .train 432295,1
 step
     #label letterC
-    +|cRXP_WARN_查看邮箱, 获取来自*法拉德*的信件|r
-    >>|cRXP_WARN_准备好后跳过此步骤|r
+    +|cRXP_WARN_Check your mailbox for the letter from *Fahrad*|r
+    >>|cRXP_WARN_Skip this step when ready|r
     .train 432295,1
 step
     #completewith next
-    .zone Hillsbrad Foothills >>前往|cFFfa9602希尔斯布莱德丘陵|r
+    .zone Hillsbrad Foothills >>Travel to |cFFfa9602Hillsbrad Foothills|r
 step
     #completewith next
     .goto Hillsbrad Foothills,75.27,23.66,15,0
     .goto Hillsbrad Foothills,75.66,20.30,15,0
     .goto Hillsbrad Foothills,77.24,21.98,15,0
-    .goto Hillsbrad Foothills,78.62,17.96,20 >>进入拉文霍德庄园
+    .goto Hillsbrad Foothills,78.62,17.96,20 >>Enter Ravenholdt Manor
 step
     .goto Alterac Mountains,85.51,79.41,10,0
     .goto Alterac Mountains,86.11,80.22,10,0
     .goto Alterac Mountains,84.45,80.32
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与楼上的 |cRXP_FRIENDLY_法拉德|r 交谈
-    .accept 80526 >>接受任务：骗我两次
-    .turnin 80526 >>交任务：骗我两次
-    .accept 80411 >>接受任务：卡兹多尔的护符
-    .target 法拉德
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Fahrad|r upstairs
+    .accept 80526 >>Accept Fool Me Twice
+    .turnin 80526 >>Turn in Fool Me Twice
+    .accept 80411 >>Accept The Talisman of Kazdor
+    .target Fahrad
 step
     #optional
     #completewith next
-    .zone Tanaris >>前往塔纳利斯
+    .zone Tanaris >>Travel to Tanaris
 step
     #completewith next
     .goto Tanaris,38.69,20.20
-    .subzone 1176 >>进入祖尔法拉克
-    >>|cRXP_WARN_组队状态下无法完成此符文的任务|r
+    .subzone 1176 >>Enter Zul'Farrak
+    >>|cRXP_WARN_You can't be in a group to be able to complete the quest for this rune|r
 step
     .goto Tanaris,38.69,20.20
-    >>打开 |cRXP_PICK_陶土容器|r 以获得 |T134799:0|t[|cRXP_LOOT_邪恶混剂|r]
-    >>|cRXP_WARN_它们位于祖尔法拉克各地的巨魔帐篷中|r
+    >>Open |cRXP_PICK_Clay Vessels|r for |T134799:0|t[|cRXP_LOOT_Vile Concoctions|r]
+    >>|cRXP_WARN_They are located in troll tents throughout Zul'Farrak|r
     .collect 217716,2
     .train 432295,1
 step
     #completewith next
-    +|cRXP_WARN_前往|r |cRXP_ENEMY_安图苏尔|r |cRXP_WARN_的洞穴|r
+    +|cRXP_WARN_Move toward|r |cRXP_ENEMY_Antu'sul's|r |cRXP_WARN_cave|r
 step
-    >>在坩埚上使用 |T134799:0|t[|cRXP_LOOT_邪恶混剂|r]. |cRXP_WARN_此操作不会破坏潜行|r
-    >>当首领分心时, 拾取 |cRXP_PICK_安图苏尔的袋子|r 以获得 |T133724:0|t[|cRXP_LOOT_骸骨供品|r]
+    >>Use a |T134799:0|t[|cRXP_LOOT_Vile Concoction|r] on the cauldron. |cRXP_WARN_It will not break your stealth|r
+    >>While the boss is distracted loot |cRXP_PICK_Antu'Sul's Satchel|r for an |T133724:0|t[|cRXP_LOOT_Offering of Bone|r]
     .collect 217721,1 --Offering of Bone
     .use 217716
     .train 432295,1
 step
     #completewith next
-    +|cRXP_WARN_前往墓地区域, 向 |r|cRXP_ENEMY_巫医祖穆拉恩|r|cRXP_WARN_ 移动|r
+    +|cRXP_WARN_Move toward |cRXP_ENEMY_Witch Doctor Zum'rah|r in the graveyard area|r
 step
-    >>在大锅上使用第二瓶 |T134799:0|t[|cRXP_LOOT_邪恶混剂|r]，大锅位于 |cRXP_ENEMY_巫医祖穆拉恩|r 旁。|cRXP_WARN_此操作不会破坏潜行|r
-    >>当他分心时, 拾取 |cRXP_PICK_祖穆拉恩的背包|r 获取 |T136232:0|t|cRXP_LOOT_亡者结界|r
+    >>Use your second |T134799:0|t[|cRXP_LOOT_Vile Concoction|r] on the cauldron next to |cRXP_ENEMY_Witch Doctor Zum'rah|r. |cRXP_WARN_It will not break your stealth|r
+    >>While he's distracted loot |cRXP_PICK_Zum'rahs Satchel|r for |T136232:0|t|cRXP_LOOT_Ward of the Dead|r
     .collect 217727,1 --ward of the dead
     .use 217716
     .train 432295,1
 step
     #completewith next
-    .equip 13,217727 >>装备你刚刚拾取的 |T136232:0|t|cRXP_LOOT_亡者结界|r 饰品
-    >>|cRXP_WARN_这会显示哪个|r |cRXP_PICK_浅墓穴|r |cRXP_WARN_需要开启|r
+    .equip 13,217727 >>Equip the |T136232:0|t|cRXP_LOOT_Ward of the Dead|r trinket you just looted
+    >>|cRXP_WARN_This will reveal which|r |cRXP_PICK_Shallow Grave|r |cRXP_WARN_needs to be looted|r
 step
-    >>打开带有蓝色光环的 |cRXP_PICK_浅墓穴|r, 以获得 |T236304:0|t|cRXP_LOOT_血肉供品|r
+    >>Loot the |cRXP_PICK_Shallow Grave|r that is revealed with a blue aura for the |T236304:0|t|cRXP_LOOT_Offering of Flesh|r
     .collect 217720,1 --offering of flesh
     .use 217727
     .train 432295,1
 step
-    >>使用 |T236304:0|t[|cRXP_LOOT_血肉供品|r] 与 |T133724:0|t[|cRXP_LOOT_骸骨供品|r] 合成 |T236305:0|t[|cRXP_LOOT_鲜血魔法精华|r]
+    >>Use the |T236304:0|t[|cRXP_LOOT_Offering of Flesh|r] you just collected to combine it with the |T133724:0|t[|cRXP_LOOT_Offering of Bone|r] into a |T236305:0|t[|cRXP_LOOT_Blood Magic Essence|r]
     .collect 217719,1 --Blood Magic Essence
     .use 217720
     .train 432295,1
 step
-    >>前往金字塔阶梯底部，向右看。墙边有一块小石块，跳上去后走到边缘
-    >>在右侧第二个木制阳台上找到 |cRXP_PICK_沙怒宝箱|r, 打开获取 |T237274:0|t[|cRXP_LOOT_空无纹章|r]
+    >>Go to the foot of the pyramid staircase and look to your right. On the side of the wall you will see a small stone block. Jump onto it and then walk onto the edge
+    >>On the second wood balcony to the right you will find a |cRXP_PICK_Sandfury Cache|r. Loot it for the |T237274:0|t[|cRXP_LOOT_Hollow Emblem|r]
     .collect 217717,1 --Hollow Emblem
     .train 432295,1
 step
-    >>使用 |T237274:0|t|cRXP_LOOT_空无纹章|r 与 |T236305:0|t[|cRXP_LOOT_鲜血魔法精华|r] 合成 |T133572:0|t[|cRXP_LOOT_鲜血魔法纹章|r]
+    >>Use the |T237274:0|t|cRXP_LOOT_Hollow Emblem|r you just looted to combine it with the |T236305:0|t[|cRXP_LOOT_Blood Magic Essence|r] into an |T133572:0|t[|cRXP_LOOT_Emblem of Blood Magic|r]
     .collect 217718,1 --Emblem of Blood Magic
     .use 217717
     .train 432295,1
 step
-    >>沿楼梯登上金字塔顶端, 打开 |cRXP_PICK_魔法束缚战利品箱|r 获取 |T133313:0|t[|cRXP_LOOT_卡兹多尔护符|r]
+    >>Climb the stairs to the top of the pyramid and loot the |cRXP_PICK_Spellbound War Chest|r for |T133313:0|t[|cRXP_LOOT_Talisman of Kazdor|r]
     .collect 217609,1 --Talisman of Kazdor
     .train 432295,1
 step
     #completewith next
-    .zone Hillsbrad Foothills >>前往|cFFfa9602希尔斯布莱德丘陵|r
+    .zone Hillsbrad Foothills >>Travel to |cFFfa9602Hillsbrad Foothills|r
 step
     #completewith next
     .goto Hillsbrad Foothills,75.27,23.66,15,0
     .goto Hillsbrad Foothills,75.66,20.30,15,0
     .goto Hillsbrad Foothills,77.24,21.98,15,0
-    .goto Hillsbrad Foothills,78.62,17.96,20 >>进入拉文霍德庄园
+    .goto Hillsbrad Foothills,78.62,17.96,20 >>Enter Ravenholdt Manor
 step
     .goto Alterac Mountains,85.51,79.41,10,0
     .goto Alterac Mountains,86.11,80.22,10,0
     .goto Alterac Mountains,84.45,80.32
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与楼上的 |cRXP_FRIENDLY_法拉德|r 交谈
-    .turnin 80411 >>交任务：卡兹多尔的护符
-    .accept 80453 >>接受任务：周密的计划
-    .target 法拉德
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Fahrad|r upstairs
+    .turnin 80411 >>Turn in The Talisman of Kazdor
+    .accept 80453 >>Accept Best Laid Plans
+    .target Fahrad
 step
     .goto Alterac Mountains,86.0,80.0
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与地下室的 |cRXP_FRIENDLY_萨恩·刀链|r 交谈
-    .turnin 80453 >>交任务：周密的计划
-    .accept 80454 >>接受任务：最后一投
-    .target 萨恩·刀链
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Zan Shivsproket|r downstairs in the basement
+    .turnin 80453 >>Turn in Best Laid Plans
+    .accept 80454 >>Accept One Last Drop
+    .target Zan Shivsproket
 step
     #completewith next
-    .zone Silverpine Forest >>前往银松森林
+    .zone Silverpine Forest >>Travel to Silverpine Forest
 step
     .goto Silverpine Forest,47.114,70.974
-    >>点击 |cRXP_PICK_秘密投放点|r
-    .turnin 80454 >>交任务：最后一投
-    .accept 80455 >>接受任务：伺机待发
+    >>Click the |cRXP_PICK_Dead Drop|r chest
+    .turnin 80454 >>Turn in One Last Drop
+    .accept 80455 >>Accept Biding Our Time
     .train 432295,1
 step
     #completewith next
-    .zone Hillsbrad Foothills >>前往|cFFfa9602希尔斯布莱德丘陵|r
+    .zone Hillsbrad Foothills >>Travel to |cFFfa9602Hillsbrad Foothills|r
 step
     #completewith next
     .goto Hillsbrad Foothills,75.27,23.66,15,0
     .goto Hillsbrad Foothills,75.66,20.30,15,0
     .goto Hillsbrad Foothills,77.24,21.98,15,0
-    .goto Hillsbrad Foothills,78.62,17.96,20 >>进入拉文霍德庄园
+    .goto Hillsbrad Foothills,78.62,17.96,20 >>Enter Ravenholdt Manor
 step
     .goto Alterac Mountains,85.51,79.41,10,0
     .goto Alterac Mountains,86.11,80.22,10,0
     .goto Alterac Mountains,84.45,80.32
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与楼上的 |cRXP_FRIENDLY_法拉德|r 交谈
-    .turnin 80455 >>交任务：伺机待发
-    .target 法拉德
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Fahrad|r upstairs
+    .turnin 80455 >>Turn in Biding Our Time
+    .target Fahrad
 step
-    .train 432295 >>|cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_同伙符文|r] |cRXP_WARN_来学习|r |T236275:0|t[盗贼的尊严]
+    .train 432295 >>|cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of the Coterie|r] |cRXP_WARN_to train|r |T236275:0|t[Honor Among Thieves]
     .use 217736
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Cloak
-#subgroupdisplayname 披风
-#title 猩红风暴
+#title Crimson Tempest
 #name Crimson Tempest - 60 (Western Plaguelands)
-#displayname 猩红风暴 - 60（西瘟疫之地）
+
 step
     .train 415918,1
-    .zone Western Plaguelands >>前往西瘟疫之地
+    .zone Western Plaguelands >>Travel to Western Plaguelands
 step
     .train 415918,1
     #completewith next
-    .subzone 190 >> 前往壁炉谷
+    .subzone 190 >> Travel to Hearthglen
 step
     #label ToolboxKey
     .train 415918,1
     .goto Western Plaguelands,45.0,13.6
-    >>击杀或用|T133644:0|t[搜索]偷窃|cRXP_ENEMY_血色工人|r，获取|cRXP_LOOT_工具箱钥匙|r
+    >>Kill or |T133644:0|t[Pick Pocket] |cRXP_ENEMY_Scarlet Workers|r. Loot them for the |cRXP_LOOT_Toolbox Key|r
     .collect 227928,1 -- Toolbox Key 1/1
-    .mob 血色工人
+    .mob Scarlet Worker
 step
     .train 415918,1
     .goto Western Plaguelands,45.0,14.2
-    >>打开|cRXP_PICK_血色工具箱|r，拾取|cRXP_LOOT_锈蚀撬棒|r
+    >>Open the |cRXP_PICK_Scarlet Toolbox|r. Loot it for the |cRXP_LOOT_Rusty Crowbar|r
     .collect 227932,1 -- Rusty Crowbar 1/1
 step
-    .goto Western Plaguelands,45.85,18.45
-    >>前往壁炉谷中央塔楼的顶部，打开那里的|cRXP_PICK_有标记的箱子|r，拾取|T133640:0|t[|cRXP_LOOT_隐藏的包袱|r]，再打开包袱获得|T134237:0|t[|cRXP_LOOT_保险箱钥匙|r]
-    .use 227931
+    .goto Western Plaguelands,49.5,18.5
+    >>Head to the top of the tower in the middle of Hearthglen. Open the |cRXP_PICK_Marked Crate|r there. Loot it for the |T133640:0|t[|cRXP_LOOT_Hidden Bundle|r] and open it to loot a |T134237:0|t[|cRXP_LOOT_Safe Box Key|r]
     .collect 227930,1
 step
     .goto Western Plaguelands,46.3,14.6
-    >>前往壁炉谷北侧第二座塔楼的中层，使用|T134237:0|t[|cRXP_LOOT_保险箱钥匙|r]打开[|cRXP_PICK_蓓拉芙丝的保险箱|r]，拾取|T134419:0|t[|cRXP_FRIENDLY_猩红风暴符文|r]
+    >>Head to the middle floor of the second tower in Hearthglen located on the northern side of the city. Use the |T134237:0|t[|cRXP_LOOT_Safe Box Key|r] to open [|cRXP_PICK_Belavus' Safe Box|r] and loot it for the |T134419:0|t[|cRXP_FRIENDLY_Rune of the Crimson Tempest|r]
     .collect 227456,1 --Rune of the crimson tempest
 step
     .use 227456
     .itemcount 227456,1
-    .train 415918 >>|cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_猩红风暴符文|r] |cRXP_WARN_学习|r |T135315:0|t[猩红风暴]
+    .train 415918 >>|cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of the Crimson Tempest|r] |cRXP_WARN_to train|r |T135315:0|t[Crimson Tempest]
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Cloak
-#subgroupdisplayname 披风
-#title 刀扇
+#title Fan of Knives
 #name Fan of Knives - 55 (Winterspring)
-#displayname 刀扇 - 55（冬泉谷）
+
 step
     .train 436609,1
-    .zone Winterspring >>前往冬泉谷
+    .zone Winterspring >>Travel to Winterspring
 step
     .train 436609,1
     .goto Winterspring,67.7,35.4
-    >>打开|cRXP_PICK_木箱|r，拾取|T134419:0|t[|cRXP_FRIENDLY_万刀符文|r]
-    >>|cRXP_WARN_打开|r|cRXP_PICK_木箱|r|cRXP_WARN_时，请依次选择以下选项：|r
-    >>|cRXP_WARN_霜刃豹|r
-    >>|cRXP_WARN_猫头鹰|r
-    >>|cRXP_WARN_熊|r
-    >>|cRXP_WARN_猫头鹰|r
+    >>Open the |cRXP_PICK_Wooden Chest|r. Loot it for the |T134419:0|t[|cRXP_FRIENDLY_Rune of Knives|r]
+    >>|cRXP_WARN_While opening the |cRXP_PICK_Wooden Chest|r, choose the following options in this order:|r
+    >>|cRXP_WARN_Frostsaber|r
+    >>|cRXP_WARN_Owl|r
+    >>|cRXP_WARN_Bear|r
+    >>|cRXP_WARN_Owl|r
     .collect 227921,1
 step
     .use 227921
     .itemcount 227921,1
-    .train 436609 >>|cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_万刀符文|r] |cRXP_WARN_学习|r |T236273:0|t[刀扇]
+    .train 436609 >>|cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of Knives|r] |cRXP_WARN_to train|r |T236273:0|t[Fan of Knives]
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 符文与技能书指南
 #classic
 << Rogue SoD
 #group RestedXP Rune & Books Guide
 #subgroup Cloak
-#subgroupdisplayname 披风
-#title 短枪射击
+#title Blunderbuss
 #name Blunderbuss - 60 (Eastern Plaguelands)
-#displayname 短枪射击 - 60（东瘟疫之地）
+
 step
     .train 415922,1
-    .zone Eastern Plaguelands >>前往东瘟疫之地
+    .zone Eastern Plaguelands >>Travel to Eastern Plaguelands
 step
     .train 415922,1
     .goto Eastern Plaguelands,83,85
-    >>打开提尔之手各处的 |cRXP_LOOT_血色储物箱|r，直到拾取到 |cRXP_LOOT_通讯魔符|r
+    >>Open |cRXP_LOOT_Scarlet Footlockers|r throughout Try's Hand until you loot a |cRXP_LOOT_Sending Sigil|r
     .collect 227451,1
 step
     .train 415922,1
     #completewith FinalPillar
-    >>|cRXP_WARN_接下来必须按正确顺序点击四根 |r|cRXP_PICK_通讯支柱|r|cRXP_WARN_。每点击一根，都会被随机传送到另一根支柱旁；点击下一根前务必确认自己所在的位置正确！|r
+    >>|cRXP_WARN_For the following steps you must click FOUR |cRXP_PICK_Sending Pillars|r in the correct order. After clicking one you will be RANDOMLY teleported to a different one. Ensure you are at the correct location before you click another one!|r
 step
     .train 415922,1
     .goto Eastern Plaguelands,82,57
-    .cast 6477,6478 >>点击第一个 |cRXP_PICK_通讯支柱|r，位于 |cRXP_WARN_圣光之愿礼拜堂后方|r
+    .cast 6477,6478 >>Click the first |cRXP_PICK_Sending Pillar|r |cRXP_WARN_behind Light's Hope Chapel|r
 step
     .train 415922,1
     .goto Eastern Plaguelands,40,92
-    .cast 6477,6478 >>点击第二个 |cRXP_PICK_通讯支柱|r，位于 |cRXP_WARN_达隆郡|r
+    .cast 6477,6478 >>Click the second |cRXP_PICK_Sending Pillar|r |cRXP_WARN_in Darrowshire|r
 step
     .train 415922,1
     .goto Eastern Plaguelands,70,34
-    .cast 6477,6478 >>点击第三个 |cRXP_PICK_通讯支柱|r，位于 |cRXP_WARN_北谷|r
+    .cast 6477,6478 >>Click the third |cRXP_PICK_Sending Pillar|r |cRXP_WARN_in Northdale|r
 step
     .train 415922,1
     #label FinalPillar
     .goto Eastern Plaguelands,14,30
-    .cast 6477,6478 >>点击第四个 |cRXP_PICK_通讯支柱|r，位于 |cRXP_WARN_恐惧谷|r
+    .cast 6477,6478 >>Click the fourth |cRXP_PICK_Sending Pillar|r |cRXP_WARN_in Terrordale|r
 step
     .train 415922,1
-    >>|cRXP_WARN_进入房屋|r
-    >>打开地上的 |cRXP_PICK_阿顿的行李箱|r，拾取 |T134419:0|t[|cRXP_LOOT_豪侠符文|r]
+    >>|cRXP_WARN_Enter the House|r
+    >>Open |cRXP_PICK_Adon's Trunk|r on the ground. Loot it for the |T134419:0|t[|cRXP_LOOT_Rune of the Swashbuckler|r]
     .collect 227922,1
 step
     .use 227922
     .itemcount 227922,1
-    .train 415922 >>|cRXP_WARN_使用|r |T134419:0|t[|cRXP_FRIENDLY_豪侠符文|r] |cRXP_WARN_学习|r |T134538:0|t[短枪射击]
+    .train 415922 >>|cRXP_WARN_Use the|r |T134419:0|t[|cRXP_FRIENDLY_Rune of the Swashbuckler|r] |cRXP_WARN_to train|r |T134538:0|t[Blunderbuss]
 ]])

@@ -644,9 +644,9 @@ ConsolePortShared = {
 [""] = "",
 ["CTRL-SHIFT-"] = "",
 },
-["PADLSTICKUP"] = {
+["PAD2"] = {
 ["CTRL-"] = "",
-["SHIFT-"] = "",
+["SHIFT-"] = "ACTIONBUTTON3",
 [""] = "",
 ["CTRL-SHIFT-"] = "",
 },
@@ -692,7 +692,7 @@ ConsolePortShared = {
 [""] = "",
 ["CTRL-SHIFT-"] = "",
 },
-["PADSOCIAL"] = {
+["PADLSTICKUP"] = {
 ["CTRL-"] = "",
 ["SHIFT-"] = "",
 [""] = "",
@@ -812,9 +812,9 @@ ConsolePortShared = {
 [""] = "",
 ["CTRL-SHIFT-"] = "",
 },
-["PAD2"] = {
+["PADSOCIAL"] = {
 ["CTRL-"] = "",
-["SHIFT-"] = "ACTIONBUTTON3",
+["SHIFT-"] = "",
 [""] = "",
 ["CTRL-SHIFT-"] = "",
 },

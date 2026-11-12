@@ -746,6 +746,7 @@ local function LoadGuide(guideData,n)
     end
 end
 
+
 --local embeddedGuidesLoaded
 local loadedGuides = 0
 function addon.GetLoadedGuides()

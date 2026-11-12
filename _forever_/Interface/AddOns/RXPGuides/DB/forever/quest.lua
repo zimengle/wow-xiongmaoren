@@ -14,6 +14,8 @@ addon.skipPreReq = {
 
 addon.questConversion = {}
 
+
+
 addon.questCompleteItems = {
     [1517] = 6635, -- Call of Earth // Earth Sapta
     [934] = 5623, -- Crown of the Earth // Amethyst Phial

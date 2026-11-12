@@ -1,153 +1,147 @@
 local faction = UnitFactionGroup("player")
 if faction == "Alliance" then return end
 
+local L = GetLocale() if L and RXP.enabledLocale[L] then return end
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 部落法师 AoE
 #forever
 #disabledungeons
 << Horde Mage
 #name 12-17 The Barrens AoE
 #version 1
 #group RestedXP Horde Mage AoE
+
 #defaultfor none Horde Mage
 #next 17-21 Stonetalon/Barrens AoE
-#displayname 12-17 贫瘠之地 AoE
+
 step << Mage
 	#era/som
     #completewith next
-	+注意：你已选择 AoE 指南。法师 AoE 升级通常比单体打怪难得多，但速度也快得多
+	+Note that you have selected the AoE guide. AoE is typically a lot harder than single target mage, but a LOT faster
 step << Mage
 	#som
 	#phase 3-6
     #completewith next
-	+注意：你选择了 AoE 指南。法师 AoE 升级通常比单体打怪难得多；由于 SoM 任务经验提高了 100%，这条路线也会更慢
+	+Note that you have selected the AoE guide. AoE is typically a lot harder than single target mage, and is also slower due to the recent 100% Quest xp changes in SoM
 step
     .goto 1413/1,-2666.68,-481.94--??
-.target 图加·符文图腾
->>与|cRXP_FRIENDLY_图加·符文图腾|r交谈
-    .accept 870 >>接任务：遗忘之池
+.target Tonga Runetotem
+>>Talk to |cRXP_FRIENDLY_Tonga Runetotem|r
+    .accept 870 >>Accept The Forgotten Pools
 step
     .goto 1413/1,-2666.68,-481.94
->>与|cRXP_FRIENDLY_瑟格拉·黑棘|r交谈
-    .turnin 842 >>交任务：十字路口征兵
-.target 瑟格拉·黑棘
-    .accept 844 >>接任务：平原陆行鸟的威胁
+>>Talk to |cRXP_FRIENDLY_Sergra Darkthorn|r
+    .turnin 842 >>Turn in Crossroads Conscription
+.target Sergra Darkthorn
+    .accept 844 >>Accept Plainstrider Menace
 step << Troll Mage
     .goto 1413/1,-2697.08,-400.86
-.target 扎尔夫
->>与|cRXP_FRIENDLY_扎尔夫|r交谈
-    .accept 6365 >>接任务：送往奥格瑞玛的肉
+.target Zargh
+>>Talk to |cRXP_FRIENDLY_Zargh|r
+    .accept 6365 >>Accept Meats to Orgrimmar
 step
     .goto 1413/1,-2636.28,-434.64
-.target 加兹罗格
->>与|cRXP_FRIENDLY_加兹罗格|r交谈
-    .accept 869 >>接任务：偷钱的迅猛龙
+.target Gazrog
+>>Talk to |cRXP_FRIENDLY_Gazrog|r
+    .accept 869 >>Accept Raptor Thieves
 step
     .goto 1413/1,-2645.40,-406.94
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_旅店老板伯兰德·草风|r交谈
-    .home >> 将炉石绑定在十字路口
-    .target 旅店老板伯兰德·草风
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Innkeeper Boorand|r
+    .home >> Set your Hearthstone to Crossroads
+    .target Innkeeper Boorand Plainswind
 step
     .goto 1413/1,-2595.75,-468.43
-.target 索克
->>与|cRXP_FRIENDLY_索克|r交谈
-    .accept 871 >>接任务：野猪人的袭击
-    .accept 5041 >>接任务：十字路口的补给品
+.target Thork
+>>Talk to |cRXP_FRIENDLY_Thork|r
+    .accept 871 >>Accept Disrupt the Attacks
+    .accept 5041 >>Accept Supplies for the Crossroads
 step
     .goto 1413/1,-2595.75,-441.40
-    .fp The Crossroads >> 获取十字路口飞行点
+    .fp The Crossroads >> Get the The Crossroads flight path
 step << Troll Mage
-    >>不要去奥格瑞玛
+    >>do NOT go to Orgrimmar
     .goto 1413/1,-2595.75,-434.64
->>与|cRXP_FRIENDLY_迪弗拉克|r交谈
-    .turnin 6365 >>交任务：送往奥格瑞玛的肉
-.target 迪弗拉克
-    .accept 6384 >>接任务：飞往奥格瑞玛
+>>Talk to |cRXP_FRIENDLY_Devrak|r
+    .turnin 6365 >>Turn in Meats to Orgrimmar
+.target Devrak
+    .accept 6384 >>Accept Ride to Orgrimmar
 step
     .goto 1413/1,-2595.75,-421.13
-.target 药剂师赫布瑞姆
->>与|cRXP_FRIENDLY_药剂师赫布瑞姆|r交谈
-    .accept 848 >>接任务：菌类孢子
-    .accept 1492 >>接任务：码头管理员迪兹维格
+.target Apothecary Helbrim
+>>Talk to |cRXP_FRIENDLY_Apothecary Helbrim|r
+    .accept 848 >>Accept Fungal Spores
+    .accept 1492 >>Accept Wharfmaster Dizzywig
 step
     #sticky
-    #label ChenKeg
-    >>请在这里寻找老陈的空酒桶；找到后拾取并接取任务。如果没找到，稍后再获取
+    #completewith next
+    >>Check this location for Chen's Empty Keg. Loot it and start the quest, otherwise you'll get it later
     .goto 1413/1,-3021.35,-231.96
     .collect 4926,1,819 --Collect Chen's Empty Keg
-    .accept 819 >> 接任务：老陈的空酒桶
-    .use 4926
+    .accept 819 >> Accept Chen's Empty Keg
 step
     .goto 1413/1,-3011.22,-184.66
-    >>击杀该区域的野猪人
+    >>Kill Quilboars in the area
     .complete 871,2 --Razormane Thornweaver (8)
     .complete 871,1 --Razormane Water Seeker (8)
     .complete 871,3 --Razormane Hunter (3)
 step << !Undead
-    #optional
-    .isOnQuest 924
-    .goto 1413/1,-3690.15,254.49
     #sticky
     #completewith next
-    >>如果背包里的有瑕疵的能量石剩余时间不到 10 分钟，就丢弃它，再回去拾取雅克塞罗斯旁的紫色石头
-    .turnin 926 >>交任务：有瑕疵的能量石
+    >>If the Flawed Power Stone in your bags has less than 10 minutes left, drop it, then go back and loot the Purple Stone next to Ak'Zeloth again
+    .turnin 926 >>Turn in Flawed Power Stone
 step << !Undead
     #sticky
     #completewith BeakCave
-    >>如果有瑕疵的能量石还剩足够时间，可顺路击杀平原陆行鸟，拾取它们的喙
+    >>Kill some Plainstriders en route if you have time on Flawed Power Stone. Loot them for Beaks
     .complete 844,1 --Plainstrider Beak (7)
 step << !Undead
-    .isOnQuest 924
-    .goto 1413/1,-2484.28,126.12,20 >>爬上这座山
+    .goto 1413/1,-2484.28,126.12,20 >>Run up the mountain here
 step << !Undead
-    .isOnQuest 924
     #label BeakCave
-    .goto 1413/1,-2200.55,315.3,20 >>前往被火刃氏族兽人包围的洞穴
+    .goto 1413/1,-2200.55,315.3,20 >>Go to the cave surrounded by Burning Blade orcs
 step << !Undead
-    .isOnQuest 924
-    >>右键点击祭坛
+    >>Right click the Altar
     .goto 1413/1,-2241.08,322.06
-    .collect 4986,1,924,1 --Collect Flawed Power Stone
+    .collect 4986,1,924 --Collect Flawed Power Stone
     .complete 924,1 --Destroy the Demon Seed (1)
 step
     #sticky
     #completewith next
-    >>沿途击杀迅猛龙并拾取头颅；剩余的稍后再收集
+    >>Kill Raptors that you see. Loot them for some Raptor Heads - you'll get more later
     .complete 869,1 --Raptor Head (12)
 step
-    >>击杀平原陆行鸟，拾取它们的喙
+    >>Kill Plainstriders. Loot them for Beaks
     .goto 1413/1,-2524.82,-556.26
     .complete 844,1 --Plainstrider Beak (7)
 step
-    >>塔顶
+    >>Top of the tower
     .goto 1413/1,-2595.75,-475.18
->>与|cRXP_FRIENDLY_索克|r交谈
-    .turnin 871 >>交任务：野猪人的袭击
-.target 索克
-    .accept 872 >>接任务：野猪人的头目
-.target 达索克·快刀
->>与|cRXP_FRIENDLY_达索克·快刀|r交谈
-    .accept 867 >>接任务：鹰身强盗
+>>Talk to |cRXP_FRIENDLY_Thork|r
+    .turnin 871 >>Turn in Disrupt the Attacks
+.target Thork
+    .accept 872 >>Accept The Disruption Ends
+.target Darsok Swiftdagger
+>>Talk to |cRXP_FRIENDLY_Darsok Swiftdagger|r
+    .accept 867 >>Accept Harpy Raiders
 step
     .goto 1413/1,-2666.68,-481.94
->>与|cRXP_FRIENDLY_瑟格拉·黑棘|r交谈
-    .turnin 844 >>交任务：平原陆行鸟的威胁
-.target 瑟格拉·黑棘
-    .accept 845 >>接任务：斑马的威胁
+>>Talk to |cRXP_FRIENDLY_Sergra Darkthorn|r
+    .turnin 844 >>Turn in Plainstrider Menace
+.target Sergra Darkthorn
+    .accept 845 >>Accept The Zhevra
 step
     #sticky
     #completewith Crates
-    >>收集补给箱并击杀克里尼格时，顺路击杀钢鬃野猪人
+    >>Kill Razormanes while getting the Crates and killing Kreenig
     .complete 872,1 --Razormane Geomancer (8)
     .complete 872,2 --Razormane Defender (8)
 step
     #sticky
     #completewith next
-    >>拾取该区域的棕色补给箱
+    >>Loot the brown boxes found in the area
     .complete 5041,1 --Crossroads' Supply Crates (1)
 step
     #label Kreenig
-    >>击杀克里尼格·糟鼻，拾取他的獠牙
+    >>Kill Kreenig Snarlsnout. Loot him for his Tusk
     .goto 1413/1,-3315.22,-218.44
     .complete 872,3 --Kreenig Snarlsnout's Tusk (1)
 step
@@ -156,63 +150,61 @@ step
     .goto 1413/1,-3294.95,-211.69,40,0
     .goto 1413/1,-3305.08,-130.61,40,0
     .goto 1413/1,-3396.28,-63.05,40,0
-    >>拾取该区域的棕色补给箱
+    >>Loot the brown boxes found in the area
     .complete 5041,1 --Crossroads' Supply Crates (1)
 step
     .goto 1413/1,-3122.68,-96.83
-    >>继续击杀钢鬃野猪人，完成任务目标
+    >>Finish killing the Razormanes
     .complete 872,1 --Razormane Geomancer (8)
     .complete 872,2 --Razormane Defender (8)
 step << !Undead
     #sticky
     #completewith next
-    >>击杀沿途的斑马，拾取它们的蹄子
+    >>Kill any Zhevras you see. Loot them for Hooves
     .complete 845,1 --Zhevra Hooves (4)
 step << !Undead
-    .isOnQuest 924
     .goto 1413/1,-3690.15,254.49
-.target 雅克塞罗斯
->>与|cRXP_FRIENDLY_雅克塞罗斯|r交谈
-    .turnin 924 >>交任务：恶魔之种
+.target Ak'Zeloth
+>>Talk to |cRXP_FRIENDLY_Ak'Zeloth|r
+    .turnin 924 >>Turn in The Demon Seed
 step
-    >>击杀沿途的斑马并拾取蹄子；进入棘齿城前确保收集到 4 个
+    >>Kill any Zhevras you see. Loot them for Hooves. Make sure you have 4 before entering Ratchet
     .goto 1413/1,-3257.46,277.46,150,0 << Undead
     .goto 1413/1,-3852.28,-806.24
     .complete 845,1 --Zhevra Hooves (4)
 step
-    >>建筑顶层
+    >>Top floor of the building
     .goto 1413/1,-3730.68,-840.02
-.target 加兹鲁维
->>与|cRXP_FRIENDLY_加兹鲁维|r交谈
-    .accept 887 >>接任务：南海海盗
+.target Gazlowe
+>>Talk to |cRXP_FRIENDLY_Gazlowe|r
+    .accept 887 >>Accept Southsea Freebooters
 step
     .goto 1413/1,-3771.22,-894.07
-    .fp Ratchet >> 获取棘齿城飞行点
+    .fp Ratchet >> Get the Ratchet flight path
 step
     .goto 1413/1,-3761.08,-900.83
-.target 斯布特瓦夫
->>与|cRXP_FRIENDLY_斯布特瓦夫|r交谈
-    .accept 894 >>接任务：什么什么平衡器
+.target Sputtervalve
+>>Talk to |cRXP_FRIENDLY_Sputtervalve|r
+    .accept 894 >>Accept Samophlange
 step
-    >>点击通缉海报。此处也可使用银行
+    >>Click the Wanted poster. You can bank here too if you want
     .goto 1413/1,-3720.55,-921.09
-    .accept 895 >>接任务：通缉：巴隆·朗绍尔
+    .accept 895 >>Accept WANTED: Baron Longshore
 step
     .goto 1413/1,-3700.28,-934.61
-.target 麦伯克·米希瑞克斯
->>与|cRXP_FRIENDLY_麦伯克·米希瑞克斯|r交谈
-    .accept 865 >>接任务：迅猛龙角
+.target Mebok Mizzyrix
+>>Talk to |cRXP_FRIENDLY_Mebok Mizzyrix|r
+    .accept 865 >>Accept Raptor Horns
 step
-    #requires ChenKeg
     .goto 1413/1,-3690.15,-981.90
->>与|cRXP_FRIENDLY_酿酒师德罗恩|r交谈
-    .turnin 819 >>交任务：老陈的空酒桶
-.target 酿酒师德罗恩
-    .accept 821 >>接任务：老陈的空酒桶
+>>Talk to |cRXP_FRIENDLY_Brewmaster Drohn|r
+    .turnin 819 >>Turn in Chen's Empty Keg
+.target Brewmaster Drohn
+    .accept 821 >>Accept Chen's Empty Keg
 step
     #sticky
     #label Southsea
-    >>击杀该区域内的南海海盗
+    >>Kill Southsea mobs in the area
     .complete 887,1 --Southsea Brigand (12)
     .complete 887,2 --Southsea Cannoneer (6)
 step
@@ -225,99 +217,99 @@ step
     .goto 1413/1,-3882.68,-1569.69,40,0
     .goto 1413/1,-3821.88,-1704.82,40,0
     .goto 1413/1,-3720.55,-1745.36,40,0
-    >>击杀巴隆·朗绍尔，拾取他的头颅
+    >>Kill Baron Longshore. Loot him for his Head
     .complete 895,1 --Baron Longshore's Head (1)
 step
     #requires Southsea
     .goto 1413/1,-3730.68,-840.02
->>与|cRXP_FRIENDLY_加兹鲁维|r交谈
-    .turnin 887 >>交任务：南海海盗
-.target 加兹鲁维
-    .accept 890 >>接任务：丢失的货物
-    .turnin 895 >>交任务：通缉：巴隆·朗绍尔
+>>Talk to |cRXP_FRIENDLY_Gazlowe|r
+    .turnin 887 >>Turn in Southsea Freebooters
+.target Gazlowe
+    .accept 890 >>Accept The Missing Shipment
+    .turnin 895 >>Turn in WANTED: Baron Longshore
 step
     .goto 1413/1,-3791.48,-981.90
->>与|cRXP_FRIENDLY_码头管理员迪兹维格|r交谈
-    .turnin 1492 >>交任务：码头管理员迪兹维格
-    .turnin 890 >>交任务：丢失的货物
-.target 码头管理员迪兹维格
-    .accept 892 >>接任务：丢失的货物
-    .accept 896 >>接任务：矿工的宝贝
+>>Talk to |cRXP_FRIENDLY_Wharfmaster Dizzywig|r
+    .turnin 1492 >>Turn in Wharfmaster Dizzywig
+    .turnin 890 >>Turn in The Missing Shipment
+.target Wharfmaster Dizzywig
+    .accept 892 >>Accept The Missing Shipment
+    .accept 896 >>Accept Miner's Fortune
 step
     .goto 1413/1,-3730.68,-840.02
->>与|cRXP_FRIENDLY_加兹鲁维|r交谈
-    .turnin 892 >>交任务：丢失的货物
-.target 加兹鲁维
-    .accept 888 >>接任务：被窃的货物
+>>Talk to |cRXP_FRIENDLY_Gazlowe|r
+    .turnin 892 >>Turn in The Missing Shipment
+.target Gazlowe
+    .accept 888 >>Accept Stolen Booty
 step
     .goto 1413/1,-3769.19,-898.12
-    .fly The Crossroads >> 飞往十字路口
+    .fly Crossroads >> Fly to The Crossroads
 step
     .goto 1413/1,-2595.75,-468.43
-.target 索克
->>与|cRXP_FRIENDLY_索克|r交谈
-    .turnin 5041 >>交任务：十字路口的补给品
-    .turnin 872 >>交任务：野猪人的头目
+.target Thork
+>>Talk to |cRXP_FRIENDLY_Thork|r
+    .turnin 5041 >>Turn in Supplies for the Crossroads
+    .turnin 872 >>Turn in The Disruption Ends
 step
     .goto 1413/1,-2666.68,-481.94
->>与|cRXP_FRIENDLY_瑟格拉·黑棘|r交谈
-    .turnin 845 >>交任务：斑马的威胁
-.target 瑟格拉·黑棘
-    .accept 903 >>接任务：草原上的徘徊者
+>>Talk to |cRXP_FRIENDLY_Sergra Darkthorn|r
+    .turnin 845 >>Turn in The Zhevra
+.target Sergra Darkthorn
+    .accept 903 >>Accept Prowlers of the Barrens
 step
     #sticky
     #completewith next
-    >>击杀平原陆行鸟，拾取它们的肾脏
+    >>Kill Plainstriders. Loot them for their Kidneys
     .complete 821,2 --Plainstrider Kidney (5)
 step
     #label RegtharDeathgate1
     .goto 1413/1,-1972.55,-306.95
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_雷戈萨·死门|r交谈
-    .accept 850 >>接任务：科卡尔首领
-    .accept 855 >> 接任务：半人马护腕
-    .target 雷戈萨·死门
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Regthar|r
+    .accept 850 >>Accept Kolkar Leaders
+    .accept 855 >> Accept Centaur Bracers
+    .target Regthar Deathgate
 step
     #completewith KodobaneTurnin
-    >>击杀|cRXP_ENEMY_科卡尔牧民|r和|cRXP_ENEMY_科卡尔召雷师|r，拾取掉落的|cRXP_LOOT_半人马护腕|r
-    >>|cRXP_WARN_此任务不需要现在完成|r
+    >>Kill |cRXP_ENEMY_Kolkar Wranglers|r and |cRXP_ENEMY_Kolkar Stormers|r. Loot them for their |cRXP_LOOT_Bracers|r
+    >>|cRXP_WARN_This quest does not have to be completed now|r
     .complete 855,1 --Centaur Bracers (15)
-    .mob 科卡尔牧民
-    .mob 科卡尔召雷师
+    .mob Kolkar Wrangler
+    .mob Kolkar Stormer
 step
     #completewith Barak
-    >>在遗忘之池周围采集|cRXP_LOOT_丰满的蘑菇|r
-    >>|cRXP_WARN_此任务不需要现在完成|r
+    >>Collect |cRXP_LOOT_Laden Mushrooms|r around The Forgotten Pools
+    >>|cRXP_WARN_This quest does not have to be completed now|r
     .complete 848,1 --Collect Fungal Spores (x4)
 step
     .goto 1413/1,-1943.16,89.64
-    >>潜入水下，前往|cRXP_PICK_冒泡的裂隙|r
+    >>Dive underwater to the |cRXP_PICK_Bubbling Fissure|r
     .complete 870,1 --Explore the waters of the Forgotten Pools
 step
     #label Barak
     .goto 1413/1,-1716.18,23.43
-    >>击杀|cRXP_ENEMY_巴拉克·科多班恩|r，拾取掉落的|cRXP_LOOT_头颅|r
-    >>|cRXP_WARN_小心：|cRXP_ENEMY_巴拉克·科多班恩|r的近战伤害很高，还有一名|cRXP_ENEMY_科卡尔牧民|r在旁保护。他们会投网并从远处射击|r
+    >>Kill |cRXP_ENEMY_Barak Kodobane|r. Loot him for his |cRXP_LOOT_Head|r
+    >>|cRXP_WARN_Be careful as |cRXP_ENEMY_Barak Kodobane|r's melee hits deal a LOT of damage and he is protected by a |cRXP_ENEMY_Kolkar Wrangler|r. They can net you and shoot at you from ranged distance|r
     .complete 850,1 --Kodobane's Head (1)
-    .mob 巴拉克·科多班恩
+    .mob Barak Kodobane
 step
     .goto 1413/1,-1972.55,-306.95
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_雷戈萨·死门|r交谈
-    .turnin 850 >>交任务：科卡尔首领
-    .accept 851 >>接任务：狂热的维罗戈
-    .turnin 855 >>交任务：半人马护腕
-    .target 雷戈萨·死门
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Regthar|r
+    .turnin 850 >>Turn in Kolkar Leaders
+    .accept 851 >>Accept Verog the Dervish
+    .turnin 855 >>Turn in Centaur Bracers
+    .target Regthar Deathgate
     .isQuestComplete 855
 step
     #label KodobaneTurnin
     .goto 1413/1,-1972.55,-306.95
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与|cRXP_FRIENDLY_雷戈萨·死门|r交谈
-    .turnin 850 >>交任务：科卡尔首领
-    .accept 851 >>接任务：狂热的维罗戈
-    .target 雷戈萨·死门
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tTalk to |cRXP_FRIENDLY_Regthar|r
+    .turnin 850 >>Turn in Kolkar Leaders
+    .accept 851 >>Accept Verog the Dervish
+    .target Regthar Deathgate
 step
     #sticky
     #completewith Claws
-    >>沿途击杀迅猛龙并拾取头颅；剩余的稍后再收集
+    >>Kill Raptors that you see. Loot them for some Raptor Heads - you'll get more later
     .complete 869,1 --Raptor Head (12)
 step
     #sticky
@@ -326,11 +318,11 @@ step
     .goto 1413/1,-1470.95,261.25,40,0
     .goto 1413/1,-1572.28,-42.78,40,0
     .goto 1413/1,-1470.95,261.25,40,0
-	>>暂时不用收集齐全部獠牙
+	>>Don't focus on getting all of them now
     .complete 821,1 --Savannah Lion Tusk (5)
 step
     #label Claws
-    >>击杀草原徘徊者，拾取它们的爪子和獠牙
+    >>Kill Prowlers. Loot them for their Claws and Tusks
     .goto 1413/1,-1572.28,-42.78
     .complete 903,1 --Prowler Claws (7)
 step
@@ -340,17 +332,17 @@ step
     .goto 1413/1,-1450.68,335.57,40,0
     .goto 1413/1,-1501.35,626.09,40,0
     .goto 1413/1,-1693.88,592.31,40,0
-    >>击杀鹰身人，拾取它们的利爪
+    >>Kill Harpies. Loot them for their Talons
     .complete 867,1 --Witchwing Talon (8)
 step
     #completewith next
     .goto 1413/1,-1815.48,788.24
-    >> 如果仍未获得重型尖刺钉锤，可考虑向弗朗恩·凝血购买 << Druid/Warrior
-    .vendor >> 需要时向这名商人出售杂物
+    >> If you still didn't get the Heavy Spiked Mace consider try to buy it from Vrang Wildgore << Druid/Warrior
+    .vendor >> Go vendor at this guy if needed
 step
     #sticky
     #completewith next
-    >>击杀平原陆行鸟，拾取它们的肾脏
+    >>Kill Plainstriders. Loot them for their Kidneys
     .complete 821,2 --Plainstrider Kidney (5)
 step
     .goto 1413/1,-2879.48,781.48,40,0
@@ -359,208 +351,199 @@ step
     .goto 1413/1,-2879.48,781.48,40,0
     .goto 1413/1,-2909.88,484.21,40,0
     .goto 1413/1,-1693.88,592.31,40,0
-    >>击杀迅猛龙，拾取它们的头颅
+    >>Kill Raptors. Loot them for their heads
     .complete 869,1 --Raptor Head (12)
 step
-    >>点击控制台
+    >>Click on the Control Console
     .goto 1413/1,-2686.95,828.77
-    .turnin 894 >>交任务：什么什么平衡器
-    .accept 900 >>接任务：什么什么平衡器
+    .turnin 894 >>Turn in Samophlange
+    .accept 900 >>Accept Samophlange
 step
-    >>点击阀门
+    >>Click the Valve
     .goto 1413/1,-2686.95,842.29
     .complete 900,2 --Shut off Fuel Control Valve (1)
 step
-    >>点击两个阀门；点击任意一个都会刷出敌人
+    >>Click the Valve. Mobs will spawn when you click either
     .goto 1413/1,-2676.82,842.29
     .complete 900,3 --Shut off Regulator Valve (1)
     .goto 1413/1,-2676.82,828.77
     .complete 900,1 --Shut off Main Control Valve (1)
 step
-    >>点击控制台
+    >>Click on the Control Console
     .goto 1413/1,-2686.95,828.77
-    .turnin 900 >>交任务：什么什么平衡器
-    .accept 901 >>接任务：什么什么平衡器
+    .turnin 900 >>Turn in Samophlange
+    .accept 901 >>Accept Samophlange
 step
-    >>击杀建筑物内的工匠斯尼格斯。拾取他的控制台钥匙
+    >>Kill Tinkerer Sniggles in the building. Loot him for the Console Key
     .goto 1413/1,-2727.48,909.85
     .complete 901,1 --Console Key (1)
 step
     .goto 1413/1,-2686.95,828.77
-    .turnin 901 >>交任务：什么什么平衡器
-    .accept 902 >>接任务：什么什么平衡器
+    .turnin 901 >>Turn in Samophlange
+    .accept 902 >>Accept Samophlange
 step
-    >>从伐木机接取 打火钥匙 任务
+    >>Accept Ignition from the Shredder
     .goto 1413/1,-3102.42,1105.78
-.target 维兹克兰克的伐木机
->>与|cRXP_FRIENDLY_维兹克兰克的伐木机|r交谈
-    .accept 858 >>接任务：打火钥匙
+.target Wizzlecrank's Shredder
+>>Talk to |cRXP_FRIENDLY_Wizzlecrank's Shredder|r
+    .accept 858 >>Accept Ignition
 step
-    >>在这里刷到 16 级非常重要，因为接下来的 3 个任务难度较高
-	.xp 16 >> 刷怪到 16 级
+    >>Grinding to level 16 here is important, due to the next 3 quests being quite hard.
+	.xp 16 >> Grind to 16
 step
-    >>击杀鲁格维兹主管（他在塔内各层巡逻），拾取打火钥匙
+    >>Kill Supervisor Lugwizzle (He patrols all over the tower). Loot him for the Ignition Key
 	.goto 1413/1,-3082.15,1031.46
     .complete 858,1 --Ignition Key (1)
 step
-    >>这会开始护送任务
+    >>This will begin an escort
     .goto 1413/1,-3102.42,1105.78
->>与|cRXP_FRIENDLY_维兹克兰克的伐木机|r交谈
-    .turnin 858 >>交任务：打火钥匙
-.target 维兹克兰克的伐木机
-    .accept 863 >>接任务：逃跑
+>>Talk to |cRXP_FRIENDLY_Wizzlecrank's Shredder|r
+    .turnin 858 >>Turn in Ignition
+.target Wizzlecrank's Shredder
+    .accept 863 >>Accept The Escape
 step
     #label Slugs
-    >>途中会出现 2 只怪物。击杀它们，然后等待他最后的剧情结束
+    >>2 Mobs will spawn at some point. Kill them then wait for his RP event at the end
     .goto 1413/1,-2980.82,1085.51
     .complete 863,1 --Escort Wizzlecrank out of the Venture Co. drill site (1)
 step
-    >>在此区域刷怪，直到打到猫眼翡翠为止
+    >>Grind mobs in the area. Loot them until Cats Eye Emerald drops
     .goto 1413/1,-3609.08,1321.98
     .complete 896,1 -- Cats Eye Emerald (1)
 step
     #completewith next
-	.goto 1454/1,-3841.9,1647.15,40 >>跑向奥格瑞玛西部入口
+	.goto 1454/1,-3841.9,1647.15,40 >>Run to the west entrance of Orgrimmar
 step
     .goto 1454/1,-4224.67,1472.41
-    .trainer >> 学习职业技能
+    .trainer >> Train your class spells
 step << Troll Mage
     .goto 1454/1,-4440.81,1632.18
->>与|cRXP_FRIENDLY_旅店老板格雷什卡|r交谈
-    .turnin 6384 >>交任务：飞往奥格瑞玛
-.target 旅店老板格雷什卡
-    .accept 6385 >>接任务：双足飞龙管理员多拉斯
+>>Talk to |cRXP_FRIENDLY_Innkeeper Gryshka|r
+    .turnin 6384 >>Turn in Ride to Orgrimmar
+.target Innkeeper Gryshka
+    .accept 6385 >>Accept Doras the Wind Rider Master
 step
-    >>向上跑到飞行管理员处；不要飞往任何地方
+    >>Run up to the Flight Master. Do NOT fly anywhere
     .goto 1454/1,-4313.46,1676.25--c:Orgrimmar,45.120,63.889
-    .fp Orgrimmar >> 开通奥格瑞玛飞行点
->>与|cRXP_FRIENDLY_多拉斯|r交谈
-    .turnin 6385 >>交任务：双足飞龙管理员多拉斯 << Troll Mage
-.target 多拉斯
-    .accept 6386 >>接任务：返回十字路口 << Troll Mage
+    .fp Orgrimmar >> Get the Orgrimmar flight path << Undead
+>>Talk to |cRXP_FRIENDLY_Doras|r
+    .turnin 6385 >>Turn in Doras the Wind Rider Master << Troll Mage
+.target Doras
+    .accept 6386 >>Accept Return to the Crossroads << Troll Mage
 step
-    >>前往格罗玛什要塞
+    >>Run to Grommash Hold
     .goto 1454/1,-4229.02,1917.48
-.target 佐尔·孤树
->>与|cRXP_FRIENDLY_佐尔·孤树|r交谈
-    .accept 1061 >>接任务：石爪之灵
+.target Zor Lonetree
+>>Talk to |cRXP_FRIENDLY_Zor Lonetree|r
+    .accept 1061 >>Accept The Spirits of Stonetalon
 step
-    .cooldown item,6948,>0
     #completewith next
-    .hs >>炉石回十字路口
-step
-    .zoneskip The Barrens
-    .cooldown item,6948,<0
-    .goto 1454/1,-4313.46,1676.25
-    .fly The Crossroads >>炉石未就绪时，从奥格瑞玛飞回十字路口
+    .hs >>Hearth to Crossroads
 step << Troll Mage
     .goto 1413/1,-2707.22,-407.62
-.target 扎尔夫
->>与|cRXP_FRIENDLY_扎尔夫|r交谈
-    .turnin 6386 >>交任务：返回十字路口
+.target Zargh
+>>Talk to |cRXP_FRIENDLY_Zargh|r
+    .turnin 6386 >>Turn in Return to the Crossroads.
 step
     .goto 1413/1,-2636.28,-434.64
->>与|cRXP_FRIENDLY_加兹罗格|r交谈
-    .turnin 869 >>交任务：偷钱的迅猛龙
-.target 加兹罗格
-    .accept 3281 >>接任务：被偷走的银币
+>>Talk to |cRXP_FRIENDLY_Gazrog|r
+    .turnin 869 >>Turn in Raptor Thieves
+.target Gazrog
+    .accept 3281 >>Accept Stolen Silver
 step
     .goto 1413/1,-2676.82,-481.94
->>与|cRXP_FRIENDLY_瑟格拉·黑棘|r交谈
-    .turnin 903 >>交任务：草原上的徘徊者
-.target 瑟格拉·黑棘
-    .accept 881 >>接任务：埃其亚基
+>>Talk to |cRXP_FRIENDLY_Sergra Darkthorn|r
+    .turnin 903 >>Turn in Prowlers of the Barrens
+.target Sergra Darkthorn
+    .accept 881 >>Accept Echeyakee
 step
-    >>使用背包中的埃其亚基的号角召唤埃其亚基，击杀后拾取它的毛皮
+    >>Use the Horn of Echeyakee in your bags to summon Echeyakee. Kill him and loot him for his Hide
     .goto 1413/1,-3001.08,443.67
     .complete 881,1 --Echeyakee's Hide (1)
-    .use 10327
 step
     .goto 1413/1,-2666.68,-481.94
->>与|cRXP_FRIENDLY_瑟格拉·黑棘|r交谈
-    .turnin 881 >>交任务：埃其亚基
-.target 瑟格拉·黑棘
-    .accept 905 >>接任务：狂暴的镰爪龙
+>>Talk to |cRXP_FRIENDLY_Sergra Darkthorn|r
+    .turnin 881 >>Turn in Echeyakee
+.target Sergra Darkthorn
+    .accept 905 >>Accept The Angry Scytheclaws
 step
     .goto 1413/1,-2666.68,-481.94
->>与|cRXP_FRIENDLY_图加·符文图腾|r交谈
-    .turnin 870 >> 交任务：遗忘之池
-.target 图加·符文图腾
-    .accept 877 >> 接任务：死水绿洲
+>>Talk to |cRXP_FRIENDLY_Tonga Runetotem|r
+    .turnin 870 >> Turn in The Forgotten Pools
+.target Tonga Runetotem
+    .accept 877 >> Accept The Stagnant Oasis
 step
     .goto 1413/1,-2646.42,-522.480
-.target 曼科里克
->>与|cRXP_FRIENDLY_曼科里克|r交谈
-    .accept 899 >> 接任务：复仇的怒火
-    .accept 4921 >> 接任务：在战斗中失踪
+.target Mankrik
+>>Talk to |cRXP_FRIENDLY_Mankrik|r
+    .accept 899 >> Accept Consumed by Hatred
+    .accept 4921 >> Accept Lost in Battle
 step
-    >>塔顶
+    >>Top of the tower
     .goto 1413/1,-2605.88,-475.18
->>与|cRXP_FRIENDLY_达索克·快刀|r交谈
-    .turnin 867 >>交任务：鹰身强盗
-.target 达索克·快刀
-    .accept 875 >>接任务：鹰身人首领
+>>Talk to |cRXP_FRIENDLY_Darsok Swiftdagger|r
+    .turnin 867 >>Turn in Harpy Raiders
+.target Darsok Swiftdagger
+    .accept 875 >>Accept Harpy Lieutenants
 step
-    .isQuestComplete 848
     .goto 1413/1,-2595.75,-427.890
-.target 药剂师赫布瑞姆
->>与|cRXP_FRIENDLY_药剂师赫布瑞姆|r交谈
-    .turnin 848 >> 交任务：菌类孢子
+.target Apothecary Helbrim
+>>Talk to |cRXP_FRIENDLY_Apothecary Helbrim|r
+    .turnin 848 >> Turn in Fungal Spores
 step
     .goto 1413/1,-2595.75,-434.64
-    .fly Ratchet >>飞往棘齿城
+    .fly Ratchet >>Fly to Ratchet
 step
     .goto 1413/1,-3761.08,-900.83
->>与|cRXP_FRIENDLY_斯布特瓦夫|r交谈
-    .turnin 902 >>交任务：什么什么平衡器
-    .turnin 863 >> 交任务：逃跑
-.target 斯布特瓦夫
-    .accept 1483 >> 接任务：菲兹克斯
+>>Talk to |cRXP_FRIENDLY_Sputtervalve|r
+    .turnin 902 >>Turn in Samophlange
+    .turnin 863 >> Turn in The Escape
+.target Sputtervalve
+    .accept 1483 >> Accept Ziz Fizziks
 step
     .goto 1413/1,-3791.48,-981.900
-.target 码头管理员迪兹维格
->>与|cRXP_FRIENDLY_码头管理员迪兹维格|r交谈
-    .turnin 896 >> 交任务：矿工的宝贝
+.target Wharfmaster Dizzywig
+>>Talk to |cRXP_FRIENDLY_Wharfmaster Dizzywig|r
+    .turnin 896 >> Turn in Miner's Fortune
 step
     .goto 1413/1,-3700.28,-934.610
-.target 麦伯克·米希瑞克斯
->>与|cRXP_FRIENDLY_麦伯克·米希瑞克斯|r交谈
-    .accept 1069 >> 接任务：深苔蜘蛛的卵
+.target Mebok Mizzyrix
+>>Talk to |cRXP_FRIENDLY_Mebok Mizzyrix|r
+    .accept 1069 >> Accept Deepmoss Spider Eggs
 step
-    >>打开箱子，拾取里面的物品
+    >>Loot the crate
     .goto 1413/1,-3821.88,-1711.58
     .complete 888,2 --Telescopic Lens (1)
 step
-    >>打开箱子，拾取里面的物品
+    >>Loot the crate
     .goto 1413/1,-3720.55,-1738.60
-    .complete 888,1
 step
     #sticky
     #completewith Nest
-    >>击杀沿途的迅猛龙，拾取它们的角和羽毛。小心它们会使用痛击
+    >>Kill any raptors you see. Loot them for their Horns and Feathers. Be careful as they thrash
     .complete 865,1 --Intact Raptor Horn (5)
 step
-    >>从箱子里拿到被偷走的银币
-    >>保留获得的赤鳞迅猛龙的羽毛，稍后要用
+    >>Loot the chest for Stolen Silver
+    >>Save any Sunscale feathers you get for later
     .goto 1413/1,-3193.62,-1927.77,90,0
     .goto 1413/1,-3254.42,-2029.12
     .complete 3281,1 --Stolen Silver (1)
 step
     #completewith Verog
-    >>在死水绿洲周围采集|cRXP_LOOT_丰满的蘑菇|r
+    >>Collect |cRXP_LOOT_Laden Mushrooms|r around The Stagnant Oasis
     .complete 848,1 --Collect Fungal Spores (x4)
 step
-    >>点击水下的冒泡的裂隙
+    >>Click the Bubbling Fissure underwater
     .goto 1413/1,-3011.22,-1272.42
     .complete 877,1 --Test the Dried Seeds (1)
 step
     #sticky
 	#completewith next
-    >>击杀半人马。拾取它们的护腕
+    >>Kill Centaurs. Loot them for their bracers
     .complete 855,1 --Centaur Bracers (15)
 step
     #label Verog
-    >> 击杀湖边的半人马，直到维罗戈出现；刷新时聊天框会出现喊话
+    >> Grind any Centaur around the lake until they spawn Verog (you'll see a Yell in chat when he spawns)
     .goto 1413/1,-2742.68,-1209.59
     .complete 851,1 --Verog's Head (1)
 step
@@ -575,19 +558,19 @@ step
 	.goto 1413/1,-3066.95,-1311.61,25,0
 	.goto 1413/1,-3059.86,-1264.31,25,0
 	.goto 1413/1,-3023.38,-1234.58,25,0
-    >>在死水绿洲周围采集|cRXP_LOOT_丰满的蘑菇|r
+    >>Collect |cRXP_LOOT_Laden Mushrooms|r around The Stagnant Oasis
     .complete 848,1 --Collect Fungal Spores (x4)
 step
-    >>点击巢中的蛋；需要使用从赤鳞迅猛龙身上获得的羽毛
+    >>Click the egg. You need the sunscale feathers from the raptors
     .goto 1413/1,-2707.22,-1508.89
     .complete 905,1 --Visit Blue Raptor Nest (1)
 step
-    >>点击巢中的蛋；需要使用从赤鳞迅猛龙身上获得的羽毛
+    >>Click the egg. You need the sunscale feathers from the raptors
     .goto 1413/1,-2697.08,-1535.91
     .complete 905,3 --Visit Red Raptor Nest (1)
 step
     #label Nest
-    >>点击巢中的蛋；需要使用从赤鳞迅猛龙身上获得的羽毛
+    >>Click the egg. You need the sunscale feathers from the raptors
     .goto 1413/1,-2646.42,-1529.16
     .complete 905,2 --Visit Yellow Raptor Nest (1)
 step
@@ -599,102 +582,102 @@ step
     .goto 1413/1,-2646.42,-1529.16,40,0
     .goto 1413/1,-3183.48,-2015.61,40,0
     .goto 1413/1,-2646.42,-1529.16,40,0
-    >>继续击杀迅猛龙，拾取它们的角
+    >>Finish killing Raptors. Loot them for their Horns
     .complete 865,1 --Intact Raptor Horn (5)
 step
-    >>找到曼科里克的妻子并与其交互
+    >>Talk to Mankrik's Wife
     .goto 1413/1,-2372.82,-1792.65
     .complete 4921,1 --Find Mankrik's Wife (1)
 step
     .goto 1413/1,-1997.88,-2373.69
-    .home >>将炉石绑定在陶拉祖营地
+    .home >>Set your Hearthstone to Camp Taurajo
 step
     .goto 1413/1,-1886.42,-2387.20
-.target 碎牙
->>与|cRXP_FRIENDLY_碎牙|r交谈
-    .accept 878 >>接任务：野猪人的内战
+.target Mangletooth
+>>Talk to |cRXP_FRIENDLY_Mangletooth|r
+    .accept 878 >>Accept Tribes at War
 step
     .goto 1413/1,-1886.42,-2387.20
-    .fp Camp Taurajo >> 获取陶拉祖营地飞行点
-    .fly The Crossroads >>飞往十字路口
+    .fp Camp Taurajo >> Get the Camp Taurajo flight path
+    .fly Crossroads >>Fly to Crossroads
 step
     .goto 1413/1,-2636.28,-434.64
-.target 加兹罗格
->>与|cRXP_FRIENDLY_加兹罗格|r交谈
-    .turnin 3281 >>交任务：被偷走的银币
+.target Gazrog
+>>Talk to |cRXP_FRIENDLY_Gazrog|r
+    .turnin 3281 >>Turn in Stolen Silver
 step
     .goto 1413/1,-2666.68,-481.94
->>与|cRXP_FRIENDLY_瑟格拉·黑棘|r交谈
-    .turnin 905 >>交任务：狂暴的镰爪龙
-.target 瑟格拉·黑棘
-    .accept 3261 >>接任务：乔恩·星眼
+>>Talk to |cRXP_FRIENDLY_Sergra Darkthorn|r
+    .turnin 905 >>Turn in The Angry Scytheclaws
+.target Sergra Darkthorn
+    .accept 3261 >>Accept Jorn Skyseer
 step
     .goto 1413/1,-2666.68,-481.94--??
->>与|cRXP_FRIENDLY_图加·符文图腾|r交谈
-    .turnin 877 >>交任务：死水绿洲
-.target 图加·符文图腾
-    .accept 880 >>接任务：变异的生物
+>>Talk to |cRXP_FRIENDLY_Tonga Runetotem|r
+    .turnin 877 >>Turn in The Stagnant Oasis
+.target Tonga Runetotem
+    .accept 880 >>Accept Altered Beings
 step
     .goto 1413/1,-2646.42,-522.48
-.target 曼科里克
->>与|cRXP_FRIENDLY_曼科里克|r交谈
-    .turnin 4921 >>交任务：在战斗中失踪
+.target Mankrik
+>>Talk to |cRXP_FRIENDLY_Mankrik|r
+    .turnin 4921 >>Turn in Lost in Battle
 step
     #sticky
 	#completewith next
-    >>击杀平原陆行鸟，拾取它们的肾脏
+    >>Kill Plainstriders. Loot them for their Kidneys
     .complete 821,2 --Plainstrider Kidney (5)
 step
     .goto 1413/1,-1976.6,-308.30
->>与|cRXP_FRIENDLY_雷戈萨·死门|r交谈
-    .turnin 851 >>交任务：狂热的维罗戈
-.target 雷戈萨·死门
-    .accept 852 >>接任务：赫兹鲁尔·血印
+>>Talk to |cRXP_FRIENDLY_Regthar Deathgate|r
+    .turnin 851 >>Turn in Verog the Dervish
+.target Regthar Deathgate
+    .accept 852 >>Accept Hezrul Bloodmark
 step
     .goto 1413/1,-1976.6,-308.30
-.target 雷戈萨·死门
->>与|cRXP_FRIENDLY_雷戈萨·死门|r交谈
-    .turnin 855 >> 交任务：半人马护腕
+.target Regthar Deathgate
+>>Talk to |cRXP_FRIENDLY_Regthar Deathgate|r
+    .turnin 855 >> Turn in Centaur Bracers
     .isQuestComplete 855
 step
     .goto 1413/1,-1976.6,-308.30
->>与|cRXP_FRIENDLY_雷戈萨·死门|r交谈
-    .turnin 851 >>交任务：狂热的维罗戈
-.target 雷戈萨·死门
-    .accept 852 >>接任务：赫兹鲁尔·血印
+>>Talk to |cRXP_FRIENDLY_Regthar Deathgate|r
+    .turnin 851 >>Turn in Verog the Dervish
+.target Regthar Deathgate
+    .accept 852 >>Accept Hezrul Bloodmark
 step
     #sticky
 	#label CeBracers
-    >>击杀半人马。拾取它们的护腕
+    >>Kill Centaurs. Loot them for their bracers
     .complete 855,1 --Centaur Bracers (15)
 step
     .goto 1413/1,-2025.24,-1144.050
-    >> 赫兹鲁尔会在哀嚎洞穴附近的大湖周围巡逻
+    >> Hezrul patrols around the big WC lake
     .complete 852,1 --Hezrul's Head (1)
 step
 	#requires CeBracers
 	.goto 1413/1,-1974.58,-308.30
-.target 雷戈萨·死门
->>与|cRXP_FRIENDLY_雷戈萨·死门|r交谈
-    .turnin 852 >>交任务：赫兹鲁尔·血印
-    .turnin 855 >> 交任务：半人马护腕
+.target Regthar Deathgate
+>>Talk to |cRXP_FRIENDLY_Regthar Deathgate|r
+    .turnin 852 >>Turn in Hezrul Bloodmark
+    .turnin 855 >> Turn in Centaur Bracers
 step
     .goto 1413/1,-1974.58,-308.30
-.target 雷戈萨·死门
->>与|cRXP_FRIENDLY_雷戈萨·死门|r交谈
-    .accept 4021 >>接任务：人马无双！
+.target Regthar Deathgate
+>>Talk to |cRXP_FRIENDLY_Regthar Deathgate|r
+    .accept 4021 >>Accept Counterattack!
 step
-    >> 此任务单人完成可能非常困难。尽量组队；若无人可组，可将目标引到任务发布者的建筑附近风筝
-    >> 如果难度太高, 就跳过这一步
+    >> This quest can be very hard to solo, if you got no one to group with consider grouping up for it or kite it near the building of the quest giver.
+    >> Skip this if it's too difficult
     .goto 1413/1,-1869.19,-288.71
     .complete 4021,1 --Piece of Krom'zar's Banner (1)
 --N Link to safespot abuse
 step
     .isQuestComplete 4021
     .goto 1413/1,-1976.6,-308.98
-.target 雷戈萨·死门
->>与|cRXP_FRIENDLY_雷戈萨·死门|r交谈
-    .turnin 4021 >>交任务：人马无双！
+.target Regthar Deathgate
+>>Talk to |cRXP_FRIENDLY_Regthar Deathgate|r
+    .turnin 4021 >>Turn in Counterattack!
 step
     .goto 1413/1,-1410.15,443.67,80,0
     .goto 1413/1,-1166.95,545.01,80,0
@@ -706,33 +689,34 @@ step
     .goto 1413/1,-1166.95,545.01,80,0
     .goto 1413/1,-1460.82,585.55,80,0
     .goto 1413/1,-1410.15,443.67
-    >>击杀巫翼杀戮者。拾取它们的鹰身人首领之戒
+    >>Kill Witchwing Slayers. Loot them for Harpy Lieutenant Rings
     .complete 875,1 --Harpy Lieutenant Ring (6)
 step
     .goto 1413/1,-1572.28,-42.78
-    >>击杀该区域内的草原徘徊者。拾取它们的獠牙
+    >>Kill Savannah Prowlers in the area. Loot them for their Tusks
     .complete 821,1 --Savannah Lion Tusk (5)
 step
     .goto 1413/1,-954.15,-272.49
->>与|cRXP_FRIENDLY_希雷斯·碎石|r交谈
-    .turnin 1061 >> 交任务：石爪之灵
-.target 希雷斯·碎石
-    .accept 1062 >> 接任务：地精侵略者
-.target 玛卡巴·扁蹄
->>与|cRXP_FRIENDLY_玛卡巴·扁蹄|r交谈
-    .accept 6548 >> 接任务：为我的村庄复仇
+>>Talk to |cRXP_FRIENDLY_Seereth Stonebreak|r
+    .turnin 1061 >> Turn in The Spirits of Stonetalon
+.target Seereth Stonebreak
+    .accept 1062 >> Accept Goblin Invaders
+.target Makaba Flathoof
+>>Talk to |cRXP_FRIENDLY_Makaba Flathoof|r
+    .accept 6548 >> Accept Avenge My Village
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 部落法师 AoE
 #forever
 #disabledungeons
 << Horde Mage
 #name 17-21 Stonetalon/Barrens AoE
 #version 1
 #group RestedXP Horde Mage AoE
+
 #defaultfor none Horde Mage
 #next 21-30 Silverpine/Hillsbrad AoE
-#displayname 17-21 石爪山脉/贫瘠之地 AoE
+
 step
     .goto 1442/1,-695.02,12.09,50,0
     .goto 1442/1,-758.5,116.29,50,0
@@ -742,43 +726,43 @@ step
     .goto 1442/1,-758.5,116.29,50,0
     .goto 1442/1,-890.35,171.65,50,0
     .goto 1442/1,-773.15,-13.96,50,0
-    >>击杀此区域的恐怖图腾成员
+    >>Kill Grimtotems in the area
     .complete 6548,2 --Kill Grimtotem Mercenary (x6)
     .complete 6548,1 --Kill Grimtotem Ruffian (x8)
 step
     .goto 1413/1,-943.1,-265.13
->>与|cRXP_FRIENDLY_玛卡巴·扁蹄|r交谈
-    .turnin 6548 >> 交付为我的村庄复仇
-.target 玛卡巴·扁蹄
-    .accept 6629 >> 接受杀死格鲁迪格·暗云
+>>Talk to |cRXP_FRIENDLY_Makaba Flathoof|r
+    .turnin 6548 >> Turn in Avenge My Village
+.target Makaba Flathoof
+    .accept 6629 >> Accept Kill Grundig Darkcloud
 step
-    >>从西侧小路进入村庄。在接取村内的任务前，务必击杀全部6名蛮兵。击杀主帐篷前的格鲁迪格·暗云。
+    >>Enter the village through the Western path. Make sure you kill all 6 brutes before starting the quest inside. Kill Grundig in front of the main tent
     .goto 1442/1,-255.52,93.5,60,0
     .goto 1442/1,-367.83,109.78
     .complete 6629,1 --Kill Grundig Darkcloud (x1)
     .complete 6629,2 --Kill Grimtotem Brute (x6)
 step
-    >>开始卡雅的护送任务
+    >>Start the Kaya Escort
     .goto 1442/1,-343.42,122.80
-.target 卡雅·扁蹄
->>与|cRXP_FRIENDLY_卡雅·扁蹄|r交谈
-    .accept 6523 >> 接受保护卡雅
+.target Kaya Flathoof
+>>Talk to |cRXP_FRIENDLY_Kaya Flathoof|r
+    .accept 6523 >> Accept Protect Kaya
 step
-     >>护送卡雅并紧跟她。篝火处会出现 3 个恐怖图腾成员；在她抵达营地前先吃喝恢复
+     >>Escort Kaya and stay close to her. 3 Grimtotems will spawn at the bonfire. Eat/drink before she gets to the camp
     .goto 1442/1,-455.73,-59.55
     .complete 6523,1 --Kaya Escorted to Camp Aparaje
 step
     .goto 1442/1,-240.87,-180.03
-.target 辛吉拉
->>与|cRXP_FRIENDLY_辛吉拉|r交谈
-    .accept 6461 >> 接受盗窃的蜘蛛
+.target Xen'Zilla
+>>Talk to |cRXP_FRIENDLY_Xen'Zilla|r
+    .accept 6461 >> Accept Blood Feeders
 step
     #sticky
     #label deepmossegg
-    >>点击树旁的蜘蛛卵
+    >>Click the spider eggs near the trees
     .complete 1069,1 --Collect Deepmoss Egg (x15)
 step
-    >>击杀该区域的深苔蜘蛛
+    >>Kill the Deepmoss Spiders in the area
     .goto 1442/1,437.92,435.4,60,0
     .goto 1442/1,574.65,575.42,60,0
     .goto 1442/1,677.2,578.68,60,0
@@ -793,19 +777,19 @@ step
     .complete 6461,2 --Kill Deepmoss Venomspitter (x7)
 step
     .goto 1442/1,365.2,878.29
->>与|cRXP_FRIENDLY_菲兹克斯|r交谈
-    .turnin 1483 >> 交付菲兹克斯
-.target 菲兹克斯
-    .accept 1093 >> 接受超级收割机6000
+>>Talk to |cRXP_FRIENDLY_Ziz Fizziks|r
+    .turnin 1483 >> Turn in Ziz Fizziks
+.target Ziz Fizziks
+    .accept 1093 >> Accept Super Reaper 6000
 step
     #sticky
     #requires deepmossegg
     #completewith next
-    >>一边寻找操作员获取设计图，一边击杀风险投资公司樵夫
+    >>Kill Loggers as you search for Operators to get the Blueprints
     .complete 1062,1 --Kill Venture Co. Logger (x15)
 step
     #requires deepmossegg
-    >>击杀风险投资公司操作员，直到获得设计图
+    >>Kill Venture Co. Operators until you get the Blueprints
     .goto 1442/1,179.10,1168.06,40,0
     .goto 1442/1,232.82,1239.70,40,0
     .goto 1442/1,-16.23,1441.59,40,0
@@ -814,7 +798,7 @@ step
     .goto 1442/1,179.10,1168.06,40,0
     .complete 1093,1 --Collect Super Reaper 6000 Blueprints (x1)
 step
-    >>继续击杀樵夫，完成剩余目标
+    >>Finish killing Loggers
     .goto 1442/1,115.62,1070.37,40,0
     .goto 1442/1,-338.53,1148.52,40,0
     .goto 1442/1,115.62,1070.37,40,0
@@ -826,24 +810,22 @@ step
     .complete 1062,1 --Kill Venture Co. Logger (x15)
 step
     .goto 1442/1,365.2,878.29
->>与|cRXP_FRIENDLY_菲兹克斯|r交谈
-    .turnin 1093 >> 交付超级收割机6000
-.target 菲兹克斯
-    .accept 1094 >> 接受新的指示
+>>Talk to |cRXP_FRIENDLY_Ziz Fizziks|r
+    .turnin 1093 >> Turn in Super Reaper 6000
+.target Ziz Fizziks
+    .accept 1094 >> Accept Further Instructions
 step
-    .cooldown item,6948,>0
-    .hs >> 炉石回陶拉祖营地
-    *炉石仍在冷却时，直接跑回陶拉祖营地，继续下一步
+    .hs >> Hearth to Camp Taurajo
 step
     .goto 1413/1,-1926.95,-2380.44
->>与|cRXP_FRIENDLY_乔恩·星眼|r交谈
-    .turnin 3261 >>交付乔恩·星眼
-.target 乔恩·星眼
-    .accept 882 >>接受伊沙姆哈尔
+>>Talk to |cRXP_FRIENDLY_Jorn Skyseer|r
+    .turnin 3261 >>Turn in Jorn Skyseer
+.target Jorn Skyseer
+    .accept 882 >>Accept Ishamuhale
 step
     #sticky
     #label Lizard
-    >>击杀雷角蜥蜴，拾取它们的角
+    >>Kill Stormsnouts. Loot them for a Horn
     .complete 821,3 --Thunder Lizard Horn (1)
 step
 	#sticky
@@ -853,12 +835,11 @@ step
     .goto 1413/1,-2038.42,-1711.58,0
     .goto 1413/1,-1967.48,-1934.53,0
     .goto 1413/1,-1937.08,-1887.24,0
-	>>在该区域寻找并击杀拉克塔曼尼（灰色科多兽），拾取它的蹄子。找不到它就跳过此任务
+	>>Find & kill Lakota'mani (Gray Kodo) around the area. Loot his Hoof. If you can't find him, skip this quest.
 	.collect 5099,1,883 --Collect Hoof of Lakota'Mani
-	.accept 883 >>接受拉克塔曼尼
-    .use 5099
+	.accept 883 >>Accept Lakota'Mani
 step
-    >>击杀大量野猪人，拾取它们的獠牙，并留好获得的血岩碎片
+    >>Kill a LOT of Quilboars. Loot them for their tusks. Save the Blood Shards you get
 	.goto 1413/1,-1866.15,-1921.02,50,0
     .goto 1413/1,-2149.88,-1988.58,50,0
     .goto 1413/1,-1957.35,-2056.14,50,0
@@ -878,114 +859,113 @@ step
 step
     #sticky
     #completewith Ishamuhale
-    >>击杀平原陆行鸟，拾取它们的肾脏
+    >>Kill Plainstriders. Loot them for their Kidneys
     .complete 821,2 --Plainstrider Kidney (5)
 step
     #requires Lizard
-    >>绕湖使用范围攻击击杀乌龟，拾取它们的龟壳
+    >>Go around the lake and AoE Turtles. Loot them for their Shells
 	.goto 1413/1,-3001.08,-1265.66
     .complete 880,1 --Altered Snapjaw Shell (8)
 step
    #completewith next
-	>>在该区域击杀一只斑马，拾取新鲜的斑马肉
+	>>Kill a Zhevra in the area. Loot it for a Carcass
 	.goto 1413/1,-3558.42,-563.01
 	.collect 10338,1 --Collect Fresh Zhevra Carcass
 step
 	#label Ishamuhale
-    >>在枯树旁使用新鲜的斑马肉召唤伊沙姆哈尔，击杀它并拾取它的牙齿
+    >>Use the Fresh Zhevra Carcass at the dead tree to summon Ishamuhale. Kill and loot him for his Fang
 	.goto 1413/1,-3446.95,-441.40
     .complete 882,1 --Ishamuhale's Fang (1)
-    .use 10338
 step
-    >>击杀平原陆行鸟，拾取它们的肾脏
+    >>Kill Plainstriders. Loot them for their Kidneys
     .complete 821,2 --Plainstrider Kidney (5)
 step
 	.goto 1413/1,-3730.68,-840.02
-    >>跑回棘齿城
-.target 加兹鲁维
->>与|cRXP_FRIENDLY_加兹鲁维|r交谈
-    .turnin 888 >>交付被窃的货物
+    >>Run back to Ratchet
+.target Gazlowe
+>>Talk to |cRXP_FRIENDLY_Gazlowe|r
+    .turnin 888 >>Turn in Stolen Booty
 step
     .goto 1413/1,-3761.08,-900.83
->>与|cRXP_FRIENDLY_斯布特瓦夫|r交谈
-    .turnin 1094 >>交付新的指示
-.target 斯布特瓦夫
-    .accept 1095 >>接受新的指示
+>>Talk to |cRXP_FRIENDLY_Sputtervalve|r
+    .turnin 1094 >>Turn in Further Instructions
+.target Sputtervalve
+    .accept 1095 >>Accept Further Instructions
 step
     .goto 1413/1,-3700.28,-927.85
-.target 麦伯克·米希瑞克斯
->>与|cRXP_FRIENDLY_麦伯克·米希瑞克斯|r交谈
-    .turnin 865 >>交付迅猛龙角
-    .turnin 1069 >>交付深苔蜘蛛的卵
+.target Mebok Mizzyrix
+>>Talk to |cRXP_FRIENDLY_Mebok Mizzyrix|r
+    .turnin 865 >>Turn in Raptor Horns
+    .turnin 1069 >>Turn in Deepmoss Spider Eggs
 step
     .goto 1413/1,-3690.15,-981.90
-.target 酿酒师德罗恩
->>与|cRXP_FRIENDLY_酿酒师德罗恩|r交谈
-    .turnin 821 >>交付老陈的空酒桶
+.target Brewmaster Drohn
+>>Talk to |cRXP_FRIENDLY_Brewmaster Drohn|r
+    .turnin 821 >>Turn in Chen's Empty Keg
 step
     .goto 1413/1,-3771.22,-894.07
-    .fly The Crossroads >>飞往十字路口
+    .fly Crossroads >>Fly to Crossroads
 step
     .goto 1413/1,-2666.68,-481.94--??
->>与|cRXP_FRIENDLY_图加·符文图腾|r交谈
-    .turnin 880 >>交付变异的生物
-.target 图加·符文图腾
-    .accept 1489 >>接受哈缪尔·符文图腾
-    .accept 3301 >>接受茉拉·符文图腾
+>>Talk to |cRXP_FRIENDLY_Tonga Runetotem|r
+    .turnin 880 >>Turn in Altered Beings
+.target Tonga Runetotem
+    .accept 1489 >>Accept Hamuul Runetotem
+    .accept 3301 >>Accept Mura Runetotem
 step
     .goto 1413/1,-2646.42,-522.48
-.target 曼科里克
->>与|cRXP_FRIENDLY_曼科里克|r交谈
-    .turnin 899 >>交付复仇的怒火
+.target Mankrik
+>>Talk to |cRXP_FRIENDLY_Mankrik|r
+    .turnin 899 >>Turn in Consumed by Hatred
 step
-    >>在塔顶
+    >>Top of the tower
     .goto 1413/1,-2605.88,-475.180
->>与|cRXP_FRIENDLY_达索克·快刀|r交谈
-    .turnin 875 >> 交付鹰身人首领
-.target 达索克·快刀
-    .accept 876 >> 接受塞瑞娜·血羽
+>>Talk to |cRXP_FRIENDLY_Darsok Swiftdagger|r
+    .turnin 875 >> Turn in Harpy Lieutenants
+.target Darsok Swiftdagger
+    .accept 876 >> Accept Serena Bloodfeather
 step
-    >>这会开始一个限时任务
+    >>This starts a timed quest
     .goto 1413/1,-2585.62,-427.89
->>与|cRXP_FRIENDLY_药剂师赫布瑞姆|r交谈
-    .turnin 848 >>交付菌类孢子
-.target 药剂师赫布瑞姆
-    .accept 853 >>接受药剂师扎玛
+>>Talk to |cRXP_FRIENDLY_Apothecary Helbrim|r
+    .turnin 848 >>Turn in Fungal Spores
+.target Apothecary Helbrim
+    .accept 853 >>Accept Apothecary Zamah
 step
     .goto 1413/1,-2595.75,-434.64
-    .fly Camp Taurajo >>飞往陶拉祖营地
+    .fly Camp Taurajo >>Fly to Camp Taurajo
 step
     .goto 1413/1,-2747.75,-1907.51
-    >>击杀野猪人，取得一块血岩碎片
+    >>Kill Quilboars for a Blood Shard
     .collect 5075 --Blood Shard (1)
 step
     .goto 1413/1,-1896.55,-2387.20
->>与|cRXP_FRIENDLY_碎牙|r交谈
-    .turnin 878 >>交付野猪人的内战
-.target 碎牙
-    .accept 5052 >>接受阿迦玛甘的血岩碎片
-    .turnin 5052 >>交付阿迦玛甘的血岩碎片
+>>Talk to |cRXP_FRIENDLY_Mangletooth|r
+    .turnin 878 >>Turn in Tribes at War
+.target Mangletooth
+    .accept 5052 >>Accept Blood Shards of Agamaggan
+    .turnin 5052 >>Turn in Blood Shards of Agamaggan
 --N Different classes needing different buffs, e.g. need speed buff later for Mulgore run for classes that didnt get FP earlier
 step
     .goto 1413/1,-1916.82,-2380.44
->>与|cRXP_FRIENDLY_乔恩·星眼|r交谈
-    .turnin 882 >>交付伊沙姆哈尔
-.target 乔恩·星眼
-    .accept 907 >>接受被激怒的雷霆蜥蜴
-    .accept 1130 >>接受梅洛的关注
+>>Talk to |cRXP_FRIENDLY_Jorn Skyseer|r
+    .turnin 882 >>Turn in Ishamuhale
+.target Jorn Skyseer
+    .accept 907 >>Accept Enraged Thunder Lizards
+    .accept 1130 >>Accept Melor Sends Word
 step
     .goto 1413/1,-1916.82,-2380.44
     .isOnQuest 883
-.target 乔恩·星眼
->>与|cRXP_FRIENDLY_乔恩·星眼|r交谈
-    .turnin 883 >>交付拉克塔曼尼
+.target Jorn Skyseer
+>>Talk to |cRXP_FRIENDLY_Jorn Skyseer|r
+    .turnin 883 >>Turn in Lakota'mani
 step
     .goto 1413/1,-1916.82,-2380.44
->>与|cRXP_FRIENDLY_乔恩·星眼|r交谈
-    .turnin 882 >>交付伊沙姆哈尔
-.target 乔恩·星眼
-    .accept 907 >>接受被激怒的雷霆蜥蜴
-    .accept 1130 >>接受梅洛的关注
+>>Talk to |cRXP_FRIENDLY_Jorn Skyseer|r
+    .turnin 882 >>Turn in Ishamuhale
+.target Jorn Skyseer
+    .accept 907 >>Accept Enraged Thunder Lizards
+    .accept 1130 >>Accept Melor Sends Word
 step
     #sticky
     #label Owatanka2
@@ -993,34 +973,33 @@ step
     .goto 1413/1,-1856.02,-2583.13,0
     .goto 1413/1,-2362.68,-2616.91,0
     .goto 1413/1,-2403.22,-2441.25,0
-    >>在此区域寻找奥瓦坦卡（蓝色雷霆蜥蜴）。找到它后，拾取它的尾刺并接取任务；找不到就跳过此任务。
+    >>Search for Owatanka (Blue Thunder Lizard) around this area. If you find him, loot his Tailspike and start the quest. If you can't find him, skip this quest
     .collect 5102,1,884 --Collect Owatanka's Tailspike
-    .accept 884 >>接受奥瓦坦卡
-    .use 5102
+    .accept 884 >>Accept Owatanka
 step
     .goto 1413/1,-1683.75,-2461.52,30,0
     .goto 1413/1,-2149.88,-2691.23,30,0
     .goto 1413/1,-2443.75,-2515.57,30,0
-    >>击杀雷霆蜥蜴，拾取它们的血液
+    >>Kill Thunder Lizards. Loot them for their blood
     .complete 907,1 --Thunder Lizard Blood (3)
 step
     .goto 1413/1,-1926.95,-2380.44
->>与|cRXP_FRIENDLY_乔恩·星眼|r交谈
-    .turnin 907 >>交付被激怒的雷霆蜥蜴
-.target 乔恩·星眼
-    .accept 913 >>接受雷鹰的嘶鸣
+>>Talk to |cRXP_FRIENDLY_Jorn Skyseer|r
+    .turnin 907 >>Turn in Enraged Thunder Lizards
+.target Jorn Skyseer
+    .accept 913 >>Accept Cry of the Thunderhawk
 step
     .goto 1413/1,-1926.95,-2380.44
-.target 乔恩·星眼
->>与|cRXP_FRIENDLY_乔恩·星眼|r交谈
-    .turnin 884 >>交付奥瓦坦卡
+.target Jorn Skyseer
+>>Talk to |cRXP_FRIENDLY_Jorn Skyseer|r
+    .turnin 884 >>Turn in Owatanka
     .isOnQuest 884
 step
     .goto 1413/1,-1926.95,-2380.44
->>与|cRXP_FRIENDLY_乔恩·星眼|r交谈
-    .turnin 907 >>交付被激怒的雷霆蜥蜴
-.target 乔恩·星眼
-    .accept 913 >>接受雷鹰的嘶鸣
+>>Talk to |cRXP_FRIENDLY_Jorn Skyseer|r
+    .turnin 907 >>Turn in Enraged Thunder Lizards
+.target Jorn Skyseer
+    .accept 913 >>Accept Cry of the Thunderhawk
 step
     .goto 1413/1,-1916.82,-2657.45,30,0
     .goto 1413/1,-2139.75,-2549.35,30,0
@@ -1028,132 +1007,126 @@ step
     .goto 1413/1,-2139.75,-2549.35,30,0
     .goto 1413/1,-1916.82,-2657.45,30,0
     .goto 1413/1,-2139.75,-2549.35,30,0
-    >>击杀一只雷鹰，拾取它的翅膀
+    >>Kill a Thunderhawk. Loot it for its Wings
     .complete 913,1 --Thunderhawk Wings (1)
 step
     .goto 1413/1,-1916.82,-2380.44
-.target 乔恩·星眼
->>与|cRXP_FRIENDLY_乔恩·星眼|r交谈
-    .turnin 913 >>交付雷鹰的嘶鸣
+.target Jorn Skyseer
+>>Talk to |cRXP_FRIENDLY_Jorn Skyseer|r
+    .turnin 913 >>Turn in Cry of the Thunderhawk
 --    .accept 874 >>Accept Mahren Skyseer
 step
     #completewith next
     .goto 1413/1,-1890.47,-2391.93
-    >>向碎牙交付血岩碎片，获得风之魂增益效果。如果不小心卖掉了碎片，就跳过此步骤。
-.target 碎牙
->>与|cRXP_FRIENDLY_碎牙|r交谈
-    .turnin 889 >> 交付风之魂
+    >>Turn in your Blood Shards for the Spirit of the Wind buff from Mangletooth. If you accidentally sold any shards, skip this step
+.target Mangletooth
+>>Talk to |cRXP_FRIENDLY_Mangletooth|r
+    .turnin 889 >> Turn in Spirit of the Wind
 step
-    .goto 1456/1,182.67,-1315.51,60 >>跑到升降梯处，乘梯进入雷霆崖
+    .goto 1456/1,182.67,-1315.51,60 >>Run to the lift and take it into Thunder Bluff
 step
     .goto 1456/1,38.48,-1300.28
-    .home >>将炉石绑定在雷霆崖
+    .home >>Set your Hearthstone to Thunder Bluff
 step
     .goto 1456/1,-125.64,-1413.06
->>与|cRXP_FRIENDLY_梅洛·石蹄|r交谈
-    .turnin 1130 >>交付梅洛的关注
-.target 梅洛·石蹄
-    .accept 1131 >>接受钢齿土狼
+>>Talk to |cRXP_FRIENDLY_Melor Stonehoof|r
+    .turnin 1130 >>Turn in Melor Sends Word
+.target Melor Stonehoof
+    .accept 1131 >>Accept Steelsnap
 step
-	>>进入预见之池
+ 	>>Go into The Pools of Vision
 	.goto 1456/1,202.5,-1058.75,30,0
 	.goto 1456/1,276.6,-996.120
-.target 药剂师扎玛
->>与|cRXP_FRIENDLY_药剂师扎玛|r交谈
-    .turnin 853 >> 交付药剂师扎玛
+.target Apothecary Zamah
+>>Talk to |cRXP_FRIENDLY_Apothecary Zamah|r
+    .turnin 853 >> Turn in Apothecary Zamah
 step
     .goto 1456/1,254.06,-995.78
-    .trainer >> 学习职业法术
-	>>如果你使用了火焰天赋，暂时不要重置为范围攻击天赋
+    .trainer >> Train your class spells
+	>>Don't respec to AoE yet (if you've gone fire spec)
 step
     .goto 1456/1,220.24,-1042.75
-.target 克拉莉斯·弗斯特
->>与|cRXP_FRIENDLY_克拉莉斯·弗斯特|r交谈
-    .accept 264 >>接受至死方休
+.target Clarice Foster
+>>Talk to |cRXP_FRIENDLY_Clarice Foster|r
+    .accept 264 >>Accept Until Death Do Us Part
 step
 	.goto 1456/1,26.07,-1196.75
-    .fp Thunder Bluff >> 开通雷霆崖飞行路线
-    .fly The Crossroads >>飞往十字路口
+    .fp Thunder Bluff >> Get the Thunder Bluff flight path
+    .fly Crossroads >>Fly to Crossroads
 step
-    >>击杀塞瑞娜·血羽，拾取她的头颅
+    >>Kill Serena Bloodfeather. Loot her for her Head
 	.goto 1413/1,-1349.35,788.24
     .complete 876,1 --Serena's Head (1)
 step
     .goto 1413/1,-954.15,-272.49
->>与|cRXP_FRIENDLY_希雷斯·碎石|r交谈
-    .turnin 1062 >>交付地精侵略者
->>与|cRXP_FRIENDLY_玛卡巴·扁蹄|r交谈
-    .turnin 6629 >>交付杀死格鲁迪格·暗云
-    .turnin 6523 >>交付保护卡雅
-.target 玛卡巴·扁蹄
-    .accept 6401 >>接受卡雅还活着
-.target 希雷斯·碎石
-    .accept 1063 >>接受长者
+>>Talk to |cRXP_FRIENDLY_Seereth Stonebreak|r
+    .turnin 1062 >>Turn in Goblin Invaders
+>>Talk to |cRXP_FRIENDLY_Makaba Flathoof|r
+    .turnin 6629 >>Turn in Kill Grundig Darkcloud
+    .turnin 6523 >>Turn in Protect Kaya
+.target Makaba Flathoof
+    .accept 6401 >>Accept Kaya's Alive
+.target Seereth Stonebreak
+    .accept 1063 >>Accept The Elder Crone
 --    .accept 1068 >> Accept Shredding Machines
 step
     .goto 1442/1,-235.98,-180.03
-.target 辛吉拉
->>与|cRXP_FRIENDLY_辛吉拉|r交谈
-    .turnin 6461 >>交付盗窃的蜘蛛
+.target Xen'Zilla
+>>Talk to |cRXP_FRIENDLY_Xen'Zilla|r
+    .turnin 6461 >>Turn in Blood Feeders
 step
     .goto 1442/1,365.2,878.29
-.target 菲兹克斯
->>与|cRXP_FRIENDLY_菲兹克斯|r交谈
-    .turnin 1095 >>交付新的指示
+.target Ziz Fizziks
+>>Talk to |cRXP_FRIENDLY_Ziz Fizziks|r
+    .turnin 1095 >>Turn in Further Instructions
 step
     .goto 1442/1,926.25,1015.02
-.target 塔姆拉·荒原
->>与|cRXP_FRIENDLY_塔姆拉·荒原|r交谈
-    .turnin 6401 >>交付卡雅还活着
+.target Tammra Windfield
+>>Talk to |cRXP_FRIENDLY_Tammra Windfield|r
+    .turnin 6401 >>Turn in Kaya's Alive
 step
     .goto 1442/1,1042.47,968.13
-    .fp Sun Rock>> 开通烈日石居飞行路线
+    .fp Sun Rock>> Get the Sun Rock Retreat flight path
 step
-    .cooldown item,6948,>0
     #completewith next
-    .hs >> 炉石回雷霆崖
-step
-    .zoneskip Thunder Bluff
-    .cooldown item,6948,<0
-    .goto 1442/1,1042.47,968.13
-    .fly Thunder Bluff >>炉石未就绪时，从烈日石居飞往雷霆崖
+    .hs >> Hearth to Thunder Bluff
 step
     .goto 1456/1,-213.96,-1065.010
->>与|cRXP_FRIENDLY_玛加萨·野性图腾|r交谈
-    .turnin 1063 >> 交付长者
-.target 玛加萨·野性图腾
-    .accept 1064 >> 接受被遗忘者的援助
+>>Talk to |cRXP_FRIENDLY_Magatha Grimtotem|r
+    .turnin 1063 >> Turn in The Elder Crone
+.target Magatha Grimtotem
+    .accept 1064 >> Accept Forsaken Aid
 step
     .goto 1456/1,-303.93,-1048.73
->>与|cRXP_FRIENDLY_大德鲁伊哈缪尔·符文图腾|r交谈
-    .turnin 1489 >> 交付哈缪尔·符文图腾
-.target 大德鲁伊哈缪尔·符文图腾
-    .accept 1490 >> 接受纳拉·蛮鬃
+>>Talk to |cRXP_FRIENDLY_Arch Druid Hamuul Runetotem|r
+    .turnin 1489 >> Turn in Hamuul Runetotem
+.target Arch Druid Hamuul Runetotem
+    .accept 1490 >> Accept Nara Wildmane
 step
     .goto 1456/1,-272.93,-1070.02
-.target 纳拉·蛮鬃
->>与|cRXP_FRIENDLY_纳拉·蛮鬃|r交谈
-    .turnin 1490 >> 交付纳拉·蛮鬃
+.target Nara Wildmane
+>>Talk to |cRXP_FRIENDLY_Nara Wildmane|r
+    .turnin 1490 >> Turn in Nara Wildmane
 step
     .goto 1456/1,276.6,-996.12
->>与|cRXP_FRIENDLY_药剂师扎玛|r交谈
-    .turnin 1064 >> 交付被遗忘者的援助
-.target 药剂师扎玛
-    .accept 1065 >> 接受塔伦米尔之旅
+>>Talk to |cRXP_FRIENDLY_Apothecary Zamah|r
+    .turnin 1064 >> Turn in Forsaken Aid
+.target Apothecary Zamah
+    .accept 1065 >> Accept Journey to Tarren Mill
 step
     .goto 1456/1,254.06,-995.78
-    .trainer >> 按需学习职业法术
-	>>如果尚未改用冰霜范围攻击天赋，现在重置天赋
+    .trainer >> Train your class spells if needed
+	>>Respec to Frost AoE if you haven't already
 step
     .goto 1456/1,28.19,-1197.92
-    .fly The Crossroads >>飞往十字路口
+    .fly The Crossroads >>Fly to The Crossroads
 step
     .goto 1413/1,-2605.88,-475.180
-	>>上楼
-.target 达索克·快刀
->>与|cRXP_FRIENDLY_达索克·快刀|r交谈
-    .turnin 876 >> 交付塞瑞娜·血羽
+	>>Go upstairs
+.target Darsok Swiftdagger
+>>Talk to |cRXP_FRIENDLY_Darsok Swiftdagger|r
+    .turnin 876 >> Turn in Serena Bloodfeather
 step
     .goto 1413/1,-2595.75,-437.35
-    .fly Orgrimmar >> 飞往奥格瑞玛
+    .fly Orgrimmar >> Fly to Orgrimmar
 ]])

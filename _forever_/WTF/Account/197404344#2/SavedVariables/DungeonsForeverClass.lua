@@ -35,8 +35,15 @@ nil,
 ["v"] = 3,
 ["seqOn"] = true,
 },
+["talent"] = {
+["seqOn"] = true,
+},
 ["tier"] = {
 ["tab"] = "dps",
-["nav"] = "rank",
+["sec"] = "changes",
+["spec"] = "enh",
+["mode"] = "talents",
+["nav"] = "spec",
+["cls"] = "SHAMAN",
 },
 }

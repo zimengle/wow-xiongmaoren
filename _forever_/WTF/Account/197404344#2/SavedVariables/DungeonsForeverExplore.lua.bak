@@ -16,11 +16,11 @@ DungeonsForeverExploreDB = {
 ["connect"] = "near",
 ["showGrave"] = false,
 ["showLines"] = false,
-["showPins"] = false,
+["showMeLine"] = true,
 ["hudScale"] = 1,
 ["showNum"] = true,
 ["graveStyle"] = "native",
-["showMeLine"] = true,
+["showPins"] = false,
 },
 ["found"] = {
 },

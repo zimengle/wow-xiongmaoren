@@ -1,276 +1,274 @@
 local faction = UnitFactionGroup("player")
 if faction == "Horde" then return end
 
+local L = GetLocale() if L and RXP.enabledLocale[L] then return end
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 联盟法师
 #forever
 #disabledungeons
 << Alliance Mage
 #name 12-18 Darkshore Mage AoE
 #version 1
 #group RestedXP Alliance Mage
+
 #defaultfor none Alliance Mage
 #next 18-21 Redridge Mage AoE
-#displayname 12-18 黑海岸（法师 AoE）
+
 step
     #completewith next
     .goto 1439/1,533.23,6399.77
-    .vendor >> 可以向莱尔德（鱼贩）购买非常便宜的5级食物
+    .vendor >> You can purchase extremely cheap level 5 food from Laird (fish vendor)
 step
-    >>上楼到顶层
+    >>Go upstairs to the top floor
     .goto 1439/1,519.48,6405.89
-.target 维兹班恩·曲针
->>与|cRXP_FRIENDLY_维兹班恩·曲针|r交谈
-    .accept 983 >>接任务：传声盒827号
+.target Wizbang Cranktoggle
+>>Talk to |cRXP_FRIENDLY_Wizbang Cranktoggle|r
+    .accept 983 >>Accept Buzzbox 827
 step
-    >>跳到 1 楼
+    >>Jump down to the 1st floor
     .goto 1439/1,515.55,6406.32
-    .home >> 将炉石绑定在奥伯丁
+    .home >> Set your Hearthstone to Auberdine
 step
     .goto 1439/1,497.21,6427.72
-.target 巴瑞萨斯·月影
->>与|cRXP_FRIENDLY_巴瑞萨斯·月影|r交谈
-    .accept 947 >>接任务：洞中的蘑菇
+.target Barithras Moonshade
+>>Talk to |cRXP_FRIENDLY_Barithras Moonshade|r
+    .accept 947 >>Accept Cave Mushrooms
 step
     .goto 1439/1,473.63,6439.07
-.target 哨兵戈琳达·纳希恩
->>与|cRXP_FRIENDLY_哨兵戈琳达·纳希恩|r交谈
-    .accept 4811 >>接任务：红色水晶
+.target Sentinel Glynda Nal'Shea
+>>Talk to |cRXP_FRIENDLY_Sentinel Glynda Nal'Shea|r
+    .accept 4811 >>Accept The Red Crystal
 step
     .goto 1439/1,397.65,6437.76
-.target 萨纳瑞恩·绿树
->>与|cRXP_FRIENDLY_萨纳瑞恩·绿树|r交谈
-    .accept 2118 >>接任务：瘟疫蔓延
+.target Tharnariun Treetender
+>>Talk to |cRXP_FRIENDLY_Tharnariun Treetender|r
+    .accept 2118 >>Accept Plagued Lands
 step
     .goto 1439/1,362.93,6434.27
-.target 特伦希斯
->>与|cRXP_FRIENDLY_特伦希斯|r交谈
-    .accept 984 >>接任务：熊怪的威胁
+.target Terenthis
+>>Talk to |cRXP_FRIENDLY_Terenthis|r
+    .accept 984 >>Accept How Big a Threat?
 step
     .goto 1439/1,543.06,6342.57
-.target 温尼斯·布莱葛
->>与|cRXP_FRIENDLY_温尼斯·布莱葛|r交谈
-    .accept 3524 >>接任务：搁浅的巨兽
+.target Gwennyth Bly'Leggonde
+>>Talk to |cRXP_FRIENDLY_Gwennyth Bly'Leggonde|r
+    .accept 3524 >>Accept Washed Ashore
 step
     .goto 1439/1,561.40,6343.01
-    .fp Auberdine >> 获取奥伯丁飞行点
+    .fp Auberdine >> Get the Auberdine flight path
 step
     #completewith Bear
-     >> 击杀海岸沿线的海蟹
+     >> Kill Crawlers along the coast
     .complete 983,1 --Crawler Leg (6)
 step
     .goto 1439/1,558.78,6111.57
-     >> 拾取海洋生物的残骸
+     >> Loot the sea creature
     .complete 3524,1 --Sea Creature Bones (1)
 step
     #sticky
     #completewith next
-    >> 找到一只狂暴蓟熊，吸引它的仇恨，然后使用背包中的萨纳瑞恩的希望（紫色宝珠）
+    >> Find a Rabid Thistle Bear. Aggro one and use Tharnariun's Hope in your bags (purple orb)
     .complete 2118,1 --Rabid Thistle Bear Captured (1)
-    .use 7586
 step
     .goto 1439/1,386.51,5988.430
-     >> 往熊怪营地附近走
+     >> Head towards the vicinity furbolg camp
     .complete 984,1 --Find a corrupt furbolg camp (1)
 step
     #label Bear
-    >> 找到一只狂暴蓟熊，吸引它的仇恨，然后使用背包中的萨纳瑞恩的希望（紫色宝珠）
+    >> Find a Rabid Thistle Bear. Aggro one and use Tharnariun's Hope in your bags (purple orb)
     .goto 1439/1,421.88,5804.16
     .complete 2118,1 --Rabid Thistle Bear Captured (1)
-    .use 7586
 step
     .goto 1439/1,543.71,5962.67,150,0
     .goto 1439/1,577.12,6393.66
-    >> 击杀海岸沿线的海蟹
+    >> Kill Crawlers along the coast
     .complete 983,1 --Crawler Leg (6)
 step
     #sticky
     #completewith ReadAndy
-     >> 把5份陆行鸟肉留到以后用
+     >> Save Strider Meat x5 for later
     .collect 5469,5,2178,1
 step
     .goto 1439/1,540.44,6313.31
-    .turnin 983 >>交任务：传声盒827号
-    .accept 1001 >>接任务：传声盒411号
+    .turnin 983 >>Turn in Buzzbox 827
+    .accept 1001 >>Accept Buzzbox 411
 step
     .goto 1439/1,543.06,6342.57
->>与|cRXP_FRIENDLY_温尼斯·布莱葛|r交谈
-    .turnin 3524 >>交任务：搁浅的巨兽
-.target 温尼斯·布莱葛
-    .accept 4681 >>接任务：搁浅的巨兽
+>>Talk to |cRXP_FRIENDLY_Gwennyth Bly'Leggonde|r
+    .turnin 3524 >>Turn in Washed Ashore
+.target Gwennyth Bly'Leggonde
+    .accept 4681 >>Accept Washed Ashore
 step
     .goto 1439/1,535.85,6409.38,40,0
-    >>前往码头
+    >>Run to the Docks
     .goto 1439/1,600.70,6425.100
-.target 塞瑞利恩·白爪
->>与|cRXP_FRIENDLY_塞瑞利恩·白爪|r交谈
-    .accept 963 >>接任务：永志不渝
+.target Cerellean Whiteclaw
+>>Talk to |cRXP_FRIENDLY_Cerellean Whiteclaw|r
+    .accept 963 >>Accept For Love Eternal
 step
     #sticky
     #completewith Thundris
-     >> 击杀海中的黑海岸蛇颈龙
+     >> Kill darkshore threshers in the sea
     .complete 1001,1 --Thresher Eye (3)
 step
     #completewith next
-    .goto 1439/1,734.32,6479.68,60 >> 跑到码头，然后在岔路口跳入水中
+    .goto 1439/1,734.32,6479.68,60 >> Run up to the docks then jump in the water at the intersection
 step
     .goto 1439/1,854.84,6310.26
-    >>点击水下的海龟头
+    >>Click on the sea turtle head underwater
     .complete 4681,1 --Sea Turtle Remains (1)
 step
     .goto 1439/1,543.06,6342.57
-    >>返回岸边途中击杀蛇颈龙
-.target 温尼斯·布莱葛
->>与|cRXP_FRIENDLY_温尼斯·布莱葛|r交谈
-    .turnin 4681 >> 交任务：搁浅的巨兽
+    >>Kill Threshers en route back to shore
+.target Gwennyth Bly'Leggonde
+>>Talk to |cRXP_FRIENDLY_Gwennyth Bly'Leggonde|r
+    .turnin 4681 >> Turn in Washed Ashore
 step
     .goto 1439/1,397.65,6437.76
->>与|cRXP_FRIENDLY_萨纳瑞恩·绿树|r交谈
-    .turnin 2118 >> 交任务：瘟疫蔓延
-.target 萨纳瑞恩·绿树
-    .accept 2138 >> 接任务：清除疫病
+>>Talk to |cRXP_FRIENDLY_Tharnariun Treetender|r
+    .turnin 2118 >> Turn in Plagued Lands
+.target Tharnariun Treetender
+    .accept 2138 >> Accept Cleansing of the Infected
 step
     .goto 1439/1,362.93,6434.27
->>与|cRXP_FRIENDLY_特伦希斯|r交谈
-    .turnin 984 >> 交任务：熊怪的威胁
-.target 特伦希斯
-    .accept 985 >> 接任务：熊怪的威胁
-    .accept 4761 >> 接任务：桑迪斯·织风
+>>Talk to |cRXP_FRIENDLY_Terenthis|r
+    .turnin 984 >> Turn in How Big a Threat?
+.target Terenthis
+    .accept 985 >> Accept How Big a Threat?
+    .accept 4761 >> Accept Thundris Windweaver
 step
-    >> 击杀熊怪
+    >> Kill furbolgs
     .goto 1439/1,332.80,5883.20
     .goto 1439/1,338.70,5985.81,0
     .complete 985,1 --Blackwood Pathfinder (8)
     .complete 985,2 --Blackwood Windtalker (5)
 step
     .goto 1439/1,362.93,6434.71
->>与|cRXP_FRIENDLY_特伦希斯|r交谈
-    .turnin 985 >>交任务：熊怪的威胁
-.target 特伦希斯
-    .accept 986 >>接任务：丢失的主人
+>>Talk to |cRXP_FRIENDLY_Terenthis|r
+    .turnin 985 >>Turn in How Big a Threat?
+.target Terenthis
+    .accept 986 >>Accept A Lost Master
 step
-    >>上楼
+    >>Go Upstairs
     .goto 1439/1,384.55,6431.65
-.target 哨兵艾莉萨·星风
->>与|cRXP_FRIENDLY_哨兵艾莉萨·星风|r交谈
-    .accept 965 >>接任务：奥萨拉克斯之塔
+.target Sentinel Elissa Starbreeze
+>>Talk to |cRXP_FRIENDLY_Sentinel Elissa Starbreeze|r
+    .accept 965 >>Accept The Tower of Althalaxx
 step
     .goto 1439/1,445.46,6536.01
-.target 高尔博德·钢手
->>与|cRXP_FRIENDLY_高尔博德·钢手|r交谈
-    .accept 982 >> 接任务：深不可测的海洋
+.target Gorbold Steelhand
+>>Talk to |cRXP_FRIENDLY_Gorbold Steelhand|r
+    .accept 982 >> Accept Deep Ocean, Vast Sea
 step
     #label Thundris
     .goto 1439/1,492.62,6580.99
->>与|cRXP_FRIENDLY_桑迪斯·织风|r交谈
-    .turnin 4761 >> 交任务：桑迪斯·织风
-.target 桑迪斯·织风
-    .accept 4762 >> 接任务：壁泉河
-    .accept 954 >>接任务：巴莎兰
-    .accept 958 >>接任务：上层精灵的工具
+>>Talk to |cRXP_FRIENDLY_Thundris Windweaver|r
+    .turnin 4761 >> Turn in Thundris Windweaver
+.target Thundris Windweaver
+    .accept 4762 >> Accept The Cliffspring River
+    .accept 954 >>Accept Bashal'Aran
+    .accept 958 >>Accept Tools of the Highborne
 step
      #label Threshers
      #sticky
-     >> 沿海岸游泳，击杀蛇颈龙
+     >> Swim along the coast, killing Threshers
     .complete 1001,1 --Thresher Eye (3)
 step
     .goto 1439/1,391.75,7052.59,40,0
     .goto 1439/1,437.60,7076.17
-     >> 从船体上的洞进入第 1 艘船，然后去船的最底层后部
+     >> Enter the 1st ship by the hole on the hull, then go to the back of the lowest floor of the ship
     .complete 982,1 --Silver Dawning's Lockbox (1)
 step
     #requires Threshers
     .goto 1439/1,302.02,7124.2,40,0
     .goto 1439/1,345.90,7134.68
-     >> 从船体上的洞进入第 2 艘船，然后去船的最底层后部
+     >> Enter the 2nd ship by the hole on the hull, then go to the back of the lowest floor of the ship
     .complete 982,2 --Mist Veil's Lockbox (1)
 step
     .goto 1439/1,193.29,7082.72
-    .turnin 1001 >> 交任务：传声盒411号
-    .accept 1002 >> 接任务：传声盒323号
+    .turnin 1001 >> Turn in Buzzbox 411
+    .accept 1002 >> Accept Buzzbox 323
 step
     .goto 1439/1,194.60,6959.14
-    .accept 4723 >> 接任务：搁浅的海洋生物
+    .accept 4723 >> Accept Beached Sea Creature
 step
     .goto 1448/1,48.92,6748.85
->>与|cRXP_FRIENDLY_阿斯特利安|r交谈
-    .turnin 954 >> 交任务：巴莎兰
-.target 阿斯特利安
-    .accept 955 >> 接任务：巴莎兰
+>>Talk to |cRXP_FRIENDLY_Asterion|r
+    .turnin 954 >> Turn in Bashal'Aran
+.target Asterion
+    .accept 955 >> Accept Bashal'Aran
 step
     .goto 1448/1,-33.31,6660.30
-     >> 击杀劣魔，获取耳环
+     >> Kill Grellkins. Loot them for their Earrings
     .complete 955,1 --Grell Earring (8)
 step
     .goto 1448/1,48.92,6748.85
->>与|cRXP_FRIENDLY_阿斯特利安|r交谈
-    .turnin 955 >> 交任务：巴莎兰
-.target 阿斯特利安
-    .accept 956 >> 接任务：巴莎兰
+>>Talk to |cRXP_FRIENDLY_Asterion|r
+    .turnin 955 >> Turn in Bashal'Aran
+.target Asterion
+    .accept 956 >> Accept Bashal'Aran
 step
     .goto 1448/1,-60.33,6653.40
-     >> 击杀萨特，拾取远古月亮石封印
+     >> Kill satyrs. Loot them for the Seal
     .complete 956,1 --Ancient Moonstone Seal (1)
 step
     .goto 1448/1,48.92,6748.85
->>与|cRXP_FRIENDLY_阿斯特利安|r交谈
-    .turnin 956 >> 交任务：巴莎兰
-.target 阿斯特利安
-    .accept 957 >> 接任务：巴莎兰
+>>Talk to |cRXP_FRIENDLY_Asterion|r
+    .turnin 956 >> Turn in Bashal'Aran
+.target Asterion
+    .accept 957 >> Accept Bashal'Aran
 step
     #sticky
     #completewith ReadAndy
-     >> 击杀任意类型的月夜猛虎，拾取月夜猛虎的牙齿
+     >> Kill any type of Moonstalker. Loot them for their fangs
     .complete 1002,1 --Moonstalker Fang (6)
 --N don't think unitscan is needed
 step
     #sticky
     #completewith ReadAndy
-    >>击杀你看到的狂暴蓟熊。确保至少拥有 50% 的法力，在它们对你施加狂犬病减益前将其击杀
+    >>Kill Rabid Thistle Bears you see. Have at least 50% mana and nuke them before they give you Rabies (debuff)
     .complete 2138,1 --Rabid Thistle Bear (20)
 step
     .goto 1439/1,-383.77,7222.89
-    >>使用背包中的[空的水样试管]
+    >>Use the Empty Sampling Tube in your bags
     .complete 4762,1 --Cliffspring River Sample (1)
-    .use 12350
 step
     #sticky
     #completewith ReadAndy
-    +保留拾取的小蛋用于后续提升烹饪，所有轻羽毛也一并保存备用
+    +Save the Small Eggs you loot to level your cooking more later. Save ALL the light feathers you get for later
 step
     .goto 1439/1,-144.04,6209.82
-     >> 跑到山里的红色水晶那里
+     >> Run up to The Red Crystal in the mountains
     .complete 4811,1 --Locate the large, red crystal on Darkshore's eastern mountain range (1)
 step
     #label ReadAndy
     .goto 1439/1,302.02,5726.433
-.target 哨兵坦莎·月刃
->>与|cRXP_FRIENDLY_哨兵坦莎·月刃|r交谈
-    .accept 953 >>接任务：亚米萨兰的毁灭
+.target Sentinel Tysha Moonblade
+>>Talk to |cRXP_FRIENDLY_Sentinel Tysha Moonblade|r
+    .accept 953 >>Accept The Fall of Ameth'Aran
 step
     #sticky
     #label anaya
     .goto 1439/1,171.67,5693.25,0
-     >> 击杀安娜雅·晨路，她在亚米萨兰中部巡逻
+     >> Kill Anaya Dawnrunner. She patrols around the middle of Ameth'Aran
     .complete 963,1
-    .unitscan 安娜雅·晨路
+    .unitscan ANAYA DAWNRUNNER
 step
     #label ghosts
     #sticky
     .goto 1439/1,147.44,5630.370,0
-     >> 击杀幽灵，获取遗物
+     >> Kill ghosts. Loot them for relics
     .complete 958,1 --Highborne Relic (7)
 step
     .goto 1448/1,147.82,5576.23
-     >> 点击地上的石板
+     >> Click on the tablet on the ground
     .complete 953,2 --Read the Fall of Ameth'Aran (1)
 step
     .goto 1448/1,166.22,5634.12
-     >> 点击凉亭里的绿色火炬
+     >> Click on the green torch at the gazebo
     .complete 957,1 --Destroy the seal at the ancient flame (1)
 step
     .goto 1448/1,105.84,5771.35
-     >> 点击地上的石板
+     >> Click on the tablet on the ground
     .complete 953,1 --Read the Lay of Ameth'Aran (1)
 step
 #hidewindow
@@ -278,352 +276,340 @@ step
 step
     #requires anaya
     .goto 1439/1,302.02,5726.433
-.target 哨兵坦莎·月刃
->>与|cRXP_FRIENDLY_哨兵坦莎·月刃|r交谈
-    .turnin 953 >> 交任务：亚米萨兰的毁灭
+.target Sentinel Tysha Moonblade
+>>Talk to |cRXP_FRIENDLY_Sentinel Tysha Moonblade|r
+    .turnin 953 >> Turn in The Fall of Ameth'Aran
 step
     .goto 1439/1,398.30,5677.53
-    >>继续击杀狂暴蓟熊并收集陆行鸟肉
+    >>Finish killing Rabid Thistle Bears and getting Strider Meat
     .complete 2138,1 --Rabid Thistle Bear (20)
     .collect 5469,5,2178,1
 step
-    >>拾取搁浅海龟的残骸
+    >>Loot the Sea Turtle
     .goto 1439/1,509.00,5620.76
-    .accept 4722 >>接任务：搁浅的海龟
+    .accept 4722 >>Accept Beached Sea Turtle
 step
-    >>拾取搁浅的海洋生物残骸
+    >>Loot the Sea Turtle
     .goto 1439/1,582.36,5242.17
-    .accept 4728 >>接任务：搁浅的海洋生物
+    .accept 4728 >>Accept Beached Sea Creature
 step
-    .hs >> 炉石回奥伯丁
-    .cooldown item,6948,>0,1
-    .bindlocation 442,1
-step
-    .subzone 442 >>返回奥伯丁；炉石不可用时请步行返回
+    .hs >> Hearth to Auberdine
 step
     .goto 1439/1,397.65,6437.33
->>与|cRXP_FRIENDLY_萨纳瑞恩·绿树|r交谈
-    .turnin 2138 >>交任务：清除疫病
-.target 萨纳瑞恩·绿树
-    .accept 2139 >>接任务：萨纳瑞恩的希望
+>>Talk to |cRXP_FRIENDLY_Tharnariun Treetender|r
+    .turnin 2138 >>Turn in Cleansing of the Infected
+.target Tharnariun Treetender
+    .accept 2139 >>Accept Tharnariun's Hope
 step
     .goto 1439/1,445.46,6535.58
-.target 高尔博德·钢手
->>与|cRXP_FRIENDLY_高尔博德·钢手|r交谈
-    .turnin 982 >>交任务：深不可测的海洋
-    .vendor >> 向高尔博德·钢手购买甜香料，直到足够烹饪所有小蛋
+.target Gorbold Steelhand
+>>Talk to |cRXP_FRIENDLY_Gorbold Steelhand|r
+    .turnin 982 >>Turn in Deep Ocean, Vast Sea
+    .vendor >> Buy some Mild Spices from Gorbold until you have enough to cook all your eggs
 step
     .goto 1439/1,472.97,6557.85
-    >>确保你的烹饪有10点，不然接不了也交不了此任务
-.target 奥兰达利亚·夜歌
->>与|cRXP_FRIENDLY_奥兰达利亚·夜歌|r交谈
-    .accept 2178 >>接任务：炖陆行鸟
-    .turnin 2178 >>交任务：炖陆行鸟
-    .skill cooking,<10,1
+    >>Make sure you have 10 points in cooking or you cant accept/turnin the quest
+.target Alanndarian Nightsong
+>>Talk to |cRXP_FRIENDLY_Alanndarian Nightsong|r
+    .accept 2178 >>Accept Easy Strider Living
+    .turnin 2178 >>Turn in Easy Strider Living
 step
     .goto 1439/1,491.97,6582.303
->>与|cRXP_FRIENDLY_桑迪斯·织风|r交谈
-    .turnin 958 >>交任务：上层精灵的工具
-    .turnin 4762 >>交任务：壁泉河
-.target 桑迪斯·织风
-    .accept 4763 >>接任务：黑木熊怪的堕落
+>>Talk to |cRXP_FRIENDLY_Thundris Windweaver|r
+    .turnin 958 >>Turn in Tools of the Highborne
+    .turnin 4762 >>Turn in The Cliffspring River
+.target Thundris Windweaver
+    .accept 4763 >>Accept The Blackwood Corrupted
 step
     .goto 1439/1,489.35,6506.32
-.target 考古学家霍莉
->>与|cRXP_FRIENDLY_考古学家霍莉|r交谈
-    .accept 729 >>接任务：健忘的勘察员
+.target Archaeologist Hollee
+>>Talk to |cRXP_FRIENDLY_Archaeologist Hollee|r
+    .accept 729 >>Accept The Absent Minded Prospector
 step
     .goto 1439/1,471.66,6439.95
->>与|cRXP_FRIENDLY_哨兵戈琳达·纳希恩|r交谈
-    .turnin 4811 >> 交任务：红色水晶
-.target 哨兵戈琳达·纳希恩
-    .accept 4812 >> 接任务：清洗水晶
+>>Talk to |cRXP_FRIENDLY_Sentinel Glynda Nal'Shea|r
+    .turnin 4811 >> Turn in The Red Crystal
+.target Sentinel Glynda Nal'Shea
+    .accept 4812 >> Accept As Water Cascades
 step
     .goto 1439/1,467.08,6409.38
-     >> 在月亮井处灌满空水瓶
+     >> Fill the Empty Water Tube at the moonwell
     .complete 4812,1
-     >> 在月亮井给空的净化碗盛水
+     >> Fill the Empty Bowl at the moonwell
     .collect 12347,1,4763,1
-    #label bowl
-    .use 14338
-    .use 12346
 step
     #completewith next
     .goto 1439/1,529.30,6415.93
-    .vendor >> 从塔尔丹那里买 15 级饮料
+    .vendor >> Buy level 15 drink from Taldan
 step
-    >>回码头
+    >>Go back to the dock
     .goto 1448/1,600.92,6424.93
-.target 塞瑞利恩·白爪
->>与|cRXP_FRIENDLY_塞瑞利恩·白爪|r交谈
-    .turnin 963 >> 交任务：永志不渝
+.target Cerellean Whiteclaw
+>>Talk to |cRXP_FRIENDLY_Cerellean Whiteclaw|r
+    .turnin 963 >> Turn in For Love Eternal
 step
     .goto 1439/1,577.77,6371.39
-.target 古博·布拉普
->>与|cRXP_FRIENDLY_古博·布拉普|r交谈
-    .accept 1138 >> 接任务：海中的水果
+.target Gubber Blump
+>>Talk to |cRXP_FRIENDLY_Gubber Blump|r
+    .accept 1138 >> Accept Fruit of the Sea
 step
     .goto 1439/1,543.06,6342.57
-.target 温尼斯·布莱葛
->>与|cRXP_FRIENDLY_温尼斯·布莱葛|r交谈
-    .turnin 4722 >>交任务：搁浅的海龟
-    .turnin 4723 >>交任务：搁浅的海洋生物
-    .turnin 4728 >>交任务：搁浅的海洋生物
+.target Gwennyth Bly'Leggonde
+>>Talk to |cRXP_FRIENDLY_Gwennyth Bly'Leggonde|r
+    .turnin 4722 >>Turn in Beached Sea Turtle
+    .turnin 4723 >>Turn in Beached Sea Creature
+    .turnin 4728 >>Turn in Beached Sea Creature << Gnome
 step
     .goto 1439/1,-157.79,6206.770
-     >> 点击红色水晶
-    .turnin 4812 >> 交任务：清洗水晶
-    .accept 4813 >> 接任务：水晶中的碎骨
+     >> Click on the red crystal
+    .turnin 4812 >> Turn in As Water Cascades
+    .accept 4813 >> Accept The Fragments Within
 step
     #sticky
     #label MoonstalkersF
-     >> 击杀任意类型的月夜猛虎，拾取月夜猛虎的牙齿
+     >> Kill any type of Moonstalker. Loot them for their fangs
     .complete 1002,1 --Moonstalker Fang (6)
-    .unitscan 月夜猛虎;月夜猛虎幼崽
+    .unitscan Moonstalker;Moonstalker Runt
 step
     .goto 1439/1,47.88,6748.67
-.target 阿斯特利安
->>与|cRXP_FRIENDLY_阿斯特利安|r交谈
-    .turnin 957 >>交任务：巴莎兰
+.target Asterion
+>>Talk to |cRXP_FRIENDLY_Asterion|r
+    .turnin 957 >>Turn in Bashal'Aran
 step
     .goto 1439/1,-376.56,6805.87
-    >>若新获得的魔杖更好，请装备它
-    >>从木桶拾取黑木谷物，然后向东南跑向雌蓟熊（不要与怪物战斗）
+    >>Equip your new wand
+    >>Loot the Blackwood Grain Sample from the Barrel, then run south-east toward Den Mother (don't fight the mobs)
     .collect 12342,1 --Blackwood Grain Sample (1)
 step
     .goto 1439/1,-503.63,6732.95,45,0
-    >>击杀雌蓟熊。小心它的幼崽会将你击倒 2 秒
-    >>如果觉得困难，先刷到16级再试一次
+    >>Kill Den Mother. Be careful as her cubs can knock you down for 2 seconds
+    >>Grind to 16 and try again if you're struggling
     .goto 1439/1,-430.27,6662.65
     .complete 2139,1 --Den Mother (1)
 step
-    >>从木桶里拿黑木坚果
+    >>Loot the Blackwood Nut Sample from the Barrel
     .goto 1439/1,-451.23,6870.06
     .collect 12343,1 --Blackwood Nut Sample (1)
 step
-    >>从木桶拾取黑木水果。你面前以及西侧小屋之间会刷新怪物，必要时逃跑
+    >>Loot the Blackwood Fruit Sample from the Barrel. A mob will spawn in front of you, and in between the huts of the west - you may have to run
     .goto 1439/1,-520.01,6873.99
     .collect 12341,1 --Blackwood Fruit Sample (1)
 step
-    >>在营火旁使用背包中装满水的净化碗。这将使附近的全部熊怪变为友好状态
-    >>击杀在营地之间出现并绕着火堆跑动的萨特。由于他可能难以对付，请从最大射程开始攻击。击杀后会掉落一个篮子，请将其拾取
+    >>Use the Filled Cleansing Bowl in your inventory near the campfire. This will turn all nearby furbolgs friendly.
+    >>Kill the Satyr that spawns in between the camps and then runs around the fire. Start at max range as he can be difficult. Loot the basket that drops on the ground after killing him
     .goto 1439/1,-489.22,6879.67
     .complete 4763,1 --Talisman of Corruption (1)
-    .use 12347
 step
     #completewith next
-    .goto 1439/1,-659.52,6901.50,35 >> 去瀑布上面的洞穴
+    .goto 1439/1,-659.52,6901.50,35 >> Head to the cave above the waterfall
 step
     .goto 1439/1,-704.06,6809.80
-     >> 待在洞穴的上半部分。如果顶部尽头没有毒帽蘑菇，就跳下去从下面拿一个
-     >> 拾取毒帽蘑菇后，洞口第一个蓝色蘑菇应该已经刷新
+     >> Stay on the upper part of the cave. If theres no Death Cap at the end of the top side, then drop down and get one from below
+     >> The first blue one at the mouth of the cave should've respawned by the time you've looted the Death Cap
     .complete 947,1 --Scaber Stalk (5)
     .complete 947,2 --Death Cap (1)
 step
     .goto 1439/1,-658.87,7246.47
->>与|cRXP_FRIENDLY_巴苏尔·影击|r交谈
-    .turnin 965 >>交任务：奥萨拉克斯之塔
-.target 巴苏尔·影击
-    .accept 966 >>接任务：奥萨拉克斯之塔
+>>Talk to |cRXP_FRIENDLY_Balthule Shadowstrike|r
+    .turnin 965 >>Turn in The Tower of Althalaxx
+.target Balthule Shadowstrike
+    .accept 966 >>Accept The Tower of Althalaxx
 step
-    >>击杀暗滩狂热者，获取羊皮卷
+    >>Kill Dark Strand Fanatics. Loot them for Parchments
     .goto 1439/1,-684.41,7161.32
     .complete 966,1 --Worn Parchment (4)
 step
     .goto 1439/1,-658.87,7246.47
->>与|cRXP_FRIENDLY_巴苏尔·影击|r交谈
-    .turnin 966 >>交任务：奥萨拉克斯之塔
-.target 巴苏尔·影击
-    .accept 967 >>接任务：奥萨拉克斯之塔
+>>Talk to |cRXP_FRIENDLY_Balthule Shadowstrike|r
+    .turnin 966 >>Turn in The Tower of Althalaxx
+.target Balthule Shadowstrike
+    .accept 967 >>Accept The Tower of Althalaxx
 step
     #requires MoonstalkersF
     .goto 1439/1,-537.04,7540.35
-    .accept 4727 >>接任务：搁浅的海龟
+    .accept 4727 >>Accept Beached Sea Turtle
 step
     #sticky
     #completewith Turtles
-     >> 击杀海岸边的暗礁蟹即可，无需特意前往完成此任务，不要击杀等级高出你4级或以上的怪物
+     >> Kill Reef Crawlers along the coast, don't go out of your way to complete this quest - Dont kill mobs 4 levels or more above
     .complete 1138,1 --Fine Crab Chunks (6)
 step
     .goto 1439/1,-423.72,7277.04,25,0
     .goto 1439/1,-417.83,7262.19
-    .turnin 1002 >> 交任务：传声盒323号
-    .accept 1003 >> 接任务：传声盒525号
+    .turnin 1002 >> Turn in Buzzbox 323
+    .accept 1003 >> Accept Buzzbox 525
 step
     #softcore
     #label Turtles
-    >>别把附近鱼人全杀光，接任务后要故意让它们击杀自己，以便在墓地复活赶路
+    >>Leave some of the nearby murlocs alive, you're gonna die to them after you accept this quest
     .goto 1439/1,47.88,7433.800
-    .accept 4725 >> 接任务：搁浅的海龟
-    #softcoreserver
+    .accept 4725 >> Accept Beached Sea Turtle
 step
+    #hardcore
     #label Turtles
     .goto 1439/1,47.88,7433.800
-    .accept 4725 >> 接任务：搁浅的海龟
+    .accept 4725 >> Accept Beached Sea Turtle
 step
     #softcore
-    .deathskip >> 死一次，然后在奥伯丁复活
-    #softcoreserver
+    .deathskip >> Die and respawn in Auberdine
 step
     .goto 1439/1,491.97,6582.303
-    >>若新获得的魔杖更好，请装备它
-.target 桑迪斯·织风
->>与|cRXP_FRIENDLY_桑迪斯·织风|r交谈
-    .turnin 4763 >> 交任务：黑木熊怪的堕落
+    >>Equip your new wand
+.target Thundris Windweaver
+>>Talk to |cRXP_FRIENDLY_Thundris Windweaver|r
+    .turnin 4763 >> Turn in The Blackwood Corrupted
 step
     .goto 1439/1,397.65,6437.33
-.target 萨纳瑞恩·绿树
->>与|cRXP_FRIENDLY_萨纳瑞恩·绿树|r交谈
-    .turnin 2139 >>交任务：萨纳瑞恩的希望
+.target Tharnariun Treetender
+>>Talk to |cRXP_FRIENDLY_Tharnariun Treetender|r
+    .turnin 2139 >>Turn in Tharnariun's Hope
 step
     .goto 1439/1,471.66,6439.95
-.target 哨兵戈琳达·纳希恩
->>与|cRXP_FRIENDLY_哨兵戈琳达·纳希恩|r交谈
-    .turnin 4813 >>交任务：水晶中的碎骨
+.target Sentinel Glynda Nal'Shea
+>>Talk to |cRXP_FRIENDLY_Sentinel Glynda Nal'Shea|r
+    .turnin 4813 >>Turn in The Fragments Within
 step
     .goto 1439/1,497.21,6427.72
->>与|cRXP_FRIENDLY_巴瑞萨斯·月影|r交谈
-    .turnin 947 >> 交任务：洞中的蘑菇
-.target 巴瑞萨斯·月影
-    .accept 948 >> 接任务：安努
+>>Talk to |cRXP_FRIENDLY_Barithras Moonshade|r
+    .turnin 947 >> Turn in Cave Mushrooms
+.target Barithras Moonshade
+    .accept 948 >> Accept Onu
 step
     .goto 1439/1,503.10,6401.96
-     >> 点击旅店外面的通缉告示
-    .accept 4740 >> 接任务：通缉：莫克迪普！
+     >> Click on the wanted poster outside the inn
+    .accept 4740 >> Accept WANTED: Murkdeep!
 step
     .isQuestComplete 1138
     .goto 1439/1,577.77,6371.39
-.target 古博·布拉普
->>与|cRXP_FRIENDLY_古博·布拉普|r交谈
-    .turnin 1138 >>交任务：海中的水果
+.target Gubber Blump
+>>Talk to |cRXP_FRIENDLY_Gubber Blump|r
+    .turnin 1138 >>Turn in Fruit of the Sea
 step
     #label end
     #requires bowl
     .goto 1448/1,543.42,6342.52
-.target 温尼斯·布莱葛
->>与|cRXP_FRIENDLY_温尼斯·布莱葛|r交谈
-    .turnin 4727 >>交任务：搁浅的海龟
-    .turnin 4725 >> 交任务：搁浅的海龟
+.target Gwennyth Bly'Leggonde
+>>Talk to |cRXP_FRIENDLY_Gwennyth Bly'Leggonde|r
+    .turnin 4727 >> Turn in Beached Sea Creature
+    .turnin 4725 >> Turn in Beached Sea Turtle
 step
      #completewith Murkdeep
-     >> 击杀遇到的月夜雄虎；有把握时也击杀月夜雌虎，拾取它们的毛皮。它们与灰斑蓟熊共享刷新点
+     >> Kill any Moonstalker Sire you find and Matriarchs if you're comfortable. Loot them for Pelts. They share spawns with Grizzled Thistle Bears.
     .complete 986,1 --Fine Moonstalker Pelt (5)
-    .unitscan 月夜雄虎;月夜雌虎
+    .unitscan Moonstalker Sire;Moonstalker Matriarch
 step
      #completewith Murkdeep
     .goto 1439/1,413.37,4818.17,0
-     >> 击杀灰斑蓟熊，拾取头皮
+     >> Kill Grizzled Thistle Bears. Loot them for Scalps
     .complete 1003,1 --Grizzled Scalp (4)
 step
     .goto 1439/1,89.14,5002.00
->>与|cRXP_FRIENDLY_安努|r交谈
-    .turnin 948 >> 交任务：安努
-.target 安努
-    .accept 944 >> 接任务：主宰之剑
+>>Talk to |cRXP_FRIENDLY_Onu|r
+    .turnin 948 >> Turn in Onu
+.target Onu
+    .accept 944 >> Accept The Master's Glaive
 step
     #completewith next
     .goto 1439/1,79.97,4986.72
-    .vendor >> 从提亚尼那里买 15 级水
+    .vendor >> Buy level 15 water from Tiyani
 step << Human
-    >>捡残骸
+    >>Loot the remains
     .goto 1439/1,585.63,5237.370
-    .accept 4728 >>接任务：搁浅的海洋生物
+    .accept 4728 >>Accept Beached Sea Creature
 step
     #label Murkdeep
     .goto 1439/1,549.61,4990.65
-    >> 清掉鱼人营地，远离中间的篝火
-    >> 清完营地里的怪物后，到营地中央召唤莫克迪普
-    >> 如果运气好，莫克迪普可能已在西侧离岸约 30 码处刷新（若先前有人被它击杀）
+    >> Clear the murloc camp, stay away from the bonfire in the center
+    >> Once you clear everything, move to the center of the camp to summon Murkdeep
+    >> If you're lucky, Murkdeep might already be up about 30 yards off the shore to the west (if someone died on him before).
     .complete 4740,1 --Murkdeep (1)
 step
-     >> 沿海岸击杀螃蟹，收集优质蟹肉
+     >> Kill crabs along the coast for Fine Crab Chunks
     .complete 1138,1 --Fine Crab Chunks (6)
 step
-    >>捡残骸
+    >>Loot the remains
     .goto 1439/1,799.82,4808.12
-    .accept 4730 >>接任务：搁浅的海洋生物
+    .accept 4730 >>Accept Beached Sea Creature
 step
-    >>拾取残骸。小心，神谕者的闪电箭会造成 90 点伤害；它们生命低于 55% 时会用治疗波回满血。这里的海龟头部可以阻挡视线
-    >>总是给自己留一条退路。潮汐猎手并不可怕，但要注意它们低伤害的毒液能力
-    >>尽量把治疗药水留到后面使用，尤其是大瓶的
+    >>Loot the remains. Be careful as the Oracles do 90 damage lightning bolts, and can healing wave to full when they're at <55% hp. The turtle head here has LoS
+    >>Always leave yourself an escape route. Tidehunter's aren't so bad, but be aware of their low-damage poison ability
+    >>Try to save your heal potions for later, especially your big ones
     .goto 1439/1,865.32,4678.432
-    .accept 4731 >>接任务：搁浅的海龟
+    .accept 4731 >>Accept Beached Sea Turtle
 step
-    >>岛上的龟壳有视线遮挡
+    >>The turtle shell on the island has LoS
     .goto 1439/1,896.76,4597.21
-    .accept 4732 >>接任务：搁浅的海龟
+    .accept 4732 >>Accept Beached Sea Turtle
 step
-    >>在它的颈部拾取残骸，小心被地形遮住的2只怪物（应该只需击杀3只怪物，就能拾取这处残骸）
+    >>Loot it at its neck, be careful of the 2 mobs hidden by the terrain (you should only need to kill 3 mobs to loot this one)
     .goto 1439/1,892.83,4517.30
-    .accept 4733 >>接任务：搁浅的海洋生物
+    .accept 4733 >>Accept Beached Sea Creature
 step
     .goto 1439/1,602.01,4678.87
-.target 勘察员雷姆塔维尔
->>与|cRXP_FRIENDLY_勘察员雷姆塔维尔|r交谈
-    .turnin 729 >> 交任务：健忘的勘察员
+.target Prospector Remtravel
+>>Talk to |cRXP_FRIENDLY_Prospector Remtravel|r
+    .turnin 729 >> Turn in The Absent Minded Prospector
 step
     .goto 1439/1,602.01,4678.87
-     >>此任务难度极高，建议找其他玩家组队完成
-     >> 开始护送任务
-.target 勘察员雷姆塔维尔
->>与|cRXP_FRIENDLY_勘察员雷姆塔维尔|r交谈
-    .accept 731,1 >> 接任务：健忘的勘察员
+     >>This quest is VERY hard. Do it with another player if you can.
+     >> Start the escort quest
+.target Prospector Remtravel
+>>Talk to |cRXP_FRIENDLY_Prospector Remtravel|r
+    .accept 731,1 >> Accept The Absent Minded Prospector
 step
-     >>护送勘察员雷姆塔维尔
-     >>先让怪物击中雷姆塔维尔，使他拉住仇恨，再用火球术攻击怪物
-     >>雷姆塔维尔很脆弱，尽量替他拉走其他怪的仇恨
-     >>穴居人刷新时，先对雷姆塔维尔没有攻击的那只使用变形术；等另一只击中他后再击杀。终点附近的敌方法师出现后，等它向雷姆塔维尔射出火球，再优先对它使用变形术
-     >>如果第一次无法完成此任务，就直接跳过吧——它对技巧要求非常高，而且非常依赖运气
+     >>Escort Prospector Remtravel
+     >>Let Remtravel aggro everything (as mobs need to hit him for them to aggro him), then blast the mob with fireballs
+     >>Remtravel is really squishy, so try to take aggro off of him from the other mobs
+     >>When troggs spawn, polymorph the one he isn't attacking, then nuke the other one when it has hit him. Polymorph the mage first that spawns near the end AFTER it shoots a fireball at the prospector
+     >>If you can't do this quest first-time, just skip it - it is VERY skill-intensive and also very luck-based.
      .complete 731,1 --Escort Prospector Remtravel (1)
 step
      #completewith Glaive
-     >> 击杀遇到的月夜雄虎；有把握时也击杀月夜雌虎，拾取它们的毛皮。它们与灰斑蓟熊共享刷新点
+     >> Kill any Moonstalker Sire you find and Matriarchs if you're comfortable. Loot them for Pelts. They share spawns with Grizzled Thistle Bears.
     .complete 986,1 --Fine Moonstalker Pelt (5)
-    .unitscan 月夜雄虎;月夜雌虎
+    .unitscan Moonstalker Sire;Moonstalker Matriarch
 step
-    >>击杀陆行鸟，确保至少保留 1 根轻羽毛供稍后使用
+    >>Kill Plainstriders. Make sure you have at least 1 light feather for later
     .collect 17056,1 --Light Feather (1)
 step
      #completewith next
     .goto 1439/1,413.37,4818.17,0
-     >> 击杀灰斑蓟熊，拾取头皮
+     >> Kill Grizzled Thistle Bears. Loot them for Scalps
     .complete 1003,1 --Grizzled Scalp (4)
 step
     #sticky
     #completewith Therylune
-    >>留意掉落的“深渊之神”；它掉率较低，但可触发一个顺路完成的任务
+    >>Keep an eye out for The Powers Below. It's a low droprate, free quest
     .collect 5352,1,968 --Book: The Powers Below (1)
-    .accept 968 >> 接任务：深渊之神
+    .accept 968 >> Accept The Powers Below
 step
     #label Glaive
     .goto 1439/1,433.02,4529.09
-     >> 进入主宰之剑，清掉中央祭坛周围的怪物
+     >> Enter The Master's Glaive and clear mobs around the altar in the center
     .complete 944,1
 step
     #sticky
     #label TheryluneE
     .goto 1439/1,410.09,4519.49
-.target 瑟瑞露尼
->>与|cRXP_FRIENDLY_瑟瑞露尼|r交谈
-    .accept 945 >> 接任务：护送瑟瑞露尼
+.target Therylune
+>>Talk to |cRXP_FRIENDLY_Therylune|r
+    .accept 945 >> Accept Therylune's Escape
 step
-     >> 使用背包里的占卜之碗，将它放到地上
-    .turnin 944 >> 交任务：主宰之剑
-    .accept 949 >> 接任务：暮光之锤的营地
-    .use 5251
+     >> Drop the scrying bowl from your inventory on the ground
+    .turnin 944 >> Turn in The Master's Glaive
+    .accept 949 >> Accept The Twilight Camp
 step
     .goto 1439/1,416.64,4576.69
-     >> 点击基座顶部的书。如果已经开始护送瑟瑞露尼，注意不要让她跑远
-    .turnin 949 >> 交任务：暮光之锤的营地
-    .accept 950 >> 接任务：向安努回复
+     >> Click on the book on top of the pedestal. Be careful that Therylune doesnt run off if you started it already
+    .turnin 949 >> Turn in The Twilight Camp
+    .accept 950 >> Accept Return to Onu
 step
     #label Therylune
     #requires TheryluneE
-    >> 完成护送任务
-    >> 击杀离开主宰之剑前的最后一只怪后，生起营火，将剩余的肉和蛋全部烹饪以提升烹饪技能
-    >> 夜色镇有个可顺路完成的任务需要 50 点烹饪技能
+    >> Finish the escort quest
+    >> When you kill the last mob leading out of the glaive, make a campfire and cook all of the meat/eggs you still have to level your cooking skill
+    >> You need 50 cooking skill for a free quest in Darkshire
     .complete 945,1 --Escort Therylune away from the Master's Glaive (1)
-    .isOnQuest 945
 step
      #sticky
     #label MoonstalkerP
@@ -631,295 +617,273 @@ step
     .goto 1439/1,389.79,4836.94,100,0
     .goto 1439/1,71.46,4749.17,100,0
     .goto 1439/1,389.79,4836.94,0
-     >> 击杀遇到的月夜雄虎；有把握时也击杀月夜雌虎，拾取它们的毛皮。它们与灰斑蓟熊共享刷新点
-     >> 如果在刷新和掉落方面运气特别差，可以跳过此任务
+     >> Kill any Moonstalker Sire you find and Matriarchs if you're comfortable. Loot them for Pelts. They share spawns with Grizzled Thistle Bears
+     >> If you're getting super unlucky with spawns and droprates, you can skip this quest
     .complete 986,1 --Fine Moonstalker Pelt (5)
-    .unitscan 月夜雄虎;月夜雌虎
+    .unitscan Moonstalker Sire;Moonstalker Matriarch
 step
     .goto 1439/1,413.37,4818.170
-     >> 击杀黑海岸南部各处的灰斑蓟熊，拾取它们的头皮
+     >> Kill Grizzled Thistle Bears all around southern Darkshore. Loot them for Scalps
     .complete 1003,1 --Grizzled Scalp (4)
 step
     .goto 1439/1,229.97,4815.55
-    .turnin 1003 >> 交任务：传声盒525号
+    .turnin 1003 >> Turn in Buzzbox 525
 step
     #requires MoonstalkerP
     .goto 1439/1,89.14,5002.00
-.target 安努
->>与|cRXP_FRIENDLY_安努|r交谈
-    .turnin 950 >> 交任务：向安努回复
+.target Onu
+>>Talk to |cRXP_FRIENDLY_Onu|r
+    .turnin 950 >> Turn in Return to Onu
 step
     #completewith next
     .goto 1439/1,79.97,4987.16
-    .vendor >> 如有需要，从提亚尼那里买食物和饮料
+    .vendor >> Buy food/drink from Tiyani if needed
 step
-    >>接受克罗尼亚的护送任务；若他不在就跳过此步骤
+    >>Accept the Kerlonian escort quest. If he's not there, skip this step
     .goto 1439/1,33.47,4996.33
-.target 克罗尼亚·恒影
->>与|cRXP_FRIENDLY_克罗尼亚·恒影|r交谈
-    .accept 5321 >>接任务：昏昏欲睡
+.target Kerlonian Evershade
+>>Talk to |cRXP_FRIENDLY_Kerlonian Evershade|r
+    .accept 5321 >>Accept The Sleeper Has Awakened
 step
     .isOnQuest 5321
-    >>拾取克罗尼亚旁边的小灰色箱子
+    >>Loot the small gray chest next to Kerlonian
     .goto 1439/1,33.47,4996.33
     .complete 5321,2 --Horn of Awakening (1)
 step
     .isOnQuest 5321
     .goto 1440/1,152.23,3260.72
-    >>向南前往灰谷。将唤醒号角放入快捷栏；克罗尼亚开始原地踱步并睡着时，对他使用号角
+    >>Run south to Ashenvale. Bind the Horn of Awakening to your bars, and use it on Kerlonian when he starts walking in place and falls asleep
     .complete 5321,1 --Escort Kerlonian Evershade to Maestra's Post (1)
-    .use 13536
 step
     .isOnQuest 5321
     .goto 1440/1,128.01,3305.31
-.target 利拉迪斯·月河
->>与|cRXP_FRIENDLY_利拉迪斯·月河|r交谈
-    .turnin 5321 >>交任务：昏昏欲睡
+.target Liladris Moonriver
+>>Talk to |cRXP_FRIENDLY_Liladris Moonriver|r
+    .turnin 5321 >>Turn in The Sleeper Has Awakened
 step
     .goto 1440/1,189.71,3185.390
-.target 净化者德尔格伦
->>与|cRXP_FRIENDLY_净化者德尔格伦|r交谈
-    .turnin 967 >>交任务：奥萨拉克斯之塔
+.target Delgren the Purifier
+>>Talk to |cRXP_FRIENDLY_Delgren the Purifier|r
+    .turnin 967 >>Turn in The Tower of Althalaxx
 step
     #softcore
-    >>沿南边道路前行，前往艾森娜神殿
+    >>Run up the road south. Head toward The Shrine of Aessina
     -->>Whilst you're doing this, start opening the Website Unstuck tool, and select your character. Do NOT confirm it yet though
     .goto 1440/1,394.43,2677.63
-.target 瑟瑞希尔
->>与|cRXP_FRIENDLY_瑟瑞希尔|r交谈
-    .turnin 945 >>交任务：护送瑟瑞露尼
-    .isQuestComplete 945
+.target Therysil
+>>Talk to |cRXP_FRIENDLY_Therysil|r
+    .turnin 945 >>Turn in Therylune's Escape
 step
     #hardcore
-    >>沿南边道路前行，前往艾森娜神殿
+    >>Run up the road south. Head toward The Shrine of Aessina
     .goto 1440/1,394.43,2677.63
-.target 瑟瑞希尔
->>与|cRXP_FRIENDLY_瑟瑞希尔|r交谈
-    .turnin 945 >>交任务：护送瑟瑞露尼
-    .isQuestComplete 945
+.target Therysil
+>>Talk to |cRXP_FRIENDLY_Therysil|r
+    .turnin 945 >>Turn in Therylune's Escape
 step
-    .hs >> 炉石回奥伯丁
-    .cooldown item,6948,>0,1
-    .bindlocation 442,1
-step
-    .subzone 442 >>返回奥伯丁；炉石不可用时请步行返回
+    .hs >> Hearth to Auberdine
 step
     .goto 1439/1,577.77,6371.39
-.target 古博·布拉普
->>与|cRXP_FRIENDLY_古博·布拉普|r交谈
-    .turnin 1138 >>交任务：海中的水果
+.target Gubber Blump
+>>Talk to |cRXP_FRIENDLY_Gubber Blump|r
+    .turnin 1138 >>Turn in Fruit of the Sea
 step
     .goto 1439/1,543.06,6342.130
-.target 温尼斯·布莱葛
->>与|cRXP_FRIENDLY_温尼斯·布莱葛|r交谈
-    .turnin 4730 >>交任务：搁浅的海洋生物
-    .turnin 4731 >>交任务：搁浅的海龟
-    .turnin 4732 >>交任务：搁浅的海龟
-    .turnin 4733 >>交任务：搁浅的海洋生物
+.target Gwennyth Bly'Leggonde
+>>Talk to |cRXP_FRIENDLY_Gwennyth Bly'Leggonde|r
+    .turnin 4730 >>Turn in Beached Sea Creature
+    .turnin 4731 >>Turn in Beached Sea Turtle
+    .turnin 4732 >>Turn in Beached Sea Turtle
+    .turnin 4733 >>Turn in Beached Sea Creature
 step
     .goto 1439/1,470.35,6439.07
-.target 哨兵戈琳达·纳希恩
->>与|cRXP_FRIENDLY_哨兵戈琳达·纳希恩|r交谈
-    .turnin 4740 >>交任务：通缉：莫克迪普！
+.target Sentinel Glynda Nal'Shea
+>>Talk to |cRXP_FRIENDLY_Sentinel Glynda Nal'Shea|r
+    .turnin 4740 >>Turn in WANTED: Murkdeep!
 step
     .isQuestComplete 986
-    >>保留任务日志中的后续任务，以便继续使用 +3 耐力斗篷。当不再需要该斗篷时，可放弃此任务
+    >>Keep the next part of the quest in your questlog for the +3 stamina cloak. Abandon the quest when you dont need the cloak anymore
     .goto 1439/1,362.93,6434.71
->>与|cRXP_FRIENDLY_特伦希斯|r交谈
-    .turnin 986 >>交任务：丢失的主人
-.target 特伦希斯
-step
-    .goto 1439/1,362.93,6434.71
-    .accept 993 >>接任务：丢失的主人；保留任务以继续使用任务斗篷
-    .target 特伦希斯
-    .isQuestTurnedIn 986
+>>Talk to |cRXP_FRIENDLY_Terenthis|r
+    .turnin 986 >>Turn in A Lost Master
+.target Terenthis
+    .accept 993 >>Accept A Lost Master
 step
     .goto 1439/1,489.35,6506.32
-.target 考古学家霍莉
->>与|cRXP_FRIENDLY_考古学家霍莉|r交谈
-    .turnin 731 >> 交任务：健忘的勘察员
+.target Archaeologist Hollee
+>>Talk to |cRXP_FRIENDLY_Archaeologist Hollee|r
+    .turnin 731 >> Turn in The Absent Minded Prospector
     .isQuestComplete 731
 step
     .goto 1439/1,489.35,6506.32
-.target 考古学家霍莉
->>与|cRXP_FRIENDLY_考古学家霍莉|r交谈
-    .accept 741 >> 接任务：健忘的勘察员
+.target Archaeologist Hollee
+>>Talk to |cRXP_FRIENDLY_Archaeologist Hollee|r
+    .accept 741 >> Accept The Absent Minded Prospector
     .isQuestTurnedIn 731
 step
     #completewith next
     .isOnQuest 741
-    >>跑回码头，等待前往达纳苏斯的船
+    >>Run back to the dock. Wait for the boat to Darnassus to arrive
     .goto 1439/1,555.50,6418.99,30,0
     .goto 1439/1,769.03,6579.24,40
 step
     .isOnQuest 741
-    .zone Teldrassil >> 乘船前往达纳苏斯，抵达泰达希尔
+    .zone Teldrassil >> Take the boat to Darnassus
 step
     .isOnQuest 741
-    .goto 1438/1,965.80,8781.63,30 >> 穿过紫色传送门
+    .goto 1438/1,965.80,8781.63,30 >> Go through the purple portal
 step
-    .questcount >1,741
+    .isOnQuest 741
     .goto 1457/1,2607.74,9642.04
->>与|cRXP_FRIENDLY_首席考古学家杜瑟·灰须|r交谈
-    .turnin 741 >>交任务：健忘的勘察员
-.target 首席考古学家杜瑟·灰须
-    .accept 942 >>接任务：健忘的勘察员
+>>Talk to |cRXP_FRIENDLY_Chief Archaeologist Greywhisker|r
+    .turnin 741 >>Turn in The Absent Minded Prospector
+.target Chief Archaeologist Greywhisker
+    .accept 942 >>Accept The Absent Minded Prospector
 step
-    #completewith ReturnAuberdine
-    .zone Teldrassil >>穿过达纳苏斯的紫色传送门前往鲁瑟兰村
-    .zoneskip Darnassus,1
-    .isQuestTurnedIn 741
-step
-    #completewith ReturnAuberdine
     .goto 1438/1,841.05,8641.122
-    .fp Teldrassil >> 获取泰达希尔飞行点
-    .fly Auberdine >> 飞往奥伯丁
-    .isQuestTurnedIn 741
-    .zoneskip Darkshore
-step
-    #label ReturnAuberdine
-    .subzone 442 >>返回奥伯丁
+    .fp Teldrassil >> Get the Teldrassil Flight Path
+    .fly Auberdine >> Fly to Auberdine
 step
     .goto 1439/1,818.16,6422.92,50,0
-    .zone Wetlands >> 乘船前往湿地的米奈希尔港
+    .zone Wetlands >> Take the boat to Menethil
 step
     #completewith next
     .money <0.08
     .goto 1437/0,-819.67,-3691.42,15,0
     .goto 1437/0,-807.26,-3716.22,15,0
     .goto 1437/0,-827.94,-3724.49,15,0
-    .goto 1437,10.760,56.721
-    >> 如果有 8 银，请检查尼尔·奥雷是否有青铜管，如果有就购买；否则，跳过此步骤
+    .goto 1437/0,-834.55,-3711.29--c:1437,10.760,56.721
+    >> If you have 8s, Check for Bronze Tube from Neal Allen and buy it if it's there. Otherwise, skip this step
     .collect 4371,1,175,1
 step
     .goto 1437/0,-782.03,-3793.12
-    .fly Ironforge >> 飞往铁炉堡
+    .fly Ironforge >> Fly to Ironforge
 step << skip --logout skip
     #completewith next
     .goto 1455/0,-1158.16,-4816.32,0
-    +跳到一只狮鹫的头顶，然后登出并重新登录，利用登出机制跳过部分路线
-    .link https://www.youtube.com/watch?v=PWMJhodh6Bw >> 点击这里
+    +Perform a Logout skip by jumping on top of one of the Gryphon's heads, and logging out, then back in
+    .link https://www.youtube.com/watch?v=PWMJhodh6Bw >> CLICK HERE
 step
-    .zone Stormwind City >> 乘坐矿道地铁前往暴风城
+    .zone Stormwind City >> Take the tram to Stormwind City
 step
-    #completewith GoldshireTraining
+    #completewith FlyAndy
     .goto 1453/0,638.8,-8341.95
-    .vendor >> 如果还没有青铜管，就购买一根
-    >>这是限量供应物品，如果NPC没有，就跳过此步骤
+    .vendor >> Buy a Bronze Tube if you haven't
+    >>This is a limited supply item, skip this step if the npc doesn't have it
     .bronzetube
 step << Human
     #label FlyAndy
     .goto 1429/0,409.13,-9100.58
-    .zone Elwynn Forest >> 前往：艾尔文森林
+    .zone Elwynn Forest >> Travel to Elwynn Forest
 step << Gnome
     .goto 1429/0,622.93,-8830.700
-    .zone Stormwind City >> 前往：暴风城
+    .zone Stormwind City >> Travel to Stormwind City
 step << Gnome
     #label FlyAndy
-    >>前往暴风城并开通飞行点
+    >>Run into Stormwind and get the Flight Path
     .goto 1453/0,606.4,-8812.0,50,0
     .goto 1453/0,490.12,-8835.76
-    .fp Stormwind City >> 获取暴风城飞行点
+    .fp Stormwind City >> Get the Stormwind City flight path
 step << Gnome
     .goto 1453/0,493.08,-8867.22,12,0
-    .goto 1453/0,507.6,-8885.59,18 >> 朝白墙跑，落到下方的小平台。小心！沿着平台跑向暴风城出口
+    .goto 1453/0,507.6,-8885.59,18 >> Drop down to the small ledge by running into the white wall. Be careful. Run along it toward the exit of Stormwind
 step
-    >> 跑进闪金镇旅店二楼
+    >> Run into the upstairs of the Goldshire Inn
     .goto 1429/0,44.00,-9459.11,15,0
     .goto 1429/0,14.84,-9477.86,15,0
     .goto 1429/0,34.28,-9471.61
-    .trainer >> 学习职业技能
-    #label GoldshireTraining
+    .trainer >> Train your class spells
 step
     .goto 1429/0,-1637.62,-9642.89,125,0
-    .zone Redridge Mountains >> 前往：赤脊山，一路向东跑到赤脊山。路上整理好你的按键绑定，确保你的法术在快捷栏中便于施放
+    .zone Redridge Mountains >> Run all the way east to Redridge Mountains. Sort out your keybinds en route, making sure you have your spells comfortably on your bars
 ]])
+
 RXPGuides.RegisterGuide([[
-#groupdisplayname RestedXP 联盟法师
 #forever
 #disabledungeons
 << Alliance Mage
 #name 18-21 Redridge Mage AoE
 #version 1
 #group RestedXP Alliance Mage
+
 #defaultfor none Alliance Mage
 #next 21-22 Duskwood Mage AoE
-#displayname 18-21 赤脊山（法师 AoE）
+
 step
     #sticky
     #completewith Gnolls
-    +遇到任务所需的怪物时，开始以每群3+只的规模用AoE清怪。
-    >>如有需要，在另一个标签页打开此教程，参考赤脊山AoE部分：
-    .link https://youtu.be/SxMc2GoP33c?t=56 >> 点击这里
+    +start AoEing needed quest mobs in groups of 3+ that you see.
+    >>Keep this tutorial open in another tab for the Redridge AoE Section if needed:
+    .link https://youtu.be/SxMc2GoP33c?t=56 >> CLICK HERE
 step
-    >>与卫兵帕克交谈，他在十字路口附近巡逻
+    >>Talk to Guard Parker. He patrols around the crossroads a little
     .goto 1429/0,-1902.44,-9609.56
-.target 卫兵帕克
->>与|cRXP_FRIENDLY_卫兵帕克|r交谈
-    .accept 244 >>接任务：豺狼人的入侵
+.target Guard Parker
+>>Talk to |cRXP_FRIENDLY_Guard Parker|r
+    .accept 244 >>Accept Encroaching Gnolls
 step
     #sticky
     #label Gnolls
     .goto 1433/0,-2238.15,-9443.60
->>与|cRXP_FRIENDLY_菲尔顿副队长|r交谈
-    .turnin 244 >>交任务：豺狼人的入侵
-.target 菲尔顿副队长
-    .accept 246 >>接任务：审时度势
+>>Talk to |cRXP_FRIENDLY_Deputy Feldon|r
+    .turnin 244 >>Turn in Encroaching Gnolls
+.target Deputy Feldon
+    .accept 246 >>Accept Assessing the Threat
 step
     .goto 1433/0,-2234.89,-9435.060
-    .fp Redridge Mountains >> 获取赤脊山飞行点
+    .fp Redridge Mountains >> Get the Redridge Mountains flight path
 step
     #requires Gnolls
     .goto 1433/0,-2298.28,-9283.90
-.target 治安官马瑞斯
->>与|cRXP_FRIENDLY_治安官马瑞斯|r交谈
-    .accept 20 >>接任务：黑石氏族的威胁
+.target Marshal Marris
+>>Talk to |cRXP_FRIENDLY_Marshal Marris|r
+    .accept 20 >>Accept Blackrock Menace
 step
     .goto 1433/0,-2268.54,-9279.27
-.target 工头奥斯洛
->>与|cRXP_FRIENDLY_工头奥斯洛|r交谈
-    .accept 125 >>接任务：丢失的工具
+.target Foreman Oslow
+>>Talk to |cRXP_FRIENDLY_Foreman Oslow|r
+    .accept 125 >>Accept The Lost Tools
 step
     .goto 1433/0,-2242.49,-9259.00
-.target 弗纳·奥斯古
->>与|cRXP_FRIENDLY_弗纳·奥斯古|r交谈
-    .accept 118 >>接任务：马掌
+.target Verner Osgood
+>>Talk to |cRXP_FRIENDLY_Verner Osgood|r
+    .accept 118 >>Accept The Price of Shoes
 step
-    >>议政厅内部
+    >>Inside the Town Hall
     .goto 1433/0,-2216.00,-9215.85
-.target 拜里弗·科纳彻尔
->>与|cRXP_FRIENDLY_拜里弗·科纳彻尔|r交谈
-    .accept 91 >>接任务：所罗门的律法
+.target Bailiff Conacher
+>>Talk to |cRXP_FRIENDLY_Bailiff Conacher|r
+    .accept 91 >>Accept Solomon's Law
 step
     .goto 1433/0,-2221.87,-9218.60
-    >>进入建筑
-.target 所罗门镇长
->>与|cRXP_FRIENDLY_所罗门镇长|r交谈
-    .accept 120 >>接任务：送往暴风城的信
+    >>Go inside the building
+.target Magistrate Solomon
+>>Talk to |cRXP_FRIENDLY_Magistrate Solomon|r
+    .accept 120 >>Accept Messenger to Stormwind
 step
     .goto 1433/0,-2172.59,-9261.02
-.target 码头管理员巴伦
->>与|cRXP_FRIENDLY_码头管理员巴伦|r交谈
-    .accept 127 >>接任务：卖鱼
+.target Dockmaster Baren
+>>Talk to |cRXP_FRIENDLY_Dockmaster Baren|r
+    .accept 127 >>Accept Selling Fish
 step
     .goto 1433/0,-2151.53,-9247.12
-    .accept 180 >>接任务：通缉：范高雷中尉
+    .accept 180 >>Accept Wanted: Lieutenant Fangore
 step
-    >>旅店内
+    >>Inside the Inn
     .goto 1433/0,-2158.91,-9235.97
-.target 达希
->>与|cRXP_FRIENDLY_达希|r交谈
-    .accept 129 >>接任务：免费的午餐
+.target Darcy
+>>Talk to |cRXP_FRIENDLY_Darcy|r
+    .accept 129 >>Accept A Free Lunch
 step
     .goto 1433/0,-2157.18,-9223.96
-    .home >> 将炉石设为湖畔镇
+    .home >> Set your Hearth to Lakeshire
 step
     .goto 1433/0,-2207.32,-9351.66
-.target 肖恩
->>与|cRXP_FRIENDLY_肖恩|r交谈
-    .accept 3741 >>接任务：希拉里的项链
+.target Shawn
+>>Talk to |cRXP_FRIENDLY_Shawn|r
+    .accept 3741 >>Accept Hilary's Necklace
 step
-    >>在水下寻找希拉里的项链，它藏在一块棕色泥土中
+    >>Look for Hilary's Necklace underwater. It's in a brown patch of dirt
     .goto 1433/0,-2174.32,-9386.56,90,0
     .goto 1433/0,-2147.41,-9308.08,90,0
     .goto 1433/0,-2090.96,-9373.82,90,0
@@ -931,113 +895,108 @@ step
 step
     #completewith next
     .goto 1433/0,-1906.66,-9478.500,0
-    +使用群伤技能击杀营地里的豺狼人
+    +AoE the gnolls in the camps
 step
     .goto 1433/0,-1902.54,-9609.83
->>与|cRXP_FRIENDLY_卫兵帕克|r交谈
-    .turnin 129 >>交任务：免费的午餐
-.target 卫兵帕克
-    .accept 130 >>接任务：寻访草药师
+>>Talk to |cRXP_FRIENDLY_Guard Parker|r
+    .turnin 129 >>Turn in A Free Lunch
+.target Guard Parker
+    .accept 130 >>Accept Visit the Herbalist
 step
     .goto 1433/0,-2234.89,-9435.21
-    .fly Stormwind >> 飞往暴风城
+    .fly Stormwind >> Fly to Stormwind
 step
-    >>进入暴风城，前往武器训练师处
+    >>Go into Stormwind. Go to the weapon trainer
    .goto 1453/0,612.99,-8796.14
-   .trainer >> 学习单手剑（1h）和匕首
+   .trainer >> Train 1h Swords and Daggers
 step
-    #ah
+    #softcore
     .goto 1453/0,660.17,-8814.51,30,0
     .goto 1453/0,638.26,-8342.31
-    +前往拍卖行，如果价格合适就购买一个青铜管
-    >>如果这里没有青铜管或价格太高，也可试着向矮人区的比利巴布·旋轮购买
-    >>如果找不到，就跳过此步骤
+    +Go to the Auction House. Buy a Bronze Tube if its affordable
+    >>If theres none here or they're too expensive, you can also potentially buy one from Billibub in the Dwarven District
+    >>If you can't find one, skip this step
     .bronzetube
 step
+    #hardcore
     .goto 1453/0,660.17,-8814.51,30,0
     .goto 1453/0,638.26,-8342.31
-    .vendor >> 到矮人区找比利巴布·旋轮，查看是否有青铜管出售；有货就买一个
+    .vendor >> Check Billibub in the Dwarven District for a Bronze Tube. Buy one if it's available
     .bronzetube
 step
     .goto 1453/0,520.77,-8954.16
->>与|cRXP_FRIENDLY_马库斯·乔纳森将军|r交谈
-    .turnin 120 >>交任务：送往暴风城的信
-.target 马库斯·乔纳森将军
-    .accept 121 >>接任务：送往暴风城的信
+>>Talk to |cRXP_FRIENDLY_General Marcus Jonathan|r
+    .turnin 120 >>Turn in Messenger to Stormwind
+.target General Marcus Jonathan
+    .accept 121 >>Accept Messenger to Stormwind
 step
-    >>跑向闪金镇
+    >>Run to Goldshire
     .goto 1429/0,87.73,-9456.79
->>与|cRXP_FRIENDLY_铁匠阿古斯|r交谈
-    .turnin 118 >>交任务：马掌
-.target 铁匠阿古斯
-    .accept 119 >>接任务：回复弗纳
+>>Talk to |cRXP_FRIENDLY_Smith Argus|r
+    .turnin 118 >>Turn in The Price of Shoes
+.target Smith Argus
+    .accept 119 >>Accept Return to Verner
 step
-    >>跑向哨兵岭
+    >>Run to Sentinel Hill
     .goto 1436/0,1045.12,-10508.80
-.target 格里安·斯托曼
->>与|cRXP_FRIENDLY_格里安·斯托曼|r交谈
-    .accept 65 >>接任务：迪菲亚兄弟会
+.target Gryan Stoutmantle
+>>Talk to |cRXP_FRIENDLY_Gryan Stoutmantle|r
+    .accept 65 >>Accept The Defias Brotherhood
 step
-    #completewith LakeshireReturn
+    #completewith next
     #label hsLakeshire
-    .hs Lakeshire >> 如果炉石可用，就返回湖畔镇
-    .cooldown item,6948,>0,1
-    .bindlocation 69,1
+    .hs Lakeshire >> Hearth to Lakeshire if it's up
 step
-    #completewith LakeshireReturn
+    #completewith hsLakeshire
     #label WFFP
     .goto 1436/0,1037.42,-10628.50
-    .fp Westfall >> 获取西部荒野飞行点
-    .fly Redridge >> 飞往赤脊山
-    .subzoneskip 69
-step
-    #label LakeshireReturn
-    .subzone 69 >>返回湖畔镇；炉石不可用时从哨兵岭乘坐飞行坐骑返回
+    .fp Westfall >> Get the Westfall flight path << Gnome
+    .fly Redridge >> Fly to Redridge
 step
     #requires WFFP
     .goto 1433/0,-2243.14,-9259.43
->>与|cRXP_FRIENDLY_弗纳·奥斯古|r交谈
-    .turnin 119 >>交任务：回复弗纳
-.target 弗纳·奥斯古
-    .accept 122 >>接任务：雏龙的鳞片
-    .accept 124 >>接任务：豺狼人的乱吠
+>>Talk to |cRXP_FRIENDLY_Verner Osgood|r
+    .turnin 119 >>Turn in Return to Verner
+.target Verner Osgood
+    .accept 122 >>Accept Underbelly Scales
+    .accept 124 >>Accept A Baying of Gnolls
 step
-    >>进入要塞
+    >>Go into the Keep
     .goto 1433/0,-2220.56,-9218.74
->>与|cRXP_FRIENDLY_所罗门镇长|r交谈
-    .turnin 121 >>交任务：送往暴风城的信
-.target 所罗门镇长
-    .accept 143 >>接任务：送往西部荒野的信
-.target 拜里弗·科纳彻尔
->>与|cRXP_FRIENDLY_拜里弗·科纳彻尔|r交谈
-    .accept 91 >>接任务：所罗门的律法
+>>Talk to |cRXP_FRIENDLY_Magistrate Solomon|r
+    .turnin 121 >>Turn in Messenger to Stormwind
+.target Magistrate Solomon
+    .accept 143 >>Accept Messenger to Westfall
+.target Bailiff Conacher
+>>Talk to |cRXP_FRIENDLY_Bailiff Conacher|r
+    .accept 91 >>Accept Solomon's Law
 step
-    >>进旅店顶层
+    >>Go into the top floor of the Inn
     .goto 1433/0,-2145.45,-9231.63
->>与|cRXP_FRIENDLY_黑衣威利|r交谈
-    .turnin 65 >>交任务：迪菲亚兄弟会
-.target 黑衣威利
-    .accept 132 >>接任务：迪菲亚兄弟会
+>>Talk to |cRXP_FRIENDLY_Wiley the Black|r
+    .turnin 65 >>Turn in The Defias Brotherhood
+.target Wiley the Black
+    .accept 132 >>Accept The Defias Brotherhood
 step
     .goto 1433/0,-2205.58,-9351.52
-.target 希拉里
->>与|cRXP_FRIENDLY_希拉里|r交谈
-    .turnin 3741 >>交任务：希拉里的项链
+.target Hilary
+>>Talk to |cRXP_FRIENDLY_Hilary|r
+    .turnin 3741 >>Turn in Hilary's Necklace
 step
     #era/som
     #completewith Murlocs
-    >>做其他任务时，顺便收集赤脊山炖肉所需的前3种材料；另刷够大块野猪肉，将烹饪练到50
-    >>重点击杀[血牙野猪]，暂时不用担心蜘蛛肉
+    >>Grind the first 3 items for Redridge Goulash as you do other quests. Also get enough Chunks of Boar Meat to get you to 50 cooking
+    >>Try to focus heavily on the Goretusks, don't really worry about spider meat yet
     .collect 2296,5,92,1 --Great Goretusk Snout (5)
     .collect 1080,5,92,1 --Tough Condor Meat (5)
     .collect 1081,5,92,1 --Crisp Spider Meat (5)
 step
     #completewith Murlocs
-    >>击杀雏龙，拾取它们掉落的鳞片
+    >>Kill Dragon Whelps. Loot them for their scales
     .complete 122,1 --Underbelly Whelp Scale (6)
 step
-    >>对区域内的豺狼人使用群伤技能；如需参考，可查看群伤教学视频
-    >>拉怪进行群伤时，让偷猎者处于无法射击的近距离盲区内，以免被射击
+    >>AoE the gnolls in the area. Refer to the AoE video if needed
+    >>Deadzone the Poachers during the AoE pull so you don't get shot
     .goto 1433/0,-2211.45,-9793.71,50,0
     .goto 1433/0,-2321.94,-9776.63,50,0
     .goto 1433/0,-2513.84,-9604.61,50,0
@@ -1048,97 +1007,97 @@ step
     .complete 246,2 --Redridge Poacher (6)
 step
     #label Murlocs
-    >>对附近的鱼人使用范围攻击；鱼人招潮者会用闪电箭和治疗波，必须单独攻击
-    >>鱼人巡滩者会冲锋，鱼人食腐者攻击时可能瞬间吸取 25 点生命值；可对它们使用范围攻击，灵活安排拉怪
-    >>把8个鳍留到以后用
+    >>AoE the murlocs in the area. You'll have to single target the Tidecallers (lightning bolt + healing wave)
+    >>You can AoE the Shorestrikers (Charge) and Flesheaters (25 damage instant lifesteal on attack chance). Creatively make pulls
+    >>Save 8 Fins for later
     .goto 1433/0,-2630.63,-9581.16
     .complete 127,1 --Spotted Sunfish (10)
     .collect 1468,8,150,1 --Murloc Fin (8)
 step
     #era/som
-    >>在这个区域附近获取秃鹫肉和幼龙鳞片。如果在等待刷新，可以向东去拿一些斧头，再回来这里
+    >>Get the Condor Meat and Whelp scales from around this area. If you're waiting on respawns, then go east to get some Axes then come back here
     .goto 1433/0,-2895.91,-9697.86
     .collect 1080,5,92,1 --Tough Condor Meat (5)
     .complete 122,1 --Underbelly Whelp Scale (6)
 step
     #som
     #phase 3-6
-    >>从这个区域周围的幼龙身上获取鳞片。如果在等待刷新，可以向东去拿一些斧头，然后回来
+    >>Get the Whelp scales from around this area. If you're waiting on respawns, then go east to get some Axes then come back here
     .goto 1433/0,-2895.91,-9697.86
     .complete 122,1 --Underbelly Whelp Scale (6)
 step
-    >>对附近兽人使用范围攻击并拾取它们的斧头。小心黑石前锋的网和黑石叛节者的盾击
-    >>尽量避开等级较高的黑石叛节者；每次最多拉 3 只。此处范围攻击风险极高、收益中等
-    >>先别把所有斧头都拿了，之后有更好的机会再做完
+    >>AoE orcs in the area. Loot them for their axes. Be careful as the Outrunners Net and the Renegades shield bash.
+    >>Try to avoid killing the Renegades due to their high level. Pull 3 max at a time. AoEing here is Very high risk, medium reward
+    >>Don't get all the axes yet, you have a better opportunity to finish it later
     .goto 1433/0,-3226.75,-9789.51,50,0
     .goto 1433/0,-3210.46,-9637.19,50,0
     .goto 1433/0,-3226.75,-9789.51,50,0
     .goto 1433/0,-3210.46,-9637.19,50,0
     .collect 3014,8 --Battleworn Axe (8)
 step
-    >>潜入水下，拾取灰色箱子
+    >>Go underwater. Loot the grey box
     .goto 1433/0,-2472.16,-9366.72
     .complete 125,1 --Oslow's Toolbox (1)
 step
     #era/som
-    >>在这里收齐巨型血牙野猪头
+    >>Finish off the Goretusk snouts here
     .goto 1433/0,-2267.02,-9596.36
     .collect 2296,5,92,1 --Great Goretusk Snout (5)
 step
     .goto 1433/0,-2238.15,-9443.75
-.target 菲尔顿副队长
->>与|cRXP_FRIENDLY_菲尔顿副队长|r交谈
-    .turnin 246 >>交任务：审时度势
+.target Deputy Feldon
+>>Talk to |cRXP_FRIENDLY_Deputy Feldon|r
+    .turnin 246 >>Turn in Assessing the Threat
 step
     .isQuestComplete 20
     .goto 1433/0,-2298.06,-9283.90
-.target 治安官马瑞斯
->>与|cRXP_FRIENDLY_治安官马瑞斯|r交谈
-    .turnin 20 >>交任务：黑石氏族的威胁
+.target Marshal Marris
+>>Talk to |cRXP_FRIENDLY_Marshal Marris|r
+    .turnin 20 >>Turn in Blackrock Menace
 step
     .goto 1433/0,-2268.54,-9279.12
->>与|cRXP_FRIENDLY_工头奥斯洛|r交谈
-    .turnin 125 >>交任务：丢失的工具
-.target 工头奥斯洛
-    .accept 89 >>接任务：止水湖上的桥
+>>Talk to |cRXP_FRIENDLY_Foreman Oslow|r
+    .turnin 125 >>Turn in The Lost Tools
+.target Foreman Oslow
+    .accept 89 >>Accept The Everstill Bridge
 step
     .goto 1433/0,-2243.36,-9259.43
-.target 弗纳·奥斯古
->>与|cRXP_FRIENDLY_弗纳·奥斯古|r交谈
-    .turnin 122 >>交任务：雏龙的鳞片
+.target Verner Osgood
+>>Talk to |cRXP_FRIENDLY_Verner Osgood|r
+    .turnin 122 >>Turn in Underbelly Scales
 step
     #level 20
     .goto 1433/0,-2172.59,-9261.02
->>与|cRXP_FRIENDLY_码头管理员巴伦|r交谈
-    .turnin 127 >>交任务：卖鱼
-.target 码头管理员巴伦
-    .accept 150 >>接任务：鱼人偷猎者
-    .turnin 150 >>交任务：鱼人偷猎者
+>>Talk to |cRXP_FRIENDLY_Dockmaster Baren|r
+    .turnin 127 >>Turn in Selling Fish
+.target Dockmaster Baren
+    .accept 150 >>Accept Murloc Poachers
+    .turnin 150 >>Turn in Murloc Poachers
 step
     .goto 1433/0,-2172.59,-9261.02
-.target 码头管理员巴伦
->>与|cRXP_FRIENDLY_码头管理员巴伦|r交谈
-    .turnin 127 >>交任务：卖鱼
+.target Dockmaster Baren
+>>Talk to |cRXP_FRIENDLY_Dockmaster Baren|r
+    .turnin 127 >>Turn in Selling Fish
 step
     .goto 1433/0,-2045.38,-9245.82
->>与|cRXP_FRIENDLY_玛蒂·詹罗斯|r交谈
-    .turnin 130 >>交任务：寻访草药师
-.target 玛蒂·詹罗斯
-    .accept 131 >>接任务：水仙诉衷情
-    .accept 34 >>接任务：不速之客
+>>Talk to |cRXP_FRIENDLY_Martie Jainrose|r
+    .turnin 130 >>Turn in Visit the Herbalist
+.target Martie Jainrose
+    .accept 131 >>Accept Delivering Daffodils
+    .accept 34 >>Accept An Unwelcome Guest
 step
-    >>击杀贝利格拉布，将它一路风筝到镇里的卫兵亚当斯身边
-    >>小心它的震颤（瞬发80点AoE伤害）和冲锋；尽量让它保持减速，并用冰霜新星定住
-    >>确保你造成了多数伤害（51%+）
-    >>这个任务非常困难
+    >>Kill Bellygrub. Kite her back to Guard Adams all the way in the town
+    >>Be careful as she tremors (instant 80 aoe damage), and charges (keep her slowed and nova'd if possible)
+    >>Make sure you do majority damage (51%+)
+    >>This quest is VERY hard
     .goto 1433/0,-1910.79,-9288.97
     .complete 34,1 --Bellygrub's Tusk (1)
 --N Add link
 step
     .goto 1433/0,-2045.16,-9245.67
-.target 玛蒂·詹罗斯
->>与|cRXP_FRIENDLY_玛蒂·詹罗斯|r交谈
-    .turnin 34 >>交任务：不速之客
+.target Martie Jainrose
+>>Talk to |cRXP_FRIENDLY_Martie Jainrose|r
+    .turnin 34 >>Turn in An Unwelcome Guest
 step
     .goto 1433/0,-2031.70,-9098.71,60,0
     .goto 1433/0,-2313.26,-9149.82,60,0
@@ -1147,15 +1106,15 @@ step
     .goto 1433/0,-2031.70,-9098.71,60,0
     .goto 1433/0,-2313.26,-9149.82,60,0
     .goto 1433/0,-2430.70,-9030.51,60,0
-    >>击杀豺狼人，拾取它们掉落的铁矛和铁铆钉
+    >>Kill Gnolls. Loot them for Pikes and Rivets
     .complete 89,1 --Iron Pike (5)
     .complete 89,2 --Iron Rivet (5)
     .complete 124,1 --Redridge Brute (10)
     .complete 124,2 --Redridge Mystic (8)
 step
     #completewith next
-    >>击杀聚在一起的兽人，拾取斧头以完成收集
-    >>如果清掉近处的怪后仍然运气不好，稍后还有另一次机会
+    >>Kill the nicely stacked groups of Orcs. Loot them to finish off the axes
+    >>If you get unlucky after clearing the close groups, you have another opportunity later
     .goto 1433/0,-2375.13,-9228.73,50,0
     .goto 1433/0,-2401.83,-9180.95,50,0
     .goto 1433/0,-2449.15,-9161.70,50,0
@@ -1163,57 +1122,57 @@ step
 step
     #era/som
     #completewith next
-    .goto 1433/0,-2639.97,-9149.24,150 >> 跑向蜘蛛区域
+    .goto 1433/0,-2639.97,-9149.24,150 >> Run toward the spiders
 step
     #era/som
-    >>击杀蜘蛛，拾取它们掉落的肉
-    >>小心，它们的毒会造成一些伤害
-    >>小心查特（稀有），他有一个持续 8 秒的眩晕
+    >>Kill Spiders. Loot them for the meat
+    >>Be careful as their poison can do some damage
+    >>Be careful of Chatter (rare), as he has an 8 second-long stun
     .goto 1433/0,-2813.20,-9230.04
     .collect 1081,5,92,1 --Crisp Spider Meat (5)
 step
-    >>继续击杀兽人来拿斧头
+    >>Finish off killing Orcs for the axes
     .goto 1433/0,-2911.11,-9195.00
     .complete 20,1 --Blackrock Axe (10)
 step
     .goto 1433/0,-2298.06,-9283.90
-.target 治安官马瑞斯
->>与|cRXP_FRIENDLY_治安官马瑞斯|r交谈
-    .turnin 20 >>交任务：黑石氏族的威胁
+.target Marshal Marris
+>>Talk to |cRXP_FRIENDLY_Marshal Marris|r
+    .turnin 20 >>Turn in Blackrock Menace
 step
     .goto 1433/0,-2268.76,-9279.27
-.target 工头奥斯洛
->>与|cRXP_FRIENDLY_工头奥斯洛|r交谈
-    .turnin 89 >>交任务：止水湖上的桥
+.target Foreman Oslow
+>>Talk to |cRXP_FRIENDLY_Foreman Oslow|r
+    .turnin 89 >>Turn in The Everstill Bridge
 step
     .goto 1433/0,-2243.36,-9259.57
->>与|cRXP_FRIENDLY_弗纳·奥斯古|r交谈
-    .turnin 124 >>交任务：豺狼人的乱吠
-.target 弗纳·奥斯古
-    .accept 126 >>接任务：群山中的嚎叫
+>>Talk to |cRXP_FRIENDLY_Verner Osgood|r
+    .turnin 124 >>Turn in A Baying of Gnolls
+.target Verner Osgood
+    .accept 126 >>Accept Howling in the Hills
 step
     .goto 1433/0,-2158.91,-9235.97
-.target 达希
->>与|cRXP_FRIENDLY_达希|r交谈
-    .turnin 131 >>交任务：水仙诉衷情
+.target Darcy
+>>Talk to |cRXP_FRIENDLY_Darcy|r
+    .turnin 131 >>Turn in Delivering Daffodils
 step
     .goto 1433/0,-2157.18,-9223.81
-    .vendor >> 购买15级饮料
+    .vendor >> Buy level 15 drink
 step
     #era/som
     .goto 1433/0,-2063.61,-9212.080
-    >>离开旅店，向西进入建筑
-.target 厨师布雷纳
->>与|cRXP_FRIENDLY_厨师布雷纳|r交谈
-    .accept 92 >> 接任务：赤脊山炖肉
-    .turnin 92 >> 交任务：赤脊山炖肉
+    >>Exit the Inn. Go west then into the building
+.target Chef Breanna
+>>Talk to |cRXP_FRIENDLY_Chef Breanna|r
+    .accept 92 >> Accept Redridge Goulash
+    .turnin 92 >> Turn in Redridge Goulash
 step
     #era/som
     #completewith next
     .goto 1433/0,-2146.97,-9225.110
-    +烹饪野猪肉，直到烹饪技能达到 50 点
-    >>如果肉不够，可以在去夜色镇的路上刷些野猪
+    +Cook all of the boar meat up until 50 cooking skill
+    >>If you don't have enough meat, grind some boars en route to Darkshire
 step
     .goto 1433/0,-1711.94,-9895.21,90,0
-    .zone Duskwood >> 前往暮色森林
+    .zone Duskwood >> Travel to Duskwood
 ]])

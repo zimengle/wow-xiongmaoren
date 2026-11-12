@@ -1,7 +1,7 @@
 
 BugGrabberDB = {
 ["lastSanitation"] = 3,
-["session"] = 69,
+["session"] = 73,
 ["errors"] = {
 {
 ["message"] = "...erface/AddOns/Questie/Database/QuestXP/QuestieXP.lua:14: attempt to index global 'LibQuestieDB' (a nil value)",
@@ -196,12 +196,36 @@ BugGrabberDB = {
 ["counter"] = 13,
 },
 {
+["message"] = "Interface/AddOns/RXPGuides/RXPGuides.lua:283: attempt to perform string conversion on a secret string value (execution tainted by 'RXPGuides')",
+["time"] = 1794451873,
+["locals"] = "label=\"skipgossip\"\npass=false\nr1=\"attempt to perform string conversion on a secret string value (execution tainted by 'RXPGuides')\"\nr2=nil\nr3=nil\nr4=nil\nmsg=\"attempt to perform string conversion on a secret string value (execution tainted by 'RXPGuides')\"\ncount=1\naddon=<table>{\n modules=<table>\n startTime=1592603.640600\n unitscanEnabled=false\n dungeonProfessions=<table>\n icons=<table>\n dangerousMobs=<table>\n explorationText=\"发现：(.+)\"\n dungeonStats=<table>\n itemQueryList=<table>\n separators=<table>\n db=<table>\n FPDB=<table>\n release=\"v4.11.35\"\n labels=<table>\n maxGuideVersion=24\n dungeonOverride=<table>\n npcNames=<table>\n dungeonWeights=<table>\n dungeons=<table>\n defaultGroupHC=\"RestedXP无限服指南（联盟）\"\n name=\"RXPGuides\"\n statWeights=<table>\n themes=<table>\n lastGuideGroup=\"RestedXP 无限 地下城指南 (联盟)\"\n updateInactiveQuest=<table>\n functions=<table>\n colors=<table>\n lastCall=\"skipgossip\"\n gameVersion=16001\n title=\"RestedXP 指南\"\n enabledLocale=<table>\n emptyGuide=<table>\n loadNextStep=false\n tips=<table>\n questsToPrepare=<table>\n recentTurnIn=<table>\n questTurnIn=<table>\n ignoredMaps=<table>\n farmGuides=0\n emergencyItems=<table>\n updateBottomFrame=false\n compatibility=<table>\n height=125\n guideCache=<table>\n questItemList=<table>\n v2=<table>\n questAccept=<table>\n lastGuideName=\"20-21级 黑海岸/灰谷\"\n classicToWrathEPL=<table>\n calendarLoaded=true\n customThemeBase=<table>\n currrentSkillLevel=<table>\n help=<table>\n updateSteps=false\n targeting=<table>\n questConversion=<table>\n updateTipWindow=false\n defaultGuideHC=\"01-05级 寒脊山谷\"\n talents=<table>\n QuestDB=<table>\n updateActiveQuest=<table>\n updateStepText=false\n hideArrow=false\n cleanupBtn=RXPQuestLogCleanupButton <QuestLog.lua:789>\n addonLoaded=true\n professionNames=<table>\n activeTheme=<table>\n RXPGuides=<table>\n turnInList=<table>\n generatedSteps=<table>\n currentGuideGroup=\"RestedXP 无限 地下城指南 (联盟)\"\n player=<table>\n updateMap=false\n guideTextColors=<table>\n activeItemFrame=RXPItemFrame <ActiveItemFrame.lua:261>\n defaultGroup=\"RestedXP无限服指南（联盟）\"\n FPbyZone=<table>\n emergencySpells=<table>\n font=\"Fonts\\ARKai_T.ttf\"\n dungeonStatsSC=<table>\n isHidden=false\n RXPOptions=Frame <AceGUIContainer-BlizOptionsGroup.lua:102>\n realmData=<table>\n stepUpdateList=<table>\n groupAlias=<table>\n scheduledTasks=<table>\n dungeonTooltip=<table>\n dungeonIcons=<table>\n activeItems=<table>\n tickers=<table>\n ui=<table>\n activeWaypoints=<table>\n SpiritHealerWorld=<table>\n minGuideVersion=0\n embeddedGuides=<table>\n condenseGroups=<table>\n guideIds=<table>\n skillList=<table>\n professions=<table>\n guideList=<table>\n classicToWrathSW=<table>\n repStandingID=<table>\n guides=<table>\n flightInfo=<table>\n locale=<table>\n questCompleteItems=<table>\n guide=false\n taxiPos=<table>\n tracker=<table>\n defaultGuide=\"01-05级 寒脊山谷\"\n petFamilyLookup=<table>\n questAcceptItems=<table>\n pickUpList=<table>\n baseName=\"RXPGuides\"\n enabledFrames=<table>\n questieDB=<table>\n requestQuestInfo=<table>\n professionID=<table>\n activeSpells=<table>\n defaultSpellList=<table>\n ImportQuestTurnInList=<table>\n RXPFrame=RXPFrame <GuideWindow.lua:24>\n recentAccept=<table>\n questQueryList=<table>\n questsAvailable=<table>\n wrathToClassicSW=<table>\n disabledQuests=<table>\n arrowFrame=RXPG_ARROW <map.lua:41>\n enabledState=true\n linePoints=<table>\n versionText=\"版本 v4.11.35\"\n classicPrefix=\"C-\"\n wrathToClassicEPL=<table>\n guideImporter=<table>\n stepLogic=<table>\n lastStepUpdate=7662.496000\n questsDone=<table>\n activeMacros=<table>\n errors=<table>\n base=<table>\n mountIDs=<table>\n game=\"FOREVER\"\n currentGuide=<table>\n HCSpellList=<table>\n version=40000\n orderedModules=<table>\n defaultModuleState=true\n questAutoAccept=false\n skipPreReq=<table>\n preparedQuests=<table>\n comms=<table>\n mapIdToName=<table>\n rares=<table>\n questTurnInItems=<table>\n GuideNames=<table>\n mapId=<table>\n defaultModuleLibraries=<table>\n mapConversion=<table>\n width=235\n settings=<table>\n tickTimer=0\n inventoryManager=<table>\n repStartValue=<table>\n}\nerrorTimer=8442.070000\n",
+["stack"] = "[Interface/AddOns/RXPGuides/RXPGuides.lua]:283: in function 'Call'\n[Interface/AddOns/RXPGuides/GuideWindow.lua]:260: in function <Interface/AddOns/RXPGuides/GuideWindow.lua:249>\n",
+["session"] = 71,
+["counter"] = 4,
+},
+{
 ["message"] = "[ADDON_ACTION_BLOCKED] 插件 'DungeonsForever' 尝试调用保护功能 'DFZoneOrbPanel:Hide()'。",
-["time"] = 1794407177,
+["time"] = 1794453095,
 ["locals"] = "self=<table>\nevent=\"ADDON_ACTION_BLOCKED\"\naddonName=\"DungeonsForever\"\naddonFunc=\"DFZoneOrbPanel:Hide()\"\nname=\"DungeonsForever\"\nbadAddons=<table>{\n DungeonsForever=true\n}\nL=<table>{\n NO_DISPLAY_2=\"|cffffff00标准的错误显示插件名叫 BugSack，可以在找到 !BugGrabber 的网站上找到它。|r\"\n ERROR_DETECTED=\"%s |cffffff00已抓取，点击链接获取更多信息。|r\"\n BUGGRABBER_STOPPED=\"|cffffff00用户界面有太多的错误。所以，游戏体验会被降低。如不想再看到此信息请禁用或升级失效插件。|r\"\n USAGE=\"|cffffff00用法：/buggrabber <1-%d>。|r\"\n STOP_NAG=\"|cffffff00!BugGrabber 将不再提示缺失错误显示插件信息知道下个版本发布。|r\"\n NO_DISPLAY_STOP=\"|cffffff00如果你不希望再次被提醒，请输入 /stopnag。|r\"\n NO_DISPLAY_1=\"|cffffff00似乎没有与 !BugGrabber 一起运行的错误显示插件。虽然斜线命令访问错误报告，但错误显示插件可以以更快捷的方式帮助您管理这些错误。|r\"\n ERROR_UNABLE=\"|cffffff00!BugGrabber 本身无法检索其他玩家的错误。请安装 BugSack 或类似的错误显示插件，可能会包含这些功能。|r\"\n ADDON_CALL_PROTECTED=\"[%s] 插件 '%s' 尝试调用保护功能 '%s'。\"\n}\n",
 ["stack"] = "[Interface/AddOns/!BugGrabber/BugGrabber.lua]:554: in function '?'\n[Interface/AddOns/!BugGrabber/BugGrabber.lua]:538: in function <Interface/AddOns/!BugGrabber/BugGrabber.lua:538>\n[C]: in function 'Hide'\n[Interface/AddOns/DungeonsForever/Core/ZoneOrb.lua]:215: in function 'done'\n[Interface/AddOns/DungeonsForever/Core/ZoneOrb.lua]:1414: in function <Interface/AddOns/DungeonsForever/Core/ZoneOrb.lua:1400>\n",
-["session"] = 69,
-["counter"] = 2,
+["session"] = 71,
+["counter"] = 3,
+},
+{
+["message"] = "[ADDON_ACTION_BLOCKED] 插件 'AutoBar' 尝试调用保护功能 'ClearOverrideBindings()'。",
+["time"] = 1794454636,
+["locals"] = "self=<table>\nevent=\"ADDON_ACTION_BLOCKED\"\naddonName=\"AutoBar\"\naddonFunc=\"ClearOverrideBindings()\"\nname=\"AutoBar\"\nbadAddons=<table>{\n DungeonsForever=true\n AutoBar=true\n}\nL=<table>{\n NO_DISPLAY_2=\"|cffffff00标准的错误显示插件名叫 BugSack，可以在找到 !BugGrabber 的网站上找到它。|r\"\n ERROR_DETECTED=\"%s |cffffff00已抓取，点击链接获取更多信息。|r\"\n BUGGRABBER_STOPPED=\"|cffffff00用户界面有太多的错误。所以，游戏体验会被降低。如不想再看到此信息请禁用或升级失效插件。|r\"\n USAGE=\"|cffffff00用法：/buggrabber <1-%d>。|r\"\n STOP_NAG=\"|cffffff00!BugGrabber 将不再提示缺失错误显示插件信息知道下个版本发布。|r\"\n NO_DISPLAY_STOP=\"|cffffff00如果你不希望再次被提醒，请输入 /stopnag。|r\"\n NO_DISPLAY_1=\"|cffffff00似乎没有与 !BugGrabber 一起运行的错误显示插件。虽然斜线命令访问错误报告，但错误显示插件可以以更快捷的方式帮助您管理这些错误。|r\"\n ERROR_UNABLE=\"|cffffff00!BugGrabber 本身无法检索其他玩家的错误。请安装 BugSack 或类似的错误显示插件，可能会包含这些功能。|r\"\n ADDON_CALL_PROTECTED=\"[%s] 插件 '%s' 尝试调用保护功能 '%s'。\"\n}\n",
+["stack"] = "[Interface/AddOns/!BugGrabber/BugGrabber.lua]:554: in function '?'\n[Interface/AddOns/!BugGrabber/BugGrabber.lua]:538: in function <Interface/AddOns/!BugGrabber/BugGrabber.lua:538>\n[C]: in function 'ClearOverrideBindings'\n[Interface/AddOns/AutoBar/Core.lua]:221: in function 'RegisterOverrideBindings'\n[Interface/AddOns/AutoBar/Core.lua]:550: in function '?'\n[Interface/AddOns/AutoBar/Core.lua]:68: in function <Interface/AddOns/AutoBar/Core.lua:47>\n",
+["session"] = 71,
+["counter"] = 1,
+},
+{
+["message"] = "Interface/AddOns/TentWhisper/TentWhisper.lua:514: attempt to compare local 'g' (a secret string value, while execution tainted by 'TentWhisper')",
+["time"] = 1794471732,
+["locals"] = "g=<secret string>\n(*temporary)=\"string\"\n(*temporary)=<secret string>\n(*temporary)=\"attempt to compare local 'g' (a secret string value, while execution tainted by 'TentWhisper')\"\n",
+["stack"] = "[Interface/AddOns/TentWhisper/TentWhisper.lua]:514: in function <Interface/AddOns/TentWhisper/TentWhisper.lua:510>\n[Interface/AddOns/TentWhisper/TentWhisper.lua]:606: in function <Interface/AddOns/TentWhisper/TentWhisper.lua:598>\n[Interface/AddOns/TentWhisper/TentWhisper.lua]:786: in function <Interface/AddOns/TentWhisper/TentWhisper.lua:781>\n",
+["session"] = 73,
+["counter"] = 757,
 },
 },
 }
