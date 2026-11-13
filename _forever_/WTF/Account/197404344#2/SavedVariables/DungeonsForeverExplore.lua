@@ -1,6 +1,12 @@
 
 DungeonsForeverExploreDB = {
 ["explore"] = {
+["charFound"] = {
+["重庆-智能体"] = {
+},
+},
+["found"] = {
+},
 ["mapCfg"] = {
 ["showMiniPins"] = true,
 ["showCompass"] = true,
@@ -16,13 +22,11 @@ DungeonsForeverExploreDB = {
 ["connect"] = "near",
 ["showGrave"] = false,
 ["showLines"] = false,
-["showPins"] = false,
+["showMeLine"] = true,
 ["hudScale"] = 1,
 ["showNum"] = true,
 ["graveStyle"] = "native",
-["showMeLine"] = true,
-},
-["found"] = {
+["showPins"] = false,
 },
 },
 }

@@ -4,8 +4,19 @@ LueurDB = {
 ["questObjects"] = {
 ["血帆计划书"] = "血帆海盗",
 ["晒干的流木"] = "晒干的流木",
-["血帆海图"] = "血帆海盗",
+["新鲜的蛇颈龙肉"] = "拉克维的食物",
+["玛尔冯的箱子"] = "石环",
+["古代储物箱"] = "化解灾难",
+["谢申克的勘探设备"] = "谢申克的救赎",
+["水晶塔碎片"] = "水晶塔碎片",
 ["被偷走的货物"] = "斯杜雷的货物",
+["加兹瑞迪安"] = "加兹瑞迪安",
+["紫色蘑菇"] = "奥达曼的蘑菇",
+["紫葡萄酒"] = "威士忌斯利姆的酒",
+["血帆海图"] = "血帆海盗",
+["大地之歌飞溅"] = "腐朽与懊悔",
+["法力过滤网"] = "为晶塔供能",
+["雕纹石罐"] = "阿戈莫德的命运",
 },
 ["followAlpha"] = false,
 ["categorySettings"] = {
@@ -22,6 +33,34 @@ LueurDB = {
 ["schema"] = 8,
 ["nodeNames"] = {
 ["zhCN"] = {
+["墓地苔"] = {
+["id"] = 1628,
+["kind"] = "herb",
+},
+["宁神花"] = {
+["id"] = 1618,
+["kind"] = "herb",
+},
+["铁矿石"] = {
+["id"] = 1735,
+["kind"] = "ore",
+},
+["火焰花"] = {
+["id"] = 2866,
+["kind"] = "herb",
+},
+["锡矿"] = {
+["id"] = 1732,
+["kind"] = "ore",
+},
+["地根草"] = {
+["id"] = 1619,
+["kind"] = "herb",
+},
+["卡德加的胡须"] = {
+["id"] = 2043,
+["kind"] = "herb",
+},
 ["盲目草"] = {
 ["id"] = 142143,
 ["kind"] = "herb",
@@ -30,8 +69,8 @@ LueurDB = {
 ["id"] = 2042,
 ["kind"] = "herb",
 },
-["铁矿石"] = {
-["id"] = 1735,
+["铜矿"] = {
+["id"] = 1731,
 ["kind"] = "ore",
 },
 ["活根草"] = {
@@ -42,9 +81,9 @@ LueurDB = {
 ["id"] = 142140,
 ["kind"] = "herb",
 },
-["铜矿"] = {
-["id"] = 1731,
-["kind"] = "ore",
+["跌打草"] = {
+["id"] = 1622,
+["kind"] = "herb",
 },
 ["金棘草"] = {
 ["id"] = 2046,
@@ -54,16 +93,16 @@ LueurDB = {
 ["id"] = 176583,
 ["kind"] = "herb",
 },
-["太阳草"] = {
-["id"] = 142142,
+["幽灵菇"] = {
+["id"] = 142144,
 ["kind"] = "herb",
 },
 ["秘银矿脉"] = {
 ["id"] = 2040,
 ["kind"] = "ore",
 },
-["火焰花"] = {
-["id"] = 2866,
+["太阳草"] = {
+["id"] = 142142,
 ["kind"] = "herb",
 },
 ["真银矿石"] = {
@@ -78,8 +117,8 @@ LueurDB = {
 ["id"] = 2045,
 ["kind"] = "herb",
 },
-["锡矿"] = {
-["id"] = 1732,
+["金矿石"] = {
+["id"] = 1734,
 ["kind"] = "ore",
 },
 },
@@ -87,8 +126,8 @@ LueurDB = {
 ["ignored"] = {
 },
 ["minimap"] = {
-["angle"] = 205,
 ["hide"] = false,
+["angle"] = 205,
 },
 ["showIcon"] = true,
 ["hideUntrained"] = true,
@@ -96,10 +135,20 @@ LueurDB = {
 ["textFont"] = "game",
 ["intensity"] = 100,
 ["silhouette"] = true,
-["nodeOre"] = true,
+["savedCVars"] = {
+["SoftTargetInteractArc"] = "0",
+["SoftTargetIconGameObject"] = "0",
+["SoftTargetInteractOnlyInRange"] = "0",
+["SoftTargetNameplateInteract"] = "0",
+["SoftTargetInteractRangeIsHard"] = "0",
+["SoftTargetInteract"] = "3",
+["SoftTargetIconInteract"] = "1",
+["nameplateGameObjectMaxDistance"] = "30.000000",
+["SoftTargetInteractRange"] = "10.000000",
+},
 ["cvarsReturned"] = true,
+["range"] = 15,
 ["hideLocked"] = true,
-["showName"] = true,
 ["colors"] = {
 ["chest"] = {
 0.45,
@@ -135,27 +184,39 @@ LueurDB = {
 ["hideInInstance"] = true,
 ["textSize"] = 100,
 ["containers"] = {
-[2086] = true,
-[128308] = true,
-[2087] = true,
-[2560] = true,
 [128403] = true,
+[126049] = true,
+[2743] = true,
+[441253] = true,
+[140971] = true,
 [4149] = true,
-[141931] = true,
+[157936] = true,
+[128293] = true,
+[124389] = true,
 [24798] = true,
+[128308] = true,
+[126260] = true,
+[164780] = true,
+[149036] = true,
+[584729] = true,
+[2087] = true,
 [2554] = true,
+[141931] = true,
+[164779] = true,
+[2560] = true,
+[164781] = true,
+[164661] = true,
+[144053] = true,
+[607122] = true,
+[612179] = true,
+[607123] = true,
+[2068] = true,
+[164778] = true,
+[164660] = true,
+[166863] = true,
+[2086] = true,
 [142181] = true,
 },
-["range"] = 15,
-["savedCVars"] = {
-["SoftTargetInteractArc"] = "0",
-["SoftTargetIconGameObject"] = "0",
-["SoftTargetInteractOnlyInRange"] = "0",
-["SoftTargetNameplateInteract"] = "0",
-["SoftTargetInteractRangeIsHard"] = "0",
-["SoftTargetInteract"] = "3",
-["SoftTargetIconInteract"] = "1",
-["nameplateGameObjectMaxDistance"] = "30.000000",
-["SoftTargetInteractRange"] = "10.000000",
-},
+["showName"] = true,
+["nodeOre"] = true,
 }

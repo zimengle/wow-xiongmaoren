@@ -16,9 +16,9 @@ ConsolePortRings = {
 },
 {
 ["type"] = "item",
-["questID"] = 2944,
+["questID"] = 99258,
 ["autoassigned"] = true,
-["item"] = "|cnIQ1:|Hitem:9328::::::::47:1489::11:::::::|h[超级摄影器FX]|h|r",
+["item"] = "|cnIQ1:|Hitem:286648::::::::51:1489::11:::::::|h[枯竭的水晶之心]|h|r",
 },
 [0] = {
 },

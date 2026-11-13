@@ -1,7 +1,7 @@
 
 BugGrabberDB = {
+["session"] = 82,
 ["lastSanitation"] = 3,
-["session"] = 73,
 ["errors"] = {
 {
 ["message"] = "...erface/AddOns/Questie/Database/QuestXP/QuestieXP.lua:14: attempt to index global 'LibQuestieDB' (a nil value)",
@@ -204,28 +204,36 @@ BugGrabberDB = {
 ["counter"] = 4,
 },
 {
-["message"] = "[ADDON_ACTION_BLOCKED] 插件 'DungeonsForever' 尝试调用保护功能 'DFZoneOrbPanel:Hide()'。",
-["time"] = 1794453095,
-["locals"] = "self=<table>\nevent=\"ADDON_ACTION_BLOCKED\"\naddonName=\"DungeonsForever\"\naddonFunc=\"DFZoneOrbPanel:Hide()\"\nname=\"DungeonsForever\"\nbadAddons=<table>{\n DungeonsForever=true\n}\nL=<table>{\n NO_DISPLAY_2=\"|cffffff00标准的错误显示插件名叫 BugSack，可以在找到 !BugGrabber 的网站上找到它。|r\"\n ERROR_DETECTED=\"%s |cffffff00已抓取，点击链接获取更多信息。|r\"\n BUGGRABBER_STOPPED=\"|cffffff00用户界面有太多的错误。所以，游戏体验会被降低。如不想再看到此信息请禁用或升级失效插件。|r\"\n USAGE=\"|cffffff00用法：/buggrabber <1-%d>。|r\"\n STOP_NAG=\"|cffffff00!BugGrabber 将不再提示缺失错误显示插件信息知道下个版本发布。|r\"\n NO_DISPLAY_STOP=\"|cffffff00如果你不希望再次被提醒，请输入 /stopnag。|r\"\n NO_DISPLAY_1=\"|cffffff00似乎没有与 !BugGrabber 一起运行的错误显示插件。虽然斜线命令访问错误报告，但错误显示插件可以以更快捷的方式帮助您管理这些错误。|r\"\n ERROR_UNABLE=\"|cffffff00!BugGrabber 本身无法检索其他玩家的错误。请安装 BugSack 或类似的错误显示插件，可能会包含这些功能。|r\"\n ADDON_CALL_PROTECTED=\"[%s] 插件 '%s' 尝试调用保护功能 '%s'。\"\n}\n",
-["stack"] = "[Interface/AddOns/!BugGrabber/BugGrabber.lua]:554: in function '?'\n[Interface/AddOns/!BugGrabber/BugGrabber.lua]:538: in function <Interface/AddOns/!BugGrabber/BugGrabber.lua:538>\n[C]: in function 'Hide'\n[Interface/AddOns/DungeonsForever/Core/ZoneOrb.lua]:215: in function 'done'\n[Interface/AddOns/DungeonsForever/Core/ZoneOrb.lua]:1414: in function <Interface/AddOns/DungeonsForever/Core/ZoneOrb.lua:1400>\n",
-["session"] = 71,
-["counter"] = 3,
-},
-{
-["message"] = "[ADDON_ACTION_BLOCKED] 插件 'AutoBar' 尝试调用保护功能 'ClearOverrideBindings()'。",
-["time"] = 1794454636,
-["locals"] = "self=<table>\nevent=\"ADDON_ACTION_BLOCKED\"\naddonName=\"AutoBar\"\naddonFunc=\"ClearOverrideBindings()\"\nname=\"AutoBar\"\nbadAddons=<table>{\n DungeonsForever=true\n AutoBar=true\n}\nL=<table>{\n NO_DISPLAY_2=\"|cffffff00标准的错误显示插件名叫 BugSack，可以在找到 !BugGrabber 的网站上找到它。|r\"\n ERROR_DETECTED=\"%s |cffffff00已抓取，点击链接获取更多信息。|r\"\n BUGGRABBER_STOPPED=\"|cffffff00用户界面有太多的错误。所以，游戏体验会被降低。如不想再看到此信息请禁用或升级失效插件。|r\"\n USAGE=\"|cffffff00用法：/buggrabber <1-%d>。|r\"\n STOP_NAG=\"|cffffff00!BugGrabber 将不再提示缺失错误显示插件信息知道下个版本发布。|r\"\n NO_DISPLAY_STOP=\"|cffffff00如果你不希望再次被提醒，请输入 /stopnag。|r\"\n NO_DISPLAY_1=\"|cffffff00似乎没有与 !BugGrabber 一起运行的错误显示插件。虽然斜线命令访问错误报告，但错误显示插件可以以更快捷的方式帮助您管理这些错误。|r\"\n ERROR_UNABLE=\"|cffffff00!BugGrabber 本身无法检索其他玩家的错误。请安装 BugSack 或类似的错误显示插件，可能会包含这些功能。|r\"\n ADDON_CALL_PROTECTED=\"[%s] 插件 '%s' 尝试调用保护功能 '%s'。\"\n}\n",
-["stack"] = "[Interface/AddOns/!BugGrabber/BugGrabber.lua]:554: in function '?'\n[Interface/AddOns/!BugGrabber/BugGrabber.lua]:538: in function <Interface/AddOns/!BugGrabber/BugGrabber.lua:538>\n[C]: in function 'ClearOverrideBindings'\n[Interface/AddOns/AutoBar/Core.lua]:221: in function 'RegisterOverrideBindings'\n[Interface/AddOns/AutoBar/Core.lua]:550: in function '?'\n[Interface/AddOns/AutoBar/Core.lua]:68: in function <Interface/AddOns/AutoBar/Core.lua:47>\n",
-["session"] = 71,
-["counter"] = 1,
+["message"] = "Interface/AddOns/Questie/Modules/Libs/QuestieLib.lua:160: attempt to concatenate local 'name' (a nil value)",
+["time"] = 1794493729,
+["locals"] = "progress=<table>{\n 93362=<table>\n}\nok=false\nerr=\"Interface/AddOns/Questie/Modules/Libs/QuestieLib.lua:160: attempt to concatenate local 'name' (a nil value)\"\nnativePartyProgress=nil\n",
+["stack"] = "[Interface/AddOns/Questie/Modules/Tooltips/Tooltip.lua]:275: in function <...nterface/AddOns/Questie/Modules/Tooltips/Tooltip.lua:270>\n[Interface/AddOns/Questie/Modules/Tooltips/Tooltip.lua]:617: in function <...nterface/AddOns/Questie/Modules/Tooltips/Tooltip.lua:612>\n[Interface/AddOns/Questie/Modules/Tooltips/Tooltip.lua]:657: in function <...nterface/AddOns/Questie/Modules/Tooltips/Tooltip.lua:649>\n[tail call]: ?\n[C]: in function 'securecallfunction'\n[Interface/AddOns/Blizzard_SharedXMLGame/Tooltip/TooltipDataHandler.lua]:67: in function <...lizzard_SharedXMLGame/Tooltip/TooltipDataHandler.lua:62>\n[Interface/AddOns/Blizzard_SharedXMLGame/Tooltip/TooltipDataHandler.lua]:87: in function <...lizzard_SharedXMLGame/Tooltip/TooltipDataHandler.lua:83>\n[Interface/AddOns/Blizzard_SharedXMLGame/Tooltip/TooltipDataHandler.lua]:123: in function <...lizzard_SharedXMLGame/Tooltip/TooltipDataHandler.lua:113>\n[C]: in function 'SetAttribute'\n[Interface/AddOns/Blizzard_SharedXMLGame/Tooltip/TooltipDataHandler.lua]:148: in function <...lizzard_SharedXMLGame/Tooltip/TooltipDataHandler.lua:141>\n[Interface/AddOns/Blizzard_SharedXMLGame/Tooltip/TooltipDataHandler.lua]:298: in function <...lizzard_SharedXMLGame/Tooltip/TooltipDataHandler.lua:245>\n[C]: in function 'securecallfunction'\n[Interface/AddOns/Blizzard_SharedXMLGame/Tooltip/TooltipDataHandler.lua]:242: in function 'ProcessInfo'\n[Interface/AddOns/Blizzard_GameTooltip/Mainline/GameTooltip.lua]:1011: in function 'SetWorldCursor'\n[Interface/AddOns/Blizzard_Game/Mainline/EventImplementation.lua]:890: in function 'HandleWorldCursorTooltipUpdate'\n[Interface/AddOns/Blizzard_Game/Mainline/EventRouting.lua]:117: in function 'handler'\n[Interface/AddOns/Blizzard_Game/Shared/EventRouting.lua]:7: in function <...terface/AddOns/Blizzard_Game/Shared/EventRouting.lua:4>\n",
+["session"] = 74,
+["counter"] = 2,
 },
 {
 ["message"] = "Interface/AddOns/TentWhisper/TentWhisper.lua:514: attempt to compare local 'g' (a secret string value, while execution tainted by 'TentWhisper')",
-["time"] = 1794471732,
+["time"] = 1794504201,
 ["locals"] = "g=<secret string>\n(*temporary)=\"string\"\n(*temporary)=<secret string>\n(*temporary)=\"attempt to compare local 'g' (a secret string value, while execution tainted by 'TentWhisper')\"\n",
-["stack"] = "[Interface/AddOns/TentWhisper/TentWhisper.lua]:514: in function <Interface/AddOns/TentWhisper/TentWhisper.lua:510>\n[Interface/AddOns/TentWhisper/TentWhisper.lua]:606: in function <Interface/AddOns/TentWhisper/TentWhisper.lua:598>\n[Interface/AddOns/TentWhisper/TentWhisper.lua]:786: in function <Interface/AddOns/TentWhisper/TentWhisper.lua:781>\n",
-["session"] = 73,
-["counter"] = 757,
+["stack"] = "[Interface/AddOns/TentWhisper/TentWhisper.lua]:514: in function <Interface/AddOns/TentWhisper/TentWhisper.lua:510>\n[Interface/AddOns/TentWhisper/TentWhisper.lua]:606: in function <Interface/AddOns/TentWhisper/TentWhisper.lua:598>\n[Interface/AddOns/TentWhisper/TentWhisper.lua]:786: in function <Interface/AddOns/TentWhisper/TentWhisper.lua:781>\n[C]: in function 'TargetNearestEnemy'\n[TARGETNEARESTENEMY]:2: in function <[string \"TARGETNEARESTENEMY\"]:1>\n",
+["session"] = 74,
+["counter"] = 1434,
+},
+{
+["message"] = "[ADDON_ACTION_BLOCKED] 插件 'DungeonsForever' 尝试调用保护功能 'DFZoneOrbPanel:Hide()'。",
+["time"] = 1794539873,
+["locals"] = "self=<table>\nevent=\"ADDON_ACTION_BLOCKED\"\naddonName=\"DungeonsForever\"\naddonFunc=\"DFZoneOrbPanel:Hide()\"\nname=\"DungeonsForever\"\nbadAddons=<table>{\n DungeonsForever=true\n}\nL=<table>{\n NO_DISPLAY_2=\"|cffffff00标准的错误显示插件名叫 BugSack，可以在找到 !BugGrabber 的网站上找到它。|r\"\n ERROR_DETECTED=\"%s |cffffff00已抓取，点击链接获取更多信息。|r\"\n BUGGRABBER_STOPPED=\"|cffffff00用户界面有太多的错误。所以，游戏体验会被降低。如不想再看到此信息请禁用或升级失效插件。|r\"\n USAGE=\"|cffffff00用法：/buggrabber <1-%d>。|r\"\n STOP_NAG=\"|cffffff00!BugGrabber 将不再提示缺失错误显示插件信息知道下个版本发布。|r\"\n NO_DISPLAY_STOP=\"|cffffff00如果你不希望再次被提醒，请输入 /stopnag。|r\"\n NO_DISPLAY_1=\"|cffffff00似乎没有与 !BugGrabber 一起运行的错误显示插件。虽然斜线命令访问错误报告，但错误显示插件可以以更快捷的方式帮助您管理这些错误。|r\"\n ERROR_UNABLE=\"|cffffff00!BugGrabber 本身无法检索其他玩家的错误。请安装 BugSack 或类似的错误显示插件，可能会包含这些功能。|r\"\n ADDON_CALL_PROTECTED=\"[%s] 插件 '%s' 尝试调用保护功能 '%s'。\"\n}\n",
+["stack"] = "[Interface/AddOns/!BugGrabber/BugGrabber.lua]:554: in function '?'\n[Interface/AddOns/!BugGrabber/BugGrabber.lua]:538: in function <Interface/AddOns/!BugGrabber/BugGrabber.lua:538>\n[C]: in function 'Hide'\n[Interface/AddOns/DungeonsForever/Core/ZoneOrb.lua]:215: in function 'done'\n[Interface/AddOns/DungeonsForever/Core/ZoneOrb.lua]:1414: in function <Interface/AddOns/DungeonsForever/Core/ZoneOrb.lua:1400>\n",
+["session"] = 77,
+["counter"] = 5,
+},
+{
+["message"] = "[ADDON_ACTION_BLOCKED] 插件 'AutoBar' 尝试调用保护功能 'ClearOverrideBindings()'。",
+["time"] = 1794585209,
+["locals"] = "self=<table>\nevent=\"ADDON_ACTION_BLOCKED\"\naddonName=\"AutoBar\"\naddonFunc=\"ClearOverrideBindings()\"\nname=\"AutoBar\"\nbadAddons=<table>{\n AutoBar=true\n}\nL=<table>{\n NO_DISPLAY_2=\"|cffffff00标准的错误显示插件名叫 BugSack，可以在找到 !BugGrabber 的网站上找到它。|r\"\n ERROR_DETECTED=\"%s |cffffff00已抓取，点击链接获取更多信息。|r\"\n BUGGRABBER_STOPPED=\"|cffffff00用户界面有太多的错误。所以，游戏体验会被降低。如不想再看到此信息请禁用或升级失效插件。|r\"\n USAGE=\"|cffffff00用法：/buggrabber <1-%d>。|r\"\n STOP_NAG=\"|cffffff00!BugGrabber 将不再提示缺失错误显示插件信息知道下个版本发布。|r\"\n NO_DISPLAY_STOP=\"|cffffff00如果你不希望再次被提醒，请输入 /stopnag。|r\"\n NO_DISPLAY_1=\"|cffffff00似乎没有与 !BugGrabber 一起运行的错误显示插件。虽然斜线命令访问错误报告，但错误显示插件可以以更快捷的方式帮助您管理这些错误。|r\"\n ERROR_UNABLE=\"|cffffff00!BugGrabber 本身无法检索其他玩家的错误。请安装 BugSack 或类似的错误显示插件，可能会包含这些功能。|r\"\n ADDON_CALL_PROTECTED=\"[%s] 插件 '%s' 尝试调用保护功能 '%s'。\"\n}\n",
+["stack"] = "[Interface/AddOns/!BugGrabber/BugGrabber.lua]:554: in function '?'\n[Interface/AddOns/!BugGrabber/BugGrabber.lua]:538: in function <Interface/AddOns/!BugGrabber/BugGrabber.lua:538>\n[C]: in function 'ClearOverrideBindings'\n[Interface/AddOns/AutoBar/Core.lua]:221: in function 'RegisterOverrideBindings'\n[Interface/AddOns/AutoBar/Core.lua]:550: in function '?'\n[Interface/AddOns/AutoBar/Core.lua]:68: in function <Interface/AddOns/AutoBar/Core.lua:47>\n",
+["session"] = 82,
+["counter"] = 2,
 },
 },
 }

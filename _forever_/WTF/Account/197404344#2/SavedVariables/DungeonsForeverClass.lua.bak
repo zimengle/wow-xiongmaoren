@@ -1,11 +1,11 @@
 
 DungeonsForeverClassDB = {
-["tier"] = {
-["tab"] = "dps",
-["nav"] = "rank",
-},
 ["talentSim"] = {
+["cur"] = 1,
+["seqOn"] = true,
 ["builds"] = {
+["shaman"] = {
+},
 },
 ["sim"] = {
 ["view"] = "plan",
@@ -36,7 +36,17 @@ nil,
 },
 ["cls"] = "shaman",
 },
-["seqOn"] = true,
 ["v"] = 3,
+},
+["talent"] = {
+["seqOn"] = true,
+},
+["tier"] = {
+["tab"] = "dps",
+["sec"] = "changes",
+["spec"] = "enh",
+["mode"] = "talents",
+["nav"] = "spec",
+["cls"] = "SHAMAN",
 },
 }

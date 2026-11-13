@@ -1,7 +1,11 @@
 VER 3 0000000000000001 "RXPTargeting" "Ability_eyeoftheowl"
-/targetexact 恐怖图腾萨满祭司
-/targetexact 恐怖图腾袭击者
-/targetexact 恐怖图腾博学者
+/targetexact Scorpok Stinger
+/targetexact Snickerfang Hyena
+/targetexact Starving Snickerfang
+/targetexact Bone Picker
+/targetexact Black Slayer
+/targetexact Redstone Crystalhide
+/targetexact Redstone Basilisk
 /tm !7
 /targetlasttarget [dead]
 END
