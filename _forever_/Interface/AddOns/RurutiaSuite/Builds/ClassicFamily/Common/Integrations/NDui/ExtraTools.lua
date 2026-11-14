@@ -13,6 +13,16 @@ local function IsLoaded()
     return type(callback) == "function" and callback("NDui") and true or false
 end
 
+if ns.Build.GetID() == "classic-infinite" then
+    table.insert(ns.ExtraToolsProviderRegistry.junkSaleOwners, function()
+        local account = _G.NDuiADB
+        if not (account and account.AutoSell and IsLoaded()) then return false end
+        local core = _G.NDui and _G.NDui[1]
+        local info = core and core.GetModule and core:GetModule("Infobar")
+        return info and info.modules and info.modules.gold ~= nil
+    end)
+end
+
 local function GetActiveProfile()
     if not IsLoaded() then return nil end
     local index = 1

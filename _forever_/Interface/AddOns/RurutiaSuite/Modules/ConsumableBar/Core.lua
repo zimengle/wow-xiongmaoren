@@ -586,8 +586,8 @@ function Definition:ShowTooltip(button, previewContent)
         if info.poisonFamily or info.kind == "equipment" then
             displayed = Adapter:ShowItemTooltip(button, info, self:GetDisplayItemID(info))
             if displayed and info.poisonFamily then
-                Call(Adapter:GetTooltip(), "AddLine", "|cffffffff左：|r|cff00ff00主手|r")
-                Call(Adapter:GetTooltip(), "AddLine", "|cffffffff右：|r|cff00ff00副手|r")
+                Call(Adapter:GetTooltip(), "AddLine", "|cffffffff左：|r" .. ns:GetThemeColorCode(true) .. "主手|r")
+                Call(Adapter:GetTooltip(), "AddLine", "|cffffffff右：|r" .. ns:GetThemeColorCode(true) .. "副手|r")
             end
         end
         if not displayed then displayed = self:ShowTooltip(button, true) end
@@ -599,10 +599,10 @@ function Definition:ShowTooltip(button, previewContent)
         return displayed
     end
     if info.kind == "categoryMenu" then
-        return Adapter:ShowTooltip(button, "|cff00ff00" .. info.name .. "类|r")
+        return Adapter:ShowTooltip(button, ns:GetThemeColorCode(true) .. info.name .. "类|r")
     elseif info.poisonFamily then
         return Adapter:ShowTooltip(button, "|cffffffff" .. (info.name or "毒药") .. "|r"
-            .. "\n|cffffffff左：|r|cff00ff00主手|r\n|cffffffff右：|r|cff00ff00副手|r")
+            .. "\n|cffffffff左：|r" .. ns:GetThemeColorCode(true) .. "主手|r\n|cffffffff右：|r" .. ns:GetThemeColorCode(true) .. "副手|r")
     end
     local left, right = info.clicks and info.clicks.left, info.clicks and info.clicks.right
     if not info.splitActionTooltip and (button.isCategoryItem or (not info.conjureSpellID and left and left.type == "item"
@@ -611,7 +611,7 @@ function Definition:ShowTooltip(button, previewContent)
     end
     local text = ""
     if info.kind == "equipment" then
-        return Adapter:ShowTooltip(button, "|cff00ff00" .. (info.name or "") .. "|r")
+        return Adapter:ShowTooltip(button, ns:GetThemeColorCode(true) .. (info.name or "") .. "|r")
     end
     local leftName = self:GetClickName(
         info.clicks and info.clicks.left,

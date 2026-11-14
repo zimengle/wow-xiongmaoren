@@ -7,14 +7,60 @@ RS.Presentation.ChangelogData = RS.Presentation.ChangelogData or {}
 if buildID == "classic-infinite" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-infinite",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:eb1fd90a543812173a3e36a7b9b1ad81e9185978f88491a5dbf53b012743334b",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:ab48fbf809ee90ad258f2ec7202d48b1cc54431c0b0146aec345640946271f52",
         historySourceId = "none:forever-product-starts-at-4.x",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.8.3",
-            date = "2026-11-10",
-            noticeKey = "4.8.3:7276db988db88f7051c8",
-            content = [=[%sv4.8.3（2026-11-10）|r
+            version = "4.8.5",
+            date = "2026-11-12",
+            noticeKey = "4.8.5:e68702ac0d6c4e8d2b16",
+            content = [=[%sv4.8.5（2026-11-12）|r
+
+%s[职业提醒]|r
+• 新增牧师心灵之火缺失提醒。
+• 新增正义之怒缺失提醒，需点出强化正义之怒。
+• 新增术士护甲缺失提醒，恶魔皮肤、魔甲术任一存在即可。
+• 新增萨满护盾提醒，闪电盾和水盾均缺失时提示。
+
+%s[消耗品动作条]|r
+• 卷轴菜单，新增加速注入和法力之刃注入卷轴。
+• 活力药水，新增「泰莎的补药」。
+• 鼠标提示，特殊文字改为职业色。
+
+%s[任务自动交接]|r
+• 大地图按钮，修复Elles下勾选颜色错误。
+• 新增RXP、Questie和Elles自动交接集中开关。
+• 各插件默认关闭，登录时应用已保存选择。
+
+%s[法师传送门]|r
+• 鼠标提示，特殊文字改为职业色。
+
+%s[预设安装器]|r
+• Questie，新增一键与分项导入，适配Elles及原生布局。
+• RXP外观，更新窗口、箭头、道具及目标框布局。
+
+%sv4.8.4（2026-11-11）|r
+
+%s[暴雪界面增强]|r
+• 右键菜单，新增「邀请加入公会」，复制命令后邀请。
+
+%s[任务与拾取]|r
+• 自动出售垃圾，修复不工作的问题。
+
+%s[地图增强]|r
+• 大地图缩放，拖动右下角调整尺寸。
+
+%s[任务自动交接]|r
+• 自动交接按钮，更新任务地图和全屏地图支持，已适配 EllesmereUI 美化。
+• 左键切换自动交接，右键打开设置。
+
+%s[消耗品动作条]|r
+• 卷轴菜单，更新卷轴：猫魔宠、烈焰注入、灾厄冰霜注入、精准注入、卡德加开锁术、阈限通行和斥责元素卷轴。
+
+%s[插件增强]|r
+• MailLogger，默认在登录时开启交易密语，可关闭。
+
+%sv4.8.3（2026-11-10）|r
 
 %s[EllesmereUI 增强]|r
 • 训练师「全部学习」按钮，点击会出现二次弹窗，并显示总金额。
@@ -869,14 +915,22 @@ end
 if buildID == "classic-era" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-era",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:eb1fd90a543812173a3e36a7b9b1ad81e9185978f88491a5dbf53b012743334b",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:ab48fbf809ee90ad258f2ec7202d48b1cc54431c0b0146aec345640946271f52",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.7.9",
-            date = "2026-11-08",
-            noticeKey = "4.7.9:78248254aff300a68e2d",
-            content = [=[%sv4.7.9（2026-11-08）|r
+            version = "4.8.5",
+            date = "2026-11-12",
+            noticeKey = "4.8.5:d24ed3f73cfc90957140",
+            content = [=[%sv4.8.5（2026-11-12）|r
+
+%s[法师传送门]|r
+• 鼠标提示，特殊文字改为职业色。
+
+%s[消耗品动作条]|r
+• 鼠标提示，特殊文字改为职业色。
+
+%sv4.7.9（2026-11-08）|r
 
 %s[Elles 聊天框]|r
 • 加深输入框背景，修复其他聊天窗口缺少背景的问题。
@@ -1447,14 +1501,22 @@ end
 if buildID == "classic-anniversary" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-anniversary",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:eb1fd90a543812173a3e36a7b9b1ad81e9185978f88491a5dbf53b012743334b",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:ab48fbf809ee90ad258f2ec7202d48b1cc54431c0b0146aec345640946271f52",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.7.9",
-            date = "2026-11-08",
-            noticeKey = "4.7.9:78248254aff300a68e2d",
-            content = [=[%sv4.7.9（2026-11-08）|r
+            version = "4.8.5",
+            date = "2026-11-12",
+            noticeKey = "4.8.5:d24ed3f73cfc90957140",
+            content = [=[%sv4.8.5（2026-11-12）|r
+
+%s[法师传送门]|r
+• 鼠标提示，特殊文字改为职业色。
+
+%s[消耗品动作条]|r
+• 鼠标提示，特殊文字改为职业色。
+
+%sv4.7.9（2026-11-08）|r
 
 %s[Elles 聊天框]|r
 • 加深输入框背景，修复其他聊天窗口缺少背景的问题。
@@ -2025,14 +2087,22 @@ end
 if buildID == "classic-wrath-legacy" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-wrath-legacy",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:eb1fd90a543812173a3e36a7b9b1ad81e9185978f88491a5dbf53b012743334b",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:ab48fbf809ee90ad258f2ec7202d48b1cc54431c0b0146aec345640946271f52",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.7.9",
-            date = "2026-11-08",
-            noticeKey = "4.7.9:78248254aff300a68e2d",
-            content = [=[%sv4.7.9（2026-11-08）|r
+            version = "4.8.5",
+            date = "2026-11-12",
+            noticeKey = "4.8.5:d24ed3f73cfc90957140",
+            content = [=[%sv4.8.5（2026-11-12）|r
+
+%s[法师传送门]|r
+• 鼠标提示，特殊文字改为职业色。
+
+%s[消耗品动作条]|r
+• 鼠标提示，特殊文字改为职业色。
+
+%sv4.7.9（2026-11-08）|r
 
 %s[Elles 聊天框]|r
 • 加深输入框背景，修复其他聊天窗口缺少背景的问题。
@@ -2592,14 +2662,22 @@ end
 if buildID == "classic-cata-legacy" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-cata-legacy",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:eb1fd90a543812173a3e36a7b9b1ad81e9185978f88491a5dbf53b012743334b",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:ab48fbf809ee90ad258f2ec7202d48b1cc54431c0b0146aec345640946271f52",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.7.9",
-            date = "2026-11-08",
-            noticeKey = "4.7.9:78248254aff300a68e2d",
-            content = [=[%sv4.7.9（2026-11-08）|r
+            version = "4.8.5",
+            date = "2026-11-12",
+            noticeKey = "4.8.5:d24ed3f73cfc90957140",
+            content = [=[%sv4.8.5（2026-11-12）|r
+
+%s[法师传送门]|r
+• 鼠标提示，特殊文字改为职业色。
+
+%s[消耗品动作条]|r
+• 鼠标提示，特殊文字改为职业色。
+
+%sv4.7.9（2026-11-08）|r
 
 %s[Elles 聊天框]|r
 • 加深输入框背景，修复其他聊天窗口缺少背景的问题。
@@ -3164,14 +3242,22 @@ end
 if buildID == "classic-mists" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-mists",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:eb1fd90a543812173a3e36a7b9b1ad81e9185978f88491a5dbf53b012743334b",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:ab48fbf809ee90ad258f2ec7202d48b1cc54431c0b0146aec345640946271f52",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.7.9",
-            date = "2026-11-08",
-            noticeKey = "4.7.9:78248254aff300a68e2d",
-            content = [=[%sv4.7.9（2026-11-08）|r
+            version = "4.8.5",
+            date = "2026-11-12",
+            noticeKey = "4.8.5:d24ed3f73cfc90957140",
+            content = [=[%sv4.8.5（2026-11-12）|r
+
+%s[法师传送门]|r
+• 鼠标提示，特殊文字改为职业色。
+
+%s[消耗品动作条]|r
+• 鼠标提示，特殊文字改为职业色。
+
+%sv4.7.9（2026-11-08）|r
 
 %s[Elles 聊天框]|r
 • 加深输入框背景，修复其他聊天窗口缺少背景的问题。
@@ -3747,14 +3833,22 @@ end
 if buildID == "classic-titan" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-titan",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:eb1fd90a543812173a3e36a7b9b1ad81e9185978f88491a5dbf53b012743334b",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:ab48fbf809ee90ad258f2ec7202d48b1cc54431c0b0146aec345640946271f52",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.7.9",
-            date = "2026-11-08",
-            noticeKey = "4.7.9:78248254aff300a68e2d",
-            content = [=[%sv4.7.9（2026-11-08）|r
+            version = "4.8.5",
+            date = "2026-11-12",
+            noticeKey = "4.8.5:d24ed3f73cfc90957140",
+            content = [=[%sv4.8.5（2026-11-12）|r
+
+%s[法师传送门]|r
+• 鼠标提示，特殊文字改为职业色。
+
+%s[消耗品动作条]|r
+• 鼠标提示，特殊文字改为职业色。
+
+%sv4.7.9（2026-11-08）|r
 
 %s[Elles 聊天框]|r
 • 加深输入框背景，修复其他聊天窗口缺少背景的问题。

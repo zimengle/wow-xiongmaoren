@@ -104,6 +104,7 @@ end
 -- names have a surname where Classic had the realm), so a kill or a death recap that
 -- only carries a GUID is matched through what the scan already saw.
 Spy.GUIDNames = {}
+Spy.SecretClass = {} -- name -> class the client keeps secret (battlegrounds), for this session only
 Spy.GUIDNameCount = 0
 local GUID_NAME_LIMIT = 2000
 
@@ -201,7 +202,14 @@ function Spy:ScanUnit(unit)
 		local learnt = true
 		if playerData and playerData.isGuess == false then learnt = false end
 
-		local class = Spy:Readable((select(2, UnitClass(unit))))
+		local rawClass = select(2, UnitClass(unit))
+		local class = Spy:Readable(rawClass)
+		-- In a battleground the client keeps the class secret (identity restricted):
+		-- the row came out black. Kept for the session to colour the row with, see
+		-- Spy:SetBar in Display.lua; the client draws the colour without telling us.
+		if class == nil and Spy:IsSecret(rawClass) then
+			Spy.SecretClass[name] = rawClass
+		end
 		local race = Spy:Readable((UnitRace(unit)))
 		local level = tonumber(Spy:Readable(UnitLevel(unit)))
 		local guild = Spy:Readable((GetGuildInfo(unit)))
@@ -975,6 +983,89 @@ function Spy:DescribeUnit(unit)
 		enemy and "enemy" or "not an enemy", yesNo(secretIdentity))
 end
 
+-- The original turns Spy off at each loading screen and checks the zone 6 s later, and
+-- every chat channel notice in between pushes the check back by 6 s more. With notices
+-- arriving all the time (an addon joining and leaving channels) the check never ran and
+-- Spy stayed off: /spy debug said "zone change still being processed" (CurseForge
+-- comment). As a safety net, Spy off for 15 s with no reason left to be off (and no
+-- wait running) runs the check itself.
+-- The zones to stay off in are kept by their English name ("Booty Bay"), and the
+-- original compared that name with GetZoneText/GetSubZoneText, which give the zone in
+-- the client's language: outside English clients no listed zone ever matched (CurseForge
+-- comment: "I'm in Booty Bay, I have it deactivated, yet the notifications pop up").
+-- A listed zone now matches its English name or its translation, in any case.
+local function sameName(a, b)
+	return type(a) == "string" and type(b) == "string" and a ~= "" and a:lower() == b:lower()
+end
+
+function Spy:InFilteredZone(zone, subZone)
+	zone, subZone = Spy:Readable(zone), Spy:Readable(subZone)
+	for filteredZone, value in pairs(Spy.db.profile.FilteredZones or {}) do
+		if value then
+			local translated = rawget(L, filteredZone) -- no lookup warning for a zone without translation
+			for _, name in ipairs({ filteredZone, translated }) do
+				if sameName(zone, name) or sameName(subZone, name) then
+					return true
+				end
+			end
+		end
+	end
+	return false
+end
+
+-- The real cause: the original PlayerEnteringWorldEvent re-ran itself every 6 s while
+-- notices kept coming, and each run turned Spy off again. Spy now turns off once, at the
+-- loading screen, and waits for channel notices to calm down for at most ZONE_WAIT_MAX
+-- seconds; the sub-zone events wait the same way.
+local ZONE_WAIT_MAX = 12
+
+function Spy:WaitForZone()
+	local quiet = Spy.ChnlTime <= time() - 6
+	if not quiet and GetTime() - (Spy.ZoneWaitStart or 0) < ZONE_WAIT_MAX then
+		if not Spy.ZoneWaitTimer then
+			Spy.ZoneWaitTimer = Spy:ScheduleTimer(function()
+				Spy.ZoneWaitTimer = nil
+				Spy:WaitForZone()
+			end, 6)
+		end
+		return
+	end
+	Spy.ZoneWaitStart = nil
+	Spy:ZoneChanged()
+end
+
+function Spy:PlayerEnteringWorldEvent()
+	Spy.EnabledInZone = false
+	Spy.ZoneWaitStart = GetTime()
+	Spy:WaitForZone()
+end
+
+function Spy:ZoneChangedEvent()
+	Spy.ZoneWaitStart = Spy.ZoneWaitStart or GetTime()
+	Spy:WaitForZone()
+end
+Spy.ZoneChangedNewAreaEvent = Spy.ZoneChangedEvent
+
+function Spy:ZoneWatchdog()
+	if not Spy.db or not Spy.db.profile.Enabled or Spy.EnabledInZone or Spy.ZoneWaitTimer
+		or Spy:ZoneOffReason() ~= L["ReasonPending"] then
+		Spy.ZoneOffSince = nil
+		return
+	end
+	if Spy.ZoneOffSince == nil then
+		Spy.ZoneOffSince = GetTime()
+		return
+	end
+	-- Longer than the normal wait after a loading screen: only a stuck state is repaired.
+	if GetTime() - Spy.ZoneOffSince < ZONE_WAIT_MAX + 3 then
+		return
+	end
+	Spy.ZoneOffSince = nil
+	Spy.ZoneRepairs = (Spy.ZoneRepairs or 0) + 1
+	Spy.LastZoneRepair = time()
+	Spy:ZoneChanged()
+end
+
 -- Why Spy:ZoneChanged left Spy off here, in the same order as its tests, with the
 -- option that decides it when there is one.
 function Spy:ZoneOffReason()
@@ -1028,6 +1119,22 @@ function Spy:PrintDebug(lines)
 	out(("Spy on: %s | in this zone: %s (pvp type %s, flagged %s, instance %s)"):format(
 		yesNo(Spy.db.profile.Enabled), yesNo(Spy.EnabledInZone), tostring(Spy:GetZonePVPInfo() or "none"),
 		yesNo(UnitIsPVP("player")), inInstance and tostring(instanceType) or "no"))
+	if Spy.ZoneRepairs then
+		out(("Zone check run again by Spy %d time(s), last %ss ago"):format(Spy.ZoneRepairs, time() - (Spy.LastZoneRepair or time())))
+	end
+	-- The names the game gives here and the ticked list entries, to see why a listed
+	-- zone does not match (CurseForge comment: still on in Booty Bay).
+	local listed = {}
+	for key, value in pairs(Spy.db.profile.FilteredZones or {}) do
+		if value then
+			local translated = rawget(L, key)
+			listed[#listed + 1] = (translated and translated ~= key) and (key .. " = " .. translated) or key
+		end
+	end
+	table.sort(listed)
+	out(("Zone: %s | sub-zone: %s | listed: %s"):format(
+		tostring(Spy:Readable(GetZoneText()) or "<hidden>"), tostring(Spy:Readable(GetSubZoneText()) or "<hidden>"),
+		#listed > 0 and table.concat(listed, ", ") or "none"))
 	local offReason = Spy:ZoneOffReason()
 	if offReason then
 		out("Off in this zone because: " .. offReason)
@@ -1065,6 +1172,10 @@ function Spy:PrintDebug(lines)
 			Spy.db.profile.ShowEncounters == false and " (hidden)" or ""))
 	end
 	out(("Saved data read at login: account %s, character %s"):format(yesNo(Spy.ForeverSavedVarsFound), yesNo(Spy.ForeverCharVarsFound)))
+	out(("Shared lists kept under: %s, %s | server %s | old server lists merged at login: %d"):format(tostring(Spy.StoreRealm), tostring(Spy.StoreCharacter), tostring(Spy.RealmName), Spy.MergedRealms or 0))
+	local hiddenClasses = 0
+	for _ in pairs(Spy.SecretClass or {}) do hiddenClasses = hiddenClasses + 1 end
+	out(("Classes kept secret by the game (battlegrounds): %d players | rows painted: %d, failed: %d"):format(hiddenClasses, Spy.SecretClassPainted or 0, Spy.SecretClassFailed or 0))
 
 	-- The window: where it is, why it last appeared or vanished, and what waits for the end of combat.
 	local window = Spy.MainWindow
@@ -1121,6 +1232,9 @@ function Spy:PrintDebug(lines)
 	end
 	if Spy.GuildReport then
 		out(Spy:GuildReport())
+	end
+	if Spy.AnnounceReport then
+		out(Spy:AnnounceReport())
 	end
 	if Spy.OptionsWindowReport then
 		out(Spy:OptionsWindowReport())
@@ -1312,6 +1426,7 @@ function Spy:OnInitialize(...)
 	LibStub("AceConfigDialog-3.0"):SetDefaultSize("Spy", 760, 560)
 	Spy:CreateMinimapButton()
 	Spy:WatchMainWindow()
+	Spy:ScheduleRepeatingTimer("ZoneWatchdog", 3)
 	if Spy.db and Spy.db.RegisterCallback then
 		Spy.db.RegisterCallback(Spy, "OnDatabaseShutdown", function() Spy:SaveDebugReport() end)
 		Spy.ReportOnShutdown = true
@@ -1425,3 +1540,186 @@ logoutWatcher:SetScript("OnEvent", function()
 		Spy:SaveDebugReport()
 	end
 end)
+
+-- Shared lists (Kill On Sight between characters, watch list, watched guilds) --------
+-- CurseForge comment: "share Kill On Sight players between characters is checked but it
+-- does not add them to each other". Spy kept these lists per realm, under GetRealmName().
+-- On Forever names are unique for the whole region and GetRealmName() gives an internal
+-- server ("CAMWOW EU4 Realm 6 PvP"), which differs from one character to another: an alt
+-- on another server found an empty list. And each character's own list was kept under its
+-- first name only, so two characters with the same first name took each other for itself.
+-- Like Ace3 (AceDB r40), the lists are now kept per ruleset (PvP, PvE...) and under the
+-- full "First Last" name; lists kept under the old server names are merged in once.
+
+local function ruleActive(rule)
+	if not (rule and C_GameRules and C_GameRules.IsGameRuleActive) then
+		return false
+	end
+	local ok, active = pcall(C_GameRules.IsGameRuleActive, rule)
+	return ok and Spy:Readable(active) == true
+end
+
+local function regionalNames()
+	if not RegionalUniqueNamesEnabled then
+		return false
+	end
+	local ok, on = pcall(RegionalUniqueNamesEnabled)
+	return ok and Spy:Readable(on) == true
+end
+
+local REGION_PREFIX = "Region "
+
+function Spy:ForeverStoreKeys()
+	Spy.StoreRealm = Spy.RealmName
+	Spy.StoreCharacter = Spy.CharacterName
+	if not regionalNames() then
+		return
+	end
+	local rules = Enum and Enum.GameRule or {}
+	local key
+	if ruleActive(rules.HardcoreRuleset) then
+		key = "Hardcore"
+	else
+		local rp, pvp = ruleActive(rules.RPRuleset), ruleActive(rules.PvPRuleset)
+		key = (rp and pvp and "RP-PvP") or (rp and "RP") or (pvp and "PvP") or "PvE"
+	end
+	Spy.StoreRealm = REGION_PREFIX .. key
+	local nameOf = UnitNameUnmodified or UnitName
+	local name, surname = nameOf("player")
+	name, surname = Spy:Readable(name), Spy:Readable(surname)
+	if type(name) == "string" and name ~= "" and type(surname) == "string" and surname ~= "" then
+		Spy.StoreCharacter = name .. " " .. surname
+	end
+end
+
+-- Copies what `source` has and `target` lacks; numbers keep the larger (a later date).
+local function merge(target, source)
+	for key, value in pairs(source) do
+		local current = target[key]
+		if type(value) == "table" then
+			if type(current) ~= "table" then
+				current = {}
+				target[key] = current
+			end
+			merge(current, value)
+		elseif current == nil then
+			target[key] = value
+		elseif type(current) == "number" and type(value) == "number" and value > current then
+			target[key] = value
+		end
+	end
+end
+
+function Spy:ForeverMergeRealms()
+	if not SpyDB or not Spy.StoreRealm or Spy.StoreRealm == Spy.RealmName then
+		return
+	end
+	local moved = 0
+	for _, field in ipairs({ "kosData", "removeKOSData", "watchData", "guildWatch" }) do
+		local byRealm = SpyDB[field]
+		if type(byRealm) == "table" then
+			local oldRealms = {}
+			for realm, data in pairs(byRealm) do
+				if type(realm) == "string" and realm:sub(1, #REGION_PREFIX) ~= REGION_PREFIX and type(data) == "table" then
+					oldRealms[#oldRealms + 1] = realm
+				end
+			end
+			for _, realm in ipairs(oldRealms) do
+				byRealm[Spy.StoreRealm] = byRealm[Spy.StoreRealm] or {}
+				merge(byRealm[Spy.StoreRealm], byRealm[realm])
+				byRealm[realm] = nil
+				moved = moved + 1
+			end
+		end
+	end
+	Spy.MergedRealms = moved
+end
+
+-- Right-click menu on a row ------------------------------------------------------------
+-- CurseForge comment: "when right clicking on an enemy in the window, the whole menu is
+-- squashed into one, so nothing can be selected". The original uses the old
+-- UIDropDownMenu, whose line height and lists are globals of the game's UI: an addon that
+-- embeds an old copy of it, or changes them, breaks every menu built on it. The rows now
+-- open the menu of the game's own windows (MenuUtil.CreateContextMenu), with the same
+-- entries; the old menu stays as a fallback for a client without it.
+local function rowPlayer(row)
+	local name = row and row.id and Spy.ButtonName[row.id]
+	if (not name or name == "") and row and row.LeftText then
+		name = Spy:Readable(row.LeftText:GetText())
+	end
+	if type(name) == "string" and name ~= "" then
+		return name
+	end
+end
+
+local function buildRowMenu(root, player)
+	local list = Spy.db.profile.CurrentList
+	root:CreateTitle(player)
+	if list == 1 or list == 2 then
+		local announce = root:CreateButton(L["AnnounceDropDownMenu"])
+		announce:CreateButton(L["PartyDropDownMenu"], function() Spy:AnnouncePlayer(player, "PARTY") end)
+		announce:CreateButton(L["RaidDropDownMenu"], function() Spy:AnnouncePlayer(player, "RAID") end)
+		announce:CreateButton(L["GuildDropDownMenu"], function() Spy:AnnouncePlayer(player, "GUILD") end)
+		announce:CreateButton(L["LocalDefenseDropDownMenu"], function() Spy:AnnouncePlayer(player, "LOCAL") end)
+	end
+	if not SpyPerCharDB.KOSData[player] then
+		root:CreateButton(L["AddToKOSList"], function() Spy:ToggleKOSPlayer(true, player) end)
+	else
+		local reasons = root:CreateButton(L["KOSReasonDropDownMenu"])
+		for i = 1, Spy_KOSReasonListLength or 0 do
+			local group = Spy_KOSReasonList[i]
+			if group then
+				local sub = reasons:CreateButton(group.title)
+				for _, reason in pairs(group.content or {}) do
+					sub:CreateCheckbox(reason, function()
+						local playerData = SpyPerCharDB.PlayerData[player]
+						return playerData and playerData.reason and playerData.reason[reason] == true or false
+					end, function()
+						Spy:SetKOSReason(player, reason)
+					end)
+				end
+			end
+		end
+		reasons:CreateButton(L["KOSReasonClear"], function() Spy:SetKOSReason(player, nil) end)
+		root:CreateButton(L["RemoveFromKOSList"], function() Spy:ToggleKOSPlayer(false, player) end)
+	end
+	if not SpyPerCharDB.IgnoreData[player] then
+		root:CreateButton(L["AddToIgnoreList"], function() Spy:ToggleIgnorePlayer(true, player) end)
+	else
+		root:CreateButton(L["RemoveFromIgnoreList"], function() Spy:ToggleIgnorePlayer(false, player) end)
+	end
+	if list == 1 then
+		root:CreateButton(L["Clear"], function() Spy:RemovePlayerFromList(player) end)
+	end
+end
+
+local baseBarDropDownOpen = Spy.BarDropDownOpen
+function Spy:BarDropDownOpen(row, ...)
+	local player = rowPlayer(row)
+	if player and MenuUtil and MenuUtil.CreateContextMenu then
+		local ok, err = pcall(MenuUtil.CreateContextMenu, row, function(_, root)
+			buildRowMenu(root, player)
+		end)
+		if ok then
+			Spy.RowMenuOpened = time()
+			Spy.ModernRowMenu = true -- ToggleDropDownMenu right after must not open the old one
+			return
+		end
+		Spy.LastRowMenuError = tostring(err)
+	end
+	Spy.ModernRowMenu = nil
+	return baseBarDropDownOpen(self, row, ...)
+end
+
+-- The original calls CloseDropDownMenus then ToggleDropDownMenu right after
+-- Spy:BarDropDownOpen: skip the old menu when the new one opened.
+local baseToggleDropDownMenu = ToggleDropDownMenu
+if baseToggleDropDownMenu then
+	function Spy.ToggleRowDropDown(...)
+		if Spy.ModernRowMenu then
+			Spy.ModernRowMenu = nil
+			return
+		end
+		return baseToggleDropDownMenu(...)
+	end
+end

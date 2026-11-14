@@ -416,11 +416,30 @@ function C.OnChat(event, msg, who)
     return true
 end
 
+function C.AskTarget(name)
+    local n = Plain(name)
+    if type(n) ~= "string" then return nil end
+    n = n:gsub("^%s+", ""):gsub("%s+$", "")
+    if n == "" then return nil end
+    return n
+end
+
+local function SendAsk(who)
+    if type(SendChatMessage) ~= "function" then return false end
+    local ok = pcall(SendChatMessage, C.AskText(), "WHISPER", nil, who)
+    if not ok then return false end
+    return true
+end
+
 function C.Ask(name)
-    if not name or name == "" then return false end
+    local who = C.AskTarget(name)
+    if not who then return false end
     if not (ChatFrame_OpenChat and DEFAULT_CHAT_FRAME) then return false end
-    local who = name
-    if who:find(" ", 1, true) then who = '"' .. who .. '"' end
+    if who:find("%s") then
+        if not SendAsk(who) then return false end
+        Arm(name, "w")
+        return true
+    end
     ChatFrame_OpenChat("/w " .. who .. " " .. C.AskText(), DEFAULT_CHAT_FRAME)
     Arm(name, "w")
     return true

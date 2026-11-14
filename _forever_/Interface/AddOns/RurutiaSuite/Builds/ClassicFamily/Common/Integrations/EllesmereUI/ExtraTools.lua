@@ -1,7 +1,17 @@
 local _, ns = ...
 if not (ns.Build and ns.Build.IsFamily and ns.Build.IsFamily("classic")
-    and ns.Build.GetID and ns.Build.GetID() ~= "classic-infinite"
+    and ns.Build.GetID
     and ns.Build.HasModule and ns.Build.HasModule("ExtraTools")) then return end
+
+if ns.Build.GetID() == "classic-infinite" then
+    table.insert(ns.ExtraToolsProviderRegistry.junkSaleOwners, function()
+        local merchant = _G.EUI_MerchantHandler
+        local db = _G.EllesmereUIDB
+        return merchant and merchant.IsEventRegistered and merchant:IsEventRegistered("MERCHANT_SHOW")
+            and type(db) == "table" and db.autoSellJunk ~= false
+    end)
+    return
+end
 
 local Registry = ns.ExtraToolsProviderRegistry
 if type(Registry) ~= "table" then error("ExtraTools Providers.lua must load before EllesmereUI integration", 2) end

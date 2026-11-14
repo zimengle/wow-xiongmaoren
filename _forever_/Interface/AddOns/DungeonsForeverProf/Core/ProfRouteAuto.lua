@@ -7,7 +7,7 @@ ns.ProfRouteAuto = RA
 
 local CALLER = "DungeonsForever"
 local CAP = 300
-local DEF_TARGET = 285
+local DEF_TARGET = 300
 local MAX_STALE = 2
 local MAX_PER_RECIPE = 3
 local CACHE_TTL = 600
@@ -61,8 +61,14 @@ local function AHPrice(id)
             local age = CallAPI(Auctionator.API.v1.GetAuctionAgeByItemID, id)
             if type(age) == "number" then
                 if age > MAX_STALE then
-                    ahReason[id], ahAge[id] = "stale", age
-                    p = nil
+                    local bridge = ns.AuctionBridge
+                    if bridge and bridge.ForceExpiredActive and bridge.ForceExpiredActive() then
+                        ahAge[id] = age
+                        ahReason[id] = nil
+                    else
+                        ahReason[id], ahAge[id] = "stale", age
+                        p = nil
+                    end
                 end
                 if age < (priceCache.__minAge or math.huge) then
                     priceCache.__minAge = age
@@ -85,6 +91,12 @@ local function AHPrice(id)
 end
 
 local vendorCache = {}
+
+function RA.ResetPrices()
+    priceCache = {}
+    vendorCache = {}
+    ahReason, ahAge = {}, {}
+end
 
 local function VendorPrice(id)
     local hit = vendorCache[id]
@@ -315,6 +327,11 @@ function RA.MatListCost(mats)
     return MatListCost(mats)
 end
 
+function RA.MatPriceOf(id)
+    if not id then return nil end
+    return MatPrice(id, MATSOLD_EMPTY)
+end
+
 local function RequestProduct(id)
     local H = ns.ProfHost
     local dg = H and H.DG
@@ -396,6 +413,23 @@ function RA.MoneyStr(copper, opt)
     end
     if s > 0 then
         return format("%d%s%02d%s", s, ICON_S, c, ICON_C)
+    end
+    return format("%d%s", c, ICON_C)
+end
+
+function RA.MoneyStrTip(copper)
+    copper = tonumber(copper)
+    if not copper then return "—" end
+    if copper < 0 then return "-" .. RA.MoneyStrTip(-copper) end
+    if copper <= 0 then return "0" .. ICON_C end
+    local g = math.floor(copper / 10000)
+    local s = math.floor(copper / 100) % 100
+    local c = copper % 100
+    if g > 0 then
+        return format("%d %s%02d %s%02d%s", g, ICON_G, s, ICON_S, c, ICON_C)
+    end
+    if s > 0 then
+        return format("%d %s%02d%s", s, ICON_S, c, ICON_C)
     end
     return format("%d%s", c, ICON_C)
 end
@@ -1589,9 +1623,11 @@ function RA.StampSupply(result, context)
         local mid = e.id or e[1]
         if mid and not e.vendor and (e.source == nil or e.source == "ah") then
             local rec = SupplyOf(mid)
+            local forced = AB and AB.ForceExpiredActive and AB.ForceExpiredActive()
             if rec and rec.complete and rec.ownerExcluded and rec.source == "client-auction-results"
                 and type(rec.quantity) == "number" and rec.observedAt > 0
-                and rec.observedAt <= now and now - rec.observedAt <= RA.MaxAuctionSupplyAgeSeconds() then
+                and rec.observedAt <= now
+                and (forced or now - rec.observedAt <= RA.MaxAuctionSupplyAgeSeconds()) then
                 e.source = e.source or "ah"
                 e.availableCount = rec.quantity
                 e.supplyObserved = true

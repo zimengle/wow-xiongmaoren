@@ -26,7 +26,7 @@ end
 
 function Spy:GuildList()
 	SpyDB.guildWatch = SpyDB.guildWatch or {}
-	local realm = tostring(Spy.RealmName or "?")
+	local realm = tostring(Spy.StoreRealm or Spy.RealmName or "?")
 	SpyDB.guildWatch[realm] = SpyDB.guildWatch[realm] or {}
 	return SpyDB.guildWatch[realm]
 end

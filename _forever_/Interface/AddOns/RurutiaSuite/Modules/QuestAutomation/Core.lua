@@ -5,6 +5,7 @@ local Definition = {
     activationGate = "LootTools",
     databaseName = "QuestAutomation",
     defaults = { profile = { enabled = false, autoAccept = true, autoTurnIn = true,
+        externalAutomation = {rxp=false, questieAccept=false, questieTurnIn=false, ellesAccept=false, ellesTurnIn=false},
         completionSound = "work", completionCooldown = 10 } },
 }
 local Data, Sound = ns.QuestAutomationData, ns.QuestAutomationSoundAdapter
@@ -18,6 +19,43 @@ end
 
 local function Loaded(name)
     return _G.C_AddOns and _G.C_AddOns.IsAddOnLoaded and _G.C_AddOns.IsAddOnLoaded(name)
+end
+
+function Definition:GetExternalAutomationState(key)
+    local providers = ns.QuestAutomationProviders
+    return providers and providers:GetState(key) or {available=false, enabled=false}
+end
+
+function Definition:ApplyExternalAutomation()
+    if not self.runtimeActive or not ns.QuestAutomationProviders then return end
+    local profile = self.db.profile
+    if self.externalAppliedProfile ~= profile then
+        self.externalAppliedProfile, self.externalApplied = profile, {}
+    end
+    for _, option in ipairs(ns.QuestAutomationProviders.options) do
+        if not self.externalApplied[option.key] then
+            local desired = profile.externalAutomation and profile.externalAutomation[option.key] == true
+            if ns.QuestAutomationProviders:SetEnabled(option.key, desired) then self.externalApplied[option.key] = true end
+        end
+    end
+end
+
+function Definition:SetExternalAutomationEnabled(key, value)
+    if not self.runtimeActive or not ns.QuestAutomationProviders then return false end
+    local ok, reason = ns.QuestAutomationProviders:SetEnabled(key, value)
+    if not ok then return false, reason end
+    self.db.profile.externalAutomation = self.db.profile.externalAutomation or {}
+    self.db.profile.externalAutomation[key] = value == true
+    self.externalApplied = self.externalApplied or {}
+    self.externalApplied[key] = true
+    self:Refresh()
+    return true
+end
+
+function Definition:SetNativeAutomationEnabled(value)
+    self.db.profile.enabled = value == true
+    self:Refresh()
+    return true
 end
 
 function Definition:GetAutomationState()
@@ -129,6 +167,7 @@ function Definition:SetCompletionSound(value)
 end
 
 function Definition:OnQuestCompletionEvent(event, questID)
+    if event == "PLAYER_ENTERING_WORLD" then self:ApplyExternalAutomation() end
     local states, scratch = self.questCompletionStates, self.questCompletionScratch
     if not states then return end
     if event == "QUEST_REMOVED" then
@@ -170,7 +209,9 @@ function Definition:Refresh()
             self:OnQuestCompletionEvent("PLAYER_ENTERING_WORLD")
         end
     else
-        for _, event in ipairs(SOUND_EVENTS) do self:UnregisterEvent(event) end
+        for _, event in ipairs(SOUND_EVENTS) do
+            if event ~= "PLAYER_ENTERING_WORLD" then self:UnregisterEvent(event) end
+        end
         self.questCompletionStates, self.questCompletionScratch, self.completionReady = nil, nil, nil
         self:StopCompletionSound()
         self.lastCompletionSoundTime = nil
@@ -314,6 +355,8 @@ function Definition:BindProvider()
 end
 
 function Definition:ADDON_LOADED(_, name)
+    local providers = ns.QuestAutomationProviders
+    if providers and providers:IsRelevantAddon(name) then self:ApplyExternalAutomation() end
     local tracker = ns.QuestAutomationTrackerIntegration
     if name == "NDui" or name == "EllesmereUIQuestTracker" or name == "Blizzard_WorldMap"
         or name == "Blizzard_ObjectiveTracker" or (tracker and name == tracker.addonName) then
@@ -324,6 +367,9 @@ end
 
 function Definition:Enable()
     self.runtimeActive = true
+    self.externalAppliedProfile, self.externalApplied = nil, nil
+    self:RegisterEvent("PLAYER_ENTERING_WORLD", self.OnQuestCompletionEvent)
+    self:ApplyExternalAutomation()
     self:RegisterEvent("ADDON_LOADED", self.ADDON_LOADED)
     self:BindProvider()
     self:Refresh()
@@ -331,6 +377,7 @@ function Definition:Enable()
 end
 
 function Definition:Disable()
+    self.externalAppliedProfile, self.externalApplied = nil, nil
     self:StopCompletionSound()
     self.lastCompletionSoundTime = nil
     self.questCompletionStates, self.questCompletionScratch, self.completionReady = nil, nil, nil

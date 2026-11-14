@@ -19,6 +19,7 @@ local SIDE_TEXT = {
 }
 
 local PRESET_TEXT = {
+    questie = "Questie",
     all = "一键导入",
     em = "编辑模式",
     blizzard = "暴雪设置",
@@ -34,6 +35,7 @@ local PRESET_TEXT = {
 }
 
 local PRESET_ADDONS = {
+    questie = "Questie",
     rxp = "RXPGuides",
     sensei = "SenseiClassResourceBar",
     jx = "SenseiClassResourceBar",
@@ -44,6 +46,7 @@ local PRESET_ADDONS = {
 }
 
 local REASON_TEXT = {
+    ["questie-readback-failed"] = "Questie 设置回读失败，已恢复原设置",
     ["not_ready"] = "当前客户端的预设数据与布局适配尚未验证，暂不可安装或切换",
     ["unsupported-on-current-build"] = "当前客户端不支持此功能",
     ["ADDON_NOT_LOADED"] = "目标插件未安装或未启用",
@@ -147,6 +150,9 @@ local function PresetEnabled(command)
     if not PresetVisible(command) or not HasMethods(service, "IsSupported")
         or not service:IsSupported(command) or IsInCombat() then return false end
     if command == "all" or command == "em" or command == "cd" or command == "blizzard" then return true end
+    if command == "questie" then
+        return HasMethods(ns.QuestieImporter, "IsAvailable") and ns.QuestieImporter:IsAvailable()
+    end
     if command == "rxp" then
         return HasMethods(ns.RXPStyleImporter, "IsAvailable") and ns.RXPStyleImporter:IsAvailable()
     end
@@ -903,6 +909,9 @@ local function AddPresetButton(row, key, command, context)
     if command == "rxp" then
         tooltip = "导入指定窗口、箭头、字号及升级追踪、升级通告、任务交互选项，保留路线进度和其他设置；重载后生效。"
     end
+    if command == "questie" then
+        tooltip = "导入字体、任务显示和追踪框设置，分别适配Elles与原生布局，保留任务进度及其他设置；重载后生效。"
+    end
     row:Button(key, {
         text = PRESET_TEXT[command],
         tooltip = command ~= "all" and (tooltip .. " 接口不兼容时不可用。") or nil,
@@ -1118,6 +1127,9 @@ function SettingsPage:Build(context)
         if ns.ProductManifest:HasPreset("rxp") then
             AddPresetButton(presetActions, "importRXP", "rxp", context)
         end
+        if ns.ProductManifest:HasPreset("questie") then
+            AddPresetButton(presetActions, "importQuestie", "questie", context)
+        end
         AddPresetButton(presetActions, "importCooldown", "cd", context)
         AddPresetButton(presetActions, "importSensei", "sensei", context)
         AddPresetButton(presetActions, "importBrewmaster", "jx", context)
@@ -1126,7 +1138,7 @@ function SettingsPage:Build(context)
         AddPresetButton(presetActions, "importEXWINDTOOLS", "exwind", context)
         AddPresetButton(presetActions, "importBigWigs", "bigwigs", context)
         presets:Description(ns.ProductManifest:Check("infinitePreset")
-            and "编辑模式导入布局，暴雪设置导入界面选项，RXP 外观保留路线进度。"
+            and "支持导入编辑模式、暴雪设置、RXP 外观和 Questie 设置，保留任务与路线进度。"
             or "酒仙酒池条、BigWigs 需单独导入。")
     end
 

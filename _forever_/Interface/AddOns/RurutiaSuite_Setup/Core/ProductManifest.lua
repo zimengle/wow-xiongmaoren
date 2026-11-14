@@ -8,8 +8,8 @@ ns.ProductManifest = Manifest
 local PRODUCTS = {
     infinite = {
         builds = { ["classic-infinite"]=true },
-        quickInstall = { "em", "blizzard", "rxp" },
-        presets = { em=true, blizzard=true, rxp=true },
+        quickInstall = { "em", "blizzard", "rxp", "questie" },
+        presets = { em=true, blizzard=true, rxp=true, questie=true },
         capabilities = { setup=true, transfer=true, presetDetails=true, infinitePreset=true,
             layoutSwitch=true, middleLayout=true, canvasEdge=true,
             editModeActivation=true, health=true, gameMenu=true },

@@ -3,7 +3,14 @@ local _, ns = ...
 
 if not (ns.Build and ns.Build.HasModule and ns.Build.HasModule("ExtraTools")) then return end
 
-local Registry = { providers = {}, byID = {} }
+local Registry = { providers = {}, byID = {}, junkSaleOwners = {} }
+
+function Registry:ExternalAutoSellsJunk()
+    for _, ownsSale in ipairs(self.junkSaleOwners) do
+        if ownsSale() then return true end
+    end
+    return false
+end
 
 local function SafeCall(provider, method, ...)
     local callback = provider and provider[method]

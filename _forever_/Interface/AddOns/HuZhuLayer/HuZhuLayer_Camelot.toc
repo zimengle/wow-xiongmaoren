@@ -5,7 +5,7 @@
 ## Notes: 位面/分片列表、求切互助、组队邀请。离线后需手动邀请。一包装无限+怀旧系+正式服。
 ## Notes-zhCN: 位面/分片列表、求切互助、组队邀请。离线后需手动邀请。一包装无限+怀旧系+正式服。
 ## Author: HuZhuLayer
-## Version: 1.1.328
+## Version: 1.1.336
 ## SavedVariables: HuZhuLayerDB
 ## DefaultState: enabled
 ## OptionalDeps: NovaWorldBuffs

@@ -57,7 +57,8 @@ local function BuildQuestAutomation(container, page, module)
         getEnabled = function()
             return module.adapter:CanSellJunk()
         end,
-        tooltip = "打开商人时自动出售灰色垃圾，默认开启；需要客户端支持一键出售垃圾。",
+        tooltip = module.adapter.buildId == "classic-infinite" and "打开商人时自动出售有售价的灰色垃圾，默认开启。Elles 或 NDui 接管自动售卖时，RS 会让位。"
+                or "打开商人时自动出售灰色垃圾，默认开启；需要客户端支持一键出售垃圾。",
         onChange = function(_, value) module:SetBoolean(nil, "autoSellJunk", value) end,
     })
     BuildFastLootCheckbox(convenience, module)
@@ -66,12 +67,12 @@ local function BuildQuestAutomation(container, page, module)
         quest.settingsPage = page
         local section = container:Section("任务辅助")
         section:QuadRow():Checkbox("questAutomation", {
-            text = "任务自动交接",
-            value = quest:GetAutomationState().enabled,
-            getValue = function() return quest:GetAutomationState().enabled end,
-            getEnabled = function() return quest:GetAutomationState().mutable end,
-            tooltip = "自动接取和交付任务，按住 Shift 临时跳过。原生界面默认开启；NDui 使用原有地图入口，ELLES 同步自身设置。",
-            onChange = function(_, value) quest:SetAutomationEnabled(value); page:Refresh("quest-automation") end,
+            text = "RS自动交接",
+            value = quest.db.profile.enabled == true,
+            getValue = function() return quest.db.profile.enabled == true end,
+            getEnabled = function() return quest.runtimeActive == true end,
+            tooltip = "控制RS自身的自动接取与交付，默认关闭。第三方界面接管时RS暂停，按住Shift临时跳过。",
+            onChange = function(_, value) quest:SetNativeAutomationEnabled(value); page:Refresh("quest-automation") end,
         })
         local actions = section:QuadRow()
         for _, option in ipairs({ { "autoTurnIn", "自动交任务" }, { "autoAccept", "自动接任务" } }) do
@@ -90,10 +91,24 @@ local function BuildQuestAutomation(container, page, module)
             getText = function() return quest:GetAutomationState().description end,
             wordWrap = true, labelFill = true,
         })
-        section:GridRow(1, { height = 64 }):Label("questAutomationOtherSources", {
-            text = "关闭后仍自动交接？先检查 RXP（RestedXP），再核对 ELLES、NDui 及其他任务插件的设置。RS 不统一控制所有插件；RS 原生交接可按住 Shift 临时跳过。",
-            wordWrap = true, labelFill = true,
-        })
+        if ns.QuestAutomationProviders then
+            local external = container:Section("插件自动交接")
+            external:Description("登录时按本页保存的选择应用，首次默认关闭；开关显示插件当前状态。RXP跟随其当前配置档，可能由多个角色共用。")
+            local row = external:QuadRow()
+            for _, option in ipairs(ns.QuestAutomationProviders.options) do
+                local key = option.key
+                row:Checkbox("questProvider_" .. key, {
+                    text = option.label,
+                    getValue = function() return quest:GetExternalAutomationState(key).enabled end,
+                    getEnabled = function() return quest.runtimeActive and quest:GetExternalAutomationState(key).available end,
+                    tooltip = "立即修改插件当前配置，并保存为下次登录时应用的选择；未加载或接口不可用时不能修改。",
+                    onChange = function(_, value)
+                        quest:SetExternalAutomationEnabled(key, value)
+                        page:Refresh("quest-provider")
+                    end,
+                })
+            end
+        end
         local voice = section:FieldRow({ columns = 4, preserveColumns = true, responsive = false })
         voice:SoundDropdown("questCompletionSound", {
             text = "任务完成语音",
@@ -380,6 +395,14 @@ end
 local function BuildBlizzard(page, module, features)
     AddModuleStatus(page, module)
     if features.backpack then BuildBags(page, module) end
+    if features.guildInviteMenu then
+        page:Section("玩家右键菜单"):QuadRow():Checkbox("guildInviteMenu", {
+            text = "右键邀请入会",
+            tooltip = "在玩家右键菜单中邀请加入公会。加载 NDui 时由 NDui 提供。",
+            getValue = function() return module:GetBlizzardUIDB().guildInviteMenu ~= false end,
+            onChange = function(_, value) SetSectionBoolean(module, "blizzardUI", "guildInviteMenu", value) end,
+        })
+    end
     if features.lootSparkles then
         page:Section("物品提示"):QuadRow():Checkbox("lootSparkles", {
             text = "拾取物闪光",
@@ -629,6 +652,14 @@ end
 
 local function BuildPluginsClassic(page, module)
     AddModuleStatus(page, module)
+    if ns.EnableMailLoggerWhisper then
+        page:Section("MailLogger"):QuadRow():Checkbox("mailLoggerLoginWhisper", {
+            text = "登录开启交易密语", value = module:GetProfile().mailLoggerLoginWhisper,
+            getValue = function() return module:GetProfile().mailLoggerLoginWhisper end,
+            tooltip = "登录或重载时，开启 MailLogger 向交易对象发送密语的选项。关闭后由 MailLogger 自行管理。",
+            onChange = function(_, value) SetRootBoolean(module, "mailLoggerLoginWhisper", value) end,
+        })
+    end
     if module.adapter.features.minimapVolume then BuildPluginsEllesmere(page, module) end
     local blocker = module:GetUpdateBlockerDB()
     page:Section(module.adapter.buildId == "classic-infinite" and "ElvUI" or "ElvUI 更新屏蔽"):QuadRow():Checkbox("elvuiUpdateBlocker", {

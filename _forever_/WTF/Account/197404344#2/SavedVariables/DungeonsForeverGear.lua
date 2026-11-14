@@ -56,7 +56,7 @@ DungeonsForeverGearDB = {
 ["main-hand"] = 280604,
 ["shield"] = 15909,
 ["head"] = 250499,
-["neck"] = 19537,
+["legs"] = 13114,
 ["trinket"] = 271904,
 ["feet"] = 2276,
 ["back"] = 13108,
@@ -67,7 +67,7 @@ DungeonsForeverGearDB = {
 ["hands"] = 270072,
 ["wrist"] = 270091,
 ["shoulder"] = 7755,
-["legs"] = 13114,
+["neck"] = 19537,
 },
 ["mode"] = "known",
 ["sig"] = "2.1.40|6|shaman|pve|ele|known|33|0|0|a",
@@ -78,8 +78,8 @@ DungeonsForeverGearDB = {
 {
 ["items"] = {
 ["waist"] = 20117,
-["neck"] = 19537,
 ["legs"] = 13114,
+["neck"] = 19537,
 ["head"] = 250499,
 ["shield"] = 9608,
 ["trinket"] = 21119,

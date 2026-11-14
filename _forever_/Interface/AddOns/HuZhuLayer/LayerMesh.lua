@@ -854,6 +854,9 @@ function H:HeadCountForRaw(raw, known)
 end
 
 function H:HideChannelName(name)
+  if self:IsForeverClient() then
+    return
+  end
   if not name then
     return
   end
@@ -884,6 +887,9 @@ function H:HideMeshChannels()
 end
 
 function H:JoinSilentChannel(name)
+  if self:IsForeverClient() then
+    return nil
+  end
   if not name then
     return nil
   end
@@ -1182,6 +1188,9 @@ function H:NoteZeroList(list)
 end
 
 function H:LeaveOldBigChannel()
+  if self:IsForeverClient() then
+    return
+  end
   if self:GetDiscoveryChannelId() then
     self:RawLeaveChannelByName(self.HZL_CHANNEL or "互助切位面")
   end
@@ -1189,6 +1198,9 @@ end
 
 -- 上一版留在互助房、互助公告里。回到主频道时退出，避免占满频道名额。
 function H:LeaveRetiredRooms()
+  if self:IsForeverClient() then
+    return
+  end
   if not GetChannelList or self:RoomsEnabled() then
     return
   end
@@ -2587,6 +2599,9 @@ local function meshInstall()
 
   local coreEnsure = H.EnsureDiscoveryChannel
   function H:EnsureDiscoveryChannel()
+    if self:IsForeverClient() then
+      return
+    end
     if self:RoomsEnabled() then
       self:InstallChatGuards()
       self:EnsureRoomChannels()

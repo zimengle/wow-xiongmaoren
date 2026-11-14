@@ -54,3 +54,4 @@ ConsolePort_Target: enabled
 ConsolePort_World: enabled
 ConsolePort_Cursor: enabled
 ConsolePort_Bar: disabled
+DungeonsForeverQuest: enabled

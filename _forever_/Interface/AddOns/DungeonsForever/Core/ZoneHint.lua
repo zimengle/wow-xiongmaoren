@@ -34,6 +34,7 @@ local function CFG()
     if c.banner == nil then c.banner = true end
     if c.quest == nil then c.quest = true end
     if c.spell == nil then c.spell = true end
+    if c.talent == nil then c.talent = true end
     if c.food == nil then c.food = true end
     if tonumber(c.preferFood) == nil then c.preferFood = 0 end
     if c.rested == nil then c.rested = true end
@@ -50,7 +51,9 @@ local function CFG()
     if c.foodVoice == nil then c.foodVoice = true end
     if c.restedVoice == nil then c.restedVoice = true end
     if c.turnin == nil then c.turnin = true end
+    if c.keyitem == nil then c.keyitem = true end
     if c.onlyTodo == nil then c.onlyTodo = false end
+    if c.noZonePopup == nil then c.noZonePopup = true end
     if c.mode == nil then c.mode = "auto" end
     if c.dur == nil then c.dur = 12 end
     if c.icon == nil then c.icon = 32 end
@@ -584,6 +587,13 @@ local function BannerRows(ctx)
                 name = ItemName(iid) or L["血色旗帜"], icon = icon,
                 sub = L["副本内"],
                 desc = b[8], areaID = areaID,
+                jump = function()
+                    if ns.OpenPage then ns.OpenPage("Explore") end
+                    local EG = ns.ExploreModule
+                    if EG and EG.ShowSub then pcall(EG.ShowSub, "banner") end
+                    return true
+                end,
+                jumpTip = L["点击查看获取步骤"],
             }
         end
     end
@@ -911,6 +921,30 @@ local function PQuest(ctx)
             end
             local qt = DG.QLCall and DG.QLCall("GetQuestType", q[1]) or nil
             local btext = (qt == 81) and L["地下城"] or L["副本内"]
+            local progSub = nil
+            local inDun = false
+            if instSlugs then
+                for _, s in ipairs(instSlugs) do
+                    if s == h.slug then inDun = true break end
+                end
+            end
+            if inDun and DG.QuestState and DG.QuestState(q[1]) == "active" then
+                local objs = DG.QuestObjectiveList and DG.QuestObjectiveList(q[1]) or nil
+                if objs then
+                    local parts = {}
+                    for oi = 1, #objs do
+                        local ob = objs[oi]
+                        if type(ob[1]) == "string" and ob[1] ~= "" then
+                            if ob[3] > 0 and not ob[1]:find("%d+/%d+") then
+                                parts[#parts + 1] = string.format("%d/%d %s", ob[2], ob[3], ob[1])
+                            else
+                                parts[#parts + 1] = ob[1]
+                            end
+                        end
+                    end
+                    if #parts > 0 then progSub = table.concat(parts, "\n") end
+                end
+            end
             ids2 = q[1]
             local qname, qok = nil, false
             if DG.QuestName then qname, qok = DG.QuestName(q[1]) end
@@ -919,7 +953,7 @@ local function PQuest(ctx)
                 id = q[1], base = q[1], ikey = ItemKey("quest", q[1]),
                 name = qname or tostring(q[1]),
                 icon = "Interface\\GossipFrame\\AvailableQuestIcon",
-                sub = dun, desc = locdesc, lvreq = lvreq, can = can,
+                sub = progSub or dun, desc = locdesc, lvreq = lvreq, can = can,
                 badge = { t = btext, col = DG.Q_BADGE_IN_BG },
                 disc = QDISC, discCol = can and QDISC_CAN or QDISC_CANT,
                 sym = can and QSYM_CAN or QSYM_CANT,
@@ -1041,9 +1075,60 @@ local function PSpell(ctx)
     }
 end
 
+local KEY_ITEMS = {
+    { "shadowfang_keep", { 276561, 275989 },
+      L["达拉然隐藏 BOSS 激活物品"],
+      L["阿鲁高书桌上拾取；带到银松森林 63.4, 64.3 换得召唤用书，用于召唤达拉然隐藏 BOSS"] },
+}
+
+local function OwnAny(ids)
+    for i = 1, #ids do
+        if OwnItem(ids[i]) then return true end
+    end
+    return false
+end
+
+local function PKeyItem(ctx)
+    local c = CFG()
+    if c.keyitem == false then return nil end
+    local slugs = CurInstSlugs()
+    if not slugs then return nil end
+    local here = {}
+    for i = 1, #slugs do here[slugs[i]] = true end
+    local list, n = {}, 0
+    for i = 1, #KEY_ITEMS do
+        local e = KEY_ITEMS[i]
+        local ids = e[2]
+        local iid = ids[1]
+        if e[1] and here[e[1]] and not OwnAny(ids) and not Z.IsIgnored(ItemKey("collect", iid)) then
+            n = n + 1
+            list[n] = {
+                id = iid, base = iid, ikey = ItemKey("collect", iid), ikind = "collect",
+                name = ItemName(iid), icon = ItemIcon(iid),
+                sub = e[3], desc = e[4],
+                jump = function()
+                    if ns.ShowDungeonDetail then
+                        pcall(ns.ShowDungeonDetail, e[1])
+                        return true
+                    end
+                    return false
+                end,
+                jumpTip = L["点击打开副本详情"],
+            }
+        end
+    end
+    if n == 0 then return nil end
+    return {
+        kind = "keyitem", n = n, keys = {}, list = list,
+        title = L["副本 · 必备物品"],
+        text = string.format(L["还差 %d 件必备物品"], n),
+    }
+end
+
 Z.Register("collect", PCollect)
 Z.Register("turnin", TurnInRows)
 Z.Register("quest", PQuest)
+Z.Register("keyitem", PKeyItem)
 Z.Register("spell", PSpell)
 
 local WELL_FED_SPELL = 19705
@@ -1075,6 +1160,69 @@ local function Sealed(v)
     local ok, s = pcall(issecretvalue, v)
     return ok and s == true
 end
+
+local TALENT_ICON = "Interface\\Icons\\INV_Misc_QuestionMark"
+
+local function TalentCount()
+    local CT = _G.C_ClassTalents
+    if type(CT) ~= "table" or type(CT.HasUnspentTalentPoints) ~= "function" then return nil end
+    local ok, has, classPt, specPt = pcall(CT.HasUnspentTalentPoints)
+    if not ok or Sealed(has) then return nil end
+    local n = 0
+    if not Sealed(classPt) and type(classPt) == "number" then n = n + classPt end
+    if not Sealed(specPt) and type(specPt) == "number" then n = n + specPt end
+    if type(CT.HasUnspentHeroTalentPoints) == "function" then
+        local ok2, _, heroPt = pcall(CT.HasUnspentHeroTalentPoints)
+        if ok2 and not Sealed(heroPt) and type(heroPt) == "number" then n = n + heroPt end
+    end
+    if n > 0 then return n end
+    if has == true then return -1 end
+    return nil
+end
+
+local function TalentIcon()
+    local CSI = _G.C_SpecializationInfo
+    if type(CSI) == "table"
+        and type(CSI.GetSpecialization) == "function"
+        and type(CSI.GetSpecializationInfo) == "function" then
+        local ok, idx = pcall(CSI.GetSpecialization)
+        if ok and not Sealed(idx) and type(idx) == "number" and idx > 0 then
+            local ok2, _, _, _, icon = pcall(CSI.GetSpecializationInfo, idx)
+            if ok2 and icon then return icon end
+        end
+    end
+    return TALENT_ICON
+end
+
+local function PTalent()
+    local c = CFG()
+    if c.talent == false then return nil end
+    local key = ItemKey("talent", "talent")
+    if Z.IsIgnored(key) then return nil end
+    local n = TalentCount()
+    if not n then return nil end
+    local sub
+    if n > 0 then
+        sub = string.format(L["有 %d 点还没有分配"], n)
+    else
+        sub = L["有天赋点还没有分配"]
+    end
+    return {
+        kind = "talent", n = 1, keys = {}, title = L["天赋"],
+        list = {
+            {
+                id = "talent", base = "talent", ikey = key, ikind = "talent",
+                name = L["天赋点未分配"],
+                sub = sub,
+                desc = L["在天赋界面把点数用掉，角色会更强"],
+                icon = TalentIcon(),
+                jumpTip = L["点击打开天赋界面"],
+            },
+        },
+    }
+end
+
+Z.Register("talent", PTalent)
 
 local function HasWellFed()
     local name = ResolveWellFedName()
@@ -1456,7 +1604,7 @@ function Z.Collect(ctx)
     if sim then return SimCollect(ctx) end
     local out = { ctx = ctx, items = {}, total = 0 }
     local c = CFG()
-    local order = { "collect", "turnin", "quest", "spell", "buff", "tent" }
+    local order = { "collect", "turnin", "quest", "keyitem", "spell", "talent", "buff", "tent" }
     for i = 1, #order do
         local kind = order[i]
         local on = c[kind]
@@ -1571,6 +1719,8 @@ function Z.Check(reason, attempt)
 
     if res.total == 0 then return false end
 
+    if reason == "zone" and c.noZonePopup ~= false then return false end
+
     if type(InCombatLockdown) == "function" and InCombatLockdown() then
         pending = key
         return false
@@ -1592,13 +1742,14 @@ function Z.CheckNow(reason)
     return Z.Check(reason or "manual", 0)
 end
 
-local KIND_NAME = { collect = L["收集"], book = L["书籍"], turnin = L["书籍上交"], quest = L["任务"], spell = L["技能"], buff = L["增益"], camp = L["露营"], campren = L["到期"], tent = L["蹭帐篷"] }
+local KIND_NAME = { collect = L["收集"], book = L["书籍"], turnin = L["书籍上交"], quest = L["任务"], keyitem = L["必备物品"], spell = L["技能"], talent = L["天赋"], buff = L["增益"], camp = L["露营"], campren = L["到期"], tent = L["蹭帐篷"] }
 function Z.KindName(kind)
     return KIND_NAME[kind] or L["条目"]
 end
 
 function Z.IconFor(kind, id)
     if kind == "book" or kind == "collect" or kind == "turnin" then return ItemIcon(id) end
+    if kind == "talent" then return TalentIcon() end
     if kind == "quest" then return "Interface\\GossipFrame\\AvailableQuestIcon" end
     if kind == "rested" then
         local f = GetItemIcon
@@ -1665,6 +1816,11 @@ ns.Init(function()
     end
     pcall(frame.RegisterEvent, frame, "ITEM_COOLDOWN_UPDATE")
     pcall(frame.RegisterEvent, frame, "SPELL_UPDATE_COOLDOWN")
+    pcall(frame.RegisterEvent, frame, "CHARACTER_POINTS_CHANGED")
+    pcall(frame.RegisterEvent, frame, "PLAYER_LEVEL_UP")
+    pcall(frame.RegisterEvent, frame, "PLAYER_SPECIALIZATION_CHANGED")
+    pcall(frame.RegisterEvent, frame, "TRAIT_CONFIG_UPDATED")
+    pcall(frame.RegisterEvent, frame, "ACTIVE_TALENT_GROUP_CHANGED")
     pcall(frame.RegisterEvent, frame, "NAME_PLATE_UNIT_ADDED")
     pcall(frame.RegisterEvent, frame, "NAME_PLATE_UNIT_REMOVED")
     frame:RegisterEvent("PLAYER_TARGET_CHANGED")
@@ -1692,6 +1848,10 @@ ns.Init(function()
                 Z.Check("regen", 0)
             end
             Z.ScheduleSoft(0.6)
+        elseif event == "CHARACTER_POINTS_CHANGED" or event == "PLAYER_LEVEL_UP"
+            or event == "PLAYER_SPECIALIZATION_CHANGED" or event == "TRAIT_CONFIG_UPDATED"
+            or event == "ACTIVE_TALENT_GROUP_CHANGED" then
+            Z.ScheduleSoft(0.4)
         else
             Z.OnZoneChanged()
         end

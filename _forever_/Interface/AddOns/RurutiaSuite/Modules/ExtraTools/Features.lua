@@ -64,6 +64,7 @@ local function Register(name, names, definition, legacySection)
     function definition:ProfileChanged()
         self.db = ns.ExtraTools.db
         self:MigrateSwitch()
+        if self == ns.BlizzardEnhancements and ns.SyncGuildInviteMenu then ns.SyncGuildInviteMenu(self) end
         if self.OnFastLootProfileChanged then self:OnFastLootProfileChanged() end
     end
     definition.GetDiagnostics = function(self) return ns.Runtime:GetDiagnostics(name) end
@@ -95,6 +96,7 @@ Register("BlizzardEnhancements", {
         self:ApplyMinimapEventButtonVisibility()
         self:ApplyEditModeState()
         self:ApplyLootSparkles()
+        if ns.SyncGuildInviteMenu then ns.SyncGuildInviteMenu(self) end
         if ns.ExtraToolsBagWindowOption then ns.ExtraToolsBagWindowOption:Ensure(self) end
         if ns.ExtraToolsWindowDrag then ns.ExtraToolsWindowDrag:Sync(self) end
         if ns.ExtraToolsMerchantExpansion then ns.ExtraToolsMerchantExpansion:Sync(self) end
@@ -114,6 +116,7 @@ Register("BlizzardEnhancements", {
     Disable = function(self)
         self._bagSortPending = nil
         self.runtimeActive = false
+        if ns.SyncGuildInviteMenu then ns.SyncGuildInviteMenu(self) end
         if ns.ExtraToolsKnownRecipe then ns.ExtraToolsKnownRecipe:Shutdown() end
         if ns.ExtraToolsWindowDrag then ns.ExtraToolsWindowDrag:Shutdown() end
         if ns.ExtraToolsMerchantExpansion then ns.ExtraToolsMerchantExpansion:Shutdown() end
@@ -153,12 +156,19 @@ Register("PluginEnhancements", {
     PLAYER_LOGIN = function(self)
         self:UnregisterEvent("PLAYER_LOGIN")
         self._loginApplied = true
+        if ns.EnableMailLoggerWhisper then
+            if self.runtimeActive and self:GetProfile().mailLoggerLoginWhisper then ns.EnableMailLoggerWhisper() end
+            return
+        end
         self:Schedule(2, function() Adapter:AllowOutOfDateAddons() end, "Plugin enhancements login preference")
     end,
     Enable = function(self)
         self.runtimeActive = true
         local p = self:GetProfile()
-        if Adapter.family == "retail" and not self._loginApplied then self:RegisterEvent("PLAYER_LOGIN", self.PLAYER_LOGIN) end
+        if not self._loginApplied and (Adapter.family == "retail" or
+            (ns.EnableMailLoggerWhisper and p.mailLoggerLoginWhisper and not IsLoggedIn())) then
+            self:RegisterEvent("PLAYER_LOGIN", self.PLAYER_LOGIN)
+        end
         if ns.EllesmereTrainAll then
             self:RegisterEvent("TRAINER_SHOW", function(owner) ns.EllesmereTrainAll:Sync(owner) end)
         end
@@ -194,7 +204,7 @@ Register("PluginEnhancements", {
 
 Register("LootTools", {
     "IsFastLootAvailable", "GetFastLootStatus", "OnFastLootProfileChanged", "ResetFastLootDefaults",
-    "MERCHANT_SHOW", "LOOT_READY", "LOOT_OPENED", "LOOT_CLOSED",
+    "MERCHANT_SHOW", "MERCHANT_CLOSED", "LOOT_READY", "LOOT_OPENED", "LOOT_CLOSED",
 }, {
     Apply = function(self)
         if not self.runtimeActive then return false end
@@ -209,7 +219,10 @@ Register("LootTools", {
     Enable = function(self)
         self.runtimeActive = true
         local p = self:GetProfile()
-        if p.autoSellJunk and Adapter:CanSellJunk() then self:RegisterEvent("MERCHANT_SHOW", self.MERCHANT_SHOW) end
+        if p.autoSellJunk and Adapter:CanSellJunk() then
+            self:RegisterEvent("MERCHANT_SHOW", self.MERCHANT_SHOW)
+            if Adapter.buildId == "classic-infinite" then self:RegisterEvent("MERCHANT_CLOSED", self.MERCHANT_CLOSED) end
+        end
         local service = ns.ExtraToolsFastLoot
         if service then service:Bind(self) end
         if Adapter.features.fastLoot and p.fastLoot then self:RegisterEvent("ADDON_LOADED", self.Apply) end
@@ -217,6 +230,7 @@ Register("LootTools", {
     end,
     Disable = function(self)
         self.runtimeActive = false
+        self:MERCHANT_CLOSED()
         if ns.ExtraToolsFastLoot then ns.ExtraToolsFastLoot:Detach() end
     end,
 })

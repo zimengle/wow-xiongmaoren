@@ -18,6 +18,7 @@ _G.DF_NS = ns
 ns.huiTheme = "hui"
 
 ns.CONTENT_TOP = 46
+ns.UpdateVer = "2.1.90"
 
 ns.SET_ICON = "Interface\\AddOns\\DungeonsForever\\Media\\textures\\DF_Settings"
 ns.SET_ICON_IDLE = { 0.55, 0.62, 0.70 }
@@ -44,6 +45,7 @@ ns.MODULES = {
     { key = "Factions",    addon = "DungeonsForeverFaction", sv = "DungeonsForeverFactionDB", legacy = { "factions" }, label = "声望", probe = "FactionModule" },
     { key = "PvP",         addon = "DungeonsForeverPvP",     sv = nil, legacy = nil, label = "PvP", probe = "PvPModule" },
     { key = "Spell",       addon = "DungeonsForeverSpell",   sv = "DungeonsForeverSpellDB", legacy = nil, label = "技能书", probe = "NativeSpellBook" },
+    { key = "QuestSearch", addon = "DungeonsForeverQuest",   sv = nil, legacy = nil, label = "搜索", probe = "QuestSearchModule", gate = "questie" },
 }
 
 ns.MODULE_BY_TAB = {}
@@ -65,9 +67,24 @@ function ns.AddonLoaded(name)
     return false
 end
 
+function ns.QuestieOn()
+    if not (ns.AddonLoaded("Questie") and ns.AddonLoaded("QuestieDB")) then return false end
+    local ql = _G.QuestieLoader
+    local m = type(ql) == "table" and ql._modules
+    return type(m) == "table" and type(m.QuestieDB) == "table"
+end
+
+function ns.ModuleGateOK(tabKey)
+    local m = ns.MODULE_BY_TAB[tabKey]
+    if not m or not m.gate then return true end
+    if m.gate == "questie" then return ns.QuestieOn() end
+    return true
+end
+
 function ns.ModuleOn(tabKey)
     local m = ns.MODULE_BY_TAB[tabKey]
     if not m then return true end
+    if not ns.ModuleGateOK(tabKey) then return false end
     if m.probe and ns[m.probe] ~= nil then return true end
     return ns.AddonLoaded(m.addon)
 end
@@ -131,7 +148,7 @@ if ns.options.buttonSound == nil then ns.options.buttonSound = true end
 ns.QUICK_VER = 1
 ns.QUICK_GROUPS = { "dungeon", "prof", "explore" }
 ns.QUICK_EXPLORE = { "books", "bag" }
-ns.QUICK_TABS = { "Dungeons", "Raids", "Professions", "Explore", "Collections", "Factions", "Bis", "Tier", "PvP", "Gear" }
+ns.QUICK_TABS = { "Dungeons", "Raids", "Professions", "Explore", "Collections", "Factions", "Bis", "Tier", "PvP", "Gear", "QuestSearch" }
 
 local QUICK_EXPLORE_SET = {}
 for _, k in ipairs(ns.QUICK_EXPLORE) do QUICK_EXPLORE_SET[k] = true end
@@ -672,141 +689,6 @@ function ns.SkinPopupFont(p)
     walk(p, 0)
 end
 
-function ns.SkinTipFont(tt, size, skipResize)
-    tt = tt or _G.GameTooltip
-    if not (tt and tt.NumLines and ns.FONT) then return end
-    local prefix = tt.GetName and tt:GetName()
-    if type(prefix) ~= "string" then return end
-    local n = tt:NumLines()
-    if type(n) ~= "number" then n = type(n) == "table" and #n or 0 end
-    if n <= 0 then return end
-    local want = tonumber(size) or 0
-    for i = 1, n do
-        for _, side in ipairs({ "TextLeft", "TextRight" }) do
-            local fs = _G[prefix .. side .. i]
-            if fs and fs.SetFont then
-                if not fs.__dfOrigFont then
-                    local p0, s0, f0 = fs:GetFont()
-                    if p0 then fs.__dfOrigFont = { p0, s0, f0 } end
-                end
-                local _, sz, flags = fs:GetFont()
-                pcall(fs.SetFont, fs, ns.FONT, want > 0 and want or tonumber(sz) or 14, flags or "")
-            end
-        end
-    end
-    if skipResize then return end
-    local sum0 = 0
-    local maxW = 0
-    for i = 1, n do
-        local l = _G[prefix .. "TextLeft" .. i]
-        if l and l.SetWidth then
-            sum0 = sum0 + (l:GetStringHeight() or 0)
-            l:SetWidth(4000)
-            if l.GetText then l:SetText(l:GetText()) end
-            local w = l:GetStringWidth() or 0
-            if w > maxW then maxW = w end
-        end
-    end
-    if maxW > 460 then maxW = 460 end
-    local sum1 = 0
-    for i = 1, n do
-        local l = _G[prefix .. "TextLeft" .. i]
-        if l then
-            if maxW > 20 then l:SetWidth(maxW) end
-            if l.GetText then l:SetText(l:GetText()) end
-            sum1 = sum1 + (l:GetStringHeight() or 0)
-        end
-    end
-    if maxW > 20 and tt.SetWidth and tt.SetHeight then
-        local pad = (tt:GetHeight() or 0) - sum0
-        tt:SetWidth(maxW + 20)
-        tt:SetHeight(sum1 + pad)
-    end
-end
-
-local TIP_FRAMES = { "GameTooltip", "ItemRefTooltip", "ShoppingTooltip1", "ShoppingTooltip2" }
-
-function ns.TipFontOn()
-    if ns.hui and ns.hui.ExternalTipSkin and ns.hui.ExternalTipSkin() then return false end
-    local db = DungeonsForeverDB
-    local ui = db and db.ui
-    local t = ui and ui.tip
-    return (t and t.global == true) and true or false
-end
-
-function ns.RestoreTipFont(tt)
-    tt = tt or _G.GameTooltip
-    if not (tt and tt.NumLines) then return end
-    local prefix = tt.GetName and tt:GetName()
-    if type(prefix) ~= "string" then return end
-    local n = tt:NumLines()
-    if type(n) ~= "number" then n = type(n) == "table" and #n or 0 end
-    for i = 1, n do
-        for _, side in ipairs({ "TextLeft", "TextRight" }) do
-            local fs = _G[prefix .. side .. i]
-            if fs and fs.SetFont then
-                local o = fs.__dfOrigFont
-                if o then
-                    pcall(fs.SetFont, fs, o[1], o[2], o[3])
-                elseif fs.SetFontObject and GameTooltipText then
-                    pcall(fs.SetFontObject, fs, GameTooltipText)
-                end
-            end
-        end
-    end
-end
-
-function ns.RefreshTipFonts()
-    local on = ns.TipFontOn()
-    for _, name in ipairs(TIP_FRAMES) do
-        local tt = _G[name]
-        if tt and tt.IsShown and tt:IsShown() then
-            if on then
-                ns.SkinTipFont(tt, nil, true)
-            else
-                ns.RestoreTipFont(tt)
-            end
-        end
-    end
-end
-
-function ns.HookTipFont(tt, size)
-    if not (tt and tt.HookScript) or tt.__dfTipFont then return end
-    tt.__dfTipFont = true
-    tt.__dfTipFrames = -1
-    tt:HookScript("OnShow", function(self)
-        if not ns.TipFontOn() then
-            if (self.__dfTipFrames or -1) >= 0 then
-                self.__dfTipFrames = -1
-                ns.RestoreTipFont(self)
-            end
-            return
-        end
-        self.__dfTipFrames = 0
-        ns.SkinTipFont(self, size, true)
-    end)
-    tt:HookScript("OnUpdate", function(self)
-        if (self.__dfTipFrames or -1) < 0 then return end
-        if not ns.TipFontOn() then
-            self.__dfTipFrames = -1
-            ns.RestoreTipFont(self)
-            return
-        end
-        self.__dfTipFrames = self.__dfTipFrames + 1
-        if self.__dfTipFrames >= 2 then self.__dfTipFrames = -1 end
-        ns.SkinTipFont(self, size, true)
-    end)
-    tt:HookScript("OnHide", function(self) self.__dfTipFrames = -1 end)
-end
-
-function ns.HookAllTipFont()
-    for _, name in ipairs(TIP_FRAMES) do
-        local tt = _G[name]
-        if tt then ns.HookTipFont(tt) end
-    end
-end
-
-ns.Init(function() ns.HookAllTipFont() end)
 function ns.GetWindowColorTheme() return nil end
 function ns.WithColorThemeScope(_, fn) if fn then return fn() end end
 function ns.WithThemeScope(_, fn) if fn then return fn() end end
@@ -1332,3 +1214,32 @@ moduleBoot:SetScript("OnEvent", function(self, event, name)
         DEFAULT_CHAT_FRAME:AddMessage("|cffff5555DungeonsForever|r 有 " .. bad .. " 项页面模块初始化失败，请检查对应子插件是否已启用。")
     end
 end)
+
+function ns.RefreshTabEntry()
+    if type(ns.ApplyTabVisibility) == "function" then pcall(ns.ApplyTabVisibility) end
+end
+
+do
+    local seen, tries = nil, 0
+    local function Check()
+        tries = tries + 1
+        local on = ns.QuestieOn()
+        if seen == nil then seen = on end
+        if on ~= seen then
+            seen = on
+            ns.RefreshTabEntry()
+        end
+        if not on and tries < 10 and C_Timer and C_Timer.After then
+            C_Timer.After(0.7, Check)
+        end
+    end
+
+    local ev = CreateFrame("Frame")
+    ev:RegisterEvent("ADDON_LOADED")
+    ev:RegisterEvent("PLAYER_ENTERING_WORLD")
+    ev:SetScript("OnEvent", function(_, event, name)
+        if event == "ADDON_LOADED" and name ~= "Questie" and name ~= "QuestieDB" then return end
+        tries = 0
+        if C_Timer and C_Timer.After then C_Timer.After(0.2, Check) end
+    end)
+end

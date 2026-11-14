@@ -19,7 +19,10 @@ end
 
 -- Register effective per-build defaults so exact matches are stripped on save.
 local defaults = Data.CreateDefaults(Adapter.family)
-if Adapter.buildId == "classic-infinite" then defaults.profile.ellesmereStatFont = "14" end
+if Adapter.buildId == "classic-infinite" then
+    defaults.profile.ellesmereStatFont = "14"
+    defaults.profile.mailLoggerLoginWhisper = true
+end
 if Adapter.family == "classic" then
     local p, features = defaults.profile, Adapter.features
     if features.minimapVolume then p.ellesmereMinimapVolume = true end
@@ -1057,8 +1060,14 @@ end
 
 function Definition:MERCHANT_SHOW()
     local profile = self:GetProfile()
-    if not (self.runtimeActive and profile and profile.autoSellJunk) then return end
-    Adapter:SellJunk()
+    if self.runtimeActive and profile and profile.autoSellJunk then Adapter:SellJunk(self) end
+end
+
+function Definition:MERCHANT_CLOSED()
+    if self._junkSale then
+        self._junkSale = nil
+        self:CancelRefresh("merchant-junk")
+    end
 end
 
 -- 快速拾取：只转发原生事件，占用判定与批次去重都留在 FastLoot 服务里。

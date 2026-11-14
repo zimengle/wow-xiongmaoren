@@ -7,14 +7,25 @@ RS.Presentation.ChangelogData = RS.Presentation.ChangelogData or {}
 if buildID == "retail" then
     RS.Presentation.ChangelogData.retail = {
         viewId = "retail",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:eb1fd90a543812173a3e36a7b9b1ad81e9185978f88491a5dbf53b012743334b",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:ab48fbf809ee90ad258f2ec7202d48b1cc54431c0b0146aec345640946271f52",
         historySourceId = "retail:b109960e82a2b3db460e2ae597ea8870276d1479:RurutiaSuite/Changelog.md",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.8.0",
-            date = "2026-11-09",
-            noticeKey = "4.8.0:3e5bf98e4810d603e290",
-            content = [=[%sv4.8.0（2026-11-09）|r
+            version = "4.8.5",
+            date = "2026-11-12",
+            noticeKey = "4.8.5:f768b052893ccc687316",
+            content = [=[%sv4.8.5（2026-11-12）|r
+
+%s[任务自动交接]|r
+• 新增RXP、Questie和Elles自动交接集中开关。
+• 各插件默认关闭，登录时应用已保存选择。
+
+%sv4.8.4（2026-11-11）|r
+
+%s[暴雪界面增强]|r
+• 右键菜单，新增「邀请加入公会」，复制命令后邀请。
+
+%sv4.8.0（2026-11-09）|r
 
 %s[任务自动交接]|r
 • 总开关改为默认关闭，可在大地图手动开启。

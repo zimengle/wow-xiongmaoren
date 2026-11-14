@@ -4,7 +4,7 @@
 ## Notes: RurutiaSuite 露露的工具箱。一站式轻量工具箱，适配多种主流界面，提供很多便捷功能和额外增强。
 ## Notes-zhCN: RurutiaSuite 露露的工具箱。一站式轻量工具箱，适配多种主流界面，提供很多便捷功能和额外增强。
 ## Author: Rurutia
-## Version: 4.8.3
+## Version: 4.8.5
 ## X-ModUs-UID: 88
 ## X-License: All Rights Reserved
 ## SavedVariables: RurutiaSuiteDB
@@ -166,12 +166,15 @@ Builds\ClassicFamily\Common\Integrations\Pig\ExtraTools.lua
 Builds\ClassicFamily\Infinite\Integrations\AlreadyKnown\ExtraTools.lua
 Builds\ClassicFamily\Infinite\Integrations\EllesmereUI\StatFonts.lua
 Builds\ClassicFamily\Infinite\Integrations\EllesmereUI\TrainAll.lua
+Builds\ClassicFamily\Infinite\Integrations\EllesmereUI\QuestControls.lua
+Builds\ClassicFamily\Infinite\Integrations\MailLogger\TradeWhisper.lua
 Modules\ExtraTools\View.lua
 Modules\ExtraTools\Core.lua
 Modules\ExtraTools\Features.lua
 Modules\ExtraTools\FastLoot.lua
 Modules\ExtraTools\BagWindowOption.lua
 Builds\Common\Integrations\WindowDrag.lua
+Builds\Common\Integrations\GuildInviteMenu.lua
 Modules\ExtraTools\WindowDrag.lua
 Modules\ExtraTools\MerchantExpansion.lua
 Modules\ExtraTools\KnownRecipe.lua
@@ -296,6 +299,7 @@ Builds\ClassicFamily\Infinite\Integrations\Questie\QuestAutomation.lua
 Modules\QuestAutomation\View.lua
 Modules\QuestAutomation\Data.lua
 Builds\Retail\Adapters\QuestAutomation.lua
+Builds\Retail\Integrations\QuestAutomationProviders.lua
 Modules\QuestAutomation\Core.lua
 Builds\Retail\Integrations\EllesmereUI\CNRunes.lua
 Modules\EUICNRuneCompat\Core.lua

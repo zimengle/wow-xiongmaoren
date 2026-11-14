@@ -6,7 +6,7 @@ local Importer = {}
 ns.RXPStyleImporter = Importer
 
 local OPTIONS = {
-    frameHeight = 150, guideFontSize = 12, arrowText = 14,
+    frameHeight = 28, guideFontSize = 12, arrowText = 14,
     arrowScale = 1, windowScale = 1, activeTheme = "RXP Blue",
     enableTracker = false, enableLevelUpAnnounceSolo = true,
     enableLevelUpAnnounceGroup = true, enableGossipAutomation = false,
@@ -14,10 +14,10 @@ local OPTIONS = {
     hideInRaid = true,
 }
 local FRAMES = {
-    { name="RXPFrame", point="TOPLEFT", x=0, y=-25, width=280, height=150 },
-    { name="arrowFrame", point="CENTER", x=-280, y=36, width=32, height=32 },
-    { name="activeItemFrame", point="LEFT", x=350, y=-17 },
-    { name="activeTargetFrame", point="LEFT", x=350, y=35 },
+    { name="RXPFrame", point="LEFT", x=20, y=143, width=220, height=28 },
+    { name="arrowFrame", point="LEFT", x=353, y=222, width=32, height=32 },
+    { name="activeItemFrame", point="LEFT", x=243, y=207, width=51, height=43 },
+    { name="activeTargetFrame", point="LEFT", x=244, y=151, width=51, height=43 },
 }
 
 local function Resolve()

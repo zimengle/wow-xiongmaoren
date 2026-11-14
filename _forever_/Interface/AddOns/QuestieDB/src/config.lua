@@ -140,7 +140,12 @@ config.runtimeFiles = {
   sourceReader = "src/read/source.lua",
   tail = {
     "src/l10n/overlay.lua",
+  },
+  -- Titan Reforged is a Wrath season, so only Wrath loads these.
+  wrathTail = {
     "src/l10n/Titan/zhCN.lua",
+  },
+  finalTail = {
     "src/ui/modeIndicator.lua",
     "src/api.lua",
     "src/support/eraToForever.lua",
@@ -181,6 +186,9 @@ config.ownedCorrections = {
   { owned = 'Forever', file = 'Forever/traces/foreverNpcTraces.lua', module = 'ForeverNpcTraces', datatype = 'Npc', static = {'Load'}, generated = true, window = 'Forever' },
   { owned = 'Forever', file = 'Forever/traces/foreverItemTraces.lua', module = 'ForeverItemTraces', datatype = 'Item', static = {'Load'}, generated = true, window = 'Forever' },
   { owned = 'Forever', file = 'Forever/traces/foreverObjectTraces.lua', module = 'ForeverObjectTraces', datatype = 'Object', static = {'Load'}, generated = true, window = 'Forever' },
+  -- Quest relations inferred from traces (exclusiveTo, preQuest*, nextQuestInChain); slotOffset
+  -- places them after foreverQuestTraces.lua and still before authored forever*Fixes.lua.
+  { owned = 'Forever', file = 'Forever/traces/foreverQuestRelationTraces.lua', module = 'ForeverQuestRelationTraces', datatype = 'Quest', static = {'Load'}, generated = true, window = 'Forever', slotOffset = 1 },
   -- Authored Forever corrections follow legacy, generated base and trace data; Dynamic precedence is unchanged.
   { owned = 'Forever', file = 'Forever/foreverQuestFixes.lua', module = 'ForeverQuestFixes', datatype = 'Quest', static = {'Load'}, dynamic = {'LoadDynamic'}, window = 'Forever' },
   { owned = 'Forever', file = 'Forever/foreverNPCFixes.lua', module = 'ForeverNpcFixes', datatype = 'Npc', static = {'Load'}, dynamic = {'LoadDynamic'}, window = 'Forever' },
@@ -347,6 +355,8 @@ function config.bakedFileList(flavor)
     append(files, { "src/corrections/Sod/sodRequiredRaces.lua" }, seen)
   end
   append(files, config.runtimeFiles.tail, seen)
+  if flavor.name == "Wrath" then append(files, config.runtimeFiles.wrathTail, seen) end
+  append(files, config.runtimeFiles.finalTail, seen)
   return files
 end
 
@@ -436,6 +446,8 @@ function config.sourceFileEntries()
   end
   add("src/l10n/source/_end.lua")
   for _, path in ipairs(config.runtimeFiles.tail) do add(path) end
+  for _, path in ipairs(config.runtimeFiles.wrathTail) do add(path, config.flavorByName.Wrath) end
+  for _, path in ipairs(config.runtimeFiles.finalTail) do add(path) end
   return entries
 end
 

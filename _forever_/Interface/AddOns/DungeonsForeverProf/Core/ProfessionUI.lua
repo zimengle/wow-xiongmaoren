@@ -13,6 +13,7 @@ local SetOutline, SetButtonSelected, Unpack = Host.SetOutline, Host.SetButtonSel
 local C_GOLD, C_GREY = Host.C_GOLD, Host.C_GREY
 local C_DIM, C_WHITE, C_TEXT = Host.C_DIM, Host.C_WHITE, Host.C_TEXT
 local C_HELP = { 0.58, 0.64, 0.74 }
+local format = string.format
 
 local function FSW(fs, dflt)
     if not (fs and fs.GetStringWidth) then return dflt or 0 end
@@ -127,6 +128,17 @@ function PD.ScanSnapshotText()
     end
 end
 
+function PD.ScanHeadline()
+    if not ns.IsForever then return end
+    local bridge=ns.AuctionBridge
+    local snapshot=bridge and bridge.FullScanSnapshotStatus and bridge.FullScanSnapshotStatus()
+    local status=snapshot and snapshot.status
+    if status=="expired" then return L["完整扫描数据已超过 2 天"] end
+    if status=="mismatch" then return L["已保存的完整扫描属于其他角色或市场"] end
+    if status=="invalid" then return L["已保存的完整扫描数据无效"] end
+    return PD.ScanSnapshotText()
+end
+
 function PD.ScanModeAdvice()
     local bridge=ns.AuctionBridge
     if ns.IsForever and bridge and bridge.ReplicateScanEnabled and bridge.ReplicateScanEnabled()==true then
@@ -134,11 +146,34 @@ function PD.ScanModeAdvice()
     end
 end
 
+function PD.ScanFixLines()
+    local bridge=ns.AuctionBridge
+    local enabled=bridge and bridge.ReplicateScanEnabled and bridge.ReplicateScanEnabled()
+    local snapshot=bridge and bridge.FullScanSnapshotStatus and bridge.FullScanSnapshotStatus()
+    local st=bridge and bridge.FullScanStatus and bridge.FullScanStatus()
+    local capture=st and st.status
+    local partial=snapshot and snapshot.status=="expired" and snapshot.staleIncomplete
+    local out={}
+    if enabled~=true then
+        out[#out+1]=L["设置 → 插件 → Auctionator → 高级里勾选「较慢的备用扫描模式」"]
+        out[#out+1]=L["重载界面后再到拍卖行完整扫描一次。"]
+    elseif capture=="summary" or capture=="mode-changed" then
+        out[#out+1]=L["如果你已经完整扫描过，这里仍然提示过期，说明插件没收到这次扫描；请重载界面后再扫一次。"]
+    elseif partial then
+        out[#out+1]=L["过期数据不完整：库存数量已被清理，本次只能按过期价格计算，库存按未知处理。"]
+    else
+        out[#out+1]=L["数据已过有效期；请到拍卖行再做一次完整扫描，或点上面那行用过期数据算一次。"]
+    end
+    return out
+end
+
 function PD.ReplicateScanMessage(reason)
     if reason=="replicateModeDisabled" or reason=="replicateScanRequired" or reason=="replicateModeUnknown" then
         local bridge=ns.AuctionBridge
         local snapshot=bridge and bridge.FullScanSnapshotStatus and bridge.FullScanSnapshotStatus()
-        if snapshot and snapshot.status~="available" and snapshot.status~="missing" then return PD.ScanSnapshotText() end
+        if snapshot and snapshot.status~="available" and snapshot.status~="missing" then
+            return PD.ScanSnapshotText(), PD.ScanFixLines()
+        end
     end
     if reason=="replicateModeDisabled" then
         return L["请在「设置选项 → 插件 → Auctionator → 高级」中确认已勾选「默认使用较慢的备用扫描模式」，然后到拍卖行使用 Auctionator 完成一次完整扫描。"]
@@ -161,11 +196,13 @@ function PD.ReplicateScanWarning()
     local st=PD.AuctionatorState()
     if st=="missing" or st=="disabled" or st=="loading" then return PD.AuctionatorStatusText(),true end
     if not (bridge and bridge.ReplicateScanReady) then
-        return PD.ReplicateScanMessage("replicateModeUnknown"),true
+        local text,fix=PD.ReplicateScanMessage("replicateModeUnknown")
+        return text,true,fix
     end
     local ready,reason=bridge.ReplicateScanReady()
     if ready==true then return nil end
-    return PD.ReplicateScanMessage(reason or "replicateScanRequired"),true
+    local text,fix=PD.ReplicateScanMessage(reason or "replicateScanRequired")
+    return text,true,fix
 end
 
 PD.SNAP_STALE_SEC = RA.MaxStaleSeconds()
@@ -181,6 +218,139 @@ local function SnapAgePhrase(sec)
         return format(L["%d 小时"], math.max(1, math.floor(sec / 3600 + 0.5)))
     end
     return format(L["%d 天"], math.max(1, math.floor(sec / 86400)))
+end
+
+function PD.ScanCaptureText()
+    local bridge=ns.AuctionBridge
+    local st=bridge and bridge.FullScanStatus and bridge.FullScanStatus()
+    local status=st and st.status
+    if status=="ready" then return L["扫描捕获：已就绪"],"ok" end
+    if status=="scanning" or status=="processing" then return L["扫描捕获：扫描中"],"warn" end
+    if status=="complete" then return L["扫描捕获：已完整捕获"],"ok" end
+    if status=="failed" or status=="incomplete" or status=="unverified" then return L["扫描捕获：本次失败"],"bad" end
+    if status=="mode-changed" then return L["扫描捕获：模式刚切换，请重扫"],"warn" end
+    if status=="summary" then return L["扫描捕获：未挂载"],"bad" end
+    return L["扫描捕获：无法读取"],"bad"
+end
+
+function PD.ScanModeText()
+    local bridge=ns.AuctionBridge
+    local enabled=bridge and bridge.ReplicateScanEnabled and bridge.ReplicateScanEnabled()
+    if enabled==true then return L["慢速扫描模式：已开启"],"ok" end
+    if enabled==false then return L["慢速扫描模式：未开启"],"bad" end
+    return L["慢速扫描模式：读不到配置"],"bad"
+end
+
+function PD.ScanSnapshotAgeText()
+    local bridge=ns.AuctionBridge
+    local snapshot=bridge and bridge.FullScanSnapshotStatus and bridge.FullScanSnapshotStatus()
+    if not snapshot then return L["上次完整扫描：无法读取"],"bad" end
+    if snapshot.status=="expired" then
+        local stamp=tonumber(snapshot.observedAt)
+        if not stamp or stamp<=0 then return L["上次完整扫描：已超过 2 天有效期"],"bad" end
+        local age=SnapAgePhrase(math.max(0,(time and time() or 0)-stamp))
+        if age then return format(L["上次完整扫描：%s前，已超过 2 天有效期"],age),"bad" end
+        return L["上次完整扫描：已超过 2 天有效期"],"bad"
+    end
+    if snapshot.status=="mismatch" then return L["上次完整扫描：其他角色或市场"],"bad" end
+    if snapshot.status=="invalid" then return L["上次完整扫描：数据无效"],"bad" end
+    if snapshot.status=="available" then
+        local stamp=tonumber(snapshot.observedAt)
+        local age=stamp and SnapAgePhrase(math.max(0,(time and time() or 0)-stamp))
+        if age then return format(L["上次完整扫描：%s前"],age),"ok" end
+        return L["上次完整扫描：已就绪"],"ok"
+    end
+    return L["上次完整扫描：无记录"],"bad"
+end
+
+local SCAN_OK_C = { 0.55, 0.85, 0.6 }
+local SCAN_WARN_C = { 0.95, 0.8, 0.4 }
+local SCAN_BAD_C = { 0.98, 0.5, 0.42 }
+local SCAN_HEAD_C = { 0.74, 0.76, 0.82 }
+
+local function ScanCheckLine(text, level)
+    local c = SCAN_BAD_C
+    if level == "ok" then c = SCAN_OK_C elseif level == "warn" then c = SCAN_WARN_C end
+    return { text, c, level }
+end
+
+function PD.ScanSelfCheck()
+    local bridge=ns.AuctionBridge
+    if not bridge then return nil end
+    local state=PD.AuctionatorState()
+    if state=="missing" or state=="disabled" or state=="loading" then return nil end
+    local t1,l1=PD.ScanCaptureText()
+    local t2,l2=PD.ScanModeText()
+    local t3,l3=PD.ScanSnapshotAgeText()
+    return {
+        { L["为什么无法重新计算："], SCAN_HEAD_C },
+        ScanCheckLine(t1,l1),
+        ScanCheckLine(t2,l2),
+        ScanCheckLine(t3,l3),
+    }
+end
+
+function PD.ScanForceOffer()
+    if not ns.IsForever then return false end
+    local bridge=ns.AuctionBridge
+    if not (bridge and bridge.ForceExpiredWindow) then return false end
+    local snapshot=bridge.FullScanSnapshotStatus and bridge.FullScanSnapshotStatus()
+    return (snapshot and snapshot.status=="expired" and snapshot.canForce) and true or false
+end
+
+function PD.ScanForcedText()
+    if not ns.IsForever then return nil end
+    local bridge=ns.AuctionBridge
+    local snapshot=bridge and bridge.FullScanSnapshotStatus and bridge.FullScanSnapshotStatus()
+    if not (snapshot and snapshot.forced) then return nil end
+    local stamp=tonumber(snapshot.observedAt)
+    if not stamp or stamp<=0 then return L["本次使用过期数据计算"] end
+    local age=SnapAgePhrase(math.max(0,(time and time() or 0)-stamp))
+    if age then return format(L["本次使用 %s前的过期数据计算"],age) end
+    return L["本次使用过期数据计算"]
+end
+
+function PD.UseExpiredScan()
+    local bridge=ns.AuctionBridge
+    if not (bridge and bridge.ForceExpiredWindow) then return end
+    bridge.ForceExpiredWindow(180)
+    if RA and RA.ResetPrices then RA.ResetPrices() end
+    if PD.DoRecalc then PD.DoRecalc(PD.cur) end
+end
+
+function PD.DoRecalc(slug)
+    slug = slug or PD.cur
+    if not slug or PD.cur ~= slug then return end
+    local follow = ns.ProfFollow
+    if follow and follow.SuspendAutoTrack then follow.SuspendAutoTrack(slug, "recalculate") end
+    if RA and RA.EndExecution then
+        RA.EndExecution(slug)
+    else
+        local T = ns.ProfExecution
+        if T and T.End then T.End(slug, "ended") end
+    end
+    PD.exclusionsOpen = false
+    PD.ClearPlanCache(slug)
+    PD.exactFailed = {}
+    local E = ns.ProfEconomy
+    if E and E.ApplyPolicies then E.ApplyPolicies(slug) end
+    if RA and RA.Invalidate then RA.Invalidate() end
+    if PD.policyDirty then PD.policyDirty[slug] = nil end
+    PD.autoPage = "route"
+    local learned = PD.ProfLearned and PD.ProfLearned() or {}
+    local opts = PD.BuildLvOpts(slug, learned[slug] and learned[slug].cur)
+    opts.target = PD.LvTarget(slug)
+    local result
+    if PD.AutoRouteEnabled(slug) then
+        if RA and RA.Recalculate then result = RA.Recalculate(slug, opts) end
+    elseif RA and RA.FixedPlan then result = RA.FixedPlan(slug, opts) end
+    if result then
+        PD.autoSnapshot, PD.autoSnapshotSlug = result, slug
+        PD.autoKey = PD.PlanKeyOf(slug, opts)
+        PD.autoExact = result.planVersion == 2
+    end
+    PD.RequestRender()
+    ns.PlaySound(1)
 end
 
 function PD.BlockingLearningGaps(plan)
@@ -894,7 +1064,7 @@ function PD.IsGatherRoute()
 end
 
 PD.LV_CAP = 300
-PD.LV_DEF = 285
+PD.LV_DEF = 300
 
 function PD.GatherHUDSteps(slug,target)
     local routes=ns.ProfGatheringRoutes
@@ -1064,6 +1234,7 @@ PD.GR_LOC_X = 88
 PD.GR_ICON_W = 20
 
 PD.ROW_CAP = 300
+PD.RECIPE_CAP = 900
 PD.ROW_POOL_CAP = 32
 PD.TOOL_MAX = 20
 
@@ -1512,6 +1683,7 @@ function PD.Row(i)
     r.blk = {}
     r.a = MakeFS(r, 13, C_TEXT, "LEFT")
     r.b = MakeFS(r, 11, C_GREY, "LEFT")
+    r.b2 = MakeFS(r, 11, C_GREY, "LEFT")
     r.c = MakeFS(r, 12, C_GOLD, "RIGHT")
     r.c2 = MakeFS(r, 12, C_GOLD, "RIGHT")
     r.d = MakeFS(r, 11, C_GREY, "RIGHT")
@@ -1568,7 +1740,7 @@ function PD.Row(i)
     r.__cardTx:SetText("")
     r.__cardTx:SetWordWrap(false)
     r.__cardTx:Hide()
-    for _, f in ipairs({ r.a, r.b, r.c, r.c2, r.d, r.e, r.f }) do f:SetWordWrap(false) end
+    for _, f in ipairs({ r.a, r.b, r.b2, r.c, r.c2, r.d, r.e, r.f }) do f:SetWordWrap(false) end
     if ns.hui and ns.hui.MakeSolidChip then
         r.tagChip = ns.hui.MakeSolidChip(r, (r:GetFrameLevel() or 0) + 1, ns.hui.ChipH(13))
         r.tagFs = r.tagChip.t
@@ -1604,7 +1776,6 @@ function PD.Row(i)
             GameTooltip:ClearLines()
             GameTooltip:AddLine(L["点击折叠 / 展开该组"], 1, 1, 1, true)
             GameTooltip:Show()
-            PD.UnifyTipFont(14)
         end
     end)
     r.foldZone:SetScript("OnLeave", function()
@@ -1656,7 +1827,6 @@ function PD.Row(i)
                 end
             end
             GameTooltip:Show()
-            PD.UnifyTipFont(14)
         elseif self.__it then
             local extra = self.__tipExtra
             if type(extra) == "function" then extra = extra() end
@@ -1944,7 +2114,8 @@ PD.StealRowFrame = function(idx)
     local vT, vB = v - 40, v + vh + 160
     local cnt, staleJ = 0, nil
     local nCur = PD.curN or 0
-    for j = 1, PD.ROW_CAP do
+    local cap = PD.capNow or PD.ROW_CAP
+    for j = 1, cap do
         if PD.rows[j] then
             cnt = cnt + 1
             if not staleJ and j > nCur then staleJ = j end
@@ -1959,7 +2130,7 @@ PD.StealRowFrame = function(idx)
     end
     if cnt < (PD.ROW_POOL_CAP or 140) then return nil end
     local bestJ, bestD, nilJ
-    for j = 1, PD.ROW_CAP do
+    for j = 1, cap do
         local rr = PD.rows[j]
         if rr then
             local gt = rr.__top
@@ -2181,7 +2352,8 @@ function PD.PaintRows(rows)
     local zc = { 0, 0 }
     local n = #rows
     local truncated = 0
-    if n > PD.ROW_CAP then truncated = n - PD.ROW_CAP; n = PD.ROW_CAP end
+    local cap = PD.capNow or PD.ROW_CAP
+    if n > cap then truncated = n - cap; n = cap end
     local grid = PD.gridSplit and true or false
     local gTop, gBot
     local sideFix = (PD.sideFixed and PD.side) and true or false
@@ -2458,6 +2630,37 @@ function PD.RowBorder(r, on)
     r.bR:SetColorTexture(cr, cg, cb, 0.95)
 end
 
+PD.SCAN_BTN_H = 26
+function PD.BindScanAct(r, spec)
+    local act = spec.scanAct or {}
+    local chip = r.__scanChip
+    if not chip and ns.hui and ns.hui.MakeSolidChip then
+        chip = ns.hui.MakeSolidChip(r, (r:GetFrameLevel() or 0) + 3, PD.SCAN_BTN_H)
+        chip:EnableMouse(true)
+        chip:SetScript("OnMouseUp", function(self, button)
+            if button ~= "LeftButton" then return end
+            local fn = self.__act
+            if fn then fn() end
+            if ns.PlaySound then ns.PlaySound(1) end
+        end)
+        chip:SetScript("OnEnter", function() PD.SetRowHover(r, true) end)
+        chip:SetScript("OnLeave", function() PD.SetRowHover(r, false) end)
+        r.__scanChip = chip
+    end
+    r.a:SetText("")
+    if chip then
+        ns.hui.PaintSolidChip(chip, act.text or "", act.color or { 0.58, 0.86, 1 }, nil, 14)
+        chip.__act = act.act
+        chip:ClearAllPoints()
+        chip:SetPoint("LEFT", r, "LEFT", 6, 0)
+        chip:Show()
+    end
+    r.c:SetText(act.right or "")
+    r.c:SetTextColor(Unpack(C_DIM))
+    r.c:ClearAllPoints()
+    r.c:SetPoint("RIGHT", r, "RIGHT", -6, 0)
+end
+
 function PD.BindRow(r, spec, h)
     if spec.kind == "pcard" then
             PD.WipeRow(r, true)
@@ -2490,6 +2693,7 @@ function PD.BindRow(r, spec, h)
     r.__tipTitle = spec.tipTitle
     r.__tipExtra = spec.tipExtra
     r.__named = false
+    if r.b2 then r.b2:SetText(""); r.b2:Hide() end
     r.h1:Hide(); r.h2:Hide(); r.h3:Hide(); r.h4:Hide(); r.h5:Hide(); r.h6:Hide()
     if r.__toolBadge then r.__toolBadge:Hide() end
     if r.__roleBadge then r.__roleBadge:Hide() end
@@ -2527,6 +2731,7 @@ function PD.BindRow(r, spec, h)
     if r.foldArrU then r.foldArrU:Hide() end
     if r.foldZone then r.foldZone:Hide() end
     if r.__skchip then r.__skchip:Hide() end
+    if r.__scanChip then r.__scanChip:Hide() end
     if r.__subLinks then
         for k = 1, #r.__subLinks do r.__subLinks[k]:Hide() end
     end
@@ -2586,6 +2791,11 @@ function PD.BindRow(r, spec, h)
             if itemID and not iconName then qq = PD.QualCached(itemID) end
             ns.hui.SetIconRing(r.icon, qq and { ns.hui.QColor(qq) } or nil)
         end
+    end
+
+    if spec.scanAct then
+        PD.BindScanAct(r, spec)
+        return
     end
 
     if spec.kind == "head" then
@@ -3574,7 +3784,6 @@ function PD.BuildBonusTable(parent)
         GameTooltip:AddLine(L["数值以 60 级为基准、随等级成长 —— 游戏内低等级看到的数字更小属正常缩放。"],
                             1, 1, 1, true)
         GameTooltip:Show()
-        PD.UnifyTipFont(14)
     end)
     tipBtn:SetScript("OnLeave", function() GameTooltip:Hide() end)
     local rule = root:CreateTexture(nil, "ARTWORK")
@@ -3642,7 +3851,6 @@ function PD.BuildBonusTable(parent)
                     end
                 end
                 GameTooltip:Show()
-                PD.UnifyTipFont(14)
             end
         end)
         r:SetScript("OnLeave", function(self)
@@ -3962,7 +4170,6 @@ function PD.FillTrainerBoard()
                             end
                             GameTooltip:AddLine(L["点击：在地图上标记该 NPC"], 1, 0.82, 0)
                             GameTooltip:Show()
-                            PD.UnifyTipFont(14)
                         end)
                         c:SetScript("OnLeave", function(self)
                             if self.__huiCard then ns.hui.HuiCardState(self, "norm") end
@@ -5324,7 +5531,6 @@ function PD.Build(page)
                 end
             end
             GameTooltip:Show()
-            PD.UnifyTipFont(14)
         end)
         hp:SetScript("OnLeave", function(self)
             self.icon:SetVertexColor(C_HELP[1], C_HELP[2], C_HELP[3])
@@ -5680,7 +5886,6 @@ function PD.PaintTool(list, handler, yoff)
                         end
                     end
                     GameTooltip:Show()
-                    PD.UnifyTipFont(14)
                 end)
                 bt:HookScript("OnLeave", function() GameTooltip:Hide() end)
             end
@@ -5778,7 +5983,6 @@ function PD.PaintTool(list, handler, yoff)
                             end
                         end
                         GameTooltip:Show()
-                        PD.UnifyTipFont(14)
                     end)
                     bt:SetScript("OnLeave", function() GameTooltip:Hide() end)
                 end
@@ -6090,53 +6294,6 @@ function PD.PaintToolStale(text)
     end
 end
 
-function PD.UnifyTipFont(size)
-    local n = (GameTooltip.NumLines and GameTooltip:NumLines()) or 0
-    if type(n) ~= "number" then n = (type(n) == "table") and #n or 0 end
-    if n <= 0 then return end
-    local base = _G["GameTooltipTextLeft1"]
-    local path, sz, flags
-    if base and base.GetFont then path, sz, flags = base:GetFont() end
-    if not path then return end
-    local want = tonumber(size) or tonumber(sz) or 13
-    flags = flags or ""
-    local sum0 = 0
-    for i = 1, n do
-        local l = _G["GameTooltipTextLeft" .. i]
-        if l and l.GetStringHeight then sum0 = sum0 + (l:GetStringHeight() or 0) end
-    end
-    for i = 1, n do
-        local l = _G["GameTooltipTextLeft" .. i]
-        if l and l.SetFont then l:SetFont(path, want, flags) end
-        local rr = _G["GameTooltipTextRight" .. i]
-        if rr and rr.SetFont then rr:SetFont(path, want, flags) end
-    end
-    local maxW = 0
-    for i = 1, n do
-        local l = _G["GameTooltipTextLeft" .. i]
-        if l and l.SetText and l.SetWidth then
-            l:SetWidth(4000)
-            l:SetText(l:GetText())
-            maxW = math.max(maxW, FSW(l))
-        end
-    end
-    maxW = math.min(maxW, 460)
-    local sum1 = 0
-    for i = 1, n do
-        local l = _G["GameTooltipTextLeft" .. i]
-        if l then
-            l:SetWidth(maxW)
-            l:SetText(l:GetText())
-            sum1 = sum1 + (l:GetStringHeight() or 0)
-        end
-    end
-    if GameTooltip.SetWidth and GameTooltip.SetHeight and maxW > 0 then
-        local pad = (GameTooltip:GetHeight() or 0) - sum0
-        GameTooltip:SetWidth(maxW + 20)
-        GameTooltip:SetHeight(sum1 + pad)
-    end
-end
-
 function PD.TipTile(tf, lines)
     tf:SetScript("OnEnter", function()
         if tf.__hov then for _, t in ipairs(tf.__hov) do t:Show() end end
@@ -6148,7 +6305,6 @@ function PD.TipTile(tf, lines)
             end
         end
         GameTooltip:Show()
-        PD.UnifyTipFont(14)
     end)
     tf:SetScript("OnLeave", function()
         if tf.__hov then for _, t in ipairs(tf.__hov) do t:Hide() end end
@@ -6338,7 +6494,7 @@ function PD.PaintLvTiles()
     end
     tiles.scheme.val:SetTextColor(Unpack(C_WHITE))
     local schemeDesc = {
-        stable = L["优先橙黄配方减少绿色冲点，再比较采购成本；必要材料照常制作"],
+        stable = L["优先提高达标和后续配方解锁概率，降低补做风险，再比较采购成本"],
         cheapest = L["比较采购、自制与图纸支出；回血模式开启时比较净成本"],
         matcost = L["只按材料价选配方"],
         crafts = L["升点率高优先，同分取便宜"],
@@ -6442,7 +6598,7 @@ function PD.PaintLvTiles()
     tiles.target.label:SetText(L["目标等级"])
     tiles.target.val:SetText(v >= 300 and L["全程"] or tostring(v))
     tiles.target.val:SetTextColor(Unpack(C_WHITE))
-    TipOn(tiles.target, { { L["每专业独立记忆；默认 285，300 = 全程。点击修改"], 0.7, 0.7, 0.7 } })
+    TipOn(tiles.target, { { L["每专业独立记忆；默认全程（300）。点击修改"], 0.7, 0.7, 0.7 } })
     local engG = ns.ProfGates
     if PD.cur == "engineering" and engG and engG.GetChoiceSetting then
         local engSet = engG.GetChoiceSetting()
@@ -6972,13 +7128,11 @@ function PD.MarkMapPoint(mapID, x, y)
         end
         return
     end
-    if UiMapPoint and UiMapPoint.CreateFromCoordinates and C_Map and C_Map.SetUserWaypoint then
-        local pok, pt = pcall(UiMapPoint.CreateFromCoordinates, mapID, (x or 0) / 100, (y or 0) / 100)
-        if pok and pt then
-            pcall(C_Map.SetUserWaypoint, pt)
-            if C_SuperTrack and C_SuperTrack.SetSuperTrackedUserWaypoint then
-                pcall(C_SuperTrack.SetSuperTrackedUserWaypoint, false)
-            end
+    if C_Map and C_Map.SetUserWaypoint and _G.CreateVector2D then
+        local pt = { uiMapID = mapID, position = _G.CreateVector2D((x or 0) / 100, (y or 0) / 100) }
+        pcall(C_Map.SetUserWaypoint, pt)
+        if C_SuperTrack and C_SuperTrack.SetSuperTrackedUserWaypoint then
+            pcall(C_SuperTrack.SetSuperTrackedUserWaypoint, false)
         end
     end
     if C_Map and C_Map.OpenWorldMap then
@@ -7605,7 +7759,6 @@ function PD.WarnChip(r, plainTip)
                     end
                 end
                 GameTooltip:Show()
-                PD.UnifyTipFont(14)
             end
         end)
         z:SetScript("OnLeave", function() GameTooltip:Hide() end)
@@ -7799,7 +7952,6 @@ function PD.WireTipZone(z, r)
                 end
             end
             GameTooltip:Show()
-            PD.UnifyTipFont(14)
         elseif self.__spell and PD.ShowSpellTip then
             local extra = self.__tipExtra
             if type(extra) == "function" then extra = extra() end
@@ -9787,7 +9939,235 @@ function PD.DropBlockLines(lines, itemID)
     end
 end
 
-function PD.PriceTipLines(itemID, mats)
+function PD.MatPriceOn()
+    local cfg = ns.TipCfg and ns.TipCfg()
+    if type(cfg) ~= "table" then return true end
+    return cfg.matPrice ~= false
+end
+
+local patternIdx
+
+function PD.PatternIndex()
+    if patternIdx then return patternIdx end
+    patternIdx = {}
+    if ns.EnsureProfRecipes then pcall(ns.EnsureProfRecipes) end
+    for _, d in pairs(ns.ProfRecipes or {}) do
+        for _, r in ipairs((type(d) == "table" and d.rows) or {}) do
+            local f = r[13]
+            local fid = (type(f) == "table") and f[1] or f
+            if type(fid) == "number" and not patternIdx[fid] then
+                local e = { r = r, pid = fid }
+                patternIdx[fid] = e
+                local out = r[2]
+                if type(out) == "number" and out ~= fid and not patternIdx[out] then
+                    patternIdx[out] = e
+                end
+            end
+        end
+    end
+    return patternIdx
+end
+
+do
+    local writNeedSet
+    local writItemSet
+    local crateNeedSet
+
+    local function WritTargets()
+        if writNeedSet then return writNeedSet end
+        writNeedSet = {}
+        local CD = ns.CratesData
+        for _, w in ipairs((CD and CD.writs) or {}) do
+            if type(w) == "table" and type(w.target) == "number" then
+                writNeedSet[w.target] = true
+            end
+        end
+        return writNeedSet
+    end
+
+    local function WritItems()
+        if writItemSet then return writItemSet end
+        writItemSet = {}
+        local CD = ns.CratesData
+        for _, w in ipairs((CD and CD.writs) or {}) do
+            if type(w) == "table" and type(w.item) == "number" and type(w.target) == "number" then
+                writItemSet[w.item] = w.target
+            end
+        end
+        return writItemSet
+    end
+
+    local function CrateMats()
+        if crateNeedSet then return crateNeedSet end
+        crateNeedSet = {}
+        local CD = ns.CratesData
+        for _, c in ipairs((CD and CD.crates) or {}) do
+            if type(c) == "table" and type(c.opts) == "table" then
+                for _, o in ipairs(c.opts) do
+                    if type(o) == "table" and type(o[1]) == "number" then
+                        crateNeedSet[o[1]] = true
+                    end
+                end
+            end
+        end
+        return crateNeedSet
+    end
+
+    local writZoneIdx, zoneNames
+
+    local function WritZones()
+        if writZoneIdx then return writZoneIdx end
+        writZoneIdx = {}
+        local Z = ns.WritZone
+        local CD = ns.CratesData
+        if type(Z) == "table" then
+            for _, w in ipairs((CD and CD.writs) or {}) do
+                if type(w) == "table" and type(w.target) == "number" then
+                    local z = w.item and Z[w.item]
+                    if type(z) == "number" and not writZoneIdx[w.target] then
+                        writZoneIdx[w.target] = z
+                    end
+                end
+            end
+        end
+        return writZoneIdx
+    end
+
+    function PD.WritZoneOf(targetId)
+        if type(targetId) ~= "number" then return nil end
+        return WritZones()[targetId]
+    end
+
+    function PD.ZoneNameOf(zone)
+        if type(zone) ~= "number" then return nil end
+        zoneNames = zoneNames or {}
+        local nm = zoneNames[zone]
+        if nm == nil then
+            local mi = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(zone)
+            if type(mi) == "table" and type(mi.name) == "string" and mi.name ~= "" then
+                nm = mi.name
+            else
+                nm = false
+            end
+            zoneNames[zone] = nm
+        end
+        if nm == false then return nil end
+        return nm
+    end
+
+    function PD.WritNeedOf(id, title)
+        if type(id) ~= "number" then return nil end
+        local set = WritTargets()
+        if set[id] then return id, false end
+        local wi = WritItems()[id]
+        if wi then return wi, true end
+        local e = PD.PatternIndex()[id]
+        if not e then return nil end
+        if id ~= e.pid then
+            local pname = PD.ItemName(e.pid)
+            if not title or not pname or title ~= pname then return nil end
+        end
+        local prod = e.r and e.r[2]
+        if type(prod) == "number" and prod ~= id and set[prod] then return prod, false end
+        return nil
+    end
+
+    function PD.WritNeedLines(id, title)
+        local tid, isItem = PD.WritNeedOf(id, title)
+        if not tid then return nil end
+        local nm = PD.ZoneNameOf(PD.WritZoneOf(tid))
+        if isItem then
+            if not nm then return nil end
+            return { { L["上交地点"] .. ": " .. nm, 1, 0.82, 0.4 } }
+        end
+        local txt = L["需求"] .. ": " .. L["工匠文书"]
+        if nm then txt = txt .. " | " .. nm end
+        return { { txt, 1, 0.82, 0.4 } }
+    end
+
+    function PD.CrateNeedOf(id, title)
+        if type(id) ~= "number" then return nil end
+        local set = CrateMats()
+        if set[id] then return id end
+        local e = PD.PatternIndex()[id]
+        if not e then return nil end
+        if id ~= e.pid then
+            local pname = PD.ItemName(e.pid)
+            if not title or not pname or title ~= pname then return nil end
+        end
+        local prod = e.r and e.r[2]
+        if type(prod) == "number" and prod ~= id and set[prod] then return prod end
+        return nil
+    end
+
+    function PD.CrateNeedLines(id, title)
+        if not PD.CrateNeedOf(id, title) then return nil end
+        return { { L["需求"] .. ": " .. L["板条箱"], 1, 0.82, 0.4 } }
+    end
+end
+
+function PD.MatsCostText(mats)
+    if not (mats and #mats > 0) then return "—" end
+    local total, unpriced = RA.MatListCost(mats)
+    unpriced = unpriced or 0
+    if not total or total <= 0 or unpriced >= #mats then return "—" end
+    return (unpriced > 0 and "≈" or "") .. RA.MoneyStr(total, "copper")
+end
+
+function PD.MatsCostTextC(mats)
+    if not (mats and #mats > 0) then return "—" end
+    local total, unpriced = RA.MatListCost(mats)
+    unpriced = unpriced or 0
+    if not total or total <= 0 or unpriced >= #mats then return "—" end
+    return (unpriced > 0 and "≈" or "") .. RA.MoneyStrTip(total)
+end
+
+function PD.PatternTipLines(id, title)
+    if type(id) ~= "number" then return nil end
+    local e = PD.PatternIndex()[id]
+    if not e then return nil end
+    if id ~= e.pid then
+        local pname = PD.ItemName(e.pid)
+        if not title or not pname or title ~= pname then return nil end
+    end
+    local mats = e.r[12]
+    if not (mats and #mats > 0) then return nil end
+    return PD.MatPriceLines(mats, PD.MatsCostTextC(mats), e.r[2])
+end
+
+function PD.MatPriceLines(mats, costTxt, productID)
+    local lines = {}
+    if not (mats and #mats > 0) then return lines end
+    local MAX = 8
+    local showN = math.min(#mats, MAX)
+    for i = 1, showN do
+        local m = mats[i]
+        local n = m[2] or 1
+        local p = RA.MatPriceOf and RA.MatPriceOf(m[1]) or nil
+        local sub = p and RA.MoneyStrTip(p * n) or "—"
+        lines[#lines + 1] = { format("%s ×%d", tostring(PD.ItemName(m[1]) or "?"), n),
+                              1, 1, 1, nil, nil, sub, 1, 1, 1 }
+    end
+    if #mats > showN then
+        lines[#lines + 1] = { format("… +%d", #mats - showN), 0.6, 0.6, 0.6 }
+    end
+    lines[#lines + 1] = { L["自己制造总成本"], 1, 1, 1, nil, nil,
+                          costTxt or "—", 1, 1, 1 }
+    if productID then
+        local ah = RA.AHPriceOf and RA.AHPriceOf(productID) or nil
+        lines[#lines + 1] = { L["成品拍卖行价格"], 1, 1, 1, nil, nil,
+                              ah and RA.MoneyStrTip(ah) or "—", 1, 1, 1 }
+        local costVal = RA.MatListCost and select(1, RA.MatListCost(mats)) or nil
+        if ah and costVal and costVal > 0 then
+            local net = math.floor(ah * 0.95) - costVal
+            lines[#lines + 1] = { L["收益（扣除5%）"], 1, 1, 1, nil, nil,
+                                  RA.MoneyStrTip(net), 1, 1, 1 }
+        end
+    end
+    return lines
+end
+
+function PD.PriceTipLines(itemID, mats, opts)
     local lines = {}
     if not itemID then return lines end
     local ah = RA.AHPriceOf and RA.AHPriceOf(itemID) or nil
@@ -9811,7 +10191,12 @@ function PD.PriceTipLines(itemID, mats)
             costTxt = (approx and "≈" or "") .. RA.MoneyStr(cost, "copper")
         end
     end
-    lines[#lines + 1] = { format(L["成本: %s"], costTxt) }
+    if opts and opts.matDetail and nMats then
+        local mp = PD.MatPriceLines(mats, PD.MatsCostTextC(mats))
+        for i = 1, #mp do lines[#lines + 1] = mp[i] end
+    else
+        lines[#lines + 1] = { format(L["成本: %s"], costTxt) }
+    end
     if ah and cost and nMats and cost > 0 then
         local pre = approx and "≈" or ""
         local diff = ah - cost
@@ -9984,7 +10369,8 @@ function PD.RecipeSpec(r)
         spell = tonumber(resolved.spell),
         text = PD.ItemName(r[2]),
         tipExtra = function()
-            local lines = PD.RecipeSourceLines(PD.PriceTipLines(r[2], r[12]), resolved)
+            local lines = PD.RecipeSourceLines(PD.PriceTipLines(r[2], r[12],
+                PD.MatPriceOn() and { matDetail = true } or nil), resolved)
             if station then lines[#lines + 1] = { format(L["制作场地：%s"], station), 0.7, 0.7, 0.7 } end
             if clientPending then lines[#lines + 1] = { L["请打开对应专业或商人面板读取数据"], 0.95, 0.75, 0.4 } end
             if meta and meta.outputConflict and resolved.outputConflict and not (runtime and runtime.count) then
@@ -10121,7 +10507,8 @@ function PD.CraftedSpec(c)
         diffVal = tonumber(c[4]),
         gapVal = (ah and total) and (ah - total) or nil,
         sbdiff = (c[4] or c[5] or green or c[7]) and { c[4], c[5], green, c[7] } or nil,
-        tipExtra = function() return PD.RecipeSourceLines(PD.PriceTipLines(c[2], c[8]), resolved) end,
+        tipExtra = function() return PD.RecipeSourceLines(PD.PriceTipLines(c[2], c[8],
+            PD.MatPriceOn() and { matDetail = true } or nil), resolved) end,
         lines = sourceLines,
     }
 end
@@ -10722,11 +11109,12 @@ function PD.ScanRecipe()
     local fk = PD.EffKeyFilter(d)
 
     local n, maxW = 0, 0
+    local cap = PD.capNow or PD.ROW_CAP
     for _, r in ipairs(d.rows or {}) do
         if (not r.nip) and PD.RowKeyOK(r, fk) then
             if PD.RawHit(r, q) then
                 n = n + 1
-                if n <= PD.ROW_CAP then
+                if n <= cap then
                     local nm = PD.ItemName(r[2])
                     local w = (nm and nm ~= "" and PD.TextW(nm, 13)) or 0
                     local sw = PD.TextW(PD.KitSub(tostring(r[5] or ""), r[6], r[2]), 11) + (r[11] and PD.RECIPE_BADGE_W or 0)
@@ -10761,12 +11149,13 @@ function PD.RowsRecipe(rows)
         return
     end
     if not d then return end
+    local cap = PD.capNow or PD.ROW_CAP
     local realN, maxW = PD.ScanRecipe()
     local list
     if realN then
-        list = PD.RecipeList(math.min(realN, PD.ROW_CAP), PD.searchQ)
+        list = PD.RecipeList(math.min(realN, cap), PD.searchQ)
     else
-        list = PD.SearchFilter(PD.RecipeList())
+        list = PD.SearchFilter(PD.RecipeList(cap))
         realN, maxW = #list, nil
     end
     if PD.recipeSort then
@@ -10798,7 +11187,7 @@ function PD.RowsRecipe(rows)
         return
     end
     local trunc = 0
-    if realN > PD.ROW_CAP then trunc = realN - PD.ROW_CAP end
+    if realN > cap then trunc = realN - cap end
     if realN > 0 then
         rows[#rows + 1] = { kind = "rechead", h = 26, col = 1, noTip = true, noHover = true }
     end
@@ -10807,7 +11196,7 @@ function PD.RowsRecipe(rows)
         PushGap(rows)
         PushText(rows, format(
             L["列表只画前 %d 条，还有 %d 条没显示 —— 用上方分类缩小范围。"],
-            PD.ROW_CAP, trunc), 12, C_GOLD)
+            cap, trunc), 12, C_GOLD)
     end
 end
 
@@ -12380,7 +12769,8 @@ function PD.SolverText()
         local pct = math.min(100, math.floor((st.cpuUsed or 0) * 100 / math.max(1, st.cpuLimitMs or 8000) + 0.5))
         return format(L["正在优化 %d%%"], pct)
     elseif st.phase == "finalizing" then
-        return L["正在整理计算结果…"]
+        if st.batchSearch then return format(L["正在合并制作步骤：已检查 %d 种安排，当前 %d 步"],st.batchSearch.states or 0,st.batchSearch.bestSegments or 0) end
+        return format(L["正在整理计算结果 %d%%"],math.max(0,math.min(99,math.floor((st.finalizeProgress or 0)*100))))
     end
     return L["正在准备数据"]
 end
@@ -13181,32 +13571,63 @@ function PD.RowsLeveling(rows)
         end
     end
     PD.warnNotes = notes
-    local scanWarning=PD.ReplicateScanWarning()
+    local scanWarning,_,scanFix=PD.ReplicateScanWarning()
     local scanAdvice=PD.ScanModeAdvice()
     if scanWarning then
         warningSeen[scanWarning]=true
-        PushText(rows,scanWarning,12,{0.98,0.55,0.4},1)
-        PushGap(rows,4,1)
+        PushText(rows,PD.ScanHeadline() or scanWarning,15,{0.98,0.6,0.46},1)
+        if scanFix then
+            for i=1,math.min(#scanFix,2) do
+                PushText(rows,scanFix[i],12,{0.9,0.74,0.5},1)
+            end
+        end
+        if PD.ScanForceOffer() then
+            rows[#rows+1]={kind="row",col=1,h=40,fs=14,act=PD.UseExpiredScan,
+                scanAct={text=L["用过期数据算一次"],act=PD.UseExpiredScan,
+                    color={0.58,0.86,1},right=L["只影响这一次计算"]},
+                lines={{L["用这份过期数据重新计算一次路线。"],1,1,1},
+                    {L["只对本次重新计算生效，过期数据可能已经不准。"],0.85,0.85,0.85}}}
+            PushGap(rows,2,1)
+        end
+        local scanCheck=PD.ScanSelfCheck()
+        if scanCheck then
+            local bad=0
+            for i=2,#scanCheck do
+                if scanCheck[i][3]=="bad" then bad=bad+1 end
+            end
+            rows[#rows+1]={kind="head",col=1,h=PD.ROW_H1,fs=13,
+                text=L["为什么无法重新计算"],foldKey="scan_diag",
+                right=bad>0 and format(L["%d 项异常"],bad) or L["全部正常"],
+                rightColor=bad>0 and {0.98,0.5,0.42} or {0.55,0.85,0.6}}
+            if not PD.FoldOn("scan_diag") then
+                for i=2,#scanCheck do
+                    local text=scanCheck[i][1] or ""
+                    local cut=text:find("：",1,true)
+                    local label,value=text,""
+                    if cut then label,value=text:sub(1,cut-1),text:sub(cut+3) end
+                    rows[#rows+1]={kind="row",col=1,h=PD.ROW_H1,fs=13,
+                        text=label,color={0.7,0.74,0.82},
+                        right=value,rightColor=scanCheck[i][2]}
+                end
+            end
+        end
+        PushGap(rows,6,1)
     else
         local scanNotice=PD.ScanSnapshotText()
-        if scanNotice and scanAdvice then
-            rows[#rows+1]={kind="row",col=1,h=PD.ROW_H1,text=scanNotice,fs=14,
-                color={0.55,0.85,0.6},right=scanAdvice,rightColor=C_DIM}
+        local scanForced=PD.ScanForcedText()
+        if scanForced then
+            PushText(rows,scanForced,14,{0.95,0.72,0.42},1)
             PushGap(rows,4,1)
-            scanAdvice=nil
-        elseif scanNotice then
-            PushText(rows,scanNotice,14,{0.55,0.85,0.6},1)
-            PushGap(rows,4,1)
+        else
+            if scanNotice then
+                PushText(rows,scanNotice,14,{0.55,0.85,0.6},1)
+                PushGap(rows,2,1)
+            end
+            if scanAdvice then
+                PushText(rows,scanAdvice,14,C_DIM,1)
+                PushGap(rows,4,1)
+            end
         end
-        if scanAdvice then
-            PushText(rows,scanAdvice,14,C_DIM,1)
-            PushGap(rows,4,1)
-        end
-    end
-
-    if scanAdvice then
-        PushText(rows,scanAdvice,11,C_DIM,1)
-        PushGap(rows,4,1)
     end
 
     local _learned = PD.ProfLearned()
@@ -13376,9 +13797,11 @@ function PD.RowsLeveling(rows)
     PD.CopyPlanSummary(res)
     local shownSum = auto and res or fixedSum
     notes.plan = shownSum
-    if shownSum and shownSum.scheme=="stable" then
-        if (shownSum.greenLevelCrafts or 0)>0 then
-            warning(format(L["当前路线仍含 %d 次绿色冲点；可检查其他配方和材料来源后重算。"],shownSum.greenLevelCrafts),0.95,0.75,0.4)
+    if shownSum and shownSum.scheme=="stable" and shownSum.stability then
+        local risk=shownSum.stability
+        note(format(L["模型估计：无需补做达标 %.1f%%；后续配方技能门槛通过 %.1f%%"],100*risk.completionProbability,100*risk.unlockProbability),0.72,0.82,0.9)
+        if risk.completionProbability<1-1e-9 then
+            warning(format(L["无法沿用已备配方补足技能的风险 %.1f%%；补做需另备材料。"],100*risk.unrepairableProbability),0.95,0.75,0.4)
         end
     end
     if shownSum and shownSum.reserve and shownSum.reserve.mode~="off" then
@@ -14747,37 +15170,7 @@ function PD.LevelTool()
             ns.PlaySound(1)
         elseif k == "recalc" then
             if PD.cur ~= routeSlug then return end
-            local slug = routeSlug
-            local follow = ns.ProfFollow
-            if follow and follow.SuspendAutoTrack then follow.SuspendAutoTrack(slug, "recalculate") end
-            if RA and RA.EndExecution then
-                RA.EndExecution(slug)
-            else
-                local T = ns.ProfExecution
-                if T and T.End then T.End(slug, "ended") end
-            end
-            PD.exclusionsOpen = false
-            PD.ClearPlanCache(slug)
-            PD.exactFailed = {}
-            local E = ns.ProfEconomy
-            if E and E.ApplyPolicies then E.ApplyPolicies(slug) end
-            if RA and RA.Invalidate then RA.Invalidate() end
-            if PD.policyDirty then PD.policyDirty[slug] = nil end
-            PD.autoPage = "route"
-            local learned = PD.ProfLearned and PD.ProfLearned() or {}
-            local opts = PD.BuildLvOpts(slug, learned[slug] and learned[slug].cur)
-            opts.target = PD.LvTarget(slug)
-            local result
-            if PD.AutoRouteEnabled(slug) then
-                if RA and RA.Recalculate then result = RA.Recalculate(slug, opts) end
-            elseif RA and RA.FixedPlan then result = RA.FixedPlan(slug, opts) end
-            if result then
-                PD.autoSnapshot, PD.autoSnapshotSlug = result, slug
-                PD.autoKey = PD.PlanKeyOf(slug, opts)
-                PD.autoExact = result.planVersion == 2
-            end
-            PD.RequestRender()
-            ns.PlaySound(1)
+            PD.DoRecalc(routeSlug)
         elseif k == "exclusions" then
             PD.exclusionsOpen = not PD.exclusionsOpen
             PD.partnerPicker = nil
@@ -15075,14 +15468,46 @@ function PD.CrateColumns(writ)
     PD.splitRW = avail - PD.splitLW
     return cols
 end
-function PD.CrateRowHeight(text, cols)
+function PD.ShortItemName(name)
+    if type(name) ~= "string" or name == "" then return name end
+    local i, n = 1, #name
+    while i <= n do
+        local c = string.byte(name, i)
+        if c == 0x3A then
+            local s = string.sub(name, i + 1)
+            return (s ~= "") and s or name
+        end
+        if c == 0xEF then
+            local b2, b3 = string.byte(name, i + 1, i + 2)
+            if b2 == 0xBC and b3 == 0x9A then
+                local s = string.sub(name, i + 3)
+                return (s ~= "") and s or name
+            end
+        end
+        if c < 0x80 then
+            i = i + 1
+        elseif c >= 0xF0 then
+            i = i + 4
+        elseif c >= 0xE0 then
+            i = i + 3
+        elseif c >= 0xC0 then
+            i = i + 2
+        else
+            return name
+        end
+    end
+    return name
+end
+function PD.CrateRowHeight(text, cols, extraSub)
     local fs = PD.crateMeasure
     fs:SetFont(ns.FONT, 13, ns.hui and ns.hui.FontFlags and ns.hui.FontFlags("OUTLINE") or "OUTLINE")
     fs:SetWidth(math.max(1, PD.splitLW - cols.nameR - 32))
-    fs:SetWordWrap(true)
+    fs:SetWordWrap(false)
     fs:SetNonSpaceWrap(true)
     fs:SetText(text)
-    return math.max(44, math.ceil(fs:GetStringHeight() or 0) + 24)
+    local h = math.max(44, math.ceil(fs:GetStringHeight() or 0) + 24)
+    if extraSub then h = math.max(56, h + 16) end
+    return h
 end
 function PD.PaintCrateColumns(r, spec, h, padL)
     local head = spec.kind == "colhead"
@@ -15095,17 +15520,43 @@ function PD.PaintCrateColumns(r, spec, h, padL)
     end
     local nameW = math.max(0, (r:GetWidth() or 0) - spec.priceCols.nameR - (padL or 6))
     r.a:SetWidth(nameW)
-    r.a:SetWordWrap(not head)
+    r.a:SetWordWrap(false)
+    local _, afs = r.a:GetFont()
+    r.a:SetText(PD.Fit(r.a:GetText() or "", afs or 13, nameW))
     r.b:SetWidth(nameW)
     if not head then
+        local topPad = 4
+        local gapAB = 2
+        local gapB2 = 2
+        r.b:SetFont(ns.FONT, 11, ns.hui and ns.hui.FontFlags and ns.hui.FontFlags("OUTLINE") or "OUTLINE")
+        local b2 = r.b2
+        if spec.sub2 then
+            b2:SetFont(ns.FONT, 11, ns.hui and ns.hui.FontFlags and ns.hui.FontFlags("OUTLINE") or "OUTLINE")
+            b2:SetText(spec.sub2)
+            b2:SetTextColor(Unpack(C_GREY))
+            b2:SetWidth(nameW)
+            b2:SetHeight(math.max(1, b2:GetStringHeight() or 0))
+            b2:Show()
+            local nameH = math.max(1, r.a:GetStringHeight() or 0)
+            local subH = math.max(1, r.b:GetStringHeight() or 0)
+            local sub2H = math.max(1, b2:GetStringHeight() or 0)
+            gapAB = 4
+            gapB2 = 3
+            local rowH = r:GetHeight() or h or 0
+            local total = nameH + gapAB + subH + gapB2 + sub2H
+            topPad = math.floor((rowH - total) / 2 + 0.5)
+            if topPad < 4 then topPad = 4 end
+        else
+            b2:SetText("")
+            b2:Hide()
+        end
         r.a:ClearAllPoints()
-        r.a:SetPoint("TOPLEFT", r, "TOPLEFT", padL or 6, -4)
+        r.a:SetPoint("TOPLEFT", r, "TOPLEFT", padL or 6, -topPad)
         r.a:SetHeight(math.max(1, r.a:GetStringHeight() or 0))
         r.a:SetNonSpaceWrap(true)
         r.a:SetJustifyV("TOP")
-        r.b:SetFont(ns.FONT, 11, ns.hui and ns.hui.FontFlags and ns.hui.FontFlags("OUTLINE") or "OUTLINE")
         r.b:ClearAllPoints()
-        r.b:SetPoint("TOPLEFT", r.a, "BOTTOMLEFT", 0, -2)
+        r.b:SetPoint("TOPLEFT", r.a, "BOTTOMLEFT", 0, -gapAB)
         if spec.tag and r.tagChip:IsShown() then
             local chipW = r.tagChip:GetWidth() or 0
             local chipX = math.max(0, nameW - chipW)
@@ -15116,6 +15567,11 @@ function PD.PaintCrateColumns(r, spec, h, padL)
             r.tagChip:ClearAllPoints()
             r.tagChip:SetPoint("LEFT", r.b, "LEFT", chipX, 0)
             r.b:SetWidth(nameW)
+        end
+        if spec.sub2 then
+            b2:ClearAllPoints()
+            b2:SetPoint("TOPLEFT", r.b, "BOTTOMLEFT", 0, -gapB2)
+            b2:SetWidth(nameW)
         end
     end
     r.b:SetWordWrap(false)
@@ -15272,9 +15728,9 @@ function PD.CrateRows(rows)
         local c = list[i]
         local name = PD.ItemName(c.id)
         rows[#rows + 1] = {
-            kind = "row", col = 1, h = PD.CrateRowHeight(name, cols), priceCols = cols,
+            kind = "row", col = 1, h = PD.CrateRowHeight(PD.ShortItemName(name), cols), priceCols = cols,
             it = { c.id }, qItem = c.id,
-            text = name,
+            text = PD.ShortItemName(name),
             sub = CRATE_TIERS[c.tier] or "?",
             right = bests[i] and RA.MoneyStr(bests[i]) or "",
             rightOwn = owns[i] and RA.MoneyStr(owns[i]) or "",
@@ -15638,11 +16094,14 @@ function PD.WritRows(rows)
         local craft = craftMap[w.target]
         local tag = craft and WritBadge(craft, learned) or nil
         local name = PD.ItemName(wid)
+        local disp = PD.ShortItemName(name)
+        local zone = PD.ZoneNameOf(PD.WritZoneOf(w.target))
         rows[#rows + 1] = {
-            kind = "row", col = 1, h = PD.CrateRowHeight(name, cols), priceCols = cols,
+            kind = "row", col = 1, h = PD.CrateRowHeight(disp, cols, zone ~= nil), priceCols = cols,
             it = { wid }, qItem = wid,
-            text = name,
+            text = disp,
             sub = format(L["声望 +%d"], w.rep or 0),
+            sub2 = zone and format(L["地点: %s"], zone) or nil,
             tag = tag,
             right = priced[i] and RA.MoneyStr(priced[i]) or "",
             right2 = craftT[i] and RA.MoneyStr(craftT[i]) or "",
@@ -15919,6 +16378,7 @@ function PD.Render()
     PD.hideDivider = false
     PD.pcSpanAll = false
     PD.secCount = 0
+    PD.capNow = PD.ROW_CAP
     PD.__pendRows = {}
     do
         local pk = tostring(PD.cur) .. "|" .. tostring(PD.tab) .. "|"
@@ -15956,6 +16416,7 @@ function PD.Render()
     elseif PD.tab == "trainer" then
         PD.wantTrainerBoard = true
     elseif PD.tab == "recipe" then
+        PD.capNow = PD.RECIPE_CAP
         tool, handler = PD.RecipeTool(RGet(PD.cur))
         PD.RowsRecipe(rows)
     elseif PD.tab == "crate" or PD.tab == "plunder" or PD.tab == "writ" then
@@ -16101,7 +16562,7 @@ function PD.WarmNames()
     if not (C_Timer and C_Timer.After) then return end
     _warmTok = _warmTok + 1
     local tok = _warmTok
-    local i, n = 0, math.min(#all, PD.ROW_CAP)
+    local i, n = 0, math.min(#all, PD.capNow or PD.ROW_CAP)
     local function feed()
         if tok ~= _warmTok or turboCalculationRunning() then return end
         if DG.stepping then C_Timer.After(0, feed) return end
@@ -16144,7 +16605,7 @@ function PD.RequestRows(rows)
         if type(gi) == "function" then pcall(gi, id) end
         wait[#wait + 1] = id
     end
-    local n = math.min(#rows, PD.ROW_CAP)
+    local n = math.min(#rows, PD.capNow or PD.ROW_CAP)
     for i = 1, n do
         local spec = rows[i]
         if spec.it then want(spec.it[1]) end
@@ -17153,4 +17614,121 @@ if RA and RA.OnPricesChanged then
             PD.RequestRender()
         end
     end)
+end
+
+do
+    local crateIdx, writIdx
+
+    local function CrateIndex()
+        if crateIdx then return crateIdx end
+        crateIdx = {}
+        for _, c in ipairs(CD.crates or {}) do
+            if type(c) == "table" and type(c.id) == "number" then crateIdx[c.id] = c end
+        end
+        return crateIdx
+    end
+
+    local function WritIndex()
+        if writIdx then return writIdx end
+        writIdx = {}
+        for _, w in ipairs(CD.writs or {}) do
+            if type(w) == "table" and type(w.item) == "number" then writIdx[w.item] = w end
+        end
+        return writIdx
+    end
+
+    function PD.CrateOf(id)
+        if type(id) ~= "number" then return nil end
+        return CrateIndex()[id]
+    end
+
+    function PD.WritOf(id)
+        if type(id) ~= "number" then return nil end
+        return WritIndex()[id]
+    end
+
+    function PD.CrateTipLines(id)
+        local c = PD.CrateOf(id)
+        if not c then return nil end
+        local list, best, bestOpt = {}, nil, nil
+        for _, o in ipairs(c.opts or {}) do
+            local v = CrateOptCost(o[1], o[2])
+            list[#list + 1] = { o = o, v = v }
+            if v and (not best or v < best) then best, bestOpt = v, o end
+        end
+        if not best then return nil end
+        table.sort(list, function(a, b)
+            if a.v and b.v then return a.v < b.v end
+            if a.v or b.v then return a.v ~= nil end
+            return a.o[1] < b.o[1]
+        end)
+        local rows = {}
+        for i = 1, #list do
+            local e = list[i]
+            local o = e.o
+            local isBest = bestOpt and o[1] == bestOpt[1] and o[2] == bestOpt[2]
+            local txt = PD.MatIconTex(o[1], 14) .. tostring(PD.ItemName(o[1])) .. " ×" .. tostring(o[2] or 1)
+            if isBest then txt = txt .. "  " .. L["最省"] end
+            local col = isBest and CRATE_GREEN or C_TEXT
+            rows[#rows + 1] = { txt, col[1], col[2], col[3], nil, nil,
+                                e.v and RA.MoneyStrTip(e.v) or "—", 1, 1, 1 }
+        end
+        return rows
+    end
+
+    local prodRecipeCache
+    local function ProductRecipe(id)
+        if type(id) ~= "number" then return nil end
+        if prodRecipeCache == nil then
+            prodRecipeCache = {}
+            local ok, idx = pcall(PD.PatternIndex)
+            if ok and type(idx) == "table" then
+                for pid, e in pairs(idx) do
+                    if type(e) == "table" and e.pid == pid and type(e.r) == "table" then
+                        local prod = e.r[2]
+                        if type(prod) == "number" and prodRecipeCache[prod] == nil then
+                            prodRecipeCache[prod] = e.r
+                        end
+                    end
+                end
+            end
+        end
+        return prodRecipeCache[id]
+    end
+
+    function PD.WritTipLines(id)
+        local w = PD.WritOf(id)
+        if not w then return nil end
+        local qty = w.qty or 1
+        local unit = RA.AHPriceOf and RA.AHPriceOf(w.target) or nil
+        local buyAll = unit and (unit * qty) or nil
+        local craftCost
+        local ci = CraftAllMap()[w.target]
+        local rec = ci and ci.rec or nil
+        if not rec then rec = ProductRecipe(w.target) end
+        if rec then
+            local sum, all = 0, true
+            for _, m in ipairs(rec[12] or {}) do
+                local p = RA.AHPriceOf and RA.AHPriceOf(m[1]) or nil
+                if p then sum = sum + p * (m[2] or 1) else all = false end
+            end
+            if all then
+                craftCost = math.floor(sum * math.ceil(qty / (rec[3] or 1)) + 0.5)
+            end
+        end
+        if not buyAll and not craftCost then return nil end
+        local labBuy = L["交付物品拍卖行价格"]
+        local labCraft = L["制造交付物品价格"]
+        if qty > 1 then
+            local tag = " ×" .. tostring(qty)
+            labBuy = labBuy .. tag
+            labCraft = labCraft .. tag
+        end
+        local rows = {}
+        rows[#rows + 1] = { labBuy, C_TEXT[1], C_TEXT[2], C_TEXT[3], nil, nil,
+                            buyAll and RA.MoneyStrTip(buyAll) or "—", 1, 1, 1 }
+        rows[#rows + 1] = { labCraft, C_GOLD[1], C_GOLD[2], C_GOLD[3], nil, nil,
+                            craftCost and RA.MoneyStrTip(craftCost) or "—", 1, 1, 1 }
+        return rows
+    end
 end

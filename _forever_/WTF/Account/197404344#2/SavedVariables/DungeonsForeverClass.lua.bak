@@ -43,10 +43,10 @@ nil,
 },
 ["tier"] = {
 ["tab"] = "dps",
-["sec"] = "changes",
-["spec"] = "enh",
-["mode"] = "talents",
 ["nav"] = "spec",
+["mode"] = "talents",
+["spec"] = "enh",
+["sec"] = "changes",
 ["cls"] = "SHAMAN",
 },
 }

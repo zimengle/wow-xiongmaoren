@@ -1,8 +1,15 @@
-# QuestieDB 1.0.14
+# QuestieDB 1.1.1
+
+### Quest fixes
+
+- [Forever] Update quest XP data ([BreakBB](https://github.com/Questie/QuestieDB/commit/91b9be6f5bf4713014f429141ec4782cfed22c5d))
 
 ### Database fixes
 
-- Adjusted races for the Stalk With The Earthmother quests ([Cabro](https://github.com/Questie/QuestieDB/commit/75767209af8187e76506127d0263a613db4efacf))
-- Adjusted the Battlemasters for Forever ([Cabro](https://github.com/Questie/QuestieDB/commit/779ac16bd3e1f9aaf057ca562cc198ea54ee8a9e))
+- [Forever] Update quests, NPCs, objects and items data ([BreakBB](https://github.com/Questie/QuestieDB/commit/4f10e7e24b18aba6f3b6c2530ea1d996e8191a20))
 
-[All changes since v1.0.13](https://github.com/Questie/QuestieDB/compare/v1.0.13..e19dfdf8528334ea63da0ecc4e291c134c0fc266)
+### Localization fixes
+
+- [Forever] Update all translations ([BreakBB](https://github.com/Questie/QuestieDB/commit/bd1336b4d50844bc053860c2fa8ee636286bc00a))
+
+[All changes since v1.1.0](https://github.com/Questie/QuestieDB/compare/v1.1.0..4dbb82440a27856f8dccf57094a5d792cdc7cc9b)

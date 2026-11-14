@@ -42,6 +42,7 @@ local hovered = false
 local lastFood, lastRested = false, false
 local openedAt = 0
 local hideToken = 0
+local closePending = false
 local lastN = -1
 local pulseFrame, pulseT = nil, 0
 
@@ -66,6 +67,8 @@ local function Now()
 end
 
 local vBootHold = Now() + 30
+local VOICE_CD = 300
+local vLast = {}
 
 local function VoiceDrain()
     if #vq == 0 then return end
@@ -91,6 +94,7 @@ local function VoiceDrain()
     end
     local ok, _, h = pcall(PlaySoundFile, it.path, "Master")
     vHandle = (ok and h) or nil
+    vLast[it.path] = Now()
     local f = string.match(it.path, "([^\\]+)$") or ""
     vUntil = Now() + (VOICE_SEC[f] or 1.5) + 0.05
     if #vq > 0 then VoiceDrain() end
@@ -104,6 +108,8 @@ function O.SayVoice(path, urgent)
         vq = {}
     else
         if Cfg().voice ~= true then return end
+        local last = vLast[path]
+        if last and Now() - last < VOICE_CD then return end
         for i = 1, #vq do
             if vq[i].path == path then return end
         end
@@ -206,7 +212,15 @@ function O.ArmGhost()
 end
 
 local function Close()
-    if not panel or not panel:IsShown() then return end
+    if not panel or not panel:IsShown() then
+        closePending = false
+        return
+    end
+    if InCombatLockdown and InCombatLockdown() then
+        closePending = true
+        return
+    end
+    closePending = false
     if FoodMenuClose then FoodMenuClose() end
     hideToken = hideToken + 1
     StartTween(0.12, function(e)
@@ -215,6 +229,17 @@ local function Close()
         panel:Hide()
         panel:SetAlpha(1)
     end)
+end
+
+local function FlushClose()
+    if not closePending then return end
+    if InCombatLockdown and InCombatLockdown() then
+        if type(C_Timer) == "table" and type(C_Timer.After) == "function" then
+            C_Timer.After(0.2, FlushClose)
+        end
+        return
+    end
+    Close()
 end
 
 local function StartHideTimer(keep)
@@ -468,23 +493,47 @@ local function MarkOnMap(it)
         if ok then return true end
     end
     local mapID = it.mapID or (current and current.ctx and current.ctx.mapID)
-    if mapID and it.x and it.y and UiMapPoint and UiMapPoint.CreateFromCoordinates
-       and C_Map and C_Map.SetUserWaypoint then
-        local ok, pt = pcall(UiMapPoint.CreateFromCoordinates, mapID, it.x / 100, it.y / 100)
-        if ok and pt then
-            pcall(C_Map.SetUserWaypoint, pt)
-            if C_SuperTrack and C_SuperTrack.SetSuperTrackedUserWaypoint then
-                pcall(C_SuperTrack.SetSuperTrackedUserWaypoint, false)
-            end
-            if C_Map.OpenWorldMap then pcall(C_Map.OpenWorldMap, mapID) end
-            return true
+    if mapID and it.x and it.y and C_Map and C_Map.SetUserWaypoint and _G.CreateVector2D then
+        local pt = { uiMapID = mapID, position = _G.CreateVector2D(it.x / 100, it.y / 100) }
+        pcall(C_Map.SetUserWaypoint, pt)
+        if C_SuperTrack and C_SuperTrack.SetSuperTrackedUserWaypoint then
+            pcall(C_SuperTrack.SetSuperTrackedUserWaypoint, false)
         end
+        if C_Map.OpenWorldMap then pcall(C_Map.OpenWorldMap, mapID) end
+        return true
     end
     if it.qid and ns.MapUI and ns.MapUI.GotoQuest then
         pcall(ns.MapUI.GotoQuest, it.qid, false)
         return true
     end
     return false
+end
+
+local function TalentClick(r)
+    if r.talentClick or InCombatLockdown() then return r.talentClick end
+    local click = CreateFrame("Button", nil, r, "SecureActionButtonTemplate,SecureHandlerStateTemplate")
+    click:SetPoint("TOPLEFT", r, "TOPLEFT", 0, 0)
+    click:SetPoint("BOTTOMRIGHT", r, "BOTTOMRIGHT", -34, 0)
+    click:SetFrameLevel(r:GetFrameLevel() + 4)
+    click:SetAttribute("type", "click")
+    click:SetAttribute("clickbutton", _G.TalentMicroButton)
+    click:SetAttribute("useOnKeyDown", false)
+    click:RegisterForClicks("AnyUp", "AnyDown")
+    click:SetScript("OnEnter", function() local f = r:GetScript("OnEnter"); if f then f(r) end end)
+    click:SetScript("OnLeave", function() local f = r:GetScript("OnLeave"); if f then f(r) end end)
+    if RegisterStateDriver then
+        RegisterStateDriver(click, "combatlock", "[combat] combat; nocombat")
+        click:SetAttribute("_onstate-combatlock", [[
+            if newstate == 'combat' then
+                self:SetAttribute('type', nil)
+            else
+                self:SetAttribute('type', 'click')
+            end
+        ]])
+    end
+    click:Hide()
+    r.talentClick = click
+    return click
 end
 
 local function MakeRow(i)
@@ -514,7 +563,7 @@ local function MakeRow(i)
     r.sub:SetPoint("TOPLEFT", r, "TOPLEFT", 48, -26)
     r.sub:SetTextColor(DIM[1], DIM[2], DIM[3])
     r.sub:SetWidth(PANEL_W - PAD * 2 - 82)
-    r.sub:SetWordWrap(false)
+    r.sub:SetWordWrap(true)
     r.sub:SetJustifyH("LEFT")
     r.btn = CreateFrame("Button", nil, r)
     r.btn:SetSize(24, 24)
@@ -564,9 +613,11 @@ local function MakeRow(i)
             if r.idesc and r.idesc ~= "" then
                 desc = (sub ~= "" and (sub .. " · " .. r.idesc)) or r.idesc
             end
-            ItemTip(r, r.iid, r.ilabel, desc, L["点击在地图标出位置"])
+            ItemTip(r, r.iid, r.ilabel, desc, r.jumpTip or L["点击在地图标出位置"])
         elseif r.ikind == "quest" then
             Tip(r, r.ilabel, r.idesc or sub, L["左键在地图上定位，右键查看任务详情"])
+        elseif r.ikind == "talent" then
+            Tip(r, r.ilabel, r.idesc or sub, r.jumpTip or L["点击打开天赋界面"])
         else
             SpellTip(r, r.itipid or r.iid, r.ilabel, sub)
         end
@@ -576,6 +627,9 @@ local function MakeRow(i)
         r.name:SetTextColor(TEXT[1], TEXT[2], TEXT[3])
         HideTip()
     end)
+    if not InCombatLockdown() then
+        TalentClick(r)
+    end
     subRows[i] = r
     return r
 end
@@ -820,13 +874,26 @@ local function Layout(res)
     local textLeft = iconSz + 16
     local textW = PANEL_W - PAD * 2 - textLeft - 36
 
+    local function SubExtraH(s)
+        local t = s and s.sub
+        if type(t) ~= "string" then return 0 end
+        local nl = 0
+        for _ in t:gmatch("\n") do nl = nl + 1 end
+        return nl * 16
+    end
+
     local function HeightFor(cap)
         local h = 0
         for i = 1, n do
             local c = want[i]
             if c and c > 0 then
                 local shown = c > cap and cap or c
-                h = h + HEAD_H + 2 + shown * (rowH + ROW_GAP)
+                local ex = 0
+                local sl = list[i].list
+                if sl then
+                    for k = 1, math.min(shown, #sl) do ex = ex + SubExtraH(sl[k]) end
+                end
+                h = h + HEAD_H + 2 + shown * (rowH + ROW_GAP) + ex
                 if c > shown then h = h + 18 end
             else
                 local cardH = CARD_H
@@ -896,6 +963,9 @@ local function Layout(res)
                 r.sub:SetWidth(textW)
                 r.name:SetText(s.name or "")
                 r.sub:SetText(s.sub or SubText(s))
+                local subH = r.sub:GetStringHeight() or 16
+                local rowHi = rowH
+                if 26 + subH + 4 > rowHi then rowHi = 26 + subH + 4 end
                 local nameW = TextW(r.name, 14)
                 if nameW > textW - 30 then nameW = textW - 30 end
                 local tailX = textLeft + nameW
@@ -933,7 +1003,11 @@ local function Layout(res)
                             r.badge:SetWidth(bw)
                         end
                         r.badge:ClearAllPoints()
-                        r.badge:SetPoint("TOPLEFT", r.sub, "TOPLEFT", TextW(r.sub, 12) + 6, -1)
+                        if s.note then
+                            r.badge:SetPoint("TOPLEFT", r.note, "TOPRIGHT", 6, -1)
+                        else
+                            r.badge:SetPoint("TOPLEFT", r.name, "TOPLEFT", nameW + 6, -1)
+                        end
                         r.badge:Show()
                     elseif r.badge then
                         r.badge:Hide()
@@ -967,6 +1041,15 @@ local function Layout(res)
                 r.slug = s.slug
                 r.idesc = s.desc
                 r.ilabel = s.name
+                r.jumpTip = s.jumpTip
+                if not r.talentClick then TalentClick(r) end
+                if r.talentClick then
+                    local yes = (r.ikind == "talent") and _G.TalentMicroButton ~= nil
+                    if not InCombatLockdown() then
+                        r.talentClick:SetShown(yes)
+                        r.talentClick:EnableMouse(yes)
+                    end
+                end
                 if s.jump then
                     r.jump = s.jump
                 elseif s.areaID or s.qid or (s.mapID and s.x and s.y) then
@@ -977,10 +1060,10 @@ local function Layout(res)
                 r:ClearAllPoints()
                 r:SetPoint("TOPLEFT", panel, "TOPLEFT", PAD, y)
                 r:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -PAD, y)
-                r:SetHeight(rowH)
+                r:SetHeight(rowHi)
                 r:Show()
-                contentBottom = y - rowH
-                y = y - (rowH + ROW_GAP)
+                contentBottom = y - rowHi
+                y = y - (rowHi + ROW_GAP)
             end
             if #subs > shown and moreText then
                 moreText:SetText(string.format(L["还有 %d 个，打开手册查看"], #subs - shown))
@@ -1452,7 +1535,12 @@ function O.Init()
     ct:SetSize(32, 32)
     ct:SetPoint("CENTER", closeBtn, "CENTER", 0, 0.4)
     ct:SetVertexColor(GLYPH, GLYPH, GLYPH)
-    closeBtn:SetScript("OnClick", function() Close() end)
+    closeBtn:SetScript("OnClick", function()
+        if InCombatLockdown and InCombatLockdown() then
+            print("|cff46bf72[无限副本手册]|r " .. L["战斗中无法关闭，脱战后自动收起"])
+        end
+        Close()
+    end)
     closeBtn:SetScript("OnEnter", function()
         ct:SetVertexColor(1, 1, 1)
         Tip(closeBtn, L["关闭"], L["收起抽屉，角标继续显示待办数"], nil)
@@ -1542,7 +1630,7 @@ function O.Init()
 
     InitVoiceBtn()
     opts = CreateFrame("Frame", nil, panel, "BackdropTemplate")
-    opts:SetSize(184, 422)
+    opts:SetSize(184, 488)
     opts:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -8, -40)
     opts:SetFrameLevel(panel:GetFrameLevel() + 8)
     if ns.hui and ns.hui.SkinPopup and ns.hui.layer then
@@ -1648,23 +1736,25 @@ function O.Init()
     OptRow(-98, L["探索-火炬提醒"], "torch", L["本图有守夜人火炬可拾取时提示"])
     OptRow(-120, L["探索-旗帜提醒"], "banner", L["进入血色修道院副本后，有未拾取的血色旗帜时提示"])
     OptRow(-142, L["副本-任务提醒"], "quest", L["本图有可接的副本任务时提示"])
-    OptRow(-164, L["职业-技能提醒"], "spell", L["主城有训练师且技能可学时提示"])
-    OptRow(-186, L["增益-食物提醒"], "food", L["没吃食物、缺少经验加成时提示"], "foodVoice")
-    OptRow(-208, L["增益-睡袋提醒"], "rested", L["背包有睡袋且未休息或 buff 快到期时提示"], "restedVoice")
-    OptRow(-230, L["增益-露营提醒"], "camp", L["在营火旁且没有强化休息时提示"])
-    OptRow(-252, L["增益-到期提醒"], "renew", L["强化休息快到期时提示回营地续一次"])
-    OptRow(-274, L["增益-蹭帐篷卡片"], "tent", L["找到营地玩家且自己还没有强化休息时，在待办里弹出卡片"])
-    OptRow(-296, L["有帐篷时不提示"], "tentOwn", L["自己已有帐篷时，不再在待办里弹出蹭帐篷卡片"])
+    OptRow(-164, L["副本-必备物品提醒"], "keyitem", L["在副本里且背包没有该副本要用的物品时提示"])
+    OptRow(-186, L["职业-技能提醒"], "spell", L["主城有训练师且技能可学时提示"])
+    OptRow(-208, L["职业-天赋提醒"], "talent", L["有未分配的天赋点时提示，点击可直接打开天赋界面"])
+    OptRow(-230, L["增益-食物提醒"], "food", L["没吃食物、缺少经验加成时提示"], "foodVoice")
+    OptRow(-252, L["增益-睡袋提醒"], "rested", L["背包有睡袋且未休息或 buff 快到期时提示"], "restedVoice")
+    OptRow(-274, L["增益-露营提醒"], "camp", L["在营火旁且没有强化休息时提示"])
+    OptRow(-296, L["增益-到期提醒"], "renew", L["强化休息快到期时提示回营地续一次"])
+    OptRow(-318, L["增益-蹭帐篷卡片"], "tent", L["找到营地玩家且自己还没有强化休息时，在待办里弹出卡片"])
+    OptRow(-340, L["有帐篷时不提示"], "tentOwn", L["自己已有帐篷时，不再在待办里弹出蹭帐篷卡片"])
 
     local ttLabel = opts:CreateFontString(nil, "OVERLAY")
     ttLabel:SetFont(ns.FONT, 14, "")
-    ttLabel:SetPoint("TOPLEFT", opts, "TOPLEFT", 10, -322)
+    ttLabel:SetPoint("TOPLEFT", opts, "TOPLEFT", 10, -366)
     ttLabel:SetText(L["蹭帐篷密语"])
     ttLabel:SetTextColor(TEXT[1], TEXT[2], TEXT[3])
 
     local ttBtn = CreateFrame("Button", nil, opts, "BackdropTemplate")
     ttBtn:SetSize(56, 20)
-    ttBtn:SetPoint("TOPRIGHT", opts, "TOPRIGHT", -8, -319)
+    ttBtn:SetPoint("TOPRIGHT", opts, "TOPRIGHT", -8, -363)
     if ns.hui and ns.hui.BuildRoundedBG and ns.hui.layer then
         ns.hui.BuildRoundedBG(ttBtn, 6, ns.hui.layer.L2, "both", true, 1)
     end
@@ -1721,23 +1811,24 @@ function O.Init()
 
     local oph2 = opts:CreateFontString(nil, "OVERLAY")
     oph2:SetFont(ns.FONT, 14, "")
-    oph2:SetPoint("TOPLEFT", opts, "TOPLEFT", 10, -346)
+    oph2:SetPoint("TOPLEFT", opts, "TOPLEFT", 10, -390)
     oph2:SetText(L["窗口设置"])
     oph2:SetTextColor(FAINT[1], FAINT[2], FAINT[3])
 
-    OptRow(-366, L["仅有待办时显示"], "onlyTodo", L["没有待办时隐藏圆形按钮"])
+    OptRow(-410, L["仅有待办时显示"], "onlyTodo", L["没有待办时隐藏圆形按钮"])
+    OptRow(-432, L["进新场景不弹窗"], "noZonePopup", L["进入新的场景时不再自动弹出待办窗口，可点击圆球查看"])
 
     local SIZES = { 24, 28, 32, 36, 40 }
 
     local szLabel = opts:CreateFontString(nil, "OVERLAY")
     szLabel:SetFont(ns.FONT, 14, "")
-    szLabel:SetPoint("TOPLEFT", opts, "TOPLEFT", 10, -394)
+    szLabel:SetPoint("TOPLEFT", opts, "TOPLEFT", 10, -460)
     szLabel:SetText(L["待办图标大小"])
     szLabel:SetTextColor(TEXT[1], TEXT[2], TEXT[3])
 
     local szBtn = CreateFrame("Button", nil, opts, "BackdropTemplate")
     szBtn:SetSize(36, 20)
-    szBtn:SetPoint("TOPRIGHT", opts, "TOPRIGHT", -8, -389)
+    szBtn:SetPoint("TOPRIGHT", opts, "TOPRIGHT", -8, -455)
     if ns.hui and ns.hui.BuildRoundedBG and ns.hui.layer then
         ns.hui.BuildRoundedBG(szBtn, 6, ns.hui.layer.L2, "both", true, 1)
     end
@@ -1775,6 +1866,7 @@ function O.Init()
 
     gear:SetScript("OnClick", function()
         ns.PlaySound(1)
+        if InCombatLockdown and InCombatLockdown() then return end
         if opts:IsShown() then
             opts:Hide()
             if current then O.Update(current) end
@@ -2121,10 +2213,23 @@ regenWatch:RegisterEvent("PLAYER_REGEN_DISABLED")
 regenWatch:SetScript("OnEvent", function(_, event)
     if event == "PLAYER_REGEN_DISABLED" then
         if cbPanel and cbPanel:IsShown() then cbPanel:Hide() end
-        if panel and panel:IsShown() then Close() end
         if orbMenu and orbMenu:IsShown() then orbMenu:Hide() end
+        if FoodMenuClose then FoodMenuClose() end
+        if panel and panel:IsShown() then
+            if InCombatLockdown and InCombatLockdown() then
+                closePending = true
+            else
+                hideToken = hideToken + 1
+                panel:SetAlpha(1)
+                panel:Hide()
+            end
+        end
         return
     end
     if cbPanel and cbPanel:IsShown() then cbPanel:Hide() end
-    if panel and panel:IsShown() and current then Layout(current) end
+    if closePending then
+        FlushClose()
+    elseif panel and panel:IsShown() and current then
+        Layout(current)
+    end
 end)

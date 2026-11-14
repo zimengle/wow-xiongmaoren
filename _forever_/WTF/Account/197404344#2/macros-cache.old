@@ -1,11 +1,5 @@
 VER 3 0000000000000001 "RXPTargeting" "Ability_eyeoftheowl"
-/targetexact Scorpok Stinger
-/targetexact Snickerfang Hyena
-/targetexact Starving Snickerfang
-/targetexact Bone Picker
-/targetexact Black Slayer
-/targetexact Redstone Crystalhide
-/targetexact Redstone Basilisk
+/targetexact Maethrya
 /tm !7
 /targetlasttarget [dead]
 END

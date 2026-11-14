@@ -29,7 +29,7 @@ end
 
 function Spy:WatchList()
 	SpyDB.watchData = SpyDB.watchData or {}
-	local realm = tostring(Spy.RealmName or "?")
+	local realm = tostring(Spy.StoreRealm or Spy.RealmName or "?")
 	local faction = tostring(Spy.FactionName or "?")
 	SpyDB.watchData[realm] = SpyDB.watchData[realm] or {}
 	SpyDB.watchData[realm][faction] = SpyDB.watchData[realm][faction] or {}

@@ -36,6 +36,19 @@ DATASETS[H.EXP_FOREVER] = {
         Entry({ key = "forever_item_213550", name = "变形术卷轴：怪异甜瓜", kind = "scroll", itemID = 213550, requiredLevel = 16 }),
         Entry({ key = "forever_item_277483", name = "青蛙魔宠卷轴", kind = "scroll", itemID = 277483, requiredLevel = 16 }),
         Entry({ key = "forever_item_217495", name = "霜爆术卷轴", kind = "scroll", itemID = 217495, requiredLevel = 16 }),
+        -- Owner inbox 902 item tooltips (2026-11-11); pets/weapon enchants are not player auras.
+        Entry({ key = "forever_item_277493", name = "猫魔宠卷轴", kind = "scroll", itemID = 277493, requiredLevel = 25 }),
+        Entry({ key = "forever_item_277497", name = "烈焰注入卷轴", kind = "scroll", itemID = 277497, requiredLevel = 25 }),
+        Entry({ key = "forever_item_277496", name = "灾厄冰霜注入卷轴", kind = "scroll", itemID = 277496, requiredLevel = 25 }),
+        Entry({ key = "forever_item_277494", name = "精准注入卷轴", kind = "scroll", itemID = 277494, requiredLevel = 25 }),
+        Entry({ key = "forever_item_277492", name = "卡德加开锁术卷轴", kind = "scroll", itemID = 277492, requiredLevel = 25 }),
+        Entry({ key = "forever_item_213548", name = "阈限通行卷轴", kind = "scroll", itemID = 213548, requiredLevel = 0 }),
+        Entry({ key = "forever_item_277491", name = "斥责元素卷轴", kind = "scroll", itemID = 277491, requiredLevel = 25 }),
+        -- Owner bag export, Forever 1.60.1.70888 (2026-11-12): staff/wand-speed proc
+        -- and dagger/mana proc weapon infusions, both lasting 1 hour.
+        -- Use spells 1302307/1302308 are not player buff IDs.
+        Entry({ key = "forever_item_277495", name = "加速注入卷轴", kind = "scroll", itemID = 277495, requiredLevel = 25 }),
+        Entry({ key = "forever_item_277498", name = "法力之刃注入卷轴", kind = "scroll", itemID = 277498, requiredLevel = 25 }),
         Entry({ key = "forever_item_12662", name = "恶魔符文", kind = "rune", itemID = 12662, requiredLevel = 0 }),
         Entry({ key = "forever_item_20520", name = "黑暗符文", kind = "rune", itemID = 20520, requiredLevel = 0 }),
         Entry({ key = "era_limited_invulnerability_potion", name = "有限无敌药水", kind = "potion", itemID = 3387, buffID = 3169, color = "ffff00", clickColors = { left = "ffff00", right = "ffff00" } }),
@@ -50,6 +63,8 @@ DATASETS[H.EXP_FOREVER] = {
         Entry({ key = "era_greater_holy_protection_potion", name = "强效神圣防护药水", kind = "potion", itemID = 13460, buffID = 17545, color = "fff0a0", clickColors = { left = "fff0a0", right = "fff0a0" } }),
         Entry({ key = "era_greater_arcane_protection_potion", name = "强效奥术防护药水", kind = "potion", itemID = 13461, buffID = 17549, color = "ff80ff", clickColors = { left = "ff80ff", right = "ff80ff" } }),
         Entry({ key = "era_purification_potion", name = "净化药水", kind = "potion", itemID = 13462, color = "ffffff", clickColors = { left = "ffffff", right = "ffffff" } }),
+        -- Owner in-game tooltip (2026-11-13): restores both health and mana; requires level 35.
+        Entry({ key = "forever_item_274935", name = "泰莎的补药", kind = "potion", itemID = 274935, requiredLevel = 35, color = "80c0ff", clickColors = { left = "80c0ff", right = "80c0ff" } }),
         Entry({ key = "era_major_rejuvenation_potion", name = "特效活力药水", kind = "potion", itemID = 18253, color = "40c0ff", clickColors = { left = "40c0ff", right = "40c0ff" } }),
         Entry({ key = "era_greater_dreamless_sleep_potion", name = "强效昏睡药水", kind = "potion", itemID = 20002, buffID = 24360, color = "8080ff", clickColors = { left = "8080ff", right = "8080ff" } }),
         Entry({ key = "era_major_trolls_blood_potion", name = "特效巨魔之血药水", kind = "elixir", category = "guardian", itemID = 20004, buffID = 24361, color = "ff80a0", clickColors = { left = "ff80a0", right = "ff80a0" } }),
@@ -470,6 +485,7 @@ DATASETS[H.EXP_FOREVER] = {
             -- 其他药水 / rejuvenation
             "era_major_rejuvenation_potion",
             "era_craft_9144",
+            "forever_item_274935",
             "era_craft_2456",
             -- 其他药水 / rage
             "era_greater_rage_potion",
@@ -568,6 +584,15 @@ DATASETS[H.EXP_FOREVER] = {
             "forever_item_213564",
             "forever_item_215257",
             "forever_item_275069",
+            "forever_item_277493",
+            "forever_item_277497",
+            "forever_item_277496",
+            "forever_item_277494",
+            "forever_item_277492",
+            "forever_item_213548",
+            "forever_item_277491",
+            "forever_item_277495",
+            "forever_item_277498",
             "forever_item_954",
             "forever_item_955",
             "forever_item_1180",

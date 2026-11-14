@@ -1,6 +1,9 @@
 VER 3 0100000000000002 "sos" "134400"
 /y 帮我杀一下 求救
 END
+VER 3 0100000000000003 "target" "2446025"
+/target 吉尔克
+END
 VER 3 0100000000000001 "地震" "134400"
 #showtooltip 风暴打击
 /startattack

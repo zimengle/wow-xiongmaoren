@@ -4,7 +4,7 @@ DungeonsForeverProfDB = {
 ["track"] = {
 ["重庆-CN5 Realm 3 PvP"] = {
 ["nextID"] = 0,
-["observerSession"] = 80,
+["observerSession"] = 84,
 ["version"] = 1,
 ["active"] = {
 },
@@ -19,7 +19,7 @@ DungeonsForeverProfDB = {
 },
 ["仓库-CN5 Realm 3 PvP"] = {
 ["nextID"] = 0,
-["observerSession"] = 2,
+["observerSession"] = 4,
 ["version"] = 1,
 ["active"] = {
 },
@@ -99,11 +99,11 @@ DungeonsForeverProfDB = {
 ["autoRoute"] = true,
 ["autoScheme"] = "cheapest",
 },
-["comprehension"] = {
-["autoRoute"] = true,
+["poisons"] = {
 ["autoScheme"] = "cheapest",
 },
-["poisons"] = {
+["comprehension"] = {
+["autoRoute"] = true,
 ["autoScheme"] = "cheapest",
 },
 ["enchanting"] = {
@@ -115,7 +115,7 @@ DungeonsForeverProfDB = {
 ["重庆-CN5 Realm 3 PvP"] = {
 ["learningRequirements"] = {
 },
-["clientInputRevision"] = 1723,
+["clientInputRevision"] = 1725,
 ["recipeRosters"] = {
 },
 ["recipeBuild"] = "1.60.1:70938",

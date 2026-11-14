@@ -24,7 +24,7 @@ function Service:PromptFailure(command, result, afterReload)
         message = "编辑模式导入失败。\n原因：" .. tostring(reason)
             .. "\n请保留此提示，排查后再尝试导入。"
     elseif type(result) == "table" and result.failures then
-        local labels = {rxp="RXP 外观",canvasEdge="Elles 布局贴边",cd="冷却管理器",sensei="常规资源条",at="AT 时间轴",exwind="ExwindTools",exboss="EXBoss"}
+        local labels = {questie="Questie",rxp="RXP 外观",canvasEdge="Elles 布局贴边",cd="冷却管理器",sensei="常规资源条",at="AT 时间轴",exwind="ExwindTools",exboss="EXBoss"}
         local lines = {}
         for name, detail in pairs(result.failures) do
             lines[#lines + 1] = (labels[name] or name) .. "：" .. tostring(detail)
@@ -110,6 +110,7 @@ local ALIASES = {
 }
 
 local OPTIONAL_ADDONS = {
+    questie = "Questie",
     rxp = "RXPGuides",
     sensei = "SenseiClassResourceBar",
     jx = "SenseiClassResourceBar",
@@ -179,6 +180,10 @@ local function ImportEditMode(request)
 end
 
 local function ExecuteOne(command, request)
+    if command == "questie" then
+        if not ns.QuestieImporter then return false, "IMPORTER_UNAVAILABLE" end
+        return ns.QuestieImporter:Import()
+    end
     if command == "em" then return ImportEditMode(request) end
     if command == "blizzard" then
         if not ns.BlizzardSettingsImporter then return false, "IMPORTER_UNAVAILABLE" end
@@ -362,6 +367,9 @@ function Service:IsSupported(command)
     command = self:Normalize(command)
     if not ns.ProductManifest:CheckPreset(command) then return false end
     if command == "all" or command == "em" then return true end
+    if command == "questie" then
+        return type(ns.QuestieImporter) == "table" and type(ns.QuestieImporter.Import) == "function"
+    end
     if command == "rxp" then
         return type(ns.RXPStyleImporter) == "table" and type(ns.RXPStyleImporter.Import) == "function"
     end

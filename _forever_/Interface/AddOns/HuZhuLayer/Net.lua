@@ -6,7 +6,9 @@ function H:InitNet()
       C_ChatInfo.RegisterAddonMessagePrefix(self.PREFIX)
     end
   end)
-  self:InstallChatGuards()
+  if not self:IsForeverClient() then
+    self:InstallChatGuards()
+  end
   pcall(function()
     self:HookLeavePartyForThanks()
   end)
@@ -226,7 +228,33 @@ function H:Whisper(name, text)
   end)
 end
 
+-- 聊天框里的字在新客户端可能是锁住的。一拆就报错，聊天框会卡死，字也会乱。
+function H:SecretLocked(v)
+  if v == nil then
+    return false
+  end
+  local secret = false
+  pcall(function()
+    if issecretvalue and issecretvalue(v) then
+      secret = true
+    end
+  end)
+  if not secret then
+    return false
+  end
+  local access = false
+  pcall(function()
+    if canaccessvalue then
+      access = canaccessvalue(v) and true or false
+    end
+  end)
+  return not access
+end
+
 function H:IsHzlChannelName(name)
+  if self.SecretLocked and self:SecretLocked(name) then
+    return false
+  end
   if issecretvalue and issecretvalue(name) and self.CoerceChatPersonName then
     name = self:CoerceChatPersonName(name)
   elseif name ~= nil and type(name) ~= "string" and self.CoerceChatPersonName then
@@ -248,6 +276,9 @@ end
 
 -- 当前发现频道名（互助切位面；旧大脚带实例后缀时不再当发现主路）
 function H:IsDiscoveryChannelName(name)
+  if self.SecretLocked and self:SecretLocked(name) then
+    return false
+  end
   if name ~= nil and type(name) ~= "string" and self.CoerceChatPersonName then
     name = self:CoerceChatPersonName(name)
   end
@@ -498,6 +529,9 @@ function H:RepairGhostDiscoveryChannel(reason)
 end
 
 function H:RawLeaveChannelByName(name)
+  if self:IsForeverClient() then
+    return
+  end
   if not name then
     return
   end
@@ -863,11 +897,6 @@ function H:DiscoveryOnChatFrame(cf, name)
       )
     )
   end
-  pcall(function()
-    if ChatConfig_UpdateCheckboxes and ChatConfigChannelSettings then
-      ChatConfig_UpdateCheckboxes(ChatConfigChannelSettings)
-    end
-  end)
   return listed or addOk or winOk
 end
 
@@ -1058,98 +1087,86 @@ function H:RunPlayerClick(fn)
   end
 end
 
--- 不再把人按回这个频道。左边的勾、右边的退出都跟 PIG 一样由玩家自己点。
+-- 其他版本：互助频道留在游戏里，但不挂进聊天框，避免把发言目标粘在这个频道上。
+-- 无限服不走这里。
 function H:HideDiscoveryChannel()
+  if self:IsForeverClient() then
+    return
+  end
+  if self:ChatFrameRemoveBlocked() then
+    self:ClearDiscoveryChatSticky()
+    return
+  end
+  local name = self.HZL_CHANNEL or "互助切位面"
+  local i = 1
+  while _G["ChatFrame" .. i] do
+    local cf = _G["ChatFrame" .. i]
+    pcall(function()
+      if ChatFrame_RemoveChannel then
+        ChatFrame_RemoveChannel(cf, name)
+      end
+    end)
+    i = i + 1
+  end
+  if DEFAULT_CHAT_FRAME then
+    pcall(function()
+      if ChatFrame_RemoveChannel then
+        ChatFrame_RemoveChannel(DEFAULT_CHAT_FRAME, name)
+      end
+    end)
+  end
+  self:ClearDiscoveryChatSticky()
 end
 
--- 发现频默认不可见：禁止再挂进聊天框（留空实现，避免误 Show）。
 function H:ShowDiscoveryChannel()
+  if self:IsForeverClient() then
+    return
+  end
   self:HideDiscoveryChannel()
 end
 
 function H:JoinDiscoveryChannelRaw()
   if self:IsForeverClient() then return end
-  local name = (self.GetDiscoveryChannelName and self:GetDiscoveryChannelName()) or (self.HZL_CHANNEL or "互助切位面")
-  -- 暴雪 ChatFrame_AddChannel 只认已加入的频道。
-  -- 无限：永久加入多次交还「种类0名字空」且易僵尸；与大脚同路，优先临时加入。
-  local function noteJoin(how, kind, returned)
-    if not H.Trace then
-      return
-    end
-    local nameText = "空"
-    if type(returned) == "string" and returned ~= "" then
-      nameText = returned
-    end
-    H:Trace(string.format(
-      "加入交还 %s 种类%s 名字%s",
-      how,
-      kind == nil and "空" or tostring(kind),
-      nameText
-    ))
-  end
-  local function joinReturnedOk(returned)
-    return type(returned) == "string" and returned ~= ""
-  end
+  local name = self.HZL_CHANNEL or "互助切位面"
   pcall(function()
-    local frameId = 1
-    if DEFAULT_CHAT_FRAME and DEFAULT_CHAT_FRAME.GetID then
-      frameId = DEFAULT_CHAT_FRAME:GetID() or 1
+    if JoinPermanentChannel then
+      JoinPermanentChannel(name)
     end
-    local forever = H.IsForeverClient and H:IsForeverClient()
-    if forever then
-      local ok = false
-      if JoinPermanentChannel then
-        local kind, returned = JoinPermanentChannel(name, nil, frameId)
-        noteJoin("永久加入", kind, returned)
-        ok = joinReturnedOk(returned)
-      end
-      if not ok and JoinChannelByName then
-        local kind, returned = JoinChannelByName(name, nil, frameId)
-        noteJoin("按名加入", kind, returned)
-        ok = joinReturnedOk(returned)
-      end
-      if not ok and JoinTemporaryChannel then
-        local kind, returned = JoinTemporaryChannel(name, nil, frameId)
-        noteJoin("临时加入", kind, returned)
-      end
-      if not ok then
-        local after = H:FindDiscoveryChannel()
-        if type(after) == "number" and after > 0 then
-          noteJoin("加入后查到", after, name)
-        end
-      end
-    else
-      local ok = false
-      if JoinPermanentChannel then
-        local kind, returned = JoinPermanentChannel(name, nil, frameId)
-        noteJoin("永久加入", kind, returned)
-        ok = joinReturnedOk(returned)
-      end
-      if not ok then
-        if JoinTemporaryChannel then
-          local kind, returned = JoinTemporaryChannel(name, nil, frameId)
-          noteJoin("临时加入", kind, returned)
-        elseif JoinChannelByName then
-          local kind, returned = JoinChannelByName(name, nil, frameId)
-          noteJoin("按名加入", kind, returned)
-        end
+    if not H:GetDiscoveryChannelId() then
+      if JoinTemporaryChannel then
+        JoinTemporaryChannel(name)
+      elseif JoinChannelByName then
+        JoinChannelByName(name)
       end
     end
+    H:HideDiscoveryChannel()
+    H:ClearDiscoveryChatSticky()
   end)
-  if self.ShowsDiscoveryChannel and self:ShowsDiscoveryChannel() then
-    self:ShowDiscoveryChannel()
-  elseif self:ChatFrameRemoveBlocked() then
-    self:EnsureDiscoveryChannelOnChatFrame()
-  else
-    self:HideDiscoveryChannel()
-  end
-  self:ClearDiscoveryChatSticky()
 end
 
--- 不再加入互助切位面。登录时从聊天框拿掉，并尝试退出。
-function H:DropDiscoveryChannel()
+-- 不再加入互助切位面。登录时尝试退出。
+-- leaveOnly：只退频道，不去摘聊天窗。摘窗会再次触发窗口刷新，点「综合 / 战斗记录」时聊天框会卡死。
+function H:DropDiscoveryChannel(leaveOnly)
   local name = (self.GetDiscoveryChannelName and self:GetDiscoveryChannelName()) or (self.HZL_CHANNEL or "互助切位面")
   local before = self.GetDiscoveryChannelId and self:GetDiscoveryChannelId()
+  if leaveOnly then
+    pcall(function()
+      if before and LeaveChannelByLocalID then
+        LeaveChannelByLocalID(before)
+      end
+      if self._origCLeaveByName then
+        self._origCLeaveByName(name)
+      elseif C_ChatInfo and C_ChatInfo.LeaveChannelByName then
+        C_ChatInfo.LeaveChannelByName(name)
+      end
+      if self._origLeaveChannelByName then
+        self._origLeaveChannelByName(name)
+      elseif LeaveChannelByName then
+        LeaveChannelByName(name)
+      end
+    end)
+    return
+  end
   local i = 1
   while _G["ChatFrame" .. i] do
     local cf = _G["ChatFrame" .. i]
@@ -1188,24 +1205,37 @@ function H:DropDiscoveryChannel()
 end
 
 function H:EnsureDiscoveryChannel()
-  self:InstallChatGuards()
-  self:LeaveLegacyDiscoveryChannel()
   if self:IsForeverClient() then
-    self:DropDiscoveryChannel()
     return
   end
-  if not (self.db and self.db._hzlPlain) then
-    self:RejoinDiscoveryPlain()
-    self:ArmPlainRejoinClick()
-  elseif not self:GetDiscoveryChannelId() then
+  self:InstallChatGuards()
+  self:LeaveLegacyDiscoveryChannel()
+  if not self:GetDiscoveryChannelId() then
     self:JoinDiscoveryChannelRaw()
   end
+  self:HideDiscoveryChannel()
+  if not self._hzlHideBurst then
+    self._hzlHideBurst = true
+    C_Timer.After(0.8, function()
+      pcall(function()
+        H:HideDiscoveryChannel()
+      end)
+    end)
+    C_Timer.After(2.5, function()
+      pcall(function()
+        H:HideDiscoveryChannel()
+        H._hzlHideBurst = false
+      end)
+    end)
+  end
   self:StartDiscoveryChannelWatch()
-  self:NoteDiscoveryChannel()
 end
 
 -- 不再每 20 秒把人拉回频道。退出和取消勾选要留得住。
 function H:StartDiscoveryChannelWatch()
+  if self:IsForeverClient() then
+    return
+  end
   if self._hzlChannelWatch then
     return
   end
@@ -1214,7 +1244,10 @@ function H:StartDiscoveryChannelWatch()
       return
     end
     pcall(function()
-      H:NoteDiscoveryChannel()
+      if not H:GetDiscoveryChannelId() then
+        H:JoinDiscoveryChannelRaw()
+      end
+      H:HideDiscoveryChannel()
     end)
   end)
 end
@@ -1255,8 +1288,17 @@ function H:OnDiscoveryChannelNotice(noticeType, channelName, channelBaseName, ch
     if self.MarkDiscoveryChannelLive then
       self:MarkDiscoveryChannelLive(t)
     end
+    self:HideDiscoveryChannel()
   elseif t == "YOU_LEFT" or t == "SUSPENDED" then
     self._hzlLiveThisSession = false
+    if not self:IsForeverClient() then
+      C_Timer.After(0.15, function()
+        pcall(function()
+          H:JoinDiscoveryChannelRaw()
+          H:HideDiscoveryChannel()
+        end)
+      end)
+    end
   end
 end
 
@@ -1381,6 +1423,9 @@ end
 -- 这个客户端的聊天框画每一行时，除了字，还带着事件名和原始参数（谁说的、哪个频道）。
 -- 聊天插件自己靠这个显示。不要只拆画出来的句子。
 function H:OnChatFrameAddMessage(msg, event, eventArgs)
+  if self.SecretLocked and self:SecretLocked(msg) then
+    return
+  end
   if event == "CHAT_MSG_CHANNEL" and type(eventArgs) == "table" and self.HandleDiscoveryChannelChat then
     local function grab(i)
       local v = eventArgs[i]
@@ -1417,7 +1462,10 @@ end
 -- 你眼睛能看见的字，都在聊天框的记录里。插件自己的频道事件会漏，记录不会漏。
 function H:ScanVisibleChannelLines()
   local function one(cf)
-    if not cf or type(cf.GetNumMessages) ~= "function" or type(cf.GetMessageInfo) ~= "function" then
+    if not cf or cf.combatLog or cf == _G.ChatFrame2 then
+      return
+    end
+    if type(cf.GetNumMessages) ~= "function" or type(cf.GetMessageInfo) ~= "function" then
       return
     end
     local okN, n = pcall(cf.GetNumMessages, cf)
@@ -1453,48 +1501,14 @@ function H:OnChatEventSpeaker(event, ...)
 end
 
 function H:InstallForeverChatFrameSink()
-  if self._hzlMsgEventHooked or not hooksecurefunc then
-    return
-  end
-  if not (self.IsForeverClient and self:IsForeverClient()) then
-    return
-  end
-  if type(ChatFrame_MessageEventHandler) == "function" then
-    hooksecurefunc("ChatFrame_MessageEventHandler", function(_, event, ...)
-      H:OnChatEventSpeaker(event, ...)
-    end)
-  elseif ChatFrameMixin and type(ChatFrameMixin.OnEvent) == "function" then
-    hooksecurefunc(ChatFrameMixin, "OnEvent", function(_, event, ...)
-      H:OnChatEventSpeaker(event, ...)
-    end)
-  end
-  self._hzlHookedChatFrames = self._hzlHookedChatFrames or {}
-  local function hookOne(cf)
-    if not cf or type(cf.AddMessage) ~= "function" or self._hzlHookedChatFrames[cf] then
-      return
-    end
-    self._hzlHookedChatFrames[cf] = true
-    hooksecurefunc(cf, "AddMessage", function(_, text, _, _, _, _, _, _, event, eventArgs)
-      pcall(H.OnChatFrameAddMessage, H, text, event, eventArgs)
-    end)
-  end
-  hookOne(DEFAULT_CHAT_FRAME)
-  for i = 1, 10 do
-    hookOne(_G["ChatFrame" .. i])
-  end
-  if not self._hzlScanTicker and C_Timer and C_Timer.NewTicker then
-    self._hzlScanTicker = C_Timer.NewTicker(1, function()
-      pcall(H.ScanVisibleChannelLines, H)
-    end)
-  end
-  pcall(self.ScanVisibleChannelLines, self)
-  self._hzlMsgEventHooked = true
-  if self.Trace then
-    self:Trace("认人：看聊天框里已显示的频道发言")
-  end
+  -- 各版本都不挂聊天框。点综合、战斗记录时拆每一行会卡死，锁住的字会乱码。
+  return
 end
 
 function H:InstallChatGuards()
+  if self:IsForeverClient() then
+    return
+  end
   if self._chatGuards then
     self:InstallPlayerNotFoundHide()
     if self.InstallForeverChatFrameSink then
@@ -1535,6 +1549,9 @@ function H:InstallChatGuards()
   end
 
   local function hideHzlNotice(_, _, msg, ...)
+    if H.SecretLocked and H:SecretLocked(msg) then
+      return false
+    end
     if type(msg) == "string" and H:IsHzlChannelName(msg) then
       return true
     end
@@ -1549,6 +1566,9 @@ function H:InstallChatGuards()
 
   -- filter 参数同 CHAT_MSG_CHANNEL。无限上事件口可能漏，过滤口仍能见到字——这里也记人。
   local function hideHzlChannelMsg(_, _, text, playerName, _lang, channelName, playerName2, _flags, _zone, channelIndex, channelBaseName, ...)
+    if H.SecretLocked and (H:SecretLocked(text) or H:SecretLocked(channelName) or H:SecretLocked(channelBaseName)) then
+      return false
+    end
     local discId = H.GetDiscoveryChannelId and H:GetDiscoveryChannelId()
     local idx = tonumber(channelIndex)
     local ours = H:IsHzlChannelName(channelName) or H:IsHzlChannelName(channelBaseName)
@@ -1576,6 +1596,9 @@ function H:InstallChatGuards()
   end
 
   local function hidePlayerNotFound(_, _, text)
+    if H.SecretLocked and H:SecretLocked(text) then
+      return false
+    end
     local hide = false
     pcall(function()
       hide = H:ShouldHidePlayerNotFound(text) and true or false
@@ -1584,8 +1607,9 @@ function H:InstallChatGuards()
   end
 
   -- 暴雪 ChatFrame_MessageEventHandler：过滤只决定本聊天框画不画，不挡插件 RegisterEvent。
-  -- 有 issecretvalue 的客户端也挂过滤；锁字在 Handle 里按值判断，禁止整段不挂。
-  if ChatFrame_AddMessageEventFilter then
+  -- 有锁字的客户端一挂过滤，点综合、战斗记录会把聊天框弄脏：卡住、鼠标乱跳、乱码。
+  -- 这种客户端不挂过滤，收字仍走自己登记的频道事件。没有锁字的怀旧服才挂，只藏协议提示。
+  if ChatFrame_AddMessageEventFilter and not issecretvalue then
     pcall(ChatFrame_AddMessageEventFilter, "CHAT_MSG_SYSTEM", hideHzlNotice)
     pcall(ChatFrame_AddMessageEventFilter, "CHAT_MSG_SYSTEM", hidePlayerNotFound)
     pcall(ChatFrame_AddMessageEventFilter, "CHAT_MSG_CHANNEL_NOTICE", hideHzlNotice)
@@ -1600,84 +1624,7 @@ end
 
 -- 画面中间的黄字、聊天框里的系统字，都是这句。只要是「未找到名为…的在线玩家」就藏。
 function H:InstallPlayerNotFoundHide()
-  local function swallow(text)
-    local hide = false
-    pcall(function()
-      hide = H:ShouldHidePlayerNotFound(text) and true or false
-    end)
-    if hide then
-      return true
-    end
-    local unread = false
-    pcall(function()
-      if issecretvalue and issecretvalue(text) then
-        unread = true
-      elseif type(text) ~= "string" then
-        unread = true
-      end
-    end)
-    return unread and (H._notFoundMuteUntil or 0) > H:WallNow()
-  end
-
-  local frame = UIErrorsFrame
-  if frame and frame.AddMessage and not self._playerNotFoundHide then
-    local orig = frame.AddMessage
-    local ok = pcall(function()
-      frame.AddMessage = function(f, text, ...)
-        if swallow(text) then
-          return
-        end
-        return orig(f, text, ...)
-      end
-    end)
-    if ok then
-      self._playerNotFoundHide = true
-    end
-  end
-  if frame and type(frame.OnEvent) == "function" and not self._notFoundOnEventWrapped then
-    local origEvent = frame.OnEvent
-    local ok = pcall(function()
-      frame.OnEvent = function(f, event, ...)
-        if event == "UI_ERROR_MESSAGE" or event == "UI_INFO_MESSAGE" then
-          local _, message = ...
-          if swallow(message) then
-            return
-          end
-        end
-        return origEvent(f, event, ...)
-      end
-    end)
-    if ok then
-      self._notFoundOnEventWrapped = true
-    end
-  end
-
-  local function wrapChat(cf)
-    if not cf or type(cf.AddMessage) ~= "function" or self._notFoundChatWrapped and self._notFoundChatWrapped[cf] then
-      return
-    end
-    local orig = cf.AddMessage
-    local ok = pcall(function()
-      cf.AddMessage = function(f, text, ...)
-        local hide = false
-        pcall(function()
-          hide = H:ShouldHidePlayerNotFound(text) and true or false
-        end)
-        if hide then
-          return
-        end
-        return orig(f, text, ...)
-      end
-    end)
-    if ok then
-      self._notFoundChatWrapped = self._notFoundChatWrapped or {}
-      self._notFoundChatWrapped[cf] = true
-    end
-  end
-  wrapChat(DEFAULT_CHAT_FRAME)
-  for i = 1, 10 do
-    wrapChat(_G["ChatFrame" .. i])
-  end
+  return
 end
 
 -- 解析「未找到名为…的在线玩家」；命中密语网目标则藏提示并冷却
@@ -1721,6 +1668,9 @@ function H:NoteMeshWhisperTarget(target)
 end
 
 function H:TextHasPlayerNotFound(text)
+  if self.SecretLocked and self:SecretLocked(text) then
+    return false
+  end
   local ok, hit = pcall(function()
     local s = text
     if type(s) ~= "string" and H.CoerceChatPersonName then
@@ -1875,60 +1825,7 @@ end
 -- 互助频道里谁说话就记下名字（游戏成员表要不到时也靠这条）。
 -- 只记名，不当同伴；密语问到位面 HELLO 后再进列表。
 function H:NoteChannelSpeaker(name)
-  if self.ChatPersonName then
-    name = self:ChatPersonName(name)
-  end
-  if not name then
-    return
-  end
-  local reply = name
-  if self:IsSelfName(reply) then
-    return
-  end
-  local key = self:NormalizeName(reply)
-  if not key then
-    return
-  end
-  self._rosterFromChat = self._rosterFromChat or {}
-  self._rosterFromChatOrder = self._rosterFromChatOrder or {}
-  local isNew = not self._rosterFromChat[key]
-  if isNew then
-    self._rosterFromChatOrder[#self._rosterFromChatOrder + 1] = reply
-    if self.TraceIfChanged then
-      self:TraceIfChanged("chat-name-" .. key, "频道说话记名 " .. self:DiaryBit(reply, 40))
-    end
-  end
-  self._rosterFromChat[key] = reply
-  if self.RememberInstall then
-    self:RememberInstall(key, reply, nil)
-  end
-  -- 已有成员缓存时立刻并进，免得还要等十分钟才问到刚说话的人
-  if self._rosterPlain then
-    local found = false
-    for _, n in ipairs(self._rosterPlain) do
-      if self:NormalizeName(n) == key then
-        found = true
-        break
-      end
-    end
-    if not found then
-      self._rosterPlain[#self._rosterPlain + 1] = reply
-    end
-  else
-    -- 还没读过成员表：先用说话人名撑起花名册，马上就能密语问位面
-    self._rosterPlain = { reply }
-    self._rosterReadAt = self:WallNow()
-  end
-  -- 新人名，或还没位面号：密语问位面，切位面链路才通
-  local peer = self.db and self.db.peers and self.db.peers[key]
-  local needAsk = isNew or not peer or not tonumber(peer.raw) or tonumber(peer.raw) == 0
-  if needAsk and self.AskChannelMembers and C_Timer and C_Timer.After then
-    C_Timer.After(0.25, function()
-      pcall(function()
-        H:AskChannelMembers()
-      end)
-    end)
-  end
+  return
 end
 
 function H:RosterNamesFromChat()
@@ -2006,85 +1903,9 @@ function H:AskOneChannelMember(plain)
   end
 end
 
+-- 花名册密语是无限服试过又停掉的找人办法。没有哪个版本的产品是按名单一个个密语。
 function H:AskChannelMembers()
-  if self:IsForeverClient() then return end
-  -- 发现在互助切位面：成员表 + 说话记名，密语问位面（人少；勿再扫大脚）
-  local id = self:GetDiscoveryChannelId()
-  if not id then
-    if self.TraceIfChanged then
-      self:TraceIfChanged("roster-none", "频道成员 还没进频道")
-    end
-    return
-  end
-  if C_ChatInfo and C_ChatInfo.InChatMessagingLockdown and C_ChatInfo.InChatMessagingLockdown() then
-    if self.TraceIfChanged then
-      self:TraceIfChanged("roster-lock", "频道成员 这会儿不能发")
-    end
-    return
-  end
-  local now = self:WallNow()
-  local cacheGap = self.ROSTER_CACHE_GAP or 600
-  if self._rosterPlain and (now - (self._rosterReadAt or 0) < cacheGap) then
-    -- 缓存期内也并上刚说话的新名字
-    self._rosterPlain = self:MergeRosterNames(self._rosterPlain)
-    self:AskOneChannelMember(self._rosterPlain)
-    return
-  end
-  local read = (C_ChatInfo and C_ChatInfo.GetChannelRosterInfo) or GetChannelRosterInfo
-  local apiPlain, locked, seen = {}, 0, 0
-  if type(read) == "function" then
-    local cap = tonumber(self._rosterCount) or 0
-    if cap <= 0 then
-      cap = 400
-    elseif cap > 800 then
-      cap = 800
-    end
-    for i = 1, cap do
-      local ok, name = pcall(read, id, i)
-      if not ok then
-        if self.TraceIfChanged then
-          self:TraceIfChanged("roster-err", "频道成员 读出错")
-        end
-        break
-      end
-      if name == nil or name == "" then
-        if not self._rosterCount then
-          break
-        end
-      elseif issecretvalue and issecretvalue(name) then
-        locked = locked + 1
-        seen = seen + 1
-      elseif type(name) == "string" then
-        seen = seen + 1
-        if not self:IsSelfName(name) then
-          apiPlain[#apiPlain + 1] = name
-        end
-      end
-    end
-  elseif self.TraceIfChanged then
-    self:TraceIfChanged("roster-api", "频道成员 没有成员接口")
-  end
-  local plain = self:MergeRosterNames(apiPlain)
-  self._rosterPlain = plain
-  self._rosterReadAt = now
-  if #plain == 0 then
-    if locked > 0 then
-      if self.TraceIfChanged then
-        self:TraceIfChanged("roster-secret", "频道成员 名字被锁住")
-      end
-    elseif self.TraceIfChanged then
-      self:TraceIfChanged("roster-empty", "频道成员 要不到")
-    end
-    return
-  end
-  if self.TraceIfChanged then
-    local viaChat = #(self:RosterNamesFromChat())
-    self:TraceIfChanged(
-      "roster-n",
-      string.format("频道成员 表%d 说话%d 可问%d", seen, viaChat, #plain)
-    )
-  end
-  self:AskOneChannelMember(plain)
+  return
 end
 
 -- 密语刷新：只碰「刚还活跃」的同伴；进出战斗的 soft 心跳不走这里
@@ -2530,12 +2351,7 @@ function H:StartCipherLane(key, label, delay)
 end
 
 function H:StartPublicCipherTicker()
-  if self:IsForeverClient() then
-    return
-  end
-  self:StartCipherLane("general", "综合", 8)
-  self:StartCipherLane("lfg", "组队", 11)
-  self:StartCipherLane("bigfoot", "大脚", 14)
+  return
 end
 
 -- 聊天被服务器限流时退避（专用频道也会守）

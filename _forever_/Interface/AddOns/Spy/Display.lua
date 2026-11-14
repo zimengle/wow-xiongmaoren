@@ -174,6 +174,19 @@ function Spy:SetBar(num, name, desc, value, colorgroup, colorclass, tooltipData,
 	if not ok then
 		Spy.ForeverLastError = "PaintRow: " .. tostring(err)
 	end
+	-- A battleground enemy: the client keeps his class secret, so Spy has none and the
+	-- row stayed black. C_ClassColor.GetClassColor and SetStatusBarColor take the secret
+	-- as it is: the client paints the class colour without Spy ever reading it.
+	local secretClass = Spy.SecretClass and Spy.SecretClass[name]
+	if secretClass and (type(colorclass) ~= "string" or colorclass == "" or colorclass == "UNKNOWN") and C_ClassColor and C_ClassColor.GetClassColor then
+		local painted = pcall(function()
+			local color = C_ClassColor.GetClassColor(secretClass)
+			Spy.Colors:UnregisterItem(row.StatusBar)
+			row.StatusBar:SetStatusBarColor(color.r, color.g, color.b, opacity or 1)
+		end)
+		Spy.SecretClassPainted = (Spy.SecretClassPainted or 0) + (painted and 1 or 0)
+		Spy.SecretClassFailed = (Spy.SecretClassFailed or 0) + (painted and 0 or 1)
+	end
 end
 
 -- Scale and width -------------------------------------------------------------------
@@ -224,10 +237,145 @@ function Spy:ApplyWindowLook()
 	end
 end
 
+-- Border ------------------------------------------------------------------------
+-- "classic": Spy's thin grey tooltip border. "forever": the game's metal frame, the one
+-- Forever's own panels use (NineSliceUtil and the SimplePanelTemplate layout, drawn in
+-- Forever's bronze and gold art; the thin one, made for small panels). "none": no edge.
+-- Requested in a CurseForge comment: "a bronze/gold frame to match the new Forever UI".
+
+local TOOLTIP_EDGE = "Interface\\Tooltips\\UI-Tooltip-Border"
+local TOOLTIP_BG = "Interface\\Tooltips\\UI-Tooltip-Background"
+local BORDER_STYLES = { classic = true, forever = true, none = true }
+
+function Spy:BorderStyle()
+	local style = profile().WindowBorder
+	return BORDER_STYLES[style] and style or "classic"
+end
+
+-- The game's gold dialog edge (the one of BACKDROP_GOLD_DIALOG_32_32) drawn at half
+-- size around `frame`, between two anchors (the title bar and the last row shown), or
+-- around the whole frame. Kept on frame.ForeverBorder.
+-- First try was the SimplePanelTemplate metal (NineSlice atlases): seen in game it
+-- drew thin grey lines, and it hung from the bottom of the window, far below the rows.
+local GOLD_EDGE = "Interface\\DialogFrame\\UI-DialogBox-Gold-Border"
+local GOLD_OUTSET = 4
+
+local function metalFrame(frame, topLeft, bottomRight)
+	local border = frame.ForeverBorder
+	if not border then
+		border = CreateFrame("Frame", nil, frame, "BackdropTemplate")
+		if not border.SetBackdrop then
+			border:Hide()
+			return nil
+		end
+		border:SetBackdrop({ edgeFile = GOLD_EDGE, edgeSize = 16, tileEdge = true })
+		border:EnableMouse(false)
+		frame.ForeverBorder = border
+	end
+	border:SetFrameLevel((frame:GetFrameLevel() or 1) + 6)
+	border:ClearAllPoints()
+	border:SetPoint("TOPLEFT", topLeft or frame, "TOPLEFT", -GOLD_OUTSET, GOLD_OUTSET)
+	border:SetPoint("BOTTOMRIGHT", bottomRight or frame, "BOTTOMRIGHT", GOLD_OUTSET, -GOLD_OUTSET)
+	return border
+end
+
+-- The edge of the main window ends below the last row shown, not at the bottom of the
+-- window (the window is usually taller than its rows).
+local function windowEnds(window)
+	local last = window.Rows and window.CurRows and window.CurRows > 0 and window.Rows[window.CurRows]
+	local rowsEnd = last or window.TitleBar
+	if Spy.db.profile.InvertSpy then
+		return rowsEnd, window.TitleBar
+	end
+	return window.TitleBar, rowsEnd
+end
+
+-- A tooltip backdrop with or without its edge; SetBackdrop resets the colours, so the
+-- caller gives them back.
+local function tooltipBackdrop(frame, withEdge, edgeSize)
+	if not frame.SetBackdrop then
+		return
+	end
+	frame:SetBackdrop({
+		bgFile = TOOLTIP_BG, tile = true, tileSize = 8,
+		edgeFile = withEdge and TOOLTIP_EDGE or nil, edgeSize = withEdge and (edgeSize or 12) or nil,
+		insets = { left = 2, right = 2, top = 2, bottom = 2 },
+	})
+end
+
+-- style: one of BORDER_STYLES. bg = { r, g, b, a } for the backdrop.
+local function applyBorder(frame, style, edgeSize, bg, topLeft, bottomRight)
+	if not frame then
+		return
+	end
+	tooltipBackdrop(frame, style == "classic", edgeSize)
+	if bg and frame.SetBackdropColor then
+		frame:SetBackdropColor(bg[1], bg[2], bg[3], bg[4])
+	end
+	if style == "classic" and frame.SetBackdropBorderColor then
+		frame:SetBackdropBorderColor(1, 1, 1, 1)
+	end
+	local border = style == "forever" and metalFrame(frame, topLeft, bottomRight) or frame.ForeverBorder
+	if border then
+		border:SetShown(style == "forever")
+	end
+end
+
+-- The main window, the alert window, and the options preview follow the setting.
+function Spy:ApplyBorderStyle()
+	local style = Spy:BorderStyle()
+	local window = Spy.MainWindow
+	if window and window.TitleBar then
+		-- The window has no backdrop of its own: its edge is the title bar's. The metal
+		-- frame goes around the title bar and the rows together.
+		applyBorder(window.TitleBar, style, 12, { 0, 0, 0, 1 })
+		if window.TitleBar.ForeverBorder then window.TitleBar.ForeverBorder:Hide() end
+		if style == "forever" then
+			local border = metalFrame(window, windowEnds(window))
+			if border then border:Show() end
+		elseif window.ForeverBorder then
+			window.ForeverBorder:Hide()
+		end
+	end
+	local alert = Spy.AlertWindow
+	if alert then
+		local c = Spy.Colors and Spy.Colors.GetColor and Spy.Colors:GetColor("Alert", "Background")
+		applyBorder(alert, style, 8, c and { c.r, c.g, c.b, c.a or 1 } or { 0, 0, 0, 0.8 })
+		alert.ForeverStyle = style
+	end
+	if Spy.OptionsPreview then
+		applyBorder(Spy.OptionsPreview, style, 12, { 0, 0, 0, 0.85 })
+	end
+	Spy.LastBorderStyle = style
+end
+
+-- Each alert sets its border colour again: with no edge (forever, none) there is
+-- nothing to colour, so only the classic style needs it, and it gets it.
+local baseShowAlert = Spy.ShowAlert
+function Spy:ShowAlert(...)
+	local result = baseShowAlert(self, ...)
+	if Spy.AlertWindow and Spy.AlertWindow.ForeverStyle ~= Spy:BorderStyle() then
+		Spy:ApplyBorderStyle()
+	end
+	return result
+end
+
 local baseCreateMainWindow = Spy.CreateMainWindow
 function Spy:CreateMainWindow(...)
 	baseCreateMainWindow(self, ...)
 	Spy:ApplyWindowLook()
+	Spy:ApplyBorderStyle()
+end
+
+-- Rows come and go with the list: the gold edge follows the last one shown.
+local baseManageBarsDisplayed = Spy.ManageBarsDisplayed
+function Spy:ManageBarsDisplayed(...)
+	local result = baseManageBarsDisplayed(self, ...)
+	local window = Spy.MainWindow
+	if window and window.ForeverBorder and window.ForeverBorder:IsShown() then
+		metalFrame(window, windowEnds(window))
+	end
+	return result
 end
 
 local events = CreateFrame("Frame")
@@ -287,6 +435,7 @@ local function sampleLevel(sample)
 end
 
 function Spy:DrawPreview(preview)
+	applyBorder(preview, Spy:BorderStyle(), 12, { 0, 0, 0, 0.85 })
 	local window = profile().MainWindow or {}
 	local width = tonumber(window.Position and window.Position.w) or 160
 	local rowHeight = tonumber(window.RowHeight) or 14
@@ -349,6 +498,20 @@ Spy.options.args.DisplayOptions.args.Look = {
 	inline = true,
 	order = 1.5,
 	args = {
+		WindowBorder = {
+			name = L["WindowBorder"],
+			desc = L["WindowBorderDescription"],
+			type = "select",
+			order = 0.5,
+			values = { classic = L["BorderClassic"], forever = L["BorderForever"], none = L["BorderNone"] },
+			sorting = { "classic", "forever", "none" },
+			get = function() return Spy:BorderStyle() end,
+			set = function(_, value)
+				Spy.db.profile.WindowBorder = value
+				Spy:ApplyBorderStyle()
+				Spy:RefreshPreview()
+			end,
+		},
 		ClassIcons = toggle("ClassIcons", 1),
 		RowMarkers = toggle("RowMarkers", 2),
 		LevelColors = toggle("LevelColors", 3),

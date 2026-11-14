@@ -4,7 +4,7 @@ local H = HuZhuLayer
 
 H.ADDON_NAME = "HuZhuLayer"
 H.PREFIX = "HZL"
-H.VERSION = "1.1.328"
+H.VERSION = "1.1.336"
 H.LIST_VISIBLE_ROWS = 10 -- 列表最多同时显示行数，超出可滚动
 H.LOAD_TICK = 0.1 -- 所有加载：进入的数据和画界面都按这个间隔摊开
 H.LOAD_IN_MAX = 6 -- 每个间隔最多收几条上报
@@ -1998,11 +1998,17 @@ frame:SetScript("OnEvent", function(_, event, ...)
       end
     end)
   elseif event == "CHAT_MSG_SAY" or event == "CHAT_MSG_YELL" then
+    if H.IsForeverClient and H:IsForeverClient() then
+      return
+    end
     if H._probeUntil and H.Now and H:Now() < H._probeUntil and H.Trace then
       local text = ...
       H:Trace("收试验 " .. event .. " " .. H:DiaryBit(text, 24))
     end
   elseif event == "CHAT_MSG_CHANNEL" then
+    if H.IsForeverClient and H:IsForeverClient() then
+      return
+    end
     -- 参数可能是锁住的字。先整段包进保护里再读，避免一碰就中断、日记也写不出。
     local ok, err = pcall(function(text, playerName, _, channelString, playerName2, _, _, channelIndex, channelBaseName)
       local function locked(v)
@@ -2068,6 +2074,9 @@ frame:SetScript("OnEvent", function(_, event, ...)
       H:Trace("收互助出错 " .. H:DiaryBit(err, 180))
     end
   elseif event == "CHAT_MSG_CHANNEL_NOTICE" then
+    if H.IsForeverClient and H:IsForeverClient() then
+      return
+    end
     local noticeType, _, _, channelName, _, _, _, channelIndex, channelBaseName = ...
     local ok, err = pcall(function()
       H:OnDiscoveryChannelNotice(noticeType, channelName, channelBaseName, channelIndex)
@@ -2102,22 +2111,8 @@ frame:SetScript("OnEvent", function(_, event, ...)
       end
     end)
   elseif event == "CHANNEL_UI_UPDATE" then
-    -- 互助切位面不再使用。窗口刷新时再摘一次，避免又被勾回去。
-    if H.RoomsEnabled and H:RoomsEnabled() then
-      return
-    end
-    if not (H.IsForeverClient and H:IsForeverClient()) then
-      return
-    end
-    local function keepOrHide()
-      if H.DropDiscoveryChannel then
-        H:DropDiscoveryChannel()
-      end
-    end
-    pcall(keepOrHide)
-    C_Timer.After(1.0, function()
-      pcall(keepOrHide)
-    end)
+    -- 无限服不再碰聊天窗，也不再退出频道。点综合、战斗记录只走游戏自己的刷新。
+    return
   elseif event == "GROUP_ROSTER_UPDATE" then
     pcall(function()
       H:OnGroupChanged()

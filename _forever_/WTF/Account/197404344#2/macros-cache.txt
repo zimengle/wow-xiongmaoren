@@ -1,5 +1,5 @@
 VER 3 0000000000000001 "RXPTargeting" "Ability_eyeoftheowl"
-/targetexact 奥拉留斯
+/targetexact 阿塔莱流放者
 /tm !7
 /targetlasttarget [dead]
 END

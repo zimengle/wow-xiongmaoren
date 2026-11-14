@@ -193,8 +193,8 @@ function View:ShowTooltip(button)
     local leftCount = showCount and (" (" .. self.adapter:GetItemCount(info.itemPortal) .. ")") or ""
     local rightCount = showCount and (" (" .. self.adapter:GetItemCount(info.itemTeleport) .. ")") or ""
     Call(tooltip, "SetText",
-        "|cffffffff左：|r|cff00ff00" .. info.spellLeft .. leftCount .. "|r\n"
-        .. "|cffffffff右：|r|cff00ff00" .. info.spellRight .. rightCount .. "|r")
+        "|cffffffff左：|r" .. ns:GetThemeColorCode(true) .. info.spellLeft .. leftCount .. "|r\n"
+        .. "|cffffffff右：|r" .. ns:GetThemeColorCode(true) .. info.spellRight .. rightCount .. "|r")
     if info.isKnown == false and not self.module.previewEnabled then
         Call(tooltip, "AddLine", " ")
         Call(tooltip, "AddLine", "|cffff0000(未学会)|r")

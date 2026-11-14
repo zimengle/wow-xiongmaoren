@@ -7,6 +7,7 @@ local Adapter = {
     family = "retail",
     buildId = "retail",
     features = {
+        guildInviteMenu = true,
         editMode = true,
         detailsNumberFix = true,
         bigWigsDungeonNames = true,

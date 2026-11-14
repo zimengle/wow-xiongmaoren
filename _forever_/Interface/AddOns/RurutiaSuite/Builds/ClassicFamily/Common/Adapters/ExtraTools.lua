@@ -9,6 +9,7 @@ local Adapter = {
     family = "classic",
     buildId = buildId,
     features = {
+        guildInviteMenu = buildId == "classic-infinite",
         editMode = false,
         detailsNumberFix = false,
         bigWigsDungeonNames = false,
@@ -109,11 +110,73 @@ function Adapter:GetMicroMenuContentFrame()
 end
 
 function Adapter:CanSellJunk()
+    if buildId == "classic-infinite" then
+        local bags = _G.C_Container
+        return bags and type(bags.GetContainerNumSlots) == "function"
+            and type(bags.GetContainerItemInfo) == "function" and type(bags.GetContainerItemQuestInfo) == "function"
+            and type(bags.UseContainerItem) == "function" or false
+    end
     return _G.C_MerchantFrame and type(_G.C_MerchantFrame.SellAllJunkItems) == "function" or false
 end
 
-function Adapter:SellJunk()
-    if self:CanSellJunk() then _G.C_MerchantFrame.SellAllJunkItems() end
+local function AtMerchant()
+    local interaction = _G.C_PlayerInteractionManager
+    local kind = _G.Enum and _G.Enum.PlayerInteractionType
+    if interaction and interaction.IsInteractingWithNpcOfType and kind and kind.Merchant then
+        return interaction.IsInteractingWithNpcOfType(kind.Merchant)
+    end
+    return _G.MerchantFrame and _G.MerchantFrame:IsShown()
+end
+
+local function IsSellableGrey(bags, bag, slot)
+    local item = bags.GetContainerItemInfo(bag, slot)
+    if not item or item.quality ~= 0 or item.hasNoValue ~= false or item.isLocked ~= false or item.hasLoot then
+        return false
+    end
+    local quest = bags.GetContainerItemQuestInfo(bag, slot)
+    if not quest or quest.isQuestItem or (quest.questID and quest.questID ~= 0) then return false end
+    local purchase = bags.GetContainerItemPurchaseInfo and bags.GetContainerItemPurchaseInfo(bag, slot, false)
+    return not (purchase and purchase.refundSeconds and purchase.refundSeconds > 0)
+end
+
+function Adapter:SellJunk(owner)
+    if not self:CanSellJunk() then return end
+    if buildId ~= "classic-infinite" then
+        _G.C_MerchantFrame.SellAllJunkItems()
+        return
+    end
+    if owner._junkSale or ns.ExtraToolsProviderRegistry:ExternalAutoSellsJunk() then return end
+
+    local bags, bag, slot = _G.C_Container, 0, nil
+    local function sellNext()
+        if ns.ExtraToolsProviderRegistry:ExternalAutoSellsJunk() or not AtMerchant() or self:IsInCombat()
+            or (_G.GetCursorInfo and _G.GetCursorInfo()) then
+            owner._junkSale = nil
+            return
+        end
+        while bag <= (_G.NUM_BAG_SLOTS or 4) do
+            if slot == nil then
+                slot = bags.GetContainerNumSlots(bag)
+                if bag > 0 and bags.GetContainerNumFreeSlots then
+                    local _, family = bags.GetContainerNumFreeSlots(bag)
+                    if family and family ~= 0 then slot = 0 end
+                end
+            end
+            while slot > 0 do
+                local current = slot
+                slot = slot - 1
+                if IsSellableGrey(bags, bag, current) then
+                    bags.UseContainerItem(bag, current)
+                    if owner._junkSale == sellNext then owner:RequestRefresh("merchant-junk", sellNext, 0.15) end
+                    return
+                end
+            end
+            bag, slot = bag + 1, nil
+        end
+        owner._junkSale = nil
+    end
+    owner._junkSale = sellNext
+    owner:RequestRefresh("merchant-junk", sellNext, 0)
 end
 
 function Adapter:IsLootApiSupported()

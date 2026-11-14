@@ -86,21 +86,34 @@ local function CleanOwner(s)
 	return n
 end
 
--- 只认「放置 / 所有 / 由」这类归属行，别把公会名、说明文字误当玩家名
+-- 只认「由 XXX 放置 / <由 XXX> / 放置者: XXX / 所有者: XXX / XXX 放置」这类归属行。
+-- ⚠️ 旧版只要行里出现「放置」两字就认：实测打「异种群居蝎」时鼠标停在动作条上，
+-- 可见 GameTooltip 的技能说明「同时放置图腾栏中的最多4个指定图腾。」被当成帐篷主，
+-- 于是 autoshow / clickshow 两条路都误弹窗。判据必须是「行的开头或结尾」，不能是中间。
 local function OwnerFromLine(line)
 	if not CanRead(line) then return nil end
 	local s = NormPunct(tostring(line)):gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")
 	s = s:match("^%s*(.-)%s*$") or ""
-	if not (s:find("放%s*置") or s:find("所%s*有%s*者") or s:find("^<%s*由")) then
-		return nil
-	end
+	local looksOwner = s:find("^<%s*由")
+		or s:find("^由%s*%S")
+		or s:find("^放%s*置%s*者")
+		or s:find("^所%s*有%s*者")
+		or s:find("放%s*置%s*$")
+	if not looksOwner then return nil end
 	s = s:gsub("^<%s*", ""):gsub("%s*>$", "")
 	s = s:gsub("^由%s*", "")
 	s = s:gsub("^放%s*置%s*者[%s:]+%s*", "")
 	s = s:gsub("^所%s*有%s*者[%s:]+%s*", "")
 	s = s:gsub("[,]?%s*放%s*置%s*$", "")
 	s = s:gsub("%s*的%s*$", "")
-	return CleanOwner(s)
+	local n = CleanOwner(s)
+	if not n or n == "" then return nil end
+	-- 玩家名不会有说明性标点，也不会这么长（中文两段式名字最多 30 多字节）
+	if #n > 48 then return nil end
+	if n:find("[.,;:!?]") or n:find("。") or n:find("！") or n:find("？") then
+		return nil
+	end
+	return n
 end
 ns.OwnerFromLine = OwnerFromLine
 
@@ -145,6 +158,7 @@ end
 
 -- 前向声明：BuildUI / 小地图按钮在前面用到，实体在后面赋值
 local UpdateUI, HideWindow, ShowByClick, CurrentTargetKey, TryAutoShow
+local ToggleAbout, CloseAbout, BuildAboutUI
 
 local function ScanTarget()
 	if not UnitExists("target") then return end
@@ -155,7 +169,8 @@ local function ScanTarget()
 	local owner
 	if type(UnitIsPlayer) == "function" and UnitIsPlayer("target") and T.unitName then
 		-- 直接选中的就是玩家本人：名字就是玩家名
-		owner, T.ownerRaw = CleanOwner(T.unitName), "直接选中玩家：" .. T.unitName
+		owner = CleanOwner(T.unitName)
+		if owner then T.ownerRaw = "直接选中玩家：" .. T.unitName end
 	else
 		for _, ln in ipairs(T.lines) do
 			owner = OwnerFromLine(ln)
@@ -168,6 +183,9 @@ local function ScanTarget()
 		if changed then
 			WB:Emit("tent.owner", { name = owner, raw = T.ownerRaw, unit = T.unitName })
 		end
+	else
+		-- 本次没读到归属行就清干净，别把上一个帐篷主的名字留到下一只怪身上
+		T.owner, T.ownerRaw = nil, nil
 	end
 	UpdateUI()
 end
@@ -349,6 +367,16 @@ local function Btn(parent, name, w, h, text)
 	hb:SetColorTexture(1, 1, 1, 0.22)
 	b:SetScript("OnEnter", function() nb:SetColorTexture(0.13, 0.44, 0.46, 1) end)
 	b:SetScript("OnLeave", function() nb:SetColorTexture(0.08, 0.28, 0.30, 1) end)
+	b.bgTex, b.hlTex = nb, hb       -- 暴露底纹，让「关于」按钮能单独换成低调配色
+	return b
+end
+
+-- 低调入口：暗底灰字、无高亮描边，别做成显眼的金色标签
+local function QuietButton(parent, w, h, text)
+	local b = Btn(parent, nil, w, h, "|cff9fb8b8" .. text .. "|r")
+	b.bgTex:SetColorTexture(0.05, 0.11, 0.13, 1)
+	b:SetScript("OnEnter", function() b.bgTex:SetColorTexture(0.09, 0.20, 0.22, 1) end)
+	b:SetScript("OnLeave", function() b.bgTex:SetColorTexture(0.05, 0.11, 0.13, 1) end)
 	return b
 end
 
@@ -407,6 +435,12 @@ local function BuildUI()
 	local closeBtn = Btn(ui, nil, 22, 22, "X")
 	closeBtn:SetPoint("TOPRIGHT", ui, "TOPRIGHT", -6, -6)
 	closeBtn:SetScript("OnClick", function() HideWindow() end)
+
+	-- 「关于」放右下角那块空白，低调小按钮
+	local aboutBtn = QuietButton(ui, 44, 18, "关于")
+	aboutBtn:SetPoint("BOTTOMRIGHT", ui, "BOTTOMRIGHT", -8, 6)
+	aboutBtn:SetScript("OnClick", function() ToggleAbout() end)
+	ui.aboutBtn = aboutBtn
 
 	local nameText = ui:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
 	nameText:SetPoint("TOPLEFT", ui, "TOPLEFT", 14, -36)
@@ -479,11 +513,169 @@ local function BuildUI()
 
 	local hint = ui:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 	hint:SetPoint("TOPLEFT", ui, "TOPLEFT", 14, -190)
-	hint:SetWidth(344)
+	hint:SetWidth(296)          -- 右边留给「关于」小按钮，长提示也不会压上去
 	hint:SetJustifyH("LEFT")
 	ui.hint = hint
 	ui:Hide()          -- 平时收起，选中帐篷时由 TryAutoShow 弹出
 end
+
+-- ===================================================================
+-- 「关于」面板：版本 + 低调标签 + 三条信息（白字标签 / 青字带框的值）
+-- 内容固定写死，不进 SavedVariables，也不碰任何游戏动作
+-- ===================================================================
+local ABOUT_INFO = {
+	{ label = "反馈邮箱:", value = "18031339@qq.com" },
+	{ label = "获取方式:", value = "各大平台搜索“帐篷助手”" },
+	{ label = "公众号:",   value = "怀旧服" },
+}
+
+BuildAboutUI = function()
+	-- 热加载：旧面板先藏好并摘脚本，再用匿名 frame 重建（沿用主窗口那套做法）
+	local old = ns.about or _G.TentWhisperAboutFrame
+	if old then
+		old:Hide()
+		for _, k in ipairs({ "OnUpdate", "OnMouseDown", "OnMouseUp", "OnHide" }) do
+			old:SetScript(k, nil)
+		end
+	end
+	local about = CreateFrame("Frame", nil, UIParent)
+	ns.about = about
+	_G.TentWhisperAboutFrame = about
+	about.rows = {}
+	about:SetSize(500, 232)
+	about:SetPoint("CENTER", UIParent, "CENTER", 0, 40)
+	-- 手册 / 任务指南这类大窗口常挂在 HIGH 且 level 很高，DIALOG 之下会被整块盖住
+	about:SetFrameStrata("FULLSCREEN_DIALOG")
+	about:SetFrameLevel(100)
+	about:SetMovable(true)
+	about:EnableMouse(true)
+	about:SetClampedToScreen(true)
+
+	local bg = about:CreateTexture(nil, "BACKGROUND")
+	bg:SetAllPoints(about)
+	bg:SetColorTexture(0.02, 0.04, 0.05, 0.96)
+	bg:SetDrawLayer("BACKGROUND", 0)
+	local edge = about:CreateTexture(nil, "BACKGROUND")
+	edge:SetPoint("TOPLEFT", -1, 1)
+	edge:SetPoint("BOTTOMRIGHT", 1, -1)
+	edge:SetColorTexture(0.20, 0.34, 0.36, 1)
+	edge:SetDrawLayer("BACKGROUND", -1)
+
+	-- 手动拖动（StartMoving 在本机会 ADDON_ACTION_BLOCKED）
+	about:SetScript("OnMouseDown", function(self, button)
+		if button ~= "LeftButton" then return end
+		local scale = self:GetEffectiveScale()
+		local cx, cy = GetCursorPosition()
+		self.dragdx = cx / scale - self:GetLeft()
+		self.dragdy = cy / scale - self:GetBottom()
+		self.dragging = true
+	end)
+	about:SetScript("OnMouseUp", function(self) self.dragging = false end)
+	about:SetScript("OnHide", function(self) self.dragging = false end)
+	about:SetScript("OnUpdate", function(self)
+		if not self.dragging then return end
+		local scale = self:GetEffectiveScale()
+		local cx, cy = GetCursorPosition()
+		self:ClearAllPoints()
+		self:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT",
+			cx / scale - self.dragdx, cy / scale - self.dragdy)
+	end)
+
+	-- 顶部版本条
+	local vbar = about:CreateTexture(nil, "BACKGROUND")
+	vbar:SetPoint("TOPLEFT", about, "TOPLEFT", 6, -6)
+	vbar:SetPoint("BOTTOMRIGHT", about, "TOPRIGHT", -6, -28)
+	vbar:SetColorTexture(0.05, 0.08, 0.09, 1)
+	vbar:SetDrawLayer("BACKGROUND", 1)
+	local ver = about:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	ver:SetPoint("TOPLEFT", about, "TOPLEFT", 14, -9)
+	ver:SetText("|cff8fd6c0版本:1.0|r")
+
+	local close = Btn(about, nil, 22, 20, "X")
+	close:SetPoint("TOPRIGHT", about, "TOPRIGHT", -6, -7)
+	close:SetScript("OnClick", function() CloseAbout() end)
+
+	-- 低调标签，纯标识不响应点击；整个面板不再用金色高亮
+	local tab = QuietButton(about, 78, 24, "关于")
+	tab:SetPoint("TOPLEFT", about, "TOPLEFT", 14, -36)
+	tab:EnableMouse(false)
+	local tabTitle = about:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	tabTitle:SetPoint("LEFT", tab, "RIGHT", 12, 0)
+	tabTitle:SetText("|cff9fb8b8帐篷助手 · 感谢无限工坊|r")
+
+	local divider = about:CreateTexture(nil, "ARTWORK")
+	divider:SetPoint("TOPLEFT", about, "TOPLEFT", 14, -70)
+	divider:SetPoint("TOPRIGHT", about, "TOPRIGHT", -14, -70)
+	divider:SetHeight(1)
+	divider:SetColorTexture(0.20, 0.30, 0.32, 1)
+
+	-- 三行信息：值做成只让复制的 EditBox，改动一失焦就还原
+	for i, item in ipairs(ABOUT_INFO) do
+		local y = -82 - (i - 1) * 36
+		local lab = about:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+		lab:SetPoint("TOPLEFT", about, "TOPLEFT", 18, y)
+		lab:SetWidth(82)
+		lab:SetJustifyH("LEFT")
+		lab:SetText(item.label)
+
+		local eb = CreateFrame("EditBox", nil, about)
+		eb:SetSize(368, 26)
+		eb:SetPoint("TOPLEFT", about, "TOPLEFT", 104, y + 4)
+		eb:SetFontObject("GameFontHighlightSmall")
+		eb:SetTextColor(0.35, 0.95, 0.95, 1)
+		eb:SetAutoFocus(false)
+		eb:SetTextInsets(8, 6, 0, 0)
+		eb:EnableMouse(true)
+		local ebg = eb:CreateTexture(nil, "BACKGROUND")
+		ebg:SetAllPoints(eb)
+		ebg:SetColorTexture(0.01, 0.08, 0.10, 1)
+		ebg:SetDrawLayer("BACKGROUND", 0)
+		local eedge = eb:CreateTexture(nil, "BACKGROUND")
+		eedge:SetPoint("TOPLEFT", -1, 1)
+		eedge:SetPoint("BOTTOMRIGHT", 1, -1)
+		eedge:SetColorTexture(0.20, 0.45, 0.48, 1)
+		eedge:SetDrawLayer("BACKGROUND", -1)
+		eb:SetText(item.value)
+		eb:SetScript("OnMouseDown", function(self)
+			self:SetFocus()
+			self:HighlightText()
+		end)
+		eb:SetScript("OnEscapePressed", function(self) self:ClearFocus() end)
+		eb:SetScript("OnEnterPressed", function(self) self:ClearFocus() end)
+		eb:SetScript("OnEditFocusLost", function(self) self:SetText(item.value) end)
+		about.rows[i] = eb
+	end
+
+	local hint = about:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	hint:SetPoint("TOPLEFT", about, "TOPLEFT", 18, -200)
+	hint:SetWidth(464)
+	hint:SetJustifyH("LEFT")
+	hint:SetText("|cff8fa6a6点框全选后 Ctrl+C 复制 · 点 X 或再点「关于」关闭|r")
+	-- 热加载会复用 ns.state，先清掉旧的开关脏值；OnReload 需要恢复时会重新置 true
+	T.aboutOpen, T.aboutRestoreMain = false, nil
+	about:Hide()
+end
+
+ToggleAbout = function()
+	-- 以面板实际显示为准，别信状态位：工坊热加载后旧 state 可能残留 aboutOpen=true
+	if ns.about and ns.about:IsShown() then CloseAbout() return end
+	if not ns.about then return end
+	T.aboutOpen = false
+	T.aboutRestoreMain = (ui and ui:IsShown()) or false
+	if ui then ui:Hide() end
+	T.autoShownFor = CurrentTargetKey()   -- 面板打开期间别被自动弹出打断
+	ns.about:Show()
+	T.aboutOpen = true
+end
+ns.ToggleAbout = ToggleAbout
+
+CloseAbout = function()
+	if ns.about then ns.about:Hide() end
+	T.aboutOpen = false
+	if T.aboutRestoreMain and ui then ui:Show() end
+	T.aboutRestoreMain = nil
+end
+ns.CloseAbout = CloseAbout
 
 UpdateUI = function()
 	if not ui then return end
@@ -529,15 +721,20 @@ CurrentTargetKey = function()
 end
 ns.CurrentTargetKey = CurrentTargetKey
 
--- 判据放宽：只要目标名带「帐/篷」、tooltip 有归属行、或目标是 GameObject 就算。
--- 旧版要求先解析出 T.owner，但 GameObject 的归属行常常比 PLAYER_TARGET_CHANGED 晚到，
--- 那一瞬间判成 false -> 窗口永远不弹，这正是「有时候弹不出来」的主因之一。
+-- 「是不是帐篷」只看目标本身：名字带「帐/篷」，或者确实是 GameObject。
+-- ⚠️ 绝不能拿 tooltip 归属行当判据：实测打「异种群居蝎」时鼠标停在动作条上，
+-- 可见 GameTooltip 的技能说明「同时放置图腾栏中的最多4个指定图腾。」被当成归属行，
+-- autoshow / clickshow 两条路一起误弹。归属行只用来读帐篷主名字，不参与这里。
+-- 保留 GameObject 兜底是为了归属行晚到时仍能弹出（旧版弹不出来的主因）。
 local function LooksLikeTent()
 	local un = T.unitName
+	if type(UnitName) == "function" then
+		local ok, n = pcall(UnitName, "target")
+		if ok and CanRead(n) then un = n end
+	end
 	if type(un) == "string" and (un:find("帐", 1, true) or un:find("篷", 1, true)) then
 		return true
 	end
-	if OwnerFromLine(T.ownerRaw) then return true end
 	if type(UnitIsGameObject) == "function" and UnitIsGameObject("target") then return true end
 	return false
 end
@@ -551,6 +748,7 @@ ns.IsTentTarget = IsTentTarget
 -- 只在「用户主动关掉窗口且目标没换」时不再弹。切到别的目标后判重会清空，
 -- 所以同一个帐篷切走再切回来照样会弹（旧版 autoShownFor 会永久卡死）。
 TryAutoShow = function()
+	if ns.about and ns.about:IsShown() then return false end     -- 看「关于」时别把主窗口顶回来
 	local frame = ns.ui
 	if not frame or not IsTentTarget() then return false end
 	local key = CurrentTargetKey()
@@ -568,6 +766,9 @@ ns.TryAutoShow = TryAutoShow
 
 -- 所有手动关闭入口统一走这里：记住当前目标，避免刚关掉又被自动弹出打脸
 HideWindow = function()
+	-- 主窗口的 X：顺手把「关于」也收掉，别留一个孤儿面板在屏幕上
+	if ns.about then ns.about:Hide() end
+	T.aboutOpen, T.aboutRestoreMain = false, nil
 	if ns.ui then ns.ui:Hide() end
 	T.autoShownFor = CurrentTargetKey()
 	-- 刚点 X 关掉的两秒内，别被紧接着的一次点击又弹回来
@@ -585,8 +786,9 @@ ShowByClick = function(button)
 		and (GetTime() - T.manualHideAt) < 2 then return false end
 	if not UnitExists("target") then return false end
 	if type(UnitIsPlayer) == "function" and UnitIsPlayer("target") then return false end
-	if not LooksLikeTent() then return false end
+	-- 先按「当前目标」重扫：旧版先判后扫，判据用的是上一个帐篷残留的 ownerRaw
 	ScanTarget()
+	if not LooksLikeTent() then return false end
 	frame:Show()
 	T.autoShownFor = CurrentTargetKey()
 	T.clickShows = (T.clickShows or 0) + 1
@@ -748,13 +950,16 @@ local function BuildMinimapButton()
 	-- 只做开关窗口，右键不发任何东西（避免 1.0 那种误发密语）
 	mb:SetScript("OnClick", function(_, button)
 		if button ~= "LeftButton" then return end
-		if ui:IsShown() then HideWindow() else ui:Show() end
+		if (ns.about and ns.about:IsShown()) then CloseAbout()
+		elseif ui:IsShown() then HideWindow()
+		else ui:Show() end
 	end)
 	mb:SetScript("OnEnter", function(self)
 		GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT")
 		GameTooltip:SetText("帐篷助手")
 		GameTooltip:AddLine("帐篷主：" .. (T.owner or "（选中帐篷后自动显示）"), 0.6, 1, 0.9)
 		GameTooltip:AddLine("左键：打开 / 关闭窗口", 1, 1, 1)
+		GameTooltip:AddLine("窗口右下角「关于」：反馈 / 获取方式 / 公众号", 0.7, 0.82, 0.82)
 		GameTooltip:AddLine("选中帐篷时窗口自动弹出", 0.7, 0.7, 0.7)
 		GameTooltip:AddLine("左键点帐篷：也能唤出窗口", 0.7, 0.7, 0.7)
 		GameTooltip:AddLine("拖动：移动图标", 0.7, 0.7, 0.7)
@@ -838,14 +1043,19 @@ SlashCmdList["TENTWHISPER"] = function(msg)
 		-- 只预填、不直调：万一 C_PartyInfo.InviteUnit 被判受保护弹窗，用这条最稳
 		if not T.owner then Print("还没读到帐篷主人，请先选中帐篷") return end
 		PrefillCommand(InviteCommand(T.owner))
+	elseif cmd == "about" or cmd == "关于" then
+		ToggleAbout()
 	elseif cmd == "" then
-		if ui:IsShown() then HideWindow() else ui:Show() end
+		if ns.about and ns.about:IsShown() then CloseAbout()
+		elseif ui:IsShown() then HideWindow()
+		else ui:Show() end
 	elseif cmd == "show" then
+		if ns.about and ns.about:IsShown() then CloseAbout() end
 		ui:Show()
 	else
-		Print("用法：/tw 开关窗口 | /tw show 强制唤出 | /tw dump 看目标原始信息")
-		Print("      /tw name <名字> 手动指定 | /tw inv 只预填 /inv（不直调，最稳）")
-		Print("      左键点击帐篷也能唤出窗口（/tw show 强制唤出）")
+		Print("用法：/tw 开关窗口 | /tw show 强制唤出 | /tw about 打开关于面板")
+		Print("      /tw dump 看目标原始信息 | /tw name <名字> 手动指定")
+		Print("      /tw inv 只预填 /inv（不直调，最稳）")
 	end
 end
 
@@ -858,6 +1068,7 @@ WB:Expose("tent.status", function()
 		lines = T.lines, text = DB().text, autoAccept = DB().autoAccept,
 		lastWhisperTo = T.lastWhisperTo, lastInviteTo = T.lastInviteTo,
 		minimapAngle = DB().minimapAngle, windowShown = ui and ui:IsShown(),
+		aboutShown = ns.about and ns.about:IsShown(),
 		autoShownFor = T.autoShownFor, lastTargetKey = T.lastTargetKey,
 		isTent = IsTentTarget(), clickShows = T.clickShows or 0,
 		worldHooked = ns.worldHooked, worldHookFired = ns.worldHookFired,
@@ -880,7 +1091,9 @@ end, "只拼接 /inv 命令字符串，绝不做任何游戏动作：args.name �
 -- ===================================================================
 function ns.OnUnload()
 	ns.wasShown = ui and ui:IsShown()
+	ns.wasAboutShown = ns.about and ns.about:IsShown()
 	if ui then ui:Hide() end
+	if ns.about then ns.about:Hide() end
 	if ns.minimapButton then ns.minimapButton:Hide() end
 	return { db = ns.db }
 end
@@ -889,11 +1102,17 @@ function ns.OnReload(state)
 	ns.db = (state and state.db) or _G.TentWhisperDB
 	DB()
 	if ns.wasShown and ui then ui:Show() end
+	if ns.wasAboutShown and ns.about then
+		ui:Hide()
+		ns.about:Show()
+		T.aboutOpen = true
+	end
 	UpdateUI()
 	TryAutoShow()
 end
 
 BuildUI()
+BuildAboutUI()
 DB()
 BuildMinimapButton()
 OnTargetChanged()          -- 扫一次 + 弹出 + 安排 tooltip 延迟重扫

@@ -2,9 +2,9 @@
 RurutiaSuiteDB = {
 ["global"] = {
 ["lastSeenChangelogViews"] = {
-["classic-infinite"] = "4.8.3:7276db988db88f7051c8",
+["classic-infinite"] = "4.8.5:e68702ac0d6c4e8d2b16",
 },
-["lastSeenVersion"] = "4.8.3",
+["lastSeenVersion"] = "4.8.5",
 },
 ["namespaces"] = {
 ["VersionDisplay"] = {
@@ -18,13 +18,13 @@ RurutiaSuiteDB = {
 ["char"] = {
 ["重庆 - 智能体"] = {
 ["session"] = {
-["lastXP"] = 122542,
-["gainedXP"] = 70856,
-["startTime"] = 1794581372,
-["playedAt"] = 1794587274,
-["lastXPMax"] = 153900,
-["totalPlayed"] = 301034,
-["levelPlayed"] = 8263,
+["lastXP"] = 49924,
+["gainedXP"] = 112481,
+["startTime"] = 1794666944,
+["playedAt"] = 1794673918,
+["lastXPMax"] = 173900,
+["totalPlayed"] = 330374,
+["levelPlayed"] = 3500,
 },
 },
 ["露露缇娅 - 嗷呜"] = {
@@ -55,11 +55,11 @@ RurutiaSuiteDB = {
 ["仓库 - 存放"] = {
 ["session"] = {
 ["lastXP"] = 55,
-["playedAt"] = 1794547750,
-["levelPlayed"] = 162,
+["levelPlayed"] = 409,
+["playedAt"] = 1794621409,
+["startTime"] = 1794621408,
+["totalPlayed"] = 409,
 ["lastXPMax"] = 400,
-["totalPlayed"] = 162,
-["startTime"] = 1794547749,
 },
 },
 },

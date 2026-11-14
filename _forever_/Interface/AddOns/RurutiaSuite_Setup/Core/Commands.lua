@@ -47,6 +47,7 @@ local function UserFacingReason(reason)
 end
 
 local COMMAND_NAMES = {
+    questie = "Questie",
     em = "编辑模式",
     blizzard = "暴雪设置",
     rxp = "RXP 外观",
@@ -238,7 +239,7 @@ function Commands:Handle(message)
         return true, result
     end
     local names = { "/rss", "status" }
-    for _, name in ipairs({ "left", "middle", "right", "all", "em", "rxp", "cd", "sensei", "jx", "at", "exboss", "exwind", "bigwigs" }) do
+    for _, name in ipairs({ "left", "middle", "right", "all", "em", "rxp", "questie", "cd", "sensei", "jx", "at", "exboss", "exwind", "bigwigs" }) do
         if (name == "left" or name == "right") and ns.ProductManifest:Has("layoutSwitch")
             or name == "middle" and ns.ProductManifest:Has("middleLayout")
             or ns.ProductManifest:HasPreset(name) then names[#names + 1] = name end

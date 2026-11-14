@@ -39,6 +39,43 @@ local function SelectKnown(state, id, level)
     end
 end
 
+local function ReadTable(query, ...)
+    if type(query) ~= "function" then return end
+    local ok, value = pcall(query, ...)
+    if ok and not IsSecret(value) and type(value) == "table" then return value end
+end
+
+-- Forever uses C_Traits. Only inspect the active configuration at cache rebuild;
+-- activeRank excludes pending talent previews. Match names to cover all ranks.
+local function HasTalent(spellID)
+    local classes, traits = C_ClassTalents, C_Traits
+    if type(classes) ~= "table" or type(classes.GetActiveConfigID) ~= "function"
+        or type(traits) ~= "table" then return false end
+    local ok, configID = pcall(classes.GetActiveConfigID)
+    if not ok or not Number(configID) then return false end
+    local config = ReadTable(traits.GetConfigInfo, configID)
+    local trees = config and config.treeIDs
+    if IsSecret(trees) or type(trees) ~= "table" then return false end
+    local wantedName = SpellName(spellID)
+    for treeIndex = 1, math.min(#trees, 8) do
+        local nodes = Number(trees[treeIndex]) and ReadTable(traits.GetTreeNodes, trees[treeIndex])
+        if nodes then
+            for index = 1, math.min(#nodes, 512) do
+                local node = Number(nodes[index]) and ReadTable(traits.GetNodeInfo, configID, nodes[index])
+                local active = node and node.activeEntry
+                if node and Number(node.activeRank) and node.activeRank > 0
+                    and not IsSecret(active) and type(active) == "table" and Number(active.entryID) then
+                    local entry = ReadTable(traits.GetEntryInfo, configID, active.entryID)
+                    local definition = entry and Number(entry.definitionID) and ReadTable(traits.GetDefinitionInfo, entry.definitionID)
+                    local id = definition and definition.spellID
+                    if Number(id) and (id == spellID or (wantedName and SpellName(id) == wantedName)) then return true end
+                end
+            end
+        end
+    end
+    return false
+end
+
 -- 只在启用、重新进入世界或技能变化后调用。仅解析当前职业的提醒组；技能书最多遍历一次。
 function Adapter:BuildStates(rows)
     local states, names = {}, {}
@@ -81,6 +118,11 @@ function Adapter:BuildStates(rows)
                     end
                 end
             end
+        end
+    end
+    for index, spec in ipairs(rows) do
+        if spec.requiredTalent then
+            states[index].known = states[index].known and HasTalent(spec.requiredTalent)
         end
     end
     return states

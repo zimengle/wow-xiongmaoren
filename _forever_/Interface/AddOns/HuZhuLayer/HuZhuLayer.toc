@@ -4,7 +4,7 @@
 ## Notes: 位面/分片列表、求切互助、组队邀请。怀旧系与正式服可向时空之门用户求切。
 ## Notes-zhCN: 位面/分片列表、求切互助、组队邀请。怀旧系与正式服可向时空之门用户求切。
 ## Author: HuZhuLayer
-## Version: 1.1.328
+## Version: 1.1.336
 ## SavedVariables: HuZhuLayerDB
 ## DefaultState: enabled
 ## OptionalDeps: NovaWorldBuffs

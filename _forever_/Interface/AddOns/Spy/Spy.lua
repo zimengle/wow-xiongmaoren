@@ -168,8 +168,14 @@ Spy.options = {
 					get = function(info, key) 
 						return Spy.db.profile.FilteredZones[key] 
 					end,
-					set = function(info, key, value) 
-						Spy.db.profile.FilteredZones[key] = value 
+					set = function(info, key, value)
+						Spy.db.profile.FilteredZones[key] = value
+						-- Forever: run the zone check now. Without it, ticking Booty Bay while
+						-- standing in Booty Bay left Spy on until the next sub-zone change
+						-- (CurseForge comment).
+						if Spy.db.profile.Enabled and Spy.MainWindow then
+							Spy:ZoneChanged()
+						end
 					end,
 					values = {
 						["Booty Bay"] = L["Booty Bay"],
@@ -1508,6 +1514,7 @@ local Default_Profile = {
 SM:Register("statusbar", "Flat", [[Interface\Addons\Spy\Textures\bar-flat.tga]])
 
 function Spy:CheckDatabase()
+	Spy:ForeverMergeRealms() -- Forever: lists kept under the old server names, see Forever.lua
 	if not SpyPerCharDB or not SpyPerCharDB.PlayerData then
 		SpyPerCharDB = {}
 	end
@@ -1522,12 +1529,12 @@ function Spy:CheckDatabase()
 		SpyPerCharDB.KOSData = {}
 	end
 	if SpyDB.kosData == nil then SpyDB.kosData = {} end
-	if SpyDB.kosData[Spy.RealmName] == nil then SpyDB.kosData[Spy.RealmName] = {} end
-	if SpyDB.kosData[Spy.RealmName][Spy.FactionName] == nil then SpyDB.kosData[Spy.RealmName][Spy.FactionName] = {} end
-	if SpyDB.kosData[Spy.RealmName][Spy.FactionName][Spy.CharacterName] == nil then SpyDB.kosData[Spy.RealmName][Spy.FactionName][Spy.CharacterName] = {} end
+	if SpyDB.kosData[Spy.StoreRealm] == nil then SpyDB.kosData[Spy.StoreRealm] = {} end
+	if SpyDB.kosData[Spy.StoreRealm][Spy.FactionName] == nil then SpyDB.kosData[Spy.StoreRealm][Spy.FactionName] = {} end
+	if SpyDB.kosData[Spy.StoreRealm][Spy.FactionName][Spy.StoreCharacter] == nil then SpyDB.kosData[Spy.StoreRealm][Spy.FactionName][Spy.StoreCharacter] = {} end
 	if SpyDB.removeKOSData == nil then SpyDB.removeKOSData = {} end
-	if SpyDB.removeKOSData[Spy.RealmName] == nil then SpyDB.removeKOSData[Spy.RealmName] = {} end
-	if SpyDB.removeKOSData[Spy.RealmName][Spy.FactionName] == nil then SpyDB.removeKOSData[Spy.RealmName][Spy.FactionName] = {} end
+	if SpyDB.removeKOSData[Spy.StoreRealm] == nil then SpyDB.removeKOSData[Spy.StoreRealm] = {} end
+	if SpyDB.removeKOSData[Spy.StoreRealm][Spy.FactionName] == nil then SpyDB.removeKOSData[Spy.StoreRealm][Spy.FactionName] = {} end
 --[[	if Spy.db.profile == nil then Spy.db.profile = Default_Profile.profile end
 	if Spy.db.profile.Colors == nil then Spy.db.profile.Colors = Default_Profile.profile.Colors end
 	if Spy.db.profile.Colors["Window"] == nil then Spy.db.profile.Colors["Window"] = Default_Profile.profile.Colors["Window"] end
@@ -1846,6 +1853,8 @@ function Spy:OnInitialize()
 		Spy.EnemyFactionName = "None"
 	end
 	Spy.CharacterName = UnitName("player")
+	-- Forever: the keys the shared lists are kept under (Forever.lua, Spy:ForeverStoreKeys)
+	Spy:ForeverStoreKeys()
 
 	Spy.ValidClasses = {
 		["DRUID"] = true,

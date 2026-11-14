@@ -9,7 +9,7 @@ end
 
 local Definition = {defaultEnabled = true, defaults = {profile = {
     classEnabled = true, generalEnabled = false, intellect = true, frostArmor = true, hideResting = true, arcaneBlast = true,
-    fortitude = true, wild = true,
+    fortitude = true, innerFire = true, wild = true, righteousFury = true, warlockArmor = true, elementalShield = true,
 }}}
 local ClassRows = {
     MAGE = {
@@ -22,10 +22,25 @@ local ClassRows = {
     PRIEST = {
         {setting = "fortitude", label = "耐力提醒", key = "class.fortitude", order = 10,
             spellID = 1243, members = {{id = 1243, level = 1}, {id = 21562, level = 48}}, text = "耐力没了"},
+        {setting = "innerFire", label = "心灵之火", key = "class.innerFire", order = 20,
+            spellID = 588, members = {{id = 588, level = 12}}, text = "心灵之火没了"},
+    },
+    PALADIN = {
+        {setting = "righteousFury", label = "正义之怒", key = "class.righteousFury", order = 10,
+            spellID = 25780, members = {{id = 25780, level = 16}}, requiredTalent = 20468, text = "正义之怒没了"},
     },
     DRUID = {
         {setting = "wild", label = "爪子提醒", key = "class.wild", order = 10,
             spellID = 1126, members = {{id = 1126, level = 1}, {id = 21849, level = 50}}, text = "爪子没了"},
+    },
+    WARLOCK = {
+        {setting = "warlockArmor", label = "护甲提醒", key = "class.warlockArmor", order = 10,
+            spellID = 687, members = {{id = 687, level = 1}, {id = 706, level = 20},
+                {id = 403619, level = 1}}, text = "护甲没了"},
+    },
+    SHAMAN = {
+        {setting = "elementalShield", label = "元素护盾", key = "class.elementalShield", order = 10,
+            spellID = 324, members = {{id = 324, level = 8}, {id = 408510, level = 1}}, text = "护盾没了"},
     },
 }
 
@@ -299,7 +314,8 @@ end
 function Definition:OnContextChanged(event)
     if event == "PLAYER_DEAD" and self.blastStacks then self:ClearBlast() end
     if self.blastUnlocked and event == "PLAYER_REGEN_DISABLED" then self:SetUnlocked(false) end
-    if event == "SPELLS_CHANGED" or event == "PLAYER_ENTERING_WORLD" then self.states = nil end
+    if event == "SPELLS_CHANGED" or event == "PLAYER_ENTERING_WORLD"
+        or event == "PLAYER_TALENT_UPDATE" or event == "TRAIT_CONFIG_UPDATED" then self.states = nil end
     self:Refresh()
 end
 
@@ -319,6 +335,10 @@ function Definition:StartWork()
     if self.watchBuffs then
         self:RegisterEvent("PLAYER_ALIVE", self.OnContextChanged)
         self:RegisterEvent("PLAYER_UNGHOST", self.OnContextChanged)
+        if self.buffRows[1] and self.buffRows[1].requiredTalent then
+            self:RegisterEvent("PLAYER_TALENT_UPDATE", self.OnContextChanged)
+            self:RegisterEvent("TRAIT_CONFIG_UPDATED", self.OnContextChanged)
+        end
     end
     self.states = nil
     for _, event in ipairs({"PLAYER_ENTERING_WORLD", "SPELLS_CHANGED", "PLAYER_REGEN_DISABLED",

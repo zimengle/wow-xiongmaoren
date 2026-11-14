@@ -449,6 +449,9 @@ function H:FindGeneralChannelId()
 end
 
 function H:EnsureGeneralClickFlush()
+  if self:IsForeverClient() then
+    return
+  end
   if self._generalClickHooked or not WorldFrame or not WorldFrame.HookScript then
     return
   end
@@ -476,6 +479,9 @@ function H:SendGeneralChat()
 end
 
 function H:SendPartyChat(msg)
+  if self:IsForeverClient() then
+    return false
+  end
   if not msg or msg == "" then
     return false
   end

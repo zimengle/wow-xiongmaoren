@@ -4,7 +4,7 @@
 ## Notes: RurutiaSuite configuration installer.
 ## Notes-zhCN: 为新 RurutiaSuite 安装并适配露露的整套配置。
 ## Author: Rurutia
-## Version: 4.8.3
+## Version: 4.8.5
 ## X-ModUs-UID: 88
 ## X-License: All Rights Reserved
 ## RequiredDeps: RurutiaSuite
@@ -25,6 +25,8 @@ Core\BlizzardSettingsPreset_Infinite.lua
 Core\BlizzardSettingsImporter.lua
 Integrations\RXP.lua
 Core\RXPStyleImporter.lua
+Integrations\Questie.lua
+Core\QuestieImporter.lua
 Core\CanvasRouter.lua
 Core\ProfileSwitcher.lua
 Core\EllesmereEdgeGeometry.lua

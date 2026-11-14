@@ -16,21 +16,34 @@ local LOGO = "|TInterface\\AddOns\\DungeonsForever\\Media\\Brand\\DungeonsForeve
 local LOGO_GAP = "|TInterface\\AddOns\\DungeonsForever\\Media\\Brand\\DF_Blank.tga:16:16:0:0:32:32:0:32:0:32|t "
 
 local TIP_VER = 1
-local TIP_KEYS = { "src", "bis", "bisScore", "wish", "quest", "ilvl" }
+local TIP_KEYS = { "src", "bis", "bisScore", "wish", "quest", "ilvl", "need", "price", "matPrice" }
+local TIP_DEF = {
+    src = true, bis = false, bisScore = true, wish = false,
+    quest = false, ilvl = true, need = true, price = true, matPrice = true,
+}
 
 local function Cfg()
     local db = ns.DB and ns.DB()
     local ui = db and db.ui
-    if not ui then return { ver = TIP_VER } end
+    if not ui then
+        local d = { ver = TIP_VER, global = true }
+        for k, v in pairs(TIP_DEF) do d[k] = v end
+        return d
+    end
     local t = ui.tip
     if type(t) ~= "table" or t.ver ~= TIP_VER then
         t = { ver = TIP_VER }
         ui.tip = t
     end
-    for _, k in ipairs(TIP_KEYS) do
-        if t[k] == nil then t[k] = (k == "ilvl") end
+    if t.need == nil and (t.crateNeed ~= nil or t.writNeed ~= nil) then
+        t.need = not (t.crateNeed == false or t.writNeed == false)
     end
-    if t.global == nil then t.global = false end
+    t.crateNeed = nil
+    t.writNeed = nil
+    for _, k in ipairs(TIP_KEYS) do
+        if t[k] == nil then t[k] = TIP_DEF[k] end
+    end
+    if t.global == nil then t.global = true end
     return t
 end
 ns.TipCfg = Cfg
@@ -283,7 +296,131 @@ local function IlvlOf(id)
     return nil
 end
 
-function TL.Lines(id, link)
+local function PriceRows(id)
+    local PM = ns.ProfModule
+    if not PM then return nil end
+    local rows = PM.CrateTipLines and PM.CrateTipLines(id) or nil
+    if not rows and PM.WritTipLines then rows = PM.WritTipLines(id) end
+    return rows
+end
+
+local function PatternRows(id, title)
+    local PM = ns.ProfModule
+    if not PM or not PM.PatternTipLines then return nil end
+    return PM.PatternTipLines(id, title)
+end
+
+local function WritNeedRows(id, title)
+    local PM = ns.ProfModule
+    if not PM or not PM.WritNeedLines then return nil end
+    return PM.WritNeedLines(id, title)
+end
+
+local function CrateNeedRows(id, title)
+    local PM = ns.ProfModule
+    if not PM or not PM.CrateNeedLines then return nil end
+    return PM.CrateNeedLines(id, title)
+end
+
+local dmTierIdx
+
+local function DarkmoonTiers()
+    if dmTierIdx then return dmTierIdx end
+    local DM = ns.Darkmoon
+    if type(DM) ~= "table" or type(DM.LINES) ~= "table" then return nil end
+    local idx = {}
+    for _, ln in ipairs(DM.LINES) do
+        if type(ln) == "table" then
+            local mats = ln.mats
+            if type(mats) == "table" then
+                for t = 1, #mats do
+                    local mid = mats[t]
+                    if type(mid) == "number" and idx[mid] == nil then idx[mid] = t end
+                end
+            end
+            local alt = ln.alt
+            if type(alt) == "table" and type(alt.id) == "number" and type(alt.t) == "number" and idx[alt.id] == nil then
+                idx[alt.id] = alt.t
+            end
+        end
+    end
+    dmTierIdx = idx
+    return idx
+end
+
+local function DarkmoonNeedRows(id)
+    local idx = DarkmoonTiers()
+    local tier = idx and idx[id]
+    if not tier then return nil end
+    return { { L["需求"] .. ": " .. L["暗月马戏团"] .. " | " .. format(L["档次 %d"], tier), 1, 0.82, 0.4 } }
+end
+TL.DarkmoonNeedRows = DarkmoonNeedRows
+
+local USE_TEXT = {
+    [276561] = L["阿鲁高书桌上拾取；在银松森林 63.4, 64.3 安波米尔室内最内侧蓝色水晶旁使用，获得召唤达拉然隐藏 BOSS 道具书"],
+    [275989] = L["达拉然隐藏 BOSS 激活物品"],
+}
+
+local function UseRows(id)
+    local txt = USE_TEXT[id]
+    if not txt then return nil end
+    return { { txt, 1, 0.82, 0.4 } }
+end
+TL.UseRows = UseRows
+
+local function ExtraRows(id, title)
+    local cfg = Cfg()
+    local out
+    if cfg.need then
+        local rows = CrateNeedRows(id, title)
+        if rows then
+            out = out or {}
+            for i = 1, #rows do out[#out + 1] = rows[i] end
+        end
+        local wrows = WritNeedRows(id, title)
+        if wrows then
+            out = out or {}
+            for i = 1, #wrows do out[#out + 1] = wrows[i] end
+        end
+        local drows = DarkmoonNeedRows(id)
+        if drows then
+            out = out or {}
+            for i = 1, #drows do out[#out + 1] = drows[i] end
+        end
+        local urows = UseRows(id)
+        if urows then
+            out = out or {}
+            for i = 1, #urows do out[#out + 1] = urows[i] end
+        end
+    end
+    if cfg.price then
+        local rows = PriceRows(id)
+        if rows then
+            out = out or {}
+            for i = 1, #rows do out[#out + 1] = rows[i] end
+        end
+    end
+    if cfg.matPrice then
+        local rows = PatternRows(id, title)
+        if rows then
+            out = out or {}
+            for i = 1, #rows do out[#out + 1] = rows[i] end
+        end
+    end
+    return out
+end
+
+local function PackRows(rows, base)
+    if not rows then return nil end
+    local out = {}
+    for i = 1, #rows do
+        local r = rows[i]
+        out[i] = { r[1], r[2], r[3], r[4], (base or 0) + i > 1, r[6], r[7], r[8], r[9], r[10] }
+    end
+    return out
+end
+
+function TL.Lines(id, link, title)
     if type(id) ~= "number" then return nil end
     local cfg = Cfg()
     local out
@@ -346,6 +483,15 @@ function TL.Lines(id, link)
             end
         end
     end
+    local extra = ExtraRows(id, title)
+    if extra then
+        if not out then out = {} end
+        local base = #out
+        for i = 1, #extra do
+            local r = extra[i]
+            out[#out + 1] = { r[1], r[2], r[3], r[4], base + i > 1, r[6], r[7], r[8], r[9], r[10] }
+        end
+    end
     return out
 end
 
@@ -359,12 +505,32 @@ local function Append(tip, lines, skipN)
     for i = from + 1, total do
         local ln = lines[i]
         if type(ln) == "table" and type(ln[1]) == "string" then
-            tip:AddLine((first and LOGO or LOGO_GAP) .. ln[1], ln[2] or 1, ln[3] or 1, ln[4] or 1, true)
+            local pre = first and LOGO or LOGO_GAP
+            local right = ln[7]
+            if type(right) == "string" then
+                tip:AddDoubleLine(pre .. ln[1], right,
+                    ln[2] or 1, ln[3] or 1, ln[4] or 1,
+                    ln[8] or ln[2] or 1, ln[9] or ln[3] or 1, ln[10] or ln[4] or 1)
+            else
+                tip:AddLine(pre .. ln[1], ln[2] or 1, ln[3] or 1, ln[4] or 1, true)
+            end
             first = false
         end
     end
 end
 TL.Append = Append
+
+function TL.PriceLines(id, title)
+    local rows = ExtraRows(id, title)
+    if not rows then return nil end
+    return PackRows(rows, 0)
+end
+
+function TL.TipLines(id, link, title)
+    local cfg = Cfg()
+    if not cfg.global then return nil end
+    return TL.Lines(id, link, title)
+end
 
 local EXCLUDE = {
     TFItemScanTip = true,
@@ -391,6 +557,16 @@ local function PlainWidth(fs)
     return w
 end
 
+local function TipTitle(tt)
+    local nm = tt and tt.GetName and tt:GetName()
+    if type(nm) ~= "string" then return nil end
+    local fs = _G[nm .. "TextLeft1"]
+    if not (fs and fs.GetText) then return nil end
+    local ok, s = pcall(fs.GetText, fs)
+    if ok and type(s) == "string" and s ~= "" then return s end
+    return nil
+end
+
 local function Augment(tt, data)
     if not tt then return end
     if tt.__dfOwn then return end
@@ -398,7 +574,8 @@ local function Augment(tt, data)
     if DG and DG.__tipBusy then return end
     local nm = tt.GetName and tt:GetName()
     if nm and EXCLUDE[nm] then return end
-    if not Cfg().global then return end
+    local cfg = Cfg()
+    if not cfg.global then return end
     local id, link = TipItemID(tt)
     if not id and type(data) == "table" then
         if type(data.hyperlink) == "string" then
@@ -413,7 +590,7 @@ local function Augment(tt, data)
     end
     augStamp[tt] = id
     tt.__dfAugId = id
-    local lines = TL.Lines(id, link)
+    local lines = TL.TipLines(id, link, TipTitle(tt))
     Append(tt, lines, 0)
     if tt.IsShown and tt:IsShown() and tt.Show then pcall(tt.Show, tt) end
     local n = type(lines) == "table" and #lines or 0
@@ -425,7 +602,7 @@ local function Augment(tt, data)
             break
         end
     end
-    if Cfg().bisScore and C_Timer and C_Timer.After and not tt.__dfScoreShown then
+    if cfg.global and cfg.bisScore and C_Timer and C_Timer.After and not tt.__dfScoreShown then
         tt.__dfAugTries = 3
         local function Retry()
             local DG2 = ns.DungeonModule
@@ -435,7 +612,7 @@ local function Augment(tt, data)
             local rows = ScoreRows(id, link)
             if rows then
                 if (tt.__dfAugN or 0) == 0 then
-                    local ls = TL.Lines(id, link)
+                    local ls = TL.TipLines(id, link, TipTitle(tt))
                     Append(tt, ls, 0)
                     tt.__dfAugN = type(ls) == "table" and #ls or 0
                 else
@@ -574,9 +751,9 @@ end
 
 local function SampleStamp(cfg)
     local GM = ns.GearModule
-    return format("%d%d%d%d%d|%s|%d",
+    return format("%d%d%d%d%d%d|%s|%d",
         cfg.src and 1 or 0, cfg.bis and 1 or 0, cfg.bisScore and 1 or 0,
-        cfg.wish and 1 or 0, cfg.quest and 1 or 0,
+        cfg.wish and 1 or 0, cfg.quest and 1 or 0, cfg.price and 1 or 0,
         tostring(GM and GM.__viewVer or 0),
         math.floor(GetTime()))
 end
@@ -587,6 +764,7 @@ function TL.SampleItem()
     if sampCacheId and sampCacheKey == key then return sampCacheId end
     local GM = ns.GearModule
     local BG = ns.BisModule
+    local PM = ns.ProfModule
     local srcIdx = BuildSrc()
     local curSet
     if BG and type(BG.cur) == "table" then
@@ -636,6 +814,24 @@ function TL.SampleItem()
     for i = 1, math.min(#sks, SAMPLE_CAP_SRC) do
         pools[#pools + 1] = sks[i]
     end
+    if cfg.price and PM then
+        local cd = ns.CratesData
+        local cr = cd and cd.crates
+        if type(cr) == "table" then
+            for i = 1, math.min(#cr, 6) do
+                local c = cr[i]
+                if type(c) == "table" and type(c.id) == "number" then pools[#pools + 1] = c.id end
+            end
+        end
+        local wr = cd and cd.writs
+        if type(wr) == "table" then
+            for i = 1, math.min(#wr, 4) do
+                local w = wr[i]
+                local wid = type(w) == "table" and (w.item or w.target) or nil
+                if type(wid) == "number" then pools[#pools + 1] = wid end
+            end
+        end
+    end
     local bestId, bestScore
     for _, id in ipairs(pools) do
         local sc = 0
@@ -643,6 +839,9 @@ function TL.SampleItem()
         if cfg.quest and QuestHit(id) then sc = sc + 2 end
         if cfg.src then
             if srcIdx[id] then sc = sc + 1 end
+        end
+        if cfg.price and PM and ((PM.CrateOf and PM.CrateOf(id)) or (PM.WritOf and PM.WritOf(id))) then
+            sc = sc + 1
         end
         if cfg.src and not srcIdx[id] then
             local cn = BuildCraft()
@@ -725,7 +924,7 @@ function TL.EnsurePreview(card)
         end
         if not id then return end
         augStamp[self] = id
-        Append(self, TL.Lines(id, link))
+        Append(self, TL.TipLines(id, link))
     end)
     tip:Hide()
     return tip
@@ -781,7 +980,7 @@ function TL.RefreshPreview()
     end
     if augStamp[tip] ~= id then
         augStamp[tip] = id
-        Append(tip, TL.Lines(id))
+        Append(tip, TL.TipLines(id))
     end
     tip:Show()
     local w = PlainWidth(tip) or 0

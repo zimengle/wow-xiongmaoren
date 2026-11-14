@@ -413,7 +413,7 @@ function Spy:AddKOSData(name)
 	SpyPerCharDB.KOSData[name] = time()
 --	SpyPerCharDB.PlayerData[name].kos = 1 
 	if Spy.db.profile.ShareKOSBetweenCharacters then
-		SpyDB.removeKOSData[Spy.RealmName][Spy.FactionName][name] = nil
+		SpyDB.removeKOSData[Spy.StoreRealm][Spy.FactionName][name] = nil
 	end
 end
 
@@ -428,7 +428,7 @@ function Spy:RemoveKOSData(name)
 			SpyPerCharDB.PlayerData[name].kos = nil
 		end
 		if Spy.db.profile.ShareKOSBetweenCharacters then
-			SpyDB.removeKOSData[Spy.RealmName][Spy.FactionName][name] = time()
+			SpyDB.removeKOSData[Spy.StoreRealm][Spy.FactionName][name] = time()
 		end
 	end
 end
@@ -633,7 +633,8 @@ function Spy:AnnouncePlayer(player, channel)
 				if (channel == "PARTY" and GetNumGroupMembers() > 0) or (channel == "RAID" and UnitInRaid("player")) or (channel == "GUILD" and GetGuildInfo("player") ~= nil) then
 					SendChatMessage(msg, channel)
 				elseif channel == "LOCAL" then
-					SendChatMessage(msg, "CHANNEL", nil, GetChannelName(L["LocalDefenseChannelName"].." - "..GetZoneText()))
+					-- Forever: see Announce.lua (channel lookup; this one comes from a click)
+					Spy:SendLocalDefense(msg, true)
 				end
 			else
 				-- announce to standard channel
@@ -641,7 +642,9 @@ function Spy:AnnouncePlayer(player, channel)
 					if announce == "Self" then
 						DEFAULT_CHAT_FRAME:AddMessage(msg)
 					elseif announce == "LocalDefense" then
-						SendChatMessage(msg, "CHANNEL", nil, GetChannelName(L["LocalDefenseChannelName"].." - "..GetZoneText()))
+						-- Forever: the game refuses a post in a public channel without a click,
+						-- so the alert window asks for one (Announce.lua).
+						Spy:SendLocalDefense(msg, false)
 					else
 						SendChatMessage(msg, strupper(announce))
 					end
@@ -803,15 +806,15 @@ function Spy:PurgeUndetectedData()
 	end
 	
 	-- remove expired kos players held in central data
-	local kosData = SpyDB.kosData[Spy.RealmName][Spy.FactionName]
+	local kosData = SpyDB.kosData[Spy.StoreRealm][Spy.FactionName]
 	for characterName in pairs(kosData) do
 		local characterKosData = kosData[characterName]
 		for player in pairs(characterKosData) do
 			local kosPlayerData = characterKosData[player]
 			if Spy.db.profile.PurgeKoS then
 				if not kosPlayerData.time or (currentTime - kosPlayerData.time) > timeout or not kosPlayerData.isEnemy then
-					SpyDB.kosData[Spy.RealmName][Spy.FactionName][characterName][player] = nil
-					SpyDB.removeKOSData[Spy.RealmName][Spy.FactionName][player] = nil
+					SpyDB.kosData[Spy.StoreRealm][Spy.FactionName][characterName][player] = nil
+					SpyDB.removeKOSData[Spy.StoreRealm][Spy.FactionName][player] = nil
 				end
 			end
 		end
@@ -834,7 +837,7 @@ end
 
 function Spy:RemoveLocalKOSPlayers()
 	for player in pairs(SpyPerCharDB.KOSData) do
-		if SpyDB.removeKOSData[Spy.RealmName][Spy.FactionName][player] then
+		if SpyDB.removeKOSData[Spy.StoreRealm][Spy.FactionName][player] then
 			Spy:RemoveKOSData(player)
 		end
 	end
@@ -843,30 +846,30 @@ end
 function Spy:RegenerateKOSCentralList(player)
 	if player then
 		local playerData = SpyPerCharDB.PlayerData[player]
-		SpyDB.kosData[Spy.RealmName][Spy.FactionName][Spy.CharacterName][player] = {}
+		SpyDB.kosData[Spy.StoreRealm][Spy.FactionName][Spy.StoreCharacter][player] = {}
 		if playerData then
-			SpyDB.kosData[Spy.RealmName][Spy.FactionName][Spy.CharacterName][player] = playerData
+			SpyDB.kosData[Spy.StoreRealm][Spy.FactionName][Spy.StoreCharacter][player] = playerData
 		end
-		SpyDB.kosData[Spy.RealmName][Spy.FactionName][Spy.CharacterName][player].added = SpyPerCharDB.KOSData[player]
+		SpyDB.kosData[Spy.StoreRealm][Spy.FactionName][Spy.StoreCharacter][player].added = SpyPerCharDB.KOSData[player]
 	else
 		for player in pairs(SpyPerCharDB.KOSData) do
 			local playerData = SpyPerCharDB.PlayerData[player]
-			SpyDB.kosData[Spy.RealmName][Spy.FactionName][Spy.CharacterName][player] = {}
+			SpyDB.kosData[Spy.StoreRealm][Spy.FactionName][Spy.StoreCharacter][player] = {}
 			if playerData then
-				SpyDB.kosData[Spy.RealmName][Spy.FactionName][Spy.CharacterName][player] = playerData
+				SpyDB.kosData[Spy.StoreRealm][Spy.FactionName][Spy.StoreCharacter][player] = playerData
 			end
-			SpyDB.kosData[Spy.RealmName][Spy.FactionName][Spy.CharacterName][player].added = SpyPerCharDB.KOSData[player]
+			SpyDB.kosData[Spy.StoreRealm][Spy.FactionName][Spy.StoreCharacter][player].added = SpyPerCharDB.KOSData[player]
 		end
 	end
 end
 
 function Spy:RegenerateKOSListFromCentral()
-	local kosData = SpyDB.kosData[Spy.RealmName][Spy.FactionName]
+	local kosData = SpyDB.kosData[Spy.StoreRealm][Spy.FactionName]
 	for characterName in pairs(kosData) do
-		if characterName ~= Spy.CharacterName then
+		if characterName ~= Spy.StoreCharacter then -- Forever: full name, see Spy:ForeverStoreKeys
 			local characterKosData = kosData[characterName]
 			for player in pairs(characterKosData) do
-				if not SpyDB.removeKOSData[Spy.RealmName][Spy.FactionName][player] then
+				if not SpyDB.removeKOSData[Spy.StoreRealm][Spy.FactionName][player] then
 					local playerData = SpyPerCharDB.PlayerData[player]
 					if not playerData then
 						playerData = Spy:AddPlayerData(player, class, level, race, guild, faction, isEnemy, isGuess, rank)
@@ -967,7 +970,9 @@ function Spy:ButtonClicked(self, button, down)
 			end
 			Spy:BarDropDownOpen(self)
 			CloseDropDownMenus(1)
-			ToggleDropDownMenu(1, nil, Spy_BarDropDownMenu)
+			-- Forever: skipped when the game's own menu opened (Forever.lua, Spy:BarDropDownOpen)
+			local toggle = Spy.ToggleRowDropDown or ToggleDropDownMenu
+			toggle(1, nil, Spy_BarDropDownMenu)
 		end
 	end
 end

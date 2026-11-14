@@ -1,6 +1,6 @@
 
 BugGrabberDB = {
-["session"] = 82,
+["session"] = 88,
 ["lastSanitation"] = 3,
 ["errors"] = {
 {
@@ -234,6 +234,14 @@ BugGrabberDB = {
 ["stack"] = "[Interface/AddOns/!BugGrabber/BugGrabber.lua]:554: in function '?'\n[Interface/AddOns/!BugGrabber/BugGrabber.lua]:538: in function <Interface/AddOns/!BugGrabber/BugGrabber.lua:538>\n[C]: in function 'ClearOverrideBindings'\n[Interface/AddOns/AutoBar/Core.lua]:221: in function 'RegisterOverrideBindings'\n[Interface/AddOns/AutoBar/Core.lua]:550: in function '?'\n[Interface/AddOns/AutoBar/Core.lua]:68: in function <Interface/AddOns/AutoBar/Core.lua:47>\n",
 ["session"] = 82,
 ["counter"] = 2,
+},
+{
+["message"] = "Interface/AddOns/TentWhisper/TentWhisper.lua:706: attempt to compare local 'g' (a secret string value, while execution tainted by 'TentWhisper')",
+["time"] = 1794673583,
+["locals"] = "g=<secret string>\n(*temporary)=\"string\"\n(*temporary)=<secret string>\n(*temporary)=\"attempt to compare local 'g' (a secret string value, while execution tainted by 'TentWhisper')\"\n",
+["stack"] = "[Interface/AddOns/TentWhisper/TentWhisper.lua]:706: in function <Interface/AddOns/TentWhisper/TentWhisper.lua:702>\n[Interface/AddOns/TentWhisper/TentWhisper.lua]:808: in function <Interface/AddOns/TentWhisper/TentWhisper.lua:800>\n[Interface/AddOns/TentWhisper/TentWhisper.lua]:991: in function <Interface/AddOns/TentWhisper/TentWhisper.lua:986>\n[C]: in function 'CameraOrSelectOrMoveStop'\n[CAMERAORSELECTORMOVE]:4: in function <[string \"CAMERAORSELECTORMOVE\"]:1>\n",
+["session"] = 88,
+["counter"] = 567,
 },
 },
 }
