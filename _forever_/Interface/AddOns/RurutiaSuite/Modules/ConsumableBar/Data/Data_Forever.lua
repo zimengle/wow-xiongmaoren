@@ -283,6 +283,8 @@ DATASETS[H.EXP_FOREVER] = {
         Entry({ key = "era_craft_13934", name = "大鱼片", kind = "food", requiredLevel = 45, itemID = 13934, buffID = 1249519, color = "ffcc66", clickColors = { left = "ffcc66", right = "ffcc66" } }),
         Entry({ key = "era_craft_13935", name = "烤鲑鱼", kind = "food", requiredLevel = 45, itemID = 13935, color = "ffcc66", clickColors = { left = "ffcc66", right = "ffcc66" } }),
         Entry({ key = "era_craft_16766", name = "安德麦蚌肉杂烩", kind = "food", requiredLevel = 35, itemID = 16766, color = "ffcc66", clickColors = { left = "ffcc66", right = "ffcc66" } }),
+        -- 蚌肉大餐：进食充分后耐力和精神各提高12点，持续15分钟。
+        Entry({ key = "forever_item_16971", name = "蚌肉大餐", kind = "food", requiredLevel = 40, itemID = 16971, color = "ffcc66", clickColors = { left = "ffcc66", right = "ffcc66" } }),
         Entry({ key = "era_craft_17197", name = "姜饼", kind = "food", requiredLevel = 1, itemID = 17197, buffID = 19705, color = "ffcc66", clickColors = { left = "ffcc66", right = "ffcc66" } }),
         Entry({ key = "era_craft_17198", name = "蛋奶酒", kind = "food", requiredLevel = 1, itemID = 17198, buffID = 19705, color = "ffcc66", clickColors = { left = "ffcc66", right = "ffcc66" } }),
         Entry({ key = "era_craft_17222", name = "蜘蛛肉肠", kind = "food", requiredLevel = 35, itemID = 17222, buffID = 1248406, color = "ffcc66", clickColors = { left = "ffcc66", right = "ffcc66" } }),
@@ -802,6 +804,7 @@ DATASETS[H.EXP_FOREVER] = {
             "era_craft_13930",
             "era_craft_13932",
             "era_craft_16766",
+            "forever_item_16971",
             "era_grilled_squid",
             "era_nightfin_soup",
             "era_craft_12215",

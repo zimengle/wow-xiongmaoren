@@ -75,6 +75,25 @@ function Definition:SanitizeProfile()
         local key = BUTTONS[index].key
         if profile.buttonsEnabled[key] == nil then profile.buttonsEnabled[key] = true end
     end
+    if type(profile.stickyExcluded) == "table" then
+        if profile.stickyChannels == nil then
+            local allowed = {}
+            for key, excluded in pairs(profile.stickyExcluded) do
+                if type(excluded) == "boolean" then allowed[key] = not excluded end
+            end
+            profile.stickyChannels = allowed
+        end
+        profile.stickyExcluded = nil
+    end
+    if type(profile.stickyModes) == "table" then
+        local legacy = profile.stickyModes
+        if profile.stickyMode == nil and (legacy.WHISPER == "off" or legacy.BN_WHISPER == "off") then
+            profile.stickyMode = "off"
+        end
+        profile.stickyModes = nil
+    end
+    -- Both manual modes in the old selector opted out of sticky whispers.
+    if profile.stickyMode == "sticky" then profile.stickyMode = "off" end
     if self:SupportsTabChannelSwitch() and profile.tabChannelSwitchEnabled == nil then
         profile.tabChannelSwitchEnabled = true
     end
@@ -100,10 +119,18 @@ function Definition:Initialize()
     end
 end
 
+function Definition:ApplyStickyModes()
+    if Adapter.ApplyStickyModes then
+        local profile = self:GetProfile()
+        Adapter:ApplyStickyModes(self, self.runtimeActive and profile and (profile.stickyMode or "native"))
+    end
+end
+
 function Definition:ProfileChanged()
     self:SanitizeProfile()
     self.channels = Adapter:GetChannels()
     local profile = self:GetProfile()
+    self:ApplyStickyModes()
     if self.runtimeActive and profile and profile.tabChannelSwitchEnabled then
         self:EnsureTabChannelHook()
     end
@@ -253,6 +280,7 @@ function Definition:ActivateRuntime()
     local profile = self:GetProfile()
     if not (self.supported and profile and profile.enabled) then return false end
     self.runtimeActive = true
+    self:ApplyStickyModes()
     self:RegisterDynamicEvents()
     self:RegisterEmojiFilters()
     self:RegisterAliases()
@@ -267,6 +295,7 @@ end
 
 function Definition:StopRuntime()
     self.runtimeActive = false
+    self:ApplyStickyModes()
     self:HideChatCopy()
     self:UnregisterAllEvents()
     self:CancelRefresh("chat-bar-dynamic-layout")

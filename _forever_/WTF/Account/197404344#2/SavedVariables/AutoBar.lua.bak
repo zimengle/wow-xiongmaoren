@@ -499,6 +499,87 @@ AutoBarDB2 = {
 },
 },
 },
+["WARRIOR"] = {
+["barList"] = {
+["AutoBarClassBarWarrior"] = {
+["share"] = "2",
+["fadeOut"] = false,
+["scale"] = 1,
+["rows"] = 1,
+["dockShiftY"] = 0,
+["alignButtons"] = "3",
+["posX"] = 300,
+["hide"] = false,
+["enabled"] = true,
+["columns"] = 11,
+["alpha"] = 1,
+["buttonKeys"] = {
+"AutoBarButtonShields",
+"AutoBarButtonCharge",
+"AutoBarButtonInterrupt",
+"AutoBarButtonER",
+"AutoBarButtonStance",
+"AutoBarButtonClassBuff",
+},
+["posY"] = 280,
+["allowed_class"] = "WARRIOR",
+["popupDirection"] = "1",
+["padding"] = 0,
+["dockShiftX"] = 0,
+["frameStrata"] = "LOW",
+},
+},
+["buttonList"] = {
+["AutoBarButtonStance"] = {
+["barKey"] = "AutoBarClassBarWarrior",
+["buttonClass"] = "AutoBarButtonStance",
+["square_popups"] = true,
+["enabled"] = true,
+["buttonKey"] = "AutoBarButtonStance",
+["defaultButtonIndex"] = 5,
+},
+["AutoBarButtonShields"] = {
+["barKey"] = "AutoBarClassBarWarrior",
+["buttonClass"] = "AutoBarButtonShields",
+["square_popups"] = true,
+["enabled"] = true,
+["buttonKey"] = "AutoBarButtonShields",
+["defaultButtonIndex"] = 1,
+},
+["AutoBarButtonCharge"] = {
+["barKey"] = "AutoBarClassBarWarrior",
+["buttonClass"] = "AutoBarButtonCharge",
+["square_popups"] = true,
+["enabled"] = true,
+["buttonKey"] = "AutoBarButtonCharge",
+["defaultButtonIndex"] = 2,
+},
+["AutoBarButtonER"] = {
+["barKey"] = "AutoBarClassBarWarrior",
+["buttonClass"] = "AutoBarButtonER",
+["square_popups"] = true,
+["enabled"] = true,
+["buttonKey"] = "AutoBarButtonER",
+["defaultButtonIndex"] = 4,
+},
+["AutoBarButtonInterrupt"] = {
+["barKey"] = "AutoBarClassBarWarrior",
+["buttonClass"] = "AutoBarButtonInterrupt",
+["square_popups"] = true,
+["enabled"] = true,
+["buttonKey"] = "AutoBarButtonInterrupt",
+["defaultButtonIndex"] = 3,
+},
+["AutoBarButtonClassBuff"] = {
+["barKey"] = "AutoBarClassBarWarrior",
+["buttonClass"] = "AutoBarButtonClassBuff",
+["square_popups"] = true,
+["enabled"] = true,
+["buttonKey"] = "AutoBarButtonClassBuff",
+["defaultButtonIndex"] = 6,
+},
+},
+},
 ["SHAMAN"] = {
 ["barList"] = {
 ["AutoBarClassBarShaman"] = {
@@ -617,6 +698,14 @@ AutoBarDB2 = {
 ["custom_categories"] = {
 },
 ["chars"] = {
+["仓库 - CN5 Realm 3 PvP"] = {
+["buttonDataList"] = {
+},
+["barList"] = {
+},
+["buttonList"] = {
+},
+},
 ["重庆 - CN5 Realm 3 PvP"] = {
 ["buttonDataList"] = {
 },
@@ -625,7 +714,7 @@ AutoBarDB2 = {
 ["buttonList"] = {
 },
 },
-["仓库 - CN5 Realm 3 PvP"] = {
+["巴菲特 - CN1 Realm 3 PvE"] = {
 ["buttonDataList"] = {
 },
 ["barList"] = {

@@ -2,9 +2,9 @@
 RurutiaSuiteDB = {
 ["global"] = {
 ["lastSeenChangelogViews"] = {
-["classic-infinite"] = "4.8.5:e68702ac0d6c4e8d2b16",
+["classic-infinite"] = "4.8.8:5a7f846e40b7582d0559",
 },
-["lastSeenVersion"] = "4.8.5",
+["lastSeenVersion"] = "4.8.8",
 },
 ["namespaces"] = {
 ["VersionDisplay"] = {
@@ -14,52 +14,21 @@ RurutiaSuiteDB = {
 },
 },
 },
-["ExperienceBar"] = {
-["char"] = {
-["重庆 - 智能体"] = {
-["session"] = {
-["lastXP"] = 49924,
-["gainedXP"] = 112481,
-["startTime"] = 1794666944,
-["playedAt"] = 1794673918,
-["lastXPMax"] = 173900,
-["totalPlayed"] = 330374,
-["levelPlayed"] = 3500,
+["ExtraTools"] = {
+["profiles"] = {
+["Default"] = {
+["blizzardUI"] = {
+["infiniteDefaultsV2"] = true,
+["merchantExpansion"] = true,
+["merchantSearch"] = true,
+["knownRecipeTint"] = true,
 },
-},
-["露露缇娅 - 嗷呜"] = {
-["session"] = {
-["lastXP"] = 33,
-["gainedXP"] = 67,
-["playedAt"] = 1791934064,
-["startTime"] = 1791934038,
-["lastXPMax"] = 2800,
-},
-},
-["露露缇娅 - 啾啾"] = {
-["session"] = {
-["lastXP"] = 114,
-["gainedXP"] = 375,
-["playedAt"] = 1791925235,
-["lastXPMax"] = 2100,
-["startTime"] = 1791925009,
-},
-},
-["露露缇娅 - 喵呜"] = {
-["session"] = {
-["lastXP"] = 25176,
-["lastXPMax"] = 27300,
-["startTime"] = 1792641253,
-},
-},
-["仓库 - 存放"] = {
-["session"] = {
-["lastXP"] = 55,
-["levelPlayed"] = 409,
-["playedAt"] = 1794621409,
-["startTime"] = 1794621408,
-["totalPlayed"] = 409,
-["lastXPMax"] = 400,
+["featureOwnersV1"] = {
+["BlizzardEnhancements"] = true,
+["PluginEnhancements"] = true,
+["LootTools"] = true,
+["LFGTools"] = true,
+["CelestialBar"] = true,
 },
 },
 },
@@ -67,8 +36,8 @@ RurutiaSuiteDB = {
 ["ConsumableBar"] = {
 ["profiles"] = {
 ["Default"] = {
-["layoutSettingsVersion"] = 2,
 ["positionLayoutVersion"] = 8,
+["layoutSettingsVersion"] = 2,
 },
 },
 },
@@ -100,21 +69,63 @@ RurutiaSuiteDB = {
 },
 },
 },
-["ExtraTools"] = {
-["profiles"] = {
-["Default"] = {
-["blizzardUI"] = {
-["infiniteDefaultsV2"] = true,
-["merchantExpansion"] = true,
-["merchantSearch"] = true,
-["knownRecipeTint"] = true,
+["ExperienceBar"] = {
+["char"] = {
+["重庆 - 智能体"] = {
+["session"] = {
+["lastXP"] = 152951,
+["gainedXP"] = 280998,
+["playedAt"] = 1794821559,
+["levelPlayed"] = 7325,
+["lastXPMax"] = 202300,
+["totalPlayed"] = 388825,
+["startTime"] = 1794804158,
 },
-["featureOwnersV1"] = {
-["BlizzardEnhancements"] = true,
-["PluginEnhancements"] = true,
-["LootTools"] = true,
-["CelestialBar"] = true,
-["LFGTools"] = true,
+},
+["露露缇娅 - 嗷呜"] = {
+["session"] = {
+["lastXP"] = 33,
+["gainedXP"] = 67,
+["playedAt"] = 1791934064,
+["startTime"] = 1791934038,
+["lastXPMax"] = 2800,
+},
+},
+["露露缇娅 - 啾啾"] = {
+["session"] = {
+["lastXP"] = 114,
+["gainedXP"] = 375,
+["playedAt"] = 1791925235,
+["lastXPMax"] = 2100,
+["startTime"] = 1791925009,
+},
+},
+["巴菲特 - 李家沱"] = {
+["session"] = {
+["lastXP"] = 12,
+["gainedXP"] = 412,
+["startTime"] = 1794824093,
+["playedAt"] = 1794824269,
+["lastXPMax"] = 900,
+["totalPlayed"] = 177,
+["levelPlayed"] = 1,
+},
+},
+["露露缇娅 - 喵呜"] = {
+["session"] = {
+["lastXP"] = 25176,
+["lastXPMax"] = 27300,
+["startTime"] = 1792641253,
+},
+},
+["仓库 - 存放"] = {
+["session"] = {
+["lastXP"] = 55,
+["startTime"] = 1794621408,
+["playedAt"] = 1794621409,
+["lastXPMax"] = 400,
+["totalPlayed"] = 409,
+["levelPlayed"] = 409,
 },
 },
 },
@@ -128,6 +139,13 @@ RurutiaSuiteDB = {
 },
 },
 },
+["ChatBar"] = {
+["profiles"] = {
+["Default"] = {
+["tabChannelSwitchEnabled"] = true,
+},
+},
+},
 ["MapEnhancement"] = {
 ["profiles"] = {
 ["Default"] = {
@@ -135,13 +153,14 @@ RurutiaSuiteDB = {
 ["scale"] = 1,
 ["revealDefaultVersion"] = 1,
 ["centerHorizontal"] = false,
-["y"] = 222.2191162109375,
-["x"] = 659.5116577148438,
+["y"] = 157.851318359375,
+["x"] = 294.147705078125,
 },
 },
 },
 },
 ["profileKeys"] = {
+["巴菲特 - 李家沱"] = "Default",
 ["重庆 - 智能体"] = "Default",
 ["露露缇娅 - 嗷呜"] = "Default",
 ["露露缇娅 - 喵呜"] = "Default",

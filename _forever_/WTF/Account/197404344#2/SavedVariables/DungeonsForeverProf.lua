@@ -2,9 +2,24 @@
 DungeonsForeverProfDB = {
 ["prof"] = {
 ["track"] = {
+["巴菲特-CN1 Realm 3 PvE"] = {
+["nextID"] = 0,
+["observerSession"] = 6,
+["version"] = 1,
+["active"] = {
+},
+["runs"] = {
+},
+["continuation"] = {
+},
+["preparing"] = {
+},
+["endedContracts"] = {
+},
+},
 ["重庆-CN5 Realm 3 PvP"] = {
 ["nextID"] = 0,
-["observerSession"] = 84,
+["observerSession"] = 90,
 ["version"] = 1,
 ["active"] = {
 },
@@ -112,10 +127,20 @@ DungeonsForeverProfDB = {
 },
 },
 ["economy"] = {
+["巴菲特-CN1 Realm 3 PvE"] = {
+["learningRequirements"] = {
+},
+["clientInputRevision"] = 1,
+["recipeRosters"] = {
+},
+["recipeBuild"] = "1.60.1:70938",
+["recipes"] = {
+},
+},
 ["重庆-CN5 Realm 3 PvP"] = {
 ["learningRequirements"] = {
 },
-["clientInputRevision"] = 1725,
+["clientInputRevision"] = 1727,
 ["recipeRosters"] = {
 },
 ["recipeBuild"] = "1.60.1:70938",

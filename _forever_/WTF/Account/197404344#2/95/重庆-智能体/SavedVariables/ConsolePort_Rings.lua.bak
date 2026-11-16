@@ -16,21 +16,9 @@ ConsolePortRings = {
 },
 {
 ["type"] = "item",
-["questID"] = 3449,
+["questID"] = 4201,
 ["autoassigned"] = true,
-["item"] = "|cnIQ1:|Hitem:10445::::::::52:1489::11:::::::|h[绘图工具包]|h|r",
-},
-{
-["type"] = "item",
-["questID"] = 2944,
-["autoassigned"] = true,
-["item"] = "|cnIQ1:|Hitem:9328::::::::52:1489::11:::::::|h[超级摄影器FX]|h|r",
-},
-{
-["type"] = "item",
-["questID"] = 99258,
-["autoassigned"] = true,
-["item"] = "|cnIQ1:|Hitem:286648::::::::52:1489::11:::::::|h[枯竭的水晶之心]|h|r",
+["item"] = "|cnIQ1:|Hitem:11412::::::::58:1489::11:::::::|h[娜玛拉之瓶]|h|r",
 },
 [0] = {
 },

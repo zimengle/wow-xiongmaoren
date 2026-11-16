@@ -1196,6 +1196,7 @@ PD.RECIPE_BADGE_W = 26
 PD.RECIPE_PADL = 32
 PD.SEARCH_EB_W, PD.SEARCH_W = 150, 180
 PD.SEARCH_RESERVED = 190
+PD.LVR_EB_W, PD.LVR_RST_W, PD.LVR_W = 54, 44, 214
 
 PD.LV_FS = 14
 PD.TBL_ICON = 32
@@ -1366,6 +1367,44 @@ function PD.ItemIcon(id)
     if _icN >= 8192 then _icNeg, _icN = {}, 0 end
     _icNeg[id], _icN = true, _icN + 1
     return tex
+end
+
+function PD.EnsureTipNameRefresh()
+    if PD.__nmEvt then return end
+    local ev = CreateFrame("Frame")
+    ev:RegisterEvent("GET_ITEM_INFO_RECEIVED")
+    pcall(ev.RegisterEvent, ev, "ITEM_DATA_LOAD_RESULT")
+    ev:SetScript("OnEvent", function(_, _, itemID, success)
+        if itemID == nil or success == false then return end
+        _nmNeg[itemID] = nil
+        _icNeg[itemID] = nil
+        local r = PD.hoverRow
+        if not (r and r.__spell and r.__tipExtra and r:IsMouseOver()) then return end
+        if PD.__nmT then return end
+        PD.__nmT = C_Timer.NewTimer(0.15, function()
+            PD.__nmT = nil
+            local rr = PD.hoverRow
+            if not (rr and rr.__spell and rr.__tipExtra and rr:IsMouseOver()) then return end
+            local extra = rr.__tipExtra
+            if type(extra) == "function" then extra = extra() end
+            PD.ShowSpellTip(rr, extra)
+        end)
+    end)
+    PD.__nmEvt = ev
+end
+
+function PD.PrimeNames(mats)
+    if type(mats) ~= "table" then return end
+    PD.EnsureTipNameRefresh()
+    for i = 1, #mats do
+        local m = mats[i]
+        local id = type(m) == "table" and m[1] or nil
+        if type(id) == "number" then
+            _nmNeg[id] = nil
+            _icNeg[id] = nil
+            DG.RequestItem(id)
+        end
+    end
 end
 
 PD.Wrap = function(text, fs, width)
@@ -1589,12 +1628,36 @@ function PD.SpellTipLines()
     return nil
 end
 
+local TIP_MAX = 24
+function PD.TipShow(owner, lines, point)
+    if not (owner and type(lines) == "table") then return end
+    local GT = GameTooltip
+    if not GT then return end
+    GT:SetOwner(owner, point or "ANCHOR_RIGHT")
+    GT:ClearLines()
+    local last, n = nil, 0
+    for i = 1, #lines do
+        local ln = lines[i]
+        local t = type(ln) == "table" and ln[1] or nil
+        if type(t) == "string" then
+            t = t:gsub("%s+$", "")
+            if t ~= "" and t ~= last then
+                last = t
+                n = n + 1
+                if n <= TIP_MAX then
+                    GT:AddLine(t, ln[2] or 1, ln[3] or 1, ln[4] or 1, true)
+                end
+            end
+        end
+    end
+    if n > 0 then GT:Show() end
+end
+
 function PD.ShowSpellTip(owner, extra)
     local sid = owner and owner.__spell
     if type(sid) ~= "number" then return false end
     local GT = GameTooltip
     if not GT then return false end
-    if ns.hui then ns.hui.nativeTipOwner = owner end
     GT:SetOwner(owner, "ANCHOR_RIGHT")
     GT:ClearLines()
     local ok = false
@@ -1604,7 +1667,6 @@ function PD.ShowSpellTip(owner, extra)
         ok = pcall(GT.SetSpell, GT, sid, BOOKTYPE_SPELL or "spell")
     end
     if not ok then
-        if ns.hui then ns.hui.nativeTipOwner = nil end
         return false
     end
     local n = PD.SpellTipLines()
@@ -1614,10 +1676,8 @@ function PD.ShowSpellTip(owner, extra)
         n = PD.SpellTipLines()
     end
     if type(n) == "number" and n < 1 then
-        if ns.hui then ns.hui.nativeTipOwner = nil end
         return false
     end
-    if ns.hui and ns.hui.ShowNativeTip then ns.hui.ShowNativeTip(GT) end
     if type(extra) == "table" and #extra > 0 and DG.TipAppendLines then DG.TipAppendLines(extra) end
     GT:Show()
     return true
@@ -1772,10 +1832,7 @@ function PD.Row(i)
     r.foldZone:SetScript("OnEnter", function(self)
         PD.SetRowHover(r, true)
         if self.__key then
-            GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-            GameTooltip:ClearLines()
-            GameTooltip:AddLine(L["点击折叠 / 展开该组"], 1, 1, 1, true)
-            GameTooltip:Show()
+            PD.TipShow(self, { { L["点击折叠 / 展开该组"] } })
         end
     end)
     r.foldZone:SetScript("OnLeave", function()
@@ -1819,14 +1876,7 @@ function PD.Row(i)
             self.__mkLines = nil
         end
         if self.__lines and (self.__linesFirst or not self.__it) then
-            GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-            GameTooltip:ClearLines()
-            for _, ln in ipairs(self.__lines) do
-                if ln[1] and ln[1] ~= "" then
-                    GameTooltip:AddLine(ln[1], ln[2] or 1, ln[3] or 1, ln[4] or 1, true)
-                end
-            end
-            GameTooltip:Show()
+            PD.TipShow(self, self.__lines)
         elseif self.__it then
             local extra = self.__tipExtra
             if type(extra) == "function" then extra = extra() end
@@ -3778,12 +3828,10 @@ function PD.BuildBonusTable(parent)
     tipBtn:SetSize(PD.BT_W_LAST - 6, PD.BT_H_HEAD - 2)
     tipBtn:SetPoint("TOPLEFT", root, "TOPLEFT", PD.BT_COL1 + 3 * PD.BT_COLW, -2)
     tipBtn:SetScript("OnEnter", function(self)
-        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-        GameTooltip:ClearLines()
-        GameTooltip:AddLine(L["职业版对照 / 其他功能"], 1, 0.82, 0)
-        GameTooltip:AddLine(L["数值以 60 级为基准、随等级成长 —— 游戏内低等级看到的数字更小属正常缩放。"],
-                            1, 1, 1, true)
-        GameTooltip:Show()
+        PD.TipShow(self, {
+            { L["职业版对照 / 其他功能"], 1, 0.82, 0 },
+            { L["数值以 60 级为基准、随等级成长 —— 游戏内低等级看到的数字更小属正常缩放。"] },
+        })
     end)
     tipBtn:SetScript("OnLeave", function() GameTooltip:Hide() end)
     local rule = root:CreateTexture(nil, "ARTWORK")
@@ -3843,14 +3891,7 @@ function PD.BuildBonusTable(parent)
         r:SetScript("OnEnter", function(self)
             self.hl:Show()
             if self.__lines and #self.__lines > 0 then
-                GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-                GameTooltip:ClearLines()
-                for _, ln in ipairs(self.__lines) do
-                    if ln[1] and ln[1] ~= "" then
-                        GameTooltip:AddLine(ln[1], ln[2] or 1, ln[3] or 1, ln[4] or 1, true)
-                    end
-                end
-                GameTooltip:Show()
+                PD.TipShow(self, self.__lines)
             end
         end)
         r:SetScript("OnLeave", function(self)
@@ -4160,16 +4201,14 @@ function PD.FillTrainerBoard()
                         end)
                         c:SetScript("OnEnter", function(self)
                             if self.__huiCard then ns.hui.HuiCardState(self, "hover") end
-                            GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-                            GameTooltip:ClearLines()
-                            GameTooltip:AddLine(t.en, 1, 0.82, 0)
+                            local lines = { { t.en, 1, 0.82, 0 } }
                             local loc2 = TrLocOf(t)
-                            if loc2 and loc2 ~= "" then GameTooltip:AddLine(loc2, 1, 1, 1) end
+                            if loc2 and loc2 ~= "" then lines[#lines + 1] = { loc2 } end
                             if t.note and t.note ~= "" then
-                                GameTooltip:AddLine(t.note, 0.7, 0.7, 0.7)
+                                lines[#lines + 1] = { t.note, 0.7, 0.7, 0.7 }
                             end
-                            GameTooltip:AddLine(L["点击：在地图上标记该 NPC"], 1, 0.82, 0)
-                            GameTooltip:Show()
+                            lines[#lines + 1] = { L["点击：在地图上标记该 NPC"], 1, 0.82, 0 }
+                            PD.TipShow(self, lines)
                         end)
                         c:SetScript("OnLeave", function(self)
                             if self.__huiCard then ns.hui.HuiCardState(self, "norm") end
@@ -4471,10 +4510,7 @@ function PD.GCEnsure(i)
         b:SetScript("OnEnter", function(self)
             self.zn:SetTextColor(1, 1, 1)
             if GameTooltip and self.__name then
-                GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-                GameTooltip:ClearLines()
-                GameTooltip:AddLine(self.__name, 1, 1, 1, true)
-                GameTooltip:Show()
+                PD.TipShow(self, { { self.__name } })
             end
         end)
         b:SetScript("OnLeave", function(self)
@@ -4977,7 +5013,13 @@ function PD.Build(page)
         SetButtonSelected(bt, false)
         bt:Hide()
         bt:SetScript("OnClick", function(self)
-            if self.__key and PD.onTool then PD.onTool(self.__key) end
+            local k = self.__key
+            if not k then return end
+            if k == "route_history" then
+                PD.ToggleRouteHistory()
+            elseif PD.onTool then
+                PD.onTool(k)
+            end
             ns.PlaySound(1)
         end)
         PD.toolBtns[i] = bt
@@ -5243,7 +5285,7 @@ function PD.Build(page)
     local sb = CreateFrame("Frame", nil, page)
     sb:SetSize(PD.SEARCH_W, PD.TOOL_H)
     sb:Hide()
-    sb.label = MakeFS(sb, 12, C_GREY, "LEFT")
+    sb.label = MakeFS(sb, 14, C_GREY, "LEFT")
     sb.label:SetText(L["搜索"])
     sb.label:SetPoint("LEFT", sb, "LEFT", 0, 0)
     local seb = CreateFrame("EditBox", nil, sb, "BackdropTemplate")
@@ -5254,13 +5296,13 @@ function PD.Build(page)
     seb:SetPoint("RIGHT", sb, "RIGHT", 0, 0)
     sb.label:ClearAllPoints()
     sb.label:SetPoint("RIGHT", seb, "LEFT", -8, 0)
-    seb:SetFont(ns.FONT, 12, ns.hui and ns.hui.FontFlags and ns.hui.FontFlags("OUTLINE") or "OUTLINE")
+    seb:SetFont(ns.FONT, 14, ns.hui and ns.hui.FontFlags and ns.hui.FontFlags("OUTLINE") or "OUTLINE")
     seb:SetTextColor(1, 1, 1, 1)
     seb:SetJustifyH("LEFT")
     seb:SetAutoFocus(false)
     seb:SetTextInsets(5, 5, 0, 0)
     seb:SetMaxLetters(40)
-    seb.ph = MakeFS(seb, 11, C_GREY, "LEFT")
+    seb.ph = MakeFS(seb, 14, C_GREY, "LEFT")
     seb.ph:SetText(L["配方名 / 材料名"])
     seb.ph:SetPoint("LEFT", seb, "LEFT", 6, 0)
     seb.ph:Hide()
@@ -5324,6 +5366,106 @@ function PD.Build(page)
     seb:SetText(PD.searchQ or "")
     SyncPh()
     PD.searchBox = sb
+    coroutine.yield()
+
+    local lvBox = CreateFrame("Frame", nil, page)
+    lvBox:SetSize(PD.LVR_W, PD.TOOL_H)
+    lvBox:Hide()
+    lvBox.label = MakeFS(lvBox, 14, C_GREY, "LEFT")
+    lvBox.label:SetWordWrap(false)
+    lvBox.label:SetText(L["等级"])
+    lvBox.label:SetPoint("LEFT", lvBox, "LEFT", 0, 0)
+    local function LvEdit(prev, ph)
+        local eb = CreateFrame("EditBox", nil, lvBox, "BackdropTemplate")
+        local _, bd = ns.hui.BuildRoundedBG(eb, 6, ns.hui.layer.L2, "both", true, 1)
+        eb.__border = bd or {}
+        PD.PaintTileBorder(eb, { 1, 1, 1, 0.10 })
+        eb:SetSize(PD.LVR_EB_W, PD.TOOL_H)
+        if prev then
+            eb:SetPoint("LEFT", prev, "RIGHT", 6, 0)
+        else
+            eb:SetPoint("LEFT", lvBox.label, "RIGHT", 6, 0)
+        end
+        eb:SetFont(ns.FONT, 14, ns.hui and ns.hui.FontFlags and ns.hui.FontFlags("OUTLINE") or "OUTLINE")
+        eb:SetTextColor(1, 1, 1, 1)
+        eb:SetJustifyH("CENTER")
+        eb:SetAutoFocus(false)
+        eb:SetTextInsets(4, 4, 0, 0)
+        eb:SetMaxLetters(3)
+        eb:EnableMouseWheel(true)
+        eb:SetScript("OnMouseWheel", function(self, delta)
+            DG.WheelScroll(PD.scroll, PD.child, delta)
+        end)
+        eb.ph = MakeFS(eb, 14, C_GREY, "CENTER")
+        eb.ph:SetText(ph)
+        eb.ph:SetPoint("CENTER", eb, "CENTER", 0, 0)
+        return eb
+    end
+    local lvLo = LvEdit(nil, L["最低"])
+    local lvDash = MakeFS(lvBox, 14, C_GREY, "CENTER")
+    lvDash:SetWordWrap(false)
+    lvDash:SetText("–")
+    lvDash:SetPoint("LEFT", lvLo, "RIGHT", 4, 0)
+    local lvHi = LvEdit(lvDash, L["最高"])
+    lvBox.ebLo, lvBox.ebHi = lvLo, lvHi
+    local function SyncLvPh()
+        lvLo.ph:SetShown((lvLo:GetText() or "") == "" and not lvLo:HasFocus())
+        lvHi.ph:SetShown((lvHi:GetText() or "") == "" and not lvHi:HasFocus())
+    end
+    local function ApplyLv()
+        local lo = tonumber(lvLo:GetText() or "")
+        local hi = tonumber(lvHi:GetText() or "")
+        lo = lo and math.max(0, math.floor(lo)) or nil
+        hi = hi and math.max(0, math.floor(hi)) or nil
+        if lo == PD.lvLo and hi == PD.lvHi then return end
+        PD.lvLo, PD.lvHi = lo, hi
+        if PD.scroll then PD.scroll:SetVerticalScroll(0) end
+        PD.RequestRender()
+    end
+    local lvReset = CreateFrame("Button", nil, lvBox, "BackdropTemplate")
+    local _, rb = ns.hui.BuildRoundedBG(lvReset, 6, { 0.58, 0.16, 0.16, 0.86 }, "both", true, 1)
+    lvReset.__border = rb or {}
+    PD.PaintTileBorder(lvReset, { 1, 1, 1, 0.10 })
+    lvReset:SetSize(PD.LVR_RST_W, PD.TOOL_H)
+    lvReset:SetPoint("LEFT", lvHi, "RIGHT", 6, 0)
+    lvReset.txt = MakeFS(lvReset, 14, C_WHITE, "CENTER")
+    lvReset.txt:SetWordWrap(false)
+    lvReset.txt:SetPoint("CENTER", lvReset, "CENTER", 0, 0)
+    lvReset.txt:SetText(L["重置"])
+    lvReset:SetScript("OnEnter", function(self) self.txt:SetTextColor(1, 0.82, 0) end)
+    lvReset:SetScript("OnLeave", function(self) self.txt:SetTextColor(Unpack(C_WHITE)) end)
+    lvReset:SetScript("OnClick", function()
+        lvLo:SetText("")
+        lvHi:SetText("")
+        SyncLvPh()
+        if PD.lvLo ~= nil or PD.lvHi ~= nil then
+            PD.lvLo, PD.lvHi = nil, nil
+            if PD.scroll then PD.scroll:SetVerticalScroll(0) end
+            PD.RequestRender()
+        end
+        ns.PlaySound(1)
+    end)
+    lvBox.btnReset = lvReset
+    for _, eb in ipairs({ lvLo, lvHi }) do
+        eb:SetScript("OnTextChanged", function(self)
+            local t = self:GetText() or ""
+            if t ~= "" and not tonumber(t) then self:SetText("") end
+            SyncLvPh()
+        end)
+        eb:SetScript("OnEditFocusGained", function() SyncLvPh() end)
+        eb:SetScript("OnEditFocusLost", function() SyncLvPh() ApplyLv() end)
+        eb:SetScript("OnEnterPressed", function(self) self:ClearFocus() ns.PlaySound(1) end)
+        eb:SetScript("OnEscapePressed", function(self)
+            if (self:GetText() or "") ~= "" then self:SetText("") end
+            self:ClearFocus()
+            SyncLvPh()
+        end)
+    end
+    SyncLvPh()
+    PD.lvRangeBox = lvBox
+    if PD.lvLo then lvLo:SetText(tostring(PD.lvLo)) end
+    if PD.lvHi then lvHi:SetText(tostring(PD.lvHi)) end
+    SyncLvPh()
     coroutine.yield()
 
     local divider = page:CreateTexture(nil, "BORDER")
@@ -5521,16 +5663,7 @@ function PD.Build(page)
         hp.icon:SetVertexColor(C_HELP[1], C_HELP[2], C_HELP[3])
         hp:SetScript("OnEnter", function(self)
             self.icon:SetVertexColor(1, 0.82, 0)
-            local ln = self.__tip
-            if not ln then return end
-            GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-            GameTooltip:ClearLines()
-            for _, t in ipairs(ln) do
-                if t[1] and t[1] ~= "" then
-                    GameTooltip:AddLine(t[1], t[2] or 1, t[3] or 1, t[4] or 1, true)
-                end
-            end
-            GameTooltip:Show()
+            PD.TipShow(self, self.__tip)
         end)
         hp:SetScript("OnLeave", function(self)
             self.icon:SetVertexColor(C_HELP[1], C_HELP[2], C_HELP[3])
@@ -5876,16 +6009,7 @@ function PD.PaintTool(list, handler, yoff)
             if def.tip and not bt.__tipHooked then
                 bt.__tipHooked = true
                 bt:HookScript("OnEnter", function(self)
-                    local lines = self.__tipLines
-                    if not lines or #lines == 0 then return end
-                    GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-                    GameTooltip:ClearLines()
-                    for _, ln in ipairs(lines) do
-                        if ln[1] and ln[1] ~= "" then
-                            GameTooltip:AddLine(ln[1], ln[2] or 1, ln[3] or 1, ln[4] or 1, true)
-                        end
-                    end
-                    GameTooltip:Show()
+                    PD.TipShow(self, self.__tipLines)
                 end)
                 bt:HookScript("OnLeave", function() GameTooltip:Hide() end)
             end
@@ -5973,16 +6097,7 @@ function PD.PaintTool(list, handler, yoff)
                     ic:SetPoint("CENTER", bt, "CENTER", 0, 0)
                     bt.__icon = ic
                     bt:SetScript("OnEnter", function(self)
-                        local lines = self.__tipLines
-                        if not lines or #lines == 0 then return end
-                        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-                        GameTooltip:ClearLines()
-                        for _, ln in ipairs(lines) do
-                            if ln[1] and ln[1] ~= "" then
-                                GameTooltip:AddLine(ln[1], ln[2] or 1, ln[3] or 1, ln[4] or 1, true)
-                            end
-                        end
-                        GameTooltip:Show()
+                        PD.TipShow(self, self.__tipLines)
                     end)
                     bt:SetScript("OnLeave", function() GameTooltip:Hide() end)
                 end
@@ -6097,7 +6212,27 @@ function PD.PaintTool(list, handler, yoff)
     local rows = (n > subCount) and (row + 1) or 0
     if placedCount > 0 then rows = math.max(rows, actRow + 1) end
     PD.toolRows = rows
+    PD.toolEnds = leftEnds
     return (rows > 0) and (rows * (PD.TOOL_H + PD.TOOL_GAP) + PD.TOOL_BODY_GAP) or 0
+end
+
+function PD.PlaceLvRange()
+    local box = PD.lvRangeBox
+    if not box then return end
+    if PD.tab ~= "recipe" or PD.setOpen or PD.cur == "__index" then
+        box:Hide()
+        return
+    end
+    local ends = PD.toolEnds or {}
+    local row, x = nil, 0
+    for r, e in pairs(ends) do
+        if (e or 0) > 0 and (row == nil or r > row) then row, x = r, e end
+    end
+    if row == nil then box:Hide() return end
+    box:ClearAllPoints()
+    box:SetPoint("TOPLEFT", PD.page, "TOPLEFT", PD.RIGHT_X + x,
+                 -(PD.BODY_TOP + row * (PD.TOOL_H + PD.TOOL_GAP)))
+    box:Show()
 end
 
 function PD.UpdateCalculationNotice()
@@ -6297,14 +6432,7 @@ end
 function PD.TipTile(tf, lines)
     tf:SetScript("OnEnter", function()
         if tf.__hov then for _, t in ipairs(tf.__hov) do t:Show() end end
-        GameTooltip:SetOwner(tf, "ANCHOR_RIGHT")
-        GameTooltip:ClearLines()
-        for _, ln in ipairs(lines) do
-            if ln[1] and ln[1] ~= "" then
-                GameTooltip:AddLine(ln[1], ln[2] or 1, ln[3] or 1, ln[4] or 1, true)
-            end
-        end
-        GameTooltip:Show()
+        PD.TipShow(tf, lines)
     end)
     tf:SetScript("OnLeave", function()
         if tf.__hov then for _, t in ipairs(tf.__hov) do t:Hide() end end
@@ -6854,6 +6982,9 @@ end
 
 function PD.PerkTipLines(pk, lvs, cur)
     local lines = {}
+    if type(pk[1]) == "string" and pk[1] ~= "" then
+        lines[#lines + 1] = { pk[1], 1, 0.82, 0 }
+    end
     local head = pk[6] or lvs[cur] or ""
     if head ~= "" then lines[#lines + 1] = { head } end
     for _, u in ipairs(pk[8] or {}) do
@@ -6924,6 +7055,9 @@ end
 
 function PD.CampTipLines(c)
     local lines = {}
+    if type(c[2]) == "string" and c[2] ~= "" then
+        lines[#lines + 1] = { c[2], 1, 0.82, 0 }
+    end
     local function add(label, v)
         if type(v) == "string" and v ~= "" then
             lines[#lines + 1] = { label .. "：" .. v }
@@ -6988,7 +7122,7 @@ function PD.PushCampNavCards(rows, lv)
                              tostring(camp[3] or ""))
             end
             local lines = {
-                { L["点击：在地图上标记该 NPC"], 1, 0.82, 0 },
+                { tostring(vd[1] or ""), 1, 0.82, 0 },
                 { format("%.1f, %.1f", vd[5] or 0, vd[6] or 0), 0.75, 0.75, 0.75 },
             }
             if camp then
@@ -6997,6 +7131,7 @@ function PD.PushCampNavCards(rows, lv)
                     0.75, 0.75, 0.75,
                 }
             end
+            lines[#lines + 1] = { L["点击：在地图上标记该 NPC"], 1, 0.82, 0 }
             list[#list + 1] = {
                 name = tostring(vd[1]),
                 nameColor = fc,
@@ -7016,8 +7151,9 @@ function PD.PushCampNavCards(rows, lv)
                 tx = format("%s · %s", PD.CampZoneName(camp[6], tostring(camp[2] or "")), tostring(camp[1] or "")),
                 tags = L["点击：在地图上标记此位置"],
                 tipLines = {
-                    { L["点击：在地图上标记此位置"], 1, 0.82, 0 },
+                    { tostring(camp[3] or ""), 1, 0.82, 0 },
                     { format("%s %.1f, %.1f", tostring(camp[2] or ""), camp[4] or 0, camp[5] or 0), 0.75, 0.75, 0.75 },
+                    { L["点击：在地图上标记此位置"], 1, 0.82, 0 },
                 },
                 act = function() PD.MarkCampPoint(camp[6], camp[4], camp[5]) end,
             }
@@ -7033,7 +7169,7 @@ function PD.PushStepCards(rows, p)
             idx = i,
             name = st[1] or "",
             tx = st[2] or "",
-            tipLines = { { st[1] or "" }, { st[2] or "", 0.85, 0.85, 0.85 } },
+            tipLines = { { st[1] or "", 1, 0.82, 0 }, { st[2] or "", 0.85, 0.85, 0.85 } },
         }
     end
     PD.PushCardRow(rows, list)
@@ -7048,7 +7184,7 @@ function PD.PushRacialCards(rows, p)
             icon = rc[1],
             right = L["种族"],
             tx = rc[3] or "",
-            tipLines = { { rc[3] or "" } },
+            tipLines = { { nm or L["种族相关"], 1, 0.82, 0 }, { rc[3] or "" } },
         }
     end
     PD.PushCardRow(rows, list)
@@ -7749,17 +7885,7 @@ function PD.WarnChip(r, plainTip)
     z:SetSize(26, 20)
     if plainTip then
         z:SetScript("OnEnter", function(self)
-            local lines = self.__tipLines
-            if lines and lines[1] then
-                GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-                GameTooltip:ClearLines()
-                for _, ln in ipairs(lines) do
-                    if ln[1] and ln[1] ~= "" then
-                        GameTooltip:AddLine(ln[1], ln[2] or 1, ln[3] or 1, ln[4] or 1, true)
-                    end
-                end
-                GameTooltip:Show()
-            end
+            PD.TipShow(self, self.__tipLines)
         end)
         z:SetScript("OnLeave", function() GameTooltip:Hide() end)
     else
@@ -7944,14 +8070,7 @@ function PD.WireTipZone(z, r)
         if self.__it then PD.hoverRow = self end
         local lines = self.__tipLines
         if lines then
-            GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-            GameTooltip:ClearLines()
-            for _, ln in ipairs(lines) do
-                if ln[1] and ln[1] ~= "" then
-                    GameTooltip:AddLine(ln[1], ln[2] or 1, ln[3] or 1, ln[4] or 1, true)
-                end
-            end
-            GameTooltip:Show()
+            PD.TipShow(self, lines)
         elseif self.__spell and PD.ShowSpellTip then
             local extra = self.__tipExtra
             if type(extra) == "function" then extra = extra() end
@@ -8464,7 +8583,8 @@ function PD.LearningOriginCard(recipe,view)
                 local row=byID[id]
                 if not row then row={id=id};byID[id]=row;src.vendors[#src.vendors+1]=row end
                 for key,v in pairs(value)do if row[key]==nil then row[key]=v end end
-                row.name=row.name or ns.ProfVendorNames and ns.ProfVendorNames[id] or "#"..id
+                local vName=ns.ProfVendorNames and ns.ProfVendorNames[id]
+                row.name=vName or row.name or "#"..id
                 row.cur=row.cur or row.currencyID;row.amt=row.amt or row.currencyAmount
             end
         end
@@ -9556,7 +9676,9 @@ function PD.EnchantSpec(en)
         gapVal = (ah and total) and (ah - total) or nil,
         sbdiff = (en[5] or en[6] or en[7] or en[8]) and { en[5], en[6], en[7], en[8] } or nil,
         tipExtra = ((type(en[15]) == "number") and en[15])
-                   and function() return PD.RecipeSourceLines(PD.PriceTipLines(en[15], en[9]), resolved) end or nil,
+                   and function() return PD.RecipeSourceLines(PD.PriceTipLines(en[15], en[9],
+                       { recipe = true, matDetail = PD.MatPriceOn(),
+                         patternCost = PD.PatternVendorCost(resolved) }), resolved) end or nil,
         lines = lines,
         act = dact,
     }
@@ -10138,6 +10260,7 @@ end
 function PD.MatPriceLines(mats, costTxt, productID)
     local lines = {}
     if not (mats and #mats > 0) then return lines end
+    PD.PrimeNames(mats)
     local MAX = 8
     local showN = math.min(#mats, MAX)
     for i = 1, showN do
@@ -10167,9 +10290,19 @@ function PD.MatPriceLines(mats, costTxt, productID)
     return lines
 end
 
+function PD.PatternVendorCost(resolved)
+    if type(resolved) ~= "table" then return nil end
+    local card = PD.RecipeLearningCard(resolved, false)
+    if not (card and card.source and card.fid) then return nil end
+    local _, _, _, cost = PD.VendorSrcLine(card.source, card.fid)
+    if type(cost) ~= "string" or cost == "" then return nil end
+    return cost
+end
+
 function PD.PriceTipLines(itemID, mats, opts)
     local lines = {}
     if not itemID then return lines end
+    PD.PrimeNames(mats)
     local ah = RA.AHPriceOf and RA.AHPriceOf(itemID) or nil
     local sell = RA.NPCSellPriceOf and RA.NPCSellPriceOf(itemID) or nil
     local cost, unpriced, nMats
@@ -10177,12 +10310,7 @@ function PD.PriceTipLines(itemID, mats, opts)
         cost, unpriced = RA.MatListCost(mats)
         nMats = #mats
     end
-    lines[#lines + 1] = { format(L["拍卖: %s"], ah and RA.MoneyStr(ah, "copper") or "—") }
-    PD.VendorBlockLines(lines, itemID)
-    PD.DropBlockLines(lines, itemID)
-    lines[#lines + 1] = { format(L["卖店: %s"], sell and RA.MoneyStr(sell, "copper") or "—") }
-    local costTxt = "—"
-    local approx = false
+    local costTxt, approx = "—", false
     if cost and nMats then
         if cost <= 0 or unpriced >= nMats then
             costTxt = "—"
@@ -10191,18 +10319,47 @@ function PD.PriceTipLines(itemID, mats, opts)
             costTxt = (approx and "≈" or "") .. RA.MoneyStr(cost, "copper")
         end
     end
-    if opts and opts.matDetail and nMats then
-        local mp = PD.MatPriceLines(mats, PD.MatsCostTextC(mats))
-        for i = 1, #mp do lines[#lines + 1] = mp[i] end
+    local o = type(opts) == "table" and opts or nil
+    if o and o.recipe then
+        lines[#lines + 1] = { L["材料成本"], 1, 1, 1, false, nil, costTxt, 1, 1, 1 }
+        if o.matDetail and nMats then
+            local showN = math.min(nMats, 8)
+            for i = 1, showN do
+                local m = mats[i]
+                local n = m[2] or 1
+                local p = RA.MatPriceOf and RA.MatPriceOf(m[1]) or nil
+                lines[#lines + 1] = { format("  %s ×%d", tostring(PD.ItemName(m[1]) or "?"), n),
+                                      0.85, 0.85, 0.85, false, nil,
+                                      (p and RA.MoneyStrTip(p * n)) or "—", 0.9, 0.9, 0.9 }
+            end
+            if nMats > showN then
+                lines[#lines + 1] = { format("  … +%d", nMats - showN), 0.6, 0.6, 0.6 }
+            end
+        end
+        if type(o.patternCost) == "string" and o.patternCost ~= "" then
+            lines[#lines + 1] = { L["NPC 配方价格"], 0.92, 0.94, 0.98, false, nil,
+                                  o.patternCost, 1, 1, 1 }
+        end
+        lines[#lines + 1] = { format(L["卖店: %s"], sell and RA.MoneyStr(sell, "copper") or "—") }
     else
-        lines[#lines + 1] = { format(L["成本: %s"], costTxt) }
+        lines[#lines + 1] = { format(L["拍卖: %s"], ah and RA.MoneyStr(ah, "copper") or "—") }
+        PD.VendorBlockLines(lines, itemID)
+        PD.DropBlockLines(lines, itemID)
+        lines[#lines + 1] = { format(L["卖店: %s"], sell and RA.MoneyStr(sell, "copper") or "—") }
+        if o and o.matDetail and nMats then
+            local mp = PD.MatPriceLines(mats, PD.MatsCostTextC(mats))
+            for i = 1, #mp do lines[#lines + 1] = mp[i] end
+        else
+            lines[#lines + 1] = { format(L["成本: %s"], costTxt) }
+        end
     end
     if ah and cost and nMats and cost > 0 then
         local pre = approx and "≈" or ""
         local diff = ah - cost
         local net = math.floor(ah * 0.95) - cost
-        local l4 = format(L["差价: %s"], pre .. RA.MoneyStr(diff, "copper"))
-        local l5 = format(L["AH5%%: %s"], pre .. RA.MoneyStr(net, "copper"))
+        local l4 = format(L["差价: %s"], pre .. (diff > 0 and "+" or "") .. RA.MoneyStr(diff, "copper"))
+        local l5 = format(L["净赚（扣 5%% 拍卖费）: %s"],
+                          pre .. (net > 0 and "+" or "") .. RA.MoneyStr(net, "copper"))
         if diff < 0 then
             lines[#lines + 1] = { l4, unpack(TIP_RED) }
         else
@@ -10370,7 +10527,8 @@ function PD.RecipeSpec(r)
         text = PD.ItemName(r[2]),
         tipExtra = function()
             local lines = PD.RecipeSourceLines(PD.PriceTipLines(r[2], r[12],
-                PD.MatPriceOn() and { matDetail = true } or nil), resolved)
+                { recipe = true, matDetail = PD.MatPriceOn(),
+                  patternCost = PD.PatternVendorCost(resolved) }), resolved)
             if station then lines[#lines + 1] = { format(L["制作场地：%s"], station), 0.7, 0.7, 0.7 } end
             if clientPending then lines[#lines + 1] = { L["请打开对应专业或商人面板读取数据"], 0.95, 0.75, 0.4 } end
             if meta and meta.outputConflict and resolved.outputConflict and not (runtime and runtime.count) then
@@ -10508,7 +10666,8 @@ function PD.CraftedSpec(c)
         gapVal = (ah and total) and (ah - total) or nil,
         sbdiff = (c[4] or c[5] or green or c[7]) and { c[4], c[5], green, c[7] } or nil,
         tipExtra = function() return PD.RecipeSourceLines(PD.PriceTipLines(c[2], c[8],
-            PD.MatPriceOn() and { matDetail = true } or nil), resolved) end,
+            { recipe = true, matDetail = PD.MatPriceOn(),
+              patternCost = PD.PatternVendorCost(resolved) }), resolved) end,
         lines = sourceLines,
     }
 end
@@ -10983,7 +11142,7 @@ function PD.RecipeList(limit, q)
         end
         if not (d.rows and #d.rows > 0) then
             for _, e in ipairs(d.enchants or {}) do
-                if PD.EnchCurHit(e, PD.moneyKey) and PD.RecipeVisible(e[14]) then
+                if PD.EnchCurHit(e, PD.moneyKey) and PD.RecipeVisible(e[14]) and PD.LvStartHit(e[5]) then
                     out[#out + 1] = PD.EnchantSpec(e)
                     if #out >= cap then return out end
                 end
@@ -10993,7 +11152,7 @@ function PD.RecipeList(limit, q)
             for _, f in ipairs(d.favor or {}) do
                 if #out < cap then
                     local sp = PD.FavorSpec(f, d)
-                    if PD.SearchHit(sp) then out[#out + 1] = sp end
+                    if PD.LvStartHit(f[2]) and PD.SearchHit(sp) then out[#out + 1] = sp end
                 end
             end
         end
@@ -11001,7 +11160,7 @@ function PD.RecipeList(limit, q)
     end
     if key == "__enchant" then
         for _, e in ipairs(d.enchants or {}) do
-            if PD.EnchCurHit(e, PD.moneyKey) and PD.RecipeVisible(e[14]) then out[#out + 1] = PD.EnchantSpec(e) end
+            if PD.EnchCurHit(e, PD.moneyKey) and PD.RecipeVisible(e[14]) and PD.LvStartHit(e[5]) then out[#out + 1] = PD.EnchantSpec(e) end
             if #out >= cap then break end
         end
         return out
@@ -11013,7 +11172,8 @@ function PD.RecipeList(limit, q)
         for _, e in ipairs(d.enchants or {}) do
             local g = tostring(e[3] or "")
             if g == "" then g = L["其他"] end
-            if ((not want) or g == want) and PD.EnchCurHit(e, PD.moneyKey) and PD.RecipeVisible(e[14]) then
+            if ((not want) or g == want) and PD.EnchCurHit(e, PD.moneyKey) and PD.RecipeVisible(e[14])
+               and PD.LvStartHit(e[5]) then
                 out[#out + 1] = PD.EnchantSpec(e)
                 if #out >= cap then break end
             end
@@ -11022,7 +11182,7 @@ function PD.RecipeList(limit, q)
     end
     if key == "__crafted" then
         for _, c in ipairs(d.crafted or {}) do
-            if PD.RecipeVisible(c[1]) then out[#out + 1] = PD.CraftedSpec(c) end
+            if PD.RecipeVisible(c[1]) and PD.LvStartHit(c[4]) then out[#out + 1] = PD.CraftedSpec(c) end
             if #out >= cap then break end
         end
         return out
@@ -11047,8 +11207,27 @@ function PD.RecipeList(limit, q)
     return out
 end
 
+function PD.LvRangeOn()
+    return (PD.lvLo ~= nil) or (PD.lvHi ~= nil)
+end
+
+function PD.LvStartHit(lv)
+    if not PD.LvRangeOn() then return true end
+    lv = tonumber(lv)
+    if not lv then return false end
+    if PD.lvLo and lv < PD.lvLo then return false end
+    if PD.lvHi and lv > PD.lvHi then return false end
+    return true
+end
+
+function PD.LvRowHit(r)
+    if not PD.LvRangeOn() then return true end
+    return PD.LvStartHit(r[7] or r[8] or r[10])
+end
+
 function PD.RawHit(r, q)
     if not PD.RecipeVisible(r[1]) then return false end
+    if not PD.LvRowHit(r) then return false end
     if not q or q == "" then return true end
     local nm = PD.ItemName(r[2])
     if nm and nm ~= "" and string.find(string.lower(tostring(nm)), q, 1, true) then
@@ -11101,7 +11280,7 @@ function PD.ScanRecipe()
         end
         if PD.moneyKey == PD.FAVOR_CURID then
             for _, f in ipairs(d.favor or {}) do
-                if PD.SearchHit(PD.FavorSpec(f, d)) then cn = cn + 1 end
+                if PD.LvStartHit(f[2]) and PD.SearchHit(PD.FavorSpec(f, d)) then cn = cn + 1 end
             end
         end
         return cn, nil
@@ -11178,6 +11357,11 @@ function PD.RowsRecipe(rows)
         PushGap(rows)
         PushText(rows, format(L["没有名称或材料匹配「%s」的配方 —— 换个关键词再试试。"],
                               PD.searchQ), 12, C_GOLD)
+        return
+    end
+    if realN == 0 and (not PD.searchQ or PD.searchQ == "") and PD.LvRangeOn() then
+        PushGap(rows)
+        PushText(rows, L["技能等级区间内没有配方 —— 改一下等级范围，或清空输入框。"], 12, C_GOLD)
         return
     end
     if realN == 0 and (not PD.searchQ or PD.searchQ == "")
@@ -13535,6 +13719,324 @@ function PD.ReserveWarningLines(reserve)
     return lines
 end
 
+PD.HISTORY_MAX = 5
+PD.HIST_W, PD.HIST_PAD, PD.HIST_TOP, PD.HIST_ROW_H = 360, 12, 60, 24
+PD.HIST_TIME_W, PD.HIST_COST_W = 96, 130
+PD.HIST_HEAD_Y = 38
+
+function PD.RouteHistoryList(slug)
+    slug = slug or PD.cur
+    local prof = ProfDB()
+    prof.routeHistory = prof.routeHistory or {}
+    local bucket = slug and prof.routeHistory[slug]
+    if type(bucket) ~= "table" then return {} end
+    return bucket
+end
+
+function PD.RouteHistorySig(plan)
+    local steps = PD.PlanHasSteps(plan) and #plan.steps or 0
+    local total = tonumber(plan.total)
+    return table.concat({ tostring(steps), tostring(total and math.floor(total + 0.5) or -1),
+        tostring(plan.completeCost ~= false), tostring(plan.scheme or ""),
+        tostring(plan.start or 0), tostring(plan.target or 0) }, "|")
+end
+
+function PD.RecordRouteHistory(plan, slug)
+    if type(plan) ~= "table" then return end
+    slug = slug or plan.slug or PD.cur
+    if not slug or slug ~= PD.cur then return end
+    if plan.status == "searching" or plan.finalizing then return end
+    local steps = PD.PlanHasSteps(plan) and #plan.steps or 0
+    if steps <= 0 then return end
+    local total = tonumber(plan.total)
+    if total == nil and not plan.referenceOnly then return end
+    local prof = ProfDB()
+    prof.routeHistory = prof.routeHistory or {}
+    local bucket = prof.routeHistory[slug]
+    if type(bucket) ~= "table" then bucket = {}; prof.routeHistory[slug] = bucket end
+    local sig = PD.RouteHistorySig(plan)
+    if bucket[1] and bucket[1].sig == sig then
+        PD.KeepHistoryPlan(slug, sig, plan)
+        if bucket[1].skel == nil and RA and RA.SkeletonOf then
+            bucket[1].skel = RA.SkeletonOf(plan)
+        end
+        return
+    end
+    for i = #bucket, 1, -1 do
+        if bucket[i].sig == sig then table.remove(bucket, i) end
+    end
+    table.insert(bucket, 1, {
+        stamp = tonumber(plan.stamp) or (time and time() or 0),
+        steps = steps,
+        total = total and math.floor(total + 0.5) or 0,
+        complete = plan.completeCost ~= false,
+        sig = sig,
+        skel = RA and RA.SkeletonOf and RA.SkeletonOf(plan) or nil,
+    })
+    while #bucket > PD.HISTORY_MAX do table.remove(bucket) end
+    PD.KeepHistoryPlan(slug, sig, plan)
+    if PD.histPopup and PD.histPopup:IsShown() then PD.FillRouteHistory() end
+end
+
+function PD.KeepHistoryPlan(slug, sig, plan)
+    if not slug or not sig then return end
+    PD.histPlans = PD.histPlans or {}
+    local box = PD.histPlans[slug]
+    if type(box) == "table" and box[sig] then return end
+    if not (RA and RA.SnapshotPlan) then return end
+    local snap = RA.SnapshotPlan(plan)
+    if not snap then return end
+    if type(box) ~= "table" then box = {}; PD.histPlans[slug] = box end
+    box[sig] = snap
+    local bucket = PD.RouteHistoryList(slug)
+    local alive = {}
+    for i = 1, #bucket do alive[tostring(bucket[i].sig)] = true end
+    for k in pairs(box) do
+        if not alive[tostring(k)] then box[k] = nil end
+    end
+end
+
+function PD.HistoryPlanOf(slug, entry)
+    local box = PD.histPlans and PD.histPlans[slug]
+    if type(box) ~= "table" or type(entry) ~= "table" then return nil end
+    return box[entry.sig]
+end
+
+function PD.RestoreHistoryPlan(entry)
+    local slug = PD.histOpenSlug or PD.cur
+    if not slug then return nil end
+    local snap = PD.HistoryPlanOf(slug, entry)
+    if not snap then
+        local skel = type(entry) == "table" and entry.skel or nil
+        if type(skel) == "table" and RA and RA.RebuildFromSkel then
+            local ok, res = pcall(RA.RebuildFromSkel, slug, skel)
+            if ok and res then return res, "pending" end
+        end
+        return nil, "expired"
+    end
+    if not (RA and RA.RestorePlan) then return nil, "unsupported" end
+    local res = RA.RestorePlan(slug, snap)
+    if not res then return nil, "failed" end
+    PD.solverPaintRes, PD.solverFrac = nil, nil
+    PD.autoSnapshot, PD.autoSnapshotSlug = res, slug
+    PD.autoExact = true
+    local learned = PD.ProfLearned and PD.ProfLearned(true) or {}
+    PD.autoKey = PD.PlanKeyOf(slug, PD.BuildLvOpts(slug, learned[slug] and learned[slug].cur))
+    PD.exactFailed = {}
+    PD.__planShown, PD.__planPending = nil, nil
+    return res
+end
+
+function PD.RouteHistoryTime(stamp)
+    stamp = tonumber(stamp)
+    if not stamp or stamp <= 0 then return "--" end
+    local ok, out = pcall(date, "%m-%d %H:%M", stamp)
+    if ok and type(out) == "string" then return out end
+    return "--"
+end
+
+function PD.RouteHistoryCost(entry)
+    local text = RA.MoneyStr(tonumber(entry.total) or 0, "copper")
+    if entry.complete == false then text = "≥" .. text end
+    return text
+end
+
+function PD.FillRouteHistory()
+    local f = PD.histPopup
+    if not f then return end
+    local list = PD.RouteHistoryList(PD.histOpenSlug or PD.cur)
+    if #list == 0 then f.empty:Show() else f.empty:Hide() end
+    for i = 1, PD.HISTORY_MAX do
+        local bt, entry = f.rows[i], list[i]
+        if entry then
+            bt.__entry = entry
+            bt.__time:SetText(PD.RouteHistoryTime(entry.stamp))
+            bt.__steps:SetText(format(L["%d 步"], tonumber(entry.steps) or 0))
+            bt.__cost:SetText(PD.RouteHistoryCost(entry))
+            bt:Show()
+        else
+            bt.__entry = nil
+            bt:Hide()
+        end
+    end
+    if #list == 0 then
+        f:SetHeight(PD.HIST_TOP + 56 + 12)
+    else
+        f:SetHeight(PD.HIST_TOP + #list * PD.HIST_ROW_H + 12)
+    end
+end
+
+function PD.BuildRouteHistoryPopup()
+    if PD.histPopup then return PD.histPopup end
+    local f = CreateFrame("Frame", "DungeonsForeverRouteHistory", UIParent)
+    f:SetFrameStrata("FULLSCREEN_DIALOG")
+    f:SetToplevel(true)
+    f:SetClampedToScreen(true)
+    f:EnableMouse(true)
+    f:SetSize(PD.HIST_W, PD.HIST_TOP + PD.HISTORY_MAX * PD.HIST_ROW_H + 12)
+    local title = MakeFS(f, 16, C_GOLD, "LEFT")
+    title:SetPoint("TOPLEFT", f, "TOPLEFT", PD.HIST_PAD, -12)
+    title:SetText(L["历史路线"])
+    local note = MakeFS(f, 14, C_GREY, "RIGHT")
+    note:SetPoint("TOPRIGHT", f, "TOPRIGHT", -PD.HIST_PAD, -13)
+    note:SetText(format(L["最近 %d 次"], PD.HISTORY_MAX))
+    local heads = {
+        { L["时间"], "LEFT", PD.HIST_PAD },
+        { L["步数"], "RIGHT", -(PD.HIST_PAD + PD.HIST_COST_W + 12) },
+        { L["总花费"], "RIGHT", -PD.HIST_PAD },
+    }
+    for _, h in ipairs(heads) do
+        local fs = MakeFS(f, 14, C_GREY, h[2])
+        local side = h[2] == "LEFT" and "TOPLEFT" or "TOPRIGHT"
+        fs:SetPoint(side, f, side, h[3], -PD.HIST_HEAD_Y)
+        fs:SetText(h[1])
+    end
+    local HOVER = ns.hui and ns.hui.layer and ns.hui.layer.L5 or { 0.22, 0.25, 0.31 }
+    f.rows = {}
+    for i = 1, PD.HISTORY_MAX do
+        local bt = CreateFrame("Button", nil, f)
+        bt:SetSize(PD.HIST_W - PD.HIST_PAD * 2, PD.HIST_ROW_H)
+        bt:SetPoint("TOPLEFT", f, "TOPLEFT", PD.HIST_PAD, -(PD.HIST_TOP + (i - 1) * PD.HIST_ROW_H))
+        local hl = bt:CreateTexture(nil, "BACKGROUND")
+        hl:SetAllPoints()
+        hl:SetColorTexture(0, 0, 0, 0)
+        bt.__hl = hl
+        local t = MakeFS(bt, 14, C_TEXT, "LEFT")
+        t:SetPoint("LEFT", bt, "LEFT", 0, 0)
+        t:SetWidth(PD.HIST_TIME_W)
+        t:SetWordWrap(false)
+        bt.__time = t
+        local s = MakeFS(bt, 14, C_GREY, "RIGHT")
+        s:SetPoint("RIGHT", bt, "RIGHT", -(PD.HIST_COST_W + 12), 0)
+        s:SetWordWrap(false)
+        bt.__steps = s
+        local c = MakeFS(bt, 14, C_WHITE, "RIGHT")
+        c:SetPoint("RIGHT", bt, "RIGHT", 0, 0)
+        c:SetWordWrap(false)
+        bt.__cost = c
+        bt:SetScript("OnEnter", function(self)
+            self.__hl:SetColorTexture(HOVER[1], HOVER[2], HOVER[3], 1)
+        end)
+        bt:SetScript("OnLeave", function(self) self.__hl:SetColorTexture(0, 0, 0, 0) end)
+        bt:SetScript("OnClick", function(self)
+            local entry = self.__entry
+            if not entry then return end
+            local slug = PD.histOpenSlug or PD.cur
+            PD.HideRouteHistory()
+            local res, why = PD.RestoreHistoryPlan(entry)
+            local head = "|cff33ff99无限副本手册:|r "
+            if DEFAULT_CHAT_FRAME then
+                if res and why == "pending" then
+                    DEFAULT_CHAT_FRAME:AddMessage(head .. format(L["正在按 %s 那版重算，完成后自动切回。"],
+                        PD.RouteHistoryTime(entry.stamp)), 1, 1, 1)
+                elseif res then
+                    DEFAULT_CHAT_FRAME:AddMessage(head .. format(L["已切回 %s · %d 步 · 总花费 %s"],
+                        PD.RouteHistoryTime(entry.stamp), tonumber(entry.steps) or 0,
+                        PD.RouteHistoryCost(entry)), 1, 1, 1)
+                else
+                    local msg = why == "expired" and L["这条记录没有存下路线内容，只能查看；之后的每次计算都会连路线一起保留。"]
+                        or L["这条记录已无法切回，请重新计算。"]
+                    DEFAULT_CHAT_FRAME:AddMessage(head .. msg, 1, 1, 1)
+                end
+            end
+            if slug == PD.cur then PD.RequestRender() end
+        end)
+        f.rows[i] = bt
+    end
+    local empty = MakeFS(f, 14, C_GREY)
+    empty:SetPoint("TOPLEFT", f, "TOPLEFT", PD.HIST_PAD, -(PD.HIST_TOP + 6))
+    empty:SetWidth(PD.HIST_W - PD.HIST_PAD * 2)
+    empty:SetWordWrap(true)
+    empty:SetText(L["还没有历史记录；点「重新计算」后会自动保存最近 5 次的时间、步数与总花费。"])
+    empty:Hide()
+    f.empty = empty
+    if ns.hui and ns.hui.SkinPopup then
+        ns.hui.SkinPopup(f, 8, "both", ns.hui.layer.L0)
+    end
+    f:SetScript("OnHide", function()
+        if PD.histClick then PD.histClick:UnregisterEvent("GLOBAL_MOUSE_DOWN") end
+        if PD.histOpenSlug then
+            PD.histOpenSlug = nil
+            local function refresh()
+                if not PD.histOpenSlug and PD.RequestRender then PD.RequestRender() end
+            end
+            if C_Timer and C_Timer.After then C_Timer.After(0, refresh) else refresh() end
+        end
+    end)
+    f:SetScript("OnUpdate", function(self, elapsed)
+        local now = GetTime and GetTime() or 0
+        if PD.histOpenAt and (now - PD.histOpenAt) < 0.6 then return end
+        if not PD.histOpenSlug or PD.histOpenSlug ~= PD.cur then
+            PD.HistTrace("slug")
+            PD.HideRouteHistory()
+            return
+        end
+        if PD.page and PD.page:IsVisible() then
+            self.__gone = 0
+        else
+            self.__gone = (self.__gone or 0) + (elapsed or 0.1)
+            if self.__gone > 0.4 then PD.HistTrace("page-gone") PD.HideRouteHistory() end
+        end
+    end)
+    if UISpecialFrames then
+        local listed = false
+        for i = 1, #UISpecialFrames do
+            if UISpecialFrames[i] == "DungeonsForeverRouteHistory" then listed = true break end
+        end
+        if not listed then tinsert(UISpecialFrames, "DungeonsForeverRouteHistory") end
+    end
+    PD.histPopup = f
+    return f
+end
+
+function PD.HistTrace(msg)
+    PD.histTrace = PD.histTrace or {}
+    local t = PD.histTrace
+    t[#t + 1] = (GetTime and string.format("%.1f ", GetTime()) or "") .. tostring(msg)
+    while #t > 14 do tremove(t, 1) end
+end
+
+function PD.HideRouteHistory()
+    PD.HistTrace("hide")
+    if PD.histPopup then PD.histPopup:Hide() end
+end
+
+function PD.ToggleRouteHistory()
+    PD.HistTrace(PD.histPopup and PD.histPopup:IsShown() and "click-close" or "click-open")
+    if PD.histPopup and PD.histPopup:IsShown() then PD.HideRouteHistory() return end
+    local owner
+    for i = 1, #(PD.toolBtns or {}) do
+        local bt = PD.toolBtns[i]
+        if bt.__key == "route_history" and bt:IsShown() then owner = bt break end
+    end
+    if not owner then PD.HistTrace("no-owner") return end
+    if not PD.histClick then
+        local cf = CreateFrame("Frame")
+        cf:SetScript("OnEvent", function(self)
+            if not (PD.histPopup and PD.histPopup:IsShown()) then
+                self:UnregisterEvent("GLOBAL_MOUSE_DOWN")
+                return
+            end
+            if GetTime and PD.histOpenAt and (GetTime() - PD.histOpenAt) < 0.25 then return end
+            if PD.histPopup:IsMouseOver() then return end
+            if PD.histOwner and PD.histOwner.IsMouseOver and PD.histOwner:IsMouseOver() then return end
+            PD.HistTrace("outside")
+            PD.HideRouteHistory()
+        end)
+        PD.histClick = cf
+    end
+    local f = PD.BuildRouteHistoryPopup()
+    PD.histOwner, PD.histOpenSlug = owner, PD.cur
+    PD.histOpenAt = GetTime and GetTime() or 0
+    PD.FillRouteHistory()
+    f.__gone = 0
+    f:ClearAllPoints()
+    f:SetPoint("TOPRIGHT", owner, "BOTTOMRIGHT", 0, -4)
+    f:Show()
+    PD.histClick:RegisterEvent("GLOBAL_MOUSE_DOWN")
+    PD.RequestRender()
+end
+
 function PD.RowsLeveling(rows)
     PD.warnNotes = nil
     local activeRun, activePlan = TrackRunOf(PD.cur)
@@ -13619,11 +14121,13 @@ function PD.RowsLeveling(rows)
             PushText(rows,scanForced,14,{0.95,0.72,0.42},1)
             PushGap(rows,4,1)
         else
-            if scanNotice then
+            if scanNotice and scanAdvice then
+                PushText(rows,scanNotice.."   |cffa1a1a1"..scanAdvice.."|r",14,{0.55,0.85,0.6},1)
+                PushGap(rows,4,1)
+            elseif scanNotice then
                 PushText(rows,scanNotice,14,{0.55,0.85,0.6},1)
-                PushGap(rows,2,1)
-            end
-            if scanAdvice then
+                PushGap(rows,4,1)
+            elseif scanAdvice then
                 PushText(rows,scanAdvice,14,C_DIM,1)
                 PushGap(rows,4,1)
             end
@@ -13770,6 +14274,7 @@ function PD.RowsLeveling(rows)
                 or L["固定攻略包含不可执行步骤，请切换自动规划或先满足学习条件。"],0.95,0.75,0.4)
         end
     end
+    PD.RecordRouteHistory(auto and res or fixedSum, PD.cur)
     local trackRun, trackAll = TrackStepsFor(PD.cur, steps)
 
     PD.lvSummary = {
@@ -15121,6 +15626,11 @@ function PD.LevelTool()
     if not PD.FixedOnly() then
         local automatic = PD.AutoRouteEnabled()
         local need = PD.RecalcNeeded()
+        local hist = { key = "route_history", align = "right",
+                       text = L["历史路线"], on = (PD.histOpenSlug == PD.cur),
+                       tip = { { L["历史路线"], 1, 0.82, 0 },
+                           { format(L["最近 %d 次计算的时间、步数与总花费。"], PD.HISTORY_MAX), 0.85, 0.85, 0.85 } } }
+        list[#list + 1] = hist
         local rec = { key = "recalc", align = "right", primary = true, glow = need,
                       text = automatic and L["重新计算"] or L["刷新费用"] }
         if automatic and PD.policyDirty and PD.policyDirty[PD.cur] then
@@ -15168,6 +15678,8 @@ function PD.LevelTool()
             local name = (D.pro and D.pro[PD.cur] and D.pro[PD.cur].name) or PD.cur
             if pf and pf.ImportShoppingList then pcall(pf.ImportShoppingList, PD.cur, name) end
             ns.PlaySound(1)
+        elseif k == "route_history" then
+            PD.ToggleRouteHistory()
         elseif k == "recalc" then
             if PD.cur ~= routeSlug then return end
             PD.DoRecalc(routeSlug)
@@ -16488,6 +17000,7 @@ function PD.Render()
         PD.Layout(toolH)
     end
     layoutTools()
+    PD.PlaceLvRange()
 
     if PD.searchBox then
         local sBox = PD.searchBox
@@ -16640,6 +17153,7 @@ end
 
 function PD.SetTab(key)
     PD.setOpen = false
+    PD.ResetItemNameMemo()
     if not (PD.avail and PD.avail[key]) then return end
     local wasCrate = (PD.tab == "crate" or PD.tab == "writ")
     local nowCrate = (key == "crate" or key == "writ")
@@ -16748,6 +17262,7 @@ function PD.Open()
         PD.wantOpen = true
         return
     end
+    PD.ResetItemNameMemo()
     PD.EnsureCur()
     PD.RequestRender()
 end

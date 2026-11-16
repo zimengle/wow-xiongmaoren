@@ -7,14 +7,54 @@ RS.Presentation.ChangelogData = RS.Presentation.ChangelogData or {}
 if buildID == "classic-infinite" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-infinite",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:ab48fbf809ee90ad258f2ec7202d48b1cc54431c0b0146aec345640946271f52",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:3abdcac738dff4194ab64f04de5b29531d63e918f40270552dacab9e45d0ceb6",
         historySourceId = "none:forever-product-starts-at-4.x",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.8.5",
-            date = "2026-11-12",
-            noticeKey = "4.8.5:e68702ac0d6c4e8d2b16",
-            content = [=[%sv4.8.5（2026-11-12）|r
+            version = "4.8.8",
+            date = "2026-11-16",
+            noticeKey = "4.8.8:5a7f846e40b7582d0559",
+            content = [=[%sv4.8.8（2026-11-16）|r
+
+%s[聊天条]|r
+• Tab切换频道，组团后可分别切到队伍和团队频道。
+
+%sv4.8.7（2026-11-15）|r
+
+%s[聊天条]|r
+• 频道粘滞，默认各频道跟随暴雪，可自选粘滞频道，关闭后仅密语不粘滞。
+
+%sv4.8.6（2026-11-14）|r
+
+%s[任务自动交接]|r
+• 交接设置，支持分别控制Elles和Questie。
+• 追踪框，适配新版Elles，共用时仅在Questie显示开关。
+
+%s[聊天条]|r
+• 频道粘滞，默认排除普通和战网密语，密语后回车返回原频道。
+• 频道轮换，支持自选Tab切换的频道。
+• 输入框，支持Tab切频道、Shift+Tab反向切换。
+
+%s[微型菜单栏]|r
+• 暴雪菜单，修复使用Elles时关闭微型菜单栏后无法恢复的问题。
+
+%s[插件增强]|r
+• 面板位置清理，默认只保留插件列表，世界地图可自行勾选。
+
+%s[职业提醒]|r
+• 提醒设置，支持跨职业调整。
+• 增益提醒，乘坐飞行航线时暂停。
+• 护甲提醒，支持分别选择法师、术士的护甲法术。
+• 萨满护盾，改为默认关闭。
+
+%s[暴雪界面增强]|r
+• 背包整理，合并暴雪和Elles的反向整理设置。
+
+%s[消耗品动作条]|r
+• 食物菜单，新增蚌肉大餐。
+• 油和磨刀石类，左键涂主手，右键涂副手，同款油先用剩余次数最少的一瓶。
+
+%sv4.8.5（2026-11-12）|r
 
 %s[职业提醒]|r
 • 新增牧师心灵之火缺失提醒。
@@ -915,14 +955,19 @@ end
 if buildID == "classic-era" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-era",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:ab48fbf809ee90ad258f2ec7202d48b1cc54431c0b0146aec345640946271f52",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:3abdcac738dff4194ab64f04de5b29531d63e918f40270552dacab9e45d0ceb6",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.8.5",
-            date = "2026-11-12",
-            noticeKey = "4.8.5:d24ed3f73cfc90957140",
-            content = [=[%sv4.8.5（2026-11-12）|r
+            version = "4.8.6",
+            date = "2026-11-14",
+            noticeKey = "4.8.6:e8789c59684b687be979",
+            content = [=[%sv4.8.6（2026-11-14）|r
+
+%s[消耗品动作条]|r
+• 油和磨刀石类，左键涂主手，右键涂副手，同款油先用剩余次数最少的一瓶。
+
+%sv4.8.5（2026-11-12）|r
 
 %s[法师传送门]|r
 • 鼠标提示，特殊文字改为职业色。
@@ -1501,14 +1546,19 @@ end
 if buildID == "classic-anniversary" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-anniversary",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:ab48fbf809ee90ad258f2ec7202d48b1cc54431c0b0146aec345640946271f52",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:3abdcac738dff4194ab64f04de5b29531d63e918f40270552dacab9e45d0ceb6",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.8.5",
-            date = "2026-11-12",
-            noticeKey = "4.8.5:d24ed3f73cfc90957140",
-            content = [=[%sv4.8.5（2026-11-12）|r
+            version = "4.8.6",
+            date = "2026-11-14",
+            noticeKey = "4.8.6:e8789c59684b687be979",
+            content = [=[%sv4.8.6（2026-11-14）|r
+
+%s[消耗品动作条]|r
+• 油和磨刀石类，左键涂主手，右键涂副手，同款油先用剩余次数最少的一瓶。
+
+%sv4.8.5（2026-11-12）|r
 
 %s[法师传送门]|r
 • 鼠标提示，特殊文字改为职业色。
@@ -2087,7 +2137,7 @@ end
 if buildID == "classic-wrath-legacy" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-wrath-legacy",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:ab48fbf809ee90ad258f2ec7202d48b1cc54431c0b0146aec345640946271f52",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:3abdcac738dff4194ab64f04de5b29531d63e918f40270552dacab9e45d0ceb6",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
@@ -2662,7 +2712,7 @@ end
 if buildID == "classic-cata-legacy" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-cata-legacy",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:ab48fbf809ee90ad258f2ec7202d48b1cc54431c0b0146aec345640946271f52",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:3abdcac738dff4194ab64f04de5b29531d63e918f40270552dacab9e45d0ceb6",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
@@ -3242,7 +3292,7 @@ end
 if buildID == "classic-mists" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-mists",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:ab48fbf809ee90ad258f2ec7202d48b1cc54431c0b0146aec345640946271f52",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:3abdcac738dff4194ab64f04de5b29531d63e918f40270552dacab9e45d0ceb6",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
@@ -3833,7 +3883,7 @@ end
 if buildID == "classic-titan" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-titan",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:ab48fbf809ee90ad258f2ec7202d48b1cc54431c0b0146aec345640946271f52",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:3abdcac738dff4194ab64f04de5b29531d63e918f40270552dacab9e45d0ceb6",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {

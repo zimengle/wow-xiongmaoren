@@ -27,6 +27,44 @@ local BUTTON_TOOLTIPS = {
     preset = "打开 RS 快捷菜单。",
 }
 
+local function AddChannelGear(row, module, data, anchor, field, title)
+    local rows = {}
+    local tab = field == "tabChannels"
+    local labels = {}
+    for _, channel in ipairs(data.inputChannels) do labels[channel[1]] = channel[2] end
+    local choices = {}
+    -- Bind a bounded pool by name on every refresh; channel numbers may be reused.
+    for index = 1, #data.inputChannels + (_G.MAX_WOW_CHAT_CHANNELS or 20) do
+        rows[index] = {
+            key = tostring(index), kind = "checkbox", toggleSide = "right",
+            getVisible = function() return choices[index] ~= nil end,
+            getText = function()
+                local item = choices[index]
+                return item and (item.name or labels[item.key]) or ""
+            end,
+            getValue = function()
+                local item = choices[index]
+                if not item then return false end
+                local profile = module:GetProfile()
+                if tab then return data.ChannelSelected(profile, field, item.key, true) end
+                return data.StickyAllowed(profile, item.key)
+            end,
+            onChange = function(_, value)
+                local item = choices[index]
+                if not item then return end
+                local profile = module:GetProfile()
+                if type(profile[field]) ~= "table" then profile[field] = {} end
+                profile[field][item.key] = value == true
+                if not tab then module:ApplyStickyModes() end
+            end,
+        }
+    end
+    row:Popover(field, {attachTo = anchor, title = title, tooltip = title, rows = rows,
+        width = 360, columns = 2, rowHeight = 23, rowGap = 2, sidePadding = 8, topPadding = 6,
+        beforeRefresh = function() choices = module.adapter:GetInputChannels(module, tab) end})
+
+end
+
 local function BuildPage(context, module, data)
     module:SanitizeProfile()
     local page, reason = ns.UI:CreateSettingsPage(context, { id = Settings.pageId })
@@ -127,10 +165,12 @@ local function BuildPage(context, module, data)
     })
 
     if module:SupportsTabChannelSwitch() then
-        local input = page:Section("输入设置"):ToggleRow({ columns = 1 })
-        input:Checkbox("tabChannelSwitch", {
-            text = "Tab切换频道",
-            tooltip = "聊天输入时按Tab在当前可用频道间切换，Shift+Tab反向切换。\n密语、社区频道和斜杠命令保留暴雪原生Tab功能。",
+        local input = page:Section("聊天设置")
+        local row = input:QuadRow()
+        local tabLabel = "Tab切换频道"
+        row:Checkbox("tabChannelSwitch", {
+            text = tabLabel,
+            tooltip = "聊天输入时按Tab在当前可用频道间切换，Shift+Tab反向切换。\n斜杠命令及社区频道保留原生 Tab 功能。",
             value = profile.tabChannelSwitchEnabled == true,
             onChange = function(control, value)
                 local ok = module:SetTabChannelSwitchEnabled(value)
@@ -139,6 +179,16 @@ local function BuildPage(context, module, data)
                 end
             end,
         })
+        AddChannelGear(row, module, data, "tabChannelSwitch", "tabChannels", tabLabel)
+        row:Checkbox("channelSticky", {
+            text = "频道粘滞", value = profile.stickyMode ~= "off",
+            tooltip = "开启时，齿轮中勾选的频道沿用暴雪原生粘滞。关闭时，仅普通密语和战网密语不粘滞，其他频道跟随暴雪。",
+            onChange = function(_, value)
+                module:GetProfile().stickyMode = value and "native" or "off"
+                module:ApplyStickyModes()
+            end,
+        })
+        AddChannelGear(row, module, data, "channelSticky", "stickyChannels", "允许粘滞的频道")
     end
     page:Finish()
     return page
@@ -159,6 +209,8 @@ function Settings:RefreshControls(context, module, data)
         page:GetControl("button_" .. info.key):SetValue(module:IsButtonEnabled(info.key), true)
     end
     if module:SupportsTabChannelSwitch() then
+        local sticky = page:GetControl("channelSticky")
+        if sticky then sticky:SetValue(profile.stickyMode ~= "off", true) end
         local control = page:GetControl("tabChannelSwitch")
         if control then control:SetValue(profile.tabChannelSwitchEnabled == true, true) end
     end

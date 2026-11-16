@@ -1,5 +1,5 @@
 local _, ns = ...
-if ns.Build.GetID() ~= "classic-infinite" or not ns.Build.HasModule("QuestAutomation") then return end
+if not ns.Build.HasModule("QuestAutomation") then return end
 
 local Integration = { addonName = "Questie", buttonText = "交接", textHitWidth = 32 }
 ns.QuestAutomationTrackerIntegration = Integration

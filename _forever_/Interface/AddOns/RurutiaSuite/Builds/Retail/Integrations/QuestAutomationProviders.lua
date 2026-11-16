@@ -74,7 +74,3 @@ function Providers:SetEnabled(key, value)
     end
     return true
 end
-
-function Providers:IsRelevantAddon(name)
-    return name == "RXPGuides" or name == "Questie" or name == "EllesmereUIQuestTracker"
-end

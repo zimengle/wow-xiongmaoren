@@ -17,13 +17,6 @@ local dynamicEvents = {
     "ZONE_CHANGED_NEW_AREA",
     "GROUP_ROSTER_UPDATE",
 }
-local canaccessvalue = _G.canaccessvalue
-
-local function CanAccessValue(value)
-    if type(value) == "nil" then return true end
-    return not canaccessvalue or canaccessvalue(value)
-end
-
 local function Call(object, method, ...)
     local callback = object and object[method]
     if type(callback) ~= "function" then return false end
@@ -58,24 +51,6 @@ function Adapter:GetChannels()
     return Data.GetChannels(locale)
 end
 
-local function AddTabCandidate(candidates, seen, chatType, channelTarget)
-    local key = chatType
-    if chatType == "CHANNEL" then
-        if not CanAccessValue(channelTarget) then return end
-        channelTarget = tonumber(channelTarget)
-        if not channelTarget or channelTarget <= 0 then return end
-        key = chatType .. ":" .. tostring(channelTarget)
-    end
-    if seen[key] then return end
-    seen[key] = true
-    candidates[#candidates + 1] = {
-        chatType = chatType,
-        channelTarget = channelTarget,
-    }
-end
-
-function Adapter:SupportsTabChannelSwitch() return true end
-
 function Adapter:IsChatMessagingLocked()
     local chatInfo = _G.C_ChatInfo
     local isLocked = type(chatInfo) == "table" and chatInfo.InChatMessagingLockdown
@@ -84,137 +59,7 @@ function Adapter:IsChatMessagingLocked()
     return not ok or locked ~= false
 end
 
-function Adapter:IsNativeTabContext(chatType, text)
-    if chatType == "COMMUNITIES_CHANNEL" then return true end
-    if type(text) ~= "string" then return true end
-    local textOK, first = pcall(string.sub, text, 1, 1)
-    return not textOK or first == "/"
-end
-
-function Adapter:BuildTabChannelCandidates(module)
-    local candidates, seen = {}, {}
-    AddTabCandidate(candidates, seen, "SAY")
-
-    local isInGroup = _G.IsInGroup
-    local homeCategory = _G.LE_PARTY_CATEGORY_HOME
-    local instanceCategory = _G.LE_PARTY_CATEGORY_INSTANCE
-    local inHomeGroup = type(isInGroup) == "function" and homeCategory ~= nil
-        and isInGroup(homeCategory) == true
-    if type(isInGroup) == "function" and instanceCategory ~= nil
-        and isInGroup(instanceCategory) == true then
-        AddTabCandidate(candidates, seen, "INSTANCE_CHAT")
-    elseif inHomeGroup then
-        if type(_G.IsInRaid) == "function" and _G.IsInRaid(homeCategory) == true then
-            AddTabCandidate(candidates, seen, "RAID")
-        else
-            AddTabCandidate(candidates, seen, "PARTY")
-        end
-    end
-
-    if type(_G.IsInGuild) == "function" and _G.IsInGuild() == true then
-        AddTabCandidate(candidates, seen, "GUILD")
-    end
-
-    local channels = module and module.channels
-    local index
-    for index = 1, #Data.retailTabChannelKeys do
-        local name = channels and channels[Data.retailTabChannelKeys[index]]
-        local channelID = name and self:GetChannel(name) or nil
-        AddTabCandidate(candidates, seen, "CHANNEL", channelID)
-    end
-    return candidates
-end
-
-function Adapter:HandleTabChannelPressed(module, editBox)
-    -- During Blizzard chat messaging lockdown, do not inspect the edit box:
-    -- chat type, text, and targets can all be Secret values in this state.
-    if self:IsChatMessagingLocked() then return false end
-    if not editBox or type(editBox.GetChatType) ~= "function"
-        or type(editBox.SetChatType) ~= "function"
-        or type(editBox.GetText) ~= "function"
-        or type(editBox.UpdateHeader) ~= "function" then
-        return false
-    end
-
-    local chatTypeOK, chatType = pcall(editBox.GetChatType, editBox)
-    if not chatTypeOK or not CanAccessValue(chatType) or chatType == "COMMUNITIES_CHANNEL" then return false end
-    local textOK, text = pcall(editBox.GetText, editBox)
-    if not textOK or not CanAccessValue(text) or self:IsNativeTabContext(chatType, text) then return false end
-    -- Tab candidates never include whispers. The previous recipient is not
-    -- consumed by this transition; reading it can strand an otherwise usable
-    -- input box after messaging lockdown ends.
-
-    local candidates = self:BuildTabChannelCandidates(module)
-    if #candidates == 0 then return false end
-
-    local currentTarget
-    if chatType == "CHANNEL" and type(editBox.GetChannelTarget) == "function" then
-        local targetOK, target = pcall(editBox.GetChannelTarget, editBox)
-        if not targetOK or not CanAccessValue(target) then return false end
-        currentTarget = tonumber(target)
-    end
-
-    local currentIndex
-    local index
-    for index = 1, #candidates do
-        local candidate = candidates[index]
-        if candidate.chatType == chatType
-            and (chatType ~= "CHANNEL" or candidate.channelTarget == currentTarget) then
-            currentIndex = index
-            break
-        end
-    end
-
-    local reverse = type(_G.IsShiftKeyDown) == "function" and _G.IsShiftKeyDown() == true
-    local direction = reverse and -1 or 1
-    local nextIndex
-    if currentIndex then
-        nextIndex = ((currentIndex - 1 + direction) % #candidates) + 1
-    else
-        nextIndex = reverse and #candidates or 1
-    end
-    local nextChannel = candidates[nextIndex]
-    if nextChannel.chatType == "CHANNEL" and type(editBox.SetChannelTarget) ~= "function" then
-        return false
-    end
-
-    local applied = pcall(function()
-        editBox:SetChatType(nextChannel.chatType)
-        if nextChannel.chatType == "CHANNEL" then
-            editBox:SetChannelTarget(nextChannel.channelTarget)
-        end
-        editBox:UpdateHeader()
-    end)
-    if applied then return true end
-
-    pcall(function()
-        editBox:SetChatType(chatType)
-        if chatType == "CHANNEL" and currentTarget
-            and type(editBox.SetChannelTarget) == "function" then
-            editBox:SetChannelTarget(currentTarget)
-        end
-        editBox:UpdateHeader()
-    end)
-    return false
-end
-
-function Adapter:EnsureTabChannelHook(module)
-    if module.tabChannelHookToken ~= nil then return true end
-    if type(module.HookSecureFunction) ~= "function"
-        or type(_G.ChatEdit_CustomTabPressed) ~= "function" then
-        return false
-    end
-    local ok, token = pcall(
-        module.HookSecureFunction,
-        module,
-        "ChatEdit_CustomTabPressed",
-        function(_, editBox) pcall(module.HandleTabChannelPressed, module, editBox) end,
-        "chatbar-tab-channel"
-    )
-    if not ok or token == nil then return false end
-    module.tabChannelHookToken = token
-    return true
-end
+ns.ChatBarInput.Install(Adapter)
 
 function Adapter:ShouldShow(showKey)
     if showKey == nil then return true end

@@ -17,6 +17,11 @@ local CLASS_TEXTURE = "Interface\\GLUES\\CHARACTERCREATE\\UI-CHARACTERCREATE-CLA
 local UNKNOWN_ICON = "Interface\\Icons\\INV_Misc_QuestionMark"
 local KOS_MARKER = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_8"
 local GUILD_MARKER = "Interface\\Icons\\INV_Misc_TabardPVP_01"
+-- Player tags (Tags.lua): raid target icons, green triangle and orange circle.
+local TAG_MARKERS = {
+	spare = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_4",
+	rival = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_2",
+}
 local MIN_WIDTH, MAX_WIDTH = 90, 300   -- the bounds Spy gives the window
 local MIN_SCALE, MAX_SCALE = 0.5, 2
 
@@ -109,6 +114,10 @@ function Spy:RowMarker(player)
 	if SpyPerCharDB and SpyPerCharDB.KOSData and SpyPerCharDB.KOSData[player] then
 		return "kos"
 	end
+	local tag = Spy.PlayerTag and Spy:PlayerTag(player)
+	if tag and TAG_MARKERS[tag] then
+		return tag
+	end
 	local playerData = SpyPerCharDB and SpyPerCharDB.PlayerData and SpyPerCharDB.PlayerData[player]
 	if playerData and playerData.guild and Spy.WatchedGuild and Spy:WatchedGuild(playerData.guild) then
 		return "guild"
@@ -133,8 +142,8 @@ function Spy:LayoutRow(row, class, marker, alpha)
 		row.ClassIcon:Hide()
 	end
 	if marker then
-		row.Marker:SetTexture(marker == "kos" and KOS_MARKER or GUILD_MARKER)
-		if marker == "kos" then
+		row.Marker:SetTexture(TAG_MARKERS[marker] or (marker == "kos" and KOS_MARKER) or GUILD_MARKER)
+		if marker == "kos" or TAG_MARKERS[marker] then
 			row.Marker:SetTexCoord(0, 1, 0, 1)
 		else
 			row.Marker:SetTexCoord(0.08, 0.92, 0.08, 0.92)
@@ -282,12 +291,14 @@ end
 -- The edge of the main window ends below the last row shown, not at the bottom of the
 -- window (the window is usually taller than its rows).
 local function windowEnds(window)
-	local last = window.Rows and window.CurRows and window.CurRows > 0 and window.Rows[window.CurRows]
-	local rowsEnd = last or window.TitleBar
+	local shown = window.Rows and window.CurRows and window.CurRows > 0
 	if Spy.db.profile.InvertSpy then
-		return rowsEnd, window.TitleBar
+		-- Inverted: the title bar is under the window and the rows still go down from
+		-- its top, so the edge runs from the first row (the highest) to the title bar.
+		-- It used to start at the last row and left the others outside (CurseForge comment).
+		return shown and window.Rows[1] or window.TitleBar, window.TitleBar
 	end
-	return window.TitleBar, rowsEnd
+	return window.TitleBar, shown and window.Rows[window.CurRows] or window.TitleBar
 end
 
 -- A tooltip backdrop with or without its edge; SetBackdrop resets the colours, so the

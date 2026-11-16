@@ -5,7 +5,7 @@ local Adapter = ns.EUIPanelCleanupAdapter
 if not Adapter then return end
 local Module = {}
 ns.EUIPanelCleanup = Module
-local defaults = {AddonList = true, WorldMapFrame = true}
+local defaults = {AddonList = true, WorldMapFrame = false}
 local labels = {AddonList = "插件列表", WorldMapFrame = "世界地图", PlayerSpellsFrame = "法术书"}
 
 local function copy(value, seen)
@@ -73,7 +73,8 @@ function Module:Inspect()
         }
     end
     table.sort(entries, function(a, b)
-        if defaults[a.id] ~= defaults[b.id] then return defaults[a.id] == true end
+        local keepA, keepB = defaults[a.id] == true, defaults[b.id] == true
+        if keepA ~= keepB then return keepA end
         return a.label < b.label
     end)
     return entries
@@ -175,7 +176,7 @@ function Module:ShowSettings(page)
         page:ClosePopovers()
         for _, item in ipairs(dialog.items) do item:SetVisible(false) end
         local entries, reason = self:Inspect()
-        dialog.status:SetText(reason or "勾选要保留的面板。默认保留插件列表和世界地图；一键清理其他位置与缩放后自动重载，同账号角色受影响。")
+        dialog.status:SetText(reason or "默认只保留插件列表。点击「一键清理」会清除 Elles 保存的未勾选面板的位置和缩放，并自动重载。此操作影响同账号角色。")
         local count = 0
         local function UpdateCount()
             count = 0

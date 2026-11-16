@@ -609,6 +609,9 @@ function Definition:SetComponentEnabled(key, enabled)
     end
     self:RequestStateRefresh(0)
     Adapter:RefreshBlizzardMenuTakeover()
+    if key == "micromenu" and not enabled and ns.RestoreEllesmereMicroMenu then
+        ns.RestoreEllesmereMicroMenu()
+    end
     return true
 end
 

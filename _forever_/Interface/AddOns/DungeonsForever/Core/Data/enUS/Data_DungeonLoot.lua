@@ -73,7 +73,7 @@ ns.DungeonLoot = {
             { 251360, nil, true },
             { 253906, nil, true },
         } },
-        { "Bazzalan", "Bazzalan", "", "2007", {
+        { "Bazzalan", "Bazzalan", "", "11519", {
             { 273003, nil, true },
             { 273007, nil, true },
             { 273005, nil, true },
@@ -116,7 +116,7 @@ ns.DungeonLoot = {
             { 271212, nil, true },
             { 271218, nil, true },
         } },
-        { "Lordaeron Captain", "Lordaeron Captain", "Rare", "139050", {
+        { "Lordaeron Captain", "Lordaeron Captain", "Rare", "255699", {
             { 6641, nil, false },
             { 6642, nil, false },
         } },
@@ -198,6 +198,14 @@ ns.DungeonLoot = {
         { "Trash mobs", "Trash mobs", "Any enemy in the dungeon", "", {
             { 10413, 2.4, false },
         } },
+        { "Plans", "Pattern", "Chest or object", "", {
+            { 252782, nil, true },
+            { 253940, nil, true },
+            { 253946, nil, true },
+            { 253942, nil, true },
+            { 253948, nil, true },
+            { 252798, nil, true },
+        } },
     },
     ["the_deadmines"] = {
         { "Rhahk'Zor", "Lakzo", "Lv 19", "644", {
@@ -245,7 +253,7 @@ ns.DungeonLoot = {
             { 252779, nil, true },
             { 252781, nil, true },
         } },
-        { "Captain Greenskin", "Captain Greenskin", "Lv 20", "7113", {
+        { "Captain Greenskin", "Captain Greenskin", "Lv 20", "647", {
             { 5201, 38, false },
 
             { 10403, 27, false },
@@ -294,6 +302,36 @@ ns.DungeonLoot = {
             { 1945, 6.5, false },
             { 1925, 6.6, false },
         } },
+        { "Plans", "Pattern", "Chest or object", "", {
+            { 251361, nil, true },
+            { 251340, nil, true },
+            { 251341, nil, true },
+            { 251342, nil, true },
+            { 251343, nil, true },
+            { 251344, nil, true },
+            { 252771, nil, true },
+            { 252772, nil, true },
+            { 252773, nil, true },
+            { 252774, nil, true },
+            { 252775, nil, true },
+            { 252776, nil, true },
+            { 253908, nil, true },
+            { 251345, nil, true },
+            { 251346, nil, true },
+            { 251347, nil, true },
+            { 251348, nil, true },
+            { 251349, nil, true },
+            { 251383, nil, true },
+            { 252792, nil, true },
+            { 252793, nil, true },
+            { 252794, nil, true },
+            { 252795, nil, true },
+            { 252796, nil, true },
+            { 252797, nil, true },
+            { 253942, nil, true },
+            { 253944, nil, true },
+            { 253946, nil, true },
+        } },
     },
     ["shadowfang_keep"] = {
         { "Rethilgore", "Rehigor", "Lv 20", "3914", {
@@ -301,7 +339,7 @@ ns.DungeonLoot = {
             { 273457, nil, true },
             { 273456, nil, true },
         } },
-        { "Fel Steed / Shadow Charger", "Evil / Shadow Warhorse", "", "1952", {
+        { "Fel Steed / Shadow Charger", "Evil / Shadow Warhorse", "", "3864", {
             { 6341, 6.2, false },
             { 932, 19, false },
             { 251341, nil, true },
@@ -353,7 +391,7 @@ ns.DungeonLoot = {
             { 6642, 35, false },
             { 6641, 58, false },
         } },
-        { "Arugal's Voidwalker", "Arugal's Voidwalker", "", "1131", {
+        { "Arugal's Voidwalker", "Arugal's Voidwalker", "", "4627", {
             { 5943, 2.5, false },
         } },
         { "Fenrus the Devourer", "Devourer Finrus", "", "4274", {
@@ -397,6 +435,11 @@ ns.DungeonLoot = {
         { "The Book of Ur", "Book of Ur", "Chest or object", "", {
             { 6283, nil, false },
         } },
+        { "Plans", "Pattern", "Chest or object", "", {
+            { 253938, nil, true },
+            { 253942, nil, true },
+            { 253944, nil, true },
+        } },
     },
     ["excavation_wetlands"] = {
         { "Saltspine", "Saltspine", "", "260322", {
@@ -428,6 +471,10 @@ ns.DungeonLoot = {
         { "Trash mobs", "Trash mobs", "Any enemy in the dungeon", "", {
             { 287068, nil, true },
             { 286983, nil, true },
+            { 286982, nil, true },
+            { 286984, nil, true },
+            { 286985, nil, true },
+            { 286986, nil, true },
         } },
     },
     ["blackfathom_deeps"] = {
@@ -556,6 +603,43 @@ ns.DungeonLoot = {
             { 2271, 0.05, false },
             { 2034, 1.8, false },
         } },
+        { "Plans", "Pattern", "Chest or object", "", {
+            { 251384, nil, true },
+            { 252800, nil, true },
+            { 253938, nil, true },
+            { 253946, nil, true },
+            { 251381, nil, true },
+            { 251380, nil, true },
+            { 252803, nil, true },
+            { 251345, nil, true },
+            { 251346, nil, true },
+            { 251347, nil, true },
+            { 251348, nil, true },
+            { 251349, nil, true },
+            { 252792, nil, true },
+            { 252793, nil, true },
+            { 252794, nil, true },
+            { 252795, nil, true },
+            { 252796, nil, true },
+            { 252797, nil, true },
+            { 253948, nil, true },
+            { 252802, nil, true },
+            { 252799, nil, true },
+            { 253976, nil, true },
+            { 251379, nil, true },
+            { 253986, nil, true },
+            { 251350, nil, true },
+            { 251351, nil, true },
+            { 251352, nil, true },
+            { 251353, nil, true },
+            { 251354, nil, true },
+            { 252814, nil, true },
+            { 252815, nil, true },
+            { 252816, nil, true },
+            { 252817, nil, true },
+            { 252818, nil, true },
+            { 252819, nil, true },
+        } },
     },
     ["the_stockade"] = {
         { "Kam Deepfury", "Kam Deepfury", "", "1666", {
@@ -636,24 +720,56 @@ ns.DungeonLoot = {
             { 1076, 0.97, false },
             { 274092, nil, true },
         } },
+        { "Plans", "Pattern", "Chest or object", "", {
+            { 251345, nil, true },
+            { 251346, nil, true },
+            { 251347, nil, true },
+            { 251348, nil, true },
+            { 251349, nil, true },
+            { 252792, nil, true },
+            { 252793, nil, true },
+            { 252794, nil, true },
+            { 252795, nil, true },
+            { 252796, nil, true },
+            { 252797, nil, true },
+            { 253938, nil, true },
+            { 253940, nil, true },
+            { 253944, nil, true },
+            { 253946, nil, true },
+            { 253948, nil, true },
+            { 251350, nil, true },
+            { 251351, nil, true },
+            { 251352, nil, true },
+            { 251353, nil, true },
+            { 251354, nil, true },
+            { 252814, nil, true },
+            { 252816, nil, true },
+            { 252817, nil, true },
+            { 252818, nil, true },
+            { 252819, nil, true },
+            { 253978, nil, true },
+            { 253980, nil, true },
+            { 253982, nil, true },
+            { 253984, nil, true },
+        } },
     },
     ["city_of_dalaran"] = {
-        { "Atrexis the Grave Knight", "Tomb Knight Atrexis", "Lv 29", "247126", {
+        { "Atrexis the Grave Knight", "墓穴骑士阿特雷克斯", "Lv 29", "247126", {
             { 273036, 27, true },
             { 273032, 42, true },
             { 273033, 30, true },
         } },
-        { "Lyn the Ignored", "Ignored Lynn", "Lv 31", "247032", {
+        { "Lyn the Ignored", "被无视的琳恩", "Lv 31", "247032", {
             { 273054, 32, true },
             { 273055, 54, true },
             { 273053, 14, true },
         } },
-        { "Arcane Anomaly", "Arcane Aberration", "Lv 30", "245999", {
+        { "Arcane Anomaly", "奥术畸体", "Lv 30", "245999", {
             { 273034, 34, true },
             { 273031, 31, true },
             { 273035, 35, true },
         } },
-        { "Arcanic Enigma", "Arcanic Enigma", "Lv 30", "246016", {
+        { "Arcanic Enigma", "奥术之谜", "Lv 30", "246016", {
             { 273044, 39, true },
             { 273045, 32, true },
             { 273043, 29, true },
@@ -681,7 +797,7 @@ ns.DungeonLoot = {
             { 273052, 24, true },
             { 273103, 6.4, true },
         } },
-        { "Mana Elemental", "Mana Elemental", "", "", {
+        { "Mana Elemental", "Mana Element", "", "", {
             { 273045, nil, true },
             { 273044, nil, true },
             { 273043, nil, true },
@@ -696,10 +812,13 @@ ns.DungeonLoot = {
             { 286995, nil, true },
             { 286994, nil, true },
             { 286991, nil, true },
+            { 286990, nil, true },
+            { 286993, nil, true },
+            { 286996, nil, true },
         } },
     },
     ["gnomeregan"] = {
-        { "Techbot", "Tech Bot", "Lv 26", "7288", {
+        { "Techbot", "Tech Bot", "Lv 26", "6231", {
             { 9444, 48, false },
         } },
         { "Grubbis", "Grubbis", "", "6533", {
@@ -707,7 +826,7 @@ ns.DungeonLoot = {
             { 274043, nil, true },
             { 274042, nil, true },
         } },
-        { "Viscous Fallout", "Sticky Radiated Dust", "", "5497", {
+        { "Viscous Fallout", "Sticky Radiated Dust", "", "7079", {
             { 9454, 61, false },
             { 9453, 18, false },
             { 9452, 19, false },
@@ -722,7 +841,7 @@ ns.DungeonLoot = {
             { 6893, 79, false },
             { 252822, nil, true },
         } },
-        { "Crowd Pummeler 9-60", "Crowd Pummeler 9-60", "", "6774", {
+        { "Crowd Pummeler 9-60", "Crowd Pummeler 9-60", "", "6229", {
             { 9449, 33, false },
 
             { 9450, 65, false },
@@ -730,7 +849,7 @@ ns.DungeonLoot = {
             { 274068, nil, true },
             { 274049, nil, true },
         } },
-        { "Dark Iron Ambassador", "Dark Iron Master", "Rare", "6669", {
+        { "Dark Iron Ambassador", "Dark Iron Master", "Rare", "6228", {
             { 9455, 43, false },
 
             { 9456, 32, false },
@@ -771,6 +890,37 @@ ns.DungeonLoot = {
             { 9281, nil, false },
             { 9316, nil, false },
         } },
+        { "Plans", "Pattern", "Chest or object", "", {
+            { 251350, nil, true },
+            { 251351, nil, true },
+            { 251352, nil, true },
+            { 251353, nil, true },
+            { 251354, nil, true },
+            { 252814, nil, true },
+            { 252815, nil, true },
+            { 252816, nil, true },
+            { 252817, nil, true },
+            { 252818, nil, true },
+            { 252819, nil, true },
+            { 253976, nil, true },
+            { 253978, nil, true },
+            { 253980, nil, true },
+            { 253982, nil, true },
+            { 253984, nil, true },
+            { 253986, nil, true },
+            { 7091, nil, false },
+            { 4408, nil, false },
+            { 4409, nil, false },
+            { 4410, nil, false },
+            { 4412, nil, false },
+            { 4414, nil, false },
+            { 4416, nil, false },
+            { 4417, nil, false },
+            { 6672, nil, false },
+            { 6716, nil, false },
+            { 7192, nil, false },
+            { 7560, nil, false },
+        } },
     },
     ["razorfen_kraul"] = {
         { "Aggem Thorncurse", "Aggem", "", "4424", {
@@ -805,6 +955,7 @@ ns.DungeonLoot = {
 
             { 274149, nil, true },
             { 252512, nil, true },
+            { 6841, nil, false },
         } },
         { "Overlord Ramtusk", "Overlord Ramtastis", "", "4420", {
             { 6687, 34, false },
@@ -821,7 +972,7 @@ ns.DungeonLoot = {
             { 251379, nil, true },
             { 252821, nil, true },
         } },
-        { "Razorfen Spearhide", "Razorfen Bristleback Guard", "", "4438", {
+        { "Razorfen Spearhide", "Razorfen Bristleback Guard", "Rare", "4438", {
             { 6679, 60, false },
         } },
         { "Agathelos the Raging", "Enraged Agathelos", "", "4422", {
@@ -856,6 +1007,7 @@ ns.DungeonLoot = {
             { 252456, nil, true },
             { 252512, nil, true },
             { 273103, nil, true },
+            { 274463, nil, true },
         } },
         { "Earthcaller Halmgar", "Earthcaller Halmgar", "Rare", "4842", {
             { 6689, 49, false },
@@ -880,6 +1032,25 @@ ns.DungeonLoot = {
             { 6679, 61, false },
             { 6681, 53.3, false },
         } },
+        { "Plans", "Pattern", "Chest or object", "", {
+            { 251350, nil, true },
+            { 251351, nil, true },
+            { 251352, nil, true },
+            { 251353, nil, true },
+            { 251354, nil, true },
+            { 252814, nil, true },
+            { 252815, nil, true },
+            { 252816, nil, true },
+            { 252817, nil, true },
+            { 252818, nil, true },
+            { 252819, nil, true },
+            { 253976, nil, true },
+            { 253978, nil, true },
+            { 253980, nil, true },
+            { 253982, nil, true },
+            { 253984, nil, true },
+            { 253986, nil, true },
+        } },
     },
     ["sm_graveyard"] = {
         { "Interrogator Vishas", "Interrogator Vishas", "Lv 32", "3983", {
@@ -895,7 +1066,7 @@ ns.DungeonLoot = {
             { 252456, nil, true },
             { 252514, nil, true },
         } },
-        { "Azshir the Sleepless", "Echir the Ever-awake", "Rare", "5534", {
+        { "Azshir the Sleepless", "Echir the Ever-awake", "Rare", "6490", {
             { 7709, 31, false },
 
             { 7708, 32, false },
@@ -904,7 +1075,7 @@ ns.DungeonLoot = {
             { 252512, nil, true },
             { 252456, nil, true },
         } },
-        { "Fallen Champion", "Necro Champion", "Rare", "5230", {
+        { "Fallen Champion", "Necro Champion", "Rare", "6488", {
             { 7691, 39, false },
 
             { 7690, 39, false },
@@ -913,7 +1084,7 @@ ns.DungeonLoot = {
             { 252820, nil, true },
             { 252456, nil, true },
         } },
-        { "Ironspine", "Ironspine Necro", "Rare", "5231", {
+        { "Ironspine", "Ironspine Necro", "Rare", "6489", {
             { 7688, 33, false },
 
             { 7687, 21, false },
@@ -968,6 +1139,25 @@ ns.DungeonLoot = {
             { 10330, 14, false },
             { 10331, 2.1, false },
             { 10333, 2.3, false },
+        } },
+        { "Plans", "Pattern", "Chest or object", "", {
+            { 251350, nil, true },
+            { 251351, nil, true },
+            { 251352, nil, true },
+            { 251353, nil, true },
+            { 251354, nil, true },
+            { 252814, nil, true },
+            { 252815, nil, true },
+            { 252816, nil, true },
+            { 252817, nil, true },
+            { 252818, nil, true },
+            { 252819, nil, true },
+            { 253976, nil, true },
+            { 253978, nil, true },
+            { 253980, nil, true },
+            { 253982, nil, true },
+            { 253984, nil, true },
+            { 253986, nil, true },
         } },
     },
     ["sm_library"] = {
@@ -1025,55 +1215,95 @@ ns.DungeonLoot = {
         { "Doan's Strongbox", "Doan's Chest", "Chest or object", "", {
             { 7146, nil, false },
         } },
+        { "Plans", "Pattern", "Chest or object", "", {
+            { 273109, nil, true },
+            { 251350, nil, true },
+            { 251351, nil, true },
+            { 251352, nil, true },
+            { 251353, nil, true },
+            { 251354, nil, true },
+            { 252814, nil, true },
+            { 252815, nil, true },
+            { 252816, nil, true },
+            { 252817, nil, true },
+            { 252818, nil, true },
+            { 252819, nil, true },
+            { 253976, nil, true },
+            { 253978, nil, true },
+            { 253980, nil, true },
+            { 253982, nil, true },
+            { 253984, nil, true },
+            { 253986, nil, true },
+            { 251398, nil, true },
+            { 251399, nil, true },
+            { 251400, nil, true },
+            { 251401, nil, true },
+            { 251402, nil, true },
+            { 252843, nil, true },
+            { 252844, nil, true },
+            { 252845, nil, true },
+            { 252846, nil, true },
+            { 252847, nil, true },
+            { 252896, nil, true },
+            { 252897, nil, true },
+            { 252898, nil, true },
+            { 252899, nil, true },
+            { 254038, nil, true },
+            { 254040, nil, true },
+            { 254042, nil, true },
+            { 254044, nil, true },
+            { 254046, nil, true },
+            { 254048, nil, true },
+        } },
     },
     ["the_drowned_city"] = {
-        { "Zul'Alai", "Zul'Alai", "", "270882", {
+        { "Zul'Alai", "祖拉莱", "", "270882", {
             { 274600, 67, true },
             { 274598, 17, true },
             { 274599, 17, true },
             { 271718, nil, true },
         } },
-        { "Var'Taka", "Var'Taka", "", "270883", {
+        { "Var'Taka", "瓦尔塔卡", "", "270883", {
             { 274601, 50, true },
             { 274602, 50, true },
             { 274613, nil, true },
         } },
-        { "Captain Dreadrise", "Captain Dreadrise", "", "270884", {
+        { "Captain Dreadrise", "德雷德莱斯船长", "", "270884", {
             { 274605, 60, true },
             { 274603, 20, true },
             { 274604, 20, true },
         } },
-        { "Deathless Marrow", "Deathless Marrow", "", "270885", {} },
-        { "Primeval Elemental", "Primeval Elemental", "", "270887", {
+        { "Deathless Marrow", "不死骨髓", "", "270885", {} },
+        { "Primeval Elemental", "原始元素", "", "270887", {
             { 274615, 50, true },
             { 274612, 50, true },
             { 274611, nil, true },
         } },
-        { "Gill", "Gill", "稀有", "270888", {
+        { "Gill", "吉尔", "Rare", "270888", {
             { 286649, nil, true },
             { 286646, nil, true },
         } },
-        { "Min'loth the Serpent", "Min'loth the Serpent", "", "270886", {
+        { "Min'loth the Serpent", "毒蛇明洛斯", "", "270886", {
             { 274608, 67, true },
             { 274609, 33, true },
             { 274610, nil, true },
         } },
-        { "Umbra", "Umbra", "稀有", "264172", {
+        { "Umbra", "乌姆布拉", "Rare", "264172", {
             { 286662, nil, true },
             { 286658, nil, true },
         } },
-        { "Zin'aka", "Zin'aka", "", "263742", {} },
-        { "Pyromancer Braxton", "Pyromancer Braxton", "Rare", "260468", {
+        { "Zin'aka", "辛阿卡", "", "263742", {} },
+        { "Pyromancer Braxton", "\"炎术师\"布拉克斯顿", "Rare", "260468", {
             { 286651, 100, true },
             { 286650, nil, true },
         } },
-        { "Deathless Guardians", "Deathless Guardians", "", "", {
+        { "Deathless Guardians", "不死守护者", "", "", {
             { 274607, nil, true },
             { 274606, nil, true },
             { 274614, nil, true },
             { 271718, nil, true },
         } },
-        { "Trash mobs", "小怪", "副本内任意敌人", "", {
+        { "Trash mobs", "Trash mobs", "Any enemy in the dungeon", "", {
             { 287002, nil, true },
             { 286997, nil, true },
             { 287005, nil, true },
@@ -1117,6 +1347,28 @@ ns.DungeonLoot = {
             { 10328, 0.29, false },
             { 10330, 14, false },
             { 10331, 2.1, false },
+        } },
+        { "Plans", "Pattern", "Chest or object", "", {
+            { 251398, nil, true },
+            { 251399, nil, true },
+            { 251400, nil, true },
+            { 251401, nil, true },
+            { 251402, nil, true },
+            { 252843, nil, true },
+            { 252844, nil, true },
+            { 252845, nil, true },
+            { 252846, nil, true },
+            { 252847, nil, true },
+            { 252896, nil, true },
+            { 252897, nil, true },
+            { 252898, nil, true },
+            { 252899, nil, true },
+            { 254038, nil, true },
+            { 254040, nil, true },
+            { 254042, nil, true },
+            { 254044, nil, true },
+            { 254046, nil, true },
+            { 254048, nil, true },
         } },
     },
     ["razorfen_downs"] = {
@@ -1172,6 +1424,26 @@ ns.DungeonLoot = {
             { 3826, nil, false },
             { 10841, nil, false },
         } },
+        { "Plans", "Pattern", "Chest or object", "", {
+            { 251398, nil, true },
+            { 254042, nil, true },
+            { 254040, nil, true },
+            { 254038, nil, true },
+            { 254046, nil, true },
+            { 252844, nil, true },
+            { 252846, nil, true },
+            { 251401, nil, true },
+            { 252896, nil, true },
+            { 252847, nil, true },
+            { 252843, nil, true },
+            { 254048, nil, true },
+            { 252845, nil, true },
+            { 251400, nil, true },
+            { 254044, nil, true },
+            { 252897, nil, true },
+            { 252899, nil, true },
+            { 252898, nil, true },
+        } },
     },
     ["sm_cathedral"] = {
         { "High Inquisitor Fairbanks", "High Inquisitor Fairbanks", "Lv 40", "4542", {
@@ -1185,7 +1457,7 @@ ns.DungeonLoot = {
             { 7726, 43, false },
             { 7723, 19, false },
         } },
-        { "High Inquisitor Whitemane", "High Inquisitor Whitemane", "", "2043", {
+        { "High Inquisitor Whitemane", "High Inquisitor Whitemane", "", "3977", {
             { 7720, 38, false },
             { 7722, 37, false },
             { 7721, 19, false },
@@ -1220,43 +1492,69 @@ ns.DungeonLoot = {
             { 10330, 14, false },
             { 10333, 2.3, false },
         } },
+        { "Plans", "Pattern", "Chest or object", "", {
+            { 251398, nil, true },
+            { 251399, nil, true },
+            { 251400, nil, true },
+            { 251401, nil, true },
+            { 251402, nil, true },
+            { 252843, nil, true },
+            { 252844, nil, true },
+            { 252845, nil, true },
+            { 252846, nil, true },
+            { 252847, nil, true },
+            { 252896, nil, true },
+            { 252897, nil, true },
+            { 252898, nil, true },
+            { 252899, nil, true },
+            { 254038, nil, true },
+            { 254040, nil, true },
+            { 254042, nil, true },
+            { 254046, nil, true },
+            { 254048, nil, true },
+            { 254044, nil, true },
+        } },
     },
     ["kroldok_stronghold"] = {
-        { "Slavecrusher Grox", "Slavecrusher Grox", "", "258966", {
+        { "Slavecrusher Grox", "碎奴者格罗克斯", "", "258966", {
             { 274996, nil, false },
             { 274997, nil, false },
             { 274995, nil, false },
             { 273101, nil, true },
         } },
-        { "Twilight Commander Zarmok", "Twilight Commander Zarmok", "", "258972", {
+        { "Twilight Commander Zarmok", "暮光指挥官扎尔莫克", "", "258972", {
             { 274999, nil, false },
             { 274998, nil, false },
             { 275000, nil, false },
             { 267091, nil, true },
             { 267234, nil, true },
         } },
-        { "War Handler Ashka", "War Handler Ashka", "", "259281", {
+        { "War Handler Ashka", "驯兽师阿什卡", "", "259281", {
             { 275001, nil, false },
             { 275002, nil, false },
             { 275003, nil, false },
         } },
-        { "Nar'gurk", "Nar'gurk", "", "258964", {
+        { "Nar'gurk", "纳古克", "", "258964", {
             { 275004, nil, false },
             { 275005, nil, false },
             { 275006, nil, false },
             { 267104, nil, true },
         } },
-        { "Bossman Toof", "Bossman Toof", "", "264773", {
+        { "Bossman Toof", "头目图夫", "", "264773", {
             { 286429, nil, false },
             { 286428, nil, false },
             { 286430, nil, false },
         } },
-        { "Overlord Mugg", "Overlord Mugg", "", "258968", {
+        { "Overlord Mugg", "霸主莫格", "", "258968", {
             { 275008, nil, false },
             { 275009, nil, false },
             { 275010, nil, false },
             { 275007, nil, false },
             { 267086, nil, true },
+        } },
+        { "Kroog", "库鲁格", "", "", {
+            { 279863, nil, true },
+            { 279857, nil, true },
         } },
         { "Trash mobs", "Trash mobs", "Any enemy in the dungeon", "", {
             { 287008, nil, true },
@@ -1294,6 +1592,7 @@ ns.DungeonLoot = {
             { 9409, 38, false },
             { 9407, 38, false },
             { 9408, 21, false },
+            { 274484, nil, true },
         } },
         { "Obsidian Sentinel", "Obsidian Sentinel", "", "7023", {
             { 8053, nil, false },
@@ -1306,6 +1605,7 @@ ns.DungeonLoot = {
         { "Ancient Stone Keeper", "Ancient Stone Keeper", "", "7206", {
             { 9410, 48, false },
             { 9411, 47, false },
+            { 274431, nil, true },
         } },
         { "Galgann Firehammer", "Gargan Firehammer", "", "7291", {
             { 11310, 19, false },
@@ -1363,6 +1663,19 @@ ns.DungeonLoot = {
         { "Tablet of Will", "Tablet of Resolve", "Chest or object", "", {
             { 5824, nil, false },
         } },
+        { "Plans", "Pattern", "Chest or object", "", {
+            { 252896, nil, true },
+            { 251402, nil, true },
+            { 252868, nil, true },
+            { 254100, nil, true },
+            { 252871, nil, true },
+            { 254096, nil, true },
+            { 254106, nil, true },
+            { 252870, nil, true },
+            { 252919, nil, true },
+            { 251404, nil, true },
+            { 251405, nil, true },
+        } },
     },
     ["zul_farrak"] = {
         { "Antu'sul", "Antu'sul", "", "8156", {
@@ -1377,7 +1690,7 @@ ns.DungeonLoot = {
             { 274639, nil, true },
             { 274638, nil, true },
         } },
-        { "Sandarr Dunereaver", "Sandarr Dunereaver", "Rare · Lv 45", "9291", {
+        { "Sandarr Dunereaver", "Sandarr Dunereaver", "Rare · Lv 45", "10080", {
             { 9523, 4.9, false },
             { 274660, nil, true },
             { 274659, nil, true },
@@ -1399,7 +1712,7 @@ ns.DungeonLoot = {
             { 9474, 21, false },
             { 9475, 22, false },
         } },
-        { "Dustwraith", "Dust Wraith", "Rare", "9292", {
+        { "Dustwraith", "Dust Wraith", "Rare", "10081", {
             { 12471, 22, false },
             { 12469, nil, false },
         } },
@@ -1420,8 +1733,10 @@ ns.DungeonLoot = {
             { 9234, 62, false },
             { 10661, 49, false },
             { 274653, nil, true },
+            { 274651, nil, true },
+            { 274652, nil, true },
         } },
-        { "Gahz'rilla", "Gahz'rilla", "Lv 46", "7271", {
+        { "Gahz'rilla", "Gahz'rilla", "Lv 46", "7273", {
             { 9469, 45, false },
             { 9467, 46, false },
             { 274657, nil, true },
@@ -1433,7 +1748,7 @@ ns.DungeonLoot = {
             { 9477, 24, false },
             { 11086, 0.86, false },
         } },
-        { "Zerillis", "Zerillis", "Rare · Lv 45", "9293", {
+        { "Zerillis", "Zerillis", "Rare · Lv 45", "10082", {
             { 12470, 18, false },
             { 274658, nil, true },
         } },
@@ -1451,6 +1766,28 @@ ns.DungeonLoot = {
             { 9482, nil, false },
             { 9243, 1.4, false },
         } },
+        { "Plans", "Pattern", "Chest or object", "", {
+            { 254096, nil, true },
+            { 252871, nil, true },
+            { 254106, nil, true },
+            { 254098, nil, true },
+            { 252867, nil, true },
+            { 252868, nil, true },
+            { 252869, nil, true },
+            { 251407, nil, true },
+            { 252920, nil, true },
+            { 252870, nil, true },
+            { 251403, nil, true },
+            { 251405, nil, true },
+            { 252918, nil, true },
+            { 251404, nil, true },
+            { 251400, nil, true },
+            { 254102, nil, true },
+            { 252919, nil, true },
+            { 254100, nil, true },
+            { 251399, nil, true },
+            { 251402, nil, true },
+        } },
     },
     ["maraudon"] = {
         { "Veng", "Wing", "Quest summon", "12243", {
@@ -1467,7 +1804,7 @@ ns.DungeonLoot = {
             { 17750, 24, false },
             { 17751, 24, false },
         } },
-        { "Maraudos", "Marados", "Quest summon", "9441", {
+        { "Maraudos", "Marados", "Quest summon", "13739", {
             { 17764, 90, false },
         } },
         { "Lord Vyletongue", "Vel'tarn", "", "12334", {
@@ -1475,12 +1812,12 @@ ns.DungeonLoot = {
             { 17754, 29, false },
             { 17752, 28, false },
         } },
-        { "Meshlok the Harvester", "Reaper Mishlock", "Rare · Lv 48", "9014", {
+        { "Meshlok the Harvester", "Reaper Mishlock", "Rare · Lv 48", "12237", {
             { 17767, 30, false },
             { 17741, 31, false },
             { 17742, 32, false },
         } },
-        { "Celebras the Cursed", "Cursed Serebras", "", "12350", {
+        { "Celebras the Cursed", "Cursed Serebras", "", "12225", {
             { 17740, 30, false },
             { 17739, 32, false },
             { 17738, 33, false },
@@ -1491,7 +1828,7 @@ ns.DungeonLoot = {
             { 17737, 25, false },
             { 17943, 26, false },
         } },
-        { "Tinkerer Gizlock", "Tinkerer Gizlock", "", "7125", {
+        { "Tinkerer Gizlock", "Tinkerer Gizlock", "", "13601", {
             { 17718, 33, false },
             { 17717, 33, false },
             { 17719, 33, false },
@@ -1514,7 +1851,7 @@ ns.DungeonLoot = {
         { "The Nameless Prophet", "Nameless Prophet", "Chest or object", "9426", {
             { 17757, 49, false },
         } },
-        { "Kolk", "Kulk", "Chest or object", "4860", {
+        { "Kolk", "Kulk", "Chest or object", "", {
             { 17761, 86, false },
         } },
         { "Gelk", "Gelk", "Chest or object", "9427", {
@@ -1523,61 +1860,80 @@ ns.DungeonLoot = {
         { "Magra", "Magra", "Chest or object", "9433", {
             { 17763, 92, false },
         } },
+        { "Plans", "Pattern", "Chest or object", "", {
+            { 254100, nil, true },
+            { 254096, nil, true },
+            { 252918, nil, true },
+            { 251405, nil, true },
+            { 252869, nil, true },
+            { 252871, nil, true },
+            { 251407, nil, true },
+            { 254098, nil, true },
+            { 252867, nil, true },
+            { 254106, nil, true },
+            { 252920, nil, true },
+            { 252868, nil, true },
+            { 251404, nil, true },
+            { 252919, nil, true },
+            { 254102, nil, true },
+            { 251403, nil, true },
+        } },
     },
     ["alcaz_prison"] = {
-        { "Overseer Wrex", "Overseer Wrex", "", "255391", {
+        { "Overseer Wrex", "监工雷克斯", "", "255391", {
             { 276734, nil, true },
             { 276733, nil, true },
             { 276732, nil, true },
         } },
-        { "Tidemistress Ca'zass", "Tidemistress Ca'zass", "", "255997", {
+        { "Tidemistress Ca'zass", "海潮主母卡扎斯", "", "255997", {
             { 273883, nil, true },
             { 276736, nil, true },
             { 276735, nil, true },
             { 276737, nil, true },
         } },
-        { "Katerina the Cleaner", "Katerina the Cleaner", "", "257016", {
+        { "Katerina the Cleaner", "清道夫卡特琳娜", "", "257016", {
             { 276739, nil, true },
             { 276738, nil, true },
             { 276740, nil, true },
         } },
-        { "The Questioner", "The Questioner", "", "256236", {
+        { "The Questioner", "质问者", "", "256236", {
             { 274029, nil, true },
             { 276742, nil, true },
             { 276743, nil, true },
             { 276741, nil, true },
         } },
-        { "Blazeroar", "Blazeroar", "", "255702", {
+        { "Blazeroar", "烈焰咆哮者", "", "255702", {
             { 276890, nil, true },
             { 276744, nil, true },
             { 276745, nil, true },
             { 276746, nil, true },
         } },
-        { "Trash mobs", "小怪", "副本内任意敌人", "", {
+        { "Trash mobs", "Trash mobs", "Any enemy in the dungeon", "", {
             { 287021, nil, true },
             { 287019, nil, true },
             { 287018, nil, true },
+            { 287020, nil, true },
         } },
     },
     ["sunken_temple"] = {
-        { "Loro", "Loro", "", "5714", {
+        { "Loro", "洛若尔", "", "5714", {
             { 10784, 2.6, false },
         } },
-        { "Gasher", "Gasher", "", "5713", {
+        { "Gasher", "加什尔", "", "5713", {
             { 10786, 8.3, false },
         } },
-        { "Mijan", "Mijan", "", "5717", {
+        { "Mijan", "米杉", "", "5717", {
             { 10785, 5.7, false },
             { 10788, 10, false },
         } },
-        { "Zolo", "Zolo", "", "5712", {
+        { "Zolo", "祖罗", "", "5712", {
             { 10787, 7, false },
         } },
-        { "Zul'Lor", "Zul'Lor", "", "5716", {
+        { "Zul'Lor", "祖罗尔", "", "5716", {
             { 10786, 8.3, false },
             { 10787, 7, false },
         } },
-        { "Hukku", "Hukku", "", "5715", {
+        { "Hukku", "胡库", "", "5715", {
             { 10783, 5, false },
             { 10785, 5.7, false },
         } },
@@ -1591,7 +1947,7 @@ ns.DungeonLoot = {
             { 10798, 37, false },
             { 10799, 18, false },
         } },
-        { "Spawn of Hakkar", "Spawn of Hakkar", "", "4065", {
+        { "Spawn of Hakkar", "Spawn of Hakkar", "", "5708", {
             { 10801, 47, false },
             { 10802, 24, false },
         } },
@@ -1603,6 +1959,7 @@ ns.DungeonLoot = {
             { 10846, 30, false },
             { 10838, 14, false },
             { 10844, 14, false },
+            { 10663, nil, false },
         } },
         { "Jammal'an the Prophet", "Seer Jammalan", "", "6708", {
             { 10806, 27, false },
@@ -1614,7 +1971,7 @@ ns.DungeonLoot = {
             { 10803, 30, false },
             { 10804, 31, false },
         } },
-        { "Dreamscythe", "Demsekkar", "", "7553", {
+        { "Dreamscythe", "Demsekkar", "", "5721", {
             { 12465, 9.5, false },
             { 12466, 9.7, false },
             { 12464, 8.5, false },
@@ -1624,7 +1981,7 @@ ns.DungeonLoot = {
             { 10795, 9.4, false },
             { 10796, 9.2, false },
         } },
-        { "Weaver", "Draviwol", "", "6375", {
+        { "Weaver", "Draviwol", "", "5720", {
             { 12465, 8.6, false },
             { 12466, 9.2, false },
             { 12464, 7.5, false },
@@ -1634,7 +1991,7 @@ ns.DungeonLoot = {
             { 10795, 10, false },
             { 10796, 9.3, false },
         } },
-        { "Hazzas", "Hazzas", "", "9584", {
+        { "Hazzas", "Hazzas", "", "5722", {
             { 12465, 8.1, false },
             { 12466, 8.5, false },
             { 12464, 8.2, false },
@@ -1644,7 +2001,7 @@ ns.DungeonLoot = {
             { 10795, 9.6, false },
             { 10796, 8.8, false },
         } },
-        { "Morphaz", "Morvhras", "", "7975", {
+        { "Morphaz", "Morvhras", "", "5719", {
             { 12465, 7.9, false },
             { 12466, 8.2, false },
             { 12464, 6.9, false },
@@ -1653,8 +2010,12 @@ ns.DungeonLoot = {
             { 12243, 7.7, false },
             { 10795, 7.3, false },
             { 10796, 8.3, false },
+            { 20019, nil, false },
+            { 20022, nil, false },
+            { 20025, nil, false },
+            { 20085, nil, false },
         } },
-        { "Shade of Eranikus", "Shade of Eranikus", "", "7806", {
+        { "Shade of Eranikus", "Shade of Eranikus", "", "5709", {
             { 10847, 0.19, false },
             { 10833, 31, false },
             { 10829, 32, false },
@@ -1703,9 +2064,19 @@ ns.DungeonLoot = {
             { 12465, 8.7, false },
             { 12466, 8.8, false },
         } },
+        { "Plans", "Pattern", "Chest or object", "", {
+            { 254106, nil, true },
+            { 252919, nil, true },
+            { 251403, nil, true },
+            { 254102, nil, true },
+            { 252918, nil, true },
+            { 252869, nil, true },
+            { 251405, nil, true },
+            { 273119, nil, true },
+        } },
     },
     ["blackrock_depths"] = {
-        { "Lord Roccor", "Lokcor", "Lv 51", "5781", {
+        { "Lord Roccor", "Lokcor", "Lv 51", "9025", {
             { 22234, 23, false },
             { 11632, 24, false },
             { 11631, 24, false },
@@ -1713,7 +2084,7 @@ ns.DungeonLoot = {
             { 11630, 18, false },
             { 11813, 18, false },
         } },
-        { "High Interrogator Gerstahn", "Interrogator Gerstahn", "Lv 52", "8761", {
+        { "High Interrogator Gerstahn", "Interrogator Gerstahn", "Lv 52", "9018", {
             { 11626, 9.2, false },
             { 11624, 28, false },
             { 22240, 12, false },
@@ -1726,32 +2097,32 @@ ns.DungeonLoot = {
             { 11628, 9.5, false },
             { 11629, 9.1, false },
         } },
-        { "Ring of Law: Gorosh the Dervish", "Arena: Gorosh", "", "8760", {
+        { "Ring of Law: Gorosh the Dervish", "Arena: Gorosh", "", "9027", {
             { 11726, 14, false },
             { 22271, 19, false },
             { 22257, 16, false },
             { 22266, 13, false },
         } },
-        { "Ring of Law: Grizzle", "Arena: Grizzle", "", "7873", {
+        { "Ring of Law: Grizzle", "Arena: Grizzle", "", "9028", {
             { 11722, 23, false },
             { 11703, 31, false },
             { 22270, 13, false },
             { 11702, 31, false },
             { 11610, 93, false },
         } },
-        { "Ring of Law: Eviscerator", "Arena: Wrist-Eye", "", "523", {
+        { "Ring of Law: Eviscerator", "Arena: Wrist-Eye", "", "9029", {
             { 11685, 32, false },
             { 11679, 35, false },
             { 11686, 18, false },
             { 11730, 12, false },
         } },
-        { "Ring of Law: Ok'thor the Breaker", "Arena: Oksothor", "", "11538", {
+        { "Ring of Law: Ok'thor the Breaker", "Arena: Oksothor", "", "9030", {
             { 11665, 28, false },
             { 11662, 30, false },
             { 11728, 17, false },
             { 11824, 21, false },
         } },
-        { "Ring of Law: Anub'shiah", "Arena: Anuhsir", "", "3004", {
+        { "Ring of Law: Anub'shiah", "Arena: Anuhsir", "", "9031", {
             { 11678, 22, false },
             { 11677, 32, false },
             { 11675, 35, false },
@@ -1763,7 +2134,7 @@ ns.DungeonLoot = {
             { 11635, 22, false },
             { 11729, 9.6, false },
         } },
-        { "Pyromancer Loregrain", "Pyromaster Rogrean", "Rare · Lv 52", "8762", {
+        { "Pyromancer Loregrain", "Pyromaster Rogrean", "Rare · Lv 52", "9024", {
             { 11747, 24, false },
             { 11749, 24, false },
             { 11748, 28, false },
@@ -1789,7 +2160,7 @@ ns.DungeonLoot = {
             { 11783, 28, false },
             { 11784, 22, false },
         } },
-        { "Verek", "Verek", "", "9019", {
+        { "Verek", "Verek", "", "9042", {
             { 11755, 8.1, false },
             { 22242, 7.7, false },
         } },
@@ -1806,7 +2177,7 @@ ns.DungeonLoot = {
             { 11841, 23, false },
             { 11840, 2.8, false },
         } },
-        { "Lord Incendius", "Incendis", "", "1204", {
+        { "Lord Incendius", "Incendis", "", "9017", {
             { 11766, 12, false },
             { 11764, 13, false },
             { 11765, 12, false },
@@ -1820,7 +2191,7 @@ ns.DungeonLoot = {
             { 11805, 4.8, false },
             { 11803, 34, false },
         } },
-        { "General Angerforge", "General Angerforge", "", "8756", {
+        { "General Angerforge", "General Angerforge", "", "9033", {
             { 11820, 29, false },
             { 11821, 11, false },
             { 11810, 5.6, false },
@@ -1828,13 +2199,13 @@ ns.DungeonLoot = {
             { 11816, 29, false },
             { 11841, 24, false },
         } },
-        { "Golem Lord Argelmach", "Puppetmaster Aggemancur", "", "8759", {
+        { "Golem Lord Argelmach", "Puppetmaster Aggemancur", "", "8983", {
             { 11823, 37, false },
             { 11822, 37, false },
             { 11669, 9.5, false },
             { 11819, 8.9, false },
         } },
-        { "Guzzler", "The Grim Guzzler", "Lv 55", "8658", {
+        { "Guzzler", "The Grim Guzzler", "Lv 55", "", {
             { 11735, 7.6, false },
             { 18043, 20, false },
             { 22275, 23, false },
@@ -1852,7 +2223,7 @@ ns.DungeonLoot = {
             { 11325, 1.6, false },
             { 11602, 0.16, false },
         } },
-        { "Phalanx", "Farrax", "Lv 55", "8177", {
+        { "Phalanx", "Farrax", "Lv 55", "9502", {
             { 22212, 25, false },
             { 11745, 31, false },
             { 11744, 25, false },
@@ -1866,7 +2237,7 @@ ns.DungeonLoot = {
             { 11809, 9.6, false },
             { 23320, nil, false },
         } },
-        { "Panzor the Invincible", "Invincible Panzor", "Rare", "8270", {
+        { "Panzor the Invincible", "Invincible Panzor", "Rare", "8923", {
             { 22245, 22, false },
             { 11787, 22, false },
             { 11785, 22, false },
@@ -1888,6 +2259,7 @@ ns.DungeonLoot = {
             { 22395, 12, false },
             { 22400, 12, false },
             { 22208, 23, false },
+            { 277129, nil, true },
         } },
         { "Princess Moira Bronzebeard", "Princess Moira Bronzebeard", "", "8705", {
             { 12557, 23, false },
@@ -1909,24 +2281,27 @@ ns.DungeonLoot = {
             { 11932, 16, false },
             { 12033, 3.2, false },
         } },
-        { "Hurley Blackbreath", "Hurley Blackbreath", "", "", {
+        { "Hurley Blackbreath", "霍尔雷·黑须", "", "", {
             { 18044, nil, false },
             { 18043, nil, false },
             { 22275, nil, false },
             { 11735, nil, false },
         } },
-        { "Ribbly Screwspigot", "Ribbly Screwspigot", "", "", {
+        { "Ribbly Screwspigot", "雷布里·斯库比格特", "", "", {
             { 11612, nil, false },
             { 11742, nil, false },
             { 2662, nil, false },
             { 2663, nil, false },
         } },
-        { "Plugger Spazzring", "Plugger Spazzring", "", "", {
+        { "Plugger Spazzring", "普拉格", "", "", {
             { 12793, nil, false },
             { 12791, nil, false },
         } },
-        { "Theldren", "Theldren", "", "16059", {
+        { "Theldren", "塞尔德伦", "", "16059", {
             { 22305, nil, false },
+            { 22330, nil, false },
+            { 22317, nil, false },
+            { 22318, nil, false },
         } },
         { "Trash mobs", "Trash mobs", "Any enemy in the dungeon", "", {
             { 12549, 0.03, false },
@@ -1961,10 +2336,11 @@ ns.DungeonLoot = {
         { "Plans", "Pattern", "Chest or object", "", {
             { 11614, nil, false },
             { 11615, nil, false },
+            { 273113, nil, true },
         } },
     },
     ["dire_maul_east"] = {
-        { "Pusillin", "Pusillin", "Lv 57", "7552", {
+        { "Pusillin", "Pusillin", "Lv 57", "14354", {
             { 18267, 83, false },
             { 18249, 100, false },
             { 18316, nil, false },
@@ -1976,7 +2352,7 @@ ns.DungeonLoot = {
             { 18308, 25, false },
             { 18306, 25, false },
         } },
-        { "Hydrospawn", "Hydosborn", "Lv 57", "5489", {
+        { "Hydrospawn", "Hydosborn", "Lv 57", "13280", {
             { 18317, 19, false },
             { 18322, 20, false },
             { 18324, 9.7, false },
@@ -1984,7 +2360,7 @@ ns.DungeonLoot = {
             { 18305, 24, false },
             { 18307, 24, false },
         } },
-        { "Lethtendris", "Retherathis", "Lv 57", "14378", {
+        { "Lethtendris", "Retherathis", "Lv 57", "14327", {
             { 18325, 29, false },
             { 18311, 9.4, false },
             { 18301, 28, false },
@@ -2033,74 +2409,81 @@ ns.DungeonLoot = {
             { 18497, 5.9, false },
             { 18498, 6.8, false },
         } },
+        { "Plans", "Pattern", "Chest or object", "", {
+            { 7091, nil, false },
+        } },
     },
     ["blackmaw_hold"] = {
-        { "Withermaw", "Withermaw", "", "247195", {
+        { "Withermaw", "枯颌", "", "247195", {
             { 249697, nil, true },
             { 280062, nil, true },
             { 280063, nil, true },
             { 280064, nil, true },
         } },
-        { "Impaan the Imprisoner", "Impaan the Imprisoner", "", "247206", {
+        { "Impaan the Imprisoner", "狱牢头鬼", "", "247206", {
             { 280056, nil, true },
             { 280057, nil, true },
             { 280058, nil, true },
         } },
-        { "Elder Shaman Bloodmane", "Elder Shaman Bloodmane", "", "247209", {
+        { "Elder Shaman Bloodmane", "长者萨满血鬃", "", "247209", {
             { 276893, nil, true },
             { 286415, nil, true },
             { 280068, nil, true },
             { 280069, nil, true },
             { 280070, nil, true },
         } },
-        { "Bonesnout the Unbroken", "Bonesnout the Unbroken", "", "247198", {
+        { "Bonesnout the Unbroken", "不屈的白骨之吻", "", "247198", {
             { 249696, nil, true },
             { 280059, nil, true },
             { 280060, nil, true },
             { 280061, nil, true },
         } },
-        { "Varrox Bleakhoof", "Varrox Bleakhoof", "", "247234", {
+        { "Varrox Bleakhoof", "瓦罗克斯·暗蹄", "", "247234", {
             { 272027, nil, true },
             { 249692, nil, true },
             { 280074, nil, true },
             { 280075, nil, true },
             { 280076, nil, true },
         } },
-        { "Blackmaw Behemoth", "Blackmaw Behemoth", "", "247207", {
+        { "Blackmaw Behemoth", "克劳伯特", "", "247207", {
             { 280065, nil, true },
             { 280066, nil, true },
             { 280067, nil, true },
         } },
-        { "Unbound Spirit", "Unbound Spirit", "", "247231", {
+        { "Unbound Spirit", "不羁之魂", "", "247231", {
             { 280071, nil, true },
             { 280072, nil, true },
             { 280073, nil, true },
         } },
-        { "Moontouched Wanderer", "Moontouched Wanderer", "", "269104", {
+        { "Moontouched Wanderer", "沐月流浪者", "", "269104", {
             { 280080, nil, true },
             { 280079, nil, true },
         } },
-        { "Gortek the Apprentice", "Gortek the Apprentice", "", "269111", {
+        { "Gortek the Apprentice", "学徒戈特克", "", "269111", {
             { 280077, nil, true },
             { 280078, nil, true },
         } },
-        { "Tunnelweb Matriarch", "Tunnelweb Matriarch", "", "250034", {
+        { "Tunnelweb Matriarch", "隧网女族长", "", "250034", {
             { 280085, nil, true },
             { 280086, nil, true },
         } },
-        { "Trash mobs", "小怪", "副本内任意敌人", "", {
+        { "Trash mobs", "Trash mobs", "Any enemy in the dungeon", "", {
             { 287032, nil, true },
             { 251453, nil, true },
             { 287034, nil, true },
             { 287036, nil, true },
+            { 287028, nil, true },
+            { 287029, nil, true },
+            { 287030, nil, true },
+            { 287033, nil, true },
         } },
     },
     ["lower_blackrock_spire"] = {
-        { "Burning Felguard", "Burning Felguard", "Rare", "5047", {
+        { "Burning Felguard", "Burning Felguard", "Rare", "10263", {
             { 13181, 31, false },
             { 13182, 32, false },
         } },
-        { "Spirestone Butcher", "Sharpstone Butcher", "Rare · Lv 57", "11574", {
+        { "Spirestone Butcher", "Sharpstone Butcher", "Rare · Lv 57", "9219", {
             { 12608, 59, false },
             { 13286, 37, false },
         } },
@@ -2114,11 +2497,11 @@ ns.DungeonLoot = {
             { 12336, 27, false },
             { 12534, 90, false },
         } },
-        { "Spirestone Battle Lord", "Sharpstone Overlord", "Rare · Lv 58", "11576", {
+        { "Spirestone Battle Lord", "Sharpstone Overlord", "Rare · Lv 58", "9218", {
             { 13284, 56, false },
             { 13285, 38, false },
         } },
-        { "Spirestone Lord Magus", "Sharpstone Chief Mage", "Rare", "11578", {
+        { "Spirestone Lord Magus", "Sharpstone Chief Mage", "Rare", "9217", {
             { 13282, 25, false },
             { 13283, 48, false },
             { 13261, 21, false },
@@ -2142,7 +2525,7 @@ ns.DungeonLoot = {
             { 12335, 35, false },
             { 13175, 0.92, false },
         } },
-        { "Bannok Grimaxe", "Bannok Grimaxe", "Rare · Lv 59", "9668", {
+        { "Bannok Grimaxe", "Bannok Grimaxe", "Rare · Lv 59", "9596", {
             { 12637, 33, false },
             { 12634, 30, false },
             { 12621, 30, false },
@@ -2154,12 +2537,12 @@ ns.DungeonLoot = {
             { 13213, 12, false },
             { 13183, 1.4, false },
         } },
-        { "Crystal Fang", "Crystal Fang", "Rare · Lv 60", "9755", {
+        { "Crystal Fang", "Crystal Fang", "Rare · Lv 60", "10376", {
             { 13185, 35, false },
             { 13184, 32, false },
             { 13218, 15, false },
         } },
-        { "Urok Doomhowl", "Urok", "Lv 60", "10601", {
+        { "Urok Doomhowl", "Urok", "Lv 60", "10584", {
             { 13258, 22, false },
             { 22232, 17, false },
             { 13259, 17, false },
@@ -2173,19 +2556,19 @@ ns.DungeonLoot = {
             { 13252, 18, false },
             { 12835, 14, false },
         } },
-        { "Halycon", "Hareken", "Lv 59", "9567", {
+        { "Halycon", "Hareken", "Lv 59", "10220", {
             { 13212, 28, false },
             { 22313, 17, false },
             { 13211, 28, false },
             { 13210, 17, false },
         } },
-        { "Gizrul the Slavener", "Kizrul the Enslaver", "Lv 60", "9564", {
+        { "Gizrul the Slavener", "Kizrul the Enslaver", "Lv 60", "10268", {
             { 16718, 18, false },
             { 13208, 24, false },
             { 13206, 26, false },
             { 13205, 25, false },
         } },
-        { "Ghok Bashguud", "Hok Bashgud", "Rare · Lv 59", "11809", {
+        { "Ghok Bashguud", "Hok Bashgud", "Rare · Lv 59", "9718", {
             { 13203, 39, false },
             { 13198, 22, false },
             { 13204, 34, false },
@@ -2224,9 +2607,13 @@ ns.DungeonLoot = {
             { 12586, nil, false },
             { 13260, 0.02, false },
         } },
+        { "Plans", "Pattern", "Chest or object", "", {
+            { 249521, nil, false },
+            { 273115, nil, true },
+        } },
     },
     ["dire_maul_north"] = {
-        { "Guard Mol'dar", "Guard Mol'dar", "Lv 59", "11561", {
+        { "Guard Mol'dar", "Guard Mol'dar", "Lv 59", "14326", {
             { 18494, 6.7, false },
             { 18493, 6.5, false },
             { 18496, 6.4, false },
@@ -2243,7 +2630,7 @@ ns.DungeonLoot = {
             { 18250, 14, false },
             { 18268, 48, false },
         } },
-        { "Stomper Kreeg", "Trampler Craig", "Lv 59", "11545", {
+        { "Stomper Kreeg", "Trampler Craig", "Lv 59", "14322", {
             { 18425, 57, false },
             { 18269, nil, false },
             { 18284, nil, false },
@@ -2251,7 +2638,7 @@ ns.DungeonLoot = {
             { 18288, nil, false },
             { 9260, nil, false },
         } },
-        { "Guard Fengus", "Guard Fengus", "Lv 59", "11561", {
+        { "Guard Fengus", "Guard Fengus", "Lv 59", "14321", {
             { 18450, 13, false },
             { 18458, 10, false },
             { 18459, 13, false },
@@ -2263,7 +2650,7 @@ ns.DungeonLoot = {
             { 18250, 13, false },
             { 18266, 1.1, false },
         } },
-        { "Guard Slip'kik", "Guard Slip'kik", "Lv 59", "11561", {
+        { "Guard Slip'kik", "Guard Slip'kik", "Lv 59", "14323", {
             { 18494, 7, false },
             { 18493, 5.5, false },
             { 18496, 6.7, false },
@@ -2294,19 +2681,19 @@ ns.DungeonLoot = {
             { 18258, nil, false },
             { 18240, 34, false },
         } },
-        { "Captain Kromcrush", "Captain Kromcrush", "Lv 61", "11564", {
+        { "Captain Kromcrush", "Captain Kromcrush", "Lv 61", "14325", {
             { 18503, 23, false },
             { 18505, 21, false },
             { 18507, 23, false },
             { 18502, 22, false },
         } },
-        { "Cho'Rush the Observer", "Observer Krush", "Lv 60", "11537", {
+        { "Cho'Rush the Observer", "Observer Krush", "Lv 60", "14324", {
             { 18490, 7.9, false },
             { 18483, 7.9, false },
             { 18485, 7.9, false },
             { 18484, 8.2, false },
         } },
-        { "King Gordok", "King Gordok", "Lv 62", "11583", {
+        { "King Gordok", "King Gordok", "Lv 62", "11501", {
             { 18526, 24, false },
             { 18525, 24, false },
             { 18527, 24, false },
@@ -2374,7 +2761,7 @@ ns.DungeonLoot = {
         } },
     },
     ["dire_maul_west"] = {
-        { "Tendris Warpwood", "Tendris Warpwood", "Lv 60", "14383", {
+        { "Tendris Warpwood", "Tendris Warpwood", "Lv 60", "11489", {
             { 18393, 24, false },
             { 18390, 25, false },
             { 18352, 24, false },
@@ -2394,7 +2781,7 @@ ns.DungeonLoot = {
             { 18351, 23, false },
             { 22309, 0.4, false },
         } },
-        { "Tsu'zee", "Suss", "Rare · Lv 60", "11250", {
+        { "Tsu'zee", "Suss", "Rare · Lv 60", "11467", {
             { 18387, 30, false },
             { 18346, 29, false },
             { 18345, 33, false },
@@ -2411,7 +2798,7 @@ ns.DungeonLoot = {
             { 18370, 8.7, false },
             { 18372, 9.5, false },
         } },
-        { "Prince Tortheldrin", "Prince Tortheldrin", "Lv 61", "11256", {
+        { "Prince Tortheldrin", "Prince Tortheldrin", "Lv 61", "11486", {
             { 18382, 24, false },
             { 18373, 9.5, false },
             { 18375, 17, false },
@@ -2455,7 +2842,7 @@ ns.DungeonLoot = {
         { "Shen'dralar Provisioner", "Shen'dralar Priest", "Chest or object", "14371", {
             { 18487, nil, false },
         } },
-        { "Lord Hel'nurath", "Hernuras", "Chest or object", "14556", {
+        { "Lord Hel'nurath", "Hernuras", "Chest or object", "14506", {
             { 18757, 22, false },
             { 18754, 24, false },
             { 18755, 26, false },
@@ -2787,54 +3174,57 @@ ns.DungeonLoot = {
             { 23200, 1.2, false },
             { 23201, 1.6, false },
         } },
+        { "Plans", "Pattern", "Chest or object", "", {
+            { 273112, nil, true },
+        } },
     },
     ["shapers_terrace"] = {
-        { "Titanosaur", "Titanosaur", "", "253201", {
+        { "Titanosaur", "泰坦巨龙", "", "253201", {
             { 280010, nil, true },
             { 280009, nil, true },
             { 280011, nil, true },
         } },
-        { "Tor'Rel", "Tor'Rel", "", "261811", {
+        { "Tor'Rel", "托瑞尔", "", "261811", {
             { 280014, nil, true },
             { 280013, nil, true },
             { 280012, nil, true },
         } },
-        { "Izha'Rel", "Izha'Rel", "", "253218", {} },
-        { "Thunderhoof", "Thunderhoof", "", "261812", {
+        { "Izha'Rel", "伊扎雷尔", "", "253218", {} },
+        { "Thunderhoof", "雷蹄", "", "261812", {
             { 280018, nil, true },
             { 280020, nil, true },
             { 280019, nil, true },
         } },
-        { "Venomridge", "Venomridge", "", "261813", {
+        { "Venomridge", "毒脊", "", "261813", {
             { 280016, nil, true },
             { 280017, nil, true },
             { 280015, nil, true },
         } },
-        { "Direhorn Matriarch", "Direhorn Matriarch", "", "262127", {
+        { "Direhorn Matriarch", "恐角龙母", "", "262127", {
             { 280022, nil, true },
             { 280021, nil, true },
             { 280045, nil, true },
             { 285951, nil, true },
         } },
-        { "Cinder", "Cinder", "", "261974", {
+        { "Cinder", "烈火", "", "261974", {
             { 280028, nil, true },
             { 280029, nil, true },
         } },
-        { "King Op", "King Op", "", "261993", {} },
-        { "Snowtalon", "Snowtalon", "", "262297", {
+        { "King Op", "奥普国王", "", "261993", {} },
+        { "Snowtalon", "雪爪", "", "262297", {
             { 280027, nil, true },
             { 280026, nil, true },
         } },
-        { "Bolt", "Bolt", "", "262081", {
+        { "Bolt", "霹雳", "", "262081", {
             { 280031, nil, true },
             { 280032, nil, true },
         } },
-        { "Vitrix", "Vitrix", "", "272561", {
+        { "Vitrix", "翠鳞", "", "272561", {
             { 280026, nil, true },
             { 280027, nil, true },
             { 280032, nil, true },
         } },
-        { "Nanaya", "Nanaya", "", "261809", {
+        { "Nanaya", "娜娜亚", "", "261809", {
             { 273128, nil, true },
             { 280023, nil, true },
             { 280024, nil, true },
@@ -2842,17 +3232,19 @@ ns.DungeonLoot = {
             { 272028, nil, true },
             { 285952, nil, true },
         } },
-        { "Ravasaur Hunters", "Ravasaur Hunters", "", "", {
+        { "Ravasaur Hunters", "暴掠龙猎手", "", "", {
             { 280014, nil, true },
             { 280013, nil, true },
             { 280012, nil, true },
         } },
-        { "Trash mobs", "小怪", "副本内任意敌人", "", {
+        { "Trash mobs", "Trash mobs", "Any enemy in the dungeon", "", {
             { 287037, nil, true },
+            { 287044, nil, true },
+            { 287045, nil, true },
         } },
     },
     ["stratholme_main"] = {
-        { "Skul", "Shriek", "Rare · Lv 58", "2606", {
+        { "Skul", "Shriek", "Rare · Lv 58", "10393", {
             { 13395, 30, false },
             { 13394, 30, false },
             { 13396, 30, false },
@@ -2865,7 +3257,7 @@ ns.DungeonLoot = {
             { 13306, 40, false },
             { 13302, 39, false },
         } },
-        { "Hearthsinger Forresten", "Frestain", "Rare · Lv 57", "10482", {
+        { "Hearthsinger Forresten", "Frestain", "Rare · Lv 57", "10558", {
             { 16682, 13, false },
             { 13378, 29, false },
             { 13384, 18, false },
@@ -2899,7 +3291,7 @@ ns.DungeonLoot = {
             { 276398, nil, true },
             { 276399, nil, true },
         } },
-        { "Crimson Hammersmith", "Crimson Hammerer", "Lv 60", "10637", {
+        { "Crimson Hammersmith", "Crimson Hammerer", "Lv 60", "", {
             { 18781, 63, false },
         } },
         { "Cannon Master Willey", "Cannoneer Wiley", "Lv 60", "10674", {
@@ -2988,7 +3380,7 @@ ns.DungeonLoot = {
         } },
     },
     ["stratholme_service"] = {
-        { "Magistrate Barthilas", "Mayor Barthilas", "Lv 58", "10433", {
+        { "Magistrate Barthilas", "Mayor Barthilas", "Lv 58", "10435", {
             { 18727, 16, false },
             { 13376, 15, false },
             { 18726, 15, false },
@@ -2997,12 +3389,12 @@ ns.DungeonLoot = {
             { 18725, 16, false },
             { 12382, 100, false },
         } },
-        { "Stonespine", "Stonegrip", "Rare · Lv 60", "7856", {
+        { "Stonespine", "Stonegrip", "Rare · Lv 60", "10809", {
             { 13397, 31, false },
             { 13954, 30, false },
             { 13399, 34, false },
         } },
-        { "Baroness Anastari", "Baroness Anastari", "Lv 59", "10698", {
+        { "Baroness Anastari", "Baroness Anastari", "Lv 59", "10436", {
             { 16704, 18, false },
             { 18728, 18, false },
             { 18730, 19, false },
@@ -3014,7 +3406,7 @@ ns.DungeonLoot = {
             { 13539, 11, false },
             { 13514, 8.9, false },
         } },
-        { "Black Guard Swordsmith", "Black Guard Swordsmith", "", "775", {
+        { "Black Guard Swordsmith", "Black Guard Swordsmith", "", "11121", {
             { 18783, 42, false },
         } },
         { "Nerub'enkan", "Nerub'enkan", "Lv 60", "9793", {
@@ -3042,7 +3434,7 @@ ns.DungeonLoot = {
             { 13509, 8.7, false },
             { 12833, 8, false },
         } },
-        { "Ramstein the Gorger", "Swallower Ramsden", "Lv 61", "12818", {
+        { "Ramstein the Gorger", "Swallower Ramsden", "Lv 61", "10439", {
             { 16737, 18, false },
             { 18723, 12, false },
             { 13374, 12, false },
@@ -3122,7 +3514,7 @@ ns.DungeonLoot = {
         } },
     },
     ["upper_blackrock_spire"] = {
-        { "Pyroguard Emberseer", "Ebohir the Flamewarden", "Lv 60", "2172", {
+        { "Pyroguard Emberseer", "Ebohir the Flamewarden", "Lv 60", "9816", {
             { 16672, 18, false },
             { 12929, 12, false },
             { 12927, 11, false },
@@ -3138,7 +3530,7 @@ ns.DungeonLoot = {
             { 12606, 17, false },
             { 18657, 8.1, false },
         } },
-        { "Jed Runewatcher", "Jed", "Rare · Lv 59", "9686", {
+        { "Jed Runewatcher", "Jed", "Rare · Lv 59", "10509", {
             { 12604, 33, false },
             { 12930, 30, false },
             { 12605, 33, false },
@@ -3163,7 +3555,7 @@ ns.DungeonLoot = {
             { 12952, 21, false },
             { 13522, 3.3, false },
         } },
-        { "Warchief Rend Blackhand", "Warchief Rend Blackhand", "Lv 62", "9778", {
+        { "Warchief Rend Blackhand", "Warchief Rend Blackhand", "Lv 62", "10429", {
             { 12590, 1.9, false },
             { 16733, 18, false },
             { 12587, 21, false },
@@ -3215,6 +3607,16 @@ ns.DungeonLoot = {
             { 16726, 7.4, false },
             { 16730, 14, false },
         } },
+        { "Lord Valthalak", "瓦塔拉克公爵", "", "", {
+            { 22335, nil, false },
+            { 22336, nil, false },
+            { 22337, nil, false },
+            { 22339, nil, false },
+            { 22340, nil, false },
+            { 22342, nil, false },
+            { 22343, nil, false },
+            { 22302, nil, false },
+        } },
         { "Trash mobs", "Trash mobs", "Any enemy in the dungeon", "", {
             { 24102, nil, false },
             { 13260, 0.02, false },
@@ -3230,6 +3632,10 @@ ns.DungeonLoot = {
         } },
         { "Darkstone Tablet", "Dark Tablet", "Chest or object", "", {
             { 12358, nil, false },
+        } },
+        { "Plans", "Pattern", "Chest or object", "", {
+            { 249520, nil, false },
+            { 12728, nil, false },
         } },
     },
 }

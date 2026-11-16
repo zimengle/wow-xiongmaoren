@@ -93,7 +93,7 @@ local function BuildQuestAutomation(container, page, module)
         })
         if ns.QuestAutomationProviders then
             local external = container:Section("插件自动交接")
-            external:Description("登录时按本页保存的选择应用，首次默认关闭；开关显示插件当前状态。RXP跟随其当前配置档，可能由多个角色共用。")
+            external:Description("Elles 和 Questie 显示各插件当前设置。RXP 登录时应用保存的选择，首次默认关闭。")
             local row = external:QuadRow()
             for _, option in ipairs(ns.QuestAutomationProviders.options) do
                 local key = option.key
@@ -101,7 +101,8 @@ local function BuildQuestAutomation(container, page, module)
                     text = option.label,
                     getValue = function() return quest:GetExternalAutomationState(key).enabled end,
                     getEnabled = function() return quest.runtimeActive and quest:GetExternalAutomationState(key).available end,
-                    tooltip = "立即修改插件当前配置，并保存为下次登录时应用的选择；未加载或接口不可用时不能修改。",
+                    tooltip = key == "rxp" and "修改 RXP 当前配置，并保存登录时应用的选择。多个角色可能共用 RXP 配置。"
+                        or "直接修改插件当前设置，登录时由插件自行加载。",
                     onChange = function(_, value)
                         quest:SetExternalAutomationEnabled(key, value)
                         page:Refresh("quest-provider")
@@ -213,10 +214,6 @@ local function BuildPluginsEllesmere(page, module)
         onChange = function(_, value) SetRootBoolean(module, "ellesmereMinimapVolume", value) end,
     })
 
-    if module.adapter.buildId == "classic-infinite" then
-        BuildProviderBagSort(ellesmereOptions, page, module, "背包反向整理")
-    end
-
     if ns.EllesmereTimerIntegration then
         ellesmereOptions:Checkbox("ellesmereTimerCompact", {
             text = "首领计时精简",
@@ -242,7 +239,7 @@ local function BuildPluginsEllesmere(page, module)
     if ns.EUIPanelCleanup then
         ellesmere:Row():Button("euiPanelCleanup", {
             text = "面板位置清理", matchToggleColumn = true,
-            tooltip = "手动选择保留面板；确认后清除其他面板的位置与缩放并重载。",
+            tooltip = "选择要保留的面板，再点击「一键清理」清除其他面板的位置和缩放。",
             onAction = function() ns.EUIPanelCleanup:ShowSettings(page) end,
         })
     end
@@ -387,9 +384,7 @@ local function BuildBags(page, module)
     if nativeFrame and nativeFrame.SetMotionScriptsWhileDisabled then
         nativeFrame:SetMotionScriptsWhileDisabled(true)
     end
-    if module.adapter.buildId ~= "classic-infinite" then
-        BuildProviderBagSort(row, page, module, "Elles反向整理")
-    end
+    BuildProviderBagSort(row, page, module, "Elles反向整理")
 end
 
 local function BuildBlizzard(page, module, features)
@@ -477,12 +472,10 @@ local function BuildBlizzard(page, module, features)
         return options
     end
 
-    if module.adapter.buildId ~= "classic-infinite" then
+    if module.adapter.family == "classic" and module.adapter.buildId ~= "classic-infinite" then
         optionRow():Checkbox("hideMicroMenu", {
             text = "隐藏微型菜单",
-            tooltip = module.adapter.family == "classic" and module.adapter.buildId ~= "classic-infinite"
-                and "默认在已加载的 NDui、ElvUI 或 EllesmereUI 启用动作条时隐藏；手动选择优先。关闭隐藏时恢复显示原生菜单。"
-                or "独立控制暴雪原生微型菜单，不与 RS 微型菜单栏联动。",
+            tooltip = "默认在已加载的 NDui、ElvUI 或 EllesmereUI 启用动作条时隐藏；手动选择优先。关闭隐藏时恢复显示原生菜单。",
             value = blizzard.hideMicroMenu,
             getValue = function() return module:GetBlizzardUIDB().hideMicroMenu end,
             getEnabled = function() return true end,
@@ -758,8 +751,8 @@ function Settings:Register(module, features)
                 "暴雪界面增强", "暴雪窗口移动解锁", "解锁拖动", "商人界面", "界面拓展", "隐藏", "背包", "狮鹫", "暴雪",
                 "平砍", "Swing Timer", "插件收纳栏", "编辑模式", "导入提示", "复制按钮",
                 "界面增强", "原生反向整理", "背包反序", "从底部开始排列",
-                module.adapter.buildId ~= "classic-infinite" and "微型菜单" or nil,
-                module.adapter.buildId ~= "classic-infinite" and "Elles反向整理" or nil,
+                "背包反向整理", "Elles反向整理",
+                module.adapter.family == "classic" and module.adapter.buildId ~= "classic-infinite" and "微型菜单" or nil,
             },
             builder = function(page, module, currentFeatures)
                 BuildBlizzard(page, module, currentFeatures)
@@ -835,7 +828,7 @@ function Settings:Register(module, features)
             searchKeywords = {
                 "管理工具", "插件增强", "EllesmereUI", "ElvUI", "BigWigs",
                 "Details", "TinyInspect", "集合石", "国服符文兼容",
-                "小地图音量", "角色属性字号", "背包反向整理", "Elles反向整理", "面板位置清理", "更新屏蔽",
+                "小地图音量", "角色属性字号", "面板位置清理", "更新屏蔽",
             },
             builder = function(page, module)
                 if module.adapter.family == "retail" then

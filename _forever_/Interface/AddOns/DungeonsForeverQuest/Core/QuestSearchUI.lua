@@ -32,6 +32,12 @@ local SEG_H = 24
 local SEG_W = 66
 local SEG_GAP = 8
 local MAX_ROWS = 200
+local MODEL_W = 150
+local MODEL_H = 176
+local MODEL_GAP = 8
+local MODEL_TOP = -8
+local MODEL_R = 2 * PAD - 8
+local MODEL_LATE = { 0.6, 2, 4, 7 }
 
 local C_SUB = C_GREY or { 0.62, 0.65, 0.70 }
 local C_MAIN = C_TEXT or { 0.88, 0.90, 0.94 }
@@ -44,6 +50,11 @@ local INK_KIND = { 0.45, 0.62, 0.86 }
 
 local KIND_ORDER = { "quest", "npc", "object", "item" }
 local TAB_KINDS = { "quest", "npc", "item" }
+local PTR_KEY = {
+    quest = "QuestPointers", npc = "NPCPointers",
+    object = "ObjectPointers", item = "ItemPointers",
+}
+local strlower, strfind, strsub, tostr = string.lower, string.find, string.sub, tostring
 
 local QS = {}
 ns.QuestSearchModule = QS
@@ -53,14 +64,6 @@ local function QDB()
     local m = type(ql) == "table" and ql._modules
     local db = type(m) == "table" and m.QuestieDB
     if type(db) == "table" then return db end
-    return nil
-end
-
-local function QSEARCH()
-    local ql = _G.QuestieLoader
-    local m = type(ql) == "table" and ql._modules
-    local s = type(m) == "table" and m.QuestieSearch
-    if type(s) == "table" then return s end
     return nil
 end
 
@@ -244,20 +247,42 @@ local function SortIds(ids, kind)
 end
 
 function QS.DoSearch(text)
-    local S = QSEARCH()
-    if not S then return false end
+    local DB = QDB()
+    if not DB then return false end
     ResetRes()
-    local ok, res = pcall(function()
-        if tonumber(text) ~= nil then return S:ByID(text) end
-        return S:ByName(text)
-    end)
-    if not ok or type(res) ~= "table" then return false end
+    local q = tostr(text or "")
+    local head, tail = strsub(q, 1, 1), strsub(q, -1)
+    local strict = false
+    if #q >= 2 and (head == "\"" or head == "'") and tail == head then
+        strict = true
+        q = strsub(q, 2, -2)
+    end
+    q = strlower(q)
+    if q == "" then return true end
+    local byId = tonumber(q) ~= nil
     for _, kind in ipairs(KIND_ORDER) do
+        local fn = QueryFn(kind)
+        local ptr = DB[PTR_KEY[kind]]
         local ids = {}
-        local src = res[kind]
-        if type(src) == "table" then
-            for id in pairs(src) do
-                if type(id) == "number" then ids[#ids + 1] = id end
+        if type(fn) == "function" and type(ptr) == "table" then
+            for id in pairs(ptr) do
+                if type(id) == "number" then
+                    local hit = false
+                    if byId then
+                        hit = strfind(tostr(id), q, 1, true) and true or false
+                    else
+                        local nm = fn(id, "name")
+                        if type(nm) == "string" then
+                            local ln = strlower(nm)
+                            if strict then
+                                hit = (ln == q)
+                            else
+                                hit = strfind(ln, q, 1, true) and true or false
+                            end
+                        end
+                    end
+                    if hit then ids[#ids + 1] = id end
+                end
             end
         end
         if #ids > 0 then SortIds(ids, kind) end
@@ -268,7 +293,10 @@ function QS.DoSearch(text)
 end
 
 function QS.SearchState()
-    if QSEARCH() then return "ready" end
+    local DB = QDB()
+    if DB and type(DB.QuestPointers) == "table" and type(DB.NPCPointers) == "table" then
+        return "ready"
+    end
     return "idle"
 end
 
@@ -351,6 +379,13 @@ end
 
 local ROWS = {}
 local DET = {}
+
+local function DetW()
+    local w = DETAIL_W - 2 * PAD
+    local r = DET.reserve
+    if type(r) == "number" and r > 0 then w = w - r end
+    return w
+end
 
 local function RowSub(rec)
     if rec.kind == "quest" then
@@ -597,13 +632,16 @@ local function BuildSearchCard(page)
 
     eb:SetScript("OnTextChanged", function(self)
         local t = self:GetText() or ""
-        QS.text = t
         if #t > 0 then ph:Hide() else ph:Show() end
-        QS.Request()
+    end)
+    eb:SetScript("OnEnterPressed", function(self)
+        QS.Commit(self:GetText() or "")
+        self:ClearFocus()
     end)
     eb:SetScript("OnEscapePressed", function(self)
         self:SetText("")
         self:ClearFocus()
+        QS.Commit("")
     end)
 
     QS.tab = TabRow(card, 8, -52, {
@@ -935,7 +973,7 @@ local function QuestCardRow(qid, ind)
     R.ci = R.ci + 1
     local r = CardOf(R.ci)
     ind = ind or 0
-    local w = DETAIL_W - 2 * PAD - ind
+    local w = DetW() - ind
     r:SetSize(w, CARD_H)
     r.qid = qid
     local st = StatusOf(qid)
@@ -987,6 +1025,7 @@ local function Head(title, onClick)
     end
     h:ClearAllPoints()
     h:SetPoint("TOPLEFT", DET.child, "TOPLEFT", PAD, R.y)
+    h:SetWidth(DetW() - 8)
     h:SetText(title)
     if onClick then
         h:EnableMouse(true)
@@ -1014,6 +1053,7 @@ local function Body(txt, ink, gap)
     end
     b:ClearAllPoints()
     b:SetPoint("TOPLEFT", DET.child, "TOPLEFT", PAD, R.y)
+    b:SetWidth(DetW() - 8)
     b:SetText(txt)
     b:SetTextColor(Unpack(ink or C_MAIN))
     b:Show()
@@ -1031,7 +1071,9 @@ local function Line(o)
     r.onClick = o.onClick
     r.hoverOK = o.plain ~= false
     r.zoneId, r.x, r.y = o.zone, o.x, o.y
-    local avail = DETAIL_W - 2 * PAD - ind - right - 6
+    local rw = DetW()
+    r:SetSize(rw, 26)
+    local avail = rw - ind - right - 6
     r.name:ClearAllPoints()
     r.name:SetPoint("LEFT", r, "LEFT", ind, 0)
     r.name:SetText(o.text or "")
@@ -1236,7 +1278,115 @@ local function PaintTitleTag(rec)
     c:Show()
 end
 
+local function EnsureNpcModelCard()
+    local child = DET.child
+    if not child then return nil end
+    local c = DET.modelCard
+    if c and c:GetParent() == child then return c end
+    c = CreateFrame("Frame", nil, child, "BackdropTemplate")
+    c:SetSize(MODEL_W, MODEL_H)
+    c:SetPoint("TOPRIGHT", child, "TOPRIGHT", MODEL_R, MODEL_TOP)
+    c:SetFrameLevel((child:GetFrameLevel() or 1) + 1)
+    c:SetBackdrop({
+        bgFile = "Interface\\Buttons\\WHITE8x8",
+        edgeFile = "Interface\\Buttons\\WHITE8x8",
+        edgeSize = 1,
+    })
+    c:SetBackdropColor(0, 0, 0, 0)
+    c:SetBackdropBorderColor(0, 0, 0, 0)
+    if hui and hui.BuildRoundedBG then
+        hui.BuildRoundedBG(c, 6, hui.layer and hui.layer.L1, "both", true, 1)
+    else
+        c:SetBackdropColor(1, 1, 1, 0.03)
+        c:SetBackdropBorderColor(1, 1, 1, 0.10)
+    end
+    local m = CreateFrame("PlayerModel", nil, c)
+    m:EnableMouse(false)
+    m:EnableMouseWheel(false)
+    if m.SetKeepModelOnHide then m:SetKeepModelOnHide(true) end
+    m:SetPoint("TOPLEFT", c, "TOPLEFT", 6, -6)
+    m:SetPoint("BOTTOMRIGHT", c, "BOTTOMRIGHT", -6, 6)
+    m:Hide()
+    c.model = m
+    c:Hide()
+    DET.modelCard = c
+    return c
+end
+
+local function NpcModelProbe(m)
+    local ok, v = pcall(m.GetDisplayInfo, m)
+    return (ok and type(v) == "number" and v ~= 0) or false
+end
+
+local function NpcModelApply(m, id)
+    pcall(m.SetCreature, m, id)
+    pcall(m.SetRotation, m, math.rad(-15))
+end
+
+local function NpcModelFail(c, id)
+    DET.modelFail = id
+    DET.reserve = 0
+    if c then c:Hide() end
+    if QS.PaintDetail then QS.PaintDetail() end
+end
+
+local function NpcModelLateCheck(c, id)
+    if type(C_Timer) ~= "table" or type(C_Timer.After) ~= "function" then return end
+    local m = c and c.model
+    if not m then return end
+    for i = 1, #MODEL_LATE do
+        C_Timer.After(MODEL_LATE[i], function()
+            if not (c:IsShown() and c.__npc == id) then return end
+            if NpcModelProbe(m) then return end
+            if i < #MODEL_LATE then
+                NpcModelApply(m, id)
+            else
+                c.__npc = nil
+                NpcModelFail(c, id)
+            end
+        end)
+    end
+end
+
+local function PaintNpcModel(id, kind)
+    local c = EnsureNpcModelCard()
+    if not c or not c.model then return end
+    if kind ~= "npc" or DET.modelFail == id then
+        c.__npc = nil
+        c:Hide()
+        return
+    end
+    c:Show()
+    local m = c.model
+    m:Show()
+    if c.__npc ~= id then
+        c.__npc = id
+        NpcModelApply(m, id)
+        NpcModelLateCheck(c, id)
+    end
+end
+
+local function HideNpcModel()
+    DET.reserve = 0
+    local c = DET.modelCard
+    if c then
+        c.__npc = nil
+        c:Hide()
+    end
+end
+
+local function NpcReserveFor(rec)
+    if rec and rec.kind == "npc" and DET.modelFail ~= rec.id then
+        DET.reserve = MODEL_W + MODEL_GAP
+    else
+        DET.reserve = 0
+    end
+end
+
 local function ResetDetail()
+    HideNpcModel()
+    DET.title:SetWidth(DETAIL_W - 2 * PAD - 8)
+    DET.meta:SetWidth(DETAIL_W - 2 * PAD - 8)
     DET.title:SetText(L["选择一个条目"])
     DET.title:SetTextColor(Unpack(C_TITLE))
     for i = 1, #(DET.titleTags or {}) do DET.titleTags[i]:Hide() end
@@ -1498,6 +1648,8 @@ local function PaintPlaceDetail(rec)
     DetChip(1, nil, nil)
     LayoutChips()
 
+    PaintNpcModel(id, kind)
+
     Begin()
 
     local infoTxt = PlaceInfoText(id, kind)
@@ -1582,7 +1734,6 @@ local function ItemTip(self, id)
         pcall(GameTooltip.SetItemByID, GameTooltip, id)
     end
     GameTooltip:Show()
-    if hui and type(hui.SkinGameTooltip) == "function" then pcall(hui.SkinGameTooltip, GameTooltip) end
     if DG and type(DG.RequestItem) == "function" then pcall(DG.RequestItem, id) end
 end
 
@@ -1739,6 +1890,10 @@ function QS.PaintDetail()
         return
     end
     DET.note:Hide()
+    if rec.kind ~= "npc" then HideNpcModel() end
+    NpcReserveFor(rec)
+    DET.title:SetWidth(DetW() - 8)
+    DET.meta:SetWidth(DetW() - 8)
     local nmTxt = NameOf(rec.id, rec.kind) or string.format(L["条目 #%d"], rec.id)
     if rec.kind == "quest" then
         nmTxt = nmTxt .. HEX_DIM .. " #" .. rec.id .. "|r"
@@ -1770,6 +1925,7 @@ end
 
 function QS.GoTo(id, kind)
     if not id or not kind then return end
+    if DET.modelFail and DET.modelFail ~= id then DET.modelFail = nil end
     QS.sel = { id = id, kind = kind }
     if ns.PlaySound then pcall(ns.PlaySound, 1) end
     QS.PaintList()
@@ -1855,21 +2011,12 @@ local function BuildDetailCard(page)
     DET.note:SetText(L["左侧输入关键词，点任意一条结果查看详情与位置"])
 end
 
-local REQ_GEN = 0
-
-function QS.Request()
-    REQ_GEN = REQ_GEN + 1
-    local gen = REQ_GEN
-    if _G.C_Timer and _G.C_Timer.After then
-        _G.C_Timer.After(0.16, function()
-            if gen ~= REQ_GEN then return end
-            QS.Apply()
-            QS.PaintList()
-        end)
-    else
-        QS.Apply()
-        QS.PaintList()
-    end
+function QS.Commit(text)
+    QS.text = text or ""
+    QS.lastQuery = nil
+    QS.Apply()
+    QS.PaintList()
+    if QS.PaintDetail then QS.PaintDetail() end
 end
 
 function QS.Apply()
@@ -1882,7 +2029,8 @@ function QS.Apply()
     if #text == 0 then
         ResetRes()
     else
-        QS.DoSearch(text)
+        local ok = pcall(QS.DoSearch, text)
+        if not ok then ResetRes() end
     end
     QS.sel = nil
     if QS.kind == "object" or COUNT[QS.kind] == 0 then

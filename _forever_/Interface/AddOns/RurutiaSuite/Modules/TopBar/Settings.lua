@@ -156,10 +156,10 @@ local function BuildPage(context, module, microOnly)
             })
         end
         local owner = ns.BlizzardEnhancements
-        if module.adapter.buildId == "classic-infinite" and owner then
+        if owner and (module.adapter.family == "retail" or module.adapter.buildId == "classic-infinite") then
             micro:QuadRow():Checkbox("hideMicroMenu", {
                 text = "启用时隐藏暴雪菜单",
-                tooltip = "关闭微型菜单栏时恢复暴雪菜单；其他插件接管时跟随其设置。",
+                tooltip = "关闭微型菜单栏电源时恢复暴雪菜单，并将 Elles 微型菜单设为始终显示。",
                 getValue = function() return owner:GetBlizzardUIDB().hideMicroMenu end,
                 getEnabled = function()
                     return owner:IsEnabled() and module:GetProfile().micromenu.enabled and not module.adapter:IsInCombat()

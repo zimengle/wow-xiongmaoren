@@ -925,9 +925,11 @@ end
 local entry
 local entryHost
 local entryPage
+local entryDirty = false
 local RefreshEntry
 local UpdateEntry
 local UpdateEntryCombat
+local SyncEntryVisibility
 
 local function IsVis(f)
     if not f then return false end
@@ -1080,7 +1082,7 @@ RefreshEntry = function()
     local par = entry:GetParent()
     local page = PageNow()
     local box = BoxAnchor()
-    local inBook = (box == nil) or IsVis(box)
+    local inBook = (box == nil) or (page ~= nil) or IsVis(box)
     local vis = IsVis(entryHost) and par ~= nil and IsVis(par) and page == "spell" and inBook
     vis = vis and true or false
     if entry:IsShown() ~= vis then entry:SetShown(vis) end
@@ -1166,9 +1168,13 @@ UpdateEntry = function()
         entry.__hdr = nil
     end
     RefreshEntry()
+    if entryDirty then
+        entryDirty = false
+        SyncEntryVisibility()
+    end
 end
 
-local function SyncEntryVisibility()
+SyncEntryVisibility = function()
     if not entry then return end
     local psf = PlayerSpellsFrame
     local sb = psf and psf.SpellBookFrame
@@ -1179,7 +1185,7 @@ local function SyncEntryVisibility()
     end
     local page = PageNow()
     local box = BoxAnchor()
-    local inBook = (box == nil) or IsVis(box)
+    local inBook = (box == nil) or (page ~= nil) or IsVis(box)
     local vis = bookVis and IsVis(entryHost) and IsVis(entry:GetParent()) and page == "spell" and inBook
     vis = vis and true or false
     if entry:IsShown() ~= vis then entry:SetShown(vis) end
@@ -1190,7 +1196,7 @@ UpdateEntryCombat = function()
         if entry then entry:Hide() end
         return
     end
-    SyncEntryVisibility()
+    if entry then entryDirty = true end
 end
 
 UI.Refresh = function()
@@ -1282,6 +1288,7 @@ local function Register()
         end
     end)
     local acc = 0
+    local lastPsfVis = false
     local tick = CreateFrame("Frame")
     tick:SetScript("OnUpdate", function(_, elapsed)
         acc = acc + elapsed
@@ -1291,7 +1298,19 @@ local function Register()
             UpdateEntryCombat()
             return
         end
-        if acc < 0.5 then return end
+        local psf = PlayerSpellsFrame
+        local pv = false
+        if psf and psf.IsVisible then
+            local okp, vp = pcall(psf.IsVisible, psf)
+            pv = (okp and vp) and true or false
+        end
+        if pv ~= lastPsfVis then
+            lastPsfVis = pv
+            acc = 0
+            UpdateEntry()
+            return
+        end
+        if acc < (lastPsfVis and 0.1 or 0.5) then return end
         acc = 0
         UpdateEntry()
     end)

@@ -135,5 +135,6 @@ DungeonsForeverGearDB = {
 ["SETS"] = true,
 },
 ["foldInit"] = true,
+["page"] = 1,
 },
 }

@@ -29,15 +29,50 @@ local function record(result)
 	Spy.LastAnnounce = { result = result, when = time() }
 end
 
--- The Local Defense channel you are in: its number and name, or nil.
-function Spy:LocalDefenseChannel()
+-- Channels Spy can post to through the chat box. CurseForge comment: Local Defense is
+-- gone on many characters in Forever, General is there: "right click -> Post to General".
+local CHANNELS = {
+	LOCAL = { names = { "LocalDefenseChannelName", "LocalDefense" }, missing = "LocalDefenseMissing", hint = "AnnounceClickHint", label = "Local Defense" },
+	GENERAL = { names = { "GeneralChannelName", "General" }, missing = "GeneralMissing", hint = "AnnounceClickHintGeneral", label = "General" },
+	-- CurseForge comment: "the announce feature doesn't work for /3". Any channel you
+	-- are in, by its number or the start of its name (Alerts > Announce).
+	CUSTOM = { custom = true, missing = "CustomChannelMissing", hint = "AnnounceClickHintCustom", label = "chosen" },
+}
+
+-- The channel set in the options, trimmed, or nil when none is set.
+function Spy:CustomChannelSetting()
+	local value = Spy.db and Spy.db.profile.AnnounceChannel
+	value = type(value) == "string" and value:gsub("^%s*/?", ""):gsub("%s+$", "") or ""
+	return value ~= "" and value or nil
+end
+
+-- The channel of that kind you are in: its number and name, or nil.
+function Spy:FindChannel(kind)
+	local spec = CHANNELS[kind] or CHANNELS.LOCAL
+	local list = GetChannelList and { GetChannelList() } or {}
+	if spec.custom then
+		local wanted = Spy:CustomChannelSetting()
+		if not wanted then
+			return nil
+		end
+		local number = tonumber(wanted)
+		for i = 1, #list, 3 do
+			local id, name, disabled = readable(list[i]), readable(list[i + 1]), list[i + 2]
+			if type(id) == "number" and type(name) == "string" and disabled ~= true then
+				if (number and id == number) or (not number and name:lower():sub(1, #wanted) == wanted:lower()) then
+					return id, name
+				end
+			end
+		end
+		return nil
+	end
 	local prefixes = {}
-	for _, prefix in ipairs({ rawget(L, "LocalDefenseChannelName"), "LocalDefense" }) do
+	for _, key in ipairs(spec.names) do
+		local prefix = rawget(L, key) or key
 		if type(prefix) == "string" and prefix ~= "" then
 			prefixes[#prefixes + 1] = prefix:lower()
 		end
 	end
-	local list = GetChannelList and { GetChannelList() } or {}
 	for i = 1, #list, 3 do -- id, name, disabled
 		local id, name, disabled = readable(list[i]), readable(list[i + 1]), list[i + 2]
 		if type(id) == "number" and type(name) == "string" and disabled ~= true then
@@ -49,16 +84,20 @@ function Spy:LocalDefenseChannel()
 			end
 		end
 	end
-	-- The original lookup, kept as a last try.
 	local zone = readable(GetZoneText())
 	if type(zone) == "string" and zone ~= "" then
-		local name = (rawget(L, "LocalDefenseChannelName") or "LocalDefense") .. " - " .. zone
+		local name = (rawget(L, spec.names[1]) or spec.names[2]) .. " - " .. zone
 		local id = readable(GetChannelName(name))
 		if type(id) == "number" and id > 0 then
 			return id, name
 		end
 	end
 	return nil
+end
+
+-- The Local Defense channel you are in: its number and name, or nil.
+function Spy:LocalDefenseChannel()
+	return Spy:FindChannel("LOCAL")
 end
 
 -- The message goes in the chat box, ready: the player's Enter sends it.
@@ -72,22 +111,41 @@ end
 
 -- Puts the message in the chat box when the player just clicked (fromClick),
 -- otherwise waits for a click on the alert window.
-function Spy:SendLocalDefense(msg, fromClick)
+function Spy:SendToChannel(kind, msg, fromClick)
+	local spec = CHANNELS[kind] or CHANNELS.LOCAL
 	if not fromClick then
-		Spy.PendingAnnounce = { msg = msg, when = GetTime(), player = Spy.AnnouncingPlayer }
+		Spy.PendingAnnounce = { msg = msg, when = GetTime(), player = Spy.AnnouncingPlayer, kind = kind }
 		record("waiting for a click on the alert")
 		Spy:ShowAnnounceAlert()
 		return
 	end
-	local id, name = Spy:LocalDefenseChannel()
+	local id, name = Spy:FindChannel(kind)
 	if not id then
-		record("no Local Defense channel joined")
-		DEFAULT_CHAT_FRAME:AddMessage(L["SpySignatureColored"] .. L["LocalDefenseMissing"])
+		record("no " .. spec.label .. " channel joined")
+		DEFAULT_CHAT_FRAME:AddMessage(L["SpySignatureColored"] .. L[spec.missing])
 		return
 	end
 	local ok, err = send(msg, id)
 	record(ok and ("put in the chat box for " .. id .. ". " .. name .. ", Enter sends it") or ("chat box refused: " .. tostring(err)))
 	Spy.LastAnnounce.msg = msg
+end
+
+function Spy:SendLocalDefense(msg, fromClick)
+	return Spy:SendToChannel("LOCAL", msg, fromClick)
+end
+
+-- Short announcements (CurseForge comment: "WAY too verbose, all we need is
+-- Name - Lvl 34 (45,55)"): name, level when known, map position when known.
+function Spy:ShortAnnounceMessage(player, isKOS, playerData)
+	local name = tostring(player):gsub("%-", " ")
+	local msg = (isKOS and (L["KoSShort"] .. " ") or "") .. name
+	if playerData and playerData.level and playerData.isGuess == false then
+		msg = msg .. " - " .. L["LevelShort"] .. " " .. playerData.level
+	end
+	if playerData and playerData.mapX and playerData.mapY then
+		msg = msg .. " (" .. math.floor(tonumber(playerData.mapX) * 100) .. "," .. math.floor(tonumber(playerData.mapY) * 100) .. ")"
+	end
+	return msg
 end
 
 -- Which player Spy is announcing, for the alert.
@@ -112,8 +170,10 @@ local function hint(window)
 	if not window.AnnounceHint then
 		window.AnnounceHint = window:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 		window.AnnounceHint:SetPoint("TOP", window, "BOTTOM", 0, -3)
-		window.AnnounceHint:SetText(L["AnnounceClickHint"])
 	end
+	local pending = Spy.PendingAnnounce
+	local spec = CHANNELS[pending and pending.kind or "LOCAL"] or CHANNELS.LOCAL
+	window.AnnounceHint:SetText(L[spec.hint])
 	return window.AnnounceHint
 end
 
@@ -137,7 +197,7 @@ function Spy:AnnouncePending()
 	end
 	local pending = Spy.PendingAnnounce
 	Spy.PendingAnnounce = nil
-	Spy:SendLocalDefense(pending.msg, true)
+	Spy:SendToChannel(pending.kind or "LOCAL", pending.msg, true)
 	updateMouse()
 	return true
 end
@@ -228,7 +288,58 @@ end)
 function Spy:AnnounceReport()
 	local id, name = Spy:LocalDefenseChannel()
 	local last = Spy.LastAnnounce
-	return ("Local Defense channel: %s | last announce: %s"):format(
+	local customID, customName = Spy:FindChannel("CUSTOM")
+	return ("Local Defense channel: %s | chosen channel: %s | last announce: %s"):format(
 		id and (id .. ". " .. tostring(name)) or "not joined",
+		customID and (customID .. ". " .. tostring(customName)) or (Spy:CustomChannelSetting() and ("'" .. Spy:CustomChannelSetting() .. "' not joined") or "none set"),
 		last and ("%s, %ss ago%s"):format(last.result, time() - last.when, last.msg and (" | text: " .. last.msg) or "") or "none")
+end
+
+-- Options: the two public channels next to the others, and the short format.
+local alertArgs = Spy.options and Spy.options.args.AlertOptions and Spy.options.args.AlertOptions.args
+local announceArgs = alertArgs and alertArgs.Announce and alertArgs.Announce.args
+if announceArgs then
+	announceArgs.LocalDefense = {
+		name = L["LocalDefense"],
+		desc = L["LocalDefenseDescription"],
+		type = "toggle",
+		order = 6,
+		get = function() return Spy.db.profile.Announce == "LocalDefense" end,
+		set = function() Spy.db.profile.Announce = "LocalDefense" end,
+	}
+	announceArgs.General = {
+		name = L["GeneralAnnounce"],
+		desc = L["GeneralAnnounceDescription"],
+		type = "toggle",
+		order = 7,
+		get = function() return Spy.db.profile.Announce == "General" end,
+		set = function() Spy.db.profile.Announce = "General" end,
+	}
+	announceArgs.Custom = {
+		name = L["CustomChannelAnnounce"],
+		desc = L["CustomChannelAnnounceDescription"],
+		type = "toggle",
+		order = 8,
+		get = function() return Spy.db.profile.Announce == "Custom" end,
+		set = function() Spy.db.profile.Announce = "Custom" end,
+	}
+	announceArgs.AnnounceChannel = {
+		name = L["AnnounceChannelName"],
+		desc = L["AnnounceChannelNameDescription"],
+		type = "input",
+		order = 9,
+		get = function() return Spy.db.profile.AnnounceChannel or "" end,
+		set = function(_, value) Spy.db.profile.AnnounceChannel = value end,
+	}
+end
+if alertArgs then
+	alertArgs.ShortAnnounce = {
+		name = L["ShortAnnounce"],
+		desc = L["ShortAnnounceDescription"],
+		type = "toggle",
+		order = 7.5,
+		width = "full",
+		get = function() return Spy.db.profile.ShortAnnounce ~= false end,
+		set = function(_, value) Spy.db.profile.ShortAnnounce = value end,
+	}
 end

@@ -1,4 +1,4 @@
-## Changed in v3
+## Changed in v4
 
-* Fixed some Forever compatibility checks after the project ID changed in the latest build
+* Big post-release update with all the classic zone rares
 

@@ -389,17 +389,13 @@ end
 function Definition:ShouldHideBlizzardMicroMenu()
     local db = self:GetBlizzardUIDB()
     return db and db.hideMicroMenu == true
-        and (Adapter.buildId ~= "classic-infinite" or self:IsRSMicroMenuEnabled())
+        and ((Adapter.family == "classic" and Adapter.buildId ~= "classic-infinite") or self:IsRSMicroMenuEnabled())
 end
 
 function Definition:ShouldForceShowBlizzardMicroMenu()
-    if Adapter.buildId == "classic-infinite" then return false end
+    if Adapter.family ~= "classic" or Adapter.buildId == "classic-infinite" then return false end
     local db = self:GetBlizzardUIDB()
-    if Adapter.family == "classic" and Adapter.buildId ~= "classic-infinite" then
-        return db and db.hideMicroMenu ~= true
-    end
-    return not (db and db.hideMicroMenu == true)
-        and self:IsExternalMicroMenuConfiguredHidden()
+    return db and db.hideMicroMenu ~= true
 end
 
 function Definition:ShouldHideBlizzardBackpackButton()

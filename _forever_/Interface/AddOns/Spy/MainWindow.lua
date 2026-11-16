@@ -1128,6 +1128,11 @@ function Spy:ShowTooltip(self, show, id)
 					GameTooltip:AddLine(Spy:GetPlayerLocation(playerData), locationText.r, locationText.g, locationText.b)
 				end
 			end
+			-- Forever: the player's note (Notes.lua).
+			local note = Spy.PlayerNote and Spy:PlayerNote(name)
+			if note then
+				GameTooltip:AddLine(L["NoteTooltip"] .. note, 1, 1, 1, true)
+			end
 
 			GameTooltip:Show()
 		end

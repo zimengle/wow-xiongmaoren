@@ -7,14 +7,40 @@ RS.Presentation.ChangelogData = RS.Presentation.ChangelogData or {}
 if buildID == "retail" then
     RS.Presentation.ChangelogData.retail = {
         viewId = "retail",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:ab48fbf809ee90ad258f2ec7202d48b1cc54431c0b0146aec345640946271f52",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:3abdcac738dff4194ab64f04de5b29531d63e918f40270552dacab9e45d0ceb6",
         historySourceId = "retail:b109960e82a2b3db460e2ae597ea8870276d1479:RurutiaSuite/Changelog.md",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.8.5",
-            date = "2026-11-12",
-            noticeKey = "4.8.5:f768b052893ccc687316",
-            content = [=[%sv4.8.5（2026-11-12）|r
+            version = "4.8.8",
+            date = "2026-11-16",
+            noticeKey = "4.8.8:5a7f846e40b7582d0559",
+            content = [=[%sv4.8.8（2026-11-16）|r
+
+%s[聊天条]|r
+• Tab切换频道，组团后可分别切到队伍和团队频道。
+
+%sv4.8.7（2026-11-15）|r
+
+%s[聊天条]|r
+• 频道粘滞，默认各频道跟随暴雪，可自选粘滞频道，关闭后仅密语不粘滞。
+
+%sv4.8.6（2026-11-14）|r
+
+%s[任务自动交接]|r
+• 交接设置，支持分别控制Elles和Questie。
+• 追踪框，适配新版Elles，共用时仅在Questie显示开关。
+
+%s[聊天条]|r
+• 频道粘滞，默认排除普通和战网密语，密语后回车返回原频道。
+• 频道轮换，支持自选Tab切换的频道。
+
+%s[微型菜单栏]|r
+• 暴雪菜单，修复使用Elles时关闭微型菜单栏后无法恢复的问题。
+
+%s[插件增强]|r
+• 面板位置清理，默认只保留插件列表，世界地图可自行勾选。
+
+%sv4.8.5（2026-11-12）|r
 
 %s[任务自动交接]|r
 • 新增RXP、Questie和Elles自动交接集中开关。

@@ -1,5 +1,6 @@
 VER 3 0000000000000001 "RXPTargeting" "Ability_eyeoftheowl"
-/targetexact 阿塔莱流放者
+/targetexact 高内克
+/targetexact 杂斑野猪
 /tm !7
 /targetlasttarget [dead]
 END

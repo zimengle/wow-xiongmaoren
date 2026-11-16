@@ -115,7 +115,7 @@ local function BuildItemPage(root, context, module)
             if not control then
                 control = Create("checkbox", scroll:GetContent(), {
                     variant = "square", height = rowHeight, width = cellWidth, text = "", wordWrap = false,
-                    toggleSide = "left", toggleInset = 0, noBorder = true, checkHoverAccent = false,
+                    toggleSide = "left", toggleInset = 0, noBorder = true,
                     backgroundToken = "color.transparent", borderToken = "color.transparent",
                     onChange = function(widget, value)
                         local entry = widget.entry

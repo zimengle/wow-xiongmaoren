@@ -466,7 +466,7 @@ function Popover:EnsureCreated()
             prepared.getVisible = nil
             prepared.set = nil
             prepared.text = row.text or row.label or ""
-            prepared.width = width - sidePadding * 2
+            prepared.width = self.options.columns == 2 and (width - sidePadding * 3) / 2 or width - sidePadding * 2
             prepared.height = tonumber(row.height) or rowHeight
             prepared.point = "TOPLEFT"
             prepared.relativeTo = popup
@@ -557,6 +557,7 @@ function Popover:PrepareRefresh()
     if not self.created or self.released then
         return nil, "settings popover is not available for refresh"
     end
+    if self.options.beforeRefresh then self.options.beforeRefresh() end
     local prepared = {}
     local index = 1
     while index <= #self.controlOrder do
@@ -619,18 +620,20 @@ function Popover:ApplyPreparedRefresh(prepared)
     local cursor = (tonumber(self.options.topPadding) or 12)
         + (tonumber(self.options.titleHeight) or 24) + 8
     local gap = tonumber(self.options.rowGap) or 6
-    local count = 0
+    local count, lineHeight = 0, 0
+    local columns = self.options.columns == 2 and 2 or 1
     for _, entry in ipairs(self.controlOrder) do
         if entry.control:IsVisible() then
-            if count > 0 then cursor = cursor + gap end
+            local column = count % columns
+            if column == 0 and count > 0 then cursor, lineHeight = cursor + lineHeight + gap, 0 end
             local frame = entry.control.frame
             frame:ClearAllPoints()
-            frame:SetPoint("TOPLEFT", self.popup.frame, "TOPLEFT", padding, -cursor)
-            cursor = cursor + (tonumber(entry.row.height) or tonumber(self.options.rowHeight) or 38)
+            frame:SetPoint("TOPLEFT", self.popup.frame, "TOPLEFT", padding + column * (frame:GetWidth() + padding), -cursor)
+            lineHeight = math.max(lineHeight, tonumber(entry.row.height) or tonumber(self.options.rowHeight) or 38)
             count = count + 1
         end
     end
-    self.popup.frame:SetHeight(cursor + padding)
+    self.popup.frame:SetHeight(cursor + lineHeight + padding)
     self.refreshCount = self.refreshCount + 1
     return true
 end

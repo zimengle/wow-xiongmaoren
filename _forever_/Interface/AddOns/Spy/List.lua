@@ -489,6 +489,11 @@ function Spy:AlertPlayer(player, source)
 						end
 					end
 				end
+				-- Forever: the player's note (Notes.lua) after the reasons.
+				local note = Spy.PlayerNote and Spy:PlayerNote(player)
+				if note then
+					reasonText = reasonText ~= "" and (reasonText .. " - " .. note) or note
+				end
 				Spy:ShowAlert("kos", player, nil, reasonText)
 			end
 		end
@@ -586,7 +591,7 @@ function Spy:AnnouncePlayer(player, channel)
 		local playerData = SpyPerCharDB.PlayerData[player]
 
 		local announce = Spy.db.profile.Announce  
-		if channel or announce == "Self" or announce == "LocalDefense" or (announce == "Guild" and GetGuildInfo("player") ~= nil and not Spy.InInstance) or (announce == "Party" and GetNumGroupMembers() > 0) or (announce == "Raid" and UnitInRaid("player")) then --++
+		if channel or announce == "Self" or announce == "LocalDefense" or announce == "General" or announce == "Custom" or (announce == "Guild" and GetGuildInfo("player") ~= nil and not Spy.InInstance) or (announce == "Party" and GetNumGroupMembers() > 0) or (announce == "Raid" and UnitInRaid("player")) then --++
 			if announce == "Self" and not channel then
 				if isKOS then
 					msg = msg..L["SpySignatureColored"]..L["KillOnSightDetectedColored"]..player.." "
@@ -628,6 +633,10 @@ function Spy:AnnouncePlayer(player, channel)
 				end
 			end
 
+			-- Forever: the short format (Announce.lua), for everything but the message to yourself.
+			if Spy.ShortAnnounceMessage and Spy.db.profile.ShortAnnounce ~= false and not (announce == "Self" and not channel) then
+				msg = Spy:ShortAnnounceMessage(player, isKOS, playerData)
+			end
 			if channel then
 				-- announce to selected channel
 				if (channel == "PARTY" and GetNumGroupMembers() > 0) or (channel == "RAID" and UnitInRaid("player")) or (channel == "GUILD" and GetGuildInfo("player") ~= nil) then
@@ -635,6 +644,8 @@ function Spy:AnnouncePlayer(player, channel)
 				elseif channel == "LOCAL" then
 					-- Forever: see Announce.lua (channel lookup; this one comes from a click)
 					Spy:SendLocalDefense(msg, true)
+				elseif channel == "GENERAL" or channel == "CUSTOM" then
+					Spy:SendToChannel(channel, msg, true)
 				end
 			else
 				-- announce to standard channel
@@ -645,6 +656,10 @@ function Spy:AnnouncePlayer(player, channel)
 						-- Forever: the game refuses a post in a public channel without a click,
 						-- so the alert window asks for one (Announce.lua).
 						Spy:SendLocalDefense(msg, false)
+					elseif announce == "General" then
+						Spy:SendToChannel("GENERAL", msg, false)
+					elseif announce == "Custom" then
+						Spy:SendToChannel("CUSTOM", msg, false)
 					else
 						SendChatMessage(msg, strupper(announce))
 					end

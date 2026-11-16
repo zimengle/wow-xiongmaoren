@@ -16,15 +16,15 @@ ConsolePortRings = {
 },
 {
 ["type"] = "item",
-["questID"] = 99258,
+["questID"] = 4729,
 ["autoassigned"] = true,
-["item"] = "|cnIQ1:|Hitem:286648::::::::54:1489::11:::::::|h[枯竭的水晶之心]|h|r",
+["item"] = "|cnIQ1:|Hitem:12262::::::::58:1489::11:::::::|h[空的座狼幼崽笼]|h|r",
 },
 {
 ["type"] = "item",
-["questID"] = 4441,
+["questID"] = 4201,
 ["autoassigned"] = true,
-["item"] = "|cnIQ1:|Hitem:11682::::::::54:1489::11:::::::|h[艾瑞丹的瓶子]|h|r",
+["item"] = "|cnIQ1:|Hitem:11412::::::::58:1489::11:::::::|h[娜玛拉之瓶]|h|r",
 },
 [0] = {
 },

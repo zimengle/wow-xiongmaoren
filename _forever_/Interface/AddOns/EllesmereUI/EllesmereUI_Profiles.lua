@@ -1390,7 +1390,8 @@ local REFRESH_ADDON_STEPS = {
     -- Cursor (style + position), Crosshair, Self Combat Text, and the QoL
     -- extras (FPS counter + Secondary Stats -- one call for both: the FPS
     -- readout may be drawn by the Secondary Stats block, so the two owners
-    -- re-evaluate together).
+    -- re-evaluate together; the Target Distance text, the alerts and the
+    -- Durability Warning).
     function()
         if _G._ECL_Apply then _G._ECL_Apply() end
         if _G._ECL_ApplyTrail then _G._ECL_ApplyTrail() end
@@ -1404,6 +1405,13 @@ local REFRESH_ADDON_STEPS = {
         elseif EllesmereUI._applySecondaryStats then
             EllesmereUI._applySecondaryStats()
         end
+        if EllesmereUI._applyTargetDistance then EllesmereUI._applyTargetDistance() end
+        if EllesmereUI._applyCombatAlert then EllesmereUI._applyCombatAlert() end
+        if EllesmereUI._applyPotionAlert then EllesmereUI._applyPotionAlert() end
+        if EllesmereUI._applyTalentAlert then EllesmereUI._applyTalentAlert() end
+        if EllesmereUI._applyAnnounceGroupDeaths then EllesmereUI._applyAnnounceGroupDeaths() end
+        if EllesmereUI._applyGroupDeathAlert then EllesmereUI._applyGroupDeathAlert() end
+        if EllesmereUI._syncDurWarnEvents then EllesmereUI._syncDurWarnEvents() end
     end,
     -- QoL Battle Res and Bloodlust (enable state, visibility, position;
     -- neither exists on WoW Forever)
@@ -1421,7 +1429,11 @@ local REFRESH_ADDON_STEPS = {
     -- ActionBars (style + layout + position)
     function() if _G._EAB_Apply then _G._EAB_Apply() end end,
     -- UnitFrames (style + layout + position)
-    function() if _G._EUF_ReloadFrames then _G._EUF_ReloadFrames() end end,
+    function()
+        if _G._EUF_ReloadFrames then _G._EUF_ReloadFrames() end
+        -- The Rested Indicator follows profiles (EUI_UnitFrames_Init.lua).
+        if EllesmereUI._applyRestedIndicator then EllesmereUI._applyRestedIndicator() end
+    end,
     -- Raid Frames + Party Frames (style + layout + size; positions re-applied
     -- by the tail)
     function() if _G._ERF_RefreshAll then _G._ERF_RefreshAll() end end,
@@ -2121,6 +2133,7 @@ do
         "tooltipShowBuffs", "tooltipBuffPosition", "tooltipBuffSize",
         "tooltipBuffsPerRow", "tooltipBuffOffsetX", "tooltipBuffOffsetY",
         "tooltipBgColor", "tooltipBgOpacity", "tooltipBorderSize",
+        "tooltipRoundedCorners",
         "showSpellID", "spellIDModifier", "showIconID", "showItemID",
         "showItemMaxStacks", "itemStackModifier",
         "reskinPopupsMenus", "reskinGameMenu", "reskinQueuePopup",
@@ -2164,7 +2177,7 @@ do
         "reskinMicroMenu", "reskinBagBar", "reskinLegacySystem", "reskinHousing", "reskinDressUp", "reskinTransmog",
         "reskinMerchant", "reskinAuctionHouse", "reskinMacros",
         "reskinSettings", "reskinAddonList", "reskinCraftOrders",
-        "reskinTrainer", "reskinGossip", "reskinQuest", "reskinInspectRecipe",
+        "reskinTrainer", "reskinStable", "reskinKeyring", "reskinGossip", "reskinQuest", "reskinInspectRecipe",
         "reskinDelves", "reskinSocialUI",
         "reskinQueueStatus", "reskinDelvePicker", "reskinPlayerChoice",
         "reskinTrade", "reskinFlagCarriers",
@@ -2185,7 +2198,8 @@ do
         "flyoutItemLevels", "flyoutItemStats", "charSheetItemStats",
         "flyoutItemStatsTertiary", "charSheetItemStatsTertiary", "charSheetSocketPanelStats",
         "showCharSheetDurability", "charSheetDurabilityLocation",
-        "charSheetDurabilityShowLabel", "showSecondaryRaw", "showSecondaryBoth",
+        "charSheetDurabilityShowLabel", "charSheetItemLevelPos", "charSheetShowItemStats",
+        "showSecondaryRaw", "showSecondaryBoth",
         "showTertiaryRaw", "showTertiaryBoth", "showAdjustedStats",
         "showManaStat", "highlightSecondaryItems", "highlightTertiaryItems",
         -- Character Sheet stock styles' "Blizzard UI Color" (the style itself
@@ -2193,7 +2207,7 @@ do
         "charSheetBlizzColors",
         -- Inspect card
         "inspectShowEnchants", "inspectEnchantNames", "inspectEnchantSize",
-        "inspectShowItemLevel", "inspectShowUpgradeTrack",
+        "inspectShowItemLevel", "inspectShowUpgradeTrack", "inspectItemLevelPos", "inspectShowItemStats",
         -- LFG / Merchant / Mail cards
         "lfgRememberRoles",
         "merchantShowAsList", "merchantListRowHeight", "merchantShowItemLevel", "merchantBulkBuy",
@@ -2483,6 +2497,7 @@ local FULL_EXPORT_EXCLUDED = {
     mailAltHidden         = true, -- and the characters it hides
     lootFeedHistory       = true, -- Forever Loot History rows
     raidHoroscope         = true, -- Party Mode birthdays
+    searchPicks           = true, -- options search: the player's own picks
     bagCurrencyByChar     = true, -- Bags tracked currencies
     bagPinnedByChar       = true, -- Bags pinned items
     mageArmorByChar       = true, -- AuraBuff Reminders (Forever): last mage armor
@@ -4613,7 +4628,7 @@ function EllesmereUI.AttachImportPasteAbsorber(editBox, onRetry)
     }
 end
 
-local function BuildStringPopup(title, subtitle, readOnly, onConfirm, confirmLabel)
+local function BuildStringPopup(title, subtitle, readOnly, onConfirm, confirmLabel, rawPaste)
     local POPUP_W, POPUP_H = 520, 310
     local FONT = EllesmereUI.EXPRESSWAY
 
@@ -4643,19 +4658,29 @@ local function BuildStringPopup(title, subtitle, readOnly, onConfirm, confirmLab
     -- Title
     local titleFS = EllesmereUI.MakeFont(popup, 15, "", 1, 1, 1)
     titleFS:SetPoint("TOP", popup, "TOP", 0, -20)
-    titleFS:SetText(title)
+    titleFS:SetText(EllesmereUI.L(title))
 
     -- Subtitle
     local subFS = EllesmereUI.MakeFont(popup, 11, "", 1, 1, 1)
     subFS:SetAlpha(0.45)
     subFS:SetPoint("TOP", titleFS, "BOTTOM", 0, -4)
-    subFS:SetText(subtitle)
+    subFS:SetText(EllesmereUI.L(subtitle))
+
+    -- An empty editable box needs a visible field to paste into.
+    if not readOnly then
+        local field = CreateFrame("Frame", nil, popup)
+        field:SetPoint("TOPLEFT",     popup, "TOPLEFT",     14, -52)
+        field:SetPoint("BOTTOMRIGHT", popup, "BOTTOMRIGHT", -14, 46)
+        field:SetFrameLevel(popup:GetFrameLevel() + 1)
+        EllesmereUI.SolidTex(field, "BACKGROUND", 0, 0, 0, 0.3):SetAllPoints()
+        EllesmereUI.MakeBorder(field, 1, 1, 1, 0.12, EllesmereUI.PanelPP)
+    end
 
     -- ScrollFrame containing the EditBox
     local sf = CreateFrame("ScrollFrame", nil, popup)
     sf:SetPoint("TOPLEFT",     popup, "TOPLEFT",     20, -58)
     sf:SetPoint("BOTTOMRIGHT", popup, "BOTTOMRIGHT", -20, 52)
-    sf:SetFrameLevel(popup:GetFrameLevel() + 1)
+    sf:SetFrameLevel(popup:GetFrameLevel() + 2)
     sf:EnableMouseWheel(true)
 
     local sc = CreateFrame("Frame", nil, sf)
@@ -4733,7 +4758,7 @@ local function BuildStringPopup(title, subtitle, readOnly, onConfirm, confirmLab
     -- (import mode only; export boxes are read-only and set text directly).
     -- Attached after the OnTextChanged SetScript above so the hook survives.
     local absorber
-    if not readOnly then
+    if not readOnly and not rawPaste then
         absorber = EllesmereUI.AttachImportPasteAbsorber(editBox)
     end
 
@@ -4915,13 +4940,27 @@ end
 -------------------------------------------------------------------------------
 --  Import Popup
 -------------------------------------------------------------------------------
-function EllesmereUI:ShowImportPopup(onImport, title, subtitle)
-    local dimmer, editBox = BuildStringPopup(
-        title or "Import Profile",
-        subtitle or "Paste an EllesmereUI profile string below",
-        false,
-        function(str) if onImport then onImport(str) end end,
-        "Import")
+-- opts: confirmLabel (button text), rawPaste (no paste absorber; for short multi-line text), keep (a
+-- key, with rawPaste: the popup is built once for that key and shown again with an empty box; its
+-- title, subtitle, label and callback are the first call's).
+local keptImportPopups = {}
+function EllesmereUI:ShowImportPopup(onImport, title, subtitle, opts)
+    opts = opts or {}
+    local key = opts.rawPaste and opts.keep
+    local kept = key and keptImportPopups[key]
+    local dimmer, editBox
+    if kept then
+        dimmer, editBox = kept.dimmer, kept.editBox
+        editBox:SetText("")
+    else
+        dimmer, editBox = BuildStringPopup(
+            title or "Import Profile",
+            subtitle or "Paste an EllesmereUI profile string below",
+            false,
+            function(str) if onImport then onImport(str) end end,
+            opts.confirmLabel or "Import", opts.rawPaste)
+        if key then keptImportPopups[key] = { dimmer = dimmer, editBox = editBox } end
+    end
 
     dimmer:Show()
     C_Timer.After(0.05, function() editBox:SetFocus() end)

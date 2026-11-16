@@ -65,7 +65,9 @@ local function StyleItemTooltip(tooltip)
         local size = title and (titleSize or 18) or (bodySize or 16)
         local flags = (title and titleFlags or bodyFlags) or ""
         local left, right = _G[name .. "TextLeft" .. index], _G[name .. "TextRight" .. index]
-        Call(left, "SetFont", index == 1 and titleFont or bodyFont, size, flags)
+        local isWeaponHint = index == tooltip.weaponHintLine or index == tooltip.offHandHintLine
+        local leftSize = isWeaponHint and size + 2 or size
+        Call(left, "SetFont", index == 1 and titleFont or bodyFont, leftSize, flags)
         Call(right, "SetFont", bodyFont, size, flags)
     end
 end
@@ -76,6 +78,8 @@ local function TooltipShown(tooltip)
 end
 
 local function TooltipHidden(tooltip)
+    tooltip.weaponHintLine = nil
+    tooltip.offHandHintLine = nil
     tooltip:UnregisterEvent("PLAYER_REGEN_DISABLED")
 end
 
@@ -247,6 +251,9 @@ local function StartRuntime(self)
         ns.Font:Subscribe(self, OnFontChanged)
     end
     self:RegisterRuntimeEvents()
+    if self.oilScanner then
+        self:OwnFrame(self.oilScanner, HideFrame, "ConsumableBar oil charges")
+    end
     self:CreateGroups()
     self:QueuePositionRetry()
     self:RefreshFoodBuffState()
@@ -578,6 +585,20 @@ function Definition:OpenSettings()
     return ns.UI and type(ns.UI.OpenMain) == "function" and ns.UI:OpenMain("consumableBar") or false
 end
 
+local function WeaponHandHints(keySuffix)
+    local color = ns:GetThemeColorCode(false)
+    local separator = keySuffix .. "：|r" .. color
+    return "|cffffffff左" .. separator .. "主手|r", "|cffffffff右" .. separator .. "副手|r"
+end
+
+local function AddWeaponHandLines(tooltip)
+    local left, right = WeaponHandHints("")
+    tooltip:AddLine(left)
+    tooltip.weaponHintLine = tooltip:NumLines()
+    tooltip:AddLine(right)
+    tooltip.offHandHintLine = tooltip:NumLines()
+end
+
 function Definition:ShowTooltip(button, previewContent)
     local info = button and button.customInfo
     if not info then return false end
@@ -586,8 +607,7 @@ function Definition:ShowTooltip(button, previewContent)
         if info.poisonFamily or info.kind == "equipment" then
             displayed = Adapter:ShowItemTooltip(button, info, self:GetDisplayItemID(info))
             if displayed and info.poisonFamily then
-                Call(Adapter:GetTooltip(), "AddLine", "|cffffffff左：|r" .. ns:GetThemeColorCode(true) .. "主手|r")
-                Call(Adapter:GetTooltip(), "AddLine", "|cffffffff右：|r" .. ns:GetThemeColorCode(true) .. "副手|r")
+                AddWeaponHandLines(Adapter:GetTooltip())
             end
         end
         if not displayed then displayed = self:ShowTooltip(button, true) end
@@ -598,20 +618,31 @@ function Definition:ShowTooltip(button, previewContent)
         end
         return displayed
     end
-    if info.kind == "categoryMenu" then
-        return Adapter:ShowTooltip(button, ns:GetThemeColorCode(true) .. info.name .. "类|r")
-    elseif info.poisonFamily then
-        return Adapter:ShowTooltip(button, "|cffffffff" .. (info.name or "毒药") .. "|r"
-            .. "\n|cffffffff左：|r" .. ns:GetThemeColorCode(true) .. "主手|r\n|cffffffff右：|r" .. ns:GetThemeColorCode(true) .. "副手|r")
+    if info.kind == "categoryMenu" or info.poisonFamily then
+        local title = info.poisonFamily and (info.name or "毒药") or info.name .. "类"
+        local displayed = Adapter:ShowTooltip(button, "|cffffffff" .. title .. "|r")
+        if displayed and (info.poisonFamily or info.category == "weapon" or info.category == "poison") then
+            local tooltip = Adapter:GetTooltip()
+            AddWeaponHandLines(tooltip)
+            Adapter:PresentTooltip(tooltip)
+        end
+        return displayed
     end
     local left, right = info.clicks and info.clicks.left, info.clicks and info.clicks.right
     if not info.splitActionTooltip and (button.isCategoryItem or (not info.conjureSpellID and left and left.type == "item"
         and (not right or (right.type == "item" and right.id == left.id)))) then
-        return (Adapter:ShowItemTooltip(button, info, self:GetDisplayItemID(info)))
+        local displayed, tooltip = Adapter:ShowItemTooltip(button, info, self:GetDisplayItemID(info))
+        if displayed and info.kind == "weaponConsumable" then
+            local leftHint, rightHint = WeaponHandHints("键")
+            Call(tooltip, "AddLine", leftHint .. "　" .. rightHint, 1, 1, 1)
+            tooltip.weaponHintLine = tooltip:NumLines()
+            Adapter:PresentTooltip(tooltip)
+        end
+        return displayed
     end
     local text = ""
     if info.kind == "equipment" then
-        return Adapter:ShowTooltip(button, ns:GetThemeColorCode(true) .. (info.name or "") .. "|r")
+        return Adapter:ShowTooltip(button, "|cffffffff" .. (info.name or "") .. "|r")
     end
     local leftName = self:GetClickName(
         info.clicks and info.clicks.left,

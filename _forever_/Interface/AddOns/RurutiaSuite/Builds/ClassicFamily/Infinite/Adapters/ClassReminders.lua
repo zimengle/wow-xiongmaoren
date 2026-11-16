@@ -77,12 +77,14 @@ local function HasTalent(spellID)
 end
 
 -- 只在启用、重新进入世界或技能变化后调用。仅解析当前职业的提醒组；技能书最多遍历一次。
-function Adapter:BuildStates(rows)
+function Adapter:BuildStates(rows, armorRow, selectedArmor)
     local states, names = {}, {}
     for i, spec in ipairs(rows) do
         local state = {names = {}, ids = {}, known = false, level = -1}
         states[i] = state
-        for _, member in ipairs(spec.members) do
+        local members = spec == armorRow and selectedArmor or spec.members
+        state.previewID = members[1] and members[1].id
+        for _, member in ipairs(members) do
             state.ids[#state.ids + 1] = member.id
             local name = SpellName(member.id)
             if name then
@@ -180,12 +182,17 @@ function Adapter:IsPlayerDeadOrGhost()
     return type(UnitIsDeadOrGhost) == "function" and UnitIsDeadOrGhost("player")
 end
 
+function Adapter:IsOnTaxi()
+    return type(UnitOnTaxi) == "function" and UnitOnTaxi("player")
+end
+
 function Adapter:IsResting()
     if type(IsResting) ~= "function" then return true end
     local ok, resting = pcall(IsResting)
     if not ok or IsSecret(resting) then return true end
     return resting == true
 end
+function Adapter:GetSpellName(id) return SpellName(id) end
 function Adapter:GetTexture(id)
     if C_Spell and type(C_Spell.GetSpellTexture) == "function" then return C_Spell.GetSpellTexture(id) end
     if type(GetSpellInfo) == "function" then local _, _, texture = GetSpellInfo(id); return texture end

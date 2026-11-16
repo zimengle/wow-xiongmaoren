@@ -1,6 +1,8 @@
 
 RurutiaSuiteSetupDB = {
 ["char"] = {
+["巴菲特 - 李家沱"] = {
+},
 ["重庆 - 智能体"] = {
 },
 ["露露缇娅 - 嗷呜"] = {
@@ -15,6 +17,7 @@ RurutiaSuiteSetupDB = {
 },
 },
 ["profileKeys"] = {
+["巴菲特 - 李家沱"] = "Default",
 ["重庆 - 智能体"] = "Default",
 ["露露缇娅 - 嗷呜"] = "Default",
 ["露露缇娅 - 啾啾"] = "Default",

@@ -2,7 +2,7 @@
 ## Title: HandyNotes: WoW Forever
 ## Notes: Where are the hidden treasures in WoW Forever?
 ## Author: Kemayo
-## Version: v3
+## Version: v4
 ## IconTexture: Interface\Icons\Ability_Spy
 ## DefaultState: enabled
 ## X-Category: Map
@@ -18,7 +18,46 @@ handler\handler.xml
 constants.lua
 forever.lua
 
+zones\AlteracMountains.lua
+zones\ArathiHighlands.lua
+zones\Ashenvale.lua
+zones\Azshara.lua
+zones\Badlands.lua
+zones\BlastedLands.lua
+zones\BurningSteppes.lua
+zones\Darkshore.lua
+zones\Desolace.lua
+zones\DunMorogh.lua
+zones\Durotar.lua
+zones\Duskwood.lua
+zones\DustwallowMarsh.lua
+zones\EasternPlaguelands.lua
+zones\ElwynnForest.lua
+zones\Felwood.lua
+zones\Feralas.lua
+zones\HillsbradFoothills.lua
+zones\LochModan.lua
 zones\MountHyjal.lua
+zones\Mulgore.lua
+zones\RedridgeMountains.lua
 zones\Riverglades.lua
+zones\SearingGorge.lua
 zones\ShenDralas.lua
+zones\Silithus.lua
+zones\SilverpineForest.lua
+zones\StonetalonMountains.lua
+zones\StormwindCity.lua
+zones\StranglethornVale.lua
+zones\SwampOfSorrows.lua
+zones\Tanaris.lua
+zones\Teldrassil.lua
+zones\TheBarrens.lua
+zones\TheHinterlands.lua
+zones\ThousandNeedles.lua
+zones\TirisfalGlades.lua
+zones\UngoroCrater.lua
+zones\WesternPlaguelands.lua
+zones\Westfall.lua
+zones\Wetlands.lua
+zones\Winterspring.lua
 zones\ZephrasIsle.lua

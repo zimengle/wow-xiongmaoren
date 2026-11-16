@@ -1,6 +1,13 @@
 local _, ns = ...
 if ns.Build.GetID() == "classic-infinite" then
     local adapter = ns.ChatBarAdapterBase.New("classic-infinite", "无限（Forever）")
+    function adapter:IsChatMessagingLocked()
+        local locked = _G.C_ChatInfo and _G.C_ChatInfo.InChatMessagingLockdown
+        if type(locked) ~= "function" then return false end
+        local ok, value = pcall(locked)
+        return not ok or value ~= false
+    end
+    ns.ChatBarInput.Install(adapter)
     local OpenAtlasLoot = adapter.OpenAtlasLoot
     adapter.lootLabel = "无限副本手册"
 

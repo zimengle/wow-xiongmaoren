@@ -116,6 +116,33 @@ end
 
 ns.ExtraToolsEllesmereMinimapIntegration = Integration
 
+-- Only the explicit RS power-off action changes the active Elles MicroBar.
+function ns.RestoreEllesmereMicroMenu()
+    local eui = _G.EllesmereUI
+    local module = eui and eui._ModuleNS and eui._ModuleNS.EllesmereUIActionBars
+    local bars = module and module.EAB
+    local profile = bars and bars.db and bars.db.profile
+    local menu = profile and profile.bars and profile.bars.MicroBar
+    if not (menu and eui.VisFullCopy and bars.VisibilityCompat and bars.VisibilityCompat.ApplyMode
+        and bars.RefreshRuntimeVisibility and bars.RefreshMouseover and bars.ApplyCombatVisibility) then return end
+
+    eui.VisFullCopy(menu, { barVisibility = "always" }, "barVisibility", nil, bars.VisibilityCompat.ApplyMode)
+    if menu.visibilityOverride then menu.visibilityOverride = "always" end
+    menu.enabled = true
+    if (menu._savedBarAlpha or menu.mouseoverAlpha) == 0 then
+        menu._savedBarAlpha = nil
+        menu.mouseoverAlpha = 1
+    end
+    -- If both addons hid the container, Elles may remember an already-hidden frame.
+    local frame = _G.MicroMenuContainer
+    local inPetBattle = _G.C_PetBattles and _G.C_PetBattles.IsInBattle and _G.C_PetBattles.IsInBattle()
+    if frame and not frame:IsShown() and not inPetBattle
+        and not (_G.UnitHasVehicleUI and _G.UnitHasVehicleUI("player")) then frame:Show() end
+    bars:RefreshRuntimeVisibility()
+    bars:RefreshMouseover()
+    bars:ApplyCombatVisibility()
+end
+
 -- Settings shortcut only. EUI owns the profile and the saved native direction.
 -- Resolve the current profile on every interaction; never seed a second RS value.
 local BagSort = {}

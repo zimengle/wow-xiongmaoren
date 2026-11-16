@@ -412,9 +412,33 @@ function Definition:GetVisibleItems(group, preview)
     return items
 end
 
+-- The other weapon oils (shadow, frost and blessed) are single-use stackable items.
+local CHARGED_OILS = {
+    [20744]=true, [20745]=true, [20746]=true, [20747]=true, [20748]=true,
+    [20749]=true, [20750]=true, [22521]=true, [22522]=true,
+}
+
+local function PrepareOilClick(button, mouseButton, down)
+    if (mouseButton ~= "LeftButton" and mouseButton ~= "RightButton") or Adapter:IsInCombat() then return end
+    if down ~= nil and down ~= (button:GetAttribute("useOnKeyDown") == true) then return end
+    local mainHand = mouseButton == "LeftButton"
+    local attribute = mainHand and "macrotext1" or "macrotext2"
+    button:SetAttribute(attribute, nil)
+    local info = button.customInfo
+    if not info then return end
+    local bag, slot = Adapter:FindOilSlot(button.oilModule, info.itemID)
+    if bag then
+        button:SetAttribute(attribute, "/stopmacro [combat]\n/use " .. bag .. " " .. slot .. "\n/use " .. (mainHand and 16 or 17))
+    end
+end
+
 function Definition:BindButton(button, info, previewOnly, categoryItem)
     if Adapter:IsInCombat() then return false end
     button.customInfo = info
+    if button.oilModule then
+        button:SetScript("PreClick", nil)
+        button.oilModule = nil
+    end
     button.isCategoryItem = categoryItem == true
     Call(button, "SetAttribute", "type1", nil)
     Call(button, "SetAttribute", "macrotext1", nil)
@@ -424,7 +448,13 @@ function Definition:BindButton(button, info, previewOnly, categoryItem)
     if previewOnly then return true end
     local leftMacro = GetClickMacro(info.clicks and info.clicks.left)
     local rightMacro = GetClickMacro(info.clicks and info.clicks.right)
-    if info.poisonFamily then
+    if CHARGED_OILS[info.itemID] then
+        button.oilModule = self
+        button:SetScript("PreClick", PrepareOilClick)
+        button:SetAttribute("type1", "macro")
+        button:SetAttribute("type2", "macro")
+        leftMacro, rightMacro = nil, nil
+    elseif info.kind == "weaponConsumable" then
         leftMacro = "/use item:" .. info.itemID .. "\n/use 16"
         rightMacro = "/use item:" .. info.itemID .. "\n/use 17"
     end
@@ -432,7 +462,7 @@ function Definition:BindButton(button, info, previewOnly, categoryItem)
         leftMacro = "/use [@target,help,nodead][@player] item:" .. info.itemID
         rightMacro = "/use [@player] item:" .. info.itemID
     end
-    if categoryItem and not info.poisonFamily then rightMacro = nil end
+    if categoryItem and info.kind ~= "weaponConsumable" then rightMacro = nil end
     if leftMacro then
         Call(button, "SetAttribute", "type1", "macro")
         Call(button, "SetAttribute", "macrotext1", leftMacro)

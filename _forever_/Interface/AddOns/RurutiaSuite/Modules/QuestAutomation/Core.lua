@@ -5,7 +5,7 @@ local Definition = {
     activationGate = "LootTools",
     databaseName = "QuestAutomation",
     defaults = { profile = { enabled = false, autoAccept = true, autoTurnIn = true,
-        externalAutomation = {rxp=false, questieAccept=false, questieTurnIn=false, ellesAccept=false, ellesTurnIn=false},
+        externalAutomation = {rxp=false},
         completionSound = "work", completionCooldown = 10 } },
 }
 local Data, Sound = ns.QuestAutomationData, ns.QuestAutomationSoundAdapter
@@ -26,17 +26,18 @@ function Definition:GetExternalAutomationState(key)
     return providers and providers:GetState(key) or {available=false, enabled=false}
 end
 
-function Definition:ApplyExternalAutomation()
+function Definition:ApplyRXPPreference()
     if not self.runtimeActive or not ns.QuestAutomationProviders then return end
     local profile = self.db.profile
-    if self.externalAppliedProfile ~= profile then
-        self.externalAppliedProfile, self.externalApplied = profile, {}
+    if self.rxpAppliedProfile == profile then return end
+    local settings = profile.externalAutomation
+    if settings then
+        -- Retire preferences from 4.8.5 without writing them to another addon.
+        settings.questieAccept, settings.questieTurnIn = nil, nil
+        settings.ellesAccept, settings.ellesTurnIn = nil, nil
     end
-    for _, option in ipairs(ns.QuestAutomationProviders.options) do
-        if not self.externalApplied[option.key] then
-            local desired = profile.externalAutomation and profile.externalAutomation[option.key] == true
-            if ns.QuestAutomationProviders:SetEnabled(option.key, desired) then self.externalApplied[option.key] = true end
-        end
+    if ns.QuestAutomationProviders:SetEnabled("rxp", settings and settings.rxp == true) then
+        self.rxpAppliedProfile = profile
     end
 end
 
@@ -44,10 +45,12 @@ function Definition:SetExternalAutomationEnabled(key, value)
     if not self.runtimeActive or not ns.QuestAutomationProviders then return false end
     local ok, reason = ns.QuestAutomationProviders:SetEnabled(key, value)
     if not ok then return false, reason end
-    self.db.profile.externalAutomation = self.db.profile.externalAutomation or {}
-    self.db.profile.externalAutomation[key] = value == true
-    self.externalApplied = self.externalApplied or {}
-    self.externalApplied[key] = true
+    if key == "rxp" then
+        local profile = self.db.profile
+        profile.externalAutomation = profile.externalAutomation or {}
+        profile.externalAutomation.rxp = value == true
+        self.rxpAppliedProfile = profile
+    end
     self:Refresh()
     return true
 end
@@ -167,7 +170,7 @@ function Definition:SetCompletionSound(value)
 end
 
 function Definition:OnQuestCompletionEvent(event, questID)
-    if event == "PLAYER_ENTERING_WORLD" then self:ApplyExternalAutomation() end
+    if event == "PLAYER_ENTERING_WORLD" then self:ApplyRXPPreference() end
     local states, scratch = self.questCompletionStates, self.questCompletionScratch
     if not states then return end
     if event == "QUEST_REMOVED" then
@@ -345,8 +348,12 @@ end
 function Definition:BindProvider()
     local tracker = ns.QuestAutomationTrackerIntegration
     if tracker then tracker:Bind(self) end
-    if not ns.EllesmereQuestAutomationIntegration then return end
     local provider = _G.EllesmereUIQuestTracker
+    if provider and type(provider.InitCustom) == "function" then
+        self:HookSecureFunction(provider, "InitCustom", function(owner) owner:Refresh() end,
+            "QuestAutomation:EllesCustomTracker")
+    end
+    if not ns.EllesmereQuestAutomationIntegration then return end
     if Loaded("EllesmereUIQuestTracker") and type(provider) == "table"
         and type(provider.Set) == "function" then
         self:HookSecureFunction(provider, "Set", function(owner) owner:Refresh() end,
@@ -355,8 +362,7 @@ function Definition:BindProvider()
 end
 
 function Definition:ADDON_LOADED(_, name)
-    local providers = ns.QuestAutomationProviders
-    if providers and providers:IsRelevantAddon(name) then self:ApplyExternalAutomation() end
+    if name == "RXPGuides" then self:ApplyRXPPreference() end
     local tracker = ns.QuestAutomationTrackerIntegration
     if name == "NDui" or name == "EllesmereUIQuestTracker" or name == "Blizzard_WorldMap"
         or name == "Blizzard_ObjectiveTracker" or (tracker and name == tracker.addonName) then
@@ -367,9 +373,9 @@ end
 
 function Definition:Enable()
     self.runtimeActive = true
-    self.externalAppliedProfile, self.externalApplied = nil, nil
+    self.rxpAppliedProfile = nil
     self:RegisterEvent("PLAYER_ENTERING_WORLD", self.OnQuestCompletionEvent)
-    self:ApplyExternalAutomation()
+    self:ApplyRXPPreference()
     self:RegisterEvent("ADDON_LOADED", self.ADDON_LOADED)
     self:BindProvider()
     self:Refresh()
@@ -377,7 +383,7 @@ function Definition:Enable()
 end
 
 function Definition:Disable()
-    self.externalAppliedProfile, self.externalApplied = nil, nil
+    self.rxpAppliedProfile = nil
     self:StopCompletionSound()
     self.lastCompletionSoundTime = nil
     self.questCompletionStates, self.questCompletionScratch, self.completionReady = nil, nil, nil

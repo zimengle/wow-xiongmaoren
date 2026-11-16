@@ -249,15 +249,28 @@ end
 
 -- Nameplates ----------------------------------------------------------------------
 
+-- CurseForge comment "no stealth rogue alert?": a rogue who stealths loses his
+-- nameplate at once, and the cast often arrives after it, on a token that points at
+-- nobody any more. The name read on each nameplate is kept, and for a moment after the
+-- nameplate goes, a cast on that token is put down to its last enemy.
+Spy.PlateNames = {}
+Spy.GonePlates = {}
+local GONE_WINDOW = 1.5
+
 Spy.NamePlateEvent = Guard("NamePlateEvent", function(self, event, unit)
 	if type(unit) ~= "string" then
 		return
 	end
 	if event == "NAME_PLATE_UNIT_ADDED" then
 		Spy.NamePlateUnits[unit] = true
-		Spy:ScanUnit(unit)
+		Spy.GonePlates[unit] = nil
+		Spy.PlateNames[unit] = Spy:ScanUnit(unit)
 	else
 		Spy.NamePlateUnits[unit] = nil
+		if Spy.PlateNames[unit] then
+			Spy.GonePlates[unit] = { name = Spy.PlateNames[unit], at = GetTime() }
+		end
+		Spy.PlateNames[unit] = nil
 	end
 end)
 
@@ -277,6 +290,7 @@ Spy.ScanVisibleUnits = Guard("ScanVisibleUnits", function(self)
 	for unit in pairs(Spy.NamePlateUnits) do
 		if Spy:Readable(UnitExists(unit)) then
 			local name = Spy:ScanUnit(unit)
+			Spy.PlateNames[unit] = name
 			if name then Spy:NoteTargetingMe(unit, name) end
 		else
 			Spy.NamePlateUnits[unit] = nil
@@ -335,11 +349,20 @@ Spy.SpellCastEvent = Guard("SpellCastEvent", function(self, event, unit, castGUI
 		return
 	end
 	local name = Spy:ScanUnit(unit)
+	local gone = false
 	if not name then
-		return
+		local last = Spy.GonePlates[unit]
+		if not (last and GetTime() - last.at <= GONE_WINDOW) then
+			return
+		end
+		name, gone = last.name, true
 	end
+	local rawSpellID = spellID
 	spellID = Spy:Readable(spellID)
 	if type(spellID) ~= "number" then
+		if Spy:IsSecret(rawSpellID) then
+			Spy.ForeverStats.hiddenCasts = (Spy.ForeverStats.hiddenCasts or 0) + 1
+		end
 		return
 	end
 	-- The same cast arrives once per token pointing at the caster.
@@ -350,7 +373,9 @@ Spy.SpellCastEvent = Guard("SpellCastEvent", function(self, event, unit, castGUI
 	end
 	Spy.RecentCasts[key] = now
 	Spy.ForeverStats.casts = Spy.ForeverStats.casts + 1
-	Spy:NoteTargetingMe(unit, name)
+	if not gone then
+		Spy:NoteTargetingMe(unit, name)
+	end
 
 	-- Classic learnt the level of a skull from the abilities in the combat log.
 	local playerData = SpyPerCharDB.PlayerData[name]
@@ -364,7 +389,10 @@ Spy.SpellCastEvent = Guard("SpellCastEvent", function(self, event, unit, castGUI
 	local kind = Spy:StealthKind(spellID)
 	if kind then
 		Spy.ForeverStats.stealth = Spy.ForeverStats.stealth + 1
-		Spy.LastStealth = { name = name, spellID = spellID, when = time() }
+		if gone then
+			Spy.ForeverStats.goneStealth = (Spy.ForeverStats.goneStealth or 0) + 1
+		end
+		Spy.LastStealth = { name = name, spellID = spellID, when = time(), gone = gone }
 		if kind == "prowl" then
 			Spy:AlertProwlPlayer(name)
 		else
@@ -1146,8 +1174,8 @@ function Spy:PrintDebug(lines)
 		countKeys(Spy.NearbyList), countKeys(Spy.ActiveList), countKeys(Spy.LastHourList),
 		countKeys(SpyPerCharDB.KOSData), countKeys(SpyPerCharDB.PlayerData)))
 	local stats = Spy.ForeverStats
-	out(("Seen: %d unit reads, %d enemy casts, %d stealth alerts, %d kills, %d deaths counted"):format(
-		stats.scans, stats.casts, stats.stealth, stats.kills, stats.deaths))
+	out(("Seen: %d unit reads, %d enemy casts, %d stealth alerts (%d after the nameplate was gone), %d casts with a hidden spell, %d kills, %d deaths counted"):format(
+		stats.scans, stats.casts, stats.stealth, stats.goneStealth or 0, stats.hiddenCasts or 0, stats.kills, stats.deaths))
 	local restricted = try(C_Secrets and C_Secrets.HasSecretRestrictions)
 	out(("Secret restrictions: %s | target: %s"):format(yesNo(restricted), Spy:DescribeUnit("target")))
 	if Spy.LastStealth then
@@ -1236,6 +1264,13 @@ function Spy:PrintDebug(lines)
 	if Spy.AnnounceReport then
 		out(Spy:AnnounceReport())
 	end
+	if Spy.TargetsReport then
+		out(Spy:TargetsReport())
+	end
+	if Spy.TagsReport then
+		out(Spy:TagsReport())
+		if Spy.NotesReport then out(Spy:NotesReport()) end
+	end
 	if Spy.OptionsWindowReport then
 		out(Spy:OptionsWindowReport())
 	end
@@ -1297,6 +1332,44 @@ end
 -- refused anything with a space: "Fetto Vandike" now finds "Fetto-Vandike". A name Spy
 -- already knows keeps its exact spelling; otherwise each part is capitalised like the
 -- game does.
+-- Case of a whole UTF-8 letter. CurseForge comment: "/spy kos имя фамилия" added
+-- "мя амилия": the first letter was cut at its first byte, and a Cyrillic letter takes
+-- two. string.upper/lower only know ASCII, so Cyrillic and accented Latin letters are
+-- mapped by hand.
+local function utf8Lower(s)
+	s = s:lower()
+	s = s:gsub("\208([\144-\159])", function(c) return "\208" .. string.char(c:byte() + 32) end) -- А-П -> а-п
+	s = s:gsub("\208([\160-\175])", function(c) return "\209" .. string.char(c:byte() - 32) end) -- Р-Я -> р-я
+	s = s:gsub("\208([\128-\143])", function(c) return "\209" .. string.char(c:byte() + 16) end) -- Ѐ-Џ (Ё) -> ѐ-џ
+	s = s:gsub("\195([\128-\158])", function(c)                                                   -- À-Þ -> à-þ
+		if c == "\151" then return "\195" .. c end -- ×
+		return "\195" .. string.char(c:byte() + 32)
+	end)
+	return s
+end
+
+local function utf8Upper(s)
+	s = s:upper()
+	s = s:gsub("\208([\176-\191])", function(c) return "\208" .. string.char(c:byte() - 32) end) -- а-п -> А-П
+	s = s:gsub("\209([\128-\143])", function(c) return "\208" .. string.char(c:byte() + 32) end) -- р-я -> Р-Я
+	s = s:gsub("\209([\144-\159])", function(c) return "\208" .. string.char(c:byte() - 16) end) -- ѐ-џ (ё) -> Ѐ-Џ
+	s = s:gsub("\195([\160-\190])", function(c)                                                   -- à-þ -> À-Þ
+		if c == "\183" then return "\195" .. c end -- ÷
+		return "\195" .. string.char(c:byte() - 32)
+	end)
+	return s
+end
+
+-- "имя" -> "Имя": the first whole letter up, the rest down.
+local function capitalise(part)
+	local first, rest = part:match("^([%z\1-\127\194-\244][\128-\191]*)(.*)$")
+	if not first then
+		return part
+	end
+	return utf8Upper(first) .. utf8Lower(rest)
+end
+Spy.ForeverUtf8Lower, Spy.ForeverCapitalise = utf8Lower, capitalise
+
 function Spy:TypedPlayerName(value)
 	value = strtrim(tostring(value or "")):gsub("%s+", " ")
 	if value == "" or value:find("%d") then
@@ -1307,17 +1380,17 @@ function Spy:TypedPlayerName(value)
 	if hyphens > 1 or key:find("^%-") or key:find("%-$") then
 		return nil
 	end
-	local lower = key:lower()
+	local lower = utf8Lower(key)
 	for _, list in ipairs({ SpyPerCharDB.KOSData, SpyPerCharDB.IgnoreData, SpyPerCharDB.PlayerData }) do
 		for known in pairs(list or {}) do
-			if type(known) == "string" and known:lower() == lower then
+			if type(known) == "string" and utf8Lower(known) == lower then
 				return known
 			end
 		end
 	end
 	local parts = {}
 	for part in key:gmatch("[^%-]+") do
-		parts[#parts + 1] = part:sub(1, 1):upper() .. part:sub(2):lower()
+		parts[#parts + 1] = capitalise(part)
 	end
 	return table.concat(parts, "-")
 end
@@ -1661,6 +1734,11 @@ local function buildRowMenu(root, player)
 		announce:CreateButton(L["RaidDropDownMenu"], function() Spy:AnnouncePlayer(player, "RAID") end)
 		announce:CreateButton(L["GuildDropDownMenu"], function() Spy:AnnouncePlayer(player, "GUILD") end)
 		announce:CreateButton(L["LocalDefenseDropDownMenu"], function() Spy:AnnouncePlayer(player, "LOCAL") end)
+		announce:CreateButton(L["GeneralDropDownMenu"], function() Spy:AnnouncePlayer(player, "GENERAL") end)
+		local custom = Spy.CustomChannelSetting and Spy:CustomChannelSetting()
+		if custom then
+			announce:CreateButton(L["CustomChannelDropDownMenu"]:format(custom), function() Spy:AnnouncePlayer(player, "CUSTOM") end)
+		end
 	end
 	if not SpyPerCharDB.KOSData[player] then
 		root:CreateButton(L["AddToKOSList"], function() Spy:ToggleKOSPlayer(true, player) end)
@@ -1682,6 +1760,18 @@ local function buildRowMenu(root, player)
 		end
 		reasons:CreateButton(L["KOSReasonClear"], function() Spy:SetKOSReason(player, nil) end)
 		root:CreateButton(L["RemoveFromKOSList"], function() Spy:ToggleKOSPlayer(false, player) end)
+	end
+	-- Player tags (Tags.lua): do not kill / fair fight.
+	if Spy.SetPlayerTag then
+		for _, tag in ipairs({ "spare", "rival" }) do
+			root:CreateCheckbox(L["Tag_" .. tag], function() return Spy:PlayerTag(player) == tag end, function()
+				Spy:SetPlayerTag(player, Spy:PlayerTag(player) ~= tag and tag or nil)
+			end)
+		end
+	end
+	-- The player's note (Notes.lua).
+	if Spy.EditPlayerNote then
+		root:CreateButton(Spy:PlayerNote(player) and L["NoteEditDropDownMenu"] or L["NoteDropDownMenu"], function() Spy:EditPlayerNote(player) end)
 	end
 	if not SpyPerCharDB.IgnoreData[player] then
 		root:CreateButton(L["AddToIgnoreList"], function() Spy:ToggleIgnorePlayer(true, player) end)

@@ -105,6 +105,69 @@ function Base:GetItemCount(itemID, countCharges)
     return tonumber(count) or 0
 end
 
+-- Read the instance tooltip: item links and item IDs can show the full bottle instead.
+local function OilCharges(text)
+    if not text then return end
+    if text == _G.ITEM_SPELL_CHARGES_NONE then return 0 end
+    local count = tonumber(text:match("%d+"))
+    if not count or not _G.ITEM_SPELL_CHARGES then return end
+    local label = string.format(_G.ITEM_SPELL_CHARGES, count)
+    if label == text then return count end
+    local prefix, forms, suffix = label:match("^(.-)|4([^;]+);(.*)$")
+    if forms then
+        for form in forms:gmatch("[^:]+") do
+            if prefix .. form .. suffix == text then return count end
+        end
+    end
+end
+
+local function HideOilScanner(frame) frame:Hide() end
+
+local function ReadOilCharges(module, bag, slot)
+    local scanner = module.oilScanner
+    if not scanner then
+        scanner = module:CreateFrame("GameTooltip", "RSConsumableOilScanner", _G.UIParent,
+            "GameTooltipTemplate", HideOilScanner, "ConsumableBar oil charges")
+        module.oilScanner = scanner
+    end
+    scanner:SetOwner(_G.UIParent, "ANCHOR_NONE")
+    scanner:ClearLines()
+    scanner:SetBagItem(bag, slot)
+    local charges
+    for index = 2, scanner:NumLines() do
+        local line = _G["RSConsumableOilScannerTextLeft" .. index]
+        charges = line and OilCharges(line:GetText())
+        if charges ~= nil then break end
+    end
+    scanner:Hide()
+    return charges
+end
+
+function Base:FindOilSlot(module, itemID)
+    local bags = _G.C_Container
+    if not bags or not bags.GetContainerItemID then return end
+    local bestBag, bestSlot, bestCharges
+    for bag = 0, _G.NUM_BAG_SLOTS or 4 do
+        for slot = 1, bags.GetContainerNumSlots(bag) do
+            if bags.GetContainerItemID(bag, slot) == itemID then
+                local info = bags.GetContainerItemInfo(bag, slot)
+                if not info or info.isLocked then return end
+                if bestBag == nil then
+                    bestBag, bestSlot = bag, slot
+                else
+                    bestCharges = bestCharges or ReadOilCharges(module, bestBag, bestSlot)
+                    local charges = ReadOilCharges(module, bag, slot)
+                    if not bestCharges or not charges then return end
+                    if charges > 0 and (bestCharges == 0 or charges < bestCharges) then
+                        bestBag, bestSlot, bestCharges = bag, slot, charges
+                    end
+                end
+            end
+        end
+    end
+    if bestCharges ~= 0 then return bestBag, bestSlot end
+end
+
 function Base:GetItemName(itemID)
     local items = _G.C_Item
     local name = items and SafeCall(items.GetItemInfo, itemID)

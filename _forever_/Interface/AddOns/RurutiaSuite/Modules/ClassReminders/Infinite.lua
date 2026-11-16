@@ -9,21 +9,21 @@ end
 
 local Definition = {defaultEnabled = true, defaults = {profile = {
     classEnabled = true, generalEnabled = false, intellect = true, frostArmor = true, hideResting = true, arcaneBlast = true,
-    fortitude = true, innerFire = true, wild = true, righteousFury = true, warlockArmor = true, elementalShield = true,
+    fortitude = true, innerFire = true, wild = true, righteousFury = true, warlockArmor = true, elementalShield = false,
 }}}
 local ClassRows = {
     MAGE = {
         {setting = "intellect", label = "奥术智慧", key = "class.intellect", order = 10,
             spellID = 1459, members = {{id = 1459, level = 1}, {id = 23028, level = 56}}, text = "智力没了"},
         {setting = "frostArmor", label = "护甲提醒", key = "class.frostArmor", order = 20,
-            spellID = 168, members = {{id = 168, level = 1}, {id = 7302, level = 30},
-                {id = 6117, level = 34}, {id = 428741, level = 1}}, text = "护甲没了"},
+            spellID = 168, members = {{id = 168, label = "霜甲术", level = 1}, {id = 7302, label = "冰甲术", level = 30},
+                {id = 6117, label = "魔甲术", level = 34}, {id = 428741, label = "熔岩护甲", level = 1}}, text = "护甲没了"},
     },
     PRIEST = {
         {setting = "fortitude", label = "耐力提醒", key = "class.fortitude", order = 10,
             spellID = 1243, members = {{id = 1243, level = 1}, {id = 21562, level = 48}}, text = "耐力没了"},
         {setting = "innerFire", label = "心灵之火", key = "class.innerFire", order = 20,
-            spellID = 588, members = {{id = 588, level = 12}}, text = "心灵之火没了"},
+            spellID = 588, members = {{id = 588, level = 12}}, text = "心火没了"},
     },
     PALADIN = {
         {setting = "righteousFury", label = "正义之怒", key = "class.righteousFury", order = 10,
@@ -35,8 +35,8 @@ local ClassRows = {
     },
     WARLOCK = {
         {setting = "warlockArmor", label = "护甲提醒", key = "class.warlockArmor", order = 10,
-            spellID = 687, members = {{id = 687, level = 1}, {id = 706, level = 20},
-                {id = 403619, level = 1}}, text = "护甲没了"},
+            spellID = 687, members = {{id = 687, label = "恶魔皮肤", level = 1}, {id = 706, label = "魔甲术", level = 20},
+                {id = 403619, label = "邪甲术", level = 1}}, text = "护甲没了"},
     },
     SHAMAN = {
         {setting = "elementalShield", label = "元素护盾", key = "class.elementalShield", order = 10,
@@ -211,11 +211,27 @@ function Definition:Initialize()
     local class = Adapter:PlayerClass()
     self.buffRows = ClassRows[class] or {}
     self.isMage = class == "MAGE"
-    local options = {}
-    for _, spec in ipairs(self.buffRows) do options[#options + 1] = {spec.setting, spec.label} end
-    if #options > 0 then options[#options + 1] = {"hideResting", "休息时不提醒"} end
-    if self.isMage then options[#options + 1] = {"arcaneBlast", "奥冲层数"} end
-    Adapter.settingOptions = options
+    self.settingGroups = {}
+    self.armorOwners = {}
+    self.localSettings = {hideResting = true, arcaneBlast = self.isMage}
+    for _, entry in ipairs({
+        {"MAGE", "法师"}, {"WARLOCK", "术士"}, {"PRIEST", "牧师"},
+        {"PALADIN", "圣骑士"}, {"DRUID", "德鲁伊"}, {"SHAMAN", "萨满"},
+    }) do
+        local classKey, options = entry[1], {}
+        for _, spec in ipairs(ClassRows[classKey]) do
+            local armor = spec.setting == "frostArmor" or spec.setting == "warlockArmor"
+            options[#options + 1] = {spec.setting, spec.label, armor and spec.members or nil}
+            if armor then
+                for _, member in ipairs(spec.members) do self.armorOwners[member.id] = classKey end
+                if classKey == class then self.armorRow = spec end
+            end
+            if classKey == class then self.localSettings[spec.setting] = true end
+        end
+        if classKey == "MAGE" then options[#options + 1] = {"arcaneBlast", "奥冲层数"} end
+        self.settingGroups[#self.settingGroups + 1] = {entry[2], options}
+    end
+    table.insert(self.settingGroups, 1, {"通用", {{"hideResting", "休息时不提醒"}}})
     self:MigratePageSwitches()
     self.states = nil
     if #self.buffRows > 0 then ns.CenterTextGroup:RegisterSource("class", self) end
@@ -248,14 +264,30 @@ function Definition:SetPageEnabled(key, value)
     return ok, reason
 end
 
+function Definition:IsArmorSpellEnabled(id)
+    local disabled = self.db.profile.disabledArmorSpells
+    return type(disabled) ~= "table" or disabled[tostring(id)] ~= true
+end
+
+function Definition:SetArmorSpellEnabled(id, enabled)
+    local owner = self.armorOwners[id]
+    if Adapter:IsInCombat() or not owner then return false end
+    local profile = self.db.profile
+    if type(profile.disabledArmorSpells) ~= "table" then profile.disabledArmorSpells = {} end
+    profile.disabledArmorSpells[tostring(id)] = not enabled or nil
+    if owner == Adapter:PlayerClass() and self:IsEnabled() then self:Restart() end
+    return true
+end
+
 function Definition:SetSetting(key, value)
     if Adapter:IsInCombat() or self.db.profile[key] == nil then return false end
     self.db.profile[key] = value == true
-    if self:IsEnabled() then self:Restart() end
+    if self.localSettings[key] and self:IsEnabled() then self:Restart() end
     return true
 end
 function Definition:RestorePageDefaults(key)
     if Adapter:IsInCombat() or (key ~= "classEnabled" and key ~= "generalEnabled") then return false end
+    if key == "classEnabled" then self.db.profile.disabledArmorSpells = nil end
     for option, value in pairs(Definition.defaults.profile) do
         if option ~= "classEnabled" and option ~= "generalEnabled"
             and ((key == "generalEnabled") == (option == "feast")) then
@@ -267,7 +299,7 @@ end
 
 function Definition:IsWatching()
     return self.active == true and ns.CenterTextGroup.active == true
-        and not Adapter:IsInCombat() and not Adapter:IsPlayerDeadOrGhost()
+        and not Adapter:IsInCombat() and not Adapter:IsPlayerDeadOrGhost() and not Adapter:IsOnTaxi()
         and not (self.db.profile.hideResting and Adapter:IsResting())
 end
 
@@ -283,14 +315,14 @@ function Definition:QueueRefresh()
 end
 
 function Definition:Render()
-    if not self.states then self.states = Adapter:BuildStates(self.buffRows) end
+    if not self.states then self.states = Adapter:BuildStates(self.buffRows, self.armorRow, self.selectedArmor) end
     local preview = self.preview == true
     if not preview then Adapter:ReadAuras(self.states) end
     for index = 1, #self.buffRows do
         local spec, state = self.buffRows[index], self.states[index]
         local missing = self.db.profile[spec.setting] == true
-            and (preview or (state.known and state.has == false))
-        View:RenderRow(self, spec.key, spec.order, spec.text, missing and (state.iconID or spec.spellID) or nil)
+            and ((preview and state.previewID ~= nil) or (state.known and state.has == false))
+        View:RenderRow(self, spec.key, spec.order, spec.text, missing and (state.iconID or state.previewID) or nil)
     end
 end
 
@@ -321,9 +353,21 @@ end
 
 function Definition:StartWork()
     self:ApplyBlastPosition()
+    self.selectedArmor = nil
+    if self.armorRow then
+        self.selectedArmor = {}
+        for _, member in ipairs(self.armorRow.members) do
+            if self:IsArmorSpellEnabled(member.id) then
+                self.selectedArmor[#self.selectedArmor + 1] = member
+            end
+        end
+    end
     self.watchBuffs = false
     for _, spec in ipairs(self.buffRows) do
-        if self.db.profile[spec.setting] then self.watchBuffs = true; break end
+        if self.db.profile[spec.setting] and (spec ~= self.armorRow or #self.selectedArmor > 0) then
+            self.watchBuffs = true
+            break
+        end
     end
     local watchBlast = self.isMage and self.db.profile.arcaneBlast
     self.active = self.db.profile.classEnabled ~= false and (self.watchBuffs or watchBlast)
@@ -333,6 +377,9 @@ function Definition:StartWork()
     end
     self:RegisterEvent("PLAYER_DEAD", self.OnContextChanged)
     if self.watchBuffs then
+        -- Control events can precede the taxi flag transition. Sample it after the event.
+        self:RegisterEvent("PLAYER_CONTROL_LOST", self.QueueRefresh)
+        self:RegisterEvent("PLAYER_CONTROL_GAINED", self.QueueRefresh)
         self:RegisterEvent("PLAYER_ALIVE", self.OnContextChanged)
         self:RegisterEvent("PLAYER_UNGHOST", self.OnContextChanged)
         if self.buffRows[1] and self.buffRows[1].requiredTalent then

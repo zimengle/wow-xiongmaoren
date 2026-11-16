@@ -45,6 +45,27 @@ local function RegisterRestoreDefaults(page, module, key, title)
     })
 end
 
+local function AddArmorOptions(row, module, key, members)
+    local rows = {}
+    for _, member in ipairs(members) do
+        local id = member.id
+        local name = module.adapter:GetSpellName(id) or member.label
+        local icon = module.adapter:GetTexture(id) or 134400
+        rows[#rows + 1] = {
+            kind = "checkbox", key = tostring(id), text = "|T" .. icon .. ":16:16:0:0:64:64:5:59:5:59|t " .. name,
+            getValue = function() return module:IsArmorSpellEnabled(id) end,
+            getEnabled = function() return CanEdit(module) end,
+            onChange = function(control, value)
+                if not module:SetArmorSpellEnabled(id, value) then
+                    control:SetValue(module:IsArmorSpellEnabled(id), true)
+                end
+            end,
+        }
+    end
+    row:Popover(key .. "Spells", {attachTo = key, title = "护甲法术", rows = rows,
+        tooltip = "设置护甲提醒法术"})
+end
+
 local function BuildClassPage(context, module)
     if context.classReminderPage then
         context.classReminderPage:Refresh("show")
@@ -55,26 +76,27 @@ local function BuildClassPage(context, module)
     local shared = ns.CenterTextSettings.Build(page, module.adapter, { includeMove = true })
     if shared then shared.RegisterResetPosition({ columns = 1 }) end
     RegisterRestoreDefaults(page, module, "classEnabled", "职业提醒")
-    local section = page:Section("职业提醒")
-    local row = section:QuadRow()
-    local options = module.adapter.settingOptions or {
-        { "weapon", "主手附魔" },
-        { "beacon", "道标提醒" },
-    }
-    for _, spec in ipairs(options) do
-        local key = spec[1]
-        if key ~= "feast" then
-            row:Checkbox(key, {
-                text = spec[2],
-                value = module.db.profile[key],
-                getValue = function() return module.db.profile[key] end,
-                getEnabled = function() return CanEdit(module) end,
-                onChange = function(control, value)
-                    local ok = module:SetSetting(key, value)
-                    if not ok then control:SetValue(module.db.profile[key], true) end
-                    return ok
-                end,
-            })
+    local groups = module.settingGroups or {{"职业提醒", module.adapter.settingOptions or {
+        {"weapon", "主手附魔"}, {"beacon", "道标提醒"},
+    }}}
+    for _, group in ipairs(groups) do
+        local row = page:Section(group[1]):QuadRow()
+        for _, spec in ipairs(group[2]) do
+            local key = spec[1]
+            if key ~= "feast" then
+                row:Checkbox(key, {
+                    text = spec[2],
+                    value = module.db.profile[key],
+                    getValue = function() return module.db.profile[key] end,
+                    getEnabled = function() return CanEdit(module) end,
+                    onChange = function(control, value)
+                        local ok = module:SetSetting(key, value)
+                        if not ok then control:SetValue(module.db.profile[key], true) end
+                        return ok
+                    end,
+                })
+                if spec[3] then AddArmorOptions(row, module, key, spec[3]) end
+            end
         end
     end
     page:Finish()

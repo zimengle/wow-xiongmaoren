@@ -4,7 +4,7 @@
 ## Notes: RurutiaSuite 露露的工具箱。一站式轻量工具箱，适配多种主流界面，提供很多便捷功能和额外增强。
 ## Notes-zhCN: RurutiaSuite 露露的工具箱。一站式轻量工具箱，适配多种主流界面，提供很多便捷功能和额外增强。
 ## Author: Rurutia
-## Version: 4.8.5
+## Version: 4.8.8
 ## X-ModUs-UID: 88
 ## X-License: All Rights Reserved
 ## SavedVariables: RurutiaSuiteDB
@@ -110,6 +110,7 @@ Core\Presentation\Transfer.lua
 Modules\AddonProfile\UI.lua
 Modules\AddonProfile\Core.lua
 Modules\ChatBar\Data.lua
+Modules\ChatBar\Input.lua
 Builds\ClassicFamily\Common\Adapters\ChatBar.lua
 Builds\ClassicFamily\Era\Adapters\ChatBar.lua
 Builds\ClassicFamily\Infinite\Adapters\ChatBar.lua

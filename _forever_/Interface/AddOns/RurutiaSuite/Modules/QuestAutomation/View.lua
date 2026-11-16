@@ -29,9 +29,42 @@ local function BindToggleClicks(button, module)
     end)
 end
 
+local EllesHeader = { buttonText = "交接", textHitWidth = 32 }
+
+function EllesHeader:Place(button, header)
+    button:SetPoint("LEFT", header.text, "RIGHT", 6, 0)
+end
+
+local function FindEllesTitle(...)
+    for index = 1, select("#", ...) do
+        local child = select(index, ...)
+        if child.text and child.count and child.toggle and child:IsObjectType("Button") then
+            return child
+        end
+    end
+end
+
+local function CustomEllesTitle(module, frame)
+    if not frame then return end
+    module:HookFrameScript(frame, "OnShow", RefreshTrackerVisibility)
+    module:HookFrameScript(frame, "OnHide", RefreshTrackerVisibility)
+    if EllesHeader.frame ~= frame or not EllesHeader.title then
+        EllesHeader.frame = frame
+        EllesHeader.title = FindEllesTitle(frame:GetChildren())
+    end
+    local title = EllesHeader.title
+    if title then
+        module:HookFrameScript(title, "OnShow", RefreshTrackerVisibility)
+        module:HookFrameScript(title, "OnHide", RefreshTrackerVisibility)
+        if title:IsVisible() then return title end
+    end
+end
+
 local function VisibleHeader(module)
     local integration = ns.QuestAutomationTrackerIntegration
     local external = integration and integration:GetHeader(module)
+    local custom = _G.EUI_CustomQuestTracker
+    local elles = CustomEllesTitle(module, custom)
     -- Bind both trackers even while Questie owns the button: native OnShow may
     -- arrive after Questie's OnHide, with no further addon/update event.
     local selected
@@ -49,7 +82,9 @@ local function VisibleHeader(module)
         end
     end
     if external then return external, integration end
-    return selected
+    if elles then return elles, EllesHeader end
+    -- In custom mode Elles keeps the original tracker alive at alpha zero.
+    if not custom then return selected end
 end
 
 function View:Hide()
@@ -105,7 +140,10 @@ function View:RefreshTracker(module, state)
         -- Reserve the rightmost area for the native collapse button.
         if integration then integration:Place(button, header)
         else button:SetPoint("RIGHT", header, "RIGHT", -96, 0) end
-        button:SetFrameLevel(header:GetFrameLevel() + 2)
+        local collapse = header.MinimizeButton
+        local level = header:GetFrameLevel()
+        if collapse and collapse.GetFrameLevel then level = math.max(level, collapse:GetFrameLevel()) end
+        button:SetFrameLevel(level + 2)
         button:SetHitRectInsets(0, -hitWidth, 0, 0)
         self.trackerHeader = header
     end

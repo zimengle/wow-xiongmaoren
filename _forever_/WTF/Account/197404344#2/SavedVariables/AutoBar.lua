@@ -5,6 +5,14 @@ AutoBarDB2 = {
 ["ldb_icon"] = {
 },
 ["chars"] = {
+["仓库 - CN5 Realm 3 PvP"] = {
+["buttonDataList"] = {
+},
+["barList"] = {
+},
+["buttonList"] = {
+},
+},
 ["重庆 - CN5 Realm 3 PvP"] = {
 ["buttonDataList"] = {
 },
@@ -13,7 +21,7 @@ AutoBarDB2 = {
 ["buttonList"] = {
 },
 },
-["仓库 - CN5 Realm 3 PvP"] = {
+["巴菲特 - CN1 Realm 3 PvE"] = {
 ["buttonDataList"] = {
 },
 ["barList"] = {
@@ -165,6 +173,159 @@ AutoBarDB2 = {
 ["enabled"] = true,
 ["buttonKey"] = "AutoBarButtonShields",
 ["square_popups"] = true,
+},
+},
+},
+["WARRIOR"] = {
+["barList"] = {
+["AutoBarClassBarWarrior"] = {
+["share"] = "2",
+["fadeOut"] = false,
+["scale"] = 1,
+["rows"] = 1,
+["dockShiftY"] = 0,
+["alignButtons"] = "3",
+["posX"] = 300,
+["hide"] = false,
+["enabled"] = true,
+["columns"] = 11,
+["alpha"] = 1,
+["frameStrata"] = "LOW",
+["posY"] = 280,
+["allowed_class"] = "WARRIOR",
+["popupDirection"] = "1",
+["padding"] = 0,
+["dockShiftX"] = 0,
+["buttonKeys"] = {
+"AutoBarButtonShields",
+"AutoBarButtonCharge",
+"AutoBarButtonInterrupt",
+"AutoBarButtonER",
+"AutoBarButtonStance",
+"AutoBarButtonClassBuff",
+},
+},
+},
+["buttonList"] = {
+["AutoBarButtonStance"] = {
+["barKey"] = "AutoBarClassBarWarrior",
+["buttonClass"] = "AutoBarButtonStance",
+["defaultButtonIndex"] = 5,
+["enabled"] = true,
+["buttonKey"] = "AutoBarButtonStance",
+["square_popups"] = true,
+},
+["AutoBarButtonShields"] = {
+["barKey"] = "AutoBarClassBarWarrior",
+["buttonClass"] = "AutoBarButtonShields",
+["defaultButtonIndex"] = 1,
+["enabled"] = true,
+["buttonKey"] = "AutoBarButtonShields",
+["square_popups"] = true,
+},
+["AutoBarButtonCharge"] = {
+["barKey"] = "AutoBarClassBarWarrior",
+["buttonClass"] = "AutoBarButtonCharge",
+["defaultButtonIndex"] = 2,
+["enabled"] = true,
+["buttonKey"] = "AutoBarButtonCharge",
+["square_popups"] = true,
+},
+["AutoBarButtonER"] = {
+["barKey"] = "AutoBarClassBarWarrior",
+["buttonClass"] = "AutoBarButtonER",
+["defaultButtonIndex"] = 4,
+["enabled"] = true,
+["buttonKey"] = "AutoBarButtonER",
+["square_popups"] = true,
+},
+["AutoBarButtonInterrupt"] = {
+["barKey"] = "AutoBarClassBarWarrior",
+["buttonClass"] = "AutoBarButtonInterrupt",
+["defaultButtonIndex"] = 3,
+["enabled"] = true,
+["buttonKey"] = "AutoBarButtonInterrupt",
+["square_popups"] = true,
+},
+["AutoBarButtonClassBuff"] = {
+["barKey"] = "AutoBarClassBarWarrior",
+["buttonClass"] = "AutoBarButtonClassBuff",
+["defaultButtonIndex"] = 6,
+["enabled"] = true,
+["buttonKey"] = "AutoBarButtonClassBuff",
+["square_popups"] = true,
+},
+},
+},
+["PRIEST"] = {
+["barList"] = {
+["AutoBarClassBarPriest"] = {
+["share"] = "2",
+["fadeOut"] = false,
+["scale"] = 1,
+["rows"] = 1,
+["dockShiftY"] = 0,
+["alignButtons"] = "3",
+["posX"] = 300,
+["hide"] = false,
+["enabled"] = true,
+["columns"] = 11,
+["alpha"] = 1,
+["buttonKeys"] = {
+"AutoBarButtonShields",
+"AutoBarButtonER",
+"AutoBarButtonClassBuff",
+"AutoBarButtonClassPet",
+"AutoBarButtonInterrupt",
+},
+["posY"] = 280,
+["allowed_class"] = "PRIEST",
+["popupDirection"] = "1",
+["padding"] = 0,
+["dockShiftX"] = 0,
+["frameStrata"] = "LOW",
+},
+},
+["buttonList"] = {
+["AutoBarButtonClassPet"] = {
+["barKey"] = "AutoBarClassBarPriest",
+["buttonClass"] = "AutoBarButtonClassPet",
+["square_popups"] = true,
+["enabled"] = true,
+["buttonKey"] = "AutoBarButtonClassPet",
+["defaultButtonIndex"] = 4,
+},
+["AutoBarButtonShields"] = {
+["barKey"] = "AutoBarClassBarPriest",
+["buttonClass"] = "AutoBarButtonShields",
+["square_popups"] = true,
+["enabled"] = true,
+["buttonKey"] = "AutoBarButtonShields",
+["defaultButtonIndex"] = 1,
+},
+["AutoBarButtonInterrupt"] = {
+["barKey"] = "AutoBarClassBarPriest",
+["buttonClass"] = "AutoBarButtonInterrupt",
+["square_popups"] = true,
+["enabled"] = true,
+["buttonKey"] = "AutoBarButtonInterrupt",
+["defaultButtonIndex"] = 5,
+},
+["AutoBarButtonER"] = {
+["barKey"] = "AutoBarClassBarPriest",
+["buttonClass"] = "AutoBarButtonER",
+["square_popups"] = true,
+["enabled"] = true,
+["buttonKey"] = "AutoBarButtonER",
+["defaultButtonIndex"] = 2,
+},
+["AutoBarButtonClassBuff"] = {
+["barKey"] = "AutoBarClassBarPriest",
+["buttonClass"] = "AutoBarButtonClassBuff",
+["square_popups"] = true,
+["enabled"] = true,
+["buttonKey"] = "AutoBarButtonClassBuff",
+["defaultButtonIndex"] = 3,
 },
 },
 },

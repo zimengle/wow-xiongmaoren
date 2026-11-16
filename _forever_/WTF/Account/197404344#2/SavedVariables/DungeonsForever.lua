@@ -11,10 +11,10 @@ DungeonsForeverDB = {
 ["zoneHint"] = {
 ["renew"] = true,
 ["bag"] = true,
-["keyitem"] = true,
 ["turnin"] = true,
 ["onlyTodo"] = false,
 ["voice"] = false,
+["keyitem"] = true,
 ["tent"] = true,
 ["blacklist"] = {
 ["安戈洛环形山"] = {
@@ -35,7 +35,7 @@ DungeonsForeverDB = {
 },
 ["quest"] = true,
 ["camp"] = true,
-["voiceInit"] = 2,
+["torch"] = true,
 ["noZonePopup"] = true,
 ["orb"] = {
 ["rp"] = "RIGHT",
@@ -45,7 +45,7 @@ DungeonsForeverDB = {
 },
 ["mode"] = "auto",
 ["icon"] = 32,
-["torch"] = true,
+["voiceInit"] = 2,
 ["asked"] = {
 },
 ["spell"] = true,
@@ -60,30 +60,30 @@ DungeonsForeverDB = {
 ["book"] = true,
 ["foodVoice"] = true,
 ["food"] = true,
-["rested"] = true,
 ["banner"] = true,
+["rested"] = true,
 ["seq"] = 3,
 ["restedVoice"] = true,
 },
 ["tip"] = {
 ["matPrice"] = true,
-["global"] = false,
+["ilvl"] = true,
 ["bisScore"] = false,
 ["price"] = true,
 ["need"] = true,
-["ver"] = 1,
-["wish"] = false,
-["ilvl"] = true,
 ["bis"] = false,
-["quest"] = false,
 ["src"] = false,
+["global"] = false,
+["ver"] = 1,
+["quest"] = false,
+["wish"] = false,
 },
 ["scale"] = 115,
 ["window"] = {
-["y"] = -103.9044647216797,
-["relPoint"] = "LEFT",
-["point"] = "LEFT",
-["x"] = 188.7057800292969,
+["y"] = 36.24853515625,
+["relPoint"] = "BOTTOM",
+["point"] = "BOTTOM",
+["x"] = -42.62851715087891,
 },
 ["quick"] = {
 ["ver"] = 1,
@@ -94,10 +94,10 @@ DungeonsForeverDB = {
 },
 ["tabs"] = {
 ["Collections"] = true,
-["Professions"] = true,
+["Raids"] = true,
 ["Dungeons"] = true,
 ["Bis"] = true,
-["Raids"] = true,
+["Professions"] = true,
 ["QuestSearch"] = true,
 ["Tier"] = true,
 ["Gear"] = true,
@@ -148,39 +148,6 @@ DungeonsForeverDB = {
 ["特定法术强度"] = 1,
 ["命中"] = 1,
 ["精神"] = 1,
-},
-["Icon"] = "Interface\\Icons\\Spell_Frost_Frostbolt02",
-["Weapon"] = {
-["19"] = 1,
-["15"] = 1,
-["7"] = 1,
-["10"] = 1,
-},
-},
-},
-},
-["CAMWOW CN5 Realm 1 PvP"] = {
-["露露缇娅"] = {
-{
-["Tank"] = {
-},
-["ShuXing"] = {
-["法术强度"] = 1,
-["智力"] = 1,
-["特定法术强度"] = 1,
-["命中"] = 1,
-["精神"] = 1,
-},
-["Name"] = "法师",
-["BnetAccount"] = {
-["忽略战网绑定"] = 1,
-},
-["Armor"] = {
-["1"] = 1,
-["0"] = 1,
-},
-["Class"] = {
-["过滤职业限定"] = 1,
 },
 ["Icon"] = "Interface\\Icons\\Spell_Frost_Frostbolt02",
 ["Weapon"] = {
@@ -502,6 +469,160 @@ DungeonsForeverDB = {
 },
 },
 },
+["CN1 Realm 3 PvE"] = {
+["巴菲特"] = {
+{
+["ShuXing"] = {
+["力量"] = 1,
+["武器技能"] = 1,
+["攻击强度"] = 1,
+["击中时可能"] = 1,
+["命中"] = 1,
+["敏捷"] = 1,
+["智力"] = 1,
+},
+["Class"] = {
+["过滤职业限定"] = 1,
+},
+["BnetAccount"] = {
+["忽略战网绑定"] = 1,
+},
+["Name"] = "战士-武器",
+["Tank"] = {
+},
+["Armor"] = {
+["4"] = 1,
+["3"] = 1,
+["2"] = 1,
+},
+["PresetIdx"] = 1,
+["Icon"] = "Interface\\Icons\\Ability_Warrior_Charge",
+["Weapon"] = {
+["1"] = 1,
+["3"] = 1,
+["2"] = 1,
+["5"] = 1,
+["18"] = 1,
+["6"] = 1,
+["8"] = 1,
+["16"] = 1,
+["10"] = 1,
+},
+},
+{
+["ShuXing"] = {
+["力量"] = 1,
+["武器技能"] = 1,
+["攻击强度"] = 1,
+["击中时可能"] = 1,
+["命中"] = 1,
+["敏捷"] = 1,
+["智力"] = 1,
+},
+["Class"] = {
+["过滤职业限定"] = 1,
+},
+["BnetAccount"] = {
+["忽略战网绑定"] = 1,
+},
+["Name"] = "战士-狂怒",
+["Tank"] = {
+},
+["Armor"] = {
+["4"] = 1,
+["3"] = 1,
+["2"] = 1,
+},
+["PresetIdx"] = 2,
+["Icon"] = "Interface\\Icons\\Ability_Warrior_BattleShout",
+["Weapon"] = {
+["0"] = 1,
+["3"] = 1,
+["2"] = 1,
+["4"] = 1,
+["7"] = 1,
+["15"] = 1,
+["16"] = 1,
+["13"] = 1,
+["18"] = 1,
+},
+},
+{
+["ShuXing"] = {
+["格挡"] = 1,
+["攻击强度"] = 1,
+["击中时可能"] = 1,
+["招架"] = 1,
+["力量"] = 1,
+["敏捷"] = 1,
+["躲闪"] = 1,
+["命中"] = 1,
+["防御"] = 1,
+["武器技能"] = 1,
+},
+["Class"] = {
+["过滤职业限定"] = 1,
+},
+["BnetAccount"] = {
+["忽略战网绑定"] = 1,
+},
+["Name"] = "战士-防护",
+["Tank"] = {
+["过滤坦克"] = 1,
+},
+["Armor"] = {
+["4"] = 1,
+["6"] = 1,
+},
+["PresetIdx"] = 3,
+["Icon"] = "Interface\\Icons\\Ability_Warrior_DefensiveStance",
+["Weapon"] = {
+["0"] = 1,
+["3"] = 1,
+["2"] = 1,
+["4"] = 1,
+["7"] = 1,
+["15"] = 1,
+["16"] = 1,
+["13"] = 1,
+["18"] = 1,
+},
+},
+},
+},
+["CAMWOW CN5 Realm 1 PvP"] = {
+["露露缇娅"] = {
+{
+["Tank"] = {
+},
+["ShuXing"] = {
+["法术强度"] = 1,
+["智力"] = 1,
+["特定法术强度"] = 1,
+["命中"] = 1,
+["精神"] = 1,
+},
+["Name"] = "法师",
+["BnetAccount"] = {
+["忽略战网绑定"] = 1,
+},
+["Armor"] = {
+["1"] = 1,
+["0"] = 1,
+},
+["Class"] = {
+["过滤职业限定"] = 1,
+},
+["Icon"] = "Interface\\Icons\\Spell_Frost_Frostbolt02",
+["Weapon"] = {
+["19"] = 1,
+["15"] = 1,
+["7"] = 1,
+["10"] = 1,
+},
+},
+},
+},
 },
 },
 ["chipCalib"] = {
@@ -509,13 +630,7 @@ DungeonsForeverDB = {
 ["profMoved"] = true,
 ["DungeonsForeverExploreDBMoved"] = true,
 ["dungeon"] = {
-["dungeonLootBoss"] = "伊兰尼库斯的阴影",
-["subTab"] = "Dungeons",
-["dungeonLootFold"] = {
-},
-["dungeonTab"] = "loot",
-["lootView"] = "list",
-["dungeonView"] = "list",
+["mapRoutePal"] = "sunset",
 ["mapQuestPinsCfg"] = {
 ["scope"] = {
 ["enter"] = true,
@@ -533,9 +648,16 @@ DungeonsForeverDB = {
 3,
 1309,
 },
+["mapNoSize"] = 16,
+["dungeonTab"] = "quest",
+["lootView"] = "list",
+["dungeonView"] = "list",
+["dungeonLootFold"] = {
+},
+["subTab"] = "Dungeons",
 },
 ["iconRingMode"] = "glow",
-["dfRevealLog"] = "94/94 13ms",
+["dfRevealLog"] = "105/105 36ms",
 ["vendorPrices"] = {
 },
 ["raid"] = {

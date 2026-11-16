@@ -75,7 +75,25 @@ Data.retailSettingsButtonOrder = {
     "mdt", "keystone", "combat", "preset",
 }
 
-Data.retailTabChannelKeys = { "general", "trade", "lfg", "world" }
+Data.inputChannels = {
+    {"SAY", "说话"}, {"YELL", "喊话"}, {"WHISPER", "密语"}, {"BN_WHISPER", "战网密语"},
+    {"PARTY", "队伍"}, {"RAID", "团队"}, {"INSTANCE_CHAT", "副本／战场"},
+    {"RAID_WARNING", "团队警报"}, {"GUILD", "公会"}, {"OFFICER", "官员"},
+    {"EMOTE", "表情"}, {"general", "综合"}, {"trade", "交易"},
+    {"lfg", "寻求组队"}, {"world", "世界"}, {"CHANNEL", "其他公共频道"},
+}
+
+function Data.ChannelSelected(profile, field, key, default)
+    local choices = profile and profile[field]
+    if type(choices) == "table" and choices[key] ~= nil then return choices[key] == true end
+    return default == true
+end
+
+function Data.StickyAllowed(profile, key)
+    return Data.ChannelSelected(profile, "stickyChannels", key, true)
+end
+
+Data.tabChannelKeys = { "general", "trade", "lfg", "world" }
 
 Data.colors = {
     say = { 1.0, 1.0, 1.0 }, yell = { 1.0, 0.0, 0.0 }, guild = { 0.0, 1.0, 0.0 },

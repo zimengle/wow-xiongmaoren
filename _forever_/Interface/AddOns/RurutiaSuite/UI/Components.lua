@@ -1370,8 +1370,8 @@ function Component:RefreshValueVisual()
         -- Derive both checkbox styles from one snapped track and shared inset.
         -- Two vertical anchors avoid independent center/height rounding.
         local square = self.options.variant == "square"
-        local trackHeight = PixelBorder:GetSize(self.frame, 18, 1)
-        local inset = PixelBorder:GetSize(self.frame, square and 4 or 1, 1)
+        local trackHeight = PixelBorder:GetSize(self.frame, square and 22 or 18, 1)
+        local inset = PixelBorder:GetSize(self.frame, square and 2 or 1, 1)
         local knobSize = math.max(inset, trackHeight - inset * 2)
         local trackWidth = square and trackHeight or PixelBorder:GetSize(self.frame, 32, 1)
         SetRegionSize(self.checkBorder, trackWidth, trackHeight)
@@ -1754,6 +1754,7 @@ function Component:ApplyNativeTheme(theme, kind)
     local borderToken = self.options.borderToken
         or (isActionButton and "color.button.border" or "color.border")
     local showPhysicalBorder = wantsBackdrop and not self.options.noBorder
+        and not (kind == "checkbox" and self.options.variant == "square")
     if wantsBackdrop then
         ApplyColor("SetBackdropColor", frame, theme:Get(backgroundKey))
         ApplyColor("SetBackdropBorderColor", frame, theme:Get("color.transparent"))
@@ -1790,15 +1791,6 @@ function Component:ApplyNativeTheme(theme, kind)
     if self.sliderFill then PaintTexture(self.sliderFill, theme:Get("color.accent.control")) end
     if self.sliderThumb then PaintTexture(self.sliderThumb, theme:Get("color.accent")) end
     if self.sliderValueBox then PaintTexture(self.sliderValueBox, theme:Get("color.input.background")) end
-    if self.checkBorder then
-        if self.options.variant == "square" then
-            self.checkPixelBorder = self.checkPixelBorder or PixelBorder:Ensure(frame, self.checkBox)
-            PixelBorder:Update(self.checkPixelBorder,
-                theme:Get((self.value or (self.options.checkHoverAccent ~= false and self.hovered)) and "color.accent.control" or "color.border"), true)
-        else
-            PixelBorder:Update(self.checkPixelBorder, nil, false)
-        end
-    end
     if self.sliderValueBox then
         self.sliderValuePixelBorder = self.sliderValuePixelBorder or PixelBorder:Ensure(frame, self.sliderValueBox)
         PixelBorder:Update(self.sliderValuePixelBorder, theme:Get("color.input.border"), true)
@@ -1946,12 +1938,10 @@ function Component:Release()
     self.hovered = nil
     self.pressed = nil
     PixelBorder:Update(self.pixelBorder, nil, false)
-    PixelBorder:Update(self.checkPixelBorder, nil, false)
     PixelBorder:Update(self.sliderValuePixelBorder, nil, false)
     PixelBorder:Update(self.dropdownPixelBorder, nil, false)
     self.hoverAccentBorder = nil
     self.pixelBorder = nil
-    self.checkPixelBorder = nil
     self.sliderValuePixelBorder = nil
     self.dropdownPixelBorder = nil
     self.value = nil

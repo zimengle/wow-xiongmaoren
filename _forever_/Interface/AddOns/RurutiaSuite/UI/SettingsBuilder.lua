@@ -1513,8 +1513,9 @@ function Row:Popover(key, options)
     buttonOptions.backgroundToken = buttonOptions.backgroundToken or "color.transparent"
     local attachKey = options.attachTo
     local attachEntry = type(attachKey) == "string" and self.page.controlEntries[attachKey] or nil
-    if attachKey and (not attachEntry or attachEntry.row ~= self or attachEntry.kind ~= "checkbox") then
-        return self, nil, "settings popover attachment requires a checkbox in the same row"
+    local dropdown = attachEntry and attachEntry.kind == "dropdown"
+    if attachKey and (not attachEntry or attachEntry.row ~= self or (attachEntry.kind ~= "checkbox" and not dropdown)) then
+        return self, nil, "settings popover attachment requires a checkbox or dropdown in the same row"
     end
 
     local button, reason
@@ -1575,7 +1576,9 @@ function Row:Popover(key, options)
             local buttonHeight = tonumber(buttonOptions.height) or 34
             local positioned, positionReason = pcall(function()
                 button.frame:ClearAllPoints()
-                if target.options.toggleSide == "left" then
+                if dropdown then
+                    button.frame:SetPoint("LEFT", target.frame, "RIGHT", 4, 0)
+                elseif target.options.toggleSide == "left" then
                     button.frame:SetPoint("RIGHT", target.frame, "RIGHT", -2, 0)
                 else
                     button.frame:SetPoint("RIGHT", target.checkBorder or target.checkBox or target.frame, "LEFT", -4, 0)
@@ -1623,7 +1626,7 @@ function Row:Popover(key, options)
         local target = attachEntry.component
         local originalPoints = CapturePoints(target.label)
         local anchored, anchorReason = pcall(function()
-            if target.label then
+            if not dropdown and target.label then
                 target.label:ClearAllPoints()
                 if target.options.toggleSide == "left" then
                     target.label:SetPoint("LEFT", target.checkBorder or target.checkBox or target.frame, "RIGHT", 10, 0)
@@ -1816,6 +1819,9 @@ function Page:_LayoutFieldEntry(row, entry, columnWidth)
         or tonumber(row.options.fieldPaddingTop)
         or DEFAULTS.fieldPaddingTop
     local availableWidth = math.max(1, columnWidth - paddingX * 2)
+    if entry.kind == "dropdown" and entry.component.attachedAction then
+        availableWidth = math.max(1, availableWidth - entry.component.attachedAction.frame:GetWidth() - 4)
+    end
     local requestedWidth = tonumber(entry.options.controlWidth)
         or tonumber(row.options.controlWidth)
     local controlWidth = requestedWidth and math.min(requestedWidth, availableWidth) or availableWidth

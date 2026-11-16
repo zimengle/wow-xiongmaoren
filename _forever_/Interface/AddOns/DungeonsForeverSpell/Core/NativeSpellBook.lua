@@ -33,6 +33,7 @@ local activePage
 local restoring = false
 local lastTab
 local openGuard = 0
+local tabPending, tabPendingAt
 
 local pending = false
 
@@ -99,7 +100,6 @@ end
 
 local function ReleaseTip()
     if GameTooltip then GameTooltip:Hide() end
-    if ns.hui then ns.hui.nativeTipOwner = nil end
 end
 
 local cmpTip, cmpOwner
@@ -233,7 +233,6 @@ local function ItemEnter(btn)
     if not d then return end
     local GT = GameTooltip
     if not GT then return end
-    if ns.hui then ns.hui.nativeTipOwner = frame end
     GT:SetOwner(btn or frame, "ANCHOR_RIGHT")
     GT:ClearLines()
     local ok = false
@@ -257,7 +256,6 @@ local function ItemEnter(btn)
         GT:AddLine(ns.L["左键：打开职业任务页"], 1, 0.82, 0, true)
         GT:AddLine(ns.L["右键：在地图上标记"], 1, 0.82, 0, true)
     end
-    if ns.hui and ns.hui.ShowNativeTip then ns.hui.ShowNativeTip(GT) end
     GT:Show()
     TrackCompare(frame, d.knownId)
     if frame.Button and frame.Button.IconHighlight and not EUIOn() then
@@ -943,6 +941,7 @@ local function HideNativeList()
     if paged.ViewFrames then
         for _, v in ipairs(paged.ViewFrames) do hide(v) end
     end
+    hide(paged.PagingControls)
 end
 
 local function RestoreNativeList()
@@ -950,6 +949,9 @@ local function RestoreNativeList()
         if f.IsShown then f:Show() end
     end
     hiddenNative = {}
+    local paged = Paged()
+    local pc = paged and paged.PagingControls
+    if pc and pc.Show then pc:Show() end
 end
 
 local function HideOverlay()
@@ -1117,6 +1119,7 @@ local function WarmCache()
 end
 
 local function InstallOurs()
+    if DeferInCombat() then return false end
     if not book then return false end
     if not BookShown() then
         if ovl then ovl:Hide() end
@@ -1125,14 +1128,8 @@ local function InstallOurs()
     if not EnsureOverlay() then return false end
     RestoreNativeList()
     local key = CacheKey()
-    local groups
-    if InCombat() then
-        groups = groupCache[key]
-        if not groups then groups = BuildGroups() end
-    else
-        groups = BuildGroups()
-        if groups and #groups > 0 then groupCache[key] = groups end
-    end
+    local groups = BuildGroups()
+    if groups and #groups > 0 then groupCache[key] = groups end
     if not groups or #groups == 0 then groups = EmptyGroup() end
     local cols, _, rows = Metrics()
     local views = ViewList()
@@ -1201,7 +1198,7 @@ local function BuildSubBar()
     local paged = Paged()
     if not paged then return nil end
     local box = PageBox()
-    local host = box or paged
+    local host = book or paged
     subBar = CreateFrame("Frame", nil, host)
     subBar:SetSize(190, 32)
     subBar:SetFrameLevel(150)
@@ -1364,6 +1361,7 @@ local function PaintTabs()
 end
 
 ShowPage = function(key)
+    if DeferInCombat() then return end
     if not book then return end
     if activePage == key then
         if key then ApplyData() end
@@ -1404,7 +1402,28 @@ ShowPage = function(key)
     if NB.OnPage then NB.OnPage(activePage) end
 end
 
+local function TabExitCheck(id)
+    local now = GetTime and GetTime() or 0
+    if not (activePage and now <= openGuard) then
+        tabPending = nil
+        lastTab = id
+        if activePage then ShowPage(nil) end
+        return
+    end
+    if tabPending ~= id then
+        tabPending = id
+        tabPendingAt = now
+        return
+    end
+    if now - tabPendingAt >= 0.05 then
+        tabPending = nil
+        lastTab = id
+        ShowPage(nil)
+    end
+end
+
 local function NativeTabClicked()
+    if DeferInCombat() then return end
     if not activePage then return end
     local seq = pageSeq
     local function leave()
@@ -1417,16 +1436,6 @@ local function NativeTabClicked()
         C_Timer.After(0, leave)
     else
         leave()
-    end
-end
-
-local function HookNativeTabs()
-    local sys = book and book.CategoryTabSystem
-    for _, t in ipairs((sys and sys.tabs) or {}) do
-        if t and t.HookScript and not t.__dfTabHook then
-            local ok = pcall(t.HookScript, t, "OnClick", NativeTabClicked)
-            if ok then t.__dfTabHook = true end
-        end
     end
 end
 
@@ -1560,7 +1569,6 @@ end
 local function AnchorTabs()
     if DeferInCombat() then return end
     if not tabButton or not book then return end
-    HookNativeTabs()
     local host = LastForeignTab()
     local key = host or false
     if tabButton.__anchorHost == key then return end
@@ -1659,6 +1667,7 @@ local function Attach()
     end
 
     local function OnSpellsRefresh()
+        if DeferInCombat() then return end
         if restoring or not book then return end
         local id = book.GetTab and book:GetTab()
         if id ~= nil and lastTab == nil then
@@ -1666,10 +1675,7 @@ local function Attach()
             return
         end
         if id ~= lastTab then
-            local now = GetTime and GetTime() or 0
-            if activePage and now <= openGuard then return end
-            lastTab = id
-            if activePage then ShowPage(nil) end
+            TabExitCheck(id)
             return
         end
         if activePage then
@@ -1678,7 +1684,6 @@ local function Attach()
         elseif C_Timer and C_Timer.After then
             C_Timer.After(0, ThinAll)
         end
-        HookNativeTabs()
         FitSearchBox()
     end
 
@@ -1706,27 +1711,7 @@ local function Attach()
 
     local function OnBookShown()
         if InCombat() then
-            ShowTabs()
-            StyleOurTabs()
-            if C_Timer and C_Timer.After then
-                C_Timer.After(0.05, ShowTabs)
-                C_Timer.After(0.3, ShowTabs)
-                C_Timer.After(0.9, ShowTabs)
-            end
-            if activePage then
-                InstallOurs()
-                if C_Timer and C_Timer.After then
-                    C_Timer.After(0.1, function()
-                        if activePage then InstallOurs() end
-                    end)
-                    C_Timer.After(0.35, function()
-                        if activePage then InstallOurs() end
-                    end)
-                    C_Timer.After(0.9, function()
-                        if activePage then InstallOurs() end
-                    end)
-                end
-            end
+            pending = true
             return
         end
         if C_Timer and C_Timer.After then
@@ -1758,6 +1743,12 @@ local function Attach()
         HideOverlay()
         if subBar then subBar:Hide() end
         if tabCatcher then tabCatcher:Hide() end
+        if activePage then
+            ShowPage(nil)
+            pageSeq = pageSeq + 1
+            openGuard = 0
+            tabPending = nil
+        end
     end
 
     local function OnBookResized()
@@ -1788,8 +1779,12 @@ local function Attach()
     end)
     beat:SetScript("OnUpdate", function(_, elapsed)
         beatAcc = beatAcc + elapsed
-        if beatAcc < 0.2 then return end
+        if beatAcc < (lastPsf and 0.05 or 0.2) then return end
         beatAcc = 0
+        if InCombat() then
+            pending = true
+            return
+        end
         local psf = PlayerSpellsFrame
         local psfShown = false
         if psf then
@@ -1813,15 +1808,18 @@ local function Attach()
         end
         if sb.GetTab then
             local okt, id = pcall(sb.GetTab, sb)
-            if okt and id ~= lastTab then
-                local now = GetTime and GetTime() or 0
-                if not (activePage and now <= openGuard) then
-                    lastTab = id
-                    if activePage then ShowPage(nil) end
-                end
+            if okt and id ~= nil and id ~= lastTab then
+                TabExitCheck(id)
+            elseif okt then
+                tabPending = nil
             end
         end
         if activePage and ovl and not ovl:IsVisible() and BookShown() then InstallOurs() end
+        if activePage then
+            local paged = Paged()
+            local pc = paged and paged.PagingControls
+            if pc and pc.IsShown and pc:IsShown() then pc:Hide() end
+        end
         if SyncTabCatcher then SyncTabCatcher() end
         if tabButton and not tabButton:IsShown() and BookShown() and (ns.SpellEnhOn and ns.SpellEnhOn()) then ShowTabs() end
         if InCombat() then return end
