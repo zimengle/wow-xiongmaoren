@@ -7,14 +7,19 @@ RS.Presentation.ChangelogData = RS.Presentation.ChangelogData or {}
 if buildID == "retail" then
     RS.Presentation.ChangelogData.retail = {
         viewId = "retail",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:3abdcac738dff4194ab64f04de5b29531d63e918f40270552dacab9e45d0ceb6",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:3d4504ead25490ec485ee65628d9061f4456b1d0178784a8799f5e19664e3ab8",
         historySourceId = "retail:b109960e82a2b3db460e2ae597ea8870276d1479:RurutiaSuite/Changelog.md",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.8.8",
+            version = "4.8.9",
             date = "2026-11-16",
-            noticeKey = "4.8.8:5a7f846e40b7582d0559",
-            content = [=[%sv4.8.8（2026-11-16）|r
+            noticeKey = "4.8.9:54f08860994353e8afae",
+            content = [=[%sv4.8.9（2026-11-16）|r
+
+%s[系统增强]|r
+• 原生背包标题显示已用和总容量，分包时可在主背包切换背包栏。
+
+%sv4.8.8（2026-11-16）|r
 
 %s[聊天条]|r
 • Tab切换频道，组团后可分别切到队伍和团队频道。

@@ -16,15 +16,9 @@ ConsolePortRings = {
 },
 {
 ["type"] = "item",
-["questID"] = 4729,
-["autoassigned"] = true,
-["item"] = "|cnIQ1:|Hitem:12262::::::::58:1489::11:::::::|h[空的座狼幼崽笼]|h|r",
-},
-{
-["type"] = "item",
 ["questID"] = 4201,
 ["autoassigned"] = true,
-["item"] = "|cnIQ1:|Hitem:11412::::::::58:1489::11:::::::|h[娜玛拉之瓶]|h|r",
+["item"] = "|cnIQ1:|Hitem:11412::::::::59:1489::11:::::::|h[娜玛拉之瓶]|h|r",
 },
 [0] = {
 },

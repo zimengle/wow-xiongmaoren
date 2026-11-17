@@ -22,6 +22,14 @@ local function HideFrame(frame)
     Call(frame, "Hide")
 end
 
+function Definition:GetOilScanner()
+    if not self.oilScanner then
+        self.oilScanner = self:CreateFrame("GameTooltip", "RSConsumableOilScanner", _G.UIParent,
+            "GameTooltipTemplate", HideFrame, "ConsumableBar oil charges")
+    end
+    return self.oilScanner
+end
+
 -- Settings can inspect items with the runtime module disabled. This one UI
 -- frame therefore outlives runtime resource bags, like the settings controls.
 -- It avoids hooks on public GameTooltip; arbitrary hooks on all tooltips are

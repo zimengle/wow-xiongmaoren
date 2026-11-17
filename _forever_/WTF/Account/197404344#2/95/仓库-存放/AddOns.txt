@@ -8,7 +8,7 @@ BugSack: enabled
 EllesmereUI: enabled
 EllesmereUIActionBars: enabled
 EllesmereUIAuraBuffReminders: enabled
-EllesmereUIBags: enabled
+EllesmereUIBags: disabled
 EllesmereUIBlizzardSkin: enabled
 EllesmereUIChat: enabled
 EllesmereUICooldownManager: enabled

@@ -550,7 +550,46 @@ function Spy:KillerFromTargeting(suspects)
 	return nil, #suspects > 1 and "several targeting" or "nobody targeting"
 end
 
+-- CurseForge comment: a hunter got losses for fights he won, maybe from Feign Death.
+-- Feign Death leaves no death recap, so the "who had us targeted" guess blamed the
+-- enemy he was fighting. A death only counts while we are really dead or a ghost.
+local FEIGN_DEATH = 5384
+
+function Spy:IsFeigningDeath()
+	if UnitIsFeignDeath then
+		local ok, feigning = pcall(UnitIsFeignDeath, "player")
+		if ok and Spy:Readable(feigning) == true then
+			return true
+		end
+	end
+	if C_UnitAuras and C_UnitAuras.GetPlayerAuraBySpellID then
+		local ok, aura = pcall(C_UnitAuras.GetPlayerAuraBySpellID, FEIGN_DEATH)
+		if ok and type(aura) == "table" and not isSecretTable(aura) then
+			return true
+		end
+	end
+	return false
+end
+
+-- False only when the game says plainly that we are alive (or feigning).
+function Spy:ReallyDead()
+	if Spy:IsFeigningDeath() then
+		return false
+	end
+	if UnitIsDeadOrGhost then
+		local ok, dead = pcall(UnitIsDeadOrGhost, "player")
+		if ok and Spy:Readable(dead) == false then
+			return false
+		end
+	end
+	return true
+end
+
 function Spy:ResolveDeath(suspects, attempt)
+	if not Spy:ReallyDead() then
+		Spy.LastDeath = { how = "not counted: alive again (Feign Death?)", when = time() }
+		return
+	end
 	local killer, how = Spy:KillerFromRecap()
 	if not killer and how == "stale" and attempt < #RECAP_DELAYS then
 		Spy:ScheduleTimer(function()
@@ -578,6 +617,10 @@ end
 
 Spy.PlayerDeadEvent = Guard("PlayerDeadEvent", function(self)
 	if not Spy.EnabledInZone then
+		return
+	end
+	if Spy:IsFeigningDeath() then
+		Spy.LastDeath = { how = "not counted: Feign Death", when = time() }
 		return
 	end
 	local suspects = Spy:DeathSuspects()
@@ -806,7 +849,13 @@ end
 -- A press over the Spy window: which frame the client gave it to.
 local mouseWatcher = CreateFrame("Frame")
 pcall(mouseWatcher.RegisterEvent, mouseWatcher, "GLOBAL_MOUSE_DOWN")
-mouseWatcher:SetScript("OnEvent", function(_, _, button)
+-- Guarded: with a controller the client sends presses of its own here (CurseForge
+-- comment: "occasionally crashes when using controller"), and a debug trace must
+-- never be the thing that breaks.
+mouseWatcher:SetScript("OnEvent", Guard("WindowPress", function(_, _, button)
+	if type(button) ~= "string" or not button:find("Button$") then
+		return -- not a mouse button: a gamepad press
+	end
 	local window = Spy.MainWindow
 	if not (window and window:IsShown() and window:IsMouseOver()) then
 		return
@@ -818,7 +867,7 @@ mouseWatcher:SetScript("OnEvent", function(_, _, button)
 		names[#names + 1] = ok and tostring(name) or "?"
 	end
 	Spy.LastWindowPress = { when = time(), button = tostring(button), under = #names > 0 and table.concat(names, ", ") or "nothing" }
-end)
+end))
 
 local function noteRowResult(row)
 	local click = Spy.LastRowClick
@@ -1270,6 +1319,7 @@ function Spy:PrintDebug(lines)
 	if Spy.TagsReport then
 		out(Spy:TagsReport())
 		if Spy.NotesReport then out(Spy:NotesReport()) end
+		if Spy.PetKillsReport then out(Spy:PetKillsReport()) end
 	end
 	if Spy.OptionsWindowReport then
 		out(Spy:OptionsWindowReport())

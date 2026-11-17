@@ -4,7 +4,7 @@ DungeonsForeverProfDB = {
 ["track"] = {
 ["巴菲特-CN1 Realm 3 PvE"] = {
 ["nextID"] = 0,
-["observerSession"] = 5,
+["observerSession"] = 8,
 ["version"] = 1,
 ["active"] = {
 },
@@ -19,7 +19,7 @@ DungeonsForeverProfDB = {
 },
 ["重庆-CN5 Realm 3 PvP"] = {
 ["nextID"] = 0,
-["observerSession"] = 90,
+["observerSession"] = 95,
 ["version"] = 1,
 ["active"] = {
 },
@@ -55,10 +55,10 @@ DungeonsForeverProfDB = {
 ["follow"] = {
 ["露露缇娅-CAMWOW CN1 Realm 2 PvE"] = {
 ["t0"] = 1791753029,
-["skill"] = 119,
-["step"] = 9,
-["slug"] = "tailoring",
 ["hidden"] = true,
+["skill"] = 119,
+["slug"] = "tailoring",
+["step"] = 9,
 ["rkey"] = "fixed:23:1:2963:300",
 },
 },
@@ -128,13 +128,14 @@ DungeonsForeverProfDB = {
 },
 ["economy"] = {
 ["巴菲特-CN1 Realm 3 PvE"] = {
-["recipeRosters"] = {
-},
-["recipes"] = {
-},
 ["learningRequirements"] = {
 },
+["clientInputRevision"] = 1,
+["recipeRosters"] = {
+},
 ["recipeBuild"] = "1.60.1:70938",
+["recipes"] = {
+},
 },
 ["重庆-CN5 Realm 3 PvP"] = {
 ["learningRequirements"] = {

@@ -7,14 +7,23 @@ RS.Presentation.ChangelogData = RS.Presentation.ChangelogData or {}
 if buildID == "classic-infinite" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-infinite",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:3abdcac738dff4194ab64f04de5b29531d63e918f40270552dacab9e45d0ceb6",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:3d4504ead25490ec485ee65628d9061f4456b1d0178784a8799f5e19664e3ab8",
         historySourceId = "none:forever-product-starts-at-4.x",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.8.8",
+            version = "4.8.9",
             date = "2026-11-16",
-            noticeKey = "4.8.8:5a7f846e40b7582d0559",
-            content = [=[%sv4.8.8（2026-11-16）|r
+            noticeKey = "4.8.9:0ec819ccf84bbb732762",
+            content = [=[%sv4.8.9（2026-11-16）|r
+
+%s[系统增强]|r
+• 原生背包标题显示已用和总容量，分包时可在主背包切换背包栏。
+• 钥匙扣，原生背包可打开，Elles 钥匙链随背包皮肤贴顶显示。
+
+%s[职业提醒]|r
+• 牧师的心灵之火缺失提醒改为默认关闭。
+
+%sv4.8.8（2026-11-16）|r
 
 %s[聊天条]|r
 • Tab切换频道，组团后可分别切到队伍和团队频道。
@@ -955,7 +964,7 @@ end
 if buildID == "classic-era" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-era",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:3abdcac738dff4194ab64f04de5b29531d63e918f40270552dacab9e45d0ceb6",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:3d4504ead25490ec485ee65628d9061f4456b1d0178784a8799f5e19664e3ab8",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
@@ -1546,7 +1555,7 @@ end
 if buildID == "classic-anniversary" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-anniversary",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:3abdcac738dff4194ab64f04de5b29531d63e918f40270552dacab9e45d0ceb6",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:3d4504ead25490ec485ee65628d9061f4456b1d0178784a8799f5e19664e3ab8",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
@@ -2137,7 +2146,7 @@ end
 if buildID == "classic-wrath-legacy" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-wrath-legacy",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:3abdcac738dff4194ab64f04de5b29531d63e918f40270552dacab9e45d0ceb6",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:3d4504ead25490ec485ee65628d9061f4456b1d0178784a8799f5e19664e3ab8",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
@@ -2712,7 +2721,7 @@ end
 if buildID == "classic-cata-legacy" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-cata-legacy",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:3abdcac738dff4194ab64f04de5b29531d63e918f40270552dacab9e45d0ceb6",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:3d4504ead25490ec485ee65628d9061f4456b1d0178784a8799f5e19664e3ab8",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
@@ -3292,7 +3301,7 @@ end
 if buildID == "classic-mists" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-mists",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:3abdcac738dff4194ab64f04de5b29531d63e918f40270552dacab9e45d0ceb6",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:3d4504ead25490ec485ee65628d9061f4456b1d0178784a8799f5e19664e3ab8",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
@@ -3883,7 +3892,7 @@ end
 if buildID == "classic-titan" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-titan",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:3abdcac738dff4194ab64f04de5b29531d63e918f40270552dacab9e45d0ceb6",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:3d4504ead25490ec485ee65628d9061f4456b1d0178784a8799f5e19664e3ab8",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {

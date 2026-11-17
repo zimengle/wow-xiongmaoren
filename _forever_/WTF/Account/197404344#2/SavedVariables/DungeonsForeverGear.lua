@@ -5,9 +5,9 @@ DungeonsForeverGearDB = {
 {
 ["items"] = {
 ["waist"] = 273041,
-["neck"] = 7731,
-["finger"] = 17713,
 ["finger2"] = 2262,
+["finger"] = 17713,
+["legs"] = 17754,
 ["trinket"] = 286646,
 ["back"] = 9512,
 ["two-hand"] = 9413,
@@ -18,7 +18,7 @@ DungeonsForeverGearDB = {
 ["hands"] = 7724,
 ["wrist"] = 274599,
 ["shoulder"] = 17749,
-["legs"] = 17754,
+["neck"] = 7731,
 },
 ["mode"] = "dungeon",
 ["sig"] = "2.1.87|7|shaman|pve|enh|dungeon|49|0|0|a",
@@ -29,9 +29,9 @@ DungeonsForeverGearDB = {
 {
 ["items"] = {
 ["waist"] = 20117,
-["finger2"] = 285190,
-["finger"] = 285190,
 ["legs"] = 13114,
+["finger"] = 285190,
+["neck"] = 19537,
 ["trinket"] = 271904,
 ["back"] = 13108,
 ["two-hand"] = 280604,
@@ -42,7 +42,7 @@ DungeonsForeverGearDB = {
 ["hands"] = 270072,
 ["wrist"] = 270091,
 ["shoulder"] = 7755,
-["neck"] = 19537,
+["finger2"] = 285190,
 },
 ["mode"] = "known",
 ["sig"] = "2.1.40|6|shaman|pve|enh|known|33|1|0|a",

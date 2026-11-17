@@ -19,6 +19,7 @@ local Adapter = {
         minimapEventButton = buildId == "classic-titan"
             and type(_G.GetCurrentRegion) == "function" and _G.GetCurrentRegion() == 5,
         backpack = buildId == "classic-infinite",
+        bagKeyring = buildId == "classic-infinite",
         endCaps = buildId == "classic-infinite",
         lfgTools = true,
         celestialBar = buildId == "classic-cata-legacy" or buildId == "classic-mists",

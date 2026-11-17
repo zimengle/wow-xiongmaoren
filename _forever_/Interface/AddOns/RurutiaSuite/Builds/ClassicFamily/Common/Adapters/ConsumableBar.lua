@@ -121,15 +121,8 @@ local function OilCharges(text)
     end
 end
 
-local function HideOilScanner(frame) frame:Hide() end
-
 local function ReadOilCharges(module, bag, slot)
-    local scanner = module.oilScanner
-    if not scanner then
-        scanner = module:CreateFrame("GameTooltip", "RSConsumableOilScanner", _G.UIParent,
-            "GameTooltipTemplate", HideOilScanner, "ConsumableBar oil charges")
-        module.oilScanner = scanner
-    end
+    local scanner = module:GetOilScanner()
     scanner:SetOwner(_G.UIParent, "ANCHOR_NONE")
     scanner:ClearLines()
     scanner:SetBagItem(bag, slot)

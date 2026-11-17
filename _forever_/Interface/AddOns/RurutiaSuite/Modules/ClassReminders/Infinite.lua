@@ -9,7 +9,7 @@ end
 
 local Definition = {defaultEnabled = true, defaults = {profile = {
     classEnabled = true, generalEnabled = false, intellect = true, frostArmor = true, hideResting = true, arcaneBlast = true,
-    fortitude = true, innerFire = true, wild = true, righteousFury = true, warlockArmor = true, elementalShield = false,
+    fortitude = true, innerFire = false, wild = true, righteousFury = true, warlockArmor = true, elementalShield = false,
 }}}
 local ClassRows = {
     MAGE = {

@@ -147,7 +147,9 @@ local function iconFor(index)
 	if icon then
 		return icon
 	end
-	icon = CreateFrame("Button", nil, WorldMapFrame)
+	-- Not on the world map itself (PetKills.lua): HereBeDragons puts it there while shown.
+	icon = CreateFrame("Button", nil, Spy.MapIconHolder and Spy:MapIconHolder() or WorldMapFrame)
+	icon.smartNavigationIgnored = true
 	icon:SetSize(14, 14)
 	icon.texture = icon:CreateTexture(nil, "OVERLAY")
 	icon.texture:SetTexture(SKULL)
@@ -168,8 +170,14 @@ function Spy:RefreshEncounterMap()
 		icon.entry = nil
 		icon:Hide()
 	end
-	local now, shown = time(), 0
-	for _, entry in ipairs(Spy:Encounters()) do
+	-- Newest first, and at most Spy.MapSkullLimit skulls (PetKills.lua says why).
+	local now, shown, list = time(), 0, Spy:Encounters()
+	local limit = Spy.MapSkullLimit or 100
+	for index = #list, 1, -1 do
+		local entry = list[index]
+		if shown >= limit then
+			break
+		end
 		if Spy:EncounterShown(entry, now) then
 			shown = shown + 1
 			local icon = iconFor(shown)

@@ -14,8 +14,8 @@ DungeonsForeverDB = {
 ["restedVoice"] = true,
 ["seq"] = 3,
 ["rested"] = true,
-["tent"] = true,
 ["banner"] = true,
+["voice"] = false,
 ["blacklist"] = {
 ["安戈洛环形山"] = {
 ["seq"] = 3,
@@ -61,22 +61,22 @@ DungeonsForeverDB = {
 ["torch"] = true,
 ["quest"] = true,
 ["keyitem"] = true,
-["voice"] = false,
+["tent"] = true,
 ["onlyTodo"] = false,
 ["turnin"] = true,
 },
 ["tip"] = {
 ["matPrice"] = true,
-["ilvl"] = true,
+["global"] = false,
 ["bisScore"] = false,
 ["price"] = true,
 ["need"] = true,
-["bis"] = false,
-["src"] = false,
-["wish"] = false,
 ["ver"] = 1,
+["wish"] = false,
+["src"] = false,
+["bis"] = false,
 ["quest"] = false,
-["global"] = false,
+["ilvl"] = true,
 },
 ["scale"] = 115,
 ["window"] = {
@@ -625,9 +625,9 @@ DungeonsForeverDB = {
 },
 },
 },
-["profMoved"] = true,
 ["chipCalib"] = {
 },
+["profMoved"] = true,
 ["DungeonsForeverExploreDBMoved"] = true,
 ["dungeon"] = {
 ["mapRoutePal"] = "sunset",
@@ -657,7 +657,7 @@ DungeonsForeverDB = {
 ["subTab"] = "Dungeons",
 },
 ["iconRingMode"] = "glow",
-["dfRevealLog"] = "105/105 36ms",
+["dfRevealLog"] = "108/108 14ms",
 ["vendorPrices"] = {
 },
 ["svVersion"] = 3,

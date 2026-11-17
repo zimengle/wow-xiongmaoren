@@ -12,7 +12,7 @@ Anchor: RIGHT
 X: -313
 Y: 6
 W: 52
-H: 73
+H: 43
 Frame: RXPFrame
 FrameLevel: 1
 Anchor: LEFT

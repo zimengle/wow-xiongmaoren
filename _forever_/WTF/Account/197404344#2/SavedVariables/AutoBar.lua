@@ -102,12 +102,12 @@ AutoBarDB2 = {
 ["buttonKey"] = "AutoBarButtonTrack",
 ["defaultButtonIndex"] = 13,
 },
-["AutoBarButtonInterrupt"] = {
+["AutoBarButtonTrap"] = {
 ["barKey"] = "AutoBarClassBarHunter",
-["buttonClass"] = "AutoBarButtonInterrupt",
-["defaultButtonIndex"] = 12,
+["buttonClass"] = "AutoBarButtonTrap",
+["defaultButtonIndex"] = 4,
 ["enabled"] = true,
-["buttonKey"] = "AutoBarButtonInterrupt",
+["buttonKey"] = "AutoBarButtonTrap",
 ["square_popups"] = true,
 },
 ["AutoBarButtonDebuff"] = {
@@ -126,20 +126,20 @@ AutoBarDB2 = {
 ["buttonKey"] = "AutoBarButtonClassPet",
 ["square_popups"] = true,
 },
+["AutoBarButtonInterrupt"] = {
+["barKey"] = "AutoBarClassBarHunter",
+["buttonClass"] = "AutoBarButtonInterrupt",
+["defaultButtonIndex"] = 12,
+["enabled"] = true,
+["buttonKey"] = "AutoBarButtonInterrupt",
+["square_popups"] = true,
+},
 ["AutoBarButtonCharge"] = {
 ["barKey"] = "AutoBarClassBarHunter",
 ["buttonClass"] = "AutoBarButtonCharge",
 ["defaultButtonIndex"] = 2,
 ["enabled"] = true,
 ["buttonKey"] = "AutoBarButtonCharge",
-["square_popups"] = true,
-},
-["AutoBarButtonTrap"] = {
-["barKey"] = "AutoBarClassBarHunter",
-["buttonClass"] = "AutoBarButtonTrap",
-["defaultButtonIndex"] = 4,
-["enabled"] = true,
-["buttonKey"] = "AutoBarButtonTrap",
 ["square_popups"] = true,
 },
 ["AutoBarButtonClassPets3"] = {

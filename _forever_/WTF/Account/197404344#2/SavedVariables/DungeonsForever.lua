@@ -13,9 +13,9 @@ DungeonsForeverDB = {
 ["bag"] = true,
 ["turnin"] = true,
 ["onlyTodo"] = false,
-["voice"] = false,
-["keyitem"] = true,
 ["tent"] = true,
+["keyitem"] = true,
+["banner"] = true,
 ["blacklist"] = {
 ["安戈洛环形山"] = {
 ["name"] = "安戈洛环形山",
@@ -60,23 +60,23 @@ DungeonsForeverDB = {
 ["book"] = true,
 ["foodVoice"] = true,
 ["food"] = true,
-["banner"] = true,
+["voice"] = false,
 ["rested"] = true,
 ["seq"] = 3,
 ["restedVoice"] = true,
 },
 ["tip"] = {
 ["matPrice"] = true,
-["ilvl"] = true,
+["global"] = false,
 ["bisScore"] = false,
 ["price"] = true,
 ["need"] = true,
-["bis"] = false,
-["src"] = false,
-["global"] = false,
 ["ver"] = 1,
-["quest"] = false,
 ["wish"] = false,
+["ilvl"] = true,
+["bis"] = false,
+["quest"] = false,
+["src"] = false,
 },
 ["scale"] = 115,
 ["window"] = {
@@ -625,9 +625,9 @@ DungeonsForeverDB = {
 },
 },
 },
+["profMoved"] = true,
 ["chipCalib"] = {
 },
-["profMoved"] = true,
 ["DungeonsForeverExploreDBMoved"] = true,
 ["dungeon"] = {
 ["mapRoutePal"] = "sunset",
@@ -657,7 +657,7 @@ DungeonsForeverDB = {
 ["subTab"] = "Dungeons",
 },
 ["iconRingMode"] = "glow",
-["dfRevealLog"] = "105/105 36ms",
+["dfRevealLog"] = "108/108 14ms",
 ["vendorPrices"] = {
 },
 ["raid"] = {

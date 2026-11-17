@@ -1,6 +1,6 @@
 
 BugGrabberDB = {
-["session"] = 100,
+["session"] = 108,
 ["lastSanitation"] = 3,
 ["errors"] = {
 {
@@ -253,11 +253,17 @@ BugGrabberDB = {
 },
 {
 ["message"] = "Interface/AddOns/TentWhisper/TentWhisper.lua:706: attempt to compare local 'g' (a secret string value, while execution tainted by 'TentWhisper')",
-["time"] = 1794817013,
+["time"] = 1794837483,
 ["locals"] = "g=<secret string>\n(*temporary)=\"string\"\n(*temporary)=<secret string>\n(*temporary)=\"attempt to compare local 'g' (a secret string value, while execution tainted by 'TentWhisper')\"\n",
-["stack"] = "[Interface/AddOns/TentWhisper/TentWhisper.lua]:706: in function <Interface/AddOns/TentWhisper/TentWhisper.lua:702>\n[Interface/AddOns/TentWhisper/TentWhisper.lua]:808: in function <Interface/AddOns/TentWhisper/TentWhisper.lua:800>\n[Interface/AddOns/TentWhisper/TentWhisper.lua]:991: in function <Interface/AddOns/TentWhisper/TentWhisper.lua:986>\n[C]: in function 'TargetNearestEnemy'\n[TARGETNEARESTENEMY]:2: in function <[string \"TARGETNEARESTENEMY\"]:1>\n",
-["session"] = 93,
-["counter"] = 1788,
+["stack"] = "[Interface/AddOns/TentWhisper/TentWhisper.lua]:706: in function <Interface/AddOns/TentWhisper/TentWhisper.lua:702>\n[Interface/AddOns/TentWhisper/TentWhisper.lua]:808: in function <Interface/AddOns/TentWhisper/TentWhisper.lua:800>\n[Interface/AddOns/TentWhisper/TentWhisper.lua]:991: in function <Interface/AddOns/TentWhisper/TentWhisper.lua:986>\n[C]: in function 'TurnOrActionStop'\n[TURNORACTION]:4: in function <[string \"TURNORACTION\"]:1>\n",
+["session"] = 102,
+["counter"] = 1938,
+},
+{
+["message"] = "LUA_WARNING: Interface/AddOns/Spy/Spy.toc:68 Error loading Interface/AddOns/Spy/PetKills.lua",
+["time"] = 1794882840,
+["session"] = 108,
+["counter"] = 1,
 },
 },
 }

@@ -1,6 +1,5 @@
 VER 3 0000000000000001 "RXPTargeting" "Ability_eyeoftheowl"
-/targetexact 卡文尼·柔风
-/targetexact 平原陆行鸟
+/targetexact 叶基亚
 /tm !7
 /targetlasttarget [dead]
 END

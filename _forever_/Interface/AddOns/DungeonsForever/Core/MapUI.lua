@@ -437,6 +437,73 @@ local function bpPaint(host, disp, cr, cg, cb, size)
     end
 end
 
+local DEAD_DISC_TEX = "Interface\\AddOns\\DungeonsForever\\Media\\Common\\CheckDisc"
+local DEAD_X_TEX = "Interface\\AddOns\\DungeonsForever\\Media\\Common\\CrossMark"
+local DEAD_DISC_RGB = { 0.60, 0.10, 0.09, 0.96 }
+local DEAD_X_RGB = { 1, 0.97, 0.95 }
+
+M.DEAD_ALPHA = 0.45
+
+local DEAD_SIZE = { r = 0.54, min = 11, max = 30, x = 0.58, off = 0.30 }
+local DEAD_SIZE_MINI = { r = 0.68, min = 17, max = 46, x = 0.66, off = 0.26 }
+
+local function bpDead(host, dead, size, mini)
+    if not host then return end
+    local rim, disc, mark = host.avDeadRim, host.avDead, host.avDeadX
+    if not dead then
+        if rim then rim:Hide() end
+        if disc then disc:Hide() end
+        if mark then mark:Hide() end
+        return
+    end
+    local cfg = mini and DEAD_SIZE_MINI or DEAD_SIZE
+    local s = (size or M.PIN_MIN) * cfg.r
+    if s < cfg.min then s = cfg.min elseif s > cfg.max then s = cfg.max end
+    if not disc then
+        rim = host:CreateTexture(nil, "OVERLAY", nil, 4)
+        rim:SetTexture(DEAD_DISC_TEX)
+        rim:SetVertexColor(0, 0, 0, 0.55)
+        disc = host:CreateTexture(nil, "OVERLAY", nil, 5)
+        disc:SetTexture(DEAD_DISC_TEX)
+        disc:SetVertexColor(DEAD_DISC_RGB[1], DEAD_DISC_RGB[2], DEAD_DISC_RGB[3], DEAD_DISC_RGB[4])
+        mark = host:CreateTexture(nil, "OVERLAY", nil, 6)
+        mark:SetTexture(DEAD_X_TEX)
+        mark:SetVertexColor(DEAD_X_RGB[1], DEAD_X_RGB[2], DEAD_X_RGB[3])
+        host.avDeadRim, host.avDead, host.avDeadX = rim, disc, mark
+    end
+    local off = s * cfg.off
+    disc:SetSize(s, s)
+    disc:ClearAllPoints()
+    disc:SetPoint("TOPRIGHT", host, "TOPRIGHT", off, off)
+    disc:Show()
+    rim:SetSize(s + 2.5, s + 2.5)
+    rim:ClearAllPoints()
+    rim:SetPoint("CENTER", disc, "CENTER", 0, 0)
+    rim:Show()
+    local xs = s * cfg.x
+    mark:SetSize(xs, xs)
+    mark:ClearAllPoints()
+    mark:SetPoint("CENTER", disc, "CENTER", 0, 0)
+    mark:Show()
+end
+
+M.PaintBossDead = bpDead
+
+local function bpDim(host, a)
+    if not host then return end
+    if host.avRing then host.avRing:SetAlpha(a) end
+    if host.avBase then host.avBase:SetAlpha(a) end
+    if host.avFace then host.avFace:SetAlpha(a) end
+end
+
+M.PaintBossDim = bpDim
+
+local function bossKilled(id, en)
+    local fn = M.BossKilled
+    if not fn then return false end
+    return (fn(id, en)) and true or false
+end
+
 M.MAX_LIST = 30
 M.SHOW_NPC_ID = true
 
@@ -1147,12 +1214,19 @@ function M.QuestClassOK(qid)
     local cls = (type(row) == "table") and row[15] or nil
     if type(cls) ~= "string" or cls == "" then return true end
     if not UnitClass then return true end
-    local pc = UnitClass("player")
-    if not pc then return true end
+    local cn, tok = UnitClass("player")
+    if not cn then return true end
     local list = DG.QClassList and DG.QClassList(cls) or nil
-    if not list then return cls == pc end
+    if not list then
+        if cn == cls then return true end
+        local t = DG.QCLASS_TOKEN and DG.QCLASS_TOKEN[cls]
+        return (t and tok and t == tok) and true or false
+    end
     for i = 1, #list do
-        if list[i] == pc then return true end
+        local s = list[i]
+        if s == cn then return true end
+        local t = DG.QCLASS_TOKEN and DG.QCLASS_TOKEN[s]
+        if t and tok and t == tok then return true end
     end
     return false
 end
@@ -3545,8 +3619,10 @@ function M.SyncPins()
             local kind = p.kind or "boss"
             local ps = M.PinScale()
             local dim = (kind == "boss") and M.RareBoss(M.curId, p.en) or false
-            bt:SetAlpha(dim and 0.5 or 1)
-            bt.nm:SetAlpha(dim and 0.5 or 1)
+            local dead = (kind == "boss") and bossKilled(M.curId, p.en) or false
+            local pa = dim and 0.5 or 1
+            bt:SetAlpha(pa)
+            bt.nm:SetAlpha(pa)
             local skip = nil
             bt.__kind, bt.__p = kind, p
             bt.__en, bt.__zh = p.en, p.zh
@@ -3653,8 +3729,10 @@ function M.SyncPins()
                 bt.dot:Hide()
                 bt.__av:Show()
                 local isSel = (M.detailEn == p.en) or false
-                bpPaint(bt.__av, bpDisp(M.curId, p.en), cr, cg, cb,
-                    (isSel and M.PIN_SIZE or M.PIN_MIN) * ps)
+                local asz = (isSel and M.PIN_SIZE or M.PIN_MIN) * ps
+                bpPaint(bt.__av, bpDisp(M.curId, p.en), cr, cg, cb, asz)
+                bpDim(bt.__av, (dead and not dim) and M.DEAD_ALPHA or 1)
+                bpDead(bt.__av, dead, asz)
             end
             local sel = (kind == "boss") and (M.detailEn == p.en) or false
             if kind == "boss" and not sel then nm = "" end
@@ -4636,6 +4714,7 @@ function M.SyncSide(forceFrame)
         end
         local cr, cg, cb = M.BossColor(id, bosses[i].en)
         bpPaint(r.__av, bpDisp(id, bosses[i].en), cr, cg, cb, 32)
+        bpDead(r.__av, bossKilled(id, bosses[i].en), 32)
         if r.__card then PiecesSetShown(r.__card, nativeRow) end
         if nativeRow then
             for _, t in ipairs(r.__borderPieces or {}) do t:SetVertexColor(0.42, 0.32, 0.20) end
@@ -5053,7 +5132,8 @@ local function wpPinAcquire(canvas)
     return p
 end
 
-local WP_DEF = { size = 18, world = false, scope = { lv = true, reco = true, enter = true, all = false, grey = true, take = true } }
+local WP_DEF = { size = 18, world = false, layer = "below", scope = { lv = true, reco = true, enter = true, all = false, grey = true, take = true } }
+local WP_LAYER_BELOW = 2019
 
 local function wpCfg()
     local db = ns.DB and ns.DB()
@@ -5070,6 +5150,7 @@ local function wpCfg()
     end
     if c.size == nil then c.size = WP_DEF.size end
     if c.world == nil then c.world = WP_DEF.world end
+    if c.layer ~= "above" and c.layer ~= "below" then c.layer = WP_DEF.layer end
     if type(c.scope) ~= "table" then c.scope = {} end
     for k, v in pairs(WP_DEF.scope) do
         if c.scope[k] == nil then c.scope[k] = v end
@@ -5134,7 +5215,12 @@ function M.SyncWorldQuestPins()
         end
     end
     local lvl
-    if base and base > 0 then lvl = base + 1 end
+    if base and base > 0 then
+        lvl = base + 1
+        if wpCfg().layer ~= "above" then
+            lvl = math.min(WP_LAYER_BELOW, lvl)
+        end
+    end
     local data = wpStatic()
     local cfg = wpCfg()
     local sc2 = cfg.scope
@@ -5152,7 +5238,25 @@ function M.SyncWorldQuestPins()
         useLv, useReco, useEnter = sc2.lv == true, sc2.reco == true, sc2.enter == true
     end
     local dlv = wpDlv()
-    local pcls = (UnitClass and UnitClass("player")) or nil
+    local pcn, ptok
+    if UnitClass then pcn, ptok = UnitClass("player") end
+    local function wpClassOK(raw)
+        if not raw or raw == "" then return true end
+        if not pcn then return true end
+        local list = DG.QClassList and DG.QClassList(raw)
+        if not list then
+            if pcn == raw then return true end
+            local t = DG.QCLASS_TOKEN and DG.QCLASS_TOKEN[raw]
+            return (t and ptok and t == ptok) and true or false
+        end
+        for i = 1, #list do
+            local s = list[i]
+            if s == pcn then return true end
+            local t = DG.QCLASS_TOKEN and DG.QCLASS_TOKEN[s]
+            if t and ptok and t == ptok then return true end
+        end
+        return false
+    end
     local function wpGrey(qlv)
         if GetQuestDifficultyColor then
             local ok, c = pcall(GetQuestDifficultyColor, qlv)
@@ -5174,7 +5278,7 @@ function M.SyncWorldQuestPins()
     end
     local function qHit(q)
         if side and q[2] and q[2] ~= side then return false end
-        if pcls and q[15] and q[15] ~= pcls then return false end
+        if not wpClassOK(q[15]) then return false end
         if DG.QuestRaceOK and not DG.QuestRaceOK(q[1]) then return false end
         local r = data.qdk[q[1]] and dlv[data.qdk[q[1]]]
         local qlv = q[3]
@@ -5209,7 +5313,7 @@ function M.SyncWorldQuestPins()
         local qlv
         if sq then
             if side and sq[2] and sq[2] ~= side then return false end
-            if pcls and sq[15] and sq[15] ~= pcls then return false end
+            if not wpClassOK(sq[15]) then return false end
             if DG.QuestRaceOK and not DG.QuestRaceOK(seg) then return false end
             local sp = sq[9]
             if type(sp) == "table" then
@@ -5473,6 +5577,64 @@ local function wpStepperRow(content, y, label, minv, maxv, step, get, set, fmt)
     }
 end
 
+local function wpOptRow(content, y, label, opts, get, set)
+    local lab = wpSetFs(content, 14, WP_TXT)
+    lab:SetJustifyH("LEFT")
+    lab:SetPoint("TOPLEFT", content, "TOPLEFT", 0, y - 5)
+    lab:SetText(label)
+    local cw = content.GetWidth and content:GetWidth() or 0
+    if type(cw) ~= "number" or cw <= 1 then cw = 196 end
+    local btns = {}
+    local paint
+    for i = 1, #opts do
+        local o = opts[i]
+        local b = wpMkBtn(content, o[2], cw)
+        b.__key = o[1]
+        if i == 1 then
+            b:SetPoint("TOPLEFT", content, "TOPLEFT", 0, y - 26)
+        else
+            b:SetPoint("TOPLEFT", btns[i - 1], "BOTTOMLEFT", 0, -8)
+        end
+        b:SetScript("OnEnter", function(self)
+            self.__hot = true
+            paint()
+        end)
+        b:SetScript("OnLeave", function(self)
+            self.__hot = false
+            paint()
+        end)
+        b:SetScript("OnClick", function(self)
+            set(self.__key)
+            paint()
+            ns.PlaySound(1)
+            M.SyncWorldQuestPins()
+        end)
+        btns[i] = b
+    end
+    paint = function()
+        local cur = get()
+        for i = 1, #btns do
+            local b = btns[i]
+            local on = b.__key == cur
+            local a = on and 0.20 or ((b.__hot and 0.14) or 0.06)
+            for _, t in ipairs(b.fills or {}) do t:SetAlpha(a) end
+            if b.bg then b.bg:SetAlpha(a) end
+            local fs = b.GetFontString and b:GetFontString() or nil
+            if fs then
+                if on then
+                    fs:SetTextColor(1, 0.82, 0)
+                else
+                    fs:SetTextColor(WP_TXT[1], WP_TXT[2], WP_TXT[3])
+                end
+            end
+        end
+    end
+    paint()
+    return {
+        sync = function() paint() end,
+    }
+end
+
 local function wpCreatePanel()
     local host = ns.MainFrame or UIParent
     local f = CreateFrame("Frame", "DFQuestPinSettings", host, "BackdropTemplate")
@@ -5486,7 +5648,7 @@ local function wpCreatePanel()
         f:SetPoint("BOTTOMLEFT", host, "BOTTOMRIGHT", 4, 0)
     else
         f:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
-        f:SetHeight(390)
+        f:SetHeight(430)
     end
     f:Hide()
     f:SetScript("OnHide", function()
@@ -5562,6 +5724,16 @@ local function wpCreatePanel()
             function(v) wpCfg().world = v end)
         syncers[#syncers + 1] = function() tg:sync() end
         y = y - 24
+    end
+    y = y - 8
+    do
+        local row = wpOptRow(content, y, L["地图图钉层级"], {
+            { "above", L["Questie 之上"] },
+            { "below", L["Questie 之下"] },
+        },
+            function() return wpCfg().layer end,
+            function(v) wpCfg().layer = v end)
+        syncers[#syncers + 1] = function() row:sync() end
     end
     f.syncAll = function()
         for _, fn in ipairs(syncers) do fn() end

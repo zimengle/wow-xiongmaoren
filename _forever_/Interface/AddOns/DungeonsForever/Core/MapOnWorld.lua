@@ -577,7 +577,39 @@ local function instStamp()
     return tostring(info.instID or "") .. "|" .. tostring(info.name or "")
 end
 
-function W.Resolve()
+local INST_PICK, INST_N = {}, 0
+
+local function instMemoGet()
+    local k = instStamp()
+    if not k then return nil end
+    return INST_PICK[k]
+end
+
+local function instMemoSet(id)
+    local k = instStamp()
+    if not (k and type(id) == "string" and id ~= "" and hasArt(id)) then return end
+    if INST_PICK[k] == id then return end
+    if INST_PICK[k] == nil then
+        INST_N = INST_N + 1
+        if INST_N > 64 then
+            INST_PICK, INST_N = {}, 1
+        end
+    end
+    INST_PICK[k] = id
+end
+
+function W.NoteInstPick(id)
+    instMemoSet(id)
+end
+
+local memoDriver = CreateFrame("Frame")
+memoDriver:RegisterEvent("PLAYER_ENTERING_WORLD")
+memoDriver:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+memoDriver:SetScript("OnEvent", function()
+    INST_PICK, INST_N = {}, 0
+end)
+
+local function resolveCore()
     if not enabled() then return nil end
     local IM = mapTable()
     local cur = hasArt(M.curId) and M.curId or nil
@@ -615,6 +647,8 @@ function W.Resolve()
             return id, "inst"
         end
     end
+    local memo = instMemoGet()
+    if memo then return memo, "memo" end
     local names = { info and info.name, zoneText() }
     for i = 1, #names do
         local nm = names[i]
@@ -637,6 +671,12 @@ function W.Resolve()
     end
     if cur and W.curStamp and W.curStamp == instStamp() then return cur, "cur" end
     return nil
+end
+
+function W.Resolve()
+    local id, why = resolveCore()
+    if id then instMemoSet(id) end
+    return id, why
 end
 
 local function subZoneKey()
@@ -989,8 +1029,10 @@ local function syncPins(view, id, floor, cw, ch)
             local kind = p.kind or "boss"
             local ps = M.PinScale() * (view.__uiK or 1)
             local dim = (kind == "boss") and M.RareBoss(id, p.en) or false
-            bt:SetAlpha(dim and 0.5 or 1)
-            bt.nm:SetAlpha(dim and 0.5 or 1)
+            local killed = (kind == "boss") and M.BossKilled and M.BossKilled(id, p.en) or false
+            local pa = dim and 0.5 or 1
+            bt:SetAlpha(pa)
+            bt.nm:SetAlpha(pa)
             local skip
             n = i
             bt.__kind, bt.__p = kind, p
@@ -1090,8 +1132,15 @@ local function syncPins(view, id, floor, cw, ch)
                 bt.dot:Hide()
                 bt.__av:Show()
                 local isSel = (M.detailEn == p.en) or false
-                M.PaintBossPin(bt.__av, M.BossPinDisplay(id, p.en), cr, cg, cb,
-                    (isSel and M.PIN_SIZE or M.PIN_MIN) * ps)
+                local asz = (isSel and M.PIN_SIZE or M.PIN_MIN) * ps
+                M.PaintBossPin(bt.__av, M.BossPinDisplay(id, p.en), cr, cg, cb, asz)
+                if M.PaintBossDim then
+                    local a = (killed and not dim) and (M.DEAD_ALPHA or 0.45) or 1
+                    M.PaintBossDim(bt.__av, a)
+                end
+                if M.PaintBossDead then
+                    M.PaintBossDead(bt.__av, killed, asz, view.__mini)
+                end
             end
             local sel = (kind == "boss") and (M.detailEn == p.en) or false
             if kind == "boss" and not sel then nm = "" end
