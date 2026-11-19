@@ -392,12 +392,10 @@ function H:InitUI()
   thanksBody:SetSpacing(3)
   thanksBody:SetWordWrap(true)
   thanksBody:SetNonSpaceWrap(false)
-  -- 小节标题金色，人名白字
+  local foreverUi = H.IsForeverClient and H:IsForeverClient()
   local thanksGold = "|cffffd100"
   local thanksReset = "|r"
-  local foreverUi = H.IsForeverClient and H:IsForeverClient()
-  local explain = foreverUi and "因暴雪限制，本插件目前仅支持 同公会 玩家互相帮忙切换位面，同公会使用本插件的人越多，可切换的位面也就越多，作者会持续关注政策限制，祝您游戏愉快。\n\n" or ""
-  thanksBody:SetText(explain .. table.concat({
+  local names = table.concat({
     thanksGold .. "参与测试：" .. thanksReset,
     "爱吃小丸子",
     "桀少不单飞",
@@ -412,7 +410,19 @@ function H:InitUI()
     "NB-6e0fb11ac9f45270c",
     "NB-39b74215602c17d0db",
     "NB-be55d5aa68d17eed7",
-  }, "\n"))
+  }, "\n")
+  local intro = foreverUi and "因暴雪限制，本插件目前仅支持 同公会 玩家互相帮忙切换位面，同公会使用本插件的人越多，可切换的位面也就越多，作者会持续关注政策限制，祝您游戏愉快。\n\n" or ""
+  local slot = foreverUi and H.GuildRecSlot and H:GuildRecSlot()
+  local guildName = slot and slot.guild or ""
+  local guildLine = ""
+  if foreverUi then
+    if guildName ~= "" then
+      guildLine = thanksGold .. "推荐公会：" .. thanksReset .. "<" .. guildName .. ">\n\n"
+    else
+      guildLine = thanksGold .. "推荐公会：" .. thanksReset .. "暂无，若想展示自己公会，请添加战网 YUHE#51586\n\n"
+    end
+  end
+  thanksBody:SetText(intro .. guildLine .. names)
   thanksBody:SetTextColor(C.text[1], C.text[2], C.text[3], 1)
   local bodyH = thanksBody:GetStringHeight() or 200
   local viewH = setH - setPad * 2
@@ -924,6 +934,33 @@ function H:FillLayerRow(row, item)
         named[#named + 1] = { who = who, p = p }
       end
     end
+    local tipPlain = {
+      ["当前"] = true, ["暂停"] = true, ["副本"] = true, ["在队"] = true,
+      ["排队"] = true, ["未知"] = true, ["忙碌"] = true, ["跳过"] = true,
+      ["离开"] = true, ["不接"] = true, ["可切"] = true,
+    }
+    local function tipPlace(p)
+      local st = tipStatus(p)
+      if st and not tipPlain[st] then
+        return st
+      end
+      local mapId = tonumber(item.mapId) or 0
+      if (not p.mine) and p.name and self.db and self.db.peers and self.db.peers[p.name] then
+        local raw = tonumber(self.db.peers[p.name].map) or 0
+        if raw > 0 and self.CanonMapId then
+          local canon = self:CanonMapId(raw)
+          if canon and canon > 0 then
+            mapId = canon
+          elseif mapId <= 0 then
+            mapId = raw
+          end
+        end
+      end
+      if mapId > 0 and self.MapPlaceName then
+        return self:MapPlaceName(mapId)
+      end
+      return nil
+    end
     local many = #named > 1
     for _, one in ipairs(named) do
       local who = one.who
@@ -932,11 +969,16 @@ function H:FillLayerRow(row, item)
         who = color .. who .. "|r"
       end
       local st = tipStatus(one.p)
-      if many or (st and #st > 6) then
-        tipLines[#tipLines + 1] = st .. " " .. who
-      else
-        tipLines[#tipLines + 1] = who
+      local place = tipPlace(one.p)
+      local bits = {}
+      if many and st and tipPlain[st] then
+        bits[#bits + 1] = st
       end
+      if place and place ~= "" then
+        bits[#bits + 1] = place
+      end
+      bits[#bits + 1] = who
+      tipLines[#tipLines + 1] = table.concat(bits, " ")
     end
   end
   row.tipNames = table.concat(tipLines, "\n")

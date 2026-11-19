@@ -4,7 +4,7 @@ local H = HuZhuLayer
 
 H.ADDON_NAME = "HuZhuLayer"
 H.PREFIX = "HZL"
-H.VERSION = "1.1.336"
+H.VERSION = "1.1.348"
 H.LIST_VISIBLE_ROWS = 10 -- 列表最多同时显示行数，超出可滚动
 H.LOAD_TICK = 0.1 -- 所有加载：进入的数据和画界面都按这个间隔摊开
 H.LOAD_IN_MAX = 6 -- 每个间隔最多收几条上报
@@ -422,6 +422,28 @@ function H:CharBag()
   end
   c.myMiss = c.myMiss or { miss = 0, skipUntil = 0 }
   return c
+end
+
+-- 无限服：每个角色只看自己听到的人。大号记下的名单不给小号。其它版本仍共用一份。
+function H:BindCharacterPeers()
+  if not self.db then
+    return
+  end
+  if not (self.IsForeverClient and self:IsForeverClient()) then
+    return
+  end
+  local guid = UnitGUID("player")
+  if not self:IsReadableGuid(guid) then
+    return
+  end
+  self.db.peersByChar = self.db.peersByChar or {}
+  if type(self.db.peersByChar[guid]) ~= "table" then
+    self.db.peersByChar[guid] = {}
+  end
+  if self.db.peers ~= self.db.peersByChar[guid] then
+    self.db.peers = self.db.peersByChar[guid]
+  end
+  self._peersBoundGuid = guid
 end
 
 function H:GetMyMiss()
@@ -1186,13 +1208,36 @@ function H:IsPeerUnavailable(peer)
   if peer.paused or peer.inst or peer.grouped or peer.queued then
     return true
   end
-  if self:IsDungeonMap(peer.map) or self:IsOrphanMap(peer.map) then
+  if self:PlaceBlocksHop(peer) then
     return true
   end
   if not peer.map or tonumber(peer.map) == 0 then
     return true
   end
   if (peer.busyUntil or 0) > self:WallNow() then
+    return true
+  end
+  return false
+end
+
+-- 无限：野外图即使被标成「在副本里」，按钮也不写地名。只有地图本身是副本才挡住。
+-- 其它版本仍按在副本、副本地图、没挂上正常地区这三样挡住。
+function H:PlaceBlocksHop(peer)
+  if not peer then
+    return false
+  end
+  if self.IsForeverClient and self:IsForeverClient() then
+    local mapId = tonumber(peer.map) or 0
+    local imap = tonumber(peer.imap) or 0
+    if imap > 0 and self:IsDungeonMap(imap) then
+      return true
+    end
+    if mapId > 0 and self:IsDungeonMap(mapId) then
+      return true
+    end
+    return false
+  end
+  if peer.inst or self:IsDungeonMap(peer.map) or self:IsOrphanMap(peer.map) then
     return true
   end
   return false
@@ -1206,10 +1251,14 @@ function H:PeerBlockLabel(name, peer)
   if peer.paused then
     return "暂停"
   end
-  if peer.inst or self:IsDungeonMap(peer.map) or self:IsOrphanMap(peer.map) then
+  if self:PlaceBlocksHop(peer) then
     local placeId = (tonumber(peer.imap) or 0) > 0 and peer.imap or peer.map
     local place = self.MapPlaceName and self:MapPlaceName(placeId)
-    if place and place ~= "" and (peer.inst or self:IsDungeonMap(placeId) or self:IsOrphanMap(placeId)) then
+    local named = peer.inst or self:IsDungeonMap(placeId)
+    if not (self.IsForeverClient and self:IsForeverClient()) then
+      named = named or self:IsOrphanMap(placeId)
+    end
+    if place and place ~= "" and named then
       return place
     end
     return "副本"
@@ -1661,23 +1710,106 @@ function H:GroupHasPlayer(fullName)
   return false
 end
 
+-- 求切点名、自动进队、进队核对：名和姓都要对上，顺序也要一样。只对上一个字不算。
+function H:HopNamePair(name)
+  if not name or name == "" then
+    return nil, nil
+  end
+  local bare = self.BareCharacterName and self:BareCharacterName(name) or name
+  if type(bare) ~= "string" or bare == "" then
+    return nil, nil
+  end
+  local a, b = bare:match("^(%S+)%s+(%S+)$")
+  if not a or not b then
+    return nil, nil
+  end
+  return a, b
+end
+
+function H:SameHopPerson(a, b)
+  if not (self.IsForeverClient and self:IsForeverClient()) then
+    return self:IsSamePlayer(a, b)
+  end
+  local a1, a2 = self:HopNamePair(a)
+  local b1, b2 = self:HopNamePair(b)
+  if not a1 or not b1 then
+    return false
+  end
+  return a1 == b1 and a2 == b2
+end
+
+function H:IsHopTargetMe(name)
+  if not (self.IsForeverClient and self:IsForeverClient()) then
+    return self:IsSelfName(name)
+  end
+  if self:SameHopPerson(name, self:PlayerFullName()) then
+    return true
+  end
+  local unit = UnitName("player")
+  if unit and self:SameHopPerson(name, unit) then
+    return true
+  end
+  return false
+end
+
+function H:GroupHasHopPerson(fullName)
+  if not (self.IsForeverClient and self:IsForeverClient()) then
+    return self:GroupHasPlayer(fullName)
+  end
+  if not fullName or not IsInGroup() then
+    return false
+  end
+  local function hit(unit)
+    local who = self.GetUnitCharacterName and self:GetUnitCharacterName(unit)
+    if who and self:SameHopPerson(who, fullName) then
+      return true
+    end
+    return false
+  end
+  if IsInRaid and IsInRaid() then
+    local n = GetNumGroupMembers() or 0
+    for i = 1, n do
+      if hit("raid" .. i) then
+        return true
+      end
+    end
+  else
+    for i = 1, 4 do
+      if hit("party" .. i) then
+        return true
+      end
+    end
+  end
+  return false
+end
+
 -- 求切进队后核对帮助方：名单延迟 / 名姓格式差时，信任已核对过的邀请人
 function H:MatchExpectedHost(expected)
   if not IsInGroup() then
     return false
   end
-  if expected and self:GroupHasPlayer(expected) then
+  local inGroup = (self.IsForeverClient and self:IsForeverClient()) and function(who)
+    return self:GroupHasHopPerson(who)
+  end or function(who)
+    return self:GroupHasPlayer(who)
+  end
+  local same = (self.IsForeverClient and self:IsForeverClient()) and function(a, b)
+    return self:SameHopPerson(a, b)
+  end or function(a, b)
+    return self:IsSamePlayer(a, b)
+  end
+  if expected and inGroup(expected) then
     return true
   end
   local reply = expected and self:WhisperTarget(expected)
-  if reply and self:GroupHasPlayer(reply) then
+  if reply and inGroup(reply) then
     return true
   end
   local inv = self._hopInviter
-  if inv and self:GroupHasPlayer(inv) then
+  if inv and inGroup(inv) then
     return true
   end
-  if inv and expected and (self:IsSamePlayer(inv, expected) or (reply and self:IsSamePlayer(inv, reply))) then
+  if inv and expected and (same(inv, expected) or (reply and same(inv, reply))) then
     return true
   end
   return false
@@ -1788,6 +1920,10 @@ frame:SetScript("OnEvent", function(_, event, ...)
     if name ~= H.ADDON_NAME then
       return
     end
+    -- 2026-11-17：只支持无限。别的版本即使文件还在，也不初始化。
+    if not (H.IsForeverClient and H:IsForeverClient()) then
+      return
+    end
     HuZhuLayerDB = HuZhuLayerDB or {}
     HuZhuLayerDB.hosting = nil
     H:CopyDefaults(HuZhuLayerDB, defaults)
@@ -1827,6 +1963,7 @@ frame:SetScript("OnEvent", function(_, event, ...)
   end
   if event == "PLAYER_LOGIN" then
     pcall(function()
+      H:BindCharacterPeers()
       H:SanitizeSessionClocks()
       H:CharBag() -- 把旧账号级暂停/感谢迁到当前角色
       H:MigratePeerNames()

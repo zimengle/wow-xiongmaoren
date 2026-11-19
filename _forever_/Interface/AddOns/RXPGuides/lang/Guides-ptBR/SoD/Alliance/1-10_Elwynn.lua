@@ -96,7 +96,7 @@ step << Warlock
     .aura 403619 >> |cRXP_WARN_Certifique-se de que você se lembra de ativar seu|r |T136156:0|t[Armadura Vil]
 step << Warrior
     >>|interface/worldmap/chatbubble_64grey.blp:20|t Fale com |cRXP_FRIENDLY_Lane Beshere|r no andar de baixo
-    .train 6673 >>Treine |T132333:0|t[Brado de Batalha]
+    .train 6673 >>Aprenda |T132333:0|t[Brado de Batalha]
     .accept 77616 >> Aceite A Runa Perdida
     .turnin 77616 >> Entregue A Runa Perdida
     .goto Elwynn Forest,50.242,42.287
@@ -2085,7 +2085,7 @@ step << Priest/Rogue
     #label RRFP
     .goto Redridge Mountains,30.590,59.410
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Ariena Penafúria|r
-    .fp Redridge Mountains >> Aprenda a rota de voo para Montanhas Cristarrubra
+    .fp Redridge Mountains >> Pegue o ponto de voo das Montanhas Cristarrubra
     .target Ariena Stormfeather
     .subzoneskip 87 --Skip the Quick Draw steps if the user went back to goldshire instead
 step
@@ -2555,7 +2555,7 @@ step << Warlock
 step
     .goto StormwindClassic,52.623,65.701
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Estalajadeira Cristine|r
-    .home >> Defina sua Pedra de Retorno na Cidade de Ventobravo
+    .home >> Defina sua Pedra de Retorno em Cidade de Ventobravo
     .target Innkeeper Allison
 step << Human Paladin
     #xprate >1.59
@@ -2768,7 +2768,7 @@ step << Warlock
 step << Warlock
     .goto Redridge Mountains,30.590,59.410
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Ariena Penafúria|r
-    .fp Redridge Mountains >> Aprenda a rota de voo para Montanhas Cristarrubra
+    .fp Redridge Mountains >> Pegue o ponto de voo das Montanhas Cristarrubra
     .target Ariena Stormfeather
 step << Warlock
     .hs >> Use sua Pedra de Retorno para Ventobravo, pule este passo e pegue a rota de voo se estiver em recarga
@@ -3005,46 +3005,46 @@ step
     #xprate <1.59
     #optional
     #label TramEnd
-    >>|cRXP_WARN_Pegue o Bonde das Profundezas para o lado de Ironforge|r
+    >>|cRXP_WARN_Pegue o Deeprun Tram para o lado de Ironforge|r
     >>|cRXP_WARN_Aumente de Nível em|r |T135966:0|t[Primeiros Socorros] |cRXP_WARN_enquanto espera pelo Bonde para Ironforge se necessário|r << Rogue/Warrior/Paladin
     >>|cRXP_WARN_Você precisará de sua|r |T135966:0|t[Primeiros Socorros] |cRXP_WARN_estar em nível 80 para uma missão do nível 24|r << Rogue !Dwarf
     >>|cRXP_WARN_Lance|r |T136221:0|t[Evocar Emissário do Caos] |cRXP_WARN_e|r |T135230:0|t[Criar Pedra de Vida] |cRXP_WARN_enquanto espera pelo Bonde para Ironforge se necessário|r << Warlock
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Monty|r na plataforma do meio no lado de Ironforge do Tram de Profundezas
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Monty|r na plataforma intermediária no lado de Ironforge do Deeprun Tram
     .accept 6661 >> Aceite Ratos de Porão
     .target Monty
 step
     #xprate <1.59
-    >>|cRXP_WARN_Use a|r |T133942:0|t[Rato Catcher's Flute] |cRXP_WARN_em |cRXP_ENEMY_Deeprun Ratos|r dentro do Bonde das Profundezas|r
+    >>|cRXP_WARN_Use o|r |T133942:0|t[Rato Catcher's Flute] |cRXP_WARN_em |cRXP_ENEMY_Deeprun Ratos|r dentro do Deeprun Tram|r
     .complete 6661,1 --Rats Captured (x5)
     .use 17117
     .mob Deeprun Rat
 step
     #xprate <1.59
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Monty|r dentro do Tram de Profundezas
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Monty|r dentro do Deeprun Tram
     .turnin 6661 >> Entregue Ratos de Porão
     .target Monty
 step
     #xprate >1.59
     #optional
     #label TramEnd
-    >>|cRXP_WARN_Pegue o Bonde das Profundezas para o lado de Ironforge|r
+    >>|cRXP_WARN_Pegue o Deeprun Tram para o lado de Ironforge|r
     >>|cRXP_WARN_Aumente de Nível em|r |T135966:0|t[Primeiros Socorros] |cRXP_WARN_enquanto espera pelo Bonde para Ironforge se necessário|r << Rogue/Warrior/Paladin
     >>|cRXP_WARN_Você precisará de sua|r |T135966:0|t[Primeiros Socorros] |cRXP_WARN_estar em nível 80 para uma missão do nível 24|r << Rogue !Dwarf
     >>|cRXP_WARN_Lance|r |T136221:0|t[Evocar Emissário do Caos] |cRXP_WARN_e|r |T135230:0|t[Criar Pedra de Vida] |cRXP_WARN_enquanto espera pelo Bonde para Ironforge se necessário|r << Warlock
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Monty|r na plataforma do meio no lado de Ironforge do Tram de Profundezas
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Monty|r na plataforma intermediária no lado de Ironforge do Deeprun Tram
     .accept 6661 >> Aceite Ratos de Porão
     .target Monty
     .zoneskip Ironforge
 step
     #xprate >1.59
-    >>|cRXP_WARN_Use a|r |T133942:0|t[Rato Catcher's Flute] |cRXP_WARN_em |cRXP_ENEMY_Deeprun Ratos|r dentro do Bonde das Profundezas|r
+    >>|cRXP_WARN_Use o|r |T133942:0|t[Rato Catcher's Flute] |cRXP_WARN_em |cRXP_ENEMY_Deeprun Ratos|r dentro do Deeprun Tram|r
     .complete 6661,1 --Rats Captured (x5)
     .use 17117
     .mob Deeprun Rat
     .zoneskip Ironforge
 step
     #xprate >1.59
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Monty|r dentro do Tram de Profundezas
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Monty|r dentro do Deeprun Tram
     .turnin 6661 >> Entregue Ratos de Porão
     .target Monty
     .zoneskip Ironforge
@@ -3052,8 +3052,8 @@ step
     #completewith next
     .goto StormwindClassic,61.149,11.568,25,0
     .goto StormwindClassic,64.0,8.10
-    >>|cRXP_WARN_Nível seu|r |T135966:0|t[Primeiros Socorros] |cRXP_WARN_se necessário enquanto aguarda o bonde|r << Rogue/Warrior/Paladin
-    .zone Ironforge >>Pegue o Bonde para Ironforge
+    >>|cRXP_WARN_Aumente o Nível de seu|r |T135966:0|t[Primeiros Socorros] |cRXP_WARN_se necessário enquanto espera o bonde|r << Rogue/Warrior/Paladin
+    .zone Ironforge >>Pegue o Tram para Ironforge
 step
     .zone Ironforge >>Entre em Ironforge
     .isQuestAvailable 314
@@ -3308,7 +3308,7 @@ step
     .goto Ironforge,25.800,75.500,-1
     .goto Ironforge,24.200,74.600,-1
     .goto Ironforge,23.800,71.800,-1
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com um |cRXP_FRIENDLY_Leiloeiro de Ironforge|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com o |cRXP_FRIENDLY_Leiloeiro de Ironforge|r
     >>Se você não quiser ou não puder fazer isso, pule esta etapa
     >>|cRXP_BUY_Compre os itens a seguir para uma entrega mais rápida em Loch Modan em breve:|r
     >>|T134342:0|t[Javali Intestines]

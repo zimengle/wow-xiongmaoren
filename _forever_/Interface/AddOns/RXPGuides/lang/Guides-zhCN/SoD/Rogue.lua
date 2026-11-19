@@ -903,7 +903,7 @@ step << Horde
     .train 400080,1
 step << Alliance
     >>前往南海镇
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t 与 |cRXP_FRIENDLY_达尔拉·哈瑞斯|r 对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_达尔拉·哈瑞斯|r 对话
     .goto Hillsbrad Foothills,49.338,52.272
     .fly Ironforge >> 飞往铁炉堡
     .target 达尔拉·哈瑞斯
@@ -1561,7 +1561,7 @@ step << Horde
     .train 400101,1
 step << Alliance
     >>前往南海镇
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t 与 |cRXP_FRIENDLY_达尔拉·哈瑞斯|r 对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_达尔拉·哈瑞斯|r 对话
     .goto Hillsbrad Foothills,49.338,52.272
     .fly Ironforge >> 飞往铁炉堡
     .target 达尔拉·哈瑞斯

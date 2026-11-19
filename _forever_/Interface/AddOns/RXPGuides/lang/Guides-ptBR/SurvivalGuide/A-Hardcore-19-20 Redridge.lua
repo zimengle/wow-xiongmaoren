@@ -267,7 +267,7 @@ step
 step
     .goto Westfall,56.55,52.64
 	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Thor|r
-    .fly Stormwind >> Voe para a Cidade de Ventobravo
+    .fly Stormwind >> Voe para Ventobravo
     .target Thor
 step
     .goto StormwindClassic,63.982,75.338
@@ -351,7 +351,7 @@ step
     .target The Defias Traitor
 step
     .goto Westfall,42.56,71.71
-    >>Escolte o |cRXP_FRIENDLY_Traidor Défias|r para Minas Mortas
+    >>Escolte o |cRXP_FRIENDLY_Traidor Défias|r até as Minas Mortas
     >>|cRXP_WARN_fique ao lado de |cRXP_FRIENDLY_Traidor Défias|r o tempo todo! esteja pronto para lutar |cRXP_ENEMY_Défias|r ao chegar em Moonbrook|r
     .complete 155,1 -- Escort The Defias Traitor to discover where VanCleef is hiding (1)
     .target The Defias Traitor
@@ -804,7 +804,7 @@ step
     .goto Redridge Mountains,30.59,59.42
 	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Ariena Penafúria|r
 	.target Ariena Stormfeather
-    .fly Stormwind >> Voe para a Cidade de Ventobravo
+    .fly Stormwind >> Voe para Ventobravo
 step << Warlock
     #completewith next
     .goto StormwindClassic,29.2,74.0,20,0
@@ -1176,7 +1176,7 @@ step << Rogue
     #hardcore
     #optional
     #completewith TowerKey
-    +|cRXP_WARN_==PRESTE ATENÇÃO NA PRÓXIMA SEÇÃO==|r
+    +|cRXP_WARN_==PRESTE ATENÇÃO À PRÓXIMA SEÇÃO==|r
     >>Pressione Escape, depois vá em -> Opções -> Controles
     >>Marque "Ativar Tecla de Interação" e vincule a opção "Interagir com o Alvo" a uma tecla
     >>|cRXP_WARN_Além disso, é recomendável ativar as placas de nome dos inimigos (tecla padrão: V), pois isso permite ver os inimigos atrás de alguns cantos dentro da torre.|r
@@ -1355,7 +1355,7 @@ step << Rogue
     #requires AntiVenomEnd2 << Rogue
     .goto StormwindClassic,75.78,59.84
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Mestre Mathias Shaw|r
-    >>|cRXP_WARN_Lembre-se de reequipar sua arma principal se você trocou para um|r |T135641:0|t[Dagger] |cRXP_WARN_antes|r << Rogue
+    >>|cRXP_WARN_Lembre-se|r de re-equipar sua arma principal se você trocou para uma |T135641:0|t[Adaga] |cRXP_WARN_anteriormente|r << Rogue
     .turnin 2359 >> Entregue A Torre de Klaven
     .target Master Mathias Shaw
     .isQuestComplete 2359

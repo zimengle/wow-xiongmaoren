@@ -1,53 +1,7 @@
 
 DungeonsForeverProfDB = {
 ["prof"] = {
-["track"] = {
-["巴菲特-CN1 Realm 3 PvE"] = {
-["nextID"] = 0,
-["observerSession"] = 9,
-["version"] = 1,
-["active"] = {
-},
-["runs"] = {
-},
-["continuation"] = {
-},
-["preparing"] = {
-},
-["endedContracts"] = {
-},
-},
-["重庆-CN5 Realm 3 PvP"] = {
-["nextID"] = 0,
-["observerSession"] = 95,
-["version"] = 1,
-["active"] = {
-},
-["runs"] = {
-},
-["continuation"] = {
-},
-["preparing"] = {
-},
-["endedContracts"] = {
-},
-},
-["仓库-CN5 Realm 3 PvP"] = {
-["nextID"] = 0,
-["observerSession"] = 4,
-["version"] = 1,
-["active"] = {
-},
-["runs"] = {
-},
-["continuation"] = {
-},
-["preparing"] = {
-},
-["endedContracts"] = {
-},
-},
-},
+["lastSlug"] = "enchanting",
 ["routePartners"] = {
 },
 ["migratedFrom"] = "1.9.32->pr10",
@@ -64,67 +18,118 @@ DungeonsForeverProfDB = {
 },
 ["professionSettings"] = {
 ["tailoring"] = {
-["autoRoute"] = true,
 ["autoScheme"] = "cheapest",
+["autoRoute"] = true,
 },
 ["blacksmithing"] = {
-["autoRoute"] = true,
 ["autoScheme"] = "cheapest",
+["autoRoute"] = true,
 },
 ["skinning"] = {
-["autoRoute"] = true,
 ["autoScheme"] = "cheapest",
+["autoRoute"] = true,
 },
 ["camping"] = {
-["autoRoute"] = true,
 ["autoScheme"] = "cheapest",
+["autoRoute"] = true,
 },
 ["alchemy"] = {
-["autoRoute"] = true,
 ["autoScheme"] = "cheapest",
+["autoRoute"] = true,
 },
 ["mining"] = {
-["autoRoute"] = true,
 ["autoScheme"] = "cheapest",
+["autoRoute"] = true,
 },
 ["crates"] = {
-["autoRoute"] = true,
 ["autoScheme"] = "cheapest",
-},
-["herbalism"] = {
 ["autoRoute"] = true,
+},
+["poisons"] = {
 ["autoScheme"] = "cheapest",
 },
 ["cooking"] = {
-["autoRoute"] = true,
 ["autoScheme"] = "cheapest",
+["autoRoute"] = true,
 },
-["leatherworking"] = {
-["autoRoute"] = true,
+["comprehension"] = {
 ["autoScheme"] = "cheapest",
+["autoRoute"] = true,
 },
 ["first-aid"] = {
 ["autoScheme"] = "cheapest",
 },
 ["fishing"] = {
-["autoRoute"] = true,
 ["autoScheme"] = "cheapest",
+["autoRoute"] = true,
 },
 ["engineering"] = {
+["autoScheme"] = "cheapest",
 ["autoRoute"] = true,
-["autoScheme"] = "cheapest",
 },
-["poisons"] = {
+["leatherworking"] = {
 ["autoScheme"] = "cheapest",
-},
-["comprehension"] = {
 ["autoRoute"] = true,
+},
+["herbalism"] = {
 ["autoScheme"] = "cheapest",
+["autoRoute"] = true,
 },
 ["enchanting"] = {
-["autoRoute"] = true,
 ["autoScheme"] = "cheapest",
+["autoRoute"] = true,
 },
+},
+["pricingMigration"] = 1,
+["track"] = {
+["巴菲特-CN1 Realm 3 PvE"] = {
+["nextID"] = 0,
+["observerSession"] = 10,
+["version"] = 1,
+["active"] = {
+},
+["endedContracts"] = {
+},
+["continuation"] = {
+},
+["preparing"] = {
+},
+["runs"] = {
+},
+},
+["重庆-CN5 Realm 3 PvP"] = {
+["nextID"] = 0,
+["observerSession"] = 97,
+["version"] = 1,
+["active"] = {
+},
+["endedContracts"] = {
+},
+["continuation"] = {
+},
+["preparing"] = {
+},
+["runs"] = {
+},
+},
+["仓库-CN5 Realm 3 PvP"] = {
+["nextID"] = 0,
+["observerSession"] = 4,
+["version"] = 1,
+["active"] = {
+},
+["endedContracts"] = {
+},
+["continuation"] = {
+},
+["preparing"] = {
+},
+["runs"] = {
+},
+},
+},
+["cdVer"] = 2,
+["cd"] = {
 },
 ["economy"] = {
 ["巴菲特-CN1 Realm 3 PvE"] = {
@@ -133,14 +138,14 @@ DungeonsForeverProfDB = {
 ["clientInputRevision"] = 1,
 ["recipeRosters"] = {
 },
-["recipeBuild"] = "1.60.1:70938",
+["recipeBuild"] = "1.60.1:70959",
 ["recipes"] = {
 },
 },
 ["重庆-CN5 Realm 3 PvP"] = {
 ["learningRequirements"] = {
 },
-["clientInputRevision"] = 1727,
+["clientInputRevision"] = 1729,
 ["recipeRosters"] = {
 },
 ["recipeBuild"] = "1.60.1:70938",
@@ -157,10 +162,14 @@ DungeonsForeverProfDB = {
 ["recipeBuild"] = "1.60.1:70938",
 },
 },
+["cdKnow"] = {
+},
+["cdMig"] = 6,
 ["policies"] = {
 ["enchanting"] = {
 },
 },
-["lastSlug"] = "enchanting",
+["cdList"] = {
+},
 },
 }

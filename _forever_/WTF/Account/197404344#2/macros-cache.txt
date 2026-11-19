@@ -1,5 +1,6 @@
 VER 3 0000000000000001 "RXPTargeting" "Ability_eyeoftheowl"
-/targetexact 多克纳
+/targetexact 南海炮兵
+/targetexact 南海歹徒
 /tm !7
 /targetlasttarget [dead]
 END

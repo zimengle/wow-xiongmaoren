@@ -1994,7 +1994,7 @@ step
 step
     #completewith ZalazaneKill
     >>Tuez les |cRXP_ENEMY_Hexed Trolls|r et les |cRXP_ENEMY_Voodoo Trolls|r.
-    >>|cRXP_WARN_Faites attention !|r Les |cRXP_ENEMY_Trolls vaudou|r |cRXP_WARN_peuvent lancer|r |T136052:0|t[Vague de soins]
+    >>Faites attention ! |cRXP_ENEMY_Voodoo Trolls|r peuvent lancer [Vague de soins]
     .complete 826,1 --Hexed Troll (8)
     .mob +Hexed Troll
     .complete 826,2 --Voodoo Troll (8)
@@ -2041,7 +2041,7 @@ step
     .goto Durotar,68.47,86.77,40,0
     .goto Durotar,67.23,88.00,40,0
     >>Tuez les |cRXP_ENEMY_Hexed Trolls|r et les |cRXP_ENEMY_Voodoo Trolls|r.
-    >>|cRXP_WARN_Faites attention !|r Les |cRXP_ENEMY_Trolls vaudou|r |cRXP_WARN_peuvent lancer|r |T136052:0|t[Vague de soins]
+    >>Faites attention ! |cRXP_ENEMY_Voodoo Trolls|r peuvent lancer [Vague de soins]
     .complete 826,1 --Hexed Troll (8)
     .mob +Hexed Troll
     .complete 826,2 --Voodoo Troll (8)
@@ -4162,7 +4162,7 @@ step << Warlock/Mage/Rogue
     .goto Undercity,27.39,30.23,35,0
     .goto Undercity,21.89,43.35,35,0
     .goto Tirisfal Glades,51.10,71.53,50,0
-    .zone Tirisfal Glades >> Quittez Undercity par les Égouts
+    .zone Tirisfal Glades >> Sortez de Fossoyeuse par les Égouts
     .zoneskip Tirisfal Glades
 step << Undead Priest
     #optional
@@ -4175,7 +4175,7 @@ step << Undead Priest
     .goto Undercity,27.39,30.23,35,0
     .goto Undercity,21.89,43.35,35,0
     .goto Tirisfal Glades,51.10,71.53,50,0
-    .zone Tirisfal Glades >> Quittez Undercity par les Égouts
+    .zone Tirisfal Glades >> Sortez de Fossoyeuse par les Égouts
     .zoneskip Tirisfal Glades
 step
     #optional
@@ -4535,7 +4535,7 @@ step
     .group
 step
     #optional
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Coleman|r à l'intérieur de l'auberge
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Coleman|r dans l'auberge
     .turnin 354 >>Rendez la quête Morts dans la famille
     .turnin 362 >>Rendez la quête Les moulins hantés
     .accept 355 >>Acceptez la quête Parler à Sevren
@@ -4588,7 +4588,7 @@ step
     .isOnQuest 361
 step
     #optional
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Coleman|r à l'intérieur de l'auberge
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Coleman|r dans l'auberge
     .turnin 354 >>Rendez la quête Morts dans la famille
     .turnin 362 >>Rendez la quête Les moulins hantés
     .accept 355 >>Acceptez la quête Parler à Sevren
@@ -4597,14 +4597,14 @@ step
     .isQuestComplete 354
 step << Warrior
     .goto Tirisfal Glades,61.72,52.29
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Coleman|r à l'intérieur de l'auberge
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Coleman|r dans l'auberge
     .turnin 1820 >>Rendez la quête Parler à Coleman
     .accept 1821 >>Acceptez la quête L'héritage des Agamand
     .group
     .isQuestTurnedIn 1819
 step << Warrior
     .goto Tirisfal Glades,61.72,52.29
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Coleman|r à l'intérieur de l'auberge
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Coleman|r dans l'auberge
     .turnin 1820 >>Rendez la quête Parler à Coleman
     .solo
     .isQuestTurnedIn 1819
@@ -5049,14 +5049,14 @@ step
     .group
 step << Warrior
     .goto Tirisfal Glades,61.72,52.29
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Coleman|r à l'intérieur de l'auberge
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Coleman|r dans l'auberge
     .turnin 1821 >>Rendez la quête L'héritage des Agamand
     .target Coleman Farthing
     .isQuestComplete 1821
     .group
 step << Warrior
     .goto Tirisfal Glades,61.72,52.29
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Coleman|r à l'intérieur de l'auberge
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Coleman|r dans l'auberge
     .turnin 1822 >>Une arme en héritage
     .target Coleman Farthing
     .isQuestTurnedIn 1821
@@ -5393,7 +5393,7 @@ step
     .goto Undercity,27.39,30.23,35,0
     .goto Undercity,21.89,43.35,35,0
     .goto Tirisfal Glades,51.10,71.53,50,0
-    .zone Tirisfal Glades >> Quittez Undercity par les Égouts
+    .zone Tirisfal Glades >> Sortez de Fossoyeuse par les Égouts
     .zoneskip Tirisfal Glades
     .zoneskip Silverpine Forest
 step

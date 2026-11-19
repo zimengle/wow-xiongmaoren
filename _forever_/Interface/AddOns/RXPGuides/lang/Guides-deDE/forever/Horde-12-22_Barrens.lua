@@ -571,19 +571,12 @@ step
     .mob Sunscale Screecher
 step
     #optional
-    #completewith next
+    #completewith RatchetEnter
     .goto 1413/1,-3851.27,-526.53,100,0
     >>Tötet |cRXP_ENEMY_Zhevra-Läufer|r. Plündert sie für ihre |cRXP_LOOT_Hufe|r
     .complete 845,1 --Zhevra Hooves (4)
     .mob Zhevra Runner
     .isOnQuest 872
-step
-    #optional
-    #completewith next
-    >>Tötet |cRXP_ENEMY_Zhevra-Läufer|r. Plündert sie für ihre |cRXP_LOOT_Hufe|r
-    .complete 845,1 --Zhevra Hooves (4)
-    .mob Zhevra Runner
-    .isNotOnQuest 872
 step
     #label RatchetEnter
     .goto 1413/1,-3728.66,-835.29
@@ -2027,44 +2020,28 @@ step << Rogue
     .collect 7970,1,888,1 --E.C.A.C. (1)
     .collect 5060,1,888,1 --Thieves' Tools (1)
 step
+    .goto 1413/1,-3759.06,-902.18
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Sputtervalve|r und |cRXP_FRIENDLY_Dizzywig|r
     .turnin 902 >>Gebt die Quest Samophlang ab
     .turnin 863 >> Gebt die Quest Die Flucht ab
     .accept 3921 >> Akzeptiert die Quest Wenikee Boltbucket << Hunter
-    .accept 1483 >> Akzeptiert die Quest Ziz Fizziks
-    .target +Sputtervalve
-    .goto 1413/1,-3759.06,-902.18
-    .turnin 896 >> Gebt die Quest Des Minenarbeiters Vermögen ab
-    .target +Wharfmaster Dizzywig
-    .goto 1413/1,-3796.55,-985.28
-    .isQuestComplete 896
-    .isQuestComplete 863
-step
-    #optional
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Sputtervalve|r und |cRXP_FRIENDLY_Dizzywig|r
-    .turnin 902 >>Gebt die Quest Samophlang ab
-    .accept 3921 >> Akzeptiert die Quest Wenikee Boltbucket << Hunter
-    .accept 1483 >> Akzeptiert die Quest Ziz Fizziks
-    .target +Sputtervalve
-    .goto 1413/1,-3759.06,-902.18
-    .turnin 896 >> Gebt die Quest Des Minenarbeiters Vermögen ab
-    .target +Wharfmaster Dizzywig
-    .goto 1413/1,-3796.55,-985.28
-    .isQuestComplete 896
-step
-    #optional
-    .goto 1413/1,-3759.06,-902.18
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprich mit |cRXP_FRIENDLY_Sputtervalve|r
-    .turnin 863 >> Gebt die Quest Die Flucht ab
     .accept 1483 >> Akzeptiert die Quest Ziz Fizziks
     .target Sputtervalve
     .isQuestComplete 863
 step
     #optional
     .goto 1413/1,-3759.06,-902.18
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprich mit |cRXP_FRIENDLY_Sputtervalve|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Sputtervalve|r und |cRXP_FRIENDLY_Dizzywig|r
+    .turnin 902 >>Gebt die Quest Samophlang ab
+    .accept 3921 >> Akzeptiert die Quest Wenikee Boltbucket << Hunter
     .accept 1483 >> Akzeptiert die Quest Ziz Fizziks
     .target Sputtervalve
+step
+    .goto 1413/1,-3796.55,-985.28
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Dizzywig|r
+    .turnin 896 >> Gebt die Quest Des Minenarbeiters Vermögen ab
+    .target Wharfmaster Dizzywig
+    .isQuestComplete 896
 step
     #label RapHornsPickup
     .goto 1413/1,-3697.24,-929.20
@@ -2485,7 +2462,7 @@ step
     >>Tötet |cRXP_ENEMY_Kriegsherr Krom'zar|r, sobald er erscheint. Plündert die |cRXP_PICK_Flagge|r, welche er auf dem Boden fallen lässt
     >>|cRXP_WARN_Seid vorsichtig! Er ist ein starker Elite und wird von mindestens zwei|r |cRXP_ENEMY_Kolkar|r |cRXP_WARN_mobs|r beschützt
     >>|cRXP_WARN_Es kann bis zu 3 Minuten dauern, bis er erscheint|r
-    .link https://www.youtube.com/watch?v=xrm0PWe5wf4 >>|cRXP_WARN_Klickt hier für ein Anleitungsvideo zum Kiten|r |cRXP_ENEMY_Kriegsherr Krom'zar|r
+    .link https://www.youtube.com/watch?v=xrm0PWe5wf4 >>|cRXP_WARN_Klickt hier für ein Anleitungsvideo zum Kiten von|r |cRXP_ENEMY_Kriegsherr Krom'zar|r
     .complete 4021,1 --Piece of Krom'zar's Banner (1)
     .unitscan Warlord Krom'zar
     .isOnQuest 4021
@@ -3523,8 +3500,8 @@ step
 step
     #label SleepingBag1
     .goto 1413/1,-2075.00,-3380.64--c:The Barrens,46.361,73.904
-    >>Klickt die |cRXP_PICK_Verbrannten Überreste|r auf dem Boden an
-    .accept 79007 >> Nehmt an ...und diese Notiz, die Ihr gefunden habt.
+    >>Klickt auf die |cRXP_PICK_Ausgebrannten Überreste|r auf dem Boden
+    .accept 79007 >> Akzeptiert die Quest ...und diese Notiz, die Ihr gefunden habt.
 step
     #label LizardBlood
     #loop
@@ -3699,7 +3676,7 @@ step << Rogue !Skyborne
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Ansekhwa|r
     .train 198 >>Erlernt Streitkolben
     .target Ansekhwa
-step << Rogue
+step << skip --Rogue
     .goto 1456/1,110.13,-1299.65
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Sprecht mit|r |cRXP_FRIENDLY_Kuruk|r|cRXP_BUY_. Kauft |r |T135423:0|t[Tödliche Wurfaxt] |cRXP_BUY_von ihm|r
     .collect 3137,1,6562,1 --Deadly Throwing Axe (200)
@@ -4108,7 +4085,7 @@ step
     >>Tötet |cRXP_ENEMY_Kriegsherr Krom'zar|r, sobald er erscheint. Plündert die |cRXP_PICK_Flagge|r, welche er auf dem Boden fallen lässt
     >>|cRXP_WARN_Seid vorsichtig! Er ist ein starker Elite und wird von mindestens zwei|r |cRXP_ENEMY_Kolkar|r |cRXP_WARN_mobs|r beschützt
     >>|cRXP_WARN_Es kann bis zu 3 Minuten dauern, bis er erscheint|r
-    .link https://www.youtube.com/watch?v=xrm0PWe5wf4 >>|cRXP_WARN_Klickt hier für ein Anleitungsvideo zum Kiten|r |cRXP_ENEMY_Kriegsherr Krom'zar|r
+    .link https://www.youtube.com/watch?v=xrm0PWe5wf4 >>|cRXP_WARN_Klickt hier für ein Anleitungsvideo zum Kiten von|r |cRXP_ENEMY_Kriegsherr Krom'zar|r
     .complete 4021,1 --Piece of Krom'zar's Banner (1)
     .unitscan Warlord Krom'zar
     .isQuestTurnedIn 852
@@ -5154,6 +5131,7 @@ step << skip
     .accept 2841 >>Akzeptiert die Quest Maschinenkriege
     .target Nogg
 step
+    #completewith next
     .goto 1454/1,-4739.57,2036.84
     .gossipoption 95758 >>Sprecht mit |cRXP_FRIENDLY_Sovik|r
     .isNotOnQuest 2842
@@ -5161,10 +5139,10 @@ step
 step
     .goto 1454/1,-4739.57,2036.84
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprich mit |cRXP_FRIENDLY_Sovik|r
-    -->>|cRXP_WARN_You are required to have Rig Wars in your quest log to accept this quest|r
+    >>|cRXP_WARN_Passt auf! Ihr müsst zuerst seinen Dialog durchgehen, danach wird die Quest automatisch angenommen.|r
     .accept 2842 >>Akzeptiert die Quest Chefingenieur Scooty
     .target Sovik
-step << Rogue
+step << skip --Rogue
     .goto 1454/1,-4355.53,1520.68
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Sprecht mit|r |cRXP_FRIENDLY_Trak'gen|r|cRXP_BUY_. Kauft|r |T135423:0|t[Tödliche Wurfaxt] |cRXP_BUY_von ihm|r
     .collect 3137,1,6544,1 --Deadly Throwing Axe (200)

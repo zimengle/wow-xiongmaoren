@@ -128,7 +128,7 @@ end
 
 function Spy:SetFontSize(string, size)
 	local Font, Height, Flags = string:GetFont()
-	string:SetFont(Font, size, Flags)
+	Spy:ApplyFont(string, Font, size, Flags) -- Forever: Fonts.lua (Cyrillic names)
 end
 
 function Spy:CreateMapNote(num)
@@ -767,7 +767,7 @@ function Spy:CreateMainWindow()
 		theFrame.CountFrame.Text = CountFrame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 		theFrame.CountFrame.Text:SetPoint("RIGHT", theFrame.StatsButton,"LEFT", -4, 0)
 --		theFrame.CountFrame.Text:SetFont("GameFontNormal", Spy.db.profile.MainWindow.RowHeight * 0.85, "OUTLINE")
-		theFrame.CountFrame.Text:SetFont("Fonts\\FRIZQT__.TTF", Spy.db.profile.MainWindow.RowHeight * 0.85, "OUTLINE")
+		Spy:ApplyFont(theFrame.CountFrame.Text, "Fonts\\FRIZQT__.TTF", Spy.db.profile.MainWindow.RowHeight * 0.85, "OUTLINE")
 		theFrame.CountFrame.Text:SetJustifyH("RIGHT")
 		theFrame.CountFrame.Text:SetJustifyV("MIDDLE")
 		theFrame.CountFrame.Text:SetTextColor(1, 1, 1, 1)

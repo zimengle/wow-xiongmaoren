@@ -24,6 +24,15 @@ addon.FPDB = {
         [3203] = {
             ["name"] = "Rog'mar, Riverglades",
         },
+        [3242] = {
+            ["name"] = "Tainted Foothills, Mount Hyjal",
+            [53] = 83,
+            [559] = 38,
+        },
+        [559] = {
+            ["name"]="Summit of Eternity, Mount Hyjal",
+            [3242] = 38,
+        },
         [30] = {
             [61] = 356,
             [25] = 194,
@@ -457,6 +466,7 @@ addon.FPDB = {
             [79] = 691,
             [29] = 456,
             [77] = 397,
+            [3242] = 83,
         },
         [75] = {
             [13] = 447,
@@ -654,6 +664,16 @@ addon.FPDB = {
         },
         [3276] = {
             ["name"] = "Farhold Keep, Riverglades",
+            [5] = 131,
+        },
+        [3242] = {
+            ["name"] = "Tainted Foothills, Mount Hyjal",
+            [52] = 83,
+            [559] = 38,
+        },
+        [559] = {
+            ["name"]="Summit of Eternity, Mount Hyjal",
+            [3242] = 38,
         },
         [66] = {
             [7] = 193,
@@ -843,6 +863,7 @@ addon.FPDB = {
             [6] = 357,
             [12] = 60,
             ["name"] = "Lakeshire, Redridge",
+            [3276] = 131,
         },
         [71] = {
             [8] = 245,
@@ -916,6 +937,7 @@ addon.FPDB = {
             [65] = 122,
             [28] = 327,
             [64] = 176,
+            [3242] = 83,
         },
         [7] = {
             [19] = 490,

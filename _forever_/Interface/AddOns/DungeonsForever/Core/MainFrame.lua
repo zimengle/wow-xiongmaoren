@@ -23,6 +23,7 @@ f:SetFrameStrata("HIGH")
 f:SetToplevel(true)
 f:SetMovable(true)
 f:SetClampedToScreen(true)
+f:SetClampRectInsets(W / 2, -W / 2, -H / 2, H / 2)
 f:EnableMouse(true)
 f:RegisterForDrag("LeftButton")
 f:SetPoint("CENTER")
@@ -953,12 +954,14 @@ end
 
 ns.SettingsPopup = settingsPop
 
+local settingsTitle
 do
     local title = settingsPop:CreateFontString(nil, "OVERLAY")
     title:SetFont(ns.FONT, 16, "")
     title:SetText(L["设置"])
     title:SetPoint("TOPLEFT", settingsPop, "TOPLEFT", 16, -14)
     title:SetTextColor(0.95, 0.96, 0.98)
+    settingsTitle = title
 end
 
 local TIP_CARD_H = 66
@@ -1012,8 +1015,9 @@ function BuildAppearanceCard()
     hd:SetTextColor(C_TIP_DIM[1], C_TIP_DIM[2], C_TIP_DIM[3])
 
     local bt = ns.CreateButton(card)
-    bt:SetSize(192, 24)
+    bt:SetHeight(24)
     bt:SetPoint("TOPLEFT", card, "TOPLEFT", 8, -30)
+    bt:SetPoint("TOPRIGHT", card, "TOPRIGHT", -8, -30)
     bt.__huiKeepTextColor = true
     local fs = bt:GetFontString()
     if fs then
@@ -1057,8 +1061,9 @@ function BuildAppearanceCard()
     appearanceArrow = arrow
 
     local rb = ns.CreateButton(card)
-    rb:SetSize(192, 24)
+    rb:SetHeight(24)
     rb:SetPoint("TOPLEFT", card, "TOPLEFT", 8, -58)
+    rb:SetPoint("TOPRIGHT", card, "TOPRIGHT", -8, -58)
     rb.__huiKeepTextColor = true
     local rfs = rb:GetFontString()
     if rfs then
@@ -1370,11 +1375,18 @@ function BuildTipCard()
         { key = "need",     label = L["材料用处"] },
         { key = "price",    label = L["板条箱"] .. " · " .. L["工匠文书"] .. " " .. L["价格"] },
         { key = "matPrice", label = L["配方"] .. " · " .. L["材料"] .. " " .. L["价格"] },
+        { key = "prodPrice", label = L["产物"] .. " · " .. L["材料"] .. " " .. L["价格"], sub = true },
+        { key = "vendorRec", label = L["推荐直接卖商人"] },
+    }
+
+    local TIP_PROD_ITEMS = {
+        { key = "prodOwnOnly", label = L["只显示已学专业"] },
     }
 
     dd = ns.CreateButton(card)
-    dd:SetSize(192, 24)
+    dd:SetHeight(24)
     dd:SetPoint("TOPLEFT", card, "TOPLEFT", 8, -34)
+    dd:SetPoint("TOPRIGHT", card, "TOPRIGHT", -8, -34)
     dd.__huiKeepTextColor = true
     local ddfs = dd:GetFontString()
     if ddfs then
@@ -1391,13 +1403,45 @@ function BuildTipCard()
     ddar:SetText("\226\150\188")
     SyncTipState()
 
-    local function TipMenuItems()
+    local TipMenuItems, TipProdItems
+
+    TipProdItems = function()
+        local cfg = ns.TipCfg()
+        local items = {}
+        for _, it in ipairs(TIP_PROD_ITEMS) do
+            items[#items + 1] = {
+                text = it.label,
+                checked = cfg[it.key] and true or false,
+                func = function()
+                    ns.PlaySound(1)
+                    local c = ns.TipCfg()
+                    c[it.key] = not (c[it.key] and true)
+                    if ns.TipLines.RefreshPreview then ns.TipLines.RefreshPreview() end
+                    ns.hui.ShowSubMenu(TipProdItems(), { owner = dd })
+                end,
+            }
+        end
+        items[#items + 1] = {
+            text = L["返回"],
+            func = function()
+                ns.PlaySound(1)
+                ns.hui.HideSubMenu()
+            end,
+        }
+        return items
+    end
+
+    TipMenuItems = function()
         local cfg = ns.TipCfg()
         local items = {}
         for _, it in ipairs(TIP_ITEMS) do
             items[#items + 1] = {
                 text = it.label,
                 checked = cfg[it.key] and true or false,
+                sub = it.sub and function()
+                    ns.PlaySound(1)
+                    ns.hui.ShowSubMenu(TipProdItems(), { owner = dd })
+                end or nil,
                 func = function()
                     ns.PlaySound(1)
                     local c = ns.TipCfg()
@@ -1627,6 +1671,90 @@ do
     scaleText.text = t
 end
 
+local STRATA_DEF = "HIGH"
+local STRATA_ORDER = { "LOW", "MEDIUM", "HIGH", "DIALOG" }
+local STRATA_LABEL = {
+    LOW = L["低层"],
+    MEDIUM = L["中层"],
+    HIGH = L["高层"],
+    DIALOG = L["对话框层"],
+}
+
+local function StrataCfg()
+    local db = ns.DB and ns.DB()
+    if not db then return STRATA_DEF end
+    local ui = db.ui
+    if type(ui) ~= "table" then
+        ui = {}
+        db.ui = ui
+    end
+    local v = ui.strata
+    for i = 1, #STRATA_ORDER do
+        if STRATA_ORDER[i] == v then return v end
+    end
+    ui.strata = STRATA_DEF
+    return STRATA_DEF
+end
+
+local function ApplyStrata(v)
+    local t = StrataCfg()
+    for i = 1, #STRATA_ORDER do
+        if STRATA_ORDER[i] == v then t = v end
+    end
+    f:SetFrameStrata(t)
+    local db = ns.DB and ns.DB()
+    if db then
+        if type(db.ui) ~= "table" then db.ui = {} end
+        db.ui.strata = t
+    end
+end
+
+local strataBtn
+do
+    local probe = settingsPop:CreateFontString(nil, "OVERLAY")
+    probe:SetFont(ns.FONT, 14, "")
+    probe:SetText(L["层级"])
+    local bw = probe:GetStringWidth()
+    if type(bw) ~= "number" or bw <= 0 then bw = 28 end
+    bw = math.ceil(bw) + 18
+    probe:SetText("")
+    probe:Hide()
+
+    strataBtn = ns.CreateButton(settingsPop)
+    strataBtn:SetFrameLevel(520)
+    strataBtn:SetSize(bw, PILL_H)
+    strataBtn:SetPoint("TOPRIGHT", scaleGroup, "TOPLEFT", -8, 0)
+    strataBtn:SetText(L["层级"])
+    strataBtn:SetScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
+        GameTooltip:ClearLines()
+        GameTooltip:AddLine(L["主界面层级"], 1, 1, 1, true)
+        GameTooltip:AddLine(STRATA_LABEL[StrataCfg()] or "", 0.7, 0.75, 0.8, true)
+        GameTooltip:Show()
+    end)
+    strataBtn:SetScript("OnLeave", function()
+        GameTooltip:Hide()
+    end)
+    strataBtn:SetScript("OnClick", function(self)
+        ns.PlaySound(1)
+        if not (ns.hui and ns.hui.ShowMenu) then return end
+        local cur = StrataCfg()
+        local items = {}
+        for i = 1, #STRATA_ORDER do
+            local k = STRATA_ORDER[i]
+            items[#items + 1] = {
+                text = STRATA_LABEL[k],
+                checked = (k == cur),
+                func = function() ApplyStrata(k) end,
+            }
+        end
+        ns.hui.ShowMenu(items, { owner = self, anchor = self })
+    end)
+
+    local needW = 16 + ((settingsTitle and settingsTitle:GetStringWidth()) or 32) + 8 + bw + 8 + 96 + 12
+    if needW > 220 then settingsPop:SetWidth(math.ceil(needW)) end
+end
+
 local function HoverShow(bt)
     if bt.__hov then
         for _, hv in ipairs(bt.__hov) do hv:Show() end
@@ -1734,6 +1862,7 @@ ns.Init(function()
         scaleText.text:SetText(sc .. "%")
     end
     scaleReady = true
+    ApplyStrata(StrataCfg())
 end)
 
 local reveal = { on = false, q = nil, total = 0, done = 0 }
@@ -1983,9 +2112,9 @@ SLASH_DUNGEONSFOREVER3 = "/fbsc"
 SLASH_DUNGEONSFOREVERLANG1 = "/dfcn"
 SLASH_DUNGEONSFOREVERLANG2 = L["/df中文"]
 SlashCmdList["DUNGEONSFOREVERLANG"] = function()
-    if type(GetLocale) ~= "function" then return end
+    if type(DF_REAL_LOCALE) ~= "function" then return end
     local tag = "|cff46bf72[" .. L["无限副本手册"] .. "]|r "
-    if GetLocale() == "zhCN" then
+    if DF_REAL_LOCALE() == "zhCN" then
         print(tag .. L["当前客户端已是简体中文，无需切换"])
         return
     end
@@ -2005,7 +2134,7 @@ ns.Init(function()
     local db = ns.DB()
     if type(db) ~= "table" or db.langCN ~= true then return end
     db.langCN = nil
-    if type(GetLocale) ~= "function" or GetLocale() == "zhCN" then return end
+    if type(DF_REAL_LOCALE) ~= "function" or DF_REAL_LOCALE() == "zhCN" then return end
     if not ns.AddonLoaded("DF_CNLocale") then return end
     if rawget(_G, "DF_CN_FORCE") == true then return end
     DF_CN_FORCE = true

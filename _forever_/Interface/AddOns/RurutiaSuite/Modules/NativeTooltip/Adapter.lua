@@ -458,7 +458,7 @@ function Adapter:InstallItemLevel()
         local guid = Adapter:Safe(data.guid)
         if not item and guid then item = Adapter:Safe(C_Item.GetItemLinkByGUID(guid)) end
         item = item or Adapter:Safe(data.id)
-        if not item or not C_Item.IsEquippableItem(item) then return end
+        if not item then return end
         local level = Adapter:Safe(C_Item.GetDetailedItemLevelInfo(item))
         if level and level > 0 then tooltip:AddLine(string.format(ITEM_LEVEL, level), 1, 0.82, 0) end
     end

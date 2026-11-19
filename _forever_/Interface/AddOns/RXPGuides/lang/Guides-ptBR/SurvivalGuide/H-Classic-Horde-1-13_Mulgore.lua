@@ -45,7 +45,7 @@ step << Warrior/Shaman
 step << Warrior
     .goto Mulgore,44.02,76.14
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Harutt|r
-    .train 6673 >>Treine |T132333:0|t[Brado de Batalha]
+    .train 6673 >>Aprenda |T132333:0|t[Brado de Batalha]
     .target Harutt Thunderhorn
 step << Shaman
     .goto Mulgore,45.01,75.95
@@ -225,7 +225,7 @@ step << Druid
     .goto Mulgore,45.09,75.93
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Gart|r
     .turnin 3094 >>Entregue Bilhete verdejante
-    .train 8921 >>Treine |T136096:0|t[Fogo Lunar]
+    .train 8921 >>Aprenda |T136096:0|t[Fogo Lunar]
     .target Gart Mistrunner
 step << Shaman
     .goto Mulgore,44.73,76.18
@@ -1788,7 +1788,7 @@ step << Shaman
     .goto Durotar,38.05,57.79,8,0
     .goto Durotar,38.93,57.54,8,0
     .goto Durotar,39.19,57.90,8,0
-    .goto Durotar,39.16,58.56,10 >> Siga o caminho montanha acima até |cRXP_FRIENDLY_Telf|r
+    .goto Durotar,39.16,58.56,10 >> Suba pela trilha da montanha até |cRXP_FRIENDLY_Telf Joolam|r
     >>|cRXP_WARN_Tome cuidado para não cair da montanha, pois o caminho é muito estreito. Você pode morrer se cair|r
 step << Shaman
     #label CallofFire2
@@ -2184,7 +2184,7 @@ step
 	.goto Durotar,41.64,38.27,50,0
 	.goto Durotar,41.94,40.46,50,0
 	.goto Durotar,43.30,40.40,50,0
-    >>Mate os |cRXP_ENEMY_Razormane Dustrunners|r e os |cRXP_ENEMY_Razormane Battleguards|r
+    >>Mate |cRXP_ENEMY_Levanta-poeira Crinavalha|r e |cRXP_ENEMY_Guardas de Batalha Crinavalha|r
     .complete 837,3 --Razormane Dustrunner (4)
     .mob +Razormane Dustrunner
     .complete 837,4 --Razormane Battleguard (4)
@@ -2409,7 +2409,7 @@ step
     .group
 step
     .goto Durotar,52.24,43.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com Orgnil|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Orgnil Chaganalma|r
     .turnin 806 >>Entregue Tempestades sombrias
     .accept 828 >>Aceite Margoz
     .target Orgnil Soulscar
@@ -2417,7 +2417,7 @@ step
     .group
 step
     .goto Durotar,52.24,43.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com Orgnil|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Orgnil Chaganalma|r
     .accept 828 >>Aceite Margoz
     .target Orgnil Soulscar
     .isQuestTurnedIn 806

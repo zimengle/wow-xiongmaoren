@@ -247,6 +247,9 @@ function Spy:MenuPlayer(contextData)
 end
 
 local function addMenuEntries(owner, description, contextData)
+	if Spy:SkipPlayerMenus() then
+		return -- Forever.lua says why (controller interface)
+	end
 	local ok, err = pcall(function()
 		local name, isEnemy = Spy:MenuPlayer(contextData)
 		if not name then
@@ -331,6 +334,7 @@ Spy.options.args.WatchOptions = {
 		WarnOnWatch = toggle("WarnOnWatch", 2),
 		WarnOnWatchGroup = toggle("WarnOnWatchGroup", 3),
 		WatchSound = toggle("WatchSound", 4),
+		PlayerMenuEntries = toggle("PlayerMenuEntries", 4.5),
 		add = {
 			name = L["WatchAdd"],
 			desc = L["WatchAddDescription"],

@@ -506,7 +506,7 @@ step
     .goto 1412/1,-363.000,-2490.700
     >>|cRXP_WARN_Tapez /assis près du feu de camp et attendez une minute jusqu'à ce que vous obteniez le buff "Avantages du camp"|r
     .complete 96605,1 --|1/1 Use the /sit emote near the campfire
-    .macro Sit,134400 >>Asseyez-vous
+    .macro Sit,134400 >>Asseyez-vous 
     .timer 59, RP
     .complete 96605,2 --|Gain the Boosted Rest buff
 step
@@ -707,7 +707,7 @@ step
     .goto 1412/1,-363.000,-2490.700
     >>|cRXP_WARN_Tapez /assis près du feu de camp et attendez une minute jusqu'à ce que vous obteniez le buff "Avantages du camp"|r
     .complete 96605,1 --|1/1 Use the /sit emote near the campfire
-    .macro Sit,134400 >>Asseyez-vous
+    .macro Sit,134400 >>Asseyez-vous 
     .timer 59, RP
     .complete 96605,2 --|Gain the Boosted Rest buff
 step
@@ -2443,7 +2443,7 @@ step
 step
     .goto 1413/1,-2607.91,-475.18--c:The Barrens,51.62,30.90
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Darsok|r
-    >>Il est au sommet de la tour
+    >>Il est en haut de la tour
     .accept 867 >>Acceptez la quête Les harpies pillardes
     .target Darsok Swiftdagger
 step

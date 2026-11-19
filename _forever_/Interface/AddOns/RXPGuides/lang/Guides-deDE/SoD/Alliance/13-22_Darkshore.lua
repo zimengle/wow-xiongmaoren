@@ -1915,7 +1915,7 @@ step << !sod/Warrior/Rogue/Priest
     #optional
     #completewith next
     .goto 1439,36.806,44.137,8,0
-    .goto 1439,35.743,43.710,12 >> Kehrt zu |cRXP_FRIENDLY_Cerellean Whiteclaw|r auf dem Dock zurück
+    .goto 1439,35.743,43.710,12 >> Kehrt zum |cRXP_FRIENDLY_Cerellean Whiteclaw|r auf dem Dock zurück
 step << !sod/Warrior/Rogue/Priest
     #optional
     .goto 1439,35.743,43.710
@@ -3091,7 +3091,7 @@ step << !Warrior !Rogue !Priest
     #completewith next
     #season 2
     .goto 1439,36.806,44.137,8,0
-    .goto 1439,35.743,43.710,12 >> Kehrt zu |cRXP_FRIENDLY_Cerellean Whiteclaw|r auf dem Dock zurück
+    .goto 1439,35.743,43.710,12 >> Kehrt zum |cRXP_FRIENDLY_Cerellean Whiteclaw|r auf dem Dock zurück
 step << !Warrior !Rogue !Priest
     #optional
     #season 2
@@ -5046,7 +5046,7 @@ step << !Dwarf Rogue
     #xprate >1.59
     #sticky
     #label AntiVenomStart
-    .collect 6452,1 >> Crafte ein |T134437:0|t[Gegengift]
+    .collect 6452,1 >> Stelle ein |T134437:0|t[Gegengift] her
     .aura -9991
     .itemcount 6452,<1 --Anti-Venom (<1)
     .train 7934,3 --Anti Venom spell trained
@@ -5116,7 +5116,7 @@ step << !Dwarf Rogue
     #xprate >1.59
     #sticky
     #label AntiVenomStart2
-    .collect 6452,1 >> Crafte ein |T134437:0|t[Gegengift]
+    .collect 6452,1 >> Stelle ein |T134437:0|t[Gegengift] her
     .aura -9991
     .itemcount 6452,<1 --Anti-Venom (<1)
     .train 7934,3 --Anti Venom spell trained
@@ -6399,7 +6399,7 @@ step << !Dwarf Rogue
     #xprate >1.59
     #sticky
     #label AntiVenomStart
-    .collect 6452,1 >> Crafte ein |T134437:0|t[Gegengift]
+    .collect 6452,1 >> Stelle ein |T134437:0|t[Gegengift] her
     .aura -9991
     .itemcount 6452,<1 --Anti-Venom (<1)
     .train 7934,3 --Anti Venom spell trained
@@ -6466,7 +6466,7 @@ step << !Dwarf Rogue
     #xprate >1.59
     #sticky
     #label AntiVenomStart2
-    .collect 6452,1 >> Crafte ein |T134437:0|t[Gegengift]
+    .collect 6452,1 >> Stelle ein |T134437:0|t[Gegengift] her
     .aura -9991
     .itemcount 6452,<1 --Anti-Venom (<1)
     .train 7934,3 --Anti Venom spell trained

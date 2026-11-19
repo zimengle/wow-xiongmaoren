@@ -145,6 +145,7 @@ Register("PluginEnhancements", {
             if self._meetingStonePending then self:ApplyMeetingStoneChoice() end
         else self:ApplyExternalUpdateBlockers() end
         if Adapter.features.minimapVolume then self:ApplyMinimapVolumeState() end
+        if ns.EllesmereKeyringOption then ns.EllesmereKeyringOption:Sync(self) end
         if ns.EllesmereStatFonts then ns.EllesmereStatFonts:Sync(self) end
         if ns.EllesmereTrainAll then ns.EllesmereTrainAll:Sync(self) end
         if ns.EllesmereTimerIntegration then ns.EllesmereTimerIntegration:Apply(self) end
@@ -152,7 +153,10 @@ Register("PluginEnhancements", {
     PLAYER_LOGOUT = function(self)
         if ns.EllesmereTimerIntegration then ns.EllesmereTimerIntegration:Detach(self, false) end
     end,
-    PLAYER_REGEN_ENABLED = function(self) return self:ApplyMeetingStoneChoice() end,
+    PLAYER_REGEN_ENABLED = function(self)
+        if ns.EllesmereKeyringOption then ns.EllesmereKeyringOption:Sync(self) end
+        return self:ApplyMeetingStoneChoice()
+    end,
     PLAYER_LOGIN = function(self)
         self:UnregisterEvent("PLAYER_LOGIN")
         self._loginApplied = true
@@ -177,7 +181,8 @@ Register("PluginEnhancements", {
             (p.tinyInspectYellowSpamFix or p.detailsNumberFix or p.bwHideDungeonNames or p.ellesmereMinimapVolume or p.ellesmereTimerCompact)
             or Adapter.family ~= "retail" and self:GetUpdateBlockerDB().enabled
             or Adapter.features.minimapVolume and p.ellesmereMinimapVolume
-        if wanted then
+        if ns.EllesmereKeyringOption then self:RegisterEvent("PLAYER_REGEN_ENABLED", self.PLAYER_REGEN_ENABLED) end
+        if wanted or ns.EllesmereKeyringOption then
             self:RegisterEvent("ADDON_LOADED", self.Apply)
             self:RegisterEvent("PLAYER_ENTERING_WORLD", self.Apply)
         elseif ns.EllesmereStatFonts and p.ellesmereStatFont ~= "follow" then

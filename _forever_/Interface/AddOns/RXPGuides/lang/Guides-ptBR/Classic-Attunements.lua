@@ -43,14 +43,14 @@ step
     .isQuestComplete 4182
     .goto Burning Steppes,85.820,68.948
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Helendis Flumicórnio|r
-    .turnin 4182 >> Entregue Ameaça Dragonkin
-    .accept 4183 >> Aceite Os Verdadeiros Mestres
+    .turnin 4182 >> Entregue Ameaça Draconiana
+    .accept 4183 >> Aceite The True Masters
     .target Helendis Riverhorn
 step
     .isQuestTurnedIn 4182
     .goto Burning Steppes,85.820,68.948
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Helendis Flumicórnio|r
-    .accept 4183 >> Aceite Os Verdadeiros Mestres
+    .accept 4183 >> Aceite The True Masters
     .target Helendis Riverhorn
 step
     .isQuestTurnedIn 4182
@@ -64,7 +64,7 @@ step
     .goto Redridge Mountains,29.98,44.45
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Magistrado Salomão|r
     .turnin 4183 >> Entregue Os Verdadeiros Mestres
-    .accept 4184 >> Aceite Os Verdadeiros Mestres
+    .accept 4184 >> Aceite The True Masters
     .target Magistrate Solomon
 step
     .isQuestTurnedIn 4182
@@ -78,7 +78,7 @@ step
     .goto Stormwind City,78.213,17.980
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com o |cRXP_FRIENDLY_Grão-lorde Bolvar Fordragon|r
     .turnin 4184 >> Entregue Os Verdadeiros Mestres
-    .accept 4185 >> Aceite Os Verdadeiros Mestres
+    .accept 4185 >> Aceite The True Masters
     .target Highlord Bolvar Fordragon
 step
     .isQuestTurnedIn 4182
@@ -92,7 +92,7 @@ step
     .goto Stormwind City,78.213,17.980
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com o |cRXP_FRIENDLY_Grão-lorde Bolvar Fordragon|r
     .turnin 4185 >> Entregue Os Verdadeiros Mestres
-    .accept 4186 >> Aceite Os Verdadeiros Mestres
+    .accept 4186 >> Aceite The True Masters
     .target Highlord Bolvar Fordragon
 step
     .isQuestTurnedIn 4182
@@ -106,7 +106,7 @@ step
     .goto Redridge Mountains,29.98,44.45
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Magistrado Salomão|r
     .turnin 4186 >> Entregue Os Verdadeiros Mestres
-    .accept 4223 >> Aceite Os Verdadeiros Mestres
+    .accept 4223 >> Aceite The True Masters
     .target Magistrate Solomon
 step
     .isQuestTurnedIn 4182
@@ -120,17 +120,17 @@ step
     .goto Burning Steppes,84.744,69.015
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Oficial Maximiliano|r
     .turnin 4223 >> Entregue Os Verdadeiros Mestres
-    .accept 4224 >> Aceite Os Verdadeiros Mestres
+    .accept 4224 >> Aceite The True Masters
     .target Marshal Maxwell
 step
     .isQuestTurnedIn 4182
     #completewith WindsorPickup
     .goto Burning Steppes,65.236,24.007
-    .subzone 251 >> Viaje para Monte Candente
+    .subzone 251 >> Vá para Monte Candente
 step
     .isQuestTurnedIn 4182
     .goto Burning Steppes,65.012,23.757
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com o |cRXP_FRIENDLY_João Roto|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_João Roto|r
     .complete 4224,1 -- Ragged John's Story (1)
     .skipgossip
     .target Ragged John
@@ -1005,7 +1005,7 @@ step
     .goto Ironforge,55.8,35.2,70,0
     .goto Ironforge,33.0,22.4,70,0
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com o |cRXP_FRIENDLY_Mensageiro Desçomalho|r
-    >>|cRXP_FRIENDLY_Mensageiro Desçomalho|r |cRXP_WARN_patrula por todo Ironforge|r
+    >>|cRXP_FRIENDLY_Mensageiro Desçomalho|r |cRXP_WARN_patrulha em todo Ironforge|r
     >>|cRXP_WARN_Esta missão também pode ser aceita em|r |cFFfa9602Stormwind City|r |cRXP_WARN_ou|r |cFFfa9602Darnassus|r
     .acceptmultiple 5091,5090,5066 >> Aceite Um chamado às armas: as Terras Pestilentas!
     .unitscan Courier Hammerfall --IF
@@ -1022,7 +1022,7 @@ step
     .isOnQuest 5066
     .goto Western Plaguelands,42.702,84.031
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com o |cRXP_FRIENDLY_Comandante Ashlam Punhobom|r
-    .turnin 5066 >> Vire em A Chamado às Armas: The Plaguelands!
+    .turnin 5066 >> Entregue Um Chamado às Armas: Terras Pestilentas!
     .accept 5092 >> Aceite Abrindo Caminho
     .target Commander Ashlam Valorfist
 step
@@ -1039,7 +1039,7 @@ step
     .isOnQuest 5091
     .goto Western Plaguelands,42.702,84.031
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com o |cRXP_FRIENDLY_Comandante Ashlam Punhobom|r
-    .turnin 5091 >> Vire em A Chamado às Armas: The Plaguelands!
+    .turnin 5091 >> Entregue Um Chamado às Armas: Terras Pestilentas!
     .accept 5092 >> Aceite Abrindo Caminho
     .target Commander Ashlam Valorfist
 step
@@ -1055,7 +1055,7 @@ step
     .isOnQuest 5090
     .goto Western Plaguelands,42.702,84.031
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com o |cRXP_FRIENDLY_Comandante Ashlam Punhobom|r
-    .turnin 5090 >> Vire em A Chamado às Armas: The Plaguelands!
+    .turnin 5090 >> Entregue Um Chamado às Armas: Terras Pestilentas!
     .accept 5092 >> Aceite Abrindo Caminho
     .target Commander Ashlam Valorfist
 step
@@ -1073,7 +1073,7 @@ step
     .goto Western Plaguelands,49.90,76.54,60,0
     .goto Western Plaguelands,50.88,76.14,60,0
     .goto Western Plaguelands,50.05,80.74,60,0
-    >>Abata |cRXP_ENEMY_Skeletal Flayers|r e |cRXP_ENEMY_Slavering Carniçais|r
+    >>Mate os |cRXP_ENEMY_Skeletal Flayers|r e os |cRXP_ENEMY_Slavering Carniçais|r
     .complete 5092,1 -- Skeletal Flayer slain (10)
     .mob +Skeletal Flayer
     .complete 5092,2 -- Slavering Ghoul slain (10)
@@ -1086,22 +1086,22 @@ step
 step
     .goto Western Plaguelands,46.681,71.135,-1
     .goto Western Plaguelands,46.558,71.156,-1
-    .use 12815 >> |cRXP_WARN_Use a|r |T135432:0|t[Tocha Sinalizadora] |cRXP_WARN_ao lado da entrada da Torre. Você pode fazer isso sem atrair o Elite |cRXP_ENEMY_Senhor da Guerra Descarnado|r que está dentro|r
+    .use 12815 >> |cRXP_WARN_Use a|r |T135432:0|t[Tocha Sinalizadora] |cRXP_WARN_ao lado da entrada da Torre. Você pode fazer isso sem atrair o Élite |cRXP_ENEMY_Senhor da Guerra Descarnado|r de dentro|r
     .complete 5098,4 --Tower Four marked
 step
     .goto Western Plaguelands,44.217,63.319,-1
     .goto Western Plaguelands,44.247,63.131,-1
-    .use 12815 >> |cRXP_WARN_Use a|r |T135432:0|t[Tocha Sinalizadora] |cRXP_WARN_ao lado da entrada da Torre. Você pode fazer isso sem atrair o Elite |cRXP_ENEMY_Senhor da Guerra Descarnado|r que está dentro|r
+    .use 12815 >> |cRXP_WARN_Use a|r |T135432:0|t[Tocha Sinalizadora] |cRXP_WARN_ao lado da entrada da Torre. Você pode fazer isso sem atrair o Élite |cRXP_ENEMY_Senhor da Guerra Descarnado|r de dentro|r
     .complete 5098,3 --Tower Three marked
 step
     .goto Western Plaguelands,42.326,66.105,-1
     .goto Western Plaguelands,42.422,66.222,-1
-    .use 12815 >> |cRXP_WARN_Use a|r |T135432:0|t[Tocha Sinalizadora] |cRXP_WARN_ao lado da entrada da Torre. Você pode fazer isso sem atrair o Elite |cRXP_ENEMY_Senhor da Guerra Descarnado|r que está dentro|r
+    .use 12815 >> |cRXP_WARN_Use a|r |T135432:0|t[Tocha Sinalizadora] |cRXP_WARN_ao lado da entrada da Torre. Você pode fazer isso sem atrair o Élite |cRXP_ENEMY_Senhor da Guerra Descarnado|r de dentro|r
     .complete 5098,2 --Tower Two marked
 step
     .goto Western Plaguelands,40.116,71.561,-1
     .goto Western Plaguelands,40.038,71.713,-1
-    .use 12815 >> |cRXP_WARN_Use a|r |T135432:0|t[Tocha Sinalizadora] |cRXP_WARN_ao lado da entrada da Torre. Você pode fazer isso sem atrair o Elite |cRXP_ENEMY_Senhor da Guerra Descarnado|r que está dentro|r
+    .use 12815 >> |cRXP_WARN_Use a|r |T135432:0|t[Tocha Sinalizadora] |cRXP_WARN_ao lado da entrada da Torre. Você pode fazer isso sem atrair o Élite |cRXP_ENEMY_Senhor da Guerra Descarnado|r de dentro|r
     .complete 5098,1 --Tower One marked
 step
     .goto Western Plaguelands,42.702,84.031
@@ -1112,7 +1112,7 @@ step
 step
     #completewith SkeletalFragments
     .isQuestTurnedIn 5098
-    .destroy 12815 >> Descarte |T135432:0|t[Tocha Sinalizadora]
+    .destroy 12815 >> Descarte o |T135432:0|t[Tocha Sinalizadora]
 step
     .goto Western Plaguelands,42.665,83.774
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com o |cRXP_FRIENDLY_Alquimista Arvignon|r
@@ -1134,7 +1134,7 @@ step
 	.goto Western Plaguelands,43.40,64.40,60,0
 	.goto Western Plaguelands,45.80,65.80,60,0
 	.goto Western Plaguelands,46.40,70.00,60,0
-    >>Mate os |cRXP_ENEMY_Skeletal Executioners|r e os |cRXP_ENEMY_Skeletal Acólitos|r. Saqueie-os para seus |cRXP_LOOT_Fragmentos de Ossos|r
+    >>Mate os |cRXP_ENEMY_Skeletal Executioners|r e os |cRXP_ENEMY_Skeletal Acólitos|r. Saqueie-os pelos |cRXP_LOOT_Fragmentos de Ossos|r.
     .complete 5537,1 -- Collect Skeletal Fragments (x15)
     .mob Skeletal Executioner
     .mob Skeletal Acolyte
@@ -1161,7 +1161,7 @@ step
     #completewith next
     .goto Tanaris,51.006,29.345
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Bera Rochamalho|r
-    .fly Un'Goro >> Voe para Cratera Un'Goro
+    .fly Un'Goro >> Voe para a Cratera Un'Goro
     .target Bera Stonehammer
     .zoneskip Un'Goro Crater
 step
@@ -1278,8 +1278,8 @@ step
     #optional
     #requires ThoriumBars
     .goto Tirisfal Glades,83.15,68.92
-	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Derrington|r
-    .turnin 5093 >>Vire em A Chamado às Armas: The Plaguelands!
+	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Alto-executor Arcabuz|r
+    .turnin 5093 >>Entregue Um Chamado às Armas: Terras Pestilentas!
     .accept 5096 >>Aceite Distrações escarlate
 	.target High Executor Derrington
     .isOnQuest 5093
@@ -1287,7 +1287,7 @@ step
     #optional
     #requires ThoriumBars
     .goto Tirisfal Glades,83.15,68.92
-	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Derrington|r
+	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Alto-executor Arcabuz|r
     .accept 5096 >>Aceite Distrações escarlate
 	.target High Executor Derrington
     .isQuestTurnedIn 5093
@@ -1295,8 +1295,8 @@ step
     #optional
     #requires ThoriumBars
     .goto Tirisfal Glades,83.15,68.92
-	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Derrington|r
-    .turnin 5094 >>Vire em A Chamado às Armas: The Plaguelands!
+	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Alto-executor Arcabuz|r
+    .turnin 5094 >>Entregue Um Chamado às Armas: Terras Pestilentas!
     .accept 5096 >>Aceite Distrações escarlate
 	.target High Executor Derrington
     .isOnQuest 5094
@@ -1304,15 +1304,15 @@ step
     #optional
     #requires ThoriumBars
     .goto Tirisfal Glades,83.15,68.92
-	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Derrington|r
+	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Alto-executor Arcabuz|r
     .accept 5096 >>Aceite Distrações escarlate
 	.target High Executor Derrington
     .isQuestTurnedIn 5094
 step
     #requires ThoriumBars
     .goto Tirisfal Glades,83.15,68.92
-	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Derrington|r
-    .turnin 5095 >>Vire em A Chamado às Armas: The Plaguelands!
+	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Alto-executor Arcabuz|r
+    .turnin 5095 >>Entregue Um Chamado às Armas: Terras Pestilentas!
     .accept 5096 >>Aceite Distrações escarlate
 	.target High Executor Derrington
     .isOnQuest 5095
@@ -1325,7 +1325,7 @@ step
     #label ScarletDiversionsPU
     #requires ThoriumBars
     .goto Tirisfal Glades,83.15,68.92
-	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Derrington|r
+	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Alto-executor Arcabuz|r
     .accept 5096 >>Aceite Distrações escarlate
 	.target High Executor Derrington
     .isQuestTurnedIn 5095
@@ -1336,44 +1336,44 @@ step
     .complete 5096,1 --Destroy the command tent and plant the Scourge banner in the camp (1)
 step
     .goto Tirisfal Glades,83.15,68.92
-	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Derrington|r
+	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Alto-executor Arcabuz|r
     .turnin 5096 >>Entregue Scarlet Diversions
     .accept 5098 >>Aceite Você não vê as torres?
 	.target High Executor Derrington
 step
     .goto Western Plaguelands,46.681,71.135,-1
     .goto Western Plaguelands,46.558,71.156,-1
-    .use 12815 >> |cRXP_WARN_Use a|r |T135432:0|t[Tocha Sinalizadora] |cRXP_WARN_ao lado da entrada da Torre. Você pode fazer isso sem atrair o Elite |cRXP_ENEMY_Senhor da Guerra Descarnado|r que está dentro|r
+    .use 12815 >> |cRXP_WARN_Use a|r |T135432:0|t[Tocha Sinalizadora] |cRXP_WARN_ao lado da entrada da Torre. Você pode fazer isso sem atrair o Élite |cRXP_ENEMY_Senhor da Guerra Descarnado|r de dentro|r
     .complete 5098,4 --Tower Four marked
 step
     .goto Western Plaguelands,44.217,63.319,-1
     .goto Western Plaguelands,44.247,63.131,-1
-    .use 12815 >> |cRXP_WARN_Use a|r |T135432:0|t[Tocha Sinalizadora] |cRXP_WARN_ao lado da entrada da Torre. Você pode fazer isso sem atrair o Elite |cRXP_ENEMY_Senhor da Guerra Descarnado|r que está dentro|r
+    .use 12815 >> |cRXP_WARN_Use a|r |T135432:0|t[Tocha Sinalizadora] |cRXP_WARN_ao lado da entrada da Torre. Você pode fazer isso sem atrair o Élite |cRXP_ENEMY_Senhor da Guerra Descarnado|r de dentro|r
     .complete 5098,3 --Tower Three marked
 step
     .goto Western Plaguelands,42.326,66.105,-1
     .goto Western Plaguelands,42.422,66.222,-1
-    .use 12815 >> |cRXP_WARN_Use a|r |T135432:0|t[Tocha Sinalizadora] |cRXP_WARN_ao lado da entrada da Torre. Você pode fazer isso sem atrair o Elite |cRXP_ENEMY_Senhor da Guerra Descarnado|r que está dentro|r
+    .use 12815 >> |cRXP_WARN_Use a|r |T135432:0|t[Tocha Sinalizadora] |cRXP_WARN_ao lado da entrada da Torre. Você pode fazer isso sem atrair o Élite |cRXP_ENEMY_Senhor da Guerra Descarnado|r de dentro|r
     .complete 5098,2 --Tower Two marked
 step
     .goto Western Plaguelands,40.116,71.561,-1
     .goto Western Plaguelands,40.038,71.713,-1
-    .use 12815 >> |cRXP_WARN_Use a|r |T135432:0|t[Tocha Sinalizadora] |cRXP_WARN_ao lado da entrada da Torre. Você pode fazer isso sem atrair o Elite |cRXP_ENEMY_Senhor da Guerra Descarnado|r que está dentro|r
+    .use 12815 >> |cRXP_WARN_Use a|r |T135432:0|t[Tocha Sinalizadora] |cRXP_WARN_ao lado da entrada da Torre. Você pode fazer isso sem atrair o Élite |cRXP_ENEMY_Senhor da Guerra Descarnado|r de dentro|r
     .complete 5098,1 --Tower One marked
 step
     .goto Tirisfal Glades,83.15,68.92
-	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Derrington|r
+	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Alto-executor Arcabuz|r
     .turnin 5098 >>Entregue All Along the Watchtowers
     .accept 838 >>Aceite Scolomântia
 	.target High Executor Derrington
  step
     #completewith SkeletalFragments
     .isQuestTurnedIn 5098
-    .destroy 12815 >> Descarte |T135432:0|t[Tocha Sinalizadora]
+    .destroy 12815 >> Descarte o |T135432:0|t[Tocha Sinalizadora]
 step
  	#era/som
     .goto Tirisfal Glades,83.28,69.23
-	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Dithers|r
+	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Boticário Trépido|r
     .turnin 838 >>Entregue Scolomântia
     .accept 964 >>Aceite Fragmentos de Ossos
 	.target Apothecary Dithers
@@ -1392,13 +1392,13 @@ step
 	.goto Western Plaguelands,43.40,64.40,60,0
 	.goto Western Plaguelands,45.80,65.80,60,0
 	.goto Western Plaguelands,46.40,70.00,60,0
-    >>Mate os |cRXP_ENEMY_Skeletal Executioners|r e os |cRXP_ENEMY_Skeletal Acólitos|r. Saqueie-os para seus |cRXP_LOOT_Fragmentos de Ossos|r
+    >>Mate os |cRXP_ENEMY_Skeletal Executioners|r e os |cRXP_ENEMY_Skeletal Acólitos|r. Saqueie-os pelos |cRXP_LOOT_Fragmentos de Ossos|r.
     .complete 964,1 -- Collect Skeletal Fragments (x15)
     .mob Skeletal Executioner
     .mob Skeletal Acolyte
 step
     .goto Tirisfal Glades,83.28,69.23
-	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Dithers|r
+	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Boticário Trépido|r
     .turnin 964 >>Entregue Fragmentos de Ossos
     .accept 5514 >>Aceite Mold Rhymes With...
 	.target Apothecary Dithers
@@ -1419,7 +1419,7 @@ step
     #completewith next
     .goto Silithus,48.69,36.67
 	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Runk Adestra Vento|r
-    .fly Un'Goro >>Voe para Cratera Un'Goro
+    .fly Un'Goro >>Voe para a Cratera Un'Goro
 	.target Runk Windtamer
 	.zoneskip Un'Goro Crater
 step
@@ -1434,7 +1434,7 @@ step
 	.subzone 152 >> Vá para The Baluarte em |cFFfa9602Tirisfal Glades|r
 step
     .goto Tirisfal Glades,83.28,69.23
-	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Dithers|r
+	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Boticário Trépido|r
     .turnin 5802 >>Entregue Fogo Plume Forged
     .accept 5804 >>Aceite Araj's Scarab
 	.target Apothecary Dithers
@@ -1477,12 +1477,12 @@ step
     .mob Araj the Summoner
 step
     .goto Tirisfal Glades,83.28,69.23
-	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Dithers|r
+	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Boticário Trépido|r
     .turnin 5804 >>Entregue Araj's Scarab
 	.target Apothecary Dithers
 step
     .goto Tirisfal Glades,83.28,69.23
-	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Dithers|r
+	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Boticário Trépido|r
     .turnin 5511 >>Entregue A Chave da Scolomântia
 	.target Apothecary Dithers
 

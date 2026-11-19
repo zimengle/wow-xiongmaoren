@@ -63,12 +63,15 @@ local SCREEN_ANCHOR_POINT_ORDER = {
 local CLICK_ORDER = { "left", "right" }
 local SCREEN_FALLBACK_POSITION = { point = "TOPLEFT", relativePoint = "CENTER", x = -365, y = -195 }
 
-local function GetEffectiveStoredPosition(group, stored)
+local function GetEffectiveStoredPosition(group, stored, positions)
     -- Avatar offsets cannot be interpreted as screen offsets. Once moved in
     -- fallback mode, CENTER-based saved coordinates remain user-owned.
     if group.anchorFrame and (not stored or stored.relativePoint == group.anchorPoint) then
         local anchor = Adapter:ResolveAnchorFrame(group.anchorFrame)
-        if not anchor or anchor == Adapter:GetRootFrame() then return SCREEN_FALLBACK_POSITION end
+        if not anchor or anchor == Adapter:GetRootFrame() then
+            return (group.key == "potions" and positions and positions.potionsFallback)
+                or SCREEN_FALLBACK_POSITION, true
+        end
     end
     return stored
 end
@@ -490,7 +493,7 @@ end
 function Definition:GetGroupPosition(group)
     local profile = self:GetProfile()
     local stored = profile.positions and profile.positions[group.key]
-    return CopyPosition(GetEffectiveStoredPosition(group, stored) or GetDefaultPosition(group))
+    return CopyPosition(GetEffectiveStoredPosition(group, stored, profile.positions) or GetDefaultPosition(group))
 end
 
 function Definition:GetPointCoord(frame, point)
@@ -531,12 +534,32 @@ function Definition:ComputeAnchorPosition(frame, group, position)
     return { point = point, relativePoint = relativePoint, x = frameX - anchorX, y = frameY - anchorY }
 end
 
+-- Fractions of the rectangle measured from its bottom-left corner.
+local anchorX = { LEFT = 0, TOPLEFT = 0, BOTTOMLEFT = 0, RIGHT = 1, TOPRIGHT = 1, BOTTOMRIGHT = 1 }
+local anchorY = { TOP = 1, TOPLEFT = 1, TOPRIGHT = 1, BOTTOM = 0, BOTTOMLEFT = 0, BOTTOMRIGHT = 0 }
+
 function Definition:ApplyGroupPosition(frame, group)
     -- Position reads during layout do not need two temporary copied tables.
     local profile = self:GetProfile()
-    local position = GetEffectiveStoredPosition(group, profile.positions and profile.positions[group.key])
+    local position, fallback = GetEffectiveStoredPosition(group, profile.positions and profile.positions[group.key], profile.positions)
     local point = position and (position.point or "CENTER") or Adapter:GetGroupDefaultValue(group, "selfPoint") or "CENTER"
     local relativePoint = position and (position.relativePoint or "CENTER") or Adapter:GetGroupDefaultValue(group, "anchorPoint") or "CENTER"
+    local corner = frame.firstSlotCorner
+    if corner and corner ~= point then
+        -- Rebase once at the old on-screen location, then keep the corner
+        -- anchored across item changes and reloads. Preview may show extra items.
+        local live = frame.isPreview and self.groupFrames[group.key]
+        local geometry = live and live.potionWidth and live or frame
+        local old = position or GetDefaultPosition(group)
+        position = {
+            point = corner, relativePoint = relativePoint,
+            x = (old.x or 0) + (anchorX[corner] - (anchorX[point] or 0.5)) * geometry.potionWidth,
+            y = (old.y or 0) + (anchorY[corner] - (anchorY[point] or 0.5)) * geometry.potionHeight,
+        }
+        profile.positions = profile.positions or {}
+        profile.positions[fallback and "potionsFallback" or group.key] = position
+        point = corner
+    end
     local anchor = Adapter:ResolveAnchorFrame(group.anchorFrame)
     if not anchor or relativePoint ~= (group.anchorPoint or relativePoint) then anchor = Adapter:GetRootFrame() end
     if group.anchorFrame then

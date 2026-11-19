@@ -1,9 +1,10 @@
 local _, ns = ...
 
-if (type(GetLocale) ~= "function") or GetLocale() ~= "enUS" then return end
+if (type(DF_Locale) ~= "function") or DF_Locale() ~= "enUS" then return end
 local _, ns = ...
 
 ns.ProfData = {
+    runtime=ns.ProfData and ns.ProfData.runtime,
     build = "1.60.1.70338",
     updated = "2026-10-11",
 

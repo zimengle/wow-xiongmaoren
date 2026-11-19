@@ -2468,6 +2468,9 @@ function H:InstallBookCount()
 end
 
 function H:UpsertPeer(name, raw, hosting, mapId, inst, grouped, combat, paused, queued, replyAs)
+  if self.BindCharacterPeers then
+    self:BindCharacterPeers()
+  end
   local reply = self:ReplyName(replyAs or name)
   if self:IsSelfName(reply or name) then
     return nil
@@ -2692,7 +2695,7 @@ function H:OnAddonMessage(prefix, msg, channel, sender)
     local target = tonumber(parts[2] or 0) or 0
     if cmd == "GREQ" then
       local only = parts[4]
-      if not only or only == "" or not self:IsSelfName(only) then
+      if not only or only == "" or not (self.IsHopTargetMe and self:IsHopTargetMe(only)) then
         return
       end
     end
@@ -3159,8 +3162,8 @@ function H:OnPartyInviteRequest(inviter)
     return
   end
   local expReply = self:WhisperTarget(expected) or expected
-  local same = self:IsSamePlayer(inviter, expected)
-    or self:IsSamePlayer(inviter, expReply)
+  local same = self:SameHopPerson(inviter, expected)
+    or self:SameHopPerson(inviter, expReply)
   if not same then
     return
   end
@@ -3192,7 +3195,7 @@ function H:OnSystemMessage(text)
       local expected = self.poll.expectedHost
       local expReply = expected and (self:WhisperTarget(expected) or expected)
       if expected
-        and (self:IsSamePlayer(inv, expected) or (expReply and self:IsSamePlayer(inv, expReply)))
+        and (self:SameHopPerson(inv, expected) or (expReply and self:SameHopPerson(inv, expReply)))
       then
         self._hopInviter = inv
         self.poll.waiting = "ok"

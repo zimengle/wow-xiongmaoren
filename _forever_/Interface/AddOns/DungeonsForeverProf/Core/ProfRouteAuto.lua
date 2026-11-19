@@ -14,7 +14,7 @@ local CACHE_TTL = 600
 local CACHE_SLOTS = 4
 local G_YELLOW, G_GREEN = 0.5, 0.05
 
-local SCHEME_ORDER = { "cheapest", "stable", "matcost", "crafts", "optim" }
+local SCHEME_ORDER = { "cheapest", "matcost", "crafts", "optim" }
 local SCHEME_LABEL = {
     cheapest = "最省钱",
     stable = "稳定升级",
@@ -28,11 +28,17 @@ function RA.SchemeLabel(s)
     return type(L) == "table" and L[k] or k
 end
 
-function RA.Available()
+local function AuctionatorReady()
     return type(Auctionator) == "table"
         and type(Auctionator.API) == "table"
         and type(Auctionator.API.v1) == "table"
         and type(Auctionator.API.v1.GetAuctionPriceByItemID) == "function"
+end
+
+function RA.Available()
+    if AuctionatorReady() then return true end
+    local eb = ns.EasyBridge
+    return (eb and eb.Available and eb.Available()) and true or false
 end
 
 local function CallAPI(fn, ...)
@@ -54,7 +60,7 @@ local function AHPrice(id)
         if t0 and (now - t0) < NEG_TTL then return nil end
     end
     local p
-    if RA.Available() then
+    if AuctionatorReady() then
         p = CallAPI(Auctionator.API.v1.GetAuctionPriceByItemID, id)
         if type(p) ~= "number" or p <= 0 then p = nil end
         if p and type(Auctionator.API.v1.GetAuctionAgeByItemID) == "function" then
@@ -76,7 +82,7 @@ local function AHPrice(id)
             end
         end
     else
-        ahReason[id] = "noapi"
+        ahReason[id] = RA.Available() and "norec" or "noapi"
     end
     if not p and ahReason[id] ~= "stale" and ahReason[id] ~= "noapi" then
         ahReason[id] = "norec"
@@ -143,8 +149,16 @@ function RA.MaterialPurchases(id,need,opts)
         or not snap and economy and economy.NonAuctionableItem and economy.NonAuctionableItem(id) then auction=nil end
     local available=opts.auctionRemaining and opts.auctionRemaining[id]
     if available==nil and supply then available=supply.quantity end
+    local depth=ns.ProfAuctionDepth
+    local book=snap and snap.auctionDepth and snap.auctionDepth[id]
+    local used=opts.auctionUsed and opts.auctionUsed[id] or 0
+    if book then
+        available=math.min(available or math.huge,math.max(0,book.total-used))
+        if not (snap.nonAuctionable or {})[id] then auction=book.prices[1] end
+    end
     return economy.MaterialPurchases(id,need,{offers=offers,auction=auction,supply=supply,
-        available=available,faction=snap and snap.faction})
+        available=available,faction=snap and snap.faction,
+        auctionCost=book and function(count)return depth.Cost(book,used,count)end or nil})
 end
 
 function RA.PreferSharedFormula(entry,materialNeed,opts)
@@ -339,6 +353,13 @@ local function RequestProduct(id)
 end
 
 local function SnapshotSec()
+    if ns.IsForever then
+        local bridge=ns.AuctionBridge
+        local snapshot=bridge and bridge.FullScanSnapshotStatus and bridge.FullScanSnapshotStatus()
+        local stamp=snapshot and snapshot.status=="available" and tonumber(snapshot.observedAt)
+        if not stamp or stamp<=0 then return nil end
+        return math.max(0,(time and time() or 0)-stamp)
+    end
     local A = Auctionator
     local st = (type(A) == "table") and A.SavedState
     if type(st) ~= "table" then return nil end
@@ -356,6 +377,8 @@ end
 
 function RA.HasPriceData()
     if priceCache.__any then return true end
+    local eb = ns.EasyBridge
+    if eb and eb.Available and eb.Available() then return true end
     local supply = ns.ProfSupply
     return (supply and supply.Ready and supply.Ready()) and true or false
 end
@@ -1624,7 +1647,7 @@ function RA.StampSupply(result, context)
         if mid and not e.vendor and (e.source == nil or e.source == "ah") then
             local rec = SupplyOf(mid)
             local forced = AB and AB.ForceExpiredActive and AB.ForceExpiredActive()
-            if rec and rec.complete and rec.ownerExcluded and rec.source == "client-auction-results"
+            if rec and rec.complete and rec.source == "client-auction-results"
                 and type(rec.quantity) == "number" and rec.observedAt > 0
                 and rec.observedAt <= now
                 and (forced or now - rec.observedAt <= RA.MaxAuctionSupplyAgeSeconds()) then
@@ -1634,7 +1657,7 @@ function RA.StampSupply(result, context)
                 e.supplyObservedAt = rec.observedAt
                 e.supplySource = rec.source
                 e.supplyComplete = true
-                e.supplyOwnerExcluded = true
+                e.supplyOwnerExcluded = rec.ownerExcluded==true
                 if type(rec.market) == "number" and rec.market > 0 then e.supplyObservedPrice = rec.market end
             else
                 e.supplyObserved = false
@@ -1871,13 +1894,15 @@ function RA.OnPricesChanged(fn)
     if type(fn) == "function" then priceWatchers[#priceWatchers + 1] = fn end
 end
 
+function RA.NotifyPricesChanged()
+    RA.Invalidate()
+    for _, fn in ipairs(priceWatchers) do pcall(fn) end
+end
+
 local ahWatch = CreateFrame("Frame")
 ahWatch:RegisterEvent("AUCTION_HOUSE_CLOSED")
 ahWatch:SetScript("OnEvent", function()
-    C_Timer.After(0, function()
-        RA.Invalidate()
-        for _, fn in ipairs(priceWatchers) do pcall(fn) end
-    end)
+    C_Timer.After(0, function() RA.NotifyPricesChanged() end)
 end)
 
 local function Fingerprint(opts, slug)
@@ -1928,7 +1953,7 @@ function RA.OptionsFor(slug, current, skipExecutionInventory)
     local target = PDm.LvTarget and PDm.LvTarget(slug) or CAP
     local lv = tonumber(current)
     return {
-        start = (PDm.Setting("autoFromCurrent",slug) and lv) and math.max(1, lv) or 1,
+        start = PDm.AutoStartSkillOf and PDm.AutoStartSkillOf(slug, lv) or ((PDm.Setting("autoFromCurrent",slug) and lv) and math.max(1, lv) or 1),
         onlyAH = PDm.Setting("autoOnlyAH",slug),
         considerAuctionSupply = PDm.Setting("autoConsiderAuctionSupply",slug),
         allowLimitedFormulas = PDm.Setting("autoBuyLimitedFormulas",slug),

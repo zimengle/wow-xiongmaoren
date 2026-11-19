@@ -1440,7 +1440,7 @@ step
     .train 424984,1
 step
     #season 2
-    .train 424984 >>|cRXP_WARN_Benutzt|r |T134419:0|t[|cRXP_FRIENDLY_Rune des Säbelschlitzers|r] |cRXP_WARN_zum Trainieren von|r |T132375:0|t[Säbelschlitzer]
+    .train 424984 >>|cRXP_WARN_Benutzt|r |T134419:0|t[|cRXP_FRIENDLY_Rune des Säbelschlitzers|r] |cRXP_WARN_zum Trainieren von|r |T132375:0|t[Säbelhieb]
     .use 208772
     .itemcount 208772,1
 
@@ -1466,7 +1466,7 @@ step
     .train 424984,1
 step
     #season 2
-    .train 424984 >>|cRXP_WARN_Benutzt|r |T134419:0|t[|cRXP_FRIENDLY_Rune des Säbelschlitzers|r] |cRXP_WARN_zum Trainieren von|r |T132375:0|t[Säbelschlitzer]
+    .train 424984 >>|cRXP_WARN_Benutzt|r |T134419:0|t[|cRXP_FRIENDLY_Rune des Säbelschlitzers|r] |cRXP_WARN_zum Trainieren von|r |T132375:0|t[Säbelhieb]
     .use 208772
     .itemcount 208772,1
 ]])
@@ -1662,7 +1662,7 @@ step
     #label Uniform
     .train 425103,1
     .goto Stranglethorn Vale,49.616,7.743
-    >>Öffnet die |cRXP_PICK_Kurzen Vorratskiste|r. Plündert sie für die |cRXP_LOOT_Kurzens Kämpferuniform|r
+    >>Öffnet die |cRXP_PICK_Kurzens Vorratskiste|r. Plündert sie für die |cRXP_LOOT_Kurzens Kämpferuniform|r
     .collect 216617,1
 step
     .train 425103,1

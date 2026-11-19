@@ -955,7 +955,7 @@ step << Rogue
 step << Warlock
     .goto Tirisfal Glades,61.56,52.61
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Gina Lang|r au second étage
-    >>|cRXP_BUY_Achetez un|r [Grimoire de Pacte de Sang] |cRXP_BUY_à Gina|r
+    >>|cRXP_BUY_Achetez un|r [Grimoire de Pacte de sang] |cRXP_BUY_ à Gina|r
     .collect 16321,1,404,1 --Grimoire of Blood Pact
     .vendor >>Vendez tout ce dont nous n'avez pas besoin
     .target Gina Lang
@@ -2513,7 +2513,7 @@ step << Warlock
     .goto Undercity,27.39,30.23,35,0
     .goto Undercity,21.89,43.35,35,0
     .goto Tirisfal Glades,51.10,71.53,50,0
-    .zone Tirisfal Glades >> Quittez Undercity par les Égouts
+    .zone Tirisfal Glades >> Sortez de Fossoyeuse par les Égouts
     .zoneskip Tirisfal Glades
 step << Rogue
     #season 2
@@ -2732,7 +2732,7 @@ step << Rogue
 step << Rogue
     #optional
     #completewith LogoutSkip1
-    +Équipez les [Couteau de lancer perçant]
+    +Équipez le [Couteau de lancer perçant]
     .use 3107
     .itemcount 3107,1
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<6.3
@@ -4074,7 +4074,7 @@ step << Rogue/Warrior/Priest
     .goto Undercity,27.39,30.23,35,0
     .goto Undercity,21.89,43.35,35,0
     .goto Tirisfal Glades,51.10,71.53,50,0
-    .zone Tirisfal Glades >> Quittez Undercity par les Égouts
+    .zone Tirisfal Glades >> Sortez de Fossoyeuse par les Égouts
     .zoneskip Tirisfal Glades
     .isQuestAvailable 1978
 
@@ -4645,7 +4645,7 @@ step << Rogue
 step << Rogue
     #optional
     #completewith Conscript
-    +Équipez la [Cimeterre]
+    +Équipez la [CImeterre]
     .use 2027
     .itemcount 2027,1
     .itemStat 16,QUALITY,<7
@@ -6682,7 +6682,7 @@ step << Rogue
 step << Warlock
     .goto Tirisfal Glades,61.56,52.61
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Gina Lang|r au second étage
-    >>|cRXP_BUY_Achetez un|r [Grimoire de Pacte de Sang] |cRXP_BUY_à Gina|r
+    >>|cRXP_BUY_Achetez un|r [Grimoire de Pacte de sang] |cRXP_BUY_ à Gina|r
     .collect 16321,1,404,1 --Grimoire of Blood Pact
     .vendor >>Vendez tout ce dont nous n'avez pas besoin
     .target Gina Lang
@@ -8434,7 +8434,7 @@ step << Warlock
     .goto Undercity,27.39,30.23,35,0
     .goto Undercity,21.89,43.35,35,0
     .goto Tirisfal Glades,51.10,71.53,50,0
-    .zone Tirisfal Glades >> Quittez Undercity par les Égouts
+    .zone Tirisfal Glades >> Sortez de Fossoyeuse par les Égouts
     .zoneskip Tirisfal Glades
 step << Warrior
     #season 2
@@ -8742,7 +8742,7 @@ step << Rogue
 step << Rogue
     #optional
     #completewith LogoutSkip1
-    +Équipez les [Couteau de lancer perçant]
+    +Équipez le [Couteau de lancer perçant]
     .use 3107
     .itemcount 3107,1
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<6.3

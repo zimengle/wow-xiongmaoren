@@ -1,11 +1,11 @@
-﻿## Interface: 11509, 16001, 20505, 20506, 38002, 50504, 120105
+﻿## Interface: 16001
 ## AllowLoadGameType: camelot
 ## Title: 互助切位面
 ## Title-zhCN: 互助切位面
-## Notes: 位面/分片列表、求切互助、组队邀请。离线后需手动邀请。一包装无限+怀旧系+正式服。
-## Notes-zhCN: 位面/分片列表、求切互助、组队邀请。离线后需手动邀请。一包装无限+怀旧系+正式服。
+## Notes: 只支持魔兽世界：无限。位面列表、同公会求切。
+## Notes-zhCN: 只支持魔兽世界：无限。位面列表、同公会求切。
 ## Author: HuZhuLayer
-## Version: 1.1.336
+## Version: 1.1.348
 ## SavedVariables: HuZhuLayerDB
 ## DefaultState: enabled
 ## OptionalDeps: NovaWorldBuffs
@@ -21,6 +21,7 @@ HopLog.lua
 Layer.lua
 Thanks.lua
 Net.lua
+GuildRec.lua
 LayerMesh.lua
 NwbCopy.lua
 PigBridge.lua

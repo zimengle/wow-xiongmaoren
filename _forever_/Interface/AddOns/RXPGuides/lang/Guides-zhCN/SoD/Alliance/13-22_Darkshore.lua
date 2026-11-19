@@ -1184,8 +1184,8 @@ step << !Warrior !Rogue
     .goto Darkshore,55.38,36.34
 step << !Warrior !Rogue
     .hs >> 炉石返回到奥伯丁
-    >>|cRXP_BUY_按需购买食物/水|r << !Warrior !Rogue
-	>>|cRXP_BUY_如有需要，购买食物|r << Warrior/Rogue
+    >>|cRXP_BUY_如有需要，购买食物/水|r << !Warrior !Rogue
+	>>|cRXP_BUY_需要的话就买点食物|r << Warrior/Rogue
     .cooldown item,6948,>0,1
 step << skip --logout skip !Warrior !Rogue
     #optional
@@ -4746,7 +4746,7 @@ step << Rogue
     #xprate >1.59
     #ah
     .goto Stormwind City,53.612,59.764
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t 与 |cRXP_FRIENDLY_拍卖师亚克森|r 对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_拍卖师亚克森|r 对话
     >>购买|T134437:0|t[抗毒药剂] 用于你稍后的 |T132290:0|t[毒药] 职业任务，其余的留着稍后在赤脊山快速交任务 << !Dwarf
     >>购买以下物品，以便稍后在赤脊山更快地完成任务 << Dwarf
     >>这样可以节省时间，因为你不需要四处跑去找怪击杀。如果你不想购买，可以跳过这一步
@@ -5486,7 +5486,7 @@ step << NightElf Warrior
     #xprate >1.59
     #optional
     .goto 1455,62.378,88.671
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_布雷文·寒钢|r 在楼下对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t在楼下与 |cRXP_FRIENDLY_布雷文·寒钢|r 对话
     >>|cRXP_BUY_从她那里|r|cRXP_BUY_购买一把|r |T135425:0|t[锐利的飞刀]
     .collect 3107,1 --Collect Keen Throwing Knife (200)
     .target 布雷文·寒钢
@@ -5574,7 +5574,7 @@ step << Mage
 step << Mage
     #xprate >1.59
     .goto Ironforge,27.18,8.60
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_丁克|r 对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t 与 |cRXP_FRIENDLY_丁克|r 对话
     .trainer >> 训练你的职业技能
     .target 丁克
     .dungeon DM
@@ -5582,7 +5582,7 @@ step << Priest
     #xprate >1.59
     #optional << NightElf
     .goto Ironforge,25.207,10.756
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t 与 |cRXP_FRIENDLY_托德雷·铁矿|r 对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_托德雷·铁矿|r 对话
     .trainer >> 训练你的职业技能
     .target 托德雷·铁矿
     .zoneskip Wetlands << NightElf
@@ -5943,7 +5943,7 @@ step << Paladin
     #xprate >1.59
     .goto StormwindClassic,38.58,32.00,12,0
     .goto StormwindClassic,38.67,32.82
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t 与 |cRXP_FRIENDLY_虔诚的亚瑟|r 对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_虔诚的亚瑟|r 对话
     .trainer >> 训练你的职业技能
     .target 虔诚的亚瑟
     .dungeon DM
@@ -6129,7 +6129,7 @@ step
     #ah
     #softcore
     .goto Stormwind City,53.612,59.764
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t 与 |cRXP_FRIENDLY_拍卖师亚克森|r 对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_拍卖师亚克森|r 对话
     >>购买|T134437:0|t[抗毒药剂] 用于你稍后的 |T132290:0|t[毒药] 职业任务，其余的留着稍后在赤脊山快速交任务 << !Dwarf Rogue
     >>购买以下物品以加快即将在赤脊山和西部荒野完成任务 << Paladin
     >>购买以下物品，以便稍后在赤脊山更快地完成任务 << !Paladin !Rogue/Dwarf Rogue
@@ -6151,7 +6151,7 @@ step
     #ah
     #hardcore
     .goto Stormwind City,53.612,59.764
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t 与 |cRXP_FRIENDLY_拍卖师亚克森|r 对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_拍卖师亚克森|r 对话
     >>购买|T134437:0|t[抗毒药剂] 用于你稍后的 |T132290:0|t[毒药] 职业任务，其余的留着稍后在赤脊山和西部荒野快速交任务 << !Dwarf Rogue
     >>购买以下物品，以加快即将在赤脊山和西部荒野完成任务 << !Rogue/Dwarf Rogue
     >>这样可以节省时间，因为你不需要四处跑去找怪击杀。如果你不想购买，可以跳过这一步
@@ -6990,7 +6990,7 @@ step << Paladin
     #optional
     .goto StormwindClassic,38.58,32.00,12,0
     .goto StormwindClassic,38.67,32.82
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t 与 |cRXP_FRIENDLY_虔诚的亚瑟|r 对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_虔诚的亚瑟|r 对话
     .train 19835 >> 训练你的职业技能
     .target 虔诚的亚瑟
     .xp <22,1
@@ -7093,7 +7093,7 @@ step << Paladin
     #xprate >1.59
     .goto StormwindClassic,38.58,32.00,12,0
     .goto StormwindClassic,38.67,32.82
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t 与 |cRXP_FRIENDLY_虔诚的亚瑟|r 对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_虔诚的亚瑟|r 对话
     .train 19835 >> 训练你的职业技能
     .target 虔诚的亚瑟
     .xp <22,1
@@ -7220,7 +7220,7 @@ step << NightElf Warrior
     #label DeeprunDMNoFP4
     #completewith NEIFFP
     .goto 1455,62.378,88.671
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_布雷文·寒钢|r 在楼下对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t在楼下与 |cRXP_FRIENDLY_布雷文·寒钢|r 对话
     >>|cRXP_BUY_从她那里购买|r |T135427:0|t[重型飞刀]
     .collect 3108,200 --Collect Heavy Throwing Knife (200)
     .target 布雷文·寒钢

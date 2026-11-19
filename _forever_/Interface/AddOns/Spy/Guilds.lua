@@ -285,6 +285,9 @@ Spy.optionsSlash.args.guilds = {
 local MENUS = { "PLAYER", "TARGET", "FOCUS", "PARTY", "RAID_PLAYER", "ENEMY_PLAYER" }
 
 local function addMenuEntry(owner, description, contextData)
+	if Spy:SkipPlayerMenus() then
+		return -- Forever.lua says why (controller interface)
+	end
 	local ok, err = pcall(function()
 		local unit = type(contextData) == "table" and Spy:Readable(contextData.unit) or nil
 		if type(unit) ~= "string" or Spy:Readable(UnitIsUnit(unit, "player")) then

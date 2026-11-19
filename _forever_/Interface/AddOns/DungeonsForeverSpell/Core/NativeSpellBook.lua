@@ -17,6 +17,7 @@ local GROUP_ORDER = {
     { key = "next",      name = "即将学" },
     { key = "notlevel",  name = "等级不够" },
     { key = "quest",     name = "任务获得" },
+    { key = "learn",     name = "书 / 其他获得" },
     { key = "talent",    name = "天赋获得" },
     { key = "known",     name = "已学" },
 }
@@ -36,6 +37,13 @@ local openGuard = 0
 local tabPending, tabPendingAt
 
 local pending = false
+
+local function ItemLabel(id)
+    if not id or not (C_Item and C_Item.GetItemNameByID) then return nil end
+    local ok, nm = pcall(C_Item.GetItemNameByID, id)
+    if ok and type(nm) == "string" and nm ~= "" then return nm end
+    return nil
+end
 
 local function InCombat()
     if type(InCombatLockdown) ~= "function" then return false end
@@ -815,6 +823,11 @@ local function EnsurePager()
     f:SetFrameLevel(140)
     f:EnableMouseWheel(false)
     if f.PageText then pcall(f.PageText.SetFontObject, f.PageText, "SystemFont_Med3") end
+    if ns.EUISkin then
+        ns.EUISkin(f.PageText, "font")
+        ns.EUISkin(f.PrevPageButton, "page", "<")
+        ns.EUISkin(f.NextPageButton, "page", ">")
+    end
     f.GetPageDelta = function() return 1 end
     local function WirePageButton(btn, delta)
         if not (btn and btn.SetScript) then return end
@@ -925,33 +938,46 @@ local function LayoutOverlay()
     return true
 end
 
-local hiddenNative = {}
+local dimNative = {}
+
+local function DimFrame(f)
+    if not (f and f.SetAlpha) then return end
+    if not f.__dfDim then
+        f.__dfDim = true
+        local a, m = 1, true
+        local ok, v = pcall(f.GetAlpha, f)
+        if ok and type(v) == "number" then a = v end
+        if f.IsMouseEnabled then
+            local okm, vm = pcall(f.IsMouseEnabled, f)
+            if okm and type(vm) == "boolean" then m = vm end
+        end
+        dimNative[#dimNative + 1] = { f = f, a = a, m = m }
+    end
+    pcall(f.SetAlpha, f, 0)
+    if f.EnableMouse then pcall(f.EnableMouse, f, false) end
+end
 
 local function HideNativeList()
     local paged = Paged()
     if not paged then return end
-    local function hide(f)
-        if f and f.IsShown and f:IsShown() then
-            hiddenNative[#hiddenNative + 1] = f
-            f:Hide()
-        end
-    end
-    hide(paged.View1)
-    hide(paged.View2)
+    DimFrame(paged.View1)
+    DimFrame(paged.View2)
     if paged.ViewFrames then
-        for _, v in ipairs(paged.ViewFrames) do hide(v) end
+        for _, v in ipairs(paged.ViewFrames) do DimFrame(v) end
     end
-    hide(paged.PagingControls)
+    DimFrame(paged.PagingControls)
 end
 
 local function RestoreNativeList()
-    for _, f in ipairs(hiddenNative) do
-        if f.IsShown then f:Show() end
+    for _, r in ipairs(dimNative) do
+        local f = r.f
+        if f then
+            if f.SetAlpha then pcall(f.SetAlpha, f, r.a) end
+            if f.EnableMouse then pcall(f.EnableMouse, f, r.m) end
+            f.__dfDim = nil
+        end
     end
-    hiddenNative = {}
-    local paged = Paged()
-    local pc = paged and paged.PagingControls
-    if pc and pc.Show then pc:Show() end
+    dimNative = {}
 end
 
 local function HideOverlay()
@@ -969,6 +995,14 @@ local function QuestWhere(q)
         return format("%s %.1f, %.1f", q.zone, q.x, q.y or 0)
     end
     return LevelText(q.lv)
+end
+
+local function DiscountHeader()
+    local td = ns.TrainerDiscount
+    if not (td and td.Header) then return nil end
+    local ok, v = pcall(td.Header)
+    if ok and type(v) == "string" and v ~= "" then return v end
+    return nil
 end
 
 local function BuildSpellGroups()
@@ -994,6 +1028,17 @@ local function BuildSpellGroups()
                     el.sub = row.quest.name or ""
                     el.req = QuestWhere(row.quest)
                     el.dim = (gd.key == "notlevel") or ((row.quest.lv or 0) > plv)
+                elseif row.src then
+                    local label = row.src == "book" and ItemLabel(row.book)
+                    if row.src == "book" then
+                        el.sub = label and string.format(ns.L["书：%s"], label) or ns.L["书"]
+                    elseif row.src == "quest" then
+                        el.sub = ns.L["任务获得"]
+                    else
+                        el.sub = ns.L["其他途径"]
+                    end
+                    el.req = LevelText(row.learn)
+                    el.dim = (gd.key == "notlevel")
                 else
                     el.sub = (row.rank and format(ns.L["等级 %d"], row.rank)) or ((row.tab and row.tab ~= row.name) and row.tab) or ""
                     el.req = gd.known and ns.L["已学"] or LevelText(row.learn)
@@ -1001,8 +1046,13 @@ local function BuildSpellGroups()
                 end
                 elements[#elements + 1] = el
             end
+            local headText = ns.L[gd.name]
+            if gd.key == "available" then
+                local hint = DiscountHeader()
+                if hint then headText = headText .. "  ·  " .. hint end
+            end
             groups[#groups + 1] = {
-                header = { templateKey = TPL_HEADER, text = ns.L[gd.name] },
+                header = { templateKey = TPL_HEADER, text = headText },
                 elements = elements,
             }
         end
@@ -1119,14 +1169,12 @@ local function WarmCache()
 end
 
 local function InstallOurs()
-    if DeferInCombat() then return false end
     if not book then return false end
     if not BookShown() then
-        if ovl then ovl:Hide() end
+        HideOverlay()
         return false
     end
     if not EnsureOverlay() then return false end
-    RestoreNativeList()
     local key = CacheKey()
     local groups = BuildGroups()
     if groups and #groups > 0 then groupCache[key] = groups end
@@ -1145,7 +1193,7 @@ local function InstallOurs()
     end
     PaintPage()
     PagerSync()
-    HideNativeList()
+    if not InCombat() then HideNativeList() end
     ovl:Show()
     return true
 end
@@ -1217,7 +1265,7 @@ local function BuildSubBar()
         fs:SetText(text)
         b.label = fs
         b:SetScript("OnClick", function() SetSub(key) end)
-        if ns.NDuiOn and ns.NDuiOn() then ns.NDuiReskin(b) end
+        if ns.SkinBtn then ns.SkinBtn(b) end
         return b
     end
     subClassBtn = mk("DungeonsForeverSubClass", ns.L["职业训练师"], "class", 94)
@@ -1361,7 +1409,6 @@ local function PaintTabs()
 end
 
 ShowPage = function(key)
-    if DeferInCombat() then return end
     if not book then return end
     if activePage == key then
         if key then ApplyData() end
@@ -1378,23 +1425,6 @@ ShowPage = function(key)
         if book.SettingsDropdown then book.SettingsDropdown:SetShown(not shown) end
         if book.SearchPreviewContainer then book.SearchPreviewContainer:Hide() end
         PaintNativeTabs()
-    end
-    if key and not BookShown() then
-        local psf = PlayerSpellsFrame
-        if psf and not InCombat() then
-            pcall(psf.SetTab, psf, 3)
-            if C_Timer and C_Timer.After then
-                C_Timer.After(0.05, function()
-                    if activePage == key then ApplyData(); SyncLastTab() end
-                end)
-                C_Timer.After(0.3, function()
-                    if activePage == key then ApplyData(); SyncLastTab() end
-                end)
-                C_Timer.After(1.0, function()
-                    if activePage == key then SyncLastTab() end
-                end)
-            end
-        end
     end
     ApplyData()
     if not InCombat() then SyncLastTab() end
@@ -1423,7 +1453,6 @@ local function TabExitCheck(id)
 end
 
 local function NativeTabClicked()
-    if DeferInCombat() then return end
     if not activePage then return end
     local seq = pageSeq
     local function leave()
@@ -1782,6 +1811,13 @@ local function Attach()
         if beatAcc < (lastPsf and 0.05 or 0.2) then return end
         beatAcc = 0
         if InCombat() then
+            if activePage and sb and sb.GetTab then
+                local okt, id = pcall(sb.GetTab, sb)
+                if okt and id ~= nil and id ~= lastTab then
+                    lastTab = id
+                    ShowPage(nil)
+                end
+            end
             pending = true
             return
         end
@@ -1815,14 +1851,17 @@ local function Attach()
             end
         end
         if activePage and ovl and not ovl:IsVisible() and BookShown() then InstallOurs() end
-        if activePage then
-            local paged = Paged()
-            local pc = paged and paged.PagingControls
-            if pc and pc.IsShown and pc:IsShown() then pc:Hide() end
-        end
         if SyncTabCatcher then SyncTabCatcher() end
         if tabButton and not tabButton:IsShown() and BookShown() and (ns.SpellEnhOn and ns.SpellEnhOn()) then ShowTabs() end
         if InCombat() then return end
+        if activePage then
+            local pv = Paged()
+            local v1 = pv and pv.View1
+            if v1 and v1.GetAlpha then
+                local oka, va = pcall(v1.GetAlpha, v1)
+                if oka and type(va) == "number" and va > 0 then HideNativeList() end
+            end
+        end
         if shown then
             local w, h = sb:GetWidth(), sb:GetHeight()
             local views = ViewList()
@@ -1944,6 +1983,10 @@ end
 
 function NB.CurrentPage()
     return activePage
+end
+
+function NB.Book()
+    return book
 end
 
 function NB.CacheInfo()

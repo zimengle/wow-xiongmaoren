@@ -14,10 +14,10 @@ function Widget:HasKeyring(module)
         and type(_G.ToggleBag) == "function" and _G.C_ActionBar and _G.C_ActionBar.ShouldShowKeyring and _G.C_ActionBar.ShouldShowKeyring()
 end
 
-function Widget:MakeKey(module, parent, round)
+function Widget:MakeKey(module, parent)
     local button = module:CreateFrame("Button", nil, parent)
-    button:SetSize(round and 24 or 20, round and 24 or 20)
-    local icon = round and "bag-key-round" or "bag-key"
+    button:SetSize(20, 20)
+    local icon = "bag-key"
     button:SetNormalTexture("Interface\\AddOns\\RurutiaSuite\\Media\\Textures\\" .. icon)
     button:SetHighlightTexture("Interface\\Buttons\\ButtonHilight-Square", "ADD")
     button:SetScript("OnEnter", function(self)
@@ -34,7 +34,6 @@ function Widget:MakeKey(module, parent, round)
         end
         local id = _G.Enum.BagIndex.Keyring
         _G.ToggleBag(id)
-        if round and ns.ExtraToolsEllesBagKey then ns.ExtraToolsEllesBagKey:AfterToggle(id) end
     end)
     return button
 end
@@ -88,13 +87,13 @@ local function BuildHeader(module, host)
     bag:SetScript("OnEnter", function(self)
         local tip = _G.GameTooltip
         tip:SetOwner(self, "ANCHOR_TOP")
-        tip:SetText(module:IsBlizzardBackpackBarShown() and "背包栏：已显示" or "背包栏：已隐藏")
-        tip:AddLine("左键切换底部背包栏，右键打开 RS 设置。", 1, 1, 1)
+        tip:SetText("左：打开背包")
+        tip:AddLine("右：设置", 1, 1, 1)
         tip:Show()
     end)
     bag:SetScript("OnLeave", HideTooltip)
     if Widget:HasKeyring(module) then
-        bar.key = Widget:MakeKey(module, bar, false)
+        bar.key = Widget:MakeKey(module, bar)
         bar.key:SetPoint("RIGHT", bag, "LEFT", -8, 0)
     end
     local caption = bar:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
@@ -159,7 +158,6 @@ function Widget:Ensure(module)
     if not (module.runtimeActive and module.adapter.features.backpack) then return false end
     WatchHost(module, _G.ContainerFrame1)
     WatchHost(module, _G.ContainerFrameCombinedBags)
-    if ns.ExtraToolsEllesBagKey then ns.ExtraToolsEllesBagKey:Attach(module) end
     return next(self.hosts) ~= nil
 end
 
@@ -167,7 +165,6 @@ Widget.Attach = Widget.Ensure
 
 function Widget:Detach()
     local module = ns.BlizzardEnhancements
-    if ns.ExtraToolsEllesBagKey then ns.ExtraToolsEllesBagKey:Detach(module) end
     for host, token in pairs(self.hosts) do
         module:RemoveHook(token)
         self.hosts[host] = nil

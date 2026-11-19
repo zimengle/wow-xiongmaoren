@@ -146,12 +146,15 @@ ns.options = ns.options or {}
 if ns.options.buttonSound == nil then ns.options.buttonSound = true end
 
 ns.QUICK_VER = 1
-ns.QUICK_GROUPS = { "dungeon", "prof", "explore" }
+ns.QUICK_GROUPS = { "dungeon", "prof", "explore", "tier" }
 ns.QUICK_EXPLORE = { "books", "bag" }
+ns.QUICK_TIER = { "class", "prep" }
 ns.QUICK_TABS = { "Dungeons", "Raids", "Professions", "Explore", "Collections", "Factions", "Bis", "Tier", "PvP", "Gear", "QuestSearch" }
 
 local QUICK_EXPLORE_SET = {}
 for _, k in ipairs(ns.QUICK_EXPLORE) do QUICK_EXPLORE_SET[k] = true end
+local QUICK_TIER_SET = {}
+for _, k in ipairs(ns.QUICK_TIER) do QUICK_TIER_SET[k] = true end
 
 function ns.QuickCfg()
     local ui = DB().ui
@@ -166,12 +169,20 @@ function ns.QuickCfg()
         if q.groups[k] == nil then q.groups[k] = true end
     end
     if q.profMode ~= "all" then q.profMode = "learned" end
+    if q.profCrate == nil then q.profCrate = true end
     if type(q.expl) ~= "table" then q.expl = {} end
     for _, k in ipairs(ns.QUICK_EXPLORE) do
         if q.expl[k] == nil then q.expl[k] = true end
     end
     for k in pairs(q.expl) do
         if not QUICK_EXPLORE_SET[k] then q.expl[k] = nil end
+    end
+    if type(q.tier) ~= "table" then q.tier = {} end
+    for _, k in ipairs(ns.QUICK_TIER) do
+        if q.tier[k] == nil then q.tier[k] = true end
+    end
+    for k in pairs(q.tier) do
+        if not QUICK_TIER_SET[k] then q.tier[k] = nil end
     end
     if type(q.tabs) ~= "table" then q.tabs = {} end
     for _, k in ipairs(ns.QUICK_TABS) do
@@ -397,7 +408,7 @@ end
 
 do
     local candidates = {}
-    if GetLocale() == "zhCN" then
+    if DF_Locale() == "zhCN" then
         candidates[#candidates + 1] = "ARHei.ttf"
     end
     for _, name in ipairs({
@@ -497,6 +508,71 @@ do
     end
 end
 
+do
+    local queue, reg, fac = {}, false, nil
+    local MAXQ = 96
+
+    local function Apply(S, it)
+        if not (S and it and it.f) then return end
+        if it.k == "page" then
+            pcall(S.PageButton, it.f, it.c or ">")
+        elseif it.k == "font" then
+            pcall(S.Font, it.f)
+        else
+            pcall(S.Button, it.f)
+        end
+    end
+
+    local function Drain()
+        if not fac then return end
+        for i = 1, #queue do Apply(fac, queue[i]) end
+        queue = {}
+    end
+
+    local function Wait()
+        if reg then return fac ~= nil end
+        local E = _G.EllesmereUI
+        if not (E and E.RegisterSkin) then return false end
+        reg = true
+        E.RegisterSkin("DungeonsForeverButtons", function(S)
+            fac = S
+            Drain()
+        end)
+        return fac ~= nil
+    end
+
+    function ns.EUISkin(frame, kind, ch)
+        if not frame then return frame end
+        if fac then
+            Apply(fac, { f = frame, k = kind, c = ch })
+            return frame
+        end
+        if #queue < MAXQ then queue[#queue + 1] = { f = frame, k = kind, c = ch } end
+        Wait()
+        return frame
+    end
+
+    function ns.SkinBtn(frame)
+        if not frame then return frame end
+        if ns.NDuiOn() then return ns.NDuiReskin(frame) end
+        return ns.EUISkin(frame, "button")
+    end
+
+    function ns.SkinPageBtn(frame, ch)
+        if not frame then return frame end
+        if ns.NDuiOn() then return ns.NDuiReskin(frame) end
+        return ns.EUISkin(frame, "page", ch)
+    end
+
+    local wait = CreateFrame("Frame")
+    wait:RegisterEvent("PLAYER_LOGIN")
+    wait:SetScript("OnEvent", function(self)
+        self:UnregisterEvent("PLAYER_LOGIN")
+        Wait()
+        Drain()
+    end)
+end
+
 local loadedFuncs = {}
 local boot = CreateFrame("Frame")
 boot:RegisterEvent("ADDON_LOADED")
@@ -562,7 +638,7 @@ do
         if event == "PLAYER_LOGIN" then self:UnregisterEvent("PLAYER_LOGIN") end
         if event == "PLAYER_ENTERING_WORLD" then self:UnregisterEvent("PLAYER_ENTERING_WORLD") end
         if C_Timer and C_Timer.After then C_Timer.After(0, Try) end
-        if not ticker and C_Timer and C_Timer.NewTicker then ticker = C_Timer.NewTicker(2, Try) end
+        if not ticker and C_Timer and C_Timer.NewTicker then ticker = C_Timer.NewTicker(5, Try) end
     end)
 end
 
@@ -1257,6 +1333,60 @@ moduleBoot:SetScript("OnEvent", function(self, event, name)
         DEFAULT_CHAT_FRAME:AddMessage("|cffff5555DungeonsForever|r 有 " .. bad .. " 项页面模块初始化失败，请检查对应子插件是否已启用。")
     end
 end)
+
+do
+    local LINE2SLUG = {
+        [171] = "alchemy", [164] = "blacksmithing", [333] = "enchanting",
+        [202] = "engineering", [165] = "leatherworking", [197] = "tailoring",
+        [186] = "mining", [182] = "herbalism", [393] = "skinning",
+        [185] = "cooking", [356] = "fishing", [129] = "first-aid",
+        [755] = "jewelcrafting",
+    }
+    local memo, stamp = nil, -1
+
+    function ns.PlayerProfSet()
+        local now = (type(GetTime) == "function") and GetTime() or 0
+        if memo and (now - stamp) < 1 then return memo end
+        local out = {}
+        if type(GetProfessions) == "function" and type(GetProfessionInfo) == "function" then
+            local ok, a, b, c, d, e, f = pcall(GetProfessions)
+            if ok then
+                local slots = { a, b, c, d, e, f }
+                for i = 1, 6 do
+                    local idx = slots[i]
+                    if idx then
+                        local oki, _, _, cur, _, _, _, sid = pcall(GetProfessionInfo, idx)
+                        local slug = oki and LINE2SLUG[sid] or nil
+                        if slug then out[slug] = tonumber(cur) or 0 end
+                    end
+                end
+            else
+                out.__unknown = true
+            end
+        else
+            out.__unknown = true
+        end
+        memo, stamp = out, now
+        return out
+    end
+
+    function ns.HasProf(slug)
+        if not slug then return true end
+        local set = ns.PlayerProfSet()
+        if set.__unknown then return true end
+        return set[slug] ~= nil
+    end
+
+    function ns.ProfLevel(slug)
+        if not slug then return 0 end
+        return ns.PlayerProfSet()[slug] or 0
+    end
+
+    local ev = CreateFrame("Frame")
+    ev:RegisterEvent("SKILL_LINES_CHANGED")
+    ev:RegisterEvent("PLAYER_ENTERING_WORLD")
+    ev:SetScript("OnEvent", function() memo, stamp = nil, -1 end)
+end
 
 function ns.RefreshTabEntry()
     if type(ns.ApplyTabVisibility) == "function" then pcall(ns.ApplyTabVisibility) end

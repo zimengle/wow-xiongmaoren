@@ -161,7 +161,7 @@ local INFINITE_MENU = {
     InfiniteNativeItem("professions", "professions", "专业", "ProfessionMicroButton"),
     InfiniteNativeItem("collections", "collections", "坐骑与藏品", "CollectionsMicroButton"),
     { key = "journal", texture = "pvp", tooltip = "journal", action = "journal", combatLocked = true },
-    InfiniteNativeItem("pvp", "encounter", "荣誉（人物面板内选择荣誉页）", "CharacterMicroButton", "在人物面板内选择荣誉页。"),
+    { key = "pvp", texture = "encounter", tooltip = "PVP", action = "forever-pvp", combatLocked = true },
     { key = "bags", texture = "bags", tooltip = "背包", action = "bags" },
     { key = "main", texture = "help", tooltip = "main", action = "main", combatLocked = true },
 }

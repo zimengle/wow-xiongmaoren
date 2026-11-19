@@ -658,7 +658,7 @@ step << Druid
     #optional
     #season 0
 	#completewith next
-	.cast 18960 >> Lance Teleporte: Clareira da Lua
+	.cast 18960 >> Lance Teleporte: Bosque da Lua
 	.zoneskip Moonglade
     .isQuestTurnedIn 6001
 step << Druid
@@ -900,7 +900,7 @@ step << Druid
 step << Druid
     #season 2
 	#completewith next
-	.cast 18960 >> Lance Teleporte: Clareira da Lua
+	.cast 18960 >> Lance Teleporte: Bosque da Lua
     .usespell 18960
     >>|cRXP_WARN_Estará em seu grimório|r
 	.zoneskip Moonglade
@@ -922,7 +922,7 @@ step << Druid
 step << Druid
     #season 2
 	#completewith next
-	.cast 18960 >> Lance Teleporte: Clareira da Lua
+	.cast 18960 >> Lance Teleporte: Bosque da Lua
     >>|cRXP_WARN_Isso o fará voltar mais rápido|r
 step << Druid
     #season 2
@@ -1468,7 +1468,7 @@ step << Druid
     #optional
     #season 0
 	#completewith next
-	.cast 18960 >> Lance Teleporte: Clareira da Lua
+	.cast 18960 >> Lance Teleporte: Bosque da Lua
 	.zoneskip Moonglade
 step << Druid
     #season 0
@@ -2112,7 +2112,7 @@ step << Priest
     #season 2
     #optional
     #completewith next
-    .hs >> Use sua Pedra de Retorno para ir a Darnassus
+    .hs >> Use sua Pedra de Retorno para Darnassus
     .zoneskip Darnassus
 step << Priest
     .goto Darnassus,37.90,82.74
@@ -3441,7 +3441,7 @@ step << Druid/Hunter
 step << Druid
     #optional
     #completewith TotL
-    .cast 18960 >> Lance Teleporte: Clareira da Lua
+    .cast 18960 >> Lance Teleporte: Bosque da Lua
     .zoneskip Moonglade
     step << Druid
     .goto Moonglade,56.1,30.7
@@ -3458,7 +3458,7 @@ step << Druid
 step << Druid
     #optional
     #completewith next
-    .cast 18960 >> Lance Teleporte: Clareira da Lua
+    .cast 18960 >> Lance Teleporte: Bosque da Lua
     .itemcount 15877,1 -- Shrine Bauble (1)
 step << Druid
     .goto Moonglade,36.026,41.374
@@ -3974,7 +3974,7 @@ step << Druid
     #xprate >1.59
     #optional
 	#completewith next
-	.cast 18960 >> Lance Teleporte: Clareira da Lua
+	.cast 18960 >> Lance Teleporte: Bosque da Lua
 	.zoneskip Moonglade
     .xp <20,1
 step << Druid
@@ -4272,7 +4272,7 @@ step << Druid
 step << Druid
     #season 2
     .goto Ashenvale,34.8,49.8
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com a |cRXP_FRIENDLY_Sentinela Tenysil|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Sentinela Tenysil|r
     .target Sentinel Thenysil
     .accept 1070 >> Aceite a missão “Em Guarda” na Cordilheira das Torres de Pedra
 step << Druid
@@ -4323,7 +4323,7 @@ step << Druid
     #season 2
     #optional
 	#completewith next
-	.cast 18960 >> Lance Teleporte: Clareira da Lua
+	.cast 18960 >> Lance Teleporte: Bosque da Lua
 	.zoneskip Moonglade
 step << Druid
     #season 2
@@ -4683,7 +4683,7 @@ step << Rogue
     #label RogueTrainNoDMEnd
     .goto StormwindClassic,74.65,52.83
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Osborne, o Homem da Madrugada|r
-    >>Certifique-se de treinar [Abrir Fechadura], pois você vai precisar disso mais tarde
+    >>Certifique-se de treinar [Abrir Fechadura] pois você precisará disso mais tarde
     >>|cRXP_WARN_TENHA MUITO CUIDADO com sua gestão de dinheiro nos próximos passos. Compre apenas feitiços essenciais. Você precisará ter dinheiro para Esfumar-se em breve e 75 pratas para obter uma runa após retornar às Terras do Interior|r
     .train 1804 >> Treine [Abrir Fechadura]
     .trainer >> Treine suas magias de classe
@@ -4943,7 +4943,7 @@ step << Rogue
     #completewith next
     .goto Redridge Mountains,30.59,59.42
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Ariena Penafúria|r
-    .fp Redridge Mountains >> Aprenda a rota de voo para Montanhas Cristarrubra << !Human
+    .fp Redridge Mountains >> Pegue o ponto de voo das Montanhas Cristarrubra << !Human
     .fly Westfall >> Voe para Cerro Oeste
     .target Ariena Stormfeather
     .dungeon !DM
@@ -4987,7 +4987,7 @@ step << Rogue
     #xprate >1.59
     #optional
     #completewith TowerKey
-    +|cRXP_WARN_==PRESTE ATENÇÃO NA PRÓXIMA SEÇÃO==|r
+    +|cRXP_WARN_==PRESTE ATENÇÃO À PRÓXIMA SEÇÃO==|r
     >>Pressione Escape, depois vá em -> Opções -> Controles
     >>Marque "Ativar Tecla de Interação" e vincule a opção "Interagir com o Alvo" a uma tecla
     >>|cRXP_WARN_Além disso, é recomendável ativar as placas de nome dos inimigos (tecla padrão: V), pois isso permite ver os inimigos atrás de alguns cantos dentro da torre.|r
@@ -5144,7 +5144,7 @@ step << Rogue
     #label KlavenFinish
     .goto Stormwind City,75.78,59.84
 	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Mestre Mathias Shaw|r
-    >>|cRXP_WARN_Lembre-se de reequipar sua arma principal se você trocou para um|r |T135641:0|t[Dagger] |cRXP_WARN_antes|r << Rogue !sod
+    >>|cRXP_WARN_Lembre-se|r de re-equipar sua arma principal se você trocou para uma |T135641:0|t[Adaga] |cRXP_WARN_anteriormente|r << Rogue !sod
     .turnin 135 >> Entregue A Irmandade Défias
 --  .accept 141 >> Accept The Defias Brotherhood
     .turnin 2359 >> Entregue A Torre de Klaven
@@ -5281,7 +5281,7 @@ step << NightElf Rogue
     #completewith next
     .goto Ironforge,55.491,47.751
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Grif Trovino|r
-    .fly Menethil >> Voe para Terras do Interior
+    .fly Menethil >> Voe para Pantanal
     .zoneskip Ironforge,1
     .cooldown item,6948,<0
     .dungeon !DM
@@ -5824,7 +5824,7 @@ step << Rogue
     #label RogueTrainDMEnd
     .goto StormwindClassic,74.65,52.83
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Osborne, o Homem da Madrugada|r
-    >>Certifique-se de treinar [Abrir Fechadura], pois você vai precisar disso mais tarde
+    >>Certifique-se de treinar [Abrir Fechadura] pois você precisará disso mais tarde
     .train 1804 >> Treine [Abrir Fechadura]
     .trainer >> Treine suas magias de classe
     .target Osborne the Night Man
@@ -6296,7 +6296,7 @@ step
     #completewith next
     .goto Redridge Mountains,30.59,59.42
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Ariena Penafúria|r
-    .fp Redridge Mountains >> Aprenda a rota de voo para Montanhas Cristarrubra << !Human !Warlock
+    .fp Redridge Mountains >> Pegue o ponto de voo das Montanhas Cristarrubra << !Human !Warlock
     .fly Westfall >> Voe para Cerro Oeste
     .target Ariena Stormfeather
     .dungeon DM
@@ -6340,7 +6340,7 @@ step << Rogue
     #xprate >1.59
     #optional
     #completewith TowerKey
-    +|cRXP_WARN_==PRESTE ATENÇÃO NA PRÓXIMA SEÇÃO==|r
+    +|cRXP_WARN_==PRESTE ATENÇÃO À PRÓXIMA SEÇÃO==|r
     >>Pressione Escape, depois vá em -> Opções -> Controles
     >>Marque "Ativar Tecla de Interação" e vincule a opção "Interagir com o Alvo" a uma tecla
     >>|cRXP_WARN_Além disso, é recomendável ativar as placas de nome dos inimigos (tecla padrão: V), pois isso permite ver os inimigos atrás de alguns cantos dentro da torre.|r
@@ -6494,7 +6494,7 @@ step
     #label KlavenFinish
     .goto Stormwind City,75.78,59.84
 	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tFale com |cRXP_FRIENDLY_Mestre Mathias Shaw|r
-    >>|cRXP_WARN_Lembre-se de reequipar sua arma principal se você trocou para um|r |T135641:0|t[Dagger] |cRXP_WARN_antes|r << Rogue
+    >>|cRXP_WARN_Lembre-se|r de re-equipar sua arma principal se você trocou para uma |T135641:0|t[Adaga] |cRXP_WARN_anteriormente|r << Rogue
     .turnin 135 >> Entregue A Irmandade Défias
     .accept 141 >> Aceitar A Irmandade Défias
     .turnin 2359 >> Entregue A Torre de Klaven << Rogue
@@ -6568,7 +6568,7 @@ step
 step
     #xprate >1.59 << !Hunter
     .goto Westfall,42.56,71.71
-    >>Escolte o |cRXP_FRIENDLY_Traidor Défias|r para Minas Mortas
+    >>Escolte o |cRXP_FRIENDLY_Traidor Défias|r até as Minas Mortas
     >>|cRXP_WARN_Fique sempre ao lado do |cRXP_FRIENDLY_Traidor Défias|r. Esteja pronto para enfrentar |cRXP_ENEMY_Pilhadores Défias|r e |cRXP_ENEMY_Saqueadores Défias|r ao chegar a Arroio da Lua|r
     .complete 155,1 -- Escort The Defias Traitor to discover where VanCleef is hiding (1)
     .target The Defias Traitor
@@ -7159,7 +7159,7 @@ step << Druid
     #xprate >1.59
     #optional
     #completewith next
-	.cast 18960 >> Lance Teleporte: Clareira da Lua
+	.cast 18960 >> Lance Teleporte: Bosque da Lua
 	.zoneskip Moonglade
 step << Druid
     #xprate >1.59

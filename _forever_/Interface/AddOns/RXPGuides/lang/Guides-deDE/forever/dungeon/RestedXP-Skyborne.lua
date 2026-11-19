@@ -3,15 +3,15 @@ if GetLocale() ~= "deDE" then return end
 RXPGuides.RegisterGuide([[
 #forever
 #version 1
-#name 1-9 Zephras Isle
-#displayname 1-9 Skyborne << Alliance
-#displayname 1-9 Skyborne << Horde
+#name 1-9 Insel Zephras
+#displayname 1-9 Himmelsgeborene << Alliance
+#displayname 1-9 Himmelsgeborene << Horde
 #group RestedXP Forever Dungeonführer (A) << Alliance
 #group RestedXP Forever Dungeonführer (H) << Horde
 #subgroup Dungeonführer 1-20 << Alliance
 #subgroup Dungeonführer 1-22 << Horde
 #defaultfor Skyborne
-#next 9-13 Zephras Isle
+#next 9-13 Die Insel Zephras
 
 step << Horde
     .enabledungeon RFC
@@ -23,9 +23,9 @@ step << Alliance
 RXPGuides.RegisterGuide([[
 #forever
 #version 1
-#name 9-13 Zephras Isle
-#displayname 9-13 Skyborne << Alliance
-#displayname 9-12 Skyborne << Horde
+#name 9-13 Die Insel Zephras
+#displayname 9-13 Himmelsgeborene << Alliance
+#displayname 9-12 Himmelsgeborene << Horde
 #group RestedXP Forever Dungeonführer (A) << Alliance
 #group RestedXP Forever Dungeonführer (H) << Horde
 #subgroup Dungeonführer 1-20 << Alliance
@@ -33,7 +33,7 @@ RXPGuides.RegisterGuide([[
 #defaultfor Skyborne
 #next 13-15 Westfall << Alliance
 #next 12-14 Silberwald << Horde !Hunter
-#next 12-16 Das Brachland << Horde Hunter
+#next 14-18 Das Brachland << Horde Hunter
 
 step << Horde
     .enabledungeon RFC

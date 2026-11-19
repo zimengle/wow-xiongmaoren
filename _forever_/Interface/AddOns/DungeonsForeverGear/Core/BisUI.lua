@@ -622,6 +622,12 @@ BG.ArmorShare = 12
 BG.ArmorRefW = 0.008
 BG.ArmorRefPerLv = 4
 
+function BG.ArmorRefOf(cap)
+    local lv = math.floor(tonumber(cap) or 60)
+    if lv < 1 then lv = 1 elseif lv > 60 then lv = 60 end
+    return BG.ArmorRefPerLv * lv
+end
+
 function BG.ArmorRef(st, bst)
     local a = type(st) == "table" and st.ARMOR or 0
     local b = type(bst) == "table" and bst.ARMOR or 0
@@ -1034,14 +1040,31 @@ local function InList(list, v)
     return false
 end
 
-local function ClassWear(cls, c, u)
+BG.ARMOR_TOP = { warrior = 4, paladin = 4, druid = 2 }
+BG.ARMOR_TOP_MIN_LV = { [4] = 40 }
+BG.ARMOR_SLOTS = { Head = true, Shoulder = true, Chest = true, Wrist = true,
+                   Hands = true, Waist = true, Legs = true, Feet = true }
+
+local function ClassWear(cls, c, u, specKey, slotName, lv)
     local t = USABLE[cls]
     if not t then return true end
     if c == 2 then return InList(t.weapon, u) end
     if c == 4 then
         if u == nil or u == 0 or u == 5 then return true end
         if u == 6 then return t.shield and true or false end
-        if u >= 1 and u <= 4 then return InList(t.armor, u) end
+        if u >= 1 and u <= 4 then
+            if InList(t.armor, u) then
+                local top = BG.ARMOR_TOP[cls]
+                if top then
+                    local need = BG.ARMOR_TOP_MIN_LV[top]
+                    if need and (tonumber(lv) or 60) < need then top = top - 1 end
+                end
+                if top and slotName and BG.ARMOR_SLOTS[slotName]
+                    and u ~= top and RoleOfKey(cls, specKey or BG.tspec) == "tank" then return false end
+                return true
+            end
+            return false
+        end
         if t.relic then return InList(t.relic, u) end
         return false
     end
@@ -1076,6 +1099,7 @@ local UsableCap
 local function CatRowsFor(rkey)
     local cap = UsableCap and UsableCap() or 60
     local key = rkey .. ":" .. tostring(cap) .. ":" .. BG.cls .. ":" .. tostring(BG.instGen or 0)
+        .. ":" .. tostring(BG.tspec or "")
     if catKey == key then return catItems end
     local slots = SLOT_GEAR[rkey]
     local out = {}
@@ -1083,7 +1107,7 @@ local function CatRowsFor(rkey)
     if cat and slots then
         for i = 1, #cat do
             local r = cat[i]
-            if r.s and InList(slots, r.s) and ClassWear(BG.cls, r.c, r.u) and ClsOK(r.id)
+            if r.s and InList(slots, r.s) and ClassWear(BG.cls, r.c, r.u, BG.tspec, r.s, cap) and ClsOK(r.id)
                 and (r.req or 0) <= cap then
                 out[#out + 1] = r
             end
@@ -1096,7 +1120,7 @@ end
 function BG.CatRowsForMain()
     local cap = UsableCap and UsableCap() or 60
     local key = "main+2h:" .. tostring(cap) .. ":" .. tostring(BG.cls) .. ":" .. tostring(BG.instGen or 0)
-        .. ":" .. tostring(BG.OneOnly() and 1 or 0)
+        .. ":" .. tostring(BG.OneOnly() and 1 or 0) .. ":" .. tostring(BG.tspec or "")
     local c = BG.__mainRows
     if c and c.key == key then return c.rows end
     local out, seen = {}, {}
@@ -1286,18 +1310,18 @@ BG.INST_BOSS = {
 }
 
 BG.INST_EXTRA = {
-    { key = "mc", name = "熔火之心", nameEn = "Molten Core", group = "raid" },
-    { key = "bwl", name = "黑翼之巢", nameEn = "Blackwing Lair", group = "raid" },
-    { key = "aq40", name = "安其拉神殿", nameEn = "Temple of Ahn'Qiraj", group = "raid" },
-    { key = "aq20", name = "安其拉废墟", nameEn = "Ruins of Ahn'Qiraj", group = "raid" },
-    { key = "zg", name = "祖尔格拉布", nameEn = "Zul'Gurub", group = "raid" },
-    { key = "naxx", name = "纳克萨玛斯", nameEn = "Naxxramas", group = "raid" },
-    { key = "ony", name = "奥妮克希亚的巢穴", nameEn = "Onyxia's Lair", group = "raid" },
-    { key = "emerald", name = "四绿龙", nameEn = "Emerald Dragons", group = "world" },
-    { key = "azuregos", name = "蓝龙", nameEn = "Azuregos", group = "world" },
-    { key = "kazzak", name = "卡扎克", nameEn = "Lord Kazzak", group = "world" },
-    { key = "silithus", name = "安其拉开门首领", nameEn = "Ahn'Qiraj War Leaders", group = "world" },
-    { key = "av", name = "奥特兰克山谷首领", nameEn = "Alterac Valley Bosses", group = "world" },
+    { key = "mc", name = "熔火之心", nameEn = "Molten Core", nameTw = "熔火之心", group = "raid" },
+    { key = "bwl", name = "黑翼之巢", nameEn = "Blackwing Lair", nameTw = "黑翼之巢", group = "raid" },
+    { key = "aq40", name = "安其拉神殿", nameEn = "Temple of Ahn'Qiraj", nameTw = "安其拉神殿", group = "raid" },
+    { key = "aq20", name = "安其拉废墟", nameEn = "Ruins of Ahn'Qiraj", nameTw = "安其拉廢墟", group = "raid" },
+    { key = "zg", name = "祖尔格拉布", nameEn = "Zul'Gurub", nameTw = "祖爾格拉布", group = "raid" },
+    { key = "naxx", name = "纳克萨玛斯", nameEn = "Naxxramas", nameTw = "納克薩瑪斯", group = "raid" },
+    { key = "ony", name = "奥妮克希亚的巢穴", nameEn = "Onyxia's Lair", nameTw = "奧妮克希亞的巢穴", group = "raid" },
+    { key = "emerald", name = "四绿龙", nameEn = "Emerald Dragons", nameTw = "四綠龍", group = "world" },
+    { key = "azuregos", name = "蓝龙", nameEn = "Azuregos", nameTw = "藍龍", group = "world" },
+    { key = "kazzak", name = "卡扎克", nameEn = "Lord Kazzak", nameTw = "卡扎克", group = "world" },
+    { key = "silithus", name = "安其拉开门首领", nameEn = "Ahn'Qiraj War Leaders", nameTw = "安其拉開門首領", group = "world" },
+    { key = "av", name = "奥特兰克山谷首领", nameEn = "Alterac Valley Bosses", nameTw = "奧特蘭克山谷首領", group = "world" },
 }
 
 BG.INST_FIX = { onyxias_lair = "ony" }
@@ -1320,6 +1344,43 @@ function BG.InstKeyOf(place, kind)
         if BG.INST_ALIAS[kind] then return BG.INST_ALIAS[kind] end
     end
     return nil
+end
+
+function BG.InstNameHit(place, core, ...)
+    local n = #place
+    local tail = string.find(place, "%a") ~= nil
+    for i = 1, select("#", ...) do
+        local s = select(i, ...)
+        if type(s) == "string" and s ~= "" then
+            if place == s or core == s then return true end
+            if string.find(place, s, 1, true) then return true end
+            if string.sub(s, 1, n) == place then return true end
+            if tail and string.sub(s, -n) == place then return true end
+        end
+    end
+    return false
+end
+
+function BG.InstKeysOf(place, kind, def)
+    local out, seen = {}, {}
+    local k0 = BG.InstKeyOf(place, kind)
+    if k0 and def[k0] then
+        out[1] = k0
+        return k0
+    end
+    if type(place) == "string" and place ~= "" then
+        local core = BG.NameCore(place)
+        for k, e in pairs(def) do
+            if not seen[k] and e.group ~= "world"
+                and BG.InstNameHit(place, core, e.name, e.nameEn, e.nameTw) then
+                seen[k] = true
+                out[#out + 1] = k
+            end
+        end
+    end
+    if #out == 0 then return nil end
+    if #out == 1 then return out[1] end
+    return out
 end
 
 function BG.InstBuild()
@@ -1348,13 +1409,22 @@ function BG.InstBuild()
     local gs = ns.EnsureGearSrc and ns.EnsureGearSrc()
     if type(gs) == "table" then
         for id, src in pairs(gs) do
-            if type(src) == "string" and src ~= "" and CatKind(id) == "boss" then
-                local kind, place = string.match(src, "^(.-)|(.*)$")
-                if not kind then kind, place = src, "" end
-                local k = BG.InstKeyOf(place, kind)
-                if k and def[k] then
-                    map[id] = k
-                    def[k].n = def[k].n + 1
+            if type(src) == "string" and src ~= "" then
+                local ck = CatKind(id)
+                if ck == "boss" or ck == "quest" then
+                    local kind, place = string.match(src, "^(.-)|(.*)$")
+                    if not kind then kind, place = src, "" end
+                    local k = BG.InstKeysOf(place, kind, def)
+                    if k then
+                        map[id] = k
+                        if ck == "boss" then
+                            if type(k) == "table" then
+                                for i = 1, #k do def[k[i]].n = def[k[i]].n + 1 end
+                            else
+                                def[k].n = def[k].n + 1
+                            end
+                        end
+                    end
                 end
             end
         end
@@ -1368,7 +1438,7 @@ function BG.InstDefs()
 end
 
 function BG.InstLabel(e)
-    local lc = (type(GetLocale) == "function") and GetLocale() or "zhCN"
+    local lc = (type(DF_Locale) == "function") and DF_Locale() or "zhCN"
     if lc == "enUS" and type(e.nameEn) == "string" and e.nameEn ~= "" then
         return e.nameEn
     end
@@ -1392,11 +1462,21 @@ function BG.InstOf(id)
     return nil
 end
 
+function BG.InstAllowed(set, id)
+    local key = BG.InstOf(id)
+    if key == nil then return true end
+    if type(key) == "table" then
+        for i = 1, #key do
+            if set and set[key[i]] == true then return true end
+        end
+        return false
+    end
+    return (set and set[key] == true) or false
+end
+
 function BG.InstPass(id)
     if BG.instReady ~= true then return true end
-    local key = BG.InstOf(id)
-    if not key then return true end
-    return BG.instSet[key] == true
+    return BG.InstAllowed(BG.instSet, id)
 end
 
 function BG.InstCount()
@@ -2325,7 +2405,7 @@ local AUTO_BUDGET_MS = 6
 local AUTO_TOP_N = 40
 
 BG.AUTO_SRC = { dungeon = AUTO_SRC_DG, known = AUTO_SRC_KNOWN, dq = AUTO_SRC_DQ }
-BG.AUTO_GEN_REV = 14
+BG.AUTO_GEN_REV = 18
 
 local function ClampLv(lv)
     lv = math.floor(tonumber(lv) or 60)
@@ -2610,12 +2690,10 @@ local function AutoRawOK(id, cap)
 end
 
 function BG.AutoInstOK(job, id, kind)
-    if kind ~= "boss" then return true end
+    if kind ~= "boss" and kind ~= "quest" then return true end
     local set = job.instSet
     if not set then return true end
-    local key = BG.InstOf(id)
-    if not key then return true end
-    return set[key] == true
+    return BG.InstAllowed(set, id)
 end
 
 local function AutoBuckets(job)
@@ -2626,7 +2704,7 @@ local function AutoBuckets(job)
         i = i + 1
         local r = cat[i]
         local kind = AutoKind(r.id)
-        if r.s and ClassWear(job.cls, r.c, r.u) and ClsOK(r.id) and (r.req or 0) <= job.cap
+        if r.s and ClassWear(job.cls, r.c, r.u, job.tspec, r.s, job.cap) and ClsOK(r.id) and (r.req or 0) <= job.cap
             and AutoRawOK(r.id, job.cap)
             and not (job.srcSet and not job.srcSet[kind])
             and BG.AutoInstOK(job, r.id, kind) then
@@ -2757,7 +2835,7 @@ local function AutoPick(job)
                         and not ((job.curKey == "trinket" and r.id == job.cur["trinket2"])
                             or (job.curKey == "trinket2" and r.id == job.cur["trinket"]))
                         and StatsKnown(r.id) then
-                        local sc = ItemScore(r.id, job.w)
+                        local sc = ItemScore(r.id, job.w, nil, job.armorRef)
                         if sc and (job.bestScore == nil or sc > job.bestScore) then
                             job.best, job.bestScore = r.id, sc
                         end
@@ -2863,6 +2941,7 @@ local function AutoJobStart(mode, cap, sig, srcSet)
         id = autoJobSeq, mode = mode, cap = cap, sig = sig,
         cls = BG.cls, tspec = BG.tspec, sp = sp,
         mk = dual and "main-hand" or MainKey(sp), dual = dual, w = EffWeights(),
+        armorRef = BG.ArmorRefOf(cap),
         shield = BG.OneHandOnly() or nil,
         oneOnly = BG.OneOnly() or nil,
         oneLock = BG.OneOnlyLock() or nil,
@@ -3586,14 +3665,15 @@ local function PaintBrowser()
     if BG.sel and rkey and not offLocked then
         local w = EffWeights()
         local lv = BG.onlyUsable and (BG.filterLv or PlayerLevel() or 60) or nil
+        local aref = BG.ArmorRefOf(lv or 60)
         local baseId = CurItem(sp, BG.sel)
-        BG.baseScore = baseId and ItemScore(baseId, w) or nil
+        BG.baseScore = baseId and ItemScore(baseId, w, nil, aref) or nil
         BG.baseId = baseId
         local pool = {}
         for _, r in ipairs(mainBoth and BG.CatRowsForMain() or CatRowsFor(rkey)) do
             local kind = CatKind(r.id)
             local pass = not (next(BG.srcSet) ~= nil and not BG.srcSet[kind])
-            if pass and kind == "boss" and not BG.InstPass(r.id) then pass = false end
+            if pass and (kind == "boss" or kind == "quest") and not BG.InstPass(r.id) then pass = false end
             if pass and lv and not UsableAt(r.id, lv, r.req or 0) then pass = false end
             if pass and BG.search ~= "" then
                 local nm = string.lower(DG.ItemName(r.id) or "")
@@ -3606,7 +3686,7 @@ local function PaintBrowser()
         BG.scanBudget = 0
         for i = 1, #pool do
             local r = pool[i]
-            sMap[r] = ItemScore(r.id, w)
+            sMap[r] = ItemScore(r.id, w, nil, aref)
         end
         BG.scanBudget = nil
         table.sort(pool, function(a, b)

@@ -7,14 +7,28 @@ RS.Presentation.ChangelogData = RS.Presentation.ChangelogData or {}
 if buildID == "classic-infinite" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-infinite",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:3d4504ead25490ec485ee65628d9061f4456b1d0178784a8799f5e19664e3ab8",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:e6b5dffbb51b11f8b21f3f6f782cb2c157b5fab466ccccd073a2e6df0a8c9897",
         historySourceId = "none:forever-product-starts-at-4.x",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.8.9",
-            date = "2026-11-16",
-            noticeKey = "4.8.9:0ec819ccf84bbb732762",
-            content = [=[%sv4.8.9（2026-11-16）|r
+            version = "4.9.0",
+            date = "2026-11-17",
+            noticeKey = "4.9.0:056fe6aba7bca7590ad0",
+            content = [=[%sv4.9.0（2026-11-17）|r
+
+%s[鼠标提示]|r
+• 物品等级，补齐卷轴、材料等非装备物品的显示。
+
+%s[顶部菜单]|r
+• VS 按钮，提示改为 PVP，点击直接打开荣誉等级页。
+
+%s[系统增强]|r
+• Elles 钥匙扣，改用自带功能，首次默认开启并可开关。
+
+%s[消耗品动作条]|r
+• 药水组，修复药品种类增减时第一格跟着移动的问题。
+
+%sv4.8.9（2026-11-16）|r
 
 %s[系统增强]|r
 • 原生背包标题显示已用和总容量，分包时可在主背包切换背包栏。
@@ -964,14 +978,19 @@ end
 if buildID == "classic-era" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-era",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:3d4504ead25490ec485ee65628d9061f4456b1d0178784a8799f5e19664e3ab8",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:e6b5dffbb51b11f8b21f3f6f782cb2c157b5fab466ccccd073a2e6df0a8c9897",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.8.6",
-            date = "2026-11-14",
-            noticeKey = "4.8.6:e8789c59684b687be979",
-            content = [=[%sv4.8.6（2026-11-14）|r
+            version = "4.9.0",
+            date = "2026-11-17",
+            noticeKey = "4.9.0:0a5d07299358386462e4",
+            content = [=[%sv4.9.0（2026-11-17）|r
+
+%s[消耗品动作条]|r
+• 药水组，修复药品种类增减时第一格跟着移动的问题。
+
+%sv4.8.6（2026-11-14）|r
 
 %s[消耗品动作条]|r
 • 油和磨刀石类，左键涂主手，右键涂副手，同款油先用剩余次数最少的一瓶。
@@ -1555,14 +1574,19 @@ end
 if buildID == "classic-anniversary" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-anniversary",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:3d4504ead25490ec485ee65628d9061f4456b1d0178784a8799f5e19664e3ab8",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:e6b5dffbb51b11f8b21f3f6f782cb2c157b5fab466ccccd073a2e6df0a8c9897",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.8.6",
-            date = "2026-11-14",
-            noticeKey = "4.8.6:e8789c59684b687be979",
-            content = [=[%sv4.8.6（2026-11-14）|r
+            version = "4.9.0",
+            date = "2026-11-17",
+            noticeKey = "4.9.0:0a5d07299358386462e4",
+            content = [=[%sv4.9.0（2026-11-17）|r
+
+%s[消耗品动作条]|r
+• 药水组，修复药品种类增减时第一格跟着移动的问题。
+
+%sv4.8.6（2026-11-14）|r
 
 %s[消耗品动作条]|r
 • 油和磨刀石类，左键涂主手，右键涂副手，同款油先用剩余次数最少的一瓶。
@@ -2146,7 +2170,7 @@ end
 if buildID == "classic-wrath-legacy" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-wrath-legacy",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:3d4504ead25490ec485ee65628d9061f4456b1d0178784a8799f5e19664e3ab8",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:e6b5dffbb51b11f8b21f3f6f782cb2c157b5fab466ccccd073a2e6df0a8c9897",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
@@ -2721,14 +2745,19 @@ end
 if buildID == "classic-cata-legacy" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-cata-legacy",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:3d4504ead25490ec485ee65628d9061f4456b1d0178784a8799f5e19664e3ab8",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:e6b5dffbb51b11f8b21f3f6f782cb2c157b5fab466ccccd073a2e6df0a8c9897",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.8.5",
-            date = "2026-11-12",
-            noticeKey = "4.8.5:d24ed3f73cfc90957140",
-            content = [=[%sv4.8.5（2026-11-12）|r
+            version = "4.9.0",
+            date = "2026-11-17",
+            noticeKey = "4.9.0:0a5d07299358386462e4",
+            content = [=[%sv4.9.0（2026-11-17）|r
+
+%s[消耗品动作条]|r
+• 药水组，修复药品种类增减时第一格跟着移动的问题。
+
+%sv4.8.5（2026-11-12）|r
 
 %s[法师传送门]|r
 • 鼠标提示，特殊文字改为职业色。
@@ -3301,14 +3330,19 @@ end
 if buildID == "classic-mists" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-mists",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:3d4504ead25490ec485ee65628d9061f4456b1d0178784a8799f5e19664e3ab8",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:e6b5dffbb51b11f8b21f3f6f782cb2c157b5fab466ccccd073a2e6df0a8c9897",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.8.5",
-            date = "2026-11-12",
-            noticeKey = "4.8.5:d24ed3f73cfc90957140",
-            content = [=[%sv4.8.5（2026-11-12）|r
+            version = "4.9.0",
+            date = "2026-11-17",
+            noticeKey = "4.9.0:0a5d07299358386462e4",
+            content = [=[%sv4.9.0（2026-11-17）|r
+
+%s[消耗品动作条]|r
+• 药水组，修复药品种类增减时第一格跟着移动的问题。
+
+%sv4.8.5（2026-11-12）|r
 
 %s[法师传送门]|r
 • 鼠标提示，特殊文字改为职业色。
@@ -3892,7 +3926,7 @@ end
 if buildID == "classic-titan" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-titan",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:3d4504ead25490ec485ee65628d9061f4456b1d0178784a8799f5e19664e3ab8",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:e6b5dffbb51b11f8b21f3f6f782cb2c157b5fab466ccccd073a2e6df0a8c9897",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {

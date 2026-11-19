@@ -43,6 +43,33 @@ function Spy:Readable(value)
 	return value
 end
 
+-- CurseForge report: with the game's controller interface on, "AddOn 'Spy' tried to
+-- call the protected function SetPreferredGamepadInteractTarget()" around party
+-- invites, chat and targeting players, then the face buttons stop answering. Those
+-- all go through the right-click menu on a player, where Spy adds its own entries
+-- (Watch, Kill On Sight, Watch the guild). Entries made by an addon taint the menu,
+-- and with the controller interface, opening it changes the controller bindings,
+-- which ends in that protected call. So Spy keeps out of the game's player menus
+-- while the controller interface is on, or when the option says so.
+Spy.ForeverStats.menusSkipped = 0
+
+function Spy:GamepadUIEnabled()
+	if InputUtil and InputUtil.IsGamepadUIEnabled then
+		local ok, on = pcall(InputUtil.IsGamepadUIEnabled)
+		return ok and Spy:Readable(on) == true
+	end
+	return false
+end
+
+function Spy:SkipPlayerMenus()
+	local profile = Spy.db and Spy.db.profile
+	if (profile and profile.PlayerMenuEntries == false) or Spy:GamepadUIEnabled() then
+		Spy.ForeverStats.menusSkipped = Spy.ForeverStats.menusSkipped + 1
+		return true
+	end
+	return false
+end
+
 -- New handlers are guarded: an error is kept for /spy debug and announced once,
 -- instead of breaking the event for the rest of the session.
 local function Guard(label, fn)
@@ -1306,6 +1333,10 @@ function Spy:PrintDebug(lines)
 	end
 	if Spy.WatchReport then
 		out(Spy:WatchReport())
+		out(("Controller interface: %s | Spy entries in the player menus: %s (left out %d times)"):format(
+			Spy:GamepadUIEnabled() and "on" or "off",
+			(Spy.db.profile.PlayerMenuEntries == false or Spy:GamepadUIEnabled()) and "off" or "on",
+			Spy.ForeverStats.menusSkipped))
 	end
 	if Spy.GuildReport then
 		out(Spy:GuildReport())

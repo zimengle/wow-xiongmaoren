@@ -41,14 +41,14 @@ step
     >>|T135997:0|t[Geiferzahnschnauze]
     >>|T134185:0|t[Okra]
     >>|T134341:0|t[Geiferzahnleber]
-    -->>|T4548890:0|t[Golem Isospring]
+    >>|T4548890:0|t[Golemisofeder]
     -->>|T132995:0|t[Harvester Gyrostabilizer]
     .collect 729,3,38,1 -- Stringy Vulture Meat (3)
     .collect 730,3,38,1 -- Murloc Eye (3)
     .collect 731,3,38,1 -- Goretusk Snout (3)
     .collect 732,3,38,1 -- Okra (3)
     .collect 723,8,22,1 -- Goretusk Liver (8)
-    --.collect 255007,14,92909,1 -- Golem Isospring (14)
+    .collect 255007,14,92909,1 -- Golem Isospring (14)
     --.collect 255010,5,92909,1 -- Harvester Gyrostabilizer (5)
 step << Human
     .goto 1453/0,484.200,-8832.500
@@ -173,20 +173,34 @@ step
     .isOnQuest 399
     .goto 1436/0,1602.67,-10629.67,75 >> Reist zu Alexston's Bauernhof
     >>|cRXP_WARN_Arbeitet an der Vervollständigung der anderen Questziele, während ihr dorthin reist|r
-step << skip -- quests drop rate is beyond dreadful. over 50 kills to complete
+step
+    #optional
+    .itemcount 255007,10 -- only accepting this quest if they bought a bunch of isosprings from AH
     .goto 1436/0,1213.400,-10153.800
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Ozwin Ironsprocket::253395|r in der Scheune
     .target Ozwin Ironsprocket::253395
     .accept 92909 >>Akzeptiert die Quest Die Ernter ernten
 step
-    #sticky
+    .isNotOnQuest 92909
     #completewith bennytime
     >>Tötet die |cRXP_ENEMY_Erntebehüer|r auf jedem Feld, während ihr vorbeilauft
     >>Plündert sie für ihr |cRXP_LOOT_Okra|r und ihr |cRXP_LOOT_Fläschchen Öl|r
     .mob Harvest Watcher
     .complete 9,1 --Havest Watcher slain (20)
     .collect 732,3,38,1 --Okra (3)
-    .collect 814,5,103,1 --Flask of Oil (5)
+    .collect 814,5,103,1,1 --Flask of Oil (5)
+step
+    #optional
+    .isOnQuest 92909
+    #completewith bennytime
+    >>Tötet die |cRXP_ENEMY_Erntebehüer|r auf jedem Feld, während ihr vorbeilauft
+    >>Plündert sie für ihre |cRXP_LOOT_Okraschoten|r, |cRXP_LOOT_Fläschchen Öl|r, |cRXP_LOOT_Golemisofedern|r und |cRXP_LOOT_Gyrostabilisator für Erntearbeiter|r
+    .mob Harvest Watcher
+    .complete 9,1 --Havest Watcher slain (20)
+    .collect 732,3,38,1 --Okra (3)
+    .collect 814,5,103,1,1 --Flask of Oil (5)
+    .complete 92909,1 -- Golem Isosprings (14)
+    .complete 92909,2 -- Harvester Gyrostabilizer (5)
 step
     .goto 1436/0,1748.27,-10672.13
     >>Öffne |cRXP_PICK_Alexstons Truhe|r. Plündert sie für |cRXP_LOOT_Ein einfacher Kompass|r
@@ -334,10 +348,16 @@ step
     .goto 1436/0,1213.400,-10153.800
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Ozwin Ironsprocket::253395|r
     .target Ozwin Ironsprocket::253395
-    .accept 92909 >>Akzeptiert die Quest Die Ernter ernten
     .turnin 92909 >>Gebt die Quest Die Ernter ernten ab
     .itemcount 255007,14 -- Golem Isospring (14)
     .itemcount 255010,5 -- Harvester Gyrostabilizer (5)
+step
+    #optional
+    #completewith HarvestW
+    .isOnQuest 92909
+    >>Plündert |cRXP_ENEMY_Erntebehüter|r für |cRXP_LOOT_Golemisofeder|r und |cRXP_LOOT_Gyrostabilisator für Erntearbeiter|r
+    .complete 92909,1 -- Golem Isosprings (14)
+    .complete 92909,2 -- Harvester Gyrostabilizer (5)
 step
     .isQuestAvailable 38
     .goto 1436/0,1132.27,-10146.67,60,0
@@ -353,7 +373,7 @@ step
     .complete 9,1 --Harvest Watcher (20)
     .mob Harvest Watcher
     .collect 732,3,38,1 --Okra (3)
-    .collect 814,5,103,1 --Flask of Oil (5)
+    .collect 814,5,103,1,1 --Flask of Oil (5)
 step
     .isQuestTurnedIn 38
     #label HarvestW
@@ -367,9 +387,25 @@ step
     .goto 1436/0,1460.22,-10224.83,60,0
     .goto 1436/0,1238.67,-9907.73
     >>Tötet die |cRXP_ENEMY_Erntebehüter|r. Plündert sie für ihr |cRXP_LOOT_Fläschchen Öl|r
-    .mob Harvest Watcher
     .complete 9,1 --Harvest Watcher (20)
-    .collect 814,5,103,1 --Flask of Oil (5)
+    .mob Harvest Watcher
+    .collect 814,5,103,1,1 --Flask of Oil (5)
+step
+    .isOnQuest 92909
+    #optional
+    .goto 1436/0,1132.27,-10146.67,60,0
+    .goto 1436/0,1238.67,-9907.73,80,0
+    .goto 1436/0,1460.22,-10224.83,80,0
+    .goto 1436/0,1132.27,-10146.67,80,0
+    .goto 1436/0,1238.67,-9907.73,80,0
+    .goto 1436/0,1460.22,-10224.83,80,0
+    .goto 1436/0,1132.27,-10146.67,60,0
+    .goto 1436/0,1460.22,-10224.83,60,0
+    .goto 1436/0,1238.67,-9907.73
+    >>Tötet |cRXP_ENEMY_Erntebehüter|r. Plündert sie für |cRXP_LOOT_Golemisofeder|r und |cRXP_LOOT_Gyrostabilisator für Erntearbeiter|r
+    .complete 92909,1 -- Golem Isosprings (14)
+    .complete 92909,2 -- Harvester Gyrostabilizer (5)
+    .mob Harvest Watcher
 step
     #optional
     .isQuestComplete 9
@@ -378,15 +414,6 @@ step
 	.target Farmer Saldean
     .goto 1436/0,1055.27,-10128.70
     .turnin 9 >> Gebt die Quest Tod auf den Feldern ab
-step
-    #optional
-    .goto 1436/0,1213.400,-10153.800
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Ozwin Ironsprocket::253395|r
-    .target Ozwin Ironsprocket::253395
-    .accept 92909 >>Akzeptiert die Quest Die Ernter ernten
-    .turnin 92909 >>Gebt die Quest Die Ernter ernten ab
-    .itemcount 255007,14 -- Golem Isospring (14)
-    .itemcount 255010,5 -- Harvester Gyrostabilizer (5)
 step
     .goto 1436/0,1179.52,-10382.57,75,0
     .goto 1436/0,1138.22,-10474.97,75,0
@@ -423,7 +450,6 @@ step
     .goto 1436/0,1213.400,-10153.800
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Ozwin Ironsprocket::253395|r
     .target Ozwin Ironsprocket::253395
-    .accept 92909 >>Akzeptiert die Quest Die Ernter ernten
     .turnin 92909 >>Gebt die Quest Die Ernter ernten ab
     .itemcount 255007,14 -- Golem Isospring (14)
     .itemcount 255010,5 -- Harvester Gyrostabilizer (5)
@@ -521,7 +547,7 @@ step << Skyborne
 step << Skyborne
     >>|cRXP_WARN_Benutzt die|r |T133942:0|t[Rattenfänger-Flöte] |cRXP_WARN_gegen |cRXP_ENEMY_Untergrundratte|r in der Tiefenbahn|r
     .complete 6661,1 --Rats Captured (x5)
-    .macro Rat Catcher's Flute,133942 >>Ratte Catcher's Flute
+    .macro Rat Catcher's Flute,133942 >>Rattenfänger-Flöte
     .mob Deeprun Rat
 step << Skyborne
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Monty|r in der Tiefenbahn
@@ -718,7 +744,7 @@ step
     #label DarkshoreCook1
     #completewith DarkshoreBoat
     >>|cRXP_WARN_Während ihr auf das Boot auf dem Dock wartet:|r
-    .cast 818 >>|cRXP_WARN_Erstellt|r |T135805:0|t[Kochfeuerstelle] |cRXP_WARN_(in eurem Berufs-Buch)|r
+    .cast 818 >>|cRXP_WARN_Erstellt ein|r |T135805:0|t[Einfaches Lagerfeuer] |cRXP_WARN_(in eurem Berufe-Buch)|r
     .usespell 818
     .zoneskip Darkshore
     .itemcount 769,1 --Chunk of Boar Meat (1+)
@@ -746,7 +772,7 @@ step
     #label DarkshoreCook3
     #completewith DarkshoreBoat
     >>|cRXP_WARN_Während ihr auf das Boot auf dem Dock wartet:|r
-    .cast 818 >>|cRXP_WARN_Erstellt ein|r |T135805:0|t[Einfaches Lagerfeuer] |cRXP_WARN_(in eurem Berufe-Buch)|r
+    .cast 818 >>|cRXP_WARN_Erstellt|r |T135805:0|t[Kochfeuerstelle] |cRXP_WARN_(in eurem Berufs-Buch)|r
     .usespell 818
     .zoneskip Darkshore
     .itemcount 769,1 --Chunk of Boar Meat (1+)
@@ -2096,7 +2122,7 @@ step << !NightElf
     #optional
     #completewith next
     .goto 1439/1,530.87,6406.02,8,0--c:1439,36.806,44.137
-    .goto 1439/1,600.50,6424.66,12 >> Kehrt zu |cRXP_FRIENDLY_Cerellean Whiteclaw|r auf dem Dock zurück--c:1439,35.743,43.710
+    .goto 1439/1,600.50,6424.66,12 >> Kehrt zum |cRXP_FRIENDLY_Cerellean Whiteclaw|r auf dem Dock zurück--c:1439,35.743,43.710
 step << !NightElf
     #optional
     .goto 1439/1,600.50,6424.66--c:1439,35.743,43.710
@@ -2242,7 +2268,7 @@ step << NightElf
     #optional
     #completewith next
     .goto 1439/1,530.87,6406.02,8,0--c:1439,36.806,44.137
-    .goto 1439/1,600.50,6424.66,12 >> Kehrt zu |cRXP_FRIENDLY_Cerellean Whiteclaw|r auf dem Dock zurück--c:1439,35.743,43.710
+    .goto 1439/1,600.50,6424.66,12 >> Kehrt zum |cRXP_FRIENDLY_Cerellean Whiteclaw|r auf dem Dock zurück--c:1439,35.743,43.710
 step << NightElf
     #optional
     .goto 1439/1,600.50,6424.66--c:1439,35.743,43.710
@@ -2968,7 +2994,7 @@ step
 step
     >>Benutzt |T133942:0|t[Rattenfänger-Flöte] auf |cRXP_FRIENDLY_Tiefenbahn-Ratten|r in der Tiefenbahn
     .complete 6661,1 --Rats Captured (x5)
-    .macro Rat Catcher's Flute,133942 >>Ratte Catcher's Flute
+    .macro Rat Catcher's Flute,133942 >>Rattenfänger-Flöte
     .mob Deeprun Rat
 step
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Monty|r auf der mittleren Plattform in der Tiefenbahn
@@ -2981,7 +3007,7 @@ step
     .zoneskip Dun Morogh
 step
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Gnoarn|r
-    .accept 2039 >> Akzeptiert die Quest Find Bingles
+    .accept 2039 >> Akzeptiert die Quest Sucht Bingles
     .target Gnoarn
     .goto 1455/0,-1260.5616,-4835.9769
 step
@@ -3469,14 +3495,14 @@ step
     .mob Loch Crocolisk
 step
     .goto 1432/0,-3703.9165,-5296.9165
-    >>Tötet |cRXP_ENEMY_Daggerfang|r, |cRXP_WARN_er könnte entlang des Ufers patrouillieren|r. Plündert ihn für |T3736888:0|t[|cRXP_LOOT_Marek's Krokodil-Jagdmesser|r]
+    >>Tötet |cRXP_ENEMY_Dolchzahn|r, er |cRXP_WARN_könnte die Küste entlang patrouillieren|r. Plündert ihn für|T3736888:0|t[|cRXP_LOOT_Mareks Krokojagdmesser|r]
     .complete 86758,1 --Marek's Croc Hunting Knife (1)
     .mob Daggerfang
 step
     .goto 1432/0,-3747.000,-5369.000
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Bingles Blastenheimer|r
     .target Bingles Blastenheimer
-    .turnin 2039 >>Gebt die Quest Find Bingles ab
+    .turnin 2039 >>Gebt die Quest Sucht Bingles ab
 step
     #completewith next
     .goto 1432/0,-3502.5582,-5192.0603,200 >> Reist zu der Insel, die mitten im Loch liegt
@@ -4088,7 +4114,7 @@ step
     #optional
     #completewith next
     .goto 1439/1,530.87,6406.02,8,0--c:1439,36.806,44.137
-    .goto 1439/1,600.50,6424.66,12 >> Kehrt zu |cRXP_FRIENDLY_Cerellean Whiteclaw|r auf dem Dock zurück--c:1439,35.743,43.710
+    .goto 1439/1,600.50,6424.66,12 >> Kehrt zum |cRXP_FRIENDLY_Cerellean Whiteclaw|r auf dem Dock zurück--c:1439,35.743,43.710
 step
     #optional
     .goto 1439/1,600.50,6424.66--c:1439,35.743,43.710
@@ -4453,7 +4479,7 @@ step
     >>Tötet |cRXP_ENEMY_The Threshwackonator 4100|r sobald er feindselig ist
     >>|cRXP_WARN_Diese Quest ist SEHR schwierig|r
     *Nutzt nur Fernkampfangriffe, während ihr vor ihm wegrennt, vermeidet Nahkampfreichweite << Druid
-    >>|cRXP_WARN_Versucht diese Quest zu machen, wenn ihr könnt, da sie später Zeit spart|r |T134797:0|t[Trank der Wasseratmung] |cRXP_WARN_für spätere Unterwasser-Quests|r << !Druid !Warlock !Shaman
+    >>|cRXP_WARN_Versucht diese Quest zu machen, wenn ihr könnt, da sie später Zeit spart|r |T134797:0|t[Trunk der Wasseratmung] |cRXP_WARN_für spätere Unterwasser-Quests|r << !Druid !Warlock !Shaman
     >>|cRXP_WARN_Benutzt|r |T136100:0|t[Wucherwurzeln] |cRXP_WARN_|r auf ihn und baue Distanz zu ihm auf. Kite ihn mit Schnellzaubern << Druid
     >>|cRXP_WARN_Falls ihr |cRXP_ENEMY_Der Dreschonator 4100|r nicht töten könnt, überspringt diesen Schritt|r
     .complete 2078,1 --Gyromast's Revenge (1)
@@ -4799,7 +4825,7 @@ step << !Hunter
     #label DarkshoreRRCook1
     #requires TravelMenethilRRBoat
     #completewith MenethilRRBoat
-    >>|cRXP_WARN_Während des Wartens auf das Boot am Dock:|r
+    >>|cRXP_WARN_Während ihr auf das Boot auf dem Dock wartet:|r
     .cast 818 >>|cRXP_WARN_Erstellt eine|r |T135805:0|t[Einfaches Lagerfeuer] |cRXP_WARN_(unter dem Allgemeinen-Reiter eures Zauberbuches)|r
     .usespell 818
     .zoneskip Loch Modan
@@ -5813,7 +5839,7 @@ step << !Dwarf Rogue
     >>Tötet |cRXP_ENEMY_Zwerggiftweberspinne|r und |cRXP_ENEMY_Giftweberspinne|r. Plündert sie für |cRXP_LOOT_kleiner Giftbeutel|r und ihre |cRXP_LOOT_Klebriges Spinnenbein|r
     >>|cRXP_WARN_You need a |cRXP_LOOT_kleiner Giftbeutel|r um das|r |T134437:0|t[Gegengift] herzustellen |cRXP_WARN_um später den|r |T136230:0|t[Die Berührung von Zanzil] |cRXP_WARN_debuff zu heilen|r
     >>|cRXP_WARN_Behaltet die |cRXP_LOOT_Klebriges Spinnenbeine|r für später|r
-    >>|cRXP_WARN_Falls ihr einen|r |T626003:0|t|cFFF48CBADie Bruderschaft der Defias|r|cRXP_WARN_,|r |T625999:0|t|cFFFF7C0ADruide|r |cRXP_WARN_oder|r |T626006:0|t|cFF0070DDSchamane|r |cRXP_WARN_Freund habt, könnt ihr diesen Schritt überspringen und bittet ihn, es für euch zu entfernen|r
+    >>|cRXP_WARN_Falls ihr einen|r |T626003:0|t|cFFF48CBAPaladin|r|cRXP_WARN_,|r |T625999:0|t|cFFFF7C0ADruide|r |cRXP_WARN_oder|r |T626006:0|t|cFF0070DDSchamane|r |cRXP_WARN_Freund habt, könnt ihr diesen Schritt überspringen und ihn bitten, es für euch zu entfernen|r
     .collect 1475,1,2359,1 -- Small Venom Sac (1)
     .collect 2251,6,93,1,1 -- Gooey Spider Legs (6)
     .disablecheckbox
@@ -5830,7 +5856,7 @@ step << Rogue
 step << Rogue
     .goto 1436/0,619.17,-11035.20
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprich mit |cRXP_FRIENDLY_Agentin Kearnen|r
-    >>|cRXP_WARN_Ihr müsst diese Quest abschließen, um|r |T132290:0|t[Gifte].
+    >>|cRXP_WARN_Ihr MÜSST diese Quest abschließen, um|r |T132290:0|t[Gifte] freizuschalten.
     .turnin 2360 >> Gebt die Quest Mathias und die Defias ab
     .accept 2359 >> Klavens Turm annehmen
     .target Agent Kearnen
@@ -5872,7 +5898,7 @@ step << Rogue
 step << !Dwarf Rogue
     #sticky
     #label AntiVenomStart
-    .collect 6452,1 >> Crafte ein |T134437:0|t[Gegengift]
+    .collect 6452,1 >> Stelle ein |T134437:0|t[Gegengift] her
     .aura -9991
     .itemcount 6452,<1 --Anti-Venom (<1)
     .train 7934,3 --Anti Venom spell trained
@@ -5910,7 +5936,7 @@ step << !Dwarf Rogue
     #requires AntiVenomEnd
     .goto 1453/0,801.99,-8513.29--c:1453,43.070,26.155
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprich mit |cRXP_FRIENDLY_Shaina Fuller|r
-    >>|cRXP_WARN_Falls ihr einen|r |T626003:0|t|cFFF48CBADie Bruderschaft der Defias|r|cRXP_WARN_,|r |T625999:0|t|cFFFF7C0ADruide|r |cRXP_WARN_oder|r |T626006:0|t|cFF0070DDSchamane|r |cRXP_WARN_Freund habt, bittet ihn, den|r |T136230:0|t[Berührung von Zanzil] |cRXP_WARN_für euch statt dessen zu entfernen|r
+    >>|cRXP_WARN_Falls ihr einen|r |T626003:0|t|cFFF48CBAPaladin|r|cRXP_WARN_,|r |T625999:0|t|cFFFF7C0ADruide|r |cRXP_WARN_oder|r |T626006:0|t|cFF0070DDSchamane|r |cRXP_WARN_Freund habt, bittet ihn, den|r |T136230:0|t[Berührung von Zanzil] |cRXP_WARN_für euch stattdessen zu entfernen|r
     .skill firstaid,80 >> |cRXP_WARN_Steigert eure|r |T135966:0|t[Erste Hilfe] |cRXP_WARN_auf 80|r
     .aura -9991
     .itemcount 6452,<1 --Anti-Venom (<1)
@@ -5918,14 +5944,14 @@ step << !Dwarf Rogue
     #label FirstAidEnd
     .goto 1453/0,801.99,-8513.29--c:1453,43.070,26.155
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprich mit |cRXP_FRIENDLY_Shaina Fuller|r
-    >>|cRXP_WARN_Falls ihr einen|r |T626003:0|t|cFFF48CBADie Bruderschaft der Defias|r|cRXP_WARN_,|r |T625999:0|t|cFFFF7C0ADruide|r |cRXP_WARN_oder|r |T626006:0|t|cFF0070DDSchamane|r |cRXP_WARN_Freund habt, bittet ihn, den|r |T136230:0|t[Berührung von Zanzil] |cRXP_WARN_für euch statt dessen zu entfernen|r
+    >>|cRXP_WARN_Falls ihr einen|r |T626003:0|t|cFFF48CBAPaladin|r|cRXP_WARN_,|r |T625999:0|t|cFFFF7C0ADruide|r |cRXP_WARN_oder|r |T626006:0|t|cFF0070DDSchamane|r |cRXP_WARN_Freund habt, bittet ihn, den|r |T136230:0|t[Berührung von Zanzil] |cRXP_WARN_für euch stattdessen zu entfernen|r
     .train 7934 >> |cRXP_WARN_Trainiert|r |T134437:0|t[Gegengift]
     .aura -9991
     .itemcount 6452,<1 --Anti-Venom (<1)
 step << !Dwarf Rogue
     #sticky
     #label AntiVenomStart2
-    .collect 6452,1 >> Crafte ein |T134437:0|t[Gegengift]
+    .collect 6452,1 >> Stelle ein |T134437:0|t[Gegengift] her
     .aura -9991
     .itemcount 6452,<1 --Anti-Venom (<1)
     .train 7934,3 --Anti Venom spell trained
@@ -6124,7 +6150,7 @@ RXPGuides.RegisterGuide([[
 #subgroup Schnellste Route 1-20
 --#groupid RXP-SRGCE-A1
 #name 19-21 Dunkelküste/Eschental
-#next RestedXP Forever Route (A)\21-23 Eschental/Steinkrallengebirge
+#next RestedXP Forever Route (A)\21-23 Eschental/Stonetalon
 
 step
     #optional
@@ -6698,7 +6724,7 @@ step
     .goto 1457/1,2515.03,9940.50
     .bankdeposit 5996,1468,2251,1015 >> Deponiert die folgenden Gegenstände in eurer Bank
     .target Garryeth
-    >>|T134797:0|t[Draught of Wasseratmung] --5996
+    >>|T134797:0|t[Trunk der Wasseratmung] --5996
     >>|T134304:0|t[Murlocflossen] --1468
     >>|T134321:0|t[Klebriges Spinnenbein] --2251
     >>|T133970:0|t[Magere Wolfflanke] --1015

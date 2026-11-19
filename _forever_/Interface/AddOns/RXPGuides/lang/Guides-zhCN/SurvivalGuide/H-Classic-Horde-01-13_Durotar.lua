@@ -56,7 +56,7 @@ step << Warrior/Shaman
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_弗朗恩|r 对话 << Warrior
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_史克里克|r 对话 << Shaman
     .train 6673 >>学习 |T132333:0|t[战斗怒吼] << Warrior
-    .train 8017 >>学习 |T136086:0|t[石化武器] << Shaman
+    .train 8017 >>影袭 |T136086:0|t[石化武器] << Shaman
     .target 弗朗恩 << Warrior
     .target 史克里克 << Shaman
 step << Warlock
@@ -80,7 +80,7 @@ step << !Warrior !Rogue
     .goto Durotar,42.59,67.34
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_多克纳|r 对话
     >>|cRXP_BUY_从她那里|r|cRXP_BUY_购买|r |T132794:0|t[清凉的泉水] << !Hunter
-    >>|cRXP_BUY_购买|r |T132382:0|t[粗糙的箭矢] |cRXP_BUY_向她购买|r << Hunter
+    >>|cRXP_BUY_购买|r |T132382:0|t[劣质箭]|cRXP_BUY_从她那里|r << Hunter
     .collect 159,30,6394,1 << !Hunter !Shaman --Refreshing Spring Water (30)
     .collect 2512,1000,6394,1 << Hunter --Rough Arrow (1000)
     .target 多克纳
@@ -347,7 +347,7 @@ step << !Rogue
     .goto Durotar,42.59,67.34
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_多克纳|r 对话
     >>|cRXP_BUY_从她那里|r|cRXP_BUY_购买|r |T132794:0|t[清凉的泉水] << !Warrior !Hunter
-    >>|cRXP_BUY_购买|r |T132382:0|t[粗糙的箭矢] |cRXP_BUY_向她购买|r << Hunter
+    >>|cRXP_BUY_购买|r |T132382:0|t[劣质箭]|cRXP_BUY_从她那里|r << Hunter
     .collect 159,15,6394,1 << !Rogue !Warrior !Hunter --Refreshing Spring Water (15)
     .collect 2512,1000,6394,1 << Hunter --Rough Arrow (1000)
     .vendor >> 把垃圾物品卖给商人
@@ -359,7 +359,7 @@ step << Shaman
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_史克里克|r 和 |cRXP_FRIENDLY_坎纳甘·地鸣|r 对话
     .turnin 3084 >>交任务 符文石板 << Troll
     .turnin 3089 >>交任务 符文羊皮纸 << Orc
-    .train 8042 >>学习 |T136026:0|t[大地震击]
+    .train 8042 >>影袭 |T136026:0|t[大地震击]
     .goto Durotar,42.39,69.00
     .accept 1516 >>接受任务 大地的召唤
     .goto Durotar,42.40,69.17
@@ -580,7 +580,7 @@ step
     .goto Durotar,42.59,67.34
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_多克纳|r 对话
     >>|cRXP_BUY_从她那里|r|cRXP_BUY_购买|r |T132794:0|t[清凉的泉水] << !Rogue !Warrior !Hunter
-    >>|cRXP_BUY_购买|r |T132382:0|t[粗糙的箭矢] |cRXP_BUY_向她购买|r << Hunter
+    >>|cRXP_BUY_购买|r |T132382:0|t[劣质箭]|cRXP_BUY_从她那里|r << Hunter
     .collect 159,5,6394,1 << !Rogue !Warrior !Hunter --Refreshing Spring Water (5)
     .collect 2512,1000,6394,1 << Hunter --Rough Arrow (1000)
     .vendor >> 把垃圾物品卖给商人
@@ -598,7 +598,7 @@ step
     .target 高内克
 step << Shaman
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_史克里克|r 和 |cRXP_FRIENDLY_坎纳甘·地鸣|r 对话
-    .train 8042 >> 学习 |T136026:0|t[大地震击]
+    .train 8042 >> 影袭 |T136026:0|t[大地震击]
     .goto Durotar,42.39,69.00
     .accept 1516 >>接受任务 大地的召唤
     .goto Durotar,42.40,69.17
@@ -1026,7 +1026,7 @@ step << Shaman
 step << Shaman
     #completewith next
     #requires Shrine
-    .cast 8202 >>|cRXP_WARN_使用|r |T134743:0|t[大地灵契]
+    .cast 8202 >>|cRXP_WARN_使用 |T134743:0|t[大地显形图腾]|r
     .use 6635
 step << Shaman
     #label CallOE1
@@ -4249,7 +4249,7 @@ step << Warlock
 step << Warlock
     .goto Undercity,85.04,25.97
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_凯伦丁|r 对话
-    .turnin 1471 >>交任务誓缚
+    .turnin 1471 >>交任务 誓缚
     .target 凯伦丁·哈加尔
     .isQuestAvailable 1504
 step << skip --Warlock

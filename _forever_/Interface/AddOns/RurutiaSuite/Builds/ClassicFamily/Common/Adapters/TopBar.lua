@@ -265,6 +265,11 @@ function Adapter:RunMenuAction(item, mouseButton)
         if action ~= "bags" and self:IsInCombat() then
             return false, "战斗中请使用原生快捷键打开。", "combat-lockdown"
         end
+        if action == "forever-pvp" then
+            if mouseButton ~= "LeftButton" and mouseButton ~= "RightButton" then return false end
+            -- Matches the Camelot TOGGLECHARACTER4 binding.
+            return CallGlobal("ToggleCharacter", "PVPRankFrame")
+        end
     end
     if action == "character" then
         if self:IsInCombat() then return true, "战斗中无法使用插件按钮开启人物面板，请按快捷键打开。" end

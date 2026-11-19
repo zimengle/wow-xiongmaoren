@@ -60,6 +60,9 @@ function R.Fee(snapshot,opts)
     local constants=type(Auctionator)=="table" and Auctionator.Constants
     local factor=type(constants)=="table" and constants.AfterAHCut
     if amount(factor) and factor<=1 then return (1-factor)*100,"auctionator-reference",true end
+    local eb=ns.EasyBridge
+    local cut=eb and eb.AuctionCut and eb.AuctionCut()
+    if amount(cut) and cut>=0 and cut<100 then return cut,"easyauction-reference",true end
     return nil,"unknown",false
 end
 local function livePrice(id)
@@ -89,7 +92,7 @@ local function quote(id,s,fee,stamp,live,residualMass)
     local supply=live and b and b.GetAuctionSupply and b.GetAuctionSupply(id,true) or s.auctionSupply and s.auctionSupply[id]
     local age=type(supply)=="table" and type(supply.observedAt)=="number" and stamp-supply.observedAt
     local reliable=type(supply)=="table" and amount(supply.quantity) and supply.quantity==floor(supply.quantity)
-        and supply.complete==true and supply.ownerExcluded==true
+        and supply.complete==true
         and supply.source=="client-auction-results"
         and (b and b.ForceExpiredActive and b.ForceExpiredActive()
             or (age and age>=0 and age<=ns.ProfRouteAuto.MaxAuctionSupplyAgeSeconds())) or false

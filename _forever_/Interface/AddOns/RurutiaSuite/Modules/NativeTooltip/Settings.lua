@@ -57,7 +57,7 @@ local function BuildPage(context, module)
         idRows[#idRows + 1] = item
     end
     if ns.NativeTooltipAdapter.supportsItemLevel then
-        local item = Option("showItemLevel", "物品等级", "在装备名称下方补充物品等级。", CanColor)
+        local item = Option("showItemLevel", "物品等级", "在物品名称下方补充物品等级。", CanColor)
         item.kind, item.key = "checkbox", "showItemLevel"
         idRows[#idRows + 1] = item
     end

@@ -3648,7 +3648,7 @@ step
     .goto Wetlands,7.89,56.22
     >>隔墙与 |cRXP_FRIENDLY_德温|r 对话
     >>|cRXP_WARN_如果船只刚刚抵达，跳过此步骤|r
-    .vendor 1453 >> |cRXP_BUY_购买|r |T134831:0|t[治疗药水] |cRXP_BUY_从他那里(如果有)|r
+    .vendor 1453 >> |cRXP_BUY_从他那里购买|r |T134831:0|t[治疗药水] |cRXP_BUY_(如果有)|r
     .target 德温·晨光
     .money <0.03
 step
@@ -6928,7 +6928,7 @@ step
     #completewith next
     .goto Ashenvale,34.41,47.99
     >>与 |cRXP_FRIENDLY_黛琳希亚|r 对话
-    .fly Auberdine >> 飞往奥伯丁，黑海岸
+    .fly Auberdine >> 飞往奥伯丁
     .target 黛琳希亚
 step
     >>与 |cRXP_FRIENDLY_温尼斯|r 和 |cRXP_FRIENDLY_古博|r 对话
@@ -7488,7 +7488,7 @@ step
     .fp Redridge Mountains >> 获取赤脊山的飞行路径
 step
     >>与 |cRXP_FRIENDLY_玛蒂|r 和 |cRXP_FRIENDLY_工头奥斯洛|r 对话
-    .accept 20 >>接受任务 黑石氏族的威胁
+    .accept 20 >>接受任务黑石氏族的威胁
     .target +Marshal Marris
     .goto Redridge Mountains,33.51,48.96
     .accept 125 >>接受任务 丢失的工具

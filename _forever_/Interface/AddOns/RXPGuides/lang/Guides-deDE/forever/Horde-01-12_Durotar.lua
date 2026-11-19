@@ -853,7 +853,8 @@ step
     #softcore
     #completewith RazorHill1
     .goto 1411/1,-4326.01,-41.23
-    .deathskip >> |cRXP_WARN_Sterbt und erscheint neu beim |cRXP_FRIENDLY_Geistheiler|r in der Nähe des Pfeils|r
+    .deathskip >>Stirb und beleb dich am |cRXP_FRIENDLY_Geistheiler|r wieder
+    >>|cRXP_WARN_Stellt sicher, dass ihr auf dem Wegpunkt-Pfeil seid, wenn ihr sterbt!|r
     .target Geistheiler
 step
     #softcore
@@ -2215,11 +2216,6 @@ step << Hunter
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Thotar|r innerhalb
     .train 5116 >> Trainiere deine Klassenfähigkeiten
     .target Thotar
-step << Rogue
-    .goto 1411/1,-4710.94,268.26
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Kaplak|r
-    .train 6760 >> Trainiere deine Klassenfähigkeiten
-    .target Kaplak
 step << Priest
     .goto 1411/1,-4831.5,295.05
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Tai'jin|r
@@ -2250,7 +2246,12 @@ step
     >>|cRXP_BUY_Kauft einen|r |T133634:0|t[Kleiner brauner Beutel] |cRXP_BUY_von|r |cRXP_BUY_ihm|r
     .collect 4496,1,825,1 --Small Brown Pouch (1)
     .target Jark
-    .money <0.05
+    .money <0.09
+step << Rogue
+    .goto 1411/1,-4710.94,268.26
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Kaplak|r
+    .train 6760 >> Trainiere deine Klassenfähigkeiten
+    .target Kaplak
 step
     .goto 1411/1,-4724.900,287.300
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Orgnil|r
@@ -3473,13 +3474,13 @@ step
     #completewith NeeruFireblade << Warrior/Shaman/Hunter
     .goto 1454/1,-4367.46,1405.44,50,0
     .zone Orgrimmar >> Betretet Orgrimmar
-step << !Rogue
+step --<< !Rogue
     .goto 1454/1,-4355.53,1520.68
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprich mit |cRXP_FRIENDLY_Trak'gen|r
     .vendor >> Verkaufe deinen trash
     .target Trak'gen
     .isQuestAvailable 97246
-step << Rogue
+step << skip --Rogue
     .goto 1454/1,-4355.53,1520.68
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Sprecht mit|r |cRXP_FRIENDLY_Trak'gen|r|cRXP_BUY_. Kauft|r |T135419:0|t[Scharfe Wurfaxt] |cRXP_BUY_von ihm|r
     .collect 3135,1,354,1 --Sharp Throwing Axe (200)
@@ -3488,7 +3489,7 @@ step << Rogue
     .itemStat 18,QUALITY,<7
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<6.3
     .money <0.03
-step << Rogue
+step << skip --Rogue
     #optional
     #completewith ZeptoUC1
     +|cRXP_WARN_Legt die|r |T135421:0|t[Scharfe Wurfaxt] an |cRXP_WARN_wenn ihr Stufe 11 seid|r
@@ -3942,6 +3943,13 @@ step
     .accept 356 >>Akzeptiert die Quest Patrouille zur Rückendeckung
     .target Deathguard Linnea
     .maxlevel 11
+    .dungeon !ROL
+step
+    .goto 1420/0,74.00,2022.47
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Linnea|r
+    .accept 356 >>Akzeptiert die Quest Patrouille zur Rückendeckung
+    .target Deathguard Linnea
+    .dungeon ROL
 step
     .goto 1420/0,54.600,1996.600
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Hadric Harlson|r
@@ -3988,6 +3996,7 @@ step
     .target Hadric Harlson
     .isQuestComplete 96897
     .isQuestComplete 96898
+    .dungeon !ROL
 step
     #optional
     .goto 1420/0,54.500,1996.400
@@ -3995,6 +4004,7 @@ step
     .turnin 96897 >>Gebt die Quest Der Kult der Verdammten ab
     .target Hadric Harlson
     .isQuestComplete 96897
+    .dungeon !ROL
 step
     #optional
     .goto 1420/0,54.500,1996.400
@@ -4002,6 +4012,7 @@ step
     .turnin 96898 >>Gebt die Quest Reste des Krieges ab
     .target Hadric Harlson
     .isQuestComplete 96898
+    .dungeon !ROL
 step
     #label LinneaTurnin
     .goto 1420/0,74.00,2022.47
@@ -4009,6 +4020,30 @@ step
     .turnin 356 >>Gebt die Quest Patrouille zur Rückendeckung ab
     .target Deathguard Linnea
     .isQuestComplete 356
+    .dungeon !ROL
+step
+    #label LinneaTurnin
+    .goto 1420/0,73.800,2022.300
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Deathguard Linnea::1495|r
+    >>|cRXP_WARN_Dies ist eine Vorquest für "The Zorn of Rath'mael"|r
+    .turnin 356 >>Gebt die Quest Patrouille zur Rückendeckung ab
+    .target Deathguard Linnea::1495
+    .accept 99156 >>Akzeptiert die Quest Patrouille zur Rückendeckung
+    .dungeon ROL
+step
+    .goto 1420/0,-765.200,2518.700
+    >>Tötet |cRXP_ENEMY_Riptear|r |cRXP_WARN_(level 13 elite)|r. Plündert sie für |T134339:0|t[|cRXP_LOOT_Riptear's Herz|r]
+    >>|cRXP_WARN_Dies ist eine Vorquest für "The Zorn of Rath'mael"|r
+    .complete 99156,1 --|1/1 Riptear's Heart
+    .mob Riptear
+    .dungeon ROL
+step
+    .goto 1420/0,74.200,2022.400
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Deathguard Linnea::1495|r
+    >>|cRXP_WARN_Dies ist eine Vorquest für "The Zorn of Rath'mael"|r
+    .turnin 99156 >>Gebt die Quest Patrouille zur Rückendeckung ab
+    .target Deathguard Linnea::1495
+    .dungeon ROL
 step
     #completewith UCflightpath1
     .goto 1420/0,240.75,1877.57,20,0

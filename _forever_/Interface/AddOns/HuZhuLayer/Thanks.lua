@@ -479,9 +479,6 @@ function H:SendGeneralChat()
 end
 
 function H:SendPartyChat(msg)
-  if self:IsForeverClient() then
-    return false
-  end
   if not msg or msg == "" then
     return false
   end

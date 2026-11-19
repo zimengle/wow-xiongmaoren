@@ -214,6 +214,20 @@ local function BuildPluginsEllesmere(page, module)
         onChange = function(_, value) SetRootBoolean(module, "ellesmereMinimapVolume", value) end,
     })
 
+    local keyring = ns.EllesmereKeyringOption
+    if keyring then
+        ellesmereOptions:Checkbox("ellesmereKeyring", {
+            text = "钥匙扣",
+            tooltip = "控制 Elles 背包顶部的 Keyring Icon。首次登录默认开启一次，之后保留你在 RS 或 Elles 中的选择。",
+            getValue = function()
+                local current = keyring:GetProfile()
+                return current and current.bagShowKeyringIcon == true or false
+            end,
+            getEnabled = function() return module.runtimeActive and keyring:IsAvailable() and not module.adapter:IsInCombat() end,
+            onChange = function(_, value) keyring:Set(module, value) end,
+        })
+    end
+
     if ns.EllesmereTimerIntegration then
         ellesmereOptions:Checkbox("ellesmereTimerCompact", {
             text = "首领计时精简",
@@ -828,7 +842,7 @@ function Settings:Register(module, features)
             searchKeywords = {
                 "管理工具", "插件增强", "EllesmereUI", "ElvUI", "BigWigs",
                 "Details", "TinyInspect", "集合石", "国服符文兼容",
-                "小地图音量", "角色属性字号", "面板位置清理", "更新屏蔽",
+                "小地图音量", "角色属性字号", "面板位置清理", "更新屏蔽", "钥匙扣",
             },
             builder = function(page, module)
                 if module.adapter.family == "retail" then

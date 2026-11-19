@@ -526,6 +526,19 @@ Spy.options.args.DisplayOptions.args.Look = {
 		ClassIcons = toggle("ClassIcons", 1),
 		RowMarkers = toggle("RowMarkers", 2),
 		LevelColors = toggle("LevelColors", 3),
+		OutlineText = {
+			name = L["OutlineText"],
+			desc = L["OutlineTextDescription"],
+			type = "toggle",
+			order = 3.5,
+			width = "full",
+			get = function() return Spy.db.profile.OutlineText == true end,
+			set = function(_, value)
+				Spy.db.profile.OutlineText = value and true or false
+				Spy:RefreshOutline()
+				Spy:RefreshPreview()
+			end,
+		},
 		WindowScale = {
 			name = L["WindowScale"],
 			desc = L["WindowScaleDescription"],

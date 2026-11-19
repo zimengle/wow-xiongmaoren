@@ -1,9 +1,10 @@
-local gl = (type(GetLocale) == 'function') and GetLocale() or 'zhCN'
+local gl = (type(DF_Locale) == 'function') and DF_Locale() or 'zhCN'
 if gl ~= 'zhTW' then return end
 
 local _, ns = ...
 
 ns.ProfData = {
+    runtime=ns.ProfData and ns.ProfData.runtime,
     build = "1.60.1.70338",
     updated = "2026-10-11",
 

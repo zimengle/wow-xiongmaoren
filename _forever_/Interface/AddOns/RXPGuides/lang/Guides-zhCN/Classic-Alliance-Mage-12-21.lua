@@ -741,7 +741,7 @@ step
 step
     .goto Teldrassil,58.40,94.02
     .fp Teldrassil >> 开启泰达希尔的飞行路径
-    .fly Auberdine >> 飞往奥伯丁，黑海岸
+    .fly Auberdine >> 飞往奥伯丁
 step
     .goto Darkshore,32.42,43.75,50,0
     .zone Wetlands >> 乘船前往米奈希尔
@@ -835,7 +835,7 @@ step
     .goto Redridge Mountains,33.51,48.96
 .target 治安官马瑞斯
 >>与|cRXP_FRIENDLY_治安官马瑞斯|r 对话
-    .accept 20 >>接受任务 黑石氏族的威胁
+    .accept 20 >>接受任务黑石氏族的威胁
 step
     .goto Redridge Mountains,32.14,48.64
 .target Foreman Oslow

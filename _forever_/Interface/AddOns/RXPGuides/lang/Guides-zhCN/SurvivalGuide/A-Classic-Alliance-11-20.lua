@@ -84,8 +84,8 @@ step << !Human
 step
     .goto Westfall,52.86,53.71
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_与旅店老板对话|r
-	>>|cRXP_BUY_按需购买食物/水|r << !Warrior !Rogue
-	>>|cRXP_BUY_如有需要，购买食物|r << Warrior/Rogue
+	>>|cRXP_BUY_如有需要，购买食物/水|r << !Warrior !Rogue
+	>>|cRXP_BUY_需要的话就买点食物|r << Warrior/Rogue
     .vendor >>|T133918:0|t[长嘴泥鳅] |cRXP_WARN_非常便宜|r
 	.target 旅店老板希瑟尔
 step
@@ -396,7 +396,7 @@ step << !NightElf
     .goto Wetlands,10.496,60.201
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与楼上的 |cRXP_FRIENDLY_萨莫尔·菲斯蒂沃斯|r 对话
     .vendor >> |cRXP_BUY_尽可能多购买|r |T134831:0|t[治疗药水] |cRXP_BUY_有库存的话|r
-    >>|cRXP_WARN_这是限量供应物品，如果 |cRXP_FRIENDLY_萨莫尔·菲斯蒂沃斯|r 没有库存，请跳过此步骤|r
+    >>|cRXP_WARN_这是限量供应物品。如果 |cRXP_FRIENDLY_萨莫尔·菲斯蒂沃斯|r 没有库存，请跳过此步骤|r
     .target 萨莫尔·菲斯蒂沃斯
 step << !NightElf
     .goto Wetlands,9.49,59.69
@@ -427,7 +427,7 @@ step << !NightElf
 step << NightElf !Druid
     .goto Westfall,56.556,52.643
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_索尔|r 对话
-    .fp Westfall >> 解锁西部荒野飞行路线
+    .fp Westfall >> 开启西部荒野的飞行路径
     .fly Stormwind >> 飞往暴风城
     .target 索尔
 step << Druid
@@ -2141,7 +2141,7 @@ step
 .dungeon WC
     .goto The Barrens,63.084,37.163
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_布拉高克|r 对话
-    .fp Ratchet >> 开启棘齿城飞行点
+    .fp Ratchet >> 获取棘齿城飞行路径
     .target 布拉高克
 step
 .dungeon WC

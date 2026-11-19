@@ -1177,7 +1177,7 @@ step
     .mob 麻风侏儒
 step
     #era
-    .xp 9 >> 刷怪到9级
+    .xp 9 >> 刷怪升到9级
 step
     #completewith next
     .goto Dun Morogh,24.509,50.831,20 >> 进入霜鬃巨魔要塞
@@ -2030,7 +2030,7 @@ step
 step
     #ah
     .goto Stormwind City,53.612,59.764
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t 与 |cRXP_FRIENDLY_拍卖师亚克森|r 对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_拍卖师亚克森|r 对话
     >>购买以下物品，以便在洛克莫丹稍后更快地交任务
     >>这样可以节省时间，因为你不需要四处跑去找怪击杀。如果你不想购买，可以跳过这一步
     >>额外买点 |T134437:0|t[野猪肉块] 对后续升级 |T133971:0|t[烹饪] 到50级很有用
@@ -2080,13 +2080,13 @@ step << Warlock
     >>在你回到 |cRXP_FRIENDLY_黑暗缚灵者加科因|r 的路上，用生命分流回蓝
     .target 黑暗缚灵者加科因
     .goto StormwindClassic,25.2,78.5
-    .turnin 1689 >> 交任务誓缚
+    .turnin 1689 >> 交任务 誓缚
 step << Warlock
     #hardcore
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t 与 |cRXP_FRIENDLY_黑暗缚灵者加科因|r 对话
     .target 黑暗缚灵者加科因
     .goto StormwindClassic,25.25,78.59
-    .turnin 1689 >> 交任务誓缚
+    .turnin 1689 >> 交任务 誓缚
 step << Warlock
     #softcore
     #completewith next
@@ -2372,7 +2372,7 @@ RXPGuides.RegisterGuide([[
 #next 13-15级 西部荒野
 
 step << Dwarf Paladin
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t 与 |cRXP_FRIENDLY_布兰度尔·铁锤|r 对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_布兰度尔·铁锤|r 对话
     .target 布兰度尔·铁锤
     .goto Ironforge,23.131,6.143
     .accept 2999 >>接受任务圣洁之书
@@ -2714,12 +2714,12 @@ step << Paladin
 step << Paladin
     .goto StormwindClassic,38.82,31.27,10,0
     .goto StormwindClassic,38.67,32.82
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t 与 |cRXP_FRIENDLY_虔诚的亚瑟|r 对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_虔诚的亚瑟|r 对话
     .trainer >> 训练你的职业技能
     .target 虔诚的亚瑟
 step << Hunter
     .goto Ironforge,69.872,82.890
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t 与 |cRXP_FRIENDLY_雷格努斯·雷石|r 对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_雷格努斯·雷石|r 对话
     .trainer >> 训练你的职业技能
     .target 雷格努斯·雷石
 step << Warrior
@@ -2729,7 +2729,7 @@ step << Warrior
     .target 比尔班·飞钳
 step << Mage
     .goto Ironforge,27.18,8.60
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_丁克|r 对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t 与 |cRXP_FRIENDLY_丁克|r 对话
     .trainer >> 训练你的职业技能
     .target 丁克
 step << Mage/Priest/Warlock
@@ -2783,7 +2783,7 @@ step << Rogue
     .target 芬斯维克
 step << Priest
     .goto Ironforge,25.207,10.756
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t 与 |cRXP_FRIENDLY_托德雷·铁矿|r 对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_托德雷·铁矿|r 对话
     .trainer >> 训练你的职业技能
     .target 托德雷·铁矿
 step << !Paladin !Warrior !Hunter !Warlock skip
@@ -2834,7 +2834,7 @@ step << Rogue
 step
     #ah
     .goto Stormwind City,53.612,59.764
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t 与 |cRXP_FRIENDLY_拍卖师亚克森|r 对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_拍卖师亚克森|r 对话
     >>购买以下物品，以便稍后在西部荒野更快地交任务
     >>这样可以节省时间，因为你不需要四处跑去找怪击杀。如果你不想购买，可以跳过这一步
     >>|T133972:0|t[秃鹫肉条]

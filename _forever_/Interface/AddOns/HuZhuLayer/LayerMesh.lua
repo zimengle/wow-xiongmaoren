@@ -2684,6 +2684,9 @@ local function meshInstall()
 
   local coreList = H.ListKnownLayers
   function H:ListForeverRows(skipPlayers)
+    if self.BindCharacterPeers then
+      self:BindCharacterPeers()
+    end
     local myMap = self.HomeCanonMap and self:HomeCanonMap() or 0
     if myMap <= 0 then
       myMap = self:MyMapId()

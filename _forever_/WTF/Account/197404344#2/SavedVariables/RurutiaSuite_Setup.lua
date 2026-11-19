@@ -1,28 +1,28 @@
 
 RurutiaSuiteSetupDB = {
 ["char"] = {
-["巴菲特 - 李家沱"] = {
+["露露缇娅 - 嗷呜"] = {
 },
 ["重庆 - 智能体"] = {
 },
-["露露缇娅 - 嗷呜"] = {
+["巴菲特 - 李家沱"] = {
 },
 ["露露缇娅 - 啾啾"] = {
 },
-["露露缇娅 - 喵呜"] = {
-},
 ["Rurumage Minazuki - Classic Beta PvE"] = {
+},
+["露露缇娅 - 喵呜"] = {
 },
 ["仓库 - 存放"] = {
 },
 },
 ["profileKeys"] = {
-["巴菲特 - 李家沱"] = "Default",
-["重庆 - 智能体"] = "Default",
 ["露露缇娅 - 嗷呜"] = "Default",
+["重庆 - 智能体"] = "Default",
+["巴菲特 - 李家沱"] = "Default",
 ["露露缇娅 - 啾啾"] = "Default",
-["露露缇娅 - 喵呜"] = "Default",
 ["Rurumage Minazuki - Classic Beta PvE"] = "Default",
+["露露缇娅 - 喵呜"] = "Default",
 ["仓库 - 存放"] = "Default",
 },
 ["namespaces"] = {

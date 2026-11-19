@@ -526,6 +526,14 @@ function Definition:LayoutGroup(frame, group, items)
     local rows = maxRow - minRow + 1
     local layoutWidth = columns * width + math.max(columns - 1, 0) * columnSpace
     local layoutHeight = rows * height + math.max(rows - 1, 0) * rowSpace
+    if group.key == "potions" and #items > 0 then
+        local up = direction == "UP" or wrapDirection == "UP"
+        local left = direction == "LEFT" or wrapDirection == "LEFT"
+        frame.firstSlotCorner = (up and "BOTTOM" or "TOP") .. (left and "RIGHT" or "LEFT")
+        frame.potionWidth, frame.potionHeight = layoutWidth, layoutHeight
+    elseif group.key == "potions" then
+        frame.firstSlotCorner, frame.potionWidth, frame.potionHeight = nil, nil, nil
+    end
     Call(frame, "SetSize", layoutWidth, layoutHeight)
     frame.activeCategories = frame.activeCategories or {}
     local normalCount, activeCategories = 0, frame.activeCategories
