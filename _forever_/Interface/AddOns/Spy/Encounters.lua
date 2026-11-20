@@ -21,7 +21,7 @@ local L = AceLocale:GetLocale("Spy")
 local HBDP = LibStub("HereBeDragons-Pins-2.0")
 local Guard = Spy.ForeverGuard
 
-Spy.EncounterLimit = 500          -- fights kept per character, the oldest go first
+Spy.EncounterLimit = 5000         -- fights kept per character, the oldest go first (was 500)
 local PROBABLE_WINDOW = 10        -- seconds he must have been our target or targeting us
 local PROBABLE_DELAY = 1          -- wait for a PARTY_KILL before calling a death probable
 local SKULL = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_8"
@@ -161,6 +161,23 @@ local function iconFor(index)
 end
 
 -- Puts back every skull the options allow. Cheap enough to redo from scratch.
+-- A skull shows on its zone map and on the map just above it (HBD "show parent").
+local parents = {}
+local function parentOf(mapID)
+	if parents[mapID] == nil then
+		local info = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(mapID)
+		parents[mapID] = info and info.parentMapID or false
+	end
+	return parents[mapID]
+end
+
+function Spy:EncounterOnMap(entry, mapID)
+	if not mapID then
+		return true
+	end
+	return entry.m == mapID or parentOf(entry.m) == mapID
+end
+
 function Spy:RefreshEncounterMap()
 	if not WorldMapFrame then
 		return
@@ -171,14 +188,20 @@ function Spy:RefreshEncounterMap()
 		icon:Hide()
 	end
 	-- Newest first, and at most Spy.MapSkullLimit skulls (PetKills.lua says why).
+	-- CurseForge comment: "the skulls disappear after a bit, the win/loss data is still
+	-- there". The limit counted every fight of every zone, so after 100 fights anywhere
+	-- the older skulls left the map. It now counts the fights of the map on display only.
 	local now, shown, list = time(), 0, Spy:Encounters()
 	local limit = Spy.MapSkullLimit or 100
+	local ok, mapID = pcall(WorldMapFrame.GetMapID, WorldMapFrame)
+	mapID = ok and type(mapID) == "number" and mapID or nil
+	Spy.EncounterMapID = mapID
 	for index = #list, 1, -1 do
 		local entry = list[index]
 		if shown >= limit then
 			break
 		end
-		if Spy:EncounterShown(entry, now) then
+		if Spy:EncounterShown(entry, now) and Spy:EncounterOnMap(entry, mapID) then
 			shown = shown + 1
 			local icon = iconFor(shown)
 			icon.entry = entry
@@ -251,6 +274,18 @@ events:SetScript("OnEvent", Guard("EncounterEvents", function(_, event, ...)
 	elseif event == "PLAYER_ENTERING_WORLD" and Spy.db and not Spy.EncounterMapReady then
 		Spy.EncounterMapReady = true
 		Spy:RefreshEncounterMap()
+		-- The skulls depend on the map on display: redrawn when it changes.
+		local function mapChanged()
+			if Spy.EncounterMapReady and WorldMapFrame:GetMapID() ~= Spy.EncounterMapID then
+				Spy:RefreshEncounterMap()
+			end
+		end
+		if WorldMapFrame and WorldMapFrame.OnMapChanged then
+			hooksecurefunc(WorldMapFrame, "OnMapChanged", Guard("EncounterMapChanged", mapChanged))
+		end
+		if WorldMapFrame and WorldMapFrame.HookScript then
+			WorldMapFrame:HookScript("OnShow", Guard("EncounterMapShown", mapChanged))
+		end
 	end
 end))
 

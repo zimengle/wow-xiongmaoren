@@ -1,38 +1,29 @@
 
 SpyDB = {
 ["kosData"] = {
-["Region PvE"] = {
-["Horde"] = {
-["巴菲特 李家沱"] = {
-},
-},
-},
 ["Region PvP"] = {
 ["Alliance"] = {
 ["仓库"] = {
 },
-["重庆"] = {
+["仓库 存放"] = {
 ["雲间奔雷古裔-静待风怒降临"] = {
 ["mapID"] = 1427,
 ["guild"] = "大黑烟",
 ["zone"] = "灼热峡谷",
-["mapY"] = 0.29,
+["loses"] = 1,
 ["class"] = "SHAMAN",
 ["added"] = 1794551026,
-["race"] = "兽人",
-["time"] = 1794551158,
-["level"] = 53,
-["loses"] = 1,
 ["isEnemy"] = true,
-["mapX"] = 0.42,
+["time"] = 1794551158,
+["race"] = "兽人",
 ["name"] = "雲间奔雷古裔-静待风怒降临",
 ["faction"] = "Horde",
-["isGuess"] = false,
+["mapX"] = 0.42,
+["level"] = 53,
+["mapY"] = 0.29,
 ["subZone"] = "熔渣之池",
-["kos"] = 1,
 },
 ["蓉城-薛之谦"] = {
-["isGuess"] = false,
 ["mapID"] = 1427,
 ["guild"] = "灭团不背锅",
 ["zone"] = "灼热峡谷",
@@ -40,15 +31,33 @@ SpyDB = {
 ["class"] = "PALADIN",
 ["added"] = 1794551017,
 ["isEnemy"] = true,
-["time"] = 1794551051,
 ["race"] = "亡灵",
-["name"] = "蓉城-薛之谦",
+["time"] = 1794551051,
 ["faction"] = "Horde",
-["mapX"] = 0.39,
+["name"] = "蓉城-薛之谦",
 ["level"] = 50,
+["mapX"] = 0.39,
 ["subZone"] = "熔渣之池",
-["kos"] = 1,
 },
+["风怒看-脸触发"] = {
+["mapID"] = 1427,
+["guild"] = "庐州月",
+["zone"] = "灼热峡谷",
+["loses"] = 1,
+["class"] = "SHAMAN",
+["added"] = 1794551023,
+["isEnemy"] = true,
+["time"] = 1794376996,
+["race"] = "兽人",
+["name"] = "风怒看-脸触发",
+["faction"] = "Horde",
+["mapX"] = 0.62,
+["level"] = 51,
+["mapY"] = 0.58,
+["subZone"] = "煤渣挖掘场",
+},
+},
+["重庆 智能体"] = {
 ["风怒看-脸触发"] = {
 ["mapID"] = 1427,
 ["guild"] = "庐州月",
@@ -66,26 +75,6 @@ SpyDB = {
 ["faction"] = "Horde",
 ["subZone"] = "煤渣挖掘场",
 ["name"] = "风怒看-脸触发",
-["kos"] = 1,
-},
-},
-["重庆 智能体"] = {
-["蓉城-薛之谦"] = {
-["name"] = "蓉城-薛之谦",
-["mapID"] = 1427,
-["guild"] = "灭团不背锅",
-["zone"] = "灼热峡谷",
-["mapY"] = 0.36,
-["class"] = "PALADIN",
-["added"] = 1794551017,
-["isEnemy"] = true,
-["subZone"] = "熔渣之池",
-["race"] = "亡灵",
-["isGuess"] = false,
-["faction"] = "Horde",
-["mapX"] = 0.39,
-["level"] = 50,
-["time"] = 1794551051,
 ["kos"] = 1,
 },
 ["雲间奔雷古裔-静待风怒降临"] = {
@@ -126,6 +115,45 @@ SpyDB = {
 ["subZone"] = "铸铁之墓",
 ["isGuess"] = false,
 },
+["蓉城-薛之谦"] = {
+["isGuess"] = false,
+["mapID"] = 1427,
+["guild"] = "灭团不背锅",
+["zone"] = "灼热峡谷",
+["mapY"] = 0.36,
+["class"] = "PALADIN",
+["added"] = 1794551017,
+["isEnemy"] = true,
+["time"] = 1794551051,
+["race"] = "亡灵",
+["name"] = "蓉城-薛之谦",
+["faction"] = "Horde",
+["mapX"] = 0.39,
+["level"] = 50,
+["subZone"] = "熔渣之池",
+["kos"] = 1,
+},
+},
+["重庆"] = {
+["雲间奔雷古裔-静待风怒降临"] = {
+["mapID"] = 1427,
+["guild"] = "大黑烟",
+["zone"] = "灼热峡谷",
+["mapY"] = 0.29,
+["class"] = "SHAMAN",
+["added"] = 1794551026,
+["race"] = "兽人",
+["time"] = 1794551158,
+["level"] = 53,
+["loses"] = 1,
+["isEnemy"] = true,
+["mapX"] = 0.42,
+["name"] = "雲间奔雷古裔-静待风怒降临",
+["faction"] = "Horde",
+["kos"] = 1,
+["subZone"] = "熔渣之池",
+["isGuess"] = false,
+},
 ["风怒看-脸触发"] = {
 ["mapID"] = 1427,
 ["guild"] = "庐州月",
@@ -141,47 +169,12 @@ SpyDB = {
 ["mapX"] = 0.62,
 ["isGuess"] = false,
 ["faction"] = "Horde",
-["subZone"] = "煤渣挖掘场",
-["name"] = "风怒看-脸触发",
 ["kos"] = 1,
-},
-},
-["仓库 存放"] = {
-["雲间奔雷古裔-静待风怒降临"] = {
-["mapID"] = 1427,
-["guild"] = "大黑烟",
-["zone"] = "灼热峡谷",
-["loses"] = 1,
-["class"] = "SHAMAN",
-["added"] = 1794551026,
-["isEnemy"] = true,
-["time"] = 1794551158,
-["race"] = "兽人",
-["name"] = "雲间奔雷古裔-静待风怒降临",
-["faction"] = "Horde",
-["mapY"] = 0.29,
-["level"] = 53,
-["mapX"] = 0.42,
-["subZone"] = "熔渣之池",
-},
-["风怒看-脸触发"] = {
-["mapID"] = 1427,
-["guild"] = "庐州月",
-["zone"] = "灼热峡谷",
-["loses"] = 1,
-["class"] = "SHAMAN",
-["added"] = 1794551023,
-["isEnemy"] = true,
-["time"] = 1794376996,
-["race"] = "兽人",
 ["name"] = "风怒看-脸触发",
-["faction"] = "Horde",
-["mapY"] = 0.58,
-["level"] = 51,
-["mapX"] = 0.62,
 ["subZone"] = "煤渣挖掘场",
 },
 ["蓉城-薛之谦"] = {
+["kos"] = 1,
 ["mapID"] = 1427,
 ["guild"] = "灭团不背锅",
 ["zone"] = "灼热峡谷",
@@ -189,25 +182,32 @@ SpyDB = {
 ["class"] = "PALADIN",
 ["added"] = 1794551017,
 ["isEnemy"] = true,
-["race"] = "亡灵",
-["time"] = 1794551051,
-["faction"] = "Horde",
 ["subZone"] = "熔渣之池",
-["level"] = 50,
+["race"] = "亡灵",
+["isGuess"] = false,
+["faction"] = "Horde",
 ["mapX"] = 0.39,
+["level"] = 50,
 ["name"] = "蓉城-薛之谦",
+["time"] = 1794551051,
 },
+},
+},
+},
+["Region PvE"] = {
+["Horde"] = {
+["巴菲特 李家沱"] = {
 },
 },
 },
 },
 ["removeKOSData"] = {
-["Region PvE"] = {
-["Horde"] = {
-},
-},
 ["Region PvP"] = {
 ["Alliance"] = {
+},
+},
+["Region PvE"] = {
+["Horde"] = {
 },
 },
 },
@@ -217,48 +217,34 @@ SpyDB = {
 ["重庆 智能体"] = "重庆 智能体",
 },
 ["guildWatch"] = {
+["Region PvP"] = {
+},
 ["Region PvE"] = {
-},
-["Region PvP"] = {
-},
-},
-["watchData"] = {
-["Region PvE"] = {
-["Horde"] = {
-},
-},
-["Region PvP"] = {
-["Alliance"] = {
-},
-},
-},
-["playerTags"] = {
-["Region PvP"] = {
 },
 },
 ["ForeverDebug"] = {
-"2026-11-19 12:22:20",
+"2026-11-20 11:34:43",
 "Forever port of Spy 1.3.8, client 1.60.1 (70959), interface 16001",
 "Spy on: yes | in this zone: yes (pvp type none, flagged no, instance no)",
-"Zone: 贫瘠之地 | sub-zone:  | listed: none",
+"Zone: 贫瘠之地 | sub-zone: 棘齿城 | listed: none",
 "Enemy nameplates: yes | always shown: yes | nameplates watched: 0 | unit scan: running",
-"Nearby: 0 (active 0) | last hour: 0 | KoS: 0 | known players: 0",
-"Seen: 44 unit reads, 0 enemy casts, 0 stealth alerts (0 after the nameplate was gone), 0 casts with a hidden spell, 0 kills, 0 deaths counted",
+"Nearby: 0 (active 0) | last hour: 0 | KoS: 0 | known players: 11",
+"Seen: 210 unit reads, 0 enemy casts, 0 stealth alerts (0 after the nameplate was gone), 0 casts with a hidden spell, 0 kills, 0 deaths counted",
 "Secret restrictions: yes | target: none",
-"Last kill event (7 seen): victim no player GUID, 3s ago",
+"Last kill event (20 seen): victim no player GUID, 392s ago",
 "Combat map: 0 fights kept (0 wins, 0 losses, 0 probable), 0 on the map",
 "Saved data read at login: account yes, character yes",
 "Shared lists kept under: Region PvE, 巴菲特 李家沱 | server CN1 Realm 3 PvE | old server lists merged at login: 0",
 "Classes kept secret by the game (battlegrounds): 0 players | rows painted: 0, failed: 0",
 "Window: shown, 0 row(s)",
-"  shown 480s ago by Spy.lua:2036 < Spy.lua:2001",
-"  hidden 482s ago by Spy.lua:2040 < Spy.lua:2001",
-"Ran 36s ago: RunMacroText(/stopspelltarget [@mouseover,exists,nodead] / /click [@mouseover,exists,nodead] EUIClickCastRank139, MiddleButton)",
-"Ran 88s ago: RunMacroText(/stopspelltarget [@mouseover,exists,nodead] / /click [@mouseover,exists,nodead] EUIClickCastRank139, MiddleButton)",
-"Ran 183s ago: RunMacroText(/stopspelltarget [@mouseover,exists,nodead] / /cast [@mouseover,exists,nodead] 真言术：盾, RightButton)",
-"Ran 185s ago: RunMacroText(/stopspelltarget [@mouseover,exists,nodead] / /click [@mouseover,exists,nodead] EUIClickCastRank139, MiddleButton)",
-"Ran 197s ago: RunMacroText(/stopspelltarget [@mouseover,exists,nodead] / /click [@mouseover,exists,nodead] EUIClickCastRank139, MiddleButton)",
-"Ran 199s ago: RunMacroText(/stopspelltarget [@mouseover,exists,nodead] / /cast [@mouseover,exists,nodead] 次级治疗术, LeftButton)",
+"  shown 1910s ago by Spy.lua:2036 < Spy.lua:2001",
+"  hidden 1913s ago by Spy.lua:2040 < Spy.lua:2001",
+"Ran 28s ago: RunMacroText(/click EUISecureMenuProxy142, RightButton)",
+"Ran 352s ago: RunMacroText(/stopspelltarget [@mouseover,exists,nodead] / /cast [@mouseover,exists,nodead] 真言术：盾, RightButton)",
+"Ran 417s ago: RunMacroText(/stopspelltarget [@mouseover,exists,nodead] / /cast [@mouseover,exists,nodead] 真言术：盾, RightButton)",
+"Ran 477s ago: RunMacroText(/click EUISecureMenuProxy144, RightButton)",
+"Ran 480s ago: RunMacroText(/stopspelltarget [@mouseover,exists,nodead] / /click [@mouseover,exists,nodead] EUIClickCastRank139, MiddleButton)",
+"Ran 485s ago: RunMacroText(/stopspelltarget [@mouseover,exists,nodead] / /cast [@mouseover,exists,nodead] 次级治疗术, LeftButton)",
 "Buttons act on key press (ActionButtonUseKeyDown)",
 "Blocked by the client: nothing",
 "Addon restrictions active: none",
@@ -275,8 +261,31 @@ SpyDB = {
 "Options window: not built | pages 0 | last problem: none",
 "Last error: none",
 },
+["watchData"] = {
+["Region PvP"] = {
+["Alliance"] = {
+},
+},
+["Region PvE"] = {
+["Horde"] = {
+},
+},
+},
+["playerTags"] = {
+["Region PvE"] = {
+},
+["Region PvP"] = {
+},
+},
 ["profiles"] = {
 ["巴菲特 李家沱"] = {
+["MainWindow"] = {
+["Position"] = {
+["y"] = 389.9612731933594,
+["x"] = 10.13025951385498,
+["h"] = 35.00002288818359,
+},
+},
 ["Colors"] = {
 ["Bar"] = {
 ["Bar Text"] = {
@@ -287,22 +296,22 @@ SpyDB = {
 ["AppendUnitNameCheck"] = true,
 ["AppendUnitKoSCheck"] = true,
 ["MinimapButton"] = {
-["hide"] = false,
 ["angle"] = 0.45,
+["hide"] = false,
 },
 },
 ["仓库 存放"] = {
 ["AppendUnitNameCheck"] = true,
-["MinimapButton"] = {
-["angle"] = 0.45,
-["hide"] = false,
-},
 ["Colors"] = {
 ["Bar"] = {
 ["Bar Text"] = {
 ["a"] = 1,
 },
 },
+},
+["MinimapButton"] = {
+["hide"] = false,
+["angle"] = 0.45,
 },
 ["AppendUnitKoSCheck"] = true,
 },
@@ -319,10 +328,10 @@ SpyDB = {
 },
 ["Colors"] = {
 ["Alert"] = {
-["KOS Text"] = {
+["Name Text"] = {
 ["a"] = 1,
 },
-["Name Text"] = {
+["KOS Text"] = {
 ["a"] = 1,
 },
 },
@@ -334,8 +343,8 @@ SpyDB = {
 },
 ["AppendUnitKoSCheck"] = true,
 ["MinimapButton"] = {
-["angle"] = 0.45,
 ["hide"] = false,
+["angle"] = 0.45,
 },
 ["ResizeSpy"] = false,
 },

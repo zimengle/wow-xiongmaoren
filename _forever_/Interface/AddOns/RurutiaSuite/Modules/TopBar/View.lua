@@ -23,6 +23,11 @@ local function Cleanup(frame, preserveSecureClick)
     Call(frame, "SetScript", "OnEnter", nil)
     Call(frame, "SetScript", "OnLeave", nil)
     Call(frame, "SetScript", "OnHide", nil)
+    local unsubscribe = frame.rsTopBarQuestGuideUnsubscribe
+    if unsubscribe then
+        frame.rsTopBarQuestGuideUnsubscribe = nil
+        unsubscribe()
+    end
 end
 
 local function CleanupSecure(frame)
@@ -68,11 +73,16 @@ end
 local function White(text) return "|cffffffff" .. tostring(text) .. "|r" end
 local function ClassColor(view, text) return view.module:ColorPlayerClassText(text) end
 
+local function LeftRightTooltip(view, leftAction, rightAction)
+    return White("左：") .. ClassColor(view, leftAction)
+        .. "\n" .. White("右：") .. ClassColor(view, rightAction)
+end
+
 local function MeetingStoneTooltip(view, label)
     if view.adapter.family ~= "retail" and view.adapter.buildId ~= "classic-infinite" then
         return White("打开/关闭 ") .. ClassColor(view, label)
     end
-    local text = White("左：") .. ClassColor(view, label) .. "\n" .. White("右：") .. ClassColor(view, "队伍查找器")
+    local text = LeftRightTooltip(view, label, "队伍查找器")
     if view.adapter.buildId == "classic-infinite" and type(view.adapter.HasMeetingStoneAddon) == "function"
         and not view.adapter:HasMeetingStoneAddon() then
         text = text .. "\n" .. White("未安装集结号时，左键打开队伍查找器")
@@ -233,6 +243,86 @@ function View:CreateHandbook(profile)
     return record
 end
 
+function View:CreateQuestGuide(profile)
+    local record = self:CreateBase("questguide", "RSTopBar_QuestGuide", profile, false)
+    if not record then return nil end
+    record.icon = Call(record.frame, "CreateTexture", nil, "ARTWORK")
+    record.text = Call(record.frame, "CreateFontString", nil, "OVERLAY")
+    record.label = "北极星"
+    Call(record.icon, "SetTexture", "Interface\\AddOns\\RurutiaSuite\\Media\\Textures\\quest-guide.tga")
+    Call(record.icon, "SetBlendMode", "BLEND")
+    self:RebindRecord(record, profile)
+    return record
+end
+
+local QUEST_GUIDE_COLORS = {
+    open = { 0.216, 0.816, 0.918 },
+    closed = { 1, 53 / 255, 53 / 255 },
+    unavailable = { 145 / 255, 145 / 255, 145 / 255 },
+}
+
+local function PaintQuestGuideState(record, questGuide)
+    local state = questGuide:GetIconState()
+    if record.questGuideState == state then return end
+    local color = QUEST_GUIDE_COLORS[state]
+    Call(record.icon, "SetVertexColor", color[1], color[2], color[3], 1)
+    record.questGuideState = state
+end
+
+function View:RefreshQuestGuide(record)
+    local questGuide, frame = ns.TopBarProviderRegistry.questGuide, record.frame
+    if not frame.rsTopBarQuestGuideUnsubscribe and questGuide:GetController() then
+        local function refreshColor()
+            if record.active then PaintQuestGuideState(record, questGuide) end
+        end
+        local unsubscribe = questGuide:SubscribeVisibility(function()
+            -- Polestar fires GUIDE_VISIBILITY before the window applies SetShown.
+            if frame.rsTopBarQuestGuideUnsubscribe then
+                self.module:RequestRefresh("topbar-questguide-color", refreshColor)
+            end
+        end)
+        if unsubscribe then
+            frame.rsTopBarQuestGuideUnsubscribe = function()
+                self.module:CancelRefresh("topbar-questguide-color")
+                unsubscribe()
+            end
+        end
+    end
+    PaintQuestGuideState(record, questGuide)
+end
+
+local function ShowQuestGuidePopup(key, text, accept, cancel, onAccept)
+    local dialogs, show = _G.StaticPopupDialogs, _G.StaticPopup_Show
+    if type(dialogs) ~= "table" or type(show) ~= "function" then return false end
+    if not dialogs[key] then
+        dialogs[key] = {
+            text = "%s", button1 = accept, button2 = cancel,
+            timeout = 0, whileDead = true, hideOnEscape = true, preferredIndex = 3,
+            OnAccept = function(_, action) if action then action() end end,
+        }
+    end
+    return show(key, text, nil, onAccept) ~= nil
+end
+
+function View:ConfirmQuestGuideLoad(record, questGuide)
+    if self.adapter:IsInCombat() then return self.module:Print("战斗中无法加载北极星。") end
+    local shown = ShowQuestGuidePopup("RURUTIASUITE_POLESTAR_LOAD", "是否加载任务指南插件「北极星」？", "是", "取消", function()
+        if not record.active or questGuide:GetController() then return end
+        local result, message = questGuide:TryLoad(self.adapter:IsInCombat())
+        if not result then self.module:Print(message) return end
+        if result == "loaded" then self.module:RequestStateRefresh(0.05) end
+        local text = result == "loaded" and "北极星已加载。是否现在重载界面？"
+            or "北极星已启用，将在重载后加载。是否现在重载界面？"
+        local prompted = ShowQuestGuidePopup("RURUTIASUITE_POLESTAR_RELOAD", text, "立即重载", "稍后", function()
+            if self.adapter:IsInCombat() then self.module:Print("请脱战后重载界面。") return end
+            local reload = _G.C_UI and _G.C_UI.Reload or _G.ReloadUI
+            if type(reload) == "function" then reload() end
+        end)
+        if not prompted then self.module:Print("北极星已准备就绪，请使用 /reload 重载界面。") end
+    end)
+    if not shown then self.module:Print("无法打开北极星加载确认。") end
+end
+
 function View:CreateHearthstone(profile)
     local record = self:CreateBase("hearthstone", "RSTopBar_Hearthstone", profile, true)
     if not record then return nil end
@@ -344,6 +434,28 @@ function View:RebindRecord(record, profile)
         Call(frame, "SetScript", "OnEnter", function()
             self:ShowTooltip(record, White("打开：") .. ClassColor(self, "露露的小手册"))
         end)
+    elseif record.key == "questguide" then
+        local questGuide = ns.TopBarProviderRegistry.questGuide
+        Call(frame, "SetScript", "OnClick", function(_, mouseButton)
+            if mouseButton == "RightButton" then self:HideTooltip() end
+            if mouseButton == "LeftButton" and not questGuide:GetController() then
+                self:HideTooltip()
+                return self:ConfirmQuestGuideLoad(record, questGuide)
+            end
+            local _, message = questGuide:Click(frame, mouseButton)
+            if message then self.module:Print(message) end
+            if mouseButton == "LeftButton" then PaintQuestGuideState(record, questGuide) end
+        end)
+        Call(frame, "SetScript", "OnEnter", function()
+            if not questGuide:GetController() then
+                return self:ShowTooltip(record, White("Polestar 任务指南") .. "\n北极星尚未加载，左键确认加载。")
+            end
+            self:ShowTooltip(record, White("Polestar 任务指南") .. "\n"
+                .. LeftRightTooltip(self, "显示/隐藏窗口和箭头", "菜单设置")
+                .. "\n" .. White("中：") .. ClassColor(self, "显示/隐藏目标列表"))
+        end)
+        Call(frame, "SetScript", "OnLeave", function() self:HideTooltip() end)
+        return true
     elseif record.key == "hearthstone" then
         Call(frame, "SetScript", "OnEnter", function()
             self:ShowTooltip(record, self.module:BuildHearthstoneTooltip())
@@ -508,6 +620,7 @@ function View:Ensure(key, profile)
     if self.adapter:IsInCombat() then self.module.secureDirty = true return nil end
     if key == "meetingstone" then return self:CreateMeetingStone(profile) end
     if key == "handbook" then return self:CreateHandbook(profile) end
+    if key == "questguide" then return self:CreateQuestGuide(profile) end
     if key == "hearthstone" then return self:CreateHearthstone(profile) end
     if key == "automark" then return self:CreateAutoMark(profile) end
     if key == "rolemarker" then return self:CreateRoleMarker(profile) end
@@ -527,10 +640,17 @@ function View:RefreshQuick(key, profile, default)
     if not record then return false end
     Call(record.frame, "SetSize", tonumber(profile.width) or default.width, tonumber(profile.height) or default.height)
     self:StyleButton(record, profile)
-    if record.icon and (key == "meetingstone" or key == "handbook") then
-        Call(record.icon, "SetSize", tonumber(profile.iconWidth) or 33, tonumber(profile.iconHeight) or 34)
+    if record.icon and record.text then
+        local width, height = tonumber(profile.iconWidth) or 33, tonumber(profile.iconHeight) or 34
+        local left = tonumber(profile.iconOffsetX) or -4
+        if key == "questguide" then
+            local size = math.min(width, height)
+            left, width, height = left + (width - size) / 2, size, size
+            self:RefreshQuestGuide(record)
+        end
+        Call(record.icon, "SetSize", width, height)
         Call(record.icon, "ClearAllPoints")
-        Call(record.icon, "SetPoint", "LEFT", record.frame, "LEFT", -4, 0)
+        Call(record.icon, "SetPoint", "LEFT", record.frame, "LEFT", left, 0)
     end
     if record.text then
         Call(record.text, "ClearAllPoints")
@@ -539,7 +659,8 @@ function View:RefreshQuick(key, profile, default)
         if profile.textWidth then Call(record.text, "SetWidth", tonumber(profile.textWidth) or 64) end
         Call(record.text, "SetJustifyH", profile.textJustify or "CENTER")
         self.adapter:ApplyFont(record.text, self.adapter:GetFontPath("interface"), tonumber(profile.fontSize) or 18, "OUTLINE")
-        Call(record.text, "SetText", key == "meetingstone" and (self.adapter.family == "retail" and "集合石" or "集结号") or "手册")
+        Call(record.text, "SetText", record.label or
+            (key == "meetingstone" and (self.adapter.family == "retail" and "集合石" or "集结号") or "手册"))
         Call(record.text, "SetTextColor", 1, 1, 1, 1)
     end
     self:ApplyPosition(record, self.data:CopyPosition(profile.position, default.position))
@@ -566,8 +687,9 @@ function View:ShowComponent(key, visible, profile, default)
         if not record then return false end
         Call(record.frame, "SetSize", 20, 20)
         local anchor = self:GetHearthstoneAnchor()
+        local gap = self.module.db.defaults.profile.rolemarker.hearthstoneGap or 9
         Call(record.frame, "ClearAllPoints")
-        Call(record.frame, "SetPoint", "LEFT", anchor, "RIGHT", 9, 0)
+        Call(record.frame, "SetPoint", "LEFT", anchor, "RIGHT", gap, 0)
         self.module.fastFocusHub:Refresh()
         Call(record.frame, "Show")
         return true

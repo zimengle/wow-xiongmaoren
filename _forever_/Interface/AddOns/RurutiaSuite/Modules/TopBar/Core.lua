@@ -17,15 +17,18 @@ if type(Adapter) ~= "table" or type(Data) ~= "table" or type(MicroMenu) ~= "tabl
     error("TopBar requires Data, active Build adapter, Providers, MicroMenu, View, Movement, FastFocusHub, and Settings before Core.lua", 2)
 end
 
-local DEFAULTS = Data:GetDefaults(Adapter.family)
+local DEFAULTS = Data:GetDefaults(Adapter.family, Adapter.buildId)
 local DEFAULT_PROFILE = DEFAULTS.profile
+local QUEST_GUIDE = Providers.questGuide
 local QUICK_KEYS = Adapter.family == "retail"
     and { "meetingstone", "hearthstone" }
     or { "meetingstone", "handbook", "hearthstone", "automark" }
+if DEFAULT_PROFILE.questguide then table.insert(QUICK_KEYS, 1, "questguide") end
 
 local Definition = {
     defaults = DEFAULTS,
     defaultEnabled = Adapter:IsAvailable(),
+    quickKeys = QUICK_KEYS,
 }
 
 local FALLBACK_NAMES = {
@@ -323,6 +326,7 @@ function Definition:IsComponentVisible(key)
     end
     if not profile.enabled then return false end
     if key == "automark" and not Adapter:SupportsAutoMark() then return false end
+    if key == "questguide" and (not QUEST_GUIDE or not QUEST_GUIDE:IsInstalled()) then return false end
     local component = profile[key]
     return self.isUnlocked or component and component.enabled == true or false
 end
@@ -481,7 +485,9 @@ function Definition:LOADING_SCREEN_DISABLED()
     self:StartTimeDrivers()
 end
 function Definition:ADDON_LOADED(_, name)
-    if Providers:ShouldRefreshForAddon(name) then
+    if QUEST_GUIDE and name == QUEST_GUIDE.addonName then
+        self:RequestStateRefresh(0.05)
+    elseif Providers:ShouldRefreshForAddon(name) then
         if self:HasWholeFeatureConflict() then return self:ReconcileRuntime() end
         self:InstallRuntimeHooks()
         self:RequestStateRefresh(0.05)
@@ -1001,7 +1007,7 @@ end
 
 function Definition:ResetDefaults(scope)
     if Adapter:IsInCombat() then self:WarnCombatLocked() return false end
-    local fresh = Data:GetDefaults(Adapter.family).profile
+    local fresh = Data:GetDefaults(Adapter.family, Adapter.buildId).profile
     local profile = self:GetProfile()
     local key
     for key in pairs(profile) do

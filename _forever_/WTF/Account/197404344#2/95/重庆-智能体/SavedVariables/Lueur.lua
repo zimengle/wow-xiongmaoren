@@ -3,6 +3,7 @@ LueurCharDB = {
 ["nodeSwitchYards"] = 15,
 ["nodeSwitch"] = false,
 ["bodyScale"] = 100,
+["bodyShift"] = 0,
 ["categories"] = {
 ["chest"] = true,
 ["bobber"] = true,
@@ -11,5 +12,4 @@ LueurCharDB = {
 ["quest"] = true,
 ["herb"] = true,
 },
-["bodyShift"] = 0,
 }

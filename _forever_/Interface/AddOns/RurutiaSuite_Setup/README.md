@@ -1,6 +1,6 @@
 # RurutiaSuite Setup
 
-**Version:** 4.7.9
+**Version:** 4.9.1
 
 露露配置安装器，需要与同版本的 `RurutiaSuite` 一起使用，支持正式服与无限。
 

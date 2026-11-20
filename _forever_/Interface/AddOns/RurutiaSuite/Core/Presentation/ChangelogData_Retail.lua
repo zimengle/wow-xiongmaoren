@@ -7,7 +7,7 @@ RS.Presentation.ChangelogData = RS.Presentation.ChangelogData or {}
 if buildID == "retail" then
     RS.Presentation.ChangelogData.retail = {
         viewId = "retail",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:e6b5dffbb51b11f8b21f3f6f782cb2c157b5fab466ccccd073a2e6df0a8c9897",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:b12122bc17757dfa7eb06328bbb286bd4b1b388df7bed3823320bed0355266f5",
         historySourceId = "retail:b109960e82a2b3db460e2ae597ea8870276d1479:RurutiaSuite/Changelog.md",
         showMissingVersionWarning = false,
         latest = {

@@ -147,6 +147,7 @@ Register("PluginEnhancements", {
         if Adapter.features.minimapVolume then self:ApplyMinimapVolumeState() end
         if ns.EllesmereKeyringOption then ns.EllesmereKeyringOption:Sync(self) end
         if ns.EllesmereStatFonts then ns.EllesmereStatFonts:Sync(self) end
+        if ns.EllesmerePartyPetText then ns.EllesmerePartyPetText:Sync(self) end
         if ns.EllesmereTrainAll then ns.EllesmereTrainAll:Sync(self) end
         if ns.EllesmereTimerIntegration then ns.EllesmereTimerIntegration:Apply(self) end
     end,
@@ -182,7 +183,7 @@ Register("PluginEnhancements", {
             or Adapter.family ~= "retail" and self:GetUpdateBlockerDB().enabled
             or Adapter.features.minimapVolume and p.ellesmereMinimapVolume
         if ns.EllesmereKeyringOption then self:RegisterEvent("PLAYER_REGEN_ENABLED", self.PLAYER_REGEN_ENABLED) end
-        if wanted or ns.EllesmereKeyringOption then
+        if wanted or ns.EllesmereKeyringOption or ns.EllesmerePartyPetText then
             self:RegisterEvent("ADDON_LOADED", self.Apply)
             self:RegisterEvent("PLAYER_ENTERING_WORLD", self.Apply)
         elseif ns.EllesmereStatFonts and p.ellesmereStatFont ~= "follow" then
@@ -197,6 +198,7 @@ Register("PluginEnhancements", {
         self.runtimeActive, self._meetingStonePending, self._bagSortPending = false, nil, nil
         self:CancelMinimapVolumeRetry()
         if ns.EllesmereStatFonts then ns.EllesmereStatFonts:Detach(self) end
+        if ns.EllesmerePartyPetText then ns.EllesmerePartyPetText:Detach(self) end
         if ns.EllesmereTrainAll then ns.EllesmereTrainAll:Detach(self) end
         if ns.EllesmereTimerIntegration then ns.EllesmereTimerIntegration:Detach(self) end
         if Adapter.features.minimapVolume then Adapter:DeactivateMinimapVolume(self) end

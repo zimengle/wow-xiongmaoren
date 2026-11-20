@@ -21,6 +21,9 @@ end
 local defaults = Data.CreateDefaults(Adapter.family)
 if Adapter.buildId == "classic-infinite" then
     defaults.profile.ellesmereStatFont = "14"
+    defaults.profile.ellesmerePartyPetText = true
+    defaults.profile.ellesmerePartyPetNameX = 0
+    defaults.profile.ellesmerePartyPetNameY = 0
     defaults.profile.mailLoggerLoginWhisper = true
 end
 if Adapter.family == "classic" then

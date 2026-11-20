@@ -3,6 +3,7 @@ local _, ns = ...
 if not ns.Build.HasModule("MapEnhancement") then return end
 
 local Adapter = ns.MapEnhancementAdapter
+local PolestarButton = ns.PolestarWorldMapButton
 local Definition = {
     databaseName = "MapEnhancement", defaultEnabled = true,
     defaults = { profile = { enabled = true, allowMove = true, allowScale = true, centerHorizontal = true,
@@ -155,6 +156,7 @@ function Definition:GetStatusText()
 end
 
 function Definition:OnWorldEvent(event, name)
+    if PolestarButton then PolestarButton:Sync(self, event, name) end
     if event == "ADDON_LOADED" and name ~= "Blizzard_WorldMap"
         and name ~= "Mapster" and name ~= "BlizzMove" and name ~= "Leatrix_Maps"
         and name ~= "NDui" and name ~= "ElvUI" and name ~= "EllesmereUIQoL" then return end
@@ -175,10 +177,12 @@ function Definition:Enable()
     self.controller:Refresh()
     ns.MapEnhancementReveal:Sync()
     ns.MapEnhancementZoneLevels:Sync()
+    if PolestarButton then PolestarButton:Sync(self) end
 end
 
 function Definition:Disable()
     self.runtimeActive = false
+    if PolestarButton then PolestarButton:Detach() end
     ns.MapEnhancementZoneLevels:Detach()
     self:TogglePreview(false)
     self.controller:Detach()

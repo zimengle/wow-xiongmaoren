@@ -27,6 +27,65 @@ local ACTION_PAD = 2
 local ROW_H = 34
 local ROW_GAP = 36
 
+-- 和「说明」同一段：暴雪限制说明 + 黄色「推荐公会：」。有公会名就带括号，没有就写暂无。
+function H:ForeverPitchText()
+  if not (self.IsForeverClient and self:IsForeverClient()) then
+    return ""
+  end
+  local gold = "|cffffd100"
+  local reset = "|r"
+  local intro = "因暴雪限制，本插件目前仅支持 同公会 玩家互相帮忙切换位面，同公会使用本插件的人越多，可切换的位面也就越多，作者会持续关注政策限制，祝您游戏愉快。\n\n"
+  local slot = self.GuildRecSlot and self:GuildRecSlot()
+  local guildName = slot and slot.guild or ""
+  local guildLine
+  if guildName ~= "" then
+    guildLine = gold .. "推荐公会：" .. reset .. "<" .. guildName .. ">\n\n"
+  else
+    guildLine = gold .. "推荐公会：" .. reset .. "暂无，若想展示自己公会，请添加战网 YUHE#51586\n\n"
+  end
+  return intro .. guildLine
+end
+
+function H:NoPlayerCanHop(layers)
+  for _, item in ipairs(layers or {}) do
+    if (tonumber(item.nCan) or 0) >= 1 then
+      return false
+    end
+  end
+  return true
+end
+
+function H:ApplyNoHopPitch(layers)
+  local f = self.panel
+  if not f or not f.emptyPitch then
+    return false
+  end
+  if not (self.IsForeverClient and self:IsForeverClient()) or not self:NoPlayerCanHop(layers) then
+    f.emptyPitch:Hide()
+    return false
+  end
+  f.emptyPitch:SetText(self:ForeverPitchText())
+  f.emptyPitch:Show()
+  for i = 1, #(f.rows or {}) do
+    if f.rows[i] then
+      f.rows[i]:Hide()
+    end
+  end
+  self._layoutN = 0
+  local sh = f.emptyPitch:GetStringHeight() or 0
+  if sh < 72 then
+    sh = 96
+  end
+  f:SetHeight(36 + 16 + sh + 18)
+  if f.scrollChild then
+    f.scrollChild:SetHeight(sh + 8)
+  end
+  if f.scroll then
+    f.scroll:SetVerticalScroll(0)
+  end
+  return true
+end
+
 local function Outline(frame)
   local function edge(hOrW, isHoriz, pointA, pointB)
     local t = frame:CreateTexture(nil, "BORDER")
@@ -392,7 +451,6 @@ function H:InitUI()
   thanksBody:SetSpacing(3)
   thanksBody:SetWordWrap(true)
   thanksBody:SetNonSpaceWrap(false)
-  local foreverUi = H.IsForeverClient and H:IsForeverClient()
   local thanksGold = "|cffffd100"
   local thanksReset = "|r"
   local names = table.concat({
@@ -411,22 +469,15 @@ function H:InitUI()
     "NB-39b74215602c17d0db",
     "NB-be55d5aa68d17eed7",
   }, "\n")
-  local intro = foreverUi and "因暴雪限制，本插件目前仅支持 同公会 玩家互相帮忙切换位面，同公会使用本插件的人越多，可切换的位面也就越多，作者会持续关注政策限制，祝您游戏愉快。\n\n" or ""
-  local slot = foreverUi and H.GuildRecSlot and H:GuildRecSlot()
-  local guildName = slot and slot.guild or ""
-  local guildLine = ""
-  if foreverUi then
-    if guildName ~= "" then
-      guildLine = thanksGold .. "推荐公会：" .. thanksReset .. "<" .. guildName .. ">\n\n"
-    else
-      guildLine = thanksGold .. "推荐公会：" .. thanksReset .. "暂无，若想展示自己公会，请添加战网 YUHE#51586\n\n"
-    end
+  local function paintThanks()
+    thanksBody:SetText((H:ForeverPitchText() or "") .. names)
+    thanksBody:SetTextColor(C.text[1], C.text[2], C.text[3], 1)
+    local bodyH = thanksBody:GetStringHeight() or 200
+    local viewH = setH - setPad * 2
+    thanksChild:SetHeight(math.max(bodyH + 8, viewH))
   end
-  thanksBody:SetText(intro .. guildLine .. names)
-  thanksBody:SetTextColor(C.text[1], C.text[2], C.text[3], 1)
-  local bodyH = thanksBody:GetStringHeight() or 200
-  local viewH = setH - setPad * 2
-  thanksChild:SetHeight(math.max(bodyH + 8, viewH))
+  paintThanks()
+  f.paintThanks = paintThanks
 
   local function thanksWheel(_, delta)
     local cur = thanksScroll:GetVerticalScroll() or 0
@@ -448,6 +499,9 @@ function H:InitUI()
     if settings:IsShown() then
       settings:Hide()
     else
+      if f.paintThanks then
+        f.paintThanks()
+      end
       settings:ClearAllPoints()
       settings:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
       settings:Show()
@@ -531,6 +585,18 @@ function H:InitUI()
   f.scrollChild = child
   f.list = child
   f.rows = {}
+
+  local emptyPitch = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+  emptyPitch:SetPoint("TOPLEFT", 14, -44)
+  emptyPitch:SetWidth(ROW_W)
+  emptyPitch:SetJustifyH("LEFT")
+  emptyPitch:SetJustifyV("TOP")
+  emptyPitch:SetSpacing(3)
+  emptyPitch:SetWordWrap(true)
+  emptyPitch:SetNonSpaceWrap(false)
+  emptyPitch:SetTextColor(C.text[1], C.text[2], C.text[3], 1)
+  emptyPitch:Hide()
+  f.emptyPitch = emptyPitch
 
   local cooldownAcc = 0
   f:SetScript("OnUpdate", function(_, elapsed)
@@ -1088,6 +1154,9 @@ function H:PaintLayerSkeleton()
   end
   local snap = self.GetPaintSnapshot and self:GetPaintSnapshot() or nil
   local layers = snap and snap.layers or self:ListKnownLayers(true)
+  if self:ApplyNoHopPitch(layers) then
+    return
+  end
   self:LayoutLayerRows(#layers)
   for i, item in ipairs(layers) do
     local row = self.panel.rows[i]
@@ -1110,6 +1179,10 @@ function H:RefreshUIOneRow()
   end)
   local snap = self.GetPaintSnapshot and self:GetPaintSnapshot() or nil
   local layers = snap and snap.layers or self:ListKnownLayers(true)
+  if self:ApplyNoHopPitch(layers) then
+    self._slowPaintDone = true
+    return
+  end
   local n = #layers
   self:LayoutLayerRows(n)
   if n < 1 then
@@ -1231,6 +1304,9 @@ function H:RefreshUI()
   end
 
   local layers = self:ListKnownLayers()
+  if self:ApplyNoHopPitch(layers) then
+    return
+  end
   self:LayoutLayerRows(#layers)
   for i, item in ipairs(layers) do
     self:FillLayerRow(self:EnsureLayerRow(i), item)

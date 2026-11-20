@@ -5,7 +5,7 @@
 ## Notes: 只支持魔兽世界：无限。位面列表、同公会求切。
 ## Notes-zhCN: 只支持魔兽世界：无限。位面列表、同公会求切。
 ## Author: HuZhuLayer
-## Version: 1.1.348
+## Version: 1.1.349
 ## SavedVariables: HuZhuLayerDB
 ## DefaultState: enabled
 ## OptionalDeps: NovaWorldBuffs

@@ -7,6 +7,7 @@ local Settings = { registered = false }
 local BUTTON_LABELS = {
     meetingstone = "集结号按钮",
     handbook = "手册按钮",
+    questguide = "北极星按钮",
     hearthstone = "炉石按钮",
     automark = "标T奶按钮",
 }
@@ -173,9 +174,7 @@ local function BuildPage(context, module, microOnly)
         end
     end
     if not microOnly then
-        local keys = module.adapter.family == "retail"
-            and { "meetingstone", "hearthstone" }
-            or { "meetingstone", "handbook", "hearthstone", "automark" }
+        local keys = module.quickKeys
         local quickButtons = page:Section("快捷按钮")
         local visibility = quickButtons:ToggleRow({ columns = 3, preserveColumns = true, responsive = false })
         local index

@@ -4,7 +4,7 @@ local H = HuZhuLayer
 
 H.ADDON_NAME = "HuZhuLayer"
 H.PREFIX = "HZL"
-H.VERSION = "1.1.348"
+H.VERSION = "1.1.349"
 H.LIST_VISIBLE_ROWS = 10 -- 列表最多同时显示行数，超出可滚动
 H.LOAD_TICK = 0.1 -- 所有加载：进入的数据和画界面都按这个间隔摊开
 H.LOAD_IN_MAX = 6 -- 每个间隔最多收几条上报

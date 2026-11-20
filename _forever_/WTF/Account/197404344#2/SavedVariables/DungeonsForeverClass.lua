@@ -5,6 +5,41 @@ DungeonsForeverClassDB = {
 ["seqOn"] = true,
 ["builds"] = {
 ["shaman"] = {
+{
+["name"] = "增强萨",
+["alloc"] = {
+{
+[2] = 5,
+[3] = 3,
+},
+{
+nil,
+5,
+5,
+nil,
+3,
+nil,
+3,
+1,
+nil,
+nil,
+5,
+1,
+2,
+1,
+2,
+2,
+1,
+1,
+},
+{
+[3] = 3,
+[2] = 5,
+[9] = 1,
+[5] = 2,
+},
+},
+},
 },
 },
 ["sim"] = {
@@ -25,9 +60,9 @@ DungeonsForeverClassDB = {
 [17] = 5,
 [18] = 1,
 [11] = 5,
-[3] = 4,
-[12] = 1,
 [5] = 3,
+[12] = 1,
+[3] = 4,
 },
 {
 [2] = 5,
@@ -38,15 +73,15 @@ DungeonsForeverClassDB = {
 },
 ["v"] = 3,
 },
-["talent"] = {
-["seqOn"] = true,
-},
 ["tier"] = {
 ["tab"] = "dps",
-["nav"] = "spec",
 ["mode"] = "talents",
-["spec"] = "enh",
 ["sec"] = "changes",
+["nav"] = "spec",
+["spec"] = "enh",
 ["cls"] = "SHAMAN",
+},
+["talent"] = {
+["seqOn"] = true,
 },
 }

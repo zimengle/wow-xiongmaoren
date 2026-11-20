@@ -29,7 +29,7 @@ EllesmereUIMinimap: enabled
 EllesmereUINameplates: enabled
 EllesmereUIOptions: enabled
 EllesmereUIQoL: enabled
-EllesmereUIQuestTracker: enabled
+EllesmereUIQuestTracker: disabled
 EllesmereUIQuickdraw: enabled
 EllesmereUIRaidFrames: enabled
 EllesmereUIResourceBars: enabled

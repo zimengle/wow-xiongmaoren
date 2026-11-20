@@ -1,5 +1,5 @@
 VER 3 0000000000000001 "RXPTargeting" "Ability_eyeoftheowl"
-/targetexact Lethtendris
+/targetexact 看守者贝尔杜加
 /tm !7
 /targetlasttarget [dead]
 END

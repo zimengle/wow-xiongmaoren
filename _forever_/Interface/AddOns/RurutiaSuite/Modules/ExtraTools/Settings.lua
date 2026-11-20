@@ -228,6 +228,53 @@ local function BuildPluginsEllesmere(page, module)
         })
     end
 
+    local petText = ns.EllesmerePartyPetText
+    if petText then
+        local function PetTextEnabled()
+            return module:GetProfile().ellesmerePartyPetText ~= false
+        end
+
+        ellesmereOptions:Checkbox("ellesmerePartyPetText", {
+            text = "小队宠物文字",
+            tooltip = "居中显示小队宠物姓名，隐藏血量数字，保留血条。关闭后跟随 Elles。",
+            getValue = PetTextEnabled,
+            onChange = function(_, value)
+                module:GetProfile().ellesmerePartyPetText = value == true
+                petText:Sync(module)
+                page:Refresh("party-pet-text")
+            end,
+        })
+        local function AddOffset(key, label, tooltip)
+            ellesmere:Row():Slider(key, {
+                text = label, min = petText.minOffset, max = petText.maxOffset, step = 1,
+                tooltip = tooltip,
+                getValue = function() return petText:GetOffset(module, key) end,
+                getEnabled = function() return module.runtimeActive and PetTextEnabled() end,
+                onChange = function(_, value)
+                    module:GetProfile()[key] = value
+                    petText:Sync(module)
+                end,
+            })
+        end
+        AddOffset("ellesmerePartyPetNameX", "宠物姓名 X", "向右为正，0 为水平居中。")
+        AddOffset("ellesmerePartyPetNameY", "宠物姓名 Y", "向上为正，0 为垂直居中。")
+    end
+
+    local petWidth = ns.EllesmerePartyPetWidth
+    if petWidth then
+        ellesmere:Row():Slider("ellesmerePartyPetWidth", {
+            text = "宠物额外宽度", min = petWidth.minOffset, max = petWidth.maxOffset, step = 1,
+            tooltip = "只调小队宠物框。负数缩窄，0 使用队员框宽度。低于 -50 时以 RS 的读数为准。",
+            getValue = function() return petWidth:GetValue() end,
+            getEnabled = function() return module.runtimeActive and petWidth:IsAvailable() end,
+            onChange = function(control, value)
+                if not module.runtimeActive or not petWidth:SetValue(value) then
+                    control:SetValue(petWidth:GetValue(), true)
+                end
+            end,
+        })
+    end
+
     if ns.EllesmereTimerIntegration then
         ellesmereOptions:Checkbox("ellesmereTimerCompact", {
             text = "首领计时精简",

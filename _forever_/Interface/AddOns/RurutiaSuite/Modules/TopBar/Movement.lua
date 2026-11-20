@@ -24,6 +24,7 @@ end
 local LABELS = {
     meetingstone = "集合石按钮",
     handbook = "手册按钮",
+    questguide = "北极星按钮",
     hearthstone = "炉石与职责标记",
     automark = "自动标记按钮",
     addonprofile = "自插件管理",

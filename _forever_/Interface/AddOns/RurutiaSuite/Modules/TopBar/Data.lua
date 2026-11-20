@@ -175,8 +175,37 @@ local function Copy(value)
     return result
 end
 
-function Data:GetDefaults(family)
-    return Copy(family == "retail" and RETAIL_DEFAULTS or CLASSIC_DEFAULTS)
+local function SetInfiniteLabelLayout(button, left, width, centerY)
+    button.width = width
+    button.textPoint = "LEFT"
+    button.textRelativePoint = "LEFT"
+    button.textOffsetX = 25
+    button.textJustify = "LEFT"
+    button.position = {
+        point = "TOP", relativePoint = "TOP",
+        x = left + width / 2, y = centerY + button.height / 2,
+    }
+end
+
+function Data:GetDefaults(family, buildId)
+    local defaults = Copy(family == "retail" and RETAIL_DEFAULTS or CLASSIC_DEFAULTS)
+    if buildId == "classic-infinite" then
+        local profile = defaults.profile
+        local menu = profile.micromenu
+        local centerY = menu.position.y - (menu.size - self.constants.frameHeightTrim) / 2
+        profile.questguide = {
+            enabled = true, height = 20, fontSize = 18, alpha = 1,
+            iconWidth = 21, iconHeight = 21, iconOffsetX = 1,
+        }
+        -- Leave a little more space after the text buttons before the hearthstone.
+        SetInfiniteLabelLayout(profile.questguide, -513.5, 76, centerY)
+        SetInfiniteLabelLayout(profile.meetingstone, -434.5, 77, centerY)
+        SetInfiniteLabelLayout(profile.handbook, -354.5, 60, centerY)
+        profile.hearthstone.position.x = -272
+        profile.hearthstone.position.y = centerY + profile.hearthstone.height / 2
+        profile.rolemarker.hearthstoneGap = 8
+    end
+    return defaults
 end
 
 function Data:GetMenuItems(family, buildId)

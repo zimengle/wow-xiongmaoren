@@ -284,6 +284,25 @@ Spy.PlateNames = {}
 Spy.GonePlates = {}
 local GONE_WINDOW = 1.5
 
+-- What the nameplates showed this session, for /spy debug (CurseForge comment: enemy
+-- nameplates on, yet Spy only saw targets and mouseovers).
+Spy.PlateStats = { added = 0, players = 0, enemies = 0, hidden = 0 }
+
+function Spy:CountPlate(unit)
+	local stats = Spy.PlateStats
+	stats.added = stats.added + 1
+	if not Spy:Readable(UnitIsPlayer(unit)) then
+		return
+	end
+	stats.players = stats.players + 1
+	local name, realm = UnitName(unit)
+	if Spy:IsSecret(name) or Spy:IsSecret(realm) then
+		stats.hidden = stats.hidden + 1
+	elseif Spy:Readable(UnitIsEnemy("player", unit)) then
+		stats.enemies = stats.enemies + 1
+	end
+end
+
 Spy.NamePlateEvent = Guard("NamePlateEvent", function(self, event, unit)
 	if type(unit) ~= "string" then
 		return
@@ -291,6 +310,7 @@ Spy.NamePlateEvent = Guard("NamePlateEvent", function(self, event, unit)
 	if event == "NAME_PLATE_UNIT_ADDED" then
 		Spy.NamePlateUnits[unit] = true
 		Spy.GonePlates[unit] = nil
+		Spy:CountPlate(unit)
 		Spy.PlateNames[unit] = Spy:ScanUnit(unit)
 	else
 		Spy.NamePlateUnits[unit] = nil
@@ -1246,6 +1266,9 @@ function Spy:PrintDebug(lines)
 	out(("Enemy nameplates: %s | always shown: %s | nameplates watched: %d | unit scan: %s"):format(
 		yesNo(Spy:NameplatesEnabled()), yesNo(Spy:NameplatesAlways()), countKeys(Spy.NamePlateUnits),
 		Spy.UnitScanTimer and "running" or "stopped"))
+	local plates = Spy.PlateStats
+	out(("Nameplates since login: %d shown, %d players, %d enemy players, %d with a hidden name"):format(
+		plates.added, plates.players, plates.enemies, plates.hidden))
 	out(("Nearby: %d (active %d) | last hour: %d | KoS: %d | known players: %d"):format(
 		countKeys(Spy.NearbyList), countKeys(Spy.ActiveList), countKeys(Spy.LastHourList),
 		countKeys(SpyPerCharDB.KOSData), countKeys(SpyPerCharDB.PlayerData)))
@@ -1283,7 +1306,7 @@ function Spy:PrintDebug(lines)
 
 	-- The window: where it is, why it last appeared or vanished, and what waits for the end of combat.
 	local window = Spy.MainWindow
-	out(("Window: %s, %d row(s)%s%s"):format(window:IsShown() and "shown" or "hidden", Spy.ListAmountDisplayed or 0,
+	out(("Window: %s, %d row(s)%s%s"):format(not window and "NOT MADE" or (window:IsShown() and "shown" or "hidden"), Spy.ListAmountDisplayed or 0,
 		Spy.ShowAfterCombat and ", will show after combat" or "", Spy.HideAfterCombat and ", will hide after combat" or ""))
 	for i = 1, math.min(3, #Spy.WindowLog) do
 		local entry = Spy.WindowLog[i]
@@ -1356,6 +1379,12 @@ function Spy:PrintDebug(lines)
 		out(Spy:OptionsWindowReport())
 	end
 	out("Last error: " .. tostring(Spy.ForeverLastError or "none"))
+	if Spy.StartupError or not Spy.MainWindow then
+		out("Start-up error: " .. tostring(Spy.StartupError or "none")
+			.. " | window made: " .. (Spy.MainWindow and "yes" or "NO")
+			.. (Spy.StartupStepError and (" | " .. Spy.StartupStepError) or "")
+			.. " | zone changes skipped: " .. (Spy.ForeverStats.noWindow or 0))
+	end
 end
 
 -- Sounds ------------------------------------------------------------------------------
@@ -1371,8 +1400,30 @@ local function tryPlay(path, channel)
 	return Spy:Readable(willPlay) and true or false, nil
 end
 
+-- Own sounds: files with the same names in Interface\AddOns\SpySounds\, a folder that
+-- Spy updates never touch (CurseForge comment: custom sounds overwritten by each update).
+-- .ogg or .mp3; Spy's own sound plays when the file is not there.
+Spy.CustomSoundFolder = "Interface\\AddOns\\SpySounds\\"
+
+function Spy:PlayCustomSound(path, channel)
+	local base = path:match("([^\\/]+)%.%w+$")
+	if not base then
+		return false
+	end
+	for _, ext in ipairs({ ".ogg", ".mp3" }) do
+		if tryPlay(Spy.CustomSoundFolder .. base .. ext, channel) then
+			Spy.LastSound = { file = "SpySounds\\" .. base .. ext, channel = channel, played = true, when = time() }
+			return true
+		end
+	end
+	return false
+end
+
 function Spy:PlaySound(path, channel)
 	channel = channel or "SFX"
+	if Spy.db.profile.CustomSounds and Spy:PlayCustomSound(path, channel) then
+		return true
+	end
 	local played, err = tryPlay(path, channel)
 	local used = path
 	local ogg = path:gsub("%.mp3$", ".ogg")
@@ -1519,6 +1570,20 @@ Spy.options.args.General.args.ZoneMessages = {
 	end,
 }
 
+Spy.options.args.AlertOptions.args.CustomSounds = {
+	name = L["CustomSounds"],
+	desc = L["CustomSoundsDescription"],
+	type = "toggle",
+	order = 3.5,
+	width = "full",
+	get = function(info)
+		return Spy.db.profile.CustomSounds == true
+	end,
+	set = function(info, value)
+		Spy.db.profile.CustomSounds = value and true or false
+	end,
+}
+
 Spy.optionsSlash.args.testsound = {
 	name = L["TestSoundSlash"],
 	desc = L["TestSoundSlashDescription"],
@@ -1574,7 +1639,20 @@ function Spy:OnInitialize(...)
 	-- whether they arrived, so /spy debug can tell a Spy problem from that client bug.
 	Spy.ForeverSavedVarsFound = type(SpyDB) == "table"
 	Spy.ForeverCharVarsFound = type(SpyPerCharDB) == "table"
-	baseOnInitialize(self, ...)
+	-- CurseForge report: "attempt to index field 'MainWindow' (a nil value)" 727 times. An
+	-- error in the original start-up (cause not known, another addon was suspected) stopped
+	-- it before the window was made, and every zone change then failed on the missing
+	-- window. The first error is now kept for /spy debug, the steps that make the windows
+	-- still run, and a zone change without a window is skipped instead of erroring.
+	local trace
+	local ok, err = xpcall(baseOnInitialize, function(message)
+		trace = debugstack and debugstack(2, 8, 0) or nil
+		return message
+	end, self, ...)
+	if not ok then
+		Spy:KeepStartupError(err, trace)
+		Spy:FinishStartup()
+	end
 	-- A recap already there at login belongs to an earlier death.
 	Spy.LastRecapID = recapID()
 	LibStub("AceConfigDialog-3.0"):SetDefaultSize("Spy", 760, 560)
@@ -1584,6 +1662,34 @@ function Spy:OnInitialize(...)
 	if Spy.db and Spy.db.RegisterCallback then
 		Spy.db.RegisterCallback(Spy, "OnDatabaseShutdown", function() Spy:SaveDebugReport() end)
 		Spy.ReportOnShutdown = true
+	end
+end
+
+function Spy:KeepStartupError(err, trace)
+	local where = trace and trace:match("[^\n]*Spy/[^\n]+") or nil
+	Spy.StartupError = tostring(err) .. (where and (" | " .. where) or "")
+	DEFAULT_CHAT_FRAME:AddMessage(L["SpySignatureColored"] .. L["StartupError"])
+	-- Still handed to the game's error handler (BugSack shows it).
+	local handler = geterrorhandler and geterrorhandler()
+	if handler then
+		pcall(handler, err)
+	end
+end
+
+-- The steps of the original start-up that make the windows, each on its own.
+function Spy:FinishStartup()
+	local steps = {
+		function() Spy:CreateMainWindow() end,
+		function() Spy:CreateKoSButton() end,
+		function() Spy:UpdateTimeoutSettings() end,
+		function() Spy:LockWindows(Spy.db.profile.Locked) end,
+		function() Spy:ClampToScreen(Spy.db.profile.ClampToScreen) end,
+	}
+	for _, step in ipairs(steps) do
+		local ok, err = pcall(step)
+		if not ok and not Spy.StartupStepError then
+			Spy.StartupStepError = tostring(err)
+		end
 	end
 end
 
@@ -1627,6 +1733,10 @@ end
 
 local baseZoneChanged = Spy.ZoneChanged
 function Spy:ZoneChanged(...)
+	if not Spy.MainWindow then
+		Spy.ForeverStats.noWindow = (Spy.ForeverStats.noWindow or 0) + 1
+		return
+	end
 	-- The original shows the window at every zone change, and ZONE_CHANGED fires at each
 	-- sub-zone: a window the player closed came back every few minutes with nobody
 	-- around (CurseForge comment). A window the player closed stays closed while Spy
@@ -1659,14 +1769,24 @@ function Spy:ZoneChanged(...)
 	end
 	Spy.LastZoneOn = Spy.EnabledInZone
 	-- One hint per session when enemy nameplates are off: they are Spy's main radar now.
-	if Spy.EnabledInZone and not Spy.NameplateHintShown then
-		if Spy:NameplatesEnabled() == false then
-			Spy.NameplateHintShown = true
-			DEFAULT_CHAT_FRAME:AddMessage(L["SpySignatureColored"] .. L["NameplatesOff"])
-		elseif Spy:NameplatesAlways() == false then
-			Spy.NameplateHintShown = true
-			DEFAULT_CHAT_FRAME:AddMessage(L["SpySignatureColored"] .. L["NameplatesAllOff"])
-		end
+	-- Checked again 10 s later, and skipped once an enemy player's nameplate was seen:
+	-- a nameplate addon can switch them on after login, and the hint came at every login
+	-- for players who had them on (CurseForge comment).
+	if Spy.EnabledInZone and not Spy.NameplateHintShown
+		and (Spy:NameplatesEnabled() == false or Spy:NameplatesAlways() == false) then
+		Spy.NameplateHintShown = true
+		C_Timer.After(10, function() Spy:NameplateHint() end)
+	end
+end
+
+function Spy:NameplateHint()
+	if Spy.PlateStats.enemies > 0 then
+		return
+	end
+	if Spy:NameplatesEnabled() == false then
+		DEFAULT_CHAT_FRAME:AddMessage(L["SpySignatureColored"] .. L["NameplatesOff"])
+	elseif Spy:NameplatesAlways() == false then
+		DEFAULT_CHAT_FRAME:AddMessage(L["SpySignatureColored"] .. L["NameplatesAllOff"])
 	end
 end
 

@@ -1,8 +1,19 @@
 
 OpenMapCharDB = {
 ["worldmap"] = {
+["flightsKnownV"] = 2,
 ["cvars"] = {
 },
-["flightsKnownV"] = 2,
+["entered"] = {
+[389] = true,
+[2999] = true,
+},
+["flightsKnown"] = {
+["棘齿城，贫瘠之地"] = true,
+["奥格瑞玛，杜隆塔尔"] = true,
+["十字路口，贫瘠之地"] = true,
+["瑟伯切尔，银松森林"] = true,
+["幽暗城，提瑞斯法林地"] = true,
+},
 },
 }
