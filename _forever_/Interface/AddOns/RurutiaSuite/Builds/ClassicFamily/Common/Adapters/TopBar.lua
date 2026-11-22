@@ -353,7 +353,9 @@ function Adapter:SupportsAutoMark()
 end
 function Adapter:OpenGuide()
     local guide = ns.Runtime and ns.Runtime.GetModule and ns.Runtime:GetModule("Guide")
+    if guide and type(guide.ToggleWindow) == "function" then return guide:ToggleWindow() end
     if guide and type(guide.Open) == "function" then return guide:Open() end
+    if type(ns.ToggleGuide) == "function" then return ns:ToggleGuide() end
     if type(ns.OpenGuide) == "function" then return ns:OpenGuide() end
     return false
 end

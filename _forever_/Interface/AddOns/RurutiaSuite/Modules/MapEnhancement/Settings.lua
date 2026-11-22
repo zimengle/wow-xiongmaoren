@@ -24,7 +24,7 @@ local function BuildPage(context, module)
     local page, reason = ns.UI:CreateSettingsPage(context, { id = Settings.pageId })
     if not page then error("Unable to create MapEnhancement settings page: " .. tostring(reason), 2) end
     context.mapEnhancementSettingsPage = page
-    module.settingsPage = page
+    if not context.dryRun then module.settingsPage = page end
     if context.mapEnhancementSettingsBuilt then page:Refresh("reuse") return page end
 
     local general = page:Section("地图操作")

@@ -12,6 +12,14 @@ local function Action(text) return ACTION .. text .. RESET end
 local function Prefix(text) return WHITE .. text .. RESET end
 local function Text(text) return WHITE .. text .. RESET end
 
+local lootLines = {
+    Prefix("左：") .. Action(Adapter and Adapter.lootLabel or "掉落插件"),
+}
+if Adapter and Adapter.lootMiddleLabel then
+    lootLines[#lootLines + 1] = Prefix("中：") .. Action(Adapter.lootMiddleLabel)
+end
+lootLines[#lootLines + 1] = Prefix("右：") .. Action("拾取面板")
+
 local classicLinesByKey = {
     guild = { Prefix("左：") .. Action("公会"), Prefix("右：") .. Action("官员") },
     party = { Text("队伍发言") },
@@ -21,7 +29,7 @@ local classicLinesByKey = {
     meeting = { Text("集结号") },
     roll = { Text("ROLL点") },
     macro = { Text("宏面板") },
-    loot = { Prefix("左：") .. Action(Adapter.lootLabel or "掉落插件"), Prefix("右：") .. Action("拾取面板") },
+    loot = lootLines,
     combat = { Text("打开/关闭战斗日志") },
     goldLedger = { Text("金团表格") },
 }

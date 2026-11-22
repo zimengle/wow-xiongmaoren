@@ -7,14 +7,29 @@ RS.Presentation.ChangelogData = RS.Presentation.ChangelogData or {}
 if buildID == "classic-infinite" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-infinite",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:b12122bc17757dfa7eb06328bbb286bd4b1b388df7bed3823320bed0355266f5",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:d90bba8918232880dd217f0072ffe1c4655e195a492fe494eaaa946c1c2b84f2",
         historySourceId = "none:forever-product-starts-at-4.x",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.9.1",
+            version = "4.9.2",
             date = "2026-11-20",
-            noticeKey = "4.9.1:8bb342612ccb3d54631e",
-            content = [=[%sv4.9.1（2026-11-20）|r
+            noticeKey = "4.9.2:6c48081143a7a6c8c6a2",
+            content = [=[%sv4.9.2（2026-11-20）|r
+
+%s[主窗口]|r
+• 设置搜索自动索引标签、分组与主要功能项，点击或回车可直接定位并高亮。
+
+%s[顶部菜单]|r
+• 快捷按钮，统一北极星、集结号和手册图标大小与发光效果。
+• 手册按钮，支持再次点击关闭露露的小手册。
+
+%s[聊天条]|r
+• 掉落按钮，支持再次左键关闭无限副本手册，中键开关地图待办。
+
+%s[消耗品动作条]|r
+• 巫师之油和法力之油，修复战斗中无法涂到武器的问题。
+
+%sv4.9.1（2026-11-20）|r
 
 %s[顶部菜单]|r
 • 北极星，新增顶栏按钮，左键显隐指南和箭头，右键打开菜单。
@@ -992,14 +1007,25 @@ end
 if buildID == "classic-era" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-era",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:b12122bc17757dfa7eb06328bbb286bd4b1b388df7bed3823320bed0355266f5",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:d90bba8918232880dd217f0072ffe1c4655e195a492fe494eaaa946c1c2b84f2",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.9.0",
-            date = "2026-11-17",
-            noticeKey = "4.9.0:0a5d07299358386462e4",
-            content = [=[%sv4.9.0（2026-11-17）|r
+            version = "4.9.2",
+            date = "2026-11-20",
+            noticeKey = "4.9.2:fba0bb5b399420d20cc3",
+            content = [=[%sv4.9.2（2026-11-20）|r
+
+%s[主窗口]|r
+• 设置搜索自动索引标签、分组与主要功能项，点击或回车可直接定位并高亮。
+
+%s[顶部菜单]|r
+• 手册按钮，支持再次点击关闭露露的小手册。
+
+%s[消耗品动作条]|r
+• 巫师之油和法力之油，修复战斗中无法涂到武器的问题。
+
+%sv4.9.0（2026-11-17）|r
 
 %s[消耗品动作条]|r
 • 药水组，修复药品种类增减时第一格跟着移动的问题。
@@ -1588,14 +1614,25 @@ end
 if buildID == "classic-anniversary" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-anniversary",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:b12122bc17757dfa7eb06328bbb286bd4b1b388df7bed3823320bed0355266f5",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:d90bba8918232880dd217f0072ffe1c4655e195a492fe494eaaa946c1c2b84f2",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.9.0",
-            date = "2026-11-17",
-            noticeKey = "4.9.0:0a5d07299358386462e4",
-            content = [=[%sv4.9.0（2026-11-17）|r
+            version = "4.9.2",
+            date = "2026-11-20",
+            noticeKey = "4.9.2:fba0bb5b399420d20cc3",
+            content = [=[%sv4.9.2（2026-11-20）|r
+
+%s[主窗口]|r
+• 设置搜索自动索引标签、分组与主要功能项，点击或回车可直接定位并高亮。
+
+%s[顶部菜单]|r
+• 手册按钮，支持再次点击关闭露露的小手册。
+
+%s[消耗品动作条]|r
+• 巫师之油和法力之油，修复战斗中无法涂到武器的问题。
+
+%sv4.9.0（2026-11-17）|r
 
 %s[消耗品动作条]|r
 • 药水组，修复药品种类增减时第一格跟着移动的问题。
@@ -2184,14 +2221,22 @@ end
 if buildID == "classic-wrath-legacy" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-wrath-legacy",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:b12122bc17757dfa7eb06328bbb286bd4b1b388df7bed3823320bed0355266f5",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:d90bba8918232880dd217f0072ffe1c4655e195a492fe494eaaa946c1c2b84f2",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.8.5",
-            date = "2026-11-12",
-            noticeKey = "4.8.5:d24ed3f73cfc90957140",
-            content = [=[%sv4.8.5（2026-11-12）|r
+            version = "4.9.2",
+            date = "2026-11-20",
+            noticeKey = "4.9.2:6c281c703ab50be293af",
+            content = [=[%sv4.9.2（2026-11-20）|r
+
+%s[主窗口]|r
+• 设置搜索自动索引标签、分组与主要功能项，点击或回车可直接定位并高亮。
+
+%s[顶部菜单]|r
+• 手册按钮，支持再次点击关闭露露的小手册。
+
+%sv4.8.5（2026-11-12）|r
 
 %s[法师传送门]|r
 • 鼠标提示，特殊文字改为职业色。
@@ -2759,14 +2804,22 @@ end
 if buildID == "classic-cata-legacy" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-cata-legacy",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:b12122bc17757dfa7eb06328bbb286bd4b1b388df7bed3823320bed0355266f5",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:d90bba8918232880dd217f0072ffe1c4655e195a492fe494eaaa946c1c2b84f2",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.9.0",
-            date = "2026-11-17",
-            noticeKey = "4.9.0:0a5d07299358386462e4",
-            content = [=[%sv4.9.0（2026-11-17）|r
+            version = "4.9.2",
+            date = "2026-11-20",
+            noticeKey = "4.9.2:6c281c703ab50be293af",
+            content = [=[%sv4.9.2（2026-11-20）|r
+
+%s[主窗口]|r
+• 设置搜索自动索引标签、分组与主要功能项，点击或回车可直接定位并高亮。
+
+%s[顶部菜单]|r
+• 手册按钮，支持再次点击关闭露露的小手册。
+
+%sv4.9.0（2026-11-17）|r
 
 %s[消耗品动作条]|r
 • 药水组，修复药品种类增减时第一格跟着移动的问题。
@@ -3344,14 +3397,22 @@ end
 if buildID == "classic-mists" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-mists",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:b12122bc17757dfa7eb06328bbb286bd4b1b388df7bed3823320bed0355266f5",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:d90bba8918232880dd217f0072ffe1c4655e195a492fe494eaaa946c1c2b84f2",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.9.0",
-            date = "2026-11-17",
-            noticeKey = "4.9.0:0a5d07299358386462e4",
-            content = [=[%sv4.9.0（2026-11-17）|r
+            version = "4.9.2",
+            date = "2026-11-20",
+            noticeKey = "4.9.2:6c281c703ab50be293af",
+            content = [=[%sv4.9.2（2026-11-20）|r
+
+%s[主窗口]|r
+• 设置搜索自动索引标签、分组与主要功能项，点击或回车可直接定位并高亮。
+
+%s[顶部菜单]|r
+• 手册按钮，支持再次点击关闭露露的小手册。
+
+%sv4.9.0（2026-11-17）|r
 
 %s[消耗品动作条]|r
 • 药水组，修复药品种类增减时第一格跟着移动的问题。
@@ -3940,14 +4001,22 @@ end
 if buildID == "classic-titan" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-titan",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:b12122bc17757dfa7eb06328bbb286bd4b1b388df7bed3823320bed0355266f5",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:d90bba8918232880dd217f0072ffe1c4655e195a492fe494eaaa946c1c2b84f2",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.8.5",
-            date = "2026-11-12",
-            noticeKey = "4.8.5:d24ed3f73cfc90957140",
-            content = [=[%sv4.8.5（2026-11-12）|r
+            version = "4.9.2",
+            date = "2026-11-20",
+            noticeKey = "4.9.2:6c281c703ab50be293af",
+            content = [=[%sv4.9.2（2026-11-20）|r
+
+%s[主窗口]|r
+• 设置搜索自动索引标签、分组与主要功能项，点击或回车可直接定位并高亮。
+
+%s[顶部菜单]|r
+• 手册按钮，支持再次点击关闭露露的小手册。
+
+%sv4.8.5（2026-11-12）|r
 
 %s[法师传送门]|r
 • 鼠标提示，特殊文字改为职业色。

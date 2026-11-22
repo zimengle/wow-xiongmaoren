@@ -1,5 +1,6 @@
 VER 3 0000000000000001 "RXPTargeting" "Ability_eyeoftheowl"
-/targetexact 麦伯克·米希瑞克斯
+/targetexact 蓟皮复仇者
+/targetexact 蓟皮萨满祭司
 /tm !7
 /targetlasttarget [dead]
 END

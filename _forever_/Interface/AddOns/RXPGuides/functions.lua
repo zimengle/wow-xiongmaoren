@@ -296,7 +296,7 @@ local _G = _G
 
 local GetNumQuests = C_QuestLog.GetNumQuestLogEntries or
                          _G.GetNumQuestLogEntries
-local GetQuestLogTitle = _G.GetQuestLogTitle
+local GetQuestLogTitle = addon.game ~= "FOREVER" and _G.GetQuestLogTitle
 local GetNumDayEvents = _G.C_Calendar and _G.C_Calendar.GetNumDayEvents
 local GetDayEvent = _G.C_Calendar and _G.C_Calendar.GetDayEvent
 local GetCurrentCalendarTime = _G.C_DateAndTime.GetCurrentCalendarTime
@@ -314,6 +314,9 @@ addon.recentTurnIn = {}
 addon.recentAccept = {}
 
 function addon.ExpandQuestHeaders()
+    -- Forever exposes quests in collapsed headers through C_QuestLog.
+    if addon.game == "FOREVER" then return end
+
     for i = 1, GetNumQuests() do
         local isCollapsed
         if GetQuestLogTitle then
@@ -888,6 +891,35 @@ function addon.GetQuestObjectives(id, step, useCache)
 end
 
 local NPCNames = {}
+local NPCScanTooltip
+function addon.RetrieveNPCName(id)
+    if type(id) ~= "number" then return end
+
+    local link = string.format("unit:Creature-0-0-0-0-%d", id)
+    local name
+    if _G.C_TooltipInfo and _G.C_TooltipInfo.GetHyperlink then
+        local data = _G.C_TooltipInfo.GetHyperlink(link)
+        local line = data and data.lines and data.lines[1]
+
+        name = line and line.leftText
+    else
+        if not NPCScanTooltip then
+            NPCScanTooltip = _G.CreateFrame("GameTooltip", "RXPGuidesNpcScanTooltip", UIParent, "GameTooltipTemplate")
+        end
+
+        NPCScanTooltip:SetOwner(WorldFrame, "ANCHOR_NONE")
+        NPCScanTooltip:ClearLines()
+        NPCScanTooltip:SetHyperlink(link)
+
+        name = NPCScanTooltip:IsShown() and _G.RXPGuidesNpcScanTooltipTextLeft1:GetText()
+        NPCScanTooltip:Hide()
+    end
+
+    if not name or addon.IsSecretValue(name) then return end
+
+    return name:match("^|c%x%x%x%x%x%x%x%x(.*)|") or name
+end
+
 function addon.GetNpcName(id)
     local npc = NPCNames[id]
 
@@ -896,22 +928,9 @@ function addon.GetNpcName(id)
     elseif type(npc) == "string" then
         return npc
     elseif not npc or GetTime()-npc > 1.5  then
-        GameTooltip:SetOwner(WorldFrame, "ANCHOR_BOTTOMRIGHT")
-        GameTooltip:ClearLines()
-        GameTooltip:SetHyperlink(string.format("unit:Creature-0-0-0-0-%d",id))
-        local name
-        if GameTooltip:IsShown() then
-            name = GameTooltipTextLeft1:GetText()
-            --DevTools_Dump(name)
-            if name and not addon.IsSecretValue(name) then
-                name = name:match("^|c%x%x%x%x%x%x%x%x(.*)|") or name
-                NPCNames[id] = name
-            else
-                name = nil
-            end
-        end
-        GameTooltip:Hide()
+        local name = addon.RetrieveNPCName(id)
         if name then
+            NPCNames[id] = name
             return name
         else
             NPCNames[id] = GetTime()
@@ -1653,7 +1672,8 @@ function addon.UpdateQuestCompletionData(self)
         end
         if obj.type == "item" then
             icon = addon.icons.collect
-        elseif obj.type == "monster" and (t:find(questMonster) or obj.questie) then
+        elseif obj.type == "monster" and
+            (addon.v2:IsEnabled() or t:find(questMonster) or obj.questie) then
             icon = addon.icons.combat
         end
         if element.rawtext then
@@ -4797,10 +4817,7 @@ end
 addon.separators.clicknext = addon.separators.link
 
 local function LinkOnClick(self)
-
-    addon.url = self.element.url
-    _G.StaticPopup_Show("RXP_Link")
-    addon.url = nil
+    addon.comms.OpenLink(self.element.url)
 end
 
 function addon.functions.link(self, ...)
@@ -4824,28 +4841,6 @@ function addon.functions.link(self, ...)
         self:SetScript("OnMouseDown", LinkOnClick)
     end
 end
-
-_G.StaticPopupDialogs["RXP_Link"] = {
-    text = L"Press Ctrl+C to copy the URL to your clipboard",
-    hasEditBox = 1,
-    button1 = _G.OKAY,
-    OnShow = function(self)
-        if addon.url then
-            local box = getglobal(self:GetName() .. "EditBox")
-            if box then
-                box:SetWidth(275)
-                box:SetText(addon.url)
-                box:HighlightText()
-                box:SetFocus()
-            end
-        end
-    end,
-
-    EditBoxOnEscapePressed = function(self) self:GetParent():Hide() end,
-    timeout = 0,
-    whileDead = 1,
-    hideOnEscape = 1
-}
 
 function addon.functions.cast(self, text, ...)
     if type(self) == "string" then -- on parse
@@ -5207,7 +5202,7 @@ function addon.functions.questitemcount(self,text,itemId,qty,...)
 end
 
 function addon.PutItemInBank(bagContents)
-    if not BANK_CONTAINER then return end
+    if not addon.settings.profile.enableBankAutomation or not BANK_CONTAINER then return end
 
     local _, isBankOpened = GetContainerNumFreeSlots(BANK_CONTAINER);
     if CursorHasItem() and isBankOpened then
@@ -5308,7 +5303,7 @@ function addon.GoThroughBags(itemList, func)
 end
 
 function addon.DepositItems(itemList)
-    if not BANK_CONTAINER then return end
+    if not addon.settings.profile.enableBankAutomation or not BANK_CONTAINER then return end
 
     local _, isBankOpened = GetContainerNumFreeSlots(BANK_CONTAINER);
     if itemList and isBankOpened then
@@ -5401,7 +5396,7 @@ function addon.GoThroughBank(itemList, func)
 end
 
 function addon.WithdrawItems(itemList)
-    if not BANK_CONTAINER then return end
+    if not addon.settings.profile.enableBankAutomation or not BANK_CONTAINER then return end
 
     local _, isBankOpened = GetContainerNumFreeSlots(BANK_CONTAINER);
     if itemList and isBankOpened then

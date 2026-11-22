@@ -3,7 +3,7 @@ if not ns.Build.HasModule("NameplateTarget") then return end
 local Settings = {}
 local function BuildPage(context, module)
     local page = assert(ns.UI:CreateSettingsPage(context, { id = "nameplate-target" }))
-    module.settingsPage = page
+    if not context.dryRun then module.settingsPage = page end
     if page:GetPopover("appearance") then page:Refresh("reuse") return page end
     local section = page:Section("显示设置")
     section:QuadRow():Checkbox("classColor", { text = "职业颜色",

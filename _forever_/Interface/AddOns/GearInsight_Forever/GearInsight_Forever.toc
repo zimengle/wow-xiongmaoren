@@ -1,0 +1,176 @@
+## Interface: 16001, 11507
+## Title: GearInsight |cff33ff99Forever|r
+## Title-zhCN: GearInsight |cff33ff99无限版|r
+## Notes: WoW: Forever helper - talent planner, leveling plan, loot table and wishlist, Tier 1 sets, macros, news, change tooltips, beta data
+## Notes-zhCN: 《无限》助手：天赋模拟 · 升级规划 · 掉落表与心愿单 · T1 套装 · 宏库 · 资讯 · 改动提示 · 公测数据
+## Author: GearInsight
+## Version: 1.4.11
+## SavedVariables: GearInsightForeverDB
+## IconTexture: Interface\Icons\inv_misc_map_01
+## AddonCompartmentFunc: GearInsightForever_OnAddonCompartmentClick
+## AddonCompartmentFuncOnEnter: GearInsightForever_OnAddonCompartmentEnter
+## AddonCompartmentFuncOnLeave: GearInsightForever_OnAddonCompartmentLeave
+
+# Interface 16001 = 国服 Beta 实测（10-07 /dump select(4, GetBuildInfo())）；11507 留着兼容
+
+# 11-12 重构第 3 期：Data.lua（约 14 MB 常驻）拆开 —— 内核只留小字段 DataCore / 天赋与手法 DataClass / 掉落常驻索引 LootIndexData；
+#   升级 / 装备各页和大表搬进按需加载的子插件 GearInsight_Forever_Plan（PlanStub.lua 放占位页、第一次用到才加载）。
+#   Data.lua 仍留在仓库里当数据源（生成器 gi_forever_addon_data.py 写它，gi_forever_data_split.py 从它拆），不在这份 toc 里；合并打包时换回它
+# 11-13 重构第 4 期：专业 / 职业 / 资讯三块也拆成按需加载的子插件 GearInsight_Forever_Prof / _Class / _Info（*Stub.lua 放占位，第一次用到才加载），
+#   繁体对照表 ZhTW.lua 进 GearInsight_Forever_LocaleTW（繁体客户端 / 设置选了繁體才加载）。合并打包时这些文件按原样并回这份 toc（发版脚本默认）
+Data.lua
+TalentIndexData.lua
+LootIndexData.lua
+TraitTalents.lua
+Core.lua
+ZhTW.lua
+ModManifest.lua
+# 11-17 界面重构第 6 期：功能清单（单一真相源；各功能文件开头的门闩要用 ns.FeatureOff，⛔ 排在任何功能文件前面）
+Features.lua
+DataPack.lua
+QR.lua
+GIWidgets.lua
+TooltipZh.lua
+Tooltip.lua
+Leveling.lua
+Loot.lua
+Stats.lua
+LevelShare.lua
+LevelMute.lua
+GuildChatLevel.lua
+# 11-19 公会内插件版本互报（GIVER1，HOLD）：登录报一次 + 应答 GuildInsight 的「检查」；展示在 GuildInsight 的「插件安装」页
+PvPShout.lua
+Card.lua
+Pack.lua
+UI.lua
+PlanStub.lua
+ModStub.lua
+ClassStub.lua
+InfoStub.lua
+SideChainsData.lua
+SideChains.lua
+RouteData.lua
+Route.lua
+ProfCoreData.lua
+Prof.lua
+ProfStub.lua
+Prices.lua
+ReagentSrcData.lua
+ReagentSrc.lua
+ProfSeen.lua
+Obs.lua
+ObsPet.lua
+PetSnap.lua
+TrainerData.lua
+Trainers.lua
+TrainNowData.lua
+TrainNow.lua
+LowRank.lua
+LootTip.lua
+WhatsNewData.lua
+WhatsNew.lua
+Settings.lua
+# 11-20 GI-303 一键给路人上BUFF 的组队设置项（HOLD，和 _Class 的 AutoBuff.lua 一起解除）：排在 Settings.lua 后面（用 ns.RegisterSettings）
+AutoBuffSet.lua
+PageData.lua
+Perf.lua
+Board.lua
+InviteMenu.lua
+# 11-15 右键法师「找他要水」（HOLD）：排在 InviteMenu.lua 后面（用它的 IM.Target 拼全名、ns.MenuTitle）
+MageAskMenu.lua
+# 11-18 右键能给 BUFF 的人「找他要BUFF（耐力）」（HOLD）：排在 MageAskMenu.lua 后面（用它的 TargetClass / TargetLevel、InviteMenu 的 IM.Target、ns.MenuTitle）
+BisCorner.lua
+ItemLevel.lua
+# 10-28 位面（HOLD）：A 公会位面 + B 换到最优层 + 开服探针 /gi layerprobe（设计稿 docs/forever-layering-addon-design-1028.md）
+Layer.lua
+LayerGuild.lua
+LayerHop.lua
+PageLayer.lua
+Camp.lua
+XpCheck.lua
+CityPlates.lua
+# 11-14 法师「造水」页 + 密语要水弹窗（HOLD）
+MageConjure.lua
+# 11-17 清背包 / 卖垃圾按需加载：页面和面板在子插件 GearInsight_Forever_Bag（Trash.lua / SellJunk.lua），这里只放占位页 / 命令占位 / 设置描述 /
+#   背包满判断 / 商人窗口状态 / 物品提示的拍卖比一行（BagStub.lua）
+# 11-17 商人助手面板宿主（用户「重合了…是不是应该整合到一个」）：卖垃圾（_Bag）和专业材料快捷窗（_Prof）合成一个面板，两块各自注册；
+#   这里只放外框 / 页签 / 位置，不加载任何子插件
+MerchantDock.lua
+BagStub.lua
+# 11-15 背包窗口上的「清背包」/「卖垃圾」按钮：排在 BagStub.lua 后面（点了走它的占位加载子插件）
+BagButtons.lua
+# 11-20 上马自动换饰品（HOLD）：触发桩，排在 BagStub.lua 后面；换装逻辑在 _Bag 的 MountTrinket.lua，上马且背包里有胡萝卜等才加载
+MountStub.lua
+# 11-15 交易成功后私聊对方交易回执（HOLD）
+TradeReceipt.lua
+# 11-15 副本导航样品（HOLD）：进黑暗深渊弹「副本导航」小面板（首领顺序 / 怎么走 / 注意事项，击杀自动推进），/gi 导航
+DungeonNav.lua
+DungeonNavData.lua
+DungeonNavMap.lua
+# 11-21 GI-329 外服登录自动加入 Chinese 频道（HOLD）：排在 Settings.lua / Layer.lua 后面（登记设置项、认插件自己的频道）
+# 合并打包：以下来自 GearInsight_Forever_Plan，这个包里和主插件一起登录加载
+SpecGearData.lua
+SpecGear.lua
+ItemMissingData.lua
+DungeonQuestData.lua
+DungeonQuests.lua
+PagePlan.lua
+PageLoot.lua
+PageTier.lua
+PageAch.lua
+PlanInit.lua
+# 合并打包：以下来自 GearInsight_Forever_Prof，这个包里和主插件一起登录加载
+ProfData.lua
+ProfLib.lua
+ProfPlan.lua
+ProfRecipes.lua
+ProfAssistData.lua
+ProfAssist.lua
+ProfCandData.lua
+ProfSolve.lua
+PageProf.lua
+PageProfAssist.lua
+ProfInit.lua
+# 合并打包：以下来自 GearInsight_Forever_Class，这个包里和主插件一起登录加载
+DefaultBuildsData.lua
+DefaultBuilds.lua
+Talents.lua
+PageTalent.lua
+MacroData.lua
+PageMacro.lua
+AmmoVendorData.lua
+PageAmmo.lua
+AmmoRemind.lua
+PallyBless.lua
+AuraRemind.lua
+AutoBuff.lua
+PetData.lua
+PagePet.lua
+PetTameData.lua
+PetTameObsData.lua
+PetTame.lua
+PetMine.lua
+KeysFormData.lua
+Keys.lua
+KeysCdm.lua
+KeysRotData.lua
+KeysRot.lua
+KeysCast.lua
+KeysHud.lua
+KeysKb.lua
+PageKeys.lua
+PageRot.lua
+KeysProbe.lua
+ClassGuideData.lua
+ClassGuideLinks.lua
+PageClassGuide.lua
+ClassInit.lua
+# 合并打包：以下来自 GearInsight_Forever_Info，这个包里和主插件一起登录加载
+NewsData.lua
+PageNews.lua
+PageAdvanced.lua
+Supporters.lua
+Offsite.lua
+Report.lua
+PageBoard.lua
+InfoInit.lua

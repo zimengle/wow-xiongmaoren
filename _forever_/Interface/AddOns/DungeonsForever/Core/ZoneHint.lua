@@ -45,7 +45,12 @@ local function CFG()
     if c.torch == nil then c.torch = true end
     if c.banner == nil then c.banner = true end
     if c.quest == nil then c.quest = true end
-    if c.questTaken == nil then c.questTaken = false end
+    if c.qtDefault ~= 2 then
+        c.qtDefault = 2
+        c.questTaken = true
+    end
+    if c.questTaken == nil then c.questTaken = true end
+    if c.questGrey == nil then c.questGrey = true end
     if c.spell == nil then c.spell = true end
     if c.talent == nil then c.talent = true end
     if c.food == nil then c.food = true end
@@ -495,7 +500,7 @@ local function TurnInRows(ctx)
         subTxt = string.format("%s · %.1f, %.1f", L["可上交"], spot.x, spot.y)
         local nm, pl = tostring(spot.npc or ""), tostring(spot.place or "")
         if nm ~= "" and pl ~= "" then
-            descTxt = string.format("%s（%s）", nm, pl)
+            descTxt = string.format(L["%s（%s）"], nm, pl)
         elseif nm ~= "" then
             descTxt = nm
         end
@@ -797,7 +802,8 @@ local function PQuest(ctx)
     if not (DG and all) then return nil end
     local lv = (UnitLevel and UnitLevel("player")) or 60
     local side = DG.PlayerSide and DG.PlayerSide() or nil
-    local ck = tostring(ctx and ctx.zone) .. "|" .. tostring(ctx and ctx.sub) .. "|" .. tostring(lv) .. "|" .. tostring(side) .. "|" .. tostring(Z.IgnoreRev or 0) .. "|" .. tostring(wantTodo) .. tostring(wantTaken)
+    local hideGrey = (c.questGrey ~= false)
+    local ck = tostring(ctx and ctx.zone) .. "|" .. tostring(ctx and ctx.sub) .. "|" .. tostring(lv) .. "|" .. tostring(side) .. "|" .. tostring(Z.IgnoreRev or 0) .. "|" .. tostring(wantTodo) .. tostring(wantTaken) .. "|" .. tostring(hideGrey)
     local nowT = (GetTime and GetTime()) or 0
     if questCache.key == ck and (nowT - questCache.t) < 30 then return questCache.res end
     local function QOwn(q)
@@ -810,20 +816,22 @@ local function PQuest(ctx)
     local function QHitPin(q, slug)
         if not QOwn(q) then return false end
         local r = DunLvRange(slug)
-        local gt
-        if type(q[13]) == "table" then
-            for k = 1, #q[13] do
-                local dd = q[13][k]
-                if type(dd) == "table" and dd[2] == 5 and type(dd[1]) == "number" then gt = dd[1] break end
+        if hideGrey then
+            local gt
+            if type(q[13]) == "table" then
+                for k = 1, #q[13] do
+                    local dd = q[13][k]
+                    if type(dd) == "table" and dd[2] == 5 and type(dd[1]) == "number" then gt = dd[1] break end
+                end
             end
-        end
-        if gt then
-            if lv >= gt then return false end
-        else
-            local glv = DG.QuestLevel and DG.QuestLevel(q[1]) or nil
-            if glv == nil then glv = q[4] end
-            if glv == nil then glv = q[3] end
-            if glv and QGreyLv(lv, glv) then return false end
+            if gt then
+                if lv >= gt then return false end
+            else
+                local glv = DG.QuestLevel and DG.QuestLevel(q[1]) or nil
+                if glv == nil then glv = q[4] end
+                if glv == nil then glv = q[3] end
+                if glv and QGreyLv(lv, glv) then return false end
+            end
         end
         if r and lv >= r[1] and lv <= r[2] then return true end
         return q[3] ~= nil and q[3] <= lv
@@ -1666,6 +1674,7 @@ end
 local SLEEP_BAG_ITEM = 211527
 local WELL_RESTED_SPELL = 429959
 local wellRestedName = nil
+local worldAt = nil
 
 local function ResolveWellRestedName()
     if wellRestedName then return wellRestedName end
@@ -1682,36 +1691,40 @@ end
 local function WellRestedState()
     local name = ResolveWellRestedName()
     local now = (GetTime and GetTime()) or 0
+    if worldAt == nil then return nil, nil end
+    if now > 0 and now - worldAt < 6 then return nil, nil end
     local seen = false
-    if C_UnitAuras and C_UnitAuras.GetAuraDataByIndex then
-        for i = 1, 40 do
-            local ok, a = pcall(C_UnitAuras.GetAuraDataByIndex, "player", i, "HELPFUL")
-            if not ok then return false, nil end
-            if not a then break end
-            seen = true
-            if (not Sealed(a.spellId) and a.spellId == WELL_RESTED_SPELL)
-                or (name and not Sealed(a.name) and a.name == name) then
-                local rem = math.huge
-                local exp = a.expirationTime
-                if not Sealed(exp) and type(exp) == "number" and exp > 0 then
-                    rem = math.max(0, exp - now)
-                end
-                return true, rem
+    if not (C_UnitAuras and C_UnitAuras.GetAuraDataByIndex) then return nil, nil end
+    for i = 1, 40 do
+        local ok, a = pcall(C_UnitAuras.GetAuraDataByIndex, "player", i, "HELPFUL")
+        if not ok then return nil, nil end
+        if not a then break end
+        seen = true
+        if (not Sealed(a.spellId) and a.spellId == WELL_RESTED_SPELL)
+            or (name and not Sealed(a.name) and a.name == name) then
+            local rem = math.huge
+            local exp = a.expirationTime
+            if not Sealed(exp) and type(exp) == "number" and exp > 0 then
+                rem = math.max(0, exp - now)
             end
+            return true, rem
         end
     end
     if not seen then return false, nil end
     return false, nil
 end
 
-local function SleepBagCdReady()
+local function SleepBagCdLeft()
     local f = (C_Item and C_Item.GetItemCooldown) or GetItemCooldown
-    if not f then return true end
+    if not f then return 0 end
     local ok, start, dur = pcall(f, SLEEP_BAG_ITEM)
-    if not ok or type(start) ~= "number" or type(dur) ~= "number" then return true end
-    if dur <= 0 then return true end
+    if not ok or type(start) ~= "number" or type(dur) ~= "number" or dur <= 0 then return 0 end
     local now = (GetTime and GetTime()) or 0
-    return (start + dur - now) <= 0
+    return math.max(0, start + dur - now)
+end
+
+local function SleepBagCdReady()
+    return SleepBagCdLeft() <= 0
 end
 
 local function SleepBagIcon()
@@ -1723,15 +1736,39 @@ local function SleepBagIcon()
     return 133662
 end
 
+local RESTED_WARN = 1800
+local restedGen = 0
+local function ArmRestedTimer(rem)
+    restedGen = restedGen + 1
+    if not (rem and rem ~= math.huge and rem > RESTED_WARN) then return end
+    if not (type(C_Timer) == "table" and type(C_Timer.After) == "function") then return end
+    local my = restedGen
+    C_Timer.After(rem - RESTED_WARN + 1, function()
+        if my == restedGen then Z.ScheduleSoft(0.1, true) end
+    end)
+end
+
 local function RestedRow(c)
     if not c.rested then return nil end
     if Z.IsIgnored(ItemKey("rested", SLEEP_BAG_ITEM)) then return nil end
     if not OwnItem(SLEEP_BAG_ITEM) then return nil end
     local buffed, rem = WellRestedState()
+    if buffed == nil then return nil end
+    ArmRestedTimer(buffed and rem or nil)
     local sub = L["缺少精神饱满"]
     if buffed then
-        if rem == nil or rem >= 1800 then return nil end
-        if not SleepBagCdReady() then return nil end
+        if rem == nil or rem >= RESTED_WARN then return nil end
+        if not SleepBagCdReady() then
+            local left = SleepBagCdLeft()
+            restedGen = restedGen + 1
+            if left < rem and type(C_Timer) == "table" and C_Timer.After then
+                local my = restedGen
+                C_Timer.After(left + 1, function()
+                    if my == restedGen then Z.ScheduleSoft(0.1, true) end
+                end)
+            end
+            return nil
+        end
         sub = L["精神饱满即将到期"]
     end
     return {
@@ -2149,12 +2186,16 @@ ns.Init(function()
     pcall(frame.RegisterEvent, frame, "PLAYER_EQUIPMENT_CHANGED")
     pcall(frame.RegisterEvent, frame, "UPDATE_FACTION")
     frame:RegisterEvent("PLAYER_TARGET_CHANGED")
+    pcall(frame.RegisterEvent, frame, "PLAYER_UPDATE_RESTING")
     frame:SetScript("OnEvent", function(_, event)
         if event == "PLAYER_ENTERING_WORLD" then
+            worldAt = (GetTime and GetTime()) or 0
             questCache.t = -1e9
             Z.Check("login", 0)
         elseif event == "UNIT_AURA" then
             Z.ScheduleSoft(5)
+        elseif event == "PLAYER_UPDATE_RESTING" then
+            Z.ScheduleSoft(0.5, true)
         elseif event == "ITEM_COOLDOWN_UPDATE" or event == "SPELL_UPDATE_COOLDOWN" then
             Z.ScheduleSoft(1.2)
         elseif event == "PLAYER_TARGET_CHANGED" then
@@ -2210,7 +2251,7 @@ function Z.SimCommand(msg)
         else
             print(head .. L["当前为真实数据"])
         end
-        print(head .. L["用法"] .. "： " .. SIM_USAGE)
+        print(head .. L["用法"] .. L["： "] .. SIM_USAGE)
         return
     end
     if s == "off" or s == "0" or s == "clear" or s == "关" then
@@ -2228,7 +2269,7 @@ function Z.SimCommand(msg)
     local mode = s:match("^mode%s+(%a+)$")
     if mode then
         if mode ~= "auto" and mode ~= "badge" and mode ~= "silent" then
-            print(head .. L["用法"] .. "： /dfhint mode auto|badge|silent")
+            print(head .. L["用法"] .. L["： /dfhint mode auto|badge|silent"])
             return
         end
         CFG().mode = mode
@@ -2246,14 +2287,14 @@ function Z.SimCommand(msg)
         elseif kind == "spell" or kind == "spells" or kind == "train" then
             cur.spell = v
         else
-            print(head .. L["用法"] .. "： " .. SIM_USAGE)
+            print(head .. L["用法"] .. L["： "] .. SIM_USAGE)
             return
         end
         Z.SimSet(cur.book, cur.quest, cur.spell)
     else
         local a, b, c = s:match("^(%d+)%s*(%d*)%s*(%d*)$")
         if not a then
-            print(head .. L["用法"] .. "： " .. SIM_USAGE)
+            print(head .. L["用法"] .. L["： "] .. SIM_USAGE)
             return
         end
         Z.SimSet(tonumber(a), tonumber(b), tonumber(c))
@@ -2270,7 +2311,7 @@ function Z.SimCommand(msg)
         if ns.ZoneOrb.ForceOpen then ns.ZoneOrb.ForceOpen(res) end
     end
     print(head .. string.format(L["模拟中：书 %d / 任务 %d / 技能 %d"], sim.book, sim.quest, sim.spell))
-    print(head .. L["关闭"] .. "： /dfhint off")
+    print(head .. L["关闭"] .. L["： /dfhint off"])
 end
 
 if type(SlashCmdList) == "table" then

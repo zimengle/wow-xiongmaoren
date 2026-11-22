@@ -41,36 +41,37 @@ local function GetFrame(object)
     return object
 end
 
+-- 玩家俗称、外置插件名与跨模块同义词补充；各页控件/标签/分段文本由 SettingsBuilder 自动索引。
 local SEARCH_KEYWORDS = {
     ["rss-settings"] = "预设安装器 安装器 安装 预设 RSS 布局 配置安装器",
     ["rss-transfer"] = "配置管理 配置迁移 导入 导出 字符串 RSS AT时间轴 AbilityTimeline",
-    movemanager = "移动管理 移动 解锁 锁定 职业模块 饰品 ex工具箱 编辑模式 外部插件",
-    about = "关于 插件简介 作者 命令 kook dd bilibili",
-    addonprofile = "插件管理 预设 白名单 topbar 方案 导入 导出 插件列表",
-    extratools = "插件增强 管理工具 EllesmereUI ElvUI BigWigs Details TinyInspect 集合石 国服符文兼容 小地图音量 面板位置清理 更新屏蔽",
-    ["quest"] = "任务与拾取 任务 拾取 自动出售垃圾 快速拾取 任务自动交接 自动接任务 自动交任务 Shift 体验优化",
+    movemanager = "移动 解锁 锁定 /rsm ex工具箱 编辑模式 外部插件",
+    about = "插件简介 作者 命令 kook dd bilibili",
+    addonprofile = "插件管理 预设 白名单 topbar 方案 导入 导出",
+    extratools = "插件增强 管理工具 EllesmereUI ElvUI BigWigs Details TinyInspect 集合石 集结号",
+    ["quest"] = "任务 拾取 卖灰 自动接交 Shift 体验优化",
     ["celestial"] = "天神能量条 天神条 天神 简洁模式 体验优化",
-    cvar = "cvar cvar设置 游戏设置 伤害数字 血条距离 装备比较 画面特效 镜头",
-    topBar = "顶部组件 顶部快捷按钮 顶部快捷按钮 快捷按钮 topbar 微型菜单 炉石 时间 背包 插件入口",
+    cvar = "cvar 伤害数字 血条距离 装备比较 画面特效 镜头",
+    topBar = "顶部组件 顶部快捷按钮 快捷按钮 topbar 微型菜单 炉石",
     ["micro-menu"] = "微型菜单 微型菜单栏 菜单栏 MicroMenu 顶部组件",
-    ["native-tooltip"] = "鼠标提示增强 鼠标提示 鼠标 提示 着色 跟随 HUD",
+    ["native-tooltip"] = "鼠标提示增强 鼠标 提示 着色 跟随 HUD",
     ["macroUI"] = "宏界面增强 宏界面扩展 宏界面拓展 宏 Macro NDui ElvUI PIG",
     ["classreminders"] = "职业提醒 职业工具箱 Class 奥术智慧 霜甲术 主手附魔 道标 中心文字",
     ["general-text"] = "通用文字提醒 大餐 大餐提醒 中心文字 体验优化",
-    ["blizzard-ui"] = "暴雪界面增强 暴雪窗口移动解锁 解锁拖动 隐藏 微型菜单 背包 狮鹫 暴雪 平砍 Swing Timer 界面增强",
-    ["lfg-tools"] = "随机本工具 随机本 传送 退队 进组职责保护 NDui 独立坐标 ElvUI 独立坐标 体验优化",
-    ["rpb-settings"] = "职业资源条 职业工具箱 扩展接入",
+    ["blizzard-ui"] = "暴雪界面增强 暴雪窗口移动解锁 微型菜单 背包 狮鹫 平砍 Swing Timer 界面增强",
+    ["lfg-tools"] = "随机本工具 随机本 传送 退队 进组职责保护 NDui ElvUI 体验优化",
+    ["rpb-settings"] = "职业资源条 职业工具箱 扩展接入 rpb",
     versionDisplay = "版本号显示 版本号",
-    appearance = "界面样式 界面 字体 聊天条字体 经验条字体 战斗字体 时间字体",
-    chatbar = "聊天条 字号 间距 频道 说 喊 会 队 团",
+    appearance = "界面样式 透明度 边框 字体",
+    chatbar = "聊天条 聊天快捷条 频道",
     raidmarker = "标记栏 目标标记 世界光柱 倒数 就位 职责确认",
-    experienceBar = "经验条 顶部经验条 经验 等级 双倍 任务经验 升级时间",
+    experienceBar = "经验条 顶部经验条 等级 双倍 任务经验 升级时间",
     combat = "战斗提醒 计时 提醒字号 坐标 体验优化",
-    ["fast-focus"] = "快速焦点 焦点 鼠标按键 shift ctrl alt 顶部组件",
-    ["player-tooltip"] = "鼠标增强 玩家资料 玩家提示 鼠标提示 装等 钥匙",
-    ["chat-bar"] = "聊天条 字号 间距 频道 说 喊 会 队 团",
-    ["experience-bar"] = "经验条 顶部经验条 经验 等级 双倍 任务经验 升级时间",
-    portal = "法师动作条 传送门 传送 生长方向 职业工具箱",
+    ["fast-focus"] = "快速焦点 焦点 shift ctrl alt 顶部组件",
+    ["player-tooltip"] = "鼠标增强 玩家资料 玩家提示 装等 钥匙 大秘境 NDui ElvUI",
+    ["chat-bar"] = "聊天条 聊天快捷条 频道",
+    ["experience-bar"] = "经验条 顶部经验条 等级 双倍 任务经验 升级时间",
+    portal = "法师动作条 传送门 生长方向 职业工具箱",
     raidMarker = "标记栏 目标标记 世界光柱 倒数 就位 职责确认",
     autoMark = "自动标记 坦克 治疗 团队标记 顶部组件",
 }
@@ -205,7 +206,11 @@ local function OnNavigationClicked(component)
     local owner = component.mainWindowOwner
     if owner then
         if component.mainWindowSearchAction then return component.mainWindowSearchAction() end
-        owner:SelectPage(component.mainWindowPageId)
+        local pageId = component.mainWindowPageId
+        local selected = owner:SelectPage(pageId)
+        if selected then
+            owner:FocusMatchForPage(owner.currentPage or pageId)
+        end
     end
 end
 
@@ -243,6 +248,11 @@ end
 local function OnSearchChanged(component, value)
     local owner = component.mainWindowOwner
     if owner then owner:SetSearchQuery(value) end
+end
+
+local function OnSearchSubmit(component)
+    local owner = component.mainWindowOwner
+    if owner then owner:SubmitSearch() end
 end
 
 local function OnSearchFocusGained(component)
@@ -319,6 +329,10 @@ function MainWindow:New(system, options)
     instance.currentDescription = ""
     instance.searchQuery = ""
     instance.searchFocused = false
+    instance.searchIndexCache = {}
+    instance.searchIndexGeneration = -1
+    instance.searchPageMatches = {}
+    instance.searchCycleState = nil
     instance.visualDirty = false
     instance.builds = 0
     instance.opens = 0
@@ -710,6 +724,7 @@ function MainWindow:EnsureCreated()
         textInsets = { 12, 12, 0, 0 },
         backgroundToken = "color.input.background",
         borderToken = "color.input.border",
+        onAction = OnSearchSubmit,
         onChange = OnSearchChanged,
         onFocusGained = OnSearchFocusGained,
         onFocusLost = OnSearchFocusLost,
@@ -884,10 +899,49 @@ function MainWindow:EnsureCreated()
     return self.window
 end
 
+local function CompareSearchHits(left, right)
+    if left.rank ~= right.rank then
+        return left.rank < right.rank
+    end
+    return left.order < right.order
+end
+
+local function FormatSearchMatchTooltip(hits)
+    if type(hits) ~= "table" or #hits == 0 then return nil end
+    local lines = { "匹配内容：" }
+    local seen = {}
+    local unique = 0
+    local maxShown = 4
+    for _, hit in ipairs(hits) do
+        local line = hit.contextLabel and (hit.contextLabel .. " > " .. hit.label) or hit.label
+        if line and not seen[line] then
+            seen[line] = true
+            unique = unique + 1
+            if unique <= maxShown then
+                lines[#lines + 1] = "• " .. line
+            end
+        end
+    end
+    if unique > maxShown then
+        lines[#lines + 1] = "• …另有 " .. (unique - maxShown) .. " 项匹配"
+    end
+    if #hits > 1 then
+        lines[#lines + 1] = "点击定位，再次点击切换下一项"
+    else
+        lines[#lines + 1] = "点击定位到对应设置"
+    end
+    return table.concat(lines, "\n")
+end
+
 function MainWindow:SetSearchQuery(value)
     local query = string.lower(string.match(tostring(value or ""), "^%s*(.-)%s*$") or "")
     if self.searchQuery == query then return true end
     self.searchQuery = query
+    self.searchCycleState = nil
+    local builder = self.system and self.system.settingsBuilder
+    if builder and builder.HideSearchHighlight then
+        builder:HideSearchHighlight()
+    end
     self:RefreshNavigation()
     return true
 end
@@ -899,15 +953,133 @@ function MainWindow:_UpdateSearchHint()
     return true
 end
 
-function MainWindow:_EntryMatchesSearch(entry)
-    local query = self.searchQuery
-    if query == "" then return true end
+function MainWindow:_GetPageSearchEntries(pageId)
+    local pages = self.system and self.system.pages
+    local builder = self.system and self.system.settingsBuilder
+    if not (pages and pages.GetSearchSource and builder and builder.CollectPageSearchIndex) then
+        return nil
+    end
+    local generation = pages.searchIndexGeneration or 0
+    if self.searchIndexGeneration ~= generation then
+        self.searchIndexCache = {}
+        self.searchIndexGeneration = generation
+    end
+    local cached = self.searchIndexCache[pageId]
+    if cached then
+        return cached
+    end
+    local definition, liveContext = pages:GetSearchSource(pageId)
+    if not definition then
+        return nil
+    end
+    local collected = builder:CollectPageSearchIndex(pageId, definition, liveContext) or {}
+    self.searchIndexCache[pageId] = collected
+    return collected
+end
+
+function MainWindow:_FindPageSearchMatches(entry, query)
+    if query == "" then return true, nil end
+    local indexed = entry and entry.id and self:_GetPageSearchEntries(entry.id) or nil
+    local hits
+    if indexed and #indexed > 0 then
+        for _, item in ipairs(indexed) do
+            local pos = item.searchLower and string.find(item.searchLower, query, 1, true) or nil
+            if pos then
+                local tier = item.tier or 1
+                local rank = tier * 10 + (item.searchLower == query and 0 or (pos == 1 and 1 or 2))
+                hits = hits or {}
+                hits[#hits + 1] = { rank = rank, order = #hits + 1, item = item }
+            end
+        end
+    end
+    if hits then
+        table.sort(hits, CompareSearchHits)
+        local ordered = { bestRank = hits[1].rank }
+        for index, hit in ipairs(hits) do
+            ordered[index] = hit.item
+        end
+        return true, ordered
+    end
     local corpus = table.concat({
         entry.id or "", entry.title or "", entry.description or "",
         entry.groupTitle or "", entry.group or "",
         SEARCH_KEYWORDS[entry.id] or "", entry.searchText or "",
     }, " ")
-    return string.find(string.lower(corpus), query, 1, true) ~= nil
+    return string.find(string.lower(corpus), query, 1, true) ~= nil, nil
+end
+
+function MainWindow:_EntryMatchesSearch(entry)
+    local matched = self:_FindPageSearchMatches(entry, self.searchQuery)
+    return matched
+end
+
+function MainWindow:FocusMatchForPage(pageId)
+    if self.searchQuery == "" or not pageId then return false end
+    local hits = self.searchPageMatches[pageId]
+    if not hits or #hits == 0 then
+        local entry = self.navigationMetadata[pageId]
+        if entry then
+            local matched, resolvedHits = self:_FindPageSearchMatches(entry, self.searchQuery)
+            if matched and resolvedHits and #resolvedHits > 0 then
+                hits = resolvedHits
+                self.searchPageMatches[pageId] = hits
+            end
+        end
+    end
+    if not hits or #hits == 0 then return false end
+
+    local state = self.searchCycleState
+    local nextIndex = 1
+    if state and state.query == self.searchQuery and state.pageId == pageId then
+        nextIndex = (state.index % #hits) + 1
+    end
+    self.searchCycleState = { query = self.searchQuery, pageId = pageId, index = nextIndex }
+
+    local pages = self.system and self.system.pages
+    local liveContext
+    if pages and pages.GetSearchSource then
+        _, liveContext = pages:GetSearchSource(pageId)
+    end
+    local settingsPage = liveContext and self.system.GetSettingsPage
+        and self.system:GetSettingsPage(liveContext) or nil
+    if settingsPage and settingsPage.FocusSearchTarget then
+        return settingsPage:FocusSearchTarget(hits[nextIndex])
+    end
+    return false
+end
+
+function MainWindow:SubmitSearch()
+    if self.searchQuery == "" then return false end
+    local targetId = self.currentPage
+    local currentHits = targetId and self.visiblePageSet[targetId] and self.searchPageMatches[targetId]
+    if not (currentHits and #currentHits > 0) then
+        targetId = nil
+        local bestPageId, bestRank
+        for _, entry in ipairs(self.filteredNavigationEntries) do
+            if entry.id and self.visiblePageSet[entry.id] and not entry.onAction then
+                targetId = targetId or entry.id
+                local hits = self.searchPageMatches[entry.id]
+                local rank = hits and hits.bestRank
+                if rank and (not bestRank or rank < bestRank) then
+                    bestRank = rank
+                    bestPageId = entry.id
+                end
+            end
+        end
+        targetId = bestPageId or targetId
+        if not targetId then
+            for _, entry in ipairs(self.filteredNavigationEntries) do
+                if entry.onAction then
+                    return entry.onAction()
+                end
+            end
+            return false
+        end
+    end
+    if self:SelectPage(targetId) then
+        return self:FocusMatchForPage(self.currentPage or targetId)
+    end
+    return false
 end
 
 function MainWindow:_SetPageHeader(metadata)
@@ -1081,13 +1253,20 @@ function MainWindow:RefreshNavigation(useCachedEntries)
         self.availablePageSet[entry.id] = true
         self.navigationMetadata[entry.id] = entry
     end
+    for id in pairs(self.searchPageMatches) do
+        self.searchPageMatches[id] = nil
+    end
     local displayEntries = self.filteredNavigationEntries
     local displayCount = 0
     local entryIndex = 1
     while entryIndex <= #entries do
-        if self:_EntryMatchesSearch(entries[entryIndex]) then
+        local matched, hits = self:_FindPageSearchMatches(entries[entryIndex], self.searchQuery)
+        if matched then
             displayCount = displayCount + 1
             displayEntries[displayCount] = entries[entryIndex]
+            if hits and #hits > 0 then
+                self.searchPageMatches[entries[entryIndex].id] = hits
+            end
         end
         entryIndex = entryIndex + 1
     end
@@ -1198,6 +1377,14 @@ function MainWindow:RefreshNavigation(useCachedEntries)
             end
 
             button.mainWindowSearchAction = entry.onAction
+            local matchHits = self.searchQuery ~= "" and self.searchPageMatches[entry.id] or nil
+            if matchHits and #matchHits > 0 then
+                button.options.tooltipTitle = entry.title
+                button.options.tooltip = FormatSearchMatchTooltip(matchHits)
+            else
+                button.options.tooltipTitle = nil
+                button.options.tooltip = nil
+            end
             button:SetSelected(self.currentPage == entry.id)
             item.mainWindowHasSwitch = entry.navigationSwitch ~= nil
             if item.mainWindowHasSwitch and not switchButton then
@@ -1253,6 +1440,8 @@ function MainWindow:RefreshNavigation(useCachedEntries)
     for id, button in pairs(self.navigationButtons) do
         if not self.visiblePageSet[id] then
             button.mainWindowSearchAction = nil
+            button.options.tooltipTitle = nil
+            button.options.tooltip = nil
             button:SetVisible(false)
             self.navigationItems[id]:SetVisible(false)
             local switchButton = self.navigationSwitchButtons[id]
@@ -1361,6 +1550,10 @@ function MainWindow:_HandleVisualChange()
 end
 
 function MainWindow:_HandleHidden()
+    local builder = self.system and self.system.settingsBuilder
+    if builder and builder.HideSearchHighlight then
+        builder:HideSearchHighlight()
+    end
     self.system.pages:CloseActive()
     self:BindPageActions(nil)
     if self.window then
@@ -1378,6 +1571,10 @@ end
 function MainWindow:SelectPage(id, data, navigationStateIsFresh, preserveNavigation)
     local canonicalId = self.system.pages:ResolveId(id)
     if not canonicalId then return nil, "page is not registered for navigation" end
+    local builder = self.system and self.system.settingsBuilder
+    if builder and builder.HideSearchHighlight then
+        builder:HideSearchHighlight()
+    end
     if not navigationStateIsFresh then self:RefreshNavigation() end
     if not self.availablePageSet[canonicalId] then return nil, "page is not available" end
     if not preserveNavigation then
@@ -1466,6 +1663,10 @@ end
 function MainWindow:Close()
     if not self.window or not self:IsOpen() then
         return false
+    end
+    local builder = self.system and self.system.settingsBuilder
+    if builder and builder.HideSearchHighlight then
+        builder:HideSearchHighlight()
     end
     self.system.pages:CloseActive()
     self:BindPageActions(nil)

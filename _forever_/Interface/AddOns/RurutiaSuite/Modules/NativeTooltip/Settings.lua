@@ -5,7 +5,7 @@ ns.NativeTooltipSettings = Settings
 
 local function BuildPage(context, module)
     local page = assert(ns.UI:CreateSettingsPage(context, { id = Settings.pageId }))
-    module.settingsPage = page
+    if not context.dryRun then module.settingsPage = page end
     if page:GetControl("follow") then page:Refresh("reuse"); return page end
     local function Set(key, value) module:SetOption(key, value); page:Refresh("option") end
     local function Available() return module.runtimeActive == true and not module.colorOnly end

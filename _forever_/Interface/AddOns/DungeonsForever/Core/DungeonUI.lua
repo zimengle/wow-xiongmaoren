@@ -41,6 +41,38 @@ local function DB()
     return s
 end
 
+local function CharKey()
+    local n = UnitName("player") or "?"
+    local realm
+    if UnitFullName then
+        local _, r = UnitFullName("player")
+        realm = r
+    end
+    if realm == nil or realm == "" then
+        if GetNormalizedRealmName then realm = GetNormalizedRealmName() end
+        if realm == nil or realm == "" then
+            realm = GetRealmName and GetRealmName() or "?"
+        end
+    end
+    return n .. "-" .. realm
+end
+
+local function ItemDoneSaved(qid)
+    local t = DB().charItemDone
+    if type(t) ~= "table" then return false end
+    local mine = t[CharKey()]
+    if type(mine) ~= "table" then return false end
+    return mine[qid] == true
+end
+
+local function SaveItemDone(qid)
+    local s = DB()
+    if type(s.charItemDone) ~= "table" then s.charItemDone = {} end
+    local key = CharKey()
+    if type(s.charItemDone[key]) ~= "table" then s.charItemDone[key] = {} end
+    s.charItemDone[key][qid] = true
+end
+
 local function IsHui()
     return ns.huiTheme == "hui"
 end
@@ -2348,7 +2380,7 @@ function DG.EnsureQuestLane()
         if IsShiftKeyDown() then
             sf:SetHorizontalScroll(sf:GetHorizontalScroll() - step)
         else
-            sf:SetVerticalScroll(sf:GetVerticalScroll() + step)
+            sf:SetVerticalScroll(sf:GetVerticalScroll() - step)
         end
         clampScroll()
     end
@@ -5254,6 +5286,8 @@ function DG.BroadcastItemData(itemID)
     if BM and BM.OnItemData then BM.OnItemData(itemID) end
     local CQM = ns.ClassQuestUI
     if CQM and CQM.OnItemData then CQM.OnItemData(itemID) end
+    local CBT = ns.ClassBisUI
+    if CBT and CBT.OnItemData then CBT.OnItemData(itemID) end
     local MM = ns.MapModule
     if MM and MM.OnItemData then MM.OnItemData(itemID) end
     local PM = ns.ProfModule
@@ -6757,6 +6791,27 @@ function DG.InvalidateQuestDone(doneID)
     end
 end
 
+DG.QUEST_DONE_BY_ITEM = { [9240] = 9240 }
+
+local function ItemDoneNow(id)
+    if ItemDoneSaved(id) then return true end
+    local item = DG.QUEST_DONE_BY_ITEM[id]
+    if item and DG.BagItemCount(item) > 0 then
+        SaveItemDone(id)
+        return true
+    end
+    return false
+end
+
+function DG.SyncItemDone()
+    for id in pairs(DG.QUEST_DONE_BY_ITEM) do
+        if not ItemDoneSaved(id) then
+            local item = DG.QUEST_DONE_BY_ITEM[id]
+            if DG.BagItemCount(item) > 0 then SaveItemDone(id) end
+        end
+    end
+end
+
 function DG.QuestDone(id)
     if not id then return false end
     local sim = DG.questSim
@@ -6764,6 +6819,7 @@ function DG.QuestDone(id)
         local st = sim[id]
         if st ~= nil then return st == "done" end
     end
+    if DG.QUEST_DONE_BY_ITEM[id] and ItemDoneNow(id) then return true end
     if DG.questDoneCache[id] == true then return true end
     local set = DG.questDoneSet
     if set and set[id] then return true end
@@ -7436,6 +7492,7 @@ function DG.EnsureQuestListener()
     ev:RegisterEvent("QUEST_LOG_UPDATE")
     pcall(ev.RegisterEvent, ev, "QUEST_ACCEPTED")
     pcall(ev.RegisterEvent, ev, "QUEST_REMOVED")
+    pcall(ev.RegisterEvent, ev, "BAG_UPDATE_DELAYED")
     ev:SetScript("OnEvent", function(_, event, arg1)
         C_Timer.After(0, function()
             if event == "QUEST_TURNED_IN" then
@@ -7452,8 +7509,12 @@ function DG.EnsureQuestListener()
                 DG.InvalidateQuestDone()
             elseif event == "QUEST_REMOVED" then
                 DG.InvalidateQuestDone()
+            elseif event == "BAG_UPDATE_DELAYED" then
+                DG.__bagGen = (DG.__bagGen or 0) + 1
+                DG.SyncItemDone()
             else
                 DG.BuildQuestSnap()
+                DG.SyncItemDone()
             end
             if U.RefreshQuestRows then U.RefreshQuestRows() end
         end)

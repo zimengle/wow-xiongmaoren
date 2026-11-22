@@ -1,0 +1,5 @@
+<Bindings>
+    <Binding name="DUNGEONSFOREVER_TOGGLE" header="DUNGEONSFOREVER" category="BINDING_HEADER_DUNGEONSFOREVER">
+        DUNGEONSFOREVER_TOGGLE()
+    </Binding>
+</Bindings>

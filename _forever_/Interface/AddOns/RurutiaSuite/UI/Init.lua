@@ -44,6 +44,13 @@ function System:RegisterPageAlias(aliasId, pageId)
 end
 
 function System:CreateSettingsPage(context, options)
+    if type(context) == "table" and context.dryRun then
+        if not self.settingsBuilder then
+            local ready, reason = self:EnsureSettings()
+            if not ready then return nil, reason end
+        end
+        return self.settingsBuilder:CreateDryRunPage(context, options)
+    end
     local allowed, combatReason = self:CheckSettingsCombat()
     if not allowed then return nil, combatReason end
     local ready, reason = self:EnsureSettings()

@@ -237,7 +237,7 @@ function View:CreateHandbook(profile)
         if mouseButton == "LeftButton" then self.adapter:OpenGuide() end
     end)
     Call(record.frame, "SetScript", "OnEnter", function()
-        self:ShowTooltip(record, White("打开：") .. ClassColor(self, "露露的小手册"))
+        self:ShowTooltip(record, White("打开/关闭：") .. ClassColor(self, "露露的小手册"))
     end)
     self:BindFeedback(record, profile)
     return record
@@ -265,6 +265,7 @@ local function PaintQuestGuideState(record, questGuide)
     local state = questGuide:GetIconState()
     if record.questGuideState == state then return end
     local color = QUEST_GUIDE_COLORS[state]
+    Call(record.icon, "SetBlendMode", state == "open" and "ADD" or "BLEND")
     Call(record.icon, "SetVertexColor", color[1], color[2], color[3], 1)
     record.questGuideState = state
 end
@@ -432,7 +433,7 @@ function View:RebindRecord(record, profile)
             if mouseButton == "LeftButton" then self.adapter:OpenGuide() end
         end)
         Call(frame, "SetScript", "OnEnter", function()
-            self:ShowTooltip(record, White("打开：") .. ClassColor(self, "露露的小手册"))
+            self:ShowTooltip(record, White("打开/关闭：") .. ClassColor(self, "露露的小手册"))
         end)
     elseif record.key == "questguide" then
         local questGuide = ns.TopBarProviderRegistry.questGuide
@@ -451,8 +452,9 @@ function View:RebindRecord(record, profile)
                 return self:ShowTooltip(record, White("Polestar 任务指南") .. "\n北极星尚未加载，左键确认加载。")
             end
             self:ShowTooltip(record, White("Polestar 任务指南") .. "\n"
-                .. LeftRightTooltip(self, "显示/隐藏窗口和箭头", "菜单设置")
-                .. "\n" .. White("中：") .. ClassColor(self, "显示/隐藏目标列表"))
+                .. White("左：") .. ClassColor(self, "指南窗口") .. "\n"
+                .. White("中：") .. ClassColor(self, "目标列表") .. "\n"
+                .. White("右：") .. ClassColor(self, "菜单设置"))
         end)
         Call(frame, "SetScript", "OnLeave", function() self:HideTooltip() end)
         return true

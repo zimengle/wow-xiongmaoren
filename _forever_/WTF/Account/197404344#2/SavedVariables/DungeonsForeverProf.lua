@@ -9,94 +9,194 @@ DungeonsForeverProfDB = {
 ["follow"] = {
 ["露露缇娅-CAMWOW CN1 Realm 2 PvE"] = {
 ["t0"] = 1791753029,
-["skill"] = 119,
-["step"] = 9,
-["slug"] = "tailoring",
 ["hidden"] = true,
+["skill"] = 119,
+["slug"] = "tailoring",
+["step"] = 9,
 ["rkey"] = "fixed:23:1:2963:300",
 },
 },
 ["professionSettings"] = {
 ["tailoring"] = {
-["autoRoute"] = true,
 ["autoScheme"] = "cheapest",
+["autoRoute"] = true,
 },
 ["blacksmithing"] = {
-["autoRoute"] = true,
 ["autoScheme"] = "cheapest",
+["autoRoute"] = true,
 },
 ["skinning"] = {
-["autoRoute"] = true,
 ["autoScheme"] = "cheapest",
+["autoRoute"] = true,
 },
 ["camping"] = {
-["autoRoute"] = true,
 ["autoScheme"] = "cheapest",
+["autoRoute"] = true,
 },
 ["alchemy"] = {
-["autoRoute"] = true,
 ["autoScheme"] = "cheapest",
+["autoRoute"] = true,
 },
 ["mining"] = {
-["autoRoute"] = true,
 ["autoScheme"] = "cheapest",
+["autoRoute"] = true,
 },
 ["crates"] = {
-["autoRoute"] = true,
 ["autoScheme"] = "cheapest",
+["autoRoute"] = true,
 },
-["herbalism"] = {
-["autoRoute"] = true,
+["comprehension"] = {
 ["autoScheme"] = "cheapest",
+["autoRoute"] = true,
 },
 ["cooking"] = {
-["autoRoute"] = true,
 ["autoScheme"] = "cheapest",
-},
-["leatherworking"] = {
 ["autoRoute"] = true,
+},
+["poisons"] = {
 ["autoScheme"] = "cheapest",
 },
 ["first-aid"] = {
 ["autoScheme"] = "cheapest",
 },
 ["fishing"] = {
-["autoRoute"] = true,
 ["autoScheme"] = "cheapest",
+["autoRoute"] = true,
 },
 ["engineering"] = {
+["autoScheme"] = "cheapest",
 ["autoRoute"] = true,
-["autoScheme"] = "cheapest",
 },
-["poisons"] = {
+["leatherworking"] = {
 ["autoScheme"] = "cheapest",
-},
-["comprehension"] = {
 ["autoRoute"] = true,
+},
+["herbalism"] = {
 ["autoScheme"] = "cheapest",
+["autoRoute"] = true,
 },
 ["enchanting"] = {
-["autoRoute"] = true,
 ["autoScheme"] = "cheapest",
+["autoRoute"] = true,
 },
 },
-["cdList"] = {
+["track"] = {
+["仓库-CN5 Realm 3 PvP"] = {
+["nextID"] = 0,
+["observerSession"] = 4,
+["version"] = 1,
+["active"] = {
 },
+["endedContracts"] = {
+},
+["continuation"] = {
+},
+["preparing"] = {
+},
+["runs"] = {
+},
+},
+["巴菲特-CN1 Realm 3 PvE"] = {
+["nextID"] = 0,
+["observerSession"] = 20,
+["version"] = 1,
+["active"] = {
+},
+["endedContracts"] = {
+},
+["continuation"] = {
+},
+["preparing"] = {
+},
+["runs"] = {
+},
+},
+["重庆-"] = {
+["nextID"] = 0,
+["observerSession"] = 2,
+["version"] = 1,
+["active"] = {
+},
+["runs"] = {
+},
+["continuation"] = {
+},
+["preparing"] = {
+},
+["endedContracts"] = {
+},
+},
+["巴菲特-"] = {
+["nextID"] = 0,
+["observerSession"] = 11,
+["version"] = 1,
+["active"] = {
+},
+["endedContracts"] = {
+},
+["continuation"] = {
+},
+["preparing"] = {
+},
+["runs"] = {
+},
+},
+["重庆-CN5 Realm 3 PvP"] = {
+["nextID"] = 0,
+["observerSession"] = 99,
+["version"] = 1,
+["active"] = {
+},
+["endedContracts"] = {
+},
+["continuation"] = {
+},
+["preparing"] = {
+},
+["runs"] = {
+},
+},
+},
+["pricingMigration"] = 1,
+["cdVer"] = 2,
 ["cd"] = {
 },
-["cdVer"] = 2,
-["pricingMigration"] = 1,
-["cdMig"] = 6,
-["cdKnow"] = {
-},
 ["economy"] = {
+["仓库-CN5 Realm 3 PvP"] = {
+["recipeRosters"] = {
+},
+["recipes"] = {
+},
+["learningRequirements"] = {
+},
+["recipeBuild"] = "1.60.1:70938",
+},
 ["巴菲特-CN1 Realm 3 PvE"] = {
 ["learningRequirements"] = {
 },
-["clientInputRevision"] = 7,
+["clientInputRevision"] = 10,
 ["recipeRosters"] = {
 },
 ["recipeBuild"] = "1.60.1:70959",
+["recipes"] = {
+},
+},
+["重庆-"] = {
+["recipeRosters"] = {
+},
+["recipes"] = {
+},
+["learningRequirements"] = {
+},
+["recipeBuild"] = "1.60.1:71037",
+},
+["巴菲特-"] = {
+["learningRequirements"] = {
+},
+["clientInputRevision"] = 5,
+["recipeRosters"] = {
+},
+["recipeBuild"] = "1.60.1:71037",
 ["recipes"] = {
 },
 },
@@ -110,66 +210,15 @@ DungeonsForeverProfDB = {
 ["recipes"] = {
 },
 },
-["仓库-CN5 Realm 3 PvP"] = {
-["recipeRosters"] = {
 },
-["recipes"] = {
+["cdKnow"] = {
 },
-["learningRequirements"] = {
-},
-["recipeBuild"] = "1.60.1:70938",
-},
-},
+["cdMig"] = 6,
 ["policies"] = {
 ["enchanting"] = {
 },
 },
-["track"] = {
-["巴菲特-CN1 Realm 3 PvE"] = {
-["nextID"] = 0,
-["observerSession"] = 18,
-["version"] = 1,
-["active"] = {
-},
-["runs"] = {
-},
-["continuation"] = {
-},
-["preparing"] = {
-},
-["endedContracts"] = {
-},
-},
-["重庆-CN5 Realm 3 PvP"] = {
-["nextID"] = 0,
-["observerSession"] = 98,
-["version"] = 1,
-["active"] = {
-},
-["runs"] = {
-},
-["continuation"] = {
-},
-["preparing"] = {
-},
-["endedContracts"] = {
-},
-},
-["仓库-CN5 Realm 3 PvP"] = {
-["nextID"] = 0,
-["observerSession"] = 4,
-["version"] = 1,
-["active"] = {
-},
-["runs"] = {
-},
-["continuation"] = {
-},
-["preparing"] = {
-},
-["endedContracts"] = {
-},
-},
+["cdList"] = {
 },
 },
 }

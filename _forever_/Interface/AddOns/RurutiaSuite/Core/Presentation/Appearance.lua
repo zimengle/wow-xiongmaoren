@@ -138,7 +138,7 @@ function Appearance:BuildPage(context)
         onChange = OnBorderAlphaChanged,
     })
     borderAlpha.appearanceOwner = self
-    if self.ui and self.ui.mainWindow then
+    if not context.dryRun and self.ui and self.ui.mainWindow then
         self.ui.mainWindow:SetBackgroundOpacity(GetMainWindowOpacity())
         self.ui.mainWindow:SetContainerOpacity(GetContainerOpacity())
     end
@@ -204,7 +204,7 @@ function Appearance:BuildPage(context)
     context.appearanceSettingsPage = page
     context.appearanceControls = page.controls
     context.appearanceScroll = page:GetScroll()
-    self.builds = self.builds + 1
+    if not context.dryRun then self.builds = self.builds + 1 end
     return page:GetRoot()
 end
 

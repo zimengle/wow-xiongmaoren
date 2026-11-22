@@ -254,6 +254,7 @@ function PageRegistry:New(components, layout, theme, providers, system)
     instance.buildFailureCount = 0
     instance.themeRefreshCount = 0
     instance.contentRefreshCount = 0
+    instance.searchIndexGeneration = 0
 
     theme:Subscribe(instance, OnThemeChanged)
     providers:Subscribe(instance, OnProviderChanged)
@@ -329,6 +330,7 @@ function PageRegistry:Register(id, definition)
     }
     self.routes[routeId] = id
     self.order[#self.order + 1] = id
+    self.searchIndexGeneration = (self.searchIndexGeneration or 0) + 1
     return true
 end
 
@@ -341,6 +343,13 @@ function PageRegistry:IsBuilt(id)
     id = self:ResolveId(id)
     local entry = self.pages[id]
     return entry and entry.context ~= nil or false
+end
+
+function PageRegistry:GetSearchSource(id)
+    id = self:ResolveId(id)
+    local entry = self.pages[id]
+    if not entry then return nil, nil end
+    return entry.definition, entry.context
 end
 
 function PageRegistry:Unregister(id)
@@ -399,6 +408,7 @@ function PageRegistry:Unregister(id)
     end
     if self.currentId == id then self.currentId = nil end
     self.pages[id] = nil
+    self.searchIndexGeneration = (self.searchIndexGeneration or 0) + 1
     return true
 end
 

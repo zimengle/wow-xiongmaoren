@@ -2,11 +2,11 @@
 DungeonsForeverSpellDB = {
 ["rank"] = {
 ["hintLogin"] = true,
+["ignores"] = {
+},
 ["whitelist"] = {
 },
 ["on"] = true,
-["ignores"] = {
-},
 ["hintLearn"] = true,
 },
 }

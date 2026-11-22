@@ -418,18 +418,24 @@ local CHARGED_OILS = {
     [20749]=true, [20750]=true, [22521]=true, [22522]=true,
 }
 
+local function GetOilMacro(itemID, bag, slot)
+    -- Clear any pending item targeting before the secure button targets a weapon.
+    local macro = "/stopspelltarget\n/use [combat] item:" .. itemID
+    -- The same slot may hold a different item by the time we enter combat.
+    if bag then
+        macro = macro .. "; [nocombat] " .. bag .. " " .. slot
+    end
+    return macro
+end
+
 local function PrepareOilClick(button, mouseButton, down)
     if (mouseButton ~= "LeftButton" and mouseButton ~= "RightButton") or Adapter:IsInCombat() then return end
     if down ~= nil and down ~= (button:GetAttribute("useOnKeyDown") == true) then return end
-    local mainHand = mouseButton == "LeftButton"
-    local attribute = mainHand and "macrotext1" or "macrotext2"
-    button:SetAttribute(attribute, nil)
     local info = button.customInfo
     if not info then return end
     local bag, slot = Adapter:FindOilSlot(button.oilModule, info.itemID)
-    if bag then
-        button:SetAttribute(attribute, "/stopmacro [combat]\n/use " .. bag .. " " .. slot .. "\n/use " .. (mainHand and 16 or 17))
-    end
+    local attribute = mouseButton == "LeftButton" and "macrotext1" or "macrotext2"
+    button:SetAttribute(attribute, GetOilMacro(info.itemID, bag, slot))
 end
 
 function Definition:BindButton(button, info, previewOnly, categoryItem)
@@ -437,6 +443,8 @@ function Definition:BindButton(button, info, previewOnly, categoryItem)
     button.customInfo = info
     if button.oilModule then
         button:SetScript("PreClick", nil)
+        button:SetAttribute("target-slot1", nil)
+        button:SetAttribute("target-slot2", nil)
         button.oilModule = nil
     end
     button.isCategoryItem = categoryItem == true
@@ -451,9 +459,10 @@ function Definition:BindButton(button, info, previewOnly, categoryItem)
     if CHARGED_OILS[info.itemID] then
         button.oilModule = self
         button:SetScript("PreClick", PrepareOilClick)
-        button:SetAttribute("type1", "macro")
-        button:SetAttribute("type2", "macro")
-        leftMacro, rightMacro = nil, nil
+        button:SetAttribute("target-slot1", 16)
+        button:SetAttribute("target-slot2", 17)
+        leftMacro = GetOilMacro(info.itemID)
+        rightMacro = leftMacro
     elseif info.kind == "weaponConsumable" then
         leftMacro = "/use item:" .. info.itemID .. "\n/use 16"
         rightMacro = "/use item:" .. info.itemID .. "\n/use 17"

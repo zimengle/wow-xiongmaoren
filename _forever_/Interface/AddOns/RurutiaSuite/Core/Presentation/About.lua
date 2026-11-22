@@ -144,7 +144,7 @@ function About:BuildPage(context)
     context.aboutRows = rows
     context.aboutSettingsPage = page
     context.aboutScroll = page:GetScroll()
-    self.builds = self.builds + 1
+    if not context.dryRun then self.builds = self.builds + 1 end
     return page:GetRoot()
 end
 

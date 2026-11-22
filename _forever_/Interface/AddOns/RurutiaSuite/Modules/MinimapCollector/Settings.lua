@@ -11,8 +11,10 @@ local iconLabels = {
 
 local function BuildPage(context, module)
     local page = assert(ns.UI:CreateSettingsPage(context, { id = "minimap-collector" }))
-    module.settingsPage = page
-    module:Refresh()
+    if not context.dryRun then
+        module.settingsPage = page
+        module:Refresh()
+    end
     if not page.collectorSection then
         page:Description("左键 RS 图标展开或收起，右键打开设置；默认不定时收起。点击内部图标、左键点击面板外、按 Esc 或面板右键可收起。勾选的图标不进行收纳。")
         local function Changed(key, value)

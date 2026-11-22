@@ -27,6 +27,45 @@ local PROBABLE_DELAY = 1          -- wait for a PARTY_KILL before calling a deat
 local SKULL = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_8"
 local PERIODS = { day = 86400, week = 7 * 86400, month = 30 * 86400 }
 
+-- The mark of a fight (CurseForge comment: the skull looks like the rare-spawn icons of
+-- other addons). Each is drawn grey and tinted with the win/loss colour. An atlas the
+-- client does not know falls back to the skull.
+local MARKS = {
+	skull = { texture = SKULL },
+	swords = { atlas = "pvptalents-warmode-swords" },
+	dot = { atlas = "WhiteCircle-RaidBlips" },
+	cross = { texture = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_7" },
+	star = { texture = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_1" },
+	diamond = { texture = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_3" },
+}
+Spy.EncounterMarks = MARKS
+
+local function markOf(key)
+	local mark = MARKS[key] or MARKS.skull
+	if mark.atlas then
+		local info = C_Texture and C_Texture.GetAtlasInfo and C_Texture.GetAtlasInfo(mark.atlas)
+		if not info then
+			return MARKS.skull
+		end
+	end
+	return mark
+end
+
+local function paint(texture, key)
+	local mark = markOf(key)
+	if texture.markKey == key then
+		return
+	end
+	texture.markKey = key
+	if mark.atlas then
+		texture:SetAtlas(mark.atlas)
+	else
+		texture:SetTexture(mark.texture)
+		texture:SetTexCoord(0, 1, 0, 1)
+	end
+	texture:SetDesaturated(true)
+end
+
 local COLORS = {
 	W = { 0.25, 1, 0.25 },
 	L = { 1, 0.25, 0.25 },
@@ -152,7 +191,6 @@ local function iconFor(index)
 	icon.smartNavigationIgnored = true
 	icon:SetSize(14, 14)
 	icon.texture = icon:CreateTexture(nil, "OVERLAY")
-	icon.texture:SetTexture(SKULL)
 	icon.texture:SetAllPoints(icon)
 	icon:SetScript("OnEnter", showTooltip)
 	icon:SetScript("OnLeave", function() GameTooltip:Hide() end)
@@ -192,7 +230,9 @@ function Spy:RefreshEncounterMap()
 	-- there". The limit counted every fight of every zone, so after 100 fights anywhere
 	-- the older skulls left the map. It now counts the fights of the map on display only.
 	local now, shown, list = time(), 0, Spy:Encounters()
-	local limit = Spy.MapSkullLimit or 100
+	-- Adjustable (CurseForge: "still some missing in zones where I had 100s").
+	local limit = tonumber(settings().EncounterMapLimit) or Spy.MapSkullLimit or 100
+	local markKey = settings().EncounterMark or "skull"
 	local ok, mapID = pcall(WorldMapFrame.GetMapID, WorldMapFrame)
 	mapID = ok and type(mapID) == "number" and mapID or nil
 	Spy.EncounterMapID = mapID
@@ -205,6 +245,7 @@ function Spy:RefreshEncounterMap()
 			shown = shown + 1
 			local icon = iconFor(shown)
 			icon.entry = entry
+			paint(icon.texture, markKey)
 			local color = COLORS[entry.r] or COLORS.W
 			icon.texture:SetVertexColor(color[1], color[2], color[3])
 			HBDP:AddWorldMapIconMap(Spy.EncounterRef, icon, entry.m, entry.x, entry.y, HBD_PINS_WORLDMAP_SHOW_PARENT)
@@ -335,6 +376,35 @@ Spy.options.args.MapOptions.args.CombatMap = {
 			end,
 		},
 		EncounterProbable = option("EncounterProbable", 6, false),
+		EncounterMark = {
+			name = L["EncounterMark"],
+			desc = L["EncounterMarkDescription"],
+			type = "select",
+			order = 6.2,
+			values = { skull = L["EncounterMarkSkull"], swords = L["EncounterMarkSwords"],
+				dot = L["EncounterMarkDot"], cross = L["EncounterMarkCross"],
+				star = L["EncounterMarkStar"], diamond = L["EncounterMarkDiamond"] },
+			sorting = { "skull", "swords", "dot", "cross", "star", "diamond" },
+			get = function() return settings().EncounterMark or "skull" end,
+			set = function(_, value)
+				Spy.db.profile.EncounterMark = value
+				Spy:RefreshEncounterMap()
+			end,
+		},
+		EncounterMapLimit = {
+			name = L["EncounterMapLimit"],
+			desc = L["EncounterMapLimitDescription"],
+			type = "range",
+			order = 6.5,
+			min = 50,
+			max = 1000,
+			step = 50,
+			get = function() return tonumber(settings().EncounterMapLimit) or Spy.MapSkullLimit end,
+			set = function(_, value)
+				Spy.db.profile.EncounterMapLimit = value
+				Spy:RefreshEncounterMap()
+			end,
+		},
 		EncounterClear = {
 			name = L["EncounterClear"],
 			desc = L["EncounterClearDescription"],

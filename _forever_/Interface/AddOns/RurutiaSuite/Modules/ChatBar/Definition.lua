@@ -393,7 +393,7 @@ function Definition:HandleButtonClick(info, mouseButton)
     elseif info.action == "emoji" then
         return not right and self:ToggleEmojiMenu(self.buttons and self.buttons[info.key]) or false
     elseif info.action == "loot" then
-        return Adapter:HandleLoot(right)
+        return Adapter:HandleLoot(right, mouseButton)
     elseif info.action == "run" then
         if info.key == "roll" then return Adapter:RandomRoll() end
         if info.key == "combat" then return Adapter:ToggleCombatLogging() end

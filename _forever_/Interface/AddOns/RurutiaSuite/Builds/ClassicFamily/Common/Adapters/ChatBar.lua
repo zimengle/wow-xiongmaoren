@@ -285,7 +285,11 @@ function Adapter:OpenLootHistory()
     return self:OpenChat("/loot ", self:GetChatFrame())
 end
 
-function Adapter:HandleLoot(rightButton)
+function Adapter:HandleLoot(rightButton, mouseButton)
+    if mouseButton == "MiddleButton" then
+        if type(self.ToggleLootMiddle) == "function" then return self:ToggleLootMiddle() end
+        return false
+    end
     if rightButton then return self:OpenLootHistory() end
     return self:OpenAtlasLoot()
 end

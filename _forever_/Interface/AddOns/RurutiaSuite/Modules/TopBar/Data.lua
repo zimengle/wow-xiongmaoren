@@ -195,12 +195,15 @@ function Data:GetDefaults(family, buildId)
         local centerY = menu.position.y - (menu.size - self.constants.frameHeightTrim) / 2
         profile.questguide = {
             enabled = true, height = 20, fontSize = 18, alpha = 1,
-            iconWidth = 21, iconHeight = 21, iconOffsetX = 1,
+            iconWidth = 23, iconHeight = 23, iconOffsetX = 0,
         }
         -- Leave a little more space after the text buttons before the hearthstone.
         SetInfiniteLabelLayout(profile.questguide, -513.5, 76, centerY)
         SetInfiniteLabelLayout(profile.meetingstone, -434.5, 77, centerY)
         SetInfiniteLabelLayout(profile.handbook, -354.5, 60, centerY)
+        profile.handbook.iconWidth = 30
+        profile.handbook.iconHeight = 31
+        profile.handbook.iconOffsetX = -3
         profile.hearthstone.position.x = -272
         profile.hearthstone.position.y = centerY + profile.hearthstone.height / 2
         profile.rolemarker.hearthstoneGap = 8

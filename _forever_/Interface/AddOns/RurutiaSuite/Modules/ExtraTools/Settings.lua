@@ -64,7 +64,7 @@ local function BuildQuestAutomation(container, page, module)
     BuildFastLootCheckbox(convenience, module)
     local quest = ns.QuestAutomation
     if quest then
-        quest.settingsPage = page
+        if not page.dryRun then quest.settingsPage = page end
         local section = container:Section("任务辅助")
         section:QuadRow():Checkbox("questAutomation", {
             text = "RS自动交接",

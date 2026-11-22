@@ -88,6 +88,20 @@ function Definition:CloseWindow()
     return self.windowService:Close()
 end
 
+function Definition:IsWindowOpen()
+    if not self.windowService then return false end
+    if self.windowService:IsOpen() then return true end
+    return self.windowService.copyDialog ~= nil and self.windowService.copyDialog.visible == true
+end
+
+function Definition:ToggleWindow(categoryKey)
+    if self:IsWindowOpen() then
+        self:CloseWindow()
+        return false
+    end
+    return self:ShowWindow(categoryKey)
+end
+
 function Definition:GetGuideDiagnostics()
     if not self.windowService then
         return {
@@ -105,6 +119,9 @@ if module then
     RS.GuideModule = module
     function RS:OpenGuide(categoryKey)
         return module:ShowWindow(categoryKey)
+    end
+    function RS:ToggleGuide(categoryKey)
+        return module:ToggleWindow(categoryKey)
     end
 else
     RS.GuideRegistrationError = reason

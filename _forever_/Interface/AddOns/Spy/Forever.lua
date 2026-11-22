@@ -1370,6 +1370,12 @@ function Spy:PrintDebug(lines)
 	if Spy.TargetsReport then
 		out(Spy:TargetsReport())
 	end
+	if Spy.FlagReport then
+		out(Spy:FlagReport())
+	end
+	if Spy.KoSPopupReport then
+		out(Spy:KoSPopupReport())
+	end
 	if Spy.TagsReport then
 		out(Spy:TagsReport())
 		if Spy.NotesReport then out(Spy:NotesReport()) end

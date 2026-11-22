@@ -124,6 +124,33 @@ local function TryResolveValue(value, page, entry, reason, data)
     return true, result
 end
 
+local function ResolvePageOptionValue(value, page, entry, reason, data)
+    if page and page.dryRun then
+        local ok, result = TryResolveValue(value, page, entry, reason, data)
+        return ok and result or nil
+    end
+    return ResolveValue(value, page, entry, reason, data)
+end
+
+local function CleanSearchText(value)
+    if type(value) ~= "string" and type(value) ~= "number" then return nil end
+    local text = tostring(value)
+    if text == "" then return nil end
+    if string.find(text, "|", 1, true) then
+        text = text:gsub("|T.-|t", " ")
+            :gsub("|A.-|a", " ")
+            :gsub("|c%x%x%x%x%x%x%x%x", "")
+            :gsub("|r", "")
+            :gsub("|H.-|h", "")
+            :gsub("|h", "")
+            :gsub("|n", " ")
+    end
+    text = text:gsub("[\r\n]+", " "):gsub("%s+", " ")
+    text = string.match(text, "^%s*(.-)%s*$")
+    if not text or text == "" then return nil end
+    return text
+end
+
 local function InvokeLifecycleCallback(label, callback, ...)
     if type(callback) ~= "function" then return true end
     local invoked, result, reason = pcall(callback, ...)
@@ -213,7 +240,7 @@ local function PrepareControlOptions(page, entry)
         entry.getValue = source.value
     end
     entry.getTextToken = source.getTextToken
-    if entry.getTextToken then prepared.textToken = ResolveValue(entry.getTextToken, page, entry, "build", GetContextData(page.context)) end
+    if entry.getTextToken then prepared.textToken = ResolvePageOptionValue(entry.getTextToken, page, entry, "build", GetContextData(page.context)) end
     entry.getText = source.getText
     if entry.getText == nil and type(source.text) == "function" then
         entry.getText = source.text
@@ -228,13 +255,13 @@ local function PrepareControlOptions(page, entry)
     end
 
     if entry.getValue then
-        prepared.value = ResolveValue(entry.getValue, page, entry, "build", GetContextData(page.context))
+        prepared.value = ResolvePageOptionValue(entry.getValue, page, entry, "build", GetContextData(page.context))
     end
     if entry.getText then
-        prepared.text = ResolveValue(entry.getText, page, entry, "build", GetContextData(page.context))
+        prepared.text = ResolvePageOptionValue(entry.getText, page, entry, "build", GetContextData(page.context))
     end
     if entry.getEnabled then
-        prepared.enabled = ResolveValue(
+        prepared.enabled = ResolvePageOptionValue(
             entry.getEnabled,
             page,
             entry,
@@ -243,7 +270,7 @@ local function PrepareControlOptions(page, entry)
         ) and true or false
     end
     if entry.getVisible then
-        prepared.hidden = not ResolveValue(
+        prepared.hidden = not ResolvePageOptionValue(
             entry.getVisible,
             page,
             entry,
@@ -297,7 +324,7 @@ local function PrepareControlOptions(page, entry)
                 entry.getText = nil
             end
         end
-        entry.fieldLabelText = ResolveValue(
+        entry.fieldLabelText = ResolvePageOptionValue(
             entry.getFieldLabel or fieldLabel,
             page,
             entry,
@@ -382,6 +409,88 @@ local function RestorePoints(region, points)
     return restored
 end
 
+local function DryRunNoop() end
+local function DryRunZero() return 0 end
+local function DryRunTrue() return true end
+local function DryRunEmpty() return "" end
+
+local DRY_RUN_NUMBER_METHODS = {
+    GetWidth = true,
+    GetHeight = true,
+    GetStringWidth = true,
+    GetUnboundedStringWidth = true,
+    GetStringHeight = true,
+    GetNumPoints = true,
+    GetVerticalScroll = true,
+    GetVerticalScrollRange = true,
+    GetFrameLevel = true,
+    GetScale = true,
+    GetEffectiveScale = true,
+}
+
+local DUMMY_FRAME = setmetatable({}, {
+    __index = function(_, key)
+        if DRY_RUN_NUMBER_METHODS[key] then return DryRunZero end
+        if key == "IsShown" or key == "IsVisible" then return DryRunTrue end
+        if key == "GetText" then return DryRunEmpty end
+        return DryRunNoop
+    end,
+})
+
+local DryRunComponentMethods = {
+    GetText = function(self) return self.text or "" end,
+    SetText = function(self, value) self.text = value or "" end,
+    GetValue = function(self) return self.value end,
+    SetValue = function(self, value) self.value = value end,
+    SetVisible = function(self, visible) self.visible = visible and true or false end,
+    IsVisible = function(self) return self.visible ~= false end,
+    SetEnabled = function(self, enabled) self.enabled = enabled and true or false end,
+    IsEnabled = function(self) return self.enabled ~= false end,
+    SetSelected = function(self, selected) self.selected = selected and true or false end,
+    GetContent = function() return DUMMY_FRAME end,
+    FitTextHeight = function() return 20 end,
+    GetControl = function() return DUMMY_FRAME end,
+}
+
+local DRY_RUN_COMPONENT_META = {
+    __index = function(_, key)
+        return DryRunComponentMethods[key] or DryRunNoop
+    end,
+}
+
+local function NewDryRunComponent(kind, options)
+    options = type(options) == "table" and options or {}
+    return setmetatable({
+        kind = kind,
+        options = options,
+        frame = DUMMY_FRAME,
+        label = DUMMY_FRAME,
+        checkBox = DUMMY_FRAME,
+        checkBorder = DUMMY_FRAME,
+        text = options.text or "",
+        value = options.value,
+        visible = not options.hidden,
+        enabled = options.enabled ~= false,
+    }, DRY_RUN_COMPONENT_META)
+end
+
+local function NewDryRunContext(pageId)
+    local root = NewDryRunComponent("frame", { id = pageId })
+    return {
+        id = pageId,
+        dryRun = true,
+        objects = {},
+        objectIndex = {},
+        GetRoot = function() return root end,
+        SetRoot = function() return true end,
+        Create = function(_, kind, _, opts) return NewDryRunComponent(kind, opts) end,
+        Track = function(_, obj) return obj end,
+        GetData = function() return nil end,
+        OnBuildRollback = function() return true end,
+        ApplyLayout = function() return true end,
+    }
+end
+
 function SettingsBuilder:New(system)
     if type(system) ~= "table" or type(system.components) ~= "table"
         or type(system.layout) ~= "table" then
@@ -463,6 +572,60 @@ function SettingsBuilder:GetDiagnostics()
         created = self.created,
         reused = self.reused,
     }
+end
+
+function SettingsBuilder:CreateDryRunPage(context, options)
+    if type(context) ~= "table" then return nil, "dry-run context is required" end
+    options = CopyTable(options)
+    local width = ReadNumber(options, "width", DEFAULTS.width)
+    local height = ReadNumber(options, "height", DEFAULTS.height)
+    local metrics = BuildMetrics(self.system, options)
+    local root = context.GetRoot and context:GetRoot() or NewDryRunComponent("frame")
+    local scroll = NewDryRunComponent("scroll")
+    local page = setmetatable({
+        manager = self,
+        system = self.system,
+        context = context,
+        options = options,
+        metrics = metrics,
+        dryRun = true,
+        root = root,
+        scroll = scroll,
+        content = DUMMY_FRAME,
+        blocks = {},
+        controls = {},
+        controlEntries = {},
+        controlOrder = {},
+        popovers = {},
+        popoverOrder = {},
+        refreshEntries = {},
+        rows = {},
+        sections = {},
+        tabsByKey = {},
+        tabOrder = {},
+        tabs = nil,
+        currentTab = nil,
+        currentSection = nil,
+        availableWidth = width,
+        availableHeight = height,
+        contentWidth = math.max(1, width - metrics.scrollbarReserve),
+        contentHeight = 1,
+        cursor = 0,
+        finished = false,
+        finishCount = 0,
+        layoutCount = 0,
+        refreshCount = 0,
+        maximumEffectiveColumns = 0,
+        lastRefreshError = nil,
+    }, Page)
+    local description = options.description
+    if type(description) == "table" then
+        page:Description(description.text or "", description)
+    elseif description ~= nil then
+        page:Description(description)
+    end
+    context.dryRunPage = page
+    return page
 end
 
 function Page:New(manager, context, options)
@@ -720,7 +883,7 @@ function Page:Description(text, options)
     if getText == nil and type(text) == "function" then
         getText = text
     end
-    local resolvedText = ResolveValue(getText or text, self, nil, "build", GetContextData(self.context))
+    local resolvedText = ResolvePageOptionValue(getText or text, self, nil, "build", GetContextData(self.context))
     local component, reason = self.context:Create("label", self.content, {
         text = resolvedText or "",
         width = self.contentWidth - self.metrics.padding * 2,
@@ -748,7 +911,8 @@ function Page:Description(text, options)
     block.minHeight = options.minHeight or self.metrics.descriptionMinHeight
     block.hideWhenEmpty = options.hideWhenEmpty == true
     block.heightPadding = options.heightPadding or self.metrics.descriptionPadding
-    if getText then
+    block.text = resolvedText
+    if getText and not self.dryRun then
         self.refreshEntries[#self.refreshEntries + 1] = {
             component = component,
             getText = getText,
@@ -792,6 +956,7 @@ function Page:Section(title, options)
         local gap = #self.blocks == 0 and 0 or (options.gapBefore or self.metrics.sectionGap)
         local block = self:_AppendBlock("section", component, gap, section)
         block.height = options.height or self.metrics.sectionHeaderHeight
+        section.block = block
     end
     if options.description ~= nil then
         section:Description(options.description, options.descriptionOptions)
@@ -921,7 +1086,7 @@ end
 function Tabs:_ReadRequested(reason, data)
     local getValue = self.options.getValue
     if type(getValue) == "function" then
-        return ResolveValue(getValue, self.page, self, reason, data)
+        return ResolvePageOptionValue(getValue, self.page, self, reason, data)
     end
     return self.options.default
 end
@@ -954,6 +1119,10 @@ function Tabs:Select(key, silent, deferLayout)
     local tab = self.items[key]
     if not tab then
         return false, "settings tab is not registered"
+    end
+    if self.page.dryRun then
+        self.selected = key
+        return true
     end
     local previous = self.selected
     if previous and previous ~= key then self.page:DeactivateActions() end
@@ -1172,13 +1341,13 @@ function Page:FooterActions(options)
     if options.description then
         local getText = type(options.description) == "function" and options.description or nil
         local label, labelReason = self.context:Create("label", self.root, {
-            text = ResolveValue(options.description, self, nil, "build", GetContextData(self.context)),
+            text = ResolvePageOptionValue(options.description, self, nil, "build", GetContextData(self.context)),
             height = 20, wordWrap = true, labelFill = true, justifyH = "LEFT",
             textToken = options.descriptionTextToken or "color.text.muted", noBorder = true,
         })
         if not label then return nil, labelReason end
         row.description = label
-        if getText then
+        if getText and not self.dryRun then
             self.refreshEntries[#self.refreshEntries + 1] = { component = label, getText = getText }
         end
     end
@@ -1371,7 +1540,7 @@ function Row:Add(kind, key, options)
     self.page.controls[key] = component
     self.page.controlEntries[key] = entry
     self.page.controlOrder[#self.page.controlOrder + 1] = entry
-    if type(entry.options.onCreated) == "function" then
+    if not self.page.dryRun and type(entry.options.onCreated) == "function" then
         entry.options.onCreated(component, self.page, self)
     end
     return self, component
@@ -1482,6 +1651,45 @@ function Row:Popover(key, options)
     end
     if self.options.minimumColumnWidth == nil then
         self.options.minimumColumnWidth = DEFAULTS.popoverMinimumColumnWidth
+    end
+    if self.page.dryRun then
+        local dryOptions = CopyTable(options)
+        local buttonOptions = CopyTable(dryOptions.button)
+        buttonOptions.text = buttonOptions.text or ""
+        if buttonOptions.text == "外观样式" or buttonOptions.text == "外观设置"
+            or buttonOptions.text == "样式设置" or buttonOptions.text == "外观调整" then
+            buttonOptions.text = "样式调整"
+            dryOptions.title = "样式调整"
+        end
+        local dryButton = NewDryRunComponent("button", buttonOptions)
+        local dryPopover = {
+            key = key,
+            page = self.page,
+            row = self,
+            options = dryOptions,
+            button = dryButton,
+            attachedTo = dryOptions.attachTo,
+            GetControl = function() return DUMMY_FRAME end,
+        }
+        local entry = {
+            key = key,
+            kind = "button",
+            options = buttonOptions,
+            row = self,
+            component = dryButton,
+            layoutComponent = dryButton,
+            visible = not buttonOptions.hidden,
+            attachedTo = dryOptions.attachTo,
+        }
+        if not dryOptions.attachTo then
+            self.records[#self.records + 1] = entry
+        end
+        self.page.controls[key] = dryButton
+        self.page.controlEntries[key] = entry
+        self.page.controlOrder[#self.page.controlOrder + 1] = entry
+        self.page.popovers[key] = dryPopover
+        self.page.popoverOrder[#self.page.popoverOrder + 1] = dryPopover
+        return self, dryButton, dryPopover
     end
 
     if not self.page.system.settingsPopovers then
@@ -1659,6 +1867,7 @@ function Row:Popover(key, options)
         button.attachedTo = target
         target.attachedAction = button
     end
+    popover.row = self
     self.page.popovers[key] = popover
     self.page.popoverOrder[#self.page.popoverOrder + 1] = popover
     return self, button, popover
@@ -2049,6 +2258,7 @@ function Page:_LayoutRow(row, innerWidth, remainingHeight)
 end
 
 function Page:RefreshLayout(width, height)
+    if self.dryRun then return 0 end
     if self.system.layoutBatchPageId and self.context and self.system.layoutBatchPageId == self.context.id then
         return self.contentHeight or 0
     end
@@ -2123,12 +2333,17 @@ function Page:RefreshLayout(width, height)
             if hasVisibleBlock then
                 cursor = cursor + block.gapBefore
             end
+            block.layoutY = cursor
+            block.layoutHeight = height
             if frame.ClearAllPoints then frame:ClearAllPoints() end
             if frame.SetPoint then
                 frame:SetPoint("TOPLEFT", self.content, "TOPLEFT", self.metrics.padding, -cursor)
             end
             cursor = cursor + height
             hasVisibleBlock = true
+        else
+            block.layoutY = nil
+            block.layoutHeight = 0
         end
         index = index + 1
     end
@@ -2144,6 +2359,14 @@ function Page:RefreshLayout(width, height)
 end
 
 function Page:Finish(width, height)
+    if self.dryRun then
+        if self.tabs then
+            self.tabs:_ResolveInitial("build", GetContextData(self.context))
+        end
+        self.finished = true
+        self.finishCount = self.finishCount + 1
+        return 0
+    end
     if self.tabs then
         self.tabs:_ResolveInitial("build", GetContextData(self.context))
         if self.tabs.selected then
@@ -2156,6 +2379,7 @@ function Page:Finish(width, height)
 end
 
 function Page:Refresh(reason, data)
+    if self.dryRun then return true end
     data = data == nil and GetContextData(self.context) or data
     local prepared = {
         controls = {},
@@ -2354,6 +2578,471 @@ function Page:GetDiagnostics()
         dynamicResources = 0,
         lastRefreshError = self.lastRefreshError,
     }
+end
+
+local function ResolveSearchOptionText(option, arg1, arg2)
+    if type(option) == "function" then
+        local ok, resolved = pcall(option, arg1, arg2)
+        return ok and CleanSearchText(resolved) or nil
+    end
+    return CleanSearchText(option)
+end
+
+local function JoinSearchContext(...)
+    local parts = {}
+    local count = select("#", ...)
+    for index = 1, count do
+        local part = select(index, ...)
+        if part and part ~= "" then
+            parts[#parts + 1] = part
+        end
+    end
+    if #parts == 0 then return nil end
+    return table.concat(parts, " > ")
+end
+
+local function AppendSearchEntry(entries, seen, pageId, kind, tier, label, fields)
+    label = CleanSearchText(label)
+    if not label then return end
+    local searchLower = string.lower(label)
+    local dedupeKey = table.concat({
+        kind,
+        fields.tabKey or "",
+        tostring(fields.sectionIndex or ""),
+        tostring(fields.blockIndex or ""),
+        fields.controlKey or "",
+        fields.popoverKey or "",
+        fields.popRowKey or "",
+        searchLower,
+    }, "\0")
+    if seen[dedupeKey] then return end
+    seen[dedupeKey] = true
+    entries[#entries + 1] = {
+        pageId = pageId,
+        kind = kind,
+        tier = tier,
+        label = label,
+        searchLower = searchLower,
+        tabKey = fields.tabKey,
+        tabTitle = fields.tabTitle,
+        sectionIndex = fields.sectionIndex,
+        sectionTitle = fields.sectionTitle,
+        blockIndex = fields.blockIndex,
+        controlKey = fields.controlKey,
+        popoverKey = fields.popoverKey,
+        popoverTitle = fields.popoverTitle,
+        popRowKey = fields.popRowKey,
+        contextLabel = fields.contextLabel,
+    }
+end
+
+function SettingsBuilder:ExtractSearchEntries(page, pageId)
+    if type(page) ~= "table" then return {} end
+    local entries = {}
+    local seen = {}
+    local resolvedPageId = pageId or (page.options and page.options.id) or (page.context and page.context.id)
+
+    if page.tabs and type(page.tabs.order) == "table" then
+        for _, tab in ipairs(page.tabs.order) do
+            local title = CleanSearchText(tab.title)
+            if title then
+                AppendSearchEntry(entries, seen, resolvedPageId, "tab", 1, title, {
+                    tabKey = tab.key,
+                    tabTitle = title,
+                })
+            end
+        end
+    end
+
+    local sectionIndexMap = {}
+    for sectionIndex, section in ipairs(page.sections or {}) do
+        sectionIndexMap[section] = sectionIndex
+        local sectionTitle = CleanSearchText(section.title)
+        if sectionTitle then
+            local tab = section.tab
+            local tabTitle = tab and CleanSearchText(tab.title) or nil
+            AppendSearchEntry(entries, seen, resolvedPageId, "section", 2, sectionTitle, {
+                tabKey = tab and tab.key or nil,
+                tabTitle = tabTitle,
+                sectionIndex = sectionIndex,
+                sectionTitle = sectionTitle,
+                contextLabel = tabTitle,
+            })
+        end
+    end
+
+    for _, entry in ipairs(page.controlOrder or {}) do
+        local options = entry.options
+        if not (options and options.action) and not (page.popovers and page.popovers[entry.key]) then
+            local row = entry.row
+            local section = row and row.section
+            local tab = (row and row.block and row.block.tab) or (section and section.tab)
+            local tabKey = tab and tab.key or nil
+            local tabTitle = tab and CleanSearchText(tab.title) or nil
+            local sectionIndex = section and sectionIndexMap[section] or nil
+            local sectionTitle = section and CleanSearchText(section.title) or nil
+            local contextLabel = JoinSearchContext(tabTitle, sectionTitle)
+
+            local fieldLabel = CleanSearchText(entry.fieldLabelText)
+                or ResolveSearchOptionText(options and options.fieldLabel, page, entry)
+            local liveText = entry.component and entry.component.GetText
+                and CleanSearchText(entry.component:GetText()) or nil
+            local staticText = ResolveSearchOptionText(options and options.text, page, entry)
+
+            local fields = {
+                tabKey = tabKey,
+                tabTitle = tabTitle,
+                sectionIndex = sectionIndex,
+                sectionTitle = sectionTitle,
+                controlKey = entry.key,
+                contextLabel = contextLabel,
+            }
+            if fieldLabel then AppendSearchEntry(entries, seen, resolvedPageId, "control", 1, fieldLabel, fields) end
+            if liveText then AppendSearchEntry(entries, seen, resolvedPageId, "control", 1, liveText, fields) end
+            if staticText and staticText ~= liveText then
+                AppendSearchEntry(entries, seen, resolvedPageId, "control", 1, staticText, fields)
+            end
+        end
+    end
+
+    for _, popover in ipairs(page.popoverOrder or {}) do
+        local opts = popover.options or {}
+        local row = popover.row or (popover.key and page.controlEntries[popover.key] and page.controlEntries[popover.key].row)
+        local section = row and row.section
+        local tab = (row and row.block and row.block.tab) or (section and section.tab)
+        local tabKey = tab and tab.key or nil
+        local tabTitle = tab and CleanSearchText(tab.title) or nil
+        local sectionIndex = section and sectionIndexMap[section] or nil
+        local sectionTitle = section and CleanSearchText(section.title) or nil
+
+        local popoverTitle = ResolveSearchOptionText(opts.title, page, popover)
+        local buttonText = ResolveSearchOptionText(opts.button and opts.button.text, page, popover)
+        local displayTitle = popoverTitle or buttonText
+        local popFields = {
+            tabKey = tabKey,
+            tabTitle = tabTitle,
+            sectionIndex = sectionIndex,
+            sectionTitle = sectionTitle,
+            popoverKey = popover.key,
+            popoverTitle = displayTitle,
+            contextLabel = JoinSearchContext(tabTitle, sectionTitle),
+        }
+        if popoverTitle then AppendSearchEntry(entries, seen, resolvedPageId, "popover", 2, popoverTitle, popFields) end
+        if buttonText and buttonText ~= popoverTitle then
+            AppendSearchEntry(entries, seen, resolvedPageId, "popover", 2, buttonText, popFields)
+        end
+
+        for rowIndex, childRow in ipairs(opts.rows or {}) do
+            if type(childRow) == "table" then
+                local popRowKey = childRow.key or tostring(rowIndex)
+                local rowLabel = ResolveSearchOptionText(childRow.text, popover, childRow)
+                    or ResolveSearchOptionText(childRow.label, popover, childRow)
+                    or ResolveSearchOptionText(childRow.fieldLabel, popover, childRow)
+                    or ResolveSearchOptionText(childRow.title, popover, childRow)
+                if rowLabel then
+                    AppendSearchEntry(entries, seen, resolvedPageId, "popover-row", 1, rowLabel, {
+                        tabKey = tabKey,
+                        tabTitle = tabTitle,
+                        sectionIndex = sectionIndex,
+                        sectionTitle = sectionTitle,
+                        popoverKey = popover.key,
+                        popoverTitle = displayTitle,
+                        popRowKey = popRowKey,
+                        contextLabel = JoinSearchContext(tabTitle, sectionTitle, displayTitle),
+                    })
+                end
+            end
+        end
+    end
+
+    for blockIndex, block in ipairs(page.blocks or {}) do
+        if block.kind == "description" then
+            local text = CleanSearchText(block.component and block.component.GetText and block.component:GetText())
+                or CleanSearchText(block.text)
+            if text then
+                local section = block.owner
+                local tab = block.tab or (section and section.tab)
+                local tabTitle = tab and CleanSearchText(tab.title) or nil
+                local sectionTitle = section and CleanSearchText(section.title) or nil
+                AppendSearchEntry(entries, seen, resolvedPageId, "description", 3, text, {
+                    tabKey = tab and tab.key or nil,
+                    tabTitle = tabTitle,
+                    sectionIndex = section and sectionIndexMap[section] or nil,
+                    sectionTitle = sectionTitle,
+                    blockIndex = blockIndex,
+                    contextLabel = JoinSearchContext(tabTitle, sectionTitle),
+                })
+            end
+        end
+    end
+
+    return entries
+end
+
+function SettingsBuilder:CollectPageSearchIndex(pageId, definition, liveContext)
+    local livePage = liveContext and self:GetPage(liveContext) or nil
+    if livePage then
+        return self:ExtractSearchEntries(livePage, pageId)
+    end
+    if type(definition) ~= "table" or type(definition.build) ~= "function" then
+        return {}
+    end
+    local dryContext = NewDryRunContext(pageId)
+    pcall(definition.build, dryContext)
+    if dryContext.dryRunPage then
+        return self:ExtractSearchEntries(dryContext.dryRunPage, pageId)
+    end
+    return {}
+end
+
+function SettingsBuilder:HideSearchHighlight()
+    local hl = self.searchHighlight
+    if not hl then return false end
+    if hl.animGroup and hl.animGroup.Stop then
+        hl.animGroup:Stop()
+    end
+    hl.target = nil
+    if hl.frame and hl.frame.Hide then
+        hl.frame:Hide()
+    end
+    return true
+end
+
+function SettingsBuilder:_HighlightComponent(target)
+    if not target then return false end
+    local targetFrame = GetFrame(target)
+    if not targetFrame then return false end
+    local hl = self.searchHighlight
+    if not hl then
+        local createFrame = self.system and self.system.components
+            and self.system.components.createFrame or _G.CreateFrame
+        if type(createFrame) ~= "function" then return false end
+        local frame = createFrame("Frame", nil, targetFrame)
+        if not frame then return false end
+        if frame.EnableMouse then frame:EnableMouse(false) end
+        local fill = frame.CreateTexture and frame:CreateTexture(nil, "OVERLAY") or nil
+        if fill and fill.SetAllPoints then fill:SetAllPoints(frame) end
+        local edges = {}
+        if frame.CreateTexture then
+            for _, key in ipairs({ "top", "bottom", "left", "right" }) do
+                edges[key] = frame:CreateTexture(nil, "OVERLAY")
+            end
+            edges.top:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, 0)
+            edges.top:SetPoint("TOPRIGHT", frame, "TOPRIGHT", 0, 0)
+            if edges.top.SetHeight then edges.top:SetHeight(2) elseif edges.top.SetSize then edges.top:SetSize(2, 2) end
+            edges.bottom:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 0, 0)
+            edges.bottom:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", 0, 0)
+            if edges.bottom.SetHeight then edges.bottom:SetHeight(2) elseif edges.bottom.SetSize then edges.bottom:SetSize(2, 2) end
+            edges.left:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, 0)
+            edges.left:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 0, 0)
+            if edges.left.SetWidth then edges.left:SetWidth(2) elseif edges.left.SetSize then edges.left:SetSize(2, 2) end
+            edges.right:SetPoint("TOPRIGHT", frame, "TOPRIGHT", 0, 0)
+            edges.right:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", 0, 0)
+            if edges.right.SetWidth then edges.right:SetWidth(2) elseif edges.right.SetSize then edges.right:SetSize(2, 2) end
+        end
+        local animGroup
+        if frame.CreateAnimationGroup then
+            animGroup = frame:CreateAnimationGroup()
+            if animGroup and animGroup.CreateAnimation then
+                local fadeOut = animGroup:CreateAnimation("Alpha")
+                fadeOut:SetFromAlpha(1)
+                fadeOut:SetToAlpha(0.25)
+                fadeOut:SetDuration(0.4)
+                fadeOut:SetOrder(1)
+                local fadeIn = animGroup:CreateAnimation("Alpha")
+                fadeIn:SetFromAlpha(0.25)
+                fadeIn:SetToAlpha(1)
+                fadeIn:SetDuration(0.3)
+                fadeIn:SetOrder(2)
+                local settle = animGroup:CreateAnimation("Alpha")
+                settle:SetFromAlpha(1)
+                settle:SetToAlpha(0)
+                settle:SetDuration(0.8)
+                settle:SetStartDelay(0.35)
+                settle:SetOrder(3)
+                animGroup:SetScript("OnFinished", function()
+                    frame:Hide()
+                end)
+            end
+        end
+        hl = { frame = frame, fill = fill, edges = edges, animGroup = animGroup }
+        self.searchHighlight = hl
+    end
+
+    local accent = self.system and self.system.theme and self.system.theme:Get("color.accent")
+        or { 0, 1, 0, 1 }
+    local r, g, b = accent[1] or 0, accent[2] or 1, accent[3] or 0
+    if hl.fill and hl.fill.SetColorTexture then
+        hl.fill:SetColorTexture(r, g, b, 0.12)
+    end
+    for _, edge in pairs(hl.edges) do
+        if edge and edge.SetColorTexture then
+            edge:SetColorTexture(r, g, b, 0.95)
+        end
+    end
+
+    local frame = hl.frame
+    if hl.animGroup and hl.animGroup.Stop then hl.animGroup:Stop() end
+    if frame.SetParent then frame:SetParent(targetFrame) end
+    if frame.ClearAllPoints then frame:ClearAllPoints() end
+    if frame.SetAllPoints then
+        frame:SetAllPoints(targetFrame)
+    elseif frame.SetPoint then
+        frame:SetPoint("TOPLEFT", targetFrame, "TOPLEFT", 0, 0)
+        frame:SetPoint("BOTTOMRIGHT", targetFrame, "BOTTOMRIGHT", 0, 0)
+    end
+    if frame.SetFrameStrata and targetFrame.GetFrameStrata then
+        frame:SetFrameStrata(targetFrame:GetFrameStrata())
+    end
+    if frame.SetFrameLevel and targetFrame.GetFrameLevel then
+        frame:SetFrameLevel((targetFrame:GetFrameLevel() or 0) + 12)
+    end
+    if frame.SetAlpha then frame:SetAlpha(1) end
+    hl.target = target
+    if frame.Show then frame:Show() end
+    if hl.animGroup and hl.animGroup.Play then hl.animGroup:Play() end
+    return true
+end
+
+function Page:ScrollToY(y)
+    if self.dryRun or not self.scroll then return false end
+    local frame = GetFrame(self.scroll)
+    if not frame then return false end
+    if frame.UpdateScrollChildRect then frame:UpdateScrollChildRect() end
+    local viewportHeight = frame.GetHeight and tonumber(frame:GetHeight()) or self.availableHeight or 0
+    local computedRange = math.max(0, (self.contentHeight or 0) - viewportHeight)
+    local range
+    if frame.GetVerticalScrollRange then
+        local apiRange = tonumber(frame:GetVerticalScrollRange()) or 0
+        range = apiRange > 0 and apiRange or computedRange
+    else
+        range = computedRange
+    end
+    local target = math.max(0, (tonumber(y) or 0) - 48)
+    local clamped = math.max(0, math.min(range, target))
+    if frame.SetVerticalScroll then frame:SetVerticalScroll(clamped) end
+    local bar = self.scroll.scrollBar
+    if bar and bar.SetValue then bar:SetValue(clamped) end
+    self.lastScrollY = clamped
+    return true, clamped
+end
+
+local function FindSectionForHit(page, hit)
+    if hit.sectionIndex and page.sections[hit.sectionIndex] then
+        return page.sections[hit.sectionIndex]
+    end
+    if hit.sectionTitle then
+        for _, section in ipairs(page.sections or {}) do
+            if CleanSearchText(section.title) == hit.sectionTitle then
+                return section
+            end
+        end
+    end
+    return nil
+end
+
+function Page:FocusSearchTarget(hit)
+    if self.dryRun or type(hit) ~= "table" then return false end
+    if self.manager then self.manager:HideSearchHighlight() end
+    self:ClosePopovers()
+
+    if hit.tabKey and self.tabs and self.tabs.items[hit.tabKey] then
+        if self.tabs:GetSelected() ~= hit.tabKey then
+            self.tabs:Select(hit.tabKey)
+        end
+    end
+    if not self.layoutCount or self.layoutCount == 0 then
+        self:RefreshLayout()
+    end
+
+    local kind = hit.kind
+    local resolvedKind
+    local targetComponent
+    local scrollY
+
+    if kind == "tab" then
+        local tab = hit.tabKey and self.tabs and self.tabs.items[hit.tabKey]
+        if tab and tab.button then
+            scrollY = 0
+            targetComponent = tab.button
+            resolvedKind = "tab"
+        end
+    elseif kind == "section" then
+        local section = FindSectionForHit(self, hit)
+        if section and section.block and section.block.layoutY ~= nil and section.header then
+            scrollY = section.block.layoutY
+            targetComponent = section.header
+            resolvedKind = "section"
+        end
+    elseif kind == "description" then
+        local block = hit.blockIndex and self.blocks[hit.blockIndex]
+        if block and block.kind == "description" and block.layoutY ~= nil and block.component then
+            scrollY = block.layoutY
+            targetComponent = block.component
+            resolvedKind = "description"
+        end
+    elseif kind == "control" then
+        local entry = hit.controlKey and self.controlEntries[hit.controlKey]
+        if entry and entry.visible and entry.row and entry.row.block and entry.row.block.layoutY ~= nil then
+            scrollY = entry.row.block.layoutY
+            targetComponent = entry.layoutComponent or entry.component
+            resolvedKind = "control"
+        else
+            local section = (entry and entry.row and entry.row.section) or FindSectionForHit(self, hit)
+            if section and section.block and section.block.layoutY ~= nil and section.header then
+                scrollY = section.block.layoutY
+                targetComponent = section.header
+                resolvedKind = "section-fallback"
+            end
+        end
+    elseif kind == "popover" or kind == "popover-row" then
+        local popover = hit.popoverKey and self.popovers[hit.popoverKey]
+        if popover then
+            local row = popover.row or (popover.key and self.controlEntries[popover.key] and self.controlEntries[popover.key].row)
+            local rowBlock = row and row.block
+            if rowBlock and rowBlock.layoutY ~= nil then
+                self:ScrollToY(rowBlock.layoutY)
+            end
+            local btn = popover.button
+            local btnEntry = popover.key and self.controlEntries[popover.key]
+            local btnVisible = (not btnEntry or btnEntry.visible) and (not btn or not btn.IsVisible or btn:IsVisible())
+            local btnEnabled = not btn or btn.enabled ~= false
+            if kind == "popover-row" and btnVisible and btnEnabled then
+                local ok, shown = pcall(popover.Show, popover)
+                if ok and shown and popover.visible then
+                    local child = hit.popRowKey and popover:GetControl(hit.popRowKey)
+                    if child and (not child.IsVisible or child:IsVisible()) then
+                        targetComponent = child
+                        resolvedKind = "popover-row"
+                    elseif popover.popup then
+                        targetComponent = popover.popup
+                        resolvedKind = "popover-popup"
+                    end
+                end
+            end
+            if not targetComponent and btn and btnVisible then
+                targetComponent = btn
+                resolvedKind = "popover"
+            elseif not targetComponent then
+                local section = (row and row.section) or FindSectionForHit(self, hit)
+                if section and section.block and section.block.layoutY ~= nil and section.header then
+                    scrollY = section.block.layoutY
+                    targetComponent = section.header
+                    resolvedKind = "section-fallback"
+                end
+            end
+        end
+    end
+
+    if scrollY ~= nil then
+        self:ScrollToY(scrollY)
+    end
+    self.lastFocusedHit = hit
+    if targetComponent and self.manager then
+        self.manager:_HighlightComponent(targetComponent)
+        return true, resolvedKind
+    end
+    return false, resolvedKind
 end
 
 UI.SettingsBuilder = SettingsBuilder

@@ -6,13 +6,6 @@ X: 0
 Y: -28
 W: 329
 H: 210
-Frame: DungeonsForever_MainFrame
-FrameLevel: 1
-Anchor: BOTTOM
-X: -43
-Y: 36
-W: 1000
-H: 708
 Frame: RXPG_ARROW
 FrameLevel: 1
 Anchor: CENTER
@@ -34,3 +27,10 @@ X: -459
 Y: -3
 W: 51
 H: 18
+Frame: DungeonsForever_MainFrame
+FrameLevel: 1
+Anchor: BOTTOM
+X: -43
+Y: 36
+W: 1000
+H: 708

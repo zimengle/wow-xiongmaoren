@@ -57,6 +57,10 @@ local function alertFor(name)
 	if Spy.TargetsAlerted[name] and now - Spy.TargetsAlerted[name] < ALERT_COOLDOWN then
 		return
 	end
+	-- "Only flagged enemies" (Flagged.lua): no alert for an enemy read as not flagged.
+	if Spy.IsQuietEnemy and Spy:IsQuietEnemy(name) then
+		return
+	end
 	Spy.TargetsAlerted[name] = now
 	Spy.TargetsStats.alerts = Spy.TargetsStats.alerts + 1
 	Spy.TargetsStats.last = { name = name, when = time() }

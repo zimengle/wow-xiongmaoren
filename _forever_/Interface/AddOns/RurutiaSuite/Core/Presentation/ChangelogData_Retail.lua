@@ -7,14 +7,19 @@ RS.Presentation.ChangelogData = RS.Presentation.ChangelogData or {}
 if buildID == "retail" then
     RS.Presentation.ChangelogData.retail = {
         viewId = "retail",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:b12122bc17757dfa7eb06328bbb286bd4b1b388df7bed3823320bed0355266f5",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:d90bba8918232880dd217f0072ffe1c4655e195a492fe494eaaa946c1c2b84f2",
         historySourceId = "retail:b109960e82a2b3db460e2ae597ea8870276d1479:RurutiaSuite/Changelog.md",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.8.9",
-            date = "2026-11-16",
-            noticeKey = "4.8.9:54f08860994353e8afae",
-            content = [=[%sv4.8.9（2026-11-16）|r
+            version = "4.9.2",
+            date = "2026-11-20",
+            noticeKey = "4.9.2:f8a71ad64450713bf6db",
+            content = [=[%sv4.9.2（2026-11-20）|r
+
+%s[主窗口]|r
+• 设置搜索自动索引标签、分组与主要功能项，点击或回车可直接定位并高亮。
+
+%sv4.8.9（2026-11-16）|r
 
 %s[系统增强]|r
 • 原生背包标题显示已用和总容量，分包时可在主背包切换背包栏。

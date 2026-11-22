@@ -3,75 +3,23 @@ Blizzard_Console_SavedVars = {
 ["version"] = 3,
 ["messageHistory"] = {
 {
-"Character list request sent fastLogin=\"false\"",
+"LimitedLuaResources: Addon capacity for Animation changed to 5000",
 0,
 },
 {
-"CVar 'encounterTimelineHighlightDuration' failed validation for its initial value.",
+"LimitedLuaResources: Addon capacity for Timer changed to 500",
 0,
 },
 {
-"CVar 'encounterTimelineIconographyHiddenMask' failed validation for its initial value.",
+"LimitedLuaResources: Addon capacity for FontString changed to 5000",
 0,
 },
 {
-"CVar 'encounterTimelineIconographyEnabled' failed validation for its initial value.",
+"LimitedLuaResources: Global capacity for Animation changed to 50000",
 0,
 },
 {
-"CVar 'encounterTimelineHideForOtherRoles' failed validation for its initial value.",
-0,
-},
-{
-"CVar 'encounterTimelineHideQueuedCountdowns' failed validation for its initial value.",
-0,
-},
-{
-"CVar 'encounterTimelineHideLongCountdowns' failed validation for its initial value.",
-0,
-},
-{
-"CVar 'encounterTimelineEnabled' failed validation for its initial value.",
-0,
-},
-{
-"Battle.net connected to realm; disconnecting from front",
-0,
-},
-{
-"AccountData_RequestLoad type=\"0\" fromAuth=\"true\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"0\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
-0,
-},
-{
-"AccountData_RequestLoad updated callback state type=\"0\" pending=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"AccountData_RequestLoad type=\"10\" fromAuth=\"true\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"0\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
-0,
-},
-{
-"AccountData_RequestLoad updated callback state type=\"10\" pending=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"AccountData_RequestLoad type=\"16\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"0\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
-0,
-},
-{
-"AccountData_RequestLoad updated callback state type=\"16\" pending=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"Glue feature system status received",
-0,
-},
-{
-"Connecting to sourceRealmAddress=\"95-5-3\" connection=\"0000017d9f847350\" serial=\"14\" protocol=\"(enum)0\"",
-0,
-},
-{
-"Opening network connection connectionIndex=\"(enum)2\" connection=\"0000017d9f847350\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
+"LimitedLuaResources: Global capacity for Texture changed to 400000",
 0,
 },
 {
@@ -127,1559 +75,7 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Killing connection connection=\"0000017d7434aee0\" state=\"(enum)6\"",
-0,
-},
-{
-"Initial hotfixes applied",
-0,
-},
-{
-"Account item collection data received for character selection collectionListType=\"7\" itemCount=\"0\" wasWaiting=\"false\"",
-0,
-},
-{
-"Character selection updating character list success=\"true\" isRegionwideData=\"true\" isDeletedCharacters=\"false\" count=\"2\"",
-0,
-},
-{
-"-------------------------------------------------- Previous Session --------------------------------------------------",
-0,
-},
-{
-"Suspend()",
-0,
-},
-{
-"LimitedLuaResources: Reset Timer",
-0,
-},
-{
-"Attempted to register existing command: SetDifficulty",
-0,
-},
-{
-"AccountData_RequestLoad type=\"12\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"140698810332936\" newParam=\"140698810332936\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
-0,
-},
-{
-"AccountData_RequestLoad updated callback state type=\"12\" pending=\"false\" hasCallback=\"true\" param=\"140698810332936\"",
-0,
-},
-{
-"AccountData_RequestLoad type=\"13\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"0\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
-0,
-},
-{
-"AccountData_RequestLoad updated callback state type=\"13\" pending=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"AccountData_RequestLoad type=\"14\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"0\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
-0,
-},
-{
-"AccountData_RequestLoad updated callback state type=\"14\" pending=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"AccountData_RequestLoad type=\"8\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"140698810342992\" newParam=\"140698810342992\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
-0,
-},
-{
-"AccountData_RequestLoad updated callback state type=\"8\" pending=\"false\" hasCallback=\"true\" param=\"140698810342992\"",
-0,
-},
-{
-"AccountData_RequestLoad type=\"9\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"140698810342992\" newParam=\"140698810342992\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
-0,
-},
-{
-"AccountData_RequestLoad updated callback state type=\"9\" pending=\"false\" hasCallback=\"true\" param=\"140698810342992\"",
-0,
-},
-{
-"AccountData_RequestLoad type=\"18\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"0\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
-0,
-},
-{
-"AccountData_RequestLoad updated callback state type=\"18\" pending=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"PreLoadGameCVars initialized pending mask pendingMask=\"32\" initCounter=\"3\" characterlessLogin=\"false\"",
-0,
-},
-{
-"AccountData_RequestLoad type=\"2\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"196609\" newParam=\"458753\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
-0,
-},
-{
-"AccountData_RequestLoad updated callback state type=\"2\" pending=\"false\" hasCallback=\"true\" param=\"458753\"",
-0,
-},
-{
-"AccountData_RequestLoad type=\"3\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"196610\" newParam=\"458754\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
-0,
-},
-{
-"AccountData_RequestLoad updated callback state type=\"3\" pending=\"false\" hasCallback=\"true\" param=\"458754\"",
-0,
-},
-{
-"AccountData_RequestLoad type=\"6\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"0\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
-0,
-},
-{
-"AccountData_RequestLoad updated callback state type=\"6\" pending=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"AccountData_RequestLoad type=\"11\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"0\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
-0,
-},
-{
-"AccountData_RequestLoad updated callback state type=\"11\" pending=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"LoadGameCVars request dispatch initCounter=\"3\" pendingMask=\"32\" characterlessLogin=\"false\"",
-0,
-},
-{
-"AccountData_RequestLoad type=\"1\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"65568\" newParam=\"196640\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
-0,
-},
-{
-"AccountData_RequestLoad updated callback state type=\"1\" pending=\"false\" hasCallback=\"true\" param=\"196640\"",
-0,
-},
-{
-"AccountData_RequestLoad type=\"4\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"65537\" newParam=\"65539\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
-0,
-},
-{
-"AccountData_RequestLoad updated callback state type=\"4\" pending=\"false\" hasCallback=\"true\" param=\"65539\"",
-0,
-},
-{
-"AccountData_RequestLoad type=\"5\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"131073\" newParam=\"131075\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
-0,
-},
-{
-"AccountData_RequestLoad updated callback state type=\"5\" pending=\"false\" hasCallback=\"true\" param=\"131075\"",
-0,
-},
-{
-"AccountData_RequestLoad type=\"7\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"0\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
-0,
-},
-{
-"AccountData_RequestLoad updated callback state type=\"7\" pending=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"Connecting to sourceRealmAddress=\"95-5-3\" connection=\"0000017f25e9ce60\" serial=\"17\" protocol=\"(enum)0\"",
-0,
-},
-{
-"Opening network connection connectionIndex=\"(enum)3\" connection=\"0000017f25e9ce60\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"1\" pendingBefore=\"false\" hasCallback=\"true\" param=\"196640\"",
-0,
-},
-{
-"LoadGameCVarsCallback received callbackInitCounter=\"3\" currentInitCounter=\"3\" mask=\"32\" buffsize=\"1293\" pendingMaskBefore=\"32\"",
-0,
-},
-{
-"LoadGameCVarsCallback applied response mask=\"32\" pendingMaskAfter=\"0\"",
-0,
-},
-{
-"LoadGameCVarsCheckDone areCVarsLoaded=\"true\" pendingMask=\"0\"",
-0,
-},
-{
-"Resuming communications connectionIndex=\"(enum)3\"",
-0,
-},
-{
-"LoadGameCVarsCheckDone signaled variables loaded pendingMask=\"0\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"2\" pendingBefore=\"false\" hasCallback=\"true\" param=\"458753\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"3\" pendingBefore=\"false\" hasCallback=\"true\" param=\"458754\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"4\" pendingBefore=\"false\" hasCallback=\"true\" param=\"65539\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"5\" pendingBefore=\"false\" hasCallback=\"true\" param=\"131075\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"6\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"7\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"8\" pendingBefore=\"false\" hasCallback=\"true\" param=\"140698810342992\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"9\" pendingBefore=\"false\" hasCallback=\"true\" param=\"140698810342992\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"11\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"12\" pendingBefore=\"false\" hasCallback=\"true\" param=\"140698810332936\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"13\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"14\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"15\" pendingBefore=\"false\" hasCallback=\"false\" param=\"0\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"17\" pendingBefore=\"false\" hasCallback=\"false\" param=\"0\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"18\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000200",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000221",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000004000",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000006000",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000225",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000006010",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000006011",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x0000000265",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000006031",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x000000026d",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x000000026f",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000006431",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x0000006433",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x000000e433",
-0,
-},
-{
-"Proficiency in item class 2 set to 0x000000e433",
-0,
-},
-{
-"Proficiency in item class 4 set to 0x000000026f",
-0,
-},
-{
-"Weather changed to 0, intensity 1.000000\n",
-0,
-},
-{
-"Time set to 11/19/2026 (Thu) 23:40",
-0,
-},
-{
-"Gamespeed set from 0.017 to 0.017",
-0,
-},
-{
-"Connecting to sourceRealmAddress=\"95-5-3\" connection=\"0000017d744911e0\" serial=\"43\" protocol=\"(enum)0\"",
-0,
-},
-{
-"Opening network connection connectionIndex=\"(enum)3\" connection=\"0000017d744911e0\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
-0,
-},
-{
-"Resuming communications connectionIndex=\"(enum)3\"",
-0,
-},
-{
-"Killing connection connection=\"0000017f25e9ce60\" state=\"(enum)6\"",
-0,
-},
-{
-"Weather changed to 0, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 4d 23h 12m 18s",
-0,
-},
-{
-"Level: 0d 5h 50m 55s",
-0,
-},
-{
-"Skill 95 increased from 285 to 286",
-0,
-},
-{
-"Connecting to sourceRealmAddress=\"95-5-3\" connection=\"0000017d744c6b30\" serial=\"73\" protocol=\"(enum)0\"",
-0,
-},
-{
-"Opening network connection connectionIndex=\"(enum)3\" connection=\"0000017d744c6b30\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
-0,
-},
-{
-"Resuming communications connectionIndex=\"(enum)3\"",
-0,
-},
-{
-"Killing connection connection=\"0000017d744911e0\" state=\"(enum)6\"",
-0,
-},
-{
-"Weather changed to 0, intensity 0.000000\n",
-0,
-},
-{
-"Connecting to sourceRealmAddress=\"95-5-3\" connection=\"0000017dbeedcac0\" serial=\"103\" protocol=\"(enum)0\"",
-0,
-},
-{
-"Opening network connection connectionIndex=\"(enum)3\" connection=\"0000017dbeedcac0\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
-0,
-},
-{
-"Resuming communications connectionIndex=\"(enum)3\"",
-0,
-},
-{
-"Killing connection connection=\"0000017d744c6b30\" state=\"(enum)6\"",
-0,
-},
-{
-"Weather changed to 0, intensity 0.000000\n",
-0,
-},
-{
-"GameTimeSync: delta=0, differential=1, HoursAndMinutes=1432",
-0,
-},
-{
-"GameTimeSync: delta=0, differential=1, HoursAndMinutes=1432",
-5,
-},
-{
-"Connecting to sourceRealmAddress=\"95-5-3\" connection=\"0000017dc5527960\" serial=\"133\" protocol=\"(enum)0\"",
-0,
-},
-{
-"Opening network connection connectionIndex=\"(enum)3\" connection=\"0000017dc5527960\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
-0,
-},
-{
-"Resuming communications connectionIndex=\"(enum)3\"",
-0,
-},
-{
-"Killing connection connection=\"0000017dbeedcac0\" state=\"(enum)6\"",
-0,
-},
-{
-"Weather changed to 0, intensity 0.000000\n",
-0,
-},
-{
-"Weather changed to 0, intensity 0.000000\n",
-0,
-},
-{
-"Connecting to sourceRealmAddress=\"95-5-3\" connection=\"0000017e68f73e50\" serial=\"163\" protocol=\"(enum)0\"",
-0,
-},
-{
-"Opening network connection connectionIndex=\"(enum)3\" connection=\"0000017e68f73e50\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
-0,
-},
-{
-"Resuming communications connectionIndex=\"(enum)3\"",
-0,
-},
-{
-"Killing connection connection=\"0000017dc5527960\" state=\"(enum)6\"",
-0,
-},
-{
-"Weather changed to 0, intensity 0.000000\n",
-0,
-},
-{
-"Weather changed to 0, intensity 0.000000\n",
-0,
-},
-{
-"Connecting to sourceRealmAddress=\"95-5-3\" connection=\"0000017d55d398f0\" serial=\"193\" protocol=\"(enum)0\"",
-0,
-},
-{
-"Opening network connection connectionIndex=\"(enum)3\" connection=\"0000017d55d398f0\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
-0,
-},
-{
-"Resuming communications connectionIndex=\"(enum)3\"",
-0,
-},
-{
-"Killing connection connection=\"0000017e68f73e50\" state=\"(enum)6\"",
-0,
-},
-{
-"Weather changed to 0, intensity 0.000000\n",
-0,
-},
-{
-"Weather changed to 0, intensity 0.000000\n",
-0,
-},
-{
-"Connecting to sourceRealmAddress=\"95-5-3\" connection=\"0000017e68f7a390\" serial=\"223\" protocol=\"(enum)0\"",
-0,
-},
-{
-"Opening network connection connectionIndex=\"(enum)3\" connection=\"0000017e68f7a390\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
-0,
-},
-{
-"Resuming communications connectionIndex=\"(enum)3\"",
-0,
-},
-{
-"Killing connection connection=\"0000017d55d398f0\" state=\"(enum)6\"",
-0,
-},
-{
-"Weather changed to 0, intensity 0.000000\n",
-0,
-},
-{
-"Weather changed to 0, intensity 0.000000\n",
-0,
-},
-{
-"Connecting to sourceRealmAddress=\"95-5-3\" connection=\"0000017d85582a60\" serial=\"253\" protocol=\"(enum)0\"",
-0,
-},
-{
-"Opening network connection connectionIndex=\"(enum)3\" connection=\"0000017d85582a60\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
-0,
-},
-{
-"Resuming communications connectionIndex=\"(enum)3\"",
-0,
-},
-{
-"Killing connection connection=\"0000017e68f7a390\" state=\"(enum)6\"",
-0,
-},
-{
-"Weather changed to 0, intensity 0.000000\n",
-0,
-},
-{
-"Connecting to sourceRealmAddress=\"95-5-3\" connection=\"0000017d99983ec0\" serial=\"283\" protocol=\"(enum)0\"",
-0,
-},
-{
-"Opening network connection connectionIndex=\"(enum)3\" connection=\"0000017d99983ec0\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
-0,
-},
-{
-"Resuming communications connectionIndex=\"(enum)3\"",
-0,
-},
-{
-"Killing connection connection=\"0000017d85582a60\" state=\"(enum)6\"",
-0,
-},
-{
-"Weather changed to 0, intensity 0.000000\n",
-0,
-},
-{
-"Connecting to sourceRealmAddress=\"95-5-3\" connection=\"0000017dadfdef20\" serial=\"313\" protocol=\"(enum)0\"",
-0,
-},
-{
-"Opening network connection connectionIndex=\"(enum)3\" connection=\"0000017dadfdef20\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
-0,
-},
-{
-"Resuming communications connectionIndex=\"(enum)3\"",
-0,
-},
-{
-"Killing connection connection=\"0000017d99983ec0\" state=\"(enum)6\"",
-0,
-},
-{
-"Weather changed to 0, intensity 0.000000\n",
-0,
-},
-{
-"Connecting to sourceRealmAddress=\"95-5-3\" connection=\"0000017d7456c500\" serial=\"343\" protocol=\"(enum)0\"",
-0,
-},
-{
-"Opening network connection connectionIndex=\"(enum)3\" connection=\"0000017d7456c500\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
-0,
-},
-{
-"Resuming communications connectionIndex=\"(enum)3\"",
-0,
-},
-{
-"Killing connection connection=\"0000017dadfdef20\" state=\"(enum)6\"",
-0,
-},
-{
-"Weather changed to 0, intensity 0.000000\n",
-0,
-},
-{
-"Connecting to sourceRealmAddress=\"95-5-3\" connection=\"0000017d537b5c70\" serial=\"373\" protocol=\"(enum)0\"",
-0,
-},
-{
-"Opening network connection connectionIndex=\"(enum)3\" connection=\"0000017d537b5c70\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
-0,
-},
-{
-"Resuming communications connectionIndex=\"(enum)3\"",
-0,
-},
-{
-"Killing connection connection=\"0000017d7456c500\" state=\"(enum)6\"",
-0,
-},
-{
-"Weather changed to 0, intensity 0.000000\n",
-0,
-},
-{
-"Connecting to sourceRealmAddress=\"95-5-3\" connection=\"0000017d744c4be0\" serial=\"403\" protocol=\"(enum)0\"",
-0,
-},
-{
-"Opening network connection connectionIndex=\"(enum)3\" connection=\"0000017d744c4be0\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
-0,
-},
-{
-"Resuming communications connectionIndex=\"(enum)3\"",
-0,
-},
-{
-"Killing connection connection=\"0000017d537b5c70\" state=\"(enum)6\"",
-0,
-},
-{
-"Weather changed to 0, intensity 0.000000\n",
-0,
-},
-{
-"AccountData_RequestLoad type=\"19\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"0\" isReloadingUI=\"false\" loadOnDemandOnly=\"true\"",
-0,
-},
-{
-"AccountData_RequestLoad updated callback state type=\"19\" pending=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"AccountData_RequestLoad forcing local file load type=\"19\" isReloadingUI=\"false\" loadOnDemandOnly=\"true\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"19\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"World transfer pending...",
-0,
-},
-{
-"Connecting to sourceRealmAddress=\"95-5-3\" connection=\"0000017dadfd7990\" serial=\"433\" protocol=\"(enum)0\"",
-0,
-},
-{
-"Opening network connection connectionIndex=\"(enum)3\" connection=\"0000017dadfd7990\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
-0,
-},
-{
-"Resuming communications connectionIndex=\"(enum)3\"",
-0,
-},
-{
-"Killing connection connection=\"0000017d744c4be0\" state=\"(enum)6\"",
-0,
-},
-{
-"Weather changed to 0, intensity 0.000000\n",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 4d 23h 50m 24s",
-0,
-},
-{
-"Level: 0d 6h 29m 1s",
-0,
-},
-{
-"Killing connection connection=\"0000017dadfd7990\" state=\"(enum)7\"",
-0,
-},
-{
-"Logout response received result=\"0\" instant=\"1\"",
-0,
-},
-{
-"-------------------------------------------------- Previous Session --------------------------------------------------",
-0,
-},
-{
-"Logout completed",
-0,
-},
-{
-"GameUI::Shutdown invalidated load generation initCounter=\"4\" isClosingClient=\"false\"",
-0,
-},
-{
-"LimitedLuaResources: Reset Timer",
-0,
-},
-{
-"AccountData_CancelRequestLoad type=\"0\" pending=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"AccountData_CancelRequestLoad type=\"1\" pending=\"false\" hasCallback=\"true\" param=\"196640\"",
-0,
-},
-{
-"GameUI::Shutdown canceled CVar account-data loads initCounter=\"4\" pendingMask=\"0\"",
-0,
-},
-{
-"Resume()",
-0,
-},
-{
-"Screen invalid. Changing from=\"none\" to=\"charselect\"",
-0,
-},
-{
-"Switching to screen=\"CharacterSelect\" (from \"none\")",
-0,
-},
-{
-"Character list request sent fastLogin=\"false\"",
-0,
-},
-{
-"From EnsureValidScreen",
-0,
-},
-{
-"Character list response received success=\"true\" isRegionwideData=\"true\" isDeletedCharacters=\"false\" characterCount=\"2\" hadPendingResult=\"false\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"0\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"10\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"16\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"19\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"Account item collection data received for character selection collectionListType=\"7\" itemCount=\"0\" wasWaiting=\"false\"",
-0,
-},
-{
-"Character selection updating character list success=\"true\" isRegionwideData=\"true\" isDeletedCharacters=\"false\" count=\"2\"",
-0,
-},
-{
-"-------------------------------------------------- Previous Session --------------------------------------------------",
-0,
-},
-{
-"Linear: 1. 0- disabled (live), 1- linear",
-0,
-},
-{
-"Multithreaded rendering enabled.",
-0,
-},
-{
-"Multithreaded BeginDraw enabled.",
-0,
-},
-{
-"Multithread shadows changed to 1.",
-0,
-},
-{
-"Multithreaded prepass enabled.",
-0,
-},
-{
-"Multithreaded opaque pass enabled.",
-0,
-},
-{
-"Multithreaded opaque pass enabled.",
-0,
-},
-{
-"Multithreaded alpha M2 pass enabled.",
-0,
-},
-{
-"Multithreaded opaque WMO pass enabled.",
-0,
-},
-{
-"Multithreaded terrain pass enabled.",
-0,
-},
-{
-"Multithreaded volumetric fog enabled.",
-0,
-},
-{
-"Multithreaded Refraction Pass enabled.",
-0,
-},
-{
-"Multithreaded miscellaneous passes enabled.",
-0,
-},
-{
-"Multithreaded decal passes disabled.",
-0,
-},
-{
-"Multithreaded outline passes enabled.",
-0,
-},
-{
-"Multithreaded lightshaft passes enabled.",
-0,
-},
-{
-"Use trigger on BeginDrawComplete enabled.",
-4,
-},
-{
-"Multithreaded alpha pass enabled.",
-0,
-},
-{
-"Multithreaded daynight update enabled.",
-0,
-},
-{
-"Water detail changed to 2",
-0,
-},
-{
-"Ripple detail changed to 1",
-0,
-},
-{
-"Reflection mode changed to 2",
-0,
-},
-{
-"Reflection downscale changed to 0",
-0,
-},
-{
-"Sunshafts quality changed to 2",
-0,
-},
-{
-"Refraction mode changed to 2",
-0,
-},
-{
-"Volume fog enabled.",
-0,
-},
-{
-"Particulate volumes enabled.",
-0,
-},
-{
-"Projected textures enabled.",
-0,
-},
-{
-"Shadow mode changed to 3 - 3 band dynamic shadows on units and terrain, 2048",
-0,
-},
-{
-"Shadow texture size changed to 2048.",
-0,
-},
-{
-"Soft shadows changed to 1.",
-0,
-},
-{
-"Shadow cascade blending changed to 1",
-0,
-},
-{
-"Number of shadow cascades changed to 3",
-0,
-},
-{
-"Shadow RT mode changed to 0 (Disabled)",
-0,
-},
-{
-"maxLightCount must be in range 0 to 32.",
-0,
-},
-{
-"CVar 'maxLightCount' failed validation for its initial value.",
-0,
-},
-{
-"Clustered shading enabled.",
-0,
-},
-{
-"Not forcing clustered shading.",
-0,
-},
-{
-"SSAO mode set to 3",
-0,
-},
-{
-"Depth Based Opacity Enabled",
-0,
-},
-{
-"SkyCloudLOD set to 0",
-0,
-},
-{
-"Texture filtering mode updated.",
-0,
-},
-{
-"Terrain mip level changed to 0.",
-0,
-},
-{
-"Outline mode changed to 0",
-0,
-},
-{
-"Physics interaction level changed to 1",
-0,
-},
-{
-"Render scale changed to 1",
-0,
-},
-{
-"Resample quality changed to 3",
-0,
-},
-{
-"MSAA disabled",
-0,
-},
-{
-"MSAA for alpha-test enabled.",
-0,
-},
-{
-"VALAR mode changed to 0",
-0,
-},
-{
-"lodObjectSizeScale cannot be changed.",
-0,
-},
-{
-"Volume fog enabled.",
-0,
-},
-{
-"dynamicLod enabled",
-0,
-},
-{
-"World preload object sort enabled.",
-0,
-},
-{
-"World load object sort enabled.",
-0,
-},
-{
-"World preload non critical enabled.",
-0,
-},
-{
-"World preload high res textures enabled.",
-0,
-},
-{
-"FFX: Color Blind Test Mode Disabled",
-0,
-},
-{
-"CVar 'Sound_AmbienceHighpassDSPCutoff' failed validation for its initial value.",
-0,
-},
-{
-"CVar 'Sound_AllyPlayerHighpassDSPCutoff' failed validation for its initial value.",
-0,
-},
-{
-"CVar 'Sound_EnemyPlayerHighpassDSPCutoff' failed validation for its initial value.",
-0,
-},
-{
-"CVar 'Sound_NPCHighpassDSPCutoff' failed validation for its initial value.",
-0,
-},
-{
-"GamePad input enabled.",
-0,
-},
-{
-"ChromaEffects disabled",
-0,
-},
-{
-"LimitedLuaResources: Addon capacity for Frame changed to 10000",
-0,
-},
-{
-"LimitedLuaResources: Addon capacity for Frame changed to 10000",
-0,
-},
-{
-"LimitedLuaResources: Addon capacity for Animation changed to 5000",
-0,
-},
-{
-"LimitedLuaResources: Addon capacity for Animation changed to 5000",
-0,
-},
-{
-"LimitedLuaResources: Addon capacity for Timer changed to 500",
-0,
-},
-{
-"LimitedLuaResources: Addon capacity for Timer changed to 500",
-0,
-},
-{
-"LimitedLuaResources: Addon capacity for FontString changed to 5000",
-0,
-},
-{
-"LimitedLuaResources: Addon capacity for FontString changed to 5000",
-0,
-},
-{
-"LimitedLuaResources: Global capacity for Animation changed to 50000",
-0,
-},
-{
-"LimitedLuaResources: Global capacity for Animation changed to 50000",
-0,
-},
-{
-"LimitedLuaResources: Global capacity for Timer changed to 500",
-0,
-},
-{
-"LimitedLuaResources: Global capacity for Timer changed to 500",
-0,
-},
-{
-"LimitedLuaResources: Addon capacity for Font changed to 300",
-0,
-},
-{
-"LimitedLuaResources: Addon capacity for Font changed to 300",
-0,
-},
-{
-"LimitedLuaResources: Global capacity for AnimGroup changed to 20000",
-0,
-},
-{
-"LimitedLuaResources: Global capacity for AnimGroup changed to 20000",
-0,
-},
-{
-"LimitedLuaResources: Global capacity for FontString changed to 50000",
-0,
-},
-{
-"LimitedLuaResources: Global capacity for FontString changed to 50000",
-0,
-},
-{
-"LimitedLuaResources: Addon capacity for Texture changed to 40000",
-0,
-},
-{
-"LimitedLuaResources: Addon capacity for Texture changed to 40000",
-0,
-},
-{
-"LimitedLuaResources: Addon capacity for AnimGroup changed to 2000",
-0,
-},
-{
-"LimitedLuaResources: Addon capacity for AnimGroup changed to 2000",
-0,
-},
-{
-"LimitedLuaResources: Global capacity for Texture changed to 400000",
-0,
-},
-{
-"LimitedLuaResources: Global capacity for Texture changed to 400000",
-0,
-},
-{
-"LimitedLuaResources: Enabled = false",
-0,
-},
-{
-"LimitedLuaResources: Enabled = false",
-0,
-},
-{
-"LimitedLuaResources: Global capacity for Font changed to 3000",
-0,
-},
-{
-"LimitedLuaResources: Global capacity for Font changed to 3000",
-0,
-},
-{
-"LimitedLuaResources: Global capacity for Frame changed to 100000",
-0,
-},
-{
-"LimitedLuaResources: Global capacity for Frame changed to 100000",
-0,
-},
-{
-"Startup()",
-0,
-},
-{
-"Resume()",
-0,
-},
-{
-"Screen invalid. Changing from=\"none\" to=\"login\"",
-0,
-},
-{
-"Switching to screen=\"AccountLogin\" (from \"none\")",
-0,
-},
-{
-"From EnsureValidScreen",
-0,
-},
-{
-"Initializing...",
-0,
-},
-{
-"Glue login started loginType=\"(enum)1\" launcherPortal=\"cn.actual.battlenet.com.cn\" loginPortal=\"cn.actual.battlenet.com.cn:1119\"",
-0,
-},
-{
-"Glue login state reset requested",
-0,
-},
-{
-"Battle.net login session initialization requested",
-0,
-},
-{
-"Battle.net logon requested host=\"cn.actual.battlenet.com.cn\" port=\"1119\"",
-0,
-},
-{
-"Battle.net login waiting for server response",
-0,
-},
-{
-"Battle.net front connected connectionId=\"1\" title_id=\"5730135\" platform=\"Wn64\" locale=\"zhCN\" usedToken=\"true\"",
-0,
-},
-{
-"Battle.net login waiting for server response",
-0,
-},
-{
-"Battle.net logon queue update received position=\"1\" estimatedQueueExitTime=\"1795137067\"",
-0,
-},
-{
-"Battle.net logon response received result=\"ERROR_OK (0)\"",
-0,
-},
-{
-"Initialized.",
-0,
-},
-{
-"Battle.net logon completed result=\"ERROR_OK (0)\" numGameAccounts=\"3\"",
-0,
-},
-{
-"Battle.net login waiting for server response",
-0,
-},
-{
-"Battle.net account service response received responseType=\"BNetInfo\" responseTypeValue=\"1\" code=\"ERROR_OK (0)\"",
-0,
-},
-{
-"Battle.net account service response received responseType=\"GameInfo\" responseTypeValue=\"4\" code=\"ERROR_OK (0)\"",
-0,
-},
-{
-"Battle.net account service game info received responseType=\"GameInfo\" responseTypeValue=\"4\" code=\"ERROR_OK (0)\" name=\"WoW1\" numGameAccounts=\"3\" numGameAccountNames=\"0\"",
-0,
-},
-{
-"Battle.net account service response received responseType=\"BNetRestriction\" responseTypeValue=\"2\" code=\"ERROR_OK (0)\"",
-0,
-},
-{
-"Battle.net account service response received responseType=\"GameInfo\" responseTypeValue=\"4\" code=\"ERROR_OK (0)\"",
-0,
-},
-{
-"Battle.net account service game info received responseType=\"GameInfo\" responseTypeValue=\"4\" code=\"ERROR_OK (0)\" name=\"WoW3\" numGameAccounts=\"3\" numGameAccountNames=\"1\"",
-0,
-},
-{
-"Battle.net account service response received responseType=\"GameRestriction\" responseTypeValue=\"8\" code=\"ERROR_OK (0)\"",
-0,
-},
-{
-"Battle.net account service response received responseType=\"GameInfo\" responseTypeValue=\"4\" code=\"ERROR_OK (0)\"",
-0,
-},
-{
-"Battle.net account service game info received responseType=\"GameInfo\" responseTypeValue=\"4\" code=\"ERROR_OK (0)\" name=\"WoW2\" numGameAccounts=\"3\" numGameAccountNames=\"2\"",
-0,
-},
-{
-"Battle.net account service response received responseType=\"GameRestriction\" responseTypeValue=\"8\" code=\"ERROR_OK (0)\"",
-0,
-},
-{
-"Battle.net account service response received responseType=\"GameRestriction\" responseTypeValue=\"8\" code=\"ERROR_OK (0)\"",
-0,
-},
-{
-"Battle.net auth token response received code=\"ERROR_OK (0)\" gotCredentials=\"true\"",
-0,
-},
-{
-"Battle.net complete login requested hasGameAccount=\"true\"",
-0,
-},
-{
-"Game account list not saved because accountName CVar is empty",
-0,
-},
-{
-"Battle.net logon completed in glue",
-0,
-},
-{
-"Reconnect token saved creationTime=\"1795137067\" expirationTime=\"1795151467\"",
-0,
-},
-{
-"Character selection waiting for account item collection data collectionListType=\"7\"",
-0,
-},
-{
-"Battle.net login waiting for realm list",
-0,
-},
-{
-"Battle.net realm list ticket requested",
-0,
-},
-{
-"Battle.net realm list ticket received code=\"ERROR_OK (0)\" realmListRequestToken=\"0\" isCurrentToken=\"true\" hasTicket=\"true\"",
-0,
-},
-{
-"Battle.net login waiting for realm list",
-0,
-},
-{
-"Battle.net subregion list received code=\"ERROR_OK (0)\" realmListRequestToken=\"0\" isCurrentToken=\"true\" subRegionCount=\"1\"",
-0,
-},
-{
-"Battle.net last played character requests sent numSubRegions=\"1\" selectedSubRegion=\"95-1-89\"",
-0,
-},
-{
-"Battle.net last played character received code=\"ERROR_OK (0)\" subRegion=\"95-1-89\" lastPlayedTime=\"1795105871\" realmListRequestToken=\"0\" isCurrentToken=\"true\" contentSetIDFilter=\"-1\" numRegions=\"1\" selectedSubRegion=\"95-1-89\" numRegionsWithData=\"0\" realmPermissions=\"3\" licensesCount=\"1\" realmEntry=\"{\"wowRealmAddress\":1594163203,\"useBleepChance\":0.0,\"cfgTimezonesID\":23,\"populationState\":3,\"cfgCategoriesID\":16,\"version\":{\"versionMajor\":1,\"versionBuild\":70399,\"versionMinor\":60,\"versionRevision\":1},\"cfgRealmsID\":6750,\"gameServiceRegionId\":5,\"flags\":0,\"name\":\"CN5 Realm 3 PvP\",\"cfgConfigsID\":2,\"cfgContentSetID\":136,\"cfgLanguagesID\":6,\"superDistrictID\":1}\"",
-0,
-},
-{
-"Battle.net realm list ready in glue",
-0,
-},
-{
-"Battle.net most recent character found; joining realm lastPlayedRegion=\"95-1-89\" realmAddress=\"1594163203\" lastActiveTime=\"1795105871\"",
-0,
-},
-{
-"Battle.net realm join requested subRegion=\"95-1-89\" realmAddress=\"95-5-3\"",
-0,
-},
-{
-"Requesting super district list",
-0,
-},
-{
-"Received super district list code=\"ERROR_OK (0)\"",
-0,
-},
-{
-"Battle.net realm join response received code=\"ERROR_OK (0)\" joinToken=\"1\" isLatestJoinToken=\"true\" hasJoinData=\"true\"",
-0,
-},
-{
-"Realm connection change requested",
-0,
-},
-{
-"Realm connection requested realmAddress=\"95-5-3\"",
-0,
-},
-{
-"Opening game realm connection realmAddress=\"95-5-3\" connection=\"000001b859d890f0\" protocol=\"(enum)0\" directAddressCount=\"6\" bleepProxyCount=\"0\"",
-0,
-},
-{
-"Opening network connection connectionIndex=\"(enum)0\" connection=\"000001b859d890f0\" protocol=\"(enum)0\" directAddressCount=\"6\" bleepProxyCount=\"0\"",
-0,
-},
-{
-"Realm connection connected realmAddress=\"95-5-3\"",
-0,
-},
-{
-"Client connected",
-0,
-},
-{
-"Authentication response received result=\"0\" hasSuccessInfo=\"true\" hasWaitInfo=\"false\"",
-0,
-},
-{
-"Realm authentication completed result=\"ERROR_OK (0)\"",
-0,
-},
-{
-"Character list request sent fastLogin=\"false\"",
-0,
-},
-{
-"CVar 'encounterTimelineHighlightDuration' failed validation for its initial value.",
-0,
-},
-{
-"CVar 'encounterTimelineIconographyHiddenMask' failed validation for its initial value.",
-0,
-},
-{
-"CVar 'encounterTimelineIconographyEnabled' failed validation for its initial value.",
-0,
-},
-{
-"CVar 'encounterTimelineHideForOtherRoles' failed validation for its initial value.",
-0,
-},
-{
-"CVar 'encounterTimelineHideQueuedCountdowns' failed validation for its initial value.",
-0,
-},
-{
-"CVar 'encounterTimelineHideLongCountdowns' failed validation for its initial value.",
-0,
-},
-{
-"CVar 'encounterTimelineEnabled' failed validation for its initial value.",
-0,
-},
-{
-"Screen invalid. Changing from=\"login\" to=\"charselect\"",
-0,
-},
-{
-"Switching to screen=\"CharacterSelect\" (from \"login\")",
-0,
-},
-{
-"Character list request sent fastLogin=\"false\"",
-0,
-},
-{
-"From EnsureValidScreen",
-0,
-},
-{
-"Battle.net connected to realm; disconnecting from front",
-0,
-},
-{
-"Battle.net front disconnecting connectionId=\"1\"",
-0,
-},
-{
-"Battle.net authentication server disconnect started",
-0,
-},
-{
-"AccountData_RequestLoad type=\"0\" fromAuth=\"true\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"0\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
-0,
-},
-{
-"AccountData_RequestLoad updated callback state type=\"0\" pending=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"AccountData_RequestLoad type=\"10\" fromAuth=\"true\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"0\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
-0,
-},
-{
-"AccountData_RequestLoad updated callback state type=\"10\" pending=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"AccountData_RequestLoad type=\"16\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"0\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
-0,
-},
-{
-"AccountData_RequestLoad updated callback state type=\"16\" pending=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"Glue feature system status received",
-0,
-},
-{
-"LimitedLuaResources: Addon capacity for Font changed to 300",
-0,
-},
-{
-"LimitedLuaResources: Global capacity for Animation changed to 50000",
-0,
-},
-{
-"LimitedLuaResources: Global capacity for Timer changed to 500",
-0,
-},
-{
-"LimitedLuaResources: Addon capacity for Timer changed to 500",
-0,
-},
-{
-"LimitedLuaResources: Addon capacity for Frame changed to 10000",
-0,
-},
-{
-"LimitedLuaResources: Addon capacity for Animation changed to 5000",
-0,
-},
-{
-"LimitedLuaResources: Enabled = false",
-0,
-},
-{
-"LimitedLuaResources: Global capacity for AnimGroup changed to 20000",
-0,
-},
-{
-"LimitedLuaResources: Global capacity for Texture changed to 400000",
-0,
-},
-{
-"LimitedLuaResources: Addon capacity for Texture changed to 40000",
-0,
-},
-{
-"LimitedLuaResources: Addon capacity for AnimGroup changed to 2000",
-0,
-},
-{
-"LimitedLuaResources: Global capacity for Frame changed to 100000",
-0,
-},
-{
-"LimitedLuaResources: Addon capacity for FontString changed to 5000",
-0,
-},
-{
-"LimitedLuaResources: Global capacity for FontString changed to 50000",
-0,
-},
-{
-"LimitedLuaResources: Global capacity for Font changed to 3000",
-0,
-},
-{
-"Session with Battle.net established.",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"0\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"10\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"16\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"19\" pendingBefore=\"false\" hasCallback=\"false\" param=\"0\"",
-0,
-},
-{
-"Glue feature system status received",
-0,
-},
-{
-"Character list response received success=\"true\" isRegionwideData=\"true\" isDeletedCharacters=\"false\" characterCount=\"2\" hadPendingResult=\"false\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"0\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"10\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"16\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"19\" pendingBefore=\"false\" hasCallback=\"false\" param=\"0\"",
-0,
-},
-{
-"Character list update waiting on startup prerequisites waitingForHotfixesReady=\"false\" tactEncryptionConnectedReady=\"false\" tactKeyPendingPatchesReady=\"true\" sectionLoadsReady=\"true\" preloadAccountSettingsDataReady=\"true\"",
+"Killing connection connection=\"000001c3c567c360\" state=\"(enum)6\"",
 0,
 },
 {
@@ -1707,306 +103,6 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Requesting super district list",
-0,
-},
-{
-"Screen invalid. Changing from=\"charselect\" to=\"charselect\"",
-0,
-},
-{
-"Switching to screen=\"CharacterSelect\" (from \"charselect\")",
-0,
-},
-{
-"From EnsureValidScreen",
-0,
-},
-{
-"Received super district list code=\"ERROR_OK (0)\"",
-0,
-},
-{
-"Screen invalid. Changing from=\"charselect\" to=\"superdistrict\"",
-0,
-},
-{
-"Switching to screen=\"SuperDistrictUI\" (from \"charselect\")",
-0,
-},
-{
-"From EnsureValidScreen",
-0,
-},
-{
-"Battle.net super district realm connection requested superDistrictID=\"2\"",
-0,
-},
-{
-"Screen invalid. Changing from=\"superdistrict\" to=\"charselect\"",
-0,
-},
-{
-"Switching to screen=\"CharacterSelect\" (from \"superdistrict\")",
-0,
-},
-{
-"Character list request sent fastLogin=\"false\"",
-0,
-},
-{
-"From EnsureValidScreen",
-0,
-},
-{
-"Battle.net last played character requests sent numSubRegions=\"1\" selectedSubRegion=\"95-1-89\"",
-0,
-},
-{
-"Character list response received success=\"true\" isRegionwideData=\"true\" isDeletedCharacters=\"false\" characterCount=\"2\" hadPendingResult=\"false\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"0\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"10\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"16\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"19\" pendingBefore=\"false\" hasCallback=\"false\" param=\"0\"",
-0,
-},
-{
-"Character selection updating character list success=\"true\" isRegionwideData=\"true\" isDeletedCharacters=\"false\" count=\"2\"",
-0,
-},
-{
-"Account item collection data received for character selection collectionListType=\"7\" itemCount=\"0\" wasWaiting=\"false\"",
-0,
-},
-{
-"Battle.net last played character received code=\"ERROR_OK (0)\" subRegion=\"95-1-89\" lastPlayedTime=\"1795102790\" realmListRequestToken=\"2\" isCurrentToken=\"true\" contentSetIDFilter=\"137\" numRegions=\"1\" selectedSubRegion=\"95-1-89\" numRegionsWithData=\"0\" realmPermissions=\"3\" licensesCount=\"1\" realmEntry=\"{\"wowRealmAddress\":1593901059,\"useBleepChance\":0.0,\"cfgTimezonesID\":23,\"populationState\":1,\"cfgCategoriesID\":16,\"version\":{\"versionMajor\":1,\"versionBuild\":70399,\"versionMinor\":60,\"versionRevision\":1},\"cfgRealmsID\":6749,\"gameServiceRegionId\":5,\"flags\":0,\"name\":\"CN1 Realm 3 PvE\",\"cfgConfigsID\":1,\"cfgContentSetID\":137,\"cfgLanguagesID\":6,\"superDistrictID\":2}\"",
-0,
-},
-{
-"Battle.net realm list ready in glue",
-0,
-},
-{
-"Battle.net most recent character found; joining realm lastPlayedRegion=\"95-1-89\" realmAddress=\"1593901059\" lastActiveTime=\"1795102790\"",
-0,
-},
-{
-"Battle.net realm join requested subRegion=\"95-1-89\" realmAddress=\"95-1-3\"",
-0,
-},
-{
-"Battle.net realm join response received code=\"ERROR_OK (0)\" joinToken=\"2\" isLatestJoinToken=\"true\" hasJoinData=\"true\"",
-0,
-},
-{
-"Realm connection change requested",
-0,
-},
-{
-"Disconnect requested reason=\"(enum)12\"",
-0,
-},
-{
-"Realm connection disconnected realmAddress=\"95-5-3\" pendingReconnect=\"true\"",
-0,
-},
-{
-"Client disconnected",
-0,
-},
-{
-"Session with Battle.net destroyed.",
-0,
-},
-{
-"Character selection updating character list success=\"false\" isRegionwideData=\"false\" isDeletedCharacters=\"false\" count=\"0\"",
-0,
-},
-{
-"Realm connection requested realmAddress=\"95-1-3\"",
-0,
-},
-{
-"Killing connection connection=\"000001b859d890f0\" state=\"(enum)7\"",
-0,
-},
-{
-"Opening game realm connection realmAddress=\"95-1-3\" connection=\"000001b859d46dd0\" protocol=\"(enum)0\" directAddressCount=\"6\" bleepProxyCount=\"0\"",
-0,
-},
-{
-"Opening network connection connectionIndex=\"(enum)0\" connection=\"000001b859d46dd0\" protocol=\"(enum)0\" directAddressCount=\"6\" bleepProxyCount=\"0\"",
-0,
-},
-{
-"Realm connection connected realmAddress=\"95-1-3\"",
-0,
-},
-{
-"Client connected",
-0,
-},
-{
-"Authentication response received result=\"0\" hasSuccessInfo=\"true\" hasWaitInfo=\"false\"",
-0,
-},
-{
-"Realm authentication completed result=\"ERROR_OK (0)\"",
-0,
-},
-{
-"Character list request sent fastLogin=\"false\"",
-0,
-},
-{
-"CVar 'encounterTimelineHighlightDuration' failed validation for its initial value.",
-0,
-},
-{
-"CVar 'encounterTimelineIconographyHiddenMask' failed validation for its initial value.",
-0,
-},
-{
-"CVar 'encounterTimelineIconographyEnabled' failed validation for its initial value.",
-0,
-},
-{
-"CVar 'encounterTimelineHideForOtherRoles' failed validation for its initial value.",
-0,
-},
-{
-"CVar 'encounterTimelineHideQueuedCountdowns' failed validation for its initial value.",
-0,
-},
-{
-"CVar 'encounterTimelineHideLongCountdowns' failed validation for its initial value.",
-0,
-},
-{
-"CVar 'encounterTimelineEnabled' failed validation for its initial value.",
-0,
-},
-{
-"Battle.net connected to realm; disconnecting from front",
-0,
-},
-{
-"AccountData_RequestLoad type=\"0\" fromAuth=\"true\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"0\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
-0,
-},
-{
-"AccountData_RequestLoad updated callback state type=\"0\" pending=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"AccountData_RequestLoad type=\"10\" fromAuth=\"true\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"0\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
-0,
-},
-{
-"AccountData_RequestLoad updated callback state type=\"10\" pending=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"AccountData_RequestLoad type=\"16\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"0\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
-0,
-},
-{
-"AccountData_RequestLoad updated callback state type=\"16\" pending=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"Glue feature system status received",
-0,
-},
-{
-"Connecting to sourceRealmAddress=\"95-1-3\" connection=\"000001b8abb2e880\" serial=\"14\" protocol=\"(enum)0\"",
-0,
-},
-{
-"Opening network connection connectionIndex=\"(enum)2\" connection=\"000001b8abb2e880\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
-0,
-},
-{
-"Session with Battle.net established.",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"0\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"10\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"16\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"19\" pendingBefore=\"false\" hasCallback=\"false\" param=\"0\"",
-0,
-},
-{
-"Glue feature system status received",
-0,
-},
-{
-"Character list response received success=\"true\" isRegionwideData=\"true\" isDeletedCharacters=\"false\" characterCount=\"2\" hadPendingResult=\"false\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"0\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"10\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"16\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"19\" pendingBefore=\"false\" hasCallback=\"false\" param=\"0\"",
-0,
-},
-{
-"Character list update waiting on startup prerequisites waitingForHotfixesReady=\"false\" tactEncryptionConnectedReady=\"false\" tactKeyPendingPatchesReady=\"true\" sectionLoadsReady=\"true\" preloadAccountSettingsDataReady=\"true\"",
-0,
-},
-{
-"Resuming communications connectionIndex=\"(enum)2\"",
-0,
-},
-{
-"Killing connection connection=\"000001b859d46dd0\" state=\"(enum)6\"",
-0,
-},
-{
-"Initial hotfixes applied",
-0,
-},
-{
-"Account item collection data received for character selection collectionListType=\"7\" itemCount=\"0\" wasWaiting=\"false\"",
-0,
-},
-{
-"Character selection updating character list success=\"true\" isRegionwideData=\"true\" isDeletedCharacters=\"false\" count=\"2\"",
-0,
-},
-{
 "-------------------------------------------------- Previous Session --------------------------------------------------",
 0,
 },
@@ -2019,11 +115,11 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"AccountData_RequestLoad type=\"12\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"140697264731912\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
+"AccountData_RequestLoad type=\"12\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"140696109533000\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
 0,
 },
 {
-"AccountData_RequestLoad updated callback state type=\"12\" pending=\"false\" hasCallback=\"true\" param=\"140697264731912\"",
+"AccountData_RequestLoad updated callback state type=\"12\" pending=\"false\" hasCallback=\"true\" param=\"140696109533000\"",
 0,
 },
 {
@@ -2043,19 +139,19 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"AccountData_RequestLoad type=\"8\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"140697264741968\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
+"AccountData_RequestLoad type=\"8\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"140696109543104\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
 0,
 },
 {
-"AccountData_RequestLoad updated callback state type=\"8\" pending=\"false\" hasCallback=\"true\" param=\"140697264741968\"",
+"AccountData_RequestLoad updated callback state type=\"8\" pending=\"false\" hasCallback=\"true\" param=\"140696109543104\"",
 0,
 },
 {
-"AccountData_RequestLoad type=\"9\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"140697264741968\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
+"AccountData_RequestLoad type=\"9\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"140696109543104\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
 0,
 },
 {
-"AccountData_RequestLoad updated callback state type=\"9\" pending=\"false\" hasCallback=\"true\" param=\"140697264741968\"",
+"AccountData_RequestLoad updated callback state type=\"9\" pending=\"false\" hasCallback=\"true\" param=\"140696109543104\"",
 0,
 },
 {
@@ -2139,11 +235,11 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Connecting to sourceRealmAddress=\"95-1-3\" connection=\"000001b8b5a86690\" serial=\"17\" protocol=\"(enum)0\"",
+"Connecting to sourceRealmAddress=\"95-1-3\" connection=\"000001c3dcbc3000\" serial=\"17\" protocol=\"(enum)0\"",
 0,
 },
 {
-"Opening network connection connectionIndex=\"(enum)3\" connection=\"000001b8b5a86690\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
+"Opening network connection connectionIndex=\"(enum)3\" connection=\"000001c3dcbc3000\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
 0,
 },
 {
@@ -2155,7 +251,7 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"LoadGameCVarsCallback received callbackInitCounter=\"1\" currentInitCounter=\"1\" mask=\"32\" buffsize=\"1097\" pendingMaskBefore=\"32\"",
+"LoadGameCVarsCallback received callbackInitCounter=\"1\" currentInitCounter=\"1\" mask=\"32\" buffsize=\"1109\" pendingMaskBefore=\"32\"",
 0,
 },
 {
@@ -2195,11 +291,11 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"LoadAccountDataFromFile type=\"8\" pendingBefore=\"false\" hasCallback=\"true\" param=\"140697264741968\"",
+"LoadAccountDataFromFile type=\"8\" pendingBefore=\"false\" hasCallback=\"true\" param=\"140696109543104\"",
 0,
 },
 {
-"LoadAccountDataFromFile type=\"9\" pendingBefore=\"false\" hasCallback=\"true\" param=\"140697264741968\"",
+"LoadAccountDataFromFile type=\"9\" pendingBefore=\"false\" hasCallback=\"true\" param=\"140696109543104\"",
 0,
 },
 {
@@ -2207,7 +303,7 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"LoadAccountDataFromFile type=\"12\" pendingBefore=\"false\" hasCallback=\"true\" param=\"140697264731912\"",
+"LoadAccountDataFromFile type=\"12\" pendingBefore=\"false\" hasCallback=\"true\" param=\"140696109533000\"",
 0,
 },
 {
@@ -2271,7 +367,7 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Time set to 11/20/2026 (Fri) 9:12",
+"Time set to 11/22/2026 (Sun) 10:29",
 0,
 },
 {
@@ -2279,11 +375,11 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Connecting to sourceRealmAddress=\"95-1-3\" connection=\"000001b859f59160\" serial=\"43\" protocol=\"(enum)0\"",
+"Connecting to sourceRealmAddress=\"95-1-3\" connection=\"000001c423477570\" serial=\"43\" protocol=\"(enum)0\"",
 0,
 },
 {
-"Opening network connection connectionIndex=\"(enum)3\" connection=\"000001b859f59160\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
+"Opening network connection connectionIndex=\"(enum)3\" connection=\"000001c423477570\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
 0,
 },
 {
@@ -2291,7 +387,7 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Killing connection connection=\"000001b8b5a86690\" state=\"(enum)6\"",
+"Killing connection connection=\"000001c3dcbc3000\" state=\"(enum)6\"",
 0,
 },
 {
@@ -2303,35 +399,31 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Total: 0d 9h 55m 46s",
+"Total: 0d 20h 44m 53s",
 0,
 },
 {
-"Level: 0d 0h 50m 56s",
+"Level: 0d 1h 25m 51s",
 0,
 },
 {
-"World transfer pending...",
+"Skill 613 increased from 130 to 135",
 0,
 },
 {
-"Connecting to sourceRealmAddress=\"95-1-3\" connection=\"000001b8b43ad590\" serial=\"73\" protocol=\"(enum)0\"",
+"Skill 733 increased from 130 to 135",
 0,
 },
 {
-"Opening network connection connectionIndex=\"(enum)3\" connection=\"000001b8b43ad590\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
+"Skill 183 increased from 130 to 135",
 0,
 },
 {
-"Resuming communications connectionIndex=\"(enum)3\"",
+"Skill 56 increased from 130 to 135",
 0,
 },
 {
-"Killing connection connection=\"000001b859f59160\" state=\"(enum)6\"",
-0,
-},
-{
-"Weather changed to 0, intensity 0.000000\n",
+"Skill 78 increased from 130 to 135",
 0,
 },
 {
@@ -2339,47 +431,7 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Total: 0d 10h 1m 26s",
-0,
-},
-{
-"Level: 0d 0h 56m 36s",
-0,
-},
-{
-"Time set to 11/20/2026 (Fri) 9:19",
-0,
-},
-{
-"Time set to 11/20/2026 (Fri) 9:19",
-0,
-},
-{
-"Skill 613 increased from 90 to 95",
-0,
-},
-{
-"Skill 733 increased from 90 to 95",
-0,
-},
-{
-"Skill 183 increased from 90 to 95",
-0,
-},
-{
-"Skill 56 increased from 90 to 95",
-0,
-},
-{
-"Skill 78 increased from 90 to 95",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 10h 19m 35s",
+"Total: 0d 20h 51m 24s",
 0,
 },
 {
@@ -2387,35 +439,39 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Skill 54 increased from 31 to 32",
+"Skill 228 increased from 130 to 131",
 0,
 },
 {
-"Skill 228 increased from 90 to 91",
+"Skill 228 increased from 131 to 132",
 0,
 },
 {
-"Skill 228 increased from 91 to 92",
+"Skill 95 increased from 126 to 127",
 0,
 },
 {
-"Skill 228 increased from 92 to 93",
+"Skill 228 increased from 132 to 133",
 0,
 },
 {
-"Skill 228 increased from 93 to 94",
+"Skill 228 increased from 133 to 134",
 0,
 },
 {
-"World transfer pending...",
+"Skill 95 increased from 127 to 128",
 0,
 },
 {
-"Connecting to sourceRealmAddress=\"95-1-3\" connection=\"000001b88cfafc70\" serial=\"103\" protocol=\"(enum)0\"",
+"Skill 228 increased from 134 to 135",
 0,
 },
 {
-"Opening network connection connectionIndex=\"(enum)3\" connection=\"000001b88cfafc70\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
+"Connecting to sourceRealmAddress=\"95-1-3\" connection=\"000001c3ff214080\" serial=\"73\" protocol=\"(enum)0\"",
+0,
+},
+{
+"Opening network connection connectionIndex=\"(enum)3\" connection=\"000001c3ff214080\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
 0,
 },
 {
@@ -2423,7 +479,163 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Killing connection connection=\"000001b8b43ad590\" state=\"(enum)6\"",
+"Killing connection connection=\"000001c423477570\" state=\"(enum)6\"",
+0,
+},
+{
+"Weather changed to 0, intensity 0.000000\n",
+0,
+},
+{
+"Weather changed to 0, intensity 0.000000\n",
+0,
+},
+{
+"Connecting to sourceRealmAddress=\"95-1-3\" connection=\"000001c421788780\" serial=\"103\" protocol=\"(enum)0\"",
+0,
+},
+{
+"Opening network connection connectionIndex=\"(enum)3\" connection=\"000001c421788780\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
+0,
+},
+{
+"Resuming communications connectionIndex=\"(enum)3\"",
+0,
+},
+{
+"Killing connection connection=\"000001c3ff214080\" state=\"(enum)6\"",
+0,
+},
+{
+"Weather changed to 0, intensity 0.000000\n",
+0,
+},
+{
+"Weather changed to 0, intensity 0.000000\n",
+0,
+},
+{
+"Connecting to sourceRealmAddress=\"95-1-3\" connection=\"000001c41efe99b0\" serial=\"133\" protocol=\"(enum)0\"",
+0,
+},
+{
+"Opening network connection connectionIndex=\"(enum)3\" connection=\"000001c41efe99b0\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
+0,
+},
+{
+"Resuming communications connectionIndex=\"(enum)3\"",
+0,
+},
+{
+"Killing connection connection=\"000001c421788780\" state=\"(enum)6\"",
+0,
+},
+{
+"Weather changed to 0, intensity 0.000000\n",
+0,
+},
+{
+"Weather changed to 0, intensity 0.000000\n",
+0,
+},
+{
+"Connecting to sourceRealmAddress=\"95-1-3\" connection=\"000001c42616ec10\" serial=\"163\" protocol=\"(enum)0\"",
+0,
+},
+{
+"Opening network connection connectionIndex=\"(enum)3\" connection=\"000001c42616ec10\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
+0,
+},
+{
+"Resuming communications connectionIndex=\"(enum)3\"",
+0,
+},
+{
+"Killing connection connection=\"000001c41efe99b0\" state=\"(enum)6\"",
+0,
+},
+{
+"Weather changed to 0, intensity 0.000000\n",
+0,
+},
+{
+"Weather changed to 0, intensity 0.000000\n",
+0,
+},
+{
+"Connecting to sourceRealmAddress=\"95-1-3\" connection=\"000001c41efe99b0\" serial=\"193\" protocol=\"(enum)0\"",
+0,
+},
+{
+"Opening network connection connectionIndex=\"(enum)3\" connection=\"000001c41efe99b0\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
+0,
+},
+{
+"Resuming communications connectionIndex=\"(enum)3\"",
+0,
+},
+{
+"Killing connection connection=\"000001c42616ec10\" state=\"(enum)6\"",
+0,
+},
+{
+"Weather changed to 0, intensity 0.000000\n",
+0,
+},
+{
+"Skill 182 increased from 19 to 20",
+0,
+},
+{
+"Skill 2944 increased from 19 to 20",
+0,
+},
+{
+"Weather changed to 0, intensity 0.000000\n",
+0,
+},
+{
+"Connecting to sourceRealmAddress=\"95-1-3\" connection=\"000001c42eaaf870\" serial=\"223\" protocol=\"(enum)0\"",
+0,
+},
+{
+"Opening network connection connectionIndex=\"(enum)3\" connection=\"000001c42eaaf870\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
+0,
+},
+{
+"Resuming communications connectionIndex=\"(enum)3\"",
+0,
+},
+{
+"Killing connection connection=\"000001c41efe99b0\" state=\"(enum)6\"",
+0,
+},
+{
+"Weather changed to 0, intensity 0.000000\n",
+0,
+},
+{
+"World transfer pending...",
+0,
+},
+{
+"Connecting to sourceRealmAddress=\"95-1-3\" connection=\"000001c3c15a71e0\" serial=\"253\" protocol=\"(enum)0\"",
+0,
+},
+{
+"Opening network connection connectionIndex=\"(enum)3\" connection=\"000001c3c15a71e0\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
+0,
+},
+{
+"Resuming communications connectionIndex=\"(enum)3\"",
+0,
+},
+{
+"Killing connection connection=\"000001c42eaaf870\" state=\"(enum)6\"",
+0,
+},
+{
+"Weather changed to 0, intensity 0.000000\n",
 0,
 },
 {
@@ -2435,19 +647,63 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Total: 0d 10h 35m 17s",
+"Total: 0d 21h 37m 36s",
 0,
 },
 {
-"Level: 0d 0h 15m 42s",
+"Level: 0d 0h 46m 12s",
 0,
 },
 {
-"Logout response received result=\"0\" instant=\"0\"",
+"Time played:",
 0,
 },
 {
-"Killing connection connection=\"000001b88cfafc70\" state=\"(enum)7\"",
+"Total: 0d 21h 39m 0s",
+0,
+},
+{
+"Level: 0d 0h 47m 36s",
+0,
+},
+{
+"Weather changed to 0, intensity 0.000000\n",
+0,
+},
+{
+"Connecting to sourceRealmAddress=\"95-1-3\" connection=\"000001c400c7e250\" serial=\"283\" protocol=\"(enum)0\"",
+0,
+},
+{
+"Opening network connection connectionIndex=\"(enum)3\" connection=\"000001c400c7e250\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
+0,
+},
+{
+"Resuming communications connectionIndex=\"(enum)3\"",
+0,
+},
+{
+"Killing connection connection=\"000001c3c15a71e0\" state=\"(enum)6\"",
+0,
+},
+{
+"Weather changed to 0, intensity 0.000000\n",
+0,
+},
+{
+"GameTimeSync: skipping forwards 2 game minutes, (current = 11/22/2026 (Sun) 11:29, newtime = 11/22/2026 (Sun) 11:31)",
+0,
+},
+{
+"GameTimeSync: skipping forwards 2 game minutes, (current = 11/22/2026 (Sun) 11:29, newtime = 11/22/2026 (Sun) 11:31)",
+5,
+},
+{
+"Killing connection connection=\"000001c400c7e250\" state=\"(enum)7\"",
+0,
+},
+{
+"Logout response received result=\"0\" instant=\"1\"",
 0,
 },
 {
@@ -2499,39 +755,607 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Character list response received success=\"true\" isRegionwideData=\"true\" isDeletedCharacters=\"false\" characterCount=\"2\" hadPendingResult=\"false\"",
+"-------------------------------------------------- Previous Session --------------------------------------------------",
 0,
 },
 {
-"LoadAccountDataFromFile type=\"0\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
+"Linear: 1. 0- disabled (live), 1- linear",
 0,
 },
 {
-"LoadAccountDataFromFile type=\"10\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
+"Multithreaded rendering enabled.",
 0,
 },
 {
-"LoadAccountDataFromFile type=\"16\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
+"Multithreaded BeginDraw enabled.",
 0,
 },
 {
-"LoadAccountDataFromFile type=\"19\" pendingBefore=\"false\" hasCallback=\"false\" param=\"0\"",
+"Multithread shadows changed to 1.",
 0,
 },
 {
-"Account item collection data received for character selection collectionListType=\"7\" itemCount=\"0\" wasWaiting=\"false\"",
+"Multithreaded prepass enabled.",
 0,
 },
 {
-"Character selection updating character list success=\"true\" isRegionwideData=\"true\" isDeletedCharacters=\"false\" count=\"2\"",
+"Multithreaded opaque pass enabled.",
 0,
 },
 {
-"Switching to screen=\"CharacterCreateFrame\" (from \"charselect\")",
+"Multithreaded opaque pass enabled.",
 0,
 },
 {
-"Switching to screen=\"CharacterSelect\" (from \"charcreate\")",
+"Multithreaded alpha M2 pass enabled.",
+0,
+},
+{
+"Multithreaded opaque WMO pass enabled.",
+0,
+},
+{
+"Multithreaded terrain pass enabled.",
+0,
+},
+{
+"Multithreaded volumetric fog enabled.",
+0,
+},
+{
+"Multithreaded Refraction Pass enabled.",
+0,
+},
+{
+"Multithreaded miscellaneous passes enabled.",
+0,
+},
+{
+"Multithreaded decal passes disabled.",
+0,
+},
+{
+"Multithreaded outline passes enabled.",
+0,
+},
+{
+"Multithreaded lightshaft passes enabled.",
+0,
+},
+{
+"Use trigger on BeginDrawComplete enabled.",
+4,
+},
+{
+"Multithreaded alpha pass enabled.",
+0,
+},
+{
+"Multithreaded daynight update enabled.",
+0,
+},
+{
+"Water detail changed to 2",
+0,
+},
+{
+"Ripple detail changed to 1",
+0,
+},
+{
+"Reflection mode changed to 2",
+0,
+},
+{
+"Reflection downscale changed to 0",
+0,
+},
+{
+"Sunshafts quality changed to 2",
+0,
+},
+{
+"Refraction mode changed to 2",
+0,
+},
+{
+"Volume fog enabled.",
+0,
+},
+{
+"Particulate volumes enabled.",
+0,
+},
+{
+"Projected textures enabled.",
+0,
+},
+{
+"Shadow mode changed to 3 - 3 band dynamic shadows on units and terrain, 2048",
+0,
+},
+{
+"Shadow texture size changed to 2048.",
+0,
+},
+{
+"Soft shadows changed to 1.",
+0,
+},
+{
+"Shadow cascade blending changed to 1",
+0,
+},
+{
+"Number of shadow cascades changed to 3",
+0,
+},
+{
+"Shadow RT mode changed to 0 (Disabled)",
+0,
+},
+{
+"maxLightCount must be in range 0 to 32.",
+0,
+},
+{
+"CVar 'maxLightCount' failed validation for its initial value.",
+0,
+},
+{
+"Clustered shading enabled.",
+0,
+},
+{
+"Not forcing clustered shading.",
+0,
+},
+{
+"SSAO mode set to 4",
+0,
+},
+{
+"Depth Based Opacity Enabled",
+0,
+},
+{
+"SkyCloudLOD set to 0",
+0,
+},
+{
+"Texture filtering mode updated.",
+0,
+},
+{
+"Terrain mip level changed to 0.",
+0,
+},
+{
+"Outline mode changed to 0",
+0,
+},
+{
+"Physics interaction level changed to 1",
+0,
+},
+{
+"Render scale changed to 1",
+0,
+},
+{
+"Resample quality changed to 3",
+0,
+},
+{
+"MSAA disabled",
+0,
+},
+{
+"MSAA for alpha-test enabled.",
+0,
+},
+{
+"VALAR mode changed to 0",
+0,
+},
+{
+"lodObjectSizeScale cannot be changed.",
+0,
+},
+{
+"Volume fog enabled.",
+0,
+},
+{
+"dynamicLod enabled",
+0,
+},
+{
+"World preload object sort enabled.",
+0,
+},
+{
+"World load object sort enabled.",
+0,
+},
+{
+"World preload non critical enabled.",
+0,
+},
+{
+"World preload high res textures enabled.",
+0,
+},
+{
+"FFX: Color Blind Test Mode Disabled",
+0,
+},
+{
+"CVar 'Sound_AmbienceHighpassDSPCutoff' failed validation for its initial value.",
+0,
+},
+{
+"CVar 'Sound_AllyPlayerHighpassDSPCutoff' failed validation for its initial value.",
+0,
+},
+{
+"CVar 'Sound_EnemyPlayerHighpassDSPCutoff' failed validation for its initial value.",
+0,
+},
+{
+"CVar 'Sound_NPCHighpassDSPCutoff' failed validation for its initial value.",
+0,
+},
+{
+"GamePad input enabled.",
+0,
+},
+{
+"ChromaEffects disabled",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for Texture changed to 400000",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for Texture changed to 400000",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for FontString changed to 5000",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for FontString changed to 5000",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for Font changed to 3000",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for Font changed to 3000",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for AnimGroup changed to 20000",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for AnimGroup changed to 20000",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for Texture changed to 40000",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for Texture changed to 40000",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for AnimGroup changed to 2000",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for AnimGroup changed to 2000",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for FontString changed to 50000",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for FontString changed to 50000",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for Font changed to 300",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for Font changed to 300",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for Animation changed to 5000",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for Animation changed to 5000",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for Frame changed to 10000",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for Frame changed to 10000",
+0,
+},
+{
+"LimitedLuaResources: Enabled = false",
+0,
+},
+{
+"LimitedLuaResources: Enabled = false",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for Timer changed to 500",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for Timer changed to 500",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for Frame changed to 100000",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for Frame changed to 100000",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for Animation changed to 50000",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for Animation changed to 50000",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for Timer changed to 500",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for Timer changed to 500",
+0,
+},
+{
+"Startup()",
+0,
+},
+{
+"Resume()",
+0,
+},
+{
+"Screen invalid. Changing from=\"none\" to=\"login\"",
+0,
+},
+{
+"Switching to screen=\"AccountLogin\" (from \"none\")",
+0,
+},
+{
+"From EnsureValidScreen",
+0,
+},
+{
+"Initializing...",
+0,
+},
+{
+"Glue login started loginType=\"(enum)1\" launcherPortal=\"cn.actual.battlenet.com.cn\" loginPortal=\"cn.actual.battlenet.com.cn:1119\"",
+0,
+},
+{
+"Glue login state reset requested",
+0,
+},
+{
+"Battle.net login session initialization requested",
+0,
+},
+{
+"Battle.net logon requested host=\"cn.actual.battlenet.com.cn\" port=\"1119\"",
+0,
+},
+{
+"Battle.net login waiting for server response",
+0,
+},
+{
+"Battle.net front connected connectionId=\"1\" title_id=\"5730135\" platform=\"Wn64\" locale=\"zhCN\" usedToken=\"true\"",
+0,
+},
+{
+"Battle.net login waiting for server response",
+0,
+},
+{
+"Battle.net logon queue update received position=\"1\" estimatedQueueExitTime=\"1795319043\"",
+0,
+},
+{
+"Battle.net logon response received result=\"ERROR_OK (0)\"",
+0,
+},
+{
+"Initialized.",
+0,
+},
+{
+"Battle.net logon completed result=\"ERROR_OK (0)\" numGameAccounts=\"3\"",
+0,
+},
+{
+"Battle.net login waiting for server response",
+0,
+},
+{
+"Battle.net account service response received responseType=\"BNetInfo\" responseTypeValue=\"1\" code=\"ERROR_OK (0)\"",
+0,
+},
+{
+"Battle.net account service response received responseType=\"GameInfo\" responseTypeValue=\"4\" code=\"ERROR_OK (0)\"",
+0,
+},
+{
+"Battle.net account service game info received responseType=\"GameInfo\" responseTypeValue=\"4\" code=\"ERROR_OK (0)\" name=\"WoW2\" numGameAccounts=\"3\" numGameAccountNames=\"0\"",
+0,
+},
+{
+"Battle.net account service response received responseType=\"GameRestriction\" responseTypeValue=\"8\" code=\"ERROR_OK (0)\"",
+0,
+},
+{
+"Battle.net account service response received responseType=\"BNetRestriction\" responseTypeValue=\"2\" code=\"ERROR_OK (0)\"",
+0,
+},
+{
+"Battle.net account service response received responseType=\"GameInfo\" responseTypeValue=\"4\" code=\"ERROR_OK (0)\"",
+0,
+},
+{
+"Battle.net account service game info received responseType=\"GameInfo\" responseTypeValue=\"4\" code=\"ERROR_OK (0)\" name=\"WoW3\" numGameAccounts=\"3\" numGameAccountNames=\"1\"",
+0,
+},
+{
+"Battle.net account service response received responseType=\"GameRestriction\" responseTypeValue=\"8\" code=\"ERROR_OK (0)\"",
+0,
+},
+{
+"Battle.net account service response received responseType=\"GameRestriction\" responseTypeValue=\"8\" code=\"ERROR_OK (0)\"",
+0,
+},
+{
+"Battle.net account service response received responseType=\"GameInfo\" responseTypeValue=\"4\" code=\"ERROR_OK (0)\"",
+0,
+},
+{
+"Battle.net account service game info received responseType=\"GameInfo\" responseTypeValue=\"4\" code=\"ERROR_OK (0)\" name=\"WoW1\" numGameAccounts=\"3\" numGameAccountNames=\"2\"",
+0,
+},
+{
+"Battle.net auth token response received code=\"ERROR_OK (0)\" gotCredentials=\"true\"",
+0,
+},
+{
+"Battle.net complete login requested hasGameAccount=\"true\"",
+0,
+},
+{
+"Game account list not saved because accountName CVar is empty",
+0,
+},
+{
+"Battle.net logon completed in glue",
+0,
+},
+{
+"Reconnect token saved creationTime=\"1795319046\" expirationTime=\"1795333446\"",
+0,
+},
+{
+"Character selection waiting for account item collection data collectionListType=\"7\"",
+0,
+},
+{
+"Battle.net login waiting for realm list",
+0,
+},
+{
+"Battle.net realm list ticket requested",
+0,
+},
+{
+"Battle.net realm list ticket received code=\"ERROR_OK (0)\" realmListRequestToken=\"0\" isCurrentToken=\"true\" hasTicket=\"true\"",
+0,
+},
+{
+"Battle.net login waiting for realm list",
+0,
+},
+{
+"Battle.net subregion list received code=\"ERROR_OK (0)\" realmListRequestToken=\"0\" isCurrentToken=\"true\" subRegionCount=\"1\"",
+0,
+},
+{
+"Battle.net last played character requests sent numSubRegions=\"1\" selectedSubRegion=\"95-1-89\"",
+0,
+},
+{
+"Battle.net last played character received code=\"ERROR_OK (0)\" subRegion=\"95-1-89\" lastPlayedTime=\"1795318577\" realmListRequestToken=\"0\" isCurrentToken=\"true\" contentSetIDFilter=\"-1\" numRegions=\"1\" selectedSubRegion=\"95-1-89\" numRegionsWithData=\"0\" realmPermissions=\"3\" licensesCount=\"1\" realmEntry=\"{\"wowRealmAddress\":1593901059,\"useBleepChance\":0.0,\"cfgTimezonesID\":23,\"populationState\":1,\"cfgCategoriesID\":16,\"version\":{\"versionMajor\":1,\"versionBuild\":70399,\"versionMinor\":60,\"versionRevision\":1},\"cfgRealmsID\":6749,\"gameServiceRegionId\":5,\"flags\":0,\"name\":\"CN1 Realm 3 PvE\",\"cfgConfigsID\":1,\"cfgContentSetID\":137,\"cfgLanguagesID\":6,\"superDistrictID\":2}\"",
+0,
+},
+{
+"Battle.net realm list ready in glue",
+0,
+},
+{
+"Battle.net most recent character found; joining realm lastPlayedRegion=\"95-1-89\" realmAddress=\"1593901059\" lastActiveTime=\"1795318577\"",
+0,
+},
+{
+"Battle.net realm join requested subRegion=\"95-1-89\" realmAddress=\"95-1-3\"",
+0,
+},
+{
+"Requesting super district list",
+0,
+},
+{
+"Received super district list code=\"ERROR_OK (0)\"",
+0,
+},
+{
+"Battle.net realm join response received code=\"ERROR_OK (0)\" joinToken=\"1\" isLatestJoinToken=\"true\" hasJoinData=\"true\"",
+0,
+},
+{
+"Realm connection change requested",
+0,
+},
+{
+"Realm connection requested realmAddress=\"95-1-3\"",
+0,
+},
+{
+"Opening game realm connection realmAddress=\"95-1-3\" connection=\"0000021cf897b320\" protocol=\"(enum)0\" directAddressCount=\"6\" bleepProxyCount=\"0\"",
+0,
+},
+{
+"Opening network connection connectionIndex=\"(enum)0\" connection=\"0000021cf897b320\" protocol=\"(enum)0\" directAddressCount=\"6\" bleepProxyCount=\"0\"",
+0,
+},
+{
+"Realm connection connected realmAddress=\"95-1-3\"",
+0,
+},
+{
+"Client connected",
+0,
+},
+{
+"Authentication response received result=\"0\" hasSuccessInfo=\"true\" hasWaitInfo=\"false\"",
+0,
+},
+{
+"Realm authentication completed result=\"ERROR_OK (0)\"",
 0,
 },
 {
@@ -2539,11 +1363,167 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"From CharacterCreateMixin:Exit",
+"CVar 'encounterTimelineHighlightDuration' failed validation for its initial value.",
 0,
 },
 {
-"Character list response received success=\"true\" isRegionwideData=\"true\" isDeletedCharacters=\"false\" characterCount=\"2\" hadPendingResult=\"false\"",
+"CVar 'encounterTimelineIconographyHiddenMask' failed validation for its initial value.",
+0,
+},
+{
+"CVar 'encounterTimelineIconographyEnabled' failed validation for its initial value.",
+0,
+},
+{
+"CVar 'encounterTimelineHideForOtherRoles' failed validation for its initial value.",
+0,
+},
+{
+"CVar 'encounterTimelineHideQueuedCountdowns' failed validation for its initial value.",
+0,
+},
+{
+"CVar 'encounterTimelineHideLongCountdowns' failed validation for its initial value.",
+0,
+},
+{
+"CVar 'encounterTimelineEnabled' failed validation for its initial value.",
+0,
+},
+{
+"Screen invalid. Changing from=\"login\" to=\"charselect\"",
+0,
+},
+{
+"Switching to screen=\"CharacterSelect\" (from \"login\")",
+0,
+},
+{
+"Character list request sent fastLogin=\"false\"",
+0,
+},
+{
+"From EnsureValidScreen",
+0,
+},
+{
+"Battle.net connected to realm; disconnecting from front",
+0,
+},
+{
+"Battle.net front disconnecting connectionId=\"1\"",
+0,
+},
+{
+"Battle.net authentication server disconnect started",
+0,
+},
+{
+"Connecting to sourceRealmAddress=\"95-1-3\" connection=\"0000021cf8b677b0\" serial=\"14\" protocol=\"(enum)0\"",
+0,
+},
+{
+"Opening network connection connectionIndex=\"(enum)2\" connection=\"0000021cf8b677b0\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
+0,
+},
+{
+"Resuming communications connectionIndex=\"(enum)2\"",
+0,
+},
+{
+"Killing connection connection=\"0000021cf897b320\" state=\"(enum)6\"",
+0,
+},
+{
+"AccountData_RequestLoad type=\"0\" fromAuth=\"true\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"0\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
+0,
+},
+{
+"AccountData_RequestLoad updated callback state type=\"0\" pending=\"false\" hasCallback=\"true\" param=\"0\"",
+0,
+},
+{
+"AccountData_RequestLoad type=\"10\" fromAuth=\"true\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"0\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
+0,
+},
+{
+"AccountData_RequestLoad updated callback state type=\"10\" pending=\"false\" hasCallback=\"true\" param=\"0\"",
+0,
+},
+{
+"AccountData_RequestLoad type=\"16\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"0\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
+0,
+},
+{
+"AccountData_RequestLoad updated callback state type=\"16\" pending=\"false\" hasCallback=\"true\" param=\"0\"",
+0,
+},
+{
+"Glue feature system status received",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for AnimGroup changed to 2000",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for Texture changed to 400000",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for Font changed to 300",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for Frame changed to 100000",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for FontString changed to 5000",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for Frame changed to 10000",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for AnimGroup changed to 20000",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for Animation changed to 50000",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for Texture changed to 40000",
+0,
+},
+{
+"LimitedLuaResources: Enabled = false",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for Animation changed to 5000",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for Font changed to 3000",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for Timer changed to 500",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for FontString changed to 50000",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for Timer changed to 500",
+0,
+},
+{
+"Session with Battle.net established.",
 0,
 },
 {
@@ -2563,7 +1543,51 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Account item collection data received for character selection collectionListType=\"7\" itemCount=\"0\" wasWaiting=\"false\"",
+"Glue feature system status received",
+0,
+},
+{
+"Character list response received success=\"true\" isRegionwideData=\"true\" isDeletedCharacters=\"false\" characterCount=\"2\" hadPendingResult=\"false\"",
+0,
+},
+{
+"Character list update waiting on startup prerequisites waitingForHotfixesReady=\"false\" tactEncryptionConnectedReady=\"false\" tactKeyPendingPatchesReady=\"true\" sectionLoadsReady=\"true\" preloadAccountSettingsDataReady=\"true\"",
+0,
+},
+{
+"LoadAccountDataFromFile type=\"0\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
+0,
+},
+{
+"LoadAccountDataFromFile type=\"10\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
+0,
+},
+{
+"LoadAccountDataFromFile type=\"16\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
+0,
+},
+{
+"LoadAccountDataFromFile type=\"19\" pendingBefore=\"false\" hasCallback=\"false\" param=\"0\"",
+0,
+},
+{
+"Account item collection data received for character selection collectionListType=\"7\" itemCount=\"0\" wasWaiting=\"true\"",
+0,
+},
+{
+"Battle.net front disconnected connectionId=\"1\" reason=\"ERROR_NETWORK_MODULE_SOCKET_CLOSED (1016)\"",
+0,
+},
+{
+"Battle.net authentication server disconnected",
+0,
+},
+{
+"Initial hotfixes applied",
+0,
+},
+{
+"[WowEntitlements] [BNetAccount-0-00000BC426B8] [WowAccount-0-000004FE320E] Initialized with 0 entitlements.",
 0,
 },
 {
@@ -2583,19 +1607,15 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Attempted to register existing command: SetDifficulty",
+"AccountData_RequestLoad type=\"12\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"140696109533000\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
 0,
 },
 {
-"AccountData_RequestLoad type=\"12\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"140697264731912\" newParam=\"140697264731912\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
+"AccountData_RequestLoad updated callback state type=\"12\" pending=\"false\" hasCallback=\"true\" param=\"140696109533000\"",
 0,
 },
 {
-"AccountData_RequestLoad updated callback state type=\"12\" pending=\"false\" hasCallback=\"true\" param=\"140697264731912\"",
-0,
-},
-{
-"AccountData_RequestLoad type=\"13\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"true\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"0\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
+"AccountData_RequestLoad type=\"13\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"0\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
 0,
 },
 {
@@ -2611,19 +1631,19 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"AccountData_RequestLoad type=\"8\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"true\" newHasCallback=\"true\" existingParam=\"140697264741968\" newParam=\"140697264741968\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
+"AccountData_RequestLoad type=\"8\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"140696109543104\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
 0,
 },
 {
-"AccountData_RequestLoad updated callback state type=\"8\" pending=\"false\" hasCallback=\"true\" param=\"140697264741968\"",
+"AccountData_RequestLoad updated callback state type=\"8\" pending=\"false\" hasCallback=\"true\" param=\"140696109543104\"",
 0,
 },
 {
-"AccountData_RequestLoad type=\"9\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"140697264741968\" newParam=\"140697264741968\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
+"AccountData_RequestLoad type=\"9\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"140696109543104\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
 0,
 },
 {
-"AccountData_RequestLoad updated callback state type=\"9\" pending=\"false\" hasCallback=\"true\" param=\"140697264741968\"",
+"AccountData_RequestLoad updated callback state type=\"9\" pending=\"false\" hasCallback=\"true\" param=\"140696109543104\"",
 0,
 },
 {
@@ -2635,23 +1655,23 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"PreLoadGameCVars initialized pending mask pendingMask=\"32\" initCounter=\"3\" characterlessLogin=\"false\"",
+"PreLoadGameCVars initialized pending mask pendingMask=\"32\" initCounter=\"1\" characterlessLogin=\"false\"",
 0,
 },
 {
-"AccountData_RequestLoad type=\"2\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"true\" newHasCallback=\"true\" existingParam=\"196609\" newParam=\"458753\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
+"AccountData_RequestLoad type=\"2\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"196609\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
 0,
 },
 {
-"AccountData_RequestLoad updated callback state type=\"2\" pending=\"false\" hasCallback=\"true\" param=\"458753\"",
+"AccountData_RequestLoad updated callback state type=\"2\" pending=\"false\" hasCallback=\"true\" param=\"196609\"",
 0,
 },
 {
-"AccountData_RequestLoad type=\"3\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"196610\" newParam=\"458754\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
+"AccountData_RequestLoad type=\"3\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"196610\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
 0,
 },
 {
-"AccountData_RequestLoad updated callback state type=\"3\" pending=\"false\" hasCallback=\"true\" param=\"458754\"",
+"AccountData_RequestLoad updated callback state type=\"3\" pending=\"false\" hasCallback=\"true\" param=\"196610\"",
 0,
 },
 {
@@ -2671,31 +1691,31 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"LoadGameCVars request dispatch initCounter=\"3\" pendingMask=\"32\" characterlessLogin=\"false\"",
+"LoadGameCVars request dispatch initCounter=\"1\" pendingMask=\"32\" characterlessLogin=\"false\"",
 0,
 },
 {
-"AccountData_RequestLoad type=\"1\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"65568\" newParam=\"196640\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
+"AccountData_RequestLoad type=\"1\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"65568\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
 0,
 },
 {
-"AccountData_RequestLoad updated callback state type=\"1\" pending=\"false\" hasCallback=\"true\" param=\"196640\"",
+"AccountData_RequestLoad updated callback state type=\"1\" pending=\"false\" hasCallback=\"true\" param=\"65568\"",
 0,
 },
 {
-"AccountData_RequestLoad type=\"4\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"true\" newHasCallback=\"true\" existingParam=\"65537\" newParam=\"65539\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
+"AccountData_RequestLoad type=\"4\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"65537\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
 0,
 },
 {
-"AccountData_RequestLoad updated callback state type=\"4\" pending=\"false\" hasCallback=\"true\" param=\"65539\"",
+"AccountData_RequestLoad updated callback state type=\"4\" pending=\"false\" hasCallback=\"true\" param=\"65537\"",
 0,
 },
 {
-"AccountData_RequestLoad type=\"5\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"131073\" newParam=\"131075\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
+"AccountData_RequestLoad type=\"5\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"131073\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
 0,
 },
 {
-"AccountData_RequestLoad updated callback state type=\"5\" pending=\"false\" hasCallback=\"true\" param=\"131075\"",
+"AccountData_RequestLoad updated callback state type=\"5\" pending=\"false\" hasCallback=\"true\" param=\"131073\"",
 0,
 },
 {
@@ -2707,11 +1727,11 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Connecting to sourceRealmAddress=\"95-1-3\" connection=\"000001b88ce83bb0\" serial=\"133\" protocol=\"(enum)0\"",
+"Connecting to sourceRealmAddress=\"95-1-3\" connection=\"0000021d2c2d6210\" serial=\"17\" protocol=\"(enum)0\"",
 0,
 },
 {
-"Opening network connection connectionIndex=\"(enum)3\" connection=\"000001b88ce83bb0\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
+"Opening network connection connectionIndex=\"(enum)3\" connection=\"0000021d2c2d6210\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
 0,
 },
 {
@@ -2719,11 +1739,11 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"LoadAccountDataFromFile type=\"1\" pendingBefore=\"false\" hasCallback=\"true\" param=\"196640\"",
+"LoadAccountDataFromFile type=\"1\" pendingBefore=\"false\" hasCallback=\"true\" param=\"65568\"",
 0,
 },
 {
-"LoadGameCVarsCallback received callbackInitCounter=\"3\" currentInitCounter=\"3\" mask=\"32\" buffsize=\"1101\" pendingMaskBefore=\"32\"",
+"LoadGameCVarsCallback received callbackInitCounter=\"1\" currentInitCounter=\"1\" mask=\"32\" buffsize=\"1076\" pendingMaskBefore=\"32\"",
 0,
 },
 {
@@ -2739,19 +1759,19 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"LoadAccountDataFromFile type=\"2\" pendingBefore=\"false\" hasCallback=\"true\" param=\"458753\"",
+"LoadAccountDataFromFile type=\"2\" pendingBefore=\"false\" hasCallback=\"true\" param=\"196609\"",
 0,
 },
 {
-"LoadAccountDataFromFile type=\"3\" pendingBefore=\"false\" hasCallback=\"true\" param=\"458754\"",
+"LoadAccountDataFromFile type=\"3\" pendingBefore=\"false\" hasCallback=\"true\" param=\"196610\"",
 0,
 },
 {
-"LoadAccountDataFromFile type=\"4\" pendingBefore=\"false\" hasCallback=\"true\" param=\"65539\"",
+"LoadAccountDataFromFile type=\"4\" pendingBefore=\"false\" hasCallback=\"true\" param=\"65537\"",
 0,
 },
 {
-"LoadAccountDataFromFile type=\"5\" pendingBefore=\"false\" hasCallback=\"true\" param=\"131075\"",
+"LoadAccountDataFromFile type=\"5\" pendingBefore=\"false\" hasCallback=\"true\" param=\"131073\"",
 0,
 },
 {
@@ -2763,11 +1783,11 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"LoadAccountDataFromFile type=\"8\" pendingBefore=\"false\" hasCallback=\"true\" param=\"140697264741968\"",
+"LoadAccountDataFromFile type=\"8\" pendingBefore=\"false\" hasCallback=\"true\" param=\"140696109543104\"",
 0,
 },
 {
-"LoadAccountDataFromFile type=\"9\" pendingBefore=\"false\" hasCallback=\"true\" param=\"140697264741968\"",
+"LoadAccountDataFromFile type=\"9\" pendingBefore=\"false\" hasCallback=\"true\" param=\"140696109543104\"",
 0,
 },
 {
@@ -2775,7 +1795,7 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"LoadAccountDataFromFile type=\"12\" pendingBefore=\"false\" hasCallback=\"true\" param=\"140697264731912\"",
+"LoadAccountDataFromFile type=\"12\" pendingBefore=\"false\" hasCallback=\"true\" param=\"140696109533000\"",
 0,
 },
 {
@@ -2839,7 +1859,7 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Time set to 11/20/2026 (Fri) 10:40",
+"Time set to 11/22/2026 (Sun) 11:44",
 0,
 },
 {
@@ -2847,11 +1867,11 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Connecting to sourceRealmAddress=\"95-1-3\" connection=\"000001b8849c6480\" serial=\"159\" protocol=\"(enum)0\"",
+"Connecting to sourceRealmAddress=\"95-1-3\" connection=\"0000021d218fdd20\" serial=\"43\" protocol=\"(enum)0\"",
 0,
 },
 {
-"Opening network connection connectionIndex=\"(enum)3\" connection=\"000001b8849c6480\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
+"Opening network connection connectionIndex=\"(enum)3\" connection=\"0000021d218fdd20\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
 0,
 },
 {
@@ -2859,7 +1879,7 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Killing connection connection=\"000001b88ce83bb0\" state=\"(enum)6\"",
+"Killing connection connection=\"0000021d2c2d6210\" state=\"(enum)6\"",
 0,
 },
 {
@@ -2871,195 +1891,87 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Total: 0d 11h 11m 25s",
+"Total: 0d 21h 50m 43s",
 0,
 },
 {
-"Level: 0d 0h 51m 50s",
+"Level: 0d 0h 59m 19s",
 0,
 },
 {
-"-------------------------------------------------- Previous Session --------------------------------------------------",
+"Weather changed to 0, intensity 0.000000\n",
 0,
 },
 {
-"GameUI::Shutdown invalidated load generation initCounter=\"4\" isClosingClient=\"false\"",
+"Connecting to sourceRealmAddress=\"95-1-3\" connection=\"0000021d21637320\" serial=\"73\" protocol=\"(enum)0\"",
 0,
 },
 {
-"LimitedLuaResources: Reset Timer",
+"Opening network connection connectionIndex=\"(enum)3\" connection=\"0000021d21637320\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
 0,
 },
 {
-"AccountData_CancelRequestLoad type=\"0\" pending=\"false\" hasCallback=\"true\" param=\"0\"",
+"Resuming communications connectionIndex=\"(enum)3\"",
 0,
 },
 {
-"AccountData_CancelRequestLoad type=\"1\" pending=\"false\" hasCallback=\"true\" param=\"196640\"",
+"Killing connection connection=\"0000021d218fdd20\" state=\"(enum)6\"",
 0,
 },
 {
-"GameUI::Shutdown canceled CVar account-data loads initCounter=\"4\" pendingMask=\"0\"",
+"Weather changed to 0, intensity 0.000000\n",
 0,
 },
 {
-"LimitedLuaResources: Reset All",
+"Weather changed to 0, intensity 0.000000\n",
 0,
 },
 {
-"PreLoadGameCVars initialized pending mask pendingMask=\"32\" initCounter=\"4\" characterlessLogin=\"false\"",
+"Connecting to sourceRealmAddress=\"95-1-3\" connection=\"0000021cd9b2ed20\" serial=\"103\" protocol=\"(enum)0\"",
 0,
 },
 {
-"AccountData_RequestLoad type=\"2\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"true\" newHasCallback=\"true\" existingParam=\"458753\" newParam=\"589825\" isReloadingUI=\"true\" loadOnDemandOnly=\"false\"",
+"Opening network connection connectionIndex=\"(enum)3\" connection=\"0000021cd9b2ed20\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
 0,
 },
 {
-"AccountData_RequestLoad updated callback state type=\"2\" pending=\"false\" hasCallback=\"true\" param=\"589825\"",
+"Resuming communications connectionIndex=\"(enum)3\"",
 0,
 },
 {
-"AccountData_RequestLoad forcing local file load type=\"2\" isReloadingUI=\"true\" loadOnDemandOnly=\"false\"",
+"Killing connection connection=\"0000021d21637320\" state=\"(enum)6\"",
 0,
 },
 {
-"LoadAccountDataFromFile type=\"2\" pendingBefore=\"false\" hasCallback=\"true\" param=\"589825\"",
+"Weather changed to 0, intensity 0.000000\n",
 0,
 },
 {
-"AccountData_RequestLoad type=\"3\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"true\" newHasCallback=\"true\" existingParam=\"458754\" newParam=\"589826\" isReloadingUI=\"true\" loadOnDemandOnly=\"false\"",
+"Skill 95 increased from 128 to 129",
 0,
 },
 {
-"AccountData_RequestLoad updated callback state type=\"3\" pending=\"false\" hasCallback=\"true\" param=\"589826\"",
+"GetAuraDataByIndex(): Auras cannot be accessed when secret while tainted by 'OpenMap'\nLua Taint: OpenMap\n|cffffd200Stack:|r\n[C]: in function 'secureexecuterange'\n[Interface/AddOns/Blizzard_EditMode/Shared/EditModeManager.lua]:1054: in function <.../AddOns/Blizzard_EditMode/Shared/EditModeManager.lua:1050>\n[C]: in function 'pcall'\n[Interface/AddOns/Blizzard_EditMode/Shared/EditModeManager.lua]:1050: in function 'InvokeOnAnyEditModeSystemAnchorChanged'\n[Interface/AddOns/Blizzard_EditMode/Shared/EditModeManager.lua]:1036: in function 'UpdateLayoutInfo'\n[Interface/AddOns/Blizzard_EditMode/Shared/EditModeManager.lua]:206: in function <.../AddOns/Blizzard_EditMode/Shared/EditModeManager.lua:192>\n",
+3,
+},
+{
+"Skill 613 increased from 135 to 140",
 0,
 },
 {
-"AccountData_RequestLoad forcing local file load type=\"3\" isReloadingUI=\"true\" loadOnDemandOnly=\"false\"",
+"Skill 733 increased from 135 to 140",
 0,
 },
 {
-"LoadAccountDataFromFile type=\"3\" pendingBefore=\"false\" hasCallback=\"true\" param=\"589826\"",
+"Skill 183 increased from 135 to 140",
 0,
 },
 {
-"AccountData_RequestLoad type=\"6\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"true\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"0\" isReloadingUI=\"true\" loadOnDemandOnly=\"false\"",
+"Skill 56 increased from 135 to 140",
 0,
 },
 {
-"AccountData_RequestLoad updated callback state type=\"6\" pending=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"AccountData_RequestLoad forcing local file load type=\"6\" isReloadingUI=\"true\" loadOnDemandOnly=\"false\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"6\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"AccountData_RequestLoad type=\"11\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"true\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"0\" isReloadingUI=\"true\" loadOnDemandOnly=\"false\"",
-0,
-},
-{
-"AccountData_RequestLoad updated callback state type=\"11\" pending=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"AccountData_RequestLoad forcing local file load type=\"11\" isReloadingUI=\"true\" loadOnDemandOnly=\"false\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"11\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"LoadGameCVars request dispatch initCounter=\"4\" pendingMask=\"32\" characterlessLogin=\"false\"",
-0,
-},
-{
-"AccountData_RequestLoad type=\"1\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"true\" newHasCallback=\"true\" existingParam=\"196640\" newParam=\"262176\" isReloadingUI=\"true\" loadOnDemandOnly=\"false\"",
-0,
-},
-{
-"AccountData_RequestLoad updated callback state type=\"1\" pending=\"false\" hasCallback=\"true\" param=\"262176\"",
-0,
-},
-{
-"AccountData_RequestLoad forcing local file load type=\"1\" isReloadingUI=\"true\" loadOnDemandOnly=\"false\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"1\" pendingBefore=\"false\" hasCallback=\"true\" param=\"262176\"",
-0,
-},
-{
-"LoadGameCVarsCallback received callbackInitCounter=\"4\" currentInitCounter=\"4\" mask=\"32\" buffsize=\"1124\" pendingMaskBefore=\"32\"",
-0,
-},
-{
-"LoadGameCVarsCallback applied response mask=\"32\" pendingMaskAfter=\"0\"",
-0,
-},
-{
-"LoadGameCVarsCheckDone areCVarsLoaded=\"true\" pendingMask=\"0\"",
-0,
-},
-{
-"LoadGameCVarsCheckDone signaled variables loaded pendingMask=\"0\"",
-0,
-},
-{
-"AccountData_RequestLoad type=\"4\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"true\" newHasCallback=\"true\" existingParam=\"65539\" newParam=\"65541\" isReloadingUI=\"true\" loadOnDemandOnly=\"false\"",
-0,
-},
-{
-"AccountData_RequestLoad updated callback state type=\"4\" pending=\"false\" hasCallback=\"true\" param=\"65541\"",
-0,
-},
-{
-"AccountData_RequestLoad forcing local file load type=\"4\" isReloadingUI=\"true\" loadOnDemandOnly=\"false\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"4\" pendingBefore=\"false\" hasCallback=\"true\" param=\"65541\"",
-0,
-},
-{
-"AccountData_RequestLoad type=\"5\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"true\" newHasCallback=\"true\" existingParam=\"131075\" newParam=\"131077\" isReloadingUI=\"true\" loadOnDemandOnly=\"false\"",
-0,
-},
-{
-"AccountData_RequestLoad updated callback state type=\"5\" pending=\"false\" hasCallback=\"true\" param=\"131077\"",
-0,
-},
-{
-"AccountData_RequestLoad forcing local file load type=\"5\" isReloadingUI=\"true\" loadOnDemandOnly=\"false\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"5\" pendingBefore=\"false\" hasCallback=\"true\" param=\"131077\"",
-0,
-},
-{
-"AccountData_RequestLoad type=\"7\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"true\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"0\" isReloadingUI=\"true\" loadOnDemandOnly=\"false\"",
-0,
-},
-{
-"AccountData_RequestLoad updated callback state type=\"7\" pending=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"AccountData_RequestLoad forcing local file load type=\"7\" isReloadingUI=\"true\" loadOnDemandOnly=\"false\"",
-0,
-},
-{
-"LoadAccountDataFromFile type=\"7\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"Logout abort acknowledged",
+"Skill 78 increased from 135 to 140",
 0,
 },
 {
@@ -3067,39 +1979,7 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Total: 0d 11h 16m 50s",
-0,
-},
-{
-"Level: 0d 0h 57m 15s",
-0,
-},
-{
-"Skill 613 increased from 95 to 100",
-0,
-},
-{
-"Skill 733 increased from 95 to 100",
-0,
-},
-{
-"Skill 183 increased from 95 to 100",
-0,
-},
-{
-"Skill 56 increased from 95 to 100",
-0,
-},
-{
-"Skill 78 increased from 95 to 100",
-0,
-},
-{
-"Time played:",
-0,
-},
-{
-"Total: 0d 11h 17m 39s",
+"Total: 0d 22h 23m 23s",
 0,
 },
 {
@@ -3107,59 +1987,31 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Logout response received result=\"0\" instant=\"1\"",
+"Skill 228 increased from 135 to 136",
 0,
 },
 {
-"Killing connection connection=\"000001b8849c6480\" state=\"(enum)7\"",
+"Skill 95 increased from 129 to 130",
 0,
 },
 {
-"-------------------------------------------------- Previous Session --------------------------------------------------",
+"Skill 228 increased from 136 to 137",
 0,
 },
 {
-"Logout completed",
+"Skill 228 increased from 137 to 138",
 0,
 },
 {
-"GameUI::Shutdown invalidated load generation initCounter=\"5\" isClosingClient=\"false\"",
+"Skill 95 increased from 130 to 131",
 0,
 },
 {
-"LimitedLuaResources: Reset Timer",
+"Skill 228 increased from 138 to 139",
 0,
 },
 {
-"AccountData_CancelRequestLoad type=\"0\" pending=\"false\" hasCallback=\"true\" param=\"0\"",
-0,
-},
-{
-"AccountData_CancelRequestLoad type=\"1\" pending=\"false\" hasCallback=\"true\" param=\"262176\"",
-0,
-},
-{
-"GameUI::Shutdown canceled CVar account-data loads initCounter=\"5\" pendingMask=\"0\"",
-0,
-},
-{
-"Resume()",
-0,
-},
-{
-"Screen invalid. Changing from=\"none\" to=\"charselect\"",
-0,
-},
-{
-"Switching to screen=\"CharacterSelect\" (from \"none\")",
-0,
-},
-{
-"Character list request sent fastLogin=\"false\"",
-0,
-},
-{
-"From EnsureValidScreen",
+"Logout response received result=\"0\" instant=\"0\"",
 0,
 },
 {
@@ -3319,7 +2171,7 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"SSAO mode set to 3",
+"SSAO mode set to 4",
 0,
 },
 {
@@ -3423,27 +2275,11 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"LimitedLuaResources: Addon capacity for Frame changed to 10000",
+"LimitedLuaResources: Global capacity for Texture changed to 400000",
 0,
 },
 {
-"LimitedLuaResources: Addon capacity for Frame changed to 10000",
-0,
-},
-{
-"LimitedLuaResources: Addon capacity for Animation changed to 5000",
-0,
-},
-{
-"LimitedLuaResources: Addon capacity for Animation changed to 5000",
-0,
-},
-{
-"LimitedLuaResources: Addon capacity for Timer changed to 500",
-0,
-},
-{
-"LimitedLuaResources: Addon capacity for Timer changed to 500",
+"LimitedLuaResources: Global capacity for Texture changed to 400000",
 0,
 },
 {
@@ -3455,27 +2291,11 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"LimitedLuaResources: Global capacity for Animation changed to 50000",
+"LimitedLuaResources: Global capacity for Font changed to 3000",
 0,
 },
 {
-"LimitedLuaResources: Global capacity for Animation changed to 50000",
-0,
-},
-{
-"LimitedLuaResources: Global capacity for Timer changed to 500",
-0,
-},
-{
-"LimitedLuaResources: Global capacity for Timer changed to 500",
-0,
-},
-{
-"LimitedLuaResources: Addon capacity for Font changed to 300",
-0,
-},
-{
-"LimitedLuaResources: Addon capacity for Font changed to 300",
+"LimitedLuaResources: Global capacity for Font changed to 3000",
 0,
 },
 {
@@ -3484,14 +2304,6 @@ Blizzard_Console_SavedVars = {
 },
 {
 "LimitedLuaResources: Global capacity for AnimGroup changed to 20000",
-0,
-},
-{
-"LimitedLuaResources: Global capacity for FontString changed to 50000",
-0,
-},
-{
-"LimitedLuaResources: Global capacity for FontString changed to 50000",
 0,
 },
 {
@@ -3511,11 +2323,35 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"LimitedLuaResources: Global capacity for Texture changed to 400000",
+"LimitedLuaResources: Global capacity for FontString changed to 50000",
 0,
 },
 {
-"LimitedLuaResources: Global capacity for Texture changed to 400000",
+"LimitedLuaResources: Global capacity for FontString changed to 50000",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for Font changed to 300",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for Font changed to 300",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for Animation changed to 5000",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for Animation changed to 5000",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for Frame changed to 10000",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for Frame changed to 10000",
 0,
 },
 {
@@ -3527,11 +2363,15 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"LimitedLuaResources: Global capacity for Font changed to 3000",
+"LimitedLuaResources: Addon capacity for Timer changed to 500",
 0,
 },
 {
-"LimitedLuaResources: Global capacity for Font changed to 3000",
+"LimitedLuaResources: Addon capacity for Timer changed to 500",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for Frame changed to 100000",
 0,
 },
 {
@@ -3539,7 +2379,19 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"LimitedLuaResources: Global capacity for Frame changed to 100000",
+"LimitedLuaResources: Global capacity for Animation changed to 50000",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for Animation changed to 50000",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for Timer changed to 500",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for Timer changed to 500",
 0,
 },
 {
@@ -3595,7 +2447,7 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Battle.net logon queue update received position=\"1\" estimatedQueueExitTime=\"1795143730\"",
+"Battle.net logon queue update received position=\"1\" estimatedQueueExitTime=\"1795321922\"",
 0,
 },
 {
@@ -3627,7 +2479,23 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Battle.net account service game info received responseType=\"GameInfo\" responseTypeValue=\"4\" code=\"ERROR_OK (0)\" name=\"WoW2\" numGameAccounts=\"3\" numGameAccountNames=\"0\"",
+"Battle.net account service game info received responseType=\"GameInfo\" responseTypeValue=\"4\" code=\"ERROR_OK (0)\" name=\"WoW1\" numGameAccounts=\"3\" numGameAccountNames=\"0\"",
+0,
+},
+{
+"Battle.net account service response received responseType=\"GameInfo\" responseTypeValue=\"4\" code=\"ERROR_OK (0)\"",
+0,
+},
+{
+"Battle.net account service game info received responseType=\"GameInfo\" responseTypeValue=\"4\" code=\"ERROR_OK (0)\" name=\"WoW2\" numGameAccounts=\"3\" numGameAccountNames=\"1\"",
+0,
+},
+{
+"Battle.net account service response received responseType=\"GameInfo\" responseTypeValue=\"4\" code=\"ERROR_OK (0)\"",
+0,
+},
+{
+"Battle.net account service game info received responseType=\"GameInfo\" responseTypeValue=\"4\" code=\"ERROR_OK (0)\" name=\"WoW3\" numGameAccounts=\"3\" numGameAccountNames=\"2\"",
 0,
 },
 {
@@ -3636,22 +2504,6 @@ Blizzard_Console_SavedVars = {
 },
 {
 "Battle.net account service response received responseType=\"GameRestriction\" responseTypeValue=\"8\" code=\"ERROR_OK (0)\"",
-0,
-},
-{
-"Battle.net account service response received responseType=\"GameInfo\" responseTypeValue=\"4\" code=\"ERROR_OK (0)\"",
-0,
-},
-{
-"Battle.net account service game info received responseType=\"GameInfo\" responseTypeValue=\"4\" code=\"ERROR_OK (0)\" name=\"WoW3\" numGameAccounts=\"3\" numGameAccountNames=\"1\"",
-0,
-},
-{
-"Battle.net account service response received responseType=\"GameInfo\" responseTypeValue=\"4\" code=\"ERROR_OK (0)\"",
-0,
-},
-{
-"Battle.net account service game info received responseType=\"GameInfo\" responseTypeValue=\"4\" code=\"ERROR_OK (0)\" name=\"WoW1\" numGameAccounts=\"3\" numGameAccountNames=\"2\"",
 0,
 },
 {
@@ -3675,7 +2527,7 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Reconnect token saved creationTime=\"1795143730\" expirationTime=\"1795158130\"",
+"Reconnect token saved creationTime=\"1795321924\" expirationTime=\"1795336324\"",
 0,
 },
 {
@@ -3707,7 +2559,7 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Battle.net last played character received code=\"ERROR_OK (0)\" subRegion=\"95-1-89\" lastPlayedTime=\"1795142901\" realmListRequestToken=\"0\" isCurrentToken=\"true\" contentSetIDFilter=\"-1\" numRegions=\"1\" selectedSubRegion=\"95-1-89\" numRegionsWithData=\"0\" realmPermissions=\"3\" licensesCount=\"1\" realmEntry=\"{\"wowRealmAddress\":1593901059,\"useBleepChance\":0.0,\"cfgTimezonesID\":23,\"populationState\":1,\"cfgCategoriesID\":16,\"version\":{\"versionMajor\":1,\"versionBuild\":70399,\"versionMinor\":60,\"versionRevision\":1},\"cfgRealmsID\":6749,\"gameServiceRegionId\":5,\"flags\":0,\"name\":\"CN1 Realm 3 PvE\",\"cfgConfigsID\":1,\"cfgContentSetID\":137,\"cfgLanguagesID\":6,\"superDistrictID\":2}\"",
+"Battle.net last played character received code=\"ERROR_OK (0)\" subRegion=\"95-1-89\" lastPlayedTime=\"1795321790\" realmListRequestToken=\"0\" isCurrentToken=\"true\" contentSetIDFilter=\"-1\" numRegions=\"1\" selectedSubRegion=\"95-1-89\" numRegionsWithData=\"0\" realmPermissions=\"3\" licensesCount=\"1\" realmEntry=\"{\"wowRealmAddress\":1593901059,\"useBleepChance\":0.0,\"cfgTimezonesID\":23,\"populationState\":1,\"cfgCategoriesID\":16,\"version\":{\"versionMajor\":1,\"versionBuild\":70399,\"versionMinor\":60,\"versionRevision\":1},\"cfgRealmsID\":6749,\"gameServiceRegionId\":5,\"flags\":0,\"name\":\"CN1 Realm 3 PvE\",\"cfgConfigsID\":1,\"cfgContentSetID\":137,\"cfgLanguagesID\":6,\"superDistrictID\":2}\"",
 0,
 },
 {
@@ -3715,7 +2567,7 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Battle.net most recent character found; joining realm lastPlayedRegion=\"95-1-89\" realmAddress=\"1593901059\" lastActiveTime=\"1795142901\"",
+"Battle.net most recent character found; joining realm lastPlayedRegion=\"95-1-89\" realmAddress=\"1593901059\" lastActiveTime=\"1795321790\"",
 0,
 },
 {
@@ -3743,11 +2595,11 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Opening game realm connection realmAddress=\"95-1-3\" connection=\"000001f4be99dd10\" protocol=\"(enum)0\" directAddressCount=\"6\" bleepProxyCount=\"0\"",
+"Opening game realm connection realmAddress=\"95-1-3\" connection=\"000001f4ce3a7bd0\" protocol=\"(enum)0\" directAddressCount=\"6\" bleepProxyCount=\"0\"",
 0,
 },
 {
-"Opening network connection connectionIndex=\"(enum)0\" connection=\"000001f4be99dd10\" protocol=\"(enum)0\" directAddressCount=\"6\" bleepProxyCount=\"0\"",
+"Opening network connection connectionIndex=\"(enum)0\" connection=\"000001f4ce3a7bd0\" protocol=\"(enum)0\" directAddressCount=\"6\" bleepProxyCount=\"0\"",
 0,
 },
 {
@@ -3827,19 +2679,11 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Connecting to sourceRealmAddress=\"95-1-3\" connection=\"000001f52ccb9420\" serial=\"14\" protocol=\"(enum)0\"",
+"Connecting to sourceRealmAddress=\"95-1-3\" connection=\"000001f4ce592b30\" serial=\"14\" protocol=\"(enum)0\"",
 0,
 },
 {
-"Opening network connection connectionIndex=\"(enum)2\" connection=\"000001f52ccb9420\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
-0,
-},
-{
-"Resuming communications connectionIndex=\"(enum)2\"",
-0,
-},
-{
-"Killing connection connection=\"000001f4be99dd10\" state=\"(enum)6\"",
+"Opening network connection connectionIndex=\"(enum)2\" connection=\"000001f4ce592b30\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
 0,
 },
 {
@@ -3871,7 +2715,11 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"LimitedLuaResources: Global capacity for FontString changed to 50000",
+"LimitedLuaResources: Global capacity for Texture changed to 400000",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for AnimGroup changed to 2000",
 0,
 },
 {
@@ -3879,11 +2727,7 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"LimitedLuaResources: Global capacity for Texture changed to 400000",
-0,
-},
-{
-"LimitedLuaResources: Global capacity for Animation changed to 50000",
+"LimitedLuaResources: Global capacity for AnimGroup changed to 20000",
 0,
 },
 {
@@ -3895,23 +2739,7 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"LimitedLuaResources: Addon capacity for Texture changed to 40000",
-0,
-},
-{
-"LimitedLuaResources: Global capacity for AnimGroup changed to 20000",
-0,
-},
-{
-"LimitedLuaResources: Addon capacity for FontString changed to 5000",
-0,
-},
-{
-"LimitedLuaResources: Addon capacity for Animation changed to 5000",
-0,
-},
-{
-"LimitedLuaResources: Addon capacity for AnimGroup changed to 2000",
+"LimitedLuaResources: Global capacity for Frame changed to 100000",
 0,
 },
 {
@@ -3919,15 +2747,31 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
+"LimitedLuaResources: Global capacity for FontString changed to 50000",
+0,
+},
+{
 "LimitedLuaResources: Global capacity for Timer changed to 500",
 0,
 },
 {
-"LimitedLuaResources: Global capacity for Frame changed to 100000",
+"LimitedLuaResources: Addon capacity for Animation changed to 5000",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for Animation changed to 50000",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for FontString changed to 5000",
 0,
 },
 {
 "LimitedLuaResources: Enabled = false",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for Texture changed to 40000",
 0,
 },
 {
@@ -3959,10 +2803,6 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Character list update waiting on startup prerequisites waitingForHotfixesReady=\"false\" tactEncryptionConnectedReady=\"false\" tactKeyPendingPatchesReady=\"true\" sectionLoadsReady=\"true\" preloadAccountSettingsDataReady=\"true\"",
-0,
-},
-{
 "LoadAccountDataFromFile type=\"0\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
 0,
 },
@@ -3979,6 +2819,26 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
+"[WowEntitlements] [BNetAccount-0-00000BC426B8] [WowAccount-0-000004FE320E] Initialized with 0 entitlements.",
+0,
+},
+{
+"Account item collection data received for character selection collectionListType=\"7\" itemCount=\"0\" wasWaiting=\"true\"",
+0,
+},
+{
+"Character list update waiting on startup prerequisites waitingForHotfixesReady=\"false\" tactEncryptionConnectedReady=\"false\" tactKeyPendingPatchesReady=\"true\" sectionLoadsReady=\"true\" preloadAccountSettingsDataReady=\"true\"",
+0,
+},
+{
+"Resuming communications connectionIndex=\"(enum)2\"",
+0,
+},
+{
+"Killing connection connection=\"000001f4ce3a7bd0\" state=\"(enum)6\"",
+0,
+},
+{
 "Battle.net front disconnected connectionId=\"1\" reason=\"ERROR_NETWORK_MODULE_SOCKET_CLOSED (1016)\"",
 0,
 },
@@ -3988,14 +2848,6 @@ Blizzard_Console_SavedVars = {
 },
 {
 "Initial hotfixes applied",
-0,
-},
-{
-"Account item collection data received for character selection collectionListType=\"7\" itemCount=\"0\" wasWaiting=\"true\"",
-0,
-},
-{
-"[WowEntitlements] [BNetAccount-0-00000BC426B8] [WowAccount-0-000004FE320E] Initialized with 0 entitlements.",
 0,
 },
 {
@@ -4015,11 +2867,11 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"AccountData_RequestLoad type=\"12\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"140697264731912\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
+"AccountData_RequestLoad type=\"12\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"140696109533000\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
 0,
 },
 {
-"AccountData_RequestLoad updated callback state type=\"12\" pending=\"false\" hasCallback=\"true\" param=\"140697264731912\"",
+"AccountData_RequestLoad updated callback state type=\"12\" pending=\"false\" hasCallback=\"true\" param=\"140696109533000\"",
 0,
 },
 {
@@ -4039,19 +2891,19 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"AccountData_RequestLoad type=\"8\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"140697264741968\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
+"AccountData_RequestLoad type=\"8\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"140696109543104\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
 0,
 },
 {
-"AccountData_RequestLoad updated callback state type=\"8\" pending=\"false\" hasCallback=\"true\" param=\"140697264741968\"",
+"AccountData_RequestLoad updated callback state type=\"8\" pending=\"false\" hasCallback=\"true\" param=\"140696109543104\"",
 0,
 },
 {
-"AccountData_RequestLoad type=\"9\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"140697264741968\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
+"AccountData_RequestLoad type=\"9\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"140696109543104\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
 0,
 },
 {
-"AccountData_RequestLoad updated callback state type=\"9\" pending=\"false\" hasCallback=\"true\" param=\"140697264741968\"",
+"AccountData_RequestLoad updated callback state type=\"9\" pending=\"false\" hasCallback=\"true\" param=\"140696109543104\"",
 0,
 },
 {
@@ -4135,11 +2987,11 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Connecting to sourceRealmAddress=\"95-1-3\" connection=\"000001f521b19300\" serial=\"17\" protocol=\"(enum)0\"",
+"Connecting to sourceRealmAddress=\"95-1-3\" connection=\"000001f52c6ab9b0\" serial=\"17\" protocol=\"(enum)0\"",
 0,
 },
 {
-"Opening network connection connectionIndex=\"(enum)3\" connection=\"000001f521b19300\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
+"Opening network connection connectionIndex=\"(enum)3\" connection=\"000001f52c6ab9b0\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
 0,
 },
 {
@@ -4151,7 +3003,7 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"LoadGameCVarsCallback received callbackInitCounter=\"1\" currentInitCounter=\"1\" mask=\"32\" buffsize=\"1120\" pendingMaskBefore=\"32\"",
+"LoadGameCVarsCallback received callbackInitCounter=\"1\" currentInitCounter=\"1\" mask=\"32\" buffsize=\"1100\" pendingMaskBefore=\"32\"",
 0,
 },
 {
@@ -4191,11 +3043,11 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"LoadAccountDataFromFile type=\"8\" pendingBefore=\"false\" hasCallback=\"true\" param=\"140697264741968\"",
+"LoadAccountDataFromFile type=\"8\" pendingBefore=\"false\" hasCallback=\"true\" param=\"140696109543104\"",
 0,
 },
 {
-"LoadAccountDataFromFile type=\"9\" pendingBefore=\"false\" hasCallback=\"true\" param=\"140697264741968\"",
+"LoadAccountDataFromFile type=\"9\" pendingBefore=\"false\" hasCallback=\"true\" param=\"140696109543104\"",
 0,
 },
 {
@@ -4203,7 +3055,7 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"LoadAccountDataFromFile type=\"12\" pendingBefore=\"false\" hasCallback=\"true\" param=\"140697264731912\"",
+"LoadAccountDataFromFile type=\"12\" pendingBefore=\"false\" hasCallback=\"true\" param=\"140696109533000\"",
 0,
 },
 {
@@ -4267,7 +3119,7 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Time set to 11/20/2026 (Fri) 11:02",
+"Time set to 11/22/2026 (Sun) 12:31",
 0,
 },
 {
@@ -4275,11 +3127,11 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Connecting to sourceRealmAddress=\"95-1-3\" connection=\"000001f521b19c00\" serial=\"43\" protocol=\"(enum)0\"",
+"Connecting to sourceRealmAddress=\"95-1-3\" connection=\"000001f4ce5f01d0\" serial=\"43\" protocol=\"(enum)0\"",
 0,
 },
 {
-"Opening network connection connectionIndex=\"(enum)3\" connection=\"000001f521b19c00\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
+"Opening network connection connectionIndex=\"(enum)3\" connection=\"000001f4ce5f01d0\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
 0,
 },
 {
@@ -4287,7 +3139,7 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Killing connection connection=\"000001f521b19300\" state=\"(enum)6\"",
+"Killing connection connection=\"000001f52c6ab9b0\" state=\"(enum)6\"",
 0,
 },
 {
@@ -4299,23 +3151,995 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Total: 0d 11h 18m 41s",
+"Total: 0d 22h 35m 51s",
 0,
 },
 {
-"Level: 0d 0h 1m 2s",
+"Level: 0d 0h 12m 28s",
 0,
 },
 {
-"World transfer pending...",
+"Logout response received result=\"0\" instant=\"0\"",
 0,
 },
 {
-"Connecting to sourceRealmAddress=\"95-1-3\" connection=\"000001f4beba04a0\" serial=\"73\" protocol=\"(enum)0\"",
+"-------------------------------------------------- Previous Session --------------------------------------------------",
 0,
 },
 {
-"Opening network connection connectionIndex=\"(enum)3\" connection=\"000001f4beba04a0\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
+"Linear: 1. 0- disabled (live), 1- linear",
+0,
+},
+{
+"Multithreaded rendering enabled.",
+0,
+},
+{
+"Multithreaded BeginDraw enabled.",
+0,
+},
+{
+"Multithread shadows changed to 1.",
+0,
+},
+{
+"Multithreaded prepass enabled.",
+0,
+},
+{
+"Multithreaded opaque pass enabled.",
+0,
+},
+{
+"Multithreaded opaque pass enabled.",
+0,
+},
+{
+"Multithreaded alpha M2 pass enabled.",
+0,
+},
+{
+"Multithreaded opaque WMO pass enabled.",
+0,
+},
+{
+"Multithreaded terrain pass enabled.",
+0,
+},
+{
+"Multithreaded volumetric fog enabled.",
+0,
+},
+{
+"Multithreaded Refraction Pass enabled.",
+0,
+},
+{
+"Multithreaded miscellaneous passes enabled.",
+0,
+},
+{
+"Multithreaded decal passes disabled.",
+0,
+},
+{
+"Multithreaded outline passes enabled.",
+0,
+},
+{
+"Multithreaded lightshaft passes enabled.",
+0,
+},
+{
+"Use trigger on BeginDrawComplete enabled.",
+4,
+},
+{
+"Multithreaded alpha pass enabled.",
+0,
+},
+{
+"Multithreaded daynight update enabled.",
+0,
+},
+{
+"Water detail changed to 2",
+0,
+},
+{
+"Ripple detail changed to 1",
+0,
+},
+{
+"Reflection mode changed to 2",
+0,
+},
+{
+"Reflection downscale changed to 0",
+0,
+},
+{
+"Sunshafts quality changed to 2",
+0,
+},
+{
+"Refraction mode changed to 2",
+0,
+},
+{
+"Volume fog enabled.",
+0,
+},
+{
+"Particulate volumes enabled.",
+0,
+},
+{
+"Projected textures enabled.",
+0,
+},
+{
+"Shadow mode changed to 3 - 3 band dynamic shadows on units and terrain, 2048",
+0,
+},
+{
+"Shadow texture size changed to 2048.",
+0,
+},
+{
+"Soft shadows changed to 1.",
+0,
+},
+{
+"Shadow cascade blending changed to 1",
+0,
+},
+{
+"Number of shadow cascades changed to 3",
+0,
+},
+{
+"Shadow RT mode changed to 0 (Disabled)",
+0,
+},
+{
+"maxLightCount must be in range 0 to 32.",
+0,
+},
+{
+"CVar 'maxLightCount' failed validation for its initial value.",
+0,
+},
+{
+"Clustered shading enabled.",
+0,
+},
+{
+"Not forcing clustered shading.",
+0,
+},
+{
+"SSAO mode set to 4",
+0,
+},
+{
+"Depth Based Opacity Enabled",
+0,
+},
+{
+"SkyCloudLOD set to 0",
+0,
+},
+{
+"Texture filtering mode updated.",
+0,
+},
+{
+"Terrain mip level changed to 0.",
+0,
+},
+{
+"Outline mode changed to 0",
+0,
+},
+{
+"Physics interaction level changed to 1",
+0,
+},
+{
+"Render scale changed to 1",
+0,
+},
+{
+"Resample quality changed to 3",
+0,
+},
+{
+"MSAA disabled",
+0,
+},
+{
+"MSAA for alpha-test enabled.",
+0,
+},
+{
+"VALAR mode changed to 0",
+0,
+},
+{
+"lodObjectSizeScale cannot be changed.",
+0,
+},
+{
+"Volume fog enabled.",
+0,
+},
+{
+"dynamicLod enabled",
+0,
+},
+{
+"World preload object sort enabled.",
+0,
+},
+{
+"World load object sort enabled.",
+0,
+},
+{
+"World preload non critical enabled.",
+0,
+},
+{
+"World preload high res textures enabled.",
+0,
+},
+{
+"FFX: Color Blind Test Mode Disabled",
+0,
+},
+{
+"CVar 'Sound_AmbienceHighpassDSPCutoff' failed validation for its initial value.",
+0,
+},
+{
+"CVar 'Sound_AllyPlayerHighpassDSPCutoff' failed validation for its initial value.",
+0,
+},
+{
+"CVar 'Sound_EnemyPlayerHighpassDSPCutoff' failed validation for its initial value.",
+0,
+},
+{
+"CVar 'Sound_NPCHighpassDSPCutoff' failed validation for its initial value.",
+0,
+},
+{
+"GamePad input enabled.",
+0,
+},
+{
+"ChromaEffects disabled",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for Texture changed to 400000",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for Texture changed to 400000",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for FontString changed to 5000",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for FontString changed to 5000",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for Font changed to 3000",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for Font changed to 3000",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for AnimGroup changed to 20000",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for AnimGroup changed to 20000",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for Texture changed to 40000",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for Texture changed to 40000",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for AnimGroup changed to 2000",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for AnimGroup changed to 2000",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for FontString changed to 50000",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for FontString changed to 50000",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for Font changed to 300",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for Font changed to 300",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for Animation changed to 5000",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for Animation changed to 5000",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for Frame changed to 10000",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for Frame changed to 10000",
+0,
+},
+{
+"LimitedLuaResources: Enabled = false",
+0,
+},
+{
+"LimitedLuaResources: Enabled = false",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for Timer changed to 500",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for Timer changed to 500",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for Frame changed to 100000",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for Frame changed to 100000",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for Animation changed to 50000",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for Animation changed to 50000",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for Timer changed to 500",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for Timer changed to 500",
+0,
+},
+{
+"Startup()",
+0,
+},
+{
+"Resume()",
+0,
+},
+{
+"Screen invalid. Changing from=\"none\" to=\"login\"",
+0,
+},
+{
+"Switching to screen=\"AccountLogin\" (from \"none\")",
+0,
+},
+{
+"From EnsureValidScreen",
+0,
+},
+{
+"Initializing...",
+0,
+},
+{
+"Glue login started loginType=\"(enum)1\" launcherPortal=\"cn.actual.battlenet.com.cn\" loginPortal=\"cn.actual.battlenet.com.cn:1119\"",
+0,
+},
+{
+"Glue login state reset requested",
+0,
+},
+{
+"Battle.net login session initialization requested",
+0,
+},
+{
+"Battle.net logon requested host=\"cn.actual.battlenet.com.cn\" port=\"1119\"",
+0,
+},
+{
+"Battle.net login waiting for server response",
+0,
+},
+{
+"Battle.net front connected connectionId=\"1\" title_id=\"5730135\" platform=\"Wn64\" locale=\"zhCN\" usedToken=\"true\"",
+0,
+},
+{
+"Battle.net login waiting for server response",
+0,
+},
+{
+"Battle.net logon queue update received position=\"1\" estimatedQueueExitTime=\"1795322409\"",
+0,
+},
+{
+"Battle.net logon response received result=\"ERROR_OK (0)\"",
+0,
+},
+{
+"Initialized.",
+0,
+},
+{
+"Battle.net logon completed result=\"ERROR_OK (0)\" numGameAccounts=\"3\"",
+0,
+},
+{
+"Battle.net login waiting for server response",
+0,
+},
+{
+"Battle.net account service response received responseType=\"BNetInfo\" responseTypeValue=\"1\" code=\"ERROR_OK (0)\"",
+0,
+},
+{
+"Battle.net account service response received responseType=\"BNetRestriction\" responseTypeValue=\"2\" code=\"ERROR_OK (0)\"",
+0,
+},
+{
+"Battle.net account service response received responseType=\"GameInfo\" responseTypeValue=\"4\" code=\"ERROR_OK (0)\"",
+0,
+},
+{
+"Battle.net account service game info received responseType=\"GameInfo\" responseTypeValue=\"4\" code=\"ERROR_OK (0)\" name=\"WoW3\" numGameAccounts=\"3\" numGameAccountNames=\"0\"",
+0,
+},
+{
+"Battle.net account service response received responseType=\"GameInfo\" responseTypeValue=\"4\" code=\"ERROR_OK (0)\"",
+0,
+},
+{
+"Battle.net account service game info received responseType=\"GameInfo\" responseTypeValue=\"4\" code=\"ERROR_OK (0)\" name=\"WoW2\" numGameAccounts=\"3\" numGameAccountNames=\"1\"",
+0,
+},
+{
+"Battle.net account service response received responseType=\"GameInfo\" responseTypeValue=\"4\" code=\"ERROR_OK (0)\"",
+0,
+},
+{
+"Battle.net account service game info received responseType=\"GameInfo\" responseTypeValue=\"4\" code=\"ERROR_OK (0)\" name=\"WoW1\" numGameAccounts=\"3\" numGameAccountNames=\"2\"",
+0,
+},
+{
+"Battle.net account service response received responseType=\"GameRestriction\" responseTypeValue=\"8\" code=\"ERROR_OK (0)\"",
+0,
+},
+{
+"Battle.net account service response received responseType=\"GameRestriction\" responseTypeValue=\"8\" code=\"ERROR_OK (0)\"",
+0,
+},
+{
+"Battle.net account service response received responseType=\"GameRestriction\" responseTypeValue=\"8\" code=\"ERROR_OK (0)\"",
+0,
+},
+{
+"Battle.net auth token response received code=\"ERROR_OK (0)\" gotCredentials=\"true\"",
+0,
+},
+{
+"Battle.net complete login requested hasGameAccount=\"true\"",
+0,
+},
+{
+"Game account list not saved because accountName CVar is empty",
+0,
+},
+{
+"Battle.net logon completed in glue",
+0,
+},
+{
+"Reconnect token saved creationTime=\"1795322411\" expirationTime=\"1795336811\"",
+0,
+},
+{
+"Character selection waiting for account item collection data collectionListType=\"7\"",
+0,
+},
+{
+"Battle.net login waiting for realm list",
+0,
+},
+{
+"Battle.net realm list ticket requested",
+0,
+},
+{
+"Battle.net realm list ticket received code=\"ERROR_OK (0)\" realmListRequestToken=\"0\" isCurrentToken=\"true\" hasTicket=\"true\"",
+0,
+},
+{
+"Battle.net login waiting for realm list",
+0,
+},
+{
+"Battle.net subregion list received code=\"ERROR_OK (0)\" realmListRequestToken=\"0\" isCurrentToken=\"true\" subRegionCount=\"1\"",
+0,
+},
+{
+"Battle.net last played character requests sent numSubRegions=\"1\" selectedSubRegion=\"95-1-89\"",
+0,
+},
+{
+"Battle.net last played character received code=\"ERROR_OK (0)\" subRegion=\"95-1-89\" lastPlayedTime=\"1795322409\" realmListRequestToken=\"0\" isCurrentToken=\"true\" contentSetIDFilter=\"-1\" numRegions=\"1\" selectedSubRegion=\"95-1-89\" numRegionsWithData=\"0\" realmPermissions=\"3\" licensesCount=\"1\" realmEntry=\"{\"wowRealmAddress\":1593901059,\"useBleepChance\":0.0,\"cfgTimezonesID\":23,\"populationState\":1,\"cfgCategoriesID\":16,\"version\":{\"versionMajor\":1,\"versionBuild\":70399,\"versionMinor\":60,\"versionRevision\":1},\"cfgRealmsID\":6749,\"gameServiceRegionId\":5,\"flags\":0,\"name\":\"CN1 Realm 3 PvE\",\"cfgConfigsID\":1,\"cfgContentSetID\":137,\"cfgLanguagesID\":6,\"superDistrictID\":2}\"",
+0,
+},
+{
+"Battle.net realm list ready in glue",
+0,
+},
+{
+"Battle.net most recent character found; joining realm lastPlayedRegion=\"95-1-89\" realmAddress=\"1593901059\" lastActiveTime=\"1795322409\"",
+0,
+},
+{
+"Battle.net realm join requested subRegion=\"95-1-89\" realmAddress=\"95-1-3\"",
+0,
+},
+{
+"Requesting super district list",
+0,
+},
+{
+"Battle.net realm join response received code=\"ERROR_OK (0)\" joinToken=\"1\" isLatestJoinToken=\"true\" hasJoinData=\"true\"",
+0,
+},
+{
+"Realm connection change requested",
+0,
+},
+{
+"Realm connection requested realmAddress=\"95-1-3\"",
+0,
+},
+{
+"Opening game realm connection realmAddress=\"95-1-3\" connection=\"00000294228e4d30\" protocol=\"(enum)0\" directAddressCount=\"6\" bleepProxyCount=\"0\"",
+0,
+},
+{
+"Opening network connection connectionIndex=\"(enum)0\" connection=\"00000294228e4d30\" protocol=\"(enum)0\" directAddressCount=\"6\" bleepProxyCount=\"0\"",
+0,
+},
+{
+"Received super district list code=\"ERROR_OK (0)\"",
+0,
+},
+{
+"Realm connection connected realmAddress=\"95-1-3\"",
+0,
+},
+{
+"Client connected",
+0,
+},
+{
+"Authentication response received result=\"0\" hasSuccessInfo=\"true\" hasWaitInfo=\"false\"",
+0,
+},
+{
+"Realm authentication completed result=\"ERROR_OK (0)\"",
+0,
+},
+{
+"Character list request sent fastLogin=\"false\"",
+0,
+},
+{
+"CVar 'encounterTimelineHighlightDuration' failed validation for its initial value.",
+0,
+},
+{
+"CVar 'encounterTimelineIconographyHiddenMask' failed validation for its initial value.",
+0,
+},
+{
+"CVar 'encounterTimelineIconographyEnabled' failed validation for its initial value.",
+0,
+},
+{
+"CVar 'encounterTimelineHideForOtherRoles' failed validation for its initial value.",
+0,
+},
+{
+"CVar 'encounterTimelineHideQueuedCountdowns' failed validation for its initial value.",
+0,
+},
+{
+"CVar 'encounterTimelineHideLongCountdowns' failed validation for its initial value.",
+0,
+},
+{
+"CVar 'encounterTimelineEnabled' failed validation for its initial value.",
+0,
+},
+{
+"Screen invalid. Changing from=\"login\" to=\"charselect\"",
+0,
+},
+{
+"Switching to screen=\"CharacterSelect\" (from \"login\")",
+0,
+},
+{
+"Character list request sent fastLogin=\"false\"",
+0,
+},
+{
+"From EnsureValidScreen",
+0,
+},
+{
+"Battle.net connected to realm; disconnecting from front",
+0,
+},
+{
+"Battle.net front disconnecting connectionId=\"1\"",
+0,
+},
+{
+"Battle.net authentication server disconnect started",
+0,
+},
+{
+"Connecting to sourceRealmAddress=\"95-1-3\" connection=\"000002942293b440\" serial=\"14\" protocol=\"(enum)0\"",
+0,
+},
+{
+"Opening network connection connectionIndex=\"(enum)2\" connection=\"000002942293b440\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
+0,
+},
+{
+"Resuming communications connectionIndex=\"(enum)2\"",
+0,
+},
+{
+"Killing connection connection=\"00000294228e4d30\" state=\"(enum)6\"",
+0,
+},
+{
+"AccountData_RequestLoad type=\"0\" fromAuth=\"true\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"0\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
+0,
+},
+{
+"AccountData_RequestLoad updated callback state type=\"0\" pending=\"false\" hasCallback=\"true\" param=\"0\"",
+0,
+},
+{
+"AccountData_RequestLoad type=\"10\" fromAuth=\"true\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"0\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
+0,
+},
+{
+"AccountData_RequestLoad updated callback state type=\"10\" pending=\"false\" hasCallback=\"true\" param=\"0\"",
+0,
+},
+{
+"AccountData_RequestLoad type=\"16\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"0\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
+0,
+},
+{
+"AccountData_RequestLoad updated callback state type=\"16\" pending=\"false\" hasCallback=\"true\" param=\"0\"",
+0,
+},
+{
+"Glue feature system status received",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for Font changed to 300",
+0,
+},
+{
+"LimitedLuaResources: Enabled = false",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for Texture changed to 40000",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for Font changed to 3000",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for Animation changed to 50000",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for Timer changed to 500",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for Frame changed to 10000",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for AnimGroup changed to 2000",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for Frame changed to 100000",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for FontString changed to 5000",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for AnimGroup changed to 20000",
+0,
+},
+{
+"LimitedLuaResources: Addon capacity for Animation changed to 5000",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for Texture changed to 400000",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for Timer changed to 500",
+0,
+},
+{
+"LimitedLuaResources: Global capacity for FontString changed to 50000",
+0,
+},
+{
+"Session with Battle.net established.",
+0,
+},
+{
+"LoadAccountDataFromFile type=\"0\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
+0,
+},
+{
+"LoadAccountDataFromFile type=\"10\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
+0,
+},
+{
+"LoadAccountDataFromFile type=\"16\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
+0,
+},
+{
+"LoadAccountDataFromFile type=\"19\" pendingBefore=\"false\" hasCallback=\"false\" param=\"0\"",
+0,
+},
+{
+"Glue feature system status received",
+0,
+},
+{
+"[WowEntitlements] [BNetAccount-0-00000BC426B8] [WowAccount-0-000004FE320E] Initialized with 0 entitlements.",
+0,
+},
+{
+"Character list response received success=\"true\" isRegionwideData=\"true\" isDeletedCharacters=\"false\" characterCount=\"2\" hadPendingResult=\"false\"",
+0,
+},
+{
+"LoadAccountDataFromFile type=\"0\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
+0,
+},
+{
+"LoadAccountDataFromFile type=\"10\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
+0,
+},
+{
+"LoadAccountDataFromFile type=\"16\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
+0,
+},
+{
+"LoadAccountDataFromFile type=\"19\" pendingBefore=\"false\" hasCallback=\"false\" param=\"0\"",
+0,
+},
+{
+"Account item collection data received for character selection collectionListType=\"7\" itemCount=\"0\" wasWaiting=\"true\"",
+0,
+},
+{
+"Character list update waiting on startup prerequisites waitingForHotfixesReady=\"false\" tactEncryptionConnectedReady=\"false\" tactKeyPendingPatchesReady=\"true\" sectionLoadsReady=\"true\" preloadAccountSettingsDataReady=\"true\"",
+0,
+},
+{
+"Battle.net front disconnected connectionId=\"1\" reason=\"ERROR_NETWORK_MODULE_SOCKET_CLOSED (1016)\"",
+0,
+},
+{
+"Battle.net authentication server disconnected",
+0,
+},
+{
+"Initial hotfixes applied",
+0,
+},
+{
+"Character selection updating character list success=\"true\" isRegionwideData=\"true\" isDeletedCharacters=\"false\" count=\"2\"",
+0,
+},
+{
+"-------------------------------------------------- Previous Session --------------------------------------------------",
+0,
+},
+{
+"Suspend()",
+0,
+},
+{
+"LimitedLuaResources: Reset Timer",
+0,
+},
+{
+"AccountData_RequestLoad type=\"12\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"140696109533000\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
+0,
+},
+{
+"AccountData_RequestLoad updated callback state type=\"12\" pending=\"false\" hasCallback=\"true\" param=\"140696109533000\"",
+0,
+},
+{
+"AccountData_RequestLoad type=\"13\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"0\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
+0,
+},
+{
+"AccountData_RequestLoad updated callback state type=\"13\" pending=\"false\" hasCallback=\"true\" param=\"0\"",
+0,
+},
+{
+"AccountData_RequestLoad type=\"14\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"0\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
+0,
+},
+{
+"AccountData_RequestLoad updated callback state type=\"14\" pending=\"false\" hasCallback=\"true\" param=\"0\"",
+0,
+},
+{
+"AccountData_RequestLoad type=\"8\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"140696109543104\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
+0,
+},
+{
+"AccountData_RequestLoad updated callback state type=\"8\" pending=\"false\" hasCallback=\"true\" param=\"140696109543104\"",
+0,
+},
+{
+"AccountData_RequestLoad type=\"9\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"140696109543104\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
+0,
+},
+{
+"AccountData_RequestLoad updated callback state type=\"9\" pending=\"false\" hasCallback=\"true\" param=\"140696109543104\"",
+0,
+},
+{
+"AccountData_RequestLoad type=\"18\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"0\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
+0,
+},
+{
+"AccountData_RequestLoad updated callback state type=\"18\" pending=\"false\" hasCallback=\"true\" param=\"0\"",
+0,
+},
+{
+"PreLoadGameCVars initialized pending mask pendingMask=\"32\" initCounter=\"1\" characterlessLogin=\"false\"",
+0,
+},
+{
+"AccountData_RequestLoad type=\"2\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"196609\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
+0,
+},
+{
+"AccountData_RequestLoad updated callback state type=\"2\" pending=\"false\" hasCallback=\"true\" param=\"196609\"",
+0,
+},
+{
+"AccountData_RequestLoad type=\"3\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"196610\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
+0,
+},
+{
+"AccountData_RequestLoad updated callback state type=\"3\" pending=\"false\" hasCallback=\"true\" param=\"196610\"",
+0,
+},
+{
+"AccountData_RequestLoad type=\"6\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"0\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
+0,
+},
+{
+"AccountData_RequestLoad updated callback state type=\"6\" pending=\"false\" hasCallback=\"true\" param=\"0\"",
+0,
+},
+{
+"AccountData_RequestLoad type=\"11\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"0\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
+0,
+},
+{
+"AccountData_RequestLoad updated callback state type=\"11\" pending=\"false\" hasCallback=\"true\" param=\"0\"",
+0,
+},
+{
+"LoadGameCVars request dispatch initCounter=\"1\" pendingMask=\"32\" characterlessLogin=\"false\"",
+0,
+},
+{
+"AccountData_RequestLoad type=\"1\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"65568\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
+0,
+},
+{
+"AccountData_RequestLoad updated callback state type=\"1\" pending=\"false\" hasCallback=\"true\" param=\"65568\"",
+0,
+},
+{
+"AccountData_RequestLoad type=\"4\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"65537\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
+0,
+},
+{
+"AccountData_RequestLoad updated callback state type=\"4\" pending=\"false\" hasCallback=\"true\" param=\"65537\"",
+0,
+},
+{
+"AccountData_RequestLoad type=\"5\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"131073\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
+0,
+},
+{
+"AccountData_RequestLoad updated callback state type=\"5\" pending=\"false\" hasCallback=\"true\" param=\"131073\"",
+0,
+},
+{
+"AccountData_RequestLoad type=\"7\" fromAuth=\"false\" pending=\"false\" existingHasCallback=\"false\" newHasCallback=\"true\" existingParam=\"0\" newParam=\"0\" isReloadingUI=\"false\" loadOnDemandOnly=\"false\"",
+0,
+},
+{
+"AccountData_RequestLoad updated callback state type=\"7\" pending=\"false\" hasCallback=\"true\" param=\"0\"",
+0,
+},
+{
+"Connecting to sourceRealmAddress=\"95-1-3\" connection=\"00000294a0f4c3e0\" serial=\"17\" protocol=\"(enum)0\"",
+0,
+},
+{
+"Opening network connection connectionIndex=\"(enum)3\" connection=\"00000294a0f4c3e0\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
 0,
 },
 {
@@ -4323,11 +4147,147 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Killing connection connection=\"000001f521b19c00\" state=\"(enum)6\"",
+"LoadAccountDataFromFile type=\"1\" pendingBefore=\"false\" hasCallback=\"true\" param=\"65568\"",
+0,
+},
+{
+"LoadGameCVarsCallback received callbackInitCounter=\"1\" currentInitCounter=\"1\" mask=\"32\" buffsize=\"1107\" pendingMaskBefore=\"32\"",
+0,
+},
+{
+"LoadGameCVarsCallback applied response mask=\"32\" pendingMaskAfter=\"0\"",
+0,
+},
+{
+"LoadGameCVarsCheckDone areCVarsLoaded=\"true\" pendingMask=\"0\"",
+0,
+},
+{
+"LoadGameCVarsCheckDone signaled variables loaded pendingMask=\"0\"",
+0,
+},
+{
+"LoadAccountDataFromFile type=\"2\" pendingBefore=\"false\" hasCallback=\"true\" param=\"196609\"",
+0,
+},
+{
+"LoadAccountDataFromFile type=\"3\" pendingBefore=\"false\" hasCallback=\"true\" param=\"196610\"",
+0,
+},
+{
+"LoadAccountDataFromFile type=\"4\" pendingBefore=\"false\" hasCallback=\"true\" param=\"65537\"",
+0,
+},
+{
+"LoadAccountDataFromFile type=\"5\" pendingBefore=\"false\" hasCallback=\"true\" param=\"131073\"",
+0,
+},
+{
+"LoadAccountDataFromFile type=\"6\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
+0,
+},
+{
+"LoadAccountDataFromFile type=\"7\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
+0,
+},
+{
+"LoadAccountDataFromFile type=\"8\" pendingBefore=\"false\" hasCallback=\"true\" param=\"140696109543104\"",
+0,
+},
+{
+"LoadAccountDataFromFile type=\"9\" pendingBefore=\"false\" hasCallback=\"true\" param=\"140696109543104\"",
+0,
+},
+{
+"LoadAccountDataFromFile type=\"11\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
+0,
+},
+{
+"LoadAccountDataFromFile type=\"12\" pendingBefore=\"false\" hasCallback=\"true\" param=\"140696109533000\"",
+0,
+},
+{
+"LoadAccountDataFromFile type=\"13\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
+0,
+},
+{
+"LoadAccountDataFromFile type=\"14\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
+0,
+},
+{
+"LoadAccountDataFromFile type=\"15\" pendingBefore=\"false\" hasCallback=\"false\" param=\"0\"",
+0,
+},
+{
+"LoadAccountDataFromFile type=\"17\" pendingBefore=\"false\" hasCallback=\"false\" param=\"0\"",
+0,
+},
+{
+"LoadAccountDataFromFile type=\"18\" pendingBefore=\"false\" hasCallback=\"true\" param=\"0\"",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000021",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000004000",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000004010",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000084010",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000023",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x0000084410",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x000008c410",
+0,
+},
+{
+"Proficiency in item class 2 set to 0x000008c410",
+0,
+},
+{
+"Proficiency in item class 4 set to 0x0000000023",
 0,
 },
 {
 "Weather changed to 0, intensity 0.000000\n",
+0,
+},
+{
+"Time set to 11/22/2026 (Sun) 12:40",
+0,
+},
+{
+"Gamespeed set from 0.017 to 0.017",
+0,
+},
+{
+"Connecting to sourceRealmAddress=\"95-1-3\" connection=\"00000294a0a51a20\" serial=\"43\" protocol=\"(enum)0\"",
+0,
+},
+{
+"Opening network connection connectionIndex=\"(enum)3\" connection=\"00000294a0a51a20\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
+0,
+},
+{
+"Resuming communications connectionIndex=\"(enum)3\"",
+0,
+},
+{
+"Killing connection connection=\"00000294a0f4c3e0\" state=\"(enum)6\"",
 0,
 },
 {
@@ -4339,91 +4299,15 @@ Blizzard_Console_SavedVars = {
 0,
 },
 {
-"Total: 0d 11h 22m 41s",
+"Total: 0d 22h 43m 30s",
 0,
 },
 {
-"Level: 0d 0h 5m 2s",
+"Level: 0d 0h 20m 7s",
 0,
 },
 {
-"Skill 228 increased from 94 to 95",
-0,
-},
-{
-"Skill 228 increased from 95 to 96",
-0,
-},
-{
-"Skill 95 increased from 88 to 89",
-0,
-},
-{
-"Skill 228 increased from 96 to 97",
-0,
-},
-{
-"Skill 228 increased from 97 to 98",
-0,
-},
-{
-"Skill 95 increased from 89 to 90",
-0,
-},
-{
-"Skill 95 increased from 90 to 91",
-0,
-},
-{
-"Connecting to sourceRealmAddress=\"95-1-3\" connection=\"000001f4a6861da0\" serial=\"103\" protocol=\"(enum)0\"",
-0,
-},
-{
-"Opening network connection connectionIndex=\"(enum)3\" connection=\"000001f4a6861da0\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
-0,
-},
-{
-"Resuming communications connectionIndex=\"(enum)3\"",
-0,
-},
-{
-"Killing connection connection=\"000001f4beba04a0\" state=\"(enum)6\"",
-0,
-},
-{
-"Weather changed to 0, intensity 0.000000\n",
-0,
-},
-{
-"Skill 228 increased from 98 to 99",
-0,
-},
-{
-"Connecting to sourceRealmAddress=\"95-1-3\" connection=\"000001f52106d510\" serial=\"133\" protocol=\"(enum)0\"",
-0,
-},
-{
-"Opening network connection connectionIndex=\"(enum)3\" connection=\"000001f52106d510\" protocol=\"(enum)0\" directAddressCount=\"1\" bleepProxyCount=\"0\"",
-0,
-},
-{
-"Resuming communications connectionIndex=\"(enum)3\"",
-0,
-},
-{
-"Killing connection connection=\"000001f4a6861da0\" state=\"(enum)6\"",
-0,
-},
-{
-"Weather changed to 0, intensity 0.000000\n",
-0,
-},
-{
-"Skill 95 increased from 91 to 92",
-0,
-},
-{
-"Skill 95 increased from 92 to 93",
+"Skill 95 increased from 131 to 132",
 0,
 },
 {

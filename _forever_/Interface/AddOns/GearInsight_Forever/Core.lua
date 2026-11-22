@@ -1,0 +1,792 @@
+-- GearInsight 无限版：公共工具（语言、存档、复制框、编码、斜杠命令）
+local ADDON, ns = ...
+_G.GearInsightForever = ns
+
+local LOC = GetLocale and GetLocale() or "enUS"
+ns.zh = (LOC == "zhCN" or LOC == "zhTW")
+ns.clientZh = ns.zh
+-- 11-10 共建看板 GI-216「可以做繁體版的嗎？照顧一下亞服玩家」：繁体客户端（或设置里选「繁體中文」）→ 中文一律换成繁体
+--   对照表 ZhTW.lua（scripts/gi_forever_zhtw.py：界面文案整句 opencc s2twp + 领域例外，其余逐字兜底）；没加载这张表 = 照旧简体
+ns.tw = (LOC == "zhTW")
+ns.clientTw = ns.tw
+local twCache, twN = {}, 0
+function ns.ToTW(s)
+    if type(s) ~= "string" or not ns.TW_CHAR or not s:find("[\228-\233]") then return s end
+    local p = ns.TW_PHRASE and ns.TW_PHRASE[s]
+    if p then return p end
+    local c = twCache[s]
+    if c then return c end
+    c = s:gsub("[\228-\233][\128-\191][\128-\191]", ns.TW_CHAR)
+    if twN > 4000 then twCache, twN = {}, 0 end
+    twCache[s], twN = c, twN + 1
+    return c
+end
+-- 11-13 重构第 4 期：繁体对照表 ZhTW.lua（约 290 KB）搬进按需加载的子插件 GearInsight_Forever_LocaleTW —— 简体 / 英文客户端不加载。
+--   繁体客户端：就在这里（主插件第一个代码文件的开头）加载，后面各文件加载时出的字照旧当场换繁体，和拆分前一样；
+--   简体客户端在设置里选了「繁體中文」：读到存档时（InitDB → ApplyLang 之前）再加载，和拆分前一样靠 ApplyLang 换页名等。
+--   合并打包：ZhTW.lua 排回主插件 toc 原位（Core.lua 后面），没有这个子插件文件夹 → 这里 LoadAddOn 安静地失败，表在下一个文件里就有了。
+--   ⛔ 子插件 toc 不写 Dependencies（主插件这时还没加载完，写了依赖会被判「依赖没加载」）；它只读 _G.GearInsightForever
+ns.TW_ADDON = "GearInsight_Forever_LocaleTW"
+function ns.LoadTW()
+    if ns.TW_CHAR then return true end
+    local load = (C_AddOns and C_AddOns.LoadAddOn) or LoadAddOn
+    if not load then return false end
+    local ok = pcall(load, ns.TW_ADDON)
+    return (ok and ns.TW_CHAR ~= nil) and true or false
+end
+-- 繁体表能不能用上（已加载，或子插件文件夹在）：设置页「繁體中文」选项按这个出
+function ns.TWAvailable()
+    if ns.TW_CHAR then return true end
+    local f = (C_AddOns and C_AddOns.GetAddOnInfo) or GetAddOnInfo
+    if not f then return false end
+    local ok, n, _, _, _, reason = pcall(f, ns.TW_ADDON)
+    return (ok and n ~= nil and reason ~= "MISSING") and true or false
+end
+if ns.tw then ns.LoadTW() end
+-- 11-12 GI-228「繁体端装备推荐还是简体」：数据表里的中文（物品 / 任务 / 副本 / 首领名）不经过 ns.L，繁体端原样显示简体 →
+--   显示前过 ns.TD；物品名用 ns.ItemNm：繁体端优先客户端自己给的名字（台服官方译名），没缓存先逐字转繁体并向服务器要
+function ns.TD(s)
+    if ns.tw then return ns.ToTW(s) end
+    return s
+end
+-- 11-15 共建看板 GI-266「繁體端仍有部分地方沒改成繁體或沒改成繁體客戶端名稱」（训练师可学列表「凿击 / 脚踢」是简体）：
+--   根因：TrainNow 只认全局 GetSpellInfo，《无限》新客户端上拿不到（只有 C_Spell.GetSpellName）→ 退回数据里的简体名，
+--   又因为「繁体客户端会给繁体名」跳过了转繁。统一走下面三个函数：
+--   ns.SpellNm(id, 简体, 英文) / ns.ItemNmId(id, 简体, 英文) / ns.ItemNm(it)：界面语言和客户端同一种 → 客户端运行时的名字（台服官方名）；
+--   拿不到（物品没缓存 / 接口没有）→ 数据里的名字：繁体先查 TW_NAME（暴雪十语言技能名表里的台服官方名，整名对上才换），再逐字转繁；
+--   顺手向服务器要物品数据，回来后当前页原地刷新（ns.NameArrived）
+--   ⛔ 繁体客户端给的名字不再过 ToTW（「台 / 里 / 干 / 后」在台服名里是正字，逐字表会把它们改坏）
+function ns.ClientNameOK() return (ns.zh and ns.clientZh) or (not ns.zh and not ns.clientZh) end
+-- 客户端给的名字 → 显示：简体客户端但设置选了繁體 → 转繁；其余原样
+function ns.FromClient(n)
+    if ns.tw and not ns.clientTw then return ns.ToTW(n) end
+    return n
+end
+-- 数据里的中文名 → 显示（繁体：台服官方技能名整名对照 → 逐字转繁）
+function ns.TWName(s)
+    if not ns.tw or type(s) ~= "string" then return s end
+    local t = ns.TW_NAME and ns.TW_NAME[s]
+    if t then return t end
+    return ns.ToTW(s)
+end
+local function dataName(cn, en)
+    if ns.zh then return ns.TWName(cn or en or "?") end
+    if en and en ~= "" then return en end
+    return cn or "?"
+end
+local function okName(n) return type(n) == "string" and n ~= "" and n end
+function ns.SpellNameRaw(id)
+    id = tonumber(id)
+    if not id then return nil end
+    if C_Spell and C_Spell.GetSpellName then
+        local ok, n = pcall(C_Spell.GetSpellName, id)
+        if ok and okName(n) then return n end
+    end
+    if GetSpellInfo then
+        local ok, n = pcall(GetSpellInfo, id)
+        if ok and okName(n) then return n end
+    end
+    return nil
+end
+function ns.SpellNm(id, cn, en)
+    if ns.ClientNameOK() then
+        local n = ns.SpellNameRaw(id)
+        if n then return ns.FromClient(n) end
+    end
+    return dataName(cn, en)
+end
+-- 按客户端给的名字查我们的数据表（键是简体名 / 英文小写）：繁体客户端给的是台服名 → 查不到时用「键转繁」的反查表再查一次
+--   （技能鼠标提示「《无限》改了什么」、数据包 Beta 改动以前在繁体客户端一条都对不上）
+local revIdx = setmetatable({}, { __mode = "k" })
+function ns.NameLookup(t, name)
+    if type(t) ~= "table" or type(name) ~= "string" or name == "" then return nil end
+    local v = t[name] or t[name:lower()]
+    if v ~= nil or not (ns.clientTw and ns.TW_CHAR) then return v end
+    local r = revIdx[t]
+    if not r then
+        r = {}
+        for k, val in pairs(t) do
+            if type(k) == "string" and k:find("[\228-\233]") then
+                r[ns.ToTW(k)] = r[ns.ToTW(k)] or val
+                local tn = ns.TW_NAME and ns.TW_NAME[k]
+                if tn then r[tn] = r[tn] or val end
+            end
+        end
+        revIdx[t] = r
+    end
+    return r[name]
+end
+local itemAsked, nameWait = {}, {}
+local function askItem(id)
+    if itemAsked[id] then return end
+    itemAsked[id] = true
+    nameWait[id] = true
+    if C_Item and C_Item.RequestLoadItemDataByID then pcall(C_Item.RequestLoadItemDataByID, id) end
+end
+function ns.ItemNameRaw(id)
+    id = tonumber(id)
+    if not id then return nil end
+    if C_Item and C_Item.GetItemNameByID then
+        local ok, n = pcall(C_Item.GetItemNameByID, id)
+        if ok and okName(n) then return n end
+    end
+    if ns.ItemInfo then
+        local n = ns.ItemInfo(id)
+        if okName(n) then return n end
+    end
+    return nil
+end
+-- 物品名：非繁体照旧数据名（ns.L，行为不变）；繁体端优先客户端名，没缓存先用数据名转繁并向服务器要，回来原地刷新
+function ns.ItemNmId(id, cn, en)
+    if not ns.tw then return ns.L(cn or en or "?", en) end
+    id = tonumber(id)
+    if id and ns.ClientNameOK() then
+        local n = ns.ItemNameRaw(id)
+        if n then return ns.FromClient(n) end
+        askItem(id)
+    end
+    return ns.L(cn or en or "?", en)   -- 物品名不查 TW_NAME（那是技能名对照，同名物品会被换错），逐字转繁
+end
+function ns.ItemNm(it)
+    if type(it) ~= "table" then return "?" end
+    return ns.ItemNmId(it.id, it.n, it.nEn)
+end
+-- 物品数据回来：要过名字的物品到了 → 0.3 秒后当前页原地重画一次（多件一起到只画一次）
+local nameEv = CreateFrame and CreateFrame("Frame")
+if nameEv then
+    for _, e in ipairs({ "GET_ITEM_INFO_RECEIVED", "ITEM_DATA_LOAD_RESULT" }) do pcall(nameEv.RegisterEvent, nameEv, e) end
+    local queued = false
+    nameEv:SetScript("OnEvent", function(_, _, id)
+        id = tonumber(id)
+        if not (id and nameWait[id]) then return end
+        nameWait[id] = nil
+        if queued then return end
+        queued = true
+        local function go()
+            queued = false
+            if ns.NameArrived then pcall(ns.NameArrived) end
+        end
+        if C_Timer and C_Timer.After then C_Timer.After(0.3, go) else go() end
+    end)
+end
+
+-- 中英二选一：中文客户端用 cn，其它用 en（en 空时退回 cn）
+-- 11-09 GI-202「我们玩的欧服，想切换到中文」：设置页可手动选语言（存档 db.lang = "zh" / "en"，nil = 跟随客户端）。
+--   存档要等 ADDON_LOADED 才读得到，各文件顶层（页签名、筛选表…）在那之前就调过 ns.L →
+--   加载期出的字记进 loadPairs，读到存档后 ns.ApplyLang 把页签表和 ns.LateL 登记过的表里这些字换成另一种语言
+local loadPairs, loadLog = {}, {}
+-- 11-18 GI-307（玩家「求人给buff改改词儿啊，别老说义父啊…以前说老哥不挺好的吗」）→ 用户「增加自定义」：
+--   求人 / 道谢里对别人的称呼可改（ns.db.ui.callWord；nil = 默认「义父」）。各处话术照旧写「义父」，发之前 ns.ApplyCall 换成玩家选的词
+-- 11-19 GI-315（又一位玩家「你见人就喊义父啊」）→ 用户「默认都改老哥」：默认 = 老哥；话术原文照旧写「义父」，只有玩家主动选了义父才保留
+ns.CALL_DEFAULT = "老哥"
+ns.CALL_PRESETS = { "老哥", "义父", "大佬", "兄弟", "老板" }
+function ns.CallWord()
+    local u = ns.db and ns.db.ui
+    local v = u and u.callWord
+    if type(v) == "string" and v ~= "" then return v end
+    return ns.CALL_DEFAULT
+end
+function ns.SetCallWord(v)
+    if not ns.db then return end
+    ns.db.ui = ns.db.ui or {}
+    v = type(v) == "string" and v:gsub("^%s+", ""):gsub("%s+$", "") or nil
+    ns.db.ui.callWord = (v and v ~= "" and v ~= ns.CALL_DEFAULT) and v or nil
+end
+function ns.ApplyCall(s)
+    if type(s) ~= "string" then return s end
+    local w = ns.CallWord()
+    if w == "义父" then return s end   -- 话术原文写的就是义父
+    w = w:gsub("%%", "%%%%")
+    s = s:gsub("义父", w):gsub("義父", w)
+    -- 11-19 对外英文：默认称呼「friend」；自己填的是英文（bro / mate…）才换，填中文的不往英文句里塞
+    if not w:find("[\128-\255]") then s = s:gsub("%f[a-zA-Z]friend%f[^a-zA-Z]", w) end
+    return s
+end
+function ns.L(cn, en)
+    local r
+    if ns.zh or not en or en == "" then r = cn else r = en end
+    if ns.tw and r == cn then r = ns.ToTW(cn) end
+    if not ns.db and en and en ~= "" and cn ~= en then
+        loadPairs[r] = loadPairs[r] or { cn, en }
+        loadLog[#loadLog + 1] = { r, cn, en }
+    end
+    return r
+end
+-- 页签名：同一个英文可能对应两个中文（掉落页 title「掉落 · 心愿单」/ tabTitle「掉落」都是 Loot）→ RegisterPage 时按调用顺序倒着认：
+--   表构造里 title 先求值、tabTitle 后求值，所以从最近的记录往回找，先认 tabTitle 再认 title
+function ns.PageLangPairs(p)
+    local i = #loadLog
+    for _, f in ipairs({ "tabTitle", "title" }) do
+        local v = p[f]
+        if type(v) == "string" then
+            for j = i, math.max(1, i - 40), -1 do
+                if loadLog[j][1] == v then
+                    p["_l_" .. f] = { loadLog[j][2], loadLog[j][3] }
+                    i = j - 1
+                    break
+                end
+            end
+        end
+    end
+end
+
+local lateTables = {}
+-- 文件顶层用 ns.L 填的本地表：登记一下，切了语言后跟着换
+function ns.LateL(t)
+    lateTables[#lateTables + 1] = t
+    return t
+end
+
+local function retr(t, seen)
+    if seen[t] then return end
+    seen[t] = true
+    for k, v in pairs(t) do
+        if type(v) == "string" then
+            local p = loadPairs[v]
+            if p then t[k] = ns.zh and (ns.tw and ns.ToTW(p[1]) or p[1]) or p[2] end
+        elseif type(v) == "table" then
+            retr(v, seen)
+        end
+    end
+end
+
+ns.LANGS = { { nil, "跟随客户端", "Auto (client)" }, { "zh", "简体中文", "Simplified Chinese" }, { "tw", "繁體中文", "Traditional Chinese" },
+    { "en", "English", "English" } }
+function ns.Lang() return ns.db and ns.db.lang or nil end
+-- InitDB 里调：按存档定 ns.zh；和加载时不一样就把加载期出的字换掉（换语言要 /reload 才全换干净，SetLang 会提示）
+-- force：繁体表是这时才补加载上的（繁体客户端开头没加载成功）→ 语言没变也把加载期出的字重换一遍
+function ns.ApplyLang(force)
+    local want = ns.Lang()
+    local z, tw = ns.clientZh, ns.clientTw
+    if want == "zh" then z, tw = true, false elseif want == "tw" then z, tw = true, true elseif want == "en" then z, tw = false, false end
+    if z == ns.zh and tw == ns.tw and not force then return end
+    ns.zh, ns.tw = z, tw
+    local W = _G.GIWidgets
+    if type(W) == "table" then W.zh = z; W.tw = tw end
+    local seen = {}
+    if ns._Pages then
+        for _, p in ipairs(ns._Pages) do
+            for _, f in ipairs({ "title", "tabTitle" }) do
+                local q = p["_l_" .. f]
+                if q then p[f] = z and (tw and ns.ToTW(q[1]) or q[1]) or q[2] end
+            end
+        end
+    end
+    for _, t in ipairs(lateTables) do retr(t, seen) end
+end
+function ns.SetLang(v)
+    if v ~= "zh" and v ~= "en" and v ~= "tw" then v = nil end
+    ns.db.lang = v
+    ns.Print(ns.L("语言已改，输入 /reload 重载界面后生效", "Language changed - type /reload to apply"))
+end
+
+-- 11-19 用户「外服向外说话的交流语言要换成主流语言，插件语言可以保持客户端或者插件设置」：
+--   插件替你发出去、别人看得见的话（私聊 / 小队 / 团队 / 公会 / 说 / 喊 / 频道）一律 ns.ChatL(简体, 英文)；界面照旧 ns.L。
+--   存档 ns.db.chatLang：nil = 自动（按服务器地区）/ "zh" / "tw" / "en"。自动：GetCurrentRegion 1 美 / 3 欧 → 英文（欧服德法西也用英文：插件没有这些语言）；
+--   5 国服 → 简体；4 台服 → 繁体；2 韩 → 繁体客户端用繁体（11-19 线上统计：无限台服玩家读出来是 2 / 1，没有 4）、其余英文（插件没有韩文）；
+--   读不到 → GetCurrentRegionName → 客户端语言。⛔ 玩家自己填的话术 / 称呼不翻译
+local RG = { "en", "kr", "en", "tw", "zh", US = "en", KR = "kr", EU = "en", TW = "tw", CN = "zh" }
+local LOC_CHAT = { zhCN = "zh", zhTW = "tw", enUS = "en", enGB = "en" }
+function ns.ChatLang()
+    local v = ns.db and ns.db.chatLang
+    if v == "zh" or v == "tw" or v == "en" then return v end
+    local ok, r = pcall(GetCurrentRegion or error)
+    r = ok and RG[r]
+    if not r then ok, r = pcall(GetCurrentRegionName or error); r = ok and type(r) == "string" and RG[r:upper()] end
+    if r == "kr" then r = LOC == "zhTW" and "tw" or "en" end
+    return r or LOC_CHAT[LOC] or "en"
+end
+function ns.ChatL(cn, en)
+    local c = ns.ChatLang()
+    if c == "en" then return (en and en ~= "") and en or cn end
+    return (c == "tw" and ns.LoadTW()) and ns.ToTW(cn) or cn
+end
+-- 对外的品牌前缀：英文 [GearInsight]；认别人的话两种都认（DungeonChat.HasTag）
+ns.CHAT_TAG, ns.CHAT_TAG_EN = "[Gearinsight插件]", "[GearInsight]"
+function ns.ChatTag() return ns.ChatL(ns.CHAT_TAG, ns.CHAT_TAG_EN) end
+-- 数据里的名字（副本 / 物品 / 技能）对外用。id + kind（"item" / "spell"）：客户端语言 = 对外语言才用客户端给的名字
+--   （⛔ C_Item.GetItemNameByID 是客户端语言：中文客户端读出来是中文名，英文服不能用）；否则英文 → en（没有退回中文）、繁体 → 台服技能名对照 / 逐字转繁
+function ns.ChatName(cn, en, id, kind)
+    local c = ns.ChatLang()
+    if id and LOC_CHAT[LOC] == c then
+        local n = (kind == "spell" and ns.SpellNameRaw or ns.ItemNameRaw)(id)
+        if n then return n end
+    end
+    if c == "en" then return (en and en ~= "") and en or cn or "?" end
+    cn = cn or en or "?"
+    if c == "tw" and ns.LoadTW() then return (kind ~= "item" and ns.TW_NAME and ns.TW_NAME[cn]) or ns.ToTW(cn) end
+    return cn
+end
+-- 职业 / 种族 / 阵营名对外：对外英文、客户端中文 → 英文标识（MAGE → Mage，NightElf → Night Elf，Scourge → Undead）；否则客户端给的名字
+function ns.ChatCls(token, name)
+    if not (ns.ChatLang() == "en" and ns.clientZh) then return name end
+    if type(token) ~= "string" or token == "" then return nil end
+    if token == "Scourge" then return "Undead" end
+    return ((token:sub(1, 1) .. (token:find("%l") and token:sub(2) or token:sub(2):lower())):gsub("(%l)(%u)", "%1 %2"))
+end
+-- 地图名（GetRealZoneText，客户端语言）对外：对外语言和客户端不一样 → nil（别把中文地名发进英文频道；坐标 + 地图标记链接照发）
+function ns.ChatZone(name) if LOC_CHAT[LOC] == ns.ChatLang() then return name end end
+
+-- 10-18 物品信息兼容：新客户端全局 GetItemInfo 拿不到（用户截图：Shift 点已缓存的装备也一直「还在加载」）→
+--   先 C_Item.GetItemInfo，再旧的 GetItemInfo；返回值和 GetItemInfo 一样（名字, 链接, 品质, 装等, …），拿不到 = nil
+-- 11-18 内存：这个函数一分钟被调几百次（出发前清单 / 物资每格物品都问一次名字），原来每次新建两张表（接口清单 + pcall 结果）→
+--   改成直接接返回值（不建表）。顺序和结果不变：先 C_Item.GetItemInfo，第一个返回值（名字）是空的再试老的 GetItemInfo
+local function itemInfoPass(ok, name, ...) if ok and name then return name, ... end return nil end
+local function itemInfoOld(item)
+    local f = GetItemInfo
+    if type(f) ~= "function" then return nil end
+    return itemInfoPass(pcall(f, item))
+end
+local function itemInfoNew(item, ok, name, ...)
+    if ok and name then return name, ... end
+    return itemInfoOld(item)
+end
+function ns.ItemInfo(item)
+    if item == nil then return nil end
+    local f = C_Item and C_Item.GetItemInfo
+    if type(f) == "function" then return itemInfoNew(item, pcall(f, item)) end
+    return itemInfoOld(item)
+end
+-- 物品链接：ItemInfo 第 2 个返回值；还没有就试鼠标提示数据（C_TooltipInfo，正式服引擎有）
+function ns.ItemLink(id)
+    local _, link = ns.ItemInfo(id)
+    if link then return link end
+    if C_TooltipInfo and C_TooltipInfo.GetItemByID then
+        local ok, d = pcall(C_TooltipInfo.GetItemByID, id)
+        if ok and type(d) == "table" and type(d.hyperlink) == "string" and d.hyperlink ~= "" then return d.hyperlink end
+    end
+    return nil
+end
+
+-- 10-18 《无限》服务器上不存在的物品（用户 /gi itemprobe all 实测，ITEM_DATA_LOAD_RESULT 回 false；
+--   数据 ItemMissingData.lua ← scripts/gi_forever_item_exist_import.py）：推荐装备排除，掉落页标「测试服暂无」
+function ns.ItemMissing(id)
+    local t = ns.ItemMissingIds
+    return t and id and t[tonumber(id)] and true or false
+end
+
+-- 插件版本号：唯一来源 = toc 的 ## Version（标题栏 / 资讯页都读这个，⛔别在 Lua 里写死版本号字符串）
+function ns.AddonVersion()
+    local get = (C_AddOns and C_AddOns.GetAddOnMetadata) or GetAddOnMetadata
+    local ok, v = false, nil
+    if get then ok, v = pcall(get, ADDON or "GearInsight_Forever", "Version") end
+    return (ok and type(v) == "string") and v or ""
+end
+
+-- 英文客户端字体没有全角标点 / 中点 / 箭头 / 长破折号（会显示成方块）→ 换成半角
+function ns.EnSafe(s)
+    if ns.zh or not s then return s end
+    s = s:gsub("–", "-"):gsub("（", " ("):gsub("）", ")"):gsub("、", ", "):gsub("·", "-"):gsub("→", "->"):gsub("：", ": ")
+    return s
+end
+
+-- 10-10 用户贴报错「attempt to compare local 'name' (a secret string value …)」：《无限》客户端和正式服 12.x 一样有「保密值」——
+-- 战斗中 / 动作条悬停时技能名、物品 ID、单位 GUID 可能是保密值，插件只要比较 / 拼接 / 当表键用就报错。
+-- 凡是从提示框 / 单位 / 战斗拿到的值，先过 ns.Secret 再用。
+function ns.Secret(v)
+    if issecretvalue then return issecretvalue(v) and true or false end
+    return false
+end
+
+function ns.Print(msg)
+    -- GI-253：聊天框前缀繁体端也转（「GearInsight 無限版」）
+    DEFAULT_CHAT_FRAME:AddMessage("|cff33ff99" .. ns.TD("GearInsight 无限版") .. "|r " .. tostring(msg))
+end
+
+-- 11-09 GI-210「各种自动私信内容编辑」：玩家在设置页「自动私信内容」填了就用自己的（存 ns.db.whispers[key]），
+--   没填返回 nil → 各模块用默认话术。占位：{任务} {职业} {活动} {等级} {人数}（拿不到的换成空）
+ns.WHISPER_VARS = { "任务", "职业", "活动", "等级", "人数" }
+function ns.MyWhisper(key, vars)
+    local t = ns.db and ns.db.whispers and ns.db.whispers[key]
+    if type(t) ~= "string" or t == "" then return nil end
+    vars = vars or {}
+    return (t:gsub("{(.-)}", function(k)
+        local v = vars[k]
+        if v == nil then
+            for _, n in ipairs(ns.WHISPER_VARS) do if n == k then return "" end end
+            return nil   -- 不认识的 {xx} 原样留着
+        end
+        if ns.Secret(v) then return "" end
+        return tostring(v)
+    end))
+end
+
+-- ---------- 存档 ----------
+local DEFAULTS = { leveling = { shown = true }, loot = {}, lootSeen = {}, lootSent = 0, lootNames = {} }
+
+local function newUid()
+    local t = {}
+    for i = 1, 16 do t[i] = string.format("%x", math.random(0, 15)) end
+    return table.concat(t)
+end
+
+function ns.InitDB()
+    GearInsightForeverDB = GearInsightForeverDB or {}
+    local db = GearInsightForeverDB
+    for k, v in pairs(DEFAULTS) do
+        if db[k] == nil then
+            if type(v) == "table" then
+                local c = {}
+                for kk, vv in pairs(v) do c[kk] = vv end
+                db[k] = c
+            else
+                db[k] = v
+            end
+        end
+    end
+    if not db.uid then db.uid = newUid() end
+    ns.db = db
+    -- 11-13 重构第 4 期：要用繁体（存档选了繁體 / 跟随繁体客户端）而对照表还没加载 → 现在加载（见文件开头 ns.LoadTW）
+    local want = db.lang
+    local late = false
+    if (want == "tw" or (want == nil and ns.clientTw)) and not ns.TW_CHAR then late = ns.LoadTW() end
+    ns.ApplyLang(late and ns.clientTw and want ~= "zh" and want ~= "en")
+end
+
+-- ---------- JSON（只编码，导出用）----------
+local function jsonStr(s)
+    -- ⛔别用 %c：某些 locale 下中文的 UTF-8 字节也算控制字符，会被拆成 \u00xx 变乱码
+    s = tostring(s):gsub('[%z\1-\31"\\]', function(c)
+        if c == '"' then return '\\"' end
+        if c == "\\" then return "\\\\" end
+        if c == "\n" then return "\\n" end
+        return string.format("\\u%04x", c:byte())
+    end)
+    return '"' .. s .. '"'
+end
+
+local function isArray(t)
+    local n = 0
+    for _ in pairs(t) do n = n + 1 end
+    for i = 1, n do if t[i] == nil then return false end end
+    return true, n
+end
+
+function ns.JSON(v)
+    local tv = type(v)
+    if tv == "nil" then return "null" end
+    if tv == "boolean" then return v and "true" or "false" end
+    if tv == "number" then
+        if v == math.floor(v) then return string.format("%d", v) end
+        return tostring(v)
+    end
+    if tv == "string" then return jsonStr(v) end
+    if tv == "table" then
+        local arr, n = isArray(v)
+        local out = {}
+        if arr and n > 0 then
+            for i = 1, n do out[i] = ns.JSON(v[i]) end
+            return "[" .. table.concat(out, ",") .. "]"
+        end
+        if arr and next(v) == nil and v.__array then return "[]" end
+        local keys = {}
+        for k in pairs(v) do if k ~= "__array" then keys[#keys + 1] = tostring(k) end end
+        table.sort(keys)
+        for _, k in ipairs(keys) do
+            local val = v[k]
+            if val == nil then val = v[tonumber(k)] end
+            out[#out + 1] = jsonStr(k) .. ":" .. ns.JSON(val)
+        end
+        if #out == 0 and v.__array then return "[]" end
+        return "{" .. table.concat(out, ",") .. "}"
+    end
+    return "null"
+end
+
+-- ---------- base64url（不补 =）----------
+local B64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"
+function ns.B64url(s)
+    local out, n = {}, #s
+    for i = 1, n, 3 do
+        local a, b, c = s:byte(i, i + 2)
+        local v = a * 65536 + (b or 0) * 256 + (c or 0)
+        local c1 = math.floor(v / 262144) % 64
+        local c2 = math.floor(v / 4096) % 64
+        local c3 = math.floor(v / 64) % 64
+        local c4 = v % 64
+        out[#out + 1] = B64:sub(c1 + 1, c1 + 1) .. B64:sub(c2 + 1, c2 + 1)
+        if b then out[#out + 1] = B64:sub(c3 + 1, c3 + 1) end
+        if c then out[#out + 1] = B64:sub(c4 + 1, c4 + 1) end
+    end
+    return table.concat(out)
+end
+
+-- ---------- 地图打标（10-11 用户「点击标注的同时，打开小地图」）----------
+-- 副本任务接任务的人 / 副本入口 / 野外稀有 共用：游戏地图标记 + 超级追踪；装了 TomTom 另外给每个点打 TomTom 点；
+-- 然后把世界地图打开并切到那个地区（战斗中不弹，免得挡视线）。pts = {{x, y}, …}（0–100），第一个点用游戏标记
+function ns.ShowOnMap(ui, pts, title)
+    if not ui or ui == 0 or not pts or not pts[1] then return false end
+    local x, y = pts[1][1] or 0, pts[1][2] or 0
+    local pinned = false
+    if C_Map and C_Map.SetUserWaypoint and UiMapPoint and UiMapPoint.CreateFromCoordinates
+        and (not C_Map.CanSetUserWaypointOnMap or C_Map.CanSetUserWaypointOnMap(ui)) then
+        pinned = pcall(C_Map.SetUserWaypoint, UiMapPoint.CreateFromCoordinates(ui, x / 100, y / 100))
+        if pinned and C_SuperTrack and C_SuperTrack.SetSuperTrackedUserWaypoint then pcall(C_SuperTrack.SetSuperTrackedUserWaypoint, true) end
+    end
+    local TT = _G.TomTom
+    local tomtom = false
+    if TT and TT.AddWaypoint then
+        for _, p in ipairs(pts) do
+            if pcall(TT.AddWaypoint, TT, ui, p[1] / 100, p[2] / 100, { title = title, persistent = false, minimap = true, world = true, from = "GearInsight" }) then tomtom = true end
+        end
+    end
+    local inCombat = InCombatLockdown and InCombatLockdown()
+    if not inCombat then
+        if OpenWorldMap then pcall(OpenWorldMap, ui)
+        elseif WorldMapFrame then
+            if not WorldMapFrame:IsShown() and ToggleWorldMap then pcall(ToggleWorldMap) end
+            if WorldMapFrame.SetMapID then pcall(WorldMapFrame.SetMapID, WorldMapFrame, ui) end
+        end
+    end
+    return pinned or tomtom, tomtom
+end
+
+-- ---------- 复制 / 粘贴框 ----------
+local box
+-- 10-07 用户截图「UI 也要优化」：原来框高写死 130，说明一折行就压住输入框，确认键 90 宽装不下「已贴好，清掉已导出」→ 字叠在一起。
+--   现在：说明多行自动撑高、输入框跟在说明下面、按钮宽度按文字算、框高跟内容走；底部左边「关闭」右边确认。
+local function makeBox()
+    local f = CreateFrame("Frame", "GearInsightForeverCopy", UIParent, BackdropTemplateMixin and "BackdropTemplate" or nil)
+    f:SetSize(580, 170); f:SetPoint("CENTER", 0, 80); f:SetFrameStrata("FULLSCREEN_DIALOG")
+    f:EnableMouse(true); f:SetMovable(true); f:RegisterForDrag("LeftButton")
+    f:SetScript("OnDragStart", f.StartMoving); f:SetScript("OnDragStop", f.StopMovingOrSizing)
+    if f.SetBackdrop then
+        f:SetBackdrop({ bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background-Dark",
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border", edgeSize = 14,
+            insets = { left = 3, right = 3, top = 3, bottom = 3 } })
+    end
+    f.title = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    f.title:SetPoint("TOPLEFT", 14, -12)
+    f.hint = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    f.hint:SetPoint("TOPLEFT", 14, -36); f.hint:SetPoint("RIGHT", -14, 0); f.hint:SetJustifyH("LEFT"); f.hint:SetJustifyV("TOP")
+    f.hint:SetSpacing(4)
+    local e = CreateFrame("EditBox", nil, f, "InputBoxTemplate")
+    e:SetPoint("TOPLEFT", f.hint, "BOTTOMLEFT", 6, -10); e:SetPoint("RIGHT", -18, 0); e:SetHeight(26)
+    e:SetAutoFocus(true); e:SetMaxLetters(0)
+    e:SetScript("OnEscapePressed", function() f:Hide() end)
+    f.edit = e
+    local ok = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+    if ns.SkinButton then ns.SkinButton(ok) end   -- 11-14 按键美化：扁平样式
+    ok:SetSize(90, 26); ok:SetPoint("BOTTOMRIGHT", -14, 12)
+    f.ok = ok
+    local cancel = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+    if ns.SkinButton then ns.SkinButton(cancel) end   -- 11-14 按键美化：扁平样式
+    cancel:SetSize(80, 26); cancel:SetPoint("BOTTOMLEFT", 14, 12); cancel:SetText(ns.L("关闭", "Close"))
+    cancel:SetScript("OnClick", function() f:Hide() end)
+    f.cancel = cancel
+    local close = CreateFrame("Button", nil, f, "UIPanelCloseButton")
+    close:SetPoint("TOPRIGHT", -2, -2)
+    close:SetScript("OnClick", function() f:Hide() end)   -- 10-18 战斗中关不掉：原生红叉走 HideUIPanel，战斗中被拦 → 直接 Hide
+    return f
+end
+
+-- mode = "copy"：只读，全选；"paste"：粘贴后点按钮回调 onOk(text)
+-- 导出串 → 上传网址（10-07 用户截图「有问题，需要加上url」）：浏览器打开这个网址，网站自动把串填进去上传；
+--   放在 # 后面（不进服务器日志、不受网址长度限制）；整行粘到小程序粘贴框也行（服务端在整段里找 GIFS1: / GIFD1:）
+function ns.UploadURL(code)
+    return (ns.zh and "https://gearinsight.cn" or "https://gearinsight.app") .. "/wow/forever/loot#d=" .. (code or "")
+end
+ns.UPLOAD_HINT_ZH = "① Ctrl+C 复制下面这行网址\n② 粘到浏览器地址栏打开，自动上传（手机微信里打开也行）\n也可以把整行粘到小程序「无限 · 公测数据」"
+ns.UPLOAD_HINT_EN = "1. Ctrl+C to copy the link below\n2. Open it in your browser - it uploads automatically"
+
+function ns.ShowBox(title, hint, text, onOk, okText)
+    box = box or makeBox()
+    box.title:SetText(title or "")
+    box.hint:SetText(hint or "")
+    box.edit:SetText(text or "")
+    box.edit:SetFocus(); box.edit:HighlightText()
+    -- 框高跟说明行数走；确认键宽度按文字
+    local hh = (box.hint.GetStringHeight and box.hint:GetStringHeight()) or 14
+    box:SetHeight(36 + math.max(14, hh) + 10 + 26 + 18 + 26 + 12)
+    box.cancel:SetShown(onOk ~= nil)
+    if onOk then
+        box.ok:SetText(okText or ns.L("确定", "OK"))
+        local fs = box.ok.GetFontString and box.ok:GetFontString()
+        local w = fs and fs.GetStringWidth and fs:GetStringWidth() or 0
+        box.ok:SetWidth(math.max(90, (w or 0) + 30))
+        box.ok:SetScript("OnClick", function() onOk(box.edit:GetText() or ""); box:Hide() end)
+        box.edit:SetScript("OnEnterPressed", function() onOk(box.edit:GetText() or ""); box:Hide() end)
+    else
+        box.ok:SetText(ns.L("关闭", "Close")); box.ok:SetWidth(90)
+        box.ok:SetScript("OnClick", function() box:Hide() end)
+        box.edit:SetScript("OnEnterPressed", function() box:Hide() end)
+    end
+    box:Show()
+end
+
+-- ---------- 窗口与提醒登记（11-12 界面重构第 1 期「找得回」）----------
+-- 各模块把自己的浮窗 / 提醒条登记进来，设置页「窗口与提醒」分区和 /gi win 都照这张表画（不用每加一个窗就改设置页）。
+--   w = { key, order, title = function() → 名字（⛔ 给函数：文件加载时存档还没读到，语言没定）,
+--         avail = function() → 这个角色现在有没有这扇窗（不给 = 总有）,
+--         state = function() → 当前状态文字（显示中 / 已关闭 …）,
+--         actions = function() → { { text = 按钮字, fn = 点了干什么 }, … }（最多 3 个） }
+ns.Windows = {}
+function ns.RegisterWindow(w)
+    if type(w) ~= "table" or not w.key then return end
+    for i, o in ipairs(ns.Windows) do
+        if o.key == w.key then ns.Windows[i] = w; return w end
+    end
+    ns.Windows[#ns.Windows + 1] = w
+    table.sort(ns.Windows, function(a, b)
+        local oa, ob = a.order or 99, b.order or 99
+        if oa ~= ob then return oa < ob end
+        return tostring(a.key) < tostring(b.key)
+    end)
+    return w
+end
+function ns.WindowTitle(w)
+    local t = w and w.title
+    if type(t) == "function" then local ok, s = pcall(t); t = ok and s or nil end
+    return tostring(t or (w and w.key) or "")
+end
+-- 这个角色现在用得上的窗（avail 报错 / 返回假的不出）
+function ns.WindowList()
+    local out = {}
+    for _, w in ipairs(ns.Windows) do
+        local ok, on = true, true
+        if w.avail then ok, on = pcall(w.avail) end
+        if ok and on then out[#out + 1] = w end
+    end
+    return out
+end
+
+-- 点 × 关浮窗时在聊天框说一声怎么再开：同一扇窗最多说 3 次（计数存 ns.db.ui.closeHint[key]），说了返回 true
+function ns.CloseHint(key, msg)
+    if not (ns.db and key and msg) then return false end
+    ns.db.ui = ns.db.ui or {}
+    local t = ns.db.ui.closeHint
+    if type(t) ~= "table" then t = {}; ns.db.ui.closeHint = t end
+    local n = tonumber(t[key]) or 0
+    if n >= 3 then return false end
+    t[key] = n + 1
+    ns.Print(msg)
+    return true
+end
+
+-- ---------- 启动 + 斜杠命令 ----------
+ns.modules = {}
+-- 11-13 重构第 4 期：按需加载的子插件（_Prof / _Class / _Info）里原来 table.insert(ns.modules, fn) 的初始化 ——
+--   子插件加载时主插件早跑完 ns.modules 了，改用 ns.AddInit(fn)：存档已经读好（ns.db 有了）= 子插件是后来才加载的 →
+--   先攒着，等这个子插件最后一个文件（*Init.lua）调 ns.FlushInits() 时按登记顺序跑（整个子插件都加载完了才跑，和原来「全部文件加载完才跑 ns.modules」一样）；
+--   还没读好（合并打包 / 拆分前的加载顺序：文件在 ADDON_LOADED 之前执行）就照旧排进 ns.modules
+local lateInits = {}
+function ns.AddInit(fn)
+    if ns.db then lateInits[#lateInits + 1] = fn else table.insert(ns.modules, fn) end
+end
+function ns.FlushInits()
+    local list = lateInits
+    lateInits = {}
+    for _, fn in ipairs(list) do pcall(fn) end
+end
+local ev = CreateFrame("Frame")
+ev:RegisterEvent("ADDON_LOADED")
+-- ⛔ 10-07：别注册 ADDON_ACTION_FORBIDDEN / ADDON_ACTION_BLOCKED（只给暴雪 UI），插件一注册就被判
+--    「GearInsight_Forever -> Frame:RegisterEvent()」禁用 —— 当时加来当诊断，结果自己成了报错源
+ev:SetScript("OnEvent", function(_, e, name)
+    if name ~= ADDON then return end
+    ns.InitDB()
+    for _, m in ipairs(ns.modules) do pcall(m) end
+    ev:UnregisterEvent("ADDON_LOADED")
+end)
+
+-- 10-07 用户「命令改成 /gi」：主命令 /gi，/gif 留着兼容。
+-- ⛔ 正式服 GearInsight 也是 /gi：无限客户端开了「加载过期插件」时两个可能同时在 → 别人已经占了 /gi 就不抢，只用 /gif
+local function slashTaken(cmd)
+    for k, v in pairs(_G) do
+        if type(k) == "string" and k:sub(1, 6) == "SLASH_" and v == cmd and not k:find("GEARINSIGHTFOREVER", 1, true) then return true end
+    end
+    return false
+end
+local C = slashTaken("/gi") and "/gif" or "/gi"
+ns.SlashHint = C
+
+local function help()
+    -- 10-19 我的升级报告（Report.lua，HOLD）：没进包时不提这条命令
+    local rep = ns.Report and ns.L(" · " .. C .. " report 我的升级报告（网站出定制路线）", " · " .. C .. " report my leveling report (web)") or ""
+    -- 10-22 扫码绑定（BindQR.lua，HOLD）：同上，没进包时不提
+    if ns.ShowBindQR then rep = rep .. ns.L(" · " .. C .. " bind 扫码把角色挂到你的 GearInsight 账号", " · " .. C .. " bind link this character to your account (QR)") end
+    -- 11-12 手法钉板 / 决策 HUD 的命令名对反了（keys hud = 钉板）：帮助里写清楚，新名字 keys board
+    -- 11-13 第 4 期：手法钉板在按需加载的 _Class 里，没加载时按「包里有没有 KeysRot.lua」判断
+    local keys = (ns.KeysRot or (ns.ModHas and ns.ModHas("class", "KeysRot.lua"))) and ns.L(" · " .. C .. " keys board 手法钉板（旧命令 keys hud 也是钉板）· " .. C .. " keys panel 决策 HUD",
+        " · " .. C .. " keys board rotation board (old: keys hud) · " .. C .. " keys panel decision HUD") or ""
+    -- 11-12 界面重构第 2 期：/gi help 按左栏一级菜单分组打（11-14 起 6 个：多了「专业」）（原来一长行挤在一起）；命令本身一个没改
+    local G = "|cffffd100"
+    ns.Print(ns.L("命令：" .. C .. " 打开主界面（下面按左栏分组；" .. C .. " set 关键词 = 搜设置）",
+        "Commands: " .. C .. " opens the window (grouped like the left menu; " .. C .. " set <words> searches settings)"))
+    ns.Print(ns.L(G .. "升级|r  " .. C .. " lv 升级指引 · " .. C .. " 睡袋 任务线追踪窗 · " .. C .. " route 路线 · " .. C .. " xp 经验加成",
+        G .. "Leveling|r  " .. C .. " lv guide · " .. C .. " chain quest line tracker · " .. C .. " route · " .. C .. " xp bonuses"))
+    -- 11-14 专业成了左栏独立一级，帮助里也单独一行（命令没改）
+    ns.Print(ns.L(G .. "专业|r  " .. C .. " prof 专业页（默认打开冲级路线）",
+        G .. "Professions|r  " .. C .. " prof professions (opens on the leveling route)"))
+    ns.Print(ns.L(G .. "装备|r  " .. C .. " wish 掉落 · 心愿单 · " .. C .. " tier T1 套装 · " .. C .. " bis 装备角标 · " .. C .. " ilvl 装等",
+        G .. "Gear|r  " .. C .. " wish loot & wishlist · " .. C .. " tier · " .. C .. " bis corner icons · " .. C .. " ilvl"))
+    ns.Print(ns.L(G .. "职业|r  " .. C .. " t 天赋（导入配点码）· " .. C .. " talent qr 发到手机 · " .. C .. " talent pop 热门配点 · " .. C .. " talent plan 天赋计划小窗"
+        .. " · " .. C .. " rot 手法 · " .. C .. " kb 键位 · " .. C .. " macro 宏库 · " .. C .. " trainer 找训练师" .. keys,
+        G .. "Class|r  " .. C .. " t talents (import) · " .. C .. " talent qr to phone · " .. C .. " talent pop popular builds · " .. C .. " talent plan plan window"
+        .. " · " .. C .. " rot rotation · " .. C .. " kb keys · " .. C .. " macro · " .. C .. " trainer" .. keys))
+    ns.Print(ns.L(G .. "资讯|r  " .. C .. " news 资讯 · " .. C .. " 更新 本版更新 · " .. C .. " data 导出数据 · " .. C .. " data off|on 关 / 开记录" .. rep,
+        G .. "News|r  " .. C .. " news · " .. C .. " whatsnew · " .. C .. " data export · " .. C .. " data off|on" .. rep))
+    ns.Print(ns.L(G .. "右侧|r  " .. C .. " qm 组队 · " .. C .. " 吃喝 法师吃喝 · " .. C .. " layer 位面 · " .. C .. " greport 公会通报",
+        G .. "Right tabs|r  " .. C .. " qm group up · " .. C .. " water mage food · " .. C .. " layer · " .. C .. " greport guild report"))
+    ns.Print(ns.L(G .. "设置|r  " .. C .. " 功能 功能开关（所有功能勾选开 / 关）· " .. C .. " set 关键词 搜设置 · " .. C .. " win 窗口与提醒（小窗关了从这里找回）· " .. C .. " lang 语言 · " .. C .. " scale 窗口大小 · " .. C .. " perf 卡顿自查 · " .. C .. " minimap 小地图按钮",
+        G .. "Settings|r  " .. C .. " feat feature switches · " .. C .. " set <words> · " .. C .. " win windows & alerts · " .. C .. " lang · " .. C .. " scale · " .. C .. " perf lag check · " .. C .. " minimap"))
+end
+
+SLASH_GEARINSIGHTFOREVER1 = "/gif"
+if C == "/gi" then SLASH_GEARINSIGHTFOREVER2 = "/gi" end
+SlashCmdList.GEARINSIGHTFOREVER = function(msg)
+    local msg0 = msg
+    -- 原样的参数（不转小写）：自定义文字要用（10-12 /gi qm text …：lower() 在某些环境会改坏中文字节 →「任务」变「任嚡」）
+    local raw = (msg or ""):gsub("^[ 	]+", ""):gsub("[ 	]+$", "")
+    local rawRest = raw:match("^[^ 	]*[ 	]*(.-)$") or ""
+    local rawCmd = raw:match("^([^ 	]*)") or ""   -- 10-19 /gi 报告：中文命令按原样查（lower() 会改坏中文，见上）
+    -- 11-13 第 5 期（§2.6）：只把 A-Z 转小写（string.lower 跟 C 运行库的区域设置走，个别环境会改坏中文字节：「/gi 感谢 开」）
+    msg = (msg or ""):gsub("[A-Z]", function(ch) return string.char(ch:byte() + 32) end):gsub("^%s+", ""):gsub("%s+$", "")
+    local cmd, rest = msg:match("^(%S*)%s*(.-)$")
+    -- 11-13 重构第 4 期：/gi keys …（钉板 / HUD / 诊断 / 键位页）和 /gi probe keys 的处理函数在按需加载的 _Class 里 →
+    --   先加载；战斗中（那个子插件有安全按钮，战斗中不加载）排到脱战后再执行这一条命令
+    if ((cmd == "keys" and rest ~= "off" and rest ~= "on") or (cmd == "probe" and rest == "keys")) and ns.ClassPrep then
+        local again = msg0
+        if not ns.ClassPrep(function() SlashCmdList.GEARINSIGHTFOREVER(again) end) then return end
+    end
+    if cmd == "" then ns.ToggleMain()
+    elseif cmd == "lv" or cmd == "level" then ns.ToggleLeveling()
+    elseif cmd == "wish" or cmd == "lootui" then ns.ToggleMain("loot")
+    elseif cmd == "tier" then ns.ToggleMain("tier")
+    elseif cmd == "macro" or cmd == "m" then ns.ToggleMain("macro")
+    elseif cmd == "news" then ns.ToggleMain("news")
+    elseif cmd == "talent" or cmd == "t" then
+        if rest == "qr" then ns.ShowTalentQR()
+        elseif rest == "pop" then ns.ShowPopBuilds()
+        elseif rest == "plan" and ns.ShowTalentPlan then ns.ShowTalentPlan(true, true)   -- 11-12 天赋计划小窗关了以后再打开
+        elseif ns.ImportTalentDialog then ns.ImportTalentDialog() end   -- 11-13 第 4 期：在 _Class 里（没装那个子插件 = 没有这个命令）
+    elseif cmd == "probe" and rest == "keys" and ns.KeysProbe then ns.KeysProbe.Toggle()   -- 键位手法 P0 探针（HOLD）
+    -- ⛔ 历史遗留：keys hud 开的是「手法钉板」、keys panel 开的是「决策 HUD」，名字对反了。老玩家已经记住，行为不改；
+    --   11-12 补一个名副其实的 keys board（= 钉板），帮助里注明
+    elseif cmd == "keys" and (rest == "hud" or rest == "board") and ns.KeysRot then ns.KeysRot.Toggle()   -- 手法钉板
+    elseif cmd == "keys" and rest == "panel" and ns.KeysHud then ns.KeysHud.Toggle()   -- 决策 HUD 分轨面板（HOLD）
+    elseif cmd == "keys" and (rest == "off" or rest == "on") then   -- 录像用：隐藏 / 恢复还没发布的页签（重载生效）
+        ns.db.hideHold = (rest == "off") or nil
+        ns.Print(rest == "off" and ns.L("没发布的页签已隐藏，/reload 后生效（/gif keys on 恢复）", "Unreleased tabs hidden after /reload (/gif keys on to restore)")
+            or ns.L("没发布的页签已恢复，/reload 后生效", "Unreleased tabs restored after /reload"))
+    elseif cmd == "keys" and rest == "diag" and ns.Keys and ns.Keys.DiagView then ns.Keys.DiagView()   -- 10-16 形态视图技能诊断
+    elseif cmd == "keys" and rest == "cdm" and ns.KeysCdm then ns.KeysCdm.Diag()   -- 10-17 冷却管理器快捷键诊断
+    elseif cmd == "keys" and rest == "macros" and ns.Keys and ns.Keys.DebugMacros then ns.Keys.DebugMacros()   -- 10-12 宏格识别诊断
+    elseif cmd == "keys" and rest == "restore" and ns.Keys and ns.Keys.RestoreStolen then   -- 10-12 改键顶替掉的原功能放回
+        local n, why = ns.Keys.RestoreStolen()
+        ns.Print(why == "combat" and ns.L("战斗中不能改键位，脱战再来", "Can't change keys in combat")
+            or string.format(ns.L("放回了 %d 个被顶替的原功能键", "Restored %d replaced key(s)"), n or 0))
+    elseif cmd == "keys" and ns.Keys then ns.ToggleMain("keys")   -- 键位页在 HOLD 里时不响应
+    elseif ns.ExtraSlash and ns.ExtraSlash[cmd] then ns.ExtraSlash[cmd](rest, rawRest)   -- 10-12 support / route / site（Offsite.lua、Route.lua 自己挂）
+    elseif ns.ExtraSlash and rawCmd ~= "" and ns.ExtraSlash[rawCmd] then ns.ExtraSlash[rawCmd](rest, rawRest)   -- 中文命令（/gi 支持、/gi 报告）
+    elseif cmd == "card" or cmd == "qr" then ns.Print(ns.L("战绩卡二维码已下线", "The beta card QR has been removed"))   -- 11-05 用户「删了吧，关闭」
+    elseif cmd == "loot" then
+        if rest == "clear" then ns.ClearExportedLoot() else ns.ExportLoot() end
+    elseif cmd == "data" then
+        if rest == "" and ns.ExportAll then ns.ExportAll()
+        elseif rest == "clear" then ns.ClearExportedStats()
+        elseif rest == "off" then ns.SetCollect(false)
+        elseif rest == "on" then ns.SetCollect(true)
+        else ns.ExportStats() end
+    else help() end
+end
