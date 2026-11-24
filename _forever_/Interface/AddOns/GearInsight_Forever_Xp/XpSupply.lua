@@ -892,12 +892,31 @@ function XC.ThankScan()
     end
     return out
 end
+-- 11-23 用户「收到BUFF还是有的时候不弹感谢窗」：原来只有「喊」过才看，要 BUFF 弹框里密人 / 副本里队伍里要（组队信标 BA.ArmThank）不算 → 也挂上
+--   askWant[k] = { who = 密的那个人（队伍里要 = 队里能给的那个人）, t }；施法者读不到（路人不在队里、不是目标，sourceUnit 为空）就算他给的
+XC.askWant = {}
+function XC.ThankArmAsk(who, list)
+    if not ns.db or XC.DB().thank == false then return end
+    if not XC.ThankArmed() or not XC.thankPrev then XC.thankPrev = XC.ThankScan() end   -- 密之前身上有的不算「新加的」
+    local t = now()
+    XC.askAt = t
+    for _, x in ipairs(list or {}) do
+        local k = type(x) == "table" and x.k or x
+        if k then XC.askWant[k] = { who = who, t = t } end
+    end
+end
+local function askOf(k)
+    local a = XC.askWant[k]
+    return a and now() - a.t <= XC.THANK_ARM and a or nil
+end
 function XC.ThankArmed()
     if not ns.db or XC.DB().thank == false then return false end
     if XC.DB().thankAlways == true then return true end
+    if XC.askAt and now() - XC.askAt <= XC.THANK_ARM then return true end
     return (XC.shoutAt and now() - XC.shoutAt <= XC.THANK_ARM) and true or false
 end
 local function wantK(k)
+    if askOf(k) then return true end
     if XC.shoutAt and now() - XC.shoutAt <= XC.THANK_ARM and XC.thankWant and XC.thankWant[k] then return true end
     if XC.DB().thankAlways == true then
         local BA, t = ns.BuffAsk, bk(k)
@@ -927,6 +946,9 @@ function XC.ThankAura()
     for k, u in pairs(cur) do
         if prev[k] == nil and wantK(k) then
             local who = giver(u)
+            local a = askOf(k)
+            if not who and u == false and a and type(a.who) == "string" then who = a.who end   -- 11-23 读不到施法者：算密的那个人给的
+            XC.askWant[k] = nil
             if who then by[who] = by[who] or {}; table.insert(by[who], k) end
         end
     end
@@ -1081,7 +1103,7 @@ if ns.RegisterSettings then
     -- 11-17 用户截图四条（默认都开；回谢默认只在喊过 BUFF 之后 10 分钟内）
     local function chk(id, key, cn, en, indent)
         items[#items + 1] = { type = "check", id = id, indent = indent, text = function() return L(cn, en) end,
-            get = function() return opt2(key) end, set = function(v) XC.DB()[key] = (not v) and false or nil; if XC.Prep and XC.Prep.Refresh then XC.Prep.Refresh() end end }
+            get = function() return opt2(key) end, set = function(v) if v then XC.DB()[key] = nil else XC.DB()[key] = false end; if XC.Prep and XC.Prep.Refresh then XC.Prep.Refresh() end end }
     end
     chk("xp.cbDim", "cbDim", "职业 BUFF：身上已有的图标变暗，缺的保持亮", "Class buffs: dim the ones you already have")
     chk("xp.srcNav", "srcNav", "商人来源（弓箭商 / 旅店 / 杂货商…）：点一下插旗导航到最近的", "Vendor sources: click to set a waypoint to the nearest one")

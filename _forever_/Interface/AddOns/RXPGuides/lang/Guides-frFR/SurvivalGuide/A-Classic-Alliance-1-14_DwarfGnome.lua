@@ -694,7 +694,7 @@ step
     .goto Dun Morogh,42.25,53.68
     >>Tuez les |cRXP_ENEMY_Wendigos|r et les |cRXP_ENEMY_Young Wendigos|r. Dépouillez-les pour leur |cRXP_LOOT_Wendigo Manes|r
     >>N'oubliez pas de garder un oeil sur les [Filons de cuivre] qui possèdent des |cRXP_LOOT_[Rough Stones]|r vous permettant de fabriquer des [Pierre à aiguiser brute] << Warrior/Rogue
-    >>N'oubliez pas de garder un oeil sur les [Filons de cuivre] qui possèdent des |cRXP_LOOT_[Rough Stones]|r vous permettant de fabriquer des [Caillou brut] << Paladin
+    >>N'oubliez pas de garder un œil pour les [Filons de cuivre] qui contiennent des |cRXP_LOOT_[Rough Stones]|r pour fabriquer des [Caillou brute] << Paladin
     .complete 313,1 --Collect Wendigo Mane (x8)
     .mob Wendigo
     .mob Young Wendigo
@@ -1324,7 +1324,7 @@ step
 step
     .goto Dun Morogh,62.6,46.1
     >>Tuez |cRXP_ENEMY_Vagash|r. Dépouillez-le pour sa |cRXP_LOOT_Fang|r
-    >>Cette quête est difficile. Montez un groupe pour le tuer si nécessaire. Passez cette étape si vous n'arrivez pas à monter un groupe ou à le tuer solo
+    >>|cRXP_WARN_Cette quête est difficile. Montez un groupe pour le tuer si nécessaire. Passez cette étape si vous n'arrivez pas à monter un groupe ou à le tuer seul|r
     >>|cRXP_WARN_Regardez bien la vidéo avant de tenter de tuer|cRXP_ENEMY_Vagash|r. Il peut être tuer en solo par n'importe quelle classe|r
     .link https://www.youtube.com/watch?v=ZJX6sCkm5JY >> Cliquez ici pour un exemple vidéo
     .complete 314,1 --Collect Fang of Vagash (1)
@@ -1545,7 +1545,7 @@ step
     .goto Ironforge,39.550,57.490
     .turnin 291 >> Rendez la quête Les rapports
 step << Warrior
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Buliwyf Main-de-pierre|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Buliwyf Stonehand|r
     >>|cRXP_WARN_Équipez maintenant le|r |T133052:0|t[|cRXP_FRIENDLY_Marteau des Frigères|r] |cRXP_WARN_si vous ne l'aviez pas fait avant|r
     .target Buliwyf Stonehand
     .goto Ironforge,61.181,89.514
@@ -2227,7 +2227,7 @@ step << Warlock
     >>Tuez |cRXP_ENEMY_Hogger|r. Dépouillez-les pour leur |cRXP_LOOT_Claw|r
     >>|cRXP_ENEMY_Hogger|r peut apparaître à de nombreux endroits
     >>Lancez [Peur] |cRXP_WARN_sur |cRXP_ENEMY_Hogger|r en boucle et utilisez vos DoTs pour le tuer|r
-    >>Cette quête est difficile. Montez un groupe pour le tuer si nécessaire. Passez cette étape si vous n'arrivez pas à monter un groupe ou à le tuer solo
+    >>|cRXP_WARN_Cette quête est difficile. Montez un groupe pour le tuer si nécessaire. Passez cette étape si vous n'arrivez pas à monter un groupe ou à le tuer seul|r
     .complete 176,1 --Huge Gnoll Claw (1)
     .unitscan Hogger
 step
@@ -2247,7 +2247,7 @@ step
     .goto Elwynn Forest,25.9,93.9
     >>Tuez |cRXP_ENEMY_Hogger|r. Dépouillez-les pour leur |cRXP_LOOT_Claw|r
     >>|cRXP_ENEMY_Hogger|r peut apparaître à de nombreux endroits
-    >>Cette quête est difficile. Montez un groupe pour le tuer si nécessaire. Passez cette étape si vous n'arrivez pas à monter un groupe ou à le tuer solo
+    >>|cRXP_WARN_Cette quête est difficile. Montez un groupe pour le tuer si nécessaire. Passez cette étape si vous n'arrivez pas à monter un groupe ou à le tuer seul|r
     .complete 176,1 --Huge Gnoll Claw (1)
     .unitscan Hogger
 step
@@ -2761,7 +2761,7 @@ step << Warlock
     #hardcore
     .goto Ironforge,51.1,8.7,15,0
     .goto Ironforge,50.343,5.657
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Eglantine|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Briarthorn|r
     .trainer >> Apprenez vos sorts de classe
     .target Briarthorn
 step << Warlock

@@ -1666,7 +1666,7 @@ end
 
 function Spy:HandleProfileChanges()
 	Spy:CreateMainWindow()
-	Spy:RestoreMainWindowPosition(Spy.db.profile.MainWindow.Position.x, Spy.db.profile.MainWindow.Position.y, Spy.db.profile.MainWindow.Position.w, 34)
+	Spy:RestoreMainWindowPosition(Spy.db.profile.MainWindow.Position.x, Spy.db.profile.MainWindow.Position.y, Spy.db.profile.MainWindow.Position.w, (Spy.SavedWindowHeight and Spy:SavedWindowHeight() or 34)) -- Forever: saved height
 	Spy:ResizeMainWindow()
 	Spy:UpdateTimeoutSettings()
 	Spy:LockWindows(Spy.db.profile.Locked)

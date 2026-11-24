@@ -153,6 +153,7 @@ local function build(p)
     p.hop:SetPoint("TOPLEFT", 12, y)
     p.hopSt = body:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
     p.hopSt:SetPoint("LEFT", p.hop, "RIGHT", 12, 0); p.hopSt:SetWidth(CARD_W - 170); p.hopSt:SetJustifyH("LEFT")
+    p.hopSt:SetWordWrap(false)   -- 11-22 用户「看着像错位闪动」：倒计时每秒刷，折成两行就压到下面的额度卡片
     y = y - 36
     p.gHd = body:CreateFontString(nil, "OVERLAY", "GameFontNormal"); p.gHd:SetPoint("TOPLEFT", 12, y)
     y = y - 20
@@ -208,9 +209,10 @@ local function build(p)
     local function offSet(k) return function(v) if v then D()[k] = nil else D()[k] = false end end end
     p.checks[1] = check(body, 10, 0, L("我愿意帮公会会员换层", "Help guildmates switch layers"),
         function() return D().helper end, function(v) D().helper = v; LY.Beat(true) end)
-    p.checks[2] = check(body, 310, 0, L("公会会员求助自动拉（不弹框）", "Auto-invite guildmates (no prompt)"),
+    p.checks[2] = check(body, 310, 0, L("换层求助自动拉（没组队时）", "Auto-invite requests when solo"),
         function() return D().autoHelp end, own("autoHelp"))
-    p.checks[3] = check(body, 10, 0, L("换过去后自动退队（换过去的层会留下）", "Leave the group after the move"),
+    -- 11-22 autoLeave 还是 nil（没问过）时显示没勾：说明写清楚「没设过的第一次换成后会问」，不是「不退」（默认值不动）
+    p.checks[3] = check(body, 10, 0, L("换过去后自动退队（没设过的：第一次换成后问你）", "Leave the group after the move (unset = asked once)"),
         function() return D().autoLeave end, own("autoLeave"))
     p.checks[4] = check(body, 310, 0, L("会长 / 官员的组队邀请自动接受", "Auto-accept leader / officer invites"),
         function() return D().autoAccept end, own("autoAccept"))
@@ -250,15 +252,13 @@ local function build(p)
         if pend and pend.joinedAt then
             -- 11-09「怎么判断是不是换成功了」：进队后写清楚在确认什么、怎么加快
             local who = (pend.leader or pend.helper) and tostring(pend.leader or pend.helper):gsub("%-.*$", "") or askWho()
-            -- 11-12：插件自己在读目标 / 姓名板 / 队友目标，读不到就 INFER_AFTER 秒后按队长那层算 → 写出还要等几秒
-            local left = math.max(0, math.ceil(LH.INFER_AFTER - (tn - pend.joinedAt)))
-            p.hopSt:SetText("|cffffcc00" .. (left > 0
-                and string.format(L("已进 %s 的队，正在自动确认换没换层（还要 %d 秒）：鼠标指一下附近任意 NPC / 怪能马上出结果", "Joined %s's group - confirming your layer (%ds; mouse over an NPC)"), who, left)
-                or string.format(L("已进 %s 的队，还没认出新层：鼠标指一下附近任意 NPC / 怪就能出结果", "Joined %s's group - layer not read yet (mouse over an NPC)"), who)) .. "|r")
+            -- 11-23：亲眼读到队长那层才算换成，最多等 CONFIRM 秒（不再按队长报的层推断）→ 写出最多还等几秒、先别退队
+            local left = math.max(0, math.ceil(LH.CONFIRM - (tn - pend.joinedAt)))
+            p.hopSt:SetText("|cffffcc00" .. string.format(L("已进 %s 的队，先别退队：等插件亲眼读到新层（最多 %d 秒）· 指一下附近 NPC / 怪更快", "Joined %s - stay; confirming layer (up to %ds), mouse over an NPC"), who, left) .. "|r")
         elseif pend and tn - pend.t < LH.ACCEPT_WIN then
             -- 11-08「我到底切换了没」：等待中写清楚在等谁、还剩几秒；结果出来写结果
             local who = pend.helper and tostring(pend.helper):gsub("%-.*$", "") or askWho()
-            p.hopSt:SetText("|cffffcc00" .. string.format(L("等 %s 邀请你（还剩 %d 秒）：他一邀请就自动进队，到了会提示", "Waiting for %s to invite you (%ds)"), who, math.max(0, math.ceil(LH.ACCEPT_WIN - (tn - pend.t)))) .. "|r")
+            p.hopSt:SetText("|cffffcc00" .. string.format(L("等 %s 邀请你（还剩 %d 秒）", "Waiting for %s to invite you (%ds)"), who, math.max(0, math.ceil(LH.ACCEPT_WIN - (tn - pend.t)))) .. "|r")
         elseif last and tn - last.t < 120 then
             p.hopSt:SetText((last.ok and "|cff33ff66" or "|cffff7766") .. ((LH.LastText and LH.LastText()) or last.text) .. "|r")   -- 11-14 按当前编号重算
         else
@@ -356,18 +356,8 @@ local function build(p)
         for _, g in ipairs(groups) do others = others + #g.members end
         local onlyMe = others == 0   -- 11-06 来过的层也列出来了 → 按「有没有别的会员」判断空状态
         -- 11-06 用户「公会有人已经装了，为啥看不到」：空状态后面写清楚收到了几个会员的位面信号、都在哪张图（同图才进卡片）
-        local allPeers, here = LY.Peers("guild"), 0
-        local maps = {}
-        for _, peer in ipairs(allPeers) do
-            if not (LY.IsMe and LY.IsMe(peer.full or peer.name)) then
-                if peer.m == m then here = here + 1 elseif peer.m then maps[peer.m] = (maps[peer.m] or 0) + 1 end
-            end
-        end
-        local elsewhere = {}
-        for mm, n in pairs(maps) do elsewhere[#elsewhere + 1] = LY.MapName(mm) .. " " .. n end
-        local diag = #allPeers == 0 and L("最近 2 分钟没收到任何公会会员的位面信号：对方要是 0.7.0、并且在线。", "No guildmate layer signals in the last 2 min (they need 0.7.0 and be online).")
-            or string.format(L("收到 %d 位公会会员的位面信号：同图 %d 人%s。", "%d guildmates seen: %d on this map%s."), #allPeers, here,
-                #elsewhere > 0 and (L("，别的图：", "; elsewhere: ") .. table.concat(elsewhere, "、")) or "")
+        -- 11-22 用户「字多，不用都展示」：不再逐图列人数（下面「别的图的公会会员」已经列了），一个都没收到时才多说一句
+        local diag = #LY.Peers("guild") == 0 and L("最近 2 分钟没收到任何公会会员的位面信号：对方要是 0.7.0、并且在线。", "No guildmate layer signals in the last 2 min (they need 0.7.0 and be online).") or ""
         p.empty:SetText(L("同图还没有其他公会会员（公会会员也装了插件、指过一只怪才看得到）。", "No other guildmates on this map yet. ") .. diag)
         p.empty:SetShown(onlyMe and #unknown == 0)
         if p.empty:IsShown() then

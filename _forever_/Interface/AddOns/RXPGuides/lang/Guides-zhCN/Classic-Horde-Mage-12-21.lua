@@ -594,7 +594,7 @@ step
     .goto The Barrens,44.5,59.2
 .target 碎牙
 >>与 |cRXP_FRIENDLY_碎牙|r 对话
-    .accept 878 >>接受任务野猪人的内战
+    .accept 878 >>接受任务 野猪人的内战
 step
     .goto The Barrens,44.5,59.2
     .fp Camp Taurajo >> 获得陶拉祖营地的飞行点
@@ -615,7 +615,7 @@ step
 >>与 |cRXP_FRIENDLY_图加·符文图腾|r 对话
     .turnin 877 >>交任务  死水绿洲
 .target 图加·符文图腾
-    .accept 880 >>接受任务 变异的生物
+    .accept 880 >>接受任务变异的生物
 step
     .goto The Barrens,52.0,31.6
 .target 曼科里克
@@ -697,9 +697,9 @@ step
 step
     .goto The Barrens,35.3,27.9
 >>与 |cRXP_FRIENDLY_希雷斯·碎石|r 对话
-    .turnin 1061 >> 交任务石爪之灵
+    .turnin 1061 >> 交任务  石爪之灵
 .target 希雷斯·碎石
-    .accept 1062 >> 接受任务 地精侵略者
+    .accept 1062 >> 接受任务地精侵略者
 .target 玛卡巴·扁蹄
 >>与 |cRXP_FRIENDLY_玛卡巴·扁蹄|r 对话
     .accept 6548 >> 接受任务 为我的村庄复仇
@@ -778,7 +778,7 @@ step
 >>与 |cRXP_FRIENDLY_菲兹克斯|r 对话
     .turnin 1483 >> 交任务  菲兹克斯
 .target 菲兹克斯
-    .accept 1093 >> 接受任务 超级收割机6000
+    .accept 1093 >> 接受任务超级收割机6000
 step
     #sticky
     #requires deepmossegg
@@ -914,7 +914,7 @@ step
     .goto The Barrens,52.0,31.6
 .target 曼科里克
 >>与 |cRXP_FRIENDLY_曼科里克|r 对话
-    .turnin 899 >>交任务复仇的怒火
+    .turnin 899 >>交任务  复仇的怒火
 step
     >>塔顶
     .goto The Barrens,51.60,30.90
@@ -928,7 +928,7 @@ step
 >>与 |cRXP_FRIENDLY_药剂师赫布瑞姆|r 对话
     .turnin 848 >>交任务  菌类孢子
 .target 药剂师赫布瑞姆
-    .accept 853 >>接受任务 药剂师扎玛
+    .accept 853 >>接受任务药剂师扎玛
 step
     .goto The Barrens,51.5,30.3
     .fly Camp Taurajo >>飞往陶拉祖营地
@@ -990,7 +990,7 @@ step
     .goto The Barrens,44.9,59.1
 .target 乔恩·星眼
 >>与 |cRXP_FRIENDLY_乔恩·星眼|r 对话
-    .turnin 884 >>交任务奥瓦坦卡
+    .turnin 884 >>交任务  奥瓦坦卡
     .isOnQuest 884
 step
     .goto The Barrens,44.9,59.1
@@ -1060,7 +1060,7 @@ step
 >>与 |cRXP_FRIENDLY_希雷斯·碎石|r 对话
     .turnin 1062 >>交任务地精侵略者
 >>与 |cRXP_FRIENDLY_玛卡巴·扁蹄|r 对话
-    .turnin 6629 >>交任务杀死格鲁迪格·黑云
+    .turnin 6629 >>交任务  杀死格鲁迪格·黑云
     .turnin 6523 >>交任务保护卡雅
 .target 玛卡巴·扁蹄
     .accept 6401 >>接受任务卡雅还活着
@@ -1091,9 +1091,9 @@ step
 step
     .goto Thunder Bluff,70.00,30.90
 >>与 |cRXP_FRIENDLY_玛加萨·恐怖图腾|r 对话
-    .turnin 1063 >> 交任务  巫婆长老
+    .turnin 1063 >> 交任务巫婆长老
 .target 玛加萨·恐怖图腾
-    .accept 1064 >> 接受任务 被遗忘者的援助
+    .accept 1064 >> 接受任务被遗忘者的援助
 step
     .goto Thunder Bluff,78.62,28.56
 >>与 |cRXP_FRIENDLY_大德鲁伊哈缪尔·符文图腾|r 对话

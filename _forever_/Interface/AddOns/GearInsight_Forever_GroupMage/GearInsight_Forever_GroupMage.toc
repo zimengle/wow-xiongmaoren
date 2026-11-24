@@ -4,7 +4,7 @@
 ## Notes: GearInsight Forever mage food helper (loaded at login only when its options are on)
 ## Notes-zhCN: GearInsight 无限版的法师吃喝：野外弹框 / 交易道谢 / 总开关开着时登录加载，否则打开「法师吃喝」子页签时才加载；队友的灵魂石提醒也在这里（副本里组队时才加载）
 ## Author: GearInsight
-## Version: 1.4.11
+## Version: 1.4.19
 ## Dependencies: GearInsight_Forever
 ## LoadOnDemand: 1
 ## IconTexture: Interface\Icons\inv_misc_map_01
@@ -17,3 +17,4 @@
 MageWater.lua
 SoulstoneAsk.lua
 BuffAskDiag.lua
+AskTypo.lua

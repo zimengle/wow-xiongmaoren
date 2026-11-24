@@ -2,93 +2,74 @@
 DungeonsForeverProfDB = {
 ["prof"] = {
 ["lastSlug"] = "enchanting",
-["routePartners"] = {
-},
 ["migratedFrom"] = "1.9.32->pr10",
-["lastTab"] = "leveling",
-["follow"] = {
-["露露缇娅-CAMWOW CN1 Realm 2 PvE"] = {
-["t0"] = 1791753029,
-["step"] = 9,
-["hidden"] = true,
-["slug"] = "tailoring",
-["skill"] = 119,
-["rkey"] = "fixed:23:1:2963:300",
-},
-},
+["legacyRunsWiped"] = 1,
 ["professionSettings"] = {
 ["tailoring"] = {
-["autoRoute"] = true,
 ["autoScheme"] = "cheapest",
+["autoRoute"] = true,
 },
 ["blacksmithing"] = {
-["autoRoute"] = true,
 ["autoScheme"] = "cheapest",
+["autoRoute"] = true,
 },
 ["skinning"] = {
-["autoRoute"] = true,
 ["autoScheme"] = "cheapest",
+["autoRoute"] = true,
 },
 ["camping"] = {
-["autoRoute"] = true,
 ["autoScheme"] = "cheapest",
+["autoRoute"] = true,
 },
 ["alchemy"] = {
-["autoRoute"] = true,
 ["autoScheme"] = "cheapest",
+["autoRoute"] = true,
 },
 ["mining"] = {
-["autoRoute"] = true,
 ["autoScheme"] = "cheapest",
+["autoRoute"] = true,
 },
 ["crates"] = {
-["autoRoute"] = true,
 ["autoScheme"] = "cheapest",
-},
-["herbalism"] = {
 ["autoRoute"] = true,
+},
+["poisons"] = {
 ["autoScheme"] = "cheapest",
 },
 ["cooking"] = {
-["autoRoute"] = true,
 ["autoScheme"] = "cheapest",
+["autoRoute"] = true,
 },
-["leatherworking"] = {
-["autoRoute"] = true,
+["comprehension"] = {
 ["autoScheme"] = "cheapest",
+["autoRoute"] = true,
 },
 ["first-aid"] = {
 ["autoScheme"] = "cheapest",
 },
 ["fishing"] = {
-["autoRoute"] = true,
 ["autoScheme"] = "cheapest",
+["autoRoute"] = true,
 },
 ["engineering"] = {
+["autoScheme"] = "cheapest",
 ["autoRoute"] = true,
-["autoScheme"] = "cheapest",
 },
-["poisons"] = {
+["leatherworking"] = {
 ["autoScheme"] = "cheapest",
-},
-["comprehension"] = {
 ["autoRoute"] = true,
+},
+["herbalism"] = {
 ["autoScheme"] = "cheapest",
+["autoRoute"] = true,
 },
 ["enchanting"] = {
-["autoRoute"] = true,
 ["autoScheme"] = "cheapest",
+["autoRoute"] = true,
 },
-},
-["cdList"] = {
-},
-["cd"] = {
 },
 ["cdVer"] = 2,
 ["pricingMigration"] = 1,
-["cdMig"] = 6,
-["cdKnow"] = {
-},
 ["economy"] = {
 ["仓库-CN5 Realm 3 PvP"] = {
 ["recipeRosters"] = {
@@ -110,18 +91,19 @@ DungeonsForeverProfDB = {
 },
 },
 ["重庆-"] = {
-["recipeRosters"] = {
-},
-["recipes"] = {
-},
 ["learningRequirements"] = {
 },
+["clientInputRevision"] = 2,
+["recipeRosters"] = {
+},
 ["recipeBuild"] = "1.60.1:71037",
+["recipes"] = {
+},
 },
 ["巴菲特-"] = {
 ["learningRequirements"] = {
 },
-["clientInputRevision"] = 5,
+["clientInputRevision"] = 7,
 ["recipeRosters"] = {
 },
 ["recipeBuild"] = "1.60.1:71037",
@@ -143,6 +125,9 @@ DungeonsForeverProfDB = {
 ["enchanting"] = {
 },
 },
+["routePartners"] = {
+},
+["lastTab"] = "leveling",
 ["track"] = {
 ["仓库-CN5 Realm 3 PvP"] = {
 ["nextID"] = 0,
@@ -150,13 +135,13 @@ DungeonsForeverProfDB = {
 ["version"] = 1,
 ["active"] = {
 },
-["runs"] = {
+["endedContracts"] = {
 },
 ["continuation"] = {
 },
 ["preparing"] = {
 },
-["endedContracts"] = {
+["runs"] = {
 },
 },
 ["巴菲特-CN1 Realm 3 PvE"] = {
@@ -165,43 +150,43 @@ DungeonsForeverProfDB = {
 ["version"] = 1,
 ["active"] = {
 },
-["runs"] = {
+["endedContracts"] = {
 },
 ["continuation"] = {
 },
 ["preparing"] = {
 },
-["endedContracts"] = {
+["runs"] = {
 },
 },
 ["重庆-"] = {
 ["nextID"] = 0,
-["observerSession"] = 2,
+["observerSession"] = 5,
 ["version"] = 1,
 ["active"] = {
 },
-["endedContracts"] = {
+["runs"] = {
 },
 ["continuation"] = {
 },
 ["preparing"] = {
 },
-["runs"] = {
+["endedContracts"] = {
 },
 },
 ["巴菲特-"] = {
 ["nextID"] = 0,
-["observerSession"] = 10,
+["observerSession"] = 17,
 ["version"] = 1,
 ["active"] = {
 },
-["runs"] = {
+["endedContracts"] = {
 },
 ["continuation"] = {
 },
 ["preparing"] = {
 },
-["endedContracts"] = {
+["runs"] = {
 },
 },
 ["重庆-CN5 Realm 3 PvP"] = {
@@ -210,15 +195,32 @@ DungeonsForeverProfDB = {
 ["version"] = 1,
 ["active"] = {
 },
-["runs"] = {
+["endedContracts"] = {
 },
 ["continuation"] = {
 },
 ["preparing"] = {
 },
-["endedContracts"] = {
+["runs"] = {
 },
 },
+},
+["cdList"] = {
+},
+["cdKnow"] = {
+},
+["cdMig"] = 6,
+["follow"] = {
+["露露缇娅-CAMWOW CN1 Realm 2 PvE"] = {
+["t0"] = 1791753029,
+["skill"] = 119,
+["step"] = 9,
+["slug"] = "tailoring",
+["hidden"] = true,
+["rkey"] = "fixed:23:1:2963:300",
+},
+},
+["cd"] = {
 },
 },
 }

@@ -20,6 +20,7 @@ function addon.ui.v2:Initialize()
     L = addon.locale.Get
 
     self:RegisterRXPV2CommsWindow()
+    self:RegisterRXPV2MiniFrame()
     self:RegisterRXPV2CommsText()
     self:RegisterRXPV2LevelSplitsColumn()
     self:RegisterRXPV2LevelSplitsRow()
@@ -243,6 +244,125 @@ function addon.ui.v2:RegisterRXPV2CommsWindow()
     end
 
     AceGUI:RegisterLayout(Type, function() end)
+    AceGUI:RegisterWidgetType(Type, Constructor, Version)
+end
+
+function addon.ui.v2:RegisterRXPV2MiniFrame()
+    local Type, Version = "RXPV2MiniFrame", 1
+    if not AceGUI or (AceGUI:GetWidgetVersion(Type) or 0) >= Version then return end
+
+    local methods = {
+        ["OnAcquire"] = function(this)
+            this:SetWidth(160)
+            this:SetHeight(50)
+            this.title.text:SetFont(addon.v2:GetTheme().font, 9, "")
+            this:SetTitle("")
+        end,
+
+        ["OnRelease"] = function(this)
+            this.hideBackgroundSetting = nil
+            this.movingOrSizing = nil
+            addon.ui.v2:SetFrameBackdropShown(this.frame, false)
+            addon.ui.v2:SetFrameBackdropShown(this.title, false)
+        end,
+
+        ["LayoutFinished"] = function(this, _, height)
+            if not this.noAutoHeight then this:SetHeight(height or 0) end
+        end,
+
+        ["SetScale"] = function(this, scale) this.frame:SetScale(scale) end,
+        ["GetHeight"] = function(this) return this.frame:GetHeight() end,
+        ["GetAlpha"] = function(this) return this.frame:GetAlpha() end,
+        ["SetAlpha"] = function(this, alpha) this.frame:SetAlpha(alpha) end,
+        ["StartMoving"] = function(this)
+            if addon.settings.profile.lockFrames and not IsAltKeyDown() then return end
+            if InCombatLockdown() and this.frame:IsProtected() then return end
+            this.frame:StartMoving()
+            this.movingOrSizing = true
+        end,
+        ["StartSizing"] = function(this, point)
+            if addon.settings.profile.lockFrames and not IsAltKeyDown() then return end
+            if InCombatLockdown() and this.frame:IsProtected() then return end
+            this.frame:StartSizing(point)
+            this.movingOrSizing = true
+            return true
+        end,
+        ["StopMovingOrSizing"] = function(this)
+            if not this.movingOrSizing then return end
+            this.movingOrSizing = nil
+            if InCombatLockdown() and this.frame:IsProtected() then return end
+            this.frame:StopMovingOrSizing()
+            addon.settings:SaveFramePositions()
+        end,
+        ["SetResizeBounds"] = function(this, width, height) addon.SetResizeBounds(this.frame, width, height) end,
+        ["Hide"] = function(this) this.frame:Hide() end,
+        ["Show"] = function(this) this.frame:Show() end,
+        ["SetShown"] = function(this, shown) this.frame:SetShown(shown) end,
+
+        ["SetTitle"] = function(this, label)
+            this.title.text:SetText(label or "")
+            this.title:SetWidth(this.title.text:GetStringWidth() + 10)
+        end,
+
+        ["UpdateTheme"] = updateTheme,
+
+        ["UpdateSubTheme"] = function(this)
+            local theme = addon.v2:GetTheme()
+            local legacyTheme = not addon.v2:IsEnabled() and addon.activeTheme
+            local backgroundColor = legacyTheme and legacyTheme.background or theme.backgroundColors.common
+            local borderColor = legacyTheme and (legacyTheme.borderColor or legacyTheme.bottomFrameHighlight) or
+                                theme.borderColors.commonEdge
+            addon.ui.v2:ApplyFrameBackdrop(this.frame, theme.edge, backgroundColor, borderColor)
+            addon.ui.v2:AddFrameShadow(this.frame)
+            addon.ui.v2:SetFrameBackdropShown(this.frame, not addon.settings.profile[this.hideBackgroundSetting])
+            addon.ui.v2:ApplyFrameBackdrop(this.title, theme.edge, backgroundColor, borderColor)
+            addon.ui.v2:SetFrameBackdropShown(this.title, true)
+            this.title.text:SetFont(theme.font, 9, "")
+            this.title.text:SetTextColor(unpack(legacyTheme and legacyTheme.textColor or theme.textColor.title))
+            this.title:SetWidth(this.title.text:GetStringWidth() + 10)
+        end
+    }
+
+    local function Constructor()
+        local frameName = Type .. AceGUI:GetNextWidgetNum(Type)
+        local frame = CreateFrame("Frame", frameName, UIParent)
+        frame:Hide()
+        frame:SetClampedToScreen(true)
+        frame:EnableMouse(true)
+        frame:SetMovable(true)
+
+        local content = CreateFrame("Frame", nil, frame)
+        content:SetAllPoints(frame)
+
+        local title = CreateFrame("Frame", "$parent_title", frame)
+        title:SetPoint("TOPLEFT", frame, 5, 8)
+        title:SetFrameLevel(frame:GetFrameLevel() + 3)
+        title:SetHeight(19)
+        title:EnableMouse(true)
+        title.text = title:CreateFontString(nil, "OVERLAY")
+        title.text:SetPoint("CENTER", title)
+        title.text:SetJustifyH("CENTER")
+        title.text:SetJustifyV("MIDDLE")
+
+        local widget = {frame = frame, content = content, title = title, type = Type}
+        for method, func in pairs(methods) do widget[method] = func end
+
+        local function onMouseDown(_, button)
+            if button == "LeftButton" then widget:StartMoving() end
+        end
+        local function onMouseUp(_, button)
+            if button == "LeftButton" then widget:StopMovingOrSizing() end
+        end
+        frame:SetScript("OnMouseDown", onMouseDown)
+        frame:SetScript("OnMouseUp", onMouseUp)
+        title:SetScript("OnMouseDown", onMouseDown)
+        title:SetScript("OnMouseUp", onMouseUp)
+        title:RegisterEvent("PLAYER_REGEN_DISABLED")
+        title:SetScript("OnEvent", function() widget:StopMovingOrSizing() end)
+
+        return AceGUI:RegisterAsContainer(widget)
+    end
+
     AceGUI:RegisterWidgetType(Type, Constructor, Version)
 end
 
@@ -1116,8 +1236,7 @@ function addon.ui.v2:ApplyDropdownTheme(dropdown, theme)
     local pullout = dropdown and dropdown.pullout
     if not pullout then return end
 
-    local baseTheme = addon.v2.themes["RXP Blue V2"]
-    theme = theme or addon.v2.themes[addon.settings and addon.settings.profile.activeTheme] or baseTheme
+    theme = theme or addon.v2:GetTheme()
     local frame = pullout.frame
     local button = dropdown.button
 
@@ -2581,6 +2700,11 @@ function addon.ui.v2:RegisterRXPV2ScrollFrame()
     Methods
     -------------------------------------------------------------------------------]]
     local methods = {
+        ["Hide"] = function(this) this.frame:Hide() end,
+        ["Show"] = function(this) this.frame:Show() end,
+        ["SetShown"] = function(this, shown) this.frame:SetShown(shown) end,
+        ["GetHeight"] = function(this) return this.frame:GetHeight() end,
+
         ["OnAcquire"] = function(this)
             this.contentTopPadding = 0
             this:SetScroll(0)
@@ -3646,6 +3770,7 @@ function addon.ui.v2:RegisterRXPV2ActiveStepItem()
             this.elementRows = this.elementRows or {}
             this.activeElementRows = 0
             this.noAutoHeight = false
+            this:UpdateSubTheme()
         end,
 
         ["OnRelease"] = function(this)
@@ -3811,9 +3936,7 @@ function addon.ui.v2:RegisterRXPV2ActiveStepItem()
 
         ["UpdateTheme"] = updateTheme,
 
-        ["UpdateSubTheme"] = function(this, payload)
-            if not payload then return end
-
+        ["UpdateSubTheme"] = function(this)
             local theme = addon.v2:GetTheme()
 
             addon.ui.v2:ApplyFrameBackdrop(this.card, theme.edge, theme.backgroundColors.common,
@@ -3851,21 +3974,18 @@ function addon.ui.v2:RegisterRXPV2ActiveStepItem()
         local card = CreateFrame("Frame", nil, frame, BackdropTemplateMixin and "BackdropTemplate")
         card:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, 0)
         card:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", 0, 8)
-        addon.ui.v2:ApplyFrameBackdrop(card, theme.edge, theme.backgroundColors.common, theme.borderColors.commonEdge)
         addon.ui.v2:AddFrameShadow(card)
 
         local title = CreateFrame("Frame", nil, card, BackdropTemplateMixin and "BackdropTemplate")
         title:SetFrameLevel(card:GetFrameLevel() + 2)
         title:SetPoint("TOPLEFT", card, "TOPLEFT", 6, 9)
         title:ClearBackdrop()
-        addon.ui.v2:ApplyFrameBackdrop(title, theme.edge, theme.backgroundColors.common, theme.borderColors.commonEdge)
 
         local titletext = title:CreateFontString(nil, "OVERLAY")
         titletext:ClearAllPoints()
         titletext:SetPoint("CENTER", title, 0, 0)
         titletext:SetJustifyH("CENTER")
         titletext:SetJustifyV("MIDDLE")
-        titletext:SetTextColor(unpack(theme.textColor.title))
         titletext:SetFont(theme.font, addon.v2:GetGuideFontSize() - 1, "")
 
         -- Container Support

@@ -1298,9 +1298,7 @@ local function PaintRewards()
     for ti, tier in ipairs(REWARDS) do
         local card = EG.rwCards and EG.rwCards[ti]
         if card and card.hd then
-            local pat = (tier.at == EG.NECK_AT) and L["%d本 → 项链"]
-                or (tier.at == EG.RING_AT) and L["%d本 → 戒指"] or L["%d本 → 三选一"]
-            card.hd:SetText(format(pat, tier.at))
+            card.hd:SetText(format(L["%d本"], tier.at))
         end
         local done = false
         if C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted and tier.questID then
@@ -4112,9 +4110,7 @@ function EG.Build(page)
         tick:SetPoint("TOPLEFT", bar, "TOPLEFT", x, -4)
         local lab = MakeFS(labelHost, 14, C_DIM, "CENTER")
         lab:SetPoint("TOP", page, "TOPLEFT", EG.X0 + EG.LIST_PAD + x, -EG.TICK_Y)
-        lab:SetText(at == EG.NECK_AT and L["10本 项链"]
-            or at == EG.RING_AT and L["20本 戒指"]
-            or at == EG.CHOICE_AT and L["25本 三选一"] or L["35本 三选一"])
+        lab:SetText(format(L["%d本"], at))
         EG.tickLabs[at] = lab
     end
     EG.barFill = fill

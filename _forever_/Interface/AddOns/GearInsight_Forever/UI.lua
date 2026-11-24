@@ -436,6 +436,8 @@ MODS.groupui = { addon = "GearInsight_Forever_GroupUI", zh = "组队界面", en 
 MODS.mage = { addon = "GearInsight_Forever_GroupMage", zh = "法师吃喝", en = "Mage food",
     ready = function() return ns.MageWater ~= nil end,
     attach = function() end }
+-- 11-23 任务配对（HOLD，默认关）：开关开着时信标登录加载；/gi qp 先加载再执行
+MODS.qp = { addon = "GearInsight_Forever_GroupPair", zh = "任务配对", en = "Quest pairing", ready = function() return ns._qpReady == true end, attach = function() end }
 
 local function addonInfo(name)
     local f = (C_AddOns and C_AddOns.GetAddOnInfo) or GetAddOnInfo
@@ -521,7 +523,7 @@ function ns.LoadModule(key, quiet)
     if m.ready() then return true end
     -- 11-18 用户截图（插件列表里「法师吃喝」「组队界面」没挂在主插件下面）：这两个的 toc 依赖只留主插件（多一个依赖列表就不往下挂），
     --   游戏不再自动先加载组队信标 → 这里先加载组队，加载不上就不加载它们
-    if (key == "mage" or key == "groupui") and not ns.LoadModule("group", quiet) then return false end
+    if (key == "mage" or key == "groupui" or key == "qp") and not ns.LoadModule("group", quiet) then return false end
     local load = (C_AddOns and C_AddOns.LoadAddOn) or LoadAddOn
     if not load then return false end
     if quiet and ns.ModuleDisabled(key) then return false end
@@ -618,7 +620,7 @@ end
 
 -- 模块的斜杠命令：没加载时先加载再执行（加载后子插件会用真函数盖掉这里的占位）
 ns.ExtraSlash = ns.ExtraSlash or {}
-for key, cmds in pairs({ group = { "qm", "感谢", "thanks", "组队", "lfg", "lfg2", "lfgprobe", "吃喝", "water", "mw" }, guild = { "guildprobe" } }) do   -- 升级播报 / lvlshare 10-19 随 LevelShare.lua 搬回主插件，不再是占位
+for key, cmds in pairs({ group = { "qm", "感谢", "thanks", "组队", "lfg", "lfg2", "lfgprobe", "吃喝", "water", "mw" }, guild = { "guildprobe" }, qp = { "qp" } }) do   -- 升级播报 / lvlshare 10-19 随 LevelShare.lua 搬回主插件，不再是占位
     for _, c in ipairs(cmds) do
         local stub
         stub = function(rest, rawRest)

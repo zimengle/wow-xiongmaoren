@@ -51,7 +51,7 @@ step << Warrior
 step << Shaman
     .goto Mulgore,45.01,75.95
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_米拉|r 对话
-    .train 8017 >>影袭 |T136086:0|t[石化武器]
+    .train 8017 >>学习 |T136086:0|t[石化武器]
     .target 米拉·晨行者
 step
     #completewith next
@@ -299,14 +299,14 @@ step << Shaman
     .goto Mulgore,45.01,75.95
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_米拉|r 对话
     .turnin 3093 >>交任务 符文便笺
-    .train 8042 >>影袭 |T136026:0|t[大地震击]
+    .train 8042 >>学习 |T136026:0|t[大地震击]
     .target 米拉·晨行者
 step << Shaman
     #season 0
     .goto Mulgore,45.01,75.95
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_米拉|r 对话
     .turnin 3093 >>交任务 符文便笺
-    .train 8042 >>影袭 |T136026:0|t[大地震击]
+    .train 8042 >>学习 |T136026:0|t[大地震击]
     .target 米拉·晨行者
 step
     #loop
@@ -607,7 +607,7 @@ step << Druid
 step
 	#completewith BloodhoofHome
 	#softcore
-    .deathskip >> 死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处重生
+    .deathskip >> 死掉并在|cRXP_FRIENDLY_灵魂医者|r 处复生
 step
 	#hardcore
 	#completewith BloodhoofHome
@@ -1057,7 +1057,7 @@ step
 step
     #softcore
 	#completewith Thunderhorn
-    .deathskip >> 死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处重生
+    .deathskip >> 死掉并在|cRXP_FRIENDLY_灵魂医者|r 处复生
 step
     #hardcore
     #completewith Thunderhorn
@@ -1681,7 +1681,7 @@ step << !Druid
 step << Druid
     #sofcore
     #completewith Bloodhoofturnins1
-    .deathskip >> 死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处重生
+    .deathskip >> 死掉并在|cRXP_FRIENDLY_灵魂医者|r 处复生
 step << Druid
     #hardcore
     #completewith Bloodhoofturnins1
@@ -1763,7 +1763,7 @@ step << !Tauren
     .goto Mulgore,48.71,59.32
     .isQuestComplete 761
 step << !Tauren
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_Baine|r 和 |cRXP_FRIENDLY_卢尔|r 对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_贝恩|r 和 |cRXP_FRIENDLY_卢尔|r对话
     .turnin 746 >>交任务 矮人的挖掘场
     .target 贝恩·血蹄
     .goto Mulgore,47.51,60.16
@@ -1924,7 +1924,7 @@ step << Tauren
 step << Tauren
     #softcore
 	#completewith Thunderhorn2
-    .deathskip >> 死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处重生
+    .deathskip >> 死掉并在|cRXP_FRIENDLY_灵魂医者|r 处复生
 step << Tauren
     #hardcore
     #completewith Thunderhorn2
@@ -2008,7 +2008,7 @@ step << Druid
 step << Druid
     .goto Moonglade,56.21,30.64
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_德迪利特|r 对话
-    .turnin 5930 >>交任务 巨熊之灵
+    .turnin 5930 >>交任务  巨熊之灵
     .accept 5932 >>接受任务 返回雷霆崖
     .target 德迪利特·星焰
 step << Druid
@@ -2109,7 +2109,7 @@ step
 step
     #softcore
 	#completewith ZamahPickup
-    .deathskip >> 死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处重生
+    .deathskip >> 死掉并在|cRXP_FRIENDLY_灵魂医者|r 处复生
 step
     #hardcore
     #completewith ZamahPickup
@@ -2142,7 +2142,7 @@ step
     >>|cRXP_WARN_这将开启一个 45 分钟的限时任务|r
     .turnin 848 >>交任务  菌类孢子
     .timer 7,菌类孢子 剧情
-    .accept 853 >>接受任务 药剂师扎玛
+    .accept 853 >>接受任务药剂师扎玛
     .target 药剂师赫布瑞姆
     .isQuestComplete 848
 step
@@ -2151,7 +2151,7 @@ step
     .goto The Barrens,51.44,30.15
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_赫布瑞姆|r 对话
     >>|cRXP_WARN_这将开启一个 45 分钟的限时任务|r
-    .accept 853 >>接受任务 药剂师扎玛
+    .accept 853 >>接受任务药剂师扎玛
     .target 药剂师赫布瑞姆
     .isQuestTurnedIn 848
 step
@@ -2181,14 +2181,14 @@ step
     .target 安哈努
 step << Hunter
     .goto Thunder Bluff,61.3,80.9
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_梅洛|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_梅洛|r 对话
     .turnin 861 >>交任务 猎人之道
     .accept 860 >>接受任务 瑟格拉·黑棘
     .target 梅洛·石蹄
     .isQuestComplete 861
 step << Hunter
     .goto Thunder Bluff,61.3,80.9
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_梅洛|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_梅洛|r 对话
     .accept 860 >>接受任务 瑟格拉·黑棘
     .target 梅洛·石蹄
     .isQuestTurnedIn 861
@@ -2686,7 +2686,7 @@ step << Shaman
     .xp <4,1
 step
     .goto Thunder Bluff,61.3,80.9
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_梅洛|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_梅洛|r 对话
     .turnin 861 >>交任务 猎人之道
     .accept 860 >>接受任务 瑟格拉·黑棘
     .target 梅洛·石蹄
@@ -3111,13 +3111,13 @@ step << Shaman
     #season 0
     .goto Mulgore,45.01,75.95
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_米拉|r 对话
-    .train 8017 >>影袭 |T136086:0|t[石化武器]
+    .train 8017 >>学习 |T136086:0|t[石化武器]
     .target 米拉·晨行者
 step << Shaman
     #season 2
     .goto Mulgore,45.01,75.95
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_米拉|r 对话
-    .train 8017 >>影袭 |T136086:0|t[石化武器]
+    .train 8017 >>学习 |T136086:0|t[石化武器]
     .accept 77652 >>接受任务 力量神像
     .turnin 77652 >>交任务 力量神像
     .target 米拉·晨行者
@@ -3404,14 +3404,14 @@ step << Shaman
     .goto Mulgore,45.01,75.95
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_米拉|r 对话
     .turnin 3093 >>交任务 符文便笺
-    .train 8042 >>影袭 |T136026:0|t[大地震击]
+    .train 8042 >>学习 |T136026:0|t[大地震击]
     .target 米拉·晨行者
 step << Shaman
     #season 0
     .goto Mulgore,45.01,75.95
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_米拉|r 对话
     .turnin 3093 >>交任务 符文便笺
-    .train 8042 >>影袭 |T136026:0|t[大地震击]
+    .train 8042 >>学习 |T136026:0|t[大地震击]
     .target 米拉·晨行者
 step
     #loop
@@ -3669,7 +3669,7 @@ step << Druid
 step
 	#completewith BloodhoofHome
 	#softcore
-    .deathskip >> 死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处重生
+    .deathskip >> 死掉并在|cRXP_FRIENDLY_灵魂医者|r 处复生
 step
 	#hardcore
 	#completewith BloodhoofHome
@@ -4150,7 +4150,7 @@ step
     #xprate <2.1
     #softcore
 	#completewith Thunderhorn
-    .deathskip >> 死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处重生
+    .deathskip >> 死掉并在|cRXP_FRIENDLY_灵魂医者|r 处复生
 step
     #xprate <2.1
     #hardcore
@@ -4632,7 +4632,7 @@ step << Druid
 step << Druid
     .goto Moonglade,56.21,30.64
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_德迪利特|r 对话
-    .turnin 5930 >>交任务 巨熊之灵
+    .turnin 5930 >>交任务  巨熊之灵
     .accept 5932 >>接受任务 返回雷霆崖
     .target 德迪利特·星焰
     .isQuestTurnedIn 5922
@@ -4864,7 +4864,7 @@ step
     #softcore
     #completewith Bloodhoofturnins1
     .goto Mulgore,48.22,38.85
-    .deathskip >> 死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处重生
+    .deathskip >> 死掉并在|cRXP_FRIENDLY_灵魂医者|r 处复生
     >>|cRXP_WARN_确保你在路点箭头处或者它的南边死去|r
     .zoneskip Thunder Bluff
 step
@@ -4940,7 +4940,7 @@ step << !Tauren
 step << Tauren
     #xprate <2.1
     #label Bloodhoofturnins1
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_Baine|r 和 |cRXP_FRIENDLY_卢尔|r 对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_贝恩|r 和 |cRXP_FRIENDLY_卢尔|r对话
     .turnin 746 >>交任务 矮人的挖掘场
     .target 贝恩·血蹄
     .goto Mulgore,47.51,60.16
@@ -4954,7 +4954,7 @@ step << Tauren
 step << !Tauren
     #xprate <2.1
     #label Bloodhoofturnins1
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_Baine|r 和 |cRXP_FRIENDLY_卢尔|r 对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_贝恩|r 和 |cRXP_FRIENDLY_卢尔|r对话
     .turnin 746 >>交任务 矮人的挖掘场
     .target 贝恩·血蹄
     .goto Mulgore,47.51,60.16
@@ -4977,7 +4977,7 @@ step
 step
     #xprate >2.09
     #label Bloodhoofturnins1
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_Baine|r 和 |cRXP_FRIENDLY_卢尔|r 对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_贝恩|r 和 |cRXP_FRIENDLY_卢尔|r对话
     .turnin 746 >>交任务 矮人的挖掘场
     .target 贝恩·血蹄
     .goto Mulgore,47.51,60.16
@@ -5284,7 +5284,7 @@ step << skip
 step << skip
     #softcore
 	#completewith Thunderhorn2
-    .deathskip >> 死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处重生
+    .deathskip >> 死掉并在|cRXP_FRIENDLY_灵魂医者|r 处复生
 step << skip
     #hardcore
     #completewith Thunderhorn2
@@ -5356,7 +5356,7 @@ step << Druid
 step << Druid
     .goto Moonglade,56.21,30.64
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_德迪利特|r 对话
-    .turnin 5930 >>交任务 巨熊之灵
+    .turnin 5930 >>交任务  巨熊之灵
     .accept 5932 >>接受任务 返回雷霆崖
     .target 德迪利特·星焰
 step << Druid
@@ -5467,7 +5467,7 @@ step
     #xprate <2.1
     #softcore
 	#completewith ZamahPickup
-    .deathskip >> 死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处重生
+    .deathskip >> 死掉并在|cRXP_FRIENDLY_灵魂医者|r 处复生
 step
     #xprate <2.1
     #hardcore
@@ -5498,7 +5498,7 @@ step
     >>|cRXP_WARN_这将开启一个 45 分钟的限时任务|r
     .turnin 848 >>交任务  菌类孢子
     .timer 7,菌类孢子 剧情
-    .accept 853 >>接受任务 药剂师扎玛
+    .accept 853 >>接受任务药剂师扎玛
     .target 药剂师赫布瑞姆
     .isQuestComplete 848
 step
@@ -5508,7 +5508,7 @@ step
     .goto The Barrens,51.44,30.15
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_赫布瑞姆|r 对话
     >>|cRXP_WARN_这将开启一个 45 分钟的限时任务|r
-    .accept 853 >>接受任务 药剂师扎玛
+    .accept 853 >>接受任务药剂师扎玛
     .target 药剂师赫布瑞姆
     .isQuestTurnedIn 848
 step
@@ -5538,14 +5538,14 @@ step
     .target 安哈努
 step
     .goto Thunder Bluff,61.3,80.9
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_梅洛|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_梅洛|r 对话
     .turnin 861 >>交任务 猎人之道
     .accept 860 >>接受任务 瑟格拉·黑棘
     .target 梅洛·石蹄
     .isQuestComplete 861
 step
     .goto Thunder Bluff,61.3,80.9
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_梅洛|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_梅洛|r 对话
     .accept 860 >>接受任务 瑟格拉·黑棘
     .target 梅洛·石蹄
     .isQuestTurnedIn 861

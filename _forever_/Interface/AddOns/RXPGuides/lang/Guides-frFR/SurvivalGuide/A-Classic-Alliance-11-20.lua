@@ -457,7 +457,7 @@ step << Druid
 	.zoneskip Moonglade
 step << Druid
     .goto Moonglade,56.21,30.63
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Dendrite Starblaze|r à l'étage
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Dendrite Starblaze|r en haut des escaliers
     .turnin 6121 >> Nouvelles leçons
     .accept 6122 >> Acceptez la quête Le principe originel
     .turnin 26 >> Rendez la quête Une leçon à apprendre
@@ -579,7 +579,7 @@ step
 step
 #map Darkshore
     .goto Felwood,21.63,18.15
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Tharnariun Soigneflore|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Tharnariun Treetender|r
     .accept 2118 >> Acceptez Plagued Lands
     .target Tharnariun Treetender
 step
@@ -699,13 +699,13 @@ step
     .accept 947 >> Acceptez la quête La caverne aux champignons
 step
 #map Darkshore
-	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Sentinel Glynda Nal'Shea|r
+	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Sentinelle Glynda Nal'Shea|r
 	.target Sentinel Glynda Nal'Shea
     .goto Felwood,20.34,18.12
     .accept 4811 >> Accept Les Red Crystal
 step
 #map Darkshore
-	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Tharnariun Soigneflore|r
+	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Tharnariun Treetender|r
 	.target Tharnariun Treetender
     .goto Felwood,21.63,18.15
     .turnin 2118 >> Rendez la quête Terres malades
@@ -720,7 +720,7 @@ step
     .accept 4761 >> Acceptez la quête Thundris Tissevent
 step
 #map Darkshore
-	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à|cRXP_FRIENDLY_Gorbold Steelhand|r
+	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Gorbold Steelhand|r
 	.target Gorbold Steelhand
     .goto Felwood,20.80,15.58
     .accept 982 >> Acceptez la quête Océan profond, mer immense
@@ -964,7 +964,7 @@ step
     .goto Darkshore,42.92,62.50,50,0
     .goto Darkshore,43.30,58.70
     >>Tuez |cRXP_ENEMY_Anaya Dawnrunner|r. Dépouillez-la pour son |cRXP_LOOT_Pendentif|r
-    >>|cRXP_ENEMY_Anaya Coursaurore|r |cRXP_WARN_patrouille dans Ameth'Aran. Elle a un temps de respawn très long et si vous ne la trouvez pas, vous pouvez passer cette étape|r
+    >>|cRXP_ENEMY_Anaya Dawnrunner|r patrouille dans Ameth'Aran. Elle a un temps de respawn très long et si vous ne la trouvez pas, vous pouvez passer cette étape
     .complete 963,1
     .unitscan Anaya Dawnrunner
 step
@@ -1103,7 +1103,7 @@ step << !NightElf Rogue
     .target Syurna
 step << !NightElf Hunter/!NightElf Warrior
     #sticky
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t Parlez à |cRXP_FRIENDLY_Ilyenia Moonfire|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Ilyenia Moonfire|r
     .skipgossip 11866,1
     .goto Darnassus,57.56,46.72
     .train 264 >> Apprenez la compétence Arcs
@@ -1122,7 +1122,7 @@ step
     #completewith next
     .goto Darkshore,38.109,41.170,5,0
     .goto Darkshore,37.512,41.674
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à|cRXP_FRIENDLY_Gorbold Steelhand|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Gorbold Steelhand|r
     +Achetez des |T134059:0|t[Epices douces]
     >>|cRXP_WARN_Utilisez des|r |T134059:0|t[Epices douces] |cRXP_WARN_et vos|r |T132832:0|t[Petits Oeufs] |cRXP_WARN_pour faire des Oeufs aux herbes. Faites cela jusqu'à ce que votre Cuisine ait atteint le niveau 10|r
     .skill cooking,10,1 -- step only displays if cooking skill is less than 10
@@ -1134,7 +1134,7 @@ step
     .target Gorbold Steelhand
 step
 #map Darkshore
-	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à|cRXP_FRIENDLY_Gorbold Steelhand|r
+	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Gorbold Steelhand|r
 	.target Gorbold Steelhand
     .goto Felwood,20.80,15.58
     .turnin 982 >> Rendez la quête Océan profond, mer immense
@@ -1156,7 +1156,7 @@ step
     .accept 4763 >> Acceptez la quête La corruption des Noirbois
 step
 #map Darkshore
-	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Sentinel Glynda Nal'Shea|r
+	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Sentinelle Glynda Nal'Shea|r
 	.target Sentinel Glynda Nal'Shea
     .goto Felwood,20.34,18.12
     .turnin 4811 >> Rendez la quête Le cristal rouge
@@ -1174,7 +1174,7 @@ step
 step
 #requires tube1
 #map Darkshore
-	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Tharnariun Soigneflore|r
+	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Tharnariun Treetender|r
 	.target Tharnariun Treetender
     .goto Felwood,21.63,18.15
     .turnin 2138 >> Rendez la quête Nettoyage de l'infection
@@ -1282,7 +1282,7 @@ step
     .goto Darkshore,54.99,32.04,30,0
     .goto Darkshore,54.99,33.41,15 >> Voyagez vers la Grotte de la Bondissante
 step << Druid
-    >>Utilisez la [Fiole d'échantillon des Chutes de la Bondissante vide] à la cascade à l'entrée de la grotte des Chutes de la Bondissante
+    >>Utilisez la [Fiole d'échantillon des Chutes de la Bondissante vide] à l'entrée de la Grotte de la Bondissante
     .goto Darkshore,54.99,33.41
     .complete 6122,1 --Filled Cliffspring Falls Sampler (1)
 step
@@ -1508,14 +1508,14 @@ step
 step
 #map Darkshore
     #label NorthDarkshore
-	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Sentinel Glynda Nal'Shea|r
+	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Sentinelle Glynda Nal'Shea|r
 	.target Sentinel Glynda Nal'Shea
     .goto Darkshore,37.70,43.39
     .turnin 4813 >> Rendez la quête Les fragments à l'intérieur
 step
 .group
 #map Darkshore
-	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Tharnariun Soigneflore|r
+	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Tharnariun Treetender|r
 	.target Tharnariun Treetender
     .goto Felwood,21.63,18.15
     .turnin 2139 >> Rendez la quête Espoir de Tharnariun
@@ -1705,7 +1705,7 @@ step
     .target Gershala Nightwhisper
 step
 #map Darkshore
-	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Tharnariun Soigneflore|r
+	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Tharnariun Treetender|r
 	.target Tharnariun Treetender
     .goto Felwood,21.63,18.15
     .accept 2139 >> Acceptez la quête Espoir de Tharnariun
@@ -1768,7 +1768,7 @@ step
     .accept 948 >> Acceptez la quête Onu
 step
 #map Darkshore
-	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Tharnariun Soigneflore|r
+	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Tharnariun Treetender|r
 	.target Tharnariun Treetender
     .goto Felwood,21.63,18.15
     .turnin 2139 >> Rendez la quête Espoir de Tharnariun
@@ -1953,7 +1953,7 @@ step
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Volcor|r
     .turnin 993 >> Rendez la quête Un maître perdu
     .accept 995 >> Acceptez la quête Évasion par la ruse
-    .timer 20,RP de Évasion par la ruse
+    .timer 20,Évasion par la ruse RP
     .target Volcor
     .isQuestTurnedIn 986
 step
@@ -2169,7 +2169,7 @@ step
 step
 .dungeon WC
     #completewith EnterWC
-    >>Tuez tous types de créatures |cRXP_ENEMY_Deviate|r. Dépouillez-les pour leur |cRXP_LOOT_Deviate Hides|r
+    >>Tuez tout type de créatures |cRXP_ENEMY_Deviate|r. Dépouillez-les pour leur |cRXP_LOOT_Deviate Hides|r
     >>Cette quête peut être complétée à l'INTÉRIEUR et à l'EXTÉRIEUR des Cavernes des Lamentations
     .complete 1486,1 -- Deviate Hide (20)
     .isOnQuest 1486
@@ -2198,7 +2198,7 @@ step
     .zoneskip 1414,1 -- similar to stockades, no subzone for WC
 step
 .dungeon WC
-    >>Tuez tous types de créatures |cRXP_ENEMY_Deviate|r. Dépouillez-les pour leur |cRXP_LOOT_Deviate Hides|r
+    >>Tuez tout type de créatures |cRXP_ENEMY_Deviate|r. Dépouillez-les pour leur |cRXP_LOOT_Deviate Hides|r
     .complete 1487,1 -- Deviate Ravager slain (7)
     .complete 1487,2 -- Deviate Viper slain (7)
     .complete 1487,3 -- Deviate Shambler slain (7)
@@ -2218,14 +2218,14 @@ step
 step
 .dungeon WC
     #completewith next
-    >>Tuez tous types de créatures |cRXP_ENEMY_Deviate|r. Dépouillez-les pour leur |cRXP_LOOT_Deviate Hides|r
+    >>Tuez tout type de créatures |cRXP_ENEMY_Deviate|r. Dépouillez-les pour leur |cRXP_LOOT_Deviate Hides|r
     .complete 1486,1 -- Deviate Hide (20)
     .isOnQuest 1486
 step
 .dungeon WC
     >>Tuez |cRXP_ENEMY_Lord Cobrahn|r, |cRXP_ENEMY_Lord Pythas|r, |cRXP_ENEMY_Lord Serpentis|r et |cRXP_ENEMY_Lady Anacondra|r puis parlez au |cRXP_FRIENDLY_Disciple of Naralex|r au début du donjon pour commencer son escorte
     >>Escortez le |cRXP_FRIENDLY_Disciple of Naralex|r à travers les Cavernes des Lamentations et compléter son rituel
-    >>Tuez |cRXP_ENEMY_Mutanus the Devourer|r. Dépouillez-le pour le [|cRXP_LOOT_Glowing Shard|r]
+    >>Tuez|cRXP_ENEMY_Mutanus the Devourer|r. Dépouillez-le pour son [|cRXP_LOOT_Glowing Shard|r]
     >>|cRXP_WARN_Utilisez le [|cRXP_LOOT_Glowing Shard|r] pour commencer la quête|r
     .collect 10441,1,6981,1 -- Glowing Shard (1)
     .accept 6981 >> Acceptez la quête L'Éclat luminescent
@@ -2235,7 +2235,7 @@ step
     .mob Mutanus the Devourer
 step
 .dungeon WC
-    >>Tuez tous types de créatures |cRXP_ENEMY_Deviate|r. Dépouillez-les pour leur |cRXP_LOOT_Deviate Hides|r
+    >>Tuez tout type de créatures |cRXP_ENEMY_Deviate|r. Dépouillez-les pour leur |cRXP_LOOT_Deviate Hides|r
     >>Cette quête peut être complétée à l'INTÉRIEUR et à l'EXTÉRIEUR des Cavernes des Lamentations
     .complete 1486,1 -- Deviate Hide (20)
     .isOnQuest 1486

@@ -8,6 +8,7 @@ local GRID_TOP_PAD = 10
 local LIST_MAX = 57
 local NOTE_H = 58
 
+local DONATE_ON = true
 
 function ns.BuildAboutSupport(about, G)
     local hui = ns.hui
@@ -189,6 +190,94 @@ function ns.BuildAboutSupport(about, G)
         local d2 = hui.layer.DIV
         div:SetVertexColor(d2[1], d2[2], d2[3], 1)
     end)
+
+    if DONATE_ON then
+        local donateShade
+        local donateBuilt
+        local function HideDonate()
+            if donateShade and donateShade:IsShown() then donateShade:Hide() end
+        end
+        local function BuildDonate()
+            if donateBuilt then return end
+            donateBuilt = true
+            local shade = CreateFrame("Button", "DungeonsForeverDonate", about)
+            shade:SetAllPoints(about)
+            shade:SetFrameLevel(about:GetFrameLevel() + 20)
+            local bg = shade:CreateTexture(nil, "BACKGROUND")
+            bg:SetAllPoints()
+            bg:SetColorTexture(0, 0, 0, 0.52)
+            shade:SetScript("OnClick", function() HideDonate() end)
+            shade:Hide()
+            table.insert(UISpecialFrames, "DungeonsForeverDonate")
+
+            local pop = CreateFrame("Frame", nil, shade, "BackdropTemplate")
+            pop:SetSize(260, 310)
+            pop:SetPoint("CENTER", about, "CENTER", 0, 0)
+            pop:SetFrameLevel(shade:GetFrameLevel() + 2)
+            pop:SetClampedToScreen(true)
+            pop:EnableMouse(true)
+            if pop.SetBackdropColor then pop:SetBackdropColor(0, 0, 0, 0) end
+            if pop.SetBackdropBorderColor then pop:SetBackdropBorderColor(0, 0, 0, 0) end
+            if hui.SkinPopup then hui.SkinPopup(pop, 10, nil, hui.layer.L0) end
+            if hui.SkinShadow then hui.SkinShadow(pop) end
+
+            local close = CreateFrame("Button", nil, pop)
+            close:SetSize(24, 24)
+            close:SetPoint("TOPRIGHT", pop, "TOPRIGHT", -8, -8)
+            close:SetFrameLevel(pop:GetFrameLevel() + 3)
+            close:SetHitRectInsets(-4, -4, -4, -4)
+            local ci = close:CreateTexture(nil, "ARTWORK")
+            ci:SetTexture("Interface\\AddOns\\DungeonsForever\\Media\\textures\\YY_close")
+            ci:SetSize(14, 14)
+            ci:SetPoint("CENTER")
+            local cg = 0xa0 / 255
+            ci:SetVertexColor(cg, cg, cg)
+            close:SetScript("OnEnter", function() ci:SetVertexColor(1, 1, 1) end)
+            close:SetScript("OnLeave", function() ci:SetVertexColor(cg, cg, cg) end)
+            close:SetScript("OnClick", function()
+                ns.PlaySound(1)
+                HideDonate()
+            end)
+
+            local plate = CreateFrame("Frame", nil, pop, "BackdropTemplate")
+            plate:SetSize(216, 216)
+            plate:SetPoint("TOP", pop, "TOP", 0, -34)
+            plate:SetFrameLevel(pop:GetFrameLevel() + 1)
+            if plate.SetBackdropColor then plate:SetBackdropColor(0, 0, 0, 0) end
+            if plate.SetBackdropBorderColor then plate:SetBackdropBorderColor(0, 0, 0, 0) end
+            hui.BuildRoundedBG(plate, 6, hui.layer.L2, "both", false)
+
+            local qr = plate:CreateTexture(nil, "ARTWORK")
+            qr:SetAllPoints()
+            qr:SetTexture("Interface\\AddOns\\DungeonsForever\\Media\\About\\wechat-support.tga")
+
+            local h1 = pop:CreateFontString(nil, "OVERLAY")
+            h1:SetFont(ns.FONT, 13, "")
+            h1:SetText(L["手机微信扫一扫"])
+            h1:SetTextColor(val[1], val[2], val[3])
+            h1:SetPoint("TOP", pop, "TOP", 0, -262)
+
+            local h2 = pop:CreateFontString(nil, "OVERLAY")
+            h2:SetFont(ns.FONT, 12, "")
+            h2:SetText(L["点击空白处或按 Esc 关闭"])
+            h2:SetTextColor(dim[1], dim[2], dim[3])
+            h2:SetPoint("TOP", pop, "TOP", 0, -282)
+
+            donateShade = shade
+        end
+        local function ToggleDonate()
+            BuildDonate()
+            if donateShade:IsShown() then
+                donateShade:Hide()
+            else
+                donateShade:Show()
+            end
+        end
+
+        ns.ToggleDonate = ToggleDonate
+
+        about:HookScript("OnHide", function() HideDonate() end)
+    end
 
     BarUpdate()
     return card

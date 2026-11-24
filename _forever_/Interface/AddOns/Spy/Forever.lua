@@ -1078,6 +1078,22 @@ end
 -- StartMoving (layout-local.txt) and puts it back at login, anchored by another point
 -- and with the height the window had at logout: Spy's window moved at each /reload,
 -- locked or not (CurseForge comment). Spy saves and restores its windows itself.
+-- The original restores the window 34 high and left its size to the client's copy.
+-- Without that copy, a window sized by hand (automatic resize off) came back at its
+-- smallest after every loading screen (CurseForge comment): it now gets the height Spy
+-- saved when it was resized. Automatic resize still starts it small and grows it.
+function Spy:SavedWindowHeight()
+	local profile = Spy.db and Spy.db.profile
+	if not profile or profile.ResizeSpy then
+		return 34
+	end
+	local h = tonumber(profile.MainWindow and profile.MainWindow.Position and profile.MainWindow.Position.h)
+	if not h or h ~= h then
+		return 34
+	end
+	return math.max(34, math.min(264, h))
+end
+
 function Spy:NoClientLayout(frame)
 	if frame.SetDontSavePosition then
 		pcall(frame.SetDontSavePosition, frame, true)
@@ -1711,7 +1727,7 @@ layoutWatcher:SetScript("OnEvent", Guard("RestoreWindow", function()
 		return
 	end
 	Spy:NoClientLayout(window)
-	Spy:RestoreMainWindowPosition(position.x, position.y, position.w, 34)
+	Spy:RestoreMainWindowPosition(position.x, position.y, position.w, Spy:SavedWindowHeight())
 	Spy:ResizeMainWindow()
 end))
 
@@ -2020,3 +2036,18 @@ if baseToggleDropDownMenu then
 		return baseToggleDropDownMenu(...)
 	end
 end
+
+-- A drag or resize of the main window still going when combat starts: stopped while it is
+-- still allowed (PLAYER_REGEN_DISABLED comes just before the lockdown), or the window would
+-- stay stuck to the cursor through the fight (CurseForge report).
+local dragStopper = CreateFrame("Frame")
+dragStopper:RegisterEvent("PLAYER_REGEN_DISABLED")
+dragStopper:SetScript("OnEvent", function()
+	local window = Spy.MainWindow
+	if window and (window.isMoving or window.isResizing) then
+		window:StopMovingOrSizing()
+		window.isMoving, window.isResizing = false, false
+		Spy.ForeverStats.dragsStopped = (Spy.ForeverStats.dragsStopped or 0) + 1
+		pcall(Spy.SaveMainWindowPosition, Spy)
+	end
+end)

@@ -4,7 +4,7 @@
 ## Notes: GearInsight Forever bag cleanup (destroy cheapest first) and merchant sell-junk panel (loads the first time you use them)
 ## Notes-zhCN: GearInsight 无限版的清背包（按价值从低到高一键摧毁）和商人处卖垃圾面板：第一次用到时才加载
 ## Author: GearInsight
-## Version: 1.4.11
+## Version: 1.4.19
 ## Dependencies: GearInsight_Forever
 ## LoadOnDemand: 1
 ## IconTexture: Interface\Icons\INV_Misc_Bag_07

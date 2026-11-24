@@ -214,7 +214,7 @@ step << Warlock
     #label BeginningsHS
     #completewith BeginningsEnd
     .deathskip >> Mourez et ressuscitez au |cRXP_FRIENDLY_Gardien des âmes|r
-    >>|cRXP_WARN_Assurez-vous que votre sous-zone est Vallée des Frigères quand vous mourez! Sinon, vous serez envoyé au cimetière de Kharanos|r
+    >>|cRXP_WARN_Assurez-vous d'être dans la zone Vallée des Frigères lorsque vous mourez ! Sinon, vous serez renvoyé au cimetière de Kharanos|r
     .target Gardien des âmes
 step << Warlock
     #season 0,1
@@ -671,7 +671,7 @@ step
     #label BoarMeatQuest
     #completewith SenirEnd
     >>Tuez les |cRXP_ENEMY_Crag Boars|r. Dépouillez-les pour leur |cRXP_LOOT_[Chunks of Boar Meat]|r et leur |cRXP_LOOT_Crag Boar Ribs|r
-    >>Gardez tous les |cRXP_LOOT_[Chunks of Boar Meat]|r que vous obtenez pour Ravitailler le Crache-vapeur et ensuite pour monter votre niveau en [Cuisine] plus tard
+    >>Gardez tous les |cRXP_LOOT_[Chunks of Boar Meat]|r que vous récupérez pour Ravitailler le Crache-vapeur et ensuite pour monter votre niveau de [Cuisine] plus tard
     >>Vous aurez besoin d'un niveau de [Cuisine] de 10 pour une quête à Auberdine plus tard
     >>Vous aurez besoin d'un niveau de 50 en [Cuisine] pour une quête au Bois de la Pénombre plus tard
     .collect 769,4,317,1 --Collect Chunk of Boar Meat (x4)
@@ -956,7 +956,7 @@ step
     .goto 1426/0,-641.80,-5473.18
     .target +Pilot Stonegear
 step
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Beldin Steelgrill|r et à |cRXP_FRIENDLY_Loslor Rudge|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Beldin Steelgrill|r et |cRXP_FRIENDLY_Loslor Rudge|r
     .turnin 400 >> Rendez la quête Des outils pour Grillacier
     .goto 1426/0,-682.23,-5488.94
     .target +Beldin Steelgrill
@@ -987,7 +987,7 @@ step << Warrior/Paladin/Rogue
     .train 2575,3 --Mining
 step
     #completewith RumbleshotAmmo
-    >>Tuez les |cRXP_ENEMY_Young Black Bears|r. Dépouillez-les pour leur |cRXP_LOOT_Thick Bear Fur|r
+    >>Tuez |cRXP_ENEMY_Young Black Bears|r. Dépouillez-les pour leur |cRXP_LOOT_Thick Bear Fur|r
     >>Tuez les |cRXP_ENEMY_Crag Boars|r et les |cRXP_ENEMY_Large Crag Boars|r. Dépouillez-les pour leur |cRXP_LOOT_[Chunks of Boar Meat]|r et leur |cRXP_LOOT_Crag Boar Ribs|r
     .complete 317,2 --Collect Thick Bear Fur (x2)
     .mob +Young Black Bear
@@ -1226,7 +1226,7 @@ step
     .waypoint 1426/0,135.86,-5458.11,60,0--c:1426,33.832,48.153
     .waypoint 1426/0,241.30,-5414.90,60,0--c:1426,31.691,46.837
     >>Tuez les |cRXP_ENEMY_Elder Crag Boars|r. Dépouillez-les pour leur |cRXP_LOOT_Crag Boar Ribs|r
-    >>Tuez les |cRXP_ENEMY_Ice Claw Bears|r et les |cRXP_ENEMY_Snow Leopards|r
+    >>Tuez les|cRXP_ENEMY_Ice Claw Bears|r et les |cRXP_ENEMY_Snow Leopards|r
     .complete 319,2 --Kill Elder Crag Boar (x8)
     .mob +Elder Crag Boar
     .collect 2886,6,384,1 --Collect Crag Boar Rib (x6)
@@ -1286,7 +1286,7 @@ step
     .target Rejold Barleybrew
 step
     #completewith Headhunters
-    >>Tuez les|cRXP_ENEMY_Frostmane Headhunters|r à l'intérieur de la grotte
+    >>Tuez |cRXP_ENEMY_Frostmane Headhunters|r à l'intérieur de la grotte
     .complete 287,1 --Kill Frostmane Headhunter (x5)
     .mob Frostmane Headhunter
 step
@@ -1316,7 +1316,7 @@ step
     .waypoint 1426/0,650.96,-5564.22,30,0--c:1426,23.373,51.385
     .waypoint 1426/0,641.36,-5549.09,30,0--c:1426,23.568,50.924
     .waypoint 1426/0,605.26,-5548.23,30,0--c:1426,24.301,50.898
-    >>Tuez les|cRXP_ENEMY_Frostmane Headhunters|r à l'intérieur de la grotte
+    >>Tuez |cRXP_ENEMY_Frostmane Headhunters|r à l'intérieur de la grotte
     .complete 287,1 --Kill Frostmane Headhunter (x5)
     .mob Frostmane Headhunter
 
@@ -1471,9 +1471,9 @@ step << Hunter
     .waypoint 1426/0,-1531.50,-5849.02,45,0--c:1426,67.687,60.059
     .waypoint 1426/0,-1594.10,-5825.97,45,0--c:1426,68.958,59.357
     .waypoint 1426/0,-1668.81,-5828.04,45,0--c:1426,70.475,59.420
-    >>Tuez les |cRXP_ENEMY_Rockjaw Skullthumpers|r à l'extérieur de la mine. Ramassez le butin pour le |T132621:0|t[|cRXP_LOOT_Empty Baril de poudre|r]
+    >>Tuez les |cRXP_ENEMY_Brise-crânes Mâcherocs|r à l'extérieur de la mine. Dépouillez-les pour le |T132621:0|t[|cRXP_LOOT_Baril de poudre vide|r]
     .use 268548 >> |cRXP_WARN_Utilisez le|r |T132621:0|t[|cRXP_LOOT_Baril de poudre vide|r] |cRXP_WARN_pour lancer une quête|r
-    >>|cRXP_WARN_NOTE: Cet objet a un faible taux de drop. Passez cette étape si vous ne le trouvez pas|r
+    >>|cRXP_WARN_NOTE: Cet objet n'a que peu de chance de tomber. Passez cette étape si vous n'arrivez pas à l'obtenir|r
     .complete 432,1 --Kill Rockjaw Skullthumper (x6)
     .collect 268548,1,95213,1 -- Empty Powder Keg (1)
     .disablecheckbox
@@ -1922,9 +1922,9 @@ step
     .target +Foreman Stonebrow << !Hunter
 step
     #completewith RockjawBonesnappers
-    >>Ramassez le butin des |cRXP_ENEMY_Rockjaw Skullthumpers|r et des |cRXP_ENEMY_Rockjaw Bonesnappers|r pour le |T132621:0|t[|cRXP_LOOT_Empty Baril de poudre|r]
-    .use 268548 >> |cRXP_WARN_Utilisez le|r |T132621:0|t[|cRXP_LOOT_Empty Baril de poudre|r] |cRXP_WARN_pour commencer la quête|r
-    >>|cRXP_WARN_NOTE: Cet objet a un faible taux de drop. Passez cette étape si vous ne le trouvez pas|r
+    >>Dépouillez les |cRXP_ENEMY_Brise-crânes Mâcherocs|r et les |cRXP_ENEMY_Briseurs d’os Mâcherocs|r pour le |T132621:0|t[|cRXP_LOOT_Baril de poudre vide|r]
+    .use 268548 >> |cRXP_WARN_Utilisez le|r |T132621:0|t[|cRXP_LOOT_Baril de poudre vide|r] |cRXP_WARN_pour lancer une quête|r
+    >>|cRXP_WARN_NOTE: Cet objet n'a que peu de chance de tomber. Passez cette étape si vous n'arrivez pas à l'obtenir|r
     .collect 268548,1,95213,1 -- Empty Powder Keg (1)
     .accept 95213 >> Acceptez la quête Poudre explosive volée
 step
@@ -2144,7 +2144,7 @@ step
     .goto 1432/0,-2631.48,-5847.50,12 >> Entrez dans le bunker. Montez à l'étage
 step
     .goto 1432/0,-2634.59,-5842.81
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Captain Rugelfuss|r à l'intérieur du bunker
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Captain Rugelfuss|r dans le bunker
     .accept 267 >> Acceptez la quête La menace trogg
     .target Captain Rugelfuss
 step
@@ -2181,7 +2181,7 @@ step << !Hunter
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Yanni Stoutheart|r
     >>|cRXP_BUY_Achetez un|r [Bois simple] |cRXP_BUY_et un|r [Silex et amadou] |cRXP_BUY_ à Yanni|r
     >>|cRXP_BUY_Achetez-lui une|r [Petite sacoche marron] |cRXP_BUY_si nécessaire|r << !Rogue
-    >>|cRXP_WARN_Ceci est utilisé pour créer|r |T135805:0|t[Basic Campfires] |cRXP_WARN_en attendant les bateaux pour augmenter votre|r |T133971:0|t[Cuisine] |cRXP_WARN_compétence sans perdre de temps|r
+    >>|cRXP_WARN_Ils sont utilisés pour fabriquer des|r |T135805:0|t[Feu de camp basique] |cRXP_WARN_en attendant les bateaux pour monter le niveau de votre|r |T133971:0|t[Cuisine] |cRXP_WARN_sans perdre de temps|r
     >>Vous avez besoin de 50 en [Cuisine] pour une quête au Bois de la Pénombre plus tard
     .collect 4470,1 --Simple Wood (1)
     .collect 4471,1 --Flint and Tinder (1)
@@ -2899,7 +2899,7 @@ step << Warlock
     >>Tuez |cRXP_ENEMY_Hogger|r. Dépouillez-les pour leur |cRXP_LOOT_Claw|r
     >>|cRXP_ENEMY_Hogger|r peut apparaître à de nombreux endroits
     >>Lancez [Peur] |cRXP_WARN_sur |cRXP_ENEMY_Hogger|r en boucle et utilisez vos DoTs pour le tuer|r
-    >>Cette quête est difficile. Montez un groupe pour le tuer si nécessaire. Passez cette étape si vous n'arrivez pas à monter un groupe ou à le tuer solo
+    >>|cRXP_WARN_Cette quête est difficile. Montez un groupe pour le tuer si nécessaire. Passez cette étape si vous n'arrivez pas à monter un groupe ou à le tuer seul|r
     .complete 176,1 --Huge Gnoll Claw (1)
     .unitscan Hogger
 step
@@ -3499,7 +3499,7 @@ step << Dwarf Paladin
     .target Tiza Battleforge
 step << Dwarf Paladin
     .goto 1455/0,-931.98,-4633.49--c:1455,27.622,12.177
-    >>|cRXP_WARN_Utilisez le [|T133739:0|t|cRXP_LOOT_Tome de divinité|r] pour commencer la quête|r
+    >>|cRXP_WARN_Utilisez le [|T133739:0|t|cRXP_LOOT_The Tome of Divinity|r] pour commencer la quête|r
     .accept 1646 >>Acceptez la quête Le Tome de divinité
     .use 6916
 step << Dwarf Paladin
@@ -4041,7 +4041,7 @@ step
     .goto 1432/0,-2648.30,-5876.75,15 >> Montez le chemin de terre et ensuite descendez dans le bunker
 step
     .goto 1432/0,-2634.59,-5842.81
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Captain Rugelfuss|r à l'intérieur du bunker
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Captain Rugelfuss|r dans le bunker
     .turnin 267 >> Rendez la quête La menace trogg
     .target Captain Rugelfuss
     .isQuestComplete 267
@@ -4219,7 +4219,7 @@ step << Rogue
 step << Warlock
     .goto 1455/0,-1117.60,-4615.14,15,0
     .goto 1455/0,-1111.62,-4599.09
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Eglantine|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Briarthorn|r
     .trainer >> Apprenez vos sorts de classe
     .target Briarthorn
 step << Warlock

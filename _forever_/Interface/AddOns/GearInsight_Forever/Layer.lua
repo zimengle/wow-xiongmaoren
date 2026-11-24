@@ -235,16 +235,23 @@ function LY.Remember(map, z)
     local k = tostring(map)
     o[k] = o[k] or {}
     ot[k] = ot[k] or {}
-    ot[k][z] = wall()
-    for _, v in ipairs(o[k]) do if v == z then return end end
+    local w = wall()
+    for _, v in ipairs(o[k]) do if v == z then ot[k][z] = w; return end end
     -- 11-20 用户截图：页面「第 4 层（层码 0011）」，红字却轮流「第 2 层 / 第 3 层（层码 0011）」—— 层多（公共频道一张图 12+ 个层码）时
     --   原来挤掉最早记下的那个（哪怕还在用），下一条心跳又把它记回来、挤掉另一个 → 编号几秒一跳。现在先挤过期的、再挤最久没见的
+    -- 11-22 用户录像「我所在的层数还是不停变化」：层码 4812 不变，第 11～15 层几秒一跳 —— 公共频道一张图在用的层码超过 24 个，
+    --   「挤最久没见的」挤的还是在用的 → 照样来回挤。现在满了只挤 ORDER_TTL 没再出现的；都还在用就先不记新的（编号不动）
     if #o[k] >= 24 then
         local wi
-        for i, v in ipairs(o[k]) do if not wi or (ot[k][v] or 0) < (ot[k][o[k][wi]] or 0) then wi = i end end
+        for i, v in ipairs(o[k]) do
+            local at = ot[k][v] or 0
+            if w - at > LY.ORDER_TTL and (not wi or at < (ot[k][o[k][wi]] or 0)) then wi = i end
+        end
+        if not wi then return end
         ot[k][table.remove(o[k], wi)] = nil
     end
     o[k][#o[k] + 1] = z
+    ot[k][z] = w
 end
 -- 第几 = 1 + 比它小的「还在用的层码」个数（每张图最多 24 个层码，现算不缓存、不建表）；z 自己不在用 → nil
 local function rankOf(map, z)
@@ -607,8 +614,7 @@ local function joinChannel(name)
     if not room then
         if not LY.chanNoted then
             LY.chanNoted = true
-            ns.Print(string.format(L("你加的聊天频道快满了（%s/10）：GI 位面共享频道这次不加，免得挤掉你自己的频道（位面信息照样走公会；/gi layer pub off 可彻底关）",
-                "You're close to the 10 chat channel limit (%s/10): GI layer channel not joined so yours aren't blocked (/gi layer pub off to disable)"), tostring(n == "full" and 10 or n)))
+            ns.Print(string.format(L("聊天频道快满了（%s/10）：GI 位面频道这次不加（位面照样走公会）", "Chat channels nearly full (%s/10): GI layer channel not joined"), tostring(n == "full" and 10 or n)))
         end
         return false
     end
@@ -622,10 +628,19 @@ end
 --   每张图一个频道 GIFM<地图编号>：心跳里的层 / 任务 / 怪本来就只对同图的人有用；换图时退旧的、加新的（停稳 5 秒再换，路过不折腾）。
 --   旧的 GIForeverLY 还在就顺手退掉。副本里不加（副本没有层）
 LY.pubJoined = nil
+-- 11-23 玩家截图「荆棘谷一直是0人，我飞走就有人了」：自建频道谁先建谁是主人，GIFM<图> 被人设了密码 / 拉黑 → 这张图谁都加不进（加频道要等服务器回话的那一下没进，每次心跳 rawSend PUB → SyncPub 会再试，不另开定时器：内核没余量）。
+--   收到「密码错误 / 被禁止」就换备用名 GIFM<图>x1…x3（所有插件用户换法一样，照样碰得到一起）
+-- 11-23 用户截图冬泉谷「同图其他玩家 0 人」：备用名会把人分开 ——
+--   ① 加频道是异步的，回话前每次心跳 / 发送重试又各加一次 → 一串「密码错误」每条都 +1，有人停 x1、有人跳到 x3；→ 只认「现在想进的那个名字」的回话
+--   ② 换了备用就一直不回来（锁主频道的人走了 / 频道散了，后来的人进主频道，我还在 x1）；BANNED 只是我一个人被拉黑 → 备用名 ALT_BACK 秒后回去试主频道，还进不去再换
+--   ⛔ 内核内存：LY 表再加字段会触发整表扩容（实测 +5 KB）→ 换备用的时间记在 pubAlt[-地图]、公共频道心跳计数记在 pubAlt.rx（_LayerUI /gi layer pub 读）
+LY.pubAlt = {}
+local ALT_BACK = 600
 function LY.PubChannel()
     local m = myMap()
     if type(m) ~= "number" then return nil end
-    return "GIFM" .. m
+    if LY.pubAlt[m] and now() - (LY.pubAlt[-m] or 0) > ALT_BACK then LY.pubAlt[m] = nil end
+    return "GIFM" .. m .. (LY.pubAlt[m] and ("x" .. LY.pubAlt[m]) or "")
 end
 local leftAt = {}   -- GI-287：插件自己退的频道 → 时间（YOU_LEFT 回来时分清是不是玩家手动退的）
 local function leave(name)
@@ -644,7 +659,10 @@ function LY.SyncPub()
     leave(PUB)   -- 旧的全服频道
     if LY.pubJoined and LY.pubJoined ~= want then leave(LY.pubJoined); LY.pubJoined = nil end
     if not want then return false end
-    if joinChannel(want) then LY.pubJoined = want; return true end
+    if joinChannel(want) then
+        if LY.pubJoined ~= want then LY.Log("频道 已加入 " .. want) end
+        LY.pubJoined = want; return true
+    end
     return false
 end
 function LY.SetPub(v)
@@ -666,8 +684,7 @@ function LY.OnTooMany(msg)
     end
     LY.pubJoined = nil
     if left then
-        ns.Print(L("聊天频道满了：已退出 GI 位面频道给你腾位置，再加一次你的频道就行（10 分钟内不再自动加）",
-            "Chat channel limit reached: left the GI layer channel to make room - join yours again (won't rejoin for 10 min)"))
+        ns.Print(L("聊天频道满了：已退出 GI 位面频道腾位置，10 分钟内不再自动加", "Channel limit: left the GI layer channel (no rejoin for 10 min)"))
     end
     return left
 end
@@ -677,6 +694,15 @@ function LY.PubMsg(on)
         or L("已退出公共频道：位面只和公会会员互通（" .. (ns.SlashHint or "/gi") .. " layer pub on 重新加入）", "Public channel off (guild only)")
 end
 function LY.OnNotice(kind, chan)
+    if (kind == "WRONG_PASSWORD" or kind == "BANNED") and LY.IsOurChannel(chan) then
+        local m, a = myMap(), LY.pubAlt
+        if m and chan:gsub("^%d+%.%s*", ""):upper() == LY.PubChannel():upper() and (a[m] or 0) < 3 then
+            a[m], a[-m] = (a[m] or 0) + 1, now()
+            LY.Log("频道 " .. kind .. " " .. chan .. " → " .. LY.PubChannel())
+            pcall(LY.SyncPub)
+        end
+        return true
+    end
     if kind ~= "YOU_LEFT" or not LY.IsOurChannel(chan) then return false end
     local base = chan:gsub("^%d+%.%s*", "")
     if now() - (leftAt[base] or -99) < 15 then return false end
@@ -861,12 +887,15 @@ function LY.Handle(msg, sender, via)
         for npc, n in (t.t or ""):gmatch("(%d+):(%d+)") do p.t[tonumber(npc)] = tonumber(n) end
         p.seen = now()
         p.via[via] = now()
+        if via == "pub" then LY.pubAlt.rx = (LY.pubAlt.rx or 0) + 1 end   -- 11-23 /gi layer pub 诊断：收到几条公共频道心跳
         if p.m and p.z then LY.Remember(p.m, p.z) end
         pcall(LY.XFromParty, p)
         LY.dirty = true
     end
     local h = LY.handlers[t.kind]
     if h then pcall(h, t, s, via, sender) end
+    -- 11-22 邀请比他的认领 C / 心跳先到、当时没自动接：他的消息到了再判一次（LayerHop LY.Recheck）
+    if LY.missInv and LY.Recheck then pcall(LY.Recheck, s) end
 end
 
 -- 只看某个来源（guild / gather / pub）的在线 peer
@@ -1027,12 +1056,17 @@ function LY.AskAccept(inviter, why)
     })
 end
 function LY.OnInvite(inviter)
+    LY.noWhy = nil
     local why, kind, ask = LY.AcceptReason(inviter)
-    LY.Log("收到邀请 from=" .. tostring(short(inviter)) .. " 自动接受=" .. tostring(why or (ask and "先问一次") or "否"))
+    LY.Log("收到邀请 from=" .. tostring(short(inviter)) .. " 自动接受=" .. tostring(why or (ask and "先问一次") or "否") .. (not why and LY.noWhy and (" " .. LY.noWhy) or ""))
     if not why then
+        -- 11-22 用户「老是过30秒没人组」：日志里邀请 18 秒就到了、只是没自动接 → 记下来，他的认领 / 心跳到了再判（LY.Recheck），换层这轮里提示玩家点接受
+        LY.missInv = { who = inviter, t = now() }
+        if LY.onMiss then pcall(LY.onMiss, short(inviter)) end
         if ask then LY.AskAccept(inviter, ask) end
         return false
     end
+    LY.missInv = nil
     if not AcceptGroup then return false end
     local ok = pcall(AcceptGroup)
     if ok and StaticPopup_Hide then pcall(StaticPopup_Hide, "PARTY_INVITE") end
@@ -1066,6 +1100,26 @@ function LY.ObsLayer(map, z)
     return ns.Obs.Add("ly", tostring(map) .. ":" .. h, LY.Hash(z))
 end
 LY.OnChange(function(_, new, map) LY.ObsLayer(map, new); LY.Beat(true) end)
+-- 11-22 换层成功率统计：存档 layer.st[日期] = { 短键 = 次数 }，留 14 天（显示 / 汇总在 _LayerUI 的 LayerCredit.lua）
+--   求助方 r 发出求助 / i 进了帮手的队 / o 换成 / f 没换成 / t 没人邀请 / u 进队后确认不了 / b 换成后又读回原层（11-23 回弹）；帮手 p 弹框 / a 自动拉 / c 手动拉 / k 对方回执到了
+--   众包 lh：键 = 日期，值 = 当天各计数（只有数字，不带名字 / 公会 / 层码）；计数一变就换掉当天旧的那条（每天只留一条最新的）
+local SK = "riofutbpack"
+function LY.Stat(k, n)
+    if not date then return end
+    local d, td = LY.DB(), date("%Y-%m-%d")
+    local st = d.st or {}
+    d.st = st
+    if not st[td] then
+        local cut = date("%Y-%m-%d", wall() - 1123200)   -- 13 天前：连今天留 14 天
+        for x in pairs(st) do if x < cut then st[x] = nil end end
+        st[td] = {}
+    end
+    local b, s = st[td], ""
+    b[k] = math.max(0, (b[k] or 0) + (n or 1))
+    for c in SK:gmatch(".") do if b[c] then s = s .. c .. b[c] end end
+    -- b.x = 当天上一次报的值：先删掉那条，再记新的
+    if ns.Obs then (ns.db.obs or {})["lh\1" .. td .. "\1" .. (b.x or "")] = nil; ns.Obs.Add("lh", td, s); b.x = s end
+end
 
 -- ---------- 事件 ----------
 local ev = CreateFrame("Frame")
@@ -1185,24 +1239,15 @@ ev:SetScript("OnUpdate", onUpdate)
 LY._onUpdate = onUpdate
 
 -- ---------- 斜杠命令 /gi layer … ----------
-local function help()
-    local C = ns.SlashHint or "/gi"
-    ns.Print(L("位面：" .. C .. " layer 打开面板 · " .. C .. " layer lead 口令（会长：开服当晚还没公会时建集合频道）· "
-        .. C .. " layer join 口令（会员加入）· " .. C .. " layer leave · " .. C .. " layer helper on|off 帮别人换层 · "
-        .. C .. " layer pub on|off 按地图的公共频道 · " .. C .. " layerprobe 开服探针",
-        "Layers: " .. C .. " layer panel · " .. C .. " layer lead CODE · " .. C .. " layer join CODE · " .. C .. " layer leave · "
-        .. C .. " layer helper on|off · " .. C .. " layer pub on|off · " .. C .. " layerprobe"))
-    -- 11-13 玩家「哪里关😳」：三个自动行为单独一行列清楚（右侧「位面」页签 → 设置 里也能勾）
-    ns.Print(L("位面自动行为（第一次碰到时会问你一次）：" .. C .. " layer autohelp on|off 会员求助自动拉 · " .. C .. " layer accept on|off 会长 / 官员邀请自动接受 · "
-        .. C .. " layer autoleave on|off 换过去后自动退队 · " .. C .. " layer auto on|off 三个一起；右侧『位面』页签 → 设置里也能改",
-        "Layer automation (asked once the first time): " .. C .. " layer autohelp on|off · " .. C .. " layer accept on|off · "
-        .. C .. " layer autoleave on|off · " .. C .. " layer auto on|off (all three); also in the Layers tab -> Settings"))
+-- 11-22 帮助文字（和新加的 /gi layer stat 换层成功率）搬到按需加载的 _LayerUI（LayerCredit.lua 的 ns.LayerSlash），省主插件登录内存
+local function help(sub)
+    pcall((C_AddOns and C_AddOns.LoadAddOn) or LoadAddOn, "GearInsight_Forever_LayerUI")
+    if ns.LayerSlash then ns.LayerSlash(sub) end
 end
-LY.Help = help
 
 -- 11-13：三个自动行为的命令开关（存 true / false，之后不再问）
 local AUTO_TEXT = {
-    autoHelp = function(on) return on and L("公会会员求助：自动拉（不弹框）", "Guildmate requests: auto-invite") or L("公会会员求助：每次弹框问我", "Guildmate requests: ask each time") end,
+    autoHelp = function(on) return on and L("换层求助：自动拉（没组队时，不弹框）", "Layer requests: auto-invite when solo") or L("换层求助：每次弹框问我", "Layer requests: ask each time") end,
     autoAccept = function(on) return on and L("会长 / 官员的组队邀请：自动接受", "Leader/officer invites: auto-accept") or L("会长 / 官员的组队邀请：不再自动接受", "Leader/officer invites: manual") end,
     autoLeave = function(on) return on and L("换过去后：自动退队", "After the move: leave the group") or L("换过去后：不自动退队", "After the move: stay in the group") end,
 }
@@ -1260,7 +1305,7 @@ ns.ExtraSlash.layer = function(rest, rawRest)
         ns.ShowBox(L("换层记录", "Layer log"), L("复制全部发给开发者", "Copy all and send to the developer"), table.concat(d.log or {}, "\n"))
     elseif sub == "off" or sub == "on" then
         d.on = (sub == "on"); LY.SyncPub(); ns.Print(d.on and L("位面识别已打开", "Layer detection on") or L("位面识别已关闭", "Layer detection off"))
-    else help() end
+    else help(sub) end
 end
 ns.ExtraSlash["位面"] = ns.ExtraSlash.layer
 

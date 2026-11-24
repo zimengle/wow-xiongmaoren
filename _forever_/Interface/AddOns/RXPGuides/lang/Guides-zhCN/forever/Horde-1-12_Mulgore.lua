@@ -49,7 +49,7 @@ step << Warrior
 step << Shaman
     .goto 1412/1,-264.47,-2874.20--c:Mulgore,45.01,75.95
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_米拉·晨行者|r 对话
-    .train 8017 >>影袭 |T136086:0|t[石化武器]
+    .train 8017 >>学习 |T136086:0|t[石化武器]
     .target 米拉·晨行者
 step
     #completewith next
@@ -244,7 +244,7 @@ step << Shaman
     .goto 1412/1,-264.47,-2874.20--c:Mulgore,45.01,75.95
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_米拉·晨行者|r 对话
     .turnin 3093 >>交任务 符文便笺
-    .train 8042 >>影袭 |T136026:0|t[大地震击]
+    .train 8042 >>学习 |T136026:0|t[大地震击]
     .target 米拉·晨行者
 step << Druid
     .goto 1412/1,-279.37,-2893.73--c:Mulgore,45.30,76.52
@@ -489,7 +489,7 @@ RXPGuides.RegisterGuide([[
 step
 	#softcore
 	#completewith BloodhoofHome
-    .deathskip >> 死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处重生
+    .deathskip >> 死掉并在|cRXP_FRIENDLY_灵魂医者|r 处复生
 step
 	#hardcore
 	#completewith BloodhoofHome
@@ -1032,7 +1032,7 @@ step << Tauren
 step
     #softcore
 	#completewith Escort1
-    .deathskip >> 死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处重生
+    .deathskip >> 死掉并在|cRXP_FRIENDLY_灵魂医者|r 处复生
 step << Hunter
     #softcore
     .goto 1412/1,-408.32,-2180.30--c:Mulgore,47.81,55.69
@@ -1116,7 +1116,7 @@ step
 step
     #softcore
 	#completewith Thunderhorn
-    .deathskip >> 死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处重生
+    .deathskip >> 死掉并在|cRXP_FRIENDLY_灵魂医者|r 处复生
 step
     #hardcore
     #completewith Thunderhorn
@@ -1668,7 +1668,7 @@ step << !Tauren
     .goto 1412/1,-454.56,-2304.63--c:Mulgore,48.71,59.32
     .isQuestComplete 761
 step << !Tauren
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_Baine|r 和 |cRXP_FRIENDLY_卢尔|r 对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_贝恩|r 和 |cRXP_FRIENDLY_卢尔|r对话
     .turnin 746 >>交任务 矮人的挖掘场
     .target 贝恩·血蹄
     .goto 1412/1,-392.91,-2333.40--c:Mulgore,47.51,60.16
@@ -1948,7 +1948,7 @@ step
 step << skip -- Tauren
     #softcore
 	#completewith Thunderhorn2
-    .deathskip >> 死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处重生
+    .deathskip >> 死掉并在|cRXP_FRIENDLY_灵魂医者|r 处复生
 step << Tauren
     --#hardcore
     #completewith Thunderhorn2
@@ -1985,14 +1985,14 @@ step
     .target Boarton Shadetotem
 step << Hunter
     .goto 1456/1,-123.15,-1412.93--c:Thunder Bluff,61.3,80.9
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_梅洛|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_梅洛|r 对话
     .turnin 861 >>交任务 猎人之道
     .accept 860 >>接受任务 瑟格拉·黑棘
     .target 梅洛·石蹄
     .isQuestComplete 861
 step << Hunter
     .goto 1456/1,-123.15,-1412.93--c:Thunder Bluff,61.3,80.9
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_梅洛|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_梅洛|r 对话
     .accept 860 >>接受任务 瑟格拉·黑棘
     .target 梅洛·石蹄
     .isQuestTurnedIn 861
@@ -2087,7 +2087,7 @@ step << Tauren Druid
 step << Tauren Druid
     .goto 1450/1,-2678.76,8019.94--c:Moonglade,56.21,30.64
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_德迪利特|r 对话
-    .turnin 5930 >>交任务 巨熊之灵
+    .turnin 5930 >>交任务  巨熊之灵
     .accept 5932 >>接受任务 返回雷霆崖
     .target 德迪利特·星焰
 step << Tauren Druid
@@ -2257,7 +2257,7 @@ step
     .goto 1456/1,44.58,-1263.32,0--c:Thunder Bluff,45.23,59.40
     .goto 1456/1,94.89,-1210.30--c:Thunder Bluff,40.41,51.78
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t 与 |cRXP_FRIENDLY_拍卖师斯塔比|r 对话
-    >>|cRXP_BUY_从拍卖行购买1条|r |T133894:0|t[新鲜的美味小鱼] |cRXP_BUY_|r
+    >>|cRXP_BUY_从拍卖行购买1条|r |T133894:0|t|T133894:0|t[新鲜的美味小鱼] |cRXP_BUY_|r
     .collect 6291,1,76240,1 --Raw Brilliant Smallfish (1)
     .target Auctioneer Stampi
 step
@@ -2318,7 +2318,7 @@ step
     .target Boarton Shadetotem
 step
     .goto 1456/1,-123.15,-1412.93--c:Thunder Bluff,61.3,80.9
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_梅洛|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_梅洛|r 对话
     .turnin 861 >>交任务 猎人之道
     .accept 860 >>接受任务 瑟格拉·黑棘
     .target 梅洛·石蹄

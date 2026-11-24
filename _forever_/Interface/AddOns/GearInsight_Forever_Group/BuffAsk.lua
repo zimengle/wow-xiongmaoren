@@ -41,6 +41,9 @@ local BA = { runAsked = {}, peek = {} }
 ns.BuffAsk = BA
 BA.ASK_CD = 600        -- 同一个人 10 分钟内只问一次（野外弹框 + 副本自动要合起来）
 BA.FIELD_GAP = 120     -- 任意两次野外弹框
+-- 11-23 用户「M语要BUFF的，除了我本地，改回每30S只能M一个」：野外弹框「密他要」30 秒一个（框照旧换成下一个，30 秒内点了不发、说还要等几秒）；
+--   ns.DEV_LOCAL = 用户本机才有的 DevLocal.lua（_hold.txt，⛔ 永不进包）→ 不限。⛔ 内核没余量：不另开定时器
+BA.WHISPER_GAP = 30
 BA.FIELD_TTL = 60      -- 弹框自己收起
 BA.PEEK = 30           -- 看过但不弹的人（不缺 / 等级不够），这么久内不再算
 BA.COOLDOWN = 20       -- 副本里任意两次自动发
@@ -422,18 +425,27 @@ function BA.CanChat()
 end
 -- 11-20 用户截图（密德鲁伊要野性印记）「要BUFF也加坐标」：私聊句尾带「我在<地区> x,y [地图标记]」，对方不用回问在哪
 --   读不到位置（副本里 / 秘密值）= 不加；加上超 255 字节先丢地图标记、还超就不加（别把超链接截一半）
+-- 11-23 用户截图「坐标别加了」「地图标记位置可以加」：只带 [地图标记位置] 链接，不写「我在<地区> x,y」
 function BA.Here()
     local PS = ns.PvPShout
-    if not (PS and PS.Pos and PS.Where and PS.Pos()) then return nil end
-    local ok, w = pcall(PS.Where)
-    return ok and type(w) == "string" and w ~= "" and w or nil
+    if not (PS and PS.Pos and PS.PinLink) then return nil end
+    local ok, m, x, y = pcall(PS.Pos)
+    if not ok or not m then return nil end
+    local ok2, link = pcall(PS.PinLink, m, x, y)
+    return ok2 and type(link) == "string" and link ~= "" and link or nil
 end
 function BA.WithHere(text)
     local w = BA.Here()
-    if not w then return text end
-    local s = text .. " " .. CL("我在", "I'm at ") .. w
-    if #s > DC.MAX_BYTES then s = text .. " " .. CL("我在", "I'm at ") .. (w:gsub(" |c.*$", "")) end
-    return #s <= DC.MAX_BYTES and s or text
+    local s = w and (text .. " " .. w)
+    return s and #s <= DC.MAX_BYTES and s or text
+end
+-- 11-23 用户「收到BUFF还是有的时候不弹感谢窗」：回谢框（_Xp 的 XpSupply.lua）原来只认出发前清单的「喊」，
+--   这里密人要 / 队伍里要都没算 → 发出去以后也挂上回谢（XC.ThankArmAsk；_Xp 没加载就加载上）
+function BA.ArmThank(who, list)
+    local XC = ns.XpCheck
+    if not (ns.db and XC and XC.DB) or XC.DB().thank == false then return end
+    if not XC.ThankArmAsk and ns.XpLoad then pcall(ns.XpLoad) end
+    if XC.ThankArmAsk then pcall(XC.ThankArmAsk, who, list) end
 end
 function BA.Send(text, chan, to)
     if not text or not BA.CanChat() then return false end
@@ -618,7 +630,7 @@ function BA.AutoCheck(reason)
         for _, p in ipairs(plan) do
             local done = BA.RecentlyAsked(p.who, wall0)   -- 10 分钟内问过他的也算这次要过了（别刚在门口密完、进本又密一遍）
             if not done and BA.Send(BA.AskText(p.cls, p.list, p.who), "WHISPER", p.who) then
-                BA.MarkAsked(p.who, wall0); BA.NoteBless(p.who, p.list, wall0)
+                BA.MarkAsked(p.who, wall0); BA.NoteBless(p.who, p.list, wall0); BA.ArmThank(p.who, p.list)
                 sentAny, done = true, true
             end
             if done then for _, x in ipairs(p.list) do BA.runAsked[x.k] = true end end
@@ -627,6 +639,7 @@ function BA.AutoCheck(reason)
         local chan = clean(IsInRaid and call(IsInRaid)) and "RAID" or "PARTY"
         if not BA.Send(BA.PartyText(plan), chan) then return false, "send" end
         sentAny = true
+        for _, p in ipairs(plan) do BA.ArmThank(p.who, p.list) end
         for _, p in ipairs(plan) do
             BA.MarkAsked(p.who, wall0); BA.NoteBless(p.who, p.list, wall0)
             for _, x in ipairs(p.list) do BA.runAsked[x.k] = true end
@@ -726,8 +739,9 @@ end
 function BA.AltText(o)
     local n = (o and not o.sample and o.want) and #BA.Alts(o) or 0
     if n <= 0 then return "" end
-    return "\n|cff80c0ff" .. string.format(L("附近还有 %d 个能给，点「换人」换下一个", "%d more nearby can give it - click Next to switch"), n) .. "|r"
+    return "\n|cff80c0ff" .. string.format(L("附近还有 %d 个能给：密完自动换下一个，也可以点「换人」", "%d more nearby can give it - next one comes up after you whisper, or click Next"), n) .. "|r"
 end
+local rotOf   -- 下面「换人」那段定义（密完自动换下一个也用）
 -- 弹框里点「密他要」：点了才发
 function BA.FieldSend()
     local o = BA.cur
@@ -737,9 +751,23 @@ function BA.FieldSend()
         ns.Print(L("现在发不了私聊（战斗中 / 聊天受限），过一会儿再点", "Can't whisper right now (combat / chat locked) - try again in a moment"))
         return false
     end
+    local left = not ns.DEV_LOCAL and BA.lastField and BA.WHISPER_GAP - (now() - BA.lastField)
+    if left and left > 0 then
+        ns.Print(string.format(L("30 秒只能密一个，%d 秒后再点", "One whisper per 30 s - try again in %d s"), math.ceil(left)))
+        return false
+    end
     if not BA.Send(BA.AskText(o.cls, o.list, o.who), "WHISPER", o.who) then return false end
-    BA.MarkAsked(o.who, wall()); BA.NoteBless(o.who, o.list)
+    BA.lastField = now()
+    BA.MarkAsked(o.who, wall()); BA.NoteBless(o.who, o.list); BA.ArmThank(o.who, o.list)
     ns.Print(L("已密 ", "Whispered ") .. (short(o.who) or o.who) .. L(" 要 ", " for ") .. joinNames(o.list))
+    -- 11-22 用户「如果还有可以点的，就一直点密到都密过了，再收起弹窗」：附近还有没密过的能给的人 → 框换成下一个，都密过了才收
+    local g = not o.sample and o.want and BA.Givers(o.want)[1]
+    if g then
+        local r = rotOf(o.want)
+        r.tried[o.who], r.tried[g.who], r.t = true, true, now()
+        BA.ShowField({ who = g.who, cls = g.cls, lv = g.lv, list = g.list, want = o.want, choices = BA.ChoiceList(g.cls, g.lv, o.want, g.who) })
+        return true
+    end
     BA.HideField()
     return true
 end
@@ -845,6 +873,7 @@ function BA.DungeonParty()
     end
     local chan = clean(IsInRaid and call(IsInRaid)) and "RAID" or "PARTY"
     if not BA.Send(BA.PartyText(o.plan), chan) then return false end
+    for _, p in ipairs(o.plan) do BA.ArmThank(p.who, p.list) end
     local t = wall()
     for _, p in ipairs(o.plan) do BA.MarkAsked(p.who, t); BA.NoteBless(p.who, p.list, t) end
     BA.HideField()
@@ -861,7 +890,7 @@ function BA.DungeonWhisper()
     local t, n = wall(), 0
     for _, p in ipairs(o.plan) do
         if not BA.RecentlyAsked(p.who, t) and BA.Send(BA.AskText(p.cls, p.list, p.who), "WHISPER", p.who) then
-            BA.MarkAsked(p.who, t); BA.NoteBless(p.who, p.list, t); n = n + 1
+            BA.MarkAsked(p.who, t); BA.NoteBless(p.who, p.list, t); BA.ArmThank(p.who, p.list); n = n + 1
         end
     end
     BA.HideField()
@@ -1151,7 +1180,7 @@ function BA.Givers(want, from)
 end
 -- 这一轮换过的人（按要的东西分开记；2 分钟没再点就重新开始）
 BA.rot = {}
-local function rotOf(want)
+rotOf = function(want)
     local key, t = wantKey(want), now()
     local r = BA.rot[key]
     if not r or t - r.t > BA.NEAR_TTL or r.t > t then r = { tried = {}, t = t }; BA.rot[key] = r end
@@ -1346,24 +1375,8 @@ local function slash(rest)
         ns.Print(L("要 BUFF：副本里缺了 → ", "Buffs: in dungeons -> ") .. BA.DModeText(dm))
         return
     end
-    if rest == "test2" or rest == "测试2" then
-        BA.ShowDungeon({ { cls = "PRIEST", who = L("示例牧师", "Sample Priest"), list = { BA.BY_K.fort } } }, true)
-        return
-    end
-    -- 11-20 示例：圣骑士能给几种祝福时的选择行（不发任何话）
-    if rest == "test3" or rest == "测试3" or rest == "测试祝福" then
-        local ch = {}
-        for _, t in ipairs(BA.BlessOrder()) do if fitCls(t, myClass()) then ch[#ch + 1] = t end end
-        if #ch < 2 then ch = { BA.BY_K.kings, BA.BY_K.might } end
-        BA.ShowField({ who = L("示例圣骑士", "Sample Paladin"), cls = "PALADIN", lv = 40, list = { ch[1] }, choices = ch, sample = true })
-        BA.cur = nil
-        return
-    end
-    if rest == "test" or rest == "测试" then
-        BA.ShowField({ who = L("示例牧师", "Sample Priest"), cls = "PRIEST", lv = 40, list = { BA.BY_K.fort }, sample = true })
-        BA.cur = nil   -- 示例框：点「密他要」不发（FieldSend 没有 cur 直接回）
-        return
-    end
+    -- 示例框 /gi buff test | test2 | test3（不发任何话）：11-23 搬进按需加载的 _GroupMage BuffAskDiag.lua（BA.Test），给内核腾内存
+    if rest and (rest:match("^test") or rest:match("^测试")) then pcall(ns.LoadModule, "mage"); return BA.Test and BA.Test(rest) end
     if ns.JumpToSetting and ns.JumpToSetting("buffask.on") then return end
     ns.Print(string.format(L("要 BUFF：总开关%s · 野外弹框%s · 副本里缺了：%s · 圣骑士祝福：%s（/gi buff 开 | 关 | 自动 | 弹框 | 不管 · 王者 | 力量 | 智慧 | 祝福 自动）",
         "Buffs: %s / field %s / dungeon: %s / blessings: %s (/gi buff on | off | auto | ask | none | kings | might | wisdom | bless auto)"),
@@ -1400,10 +1413,7 @@ if ns.RegisterWindow then
                 { text = on and L("关闭", "Turn off") or L("打开", "Turn on"), fn = function()
                     if on then BA.Never() else BA.muted = nil; BA.SetOpt("on", true); BA.SetOpt("field", true) end
                 end },
-                { text = L("示例", "Preview"), fn = function()
-                    BA.ShowField({ who = L("示例牧师", "Sample Priest"), cls = "PRIEST", lv = 40, list = { BA.BY_K.fort }, sample = true })
-                    BA.cur = nil
-                end },
+                { text = L("示例", "Preview"), fn = function() pcall(ns.LoadModule, "mage"); return BA.Test and BA.Test("test") end },
             }
         end })
     ns.RegisterWindow({ key = "buffAskDungeon", order = 63, title = function() return L("要 BUFF 副本弹框", "Dungeon buff prompt") end,

@@ -122,6 +122,7 @@ local FILTERS = {
     { id = "craft", label = L["制造"] },
     { id = "quest", label = L["任务"] }, { id = "boss", label = L["副本"] },
     { id = "rare", label = L["稀有"] }, { id = "vendor", label = L["商人"] },
+    { id = "pvp", label = L["PvP"] },
     { id = "other", label = L["其他"] },
 }
 
@@ -218,7 +219,7 @@ local ROLE_CONST = {
     mage = "spell", warlock = "spell", hunter = "phys",
     warrior = "phys", rogue = "phys",
 }
-local PURE_PHYS = { warrior = true, rogue = true, hunter = true }
+local PURE_PHYS = { warrior = true, rogue = true }
 BG.SCHOOL_OK = {
     paladin = { HOLY = true },
     priest = { HOLY = true, SHADOW = true },
@@ -268,6 +269,57 @@ local function RoleOf(cls)
     return role
 end
 
+BG.SPEC_WT = {
+    mage = {
+        arcane = { role = "spell", INTELLECT = 0.6, SPIRIT = 0.5, MANA_REGENERATION = 0.75,
+            HIT_RATING = 0.7, CRIT_RATING = 0.34, HASTE_RATING = 0.47,
+            ARCANE_DAMAGE_DONE = 0.95, FIRE_DAMAGE_DONE = 0.1, FROST_DAMAGE_DONE = 0.1 },
+        fire = { role = "spell", INTELLECT = 0.45, SPIRIT = 0.5, MANA_REGENERATION = 0.75,
+            HIT_RATING = 0.74, CRIT_RATING = 0.51, HASTE_RATING = 0.66,
+            FIRE_DAMAGE_DONE = 0.95, ARCANE_DAMAGE_DONE = 0.17, FROST_DAMAGE_DONE = 0.32 },
+        frost = { role = "spell", INTELLECT = 0.45, SPIRIT = 0.5, MANA_REGENERATION = 0.75,
+            HIT_RATING = 0.98, CRIT_RATING = 0.4, HASTE_RATING = 0.51,
+            FROST_DAMAGE_DONE = 0.95, ARCANE_DAMAGE_DONE = 0.13, FIRE_DAMAGE_DONE = 0.05 },
+    },
+    warlock = {
+        affli = { role = "spell", INTELLECT = 0.6, SPIRIT = 0.4, MANA_REGENERATION = 1,
+            HIT_RATING = 0.64, CRIT_RATING = 0.4, HASTE_RATING = 0.64,
+            FIRE_DAMAGE_DONE = 0.35, SHADOW_DAMAGE_DONE = 0.91 },
+        demo = { role = "spell", INTELLECT = 0.6, SPIRIT = 0.4, MANA_REGENERATION = 1,
+            HIT_RATING = 0.64, CRIT_RATING = 0.4, HASTE_RATING = 0.56,
+            FIRE_DAMAGE_DONE = 0.8, SHADOW_DAMAGE_DONE = 0.8 },
+        destro = { role = "spell", INTELLECT = 0.6, SPIRIT = 0.4, MANA_REGENERATION = 1,
+            HIT_RATING = 0.64, CRIT_RATING = 0.51, HASTE_RATING = 0.72,
+            FIRE_DAMAGE_DONE = 0.6, SHADOW_DAMAGE_DONE = 0.8 },
+    },
+    priest = {
+        shadow = { role = "spell", INTELLECT = 0.5, SPIRIT = 0.7, MANA_REGENERATION = 1.5,
+            HIT_RATING = 0.72, CRIT_RATING = 0.43, HASTE_RATING = 0.52, SHADOW_DAMAGE_DONE = 1 },
+    },
+    druid = {
+        balance = { role = "spell", INTELLECT = 0.6, SPIRIT = 0.7, MANA_REGENERATION = 1,
+            HIT_RATING = 0.97, CRIT_RATING = 0.51, HASTE_RATING = 0.64,
+            ARCANE_DAMAGE_DONE = 0.64, NATURE_DAMAGE_DONE = 0.43 },
+    },
+    shaman = {
+        ele = { role = "spell", INTELLECT = 0.6, SPIRIT = 0.8, MANA_REGENERATION = 1.3,
+            HIT_RATING = 0.56, CRIT_RATING = 0.51, HASTE_RATING = 0.56,
+            NATURE_DAMAGE_DONE = 1, FIRE_DAMAGE_DONE = 0, FROST_DAMAGE_DONE = 0 },
+    },
+    hunter = {
+        bm = { role = "phys", ATTACK_POWER = 0.43, RANGED_ATTACK_POWER = 0.43 },
+        mm = { role = "phys", ATTACK_POWER = 0.55, RANGED_ATTACK_POWER = 0.55, RANGED_DPS = 6.5,
+            CRIT_RATING = 0.36, HASTE_RATING = 0.32 },
+        surv = { role = "phys", STRENGTH = 0.3, SPIRIT = 0.35, STAMINA = 0.3, MANA_REGENERATION = 2,
+            ATTACK_POWER = 0.55, RANGED_ATTACK_POWER = 0.55, WEAPON_DPS = 6,
+            CRIT_RATING = 0.39, HASTE_RATING = 0.32 },
+    },
+    warrior = {
+        arms = { role = "phys", AGILITY = 0.69, CRIT_RATING = 0.52, HASTE_RATING = 0.48 },
+        fury = { role = "phys", AGILITY = 0.57, CRIT_RATING = 0.49, HASTE_RATING = 0.56 },
+    },
+}
+
 local function SpecWeights(cls, specId, roleOverride)
     local role = roleOverride or RoleOfKey(cls, BG.wRole) or RoleOfKey(cls, BG.tspec) or RoleOf(cls)
     local phys = role == "phys"
@@ -277,7 +329,7 @@ local function SpecWeights(cls, specId, roleOverride)
         SPIRIT = phys and 0.3 or 0.35,
         STAMINA = 0.1,
         ARMOR = 0.004,
-        ATTACK_POWER = phys and 0.48 or 0.05,
+        ATTACK_POWER = phys and 0.48 or 0,
         RANGED_ATTACK_POWER = 0,
         SPELL_POWER = phys and 0.4 or 1,
         CRIT_RATING = phys and 0.75 or 0.7,
@@ -296,62 +348,152 @@ local function SpecWeights(cls, specId, roleOverride)
         w.STRENGTH = (PRIM_STAT[cls] == "STRENGTH") and 1 or 0.05
         w[PRIM_STAT[cls] or "STRENGTH"] = 1
         if cls == "paladin" then
-            w.INTELLECT = 0.08
-            w.SPIRIT = 0
-            w.STAMINA = 0.5
-            w.HOLY_DAMAGE_DONE = 0.12
-        elseif cls == "shaman" then
             w.AGILITY = 0.4
-            w.INTELLECT = 0.7
-            w.SPIRIT = 0.1
+            w.INTELLECT = 0.6
+            w.SPIRIT = 0.05
+            w.STAMINA = 0.3
+            w.ATTACK_POWER = 0.45
+            w.WEAPON_DPS = 6
+            w.HIT_RATING = 0.79
+            w.CRIT_RATING = 0.43
+            w.HASTE_RATING = 0.2
+            w.MANA_REGENERATION = 1
+            w.SPELL_POWER = 0.5
+            w.SPELL_DAMAGE_DONE = 0.5
+            w.HOLY_DAMAGE_DONE = 0.5
+        elseif cls == "shaman" then
+            w.AGILITY = 0.3
+            w.INTELLECT = 0.6
+            w.SPIRIT = 0.5
+            w.STAMINA = 0.3
+            w.ATTACK_POWER = 0.42
+            w.WEAPON_DPS = 6
+            w.HIT_RATING = 0.66
+            w.CRIT_RATING = 0.55
+            w.HASTE_RATING = 0.48
+            w.MANA_REGENERATION = 1.2
+            w.SPELL_POWER = 0.3
+            w.SPELL_DAMAGE_DONE = 0.3
+            w.NATURE_DAMAGE_DONE = 0.3
         elseif cls == "druid" then
-            w.INTELLECT = 0.3
-            w.SPIRIT = 0.16
+            w.STRENGTH = 1.3
+            w.INTELLECT = 0.1
+            w.SPIRIT = 0.05
+            w.STAMINA = 0.3
+            w.ATTACK_POWER = 0.4
+            w.WEAPON_DPS = 6
+            w.HIT_RATING = 0.57
+            w.CRIT_RATING = 0.36
+            w.HASTE_RATING = 0.35
+            w.MANA_REGENERATION = 0.3
+        elseif cls == "hunter" then
+            w.STRENGTH = 0.05
+            w.INTELLECT = 0.8
+            w.SPIRIT = 0.7
+            w.STAMINA = 0.1
+            w.ATTACK_POWER = 0.43
+            w.HIT_RATING = 0.94
+            w.CRIT_RATING = 0.49
+            w.HASTE_RATING = 0.4
+            w.MANA_REGENERATION = 1.3
+            w.RANGED_DPS = 6
+            w.WEAPON_DPS = 2
+            w.SPELL_DAMAGE_DONE = 0
+            w.ARCANE_DAMAGE_DONE = 0
+            w.FIRE_DAMAGE_DONE = 0
+            w.FROST_DAMAGE_DONE = 0
+            w.NATURE_DAMAGE_DONE = 0
+            w.SHADOW_DAMAGE_DONE = 0
+            w.SPELL_POWER = 0
+        elseif cls == "warrior" then
+            w.AGILITY = 0.66
+            w.STAMINA = 0.3
+            w.SPIRIT = 0.05
+            w.ATTACK_POWER = 0.45
+            w.WEAPON_DPS = 6
+            w.HIT_RATING = 0.75
+            w.CRIT_RATING = 0.5
+            w.HASTE_RATING = 0.52
+            w.SPELL_DAMAGE_DONE = 0
+            w.ARCANE_DAMAGE_DONE = 0
+            w.FIRE_DAMAGE_DONE = 0
+            w.FROST_DAMAGE_DONE = 0
+            w.NATURE_DAMAGE_DONE = 0
+            w.SHADOW_DAMAGE_DONE = 0
+            w.SPELL_POWER = 0
+        elseif cls == "rogue" then
+            w.STRENGTH = 0.9
+            w.STAMINA = 0.3
+            w.SPIRIT = 0.05
+            w.ATTACK_POWER = 0.8
+            w.WEAPON_DPS = 6
+            w.HIT_RATING = 0.94
+            w.CRIT_RATING = 0.55
+            w.HASTE_RATING = 0.56
+            w.SPELL_DAMAGE_DONE = 0
+            w.ARCANE_DAMAGE_DONE = 0
+            w.FIRE_DAMAGE_DONE = 0
+            w.FROST_DAMAGE_DONE = 0
+            w.NATURE_DAMAGE_DONE = 0
+            w.SHADOW_DAMAGE_DONE = 0
+            w.SPELL_POWER = 0
         end
-        w.RANGED_ATTACK_POWER = w.ATTACK_POWER
-        w.SPELL_DAMAGE_DONE = 0.08
-        w.ARCANE_DAMAGE_DONE = 0.06
-        w.FIRE_DAMAGE_DONE = 0.06
-        w.FROST_DAMAGE_DONE = 0.06
-        w.NATURE_DAMAGE_DONE = 0.06
-        w.SHADOW_DAMAGE_DONE = 0.06
-        w.HEALTH_REGEN = 0.08
-        if cls == "hunter" then
-            w.RANGED_DPS = 2.5
-            w.WEAPON_DPS = 1.0
-        else
-            w.WEAPON_DPS = 5.0
-        end
+        if cls == "hunter" then w.RANGED_ATTACK_POWER = w.ATTACK_POWER end
     elseif heal then
-        w.INTELLECT = 0.5
-        w.SPIRIT = 0.5
-        w.MANA_REGENERATION = 1.5
-        w.CRIT_RATING = 0.3
-        w.HASTE_RATING = 0.3
-        w.SPELL_HEALING_DONE = 0.95
-        w.SPELL_DAMAGE_DONE = 0.05
-        w.ARCANE_DAMAGE_DONE = 0.05
-        w.FIRE_DAMAGE_DONE = 0.05
-        w.FROST_DAMAGE_DONE = 0.05
-        w.NATURE_DAMAGE_DONE = 0.05
-        w.SHADOW_DAMAGE_DONE = 0.05
+        w.AGILITY = 0.05
+        w.HIT_RATING = 0
+        w.INTELLECT = 0.9
+        w.SPIRIT = 0.9
+        w.MANA_REGENERATION = 1.4
+        w.CRIT_RATING = 0.34
+        w.HASTE_RATING = 0.45
+        w.SPELL_HEALING_DONE = 0.9
+        w.SPELL_DAMAGE_DONE = 0
+        w.ARCANE_DAMAGE_DONE = 0
+        w.FIRE_DAMAGE_DONE = 0
+        w.FROST_DAMAGE_DONE = 0
+        w.NATURE_DAMAGE_DONE = 0
+        w.SHADOW_DAMAGE_DONE = 0
         w.HEALTH_REGEN = 0.04
         if cls == "paladin" then
-            w.HOLY_DAMAGE_DONE = 0.05
+            w.INTELLECT = 1
+            w.SPIRIT = 0.4
+            w.MANA_REGENERATION = 1
+            w.CRIT_RATING = 0.26
+            w.HASTE_RATING = 0.31
+            w.SPELL_HEALING_DONE = 0.54
         elseif cls == "priest" then
-            w.HOLY_DAMAGE_DONE = 0.05
+            w.SPIRIT = 1
+            w.MANA_REGENERATION = 1.5
+            w.CRIT_RATING = 0.4
+            w.HASTE_RATING = 0.48
+            w.SPELL_HEALING_DONE = 0.7
+        elseif cls == "druid" then
+            w.INTELLECT = 0.8
+            w.SPIRIT = 1
+            w.CRIT_RATING = 0.34
+            w.HASTE_RATING = 0.4
+            w.SPELL_HEALING_DONE = 1.21
+        elseif cls == "shaman" then
+            w.INTELLECT = 1
+            w.SPIRIT = 0.9
+            w.HASTE_RATING = 0.59
+            w.SPELL_HEALING_DONE = 0.9
         end
     else
-        w.SPIRIT = 0.35
-        w.CRIT_RATING = 0.7
-        w.HASTE_RATING = 0.55
-        w.SPELL_DAMAGE_DONE = 0.85
-        w.SPELL_HEALING_DONE = 0.05
-        w.ARCANE_DAMAGE_DONE = 0.7
-        w.FIRE_DAMAGE_DONE = 0.7
-        w.FROST_DAMAGE_DONE = 0.7
-        w.NATURE_DAMAGE_DONE = 0.7
-        w.SHADOW_DAMAGE_DONE = 0.7
+        w.AGILITY = 0.05
+        w.INTELLECT = 0.55
+        w.SPIRIT = 0.6
+        w.MANA_REGENERATION = 1.2
+        w.CRIT_RATING = 0.45
+        w.HASTE_RATING = 0.6
+        w.SPELL_DAMAGE_DONE = 1
+        w.SPELL_HEALING_DONE = 0
+        w.ARCANE_DAMAGE_DONE = 0.6
+        w.FIRE_DAMAGE_DONE = 0.6
+        w.FROST_DAMAGE_DONE = 0.6
+        w.NATURE_DAMAGE_DONE = 0.6
+        w.SHADOW_DAMAGE_DONE = 0.8
         w.HEALTH_REGEN = 0.03
     end
     if specId == "pvp" then
@@ -383,31 +525,57 @@ local function SpecWeights(cls, specId, roleOverride)
         w.SHADOW_DAMAGE_DONE = 0
         w.HOLY_DAMAGE_DONE = 0
         if cls == "warrior" then
-            w.STRENGTH = 0.55
-            w.AGILITY = 0.45
-            w.ATTACK_POWER = 0.3
-            w.WEAPON_DPS = 3.0
+            w.STRENGTH = 0.6
+            w.AGILITY = 0.5
+            w.ATTACK_POWER = 0.04
+            w.WEAPON_DPS = 5
+            w.HIT_RATING = 0.63
+            w.CRIT_RATING = 0.24
+            w.HASTE_RATING = 0.17
+            w.DODGE_RATING = 0.55
+            w.PARRY_RATING = 0.37
+            w.BLOCK_RATING = 0.81
+            w.DEFENSE_SKILL_RATING = 1.2
+            w.SPIRIT = 0.05
         elseif cls == "druid" then
-            w.STRENGTH = 0.55
-            w.AGILITY = 0.6
-            w.ATTACK_POWER = 0.35
-            w.WEAPON_DPS = 3.5
+            w.STRENGTH = 0.3
+            w.AGILITY = 0.48
+            w.ATTACK_POWER = 0.1
+            w.WEAPON_DPS = 5
+            w.HIT_RATING = 0.3
+            w.CRIT_RATING = 0.24
+            w.HASTE_RATING = 0.25
+            w.DODGE_RATING = 0.3
+            w.PARRY_RATING = 0
             w.BLOCK_RATING = 0
+            w.BLOCK_VALUE = 0
+            w.DEFENSE_SKILL_RATING = 0.9
+            w.INTELLECT = 0.1
+            w.SPIRIT = 0.05
+            w.MANA_REGENERATION = 0.3
         elseif cls == "paladin" then
-            w.STRENGTH = 0.5
-            w.AGILITY = 0.3
-            w.ATTACK_POWER = 0.25
-            w.INTELLECT = 0.05
-            w.SPELL_POWER = 0.38
-            w.SPELL_DAMAGE_DONE = 0.2
-            w.HOLY_DAMAGE_DONE = 0.3
-            w.MANA_REGENERATION = 0.2
-            w.WEAPON_DPS = 2.5
+            w.STRENGTH = 0.4
+            w.AGILITY = 0.6
+            w.ATTACK_POWER = 0.13
+            w.WEAPON_DPS = 5
+            w.HIT_RATING = 0.77
+            w.CRIT_RATING = 0.43
+            w.HASTE_RATING = 0.5
+            w.DODGE_RATING = 0.55
+            w.PARRY_RATING = 0.38
+            w.BLOCK_RATING = 1.1
+            w.BLOCK_VALUE = 0.15
+            w.DEFENSE_SKILL_RATING = 1.05
+            w.INTELLECT = 0.5
+            w.SPIRIT = 0.05
+            w.MANA_REGENERATION = 1
+            w.SPELL_POWER = 0.44
+            w.SPELL_DAMAGE_DONE = 0.44
+            w.HOLY_DAMAGE_DONE = 0.44
         end
     end
     if PURE_PHYS[cls] then
         w.INTELLECT = 0
-        w.SPIRIT = 0
         w.SPELL_POWER = 0
         w.SPELL_DAMAGE_DONE = 0
         w.SPELL_HEALING_DONE = 0
@@ -420,6 +588,12 @@ local function SpecWeights(cls, specId, roleOverride)
     local okSchool = BG.SCHOOL_OK[cls]
     for _, sk in ipairs(BG.SCHOOL_KEYS) do
         if not (okSchool and okSchool[sk]) then w[sk .. "_DAMAGE_DONE"] = 0 end
+    end
+    local skey = BG.wRole or BG.tspec
+    local spw = skey and BG.SPEC_WT and BG.SPEC_WT[cls] or nil
+    spw = spw and spw[skey]
+    if spw and spw.role == role then
+        for k, v in pairs(spw) do if k ~= "role" then w[k] = v end end
     end
     w.PHYSICAL_DAMAGE_DONE = (w.WEAPON_DPS or 0) * 0.385
     return w
@@ -957,7 +1131,7 @@ local function OpenWeightDialog(mode, idx)
         wdlg.edit:SetText("")
         wdlg.picked = W_ICONS[1]
     end
-    if wdlg.edit then wdlg.edit:SetFocus() end
+    if wdlg.edit then ns.FocusEdit(wdlg.edit) end
     for _, ob in ipairs(wdlg.icons) do SetOutline(ob, ob.icon == wdlg.picked) end
     wdlg.popup:Show()
 end
@@ -1201,6 +1375,13 @@ local function CatKind(id)
     local src = CatSrcOf(id)
     local kind, place = string.match(src, "^(.-)|(.*)$")
     if not kind then kind = src end
+    if place and (place == "PvP 军需官" or place == "PvP 軍需官" or place == "PvP vendors"
+        or place == "阿拉希盆地" or place == "Arathi Basin"
+        or string.find(place, "奥特兰克山谷", 1, true)
+        or string.find(place, "奧特蘭克山谷", 1, true)
+        or string.find(place, "Alterac Valley", 1, true)) then
+        return "pvp"
+    end
     if kind == "首领掉落" or kind == "首領掉落" or kind == "副本掉落"
         or kind == "多个首领" or kind == "多個首領"
         or kind == "Boss drop" or kind == "Dungeon drop" or kind == "Several bosses" then
@@ -1273,6 +1454,7 @@ BG.INST_ALIAS = {
     ["熔火之心"] = "mc",
     ["黑翼之巢"] = "bwl",
     ["安其拉神殿"] = "aq40",
+    ["安其拉"] = "aq40",
     ["安其拉废墟"] = "aq20",
     ["祖尔格拉布"] = "zg",
     ["纳克萨玛斯"] = "naxx",
@@ -1294,7 +1476,6 @@ BG.INST_ALIAS = {
     ["希利苏斯·斯古恩男爵"] = "silithus",
     ["希利苏斯·卡苏姆男爵"] = "silithus",
     ["希利苏斯·大元帅维拉希斯"] = "silithus",
-    ["奥特兰克山谷·森林之王伊弗斯"] = "av",
 }
 
 BG.INST_BOSS = {
@@ -1322,7 +1503,7 @@ BG.INST_EXTRA = {
     { key = "azuregos", name = "蓝龙", nameEn = "Azuregos", nameTw = "藍龍", group = "world" },
     { key = "kazzak", name = "卡扎克", nameEn = "Lord Kazzak", nameTw = "卡扎克", group = "world" },
     { key = "silithus", name = "安其拉开门首领", nameEn = "Ahn'Qiraj War Leaders", nameTw = "安其拉開門首領", group = "world" },
-    { key = "av", name = "奥特兰克山谷首领", nameEn = "Alterac Valley Bosses", nameTw = "奧特蘭克山谷首領", group = "world" },
+    { key = "unavail", name = "未实装装备", nameEn = "Not Implemented", nameTw = "未實裝裝備", group = "raid" },
 }
 
 BG.INST_FIX = { onyxias_lair = "ony" }
@@ -1450,6 +1631,20 @@ function BG.InstOpen(e)
     return e.open == true
 end
 
+function BG.EraLockOf(id)
+    if type(id) ~= "number" then return nil end
+    local t = ns.GearEraLock
+    if type(t) ~= "table" then return nil end
+    return t[id]
+end
+
+function BG.EraBlocked(id)
+    local k = BG.EraLockOf(id)
+    if not k then return false end
+    if BG.instReady ~= true then return false end
+    return not (BG.instSet and BG.instSet[k] == true)
+end
+
 function BG.InstOf(id)
     if not BG.__instItem then BG.InstBuild() end
     local k = BG.__instItem and BG.__instItem[id]
@@ -1460,7 +1655,7 @@ function BG.InstOf(id)
     if type(iid) == "string" and iid ~= "" then
         return BG.INST_FIX[iid] or iid
     end
-    return nil
+    return BG.EraLockOf(id)
 end
 
 function BG.InstAllowed(set, id)
@@ -1629,15 +1824,20 @@ local function LoadFilterPrefs()
     BG.fOneOnly = (s.fOneOnly == true)
     local lv = s.fFilterLv
     BG.filterLv = (type(lv) == "number" and lv >= 1 and lv <= 60) and math.floor(lv) or nil
-    if s.fSrcVer ~= 3 then
-        s.fSrcVer = 3
-        local ss = s.fSrcSet
-        if ss == nil then
-            ss = {}
-            for _, f in ipairs(FILTERS) do ss[f.id] = true end
+    if s.fSrcVer ~= 4 then
+        if s.fSrcVer ~= 3 then
+            local ss = s.fSrcSet
+            if ss == nil then
+                ss = {}
+                for _, f in ipairs(FILTERS) do ss[f.id] = true end
+            end
+            ss.other = nil
+            s.fSrcSet = ss
         end
-        ss.other = nil
-        s.fSrcSet = ss
+        if type(s.fSrcSet) == "table" and s.fSrcSet.pvp == nil then
+            s.fSrcSet.pvp = true
+        end
+        s.fSrcVer = 4
     end
     BG.srcSet = {}
     for _, f in ipairs(FILTERS) do
@@ -1787,9 +1987,16 @@ local function RecItem(sp, slotKey)
     if not sp then return nil end
     local sides = sp.slots[slotKey]
     if type(sides) ~= "table" then return nil end
-    local s = sides[(BG.side or PlayerFac()) == "h" and 2 or 1]
-    if type(s) ~= "table" then return nil end
-    return s[1], s[2], s[3]
+    local i = (BG.side or PlayerFac()) == "h" and 2 or 1
+    while i <= #sides do
+        local s = sides[i]
+        if type(s) == "table" and type(s[1]) == "number"
+            and not BG.EraBlocked(s[1]) then
+            return s[1], s[2], s[3]
+        end
+        i = i + 1
+    end
+    return nil
 end
 
 local function CurSide()
@@ -2187,6 +2394,7 @@ local function EnchTip(owner, e)
 end
 
 local function LinkToChat(itemID)
+    if DG and DG.AHSearchItem and DG.AHSearchItem(itemID) then return end
     if DG and DG.InsertItemLink then
         DG.InsertItemLink(itemID)
         return
@@ -2408,7 +2616,7 @@ local AUTO_BUDGET_MS = 6
 local AUTO_TOP_N = 40
 
 BG.AUTO_SRC = { dungeon = AUTO_SRC_DG, known = AUTO_SRC_KNOWN, dq = AUTO_SRC_DQ }
-BG.AUTO_GEN_REV = 19
+BG.AUTO_GEN_REV = 30
 
 local function ClampLv(lv)
     lv = math.floor(tonumber(lv) or 60)
@@ -2663,6 +2871,20 @@ function BG.WarnEmpty()
     end)
 end
 
+function BG.JumpSearch(id, kind)
+    if not (id and kind) then return end
+    if ns.ModuleOn and not ns.ModuleOn("QuestSearch") then
+        local msg = L["搜索模块未启用，暂时无法跳转"]
+        if DEFAULT_CHAT_FRAME and DEFAULT_CHAT_FRAME.AddMessage then
+            pcall(DEFAULT_CHAT_FRAME.AddMessage, DEFAULT_CHAT_FRAME, "|cffff7a66" .. msg .. "|r")
+        end
+        return
+    end
+    ns.OpenPage("QuestSearch")
+    local QS = ns.QuestSearchModule
+    if QS and QS.OpenAt then QS.OpenAt(id, kind, tostring(id)) end
+end
+
 local function AutoJobCancel()
     if not autoJob then return end
     autoJobSeq = autoJobSeq + 1
@@ -2693,7 +2915,15 @@ local function AutoRawOK(id, cap)
 end
 
 function BG.AutoInstOK(job, id, kind)
-    if kind ~= "boss" and kind ~= "quest" then return true end
+    if kind ~= "boss" and kind ~= "quest" then
+        local e = BG.EraLockOf(id)
+        if e then
+            local set = job.instSet
+            if not set then return true end
+            return set[e] == true
+        end
+        return true
+    end
     local set = job.instSet
     if not set then return true end
     return BG.InstAllowed(set, id)
@@ -3005,6 +3235,17 @@ function BG.UseManualPlan()
     BG.RequestRender()
 end
 
+function BG.UseBlankPlan()
+    BG.autoPlan = nil
+    BG.usingPlan = { blank = true }
+    BG.cur = {}
+    BG.ench = {}
+    BG._sweepFails = 0
+    BG._sweepMiss = nil
+    AutoJobCancel()
+    BG.RequestRender()
+end
+
 function BG.StartManualGen()
     if not SpecRec() then return end
     local ss = {}
@@ -3048,7 +3289,8 @@ end
 BG.CHIP_INK_SRC = {
     craft = { 0.95, 0.70, 0.38 }, quest = { 0.50, 0.80, 0.98 },
     boss = { 0.94, 0.52, 0.50 }, rare = { 0.76, 0.60, 0.96 },
-    vendor = { 0.50, 0.84, 0.62 }, other = { 0.70, 0.72, 0.76 },
+    vendor = { 0.50, 0.84, 0.62 }, pvp = { 0.72, 0.30, 0.38 },
+    other = { 0.70, 0.72, 0.76 },
 }
 
 function BG.PaintSrcChips(r, set)
@@ -3221,6 +3463,22 @@ local function PaintPlans()
                 r.title:SetJustifyH("LEFT")
                 r.title:SetJustifyV("MIDDLE")
             end
+            local gb = r.guideBtn
+            if pe.fixed then
+                if not gb then
+                    gb = NewButton(r, L["查看详情"], 64, 18, 12)
+                    gb:SetPoint("BOTTOMRIGHT", r, "BOTTOMRIGHT", -6, 5)
+                    gb:SetFrameLevel((r:GetFrameLevel() or 0) + 3)
+                    SetButtonSelected(gb, false)
+                    gb:SetScript("OnClick", function() BG.OpenPreraidGuide() end)
+                    r.guideBtn = gb
+                end
+                gb:Show()
+                r.dot:ClearAllPoints()
+                r.dot:SetPoint("RIGHT", gb, "LEFT", -6, 0)
+            elseif gb and gb:IsShown() then
+                gb:Hide()
+            end
             local short, full = PresetText(pe)
             r.title:SetText(full or short)
             if full and (r.title:GetStringWidth() or 0) > 168 then
@@ -3258,18 +3516,14 @@ local function PaintPlans()
         end
     end
     local shown = 0
-    for i = 1, N_USER do
-        local r0 = rows[N_PRESET + i]
-        r0:Hide()
-        r0.__plan = nil
-    end
     for _, p in ipairs(plans) do
         if shown >= N_USER then break end
         if p.tspec == nil or p.tspec == BG.tspec then
-            local r = rows[N_PRESET + shown + 1]
             shown = shown + 1
-            r:Show()
+            local r = rows[N_PRESET + shown]
+            if not r:IsShown() then r:Show() end
             r.title:SetText(p.name)
+            r.title:SetShown(not r.__renaming)
             BG.PaintSrcChips(r, nil)
             local active = p == BG.usingPlan
             r.dot:SetShown(false)
@@ -3289,8 +3543,35 @@ local function PaintPlans()
             y = y + PLAN_H + 2
         end
     end
-    local hasRen = BG.usingPlan ~= nil and BG.usingPlan.manual ~= true and BG.usingPlan.fixed == nil
-    local hasDel = BG.usingPlan ~= nil and BG.usingPlan.fixed == nil
+    for i = shown + 1, N_USER do
+        local r0 = rows[N_PRESET + i]
+        if r0:IsShown() then r0:Hide() end
+        r0.__plan = nil
+        r0.__on = nil
+    end
+    local br = rows[N_PRESET + N_USER + 1]
+    br:Show()
+    br.title:SetText(L["添加空白面板"])
+    BG.PaintSrcChips(br, nil)
+    local bact = BG.usingPlan ~= nil and BG.usingPlan.blank == true
+    br.dot:SetShown(bact)
+    br.__sel = bact
+    if br.__huiCard then
+        ns.hui.HuiCardState(br, (bact or br:IsMouseOver()) and "hover" or "norm")
+    end
+    br.title:SetTextColor(Unpack(bact and C_GOLD or C_TEXT))
+    br.__plan = nil
+    br.__vol = nil
+    br.__key = nil
+    br.__blank = true
+    br.__on = true
+    br.__top = y
+    br.__fillH = PLAN_H
+    br:SetPoint("TOPLEFT", BG.planChild, "TOPLEFT", 0, -y)
+    br:SetPoint("RIGHT", BG.planChild, "RIGHT", 0, 0)
+    y = y + PLAN_H + 2
+    local hasRen = BG.usingPlan ~= nil and BG.usingPlan.blank ~= true and BG.usingPlan.manual ~= true and BG.usingPlan.fixed == nil
+    local hasDel = BG.usingPlan ~= nil and BG.usingPlan.blank ~= true and BG.usingPlan.fixed == nil
     BG.renameBtn:SetEnabled(hasRen)
     BG.deleteBtn:SetEnabled(hasDel)
     BG.renameBtn.lbl:SetTextColor(Unpack(hasRen and C_TEXT or C_DIM))
@@ -3542,8 +3823,8 @@ function FillBwRow(r)
         r.chip2:Hide()
         r.chip3:Hide()
         r.wishBt:Hide()
-        r.pinBt:Hide()
-        r.__pinNpc, r.__pinLoc, r.__pinQid = nil, nil, nil
+        r.detBt:Hide()
+        r.__detQid = nil
         r.__nmMiss = nil
         r.__painted = true
         return
@@ -3560,7 +3841,7 @@ function FillBwRow(r)
     r.name:SetText(nm)
     r.name:SetTextColor(Unpack(QColor(ItemQuality(sp, row.item, row.q))))
     local st = row.cat and CatSrcText(row.item) or SrcText(row.src)
-    r.__pinNpc, r.__pinLoc, r.__pinQid = nil, nil, nil
+    r.__detQid = nil
     local qid = nil
     if row.src and row.src.t == "quest" and row.src.q then
         qid = tonumber(row.src.q)
@@ -3571,38 +3852,9 @@ function FillBwRow(r)
         local qn, qok = DG.QuestName(qid)
         if not qok then BG.needNames = true; r.__nmMiss = true end
         if row.cat and qok then st = L["任务奖励"] .. " · " .. qn end
-        local sn = DG.QuestStartNpc and DG.QuestStartNpc(qid) or nil
-        local npc = sn and sn[1] or nil
-        local sl = ns.DungeonQuestStartLoc and ns.DungeonQuestStartLoc[qid] or nil
-        local loc = nil
-        if sl and (not npc or tonumber(sl[1]) == tonumber(npc)) then
-            npc = sl[1]
-            if sl[3] and sl[4] and sl[5] then loc = { sl[3], sl[4], sl[5] } end
-        end
-        if not loc then
-            local gs = ns.GearQuestStart and ns.GearQuestStart[qid] or nil
-            if gs then
-                npc = gs[1]
-                loc = { gs[2], gs[3], gs[4] }
-            elseif sn and sn[3] and sn[4] and sn[5] then
-                loc = { sn[3], sn[4], sn[5] }
-            end
-        end
-        if npc and (loc or (ns.NPCLoc and ns.NPCLoc[npc])) then
-            r.__pinNpc, r.__pinLoc = npc, loc
-        end
-        r.__pinQid = qid
+        r.__detQid = qid
     end
-    local showPin = r.__pinNpc ~= nil
-    if not showPin and r.__pinQid then
-        if ns.GearChainIndexOf and ns.GearChainIndexOf(r.__pinQid) then
-            showPin = true
-        else
-            local qloc = ns.GearQuestLocOf and ns.GearQuestLocOf(r.__pinQid) or nil
-            showPin = type(qloc) == "table" and qloc[1] ~= nil
-        end
-    end
-    r.pinBt:SetShown(showPin)
+    r.detBt:Show()
     r.src:SetText(st)
     r.src:SetTextColor(Unpack(C_GREY))
     r.eqTag:SetShown(BG.bwEquipped == row.item)
@@ -3687,7 +3939,7 @@ local function PaintBrowser()
         for _, r in ipairs(mainBoth and BG.CatRowsForMain() or CatRowsFor(rkey)) do
             local kind = CatKind(r.id)
             local pass = not (next(BG.srcSet) ~= nil and not BG.srcSet[kind])
-            if pass and (kind == "boss" or kind == "quest") and not BG.InstPass(r.id) then pass = false end
+            if pass and (kind == "boss" or kind == "quest" or BG.EraLockOf(r.id)) and not BG.InstPass(r.id) then pass = false end
             if pass and lv and not UsableAt(r.id, lv, r.req or 0) then pass = false end
             if pass and BG.search ~= "" then
                 local nm = string.lower(DG.ItemName(r.id) or "")
@@ -4791,7 +5043,11 @@ local function MakePlanRow(parent)
         self:ClearFocus()
         self:Hide()
     end)
-    r.edit:SetScript("OnEditFocusLost", function(self) self:Hide() end)
+    r.edit:SetScript("OnEditFocusLost", function(self)
+        r.__renaming = nil
+        r.title:Show()
+        self:Hide()
+    end)
     r:SetScript("OnClick", function(self, button)
         if button == "RightButton" and (self.__plan or self.__manual) then
             local p = self.__plan or BG.ManualPlan()
@@ -4814,8 +5070,17 @@ local function MakePlanRow(parent)
                 return
             end
             self.edit:SetText(p.name or "")
+            self.__renaming = true
+            self.title:Hide()
             self.edit:Show()
-            self.edit:SetFocus()
+            ns.FocusEdit(self.edit)
+            return
+        end
+        if self.__blank then
+            if button == "LeftButton" then
+                BG.UseBlankPlan()
+                ns.PlaySound(1)
+            end
             return
         end
         if self.__plan then
@@ -4849,8 +5114,10 @@ local function BuildMid(m1, m2)
         for _, r in ipairs(BG.planRows) do
             if r.__plan == p then
                 r.edit:SetText(p.name or "")
+                r.__renaming = true
+                r.title:Hide()
                 r.edit:Show()
-                r.edit:SetFocus()
+                ns.FocusEdit(r.edit)
                 return
             end
         end
@@ -4889,7 +5156,7 @@ local function BuildMid(m1, m2)
     end)
     BG.planScroll, BG.planChild = pool, child
     BG.planRows = {}
-    for i = 1, N_PRESET + N_USER do
+    for i = 1, N_PRESET + N_USER + 1 do
         if i % 2 == 0 then coroutine.yield() end
         local r = MakePlanRow(child)
         BG.planRows[i] = r
@@ -5041,49 +5308,23 @@ local function BuildBrowser(parent)
             GameTooltip:Show()
         end)
         r.wishBt:SetScript("OnLeave", function() GameTooltip:Hide() end)
-        r.pinBt = CreateFrame("Button", nil, r)
-        r.pinBt:SetSize(13.75, 13.75)
-        r.pinBt:SetPoint("BOTTOMRIGHT", r.wishBt, "BOTTOMLEFT", 2, 4.75)
-        r.pinBt:EnableMouse(true)
-        r.pinBt.tex = r.pinBt:CreateTexture(nil, "ARTWORK")
-        r.pinBt.tex:SetAllPoints()
-        r.pinBt.tex:SetTexture("Interface\\AddOns\\DungeonsForever\\Media\\Pins\\EntryPin")
-        r.pinBt:Hide()
-        r.pinBt:SetScript("OnClick", function(self)
+        r.detBt = NewButton(r, L["查看详情"], 64, 18, 12)
+        r.detBt:SetPushedTextOffset(0, 0)
+        r.detBt:SetPoint("BOTTOMRIGHT", r.wishBt, "BOTTOMLEFT", -2, 2)
+        r.detBt:SetFrameLevel((r:GetFrameLevel() or 0) + 3)
+        SetButtonSelected(r.detBt, false)
+        r.detBt:SetScript("OnClick", function(self)
             local row = self:GetParent()
             if not row then return end
-            local qid = row.__pinQid
-            if qid and ns.GearMarkQuestSmart then
-                local hasChain = ns.GearChainIndexOf and ns.GearChainIndexOf(qid)
-                if hasChain or not row.__pinNpc then
-                    ns.PlaySound(1)
-                    ns.GearMarkQuestSmart(qid)
-                    return
-                end
-            end
-            if row.__pinNpc then
-                DG.MarkNPC(row.__pinNpc, row.__pinLoc)
+            local item = row.__row and row.__row.item
+            if row.__detQid then
                 ns.PlaySound(1)
+                BG.JumpSearch(row.__detQid, "quest")
+            elseif item then
+                ns.PlaySound(1)
+                BG.JumpSearch(item, "item")
             end
         end)
-        r.pinBt:SetScript("OnEnter", function(self)
-            local row = self:GetParent()
-            if row and row.__pinNpc and DG.ShowNpcTip then
-                DG.ShowNpcTip(self, row.__pinNpc, row.__pinLoc)
-                return
-            end
-            local qid = row and row.__pinQid
-            if not (qid and ns.GearChainIndexOf) then return end
-            GameTooltip:SetOwner(self, "ANCHOR_LEFT")
-            GameTooltip:ClearLines()
-            if ns.GearChainIndexOf(qid) then
-                GameTooltip:AddLine(L["点击：查看任务链"], 1, 0.82, 0, true)
-            else
-                GameTooltip:AddLine(L["点击：在地图上标记"], 1, 0.82, 0, true)
-            end
-            GameTooltip:Show()
-        end)
-        r.pinBt:SetScript("OnLeave", function() GameTooltip:Hide() end)
         r:SetScript("OnEnter", function(self)
             if self.__huiCard then ns.hui.HuiCardState(self, "hover") end
             local row = self.__row
@@ -5145,7 +5386,7 @@ local function BuildBrowser(parent)
     pop:SetPoint("TOPRIGHT", parent, "TOPLEFT", -8, -40)
     if ns.hui and ns.hui.SkinShadow then ns.hui.SkinShadow(pop) end
     BG.filterPop = pop
-    BG.FILTER_W, BG.FILTER_H = 170, 354
+    BG.FILTER_W, BG.FILTER_H = 170, 382
     BG.INST_W, BG.INST_H = 232, 400
     pop:SetSize(BG.FILTER_W, BG.FILTER_H)
 
@@ -5269,7 +5510,7 @@ local function BuildBrowser(parent)
     end
 
     local ib = NewButton(va, "", 154, 24, 12)
-    ib:SetPoint("TOPLEFT", va, "TOPLEFT", 8, -294)
+    ib:SetPoint("TOPLEFT", va, "TOPLEFT", 8, -322)
     ib.lbl = ib:GetFontString()
     if ib.lbl then ib.lbl:Hide() end
     local ibL = MakeFS(ib, 14, C_TEXT, "LEFT")
@@ -5286,7 +5527,7 @@ local function BuildBrowser(parent)
     BG.instBtn, BG.instBtnLbl = ib, ibR
 
     local gb = NewButton(va, L["生成 BiS 方案"], 154, 24, 14)
-    gb:SetPoint("TOPLEFT", va, "TOPLEFT", 8, -322)
+    gb:SetPoint("TOPLEFT", va, "TOPLEFT", 8, -350)
     gb.lbl = gb:GetFontString()
     SetButtonSelected(gb, false)
     gb:SetScript("OnClick", function()
@@ -6285,7 +6526,7 @@ function BG.PreRaidPlan()
     local items, n, slotOk = {}, 0, true
     for k, v in pairs(raw) do
         local id = (type(v) == "table") and v[1] or v
-        if type(id) == "number" then
+        if type(id) == "number" and not BG.EraBlocked(id) then
             local dk
             if k == "main" then
                 local s = SlotOfAny(id)
@@ -6326,4 +6567,26 @@ function BG.UsePreRaid()
     BG.ench = {}
     BG.RequestRender()
     return true
+end
+
+function BG.OpenPreraidGuide()
+    if not (ns.TierModule and ns.ClassDB) then return end
+    local cg = ns.EnsureClassGuide and ns.EnsureClassGuide()
+    if type(cg) ~= "table" or type(cg.specs) ~= "table" then return end
+    local clsUp = string.upper(tostring(BG.cls))
+    local rec = cg.specs[clsUp]
+    if type(rec) ~= "table" then return end
+    local tierDB
+    local ok, t = pcall(ns.ClassDB)
+    if ok and type(t) == "table" then tierDB = t.tier end
+    if type(tierDB) ~= "table" then return end
+    tierDB.nav = "spec"
+    tierDB.cls = clsUp
+    tierDB.mode = "bis"
+    local sp = BG.tspec
+    if sp == "cat" then sp = "feral" end
+    if type(sp) == "string" and rec[sp] then tierDB.spec = sp end
+    ns.OpenPage("Tier")
+    if ns.TierModule.RequestRender then ns.TierModule.RequestRender() end
+    ns.PlaySound(1)
 end

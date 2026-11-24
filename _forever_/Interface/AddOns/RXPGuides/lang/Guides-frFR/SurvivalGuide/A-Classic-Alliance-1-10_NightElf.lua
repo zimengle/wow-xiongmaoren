@@ -256,7 +256,7 @@ step
     #sticky
     #label vial1
     .goto Teldrassil,59.9,33.0
-	.use 5185 >> Utilisez la [Fiole de cristal] au puits de lune
+	.use 5185 >> Utilisez la [Flasque de cristal] au puits de lune
     .complete 921,1 --Collect Filled Crystal Phial (x1)
 step << Hunter
     .goto Teldrassil,59.8,34.1
@@ -905,7 +905,7 @@ step << Druid
 	.zoneskip Moonglade
 step << Druid
     .goto Moonglade,56.21,30.64
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Dendrite Starblaze|r à l'étage
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Dendrite Starblaze|r en haut des escaliers
     .turnin 5921 >> Rendez la quête Reflet-de-Lune
     .target Dendrite Starblaze
     .accept 5929 >> Acceptez la quête L'esprit du Grand ours
@@ -919,10 +919,10 @@ step << Druid
 step << Druid
 	#completewith next
 	.cast 18960 >> Lancez [Téléportation : Reflet-de-lune]
-    >>Ceci rendra votre retour plus rapide
+    >>Ceci vous fera revenir plus vite
 step << Druid
     .goto Moonglade,56.21,30.64
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Dendrite Starblaze|r à l'étage
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Dendrite Starblaze|r en haut des escaliers
     .turnin 5929 >> Rendez la quête L'esprit du Grand ours
     .target Dendrite Starblaze
     .accept 5931 >> Acceptez la quête Retour à Darnassus
@@ -1139,8 +1139,8 @@ step << Hunter
 	.goto Teldrassil,45.6,31.4,0
 	.goto Teldrassil,37.6,28.8,0
     >>Lancez [Apprivoiser une bête] |cRXP_WARN_sur un |cRXP_ENEMY_Strigid Hunter|r pour le dompter|r -- .tame 1997
-    .train 2981 >> Attaquez des créatures avec pour qu'il apprenne [Griffe (Rang 2)]
-    .link https://www.wow-petopia.com/classic/training.php >> |cRXP_WARN_Cliquez ici pour plus d'information sur le dressage des familiers|r
+    .train 2981 >> Attaquez des mobs avec celui-ci pour qu'il apprenne [Claw (Rank 2)]
+    .link https://www.wow-petopia.com/classic/training.php >> Cliquez ici pour plus d'information sur le dressage des familiers
 	.unitscan Strigid Hunter
 step
     .goto Teldrassil,43.2,42.8,55,0
@@ -1328,7 +1328,7 @@ step << Druid
     .target Firodren Mooncaller
 step << Hunter/Warrior/Priest
     .goto Darnassus,57.56,46.73
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t Parlez à |cRXP_FRIENDLY_Ilyenia Moonfire|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Ilyenia Moonfire|r
     .skipgossip 11866,1
     .train 227 >>Apprenez la compétence Bâtons
     >>Si vous avez un Bâton dans votre sac, équipez-le. << Hunter
@@ -1358,7 +1358,7 @@ step << Warrior
     .goto Darnassus,58.76,44.48
     .money <0.2023
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Ariyell Skyshadow|r
-	>>|cRXP_BUY_Achetez et équipez un|r [Coutelas] |cRXP_BUY_si vous ne pouvez pas acheter un|r [Bâton]
+	>>|cRXP_BUY_Achetez et équipez un|r |T135346:0|t[Sabre d’abordage] |cRXP_BUY_si vous ne pouvez pas vous offrir un|r |T135154:0|t[Bâton de combat]
 	.collect 851,1
     .target Ariyell Skyshadow
 step

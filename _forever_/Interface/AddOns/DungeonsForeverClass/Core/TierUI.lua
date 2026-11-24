@@ -994,7 +994,7 @@ function PREP.BuildCards()
         local c = PREP.cards[i]
         if not c then
             c = CreateFrame("Button", nil, PREP.lc)
-            c:SetSize(PREP_W, 92)
+            c:SetSize(PREP_W, 64)
             PrepCardBG(c, 2, true)
             c.no = MakeFS(c, 14, C_GOLD, "LEFT")
             c.no:SetPoint("TOPLEFT", c, "TOPLEFT", 12, -10)
@@ -1010,15 +1010,6 @@ function PREP.BuildCards()
             c.zone:SetWordWrap(false)
             c.lv = MakeFS(c, 14, C_GREY, "RIGHT")
             c.lv:SetPoint("TOPRIGHT", c, "TOPRIGHT", -12, -36)
-            c.rew = {}
-            for k = 1, 4 do
-                local b = PrepMakeItem(c, 18)
-                b:EnableMouseWheel(true)
-                b:SetScript("OnMouseWheel", function(_, delta) PREP.LeftWheel(delta) end)
-                b:SetPoint("TOPLEFT", c, "TOPLEFT", 34, -58 - (k - 1) * 24)
-                b.nm:SetFont(ns.FONT, 14, "")
-                c.rew[k] = b
-            end
             c:EnableMouseWheel(true)
             c:SetScript("OnMouseWheel", function(_, delta) PREP.LeftWheel(delta) end)
             c:SetScript("OnClick", function(self)
@@ -1042,38 +1033,7 @@ function PREP.BuildCards()
 end
 
 local PREP_CARD_GAP = 8
-
-local function PrepLayoutCard(c, rw)
-    c.no:ClearAllPoints()
-    c.no:SetPoint("TOPLEFT", c, "TOPLEFT", 12, -10)
-    c.st:ClearAllPoints()
-    c.st:SetPoint("TOPRIGHT", c, "TOPRIGHT", -12, -10)
-    c.zone:ClearAllPoints()
-    c.zone:SetPoint("TOPLEFT", c, "TOPLEFT", 32, -36)
-    c.lv:ClearAllPoints()
-    c.lv:SetPoint("TOPRIGHT", c, "TOPRIGHT", -12, -36)
-    local rx = 32
-    local by = -60
-    local rows = 1
-    for k = 1, 4 do
-        local b = c.rew[k]
-        local id = rw[k]
-        if id then
-            local w = PrepPlaceItem(b, id, c)
-            if rx > 32 and rx + w > PREP_W - 6 then
-                rx = 32
-                by = by - 24
-                rows = rows + 1
-            end
-            b:ClearAllPoints()
-            b:SetPoint("TOPLEFT", c, "TOPLEFT", rx, by)
-            rx = rx + w + 10
-        else
-            b:Hide()
-        end
-    end
-    return rows
-end
+local PREP_CARD_H = 64
 
 local function PrepVisible(d, side)
     local h, a = false, false
@@ -1134,14 +1094,10 @@ function PREP.PaintCards()
         local st = PREP.StateOf(d)
         c.st:SetText(PrepStateText(st))
         c.st:SetTextColor(PrepStateColor(st))
-        local rw = (PREP.side == "A" and d.rewA) or d.rew or {}
-        c:SetHeight(90)
-        local rows = PrepLayoutCard(c, rw)
-        local h = 60 + (rows - 1) * 24 + 24 + 8
-        c:SetHeight(h)
+        c:SetHeight(PREP_CARD_H)
         c:ClearAllPoints()
         c:SetPoint("TOPLEFT", PREP.lc, "TOPLEFT", 0, -y)
-        y = y + h + PREP_CARD_GAP
+        y = y + PREP_CARD_H + PREP_CARD_GAP
     end
     for k = #vis + 1, #(PREP.cards or {}) do
         PREP.cards[k].__idx = nil
@@ -2808,10 +2764,14 @@ function TT.Render()
         TT.HideRank()
         TT.HideSpec()
         TT.__mode = "prep"
+        if TT.scroll then TT.scroll:Hide() end
+        if TT.sbarTrack then TT.sbarTrack:Hide() end
+        if TT.sbarThumb then TT.sbarThumb:Hide() end
         RenderPrep()
         return
     end
     if TT.HidePrep then TT.HidePrep() end
+    if TT.scroll then TT.scroll:Show() end
     local specMode = TT.PaintNav()
     TT.__mode = specMode and "spec" or "rank"
     PY()
@@ -2820,6 +2780,7 @@ function TT.Render()
         local CU = ns.ClassCombatUI
         local mode = DB().mode
         local CQUI = ns.ClassQuestUI
+        local cqLive = (CQUI and CQUI.active and CQUI.cls == DB().cls) and true or false
         if CQUI then CQUI.Hide() end
         local TUI = ns.TalentTabUI
         if TUI then TUI.Hide() end
@@ -2846,14 +2807,23 @@ function TT.Render()
             TT.PlaceScroll(TT.MODE_TOP)
             TT.HideSpecContent()
             if CU then CU.HideRows() end
+            CQUI.__keepV = cqLive and (TT.__v or 0) or nil
             CQUI.Render()
         else
             TT.PlaceScroll(TT.SEC_TOP)
             if CU then CU.HideRows() end
             RenderSpec()
         end
-        TT.__v = 0
-        TT.child:SetPoint("TOPLEFT", TT.scroll, "TOPLEFT", 0, 0)
+        local kv = cqLive and (mode == "cq") and CQUI and tonumber(CQUI.__keepV) or nil
+        if CQUI then CQUI.__keepV = nil end
+        if kv then
+            local mx = math.max(0, (tonumber(TT.child:GetHeight()) or 0)
+                - (tonumber(TT.scroll:GetHeight()) or 0))
+            TT.__v = math.min(kv, mx)
+        else
+            TT.__v = 0
+        end
+        TT.child:SetPoint("TOPLEFT", TT.scroll, "TOPLEFT", 0, TT.__v)
         CullScrollContent()
         UpdateScrollUI()
     else

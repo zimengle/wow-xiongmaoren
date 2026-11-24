@@ -837,24 +837,6 @@ function QM.PlatesOnClose()
     dbq().platesWeOpened = nil
 end
 
--- 列出客户端里所有和「姓名板 / 友方」有关的设置（probe 用：找真正的开关名）
-function QM.PlateCVars()
-    local out = {}
-    local list
-    if C_Console and C_Console.GetAllCommands then local ok, l = pcall(C_Console.GetAllCommands); list = ok and l or nil end
-    for _, c in ipairs(list or {}) do
-        local name = type(c) == "table" and c.command or nil
-        if type(name) == "string" then
-            local low = name:lower()
-            if low:find("nameplate", 1, true) and (low:find("friend", 1, true) or low:find("player", 1, true)) then
-                local ok, v = pcall(GetCVar, name)
-                out[#out + 1] = name .. "=" .. tostring(ok and v or "?")
-            end
-        end
-    end
-    table.sort(out)
-    return out, list ~= nil
-end
 
 -- 当前任务（10-12 用户「改成下拉菜单是不是更好，选择当前任务，最好可以自动选最接近的」）：
 --   存档 qm.questSel = "auto"（默认：离我最近的没做完的任务）/ "all"（全部共同任务）/ 任务 ID
@@ -908,7 +890,8 @@ end
 QM.lastShout = -999
 -- 界面文件（QuestMatesUI.lua）要用的信标内部小工具：同一份函数 / 常量，不另抄一份
 QM._b = { L = L, now = now, dbq = dbq, safe = safe, myPos = myPos, yards = yards, shortName = shortName, wallNow = wallNow,
-    BEAT = BEAT, SHOUT_GAP = SHOUT_GAP, EXPIRE = EXPIRE, friendCVar = friendCVar, friendPlatesOn = friendPlatesOn }
+    BEAT = BEAT, SHOUT_GAP = SHOUT_GAP, EXPIRE = EXPIRE, friendCVar = friendCVar, friendPlatesOn = friendPlatesOn,
+    qn = function() return #queue end, chanIndex = chanIndex }
 -- 抽屉界面子插件装了没（装了才出子页签；已经加载了当然算）
 function QM.UIAvailable()
     if QM.uiLoaded or ns.BuildDungeonPanel or ns.BuildGroupPanel then return true end
@@ -1095,6 +1078,8 @@ ev:SetScript("OnEvent", function(_, e, a1, a2, _, a4, ...)
         if C_Timer and C_Timer.After then C_Timer.After(6, function() dirtyAt = now() end) end
         if not QM._restored then
             QM._restored = true
+            -- 11-23 任务配对（HOLD，默认关）：开着才登录加载子插件 _GroupPair（等信标自己载完再加载）
+            if ns.db.qp and ns.db.qp.on and C_Timer then C_Timer.After(2, function() if ns.ModuleAvailable("qp") then ns.LoadModule("qp", true) end end) end
             -- 上次钉着并开着 → 加载抽屉界面原位打开（11-13 第 5 期：没钉着就不加载界面）
             local q = dbq()
             -- 本子插件还没载完（登录时这里是本文件末尾直接调的）→ 下一帧再恢复钉住的抽屉
@@ -1139,6 +1124,7 @@ end
 
 -- ---------- 斜杠：/gi qm [on|off|probe] ----------
 -- 11-13 第 5 期：只改存档 / 看信标状态的子命令在这里直接办；要动抽屉的（say / yell / local / text / log / pin / 打开）先加载界面再转给 QM.SlashUI
+-- 11-23 probe（只有诊断文字）搬进界面 QuestMatesUI.lua 的 QM.SlashUI，给任务配对的登录钩子腾信标内存
 ns.ExtraSlash = ns.ExtraSlash or {}
 ns.ExtraSlash.qm = function(rest, rawRest)
     rest = rest or ""
@@ -1166,36 +1152,6 @@ ns.ExtraSlash.qm = function(rest, rawRest)
     elseif rest == "off" or rest == "on" then
         QM.SetSharing(rest == "on")
         ns.Print(rest == "on" and L("组队：已开始共享你的任务进度", "Group up: sharing on") or L("组队：已停止发送；别人已收到的进度最多保留 150 秒", "Sharing stopped; received data expires within 150 seconds"))
-    elseif rest == "probe" then
-        local selected = QM.SelectedQuest(QM.MyQuests())
-        local received, waiting, shared = 0, 0, 0
-        for _, peer in pairs(peers) do
-            if peer.questReceived then received = received + 1 else waiting = waiting + 1 end
-            if selected and peer.quests[selected.id] then shared = shared + 1 end
-        end
-        ns.Print("QM tasks: selected=" .. tostring(selected and selected.id or "all")
-            .. " received=" .. received .. " waiting=" .. waiting .. " selectedPeers=" .. shared
-            .. " dropped=" .. QM.dropped)
-        local has = function(v) return v and "|cff33ff99OK|r" or "|cffff6060--|r" end
-        ns.Print("QM probe: C_QuestLog.GetInfo " .. has(C_QuestLog and C_QuestLog.GetInfo) .. " · GetQuestLogTitle " .. has(GetQuestLogTitle)
-            .. " · GetQuestObjectives " .. has(C_QuestLog and C_QuestLog.GetQuestObjectives) .. " · SendAddonMessage " .. has((C_ChatInfo and C_ChatInfo.SendAddonMessage) or SendAddonMessage)
-            .. " · JoinTemporaryChannel " .. has(JoinTemporaryChannel) .. " · channel " .. tostring(chanIndex())
-            .. " · map " .. tostring((myPos())) .. " · quests " .. #QM.MyQuests() .. " · peers " .. (function() local n = 0; for _ in pairs(peers) do n = n + 1 end; return n end)()
-            .. " · InviteUnit " .. has((C_PartyInfo and C_PartyInfo.InviteUnit) or InviteUnit))
-        ns.Print("QM probe 发送: 最近结果 " .. tostring(QM.lastName or "（还没发过）") .. (QM.lastCode and ("(" .. QM.lastCode .. ")") or "")
-            .. " · 方式 " .. tostring(QM.lastVia or "-") .. " · 公会 " .. tostring(IsInGuild and IsInGuild() and "在" or "不在")
-            .. " · 本轮密语 " .. #QM.WhisperTargets() .. " 人 · 上次成功 " .. (QM.lastOkAt and string.format("%d 秒前", now() - QM.lastOkAt) or "从没成功")
-            .. " · 队列 " .. #queue .. " · 间隔 " .. QM.SEND_GAP .. "s")
-        -- 10-12「必须点中其他玩家才能出现」：姓名板能看到几个、几个是玩家、几个名字是保密值；友方姓名板设置
-        QM.ScanNear()
-        local ps = QM.plateStat or {}
-        local nNear = 0
-        for _ in pairs(QM.near) do nNear = nNear + 1 end
-        ns.Print("QM probe 姓名板: 看到 " .. (ps.plates or 0) .. " 个 · 友方玩家 " .. (ps.players or 0) .. " · 名字保密 " .. (ps.secret or 0)
-            .. " · 友方开关 " .. tostring((friendCVar())) .. "=" .. tostring(select(2, friendCVar()))
-            .. " · 身边列表 " .. nNear .. " 人 · GetNamePlates " .. has(C_NamePlate and C_NamePlate.GetNamePlates))
-        local pc, okList = QM.PlateCVars()
-        ns.Print("QM probe 姓名板相关设置: " .. (okList and (#pc > 0 and table.concat(pc, " · ") or "（没有匹配的）") or "（客户端没有 C_Console.GetAllCommands）"))
     else
         QM.SlashUI(rest, rawRest)
     end

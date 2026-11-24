@@ -14,12 +14,6 @@ ConsolePortRings = {
 ["binding"] = "CLICK ConsolePortMenuTrigger:LeftButton",
 ["type"] = "custom",
 },
-{
-["type"] = "item",
-["questID"] = 4201,
-["autoassigned"] = true,
-["item"] = "|cnIQ1:|Hitem:11412::::::::60:1489::11:::::::|h[娜玛拉之瓶]|h|r",
-},
 [0] = {
 },
 },

@@ -2642,7 +2642,7 @@ step << skip --logout skip
     #label MushroomLS
     #completewith CavetoAuber
     .goto 1439/1,-658.48,6825.26--c:1439,54.964,34.536
-    .goto 1439/1,209.99,6739.19,20 >>|cRXP_WARN_Salta en la cima de la roca en el piso superior dentro de la cueva. Posiciona tu personaje hasta que parezca que está flotando, luego realiza un Logout Skip desconectando y volviendo a entrar|r--c:1439,41.705,36.507
+    .goto 1439/1,209.99,6739.19,20 >>|cRXP_WARN_Salta encima de la roca en el piso superior dentro de la cueva. Posiciona tu personaje hasta que parezca que está flotando, luego realiza un "Logout Skip" desconectando y volviendo a entrar|r--c:1439,41.705,36.507
 step
     #completewith CavetoAuber
     >>Mata |cRXP_ENEMY_Volantones zancudo del bosque|r. Despójalos para obtener su |cRXP_LOOT_Carne de zancudo|r
@@ -2731,7 +2731,7 @@ step
     .target Sentinel Glynda Nal'Shea
 step
     .goto 1439/1,467.08,6409.38
-    >>|cRXP_WARN_Usa el|r |T133748:0|t[Cuenco de purificación vacío] |cRXP_WARN_en la Poza de la Luna de Auberdine|r
+    >>|cRXP_WARN_Usa el|r |T133748:0|t[Cuenco de purificación vacío] |cRXP_WARN_en el pozo lunar de Auberdine|r
     .collect 12347,1,4763,1 --Filled Cleansing Bowl (1)
     .use 12346
     .isOnQuest 4763
@@ -2983,6 +2983,11 @@ step << Hunter
     .trainer >> Entrena los hechizos de tu mascota
     .target Karrina Mekenda
 step
+    .goto StormwindClassic,51.757,12.091
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tHabla con |cRXP_FRIENDLY_Grimand Elmore|r
+    .accept 353 >> Acepta la misión Una entrega a Pico Tormenta
+    .target Grimand Elmore
+step
     #label DeeprunEnter
     #completewith next
     .goto 1453/0,562.300,-8385.300,20,0
@@ -3226,6 +3231,7 @@ step
     .goto 1432/0,-2676.82,-4825.93
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tHabla con el |cRXP_FRIENDLY_Montaraz Pico Tormenta|r dentro del búnker
     .turnin 1339 >> Entrega la misión La tarea del montaraz Pico Tormenta
+    .turnin 353 >> Entrega la misión Una entrega a Pico Tormenta
     .accept 307 >> Acepta la misión Zarpas asquerosas
     .target Mountaineer Stormpike
 step

@@ -255,7 +255,7 @@ local function dungeonInfo(d)   -- 等级段 / 地点（Data.dungeons 里按名�
 end
 
 -- ---------- 页面 ----------
-local page, selD, selB = nil, 1, nil
+local page, selD, selB, hlId = nil, 1, nil, nil   -- hlId：从「装备」页跳来要高亮的那件（ns.LootShowItem）
 
 -- 《无限》新物品是新编号（25xxxx+），经典旧世原有物品编号小 —— 「客户端挖掘」标签只对新物品有意义
 local function isForeverNew(it) return (it.id or 0) >= 200000 end
@@ -433,7 +433,7 @@ local function refresh()
         r.c:SetText(cnt > 0 and ("|cffffffff" .. cnt .. "|r") or ("|cff777777" .. ns.L("待补", "tbd") .. "|r"))
         local on = selD == di
         for _, l in ipairs(r.sel) do l:SetShown(on) end
-        r:SetScript("OnClick", function() selD, selB = di, nil; refresh() end)
+        r:SetScript("OnClick", function() selD, selB, hlId = di, nil, nil; refresh() end)
         r:SetScript("OnEnter", function(self)   -- 名字长被截 → 悬停看全（用户硬规定）
             GameTooltip:SetOwner(self, "ANCHOR_RIGHT"); GameTooltip:AddLine(nm(d), 1, 0.82, 0)
             if info then GameTooltip:AddLine(ns.EnSafe(ns.L("等级 ", "Level ") .. (info.lv or "?") .. ns.L(" · ", " - ") .. ns.L(info.where or "", info.whereEn or "")), 1, 1, 1) end
@@ -586,7 +586,8 @@ local function refresh()
             if isForeverNew(it) then r.tag:SetText(it.seen and ("|cffe8b04a" .. ns.L("无限新增", "Forever") .. "|r") or ns.L("客户端挖掘", "datamined")) end
             r.star:Show()
             local on = isWished(it.id)
-            r.bg:SetShown(on)
+            r.bg:SetShown(on or it.id == hlId)
+            r.bg:SetColorTexture(1, 0.82, 0, it.id == hlId and 0.25 or 0.07)
             r.star.tex:SetDesaturated(not on)
             r.star.tex:SetAlpha(on and 1 or 0.35)
             r.star:SetScript("OnClick", function()
@@ -697,10 +698,24 @@ end
 -- 升级规划「装备」格子点一下 → 跳到掉落页那个副本（10-07 用户「装备像 C 键角色栏」，插件-工会会话转达）
 function ns.LootShowDungeon(name)
     for i, d in ipairs(lootList()) do
-        if d.n == name then selD, selB = i, nil; break end
+        if d.n == name then selD, selB, hlId = i, nil, nil; break end
     end
     ns.ToggleMain("loot")
     refresh()
+end
+-- 11-23 「前5」点装备 → 装备页：定位到掉这件的副本 + 首领（右边只列这个首领的掉落），这件高亮；掉落表里没有返回 false
+function ns.LootShowItem(id)
+    local e = idx[id]
+    if not e then return false end
+    for i, d in ipairs(lootList()) do
+        if d == e.d then
+            selD, selB, hlId = i, nil, id
+            for bi, b in ipairs(d.bosses) do if b == e.b then selB = bi end end
+        end
+    end
+    ns.ToggleMain("loot")
+    refresh()
+    return true
 end
 
 ns.RegisterPage({ key = "loot", order = 2, title = ns.L("掉落 · 心愿单", "Loot"), tabTitle = ns.L("掉落", "Loot"), build = build, refresh = refresh })

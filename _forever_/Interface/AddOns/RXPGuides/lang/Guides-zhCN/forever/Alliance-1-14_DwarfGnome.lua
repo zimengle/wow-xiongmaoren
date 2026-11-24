@@ -71,7 +71,7 @@ step << Warlock
 step << Shaman
     .goto 1426/0,383.900,-6050.300
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_提欧·暴风之锤|r 对话
-    .train 8017 >> 影袭 |T136086:0|t[石化武器]
+    .train 8017 >> 学习 |T136086:0|t[石化武器]
     .target Teo Hammerstorm
 step << Warrior/Warlock
     #season 0,1
@@ -134,7 +134,7 @@ step << !Priest !Mage !Warlock !Shaman
     .goto 1426/0,320.30,-6226.74
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_艾德林·怒流|r 对话
     >>|cRXP_BUY_从他那里|r|cRXP_BUY_购买 600发|r |T132384:0|t[轻弹丸] << Hunter
-    .vendor >> |cRXP_WARN_出售垃圾物品|r << !Hunter
+    .vendor >> 出售垃圾物品 << !Hunter
     .collect 2516,600 << Hunter --Light Shot (600)
     .target 艾德林·怒流
     .xp >6,1
@@ -213,7 +213,7 @@ step << Warlock
     #softcore
     #label BeginningsHS
     #completewith BeginningsEnd
-    .deathskip >> 死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处重生
+    .deathskip >> 死掉并在|cRXP_FRIENDLY_灵魂医者|r 处复生
     >>|cRXP_WARN_确保当你死亡时，你所在的子区域是寒脊山谷！否则你将被传送到卡拉诺斯墓地|r
     .target 灵魂医者
 step << Warlock
@@ -349,7 +349,7 @@ step << Shaman
     .target Teo Hammerstorm::257446
     .turnin 98581 >>交任务 古老符文
     .accept 94373 >>接受任务 大地的召唤
-    .train 8042 >> 影袭 |T136026:0|t[大地震击]
+    .train 8042 >> 学习 |T136026:0|t[大地震击]
 step << Paladin/Warlock/Hunter/Shaman
     .goto 1426/0,390.000,-6093.800
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_格伦德·德罗克达::2756|r 对话
@@ -446,7 +446,7 @@ step
 step << !Paladin !Warlock !Hunter !Shaman
     #softcore
     #completewith next
-    .deathskip >> 死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处重生
+    .deathskip >> 死掉并在|cRXP_FRIENDLY_灵魂医者|r 处复生
     .target 灵魂医者
 step
     #hardcore << !Paladin !Warlock !Hunter !Shaman
@@ -701,7 +701,7 @@ step
     #softcore
     #completewith next
     >>|cRXP_WARN_请确保你的区域不是寒脊山小径|r
-    .deathskip >> 死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处重生
+    .deathskip >> 死掉并在|cRXP_FRIENDLY_灵魂医者|r 处复生
     .target 灵魂医者
 step
     .goto 1426/0,-498.400,-5648.400
@@ -965,7 +965,7 @@ step
     .target 罗斯洛·鲁治
 step << Warrior/Paladin/Rogue
     #optional
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t 与 |cRXP_FRIENDLY_罗斯洛·鲁治|r 对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_罗斯洛·鲁治|r 对话
     >>|cRXP_BUY_购买一个|r |T134708:0|t[矿工锄]>>|cRXP_BUY_。如果买不起就跳过这一步|r
     .collect 2901,1 --Mining Pick (1)
     .goto 1426/0,-664.55,-5499.710
@@ -1055,7 +1055,7 @@ step
     .mob +Young Wendigo
     .complete 98321,1 --|8/8 Flintfire's Shipment
 step
-    .deathskip >> 死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处重生
+    .deathskip >> 死掉并在|cRXP_FRIENDLY_灵魂医者|r 处复生
     .target 灵魂医者
     .subzoneskip 136,1
 step
@@ -1178,7 +1178,7 @@ step << !Mage !Priest !Warlock
     #completewith next
     .goto 1426/0,302.27,-5387.58
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_基格·吉布恩|r 对话
-    .vendor >> |cRXP_WARN_出售垃圾物品|r
+    .vendor >> 出售垃圾物品
     .target 基格·吉布恩
 step << Priest/Mage/Warlock
     #completewith next
@@ -1330,7 +1330,7 @@ step
 step
     #softcore
     #completewith next
-    .deathskip >> 死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处重生
+    .deathskip >> 死掉并在|cRXP_FRIENDLY_灵魂医者|r 处复生
     .target 灵魂医者
 step
     .goto 1426/0,-501.400,-5643.900
@@ -1650,7 +1650,7 @@ step << !Hunter
     .xp 9 >> 刷怪升级到 9 级
 step
     #completewith next
-    .deathskip >> 死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处重生
+    .deathskip >> 死掉并在|cRXP_FRIENDLY_灵魂医者|r 处复生
     .target 灵魂医者
     .subzoneskip 2102
 step
@@ -2144,7 +2144,7 @@ step
     .goto 1432/0,-2631.48,-5847.50,12 >> 进入地堡。登上顶楼
 step
     .goto 1432/0,-2634.59,-5842.81
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t在地堡里与 |cRXP_FRIENDLY_拉格弗斯上尉|r 对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与地堡里的 |cRXP_FRIENDLY_拉格弗斯上尉|r 对话
     .accept 267 >> 接受任务 穴居人的威胁
     .target 拉格弗斯上尉
 step
@@ -2331,7 +2331,7 @@ step << !Hunter
     .cooldown item,6948,>2,1
 step << Hunter
     #completewith flyIF
-    .deathskip >> 死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处重生
+    .deathskip >> 死掉并在|cRXP_FRIENDLY_灵魂医者|r 处复生
     .subzoneskip 2101 -- stoutlager inn
     .subzoneskip 144 -- thelsamar
     .target 灵魂医者
@@ -2344,14 +2344,14 @@ step
     .isQuestComplete 418
 step << Dwarf/Gnome
     .goto 1432/0,-2929.87,-5424.84
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t 与 |cRXP_FRIENDLY_索格拉姆·伯雷森|r 对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_索格拉姆·伯雷森|r 对话
     .turnin 6387 >> 交任务 荣誉学员
     .accept 6391 >> 接受任务 飞往铁炉堡
     .target 索格拉姆·伯雷森
 step
     #label flyIF
     .goto 1432/0,-2929.87,-5424.84
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t 与 |cRXP_FRIENDLY_索格拉姆·伯雷森|r 对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_索格拉姆·伯雷森|r 对话
     .fly Ironforge >> 飞往铁炉堡
     .target 索格拉姆·伯雷森
     .zoneskip Ironforge
@@ -2586,7 +2586,7 @@ step << !Hunter skip
     #label TramCook1
     #completewith TramEnd
     >>|cRXP_WARN_地铁到站时：|r
-    .cast 818 >>|cRXP_WARN_在你的法术书，通用选项卡中|r |cRXP_WARN_创建一个|r |T135805:0|t[基础篝火]
+    .cast 818 >>|cRXP_WARN_在你的法术书常规标签下创建一个|r |T135805:0|t[基础篝火] |cRXP_WARN_|r
     .usespell 818
     .zoneskip Stormwind City
     .itemcount 769,1 --Chunk of Boar Meat (1+)
@@ -2600,7 +2600,7 @@ step << !Hunter skip
     #label TramCook2
     #completewith TramEnd
     >>|cRXP_WARN_地铁到站时：|r
-    .cast 818 >>|cRXP_WARN_在你的法术书，通用选项卡中|r |cRXP_WARN_创建一个|r |T135805:0|t[基础篝火]
+    .cast 818 >>|cRXP_WARN_在你的法术书常规标签下创建一个|r |T135805:0|t[基础篝火] |cRXP_WARN_|r
     .usespell 818
     .zoneskip Stormwind City
     .itemcount 769,<1 --Chunk of Boar Meat (<1)
@@ -2614,7 +2614,7 @@ step << !Hunter skip
     #label TramCook3
     #completewith TramEnd
     >>|cRXP_WARN_地铁到站时：|r
-    .cast 818 >>|cRXP_WARN_在你的法术书，通用选项卡中|r |cRXP_WARN_创建一个|r |T135805:0|t[基础篝火]
+    .cast 818 >>|cRXP_WARN_在你的法术书常规标签下创建一个|r |T135805:0|t[基础篝火] |cRXP_WARN_|r
     .usespell 818
     .zoneskip Stormwind City
     .itemcount 769,1 --Chunk of Boar Meat (1+)
@@ -2740,7 +2740,7 @@ step << Warlock
     .goto 1453/0,1015.33,-8978.9,15 >> 前往屠宰场，进入地下室
 step << Warlock
     .goto 1453/0,1029.89,-8971.06
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_厄苏拉·德林|r 对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t 与 |cRXP_FRIENDLY_厄苏拉·德林|r 对话
     .trainer >> 训练你的职业技能
     .target 厄苏拉·德林
 step << Warlock
@@ -2870,7 +2870,7 @@ step << Paladin
     .trainer >> 训练你的职业技能
     .target 威尔海姆修士
 step << Warlock
-    >>点击 |cRXP_PICK_通缉布告|r
+    >>点击 |cRXP_PICK_通缉告示|r
     .accept 176 >> 接受任务 通缉：霍格
     .goto 1429/0,683.40,-9667.93
     .target 瑞尼尔副队长
@@ -3238,7 +3238,7 @@ step << Warlock
     .goto 1453/0,1015.33,-8978.9,15 >> 前往屠宰场，进入地下室
 step << Warlock
     .goto 1453/0,1029.89,-8971.06
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_厄苏拉·德林|r 对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t 与 |cRXP_FRIENDLY_厄苏拉·德林|r 对话
     .trainer >> 训练你的职业技能
     .target 厄苏拉·德林
 step << Warlock
@@ -3478,7 +3478,7 @@ step << Dwarf Paladin
     .goto 1455/0,-896.47,-4601.65,12 >>前往 |cRXP_FRIENDLY_布兰度尔·铁锤|r
 step << Dwarf Paladin
     .goto 1455/0,-896.47,-4601.65
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t 与 |cRXP_FRIENDLY_布兰度尔·铁锤|r 对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_布兰度尔·铁锤|r 对话
     .accept 2999 >>接受任务圣洁之书
     .target 布兰度尔·铁锤
 step << Dwarf Paladin
@@ -4041,7 +4041,7 @@ step
     .goto 1432/0,-2648.30,-5876.75,15 >> 沿土路上行，然后跳入地堡
 step
     .goto 1432/0,-2634.59,-5842.81
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t在地堡里与 |cRXP_FRIENDLY_拉格弗斯上尉|r 对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与地堡里的 |cRXP_FRIENDLY_拉格弗斯上尉|r 对话
     .turnin 267 >> 交任务 穴居人的威胁
     .target 拉格弗斯上尉
     .isQuestComplete 267
@@ -4095,7 +4095,7 @@ step
     .xp <13,1
 step << !Dwarf/!Paladin
     .goto 1432/0,-2929.87,-5424.84
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t 与 |cRXP_FRIENDLY_索格拉姆·伯雷森|r 对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_索格拉姆·伯雷森|r 对话
     .fly Ironforge>> 飞往铁炉堡
     .target 索格拉姆·伯雷森
     .zoneskip Ironforge
@@ -4193,7 +4193,7 @@ step << Mage
     .target 丁克
 step << Priest
     .goto 1455/0,-912.88,-4625.99
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_托德雷·铁矿|r 对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t 与 |cRXP_FRIENDLY_托德雷·铁矿|r 对话
     .trainer >> 训练你的职业技能
     .target 托德雷·铁矿
 step << skip --logout skip << Mage/Priest
@@ -4245,7 +4245,7 @@ step << Warrior
     .goto 1455/0,-1234.65,-5035.67,12 >> 前往 |cRXP_FRIENDLY_比尔班·飞钳|r
 step << Warrior
     .goto 1455/0,-1234.65,-5035.67
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t 与 |cRXP_FRIENDLY_比尔班·飞钳|r 对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_比尔班·飞钳|r 对话
     .trainer >> 训练你的职业技能
     .target 比尔班·飞钳
 
@@ -4283,7 +4283,7 @@ step << skip
     #label WestfallTramCook1
     #completewith WestfallTramEnd
     >>|cRXP_WARN_地铁到站时：|r
-    .cast 818 >>|cRXP_WARN_在你的法术书，通用选项卡中|r |cRXP_WARN_创建一个|r |T135805:0|t[基础篝火]
+    .cast 818 >>|cRXP_WARN_在你的法术书常规标签下创建一个|r |T135805:0|t[基础篝火] |cRXP_WARN_|r
     .usespell 818
     .zoneskip Stormwind City
     .itemcount 769,1 --Chunk of Boar Meat (1+)
@@ -4297,7 +4297,7 @@ step << skip
     #label WestfallTramCook2
     #completewith WestfallTramEnd
     >>|cRXP_WARN_地铁到站时：|r
-    .cast 818 >>|cRXP_WARN_在你的法术书，通用选项卡中|r |cRXP_WARN_创建一个|r |T135805:0|t[基础篝火]
+    .cast 818 >>|cRXP_WARN_在你的法术书常规标签下创建一个|r |T135805:0|t[基础篝火] |cRXP_WARN_|r
     .usespell 818
     .zoneskip Stormwind City
     .itemcount 769,<1 --Chunk of Boar Meat (<1)
@@ -4311,7 +4311,7 @@ step << skip
     #label WestfallTramCook3
     #completewith WestfallTramEnd
     >>|cRXP_WARN_地铁到站时：|r
-    .cast 818 >>|cRXP_WARN_在你的法术书，通用选项卡中|r |cRXP_WARN_创建一个|r |T135805:0|t[基础篝火]
+    .cast 818 >>|cRXP_WARN_在你的法术书常规标签下创建一个|r |T135805:0|t[基础篝火] |cRXP_WARN_|r
     .usespell 818
     .zoneskip Stormwind City
     .itemcount 769,1 --Chunk of Boar Meat (1+)
@@ -4520,7 +4520,7 @@ step
     .accept 6387 >> 接受任务 荣誉学员
     .target 布洛克·寻石者
 step
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t 与 |cRXP_FRIENDLY_索格拉姆·伯雷森|r 对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_索格拉姆·伯雷森|r 对话
     .target 索格拉姆·伯雷森
     .goto 1432/0,-2929.87,-5424.84
     .turnin 6387 >> 交任务 荣誉学员
@@ -4528,7 +4528,7 @@ step
 step
     #completewith RTB
     .goto 1432/0,-2929.87,-5424.84
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t 与 |cRXP_FRIENDLY_索格拉姆·伯雷森|r 对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_索格拉姆·伯雷森|r 对话
     .fly Ironforge >> 飞往铁炉堡
     .target 索格拉姆·伯雷森
 step
@@ -4837,7 +4837,7 @@ step
 step
     #softcore
     #completewith next
-    .deathskip >> 死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处重生
+    .deathskip >> 死掉并在|cRXP_FRIENDLY_灵魂医者|r 处复生
     .target 灵魂医者
 step
     .goto 1432/0,-3019.02,-5369.40,8,0

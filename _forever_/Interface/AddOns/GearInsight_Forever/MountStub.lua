@@ -14,8 +14,10 @@ local ev = ns._BagStubEv
 if ev then
     ev:RegisterEvent("PLAYER_MOUNT_DISPLAY_CHANGED")
     pcall(ev.RegisterUnitEvent, ev, "UNIT_AURA", "player")   -- 上马 = 身上多一个光环：显示事件不来时兜底
+    -- 11-23 用户「胡萝卜饰品，下马没换回来，搞个UI，可以随时开启关闭」：有胡萝卜（背包里）或存档里记着没换回的（ns.db.mtSwap）就加载子插件
+    --   （不再等上马 / 开关开着：子插件要摆开关图标、/reload 后下马也要换回）
     ev:HookScript("OnEvent", function()
-        if not ns.MountTrinket and IsMounted and IsMounted() and (ns.Prof.BagCount(11122) or 0) > 0 and not ns.FeatureOff("mounttrinket") and ns.BagLoad(true) and ns.MountTrinket then
+        if not ns.MountTrinket and ns.db and (ns.db.mtSwap or (ns.Prof.BagCount(11122) or 0) > 0) and ns.BagLoad(true) and ns.MountTrinket then
             ns.MountTrinket.Sync()
         end
     end)

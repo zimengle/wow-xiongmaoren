@@ -24,7 +24,7 @@ step
     #completewith next
     .goto Tirisfal Glades,30.04,72.78,8,0
     .goto Tirisfal Glades,30.27,72.78,8,0
-    .goto Tirisfal Glades,30.22,71.65,10 >> Sortez de la crypte vers |cRXP_FRIENDLY_Mordo|r
+    .goto Tirisfal Glades,30.22,71.65,10 >> Sortez de la crypte vers  |cRXP_FRIENDLY_Mordo|r
 step
     .goto Tirisfal Glades,30.22,71.65
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Mordo|r
@@ -774,7 +774,7 @@ step << Rogue
 step << Warlock
     .goto Tirisfal Glades,61.56,52.61
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Gina Lang|r au second étage
-    >>|cRXP_BUY_Achetez un|r [Grimoire de Pacte de Sang] |cRXP_BUY_à Gina|r
+    >>|cRXP_BUY_Achetez un|r [Grimoire de Pacte de sang] |cRXP_BUY_ à Gina|r
     .collect 16321,1,404,1 --Grimoire of Blood Pact
     .vendor >>Vendez tout ce dont nous n'avez pas besoin
     .target Gina Lang
@@ -1053,7 +1053,7 @@ step
     .goto Durotar,51.51,41.64
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Innkeeper Grosk|r
     .home >> Liez votre Pierre de Foyer à Tranchecolline
-    >>|cRXP_BUY_Achetez du|r [Lait frais] |cRXP_BUY_à Heron|r << Mage/Warlock/Priest/Shaman
+    >>|cRXP_BUY_Achetez du|r [Lait frais] |cRXP_BUY_à Grosk|r << Mage/Warlock/Priest/Shaman
     >>|cRXP_BUY_Achetez des|r [Cuissot] |cRXP_BUY_à Hai'zan|r << Rogue/Warrior
     .vendor >> Vendez tout ce dont nous n'avez pas besoin
     .target Innkeeper Grosk
@@ -1116,7 +1116,7 @@ step
     .target Lar Prowltusk
 step
     #label SenjinPickups
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Vel'rin|r, |cRXP_FRIENDLY_Vornal|r et à |cRXP_FRIENDLY_Gadrin|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Vel'rin|r, |cRXP_FRIENDLY_Vornal|r et |cRXP_FRIENDLY_Gadrin|r
     .accept 817 >>Acceptez la quête Proie nécessaire
     .target +Vel'rin Fang
     .goto Durotar,55.95,73.93
@@ -1289,14 +1289,14 @@ step << Warrior/Rogue/Shaman
 step << skip --Warlock/Mage/Priest
     .goto Durotar,56.29,73.41
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Parlez à|r |cRXP_FRIENDLY_K'waii|r
-    >>|cRXP_BUY_Achetez des|r [Eau de source] |cRXP_BUY_à Shara|r --Refreshing Spring Water (20)
+    >>|cRXP_BUY_Achetez des|r [Refreshing Spring Water] |cRXP_BUY_à Shara|r --Refreshing Spring Water (20)
     .collect 159,20,784,1
     .target K'waii
     .money <0.010
 step << skip --Warlock/Mage/Priest
     .goto Durotar,56.29,73.41
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Parlez à|r |cRXP_FRIENDLY_K'waii|r
-    >>|cRXP_BUY_Achetez des|r [Eau de source] |cRXP_BUY_à Shara|r --Refreshing Spring Water (10)
+    >>|cRXP_BUY_Achetez des|r [Refreshing Spring Water] |cRXP_BUY_à Shara|r --Refreshing Spring Water (10)
     .collect 159,10,784,1
     .target K'waii
     .money <0.0050
@@ -1572,7 +1572,7 @@ step << Rogue
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<3.3
 step << Rogue
     .goto Durotar,52.02,40.46
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Parlez à|r |cRXP_FRIENDLY_Uhgar|r|cRXP_BUY_. Achetez un|r [Stylet] |cRXP_BUY_à Uhgar|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Talk to|r |cRXP_FRIENDLY_Uhgar|r|cRXP_BUY_. Achetez un|r [Stylet] |cRXP_BUY_à Uhgar|r
     .collect 2494,1,818,1 --Collect Stiletto (1)
     .money <0.0401
     .itemStat 16,QUALITY,<7
@@ -1640,7 +1640,7 @@ step << Troll Warrior
 step
     .goto Durotar,51.51,41.64
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Innkeeper Grosk|r
-    >>|cRXP_BUY_Achetez du|r [Lait frais] |cRXP_BUY_à Heron|r << Mage/Warlock/Priest/Shaman/Druid
+    >>|cRXP_BUY_Achetez du|r [Lait frais] |cRXP_BUY_à Grosk|r << Mage/Warlock/Priest/Shaman/Druid
     >>|cRXP_BUY_Achetez des|r [Cuissot] |cRXP_BUY_à Hai'zan|r << Rogue/Warrior
     >>Gardez 4 pièces d'argent pour vos sorts de classe ! << Rogue/Warrior/Shaman/Warlock
     >>Gardez 2 pièces d'argent pour vos sorts de classe ! << Priest
@@ -1656,7 +1656,7 @@ step << !Mage !Hunter !Druid
     #optional
     .goto Durotar,51.51,41.64
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Innkeeper Grosk|r
-    >>|cRXP_BUY_Achetez du|r [Lait frais] |cRXP_BUY_à Heron|r << Mage/Warlock/Priest/Shaman/Druid
+    >>|cRXP_BUY_Achetez du|r [Lait frais] |cRXP_BUY_à Grosk|r << Mage/Warlock/Priest/Shaman/Druid
     >>|cRXP_BUY_Achetez des|r [Cuissot] |cRXP_BUY_à Hai'zan|r << Rogue/Warrior
     .vendor >> Vendez tout ce dont nous n'avez pas besoin
     .turnin 2161 >>Rendez la quête Un Fardeau de Péon
@@ -1784,7 +1784,7 @@ step
 step
     #completewith ZalazaneKill
     >>Tuez les |cRXP_ENEMY_Hexed Trolls|r et les |cRXP_ENEMY_Voodoo Trolls|r.
-    >>Faites attention ! |cRXP_ENEMY_Voodoo Trolls|r peuvent lancer [Vague de soins]
+    >>|cRXP_WARN_Faites attention !|r Les |cRXP_ENEMY_Trolls vaudou|r |cRXP_WARN_peuvent lancer|r |T136052:0|t[Vague de soins]
     .complete 826,1 --Hexed Troll (8)
     .mob +Hexed Troll
     .complete 826,2 --Voodoo Troll (8)
@@ -1793,7 +1793,7 @@ step
     #completewith next
     >>Tuez |cRXP_ENEMY_Zalazane|r. Dépouillez-le pour sa |cRXP_LOOT_Tête|r
     >>Gardez votre [Horion de terre] pour quand il lance [Vague de soins] << Shaman
-    >>Gardez votre [Suriner] pour quand il lance [Vague de soins] << Rogue
+    >>Gardez votre [Suriner] pour lorsqu'il lance [Vague de soins] << Rogue
     >>Faites attention. Il peut lancer [Vague de soins]. Utilisez votre [Potion] si nécessaire << !Shaman !Rogue
     .complete 826,3 --Zalazane's Head (1)
     .mob Zalazane
@@ -1807,7 +1807,7 @@ step
     .goto Durotar,67.4,87.8
     >>Tuez |cRXP_ENEMY_Zalazane|r. Dépouillez-le pour sa |cRXP_LOOT_Tête|r
     >>Gardez votre [Horion de terre] pour quand il lance [Vague de soins] << Shaman
-    >>Gardez votre [Suriner] pour quand il lance [Vague de soins] << Rogue
+    >>Gardez votre [Suriner] pour lorsqu'il lance [Vague de soins] << Rogue
     >>Faites attention. Il peut lancer [Vague de soins]. Utilisez votre [Potion] si nécessaire << !Shaman !Rogue
     .complete 826,3 --Zalazane's Head (1)
     .mob Zalazane
@@ -1831,7 +1831,7 @@ step
     .goto Durotar,68.47,86.77,40,0
     .goto Durotar,67.23,88.00,40,0
     >>Tuez les |cRXP_ENEMY_Hexed Trolls|r et les |cRXP_ENEMY_Voodoo Trolls|r.
-    >>Faites attention ! |cRXP_ENEMY_Voodoo Trolls|r peuvent lancer [Vague de soins]
+    >>|cRXP_WARN_Faites attention !|r Les |cRXP_ENEMY_Trolls vaudou|r |cRXP_WARN_peuvent lancer|r |T136052:0|t[Vague de soins]
     .complete 826,1 --Hexed Troll (8)
     .mob +Hexed Troll
     .complete 826,2 --Voodoo Troll (8)
@@ -2122,7 +2122,7 @@ step
 step
     .goto Durotar,51.51,41.64
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Innkeeper Grosk|r
-    >>|cRXP_BUY_Achetez du|r [Lait frais] |cRXP_BUY_à Heron|r << Mage/Warlock/Priest/Shaman
+    >>|cRXP_BUY_Achetez du|r [Lait frais] |cRXP_BUY_à Grosk|r << Mage/Warlock/Priest/Shaman
     >>|cRXP_BUY_Achetez des|r [Cuissot] |cRXP_BUY_à Hai'zan|r << Rogue/Warrior
     .vendor >> Vendez tout ce dont nous n'avez pas besoin
     .collect 1179,15,818,1 << Mage/Warlock/Priest/Shaman --Ice Cold Milk (15)

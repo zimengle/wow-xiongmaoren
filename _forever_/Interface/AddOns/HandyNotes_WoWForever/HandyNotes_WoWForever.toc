@@ -2,7 +2,7 @@
 ## Title: HandyNotes: WoW Forever
 ## Notes: Where are the hidden treasures in WoW Forever?
 ## Author: Kemayo
-## Version: v4
+## Version: v5
 ## IconTexture: Interface\Icons\Ability_Spy
 ## DefaultState: enabled
 ## X-Category: Map
@@ -17,6 +17,9 @@ handler\handler.xml
 
 constants.lua
 forever.lua
+
+shared\books.lua
+shared\flightmaster.lua
 
 zones\AlteracMountains.lua
 zones\ArathiHighlands.lua

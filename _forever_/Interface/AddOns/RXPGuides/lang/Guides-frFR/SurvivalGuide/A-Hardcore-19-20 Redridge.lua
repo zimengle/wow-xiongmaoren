@@ -74,7 +74,7 @@ step << Hunter
     .collect 2515,1800 --Sharp Arrow (1800)
     .target Frederick Stover
 step << Hunter
-    +Équipez l'[Arc courbe lourd]
+    +Équipez l' [Arc courbe lourd]
     .use 3027
     .itemcount 3027,1
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<9.19
@@ -950,7 +950,7 @@ step << Rogue
     .goto StormwindClassic,78.43,60.15,20,0
     .goto StormwindClassic,78.67,60.13,5 >> Entrez dans le QG du SI:7. Montez les escaliers vers |cRXP_FRIENDLY_Renzik « le kriss »|r et |cRXP_FRIENDLY_Maître Mathias Shaw|r
 step << Rogue
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Renzik "The Shiv"|r et |cRXP_FRIENDLY_Master Mathias Shaw|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Renzik "The Shiv"|r et à|cRXP_FRIENDLY_Master Mathias Shaw|r
     .accept 2281 >> Acceptez la quête Le Rendez-vous des Carmines
     .target +Renzik "The Shiv"
     .goto StormwindClassic,75.76,60.35
@@ -1303,7 +1303,7 @@ step << !Dwarf Rogue
     .goto 1453,43.070,26.155
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Shaina Fuller|r
     >>Si vous avez un ami |cFFF48CBAPaladin|r ou |cFFFF7C0ADruid|r demandez-leur de vous enlever le debuff [Toucher de Zanzil]
-    .skill firstaid,80 >> Montez votre niveau de compétence en [Premiers soins] jusqu'à 80
+    .skill firstaid,80 >> Montez vos [Premier soins] à un niveau de compétence de 80
     .aura -9991
     .itemcount 6452,<1 --Anti-Venom (<1)
     .isQuestComplete 2359
@@ -1314,7 +1314,7 @@ step << !Dwarf Rogue
     .goto 1453,43.070,26.155
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Shaina Fuller|r
     >>Si vous avez un ami |cFFF48CBAPaladin|r ou |cFFFF7C0ADruid|r demandez-leur de vous enlever le debuff [Toucher de Zanzil]
-    .train 7934 >> Apprenez [Anti-Venom]
+    .train 7934 >> Apprenez [Anti-Venin]
     .aura -9991
     .itemcount 6452,<1 --Anti-Venom (<1)
     .isQuestComplete 2359

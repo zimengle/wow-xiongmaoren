@@ -4,7 +4,7 @@
 ## Notes: GearInsight Forever group beacon (shares your quest progress; loaded at login by the main addon)
 ## Notes-zhCN: GearInsight 无限版的组队信标：共享任务进度 / 回别人的进度 / 解散道谢，主插件登录时加载（设置里可改成点了才加载）
 ## Author: GearInsight
-## Version: 1.4.11
+## Version: 1.4.19
 ## Dependencies: GearInsight_Forever
 ## LoadOnDemand: 1
 ## IconTexture: Interface\Icons\inv_misc_map_01

@@ -28,7 +28,7 @@ step
     #completewith next
     .goto Tirisfal Glades,30.04,72.78,8,0
     .goto Tirisfal Glades,30.27,72.78,8,0
-    .goto Tirisfal Glades,30.22,71.65,10 >> Sortez de la crypte vers |cRXP_FRIENDLY_Mordo|r
+    .goto Tirisfal Glades,30.22,71.65,10 >> Sortez de la crypte vers  |cRXP_FRIENDLY_Mordo|r
 step
     .goto Tirisfal Glades,30.22,71.65
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Mordo|r
@@ -955,7 +955,7 @@ step << Rogue
 step << Warlock
     .goto Tirisfal Glades,61.56,52.61
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Gina Lang|r au second étage
-    >>|cRXP_BUY_Achetez un|r [Grimoire de Pacte de Sang] |cRXP_BUY_à Gina|r
+    >>|cRXP_BUY_Achetez un|r [Grimoire de Pacte de sang] |cRXP_BUY_ à Gina|r
     .collect 16321,1,404,1 --Grimoire of Blood Pact
     .vendor >>Vendez tout ce dont nous n'avez pas besoin
     .target Gina Lang
@@ -4193,7 +4193,7 @@ step << !Mage !Priest
 step
     .goto Silverpine Forest,43.98,39.89
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Edwin|r
-    >>|cRXP_BUY_Achetez du|r [Lait frais] |cRXP_BUY_à Heron|r << Mage/Warlock/Priest/Shaman/Druid
+    >>|cRXP_BUY_Achetez du|r [Lait frais] |cRXP_BUY_à Grosk|r << Mage/Warlock/Priest/Shaman/Druid
     .vendor >> |cRXP_BUY_Achetez-lui des|r |T134830:0|t[Potions de soins inférieure] |cRXP_BUY_si elles sont disponibles|r
     .collect 1179,20,421,1 << Mage/Warlock/Priest/Shaman/Druid --Ice Cold Milk (20)
     .target Edwin Harly
@@ -4423,7 +4423,7 @@ step << !Mage !Priest
 step
     .goto Silverpine Forest,43.98,39.89
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Edwin|r
-    >>|cRXP_BUY_Achetez du|r [Lait frais] |cRXP_BUY_à Heron|r << Warlock/Priest/Shaman/Druid
+    >>|cRXP_BUY_Achetez du|r [Lait frais] |cRXP_BUY_à Grosk|r << Warlock/Priest/Shaman/Druid
     .vendor >> |cRXP_BUY_Achetez-lui des|r |T134830:0|t[Potions de soins inférieure] |cRXP_BUY_si elles sont disponibles|r
     .collect 1179,20,423,1 << Warlock/Priest/Shaman/Druid --Ice Cold Milk (20)
     .target Edwin Harly
@@ -5467,7 +5467,7 @@ step
     #completewith next
     .goto Tirisfal Glades,30.04,72.78,8,0
     .goto Tirisfal Glades,30.27,72.78,8,0
-    .goto Tirisfal Glades,30.22,71.65,10 >> Sortez de la crypte vers |cRXP_FRIENDLY_Mordo|r
+    .goto Tirisfal Glades,30.22,71.65,10 >> Sortez de la crypte vers  |cRXP_FRIENDLY_Mordo|r
 step
     .goto Tirisfal Glades,30.22,71.65
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Mordo|r
@@ -6682,7 +6682,7 @@ step << Rogue
 step << Warlock
     .goto Tirisfal Glades,61.56,52.61
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Gina Lang|r au second étage
-    >>|cRXP_BUY_Achetez un|r [Grimoire de Pacte de Sang] |cRXP_BUY_à Gina|r
+    >>|cRXP_BUY_Achetez un|r [Grimoire de Pacte de sang] |cRXP_BUY_ à Gina|r
     .collect 16321,1,404,1 --Grimoire of Blood Pact
     .vendor >>Vendez tout ce dont nous n'avez pas besoin
     .target Gina Lang

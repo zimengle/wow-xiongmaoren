@@ -59,7 +59,7 @@ step << !sod/Warrior
 step << Priest
     .goto 1438/1,779.8482,10450.1295
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_德林拉尔|r 对话
-    .vendor >> |cRXP_WARN_出售垃圾物品|r
+    .vendor >> 出售垃圾物品
     >>|cRXP_BUY_购买15瓶|r |T132794:0|t[清凉的泉水]
     .collect 159,15 --Collect Refreshing Spring Water (x15)
     .target 德林拉尔
@@ -73,7 +73,7 @@ step << !Druid
 step << Warrior
     .goto 1438/1,794.92,10436.72
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_奇娜|r 对话
-	.vendor >> |cRXP_WARN_出售垃圾物品|r
+	.vendor >> 出售垃圾物品
     .target 奇娜
 step << Warrior
 	.goto 1438/1,778.07,10526.62
@@ -207,7 +207,7 @@ step << Warrior
 step << Priest
     .goto 1438/1,779.8482,10450.1295
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_德林拉尔|r 对话
-    .vendor >> |cRXP_WARN_出售垃圾物品|r
+    .vendor >> 出售垃圾物品
     >>|cRXP_BUY_购买最多25个|r |T132794:0|t[清凉的泉水]
     .collect 159,25 --Collect Refreshing Spring Water (x25)
     .target 德林拉尔
@@ -297,14 +297,14 @@ step
 step << Priest
     .goto 1438/1,779.8482,10450.1295
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_德林拉尔|r 对话
-    .vendor >> |cRXP_WARN_出售垃圾物品|r
+    .vendor >> 出售垃圾物品
     >>|cRXP_BUY_购买最多25个|r |T132794:0|t[清凉的泉水]
     .collect 159,25 --Collect Refreshing Spring Water (x25)
     .target 德林拉尔
 step << !Priest
     .goto 1438/1,794.92,10436.72
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_奇娜|r 对话
-	.vendor >> |cRXP_WARN_出售垃圾物品|r << !Hunter
+	.vendor >> 出售垃圾物品 << !Hunter
 	.vendor >> |cRXP_BUY_购买3或4组|r |T132382:0|t[劣质箭] << Hunter
     .target 奇娜
 step
@@ -410,7 +410,7 @@ step << Priest
     #completewith next
     .goto 1438/1,787.28,10438.120
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与楼上的 |cRXP_FRIENDLY_简娜·明月|r 对话
-	.vendor >> |cRXP_WARN_出售垃圾物品|r
+	.vendor >> 出售垃圾物品
     .target Janna Brightmoon
 step << Priest
 	.goto 1438/1,801.64,10458.75
@@ -727,7 +727,7 @@ step
 step
     .goto 1438/1,713.76,9506.90--c:Teldrassil,60.900,68.489
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_德纳兰|r 对话
-    .turnin 918 >> 交任务 林精的种子
+    .turnin 918 >> 交任务  林精的种子
     .target 德纳兰
     .accept 922 >> 接受任务 雷利亚·绿树
     .turnin 919 >> 交任务 林精的新芽
@@ -1623,7 +1623,7 @@ step << Druid NightElf
 	.zoneskip Moonglade
 step << Druid NightElf
     .goto 1450/1,-2678.76,8019.94
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与楼上的 |cRXP_FRIENDLY_德迪利特·星焰|r 对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_德迪利特·星焰|r 对话
     .turnin 5921 >> 交任务 月光林地
     .target 德迪利特·星焰
     .accept 5929 >> 接受任务 巨熊之灵
@@ -1640,8 +1640,8 @@ step << Druid NightElf
     >>|cRXP_WARN_这样可以让你更快返回|r
 step << Druid NightElf
     .goto 1450/1,-2678.76,8019.94
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与楼上的 |cRXP_FRIENDLY_德迪利特·星焰|r 对话
-    .turnin 5929 >> 交任务 巨熊之灵
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_德迪利特·星焰|r 对话
+    .turnin 5929 >> 交任务  巨熊之灵
     .target 德迪利特·星焰
     .accept 5931 >> 接受任务 返回达纳苏斯
 step
@@ -1740,7 +1740,7 @@ step << Hunter
 step << Hunter
     .goto 1438/1,968.85,9821.98--c:Teldrassil,55.890,59.205
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_吉娜·羽弓|r 对话
-	.vendor >> |cRXP_BUY_购买4组|r |T132382:0|t[锋利的箭]|cRXP_BUY_，达到10级后立即装备它们|r
+	.vendor >> |cRXP_BUY_购买4组|r |T132382:0|t[锋利的箭]|cRXP_BUY_。达到10级后立即装备它们|r
     .target 吉娜·羽弓
 step << Hunter/Warrior/Rogue
     .goto 1438/1,1172.01,9917.17

@@ -33,11 +33,48 @@ Spy.ForeverStats.hiddenKills = Spy.ForeverStats.hiddenKills or 0
 
 Spy.MapSkullLimit = 100
 
+-- Controller navigation skips a frame marked "ignored". The mark must go through Blizzard's
+-- own setter: writing frame.smartNavigationIgnored ourselves (as 1.3.8-forever19 to 27
+-- did) leaves a value Blizzard's navigation reads, and that read taints it (CurseForge
+-- report: World Map crosshair mode, SetPreferredGamepadInteractTarget() blocked). The
+-- setter only works out of combat and only once the gamepad navigation code is loaded,
+-- so frames wait in Spy.NavPending until then.
+Spy.NavPending = {}
+Spy.ForeverStats.navMarked = Spy.ForeverStats.navMarked or 0
+
+function Spy:MarkNavPending()
+	if not SmartNavigation_MarkFrameIgnored or InCombatLockdown() then
+		return
+	end
+	for frame in pairs(Spy.NavPending) do
+		Spy.NavPending[frame] = nil
+		if pcall(SmartNavigation_MarkFrameIgnored, frame) then
+			Spy.ForeverStats.navMarked = Spy.ForeverStats.navMarked + 1
+		end
+	end
+end
+
+function Spy:IgnoreForGamepad(frame)
+	if frame then
+		Spy.NavPending[frame] = true
+		Spy:MarkNavPending()
+	end
+end
+
+local navWatcher = CreateFrame("Frame")
+navWatcher:RegisterEvent("PLAYER_REGEN_ENABLED")
+navWatcher:RegisterEvent("ADDON_LOADED")
+navWatcher:SetScript("OnEvent", function()
+	if next(Spy.NavPending) then
+		Spy:MarkNavPending()
+	end
+end)
+
 function Spy:MapIconHolder()
 	if not Spy.MapHolder then
 		local holder = CreateFrame("Frame", nil, UIParent)
 		holder:Hide()
-		holder.smartNavigationIgnored = true
+		Spy:IgnoreForGamepad(holder)
 		Spy.MapHolder = holder
 	end
 	return Spy.MapHolder
@@ -45,7 +82,7 @@ end
 
 function Spy:KeepOffMap(icon)
 	if icon then
-		icon.smartNavigationIgnored = true
+		Spy:IgnoreForGamepad(icon)
 		icon:SetParent(Spy:MapIconHolder())
 	end
 	return icon

@@ -208,9 +208,12 @@ XC._useBtns = USE   -- 测试用
 local function useBtn(row)
     if USE[row] or inCombat() then return USE[row] end
     local mini = rawget(row, "compact") == true
-    local b = CreateFrame("Button", nil, row, "SecureActionButtonTemplate,UIPanelButtonTemplate")
-    b:SetSize(mini and 30 or 56, mini and 18 or 20); b:SetPoint("RIGHT", mini and -2 or -6, 0)
-    b:SetFrameLevel((row:GetFrameLevel() or 1) + 3)
+    -- 11-22 用户截图「战斗中为啥无法关闭」：同 11-15 圣骑士祝福（PallyBless PB.AttachPageBtn）—— 安全按钮原来是行的子框体
+    --   → 整个主面板被带成受保护框体，战斗中 × / ESC 关不掉。改挂 UIParent（不进主面板父子链），脱战时贴到行上（XC.AttachUse），
+    --   行藏了 / 进战斗前（PLAYER_REGEN_DISABLED 里还能动）摘下来藏好
+    local b = CreateFrame("Button", nil, UIParent, "SecureActionButtonTemplate,UIPanelButtonTemplate")
+    b:SetSize(mini and 30 or 56, mini and 18 or 20)
+    b.row, b.mini = row, mini
     if b.RegisterForClicks then b:RegisterForClicks("AnyDown") end
     if ns.SkinButton then ns.SkinButton(b) end
     if RegisterStateDriver and b.SetAttribute then
@@ -230,7 +233,36 @@ local function useBtn(row)
     b:SetScript("OnLeave", hideTip)
     b:Hide()
     USE[row] = b
+    if row.HookScript then
+        row:HookScript("OnHide", function() XC.DetachUse(b) end)
+        row:HookScript("OnShow", function() XC.AttachUse(b) end)
+    end
     return b
+end
+-- 贴到行的右侧（只在脱战时；行看不见就不显示）
+function XC.AttachUse(b)
+    local row = b and rawget(b, "row")
+    if not row or inCombat() then return end
+    if not rawget(b, "u") then b:Hide(); return end
+    b:ClearAllPoints(); b:SetPoint("RIGHT", row, "RIGHT", b.mini and -2 or -6, 0)
+    if row.GetFrameStrata then b:SetFrameStrata(row:GetFrameStrata()) end
+    b:SetFrameLevel((row:GetFrameLevel() or 1) + 3)
+    if row.IsVisible and row:IsVisible() then b:Show() else b:Hide() end
+end
+-- 摘下来：藏好、不再挂在行上（战斗中动不了就算了，状态驱动已经把它藏了）
+function XC.DetachUse(b)
+    if not b or inCombat() then return end
+    b:Hide(); b:ClearAllPoints()
+end
+do
+    local ev = CreateFrame("Frame")
+    ev:RegisterEvent("PLAYER_REGEN_DISABLED"); ev:RegisterEvent("PLAYER_REGEN_ENABLED")
+    ev:SetScript("OnEvent", function(_, e)
+        for _, b in pairs(USE) do
+            if e == "PLAYER_REGEN_DISABLED" then b:Hide(); b:ClearAllPoints() else XC.AttachUse(b) end   -- 进战斗前最后一刻摘下；脱战贴回
+        end
+    end)
+    XC._useEv = ev   -- 测试用
 end
 function XC.PaintUse(row, u)
     if inCombat() then return end
@@ -241,7 +273,7 @@ function XC.PaintUse(row, u)
         b:SetAttribute("type", "macro")
         b:SetAttribute("macrotext", "/use item:" .. u.item .. (u.weapon and "\n/use 16" or ""))
         b:SetText(L("用", "Use"))
-        b:Show()
+        XC.AttachUse(b)
     else
         b.u = nil
         b:Hide()

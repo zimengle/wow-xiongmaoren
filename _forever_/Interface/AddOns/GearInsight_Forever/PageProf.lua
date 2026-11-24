@@ -1482,6 +1482,20 @@ function ns.ProfOpenTab(t)
     if ns.ToggleMain then ns.ToggleMain("prof") end
     refresh()
 end
+-- 11-23 用户「制造的也直接打开专业配方」：成品物品 → 配方库，切到那个专业、清筛选、搜索框填配方名；返回 专业键, 配方法术（找不到 nil）
+function ns.ProfOpenRecipe(id)
+    for k, lst in pairs(ns.ProfRecipes and ns.ProfRecipes.profs or {}) do
+        for _, r in ipairs(lst) do
+            if r[7] == id then
+                routeKey = k
+                flt.range, flt.slot, flt.new, flt.mine, flt.src, flt.q = 0, 1, false, false, 1, ns.L(r[2], r[3])
+                ns.ProfOpenTab("recipes")
+                if page and page.search then page.search:SetText(flt.q) end
+                return k, r[1]
+            end
+        end
+    end
+end
 
 -- 11-14 order 1.85 → 1.15：专业成了左栏独立一级，排在「升级」(1.1) 后、「装备」(1.2) 前（UI.lua GROUPS）；⛔ 和 ProfStub.lua 的占位页一致
 ns.RegisterPage({ key = "prof", order = 1.15, title = ns.L("专业", "Professions"), tabTitle = ns.L("专业", "Profs"),

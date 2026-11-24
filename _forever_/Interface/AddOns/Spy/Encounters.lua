@@ -174,7 +174,8 @@ local function showTooltip(icon)
 		GameTooltip:AddLine("<" .. entry.g .. ">", 1, 1, 1)
 	end
 	GameTooltip:AddLine(date("%Y-%m-%d %H:%M", entry.t), 0.8, 0.8, 0.8)
-	local how = L["EncounterHow_" .. tostring(entry.k)]
+	-- rawget: an unknown kind of fight shows nothing instead of an AceLocale warning.
+	local how = rawget(L, "EncounterHow_" .. tostring(entry.k))
 	if how then
 		GameTooltip:AddLine(how, 0.6, 0.6, 0.6, true)
 	end
@@ -188,7 +189,9 @@ local function iconFor(index)
 	end
 	-- Not on the world map itself (PetKills.lua): HereBeDragons puts it there while shown.
 	icon = CreateFrame("Button", nil, Spy.MapIconHolder and Spy:MapIconHolder() or WorldMapFrame)
-	icon.smartNavigationIgnored = true
+	if Spy.IgnoreForGamepad then
+		Spy:IgnoreForGamepad(icon)
+	end
 	icon:SetSize(14, 14)
 	icon.texture = icon:CreateTexture(nil, "OVERLAY")
 	icon.texture:SetAllPoints(icon)

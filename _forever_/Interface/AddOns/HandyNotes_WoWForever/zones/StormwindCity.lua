@@ -1,7 +1,7 @@
 local myname, ns = ...
 
 ns.RegisterPoints(ns.STORMWINDCITY, {
-	[64406680] = { -- Sewer Beast
+	[70106540] = { -- Sewer Beast
 		quest=nil,
 		npc=3581,
 		loot={

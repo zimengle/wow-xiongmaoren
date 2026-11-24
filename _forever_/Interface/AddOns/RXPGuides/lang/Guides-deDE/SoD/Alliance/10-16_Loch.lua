@@ -14,7 +14,7 @@ RXPGuides.RegisterGuide([[
 
 step << Warrior
     #season 2
-    >>|cRXP_WARN_Sucht nach dem|r |cRXP_FRIENDLY_Wandernder Schwertkämpfer|r. |cRXP_WARN_Er kann überall in dem kleinen Bereich sein, der auf von Euch Karte markiert ist|r
+    >>|cRXP_WARN_Sucht nach dem|r |cRXP_FRIENDLY_Wandernder Schwertkämpfer|r. |cRXP_WARN_Er kann überall in dem kleinen Bereich sein, der auf eurer Karte markiert ist|r
     >>Findet ihn und fordert ihn zu einem Duell heraus. Nach dem Sieg wird er eine kleine Kiste spawnen, die euch die Rune der |T132334:0|t[|cRXP_FRIENDLY_Blutraserei|r] gewährt
     .goto Dun Morogh,52.6,45.0
     .goto Dun Morogh,52.4,47.4,0

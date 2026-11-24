@@ -3,7 +3,7 @@ local _, myfullname = C_AddOns.GetAddOnInfo(myname)
 
 local HandyNotes = LibStub("AceAddon-3.0"):GetAddon("HandyNotes")
 local HL = LibStub("AceAddon-3.0"):NewAddon(myname, "AceEvent-3.0")
--- local L = LibStub("AceLocale-3.0"):GetLocale(myname, true)
+local L = ns.L
 ns.HL = HL
 
 local HBD = LibStub("HereBeDragons-2.0")
@@ -19,7 +19,7 @@ ns.CLASSICERA = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC -- forever vanilla
 -- All the utility code
 
 local mob_name = ns.mob_name
-local render_string, cache_string = ns.render_string, ns.cache_string
+local render_string, render_tokens, cache_string = ns.render_string, ns.render_tokens, ns.cache_string
 local work_out_texture = ns.work_out_texture
 local get_inactive_texture_variant = ns.get_inactive_texture_variant
 local get_upcoming_texture_variant = ns.get_upcoming_texture_variant
@@ -91,26 +91,29 @@ ns.point_upcoming = function(point)
     end
     return false
 end
-local get_point_info = function(point, isMinimap)
-    if point then
-        local label = work_out_label(point)
-        local icon = work_out_texture(point)
-        if not ns.point_active(point) then
-            icon = get_inactive_texture_variant(icon)
-        elseif ns.point_upcoming(point) then
-            icon = get_upcoming_texture_variant(icon)
-        end
-        if not isMinimap then
-            cache_string(point.label, point)
-            cache_string(point.note, point)
-            cache_loot(point.loot)
-            cache_loot(point.loot_shared)
-        end
-        return label, icon, point.scale, point.alpha or 1
+local get_point_icon = function(point, isMinimap)
+    local icon = work_out_texture(point)
+    if not ns.point_active(point) then
+        icon = get_inactive_texture_variant(icon)
+    elseif ns.point_upcoming(point) then
+        icon = get_upcoming_texture_variant(icon)
     end
+    -- The label isn't needed to draw a pin, but working it out is what asks the
+    -- client for an npc's name, so it's there by the time a tooltip wants it.
+    if point.npc then mob_name(point.npc) end
+    if not isMinimap then
+        cache_string(point.label, point)
+        cache_string(point.note, point)
+        cache_loot(point.loot)
+        cache_loot(point.loot_shared)
+    end
+    return icon
 end
-local get_point_info_by_coord = function(uiMapID, coord)
-    return get_point_info(ns.points[uiMapID] and ns.points[uiMapID][coord])
+local get_point_label_by_coord = function(uiMapID, coord)
+    local point = ns.points[uiMapID] and ns.points[uiMapID][coord]
+    if point then
+        return work_out_label(point)
+    end
 end
 
 do
@@ -200,11 +203,11 @@ local function createWaypoint(uiMapID, coord)
             x = x,
             y = y,
             setTracked = true,
-            title = get_point_info_by_coord(uiMapID, coord),
+            title = get_point_label_by_coord(uiMapID, coord),
         }
     elseif TomTom then
         TomTom:AddWaypoint(uiMapID, x, y, {
-            title = get_point_info_by_coord(uiMapID, coord),
+            title = get_point_label_by_coord(uiMapID, coord),
             persistent = nil,
             minimap = true,
             world = true
@@ -251,7 +254,7 @@ do
         for _, rcoord in ipairs(points) do
             local x, y = HandyNotes:getXY(rcoord)
             TomTom:AddWaypoint(uiMapID, x, y, {
-                title = get_point_info_by_coord(uiMapID, rcoord),
+                title = get_point_label_by_coord(uiMapID, rcoord),
                 persistent = nil,
                 minimap = true,
                 world = true
@@ -282,7 +285,7 @@ local function hideGroupZone(uiMapID, coord)
 end
 
 local function sendToChat(uiMapID, coord)
-    local title = get_point_info_by_coord(uiMapID, coord)
+    local title = get_point_label_by_coord(uiMapID, coord)
     local x, y = HandyNotes:getXY(coord)
     local message = ("%s|cffffff00|Hworldmap:%d:%d:%d|h[%s]|h|r"):format(
         title and (title .. " ") or "",
@@ -303,6 +306,9 @@ local function sendToChat(uiMapID, coord)
 end
 
 do
+    local function group_name(point)
+        return (render_string(ns.groups[point.group] or point.group, point))
+    end
     local generateMenu = function(owner, rootDescription, uiMapID, coord, point)
         rootDescription:SetTag("MENU_WORLD_MAP_CONTEXT_"..myname)
         rootDescription:CreateTitle(myfullname)
@@ -310,12 +316,12 @@ do
             rootDescription:CreateButton(OBJECTIVES_VIEW_ACHIEVEMENT, showAchievement, point.achievement)
         end
         if TomTom or (C_Map and C_Map.CanSetUserWaypointOnMap and C_Map.CanSetUserWaypointOnMap(uiMapID)) then
-            rootDescription:CreateButton("Create waypoint", function() createWaypoint(uiMapID, coord) end)
+            rootDescription:CreateButton(L["Create waypoint"], function() createWaypoint(uiMapID, coord) end)
         end
         -- Specifically for TomTom, since it supports multiples:
         if TomTom and ns.PointHasRelatedPointsInZone(uiMapID, point) then
             rootDescription:CreateButton(
-                render_string(("Create waypoint for all %s"):format(point.group and (ns.groups[point.group] or point.group) or ("{achievement:%d}"):format(point.achievement)), point),
+                render_tokens(L["Create waypoint for all %s"]:format(point.group and group_name(point) or ("{achievement:%d}"):format(point.achievement))),
                 function() createWaypointForAll(uiMapID, coord) end
             )
         end
@@ -325,21 +331,21 @@ do
         end
         -- Hide menu item
         if not ns.hiddenConfig.unhide then
-            rootDescription:CreateButton("Hide this point", function() hideNode(uiMapID, coord) end)
+            rootDescription:CreateButton(L["Hide this point"], function() hideNode(uiMapID, coord) end)
         end
         if point.achievement then
-            rootDescription:CreateButton(render_string("Hide {achievement:" .. point.achievement .. "}", point), hideAchievement, point.achievement)
+            rootDescription:CreateButton(render_tokens(L["Hide %s"]:format(("{achievement:%d}"):format(point.achievement))), hideAchievement, point.achievement)
         end
         if point.group then
             if not ns.hiddenConfig.groupsHiddenByZone then
                 rootDescription:CreateButton(
-                    render_string(("Hide %s only in {zone:%s}"):format(ns.groups[point.group] or point.group, uiMapID), point),
+                    render_tokens(L["Hide %s only in %s"]:format(group_name(point), ("{zone:%d}"):format(uiMapID))),
                     function() hideGroupZone(uiMapID, coord) end
                 )
             end
             if not ns.hiddenConfig.groupsHidden then
                 rootDescription:CreateButton(
-                    render_string((ns.hiddenConfig.groupsHiddenByZone and "Hide all %s" or "Hide %s in all zones"):format(ns.groups[point.group] or point.group), point),
+                    (ns.hiddenConfig.groupsHiddenByZone and L["Hide all %s"] or L["Hide %s in all zones"]):format(group_name(point)),
                     function() hideGroup(uiMapID, coord) end
                 )
             end
@@ -394,9 +400,9 @@ do
         local state, value = next(t, prestate)
         while state do -- Have we reached the end of this zone?
             if value and ns.should_show_point(state, value, currentZone, isMinimap) then
-                local _, icon, scale, alpha = get_point_info(value, isMinimap)
-                scale = (scale or 1) * (icon and icon.scale or 1) * ns.db.icon_scale
-                return state, nil, icon, scale, ns.db.icon_alpha * alpha
+                local icon = get_point_icon(value, isMinimap)
+                local scale = (value.scale or 1) * (icon and icon.scale or 1) * ns.db.icon_scale
+                return state, nil, icon, scale, ns.db.icon_alpha * (value.alpha or 1)
             end
             state, value = next(t, state) -- Get next data
         end
@@ -407,7 +413,7 @@ do
         for _, cache in pairs(ns.run_caches) do
             table.wipe(cache)
         end
-        HL:RefreshProviders()
+        HL:RefreshProviders(minimap)
         currentZone = uiMapID
         isMinimap = minimap
         return iter, ns.points[uiMapID], nil
@@ -498,11 +504,14 @@ do
             bucket:Show()
         end
     end
-    function HL:RefreshProviders()
-        if ns.RouteMiniMapDataProvider then
-            ns.RouteMiniMapDataProvider:UpdateMinimapRoutes()
-        end
-        if ns.MapSystem then
+    -- HandyNotes asks for the minimap's nodes and the world map's separately,
+    -- so each only needs to rebuild its own routes and pins.
+    function HL:RefreshProviders(isMinimap)
+        if isMinimap then
+            if ns.RouteMiniMapDataProvider then
+                ns.RouteMiniMapDataProvider:UpdateMinimapRoutes()
+            end
+        elseif ns.MapSystem then
             ns.MapSystem:UpdateProviders()
         end
     end

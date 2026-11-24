@@ -1,9 +1,9 @@
 
 BugSackDB = {
-["altwipe"] = true,
+["fontSize"] = "GameFontHighlight",
 ["auto"] = false,
 ["chatframe"] = false,
-["fontSize"] = "GameFontHighlight",
+["altwipe"] = true,
 }
 BugSackLDBIconDB = {
 ["minimapPos"] = 223.2109554013324,

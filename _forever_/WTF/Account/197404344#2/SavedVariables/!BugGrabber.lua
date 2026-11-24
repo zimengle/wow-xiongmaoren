@@ -1,7 +1,7 @@
 
 BugGrabberDB = {
+["session"] = 148,
 ["lastSanitation"] = 3,
-["session"] = 137,
 ["errors"] = {
 {
 ["message"] = "...erface/AddOns/Questie/Database/QuestXP/QuestieXP.lua:14: attempt to index global 'LibQuestieDB' (a nil value)",
@@ -220,17 +220,9 @@ BugGrabberDB = {
 ["counter"] = 2,
 },
 {
-["message"] = "[ADDON_ACTION_BLOCKED] 插件 'RXPGuides' 尝试调用保护功能 'DeleteMacro()'。",
-["time"] = 1794810533,
-["locals"] = "self=<table>\nevent=\"ADDON_ACTION_BLOCKED\"\naddonName=\"RXPGuides\"\naddonFunc=\"DeleteMacro()\"\nname=\"RXPGuides\"\nbadAddons=<table>{\n RXPGuides=true\n OpenMap=true\n}\nL=<table>{\n NO_DISPLAY_2=\"|cffffff00标准的错误显示插件名叫 BugSack，可以在找到 !BugGrabber 的网站上找到它。|r\"\n ERROR_DETECTED=\"%s |cffffff00已抓取，点击链接获取更多信息。|r\"\n BUGGRABBER_STOPPED=\"|cffffff00用户界面有太多的错误。所以，游戏体验会被降低。如不想再看到此信息请禁用或升级失效插件。|r\"\n USAGE=\"|cffffff00用法：/buggrabber <1-%d>。|r\"\n STOP_NAG=\"|cffffff00!BugGrabber 将不再提示缺失错误显示插件信息知道下个版本发布。|r\"\n NO_DISPLAY_STOP=\"|cffffff00如果你不希望再次被提醒，请输入 /stopnag。|r\"\n NO_DISPLAY_1=\"|cffffff00似乎没有与 !BugGrabber 一起运行的错误显示插件。虽然斜线命令访问错误报告，但错误显示插件可以以更快捷的方式帮助您管理这些错误。|r\"\n ERROR_UNABLE=\"|cffffff00!BugGrabber 本身无法检索其他玩家的错误。请安装 BugSack 或类似的错误显示插件，可能会包含这些功能。|r\"\n ADDON_CALL_PROTECTED=\"[%s] 插件 '%s' 尝试调用保护功能 '%s'。\"\n}\n",
-["stack"] = "[Interface/AddOns/!BugGrabber/BugGrabber.lua]:554: in function '?'\n[Interface/AddOns/!BugGrabber/BugGrabber.lua]:538: in function <Interface/AddOns/!BugGrabber/BugGrabber.lua:538>\n[C]: in function 'DeleteMacro'\n[Interface/AddOns/RXPGuides/Targeting.lua]:96: in function 'Setup'\n[Interface/AddOns/RXPGuides/RXPGuides.lua]:1833: in function <Interface/AddOns/RXPGuides/RXPGuides.lua:1800>\n[C]: ?\n[C]: in function 'SetUIVisibility'\n[TOGGLEUI]:6: in function <[string \"TOGGLEUI\"]:1>\n",
-["session"] = 93,
-["counter"] = 1,
-},
-{
 ["message"] = "LUA_WARNING: Interface/AddOns/Spy/Spy.toc:68 Error loading Interface/AddOns/Spy/PetKills.lua",
-["session"] = 108,
 ["time"] = 1794882840,
+["session"] = 108,
 ["counter"] = 1,
 },
 {
@@ -247,14 +239,6 @@ BugGrabberDB = {
 ["locals"] = "r=<table>{\n 1=0.279820\n 2=0.660799\n 3=0.284834\n 4=0.668119\n}\nu=0.725107\nv=0.271607\nbest=nil\narea=nil\n(*temporary)=0.284834\n(*temporary)=0.279820\n(*temporary)=nil\n(*temporary)=nil\n(*temporary)=nil\n(*temporary)=\"script ran too long\"\nCAVE_MARGIN=0.250000\n",
 ["stack"] = "[Interface/AddOns/OpenMap/Map/Close.lua]:663: in function <Interface/AddOns/OpenMap/Map/Close.lua:662>\n[Interface/AddOns/OpenMap/Map/Close.lua]:678: in function 'CaveRectAt'\n[Interface/AddOns/OpenMap/Map/WorldMap.lua]:356: in function <Interface/AddOns/OpenMap/Map/WorldMap.lua:353>\n[Interface/AddOns/OpenMap/Map/WorldMap.lua]:990: in function <Interface/AddOns/OpenMap/Map/WorldMap.lua:976>\n[Interface/AddOns/OpenMap/Map/WorldMap.lua]:734: in function <Interface/AddOns/OpenMap/Map/WorldMap.lua:731>\n[tail call]: ?\n[Interface/AddOns/Blizzard_MapCanvas/MapCanvas_ScrollContainerMixin.lua]:478: in function 'OnCanvasSizeChanged'\n[Interface/AddOns/Blizzard_MapCanvas/Blizzard_MapCanvas.lua]:74: in function 'OnFrameSizeChanged'\n[Interface/AddOns/Blizzard_WorldMap/Blizzard_WorldMap.lua]:498: in function 'UpdateSpacerFrameAnchoring'\n[Interface/AddOns/Blizzard_WorldMap/QuestLogOwnerMixin.lua]:155: in function <...face/AddOns/Blizzard_WorldMap/QuestLogOwnerMixin.lua:109>\n[C]: in function 'SetDisplayState'\n[Interface/AddOns/Blizzard_WorldMap/QuestLogOwnerMixin.lua]:51: in function 'HandleUserActionToggleSelf'\n[Interface/AddOns/Blizzard_WorldMap/Blizzard_WorldMap.lua]:1410: in function <...rface/AddOns/Blizzard_WorldMap/Blizzard_WorldMap.lua:1405>\n[C]: in function 'ToggleWorldMap'\n[TOGGLEWORLDMAP]:1: in function <[string \"TOGGLEWORLDMAP\"]:1>\n",
 ["session"] = 117,
-["counter"] = 2,
-},
-{
-["message"] = "GetAuraDataByIndex(): Auras cannot be accessed when secret while tainted by 'Questie'\nLua Taint: Questie",
-["time"] = 1795145040,
-["locals"] = "",
-["stack"] = "[Interface/AddOns/Blizzard_MawBuffs/Blizzard_MawBuffs.lua]:4: in function 'ShouldShowMawBuffs'\n[Interface/AddOns/Blizzard_ObjectiveTracker/Blizzard_ScenarioObjectiveTracker.lua]:187: in function 'LayoutContents'\n[Interface/AddOns/Blizzard_ObjectiveTracker/Blizzard_ObjectiveTrackerModule.lua]:147: in function 'Update'\n[Interface/AddOns/Blizzard_ObjectiveTracker/Blizzard_ObjectiveTrackerContainer.lua]:82: in function 'Update'\n[Interface/AddOns/Blizzard_ObjectiveTracker/Blizzard_ObjectiveTracker.lua]:70: in function <...zzard_ObjectiveTracker/Blizzard_ObjectiveTracker.lua:62>\n[tail call]: ?\n[Interface/AddOns/Blizzard_SharedXML/MixinUtil.lua]:341: in function <Interface/AddOns/Blizzard_SharedXML/MixinUtil.lua:340>\n",
-["session"] = 120,
 ["counter"] = 2,
 },
 {
@@ -282,22 +266,6 @@ BugGrabberDB = {
 ["counter"] = 1,
 },
 {
-["message"] = "Interface/AddOns/TentWhisper/TentWhisper.lua:706: attempt to compare local 'g' (a secret string value, while execution tainted by 'TentWhisper')",
-["time"] = 1795278138,
-["locals"] = "g=<secret string>\n(*temporary)=\"string\"\n(*temporary)=<secret string>\n(*temporary)=\"attempt to compare local 'g' (a secret string value, while execution tainted by 'TentWhisper')\"\n",
-["stack"] = "[Interface/AddOns/TentWhisper/TentWhisper.lua]:706: in function <Interface/AddOns/TentWhisper/TentWhisper.lua:702>\n[Interface/AddOns/TentWhisper/TentWhisper.lua]:808: in function <Interface/AddOns/TentWhisper/TentWhisper.lua:800>\n[Interface/AddOns/TentWhisper/TentWhisper.lua]:991: in function <Interface/AddOns/TentWhisper/TentWhisper.lua:986>\n[C]: ?\n[C]: in function 'TargetUnit'\n[Interface/AddOns/Blizzard_ChatFrameBase/Shared/SlashCommands.lua]:495: in function '?'\n[Interface/AddOns/Blizzard_ChatFrameBase/Shared/ChatFrameEditBox.lua]:251: in function 'ParseText'\n[Interface/AddOns/Blizzard_ChatFrameBase/Shared/ChatFrameEditBox.lua]:296: in function 'SendText'\n[Interface/AddOns/Blizzard_ChatFrameBase/Shared/MacroExecutionManager.lua]:27: in function <...zzard_ChatFrameBase/Shared/MacroExecutionManager.lua:20>\n[C]: ?\n[C]: in function 'RunMacroText'\n[Interface/AddOns/Blizzard_FrameXML/SecureTemplates.lua]:461: in function 'handler'\n[Interface/AddOns/Blizzard_FrameXML/SecureTemplates.lua]:752: in function <...terface/AddOns/Blizzard_FrameXML/SecureTemplates.lua:730>\n[Interface/AddOns/Blizzard_FrameXML/SecureTemplates.lua]:766: in function <...terface/AddOns/Blizzard_FrameXML/SecureTemplates.lua:759>\n[Interface/AddOns/Blizzard_FrameXML/SecureTemplates.lua]:818: in function <...terface/AddOns/Blizzard_FrameXML/SecureTemplates.lua:802>\n",
-["session"] = 133,
-["counter"] = 4754,
-},
-{
-["message"] = ".../AddOns/Blizzard_UIPanels_Game/Camelot/BankFrame.lua:43: bad argument #1 to 'FetchNumPurchasedBankTabs' (Usage: local numPurchasedBankTabs = C_Bank.FetchNumPurchasedBankTabs(bankType))",
-["time"] = 1795281527,
-["locals"] = "self=BankFrame <BankFrame.xml:59>{\n accountBankTabID=2\n bankPageTabPool=<table>\n itemButtonBagPool=<table>\n LeftJumpHint=Frame <SharedUIPanelTemplates.xml:618>\n TitleContainer=Frame <SharedUIPanelTemplates.xml:600>\n TabIDToBankType=<table>\n callbackRegistrantHandlers=<table>\n deferredCallbacks=<table>\n executingEvents=<table>\n BagText=FontString <BankFrame.xml:68>\n BankPanel=BankPanel <BankFrame.xml:86>\n BankItemSearchBox=BankItemSearchBox <BankFrameTemplates.xml:689>\n Bg=BankFrameBg <SharedUIPanelTemplates.xml:627>\n NineSlice=Frame <SharedUIPanelTemplates.xml:573>\n Event=<table>\n FocusJumpHint=Frame <SharedUIPanelTemplates.xml:620>\n RightJumpHint=Frame <SharedUIPanelTemplates.xml:619>\n characterBankTabID=1\n callbackTables=<table>\n FrameGlow=Frame <SharedUIPanelTemplates.xml:599>\n layoutType=\"PortraitFrameTemplate\"\n BagCost=FontString <BankFrame.xml:62>\n PortraitContainer=Frame <SharedUIPanelTemplates.xml:574>\n Background=Texture <BankFrameTemplates.xml:671>\n TopTileStreaks=Texture <SharedUIPanelTemplates.xml:635>\n CloseButton=BankFrameCloseButton <SharedUIPanelTemplates.xml:660>\n}\nbankType=nil\n",
-["stack"] = "[Interface/AddOns/Blizzard_UIPanels_Game/Camelot/BankFrame.lua]:43: in function <.../AddOns/Blizzard_UIPanels_Game/Camelot/BankFrame.lua:41>\n[C]: ?\n[Interface/AddOns/Blizzard_SharedXMLBase/CallbackRegistry.lua]:210: in function <...e/AddOns/Blizzard_SharedXMLBase/CallbackRegistry.lua:209>\n[C]: ?\n[Interface/AddOns/Blizzard_SharedXMLBase/CallbackRegistry.lua]:213: in function 'TriggerEvent'\n[Interface/AddOns/Blizzard_UIPanels_Game/Camelot/BankFrame.lua]:404: in function 'Refresh'\n[Interface/AddOns/Blizzard_UIPanels_Game/Camelot/BankFrame.lua]:426: in function <.../AddOns/Blizzard_UIPanels_Game/Camelot/BankFrame.lua:424>\n",
-["session"] = 133,
-["counter"] = 29,
-},
-{
 ["message"] = "[ADDON_ACTION_BLOCKED] 插件 'RXPGuides' 尝试调用保护功能 'RXPTargetFrame:StartMoving()'。",
 ["time"] = 1795320754,
 ["locals"] = "self=<table>\nevent=\"ADDON_ACTION_BLOCKED\"\naddonName=\"RXPGuides\"\naddonFunc=\"RXPTargetFrame:StartMoving()\"\nname=\"RXPGuides\"\nbadAddons=<table>{\n RXPGuides=true\n}\nL=<table>{\n NO_DISPLAY_2=\"|cffffff00标准的错误显示插件名叫 BugSack，可以在找到 !BugGrabber 的网站上找到它。|r\"\n ERROR_DETECTED=\"%s |cffffff00已抓取，点击链接获取更多信息。|r\"\n BUGGRABBER_STOPPED=\"|cffffff00用户界面有太多的错误。所以，游戏体验会被降低。如不想再看到此信息请禁用或升级失效插件。|r\"\n USAGE=\"|cffffff00用法：/buggrabber <1-%d>。|r\"\n STOP_NAG=\"|cffffff00!BugGrabber 将不再提示缺失错误显示插件信息知道下个版本发布。|r\"\n NO_DISPLAY_STOP=\"|cffffff00如果你不希望再次被提醒，请输入 /stopnag。|r\"\n NO_DISPLAY_1=\"|cffffff00似乎没有与 !BugGrabber 一起运行的错误显示插件。虽然斜线命令访问错误报告，但错误显示插件可以以更快捷的方式帮助您管理这些错误。|r\"\n ERROR_UNABLE=\"|cffffff00!BugGrabber 本身无法检索其他玩家的错误。请安装 BugSack 或类似的错误显示插件，可能会包含这些功能。|r\"\n ADDON_CALL_PROTECTED=\"[%s] 插件 '%s' 尝试调用保护功能 '%s'。\"\n}\n",
@@ -307,8 +275,8 @@ BugGrabberDB = {
 },
 {
 ["message"] = "LUA_WARNING: GetAuraDataByIndex(): Auras cannot be accessed when secret while tainted by 'OpenMap'\nLua Taint: OpenMap\n|cffffd200Stack:|r\n[C]: in function 'secureexecuterange'\n[Interface/AddOns/Blizzard_EditMode/Shared/EditModeManager.lua]:1054: in function <.../AddOns/Blizzard_EditMode/Shared/EditModeManager.lua:1050>\n[C]: in function 'pcall'\n[Interface/AddOns/Blizzard_EditMode/Shared/EditModeManager.lua]:1050: in function 'InvokeOnAnyEditModeSystemAnchorChanged'\n[Interface/AddOns/Blizzard_EditMode/Shared/EditModeManager.lua]:1036: in function 'UpdateLayoutInfo'\n[Interface/AddOns/Blizzard_EditMode/Shared/EditModeManager.lua]:206: in function <.../AddOns/Blizzard_EditMode/Shared/EditModeManager.lua:192>\n",
-["time"] = 1795321047,
 ["session"] = 135,
+["time"] = 1795321047,
 ["counter"] = 2,
 },
 {
@@ -318,6 +286,60 @@ BugGrabberDB = {
 ["stack"] = "[Interface/AddOns/Blizzard_MawBuffs/Blizzard_MawBuffs.lua]:4: in function 'ShouldShowMawBuffs'\n[Interface/AddOns/Blizzard_ObjectiveTracker/Blizzard_ScenarioObjectiveTracker.lua]:187: in function 'LayoutContents'\n[Interface/AddOns/Blizzard_ObjectiveTracker/Blizzard_ObjectiveTrackerModule.lua]:147: in function 'Update'\n[Interface/AddOns/Blizzard_ObjectiveTracker/Blizzard_ObjectiveTrackerContainer.lua]:82: in function 'Update'\n[Interface/AddOns/Blizzard_ObjectiveTracker/Blizzard_ObjectiveTracker.lua]:70: in function <...zzard_ObjectiveTracker/Blizzard_ObjectiveTracker.lua:62>\n[tail call]: ?\n[Interface/AddOns/Blizzard_SharedXML/MixinUtil.lua]:341: in function <Interface/AddOns/Blizzard_SharedXML/MixinUtil.lua:340>\n",
 ["session"] = 135,
 ["counter"] = 2,
+},
+{
+["message"] = "...terface/AddOns/Auctionator/Data_Forever/Suffixes.lua:114: attempt to concatenate a nil value",
+["time"] = 1795358308,
+["locals"] = "(*temporary)=nil\n(*temporary)=\" \"\n(*temporary)=10259\n(*temporary)=nil\n(*temporary)=nil\n(*temporary)=nil\n(*temporary)=nil\n(*temporary)=nil\n(*temporary)=nil\n(*temporary)=nil\n(*temporary)=nil\n(*temporary)=\"attempt to concatenate a nil value\"\nitemID=10259\nlink=\"item:10259::::::::14:1485::1:1:12753:1:28:5239:::::\"\n",
+["stack"] = "[Interface/AddOns/Auctionator/Data_Forever/Suffixes.lua]:114: in function <...terface/AddOns/Auctionator/Data_Forever/Suffixes.lua:113>\n[C]: in function 'xpcall'\n[Interface/AddOns/Blizzard_ObjectAPI/Mainline/AsyncCallbackSystem.lua]:76: in function 'FireCallbacks'\n[Interface/AddOns/Blizzard_ObjectAPI/Mainline/AsyncCallbackSystem.lua]:35: in function <.../Blizzard_ObjectAPI/Mainline/AsyncCallbackSystem.lua:31>\n",
+["session"] = 140,
+["counter"] = 1,
+},
+{
+["message"] = "Interface/AddOns/TentWhisper/TentWhisper.lua:706: attempt to compare local 'g' (a secret string value, while execution tainted by 'TentWhisper')",
+["time"] = 1795450215,
+["locals"] = "g=<secret string>\n(*temporary)=\"string\"\n(*temporary)=<secret string>\n(*temporary)=\"attempt to compare local 'g' (a secret string value, while execution tainted by 'TentWhisper')\"\n",
+["stack"] = "[Interface/AddOns/TentWhisper/TentWhisper.lua]:706: in function <Interface/AddOns/TentWhisper/TentWhisper.lua:702>\n[Interface/AddOns/TentWhisper/TentWhisper.lua]:808: in function <Interface/AddOns/TentWhisper/TentWhisper.lua:800>\n[Interface/AddOns/TentWhisper/TentWhisper.lua]:991: in function <Interface/AddOns/TentWhisper/TentWhisper.lua:986>\n[C]: in function 'TargetNearestEnemy'\n[TARGETNEARESTENEMY]:2: in function <[string \"TARGETNEARESTENEMY\"]:1>\n",
+["session"] = 145,
+["counter"] = 5903,
+},
+{
+["message"] = "LUA_WARNING: GetAuraDataByIndex(): Auras cannot be accessed when secret while tainted by 'Questie'\nLua Taint: Questie\n|cffffd200Stack:|r\n[C]: in function 'secureexecuterange'\n[Interface/AddOns/Blizzard_EditMode/Shared/EditModeManager.lua]:1054: in function <.../AddOns/Blizzard_EditMode/Shared/EditModeManager.lua:1050>\n[C]: in function 'pcall'\n[Interface/AddOns/Blizzard_EditMode/Shared/EditModeManager.lua]:1050: in function 'InvokeOnAnyEditModeSystemAnchorChanged'\n[Interface/AddOns/Blizzard_EditMode/Shared/EditModeManager.lua]:1036: in function 'UpdateLayoutInfo'\n[Interface/AddOns/Blizzard_EditMode/Shared/EditModeManager.lua]:206: in function <.../AddOns/Blizzard_EditMode/Shared/EditModeManager.lua:192>\n",
+["session"] = 147,
+["time"] = 1795495911,
+["counter"] = 1,
+},
+{
+["message"] = "GetAuraDataByIndex(): Auras cannot be accessed when secret while tainted by 'Questie'\nLua Taint: Questie",
+["time"] = 1795495911,
+["locals"] = "",
+["stack"] = "[Interface/AddOns/Blizzard_MawBuffs/Blizzard_MawBuffs.lua]:4: in function 'ShouldShowMawBuffs'\n[Interface/AddOns/Blizzard_ObjectiveTracker/Blizzard_ScenarioObjectiveTracker.lua]:187: in function 'LayoutContents'\n[Interface/AddOns/Blizzard_ObjectiveTracker/Blizzard_ObjectiveTrackerModule.lua]:147: in function 'Update'\n[Interface/AddOns/Blizzard_ObjectiveTracker/Blizzard_ObjectiveTrackerContainer.lua]:82: in function 'Update'\n[Interface/AddOns/Blizzard_ObjectiveTracker/Blizzard_ObjectiveTracker.lua]:70: in function <...zzard_ObjectiveTracker/Blizzard_ObjectiveTracker.lua:62>\n[tail call]: ?\n[Interface/AddOns/Blizzard_SharedXML/MixinUtil.lua]:341: in function <Interface/AddOns/Blizzard_SharedXML/MixinUtil.lua:340>\n",
+["session"] = 147,
+["counter"] = 3,
+},
+{
+["message"] = "[ADDON_ACTION_BLOCKED] 插件 'RXPGuides' 尝试调用保护功能 'DeleteMacro()'。",
+["time"] = 1795496140,
+["locals"] = "self=<table>\nevent=\"ADDON_ACTION_BLOCKED\"\naddonName=\"RXPGuides\"\naddonFunc=\"DeleteMacro()\"\nname=\"RXPGuides\"\nbadAddons=<table>{\n RXPGuides=true\n GearInsight_Forever=true\n}\nL=<table>{\n NO_DISPLAY_2=\"|cffffff00标准的错误显示插件名叫 BugSack，可以在找到 !BugGrabber 的网站上找到它。|r\"\n ERROR_DETECTED=\"%s |cffffff00已抓取，点击链接获取更多信息。|r\"\n BUGGRABBER_STOPPED=\"|cffffff00用户界面有太多的错误。所以，游戏体验会被降低。如不想再看到此信息请禁用或升级失效插件。|r\"\n USAGE=\"|cffffff00用法：/buggrabber <1-%d>。|r\"\n STOP_NAG=\"|cffffff00!BugGrabber 将不再提示缺失错误显示插件信息知道下个版本发布。|r\"\n NO_DISPLAY_STOP=\"|cffffff00如果你不希望再次被提醒，请输入 /stopnag。|r\"\n NO_DISPLAY_1=\"|cffffff00似乎没有与 !BugGrabber 一起运行的错误显示插件。虽然斜线命令访问错误报告，但错误显示插件可以以更快捷的方式帮助您管理这些错误。|r\"\n ERROR_UNABLE=\"|cffffff00!BugGrabber 本身无法检索其他玩家的错误。请安装 BugSack 或类似的错误显示插件，可能会包含这些功能。|r\"\n ADDON_CALL_PROTECTED=\"[%s] 插件 '%s' 尝试调用保护功能 '%s'。\"\n}\n",
+["stack"] = "[Interface/AddOns/!BugGrabber/BugGrabber.lua]:554: in function '?'\n[Interface/AddOns/!BugGrabber/BugGrabber.lua]:538: in function <Interface/AddOns/!BugGrabber/BugGrabber.lua:538>\n[C]: ?\n[Interface/AddOns/RXPGuides/Targeting.lua]:77: in function 'Setup'\n[Interface/AddOns/RXPGuides/RXPGuides.lua]:1833: in function <Interface/AddOns/RXPGuides/RXPGuides.lua:1800>\n[C]: ?\n[C]: in function 'SetUIVisibility'\n[TOGGLEUI]:6: in function <[string \"TOGGLEUI\"]:1>\n",
+["session"] = 147,
+["counter"] = 2,
+},
+{
+["message"] = ".../AddOns/Blizzard_UIPanels_Game/Camelot/BankFrame.lua:43: bad argument #1 to 'FetchNumPurchasedBankTabs' (Usage: local numPurchasedBankTabs = C_Bank.FetchNumPurchasedBankTabs(bankType))",
+["time"] = 1795497346,
+["locals"] = "self=BankFrame <BankFrame.xml:59>{\n accountBankTabID=2\n bankPageTabPool=<table>\n itemButtonBagPool=<table>\n LeftJumpHint=Frame <SharedUIPanelTemplates.xml:618>\n TitleContainer=Frame <SharedUIPanelTemplates.xml:600>\n TabIDToBankType=<table>\n callbackRegistrantHandlers=<table>\n deferredCallbacks=<table>\n executingEvents=<table>\n BagText=FontString <BankFrame.xml:68>\n BankPanel=BankPanel <BankFrame.xml:86>\n BankItemSearchBox=BankItemSearchBox <BankFrameTemplates.xml:689>\n Bg=BankFrameBg <SharedUIPanelTemplates.xml:627>\n NineSlice=Frame <SharedUIPanelTemplates.xml:573>\n Event=<table>\n FocusJumpHint=Frame <SharedUIPanelTemplates.xml:620>\n RightJumpHint=Frame <SharedUIPanelTemplates.xml:619>\n characterBankTabID=1\n callbackTables=<table>\n FrameGlow=Frame <SharedUIPanelTemplates.xml:599>\n layoutType=\"PortraitFrameTemplate\"\n BagCost=FontString <BankFrame.xml:62>\n PortraitContainer=Frame <SharedUIPanelTemplates.xml:574>\n Background=Texture <BankFrameTemplates.xml:671>\n TopTileStreaks=Texture <SharedUIPanelTemplates.xml:635>\n CloseButton=BankFrameCloseButton <SharedUIPanelTemplates.xml:660>\n}\nbankType=nil\n",
+["stack"] = "[Interface/AddOns/Blizzard_UIPanels_Game/Camelot/BankFrame.lua]:43: in function <.../AddOns/Blizzard_UIPanels_Game/Camelot/BankFrame.lua:41>\n[C]: ?\n[Interface/AddOns/Blizzard_SharedXMLBase/CallbackRegistry.lua]:210: in function <...e/AddOns/Blizzard_SharedXMLBase/CallbackRegistry.lua:209>\n[C]: ?\n[Interface/AddOns/Blizzard_SharedXMLBase/CallbackRegistry.lua]:213: in function 'TriggerEvent'\n[Interface/AddOns/Blizzard_UIPanels_Game/Camelot/BankFrame.lua]:404: in function 'Refresh'\n[Interface/AddOns/Blizzard_UIPanels_Game/Camelot/BankFrame.lua]:426: in function <.../AddOns/Blizzard_UIPanels_Game/Camelot/BankFrame.lua:424>\n",
+["session"] = 147,
+["counter"] = 137,
+},
+{
+["message"] = "[ADDON_ACTION_BLOCKED] 插件 'GearInsight_Forever' 尝试调用保护功能 'UNKNOWN()'。",
+["time"] = 1795504766,
+["locals"] = "self=<table>\nevent=\"ADDON_ACTION_BLOCKED\"\naddonName=\"GearInsight_Forever\"\naddonFunc=\"UNKNOWN()\"\nname=\"GearInsight_Forever\"\nbadAddons=<table>{\n GearInsight_Forever=true\n}\nL=<table>{\n NO_DISPLAY_2=\"|cffffff00标准的错误显示插件名叫 BugSack，可以在找到 !BugGrabber 的网站上找到它。|r\"\n ERROR_DETECTED=\"%s |cffffff00已抓取，点击链接获取更多信息。|r\"\n BUGGRABBER_STOPPED=\"|cffffff00用户界面有太多的错误。所以，游戏体验会被降低。如不想再看到此信息请禁用或升级失效插件。|r\"\n USAGE=\"|cffffff00用法：/buggrabber <1-%d>。|r\"\n STOP_NAG=\"|cffffff00!BugGrabber 将不再提示缺失错误显示插件信息知道下个版本发布。|r\"\n NO_DISPLAY_STOP=\"|cffffff00如果你不希望再次被提醒，请输入 /stopnag。|r\"\n NO_DISPLAY_1=\"|cffffff00似乎没有与 !BugGrabber 一起运行的错误显示插件。虽然斜线命令访问错误报告，但错误显示插件可以以更快捷的方式帮助您管理这些错误。|r\"\n ERROR_UNABLE=\"|cffffff00!BugGrabber 本身无法检索其他玩家的错误。请安装 BugSack 或类似的错误显示插件，可能会包含这些功能。|r\"\n ADDON_CALL_PROTECTED=\"[%s] 插件 '%s' 尝试调用保护功能 '%s'。\"\n}\n",
+["stack"] = "[Interface/AddOns/!BugGrabber/BugGrabber.lua]:554: in function '?'\n[Interface/AddOns/!BugGrabber/BugGrabber.lua]:538: in function <Interface/AddOns/!BugGrabber/BugGrabber.lua:538>\n[C]: ?\n[C]: in function 'pcall'\n[Interface/AddOns/GearInsight_Forever/Camp.lua]:400: in function 'Request'\n[Interface/AddOns/GearInsight_Forever/Camp.lua]:206: in function <Interface/AddOns/GearInsight_Forever/Camp.lua:206>\n",
+["session"] = 148,
+["counter"] = 5,
 },
 },
 }

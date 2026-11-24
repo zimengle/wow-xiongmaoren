@@ -34,7 +34,7 @@ step << Warrior/Shaman/Warlock/Mage/Priest
     .money >0.01
 step << Warlock
     .goto 1411/1,-4214.45,-623.92.00
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_鲁赞|r 对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t 与 |cRXP_FRIENDLY_鲁赞|r 对话
     .accept 1485 >>接受任务 邪灵劣魔
     .target Ruzan
 step << Warrior/Shaman
@@ -60,7 +60,7 @@ step << Warrior/Shaman
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_弗朗恩|r 对话 << Warrior
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_史克里克|r 对话 << Shaman
     .train 6673 >>学习 |T132333:0|t[战斗怒吼] << Warrior
-    .train 8017 >>影袭 |T136086:0|t[石化武器] << Shaman
+    .train 8017 >>学习 |T136086:0|t[石化武器] << Shaman
     .target 弗朗恩 << Warrior
     .target 史克里克 << Shaman
 step << Warlock
@@ -154,7 +154,7 @@ step << Warlock
     .goto 1411/1,-4319.67,-169.190,40,0
     .goto 1411/1,-4303.28,-186.46,40,0
     .goto 1411/1,-4281.07,-148.75,40,0
-    >>击杀 |cRXP_ENEMY_邪灵劣魔|r. 拾取 |cRXP_LOOT_邪灵劣魔的徽记|r
+    >>击杀 |cRXP_ENEMY_邪灵劣魔|r，拾取 |cRXP_LOOT_邪灵劣魔的徽记|r
     .complete 1485,1 --Vile Familiar Head (6)
     .mob 邪灵劣魔
 step
@@ -257,7 +257,7 @@ step << Rogue
 step << Warlock
     #label Ruzan2
     .goto 1411/1,-4214.400,-624.000
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_鲁赞|r 对话
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t 与 |cRXP_FRIENDLY_鲁赞|r 对话
     .turnin 1485 >>交任务 邪灵劣魔
     .accept 1499 >>接受任务 邪灵劣魔
     .target Ruzan
@@ -344,7 +344,7 @@ step << Shaman
 step << Rogue/Warrior
     .goto 1411/1,-4106.000,-593.400
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_诺兹什|r 对话
-    >>|cRXP_BUY_购买一把|r |T134708:0|t[矿工锄] |cRXP_BUY_从他|r |cRXP_BUY_那里|r
+    >>|cRXP_BUY_从他那里购买一把|r |T134708:0|t[矿工锄] |cRXP_BUY_|r |cRXP_BUY_|r
     .train 2575 >> 学习 |T136248:0|t[采矿]
     .collect 2901,1,792,1 --Mining Pick (1)
     >>|cRXP_WARN_这将使你能够从矿点中获得|r |T135232:0|t|cRXP_LOOT_[劣质的石头]|r|cRXP_WARN_，从而制作|r |T135248:0|t[磨刀石]|cRXP_WARN_(使武器伤害 +2，持续 30 分钟)|r
@@ -587,7 +587,7 @@ step
     .target 高内克
 step << Shaman
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_史克里克|r 和 |cRXP_FRIENDLY_坎纳甘·地鸣|r 对话
-    .train 8042 >> 影袭 |T136026:0|t[大地震击]
+    .train 8042 >> 学习 |T136026:0|t[大地震击]
     .goto 1411/1,-4203.87,-623.92
     .accept 1516 >>接受任务 大地的召唤
     .goto 1411/1,-4204.4,-629.91
@@ -853,7 +853,7 @@ step
     #softcore
     #completewith RazorHill1
     .goto 1411/1,-4326.01,-41.23
-    .deathskip >>死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处重生
+    .deathskip >>死掉并在|cRXP_FRIENDLY_灵魂医者|r 处复生
     >>|cRXP_WARN_死亡时确保你在路点箭头上！|r
     .target 灵魂医者
 step
@@ -905,7 +905,7 @@ step << Warrior/Rogue
     #softcore
     .goto 1411/1,-4706.71,358.15
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_沃克|r 对话
-    >>|cRXP_BUY_购买一把|r |T134708:0|t[矿工锄] |cRXP_BUY_从他|r |cRXP_BUY_那里|r
+    >>|cRXP_BUY_从他那里购买一把|r |T134708:0|t[矿工锄] |cRXP_BUY_|r |cRXP_BUY_|r
     .collect 2901,1,784,1 --Mining Pick (1)
     .target 沃克
 step << Warrior/Rogue
@@ -1037,7 +1037,7 @@ step << Warlock
     #label Hraug3
     .goto 1411/1,-4107.11,-604.18
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_赫劳格|r 对话
-    >>|cRXP_BUY_购买|r |T133738:0|t[魔典:血契]|cRXP_BUY_从他那里|r
+    >>|cRXP_BUY_从他那里购买|r |T133738:0|t[魔典：血契]|cRXP_BUY_|r
     .collect 16321,1,817,1 --Grimoire of Blood Pact
     .vendor >>把垃圾物品卖给商人
     .target 赫劳格
@@ -1699,7 +1699,7 @@ step << Warrior/Rogue
     #hardcore
     .goto 1411/1,-4706.71,358.15
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_沃克|r 对话
-    >>|cRXP_BUY_购买一把|r |T134708:0|t[矿工锄] |cRXP_BUY_从他|r |cRXP_BUY_那里|r
+    >>|cRXP_BUY_从他那里购买一把|r |T134708:0|t[矿工锄] |cRXP_BUY_|r |cRXP_BUY_|r
     .collect 2901,1,784,1 --Mining Pick (1)
     .target 沃克
 step << Warrior/Rogue
@@ -2909,7 +2909,7 @@ step
 step << Hunter/Shaman
     #softcore
     .goto 1411/1,-4449.74,1188.64
-    .deathskip >> 死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处重生
+    .deathskip >> 死掉并在|cRXP_FRIENDLY_灵魂医者|r 处复生
     .isQuestComplete 806
     .xp >10,1
 step << Hunter/Shaman
@@ -3006,7 +3006,7 @@ step << Hunter
     >>记得每当你的宠物获得训练点时，为其进行|cRXP_WARN_ |T132162:0|t[野兽训练]|r
 step << Hunter
     .goto 1454/1,-4819.1,2099.05
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_与|r |cRXP_FRIENDLY_森度吉安|r|cRXP_BUY_交谈。从他那里购买一把|r |T135499:0|t[多层弯弓] |cRXP_BUY_|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|T135499:0|t|cRXP_BUY_与|r |cRXP_FRIENDLY_森度吉安|r|cRXP_BUY_交谈。从他那里购买一把|r |T135499:0|t|T135499:0|t[多层弯弓] |cRXP_BUY_|r
     .collect 2507,1,835,1 --Collect Laminated Recurve Bow (1)
     .money <0.1751
     .itemStat 18,QUALITY,<7
@@ -3246,7 +3246,7 @@ step << Shaman
     .target 泰尔夫·祖拉姆
 step << skip --Shaman
     #completewith MargozTurnIn
-    .deathskip >> 死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处重生
+    .deathskip >> 死掉并在|cRXP_FRIENDLY_灵魂医者|r 处复生
 step << Hunter
     #completewith MargozTurnIn
     +驯服一只|cRXP_ENEMY_毒尾蝎|r
@@ -3328,7 +3328,7 @@ step
 step << skip
     #softcore
     #completewith SecuringLinesTurnIn
-    .deathskip >> 死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处重生
+    .deathskip >> 死掉并在|cRXP_FRIENDLY_灵魂医者|r 处复生
 step
     #hardcore
     #completewith next
@@ -3382,7 +3382,7 @@ step
 step << skip
     #softcore
     #completewith next
-    .deathskip >> 死亡并在 |cRXP_FRIENDLY_灵魂医者|r 处重生
+    .deathskip >> 死掉并在|cRXP_FRIENDLY_灵魂医者|r 处复生
 step
     .goto 1411/1,-4414.500,999.800
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_雷兹拉克|r 对话
@@ -4134,7 +4134,7 @@ step
     .goto 1458/0,224.300,1648.200
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t与 |cRXP_FRIENDLY_拍卖师凯恩|r 对话
     >>|cRXP_BUY_从拍卖行|r |cRXP_BUY_购买三个|r |T133884:0|t[鱼人的眼球]
-    >>|cRXP_WARN_如果你愿意，可以跳过这一步，这只能节省一点点时间|r
+    >>|cRXP_WARN_如果你愿意的话可以跳过，这只是个小捷径|r
     .collect 730,3,91920,1 --Collect Murloc Eyes (x3)
     .target Auctioneer Cain
     .zoneskip Undercity,1

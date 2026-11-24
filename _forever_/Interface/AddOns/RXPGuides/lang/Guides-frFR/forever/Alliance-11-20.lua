@@ -905,13 +905,13 @@ step
 step
     #optional << NightElf
     .goto 1439/1,472.12,6438.51--c:1439,37.703,43.393
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Sentinel Glynda Nal'Shea|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Sentinelle Glynda Nal'Shea|r
     .accept 4811 >> Accept Les Red Crystal
     .target Sentinel Glynda Nal'Shea
     .xp <12,1
 step
     .goto 1439/1,397.45,6437.50--c:1439,38.843,43.416
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Tharnariun Soigneflore|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Tharnariun Treetender|r
     .accept 2118 >> Acceptez Plagued Lands
     .target Tharnariun Treetender
 step
@@ -1054,7 +1054,7 @@ step
 step
     #label FurlbogCamp
     .goto 1439/1,393.72,5993.24
-    >>Courrez vers le bord du Camp Furbolg
+    >>Courez vers le bord du Camp Furbolg
     .complete 984,1 -- Find a corrupt furbolg camp
 step
     #sticky
@@ -1161,7 +1161,7 @@ step << Druid NightElf
     .xp 12 >> Montez jusqu'au niveau 12
 step << Druid NightElf
     .goto 1439/1,472.12,6438.51--c:1439,37.703,43.393
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Sentinel Glynda Nal'Shea|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Sentinelle Glynda Nal'Shea|r
     .accept 4811 >> Accept Les Red Crystal
     .target Sentinel Glynda Nal'Shea   
 step << Druid NightElf
@@ -1236,14 +1236,14 @@ step << Druid NightElf
     .zoneskip Darkshore
 step << Druid NightElf
     .goto 1439/1,472.12,6438.51--c:1439,37.703,43.393
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Sentinel Glynda Nal'Shea|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Sentinelle Glynda Nal'Shea|r
     .turnin 4811 >> Rendez la quête Le cristal rouge
     .accept 4812 >> Acceptez la quête Comme l'eau tombe en cascade
     .target Sentinel Glynda Nal'Shea
     .isOnQuest 4811
 step << Druid NightElf
     .goto 1439/1,472.12,6438.51--c:1439,37.703,43.393
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Sentinel Glynda Nal'Shea|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Sentinelle Glynda Nal'Shea|r
     .accept 4812 >> Acceptez la quête Comme l'eau tombe en cascade
     .target Sentinel Glynda Nal'Shea
     .isQuestTurnedIn 4811
@@ -1260,12 +1260,12 @@ step
     .target Barithras Moonshade
 step
     .goto 1439/1,472.12,6438.51--c:1439,37.703,43.393
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Sentinel Glynda Nal'Shea|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Sentinelle Glynda Nal'Shea|r
     .accept 4811 >> Accept Les Red Crystal
     .target Sentinel Glynda Nal'Shea
 step
     .goto 1439/1,397.45,6437.50--c:1439,38.843,43.416
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Tharnariun Soigneflore|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Tharnariun Treetender|r
     .turnin 2118 >> Rendez la quête Terres malades
     .accept 2138 >> Acceptez la quête Nettoyage de l'infection
     .target Tharnariun Treetender
@@ -1280,7 +1280,7 @@ step << NightElf Warrior/NightElf Rogue
     #sticky
     #label DeepOceanStart
     .goto 1439/1,445.66,6535.79,0,0--c:1439,38.107,41.165
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à|cRXP_FRIENDLY_Gorbold Steelhand|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Gorbold Steelhand|r
     .accept 982 >> Acceptez la quête Océan profond, mer immense
     .target Gorbold Steelhand
     .xp <13,1
@@ -1310,7 +1310,7 @@ step << NightElf Warrior/NightElf Rogue
     .train 2575,3 --Mining Trained
 step << !NightElf/!Warrior !Rogue
     .goto 1439/1,445.66,6535.79--c:1439,38.107,41.165
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à|cRXP_FRIENDLY_Gorbold Steelhand|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Gorbold Steelhand|r
     .accept 982 >> Acceptez la quête Océan profond, mer immense
     .target Gorbold Steelhand
     .xp <13,1
@@ -1616,7 +1616,7 @@ step
 step
     #completewith RedCrystal
     >>Tuez des |cRXP_ENEMY_Sélénien|r. Dépouillez-les pour leur |cRXP_LOOT_[Petit oeuf]|r
-    >>Ils seront utilisés pour monter votre [Cuisine] à un niveau de 10 plus tard
+    >>Ils seront utilisés pour monter votre niveau de [Cuisine] à 10 plus tard
     .collect 6889,10,2178,1,0x20,cooking --Small Egg (1-9)
     .mob Young Moonkin
     .mob Raging Moonkin
@@ -1664,7 +1664,7 @@ step << NightElf/Hunter/Druid/Warrior
 step << NightElf/Hunter/Druid/Warrior
     #optional
     .goto 1439/1,472.12,6438.51--c:1439,37.703,43.393
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Sentinel Glynda Nal'Shea|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Sentinelle Glynda Nal'Shea|r
     .turnin 4811 >> Rendez la quête Le cristal rouge
     .accept 4812 >> Acceptez la quête Comme l'eau tombe en cascade
     .target Sentinel Glynda Nal'Shea
@@ -1672,7 +1672,7 @@ step << NightElf/Hunter/Druid/Warrior
 --XX If Night Elves, Hunters, or Druids are lower than level 14, do questline
 step << Hunter/Druid/Warrior
     .goto 1439/1,472.12,6438.51--c:1439,37.703,43.393
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Sentinel Glynda Nal'Shea|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Sentinelle Glynda Nal'Shea|r
     .turnin 4811 >> Rendez la quête Le cristal rouge
     .accept 4812 >> Acceptez la quête Comme l'eau tombe en cascade
     .target Sentinel Glynda Nal'Shea
@@ -1682,7 +1682,7 @@ step << NightElf/Hunter/Druid/Warrior !Hunter
     #optional
     #label Cascade
     .goto 1439/1,472.12,6438.51--c:1439,37.703,43.393
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Sentinel Glynda Nal'Shea|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Sentinelle Glynda Nal'Shea|r
     .accept 4812 >> Acceptez la quête Comme l'eau tombe en cascade
     .target Sentinel Glynda Nal'Shea
     .isQuestTurnedIn 4811 --show step if Red Crystal turned in
@@ -1705,7 +1705,7 @@ step << NightElf/Hunter/Druid/Warrior
     #optional
     #completewith EarlyCrystalEnd
     >>Tuez des |cRXP_ENEMY_Sélénien|r. Dépouillez-les pour leur |cRXP_LOOT_[Petit oeuf]|r
-    >>Ils seront utilisés pour monter votre [Cuisine] à un niveau de 10 plus tard
+    >>Ils seront utilisés pour monter votre niveau de [Cuisine] à 10 plus tard
     .collect 6889,10,2178,1,0x20,cooking --Small Egg (1-9)
     .mob Young Moonkin
     .mob Raging Moonkin
@@ -1770,7 +1770,7 @@ step << NightElf/Hunter/Druid/Warrior
     .goto 1439/1,118.55,6394.53,60,0--c:1439,43.101,44.400
     .goto 1439/1,-26.92,6378.99,60,0--c:1439,45.322,44.756
     >>Tuez des |cRXP_ENEMY_Sélénien|r. Dépouillez-les pour leur |cRXP_LOOT_[Petit oeuf]|r
-    >>Ils seront utilisés pour monter votre [Cuisine] à un niveau de 10 plus tard
+    >>Ils seront utilisés pour monter votre niveau de [Cuisine] à 10 plus tard
     .collect 6889,10,2178,1,0x20,cooking --Small Egg (1-9)
     .mob Young Moonkin
     .mob Raging Moonkin
@@ -1796,13 +1796,13 @@ step << NightElf !Hunter/Druid/Warrior
     .isQuestTurnedIn 4811
 step << NightElf !Hunter/Druid/Warrior
     .goto 1439/1,472.32,6438.64
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Sentinel Glynda Nal'Shea|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Sentinelle Glynda Nal'Shea|r
     .turnin 4813,3 >> Rendez la quête Les fragments à l'intérieur
     .target Sentinel Glynda Nal'Shea
     .isQuestTurnedIn 4811
 step << NightElf !Hunter/Druid/Warrior
     .goto 1439/1,472.32,6438.64
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Sentinel Glynda Nal'Shea|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Sentinelle Glynda Nal'Shea|r
     .turnin 4813,3 >> Rendez la quête Les fragments à l'intérieur
     .target Sentinel Glynda Nal'Shea
     .isQuestTurnedIn 4811
@@ -1818,7 +1818,7 @@ step << Druid/Warrior
 step << NightElf !Hunter/Druid/Warrior
     #optional
     .goto 1439/1,445.66,6535.79--c:1439,38.107,41.165
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à|cRXP_FRIENDLY_Gorbold Steelhand|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Gorbold Steelhand|r
     .turnin 982 >> Rendez la quête Océan profond, mer immense
     .target Gorbold Steelhand
     .isQuestComplete 982
@@ -1930,7 +1930,7 @@ step << !NightElf !Druid !Warrior
     .goto 1439/1,118.55,6394.53,60,0--c:1439,43.101,44.400
     .goto 1439/1,-26.92,6378.99,60,0--c:1439,45.322,44.756
     >>Tuez des |cRXP_ENEMY_Sélénien|r. Dépouillez-les pour leur |cRXP_LOOT_[Petit oeuf]|r
-    >>Ils seront utilisés pour monter votre [Cuisine] à un niveau de 10 plus tard
+    >>Ils seront utilisés pour monter votre niveau de [Cuisine] à 10 plus tard
     .collect 6889,10,2178,1,0x20,cooking --Small Egg (1-9)
     .mob Young Moonkin
     .mob Raging Moonkin
@@ -2154,14 +2154,14 @@ step << NightElf Hunter
     --reduced DPS now on staff due to it becoming a caster weapon
 step
     .goto 1439/1,472.12,6438.51--c:1439,37.703,43.393
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Sentinel Glynda Nal'Shea|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Sentinelle Glynda Nal'Shea|r
     .turnin 4811 >> Rendez la quête Le cristal rouge
     .accept 4812 >> Acceptez la quête Comme l'eau tombe en cascade
     .target Sentinel Glynda Nal'Shea
     .isOnQuest 4811
 step
     .goto 1439/1,472.12,6438.51--c:1439,37.703,43.393
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Sentinel Glynda Nal'Shea|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Sentinelle Glynda Nal'Shea|r
     .turnin 4812 >> Rendez la quête Comme l'eau tombe en cascade
     .target Sentinel Glynda Nal'Shea
     .isQuestComplete 4812
@@ -2173,7 +2173,7 @@ step
 step
     #optional
     .goto 1439/1,397.45,6437.50--c:1439,38.843,43.416
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Tharnariun Soigneflore|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Tharnariun Treetender|r
     .turnin 2138 >> Rendez la quête Nettoyage de l'infection
     .accept 2139 >> Acceptez la quête Espoir de Tharnariun
     .target Tharnariun Treetender
@@ -2181,7 +2181,7 @@ step
 step
     #optional
     .goto 1439/1,397.45,6437.50--c:1439,38.843,43.416
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Tharnariun Soigneflore|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Tharnariun Treetender|r
     .accept 2139 >> Acceptez la quête Espoir de Tharnariun
     .target Tharnariun Treetender
     .isQuestTurnedIn 2138
@@ -2205,7 +2205,7 @@ step
     #optional
     #completewith Level10CookEnd
     .goto 1439/1,445.66,6535.79--c:1439,38.107,41.165
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à|cRXP_FRIENDLY_Gorbold Steelhand|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Gorbold Steelhand|r
     .vendor 6301 >>|cRXP_BUY_Achetez-lui des|r [Epices douces] |cRXP_BUY_jusqu'à ce que vous ayez|r [Epices douces] |cRXP_BUY_autant ou plus que le montant de |r [Petit oeuf] |cRXP_BUY_que vous avez actuellement|r
     .collect 2678,50,90,1,0x20,cooking --Mild Spices (1-50)
     .disablecheckbox
@@ -2216,20 +2216,20 @@ step
     .itemcount 6889,1 -- Small Egg (1+)
 step << NightElf
     .goto 1439/1,445.66,6535.79--c:1439,38.107,41.165
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à|cRXP_FRIENDLY_Gorbold Steelhand|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Gorbold Steelhand|r
     .vendor >>|cRXP_BUY_Achetez-lui une|r [Verroterie brillante] |cRXP_BUY_et trois|r |T134324:0|t[Asticots] |cRXP_BUY_. Vous en aurez besoin pour une quête à Stormwind bientôt|r
     .collect 6529,1 --Shiny Bauble (1)
     .collect 6530,3 --Nightcrawlers (3)
     .target Gorbold Steelhand
 step
     .goto 1439/1,445.66,6535.79--c:1439,38.107,41.165
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à|cRXP_FRIENDLY_Gorbold Steelhand|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Gorbold Steelhand|r
     .accept 982 >> Acceptez la quête Océan profond, mer immense
     .target Gorbold Steelhand
 step
     #optional
     .goto 1439/1,445.66,6535.79--c:1439,38.107,41.165
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à|cRXP_FRIENDLY_Gorbold Steelhand|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Gorbold Steelhand|r
     .turnin 982 >> Rendez la quête Océan profond, mer immense
     .target Gorbold Steelhand
     .isQuestComplete 982
@@ -2381,7 +2381,7 @@ step
     #optional
     #completewith CrabTurtle
     >>Tuez des |cRXP_ENEMY_Jeunes trotteur des forêts|r et des |cRXP_ENEMY_Trotteur des forêts|r. Dépouillez-les pour leur |cRXP_LOOT_Viande de trotteur|r
-    >>Faites attention les |cRXP_ENEMY_Jeune trotteur des forêts|r s'enfuient à <30% de vie
+    >>Attention car les |cRXP_ENEMY_Foreststrider Fledglings|r peuvent s'enfuir à <30% de vie
     .collect 5469,5,2178,1 -- Strider Meat (5)
     .mob Foreststrider Fledgling
     .mob Foreststrider
@@ -2608,7 +2608,7 @@ step
     .goto 1439/1,-667.91,6866.13,40 >> Voyagez vers la Grotte de la Bondissante--c:1439,55.108,33.600
 step << Druid
     .goto 1439/1,-660.18,6874.43
-    >>Utilisez la [Fiole d'échantillon des Chutes de la Bondissante vide] à la cascade à l'entrée de la grotte des Chutes de la Bondissante
+    >>Utilisez la [Fiole d'échantillon des Chutes de la Bondissante vide] à l'entrée de la Grotte de la Bondissante
     .complete 6122,1 --Filled Cliffspring Falls Sampler (1)
     .isOnQuest 6122
 step
@@ -2702,7 +2702,7 @@ step << !NightElf
     .isQuestComplete 2138
 step
     .goto 1439/1,445.66,6535.79--c:1439,38.107,41.165
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à|cRXP_FRIENDLY_Gorbold Steelhand|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Gorbold Steelhand|r
     .turnin 982 >> Rendez la quête Océan profond, mer immense
     .target Gorbold Steelhand
 step << !NightElf
@@ -2712,20 +2712,20 @@ step << !NightElf
     .target Archaeologist Hollee
 step
     .goto 1439/1,397.45,6437.50--c:1439,38.843,43.416
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Tharnariun Soigneflore|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Tharnariun Treetender|r
     .turnin 2138 >> Rendez la quête Nettoyage de l'infection
     .accept 2139 >> Acceptez la quête Espoir de Tharnariun
     .target Tharnariun Treetender
     .isQuestComplete 2138
 step
     .goto 1439/1,397.45,6437.50--c:1439,38.843,43.416
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Tharnariun Soigneflore|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Tharnariun Treetender|r
     .accept 2139 >> Acceptez la quête Espoir de Tharnariun
     .target Tharnariun Treetender
     .isQuestTurnedIn 2138
 step
     .goto 1439/1,472.32,6438.64
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Sentinel Glynda Nal'Shea|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Sentinelle Glynda Nal'Shea|r
     >>|cRXP_WARN_Choisissez la|r |T135641:0|t[Dague de Courbebois] |cRXP_WARN_comme vous devez essayer de sauvegarder une|r |T135641:0|t[Dague] |cRXP_WARN_pour votre quête de|r |T132290:0|t[Poisons] |cRXP_WARN_plus tard|r << Rogue
     .turnin 4813 >> Rendez la quête Les fragments à l'intérieur
     .target Sentinel Glynda Nal'Shea
@@ -2983,6 +2983,11 @@ step << Hunter
     .trainer >> Apprenez les compétences de votre familier
     .target Karrina Mekenda
 step
+    .goto StormwindClassic,51.757,12.091
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Grimand Elmore|r
+    .accept 353 >> Acceptez la quête Livraison pour Foudrepique
+    .target Grimand Elmore
+step
     #label DeeprunEnter
     #completewith next
     .goto 1453/0,562.300,-8385.300,20,0
@@ -3106,7 +3111,7 @@ step
     .goto 1432/0,-2631.48,-5847.50,12 >> Entrez dans le bunker. Montez à l'étage
 step
     .goto 1432/0,-2634.59,-5842.81
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Captain Rugelfuss|r à l'intérieur du bunker
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Captain Rugelfuss|r dans le bunker
     .accept 267 >> Acceptez la quête La menace trogg
     .target Captain Rugelfuss
 step
@@ -3183,7 +3188,7 @@ step
     .goto 1432/0,-2648.30,-5876.75,15 >> Montez le chemin de terre et ensuite descendez dans le bunker
 step
     .goto 1432/0,-2634.59,-5842.81
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Captain Rugelfuss|r à l'intérieur du bunker
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Captain Rugelfuss|r dans le bunker
     .turnin 267 >> Rendez la quête La menace trogg
     .target Captain Rugelfuss
     .isQuestComplete 267
@@ -3226,6 +3231,7 @@ step
     .goto 1432/0,-2676.82,-4825.93
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Mountaineer Stormpike|r à l'intérieur du bunker
     .turnin 1339 >> Rendez la quête La mission du Montagnard Foudrepique
+    .turnin 353 >> Rendez la quête Livraison pour Foudrepique
     .accept 307 >> Acceptez la quête Bas les pattes !
     .target Mountaineer Stormpike
 step
@@ -4161,7 +4167,7 @@ step
     .target Allyndia
 step
     .goto 1439/1,472.12,6438.51--c:1439,37.703,43.393
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Sentinel Glynda Nal'Shea|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Sentinelle Glynda Nal'Shea|r
     .turnin 4740 >> Rendez la quête On recherche : Fondeboue !
     .target Sentinel Glynda Nal'Shea
 step
@@ -4172,7 +4178,7 @@ step
 step
     #label CleansingTharnariun
     .goto 1439/1,397.45,6437.50--c:1439,38.843,43.416
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Tharnariun Soigneflore|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Tharnariun Treetender|r
     .turnin 2138 >> Rendez la quête Nettoyage de l'infection
     .accept 2139 >> Acceptez la quête Espoir de Tharnariun
     .target Tharnariun Treetender
@@ -4587,7 +4593,7 @@ step << !NightElf
     .destroy 12341 >> Détruisez l' |T134013:0|t|cRXP_LOOT_[Echantillon de fruit des Noirbois]|r de vos sacs, comme il n'est plus nécessaire
 step << !NightElf
     .goto 1439/1,397.45,6437.50--c:1439,38.843,43.416
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Tharnariun Soigneflore|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Tharnariun Treetender|r
     .turnin 2139 >> Rendez la quête Espoir de Tharnariun
     .target Tharnariun Treetender
 step << !NightElf
@@ -4664,7 +4670,7 @@ step << Dwarf Hunter/Human Hunter/Skyborne Hunter
     .trainer >> Apprenez vos sorts de classe
     .target Jocaste
 step << Dwarf Hunter/Human Hunter/Skyborne Hunter
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t Parlez à |cRXP_FRIENDLY_Ilyenia Moonfire|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Ilyenia Moonfire|r
     .goto 1457/1,2329.19,9908.60
     .train 264 >> Apprenez la compétence Arcs
     .train 227 >> Apprenez la compétence Bâtons
@@ -4680,7 +4686,7 @@ step << Dwarf Hunter/Human Hunter/Skyborne Hunter
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<9.20
 step << Hunter
     #completewith next
-    +Équipez l'[Arc courbe lourd]
+    +Équipez l' [Arc courbe lourd]
     .use 3027
     .itemcount 3027,1
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<9.19
@@ -4766,7 +4772,7 @@ step << NightElf Hunter
     .target Dalmond
 step << NightElf
     .goto 1439/1,397.45,6437.50--c:1439,38.843,43.416
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Tharnariun Soigneflore|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Tharnariun Treetender|r
     .turnin 2139 >> Rendez la quête Espoir de Tharnariun
     .target Tharnariun Treetender
 step << NightElf
@@ -4809,7 +4815,7 @@ step << !Hunter
 step << !Hunter
     #completewith next
     .goto 1439/1,445.66,6535.79--c:1439,38.107,41.165
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à|cRXP_FRIENDLY_Gorbold Steelhand|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Gorbold Steelhand|r
     .vendor 6301 >>|cRXP_BUY_Achetez-lui des|r [Epices douces] |cRXP_BUY_jusqu'à ce que vous ayez|r [Epices douces] |cRXP_BUY_autant ou plus que le montant de |r [Petit oeuf] |cRXP_BUY_que vous avez actuellement|r
     .collect 2678,50,90,1,0x20,cooking --Mild Spices (1-50)
     .disablecheckbox
@@ -5051,7 +5057,7 @@ step << Rogue
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Osborne l'homme de la nuit|r
     >>|cRXP_WARN_Assurez-vous d'apprendre|r |T136058:0|t[Crochetage] |cRXP_WARN_comme vous en aurez besoin pour votre quête de classe Voleur bientôt|r
     .trainer >> Apprenez vos sorts de classe
-    .train 1804 >> Montez le niveau de votre [Crochetage]
+    .train 1804 >> Apprenez [Crochetage]
     .target Osborne the Night Man
 step << Rogue
     #completewith next
@@ -5946,7 +5952,7 @@ step << !Dwarf Rogue
     .goto 1453/0,801.99,-8513.29--c:1453,43.070,26.155
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Shaina Fuller|r
     >>|cRXP_WARN_Si vous avez un ami|r |T626003:0|t|cFFF48CBAPaladin|r|cRXP_WARN_,|r |T625999:0|t|cFFFF7C0ADruide|r |cRXP_WARN_ou|r |T626006:0|t|cFF0070DDChaman|r |cRXP_WARN_, demandez-leur de vous enlever le|r |T136230:0|t[Toucher de Zanzil] |cRXP_WARN_à la place|r
-    .skill firstaid,80 >> Montez votre niveau de compétence en [Premiers soins] jusqu'à 80
+    .skill firstaid,80 >> Montez vos [Premier soins] à un niveau de compétence de 80
     .aura -9991
     .itemcount 6452,<1 --Anti-Venom (<1)
 step << !Dwarf Rogue
@@ -5954,7 +5960,7 @@ step << !Dwarf Rogue
     .goto 1453/0,801.99,-8513.29--c:1453,43.070,26.155
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Shaina Fuller|r
     >>|cRXP_WARN_Si vous avez un ami|r |T626003:0|t|cFFF48CBAPaladin|r|cRXP_WARN_,|r |T625999:0|t|cFFFF7C0ADruide|r |cRXP_WARN_ou|r |T626006:0|t|cFF0070DDChaman|r |cRXP_WARN_, demandez-leur de vous enlever le|r |T136230:0|t[Toucher de Zanzil] |cRXP_WARN_à la place|r
-    .train 7934 >> Apprenez [Anti-Venom]
+    .train 7934 >> Apprenez [Anti-Venin]
     .aura -9991
     .itemcount 6452,<1 --Anti-Venom (<1)
 step << !Dwarf Rogue
@@ -6638,7 +6644,7 @@ step
     .mob Ghostpaw Runner
 step
     #label SoulGemStart
-	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tInteragissez avec |cRXP_FRIENDLY_Teronis' Corpse|r
+	>>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Teronis' Corpse|r
 	.target Teronis' Corpse
     .goto 1440/1,528.79,3045.86
     .turnin 991 >> Rendez la quête Le nettoyage selon Raene
@@ -6738,7 +6744,7 @@ step
     >>|T134321:0|t[Pattes d'araignée fondantes] --2251
     >>|T133970:0|t[Steaks de loup] --1015
 step << Dwarf Hunter/Human Hunter/Skyborne Hunter
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t Parlez à |cRXP_FRIENDLY_Ilyenia Moonfire|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Ilyenia Moonfire|r
     .skipgossipid 96881
     .goto 1457/1,2329.19,9908.60
     .train 264 >> Apprenez la compétence Arcs
@@ -7097,7 +7103,7 @@ step
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Volcor|r
     .turnin 993 >> Rendez la quête Un maître perdu
     .accept 995 >> Acceptez la quête Évasion par la ruse
-    .timer 20,RP de Évasion par la ruse
+    .timer 20,Évasion par la ruse RP
     .target Volcor
 step
     .isQuestTurnedIn 993

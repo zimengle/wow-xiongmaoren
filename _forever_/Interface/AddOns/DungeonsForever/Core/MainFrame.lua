@@ -315,6 +315,7 @@ function BuildAbout()
     local linkIcons = {
         { file = "qq.tga", title = L["QQ群"], value = QQ_NUM, w = 34, h = 34 },
         { file = "kook.tga", title = L["KOOK"], value = KOOK_URL, w = 41, h = 41 },
+        { file = "dashang.tga", title = "WeChat", act = "donate", w = 40, h = 40 },
     }
     local copyPops = {}
     local function ShowCopyPop(anchor, title, text)
@@ -488,6 +489,10 @@ function BuildAbout()
             b:SetScript("OnClick", function(self)
                 ns.PlaySound(1)
                 GameTooltip:Hide()
+                if it.act == "donate" then
+                    if ns.ToggleDonate then ns.ToggleDonate() end
+                    return
+                end
                 ShowCopyPop(self, it.title, it.value)
             end)
             if b.SetCursor then b:SetCursor("Interface/Cursor/Point") end

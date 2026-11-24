@@ -1,6 +1,8 @@
 VER 3 0000000000000001 "RXPTargeting" "Ability_eyeoftheowl"
-/targetexact 蓟皮复仇者
-/targetexact 蓟皮萨满祭司
+/targetexact 枯木掷斧者
+/targetexact 枯木猎头者
+/targetexact 枯木巫医
+/targetexact 屠戮者尼玛尔
 /tm !7
 /targetlasttarget [dead]
 END

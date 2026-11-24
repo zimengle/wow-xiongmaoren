@@ -448,7 +448,7 @@ step
 step << Shaman
     #completewith CallofEarth
     #label Rock
-    .goto Mulgore,53.74,80.15,30 >> Voyagez vers le rocher
+    .goto Mulgore,53.74,80.15,30 >> Parlez vers le rocher
 step << Shaman
     #completewith next
     #requires Rock
@@ -642,7 +642,7 @@ step
 step << Shaman/Druid
     .goto Mulgore,45.66,58.60
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Mahnott|r
-    .vendor >> Vendez votre surplus. Vendez votre arme si elle vous donne assez d'argent pour un [Bâton de marche] (5s 04c). Vous reviendrez plus rien si vous n'avez pas encore assez d'argent
+    .vendor >> Vendez votre surplus. Vendez votre arme si elle vous donne assez d'argent pour un [Bâton de marche] (5s 04c). Vous reviendrez plus tard si vous n'avez pas encore assez d'argent
     .target Mahnott Roughwound
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.2
@@ -905,7 +905,7 @@ step << Warrior
 step << Shaman/Druid
     .goto Mulgore,45.66,58.60
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Mahnott|r
-    .vendor >> Vendez votre surplus. Vendez votre arme si elle vous donne assez d'argent pour un [Bâton de marche] (5s 04c). Vous reviendrez plus rien si vous n'avez pas encore assez d'argent
+    .vendor >> Vendez votre surplus. Vendez votre arme si elle vous donne assez d'argent pour un [Bâton de marche] (5s 04c). Vous reviendrez plus tard si vous n'avez pas encore assez d'argent
     .target Mahnott Roughwound
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.2
@@ -972,7 +972,7 @@ step
     #label Vision
     .goto Mulgore,47.76,57.53
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Zarlman|r
-    >>Ne suivez pas le loup qui va apparaître
+    >>Ne suivez pas le loup qui vient d'apparaître
     .turnin 771 >>Rendez la quête Le Rite de vision
     .accept 772 >>Acceptez la quête Le Rite de vision
     .target Zarlman Two-Moons
@@ -1079,7 +1079,7 @@ step
 step << Shaman/Druid
     .goto Mulgore,45.66,58.60
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Mahnott|r
-    .vendor >> Vendez votre surplus. Vendez votre arme si elle vous donne assez d'argent pour un [Bâton de marche] (5s 04c). Vous reviendrez plus rien si vous n'avez pas encore assez d'argent
+    .vendor >> Vendez votre surplus. Vendez votre arme si elle vous donne assez d'argent pour un [Bâton de marche] (5s 04c). Vous reviendrez plus tard si vous n'avez pas encore assez d'argent
     .target Mahnott Roughwound
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.2
@@ -1197,7 +1197,7 @@ step << Hunter
 step
     .goto Mulgore,46.63,61.08
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Innkeeper Kauth|r
-    >>|cRXP_BUY_Achetez du|r [Lait frais] |cRXP_BUY_à Heron|r << Shaman/Druid
+    >>|cRXP_BUY_Achetez du|r [Lait frais] |cRXP_BUY_à Grosk|r << Shaman/Druid
     >>|cRXP_BUY_Achetez des|r [Pain sorti du four] |cRXP_BUY_à Kauth|r << Warrior
     .vendor >> Vendez tout ce dont nous n'avez pas besoin << !Hunter
     .collect 1179,10,746,1 << Shaman/Druid --Ice Cold Milk (10)
@@ -2103,7 +2103,7 @@ step
     .goto The Barrens,44.6,22.5,40,0
     .goto The Barrens,43.9,24.4,40,0
     >>Récupérez les |cRXP_LOOT_Laden Mushrooms|r autour des Bassins oubliés
-    >>|cRXP_WARN_Restez le plus possible à distance des |cRXP_ENEMY_Kolkar|r en ramassant les champignons. Ils sont niveau 12-14
+    >>|cRXP_WARN_Restez à distance maximale des |cRXP_ENEMY_Kolkar|r en ramassant les champignons. Ils sont niveau 12-14
     >>|cRXP_WARN_La quête suivante a le très puissant |cRXP_FRIENDLY_Cauldron Stirrer|r en récompense. Vous pouvez passer cette quête pour l'instant si vous ne prévoyez pas de l'utiliser
     .complete 848,1 --Collect Fungal Spores (x4)
 step
@@ -3521,7 +3521,7 @@ step
 step << Shaman
     #completewith CallofEarth
     #label Rock
-    .goto Mulgore,53.74,80.15,30 >> Voyagez vers le rocher
+    .goto Mulgore,53.74,80.15,30 >> Parlez vers le rocher
 step << Shaman
     #completewith next
     #requires Rock
@@ -3716,7 +3716,7 @@ step
 step << Shaman/Druid
     .goto Mulgore,45.66,58.60
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Mahnott|r
-    .vendor >> Vendez votre surplus. Vendez votre arme si elle vous donne assez d'argent pour un [Bâton de marche] (5s 04c). Vous reviendrez plus rien si vous n'avez pas encore assez d'argent
+    .vendor >> Vendez votre surplus. Vendez votre arme si elle vous donne assez d'argent pour un [Bâton de marche] (5s 04c). Vous reviendrez plus tard si vous n'avez pas encore assez d'argent
     .target Mahnott Roughwound
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.2
@@ -3990,7 +3990,7 @@ step << Warrior
 step << Shaman/Druid
     .goto Mulgore,45.66,58.60
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Mahnott|r
-    .vendor >> Vendez votre surplus. Vendez votre arme si elle vous donne assez d'argent pour un [Bâton de marche] (5s 04c). Vous reviendrez plus rien si vous n'avez pas encore assez d'argent
+    .vendor >> Vendez votre surplus. Vendez votre arme si elle vous donne assez d'argent pour un [Bâton de marche] (5s 04c). Vous reviendrez plus tard si vous n'avez pas encore assez d'argent
     .target Mahnott Roughwound
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.2
@@ -4057,7 +4057,7 @@ step
     #label Vision
     .goto Mulgore,47.76,57.53
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Zarlman|r
-    >>Ne suivez pas le loup qui va apparaître
+    >>Ne suivez pas le loup qui vient d'apparaître
     .turnin 771 >>Rendez la quête Le Rite de vision
     .accept 772 >>Acceptez la quête Le Rite de vision
     .target Zarlman Two-Moons
@@ -4176,7 +4176,7 @@ step << Shaman/Druid
     #xprate <2.1
     .goto Mulgore,45.66,58.60
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Mahnott|r
-    .vendor >> Vendez votre surplus. Vendez votre arme si elle vous donne assez d'argent pour un [Bâton de marche] (5s 04c). Vous reviendrez plus rien si vous n'avez pas encore assez d'argent
+    .vendor >> Vendez votre surplus. Vendez votre arme si elle vous donne assez d'argent pour un [Bâton de marche] (5s 04c). Vous reviendrez plus tard si vous n'avez pas encore assez d'argent
     .target Mahnott Roughwound
     .itemStat 16,QUALITY,<7
     .itemStat 16,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<4.2
@@ -4409,7 +4409,7 @@ step << Hunter
 step
     .goto Mulgore,46.63,61.08
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Innkeeper Kauth|r
-    >>|cRXP_BUY_Achetez du|r [Lait frais] |cRXP_BUY_à Heron|r << Shaman/Druid
+    >>|cRXP_BUY_Achetez du|r [Lait frais] |cRXP_BUY_à Grosk|r << Shaman/Druid
     >>|cRXP_BUY_Achetez des|r [Pain sorti du four] |cRXP_BUY_à Kauth|r << Warrior
     .vendor >> Vendez tout ce dont nous n'avez pas besoin << !Hunter
     .collect 1179,10,746,1 << Shaman/Druid --Ice Cold Milk (10)
@@ -5138,7 +5138,7 @@ step << Hunter
     .goto Mulgore,67.62,59.06,50,0
     .goto Mulgore,66.34,67.01,50,0
     .train 16828 >>|cRXP_WARN_Lancez|r |T132164:0|t[Apprivoiser une bête] |cRXP_WARN_sur un |cRXP_ENEMY_Loup Alpha des prairies|r. Attaquez des mobs avec le loup pour apprendre|r |T132140:0|t[Griffe (Rang 3)]
-    .link https://www.wow-petopia.com/classic/training.php >> |cRXP_WARN_Cliquez ici pour plus d'information sur le dressage des familiers|r
+    .link https://www.wow-petopia.com/classic/training.php >> Cliquez ici pour plus d'information sur le dressage des familiers
     .mob Prairie Wolf Alpha
 step
     #xprate >2.09
@@ -5460,7 +5460,7 @@ step
     .goto The Barrens,44.6,22.5,40,0
     .goto The Barrens,43.9,24.4,40,0
     >>Récupérez les |cRXP_LOOT_Laden Mushrooms|r autour des Bassins oubliés
-    >>|cRXP_WARN_Restez le plus possible à distance des |cRXP_ENEMY_Kolkar|r en ramassant les champignons. Ils sont niveau 12-14
+    >>|cRXP_WARN_Restez à distance maximale des |cRXP_ENEMY_Kolkar|r en ramassant les champignons. Ils sont niveau 12-14
     >>|cRXP_WARN_La quête suivante a le très puissant |cRXP_FRIENDLY_Cauldron Stirrer|r en récompense. Vous pouvez passer cette quête pour l'instant si vous ne prévoyez pas de l'utiliser
     .complete 848,1 --Collect Fungal Spores (x4)
 step

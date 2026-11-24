@@ -130,6 +130,7 @@ local CLASS_MAP = {
         ["WeaponType"] = {
             [ItemWeaponSubclass.Mace1H] = true,
             [ItemWeaponSubclass.Mace2H] = true,
+            [ItemWeaponSubclass.Polearm] = function() return addon.game == "FOREVER" and UnitLevel("player") >= 20 end,
             [ItemWeaponSubclass.Staff] = true,
             [ItemWeaponSubclass.Unarmed] = true,
             [ItemWeaponSubclass.Dagger] = true
@@ -159,6 +160,7 @@ local CLASS_MAP = {
             [ItemWeaponSubclass.Staff] = true,
             [ItemWeaponSubclass.Unarmed] = true,
             [ItemWeaponSubclass.Dagger] = true,
+            [ItemWeaponSubclass.Thrown] = addon.game == "FOREVER",
             [ItemWeaponSubclass.Crossbow] = true
         }
     },
@@ -211,6 +213,7 @@ local CLASS_MAP = {
         },
         ["ArmorType"] = {[ItemArmorSubclass.Leather] = true},
         ["WeaponType"] = {
+            [ItemWeaponSubclass.Axe1H] = addon.game == "FOREVER",
             [ItemWeaponSubclass.Bows] = true,
             [ItemWeaponSubclass.Guns] = true,
             [ItemWeaponSubclass.Mace1H] = true,
@@ -222,7 +225,7 @@ local CLASS_MAP = {
         }
     },
     ["SHAMAN"] = {
-        ["Slot"] = {{["INVTYPE_SHIELD"] = _G.INVSLOT_OFFHAND}},
+        ["Slot"] = {["INVTYPE_SHIELD"] = _G.INVSLOT_OFFHAND},
         ["ArmorType"] = {
             [ItemArmorSubclass.Shield] = true,
             [ItemArmorSubclass.Leather] = true,
@@ -787,7 +790,10 @@ function addon.itemUpgrades:ActivateSpecWeights()
     local spec
     if addon.game == "FOREVER" then
         spec = addon.settings.profile.itemUpgradeSpec
-        if not session.specWeights[spec] then spec = next(session.specWeights) end
+        if not session.specWeights[spec] then
+            spec = next(session.specWeights)
+            if spec then addon.settings.profile.itemUpgradeSpec = spec end
+        end
     else
         spec = getSpec()
 
@@ -845,9 +851,11 @@ local function GetTooltipLines(tooltip, baseItemData)
     local setMatch = {}
 
     for _, r in ipairs(regions) do
+        rText = r:IsObjectType("FontString") and r:GetText()
+        -- A partial scan could miss stats and cache an incorrect score.
+        if addon.IsSecretValue(rText) then return end
 
-        if r:IsObjectType("FontString") and r:GetText() then
-            rText = r:GetText()
+        if rText then
             -- print("GetTooltipLines, regions", rText)
 
             -- Set bonus, so stop gathering lines past set bonus
@@ -1114,8 +1122,6 @@ function addon.itemUpgrades:GetItemData(itemLink, tooltip)
     -- Parse tooltip for all additional stats
     if tooltip then
         tooltipTextLines = GetTooltipLines(tooltip, itemData)
-
-        if not tooltipTextLines then return end
     else -- If not tooltip, set hidden comparison tooltip
         tooltip = GetComparisonTip()
 
@@ -1129,15 +1135,11 @@ function addon.itemUpgrades:GetItemData(itemLink, tooltip)
         -- print("RXPItemUpgradesComparison:SetHyperlink", itemLink)
 
         tooltipTextLines = GetTooltipLines(tooltip, itemData)
-
-        if not tooltipTextLines then
-            -- print("Comparisontip lines empty")
-            return
-        end
-
         -- Would bug out if cache is reset or invalidated
         tooltip:ClearLines()
     end
+
+    if not tooltipTextLines then return end
 
     local match1, match2
 

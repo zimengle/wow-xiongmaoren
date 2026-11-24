@@ -8,7 +8,7 @@ ns.RegisterPoints(ns.DUNMOROGH, {
 			2069, -- Black Bear Hide Vest
 		},
 	},
-	[40404680] = { -- Edan the Howler
+	[43544882] = { -- Edan the Howler
 		-- [38704780, 39204740, 39404620, 39604600, 40404680, 40804700, 43404890, 43404960]
 		quest=nil,
 		npc=1137,
@@ -16,6 +16,7 @@ ns.RegisterPoints(ns.DUNMOROGH, {
 			3008, -- Wendigo Fur Cloak
 			3225, -- Bloodstained Knife
 		},
+		note="In {area:136:The Grizzled Den}",
 	},
 	[80604700] = { -- Ghostfang
 		quest=nil,

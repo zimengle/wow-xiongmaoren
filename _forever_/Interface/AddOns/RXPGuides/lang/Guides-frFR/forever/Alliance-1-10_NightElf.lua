@@ -373,7 +373,7 @@ step
     #sticky
     #label vial1
     .goto 1438/1,764.68,10711.31
-	.use 5185 >> Utilisez la [Fiole de cristal] au puits de lune
+	.use 5185 >> Utilisez la [Flasque de cristal] au puits de lune
     .complete 921,1 --Collect Filled Crystal Phial (x1)
 step << Hunter/Druid/Warrior/Priest
     .goto 1438/1,769.77,10673.98
@@ -553,7 +553,7 @@ step << Hunter
     .target Jeena Featherbow
 step << Hunter
     #completewith next
-    +Équipez le [Arc courbe en bois de corne]
+    +Équipez l'[Arc courbe en bois de corne]
     .use 2506
     .itemcount 2506,1
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<2.37
@@ -867,7 +867,7 @@ step << Hunter
     .target Jeena Featherbow
 step << Hunter
     #completewith next
-    +Équipez le [Arc courbe en bois de corne]
+    +Équipez l'[Arc courbe en bois de corne]
     .use 2506
     .itemcount 2506,1
     .itemStat 18,ITEM_MOD_DAMAGE_PER_SECOND_SHORT,<2.37
@@ -1467,7 +1467,7 @@ step << Hunter
     .target Ariyell Skyshadow
 step << Hunter
     .goto 1457/1,2329.19,9908.53
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t Parlez à |cRXP_FRIENDLY_Ilyenia Moonfire|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Ilyenia Moonfire|r
     .skipgossipid 96881
     .train 227 >>Apprenez la compétence Bâtons
     >>Si vous avez un Bâton dans votre sac, équipez-le.
@@ -1623,7 +1623,7 @@ step << Druid NightElf
 	.zoneskip Moonglade
 step << Druid NightElf
     .goto 1450/1,-2678.76,8019.94
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Dendrite Starblaze|r à l'étage
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Dendrite Starblaze|r en haut des escaliers
     .turnin 5921 >> Rendez la quête Reflet-de-Lune
     .target Dendrite Starblaze
     .accept 5929 >> Acceptez la quête L'esprit du Grand ours
@@ -1637,10 +1637,10 @@ step << Druid NightElf
 step << Druid NightElf
 	#completewith next
 	.cast 18960 >> Lancez [Téléportation : Reflet-de-lune]
-    >>Ceci rendra votre retour plus rapide
+    >>Ceci vous fera revenir plus vite
 step << Druid NightElf
     .goto 1450/1,-2678.76,8019.94
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Dendrite Starblaze|r à l'étage
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Dendrite Starblaze|r en haut des escaliers
     .turnin 5929 >> Rendez la quête L'esprit du Grand ours
     .target Dendrite Starblaze
     .accept 5931 >> Acceptez la quête Retour à Darnassus
@@ -2028,8 +2028,8 @@ step << Hunter
 	.goto 1438/1,1492.78,10765.61,0
 	.goto 1438/1,1900.12,10853.85,0
     >>Lancez [Apprivoiser une bête] |cRXP_WARN_sur un |cRXP_ENEMY_Strigid Hunter|r pour le dompter|r -- .tame 1997
-    .train 2981 >> Attaquez des créatures avec pour qu'il apprenne [Griffe (Rang 2)]
-    .link https://www.wow-petopia.com/classic/training.php >> |cRXP_WARN_Cliquez ici pour plus d'information sur le dressage des familiers|r
+    .train 2981 >> Attaquez des mobs avec celui-ci pour qu'il apprenne [Claw (Rank 2)]
+    .link https://www.wow-petopia.com/classic/training.php >> Cliquez ici pour plus d'information sur le dressage des familiers
 	.unitscan Strigid Hunter
 step
     .goto 1438/1,1691.36,10412.66
@@ -2318,7 +2318,7 @@ step << Hunter
     .target Jaeana
 step << Hunter/Warrior/Priest
     .goto 1457/1,2329.19,9908.53
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t Parlez à |cRXP_FRIENDLY_Ilyenia Moonfire|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Ilyenia Moonfire|r
     .skipgossipid 96881
     .train 227 >>Apprenez la compétence Bâtons << Hunter/Warrior/Priest
     >>Si vous avez un Bâton dans votre sac, équipez-le. << Hunter
@@ -2369,7 +2369,7 @@ step << Warrior
 step << Warrior
     .goto 1457/1,2316.49,9924.41
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Ariyell Skyshadow|r
-	>>|cRXP_BUY_Achetez et équipez un|r [Coutelas] |cRXP_BUY_si vous ne pouvez pas acheter un|r [Bâton]
+	>>|cRXP_BUY_Achetez et équipez un|r |T135346:0|t[Sabre d’abordage] |cRXP_BUY_si vous ne pouvez pas vous offrir un|r |T135154:0|t[Bâton de combat]
 	.collect 851,1
     .target Ariyell Skyshadow
     .money <0.2023

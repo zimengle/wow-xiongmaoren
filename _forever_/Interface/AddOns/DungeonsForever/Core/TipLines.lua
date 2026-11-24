@@ -132,6 +132,28 @@ local function GearSrcQ()
     return type(gq) == "table" and gq or nil
 end
 
+local qrewIdx
+local function QRewIdx()
+    if qrewIdx then return qrewIdx end
+    qrewIdx = {}
+    local RW = ns.QuestRewards
+    if type(RW) == "table" then
+        for qid, t in pairs(RW) do
+            if type(t) == "table" then
+                for i = 2, #t do
+                    local it = tonumber(t[i])
+                    if it and it > 0 then
+                        local e = qrewIdx[it]
+                        if not e then e = {} qrewIdx[it] = e end
+                        if e[#e] ~= qid then e[#e + 1] = qid end
+                    end
+                end
+            end
+        end
+    end
+    return qrewIdx
+end
+
 local function QuestQids(id)
     local ids = {}
     local gq = GearSrcQ()
@@ -145,6 +167,10 @@ local function QuestQids(id)
         for _, qid in ipairs(v) do
             if type(qid) == "number" then ids[#ids + 1] = qid end
         end
+    end
+    local r = QRewIdx()[id]
+    if type(r) == "table" then
+        for _, qid in ipairs(r) do ids[#ids + 1] = qid end
     end
     return ids
 end
@@ -165,6 +191,9 @@ local function QuestOf(id)
     if #ids == 0 then return nil end
     table.sort(ids)
     local DG = ns.DungeonModule
+    if DG and DG.AskQuestData then
+        for _, qid in ipairs(ids) do pcall(DG.AskQuestData, qid) end
+    end
     local nm
     for _, qid in ipairs(ids) do
         if DG and DG.QuestName then
@@ -407,9 +436,20 @@ local function DarkmoonNeedRows(id)
 end
 TL.DarkmoonNeedRows = DarkmoonNeedRows
 
+local JOURNAL_USE = L["辛德拉内几乎所有怪物掉落，地上「日记书页」物件也可拾取，共 7 页；带到莫丹特·永影旁的「暮影的日记」（35.1, 46.3）阅读，纯背景读物"]
+
 local USE_TEXT = {
     [276561] = L["阿鲁高书桌上拾取；在银松森林 63.4, 64.3 安波米尔室内最内侧蓝色水晶旁使用，获得召唤达拉然隐藏 BOSS 道具书"],
     [275989] = L["达拉然隐藏 BOSS 激活物品"],
+    [260348] = JOURNAL_USE,
+    [260349] = JOURNAL_USE,
+    [260350] = JOURNAL_USE,
+    [260351] = JOURNAL_USE,
+    [260352] = JOURNAL_USE,
+    [260353] = JOURNAL_USE,
+    [260354] = JOURNAL_USE,
+    [17191] = L["玛拉顿传送瀑布用：使用后打开传送门，直达「玛拉顿」深处"],
+    [9240] = L["祖尔法拉克召唤加兹瑞拉用：敲响水池边的锣即可召唤 BOSS"],
 }
 
 local function UseRows(id)

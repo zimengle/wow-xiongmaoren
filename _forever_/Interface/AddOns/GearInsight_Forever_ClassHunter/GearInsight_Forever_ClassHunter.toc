@@ -4,7 +4,7 @@
 ## Notes: GearInsight Forever hunter-only crowdsourcing (pet taming results, beast abilities, Beast Training costs). Loads only on hunters
 ## Notes-zhCN: GearInsight 无限版的猎人专属众包（驯服结果 / 野兽会放的技能 / 训练野兽的训练点）：只有猎人角色才加载
 ## Author: GearInsight
-## Version: 1.4.11
+## Version: 1.4.19
 ## Dependencies: GearInsight_Forever
 ## LoadOnDemand: 1
 ## IconTexture: Interface\Icons\Ability_Hunter_BeastTaming

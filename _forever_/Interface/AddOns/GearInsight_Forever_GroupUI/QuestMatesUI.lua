@@ -1496,6 +1496,7 @@ function QM.Render()
         GameTooltip:Show()
     end)
     d.refresh:SetScript("OnLeave", function() GameTooltip:Hide() end)
+    if QM.QPBanner then pcall(QM.QPBanner) end
 end
 
 -- 抽屉贴着页签放（照公会抽屉 placeDrawer：顶边和主面板齐；右边放不下就放到页签左边）
@@ -1706,6 +1707,56 @@ function QM.SetMode(m)
     QM.MarkMode(m)
     QM.SyncSubTabs()
 end
+-- 11-23 任务配对（子插件 _GroupPair，HOLD，默认关）：任务组队列表上方一条横幅。没开过 = 介绍 + [开启] [不用了]（点「不用了」存 false，不再出现）；
+--   开着 = 一行状态 + [暂停 30 分钟] [关]；子插件不在（发行包里 HOLD 掉了）= 不出
+function QM.QPBanner()
+    local d = QM.drawer
+    if not d then return end
+    local b = rawget(d, "qpBar")
+    local q = type(ns.db.qp) == "table" and ns.db.qp or {}
+    local list = not (rawget(d, "gearOn") or rawget(d, "mwOn") or (rawget(d, "lfg") and d.lfg:IsShown()))
+    if q.on == false or not list or not (ns.ModuleAvailable and ns.ModuleAvailable("qp")) then if b then b:Hide() end return end
+    if not b then
+        b = CreateFrame("Frame", nil, d, BackdropTemplateMixin and "BackdropTemplate" or nil)
+        b:SetHeight(26); b:SetPoint("BOTTOMLEFT", d, "TOPLEFT", 0, 2); b:SetPoint("BOTTOMRIGHT", d, "TOPRIGHT", 0, 2)
+        if b.SetBackdrop then
+            b:SetBackdrop({ bgFile = "Interface\\Buttons\\WHITE8x8", edgeFile = "Interface\\Buttons\\WHITE8x8", edgeSize = 1 })
+            b:SetBackdropColor(0.04, 0.06, 0.1, 0.95); b:SetBackdropBorderColor(1, 0.82, 0.2, 0.7)
+        end
+        b.t = b:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        b.t:SetPoint("LEFT", 8, 0); b.t:SetPoint("RIGHT", -180, 0); b.t:SetJustifyH("LEFT"); b.t:SetWordWrap(false)
+        b.no = ns.Button(b, "", 70, 20, function()
+            if ns.QP then ns.QP.SetOn(false) else ns.db.qp = q; q.on = false end
+            ns.Print(L("任务配对：不用了（想开：/gi qp on）", "Quest pairing: off (turn on: /gi qp on)")); QM.QPBanner()
+        end)
+        b.no:SetPoint("RIGHT", -4, 0)
+        b.yes = ns.Button(b, "", 100, 20, function()
+            if ns.QP and ns.QP.On() then ns.QP.Pause(1800); ns.Print(L("任务配对：暂停 30 分钟", "Quest pairing: paused 30 min")); QM.QPBanner(); return end
+            ns.db.qp = q; q.on = true
+            if ns.LoadModule("qp") and ns.QP then ns.QP.SetOn(true) end
+            ns.Print(L("任务配对：已开启。在杀怪任务区域遇到同任务的插件用户时弹卡问你（不会自动邀请 / 自动进队）", "Quest pairing on: asks you when an addon user on the same kill quest is nearby (never auto-invites / auto-joins)"))
+            QM.QPBanner()
+        end)
+        b.yes:SetPoint("RIGHT", b.no, "LEFT", -4, 0)
+        b:SetScript("OnEnter", function(self)
+            GameTooltip:SetOwner(self, "ANCHOR_TOP"); GameTooltip:AddLine(L("任务配对", "Quest pairing"), 1, 0.82, 0)
+            GameTooltip:AddLine(L("你在杀怪任务的目标区域（看到目标怪）时，附近也在打同一个任务、也开了这个功能的插件用户，两人里只有一人弹卡问要不要邀请；点了才邀请，对方也要点「加入」才进队。公会会员也一样。只管杀怪目标和精英任务。同一个人 2 小时只提示一次。",
+                "When you're at a kill quest's area (target mobs in sight) and another addon user with this on is there for the same quest, one of you gets a card. Nothing is automatic: invite / join only on click, guild members too. Kill objectives and elite quests only; each player at most once per 2h."), 1, 1, 1, true)
+            GameTooltip:Show()
+        end)
+        b:SetScript("OnLeave", function() GameTooltip:Hide() end)
+        d.qpBar = b
+    end
+    if q.on then
+        b.t:SetText(ns.QP and ns.QP.StatusText() or L("任务配对：开", "Quest pairing: on"))
+        b.yes:SetText(L("暂停 30 分钟", "Pause 30 min")); b.no:SetText(L("关", "Off"))
+    else
+        b.t:SetText("|cff33ff99" .. L("新：", "New: ") .. "|r" .. L("任务配对 —— 杀怪任务区域遇到同任务的插件用户时弹框问你要不要组队（不会自动邀请 / 自动进队）",
+            "Quest pairing - asks whether to group when an addon user on the same kill quest is nearby (never auto-invites / joins)"))
+        b.yes:SetText(L("开启", "Turn on")); b.no:SetText(L("不用了", "No thanks"))
+    end
+    b:Show()
+end
 function QM.MarkMode(m)
     local d = QM.drawer
     local tab = QM.Tab()
@@ -1715,6 +1766,7 @@ function QM.MarkMode(m)
             elseif ns.MarkSelected then ns.MarkSelected(b, k == m) end
         end
     end
+    if QM.QPBanner then pcall(QM.QPBanner) end   -- 11-23 任务配对横幅只在任务组队列表上出
 end
 
 -- 11-11 用户截图「文字不对」：钉住的窗口登录时先建好，那会儿副本组队（DungeonChat.lua）还没载入 →
@@ -1785,6 +1837,24 @@ function QM.OpenDrawer(mode)
     if mode then QM.SetMode(mode) end
 end
 
+-- 列出客户端里所有和「姓名板 / 友方」有关的设置（probe 用：找真正的开关名；11-23 从信标搬来）
+function QM.PlateCVars()
+    local out = {}
+    local list
+    if C_Console and C_Console.GetAllCommands then local ok, l = pcall(C_Console.GetAllCommands); list = ok and l or nil end
+    for _, c in ipairs(list or {}) do
+        local name = type(c) == "table" and c.command or nil
+        if type(name) == "string" then
+            local low = name:lower()
+            if low:find("nameplate", 1, true) and (low:find("friend", 1, true) or low:find("player", 1, true)) then
+                local ok, v = pcall(GetCVar, name)
+                out[#out + 1] = name .. "=" .. tostring(ok and v or "?")
+            end
+        end
+    end
+    table.sort(out)
+    return out, list ~= nil
+end
 -- /gi qm 里要动抽屉的子命令（信标的 /gi qm 转过来）
 function QM.SlashUI(rest, rawRest)
     rest = rest or ""
@@ -1812,6 +1882,36 @@ function QM.SlashUI(rest, rawRest)
             ns.Print(string.format("  %s  %s Lv%s  %s%s", ago(rec.t), rec.n or "?", tostring(rec.lvl or "?"), QM.ResultText(rec.r),
                 #qs > 0 and ("  · " .. table.concat(qs, "；")) or ""))
         end
+    elseif rest == "probe" then   -- 11-23 从信标 QuestMates.lua 搬来（省信标登录内存）
+        local selected = QM.SelectedQuest(QM.MyQuests())
+        local received, waiting, shared = 0, 0, 0
+        for _, peer in pairs(QM.peers) do
+            if peer.questReceived then received = received + 1 else waiting = waiting + 1 end
+            if selected and peer.quests[selected.id] then shared = shared + 1 end
+        end
+        ns.Print("QM tasks: selected=" .. tostring(selected and selected.id or "all")
+            .. " received=" .. received .. " waiting=" .. waiting .. " selectedPeers=" .. shared
+            .. " dropped=" .. QM.dropped)
+        local has = function(v) return v and "|cff33ff99OK|r" or "|cffff6060--|r" end
+        ns.Print("QM probe: C_QuestLog.GetInfo " .. has(C_QuestLog and C_QuestLog.GetInfo) .. " · GetQuestLogTitle " .. has(GetQuestLogTitle)
+            .. " · GetQuestObjectives " .. has(C_QuestLog and C_QuestLog.GetQuestObjectives) .. " · SendAddonMessage " .. has((C_ChatInfo and C_ChatInfo.SendAddonMessage) or SendAddonMessage)
+            .. " · JoinTemporaryChannel " .. has(JoinTemporaryChannel) .. " · channel " .. tostring(QM._b.chanIndex())
+            .. " · map " .. tostring((QM._b.myPos())) .. " · quests " .. #QM.MyQuests() .. " · peers " .. (function() local n = 0; for _ in pairs(QM.peers) do n = n + 1 end; return n end)()
+            .. " · InviteUnit " .. has((C_PartyInfo and C_PartyInfo.InviteUnit) or InviteUnit))
+        ns.Print("QM probe 发送: 最近结果 " .. tostring(QM.lastName or "（还没发过）") .. (QM.lastCode and ("(" .. QM.lastCode .. ")") or "")
+            .. " · 方式 " .. tostring(QM.lastVia or "-") .. " · 公会 " .. tostring(IsInGuild and IsInGuild() and "在" or "不在")
+            .. " · 本轮密语 " .. #QM.WhisperTargets() .. " 人 · 上次成功 " .. (QM.lastOkAt and string.format("%d 秒前", now() - QM.lastOkAt) or "从没成功")
+            .. " · 队列 " .. QM._b.qn() .. " · 间隔 " .. QM.SEND_GAP .. "s")
+        -- 10-12「必须点中其他玩家才能出现」：姓名板能看到几个、几个是玩家、几个名字是保密值；友方姓名板设置
+        QM.ScanNear()
+        local ps = QM.plateStat or {}
+        local nNear = 0
+        for _ in pairs(QM.near) do nNear = nNear + 1 end
+        ns.Print("QM probe 姓名板: 看到 " .. (ps.plates or 0) .. " 个 · 友方玩家 " .. (ps.players or 0) .. " · 名字保密 " .. (ps.secret or 0)
+            .. " · 友方开关 " .. tostring((QM.FriendCVar())) .. "=" .. tostring((select(2, QM.FriendCVar())))
+            .. " · 身边列表 " .. nNear .. " 人 · GetNamePlates " .. has(C_NamePlate and C_NamePlate.GetNamePlates))
+        local pc, okList = QM.PlateCVars()
+        ns.Print("QM probe 姓名板相关设置: " .. (okList and (#pc > 0 and table.concat(pc, " · ") or "（没有匹配的）") or "（客户端没有 C_Console.GetAllCommands）"))
     elseif rest == "pin" then
         QM.drawer = QM.drawer or build(nil); pcall(QM.ApplyLook)
         QM.SetPinned(not dbq().pinned)

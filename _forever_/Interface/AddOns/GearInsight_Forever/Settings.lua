@@ -935,6 +935,8 @@ ns.RegisterSettings({ key = "reagent", order = 50, page = "prof", avail = functi
     items = {
         { type = "check", id = "reagent.on", text = function() return L("材料鼠标提示写从哪来（采集点 / 剥皮地区 / 掉落的怪 / 商人）", "Show where crafting materials come from in tooltips") end,
           get = function() return ns.ReagentSrcTip.Enabled() end, set = function(v) ns.ReagentSrcTip.SetOn(v) end },
+        -- 11-23 玩家截图「GI: 剥皮需要 1 技能（你现在 66）」「这行信息怎么关掉」
+        ns.Prof and { type = "check", id = "prof.skinTip", text = function() return L("可剥皮的怪：提示剥皮要几级技能", "Skinning skill on skinnable mobs") end, get = ns.Prof.SkinTipOn, set = ns.Prof.SkinTipOn } or nil,   -- 最后一项：Prof.lua 没加载（离线测试）= 不登记
     } })
 
 -- ---------- 职业 → 天赋 ----------
@@ -1114,8 +1116,9 @@ ns.RegisterSettings({ key = "layer", order = 84, page = "layer", jumpOnly = true
     items = {
         { type = "check", id = "layer.on", text = function() return L("开启位面识别（关了就不扫描、不发布）", "Layer detection on (off = no scanning, no broadcasting)") end },
         { type = "check", id = "layer.helper", text = function() return L("我愿意帮公会会员换层", "Help guildmates switch layers") end },
-        { type = "check", id = "layer.autoHelp", text = function() return L("公会会员求助自动拉（不弹框）", "Auto-invite guildmates (no prompt)") end },
-        { type = "check", id = "layer.autoLeave", text = function() return L("换过去后自动退队（换过去的层会留下）", "Leave the group after the move") end },
+        { type = "check", id = "layer.autoHelp", text = function() return L("换层求助自动拉（没组队时，公会会员和同图插件用户都直接拉）", "Auto-invite layer requests when solo") end },
+        -- 11-22 autoLeave 还是 nil（没问过）时显示没勾：说明写清楚，不是「不退」
+        { type = "check", id = "layer.autoLeave", text = function() return L("换过去后自动退队（没设过的：第一次换成后问你）", "Leave the group after the move (unset = asked once)") end },
         { type = "check", id = "layer.autoAccept", text = function() return L("会长 / 官员的组队邀请自动接受", "Auto-accept leader / officer invites") end },
         { type = "check", id = "layer.pub", text = function() return L("加入公共频道（关了只和公会会员互通）", "Join public channel (off = guild only)") end },
     } })

@@ -858,7 +858,7 @@ step
 step
     .goto The Barrens,62.05,39.41
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Wiley l'aubergiste|r
-    >>|cRXP_BUY_Buy|r Achetez des [Lutjan à longue mâchoire]|cRXP_BUY_à Drohn|r
+    >>|cRXP_BUY_Buy|r Achetez des [Lutjan à longue mâchoire]|cRXP_BUY_à Kauth|r
     >>|cRXP_BUY_Achetez du|r [Jus de melon] |cRXP_BUY_au marchand|r << Mage/Warlock/Priest/Shaman/Druid
     >>|cRXP_WARN_Cette option est extrêmement bon marché, achetez-en autant que vous le voulez|r
     .vendor >> Vendez tout ce dont nous n'avez pas besoin
@@ -1250,7 +1250,7 @@ step
 step
     .goto The Barrens,62.05,39.41
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Wiley l'aubergiste|r
-    >>|cRXP_BUY_Buy|r Achetez des [Lutjan à longue mâchoire]|cRXP_BUY_à Drohn|r
+    >>|cRXP_BUY_Buy|r Achetez des [Lutjan à longue mâchoire]|cRXP_BUY_à Kauth|r
     >>|cRXP_BUY_Achetez du|r [Jus de melon] |cRXP_BUY_au marchand|r << Mage/Warlock/Priest/Shaman/Druid
     >>|cRXP_WARN_Cette option est extrêmement bon marché, achetez-en autant que vous le voulez|r
     .vendor >> Vendez tout ce dont nous n'avez pas besoin
@@ -1369,7 +1369,7 @@ step
 step << Rogue
     .goto Orgrimmar,43.05,53.73
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Shenthul|r
-    .train 1804 >> Montez le niveau de votre [Crochetage]
+    .train 1804 >> Apprenez [Crochetage]
     .train 921 >> Apprenez [Vol à la tire]
     .accept 2379 >> Acceptez la quête Zando'zan
     .target Shenthul
@@ -1436,7 +1436,7 @@ step << Warlock
     .xp >18,1
 step << Warlock
     .goto Orgrimmar,47.54,46.75
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Kurgul|r et achetez le [Grimoire d’Éclair de feu (Rang 3)]
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Kurgul|r et achetez un [Grimoire d’Éclair de feu(Rang 3)]
     .collect 16316,1,896,1 --Grimoire of Firebolt (Rank 3) (Rank 1) (1)
     .target Kurgul
     .xp <18,1
@@ -1495,7 +1495,7 @@ step << Priest
     .xp <18,1
 step << Mage
     .goto Orgrimmar,38.36,85.54
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à|r |cRXP_FRIENDLY_Pephredo|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |r |cRXP_FRIENDLY_Pephredo|r
     .train 2120 >> Apprenez vos sorts de classe
     .target Pephredo
     .xp <16,1
@@ -1503,7 +1503,7 @@ step << Mage
 step << Mage
     #optional
     .goto Orgrimmar,38.36,85.54
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à|r |cRXP_FRIENDLY_Pephredo|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |r |cRXP_FRIENDLY_Pephredo|r
     .train 3140 >> Apprenez vos sorts de classe
     .target Pephredo
     .xp <18,1
@@ -1519,7 +1519,7 @@ step
     .skill firstaid,<1,1
 step
     #completewith next
-    .skill firstaid,50 >> Créez des [Bandages épais en lin] jusqu'à ce que votre compétence en [Premiers soins] soit de 50 ou plus
+    .skill firstaid,50 >> Fabriquez des [Bandages épais en lin] jusqu'à ce que votre compétence de [Premiers soins] soit de 50 ou plus
     .skill firstaid,<1,1
 step
     .goto Orgrimmar,34.18,84.53
@@ -1860,7 +1860,7 @@ step
 step
     .goto The Barrens,62.05,39.41
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Wiley l'aubergiste|r
-    >>|cRXP_BUY_Buy|r Achetez des [Lutjan à longue mâchoire]|cRXP_BUY_à Drohn|r
+    >>|cRXP_BUY_Buy|r Achetez des [Lutjan à longue mâchoire]|cRXP_BUY_à Kauth|r
     >>|cRXP_BUY_Achetez du|r [Jus de melon] |cRXP_BUY_au marchand|r << Mage/Warlock/Priest/Shaman/Druid
     >>|cRXP_WARN_Cette option est extrêmement bon marché, achetez-en autant que vous le voulez|r
     .vendor >> Vendez tout ce dont nous n'avez pas besoin
@@ -2066,7 +2066,7 @@ step
     .target +Gazrog
     .goto The Barrens,51.93,30.32
 step
-    .destroy 5165 >>Détruisez toutes les [Plumes solécailles] que vous avez encore
+    .destroy 5165 >>Détruisez toutes les [Plumes solécailles] qu'il vous reste
     .itemcount 5165,1
 step << Hunter
     .goto The Barrens,51.67,29.95
@@ -2880,7 +2880,7 @@ step << Warlock
     .dungeon DM
 step << Mage
     .goto Orgrimmar,38.36,85.54
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à|r |cRXP_FRIENDLY_Pephredo|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |r |cRXP_FRIENDLY_Pephredo|r
     .train 3140 >> Apprenez vos sorts de classe
     .target Pephredo
     .xp <18,1
@@ -2889,7 +2889,7 @@ step << Mage
 step << Mage
     #optional
     .goto Orgrimmar,38.36,85.54
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à|r |cRXP_FRIENDLY_Pephredo|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |r |cRXP_FRIENDLY_Pephredo|r
     .train 1953 >> Apprenez vos sorts de classe
     .target Pephredo
     .xp <20,1
@@ -3234,7 +3234,7 @@ step
 step << !Tauren
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Mangletooth|r
     .aura 16618 >>|cRXP_WARN_S'il vous reste 10|r |T134128:0|t[|cRXP_LOOT_Joyaux de sang|r] |cRXP_WARN_, utilisez-les pour obtenir|r |T136022:0|t[L'esprit du vent] |cRXP_WARN_auprès de|r |cRXP_FRIENDLY_Mutiledent|r
-    >>Passez cette étape si vous pouvez voler jusqu'à Pitons-du-Tonnerre
+    >>Passez cette étape si vous pouvez voler jusqu'à Thunder Bluff
     .itemcount 5075,10
     .target Mangletooth
 step << !Tauren
@@ -3266,7 +3266,7 @@ step << Troll Hunter/Orc Hunter/Undead Warrior/Warlock/Priest
 step << Rogue
     .goto Thunder Bluff,40.93,62.73
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Ansekhwa|r
-    .train 198 >>Acheter la compétence pour porter des masses à une main
+    .train 198 >>Acheter la compétence pour porter des masses à deux mains
     .target Ansekhwa
 step << Rogue
     .goto Thunder Bluff,38.95,64.62
@@ -3360,18 +3360,18 @@ step << Shaman
     .xp <22,1
 step
     #completewith next
-    .skill firstaid,80 >> Fabriquez des [Bandages épais en lin] jusqu'à ce que votre compétence de [Premiers soins] soit de 80 ou plus
+    .skill firstaid,80 >> Fabriquez des  [Bandages épais en lin] jusqu'à ce que votre compétence en [Premiers soins] soit de 80 ou plus
     .skill firstaid,<1,1
 step
     .goto Thunder Bluff,29.68,21.19
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à|r |cRXP_FRIENDLY_Pand|r
-    >>Passez cette étape si vous n'avez pas assez d'[Etoffe de lin] pour atteindre une compétence de 80
-    .train 3277 >> Apprenez [Bandage en laine]
-    .train 7934 >> Apprenez [Anti-Venin] << Rogue
+    >>Passez cette étape si vous n'avez pas assez d'Etoffe de lin pour atteindre un niveau de compétence de 80
+    .train 3277 >> Apprenez  [Bandage en laine]
+    .train 7934 >> Apprenez [Anti-venin] << Rogue
     .target Pand Stonebinder
     .skill firstaid,<1,1
 step << Rogue
-    >>Fabriquez des [Anti-Venin] si vous avez trouvé des [Petites glandes à venin]
+    >>Fabriquez un [Anti-venin] si vous avez trouvé des [Petites glandes à venin]
     >>Gardez-les pour plus tard
     .collect 6452,1 --Anti Venom
     .itemcount 1475,1
@@ -3565,7 +3565,7 @@ step << Hunter
 step << Hunter
     #optional
     #completewith KayaLives
-    +Équipez l'[Arc courbe lourd]
+    +Équipez l' [Arc courbe lourd]
     .use 3027
     .itemcount 3027,1
     .itemStat 18,QUALITY,<7
@@ -3573,7 +3573,7 @@ step << Hunter
 step << Hunter
     .goto Thunder Bluff,46.98,45.69
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|t|cRXP_BUY_Parlez à|r |cRXP_FRIENDLY_Kuna|r
-    >>|cRXP_BUY_Achetez des|r [Flèche grossières] |cRXP_BUY_à Narina|r
+    >>|cRXP_BUY_Achetez des|r [Flèche pointues] |cRXP_BUY_à Kuna|r
     .collect 2515,1600,493,1 << Hunter --Sharp Arrow (1600)
     .target Kuna Corne-Tonnerre
 step
@@ -3770,7 +3770,7 @@ step
 step
     #requires Gems
     #completewith next
-    +|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez au |cRXP_FRIENDLY_Disciple of Naralex|r à l'entrée des Cavernes des lamentations. Escortez-le jusqu'à |cRXP_FRIENDLY_Naralex|r
+    +|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez au |cRXP_FRIENDLY_Disciple of Naralex|r à l'entrée des Cavernes des Lamentations. Escortez-le jusqu'à |cRXP_FRIENDLY_Naralex|r
     .target Disciple of Naralex
     .skipgossip
     .dungeon WC
@@ -4451,7 +4451,7 @@ step
 step
     #label ZoramFP
    .goto Ashenvale,12.24,33.80
-   >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Andruk, Zoram'gar|r
+   >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Andruk|r
    .fp Zoram'gar Outpost >> Prenez le chemin de vol de l'Avant-poste de Zoram'gar
    .target Andruk
    .isQuestAvailable 6442
@@ -4660,7 +4660,7 @@ step
 step
     #completewith flytoORG
     .goto Ashenvale,12.24,33.80
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Andruk, Zoram'gar|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |cRXP_FRIENDLY_Andruk|r
     .zoneskip Thunder Bluff
     .fly Thunder Bluff >> Volez à Thunder Bluff
     .target Andruk
@@ -4733,7 +4733,7 @@ step << Warlock
     .use 6626
 step << Warlock
     .goto Orgrimmar,49.66,50.15
-    >>Tuez la |cRXP_ENEMY_Summoned Succubus|r
+    >>Tuez les |cRXP_ENEMY_Summoned Succubus|r
     .complete 1513,1 --Kill Summoned Succubus (1)
     .mob Summoned Succubus
     .use 6626
@@ -4807,7 +4807,7 @@ step << Priest/Warlock
     .target Katis
 step << Mage
     .goto Orgrimmar,38.36,85.54
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à|r |cRXP_FRIENDLY_Pephredo|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |r |cRXP_FRIENDLY_Pephredo|r
     .train 2138 >> Apprenez vos sorts de classe
     .target Pephredo
     .xp <22,1
@@ -4815,14 +4815,14 @@ step << Mage
 step << Mage
     #optional
     .goto Orgrimmar,38.36,85.54
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à|r |cRXP_FRIENDLY_Pephredo|r
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à |r |cRXP_FRIENDLY_Pephredo|r
     .train 2121 >> Apprenez vos sorts de classe
     .target Pephredo
     .xp <24,1
 step << Mage
     .goto Orgrimmar,38.66,85.41
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tParlez à|r |cRXP_FRIENDLY_Thuul|r en haut de la hutte
-    .train 3567 >> Apprenez [Téléportation : Orgrimmar]
+    .train 3567 >> Apprenez [Téléportation: Orgrimmar]
     .target Thuul
 step << Troll Priest
     .goto Orgrimmar,35.59,87.80
@@ -4897,8 +4897,8 @@ step << Rogue
 step << Rogue
     .goto The Barrens,54.77,5.57
     >>Au sommet de la tour vous trouverez |cRXP_ENEMY_Gallywix|r. Dépouillez-le pour sa |cRXP_LOOT_Tête|r
-    >>Utilisez [Embuscade] pour réduire ses PV de moitié. Utilisez [Suriner] pour récupérer votre énergie et utiliser [Évasion]
-	>>N'oubliez pas d'utiliser une Potion et un [Thé aux chardons] si nécessaire
+    >>Utilisez [Embuscade] pour réduire ses PV de moitié. Utilisez [Suriner] pour récupérer votre énergie et utilisez [Évasion]
+	>>Rappelez-vous d'utiliser une potion et un [Thé aux chardons] si nécessaire
     .complete 2478,4 --Gallywix's Head (1)
     .mob Grand Foreman Puzik Gallywix
     --VV Video?

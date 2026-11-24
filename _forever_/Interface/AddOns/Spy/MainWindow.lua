@@ -521,7 +521,8 @@ function Spy:CreateMainWindow()
 		theFrame.TitleClick:EnableMouse(true)
 		theFrame.TitleClick:SetScript("OnMouseDown", function(self, button) 
 			local parent = self:GetParent()
-			if (((not parent.isLocked) or (parent.isLocked == 0)) and (button == "LeftButton")) then
+			-- Forever: protected window (secure rows), StartMoving is refused in combat.
+			if not InCombatLockdown() and (((not parent.isLocked) or (parent.isLocked == 0)) and (button == "LeftButton")) then
 				Spy:SetWindowTop(parent)
 				parent:StartMoving();
 				parent.isMoving = true;
@@ -529,7 +530,7 @@ function Spy:CreateMainWindow()
 		end)
 		theFrame.TitleClick:SetScript("OnMouseUp", function(self) 
 			local parent = self:GetParent()
-			if (parent.isMoving) then
+			if parent.isMoving and not InCombatLockdown() then
 				parent:StopMovingOrSizing();
 				parent.isMoving = false;
 				Spy:SaveMainWindowPosition()
@@ -562,13 +563,13 @@ function Spy:CreateMainWindow()
 				theFrame.DragBottomRight:SetAlpha(1)
 			end)
 			theFrame.DragBottomRight:SetScript("OnMouseDown", function(self, button)
-				if (((not self:GetParent().isLocked) or (self:GetParent().isLocked == 0)) and (button == "LeftButton")) then 
+				if not InCombatLockdown() and (((not self:GetParent().isLocked) or (self:GetParent().isLocked == 0)) and (button == "LeftButton")) then 
 					self:GetParent().isResizing = true;
 					self:GetParent():StartSizing("BOTTOMRIGHT") 
 				end
 			end)
 			theFrame.DragBottomRight:SetScript("OnMouseUp", function(self, button)
-				if self:GetParent().isResizing == true then
+				if self:GetParent().isResizing == true and not InCombatLockdown() then
 					self:GetParent():StopMovingOrSizing();
 					Spy:SaveMainWindowPosition();
 					Spy:RefreshCurrentList();
@@ -593,13 +594,13 @@ function Spy:CreateMainWindow()
 				theFrame.DragBottomLeft:SetAlpha(1)
 			end)
 			theFrame.DragBottomLeft:SetScript("OnMouseDown", function(self, button)
-				if (((not self:GetParent().isLocked) or (self:GetParent().isLocked == 0)) and (button == "LeftButton")) then
+				if not InCombatLockdown() and (((not self:GetParent().isLocked) or (self:GetParent().isLocked == 0)) and (button == "LeftButton")) then
 					self:GetParent().isResizing = true;
 					self:GetParent():StartSizing("BOTTOMLEFT")
 				end
 			end)
 			theFrame.DragBottomLeft:SetScript("OnMouseUp", function(self, button)
-				if self:GetParent().isResizing == true then
+				if self:GetParent().isResizing == true and not InCombatLockdown() then
 					self:GetParent():StopMovingOrSizing();
 					Spy:SaveMainWindowPosition();
 					Spy:RefreshCurrentList();
@@ -624,13 +625,13 @@ function Spy:CreateMainWindow()
 				theFrame.DragTopRight:SetAlpha(1)
 			end)
 			theFrame.DragTopRight:SetScript("OnMouseDown", function(self, button)
-				if (((not self:GetParent().isLocked) or (self:GetParent().isLocked == 0)) and (button == "LeftButton")) then
+				if not InCombatLockdown() and (((not self:GetParent().isLocked) or (self:GetParent().isLocked == 0)) and (button == "LeftButton")) then
 					self:GetParent().isResizing = true;
 					self:GetParent():StartSizing("TOPRIGHT")
 				end
 			end)
 			theFrame.DragTopRight:SetScript("OnMouseUp", function(self, button)
-				if self:GetParent().isResizing == true then
+				if self:GetParent().isResizing == true and not InCombatLockdown() then
 					self:GetParent():StopMovingOrSizing();
 					Spy:SaveMainWindowPosition();
 					Spy:RefreshCurrentList();
@@ -655,13 +656,13 @@ function Spy:CreateMainWindow()
 				theFrame.DragTopLeft:SetAlpha(1)
 			end)		
 			theFrame.DragTopLeft:SetScript("OnMouseDown", function(self, button)
-				if (((not self:GetParent().isLocked) or (self:GetParent().isLocked == 0)) and (button == "LeftButton")) then
+				if not InCombatLockdown() and (((not self:GetParent().isLocked) or (self:GetParent().isLocked == 0)) and (button == "LeftButton")) then
 					self:GetParent().isResizing = true;
 					self:GetParent():StartSizing("TOPLEFT")
 				end
 			end)
 			theFrame.DragTopLeft:SetScript("OnMouseUp", function(self, button)
-				if self:GetParent().isResizing == true then
+				if self:GetParent().isResizing == true and not InCombatLockdown() then
 					self:GetParent():StopMovingOrSizing();
 					Spy:SaveMainWindowPosition();
 					Spy:RefreshCurrentList();
@@ -800,7 +801,7 @@ function Spy:CreateMainWindow()
 			Spy:CreateRow(i)
 		end
 
-		Spy:RestoreMainWindowPosition(Spy.db.profile.MainWindow.Position.x, Spy.db.profile.MainWindow.Position.y, Spy.db.profile.MainWindow.Position.w, 34)
+		Spy:RestoreMainWindowPosition(Spy.db.profile.MainWindow.Position.x, Spy.db.profile.MainWindow.Position.y, Spy.db.profile.MainWindow.Position.w, (Spy.SavedWindowHeight and Spy:SavedWindowHeight() or 34)) -- Forever: saved height
 		Spy:SetupMainWindowButtons()
 		Spy:ResizeMainWindow()
 		Spy:ScheduleRepeatingTimer("ManageExpirations", 10, true)

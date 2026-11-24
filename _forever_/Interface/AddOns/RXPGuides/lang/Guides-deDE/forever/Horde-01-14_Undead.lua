@@ -715,7 +715,7 @@ RXPGuides.RegisterGuide([[
 #subgroup Schnellste Route 1-22
 --#groupid RXP-SRGCE-H1
 #defaultfor Undead
-#next 12-14 Silberwald; 12-17 das Brachland
+#next 12-14 Silberwald; 12-17 Das Brachland
 
 step
     .goto 1420/0,1184.71,2205.63
@@ -2063,7 +2063,7 @@ step << Paladin
     .target Shari Stilwell
 step << Warlock
     #completewith next
-    .goto 1420/0,240.75,1877.57,20 >> Betrete Unterstadt
+    .goto 1420/0,240.75,1877.57,20 >> Betrete Undercity
     .zoneskip Undercity
 step << Warlock
     #completewith next
@@ -2072,7 +2072,7 @@ step << Warlock
     .goto 1458/0,240.68,1706.97,10,0
     .goto 1458/0,241.06,1660.12,10,0
     .goto 1458/0,257.08,1623.38,10,0
-    .goto 1458/0,244.51,1598.73,15 >> Nehmt den Aufzug hinab nach Unterstadt
+    .goto 1458/0,244.51,1598.73,15 >> Nehmt den Aufzug hinab nach Undercity
 step << Warlock
     .goto 1458/0,57.05,1711.77
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Carendin|r im Magierviertel
@@ -2094,12 +2094,12 @@ step << Warlock
     .goto 1458/0,610.42,1684.44,35,0
     .goto 1458/0,663.19,1600.46,35,0
     .goto 1420/0,724.25,1682.66,50,0
-    .zone Tirisfal Glades >> Verlasst die Unterstadt durch die Kanalisation
+    .zone Tirisfal Glades >> Verlasst Undercity durch die Abwasserkanäle
     .zoneskip Tirisfal Glades
 step << Warlock
     #completewith next
     .goto 1420/0,726.06,1801.95
-    >>Beute |cRXP_PICK_Perrines Truhe|r für |T133733:0|t[Egalins Zauberfoliant]
+    >>Plündert |cRXP_PICK_Perrines Truhe|r für |T133733:0|t[Egalins Zauberfoliant]
     .complete 1473,1 --Egalin's Grimoire (1)
 step
     #label ScarletCrusade1
@@ -2135,7 +2135,7 @@ step << !Priest
     .goto 1458/0,476.49,1632.15,10,0
     .goto 1458/0,439.08,1627.02,10,0
     .goto 1458/0,435.05,1598.86,10,0
-    .zone Undercity >> Reist nach Unterstadt durch die Kanalisation
+    .zone Undercity >> Reist nach Undercity durch die Abwasserkanäle
     .zoneskip Undercity
 step << Rogue
     .goto 1458/0,323.57,1668.50
@@ -2185,7 +2185,7 @@ step << Warlock
 step << Warrior
     #ssf
     .goto 1458/0,133.71,1561.730
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Charles Seaton|r im Schurken-Viertel
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Charles Seaton|r im Schurkenviertel
     >>|cRXP_BUY_Kauft eine|r |T135350:0|t[Claymore] |cRXP_BUY_von ihm|r
     .collect 1198,1,371,1 --Collect Claymore (1)
     .money <0.2543
@@ -2195,7 +2195,7 @@ step << Warrior
 step << Warrior
     #ah
     .goto 1458/0,133.71,1561.730
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Charles Seaton|r im Schurken-Viertel
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Charles Seaton|r im Schurkenviertel
     >>|cRXP_BUY_Kauft eine|r |T135350:0|t[Claymore] |cRXP_BUY_von ihm|r
     >>|cRXP_WARN_Alternativ könnt ihr bald das Auktionshaus nach etwas Besserem oder Billigerem durchsuchen|r
     .collect 1198,1,371,1 --Collect Claymore (1)
@@ -2214,7 +2214,7 @@ step << Warrior
 step << Rogue
     #ssf
     .goto 1458/0,133.71,1561.730
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Charles Seaton|r im Schurken-Viertel
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Charles Seaton|r im Schurkenviertel
     >>|cRXP_BUY_Kauft einen|r |T135346:0|t[Entersäbel] |cRXP_BUY_von ihm|r
     .collect 851,1,371,1 --Collect Cutlass (1)
     .money <0.1922
@@ -2224,7 +2224,7 @@ step << Rogue
 step << Rogue
     #ah
     .goto 1458/0,133.71,1561.730
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Charles Seaton|r im Schurken-Viertel
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Charles Seaton|r im Schurkenviertel
     >>|cRXP_BUY_Kauft einen|r |T135346:0|t[Entersäbel] |cRXP_BUY_von ihm|r
     >>|cRXP_WARN_Alternativ könnt ihr bald das Auktionshaus nach etwas Besserem oder Billigerem durchsuchen|r
     .collect 851,1,371,1 --Collect Cutlass (1)
@@ -2298,7 +2298,7 @@ step << Paladin
     #label UCHome
     .goto 1458/0,223.31,1634.96
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Norman|r
-    .home >> Setzt euren Ruhestein in Unterstadt
+    .home >> Setzt euren Ruhestein in Undercity
     .target Innkeeper Norman
     .bindlocation 1497
 step
@@ -2308,11 +2308,11 @@ step << skip
     .goto 1458/0,59.07,1747.75
     .goto 1458/0,221.78,1780.14,30 >>|cRXP_WARN_Führt einen Logout-Skip durch: Positioniert den Character von Euch auf der höchsten Stelle der niedrigsten Treppenstufe, bis er zu schweben scheint. Meldet euch dann ab und wieder an|r
     .link https://www.youtube.com/watch?v=-Bi95bCN8dM >> |cRXP_WARN_KLICKT HIER für ein Beispiel|r
-    >>|cRXP_WARN_Falls ihr das nicht könnt, lauft einfach normal aus der Unterstadt|r
+    >>|cRXP_WARN_Falls ihr das nicht könnt, lauft einfach normal aus Undercity hinaus|r
 step << !Priest
     #completewith AtWarS
     .goto 1420/0,235.32,1883.89
-    .zone Tirisfal Glades >> Verlasst Unterstadt
+    .zone Tirisfal Glades >> Verlasst Undercity
     .zoneskip Tirisfal Glades
 step << Undead Rogue
     #sticky
@@ -2903,7 +2903,7 @@ step << !Paladin
 step << !Paladin
     #label EnterUC2
     #completewith Glix
-    .goto 1420/0,240.75,1877.57,20 >> Betrete Unterstadt
+    .goto 1420/0,240.75,1877.57,20 >> Betrete Undercity
     .zoneskip Undercity
 step << !Paladin
     #completewith Glix
@@ -2912,16 +2912,16 @@ step << !Paladin
     .goto 1458/0,240.68,1706.97,10,0
     .goto 1458/0,241.06,1660.12,10,0
     .goto 1458/0,257.08,1623.38,10,0
-    .goto 1458/0,244.51,1598.73,15 >> Nehmt den Aufzug hinab nach Unterstadt
+    .goto 1458/0,244.51,1598.73,15 >> Nehmt den Aufzug hinab nach Undercity
 step << !Paladin
     .goto 1458/0,223.31,1634.96
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Norman|r
-    .home >> Setzt euren Ruhestein in Unterstadt
+    .home >> Setzt euren Ruhestein in Undercity
     .target Innkeeper Norman
     .bindlocation 1497
 step << Paladin
     #completewith Glix
-    .hs >> Benutzt euren Ruhestein nach Unterstadt
+    .hs >> Benutzt euren Ruhestein nach Undercity
     .cooldown item,6948,>0,1
     .bindlocation 1497,1
     .zoneskip Undercity
@@ -2944,7 +2944,7 @@ step
 step << Rogue
     #ssf
     .goto 1458/0,133.71,1561.730
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Charles Seaton|r im Schurken-Viertel
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Charles Seaton|r im Schurkenviertel
     >>|cRXP_BUY_Kauft einen|r |T135346:0|t[Entersäbel] |cRXP_BUY_von ihm|r
     .collect 851,1,372,1 --Collect Cutlass (1)
     .money <0.1922
@@ -2954,7 +2954,7 @@ step << Rogue
 step << Rogue
     #ah
     .goto 1458/0,133.71,1561.730
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Charles Seaton|r im Schurken-Viertel
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Charles Seaton|r im Schurkenviertel
     >>|cRXP_BUY_Kauft einen|r |T135346:0|t[Entersäbel] |cRXP_BUY_von ihm|r
     >>|cRXP_WARN_Alternativ könnt ihr bald das Auktionshaus nach etwas Besserem oder Billigerem durchsuchen|r
     .collect 851,1,372,1 --Collect Cutlass (1)
@@ -2973,7 +2973,7 @@ step << Rogue
 step << Warrior
     #ssf
     .goto 1458/0,133.71,1561.730
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Charles Seaton|r im Schurken-Viertel
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Charles Seaton|r im Schurkenviertel
     >>|cRXP_BUY_Kauft eine|r |T135350:0|t[Claymore] |cRXP_BUY_von ihm|r
     .collect 1198,1,372,1 --Collect Claymore (1)
     .money <0.2543
@@ -2983,7 +2983,7 @@ step << Warrior
 step << Warrior
     #ah
     .goto 1458/0,133.71,1561.730
-    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Charles Seaton|r im Schurken-Viertel
+    >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Charles Seaton|r im Schurkenviertel
     >>|cRXP_BUY_Kauft eine|r |T135350:0|t[Claymore] |cRXP_BUY_von ihm|r
     >>|cRXP_WARN_Alternativ könnt ihr bald das Auktionshaus nach etwas Besserem oder Billigerem durchsuchen|r
     .collect 1198,1,372,1 --Collect Claymore (1)
@@ -3176,7 +3176,7 @@ step << Paladin
 step << Paladin
     #completewith
     .goto 1420/0,235.32,1883.89
-    .zone Tirisfal Glades >> Verlasst Unterstadt
+    .zone Tirisfal Glades >> Verlasst Undercity
     .zoneskip Tirisfal Glades
 step << Paladin
     .goto 1420/0,74.00,2022.47
@@ -3315,7 +3315,7 @@ step << !Paladin
     .goto 1458/0,610.42,1684.44,35,0
     .goto 1458/0,663.19,1600.46,35,0
     .goto 1420/0,724.25,1682.66,50,0
-    .zone Tirisfal Glades >> Verlasst die Unterstadt durch die Kanalisation
+    .zone Tirisfal Glades >> Verlasst Undercity durch die Abwasserkanäle
 step
     #label Entersilverpine
     .goto 1420/0,629.36,1553.42
@@ -3334,7 +3334,7 @@ RXPGuides.RegisterGuide([[
 #disabledungeons
 #name 12-14 Silberwald
 #displayname 13-15 Silberwald << Paladin
-#next 12-17 das Brachland
+#next 12-17 Das Brachland
 
 step << Undead Rogue
     #sticky
@@ -3904,20 +3904,20 @@ step
     .goto 1421/0,1533.96,474.43
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprich mit |cRXP_FRIENDLY_Karos|r
     .turnin 6321 >>Gebt die Quest Nachschub für das Grabmal ab << Undead
-    .accept 6323 >>Akzeptiert die Quest Flug nach Unterstadt << Undead
+    .accept 6323 >>Akzeptiert die Quest Flug nach Undercity << Undead
     .fp Sepulcher >> Erlernt die Flugroute am Grabmal << !Undead
-    .fly Undercity >> Fliegt nach Unterstadt << !Undead
+    .fly Undercity >> Fliegt nach Undercity << !Undead
     .target Karos Razok
     .zoneskip Undercity
 step << Undead
-    .hs >> Benutzt euren Ruhestein nach Unterstadt
+    .hs >> Benutzt euren Ruhestein nach Undercity
     .use 6948
     .zoneskip Undercity
     .bindlocation 1497,1
 step << Undead
     .goto 1458/0,283.37,1610.32
     >>|Tinterface/worldmap/chatbubble_64grey.blp:20|tSprecht mit |cRXP_FRIENDLY_Gordon|r
-    .turnin 6323 >> Gebt die Quest Flug nach Unterstadt ab
+    .turnin 6323 >> Gebt die Quest Flug nach Undercity ab
     .accept 6322 >> Akzeptiert die Quest Michael Garrett
     .target Gordon Wendham
 step << Rogue
@@ -4207,7 +4207,7 @@ step << Undead Rogue
 step << Undead
     #completewith next
     .goto 1420/0,235.32,1883.89,50,0
-    .zone Tirisfal Glades >> Verlasst Unterstadt
+    .zone Tirisfal Glades >> Verlasst Undercity
     .zoneskip Tirisfal Glades
 step << Undead
     #label ZeptoDurotar
@@ -4277,7 +4277,7 @@ step << Undead/Skyborne
 step << Undead/Skyborne
     #completewith Gazzuz
     >>Tötet |cRXP_ENEMY_Burning Blade Orks|r. Plündert sie für |cRXP_LOOT_Insignien des Lieutenants|r
-    >>|cRXP_WARN_Das ist eine Vorquest für Flammenschlund (RFC). Sie hat eine niedrige Drop-Rate|r
+    >>|cRXP_WARN_Das ist eine Vorquest für Ragefireabgrund (RFC). Sie hat eine niedrige Drop-Rate|r
     .complete 5726,1 --Lieutenant's Insignia (1)
     .mob Burning Blade Fanatic
     .mob Burning Blade Apprentice
@@ -4309,7 +4309,7 @@ step << Undead/Skyborne
     .goto 1411/1,-4684.50,1466.06,15,0
     .goto 1411/1,-4805.59,1495.67,15,0
     >>Tötet |cRXP_ENEMY_Burning Blade Orks|r. Plündert sie für |cRXP_LOOT_Insignien des Lieutenants|r
-    >>|cRXP_WARN_Das ist eine Vorquest für Flammenschlund (RFC). Sie hat eine niedrige Drop-Rate|r
+    >>|cRXP_WARN_Das ist eine Vorquest für Ragefireabgrund (RFC). Sie hat eine niedrige Drop-Rate|r
     .complete 5726,1 --Lieutenant's Insignia (1)
     .mob Burning Blade Fanatic
     .mob Burning Blade Apprentice

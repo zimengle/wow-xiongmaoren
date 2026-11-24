@@ -1603,10 +1603,6 @@ ns.DungeonLoot = {
         } },
         { "Obsidian Sentinel", "黑曜石哨兵", "42 级", "7023", {
             { 8053, nil, false },
-            { 274430, nil, true },
-            { 274428, nil, true },
-            { 274425, nil, true },
-            { 274485, nil, true },
             { 251400, nil, true },
         } },
         { "Ancient Stone Keeper", "古代的石头看守者", "44 级", "7206", {
@@ -1888,29 +1884,29 @@ ns.DungeonLoot = {
         } },
     },
     ["alcaz_prison"] = {
-        { "Overseer Wrex", "监工雷克斯", "", "255391", {
+        { "Overseer Wrex", "监工雷克斯", "50 级", "255391", {
             { 276734, nil, true },
             { 276733, nil, true },
             { 276732, nil, true },
         } },
-        { "Tidemistress Ca'zass", "海潮主母卡扎斯", "", "255997", {
+        { "Tidemistress Ca'zass", "海潮主母卡扎斯", "49 级", "255997", {
             { 273883, nil, true },
             { 276736, nil, true },
             { 276735, nil, true },
             { 276737, nil, true },
         } },
-        { "Katerina the Cleaner", "清道夫卡特琳娜", "", "257016", {
+        { "Katerina the Cleaner", "清道夫卡特琳娜", "52 级", "257016", {
             { 276739, nil, true },
             { 276738, nil, true },
             { 276740, nil, true },
         } },
-        { "The Questioner", "质问者", "", "256236", {
+        { "The Questioner", "质问者", "51 级", "256236", {
             { 274029, nil, true },
             { 276742, nil, true },
             { 276743, nil, true },
             { 276741, nil, true },
         } },
-        { "Blazeroar", "烈焰咆哮者", "", "255702", {
+        { "Blazeroar", "烈焰咆哮者", "53 级", "255702", {
             { 276890, nil, true },
             { 276744, nil, true },
             { 276745, nil, true },
@@ -2361,8 +2357,9 @@ ns.DungeonLoot = {
             { 18267, 83, false },
             { 18249, 100, false },
             { 18316, nil, false },
+            { 18320, nil, true },
         } },
-        { "Zevrim Thornhoof", "瑟雷姆·刺蹄", "57 级", "11335", {
+        { "Zevrim Thornhoof", "瑟雷姆·刺蹄", "57 级", "11490", {
             { 18319, 10, false },
             { 18313, 19, false },
             { 18323, 19, false },
@@ -2383,7 +2380,7 @@ ns.DungeonLoot = {
             { 18301, 28, false },
             { 18302, 29, false },
         } },
-        { "Alzzin the Wildshaper", "奥兹恩", "58 级", "14416", {
+        { "Alzzin the Wildshaper", "奥兹恩", "58 级", "11492", {
             { 18328, 19, false },
             { 18312, 19, false },
             { 18309, 19, false },
@@ -2496,6 +2493,9 @@ ns.DungeonLoot = {
             { 280085, nil, true },
             { 280086, nil, true },
         } },
+        { "Sabella No-Eyes", "无眼萨贝拉", "稀有", "269151", {
+            { 280084, nil, true },
+        } },
         { "Trash mobs", "小怪", "副本内任意敌人", "", {
             { 287032, nil, true },
             { 251453, nil, true },
@@ -2505,6 +2505,8 @@ ns.DungeonLoot = {
             { 287029, nil, true },
             { 287030, nil, true },
             { 287033, nil, true },
+            { 287031, nil, true },
+            { 287035, nil, true },
         } },
         { "Plans", "图纸", "宝箱或物件", "", {
             { 252893, nil, true },
@@ -2947,11 +2949,15 @@ ns.DungeonLoot = {
         { "Marduk Blackpool", "马杜克·布莱克波尔", "58 级", "10433", {
             { 18692, 7, false },
             { 14576, 6.5, false },
+            { 276069, nil, true },
+            { 276071, nil, true },
         } },
         { "Vectus", "维克图斯", "60 级", "10432", {
             { 18691, 6.8, false },
             { 14577, 7.5, false },
             { 273121, nil, true },
+            { 276073, nil, true },
+            { 276072, nil, true },
         } },
         { "Ras Frostwhisper", "莱斯·霜语", "62 级", "10508", {
             { 13314, 0.38, false },
@@ -3265,7 +3271,7 @@ ns.DungeonLoot = {
             { 280028, nil, true },
             { 280029, nil, true },
         } },
-        { "King Op", "奥普国王", "", "261993", {} },
+        { "King Op", "奥普国王", "稀有", "261993", {} },
         { "Snowtalon", "雪爪", "", "262297", {
             { 280027, nil, true },
             { 280026, nil, true },

@@ -49,3 +49,20 @@ function BA.Diag()
     for _, s2 in ipairs(out) do ns.Print(s2) end
     return out
 end
+
+-- 示例框（11-23 从信标 BuffAsk.lua 的 /gi buff 命令搬来，给内核腾内存）：不发任何话
+--   test = 野外示例 · test2 = 副本示例 · test3 / 测试祝福 = 圣骑士能给几种祝福时的选择行
+function BA.Test(rest)
+    if rest == "test2" or rest == "测试2" then
+        return BA.ShowDungeon({ { cls = "PRIEST", who = L("示例牧师", "Sample Priest"), list = { BA.BY_K.fort } } }, true)
+    end
+    if rest == "test3" or rest == "测试3" or rest == "测试祝福" then
+        local ch, cls = {}, UnitClass and select(2, UnitClass("player"))
+        for _, t in ipairs(BA.BlessOrder()) do if BA.Useful(t, cls) then ch[#ch + 1] = t end end
+        if #ch < 2 then ch = { BA.BY_K.kings, BA.BY_K.might } end
+        BA.ShowField({ who = L("示例圣骑士", "Sample Paladin"), cls = "PALADIN", lv = 40, list = { ch[1] }, choices = ch, sample = true })
+    else
+        BA.ShowField({ who = L("示例牧师", "Sample Priest"), cls = "PRIEST", lv = 40, list = { BA.BY_K.fort }, sample = true })
+    end
+    BA.cur = nil   -- 示例框：点「密他要」不发（FieldSend 没有 cur 直接回）
+end

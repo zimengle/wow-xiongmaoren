@@ -259,8 +259,9 @@ function DC.AskPhrase(key, cls, kind, what, tail)
     local P = DC.AskParts()
     local c = DC.AskCombo(key)
     local call = cls and P.call1[c[1]] or P.callN[c[1]]   -- cls 只用来区分「对一个人 / 对大家」（11-17 起称呼不带职业名）
-    local req = string.format((kind == "food" and P.reqFood or P.reqBuff)[c[2]], what or "")
-    local text = call .. req .. P.done[c[3]] .. (tail or "")
+    local req, done = (kind == "food" and P.reqFood or P.reqBuff)[c[2]], P.done[c[3]]
+    if DC.Typo then call, req, done = DC.Typo(c, call, req, done) end   -- 11-22 手滑错字（_GroupMage 的 AskTypo.lua；登录内存没余量）
+    local text = call .. string.format(req, what or "") .. done .. (tail or "")
     if ns.ApplyCall then text = ns.ApplyCall(text) end   -- 11-18 GI-307 称呼可改（默认义父）
     local B = DC.askBuilt
     B[#B + 1] = { text = text, key = key or "*", c = c }

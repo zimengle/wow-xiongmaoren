@@ -4,7 +4,7 @@
 ## Notes: GearInsight Forever mage-only tools (Liminal teleport). Loads only on mages, the first time you open them (never in combat)
 ## Notes-zhCN: GearInsight 无限版的法师专属功能（阈限传送：选目的地旅店 / 找人 / 用卷轴）：只有法师角色才加载，第一次打开时才加载（战斗中不加载）
 ## Author: GearInsight
-## Version: 1.4.11
+## Version: 1.4.19
 ## Dependencies: GearInsight_Forever
 ## LoadOnDemand: 1
 ## IconTexture: Interface\Icons\inv_misc_map_01

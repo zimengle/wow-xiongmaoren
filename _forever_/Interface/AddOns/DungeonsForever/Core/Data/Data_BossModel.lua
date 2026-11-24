@@ -52,6 +52,7 @@ ns.BossModelDisplay = {
     ["dire_maul_east"] = {
         ["Alzzin the Wildshaper"] = 14416,
         ["Hydrospawn"] = 5489,
+        ["Isalien"] = 16000,
         ["Lethtendris"] = 14378,
         ["Pusillin"] = 7552,
         ["Zevrim Thornhoof"] = 11335,

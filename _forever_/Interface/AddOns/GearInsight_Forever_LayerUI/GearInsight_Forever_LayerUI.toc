@@ -4,7 +4,7 @@
 ## Notes: GearInsight Forever Layers page: other addon users on this map via the public channel (loads the first time you open the Layers page)
 ## Notes-zhCN: GearInsight 无限版「位面」页里「同图其他玩家（公共频道）」那一块：第一次打开位面页时才加载
 ## Author: GearInsight
-## Version: 1.4.11
+## Version: 1.4.19
 ## Dependencies: GearInsight_Forever
 ## LoadOnDemand: 1
 ## IconTexture: Interface\Icons\Spell_Arcane_PortalOrgrimmar

@@ -1,7 +1,7 @@
 VER 3 0000000000000001 "RXPTargeting" "Ability_eyeoftheowl"
-/targetexact 蓟皮复仇者
-/targetexact 蓟皮萨满祭司
-/targetexact 阿斯特兰纳哨兵
+/targetexact 德莫特
+/targetexact 奥丽娜
+/targetexact 瑞克特尔
 /tm !7
 /targetlasttarget [dead]
 END

@@ -4,7 +4,7 @@
 ## Notes: WoW: Forever helper - talent planner, leveling plan, loot table and wishlist, Tier 1 sets, macros, news, change tooltips, beta data
 ## Notes-zhCN: 《无限》助手：天赋模拟 · 升级规划 · 掉落表与心愿单 · T1 套装 · 宏库 · 资讯 · 改动提示 · 公测数据
 ## Author: GearInsight
-## Version: 1.4.11
+## Version: 1.4.19
 ## SavedVariables: GearInsightForeverDB
 ## IconTexture: Interface\Icons\inv_misc_map_01
 ## AddonCompartmentFunc: GearInsightForever_OnAddonCompartmentClick
@@ -109,6 +109,7 @@ DungeonNavData.lua
 DungeonNavMap.lua
 # 11-21 GI-329 外服登录自动加入 Chinese 频道（HOLD）：排在 Settings.lua / Layer.lua 后面（登记设置项、认插件自己的频道）
 # 合并打包：以下来自 GearInsight_Forever_Plan，这个包里和主插件一起登录加载
+BisData.lua
 SpecGearData.lua
 SpecGear.lua
 ItemMissingData.lua
@@ -135,6 +136,7 @@ ProfInit.lua
 DefaultBuildsData.lua
 DefaultBuilds.lua
 Talents.lua
+TalentWclData.lua
 PageTalent.lua
 MacroData.lua
 PageMacro.lua

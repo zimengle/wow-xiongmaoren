@@ -41,12 +41,16 @@ end
 addon.arrowFrame = CreateFrame("Frame", "RXPG_ARROW", UIParent)
 local af = addon.arrowFrame
 
-function addon.arrowFrame:UpdateVisuals()
+af.UpdateTheme = addon.ui.v2.UpdateTheme
+
+function af:UpdateSubTheme()
     local texture = addon.GetV1Texture("rxp_navigation_arrow-1")
     if addon.v2 and addon.v2:IsEnabled() then
         texture = addon.v2:GetTheme().navigationArrow
     end
     self.texture:SetTexture(texture)
+    self.text:SetFont(addon.font, addon.settings.profile.arrowText, "OUTLINE")
+    self.text:SetTextColor(unpack(addon.activeTheme.textColor))
 end
 
 local function IsInInstance()
@@ -92,10 +96,6 @@ af:SetScript("OnMouseUp", function(self, button)
 end)
 
 function addon.SetupArrow()
-    af.text:SetFont(addon.font, 9,"OUTLINE")
-    af:UpdateVisuals()
-    af.text:SetTextColor(unpack(addon.activeTheme.textColor))
-
     addon.arrowFrame:SetScript("OnUpdate", addon.DrawArrow)
 end
 
@@ -1020,7 +1020,7 @@ local function IsDeathSkip()
     end
 end
 
-local function updateArrowData()
+function addon.UpdateArrowData()
     local lowPrioWPs
     local loop = {}
     local isDeathSkip = IsDeathSkip()
@@ -1152,8 +1152,8 @@ function addon.ResetArrowPosition()
         addon.settings.ToggleActive()
     end
     af:ClearAllPoints()
-    af:SetPoint("CENTER", 0, 200)
-    updateArrowData()
+    af:SetPoint("TOP")
+    addon.UpdateArrowData()
 end
 
 -- Removes all pins from the map and mini map and resets all data structrures
@@ -1180,7 +1180,7 @@ function addon.UpdateMap(resetPins)
         addWorldMapLines()
         addWorldMapPins()
         addMiniMapPins()
-        updateArrowData()
+        addon.UpdateArrowData()
         addon.DisplayLines(true)
     else
         addon.updateMap = true
@@ -1469,7 +1469,7 @@ function addon.UpdateGotoSteps()
 
     end
 
-    if forceArrowUpdate then updateArrowData() end
+    if forceArrowUpdate then addon.UpdateArrowData() end
 end
 
 local function GetMapCoefficients(p1x,p1y,p1xb,p1yb,p2x,p2y,p2xb,p2yb)

@@ -3056,7 +3056,7 @@ step
     .goto 1437/0,-1014.03,-3904.2,12,0
     >>|cRXP_WARN_Macht den Dun Morogh -> Sumpfland skip|r ohne zu sterben
     >>|cRXP_WARN_Seid vorsichtig vor |cRXP_ENEMY_Schlicker|r (selten), bevor ihr zur Küste hinuntergeht (falls er up ist)|r
-    >>|cRXP_WARN_Seid vorsichtig vor den |cRXP_ENEMY_Räuber der Blaukiemen|r im Westen, wenn ihr das Meer erreicht|r
+    >>|cRXP_WARN_Seid vorsichtig vor |cRXP_ENEMY_Räuber der Blaukiemen|r im Westen, wenn ihr das Meer erreicht|r
     >>|cRXP_WARN_Weicht den |cRXP_ENEMY_Junger Sumpflandkrokilisk|r aus wenn ihr das Meer überquert. Wartet, bis sie wegpatroullieren|r
     .link https://youtu.be/QcEUvwu49KI?t=336 >> |cRXP_WARN_Klickt hier für eine Anleitung (Es wird dringend empfohlen, dies zu tun.)|r
     .goto 1437/0,-914.37,-3828.40,15 >> Laufe zum Hafen von Menethil
@@ -3611,7 +3611,7 @@ step
     .goto 1437/0,-1014.03,-3904.2,12,0
     >>|cRXP_WARN_Macht den Dun Morogh -> Sumpfland skip|r ohne zu sterben
     >>|cRXP_WARN_Seid vorsichtig vor |cRXP_ENEMY_Schlicker|r (selten), bevor ihr zur Küste hinuntergeht (falls er up ist)|r
-    >>|cRXP_WARN_Seid vorsichtig vor den |cRXP_ENEMY_Räuber der Blaukiemen|r im Westen, wenn ihr das Meer erreicht|r
+    >>|cRXP_WARN_Seid vorsichtig vor |cRXP_ENEMY_Räuber der Blaukiemen|r im Westen, wenn ihr das Meer erreicht|r
     >>|cRXP_WARN_Weicht den |cRXP_ENEMY_Junger Sumpflandkrokilisk|r aus wenn ihr das Meer überquert. Wartet, bis sie wegpatroullieren|r
     .link https://youtu.be/QcEUvwu49KI?t=336 >> |cRXP_WARN_Klickt hier für eine Anleitung (Es wird dringend empfohlen, dies zu tun.)|r
     .goto 1437/0,-914.37,-3828.40,15 >> Laufe zum Hafen von Menethil
@@ -7278,7 +7278,7 @@ step << skip
     .goto 1429/0,-158.00,-8901.52,10,0
     .goto 1429/0,-174.32,-8881.39,10,0
     >>Nehmt den Bergpfad zu |cRXP_FRIENDLY_Paxton|r
-    .goto 1429/0,-186.46,-8874.91,10 >>Reist zu |cRXP_FRIENDLY_Paxton|r
+    .goto 1429/0,-186.46,-8874.91,10 >>Reist zu toward |cRXP_FRIENDLY_Paxton|r
 step
     .goto 1429/0,8.25,-9460.03
     >>Sprecht mit |cRXP_FRIENDLY_Dobbins|r
@@ -7297,7 +7297,7 @@ step
     #requires FarleyHome
     .goto 1429/0,-158.00,-8901.52,10,0
     .goto 1429/0,-174.32,-8881.39,10,0
-    .goto 1429/0,-186.46,-8874.91,10 >>Reist zu |cRXP_FRIENDLY_Paxton|r
+    .goto 1429/0,-186.46,-8874.91,10 >>Reist zu toward |cRXP_FRIENDLY_Paxton|r
 step
     #requires FarleyHome
     .goto 1429/0,-186.46,-8874.91
@@ -7934,7 +7934,7 @@ step
     #completewith next
     .goto 1429/0,-158.00,-8901.52,10,0
     .goto 1429/0,-174.32,-8881.39,10,0
-    .goto 1429/0,-186.46,-8874.91,10 >>Reist zu |cRXP_FRIENDLY_Paxton|r
+    .goto 1429/0,-186.46,-8874.91,10 >>Reist zu toward |cRXP_FRIENDLY_Paxton|r
 step
     .goto 1429/0,-186.46,-8874.91
     >>Sprecht mit |cRXP_FRIENDLY_Paxton|r

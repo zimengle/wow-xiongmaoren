@@ -64,7 +64,7 @@ end
 function ns.rewards.Item:Icon() return (select(5, C_Item.GetItemInfoInstant(self.id))) end
 function ns.rewards.Item:Obtained(ignore_notable, ...)
     local result = self:super("Obtained", ignore_notable, ...)
-    if self.held or ns.CLASSICERA then return result and GetItemCount(self.id, true) > 0 end
+    if self.held or ns.CLASSICERA then return result and C_Item.GetItemCount(self.id, true) > 0 end
     if not result and (ignore_notable or ns.db.transmog_notable) and self.CanLearnAppearance(self.id) then
         return self.HasAppearance(self.id, ns.db.transmog_specific)
     end
@@ -296,7 +296,7 @@ end
 ns.rewards.Toy = ns.rewards.Item:extends({classname="Toy"})
 function ns.rewards.Toy:TooltipLabel() return TOY end
 function ns.rewards.Toy:Obtained(...)
-    if ns.CLASSICERA then return GetItemCount(self.id, true) > 0 end
+    if ns.CLASSICERA then return C_Item.GetItemCount(self.id, true) > 0 end
     return self:super("Obtained", ...) ~= false and PlayerHasToy(self.id)
 end
 function ns.rewards.Toy:Notable(...) return ns.db.toy_notable and self:super("Notable", ...) end
@@ -320,7 +320,7 @@ end
 -- function ns.rewards.Mount:TooltipLabel() return PERKS_VENDOR_CATEGORY_MOUNT or MOUNTS end
 function ns.rewards.Mount:Obtained(...)
     if self:super("Obtained", ...) == false then return false end
-    if ns.CLASSICERA then return GetItemCount(self.id, true) > 0 end
+    if ns.CLASSICERA then return C_Item.GetItemCount(self.id, true) > 0 end
     if not _G.C_MountJournal then return false end
     return self:MountID() and (select(11, C_MountJournal.GetMountInfoByID(self:MountID())))
 end
@@ -365,7 +365,7 @@ end
 function ns.rewards.Pet:TooltipLabel() return TOOLTIP_BATTLE_PET end
 function ns.rewards.Pet:Obtained(...)
     if self:super("Obtained", ...) == false then return false end
-    if ns.CLASSICERA then return GetItemCount(self.id, true) > 0 end
+    if ns.CLASSICERA then return C_Item.GetItemCount(self.id, true) > 0 end
     return self:PetID() and C_PetJournal.GetNumCollectedInfo(self:PetID()) > 0
 end
 function ns.rewards.Pet:Notable(...) return ns.db.pet_notable and self:super("Notable", ...) end
@@ -416,7 +416,7 @@ end
 function ns.rewards.Set:TooltipLabel() return WARDROBE_SETS end
 function ns.rewards.Set:Obtained(...)
     if self:super("Obtained", ...) == false then return false end
-    if ns.CLASSIC then return GetItemCount(self.id, true) > 0 end
+    if ns.CLASSIC then return C_Item.GetItemCount(self.id, true) > 0 end
     local info = C_TransmogSets.GetSetInfo(self.setid)
     if info then
         if info.collected then return true end
@@ -443,10 +443,33 @@ function ns.rewards.Set:ObtainedTag()
     return self:super("ObtainedTag")
 end
 
+-- Recipes and decor can only be told apart from their tooltip text, and every
+-- caller asks again for each point it draws, so keep the answer for the run.
+-- Not cached while the tooltip data is still loading.
+ns.run_caches.tooltipOwned = {}
+local function tooltipOwned(itemID, matches)
+    local cache = ns.run_caches.tooltipOwned
+    if cache[itemID] ~= nil then return cache[itemID] end
+    local info = C_TooltipInfo.GetItemByID(itemID)
+    if not info then return end
+    local owned = false
+    for _, line in ipairs(info.lines) do
+        if matches(line) then
+            owned = true
+            break
+        end
+    end
+    cache[itemID] = owned
+    return owned
+end
+
 ns.rewards.Recipe = ns.rewards.Item:extends{classname="Recipe"}
 function ns.rewards.Recipe:init(id, spellid, ...)
     self:super("init", id, ...)
     self.spellid = spellid
+end
+local function lineIsRecipeKnown(line)
+    return line.leftText and string.match(line.leftText, _G.ITEM_SPELL_KNOWN)
 end
 function ns.rewards.Recipe:Obtained(...)
     if self:super("Obtained", ...) then
@@ -454,15 +477,7 @@ function ns.rewards.Recipe:Obtained(...)
         return true
     end
     -- can't use the tradeskill functions + the recipe-spell because that data's only available after the tradeskill window has been opened...
-    local info = C_TooltipInfo.GetItemByID(self.id)
-    if info then
-        for _, line in ipairs(info.lines) do
-            if line.leftText and string.match(line.leftText, _G.ITEM_SPELL_KNOWN) then
-                return true
-            end
-        end
-    end
-    return false
+    return tooltipOwned(self.id, lineIsRecipeKnown) or false
 end
 function ns.rewards.Recipe:Cache()
     self:super("Cache")
@@ -470,22 +485,20 @@ function ns.rewards.Recipe:Cache()
 end
 
 ns.rewards.Decor = ns.rewards.Item:extends{classname="Decor"}
+local decorOwnedPattern
+local function lineIsDecorOwned(line)
+    if not decorOwnedPattern then
+        decorOwnedPattern = HOUSING_DECOR_OWNED_COUNT_FORMAT:gsub("([%(%)])", "%%%1"):gsub("%%d", "(%%d+)")
+    end
+    return line.type == Enum.TooltipDataLineType.None and line.leftText and string.match(line.leftText, decorOwnedPattern)
+end
 function ns.rewards.Decor:Obtained(...)
     if self:super("Obtained", ...) then
         -- quests, etc
         return true
     end
-    if not C_HousingCatalog then return GetItemCount(self.id, true) > 0 end
-    local pattern = HOUSING_DECOR_OWNED_COUNT_FORMAT:gsub("([%(%)])", "%%%1"):gsub("%%d", "(%%d+)")
-    local info = C_TooltipInfo.GetItemByID(self.id)
-    if info then
-        for _, line in ipairs(info.lines) do
-            if line.type == Enum.TooltipDataLineType.None and line.leftText and string.match(line.leftText, pattern) then
-                return true
-            end
-        end
-        return false
-    end
+    if not C_HousingCatalog then return C_Item.GetItemCount(self.id, true) > 0 end
+    return tooltipOwned(self.id, lineIsDecorOwned)
 end
 function ns.rewards.Decor:Notable(...)
     -- could only count xp-granting as notable? firstAcquisitionBonus on C_HousingCatalog.GetCatalogEntryInfoByItem

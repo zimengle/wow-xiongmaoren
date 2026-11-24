@@ -148,7 +148,7 @@ if ns.options.buttonSound == nil then ns.options.buttonSound = true end
 ns.QUICK_VER = 1
 ns.QUICK_GROUPS = { "dungeon", "prof", "explore", "tier" }
 ns.QUICK_EXPLORE = { "books", "bag" }
-ns.QUICK_TIER = { "class", "prep" }
+ns.QUICK_TIER = { "class", "bis", "prep" }
 ns.QUICK_TABS = { "Dungeons", "Raids", "Professions", "Explore", "Collections", "Factions", "Bis", "Tier", "PvP", "Gear", "QuestSearch" }
 
 local QUICK_EXPLORE_SET = {}
@@ -574,6 +574,7 @@ do
 end
 
 local loadedFuncs = {}
+local initsDrained = false
 local boot = CreateFrame("Frame")
 boot:RegisterEvent("ADDON_LOADED")
 boot:SetScript("OnEvent", function(self, event, name)
@@ -581,14 +582,21 @@ boot:SetScript("OnEvent", function(self, event, name)
     if name ~= addonName then return end
     self:UnregisterEvent("ADDON_LOADED")
     DB()
-    for _, fn in ipairs(loadedFuncs) do
+    initsDrained = true
+    local idx = 1
+    local function step()
+        local fn = loadedFuncs[idx]
+        if not fn then return end
+        idx = idx + 1
         local ok, err = xpcall(fn, function(e)
             return tostring(e) .. "\n" .. debugstack(2)
         end)
         if not ok then
             print("|cffff5040[无限副本手册] 初始化回调出错（已跳过，不影响后续模块）：|r\n" .. tostring(err))
         end
+        C_Timer.After(0, step)
     end
+    step()
     end)
 end)
 
@@ -643,9 +651,18 @@ do
 end
 
 function ns.Init(fn)
-    loadedFuncs[#loadedFuncs + 1] = fn
     local sink = rawget(ns, "__inits")
     if sink then sink[#sink + 1] = fn end
+    if initsDrained then
+        local ok, err = xpcall(fn, function(e)
+            return tostring(e) .. "\n" .. debugstack(2)
+        end)
+        if not ok then
+            print("|cffff5040[无限副本手册] 初始化回调出错（已跳过，不影响后续模块）：|r\n" .. tostring(err))
+        end
+        return
+    end
+    loadedFuncs[#loadedFuncs + 1] = fn
 end
 
 function ns.PlaySound(id)
@@ -745,6 +762,16 @@ function ns.CreateEditBox(parent, size)
     eb:HookScript("OnEscapePressed", function(self) self:ClearFocus() end)
     eb:HookScript("OnEnterPressed", function(self) self:ClearFocus() end)
     return eb
+end
+
+function ns.FocusEdit(e)
+    if type(C_Timer) == "table" and type(C_Timer.After) == "function" then
+        C_Timer.After(0, function()
+            if e:IsShown() then e:SetFocus() end
+        end)
+    else
+        e:SetFocus()
+    end
 end
 
 function ns.SkinPopupFont(p)

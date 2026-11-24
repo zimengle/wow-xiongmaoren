@@ -16,14 +16,15 @@ function Spy:CreateFrame(Name, Title, Height, Width, ShowFunc, HideFunc)
 	theFrame:EnableMouse(true)
 	theFrame:SetMovable(true)
 	theFrame:SetScript("OnMouseDown", function(self, event) 
-		if (((not self.isLocked) or (self.isLocked == 0)) and (event == "LeftButton")) then
+		-- Forever: a window holding secure buttons is protected, StartMoving is refused in combat.
+		if not (self:IsProtected() and InCombatLockdown()) and (((not self.isLocked) or (self.isLocked == 0)) and (event == "LeftButton")) then
 			Spy:SetWindowTop(self)
 			self:StartMoving();
 			self.isMoving = true;
 		end
 	end)
 	theFrame:SetScript("OnMouseUp", function(self) 
-		if (self.isMoving) then
+		if self.isMoving and not (self:IsProtected() and InCombatLockdown()) then
 			self:StopMovingOrSizing();
 			self.isMoving = false;
 			Spy:SaveMainWindowPosition()
@@ -38,7 +39,7 @@ function Spy:CreateFrame(Name, Title, Height, Width, ShowFunc, HideFunc)
 	end)
 	theFrame.HideFunc = HideFunc
 	theFrame:SetScript("OnHide", function(self) 
-		if (self.isMoving) then
+		if self.isMoving and not (self:IsProtected() and InCombatLockdown()) then
 			self:StopMovingOrSizing();
 			self.isMoving = false;
 		end

@@ -49,7 +49,11 @@ local function short(n) return (tostring(n or "?"):gsub("%-.*$", "")) end
 function LP.LeftText(sec)
     sec = math.max(1, math.ceil(sec or 0))
     if sec < 60 then return string.format(L("%d 秒", "%ds"), sec) end
-    return string.format(L("%d 分钟", "%dm"), math.ceil(sec / 60))
+    local m = math.ceil(sec / 60)
+    if m < 60 then return string.format(L("%d 分钟", "%dm"), m) end
+    -- 11-23 同一人 2 小时只请一次：「1 小时 25 分」/「2 小时」
+    local h, r = math.floor(m / 60), m % 60
+    return r == 0 and string.format(L("%d 小时", "%dh"), h) or string.format(L("%d 小时 %d 分", "%dh %dm"), h, r)
 end
 -- 名单里最早能再请的还要几秒（有人现在就能请 / 名单空 = 0）；单人的在 LayerHop.lua LH.AskLeft（AskChain 也用它跳过锁定中的人）
 function LP.ListLeft(list)
@@ -366,19 +370,9 @@ local function place(p, w, y, x) w:ClearAllPoints(); w:SetPoint("TOPLEFT", p.bod
 function LP.EmptyText()
     local s = L("同图暂时没有其他插件用户。要互相看到：对方也装了 GearInsight 无限版、开着公共频道（/gi layer pub on），并且就在这张图上（每张图一个频道，副本里不算）",
         "No other addon users on this map yet. They need the addon, the public channel on (/gi layer pub on), and to be on this map")
-    local want = LY.PubChannel and LY.PubChannel()
-    if want and LY.pubJoined ~= want then
-        local room, n = true, nil
-        if LY.ChanRoom then room, n = LY.ChanRoom() end
-        if LY.ChanReady and not LY.ChanReady() then
-            s = s .. "\n|cffffcc00" .. L("你刚上线：30 秒后才加入这张图的频道", "You just logged in: joining this map's channel in 30 sec") .. "|r"
-        elseif not room then
-            s = s .. "\n|cffffcc00" .. string.format(L("你自己的聊天频道快满了（%s/10），插件没加入这张图的频道，所以看不到别人；退掉一个不用的频道就行",
-                "Your chat channels are nearly full (%s/10) - the addon didn't join this map's channel"), tostring(n == "full" and 10 or n)) .. "|r"
-        else
-            s = s .. "\n|cffffcc00" .. L("你还没进这张图的频道（换图后停稳 5 秒才换频道）", "Not in this map's channel yet (switches 5 sec after you change maps)") .. "|r"
-        end
-    end
+    -- 11-23 诊断：频道名 + 已加入几号 / 未加入的原因（LayerCredit.lua LC.Pub，和 /gi layer pub 同一句；原来这里三种原因各一句，合并省 _LayerUI 内存）
+    local LC = ns.LayerCredit
+    if LC and LC.Pub then s = s .. "\n" .. (LY.pubJoined == (LY.PubChannel and LY.PubChannel()) and "|cff999999" or "|cffffcc00") .. LC.Pub() .. "|r" end
     return s
 end
 
@@ -628,6 +622,105 @@ end
 do
     local LG = ns.LayerGuild
     if LG and LG.page then pcall(LP.Calm, LG.page) end
+end
+
+-- 11-22 用户「老是过30秒没人组」（从主插件 LayerHop.lua 搬来省登录内存；求助都从位面页发，发的时候本子插件已加载）
+-- 11-22 群发求助 30 秒没人认领：从名单里挑别的层开了帮忙、没在队伍里的，自动挨个点名（同 ChainNext，一轮最多 CHAIN_MAX 人）
+local function cands(g, z, xset)
+    local m, myZ = LY.Mine()
+    local list = {}
+    for _, pe in ipairs(LY.Peers((g or not LY.DB().pub) and "guild" or nil)) do
+        if pe.m == m and pe.z and pe.z ~= myZ and pe.hp and not pe.ig and not pe.inst and not LY.IsMe(pe.full or pe.name)
+            and (not z or pe.z == z) and not (xset and xset[pe.z]) and not LH.RecentHelper(pe.name) and LH.AskLeft(pe.name) == 0 then list[#list + 1] = pe end
+    end
+    return list
+end
+function LH.AutoChain(p)
+    local list = cands(p.g, p.z, p.xset)
+    if #list == 0 then return false end
+    local ch, saved = { list = list, far = {}, tried = {}, n = 0 }, LH.lastReq
+    LH.lastReq = -1e9
+    local who = LH._chainAsk(ch)
+    if not who then LH.lastReq = saved; return false end
+    LY.Log("群发 30 秒没人认领 → 点名 " .. tostring(who))
+    LH.SetResult(true, string.format(L("30 秒没人接，自动点名请 %s（第 1 / %d 位）", "No taker in 30s - asking %s (1/%d)"), tostring(who):gsub("%-.*$", ""), LH.CHAIN_MAX))
+    return true
+end
+
+-- 11-23 用户「增加切换效率，成功率」。存档日志 10:41~10:44：同图只有 Paladinyvil 一个帮手，「我想换一层」4 次群发（每次等 30 秒）全没人接 ——
+--   他刚「拉过我」被群发排除（那次其实没换成，主插件 LayerHop.lua 现在会解除）。
+--   ① 同图能请的帮手（开了帮忙、没在队伍里、不是刚拉过我 / 刚请过的）只有 1~DIRECT 位：直接点名（插件密语，比公共频道稳），不先群发等 30 秒再点名；
+--      DIRECT = 2：3 位以上群发谁快谁拉（自动帮忙的人 0~1.5 秒就认领），比挨个点名每人等 30 秒快
+--   ② 连着 2 次以上群发没人接、又没有可点名的人：60 → 120 → 240 秒内不再群发，说清楚原因（别每 30 多秒刷一次公会 + 公共频道）；有人邀请过就清零
+local DIRECT, bcN, bcAt = 2, 0, 0
+local req0 = LH._crReq0 or LH.Request
+local function req(z)
+    local c = LH.ctx
+    if c and (c.joinedAt or c.res == "o") then bcN = 0 end
+    if not z then
+        local _, _, xset = LH.Exclusions((LY.Mine()))
+        local list = cands(LH.gOnly, nil, xset)
+        if #list > 0 and #list <= DIRECT then
+            local who = (LH._crAsk0 or LH.AskChain)(list)
+            if who then return true, nil, string.format(L("同图能帮你的只有 %d 位：直接请 %s 拉你（不群发）", "Only %d helper(s) here - asking %s directly"), #list, short(who)) end
+        end
+        local w = bcN >= 2 and 30 * 2 ^ math.min(bcN - 1, 3) - (now() - bcAt) or 0
+        if w > 0 then return false, "backoff", string.format(L("连续 %d 次求助都没人接：%s后再群发，或点某层「过去」单独请人", "%d asks unanswered - again in %s"), bcN, LP.LeftText(w)) end
+    end
+    return req0(z)
+end
+if LH._crReq0 then LH._crReq0 = req else LH.Request = req end
+
+-- 换层这轮里有人邀请了但没自动接：马上提示点接受，超时文字也照实写（原来 30 秒后说「没有人邀请你」）
+LY.onMiss = function(who)
+    local c = LH.ctx
+    if not c or c.res == "o" or now() - c.t > LH.POP_LIVE + 30 then return end
+    c.miss = who
+    LY.Flash(string.format(L("%s 邀请了你（没自动接上）：要换层就点组队邀请框里的「接受」", "%s invited you - click Accept on the invite to switch"), who), 1, 0.82, 0)
+end
+
+-- 11-22 求助作废时给玩家看的那句（主插件 LayerHop.lua watch 调）
+function LH.MissText(p, who)
+    if not who and p == (LH.ctx and LH.ctx.bp) then bcN, bcAt = bcN + 1, now() end
+    local text
+    local mi = LH.ctx and LH.ctx.miss
+    if mi then
+        text = string.format(L("没换成：%s 邀请过你但没自动接上。组队邀请框还在就点「接受」，或马上再试", "No move: %s invited you but it wasn't auto-accepted - click Accept or try again"), mi)
+    elseif who and p.chain and p.chain.n > 1 then
+        text = string.format(L("没换成：连请 %d 人都没邀请你，%s后可再请他们", "No move: %d players didn't invite you - again in %s"), p.chain.n, LP.LeftText(LH.REASK))
+    elseif who then
+        text = string.format(L("没换成：%s 30 秒没邀请你，这层没别人可请；%s后可再请他", "No move: %s didn't invite you - again in %s"), who, LP.LeftText(LH.REASK))
+    elseif p.free == 0 then
+        text = L("没换成：别的层的帮手都在队伍里 / 没开帮忙。可点某层「过去」单独请人", "No move: helpers on other layers are grouped or not helping - use \"Go\" to ask one person")
+    else
+        -- 11-19：求助也发到了同图公共频道 → 不只是公会会员
+        text = string.format(L("没换成：30 秒内没有人邀请你（%s）。可马上再试，或点某层「过去」单独请人", "No move: nobody invited you within 30 sec (%s) - try again, or use \"Go\""),
+            (LY.DB().pub and not p.g) and L("公会 + 同图公共频道", "guild + public channel") or L("公会", "guild"))
+    end
+    return text
+end
+
+-- 11-10 用户截图「点了也没人邀请我」：别的层能帮的公会会员（开了帮忙、没在队伍里、不在副本）有几个（11-22 从主插件搬来）；0 个时超时提示说清楚原因
+function LH.FreeHelpers(z)
+    local m, myZ = LY.Mine()
+    local n = 0
+    for _, p in ipairs(LY.Peers(not LY.DB().pub and "guild" or nil)) do   -- 11-19：求助也发同图公共频道 → 开着时那边的帮手也算
+        if p.m == m and p.z and p.z ~= myZ and (not z or p.z == z) and p.hp and not p.ig and not p.inst
+            and not (LY.IsMe and LY.IsMe(p.full or p.name)) and (z or not LH.IsExcluded(p, m)) then n = n + 1 end
+    end
+    return n
+end
+-- 11-22 点名链里下一位（主插件 LayerHop.lua watch 超时调；从主插件搬来省登录内存）
+function LH.ChainNext(ch, last)
+    if ch.n >= LH.CHAIN_MAX then return false end
+    local saved = LH.lastReq
+    LH.lastReq = -1e9          -- 自动续请：不吃冷却（其他拦截照旧：进队 / 战斗 / 副本 / 关了）
+    local who = LH._chainAsk(ch)
+    if not who then LH.lastReq = saved; return false end
+    LY.Log("自动换人：" .. tostring(last) .. " 没邀请 → 请 " .. tostring(who))
+    LH.SetResult(true, string.format(L("%s 30 秒没邀请你，自动换 %s 试试（第 %d / %d 位）", "%s didn't invite - asking %s (%d/%d)"),
+        tostring(last), tostring(who):gsub("%-.*$", ""), ch.n, LH.CHAIN_MAX))
+    return true
 end
 
 ns._modReady.layerui = true

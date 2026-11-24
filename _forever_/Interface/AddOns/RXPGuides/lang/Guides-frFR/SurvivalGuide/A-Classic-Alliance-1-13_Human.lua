@@ -306,7 +306,7 @@ step << Priest/Mage
     .complete 3904,1 --Collect Milly's Harvest (x8)
 step
     .goto Elwynn Forest,57.5,48.2
-    >>Tuez |cRXP_ENEMY_Garrick Padfoot|r. Dépouillez-le jeu pour sa |cRXP_LOOT_Tête|r
+    >>Tuez |cRXP_ENEMY_Garrick Padfoot|r. Dépouillez-le pour sa |cRXP_LOOT_Tête|r
 	.mob Garrick Padfoot
     .complete 6,1 --Collect Garrick's Head (x1)
 step << !Priest !Mage
@@ -652,7 +652,7 @@ step
     .mob Kobold Miner
 step << Warrior
     #completewith Goldtooth
-    +Essayez de garder une [Potion de soins mineure] à partir de maintenir, vous en aurez besoin pour le Cadavre de Rolf plus tard
+    +À partir de maintenant, essayez de garder au moins une [Potion de soins mineure] car vous en aurez besoin pour le Cadavre de Rolf plus tard
 step << Warrior/Rogue
     >>N'oubliez de fabriquer des [Pierre à aiguiser brute] si vous ramassez des |cRXP_LOOT_[Rough Stones]|r
     .xp 7+1600 >>Montez votre expérience jusqu'à 1600+/4500xp
@@ -861,7 +861,7 @@ step
     >>Lancez [Rénovation] et [Mot de pouvoir : Bouclier] |cRXP_WARN_puis remontez votre barre de mana à fond. Engagez les 2 |cRXP_ENEMY_Murlocs|r devant les huttes, écartez-vous, tuez-en un rapidement. Enfuyez-vous après en avoir tué un, puis tuez l'autre|r << Priest
     >>Engagez les 2 |cRXP_ENEMY_Murlocs|r devant les huttes, écartez-vous et lancez [Métamorphone] sur l'un d'entre eux avant de tuer l'autre. Tuez ensuite celui qui était métamorphosé << Mage
     >>Gardez 100 points de rage. Engagez les 2 |cRXP_ENEMY_Murlocs|r devant les huttes, écartez-vous et maintenez [Brise-genou] sur l'un des deux avant de tuer l'autre. Utilisez le [Sac de billes] sur celui que vous tuez. Enfuyez-vous de celui que vous avez ralenti après avoir tué le premier << Warrior
-    >>Engagez les 2 |cRXP_ENEMY_Murlocs|r devant les huttes, écartez-vous et concentrez-vous sur l'un des deux. Utilisez [Évasion] une fois qu'ils vous attaquent tous les deux. C'est une bonne opportunité pour utiliser votre [Sac de billes]. Enfuyez-vous après avoir tué le premier << Rogue
+    >>Engagez les 2 |cRXP_ENEMY_Murlocs|r devant les huttes, sortez et concentrez-vous sur l'un d'entre eux. Utilisez [Évasion] une fois qu'ils vous attaquent tous les deux. Il s'agit d'une bonne opportunité pour utiliser le [Sac de billes]. Enfuyez-vous une fois que vous avez tué l'un des deux << Rogue
     >>Engagez les 2  |cRXP_ENEMY_Murlocs|r devant les huttes, sortez et maintenez [Peur] sur l'un d'entre eux en boucle, en essayant de maintenir vos DoTs sur les deux << Warlock
     >>Engagez les 2 |cRXP_ENEMY_Murlocs|r devant les huttes, écartez-vous et tuez rapidement l'un des deux. Utilisez [Protection Divine] et vos soins lorsque ceux-ci sont requis. C'est une bonne opportunité pour utiliser votre [Sac de billes]. Enfuyez-vous après avoir tué le premier << Paladin
     >>Rappelez-vous que vous ne pouvez pas attaquer après avoir lancé [Protection Divine] << Paladin
@@ -1171,7 +1171,7 @@ step << !Warlock
     .goto Elwynn Forest,25.9,93.9
     >>Tuez |cRXP_ENEMY_Hogger|r. Dépouillez-les pour leur |cRXP_LOOT_Claw|r
     >>|cRXP_ENEMY_Hogger|r peut apparaître à de nombreux endroits
-    >>Cette quête est difficile. Montez un groupe pour le tuer si nécessaire. Passez cette étape si vous n'arrivez pas à monter un groupe ou à le tuer solo
+    >>|cRXP_WARN_Cette quête est difficile. Montez un groupe pour le tuer si nécessaire. Passez cette étape si vous n'arrivez pas à monter un groupe ou à le tuer seul|r
     .complete 176,1 --Huge Gnoll Claw (1)
     .unitscan Hogger
 step << Warlock
@@ -1197,7 +1197,7 @@ step << Warlock
     >>Tuez |cRXP_ENEMY_Hogger|r. Dépouillez-les pour leur |cRXP_LOOT_Claw|r
     >>|cRXP_ENEMY_Hogger|r peut apparaître à de nombreux endroits
     >>Lancez [Peur] |cRXP_WARN_sur |cRXP_ENEMY_Hogger|r en boucle et utilisez vos DoTs pour le tuer|r
-    >>Cette quête est difficile. Montez un groupe pour le tuer si nécessaire. Passez cette étape si vous n'arrivez pas à monter un groupe ou à le tuer solo
+    >>|cRXP_WARN_Cette quête est difficile. Montez un groupe pour le tuer si nécessaire. Passez cette étape si vous n'arrivez pas à monter un groupe ou à le tuer seul|r
     .complete 176,1 --Huge Gnoll Claw (1)
     .unitscan Hogger
 step
@@ -1751,7 +1751,7 @@ step
 step
     .goto Dun Morogh,62.6,46.1
     >>Tuez |cRXP_ENEMY_Vagash|r. Dépouillez-le pour sa |cRXP_LOOT_Fang|r
-    >>Cette quête est difficile. Montez un groupe pour le tuer si nécessaire. Passez cette étape si vous n'arrivez pas à monter un groupe ou à le tuer solo
+    >>|cRXP_WARN_Cette quête est difficile. Montez un groupe pour le tuer si nécessaire. Passez cette étape si vous n'arrivez pas à monter un groupe ou à le tuer seul|r
     >>|cRXP_WARN_Regardez bien la vidéo avant de tenter de tuer|cRXP_ENEMY_Vagash|r. Il peut être tuer en solo par n'importe quelle classe|r
     .link https://www.youtube.com/watch?v=ZJX6sCkm5JY >> Cliquez ici pour un exemple vidéo
     .complete 314,1 --Collect Fang of Vagash (1)

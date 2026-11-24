@@ -77,15 +77,15 @@ nil,
 },
 ["v"] = 3,
 },
-["talent"] = {
-["seqOn"] = true,
-},
 ["tier"] = {
 ["tab"] = "dps",
-["sec"] = "changes",
-["spec"] = "enh",
 ["mode"] = "talents",
+["sec"] = "changes",
 ["nav"] = "spec",
+["spec"] = "enh",
 ["cls"] = "SHAMAN",
+},
+["talent"] = {
+["seqOn"] = true,
 },
 }

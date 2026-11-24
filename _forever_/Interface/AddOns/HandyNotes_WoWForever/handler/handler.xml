@@ -5,6 +5,8 @@
 
 <Include file="systems\systems.xml"/>
 
+<Script file="locale\frFR.lua"/>
+
 <Script file="util.lua"/>
 <Script file="icons.lua"/>
 <Script file="points.lua"/>
@@ -13,6 +15,7 @@
 <Script file="visibility.lua"/>
 <Script file="config.lua"/>
 <Script file="overlay.lua"/>
+<Script file="localedump.lua"/>
 
 <Script file="providers\decorations.lua"/>
 <Script file="providers\routes.lua"/>

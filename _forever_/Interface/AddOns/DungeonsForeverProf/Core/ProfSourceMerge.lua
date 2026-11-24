@@ -139,6 +139,18 @@ function M.Fill(row)
             if type(d) == "table" and d.npc then MergeDrop(byName, list, d) end
         end
     end
+    local qs = src.q or src.quests
+    if type(qs) == "table" and #qs > 0 then
+        local list = s.quests
+        if type(list) ~= "table" then
+            list = {}
+            s.quests = list
+        end
+        for i = 1, #qs do
+            local q = qs[i]
+            if type(q) == "table" and q.id then list[#list + 1] = q end
+        end
+    end
     return s
 end
 
@@ -160,7 +172,7 @@ function M.Primary(src)
     if type(src) ~= "table" then return nil end
     local vs = VendorList(src)
     if vs then
-        local gold, currency = false, false
+        local gold, currency, plain = false, false, false
         for i = 1, #vs do
             local v = vs[i]
             if type(v) == "table" then
@@ -172,16 +184,19 @@ function M.Primary(src)
                     gold = true
                 elseif cur ~= 0 then
                     currency = true
+                else
+                    plain = true
                 end
             end
         end
         if gold then return "vendor" end
         if currency then return "currency" end
+        if plain then return "vendor" end
     end
     local ds = DropList(src)
     if ds and #ds > 0 then return "drop" end
     if src.worldDrop then return "drop" end
-    local qs = src.quests
+    local qs = src.quests or src.q
     if type(qs) == "table" and #qs > 0 then return "quest" end
     if src.questOnly then return "quest" end
     return nil
